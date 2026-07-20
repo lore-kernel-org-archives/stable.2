@@ -1,220 +1,159 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38D0332EBC
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 11:17:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784546262; cv=fail; b=bFaaeKxPf7f6bE1/ILTIr90DDn1tNBVl8IYhjVmZ7VfgAmc8UnLRH5tA0CnVYApInJeoUR9l8SGhsjDrgrim7Z84XcRWeegycjSWIPedZwzMjcA8p+9UvPfIvYANvj8qtgVsIGlrZ8XScOWc5Bn0Gnbl4pDZ3wajuhzGDWAvgDM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784546262; c=relaxed/simple;
-	bh=ymzv55Uvqn/8K01D+8RwTuzSxSFgKzH966soHXS7DVk=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dBLngnEi0ItSr/GeqbYVbQxs5Vf+G65tdWqb7Eo9PtazyhXpoTtEbC5fNfIO4EA013oEjZByJz9u3nWi3T68ilkPxz5L2O6NstodOszDClOQuLrAe1MuGOEo83IdYbQhl9t9Pe+TOpR9A7+YbEKracnjWx30Ss/LwDXHn5fBtSk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EUrD8WN2; arc=fail smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD9632F765
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 11:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784546367; cv=none; b=sWl/ImAMgwW418ADv/9o1cgFX1gUHDrqZwmDzKCVrC/uGjiRVqTIwmVyVs4rIT51NJwyYefKIpd6r8k+h18b/A9ZWrhe/BdS33I9oL5NHynzlFdFskxJyXelDvH+1/1xPB3b+A1aDRKaOfu+xP+26kIR5KymGOp7Qv7eb00PPP0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784546367; c=relaxed/simple;
+	bh=0/7vyfn3ez2gQVNAZTrNqxNynKaQbM82xBSRTVyMLVw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LVVa6TJbSVu2e0zwBn8WgYm16lbZIr5t4NOJEXZ4FlUlegZy0gZxYvAZcMJqTuCmEtEHyBr8NCWO63XXflV3mQjxHRA5XlyY0a8en86qTSO/KliCfvIvFkvLERl4O1J5uft1/5WtlFILlHGqTJhTqkdYeUFibvapxHMSfceO57A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yX7kGdlH; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=5PJz4dnP; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=x5euKueh; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=IQXrD4ih; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EUrD8WN2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784546261; x=1816082261;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=ymzv55Uvqn/8K01D+8RwTuzSxSFgKzH966soHXS7DVk=;
-  b=EUrD8WN2t+y4dHZ9ZO16K7kvQPk+DnA6UkeTbK5qb3G88WaTa3btpHO4
-   tbqAcK5GbRAM+Np2zNgpAIE7ixfGmeYeCZqirAd2lrCXgd1y4MbBkaNp8
-   e//zR/73Zku0Ovl3+drEKGJHIzXp5j9lW6uyysrUdBWF6sq1pZI5c3Do6
-   RMqkmzGK3GRPMFp7TDLqTC5qza1EgEl62EenCI2FctvUm72xqCF5ILuxW
-   lO1i5UF9DFO40Y0pDK2M7NC/tTqyd93o8YhkuBfBX/X8x6pQm/bodeH6v
-   3K2k6Z/jGqSYh20gRl7PPaqdDEsJVpbYlZDKVerYaUa1DmF9j5y9j25wM
-   A==;
-X-CSE-ConnectionGUID: UA9IGUnnRRGqDR/bBALgaA==
-X-CSE-MsgGUID: 3WLcPse1Qc27+Yu5MkuEqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85219280"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="85219280"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 04:17:40 -0700
-X-CSE-ConnectionGUID: 6Mq5rEdLTsKBkFhjERD9vA==
-X-CSE-MsgGUID: pTnXvWQoT86T9i4wmSZYHg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="260995563"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 04:17:40 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 20 Jul 2026 04:17:39 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Mon, 20 Jul 2026 04:17:39 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.45) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 20 Jul 2026 04:17:39 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mgBmlhVLy+HcfyI/z/LY89uImaAvfkSab+lN452a/KpGiIjulked6m9yIjm+IO6VO/eiRv0QBFCRwhYI99kUqmDHmo6/VdA6gE2FOYwQC/bKKef/bsSgkmxmiPeIUTgqF9xcOqUgS7fdD3KL/Crdkg2wEKBHtLk4sPEOi76U8LDpXyWgi3M2pwN8gmlSIQmZYb37mcRSwXLAeEV7JLyN2qIVMXQ8GbFMEdu53OSrEh3IXo+LVenquxDqRz9oIXJGAgwIl4u75HkZ85mEvTyeViGgWp6vpUoqwXHd0JuXc4GPHKHmkJ0jEx9LmGvUTsPPC6uM3MUUSiEcZcbcNgcxXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wVFs6+Ap2gZMKXE+8kYWyWoY3eW3tOcFG/4wR5po2s4=;
- b=eBSgswgAXpHwRaZk+ZK0QKjDj0Oda6SybQnbqiWseA89yK9sAQImasd6e6z1+t01lzAZZ6LhXWIPrubZveoG7Hf+yfKq6TAdmoS/MBWi8NvX8SZ1tI/g5zdbGGnRfoFS43F1llntmkC1Mqbpq6+bxd4cfFZASaAkivrPq3tqSqZRptpMaog/MJRg2zoUU0SJcl6vlwYtM28gCvWhQkm5N/UAmiqeHplFg3JWakadOjbZUaYtbvjAgUia0vzw0I4JDhNsySpPFI7YSN8v0qEGa+BMwGxCeJg+3Z6av4qdIIStysUMm7Ce8OpE8OXP/c1kKAtfj+QVWY+TwRGGWdiMXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
- by SA3PR11MB7463.namprd11.prod.outlook.com (2603:10b6:806:304::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
- 2026 11:17:36 +0000
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe%4]) with mapi id 15.21.0223.017; Mon, 20 Jul 2026
- 11:17:36 +0000
-Date: Mon, 20 Jul 2026 07:17:32 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
-	<stable@vger.kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>, "Joonas
- Lahtinen" <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
-	<tursulin@ursulin.net>
-Subject: Re: [PATCH 1/2] drm/i915/cdclk: Avoid spurious cdclk sanitization on
- PTL+
-Message-ID: <al4DzP08EqoW8enK@intel.com>
-References: <20260717155107.17801-1-ville.syrjala@linux.intel.com>
- <alpSxjjmv34zKW2p@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alpSxjjmv34zKW2p@intel.com>
-X-ClientProxiedBy: SJ0PR13CA0138.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::23) To CO1PR11MB5073.namprd11.prod.outlook.com
- (2603:10b6:303:92::23)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yX7kGdlH";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="5PJz4dnP";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="x5euKueh";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="IQXrD4ih"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9AD873DF9;
+	Mon, 20 Jul 2026 11:19:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1784546363;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
+	b=yX7kGdlH9LcO6Xm3qqSKCjlAaOdJBBtBvOaBA5N6fdb9W4VMGj4GblZpG/2pDizYviiAkj
+	kqe63U04ZznJoHPgbr4FYmX+ej8G+rAoK93/sQgHQ6KXKr3dLgQUHFjxY8E7LqJrUXh0p+
+	sqJQFpha1xglnWilVvsukTn1hTdmHHc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1784546363;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
+	b=5PJz4dnPEzEYKeD2JtKML8A0rven5RkFae947gPMx0qAo+31coLRyUhuwH71jEOkxvmF69
+	8MjDO9ZcOagRKnBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=x5euKueh;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=IQXrD4ih
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1784546362;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
+	b=x5euKuehojfz/cho1rRNd4Gix8GJRzrowd7zgwWdBw2VNrzTHCdfZbljHTqxRVij+s8ls0
+	DAyRImGTMlLFJYf37MyGrlcnp3vs9kgv5S2sXH9o5czf6pYpPl3O6JeA1B/DJEGboGFle7
+	JnUpJfW213etazRzAIebq8+74IPJAFM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1784546362;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T32nYv4gIl3iKHMR4R1EXlrLvwS5FcxtQ883X4X50no=;
+	b=IQXrD4ihJBBRx8wCPFseKwW6/4ot2vkUCvu3qqocm17ULLemyeKuVa3+bLq8m6n5szcgx5
+	4Pk6KATI1w1fK/BQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A8CA779AA;
+	Mon, 20 Jul 2026 11:19:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id PyEmHToEXmoMEgAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Mon, 20 Jul 2026 11:19:22 +0000
+Date: Mon, 20 Jul 2026 13:19:13 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Guanghui Yang <3497809730@qq.com>
+Cc: linux-btrfs@vger.kernel.org, Chris Mason <clm@fb.com>,
+	David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: drop recovered reloc root refs on recovery failure
+Message-ID: <20260720111913.GE10684@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <tencent_73CA9825AA069E0BC5194FA9102FB7618807@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|SA3PR11MB7463:EE_
-X-MS-Office365-Filtering-Correlation-Id: 072838e1-2eb6-49b3-5714-08dee6508075
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|6133799003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: GPxd3OQIJbkzDWAJ3jcSRO4bcIx4MR6piqb/qEMwIjfNciidqEVRjnzNs6ceL1X97SUaSbZQKGF4HDROxbOzHuHP7kLDbX526Rk2r5+sn34CZ1xiqNijoQOpPXyo0koufJW6eXgR0/QnzDeo6HjZy0JPSS+PjONcsmiN46AFPdvjgB6fospiAhxuV60oarqR4UogPLW9PhWFwYLPepdPs6++Qm2dAz0rEcq4L25cxRx3bCLVK6wTmICs79i7bBpDvN296o97zgDTu7WfCfFDwdM4bhGeiUg5fPRxm2bcF+nSLE6A4EcnGY07ELVFASHa9cCVZYVDZBtGTNI8QcLmyiAtZN7XntVPmsqjR8s2KDPeBt++jTx1du80w4IgDLyp0pBqGvxdYYsyusQIWd8CkFJ6rZnehVHOrvaY2o1m3IKsAxpVqwijrxasBsm1thdMjcMhIdKIkKeyxRGYeW9uJDmIh1Nar28qmzRoFWBKa5kPXhK9rU9oAg4ZjOhlUdv0VY3hZluphusR/MfQRmIEcK7ei0oR8iq7DJGjKVUHRvFMoTqxoEiEM3uY5HZc8oK30bYUEbAYzH1GBM4NDN4pXxwGg0W+v1QL4FbR88/oHKbgwACQ/0J2ord+lw8r8PSD
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB5073.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(6133799003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?x4jjyR5sRi3cNqoxFtlYZ0CqpPC5xznVI64j4+CGW3ThCGJ/9tW2BICrxx?=
- =?iso-8859-1?Q?zca4WV0DcaztI+XUKUonzchlwjHl3pxasaSrSemNOxmVOCckpF2iZ5uaSk?=
- =?iso-8859-1?Q?IQfWc6MeKcTQtUGgY6njfErxD6wsqfJjdVn1y4XLOo7vFr0/u4FmVujvdv?=
- =?iso-8859-1?Q?Aldfo8XJQB03P8bE5fY4vt1vg5MX/jbuHzFvWyKjl8dRMtdjIY/XBubAeu?=
- =?iso-8859-1?Q?3ZAR4+u5qZTyMo+7OLtm44WuTSqucyQB3j6EpU6gCDNyj7lpzmksa/OXce?=
- =?iso-8859-1?Q?7MBXOkn+2jJCV/lQGx4wVzGsRjcS4DR/OBrgVvo1Opg/Nxsuuc9fgmK/Z3?=
- =?iso-8859-1?Q?YXGM42JTdueSfOo0lqlVs1ZAGsf40eISCRHl1DeITMLJ0W/5p92ZBLVXKN?=
- =?iso-8859-1?Q?XbPScrJhZh8gMBs0f65uRuyFCIotlcYrD5BDFYconqE2yuXg5SzYgvlSof?=
- =?iso-8859-1?Q?XtHbYrGv4eWfMtFxpSfPagYm+aPaGJsh6UhgUVgkTgCTClfIjeM7OPqcWp?=
- =?iso-8859-1?Q?AKNOwDIYKyh+0PG0V4a6HUAyE7HSB8ewcKAIFl0qXQrgIeyeymE2C8O1nm?=
- =?iso-8859-1?Q?FqRzDmDiDyWwuTT+2ClshtZF0xQ+XQj0Kqwsmv+aa/JCByjsNCFUREnxsS?=
- =?iso-8859-1?Q?yRAAdju5vJ7qWW0BsM5V3oXS4MYrPE257gv+s0vokN9+AqhmILlmsDjrGD?=
- =?iso-8859-1?Q?GbY/JcASTENeCmVqhV3knGpdjd+pscTha99HRl3h+9+r3HtZOPBnvzlXQu?=
- =?iso-8859-1?Q?wU3nZMnohW6G3w+ADTa2573kKgcmMVwYjCehIOxwaayqa5F0kGUeDPp58u?=
- =?iso-8859-1?Q?UuvxENYyR/dJ2vS7GWRI2z/8Eb64Y5aNsuvhgjBvWvB0C0cWOw0GQA8oc/?=
- =?iso-8859-1?Q?+lxIT1dnEeyytFZf5EYc+pqUKiCdnVa5FLHr2HXjhwajGoTkQF296DS1rm?=
- =?iso-8859-1?Q?tAtLUKz0qbOXsznZWUSETcT8loHzRHck58DDWcgDG7uNft9IiYsO2B5F73?=
- =?iso-8859-1?Q?qJr1ZJWMO6YUMY7LVceYG6qqSsCCtJxm88uQcSP6hKQmw5g9qbHeD9bJ2b?=
- =?iso-8859-1?Q?UOR99OFA7YP4bdf/NQdEPi8IB7OOike0mISVZ6l8o7HcIKJxjSiLB9oMmb?=
- =?iso-8859-1?Q?HDQwZcS+4fJsTNvxrrI8m6ArLH3FxfVk4df/MU46ExVSI8JfC3/L6g8uf5?=
- =?iso-8859-1?Q?8qiXB6ARAMr0o0C0rd7DG4argSOsw2FAUOt8j82ahYNkeXUuUUYysBTzfY?=
- =?iso-8859-1?Q?6upV627rJHTOXgqzCDnavQDPvv5092Hk3Ak+Vq6FEXH68vPa2So/ue5eAK?=
- =?iso-8859-1?Q?OscolXbSeOHKZGBFIl2q3SdF1eNDQhycES7E/L2P/zB88i0IkgE4+Kx5Lq?=
- =?iso-8859-1?Q?seXeAkT+vjcEWETgeZs+7frrf40q4Mx9lU3P/vDgzPzxIjAiyVVsoIVNXz?=
- =?iso-8859-1?Q?v0WS705qgmEdVUkmVq/j+jVhdDr3JIR47bdSjIbdLiwHYtbblp3+Hcyhnv?=
- =?iso-8859-1?Q?9gGbf6/XnqyJbVdhoWQxavTW7Am4VFux9k+RaqlSQ1DVdI6m48N4xG6eCR?=
- =?iso-8859-1?Q?25lYg+ArNtQOLErXY2EPkEFvKQ206rBtPbzVd3pKJyy/2dFtHZRamo8TMu?=
- =?iso-8859-1?Q?pvTG6ayCvjP5Wa9cj5O3QiQlsm0WfKW57QYZg1/4BdAIg+BNgQrpQYfjyz?=
- =?iso-8859-1?Q?0DEEDv6Mxwb7bbTpVzAd7i/SlpUxlTzr8pYiLeVh4Y/gvwGmHXnUk+U/ik?=
- =?iso-8859-1?Q?g0FFTRwVJD/sS+Fb4MspU9njNq9GILrBpZwSkbkHulDZC13qH+9Fz2OW8p?=
- =?iso-8859-1?Q?MQebZLdWtw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: aNH9yeyycxuN5cbZQQJKa+IF2vrZc3p4BQbKqIbB5RZ+7gbnhk0c2myXihaD7xbYpOFzF+YM37TEWD8SMJaW6SEjBSsTx590QZiyvSRg5FoA4GuaTgmv22T2ZfdmbyJBbVypItOGU3sMRFN0qPxefSjihiZ8Er1OYBC+bVZvb4FhDajmoQcLuEAFfBErf5/enOGbcJjwZw/zsQsZoD+V2gtfgWIl9q6SDOqGU/siRhcBstOnFI7OJbfiGLfx9iKjb5hdPC4ZeOpSIpbwQIJphkEC4Kg99HmFsPuFEkWAO6MvRijCWStXU6uPQyWKsMaGRw0bg+8dpNzl1T0GGI765w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 072838e1-2eb6-49b3-5714-08dee6508075
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 11:17:36.4575
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DUGIWx2Nq9U2agkbQDd85blCHv1QumenwjXqSmWY0Rn6fV1hLCcqPjs44Dn5n3yVSkp8ZGEEhzkNAAIndXLYDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7463
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_73CA9825AA069E0BC5194FA9102FB7618807@qq.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 9AD873DF9
+X-Spam-Flag: NO
+X-Spam-Score: -4.21
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.21 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_TO(0.00)[qq.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[qq.com];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[twin.jikos.cz:mid,suse.cz:replyto,suse.cz:dkim,qq.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 
-On Fri, Jul 17, 2026 at 07:05:26PM +0300, Ville Syrjälä wrote:
-> On Fri, Jul 17, 2026 at 06:51:06PM +0300, Ville Syrjala wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > 
-> > Apparently PTL+ no longer has the cd2x pipe select field in
-> > CDCLK_CTL. Take that into account during CDCLK sanitization.
-> > 
-> > This currently triggers a spurious CDCLK sanitization during
-> > driver load on PTL+ which will causes a visible glitch on all
-> > active displays.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8550
-> > Fixes: 3f9de66f8acb ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
+On Sun, Jul 12, 2026 at 04:22:32AM +0000, Guanghui Yang wrote:
+> During relocation recovery, each fs root gets a reference to its relocation
+> root. If loading or adding a later root fails, or if the first transaction
+> commit fails, btrfs_recover_relocation() jumps to out_unset before
+> merge_reloc_roots() and clean_dirty_subvols().
 > 
-> Unfortunately the regression itself has a cc:stable on it, so we'll
-
-it has a fixes tag, not a cc:stable itself, but yeah, that is enough to
-reach the stable backports indeed...
-
-> need to backport this fix as well.
+> put_reloc_control() drops the list-owned relocation root references, but it
+> does not clear fs_root->reloc_root or drop the references owned by those
+> pointers. Mount cleanup only drops them when BTRFS_FS_ERROR is set, so an
+> error such as -ENOMEM while processing a later root can leave references
+> behind.
 > 
-> To do that cleanly we need to pick up these as well:
-> commit cd16e794aead ("drm/i915/cdclk: Clean up CDCLK_CTL defines")
-
-you meant
-commit aa8faabadc59 ("drm/i915/cdclk: Clean up CDCLK_CTL defines")
-right?
-
-> commit 67d77d9472c6 ("drm/i915/cdclk: Introduce bxt_cdclk_cd2x_pipe_mask() and use it")
-
-I can pick these for the -fixes round, but for the stable we need to remember
-to tell Greg and Sasha whenever we get their automated email saying that the
-patch has failed to apply...
-
+> Keep temporary references to the fs roots associated during recovery. On
+> failure, clear their reloc_root pointers and drop the corresponding
+> references. Once the first transaction commit succeeds, drop only the
+> temporary fs root references and let the normal merge and cleanup paths
+> handle the relocation roots.
 > 
-> >  drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
-> >  1 file changed, 4 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> > index a53d88727177..9e5e15b0c4d1 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> > @@ -2381,8 +2381,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
-> >  	 * dividers both syncing to an active pipe, or asynchronously
-> >  	 * (PIPE_NONE).
-> >  	 */
-> > -	cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
-> > -	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-> > +	if (DISPLAY_VER(display) < 30) {
-> > +		cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
-> > +		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
-> > +	}
-> >  
-> >  	if (cdctl != expected) {
-> >  		if (DISPLAY_VER(display) < 20) {
-> > -- 
-> > 2.54.0
+> Fault injection on a pending-relocation image confirmed the cleanup gap.
+> With an injected first-commit failure, 25 fs roots had reloc_root set with
+> fs_error=0. With this fix, the same failure path drops that count to 0
+> before mount fails.
 > 
-> -- 
-> Ville Syrjälä
-> Intel
+> Fixes: f44deb7442ed ("btrfs: hold a ref on the root->reloc_root")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guanghui Yang <3497809730@qq.com>
+
+Added to for-next, thanks.
