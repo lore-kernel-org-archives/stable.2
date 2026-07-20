@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDA614A619
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:21:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D372749C1
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:22:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560890; cv=none; b=ZDr7ROBUTEAAymLVnEPEo8k55tmnTjj4dQk5mBuY1nuWLPkrAmsKBonST6V03gJJEZUuWy2rHybgzsYb5VLoxupCwKr6ffDMYUo9JHabf1czpdsJyQtbqbJ3eJvp+sIoQo2M2ZFjD3tI8Z3vMnVOvWCVdBlHZSZP1HOrMnIasq0=
+	t=1784560923; cv=none; b=QKMBmaT5ChasoCaxCSYTRCvOvhT0SjQ1QaGmRWLXr/54vUN+QzxKkXUGNv4OtuaXTbLd2lBa4wCSE3e58GiBDvVsKwVVYJJcPZ9GEgoqoaJA9c2XYR6DNR3b7zU25Iz7NSzlZlNPzGBGWgAhKtvSQqu523WRE8NyOo5DGpAOrd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560890; c=relaxed/simple;
-	bh=1nUtSaqc8O3pqOTvnBjKTifzrD7ZWAs55gEnM/qwGE0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BAHDdrX1yGnnEpEKSqLRCvcDs93G3niO4sESXifsolHgpUtdiQcmkE4tICurHWzkxJisscXd2m3gvFDUzW0OoxiQUsFeBctMua7ld63JoiVFCW+huAi3iW7GUPBTc2KjI23ac0F5IuxONGNtElmXFriN1ke1R2ZyHgDjHYV699I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BKKkoLmK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560923; c=relaxed/simple;
+	bh=UlQKIyg7vWS4w8fY2V+V34lHIBqTnTAu4fOeOWiVaOM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fiikTaYMSl6uHjuaEFRDBhoKezy/3WEhPYaV/rDlqwmYOVHnpLqMIKuACbD51tkepBwBj7ql1W+NNUqsFpI4qQGkAzUF72uRUR8cukRBnqBreN0lqOnSYSxTEtPkZlxhIsJf4kW5DGv2/jUv6MnwF1whvWSgQGP5rXLKiS3s51k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YJNwT1O9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BKKkoLmK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA8171F000E9;
-	Mon, 20 Jul 2026 15:21:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YJNwT1O9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E44F1F000E9;
+	Mon, 20 Jul 2026 15:22:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560889;
-	bh=v0l73/pSWgtJnBxs2izXN9Mx+x6zg+n8l1+ij8wQnfs=;
+	s=korg; t=1784560921;
+	bh=5HAZolM+jK2s/gD12PrITY63BLfW0f0EF0b0t+l6mVo=;
 	h=Subject:To:Cc:From:Date;
-	b=BKKkoLmKyv0KJGktmpPQxXGgtVNt3A+39oYNgGh6UXWUb6ndXMCT90y78RrBxUYEg
-	 Vx0xqH65sUp5A2uRIVC3jxNTwlOQl82rS7kKOVwpIpQ7wBVTLM4X4uMb8Dsqf31Hr6
-	 ZiO8YTkoaGBxHFNoo83M3geX8cZIRL60GLiq1WO4=
-Subject: FAILED: patch "[PATCH] scsi: lpfc: Fix memory leak in" failed to apply to 5.10-stable tree
-To: nihaal@cse.iitm.ac.in,justin.tee@broadcom.com,martin.petersen@oracle.com
+	b=YJNwT1O92QY+Ebx7qr93u8X88PUsHGglRLaAe/3xcVJ3w5V7TSnrX8WXuSu2UyMQm
+	 Knb+lwERHAvdgY+CWkfKcWiNloKdX1ksdS86FfyuYY6kNmdQzG6xNXGS19GF79I13x
+	 APUXxy5a0+HZCOzv1eMvpZ2tmcXujFqpHFJYDWC0=
+Subject: FAILED: patch "[PATCH] scsi: xen: scsiback: Free unsubmitted command instead of" failed to apply to 5.10-stable tree
+To: michael.bommarito@gmail.com,jgross@suse.com,martin.petersen@oracle.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:21:12 +0200
-Message-ID: <2026072012-backlash-recycler-8fd8@gregkh>
+Date: Mon, 20 Jul 2026 17:21:52 +0200
+Message-ID: <2026072052-ignore-sharper-eb94@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1bd28625e25be549ee7c47532e7c3ef91c682410
+git cherry-pick -x ca978f8a93d4d36841839bf2847d29b88c2591d6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072012-backlash-recycler-8fd8@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072052-ignore-sharper-eb94@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,42 +62,93 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1bd28625e25be549ee7c47532e7c3ef91c682410 Mon Sep 17 00:00:00 2001
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Date: Tue, 7 Jul 2026 12:23:02 +0530
-Subject: [PATCH] scsi: lpfc: Fix memory leak in
- lpfc_sli4_driver_resource_setup()
+From ca978f8a93d4d36841839bf2847d29b88c2591d6 Mon Sep 17 00:00:00 2001
+From: Michael Bommarito <michael.bommarito@gmail.com>
+Date: Thu, 11 Jun 2026 08:30:45 -0400
+Subject: [PATCH] scsi: xen: scsiback: Free unsubmitted command instead of
+ double-putting it
 
-The memory allocated for mboxq using mempool_alloc() is not freed in
-some of the early exit error paths. Fix that by moving the
-mempool_free() call to an earlier point after last use.
+scsiback_get_pend_req() obtains a command tag and returns a vscsibk_pend
+whose embedded se_cmd has only been memset to 0, so its cmd_kref is 0;
+the se_cmd is initialised (kref_init() via target_init_cmd()) only
+later, in scsiback_cmd_exec(), on the successful VSCSIIF_ACT_SCSI_CDB
+path. The two error paths in scsiback_do_cmd_fn() taken before the
+command is submitted -- a failed scsiback_gnttab_data_map() and an
+unknown ring_req.act -- call
+transport_generic_free_cmd(&pending_req->se_cmd, 0), which kref_put()s a
+refcount of 0. That underflows it ("refcount_t: underflow;
+use-after-free") and, as the release function is not run, leaks the
+command tag.
 
-Fixes: d79c9e9d4b3d ("scsi: lpfc: Support dynamic unbounded SGL lists on G7 hardware.")
+Impact: a pvSCSI guest can leak every command tag of a LUN's session,
+stopping the LUN, by submitting requests with a bad grant reference or
+an unknown request type; under panic_on_warn the refcount underflow
+panics the host.
+
+Add a helper that just returns the tag with target_free_tag() and sends
+the error response. It frees the tag while the v2p reference still pins
+the session, and snapshots the response fields beforehand because
+freeing the tag can let another ring reuse the pending_req slot.
+
+Fixes: 2dbcdf33dbf6 ("xen-scsiback: Convert to percpu_ida tag allocation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Reviewed-by: Justin Tee <justin.tee@broadcom.com>
-Link: https://patch.msgid.link/20260707065304.949135-1-nihaal@cse.iitm.ac.in
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Link: https://patch.msgid.link/20260611123046.2323342-2-michael.bommarito@gmail.com
 Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 
-diff --git a/drivers/scsi/lpfc/lpfc_init.c b/drivers/scsi/lpfc/lpfc_init.c
-index 82af59c913e9..23355f12fbff 100644
---- a/drivers/scsi/lpfc/lpfc_init.c
-+++ b/drivers/scsi/lpfc/lpfc_init.c
-@@ -8189,6 +8189,7 @@ lpfc_sli4_driver_resource_setup(struct lpfc_hba *phba)
- 		mempool_free(mboxq, phba->mbox_mem_pool);
- 		goto out_free_bsmbx;
- 	}
-+	mempool_free(mboxq, phba->mbox_mem_pool);
+diff --git a/drivers/xen/xen-scsiback.c b/drivers/xen/xen-scsiback.c
+index e33f95c91b09..f324732eba7f 100644
+--- a/drivers/xen/xen-scsiback.c
++++ b/drivers/xen/xen-scsiback.c
+@@ -611,6 +611,25 @@ static void scsiback_disconnect(struct vscsibk_info *info)
+ 	xenbus_unmap_ring_vfree(info->dev, info->ring.sring);
+ }
  
- 	/*
- 	 * 1 for cmd, 1 for rsp, NVME adds an extra one
-@@ -8311,8 +8312,6 @@ lpfc_sli4_driver_resource_setup(struct lpfc_hba *phba)
- 		goto out_free_sg_dma_buf;
- 	}
- 
--	mempool_free(mboxq, phba->mbox_mem_pool);
--
- 	/* Verify OAS is supported */
- 	lpfc_sli4_oas_verify(phba);
++/*
++ * Send the error response for a request that did not reach the target core
++ * and return its tag.  Free the tag before the response drops the v2p
++ * reference that keeps the session alive, and snapshot what the response
++ * needs since returning the tag can let the slot be reused.
++ */
++static void scsiback_resp_and_free(struct vscsibk_pend *pending_req,
++				   int32_t result)
++{
++	struct vscsibk_info *info = pending_req->info;
++	struct v2p_entry *v2p = pending_req->v2p;
++	struct se_session *se_sess = v2p->tpg->tpg_nexus->tvn_se_sess;
++	u16 rqid = pending_req->rqid;
++
++	target_free_tag(se_sess, &pending_req->se_cmd);
++	scsiback_send_response(info, NULL, result, 0, rqid);
++	kref_put(&v2p->kref, scsiback_free_translation_entry);
++}
++
+ static void scsiback_device_action(struct vscsibk_pend *pending_req,
+ 	enum tcm_tmreq_table act, int tag)
+ {
+@@ -792,9 +811,8 @@ static int scsiback_do_cmd_fn(struct vscsibk_info *info,
+ 		case VSCSIIF_ACT_SCSI_CDB:
+ 			if (scsiback_gnttab_data_map(&ring_req, pending_req)) {
+ 				scsiback_fast_flush_area(pending_req);
+-				scsiback_do_resp_with_sense(NULL,
+-						DID_ERROR << 16, 0, pending_req);
+-				transport_generic_free_cmd(&pending_req->se_cmd, 0);
++				scsiback_resp_and_free(pending_req,
++						       DID_ERROR << 16);
+ 			} else {
+ 				scsiback_cmd_exec(pending_req);
+ 			}
+@@ -808,9 +826,7 @@ static int scsiback_do_cmd_fn(struct vscsibk_info *info,
+ 			break;
+ 		default:
+ 			pr_err_ratelimited("invalid request\n");
+-			scsiback_do_resp_with_sense(NULL, DID_ERROR << 16, 0,
+-						    pending_req);
+-			transport_generic_free_cmd(&pending_req->se_cmd, 0);
++			scsiback_resp_and_free(pending_req, DID_ERROR << 16);
+ 			break;
+ 		}
  
 
