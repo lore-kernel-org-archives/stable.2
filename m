@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8323BF66D;
-	Mon, 20 Jul 2026 20:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C776539060A;
+	Mon, 20 Jul 2026 20:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784578842; cv=none; b=A8h30tuK0WvfgMVJwe9uZUqzyx7/TBa93PIwIZhL7wcYQrSVX0vxYWvIKtzRRPukORgBa+LkFMmkJ1NdnqfMdKf/G35KBu0wthVRE5LTZfW1aktmzO950jJso5S65oiv7jEhlGadGanDnYzo0wp1V7DZr1/yjN//NL8PDBN2Aq8=
+	t=1784578844; cv=none; b=Ga4AxgLx/HkOApR5pwKjwVj1lqu0LFQXsN0Cj28pdmdmI72ZPjghwd34hzmMoFolqkbCeoTvx4TXJaDs39qXGu2oQSnNooVTHoKOkL99Szmq0kQwFl2+/NjuPVFwvI5EtcptpDzClxX/ddZxHBb0x5fq94wVL2JFqv5jfbMQu5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784578842; c=relaxed/simple;
-	bh=dS0YhtpYvFpvYqY/xhJDvfquRQ27CnUF5e2EIri7Y88=;
+	s=arc-20240116; t=1784578844; c=relaxed/simple;
+	bh=Ba1J+CMd2ox1+61njIKXY1SgE6iMQIWZiYaGK4AdwxM=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=SQHv9jZvBfjxci05r3sHD//pumvaWR8gH4Ul04GSxmdyrCjr/fr9i3jJtOwclmDHZVZMUblf8/cm0DceZ4uBh3rQk/+ep2XGcLXXlipFkM7z49aVZYPALGSMGIWVCjVlT59/rjfDCWCqQm/Gf6wnB0EgCMRdFKXVYqCncQp0Krc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDT5IzSl; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=F7slCoBKQN4H0EzJtuXBp0GHWpO9+WgIm+gGoCZXZmtlKRpIeiDoJ39cilkfBIsVHnHCnnNwUQsDmqb7KPjYu8G76ZvQQu3XK5ZilxQ0drfKP7QTuORMWF9KEGytZok58YW2pFEwZCC7NeZVqef4NOKIwg19ILv0GNrLC1Av5xY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuQUIfmo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDT5IzSl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9751F000E9;
-	Mon, 20 Jul 2026 20:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuQUIfmo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711441F00A3A;
+	Mon, 20 Jul 2026 20:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784578841;
-	bh=CTV2IbPplGKApFleI5lyKDmZ2j1ZG8Ulifo8HhO0kwI=;
+	s=k20260515; t=1784578842;
+	bh=8ksusWd6L1q0B1xnycc0Me636psjG/W11hwItRTC+qQ=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IDT5IzSlrSixK5mZN75S0DOtVbPh0wHA/FQTlud1uy+htGvlLbC0bC8Ipznaf3OAX
-	 f4rNO9l9xH54drdPl4oV0r1xu+eX6T30UsEbJiWXXxb9gtpdzZCv6VDIOWUf4TYG2k
-	 OcGaNmcbH3UxoTLAUKwZhLgCLPtLyLROZcGK1PYwUWg1S5m926PYjujL6Hc/eaD4Lb
-	 tZUSCXbf4BY6o9549hNkdyZbJIP8yY5W2jIY4iNjIfm5CCRADmz8HzpTCluVmlFJuv
-	 yA2+ZqknnJWvgKawizlYsWphcMZJLn07hOy6cN/aywRHEmtComUlGXSla0Ce978uIE
-	 V/GmKA5Hyt+Iw==
+	b=IuQUIfmokuy9xK4Z5U+0kPwXHniwuBt0cdhED5MQokOBoiFqZfKoDxAQdmXL1dvIX
+	 MDmwPA6GO8grSdaVy4xM0Z3mm/gsF/XBZMBpakAqmmpYVyZDSxZO9+xp55FEBvBQE4
+	 lzkrFajkihPLs2JFW173nVJoVPBizEnzJokeF0XufS55pSLWeIaC8CCOMU1MnOabSe
+	 FlMXl+/SLND21vp/XBBpbYHVBq7XnmKRj7vZoDNiNqyXX5aV7XaHq8juRQ1o2ErThF
+	 PpZOZvdmeFt58k5AJoXmG7xOnbNC6BE3HOYHBb9dXX23/N7M2E60net5g75Eex6zsk
+	 FcjQ6volee03g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5687A39244CA;
-	Mon, 20 Jul 2026 20:20:12 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B0B39244CA;
+	Mon, 20 Jul 2026 20:20:13 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,38 +37,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: RFCOMM: Fix session UAF in set_termios
+Subject: Re: [PATCH] Bluetooth: hci_sync: Protect UUID list traversal
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <178457881088.4151939.5706907972052659419.git-patchwork-notify@kernel.org>
-Date: Mon, 20 Jul 2026 20:20:10 +0000
-References: <20260719160311.2898053-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260719160311.2898053-1-nicoyip.dev@gmail.com>
+ <178457881239.4151939.8896306930179003502.git-patchwork-notify@kernel.org>
+Date: Mon, 20 Jul 2026 20:20:12 +0000
+References: <20260719162427.2902105-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20260719162427.2902105-1-nicoyip.dev@gmail.com>
 To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, kees@kernel.org,
- kuba@kernel.org, suunj1331@gmail.com, dg573847474@gmail.com,
- tim.bird@sony.com, pengpeng@iscas.ac.cn, johan@kernel.org, hadess@hadess.net,
- jsuter@hardwave.de, davem@davemloft.net, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Mon, 20 Jul 2026 00:03:11 +0800 you wrote:
-> rfcomm_tty_set_termios() tests dlc->session without rfcomm_mutex and
-> later passes the pointer to rfcomm_send_rpn(). The latter dereferences
-> both session->initiator and session->sock. Meanwhile, krfcommd can
-> unlink the DLC and free the session while holding rfcomm_mutex.
+On Mon, 20 Jul 2026 00:24:27 +0800 you wrote:
+> The hci_sync conversion moved class-of-device and EIR generation from an
+> HCI request built under hdev->lock to asynchronous command sync work.
+> The worker holds hdev->req_lock, but that lock does not serialize access
+> to hdev->uuids against add_uuid() and remove_uuid(), which update the
+> list under hdev->lock.
 > 
-> The race can proceed as follows:
+> The following interleaving can therefore occur:
 > 
 > [...]
 
 Here is the summary with links:
-  - Bluetooth: RFCOMM: Fix session UAF in set_termios
-    https://git.kernel.org/bluetooth/bluetooth-next/c/2ac5f666025e
+  - Bluetooth: hci_sync: Protect UUID list traversal
+    https://git.kernel.org/bluetooth/bluetooth-next/c/9348bd469f56
 
 You are awesome, thank you!
 -- 
