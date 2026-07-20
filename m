@@ -1,100 +1,101 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390072F549C;
-	Mon, 20 Jul 2026 13:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AECA423A79;
+	Mon, 20 Jul 2026 13:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784553162; cv=none; b=vAT3REPQCGAfjBVmYmw64LAt5pVyzRHP6/R4+CoNQkMdbh8nJ5Gs3G4fCYcy/Z6e9S4p4aZKRmmaOntupzRn2O7KELBiXdGI2Uz4axrffKSi3S5Y67ffEBFh7ScZISu0oPMR7LMjJfHXD38uWVuT9zxynumXrBBIFExXoTf5Z7I=
+	t=1784553499; cv=none; b=dAM31KREDr8ftclS5TJavL7MOgZIqMFdwkkHFtSbfnoMq2aRjE82CruzRKYd04GV8dia5LCH1RkOARM5tdpJr2RH8l1UVSUT5Wx5yGuKYGCpfdmntYynIyJKnevs8cnqQPB/GAB7O0NYkRR4lTjOSZXlg9TnnQRArr0Ut77uWPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784553162; c=relaxed/simple;
-	bh=V8olBzgCWnDgRVd8UWAEEhSxw3do8AuI47mFJfafZ40=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=s6SqnSteGprRi6xJBKPMK3CfBKTWmpjSbqjXPW1rFak7DjusbCVjMx4l3PVDLBvCGXqRuDNBY0i48obgKFA0adkrzyx8ui4I5ILttB4VwrXXwL9pQnMKvA+bE3UtVJFdT/LZ5Bog6LsBdZrbiMSRcoylLFrVvxsSKebbIX6FPyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=rxte0Yb2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=B42pDmYI; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="rxte0Yb2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="B42pDmYI"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 496C4EC008C;
-	Mon, 20 Jul 2026 09:12:39 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Mon, 20 Jul 2026 09:12:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784553159;
-	 x=1784639559; bh=ukg+w52uf91GxZwsFjJ7xU4HY7tCe9szRVM4fgfKbmU=; b=
-	rxte0Yb2XsgVoklBDdxDsNdNSfQxstQG7Smv6PXtQd48QsoapLrEDL8JLxU103gb
-	pN88jT9KjtnuSncuqFtYBeOeFMrryUvoepoAHavST5K3SY7aEBVwX/CazkybMpm3
-	DgdIVzBiaeGaUzmpL06wir2RExeFvSzMeFnIWbSr79sq8ML7P+q1FArGAB/zSwXb
-	MXR7jew1zfzk4xwanT0+7YFOSNagmEqnt24YiDUAaXhanQDfiwYaZkZiuEaJyt0I
-	jHsGcTnigskRsjthFNLqTsNclUtxYIBnhNCxthcG99aF16yNnXPzjmvgbSuqnuro
-	8U1FZwBXIFQa9ZyMTVlXiQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784553159; x=
-	1784639559; bh=ukg+w52uf91GxZwsFjJ7xU4HY7tCe9szRVM4fgfKbmU=; b=B
-	42pDmYI3yGg5WoDkb2mBufUdX4h55PhUtKF7nZSU9lZypEekwBTy4Yt4ZLeDHOCn
-	26Aj0oiBIDnL+8T3T1i4crorLk1GJ/HlBqmiCpbUlaUB4ztTk0O6oiJ9EfOjkbaN
-	8VAzlbF0gs6zBl9VXPd3w/5dFvU/Gv93pP4LPUwoeYlDssuIGvnzgcpvr6g/wUG2
-	yPmfvcsM0A9hI1ZvaNBP6wxZnG4e5GEa84kkSoVBwzZe17LRFHcasf/Z2+9JcAtG
-	B2ncc/iTUUq/xe1IdNEegJ1HSoJo2v35EMWlIiIHFThsdYt+Fb7BkfpWvvGj2vHn
-	qHkA3E6G5moBbXrJMOvRw==
-X-ME-Sender: <xms:xh5eaiaMAT3PbaioMLBasxhWOBKmqhT6x0Q7N8zojBZP7RGfNmoxbA>
-    <xme:xh5eagOkKWBpGAH9IWHmtz0YBqcJXLeiMFTs0PD49tTxRWk5eKsqANu4XiZagQ4KB
-    SNuHLIUDBAPXZJbFimDBOcLOIyTvJB0iGOC66sS4-bwGHonJhP6Sw>
-X-ME-Proxy-Cause: dmFkZTG0tkMvWsOTcph4MYSTqJPwtrt9IGpyB53DWtHx1ycp+tCdqyiVpVwAoTviyn+6OG
-    47E/nNXjBjcMXFqxyNvIGHv322haTn7R2/8GkjQevga9zPLfAcwqEzX4gjbf+uUouo3kdi
-    bC1T3CrMBPXTgZpOLAo5NTbUvDCooKDmcgF2G+SNz6Ea0ki6ecUWR5G4kbpoy9Ly7qaHCn
-    osUPQLzRsfnn0JaYDqNx/tyXCgPg/R0RXzCu+3itNF2iLVV/JIX2ZXuBUc6WtMPAsQek7e
-    iEwXtPHctHLbcEnQEy3AKNa36IF0/sQFgxHh0gmFSHsS4K3i45cja8mQMrT6GJ99SUUUWT
-    3nIleir6HQUOhj+//H+DYpn45uRyTFlZunbi2oywydiqYdB8q7duNHFqKn1ZOD2W9yfKGS
-    wbiJuBUyvGZrzjSDEdKNpt53waGAMaVkpvz9Pr1erP6Bko839WxQf1026+dQ6WDpuVXXk8
-    2tCYPkjfA2dsPuCIGKoOiw58hfROTkxYrXmO88XHGa7IvMGgXRtDWFkoNm7Fk2o0SiT0EZ
-    JIpfuRumM+RR7wD8R/wSYfwSp5i4D6qGlxH14PUGc83BTvgU+xZKlq8D8u6Mn3LWveURi6
-    R0znZMc9Y/VmNYdl5XV3QTa0Dm4bjdP5hD0ST9HE/bYZGZF2UnEIsji727bw
-X-ME-Proxy: <xmx:xh5earYGIpzc-6MEIAMALNGj25Wgdj8hHtM5hNN0K7t8Wh8f_UpwMw>
-    <xmx:xh5ealV-fJ-iGXnV56Af-mv5dxkSrcNcmzvIki8uQw3YMAWC3WqyCQ>
-    <xmx:xh5eas-e5vuHJbHn_SVU55QxjVPpT5w5dMZ4KRTvQMKcdKF7x8nJfA>
-    <xmx:xh5eam-cgVuOdrsUbxipgNMb42d1NpxXHMnM9HlbGoVqQQB0Sge-6Q>
-    <xmx:xx5ear_NqZ3bhJejMBRSxFvtBtWs-mZf23swNhA67lpU7V8M0O055xmy>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id BA83A182007E; Mon, 20 Jul 2026 09:12:38 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1784553499; c=relaxed/simple;
+	bh=k7j0gnkb0umh0e1gEpkT4R8nBRc1pDlT1ndMnEBX8XA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=tt5fRTPeLREVrOoXCmeEGWNqiMOVX2rO3Cwgn7pLYRfryeXrDkTaithgX4Rwidl+W37QRg5XCqqWB3naqZeU6HljTbHyOV0lI4DTM85/l0TyyLyOZPULLUrzblKm3e8sfjorRPbZI39GNedJQTNcitJ6dYp3HIFv8vDlwOaZLF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAXAfcLIF5qOu0aAA--.6175S3;
+	Mon, 20 Jul 2026 21:18:04 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgDnWKILIF5qYrkDAw--.5015S2;
+	Mon, 20 Jul 2026 21:18:03 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mchehab@kernel.org
+Cc: liplianin@netup.ru,
+	aospan@netup.ru,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: cx23885: cancel NetUP CI work before teardown
+Date: Mon, 20 Jul 2026 13:17:08 +0000
+Message-Id: <20260720131708.3172934-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AgK4b-lwe6sJ
-Date: Mon, 20 Jul 2026 15:12:18 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: stable@vger.kernel.org, stable-commits@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- "Matthew Wilcox" <willy@infradead.org>, "Hannes Reinecke" <hare@suse.com>
-Message-Id: <11842725-e747-4502-953c-996bb8d24da8@app.fastmail.com>
-In-Reply-To: <20260720104750.157926-1-sashal@kernel.org>
-References: <20260720104750.157926-1-sashal@kernel.org>
-Subject: Re: Patch "scsi: advansys: Drop ISA_DMA_API remnants" has been added to the
- 7.1-stable tree
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgDnWKILIF5qYrkDAw--.5015S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?MDpjJAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBEYMI4lglGlQLF/9M1MbXoJ58EW+YS2qpBj61V/73mAFMeZ
+	onVig1lIaiHUYBo403I=
+X-Coremail-Antispam: 1Uk129KBj93XoW7ZrWxAry7ZryDtryxJF4UZFc_yoW8Xw15pF
+	ZFgryYgFW8tr48A3ykZw17WF95Cwn3XrWxGryIka9avFnxGa429r1FvFWUZF4rCrWkt3y2
+	kF1FvFZxt390yabCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-On Mon, Jul 20, 2026, at 12:47, Sasha Levin wrote:
->
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
->
+netup_ci_exit() frees a netup_ci_state while its work item,
+netup_read_ci_status(), may still be pending or running on the system
+workqueue. The worker obtains the state with container_of() and
+dereferences it, so it must not outlive the state.
 
-This is only a cleanup, not a bugfix.
+netup_ci_init() queues the initial status read, and CI GPIO interrupts
+subsequently queue the same work from netup_ci_slot_status(). During
+remove, cx23885_finidev() calls free_irq() before the CI device is
+unregistered. free_irq() prevents further IRQ handlers from running,
+but does not drain work queued previously, so the worker can run after
+netup_ci_exit() frees the state.
 
-     Arnd
+Call cancel_work_sync() before dvb_ca_en50221_release() and kfree().
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: c184dcd28233 ("V4L/DVB (10798): Add CIMax(R) SP2 Common Interface code for NetUP Dual DVB-S2 CI card")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/media/pci/cx23885/cimax2.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/pci/cx23885/cimax2.c b/drivers/media/pci/cx23885/cimax2.c
+index 06e41f92092d..a4a319087238 100644
+--- a/drivers/media/pci/cx23885/cimax2.c
++++ b/drivers/media/pci/cx23885/cimax2.c
+@@ -528,6 +528,7 @@ void netup_ci_exit(struct cx23885_tsport *port)
+ 	if (NULL == state->ca.data)
+ 		return;
+
++	cancel_work_sync(&state->work);
+ 	dvb_ca_en50221_release(&state->ca);
+ 	kfree(state);
+ }
+--
+2.39.5
+
