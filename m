@@ -1,111 +1,111 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5340942B723;
-	Mon, 20 Jul 2026 14:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7CD429005
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784556742; cv=none; b=KWkSgaI+BdgDLWEOzUOXZkuBQFhSoss1Ig9VAp5NUadjwb/008SiZXjIFWEWHc29srmjk13zlE0GcZWB++62Iqn1q5KeOazyQA/kHT1WpdfJcnTeWT1T4R8vLKMnFdK2bt9p2+LAMxtVuVLXb6ckzR+bfxMYFkGoyF74xTQVEUg=
+	t=1784556778; cv=none; b=u7mmk0zmy0pzx0GpXc8OXpUdcMs3BAkO2c08hXvKBsNs69ExdLaVvm166hEa1AwUm7in1BeAuJcoLaA2z8XB02KBnOqdZgQhZCjdlAqsc8gMThcqnAwnT70FcWa7BiqQ9OQt5eK+RmRpjHCsPAvLTiSLRooXsXWMlL8LQ323RVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784556742; c=relaxed/simple;
-	bh=3jWwqtgXHBsY+nVyaeJ11bLFoZhM6a/BfIH8kXVyx/0=;
-	h=From:To:CC:In-Reply-To:References:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=o8TKjLQE0L4ol4flRCFA6wJWadRw44atl/BrObqfs1iB1SxGa42cTg3V4rxlF5DNGpFb9lRA3cwbvZDx+NxoThwLWVQlqdAcSEk/YLmCXnFrktfGllWDUVk43ap1SaQxoTV/WHntTxx3RvtysoialBvuIrTnRnjg0tcqSbWybyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=rBVPRbgy; arc=none smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1784556778; c=relaxed/simple;
+	bh=Ul2KzNBslHLJAIKfIsvaJrSsTrrryi4w9XOFyLKmonM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IveIVR7PIchkwo2wtXLZzTMo6ttmk1Zf6OasFhjo54wvar3G60CPDArKVEfnzM/cMfuJAjg+W2X/enCDYDU6jVKOV6Jks8RE3UjucJG+KeEN9svscaoQ2inlvSd0frTgpnkNzFnxvPFzLI6QZrqpI3teqbxRol1rtxhAVcrAi8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QfliCbJm; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="rBVPRbgy"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KDrFoi2987752;
-	Mon, 20 Jul 2026 15:12:02 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=J
-	bxx8hw4Eo4sD7QV5xyetGYbpf3+ILqg7Hfp4NhHhtQ=; b=rBVPRbgyvum21AU7g
-	5yenIrsDml/ISEyhWhGBcSyiwukNQKfbSqXlG2/YMZpSwoAbfq9Un3v9wM18lAri
-	GWkXRTtrjLeIzqjhMGCBTgBSGBkvGJ6AbrW+6DD+wyzK831X3BP+dWU6+tvyYzHD
-	JDv3XyGUsjM54vdazi8sMHp4DbKaKWh1T6aUBleaUsZUH8418xt0Us0Lr9j1JQRS
-	Kq66xAnUGLyJc1E8NrrPogqWvxQDoSI1XONgnRLt/JC7bXhPltXIv1z/YwhTa36i
-	9knLx2tE7QqT3VsutkLndw1z1QxrA/9tY1HuTL4WlZeVlr/zX/aHmLa/a1oSZj7o
-	3xj4w==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4fhmy1g0dh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 20 Jul 2026 15:12:02 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 20 Jul
- 2026 15:12:00 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>,
-        Matt Coster
-	<matt.coster@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Icenowy Zheng <zhengxingda@iscas.ac.cn>
-CC: Alessio Belle <Alessio.Belle@imgtec.com>,
-        Brajesh Gupta
-	<Brajesh.Gupta@imgtec.com>,
-        Brendan King <Brendan.King@imgtec.com>,
-        "Danilo
- Krummrich" <dakr@kernel.org>,
-        <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-        Icenowy Zheng <uwu@icenowy.me>, <stable@vger.kernel.org>
-In-Reply-To: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
-References: <20260714073641.1935075-1-zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v2] drm/imagination: acquire vm_ctx->lock before
- mapping memory to GPU VM
-Message-ID: <178455672087.464601.4204532217928591036.b4-ty@imgtec.com>
-Date: Mon, 20 Jul 2026 15:12:00 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QfliCbJm"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cad4170e8eso139197095ad.3
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 07:12:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784556776; x=1785161576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C7fiBXjtAildm8IwhfbH+uJoTnJQ5uXcULnuq06T9ao=;
+        b=QfliCbJmbRQ9aKEIKZngnTNzTOZ0tIopJ0kysZPlDq2HbIirmfHsEGto3cysntXpls
+         XIflu6iV498PMnwl/w5T3kjQDncvDC1jsa/SOcaDT9lIXYkIQhQb9I/1dZFlFCbN0+vU
+         13iqenFjWPrLf1XxsV7c+hsjJz3TLs3idzd9ty0RdCU/g2rjVi90xaB5dKkgypkUukLJ
+         8mD1GQkfvyqjXaI9FMBmqVcrfki+gaqY31ovPKbvmawGZGuKO3TKw/hP7d1vhm+IIK7B
+         yBGVbLnZZjAUgRiMOm+wL4RUHI47F1gfcWVO2WnY/fj3MCOCdXWY1miZZ/lDKPyI8f/D
+         EYGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784556776; x=1785161576;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C7fiBXjtAildm8IwhfbH+uJoTnJQ5uXcULnuq06T9ao=;
+        b=NwNwg5ho24hxiY4j/zHV4DdEZL4SfAi1aDspZd1+uqtjpFqmfHxyXBYpnH0QxkbEq0
+         miMQD2q4mmZUgm3+6ezILtYHcgh6vMtCp9W4c4VURUaGNCEBFOzrdl00ODOx9qg7mpxV
+         d8iAw6aFiEjZvA9utPOw9bGpf50oO7DmbhaPOATOsaQFrO748m8JvwsSr0s6i4FT9MZ2
+         JApdD0kbO5AN5AUdJD+GaKFoJqs1vJ9it27peDJ28y4P4PjzGZ4pJYjlKchUYDgHtHMM
+         cnNBnYSe6FmZ07N7N/IjKWeEpYcbfhSIFXnaWe3WM80vnOLI4N9U7RDm8fhyG66xI0Ik
+         ke9w==
+X-Forwarded-Encrypted: i=1; AHgh+RoI+H+a19Q8zEWv4lH+aDbnywRsG1bHamTgyYZGGqDr7Mo20mD/p12Tzog2krexCDaZX3VwZqE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzz064oZaby/EpMEQpW7+LSk+e0oFGjO3xNAqSxH2UF6MM+WRIw
+	V/nFlhvMI4NVMHHsRcxuz5MQXWMZgfrR0oDHRlSFyv0GdP0Tckk78Bxg
+X-Gm-Gg: AR+sD11KAAfWJG74GS+xO//eywhRjN5shfpSsCkdN2GgEAhnVOQlaxczTvFFVd8XIB0
+	mZWhYXPC97/FirRfwG/UbfCKrZ7V0eYY6ILMtOnW1BUYSvyqNCfVE8+6S6Bd9Iy5LXJcpo/eUjt
+	MXmivWVzs4t3pFDz+8n8eTJbFge+eqDPQj50g6t6bTdXioODyILbBmWxPRLMXf/C5DAiCzCTg+Z
+	U38ZGO+Hd9oJ5LjyPnblgiptgQVHjt40C1xtVDeQDq3K9s6UAKNPePD+cCwxY5uKJ5fnC0x7ntx
+	nY/EcM0epKf7w/ZUp5ZsXh8LClxNMCy9b4YqedrlczuIAHawlq6zWvCUuh3DEVfR/4zUo40nKpr
+	/1ItqitH+NRJURZuy33583Hzv9vh5Ok8kCCFTe36svodqcNzkfRiDSeXeVAU9zKBsA258ybfSeM
+	dPsxVA/+/qOMJv6jEicDusmDOZXNIXfWwDcKZm7FXnNyiqm6xiXpqbCTQfPsz1NSRipUo=
+X-Received: by 2002:a17:902:e752:b0:2cc:85a7:36ee with SMTP id d9443c01a7336-2cf349910d3mr151274905ad.32.1784556776008;
+        Mon, 20 Jul 2026 07:12:56 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf34730e35sm57578155ad.64.2026.07.20.07.12.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 07:12:55 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: pratyush@kernel.org,
+	mwalle@kernel.org,
+	tudor.ambarus@linaro.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: takahiro.kuwano@infineon.com,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH v2 0/2] mtd: spi-nor: sfdp: bound two optional parameter tables
+Date: Mon, 20 Jul 2026 23:11:02 +0900
+Message-ID: <20260720141104.2054417-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDE1OCBTYWx0ZWRfX0OAw3oYPc5Rw
- 43IRIIoaT6rO9wms/dfXv+j2CX2pi/VVE+c5ClFU4T/1u/lEn0AxMVkE6bEhZkJbBc3PcLCC4H/
- z23cUH4xYsGBqHqiw9MGtGx4Zv5z3ow58Fil+HfxXqr37KbIjrl+hx065NVzI7bCtPh4X6rRVRo
- wjbaXzyRVuQqJ1oXaN8hBugC79xNqbFUWo/MJDvowj7arvAGf0HiIpx/Sh8cX6CZsSN+JI9Mgs0
- gIUxnAn0VQwVJMhTwNg1xNaCrxTkNtiTVDgkj9AKNWR2AzZdk/ghdXPeDcjZ9OLol4QkB/L57d+
- LbcwUDbZPowvu/mr198ywD+OU08kLPTHdpQaQRkPgJt5ELpGvvaoVeUAe08rn7DTserWol7Hu7l
- 9lM8JhU68DmPOS3bRWNxvIu8o4DuedyKjyFI1+86VvEYKiJs7F0vJ45JdRJ728GYwvIQHsYaqZb
- lNoIQzSX8UAmEi0V1SQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDE1OCBTYWx0ZWRfX0rAX/3VGIXfv
- gL8LFonlzDnneeTTA03+AeU7srtKmQh6AUbEnqxPzrsZiXFvU+CMxmOfzBVfgz/tglO/vBAbQPF
- 65IaaHpS4QPunKxgKlddsVhHo9RvTC0=
-X-Proofpoint-GUID: ExdzClEsO37VXwoQp_rL_7X6g2QWAxFv
-X-Authority-Analysis: v=2.4 cv=YIevDxGx c=1 sm=1 tr=0 ts=6a5e2cb2 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=CNkhBcH9ogg0Ut-P5gEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: ExdzClEsO37VXwoQp_rL_7X6g2QWAxFv
+Content-Transfer-Encoding: 8bit
 
-On Tue, 14 Jul 2026 15:36:41 +0800, Icenowy Zheng wrote:
-> The drm gpuvm code doesn't protect find operation against map operation,
-> and the driver needs to ensure a map operation shouldn't happen when a
-> find operation is in progress.
-> 
-> In some cases a find operation will be in progress when doing map/unmap
-> operations, and the find operation will do a NULL pointer deference.
-> 
-> [...]
+Two of the optional SFDP parameter table parsers size a buffer from the
+table length the flash reports, then index it at fixed offsets without
+checking the table is long enough.
 
-Applied to drm-misc-fixes, thanks!
+  spi_nor_parse_profile1()  reads up to DWORD5,  never checks the length
+  spi_nor_parse_sccr()      reads up to DWORD22, never checks the length
 
-[1/1] drm/imagination: acquire vm_ctx->lock before mapping memory to GPU VM
-      commit: 17e2030f37600994440f875dc410615d5c66ee6d
+The spi_nor_parse_4bait() already guards its table this way, so both
+patches apply the same check. The two parsers were added at different
+times, so they carry different Fixes tags and get one patch each.
 
-Best regards,
+Found by code inspection. I have no xSPI or multi-die part to reproduce
+this on, so this is not runtime tested.
+
+changes since v1:
+ - reworded both commit messages to be more precise
+ - renamed the two constants from _DWORD_MAX to _DWORD_MIN
+ - Link to v1: https://lore.kernel.org/linux-mtd/20260719010820.1924739-1-sammiee5311@gmail.com/
+
+HyeongJun An (2):
+  mtd: spi-nor: sfdp: check the length of the xSPI Profile 1.0 table
+  mtd: spi-nor: sfdp: check the length of the SCCR map
+
+ drivers/mtd/spi-nor/sfdp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
 -- 
-Alessio Belle <alessio.belle@imgtec.com>
+2.43.0
 
