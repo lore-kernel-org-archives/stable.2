@@ -1,164 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D3E37206E
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD428419FB9
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784551432; cv=none; b=Hd9VgmQ1oOvN8bqq1uv1aC/aItxBQTksNjbXUV+rqVryywtsLjwH7n1NLy/eIFuPjaE0wYfRPrSnv4ngjcOFZEc0AxyZ1ktut/CTsO9GInMY2OjvMYCnC21oFm70lkBUziaJUOrRFX0eM764ZaeKJCfzCV4qCRevCt8ky7DY3GI=
+	t=1784551602; cv=none; b=kLFvxnSVLTBRR2A/rmkG3EymGVFoN+tp1f91qiEvLAcH8pilFGV6kKiTrCYIRt3kCzv2Ga7Gymf15ha/TF+1RnCnxlV8PsDjKHApLNava53/OyQuhbWjhA+I4qOI2WqrWlZ0WFZIWNPFSWLgQRM3CiMddnYce0nd3gFXBf1UC8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784551432; c=relaxed/simple;
-	bh=7aovCWkkOc+dzMWEj59f6rjGIeu6ynqcN/5mXFFrHIA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X0zTJi2PNaWzydLFPSmKl3MQtMBSUD2h4gFp6iPF8EVeArkRg529NaeEH3/2wAsnXNowzI6YcEIHFJC4CSxrC6mnSv3jLPNW4zjNcWPUE4QOabWbb2P2kjLDHJDsFWjnK+osGf0m6q98PJy/ZEABl6zVelFSYZoOgRNckucV3h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ume8iYjX; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ume8iYjX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378701F000E9;
-	Mon, 20 Jul 2026 12:43:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784551430;
-	bh=vIc07QYY/RFiH4/HxXAtnB/X9AWbrFJzRoCatdxep8I=;
-	h=Subject:To:Cc:From:Date;
-	b=ume8iYjXevAaP7V6oiJvr/a/jBHj+X4xrnRfBPT91v/OvCuy4pwOZBO2PD7IGnHwW
-	 UxDguwDWiLaZF0ie/Toq1NwA9JLyQ+D8zK55r34RiHcVwTBz/B3Lvru8PTSDGRwleu
-	 PnU0IKj8ww9/38lB2BW7VD5RN2Ck+IxwGzozBjY4=
-Subject: FAILED: patch "[PATCH] batman-adv: clean untagged VLAN on netdev registration" failed to apply to 6.1-stable tree
-To: sven@narfation.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:43:26 +0200
-Message-ID: <2026072026-starboard-problem-44f9@gregkh>
+	s=arc-20240116; t=1784551602; c=relaxed/simple;
+	bh=7qaDLv1BniL/Ba2rE6YGUY/Ivj55dvv1laonTC2OuKY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HeMs5OqERS98XsUyo68lEA//lnEy54tVALojwGOzWoBSIEQINmgdPcaQ3xI156SFP0ZKmg7J5ZnWV61c5X0hYsbXYLzjAEAOs7VFKnh06lJlLupPk+YvzebICK/17VFNyxBQNH7LN9klqk0+k9o/ihkzy7ArC73bfLJF2iW5r7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[IPv6:::1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <l.stach@pengutronix.de>)
+	id 1wlnOA-0004wu-KN; Mon, 20 Jul 2026 14:46:30 +0200
+Message-ID: <811630842892a53858bb6c6504d31fa9cca0fd4c.camel@pengutronix.de>
+Subject: Re: Patch "dt-bindings: vendor-prefixes: add Gira" has been added
+ to the 7.1-stable tree
+From: Lucas Stach <l.stach@pengutronix.de>
+To: stable@vger.kernel.org, stable-commits@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>
+Date: Mon, 20 Jul 2026 14:46:30 +0200
+In-Reply-To: <20260720111729.362978-1-sashal@kernel.org>
+References: <20260720111729.362978-1-sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: l.stach@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: stable@vger.kernel.org
 
+Am Montag, dem 20.07.2026 um 07:17 -0400 schrieb Sasha Levin:
+> This is a note to let you know that I've just added the patch titled
+>=20
+>     dt-bindings: vendor-prefixes: add Gira
+>=20
+> to the 7.1-stable tree which can be found at:
+>     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.g=
+it;a=3Dsummary
+>=20
+> The filename of the patch is:
+>      dt-bindings-vendor-prefixes-add-gira.patch
+> and it can be found in the queue-7.1 subdirectory.
+>=20
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
+>=20
+This adds a vendor prefix for a board that isn't even upstream yet. Why
+would this be included in a stable kernel? What was the criteria that
+qualified this patch to be picked into the stable queue?
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Regards,
+Lucas
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 8669a550c752d86baebc5fdc83b8ff35c4372c0e
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072026-starboard-problem-44f9@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 8669a550c752d86baebc5fdc83b8ff35c4372c0e Mon Sep 17 00:00:00 2001
-From: Sven Eckelmann <sven@narfation.org>
-Date: Sat, 4 Jul 2026 09:46:09 +0200
-Subject: [PATCH] batman-adv: clean untagged VLAN on netdev registration
- failure
-
-When an mesh interface is registered, it creates an untagged struct
-batadv_meshif_vlan on top of it via the NETDEV_REGISTER notifier. But in
-this process, another receiver of this notification can veto the
-registration. The netdev registration will be aborted because of this veto.
-
-The register_netdevice() call will try to clean up the net_device using
-unregister_netdevice_queue() - which only uses the .priv_destructor to
-free private resources. In this situation, .dellink will not be called.
-
-The cleanup of the untagged batadv_meshif_vlan must thefore be done in the
-destructor to avoid a leak of this object.
-
-Cc: stable@vger.kernel.org
-Fixes: 5d2c05b21337 ("batman-adv: add per VLAN interface attribute framework")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
-
-diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
-index 8844e40e6a80..67bed3ee77e7 100644
---- a/net/batman-adv/main.c
-+++ b/net/batman-adv/main.c
-@@ -259,6 +259,7 @@ int batadv_mesh_init(struct net_device *mesh_iface)
- void batadv_mesh_free(struct net_device *mesh_iface)
- {
- 	struct batadv_priv *bat_priv = netdev_priv(mesh_iface);
-+	struct batadv_meshif_vlan *vlan;
- 
- 	WRITE_ONCE(bat_priv->mesh_state, BATADV_MESH_DEACTIVATING);
- 
-@@ -273,6 +274,13 @@ void batadv_mesh_free(struct net_device *mesh_iface)
- 
- 	batadv_mcast_free(bat_priv);
- 
-+	/* destroy the "untagged" VLAN */
-+	vlan = batadv_meshif_vlan_get(bat_priv, BATADV_NO_FLAGS);
-+	if (vlan) {
-+		batadv_meshif_destroy_vlan(bat_priv, vlan);
-+		batadv_meshif_vlan_put(vlan);
-+	}
-+
- 	/* Free the TT and the originator tables only after having terminated
- 	 * all the other depending components which may use these structures for
- 	 * their purposes.
-diff --git a/net/batman-adv/mesh-interface.c b/net/batman-adv/mesh-interface.c
-index 0b75234521b6..fbfd99268de4 100644
---- a/net/batman-adv/mesh-interface.c
-+++ b/net/batman-adv/mesh-interface.c
-@@ -595,8 +595,8 @@ int batadv_meshif_create_vlan(struct batadv_priv *bat_priv, unsigned short vid)
-  * @bat_priv: the bat priv with all the mesh interface information
-  * @vlan: the object to remove
-  */
--static void batadv_meshif_destroy_vlan(struct batadv_priv *bat_priv,
--				       struct batadv_meshif_vlan *vlan)
-+void batadv_meshif_destroy_vlan(struct batadv_priv *bat_priv,
-+				struct batadv_meshif_vlan *vlan)
- {
- 	/* explicitly remove the associated TT local entry because it is marked
- 	 * with the NOPURGE flag
-@@ -1091,22 +1091,13 @@ static int batadv_meshif_newlink(struct net_device *dev,
- static void batadv_meshif_destroy_netlink(struct net_device *mesh_iface,
- 					  struct list_head *head)
- {
--	struct batadv_priv *bat_priv = netdev_priv(mesh_iface);
- 	struct batadv_hard_iface *hard_iface;
--	struct batadv_meshif_vlan *vlan;
- 
- 	while (!list_empty(&mesh_iface->adj_list.lower)) {
- 		hard_iface = netdev_adjacent_get_private(mesh_iface->adj_list.lower.next);
- 		batadv_hardif_disable_interface(hard_iface);
- 	}
- 
--	/* destroy the "untagged" VLAN */
--	vlan = batadv_meshif_vlan_get(bat_priv, BATADV_NO_FLAGS);
--	if (vlan) {
--		batadv_meshif_destroy_vlan(bat_priv, vlan);
--		batadv_meshif_vlan_put(vlan);
--	}
--
- 	unregister_netdevice_queue(mesh_iface, head);
- }
- 
-diff --git a/net/batman-adv/mesh-interface.h b/net/batman-adv/mesh-interface.h
-index 53756c5a45e0..5e1e83e04ffb 100644
---- a/net/batman-adv/mesh-interface.h
-+++ b/net/batman-adv/mesh-interface.h
-@@ -21,6 +21,8 @@ void batadv_interface_rx(struct net_device *mesh_iface,
- bool batadv_meshif_is_valid(const struct net_device *net_dev);
- extern struct rtnl_link_ops batadv_link_ops;
- int batadv_meshif_create_vlan(struct batadv_priv *bat_priv, unsigned short vid);
-+void batadv_meshif_destroy_vlan(struct batadv_priv *bat_priv,
-+				struct batadv_meshif_vlan *vlan);
- void batadv_meshif_vlan_release(struct kref *ref);
- struct batadv_meshif_vlan *batadv_meshif_vlan_get(struct batadv_priv *bat_priv,
- 						  unsigned short vid);
-
+>=20
+>=20
+> commit 26b08f0fcf83bd733238cf556bab64c65ded09a4
+> Author: Lucas Stach <l.stach@pengutronix.de>
+> Date:   Wed Jun 10 23:30:47 2026 +0200
+>=20
+>     dt-bindings: vendor-prefixes: add Gira
+>    =20
+>     [ Upstream commit 61a7e4c2c98c08da6bbf8c30c71da57610930ae7 ]
+>    =20
+>     Add vendor prefix for Gira Giersiepen GmbH & Co. KG
+>     Link: https://www.gira.de/
+>    =20
+>     Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+>     Reviewed-by: Alexander Dahl <ada@thorsis.com>
+>     Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>     Link: https://patch.msgid.link/20260610213047.500701-1-l.stach@pengut=
+ronix.de
+>     Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+>     Signed-off-by: Sasha Levin <sashal@kernel.org>
+>=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index ac83310259a914..55ef75d530e6c2 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -658,6 +658,8 @@ patternProperties:
+>      description: Giantec Semiconductor, Inc.
+>    "^giantplus,.*":
+>      description: Giantplus Technology Co., Ltd.
+> +  "^gira,.*":
+> +    description: Gira Giersiepen GmbH & Co. KG
+>    "^glinet,.*":
+>      description: GL Intelligence, Inc.
+>    "^globalscale,.*":
