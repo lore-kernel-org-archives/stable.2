@@ -1,184 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33237404E;
-	Mon, 20 Jul 2026 05:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF7FE2288D5;
+	Mon, 20 Jul 2026 05:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784525555; cv=none; b=WQDBlWo5rRVKOkB5Nw6NVvqWub8lKBmOSzjyMuMuDJhLfa3BIPk3vy1COxFpYjco8GjQdIHMv5bBzoqOgp7EsjlZUgDylT6a9Szc5+Bvy1k/BFKS8Gy+8UgH8b/yPyH5NDmjt2mHyEuAatawv9oVcBSy/v6w4ieB8RwiW6QE6MY=
+	t=1784525891; cv=none; b=LypGS9IaEjdEXiBqngKgW4EyJp9nj/0+09Xay6doBDR7fgPgXXgcSI9eKdSgqyc6bX4tByZ8LrIzr9GVLucT+WLtBJollRjB0jUHpm/eqGIdsN8kmx2WOgpd4hl1eIfcfl1W4dod3EoBLpwRzeERoGZgmK/G3ZvpSWwPTl48iUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784525555; c=relaxed/simple;
-	bh=27CTmuMcIAadBzgNTWSiG+pCiS0amthi8yWNl1gbbyc=;
-	h=Date:To:From:Subject:Message-Id; b=P/OyO65SufmZ4wSgX7unBy0IPRVwdxSfmE7nOa34pWDUBqHOot5c1vfmRzpV4CYhDLS2vypwvhLn43jruU6b7cYZK5JN/9b2oGI8TBln37ujLkmp+xTYIxGf4IiLI7s5fl1jtJnNhcLbd3nyQ05BJo5VzAWTGrHwVUXmelP02cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=eKpaHOQS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784525891; c=relaxed/simple;
+	bh=4jojnu+E0QsY05hwAlGpnBAHyFPgNjp0ExCZFxwsob4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kajDXHOtjB+cWIo1VTBG4yd57rgha0bJBH4LrM06GFaGt2toFSJ5vx1Wz/4/4ZCdPJKSHP5Q2HkfppH4cy0JwJCAddFHKfCFKSytE6olDpmpw6P0bhgtuvLUWxk4cHwx6A3aoe7i1GgbzQOElYv3QfAim9Q8REDVVY2qIUYW4xU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=MOIKw1Uv reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="eKpaHOQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516FE1F000E9;
-	Mon, 20 Jul 2026 05:32:33 +0000 (UTC)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="MOIKw1Uv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784525553;
-	bh=U91lKUXVJZO3AsueWMO2iGEZd8R98flRyOJKrVdt9zg=;
-	h=Date:To:From:Subject;
-	b=eKpaHOQSdBN88bD5vCFpDP+mWNVbs9xWIqslmuFvl06qmzWtazTVNKd2/BRiwCvJK
-	 IGUifNahBhl3JEnOFxymcbFV0pDSWqZJJI75EwSdl68quC3MHoKOvZ3vATtN9w8qTv
-	 CYXILYkGRwoWWAP38tXy4weQ0wgI+QArLKGNmfAU=
-Date: Sun, 19 Jul 2026 22:32:32 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,kees@kernel.org,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,doruk@0sec.ai,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-validate-directory-index-entry-counts-when-reading-metadata.patch added to mm-nonmm-unstable branch
-Message-Id: <20260720053233.516FE1F000E9@smtp.kernel.org>
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=Ho4KU/mzaX
+	gJwtfAjQaopacALlq1GUREJBjOHiPg8rM=; b=MOIKw1UvfNuKZQqmDdKTAKGg+f
+	RMWPKRzJ9sOV0+qOD0Qp6mRoKDNJJNerxafWShGd9TThilLlLj4KHf2r7IasSMbF
+	50wse2pj6+ws3y/zatouPhSq1eE58jMO6cFjR6NO20yaEo5oF9vl6XkEZwySpE5h
+	O3WiIWPwh3BrYcuCA=
+Received: from wmy.localdomain (unknown [115.53.182.60])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id BrQMCkDG7BIftF1q_U44AQ--.12607S2;
+	Mon, 20 Jul 2026 13:37:38 +0800 (CST)
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	john.ogness@linutronix.de,
+	andriy.shevchenko@linux.intel.com,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller@googlegroups.com,
+	stable@vger.kernel.org,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: [PATCH] serial: 8250: validate iomem_base in serial8250_verify_port()
+Date: Mon, 20 Jul 2026 13:37:33 +0800
+Message-Id: <20260720053733.102186-1-25181214217@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkDG7BIftF1q_U44AQ--.12607S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr1xZr1kJryrJFyrWrykXwb_yoW5Wr47pa
+	9rtrsYyryDJ3Zrta1xZF1jkr48ZanYka47CF9xu3s0vryrXF4jyr17t3s0kr4DKF9Fq347
+	AF1UZw4UC34DtaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBI14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20x
+	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
+	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIx
+	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAI
+	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
+	IEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU==
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUAEWpc6mtTNQAAsE
 
+syzkaller reports a slab-use-after-free in mutex_spin_on_owner().
+This occurs because a previous thread crashed during tty_open() while
+holding the tty_lock, leaving the owner pointer dangling.
 
-The patch titled
-     Subject: ocfs2: validate directory-index entry counts when reading metadata
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-validate-directory-index-entry-counts-when-reading-metadata.patch
+The initial crash is an unhandled Page Fault in mem_serial_in():
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-validate-directory-index-entry-counts-when-reading-metadata.patch
+  BUG: unable to handle page fault for address: ffffc90001206014
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  Oops: Oops: 0000 [#1] SMP KASAN PTI
+  RIP: 0010:mem_serial_in+0x67/0x90
+  Call Trace:
+   serial8250_clear_interrupts+0x40/0xf0
+   serial8250_do_startup+0x3f5/0x3220
+   serial8250_startup+0x6c/0x90
+   uart_startup+0x4ff/0x12c0
+   uart_port_activate+0xf3/0x1a0
+   tty_port_open+0x15c/0x200
+   uart_open+0x47/0x60
+   tty_open+0x39b/0x1310
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+This sequence is triggered because the TIOCSSERIAL ioctl allows a user
+with CAP_SYS_ADMIN to change the io_type of a serial port to UPIO_MEM
+(or other memory-mapped types) and inject an arbitrary physical address
+via iomem_base.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+When uart_change_port() applies these changes, it attempts to remap the
+port's I/O memory based on the injected iomem_base. This can result in an
+invalid or inaccessible virtual mapping for port->membase. The subsequent
+call to mem_serial_in() then dereferences this bogus pointer, triggering
+a fatal Page Fault.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+Fix this by tightening the validation in serial8250_verify_port().
+Reject any TIOCSSERIAL requests that attempt to modify the io_type
+to/from memory-mapped types, or change the iomem_base of an existing
+memory-mapped port. Userspace can still legitimately modify IRQs or
+baud rates of MMIO ports as long as the io_type and mapbase remain
+unchanged.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: ocfs2: validate directory-index entry counts when reading metadata
-Date: Mon, 13 Jul 2026 22:56:25 +0200
-
-ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
-signature of an indexed-directory block before it reaches higher-level
-callers, but neither validator bounds the ocfs2_dx_entry_list counts
-against the capacity of the block that holds them.
-
-ocfs2_dx_dir_search() then walks
-
-	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
-		dx_entry = &entry_list->de_entries[i];
-
-over de_num_used entries with no bounds check.  entry_list is either
-dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
-dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
-de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
-and make the walk read far past the end of the 4KB metadata block, giving
-a slab out-of-bounds read reachable from any path lookup, stat() or open()
-on an indexed directory once the image is mounted.
-
-Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
-block read") already bounds dr_list for the non-inline dx_root, but left
-the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
-same read-time validation for both entry lists: de_count must equal the
-capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
-de_num_used must not exceed de_count, rejecting corrupted metadata with
--EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
-array.
-
-de_count is always written as exactly the block capacity when a leaf or
-inline root is formatted, so the equality check does not reject any valid
-image.
-
-Found by 0sec automated security-research tooling (https://0sec.ai).
-
-Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
-Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
-Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 ---
+ drivers/tty/serial/8250/8250_port.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
- fs/ocfs2/dir.c |   45 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 41 insertions(+), 4 deletions(-)
-
---- a/fs/ocfs2/dir.c~ocfs2-validate-directory-index-entry-counts-when-reading-metadata
-+++ a/fs/ocfs2/dir.c
-@@ -625,6 +625,28 @@ static int ocfs2_validate_dx_root(struct
- 					  le16_to_cpu(el->l_count));
- 			goto bail;
- 		}
-+	} else {
-+		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index e94a0802cbdd..79563afe9db9 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -3146,6 +3146,16 @@ serial8250_verify_port(struct uart_port *port, struct serial_struct *ser)
+ 	    ser->type >= ARRAY_SIZE(uart_config) || ser->type == PORT_CIRRUS ||
+ 	    ser->type == PORT_STARTECH)
+ 		return -EINVAL;
 +
-+		if (le16_to_cpu(dl_list->de_count) !=
-+		    ocfs2_dx_entries_per_root(sb)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_count),
-+					  ocfs2_dx_entries_per_root(sb));
-+			goto bail;
-+		}
++	if (port->iotype == UPIO_MEM || port->iotype == UPIO_MEM32 ||
++	    port->iotype == UPIO_MEM32BE || port->iotype == UPIO_MEM16 ||
++	    ser->io_type == UPIO_MEM || ser->io_type == UPIO_MEM32 ||
++	    ser->io_type == UPIO_MEM32BE || ser->io_type == UPIO_MEM16) {
++		if (ser->io_type != port->iotype ||
++		    (unsigned long)ser->iomem_base != port->mapbase)
++			return -EINVAL;
++	}
 +
-+		if (le16_to_cpu(dl_list->de_num_used) >
-+		    le16_to_cpu(dl_list->de_count)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_num_used),
-+					  le16_to_cpu(dl_list->de_count));
-+			goto bail;
-+		}
- 	}
- 
- bail:
-@@ -664,10 +686,25 @@ static int ocfs2_validate_dx_leaf(struct
- 		return ret;
- 	}
- 
--	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
--		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
--				  7, dx_leaf->dl_signature);
--	}
-+	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
-+		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
-+				   7, dx_leaf->dl_signature);
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
-+	    ocfs2_dx_entries_per_leaf(sb))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count),
-+				   ocfs2_dx_entries_per_leaf(sb));
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
-+	    le16_to_cpu(dx_leaf->dl_list.de_count))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count));
- 
- 	return ret;
+ 	return 0;
  }
-_
-
-Patches currently in -mm which might be from doruk@0sec.ai are
-
-ocfs2-validate-directory-index-entry-counts-when-reading-metadata.patch
+ 
+-- 
+2.34.1
 
