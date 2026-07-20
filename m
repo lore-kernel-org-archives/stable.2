@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D39C3F86EA
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897133E9C08
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:28:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557667; cv=none; b=DURQ/xGgTzRbEiJ79PhPXBuXFXmlIJr1hfHUXGe8XA0shu6xIINb0ucbLgvBEHdv//cznWlm6Nyzo1KiPr589mt8QuzeGdS7KjHPgm8D0ULEqREmt6eYZCef6znSATSqA3aI37aNYakzkLZ7+xrhk0WJr5k4bzZmXD9B2hmvK/w=
+	t=1784557690; cv=none; b=Zh6s4LeDkP8h9ZhMpFJ5WOrbL0kLHV21qj2pvDf6N4cYbcb/pPbuZv5vHollW2Kj/a6NRPAXh6FI6NhgS9b+UG88ZJFrAESazHqqoJTC7m3dshcbeVB/iec2pOcd0m3bEf34se28mse1erhDF2eOQnzfCLHIn+rTC8v7bTq3ha4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557667; c=relaxed/simple;
-	bh=InvoYuif108Mv6BRRslirPS3bNVILEWeLBVhdhVGGfM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jXTDMLhqUx90FMqmoQ0B5XzOgSsGZby/0ywJtdfdo2l9RUpqY90Xw9EijbDcQ6GHf21rbj495r+562IRxnoaBAMvTbqH4kXWcKlWfEk6ZP+eZMmr3tKHy+AhAToTtujYWYvXbnLrG09sGlDhg7ube/0YL+WasMxTSZRBbe+9e9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Re+yIyMM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557690; c=relaxed/simple;
+	bh=PYsuzSGVo2uL3FwhAraWjfsYDWpM7uMaiauyFN3IE3k=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kMEMsngNhomCuwEan4R0TF3yPu45Vj1AFCbgMuZ8d7/26fstHiwEGD9pKiESo9BQhtLrti4GeWhZ8J1iWYzP9iJmg+stNkB43uDdFH3Sm+zHDXs8DQH11o4QwR7sanqKYzIEYYpVvFDykQxbVCRHjNxQvAP6Z45st8brA+T6TF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ByAKslbB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Re+yIyMM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60ED51F000E9;
-	Mon, 20 Jul 2026 14:27:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ByAKslbB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98EF1F000E9;
+	Mon, 20 Jul 2026 14:28:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557665;
-	bh=ch9eYyOP1RZK+8bHHbCCKndVU9eEAJu4p2s8njUVlSo=;
+	s=korg; t=1784557689;
+	bh=Xb6oyVWsLY+U43M+D3avWERzlUqjT5HNRg/D4c/l2po=;
 	h=Subject:To:Cc:From:Date;
-	b=Re+yIyMMal9isp+pWjD4gxLtgkfZt7w2xpkz3lIbnTShMNd9VJPTyjqJawlOV77+G
-	 2jazsnahJrs0xW70ToUKl8DiPgAMFVNgngs/JLf6DiM5587M/EJZGvqj6dQTQZrSZK
-	 dzLyaptbMV2CEFdaUuqsiDVvHujbhuO0K1xgTkho=
-Subject: FAILED: patch "[PATCH] landlock: Fix LANDLOCK_SCOPE_SIGNAL bypass on the SIGIO path" failed to apply to 6.12-stable tree
-To: hexlabsecurity@proton.me,gnoack3000@gmail.com,mic@digikod.net
+	b=ByAKslbBeaK4EL5deCIoFft2P7g9uTdshoGNaJaBlLBLvvE6MxWlvA7Tb6Zz3Vc1o
+	 75s4Sj+IJmMQHWjennRXxaJiyuPUnMka8avi2X2BoFBeTz04HvcmWAFj/ZXIxqcthP
+	 kNgQtrQpVkDg5xg9/BSI5n6emUH7wRhXHu4bpLB0=
+Subject: FAILED: patch "[PATCH] mips: sched: Fix CPUMASK_OFFSTACK memory corruption" failed to apply to 5.10-stable tree
+To: atomlin@atomlin.com,tsbogend@alpha.franken.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:27:36 +0200
-Message-ID: <2026072036-petticoat-useable-12b3@gregkh>
+Date: Mon, 20 Jul 2026 16:28:00 +0200
+Message-ID: <2026072000-riveter-snowsuit-903d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4b80320ca7ed03d6e683f95b6066565dc97b9f92
+git cherry-pick -x 98e37db4a34d3af3fb2f4648295c25b5e40b20e3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072036-petticoat-useable-12b3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072000-riveter-snowsuit-903d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,163 +62,92 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4b80320ca7ed03d6e683f95b6066565dc97b9f92 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Thu, 4 Jun 2026 23:16:56 +0000
-Subject: [PATCH] landlock: Fix LANDLOCK_SCOPE_SIGNAL bypass on the SIGIO path
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 98e37db4a34d3af3fb2f4648295c25b5e40b20e3 Mon Sep 17 00:00:00 2001
+From: Aaron Tomlin <atomlin@atomlin.com>
+Date: Tue, 26 May 2026 10:16:51 -0400
+Subject: [PATCH] mips: sched: Fix CPUMASK_OFFSTACK memory corruption
 
-LANDLOCK_SCOPE_SIGNAL must prevent a sandboxed process from signaling
-processes outside its Landlock domain.  It can be bypassed through the
-asynchronous SIGIO delivery path.
+This patch addresses a critical memory management flaw. When
+CONFIG_CPUMASK_OFFSTACK is enabled, cpumask_var_t is a pointer.
+Consequently, sizeof(new_mask) evaluates to the pointer size, causing
+copy_from_user() to clobber the mask pointer. Furthermore, the old
+logic performed copy_from_user() before allocating the mask.
 
-A sandboxed process that owns any file or socket can arm it with
-fcntl(fd, F_SETOWN, -pgid), fcntl(fd, F_SETSIG, SIGKILL) and O_ASYNC, so
-that an I/O event makes the kernel deliver the chosen signal to the
-whole process group.  As the head of its process group's task list (the
-default position right after fork()) that group can also hold the
-non-sandboxed process that launched it, e.g. a supervisor or a security
-monitor.  The sandbox can thus kill or signal the processes
-LANDLOCK_SCOPE_SIGNAL is meant to protect from it.
+Fix this by allocating new_mask first. To handle variable-sized user
+masks correctly, use cpumask_size() to truncate overly large user masks
+or pad undersized masks with zeros before copying the data directly into
+the allocated buffer.
 
-The scope is enforced in hook_file_send_sigiotask() against the Landlock
-domain recorded at F_SETOWN time, not the live domain of the sender.
-control_current_fowner() decides whether to record that domain and skips
-recording it when the fowner target is in the caller's thread group,
-which is safe only for a single-task target (PIDTYPE_PID, PIDTYPE_TGID).
-For a process group (PIDTYPE_PGID) pid_task() returns only one member;
-recording is skipped whenever that member shares the caller's thread
-group, and hook_file_send_sigiotask() then lets the signal fan out to
-the whole group unchecked.
-
-Record the domain for every non single-process target so the scope is
-enforced against each group member at delivery time.
-
-That recording is necessary but not sufficient on its own: the kernel
-signals a process group through its members' thread-group leaders, and
-the leader of the registrant's own process can carry a different
-Landlock domain than the sibling thread that armed the owner.
-domain_is_scoped() would then deny that leader, even though commit
-18eb75f3af40 ("landlock: Always allow signals between threads of the
-same process") requires same-process delivery to be allowed.
-hook_task_kill() avoids this by evaluating same_thread_group() live, per
-recipient; the SIGIO path instead delegates the whole decision to a
-single registration-time check, which a process-group fan-out cannot
-honor.
-
-So also record the registrant's thread group next to its domain and
-exempt it at delivery: hook_file_send_sigiotask() allows the signal
-whenever the recipient belongs to the registrant's own process,
-restoring the same-process guarantee while keeping out-of-domain group
-members blocked.  The direct kill() path (hook_task_kill) already
-evaluates the live domain and is unaffected.
-
-Fixes: 18eb75f3af40 ("landlock: Always allow signals between threads of the same process")
+Fixes: 295cbf6d63165 ("[MIPS] Move FPU affinity code into separate file.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Günther Noack <gnoack3000@gmail.com>
-Link: https://patch.msgid.link/56bffc24f3d0d08b45a686a48e99766b0a0821fa.1780614610.git.hexlabsecurity@proton.me
-[mic: Check pid_type earlier and improve comment, fix commit message,
-fix comment formatting]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index c1ecfe239032..664962a416d7 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -1900,6 +1900,14 @@ static bool control_current_fowner(struct fown_struct *const fown)
- 	 */
- 	lockdep_assert_held(&fown->lock);
+diff --git a/arch/mips/kernel/mips-mt-fpaff.c b/arch/mips/kernel/mips-mt-fpaff.c
+index 10172fc4f627..4fead87d2f43 100644
+--- a/arch/mips/kernel/mips-mt-fpaff.c
++++ b/arch/mips/kernel/mips-mt-fpaff.c
+@@ -71,11 +71,16 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 	struct task_struct *p;
+ 	int retval;
  
-+	/*
-+	 * A process-group or session owner (PIDTYPE_PGID/PIDTYPE_SID) fans the
-+	 * signal out to every member at delivery time, so record the domain and
-+	 * let hook_file_send_sigiotask() check the live scope per recipient.
-+	 */
-+	if (fown->pid_type != PIDTYPE_PID && fown->pid_type != PIDTYPE_TGID)
-+		return true;
-+
- 	/*
- 	 * Some callers (e.g. fcntl_dirnotify) may not be in an RCU read-side
- 	 * critical section.
-@@ -1916,6 +1924,7 @@ static void hook_file_set_fowner(struct file *file)
- {
- 	struct landlock_ruleset *prev_dom;
- 	struct landlock_cred_security fown_subject = {};
-+	struct pid *prev_tg, *fown_tg = NULL;
- 	size_t fown_layer = 0;
+-	if (len < sizeof(new_mask))
+-		return -EINVAL;
+-
+-	if (copy_from_user(&new_mask, user_mask_ptr, sizeof(new_mask)))
+-		return -EFAULT;
++	if (!alloc_cpumask_var(&new_mask, GFP_KERNEL))
++		return -ENOMEM;
++	if (len < cpumask_size())
++		cpumask_clear(new_mask);
++	else if (len > cpumask_size())
++		len = cpumask_size();
++	if (copy_from_user(new_mask, user_mask_ptr, len)) {
++		retval = -EFAULT;
++		goto out_free_new_mask;
++	}
  
- 	if (control_current_fowner(file_f_owner(file))) {
-@@ -1928,21 +1937,26 @@ static void hook_file_set_fowner(struct file *file)
- 		if (new_subject) {
- 			landlock_get_ruleset(new_subject->domain);
- 			fown_subject = *new_subject;
-+			fown_tg = get_pid(task_tgid(current));
- 		}
+ 	cpus_read_lock();
+ 	rcu_read_lock();
+@@ -84,7 +89,8 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 	if (!p) {
+ 		rcu_read_unlock();
+ 		cpus_read_unlock();
+-		return -ESRCH;
++		retval = -ESRCH;
++		goto out_free_new_mask;
  	}
  
- 	prev_dom = landlock_file(file)->fown_subject.domain;
-+	prev_tg = landlock_file(file)->fown_tg;
- 	landlock_file(file)->fown_subject = fown_subject;
-+	landlock_file(file)->fown_tg = fown_tg;
- #ifdef CONFIG_AUDIT
- 	landlock_file(file)->fown_layer = fown_layer;
- #endif /* CONFIG_AUDIT*/
- 
- 	/* May be called in an RCU read-side critical section. */
- 	landlock_put_ruleset_deferred(prev_dom);
-+	put_pid(prev_tg);
+ 	/* Prevent p going away */
+@@ -95,13 +101,9 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 		retval = -ENOMEM;
+ 		goto out_put_task;
+ 	}
+-	if (!alloc_cpumask_var(&new_mask, GFP_KERNEL)) {
+-		retval = -ENOMEM;
+-		goto out_free_cpus_allowed;
+-	}
+ 	if (!alloc_cpumask_var(&effective_mask, GFP_KERNEL)) {
+ 		retval = -ENOMEM;
+-		goto out_free_new_mask;
++		goto out_free_cpus_allowed;
+ 	}
+ 	if (!check_same_owner(p) && !capable(CAP_SYS_NICE)) {
+ 		retval = -EPERM;
+@@ -142,13 +144,13 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
+ 	}
+ out_unlock:
+ 	free_cpumask_var(effective_mask);
+-out_free_new_mask:
+-	free_cpumask_var(new_mask);
+ out_free_cpus_allowed:
+ 	free_cpumask_var(cpus_allowed);
+ out_put_task:
+ 	put_task_struct(p);
+ 	cpus_read_unlock();
++out_free_new_mask:
++	free_cpumask_var(new_mask);
+ 	return retval;
  }
  
- static void hook_file_free_security(struct file *file)
- {
-+	put_pid(landlock_file(file)->fown_tg);
- 	landlock_put_ruleset_deferred(landlock_file(file)->fown_subject.domain);
- }
- 
-diff --git a/security/landlock/fs.h b/security/landlock/fs.h
-index bf9948941f2f..911b83669e20 100644
---- a/security/landlock/fs.h
-+++ b/security/landlock/fs.h
-@@ -78,6 +78,16 @@ struct landlock_file_security {
- 	 * euid.
- 	 */
- 	struct landlock_cred_security fown_subject;
-+	/**
-+	 * @fown_tg: Thread group of the task that set the file owner, pinned
-+	 * while @fown_subject holds a domain.  It lets
-+	 * hook_file_send_sigiotask() always allow a SIGIO delivered to the
-+	 * owner's own process -- e.g. the thread-group leader reached through a
-+	 * process-group owner -- matching the same-process exemption of
-+	 * hook_task_kill().  NULL when no domain is recorded.  Protected by
-+	 * file->f_owner->lock, like @fown_subject.
-+	 */
-+	struct pid *fown_tg;
- };
- 
- #ifdef CONFIG_AUDIT
-diff --git a/security/landlock/task.c b/security/landlock/task.c
-index 6d46042132ce..7ddf211f75c3 100644
---- a/security/landlock/task.c
-+++ b/security/landlock/task.c
-@@ -411,6 +411,17 @@ static int hook_file_send_sigiotask(struct task_struct *tsk,
- 	if (!subject->domain)
- 		return 0;
- 
-+	/*
-+	 * Always allow delivery to the file owner's own process, including a
-+	 * thread-group leader reached through a process-group owner.  This
-+	 * mirrors hook_task_kill()'s same-process exemption and preserves the
-+	 * guarantee of commit 18eb75f3af40 ("landlock: Always allow signals
-+	 * between threads of the same process"), which the registration-time
-+	 * check cannot honor for a process-group target.
-+	 */
-+	if (task_tgid(tsk) == landlock_file(fown->file)->fown_tg)
-+		return 0;
-+
- 	scoped_guard(rcu)
- 	{
- 		is_scoped = domain_is_scoped(subject->domain,
 
