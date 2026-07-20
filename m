@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9949B3B993B
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:15:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56C73876D6
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:15:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784567737; cv=none; b=WFuzL+l5sIsItv3EEnMBXdSAFqatM6Vy9mNW0XY8oimDB9RuY6eyyp343DcpytvjinVzuspCyf+fCO0pkgbSwJDxW/YgrS6ZHpCftqDAnydXhIS7AZam0NVCdWmaCcmBM98KjtSq1/wrohGbh+sGxjUUuz+A/a0IhI0kmBRnhFY=
+	t=1784567741; cv=none; b=Hi1qAQWcsv+9e4I9WIH/pKJujifEBZuB9SCh0wG+2psnzaAiXJodkQ9gQ8e8C/K3+B6yAblq+IY5RoiybgU+nrhDzjLj5yfbMRweLJ9zB2SK069elNuFvcJJmu5al6w8LXVXwcv7eVzkym45jrYKjnMpk9t9rJUjJfPsqtn8Wio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784567737; c=relaxed/simple;
-	bh=j5pNFKUEQXM9HrpG7RF/T5TEsxDNFi8/opD4GI1+1WU=;
+	s=arc-20240116; t=1784567741; c=relaxed/simple;
+	bh=H3Bxw4Lc/wMVUPyOV+qGKqzSUxaIsSPUVpGO0h4qBVU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gBQlnUxT2tArRIPYWNU6tfAo0GEKi7lvRdbmkzNTd2YItbIjBwx9sZ0V9BuLvxMcPV4bCZV/NH3AFUTUiLLQlhVHSZa1fq9KoL9s0C9jnFF0MacgIWAqYv4SIEq/by6eCXBoxhsMYktfDC9G/5JSv0uPBgD2ofia2jjx0KGMyME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f8zNp35n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CN9Z3gTExLlaDn6CQHvzmTaqEDM45vDwXf6DJJ8hRBHqknP+PFO8dSH1P/MK90kONfpSIDcPQuBMXlkgamFGqrGTfyIk2yzhZxkYmnSBO/+qEfAyEpi0wRAMZLG0i6WoAeCmQDrzXs4ESQMhhsvginjDEA3zyPImNFD3JTMdTEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdL9jGw1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f8zNp35n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556A41F00A3D;
-	Mon, 20 Jul 2026 17:15:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdL9jGw1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0268C1F00A3F;
+	Mon, 20 Jul 2026 17:15:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784567729;
-	bh=eNXuEr6BQhsXiKj5xEQKOdrRkjxZ/tZHpgrnNAvgUsc=;
+	s=k20260515; t=1784567737;
+	bh=qd7F7OYiQ4HgR2CGNB0YSwUfCog4ZvNf6hGWU0XHa80=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f8zNp35n0oyV25WG9aLGRxR7eV+M+6Dsa3If6/9hf3AWt2kq0PLoNdUExFptVy99I
-	 Xyxuc7uMMxjINNUfPAYb3CH+f4lwV8LxOHBkfYfs3wxPhMOhqvwgyWoTwB+L37P686
-	 JEOpGYKyCTPNy6vDqOOCh63x6DzZFkXtxn00MnyQ8mIwD9+1MA+wzu7utLBPz52kPF
-	 HeNpBPnDRaTivTcuImx9ghB5TEu42XLKMk1Swsxe0CYh9gKQBTw7/5I+/PDHrkdQxk
-	 q2eAs/yTMDBYP0zqG3XFDc833IojMgwK8+cGU/P3geGSM7y/bcL5nKWYdNkRMK8KZp
-	 dLOgfRCJJ4MAw==
+	b=MdL9jGw1vO8DkYz1rIQhMOHQiS5yhtdGzKnS4xAmsutejW6bd6BYO3Dt5f5MOmPS4
+	 qZ+3G6Zle3thzt0Lwb2lrbMdq3vxJ71usxOoFDhEDMiPUcP16HWZ0U4fA29hZx08RR
+	 Qh1rCCxr0Mixxw/LfU8VfMWWrwoHmTLltiHhU7O9wSSDcN+0/9O9ZL/jzZtBsIivje
+	 De8hIRnpzwwWXjM3SFvmiF5nTD3m8c9Sa4ONy2h0DC6xEuKhhiNYsH9AgtYd0MzKlN
+	 O5fzavvf0R9i/9BKc8aBRKuzuqVKXuYEdy8GrkjrKNZJh1x5nTaQxIIsahMwNhUowC
+	 uOh70ySnRXBWA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weiwen Hu <huweiwen@linux.alibaba.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Ashish Kalra <ashish.kalra@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] nvme: fix status magic numbers
-Date: Mon, 20 Jul 2026 13:15:23 -0400
-Message-ID: <20260720171525.2695254-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/6] crypto: ccp - Move dev_info/err messages for SEV/SNP init and shutdown
+Date: Mon, 20 Jul 2026 13:15:30 -0400
+Message-ID: <20260720171535.2695659-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720171525.2695254-1-sashal@kernel.org>
-References: <2026071540-stiffly-shrill-b8b3@gregkh>
- <20260720171525.2695254-1-sashal@kernel.org>
+In-Reply-To: <2026071538-unmapped-affiliate-9ff5@gregkh>
+References: <2026071538-unmapped-affiliate-9ff5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,198 +46,142 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weiwen Hu <huweiwen@linux.alibaba.com>
+From: Ashish Kalra <ashish.kalra@amd.com>
 
-[ Upstream commit d89a5c6705998ddc42b104f8eabd3c4b9e8fde08 ]
+[ Upstream commit 9770b428b1a28360663f1f5e524ee458b4cf454b ]
 
-Replaced some magic numbers about SC and SCT with enum and macro.
+Move dev_info and dev_err messages related to SEV/SNP initialization
+and shutdown into __sev_platform_init_locked(), __sev_snp_init_locked()
+and __sev_platform_shutdown_locked(), __sev_snp_shutdown_locked() so
+that they don't need to be issued from callers.
 
-Signed-off-by: Weiwen Hu <huweiwen@linux.alibaba.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Stable-dep-of: 53cd102a7a56 ("nvmet: fix pre-auth out-of-bounds heap read in Discovery Get Log Page")
+This allows both _sev_platform_init_locked() and various SEV/SNP ioctls
+to call __sev_platform_init_locked(), __sev_snp_init_locked() and
+__sev_platform_shutdown_locked(), __sev_snp_shutdown_locked() for
+implicit SEV/SNP initialization and shutdown without additionally
+printing any errors/success messages.
+
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: 08f0e65e784c ("crypto: ccp - Do not initialize SNP for ioctl(SNP_CONFIG)")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/constants.c |  2 +-
- drivers/nvme/host/core.c      | 14 +++++++-------
- drivers/nvme/host/multipath.c |  2 +-
- drivers/nvme/host/nvme.h      |  4 ++--
- drivers/nvme/host/pr.c        |  2 +-
- include/linux/nvme.h          | 14 ++++++++++++--
- 6 files changed, 24 insertions(+), 14 deletions(-)
+ drivers/crypto/ccp/sev-dev.c | 44 ++++++++++++++++++++++++++----------
+ 1 file changed, 32 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/nvme/host/constants.c b/drivers/nvme/host/constants.c
-index 20f46c230885c1..4ac8c2d69b5f7b 100644
---- a/drivers/nvme/host/constants.c
-+++ b/drivers/nvme/host/constants.c
-@@ -173,7 +173,7 @@ static const char * const nvme_statuses[] = {
+diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
+index 2258337f1ea44b..6f9829448f5db7 100644
+--- a/drivers/crypto/ccp/sev-dev.c
++++ b/drivers/crypto/ccp/sev-dev.c
+@@ -1173,21 +1173,31 @@ static int __sev_snp_init_locked(int *error)
+ 	wbinvd_on_all_cpus();
  
- const unsigned char *nvme_get_error_status_str(u16 status)
- {
--	status &= 0x7ff;
-+	status &= NVME_SCT_SC_MASK;
- 	if (status < ARRAY_SIZE(nvme_statuses) && nvme_statuses[status])
- 		return nvme_statuses[status & 0x7ff];
- 	return "Unknown";
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 48c46c942253c7..afa15275d1bbea 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -251,7 +251,7 @@ void nvme_delete_ctrl_sync(struct nvme_ctrl *ctrl)
+ 	rc = __sev_do_cmd_locked(cmd, arg, error);
+-	if (rc)
++	if (rc) {
++		dev_err(sev->dev, "SEV-SNP: %s failed rc %d, error %#x\n",
++			cmd == SEV_CMD_SNP_INIT_EX ? "SNP_INIT_EX" : "SNP_INIT",
++			rc, *error);
+ 		return rc;
++	}
  
- static blk_status_t nvme_error_status(u16 status)
- {
--	switch (status & 0x7ff) {
-+	switch (status & NVME_SCT_SC_MASK) {
- 	case NVME_SC_SUCCESS:
- 		return BLK_STS_OK;
- 	case NVME_SC_CAP_EXCEEDED:
-@@ -319,8 +319,8 @@ static void nvme_log_error(struct request *req)
- 		       (unsigned long long)nvme_sect_to_lba(ns, blk_rq_pos(req)),
- 		       (unsigned long long)blk_rq_bytes(req) >> ns->lba_shift,
- 		       nvme_get_error_status_str(nr->status),
--		       nr->status >> 8 & 7,	/* Status Code Type */
--		       nr->status & 0xff,	/* Status Code */
-+		       NVME_SCT(nr->status),		/* Status Code Type */
-+		       nr->status & NVME_SC_MASK,	/* Status Code */
- 		       nr->status & NVME_SC_MORE ? "MORE " : "",
- 		       nr->status & NVME_SC_DNR  ? "DNR "  : "");
- 		return;
-@@ -331,8 +331,8 @@ static void nvme_log_error(struct request *req)
- 			   nvme_get_admin_opcode_str(nr->cmd->common.opcode),
- 			   nr->cmd->common.opcode,
- 			   nvme_get_error_status_str(nr->status),
--			   nr->status >> 8 & 7,	/* Status Code Type */
--			   nr->status & 0xff,	/* Status Code */
-+			   NVME_SCT(nr->status),	/* Status Code Type */
-+			   nr->status & NVME_SC_MASK,	/* Status Code */
- 			   nr->status & NVME_SC_MORE ? "MORE " : "",
- 			   nr->status & NVME_SC_DNR  ? "DNR "  : "");
- }
-@@ -349,7 +349,7 @@ static inline enum nvme_disposition nvme_decide_disposition(struct request *req)
- 	if (likely(nvme_req(req)->status == 0))
- 		return COMPLETE;
+ 	/* Prepare for first SNP guest launch after INIT. */
+ 	wbinvd_on_all_cpus();
+ 	rc = __sev_do_cmd_locked(SEV_CMD_SNP_DF_FLUSH, NULL, error);
+-	if (rc)
++	if (rc) {
++		dev_err(sev->dev, "SEV-SNP: SNP_DF_FLUSH failed rc %d, error %#x\n",
++			rc, *error);
+ 		return rc;
++	}
  
--	if ((nvme_req(req)->status & 0x7ff) == NVME_SC_AUTH_REQUIRED)
-+	if ((nvme_req(req)->status & NVME_SCT_SC_MASK) == NVME_SC_AUTH_REQUIRED)
- 		return AUTHENTICATE;
+ 	sev->snp_initialized = true;
+ 	dev_dbg(sev->dev, "SEV-SNP firmware initialized\n");
  
- 	if (blk_noretry_request(req) ||
-@@ -1155,7 +1155,7 @@ EXPORT_SYMBOL_NS_GPL(nvme_passthru_end, NVME_TARGET_PASSTHRU);
++	dev_info(sev->dev, "SEV-SNP API:%d.%d build:%d\n", sev->api_major,
++		 sev->api_minor, sev->build);
++
+ 	sev_es_tmr_size = SNP_TMR_SIZE;
  
- /*
-  * Recommended frequency for KATO commands per NVMe 1.4 section 7.12.1:
-- * 
-+ *
-  *   The host should send Keep Alive commands at half of the Keep Alive Timeout
-  *   accounting for transport roundtrip times [..].
-  */
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index 578f4f29eacfe1..c997b94b2a4527 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -86,7 +86,7 @@ void nvme_mpath_start_freeze(struct nvme_subsystem *subsys)
- void nvme_failover_req(struct request *req)
- {
- 	struct nvme_ns *ns = req->q->queuedata;
--	u16 status = nvme_req(req)->status & 0x7ff;
-+	u16 status = nvme_req(req)->status & NVME_SCT_SC_MASK;
- 	unsigned long flags;
- 	struct bio *bio;
- 
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index fd9edeb0d9fe64..e57d7528e85908 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -692,7 +692,7 @@ static inline u32 nvme_bytes_to_numd(size_t len)
- 
- static inline bool nvme_is_ana_error(u16 status)
- {
--	switch (status & 0x7ff) {
-+	switch (status & NVME_SCT_SC_MASK) {
- 	case NVME_SC_ANA_TRANSITION:
- 	case NVME_SC_ANA_INACCESSIBLE:
- 	case NVME_SC_ANA_PERSISTENT_LOSS:
-@@ -705,7 +705,7 @@ static inline bool nvme_is_ana_error(u16 status)
- static inline bool nvme_is_path_error(u16 status)
- {
- 	/* check for a status code type of 'path related status' */
--	return (status & 0x700) == 0x300;
-+	return (status & NVME_SCT_MASK) == NVME_SCT_PATH;
+-	return rc;
++	return 0;
  }
  
- /*
-diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
-index a50bb3bb97573c..566a04290e5509 100644
---- a/drivers/nvme/host/pr.c
-+++ b/drivers/nvme/host/pr.c
-@@ -77,7 +77,7 @@ static int nvme_status_to_pr_err(int status)
- 	if (nvme_is_path_error(status))
- 		return PR_STS_PATH_FAILED;
+ static void __sev_platform_init_handle_tmr(struct sev_device *sev)
+@@ -1284,16 +1294,22 @@ static int __sev_platform_init_locked(int *error)
+ 	if (error)
+ 		*error = psp_ret;
  
--	switch (status & 0x7ff) {
-+	switch (status & NVME_SCT_SC_MASK) {
- 	case NVME_SC_SUCCESS:
- 		return PR_STS_SUCCESS;
- 	case NVME_SC_RESERVATION_CONFLICT:
-diff --git a/include/linux/nvme.h b/include/linux/nvme.h
-index e88b02fff7f2e8..3aa93fe6b3bca3 100644
---- a/include/linux/nvme.h
-+++ b/include/linux/nvme.h
-@@ -1847,6 +1847,7 @@ enum {
- 	/*
- 	 * Generic Command Status:
- 	 */
-+	NVME_SCT_GENERIC		= 0x0,
- 	NVME_SC_SUCCESS			= 0x0,
- 	NVME_SC_INVALID_OPCODE		= 0x1,
- 	NVME_SC_INVALID_FIELD		= 0x2,
-@@ -1894,6 +1895,7 @@ enum {
- 	/*
- 	 * Command Specific Status:
- 	 */
-+	NVME_SCT_COMMAND_SPECIFIC	= 0x100,
- 	NVME_SC_CQ_INVALID		= 0x100,
- 	NVME_SC_QID_INVALID		= 0x101,
- 	NVME_SC_QUEUE_SIZE		= 0x102,
-@@ -1967,6 +1969,7 @@ enum {
- 	/*
- 	 * Media and Data Integrity Errors:
- 	 */
-+	NVME_SCT_MEDIA_ERROR		= 0x200,
- 	NVME_SC_WRITE_FAULT		= 0x280,
- 	NVME_SC_READ_ERROR		= 0x281,
- 	NVME_SC_GUARD_CHECK		= 0x282,
-@@ -1979,6 +1982,7 @@ enum {
- 	/*
- 	 * Path-related Errors:
- 	 */
-+	NVME_SCT_PATH			= 0x300,
- 	NVME_SC_INTERNAL_PATH_ERROR	= 0x300,
- 	NVME_SC_ANA_PERSISTENT_LOSS	= 0x301,
- 	NVME_SC_ANA_INACCESSIBLE	= 0x302,
-@@ -1987,11 +1991,17 @@ enum {
- 	NVME_SC_HOST_PATH_ERROR		= 0x370,
- 	NVME_SC_HOST_ABORTED_CMD	= 0x371,
+-	if (rc)
++	if (rc) {
++		dev_err(sev->dev, "SEV: %s failed %#x, rc %d\n",
++			sev_init_ex_buffer ? "INIT_EX" : "INIT", psp_ret, rc);
+ 		return rc;
++	}
  
--	NVME_SC_CRD			= 0x1800,
-+	NVME_SC_MASK			= 0x00ff, /* Status Code */
-+	NVME_SCT_MASK			= 0x0700, /* Status Code Type */
-+	NVME_SCT_SC_MASK		= NVME_SCT_MASK | NVME_SC_MASK,
+ 	sev->state = SEV_STATE_INIT;
+ 
+ 	/* Prepare for first SEV guest launch after INIT */
+ 	wbinvd_on_all_cpus();
+ 	rc = __sev_do_cmd_locked(SEV_CMD_DF_FLUSH, NULL, error);
+-	if (rc)
++	if (rc) {
++		dev_err(sev->dev, "SEV: DF_FLUSH failed %#x, rc %d\n",
++			*error, rc);
+ 		return rc;
++	}
+ 
+ 	dev_dbg(sev->dev, "SEV firmware initialized\n");
+ 
+@@ -1373,8 +1389,11 @@ static int __sev_platform_shutdown_locked(int *error)
+ 		return 0;
+ 
+ 	ret = __sev_do_cmd_locked(SEV_CMD_SHUTDOWN, NULL, error);
+-	if (ret)
++	if (ret) {
++		dev_err(sev->dev, "SEV: failed to SHUTDOWN error %#x, rc %d\n",
++			*error, ret);
+ 		return ret;
++	}
+ 
+ 	sev->state = SEV_STATE_UNINIT;
+ 	dev_dbg(sev->dev, "SEV firmware shutdown\n");
+@@ -1732,9 +1751,12 @@ static int __sev_snp_shutdown_locked(int *error, bool panic)
+ 	ret = __sev_do_cmd_locked(SEV_CMD_SNP_SHUTDOWN_EX, &data, error);
+ 	/* SHUTDOWN may require DF_FLUSH */
+ 	if (*error == SEV_RET_DFFLUSH_REQUIRED) {
+-		ret = __sev_do_cmd_locked(SEV_CMD_SNP_DF_FLUSH, NULL, NULL);
++		int dfflush_error;
 +
-+	NVME_SC_CRD			= 0x1800, /* Command Retry Delayed */
- 	NVME_SC_MORE			= 0x2000,
--	NVME_SC_DNR			= 0x4000,
-+	NVME_SC_DNR			= 0x4000, /* Do Not Retry */
- };
++		ret = __sev_do_cmd_locked(SEV_CMD_SNP_DF_FLUSH, NULL, &dfflush_error);
+ 		if (ret) {
+-			dev_err(sev->dev, "SEV-SNP DF_FLUSH failed\n");
++			dev_err(sev->dev, "SEV-SNP DF_FLUSH failed, ret = %d, error = %#x\n",
++				ret, dfflush_error);
+ 			return ret;
+ 		}
+ 		/* reissue the shutdown command */
+@@ -1742,7 +1764,8 @@ static int __sev_snp_shutdown_locked(int *error, bool panic)
+ 					  error);
+ 	}
+ 	if (ret) {
+-		dev_err(sev->dev, "SEV-SNP firmware shutdown failed\n");
++		dev_err(sev->dev, "SEV-SNP firmware shutdown failed, rc %d, error %#x\n",
++			ret, *error);
+ 		return ret;
+ 	}
  
-+#define NVME_SCT(status) ((status) >> 8 & 7)
-+
- struct nvme_completion {
- 	/*
- 	 * Used by Admin and Fabrics commands to return data:
+@@ -2509,9 +2532,6 @@ void sev_pci_init(void)
+ 		dev_err(sev->dev, "SEV: failed to INIT error %#x, rc %d\n",
+ 			args.error, rc);
+ 
+-	dev_info(sev->dev, "SEV%s API:%d.%d build:%d\n", sev->snp_initialized ?
+-		"-SNP" : "", sev->api_major, sev->api_minor, sev->build);
+-
+ 	atomic_notifier_chain_register(&panic_notifier_list,
+ 				       &snp_panic_notifier);
+ 	return;
 -- 
 2.53.0
 
