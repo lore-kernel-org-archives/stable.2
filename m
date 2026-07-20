@@ -1,104 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1D6383326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7ED43784C
 	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562998; cv=none; b=h/CTI3nbsOGTNHfB8gh+lNO2a9YQbNf59yhErxcBCIHArM74kbYIc9+MljAd6q4bBP0l6Y6ScQ/eU5kCFa2yeGZs/FyaN+17sfxLYj7F9ca9DQDZ0xJHK+zWJV/yNhba/8SHvviTOYg9i+DMIauCNuJ68qiKXv3wC8JCLodS3xU=
+	t=1784562999; cv=none; b=OeEfJDVeintEiNcjdl47o+lLeQ4JnEIljquHvsESUthTPBj0Rc1CIwRMUsuglYF1eKxYLcvm4Fk2mo1oW7DfpbE//ahJ/a21rS7MaY3BVqLppDQJqL2d7Bu8DFPKwOiZTYFGVVZnoJVVRUaRhEocLWov2A12k+s9hlJhofREA0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562998; c=relaxed/simple;
-	bh=Pf+BeLEhQVTW7nJQ0fDcweYPrwAar7DRR971YdXHApg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V2R8JUqD8LLvS31xfN/syglTBtA21SAh8BASuw3GYoSTdUV85c5lfz3fqFQXomE/2NWGIP+UukEz9PVzwCMsMBBAWTcYT+vLUhTAYAvvDNWUN8Cqmetc1bWBRP6s0bY4GKo2g+Fz5VMTj92o+Kd30Vb2Zr36am6qSk4jiGlD4n0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AiV0wdhe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784562999; c=relaxed/simple;
+	bh=HasdphjNVbddK8oZc2WF38wGlicdVBIgqfjrgUkaYG4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AtjrouQCzAJx6ZqmijTffTzRCsNF4zcNcE2WL4rZvoGA7bIbKpiXpsnNeaUMNeyx2DV92Lxty+cvR2QYeMhJdyDQXeu5Q8tWrVz+wLuZLw9PO5+cpy6C8vNBkAQYlcGBg0mvfOhj1QuFEzeY1duGhp2WAu7iaIGHUsw5Zl/74is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nn92R9Lw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AiV0wdhe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37D5D1F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nn92R9Lw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3011F00A3D;
 	Mon, 20 Jul 2026 15:56:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562996;
-	bh=UbNlgmozSmjoUtDIbrN8qbDtRWNXQM7VnV8xRqOmkqk=;
-	h=Subject:To:Cc:From:Date;
-	b=AiV0wdhe5BfwJLoxge/qaJFqnCDFaTAOnRDWUAcniD8eQWJRgQ1+H2+tq/tWhRAuw
-	 VHmmStf1lhrSCCdUdYcUU6m6WyUyeAY8Nmwk+crZ7bvWl/n3L60TFPwY2YWd858D2e
-	 xAC5LWzTZFxB4GC9/FWWk0IyR4kLNdi4P3alfqso=
-Subject: FAILED: patch "[PATCH] net: ip6_tunnel: require CAP_NET_ADMIN in the device netns" failed to apply to 6.1-stable tree
-To: maoyixie.tju@gmail.com,kuba@kernel.org,kuniyu@google.com,shaw.leon@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:53:24 +0200
-Message-ID: <2026072024-tactical-enquirer-b40c@gregkh>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784562997;
+	bh=1njbJg14+I9I/kVa+wgX559lmNelg+YRIoX0Eqjl4sI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Nn92R9LwEz1pZU8KZYrYMqqUxMOPngSea6dZxruB3ZgFZcuEa26LYUSNvBk5NO3AR
+	 FpT8mKJktw35lwNif1SWK81cSv1omPciT/Q0YHfkh+XAGBowsVFFDRIhvBv4p0g90n
+	 rp/qjzA/S2/StmG+aCBshDqkJbliUjtAguljE2vOmBBW0GEzoRbWQYVt9jsHw0Ovoy
+	 AlvAdW5SEoOFPZ/etX3gaYCgtWJk1EpyfslmxRhoR+3WE6DGgw4cxrmHjbB0gx/Sro
+	 z7Uj4WpSCgDzaRvlJjpj3LSJFdE3I2ofFz7hWpaASh/bvqXAe958oHoqv3ygiwblfI
+	 wDKwfSKki85XQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Qu Wenruo <wqu@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	David Sterba <dsterba@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] btrfs: concentrate the error handling of submit_one_sector()
+Date: Mon, 20 Jul 2026 11:56:32 -0400
+Message-ID: <20260720155635.2425597-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071553-kite-shadow-2c30@gregkh>
+References: <2026071553-kite-shadow-2c30@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Qu Wenruo <wqu@suse.com>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 44820d80026e0b509007d41c83d42f1213ee8589 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Currently submit_one_sector() has only one failure path from
+btrfs_get_extent().
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 2496fa0b7d180b3ad356b514e7ff93bb14e6140a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072024-tactical-enquirer-b40c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+However the error handling is split into two parts, one inside
+submit_one_sector(), which clears the dirty flag and finishes the
+writeback for the fs block.
 
-Possible dependencies:
+The other part is to submit any remaining bio inside bio_ctrl and mark
+the ordered extent finished for the fs block.
 
+There is no special reason that we must split the error handling, let's
+just concentrate all the error handling into submit_one_sector().
 
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 66ff4d366e7e ("btrfs: fix false IO failure after falling back to buffered write")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/btrfs/extent_io.c | 46 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 2496fa0b7d180b3ad356b514e7ff93bb14e6140a Mon Sep 17 00:00:00 2001
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-Date: Fri, 12 Jun 2026 16:59:38 +0800
-Subject: [PATCH] net: ip6_tunnel: require CAP_NET_ADMIN in the device netns
- for changelink
-
-ip6_tnl_changelink() operates on at most two netns, dev_net(dev) and the
-tunnel link netns t->net. They differ once the device is created in or
-moved to a netns other than the one the request runs in. The rtnl
-changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
-caller privileged there but not in t->net can rewrite a tunnel that
-lives in t->net.
-
-Gate ip6_tnl_changelink() on rtnl_dev_link_net_capable() at its top,
-before any attribute is parsed.
-
-Reported-by: Xiao Liang <shaw.leon@gmail.com>
-Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
-Fixes: 0bd8762824e7 ("ip6tnl: add x-netns support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260612085941.3158249-5-maoyixie.tju@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
-index 73fc5a0b8203..d7c90a8533ec 100644
---- a/net/ipv6/ip6_tunnel.c
-+++ b/net/ipv6/ip6_tunnel.c
-@@ -2103,6 +2103,9 @@ static int ip6_tnl_changelink(struct net_device *dev, struct nlattr *tb[],
- 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
- 	struct ip_tunnel_encap ipencap;
+diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
+index 0d50f3063d346d..af5244900adf26 100644
+--- a/fs/btrfs/extent_io.c
++++ b/fs/btrfs/extent_io.c
+@@ -1417,7 +1417,7 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
  
-+	if (!rtnl_dev_link_net_capable(dev, net))
-+		return -EPERM;
+ /*
+  * Return 0 if we have submitted or queued the sector for submission.
+- * Return <0 for critical errors.
++ * Return <0 for critical errors, and the involved sector will be cleaned up.
+  *
+  * Caller should make sure filepos < i_size and handle filepos >= i_size case.
+  */
+@@ -1440,8 +1440,31 @@ static int submit_one_sector(struct btrfs_inode *inode,
+ 	ASSERT(filepos < i_size);
+ 
+ 	em = btrfs_get_extent(inode, NULL, filepos, sectorsize);
+-	if (IS_ERR(em))
+-		return PTR_ERR_OR_ZERO(em);
++	if (IS_ERR(em)) {
++		/*
++		 * bio_ctrl may contain a bio crossing several folios.
++		 * Submit it immediately so that the bio has a chance
++		 * to finish normally, other than marked as error.
++		 */
++		submit_one_bio(bio_ctrl);
 +
- 	if (dev == ip6n->fb_tnl_dev) {
- 		if (ip_tunnel_netlink_encap_parms(data, &ipencap)) {
- 			/* iproute2 always sets TUNNEL_ENCAP_FLAG_CSUM6, so
++		/*
++		 * When submission failed, we should still clear the folio dirty.
++		 * Or the folio will be written back again but without any
++		 * ordered extent.
++		 */
++		btrfs_folio_clear_dirty(fs_info, folio, filepos, sectorsize);
++		btrfs_folio_set_writeback(fs_info, folio, filepos, sectorsize);
++		btrfs_folio_clear_writeback(fs_info, folio, filepos, sectorsize);
++
++		/*
++		 * Since there is no bio submitted to finish the ordered
++		 * extent, we have to manually finish this sector.
++		 */
++		btrfs_mark_ordered_io_finished(inode, folio, filepos,
++					       fs_info->sectorsize, false);
++		return PTR_ERR(em);
++	}
+ 
+ 	extent_offset = filepos - em->start;
+ 	em_end = extent_map_end(em);
+@@ -1559,19 +1582,6 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
+ 		}
+ 		ret = submit_one_sector(inode, folio, cur, bio_ctrl, i_size);
+ 		if (unlikely(ret < 0)) {
+-			/*
+-			 * bio_ctrl may contain a bio crossing several folios.
+-			 * Submit it immediately so that the bio has a chance
+-			 * to finish normally, other than marked as error.
+-			 */
+-			submit_one_bio(bio_ctrl);
+-			/*
+-			 * Failed to grab the extent map which should be very rare.
+-			 * Since there is no bio submitted to finish the ordered
+-			 * extent, we have to manually finish this sector.
+-			 */
+-			btrfs_mark_ordered_io_finished(inode, folio, cur,
+-						       fs_info->sectorsize, false);
+ 			if (!found_error)
+ 				found_error = ret;
+ 			continue;
+@@ -1587,8 +1597,8 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
+ 	 * Here we set writeback and clear for the range. If the full folio
+ 	 * is no longer dirty then we clear the PAGECACHE_TAG_DIRTY tag.
+ 	 *
+-	 * If we hit any error, the corresponding sector will still be dirty
+-	 * thus no need to clear PAGECACHE_TAG_DIRTY.
++	 * If we hit any error, the corresponding sector will have its dirty
++	 * flag cleared and writeback finished, thus no need to handle the error case.
+ 	 */
+ 	if (!submitted_io && !found_error) {
+ 		btrfs_folio_set_writeback(fs_info, folio, start, len);
+-- 
+2.53.0
 
