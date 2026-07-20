@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8327C2D29CF
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:22:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699E92C234E
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560941; cv=none; b=B93qgLKQOn2T8lv6+aY0VEZ48lgTWuza1zw7L5SdcnlQcBSn2d41YPSf6seT6SM9mek1dXjyDmH6kzruv0cxJ2YH5XOt6bdeYKD4bc6iO8BO/CBINFdP+v7ZGaNkQWUwONWDh15YqQWPTo4Md8XjuhwWP9L8C5Km1U1pU80Twuk=
+	t=1784560958; cv=none; b=ThkC0+c29B43nSIWIg1rvG7NC6VVtuMF5ICcrgB83aK92E994obUlvHT+xuIlKRxtLjOoiQANCiPMJI251IYxaZ/F9zEeN0xo9dNV8vro9ORKmBuX7tFdvoDRVjEVTMRiJEioJMzYL+r0PqLLC5BjK9nko3Dz7+aWa9bx/IyrAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560941; c=relaxed/simple;
-	bh=Y49oWmIPPpFqqR8Y9vLYEZajbBbJdIkp3h9pSscG3W0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=d6JYn7tqtkV+M0DdlJGz2tzfUF4YMfdaqlPIysD2MPGoBr3t/oFysmucVGpp4VCp1NxNxznoWiX0lJIiUg5mNxe9O3KneyEEPW3TXiYluK4o8n48Je1wcq3p24WNPqJYHyMNfI0AUBGsdXFUoOBoWSjGcqjq7ouGCnfbhmjX9Fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=azSN+BXk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560958; c=relaxed/simple;
+	bh=nfW2F8orrGAn4zxgmTi36Cny5tA0rtjXBeqNjH7KvRM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uOfRPiayQcho4vbRpjqeUjtT1oTCH0kE7+1MiBA27wQ42OLkknVb/nb+dAhWoUGWcjpl7Ym9I2rQXUGxU2BnQe93+Q0WyD0KSlk/O+r8oFU0vIXiYnqIuEaweuTIERt/FOdLqhmrMrWmeKgPZDbjq0HKePQ9JLRofBFHV7E0/lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xip5gkxN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="azSN+BXk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA6321F00A3D;
-	Mon, 20 Jul 2026 15:22:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xip5gkxN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B17F1F000E9;
+	Mon, 20 Jul 2026 15:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560939;
-	bh=hpmiMpFwKp4qqgdmJR80zLJLq46pYfJdADGt7dgWies=;
+	s=korg; t=1784560957;
+	bh=FfqQgrxKCpejirUS9bc9N2RV66rnBtPKtXFWUkfHsCo=;
 	h=Subject:To:Cc:From:Date;
-	b=azSN+BXkjlAGYNdEG6TxHOj6wFJjlpFMQhuJcMJXAanti5w+OUcR7//efA5JOYRKj
-	 d3OYS71BUyp3X0dLpODhsdY3MsRKUXmSCwyHLBSxuWjWHj3cg+O9tTCt4WTmdbWOnI
-	 Adqj8Um2j0tXM8/YLoFbZoZ5Jsz5KlynMguI+lTo=
-Subject: FAILED: patch "[PATCH] scsi: target: Bound PR-OUT TransportID parsing to the" failed to apply to 5.10-stable tree
-To: hexlabsecurity@proton.me,ddiss@suse.de,john.g.garry@oracle.com,martin.petersen@oracle.com
+	b=xip5gkxNoeemovqvi0HUjDoXkx74yqKwW4UN0/b15NqYF5Cip1TY1Ln8PuCOdhTip
+	 xcQHi09wlXztpsogq5hhwnT5pX6KbYNOYyKiXzRuHvIvHZpgGAAfUPQ7ClIhXx3JPY
+	 ATSVk8wP3Txh34zqb9HPKd06w4dgiY1ym7q3Jgo8=
+Subject: FAILED: patch "[PATCH] scsi: ufs: core: tracing: Do not dereference pointers in" failed to apply to 7.1-stable tree
+To: rostedt@goodmis.org,bvanassche@acm.org,martin.petersen@oracle.com,peter.wang@mediatek.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:22:10 +0200
-Message-ID: <2026072010-thinly-purr-b2b4@gregkh>
+Date: Mon, 20 Jul 2026 17:22:28 +0200
+Message-ID: <2026072027-stencil-malformed-6e74@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x d04a179085c262c9ed577d0a4cbc6482ff1fd9a3
+git cherry-pick -x 46aea2c64e110ed1878fa5363f86ddc8fd79c9c4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072010-thinly-purr-b2b4@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072027-stencil-malformed-6e74@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,251 +62,252 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d04a179085c262c9ed577d0a4cbc6482ff1fd9a3 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Thu, 11 Jun 2026 13:42:26 -0500
-Subject: [PATCH] scsi: target: Bound PR-OUT TransportID parsing to the
- received buffer
+From 46aea2c64e110ed1878fa5363f86ddc8fd79c9c4 Mon Sep 17 00:00:00 2001
+From: Steven Rostedt <rostedt@goodmis.org>
+Date: Tue, 30 Jun 2026 18:54:12 -0400
+Subject: [PATCH] scsi: ufs: core: tracing: Do not dereference pointers in
+ TP_printk()
 
-core_scsi3_decode_spec_i_port() and core_scsi3_emulate_register_and_move()
-hand the raw PERSISTENT RESERVE OUT parameter buffer to
-target_parse_pr_out_transport_id() without telling it how many bytes are
-valid.  For an iSCSI TransportID (FORMAT CODE 01b),
-iscsi_parse_pr_out_transport_id() locates the ",i,0x" ISID separator with
-an unbounded strstr() (and on the error path prints the name with a further
-unbounded "%s").  An initiator can submit a TransportID whose iSCSI name
-contains neither a ",i,0x" substring nor a NUL terminator, filling the
-parameter list to its end, so the scan runs off the end of the buffer.
+The trace events in drivers/ufs/core/ufs_trace.h were converted to take
+a pointer to the hba structure as an argument for the tracepoint and
+then in TP_printk() the printing of the dev_name from the ring buffer
+was converted to using the dev dereferenced pointer from the hba saved
+pointer.
 
-When the parameter list spans more than one page the buffer is a multi-page
-vmap (transport_kmap_data_sg()), so the over-read walks into the trailing
-vmalloc guard page and oopses (KASAN: vmalloc-out-of-bounds in strstr).  It
-is reachable by any fabric that delivers a PR OUT to a device exported
-through an iSCSI TPG, including a guest via vhost-scsi.
+This is not allowed as the TP_printk() is executed at the time the trace
+event is read from /sys/kernel/tracing/trace file. That can happen
+literally, seconds, minutes, hours, weeks, days, or even months later!
+There is no guarantee that the hba pointer will still exist by the time
+it is dereferenced when the "trace" file is read.
 
-Pass the number of received bytes down to the parser and validate the iSCSI
-TransportID's own self-described length (ADDITIONAL LENGTH + 4) once, up
-front: reject it if it is below the spc4r17 minimum or larger than the
-received buffer, then bound the separator search, the ISID walk and the
-name copy by that length.  This is the length check the callers already
-perform after the parse (core_scsi3_decode_spec_i_port() compares tid_len
-against tpdl, core_scsi3_emulate_register_and_move() validates it against
-data_length), moved ahead of the scan.  Also drop the unbounded "%s" of the
-unterminated name.
+Instead, save the device name from the hba pointer at the time the
+tracepoint is called and place it into the ring buffer event. Then the
+TP_printk() can read the name directly from the ring buffer and remove
+the possibility that it will read a freed pointer and crash the kernel.
 
-Add per-format explicit name-length checks before copying into i_str,
-rather than silently truncating with min_t: for FORMAT CODE 00b reject if
-the descriptor body (tid_len - 4 bytes) cannot fit in
-i_str[TRANSPORT_IQN_LEN]; for FORMAT CODE 01b reject if the name portion
-(from &buf[4] up to the separator) cannot fit.  Both checks make the bounds
-intent explicit at each format branch.
+This was detected when testing the trace event code that looks for
+TP_printk() parameters doing illegal derferences[1]
 
-While here, also reject a FORMAT CODE 01b TransportID whose ",i,0x"
-separator sits at the very end of the descriptor: that leaves an empty ISID
-and points the returned port nexus pointer at buf + tid_len, one past the
-descriptor, which the registration code (__core_scsi3_locate_pr_reg(),
-__core_scsi3_alloc_registration()) then dereferences as the ISID string --
-the same over-read of the parameter buffer for a malformed descriptor.
+[1] https://lore.kernel.org/all/20260630184836.74d477b6@gandalf.local.home/
 
-Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: John Garry <john.g.garry@oracle.com>
-Reviewed-by: David Disseldorp <ddiss@suse.de>
-Link: https://patch.msgid.link/20260611-b4-disp-9f20739e-v6-1-f6630e2aae44@proton.me
+Fixes: 583e518e7100 ("scsi: ufs: core: Add hba parameter to trace events")
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20260630185412.283c26c5@gandalf.local.home
 Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 
-diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
-index 87c5d26a5089..2853b95b2c59 100644
---- a/drivers/target/target_core_fabric_lib.c
-+++ b/drivers/target/target_core_fabric_lib.c
-@@ -290,13 +290,24 @@ static void sbp_parse_pr_out_transport_id(char *buf, char *i_str)
- static bool iscsi_parse_pr_out_transport_id(
- 	struct se_portal_group *se_tpg,
- 	char *buf,
-+	u32 buf_len,
- 	u32 *out_tid_len,
- 	char **port_nexus_ptr,
- 	char *i_str)
- {
- 	char *p;
-+	u32 tid_len;
- 	int i;
--	u8 format_code = (buf[0] & 0xc0);
-+	u8 format_code;
-+
-+	/*
-+	 * The 4-byte iSCSI TransportID header (FORMAT CODE + 2-byte ADDITIONAL
-+	 * LENGTH) must be present before any of it can be parsed.
-+	 */
-+	if (buf_len < 4)
-+		return false;
-+
-+	format_code = buf[0] & 0xc0;
- 	/*
- 	 * Check for FORMAT CODE 00b or 01b from spc4r17, section 7.5.4.6:
- 	 *
-@@ -316,15 +327,17 @@ static bool iscsi_parse_pr_out_transport_id(
- 		return false;
- 	}
- 	/*
--	 * If the caller wants the TransportID Length, we set that value for the
--	 * entire iSCSI Tarnsport ID now.
-+	 * Reconstruct the self-described TransportID length from the ADDITIONAL
-+	 * LENGTH field plus the 4-byte header.  Reject it if it is below the
-+	 * spc4r17 section 7.5.4.6 minimum (ADDITIONAL LENGTH shall be at least
-+	 * 20) or if it runs past the bytes actually received, so that every
-+	 * access below stays inside the TransportID.
- 	 */
--	if (out_tid_len) {
--		/* The shift works thanks to integer promotion rules */
--		*out_tid_len = get_unaligned_be16(&buf[2]);
--		/* Add four bytes for iSCSI Transport ID header */
--		*out_tid_len += 4;
--	}
-+	tid_len = get_unaligned_be16(&buf[2]) + 4;
-+	if (tid_len < 24 || tid_len > buf_len)
-+		return false;
-+	if (out_tid_len)
-+		*out_tid_len = tid_len;
+diff --git a/drivers/ufs/core/ufs_trace.h b/drivers/ufs/core/ufs_trace.h
+index 309ae51b4906..377a3c54b9f5 100644
+--- a/drivers/ufs/core/ufs_trace.h
++++ b/drivers/ufs/core/ufs_trace.h
+@@ -89,16 +89,18 @@ TRACE_EVENT(ufshcd_clk_gating,
  
- 	/*
- 	 * Check for ',i,0x' separator between iSCSI Name and iSCSI Initiator
-@@ -332,16 +345,32 @@ static bool iscsi_parse_pr_out_transport_id(
- 	 * format.
- 	 */
- 	if (format_code == 0x40) {
--		p = strstr(&buf[4], ",i,0x");
-+		p = strnstr(&buf[4], ",i,0x", tid_len - 4);
- 		if (!p) {
--			pr_err("Unable to locate \",i,0x\" separator"
--				" for Initiator port identifier: %s\n",
--				&buf[4]);
-+			pr_err("Unable to locate \",i,0x\" separator in iSCSI TransportID\n");
-+			return false;
-+		}
-+		/*
-+		 * The iSCSI name runs from &buf[4] up to the separator; reject it
-+		 * if it cannot fit in i_str[TRANSPORT_IQN_LEN].
-+		 */
-+		if (p - &buf[4] >= TRANSPORT_IQN_LEN) {
-+			pr_err("iSCSI Initiator port name too long in TransportID\n");
- 			return false;
- 		}
- 		*p = '\0'; /* Terminate iSCSI Name */
- 		p += 5; /* Skip over ",i,0x" separator */
+ 	TP_STRUCT__entry(
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__field(int, state)
+ 	),
  
-+		/*
-+		 * The ISID must follow the separator.  A ",i,0x" sitting at the
-+		 * very end of the TransportID leaves no ISID and would point the
-+		 * port nexus at buf + tid_len, i.e. past the descriptor, which
-+		 * the registration code then reads as the ISID string.
-+		 */
-+		if (p >= buf + tid_len) {
-+			pr_err("Missing ISID in iSCSI Initiator port TransportID\n");
-+			return false;
-+		}
- 		*port_nexus_ptr = p;
- 		/*
- 		 * Go ahead and do the lower case conversion of the received
-@@ -349,7 +378,7 @@ static bool iscsi_parse_pr_out_transport_id(
- 		 * for comparison against the running iSCSI session's ISID from
- 		 * iscsi_target.c:lio_sess_get_initiator_sid()
- 		 */
--		for (i = 0; i < 12; i++) {
-+		for (i = 0; i < 12 && p < buf + tid_len; i++) {
- 			/*
- 			 * The first ISCSI INITIATOR SESSION ID field byte
- 			 * containing an ASCII null character terminates the
-@@ -367,10 +396,22 @@ static bool iscsi_parse_pr_out_transport_id(
- 			*p = tolower(*p);
- 			p++;
- 		}
--	} else
-+		strscpy(i_str, &buf[4], TRANSPORT_IQN_LEN);
-+	} else {
- 		*port_nexus_ptr = NULL;
--
--	strscpy(i_str, &buf[4], TRANSPORT_IQN_LEN);
-+		/*
-+		 * FORMAT CODE 00b: the name occupies buf[4..tid_len-1].  The
-+		 * declared length tid_len - 4 must fit in i_str[TRANSPORT_IQN_LEN].
-+		 * (For 01b the same tid_len bound would be over-restrictive: the
-+		 * descriptor also carries the separator and ISID, so a legal
-+		 * <=223-byte name gives tid_len up to 244.)
-+		 */
-+		if (tid_len - 4 >= TRANSPORT_IQN_LEN) {
-+			pr_err("iSCSI Initiator port name too long in TransportID\n");
-+			return false;
-+		}
-+		strscpy(i_str, &buf[4], tid_len - 4);
-+	}
- 	return true;
- }
+ 	TP_fast_assign(
++		__assign_str(dev_name);
+ 		__entry->hba = hba;
+ 		__entry->state = state;
+ 	),
  
-@@ -420,8 +461,16 @@ int target_get_pr_transport_id(struct se_node_acl *nacl,
- }
+ 	TP_printk("%s: gating state changed to %s",
+-		dev_name(__entry->hba->dev),
++		__get_str(dev_name),
+ 		__print_symbolic(__entry->state, UFSCHD_CLK_GATING_STATES))
+ );
  
- bool target_parse_pr_out_transport_id(struct se_portal_group *tpg,
--		char *buf, u32 *out_tid_len, char **port_nexus_ptr, char *i_str)
-+		char *buf, u32 buf_len, u32 *out_tid_len,
-+		char **port_nexus_ptr, char *i_str)
- {
-+	/*
-+	 * The fixed-length SAS/SRP/FCP/SBP TransportIDs are 24 bytes; the iSCSI
-+	 * format is variable and bounds itself against buf_len below.
-+	 */
-+	if (tpg->proto_id != SCSI_PROTOCOL_ISCSI && buf_len < 24)
-+		return false;
-+
- 	switch (tpg->proto_id) {
- 	case SCSI_PROTOCOL_SAS:
- 		/*
-@@ -440,8 +489,8 @@ bool target_parse_pr_out_transport_id(struct se_portal_group *tpg,
- 		sbp_parse_pr_out_transport_id(buf, i_str);
- 		break;
- 	case SCSI_PROTOCOL_ISCSI:
--		return iscsi_parse_pr_out_transport_id(tpg, buf, out_tid_len,
--					port_nexus_ptr, i_str);
-+		return iscsi_parse_pr_out_transport_id(tpg, buf, buf_len,
-+					out_tid_len, port_nexus_ptr, i_str);
- 	default:
- 		pr_err("Unknown proto_id: 0x%02x\n", tpg->proto_id);
- 		return false;
-diff --git a/drivers/target/target_core_internal.h b/drivers/target/target_core_internal.h
-index 763e6d26e187..f0886ea29034 100644
---- a/drivers/target/target_core_internal.h
-+++ b/drivers/target/target_core_internal.h
-@@ -104,7 +104,8 @@ int	target_get_pr_transport_id(struct se_node_acl *nacl,
- 		struct t10_pr_registration *pr_reg, int *format_code,
- 		unsigned char *buf);
- bool target_parse_pr_out_transport_id(struct se_portal_group *tpg,
--		char *buf, u32 *out_tid_len, char **port_nexus_ptr, char *i_str);
-+		char *buf, u32 buf_len, u32 *out_tid_len,
-+		char **port_nexus_ptr, char *i_str);
+@@ -111,6 +113,7 @@ TRACE_EVENT(ufshcd_clk_scaling,
  
- /* target_core_hba.c */
- struct se_hba *core_alloc_hba(const char *, u32, u32);
-diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
-index 11790f2c5d80..0b19997c2edd 100644
---- a/drivers/target/target_core_pr.c
-+++ b/drivers/target/target_core_pr.c
-@@ -1573,7 +1573,7 @@ core_scsi3_decode_spec_i_port(
+ 	TP_STRUCT__entry(
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__string(state, state)
+ 		__string(clk, clk)
+ 		__field(u32, prev_state)
+@@ -119,6 +122,7 @@ TRACE_EVENT(ufshcd_clk_scaling,
  
- 			iport_ptr = NULL;
- 			tid_found = target_parse_pr_out_transport_id(tmp_tpg,
--					ptr, &tid_len, &iport_ptr, i_str);
-+					ptr, tpdl, &tid_len, &iport_ptr, i_str);
- 			if (!tid_found)
- 				continue;
- 			/*
-@@ -3285,7 +3285,7 @@ core_scsi3_emulate_pro_register_and_move(struct se_cmd *cmd, u64 res_key,
- 		goto out;
- 	}
- 	tid_found = target_parse_pr_out_transport_id(dest_se_tpg,
--			&buf[24], &tmp_tid_len, &iport_ptr, initiator_str);
-+			&buf[24], tid_len, &tmp_tid_len, &iport_ptr, initiator_str);
- 	if (!tid_found) {
- 		pr_err("SPC-3 PR REGISTER_AND_MOVE: Unable to locate"
- 			" initiator_str from Transport ID\n");
+ 	TP_fast_assign(
+ 		__entry->hba = hba;
++		__assign_str(dev_name);
+ 		__assign_str(state);
+ 		__assign_str(clk);
+ 		__entry->prev_state = prev_state;
+@@ -126,7 +130,7 @@ TRACE_EVENT(ufshcd_clk_scaling,
+ 	),
+ 
+ 	TP_printk("%s: %s %s from %u to %u Hz",
+-		dev_name(__entry->hba->dev), __get_str(state), __get_str(clk),
++		__get_str(dev_name), __get_str(state), __get_str(clk),
+ 		__entry->prev_state, __entry->curr_state)
+ );
+ 
+@@ -138,16 +142,18 @@ TRACE_EVENT(ufshcd_auto_bkops_state,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__string(state, state)
+ 	),
+ 
+ 	TP_fast_assign(
+ 		__entry->hba = hba;
++		__assign_str(dev_name);
+ 		__assign_str(state);
+ 	),
+ 
+ 	TP_printk("%s: auto bkops - %s",
+-		dev_name(__entry->hba->dev), __get_str(state))
++		__get_str(dev_name), __get_str(state))
+ );
+ 
+ DECLARE_EVENT_CLASS(ufshcd_profiling_template,
+@@ -158,6 +164,7 @@ DECLARE_EVENT_CLASS(ufshcd_profiling_template,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__string(profile_info, profile_info)
+ 		__field(s64, time_us)
+ 		__field(int, err)
+@@ -165,13 +172,14 @@ DECLARE_EVENT_CLASS(ufshcd_profiling_template,
+ 
+ 	TP_fast_assign(
+ 		__entry->hba = hba;
++		__assign_str(dev_name);
+ 		__assign_str(profile_info);
+ 		__entry->time_us = time_us;
+ 		__entry->err = err;
+ 	),
+ 
+ 	TP_printk("%s: %s: took %lld usecs, err %d",
+-		dev_name(__entry->hba->dev), __get_str(profile_info),
++		__get_str(dev_name), __get_str(profile_info),
+ 		__entry->time_us, __entry->err)
+ );
+ 
+@@ -200,6 +208,7 @@ DECLARE_EVENT_CLASS(ufshcd_template,
+ 		__field(s64, usecs)
+ 		__field(int, err)
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__field(int, dev_state)
+ 		__field(int, link_state)
+ 	),
+@@ -208,13 +217,14 @@ DECLARE_EVENT_CLASS(ufshcd_template,
+ 		__entry->usecs = usecs;
+ 		__entry->err = err;
+ 		__entry->hba = hba;
++		__assign_str(dev_name);
+ 		__entry->dev_state = dev_state;
+ 		__entry->link_state = link_state;
+ 	),
+ 
+ 	TP_printk(
+ 		"%s: took %lld usecs, dev_state: %s, link_state: %s, err %d",
+-		dev_name(__entry->hba->dev),
++		__get_str(dev_name),
+ 		__entry->usecs,
+ 		__print_symbolic(__entry->dev_state, UFS_PWR_MODES),
+ 		__print_symbolic(__entry->link_state, UFS_LINK_STATES),
+@@ -279,6 +289,7 @@ TRACE_EVENT(ufshcd_command,
+ 	TP_STRUCT__entry(
+ 		__field(struct scsi_device *, sdev)
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(&sdev->sdev_dev))
+ 		__field(enum ufs_trace_str_t, str_t)
+ 		__field(unsigned int, tag)
+ 		__field(u32, doorbell)
+@@ -291,6 +302,7 @@ TRACE_EVENT(ufshcd_command,
+ 	),
+ 
+ 	TP_fast_assign(
++		__assign_str(dev_name);
+ 		__entry->sdev = sdev;
+ 		__entry->hba = hba;
+ 		__entry->str_t = str_t;
+@@ -307,7 +319,7 @@ TRACE_EVENT(ufshcd_command,
+ 	TP_printk(
+ 		"%s: %s: tag: %u, DB: 0x%x, size: %d, IS: %u, LBA: %llu, opcode: 0x%x (%s), group_id: 0x%x, hwq_id: %d",
+ 		show_ufs_cmd_trace_str(__entry->str_t),
+-		dev_name(&__entry->sdev->sdev_dev), __entry->tag,
++		__get_str(dev_name), __entry->tag,
+ 		__entry->doorbell, __entry->transfer_len, __entry->intr,
+ 		__entry->lba, (u32)__entry->opcode, str_opcode(__entry->opcode),
+ 		(u32)__entry->group_id, __entry->hwq_id
+@@ -322,6 +334,7 @@ TRACE_EVENT(ufshcd_uic_command,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__field(enum ufs_trace_str_t, str_t)
+ 		__field(u32, cmd)
+ 		__field(u32, arg1)
+@@ -331,6 +344,7 @@ TRACE_EVENT(ufshcd_uic_command,
+ 
+ 	TP_fast_assign(
+ 		__entry->hba = hba;
++		__assign_str(dev_name);
+ 		__entry->str_t = str_t;
+ 		__entry->cmd = cmd;
+ 		__entry->arg1 = arg1;
+@@ -340,7 +354,7 @@ TRACE_EVENT(ufshcd_uic_command,
+ 
+ 	TP_printk(
+ 		"%s: %s: cmd: 0x%x, arg1: 0x%x, arg2: 0x%x, arg3: 0x%x",
+-		show_ufs_cmd_trace_str(__entry->str_t), dev_name(__entry->hba->dev),
++		show_ufs_cmd_trace_str(__entry->str_t), __get_str(dev_name),
+ 		__entry->cmd, __entry->arg1, __entry->arg2, __entry->arg3
+ 	)
+ );
+@@ -353,6 +367,7 @@ TRACE_EVENT(ufshcd_upiu,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__field(enum ufs_trace_str_t, str_t)
+ 		__array(unsigned char, hdr, 12)
+ 		__array(unsigned char, tsf, 16)
+@@ -361,6 +376,7 @@ TRACE_EVENT(ufshcd_upiu,
+ 
+ 	TP_fast_assign(
+ 		__entry->hba = hba;
++		__assign_str(dev_name);
+ 		__entry->str_t = str_t;
+ 		memcpy(__entry->hdr, hdr, sizeof(__entry->hdr));
+ 		memcpy(__entry->tsf, tsf, sizeof(__entry->tsf));
+@@ -369,7 +385,7 @@ TRACE_EVENT(ufshcd_upiu,
+ 
+ 	TP_printk(
+ 		"%s: %s: HDR:%s, %s:%s",
+-		show_ufs_cmd_trace_str(__entry->str_t), dev_name(__entry->hba->dev),
++		show_ufs_cmd_trace_str(__entry->str_t), __get_str(dev_name),
+ 		__print_hex(__entry->hdr, sizeof(__entry->hdr)),
+ 		show_ufs_cmd_trace_tsf(__entry->tsf_t),
+ 		__print_hex(__entry->tsf, sizeof(__entry->tsf))
+@@ -384,16 +400,18 @@ TRACE_EVENT(ufshcd_exception_event,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct ufs_hba *, hba)
++		__string(dev_name, dev_name(hba->dev))
+ 		__field(u16, status)
+ 	),
+ 
+ 	TP_fast_assign(
+ 		__entry->hba = hba;
++		__assign_str(dev_name);
+ 		__entry->status = status;
+ 	),
+ 
+ 	TP_printk("%s: status 0x%x",
+-		dev_name(__entry->hba->dev), __entry->status
++		__get_str(dev_name), __entry->status
+ 	)
+ );
+ 
 
