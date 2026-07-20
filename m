@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D18242FCA0
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:44:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8670C42EED9
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784558683; cv=none; b=ZzoOcUdp+JDiAfDKmGvWA1WwzuwL43uAj4gLti9UA8pp5tA+z3SmbbOxUgvAgGZnjffC6A/DW0IpigbSHWAhIoF+I/sxh58nrxKWXtTgYHCLdFM9YEoQp/tMzli4XASXwVk8tcsP9o09MJTrRCvq30OP4NUlo14jARLw8K9blkA=
+	t=1784558691; cv=none; b=CPSkWhYoHamOxRPO6LwgYU57prwMrA7ocrJYCiW3Omu8vL9bmalLfEiA73ADKTqg8gsPilAxLriy3WbYFDC5lwlBED8wC72PnGjLR4ehH2AX5GLBqWfNjoZZlko90QK1fZbs8VMLzKw/5sXaMgxB9PIOpmVKNtmu6WbxFXNldRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784558683; c=relaxed/simple;
-	bh=WFHJOtRJ0ntkhRNMDuiIhGb63El++3IZQn+p/iDC4U4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NNympSbD2HrU5suhZc1GRnoLeF657+Vbm28vWKwDXYxoV3MuiFdmR4hao1IJ3tYCrUBVA8D7+AxbxPHQZxztQ4D70lp6o+pYalg+Gm8cCRtT6mdfN4vBjXshYzHMJdSha6yieuymYe3KXwKVnlPvGnK/W56iPhqJw5Sk6XyV1cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RtM6iF6+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784558691; c=relaxed/simple;
+	bh=blw+ezvebnUevylf5G0NeuMKPvXBk8VQupK7kxTWS1c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qoSM1af4M/pKmG/2dCtP43LCVXQfwQ1uQ8Ol+1dBkDpKPCRiQRAYMLC2upeCyH/mEkgkvaoZToDdvybeD2tHlcttb7eJNNkHr5vEENVT5lhA9/HLu8QuweH7SLGDvqTGegcueBl+HcyrmwGWjVgVY9Kr0vuPziFvmHhI2wBbsYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EwQEJlQY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RtM6iF6+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C0F1F000E9;
-	Mon, 20 Jul 2026 14:44:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EwQEJlQY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03AA1F00A3F;
+	Mon, 20 Jul 2026 14:44:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784558681;
-	bh=eaOsiK0+UFzqO2YaFBl5VAe21pgLKcxZPpIS7SIKWp4=;
+	s=korg; t=1784558690;
+	bh=d4SUuDEkjCW+47Bh20g7oiQIY4sl6Bh56XOgA8k9bNI=;
 	h=Subject:To:Cc:From:Date;
-	b=RtM6iF6+EPsb4yeS/hgEr1hZrFkpHq3Zt+VtmjbGPhWVSTIWFngeX2sXE/DoNDISk
-	 EJ2vHnE8RGdBmZfbEUQyCZQJfgc9gObAU9NiOmTl+MU/lT9C+Hw809LNfsEWSGVpA2
-	 X9JRvsFLn2Lm4TtiObygWUMq3sVKkiJZb0GmwFD0=
-Subject: FAILED: patch "[PATCH] 9p: skip nlink update in cacheless mode to fix WARN_ON" failed to apply to 6.1-stable tree
+	b=EwQEJlQYpp0JxnEtbpkxbuY9QSJthizHEMNxiESs0TRM7Z0ttvWr3usx4H1JbX7b9
+	 4/0fw3+HxfBhI8vGnL4hv0qJ/c0wXWbIip0fQX7E82LiyJ7yfCT5b9a4vQxjIp9KoX
+	 aVp30KhdGnJOVuf8vIA74RD9jmKTcZ+SyIHSzb2o=
+Subject: FAILED: patch "[PATCH] 9p: skip nlink update in cacheless mode to fix WARN_ON" failed to apply to 5.10-stable tree
 To: leitao@debian.org,asmadeus@codewreck.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:44:32 +0200
-Message-ID: <2026072032-shaping-feast-8dd3@gregkh>
+Date: Mon, 20 Jul 2026 16:44:33 +0200
+Message-ID: <2026072033-jubilant-cannot-6e20@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 574aa0b4799470ac814479f1138d19efe6262255
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072032-shaping-feast-8dd3@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072033-jubilant-cannot-6e20@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
