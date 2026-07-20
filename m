@@ -1,115 +1,91 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F6D285068;
-	Mon, 20 Jul 2026 02:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF19425B0B5
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 02:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784513786; cv=none; b=fbw7U1Mz7ghCcbBzWxLGZgkCU+zxghMu07BqxKhHPbPGRUGflL67JbxKuiffIxaKCKujN1o/A9PJqwzS9ZBA1w+7oOS2cCebOakDkAdLV5BwKtiQCGHiH4oFI3RcUVnXUvMS4O8O5l7Ji6P1qrefOe2vSGegbI7IrhJJmTh7sAI=
+	t=1784514340; cv=none; b=tTYPhJzFOMR+XDokRGevACSrOjrKikaXWS9P3vnujMAJ6AfPEZFzkry3bQ1cMQ/BCRSoDP6b7yHU67/F+cQtfbhDdaGQmk6YtVP5+4LfQXvMPXUVgDlJ2RuiAM5t+IlHbZTIpoEXipIhQylwpzdywDunpYzzIZfYSjstuW2LcB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784513786; c=relaxed/simple;
-	bh=ZgHVEtOq2Rwcq6liMTh2Ia3gDejKXmkZVAGuiDzqiOo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uIRs/k6lot4oBda/SptIbjd06tUunlAr1tiYNuPCwCeZEl/zzFGwNF5lUcDKiF5Bj5fn2rYF3swwIXM/1tb772aq3JKuRub/5UCYtTHpkUkswFfdeQIQL62+/Y8QUMxaV58b9jDi8hY8Ul8BAuSmloykLkCS1IxTjhNBZkKxmYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=XCLlAwHd; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1784514340; c=relaxed/simple;
+	bh=DdZhBJ8W1LtMU023KxE5Hele8J2gb6rsf6k9mFbCsTA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N9lznrRAGsuX5t2JhOMoN0DC7i+9GY4ekwGRghXozf1t340aqyEEVGkCBUQBZSQEOro8GkyKo3jxF8Qn/Mxe2cx2qXQt6GvpgNEBYvMAwlWXTAV5jpzubQExnVmCwh4kPFxqP70QACLts8hU8WtmbFH9y7TZFQJE2oBnyapek+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AC77GAGm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="XCLlAwHd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1784513706;
-	bh=FnPhHP0vAmPH/HL0nJh6vKsrhj3OLcSDjcZY8qN8cAQ=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=XCLlAwHdt8cHtm3ipXHPDB2M7rAzKenZ/UpSP6UkCR0SZVmhMiddqc0v7hOiIH0Hz
-	 I73IL8HEUXBd+uJw9Sw9+gBUcVjXeF1qrPB3qldNjRixyJoSue2aeH88qdLG8Z33Td
-	 OwsbwFR6Gx6by5HmO+ExI/pxWuMWj34lQzeSW4Vg=
-X-QQ-mid: esmtpgz11t1784513688ta208e4d7
-X-QQ-Originating-IP: oK4aREHWhptA46o4dQdQwJLNIQ2+B92IkJZTsIj4V0o=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 20 Jul 2026 10:14:46 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12807910474211670954
-EX-QQ-RecipientCnt: 9
-From: raoxu <raoxu@uniontech.com>
-To: david@ixit.cz
-Cc: raoxu@uniontech.com,
-	kuba@kernel.org,
-	krzk@kernel.org,
-	error27@gmail.com,
-	kees@kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nfc: pn533: purge fragmented skbs during cleanup
-Date: Mon, 20 Jul 2026 10:14:44 +0800
-Message-ID: <2D896607CAE4408E+20260720021444.3362044-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AC77GAGm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175041F000E9;
+	Mon, 20 Jul 2026 02:25:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784514339;
+	bh=mhc8pVPTq1UDju9bkrFFlfw57TTLWhSxsuOq7z7SdrI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AC77GAGmwNE8422Czv1Y89oqCyNOUAezlb9B4lzhMJUFLGREpj0odvi6kvb/dt5o9
+	 42HGVWE03mnuOczao+/aFj1egoc+78lHUQ7Bs/+remuPmwvPzVi1bG0JznpiPEI5Y5
+	 IAghl2AXlIp9e2iNpjmUMoradwIbCFP5Oi2C3PssPs0y/48mUQPtkWQo8XJm2y5bOX
+	 BetVT/TXjH86/oz7ZFZSQt6COT4eQKByU11VaU+mTpd01AWPpq91q8KUYIq9cELA6C
+	 QwdlX/s67BVnOoeaCkqvVXt4/Vy82eC37mI/XNhghZCQyMu1BdCZp4Ep9jsDX//1/X
+	 ELY1TA18PjLUw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Wolfram Sang <wsa@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/5] drm/i2c/sil164: Drop no-op remove function
+Date: Sun, 19 Jul 2026 22:25:33 -0400
+Message-ID: <20260720022537.2927284-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071422-comment-stardust-654c@gregkh>
+References: <2026071422-comment-stardust-654c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NFNrK8KlcSCR04LgPZlnPCbiPt21agmYF7FhRUiCmQ/i9vd929Lu6d0k
-	f9M3uOvTTjZt65sscfJzJqmOZi9UgTyPxLP0YDgJkd/WTJy002jywyboah/+/4BxfSaIAQq
-	/JCakQbgKBzKrLEZPOXWSw3dD2vPwdu+n4J7GKpx9NeObjjgnLXpjwT616jd1Z6dVHJ9Vd2
-	OUnPumS2RG5TXa7FVtb6T6eotj+ollUOBuvHGKGa5e47ZJEa37sUHyKtotzTHR+tpSjqRLv
-	km4fiXzEyBFvFhndsa76wGlu19sK9KxAYI7kXsy/x1SVgWY3qJQgmSjFrgbAJPdZdfMheDC
-	QGGpx/fYgiq1wSd8rrio5zffYJErL4jjL2G7ByAc/uo9m2bshW5SZfCAC8RIFG6FqA1A3pK
-	Q8Dy50LYfeI9I5apB9ay0ZKaHFS8CnRfPw+5V0ZXa8k5H2cqFSmMG037QNyzdkFpdxlZ/2x
-	RTf18zO6qLgjJR8Rqgxxh1tITBCtf61kg8NO8LNrTrAPtTVsQc0h4/YhHpaBoyWVfESFIQY
-	a0PhsyOvhJ/DbZzQ5sQ0jSfCHL7XsNqnd67Rg6+qPuWYny8xQNYkqhVwXZKC+EpjQEM2XAA
-	atzMboZ2MukZNzZmi3j2HlKQUnFvIzWlA9afVv+G15W0XtYtHNFMB2XdNp5uGo050oeyQsB
-	c9JzbNoMoU5HTWr/V4zsRQlnhF1JRS58Qw/LpOW98RsRkF4Sfi5oYqOvV853nWMONJsb3Lw
-	jve7vDs8etl/1yOrEBm8H2W+HKCegi6IGloPI5h0ABrf0PqaYkJyIPgo0i1fp2Oh5m/i8pG
-	7MvBSTYO5fbe4NtwWx9KgQPI54G5LCudDPuD/YO+UnWZIPJH2kgsJ44aHAxSaH5xuJOWgBI
-	b927Tf1scztGXWI+/ix4jQLL3pVUN5F7tD74gH3O8nanwA3W+5fzowBgaRmKdkn42qrppqj
-	4Oq2FzUctqkRp0rcMgbEvsi6p3PmGq52p7dUXSJ6dV4GmnpI6+Ge+u09lRWgPgZIxKhxbjq
-	BJSKNPX+HcQ5sSpdL/KH4cg3qysvypfw49eZbkyegQIlqS0zIg5SespkItwcY=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-pn53x_common_clean() purges resp_q before freeing the common PN533 state,
-but it leaves fragment_skb untouched.  The fragmentation helpers queue
-transmit fragments there while sending large initiator or target-mode
-frames, and those skbs remain owned by the driver until they are sent or
-discarded.
+[ Upstream commit eb09882d64807c24228ed1d005dbbae70860ca3f ]
 
-If the device is removed while fragments are still queued, the common
-cleanup path frees the PN533 state without releasing the queued fragment
-skbs, leaking them.
+A remove callback that just returns 0 is equivalent to no callback at all
+as can be seen in i2c_device_remove(). So simplify accordingly.
 
-Purge fragment_skb during cleanup alongside resp_q.
-
-Fixes: 963a82e07d4e ("NFC: pn533: Split large Tx frames in chunks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Wolfram Sang <wsa@kernel.org>
+Stable-dep-of: 1f0bdc2884b6 ("usb: typec: ucsi: ccg: Fix use-after-free of ucsi on remove")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Split out the queued command cleanup; this patch only fixes the
-  fragmented skb leak.
-- Add Fixes tags and Cc stable as requested by David Heidelberg.
+ drivers/gpu/drm/i2c/sil164_drv.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
- drivers/nfc/pn533/pn533.c | 1 +
- 1 file changed, 1 insertion(+)
+diff --git a/drivers/gpu/drm/i2c/sil164_drv.c b/drivers/gpu/drm/i2c/sil164_drv.c
+index 741886b5441973..1bc0b5de44995d 100644
+--- a/drivers/gpu/drm/i2c/sil164_drv.c
++++ b/drivers/gpu/drm/i2c/sil164_drv.c
+@@ -370,12 +370,6 @@ sil164_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ 	return 0;
+ }
+ 
+-static int
+-sil164_remove(struct i2c_client *client)
+-{
+-	return 0;
+-}
+-
+ static struct i2c_client *
+ sil164_detect_slave(struct i2c_client *client)
+ {
+@@ -427,7 +421,6 @@ MODULE_DEVICE_TABLE(i2c, sil164_ids);
+ static struct drm_i2c_encoder_driver sil164_driver = {
+ 	.i2c_driver = {
+ 		.probe = sil164_probe,
+-		.remove = sil164_remove,
+ 		.driver = {
+ 			.name = "sil164",
+ 		},
+-- 
+2.53.0
 
-diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
-index d7bdbc82e2ba..6db9ec90f594 100644
---- a/drivers/nfc/pn533/pn533.c
-+++ b/drivers/nfc/pn533/pn533.c
-@@ -2799,6 +2799,7 @@ void pn53x_common_clean(struct pn533 *priv)
- 	destroy_workqueue(priv->wq);
-
- 	skb_queue_purge(&priv->resp_q);
-+	skb_queue_purge(&priv->fragment_skb);
-
- 	list_for_each_entry_safe(cmd, n, &priv->cmd_queue, queue) {
- 		list_del(&cmd->queue);
---
-2.50.1
