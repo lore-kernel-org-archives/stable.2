@@ -1,59 +1,50 @@
 Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA62399002;
-	Mon, 20 Jul 2026 17:08:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D70B43786E;
+	Mon, 20 Jul 2026 17:08:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784567288; cv=pass; b=d+oPIZybu+5iC30c3rrn9bDSMhfODwWHDipaIAcau6hKLbzgfSNjRp6ro+aAXF5KGhTzzk8lcwSVztlbmR7Tg5yYDm2Hut9s0NFuC6jsoSEvx0qEjv1sFplO1W8nt2eSpmFg8jXMTieFG87JPLUY8KYwRd2Qux9TId6zpKo5XmQ=
+	t=1784567332; cv=pass; b=lMc3fIAeqxZxZpsjb2cSdlqHW7rDaPDD08ZhUHV1aXARaa5irSBLmG3OWpK2A3lurf7yPzyLVVcceE5U0MLWSYeJgzk9c51Pys2xt4M6yaNTawHxQsGxFvtEd49geWuKbidS+qFnUWRvJqAc2ob4a791V6DXfw7/hZkGG2n4yo8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784567288; c=relaxed/simple;
-	bh=dNqVxR63V6xQon7zsJn+Ma77TefGiYPz54fRdZ8GDJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e/gveVBHrHY7M0P1E2GvI8flibGhKE89YKwy6SVJAgsPZ2wHw2J0z0X9OO59Yrrv5lfpsywx3H7qvJ+fcb//fhezKd4NcCACx7H5lcH8DfPBaXeubkLTNYudbynkUjm8fQfJ/zhRwTSL1H0VcMkN41ZiGyls6HR8zxWO5rHGW/g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=ku50Hzrc; arc=pass smtp.client-ip=136.143.169.17
+	s=arc-20240116; t=1784567332; c=relaxed/simple;
+	bh=jAAPr+NzkcF2+Oosp8LKgy5a74mmAcQ21+C08Ruro/k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JmJOW/NsndgBD+KECZcbVkaLV48dBWeWo71vLNSev6UQvFALZFo2NKS6Ka0jQol9V/jvtRhdi55T4WMHoit8LwzQwV/FvLPVPvVTF+KDvVQ3AnBFTVFnkPlxJ09WL2WN1YIoTPDqJbIa51ESh8uIUMobQS8zmltgzDNMC+46I1g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=baT3UPtC; arc=pass smtp.client-ip=136.143.169.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="ku50Hzrc"
-ARC-Seal: i=1; a=rsa-sha256; t=1784567244; cv=none; 
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="baT3UPtC"
+ARC-Seal: i=1; a=rsa-sha256; t=1784567313; cv=none; 
 	d=zohomail.eu; s=zohoarc; 
-	b=ld8knbAu/Ah1xIom4ITHvPesNMHjfsXzJ6OSFIiwQ+SJtXvZ7KGOalBfVX5K5JrXMPtOtlefZbJjfFJQrfl9lxEjk/UMA1tMSm8FhtZUg21e8yadLJLldLNv69FVLcAFQAZswIBPzfIX0wLlKjxLGHAjt663gVf5g4TO+lFe3qk=
+	b=SzfDqKeOLlt/lE1+eZOcJiPT7P7J3Dky+E/Uw0Dme6Hy25aEl6X5n9DR6paMyrNuv8ayC8yCb/5h3Nh2LbUHWfDLTz8VEMvo1J6rsotA8pJb25kTtRw8YAP2If+G88nSE0f+yj1rM28YoeF9K9Lj5KLNpKpcit4Xr8MDlIAJAwM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1784567244; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=HjByz5AvHsIQNltISoR9+2X9Bmm/qrLTUWsUjkq8GY8=; 
-	b=UDLZFinvllHs7jIEOTFx3rgQyruEbU1oRT86rjUmiKFp4SqSjQzBd59EgkEeE0yuS8vLT73c86GsLLJrt10sH9OoY3jz2wRCWM8WLrSOodqQXRleKWPTSIQbN8KJtiIm5h/hYeAPn8oQ+g8GZPVcQPWvYoGGvy9UT+GLFZUYNro=
+	t=1784567313; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Q+odzwMiVWZ3Eq1b7HuOgOgBPZLqMNN6vIgDe0sl3xk=; 
+	b=kbuijMIrSOwBSS2Uw/lAdlXUt9M29VWM36cFqiuP13inmpU2va0mU0I8n63/Cn2W2h2oD/XORrFEgouLCzfVgd4ZUyqjb1zeMGA+1rQn5+9c3vapaUZw4wLBgBWrt7UtMUK34xfoXfNH/LgdBiZiCTCmDiUODv8FRWzuUmF6Ye0=
 ARC-Authentication-Results: i=1; mx.zohomail.eu;
 	dkim=pass  header.i=auditcode.ai;
 	spf=pass  smtp.mailfrom=security@auditcode.ai;
 	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784567244;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784567313;
 	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=HjByz5AvHsIQNltISoR9+2X9Bmm/qrLTUWsUjkq8GY8=;
-	b=ku50Hzrc4DRQ5WqQiTWRTVI3Hz5nicabKWCgmkKJzz42FlWsfpR4Dri6xvjY+Dwd
-	jdbOryCN4+SaRReYpsFYXLqunJRAVR5qgc9rWL4THGzInUtGx/ACQ68Jg/vrQkVX7hK
-	pQ9CB7EptjY9KemObm931E07X9lKbfGCidG2IdHI=
-Received: by mx.zoho.eu with SMTPS id 1784567241224482.3073788218354;
-	Mon, 20 Jul 2026 19:07:21 +0200 (CEST)
+	bh=Q+odzwMiVWZ3Eq1b7HuOgOgBPZLqMNN6vIgDe0sl3xk=;
+	b=baT3UPtCIAQgzZQuUY4DP4Z4Fyuf/f3WPLZEzmmgP4bZMAxItjicGpTfUvIH2MTz
+	RFKMmssBvn6NjztE4mlH80gQnKnN7Gu2OYwq8xhVrppRq1tE1gSAfFAnuwecs+vb5s/
+	xY4Qg2XiwzQWd6QpW9MQE701N3wMS+PeNqFF5vXU=
+Received: by mx.zoho.eu with SMTPS id 1784567311239469.60805300631216;
+	Mon, 20 Jul 2026 19:08:31 +0200 (CEST)
 From: Ibrahim Hashimov <security@auditcode.ai>
-To: alibuda@linux.alibaba.com,
-	dust.li@linux.alibaba.com,
-	wenjia@linux.ibm.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com,
-	horms@kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org,
+To: joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org
+Cc: ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net] net/smc: validate peer CDC cursor against RMBE size before accepting it
-Date: Mon, 20 Jul 2026 19:07:17 +0200
-Message-ID: <20260720170717.11425-1-security@auditcode.ai>
+Subject: [PATCH] ocfs2/dlm: validate lockname_len in dlm_mig_lockres_handler()
+Date: Mon, 20 Jul 2026 19:08:28 +0200
+Message-ID: <20260720170828.11476-1-security@auditcode.ai>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -64,96 +55,103 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-smc_cdc_cursor_to_host() converts the wire-format producer/consumer
-cursor of an incoming CDC message into a host smc_host_cursor. It rejects
-a cursor that goes backwards, but never checks that the cursor's count is
-inside the buffer it indexes. Per smc_host_cursor ("an offset in an
-RMBE") and the invariant smc_curs_add() enforces for every local advance
-(0 <= count < size), a valid cursor count must be < size; the wire cursor
-is peer-controlled and was never checked against that.
+dlm_mig_lockres_handler() handles an incoming DLM_MIG_LOCKRES_MSG o2net
+message from a remote DLM domain node and copies the migratable lockres
+straight out of the wire buffer:
 
-smcr_cdc_msg_to_host() accepts the producer and consumer cursors, and the
-unbounded value feeds smc_curs_diff() in smc_cdc_msg_recv_action(), which
-computes new->count - old->count without clamping against size. A peer
-that puts an out-of-range prod.count on the wire (e.g. 0x7fffffff) drives
-bytes_to_rcv far past rmb_desc->len -- the very invariant the comment
-above the atomic_add() claims but does not enforce.
+    struct dlm_migratable_lockres *mres =
+        (struct dlm_migratable_lockres *)msg->buf;
+    ...
+    res = dlm_new_lockres(dlm, mres->lockname, mres->lockname_len);
 
-smc_rx_recvmsg() then trusts bytes_to_rcv as the amount of valid RMB
-data. Its first copy chunk is safely bounded by rmb_desc->len -
-cons.count, but the second chunk copies (copylen - chunk_len) bytes from
-offset 0, and copylen came from the inflated readable -- an out-of-bounds
-read of the RMB's backing (v)malloc allocation, copied straight to the
-receiving process via _copy_to_iter(). This is a remote kernel-memory
-disclosure driven by a malicious SMC-R peer, needing no local privilege
-on the victim. The same unbounded count also reaches
-smc_cdc_handle_urg_data_arrival() (base + urg_curs.count - 1) -- a
-second, narrower OOB read.
+mres->lockname_len is a raw u8 field taken verbatim from the network
+message (dlmcommon.h), so it can be anywhere in [0, 255].
+dlm_new_lockres() forwards it unchanged into dlm_init_lockres():
 
-Fix it where the wire cursor is accepted, mirroring the cursor-sanity
-idiom two lines above: reject any incoming cursor whose count is >= the
-size of the buffer it will index. smc_cdc_cursor_to_host() gains a size
-parameter; smcr_cdc_msg_to_host() passes conn->rmb_desc->len for the
-producer cursor and conn->peer_rmbe_size for the consumer cursor. This
-bounds it at its single origin instead of patching every downstream
-consumer. SMC-D (smcd_cdc_msg_to_host()) does not use this helper and is
-a separate, out-of-scope gap.
+    qname = (char *) res->lockname.name;
+    memcpy(qname, name, namelen);
 
-Reproduced on a v6.19 KASAN kernel (SMC-Rv2 over soft-RoCE): a peer
-emitting prod.count=0x7fffffff triggers a vmalloc-out-of-bounds read in
-_copy_to_iter() via smc_rx_recvmsg(), returning ~960 KB of RMB-adjacent
-kernel heap to userspace; an in-range cursor transfers cleanly. With the
-fix the out-of-range cursor is dropped before it reaches
-conn->local_rx_ctrl.prod, and the reproducer returns rc=0 with no report.
+res->lockname.name is allocated from dlm_lockname_cache, a dedicated
+kmem_cache sized exactly DLM_LOCKID_NAME_MAX (32) bytes
+(dlm_init_master_caches(), dlmmaster.c). Any lockname_len above 32
+therefore makes memcpy() write past the end of that 32-byte slab object;
+the maximum attacker-controlled value of 255 yields a 223-byte
+slab-out-of-bounds write (CWE-787) with fully attacker-controlled content
+(the bytes are mres->lockname itself).
 
-Fixes: 5f08318f617b ("smc: connection data control (CDC)")
+The o2net receive path only bounds-checks the whole payload against
+nh_max_len (cluster/tcp.c); it has no notion of the lockname_len
+sub-field and cannot catch this. Every other DLM message handler that
+consumes an attacker-supplied name length already guards it against
+DLM_LOCKID_NAME_MAX right after pulling it out of the wire structure:
+dlm_master_request_handler(), dlm_assert_master_handler(),
+dlm_deref_lockres_handler() and dlm_deref_lockres_done_handler()
+(dlmmaster.c), and the equivalent check in dlmconvert.c / dlmast.c.
+dlm_mig_lockres_handler() is simply missing the same check -- present
+since the file's introduction and never covered because exercising it
+requires two heartbeating o2cb cluster nodes and a joined DLM domain,
+i.e. it is invisible to single-node testing and to fuzzers that don't
+speak the o2net/o2cb protocol.
+
+The attacker is any node it fully controls (or is on-path and can spoof)
+that is heartbeating in the same o2cb cluster and has been permitted to
+join the DLM domain. o2net authentication is limited to cluster
+membership (nodes list + heartbeat), not per-message payload validation,
+so a single rogue or compromised cluster member, or an on-path attacker
+able to inject on the unauthenticated o2net TCP stream, can send one
+crafted DLM_MIG_LOCKRES_MSG frame with lockname_len = 255 to any other
+domain member and corrupt adjacent dlm_lockname_cache slab objects,
+leading to memory corruption and, depending on slab layout, a crash or
+worse.
+
+Reject the message before it reaches dlm_new_lockres() /
+__dlm_lookup_lockres_full() if mres->lockname_len exceeds
+DLM_LOCKID_NAME_MAX, mirroring the validation idiom already used by the
+sibling handlers above. The check is placed immediately after the
+existing dlm_joined() gate, before any use of mres->lockname /
+mres->lockname_len, and follows this function's own early-return style
+(dlm_put(dlm); return -EINVAL;) rather than the later "leave:" label,
+since at this point buf/item are still NULL and no refs have been taken.
+This is the smallest possible fix: one bounds check, no change to wire
+format, on-disk format, or any other code path.
+
+Reproduced on a v6.19 KASAN-instrumented kernel with an in-kernel
+injector that calls dlm_mig_lockres_handler() directly (bypassing the
+o2net accept/heartbeat gate that otherwise requires a second heartbeating
+cluster node) against a live single-node OCFS2/o2cb DLM domain. A control
+frame with lockname_len = 8 completed cleanly; an otherwise-identical
+frame differing only in lockname_len = 255 reliably produced
+"KASAN: slab-out-of-bounds in dlm_new_lockres", deterministically and
+with no dependence on timing or allocator state. Full network delivery
+over a real two-node o2cb cluster was not exercised: the injector proves
+handler-reachability and the write is deterministic once the handler
+runs, but the o2net wire path itself was not verified end-to-end.
+
+Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
 Assisted-by: AuditCode-AI:2026.07
 ---
- net/smc/smc_cdc.h | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ fs/ocfs2/dlm/dlmrecovery.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/net/smc/smc_cdc.h b/net/smc/smc_cdc.h
-index 696cc11f2303..f07bbef47073 100644
---- a/net/smc/smc_cdc.h
-+++ b/net/smc/smc_cdc.h
-@@ -221,6 +221,7 @@ static inline void smc_host_msg_to_cdc(struct smc_cdc_msg *peer,
+diff --git a/fs/ocfs2/dlm/dlmrecovery.c b/fs/ocfs2/dlm/dlmrecovery.c
+index 9b97bf73df22..ec7edffc8ca8 100644
+--- a/fs/ocfs2/dlm/dlmrecovery.c
++++ b/fs/ocfs2/dlm/dlmrecovery.c
+@@ -1366,6 +1366,12 @@ int dlm_mig_lockres_handler(struct o2net_msg *msg, u32 len, void *data,
+ 		return -EINVAL;
+ 	}
  
- static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
- 					  union smc_cdc_cursor *peer,
-+					  unsigned int size,
- 					  struct smc_connection *conn)
- {
- 	union smc_host_cursor temp, old;
-@@ -235,6 +236,14 @@ static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
- 	if ((old.wrap == temp.wrap) &&
- 	    (old.count > temp.count))
- 		return;
-+	/* count is an offset into the RMBE and must always stay inside
-+	 * it (see smc_curs_add()); the peer is untrusted, so reject an
-+	 * out-of-range wire cursor the same way an out-of-order one is
-+	 * already rejected above, instead of letting it drive
-+	 * bytes_to_rcv / the urgent-byte offset past the buffer end
-+	 */
-+	if (temp.count >= size)
-+		return;
- 	smc_curs_copy(local, &temp, conn);
- }
++	if (mres->lockname_len > DLM_LOCKID_NAME_MAX) {
++		mlog(ML_ERROR, "Invalid name length!");
++		dlm_put(dlm);
++		return -EINVAL;
++	}
++
+ 	BUG_ON(!(mres->flags & (DLM_MRES_RECOVERY|DLM_MRES_MIGRATION)));
  
-@@ -246,8 +255,10 @@ static inline void smcr_cdc_msg_to_host(struct smc_host_cdc_msg *local,
- 	local->len = peer->len;
- 	local->seqno = ntohs(peer->seqno);
- 	local->token = ntohl(peer->token);
--	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn);
--	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn);
-+	smc_cdc_cursor_to_host(&local->prod, &peer->prod,
-+			       conn->rmb_desc->len, conn);
-+	smc_cdc_cursor_to_host(&local->cons, &peer->cons,
-+			       conn->peer_rmbe_size, conn);
- 	local->prod_flags = peer->prod_flags;
- 	local->conn_state_flags = peer->conn_state_flags;
- }
+ 	real_master = mres->master;
 -- 
 2.50.1 (Apple Git-155)
 
