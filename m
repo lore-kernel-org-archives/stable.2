@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FFD3DCDAB
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:21:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF61427FBF
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:21:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557273; cv=none; b=dNd3pRILjiLccx++4tBT923vEfWqqw09Bqy4K8JX/ySWh0RHYRObeNcoqRaKQP+WGwfipuaKK2/66KCmbKoh/o8yUsFJoTfgC3vxLNM513iDTCXO1U7trCm3BwuNnPY7xsx4FYSmG9djyHHHgalZxD9YTztPeH1a95YfU71zvfw=
+	t=1784557279; cv=none; b=DNWib7wbunN3TmE3SZguHGvzg6FUcBwhFVV0y/vOWH8SawMrsV+aFfq1q7JDWcRKndZggS1l3XLpoQXU+Wae2fNsJKIcW2KPCHHyFyY++xOr0ZK18YX8+PZxQvY+CbolS1DZcz0gdpDAKBDV2xBkjIc2tFNtNysEPiSf7gfMz54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557273; c=relaxed/simple;
-	bh=1roogmUEiUgtXW81tT/5iczVf13awPbfV9uePsqcOgs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qzbyAs+grPUmrvElMVd8tYm0ZLGeigJFo6UC52QXSeyHQUu5CPCFa311V9/fFM1o6srY+S5wIbExC1G2Rh5CFOzD41aVPGUPc5U+wI591kwWjKaNvyUTbH3QlunZW7RSyOR4gzEWV/Oc8FRTiF2aUBTN8VQt57xmL6yv89/l2SE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zeKvGd0c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557279; c=relaxed/simple;
+	bh=QemOTGHfwer2EIRLeQyD3vYOegiARhlO2FNteOWMb8A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lCkL8z0+UWOqQnQjG6r/hOduznTdfmu7DkH0MBHJPemWaK+qvdZHmJ3XZaGJsHUsjOFfKlI/qXBdLlTBGYYrw3t1AQfc6xgHbfbPL33DMMuwIV9fERDhf99Jf9efw9cev9dGqWwF1LgLxYSJeAy6nuKp4paVWDWFkVCp0ig2cSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rt6aJkf0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zeKvGd0c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC771F000E9;
-	Mon, 20 Jul 2026 14:21:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rt6aJkf0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ABF21F000E9;
+	Mon, 20 Jul 2026 14:21:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557272;
-	bh=IpZ+c3IMYYqbB/DO8g42L9/ASqJhy/7JFWq3ep6/8Y4=;
+	s=korg; t=1784557277;
+	bh=uiR0xs03Zrb0VqELkgtyqggh2R8vzNHLeLRCP1HbHX4=;
 	h=Subject:To:Cc:From:Date;
-	b=zeKvGd0c1sSWX0d/9Eobq8tFvJbItORAxl+822lYEFCR4xznUz4sKPF4l8QuxLaFa
-	 6LgKGh9/DbOb9ITSutPjKWvuZ1olKo+T7ssujKFBwF4xaWdNNaZIILchF2/R2oPh5X
-	 01dDnb3M6lNBBCjfnYmDcJ3Od+Zrhax+zIIL3Kgk=
-Subject: FAILED: patch "[PATCH] remoteproc: qcom: Fix leak when custom dump_segments addition" failed to apply to 5.10-stable tree
-To: wasim.nazir@oss.qualcomm.com,andersson@kernel.org,mukesh.ojha@oss.qualcomm.com
+	b=rt6aJkf0LFgHl8VeZjhMwHIpmtrFx9IQp6PckWQdkM392RXlTA/4475nZ0uYVsWXh
+	 jqEStZ9HfmzyHjezQq30LlVa0L0B2M0WsKEsFCqAE3Lx9v65c10w2mwcEveckkITPi
+	 uYZEEJbbbjKyi4YK1g/L5gDiTf3+GlP/mmdt7yAA=
+Subject: FAILED: patch "[PATCH] remoteproc: xlnx: Check remote core state" failed to apply to 6.18-stable tree
+To: tanmay.shah@amd.com,b-padhi@ti.com,mathieu.poirier@linaro.org,michal.simek@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:20:52 +0200
-Message-ID: <2026072052-overarch-had-bd14@gregkh>
+Date: Mon, 20 Jul 2026 16:21:01 +0200
+Message-ID: <2026072001-fleshy-why-ba7d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x ecf9fc18e62c58eae1ceb65dab2bccb8a724de2d
+git cherry-pick -x a48df51d23138388900995add2854cda4aa68e55
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072052-overarch-had-bd14@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072001-fleshy-why-ba7d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,62 +62,180 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ecf9fc18e62c58eae1ceb65dab2bccb8a724de2d Mon Sep 17 00:00:00 2001
-From: Wasim Nazir <wasim.nazir@oss.qualcomm.com>
-Date: Wed, 18 Mar 2026 17:19:16 +0530
-Subject: [PATCH] remoteproc: qcom: Fix leak when custom dump_segments addition
- fails
+From a48df51d23138388900995add2854cda4aa68e55 Mon Sep 17 00:00:00 2001
+From: Tanmay Shah <tanmay.shah@amd.com>
+Date: Tue, 28 Apr 2026 15:18:56 -0700
+Subject: [PATCH] remoteproc: xlnx: Check remote core state
 
-Free allocated minidump_region 'name' in qcom_add_minidump_segments()
-when failing before adding the region to 'dump_segments'. Otherwise,
-the 'name' is not tracked and is never freed by qcom_minidump_cleanup().
+The remote state is set to RPROC_DETACHED if the resource table is found
+in the memory. However, this can be wrong if the remote is not started,
+but firmware is still loaded in the memory. Use PM_GET_NODE_STATUS call
+to the firmware to request the state of the RPU node. If the RPU is
+actually out of reset and running, only then move the remote state to
+RPROC_DETACHED, otherwise keep the remote state to RPROC_OFFLINE.
 
-Return error when adding to 'dump_segments' fails.
+Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+Fixes: bca4b02ef92e ("remoteproc: xlnx: Add attach detach support")
+Reviewed-by: Beleswar Padhi <b-padhi@ti.com>
+Acked-by: Michal Simek <michal.simek@amd.com>
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20260428221855.313752-1-tanmay.shah@amd.com
+Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
 
-Cc: stable@vger.kernel.org # v5.11
-Fixes: 8ed8485c4f05 ("remoteproc: qcom: Add capability to collect minidumps")
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Signed-off-by: Wasim Nazir <wasim.nazir@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260318-rproc-memleak-v2-1-ade70ab858f2@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
-
-diff --git a/drivers/remoteproc/qcom_common.c b/drivers/remoteproc/qcom_common.c
-index fd2b6824ad26..e1a955476c9b 100644
---- a/drivers/remoteproc/qcom_common.c
-+++ b/drivers/remoteproc/qcom_common.c
-@@ -109,6 +109,7 @@ static int qcom_add_minidump_segments(struct rproc *rproc, struct minidump_subsy
- 	struct minidump_region __iomem *ptr;
- 	struct minidump_region region;
- 	int seg_cnt, i;
-+	int ret = 0;
- 	dma_addr_t da;
- 	size_t size;
- 	char *name;
-@@ -129,17 +130,22 @@ static int qcom_add_minidump_segments(struct rproc *rproc, struct minidump_subsy
- 		if (le32_to_cpu(region.valid) == MINIDUMP_REGION_VALID) {
- 			name = kstrndup(region.name, MAX_REGION_NAME_LENGTH - 1, GFP_KERNEL);
- 			if (!name) {
--				iounmap(ptr);
--				return -ENOMEM;
-+				ret = -ENOMEM;
-+				break;
- 			}
- 			da = le64_to_cpu(region.address);
- 			size = le64_to_cpu(region.size);
--			rproc_coredump_add_custom_segment(rproc, da, size, rproc_dumpfn_t, name);
-+			ret = rproc_coredump_add_custom_segment(rproc, da, size, rproc_dumpfn_t,
-+								name);
-+			if (ret) {
-+				kfree(name);
-+				break;
-+			}
- 		}
+diff --git a/drivers/firmware/xilinx/zynqmp.c b/drivers/firmware/xilinx/zynqmp.c
+index fbe8510f4927..af838b2dc327 100644
+--- a/drivers/firmware/xilinx/zynqmp.c
++++ b/drivers/firmware/xilinx/zynqmp.c
+@@ -1450,6 +1450,34 @@ int zynqmp_pm_get_node_status(const u32 node, u32 *const status,
+ }
+ EXPORT_SYMBOL_GPL(zynqmp_pm_get_node_status);
+ 
++/**
++ * zynqmp_pm_get_rpu_node_status - PM call to request a RPU node's current power state
++ * @node:		ID of the RPU component or sub-system in question
++ * @status:		Current operating state of the requested RPU node.
++ * @requirements:	Current requirements asserted on the RPU node.
++ * @usage:		Usage information, used for RPU slave nodes only:
++ *			PM_USAGE_NO_MASTER	- No master is currently using
++ *						  the node
++ *			PM_USAGE_CURRENT_MASTER	- Only requesting master is
++ *						  currently using the node
++ *			PM_USAGE_OTHER_MASTER	- Only other masters are
++ *						  currently using the node
++ *			PM_USAGE_BOTH_MASTERS	- Both the current and at least
++ *						  one other master is currently
++ *						  using the node
++ *
++ * Return:		Returns status, either success or error+reason
++ */
++int zynqmp_pm_get_rpu_node_status(const u32 node, u32 *const status,
++				  u32 *const requirements, u32 *const usage)
++{
++	if (zynqmp_pm_feature(PM_GET_NODE_STATUS) < PM_API_VERSION_2)
++		return -EOPNOTSUPP;
++
++	return zynqmp_pm_get_node_status(node, status, requirements, usage);
++}
++EXPORT_SYMBOL_GPL(zynqmp_pm_get_rpu_node_status);
++
+ /**
+  * zynqmp_pm_force_pwrdwn - PM call to request for another PU or subsystem to
+  *             be powered down forcefully
+diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
+index 50a9974f3202..45a62cb98072 100644
+--- a/drivers/remoteproc/xlnx_r5_remoteproc.c
++++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
+@@ -948,16 +948,6 @@ static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
+ 		goto free_rproc;
  	}
  
- 	iounmap(ptr);
--	return 0;
-+	return ret;
+-	/*
+-	 * If firmware is already available in the memory then move rproc state
+-	 * to DETACHED. Firmware can be preloaded via debugger or by any other
+-	 * agent (processors) in the system.
+-	 * If firmware isn't available in the memory and resource table isn't
+-	 * found, then rproc state remains OFFLINE.
+-	 */
+-	if (!zynqmp_r5_get_rsc_table_va(r5_core))
+-		r5_rproc->state = RPROC_DETACHED;
+-
+ 	r5_core->rproc = r5_rproc;
+ 	return r5_core;
+ 
+@@ -1210,6 +1200,7 @@ static int zynqmp_r5_core_init(struct zynqmp_r5_cluster *cluster,
+ {
+ 	struct device *dev = cluster->dev;
+ 	struct zynqmp_r5_core *r5_core;
++	u32 req, usage, status;
+ 	int ret = -EINVAL, i;
+ 
+ 	r5_core = cluster->r5_cores[0];
+@@ -1255,6 +1246,41 @@ static int zynqmp_r5_core_init(struct zynqmp_r5_cluster *cluster,
+ 		ret = zynqmp_r5_get_sram_banks(r5_core);
+ 		if (ret)
+ 			return ret;
++
++		/*
++		 * It is possible that firmware is loaded into the memory, but
++		 * RPU (remote) is not running. In such case, RPU state will be
++		 * moved to RPROC_DETACHED wrongfully. To avoid it first make
++		 * sure RPU is power-on and out of reset before parsing for the
++		 * resource table.
++		 */
++		ret = zynqmp_pm_get_rpu_node_status(r5_core->pm_domain_id,
++						    &status, &req, &usage);
++		if (ret) {
++			dev_warn(r5_core->dev,
++				 "failed to get rpu node status, err %d\n", ret);
++			continue;
++		}
++
++		/*
++		 * If RPU state is power on and out of reset i.e. running, then
++		 * assign RPROC_DETACHED state. If the RPU is not out of reset
++		 * then do not attempt to attach to the remote processor.
++		 */
++		if (status == PM_NODE_RUNNING) {
++			/*
++			 * Not all the firmware that is running on the remote
++			 * core is expected to have the resource table. The
++			 * firmware might not use RPMsg at all, and in that case
++			 * resource table becomes irrelevant. However, we still
++			 * need to make sure that running core is not reported
++			 * as offline. so do not decide remote core state based
++			 * on the resource table availability
++			 */
++			if (zynqmp_r5_get_rsc_table_va(r5_core))
++				dev_dbg(r5_core->dev, "rsc tbl not found\n");
++			r5_core->rproc->state = RPROC_DETACHED;
++		}
+ 	}
+ 
+ 	return 0;
+diff --git a/include/linux/firmware/xlnx-zynqmp.h b/include/linux/firmware/xlnx-zynqmp.h
+index d70dcd462b44..7e27b0f7bf7e 100644
+--- a/include/linux/firmware/xlnx-zynqmp.h
++++ b/include/linux/firmware/xlnx-zynqmp.h
+@@ -542,6 +542,18 @@ enum pm_gem_config_type {
+ 	GEM_CONFIG_FIXED = 2,
+ };
+ 
++/**
++ * enum pm_node_status - Device node status provided by xilpm fw
++ * @PM_NODE_UNUSED: Device is not used
++ * @PM_NODE_RUNNING: Device is power-on and out of reset
++ * @PM_NODE_HALT: Device is power-on but in the reset state
++ */
++enum pm_node_status {
++	PM_NODE_UNUSED = 0,
++	PM_NODE_RUNNING = 1,
++	PM_NODE_HALT = 12,
++};
++
+ /**
+  * struct zynqmp_pm_query_data - PM query data
+  * @qid:	query ID
+@@ -630,6 +642,8 @@ int zynqmp_pm_set_rpu_mode(u32 node_id, enum rpu_oper_mode rpu_mode);
+ int zynqmp_pm_set_tcm_config(u32 node_id, enum rpu_tcm_comb tcm_mode);
+ int zynqmp_pm_get_node_status(const u32 node, u32 *const status,
+ 			      u32 *const requirements, u32 *const usage);
++int zynqmp_pm_get_rpu_node_status(const u32 node, u32 *const status,
++				  u32 *const requirements, u32 *const usage);
+ int zynqmp_pm_set_sd_config(u32 node, enum pm_sd_config_type config, u32 value);
+ int zynqmp_pm_set_gem_config(u32 node, enum pm_gem_config_type config,
+ 			     u32 value);
+@@ -939,6 +953,13 @@ static inline int zynqmp_pm_get_node_status(const u32 node, u32 *const status,
+ 	return -ENODEV;
  }
  
- void qcom_minidump(struct rproc *rproc, unsigned int minidump_id,
++static inline int zynqmp_pm_get_rpu_node_status(const u32 node, u32 *const status,
++						u32 *const requirements,
++						u32 *const usage)
++{
++	return -ENODEV;
++}
++
+ static inline int zynqmp_pm_set_sd_config(u32 node,
+ 					  enum pm_sd_config_type config,
+ 					  u32 value)
 
