@@ -1,64 +1,58 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE717EEC0;
-	Mon, 20 Jul 2026 02:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB0B30C172
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 03:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784515426; cv=none; b=WLu+aZDa9STum32iUDGZsTXd85Q7065BuA1MtHNUW/QdK18nJ+d1csR8RfPzRE5uVAroPha+93LHMqQJg66dFRuEjLYuqjfF3edA7R0M4MTN7W8LMxE95vnuA8LiwDQ/AN/kOWos1Wbs377emJL4BDVIGd6/Wi47sQVsqe1w3D0=
+	t=1784516414; cv=none; b=JzQQehH1zFCkeQLK46/9SOXfeObaSrrUX4m2LOuiipi6uJUGTnLFErgt7QdeExBJcB6AmqmZLtiVG5dXcVd3TteLVVf0RAnMRM2PPCveNCuT05FjBeBylNz+6os5wupDBvfqwMuc8SmMjGcUCKL7E1uuhoocCaHXVUp/tPfnuWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784515426; c=relaxed/simple;
-	bh=JJsMLVgRSyYjliyQp5DQUKo30Ta2dKKx+588j/SipgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d4yhg/hO8kCRkBtyMIYJtvEhN4L+rR3YycLfTrr5NXAALsk5hnGVO7au7OJ+NgTLCkcp9hSxyLRMZL+SMkQHxjtuTZhV8TyBd0+F5Zbqvrv4Z8I2Ci4r4NGR04bFpJmunwwZlium/Svzat344NuA8ZYEBvJopMOeAqxppfiGk7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: cf74bfc883e411f1aa26b74ffac11d73-20260720
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
-	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
-	DMARC_NOPASS, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
-	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:96632555-3f73-487f-b06f-f8075fcf91b0,IP:15,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:15
-X-CID-INFO: VERSION:1.3.12,REQID:96632555-3f73-487f-b06f-f8075fcf91b0,IP:15,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:15
-X-CID-META: VersionHash:e7bac3a,CLOUDID:e7f483f8c67471445c725d1721675d65,BulkI
-	D:260720104338WNCU67J1,BulkQuantity:0,Recheck:0,SF:10|38|66|78|102|127|865
-	|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:99|1,File:nil,RT:nil,Bulk:nil
-	,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:
-	0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cf74bfc883e411f1aa26b74ffac11d73-20260720
-X-User: pengcan@kylinos.cn
-Received: from lenovo [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <pengcan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1255639351; Mon, 20 Jul 2026 10:43:38 +0800
-From: Can Peng <pengcan@kylinos.cn>
-To: jic23@kernel.org,
-	jonathan.cameron@oss.qualcomm.com,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Can Peng <pengcan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] iio: pressure: mpl115: Fix runtime PM cleanup
-Date: Mon, 20 Jul 2026 10:43:12 +0800
-Message-ID: <20260720024312.27037-1-pengcan@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1784516414; c=relaxed/simple;
+	bh=Gs/PljVUUspuFUmq10FMNkcjWj8w/JpLIy2uNLGD3Yc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E/5acDugAnTEV91X3PC1WJGIrwHPD+JLhUF6JiVeO+6aXTkDrXZAGVUgkazuctASj2bckzEzzjIrjJHjuDjrpOI2qHRib09pixjeN80+XzjKMj4cmnDRWpRmiaFoEasoHqVS3PXVsTVa+PDdRbnR8oFXpiUe6SZpmvgBIGoszCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WV1HUW7G; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WV1HUW7G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784516412; x=1816052412;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Gs/PljVUUspuFUmq10FMNkcjWj8w/JpLIy2uNLGD3Yc=;
+  b=WV1HUW7GgFna1CKTVzgcwVZycawXF01gfaHeKRf9RV6BhdFLWAyq2yOI
+   RJ63+8cov247TFg5GbFbSUX3COj8j7OKHcCE0RLyDvsXam2wTBWpsJwUP
+   D+b26FisvXZIC8+F0ApV0XCoXiim/BUa8PWHdaLUfuWyiY8EEPo5SsI43
+   4C6oBsTfCgT9N3q4y4xVPXztcQc2YvL1jcc8bH5yPBVzyNEbAAuOJjCUY
+   7eDnPze+lUevhkCs9X/b5ztck9HjGv0yBdr6jnjsIuAdKb6+I6DTJPFLN
+   J2kgO8jC+G3AGq+spE9s1EUXszFxMVyaNoTjh+wDZj1ciO6BRtM59bI83
+   Q==;
+X-CSE-ConnectionGUID: gDnrJZ4OQjmvouu+syVBog==
+X-CSE-MsgGUID: kLj1ckH9QoGHkYM4+CoWmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="96229335"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
+   d="scan'208";a="96229335"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 20:00:11 -0700
+X-CSE-ConnectionGUID: A6NfjGXYRHGhKDaw0EGmtA==
+X-CSE-MsgGUID: r0sCwY53Ssqa2TWUH4rjNQ==
+X-ExtLoop1: 1
+Received: from litbin-desktop.sh.intel.com ([10.239.159.62])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 20:00:08 -0700
+From: Binbin Wu <binbin.wu@linux.intel.com>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Kai Huang <kai.huang@intel.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>
+Subject: [PATCH 6.18.y] KVM: TDX: Account all non-transient page allocations for per-TD structures
+Date: Mon, 20 Jul 2026 11:03:29 +0800
+Message-ID: <20260720030329.744758-1-binbin.wu@linux.intel.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <2026071641-falsify-antiquely-4d9a@gregkh>
+References: <2026071641-falsify-antiquely-4d9a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,66 +61,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mpl115_probe() enables runtime PM when a shutdown GPIO is present and
-then returns the result of devm_iio_device_register(). If registration
-fails, runtime PM remains enabled and autosuspend remains selected.
+From: Sean Christopherson <seanjc@google.com>
 
-The same unmanaged runtime PM state is also left behind on driver
-unbind, as the IIO device registration is managed but the runtime PM
-setup is not.
+[ Upstream commit a8b2924676ec42d76597f849baba31acc3ba1bfc ]
 
-Use devm_pm_runtime_enable() so runtime PM is disabled automatically on
-probe failure and driver unbind, and check pm_runtime_set_active() so
-setup errors are reported.
+Account all non-transient allocations associated with a single TD (or its
+vCPUs), as KVM's ABI is that allocations that are active for the lifetime
+of a VM are accounted.  Leave temporary allocations, i.e. allocations that
+are freed within a single function/ioctl, unaccounted, to again align with
+KVM's existing behavior, e.g. see commit dd103407ca31 ("KVM: X86: Remove
+unnecessary GFP_KERNEL_ACCOUNT for temporary variables").
 
-Set the autosuspend parameters before enabling runtime PM. Once probe
-has completed, the driver core queues an idle request for the device, so
-an explicit pm_runtime_get_noresume()/pm_runtime_put() pair is not
-needed to start autosuspend.
-
-Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
+Fixes: 8d032b683c29 ("KVM: TDX: create/destroy VM structure")
+Fixes: a50f673f25e0 ("KVM: TDX: Do TDX specific vcpu initialization")
 Cc: stable@vger.kernel.org
-Suggested-by: jonathan.cameron@oss.qualcomm.com
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
+Reviewed-by: Kai Huang <kai.huang@intel.com>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Link: https://patch.msgid.link/20260129011517.3545883-4-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ Binbin: Resolved conflicts in __tdx_td_init() due to lacking commits
+  eac90a5ba0aa and 69050f8d6d07, retain nr_configured_hkid increment and
+  kcalloc() call. ]
+Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
 ---
-Changes in v2:
-- Drop the explicit pm_runtime_get_noresume()/pm_runtime_put() pair and
-  rely on the driver core idle request after probe.
-- Set autosuspend parameters before enabling runtime PM.
-- Update the commit message accordingly.
-- Link to v1: https://lore.kernel.org/all/20260718061909.428476-1-pengcan@kylinos.cn/
+ arch/x86/kvm/vmx/tdx.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
- drivers/iio/pressure/mpl115.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
-index 16e112b796ba..2929ea8e4e01 100644
---- a/drivers/iio/pressure/mpl115.c
-+++ b/drivers/iio/pressure/mpl115.c
-@@ -203,9 +203,9 @@ int mpl115_probe(struct device *dev, const char *name,
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index d9ffc16dfefe..7534397defa2 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -2474,7 +2474,7 @@ static int __tdx_td_init(struct kvm *kvm, struct td_params *td_params,
  
- 	if (data->shutdown) {
- 		/* Enable runtime PM */
--		pm_runtime_get_noresume(dev);
--		pm_runtime_set_active(dev);
--		pm_runtime_enable(dev);
-+		ret = pm_runtime_set_active(dev);
-+		if (ret)
-+			return ret;
+ 	atomic_inc(&nr_configured_hkid);
  
- 		/*
- 		 * As the device takes 3 ms to come up with a fresh
-@@ -215,7 +215,10 @@ int mpl115_probe(struct device *dev, const char *name,
- 		 */
- 		pm_runtime_set_autosuspend_delay(dev, 2000);
- 		pm_runtime_use_autosuspend(dev);
--		pm_runtime_put(dev);
-+
-+		ret = devm_pm_runtime_enable(dev);
-+		if (ret)
-+			return ret;
+-	tdr_page = alloc_page(GFP_KERNEL);
++	tdr_page = alloc_page(GFP_KERNEL_ACCOUNT);
+ 	if (!tdr_page)
+ 		goto free_hkid;
  
- 		dev_dbg(dev, "low-power mode enabled");
- 	} else
+@@ -2482,12 +2482,12 @@ static int __tdx_td_init(struct kvm *kvm, struct td_params *td_params,
+ 	/* TDVPS = TDVPR(4K page) + TDCX(multiple 4K pages), -1 for TDVPR. */
+ 	kvm_tdx->td.tdcx_nr_pages = tdx_sysinfo->td_ctrl.tdvps_base_size / PAGE_SIZE - 1;
+ 	tdcs_pages = kcalloc(kvm_tdx->td.tdcs_nr_pages, sizeof(*kvm_tdx->td.tdcs_pages),
+-			     GFP_KERNEL);
++			     GFP_KERNEL_ACCOUNT);
+ 	if (!tdcs_pages)
+ 		goto free_tdr;
+ 
+ 	for (i = 0; i < kvm_tdx->td.tdcs_nr_pages; i++) {
+-		tdcs_pages[i] = alloc_page(GFP_KERNEL);
++		tdcs_pages[i] = alloc_page(GFP_KERNEL_ACCOUNT);
+ 		if (!tdcs_pages[i])
+ 			goto free_tdcs;
+ 	}
+@@ -2937,7 +2937,7 @@ static int tdx_td_vcpu_init(struct kvm_vcpu *vcpu, u64 vcpu_rcx)
+ 	int ret, i;
+ 	u64 err;
+ 
+-	page = alloc_page(GFP_KERNEL);
++	page = alloc_page(GFP_KERNEL_ACCOUNT);
+ 	if (!page)
+ 		return -ENOMEM;
+ 	tdx->vp.tdvpr_page = page;
+@@ -2950,14 +2950,14 @@ static int tdx_td_vcpu_init(struct kvm_vcpu *vcpu, u64 vcpu_rcx)
+ 	tdx->vp.tdvpr_pa = page_to_phys(tdx->vp.tdvpr_page);
+ 
+ 	tdx->vp.tdcx_pages = kcalloc(kvm_tdx->td.tdcx_nr_pages, sizeof(*tdx->vp.tdcx_pages),
+-			       	     GFP_KERNEL);
++				     GFP_KERNEL_ACCOUNT);
+ 	if (!tdx->vp.tdcx_pages) {
+ 		ret = -ENOMEM;
+ 		goto free_tdvpr;
+ 	}
+ 
+ 	for (i = 0; i < kvm_tdx->td.tdcx_nr_pages; i++) {
+-		page = alloc_page(GFP_KERNEL);
++		page = alloc_page(GFP_KERNEL_ACCOUNT);
+ 		if (!page) {
+ 			ret = -ENOMEM;
+ 			goto free_tdcx;
 -- 
-2.53.0
+2.46.0
+
