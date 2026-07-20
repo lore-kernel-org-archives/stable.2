@@ -1,140 +1,223 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3273B8959
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:43:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D40D3B841C
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784555001; cv=none; b=qTOmd2qX+faj5j4JR2CghhAOmI41XBSZx6HZ8cQTv9CenbOwyEWic6q6eX+MhREPXJRO5lkkauRDgpBuDlfxLbJTTgEy/YlXfN/99B40nMYpF39NwHLsyaMn2YMM4Nvym/43WcvH53V6x0U3QaAQ28JP8RWg1eELEruN/jLMHYk=
+	t=1784555002; cv=none; b=LSOrBjG0UHrGKf++ctGkvrJqVuIrnWCu+ExidvK8GsXC7N8Ki05QTvRZy+bpKN+0uooBaKya+sNLVXGSQL1TDxMKs9ryCd1YLJwaRs3YmbuQU5Zh2akBeoolJB3D7tp9zriniDUiTu4JX84AFmJCzObUWkBgBoeMExaG/aIYkwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784555001; c=relaxed/simple;
-	bh=zmBJ/0A84g3rungkV5GDtUzaTyuvksj0gerDJWlqPf4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aASc2ejdGnhU9wlbjhYWTyH1OG6gVbit/evufZoPac4HcNIth1zHdO0f2R73w0kCO+XiMyRS685u7zwsZIhrobqHjNaw3Ty0/zTdntqEIcWUkBdei4LIJl72S82qsCULQXYqmriGTTN5bld4plhHW67P2tmMZ01xB16UQ8dl8mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=VKYXOJaV; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1784555002; c=relaxed/simple;
+	bh=nRGEcnxuj+h4w2vwX3/Pgk4rJIpRHCwaU5qgxIZ0aY0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Jwntksan/4J++uR6vGblZwjFDsFmbqwnXsYdZWEwu9Draz3Y0+wHCZzV77NZsYo3C5747GxPweqIX+sEaVdgE9wE8uirT2cU0LUMh68XoBaBLPVlFHSGoLSXyA71/6RpcCPNkAY3aIHhQu9B2OI5W8q+4q8P+i3eU3VskxPRu0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qNKsa8Ij; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="VKYXOJaV"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49558ce01afso11956675e9.1
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 06:43:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784554991; x=1785159791; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zmBJ/0A84g3rungkV5GDtUzaTyuvksj0gerDJWlqPf4=;
-        b=VKYXOJaVwdS5a7a7y6wBBKng3z/GnWsWuT2JM1MfuuAMLeAxGdBHSBCenrxfPufAF1
-         GqAEHI/WxWcA596B5Nv7+cqksIzfsrmT/ZZEqHLM3XZVgQa4XN5WFIh4ixNZX9u2QaOH
-         ydBjJ2EEUUCu/N43q5U1B2XW8wst8vR6EMidnNp6P+RbFJ+4cu4m8+ArRva3K1XF3DxE
-         M8MmtNpQu7KorhGx6QINqnrQUiKkgpLXdg5FZxEbpoyzRwdHQhWhIUTvcO/LkvA2p+V/
-         8vgFaCDDYdDTCC941DdsPdKJsVbaPUt3iNXY64T3DMqvotyHcenbPO5UeeXKXHp35CaS
-         QXUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784554991; x=1785159791;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zmBJ/0A84g3rungkV5GDtUzaTyuvksj0gerDJWlqPf4=;
-        b=Qgr4yVm1IbuG6slUDPLqCvHzhVKrmM5T5Y461Aec3QGClT5AUT1ti8DzI+rKaAuk4d
-         NhsqCZ1q/kBGyV3YCr9rpcV78Nj/ASF8CFPoHQgyqOeYyVE7pNkGVm1LvvHEREYnIuss
-         FGMASEiUI7dXUOytM8UB+5Svnd4rMHw6xdS/+uqOtSipaQ6Yy+UqgRTkv01vUxqMriX4
-         A6ybHh7WwMiFv9h+pnxXoD+T64A3lo/1VyTFgivkvZdBhnH8a+BLJvkH3sIKNByjLtrE
-         aFe/I7B7ysphCXaW0Uam8cPU0N2xh0cLYQnmNSdoMjAr4DqliHWWwrmyIQTwlnPklVXl
-         mr0w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3ZbE8Ha4t7sN8EG2zaQpdEOmB73Vj1koKg7MMtTYgvDeYKE4HEY/98+6QOOfdsFP9sD8ztC4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcYuRWEfXvIm8KB3L39V+7dTu5XGblsgcSlhd/dwvzyLA42q80
-	lxFTyknmDrGtdhJC5QDI1WUaOY+97Ug6HAJbMmftOjnZVmj6+MISu9XYBM2BhQqds7U=
-X-Gm-Gg: AfdE7ckb1SWSe5uqV26uYuwLgpwSSSXtXm6bnlobjzf90T0c2NuxqdWG4Qp+4fph3SO
-	StpHA45dw91w5gTrYNNzOzvm8L0izodx1THTrgCS7UcsLuXqrxIrXJX7tqcjmdqVvYMkQzIleDm
-	I7EyAaYPrrvp8m5+4cjddTqnp/tb4GsKy+TjxCECMQ3+XQpaltvPQQ6Rm3lspYzvaR3v1/vEqII
-	7M8Hk7ri10TlQ4xvwkwi15YMNCYf/d24FC5v7imCTLDBBjmE8+u5qbSDPvtFvs74dUAz309582q
-	TTsuxgCcLmDPAOhkJWogT2lFLULyVu+rbCpDiG2hPLZ1wxwmgVExMfJtSC8Y7HTUbLrJ/CR+nqz
-	ZNZIDQyJw2OqJd3Rqb5RA90dKLvpjMOV2tHpEHgBsW8nDcbX5c2CaZi0e1cc/8aODGjFAb3XzEu
-	yXd1kqzPKJB+QPBCMWgRYJsD0cglSDNLcPLM9gK4Zu/3EhuoqpxyOm6oS1u3Sa8ShlgA==
-X-Received: by 2002:a05:600c:4685:b0:495:3f99:849c with SMTP id 5b1f17b1804b1-4954a3f48ebmr182901205e9.15.1784554989689;
-        Mon, 20 Jul 2026 06:43:09 -0700 (PDT)
-Received: from localhost (p200300f65f47db048587886ecb5b26b2.dip0.t-ipconnect.de. [2003:f6:5f47:db04:8587:886e:cb5b:26b2])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4954a2e83ddsm273264985e9.10.2026.07.20.06.43.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 06:43:08 -0700 (PDT)
-Date: Mon, 20 Jul 2026 15:43:07 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>, 
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] can: flexcan: Fix probing for m68k/coldfire
-Message-ID: <al4lxVud4_6NTZQG@monoceros>
-References: <20260618140147.142489-2-u.kleine-koenig@baylibre.com>
- <akfoYuyHMAxIfalD@monoceros>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qNKsa8Ij"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BCE11F00A3A;
+	Mon, 20 Jul 2026 13:43:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784554997;
+	bh=Inyd3X41bGw+fnbyyVCeGc+dBcf0PL5JofMwwd5Uu1U=;
+	h=Subject:To:Cc:From:Date;
+	b=qNKsa8Ijx4sdfUXYBAxDGPHZ0DnqJXD+IWkwhakcPBQaAWyZ783wNFZv+bIakSAKt
+	 AxMTtqUosH1Jj6uVZnkokZGmiVBU+tOctNv56XJ629W5KPOA+fT74NKUfqhQ5JWtpf
+	 BE2+EwhdHuC0sNrg0PbUGRiu7cgzvT+r8xv/qBmI=
+Subject: FAILED: patch "[PATCH] SUNRPC: Return an error from xdr_buf_to_bvec() on overflow" failed to apply to 6.6-stable tree
+To: cel@kernel.org,chuck.lever@oracle.com,clm@meta.com,jlayton@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 20 Jul 2026 15:42:58 +0200
+Message-ID: <2026072058-disparate-ventricle-c83c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7gz5gbihnzriqixc"
-Content-Disposition: inline
-In-Reply-To: <akfoYuyHMAxIfalD@monoceros>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
---7gz5gbihnzriqixc
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net] can: flexcan: Fix probing for m68k/coldfire
-MIME-Version: 1.0
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Hello,
+To reproduce the conflict and resubmit, you may use the following commands:
 
-On Fri, Jul 03, 2026 at 06:53:16PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> On Thu, Jun 18, 2026 at 04:01:47PM +0200, Uwe Kleine-K=F6nig (The Capable=
- Hub) wrote:
-> > When determining the device details was reworked in commit 5e6c3454b405
-> > ("net: can: Use device_get_match_data()") there was no replacement for
-> > the previous handling of non-of instantiated devices via the device's
-> > id_entry which then results in a NULL pointer exception. The only
-> > in-tree provider of such a device is arch/m68k/coldfire/device.c.
-> >=20
-> > Given the id_table only contains a single entry just hardcode the result
-> > of `platform_get_device_id(pdev)->driver_data` and drop the unused
-> > assignment to .driver_data from the table.
-> >=20
-> > While touching the id table, drop the unusual comma after the terminator
-> > entry.
-> >=20
-> > Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
-ylibre.com>
->=20
-> Given this fixes a crash (NULL pointer exception), it would be great to
-> get this applied. The issue is already old (Sept 2023, v6.8-rc1), so
-> there is probably no urge to get this in before 7.2, but getting it into
-> next and then 7.3-rc1 would be good.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 18c1cc69886192e33536498289d26dba6894e3d5
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072058-disparate-ventricle-c83c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-This still stands. Marc, do you have this patch still on your radar?
+Possible dependencies:
 
-Best regards
-Uwe
 
---7gz5gbihnzriqixc
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+thanks,
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpeJegACgkQj4D7WH0S
-/k48MAf8CwYvCoFTxvTNVmeMwQ+UhSiB1fZhEmppRaXZ2vbqFGkPOjgM+F0G4QFS
-Y/GxMzMygtEeCe/rv2ucw5+rB0pWJE7hoCmCsClXHTsMKzb8MPxZxVypHSVoRMlj
-MVC+5Y0r/9ZrfW5W5iFV5Y43SzmDutjkvF8mbFI/1Zrs3n6/nH3mxNRjGL/1A5CA
-oA0bOtkd6lOHVyU4s/lZFfji4Tg3Q0X9Fgs3tmA/5Ev82QhVnW3spANA/U7x9jhM
-OzBD9sDszUbJFf0GdA3DG7jZ3dsePRePy7EfPs+rT1QHbxiLjFTcAY/CyyH07MMj
-RgTX4AWpQlxwcMSuOeP7UvJmtyGjxQ==
-=sovE
------END PGP SIGNATURE-----
+greg k-h
 
---7gz5gbihnzriqixc--
+------------------ original commit in Linus's tree ------------------
+
+From 18c1cc69886192e33536498289d26dba6894e3d5 Mon Sep 17 00:00:00 2001
+From: Chuck Lever <cel@kernel.org>
+Date: Tue, 19 May 2026 09:34:22 -0400
+Subject: [PATCH] SUNRPC: Return an error from xdr_buf_to_bvec() on overflow
+
+xdr_buf_to_bvec() returns a slot count even when the caller's bvec
+budget is exhausted partway through the xdr_buf. Callers feed that
+count into iov_iter_bvec() and continue as if the conversion had
+succeeded, silently sending or writing fewer bytes than the data
+length declares. For an NFS WRITE the server reports the truncated
+transfer to the client as full success.
+
+The overflow represents an internal invariant violation: a higher
+layer reserved a bvec budget too small for the xdr_buf it then
+asked the encoder to convert. That is a server-side fault, not a
+media I/O failure and not a malformed client argument.
+
+Change xdr_buf_to_bvec() to return a signed int and have the
+overflow label return -ESERVERFAULT. Update the three callers to
+detect the negative return and fail the request: nfsd_vfs_write()
+folds the error into host_err, which nfserrno() translates to
+nfserr_serverfault for the WRITE reply; svc_udp_sendto() and
+svc_tcp_sendmsg() propagate the error out of the send path.
+
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: 2eb2b9358181 ("SUNRPC: Convert svc_tcp_sendmsg to use bio_vecs directly")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index ba97e287c007..cba473969429 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -1440,7 +1440,7 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	unsigned long		exp_op_flags = 0;
+ 	unsigned int		pflags = current->flags;
+ 	bool			restore_flags = false;
+-	unsigned int		nvecs;
++	int			nvecs;
+ 
+ 	trace_nfsd_write_opened(rqstp, fhp, offset, *cnt);
+ 
+@@ -1480,6 +1480,10 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	}
+ 
+ 	nvecs = xdr_buf_to_bvec(rqstp->rq_bvec, rqstp->rq_maxpages, payload);
++	if (nvecs < 0) {
++		host_err = nvecs;
++		goto out_nfserr;
++	}
+ 
+ 	since = READ_ONCE(file->f_wb_err);
+ 	if (verf)
+diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
+index 31971b01d962..b102b4f21e6b 100644
+--- a/include/linux/sunrpc/xdr.h
++++ b/include/linux/sunrpc/xdr.h
+@@ -138,8 +138,8 @@ void	xdr_terminate_string(const struct xdr_buf *, const u32);
+ size_t	xdr_buf_pagecount(const struct xdr_buf *buf);
+ int	xdr_alloc_bvec(struct xdr_buf *buf, gfp_t gfp);
+ void	xdr_free_bvec(struct xdr_buf *buf);
+-unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+-			     const struct xdr_buf *xdr);
++int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
++		    const struct xdr_buf *xdr);
+ int xdr_buf_to_sg(const struct xdr_buf *buf, unsigned int offset,
+ 		  unsigned int len, struct scatterlist *sg, unsigned int nsg);
+ int xdr_buf_to_sg_alloc(const struct xdr_buf *buf, unsigned int offset,
+diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
+index 7be3de1a1aed..c434b6a6637d 100644
+--- a/net/sunrpc/svcsock.c
++++ b/net/sunrpc/svcsock.c
+@@ -732,7 +732,7 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
+ 		.msg_flags	= MSG_SPLICE_PAGES,
+ 		.msg_controllen	= sizeof(buffer),
+ 	};
+-	unsigned int count;
++	int count;
+ 	int err;
+ 
+ 	svc_udp_release_ctxt(xprt, rqstp->rq_xprt_ctxt);
+@@ -746,6 +746,10 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
+ 		goto out_notconn;
+ 
+ 	count = xdr_buf_to_bvec(svsk->sk_bvec, SUNRPC_MAX_UDP_SENDPAGES, xdr);
++	if (count < 0) {
++		err = count;
++		goto out_trace;
++	}
+ 
+ 	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
+ 		      count, rqstp->rq_res.len);
+@@ -757,6 +761,7 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
+ 		err = sock_sendmsg(svsk->sk_sock, &msg);
+ 	}
+ 
++out_trace:
+ 	trace_svcsock_udp_send(xprt, err);
+ 
+ 	mutex_unlock(&xprt->xpt_mutex);
+@@ -1237,7 +1242,7 @@ static int svc_tcp_sendmsg(struct svc_sock *svsk, struct svc_rqst *rqstp,
+ 	struct msghdr msg = {
+ 		.msg_flags	= MSG_SPLICE_PAGES,
+ 	};
+-	unsigned int count;
++	int count;
+ 	void *buf;
+ 	int ret;
+ 
+@@ -1253,10 +1258,15 @@ static int svc_tcp_sendmsg(struct svc_sock *svsk, struct svc_rqst *rqstp,
+ 
+ 	count = xdr_buf_to_bvec(svsk->sk_bvec + 1, rqstp->rq_maxpages,
+ 				&rqstp->rq_res);
++	if (count < 0) {
++		ret = count;
++		goto out;
++	}
+ 
+ 	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
+ 		      1 + count, sizeof(marker) + rqstp->rq_res.len);
+ 	ret = sock_sendmsg(svsk->sk_sock, &msg);
++out:
+ 	page_frag_free(buf);
+ 	return ret;
+ }
+diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
+index 8f52782d8a37..fa6a30b5f046 100644
+--- a/net/sunrpc/xdr.c
++++ b/net/sunrpc/xdr.c
+@@ -139,13 +139,14 @@ xdr_free_bvec(struct xdr_buf *buf)
+ /**
+  * xdr_buf_to_bvec - Copy components of an xdr_buf into a bio_vec array
+  * @bvec: bio_vec array to populate
+- * @bvec_size: element count of @bio_vec
++ * @bvec_size: element count of @bvec
+  * @xdr: xdr_buf to be copied
+  *
+- * Returns the number of entries consumed in @bvec.
++ * Returns the number of entries consumed in @bvec on success, or
++ * -ESERVERFAULT when @xdr does not fit within @bvec_size entries.
+  */
+-unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+-			     const struct xdr_buf *xdr)
++int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
++		    const struct xdr_buf *xdr)
+ {
+ 	const struct kvec *head = xdr->head;
+ 	const struct kvec *tail = xdr->tail;
+@@ -187,7 +188,7 @@ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+ 
+ bvec_overflow:
+ 	pr_warn_once("%s: bio_vec array overflow\n", __func__);
+-	return count;
++	return -ESERVERFAULT;
+ }
+ EXPORT_SYMBOL_GPL(xdr_buf_to_bvec);
+ 
+
