@@ -1,58 +1,47 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB0B30C172
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 03:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A30299923;
+	Mon, 20 Jul 2026 03:24:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784516414; cv=none; b=JzQQehH1zFCkeQLK46/9SOXfeObaSrrUX4m2LOuiipi6uJUGTnLFErgt7QdeExBJcB6AmqmZLtiVG5dXcVd3TteLVVf0RAnMRM2PPCveNCuT05FjBeBylNz+6os5wupDBvfqwMuc8SmMjGcUCKL7E1uuhoocCaHXVUp/tPfnuWA=
+	t=1784517868; cv=none; b=oanFAv3zENq83ycJJxKigfAMgGjbwAuwJGKGWFnHu1Rs4PnkI82jtq8fH0sC6QQZLsBmeCgOw8iw0eTDwLQ35TqR/tJbbr4jfiPNoReBOPkivaMlsq11N+uv58CyavEKRinl2CiWL12INV+puybmG52O2+Q2m2sxcu8e50pLCI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784516414; c=relaxed/simple;
-	bh=Gs/PljVUUspuFUmq10FMNkcjWj8w/JpLIy2uNLGD3Yc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E/5acDugAnTEV91X3PC1WJGIrwHPD+JLhUF6JiVeO+6aXTkDrXZAGVUgkazuctASj2bckzEzzjIrjJHjuDjrpOI2qHRib09pixjeN80+XzjKMj4cmnDRWpRmiaFoEasoHqVS3PXVsTVa+PDdRbnR8oFXpiUe6SZpmvgBIGoszCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WV1HUW7G; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784517868; c=relaxed/simple;
+	bh=Ue3DV4QUUZ4ljqrjSWAHXoqcy8Ogvs4mLZEys8j07I4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HadoWyafC+TrU0CqdZPMFygyf5/8TX3BamdqbH4QVsVxOMA1MB1S1NC4VniMUcHlZ1Efc0oi99p1KGHyRnnDgAAgAw4R/av000w7Nj8QST91zURZtDCIRlyrIxqzv2f0fNKXYb5Ucc0raz5+heohWh22tELsiE+oThZ+kgQhISk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pBFiFkui; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WV1HUW7G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784516412; x=1816052412;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Gs/PljVUUspuFUmq10FMNkcjWj8w/JpLIy2uNLGD3Yc=;
-  b=WV1HUW7GgFna1CKTVzgcwVZycawXF01gfaHeKRf9RV6BhdFLWAyq2yOI
-   RJ63+8cov247TFg5GbFbSUX3COj8j7OKHcCE0RLyDvsXam2wTBWpsJwUP
-   D+b26FisvXZIC8+F0ApV0XCoXiim/BUa8PWHdaLUfuWyiY8EEPo5SsI43
-   4C6oBsTfCgT9N3q4y4xVPXztcQc2YvL1jcc8bH5yPBVzyNEbAAuOJjCUY
-   7eDnPze+lUevhkCs9X/b5ztck9HjGv0yBdr6jnjsIuAdKb6+I6DTJPFLN
-   J2kgO8jC+G3AGq+spE9s1EUXszFxMVyaNoTjh+wDZj1ciO6BRtM59bI83
-   Q==;
-X-CSE-ConnectionGUID: gDnrJZ4OQjmvouu+syVBog==
-X-CSE-MsgGUID: kLj1ckH9QoGHkYM4+CoWmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="96229335"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
-   d="scan'208";a="96229335"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 20:00:11 -0700
-X-CSE-ConnectionGUID: A6NfjGXYRHGhKDaw0EGmtA==
-X-CSE-MsgGUID: r0sCwY53Ssqa2TWUH4rjNQ==
-X-ExtLoop1: 1
-Received: from litbin-desktop.sh.intel.com ([10.239.159.62])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2026 20:00:08 -0700
-From: Binbin Wu <binbin.wu@linux.intel.com>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>
-Subject: [PATCH 6.18.y] KVM: TDX: Account all non-transient page allocations for per-TD structures
-Date: Mon, 20 Jul 2026 11:03:29 +0800
-Message-ID: <20260720030329.744758-1-binbin.wu@linux.intel.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <2026071641-falsify-antiquely-4d9a@gregkh>
-References: <2026071641-falsify-antiquely-4d9a@gregkh>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pBFiFkui"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=5G
+	ZLmH9LnQCWSlRdWLB0LksgmcVa962p1jFapMPS7Bw=; b=pBFiFkui9dDZBTQkzH
+	paXM4kxl0TlWaILDacAWkcXiTCRcnZqQfdLr0J8PX8CCiyoqFR9TnjatfOJk+zry
+	G17pDMBAIg2P1uHABsUeLUqVkpVD1GwHvIJKgKnA30valsDrt+P5R6GrBmDp+Qrk
+	/rpx3BefvlLlC9rudmSTzoFhA=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wAH9nK8lF1qF6ikKA--.13720S3;
+	Mon, 20 Jul 2026 11:23:44 +0800 (CST)
+From: Yang Xiuwei <yangxiuwei@kylinos.cn>
+To: James.Bottomley@HansenPartnership.com,
+	martin.petersen@oracle.com
+Cc: rc@rexion.ai,
+	axboe@kernel.dk,
+	fujita.tomonori@lab.ntt.co.jp,
+	bvanassche@acm.org,
+	linux-scsi@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yang Xiuwei <yangxiuwei@kylinos.cn>
+Subject: [PATCH 1/2] scsi: bsg: fix TOCTOU in io_uring passthrough command setup
+Date: Mon, 20 Jul 2026 11:23:37 +0800
+Message-Id: <20260720032338.461681-2-yangxiuwei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260720032338.461681-1-yangxiuwei@kylinos.cn>
+References: <20260720032338.461681-1-yangxiuwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,87 +49,131 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAH9nK8lF1qF6ikKA--.13720S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr4DtF4ftw48Xr4kZF1DJrb_yoWrKr1fpF
+	WYqw4SvrW5WF1IkFyDJFZ8Aay5twn7C3WxKFW3Ww43trWqyr909a1rXFyIqFyfAr97AFyF
+	qr4qgFyDCr1jq3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjoGdUUUUU=
+Sender: yangxiuwei2025@163.com
+X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbC6gBH12pdlMDHgwAA3d
 
-From: Sean Christopherson <seanjc@google.com>
+From: Rahul Chandelkar <rc@rexion.ai>
 
-[ Upstream commit a8b2924676ec42d76597f849baba31acc3ba1bfc ]
+scsi_bsg_uring_cmd() reads bsg_uring_cmd fields from the shared mmap'd
+SQE via io_uring_sqe128_cmd(). On the inline path the SQE is still
+user-writable, so request_len can change between the bounds check and
+copy_from_user(), overflowing scmd->cmnd.
 
-Account all non-transient allocations associated with a single TD (or its
-vCPUs), as KVM's ABI is that allocations that are active for the lifetime
-of a VM are accounted.  Leave temporary allocations, i.e. allocations that
-are freed within a single function/ioctl, unaccounted, to again align with
-KVM's existing behavior, e.g. see commit dd103407ca31 ("KVM: X86: Remove
-unnecessary GFP_KERNEL_ACCOUNT for temporary variables").
+Snapshot request/request_len and the transfer fields used for buffer
+mapping with READ_ONCE before validation and reuse. Pass the stable
+map arguments into scsi_bsg_map_user_buffer() so it does not re-read
+the SQE.
 
-Fixes: 8d032b683c29 ("KVM: TDX: create/destroy VM structure")
-Fixes: a50f673f25e0 ("KVM: TDX: Do TDX specific vcpu initialization")
+Fixes: 7b6d3255e7f8 ("scsi: bsg: add io_uring passthrough handler")
 Cc: stable@vger.kernel.org
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Link: https://patch.msgid.link/20260129011517.3545883-4-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ Binbin: Resolved conflicts in __tdx_td_init() due to lacking commits
-  eac90a5ba0aa and 69050f8d6d07, retain nr_configured_hkid increment and
-  kcalloc() call. ]
-Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+Link: https://lore.kernel.org/r/20260527105931.3950913-1-rc@rexion.ai
+Signed-off-by: Rahul Chandelkar <rc@rexion.ai>
+Co-developed-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
+Signed-off-by: Yang Xiuwei <yangxiuwei@kylinos.cn>
 ---
- arch/x86/kvm/vmx/tdx.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/scsi/scsi_bsg.c | 40 ++++++++++++++++++++++++++--------------
+ 1 file changed, 26 insertions(+), 14 deletions(-)
 
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index d9ffc16dfefe..7534397defa2 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -2474,7 +2474,7 @@ static int __tdx_td_init(struct kvm *kvm, struct td_params *td_params,
+diff --git a/drivers/scsi/scsi_bsg.c b/drivers/scsi/scsi_bsg.c
+index e80dec53174e..c57ce01379de 100644
+--- a/drivers/scsi/scsi_bsg.c
++++ b/drivers/scsi/scsi_bsg.c
+@@ -76,12 +76,10 @@ static enum rq_end_io_ret scsi_bsg_uring_cmd_done(struct request *req,
  
- 	atomic_inc(&nr_configured_hkid);
+ static int scsi_bsg_map_user_buffer(struct request *req,
+ 				    struct io_uring_cmd *ioucmd,
+-				    unsigned int issue_flags, gfp_t gfp_mask)
++				    unsigned int issue_flags, gfp_t gfp_mask,
++				    bool is_write, u64 buf_addr,
++				    unsigned long buf_len)
+ {
+-	const struct bsg_uring_cmd *cmd = io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
+-	bool is_write = cmd->dout_xfer_len > 0;
+-	u64 buf_addr = is_write ? cmd->dout_xferp : cmd->din_xferp;
+-	unsigned long buf_len = is_write ? cmd->dout_xfer_len : cmd->din_xfer_len;
+ 	struct iov_iter iter;
+ 	int ret;
  
--	tdr_page = alloc_page(GFP_KERNEL);
-+	tdr_page = alloc_page(GFP_KERNEL_ACCOUNT);
- 	if (!tdr_page)
- 		goto free_hkid;
+@@ -104,21 +102,29 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
+ 			       unsigned int issue_flags, bool open_for_write)
+ {
+ 	struct scsi_bsg_uring_cmd_pdu *pdu = scsi_bsg_uring_cmd_pdu(ioucmd);
+-	const struct bsg_uring_cmd *cmd = io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
++	const struct bsg_uring_cmd *cmd =
++		io_uring_sqe128_cmd(ioucmd->sqe, struct bsg_uring_cmd);
+ 	struct scsi_cmnd *scmd;
+ 	struct request *req;
+ 	blk_mq_req_flags_t blk_flags = 0;
+ 	gfp_t gfp_mask = GFP_KERNEL;
++	/* Snapshot SQE fields used for validation and buffer mapping. */
++	u64 request = READ_ONCE(cmd->request);
++	u32 request_len = READ_ONCE(cmd->request_len);
++	u64 dout_xferp = READ_ONCE(cmd->dout_xferp);
++	u32 dout_xfer_len = READ_ONCE(cmd->dout_xfer_len);
++	u64 din_xferp = READ_ONCE(cmd->din_xferp);
++	u32 din_xfer_len = READ_ONCE(cmd->din_xfer_len);
+ 	int ret;
  
-@@ -2482,12 +2482,12 @@ static int __tdx_td_init(struct kvm *kvm, struct td_params *td_params,
- 	/* TDVPS = TDVPR(4K page) + TDCX(multiple 4K pages), -1 for TDVPR. */
- 	kvm_tdx->td.tdcx_nr_pages = tdx_sysinfo->td_ctrl.tdvps_base_size / PAGE_SIZE - 1;
- 	tdcs_pages = kcalloc(kvm_tdx->td.tdcs_nr_pages, sizeof(*kvm_tdx->td.tdcs_pages),
--			     GFP_KERNEL);
-+			     GFP_KERNEL_ACCOUNT);
- 	if (!tdcs_pages)
- 		goto free_tdr;
+ 	if (cmd->protocol != BSG_PROTOCOL_SCSI ||
+ 	    cmd->subprotocol != BSG_SUB_PROTOCOL_SCSI_CMD)
+ 		return -EINVAL;
  
- 	for (i = 0; i < kvm_tdx->td.tdcs_nr_pages; i++) {
--		tdcs_pages[i] = alloc_page(GFP_KERNEL);
-+		tdcs_pages[i] = alloc_page(GFP_KERNEL_ACCOUNT);
- 		if (!tdcs_pages[i])
- 			goto free_tdcs;
+-	if (!cmd->request || cmd->request_len == 0)
++	if (!request || request_len == 0)
+ 		return -EINVAL;
+ 
+-	if (cmd->dout_xfer_len && cmd->din_xfer_len) {
++	if (dout_xfer_len && din_xfer_len) {
+ 		pr_warn_once("BIDI support in bsg has been removed.\n");
+ 		return -EOPNOTSUPP;
  	}
-@@ -2937,7 +2937,7 @@ static int tdx_td_vcpu_init(struct kvm_vcpu *vcpu, u64 vcpu_rcx)
- 	int ret, i;
- 	u64 err;
- 
--	page = alloc_page(GFP_KERNEL);
-+	page = alloc_page(GFP_KERNEL_ACCOUNT);
- 	if (!page)
- 		return -ENOMEM;
- 	tdx->vp.tdvpr_page = page;
-@@ -2950,14 +2950,14 @@ static int tdx_td_vcpu_init(struct kvm_vcpu *vcpu, u64 vcpu_rcx)
- 	tdx->vp.tdvpr_pa = page_to_phys(tdx->vp.tdvpr_page);
- 
- 	tdx->vp.tdcx_pages = kcalloc(kvm_tdx->td.tdcx_nr_pages, sizeof(*tdx->vp.tdcx_pages),
--			       	     GFP_KERNEL);
-+				     GFP_KERNEL_ACCOUNT);
- 	if (!tdx->vp.tdcx_pages) {
- 		ret = -ENOMEM;
- 		goto free_tdvpr;
+@@ -131,20 +137,20 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
+ 		gfp_mask = GFP_NOWAIT;
  	}
  
- 	for (i = 0; i < kvm_tdx->td.tdcx_nr_pages; i++) {
--		page = alloc_page(GFP_KERNEL);
-+		page = alloc_page(GFP_KERNEL_ACCOUNT);
- 		if (!page) {
- 			ret = -ENOMEM;
- 			goto free_tdcx;
+-	req = scsi_alloc_request(q, cmd->dout_xfer_len ?
++	req = scsi_alloc_request(q, dout_xfer_len ?
+ 				 REQ_OP_DRV_OUT : REQ_OP_DRV_IN, blk_flags);
+ 	if (IS_ERR(req))
+ 		return PTR_ERR(req);
+ 
+ 	scmd = blk_mq_rq_to_pdu(req);
+-	if (cmd->request_len > sizeof(scmd->cmnd)) {
++	if (request_len > sizeof(scmd->cmnd)) {
+ 		ret = -EINVAL;
+ 		goto out_free_req;
+ 	}
+-	scmd->cmd_len = cmd->request_len;
++	scmd->cmd_len = request_len;
+ 	scmd->allowed = SG_DEFAULT_RETRIES;
+ 
+-	if (copy_from_user(scmd->cmnd, uptr64(cmd->request), cmd->request_len)) {
++	if (copy_from_user(scmd->cmnd, uptr64(request), request_len)) {
+ 		ret = -EFAULT;
+ 		goto out_free_req;
+ 	}
+@@ -158,8 +164,14 @@ static int scsi_bsg_uring_cmd(struct request_queue *q, struct io_uring_cmd *iouc
+ 	scmd->sense_len = cmd->max_response_len ?
+ 		min(cmd->max_response_len, SCSI_SENSE_BUFFERSIZE) : SCSI_SENSE_BUFFERSIZE;
+ 
+-	if (cmd->dout_xfer_len || cmd->din_xfer_len) {
+-		ret = scsi_bsg_map_user_buffer(req, ioucmd, issue_flags, gfp_mask);
++	if (dout_xfer_len || din_xfer_len) {
++		bool is_write = dout_xfer_len > 0;
++		u64 buf_addr = is_write ? dout_xferp : din_xferp;
++		unsigned long buf_len = is_write ? dout_xfer_len : din_xfer_len;
++
++		ret = scsi_bsg_map_user_buffer(req, ioucmd, issue_flags,
++					       gfp_mask, is_write, buf_addr,
++					       buf_len);
+ 		if (ret)
+ 			goto out_free_req;
+ 		pdu->bio = req->bio;
 -- 
-2.46.0
+2.25.1
 
