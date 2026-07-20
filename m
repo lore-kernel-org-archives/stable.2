@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F80D43711B
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 18:08:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DDE40A94B
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 18:08:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784570928; cv=none; b=PaC28rLizOrdOs9h1YgTFcdvUW/QpR8L4w3L3i7Jr0SpEtmoH708+w+7sQNB+vHOQfQt02A3Xo+Ik7O96LEZTK3exHytplIKYTt1lI0seKTvVx6CTJhFRs7kzDPSpswWGatwVHau8xHQ7qD2NnzcFHNhwpDbBsSleLuCXbnsiJY=
+	t=1784570932; cv=none; b=LOomr+z+u9WwA3xahc7eYo5+OSf7Fv9la5D4DiCvQhzEz0tMf2L4kUYWCchKgpq9sq23Da5Z5Yd1JaLO8oS/eu8LS3uPZoSwZzvx/ifE5I+ioHVrwYYzPzvWdWCJkiWIfywMGtrbxS8jNnkF429OP454uTxFDS8FsItUkTwR6w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784570928; c=relaxed/simple;
-	bh=1ctLD7dnkaiFyxTVUhPx0TQxsBqh8T6se+tzDfG2y4Y=;
+	s=arc-20240116; t=1784570932; c=relaxed/simple;
+	bh=rCj93jHx1KDJ8tQrOhMbo+WpNa3I2kusZ2zNBWNMtDM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bsIcYM1KstARGxjgpi1+3R+3FX6FruLXN771rO1pbTPJ3CikHNMPRUumbMEMh0rvKzLED3bb3cgLU+LWEsFlFIxeAFDhumLp0bxBL/d11/VK9lU70C7J6ZVmzMD+NsaJhdHltYyUH/4KLQpE41e4tWWrX4/0Z0GOt2dLP6djeKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYYxJn7a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iQzLzRzXPvA/bmCD3Zf/THQ4WJZvlJ1x/DmSNr1BL6amN81UwGQ6bXuwfy1s2fKPdRet83jvR0gGJ1LYB0eqIarcIGVmsrkcXYNmlxxeakNWtewflaLgiM9FCv+xbxJSW5XL4q1361N++iQgJZ3wa1Ycc0zelLVPe1p+GEMcCIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwjhvCoq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYYxJn7a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86DB1F000E9;
-	Mon, 20 Jul 2026 18:08:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwjhvCoq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243A61F000E9;
+	Mon, 20 Jul 2026 18:08:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784570926;
-	bh=V4JYZ9Zo8rPOf0S8TJ5yhv7/Hf78UlS5KJ/DysqaImo=;
+	s=k20260515; t=1784570930;
+	bh=XsHV9/gZc9B7WPMuB3IzZHzUHVsfXXUFSwD4m8X1kZE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HYYxJn7aoMaKdInQHT3iXl36c7wb7bh+jHJ/AUo83cmqcF3z9meAqQZorCKxlwMRd
-	 K8iWSvYPHW5P2GOE+ZR2PBlpZ+tfovltGYFhxOzp18JFYVdUScBDjUkhh7G22REPv4
-	 wFT29thzaQ5nOnhoFVPuY6na41uXP+bCBzm6qXQWYdd5uG385Zzv7YsqxasucW05Jl
-	 EF/40+iuoSpl+4fhQRjBXx1u5OCjIF3Tuu5Zy/PFuuD5Z/+zORuY52gi/koaqVQ4kk
-	 ncUkP0/960G6V8ZEMpfEXCBHf7B1NQzkm1Yp3Iozlg0aH060xCEBK1cIF8j31wLfld
-	 Xtao1pcMGoTsA==
+	b=RwjhvCoqwfyxDkyyhoTTw3tlw//1unjwBuWJG2a+BH6heJJfjqn+zIog29ctgI8hD
+	 qayEH+doMmyJo2Yfshj0zNkxNHK5CXgDjRgJ1dvvu9oPkKQ1V1hXJlkEFyhDK3j2NL
+	 y/mKblJG8c38w3YAzSgrPsWdo0QfVb098+zzhA9NhiSKPw0nmzAUFJ1+3/giBKb3H6
+	 /qxnX+P3/KHSqAA6dk873ZHco5c6cOcrm9uMLCTZBWAPv9r+inKg7fxb6fLKwCX6Ye
+	 hYBOyUN+twjkDb8EWJX5y2mG/ZF6IO8FzC512tdPC8gZe/v5GXfpD9Y3Pv4evKHNet
+	 g9AMamjosL5CA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Qu Wenruo <wqu@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
+	Boris Burkov <boris@bur.io>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] btrfs: check and set EXTENT_DELALLOC_NEW before clearing EXTENT_DELALLOC
-Date: Mon, 20 Jul 2026 14:08:44 -0400
-Message-ID: <20260720180844.2922739-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] btrfs: fix false IO failure after falling back to buffered write
+Date: Mon, 20 Jul 2026 14:08:47 -0400
+Message-ID: <20260720180848.2923096-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071523-earlobe-porridge-93f8@gregkh>
-References: <2026071523-earlobe-porridge-93f8@gregkh>
+In-Reply-To: <2026071509-retiree-cod-8019@gregkh>
+References: <2026071509-retiree-cod-8019@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,270 +48,187 @@ Content-Transfer-Encoding: 8bit
 
 From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 95ee2231896d5f2a31760411429075a99d6045a7 ]
+[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
 
-[WARNING]
-When running test cases with injected errors or shutdown, e.g.
-generic/388 or generic/475, there is a chance that the following kernel
-warning is triggered:
+[BUG]
+The test case generic/362 will fail with "nodatasum" mount option (*):
 
-  BTRFS info (device dm-2): first mount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
-  BTRFS info (device dm-2): using crc32c checksum algorithm
-  BTRFS info (device dm-2): checking UUID tree
-  BTRFS info (device dm-2): turning on async discard
-  BTRFS info (device dm-2): enabling free space tree
-  BTRFS critical (device dm-2 state E): emergency shutdown
-  ------------[ cut here ]------------
-  WARNING: extent_io.c:1742 at extent_writepage_io+0x437/0x520 [btrfs], CPU#2: kworker/u43:2/651591
-  CPU: 2 UID: 0 PID: 651591 Comm: kworker/u43:2 Tainted: G        W  OE       7.0.0-rc6-custom+ #365 PREEMPT(full)  5804053f02137e627472d94b5128cc9fcb110e88
-  RIP: 0010:extent_writepage_io+0x437/0x520 [btrfs]
-  Call Trace:
-   <TASK>
-   extent_write_cache_pages+0x2a5/0x820 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
-   btrfs_writepages+0x74/0x130 [btrfs 70299925d0856939e93b17d480651713b3cbba58]
-   do_writepages+0xd0/0x160
-   __writeback_single_inode+0x42/0x340
-   writeback_sb_inodes+0x22d/0x580
-   wb_writeback+0xc6/0x360
-   wb_workfn+0xbd/0x470
-   process_one_work+0x198/0x3b0
-   worker_thread+0x1c8/0x330
-   kthread+0xee/0x120
-   ret_from_fork+0x2a6/0x330
-   ret_from_fork_asm+0x11/0x20
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-  BTRFS error (device dm-2 state E): root 5 ino 259 folio 1323008 is marked dirty without notifying the fs
-  BTRFS error (device dm-2 state E): failed to submit blocks, root=5 inode=259 folio=1323008 submit_bitmap=0: -117
-  BTRFS info (device dm-2 state E): last unmount of filesystem d8a19a28-3232-4809-b0df-38df83e71bff
+ MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
+
+ generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
+    @@ -1,2 +1,3 @@
+     QA output created by 362
+    +First write failed: Input/output error
+     Silence is golden
+    ...
+
+*: If the test case has been executed before with default data checksum,
+the failure will not reproduce. Need the following fix to make it
+reliably reproducible:
+https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
 
 [CAUSE]
-Inside btrfs we have the following pattern in several locations, for
-example inside btrfs_dirty_folio():
+Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
+Thus we never got an error pointer from __iomap_dio_rw().
 
-	btrfs_clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
-			       EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
-			       cached);
+The call chain looks like this:
 
-	ret = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
-					extra_bits, cached);
-	if (ret)
-		return ret;
+ btrfs_direct_write()
+ |- btrfs_dio_write()
+ |-  __iomap_dio_rw()
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_begin()
+ |  |     Now an ordered extent is allocated for the 4K write.
+ |  |
+ |  |- iomi.status = iomap_dio_iter()
+ |  |  Where iomap_dio_iter() returned -EFAULT.
+ |  |
+ |  |- ret = iomap_iter()
+ |  |  |- btrfs_dio_iomap_end()
+ |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
+ |  |  |  |  |- can_finish_ordered_extent()
+ |  |  |  |     |- btrfs_mark_ordered_extent_error()
+ |  |  |  |        |- mapping_set_error()
+ |  |  |  |           Now the address space is marked error.
+ |  |  |  | return -ENOTBLK
+ |  |  |- return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0; }
+ |     Now the return value is reset to 0.
+ |     Thus no error pointer will be returned.
+ |
+ |- ret = iomap_dio_complete()
+ |  Since no byte is submitted, @ret is 0.
+ |
+ |- Fallback to buffered IO
+ |  And the buffered write finished without error
+ |
+ |- filemap_fdatawait_range()
+    |- filemap_check_errors()
+       The previous error is recorded, thus an error is returned
 
-However btrfs_set_extent_delalloc() can return IO errors other than -ENOMEM
-through the following callchain:
-
- btrfs_set_extent_delalloc()
- \- btrfs_find_new_delalloc_bytes()
-    \- btrfs_get_extent()
-       \- btrfs_lookup_file_extent()
-          \- btrfs_search_slot()
-
-When such IO error happened, the previous btrfs_clear_extent_bit() has
-cleared the EXTENT_DELALLOC for the range, and we're expecting
-btrfs_set_extent_delalloc() to re-set EXTENT_DELALLOC.
-
-But since btrfs_set_extent_delalloc() failed before
-btrfs_set_extent_bit(), EXTENT_DELALLOC flag is no longer present.
-
-And if the folio range is dirty before entering
-btrfs_set_extent_delalloc(), we got a dirty folio but no EXTENT_DELALLOC
-flag now.
-
-Then we hit the folio writeback:
-
-  extent_writepage()
-  |- writepage_delalloc()
-  |  No ordered extent is created, as there is no EXTENT_DELALLOC set
-  |  for the folio range.
-  |  This also means the folio has no ordered flag set.
-  |
-  |- extent_writepage_io()
-     \- if (unlikely(!folio_test_ordered(folio))
-        Now we hit the warning.
+However the buffered write is properly submitted and finished, the error
+is from the btrfs_finish_ordered_extent() call with @uptodate = false.
 
 [FIX]
-Introduce a new helper, btrfs_reset_extent_delalloc() to replace the
-currently open-coded btrfs_clear_extent_bit() +
-btrfs_set_extent_delalloc() combination.
+When a short dio write happened, any range that is submitted will have
+btrfs_extract_ordered_extent() to be called, thus the submitted range
+will always have an OE just covering the submitted range.
 
-Instead of calling btrfs_clear_extent_bit() first, update
-EXTENT_DELALLOC_NEW first, as that part can fail due to metadata IO,
-meanwhile btrfs_clear_extent_bit() and btrfs_set_extent_bit() won't
-return any error but retry memory allocation until succeeded.
+The remaining OE range is never submitted, thus they should be treated
+as truncated, not an error. So that we can properly reclaim and not
+insert an unnecessary file extent item, without marking the mapping as
+error.
 
-This allows us to fail early without clearing EXTENT_DELALLOC bit, so
-even if that new btrfs_reset_extent_delalloc() failed before touching
-EXTENT_DELALLOC, the existing dirty range will still have their old
-EXTENT_DELALLOC flag present, thus avoid the warning.
+Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
+that helper to mark the direct IO ordered extent as truncated, so it
+won't cause failure for the later buffered fallback.
 
-CC: stable@vger.kernel.org # 6.1+
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
+[REASON FOR NO FIXES TAG]
+The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we're already passing @uptodate=false finishing
+the OE.
+But at that time OE with IOERR won't call mapping_set_error(), so it's
+not exposed.
+Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
+error if we fail to finish") finally exposed the bug, but that commit
+is doing a correct job, not the root cause.
+
+Anyway the bug is very old, dating back to 5.1x days, thus only CC to
+stable.
+
+CC: stable@vger.kernel.org # 5.15+
+Reviewed-by: Boris Burkov <boris@bur.io>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: ff66fe666233 ("btrfs: fix incorrect buffered IO fallback for append direct writes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/btrfs_inode.h |  2 ++
- fs/btrfs/file.c        | 12 ++-----
- fs/btrfs/inode.c       | 72 ++++++++++++++++++++++++++++++------------
- fs/btrfs/reflink.c     |  5 +--
- 4 files changed, 57 insertions(+), 34 deletions(-)
+ fs/btrfs/inode.c        | 23 +++++++++++++++--------
+ fs/btrfs/ordered-data.c | 12 ++++++++++++
+ fs/btrfs/ordered-data.h |  2 ++
+ 3 files changed, 29 insertions(+), 8 deletions(-)
 
-diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
-index a2e471d51a8f0b..479023e9d74aae 100644
---- a/fs/btrfs/btrfs_inode.h
-+++ b/fs/btrfs/btrfs_inode.h
-@@ -441,6 +441,8 @@ int btrfs_start_delalloc_roots(struct btrfs_fs_info *fs_info, long nr,
- int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
- 			      unsigned int extra_bits,
- 			      struct extent_state **cached_state);
-+int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
-+				unsigned int extra_bits, struct extent_state **cached_state);
- 
- struct btrfs_new_inode_args {
- 	/* Input */
-diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
-index 8e7108c14de2ce..a188467a9fb3d7 100644
---- a/fs/btrfs/file.c
-+++ b/fs/btrfs/file.c
-@@ -151,16 +151,8 @@ int btrfs_dirty_pages(struct btrfs_inode *inode, struct page **pages,
- 
- 	end_of_last_block = start_pos + num_bytes - 1;
- 
--	/*
--	 * The pages may have already been dirty, clear out old accounting so
--	 * we can set things up properly
--	 */
--	clear_extent_bit(&inode->io_tree, start_pos, end_of_last_block,
--			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			 cached);
--
--	err = btrfs_set_extent_delalloc(inode, start_pos, end_of_last_block,
--					extra_bits, cached);
-+	err = btrfs_reset_extent_delalloc(inode, start_pos, end_of_last_block,
-+					  extra_bits, cached);
- 	if (err)
- 		return err;
- 
 diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 7add1a019d8578..b536ae06790816 100644
+index 7add1a019d8578..cf647e6157a3e2 100644
 --- a/fs/btrfs/inode.c
 +++ b/fs/btrfs/inode.c
-@@ -2666,7 +2666,11 @@ int btrfs_set_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
- 			      unsigned int extra_bits,
- 			      struct extent_state **cached_state)
- {
--	WARN_ON(PAGE_ALIGNED(end));
-+	const u32 blocksize = inode->root->fs_info->sectorsize;
-+
-+	/* Basic alignment check. */
-+	ASSERT(IS_ALIGNED(start, blocksize));
-+	ASSERT(IS_ALIGNED(end + 1, blocksize));
+@@ -7754,12 +7754,23 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 	if (submitted < length) {
+ 		pos += submitted;
+ 		length -= submitted;
+-		if (write)
++		if (write) {
++			/*
++			 * We have a short write, if there is any range
++			 * that is submitted properly, that part will have
++			 * its own OE split from the original one.
++			 *
++			 * So for the OE at dio_data->ordered, it's the part
++			 * that is not submitted, and should be marked
++			 * as fully truncated.
++			 */
++			btrfs_mark_ordered_extent_truncated(dio_data->ordered, 0);
+ 			btrfs_finish_ordered_extent(dio_data->ordered, NULL,
+-						    pos, length, false);
+-		else
++						    pos, length, true);
++		} else {
+ 			unlock_extent(&BTRFS_I(inode)->io_tree, pos,
+ 				      pos + length - 1, NULL);
++		}
+ 		ret = -ENOTBLK;
+ 	}
+ 	if (write) {
+@@ -8109,11 +8120,7 @@ static void btrfs_invalidate_folio(struct folio *folio, size_t offset,
+ 					 EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
+ 					 EXTENT_DEFRAG, &cached_state);
  
- 	if (start >= i_size_read(&inode->vfs_inode) &&
- 	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
-@@ -2872,6 +2876,50 @@ int btrfs_writepage_cow_fixup(struct page *page)
- 	return -EAGAIN;
+-		spin_lock_irq(&inode->ordered_tree.lock);
+-		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
+-		ordered->truncated_len = min(ordered->truncated_len,
+-					     cur - ordered->file_offset);
+-		spin_unlock_irq(&inode->ordered_tree.lock);
++		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
+ 
+ 		/*
+ 		 * If the ordered extent has finished, we're safe to delete all
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index e0a2d0cfd5ebe7..ff37971ef89743 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -303,6 +303,18 @@ void btrfs_add_ordered_sum(struct btrfs_ordered_extent *entry,
+ 	spin_unlock_irq(&tree->lock);
  }
  
-+/*
-+ * Clear the old accounting flags and set EXTENT_DELALLOC for the range.
-+ *
-+ * Return <0 for error, in that case no range has EXTENT_DELALLOC bit cleared or set.
-+ */
-+int btrfs_reset_extent_delalloc(struct btrfs_inode *inode, u64 start, u64 end,
-+				unsigned int extra_bits, struct extent_state **cached_state)
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len)
 +{
-+	const u32 blocksize = inode->root->fs_info->sectorsize;
++	struct btrfs_inode *inode = BTRFS_I(ordered->inode);
 +
-+	/* The @extra_bits can only be EXTENT_NORESERVE for now. */
-+	ASSERT(!(extra_bits & ~EXTENT_NORESERVE));
-+
-+	/* Basic alignment check. */
-+	ASSERT(IS_ALIGNED(start, blocksize));
-+	ASSERT(IS_ALIGNED(end + 1, blocksize));
-+
-+	/*
-+	 * Check and set DELALLOC_NEW flag, this needs to search tree thus can
-+	 * fail early.  Thus we want to do this before clearing EXTENT_DELALLOC.
-+	 */
-+	if (start >= i_size_read(&inode->vfs_inode) &&
-+	    !(inode->flags & BTRFS_INODE_PREALLOC)) {
-+		/*
-+		 * There can't be any extents following EOF in this case so just
-+		 * set the delalloc new bit for the range directly.
-+		 */
-+		extra_bits |= EXTENT_DELALLOC_NEW;
-+	} else {
-+		int ret;
-+
-+		ret = btrfs_find_new_delalloc_bytes(inode, start, end + 1 - start,
-+						    NULL);
-+		if (unlikely(ret))
-+			return ret;
-+	}
-+	/* Clear the old accounting as the range may already be dirty. */
-+	clear_extent_bit(&inode->io_tree, start, end,
-+			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
-+			 EXTENT_DEFRAG, cached_state);
-+	return set_extent_bit(&inode->io_tree, start, end,
-+			      EXTENT_DELALLOC | extra_bits, cached_state);
++	ASSERT(truncate_len <= ordered->num_bytes);
++	spin_lock_irq(&inode->ordered_tree.lock);
++	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
++	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
++	spin_unlock_irq(&inode->ordered_tree.lock);
 +}
 +
- static int insert_reserved_file_extent(struct btrfs_trans_handle *trans,
- 				       struct btrfs_inode *inode, u64 file_pos,
- 				       struct btrfs_file_extent_item *stack_fi,
-@@ -4799,12 +4847,7 @@ int btrfs_truncate_block(struct btrfs_inode *inode, loff_t from, loff_t len,
- 		goto again;
- 	}
- 
--	clear_extent_bit(&inode->io_tree, block_start, block_end,
--			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			 &cached_state);
--
--	ret = btrfs_set_extent_delalloc(inode, block_start, block_end, 0,
--					&cached_state);
-+	ret = btrfs_reset_extent_delalloc(inode, block_start, block_end, 0, &cached_state);
- 	if (ret) {
- 		unlock_extent(io_tree, block_start, block_end, &cached_state);
- 		goto out_unlock;
-@@ -8278,19 +8321,8 @@ vm_fault_t btrfs_page_mkwrite(struct vm_fault *vmf)
- 		}
- 	}
- 
--	/*
--	 * page_mkwrite gets called when the page is firstly dirtied after it's
--	 * faulted in, but write(2) could also dirty a page and set delalloc
--	 * bits, thus in this case for space account reason, we still need to
--	 * clear any delalloc bits within this page range since we have to
--	 * reserve data&meta space before lock_page() (see above comments).
--	 */
--	clear_extent_bit(&BTRFS_I(inode)->io_tree, page_start, end,
--			  EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING |
--			  EXTENT_DEFRAG, &cached_state);
--
--	ret2 = btrfs_set_extent_delalloc(BTRFS_I(inode), page_start, end, 0,
--					&cached_state);
-+	ret2 = btrfs_reset_extent_delalloc(BTRFS_I(inode), page_start, end, 0,
-+					   &cached_state);
- 	if (ret2) {
- 		unlock_extent(io_tree, page_start, page_end, &cached_state);
- 		ret = VM_FAULT_SIGBUS;
-diff --git a/fs/btrfs/reflink.c b/fs/btrfs/reflink.c
-index 9f60aa79a8c502..35ef65b7c25d6e 100644
---- a/fs/btrfs/reflink.c
-+++ b/fs/btrfs/reflink.c
-@@ -95,10 +95,7 @@ static int copy_inline_to_page(struct btrfs_inode *inode,
- 	if (ret < 0)
- 		goto out_unlock;
- 
--	clear_extent_bit(&inode->io_tree, file_offset, range_end,
--			 EXTENT_DELALLOC | EXTENT_DO_ACCOUNTING | EXTENT_DEFRAG,
--			 NULL);
--	ret = btrfs_set_extent_delalloc(inode, file_offset, range_end, 0, NULL);
-+	ret = btrfs_reset_extent_delalloc(inode, file_offset, range_end, 0, NULL);
- 	if (ret)
- 		goto out_unlock;
+ static void finish_ordered_fn(struct btrfs_work *work)
+ {
+ 	struct btrfs_ordered_extent *ordered_extent;
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index 1c51ac57e5dfde..ef06ba6117c20f 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -210,6 +210,8 @@ bool btrfs_try_lock_ordered_range(struct btrfs_inode *inode, u64 start, u64 end,
+ 				  struct extent_state **cached_state);
+ struct btrfs_ordered_extent *btrfs_split_ordered_extent(
+ 			struct btrfs_ordered_extent *ordered, u64 len);
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len);
+ int __init ordered_data_init(void);
+ void __cold ordered_data_exit(void);
  
 -- 
 2.53.0
