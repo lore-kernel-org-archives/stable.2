@@ -1,122 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782A84192FD;
-	Mon, 20 Jul 2026 12:37:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094EF41931B
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:37:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784551047; cv=none; b=AZep5cp4s4G6CeQegQC5prapmSLMIHFgMHIUfYFSg+ncZLm1Y3wOUx3wI3MsPdyi3L0zWvpsV7vrNieIGx7XakvWMkAsI8foavvmyEkZsgdwqLzbVEJfT/R/ZjApSz5HTgl1eN2TQGDZnfjgT56Grym66RhgkLX1nb9isLmXtkw=
+	t=1784551049; cv=none; b=c/kYEBDDQIkChLHPgp+VidFEj3HRE45qRvRcp9uAvV2fBZicpR7GCJ6CLl/46eiaebky9cXn7r01S5CyHQ0JvqkrMdFhoCAC1rK3JL6sUNovLk3nvXsmIExBLrKyOFbHMHOBvHSYla59T3hL8vWHdzGWV/PJcfW14ei/sjac2/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784551047; c=relaxed/simple;
-	bh=kj0AZ5A6Jop+KqbA2yhJS4V30yHrTSQgJ33ZorM7qxg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rVxIqE3BIDhkABOFCAwg8OUhRiPm0I7t8SWxTDHA51Izc+nmEsfXkHMrNBG4wsApjkInYsoYmleOx1TomclfCzoup+0lW4dI3XLffqI+k+RBQReDokEt+9R9SOvU5pgqE7xaufn6ToeJLv8QtzvHsu3/eKJdzpwL4qT1q6lRPRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GY7bQ3bN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784551049; c=relaxed/simple;
+	bh=U+p7pULw9Qfnlm3ZtN/r2X0BQkMqrv+4o/9F63anXF0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hc9pTBmXSVzpl/j5cSzEjAozEz7UK2OZGO9RjFRPgQ+hlCrKlpiXzJAuMnJX1v4Zh7yMaR8YlfODkHlRi5USvEhDjCClGc2OkM2KB/Cl644SG6v2PV/FtaPF0s7Q6XibFCQjPe5MEKjsARiV8QiYTEoBCZn98V49Vf+xdOnGHBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PzTbeK03; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GY7bQ3bN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 487B21F00A3A;
-	Mon, 20 Jul 2026 12:37:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784551046;
-	bh=K5qltyN+MfU8aQCuenvbMxWg7poDhOA/J+jqlFW5yPc=;
-	h=From:To:Cc:Subject:Date;
-	b=GY7bQ3bNSoNb1of3AfVAdlHJ9ktb8mfCWC9IazeVyU+pGlqJ0c5td2EXlAWQJgcWx
-	 Glqj0qYMMPMZVPOvHvIFSRVyOaETXSBGgBmMRrD7HXZuQFcu0HCb+3IU504UHEX04V
-	 3Q1lQ5JxV3lsPBE6iIJnU62ilAY2BgBSWYDrto+JKpJNFAKqK/TfnyVjTpA6TnkGHP
-	 UCxjLC/vxD4mcSQ3WONPqjncQ3keEU9JLbLexlsu05rKuSczIQe/7fCTmgOmRDqAcU
-	 wHd2Dc4Q1VS3J6uOdVaCyPE4A8UU+GFZ4kbtYelxOdfascgaZyU83cGuRO42y0YVWB
-	 EbmX2zLAg5TMA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Farid Zakaria <farid.m.zakaria@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-mm@kvack.org,
-	bpf@vger.kernel.org,
-	jannh@google.com,
-	mail@johnericson.me,
-	stable@vger.kernel.org
-Subject: [PATCH] binfmt_misc: set have_execfd only once the interpreter is opened
-Date: Mon, 20 Jul 2026 14:36:49 +0200
-Message-ID: <20260720-beglichen-kognitiv-organismus-5e1e55326c56@brauner>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PzTbeK03"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3101F000E9;
+	Mon, 20 Jul 2026 12:37:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784551047;
+	bh=fHNjjx+EeezhCqISjPIdCQeIKcvfad3iF9xFL47Ttdg=;
+	h=Subject:To:Cc:From:Date;
+	b=PzTbeK03vGi1qLsweH6Xx75hsxL/GNS38mZMvKkAQCSezqs6Ar0U19Aqoy4/Lxy8G
+	 A27Sz1dDFl+EP2VWzTqGk0ZrTWWmbb9bcFWrYIU0A5ZVMMCy5jcnkpvsXG093qAq5u
+	 pflYc8mq7GY3F7AegiC/HUDz+CIjZWjkx4fgupAI=
+Subject: FAILED: patch "[PATCH] selinux: avoid sk_socket dereference in" failed to apply to 5.15-stable tree
+To: tristan@talencesecurity.com,paul@paul-moore.com,stephen.smalley.work@gmail.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 20 Jul 2026 14:37:06 +0200
+Message-ID: <2026072006-eggshell-gulp-8828@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2761; i=brauner@kernel.org; h=from:subject:message-id; bh=kj0AZ5A6Jop+KqbA2yhJS4V30yHrTSQgJ33ZorM7qxg=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTFiVWs5Dt2bv61zvhvq3ayPlU//fbNo8386xXu6AiYT c1hSJjg2lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjAR35uMDC9NZtew1vfVX9+x VaVEuqRRsUI4Tz9hkdxeY+3ffCF+kxgZdh9wCJn9qsjQISlJfMPProP2Imra74+ziJildO1cnx7 ECwA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-load_misc_binary() raises bprm->have_execfd as soon as it sees the 'O'
-(or 'C') flag. This happens well before it opens the interpreter. If
-that open fails the flag stays set on the bprm. binfmt_misc is at the
-head of the format list so an interpreter open failure that returns
--ENOEXEC lets the search fall through to a later format. This means it
-runs the matched binary directly having never staged an interpreter. So
-bprm->executable is NULL while have_execfd falsely claims a descriptor
-is present.
 
-Consequently, begin_new_exec() dereferences the missing executable:
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-  would_dump(bprm, bprm->executable);
+To reproduce the conflict and resubmit, you may use the following commands:
 
-and NULL derefs. Had it not, the hand-off later in the same function
-would have failed anyway. FD_ADD(0, bprm->executable) rejects a NULL
-file with -ENOMEM. Both sites are past the point of no return so the
-exec cannot be unwound either way.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 56acfeb10019e200ab6787d01f8d7cbe0f01526f
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072006-eggshell-gulp-8828@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-This can be reached by unprivileged users as binfmt_misc can be mounted
-in user namespaces. So a user can register an 'O' entry whose
-interpreter lives on a FUSE mount, have the FUSE server fail the open
-with -ENOEXEC and execute a native ELF file that matches the entry.
+Possible dependencies:
 
-have_execfd only means anything alongside the executable it describes
-which is not set until the interpreter has been opened and staged.
-So lets raise it there, next to execfd_creds, which is already set at
-that point. An open failure now leaves it clear, so the fallback format
-derives credentials from the binary and emits no AT_EXECFD, as it would
-for any native exec. The argv rewrite load_misc_binary() performs before
-the open is still not undone. This means the binary sees the interpreter
-path in argv[0] and its own path in argv[1] but that predates this
-change and only became observable once the exec stopped faulting.
 
-Fixes: bc2bf338d54b ("exec: Remove recursion from search_binary_handler")
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 56acfeb10019e200ab6787d01f8d7cbe0f01526f Mon Sep 17 00:00:00 2001
+From: Tristan Madani <tristan@talencesecurity.com>
+Date: Thu, 25 Jun 2026 23:53:36 +0000
+Subject: [PATCH] selinux: avoid sk_socket dereference in
+ selinux_sctp_bind_connect()
+
+selinux_sctp_bind_connect() dereferences sk->sk_socket to pass a
+struct socket * to selinux_socket_bind() and
+selinux_socket_connect_helper().  However, when the hook is invoked
+from the ASCONF softirq path (sctp_process_asconf), there is no file
+reference guaranteeing that sk->sk_socket is non-NULL.  The setsockopt
+callers (bindx, connectx, set_primary, sendmsg connect) hold a file
+reference and are not affected.
+
+Both selinux_socket_bind() and selinux_socket_connect_helper()
+immediately resolve sock->sk, never using the struct socket * for
+anything else.  Refactor the inner logic into helpers that take a
+struct sock * directly so that selinux_sctp_bind_connect() never needs
+to touch sk->sk_socket at all.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/binfmt_misc.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Fixes: d452930fd3b9 ("selinux: Add SCTP support")
+Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Tested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
 
-diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-index 84349fcb93f1..5de615ca7a75 100644
---- a/fs/binfmt_misc.c
-+++ b/fs/binfmt_misc.c
-@@ -228,9 +228,6 @@ static int load_misc_binary(struct linux_binprm *bprm)
- 			goto ret;
- 	}
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index c4677ce89399..70a3388c047d 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -4994,9 +4994,8 @@ static int selinux_socket_socketpair(struct socket *socka,
+    Need to determine whether we should perform a name_bind
+    permission check between the socket and the port number. */
  
--	if (fmt->flags & MISC_FMT_OPEN_BINARY)
--		bprm->have_execfd = 1;
--
- 	/* make argv[1] be the path to the binary */
- 	retval = copy_string_kernel(bprm->interp, bprm);
- 	if (retval < 0)
-@@ -260,6 +257,8 @@ static int load_misc_binary(struct linux_binprm *bprm)
- 		goto ret;
+-static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
++static int __selinux_socket_bind(struct sock *sk, struct sockaddr *address, int addrlen)
+ {
+-	struct sock *sk = sock->sk;
+ 	struct sk_security_struct *sksec = selinux_sock(sk);
+ 	u16 family;
+ 	int err;
+@@ -5126,13 +5125,17 @@ static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, in
+ 	return -EAFNOSUPPORT;
+ }
  
- 	bprm->interpreter = interp_file;
-+	if (fmt->flags & MISC_FMT_OPEN_BINARY)
-+		bprm->have_execfd = 1;
- 	if (fmt->flags & MISC_FMT_CREDENTIALS)
- 		bprm->execfd_creds = 1;
++static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
++{
++	return __selinux_socket_bind(sock->sk, address, addrlen);
++}
++
+ /* This supports connect(2) and SCTP connect services such as sctp_connectx(3)
+  * and sctp_sendmsg(3) as described in Documentation/security/SCTP.rst
+  */
+-static int selinux_socket_connect_helper(struct socket *sock,
++static int selinux_socket_connect_helper(struct sock *sk,
+ 					 struct sockaddr *address, int addrlen)
+ {
+-	struct sock *sk = sock->sk;
+ 	struct sk_security_struct *sksec = selinux_sock(sk);
+ 	int err;
  
--- 
-2.53.0
+@@ -5221,7 +5224,7 @@ static int selinux_socket_connect(struct socket *sock,
+ 	int err;
+ 	struct sock *sk = sock->sk;
+ 
+-	err = selinux_socket_connect_helper(sock, address, addrlen);
++	err = selinux_socket_connect_helper(sk, address, addrlen);
+ 	if (err)
+ 		return err;
+ 
+@@ -5723,13 +5726,11 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+ 	int len, err = 0, walk_size = 0;
+ 	void *addr_buf;
+ 	struct sockaddr *addr;
+-	struct socket *sock;
+ 
+ 	if (!selinux_policycap_extsockclass())
+ 		return 0;
+ 
+ 	/* Process one or more addresses that may be IPv4 or IPv6 */
+-	sock = sk->sk_socket;
+ 	addr_buf = address;
+ 
+ 	while (walk_size < addrlen) {
+@@ -5758,14 +5759,14 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+ 		case SCTP_PRIMARY_ADDR:
+ 		case SCTP_SET_PEER_PRIMARY_ADDR:
+ 		case SCTP_SOCKOPT_BINDX_ADD:
+-			err = selinux_socket_bind(sock, addr, len);
++			err = __selinux_socket_bind(sk, addr, len);
+ 			break;
+ 		/* Connect checks */
+ 		case SCTP_SOCKOPT_CONNECTX:
+ 		case SCTP_PARAM_SET_PRIMARY:
+ 		case SCTP_PARAM_ADD_IP:
+ 		case SCTP_SENDMSG_CONNECT:
+-			err = selinux_socket_connect_helper(sock, addr, len);
++			err = selinux_socket_connect_helper(sk, addr, len);
+ 			if (err)
+ 				return err;
+ 
 
