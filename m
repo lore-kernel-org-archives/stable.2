@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C596434E20
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67022434E36
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:48:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562520; cv=none; b=m+fezejciU8YcO5p9+zCT9Qlcru8wby1EIuZhA+z6gDqNlT9cUNKSJ5qPV6TGor2zSsjQwxSYSHjrklkCb1WXh32v1lv8y/pkDzgDhTZbCRB1zIELMkNhCMeWUMXmyIDUtaDL0GdhOXcJfjfiI3HDFJYtXDzMKhOMd/qWD9DW0g=
+	t=1784562523; cv=none; b=aKSRpAL9/1K6gx1XMEhEAqD1iiSgsiOjB/gklcvgQbE2+QZF2Ur2rCpTH+tQIGbvQSSMrp2wA/1hPU8zUIs6rUM6rAX0E+w4CE8GbSYIeGdDDybNOscNYhEZp3lM6zZ6OxzSfdSVQrIjZoKIul6s3cBA/jlYzpPD1s3TgAqpsOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562520; c=relaxed/simple;
-	bh=NHhfp5R1i5K+kl60OiV2tc7NOx74PPS7hqLUtntoo60=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Hc33D1EiqInqBhsBgojUhHbV1hrsW9pf47hnT+TxParuOeTya2ZXka+QmzA3biu1Kk8eg5Hyi1ZEWXhiUWJX2hSp8hjLyBG1IRGIMB9FDVCPKpkNhZDVC+Iao1W00wzJp7yYVl/B9W9yaescnTAcPQa5Yrveekh67sMh0lMaC5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lRTWHJ9o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784562523; c=relaxed/simple;
+	bh=KGSJMl5EnUre0C1G2eIBTxhGE2aFxtTQ2+e93a5ddhQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Q61FdI9s+x9/C00sNCzg0zvU/iHafdAnOSxxsHLPWUyHO09/xqi5BTk79uKhmGHs8X56v4yAH1trXAQbNI9CuTHR2hizng/I1CNR0YQfe/o6eqcqbp80MeTPQ9GsJKNAMUrbJmkAXNYRAHri+IfOZdCtqVRuiJQGkbMDUMzhtV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0nlL3W/S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lRTWHJ9o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044411F00A3A;
-	Mon, 20 Jul 2026 15:48:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0nlL3W/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B37531F000E9;
+	Mon, 20 Jul 2026 15:48:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562519;
-	bh=2JOLc0xj5kBS7saAkXS4CFwM1+yV0BC+d6AuXFXJN5Q=;
+	s=korg; t=1784562522;
+	bh=x7lIoF01qFDkq3j6wa0VLaZptBHwKHByyz56QeNIH1A=;
 	h=Subject:To:Cc:From:Date;
-	b=lRTWHJ9otLzM0t/5pEVV5J/98oWGp1Qzt4XHHMmXu/CUC4+9hDCieSplQYyKntI2y
-	 j0wy2gffdoyJu3mHTmLaURIXcgXfize43/hQCh+my3F2LZN6X4DTlLl4uzhUkbojbt
-	 31Wm+hmGrBMWskpeN2JH1tjWUr8C3/foeoNgs550=
-Subject: FAILED: patch "[PATCH] fs/resctrl: Fix use-after-free during unmount" failed to apply to 6.18-stable tree
-To: tony.luck@intel.com,bp@alien8.de,reinette.chatre@intel.com,sashiko-bot@kernel.org,stable@kernel.org,yu.c.chen@intel.com
+	b=0nlL3W/S7s9jyLFH6o05c2IRJPLCr2euaY6jvph+ZVbpwgVHfrbF6A4n0gCBN2t3k
+	 C3sQwdPMSbwXQcNzgFJzndegnhA1DkbBvTttIbC4bEyRyX4AMBGGV1CJJchSVoAORb
+	 WIrhnAIbxvG3oXjduPIGtVxHiirrG2QNv0BnuRgc=
+Subject: FAILED: patch "[PATCH] mmc: vub300: fix use-after-free on probe failure" failed to apply to 6.18-stable tree
+To: lgs201920130244@gmail.com,johan@kernel.org,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:40:28 +0200
-Message-ID: <2026072028-reverence-sandy-7415@gregkh>
+Date: Mon, 20 Jul 2026 17:42:45 +0200
+Message-ID: <2026072045-starboard-ferment-23aa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 52fce648607e0d6a76eeb443d78708c49df1c554
+git cherry-pick -x a3b5f242997a3be7404112fd48784881560aea57
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072028-reverence-sandy-7415@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072045-starboard-ferment-23aa@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,128 +62,83 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 52fce648607e0d6a76eeb443d78708c49df1c554 Mon Sep 17 00:00:00 2001
-From: Tony Luck <tony.luck@intel.com>
-Date: Mon, 6 Jul 2026 15:46:22 -0700
-Subject: [PATCH] fs/resctrl: Fix use-after-free during unmount
+From a3b5f242997a3be7404112fd48784881560aea57 Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Fri, 12 Jun 2026 11:27:56 +0800
+Subject: [PATCH] mmc: vub300: fix use-after-free on probe failure
 
-During unmount or failure teardown all mon_data structures that contain
-monitoring event file private data are freed after which kernfs nodes are
-removed. However, the RDT_DELETED flag is never set for the statically
-allocated default resource group.
+The vub300 driver lifetime-manages its controller state using
+vub300->kref, with vub300_delete() freeing the mmc host when the last
+reference is dropped. The probe error path after the inactivity timer has
+been armed still bypasses that lifetime rule, however, and falls through
+to mmc_free_host() directly if mmc_add_host() fails.
 
-A concurrent reader of an event file associated with the default resource
-group may, after dropping kernfs active protection, block on rdtgroup_mutex
-while unmount proceeds to free the file private data and destroy the kernfs
-node without waiting for the reader.
+The race window is between arming the inactivity timer and reaching the
+probe error unwind after mmc_add_host() fails:
 
-When the mutex is released, the reader wakes up, observes that RDT_DELETED
-is not set for the default group, and dereferences the already-freed
-file private data.
+        probe thread                     timer/workqueue
+        ------------                     ---------------
+        kref_init(&vub300->kref)         ref = 1
+        kref_get(&vub300->kref)          ref = 2, timer ref
+        add_timer(inactivity_timer)      fires after one second
+        |
+        |   race window
+        |<---------------------------------------------------->
+        |
+        mmc_add_host(mmc)
+                                         inactivity timer fires
+                                         vub300_queue_dead_work()
+                                           kref_get()          ref = 3
+                                           queue_work(deadwork)
+        mmc_add_host() fails
+        timer_delete_sync()
+        mmc_free_host(mmc)
+          frees vub300
+                                         deadwork runs
+                                           use-after-free
 
-The scenario can be depicted as follows:
-  CPU0                                      CPU1
-   /*
-    * Default resource group's
-    * monitoring data accessible via
-    * kernfs file with kernfs_node::priv
-    * pointing to a struct mon_data.
-    * User opens the file for reading.
-    */
-   rdtgroup_mondata_show()                 /* arch encounters fatal error */
-    rdtgroup_kn_lock_live()                 resctrl_exit()
-     atomic_inc(&rdtgroup_default.waitcount) cpus_read_lock()
-     kernfs_break_active_protection(kn)      mutex_lock(&rdtgroup_mutex)
-     cpus_read_lock()                        resctrl_fs_teardown()
-     mutex_lock(&rdtgroup_mutex)              rmdir_all_sub()
-                                              mon_put_kn_priv()
-                                               /* Delete all mon_data structures */
-                                              rdtgroup_destroy_root()
-                                               kernfs_destroy_root()
-                                               rdtgroup_default.kn = NULL
-                                             mutex_unlock(&rdtgroup_mutex)
-     /*
-      * rdtgroup_default.flags is empty so
-      * rdtgroup_kn_lock_live() returns
-      * &rdtgroup_default
-      */
-     md = of->kn->priv;
+The inactivity timeout is one second, so this would require
+mmc_add_host() to both fail and take more than one second to do so. This
+is unlikely to happen in practice, but the error path is still wrong.
 
-     /* md points to freed mon_data */
+timer_delete_sync() only waits for the timer callback itself. It does
+not flush deadwork that the callback may already have queued. As a
+result, queued deadwork can still hold a kref while the probe error path
+directly frees the backing mmc host, including the vub300 storage.
 
-Set RDT_DELETED for the default group unconditionally since the flag does
-not lead to the freeing of this statically allocated group.
+Fix this by using the same lifetime mechanism as disconnect. Clear
+vub300->interface so that the timer callback and any queued deadwork
+return early and drop their references, then drop the initial probe
+reference and return without falling through to err_free_host.
 
-Do not allow a new resctrl mount if there are any waiters on default group
-of previous mount. A new mount will re-initialize the default group that
-would appear to waiters from previous mount as though the default group is
-accessible causing them to access the mon_data structures from the previous
-mount that have been removed.
+Fixes: 0613ad2401f8 ("mmc: vub300: fix return value check of mmc_add_host()")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
 
-Fixes: 2a6566038544 ("x86/resctrl: Expand the width of domid by replacing mon_data_bits")
-Closes: https://sashiko.dev/#/patchset/20260508182143.14592-1-tony.luck%40intel.com?part=2 [1]
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Tony Luck <tony.luck@intel.com>
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Cc: <stable@kernel.org>
-Link: https://patch.msgid.link/49a2ca3ca688f27e1a646cf90e1dc69287021127.1783377598.git.reinette.chatre@intel.com
-
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 1312b52c7f7b..ce277f16ea12 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -587,14 +587,20 @@ static ssize_t rdtgroup_cpus_write(struct kernfs_open_file *of,
-  *
-  * On resource group creation via a mkdir, an extra kernfs_node reference is
-  * taken to ensure that the rdtgroup structure remains accessible for the
-- * rdtgroup_kn_unlock() calls where it is removed.
-+ * rdtgroup_kn_unlock() calls where it is removed. The default group is
-+ * statically allocated: it does not have an extra reference but will have
-+ * RDT_DELETED set on unmount to support safe access to its associated files
-+ * via rdtgroup_kn_lock_live/rdtgroup_kn_unlock().
-  *
-- * Drop the extra reference here, then free the rdtgroup structure.
-+ * For all but the default group: drop the extra reference, then free the
-+ * rdtgroup structure.
-  *
-  * Return: void
-  */
- static void rdtgroup_remove(struct rdtgroup *rdtgrp)
- {
-+	if (rdtgrp == &rdtgroup_default)
-+		return;
- 	kernfs_put(rdtgrp->kn);
- 	kfree(rdtgrp);
- }
-@@ -2814,6 +2820,12 @@ static int rdt_get_tree(struct fs_context *fc)
- 		goto out;
- 	}
- 
-+	/* Avoid races from pending operations from a previous mount */
-+	if (atomic_read(&rdtgroup_default.waitcount) != 0) {
-+		ret = -EBUSY;
-+		goto out;
-+	}
-+
- 	ret = setup_rmid_lru_list();
- 	if (ret)
- 		goto out;
-@@ -3177,6 +3189,7 @@ static void resctrl_fs_teardown(void)
- 	mon_put_kn_priv();
- 	rdt_pseudo_lock_release();
- 	rdtgroup_default.mode = RDT_MODE_SHAREABLE;
-+	rdtgroup_default.flags = RDT_DELETED;
- 	closid_exit();
- 	schemata_list_destroy();
- 	rdtgroup_destroy_root();
-@@ -4277,6 +4290,7 @@ static int rdtgroup_setup_root(struct rdt_fs_context *ctx)
- 
- 	ctx->kfc.root = rdt_root;
- 	rdtgroup_default.kn = kernfs_root_to_node(rdt_root);
-+	rdtgroup_default.flags = 0;
+diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+index 6c3cb2f1c9d3..c1c21e95f5bf 100644
+--- a/drivers/mmc/host/vub300.c
++++ b/drivers/mmc/host/vub300.c
+@@ -2336,12 +2336,16 @@ static int vub300_probe(struct usb_interface *interface,
+ 			 interface_to_InterfaceNumber(interface));
+ 	retval = mmc_add_host(mmc);
+ 	if (retval)
+-		goto err_delete_timer;
++		goto err_stop_io;
  
  	return 0;
- }
+ 
+-err_delete_timer:
+-	timer_delete_sync(&vub300->inactivity_timer);
++err_stop_io:
++	vub300->interface = NULL;
++	kref_put(&vub300->kref, vub300_delete);
++
++	return retval;
++
+ err_free_host:
+ 	mmc_free_host(mmc);
+ 	/*
 
