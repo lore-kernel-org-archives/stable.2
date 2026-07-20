@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA763D333D
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 09:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E6E2BE7BE
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 09:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541200; cv=none; b=HolYUO2K1P7abD+79tEZf5hpDUAKVSgVaUIWNoSakBYhfLx8zoA34PZWs9jKaeQRDCGEPAbzijl3iU52+ZC5NTbpphLRYAuFGufTwawMLiqrWJkIydp9wFnDGqCbFLinnSDe2J7qZAjPA7G2hZwWojfShcLI+jvquJSPrw8LM5s=
+	t=1784541214; cv=none; b=CncguN65F/h0YFCfhi99JC9naV6tiXKBXztY26H5mniMkN2apShhpkGSIF4kN3qsmci6v93k4DqNbRjy7COTt0RD0kRSjIrTySez7Jst8AFzSnA+T/G6ebS5kedGMIHquLQ8N/W9EBaL6rFs39q0Hn2CFAS4C+1RLpB+dWVlwV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784541200; c=relaxed/simple;
-	bh=I8NLv+9BFM26k15AridzTbxqUleeCnxoL7oyv7I1Hig=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=syDBTEncz7PHF53CdKu46A70pMLe7G+cZHUTvUsk2kwedRi6BMHxo+iLCww8jEdJO36oAluVvu04paI/YWLxcPITMDv2CoB7lc3M3gF2r8BG0BQbLjwvzpXhM3UW0D47MrH6WVjaXbk8ayfLIBRO0vYYSB6F8yboAjWCme09bUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SMFZpDH7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784541214; c=relaxed/simple;
+	bh=0MKqJEf/7TohIfiB1CSSuzVIpBfl0hWZ63OCDvJia5M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pKJckHfjnHBv5TBJ82XhBFuDgL1pIXYlZ9tREOAFUxh2Aeue+5AlEkcZCsD/JyYGVuBm+jaH1fN8nLWyivtEY5PRzUry6t0zSyAtsSadTZfjGV+y6CC8xBdRg5oCOjek6Q6DVL8qYtavk2hkZgK2UbzZqAF5g13uexUg17cVhWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xWx1BMC+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SMFZpDH7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E3E1F000E9;
-	Mon, 20 Jul 2026 09:53:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xWx1BMC+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3782F1F000E9;
+	Mon, 20 Jul 2026 09:53:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784541198;
-	bh=sRz1HuEQ/9VvgrAC6lUej/tfKFBwqqsmuFd9B8fvWHU=;
+	s=korg; t=1784541212;
+	bh=jAsjcjf0+XgRZhgvOb+pCHodffE9ZjKHKv6D6JM8ckg=;
 	h=Subject:To:Cc:From:Date;
-	b=SMFZpDH70X9odG+lBnNyi+1vRtEobmn7Cw5CVC6KL4ZSgUmRhxQk24PhWTJDKFjGg
-	 7bELMgWBtlri6Jp0Np9X5NAgdhMA1JqfHxbV1y114TNdEU7tPjfoo2PvpnME3BYGKP
-	 +CDy2XjdNq58GtFO7B0CNNF90ssvBhjyGUmxAhsU=
-Subject: FAILED: patch "[PATCH] rxrpc: serialize kernel accept preallocation with socket" failed to apply to 5.10-stable tree
-To: d4n.for.sec@gmail.com,bird@lzu.edu.cn,dhowells@redhat.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,marc.dionne@auristor.com,n05ec@lzu.edu.cn,tomapufckgml@gmail.com,yifanwucs@gmail.com,yuantan098@gmail.com
+	b=xWx1BMC+hPTFge8OQoOJ2XROCVoIV7roxPz/b5hPTIKdtJmEPjG95sUjW+/ZAIlYw
+	 NbgTMM3A36ThwX3wzKFSjDg9Jw9LzsNiShDLSKc5/u12wJYE0exH46YL7wDkjnuwHf
+	 MQwONvd9OljWKDDNnYDXi9RPqhlz98CEoRyJg4go=
+Subject: FAILED: patch "[PATCH] rxrpc: Fix socket notification race" failed to apply to 6.12-stable tree
+To: dhowells@redhat.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,marc.dionne@auristor.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 11:52:55 +0200
-Message-ID: <2026072055-kleenex-motocross-d624@gregkh>
+Date: Mon, 20 Jul 2026 11:53:23 +0200
+Message-ID: <2026072023-cricket-devoutly-1a61@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x dc175389b18c29a5303ee83169ec653adfae3e17
+git cherry-pick -x e66f8f32f50116670dbbee5bc9e692cd2cd0c8f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072055-kleenex-motocross-d624@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072023-cricket-devoutly-1a61@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,74 +62,41 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From dc175389b18c29a5303ee83169ec653adfae3e17 Mon Sep 17 00:00:00 2001
-From: Li Daming <d4n.for.sec@gmail.com>
-Date: Tue, 9 Jun 2026 15:09:09 +0100
-Subject: [PATCH] rxrpc: serialize kernel accept preallocation with socket
- teardown
+From e66f8f32f50116670dbbee5bc9e692cd2cd0c8f8 Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Wed, 24 Jun 2026 17:38:16 +0100
+Subject: [PATCH] rxrpc: Fix socket notification race
 
-rxrpc_kernel_charge_accept() reads rx->backlog without any
-socket/backlog synchronization and passes that raw pointer into
-rxrpc_service_prealloc_one(). A concurrent rxrpc_discard_prealloc()
-sets rx->backlog = NULL and frees the backlog rings, so a kernel
-preallocation worker can keep using a freed struct rxrpc_backlog
-while updating *_backlog_head/tail and array slots.
+There's a race between rxrpc_recvmsg() and rxrpc_notify_socket(), whereby
+the latter's attempt to avoid disabling interrupts and taking the socket's
+recvmsg_lock if the call is already queued may happen simultaneously with
+the former's discarding of a call that has nothing queued.
 
-Serialize the state check and backlog lookup with the socket lock,
-and reject kernel preallocation once teardown has disabled
-listening or discarded the service backlog.
+Fix this by removing the shortcut.  Note that this only affects userspace's
+use of AF_RXRPC; the AFS filesystem driver doesn't use the socket queue.
 
-Fixes: 00e907127e6f ("rxrpc: Preallocate peers, conns and calls for incoming service requests")
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Signed-off-by: Li Daming <d4n.for.sec@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Fixes: 248f219cb8bc ("rxrpc: Rewrite the data and ack handling code")
+Link: https://sashiko.dev/#/patchset/20260616155749.2125907-1-dhowells%40redhat.com
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
 cc: Jeffrey Altman <jaltman@auristor.com>
 cc: Simon Horman <horms@kernel.org>
 cc: linux-afs@lists.infradead.org
 cc: stable@kernel.org
-Link: https://patch.msgid.link/20260609140911.838677-6-dhowells@redhat.com
+Link: https://patch.msgid.link/20260624163819.3017002-10-dhowells@redhat.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
-index ee2d1319e69a..47824120f1da 100644
---- a/net/rxrpc/call_accept.c
-+++ b/net/rxrpc/call_accept.c
-@@ -471,13 +471,26 @@ int rxrpc_kernel_charge_accept(struct socket *sock, rxrpc_notify_rx_t notify_rx,
- 			       unsigned long user_call_ID, gfp_t gfp,
- 			       unsigned int debug_id)
- {
--	struct rxrpc_sock *rx = rxrpc_sk(sock->sk);
--	struct rxrpc_backlog *b = rx->backlog;
-+	struct rxrpc_backlog *b;
-+	struct rxrpc_sock *rx;
-+	struct sock *sk;
-+	int ret;
+diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
+index f382a47c6eb0..9962e135cb73 100644
+--- a/net/rxrpc/recvmsg.c
++++ b/net/rxrpc/recvmsg.c
+@@ -27,8 +27,6 @@ void rxrpc_notify_socket(struct rxrpc_call *call)
  
--	if (sock->sk->sk_state == RXRPC_CLOSE)
--		return -ESHUTDOWN;
-+	sk = sock->sk;
-+	rx = rxrpc_sk(sk);
+ 	_enter("%d", call->debug_id);
  
--	return rxrpc_service_prealloc_one(rx, b, notify_rx, user_call_ID,
--					  gfp, debug_id);
-+	lock_sock(sk);
-+	if (sk->sk_state != RXRPC_SERVER_LISTENING || !rx->backlog) {
-+		ret = -ESHUTDOWN;
-+		goto out;
-+	}
-+
-+	b = rx->backlog;
-+	ret = rxrpc_service_prealloc_one(rx, b, notify_rx, user_call_ID,
-+					 gfp, debug_id);
-+
-+out:
-+	release_sock(sk);
-+	return ret;
- }
- EXPORT_SYMBOL(rxrpc_kernel_charge_accept);
+-	if (!list_empty(&call->recvmsg_link))
+-		return;
+ 	if (test_bit(RXRPC_CALL_RELEASED, &call->flags)) {
+ 		rxrpc_see_call(call, rxrpc_call_see_notify_released);
+ 		return;
 
