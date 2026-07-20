@@ -1,43 +1,43 @@
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D5035B639
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:32:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F43425CF7
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784554358; cv=none; b=M0+6aFHFF/KG2qgDmGR9Noxx9PMoyAWyaLpruKZ+zplPZ+Q7gJWvKl4xFAlf91RIdkqWYwhpPMHny24C9xJ4Ivf1HVqhOT3+Qr73ApicJ8kn1dLmDmPKZR9PWrOjtCZFAw6oKAWVuBtv9+mSfKfwyKDMRtFEQcW84zV0jkCw7ww=
+	t=1784554510; cv=none; b=gwfwogYdnsaYPalFM5EGk8IEUFXo2jGZc7iowM9I0YDOyapaVdnwopy521/LauKZMyNaq3OyVyynYBd/B42ufDR9JwQG72vsINiZJ4eUS8/ZFFIpg2xbomLjzeyleIXXEGT0ylcNZ4sPZs373qt+EvFD4+/WcT/ws0yYlZ1Nnb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784554358; c=relaxed/simple;
-	bh=z0qTz79XYGIlpHOxmThdq1g3KBiGuhjqVtXC0POl6wU=;
+	s=arc-20240116; t=1784554510; c=relaxed/simple;
+	bh=tPXCwrDkyL1Y5Q8VloXmBt15Gu+wNHoI2tTB4MrjKi4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dii221WJEFaVMDdoCyocutNv3yz4a56C73sI0ZCAtS9GeL/dYLoL8h8H1r/w4/mEyjegDMdoZSo0QA0sn9l87hOi7eHPQdSaaMDG/2pbEgOx88qnSiqbAfy/Zzqomh+YcA93Mso1t9P1SQHvKOe0ljbdT698aiXfqQCeFc2zrIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=XbO5Ei9r; arc=none smtp.client-ip=213.160.73.56
+	 MIME-Version; b=ftD9CIueEK6mJDE7+I1Afk2T9RMOKlwjNmPO2/Y6+Cla3bVIdawbv+eAhObyxfeDhIOKUCd8WdTL2OnyZQS2Tzzg2D+/XCv/l29WNzodXsNeCpunZF12mL8wa8hpiOxcxT75CUZhmN+Qnr+zmE5v7BI9vOI0cW6ZS+wqPmbKTXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=mVRnj5U2; arc=none smtp.client-ip=213.160.73.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="XbO5Ei9r"
-Received: by dvalin.narfation.org (Postfix) id 634C020131;
-	Mon, 20 Jul 2026 13:32:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="mVRnj5U2"
+Received: by dvalin.narfation.org (Postfix) id 48899200A3;
+	Mon, 20 Jul 2026 13:34:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1784554355;
+	s=20121; t=1784554492;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hQytIWJvjV018+mwX9wN604no5OmSp2X61jGg+/xN3c=;
-	b=XbO5Ei9rVrtAdH8PTlmPVuCqhE6Om0eVrbdm3x8RIXcTpCB8q99r1AzOHC66hQOsYdNRBb
-	wzxvOT03X/FPC2fqH1m0w5FyKAJPV/dK203Varu5YhQPMRbsvShU1La/YrbvXKGfox/uPz
-	dhcONYKLbOlCBpRVQUF6bVMSzJ1Jhu4=
+	bh=3oxUNmpnoZjbqTEx3/2OPQBsJF1m/JLkgAZtNwRm378=;
+	b=mVRnj5U2/dxYmCvMa0YRQVPRTnCReUOlIPpQD6iyl2IjXVN0Nz6QqWOwswgydMQ8ZGRkd1
+	zOuhKs8wY5iz54Gr9fGMMUtmhgdPEDwXiaNIjMcyN+jjoNTkZTrUAsoalAuzZ2OptJV2KJ
+	x4CD2crvMYNZRTgt1cQxkmziqDxtLBg=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>,
 	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 5.10.y] batman-adv: ensure minimal ethernet header on TX
-Date: Mon, 20 Jul 2026 15:32:05 +0200
-Message-ID: <20260720133205.385345-1-sven@narfation.org>
+Subject: [PATCH 5.15.y] batman-adv: ensure minimal ethernet header on TX
+Date: Mon, 20 Jul 2026 15:34:30 +0200
+Message-ID: <20260720133430.437468-1-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072042-gumminess-snowman-dea3@gregkh>
-References: <2026072042-gumminess-snowman-dea3@gregkh>
+In-Reply-To: <2026072042-pretext-impound-67fc@gregkh>
+References: <2026072042-pretext-impound-67fc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,10 +68,10 @@ Signed-off-by: Sven Eckelmann <sven@narfation.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/net/batman-adv/soft-interface.c b/net/batman-adv/soft-interface.c
-index c8c62b0cd54c7..0107fc814218b 100644
+index b46480ec7bd1d..3d868b728696a 100644
 --- a/net/batman-adv/soft-interface.c
 +++ b/net/batman-adv/soft-interface.c
-@@ -210,6 +210,9 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
+@@ -208,6 +208,9 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
  	if (atomic_read(&bat_priv->mesh_state) != BATADV_MESH_ACTIVE)
  		goto dropped;
  
