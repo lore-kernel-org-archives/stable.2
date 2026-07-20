@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BFB42981C
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC4E3B811F
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:22:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557315; cv=none; b=mx5X2L14tsPH1pFDnbslDVdcODjsZhpe2MGZIiQyPpCZJmoox1CoLthHLqIezxD1bcw8p6cDsMz7OlHLMm5HotWY1xkiIRUHZzbsIsG9M1GvQw33A6uyPNsQhYypcA2mf/5O1Zil1uQ/ZUEVbAoSy/T4nxQ1fZIb1DSTgkpdXdk=
+	t=1784557345; cv=none; b=PFCqwQnYMWs44d2B61885eOCcUlOOHlNRvyE8b88K2Fitr6Pzw3L7W+f485ejllUc+Iyy4yL5f/oXl3oS1UwzBRn4kMjTbinBzcclRQX9i/SEXJZVaOfBnFFlLBjbS64nW/GTCjbHHGcGuNtKg6gwshCnZYzZzcjOJGLSTT1iJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557315; c=relaxed/simple;
-	bh=+7NystvdXzMr6NM8Dw4/ScxJMsYOwnZE9UgxU837Cig=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=M6tu3A/58qXrbFwqzCheOTiqR25wjHnZrdDpYu+5Q2wybOaTaIpzcNk5Gcz9j2HXaxOgIKmWsQIISdCxewmGlGqns7uISnBjA8nMZajFkF4FkuQfjMBZmfGzDNNBX/Z83VAPL/IfdoVYioxSavvTWItnjdl3N1xpBtV8fdj4Ryg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eHFnKc1j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557345; c=relaxed/simple;
+	bh=hIOrb/OpkwtoofmkQ9Aw3AxHplL5S5m7MG2Pbm1KRVI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qE3l2qU23Zh5e7t3h5C+UI5A9dZBw+1sixIEs6kRkBPgAqYjcTYxQ7GdzmZ+n+xZBQerVLB/PtL46LLlprRvu33N4OTN58fZ7IfAluqcjxB4Rd+XqW21bXE/vU+oQ2lkg3lMMGSDavqxrGZCcPAhHR0eg4rswdJuq4u6QOIQqhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lqg5AuGT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eHFnKc1j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558391F000E9;
-	Mon, 20 Jul 2026 14:21:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lqg5AuGT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59C21F000E9;
+	Mon, 20 Jul 2026 14:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557313;
-	bh=lA6Os9I7nAVPHLTpQ6TwlEoRXYbLN7HPI/E0Lo1XHVk=;
+	s=korg; t=1784557343;
+	bh=UqT8S3JfdYMeSzqYtW8QWOfBO2Pte/SaMKGpDy8ymTo=;
 	h=Subject:To:Cc:From:Date;
-	b=eHFnKc1jk04hUeVKVRVbSElIuqj7OVjJ8m73cBlwVP4JxEHKivZIgGza/lx3oWkp5
-	 iCM6zXKeEnWYjkAAhLc8huYfl2WNp2P7Dg9oH5eCJrKf7u+SkHUvPUC2kUEhIVDcbp
-	 xfZfopYFjESvGHIsBzEDoquTxufvIKLiyOLrhcec=
-Subject: FAILED: patch "[PATCH] mm/sparse-vmemmap: fix DAX vmemmap accounting with" failed to apply to 6.18-stable tree
+	b=Lqg5AuGTyBQrcjGxUqxIQLyk15FSpVoFTT/EFnaFrXYYZvNPwPLsRKfGLAOXyrHFn
+	 31VmWoLvta00E0xbR3r1ndoKlDdhB0AndCn8rnFSf01YJbrNrcMruLjahlEVqh59kk
+	 QJ7upNf69mv18zIbsSIISKUVGEMnADyK03mu3TmI=
+Subject: FAILED: patch "[PATCH] mm/mm_init: fix pageblock migratetype for ZONE_DEVICE" failed to apply to 6.12-stable tree
 To: muchun.song@linux.dev,akpm@linux-foundation.org,aneesh.kumar@linux.ibm.com,david@kernel.org,joao.m.martins@oracle.com,liam@infradead.org,ljs@kernel.org,maddy@linux.ibm.com,mhocko@suse.com,mpe@ellerman.id.au,npiggin@gmail.com,osalvador@suse.de,rppt@kernel.org,songmuchun@bytedance.com,stable@vger.kernel.org,surenb@google.com,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:21:34 +0200
-Message-ID: <2026072034-plow-sliceable-b741@gregkh>
+Date: Mon, 20 Jul 2026 16:22:14 +0200
+Message-ID: <2026072014-stowaway-nebulizer-98db@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 721a73e30c9e3e8fcffe1725bcede1bbd20b4918
+git cherry-pick -x 94405c6136839f7c462249c8b4b957bcb9527a9d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072034-plow-sliceable-b741@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072014-stowaway-nebulizer-98db@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,28 +62,32 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 721a73e30c9e3e8fcffe1725bcede1bbd20b4918 Mon Sep 17 00:00:00 2001
+From 94405c6136839f7c462249c8b4b957bcb9527a9d Mon Sep 17 00:00:00 2001
 From: Muchun Song <muchun.song@linux.dev>
-Date: Tue, 28 Apr 2026 16:18:53 +0800
-Subject: [PATCH] mm/sparse-vmemmap: fix DAX vmemmap accounting with
- optimization
+Date: Tue, 28 Apr 2026 16:18:54 +0800
+Subject: [PATCH] mm/mm_init: fix pageblock migratetype for ZONE_DEVICE
+ compound pages
 
-When vmemmap optimization is enabled for DAX, the nr_memmap_pages counter
-in /proc/vmstat is incorrect.  The current code always accounts for the
-full, non-optimized vmemmap size, but vmemmap optimization reduces the
-actual number of vmemmap pages by reusing tail pages.  This causes the
-system to overcount vmemmap usage, leading to inaccurate page statistics
-in /proc/vmstat.
+The memmap_init_zone_device() function only initializes the migratetype of
+the first pageblock of a compound page.  If the compound page size exceeds
+pageblock_nr_pages (e.g., 1GB hugepages with 2MB pageblocks), subsequent
+pageblocks in the compound page remain uninitialized.
 
-Fix this by introducing section_nr_vmemmap_pages(), which returns the
-exact vmemmap page count for a given pfn range based on whether
-optimization is in effect.
+Move the migratetype initialization out of __init_zone_device_page() and
+into a separate pageblock_migratetype_init_range() function.  This
+iterates over the entire PFN range of the memory, ensuring that all
+pageblocks are correctly initialized.
 
-Link: https://lore.kernel.org/20260428081855.1249045-5-songmuchun@bytedance.com
-Fixes: 15995a352474 ("mm: report per-page metadata information")
+Also remove the stale confusing comment about MEMINIT_HOTPLUG above the
+migratetype setting since it is an obsolete relic from commit 966cf44f637e
+("mm: defer ZONE_DEVICE page initialization to the point where we init
+pgmap") and no longer makes sense here.
+
+Link: https://lore.kernel.org/20260428081855.1249045-6-songmuchun@bytedance.com
+Fixes: c4386bd8ee3a ("mm/memremap: add ZONE_DEVICE support for compound pages")
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Acked-by: Liam R. Howlett <liam@infradead.org>
 Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
@@ -98,71 +102,70 @@ Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index eafb7c6eb71e..112ccf9c71ca 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -647,6 +647,31 @@ void offline_mem_sections(unsigned long start_pfn, unsigned long end_pfn)
- 	}
- }
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index f9f8e1af921c..cfc76953e249 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -674,6 +674,20 @@ static inline void fixup_hashdist(void)
+ static inline void fixup_hashdist(void) {}
+ #endif /* CONFIG_NUMA */
  
-+static int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages,
-+		struct vmem_altmap *altmap, struct dev_pagemap *pgmap)
++#ifdef CONFIG_ZONE_DEVICE
++static __meminit void pageblock_migratetype_init_range(unsigned long pfn,
++		unsigned long nr_pages, int migratetype)
 +{
-+	const unsigned int order = pgmap ? pgmap->vmemmap_shift : 0;
-+	const unsigned long pages_per_compound = 1UL << order;
++	const unsigned long end = pfn + nr_pages;
 +
-+	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SUBSECTION));
-+	VM_WARN_ON_ONCE(nr_pages > PAGES_PER_SECTION);
-+
-+	if (!vmemmap_can_optimize(altmap, pgmap))
-+		return DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE);
-+
-+	if (order < PFN_SECTION_SHIFT) {
-+		VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, pages_per_compound));
-+		return VMEMMAP_RESERVE_NR * nr_pages / pages_per_compound;
++	for (pfn = pageblock_align(pfn); pfn < end; pfn += pageblock_nr_pages) {
++		init_pageblock_migratetype(pfn_to_page(pfn), migratetype, false);
++		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
++			cond_resched();
 +	}
-+
-+	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SECTION));
-+
-+	if (IS_ALIGNED(pfn, pages_per_compound))
-+		return VMEMMAP_RESERVE_NR;
-+
-+	return 0;
 +}
++#endif
 +
- static struct page * __meminit populate_section_memmap(unsigned long pfn,
- 		unsigned long nr_pages, int nid, struct vmem_altmap *altmap,
- 		struct dev_pagemap *pgmap)
-@@ -654,7 +679,7 @@ static struct page * __meminit populate_section_memmap(unsigned long pfn,
- 	struct page *page = __populate_section_memmap(pfn, nr_pages, nid, altmap,
- 						      pgmap);
+ /*
+  * Initialize a reserved page unconditionally, finding its zone first.
+  */
+@@ -1011,21 +1025,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
+ 	page_folio(page)->pgmap = pgmap;
+ 	page->zone_device_data = NULL;
  
--	memmap_pages_add(DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE));
-+	memmap_pages_add(section_nr_vmemmap_pages(pfn, nr_pages, altmap, pgmap));
+-	/*
+-	 * Mark the block movable so that blocks are reserved for
+-	 * movable at startup. This will force kernel allocations
+-	 * to reserve their blocks rather than leaking throughout
+-	 * the address space during boot when many long-lived
+-	 * kernel allocations are made.
+-	 *
+-	 * Please note that MEMINIT_HOTPLUG path doesn't clear memmap
+-	 * because this is done early in section_activate()
+-	 */
+-	if (pageblock_aligned(pfn)) {
+-		init_pageblock_migratetype(page, MIGRATE_MOVABLE, false);
+-		cond_resched();
+-	}
+-
+ 	/*
+ 	 * ZONE_DEVICE pages other than MEMORY_TYPE_GENERIC are released
+ 	 * directly to the driver page allocator which will set the page count
+@@ -1122,6 +1121,9 @@ void __ref memmap_init_zone_device(struct zone *zone,
  
- 	return page;
+ 		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
+ 
++		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
++			cond_resched();
++
+ 		if (pfns_per_compound == 1)
+ 			continue;
+ 
+@@ -1129,6 +1131,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
+ 				     compound_nr_pages(altmap, pgmap));
+ 	}
+ 
++	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE);
++
+ 	pr_debug("%s initialised %lu pages in %ums\n", __func__,
+ 		nr_pages, jiffies_to_msecs(jiffies - start));
  }
-@@ -665,7 +690,7 @@ static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
- 	unsigned long start = (unsigned long) pfn_to_page(pfn);
- 	unsigned long end = start + nr_pages * sizeof(struct page);
- 
--	memmap_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE)));
-+	memmap_pages_add(-section_nr_vmemmap_pages(pfn, nr_pages, altmap, pgmap));
- 	vmemmap_free(start, end, altmap);
- }
- 
-@@ -673,9 +698,10 @@ static void free_map_bootmem(struct page *memmap)
- {
- 	unsigned long start = (unsigned long)memmap;
- 	unsigned long end = (unsigned long)(memmap + PAGES_PER_SECTION);
-+	unsigned long pfn = page_to_pfn(memmap);
- 
--	memmap_boot_pages_add(-1L * (DIV_ROUND_UP(PAGES_PER_SECTION * sizeof(struct page),
--						  PAGE_SIZE)));
-+	memmap_boot_pages_add(-section_nr_vmemmap_pages(pfn, PAGES_PER_SECTION,
-+							NULL, NULL));
- 	vmemmap_free(start, end, NULL);
- }
- 
 
