@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F81417BF9
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:39:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B202F410D16
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:39:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784551143; cv=none; b=ajv/C92HCMrZgjCpAcPryCuiA48DgdV/RTISQQytREYMBLb/vsNl5tPvk2PA2wMeDOzHVuT9+jmc+33uaMKF5pm6LNn52SQUopDCf9zXhMXFq7jeYSwl37qe7MISh5lvkNd0xGczuQYL8VI3wvbDu8+bKuBO/geVe3FYBNlZ4uY=
+	t=1784551151; cv=none; b=EqauEWQ4ukK7tF8pENJYxpeg+eYij3lerYy9LDnKTVf3IEwtGeLvfwGiUARGUPhB0x0DGSoQEXxoBeQxY1jQr6T0zJgFrA+jdvZQW+XUaPZDNWydAuqGz5jkNxp1pj5/7HVuDOCDnJJWuPc/z2jXfM7N7o04hmS9TmReGJkciWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784551143; c=relaxed/simple;
-	bh=xiwWvL4tw1JmsQq+9bRA5uvYYEAqR12MgktUVR22BNU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eBp2z4qiEuqcg8EY2FAuE68Fk5GRSnrNCDlYcqhhOHafrKF2NJYgnYO8fG1sB4eor/+RY01tYaLnh2krT3LDX3pQK3ScJONGYowFxg2OXySD4PXMyXSLwMKSRwx8j7ZQdrZwwbLkfW5nKpDZT3cF/wJYldwED8jDFjtxyRn5uBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DXO/nyV9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784551151; c=relaxed/simple;
+	bh=SHggS3xHyGqZRKtIgObRCpU96AZHBM1PyoK9RJoMh4Y=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kBTWQkihXB9/odNOb/Q7I/qfHIljEO0hLF3fW4yjpdoqlgjW3XHoQTo5gWx2AmmFboK/bzGYKsJfeb8mPdZbO0l6EJb1DdNM/6VX0JpL6iy5r1tYu7GceR4RoBWmbNDHgXsZC8a8+0fgluIrRtWZUdh+TSdUf5E88EPVUpNhAmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Uuq9P2Rl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DXO/nyV9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2161F000E9;
-	Mon, 20 Jul 2026 12:39:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Uuq9P2Rl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146EA1F000E9;
+	Mon, 20 Jul 2026 12:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784551142;
-	bh=tT2YvI1DHd1KX7krTmyTMuPuf2d1nBLSC9XJPu4V6sw=;
+	s=korg; t=1784551150;
+	bh=NLcHgEXCGLH7bAVCSVzKAiaUX2P51O7gd45TicKHsRE=;
 	h=Subject:To:Cc:From:Date;
-	b=DXO/nyV9PTYM+fMBsVSfg7uGsR2VMwKqIc6PY0lj72lwBmPyKSFmrqoEjQrfRoARu
-	 b0cypjC1CyvsEDlWY3EM+meOcwwZpbtZIZfrdQq6aKnt5kCVnrOg0D2wQ9j5ANyk/+
-	 UsvtlUowgeKQai2vl1XPX4G3MnoIv7LiKFrwTVuc=
-Subject: FAILED: patch "[PATCH] perf/x86/amd/brs: Fix kernel address leakage" failed to apply to 6.12-stable tree
+	b=Uuq9P2RlQymJIEtKKVf7IuzwRjJ2OUKLmPSUqV3RzTf+WHcGqv+TIZ1PHWnd5SzcB
+	 EsMyzZTQqqb/ERtHl7ouI8mWr778dgTVoEJVgq29gjA1CXj1f37S8vE6aIOB1ucoem
+	 YN1OeHYYxW7IoYje1wHZFzLmm4tED2vnunDA1mtE=
+Subject: FAILED: patch "[PATCH] perf/x86/amd/brs: Fix kernel address leakage" failed to apply to 6.6-stable tree
 To: sandipan.das@amd.com,eranian@google.com,mingo@kernel.org,peterz@infradead.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 20 Jul 2026 14:38:53 +0200
-Message-ID: <2026072053-paralysis-glancing-61b5@gregkh>
+Message-ID: <2026072053-bullseye-luminance-4677@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 47915e855fb38b42133e31ba917d99565f862154
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072053-paralysis-glancing-61b5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072053-bullseye-luminance-4677@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
