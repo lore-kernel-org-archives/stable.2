@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9BF42D745
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84512C031E
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559588; cv=none; b=RkOERdi9GbzZPvhfBQnngohJz9MzGVoAl1ZyMnAykCTweL8giPZWZjr21M0JPBF/L2ivQhM1ooc3siDTHJkgBx3TcisvcBb8H+uVtobZeajAWWnIvnhPIp/VOf4Kk8sHB8a2TMLLEvQyySraAH+WMUF+Cnq29Fr/kemEF2cJ03Q=
+	t=1784559613; cv=none; b=XAwCvhxcXurMRKANdQdmgQOFYpLvHypHoTJF5N4KrP7m0xGHWOcumyGL5bpaYJWh2Tn9PgmkL4PIHG4jloUbFypCBRgU0F0vcRpirQtWaVub3K4GW0qYrN1FXVDeMC4oWbvMD+DwGxVcSA4/x726ag9eClUXv1YuneWkXGXD2fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559588; c=relaxed/simple;
-	bh=RIClXi8Fn49rmqxRNOIn5PMxmudIG2asdS1Oj0TbXTM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rAkPcF+buVe6eCAP86EQPadEe+y1vVUfOOLKJC29fU+7aeCTLh5UdsIk4Wdd/hFkH5LNsdOmOJ/pj21G/QHJo8t3ynV3TzfmF+i+OYW3bvDmiwnYXWeK6IxkRgoD2jmJjNY0wRFVxBSvAFpcqo6ykgk9b5yZX4zg80XWTPvTGB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e/r204ck; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559613; c=relaxed/simple;
+	bh=sxwyR1sE9BzPrpBCdf/SpKcCvHBlFu8Dt/Bgg7NSO20=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bsl6QRnZCpyk8hzALRxmmWx+h54sH9YxqjEWC/iZig3BIXNhY35AKvz2UdMR19eaeBhkYvIs6s/gu7UnvSZOJDIiWBD2RF1y6ZKzgdG2rnTYFQtXQ2LTAp6+1LSsu7JcBvOKOlusaVjKltgs4+SvX+tEp6EQIGifST8y7z7/iY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x/+ZA5sF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e/r204ck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8521F000E9;
-	Mon, 20 Jul 2026 14:59:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x/+ZA5sF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165D71F00ACF;
+	Mon, 20 Jul 2026 15:00:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559586;
-	bh=EhJ6iDq4DI2Dbbkn6aYT4V68zceY7B45bhX8EcDOl1U=;
+	s=korg; t=1784559612;
+	bh=ikp6QVHtvlvZqA9NCtW+J3qSScLlucy8M1xrGE8Iz24=;
 	h=Subject:To:Cc:From:Date;
-	b=e/r204ckhgLJMl0XFwc43y5No6iZ4mFImIh/H5KreK1k+53qWBYjoiOlA81TL+s68
-	 U3YClvI+NMmQNJnmyESiqiec3gA50GLIARZwwimAUYkoCTyG/0WUGvY7N6CogauWs/
-	 r93NmYtx0HG46PRWKPJ1UKaaXGgPk/EpiD5T9UL8=
-Subject: FAILED: patch "[PATCH] net: thunderbolt: Fix frags[] overflow by bounding" failed to apply to 5.15-stable tree
-To: maoyixie.tju@gmail.com,kuba@kernel.org,mika.westerberg@linux.intel.com
+	b=x/+ZA5sFQyJq/JzweVng3IDZNB+/g/mdVkJcV9/45SIJC9XaNYkEnFe3/0jIAfuSF
+	 I+d2vxvLAfOJHvcqO5jn03oEA1uOyzGgLH33wlwKU5OJLd1siiWvNDjXH18ltMDQF9
+	 iMNJnA6PGSm54WsHwbWmMk27n0N3hx9LbRl3hDrw=
+Subject: FAILED: patch "[PATCH] mtd: spi-nor: swp: Improve locking user experience" failed to apply to 5.15-stable tree
+To: miquel.raynal@bootlin.com,mwalle@kernel.org,pratyush@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:59:27 +0200
-Message-ID: <2026072027-siding-engraving-011b@gregkh>
+Date: Mon, 20 Jul 2026 17:00:03 +0200
+Message-ID: <2026072003-rocking-alkaline-274e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 55d9895f89970501fe126d1026b586b04a224c27
+git cherry-pick -x e1d456b26bf23e30db305a6184e8abd9ab68bbf2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072027-siding-engraving-011b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072003-rocking-alkaline-274e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,55 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 55d9895f89970501fe126d1026b586b04a224c27 Mon Sep 17 00:00:00 2001
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-Date: Wed, 17 Jun 2026 01:38:41 +0800
-Subject: [PATCH] net: thunderbolt: Fix frags[] overflow by bounding
- frame_count
+From e1d456b26bf23e30db305a6184e8abd9ab68bbf2 Mon Sep 17 00:00:00 2001
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Tue, 26 May 2026 16:56:26 +0200
+Subject: [PATCH] mtd: spi-nor: swp: Improve locking user experience
 
-tbnet_poll() assembles a multi-frame ThunderboltIP packet into one skb. The
-first frame goes into the skb linear area and every further frame is added as
-a page fragment.
+In the case of the first block being locked (or the few first blocks),
+if the user want to fully unlock the device it has two possibilities:
+- either it asks to unlock the entire device, and this works;
+- or it asks to unlock just the block(s) that are currently locked,
+  which fails.
 
-	skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
-			page, hdr_size, frame_size,
-			TBNET_RX_PAGE_SIZE - hdr_size);
+It fails because the conditions "can_be_top" and "can_be_bottom" are
+true. Indeed, in this case, we unlock everything, so the TB bit does not
+matter. However in the current implementation, use_top would be true (as
+this is the favourite option) and lock_len, which in practice should be
+reduced down to 0, is set to "nor->params->size - (ofs + len)" which is
+a positive number. This is wrong.
 
-A packet of frame_count frames therefore ends up with frame_count - 1
-fragments. tbnet_check_frame() only bounds the peer supplied frame_count to
-TBNET_RING_SIZE / 4 (64), which is far above MAX_SKB_FRAGS (17 by default). A
-peer that sends a packet of 19 or more small frames pushes nr_frags past
-MAX_SKB_FRAGS, so skb_add_rx_frag() writes past skb_shinfo()->frags[] and
-corrupts memory after the shared info.
+An easy way is to simply add an extra condition. In the unlock() path,
+if we can achieve the same result from both sides, it means we unlock
+everything and lock_len must simply be 0. A comment is added to clarify
+that logic.
 
-Tighten the start of packet bound to MAX_SKB_FRAGS + 1 so a packet can never
-produce more fragments than frags[] can hold. This matches the recent skb
-frags overflow fixes in other receive paths, for example f0813bcd2d9d ("net:
-wwan: t7xx: fix potential skb->frags overflow in RX path") and 600dc40554dc
-("net: usb: cdc-phonet: fix skb frags[] overflow in rx_complete()").
+Fixes: 3dd8012a8eeb ("mtd: spi-nor: add TB (Top/Bottom) protect support")
+Cc: stable@kernel.org
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Reviewed-by: Michael Walle <mwalle@kernel.org>
+Signed-off-by: Pratyush Yadav <pratyush@kernel.org>
 
-Fixes: e69b6c02b4c3 ("net: Add support for networking over Thunderbolt cable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-Link: https://patch.msgid.link/178163152194.2486768.14724194232649760778@maoyixie.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/drivers/net/thunderbolt/main.c b/drivers/net/thunderbolt/main.c
-index 7aae5d915a1e..ac016890646c 100644
---- a/drivers/net/thunderbolt/main.c
-+++ b/drivers/net/thunderbolt/main.c
-@@ -787,8 +787,12 @@ static bool tbnet_check_frame(struct tbnet *net, const struct tbnet_frame *tf,
- 		return true;
- 	}
+diff --git a/drivers/mtd/spi-nor/swp.c b/drivers/mtd/spi-nor/swp.c
+index e67a81dbb6bf..d5f4bf555cfc 100644
+--- a/drivers/mtd/spi-nor/swp.c
++++ b/drivers/mtd/spi-nor/swp.c
+@@ -282,8 +282,15 @@ static int spi_nor_sr_unlock(struct spi_nor *nor, loff_t ofs, u64 len)
+ 	/* Prefer top, if both are valid */
+ 	use_top = can_be_top;
  
--	/* Start of packet, validate the frame header */
--	if (frame_count == 0 || frame_count > TBNET_RING_SIZE / 4) {
-+	/* Start of packet, validate the frame header. tbnet_poll() puts the
-+	 * first frame in the skb linear area and every further frame in a page
-+	 * fragment, so a packet may not span more than MAX_SKB_FRAGS + 1 frames
-+	 * without overflowing skb_shinfo()->frags[].
+-	/* lock_len: length of region that should remain locked */
+-	if (use_top)
++	/*
++	 * lock_len: length of region that should remain locked.
++	 *
++	 * When can_be_top and can_be_bottom booleans are true, both adjacent
++	 * regions are unlocked, thus the entire flash can be unlocked.
 +	 */
-+	if (frame_count == 0 || frame_count > MAX_SKB_FRAGS + 1) {
- 		net->stats.rx_length_errors++;
- 		return false;
- 	}
++	if (can_be_top && can_be_bottom)
++		lock_len = 0;
++	else if (use_top)
+ 		lock_len = nor->params->size - (ofs + len);
+ 	else
+ 		lock_len = ofs;
 
