@@ -1,73 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B8D3F4DEE;
-	Mon, 20 Jul 2026 11:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4BD3F8233
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 11:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784547386; cv=none; b=jpjVzAgPyIqqn9/4p58BTBmP8u7ud7Bd52E9nx/xYngwUtoFmxbNnEGw+715L5GeNhbLN7CNQO7LdRONRfJ+/NP6hwV+s1gH8FY93W11d8Myv/4OEmNZ6CDK/mcbEHe1+wgdde1dlKnJrEjY835Zxi9pfj2FWHIJQDafeLfI9xA=
+	t=1784547529; cv=none; b=oE/Sdj3ny+xgjab6HEu/e7wa5O5xIPXsLYquc/OnylGG2NEX05EYRRxCvtXUwYlVqJ+jOWHaKg3z2j0oOrFVNMkrFqMYdnnsLFgD5d2OohSDYSyAKfBqPWrSXdTaBE31kgqDyf+PDnmxAyojLgdXc9EeZb48bK8WZQzDoKEGjXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784547386; c=relaxed/simple;
-	bh=/rlZHWliG290EAqWoQtV0b8UQ3JaaG+Ctmqqq8p2H6M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=sWFC/1plACRU5NQdkbTgkq000bVOhKQaz9a5qFP/tVDA28wvbxvlwejeHSZJ9P8+PCoqtl79psNGaTbcNe4XVJqyVmX4H59eG6y/BRkbyMy4MEIHO2S+iPRqWapGPL4Y3/9qqW+sUsyhyPZzwuNju5YomLYp8EC4UCMVnTReUrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hR3tQwnj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784547529; c=relaxed/simple;
+	bh=dlMTPFtsBeQGxgr2XZu/OGNjGA04J4d1NowoJDCEljU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ENPBS0m9J78lK9A2GVsUN/e6i1N9UUZ4Z3u/R7UCwUB5hUMBGdiGrxia19+Nk+SOK2T4Ltsf2WOZbDcQY/Yi3sD0K1Ub3AOQbyJzJqXAX2CKU7s/3MzDYRBmxOw6fUkwtq8ZJtyxJOKbRswfzTeLgoxarDE/u/WBO5mwqDencd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=I4BP+P4D; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hR3tQwnj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4961F00A3D;
-	Mon, 20 Jul 2026 11:36:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784547385;
-	bh=v36e970MK+YgUbuwLDVXe5yspfmfNDBswqX60ky+hII=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hR3tQwnjfBN2EIGsDQoz+X4UVx6Wjqmnc8SKjKcQhsrpAVIZ4EATATQa1tBxBNjJ4
-	 /516ebGbb9o8t5/PjRVE4gRynVQRztTGg6bKpY0xcChyqkPdTWW+V/9uOa3Hg/J6Da
-	 h4XlKtJjKoprBP+3/iL0UZIj3h6DDer2HTvcfyzGFcRqRp3c5cIq9F4IA1EgFg4+lK
-	 2SmleYv2VM+rtgLxpHphsALgeDDSlMx3RzA2NI+/QgJE/MLRIOpLS7oBavRnjXx8k4
-	 g5Bf+fIOp6JsTv/4tIdfE/bBh3VkH+II3K53VLKghK5nbRrxevRc2n/yELoCrWnATM
-	 qamclOw8FtkLg==
-From: Vinod Koul <vkoul@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Heiko Stuebner <heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, 
- Alexey Charkov <alchark@flipper.net>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260714-naneng-ssc-fix-v1-1-1c40a58061ae@flipper.net>
-References: <20260714-naneng-ssc-fix-v1-1-1c40a58061ae@flipper.net>
-Subject: Re: (subset) [PATCH] phy: rockchip: naneng-combphy: Always
- configure SSC spread direction
-Message-Id: <178454738244.1375859.4122685311138244257.b4-ty@kernel.org>
-Date: Mon, 20 Jul 2026 17:06:22 +0530
+	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="I4BP+P4D"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cacb8416a1so64758185ad.1
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 04:38:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1784547525; x=1785152325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nsdh+fwHmWa5XVa73TyuvW6VtjwnCR2ZTFQjARlnTb8=;
+        b=I4BP+P4Dr5IgE7Df+RRWZQN+cERiv2FsBVNeeSrCYYXj7DdhrChveXbV4vPabOcJJQ
+         A5Z3ubtPaJ/1GeoKWTbylWrTGTGEpdZUXIpKCBv4ev0DKisPhaG4m26HCn4j1sijCDH+
+         iDEhyFrZx4Ks4e5+bAqTNZ0AwXaR3XQW+T8rZPlkdj/GCBhUA1NXjN+N7yRuuS3P/qKd
+         0u32YjobuT8aXEJaZqKbn0AEeChbbhhdZoyH3TplKBX/2V1XmIp4R0gCnPlNTbXky/ym
+         eIOHf3UgzBUwCL7m/XK/AsGmC9LEO3pSkSiNAUnCxpzfc+ylxRw4fDJ504X8Rwnnwt5g
+         R9CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784547525; x=1785152325;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nsdh+fwHmWa5XVa73TyuvW6VtjwnCR2ZTFQjARlnTb8=;
+        b=jmI3hX6mR9JCgIeTRL/AOsM+s8wDDlSePKaDFEhTecTipPCl5eeNAs1/N58qAHGjV5
+         MdVJQ5q595rQPb1VO8RynhrH1BKZqXd8gr+jS3u0iJyeDGIfSaRBYu0QuvA1beb6xReB
+         CPMSVdQXJKIkbLt1ZjtJBwr0klXdVWakcw13L8cxMEstGm9ZNiFzHNqwA0tBJBd0bKli
+         TW5oL0rBaVhDqkH9QjLhWtL91iLDay0cGzjHM8rM6uC6pv8qO6nWG6Wjed9izyYSynbU
+         m1XLcIAqmrVJHdTiHcwYcyNVpZwdnSme/2i/tZcSxJH+tV7c+39cSrjMlLZjCzuyo8eq
+         sQMw==
+X-Forwarded-Encrypted: i=1; AHgh+RoOJvpIZdjGmKCau5O/qjzyYN8Db54xETcNbvcsKKxsQxZsktzIXg4kvyKUDUIIadhd96xKKGQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YziKHGSJtyA7zzMu8THJADHOfu8RpmqQ4wR+aKgSrvZvAJPO9Qi
+	G82u59vidudhU/RbK3XmAZysnrXTF9LZjcLIJW8N08oII+4Mt9Fc9zYIS85mdGVobXo=
+X-Gm-Gg: AR+sD12pTuUUWsTwh8BWqhruacRt0TrQWKOwQatqAXfsrIynWtdG08O6lnorWDyQOBk
+	bwxOBX5xYU/KL7dax9hSvuP9D2TudEBujhrKj9EkrhdJMBd8xYa05PZYLE1wn4EvxGWWohSY7Ew
+	m8dEq1k6mTlaiNoweZh+prtI+R/dMK47VpgIaA6/nwEFisRs8lihhj/rczV+vuSPeD+wI2Louo7
+	V1tSa7lWHKgLwEUEggqRpsScjnY4xwPUrq25axyzLTK1STAg8l5poPUTcniWzhNESsCKAxQEDgG
+	U42GslU6OBMnRUqd6CdJNSZOzYnYBU60fkS+ocWvOH8V5AMtCXj1GxQ4cHp4cSNsp2gUX6DdSgC
+	EeNC8/rK0WszK36YH3RdTEWfY7RUNtDUvuCO7QlUyX8aZ+WXX/EKKvm4uDC87M1QSkWBP2cKAdp
+	NNvR/IyV+pR7gGWR9gPIufzU8liW/kjyJsQpHAmBV34I0algx3jZP+rVualqAnWOfmB0AsYa899
+	yQLRBOz++YAq4AhNrjd9qInY1zmF+Sy
+X-Received: by 2002:a17:902:ce04:b0:2ca:52ce:6f91 with SMTP id d9443c01a7336-2cf3496b2ffmr168181275ad.27.1784547524888;
+        Mon, 20 Jul 2026 04:38:44 -0700 (PDT)
+Received: from Metius.iitm.ac.in ([103.158.43.43])
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2cf3448f91bsm55554995ad.8.2026.07.20.04.38.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jul 2026 04:38:44 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+To: lee@kernel.org
+Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] mfd: sm501: Fix potential memory leaks during remove
+Date: Mon, 20 Jul 2026 17:08:32 +0530
+Message-ID: <20260720113836.73133-1-nihaal@cse.iitm.ac.in>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
+The memory allocated for struct sm501_devdata in sm501_pci_probe() and
+sm501_plat_probe() is not freed by the corresponding remove functions
+sm501_pci_remove() and sm501_plat_remove(). Fix that by adding a call to
+kfree().
 
-On Tue, 14 Jul 2026 19:41:20 +0400, Alexey Charkov wrote:
-> Commit 0b31f297557f ("phy: rockchip: naneng-combphy: Consolidate SSC
-> configuration") moved the SSC spread spectrum direction setup into the
-> new rk_combphy_common_cfg_ssc() helper. That helper returns early when
-> the 'rockchip,enable-ssc' property is absent, whereas the equivalent
-> RK3568_PHYREG32 direction writes previously ran unconditionally in the
-> per-type switch statements, independent of whether SSC modulation was
-> actually enabled.
-> 
-> [...]
+Fixes: b6d6454fdb66 ("[PATCH] mfd: SM501 core driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Compile tested only. Issue found using static analysis.
 
-Applied, thanks!
+ drivers/mfd/sm501.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-[1/1] phy: rockchip: naneng-combphy: Always configure SSC spread direction
-      commit: be2b5b17b7053fee142939076746d26b2d6c9702
-
-Best regards,
+diff --git a/drivers/mfd/sm501.c b/drivers/mfd/sm501.c
+index 49c6b21a44e8..0b802925d6c2 100644
+--- a/drivers/mfd/sm501.c
++++ b/drivers/mfd/sm501.c
+@@ -1629,6 +1629,7 @@ static void sm501_pci_remove(struct pci_dev *dev)
+ 	release_mem_region(sm->io_res->start, 0x100);
+ 
+ 	pci_disable_device(dev);
++	kfree(sm);
+ }
+ 
+ static void sm501_plat_remove(struct platform_device *dev)
+@@ -1639,6 +1640,7 @@ static void sm501_plat_remove(struct platform_device *dev)
+ 	iounmap(sm->regs);
+ 
+ 	release_mem_region(sm->io_res->start, 0x100);
++	kfree(sm);
+ }
+ 
+ static const struct pci_device_id sm501_pci_tbl[] = {
 -- 
-~Vinod
-
+2.43.0
 
