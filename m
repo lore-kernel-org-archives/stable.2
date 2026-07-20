@@ -1,222 +1,204 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D49E427A05
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 16:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620DE400967
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 16:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784563472; cv=none; b=X/ihZIoNP1eL7EckvSJSPVJSVl/Hlee/7FpD+0gqD/KPzltw/hCdnJmUYCROdxWOP0vNYxdVusMHZ1mMdh/8JwMiXRo2vZjHCqctTDXvePU3wp3pxUdGrYiM5LCor40Tgc3Q/VZzVD7yHens0IyKmktgNbdSb9fUpqAowbUgETA=
+	t=1784563618; cv=none; b=cJ97REFquIw9QxVhZCe+QRkbAAlsCiFXZiytwAfo3NUI9N6ii+/NVCW4r3NTuimKW1rIHFCCFJJtM6hGoSSOMho6GGuS4NgKHCaJmSraz/F+ODMxV/pfKgVmqK4gEtMG6MyucitQdmPrf0pn8hGJPNVPX7mHletF7whADaTo38I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784563472; c=relaxed/simple;
-	bh=+qTmfzHzKgZXFKCtnjQEa7gvZQKtdktlmWhJSmYTJ8c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mtvv1ueXnBuE4XbQk7vNQuuLtAUS9EfrygflggyvjclEZpP9BkLQw2K/aVQbaWy00AyAzepauW3J4iibPjXc2MDJUgo3rGcINmu4YI9J/U+JORoH80w5wlrUCqAD5dJXFsmkxkIkmGfbBlPN0i3qT/rFBBcT6bwN3I/RKJz4+CI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=vDHhJJ8U; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1784563618; c=relaxed/simple;
+	bh=uBKOtoSytIa87hb6P4JZ8OQ+rSgfkcaH5ESrlGek8bc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J6Bh/LliIsxBp8JRQJs5pPrwni5Pu4Ha/n+vclWwLNFI+7GkYzjEY0O1pg+d25dAdE+xKplzbJeuH+wYAU3zQjOu4nr0B+Q2/V2bmEknmUaaoppb9jMg+nRcvE8nkxqDyPwTLPWOM2TTGDTz86E3M9NM+zHg9Em01/SOZtUERng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N5ROvZjv; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="vDHhJJ8U"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51c0cea8883so48260491cf.1
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 09:04:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N5ROvZjv"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cca0c5799eso79671585ad.0
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 09:06:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1784563469; x=1785168269; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pRDup4IApSPObs0d76X/agqpGSU9Wb191kX+rVPp5VA=;
-        b=vDHhJJ8U/eGnHCju/2g8I6RWbjIqOBzooig18e4keQUxvGtul9STJq3Ar9ZuE9SJ/M
-         JoeqLDKWoACt82iXwDnjfsJKRJBj3yfrWYcZXmZVEaFy17bZPHvxB7sR6DOQXsTxDsvv
-         NQHxjla6/b+ESClGr8XNEOSDIGclYIeNGepycCSgVu0gSU7aPtDI8V02HPEgI3C4fKLA
-         nEIn296czenH6hClFflKwiXOf1LXt5ETguz5GGl9bvcKBFFlKaIYZU/p3SyaCQt8JTg8
-         9Px8UTpP0GOhxwUyvoJau/erz2p9LYcrEuK2nLdsvnYhKD3Neenk9bdCtVDa9OcTVPXU
-         Ux1Q==
+        d=gmail.com; s=20251104; t=1784563617; x=1785168417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o1b/iXtthE0NdNXxVcrsPqsvYfRN7KhJFOgx8+/tTAY=;
+        b=N5ROvZjvLUG+mxv4q9w/WkYq5UYoiKm6vAD3xeToGIyIAinjJHV+B2shXH/E5hNB7b
+         aKTSdbd8b7AiJQD6yTnAsyUY3LXoiNSvYMw1Gqe9wTrn6sPbjVixth1OXYToAQqiUXmG
+         rCjQ7+TxuekQf+og+JGB60xYqPATzwev8efupdwxv1oC2RKeg/NdtpiXOkhoHdeeSV9s
+         TyNf/X/JthoZgjjQ5w9ZnmNlCfkEyx+PzIPN/ikDUnZ6rncXvPZ8wkPUBaycyroi2ZXl
+         M6VMlrymOMbKGhG8lmbHl5bTnOOfqg71VrRNWAiOPlIih1WyiCSHY6LD4knppw+lEbgK
+         odtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784563469; x=1785168269;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pRDup4IApSPObs0d76X/agqpGSU9Wb191kX+rVPp5VA=;
-        b=Rdc+EHtFDCjM0Y3LH9VGFA/Vlp/a0IiKRYPNE0FbKPHSrgqbPwEDzGazb5owhrl7s1
-         icgQEBoB9tD56YMeIOQSi6ZFlnOyh3ZxHCIvJKVfc1qlQ2xv/wgKl+Uti4F2cV9mg/Wm
-         d/WzusxFS1iaCkkc3q3gMpJzoR6lt08Btq/0f85bR+i1I0IkfICNAIAvYeK+c/cA9qjX
-         iF0Y6dG2lYGDo4vezyIMNOK3QQ9CAQoKlAkP2IKDnQGH8zl/Oski9PXCUDkTjJJI3SnV
-         qqaGE+L3B1zZEqSQ8O9o5RfEEKx5Ml2j7H8GUNHrD3HczBNOuGq6i6HCKxbqT5Tb0ryG
-         ZTOg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+o4lPNUn/JkFtLd98LmufSV1Ui+GPNDpK4TrvjGfSFOmiR66JaxgDrcglwpgJkj9Lsc1K8SY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFPgPmZKeguAaz4x9ZNV3E6BfEFX1zfeyBXGgvFrnwJQqI3hEJ
-	9mN768oJ2Zg7om+UuPM5XSiA4nS6uomUBp7eQfs95BKNV62WzwY2g0aKq7sJi/CkwA==
-X-Gm-Gg: AfdE7cm2jqXqWMv+zl3IyYBur/N14xKO3bFl6g2RVmYcwEgbh63y6K7/XCcpQ1FwZMH
-	IM2FnVjBlnhscxtghXDvU3LCy6kRLrLAWrXPHV3E1pwJDX4RvhBu/QoPfknz6YrnIdfo9alyep/
-	A8AKLxNaZmIpmLkSE0wDJW5cxFLeFDk2XvF7Pc5n8Zi6Ajn+7lObgCeDYy8xv66/QsKXNrKd4vQ
-	TEACWkiWK89wxax1/MfX3A6j63gwysMuxToA9FWJDR3ofDns/rf+/AYJepYFyrdAdris1U7EMO7
-	82Ae+IUN8vQBR7W3d2ES8FCs+vGm2rgJ4A0rZp8YW7T95hmGUzahwMCcTFiIcUPCGkQ5JZ3e/Ey
-	TPHt3FOGdff7AzhwsxqXtMDfozGuPffwu9I3ukreieGaJBG9ILb1ahTaBQ55ia52DnYqkMuukNJ
-	6v7E0Ul/Fc97WPnEPKxIaRRlKKpiK3tUrsraMMGbkBdWvbmg==
-X-Received: by 2002:ac8:7f8b:0:b0:517:5f04:f23f with SMTP id d75a77b69052e-521298a8a73mr142534011cf.4.1784563469002;
-        Mon, 20 Jul 2026 09:04:29 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-521502b92acsm81123961cf.30.2026.07.20.09.04.27
+        d=1e100.net; s=20251104; t=1784563617; x=1785168417;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o1b/iXtthE0NdNXxVcrsPqsvYfRN7KhJFOgx8+/tTAY=;
+        b=dqw4yGQN3AE9X/eKNUeUyAPMBRUJ/AbyOogo1e/W/+3d+Q/fxOGVN/6c5gDjyuuIkp
+         RP7aVRCJ730p/T/Dr7lvR04e7q+vniUUZAfiUh6JR77F+LbCZuEt/uDo5Jpyz1gVt4kY
+         kAu3RtJmR8YwDt5kUXUE2tX2xm/ri7zUVcnpFykPVspPQpSsmFJ4aK9mQ6uQ35g49b2w
+         2SKpBj0BPzCvCLY1wcpnafPX16ToZhab4ZHt1vte4Ey71kYHgt6ing58g2z93V+ytwoQ
+         DtNA+owwDQvIrllyVCUf3fvTar5YqqqpKPC4n1MLclHsL0bDmt/CnNBfFT73/1Blp4qL
+         iHDA==
+X-Forwarded-Encrypted: i=1; AHgh+RqROPanZTcbVITjg3e8k1SDu1SGg7ARnjW14V0qUs1Ww7uo8YcVo2hGyPfIUvHL3x/mN5x0Bks=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVx9XZb9bVtAI7cISBA1CiYDx6mKJpPxG+6tO2xC8TAPUsnMBd
+	/9rhfkjDZCVNlfastMpZ/90iThzeG5adLXhYu4wUMS2Izvg7JTONDcjT
+X-Gm-Gg: AR+sD13x332YRH9FAq9F/CfhL2k+IBfK1WZLOW6d+akwhzazAuV4sIps55KniX/pDZP
+	r43KEBVDfL7NSnYUnl0aQsCHvdTCyh483ftvculq3feYVwAwSfuhY9lgeGn81ImumWagmbPML5R
+	2OMOr2ia3fr5w+UQohkSD+jfm1jQ7uwuyt+12uRUnUd/GXQTik8FZ/a//tGNw3qrdC9C8GhzwRR
+	SolgeqitlV4kPPhYWI0+/tB2KGMXO8EzTeq7dmFXWvd6Ya/RcZkhpmu2NtpLyLhE58bAhQx4zWF
+	oyTOIsuVFSbVX5Y4uCUtXp53J4T/3zK2KJvUJKgxCsSh+bOdkBaGT2QoHG9H+V1k+z6Oo9uUU+p
+	dcHm3uNUuuSou4jq/g+WI1UgwN++mCECuGRt78nZm62gfB+dC9BdSSANowQOu6hwxCt5gNHC0Ep
+	WahQMFdEUSr6n5pFl0tY8pw8fidlYHISZYBRPDcQ==
+X-Received: by 2002:a17:902:ebcb:b0:2c9:b48c:fdde with SMTP id d9443c01a7336-2cf3496cb62mr160713345ad.26.1784563616336;
+        Mon, 20 Jul 2026 09:06:56 -0700 (PDT)
+Received: from JRT-PC.. (bb116-15-8-251.singnet.com.sg. [116.15.8.251])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf344b16d4sm59389985ad.20.2026.07.20.09.06.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 09:04:28 -0700 (PDT)
-Date: Mon, 20 Jul 2026 12:04:25 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Charles Daoust <charles.daoust@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: core: add USB_QUIRK_CONFIG_DESC_READ_255 for Razer
- BlackShark V3 Pro
-Message-ID: <2a80e88e-936d-4927-a915-352fe92e47df@rowland.harvard.edu>
-References: <20260720150207.1963786-1-charles.daoust@gmail.com>
+        Mon, 20 Jul 2026 09:06:55 -0700 (PDT)
+From: James Raphael Tiovalen <jamestiotio@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org
+Cc: James Raphael Tiovalen <jamestiotio@gmail.com>,
+	stable@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] vxlan: mdb: Fix source list corruption on a failed replace
+Date: Tue, 21 Jul 2026 00:04:24 +0800
+Message-ID: <20260720160428.249356-1-jamestiotio@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720150207.1963786-1-charles.daoust@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 20, 2026 at 11:01:26AM -0400, Charles Daoust wrote:
-> From: Charles D'Aoust <charles.daoust@gmail.com>
-> 
-> The Razer BlackShark V3 Pro wireless headset dongle (1532:0577)
-> fingerprints its host during the first enumeration after power-on: if
-> the first GET_DESCRIPTOR(CONFIGURATION) request asks for 255 bytes, as
-> Windows does, the dongle enables its vendor HID command channel; if it
-> sees the 9-byte header-only read that Linux issues, it disables that
-> channel for the rest of the power session.  Audio still works in that
-> state, but battery reporting and all vendor commands are silently
-> ignored, and nothing short of removing power recovers the device:
-> resets, re-enumerations and byte-exact replays of complete Windows
-> control sessions were all verified not to help.
-> 
-> Both read lengths are spec-compliant (the device truncates the reply
-> to wLength); the firmware was evidently only validated against the
-> larger request.  The kernel already accommodates this class of
-> firmware assumption during enumeration: hub_port_init() reads the
-> device descriptor with a 64-byte request because that is what Windows
-> does and what many devices expect.
-> 
-> Add USB_QUIRK_CONFIG_DESC_READ_255, which makes usb_get_configuration()
-> request 255 bytes for the initial configuration descriptor read rather
-> than USB_DT_CONFIG_SIZE, apply it to 1532:0577, and expose it as
-> runtime quirk letter 'r'.  Devices without the quirk are unaffected.
-> 
-> The trigger was isolated by single-variable bisection on otherwise
-> unmodified kernels: with only the widened initial read, the dongle's
-> vendor channel comes up enabled on a cold plug with no interface
-> drivers bound (bare enumeration only); without it, it never does.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Charles D'Aoust <charles.daoust@gmail.com>
-> ---
+When replacing the source list of an MDB remote entry, all existing
+sources are first marked for deletion and vxlan_mdb_remote_srcs_add()
+is then called to add the new source list. Sources present in the new
+list have their deletion mark cleared, and any sources left marked
+afterwards are removed.
 
-Is this not the same as
+If vxlan_mdb_remote_srcs_add() fails partway through, its error path
+deletes all entries on the remote's source list. That rollback is only
+correct for its other caller, vxlan_mdb_remote_add(), where the remote
+was just allocated and the list contains solely entries added during
+the call. On the replace path the list also holds pre-existing sources,
+so a failed replace tears them down together with their (S, G)
+forwarding entries instead of leaving the entry unchanged.
 
-https://lore.kernel.org/linux-usb/20260717195336.98500-2-nikhilsolanke5@gmail.com/
+This is reachable from an existing (*, G) remote. An EXCLUDE filter
+that loses sources starts forwarding traffic that should be blocked,
+while an INCLUDE filter that loses sources drops traffic that should be
+forwarded.
 
-?
+Mark entries created during the current pass with a new
+VXLAN_SGRP_F_NEW flag. On failure, delete only those entries and clear
+the deletion mark on the pre-existing ones, so a failed replace leaves
+the source list untouched. Retain the flag until the whole operation
+succeeds and then clear it. Also stop vxlan_mdb_remote_src_add() from
+deleting a pre-existing entry it only looked up when adding that
+entry's forwarding entry fails.
 
-Alan Stern
+Fixes: a3a48de5eade ("vxlan: mdb: Add MDB control path support")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Raphael Tiovalen <jamestiotio@gmail.com>
+---
+ drivers/net/vxlan/vxlan_mdb.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
->  Documentation/admin-guide/kernel-parameters.txt |  3 +++
->  drivers/usb/core/config.c                       | 13 ++++++++++---
->  drivers/usb/core/quirks.c                       |  6 ++++++
->  include/linux/usb/quirks.h                      |  3 +++
->  4 files changed, 22 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index b5493a7f8..1bd138ba6 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -8169,6 +8169,9 @@ Kernel parameters
->  				q = USB_QUIRK_FORCE_ONE_CONFIG (Device
->  					claims zero configurations,
->  					forcing to 1);
-> +				r = USB_QUIRK_CONFIG_DESC_READ_255 (initial
-> +					configuration descriptor read must
-> +					request 255 bytes, as Windows does);
->  			Example: quirks=0781:5580:bk,0a5c:5834:gij
->  
->  	usbhid.mousepoll=
-> diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
-> index cd3231d21..c7e21cc76 100644
-> --- a/drivers/usb/core/config.c
-> +++ b/drivers/usb/core/config.c
-> @@ -908,7 +908,7 @@ int usb_get_configuration(struct usb_device *dev)
->  {
->  	struct device *ddev = &dev->dev;
->  	int ncfg = dev->descriptor.bNumConfigurations;
-> -	unsigned int cfgno, length;
-> +	unsigned int cfgno, length, first_read_len;
->  	unsigned char *bigbuffer;
->  	struct usb_config_descriptor *desc;
->  	int result;
-> @@ -938,7 +938,14 @@ int usb_get_configuration(struct usb_device *dev)
->  	if (!dev->rawdescriptors)
->  		return -ENOMEM;
->  
-> -	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
-> +	/*
-> +	 * Some devices (see USB_QUIRK_CONFIG_DESC_READ_255) malfunction unless
-> +	 * the initial configuration descriptor read requests 255 bytes, as
-> +	 * Windows does.  Only the header is consumed here either way.
-> +	 */
-> +	first_read_len = (dev->quirks & USB_QUIRK_CONFIG_DESC_READ_255) ?
-> +			 255 : USB_DT_CONFIG_SIZE;
-> +	desc = kmalloc(first_read_len, GFP_KERNEL);
->  	if (!desc)
->  		return -ENOMEM;
->  
-> @@ -946,7 +953,7 @@ int usb_get_configuration(struct usb_device *dev)
->  		/* We grab just the first descriptor so we know how long
->  		 * the whole configuration is */
->  		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-> -		    desc, USB_DT_CONFIG_SIZE);
-> +		    desc, first_read_len);
->  		if (result < 0) {
->  			dev_err(ddev, "unable to read config index %d "
->  			    "descriptor/%s: %d\n", cfgno, "start", result);
-> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-> index 87ee2d938..c8f71b825 100644
-> --- a/drivers/usb/core/quirks.c
-> +++ b/drivers/usb/core/quirks.c
-> @@ -142,6 +142,9 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
->  				break;
->  			case 'q':
->  				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
-> +				break;
-> +			case 'r':
-> +				flags |= USB_QUIRK_CONFIG_DESC_READ_255;
->  			/* Ignore unrecognized flag characters */
->  			}
->  		}
-> @@ -496,6 +499,9 @@ static const struct usb_device_id usb_quirk_list[] = {
->  	/* Razer - Razer Blade Keyboard */
->  	{ USB_DEVICE(0x1532, 0x0116), .driver_info =
->  			USB_QUIRK_LINEAR_UFRAME_INTR_BINTERVAL },
-> +	/* Razer - Razer BlackShark V3 Pro wireless headset dongle */
-> +	{ USB_DEVICE(0x1532, 0x0577), .driver_info =
-> +			USB_QUIRK_CONFIG_DESC_READ_255 },
->  	/* Razer - Razer Kiyo Pro Webcam */
->  	{ USB_DEVICE(0x1532, 0x0e05), .driver_info = USB_QUIRK_NO_LPM },
->  
-> diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
-> index b3cc7beab..02de5ed48 100644
-> --- a/include/linux/usb/quirks.h
-> +++ b/include/linux/usb/quirks.h
-> @@ -81,4 +81,7 @@
->  /* Device claims zero configurations, forcing to 1 */
->  #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
->  
-> +/* initial configuration descriptor read must request 255 bytes (Windows) */
-> +#define USB_QUIRK_CONFIG_DESC_READ_255		BIT(19)
-> +
->  #endif /* __LINUX_USB_QUIRKS_H */
-> -- 
-> 2.55.0
-> 
-> 
+diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
+index 055a4969f593..af7a0d7f95a5 100644
+--- a/drivers/net/vxlan/vxlan_mdb.c
++++ b/drivers/net/vxlan/vxlan_mdb.c
+@@ -42,6 +42,7 @@ struct vxlan_mdb_remote {
+ };
+ 
+ #define VXLAN_SGRP_F_DELETE	BIT(0)
++#define VXLAN_SGRP_F_NEW	BIT(1)
+ 
+ struct vxlan_mdb_src_entry {
+ 	struct hlist_node node;
+@@ -844,6 +845,7 @@ vxlan_mdb_remote_src_add(const struct vxlan_mdb_config *cfg,
+ 		ent = vxlan_mdb_remote_src_entry_add(remote, &src->addr);
+ 		if (!ent)
+ 			return -ENOMEM;
++		ent->flags |= VXLAN_SGRP_F_NEW;
+ 	} else if (!(cfg->nlflags & NLM_F_REPLACE)) {
+ 		NL_SET_ERR_MSG_MOD(extack, "Source entry already exists");
+ 		return -EEXIST;
+@@ -853,15 +855,16 @@ vxlan_mdb_remote_src_add(const struct vxlan_mdb_config *cfg,
+ 	if (err)
+ 		goto err_src_del;
+ 
+-	/* Clear flags in case source entry was marked for deletion as part of
+-	 * replace flow.
++	/* Clear the deletion mark so the entry survives the replace sweep.
++	 * The new mark is retained until the whole operation succeeds.
+ 	 */
+-	ent->flags = 0;
++	ent->flags &= ~VXLAN_SGRP_F_DELETE;
+ 
+ 	return 0;
+ 
+ err_src_del:
+-	vxlan_mdb_remote_src_entry_del(ent);
++	if (ent->flags & VXLAN_SGRP_F_NEW)
++		vxlan_mdb_remote_src_entry_del(ent);
+ 	return err;
+ }
+ 
+@@ -889,11 +892,19 @@ static int vxlan_mdb_remote_srcs_add(const struct vxlan_mdb_config *cfg,
+ 			goto err_src_del;
+ 	}
+ 
++	hlist_for_each_entry(ent, &remote->src_list, node)
++		ent->flags &= ~VXLAN_SGRP_F_NEW;
++
+ 	return 0;
+ 
+ err_src_del:
+-	hlist_for_each_entry_safe(ent, tmp, &remote->src_list, node)
+-		vxlan_mdb_remote_src_del(cfg->vxlan, &cfg->group, remote, ent);
++	hlist_for_each_entry_safe(ent, tmp, &remote->src_list, node) {
++		if (ent->flags & VXLAN_SGRP_F_NEW)
++			vxlan_mdb_remote_src_del(cfg->vxlan, &cfg->group, remote,
++						 ent);
++		else
++			ent->flags &= ~VXLAN_SGRP_F_DELETE;
++	}
+ 	return err;
+ }
+ 
+@@ -1069,7 +1080,7 @@ vxlan_mdb_remote_srcs_replace(const struct vxlan_mdb_config *cfg,
+ 
+ 	err = vxlan_mdb_remote_srcs_add(cfg, remote, extack);
+ 	if (err)
+-		goto err_clear_delete;
++		return err;
+ 
+ 	hlist_for_each_entry_safe(ent, tmp, &remote->src_list, node) {
+ 		if (ent->flags & VXLAN_SGRP_F_DELETE)
+@@ -1078,11 +1089,6 @@ vxlan_mdb_remote_srcs_replace(const struct vxlan_mdb_config *cfg,
+ 	}
+ 
+ 	return 0;
+-
+-err_clear_delete:
+-	hlist_for_each_entry(ent, &remote->src_list, node)
+-		ent->flags &= ~VXLAN_SGRP_F_DELETE;
+-	return err;
+ }
+ 
+ static int vxlan_mdb_remote_replace(const struct vxlan_mdb_config *cfg,
+-- 
+2.43.0
+
