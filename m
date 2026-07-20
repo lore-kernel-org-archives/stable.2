@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F0D3AFB0C
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:59:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4073E5589
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559563; cv=none; b=QRX/Ysf7NeGXVdLLwlv/Zu/A/REZB8AojNtNQwQOwU5TdwgCGOPVHsGAUpiCwL8W3BG0Or8CpwAMc/4y9DybypPYkokZaDGKqV85ghR7rp6T59XhH9UjjB+uBKPd0Eiq514coKQT3kCqjJAbeuIf+vMjCc/ufk+i1FPr31i+rMs=
+	t=1784559566; cv=none; b=LXAi26yBA/gJdyj9FaWD2ziq1GTzEzcnCv22KJbLG+CQlnJ4OArCh4KJKnCgrT+AqZRnL6MGrsWKyguUl7+ARyJYXwoa6fFgINcQGcjMVwchj1JJP5G21Ncos8GPl6yoidmKkpXQi9A2d0IQquXiuXOlCSiDcI+vLMDLugjKkWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559563; c=relaxed/simple;
-	bh=HGJ+Vbf0T7Pcpy5jVuYu2SkHlby+ZTcpxa/b3Jm3VKQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Si5xUrWN2/SVCzBB5MhCwdxMC4pSX7W/Bzlf773NYFnAPiETBrruqGWATM7ihtc3s48k66KaQHGI3WNlRjx+cwGWlN1Q08EApfrxKB3ed66UkqAK++ZEU/LhXrUjPtes4QFH5UMtivjWSrrvpxJ9cH3a9xLAH+ZZux8HDQnvrjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QBH8w3KJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559566; c=relaxed/simple;
+	bh=H6PqpY1x5BzKRvOov8V7Nw/coHIFfRjtT7IEn/IH/68=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hhVIDZMxoQ2enizk9Xx19LuEl9EhLMRVRdSdUfw7eG+ZMvjY+lY+znCiGks6Unm3pzHkir560Inz7h10t7toO1cPGgomCcR2Y3MgFtTsacy+iAUeAuSQqlDzlOW+V5gJ6vTHeIdQ2X9f+K8jaicUUdtcW89Z373gEdv3tCazIiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hkBwuEZE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QBH8w3KJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C46431F000E9;
-	Mon, 20 Jul 2026 14:59:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hkBwuEZE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6936F1F000E9;
+	Mon, 20 Jul 2026 14:59:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559562;
-	bh=tpU0sLi76k7g4xXWLSet98tEnY1SIQ/4kOALtbUNjq0=;
+	s=korg; t=1784559564;
+	bh=oRQ/VKWDxg8GfKVTr0PBk561GD1JDN37zuproe1TJiA=;
 	h=Subject:To:Cc:From:Date;
-	b=QBH8w3KJhskvbstuxWgMhogMhLqPOG1ujj7WA54yPghMX3fMV+/vzvXOej/MElmXG
-	 xkMEvSP1zitilThQ90bLfphlc9Ul/Af8sDNlvxwVQlWKdzmxU/5adiol8gy7b6Amza
-	 z4gJJhqT1ITZFi2AJPghYYloDzeSPCBtrtYXd+xo=
-Subject: FAILED: patch "[PATCH] thunderbolt: Prevent XDomain delayed work use-after-free on" failed to apply to 6.1-stable tree
+	b=hkBwuEZEE/KDO+cBNYYbjxqsa8pG+SN4TNdbaJYercWbmXeiN1vt8DCUTn0kR9T3D
+	 rDqp8pUnJGlUXAjF663+toFJVxg8VW6BGggNHRSqs1jyhG0vGyQeVBtqEFuHqyG28C
+	 qDDg5h2rr4G/c0APoloHP1HLcLGc2/qUlFSeKhak=
+Subject: FAILED: patch "[PATCH] thunderbolt: Prevent XDomain delayed work use-after-free on" failed to apply to 5.15-stable tree
 To: michael.bommarito@gmail.com,mika.westerberg@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 20 Jul 2026 16:59:01 +0200
-Message-ID: <2026072001-pedometer-stifling-5aab@gregkh>
+Message-ID: <2026072001-numeric-suffice-a245@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2c5d2d3c3f70cde2565d7b279b544893a2035842
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072001-pedometer-stifling-5aab@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072001-numeric-suffice-a245@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
