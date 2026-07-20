@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854283E5EC4;
-	Mon, 20 Jul 2026 22:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3382A22097;
+	Mon, 20 Jul 2026 23:02:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784587162; cv=none; b=q1Dw++zAkJPRvtE9FEe9ZNPGplIwOKtEWMtxoytRdx87XSGm7c0QvPQGE0iaUI+vHe+1d2pm05GgxSOhAbg37bOnCK/dbW62mVU2PpcyeOzSMXzNl7DjwFgswFnsjE8khpDD4qZlSbttMWArPfobkfH5yE+SBJF8/rfF8ifbP/Y=
+	t=1784588544; cv=none; b=S08ybfRlbzQdYroJmr4OUjGmf323YnGVHy8FJXlLe2OLaDtJvJyeVLiFxJFN7yv9tXnyuJ32O4ymiSD42RpX4q6RgKx+9h63QgNMg4LEAKKzvScMMJyq+ILivU+XTmGGIeZqpW9mq7wjK2G93OW9EsDaxWEehD/5yp0LrhZIGJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784587162; c=relaxed/simple;
-	bh=M1lcLf/2nkBdFEORCYPgH9FyIbuRYi9Htm9nACtD65k=;
-	h=Date:To:From:Subject:Message-Id; b=t0zW1eBBfi8B9ynfNV0Moy4VhFa701WssnAkulh9/59vLmNZUZ892+64/8F2ydBAY42DSH4qygoIPxp7Oa9j/Yuo2c4WTeeHxzeWjay8mEn+3GVtmhcZC/UQ5cJvrB+ftjpPtyLoNNC2aNIHBg1LTNrzBc+mI7+6yGluccBuZDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=G/8kbsEH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784588544; c=relaxed/simple;
+	bh=L040Ri4aGLmwdTssZAW71AEvHAY3f9Nr0uKGdKToRv0=;
+	h=Date:To:From:Subject:Message-Id; b=YbSWEveBlY1rpux4fqKn7J63Rskz+WvTA4XVRP0va5s1GVpwHVAb+D0lmknRxFO8abivL0G4I1VL5JFXKm/SbHoeH/oxOSP/+zT72psqJ4ZhrKtEiBpz+Nwy2lAfglzbvl+cwFCzFV+qKKsR18mO6nSQi0KGcrxH01rJ2qn11TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ooZa1AAG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="G/8kbsEH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC561F000E9;
-	Mon, 20 Jul 2026 22:39:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ooZa1AAG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A801F000E9;
+	Mon, 20 Jul 2026 23:02:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784587161;
-	bh=kjBhCyK6zBXzfwTkUzv2r3pE0FgcDIF63+8jUiVm0YM=;
+	d=linux-foundation.org; s=korg; t=1784588542;
+	bh=/T42pQHkZ/yXLN0I4KfJEOodGOMWDJLpBRu3Cn6LFRI=;
 	h=Date:To:From:Subject;
-	b=G/8kbsEHCKoMNPO0Mu24VmGskCHO/RAcJ7Is3yVdXrYK89axjVqJbKRlC0m72QoNm
-	 20Hcv5pw7BV+vdIcfoJQ/gdYl4uXnC0iFqdCn/YFNg2baaBWbZe9gk5uJtKgUWYKof
-	 1iXhPYi6ib34eey7hJ+RbZaK+f9Da2s3OVEAjv8M=
-Date: Mon, 20 Jul 2026 15:39:20 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,puranjay@kernel.org,paulmck@kernel.org,catalin.marinas@arm.com,leitao@debian.org,akpm@linux-foundation.org
+	b=ooZa1AAGNPdgLyUqGQXa2FgFTwh/KTfHSc3+ZcLJm0MRJEX/N+6I3sOFoTz0YN1Qv
+	 WCfgoFofyhzTZZm/6eEH4VmSdlwy9uE773JoFmY/Zk6cHlOEL89p2uJj219h+oHxI2
+	 OBT4bo6OR2dHlpZzThEPhUTE8eGiozrCSX8eaJds=
+Date: Mon, 20 Jul 2026 16:02:22 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,ptikhomirov@virtuozzo.com,mjguzik@gmail.com,legion@kernel.org,include@grrlz.net,ebiederm@xmission.com,brauner@kernel.org,oleg@redhat.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch added to mm-new branch
-Message-Id: <20260720223921.2DC561F000E9@smtp.kernel.org>
+Subject: + sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch added to mm-nonmm-unstable branch
+Message-Id: <20260720230222.A3A801F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,26 +35,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The patch titled
-     Subject: mm/kmemleak: report RCU-tasks quiescent states during the scan
-has been added to the -mm mm-new branch.  Its filename is
-     mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch
+     Subject: sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch
 
-This patch will later appear in the mm-new branch at
+This patch will later appear in the mm-nonmm-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
 
 Before you just go and hit "reply", please:
    a) Consider who else should be cc'ed
@@ -69,137 +58,138 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: Breno Leitao <leitao@debian.org>
-Subject: mm/kmemleak: report RCU-tasks quiescent states during the scan
-Date: Mon, 20 Jul 2026 06:23:45 -0700
+From: Oleg Nesterov <oleg@redhat.com>
+Subject: sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
+Date: Mon, 20 Jul 2026 13:13:43 +0200
 
-kmemleak_scan() can run for ages on large debug kernels. It was
-causing some soft-lockups which I got fixed with commit
-3175fcfec8b16baeb ("mm/kmemleak: avoid soft lockup when scanning task
-stacks") with our beloved cond_resched().
+cad_pid is global, and kill_cad_pid() is only used in the root namespace.
 
-I've got the fix above deployed in the Meta fleet, and now I am seeing:
+However, due to pid_table_root_permissions(), a non-root user can unshare
+pid/user namespaces and modify it from the child namespace.  This makes no
+sense and is simply wrong.
 
-  INFO: rcu_tasks detected stalls on tasks:
-    task:kmemleak state:R ... nvcsw: 274/274 holdout: 1 idle_cpu: -1/3
-     scan_block
-     scan_gray_list
-     kmemleak_scan
+Move it to kern_reboot_table[] where it logically belongs; this ensures
+that only GLOBAL_ROOT_UID can read/modify this sysctl.
 
-and, worse, blocks the callers waiting on that grace period.  Here a BPF
-struct_ops map free, which waits via synchronize_rcu_mult(call_rcu,
-call_rcu_tasks), is stuck long enough to also trip the hung task check:
+Note that this patch doesn't preserve "#ifdef CONFIG_PROC_SYSCTL" around
+the "cad_pid"; CONFIG_PROC_SYSCTL selects CONFIG_SYSCTL, so it is always
+set when kern_reboot_table[] is compiled.
 
-  INFO: task kworker/...:bpf_map_free_deferred blocked for 122 seconds
-     __wait_rcu_gp
-     bpf_struct_ops_map_free
-
-Then I've learned that cond_resched() is not an RCU-tasks quiescent
-state, so, we need to use stronger primitives.
-
-Use cond_resched_tasks_rcu_qs() at the scan reschedule points so the scan
-reports an RCU-tasks quiescent state as it proceeds.
-
-Inspired by commit b96285e10aad ("tracing: Have osnoise_main() add a
-quiescent state for task rcu").
-
-Link: https://lore.kernel.org/20260720-kmemleak_rcu_task-v1-1-5b460ade777d@debian.org
-Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Puranjay Mohan <puranjay@kernel.org>
+Link: https://lore.kernel.org/al4C572uhLdBvyzH@redhat.com
+Fixes: e054bcbe7e7a ("sysctl: move cad_pid into kernel/pid.c")
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Acked-by: Alexey Gladkov <legion@kernel.org>
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+Reviewed-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Eric Biederman <ebiederm@xmission.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+"Cen Zhang (Microsoft)" <blbllhy@gmail.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/kmemleak.c |   14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ kernel/pid.c    |   31 -------------------------------
+ kernel/reboot.c |   29 +++++++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+), 31 deletions(-)
 
---- a/mm/kmemleak.c~mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan
-+++ a/mm/kmemleak.c
-@@ -1586,7 +1586,7 @@ static int scan_large_block(void *start,
- 		if (scan_block(start, next, NULL))
- 			return 1;
- 		start = next;
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 	}
+--- a/kernel/pid.c~sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table
++++ a/kernel/pid.c
+@@ -764,29 +764,6 @@ static struct ctl_table_root pid_table_r
+ 	.set_ownership	= pid_table_root_set_ownership,
+ };
  
- 	return 0;
-@@ -1623,7 +1623,7 @@ static void scan_object(struct kmemleak_
- 			scan_block(start, end, object);
+-static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
+-		size_t *lenp, loff_t *ppos)
+-{
+-	struct pid *new_pid;
+-	pid_t tmp_pid;
+-	int r;
+-	struct ctl_table tmp_table = *table;
+-
+-	tmp_pid = pid_vnr(cad_pid);
+-	tmp_table.data = &tmp_pid;
+-
+-	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
+-	if (r || !write)
+-		return r;
+-
+-	new_pid = find_get_pid(tmp_pid);
+-	if (!new_pid)
+-		return -ESRCH;
+-
+-	put_pid(xchg(&cad_pid, new_pid));
+-	return 0;
+-}
+-
+ static const struct ctl_table pid_table[] = {
+ 	{
+ 		.procname	= "pid_max",
+@@ -797,14 +774,6 @@ static const struct ctl_table pid_table[
+ 		.extra1		= &pid_max_min,
+ 		.extra2		= &pid_max_max,
+ 	},
+-#ifdef CONFIG_PROC_SYSCTL
+-	{
+-		.procname	= "cad_pid",
+-		.maxlen		= sizeof(int),
+-		.mode		= 0600,
+-		.proc_handler	= proc_do_cad_pid,
+-	},
+-#endif
+ };
+ #endif
  
- 			raw_spin_unlock_irqrestore(&object->lock, flags);
--			cond_resched();
-+			cond_resched_tasks_rcu_qs();
- 			raw_spin_lock_irqsave(&object->lock, flags);
- 			if (!(object->flags & OBJECT_ALLOCATED))
- 				break;
-@@ -1645,7 +1645,7 @@ static void scan_object(struct kmemleak_
- 				break;
+--- a/kernel/reboot.c~sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table
++++ a/kernel/reboot.c
+@@ -1347,6 +1347,29 @@ static struct attribute *reboot_attrs[]
+ };
  
- 			raw_spin_unlock_irqrestore(&object->lock, flags);
--			cond_resched();
-+			cond_resched_tasks_rcu_qs();
- 			raw_spin_lock_irqsave(&object->lock, flags);
- 		} while (object->flags & OBJECT_ALLOCATED);
- 	} else {
-@@ -1673,7 +1673,7 @@ static void scan_gray_list(void)
- 	 */
- 	object = list_entry(gray_list.next, typeof(*object), gray_list);
- 	while (&object->gray_list != &gray_list) {
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
+ #ifdef CONFIG_SYSCTL
++static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
++			   size_t *lenp, loff_t *ppos)
++{
++	struct ctl_table tmp_table = *table;
++	struct pid *new_pid;
++	pid_t tmp_pid;
++	int r;
++
++	tmp_pid = pid_vnr(cad_pid);
++	tmp_table.data = &tmp_pid;
++
++	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
++	if (r || !write)
++		return r;
++
++	new_pid = find_get_pid(tmp_pid);
++	if (!new_pid)
++		return -ESRCH;
++
++	put_pid(xchg(&cad_pid, new_pid));
++	return 0;
++}
++
+ static const struct ctl_table kern_reboot_table[] = {
+ 	{
+ 		.procname       = "poweroff_cmd",
+@@ -1362,6 +1385,12 @@ static const struct ctl_table kern_reboo
+ 		.mode           = 0644,
+ 		.proc_handler   = proc_dointvec,
+ 	},
++	{
++		.procname	= "cad_pid",
++		.maxlen		= sizeof(int),
++		.mode		= 0600,
++		.proc_handler	= proc_do_cad_pid,
++	},
+ };
  
- 		/* may add new objects to the list */
- 		if (!scan_should_stop())
-@@ -1708,7 +1708,7 @@ static void kmemleak_cond_resched(struct
- 	raw_spin_unlock_irq(&kmemleak_lock);
- 
- 	rcu_read_unlock();
--	cond_resched();
-+	cond_resched_tasks_rcu_qs();
- 	rcu_read_lock();
- 
- 	raw_spin_lock_irq(&kmemleak_lock);
-@@ -1753,7 +1753,7 @@ static void kmemleak_scan_task_stacks(vo
- 			}
- 			put_task_struct(p);
- 		}
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 	} while (pid && !stop);
- }
- 
-@@ -1935,7 +1935,7 @@ static int __kmemleak_scan(bool full)
- 			struct page *page = pfn_to_online_page(pfn);
- 
- 			if (!(pfn & 63))
--				cond_resched();
-+				cond_resched_tasks_rcu_qs();
- 
- 			if (!page)
- 				continue;
+ static void __init kernel_reboot_sysctls_init(void)
 _
 
-Patches currently in -mm which might be from leitao@debian.org are
+Patches currently in -mm which might be from oleg@redhat.com are
 
-mm-memcg-initialize-locked-in-memcg1_oom_prepare-stub.patch
-mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch
-mm-kmemleak-stop-the-task-stack-scan-early-when-interrupted.patch
-mm-kmemleak-stop-the-per-cpu-and-struct-page-scans-early-too.patch
-mm-memory-failure-drop-dead-error_states-entry-for-reserved-pages.patch
-mm-memory-failure-surface-unhandlable-kernel-pages-as-enotrecoverable.patch
-mm-memory-failure-report-mf_msg_kernel-for-unrecoverable-kernel-pages.patch
-mm-memory-failure-add-panic-option-for-unrecoverable-pages.patch
-documentation-document-panic_on_unrecoverable_memory_failure-sysctl.patch
-selftests-mm-add-hwpoison-panic-destructive-test.patch
-mm-kmemleak-skip-the-remaining-scan-phases-when-interrupted.patch
-radix-tree-fix-kmemleak-false-positives-on-tree-head-reassignment.patch
-mm-kmemleak-report-leaks-only-after-n-consecutive-unreferenced-scans.patch
-mm-kmemleak-factor-leak-confirmation-into-a-helper.patch
-selftests-mm-test-kmemleaks-n-consecutive-scan-leak-confirmation.patch
-mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch
+signal-change-sys_kill-to-use-send_sig_noinfo.patch
+signal-avoid-unconditional-siginfo-copy-in-send_signal_locked.patch
+sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch
 
