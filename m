@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D8D413225
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B66D413225
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550025; cv=none; b=camJ9QJBfZ16mzcYVLjb0k8VTqxMD3Ni1hb9pe0zjz4YBIuUF47N+NEVTQhpJr/rQOfu2FAINkZtW91MfNWTjjtodpNhB91uCBXJ3gCHJheGH9SMBcj7bTJNBC45BmcoOV1M67XqWxXHslQRgb8w1TBICcdZpXe2pjY4BD2fRBU=
+	t=1784550034; cv=none; b=e9dnBsbtGlGUbYArHZGMPnRrEO9ETIZbZ3I16Q7+Pa5QlCqZZH5y212+AuAcXmmisuexTtIMLdSSX4D6pk8+ou8dPDbrCFkTRy+AUlf1dGSS50/G/3y9NkCTVCqHFimWRc0H88ZLmd8Q/OWS5YLKb+7OEmo+C+4qvO4SnarBaXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550025; c=relaxed/simple;
-	bh=c8Nvy7v4X2d/tzYN5TxJ2+tGZZCwCyc4MYm12jrGwno=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=srTOMNBWEWVr3ZV3LveDG1fe4m9mKWZrCGBd6GBkbTIzYo+B537Lq1QqsGkUmobdppyh0x/P9FIp1LEwCiIjh3UDlHokfA1g1MUB4Mhxj8LonCMzbSvFS36SUFrX9gbh7vP3eauhhjyBZ5jY5lNKtfLS5ZFL1OJQKg5wLZfd5Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bqaFzg4s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550034; c=relaxed/simple;
+	bh=shawsyzhHN9HXvF6hbnA29YsMVtG2nwUI/Jb27gCS+c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pJBE0qcwFMsZbocoPlgS6+yVq6IIDkNZxvur1nENoEjqmO1PBAmJ0+c55h1wJb9rxFtQ2Yoc0dScjmr3Wf8hBDxTkCkhV+69FwCRApLvaxdDDI0BmvTuOYg/eJKXyiZFF0BdaXWcXPn7XT0PZwlYPw1kPdOZc1cOOV7QNRksfkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e1MMMMZS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bqaFzg4s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE511F00A3D;
-	Mon, 20 Jul 2026 12:20:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e1MMMMZS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1241F00A3E;
+	Mon, 20 Jul 2026 12:20:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550024;
-	bh=I3oY3V/ZSmxi3nkwaKSMourBIOfrdxojQm03l5g8Uqc=;
+	s=korg; t=1784550032;
+	bh=2qlky++/UdniNUouE5AgYhvOh+My2EpDJZJqaS9GlUU=;
 	h=Subject:To:Cc:From:Date;
-	b=bqaFzg4sPdmp9nLJXzmwtZmukfcJUM3nD+nd65XrERgsRNHgu4eJ8VAmKGx1w973C
-	 mEqA3xL42Vn98e2dSW049T68M8mUrhQ4U2i9NIt6QDY20Ayud5PKRiTWR6m7/o4R8h
-	 d/ejc48pQEGn6IdzJ1hlysNwW/QKsZy2x+7cPo30=
-Subject: FAILED: patch "[PATCH] KVM: x86: Ignore pending PV EOI if the vCPU has since" failed to apply to 5.15-stable tree
+	b=e1MMMMZSotg9BEX5zAtDD1W6B6FAQeSELe54Sv3oXb1PAoETDoMZCXRa5ShUCAHlH
+	 XaY3OXlBmBvr6tzPnDNmwbcc6XiVOOzLarrvt7rr0nxqtGa0xSX7bhC2RKWNxHdp89
+	 qaMuWwAyj2Nr5DIJ1kq1vCkXwRPpF6Q3g+OBMRps=
+Subject: FAILED: patch "[PATCH] KVM: x86: Ignore pending PV EOI if the vCPU has since" failed to apply to 5.10-stable tree
 To: seanjc@google.com,kai.huang@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 20 Jul 2026 14:20:15 +0200
-Message-ID: <2026072015-decline-properly-2c0b@gregkh>
+Message-ID: <2026072015-rigging-kindness-35e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9285e4070df2c40585c3d7ec9571faa7a2b97e17
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072015-decline-properly-2c0b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072015-rigging-kindness-35e5@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
