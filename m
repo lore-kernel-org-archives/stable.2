@@ -1,125 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B66D413225
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A86740D59B
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550034; cv=none; b=e9dnBsbtGlGUbYArHZGMPnRrEO9ETIZbZ3I16Q7+Pa5QlCqZZH5y212+AuAcXmmisuexTtIMLdSSX4D6pk8+ou8dPDbrCFkTRy+AUlf1dGSS50/G/3y9NkCTVCqHFimWRc0H88ZLmd8Q/OWS5YLKb+7OEmo+C+4qvO4SnarBaXI=
+	t=1784550061; cv=none; b=eiH6nHnHFFWNgSRkCo1hVQyA5Dmx3kCfY+RSEHajSKb7fpIX/MscW7UwS887rQkr12MD+Bj2F2jcoD7VW1NU/epuBUEwmQcsOzYQnQUg81fyhwvxWgizPj0GBylzRspBv7PNY9irXJRGeLWKPHMZySqKiCtYk+rPUP7QYVOeSGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550034; c=relaxed/simple;
-	bh=shawsyzhHN9HXvF6hbnA29YsMVtG2nwUI/Jb27gCS+c=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pJBE0qcwFMsZbocoPlgS6+yVq6IIDkNZxvur1nENoEjqmO1PBAmJ0+c55h1wJb9rxFtQ2Yoc0dScjmr3Wf8hBDxTkCkhV+69FwCRApLvaxdDDI0BmvTuOYg/eJKXyiZFF0BdaXWcXPn7XT0PZwlYPw1kPdOZc1cOOV7QNRksfkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e1MMMMZS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550061; c=relaxed/simple;
+	bh=uh4wVjhYol5MdQOlaooA7P4Rgr+0IYaa2NZxw8eHQ5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n3zhAoTJ7caeflIB5BGzjHTC1rwUJXsVrZRP/CD7VVCDBqg8KdgVY5kQFrbIq6ossKUbHCQO3+KFz72cVB6wqMT4aSnjmlzGheQ7g0IBavJPtO2X6e1BkuJmYQxe+6h4vjt2ZkZjqDhTl3YJmUadl9Voba9TnTyz5bTfpZKt/1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rVZ7iIL4; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e1MMMMZS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1241F00A3E;
-	Mon, 20 Jul 2026 12:20:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550032;
-	bh=2qlky++/UdniNUouE5AgYhvOh+My2EpDJZJqaS9GlUU=;
-	h=Subject:To:Cc:From:Date;
-	b=e1MMMMZSotg9BEX5zAtDD1W6B6FAQeSELe54Sv3oXb1PAoETDoMZCXRa5ShUCAHlH
-	 XaY3OXlBmBvr6tzPnDNmwbcc6XiVOOzLarrvt7rr0nxqtGa0xSX7bhC2RKWNxHdp89
-	 qaMuWwAyj2Nr5DIJ1kq1vCkXwRPpF6Q3g+OBMRps=
-Subject: FAILED: patch "[PATCH] KVM: x86: Ignore pending PV EOI if the vCPU has since" failed to apply to 5.10-stable tree
-To: seanjc@google.com,kai.huang@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:20:15 +0200
-Message-ID: <2026072015-rigging-kindness-35e5@gregkh>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rVZ7iIL4"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KBD1V02032944
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=NW+04iM5PpRCJkifP
+	cTwNo6eibc+8MoiByAbzwRq9gM=; b=rVZ7iIL4BmbmMhtDhAcjJQBeYhs0jlbZ6
+	lpRmQjuTuENMTtppdR7oiMxXcSAlJop5v+Sgmej7gAFT5oiZia5CXJ9ixRT0BpGF
+	Ajix34WQjfjpEDMeEKGT5CYMLWWyr7mVPlsulUijGb9IqXTdjkHXA4T+qx3d2eWB
+	kxOY2w1eLg7UxxxxvQqUualsTVm9BYSCTc8HwcOzJ8P9s2XE0Hpix5UgnUyEsvme
+	HxyzKVDgkDrQPu4sS6G2krssypC5tQ8xQTTlsEWDLvREUTI6nwEhtFifwNboxAcZ
+	rSXw+WuSMnHiyEhM4F56AXmFrk4EOXo3iqONQG5F4U8ScSw3nyODw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7ab7cyg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:57 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66KCJqbR005762
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:56 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fgmtjnh7t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:56 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66KCKque43843878
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 20 Jul 2026 12:20:52 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 41BC42004B;
+	Mon, 20 Jul 2026 12:20:52 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2AA7220040;
+	Mon, 20 Jul 2026 12:20:52 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 20 Jul 2026 12:20:52 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: stable@vger.kernel.org
+Cc: Heiko Carstens <hca@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>
+Subject: [PATCH 6.12.y] s390: Revert support for DCACHE_WORD_ACCESS
+Date: Mon, 20 Jul 2026 14:20:44 +0200
+Message-ID: <20260720122044.2318775-1-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071418-catsup-creasing-f440@gregkh>
+References: <2026071418-catsup-creasing-f440@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDEzNiBTYWx0ZWRfX0jIWO0DfHjVh
+ 0xr+UVb1NDx3XIK2ztg6puyGTsgvfSUEFY4L91rnKwE1VOJYhM8iT1Ma2vCImjztHh+OHpGZjyZ
+ H/XcEkJ5LZCEBd3+3x17o1bQCQftu3ypZApLZuvHg5H6kjrqt+ygg+JU/CxxKNgfbEt26wYX6Zh
+ 3lUYTEcu5J09RKtHKgG2EZqnlygDSVv7p2417j+GdVG9qOg9ElfgKUc7jnvXRURbgLg2eOpTKZF
+ 718MSzkOml6zJ2p1vhu4bz6KL9oHZIUAza6X61c+5S/0ToSPZFAbeY9ptU03BDmeg8kdlqbQyLz
+ g9gkYzRW8Di5zIBaAaqFeOT0zang9G6cEnEF33vyvS1t/vQwMzqEyiwcxqGJ2+uwjlWrCS0+A8x
+ Ci/kAqtk/NQ0inl3JIMVcsbg+4u+8fV7/lAR32P6dbT21COsJUh3vXFndZp7WsUVv2TVt0nWlN6
+ gq7OtWgnZ7n4VwQsMEA==
+X-Authority-Analysis: v=2.4 cv=F7ZnsKhN c=1 sm=1 tr=0 ts=6a5e12a9 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=k1Q9LRuquVP52GNwYeEA:9
+X-Proofpoint-ORIG-GUID: NQDhwgwE0nXMj4gfpqlTvVAtR5SuxcT0
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDEzNiBTYWx0ZWRfX1aUbwrcnDAmR
+ RCZpbSf3NuVtwvJ/im02aM8GcwFpLcTxxL1Zhmo94FRJ11xcyNn6d5TgoAyrXn2AlB53spqR0KD
+ 7tDhysfxDF9OzqSEU1xZPjFi8XDYAsU=
+X-Proofpoint-GUID: NQDhwgwE0nXMj4gfpqlTvVAtR5SuxcT0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_02,2026-07-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1011 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200136
 
+load_unaligned_zeropad() reads eight bytes from unaligned addresses and may
+cross page boundaries. It handles exceptions which may happen if reading
+from the second page results in an exception.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+For pages which are donated to the Ultravisor for secure execution purposes
+the do_secure_storage_access() exception handler however does not handle
+such exceptions correctly. Such an exception may result in an endless
+exception loop which will never be resolved.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+An attempt to fix this [1] turned out to be not sufficient. For now revert
+load_unaligned_zeropad() until this problem has been resolved in a proper
+way.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9285e4070df2c40585c3d7ec9571faa7a2b97e17
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072015-rigging-kindness-35e5@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Note that the implementation of load_unaligned_zeropad() itself is
+correct. The revert is just a temporary workaround until there is complete
+fix for secure storage access exceptions.
 
-Possible dependencies:
+[1] commit b00be77302d7 ("s390/mm: Add missing secure storage access fixups for donated memory")
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 9285e4070df2c40585c3d7ec9571faa7a2b97e17 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Wed, 24 Jun 2026 15:05:16 -0700
-Subject: [PATCH] KVM: x86: Ignore pending PV EOI if the vCPU has since
- disabled PV EOIs
-
-Ignore KVM's internal "service pending PV EOI" request if the vCPU has
-disabled PV EOIs since the request was made.  Asserting that PV EOIs are
-enabled can fail if reading guest memory in pv_eoi_get_user() fails, i.e.
-if pv_eoi_test_and_clr_pending() bails early, *and* the vCPU also disables
-PV EOIs.
-
-  kernel BUG at arch/x86/kvm/lapic.c:3338!
-  Oops: invalid opcode: 0000 [#1] SMP
-  CPU: 4 UID: 1000 PID: 890 Comm: pv_eoi_test Not tainted 7.0.0-d585aa5894d8-vm #337 PREEMPT
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
-  RIP: 0010:kvm_lapic_sync_from_vapic+0x12b/0x140 [kvm]
-  Call Trace:
-   <TASK>
-   kvm_arch_vcpu_ioctl_run+0x1075/0x1c30 [kvm]
-   kvm_vcpu_ioctl+0x2d5/0x980 [kvm]
-   __x64_sys_ioctl+0x8a/0xd0
-   do_syscall_64+0xb5/0xb40
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
-   </TASK>
-  Modules linked in: kvm_intel kvm irqbypass
-  ---[ end trace 0000000000000000 ]---
-
-Fixes: ae7a2a3fb6f8 ("KVM: host side for eoi optimization")
+Fixes: 802ba53eefc5 ("s390: add support for DCACHE_WORD_ACCESS")
 Cc: stable@vger.kernel.org
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Link: https://patch.msgid.link/20260624220516.3033391-1-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Acked-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
+(cherry picked from commit 37540b8c287fc817bdbd0c62bb75ad6eab0e5d03)
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+ arch/s390/Kconfig                      |  1 -
+ arch/s390/include/asm/asm-extable.h    |  4 ----
+ arch/s390/include/asm/word-at-a-time.h | 22 ----------------------
+ arch/s390/mm/extable.c                 | 18 ------------------
+ 4 files changed, 45 deletions(-)
 
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index 6f30bbdddb5a..38bba9a1114c 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -3371,6 +3371,12 @@ static void apic_sync_pv_eoi_from_guest(struct kvm_vcpu *vcpu,
- 					struct kvm_lapic *apic)
- {
- 	int vector;
-+
-+	if (unlikely(!pv_eoi_enabled(vcpu))) {
-+		__clear_bit(KVM_APIC_PV_EOI_PENDING, &vcpu->arch.apic_attention);
-+		return;
-+	}
-+
- 	/*
- 	 * PV EOI state is derived from KVM_APIC_PV_EOI_PENDING in host
- 	 * and KVM_PV_EOI_ENABLED in guest memory as follows:
-@@ -3382,8 +3388,6 @@ static void apic_sync_pv_eoi_from_guest(struct kvm_vcpu *vcpu,
- 	 * KVM_APIC_PV_EOI_PENDING is set, KVM_PV_EOI_ENABLED is unset:
- 	 * 	-> host enabled PV EOI, guest executed EOI.
- 	 */
--	BUG_ON(!pv_eoi_enabled(vcpu));
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+index 5e6aebf1b739..28e900e5212c 100644
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -137,7 +137,6 @@ config S390
+ 	select ARCH_WANT_LD_ORPHAN_WARN
+ 	select BUILDTIME_TABLE_SORT
+ 	select CLONE_BACKWARDS2
+-	select DCACHE_WORD_ACCESS if !KMSAN
+ 	select DYNAMIC_FTRACE if FUNCTION_TRACER
+ 	select FUNCTION_ALIGNMENT_8B if CC_IS_GCC
+ 	select FUNCTION_ALIGNMENT_16B if !CC_IS_GCC
+diff --git a/arch/s390/include/asm/asm-extable.h b/arch/s390/include/asm/asm-extable.h
+index 00a67464c445..f87e06ec86ac 100644
+--- a/arch/s390/include/asm/asm-extable.h
++++ b/arch/s390/include/asm/asm-extable.h
+@@ -13,7 +13,6 @@
+ #define EX_TYPE_UA_LOAD_MEM	4
+ #define EX_TYPE_UA_LOAD_REG	5
+ #define EX_TYPE_UA_LOAD_REGPAIR	6
+-#define EX_TYPE_ZEROPAD		7
+ #define EX_TYPE_FPC		8
+ 
+ #define EX_DATA_REG_ERR_SHIFT	0
+@@ -82,9 +81,6 @@
+ #define EX_TABLE_UA_LOAD_REGPAIR(_fault, _target, _regerr, _regzero)	\
+ 	__EX_TABLE(__ex_table, _fault, _target, EX_TYPE_UA_LOAD_REGPAIR, _regerr, _regzero, 0)
+ 
+-#define EX_TABLE_ZEROPAD(_fault, _target, _regdata, _regaddr)		\
+-	__EX_TABLE(__ex_table, _fault, _target, EX_TYPE_ZEROPAD, _regdata, _regaddr, 0)
 -
- 	if (pv_eoi_test_and_clr_pending(vcpu))
- 		return;
- 	vector = apic_set_eoi(apic);
+ #define EX_TABLE_FPC(_fault, _target)					\
+ 	__EX_TABLE(__ex_table, _fault, _target, EX_TYPE_FPC, __stringify(%%r0), __stringify(%%r0), 0)
+ 
+diff --git a/arch/s390/include/asm/word-at-a-time.h b/arch/s390/include/asm/word-at-a-time.h
+index 203acd6e431b..e9287036392d 100644
+--- a/arch/s390/include/asm/word-at-a-time.h
++++ b/arch/s390/include/asm/word-at-a-time.h
+@@ -4,7 +4,6 @@
+ 
+ #include <linux/bitops.h>
+ #include <linux/wordpart.h>
+-#include <asm/asm-extable.h>
+ #include <asm/bitsperlong.h>
+ 
+ struct word_at_a_time {
+@@ -41,25 +40,4 @@ static inline unsigned long zero_bytemask(unsigned long data)
+ 	return ~1UL << data;
+ }
+ 
+-/*
+- * Load an unaligned word from kernel space.
+- *
+- * In the (very unlikely) case of the word being a page-crosser
+- * and the next page not being mapped, take the exception and
+- * return zeroes in the non-existing part.
+- */
+-static inline unsigned long load_unaligned_zeropad(const void *addr)
+-{
+-	unsigned long data;
+-
+-	asm volatile(
+-		"0:	lg	%[data],0(%[addr])\n"
+-		"1:	nopr	%%r7\n"
+-		EX_TABLE_ZEROPAD(0b, 1b, %[data], %[addr])
+-		EX_TABLE_ZEROPAD(1b, 1b, %[data], %[addr])
+-		: [data] "=d" (data)
+-		: [addr] "a" (addr), "m" (*(unsigned long *)addr));
+-	return data;
+-}
+-
+ #endif /* _ASM_WORD_AT_A_TIME_H */
+diff --git a/arch/s390/mm/extable.c b/arch/s390/mm/extable.c
+index 812ec5be1291..30e4b96be207 100644
+--- a/arch/s390/mm/extable.c
++++ b/arch/s390/mm/extable.c
+@@ -61,22 +61,6 @@ static bool ex_handler_ua_load_reg(const struct exception_table_entry *ex,
+ 	return true;
+ }
+ 
+-static bool ex_handler_zeropad(const struct exception_table_entry *ex, struct pt_regs *regs)
+-{
+-	unsigned int reg_addr = FIELD_GET(EX_DATA_REG_ADDR, ex->data);
+-	unsigned int reg_data = FIELD_GET(EX_DATA_REG_ERR, ex->data);
+-	unsigned long data, addr, offset;
+-
+-	addr = regs->gprs[reg_addr];
+-	offset = addr & (sizeof(unsigned long) - 1);
+-	addr &= ~(sizeof(unsigned long) - 1);
+-	data = *(unsigned long *)addr;
+-	data <<= BITS_PER_BYTE * offset;
+-	regs->gprs[reg_data] = data;
+-	regs->psw.addr = extable_fixup(ex);
+-	return true;
+-}
+-
+ static bool ex_handler_fpc(const struct exception_table_entry *ex, struct pt_regs *regs)
+ {
+ 	asm volatile("sfpc	%[val]\n" : : [val] "d" (0));
+@@ -104,8 +88,6 @@ bool fixup_exception(struct pt_regs *regs)
+ 		return ex_handler_ua_load_reg(ex, false, regs);
+ 	case EX_TYPE_UA_LOAD_REGPAIR:
+ 		return ex_handler_ua_load_reg(ex, true, regs);
+-	case EX_TYPE_ZEROPAD:
+-		return ex_handler_zeropad(ex, regs);
+ 	case EX_TYPE_FPC:
+ 		return ex_handler_fpc(ex, regs);
+ 	}
+-- 
+2.53.0
 
