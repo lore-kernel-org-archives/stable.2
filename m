@@ -1,101 +1,116 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E57395AC0
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 03:44:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784519066; cv=pass; b=TA7jH2Pk9vlNA7HhvSP41AGBCLxwb5tDhvUGISy3xs5IVeBrZFKu5XPh14q0RrLt7BaozI67uAExd8BL5aMQsOhUwlBDjcV6ZeYLjYYLtArJusRBot29Xxf65Tdiupl+GsBvdL/yoiOzOOmlG/h5q5qzydPK7D2tyUJycbIHass=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784519066; c=relaxed/simple;
-	bh=KXs9zfC+23H7lDQGGpLfOo2NqRcK84T+KR+QuKtVD8k=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=csI+IB4CtBzOqPMLoMfso+31JTFYbp6ExV6V4J9GC0Rz+7VhaimgfpzxEcQ/6mi8qktxqEYrZ8J3IoeLUnBwNm26Am13GzEW/igQ+Liry9Yb50UVK5ifzqrtOp5v5shQRO++DBljeCXN4o4cAWl8mI7+cXN48soMtQ+34N2jpUI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=z1k.dev; spf=pass smtp.mailfrom=blahgeek.com; dkim=pass (2048-bit key) header.d=z1k.dev header.i=@z1k.dev header.b=expZAJXV; arc=pass smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=z1k.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blahgeek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F401CD2C
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 04:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784522149; cv=none; b=uou3k6big2Eqlibj7f2re0yxWj+nxzf6Vb6eAPGa0qn3iW4eEp7VucmkdkRPTAQ2mdVYWouIi6hBzQV/Y9NZttdK2HQ5z8zqJzgCGyER5SVFEAgSg8bW1ECpWD8Sda3yyjch4omAqIM71heQKIqOnfrJncs8LfJftxJ1jp+ZhIc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784522149; c=relaxed/simple;
+	bh=BXVQ4sPuBVkEzNaRP3g2fl9gM9PDXqBht0OqTZ3O7Ms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DBuAW0Sx2Nt75A85QnIycQP0myL4/vTs+hcZQdXX7U9Ra5CjecVs8fnVhGh4LHIlsYq4J7C/ESCsY9JGrXHJDDXVktFchAIi7eCK1X7Xv8BxWWDvJSgw3Ruh9zFT6LPi+tNpDzejzrH9rW5rtNqdoCUR+yIkSgqJn/47zkJsMXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C/sAL+Zu; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=z1k.dev header.i=@z1k.dev header.b="expZAJXV"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c21495722so68590261cf.3
-        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 20:44:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784519063; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CJL79IZ9VPZ+1tw6jCsoT4J5NRl/xdRX4GxhYa57EOjnu88KxyALEKssxnoP6++C57
-         FF5IFQbl0Htq2oEow6Yi2jxCsp3bsNwhB5NN7UhIuC2HjakOp73SDEwosgZwvH+j57Te
-         QQQ0k6+UD5EpA3iwpbseoQg0mVtuFjZyGv/qmeETeqyLdMbPAoGieCG3jljx2Fcqp5PI
-         aGZFpc4EF1X2aVc5dNu3ne8qj7tCY4WW4bOAczjx/dG75gFQEDM751AG97nWc7V+6MJr
-         7+KNksB1HJN2KOf/TX2sNaXv1pqutLOsp+TNSPlT7njI0SmFhlwo5lKnF0cTXhybAh2G
-         YKgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=KXs9zfC+23H7lDQGGpLfOo2NqRcK84T+KR+QuKtVD8k=;
-        fh=yamhqS73F4BctIXk8PhRoYWpHxhU2wpVWcItvz3iZ9U=;
-        b=WlFFlzijv069KiROvMzSsU9vUltZNB3BsVgGwQSm0/jk1SrMZJo06x8hUnK6v5SFT9
-         ugHVekpSt3s2Q3hpm3UFImrImA0RFZtQoPv8IsNFp3tzS78uCgvEj9AgFy7jRiNzhru9
-         A7ymiwuytPPLanC/CB8hFlXrlsPl3IGKNkz+QqUwE4Hw9c1fbt9WrVWNtw7xDiliEDQL
-         sshvhQMLvlOe7cuo89g7JUo8QztHRhFTlYuN/TZq2NBxZ56Hel3j6+11v+cxThUz/65o
-         ilFmGIM43gQIv7nc2CR3LWK5xWbS6Y/adyvrWoxjBoyCAoOBKqzPchpPD9DPjJRBSHuD
-         ZMeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/sAL+Zu"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8423f236418so4804443b3a.1
+        for <stable@vger.kernel.org>; Sun, 19 Jul 2026 21:35:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=z1k.dev; s=google; t=1784519063; x=1785123863; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KXs9zfC+23H7lDQGGpLfOo2NqRcK84T+KR+QuKtVD8k=;
-        b=expZAJXVSSZDU4x1spY08dEeadxNPYZylwrWzZDrYVkgXInTuqNAix7kyO5kYu4GYZ
-         4kvFHokLXPLLiiicuoUfuymOhHYIEo99ew95aIM/oNif6+GuDJejxw2Eiv3nZbmGoHD/
-         9XRr92NXJ0XtlgRV5V1lGvgYvwA+X3iA/qBNZIeYegPI+pbq/niGtiRONFlQ8m7OK+r9
-         PzlufEpeHfO0NMguTDIU2wnFQHxFg7u9UBckPigq4vzghTH6K9WPLMdYagu/tLe8e2jr
-         daiIsAi3QmxYIW4UhVeqp4nV+GD5zmUTFE4LDOmNHu6wPFz6PSBA/vwS6xGZkEOZflwf
-         cbJA==
+        d=gmail.com; s=20251104; t=1784522148; x=1785126948; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mdWX6Ff2gVM1G5blx3T+Y3zQJjFhvHV4u/q40zy5x+8=;
+        b=C/sAL+Zu/T1KyfyQzEQiMioqUeg03d7Lm1/1pgKgNqYQPIP5Ix86cdMgKSP2ny6PgZ
+         b+fMAABdvS3yj6S21ILLfQcAaBE59In01VLsAuq40FAPCoiFIT7E195b6duUIhkmDnLR
+         i4UvtnbGAlT44ax0RgEZP7JnK6KMDWUhE62i63CP11L6Z9Hzaz3o5zwHEnGgKnBIq5zg
+         P44PLRbitLdFiduhPqVL/50qs2VUyS1k9lISnMlflAUnpvtaXtYdeZrHkkYqgBMxidCt
+         NAsW9Zt9t7QdyOV2hY/lyro6EKYisDoD177I+xj+J1o7MHnhVq661SUCdWRw6V8ECSMW
+         01Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784519063; x=1785123863;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KXs9zfC+23H7lDQGGpLfOo2NqRcK84T+KR+QuKtVD8k=;
-        b=GgbAX4Z9ZPw2yDXQR25vjzVKg/gPduz0nQoN/VWFRujJfCs9KevYm0VWaI90meP7Yx
-         7BmsEH9Mlay2c/5wEQUh16fhi5CzE0BrsYqmVQsJNUJdBTcX4srBLNp7SVuIobOH1esD
-         FgceXF25HTgx4OgjQ3ttveS9alTD715XXMgnqgU9cvCp4LbiHN68aNSbv+2zUkoFIK+b
-         FBEdmbhO440TfdGOwGF9BlBTd3vMHlbheAuBa/MmUPflUwEc9UoLyL/1KlYXcA6DN0A3
-         NMJloDz+BXjXpcbLa5v4pOLcYyoR2aMJaPnD3OilOPSgtCHXTs/+TDIrlnN4IuLw64Gg
-         J91Q==
-X-Gm-Message-State: AOJu0Yy1+B6vhypIbW5OYQJXzEi8jDgODyQR5d4o1ipdKmnBSssKLX/G
-	D/is3vZdAQnNUAgxtHuAJvHrODy8OyrHyS39p767sFGR6Ct5jCZgRY31Na5nB+SDyicxrEyzdWH
-	wZmKXYI0O0b3PO3PMmyXhTi/sFU07rjmYXcpZyQLvoqOF9CGxhGIUCpJkjPMgAfA=
-X-Gm-Gg: AfdE7cmiUqWRMWVXgGMsd/+P+uIrq6y0d982lR8yBt1/rfboabRiehv2hLTEhsqGgV/
-	DewkwFa+kDNwqMCSEyh56gu+iJ3+1si0JknyUmkRqM4BbTwGF+d0ukiQF07VLMtKqvohUTGnGHy
-	l2p7EavFjpBNJg4qsyfdRpQJgZPMfwWf9TSU8Vrcxjv2zj7vfNkAnYMZLLuYJqvLg3Zmq2B1hCc
-	IZuhCmxRjZxxfjNQMLiX88W9NU495uZT7T9hgAwrAIa6p7jUgUjWFQvZ0g9SNHv+BZwlxA=
-X-Received: by 2002:a05:622a:588b:b0:51c:e14:87ae with SMTP id
- d75a77b69052e-5213c7e69e7mr108999461cf.34.1784519063160; Sun, 19 Jul 2026
- 20:44:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784522148; x=1785126948;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mdWX6Ff2gVM1G5blx3T+Y3zQJjFhvHV4u/q40zy5x+8=;
+        b=tAOGGdBtzK1LoYtu8DN/VIhvR0sn/1yksXrcEDrGTRzmh79oSP61jRi17Ml7l5QqDo
+         yuD53sMn1Mg1FpU38tm9gHjCqaooKZnkchuq5MMvmpmXpSjnSRUanuWFXJzBY/y66LG0
+         S/8uK47SOEY4i+srg4uqTfyn9VGg6xUdpTXVURincJmIyBRnksQIBlIGHWnV795hw5BL
+         kT2T1aReerqaCrKYnfSFZEJ9Pw9l+AELaXvwRZJklAMCLpVkLvT35PilDwuf5ep485zt
+         09XHAWfduFb244P6Ch3sN+DQqVAvZ+pUe4Vaiz2r6Jog9ldJSZlyowznLvJYbiH+Cl25
+         0IQQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpzuv8MPO+4k1GPdQLikE2V/mhUk5/0NXnZ5Y7zEFVPxyedPtTjMvi8qnopNt8EyCNhr/vgGAI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLI7FensDu8TdGrmC1i6wXJG6wEpiipl+cxxbJX+R66oq6+GMH
+	bhFJhshuOhwnfdV5APvQaQP4TvP8os2VScP26aubZf64Jk3YRcK8pVm3
+X-Gm-Gg: AfdE7cnUaVxnoMFOjtOWOczUiA0Fzxmp2Cj+cSbtNDfC6lGRUUF4ZDMNss9zMgBIFx3
+	7ssW11QMQlAqWezrtnR2/fuqtHmwzD3nA4+Jhm1Z9ZqdEtE6J0icKaqp+9/wPFj1KLTuHO0jowE
+	RNvofO8ZGnCJmy5hOdTui1bflYedH/5au49XBUPW/WGsT/DxG+HnvpL1sUeTdSdirGdeL6XQibc
+	+KBsX3yzIHLjc73f5z1yEfeoG7tOigAWzdVDvQYIHOacV6+719trXKlNmqZdglorXCfEX2CxEYx
+	HY6jxuaU8qFXEkqV8LCxe+o/pi/Niwgumcgrrd/EYkyFeeVm+I4TJepkC7VmGz5TiGMMyv1Ogc6
+	+Y5fyBewbD7B5baAQ+6f9JApNZAQXhyLb8CoJD/O7vgARtdod4FXt2yD39iAElirHafug1DlBJA
+	4g5m+bqz/JGpjtGxf2MdKMsZ/an0KvhKetn9401SMeF2+EKWs=
+X-Received: by 2002:a05:6a00:3e29:b0:848:7fea:93aa with SMTP id d2e1a72fcca58-84c292a0ec9mr11937266b3a.21.1784522147429;
+        Sun, 19 Jul 2026 21:35:47 -0700 (PDT)
+Received: from KASONG-MC4 ([43.132.141.24])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcaa0bsm4970874b3a.20.2026.07.19.21.35.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 21:35:46 -0700 (PDT)
+Date: Mon, 20 Jul 2026 12:35:40 +0800
+From: Kairui Song <ryncsn@gmail.com>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Kiryl Shutsemau <kirill@shutemov.name>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>, 
+	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Hao Zhang <zhanghao1@kylinos.cn>, 
+	Hao Zhang <hao_zhang_kdev@163.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, stable@vger.kernel.org, Kairui Song <kasong@tencent.com>
+Subject: Re: [PATCH v3] mm/huge_memory: unlock i_mmap_rwsem before releasing
+ after-split folios
+Message-ID: <al2b9eCBD3Rip7vk@KASONG-MC4>
+References: <20260716095424.471052-1-kirill@shutemov.name>
+ <20260717195851.609269e143b4b9eb857f2a6a@linux-foundation.org>
+ <al2XTQLWB12sJQG5@casper.infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Yikai Zhao <yikai@z1k.dev>
-Date: Mon, 20 Jul 2026 11:44:12 +0800
-X-Gm-Features: AUfX_mxzeO-q-G3exRKIA8DMaaWGNPUFSHS7biBJtNMmBpl8rRmYB57QnRn-D70
-Message-ID: <CANMyjpgq5n0Ekt4dgyLRHGb89_Ew0aOMZ3j32V_w0GjHkqH1FQ@mail.gmail.com>
-Subject: [6.1.176 regression] damon_reclaim.enabled broken
-To: stable@vger.kernel.org
-Cc: aethernet65535@gmail.com, sj@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <al2XTQLWB12sJQG5@casper.infradead.org>
 
-Hello kernel maintainers,
+On Mon, Jul 20, 2026 at 04:34:37AM +0800, Matthew Wilcox wrote:
+> On Fri, Jul 17, 2026 at 07:58:51PM -0700, Andrew Morton wrote:
+> > (why is mapping_set_update() a) a macro and b) undocumented?)
+> 
+> commit 62e72d2cf702
+> 
+>     So make madvise(..., MADV_COLLAPSE) also call xas_set_lru() to pass the
+>     list_lru which we may want to insert xa_node into later.  And move
+>     mapping_set_update to mm/internal.h, and turn into a macro to avoid
+>     including extra headers in mm/internal.h.
+> 
+> Take it up with Kairui.  And whoever it was added that patch to
+> linux-mm.
 
-(Newbie here)
+Right, I initially wanted to make it a inline helper, since this function
+were a macro and later become a static helper, so it should be super cheap
+in the hot path. That requires to include extra headers in internal.h
+and that looked a bit more uglier and every internel.h user will have
+extra header dependency. Moving it to pagemap.h also looked confusing
+along size other mapping_set_* helper, they are completely different
+things, and this help should stay in mm/.
 
-I found out that in 6.1.177, booting with cmdline
-`damon_reclaim.enabled=Y` does not work anymore,
-`/sys/module/damon_reclaim/parameters/enabled` is still `N` after
-booting.
+So I just partially restored how it was before b64e74e95aa6, It was
+never documented though.
 
-6.1.175 works OK. Apparently it's introduced in commit 2f54908fae21.
-
-
-Thanks,
-Yikai
+We can make it a function for sure, open to suggestions on this.
