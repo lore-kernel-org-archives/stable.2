@@ -1,240 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEC63B14CC
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:01:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A22C3D952E
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:01:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559675; cv=none; b=UdWIRtHesxKJe2ZX3AMGLwHJF6g+L7pjWij5fp3xZPb+GNq7qHlja5FWP4khmM1LMcqflhpC6PkzcU7bPkwIvkulHuRwM0Vbj53wUEFefCTZomfU7Edn2iXMkEFc1WavT5YYkvquTIxBL7/HxBVCf9WHMPmBgFhUx0HvH+h4SJo=
+	t=1784559685; cv=none; b=hbWJ9CzWkTAdhe+u9XExBcSlytq5r4GNjpkuLkQEp/L+YO1hKq/qCCFkEtSju4dAGzhsi2R//HsaATLtfY+vztVVHK08Z4bKDxPPbCtW46YbrV0emGgx8kF4JNuuAvqedhoqa9Y9k3jp6YfbIIAIZfmGyVXejjv0+yPtKhSdqOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559675; c=relaxed/simple;
-	bh=WFMqbJWCuF9MQ4+xVWB1+9toysgdxe3UVHHMB4AspoQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RiVncjrcQ3bB3VkjbjxE32wCGiZ9NS2CcaTzc88tdPu+jQZoqTdszXiooH57L/yA6JnDf2kMTxP6WjAslf18qjolMr3k8OMgr9ZEbccDDnEmwcedhc/q2GrLCxiIk5sH7vU2i57NF/xcJaZAbj1XnbcrcxMG/vl71YMAcB4b8kU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MG5Amhpv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559685; c=relaxed/simple;
+	bh=ERHB8e7Fo9JsEOVXMLuwndcjQfPEldpE47ZqRzeP2Sc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sXlz7iCLUh6zMzRccu9l2l0MFSfoS/+kd7ygMM+u4Eq8uvtL2QFffF9S441dfqrduCkl9FTOJ2g3CY32gAkaaKV5esZaPXW+Zsv09RQlV00VX/PxajEvcLLV/vB4rh2q+WNZYbLf77+vlbPSPALMBvgHzaPTB9P4nsfGYCNDFtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QctK4WnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MG5Amhpv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D4E1F00A3E;
-	Mon, 20 Jul 2026 15:01:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784559674;
-	bh=KY60y6KGpI/gKvsuAXhlsEK4fliwIpnU/tstENtJFCY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MG5AmhpvZ4g1g5cTYPBfqVIj6DZV8RCvgBvYkqq3lO8I7uIycHCr92ZEg4YR+yWRf
-	 4YrUgNU878q3DBV9oQZnTmeZ3MrnZgg9954r+EeSwL+rgsmzi/HB/MlA1dUV2pWhDB
-	 zKgGxJJrXI3PvbWZf/L/QimgUdYcH5oLVxIBOa/stLH44t1zSj+gOGwgBPxN3lAzDP
-	 3O9FH22aH7eupEJE7ss5EtSqWVmvjf8M45g6/9eifxU84VMhng06uYybLLpstDUq5v
-	 USpoi7uq+CUC1lNrWuQh3UHbOjUvJDigJNhEsgSDYOVXyW6Dp2w5VpGfR8ZrinRKJz
-	 A44soVEVTlTlw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	Boris Burkov <boris@bur.io>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] btrfs: fix false IO failure after falling back to buffered write
-Date: Mon, 20 Jul 2026 11:01:09 -0400
-Message-ID: <20260720150109.1921272-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720150109.1921272-1-sashal@kernel.org>
-References: <2026071553-esophagus-underpass-0b42@gregkh>
- <20260720150109.1921272-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QctK4WnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42571F000E9;
+	Mon, 20 Jul 2026 15:01:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784559684;
+	bh=lN7NdBfuykFY44aSntJcdvs+f8aBuoElI2dLYZ4MNn8=;
+	h=Subject:To:Cc:From:Date;
+	b=QctK4WnTQIQGF9iATbwptfvXlZaCjC5xthaXSQI9w/VpkWhPqYvOTXIOGgBclJB+O
+	 mXLiqas6b6NsPshQNVPCxsyvMsCzX1L99GHVx0mldAfxMHq3UAIyF1CE+f2Ros3OU6
+	 BlYN17td/5cFUM24Hcc6bCZ+n+NmP3OOEz1K3R5s=
+Subject: FAILED: patch "[PATCH] tpm: tpm_tis_spi: Use wait_woken() in wait_for_tmp_stat()" failed to apply to 5.15-stable tree
+To: jarkko@kernel.org,linusw@kernel.org,wahrenst@gmx.net
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 20 Jul 2026 17:01:15 +0200
+Message-ID: <2026072015-okay-retake-2a7b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-[BUG]
-The test case generic/362 will fail with "nodatasum" mount option (*):
+To reproduce the conflict and resubmit, you may use the following commands:
 
- MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x c0c9cfb3b75def8bf200a2d4db09015806acfeaf
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072015-okay-retake-2a7b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
- generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
-    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
-    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
-    @@ -1,2 +1,3 @@
-     QA output created by 362
-    +First write failed: Input/output error
-     Silence is golden
-    ...
+Possible dependencies:
 
-*: If the test case has been executed before with default data checksum,
-the failure will not reproduce. Need the following fix to make it
-reliably reproducible:
-https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
 
-[CAUSE]
-Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
-Thus we never got an error pointer from __iomap_dio_rw().
 
-The call chain looks like this:
+thanks,
 
- btrfs_direct_write()
- |- btrfs_dio_write()
- |-  __iomap_dio_rw()
- |  |- iomap_iter()
- |  |  |- btrfs_dio_iomap_begin()
- |  |     Now an ordered extent is allocated for the 4K write.
- |  |
- |  |- iomi.status = iomap_dio_iter()
- |  |  Where iomap_dio_iter() returned -EFAULT.
- |  |
- |  |- ret = iomap_iter()
- |  |  |- btrfs_dio_iomap_end()
- |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
- |  |  |  |  |- can_finish_ordered_extent()
- |  |  |  |     |- btrfs_mark_ordered_extent_error()
- |  |  |  |        |- mapping_set_error()
- |  |  |  |           Now the address space is marked error.
- |  |  |  | return -ENOTBLK
- |  |  |- return -ENOTBLK
- |  |- if (ret == -ENOTBLK) { ret = 0; }
- |     Now the return value is reset to 0.
- |     Thus no error pointer will be returned.
- |
- |- ret = iomap_dio_complete()
- |  Since no byte is submitted, @ret is 0.
- |
- |- Fallback to buffered IO
- |  And the buffered write finished without error
- |
- |- filemap_fdatawait_range()
-    |- filemap_check_errors()
-       The previous error is recorded, thus an error is returned
+greg k-h
 
-However the buffered write is properly submitted and finished, the error
-is from the btrfs_finish_ordered_extent() call with @uptodate = false.
+------------------ original commit in Linus's tree ------------------
 
-[FIX]
-When a short dio write happened, any range that is submitted will have
-btrfs_extract_ordered_extent() to be called, thus the submitted range
-will always have an OE just covering the submitted range.
+From c0c9cfb3b75def8bf200a2d4db09015806acfeaf Mon Sep 17 00:00:00 2001
+From: Jarkko Sakkinen <jarkko@kernel.org>
+Date: Sat, 9 May 2026 21:51:07 +0300
+Subject: [PATCH] tpm: tpm_tis_spi: Use wait_woken() in wait_for_tmp_stat()
 
-The remaining OE range is never submitted, thus they should be treated
-as truncated, not an error. So that we can properly reclaim and not
-insert an unnecessary file extent item, without marking the mapping as
-error.
+wait_event_interruptible_timeout() evaluates its condition after setting
+the current task state to TASK_INTERRUPTIBLE.
 
-Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
-that helper to mark the direct IO ordered extent as truncated, so it
-won't cause failure for the later buffered fallback.
+With CONFIG_DEBUG_ATOMIC_SLEEP this triggers a warning when the IRQ wait
+path is used:
 
-[REASON FOR NO FIXES TAG]
-The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
-iomap for direct IO") we're already passing @uptodate=false finishing
-the OE.
-But at that time OE with IOERR won't call mapping_set_error(), so it's
-not exposed.
-Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
-error if we fail to finish") finally exposed the bug, but that commit
-is doing a correct job, not the root cause.
+    tpm_tis_status()
+      tpm_tis_spi_read_bytes()
+        tpm_tis_spi_transfer_full()
+          spi_bus_lock()
+            mutex_lock()
 
-Anyway the bug is very old, dating back to 5.1x days, thus only CC to
-stable.
+Address this with the following measures:
 
-CC: stable@vger.kernel.org # 5.15+
-Reviewed-by: Boris Burkov <boris@bur.io>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/btrfs/direct-io.c    | 17 ++++++++++++++---
- fs/btrfs/inode.c        |  6 +-----
- fs/btrfs/ordered-data.c | 12 ++++++++++++
- fs/btrfs/ordered-data.h |  2 ++
- 4 files changed, 29 insertions(+), 8 deletions(-)
+1. Call wait_tpm_stat_cond() only while tasking is running.
+2. Use wait_woken() to wait for changes.
 
-diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
-index 3460a8bcbad76d..8434674e6e5b29 100644
---- a/fs/btrfs/direct-io.c
-+++ b/fs/btrfs/direct-io.c
-@@ -624,12 +624,23 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 	if (submitted < length) {
- 		pos += submitted;
- 		length -= submitted;
--		if (write)
-+		if (write) {
-+			/*
-+			 * We have a short write, if there is any range
-+			 * that is submitted properly, that part will have
-+			 * its own OE split from the original one.
-+			 *
-+			 * So for the OE at dio_data->ordered, it's the part
-+			 * that is not submitted, and should be marked
-+			 * as fully truncated.
-+			 */
-+			btrfs_mark_ordered_extent_truncated(dio_data->ordered, 0);
- 			btrfs_finish_ordered_extent(dio_data->ordered,
--						    pos, length, false);
--		else
-+						    pos, length, true);
-+		} else {
- 			btrfs_unlock_dio_extent(&BTRFS_I(inode)->io_tree, pos,
- 						pos + length - 1, NULL);
-+		}
- 		ret = -ENOTBLK;
- 	}
- 	if (write) {
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 25b4a8fd31133f..331ae08a3c84e0 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -7681,11 +7681,7 @@ static void btrfs_invalidate_folio(struct folio *folio, size_t offset,
- 					       EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
- 					       EXTENT_DEFRAG, &cached_state);
- 
--		spin_lock(&inode->ordered_tree_lock);
--		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
--		ordered->truncated_len = min(ordered->truncated_len,
--					     cur - ordered->file_offset);
--		spin_unlock(&inode->ordered_tree_lock);
-+		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
- 
- 		/*
- 		 * If the ordered extent has finished, we're safe to delete all
-diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
-index 89f6b6f8cc5312..b3ed4212bfecd6 100644
---- a/fs/btrfs/ordered-data.c
-+++ b/fs/btrfs/ordered-data.c
-@@ -339,6 +339,18 @@ void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered)
- 		mapping_set_error(ordered->inode->vfs_inode.i_mapping, -EIO);
- }
- 
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len)
-+{
-+	struct btrfs_inode *inode = ordered->inode;
-+
-+	ASSERT(truncate_len <= ordered->num_bytes);
-+	spin_lock(&inode->ordered_tree_lock);
-+	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
-+	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
-+	spin_unlock(&inode->ordered_tree_lock);
-+}
-+
- static void finish_ordered_fn(struct btrfs_work *work)
+Cc: stable@vger.kernel.org # v4.19+
+Cc: Linus Walleij <linusw@kernel.org>
+Reported-by: Stefan Wahren <wahrenst@gmx.net>
+Closes: https://lore.kernel.org/linux-integrity/6964bec7-3dbb-453b-89ef-9b990217a8b9@gmx.net/
+Fixes: 1a339b658d9d ("tpm_tis_spi: Pass the SPI IRQ down to the driver")
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Tested-by: Stefan Wahren <wahrenst@gmx.net>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+diff --git a/drivers/char/tpm/tpm_tis_core.c b/drivers/char/tpm/tpm_tis_core.c
+index 21d79ad3b164..153a57c79240 100644
+--- a/drivers/char/tpm/tpm_tis_core.c
++++ b/drivers/char/tpm/tpm_tis_core.c
+@@ -66,8 +66,8 @@ static int wait_for_tpm_stat(struct tpm_chip *chip, u8 mask,
+ 		bool check_cancel)
  {
- 	struct btrfs_ordered_extent *ordered_extent;
-diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
-index ab71c164fb0898..2e7879c6cbc779 100644
---- a/fs/btrfs/ordered-data.h
-+++ b/fs/btrfs/ordered-data.h
-@@ -220,6 +220,8 @@ bool btrfs_try_lock_ordered_range(struct btrfs_inode *inode, u64 start, u64 end,
- struct btrfs_ordered_extent *btrfs_split_ordered_extent(
- 			struct btrfs_ordered_extent *ordered, u64 len);
- void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered);
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len);
- int __init ordered_data_init(void);
- void __cold ordered_data_exit(void);
+ 	struct tpm_tis_data *priv = dev_get_drvdata(&chip->dev);
++	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+ 	unsigned long stop;
+-	long rc;
+ 	u8 status;
+ 	bool canceled = false;
+ 	u8 sts_mask;
+@@ -87,23 +87,30 @@ static int wait_for_tpm_stat(struct tpm_chip *chip, u8 mask,
+ 	/* process status changes with irq support */
+ 	if (sts_mask) {
+ 		ret = -ETIME;
++		add_wait_queue(queue, &wait);
+ again:
++		if (wait_for_tpm_stat_cond(chip, sts_mask, check_cancel,
++					   &canceled)) {
++			ret = canceled ? -ECANCELED : 0;
++			goto out;
++		}
++
+ 		timeout = stop - jiffies;
+ 		if ((long)timeout <= 0)
+-			return -ETIME;
+-		rc = wait_event_interruptible_timeout(*queue,
+-			wait_for_tpm_stat_cond(chip, sts_mask, check_cancel,
+-					       &canceled),
+-			timeout);
+-		if (rc > 0) {
+-			if (canceled)
+-				return -ECANCELED;
+-			ret = 0;
+-		}
+-		if (rc == -ERESTARTSYS && freezing(current)) {
+-			clear_thread_flag(TIF_SIGPENDING);
+-			goto again;
++			goto out;
++
++		if (signal_pending(current)) {
++			if (freezing(current)) {
++				clear_thread_flag(TIF_SIGPENDING);
++				goto again;
++			}
++			goto out;
+ 		}
++
++		wait_woken(&wait, TASK_INTERRUPTIBLE, timeout);
++		goto again;
++out:
++		remove_wait_queue(queue, &wait);
+ 	}
  
--- 
-2.53.0
+ 	if (ret)
 
