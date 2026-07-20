@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B624A2E7366
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:00:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771613B47F5
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559654; cv=none; b=YFHwTH6v/VSf4PC6z9ayMUo2CC79XvwVMr9hKfc/dvmGUsXgotRRCyh6cx54pcMZeIrWCL1jIzcvzXAZCNymQvjY6e9s9Cc2TBqSPTLbL2nc8i6Gq6sf7jB8UUWGaLwBYlrrscWwhPVrC/5jR7x1vrZOEd1qGBaurZAaeVBBG+s=
+	t=1784559655; cv=none; b=rE1KJ2R2KfKpVw6YBdVY6GMYkjnJezYaxoaEKUY9IGVvCST1rYK6eDrUgHcCUHW/iYnqACVHRAYHu+LRUsfl+TBKGXpwgYyV6wBjFkgLIeo7F05QvCDEXFXZ1SdjDPI9M9nQT97292cb5YVbZAr0Oik9EyOnpDicm2kBtWFH3zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559654; c=relaxed/simple;
-	bh=ynHz8i35Cih64drClYB8S2HBOgMWvbsAOVJYJfhMZaU=;
+	s=arc-20240116; t=1784559655; c=relaxed/simple;
+	bh=qMP5RU0Pef8Xz7nZsUnH+QXqu2AzmL7SSYiQCfnmoIA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Kojq7aq9uvOWvGtFhiFymvt4kNPvjg2n1iChquoCduo25sfwy4To1FZrSv1FHbgPV2/GaCLrLfreZu95E5/Zv9fgXyuo+ZUFwObzVUC1vXtHdWSsVqIY2pLm4LvpV+OpS6fyiKZpx8qk94i+kHTLhkLKdnuUGZlytYI2GkSqKJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRfs2KLx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ws88BB0/YjfI5w/VJRQ8aQtjaeMyFV9v5vpVHVc+MQGrIngwHxE84A7ryOYSOG0gkD9/WUiJnsvKiVSYwPjjEH8NtUMcv413W94d64CE2ges8hTWxD3+vPOuXgyUqPBvfZiyebpAOEcmKl1w9FYP9lJw0jqra1rEj+dEBd+Zm78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JP3Pxvjv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRfs2KLx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03C61F000E9;
-	Mon, 20 Jul 2026 15:00:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JP3Pxvjv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E811F00A3A;
+	Mon, 20 Jul 2026 15:00:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784559653;
-	bh=lX5KFIIrsn4mDVg/sKoLHlNhDqdyz49wRg1tF/+8KmA=;
+	s=k20260515; t=1784559654;
+	bh=Nd8tCTIrwgBg+XDrKUh2ffiHvSZqfyUw5A1tmagTqSs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LRfs2KLx9gPkItBWxuGg4hU6NnDlFkdmj8tKR2oBNy+o0kTeVfhA/CjIXu5i008bw
-	 fktPwuXKpNCqpQZece4oDP4wybpRKPW0AIDvBLNMoJsV+MMm4MDYxzQyNNnRpmsVkS
-	 XXn7F9tgHqmQF0VoVpgP/+ji3wVff8VdL9uHQhPQNkTf/qQRVObuATXxzvTgwUYJRi
-	 Yowg89NRCFBIuGvkvXG+hvL6taMxwdwXrg1gD16l2JrwfbBiSlG7vSueembIU86y6c
-	 LM8QNbQhwz5tMyC16PMSzQE9pKtBPtJEM6NaCjcB8hwts6fJAAsfYagezTvbdJNEJM
-	 8pioo5A/LQvew==
+	b=JP3PxvjvAwxwKQxy4nHlOywoEjir/+DKy57x7+lPbO3pYWUhvb7YAREfVjKTJbzCA
+	 aeb0wdQLx2OAXQFupXDtsZ/1g6+wAwu5fy8buLQc9sVl++FXG8oc8fvBroL3gYquVL
+	 mLNWdfKjs8KFowVyULdzUIDYpJHBkN5Jnfc83xI7OTDfDvxJUrij9KNmr6rE5carI3
+	 gGMUy7cw6qvIVEeQgQWneda/Yhyz5ihO6Y5AL++L0VrqjvLX9aEQB4yC5BWMYjH5O6
+	 iwOlLOtTF76c8/Uo4xuW8Sjc9wEIUXCYKcCbHOIXFBWMJqvcXaRRnSp9qQmUk/P7ux
+	 K4jVkqcqD0V1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/3] crypto: atmel-sha204a - Mark OF related data as maybe unused
-Date: Mon, 20 Jul 2026 11:00:49 -0400
-Message-ID: <20260720150051.1918796-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/3] crypto: atmel - Drop explicit initialization of struct i2c_device_id::driver_data to 0
+Date: Mon, 20 Jul 2026 11:00:50 -0400
+Message-ID: <20260720150051.1918796-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071513-seducing-second-a53b@gregkh>
+In-Reply-To: <20260720150051.1918796-1-sashal@kernel.org>
 References: <2026071513-seducing-second-a53b@gregkh>
+ <20260720150051.1918796-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,46 +47,38 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+From: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
 
-[ Upstream commit 75f3d950054389e2556277e42170e37dd97cd872 ]
+[ Upstream commit d86ad3911a5d4549297ed810ee450e5772fd665f ]
 
-The driver can be compile tested with !CONFIG_OF making certain data
-unused:
+These drivers don't use the driver_data member of struct i2c_device_id,
+so don't explicitly initialize this member.
 
-  drivers/crypto/atmel-sha204a.c:129:34: error: ‘atmel_sha204a_dt_ids’ defined but not used [-Werror=unused-const-variable=]
+This prepares putting driver_data in an anonymous union which requires
+either no initialization or named designators. But it's also a nice
+cleanup on its own.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Stable-dep-of: ea5e57cc9718 ("crypto: atmel-sha204a - drop hwrng quality reduction for ATSHA204A")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/atmel-sha204a.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/crypto/atmel-ecc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/crypto/atmel-sha204a.c b/drivers/crypto/atmel-sha204a.c
-index 0ef92109ce22a3..77c0968b696337 100644
---- a/drivers/crypto/atmel-sha204a.c
-+++ b/drivers/crypto/atmel-sha204a.c
-@@ -136,14 +136,16 @@ static int atmel_sha204a_remove(struct i2c_client *client)
- 	return 0;
- }
+diff --git a/drivers/crypto/atmel-ecc.c b/drivers/crypto/atmel-ecc.c
+index e427cb59a162b1..004d87cbfa2213 100644
+--- a/drivers/crypto/atmel-ecc.c
++++ b/drivers/crypto/atmel-ecc.c
+@@ -375,7 +375,7 @@ MODULE_DEVICE_TABLE(of, atmel_ecc_dt_ids);
+ #endif
  
--static const struct of_device_id atmel_sha204a_dt_ids[] = {
-+static const struct of_device_id atmel_sha204a_dt_ids[] __maybe_unused = {
-+	{ .compatible = "atmel,atsha204", },
- 	{ .compatible = "atmel,atsha204a", },
- 	{ /* sentinel */ }
+ static const struct i2c_device_id atmel_ecc_id[] = {
+-	{ "atecc508a", 0 },
++	{ "atecc508a" },
+ 	{ }
  };
- MODULE_DEVICE_TABLE(of, atmel_sha204a_dt_ids);
- 
- static const struct i2c_device_id atmel_sha204a_id[] = {
--	{ "atsha204a", 0 },
-+	{ "atsha204" },
-+	{ "atsha204a" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(i2c, atmel_sha204a_id);
+ MODULE_DEVICE_TABLE(i2c, atmel_ecc_id);
 -- 
 2.53.0
 
