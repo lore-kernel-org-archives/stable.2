@@ -1,178 +1,140 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C726E3C10B5;
-	Mon, 20 Jul 2026 20:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2838F3C1973;
+	Mon, 20 Jul 2026 20:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784579260; cv=fail; b=aOoU+Qt8Vd5vRtxF4jMTf7uoqF5mS96ItuSd+31WW5GizYe8ndAPQKiObQw74SzWGgCh8TXe4+dt8Zp4e4Eo/jttX4aXYCpUTN4iVzb0gx8/qgNoNtUodausNkn9yaTkPWgjQheQld9Vrptw6Y0xgBuoORRHp1fiEARSm/zUWtw=
+	t=1784579280; cv=pass; b=dTi8kPiwmV1Axk3wN6knChNLdz0R1N2ienq/KGsTqxE2lBr3tFqkfLn0XCRC2bSdFZGwM4Q2r7r4Nk+vZLKHrSVf9e2kw8VTZZ0H+qrCVumrTiwwGZpLIqXub/MFjc/mQY+mmspNhk369qC+8ck3L40gA2Uk4Xy5FxhjhrzSH4w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784579260; c=relaxed/simple;
-	bh=Tbbt7BwpN4SyU3b3ZIonW7tg+gP850DM7bv9wlt1B/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nyvw0szlPVycZ+IdEG0UlXr3jpZqLg/H8WbUwAYc0Ae7DHtfwe5eST3lYf12aG6FnlhsjhtLksuvhZIz2w1PAnUxV2kqxKs1HIFHWZbbBruz6SrYIhsX4MrqVHqApEi7nNuNw0spZpUdqety5+JL7jaiMjJ1TP9C2zgsePuCLU4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=f8nUmJ7Q; arc=fail smtp.client-ip=52.101.62.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1784579280; c=relaxed/simple;
+	bh=0+P1VGSY+hJP7Pymn9l/OEI+Oj8haz7ONn+t4lUYDkA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UFe2rANGXMPFAqdXQbh7EurEEwycBK57+tqQFuwJGrVHMN7tNz0X6Ygmk62a4gUl9O+V9HHlLqaGUYkIf2NB0wpPHizoDXJVjF+s/G44X/Uat5u/vuYt7AsZagn4YEQFepOSqG7dAiM2Ta7L5HtOoz73Bpg+cwKQz4ufDnl61h4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=sI9QGdNR; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="f8nUmJ7Q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ACMTewb1/kOtfBiBCb7UGEslBiXp1wljSpAc/QBCArPbUAEcA7qXYnU74XIBpLxnUNvn3Paf6IN4QQ9JUFbnxziZiZkP70rz37jvpWmIBQ80sRKvRH5auzXTuVeSbEcCfmmXYWp34d1MzJvS52HSF1MXwx+v1IRoeW3xkkFI+7CrCXBcxL99Q6OMvoQKPG4lCh0km6peqqZNFUUbvq1mOAzoNH0pkny0gDm1YaXrmg2vuH5Y57MMOtTtrnc48hH4QV2zORnPDJ2lLMxD3FxE24hVpc+KTFlR+ZDDKpPx+Zgr9IpuY5ogM7Z+2nkVDynt5WYmSaILNpRwL1VTWObZfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+zgOppVs9372bMP5bH+FM4kAsuyenQXkIMNhFGkYVC8=;
- b=ok9fe2q7jFnuV6pgDszS4zpYvQC4bakWzUmSHgBmKrmMlYGyIMXD08LSlx4ku05cilAMM/TfBD1+7W1usSX+DTqRwfBVzr/ADjK7NWG+q0QFmAjKibn0xKgG9GH7JCYSTk962XDCju4qRvFXRfHBwqNFVOlWiklWemDmYwLV2Br/Xi9J93PgDPY5jlP/bbgV4+3Gv1EP0cISxQTjc4AYbOR7mM1SM2MJnRI9pOlvi4hV3vTBEwiom2+nLdJTbBFSIlVbMbxUYGXWMGgNkCBXnRKAKfY+9D77aIZtnbPQCSPz+LFFd/6GdAp46SNMWlEW44lRGFB7q/qdgMz33qySpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+zgOppVs9372bMP5bH+FM4kAsuyenQXkIMNhFGkYVC8=;
- b=f8nUmJ7Qp/V1B3w9YnGAl+nZvmlNS1hCh/hvelYSXJsvPk74x5x2hCd7/uFx7dDcwSV0F5WJI88uKp4cRH5XZ1h9WTOnnqC9rktt/dSw+Fh1WNlwILrRxGaaHbETdWmQOhnQhdE4/AysziCGqgYi63e8utj1Elv17+sJMV1LBijmSMd8oqYYLw/kRI2dcPkjBSS3Z6kkR/StbtF+pH2bBHlo9HQhu0CCdzROr3Pn2Lfqx/0vttioD/QwheGChu3CDRRLnnau2p6CmPY00Akgae6e5xjTANz12fS7e2DlVOw+nKFkA8Ahlgh179GbQPPiSugr5UFdLGvE+HOnNQPbqw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY8PR12MB7540.namprd12.prod.outlook.com (2603:10b6:930:97::15)
- by CH3PR12MB9430.namprd12.prod.outlook.com (2603:10b6:610:1cd::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
- 2026 20:27:31 +0000
-Received: from CY8PR12MB7540.namprd12.prod.outlook.com
- ([fe80::4eb1:ab21:a9cf:e72a]) by CY8PR12MB7540.namprd12.prod.outlook.com
- ([fe80::4eb1:ab21:a9cf:e72a%5]) with mapi id 15.21.0223.017; Mon, 20 Jul 2026
- 20:27:31 +0000
-From: Lucas De Marchi <ldemarchi@nvidia.com>
-To: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="sI9QGdNR"
+ARC-Seal: i=1; a=rsa-sha256; t=1784579244; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=OxOyDSwmjZBcu0pyWLgdBTBwgyDPgrbUxzLoMFPfhil8H0D5vEjBHOsJbyJ+n+DuGTkttv0922/AgMbNJ3Yiygm3UI+1/gyppfGMHtiNbLmBPX21+vIH3dgrWkdFN6C6gQ879dLx9qrvgMk7XNDzpuSQfHV/K6G3sdFwQjVWFGU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1784579244; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=zG85u2vJ0C015HdBuDt5gobU84Sb4xZS4i1DwuUb5PA=; 
+	b=UPnhxv2StD413/s64JKl6oAm+GOttlRjhoZzTUPatGMqIAO1fyz4p19srTg4TMKuMlXOSUyDfHXzGZHPLZmk6BEHcCagvBEG1S9hYftrBHVPwY5j4r7xr4DbjmnAmUt1VSZjGLeZxzXwsKaH+6PyDf275huHQG3Ahep62BnNtF8=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784579244;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=zG85u2vJ0C015HdBuDt5gobU84Sb4xZS4i1DwuUb5PA=;
+	b=sI9QGdNRgj2NSilQAcnorl4xNxb8VP6z1seLJR416tRi6f0lmYpzdrbnwMAUI3Rr
+	U7M2bRaOhco2loIMDrO4qaxOfSU17dnjEZ8XkSRj9xTKJUWX2QNw6DelBpzj18hxLu/
+	qcvDNJnKp1iyTbTmpHy8Qua3V33CU2aa6XGRBjMQ=
+Received: by mx.zoho.eu with SMTPS id 1784579241321949.2792150117403;
+	Mon, 20 Jul 2026 22:27:21 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: ms@dev.tdt.de,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	linma@zju.edu.cn,
+	duoming@zju.edu.cn,
+	linux-x25@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	demarchi@kernel.org,
-	Lucas De Marchi <ldemarchi@nvidia.com>,
-	stable@vger.kernel.org,
-	Mathias Nyman <mathias.nyman@linux.intel.com>
-Subject: [PATCH 2/3] xhci: dbgtty: Fix unregister on tty_alloc_driver() failure
-Date: Mon, 20 Jul 2026 17:27:15 -0300
-Message-ID: <20260720202716.76000-2-ldemarchi@nvidia.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260720202716.76000-1-ldemarchi@nvidia.com>
-References: <20260720202716.76000-1-ldemarchi@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY3PR05CA0039.namprd05.prod.outlook.com
- (2603:10b6:a03:39b::14) To CY8PR12MB7540.namprd12.prod.outlook.com
- (2603:10b6:930:97::15)
+	stable@vger.kernel.org
+Subject: [PATCH net] net: x25: fix use-after-free in x25_kill_by_neigh()
+Date: Mon, 20 Jul 2026 22:27:18 +0200
+Message-ID: <20260720202718.13934-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7540:EE_|CH3PR12MB9430:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f029f7e-f3bf-4967-bf68-08dee69d534d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|376014|23010399003|366016|22082099003|18002099003|10067099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ZvrBjffXGkUDGegDx7eT7fcUu7FBkqESE2zOh6c12XoCi8IEMAqLHBAP7GXkk/KtqVH6ZXdmXA/PtwTsThrSShHIcofvD9C5tdzuRekF7Llzw3+jACZZhPwOeSftTZICQ3l2g6tay1Y+IJQdyx9J2cCjxVQ0rnV14SUW/hcC4RpLENbCvp7s+b3GdNe1wINyKmX8sX34IIfL3xtolDlir5D7Zbptbhd2g0NWr/lYl9xTbXQq0cr1TJPKETUrxOBOvsmJBw0QmfgeAJrxNY6YsYpo2EY/se1ruSVcRb5MXcmeS3TcO8GFkO38LtCiopk2+KP8habGOWIIDFj8fZvEPoeNIZYaIpmGQVgstVgncAnUEGryCookHf+ECEhjTvMUZJYJtLDuNWWfx3MmIT6EurYdeX9c9zo5SVR4hHslKj0hsTQW2P9Bvjb5jxPdZQgQPlNeoYrVszbthjWf/2Cqz+Lpb3TiNug+wGv+O0XbVz1fJHqQZX+9Fa/z5+lTKXAnVIRnj7zOU01S9qMoCnCsi6IUX7hvWljn16NX/inTat8PigomMe5w2WEBbySNvuyvgc/Hp7q5JitJXbLiBvb9lE77tn+zy+pS/pLlFElQzKuQB4ZoEobxFoclq5O6Rh9DMKanDn8chumXegRTNPkRxaEEConnWvkjaecADCR09yk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7540.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(376014)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NHYiak8cupXzD5mEoH4BZnOLzYIyq8FnyvOCGl4AM989MV9Qz9uPZKHnO/Tw?=
- =?us-ascii?Q?hPO7lYU7/jznMLcKL6X4cHvzZnIFrkXs0wnr0JoVCxf1L865an3UXgFKIxe3?=
- =?us-ascii?Q?R3M7BvdIW6W37abX0ByJOAflqWOvS7HgSxtpz4s+cKI3jCS4Ytb2l8ZSeCfg?=
- =?us-ascii?Q?b598p750ywnZrhzSSHXtux6sNqwzlqJRmPFCmbg829HlfrPwhcmOCF+CnEoy?=
- =?us-ascii?Q?ibCUwRkc6rs8dFUy7oVNN+wnjRx/7PP07Uo97IH0UPrA+hzaTDrWfu6xoh+h?=
- =?us-ascii?Q?FIB1tFkMs1h1VQV8O5S5cvb/v1kc1mE0PfuoyxtNpI4lfC0qlUqZGhNh+EEv?=
- =?us-ascii?Q?MVJISeMFx8+zFrRhqLiyyaXi/Kf7++wO65uJoqvuLoPU/wncxK1JeCZchYya?=
- =?us-ascii?Q?NjwwdpUnFWZ0gnx1JZhgWNEHT8b15mrwXWeUZKJW7WFFQyXV9OMLkbAar1S7?=
- =?us-ascii?Q?NESLNUHVXUwudDWSWpG47z5LkxYZzzXYEEBmHt2Vv3exyFj5V2yJD4gdwJQP?=
- =?us-ascii?Q?UFHQV+TDTmVJOhQGHG6XB4LtMZ9//lpHn7mkhyYgfRd5ZPEhBuupfUBNKzaI?=
- =?us-ascii?Q?OpvmtXOisYxTMYNVH9cwOXipLd7Wv2uv9/I80p3D2cgrC4RbMzM2db0fOqM5?=
- =?us-ascii?Q?06wnQsO40zriD0UwoIRbk6c4EG4Yhti+E3my+n0rDLxOSFSrNHmTgtnVppjF?=
- =?us-ascii?Q?XfTmALpL164bzybR1toO4tDxOaR2nkiwvrmEhfiDsjTlGKdFvoVLRFDHoGBf?=
- =?us-ascii?Q?QL6PMOJa797KTLnH253kiIGu0TLbr8kkpldJ4Iy9AaQE4jgdn9V1ggI1o7Vi?=
- =?us-ascii?Q?SRFI+zIUzl1rd8YWswXxYc7xQGks0cXJK4/XRWk5cBKCo/S0v3oiK+uVSv1l?=
- =?us-ascii?Q?MSKdtzTaoAkovwCJnmrF0aovm/Rf31+JGUKtxzoiw76XG+fzRnZHK0q009P3?=
- =?us-ascii?Q?Wpv7bfbPUTtV9I5BHneogtRrytTDvGlv1rkzb5Qdj6Y0aZZDNOQPfW7b1Zlk?=
- =?us-ascii?Q?Rr4rQl4a1cYqp8cKYsBGNGT6i5Qa1XtW0edfCO9dafRDpt8gGtsHWhcFgQln?=
- =?us-ascii?Q?3xFpWWr/2ARwfSnCWaNGz7vSsglXdGwm9HabWWAzCZAH2+JEJGPgThUCfWai?=
- =?us-ascii?Q?i/lO52I0/hh07wkwLqyo4MWvQMUexEAO0EQtbrENVYibcvimMiCrie7VLuDy?=
- =?us-ascii?Q?qeVtFbzGfu5UKDr9FtqhhRiC/Ff0Zlt1v4m5kAoG7JIoRbZFus1+UhdUNlZO?=
- =?us-ascii?Q?xOvLmQ6P2cJr+daaPPpZgR4BuI1GrgDyOgw7OX1pwoi2G7sccAW6kRhy/2A6?=
- =?us-ascii?Q?MNMt1t1keN+QRlGTnSWIuCCbjYcOAkIM5Zm7jXdicWslZYQDe4+O2NsMrLA3?=
- =?us-ascii?Q?c68aFfnJAhXgMfXSsyoxostNB5S70OdxrjFiSDANOq5DyEJvqqf636ZV3Y7y?=
- =?us-ascii?Q?yPqkqaIGaJaOwoTS3oVbarZ/yZbbHRsHhEWBz5Pum3xIW5X5pW9gsTbS6ZqL?=
- =?us-ascii?Q?8EpDyBSZ98CtQNWOlgL5/oz/h55cePd91XHQAoVT5k0+1Q+m688aOxTy2K1T?=
- =?us-ascii?Q?JWk2EcH4zTUwpU1frTO2KG35zT+akfMlwN1I2M9SAHlr/QnfziW9v5USwDHQ?=
- =?us-ascii?Q?5Lq9Uzg6ReUh5rwrr9jx2ewoGTpNwiNSoEVQU818bcxIoI65snSn2TBnX+tg?=
- =?us-ascii?Q?+yuD52YM5Jhoa82ZNr9m5YabzHuWHh/2YYMTTUUzK+jzF93ANglbtfUAiAOR?=
- =?us-ascii?Q?+4LIWPqLSYukcPAjulqH6bRAhFQnjhc1odepOgTxt159KCz7YAT48DHGoOAi?=
-X-MS-Exchange-AntiSpam-MessageData-1: g8M2vdeFzru0kA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f029f7e-f3bf-4967-bf68-08dee69d534d
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7540.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 20:27:31.7074
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +nyCRF5BnAQaaWbMQKJ52qoDynza55UC6GiAZx5PAafoPLZB/phxv4xFekEUz7BToEOpKBnBOgzYTsRvS4PwaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9430
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Make sure to set dbc_tty_driver to NULL to match the check in
-dbc_tty_exit(). For that, make detached error handling path common to the
-other branch in the same function.
+x25_kill_by_neigh() walks x25_list under x25_list_lock and, for each
+socket whose neighbour matches the one going down, drops the list lock,
+calls lock_sock()/x25_disconnect()/release_sock() on the socket
+(x25_disconnect() can sleep and must not be called with a bh-disabled
+spinlock held), and then re-acquires x25_list_lock before continuing the
+sk_for_each() walk. No reference is taken on the socket before the list
+lock is dropped.
 
-Fixes: 4521f1613940 ("xhci: dbctty: split dbc tty driver registration and unregistration functions.")
-Cc: stable@vger.kernel.org # v5.10
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Lucas De Marchi <ldemarchi@nvidia.com>
+A concurrent close() of that same socket runs x25_release() ->
+__x25_destroy_socket() -> x25_remove_socket() (unlinks it from x25_list)
+-> eventually the final sock_put(), which frees the kmalloc-2k sock
+object. If this happens while x25_kill_by_neigh() has dropped
+x25_list_lock, both the lock_sock(s) call right after the unlock and,
+once x25_list_lock is re-taken, the sk_for_each() walk's implicit read of
+s->sk_node.next can dereference the freed socket.
+
+Reproduced on a v6.19 KASAN kernel under -smp 4 with a killer thread
+free-running NETDEV_DOWN toggles (driving x25_device_event() ->
+x25_kill_by_neigh()) against several threads closing/recreating
+neighbour-bound AF_X25 sockets: KASAN slab-use-after-free in
+x25_kill_by_neigh()+0xfd/0x110, "Read of size 8" at offset 104 into a
+freed kmalloc-2k object -- exactly the sk->sk_node.next field of the
+socket concurrently freed by close(). 145 splats fired over roughly
+64,400 kill rounds in the racing configuration; a serialized control run
+(single kill, sockets closed sequentially, no concurrent free) produced
+zero KASAN reports. With this patch applied the same free-running
+reproducer no longer triggers the report.
+
+Fix this the same way the rest of net/x25 protects a socket found by
+walking x25_list under x25_list_lock (see x25_find_listener() and
+__x25_find_socket(), which sock_hold() the socket before dropping the
+list lock): take a reference on the socket before dropping x25_list_lock,
+and release it with sock_put() once lock_sock() / x25_disconnect() /
+release_sock() are done. Since a concurrent x25_remove_socket() can still
+unlink the socket from x25_list (and reinitialize its list node) while
+the lock is dropped, simply re-acquiring x25_list_lock and resuming the
+sk_for_each() walk from the old s is not safe either way, so restart the
+scan from the head of x25_list instead of trying to resume it.
+x25_disconnect() clears x25_sk(s)->neighbour, so the just-handled socket
+will not match nb again and the restarted scan makes forward progress on
+each pass.
+
+Fixes: 7781607938c8 ("net/x25: Fix null-ptr-deref caused by x25_disconnect")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
- drivers/usb/host/xhci-dbgtty.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ net/x25/af_x25.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/host/xhci-dbgtty.c b/drivers/usb/host/xhci-dbgtty.c
-index 01decd46f313..7e44e62d6ea9 100644
---- a/drivers/usb/host/xhci-dbgtty.c
-+++ b/drivers/usb/host/xhci-dbgtty.c
-@@ -628,8 +628,8 @@ int dbc_tty_init(void)
- 	dbc_tty_driver = tty_alloc_driver(64, TTY_DRIVER_REAL_RAW |
- 					  TTY_DRIVER_DYNAMIC_DEV);
- 	if (IS_ERR(dbc_tty_driver)) {
--		idr_destroy(&dbc_tty_minors);
--		return PTR_ERR(dbc_tty_driver);
-+		ret = PTR_ERR(dbc_tty_driver);
-+		goto fail;
+diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
+index c31d2af5dd22..725d35596e3f 100644
+--- a/net/x25/af_x25.c
++++ b/net/x25/af_x25.c
+@@ -1768,15 +1768,18 @@ void x25_kill_by_neigh(struct x25_neigh *nb)
+ {
+ 	struct sock *s;
+ 
++restart:
+ 	write_lock_bh(&x25_list_lock);
+ 
+ 	sk_for_each(s, &x25_list) {
+ 		if (x25_sk(s)->neighbour == nb) {
++			sock_hold(s);
+ 			write_unlock_bh(&x25_list_lock);
+ 			lock_sock(s);
+ 			x25_disconnect(s, ENETUNREACH, 0, 0);
+ 			release_sock(s);
+-			write_lock_bh(&x25_list_lock);
++			sock_put(s);
++			goto restart;
+ 		}
  	}
- 
- 	dbc_tty_driver->driver_name = "dbc_serial";
-@@ -649,11 +649,17 @@ int dbc_tty_init(void)
- 	ret = tty_register_driver(dbc_tty_driver);
- 	if (ret) {
- 		pr_err("Can't register dbc tty driver\n");
--		tty_driver_kref_put(dbc_tty_driver);
--		idr_destroy(&dbc_tty_minors);
--		dbc_tty_driver = NULL;
-+		goto fail_put;
- 	}
- 
-+	return ret;
-+
-+fail_put:
-+	tty_driver_kref_put(dbc_tty_driver);
-+fail:
-+	idr_destroy(&dbc_tty_minors);
-+	dbc_tty_driver = NULL;
-+
- 	return ret;
- }
- 
+ 	write_unlock_bh(&x25_list_lock);
 -- 
-2.54.0
+2.50.1 (Apple Git-155)
 
