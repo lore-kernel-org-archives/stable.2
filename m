@@ -1,226 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE38269CE7
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:01:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472AC269CE7
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:01:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559669; cv=none; b=cKv0dC1tjkUlUCfqQ4ZgkksODrhTWlxzg5o+fMOVQwkRYPanD6vYdLie0OY0+eKXW1r2ED8kH2lf+JznTe233dj/vuvRe+ttIY1Fi9eQy3SBaOXwkBIoNkYpKnLjj9CV5tlVJage9lqTnAs1/bdilV/HbxAC+em7aOGv6tPBsVs=
+	t=1784559673; cv=none; b=MSub7UoNGdQXC2+rcapCWvtPhSeEhBoWiU0NooY5pmtChzwsUIAs6OMb5dzno82zWmjecclCS4rezWIk3uNEn2I2wndxb9OYZ7G8c0yVv9LMQWY1DWAsaUP4PYEGrBEBFMonZlig28OTHSq6p9LBUHzvijgkAK/3IoUXRnQdquI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559669; c=relaxed/simple;
-	bh=xhi0QjvrfzlRO/KROYOk/mGJ7w5t0a61faWzjcTFI+o=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oflcqqw0N9sPsJEj5K593nzlfCRvv/vTQKBAKVDIGjWPD64a5907xvD5hT6t5YZa9OVWp4uFYxwlhGEbSOeJHaGaasv6CbwmS6Y61bSZD3SK7YyKwESdXe4jlYlOqFTd+/Oz0AWk81tAbI/R0HWH8Affo1OSXOJduA4uxcB5ZIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b/PsMUmO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559673; c=relaxed/simple;
+	bh=DaAmDfxjEdBNv8POHi0MjBYEM9VqA+dPNsixAU1LgDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HxQuwiMdTzvBZNi9qArYmSJeCKtIg6ohB3kkA9P9bPsuzjH7jcyU/0fUWiZ4sETiPo69+2QgV+YzSrZQK/qzp3P8VPcBGSkRSSNHcoumXv4HYb4sda0OAFx/iG8Z6tK+7E5SuyDyIj1DhbiNIyWcRJ/B8s5AlKGsV9mTLR/s2UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPqSMzuP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b/PsMUmO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7488A1F000E9;
-	Mon, 20 Jul 2026 15:01:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559667;
-	bh=NLxf8FcNEarkbrgFpczCIMn+1wDF/uzVcHns0Kv+g4o=;
-	h=Subject:To:Cc:From:Date;
-	b=b/PsMUmORS5tSq3Wot3BlKf5PveNSA0qqt9Bu5ABUYzPz8XzljfBcG+Emn8ir3vTo
-	 jwRJGeJ3OAlcYWup5v7rIDm84Wg4YD8y2Y3cqHLZjgtbtuy+T7Y9pLy8+Rb+kYScJA
-	 4yrZjPlzi1qE8AUqirX6tmElm7EOKOf6rCWFtOQQ=
-Subject: FAILED: patch "[PATCH] taskstats: retain dead thread stats in TGID queries" failed to apply to 5.10-stable tree
-To: cyyzero16@gmail.com,akpm@linux-foundation.org,balbirs@nvidia.com,oleg@redhat.com,stable@vger.kernel.org,thomas.orgis@uni-hamburg.de,wang.yaxin@zte.com.cn,yang.yang29@zte.com.cn
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:00:47 +0200
-Message-ID: <2026072047-tameness-overlap-0f45@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPqSMzuP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53FE91F000E9;
+	Mon, 20 Jul 2026 15:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784559671;
+	bh=xRM4k3khD/UuC9ZPaWGqRnEyegaAAN/izZ0Lmio43OQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RPqSMzuPUy871HwDs1AlKmToDQAWyruQu8iJ8c9EvPBxI2k+TSxNYdWnTJquipHao
+	 UxB5HTa+kZTzSCT+DPJydgEEEa5Doz0Z6ETtQx/L5wWJwtVCCwmT08fUnU5iMil7fE
+	 jxmi/Vt0XIKYA76EXOjDwQhnoo1/14rH1ysTvdrzPZa7cr7BDGVaKN5OpyLjl1G/I7
+	 oXOhDY98obTN0JDojsazj4pKh+Boc11L5B1lIKMZBnA2IRWb2mzsgbBwdh7+lY0ngy
+	 sa+47ur6S27WXd/NOHk7Uu8wxEOXvT96uqELHmH1XJjgPO1dh2xgXGg2F4Db/J+FaU
+	 LWQBWYNweP7sw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Qu Wenruo <wqu@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	David Sterba <dsterba@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/4] btrfs: concentrate the error handling of submit_one_sector()
+Date: Mon, 20 Jul 2026 11:01:06 -0400
+Message-ID: <20260720150109.1921272-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071553-esophagus-underpass-0b42@gregkh>
+References: <2026071553-esophagus-underpass-0b42@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Qu Wenruo <wqu@suse.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 44820d80026e0b509007d41c83d42f1213ee8589 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Currently submit_one_sector() has only one failure path from
+btrfs_get_extent().
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x b3e4fbb04220efc3bc022bcf31b5689d39c6b111
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072047-tameness-overlap-0f45@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+However the error handling is split into two parts, one inside
+submit_one_sector(), which clears the dirty flag and finishes the
+writeback for the fs block.
 
-Possible dependencies:
+The other part is to submit any remaining bio inside bio_ctrl and mark
+the ordered extent finished for the fs block.
 
+There is no special reason that we must split the error handling, let's
+just concentrate all the error handling into submit_one_sector().
 
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 66ff4d366e7e ("btrfs: fix false IO failure after falling back to buffered write")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/btrfs/extent_io.c | 29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From b3e4fbb04220efc3bc022bcf31b5689d39c6b111 Mon Sep 17 00:00:00 2001
-From: Yiyang Chen <cyyzero16@gmail.com>
-Date: Mon, 13 Apr 2026 23:45:44 +0800
-Subject: [PATCH] taskstats: retain dead thread stats in TGID queries
-
-Patch series "taskstats: fix TGID dead-thread stat retention", v3.
-
-This series fixes a taskstats TGID aggregation bug where fields added in
-the TGID query path were not preserved after thread exit, and adds a
-kselftest covering the regression.
-
-The first patch keeps the cached TGID aggregate used for dead threads in
-step with the fields already accumulated for live threads, and also fixes
-the final TGID exit notification emitted when group_dead is true.
-
-The second patch adds a kselftest that verifies TGID CPU stats do not
-regress after a worker thread exits and has been reaped.
-
-
-This patch (of 2):
-
-fill_stats_for_tgid() builds TGID stats from two sources: the cached
-aggregate in signal->stats and a scan of the live threads in the group.
-
-However, fill_tgid_exit() only accumulates delay accounting into
-signal->stats.  This means that once a thread exits, TGID queries lose the
-fields that fill_stats_for_tgid() adds for live threads.
-
-This gap was introduced incrementally by two earlier changes that extended
-fill_stats_for_tgid() but did not make the corresponding update to
-fill_tgid_exit():
-
-- commit 8c733420bdd5 ("taskstats: add e/u/stime for TGID command")
-  added ac_etime, ac_utime, and ac_stime to the TGID query path.
-- commit b663a79c1915 ("taskstats: add context-switch counters")
-  added nvcsw and nivcsw to the TGID query path.
-
-As a result, those fields were accounted for live threads in TGID queries,
-but were dropped from the cached TGID aggregate after thread exit.  The
-final TGID exit notification emitted when group_dead is true also copies
-that cached aggregate, so it loses the same fields.
-
-Factor the per-task TGID accumulation into tgid_stats_add_task() and use
-it in both fill_stats_for_tgid() and fill_tgid_exit().  This keeps the
-cached aggregate used for dead threads aligned with the live-thread
-accumulation used by TGID queries.
-
-Link: https://lore.kernel.org/cover.1776094300.git.cyyzero16@gmail.com
-Link: https://lore.kernel.org/abd2a15d33343636ab5ba43d540bcfe508bd66c7.1776094300.git.cyyzero16@gmail.com
-Fixes: 8c733420bdd5 ("taskstats: add e/u/stime for TGID command")
-Fixes: b663a79c1915 ("taskstats: add context-switch counters")
-Signed-off-by: Yiyang Chen <cyyzero16@gmail.com>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Cc: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Wang Yaxin <wang.yaxin@zte.com.cn>
-Cc: Yang Yang <yang.yang29@zte.com.cn>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/kernel/taskstats.c b/kernel/taskstats.c
-index 73bd6a6a7893..2cd0172d0516 100644
---- a/kernel/taskstats.c
-+++ b/kernel/taskstats.c
-@@ -210,13 +210,39 @@ static int fill_stats_for_pid(pid_t pid, struct taskstats *stats)
- 	return 0;
- }
+diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
+index 4b2bd3cc3ed33e..b8e2b605d52c1e 100644
+--- a/fs/btrfs/extent_io.c
++++ b/fs/btrfs/extent_io.c
+@@ -1599,7 +1599,7 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
  
-+static void tgid_stats_add_task(struct taskstats *stats,
-+				struct task_struct *tsk, u64 now_ns)
-+{
-+	u64 delta, utime, stime;
-+
-+	/*
-+	 * Each accounting subsystem calls its functions here to
-+	 * accumulate its per-task stats for tsk, into the per-tgid structure
-+	 *
-+	 *	per-task-foo(stats, tsk);
-+	 */
-+	delayacct_add_tsk(stats, tsk);
-+
-+	/* calculate task elapsed time in nsec */
-+	delta = now_ns - tsk->start_time;
-+	/* Convert to micro seconds */
-+	do_div(delta, NSEC_PER_USEC);
-+	stats->ac_etime += delta;
-+
-+	task_cputime(tsk, &utime, &stime);
-+	stats->ac_utime += div_u64(utime, NSEC_PER_USEC);
-+	stats->ac_stime += div_u64(stime, NSEC_PER_USEC);
-+
-+	stats->nvcsw += tsk->nvcsw;
-+	stats->nivcsw += tsk->nivcsw;
-+}
-+
- static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- {
- 	struct task_struct *tsk, *first;
- 	unsigned long flags;
- 	int rc = -ESRCH;
--	u64 delta, utime, stime;
--	u64 start_time;
-+	u64 now_ns;
+ /*
+  * Return 0 if we have submitted or queued the sector for submission.
+- * Return <0 for critical errors, and the sector will have its dirty flag cleared.
++ * Return <0 for critical errors, and the involved sector will be cleaned up.
+  *
+  * Caller should make sure filepos < i_size and handle filepos >= i_size case.
+  */
+@@ -1623,6 +1623,13 @@ static int submit_one_sector(struct btrfs_inode *inode,
  
- 	/*
- 	 * Add additional stats from live tasks except zombie thread group
-@@ -233,30 +259,12 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- 	else
- 		memset(stats, 0, sizeof(*stats));
- 
--	start_time = ktime_get_ns();
-+	now_ns = ktime_get_ns();
- 	for_each_thread(first, tsk) {
- 		if (tsk->exit_state)
- 			continue;
--		/*
--		 * Accounting subsystem can call its functions here to
--		 * fill in relevant parts of struct taskstsats as follows
--		 *
--		 *	per-task-foo(stats, tsk);
--		 */
--		delayacct_add_tsk(stats, tsk);
- 
--		/* calculate task elapsed time in nsec */
--		delta = start_time - tsk->start_time;
--		/* Convert to micro seconds */
--		do_div(delta, NSEC_PER_USEC);
--		stats->ac_etime += delta;
--
--		task_cputime(tsk, &utime, &stime);
--		stats->ac_utime += div_u64(utime, NSEC_PER_USEC);
--		stats->ac_stime += div_u64(stime, NSEC_PER_USEC);
--
--		stats->nvcsw += tsk->nvcsw;
--		stats->nivcsw += tsk->nivcsw;
-+		tgid_stats_add_task(stats, tsk, now_ns);
+ 	em = btrfs_get_extent(inode, NULL, filepos, sectorsize);
+ 	if (IS_ERR(em)) {
++		/*
++		 * bio_ctrl may contain a bio crossing several folios.
++		 * Submit it immediately so that the bio has a chance
++		 * to finish normally, other than marked as error.
++		 */
++		submit_one_bio(bio_ctrl);
++
+ 		/*
+ 		 * When submission failed, we should still clear the folio dirty.
+ 		 * Or the folio will be written back again but without any
+@@ -1631,6 +1638,13 @@ static int submit_one_sector(struct btrfs_inode *inode,
+ 		btrfs_folio_clear_dirty(fs_info, folio, filepos, sectorsize);
+ 		btrfs_folio_set_writeback(fs_info, folio, filepos, sectorsize);
+ 		btrfs_folio_clear_writeback(fs_info, folio, filepos, sectorsize);
++
++		/*
++		 * Since there is no bio submitted to finish the ordered
++		 * extent, we have to manually finish this sector.
++		 */
++		btrfs_mark_ordered_io_finished(inode, folio, filepos,
++					       fs_info->sectorsize, false);
+ 		return PTR_ERR(em);
  	}
  
- 	unlock_task_sighand(first, &flags);
-@@ -275,18 +283,14 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- static void fill_tgid_exit(struct task_struct *tsk)
- {
- 	unsigned long flags;
-+	u64 now_ns;
- 
- 	spin_lock_irqsave(&tsk->sighand->siglock, flags);
- 	if (!tsk->signal->stats)
- 		goto ret;
- 
--	/*
--	 * Each accounting subsystem calls its functions here to
--	 * accumalate its per-task stats for tsk, into the per-tgid structure
--	 *
--	 *	per-task-foo(tsk->signal->stats, tsk);
--	 */
--	delayacct_add_tsk(tsk->signal->stats, tsk);
-+	now_ns = ktime_get_ns();
-+	tgid_stats_add_task(tsk->signal->stats, tsk, now_ns);
- ret:
- 	spin_unlock_irqrestore(&tsk->sighand->siglock, flags);
- 	return;
+@@ -1756,19 +1770,6 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
+ 		}
+ 		ret = submit_one_sector(inode, folio, cur, bio_ctrl, i_size);
+ 		if (unlikely(ret < 0)) {
+-			/*
+-			 * bio_ctrl may contain a bio crossing several folios.
+-			 * Submit it immediately so that the bio has a chance
+-			 * to finish normally, other than marked as error.
+-			 */
+-			submit_one_bio(bio_ctrl);
+-			/*
+-			 * Failed to grab the extent map which should be very rare.
+-			 * Since there is no bio submitted to finish the ordered
+-			 * extent, we have to manually finish this sector.
+-			 */
+-			btrfs_mark_ordered_io_finished(inode, folio, cur,
+-						       fs_info->sectorsize, false);
+ 			if (!found_error)
+ 				found_error = ret;
+ 			continue;
+-- 
+2.53.0
 
