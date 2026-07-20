@@ -1,144 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58C41FA859
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:30:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4B8182D6
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:30:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784554240; cv=none; b=mKYP3kd0DxptrCNzg7Gw+2mU7tkovVdFYcz4PjVqZKL0bcNaCtF1LIDHp+brps+1W5E/tvKMIkWsCmPtIxg5MH0tBJRs0aK91Vh83llBOd0v3rhpmhzijZeKWDhnpdZo/yQ1uE6za5YV9EN2Qw5wX/c6lKs2AXSEWlXWFCL4/10=
+	t=1784554243; cv=none; b=WoXFJQ4ikGbw5i7ytugmaTdYIdh5vSa1eYbUOlh9yYpIOUdCFGjGBIlSKGstbbTIVvUbt+ZW6O6n+wr6mTiCyMqy/7hchZsU0avbqN42ejg4qE4cJAztEwa8AHrNx3/nBFlq/L0fg36vSAQ8egCayiL8HdssYUTmaGt3oLthq/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784554240; c=relaxed/simple;
-	bh=fLGZxz1svUFuWDfgQgoGStUr+FhXRu9lx3MRYk7ARuk=;
+	s=arc-20240116; t=1784554243; c=relaxed/simple;
+	bh=yg+dJbTEmZh9XAt2xcMLo30QZfDAu6UzPe6C5899yi0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q7vQkNlKUowyzzP0KQjs0IIIb8+bCBJbPDvw4c56HhN+KWeshV8cYW0q+5eDj8qskJlSir2LdNKLqSW7c98+nvwherLgUe6Un/8DcSqlADvaIEymnSTx2Oxi+Any2Ei1xLk+VEJW4N97BpkkeD4sCk83Ha80hYSl2NyWX7ZOoug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BoMEu847; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jB/Q3RdR9Mhby8HPoSP+8GCl6MY4fbBEXkcPEV/voTYSEKgBdsubOED0qEmRHDf8tMukL2lVT1XLiiGXpiIbuqYRVe5nbQ1OgQ3PU4ItSyV3iTHU0dAXj6cAkizx9u8MyNiEs8FR64MMSCw0fplxnQexf95v+V4YFKOp3uz8Gao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GL9ODxJI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BoMEu847"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A961F000E9;
-	Mon, 20 Jul 2026 13:30:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GL9ODxJI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93FA1F000E9;
+	Mon, 20 Jul 2026 13:30:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784554239;
-	bh=N1T/aEbu4uDh6FCCxG+1pqq48/MQI+xwlZ9VIQxvH88=;
+	s=k20260515; t=1784554242;
+	bh=aXw3WJQRhBMeCj/RGwEIF9O3pGsV55qIc2YIz77M+Ac=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BoMEu847fv9119f3eVeksF44QLuK8NIf7RjiX9PzmeB1s7cgL3shBwC0Nxjj7PEZT
-	 h9WYbH4Jfma7ulsjrj4+XXY9k+nfd7bT7owELOX3nhweBAxysC6FemDMZ+K0n6oFem
-	 DwzBwF2vk91YhSSnBe8qCxtJWchmvjNRczKz+VIbScot7af/LW7I19zcyRrnvkv3T2
-	 5dQMfh8XZyHGhj5fpSGkuMv07kV2/nn++HEJl07zjdyjmUpTKrKsIlDjX9BYofk9kc
-	 41u/dH1afZWB1x8R+Vr/cyk2Q/oNY7RWo1FwN5Cdo9kF28cIkN7quNtevCnMzNxP+b
-	 NIzcLG/XTGcMQ==
+	b=GL9ODxJIczlkRbR2glSgqcqv66O1fxWU02n17g48VVIj1ZmX1nIW7rE8Jbe0FCp+W
+	 KZGQ3EyiH52cKqhsVm/5Dq0/kxtwQzltaGsQ1Ss8c7B/bIO8QE393O+6j8FAYO3I9T
+	 IL32VmMsxSTdyOTTskbEJJpq6oaant5ScbHHsZpzBQJJ/ZiBemtYZihlHdad3TvFf6
+	 NJ+Wl6lsujZlc7Dmlw9FwWHglcTHbPHK94Ln9oOnOM4r723u5I4HNzZ6rn2PULYNe1
+	 uCpWm3KoDaTcyXDOaEkmkVaKezEJ+bjcIUdEsSUoNxouUWdGhL4Dksfpj0if8IY1gY
+	 Mf3q8GTXvV0/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tyler Baker <tyler.baker@oss.qualcomm.com>,
-	stable <stable@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Peter Chen <peter.chen@kernel.org>,
-	=?UTF-8?q?Micha=C5=82=20Nazarewicz?= <mina86@mina86.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] usb: gadget: f_fs: initialize reset_work at allocation time
-Date: Mon, 20 Jul 2026 09:30:36 -0400
-Message-ID: <20260720133036.1149470-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] crypto: atmel-sha204a - fail on hwrng registration error in probe path
+Date: Mon, 20 Jul 2026 09:30:39 -0400
+Message-ID: <20260720133039.1149543-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071456-bagful-fable-b98c@gregkh>
-References: <2026071456-bagful-fable-b98c@gregkh>
+In-Reply-To: <2026071522-shy-landmark-49bf@gregkh>
+References: <2026071522-shy-landmark-49bf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tyler Baker <tyler.baker@oss.qualcomm.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 3137b243c93982fe3460335e12f9247739766e10 ]
+[ Upstream commit 49e05bb00f2e8168695f7af4d694c39e1423e8a2 ]
 
-ffs_fs_kill_sb() unconditionally calls cancel_work_sync() on
-ffs->reset_work when a functionfs instance is unmounted:
+Commit 13909a0c8897 ("crypto: atmel-sha204a - provide the otp content")
+overwrote the hwrng registration return value when creating the sysfs
+group, which allowed atmel_sha204a_probe() to succeed even if
+devm_hwrng_register() failed.
 
-	ffs_data_reset(ffs);
-	cancel_work_sync(&ffs->reset_work);
+Return immediately when devm_hwrng_register() fails, and report both
+hwrng and sysfs registration errors with dev_err(). Adjust the sysfs
+error log message for consistency.
 
-However ffs->reset_work is only ever initialized via INIT_WORK() in
-ffs_func_set_alt() and ffs_func_disable(), and only on the
-FFS_DEACTIVATED path. That state is reached solely by ffs_data_closed()
-when the instance is mounted with the "no_disconnect" option, so for the
-common case (no "no_disconnect", or mounted and unmounted without ever
-being deactivated) reset_work is never initialized.
-
-ffs_data_new() allocates the ffs_data with kzalloc_obj() and does not
-initialize reset_work, and ffs_data_reset()/ffs_data_clear() do not touch
-it either, so reset_work.func is left NULL. cancel_work_sync() on such a
-work then trips the WARN_ON(!work->func) guard in __flush_work():
-
-  WARNING: kernel/workqueue.c:4301 at __flush_work+0x330/0x360, CPU#3: umount
-  Call trace:
-   __flush_work
-   cancel_work_sync
-   ffs_fs_kill_sb [usb_f_fs]
-   deactivate_locked_super
-   deactivate_super
-   cleanup_mnt
-   __cleanup_mnt
-   task_work_run
-   exit_to_user_mode_loop
-   el0_svc
-
-On older kernels cancel_work_sync() on a zero-initialized work struct was
-a silent no-op, which hid the missing initialization.
-
-Initialize reset_work once in ffs_data_new() so it is always valid for
-the lifetime of the ffs_data, and drop the now-redundant INIT_WORK()
-calls from the two deactivation paths.
-
-Fixes: 18d6b32fca38 ("usb: gadget: f_fs: add "no_disconnect" mode")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Tested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Peter Chen <peter.chen@kernel.org>
-Acked-by: Michał Nazarewicz <mina86@mina86.com>
-Link: https://patch.msgid.link/20260609193635.2284430-1-tyler.baker@oss.qualcomm.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ dropped the ffs_func_disable hunk since 6.6 predates the disable-body split and routes disable through ffs_func_set_alt, so removing the single lazy INIT_WORK there covers both paths ]
+Fixes: 13909a0c8897 ("crypto: atmel-sha204a - provide the otp content")
+Cc: stable@vger.kernel.org
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_fs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/crypto/atmel-sha204a.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 17724b12b88059..67f4c6a89ead94 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -255,6 +255,7 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
- static void ffs_release_dev(struct ffs_dev *ffs_dev);
- static int ffs_ready(struct ffs_data *ffs);
- static void ffs_closed(struct ffs_data *ffs);
-+static void ffs_reset_work(struct work_struct *work);
+diff --git a/drivers/crypto/atmel-sha204a.c b/drivers/crypto/atmel-sha204a.c
+index 49e545ef6493b9..66daf254072dd6 100644
+--- a/drivers/crypto/atmel-sha204a.c
++++ b/drivers/crypto/atmel-sha204a.c
+@@ -183,8 +183,10 @@ static int atmel_sha204a_probe(struct i2c_client *client)
+ 		i2c_priv->hwrng.quality = *quality;
  
- /* Misc helper functions ****************************************************/
+ 	ret = devm_hwrng_register(&client->dev, &i2c_priv->hwrng);
+-	if (ret)
+-		dev_warn(&client->dev, "failed to register RNG (%d)\n", ret);
++	if (ret) {
++		dev_err(&client->dev, "failed to register RNG (%d)\n", ret);
++		return ret;
++	}
  
-@@ -1734,6 +1735,7 @@ static struct ffs_data *ffs_data_new(const char *dev_name)
- 	init_waitqueue_head(&ffs->ev.waitq);
- 	init_waitqueue_head(&ffs->wait);
- 	init_completion(&ffs->ep0req_completion);
-+	INIT_WORK(&ffs->reset_work, ffs_reset_work);
+ 	/* otp read out */
+ 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+@@ -192,7 +194,7 @@ static int atmel_sha204a_probe(struct i2c_client *client)
  
- 	/* XXX REVISIT need to update it in some places, or do we? */
- 	ffs->ev.can_stall = 1;
-@@ -3261,7 +3263,6 @@ static int ffs_func_set_alt(struct usb_function *f,
- 
- 	if (ffs->state == FFS_DEACTIVATED) {
- 		ffs->state = FFS_CLOSING;
--		INIT_WORK(&ffs->reset_work, ffs_reset_work);
- 		schedule_work(&ffs->reset_work);
- 		return -ENODEV;
+ 	ret = sysfs_create_group(&client->dev.kobj, &atmel_sha204a_groups);
+ 	if (ret) {
+-		dev_err(&client->dev, "failed to register sysfs entry\n");
++		dev_err(&client->dev, "failed to create sysfs group (%d)\n", ret);
+ 		return ret;
  	}
+ 
 -- 
 2.53.0
 
