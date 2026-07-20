@@ -1,74 +1,102 @@
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428EA3C276E;
-	Mon, 20 Jul 2026 20:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C733D3C3BFD
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 20:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784579303; cv=none; b=SircykJEtyvIqDQqmyfR7i9QM/q26Yvn9vDKWbqNGABi05KDh7+Vb2Rl6dkk6IMKCX7KaaUCb03f8cWUNoDWDY8NE0vpu/yVkCgJDV0rVwh4IbdEheGI2V8NqJhQ4vvUhDZxLdeBJCvmUYsZIwB2gGUF1zTXzz27VExWt6sezbk=
+	t=1784580273; cv=none; b=OTdV1eymWgApk2rVJSp2U/69HndBO1x+YTuTGfQ+gNzrXxzDvVZTenWawmpktK6DA2/VtyVXxCr4m1JllixIj88bLFWGLkim70l8PHDGkLFrr0CkARQqUUPS72ZZAQ1bCGcIbWb4zJYqWOxjQWaYPHmqpnJksAx8RNFveMAHyNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784579303; c=relaxed/simple;
-	bh=gkKl3uTPSay0E7CpnnTKxHacM5gY3GAa8Yoylx8S2bI=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=uw7L5gADsg3xODel2YLO2BhoAEO1tSVKAl9DSPJ3pku20Cf++EffuTitNZw0cHZlslXyPx4NtccTJxtpb3704AFVxIjNnAOjC7QAyZFro0+ZLPKGNtJN+cAYJ4KZSqEjan1bg4vtPmEfQ2u00HD/sCHa1KhznEIVptewLJSY6sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-Date: Mon, 20 Jul 2026 22:28:04 +0200
-From: =?ISO-8859-1?Q?Toke_H=F8iland-J=F8rgensen?= <toke@toke.dk>
-To: Matt Fleming <matt@readmodwrite.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Lorenzo Bianconi <lorenzo@kernel.org>,
- bpf@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org,
- kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH bpf v2] veth: convert frag_list skbs before running XDP
-In-Reply-To: <20260720140545.461747-1-matt@readmodwrite.com>
-References: <20260720140545.461747-1-matt@readmodwrite.com>
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <065FA849-C184-490F-B250-AD095219F5B5@toke.dk>
+	s=arc-20240116; t=1784580273; c=relaxed/simple;
+	bh=w+deUUWsuCQXLgUeu37b8jjpkUjxhdckCUrD0oMIIvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SzwGztIBrypuJZF8V6Z4Rp528r4Gv0iTGUbGZJ3e9MMrD785PXqGIiw6c22A1Qq7riKsxlLjQVfwqIuBrRH0dkxA0XT8LDM2B39mstNFUYauZmMt9d6UaPFy2QI0CTbfUKqIYzVzzgBKUmTll8BuEGl5k4odM6RlEare23SkHYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SblC2x67; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SblC2x67"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A511F000E9;
+	Mon, 20 Jul 2026 20:44:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784580272;
+	bh=bhM+nnPv1CjCpNN5bZwnxrHZZu6am7LDb2SeWLxySyQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SblC2x67oAaZn7BFZH3Jcg5Lxm6wPuzEJcSOcwZOO6dHXgidyEP5mV8w/VoowfLKX
+	 CATiFly2Rayb9TPojGXQvLZqT0AJjNDOLpDTWlFueFHdomumrHzF1rh1iUnmUe/pT0
+	 As5JKN+gPQk0BMFZVT/BQYPoXwH0wtrRRa0H9vrkUSLtBHDqebEA7chBVBcta34qTR
+	 r6AI6bsRuosbvWSKcrEzjHnqI1QnsWqvvxENAqY+mMWFjJQYR93MKHVhU4hWXiDLb6
+	 kIxBBXR2m+gadD/LlFZNDVymA90HCawWMioMXLcAsbgFaIS7Y5fNCd4/2/P66c5SrI
+	 +cmm0MvOzv5/Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ahsan Atta <ahsan.atta@intel.com>,
+	Maksim Lukoshkov <maksim.lukoshkov@intel.com>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] crypto: qat - fix restarting state leak on allocation failure
+Date: Mon, 20 Jul 2026 16:44:29 -0400
+Message-ID: <20260720204429.3338926-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071552-citrus-stump-8aa1@gregkh>
+References: <2026071552-citrus-stump-8aa1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+From: Ahsan Atta <ahsan.atta@intel.com>
 
+[ Upstream commit 7d3ed20f7e46b3e991936fedd7a28f3ff4aec8d2 ]
 
-On 20 July 2026 16=2E05=2E45 CEST, Matt Fleming <matt@readmodwrite=2Ecom> =
-wrote:
->From: Matt Fleming <mfleming@cloudflare=2Ecom>
->
->A frag_list skb can reach veth with data_len set but nr_frags zero=2E
->veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
->locked, have frags[], or do not have enough headroom=2E It later uses
->skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
->xdp_frags_size=2E
->
->That exposes frag_list data to XDP as if it were stored in frags[], but
->frags[] is empty=2E AF_XDP copy mode can then trust the bogus XDP fragmen=
-t
->metadata, walk an empty fragment entry, and crash in memcpy() from
->__xsk_rcv()=2E
->
->Route non-linear skbs through skb_pp_cow_data() before exposing them to
->XDP, and only advertise XDP frags when the resulting skb has frags[]=2E
->skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
->builds frags[] output with skb_add_rx_frag(), which is the
->representation XDP multi-buffer expects=2E
->
->Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept no=
-n-linear skb")
->Cc: stable@vger=2Ekernel=2Eorg
->Signed-off-by: Matt Fleming <mfleming@cloudflare=2Ecom>
+In adf_dev_aer_schedule_reset(), ADF_STATUS_RESTARTING is set before
+allocating reset_data. If the allocation fails, the function returns
+-ENOMEM without queuing reset work, so nothing ever clears the bit.
+This leaves the device permanently stuck in the restarting state,
+causing all subsequent reset attempts to be silently skipped.
 
-Reviewed-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@toke=2Edk>
+Fix this by using test_and_set_bit() to atomically claim the
+RESTARTING state, preventing duplicate reset scheduling races under
+concurrent fatal error reporting. If the subsequent allocation fails,
+clear the bit to restore clean state so future reset attempts can
+proceed.
+
+Cc: stable@vger.kernel.org
+Fixes: d8cba25d2c68 ("crypto: qat - Intel(R) QAT driver framework")
+Signed-off-by: Ahsan Atta <ahsan.atta@intel.com>
+Co-developed-by: Maksim Lukoshkov <maksim.lukoshkov@intel.com>
+Signed-off-by: Maksim Lukoshkov <maksim.lukoshkov@intel.com>
+Reviewed-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/crypto/qat/qat_common/adf_aer.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/crypto/qat/qat_common/adf_aer.c b/drivers/crypto/qat/qat_common/adf_aer.c
+index bf6e2116148b5a..4b2378b726379a 100644
+--- a/drivers/crypto/qat/qat_common/adf_aer.c
++++ b/drivers/crypto/qat/qat_common/adf_aer.c
+@@ -116,13 +116,14 @@ static int adf_dev_aer_schedule_reset(struct adf_accel_dev *accel_dev,
+ 	struct adf_reset_dev_data *reset_data;
+ 
+ 	if (!adf_dev_started(accel_dev) ||
+-	    test_bit(ADF_STATUS_RESTARTING, &accel_dev->status))
++	    test_and_set_bit(ADF_STATUS_RESTARTING, &accel_dev->status))
+ 		return 0;
+ 
+-	set_bit(ADF_STATUS_RESTARTING, &accel_dev->status);
+ 	reset_data = kzalloc(sizeof(*reset_data), GFP_KERNEL);
+-	if (!reset_data)
++	if (!reset_data) {
++		clear_bit(ADF_STATUS_RESTARTING, &accel_dev->status);
+ 		return -ENOMEM;
++	}
+ 	reset_data->accel_dev = accel_dev;
+ 	init_completion(&reset_data->compl);
+ 	reset_data->mode = mode;
+-- 
+2.53.0
+
