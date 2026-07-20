@@ -1,71 +1,72 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5412E3939AF
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCAA3921FB
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784574938; cv=none; b=Xem+o/kqx/zaFg5SyccW6qTC72GAy77o3YdzAckoeYsh4Y/roxnMrtwCBjJYz/QF5HO3v+u1Tyt0Xu2qZwlgRyS/3BpdkUw1gnikYWbUJtJDK48bFzKk3gKI1XF9kEGzvHVwXrdRgMt5zdoCwd07xypwTXwcaziPxPtZH6zRQAs=
+	t=1784575250; cv=none; b=MuZYmwP8YkMpRKhESrMYSTkGQsskVgVpz1efU926i5cHnkHm0hHZ5Lt/ag/nCh0u0lQE4cZy9fYBz/vNXieOKgN9GTLVt4rfVkvxWNedtvXmekKdVXcgEN6EmdtcGVyb3uVib414MirVYd56MvHpCGViDDAY9RxcTCSGlHxKRzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784574938; c=relaxed/simple;
-	bh=n4rtoVBivuuxT8maYZ6GjwI9IH0POieenNXxUQeibjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aAh077UVRiYTOKOmxELGl7TKow3sf0CUnF9yaYyC8bEoEAaUbVjahMBDyjxbQv/YoMYHCx5kRdA353fg2n14l/AUokOfySrNo7TAj2TEYkKX4DcQsGeFu+D7e7yhMbeKd3ihSv2mQkZ/nVJR02YrCpW9Bpb3qDdNPlobxROLwuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=u9lMWM72; arc=none smtp.client-ip=209.85.128.50
+	s=arc-20240116; t=1784575250; c=relaxed/simple;
+	bh=J1w26FLrr9rgN5g4mHDYN1XQg8tMpZaHbtu1Q+Vy3YA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q4jcE9VGIttP4zohiRvGnyl7aIba/EkcrGnMUNIEpVhU7G2Mgp81VjIq6s5yKaf0a9EPRCcGbWGbKUF9IBUzFY1Oyg1EVq/3WwM/SqbTdC0Vas6MHKPEl4hGv9Z/06AoAvoCjUt/BInu1opaaFTYvLBihLIYcKyXPQ102eeXBM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=MoPyqmBo; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="u9lMWM72"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49548aebcd8so21944245e9.3
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:15:37 -0700 (PDT)
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="MoPyqmBo"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495590dde14so17809735e9.0
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1784574936; x=1785179736; darn=vger.kernel.org;
+        d=0sec.ai; s=google; t=1784575246; x=1785180046; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7MPEl8CVn5sXC9/GdUGvs1DC58WkPmH4mOB5joq72dw=;
-        b=u9lMWM72G/OAeZj78uLjzvqNXEjN7oH/OyKK6cZkqzBt/cbhh/BapH4YoEkuUBZLzQ
-         278JUNxVn5eDSq+DHDkc1q5HaJzd4YDqZT68/sEsFO9zNirEtT1xGRA+zt8BpY6wLS1n
-         a5kYY75Bklki2CzDMux+kJsbbo3CC8AMl6Oei23JXm4WBI/t4udQzvEn40pm5tlZOjWA
-         c81+Y+FdHqKNjnlGX71tqpdQhsUqBi38+WnbbvbesIfAsblqj63AXtJ6KpK4j1BGUu2I
-         IAhANa07xu8ELHGjOqWFMHcHBazaWUQKaLcAHtqnB4YknNrKR744glFWs5dkw30jEwiB
-         0y5w==
+        bh=Nn308Uc42Dl57RP6Xi6iEgaOKqgEpx9JiKwuLvZ7d4o=;
+        b=MoPyqmBoo9obTE9jpij7lW+fFlvB8geKCWBM3GcuB/XlePqVQpq/a+tIlfexrfJrJo
+         xRS3IreWOUQxvHD3o+m99Op2biSBu9ZNJF6jQkCodf7yrasX7aFKZmTRidDm426oa3PW
+         lR/89lgnmNaJ5ulynbNhNm77CoWotivx9HVRCWaqofgoa2IsIvK8IYE7cbPLb4eEEtUx
+         9gqerD42bbnHrw5XJBaEio2YXZYrKsJ1jPo/mPRVgUKDNgk2VqTPgfPE4i2OQcyMj8VK
+         Txxl0kMt+b6APzFjvtijXbDEQNT75cZ9gJ1js64u0Qiuwbj1gbRVt5ebtwWgPv50E8mT
+         zzAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784574936; x=1785179736;
+        d=1e100.net; s=20251104; t=1784575246; x=1785180046;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7MPEl8CVn5sXC9/GdUGvs1DC58WkPmH4mOB5joq72dw=;
-        b=msYJsrh9Ahf0Pz80RZji0OtQ4deDJYkWREZH1oL3exzv5JMc8bW3ceTEjn33Z2b9cJ
-         /ArXCL8ohirC8nAORsYIySV4GC24iAru0rGA7hGc+35+6ds1TJQFtISUJ5uqJzer9wcm
-         b+eEumHLPKpOJyAAFXak1FDpcY6hXWSzZ1Qs4RbvDhLe2JkYXYxk8ID029J1BL8AyL9T
-         neAbxhlA2AHsWpYYcVx4lox+1cHu2qv0uFrOOqCqiZKRm4vsxaqYBLcEqD9KoiimOnnD
-         1L/EH+G74eg+Z86t81WmoaaGCBjbgd21f9V5rq6t5Tq58aAkadnvQhWRooHzRMUtK+kL
-         tlhA==
-X-Gm-Message-State: AOJu0Yw8DIaejLuLazujjUlfMlLu+Bo2/m4zEkKFDEecozZ/qsn4D8dj
-	aNbFYDHMQbT1O3V7A7ohhxluqY5qVl04wK4vFf//MRnDo50fbSk1lF6qAVAlwe8I3GRtSWpqQT9
-	S+IYX/Q==
-X-Gm-Gg: AfdE7cns4BCX3kZLXzEPYsg0gTY0oHojq91rJiIch0xcGBEb9UMozmX+MNnVKMFEZEU
-	E1jiAiZiyvWlCM0JAKEnYSelOYzmXj/1DzQyJ4ETOvjdU5u+pxiPoIR/F1vh9Ogl4UwPvrvspkH
-	HMOjqrR6YcQKkp6He2KfuHH8uswzXW6x7aAy2Ajz4pSaQlkyXxEbnC/NulujL75eRnigAZmj52V
-	fSSLmtxtAofvue5cnNO/fjO3QEcOwRVgw9jmvQXaGODdMMUonKobStWVWJ6EoEnxl20CGf/+Mtc
-	7GIXvmhUhB+uDiByzakqQrgFfkgi3p/J5/EUH8Wclve4FLXs+koV8sDfMtxNbYOtLsAiKYqh/g6
-	HIMHT91oc8TLdjNrCWUJ3OfWhT280X0z3nqcFnj3R8ZjXhxyV4PjeRynzgD+3Snc2/MnHS6eC9u
-	KfDsvIhuVQAMHdVoRRvJCTIvU7si7v6hzjaelP9HFFMILuSHhrePgSdPahCjFIBGTfsWa4QnR1B
-	9iM+PZOtw3NDmrecFHNIM+eShbtF4olKz9hJkpq98F0FQ==
-X-Received: by 2002:a05:600c:3153:b0:493:e97c:216e with SMTP id 5b1f17b1804b1-4954a41382fmr186525145e9.39.1784574935532;
-        Mon, 20 Jul 2026 12:15:35 -0700 (PDT)
+        bh=Nn308Uc42Dl57RP6Xi6iEgaOKqgEpx9JiKwuLvZ7d4o=;
+        b=Fryhu1bWw4BgtRR6NDRGDZU0n5hXXkxjqt01gP16kgf9i84akc2RcxMRdER/CwIAzF
+         aJZqBiS44JXexR32d8j0CLOuLQuk6w8cwo5gGBhY3Fc+A8aTLAbMSk3YGmNsHNc4Yr2t
+         5zm7R54egABMo/1671iLyK/VCm0wVBN6NESfpwvsvqBR50EqOkgdAHpaki91Ny5PfIvf
+         gv+K8CjctN5ljC9yzx02fW7NKuNQbQWMBAY5xWZp80IUyMFaRlPlrjOUzy9L4exwmc1T
+         pp2qtx1gEZd2dAf7X8ukwb55n2O0sZvYYNSOypO1UqkCd6hgP/Ent+ryVFtfmRVRfVcb
+         ggUQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqdsHWw9sA+P0tEvOSbNAPp89TVjWGCIA3zWJkdLiWW02ERCdfPPQRE4Gg9UzI+OQ+qS2LeM1o=@vger.kernel.org
+X-Gm-Message-State: AOJu0YygEYWR7lr5nr5Y344cBio6RrmeJUpMxHZALluW0lZXb/2HfTsu
+	IRvaDhXtU93JXJr9CERZ6A6osi+O04yfTwwTX1TCfOwv29jt62coeRCSr0IUVKpyHHVU
+X-Gm-Gg: AfdE7ckSOasrshiYotSpBDfU6petiP6FaD0TV1CLIL3vVuaDCnCw0k0iewix+VY25Os
+	JJeTok0TYPytTyGv8Oe91JrA3JSuqTmaGljQgtZdg6vbRktsgOtq6vBWLt/QrDcL+UEf8FjllZ5
+	BcHSMfMc1RgqD+q+dVzbGwEX0Fcg5rYgipdF1vn9DOHLraJ8vRdCIUybPhW23M1wS5Y5tKDs5RC
+	Fxtf+mfMpOKyKwFTTQwoMtxJb/GQsrFA+TQCl6+hS/TkO9VLBwd9uL1IxBoN8RbT5YbV/TSE+Rm
+	lLIzAKDqnoT5MKhHpLhix+8tHal/hZnkSocOe9J1gf9DWLW5WPZMnvltJSNfsYiXs1DQhBu1M6C
+	9dkGFudH0EVI/yJiOpkVosuPcHUgwLPPKueaenyqL9e8ogyMqnfqcjnmZRO9/quZYAOvAKE09eK
+	PXhKljhKUkeoCG4JrHT7xPoTUoo9Yqdavg6KEkhyNyRSos2ve961XndUiYyCFvFQBTFiELAGj8W
+	dIciLiROaFo3eYsWBBiHLuY
+X-Received: by 2002:a05:600c:1509:b0:495:3f5e:e7a with SMTP id 5b1f17b1804b1-4954a51dee6mr121496285e9.34.1784575246312;
+        Mon, 20 Jul 2026 12:20:46 -0700 (PDT)
 Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.14])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e49500sm34232061f8f.2.2026.07.20.12.15.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495653bffefsm9693325e9.9.2026.07.20.12.20.45
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 20 Jul 2026 12:15:35 -0700 (PDT)
+        Mon, 20 Jul 2026 12:20:45 -0700 (PDT)
 From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: stable@vger.kernel.org
-Cc: herbert@gondor.apana.org.au,
-	linux-crypto@vger.kernel.org,
+To: robh@kernel.org,
+	tomeu@tomeuvizoso.net
+Cc: dri-devel@lists.freedesktop.org,
+	ogabbay@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: [PATCH 5.10/5.15.y] crypto: rsa-pkcs1pad: Don't WARN on an empty digest
-Date: Mon, 20 Jul 2026 21:15:33 +0200
-Message-ID: <20260720191533.15971-1-doruk@0sec.ai>
+	stable@vger.kernel.org
+Subject: [PATCH] accel/ethosu: validate all tiles and the packed-channel peak in the cmdstream verifier
+Date: Mon, 20 Jul 2026 21:20:44 +0200
+Message-ID: <20260720192044.19557-1-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -75,49 +76,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KEYCTL_PKEY_VERIFY lets an unprivileged caller supply a zero-length
-digest (in_len == 0).  keyctl_pkey_params_get_2() accepts the zero
-length and the request reaches pkcs1pad_verify(), where the empty
-digest is rejected but only after being passed through
-WARN_ON(!req->dst_len).  The warning is therefore directly
-user-triggerable, and on kernels built with panic_on_warn=1 an
-unprivileged process can panic the machine -- a local denial of
-service.  Reproduced as UID 65534 in a setuid sandbox.
+The command-stream verifier records region_size[], the maximum byte
+offset the NPU will touch in each buffer object, and the submit path
+rejects a job whose region_size exceeds the bound BO
+(region_size[i] > gem->size). feat_matrix_length() computed that maximum
+by evaluating the touched address at a single presumed-worst corner
+(x = width, y = height, c = depth). That is the true maximum only when
+the address is monotonic in x/y/c and the feature matrix occupies a
+single tile. Neither always holds:
 
-Keep rejecting the invalid request with -EINVAL, but do not emit a
-warning for the user-controlled length.
+ - Storage modes 0 and 1 split the feature matrix into up to four tiles,
+   each with an independent, user-supplied base (base[0..3]) into the
+   same region. feat_matrix_length() is evaluated once, so only the tile
+   containing the (max x, max y) corner is bounded; a large offset placed
+   in any other tile base is never accounted for.
 
-This is the 5.10.y/5.15.y form of the fix, where the length is read
-directly from req->dst_len rather than cached in a digest_size local.
-Mainline does not contain this code path; commit 1e562deacecc
-("crypto: rsassa-pkcs1 - Migrate to sig_alg backend") removed
-pkcs1pad_verify() in v6.13-rc1.  This is a minimal fix for the
-affected stable branches.  The 6.1.y/6.6.y/6.12.y form
-(WARN_ON(!digest_size)) is sent as a separate patch.
+ - In the nhcwb16 packed format the channel term
+   (c / 16) * stride_c + (c & 0xf) * element_size is not monotonic in c
+   when stride_c is small, so the largest offset can lie at an interior
+   channel rather than at c = depth.
+
+An unprivileged process able to open the accelerator node can therefore
+craft a cmdstream whose real maximum output offset exceeds the computed
+region_size, pass the submit check with an undersized output buffer, and
+have the NPU DMA-write past the end of that buffer (up to ~1 MiB out of
+bounds in the tiling case).
+
+Evaluate the extent at every corner that can bound the populated tiles
+and at the packed-channel peak, take the maximum, and reject the stream
+if any reachable tile base is left unset. Well-formed single-tile,
+monotonic streams are unchanged: the computed size is identical.
 
 Found by 0sec automated security-research tooling (https://0sec.ai).
-
-Fixes: c7381b012872 ("crypto: akcipher - new verify API for public key algorithms")
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Assisted-by: 0sec:multi-model
 Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- crypto/rsa-pkcs1pad.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/accel/ethosu/ethosu_gem.c | 73 +++++++++++++++++++++++++++----
+ 1 file changed, 65 insertions(+), 8 deletions(-)
 
-diff --git a/crypto/rsa-pkcs1pad.c b/crypto/rsa-pkcs1pad.c
-index e2f4ccbd71dd..d10076bb6ec2 100644
---- a/crypto/rsa-pkcs1pad.c
-+++ b/crypto/rsa-pkcs1pad.c
-@@ -535,7 +535,7 @@ static int pkcs1pad_verify(struct akcipher_request *req)
- 	int err;
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 3401883e207f..dfc499d7fb0c 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -192,17 +192,19 @@ static u64 dma_length(struct ethosu_validated_cmdstream_info *info,
+ 	return len;
+ }
  
- 	if (WARN_ON(req->dst) ||
--	    WARN_ON(!req->dst_len) ||
-+	    !req->dst_len ||
- 	    !ctx->key_size || req->src_len != ctx->key_size)
- 		return -EINVAL;
+-static u64 feat_matrix_length(struct ethosu_validated_cmdstream_info *info,
+-			      struct feat_matrix *fm,
+-			      u32 x, u32 y, u32 c)
++/*
++ * Compute the byte offset the NPU addresses for one feature-matrix coordinate
++ * (x, y, c). Storage modes 0 and 1 route disjoint (x, y) sub-rectangles to up
++ * to four independent tile bases; the caller must only pass coordinates whose
++ * tiles it means to bound. Returns U64_MAX if the coordinate lands on a tile
++ * whose base was never set by the command stream.
++ */
++static u64 feat_matrix_addr(struct feat_matrix *fm, u32 x, u32 y, u32 c)
+ {
+ 	u32 element_size, storage = fm->precision >> 14;
+ 	int tile = 0;
+ 	u64 addr;
  
+-	if (fm->region < 0)
+-		return U64_MAX;
+-
+ 	switch (storage) {
+ 	case 0:
+ 		if (x >= fm->width0 + 1) {
+@@ -240,11 +242,66 @@ static u64 feat_matrix_length(struct ethosu_validated_cmdstream_info *info,
+ 		break;
+ 	}
+ 
+-	info->region_size[fm->region] = max(info->region_size[fm->region], addr + 1);
+-
+ 	return addr;
+ }
+ 
++/*
++ * Bound the region a feature matrix touches over the coordinate box
++ * [0, x] x [0, y] x [0, c].
++ *
++ * The address is separable and, as the strides are unsigned 40-bit quantities,
++ * non-decreasing in x and y, so their maxima sit at the box edge and, for the
++ * tiled storage modes, just below each split (width0, height[]) where an
++ * independent tile base takes over. Only nhcwb16 packing is non-monotonic in c:
++ * crossing a 16-lane group adds stride_c but resets the in-group term, so the
++ * peak may sit at the top of the last full group instead of at c. Evaluating
++ * every such extremal corner bounds all up-to-four tiles, whereas a single
++ * presumed-max corner undercounts the other tiles and the channel peak.
++ */
++static u64 feat_matrix_length(struct ethosu_validated_cmdstream_info *info,
++			      struct feat_matrix *fm,
++			      u32 x, u32 y, u32 c)
++{
++	u32 storage = fm->precision >> 14;
++	u32 xs[2], ys[3], cs[2];
++	int nx = 0, ny = 0, nc = 0, i, j, k;
++	u64 max_addr = 0;
++
++	if (fm->region < 0)
++		return U64_MAX;
++
++	xs[nx++] = x;
++	if (storage == 0)
++		xs[nx++] = min_t(u32, x, fm->width0);
++
++	ys[ny++] = y;
++	if (storage == 0 || storage == 1) {
++		ys[ny++] = min_t(u32, y, fm->height[0]);
++		ys[ny++] = min_t(u32, y, fm->height[1]);
++	}
++
++	cs[nc++] = c;
++	if (((fm->precision >> 6) & 0x3) == 1 && c >= 16)
++		cs[nc++] = (c & ~0xfu) - 1;
++
++	for (i = 0; i < nx; i++) {
++		for (j = 0; j < ny; j++) {
++			for (k = 0; k < nc; k++) {
++				u64 addr = feat_matrix_addr(fm, xs[i], ys[j], cs[k]);
++
++				if (addr == U64_MAX)
++					return U64_MAX;
++				max_addr = max(max_addr, addr);
++			}
++		}
++	}
++
++	info->region_size[fm->region] =
++		max(info->region_size[fm->region], max_addr + 1);
++
++	return max_addr;
++}
++
+ static int calc_sizes(struct drm_device *ddev,
+ 		      struct ethosu_validated_cmdstream_info *info,
+ 		      u16 op, struct cmd_state *st,
 -- 
 2.43.0
 
