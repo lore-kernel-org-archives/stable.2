@@ -1,84 +1,74 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967A042885F
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:05:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029A741BA6A
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784556354; cv=none; b=VdhR4dzqo/W6jKh4bGOjueSYH6exOAW/sR6v9CUJvwB4hEYyfo/Bz1OSaqKw1bZzl2/8QqBgJsHY+X2vfvTmqob1HKL7PlKsxn4A0AFtlFn/pEf5BqF4BIFBTDsA4FVphtIJx32yYcOftGFInbrXXCbnGM/D5gATz0a1qGg0f8I=
+	t=1784556474; cv=none; b=suEHMdXhOWVw0Ew8uoPzxD8wUSe9xUH/AoojxI1csw4ECmcbIXwZMJkxEdyYGABmp3mVAha55B5O6CXZf+ez4rd8L/9VAA2zKfQUW8L9sk9/YSsGcDybhn5XYYcZSgbIkS4azjl44og/fIIEVzlq42dVED0mGXPbI47O6qi25pI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784556354; c=relaxed/simple;
-	bh=ePAKTHXDKdNb0FH/H3wB+Xwk4sX0kyILjAOUtmZQnIw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNZZrCoKcqB/lwbu1hMc27i2I+8Wktbh/s/jP0bQMen36gDglL0EGZzjD+OMK+1XeXpSFIQSzlkA8yQe8/ftOWxzFUP0LFi28FiBa6TU+E5d2IW/wGij9gvsvzek2b/v8BjlxjZ2/xAX/EvFi8Z3Psex/+KL3UP9zrGAAnEiEho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=FGtpU4+z; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
+	s=arc-20240116; t=1784556474; c=relaxed/simple;
+	bh=ZFaLCPgchIZgXijV5F5+ubnaVi7qnACnLaAG4h2cHAc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DwqYubm0U8gzAD0JVxgkYSAeUvv9u5IV8pK6FAfa3IlqHFgV/fR/+Es081GMv4x9DyYNt2oF81bPBz1skTot7MToXbd/DMeYYtDMnyjivcsNhuAnWYH+8YgVXijkr7DOS3XtjoQMng3SGPZ4E8oe7/14lADxw2lYokDJouFRT2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j1ovKhLn; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="FGtpU4+z"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47f7872abb6so440734f8f.3
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 07:05:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j1ovKhLn"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51bfad59921so88841581cf.0
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 07:07:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1784556350; x=1785161150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DRi4OgK0lR0T6QvblIYz4VmndjhrAJYR+QcTs5ku3lo=;
-        b=FGtpU4+zq3uD/a4wQijQAAsqSKc2mq31h0WlT6dzLh7tbF/bI4JYTljJVy6rfvRM+4
-         CXBPa7RbSCfCVraD3AdExqyKnvN5cPbUCrM53+98rEdoo1PzP5t+yB3+3F+DhDIJqdWF
-         09AWjN91TwmSNEg1FjNyDQDm8pCv2AAvDtafedBUBSvUTy9B1zOC/oB2L5vx6bUeWlaW
-         vAM14aaW6/gjUTbWQJEz5uZFJo0fbyDo6EwUMQ3NOWqsPDckfRaFL53s4G/qXVTI1Dl3
-         MzW6G9YwxZELV+Cfec3GiFlv8NqMOqnR8mShujj4pqztllJXzXf4EMcWu5NBnkzNx+ns
-         7g7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784556350; x=1785161150;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784556472; x=1785161272; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DRi4OgK0lR0T6QvblIYz4VmndjhrAJYR+QcTs5ku3lo=;
-        b=fGE8cigsGy21d27KsX5d6WEsqHzHBVXdn5xMr7Ms9B2aB67rc+TBAQY3Ys8Y9UA1Ya
-         IsiN+GJJioamC+scmmhVewIexiC2oQwv/ipvRW4aQmwHEnpvacgRyaLr9KKHUTX724d7
-         h4Ku9pQ9sdnk4UbwfYgFLvcAxQFopKSE2vJV7tuzN85WTEjQZPwr3O7GcKDg2nieL3a4
-         I+7Km/pk/3LJWXd/wrR6Nm+oHimjLhHPZ7sMWwDH8hebJqIa83o202DjYna1CALlzRQS
-         RGbQMOIO2s5XNgYpHuMSrlvwQ6Av+DNtITE00AudmaI1DmxfxIJM5D75M5F+Qj+MBnD3
-         fc6g==
-X-Forwarded-Encrypted: i=1; AHgh+RoQZ9+FsoOYQojYjKPAd0Cn5Wx+v/QoaafZTCGfpyOZiQmF6SyuyzJl+X4RR5qVWaKya1H7aa8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/6m1+0oVHbvjx676tyufDjzwRo1ssgiuDCZAQ6PYXdmO7uFQf
-	HsX92YY6G9JFVe4TOJQWo9xI50vFsVeHn+jhxxsgWVArhOV19ohqj7bqxa/5bD8Y/Dg=
-X-Gm-Gg: AR+sD10/FKVOk25EeNoMZZwbFZQGGjM3tGrhc+oSzeSxzVOk+HU34MyUj2+Io9NiaX4
-	KfayFFl6h6Nr0jCoD8AyKvYuXWui0HXXurdn4WvJ9hg/6wFSEmbtI+nL3LyJBNITNlzKny2ZJcA
-	qa5Tl18LhPKckQfUgUKBoSBfcAN2lIGekH/yELfCarPPZ84UcGyfQAbfdQ1td7VIXSarUy9YSke
-	jpZwesejEHa60BaGhwOJTnfd5je3rH9RFaSxKMYMI/AebITB04HseoDYQc0hDCF6FDW7Kj+R1GI
-	31H6QyddfYbcX5vkB1l/WoayCDNro37+ihztOVpJVjGFksHEMpAvo2WjA7NQ0Ratf0gzZrTeTNU
-	zZJkOtrSYtttnA/oTMAH0a+h7YmvpWmAbbdaVibGr5vJ9Kqzt3mwWPqb1/js7l1B4M6JawgA0bj
-	a5AylW
-X-Received: by 2002:a05:6000:4b15:b0:47e:4b05:2c8c with SMTP id ffacd0b85a97d-47f622f81c1mr17766182f8f.15.1784556349482;
-        Mon, 20 Jul 2026 07:05:49 -0700 (PDT)
-Received: from matt-Precision-5490.. ([2a09:bac6:37a8:1cdc::2e0:ea])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f63e496ffsm29757674f8f.3.2026.07.20.07.05.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 07:05:48 -0700 (PDT)
-From: Matt Fleming <matt@readmodwrite.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: [PATCH bpf v2] veth: convert frag_list skbs before running XDP
-Date: Mon, 20 Jul 2026 15:05:45 +0100
-Message-ID: <20260720140545.461747-1-matt@readmodwrite.com>
-X-Mailer: git-send-email 2.43.0
+        bh=bg+kYn9tefUszk0NhzD3FkM735R7nfMPQLXCJ8bN4CA=;
+        b=j1ovKhLnZ7Ldjdncc0RW4UZj4dEQtluX31mIhXOOYBzlbLXXYstwwUlPercVEhGiQp
+         a8wtEUQaBcEpoXRjB+DEWa9YKHcrF98VbGIujk8V2j8p4lKWfgWAg1wFrCH6ZULxkSKM
+         5RVw7MHoFAvLGTWPR0k0ZyIki3sbKza+t9x/ppXxY3I3kiP6mSq/ZbL9QuLUVEGxZ/6Z
+         nU1eyDs9Y3R8+vhKrR4nMkkUtRaYGfpqQDLaeICG3bCC1Esp2Xp9x2XSghWW2ZKHYi2x
+         LeuqAomgXRLcL/OH98EClyOtCyS/92HSdroRObkhuihW4MKSz0o5ASkhBw25I6euRth0
+         3mtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784556472; x=1785161272;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bg+kYn9tefUszk0NhzD3FkM735R7nfMPQLXCJ8bN4CA=;
+        b=aiiZVygehrcosnG6GQuRxSd+nZ4AuuGOWeWX3M4gH85Ovgz/ifHvaVn8kezn7atl6M
+         WFKrAaJu19+jSR8IcMcNRAGXLz7AezINmrrZ3YK4DU7jlUEiWlE104yG0BOuvNgoAlbX
+         b5xcRxPJa6GbAKHVNtYPyUs2gqZE0VOScxifRpNzcKjbDuyifxNLTGbR8bXiYmI4GroM
+         fFkyBb1bAv6dO4ttAXSw+RHqnUIJrX4H8jgpR6531ND73QHNCfda8+6UCYJkPSKuWXjm
+         nJ9+OYudIrjYsUS6/kh4MlDD0UAKp5vAhf7rIVpG1j8XcKARnMORNR9l2L7YovmyXwlI
+         jylA==
+X-Gm-Message-State: AOJu0YxDZlZBuJbkK4zrKS72W8m95TfSz8wxmKlYkagv7MS2TpX4nfw0
+	d0amTWcqtuYwnYpTLyY0c1jfPyv4NfAA6MebToXjXmsAmWQA2Z8pdvvqVMmrZg==
+X-Gm-Gg: AfdE7cmGsXIOw0QEfs2DVXHPxwKnmiJlI8Kferz3e9S31hnUIXRzZ75qje5xj/IZ2CK
+	oQpEnA+fhBgGUCbhoSWSnauvO8ky2pgWhHIyMJJ5sAR10GymkcQTt/MCebmi7zg+eGygnwscvU/
+	vtNEPjA3bv7H8gJLnEn+7NhDCVesQM9U4tRcf6PeErqORvqKqYJkBBKNECGm/NzAIhoCQjLbsTG
+	HAMYjH0+iOPCewFam/XAVRafUYCWn3T+SQEN7Jmma8LOy9ZHbWNMh7zK3Ts58uzcNOK2fFIj+5Y
+	67TDPkI+7Dbkvr8KTSdtGvf5fUPGE/Se9gsbhN29POFC0LC69c/Wti8cvkNdCnZeXqGs6wP4Onf
+	sCWkpSSJj4CWu6h4dcQa5gw/nqj079/VGB7cYj64mTcRyhBCqOGF77LIt/KX8RVFR03NhXOyTrj
+	eFQnm5vU5F9REeennxCZ74h+/BAq6tAkGgou/GNAzgaOOu5LWa40qGCd6UqZ0=
+X-Received: by 2002:a05:622a:5c17:b0:51b:ecca:f2e0 with SMTP id d75a77b69052e-5213c00ad66mr131704351cf.5.1784556471504;
+        Mon, 20 Jul 2026 07:07:51 -0700 (PDT)
+Received: from localhost.localdomain (syr-227-232.syr.edu. [128.230.227.232])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5214c5cd3dbsm76711691cf.5.2026.07.20.07.07.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 20 Jul 2026 07:07:51 -0700 (PDT)
+From: Shivam Kumar <kumar.shivam43666@gmail.com>
+To: stable@vger.kernel.org
+Cc: Shivam Kumar <kumar.shivam43666@gmail.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Keith Busch <kbusch@kernel.org>
+Subject: [PATCH 5.10.y] nvmet-tcp: Fix potential UAF when ddgst mismatch
+Date: Mon, 20 Jul 2026 10:07:48 -0400
+Message-ID: <20260720140748.17471-1-kumar.shivam43666@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <2026071900-poster-swear-030a@gregkh>
+References: <2026071900-poster-swear-030a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,93 +77,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matt Fleming <mfleming@cloudflare.com>
+commit dbbd07d0a7020b80f6a7028e561908f7b83b3d5a upstream.
 
-A frag_list skb can reach veth with data_len set but nr_frags zero.
-veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
-locked, have frags[], or do not have enough headroom. It later uses
-skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
-xdp_frags_size.
+Shivam Kumar found via vulnerability testing:
+When data digest is enabled on an NVMe/TCP connection and a digest
+mismatch occurs on a non-final H2C_DATA PDU during an R2T-based
+data transfer, the digest error handler in nvmet_tcp_try_recv_ddgst()
+calls nvmet_req_uninit() - which performs percpu_ref_put() on the
+submission queue - but does NOT mark the command as completed. It
+does not set cqe->status, does not modify rbytes_done, and does not
+clear any flag. When the subsequent fatal error triggers queue
+teardown, nvmet_tcp_uninit_data_in_cmds() iterates all commands,
+checks nvmet_tcp_need_data_in() for each one, and finds that the
+already-uninited command still appears to need data (because
+rbytes_done < transfer_len and cqe->status == 0). It therefore calls
+nvmet_req_uninit() a second time on the same command - a double
+percpu_ref_put against a single percpu_ref_get.
 
-That exposes frag_list data to XDP as if it were stored in frags[], but
-frags[] is empty. AF_XDP copy mode can then trust the bogus XDP fragment
-metadata, walk an empty fragment entry, and crash in memcpy() from
-__xsk_rcv().
-
-Route non-linear skbs through skb_pp_cow_data() before exposing them to
-XDP, and only advertise XDP frags when the resulting skb has frags[].
-skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
-builds frags[] output with skb_add_rx_frag(), which is the
-representation XDP multi-buffer expects.
-
-Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+Reported-by: Shivam Kumar <kumar.shivam43666@gmail.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Sagi Grimberg <sagi@grimberg.me>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Shivam Kumar <kumar.shivam43666@gmail.com>
 ---
-Changes in v2:
-- Use skb_is_nonlinear() in veth_convert_skb_to_xdp_buff().
-- Move the skb_pp_cow_data() comment into kerneldoc.
+ drivers/nvme/target/tcp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
- drivers/net/veth.c |  4 ++--
- net/core/skbuff.c  | 16 ++++++++++------
- 2 files changed, 12 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 1c5142149175..00e34afd858e 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -756,7 +756,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	u32 frame_sz;
- 
- 	if (skb_shared(skb) || skb_head_is_locked(skb) ||
--	    skb_shinfo(skb)->nr_frags ||
-+	    skb_is_nonlinear(skb) ||
- 	    skb_headroom(skb) < XDP_PACKET_HEADROOM) {
- 		if (skb_pp_cow_data(rq->page_pool, pskb, XDP_PACKET_HEADROOM))
- 			goto drop;
-@@ -771,7 +771,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
- 			 skb_headlen(skb), true);
- 
--	if (skb_is_nonlinear(skb)) {
-+	if (skb_shinfo(skb)->nr_frags) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
- 	} else {
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 18dabb4e9cfa..66f57131633a 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -927,6 +927,16 @@ static void skb_clone_fraglist(struct sk_buff *skb)
- 		skb_get(list);
- }
- 
-+/**
-+ * skb_pp_cow_data() - copy skb data into page-pool backed storage
-+ * @pool: page pool to allocate from
-+ * @pskb: pointer to skb pointer, replaced with the copied skb on success
-+ * @headroom: headroom to reserve in the copied skb
-+ *
-+ * skb_copy_bits() handles both frags[] and frag_list input. If the copied
-+ * skb remains non-linear, it uses frags[], which is the representation used
-+ * by XDP multi-buffer.
-+ */
- int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 		    unsigned int headroom)
- {
-@@ -936,12 +946,6 @@ int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 	int err, i, head_off;
- 	void *data;
- 
--	/* XDP does not support fraglist so we need to linearize
--	 * the skb.
--	 */
--	if (skb_has_frag_list(skb))
--		return -EOPNOTSUPP;
--
- 	max_head_size = SKB_WITH_OVERHEAD(PAGE_SIZE - headroom);
- 	if (skb->len > max_head_size + MAX_SKB_FRAGS * PAGE_SIZE)
- 		return -ENOMEM;
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index ba5817006..11e917d02 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -1200,8 +1200,10 @@ static int nvmet_tcp_try_recv_ddgst(struct nvmet_tcp_queue *queue)
+ 			queue->idx, cmd->req.cmd->common.command_id,
+ 			queue->pdu.cmd.hdr.type, le32_to_cpu(cmd->recv_ddgst),
+ 			le32_to_cpu(cmd->exp_ddgst));
+-		if (!(cmd->flags & NVMET_TCP_F_INIT_FAILED))
++		if (!(cmd->flags & NVMET_TCP_F_INIT_FAILED)) {
++			cmd->req.cqe->status = NVME_SC_CMD_SEQ_ERROR;
+ 			nvmet_req_uninit(&cmd->req);
++		}
+ 		nvmet_tcp_free_cmd_buffers(cmd);
+ 		nvmet_tcp_fatal_error(queue);
+ 		ret = -EPROTO;
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
