@@ -1,151 +1,223 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19F53B3C0D
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132773B2FDB
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784554973; cv=none; b=ZPrnCes/mKTl0ju/d2kVRocKX3jmFUphgzBWu0AcQHfWtDqsjxSys73RRx5jRG7BM8mDnmSMCFE7Q/WeykA8ERT26Uqt1PIpA/axtrdHebbl9w5N1y8//BDe9CX8l7wdFS6AWpSMs4kNTeKsyi9ZmR2xj2q4gKcL3OA2SdEJYjI=
+	t=1784554993; cv=none; b=l1Y3RbgxZO9UqQiG4n4K6f6yE7++yv0XNswOou4EkS+p7xgrvUOitqscRmcgkuiA11KvgUVbTETdwxl2Tma7DTwv+BxjI3Y01E3Sw1FqQdB5lps6+nHgudRpsFzt/cBr0zkQrN5pgPkeFtGTNJlplS6USeM4+x5po5fsmkqXFMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784554973; c=relaxed/simple;
-	bh=EsvKt5wGyial0Aed20j3d9Zn1kRAIYlLAYXoevWcNWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uJM4+uDw4K5uEzoNX/30lCpLPmEFI7GkvsMYTyFzuysccJ06Gp5iPAlwGoeuLcO7dDGJjMazUyQ4iHlqWFpSguaXgLvA4itGLJ7xAfjCR4onOd0kbUtZnvCYpkgCyhhrCzWpQeAqEmReg7dSz4udv1IRi6qG7bx5M/WN3CpNejo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=OQ38jxH4; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1784554993; c=relaxed/simple;
+	bh=dmd1IPjdBg8y/93QPL/0wzyFizpOmxuNFS2YOWfZa5Y=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=M0l5nemCFAq/dj0vSmZR7qSZrT0AiSfDWQv3YcBc8JG9SphvByOnb4yEeWfLESvlhToEhVSX8wFhql1odmuBfJCKsUqIaOqjwpZUTxQBL0B5goSnkCd6SIBdzpZmeNJTH6z9aOmr70r8BEKMjaB/7Fed/8bXXlVcsLapQJ8PwKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wVMfVG98; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="OQ38jxH4"
-Received: by dvalin.narfation.org (Postfix) id 2A6DA20131;
-	Mon, 20 Jul 2026 13:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1784554967;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S1/5e4POs9+uR4/TQMz3IU5d1A5JKulzbZDqSeevvFU=;
-	b=OQ38jxH4dlu5Os0L/BXuDUy3thxcRdA/xIeJedwhhRHpgcwIJbE8qFauq7K8YqcGwz1hVS
-	6HN6ZCsAYmPcoGQ4YpCFTY3AEETD0norjREnJH4AFS46WrefjWcZqfvhtyu8EpuZznjJ3H
-	pGYdMXXrqsjhwi4toSTUlYDLcTR/+AA=
-From: Sven Eckelmann <sven@narfation.org>
-To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.12.y] batman-adv: clean untagged VLAN on netdev registration failure
-Date: Mon, 20 Jul 2026 15:42:34 +0200
-Message-ID: <20260720134234.568023-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072025-entire-upward-8119@gregkh>
-References: <2026072025-entire-upward-8119@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wVMfVG98"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE141F000E9;
+	Mon, 20 Jul 2026 13:43:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784554986;
+	bh=TMwVSJygEDofTJHEXBrKTKqUVyz9HDiUoQ9HtSmTrl8=;
+	h=Subject:To:Cc:From:Date;
+	b=wVMfVG9849PkbGgq9+p9L+xZkJMdw8BI+S+EQShzkK9/BMWXxzq9XkvBOAGkh6ulP
+	 ttaeBtLjOhraYkfRHLxnkts0XSRppS8PK5kIr4XaymnN8i6V6tzB1BLvW3T6gGyAAV
+	 HwKYW16ib+G8YZVfIS5MQ5s58VrzY8Yv0mZNEW9A=
+Subject: FAILED: patch "[PATCH] SUNRPC: Return an error from xdr_buf_to_bvec() on overflow" failed to apply to 7.1-stable tree
+To: cel@kernel.org,chuck.lever@oracle.com,clm@meta.com,jlayton@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 20 Jul 2026 15:42:57 +0200
+Message-ID: <2026072057-glucose-profile-c2be@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-commit 8669a550c752d86baebc5fdc83b8ff35c4372c0e upstream.
 
-When an mesh interface is registered, it creates an untagged struct
-batadv_meshif_vlan on top of it via the NETDEV_REGISTER notifier. But in
-this process, another receiver of this notification can veto the
-registration. The netdev registration will be aborted because of this veto.
+The patch below does not apply to the 7.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The register_netdevice() call will try to clean up the net_device using
-unregister_netdevice_queue() - which only uses the .priv_destructor to
-free private resources. In this situation, .dellink will not be called.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The cleanup of the untagged batadv_meshif_vlan must thefore be done in the
-destructor to avoid a leak of this object.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 18c1cc69886192e33536498289d26dba6894e3d5
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072057-glucose-profile-c2be@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 18c1cc69886192e33536498289d26dba6894e3d5 Mon Sep 17 00:00:00 2001
+From: Chuck Lever <cel@kernel.org>
+Date: Tue, 19 May 2026 09:34:22 -0400
+Subject: [PATCH] SUNRPC: Return an error from xdr_buf_to_bvec() on overflow
+
+xdr_buf_to_bvec() returns a slot count even when the caller's bvec
+budget is exhausted partway through the xdr_buf. Callers feed that
+count into iov_iter_bvec() and continue as if the conversion had
+succeeded, silently sending or writing fewer bytes than the data
+length declares. For an NFS WRITE the server reports the truncated
+transfer to the client as full success.
+
+The overflow represents an internal invariant violation: a higher
+layer reserved a bvec budget too small for the xdr_buf it then
+asked the encoder to convert. That is a server-side fault, not a
+media I/O failure and not a malformed client argument.
+
+Change xdr_buf_to_bvec() to return a signed int and have the
+overflow label return -ESERVERFAULT. Update the three callers to
+detect the negative return and fail the request: nfsd_vfs_write()
+folds the error into host_err, which nfserrno() translates to
+nfserr_serverfault for the WRITE reply; svc_udp_sendto() and
+svc_tcp_sendmsg() propagate the error out of the send path.
+
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: 2eb2b9358181 ("SUNRPC: Convert svc_tcp_sendmsg to use bio_vecs directly")
 Cc: stable@vger.kernel.org
-Fixes: 5d2c05b21337 ("batman-adv: add per VLAN interface attribute framework")
-[ switch to old "mesh_iface" name "soft_iface" ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
----
- net/batman-adv/main.c           |  8 ++++++++
- net/batman-adv/soft-interface.c | 13 ++-----------
- net/batman-adv/soft-interface.h |  2 ++
- 3 files changed, 12 insertions(+), 11 deletions(-)
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
-diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
-index e989a81084e92..c2e1250aa4333 100644
---- a/net/batman-adv/main.c
-+++ b/net/batman-adv/main.c
-@@ -259,6 +259,7 @@ int batadv_mesh_init(struct net_device *soft_iface)
- void batadv_mesh_free(struct net_device *soft_iface)
- {
- 	struct batadv_priv *bat_priv = netdev_priv(soft_iface);
-+	struct batadv_softif_vlan *vlan;
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index ba97e287c007..cba473969429 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -1440,7 +1440,7 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	unsigned long		exp_op_flags = 0;
+ 	unsigned int		pflags = current->flags;
+ 	bool			restore_flags = false;
+-	unsigned int		nvecs;
++	int			nvecs;
  
- 	atomic_set(&bat_priv->mesh_state, BATADV_MESH_DEACTIVATING);
+ 	trace_nfsd_write_opened(rqstp, fhp, offset, *cnt);
  
-@@ -274,6 +275,13 @@ void batadv_mesh_free(struct net_device *soft_iface)
- 
- 	batadv_mcast_free(bat_priv);
- 
-+	/* destroy the "untagged" VLAN */
-+	vlan = batadv_softif_vlan_get(bat_priv, BATADV_NO_FLAGS);
-+	if (vlan) {
-+		batadv_softif_destroy_vlan(bat_priv, vlan);
-+		batadv_softif_vlan_put(vlan);
-+	}
-+
- 	/* Free the TT and the originator tables only after having terminated
- 	 * all the other depending components which may use these structures for
- 	 * their purposes.
-diff --git a/net/batman-adv/soft-interface.c b/net/batman-adv/soft-interface.c
-index f46064333f334..a24c39d5fa740 100644
---- a/net/batman-adv/soft-interface.c
-+++ b/net/batman-adv/soft-interface.c
-@@ -602,8 +602,8 @@ int batadv_softif_create_vlan(struct batadv_priv *bat_priv, unsigned short vid)
-  * @bat_priv: the bat priv with all the soft interface information
-  * @vlan: the object to remove
-  */
--static void batadv_softif_destroy_vlan(struct batadv_priv *bat_priv,
--				       struct batadv_softif_vlan *vlan)
-+void batadv_softif_destroy_vlan(struct batadv_priv *bat_priv,
-+				struct batadv_softif_vlan *vlan)
- {
- 	/* explicitly remove the associated TT local entry because it is marked
- 	 * with the NOPURGE flag
-@@ -1099,22 +1099,13 @@ static int batadv_softif_newlink(struct net *src_net, struct net_device *dev,
- static void batadv_softif_destroy_netlink(struct net_device *soft_iface,
- 					  struct list_head *head)
- {
--	struct batadv_priv *bat_priv = netdev_priv(soft_iface);
- 	struct batadv_hard_iface *hard_iface;
--	struct batadv_softif_vlan *vlan;
- 
- 	list_for_each_entry(hard_iface, &batadv_hardif_list, list) {
- 		if (hard_iface->soft_iface == soft_iface)
- 			batadv_hardif_disable_interface(hard_iface);
+@@ -1480,6 +1480,10 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
  	}
  
--	/* destroy the "untagged" VLAN */
--	vlan = batadv_softif_vlan_get(bat_priv, BATADV_NO_FLAGS);
--	if (vlan) {
--		batadv_softif_destroy_vlan(bat_priv, vlan);
--		batadv_softif_vlan_put(vlan);
--	}
--
- 	unregister_netdevice_queue(soft_iface, head);
- }
+ 	nvecs = xdr_buf_to_bvec(rqstp->rq_bvec, rqstp->rq_maxpages, payload);
++	if (nvecs < 0) {
++		host_err = nvecs;
++		goto out_nfserr;
++	}
  
-diff --git a/net/batman-adv/soft-interface.h b/net/batman-adv/soft-interface.h
-index 9f2003f1a4972..13709a5d23e3b 100644
---- a/net/batman-adv/soft-interface.h
-+++ b/net/batman-adv/soft-interface.h
-@@ -22,6 +22,8 @@ void batadv_interface_rx(struct net_device *soft_iface,
- bool batadv_softif_is_valid(const struct net_device *net_dev);
- extern struct rtnl_link_ops batadv_link_ops;
- int batadv_softif_create_vlan(struct batadv_priv *bat_priv, unsigned short vid);
-+void batadv_softif_destroy_vlan(struct batadv_priv *bat_priv,
-+				struct batadv_softif_vlan *vlan);
- void batadv_softif_vlan_release(struct kref *ref);
- struct batadv_softif_vlan *batadv_softif_vlan_get(struct batadv_priv *bat_priv,
- 						  unsigned short vid);
--- 
-2.47.3
+ 	since = READ_ONCE(file->f_wb_err);
+ 	if (verf)
+diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
+index 31971b01d962..b102b4f21e6b 100644
+--- a/include/linux/sunrpc/xdr.h
++++ b/include/linux/sunrpc/xdr.h
+@@ -138,8 +138,8 @@ void	xdr_terminate_string(const struct xdr_buf *, const u32);
+ size_t	xdr_buf_pagecount(const struct xdr_buf *buf);
+ int	xdr_alloc_bvec(struct xdr_buf *buf, gfp_t gfp);
+ void	xdr_free_bvec(struct xdr_buf *buf);
+-unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+-			     const struct xdr_buf *xdr);
++int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
++		    const struct xdr_buf *xdr);
+ int xdr_buf_to_sg(const struct xdr_buf *buf, unsigned int offset,
+ 		  unsigned int len, struct scatterlist *sg, unsigned int nsg);
+ int xdr_buf_to_sg_alloc(const struct xdr_buf *buf, unsigned int offset,
+diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
+index 7be3de1a1aed..c434b6a6637d 100644
+--- a/net/sunrpc/svcsock.c
++++ b/net/sunrpc/svcsock.c
+@@ -732,7 +732,7 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
+ 		.msg_flags	= MSG_SPLICE_PAGES,
+ 		.msg_controllen	= sizeof(buffer),
+ 	};
+-	unsigned int count;
++	int count;
+ 	int err;
+ 
+ 	svc_udp_release_ctxt(xprt, rqstp->rq_xprt_ctxt);
+@@ -746,6 +746,10 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
+ 		goto out_notconn;
+ 
+ 	count = xdr_buf_to_bvec(svsk->sk_bvec, SUNRPC_MAX_UDP_SENDPAGES, xdr);
++	if (count < 0) {
++		err = count;
++		goto out_trace;
++	}
+ 
+ 	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
+ 		      count, rqstp->rq_res.len);
+@@ -757,6 +761,7 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
+ 		err = sock_sendmsg(svsk->sk_sock, &msg);
+ 	}
+ 
++out_trace:
+ 	trace_svcsock_udp_send(xprt, err);
+ 
+ 	mutex_unlock(&xprt->xpt_mutex);
+@@ -1237,7 +1242,7 @@ static int svc_tcp_sendmsg(struct svc_sock *svsk, struct svc_rqst *rqstp,
+ 	struct msghdr msg = {
+ 		.msg_flags	= MSG_SPLICE_PAGES,
+ 	};
+-	unsigned int count;
++	int count;
+ 	void *buf;
+ 	int ret;
+ 
+@@ -1253,10 +1258,15 @@ static int svc_tcp_sendmsg(struct svc_sock *svsk, struct svc_rqst *rqstp,
+ 
+ 	count = xdr_buf_to_bvec(svsk->sk_bvec + 1, rqstp->rq_maxpages,
+ 				&rqstp->rq_res);
++	if (count < 0) {
++		ret = count;
++		goto out;
++	}
+ 
+ 	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
+ 		      1 + count, sizeof(marker) + rqstp->rq_res.len);
+ 	ret = sock_sendmsg(svsk->sk_sock, &msg);
++out:
+ 	page_frag_free(buf);
+ 	return ret;
+ }
+diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
+index 8f52782d8a37..fa6a30b5f046 100644
+--- a/net/sunrpc/xdr.c
++++ b/net/sunrpc/xdr.c
+@@ -139,13 +139,14 @@ xdr_free_bvec(struct xdr_buf *buf)
+ /**
+  * xdr_buf_to_bvec - Copy components of an xdr_buf into a bio_vec array
+  * @bvec: bio_vec array to populate
+- * @bvec_size: element count of @bio_vec
++ * @bvec_size: element count of @bvec
+  * @xdr: xdr_buf to be copied
+  *
+- * Returns the number of entries consumed in @bvec.
++ * Returns the number of entries consumed in @bvec on success, or
++ * -ESERVERFAULT when @xdr does not fit within @bvec_size entries.
+  */
+-unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+-			     const struct xdr_buf *xdr)
++int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
++		    const struct xdr_buf *xdr)
+ {
+ 	const struct kvec *head = xdr->head;
+ 	const struct kvec *tail = xdr->tail;
+@@ -187,7 +188,7 @@ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+ 
+ bvec_overflow:
+ 	pr_warn_once("%s: bio_vec array overflow\n", __func__);
+-	return count;
++	return -ESERVERFAULT;
+ }
+ EXPORT_SYMBOL_GPL(xdr_buf_to_bvec);
+ 
 
