@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8699B437473
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:55:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6AC437473
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:56:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562958; cv=none; b=Ugf0P1KqV/Svu5mFoOBypcERqXaAEBiuRBPR3BHm/4ut7GaoYkBKz8Q+ZdLoYMT1wJj/VOI9sTo2hk7fnCjl/uQBkUNP7ZdLprIzKAeniKUSRmCfrG8uiJFUCUexQ/EQgcTVHFk/l0+VArz/AwZD3T8WqyA6ATk+rAFIJ6kgFb8=
+	t=1784562961; cv=none; b=b/qziu/vuCkolcBZvunRQ76VayzozPizqtMZ4UKM1qTs+3w+Nxxfo7mvT6fZMZgq05v2tpMBiVMG3R0QpHAAwzBxk48JHY4KT2B7iCb0+v9bLUTIzkZEVps+ahnNvrNdif+csUoUTsQVlToPa8nfLhxwuZ3sqlzuStNPNkG/xJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562958; c=relaxed/simple;
-	bh=lhB8dwDFFn1KgowCY9QqodnLpivmp6NS6T+H0IfYEUg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iBkmYt2GXAm2+EMSNUL5S35V7BNshV0dznFpUUskpr9i5p4rANQD5QvyMDm+MiwS5x55fjeE03ExRRbTXj/5KisOsTe9GOvISa0PnY9V8cnt4ovqP6Dkb4Ehp8Tq9Z2mptjte0FGb3rAvuCwCZZUvmLbnR0qcGqGBAK6fTKUbhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KjX/nnnU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784562961; c=relaxed/simple;
+	bh=B3854W3IwRI66jMdFDZEQdo0oe2r7MXZl35w4wSFfi0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nBCfAHLFw4zAjDWcOGJil59Yb4JvfiYSHCDVXp0w3h/SnN2Mw7dE7mWv6jkxfJc+yL0WBPzn5tNrpk9ktGl6OzXz73W3o+Xu2L5K1cdQTLew+xKIAzY9snxYALZVAivIM6M6n8sJLVBILWRU9duVVtuSBFdGmi0+TEIr2Nd6q64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tFSenEzm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KjX/nnnU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48C01F000E9;
-	Mon, 20 Jul 2026 15:55:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tFSenEzm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D77A1F000E9;
+	Mon, 20 Jul 2026 15:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562957;
-	bh=RXgHzMxJqTu7w+/Y4KBZqN1GqXB1sJT7PvnFoVOjflI=;
+	s=korg; t=1784562959;
+	bh=QhZiHySWCMTdmmVurMGyLRj1gueiyk1nksJCfcBv1Cs=;
 	h=Subject:To:Cc:From:Date;
-	b=KjX/nnnU5/MeMV1KhV272os9lMhXAZaa/ReeZ8kc5gu7qY2vctN7WemkGF5seIee1
-	 6455gEXSqwX6kk1evBNdYJ9h9YWZR63dSgXoMlcDZpl+j5KTtfr4el5jOYGhQacwsH
-	 q/ZqOEVSDxxF5feZeQGHiKfuuhsO4AelDlGSkCGw=
-Subject: FAILED: patch "[PATCH] net: mana: Optimize irq affinity for low vcpu configs" failed to apply to 6.18-stable tree
-To: shradhagupta@linux.microsoft.com,ernis@linux.microsoft.com,haiyangz@microsoft.com,horms@kernel.org,kuba@kernel.org,ynorov@nvidia.com
+	b=tFSenEzmswJPTmYJTgR8Cm2In8F6W7BrgtzefZR32yMm5VLni+UjuIaLTgrTAFuc2
+	 rXPKN99wAtcZjdor/5bdsYgYFx0FKVXqrCKcYt29JsaPOKzXDIX++pl9zieNKTt3Mu
+	 WfBcK3QGrN2RZidgMD6+Q3Lny2O6yPHOOyk5oZwI=
+Subject: FAILED: patch "[PATCH] net: mana: Sync page pool RX frags for CPU" failed to apply to 6.18-stable tree
+To: decui@microsoft.com,haiyangz@microsoft.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:50:09 +0200
-Message-ID: <2026072009-humid-given-b308@gregkh>
+Date: Mon, 20 Jul 2026 17:50:20 +0200
+Message-ID: <2026072020-cathedral-preoccupy-0b9c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5316394b1752f6cf3f9901e7fefdec1cd1d97fd3
+git cherry-pick -x c72a0f09c57f92113df69f9b902d11c9e4b132f5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072009-humid-given-b308@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072020-cathedral-preoccupy-0b9c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,246 +62,159 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5316394b1752f6cf3f9901e7fefdec1cd1d97fd3 Mon Sep 17 00:00:00 2001
-From: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Date: Wed, 24 Jun 2026 00:21:35 -0700
-Subject: [PATCH] net: mana: Optimize irq affinity for low vcpu configs
+From c72a0f09c57f92113df69f9b902d11c9e4b132f5 Mon Sep 17 00:00:00 2001
+From: Dexuan Cui <decui@microsoft.com>
+Date: Wed, 1 Jul 2026 21:12:37 -0700
+Subject: [PATCH] net: mana: Sync page pool RX frags for CPU
 
-Before the commit 755391121038 ("net: mana: Allocate MSI-X vectors
-dynamically"), all the MANA IRQs were assigned statically and together
-during early driver load.
+MANA allocates RX buffers from page pool fragments when frag_count is
+greater than 1. In that case the buffers remain DMA mapped by page pool
+and the RX completion path does not call dma_unmap_single(). As a result,
+the implicit sync-for-CPU normally performed by dma_unmap_single() is
+missing before the packet data is passed to the networking stack.
 
-After this commit, the IRQ allocation for MANA was done in two phases.
-HWC IRQ allocated earlier and then, queue IRQs dynamically added at a
-later point. By this time, the IRQ weights on vCPUs can become imbalanced
-and if IRQ count is greater than the vCPU count the topology aware IRQ
-distribution logic in MANA can cause multiple MANA IRQs to land on the
-same vCPUs, while other sibling vCPUs have none (case 1).
+This breaks RX on configurations which require explicit DMA syncing, for
+example when booted with swiotlb=force.
 
-On SMP enabled, low-vCPU systems, this becomes a bigger problem as the
-softIRQ handling overhead of two IRQs on the same vCPUs becomes much more
-than their overheads if they were spread across sibling vCPUs.
+Fix this by recording the page pool page and DMA sync offset when the RX
+buffer is allocated, and syncing the received packet range for CPU access
+before handing the RX buffer to the stack.
 
-In such cases when many parallel TCP connections are tested, the
-throughput drops significantly.
-
-Fix the affinity assignment logic, in cases where the IRQ count is greater
-than the vCPU count and when IRQs are added dynamically, by utilizing all
-the vCPUs irrespective of their NUMA/core bindings (case 2).
-
-The results of setting the affinity and hint to NULL were also studied,
-and we observed that, with this logic if there are pre-existing IRQs
-allocated on the VM (apart from MANA), during MANA IRQs allocation, it
-leads to clustering of the MANA queue IRQs again (case 3).
-
-=======================================================
-Case 1: without this patch
-=======================================================
-4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-	TYPE		effective vCPU aff
-=======================================================
-IRQ0:	HWC		0
-IRQ1:	mana_q1		0
-IRQ2:	mana_q2		2
-IRQ3:	mana_q3		0
-IRQ4:	mana_q4		3
-
-%soft on each vCPU(mpstat -P ALL 1) on receiver
-vCPU		0	1	2	3
-=======================================================
-pass 1:		38.85	0.03	24.89	24.65
-pass 2:		39.15	0.03	24.57	25.28
-pass 3:		40.36	0.03	23.20	23.17
-
-=======================================================
-Case 2: with this patch
-=======================================================
-4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-        TYPE            effective vCPU aff
-=======================================================
-IRQ0:   HWC             0
-IRQ1:   mana_q1         0
-IRQ2:   mana_q2         1
-IRQ3:   mana_q3         2
-IRQ4:   mana_q4         3
-
-%soft on each vCPU(mpstat -P ALL 1) on receiver
-vCPU            0       1       2       3
-=======================================================
-pass 1:         15.42	15.85	14.99	14.51
-pass 2:         15.53	15.94	15.81	15.93
-pass 3:         16.41	16.35	16.40	16.36
-
-=======================================================
-Case 3: with affinity set to NULL
-=======================================================
-4 vCPU(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
-
-	TYPE		effective vCPU aff
-=======================================================
-IRQ0:	HWC			0
-IRQ1:	mana_q1			2
-IRQ2:	mana_q2			3
-IRQ3:	mana_q3			2
-IRQ4:	mana_q4			3
-
-=======================================================
-Throughput Impact(in Gbps, same env)
-=======================================================
-TCP conn	with patch	w/o patch	aff NULL
-20480		15.65		7.73		5.25
-10240		15.63		8.93		5.77
-8192		15.64		9.69		7.16
-6144		15.64		13.16		9.33
-4096		15.69		15.75		13.50
-2048		15.69		15.83		13.61
-1024		15.71		15.28		13.60
-
-Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
+Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
 Cc: stable@vger.kernel.org
-Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
-Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
 Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Yury Norov <ynorov@nvidia.com>
-Link: https://patch.msgid.link/20260624072138.1632849-1-shradhagupta@linux.microsoft.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Link: https://patch.msgid.link/20260702041237.617719-3-decui@microsoft.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index a0fdd052d7f1..e8b7ffb47eb9 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -210,6 +210,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
- 	} else {
- 		/* If dynamic allocation is enabled we have already allocated
- 		 * hwc msi
-+		 * Also, we make sure in this case the following is always true
-+		 * (num_msix_usable - 1 HWC) <= num_online_cpus()
- 		 */
- 		gc->num_msix_usable = min(resp.max_msix, num_online_cpus() + 1);
- 	}
-@@ -1909,8 +1911,8 @@ void mana_gd_free_res_map(struct gdma_resource *r)
-  * do the same thing.
-  */
- 
--static int irq_setup(unsigned int *irqs, unsigned int len, int node,
--		     bool skip_first_cpu)
-+static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
-+				     int node, bool skip_first_cpu)
- {
- 	const struct cpumask *next, *prev = cpu_none_mask;
- 	cpumask_var_t cpus __free(free_cpumask_var);
-@@ -1946,11 +1948,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
- 	return 0;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index dd4d1c0c582e..9d9bfd116dab 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -2120,12 +2120,16 @@ static void mana_rx_skb(void *buf_va, bool from_pool,
  }
  
-+/* must be called with cpus_read_lock() held */
-+static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
-+{
-+	int cpu;
-+
-+	for_each_online_cpu(cpu) {
-+		if (len == 0)
-+			break;
-+
-+		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
-+		len--;
-+	}
-+}
-+
- static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+ static void *mana_get_rxfrag(struct mana_rxq *rxq, struct device *dev,
+-			     dma_addr_t *da, bool *from_pool)
++			     dma_addr_t *da, bool *from_pool,
++			     struct page **pp_page, u32 *dma_sync_offset)
  {
- 	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct gdma_irq_context *gic;
--	bool skip_first_cpu = false;
- 	int *irqs, err, i, msi;
+ 	struct page *page;
+ 	u32 offset;
+ 	void *va;
++
+ 	*from_pool = false;
++	*pp_page = NULL;
++	*dma_sync_offset = 0;
  
- 	irqs = kmalloc_objs(int, nvec);
-@@ -1958,10 +1973,12 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+ 	/* Don't use fragments for jumbo frames or XDP where it's 1 fragment
+ 	 * per page.
+@@ -2163,31 +2167,47 @@ static void *mana_get_rxfrag(struct mana_rxq *rxq, struct device *dev,
+ 	va  = page_to_virt(page) + offset;
+ 	*da = page_pool_get_dma_addr(page) + offset + rxq->headroom;
+ 	*from_pool = true;
++	*pp_page = page;
++	*dma_sync_offset = offset + rxq->headroom;
+ 
+ 	return va;
+ }
+ 
+ /* Allocate frag for rx buffer, and save the old buf */
+ static void mana_refill_rx_oob(struct device *dev, struct mana_rxq *rxq,
+-			       struct mana_recv_buf_oob *rxoob, void **old_buf,
+-			       bool *old_fp)
++			       struct mana_recv_buf_oob *rxoob, u32 pktlen,
++			       void **old_buf, bool *old_fp)
+ {
++	struct page *pp_page;
++	u32 dma_sync_offset;
+ 	bool from_pool;
+ 	dma_addr_t da;
+ 	void *va;
+ 
+-	va = mana_get_rxfrag(rxq, dev, &da, &from_pool);
++	va = mana_get_rxfrag(rxq, dev, &da, &from_pool, &pp_page,
++			     &dma_sync_offset);
+ 	if (!va)
+ 		return;
+-	if (!rxoob->from_pool || rxq->frag_count == 1)
++	if (!rxoob->from_pool || rxq->frag_count == 1) {
+ 		dma_unmap_single(dev, rxoob->sgl[0].address, rxq->datasize,
+ 				 DMA_FROM_DEVICE);
++	} else {
++		/* The page pool maps the whole page and only syncs for device
++		 * automatically (PP_FLAG_DMA_SYNC_DEV). Sync the received bytes
++		 * for the CPU before they are read: this is required if DMA
++		 * is incoherent or bounce buffers are used.
++		 */
++		page_pool_dma_sync_for_cpu(rxq->page_pool, rxoob->pp_page,
++					   rxoob->dma_sync_offset, pktlen);
++	}
+ 	*old_buf = rxoob->buf_va;
+ 	*old_fp = rxoob->from_pool;
+ 
+ 	rxoob->buf_va = va;
+ 	rxoob->sgl[0].address = da;
+ 	rxoob->from_pool = from_pool;
++	rxoob->pp_page = pp_page;
++	rxoob->dma_sync_offset = dma_sync_offset;
+ }
+ 
+ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
+@@ -2258,7 +2278,8 @@ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
+ 			/* Reuse the RX buffer since rxbuf_oob is unchanged. */
+ 		} else {
+ 
+-			mana_refill_rx_oob(dev, rxq, rxbuf_oob, &old_buf, &old_fp);
++			mana_refill_rx_oob(dev, rxq, rxbuf_oob, pktlen,
++					   &old_buf, &old_fp);
+ 
+ 			/* Unsuccessful refill will have old_buf == NULL.
+ 			 * In this case, mana_rx_skb() will drop the packet.
+@@ -2668,6 +2689,8 @@ static int mana_fill_rx_oob(struct mana_recv_buf_oob *rx_oob, u32 mem_key,
+ 			    struct mana_rxq *rxq, struct device *dev)
+ {
+ 	struct mana_port_context *mpc = netdev_priv(rxq->ndev);
++	struct page *pp_page = NULL;
++	u32 dma_sync_offset = 0;
+ 	bool from_pool = false;
+ 	dma_addr_t da;
+ 	void *va;
+@@ -2675,13 +2698,16 @@ static int mana_fill_rx_oob(struct mana_recv_buf_oob *rx_oob, u32 mem_key,
+ 	if (mpc->rxbufs_pre)
+ 		va = mana_get_rxbuf_pre(rxq, &da);
+ 	else
+-		va = mana_get_rxfrag(rxq, dev, &da, &from_pool);
++		va = mana_get_rxfrag(rxq, dev, &da, &from_pool, &pp_page,
++				     &dma_sync_offset);
+ 
+ 	if (!va)
  		return -ENOMEM;
  
- 	/*
-+	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
-+	 * nvec is only Queue IRQ (HWC already setup).
- 	 * While processing the next pci irq vector, we start with index 1,
- 	 * as IRQ vector at index 0 is already processed for HWC.
- 	 * However, the population of irqs array starts with index 0, to be
--	 * further used in irq_setup()
-+	 * further used in mana_irq_setup_numa_aware()
- 	 */
- 	for (i = 1; i <= nvec; i++) {
- 		msi = i;
-@@ -1975,18 +1992,51 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
- 	}
+ 	rx_oob->buf_va = va;
+ 	rx_oob->from_pool = from_pool;
++	rx_oob->pp_page = pp_page;
++	rx_oob->dma_sync_offset = dma_sync_offset;
  
- 	/*
--	 * When calling irq_setup() for dynamically added IRQs, if number of
--	 * CPUs is more than or equal to allocated MSI-X, we need to skip the
--	 * first CPU sibling group since they are already affinitized to HWC IRQ
-+	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
-+	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
-+	 * skip the first CPU sibling group since they are already affinitized to
-+	 * HWC IRQ
- 	 */
- 	cpus_read_lock();
--	if (gc->num_msix_usable <= num_online_cpus())
--		skip_first_cpu = true;
-+	if (gc->num_msix_usable <= num_online_cpus()) {
-+		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
-+						true);
-+		if (err) {
-+			cpus_read_unlock();
-+			goto free_irq;
-+		}
-+	} else {
-+		/*
-+		 * When num_msix_usable are more than num_online_cpus, our
-+		 * queue IRQs should be equal to num of online vCPUs.
-+		 * We try to make sure queue IRQs spread across all vCPUs.
-+		 * In such a case NUMA or CPU core affinity does not matter.
-+		 * Note: in this case the total mana IRQ should always be
-+		 * num_online_cpus + 1. The first HWC IRQ is already handled
-+		 * in HWC setup calls
-+		 * However, if CPUs went offline since num_msix_usable was
-+		 * computed, queue IRQs will be more than num_online_cpus().
-+		 * In such cases remaining extra IRQs will retain their default
-+		 * affinity.
-+		 */
-+		int first_unassigned = num_online_cpus();
+ 	rx_oob->sgl[0].address = da;
+ 	rx_oob->sgl[0].size = rxq->datasize;
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 13c87baf018e..04acb6791dbd 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -305,6 +305,14 @@ struct mana_recv_buf_oob {
  
--	err = irq_setup(irqs, nvec, gc->numa_node, skip_first_cpu);
--	if (err) {
--		cpus_read_unlock();
--		goto free_irq;
-+		if (nvec > first_unassigned) {
-+			char buf[32];
-+
-+			if (first_unassigned == nvec - 1)
-+				snprintf(buf, sizeof(buf), "%d",
-+					 first_unassigned);
-+			else
-+				snprintf(buf, sizeof(buf), "%d-%d",
-+					 first_unassigned, nvec - 1);
-+
-+			dev_dbg(&pdev->dev,
-+				"MANA IRQ indices #%s will retain the default CPU affinity\n",
-+				buf);
-+		}
-+
-+		mana_irq_setup_linear(irqs, nvec);
- 	}
+ 	void *buf_va;
+ 	bool from_pool; /* allocated from a page pool */
++	/* head page of the page_pool fragment; valid only when
++	 * from_pool && frag_count > 1.
++	 */
++	struct page *pp_page;
++	/* Fragment offset plus rxq->headroom, passed to
++	 * page_pool_dma_sync_for_cpu().
++	 */
++	u32 dma_sync_offset;
  
- 	cpus_read_unlock();
-@@ -2041,7 +2091,7 @@ static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
- 		nvec -= 1;
- 	}
- 
--	err = irq_setup(irqs, nvec, gc->numa_node, false);
-+	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
- 	if (err) {
- 		cpus_read_unlock();
- 		goto free_irq;
+ 	/* SGL of the buffer going to be sent as part of the work request. */
+ 	u32 num_sge;
 
