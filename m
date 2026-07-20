@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5534446F9
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1578E444712
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784567734; cv=none; b=M04Ha+cZzqJukf9VSLGvD/EbwkGT/vgOvOmNpzVKuQR6DC2P/nzpMYRmRP/b/B5GMwqG18265njXqxLRr+D1JkWtvpe1Y+zJKnZ5m/OxoNzm02AuFyu8C4+Xlihkk+ZKuXx0NVp+Pes5p1rwBnzpUv/ZfoxrRk75nqNV3w4smIE=
+	t=1784567736; cv=none; b=ifEAlSArGHXGx2NpzNDKC1grrCBZSsso22KH3mfsYfsTV79Ur+BqXGUB6J386OssqungjnSflzkEcs7Q9Y51PjNbMYapnWnBsUTjOR0gQfmkUf6ZXjjWUNDAncbUxhT7j2qONTJB8hAjaiIUKDpb5w7lpqfP00alDK++1K64dtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784567734; c=relaxed/simple;
-	bh=vJL4VpDlagCdTco1HSnsO1SutaF1aIXKk7ZDpocEW6Q=;
+	s=arc-20240116; t=1784567736; c=relaxed/simple;
+	bh=lwPYy9BFwZcmcm/D7UO/+vNtsBrYb74pDgnNDZVBr6I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g6OCAkIvT5pnDSbFu2eva08wpCYWY0IOGaqlnmubu/lFEGyB4ekTAUQCHYHOE62A3P5xxFBV1rS5WrL+g/ON2+7rub9jb3szh1kmC+2BGbHVgIwELI15WucyUsjEm3oVG7pkQFBy4pt12/9KP/R220XoLsCSr+vcZPEZgTS8nv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aEG8aN3f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LW6oPulJpCHlSqztwy3p6I4hJ8fROtXygUgiU10jV5p9Gss6MP2XWgQUDBCDLw+FVlFCMUQEAp85Co6CMFfhZ2dEUPNQeMsCP33FdgN6HyWzQ10RE3JCOtjI8y98Whtg3YNAciqjrL8W5Y9JHmkRqMF/mmYhbmPqvIvp8SJrOsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCfUxm1u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aEG8aN3f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBAB1F000E9;
-	Mon, 20 Jul 2026 17:15:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCfUxm1u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565771F01559;
+	Mon, 20 Jul 2026 17:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784567728;
-	bh=yNU03f5z66qikIHhPq382zUd1zuALvbfSqI/i+ve7BM=;
+	s=k20260515; t=1784567731;
+	bh=SsTIIZv5oSQrZ5tMNk7Z3PcJZHiujw7FcblCaAPcXVI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aEG8aN3fjkT4Qbaz0lz1mICPxJAaZSYc6MvB4en6Y45DBSgGwwkaMipcXTkXVZDtC
-	 O5VUKElO09IS4XV8BaQl33eylwL2XlZT6Hn6pYM54yeOaikdED7RNaQseOOeQh4CIp
-	 uvJM/Diz9ffHQMYOOp9yhElH/ty+kaZt6eNXVXs36nlDlD+z49E06qweavkYGRqokY
-	 dGCHVb/J41/Of/fm/UkN+GwweXWT0LkSejq+Bz1jmcFOvxWlNMGGGgmEtGRQoF1QSq
-	 CCF2f0f1yA3O1CsH9pVLOPyR3y6ijAzRBZz1GdBwuIXLkjYKKBJqtIBWMyjM1N3dHs
-	 xmyIDl4A2YVWQ==
+	b=NCfUxm1ugrlL8Be+JFz/TBwj6vzGXRDjm7PXfNEJVYpfmMuDH6zwMlpAKFpgg99EO
+	 K+SVAZyb6ELNhbCTwAVpahEwclc0vQGOT7ItWZpz1DrVplEQ9WASszF9bjkw9bNv9x
+	 EGwJBFcAyZR5wiSAsEM8YTKCamIX7/CvGu2U5SL0mu0lhr1EZ3IMpLCJOt8uHcfPNe
+	 ZVy516Cprla2mOoiL4FQjCBIu8dnuMswMdhQS/iTWeEqjVfsEgSk6bJfDUg4Yxt5cA
+	 n5Xy4NoZhm++HDalFY5+0em/zTPPon6UzorDoXD89p/2qwlyrmN8JwImJbb0Rnxyow
+	 e8Xpdi2ascVPg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weiwen Hu <huweiwen@linux.alibaba.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
 	Chaitanya Kulkarni <kch@nvidia.com>,
 	Christoph Hellwig <hch@lst.de>,
 	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] nvme: rename nvme_sc_to_pr_err to nvme_status_to_pr_err
-Date: Mon, 20 Jul 2026 13:15:22 -0400
-Message-ID: <20260720171525.2695254-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/4] nvmet: fix pre-auth out-of-bounds heap read in Discovery Get Log Page
+Date: Mon, 20 Jul 2026 13:15:25 -0400
+Message-ID: <20260720171525.2695254-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071540-stiffly-shrill-b8b3@gregkh>
+In-Reply-To: <20260720171525.2695254-1-sashal@kernel.org>
 References: <2026071540-stiffly-shrill-b8b3@gregkh>
+ <20260720171525.2695254-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,63 +48,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weiwen Hu <huweiwen@linux.alibaba.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 22f19a584d7045e0509f103dbc5c0acfd6415163 ]
+[ Upstream commit 53cd102a7a56079b11b897835bd9b94c14e6322c ]
 
-This should better match its semantic.  "sc" is used in the NVMe spec to
-specifically refer to the last 8 bits in the status field. We should not
-reuse "sc" here.
+nvmet_execute_disc_get_log_page() validates only the dword alignment
+of the host-supplied Log Page Offset (lpo).  The 64-bit offset is then
+added to a small kzalloc'd buffer that holds the discovery log page
+and the result is passed straight to nvmet_copy_to_sgl(), which
+memcpy()s data_len bytes out to the host with no source-side bound
+check:
 
-Signed-off-by: Weiwen Hu <huweiwen@linux.alibaba.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+    u64 offset      = nvmet_get_log_page_offset(req->cmd);  /* 64-bit host */
+    size_t data_len = nvmet_get_log_page_len(req->cmd);     /* 32-bit host */
+    ...
+    if (offset & 0x3) { ... }                               /* only check */
+    ...
+    alloc_len = sizeof(*hdr) + entry_size * discovery_log_entries(req);
+    buffer = kzalloc(alloc_len, GFP_KERNEL);
+    ...
+    status = nvmet_copy_to_sgl(req, 0, buffer + offset, data_len);
+
+The Discovery controller is unauthenticated -- nvmet_host_allowed()
+returns true unconditionally for the discovery subsystem -- so the call
+is reachable pre-authentication by any TCP/RDMA/FC peer that can reach
+the nvmet target.  With a discovery log page of ~1 KiB, an attacker
+requesting up to 4 KiB starting at offset == alloc_len reads the next
+slab page out and gets its content returned over the fabric (an
+empirical run on a default nvmet-tcp loopback target leaked 81
+canonical kernel pointers in one Get Log Page response).  Pointing the
+offset at unmapped kernel memory faults the in-kernel memcpy and
+crashes (or panics, on panic_on_oops=1) the target host instead.
+
+The attacker-controlled source-side offset pattern
+"nvmet_copy_to_sgl(req, 0, buffer + ATTACKER_OFFSET, ...)" is unique
+to nvmet_execute_disc_get_log_page in the entire nvmet codebase: every
+other Get Log Page handler in admin-cmd.c either ignores lpo (and
+silently starts every response at offset 0) or tracks a local
+destination offset with a fixed source pointer.
+
+Validate the host-supplied offset against the log page size, cap the
+copy length to what is actually available, and zero-fill any remainder
+of the host transfer buffer.  The zero-fill matches the existing
+short-response pattern in nvmet_execute_get_log_changed_ns()
+(admin-cmd.c) and prevents leaking transport SGL contents when the
+host asks for more bytes than the log page contains.
+
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
+Cc: stable@vger.kernel.org
 Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Signed-off-by: Keith Busch <kbusch@kernel.org>
-Stable-dep-of: 53cd102a7a56 ("nvmet: fix pre-auth out-of-bounds heap read in Discovery Get Log Page")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/pr.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/nvme/target/discovery.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
-index 1df7cb31556011..a50bb3bb97573c 100644
---- a/drivers/nvme/host/pr.c
-+++ b/drivers/nvme/host/pr.c
-@@ -72,12 +72,12 @@ static int nvme_send_ns_pr_command(struct nvme_ns *ns, struct nvme_command *c,
- 	return nvme_submit_sync_cmd(ns->queue, c, data, data_len);
- }
+diff --git a/drivers/nvme/target/discovery.c b/drivers/nvme/target/discovery.c
+index af3c6793aff032..c143e7a0d36221 100644
+--- a/drivers/nvme/target/discovery.c
++++ b/drivers/nvme/target/discovery.c
+@@ -166,6 +166,7 @@ static void nvmet_execute_disc_get_log_page(struct nvmet_req *req)
+ 	u64 offset = nvmet_get_log_page_offset(req->cmd);
+ 	size_t data_len = nvmet_get_log_page_len(req->cmd);
+ 	size_t alloc_len;
++	size_t copy_len;
+ 	struct nvmet_subsys_link *p;
+ 	struct nvmet_port *r;
+ 	u32 numrec = 0;
+@@ -239,7 +240,27 @@ static void nvmet_execute_disc_get_log_page(struct nvmet_req *req)
  
--static int nvme_sc_to_pr_err(int nvme_sc)
-+static int nvme_status_to_pr_err(int status)
- {
--	if (nvme_is_path_error(nvme_sc))
-+	if (nvme_is_path_error(status))
- 		return PR_STS_PATH_FAILED;
+ 	up_read(&nvmet_config_sem);
  
--	switch (nvme_sc & 0x7ff) {
-+	switch (status & 0x7ff) {
- 	case NVME_SC_SUCCESS:
- 		return PR_STS_SUCCESS;
- 	case NVME_SC_RESERVATION_CONFLICT:
-@@ -122,7 +122,7 @@ static int nvme_pr_command(struct block_device *bdev, u32 cdw10,
- 	if (ret < 0)
- 		return ret;
- 
--	return nvme_sc_to_pr_err(ret);
-+	return nvme_status_to_pr_err(ret);
- }
- 
- static int nvme_pr_register(struct block_device *bdev, u64 old,
-@@ -197,7 +197,7 @@ static int nvme_pr_resv_report(struct block_device *bdev, void *data,
- 	if (ret < 0)
- 		return ret;
- 
--	return nvme_sc_to_pr_err(ret);
-+	return nvme_status_to_pr_err(ret);
- }
- 
- static int nvme_pr_read_keys(struct block_device *bdev,
+-	status = nvmet_copy_to_sgl(req, 0, buffer + offset, data_len);
++	/*
++	 * Validate the host-supplied log page offset before copying out.
++	 * Without this check, the host controls a 64-bit byte offset into
++	 * a small kzalloc'd buffer: a value past the log page lets the
++	 * subsequent memcpy read adjacent kernel heap, and a value aimed
++	 * at unmapped kernel memory faults the in-kernel copy and crashes
++	 * the target host. The Discovery controller is unauthenticated,
++	 * so the bug is reachable from any reachable fabric peer.
++	 */
++	if (offset > alloc_len) {
++		req->error_loc =
++			offsetof(struct nvme_get_log_page_command, lpo);
++		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
++		goto out_free_buffer;
++	}
++
++	copy_len = min_t(size_t, data_len, alloc_len - offset);
++	status = nvmet_copy_to_sgl(req, 0, buffer + offset, copy_len);
++	if (!status && copy_len < data_len)
++		status = nvmet_zero_sgl(req, copy_len, data_len - copy_len);
++out_free_buffer:
+ 	kfree(buffer);
+ out:
+ 	nvmet_req_complete(req, status);
 -- 
 2.53.0
 
