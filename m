@@ -1,126 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6066C2E7366
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:00:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B624A2E7366
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:00:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559631; cv=none; b=endWZAoFaCO1a62z6hPf/PdC5a8W0YpeEy/26SYExyqD+TZTSqmRnugWFBvgFHuZxPh+LWeikJdfqW6t1r8dyEyolTqgYopeRUquuD7InbzY33B9F+ntNX+2Tp79m6ttIlQeyl8BoaGlaldgdZtpZm/SQyqSkbmXir0Iwe6YlWE=
+	t=1784559654; cv=none; b=YFHwTH6v/VSf4PC6z9ayMUo2CC79XvwVMr9hKfc/dvmGUsXgotRRCyh6cx54pcMZeIrWCL1jIzcvzXAZCNymQvjY6e9s9Cc2TBqSPTLbL2nc8i6Gq6sf7jB8UUWGaLwBYlrrscWwhPVrC/5jR7x1vrZOEd1qGBaurZAaeVBBG+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559631; c=relaxed/simple;
-	bh=vgzfpimGtxBrWtX1ILf0AqlCkT5bruqaQYJhjwP7JRU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fjLaqVRApEKU9uBu/cteQ7xUjMDD3IldAfJo6v4lgcSpaV+cWrN1U1phtfMTk17DOjnOAAuYTm0RscacdfF42vt7MP7d+kU87NhqOBeDdKvPDFFvN7K2YHNEYQNKtS5koNYME9r9qh1g7XdertO52HMwxi1kIOqLYjtsTfAh7GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=id8frMBa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559654; c=relaxed/simple;
+	bh=ynHz8i35Cih64drClYB8S2HBOgMWvbsAOVJYJfhMZaU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Kojq7aq9uvOWvGtFhiFymvt4kNPvjg2n1iChquoCduo25sfwy4To1FZrSv1FHbgPV2/GaCLrLfreZu95E5/Zv9fgXyuo+ZUFwObzVUC1vXtHdWSsVqIY2pLm4LvpV+OpS6fyiKZpx8qk94i+kHTLhkLKdnuUGZlytYI2GkSqKJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRfs2KLx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="id8frMBa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800631F00A3A;
-	Mon, 20 Jul 2026 15:00:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559630;
-	bh=c7+dw/S6Uv7wlhLDsmSX7sprEkJwpNdUYriRdtG3dCo=;
-	h=Subject:To:Cc:From:Date;
-	b=id8frMBar1+PswCfa5zvNB/2rEWlBR+k0e/QpJni6BcFey1YMjBQDeazrzioQzcHu
-	 /dTyoQF3QIo+bE7Gr/87ybP3MmkD+MvG0Yg0YinsLlpqDd6UJsgvBcaYkLoXd+HcHs
-	 MzTHwVIe/6lYxb1OOeI0Ys2/hoTT/Lgt8zwqiFwE=
-Subject: FAILED: patch "[PATCH] mtd: rawnand: Pause continuous reads at block boundaries" failed to apply to 6.6-stable tree
-To: miquel.raynal@bootlin.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:00:21 +0200
-Message-ID: <2026072021-compare-playpen-3ff7@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRfs2KLx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03C61F000E9;
+	Mon, 20 Jul 2026 15:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784559653;
+	bh=lX5KFIIrsn4mDVg/sKoLHlNhDqdyz49wRg1tF/+8KmA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LRfs2KLx9gPkItBWxuGg4hU6NnDlFkdmj8tKR2oBNy+o0kTeVfhA/CjIXu5i008bw
+	 fktPwuXKpNCqpQZece4oDP4wybpRKPW0AIDvBLNMoJsV+MMm4MDYxzQyNNnRpmsVkS
+	 XXn7F9tgHqmQF0VoVpgP/+ji3wVff8VdL9uHQhPQNkTf/qQRVObuATXxzvTgwUYJRi
+	 Yowg89NRCFBIuGvkvXG+hvL6taMxwdwXrg1gD16l2JrwfbBiSlG7vSueembIU86y6c
+	 LM8QNbQhwz5tMyC16PMSzQE9pKtBPtJEM6NaCjcB8hwts6fJAAsfYagezTvbdJNEJM
+	 8pioo5A/LQvew==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] crypto: atmel-sha204a - Mark OF related data as maybe unused
+Date: Mon, 20 Jul 2026 11:00:49 -0400
+Message-ID: <20260720150051.1918796-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071513-seducing-second-a53b@gregkh>
+References: <2026071513-seducing-second-a53b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 75f3d950054389e2556277e42170e37dd97cd872 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The driver can be compile tested with !CONFIG_OF making certain data
+unused:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 8e4531667d718e2e9b193928cf9b2497fa0d01ef
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072021-compare-playpen-3ff7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+  drivers/crypto/atmel-sha204a.c:129:34: error: ‘atmel_sha204a_dt_ids’ defined but not used [-Werror=unused-const-variable=]
 
-Possible dependencies:
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: ea5e57cc9718 ("crypto: atmel-sha204a - drop hwrng quality reduction for ATSHA204A")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/crypto/atmel-sha204a.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 8e4531667d718e2e9b193928cf9b2497fa0d01ef Mon Sep 17 00:00:00 2001
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 22 May 2026 11:17:39 +0200
-Subject: [PATCH] mtd: rawnand: Pause continuous reads at block boundaries
-
-Some chips do not support sequential cached reads past block
-boundaries, like Winbond. In practice when using UBI, this should very
-rarely happen, but let's make sure it never happens.
-
-Cc: stable@vger.kernel.org
-Fixes: 003fe4b9545b ("mtd: rawnand: Support for sequential cache reads")
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
-index e4e1383bd5e1..a5b278ab9384 100644
---- a/drivers/mtd/nand/raw/nand_base.c
-+++ b/drivers/mtd/nand/raw/nand_base.c
-@@ -1216,32 +1216,32 @@ static int nand_lp_exec_read_page_op(struct nand_chip *chip, unsigned int page,
- 	return nand_exec_op(chip, &op);
+diff --git a/drivers/crypto/atmel-sha204a.c b/drivers/crypto/atmel-sha204a.c
+index 0ef92109ce22a3..77c0968b696337 100644
+--- a/drivers/crypto/atmel-sha204a.c
++++ b/drivers/crypto/atmel-sha204a.c
+@@ -136,14 +136,16 @@ static int atmel_sha204a_remove(struct i2c_client *client)
+ 	return 0;
  }
  
--static unsigned int rawnand_last_page_of_lun(unsigned int pages_per_lun, unsigned int lun)
-+static unsigned int rawnand_last_page_of_block(unsigned int ppb, unsigned int block)
- {
--	/* lun is expected to be very small */
--	return (lun * pages_per_lun) + pages_per_lun - 1;
-+	/* block is expected to be very small */
-+	return (block * ppb) + ppb - 1;
- }
+-static const struct of_device_id atmel_sha204a_dt_ids[] = {
++static const struct of_device_id atmel_sha204a_dt_ids[] __maybe_unused = {
++	{ .compatible = "atmel,atsha204", },
+ 	{ .compatible = "atmel,atsha204a", },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, atmel_sha204a_dt_ids);
  
- static void rawnand_cap_cont_reads(struct nand_chip *chip)
- {
- 	struct nand_memory_organization *memorg;
--	unsigned int ppl, first_lun, last_lun;
-+	unsigned int ppb, first_block, last_block;
- 
- 	memorg = nanddev_get_memorg(&chip->base);
--	ppl = memorg->pages_per_eraseblock * memorg->eraseblocks_per_lun;
--	first_lun = chip->cont_read.first_page / ppl;
--	last_lun = chip->cont_read.last_page / ppl;
-+	ppb = memorg->pages_per_eraseblock;
-+	first_block = chip->cont_read.first_page / ppb;
-+	last_block = chip->cont_read.last_page / ppb;
- 
--	/* Prevent sequential cache reads across LUN boundaries */
--	if (first_lun != last_lun)
--		chip->cont_read.pause_page = rawnand_last_page_of_lun(ppl, first_lun);
-+	/* Prevent sequential cache reads across block boundaries */
-+	if (first_block != last_block)
-+		chip->cont_read.pause_page = rawnand_last_page_of_block(ppb, first_block);
- 	else
- 		chip->cont_read.pause_page = chip->cont_read.last_page;
- 
- 	if (chip->cont_read.first_page == chip->cont_read.pause_page) {
- 		chip->cont_read.first_page++;
- 		chip->cont_read.pause_page = min(chip->cont_read.last_page,
--						 rawnand_last_page_of_lun(ppl, first_lun + 1));
-+						 rawnand_last_page_of_block(ppb, first_block + 1));
- 	}
- 
- 	if (chip->cont_read.first_page >= chip->cont_read.last_page)
+ static const struct i2c_device_id atmel_sha204a_id[] = {
+-	{ "atsha204a", 0 },
++	{ "atsha204" },
++	{ "atsha204a" },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(i2c, atmel_sha204a_id);
+-- 
+2.53.0
 
