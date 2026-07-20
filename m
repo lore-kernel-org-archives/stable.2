@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FB53EB816
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 10:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9088D3EC682
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 10:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784544890; cv=none; b=UUMNdyC+MMUtXJHO5tlbqipkS2IZ4eiv73XD83N3Zyyrec29LhLcoGHGFHdpjCyXQ4RpoaVElEHORQk0XS4GMmjlduVScCy805UZp8lFmqokFWO0xZ/KyCWJyHsJg2+EquPIKey54iu1cDsTKDw7QAmAcic5j2g2alS3eJSqA2Y=
+	t=1784544896; cv=none; b=GReJOX+6eao0PxUd8sqWtkOjUfUHgiL+W9j9YQVnkXjpCIbqpyZfQ/HPEhKJUwR7xoOt1+gJ252w2cdWNjTO+tLjb6ckPbRyRzs/chaSRDH+QVmVs6R+B8lwXBNpZ7FFhT/eHDvgqi8clXvaUAEGrjcahGoZjfK5iXclzho6A+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784544890; c=relaxed/simple;
-	bh=yG6zBAiNhVpKD3eVKfxu1kThSDNEmhfkMVk9waZVi/8=;
+	s=arc-20240116; t=1784544896; c=relaxed/simple;
+	bh=fnHBUEJ7nxpJpGVD5rA3Z/nskW7hnicfn/X9ne1w9/c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OCcUdDwdpLl6Ted2Kyzm4ZsjDXTzyRdKDxx9nd9bDpCBC8pqYzhIl8+O+xRkQd0qTKtjtOu3Ahu6FrgOq70cq64zrQO1DG0c3e5DVIEi7vmmvcyrme1uOLU4RB3H8gtbhpq/1d2zb8ro9jDq7BPubVO6SkPuJ51QM7la7bf/n/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZmYfDTKz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ElCSRjdIC9lrNqVMLsV9GdLoeAJ0WfuOdTzXLbdkaEOgVA7PAsum8Pa/X+/xtuWTK3y6yjHrDcd6b/+TCagAsp3J93FU/cU8uPrgLUjRAhjGPTaH0rw19f/2nt8T/BfMj9QA6ZgQCWRSATwa9KUybxf6m54hwTuPZKvhQSpxzVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HvqHUcI+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZmYfDTKz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A86E1F00A3D;
-	Mon, 20 Jul 2026 10:54:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HvqHUcI+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C6C1F000E9;
+	Mon, 20 Jul 2026 10:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784544885;
-	bh=MB3VBWZfEO0utYvxAYe+OZO/jzuR3Lrg4C23jChmvbI=;
+	s=k20260515; t=1784544895;
+	bh=CrchYgl06DOZzOY7vDJPqUd2z0dRFYMXzW6dvjAnoc0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZmYfDTKzWEZK1pEUAtI/e8pJUFIDWUA+/OA9RmXoaZWWuUniu5sthuWhdO0eRNr5h
-	 +lg/VHfuvBqfuHYhFcYTyO0tpnOnPGDUbPh/qpTiidEnSOS19un8ow8zXMpeEaaPw6
-	 Sjqy8VPkUgTbCU65I+hkOqCOrsLn8Z49OJbhYayDOLJ8uyuJ+QtegEFSdxCcHPTrQM
-	 m1LEkSeGvlO/1kYzuTwqqcK1PeSsYBqy9agl4AINGCAs8uFX26Bpp28q9HN09gzLW7
-	 gH71uaOwi9vmngWdpqW6/3vwGKrPbs8V0pVvWfUf3HPr7EUi8kz9HrfafMM9kMLsvW
-	 yV+LMUyt/uzbw==
+	b=HvqHUcI+RGH038bCIQf4NX4hRzq5jcAT3KpDLAg/iaLC0gNZIHTfH1wpB4Mw22OX+
+	 apfnWouhw7Pomqj+J/z1H6Mbg5iy4jkc8OwBoUGvJZ11q0I2A/g/SSkTrBvdIrdsSL
+	 OZpdKyW99HK2hecct7U7TabI1mUzPT3jylOGsAzHQaVMn5qs4wg+0t9EPfyglkZwUH
+	 CdnvWvg+xAPuOzLxqPTIt9RnIgNp28d5nbVZd2qoHuzHQwVM7a4+auv12lBcgCOtkp
+	 aXrG+rc1eOPigxkoKPe6T55JHGAOGoYzMWMF+/6cQgtlg/coU9v8wffYgr65wQQHVK
+	 xWZX4goMB95zQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] crypto: atmel-sha204a - drop hwrng quality reduction for ATSHA204A
-Date: Mon, 20 Jul 2026 06:54:42 -0400
-Message-ID: <20260720105442.215749-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] new helper: simple_remove_by_name()
+Date: Mon, 20 Jul 2026 06:54:46 -0400
+Message-ID: <20260720105452.216179-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720105442.215749-1-sashal@kernel.org>
-References: <2026071512-herring-explicit-5a7f@gregkh>
- <20260720105442.215749-1-sashal@kernel.org>
+In-Reply-To: <2026071425-shield-overhung-4ba9@gregkh>
+References: <2026071425-shield-overhung-4ba9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,100 +45,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit ea5e57cc97185329dcc5ebdcaae7e1500bf0ad0b ]
+[ Upstream commit 4051a9115ad24bb9a691774730ca9c1dd56de665 ]
 
-Commit 8006aff15516 ("crypto: atmel-sha204a - Set hwrng quality to
-lowest possible") reduced the hwrng quality to 1 based on a review by
-Bill Cox [1]. However, despite its title, the review only tested the
-ATSHA204, not the ATSHA204A.
+simple_recursive_removal(), but instead of victim dentry it takes
+parent + name.
 
-In the same thread, Atmel engineer Landon Cox wrote "this behavior has
-been eliminated entirely"[2] in the ATSHA204A and "this problem does not
-affect the ATECC108 or the ATECC108A (or the ATSHA204A)"[3].
+Used to be open-coded in fs/fuse/control.c, but there's no need to expose
+the guts of that thing there and there are other potential users, so
+let's lift it into libfs...
 
-According to the official ATSHA204A datasheet [4], the device contains a
-high-quality hardware RNG that combines its output with an internal seed
-value stored in EEPROM or SRAM to generate random numbers. The device
-also implements all security functions using SHA-256, and the driver
-uses the chip's Random command in seed-update mode.
-
-Keep 'quality = 1' for ATSHA204, but drop the explicit hwrng quality
-reduction for ATSHA204A and fall back to the hwrng core default.
-
-[1] https://www.metzdowd.com/pipermail/cryptography/2014-December/023858.html
-[2] https://www.metzdowd.com/pipermail/cryptography/2014-December/023852.html
-[3] https://www.metzdowd.com/pipermail/cryptography/2014-December/023886.html
-[4] https://ww1.microchip.com/downloads/en/DeviceDoc/ATSHA204A-Data-Sheet-40002025A.pdf
-
-Fixes: 8006aff15516 ("crypto: atmel-sha204a - Set hwrng quality to lowest possible")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Acked-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Stable-dep-of: 8bdcf96eb135 ("usb: gadget: f_fs: Tie read_buffer lifetime to ffs_epfile")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/atmel-sha204a.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ fs/fuse/control.c  |  7 +------
+ fs/libfs.c         | 13 +++++++++++++
+ include/linux/fs.h |  2 ++
+ 3 files changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/crypto/atmel-sha204a.c b/drivers/crypto/atmel-sha204a.c
-index ae04b27a9ad112..49e545ef6493b9 100644
---- a/drivers/crypto/atmel-sha204a.c
-+++ b/drivers/crypto/atmel-sha204a.c
-@@ -19,6 +19,12 @@
- #include <linux/workqueue.h>
- #include "atmel-i2c.h"
- 
-+/*
-+ * According to review by Bill Cox [1], the ATSHA204 has very low entropy.
-+ * [1] https://www.metzdowd.com/pipermail/cryptography/2014-December/023858.html
-+ */
-+static const unsigned short atsha204_quality = 1;
-+
- static void atmel_sha204a_rng_done(struct atmel_i2c_work_data *work_data,
- 				   void *areq, int status)
+diff --git a/fs/fuse/control.c b/fs/fuse/control.c
+index ce11f4b427c281..2e300f6d646c31 100644
+--- a/fs/fuse/control.c
++++ b/fs/fuse/control.c
+@@ -290,18 +290,13 @@ static void remove_one(struct dentry *dentry)
+  */
+ void fuse_ctl_remove_conn(struct fuse_conn *fc)
  {
-@@ -158,6 +164,7 @@ static const struct attribute_group atmel_sha204a_groups = {
- static int atmel_sha204a_probe(struct i2c_client *client)
- {
- 	struct atmel_i2c_client_priv *i2c_priv;
-+	const unsigned short *quality;
- 	int ret;
+-	struct dentry *dentry;
+ 	char name[32];
  
- 	ret = atmel_i2c_probe(client);
-@@ -171,11 +178,9 @@ static int atmel_sha204a_probe(struct i2c_client *client)
- 	i2c_priv->hwrng.name = dev_name(&client->dev);
- 	i2c_priv->hwrng.read = atmel_sha204a_rng_read;
+ 	if (!fuse_control_sb || fc->no_control)
+ 		return;
  
--	/*
--	 * According to review by Bill Cox [1], this HWRNG has very low entropy.
--	 * [1] https://www.metzdowd.com/pipermail/cryptography/2014-December/023858.html
--	 */
--	i2c_priv->hwrng.quality = 1;
-+	quality = i2c_get_match_data(client);
-+	if (quality)
-+		i2c_priv->hwrng.quality = *quality;
- 
- 	ret = devm_hwrng_register(&client->dev, &i2c_priv->hwrng);
- 	if (ret)
-@@ -207,14 +212,14 @@ static void atmel_sha204a_remove(struct i2c_client *client)
+ 	sprintf(name, "%u", fc->dev);
+-	dentry = lookup_noperm_positive_unlocked(&QSTR(name), fuse_control_sb->s_root);
+-	if (!IS_ERR(dentry)) {
+-		simple_recursive_removal(dentry, remove_one);
+-		dput(dentry);	// paired with lookup_noperm_positive_unlocked()
+-	}
++	simple_remove_by_name(fuse_control_sb->s_root, name, remove_one);
  }
  
- static const struct of_device_id atmel_sha204a_dt_ids[] __maybe_unused = {
--	{ .compatible = "atmel,atsha204", },
-+	{ .compatible = "atmel,atsha204", .data = &atsha204_quality },
- 	{ .compatible = "atmel,atsha204a", },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, atmel_sha204a_dt_ids);
+ static int fuse_ctl_fill_super(struct super_block *sb, struct fs_context *fsc)
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 96551deff8e501..52f00bfc8f7baa 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -647,6 +647,19 @@ void simple_recursive_removal(struct dentry *dentry,
+ }
+ EXPORT_SYMBOL(simple_recursive_removal);
  
- static const struct i2c_device_id atmel_sha204a_id[] = {
--	{ "atsha204" },
-+	{ "atsha204", (kernel_ulong_t)&atsha204_quality },
- 	{ "atsha204a" },
- 	{ /* sentinel */ }
- };
++void simple_remove_by_name(struct dentry *parent, const char *name,
++                           void (*callback)(struct dentry *))
++{
++	struct dentry *dentry;
++
++	dentry = lookup_noperm_positive_unlocked(&QSTR(name), parent);
++	if (!IS_ERR(dentry)) {
++		simple_recursive_removal(dentry, callback);
++		dput(dentry);	// paired with lookup_noperm_positive_unlocked()
++	}
++}
++EXPORT_SYMBOL(simple_remove_by_name);
++
+ /* caller holds parent directory with I_MUTEX_PARENT */
+ void locked_recursive_removal(struct dentry *dentry,
+                               void (*callback)(struct dentry *))
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 39269c7d167e6d..95986609923592 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -3654,6 +3654,8 @@ extern int simple_rename(struct mnt_idmap *, struct inode *,
+ 			 unsigned int);
+ extern void simple_recursive_removal(struct dentry *,
+                               void (*callback)(struct dentry *));
++extern void simple_remove_by_name(struct dentry *, const char *,
++                              void (*callback)(struct dentry *));
+ extern void locked_recursive_removal(struct dentry *,
+                               void (*callback)(struct dentry *));
+ extern int noop_fsync(struct file *, loff_t, loff_t, int);
 -- 
 2.53.0
 
