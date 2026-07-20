@@ -1,243 +1,140 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A86740D59B
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D005E414A3D
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550061; cv=none; b=eiH6nHnHFFWNgSRkCo1hVQyA5Dmx3kCfY+RSEHajSKb7fpIX/MscW7UwS887rQkr12MD+Bj2F2jcoD7VW1NU/epuBUEwmQcsOzYQnQUg81fyhwvxWgizPj0GBylzRspBv7PNY9irXJRGeLWKPHMZySqKiCtYk+rPUP7QYVOeSGk=
+	t=1784550077; cv=none; b=PGQ36itkS/9AnGAXVNy8kCznhadnkMthf6ZdUrD2Yn9Kko+pTmV6BmviOEK+jx+rdIR0aQ19nfeCXtmNPJ83lMnWjOaFnzhx1pcM90GQBwpgyg8ESsadCPk4Z4v9Nt4pEVLr1Lh19GriAfPJhnx9As4eUORucNEgnQyud9tzN/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550061; c=relaxed/simple;
-	bh=uh4wVjhYol5MdQOlaooA7P4Rgr+0IYaa2NZxw8eHQ5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n3zhAoTJ7caeflIB5BGzjHTC1rwUJXsVrZRP/CD7VVCDBqg8KdgVY5kQFrbIq6ossKUbHCQO3+KFz72cVB6wqMT4aSnjmlzGheQ7g0IBavJPtO2X6e1BkuJmYQxe+6h4vjt2ZkZjqDhTl3YJmUadl9Voba9TnTyz5bTfpZKt/1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rVZ7iIL4; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1784550077; c=relaxed/simple;
+	bh=//8RKPNxcPtAuZgXSRI7zFzm5REAzLTBU7Ns+wFqZPo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Oe8HO+qALIJ4HisnpV9jlz4cpBez+Jao4oGLvgpSrdkmOOinkyytZZPhK++fMr2wfV1KwoI5f5m5USSnSUSkW6OCu3We96GqkAkGjtXu5eeUgXYHhEybjFVUhXXBQZ5CxwtE8JkA0Fv4buoOqzSuHq5ogH8GXJ4BXw041ERosag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LBCtfQAD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rVZ7iIL4"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KBD1V02032944
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=NW+04iM5PpRCJkifP
-	cTwNo6eibc+8MoiByAbzwRq9gM=; b=rVZ7iIL4BmbmMhtDhAcjJQBeYhs0jlbZ6
-	lpRmQjuTuENMTtppdR7oiMxXcSAlJop5v+Sgmej7gAFT5oiZia5CXJ9ixRT0BpGF
-	Ajix34WQjfjpEDMeEKGT5CYMLWWyr7mVPlsulUijGb9IqXTdjkHXA4T+qx3d2eWB
-	kxOY2w1eLg7UxxxxvQqUualsTVm9BYSCTc8HwcOzJ8P9s2XE0Hpix5UgnUyEsvme
-	HxyzKVDgkDrQPu4sS6G2krssypC5tQ8xQTTlsEWDLvREUTI6nwEhtFifwNboxAcZ
-	rSXw+WuSMnHiyEhM4F56AXmFrk4EOXo3iqONQG5F4U8ScSw3nyODw==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7ab7cyg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:57 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66KCJqbR005762
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:56 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fgmtjnh7t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:20:56 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66KCKque43843878
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 20 Jul 2026 12:20:52 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 41BC42004B;
-	Mon, 20 Jul 2026 12:20:52 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2AA7220040;
-	Mon, 20 Jul 2026 12:20:52 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 20 Jul 2026 12:20:52 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: stable@vger.kernel.org
-Cc: Heiko Carstens <hca@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>
-Subject: [PATCH 6.12.y] s390: Revert support for DCACHE_WORD_ACCESS
-Date: Mon, 20 Jul 2026 14:20:44 +0200
-Message-ID: <20260720122044.2318775-1-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071418-catsup-creasing-f440@gregkh>
-References: <2026071418-catsup-creasing-f440@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LBCtfQAD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3004A1F00A3D;
+	Mon, 20 Jul 2026 12:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784550074;
+	bh=k06pbYsnAMZqubBskM1DlsTk2H0io/6LJbyEJXvkg+4=;
+	h=Subject:To:Cc:From:Date;
+	b=LBCtfQADr8+7zxuBCRIPPWTW4lBjW9YdRZ4f2i/0vGxvDxN7bNukezfRpqeLeJ8Gt
+	 kYTtUKr7tUQXbapoZrIY2yN0wcFkast7WYeI1gFiuML7y3G3Z1rtkX/agndycYB1/J
+	 nR4iRErH6g2lZ7sETqqXDs4wUagFsCewzb2BLi50=
+Subject: FAILED: patch "[PATCH] KVM: Move kvm_io_bus_get_dev() locking responsibilities to" failed to apply to 6.12-stable tree
+To: maz@kernel.org,oupton@kernel.org,will@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 20 Jul 2026 14:21:05 +0200
+Message-ID: <2026072005-magician-appease-c082@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDEzNiBTYWx0ZWRfX0jIWO0DfHjVh
- 0xr+UVb1NDx3XIK2ztg6puyGTsgvfSUEFY4L91rnKwE1VOJYhM8iT1Ma2vCImjztHh+OHpGZjyZ
- H/XcEkJ5LZCEBd3+3x17o1bQCQftu3ypZApLZuvHg5H6kjrqt+ygg+JU/CxxKNgfbEt26wYX6Zh
- 3lUYTEcu5J09RKtHKgG2EZqnlygDSVv7p2417j+GdVG9qOg9ElfgKUc7jnvXRURbgLg2eOpTKZF
- 718MSzkOml6zJ2p1vhu4bz6KL9oHZIUAza6X61c+5S/0ToSPZFAbeY9ptU03BDmeg8kdlqbQyLz
- g9gkYzRW8Di5zIBaAaqFeOT0zang9G6cEnEF33vyvS1t/vQwMzqEyiwcxqGJ2+uwjlWrCS0+A8x
- Ci/kAqtk/NQ0inl3JIMVcsbg+4u+8fV7/lAR32P6dbT21COsJUh3vXFndZp7WsUVv2TVt0nWlN6
- gq7OtWgnZ7n4VwQsMEA==
-X-Authority-Analysis: v=2.4 cv=F7ZnsKhN c=1 sm=1 tr=0 ts=6a5e12a9 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=k1Q9LRuquVP52GNwYeEA:9
-X-Proofpoint-ORIG-GUID: NQDhwgwE0nXMj4gfpqlTvVAtR5SuxcT0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDEzNiBTYWx0ZWRfX1aUbwrcnDAmR
- RCZpbSf3NuVtwvJ/im02aM8GcwFpLcTxxL1Zhmo94FRJ11xcyNn6d5TgoAyrXn2AlB53spqR0KD
- 7tDhysfxDF9OzqSEU1xZPjFi8XDYAsU=
-X-Proofpoint-GUID: NQDhwgwE0nXMj4gfpqlTvVAtR5SuxcT0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_02,2026-07-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1011 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607200136
 
-load_unaligned_zeropad() reads eight bytes from unaligned addresses and may
-cross page boundaries. It handles exceptions which may happen if reading
-from the second page results in an exception.
 
-For pages which are donated to the Ultravisor for secure execution purposes
-the do_secure_storage_access() exception handler however does not handle
-such exceptions correctly. Such an exception may result in an endless
-exception loop which will never be resolved.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-An attempt to fix this [1] turned out to be not sufficient. For now revert
-load_unaligned_zeropad() until this problem has been resolved in a proper
-way.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Note that the implementation of load_unaligned_zeropad() itself is
-correct. The revert is just a temporary workaround until there is complete
-fix for secure storage access exceptions.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 3a07249981629ace483ebbef81ef6b34c2d2afec
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072005-magician-appease-c082@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-[1] commit b00be77302d7 ("s390/mm: Add missing secure storage access fixups for donated memory")
+Possible dependencies:
 
-Fixes: 802ba53eefc5 ("s390: add support for DCACHE_WORD_ACCESS")
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 3a07249981629ace483ebbef81ef6b34c2d2afec Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Sat, 27 Jun 2026 11:51:05 +0100
+Subject: [PATCH] KVM: Move kvm_io_bus_get_dev() locking responsibilities to
+ callers
+
+kvm_io_bus_get_dev() returns a device that is only matched by the
+address, and nothing else. This can cause a lifetime issue if
+the matched device is not the expected type, as by the time
+the caller can introspect the object, it might be gone (the srcu
+lock having been dropped).
+
+Given that there is only a single user of this helper, the simplest
+option is to move the locking responsibility to the caller, which
+can keep the srcu lock held for as long as it wants.
+
+Note that this aligns with other kvm_io_bus*() helpers, which
+already require the srcu lock to be held by the callers.
+
+Reported-by: Will Deacon <will@kernel.org>
+Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
+Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
 Cc: stable@vger.kernel.org
-Acked-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
-(cherry picked from commit 37540b8c287fc817bdbd0c62bb75ad6eab0e5d03)
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
----
- arch/s390/Kconfig                      |  1 -
- arch/s390/include/asm/asm-extable.h    |  4 ----
- arch/s390/include/asm/word-at-a-time.h | 22 ----------------------
- arch/s390/mm/extable.c                 | 18 ------------------
- 4 files changed, 45 deletions(-)
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/20260627105105.1005990-1-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 
-diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
-index 5e6aebf1b739..28e900e5212c 100644
---- a/arch/s390/Kconfig
-+++ b/arch/s390/Kconfig
-@@ -137,7 +137,6 @@ config S390
- 	select ARCH_WANT_LD_ORPHAN_WARN
- 	select BUILDTIME_TABLE_SORT
- 	select CLONE_BACKWARDS2
--	select DCACHE_WORD_ACCESS if !KMSAN
- 	select DYNAMIC_FTRACE if FUNCTION_TRACER
- 	select FUNCTION_ALIGNMENT_8B if CC_IS_GCC
- 	select FUNCTION_ALIGNMENT_16B if !CC_IS_GCC
-diff --git a/arch/s390/include/asm/asm-extable.h b/arch/s390/include/asm/asm-extable.h
-index 00a67464c445..f87e06ec86ac 100644
---- a/arch/s390/include/asm/asm-extable.h
-+++ b/arch/s390/include/asm/asm-extable.h
-@@ -13,7 +13,6 @@
- #define EX_TYPE_UA_LOAD_MEM	4
- #define EX_TYPE_UA_LOAD_REG	5
- #define EX_TYPE_UA_LOAD_REGPAIR	6
--#define EX_TYPE_ZEROPAD		7
- #define EX_TYPE_FPC		8
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 67d107e9a77d..c90abde39fb8 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -508,6 +508,8 @@ static struct vgic_its *__vgic_doorbell_to_its(struct kvm *kvm, gpa_t db)
+ 	struct kvm_io_device *kvm_io_dev;
+ 	struct vgic_io_device *iodev;
  
- #define EX_DATA_REG_ERR_SHIFT	0
-@@ -82,9 +81,6 @@
- #define EX_TABLE_UA_LOAD_REGPAIR(_fault, _target, _regerr, _regzero)	\
- 	__EX_TABLE(__ex_table, _fault, _target, EX_TYPE_UA_LOAD_REGPAIR, _regerr, _regzero, 0)
- 
--#define EX_TABLE_ZEROPAD(_fault, _target, _regdata, _regaddr)		\
--	__EX_TABLE(__ex_table, _fault, _target, EX_TYPE_ZEROPAD, _regdata, _regaddr, 0)
--
- #define EX_TABLE_FPC(_fault, _target)					\
- 	__EX_TABLE(__ex_table, _fault, _target, EX_TYPE_FPC, __stringify(%%r0), __stringify(%%r0), 0)
- 
-diff --git a/arch/s390/include/asm/word-at-a-time.h b/arch/s390/include/asm/word-at-a-time.h
-index 203acd6e431b..e9287036392d 100644
---- a/arch/s390/include/asm/word-at-a-time.h
-+++ b/arch/s390/include/asm/word-at-a-time.h
-@@ -4,7 +4,6 @@
- 
- #include <linux/bitops.h>
- #include <linux/wordpart.h>
--#include <asm/asm-extable.h>
- #include <asm/bitsperlong.h>
- 
- struct word_at_a_time {
-@@ -41,25 +40,4 @@ static inline unsigned long zero_bytemask(unsigned long data)
- 	return ~1UL << data;
- }
- 
--/*
-- * Load an unaligned word from kernel space.
-- *
-- * In the (very unlikely) case of the word being a page-crosser
-- * and the next page not being mapped, take the exception and
-- * return zeroes in the non-existing part.
-- */
--static inline unsigned long load_unaligned_zeropad(const void *addr)
--{
--	unsigned long data;
--
--	asm volatile(
--		"0:	lg	%[data],0(%[addr])\n"
--		"1:	nopr	%%r7\n"
--		EX_TABLE_ZEROPAD(0b, 1b, %[data], %[addr])
--		EX_TABLE_ZEROPAD(1b, 1b, %[data], %[addr])
--		: [data] "=d" (data)
--		: [addr] "a" (addr), "m" (*(unsigned long *)addr));
--	return data;
--}
--
- #endif /* _ASM_WORD_AT_A_TIME_H */
-diff --git a/arch/s390/mm/extable.c b/arch/s390/mm/extable.c
-index 812ec5be1291..30e4b96be207 100644
---- a/arch/s390/mm/extable.c
-+++ b/arch/s390/mm/extable.c
-@@ -61,22 +61,6 @@ static bool ex_handler_ua_load_reg(const struct exception_table_entry *ex,
- 	return true;
- }
- 
--static bool ex_handler_zeropad(const struct exception_table_entry *ex, struct pt_regs *regs)
--{
--	unsigned int reg_addr = FIELD_GET(EX_DATA_REG_ADDR, ex->data);
--	unsigned int reg_data = FIELD_GET(EX_DATA_REG_ERR, ex->data);
--	unsigned long data, addr, offset;
--
--	addr = regs->gprs[reg_addr];
--	offset = addr & (sizeof(unsigned long) - 1);
--	addr &= ~(sizeof(unsigned long) - 1);
--	data = *(unsigned long *)addr;
--	data <<= BITS_PER_BYTE * offset;
--	regs->gprs[reg_data] = data;
--	regs->psw.addr = extable_fixup(ex);
--	return true;
--}
--
- static bool ex_handler_fpc(const struct exception_table_entry *ex, struct pt_regs *regs)
++	guard(srcu)(&kvm->srcu);
++
+ 	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, db);
+ 	if (!kvm_io_dev)
+ 		return ERR_PTR(-EINVAL);
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 89489996fbc1..5788eac0ab81 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -6068,25 +6068,19 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+ 					 gpa_t addr)
  {
- 	asm volatile("sfpc	%[val]\n" : : [val] "d" (0));
-@@ -104,8 +88,6 @@ bool fixup_exception(struct pt_regs *regs)
- 		return ex_handler_ua_load_reg(ex, false, regs);
- 	case EX_TYPE_UA_LOAD_REGPAIR:
- 		return ex_handler_ua_load_reg(ex, true, regs);
--	case EX_TYPE_ZEROPAD:
--		return ex_handler_zeropad(ex, regs);
- 	case EX_TYPE_FPC:
- 		return ex_handler_fpc(ex, regs);
- 	}
--- 
-2.53.0
+ 	struct kvm_io_bus *bus;
+-	int dev_idx, srcu_idx;
+-	struct kvm_io_device *iodev = NULL;
++	int dev_idx;
+ 
+-	srcu_idx = srcu_read_lock(&kvm->srcu);
++	lockdep_assert_held(&kvm->srcu);
+ 
+ 	bus = kvm_get_bus_srcu(kvm, bus_idx);
+ 	if (!bus)
+-		goto out_unlock;
++		return NULL;
+ 
+ 	dev_idx = kvm_io_bus_get_first_dev(bus, addr, 1);
+ 	if (dev_idx < 0)
+-		goto out_unlock;
++		return NULL;
+ 
+-	iodev = bus->range[dev_idx].dev;
+-
+-out_unlock:
+-	srcu_read_unlock(&kvm->srcu, srcu_idx);
+-
+-	return iodev;
++	return bus->range[dev_idx].dev;
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_io_bus_get_dev);
+ 
 
