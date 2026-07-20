@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5D64195C9
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:35:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F564189DD
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:35:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550939; cv=none; b=JAopdzkAwFXB047AeAWUxM9jEA1Hccn4dh7ntL8PN7B+TUPlvwuCLR04m6aUH9yXykmY4WxE1C4O9TNoRWwltjaV4KEF9fIY+m9HEakZ2Go5FIsqiHenMR/dIK5s6e4a31IhtMfIdjR+ld9O9CeYP+sqY8eEbrKX7IlId/Q6i08=
+	t=1784550942; cv=none; b=r0TknNltnKL9A0loGVXPVmHrWNzBtAfptct24WOlP60QFTHouUWtrVKnhima4g/ijlbAHC8jBzuYrr4RbjHZU4JUGeA6L7Awp6SrROw/+RcqpOz8gaXnJ+nc4jO2db3/G6u8pQuJUqkmEMKxNAOrglkxHAgtryVe3DYaNjg7rJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550939; c=relaxed/simple;
-	bh=zqN/3WgEDRvcMkCaUBL37HW/D3LXWRvxJxJBOeUTcfo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mym/1DDRA4ATgGhGfmHuoFZZBKKBycFrYTQ3VQTVunQobNLe/59SJ96NWig3dTVEsi/HCR+isHX/52HlYyNDL0duHrn/MYHfYLAyE6Eopk5Zz9C8nWkTBctw0OISIgKmFK8rjJjylgqwzs5iMy8CEN/X454u3HAq7QqyJVtBXNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wIYnOT/H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550942; c=relaxed/simple;
+	bh=+9yCdnBc0ru6QwJ0iXzM6mLHhR9kZbSvzlIGzNI+dv0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pv64Ou/74fHmELLwG0qzMMqIv9UnXLRHF+Eogoms5XmHUDf8SdHRg+XPhsNjm0kE9qVT5QiCJgZn/Bwa9n4fpyLhwF7iqyacq96jI788cZeVVdd68IZDyr9esd/02w+DujM4yaOUjgIIPiBHrR6HJwD0JOZYIfvDL7h2AwsT7B8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=maE8VOvu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wIYnOT/H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC64E1F000E9;
-	Mon, 20 Jul 2026 12:35:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="maE8VOvu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB0A1F000E9;
+	Mon, 20 Jul 2026 12:35:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550938;
-	bh=j6M63QaRZQIFtwUlT6q2zD+YbX3ZZQpFmSNG6pQGn14=;
+	s=korg; t=1784550940;
+	bh=0jhTKRncDPmnvQxMh8SnJP4LEJSnNIpZYyHcrQNc9Qs=;
 	h=Subject:To:Cc:From:Date;
-	b=wIYnOT/HkJyeQpy6PAVdgxLzbALFUu9YcBoLXyuyxSwYO6+YSpA8GyILyF5l0IG29
-	 AWV7SnV4prgKKixWjIRDNrDJTaCtfqCMPuuuPVEsQi2tJUIW0Iwv38LJAZ2zSC4/Jx
-	 pmQ4/35X+pEadTswHV8h57rzaaCeSH3NJOMeT15s=
-Subject: FAILED: patch "[PATCH] ASoC: mediatek: mt8183: Check runtime resume during probe" failed to apply to 6.1-stable tree
-To: cassiogabrielcontato@gmail.com,broonie@kernel.org
+	b=maE8VOvuJt42r6C68Up2Je4riRoFULOWNY8WicPG8CNudPRXaUxVyScropXz2/f94
+	 P1zJccMhYh3qwUxe+buQQViPOvzXL6DtDSIEj/g8wJHJVh8eCrn9YQ8lPj2FUB6WcS
+	 4Z1E+0AhoiI32MEoySE9pSPhmKcgaAlmCEwhtMbs=
+Subject: FAILED: patch "[PATCH] netfilter: nf_queue: pin bridge device while NFQUEUE holds" failed to apply to 5.10-stable tree
+To: royenheart@gmail.com,bird@lzu.edu.cn,n05ec@lzu.edu.cn,pablo@netfilter.org,tomapufckgml@gmail.com,yifanwucs@gmail.com,yuantan098@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:32:40 +0200
-Message-ID: <2026072040-onward-copious-5c04@gregkh>
+Date: Mon, 20 Jul 2026 14:33:42 +0200
+Message-ID: <2026072042-preseason-deduce-b96d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x f0334fbfd107682d0c95f3f71e25f6127038e2b9
+git cherry-pick -x c9c9b37f8c5505224e8d206184df3bb668ee00cf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072040-onward-copious-5c04@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072042-preseason-deduce-b96d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,117 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f0334fbfd107682d0c95f3f71e25f6127038e2b9 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>
-Date: Wed, 27 May 2026 10:41:49 -0300
-Subject: [PATCH] ASoC: mediatek: mt8183: Check runtime resume during probe
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From c9c9b37f8c5505224e8d206184df3bb668ee00cf Mon Sep 17 00:00:00 2001
+From: Haoze Xie <royenheart@gmail.com>
+Date: Mon, 8 Jun 2026 13:43:44 +0800
+Subject: [PATCH] netfilter: nf_queue: pin bridge device while NFQUEUE holds
+ fake dst
 
-The MT8183 AFE probe uses pm_runtime_get_sync() before reading hardware
-defaults into the regmap cache, but does not check whether runtime resume
-failed. If regmap_reinit_cache() then fails, the temporary runtime PM
-usage count is also not released.
+The br_netfilter fake rtable is embedded in struct net_bridge and is
+attached to bridged packets with skb_dst_set_noref(). If such a packet is
+queued to NFQUEUE, __nf_queue() upgrades that fake dst with
+skb_dst_force().
 
-Use pm_runtime_resume_and_get() so resume failures abort probe without
-leaking a usage count, and release the temporary reference before
-handling the regmap cache result.
+At that point the queued skb can hold a real dst reference after bridge
+teardown has started. The problem is not that every bridged packet needs
+its own dst reference. The problem is that NFQUEUE can keep the bridge
+private fake dst alive after unregister begins.
 
-Fixes: a94aec035a12 ("ASoC: mediatek: mt8183: add platform driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
-Link: https://patch.msgid.link/20260527-asoc-mt8183-probe-cleanup-v1-2-4f4f5593c8d1@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fix this by keeping the bridge fake dst model unchanged and pinning the
+bridge master device only while the packet sits in NFQUEUE. Record the
+bridge device in nf_queue_entry when the queued skb carries a bridge fake
+dst, take a device reference for the queue lifetime, and drop it when the
+queue entry is freed.
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index 49a69728fd72..2634699534db 100644
---- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -844,17 +844,21 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
+Also make sure queued entries are reaped when that bridge device goes
+down, and drop the redundant nf_bridge_info_exists() test from the fake
+dst detection.
+
+This keeps netdev_priv(br->dev) alive until verdict completion, so the
+embedded fake rtable and its metrics backing storage cannot be freed out
+from under dst_release(). It also avoids the constant refcount bump and
+avoids using ipv4-specific dst helpers for IPv6 bridge traffic.
+
+Fixes: 34666d467cbf ("netfilter: bridge: move br_netfilter out of the core")
+Cc: stable@kernel.org
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Haoze Xie <royenheart@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+
+diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
+index 3978c3174cdb..fc3e81c07364 100644
+--- a/include/net/netfilter/nf_queue.h
++++ b/include/net/netfilter/nf_queue.h
+@@ -18,6 +18,7 @@ struct nf_queue_entry {
+ 	unsigned int		id;
+ 	unsigned int		hook_index;	/* index in hook_entries->hook[] */
+ #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
++	struct net_device	*bridge_dev;
+ 	struct net_device	*physin;
+ 	struct net_device	*physout;
+ #endif
+diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
+index 57b450024a99..73363ceedebe 100644
+--- a/net/netfilter/nf_queue.c
++++ b/net/netfilter/nf_queue.c
+@@ -68,6 +68,7 @@ static void nf_queue_entry_release_refs(struct nf_queue_entry *entry)
+ 		nf_queue_sock_put(state->sk);
  
- 	/* enable clock for regcache get default value from hw */
- 	afe_priv->pm_runtime_bypass_reg_ctl = true;
--	pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret) {
-+		afe_priv->pm_runtime_bypass_reg_ctl = false;
-+		goto err_pm_disable;
-+	}
+ #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
++	dev_put(entry->bridge_dev);
+ 	dev_put(entry->physin);
+ 	dev_put(entry->physout);
+ #endif
+@@ -84,6 +85,8 @@ static void __nf_queue_entry_init_physdevs(struct nf_queue_entry *entry)
+ {
+ #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
+ 	const struct sk_buff *skb = entry->skb;
++	struct dst_entry *dst = skb_dst(skb);
++	struct net_device *dev = NULL;
  
- 	ret = regmap_reinit_cache(afe->regmap, &mt8183_afe_regmap_config);
-+	pm_runtime_put_sync(dev);
-+	afe_priv->pm_runtime_bypass_reg_ctl = false;
-+
- 	if (ret) {
- 		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
- 		goto err_pm_disable;
+ 	if (nf_bridge_info_exists(skb)) {
+ 		entry->physin = nf_bridge_get_physindev(skb, entry->state.net);
+@@ -92,6 +95,16 @@ static void __nf_queue_entry_init_physdevs(struct nf_queue_entry *entry)
+ 		entry->physin = NULL;
+ 		entry->physout = NULL;
  	}
++
++	if (entry->state.pf == NFPROTO_BRIDGE &&
++	    dst && (dst->flags & DST_FAKE_RTABLE))
++		dev = dst_dev_rcu(dst);
++
++	/* Must hold a reference on the bridge device: dst_hold() protects
++	 * the dst itself, but the fake rtable is embedded in bridge-private
++	 * storage that netdevice teardown can free independently.
++	 */
++	entry->bridge_dev = dev;
+ #endif
+ }
  
--	pm_runtime_put_sync(dev);
--	afe_priv->pm_runtime_bypass_reg_ctl = false;
--
- 	regcache_cache_only(afe->regmap, true);
- 	regcache_mark_dirty(afe->regmap);
+@@ -108,6 +121,7 @@ bool nf_queue_entry_get_refs(struct nf_queue_entry *entry)
+ 	dev_hold(state->out);
  
+ #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
++	dev_hold(entry->bridge_dev);
+ 	dev_hold(entry->physin);
+ 	dev_hold(entry->physout);
+ #endif
+diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
+index c5e29fec419b..80ca077b81bd 100644
+--- a/net/netfilter/nfnetlink_queue.c
++++ b/net/netfilter/nfnetlink_queue.c
+@@ -1262,6 +1262,9 @@ dev_cmp(struct nf_queue_entry *entry, unsigned long ifindex)
+ 
+ 	if (physinif == ifindex || physoutif == ifindex)
+ 		return 1;
++
++	if (entry->bridge_dev && entry->bridge_dev->ifindex == ifindex)
++		return 1;
+ #endif
+ 	if (entry->skb_dev && entry->skb_dev->ifindex == ifindex)
+ 		return 1;
 
