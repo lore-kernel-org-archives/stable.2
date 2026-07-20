@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961593B47F5
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F78B3DF01C
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:03:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559803; cv=none; b=CRnFMgCpblphqU/imeQn/2axxhl39mp6Qw8OrdrVYSwXo/d9awP85nHnvJXRKezqzDXYFVRKGJnKNzvwT9Otp4DkBpYfUHha0x0izaLZ8LwiM65CN9BsHP+xtHAfEZ7Dqpn03bQIdBIVx9bCwwxfeuuXCEU2gAUS2o7iu9ZMta4=
+	t=1784559819; cv=none; b=ltlMmlBA9UdBkLeoDV0JAINFB24bsixGyUrrKZRF7G5ZLeAsxYWxDw2pi2mgW9zIwYtnuPXMs944157TWkW6yNpGlbH+XKftjGxiGrA8PjvtOacRg3s0jaNNJoCBRI2jyXVm3K9vDAtjj4AeOnFqSVUlJVOjmRcu63xp0LBXRDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559803; c=relaxed/simple;
-	bh=SsYxrFzj/hPDZlmRXM4xpZyc0grcwfp6cUh5i08z/eE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VX448KPk/jUVxRxuP3MsXXCa4IgkgkZsbzVnymQ3vEzhyF4Q6kYGNX2hrMCy5R1ACub2MZUZuID75A8ekZC+6pd3dZd2uLPQWhgg1rz2RvfkRJvjVyFOSamGTy4iXFanwQ26yeLo7nSfrOaCSy0289z31eSIj2/86Doq4vijRUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IuNoQmQj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559819; c=relaxed/simple;
+	bh=aKtBnEceTolFuCqoa5D/Mv4FnCb9ub2/dvfKxoeTE4M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SHfZXB4zQPkHWL3SNlTUxz1zqUT+KfqsnzqG9tD/3xTRA+3yIadzmDZ0yaAkGy9WyTB1hkpoHz5B3H79yEkKm/RCV3H6ulhDTmph5Ni3BCXu2pdNs/en2vQY1zMcuzlopmssmusaBy7bg6UGF3QxqCvMWfqxW1rYfIkntaAjk8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mgg76jDE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IuNoQmQj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035BD1F000E9;
-	Mon, 20 Jul 2026 15:03:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mgg76jDE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E2D1F00A3A;
+	Mon, 20 Jul 2026 15:03:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559802;
-	bh=igMrxvZt+eEj5X/E0l0HUtfMk5uJXWULtOBCyJkJ1pc=;
+	s=korg; t=1784559818;
+	bh=cGy/ybXIZA7CCGv/FtPEN9B5+M2zAEB7/CYRNWWPkZc=;
 	h=Subject:To:Cc:From:Date;
-	b=IuNoQmQjUoE/vIXZ/t9dcPdRUvlljSVZNoTwwFYI/6+IFRO3eAOUPfByAlG7WZBFW
-	 AX2E9+hOMXCYIdULuqNfd3UeazEMG5I2EP+B4vXh7m3HZF2qGJnHeQnyoILJQXrVc+
-	 8+Zd4Boo3e7nMzhWLXwXWvz5yu0z7+k9HoR6VzwI=
-Subject: FAILED: patch "[PATCH] platform/x86: dell-laptop: fix missing cleanups in init error" failed to apply to 6.1-stable tree
-To: lihaoxiang@isrc.iscas.ac.cn,ilpo.jarvinen@linux.intel.com
+	b=mgg76jDE+5rNpZ4Av6pq3IkEGx2VdalCQy1Y6P08Cc8x74l1T+5N6LYGcjCz0QWAr
+	 +p26K4H6c4M5tFce/avPtHITNMJzgr9UzqqpSksgd7Hqd+tD2GTDbJ4oboVedW9fln
+	 JsXiqHYxjwoSH208aPrXEU6yf9lBoZRGHaGCG+Ys=
+Subject: FAILED: patch "[PATCH] platform/x86/intel-uncore-freq: Fix current_freq_khz after" failed to apply to 7.1-stable tree
+To: weiguixiong@bytedance.com,ilpo.jarvinen@linux.intel.com,srinivas.pandruvada@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:03:00 +0200
-Message-ID: <2026072000-unlucky-ship-812f@gregkh>
+Date: Mon, 20 Jul 2026 17:03:29 +0200
+Message-ID: <2026072029-unburned-worshiper-06cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6e9cab2247e5b243ae2d907ce7c948a8a9c8d61a
+git cherry-pick -x 6b63520ed14b17bbe9c2103debbd2152dde1fba3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072000-unlucky-ship-812f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072029-unburned-worshiper-06cc@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,51 +62,59 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6e9cab2247e5b243ae2d907ce7c948a8a9c8d61a Mon Sep 17 00:00:00 2001
-From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-Date: Tue, 9 Jun 2026 16:14:19 +0800
-Subject: [PATCH] platform/x86: dell-laptop: fix missing cleanups in init error
- path
+From 6b63520ed14b17bbe9c2103debbd2152dde1fba3 Mon Sep 17 00:00:00 2001
+From: Guixiong Wei <weiguixiong@bytedance.com>
+Date: Tue, 2 Jun 2026 10:07:52 +0800
+Subject: [PATCH] platform/x86/intel-uncore-freq: Fix current_freq_khz after
+ CPU hotplug
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-dell_init() initializes several resources after dell_setup_rfkill(),
-including the optional touchpad LED, keyboard backlight LED, battery
-hook, debugfs directory and dell-laptop notifier.
+When the last CPU of a legacy uncore die goes offline,
+uncore_freq_remove_die_entry() clears control_cpu. During CPU hotplug
+re-add, uncore_freq_add_entry() still populates sysfs attributes before
+assigning the new control CPU. As a result, the current frequency read
+returns -ENXIO and current_freq_khz is omitted from the recreated sysfs
+group.
 
-If a later LED or backlight registration fails, the error path only
-tears down the battery hook and rfkill resources. This leaves the
-notifier, debugfs directory, keyboard backlight LED and optional
-touchpad LED registered after dell_init() returns an error.
+Assign control_cpu before the initial read paths and before
+create_attr_group() so sysfs recreation uses the new online CPU. If
+sysfs creation fails, restore control_cpu to -1 to keep the error path
+state consistent.
 
-Add the missing cleanup calls before tearing down rfkill.
-
-Fixes: 9c656b07997f ("platform/x86: dell-*: Call new led hw_changed API on kbd brightness change")
-Fixes: 037accfa14b2 ("dell-laptop: Add debugfs support")
-Fixes: 2d8b90be4f1c ("dell-laptop: support Synaptics/Alps touchpad led")
-Fixes: 6cff8d60aa0a ("platform: x86: dell-laptop: Add support for keyboard backlight")
+Fixes: 4d73c6772ab7 ("platform/x86: intel-uncore-freq: Conditionally create attribute for read frequency")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-Link: https://patch.msgid.link/20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Link: https://patch.msgid.link/20260602020752.3126-1-weiguixiong@bytedance.com
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index 7fc3bbb8c4a4..89e85c7f7132 100644
---- a/drivers/platform/x86/dell/dell-laptop.c
-+++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -2560,7 +2560,12 @@ static int __init dell_init(void)
- 	if (mute_led_registered)
- 		led_classdev_unregister(&mute_led_cdev);
- fail_led:
-+	dell_laptop_unregister_notifier(&dell_laptop_notifier);
-+	debugfs_remove_recursive(dell_laptop_dir);
- 	dell_battery_exit();
-+	kbd_led_exit();
-+	if (quirks && quirks->touchpad_led)
-+		touchpad_led_exit();
- 	dell_cleanup_rfkill();
- fail_rfkill:
- 	platform_device_del(platform_device);
+diff --git a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c
+index 3b554418a7a3..4bcafedf68ef 100644
+--- a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c
++++ b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c
+@@ -285,15 +285,20 @@ int uncore_freq_add_entry(struct uncore_data *data, int cpu)
+ 			  data->package_id, data->die_id);
+ 	}
+ 
++	/*
++	 * Set the control CPU before any read path so entry recreation after CPU
++	 * hotplug can populate read-only attributes from the new online CPU.
++	 */
++	data->control_cpu = cpu;
+ 	uncore_read(data, &data->initial_min_freq_khz, UNCORE_INDEX_MIN_FREQ);
+ 	uncore_read(data, &data->initial_max_freq_khz, UNCORE_INDEX_MAX_FREQ);
+ 
+ 	ret = create_attr_group(data, data->name);
+ 	if (ret) {
++		data->control_cpu = -1;
+ 		if (data->domain_id != UNCORE_DOMAIN_ID_INVALID)
+ 			ida_free(&intel_uncore_ida, data->seqnum_id);
+ 	} else {
+-		data->control_cpu = cpu;
+ 		data->valid = true;
+ 	}
+ 
 
