@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33908431E6A
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:14:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3A7432BF4
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560492; cv=none; b=YMUW5D0iHeoxwbmpQ89hWM1EnoL27Crx3Q9UlwCR+e+PhI/4QBtie4wnfqM+FMZw9iwrJWivo9DnAHgLMWhH78+IENWGDpP2QDXidELLsQnNGK8gnpGmSUGGhywB8F4UOtWqLrmsZ96mUzMUjci7BiPuP9m5a32IqVbvE0qnd10=
+	t=1784560494; cv=none; b=G+PZbq8XlWAzDrMko6YIb5bI4ZUvJZWpY8LxoPi5oB4EP7Sug7dac5TrbX0GE9W5fr49q0VBwDfTkd3LAiHnWiySBf9S+d+LufeiDDXbceLmdmCR0vs6ctx45hjEOP1oNPNfGdDd55NjcPzoJvioGYkAHraB5JIDxe927dOigug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560492; c=relaxed/simple;
-	bh=mNGKgvQOuxeZ6Vz9Nlr247SUxDlZXCKWnZApAa+3RaY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qyOhRIfcozdbG9cw2tR35bvK3s0tXl6lIDTw6GFqVv4G3uWo33DQKVu9jMKEbxHyQvEEO88lzzM9m+w3+jxN4nQ4RQZJbRCoAh3J70RH7azwRQzVzeYmv/132fKRELPJyCMgEr9yBGkk/KE6uhRCjB8sQSGzx6nO+Fts01k0xBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o9AWH/71; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560494; c=relaxed/simple;
+	bh=YSmEF5qWDNc1JeU2UEIexq+cKe+pVBx0WJOLXPKQeaU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=e/X4RO+4AjiMTJUNwOJAN/3iDr8geuM4jErsnYXvjzp9AVmWKjzpgFn8UNRQPBV69EJ28gozQrztCmcTW1RClIV7PDkXL0z9XLJT57RoYJiaC1UTuhupuKNeR79mS7Hov+8xMjWaNLVvDsO3oNj94V7Uu+e8TgMYFZR5qyqZ3WU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IfJ02SyC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o9AWH/71"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440881F00A3A;
-	Mon, 20 Jul 2026 15:14:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IfJ02SyC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E235A1F000E9;
+	Mon, 20 Jul 2026 15:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560490;
-	bh=zbqAIKr5UEDLyVjaa/9NrhDbjsH29CoCpvhhBXXWPo8=;
+	s=korg; t=1784560493;
+	bh=OPq3LhjZNE3TiFN74owEQvUdAQH52fNc+bQcPh7/qlw=;
 	h=Subject:To:Cc:From:Date;
-	b=o9AWH/71T+0py0QOjPPhYOZ9d8hCVt8Y7sZ765c4XawdAzccee1vF6F9Eywa+yLdT
-	 HiCg7FcOTFhtZQBf6337klUdIwM4zugu7DyHSMzqZmErUohdDqMDwZbBc0b9LpIDOm
-	 IaY7DrSn+2JB2JgSi/garPiTJayijBmtvtHcr5cY=
-Subject: FAILED: patch "[PATCH] can: bcm: fix stale rx/tx ops after device removal" failed to apply to 5.10-stable tree
+	b=IfJ02SyCl2iB1fiT7knHp+U4ziE/L3kfYDPlkFxTOLEbPZqsSrD61yMuYhJrDYlrb
+	 azNq4jgKYUCgKOH91zWp+owXspb7+mTADBhLk+ssZrqgMZCyXguQUvhhFS2PaiPye6
+	 x22A3jH+bsR8pPuNBfRZh/ZyVYOKYUcDwsPlJq74=
+Subject: FAILED: patch "[PATCH] can: bcm: track a single source interface for ANYDEV" failed to apply to 6.12-stable tree
 To: socketcan@hartkopp.net,mkl@pengutronix.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:14:10 +0200
-Message-ID: <2026072010-directed-pastor-fedd@gregkh>
+Date: Mon, 20 Jul 2026 17:14:18 +0200
+Message-ID: <2026072018-exquisite-pouch-b739@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3b762c0d950383ab7a002686c9136b9aa55d2d70
+git cherry-pick -x 2f5976f54a04e9f18b25283036ac3136be453b17
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072010-directed-pastor-fedd@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072018-exquisite-pouch-b739@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,156 +62,135 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3b762c0d950383ab7a002686c9136b9aa55d2d70 Mon Sep 17 00:00:00 2001
+From 2f5976f54a04e9f18b25283036ac3136be453b17 Mon Sep 17 00:00:00 2001
 From: Oliver Hartkopp <socketcan@hartkopp.net>
-Date: Tue, 14 Jul 2026 18:55:31 +0200
-Subject: [PATCH] can: bcm: fix stale rx/tx ops after device removal
+Date: Tue, 14 Jul 2026 18:55:33 +0200
+Subject: [PATCH] can: bcm: track a single source interface for ANYDEV
+ timeout/throttle ops
 
-RX: an RX_SETUP update(!) for an existing op skipped can_rx_register()
-unconditionally, even when a concurrent NETDEV_UNREGISTER had already
-torn down its registration (op->rx_reg_dev == NULL). This silently
-did not re-enable frame delivery for that updated filter. bcm_rx_setup()
-now re-registers in that case, while leaving rx_ops with ifindex = 0
-(all CAN devices) which never carry a tracked rx_reg_dev registered as-is.
+An ANYDEV rx op (ifindex == 0) with an active RX timeout and/or
+throttle timer has no defined semantics when matching frames arrive
+from several interfaces: bcm_rx_handler() can run concurrently for
+the same op on different CPUs, racing hrtimer_cancel()/
+bcm_rx_starttimer() against bcm_rx_timeout_handler() and causing
+spurious RX_TIMEOUT notifications and last_frames corruption. The
+same concurrency lets throttled multiplex frames from different
+interfaces clobber the single rx_ifindex/rx_stamp fields shared by
+the op.
 
-TX: bcm_notify() only handled bo->rx_ops on NETDEV_UNREGISTER, leaving
-tx_ops with an active cyclic transmission re-arming its hrtimer
-indefinitely to execute bcm_tx_timeout_handler(). Cancelling the hrtimer
-prevents the runaway timer and any injection into a later reused ifindex,
-since nothing else calls bcm_can_tx() for the op until an explicit
-TX_SETUP update re-arms it.
+Add op->if_detected to track the first interface that delivers a
+matching frame while a timeout/throttle timer is configured, and
+reject frames from any other interface for that op. The claim is
+decided in bcm_rx_handler() before hrtimer_cancel() touches
+op->timer, so a rejected frame can never disturb the claimed
+interface's watchdog. RTR-mode ops are excluded via RX_RTR_FRAME,
+independent of kt_ival1/kt_ival2, since those may briefly hold a
+stale value from an earlier non-RTR configuration.
 
-Unlike bcm_rx_unreg(), which clears the tracked rx_reg_dev for rx_ops,
-the ifindex is intentionally left unchanged for tx_ops. bcm_tx_setup()
-always rejects ifindex 0, so clearing it would strand the op: neither a
-later TX_SETUP (bcm_find_op()) nor TX_DELETE (bcm_delete_tx_op()) could
-ever find it again, since both require an exact ifindex match.
+The claim is released in bcm_notify() on NETDEV_UNREGISTER and in
+bcm_rx_setup() when SETTIMER reconfigures the timer values.
 
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-can/20260708094536.DDF821F00A3A@smtp.kernel.org/
-Closes: https://lore.kernel.org/linux-can/20260708154039.347ED1F000E9@smtp.kernel.org/
+A (re-)claim is only possible on CAN devices in NETREG_REGISTERED
+dev->reg_state to cover the release in bcm_notify() where reg_state
+becomes NETREG_UNREGISTERING until synchronize_net().
+
 Fixes: ffd980f976e7 ("[CAN]: Add broadcast manager (bcm) protocol")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-can/20260709105031.1A39C1F000E9@smtp.kernel.org/
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20260714-bcm_fixes-v15-9-562f7e3e42da@hartkopp.net
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-11-562f7e3e42da@hartkopp.net
 Cc: stable@kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 25842061800b..a53dba6ab8b8 100644
+index f213a0b37791..3d637a1e0ac1 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -1287,6 +1287,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 	struct bcm_sock *bo = bcm_sk(sk);
- 	struct bcm_op *op;
- 	int do_rx_register;
-+	int new_op = 0;
- 	int err = 0;
- 
- 	if ((msg_head->flags & RX_FILTER_ID) || (!(msg_head->nframes))) {
-@@ -1371,8 +1372,15 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		/* free temporary frames / kfree(NULL) is safe */
- 		kfree(new_frames);
- 
--		/* Only an update -> do not call can_rx_register() */
--		do_rx_register = 0;
-+		/* Don't register a new CAN filter for the rx_op update unless
-+		 * a concurrent NETDEV_UNREGISTER notifier already tore down
-+		 * the previous registration. In this case the receiver needs
-+		 * to be re-registered here so that this update doesn't
-+		 * silently stop delivering frames for the given ifindex.
-+		 * Ops with ifindex = 0 (all CAN interfaces) never carry a
-+		 * tracked rx_reg_dev and stay registered as-is.
-+		 */
-+		do_rx_register = (ifindex && !op->rx_reg_dev) ? 1 : 0;
- 
- 	} else {
- 		/* insert new BCM operation for the given can_id */
-@@ -1439,6 +1447,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 
- 		/* call can_rx_register() */
- 		do_rx_register = 1;
-+		new_op = 1;
- 
- 	} /* if ((op = bcm_find_op(&bo->rx_ops, msg_head->can_id, ifindex))) */
- 
-@@ -1452,7 +1461,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		if (op->flags & SETTIMER) {
- 
- 			/* set timers (locked) for newly created op */
--			if (do_rx_register) {
-+			if (new_op) {
- 				spin_lock_bh(&op->bcm_rx_update_lock);
- 				op->ival1 = msg_head->ival1;
- 				op->ival2 = msg_head->ival2;
-@@ -1482,7 +1491,10 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 				      HRTIMER_MODE_REL_SOFT);
+@@ -117,6 +117,7 @@ struct bcm_op {
+ 	struct hrtimer timer, thrtimer;
+ 	ktime_t rx_stamp, kt_ival1, kt_ival2, kt_lastmsg;
+ 	int rx_ifindex;
++	int if_detected; /* first received ifindex in ANYDEV rx_op mode */
+ 	int cfsiz;
+ 	u32 count;
+ 	u32 nframes;
+@@ -797,6 +798,33 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 			return;
  	}
  
--	/* now we can register for can_ids, if we added a new bcm_op */
-+	/* now we can register for can_ids, if we added a new bcm_op
-+	 * or need to re-register after a NETDEV_UNREGISTER tore down
-+	 * the previous registration of an existing op
++	/* An ANYDEV op with an active RX timeout and/or throttle timer
++	 * tracks a single source interface: claim the first interface that
++	 * delivers a matching frame and reject frames from any other one,
++	 * before hrtimer_cancel() below can touch op->timer - this avoids
++	 * racing bcm_rx_timeout_handler() across concurrent interfaces.
++	 * RX_RTR_FRAME ops are excluded, as kt_ival1/kt_ival2 may briefly
++	 * hold a stale value from an earlier non-RTR configuration.
 +	 */
- 	if (do_rx_register) {
- 		if (ifindex) {
- 			struct net_device *dev;
-@@ -1514,18 +1526,32 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 				err = -ENODEV;
- 			}
- 
--		} else
-+		} else {
- 			err = can_rx_register(sock_net(sk), NULL, op->can_id,
- 					      REGMASK(op->can_id),
- 					      bcm_rx_handler, op, "bcm", sk);
++	if (!op->ifindex) {
++		spin_lock_bh(&op->bcm_rx_update_lock);
++
++		if (!(op->flags & RX_RTR_FRAME) &&
++		    (op->kt_ival1 || op->kt_ival2)) {
++			/* don't claim to vanishing interface */
++			if (!op->if_detected &&
++			    READ_ONCE(skb->dev->reg_state) == NETREG_REGISTERED)
++				op->if_detected = skb->dev->ifindex;
++
++			if (op->if_detected != skb->dev->ifindex) {
++				spin_unlock_bh(&op->bcm_rx_update_lock);
++				return;
++			}
 +		}
 +
- 		if (err) {
--			/* this bcm rx op is broken -> remove it */
--			bcm_remove_op(op);
-+			/* newly created bcm rx op is broken -> remove it */
-+			if (new_op) {
-+				bcm_remove_op(op);
-+				return err;
-+			}
++		spin_unlock_bh(&op->bcm_rx_update_lock);
++	}
 +
-+			/* an existing op just stays unregistered.
-+			 * Cancel op->timer and (defensively) op->thrtimer.
-+			 * Other settings can't be reached until the next
-+			 * successful RX_SETUP.
-+			 */
-+			hrtimer_cancel(&op->timer);
-+			hrtimer_cancel(&op->thrtimer);
- 			return err;
- 		}
+ 	/* disable timeout */
+ 	hrtimer_cancel(&op->timer);
  
--		/* add this bcm_op to the list of the rx_ops */
--		list_add_rcu(&op->list, &bo->rx_ops);
-+		/* add a new bcm_op to the list of the rx_ops */
-+		if (new_op)
-+			list_add_rcu(&op->list, &bo->rx_ops);
+@@ -831,10 +859,9 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 			traffic_flags |= RX_OWN;
  	}
  
- 	return msg_head->nframes * op->cfsiz + MHSIZ;
-@@ -1745,11 +1771,19 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
- 	case NETDEV_UNREGISTER:
+-	/* save rx timestamp and originator for recvfrom() under lock.
+-	 * For an op subscribed on all interfaces (ifindex == 0)
+-	 * bcm_rx_handler() can run concurrently on different CPUs so
+-	 * the CAN content and the meta data must be bundled correctly.
++	/* save rx timestamp and originator for recvfrom() under lock: an
++	 * ANYDEV op without an active timer can still run concurrently on
++	 * different CPUs, so content and meta data must be bundled here.
+ 	 */
+ 	op->rx_stamp = skb->tstamp;
+ 	op->rx_ifindex = skb->dev->ifindex;
+@@ -1369,6 +1396,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 			op->kt_ival1 = bcm_timeval_to_ktime(msg_head->ival1);
+ 			op->kt_ival2 = bcm_timeval_to_ktime(msg_head->ival2);
+ 			op->kt_lastmsg = 0;
++			op->if_detected = 0; /* reclaim ifindex in ANYDEV mode */
+ 		}
+ 		spin_unlock_bh(&op->bcm_rx_update_lock);
+ 
+@@ -1775,10 +1803,21 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
  		lock_sock(sk);
  
--		/* remove device specific receive entries */
-+		/* rx_ops: remove device specific receive entries */
- 		list_for_each_entry(op, &bo->rx_ops, list)
+ 		/* rx_ops: remove device specific receive entries */
+-		list_for_each_entry(op, &bo->rx_ops, list)
++		list_for_each_entry(op, &bo->rx_ops, list) {
  			if (op->rx_reg_dev == dev)
  				bcm_rx_unreg(dev, op);
  
-+		/* tx_ops: stop device specific cyclic transmissions on the
-+		 * vanishing ifindex. Cancelling the timer is enough to stop
-+		 * cyclic bcm_can_tx() calls as there is no re-arming.
-+		 */
-+		list_for_each_entry(op, &bo->tx_ops, list)
-+			if (op->ifindex == dev->ifindex)
-+				hrtimer_cancel(&op->timer);
++			/* release an ANYDEV op's claim (see bcm_rx_handler())
++			 * on this now confirmed-gone interface.
++			 */
++			if (!op->ifindex) {
++				spin_lock_bh(&op->bcm_rx_update_lock);
++				if (op->if_detected == dev->ifindex)
++					op->if_detected = 0;
++				spin_unlock_bh(&op->bcm_rx_update_lock);
++			}
++		}
 +
- 		/* remove device reference, if this is our bound device */
- 		if (bo->bound && bo->ifindex == dev->ifindex) {
- #if IS_ENABLED(CONFIG_PROC_FS)
+ 		/* tx_ops: stop device specific cyclic transmissions on the
+ 		 * vanishing ifindex. Cancelling the timer is enough to stop
+ 		 * cyclic bcm_can_tx() calls as there is no re-arming.
 
