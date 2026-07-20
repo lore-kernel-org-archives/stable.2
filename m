@@ -1,199 +1,240 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DF1438478
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E07425868
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:56:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784563001; cv=none; b=UMe/u6QahcziYfUBtH1mj+9FAtVvPnezyNVDPNMOznWigOFDjFYnO+YxpSmNKZJ4d7zWH3x9rjFlFjVFacvs9GVhq+cpEmQCQKKv6E2rTW0B+sMjQSinXWDUDcZJNDKjIexxgsuI+/giccLo/kBVjk9uyRcow6fxJhOs6lAlWnc=
+	t=1784563001; cv=none; b=aMK1n5K4Qk3UCYY3CswGrkX5qQpNG68qBNPqzC4IwySqK2Mh6QU4QDzZoP/lvCgSxgSgbLq6tuVIeGDUAsHJmFfNT+ZIf8HBq65kYH5BLfIeTgVpa6vKmXNTBgBgIJn3ar0rhq+0ZZ+eXvBFAA8pczpI2nO7nWRpxcsYM3lheAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784563001; c=relaxed/simple;
-	bh=kmnEZUW9sy/EzKslVjdArQiklMOF7d+UqISsKWi+yGw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NehEGQZInOlVIyJNe9tvl/nbZBTKU9IPMfC2ZpFAExZiIiaT7aitrULuMPOPx7CWfJYg43g5L77xpP/BpbsXDBcQp5lsg6+RRRu0KN4jF42IifQ0BH+fAYeat0Qz8P8rmC8fYOtWG9HeWRzYADgp+D8Ss0oj6No5fL5Rv+y84Q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QDpjoFgm; arc=none smtp.client-ip=100.103.45.18
+	bh=tpL4Jy1GsxJNTANk9GP9WJFqm65jbpnV+aCpm7VulcQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SLvY7I4rnrv22FsaPYxIwKb+ufve8s7y7bMhofv+SJaSi0J4HuKydrmWEx66IghQO5Fb4/zRVeqOt03VGaY7V3MUrah3MgsvdCEKWSc392e9FfU0lLPcr/7HXvX8nfJ7yPHF6UPhDLh2je2QZ1np37zX9OZ1WryjYZ0jnOBZWQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQ8+Baht; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QDpjoFgm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE86D1F00A3A;
-	Mon, 20 Jul 2026 15:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562999;
-	bh=VBaDNWo8WmlzY+wxpUaqsJ5KOdDT45MU5po9P49nG4s=;
-	h=Subject:To:Cc:From:Date;
-	b=QDpjoFgmTze79d6iJUBERkYERXNvRy22NupkrxniUJxuk5a5LHOl12S1L05809hUL
-	 RebC9vzh5gOZrSzISThEaAWfM7yIp3pTcwRZEqZb0HejHaBiZAVZSAB8OW6Sncxlxs
-	 /veGIjH6hgE0TN4QSpWXJCmIfkHKYOYkByRbj/Kc=
-Subject: FAILED: patch "[PATCH] gve: fix header buffer corruption with header-split and" failed to apply to 6.12-stable tree
-To: nktgrg@google.com,edumazet@google.com,hramamurthy@google.com,jordanrhee@google.com,joshwash@google.com,kuba@kernel.org,pkaligineedi@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:54:27 +0200
-Message-ID: <2026072027-feline-deserving-7fc7@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQ8+Baht"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEF31F00A3D;
+	Mon, 20 Jul 2026 15:56:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784562999;
+	bh=JpA0omac3BW6r/UQRiXt/biCbytUpAQHui1Q3h2zffw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nQ8+Baht4x2fgEU/czRgEn+zQO6dX2+lQvqWuv9/37tN9pg8/PWYqVDExCHoDGKmn
+	 soieqPbgrdUBF4bX8bDL7VXEJ6F+AfBeKjkOzv/D2xYd1iDxocb2CmKHgHQbOB0lnt
+	 4O+qfQ3RzEAXTM9WJK6nAx7a+G73dvQNZZ2b7cFXJbQXIGEZeMniQ9yy0hyop8YfOk
+	 GDmwdtzLMx/pPpSanFk/4WAeCaVqPD3lrWN+TOKCK4/1p/W1DjAdtKuRhxSEWGO8Nz
+	 FyY2qSkvZGYdlexAEhvU7K9dKbYHiW/9KWcAV5mK60l2+aorSg0/eB2b/krCPs4r7q
+	 BR+tV922OnBYw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Qu Wenruo <wqu@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	David Sterba <dsterba@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/4] btrfs: fix false IO failure after falling back to buffered write
+Date: Mon, 20 Jul 2026 11:56:35 -0400
+Message-ID: <20260720155635.2425597-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260720155635.2425597-1-sashal@kernel.org>
+References: <2026071553-kite-shadow-2c30@gregkh>
+ <20260720155635.2425597-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Qu Wenruo <wqu@suse.com>
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+[BUG]
+The test case generic/362 will fail with "nodatasum" mount option (*):
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x d676c9a73bdcd8237425dbb826f2bd1a25c36e40
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072027-feline-deserving-7fc7@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+ MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
-Possible dependencies:
+ generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
+    @@ -1,2 +1,3 @@
+     QA output created by 362
+    +First write failed: Input/output error
+     Silence is golden
+    ...
 
+*: If the test case has been executed before with default data checksum,
+the failure will not reproduce. Need the following fix to make it
+reliably reproducible:
+https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
 
+[CAUSE]
+Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
+Thus we never got an error pointer from __iomap_dio_rw().
 
-thanks,
+The call chain looks like this:
 
-greg k-h
+ btrfs_direct_write()
+ |- btrfs_dio_write()
+ |-  __iomap_dio_rw()
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_begin()
+ |  |     Now an ordered extent is allocated for the 4K write.
+ |  |
+ |  |- iomi.status = iomap_dio_iter()
+ |  |  Where iomap_dio_iter() returned -EFAULT.
+ |  |
+ |  |- ret = iomap_iter()
+ |  |  |- btrfs_dio_iomap_end()
+ |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
+ |  |  |  |  |- can_finish_ordered_extent()
+ |  |  |  |     |- btrfs_mark_ordered_extent_error()
+ |  |  |  |        |- mapping_set_error()
+ |  |  |  |           Now the address space is marked error.
+ |  |  |  | return -ENOTBLK
+ |  |  |- return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0; }
+ |     Now the return value is reset to 0.
+ |     Thus no error pointer will be returned.
+ |
+ |- ret = iomap_dio_complete()
+ |  Since no byte is submitted, @ret is 0.
+ |
+ |- Fallback to buffered IO
+ |  And the buffered write finished without error
+ |
+ |- filemap_fdatawait_range()
+    |- filemap_check_errors()
+       The previous error is recorded, thus an error is returned
 
------------------- original commit in Linus's tree ------------------
+However the buffered write is properly submitted and finished, the error
+is from the btrfs_finish_ordered_extent() call with @uptodate = false.
 
-From d676c9a73bdcd8237425dbb826f2bd1a25c36e40 Mon Sep 17 00:00:00 2001
-From: Ankit Garg <nktgrg@google.com>
-Date: Tue, 16 Jun 2026 18:32:08 -0700
-Subject: [PATCH] gve: fix header buffer corruption with header-split and
- HW-GRO
+[FIX]
+When a short dio write happened, any range that is submitted will have
+btrfs_extract_ordered_extent() to be called, thus the submitted range
+will always have an OE just covering the submitted range.
 
-The DQO RX datapath programs a per-buffer-queue-descriptor
-header_buf_addr at post time and reads the split header back at
-completion time. Both the post and the read currently index the
-header buffer by queue position rather than by the buffer's identity:
+The remaining OE range is never submitted, thus they should be treated
+as truncated, not an error. So that we can properly reclaim and not
+insert an unnecessary file extent item, without marking the mapping as
+error.
 
-  - post (gve_rx_post_buffers_dqo): header_buf_addr is computed from
-    bufq->tail
-  - read (gve_rx_dqo): the header is read from desc_idx (the completion
-    queue head index)
+Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
+that helper to mark the direct IO ordered extent as truncated, so it
+won't cause failure for the later buffered fallback.
 
-This relies on the buffer-queue index and the completion-queue index
-being equal for the start of every packet, i.e. on the device consuming
-posted buffers and returning completions in the exact same order. That
-assumption does not hold once HW-GRO is enabled with multiple
-flows: coalesced segments are accepted and completed in an order that
-may differ from the order buffers were posted, and segments from
-different flows may interleave.
+[REASON FOR NO FIXES TAG]
+The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we're already passing @uptodate=false finishing
+the OE.
+But at that time OE with IOERR won't call mapping_set_error(), so it's
+not exposed.
+Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
+error if we fail to finish") finally exposed the bug, but that commit
+is doing a correct job, not the root cause.
 
-That results in two problems:
+Anyway the bug is very old, dating back to 5.1x days, thus only CC to
+stable.
 
-1. Wrong header slot on read. Because the read offset is derived from
-   the completion index (desc_idx) while the device wrote the header to
-   the address programmed for the buffer's buf_id, the driver can copy
-   a header belonging to a different packet. This shows up as
-   throughput drop (about 30% drop and large numbers of TCP
-   retransmissions) with header-split and HW-GRO both enabled and many
-   streams.
+CC: stable@vger.kernel.org # 5.15+
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/btrfs/direct-io.c    | 17 ++++++++++++++---
+ fs/btrfs/inode.c        |  6 +-----
+ fs/btrfs/ordered-data.c | 12 ++++++++++++
+ fs/btrfs/ordered-data.h |  2 ++
+ 4 files changed, 29 insertions(+), 8 deletions(-)
 
-2. Header buffer reused while still owned by the device. The driver
-   advances bufq->head by one per completion and re-posts buffers based
-   on that. Arrival of N RX completions only guarantees that at least N
-   RX buffer descriptors have been read by the device. It does not
-   guarantee that the device has relinquished the ownership of all the
-   buffers corresponding to those N descriptors. With out-of-order
-   completions (e.g. the completion for a packet copied into buffer N
-   arrives before the completion for a packet copied into buffer N-1),
-   the driver can re-post and overwrite a header buffer that the device
-   is still going to write into, corrupting the header of a packet
-   whose completion has not yet been processed.
-
-Fix both issues by indexing the header buffer by buf_id on both the post
-and read paths. Reading from buf_id's slot is therefore always correct
-regardless of completion ordering (fixes problem 1).
-
-Indexing by buf_id also ties each header slot to the lifetime of its
-buffer state. A buffer state is only returned to the free/recycle lists
-when its own completion (buf_id) is processed, so its header slot can
-only be re-posted after the device is done with it. This makes header
-slot reuse safe under out-of-order completions (fixes problem 2).
-
-Allocate (gve_rx_alloc_hdr_bufs) and free (gve_rx_free_hdr_bufs) the
-header buffers based on num_buf_states to match the buf_id indexing.
-
-Cc: stable@vger.kernel.org
-Fixes: 5e37d8254e7f ("gve: Add header split data path")
-Signed-off-by: Ankit Garg <nktgrg@google.com>
-Reviewed-by: Praveen Kaligineedi <pkaligineedi@google.com>
-Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
-Signed-off-by: Joshua Washington <joshwash@google.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260617013208.3781453-1-joshwash@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-index 7924dce719e2..02cba280d81a 100644
---- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-@@ -21,11 +21,13 @@
- static void gve_rx_free_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx)
- {
- 	struct device *hdev = &priv->pdev->dev;
--	int buf_count = rx->dqo.bufq.mask + 1;
- 
- 	if (rx->dqo.hdr_bufs.data) {
--		dma_free_coherent(hdev, priv->header_buf_size * buf_count,
--				  rx->dqo.hdr_bufs.data, rx->dqo.hdr_bufs.addr);
-+		size_t size =
-+			(size_t)priv->header_buf_size * rx->dqo.num_buf_states;
-+
-+		dma_free_coherent(hdev, size, rx->dqo.hdr_bufs.data,
-+				  rx->dqo.hdr_bufs.addr);
- 		rx->dqo.hdr_bufs.data = NULL;
- 	}
- }
-@@ -254,7 +256,7 @@ int gve_rx_alloc_ring_dqo(struct gve_priv *priv,
- 
- 	/* Allocate header buffers for header-split */
- 	if (cfg->enable_header_split)
--		if (gve_rx_alloc_hdr_bufs(priv, rx, buffer_queue_slots))
-+		if (gve_rx_alloc_hdr_bufs(priv, rx, rx->dqo.num_buf_states))
- 			goto err;
- 
- 	/* Allocate RX completion queue */
-@@ -381,10 +383,13 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
- 			break;
- 		}
- 
--		if (rx->dqo.hdr_bufs.data)
-+		if (rx->dqo.hdr_bufs.data) {
-+			u16 buf_id = le16_to_cpu(desc->buf_id);
-+
- 			desc->header_buf_addr =
- 				cpu_to_le64(rx->dqo.hdr_bufs.addr +
--					    priv->header_buf_size * bufq->tail);
-+					(size_t)priv->header_buf_size * buf_id);
+diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+index fae5e005da45a5..ccdfc6b67038a3 100644
+--- a/fs/btrfs/direct-io.c
++++ b/fs/btrfs/direct-io.c
+@@ -623,12 +623,23 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 	if (submitted < length) {
+ 		pos += submitted;
+ 		length -= submitted;
+-		if (write)
++		if (write) {
++			/*
++			 * We have a short write, if there is any range
++			 * that is submitted properly, that part will have
++			 * its own OE split from the original one.
++			 *
++			 * So for the OE at dio_data->ordered, it's the part
++			 * that is not submitted, and should be marked
++			 * as fully truncated.
++			 */
++			btrfs_mark_ordered_extent_truncated(dio_data->ordered, 0);
+ 			btrfs_finish_ordered_extent(dio_data->ordered,
+-						    pos, length, false);
+-		else
++						    pos, length, true);
++		} else {
+ 			unlock_dio_extent(&BTRFS_I(inode)->io_tree, pos,
+ 					  pos + length - 1, NULL);
 +		}
+ 		ret = -ENOTBLK;
+ 	}
+ 	if (write) {
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 3f5312b1823afb..8bbb054c38fe78 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -7532,11 +7532,7 @@ static void btrfs_invalidate_folio(struct folio *folio, size_t offset,
+ 					 EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
+ 					 EXTENT_DEFRAG, &cached_state);
  
- 		bufq->tail = (bufq->tail + 1) & bufq->mask;
- 		complq->num_free_slots--;
-@@ -826,10 +831,13 @@ static int gve_rx_dqo(struct napi_struct *napi, struct gve_rx_ring *rx,
- 		int unsplit = 0;
+-		spin_lock_irq(&inode->ordered_tree_lock);
+-		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
+-		ordered->truncated_len = min(ordered->truncated_len,
+-					     cur - ordered->file_offset);
+-		spin_unlock_irq(&inode->ordered_tree_lock);
++		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
  
- 		if (hdr_len && !hbo) {
--			rx->ctx.skb_head = gve_rx_copy_data(priv->dev, napi,
--							    rx->dqo.hdr_bufs.data +
--							    desc_idx * priv->header_buf_size,
--							    hdr_len);
-+			size_t offset =
-+				(size_t)buffer_id * priv->header_buf_size;
+ 		/*
+ 		 * If the ordered extent has finished, we're safe to delete all
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index c7901fb167db79..692f03803da9eb 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -329,6 +329,18 @@ void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered)
+ 		mapping_set_error(ordered->inode->vfs_inode.i_mapping, -EIO);
+ }
+ 
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len)
++{
++	struct btrfs_inode *inode = ordered->inode;
 +
-+			rx->ctx.skb_head =
-+				gve_rx_copy_data(priv->dev, napi,
-+						 rx->dqo.hdr_bufs.data + offset,
-+						 hdr_len);
- 			if (unlikely(!rx->ctx.skb_head))
- 				goto error;
- 			rx->ctx.skb_tail = rx->ctx.skb_head;
++	ASSERT(truncate_len <= ordered->num_bytes);
++	spin_lock_irq(&inode->ordered_tree_lock);
++	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
++	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
++	spin_unlock_irq(&inode->ordered_tree_lock);
++}
++
+ static void finish_ordered_fn(struct btrfs_work *work)
+ {
+ 	struct btrfs_ordered_extent *ordered_extent;
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index cbfac6044dfb6a..a1a9f8d46e10e2 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -213,6 +213,8 @@ bool btrfs_try_lock_ordered_range(struct btrfs_inode *inode, u64 start, u64 end,
+ struct btrfs_ordered_extent *btrfs_split_ordered_extent(
+ 			struct btrfs_ordered_extent *ordered, u64 len);
+ void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered);
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len);
+ int __init ordered_data_init(void);
+ void __cold ordered_data_exit(void);
+ 
+-- 
+2.53.0
 
