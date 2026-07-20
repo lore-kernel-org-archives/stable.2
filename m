@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1EE19D092
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:27:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D39C3F86EA
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557627; cv=none; b=sQ3zE7nBeT4e+PyPKGz393bZ92RZfVkEM8p/gMGncWWNWCo1Lrs1JWBR1nJz3N64Ih3H7R/tJGqMKhYM6oM6rdlFQ9eDlqV9dxqOdPt7c+2CsDc7lmeYZ1oy7pPT15W9p2dwX48eEBsxd/7AE3EWOwrK7exQDjUVpfsf7nNDi9o=
+	t=1784557667; cv=none; b=DURQ/xGgTzRbEiJ79PhPXBuXFXmlIJr1hfHUXGe8XA0shu6xIINb0ucbLgvBEHdv//cznWlm6Nyzo1KiPr589mt8QuzeGdS7KjHPgm8D0ULEqREmt6eYZCef6znSATSqA3aI37aNYakzkLZ7+xrhk0WJr5k4bzZmXD9B2hmvK/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557627; c=relaxed/simple;
-	bh=fbsROzd0zDkBGQA+AzfY9EY80xn4QUPYMZTZTUQwCbA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NAzeVrCDyZB+taAQKExAr2QDOi0U4ost+4r7wDqNhwi2FFoY6NXNyPu4MNIRVnzJB9rlPfgkj9MhKY9CR/xaf8g7UIIUDPt5GseMHZUmV6Wc37a3vQ37z0nzIYNEWlr9xxInEg2hQmeEnDhwQGC65gXwlLwoa4m6shc5v6L9JUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vp+NpIAc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557667; c=relaxed/simple;
+	bh=InvoYuif108Mv6BRRslirPS3bNVILEWeLBVhdhVGGfM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jXTDMLhqUx90FMqmoQ0B5XzOgSsGZby/0ywJtdfdo2l9RUpqY90Xw9EijbDcQ6GHf21rbj495r+562IRxnoaBAMvTbqH4kXWcKlWfEk6ZP+eZMmr3tKHy+AhAToTtujYWYvXbnLrG09sGlDhg7ube/0YL+WasMxTSZRBbe+9e9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Re+yIyMM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vp+NpIAc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00ED61F000E9;
-	Mon, 20 Jul 2026 14:27:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Re+yIyMM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60ED51F000E9;
+	Mon, 20 Jul 2026 14:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557626;
-	bh=BgXyft6mGRuJNm98goxzAxYmsmI1NtbN32YeDQQax6I=;
+	s=korg; t=1784557665;
+	bh=ch9eYyOP1RZK+8bHHbCCKndVU9eEAJu4p2s8njUVlSo=;
 	h=Subject:To:Cc:From:Date;
-	b=vp+NpIAceNTjxCtK+zAEn8sr0kpeAbwaN4WoBqiRji+OtlFTFGOqQcSq6HgA0wlEp
-	 oa6TpyENj8FzgZDHbEMhdjaxJizC5icjwn9n1iM7Gr5eRSJYTyyxJ02hCHlFhgX942
-	 NkzIMp55zksbWQiAcWVnywI6yhJdlaMCN+a5/mog=
-Subject: FAILED: patch "[PATCH] ntfs3: validate split-point offset in indx_insert_into_buffer" failed to apply to 5.15-stable tree
-To: michael.bommarito@gmail.com,almaz.alexandrovich@paragon-software.com
+	b=Re+yIyMMal9isp+pWjD4gxLtgkfZt7w2xpkz3lIbnTShMNd9VJPTyjqJawlOV77+G
+	 2jazsnahJrs0xW70ToUKl8DiPgAMFVNgngs/JLf6DiM5587M/EJZGvqj6dQTQZrSZK
+	 dzLyaptbMV2CEFdaUuqsiDVvHujbhuO0K1xgTkho=
+Subject: FAILED: patch "[PATCH] landlock: Fix LANDLOCK_SCOPE_SIGNAL bypass on the SIGIO path" failed to apply to 6.12-stable tree
+To: hexlabsecurity@proton.me,gnoack3000@gmail.com,mic@digikod.net
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:26:49 +0200
-Message-ID: <2026072049-legroom-strode-957e@gregkh>
+Date: Mon, 20 Jul 2026 16:27:36 +0200
+Message-ID: <2026072036-petticoat-useable-12b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f1df9d771df47aa40de6d70949c28720ae1e430d
+git cherry-pick -x 4b80320ca7ed03d6e683f95b6066565dc97b9f92
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072049-legroom-strode-957e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072036-petticoat-useable-12b3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,80 +62,163 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f1df9d771df47aa40de6d70949c28720ae1e430d Mon Sep 17 00:00:00 2001
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Fri, 17 Apr 2026 18:57:12 -0400
-Subject: [PATCH] ntfs3: validate split-point offset in indx_insert_into_buffer
+From 4b80320ca7ed03d6e683f95b6066565dc97b9f92 Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Thu, 4 Jun 2026 23:16:56 +0000
+Subject: [PATCH] landlock: Fix LANDLOCK_SCOPE_SIGNAL bypass on the SIGIO path
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-indx_insert_into_buffer() computes
+LANDLOCK_SCOPE_SIGNAL must prevent a sandboxed process from signaling
+processes outside its Landlock domain.  It can be bypassed through the
+asynchronous SIGIO delivery path.
 
-    used = used1 - to_copy - sp_size;
-    memmove(de_t, Add2Ptr(sp, sp_size), used - le32_to_cpu(hdr1->de_off));
+A sandboxed process that owns any file or socket can arm it with
+fcntl(fd, F_SETOWN, -pgid), fcntl(fd, F_SETSIG, SIGKILL) and O_ASYNC, so
+that an I/O event makes the kernel deliver the chosen signal to the
+whole process group.  As the head of its process group's task list (the
+default position right after fork()) that group can also hold the
+non-sandboxed process that launched it, e.g. a supervisor or a security
+monitor.  The sandbox can thus kill or signal the processes
+LANDLOCK_SCOPE_SIGNAL is meant to protect from it.
 
-where sp and sp_size come from hdr_find_split().  hdr_find_split()
-walks entries by le16_to_cpu(e->size) without validating that each
-step stays within hdr->used or that the size field is at least
-sizeof(struct NTFS_DE).  index_hdr_check(), the on-load gatekeeper,
-only validates header-level fields (used, total, de_off) and does
-not walk per-entry sizes.
+The scope is enforced in hook_file_send_sigiotask() against the Landlock
+domain recorded at F_SETOWN time, not the live domain of the sender.
+control_current_fowner() decides whether to record that domain and skips
+recording it when the fowner target is in the caller's thread group,
+which is safe only for a single-task target (PIDTYPE_PID, PIDTYPE_TGID).
+For a process group (PIDTYPE_PGID) pid_task() returns only one member;
+recording is skipped whenever that member shares the caller's thread
+group, and hook_file_send_sigiotask() then lets the signal fan out to
+the whole group unchecked.
 
-A crafted NTFS image whose leaf INDEX_HDR reports used == total but
-contains one interior NTFS_DE with size = 0xFFF0 therefore passes
-validation, descends to indx_insert_into_buffer() through the
-ntfs_create() -> indx_insert_entry() path, and makes hdr_find_split()
-return an sp whose sp_size (0xFFF0) greatly exceeds the remaining
-bytes in the buffer.  The u32 subtraction underflows and the memmove
-count becomes a near-4-GiB value, producing an out-of-bounds kernel
-write that corrupts adjacent allocations and panics the kernel.
+Record the domain for every non single-process target so the scope is
+enforced against each group member at delivery time.
 
-Reproduced on 7.0.0-rc7 with UML + KASAN via a crafted image and a
-single 'touch' inside the mounted directory; crash site resolves to
-fs/ntfs3/index.c at the memmove.  Trigger requires only local mount
-of an attacker-supplied filesystem image (USB, loopback, or removable
-media auto-mount).
+That recording is necessary but not sufficient on its own: the kernel
+signals a process group through its members' thread-group leaders, and
+the leader of the registrant's own process can carry a different
+Landlock domain than the sibling thread that armed the owner.
+domain_is_scoped() would then deny that leader, even though commit
+18eb75f3af40 ("landlock: Always allow signals between threads of the
+same process") requires same-process delivery to be allowed.
+hook_task_kill() avoids this by evaluating same_thread_group() live, per
+recipient; the SIGIO path instead delegates the whole decision to a
+single registration-time check, which a process-group fan-out cannot
+honor.
 
-Reject the split whenever the chosen sp plus its declared size
-already extends past hdr1->used.  This is the minimal fix; it
-preserves the existing hdr_find_split() contract and relies on the
-same out: cleanup path as the pre-existing error returns.
+So also record the registrant's thread group next to its domain and
+exempt it at delivery: hook_file_send_sigiotask() allows the signal
+whenever the recipient belongs to the registrant's own process,
+restoring the same-process guarantee while keeping out-of-domain group
+members blocked.  The direct kill() path (hook_task_kill) already
+evaluates the live domain and is unaffected.
 
-A prior OOB read in the very same indx_insert_into_buffer() memmove
-was fixed in commit b8c44949044e ("fs/ntfs3: Fix OOB read in
-indx_insert_into_buffer") by tightening hdr_find_e(), but that fix
-does not cover the split-point size field path addressed here: sp is
-returned by hdr_find_split(), not hdr_find_e(), and the underflow is
-driven by sp->size rather than hdr->used exceeding hdr->total.
-
-Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
+Fixes: 18eb75f3af40 ("landlock: Always allow signals between threads of the same process")
 Cc: stable@vger.kernel.org
-Reported-by: Michael Bommarito <michael.bommarito@gmail.com>
-Assisted-by: Claude:claude-opus-4-7
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Günther Noack <gnoack3000@gmail.com>
+Link: https://patch.msgid.link/56bffc24f3d0d08b45a686a48e99766b0a0821fa.1780614610.git.hexlabsecurity@proton.me
+[mic: Check pid_type earlier and improve comment, fix commit message,
+fix comment formatting]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 
-diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
-index 5868964e129c..ade276225999 100644
---- a/fs/ntfs3/index.c
-+++ b/fs/ntfs3/index.c
-@@ -1862,6 +1862,20 @@ indx_insert_into_buffer(struct ntfs_index *indx, struct ntfs_inode *ni,
- 	memcpy(up_e, sp, sp_size);
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index c1ecfe239032..664962a416d7 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -1900,6 +1900,14 @@ static bool control_current_fowner(struct fown_struct *const fown)
+ 	 */
+ 	lockdep_assert_held(&fown->lock);
  
- 	used1 = le32_to_cpu(hdr1->used);
-+
 +	/*
-+	 * hdr_find_split does not validate per-entry sizes, so a crafted
-+	 * NTFS_DE whose le16 size field is out of range can place sp such
-+	 * that (PtrOffset(hdr1, sp) + sp_size) exceeds used1. Without this
-+	 * guard the u32 'used = used1 - to_copy - sp_size' underflows and
-+	 * the subsequent memmove count becomes a near-4-GiB value,
-+	 * triggering an out-of-bounds kernel write.
++	 * A process-group or session owner (PIDTYPE_PGID/PIDTYPE_SID) fans the
++	 * signal out to every member at delivery time, so record the domain and
++	 * let hook_file_send_sigiotask() check the live scope per recipient.
 +	 */
-+	if (PtrOffset(hdr1, sp) + sp_size > used1) {
-+		err = -EINVAL;
-+		goto out;
-+	}
++	if (fown->pid_type != PIDTYPE_PID && fown->pid_type != PIDTYPE_TGID)
++		return true;
 +
- 	hdr1_saved = kmemdup(hdr1, used1, GFP_NOFS);
- 	if (!hdr1_saved) {
- 		err = -ENOMEM;
+ 	/*
+ 	 * Some callers (e.g. fcntl_dirnotify) may not be in an RCU read-side
+ 	 * critical section.
+@@ -1916,6 +1924,7 @@ static void hook_file_set_fowner(struct file *file)
+ {
+ 	struct landlock_ruleset *prev_dom;
+ 	struct landlock_cred_security fown_subject = {};
++	struct pid *prev_tg, *fown_tg = NULL;
+ 	size_t fown_layer = 0;
+ 
+ 	if (control_current_fowner(file_f_owner(file))) {
+@@ -1928,21 +1937,26 @@ static void hook_file_set_fowner(struct file *file)
+ 		if (new_subject) {
+ 			landlock_get_ruleset(new_subject->domain);
+ 			fown_subject = *new_subject;
++			fown_tg = get_pid(task_tgid(current));
+ 		}
+ 	}
+ 
+ 	prev_dom = landlock_file(file)->fown_subject.domain;
++	prev_tg = landlock_file(file)->fown_tg;
+ 	landlock_file(file)->fown_subject = fown_subject;
++	landlock_file(file)->fown_tg = fown_tg;
+ #ifdef CONFIG_AUDIT
+ 	landlock_file(file)->fown_layer = fown_layer;
+ #endif /* CONFIG_AUDIT*/
+ 
+ 	/* May be called in an RCU read-side critical section. */
+ 	landlock_put_ruleset_deferred(prev_dom);
++	put_pid(prev_tg);
+ }
+ 
+ static void hook_file_free_security(struct file *file)
+ {
++	put_pid(landlock_file(file)->fown_tg);
+ 	landlock_put_ruleset_deferred(landlock_file(file)->fown_subject.domain);
+ }
+ 
+diff --git a/security/landlock/fs.h b/security/landlock/fs.h
+index bf9948941f2f..911b83669e20 100644
+--- a/security/landlock/fs.h
++++ b/security/landlock/fs.h
+@@ -78,6 +78,16 @@ struct landlock_file_security {
+ 	 * euid.
+ 	 */
+ 	struct landlock_cred_security fown_subject;
++	/**
++	 * @fown_tg: Thread group of the task that set the file owner, pinned
++	 * while @fown_subject holds a domain.  It lets
++	 * hook_file_send_sigiotask() always allow a SIGIO delivered to the
++	 * owner's own process -- e.g. the thread-group leader reached through a
++	 * process-group owner -- matching the same-process exemption of
++	 * hook_task_kill().  NULL when no domain is recorded.  Protected by
++	 * file->f_owner->lock, like @fown_subject.
++	 */
++	struct pid *fown_tg;
+ };
+ 
+ #ifdef CONFIG_AUDIT
+diff --git a/security/landlock/task.c b/security/landlock/task.c
+index 6d46042132ce..7ddf211f75c3 100644
+--- a/security/landlock/task.c
++++ b/security/landlock/task.c
+@@ -411,6 +411,17 @@ static int hook_file_send_sigiotask(struct task_struct *tsk,
+ 	if (!subject->domain)
+ 		return 0;
+ 
++	/*
++	 * Always allow delivery to the file owner's own process, including a
++	 * thread-group leader reached through a process-group owner.  This
++	 * mirrors hook_task_kill()'s same-process exemption and preserves the
++	 * guarantee of commit 18eb75f3af40 ("landlock: Always allow signals
++	 * between threads of the same process"), which the registration-time
++	 * check cannot honor for a process-group target.
++	 */
++	if (task_tgid(tsk) == landlock_file(fown->file)->fown_tg)
++		return 0;
++
+ 	scoped_guard(rcu)
+ 	{
+ 		is_scoped = domain_is_scoped(subject->domain,
 
