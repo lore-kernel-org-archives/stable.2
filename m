@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A02444700
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DF543D518
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:15:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784567748; cv=none; b=h8W0WcLErUQgjGu1TpwMOyNZeJLS1EqTuxo06C/EH6Wp3Hv01cwU0uhnEPQoIqMSTji9GzB9EiJKuRhms/lXQNXKRKK38dJfItQirnHDFwyKeQWGI9w/nFEwC8Yd2HC5ThQfwUrMf4nPnTxpp8FxDbZIE9EX38h1K6OQxXuS9e4=
+	t=1784567746; cv=none; b=ccF1gjh0Uf35gQDanRYksJXkRFWIWmrOKcMx5s4ktdg4sVKcaBubXML0JmFV7nIh7oDGnBXISa942xfQXop5H6ejsqm8UfgErWR+wVnARRdmEy42WEJFG8Ra+wBP+l2jOQpiF8W6SdH+tl/5VtX0JsuwoqkUMEy6rcOPOKsUDuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784567748; c=relaxed/simple;
-	bh=VRVe5Aly5Q3oOsD6Y7z7f1M7tQjnKQ7zg+ZdyPnhocU=;
+	s=arc-20240116; t=1784567746; c=relaxed/simple;
+	bh=eCbzxpEeV0HHh/mMaxPxKBYRx+SVdvYt2l06wPwlxkI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O3HhYUbW6rbMEuzJ5xVlWr5T9B4Bd0kFkTXcLIybZGQDv72KlfGx3iAuJH/xPGJPRxti3ynYRYqbv0w+rcgOEcp44GY/okdTrDtJ7a3CpIjM/aDMgh6OI73sF7LzWJT5HvDfEKeeXUZSM2mU7zqnoY95OzpScoiJ23KrS1DqhLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nNLy82/G; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Wz+ksfCbwjgoRB6/cxg+dUZ9BQ2zYFinid0bY4hZjokuqGYKDmRVNU+069SyHtsgGRCNrydCXw3hENc8e+WSQPvWnHNrcMjGvPYhcPBWCybI/5SZsRA2bU+OxzYr1Vse/eWQN1FXL1oEKeQ92eYOl1Wgp5GAAnopQ9/IPg2wnDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEVUsadJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nNLy82/G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D631F0156B;
-	Mon, 20 Jul 2026 17:15:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEVUsadJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08DE1F01579;
+	Mon, 20 Jul 2026 17:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784567740;
-	bh=2hzu5hVmITW/Sih0xBCVOxix8fqG1B4QECsXmahhego=;
+	s=k20260515; t=1784567742;
+	bh=/u3hSE/5Z4e/KWi/OdzYrtZkqzDsQDdoxL54XMhwxwo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nNLy82/G4iO6CxtbtEgfvvMU44RAGVTsdWjSPym+9gDf/vQlTVkVKr1nFMG2nPa3f
-	 L5R6qOwtyV3IapFqdieEx+p41VdCh7sCLc9i7EzkRfcsAYEpQ6YIXVEieCdsZ4FQRc
-	 LRLqW2UXltCyUP99oac8AP6ShSN5YeSoZ455lupi7zJn3GJPkho3p3ZtCKlmgcMant
-	 Tod3mhQUnzXWvhE25MkwlPCBH18cp+Hc2k+smwlEkiZLpGHeGqQSkhuTVb9LjBMKWl
-	 TlxGhkLa1xjHrcpxfrh6HJnCrZdQvXNyY1ZAohuE6x10V4SuYcihy821rxGF7kezDm
-	 htaJMObeEv0Vw==
+	b=OEVUsadJgDwNwJth2ie0Yu3kZXd4/MXv2voGg1wrUS2w+7RXYjfeodR4xcwRKjW1F
+	 B/4P/aGLNy0Az3VPfDFe2pGhzmufC+5uvwHWKEQYV+hgL3gwZ3VNT51UHnIDrUu4fb
+	 qni45fZvzh6emtxeI3J0qIxtfUMuIdzGG/FNRVEGTBeetumlTBpgX5t/7zryyd3ZQD
+	 BmewoGaS7hzYSLY4EZklzmYHpHveK/us9pY/M+G1OsB5EwaZlZX6CP1y3Vg7MUQx0M
+	 FPsTDnBNpN2w9RyyLBHc7tXpACkYSise5kCOl0vFudMk6T8VkAT6EyyuhaYPjGCAqL
+	 XY/j4rYCA+8fg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ashish Kalra <ashish.kalra@amd.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
+Cc: "Tycho Andersen (AMD)" <tycho@kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/6] crypto: ccp - Move SEV/SNP Platform initialization to KVM
-Date: Mon, 20 Jul 2026 13:15:33 -0400
-Message-ID: <20260720171535.2695659-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 6/6] crypto: ccp - Do not initialize SNP for ioctl(SNP_CONFIG)
+Date: Mon, 20 Jul 2026 13:15:35 -0400
+Message-ID: <20260720171535.2695659-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260720171535.2695659-1-sashal@kernel.org>
 References: <2026071538-unmapped-affiliate-9ff5@gregkh>
@@ -48,69 +47,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ashish Kalra <ashish.kalra@amd.com>
+From: "Tycho Andersen (AMD)" <tycho@kernel.org>
 
-[ Upstream commit 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab ]
+[ Upstream commit 08f0e65e784c4b20e6e620dd4f68d8636073a3d2 ]
 
-SNP initialization is forced during PSP driver probe purely because SNP
-can't be initialized if VMs are running.  But the only in-tree user of
-SEV/SNP functionality is KVM, and KVM depends on PSP driver for the same.
-Forcing SEV/SNP initialization because a hypervisor could be running
-legacy non-confidential VMs make no sense.
+Sashiko notes:
 
-This patch removes SEV/SNP initialization from the PSP driver probe
-time and moves the requirement to initialize SEV/SNP functionality
-to KVM if it wants to use SEV/SNP.
+> if SEV initialization fails and KVM is actively running normal VMs, could a
+> userspace process trigger this code path via /dev/sev ioctls (e.g.,
+> SEV_PDH_GEN) and zero out MSR_VM_HSAVE_PA globally? Would the next VMRUN
+> execution for an active VM trigger a general protection fault and crash the
+> host?
 
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Reviewed-by: Alexey Kardashevskiy <aik@amd.com>
-Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+Refuse to re-try initialization if SNP is not already initialized for
+SNP_CONFIG.
+
+This is technically an ABI break: before if SNP initialization failed it
+could be transparently retriggered by this ioctl, and if no VMs were
+running, everything worked fine. Hopefully this is enough of a corner case
+that nobody will notice, but someone does, there are a few options:
+
+* do something like symbol_get() for kvm and refuse to initialize if KVM is
+  loaded
+* check each cpu's HSAVE_PA for non-zero data before re-initializing
+* once initialization has failed, continue to refuse to initialize until
+  the ccp module is unloaded
+
+Fixes: ceac7fb89e8d ("crypto: ccp - Ensure implicit SEV/SNP init and shutdown in ioctls")
+Reported-by: Sashiko
+Assisted-by: Gemini:gemini-3.1-pro-preview
+Link: https://sashiko.dev/#/patchset/20260324161301.1353976-1-tycho%40kernel.org
+CC: <stable@vger.kernel.org>
+Signed-off-by: Tycho Andersen (AMD) <tycho@kernel.org>
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Stable-dep-of: 08f0e65e784c ("crypto: ccp - Do not initialize SNP for ioctl(SNP_CONFIG)")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/ccp/sev-dev.c | 13 -------------
- 1 file changed, 13 deletions(-)
+ drivers/crypto/ccp/sev-dev.c | 33 ++++-----------------------------
+ 1 file changed, 4 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
-index 12382f2405608f..07e65672b2c7b9 100644
+index c1e003cae057a2..6387baca7b553a 100644
 --- a/drivers/crypto/ccp/sev-dev.c
 +++ b/drivers/crypto/ccp/sev-dev.c
-@@ -1351,10 +1351,6 @@ static int _sev_platform_init_locked(struct sev_platform_init_args *args)
- 	if (sev->state == SEV_STATE_INIT)
- 		return 0;
+@@ -1433,21 +1433,6 @@ static int sev_move_to_init_state(struct sev_issue_cmd *argp, bool *shutdown_req
+ 	return 0;
+ }
  
--	/*
--	 * Legacy guests cannot be running while SNP_INIT(_EX) is executing,
--	 * so perform SEV-SNP initialization at probe time.
--	 */
- 	rc = __sev_snp_init_locked(&args->error);
- 	if (rc && rc != -ENODEV) {
- 		/*
-@@ -2512,9 +2508,7 @@ EXPORT_SYMBOL_GPL(sev_issue_cmd_external_user);
- void sev_pci_init(void)
+-static int snp_move_to_init_state(struct sev_issue_cmd *argp, bool *shutdown_required)
+-{
+-	int error, rc;
+-
+-	rc = __sev_snp_init_locked(&error);
+-	if (rc) {
+-		argp->error = SEV_RET_INVALID_PLATFORM_STATE;
+-		return rc;
+-	}
+-
+-	*shutdown_required = true;
+-
+-	return 0;
+-}
+-
+ static int sev_ioctl_do_reset(struct sev_issue_cmd *argp, bool writable)
+ {
+ 	int state, rc;
+@@ -2141,8 +2126,6 @@ static int sev_ioctl_do_snp_set_config(struct sev_issue_cmd *argp, bool writable
  {
  	struct sev_device *sev = psp_master->sev_data;
--	struct sev_platform_init_args args = {0};
- 	u8 api_major, api_minor, build;
--	int rc;
+ 	struct sev_user_data_snp_config config;
+-	bool shutdown_required = false;
+-	int ret, error;
  
- 	if (!sev)
- 		return;
-@@ -2537,13 +2531,6 @@ void sev_pci_init(void)
- 			 api_major, api_minor, build,
- 			 sev->api_major, sev->api_minor, sev->build);
+ 	if (!argp->data)
+ 		return -EINVAL;
+@@ -2150,21 +2133,13 @@ static int sev_ioctl_do_snp_set_config(struct sev_issue_cmd *argp, bool writable
+ 	if (!writable)
+ 		return -EPERM;
  
--	/* Initialize the platform */
--	args.probe = true;
--	rc = sev_platform_init(&args);
--	if (rc)
--		dev_err(sev->dev, "SEV: failed to INIT error %#x, rc %d\n",
--			args.error, rc);
++	if (!sev->snp_initialized)
++		return -ENODEV;
++
+ 	if (copy_from_user(&config, (void __user *)argp->data, sizeof(config)))
+ 		return -EFAULT;
+ 
+-	if (!sev->snp_initialized) {
+-		ret = snp_move_to_init_state(argp, &shutdown_required);
+-		if (ret)
+-			return ret;
+-	}
 -
- 	return;
+-	ret = __sev_do_cmd_locked(SEV_CMD_SNP_CONFIG, &config, &argp->error);
+-
+-	if (shutdown_required)
+-		__sev_snp_shutdown_locked(&error, false);
+-
+-	return ret;
++	return __sev_do_cmd_locked(SEV_CMD_SNP_CONFIG, &config, &argp->error);
+ }
  
- err:
+ static int sev_ioctl_do_snp_vlek_load(struct sev_issue_cmd *argp, bool writable)
 -- 
 2.53.0
 
