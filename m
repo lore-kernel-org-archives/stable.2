@@ -1,290 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D193ABD91;
-	Mon, 20 Jul 2026 06:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 17FEB2288D5;
+	Mon, 20 Jul 2026 06:44:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784528298; cv=none; b=TFkfa0tEqbhwEN3LSOxwDK/057t9GmvxNITlrOgFlh9ewaSY3H16pZQtgehtCgqo2qqCUtAEKqbibF2EZEMZ4tQUmYjoRjRF1CaOObT8qJ0y+8uX9kh+Ced19V0oNK8pmHA5RiqTEI6uoTAruXhefa6+TD6iUu+nEiaTZXl8aQs=
+	t=1784529880; cv=none; b=B5atns65c4rmqOthH/ldBaL7TqMQzn8oZMT9YNhOQUYNKVZMOfHOzJYVplsB3SsQXqFB4S0WKD/ZmIArJxQVkR9mVb+HcsIAJN6QCZBh70Z+sTKTIRad7fixN0mnZSfWcpYkCk4w5OnJ1mgh0du2ad7+Hp0d7fxem3ZePKxyUEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784528298; c=relaxed/simple;
-	bh=ypep1gMxO3yLcCSYTMM4LB3+QrmGCex0pmdPpHNznI4=;
-	h=Date:To:From:Subject:Message-Id; b=GuxzFdntEu2CUqBGQQQEURbahFQit7OSYdfbV9zqWpG2do7GzRJD0IsmWZYluYZ5sLTsbJXyqfQhabDUay5ohp1yhtSd8a+CfUua6eD0AHMqic4iIaoDhuvtjM2DoAEPa4kup/SFYeMnovg1VjANYeezLQ3nNutqpvgGFGxaqJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vTic8isB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784529880; c=relaxed/simple;
+	bh=sRJC3ADCLu7gf8dHSb3MbjdXNVOCnghxm8nmTTSpM9c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U7shOD8Om94orFze/AzHU3HxbnJ+Yl7WVOwHpAYNL+4WOHTvLGBIK6v/SNWibgevQ4o3dyXU2dd79DPinvsXxoGYziUSu5Fkmr0IWlwz8PxlUz7QRrWbN53v/v818J1nUefwot17DTeeLX0yXmyIRPTVnDKqkTg/ePSvczOzPOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=33LZ9yZ4 reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vTic8isB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805D41F000E9;
-	Mon, 20 Jul 2026 06:18:09 +0000 (UTC)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="33LZ9yZ4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784528289;
-	bh=eRVTsUUZS3XJvtRw5KkW0GT/9y+ZZjbpn4eRQUMg1e8=;
-	h=Date:To:From:Subject;
-	b=vTic8isBxVOLSJNXdDY+DuolMzlEd9pgbJzqy1GWg9O1yrvN1T8uWqS2lAkiGVTzd
-	 vIdS/M9EHfEvYbyfQumfznsXbltW6ZQ/FnTMiQ6fnZ8hfEGjYRso7/1fsjeMylhNAi
-	 +2g385QJzT4IotofJz9k/GUfDBoF3FNLem9VZo8w=
-Date: Sun, 19 Jul 2026 23:18:09 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch added to mm-new branch
-Message-Id: <20260720061809.805D41F000E9@smtp.kernel.org>
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=iygIwyYQs
+	tN8+85NunkmgtCek3mcLlpP3iY3wOzNQXA=; b=33LZ9yZ4CeBZZeIB+4tyNXX7u
+	R/jlNMZroJlgh2sPAg08/YgS9ZvMuTLL2Uk3qXunj/fU6jeme5VgmRcn3MnLRwaq
+	TYaEKfCPrIsGTugldDNzfX7xLqOrp8g9FMCPgA1JY1FGEiHgV88y8+hdS9iU2D2o
+	gVW1QGeHZEgWsJEl/w=
+Received: from [192.168.1.109] (unknown [115.53.188.159])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id BrQMCkCmyxHFw11qnwo5AQ--.16552S3;
+	Mon, 20 Jul 2026 14:44:22 +0800 (CST)
+Message-ID: <706101a4-abf9-403d-a2cb-778a12338d99@stu.xidian.edu.cn>
+Date: Mon, 20 Jul 2026 14:44:19 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] serial: 8250: validate iomem_base in
+ serial8250_verify_port()
+To: Jiri Slaby <jirislaby@kernel.org>, gregkh@linuxfoundation.org
+Cc: ilpo.jarvinen@linux.intel.com, john.ogness@linutronix.de,
+ andriy.shevchenko@linux.intel.com, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, syzkaller@googlegroups.com,
+ stable@vger.kernel.org
+References: <20260720053733.102186-1-25181214217@stu.xidian.edu.cn>
+ <0d58c9fe-7aed-43dd-8d00-6edfee9e2876@kernel.org>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <0d58c9fe-7aed-43dd-8d00-6edfee9e2876@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkCmyxHFw11qnwo5AQ--.16552S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr1kCF4kCF1rtFyUGry7GFg_yoW8JFy5pF
+	yjgw4Dt34kGF92qFyxXr4qkry5K3Z3uFW5JF9Yq34Fkr1Y93yjyrZ2ka1UZay5Gws3GanI
+	vF40qrsxCaykZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l
+	c7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r47MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU08wI3UUUUU==
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUAEWpc6fla1AAAs+
 
 
-The patch titled
-     Subject: mm/damon/core: handle region split failure in apply_min_nr_regions()
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
+>
+> Pardon my ignorance, but isn't TIOCSSERIAL intended exactly to change 
+> the type or mapbase when needed for ports without UPF_FIXED_PORT (and 
+> under root)?
+>
+Hi Jiri,
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
+You're right — TIOCSSERIAL is meant to allow root to change io_type
+and iomem_base for non-fixed ports. My patch was indeed too restrictive
+and would have broken that ABI. That was an oversight on my part.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+The issue was identified via local syzkaller testing. It reveals two
+related behaviors:
+1. Root injects a bogus iomem_base via TIOCSSERIAL; opening the port
+    faults in mem_serial_in() because the mapped address is invalid.
+2. Because the fault happens while holding tty_lock, the mutex remains
+    locked by the dying task. This leads to a cascading use-after-free
+    when subsequent threads try to acquire the same lock.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+While (1) is effectively "root shooting itself in the foot," (2) results
+in cascading failures beyond the initial fault.
 
-The mm-new branch of mm.git is not included in linux-next
+How would you prefer to handle this? Should we treat this as wontfix
+(since it requires CAP_SYS_ADMIN), or would you prefer a more targeted
+check to avoid the cascading UAF (e.g., ensuring basic validity of the
+mapbase before ioremap)?
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+I'm happy to drop this patch if you feel the risk does not justify
+additional checks.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: handle region split failure in apply_min_nr_regions()
-Date: Sun, 19 Jul 2026 08:54:40 -0700
-
-damon_apply_min_nr_regions() repeatedly split each region until its size
-becomes small enough to meet the user-defined low limit of the number of
-regions.  The loop assumes the split operation (damon_split_region_at())
-will always succeed and create the new region.  But the operation could
-silently fail for memory allocation failures, for example.
-
-If such failure happens and the region was the last region, the linked
-list-based next region fetching returns invalid pointer.  As a result,
-invalid memory dereference and corruption could happen.  Even if the
-corner case is handled, it imposes stress to the allocator by trying split
-regions for other targets.  Fix the issue by breaking all the loops for
-any region split failure.
-
-This means there could be a min_nr_regions violation.  It will only rarely
-happen since the allocation is arguably too small to fail.  Even if it
-happens, it is only temporal.  damon_apply_min_nr_regions() will be called
-again after the aggregation interval.
-
-The user impact of the issue should be minor, since the allocation is
-arguably too small to fail.  But, it could still theoretically happen, and
-the consequence is very bad.
-
-This issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260719155442.88794-1-sj@kernel.org
-Link: https://lore.kernel.org/20260717011834.120715-1-sj@kernel.org [1]
-Fixes: b1029f29eb1d ("mm/damon/core: split regions for min_nr_regions")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 7.1.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/core.c |   13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
---- a/mm/damon/core.c~mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions
-+++ a/mm/damon/core.c
-@@ -1886,7 +1886,7 @@ static unsigned long damon_region_sz_lim
- 	return sz;
- }
- 
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r);
- 
- /*
-@@ -1912,11 +1912,13 @@ static unsigned long damon_apply_min_nr_
- 	damon_for_each_target(t, ctx) {
- 		damon_for_each_region_safe(r, next, t) {
- 			while (damon_sz_region(r) > max_region_sz) {
--				damon_split_region_at(t, r, max_region_sz);
-+				if (damon_split_region_at(t, r, max_region_sz))
-+					goto out;
- 				r = damon_next_region(r);
- 			}
- 		}
- 	}
-+out:
- 	return max_region_sz;
- }
- 
-@@ -3411,8 +3413,10 @@ static void damon_verify_split_region_at
-  *
-  * r		the region to be split
-  * sz_r		size of the first sub-region that will be made
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-  */
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r)
- {
- 	struct damon_region *new;
-@@ -3420,7 +3424,7 @@ static void damon_split_region_at(struct
- 	damon_verify_split_region_at(r, sz_r);
- 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
- 	if (!new)
--		return;
-+		return -ENOMEM;
- 
- 	r->ar.end = new->ar.start;
- 
-@@ -3433,6 +3437,7 @@ static void damon_split_region_at(struct
- 			sizeof(r->last_probe_hits));
- 
- 	damon_insert_region(new, r, damon_next_region(r), t);
-+	return 0;
- }
- 
- /* Split every region in the given target into 'nr_subs' regions */
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-samples-damon-wsse-handle-damon_start-failure.patch
-samples-damon-prcl-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_stop-failure.patch
-samples-damon-wsse-stop-and-free-damon-ctx-when-damon_call-fails.patch
-samples-damon-prcl-stop-and-free-damon-ctx-when-damon_call-fails.patch
-mm-damon-sysfs-kobject_del-target-normal-context-and-kdamond-dirs.patch
-mm-damon-sysfs-kobject_del-region-and-target-error-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-region-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-quota-goal-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-action-destination-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs.patch
-mm-damon-sysfs-kobject_del-probe-filter-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs-in-probes_addd_dir-error-path.patch
-mm-damon-sysfs-schemes-kobject_del-region-for-populate_region-error.patch
-docs-mm-damon-design-update-for-damos_quota_node_eligible_mem_bp.patch
-docs-abi-damon-document-probe-files.patch
-mm-damon-tests-core-kunit-test-damon_rand.patch
-selftests-damon-sysfssh-test-multiple-probe-dirs-creation.patch
-selftests-damon-sysfssh-test-coreops_filters-directories.patch
-selftests-damon-sysfssh-test-dests-dir.patch
-selftests-damon-sysfssh-test-all-files-in-quota-goal-dir.patch
-mm-damon-core-reduce-range-setup-in-damon_commit_target_regions.patch
-mm-damon-sysfs-split-probe-setup-function-out.patch
-mm-damon-sysfs-split-out-filters-setup-function.patch
-mm-damon-sysfs-fix-typos-in-probe_addrm_dirs-s-attr-probe.patch
-mm-damon-core-introduce-damon_nr_accesses_mvsum.patch
-mm-damon-tests-core-kunit-test-damon_mvsum.patch
-mm-damon-core-always-update-last_nr_accesses-for-intervals-change.patch
-mm-damon-core-handle-unreset-nr_accesses-in-damon_nr_accesses_mvsum.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-in-__damos_valid_target.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-for-damos-region-tracing.patch
-mm-damon-sysfs-schemes-use-damon_nr_accesses_mvsum-for-damo-regions.patch
-mm-damon-core-remove-damon_warn_fix_nr_accesses_corruption.patch
-mm-damon-core-remove-damon_verify_reset_aggregated.patch
-mm-damon-core-remove-damon_verify_merge_regions_of.patch
-mm-damon-tests-core-kunit-remove-nr_accesses_bp-setup-and-tests.patch
-selftests-damon-drgn_dump_damon_status-do-not-dump-nr_accesses_bp.patch
-mm-damon-core-remove-nr_accesses_bp-setups-and-updates.patch
-mm-damon-core-remove-attrs-param-from-damon_update_region_access_rate.patch
-mm-damon-paddr-remove-attrs-param-from-__damon_pa_check_access.patch
-mm-damon-vaddr-remove-attrs-param-from-__damon_va_check_access.patch
-mm-damon-core-remove-damon_moving_sum-and-its-unit-test.patch
-mm-damon-core-remove-damon_region-nr_accesses_bp.patch
-mm-damon-add-damon_region-last_probe_hits.patch
-mm-damon-core-introduce-damon_probe_hits_mvsum.patch
-mm-damon-sysfs-schemes-set-probe-hits-as-pseudo-moving-sums.patch
-mm-damon-core-safely-validate-src-on-damon_commit_ctx.patch
-mm-damon-core-do-parameter-testing-commit-on-damon_start.patch
-mm-damon-sysfs-remove-duplicated-commit-input-validity-check.patch
-mm-damon-reclaim-remove-duplicated-min_region_sz-power-of-2-check.patch
-mm-damon-lru_sort-remove-duplicated-min_region_sz-power_of_2-check.patch
-mm-damon-document-region-size-validation-in-damon_set_regions.patch
-mm-damon-core-remove-start-end-check-in-damon_set_region_system_rams.patch
-mm-damon-sysfs-remove-region-size-validation.patch
-mm-damon-core-stop-ctxs-in-damon_start-before-returning-an-error.patch
-samples-damon-mtier-do-not-stop-first-context-for-damon_start-failure.patch
-mm-damon-core-make-damon_stop-never-fails.patch
-mm-damon-sysfs-ignore-damon_stop-return-value.patch
-mm-damon-reclaaim-ignore-damon_stop-return-value.patch
-mm-damon-lru_sort-ignore-damon_stop-return-value.patch
-mm-damon-core-change-damon_stop-return-type-to-void.patch
-samples-damon-mtier-stop-all-contexts-with-single-damon_stop-call.patch
-mm-damon-core-wait-ctx-stop-in-damon_call-before-reruning-an-error.patch
-samples-damon-wsse-do-not-stop-ctx-for-damon_call-failure.patch
-samples-damon-prcl-do-not-stop-damon-for-damon_call-failure.patch
-mm-damon-core-remove-comment-and-test-for-nr_to_bp-divide-by-zero.patch
-mm-damon-core-s-damon_max_nr_accesses-damon_nr_samples_per_aggr.patch
-mm-damon-core-s-accesses_bp_to_nr_accesses-sample_bp_to_count.patch
-mm-damon-core-s-nr_accesses_to_accesses_bp-sample_count_to_bp.patch
-mm-damon-core-s-nr_accesses_for_new_attrs-nr_samples_for_new_attrs.patch
-mm-damon-core-update-probe-hits-for-new-parameter-commit.patch
-mm-damon-core-handle-unreset-probe_hits-in-probe_hits_mvsum.patch
-mm-damon-core-introduce-damon_probe-weight.patch
-mm-damon-core-ask-apply_probes-ops-callback-to-set-sampling-address.patch
-mm-damon-paddr-set-samples-in-apply_probes-if-requested.patch
-mm-damon-core-ask-apply_probe-to-return-max-probe-hits-weighted-sum.patch
-mm-damon-core-implement-damon_probe_hits_wsum.patch
-mm-damon-paddr-respect-return_max_wsum.patch
-mm-damon-core-use-abs_diff-instead-of-abs.patch
-mm-damon-core-extend-merge-function-to-work-with-probe-hits.patch
-mm-damon-core-disallow-probe_hits-overflow-on-attrs-only-monitoring.patch
-mm-damon-core-validate-params-for-probe-hits-weighted-sum-overflow.patch
-mm-damon-core-disable-access-monitoring-when-probe-weights-are-set.patch
-mm-damon-core-set-samples-in-apply_probes-if-probe-weights-are-set.patch
-mm-damon-core-s-max_nr_accesses-max_merge_score-in-kdamond_fn.patch
-mm-damon-core-get-merge-threshold-from-probe-hits-when-weights-are-set.patch
-mm-damon-core-implement-damon_has_probe_weight.patch
-mm-damon-sysfs-implement-probe-weight-file.patch
-docs-mm-damon-design-document-attrs-only-monitoring.patch
-docs-admin-guide-mm-damon-usage-document-weight-sysfs-file.patch
-docs-abi-damon-document-probe-weight-file.patch
-mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
-mm-damon-core-hide-private-damon_region-fields.patch
-mm-damon-core-hide-private-damon_target-fields.patch
-mm-damon-core-hide-private-damos_quota_goal-fields.patch
-mm-damon-core-hide-private-damos_quota-fields.patch
-mm-damon-core-hide-private-damos_filter-fields.patch
-mm-damon-core-hide-private-damos-fields.patch
-mm-damon-core-hide-private-damon_filter-fields.patch
-mm-damon-core-hide-private-damon_probe-fields.patch
-mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
-mm-damon-core-hide-core-private-damon_ctx-fields.patch
-mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
-mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
-mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
-mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
-mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-core-initialize-damos-last_applied.patch
-mm-damon-core-kunit-check-region-count-before-testing-in-split_at.patch
-mm-damon-vaddr-kunit-check-region-count-in-three_regions-test.patch
-mm-damon-core-kunit-handle-region-split-failure-in-filter_out.patch
-mm-damon-core-kunit-skip-wrong-dest-walk-in-commit_dests_for.patch
-mm-damon-core-kunit-skip-wrong-quota-goal-walk-in-commit_quota_goals.patch
-mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
-mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
-mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
+thanks,
+Mingyu Wang
 
