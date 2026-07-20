@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594A04071D2
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557FA4192F9
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:36:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550981; cv=none; b=gWJfQm6jAmfaMZv3ZlPp9h2ScSOFPZhc97HCbWgPzbjSP0EyKhnqGBv0zvdqMrSny/j0fg10xjl8SDXwtgK42VXK2eNDu8Kew30Phx3msJj8puk+opbGmvOPLQaflCrtf/C5yTGUZeEfCpMygLzD1Rsgp4Lew51pe748/lFS8OI=
+	t=1784550987; cv=none; b=M4Cv3+KJdQ3vPCnAh1hJ4d0wQReTjpVmHVJop7YVzw6+5kAkYa1XU26XSwAFvdZ2hp8Yh11rZcRx+KS73XDnaxGMLx6GlSptDzMF7P9RxLGsKWbqObyAkDeJto8Dj/DXVcKuI0AsWqcUDVH2VBqdM9vzE4sOl06Re1YTrFMNh/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550981; c=relaxed/simple;
-	bh=s7SYMv0WWC66gBeUb6upfpvEu0kqdwm531H7wMWKVqw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=utt3MGg6EqlL9/qOgpW6MswQSAWwWEo1eYAuVrC+WG30EoR3lCFFR8JZa7mnHYigeEvCCaExujJMvXwZgdPyioo31lsEVJB0CDjY4h0X7MK3wlEv54SL5swSXeo7PfiuYSyY4p3xslPpar56D7p0cEZPvCsHurtHx9kcr2pQ3m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xa3VjnSe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550987; c=relaxed/simple;
+	bh=f87A6SkHaanux6VQO/V1zBYRpJb1MF+lPpa2bTeI9iw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=k/bHTWN2xbbiJ+dqtO4cEcTIZzVPIXxI89MFK8QvqLQD5umVlr5H/y98ob2JPpw/N3jT1O+v3MHH82d5VS4W6IJlop8/Fbi1Gqj5Qw8/26Asu6PQZ2A+56yxuxIWFRsbVv1KxSusHUELRfq6gTjtdVLMgqmClNzyWXxY7+pk3pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iLUw8AQa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xa3VjnSe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF80F1F000E9;
-	Mon, 20 Jul 2026 12:36:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iLUw8AQa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7B51F000E9;
+	Mon, 20 Jul 2026 12:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550980;
-	bh=QtxX9jArA/OpSKQGOH6u7VJNnNiQNkvXjsJqiNyX5DE=;
+	s=korg; t=1784550986;
+	bh=6pJtXm3yVDkepWyKPpAGne/y01jJf9YT7LAQP7b4ZtM=;
 	h=Subject:To:Cc:From:Date;
-	b=xa3VjnSeBuBLr1kHTLLczyS6yEXpAXekLyDmcRJYuG9tF1cNWvNW7+dbpY96EhKMc
-	 5n+5XRebrKoHYTDtLJjpG2Pt3XYF0CbkV/NH/2WQGVmqw/3oxSeQZ8JQc9CK02w3s2
-	 Tob7vxfX56Io4us5DfLhbqhm05kfR8mXyDXeiqEw=
-Subject: FAILED: patch "[PATCH] netfilter: nft_set_pipapo: don't leak bad clone into future" failed to apply to 5.15-stable tree
-To: fw@strlen.de,cjc000013@gmail.com,sbrivio@redhat.com
+	b=iLUw8AQaTw9ir+ogIQb2q5/U+S/LBJGrjITeE5ibH+yQRHANURc4yc8lyrBekFbsV
+	 92OkztHejIg/S47th6D52NauAAxOXO80YkiifVvlSzoz1mQ72FwREJ65sD89aGuz2e
+	 aIxGX+524dIh0QrS6gfguPXM8xjIbcKyQ+s5K27o=
+Subject: FAILED: patch "[PATCH] gpu/buddy: bail out of try_harder when alignment cannot be" failed to apply to 6.18-stable tree
+To: Arunpravin.PaneerSelvam@amd.com,christian.koenig@amd.com,john.olender@gmail.com,matthew.auld@intel.com,timur.kristof@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:34:16 +0200
-Message-ID: <2026072016-hurling-turmoil-5fb2@gregkh>
+Date: Mon, 20 Jul 2026 14:36:17 +0200
+Message-ID: <2026072017-ranging-tableware-042e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 47e65eff50691f0a5b79d325e28d83ec1da43bcf
+git cherry-pick -x 56bc6384314fb9ae98975fb2af8b143097ede3dc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072016-hurling-turmoil-5fb2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072017-ranging-tableware-042e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,160 +62,139 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 47e65eff50691f0a5b79d325e28d83ec1da43bcf Mon Sep 17 00:00:00 2001
-From: Florian Westphal <fw@strlen.de>
-Date: Tue, 16 Jun 2026 13:26:26 +0200
-Subject: [PATCH] netfilter: nft_set_pipapo: don't leak bad clone into future
- transaction
+From 56bc6384314fb9ae98975fb2af8b143097ede3dc Mon Sep 17 00:00:00 2001
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Date: Thu, 9 Jul 2026 18:40:50 +0530
+Subject: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot be
+ honoured
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On memory allocation failure the cloned nft_pipapo_match can enter a bad
-state:
- - some fields can have their lookup tables resized while others did
-   not
- - bits might have been toggled
- - scratch map can be undersized which also means m->bsize_max can be
-   lower than what is required
+The try_harder contiguous fallback could return a range whose start
+offset did not match the caller's min_block_size. When a candidate's
+start is misaligned, realign it: free the misaligned run and reallocate
+exactly @size at the next lower min_block_size boundary. This keeps the
+returned size unchanged with no surplus to trim, and rejects the request
+only when no aligned candidate fits.
 
-This means that the next insertion in the same batch can trigger
-out-of-bounds writes.
+v2: align misaligned candidates down to min_block_size instead of
+    bailing out, for both the RHS and LHS paths (Matthew).
 
-Furthermore, a failure in the first can result in the bad clone to
-leak into the next transaction because the abort callback is never
-executed in this case (the upper layer saw an error and no attempt to
-allocate a transactional request was made).
-
-Record a state for the nft_pipapo_match structure:
-- NEW (pristine clone)
-- MOD (modified clone with good state)
-- ERR (potentially bogus content)
-
-Then make it so that deletes and insertions fail when the clone
-entered ERR state.
-
-In case the very first insert attempt results in an error, free the
-clone right away.
-
-Fixes: 3c4287f62044 ("nf_tables: Add set type for arbitrary concatenation of ranges")
+Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
 Cc: stable@vger.kernel.org
-Reported-and-tested-by: Seesee <cjc000013@gmail.com>
-Reviewed-by: Stefano Brivio <sbrivio@redhat.com>
-Signed-off-by: Florian Westphal <fw@strlen.de>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Tested-by: John Olender <john.olender@gmail.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Link: https://patch.msgid.link/20260709131050.1022759-1-Arunpravin.PaneerSelvam@amd.com
 
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index 706c78853f24..978bb0c01106 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -342,6 +342,8 @@
- #include "nft_set_pipapo_avx2.h"
- #include "nft_set_pipapo.h"
- 
-+static void nft_pipapo_abort(const struct nft_set *set);
-+
- /**
-  * pipapo_refill() - For each set bit, set bits from selected mapping table item
-  * @map:	Bitmap to be scanned for set bits
-@@ -1296,7 +1298,7 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 	const u8 *start_p, *end_p;
- 	int i, bsize_max, err = 0;
- 
--	if (!m)
-+	if (!m || m->state == NFT_PIPAPO_CLONE_ERR)
- 		return -ENOMEM;
- 
- 	if (nft_set_ext_exists(ext, NFT_SET_EXT_KEY_END))
-@@ -1367,8 +1369,10 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 		else
- 			ret = pipapo_expand(f, start, end, f->groups * f->bb);
- 
--		if (ret < 0)
--			return ret;
-+		if (ret < 0) {
-+			err = ret;
-+			goto abort;
-+		}
- 
- 		if (f->bsize > bsize_max)
- 			bsize_max = f->bsize;
-@@ -1384,7 +1388,7 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 
- 		err = pipapo_realloc_scratch(m, bsize_max);
- 		if (err)
--			return err;
-+			goto abort;
- 
- 		m->bsize_max = bsize_max;
- 	} else {
-@@ -1396,7 +1400,26 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 
- 	pipapo_map(m, rulemap, e);
- 
-+	m->state = NFT_PIPAPO_CLONE_MOD;
- 	return 0;
-+abort:
-+	DEBUG_NET_WARN_ON_ONCE(m->state == NFT_PIPAPO_CLONE_ERR);
-+
-+	/* Two rollback cases:
-+	 * 1) no previous changes.  nft_pipapo_abort is not
-+	 * guaranteed to be invoked (there might be no further
-+	 * add/delete requests coming after this).
-+	 *
-+	 * 2) we had previous changes: there are transaction
-+	 * records pointing to this set.  Leave the rollback to
-+	 * the transaction handling.
-+	 */
-+	if (m->state == NFT_PIPAPO_CLONE_NEW)
-+		nft_pipapo_abort(set); /* releases m */
-+	else
-+		m->state = NFT_PIPAPO_CLONE_ERR;
-+
-+	return err;
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index eb1457376307..b12d3a2ac630 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1084,22 +1084,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+ 			     blocks, total_allocated_on_err);
  }
  
- /**
-@@ -1473,6 +1496,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
- 		dst++;
- 	}
- 
-+	new->state = NFT_PIPAPO_CLONE_NEW;
- 	return new;
- 
- out_mt:
-@@ -1896,7 +1920,7 @@ nft_pipapo_deactivate(const struct net *net, const struct nft_set *set,
- 	/* removal must occur on priv->clone, if we are low on memory
- 	 * we have no choice and must fail the removal request.
- 	 */
--	if (!m)
-+	if (!m || m->state == NFT_PIPAPO_CLONE_ERR)
- 		return NULL;
- 
- 	e = pipapo_get(m, (const u8 *)elem->key.val.data,
-diff --git a/net/netfilter/nft_set_pipapo.h b/net/netfilter/nft_set_pipapo.h
-index b82abb03576e..a19e980d06ef 100644
---- a/net/netfilter/nft_set_pipapo.h
-+++ b/net/netfilter/nft_set_pipapo.h
-@@ -131,9 +131,16 @@ struct nft_pipapo_scratch {
- 	unsigned long __map[];
- };
- 
-+enum nft_pipapo_clone_state {
-+	NFT_PIPAPO_CLONE_NEW,
-+	NFT_PIPAPO_CLONE_MOD,
-+	NFT_PIPAPO_CLONE_ERR,
-+};
++static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
++					u64 unaligned_offset,
++					u64 size,
++					u64 min_block_size,
++					struct list_head *blocks)
++{
++	u64 aligned_offset = round_down(unaligned_offset, min_block_size);
 +
- /**
-  * struct nft_pipapo_match - Data used for lookup and matching
-  * @field_count:	Amount of fields in set
-+ * @state:		add/delete state; used from control plane
-  * @bsize_max:		Maximum lookup table bucket size of all fields, in longs
-  * @scratch:		Preallocated per-CPU maps for partial matching results
-  * @rcu:		Matching data is swapped on commits
-@@ -141,6 +148,7 @@ struct nft_pipapo_scratch {
-  */
- struct nft_pipapo_match {
- 	u8 field_count;
-+	enum nft_pipapo_clone_state state:8;
- 	unsigned int bsize_max;
- 	struct nft_pipapo_scratch * __percpu *scratch;
- 	struct rcu_head rcu;
++	return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
++}
++
+ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 				     u64 size,
+ 				     u64 min_block_size,
+ 				     struct list_head *blocks)
+ {
+-	u64 rhs_offset, lhs_offset, lhs_size, filled;
++	u64 rhs_offset, lhs_offset, filled;
+ 	struct gpu_buddy_block *block;
+ 	unsigned int tree, order;
+-	LIST_HEAD(blocks_lhs);
+-	unsigned long pages;
+ 	u64 modify_size;
+ 	int err;
+ 
+ 	modify_size = rounddown_pow_of_two(size);
+-	pages = modify_size >> ilog2(mm->chunk_size);
+-	order = fls(pages) - 1;
++	order = ilog2(modify_size) - ilog2(mm->chunk_size);
+ 	if (order == 0)
+ 		return -ENOSPC;
+ 
+@@ -1115,31 +1123,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 		while (iter) {
+ 			block = rbtree_get_free_block(iter);
+ 
+-			/* Allocate blocks traversing RHS */
+ 			rhs_offset = gpu_buddy_block_offset(block);
++
++			/* Allocate blocks traversing RHS */
+ 			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+ 						       &filled, blocks);
+-			if (!err || err != -ENOSPC)
++			if (err && err != -ENOSPC)
+ 				return err;
+-
+-			lhs_size = max((size - filled), min_block_size);
+-			if (!IS_ALIGNED(lhs_size, min_block_size))
+-				lhs_size = round_up(lhs_size, min_block_size);
+-
+-			/* Allocate blocks traversing LHS */
+-			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+-			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+-						       NULL, &blocks_lhs);
+-			if (!err) {
+-				list_splice(&blocks_lhs, blocks);
++			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+ 				return 0;
+-			} else if (err != -ENOSPC) {
++			if (!err) {
++				/* Allocate the unaligned RHS offset using round_down */
++				gpu_buddy_free_list_internal(mm, blocks);
++				err = __alloc_contig_aligned_retry(mm, rhs_offset,
++								   size,
++								   min_block_size,
++								   blocks);
++				if (!err)
++					return 0;
++				if (err != -ENOSPC) {
++					gpu_buddy_free_list_internal(mm, blocks);
++					return err;
++				}
++				goto next;
++			}
++
++			if (size - filled > rhs_offset)
++				goto next;
++
++			lhs_offset = rhs_offset - (size - filled);
++
++			/* Allocate the unaligned LHS offset using round_down */
++			gpu_buddy_free_list_internal(mm, blocks);
++			err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
++							   min_block_size, blocks);
++			if (!err)
++				return 0;
++			if (err != -ENOSPC) {
+ 				gpu_buddy_free_list_internal(mm, blocks);
+ 				return err;
+ 			}
+-			/* Free blocks for the next iteration */
++next:
+ 			gpu_buddy_free_list_internal(mm, blocks);
+-
+ 			iter = rb_prev(iter);
+ 		}
+ 	}
 
