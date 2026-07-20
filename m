@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAE5432BD4
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:02:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C029042A7AA
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:02:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559760; cv=none; b=UICtltxyHFI8KBtFZNlhyQDsbV51oeLP9pjtulZlareD+1kx0WT2AiS+R7mOfFqMrKhpBMUrPF5HkRGzPM4f+1Pnyw5cR7uDWSRK+4UogPS0jXY+Bt9MmouDivhR2jNoaOUfMsLEWqLUfCUZV3+JT3aMfUCDq6lj4VBDMXItBb4=
+	t=1784559766; cv=none; b=iTzvJBysAAmYsS7sL3Oo7cABesObo4W9r3+5pjza0BMoRyJepA38I7ENa/YsZmRgfmOakon4BsCzm4LWtXqpGsG0s+sxUrRNirgu4iofzPwGwNfAOAd+RvceUrFIImP/DCFD5QsLJHl1NGr66WczEBzZYYh3KrZ5OB314WlBK8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559760; c=relaxed/simple;
-	bh=UOHJvVNv4+jTFl2+V5NKw+YcigWOR/mwmvy6O+TRe8U=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Vnc5iQ/0TyJ8hJ6hmst/KOnhsDaXRXmG3ajbJPlEFYSSVuk+cqzkA037cgXlWM8YFdwta3I5Q2t1DXx/9R2D3OQ3630K7oR9Y3tJGCoOoZJlwGcW8Fez1t2KtnuLvQ5pugaTE88LMzhZftD3R5gctO9W0UWcd9JlbhDmlYM/z1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CCZVL78E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559766; c=relaxed/simple;
+	bh=NaNd2WcBGFzFUZXGeTCinmiGDL+iQAAELGOqYEIl6Uk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZfMI8+/wUUvFgsFowlDM+khJt7yPVrlXmG3cuTE+nc+ioKFtkfBT+rgFUrBwXLO+6tW0H2c6MmM43pVdcqGT3edc7FijK1IoMmNzNKTEC+SAP0EvHtq8vdEm8Oi1IWJEJB25PAy58aQQa4fwWXEqcHwf5/9mOL50gUfJ8pOIHUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Di1dOIDQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CCZVL78E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA971F000E9;
-	Mon, 20 Jul 2026 15:02:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Di1dOIDQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91801F00A3A;
+	Mon, 20 Jul 2026 15:02:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559758;
-	bh=RtWAZA5Pvq+PvSGKDnyyxWXxYUHtRRiahxvH2Gwh7PY=;
+	s=korg; t=1784559764;
+	bh=fRC4V7W/6m7bzNFHb7N54nzxIpw/CRZ1vWms9vdTnFY=;
 	h=Subject:To:Cc:From:Date;
-	b=CCZVL78EQFHH4apiv49nQQ82QkwLfowgMZriDn0UxgwWIpirx9MKtc/xgc5eW9JTh
-	 fNfwxpImt6ncQemL6f49h4Y+lXezOeoa732d4HpIEmr14FnYB7tBrUJnBPHElGoaIx
-	 5t4DVQzyHwmWzp/gh252oR9k/Xh1UIQhIAskw//k=
-Subject: FAILED: patch "[PATCH] dmaengine: dw-edma-pcie: Reject devices without driver data" failed to apply to 5.15-stable tree
-To: den@valinux.co.jp,Frank.Li@nxp.com,vkoul@kernel.org
+	b=Di1dOIDQYAdfKZJ4BR9Wdsh+9yUWQlPHRJKbhPYrTM4zZUZhZ4SZ4/zUCnYiJkqjZ
+	 Nz4awG+EyejKNJUbt7YNKhlFzpJNMOA8WeKs8RV4nYa9VNpUYvqwVSrZAPVJ5jLeNE
+	 h3NrSVjwBsjeO3p966dSsQwYh1PC3ZaRtee7ryhU=
+Subject: FAILED: patch "[PATCH] dmaengine: sh: rz-dmac: Move interrupt request after" failed to apply to 6.12-stable tree
+To: claudiu.beznea.uj@bp.renesas.com,Frank.Li@nxp.com,john.madieu.xa@bp.renesas.com,tommaso.merciai.xr@bp.renesas.com,vkoul@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:02:12 +0200
-Message-ID: <2026072012-massive-dragster-edb4@gregkh>
+Date: Mon, 20 Jul 2026 17:02:20 +0200
+Message-ID: <2026072020-preheated-papyrus-50fd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 11d7cfe0c119691b2dafbb699bbca90258c678aa
+git cherry-pick -x 731712403ddb39d1a76a11abf339a0615bc85de7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072012-massive-dragster-edb4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072020-preheated-papyrus-50fd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,37 +62,179 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 11d7cfe0c119691b2dafbb699bbca90258c678aa Mon Sep 17 00:00:00 2001
-From: Koichiro Den <den@valinux.co.jp>
-Date: Thu, 21 May 2026 23:21:51 +0900
-Subject: [PATCH] dmaengine: dw-edma-pcie: Reject devices without driver data
+From 731712403ddb39d1a76a11abf339a0615bc85de7 Mon Sep 17 00:00:00 2001
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Date: Tue, 26 May 2026 11:46:53 +0300
+Subject: [PATCH] dmaengine: sh: rz-dmac: Move interrupt request after
+ everything is set up
 
-dw_edma_pcie_probe() treats the PCI device ID driver_data as the
-template for the controller layout and copies it unconditionally. A
-device bound dynamically via sysfs can match the driver without that
-data, which leads to a NULL pointer dereference.
+Once the interrupt is requested, the interrupt handler may run immediately.
+Since the IRQ handler can access channel->ch_base, which is initialized
+only after requesting the IRQ, this may lead to invalid memory access.
+Likewise, the IRQ thread may access uninitialized data (the ld_free,
+ld_queue, and ld_active lists), which may also lead to issues.
 
-Reject such matches before enabling the device.
+Request the interrupts only after everything is set up. To keep the error
+path simpler, use dmam_alloc_coherent() instead of dma_alloc_coherent().
 
-Fixes: 41aaff2a2ac0 ("dmaengine: Add Synopsys eDMA IP PCIe glue-logic")
+Fixes: 5000d37042a6 ("dmaengine: sh: Add DMAC driver for RZ/G2L SoC")
 Cc: stable@vger.kernel.org
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260521142153.2957432-3-den@valinux.co.jp
+Tested-by: John Madieu <john.madieu.xa@bp.renesas.com>
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Link: https://patch.msgid.link/20260526084710.3491480-2-claudiu.beznea@kernel.org
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
-diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
-index 2082d0021a8d..791c46e8ae4c 100644
---- a/drivers/dma/dw-edma/dw-edma-pcie.c
-+++ b/drivers/dma/dw-edma/dw-edma-pcie.c
-@@ -328,6 +328,9 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 	int i, mask;
- 	bool non_ll = false;
+diff --git a/drivers/dma/sh/rz-dmac.c b/drivers/dma/sh/rz-dmac.c
+index 625ff29024de..9f206a33dcc6 100644
+--- a/drivers/dma/sh/rz-dmac.c
++++ b/drivers/dma/sh/rz-dmac.c
+@@ -981,25 +981,6 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
+ 	channel->index = index;
+ 	channel->mid_rid = -EINVAL;
  
-+	if (!pdata)
-+		return -ENODEV;
+-	/* Request the channel interrupt. */
+-	scnprintf(pdev_irqname, sizeof(pdev_irqname), "ch%u", index);
+-	irq = platform_get_irq_byname(pdev, pdev_irqname);
+-	if (irq < 0)
+-		return irq;
+-
+-	irqname = devm_kasprintf(dmac->dev, GFP_KERNEL, "%s:%u",
+-				 dev_name(dmac->dev), index);
+-	if (!irqname)
+-		return -ENOMEM;
+-
+-	ret = devm_request_threaded_irq(dmac->dev, irq, rz_dmac_irq_handler,
+-					rz_dmac_irq_handler_thread, 0,
+-					irqname, channel);
+-	if (ret) {
+-		dev_err(dmac->dev, "failed to request IRQ %u (%d)\n", irq, ret);
+-		return ret;
+-	}
+-
+ 	/* Set io base address for each channel */
+ 	if (index < 8) {
+ 		channel->ch_base = dmac->base + CHANNEL_0_7_OFFSET +
+@@ -1012,9 +993,9 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
+ 	}
+ 
+ 	/* Allocate descriptors */
+-	lmdesc = dma_alloc_coherent(&pdev->dev,
+-				    sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
+-				    &channel->lmdesc.base_dma, GFP_KERNEL);
++	lmdesc = dmam_alloc_coherent(&pdev->dev,
++				     sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
++				     &channel->lmdesc.base_dma, GFP_KERNEL);
+ 	if (!lmdesc) {
+ 		dev_err(&pdev->dev, "Can't allocate memory (lmdesc)\n");
+ 		return -ENOMEM;
+@@ -1030,7 +1011,24 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
+ 	INIT_LIST_HEAD(&channel->ld_free);
+ 	INIT_LIST_HEAD(&channel->ld_active);
+ 
+-	return 0;
++	/* Request the channel interrupt. */
++	scnprintf(pdev_irqname, sizeof(pdev_irqname), "ch%u", index);
++	irq = platform_get_irq_byname(pdev, pdev_irqname);
++	if (irq < 0)
++		return irq;
 +
- 	struct dw_edma_pcie_data *vsec_data __free(kfree) =
- 		kmalloc_obj(*vsec_data);
- 	if (!vsec_data)
++	irqname = devm_kasprintf(dmac->dev, GFP_KERNEL, "%s:%u",
++				 dev_name(dmac->dev), index);
++	if (!irqname)
++		return -ENOMEM;
++
++	ret = devm_request_threaded_irq(dmac->dev, irq, rz_dmac_irq_handler,
++					rz_dmac_irq_handler_thread, 0,
++					irqname, channel);
++	if (ret)
++		dev_err(dmac->dev, "failed to request IRQ %u (%d)\n", irq, ret);
++
++	return ret;
+ }
+ 
+ static void rz_dmac_put_device(void *_dev)
+@@ -1099,7 +1097,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
+ 	const char *irqname = "error";
+ 	struct dma_device *engine;
+ 	struct rz_dmac *dmac;
+-	int channel_num;
+ 	int ret;
+ 	int irq;
+ 	u8 i;
+@@ -1132,18 +1129,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
+ 			return PTR_ERR(dmac->ext_base);
+ 	}
+ 
+-	/* Register interrupt handler for error */
+-	irq = platform_get_irq_byname_optional(pdev, irqname);
+-	if (irq > 0) {
+-		ret = devm_request_irq(&pdev->dev, irq, rz_dmac_irq_handler, 0,
+-				       irqname, NULL);
+-		if (ret) {
+-			dev_err(&pdev->dev, "failed to request IRQ %u (%d)\n",
+-				irq, ret);
+-			return ret;
+-		}
+-	}
+-
+ 	/* Initialize the channels. */
+ 	INIT_LIST_HEAD(&dmac->engine.channels);
+ 
+@@ -1169,6 +1154,18 @@ static int rz_dmac_probe(struct platform_device *pdev)
+ 			goto err;
+ 	}
+ 
++	/* Register interrupt handler for error */
++	irq = platform_get_irq_byname_optional(pdev, irqname);
++	if (irq > 0) {
++		ret = devm_request_irq(&pdev->dev, irq, rz_dmac_irq_handler, 0,
++				       irqname, NULL);
++		if (ret) {
++			dev_err(&pdev->dev, "failed to request IRQ %u (%d)\n",
++				irq, ret);
++			goto err;
++		}
++	}
++
+ 	/* Register the DMAC as a DMA provider for DT. */
+ 	ret = of_dma_controller_register(pdev->dev.of_node, rz_dmac_of_xlate,
+ 					 NULL);
+@@ -1210,16 +1207,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
+ dma_register_err:
+ 	of_dma_controller_free(pdev->dev.of_node);
+ err:
+-	channel_num = i ? i - 1 : 0;
+-	for (i = 0; i < channel_num; i++) {
+-		struct rz_dmac_chan *channel = &dmac->channels[i];
+-
+-		dma_free_coherent(&pdev->dev,
+-				  sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
+-				  channel->lmdesc.base,
+-				  channel->lmdesc.base_dma);
+-	}
+-
+ 	reset_control_assert(dmac->rstc);
+ err_pm_runtime_put:
+ 	pm_runtime_put(&pdev->dev);
+@@ -1232,18 +1219,9 @@ static int rz_dmac_probe(struct platform_device *pdev)
+ static void rz_dmac_remove(struct platform_device *pdev)
+ {
+ 	struct rz_dmac *dmac = platform_get_drvdata(pdev);
+-	unsigned int i;
+ 
+ 	dma_async_device_unregister(&dmac->engine);
+ 	of_dma_controller_free(pdev->dev.of_node);
+-	for (i = 0; i < dmac->n_channels; i++) {
+-		struct rz_dmac_chan *channel = &dmac->channels[i];
+-
+-		dma_free_coherent(&pdev->dev,
+-				  sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
+-				  channel->lmdesc.base,
+-				  channel->lmdesc.base_dma);
+-	}
+ 	reset_control_assert(dmac->rstc);
+ 	pm_runtime_put(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
 
