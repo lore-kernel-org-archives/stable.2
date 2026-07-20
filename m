@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D663DF01C
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:02:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2398C42FCC4
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:03:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784559776; cv=none; b=cDuihuIpsW9eXuescQxAw0LkWlPFHnVCUqEN9dXMtu9YyXS41QOw0fO0aa4Jc9kVCmMgvQELKSQqne6gBLS/1EPjkd0/l8iuygeD3C44hx7dG/iRRQy4r25W128pULuBlZr2/XBP+YigL2zV058BhpaxDofj6y7yexTcWlhJVKU=
+	t=1784559790; cv=none; b=OwJUWOFh3xZrgwP8JRTqKYRfU3TipF25JFiVChlTEM58oh5sh7QhsjP+ClRtzR3Ei2byvT+ILAA57O+zLEGa1bCN/IOo4gzHKYEE/vD7lE7aDk7IvfJnWg4sVhkhAOQcDYsp4on/DT/J6wXjiKLK2YK1mrWrFr7KwjGqyyQFSBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784559776; c=relaxed/simple;
-	bh=gciHBQTnzMzyyFMQLxNPRO7H3YoKOj4noOeEYYMNkZU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fXmgalZtCebyOSPj4B3iq5Wz3okjORPFnkxzGsUIURAbL6G3yANQ/8c35pNGzRKesnhCoUEzLqgU7/dbxmXTbuvV34G2JFqhkWl+UQtLVLMysHgrsxA6sL0DMj/xrAjFom85gY6kcwT5gSlHSSiI0n+bxerkpVpHtsn7IRGXeNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mI1BJ5o6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784559790; c=relaxed/simple;
+	bh=Wx5rTmZOxW4xhfjIh8BySWGZ9oBO5nyxU4CzRRv4PMY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=e2SddwUCH+6/ZJ85/ExcnY62FSHvp52WbP3/c1YbcMwc+RzV20Upy+5iZlJjvx1OXrS9j4a5r+g2xVQ4cGmN/zjBIWyo5xDoSLWxiRf27YfrzpLZe3LiMxD6WrrnowSJFZXPOHCy40jr5coUneuQrYC1qvdMZCCxLyiepFAiXkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KQu/vTMI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mI1BJ5o6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885881F000E9;
-	Mon, 20 Jul 2026 15:02:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KQu/vTMI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437131F000E9;
+	Mon, 20 Jul 2026 15:03:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784559775;
-	bh=drfzIurVi7D7Rt4Frn/cH634dj3rqukfxmx+wzNDL5A=;
+	s=korg; t=1784559788;
+	bh=V8/ma7oJuWJJvdZuKh8wfd5pnWRiRrmdwZlk/lKCZeU=;
 	h=Subject:To:Cc:From:Date;
-	b=mI1BJ5o6hNWUo+j9gQmUBm1iHXMWR+3nzJm2C+cNRtvygprA9I5CSLMhqDNJRPWZD
-	 24b/s/RmUe2mPuUyvOvepo7wVHKIpov1qhHe1dSe5inDO1I7En9BXWVuqoZUEhMh4d
-	 FLcWB8ooNaspD2m+N4rdfZR2iMOaFoEQdeUdQz5c=
-Subject: FAILED: patch "[PATCH] dmaengine: sh: rz-dmac: Move interrupt request after" failed to apply to 6.6-stable tree
-To: claudiu.beznea.uj@bp.renesas.com,Frank.Li@nxp.com,john.madieu.xa@bp.renesas.com,tommaso.merciai.xr@bp.renesas.com,vkoul@kernel.org
+	b=KQu/vTMIW+BCzoW8znpkCTyrwANHWgwnNe2M6l0Mt/neJtRpFvfQa9Bcv2SqLTAMm
+	 xZ0JPjkB5am9GsCIxlMkzZ38rVrpr3qQaeBf9M2kmwEW7B9sZmzFAxJO8sC6Zmy7/R
+	 UxDQPXTXlNByT/f1g1tI8KGorKEDflfiYHNEo3js=
+Subject: FAILED: patch "[PATCH] platform/x86: dell-laptop: fix missing cleanups in init error" failed to apply to 6.6-stable tree
+To: lihaoxiang@isrc.iscas.ac.cn,ilpo.jarvinen@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:02:21 +0200
-Message-ID: <2026072020-shoptalk-chair-cfda@gregkh>
+Date: Mon, 20 Jul 2026 17:02:59 +0200
+Message-ID: <2026072059-eastcoast-eating-4897@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 731712403ddb39d1a76a11abf339a0615bc85de7
+git cherry-pick -x 6e9cab2247e5b243ae2d907ce7c948a8a9c8d61a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072020-shoptalk-chair-cfda@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072059-eastcoast-eating-4897@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,179 +62,51 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 731712403ddb39d1a76a11abf339a0615bc85de7 Mon Sep 17 00:00:00 2001
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Date: Tue, 26 May 2026 11:46:53 +0300
-Subject: [PATCH] dmaengine: sh: rz-dmac: Move interrupt request after
- everything is set up
+From 6e9cab2247e5b243ae2d907ce7c948a8a9c8d61a Mon Sep 17 00:00:00 2001
+From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+Date: Tue, 9 Jun 2026 16:14:19 +0800
+Subject: [PATCH] platform/x86: dell-laptop: fix missing cleanups in init error
+ path
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Once the interrupt is requested, the interrupt handler may run immediately.
-Since the IRQ handler can access channel->ch_base, which is initialized
-only after requesting the IRQ, this may lead to invalid memory access.
-Likewise, the IRQ thread may access uninitialized data (the ld_free,
-ld_queue, and ld_active lists), which may also lead to issues.
+dell_init() initializes several resources after dell_setup_rfkill(),
+including the optional touchpad LED, keyboard backlight LED, battery
+hook, debugfs directory and dell-laptop notifier.
 
-Request the interrupts only after everything is set up. To keep the error
-path simpler, use dmam_alloc_coherent() instead of dma_alloc_coherent().
+If a later LED or backlight registration fails, the error path only
+tears down the battery hook and rfkill resources. This leaves the
+notifier, debugfs directory, keyboard backlight LED and optional
+touchpad LED registered after dell_init() returns an error.
 
-Fixes: 5000d37042a6 ("dmaengine: sh: Add DMAC driver for RZ/G2L SoC")
+Add the missing cleanup calls before tearing down rfkill.
+
+Fixes: 9c656b07997f ("platform/x86: dell-*: Call new led hw_changed API on kbd brightness change")
+Fixes: 037accfa14b2 ("dell-laptop: Add debugfs support")
+Fixes: 2d8b90be4f1c ("dell-laptop: support Synaptics/Alps touchpad led")
+Fixes: 6cff8d60aa0a ("platform: x86: dell-laptop: Add support for keyboard backlight")
 Cc: stable@vger.kernel.org
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Tested-by: John Madieu <john.madieu.xa@bp.renesas.com>
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Link: https://patch.msgid.link/20260526084710.3491480-2-claudiu.beznea@kernel.org
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+Link: https://patch.msgid.link/20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-diff --git a/drivers/dma/sh/rz-dmac.c b/drivers/dma/sh/rz-dmac.c
-index 625ff29024de..9f206a33dcc6 100644
---- a/drivers/dma/sh/rz-dmac.c
-+++ b/drivers/dma/sh/rz-dmac.c
-@@ -981,25 +981,6 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
- 	channel->index = index;
- 	channel->mid_rid = -EINVAL;
- 
--	/* Request the channel interrupt. */
--	scnprintf(pdev_irqname, sizeof(pdev_irqname), "ch%u", index);
--	irq = platform_get_irq_byname(pdev, pdev_irqname);
--	if (irq < 0)
--		return irq;
--
--	irqname = devm_kasprintf(dmac->dev, GFP_KERNEL, "%s:%u",
--				 dev_name(dmac->dev), index);
--	if (!irqname)
--		return -ENOMEM;
--
--	ret = devm_request_threaded_irq(dmac->dev, irq, rz_dmac_irq_handler,
--					rz_dmac_irq_handler_thread, 0,
--					irqname, channel);
--	if (ret) {
--		dev_err(dmac->dev, "failed to request IRQ %u (%d)\n", irq, ret);
--		return ret;
--	}
--
- 	/* Set io base address for each channel */
- 	if (index < 8) {
- 		channel->ch_base = dmac->base + CHANNEL_0_7_OFFSET +
-@@ -1012,9 +993,9 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
- 	}
- 
- 	/* Allocate descriptors */
--	lmdesc = dma_alloc_coherent(&pdev->dev,
--				    sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
--				    &channel->lmdesc.base_dma, GFP_KERNEL);
-+	lmdesc = dmam_alloc_coherent(&pdev->dev,
-+				     sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
-+				     &channel->lmdesc.base_dma, GFP_KERNEL);
- 	if (!lmdesc) {
- 		dev_err(&pdev->dev, "Can't allocate memory (lmdesc)\n");
- 		return -ENOMEM;
-@@ -1030,7 +1011,24 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
- 	INIT_LIST_HEAD(&channel->ld_free);
- 	INIT_LIST_HEAD(&channel->ld_active);
- 
--	return 0;
-+	/* Request the channel interrupt. */
-+	scnprintf(pdev_irqname, sizeof(pdev_irqname), "ch%u", index);
-+	irq = platform_get_irq_byname(pdev, pdev_irqname);
-+	if (irq < 0)
-+		return irq;
-+
-+	irqname = devm_kasprintf(dmac->dev, GFP_KERNEL, "%s:%u",
-+				 dev_name(dmac->dev), index);
-+	if (!irqname)
-+		return -ENOMEM;
-+
-+	ret = devm_request_threaded_irq(dmac->dev, irq, rz_dmac_irq_handler,
-+					rz_dmac_irq_handler_thread, 0,
-+					irqname, channel);
-+	if (ret)
-+		dev_err(dmac->dev, "failed to request IRQ %u (%d)\n", irq, ret);
-+
-+	return ret;
- }
- 
- static void rz_dmac_put_device(void *_dev)
-@@ -1099,7 +1097,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
- 	const char *irqname = "error";
- 	struct dma_device *engine;
- 	struct rz_dmac *dmac;
--	int channel_num;
- 	int ret;
- 	int irq;
- 	u8 i;
-@@ -1132,18 +1129,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
- 			return PTR_ERR(dmac->ext_base);
- 	}
- 
--	/* Register interrupt handler for error */
--	irq = platform_get_irq_byname_optional(pdev, irqname);
--	if (irq > 0) {
--		ret = devm_request_irq(&pdev->dev, irq, rz_dmac_irq_handler, 0,
--				       irqname, NULL);
--		if (ret) {
--			dev_err(&pdev->dev, "failed to request IRQ %u (%d)\n",
--				irq, ret);
--			return ret;
--		}
--	}
--
- 	/* Initialize the channels. */
- 	INIT_LIST_HEAD(&dmac->engine.channels);
- 
-@@ -1169,6 +1154,18 @@ static int rz_dmac_probe(struct platform_device *pdev)
- 			goto err;
- 	}
- 
-+	/* Register interrupt handler for error */
-+	irq = platform_get_irq_byname_optional(pdev, irqname);
-+	if (irq > 0) {
-+		ret = devm_request_irq(&pdev->dev, irq, rz_dmac_irq_handler, 0,
-+				       irqname, NULL);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to request IRQ %u (%d)\n",
-+				irq, ret);
-+			goto err;
-+		}
-+	}
-+
- 	/* Register the DMAC as a DMA provider for DT. */
- 	ret = of_dma_controller_register(pdev->dev.of_node, rz_dmac_of_xlate,
- 					 NULL);
-@@ -1210,16 +1207,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
- dma_register_err:
- 	of_dma_controller_free(pdev->dev.of_node);
- err:
--	channel_num = i ? i - 1 : 0;
--	for (i = 0; i < channel_num; i++) {
--		struct rz_dmac_chan *channel = &dmac->channels[i];
--
--		dma_free_coherent(&pdev->dev,
--				  sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
--				  channel->lmdesc.base,
--				  channel->lmdesc.base_dma);
--	}
--
- 	reset_control_assert(dmac->rstc);
- err_pm_runtime_put:
- 	pm_runtime_put(&pdev->dev);
-@@ -1232,18 +1219,9 @@ static int rz_dmac_probe(struct platform_device *pdev)
- static void rz_dmac_remove(struct platform_device *pdev)
- {
- 	struct rz_dmac *dmac = platform_get_drvdata(pdev);
--	unsigned int i;
- 
- 	dma_async_device_unregister(&dmac->engine);
- 	of_dma_controller_free(pdev->dev.of_node);
--	for (i = 0; i < dmac->n_channels; i++) {
--		struct rz_dmac_chan *channel = &dmac->channels[i];
--
--		dma_free_coherent(&pdev->dev,
--				  sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
--				  channel->lmdesc.base,
--				  channel->lmdesc.base_dma);
--	}
- 	reset_control_assert(dmac->rstc);
- 	pm_runtime_put(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
+diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
+index 7fc3bbb8c4a4..89e85c7f7132 100644
+--- a/drivers/platform/x86/dell/dell-laptop.c
++++ b/drivers/platform/x86/dell/dell-laptop.c
+@@ -2560,7 +2560,12 @@ static int __init dell_init(void)
+ 	if (mute_led_registered)
+ 		led_classdev_unregister(&mute_led_cdev);
+ fail_led:
++	dell_laptop_unregister_notifier(&dell_laptop_notifier);
++	debugfs_remove_recursive(dell_laptop_dir);
+ 	dell_battery_exit();
++	kbd_led_exit();
++	if (quirks && quirks->touchpad_led)
++		touchpad_led_exit();
+ 	dell_cleanup_rfkill();
+ fail_rfkill:
+ 	platform_device_del(platform_device);
 
