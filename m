@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BB3431486
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 575CF3BD650
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:15:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560507; cv=none; b=GceTxYjtgfKsybYK2zBhu6T7IvlNWyPXkVsL61kKpN2LcmLjBGDxFPKiqm7TVFoARjSFtSCM6gLkXgTjXjjsaUweNK1UuLiMC01UaLy/YxcK6ubzJT6W10eTfGK/DK0Uk4kzG1ct7ElATBogdAObJa6uQ3osbPd1axq4gUA9DjM=
+	t=1784560510; cv=none; b=jWXuNd5ZHl6uyXynn7F5fdHJ1LTh9MSFF/TfGx2x3fpusFxiLwjF4yY0vSvdatpp/fip6KI4zxayvWczgoxHgKUqHl25411BCxd7XnUqqrduOXYzsVveBb0pKxXKlbI93jeu0Yn7dfbODGCUEbE3Uo5LZqz0P/j2KhinG8jH/Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560507; c=relaxed/simple;
-	bh=vZnWEfIHTyJ9zSWsl59ihICWfw11arCppknqIZhPAQY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mW3+OKDkpe1Gg38MmduZiuLWToIexTmXRGr++TeALWn9SDjd95NM+roURWif7VEhiWHkTgOv3JqUI0t6SJUJpz0NHgcBpmO7jnrHF+zcxxKcTTVWk9lVrj4QLV3abG+Q/Os30KMLM6E/PizSUu3y1uqaPCUje1ZKl3p2Cohepdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NKaLqLMa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560510; c=relaxed/simple;
+	bh=Rf6mHxYRAa/sIHHpFoUUufTCQGdneXQpk2Ohgx2qnSg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UjX+K+XiUbAsbCE0W2WGrDgV8mtfRNaoxovY/WkpriGV3zCTTHE958GkMGEdBJ31UJk9mwGQ/TKqT0M9cRhV62eG5ejna43EJjKd28h1HqsZ4trNmK/WDMFbB3ryv9FjX1pfpbDmBl/PoFyIuhPpVED/kwa0qjCh4hPtTBE6dVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BsMpFPQ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NKaLqLMa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A181F000E9;
-	Mon, 20 Jul 2026 15:15:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BsMpFPQ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55C81F000E9;
+	Mon, 20 Jul 2026 15:15:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560506;
-	bh=ihaTemcSAuEUozNHIn6aYnd8p4gnh1b0B1DAsbeYgiM=;
+	s=korg; t=1784560509;
+	bh=qj68Z3oI/oAc6/Fm8azF4519DOi3+FWcQyZThGDT4+o=;
 	h=Subject:To:Cc:From:Date;
-	b=NKaLqLMaCP4SWZ+ggsAipdYe+mLX/eF3b6+x7QCMNsVjBNGehHgyF5MMwFrRw5alM
-	 xK5D7SVMNKdrVW0gk1QqNEUyHgEKjf2q89T98TSkj4TZlhGSOTQyaLnf7RTy2jc6Vj
-	 eHLF6rf8Bei5BqouEEXkSL3l+ekIKivcilhF/JJo=
-Subject: FAILED: patch "[PATCH] can: bcm: track a single source interface for ANYDEV" failed to apply to 5.15-stable tree
+	b=BsMpFPQ0SW6P0d2dsinC2OQAWzn0SmKJC/iBP5kMEv99HVV518STlw6dbIR2y23uP
+	 T9cxORy5wO5xazIeEmI1FDN+w057ak8LG4A5mpWZ4FIpMxmr8zKKx8gQXBm/BMfN7a
+	 qtY34gGbxYpGBYCzoUHKxNaAmXNxwGQlVSo9x0GA=
+Subject: FAILED: patch "[PATCH] can: bcm: validate frame length in bcm_rx_setup() for RTR" failed to apply to 6.12-stable tree
 To: socketcan@hartkopp.net,mkl@pengutronix.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:14:20 +0200
-Message-ID: <2026072020-crepe-unworldly-1d53@gregkh>
+Date: Mon, 20 Jul 2026 17:14:28 +0200
+Message-ID: <2026072028-goldmine-rosy-2743@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2f5976f54a04e9f18b25283036ac3136be453b17
+git cherry-pick -x 62ec41f364648be79d54d94d0d240ee326948afd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072020-crepe-unworldly-1d53@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072028-goldmine-rosy-2743@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,135 +62,121 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2f5976f54a04e9f18b25283036ac3136be453b17 Mon Sep 17 00:00:00 2001
+From 62ec41f364648be79d54d94d0d240ee326948afd Mon Sep 17 00:00:00 2001
 From: Oliver Hartkopp <socketcan@hartkopp.net>
-Date: Tue, 14 Jul 2026 18:55:33 +0200
-Subject: [PATCH] can: bcm: track a single source interface for ANYDEV
- timeout/throttle ops
+Date: Tue, 14 Jul 2026 18:55:29 +0200
+Subject: [PATCH] can: bcm: validate frame length in bcm_rx_setup() for RTR
+ replies
 
-An ANYDEV rx op (ifindex == 0) with an active RX timeout and/or
-throttle timer has no defined semantics when matching frames arrive
-from several interfaces: bcm_rx_handler() can run concurrently for
-the same op on different CPUs, racing hrtimer_cancel()/
-bcm_rx_starttimer() against bcm_rx_timeout_handler() and causing
-spurious RX_TIMEOUT notifications and last_frames corruption. The
-same concurrency lets throttled multiplex frames from different
-interfaces clobber the single rx_ifindex/rx_stamp fields shared by
-the op.
-
-Add op->if_detected to track the first interface that delivers a
-matching frame while a timeout/throttle timer is configured, and
-reject frames from any other interface for that op. The claim is
-decided in bcm_rx_handler() before hrtimer_cancel() touches
-op->timer, so a rejected frame can never disturb the claimed
-interface's watchdog. RTR-mode ops are excluded via RX_RTR_FRAME,
-independent of kt_ival1/kt_ival2, since those may briefly hold a
-stale value from an earlier non-RTR configuration.
-
-The claim is released in bcm_notify() on NETDEV_UNREGISTER and in
-bcm_rx_setup() when SETTIMER reconfigures the timer values.
-
-A (re-)claim is only possible on CAN devices in NETREG_REGISTERED
-dev->reg_state to cover the release in bcm_notify() where reg_state
-becomes NETREG_UNREGISTERING until synchronize_net().
+bcm_tx_setup() validates cf->len against the CAN/CAN FD DLC limits
+before installing frames for TX_SETUP, but bcm_rx_setup() never did
+the same for the RTR-reply frame configured via RX_SETUP with
+RX_RTR_FRAME.
 
 Fixes: ffd980f976e7 ("[CAN]: Add broadcast manager (bcm) protocol")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-can/20260709105031.1A39C1F000E9@smtp.kernel.org/
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20260714-bcm_fixes-v15-11-562f7e3e42da@hartkopp.net
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-7-562f7e3e42da@hartkopp.net
 Cc: stable@kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index f213a0b37791..3d637a1e0ac1 100644
+index 68a62f605432..2d9c9cd74536 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -117,6 +117,7 @@ struct bcm_op {
- 	struct hrtimer timer, thrtimer;
- 	ktime_t rx_stamp, kt_ival1, kt_ival2, kt_lastmsg;
- 	int rx_ifindex;
-+	int if_detected; /* first received ifindex in ANYDEV rx_op mode */
- 	int cfsiz;
- 	u32 count;
- 	u32 nframes;
-@@ -797,6 +798,33 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
- 			return;
- 	}
+@@ -1246,22 +1246,37 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 	return err;
+ }
  
-+	/* An ANYDEV op with an active RX timeout and/or throttle timer
-+	 * tracks a single source interface: claim the first interface that
-+	 * delivers a matching frame and reject frames from any other one,
-+	 * before hrtimer_cancel() below can touch op->timer - this avoids
-+	 * racing bcm_rx_timeout_handler() across concurrent interfaces.
-+	 * RX_RTR_FRAME ops are excluded, as kt_ival1/kt_ival2 may briefly
-+	 * hold a stale value from an earlier non-RTR configuration.
+-static void bcm_rx_setup_rtr_check(struct bcm_msg_head *msg_head,
+-				   struct bcm_op *op, void *new_frames)
++static int bcm_rx_setup_rtr_check(struct bcm_msg_head *msg_head,
++				  struct bcm_op *op, void *new_frames)
+ {
++	struct canfd_frame *frame0 = new_frames;
++
++	if (!(msg_head->flags & RX_RTR_FRAME))
++		return 0;
++
++	/* this frame is sent out as-is by bcm_can_tx() whenever a matching
++	 * remote request is received, so validate its length the same way
++	 * bcm_tx_setup() validates TX_SETUP frames before installing it
 +	 */
-+	if (!op->ifindex) {
-+		spin_lock_bh(&op->bcm_rx_update_lock);
-+
-+		if (!(op->flags & RX_RTR_FRAME) &&
-+		    (op->kt_ival1 || op->kt_ival2)) {
-+			/* don't claim to vanishing interface */
-+			if (!op->if_detected &&
-+			    READ_ONCE(skb->dev->reg_state) == NETREG_REGISTERED)
-+				op->if_detected = skb->dev->ifindex;
-+
-+			if (op->if_detected != skb->dev->ifindex) {
-+				spin_unlock_bh(&op->bcm_rx_update_lock);
-+				return;
-+			}
-+		}
-+
-+		spin_unlock_bh(&op->bcm_rx_update_lock);
++	if (msg_head->flags & CAN_FD_FRAME) {
++		if (frame0->len > 64)
++			return -EINVAL;
++	} else {
++		if (frame0->len > 8)
++			return -EINVAL;
 +	}
 +
- 	/* disable timeout */
- 	hrtimer_cancel(&op->timer);
+ 	/* funny feature in RX(!)_SETUP only for RTR-mode:
+ 	 * copy can_id into frame BUT without RTR-flag to
+ 	 * prevent a full-load-loopback-test ... ;-]
+ 	 * normalize this on the staged buffer, before it is
+ 	 * ever installed into op->frames.
+ 	 */
+-	if (msg_head->flags & RX_RTR_FRAME) {
+-		struct canfd_frame *frame0 = new_frames;
++	if ((msg_head->flags & TX_CP_CAN_ID) ||
++	    frame0->can_id == op->can_id)
++		frame0->can_id = op->can_id & ~CAN_RTR_FLAG;
  
-@@ -831,10 +859,9 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
- 			traffic_flags |= RX_OWN;
+-		if ((msg_head->flags & TX_CP_CAN_ID) ||
+-		    frame0->can_id == op->can_id)
+-			frame0->can_id = op->can_id & ~CAN_RTR_FLAG;
+-	}
++	return 0;
+ }
+ 
+ /*
+@@ -1324,7 +1339,11 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 				return err;
+ 			}
+ 
+-			bcm_rx_setup_rtr_check(msg_head, op, new_frames);
++			err = bcm_rx_setup_rtr_check(msg_head, op, new_frames);
++			if (err < 0) {
++				kfree(new_frames);
++				return err;
++			}
+ 		}
+ 
+ 		spin_lock_bh(&op->bcm_rx_update_lock);
+@@ -1397,16 +1416,12 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 		if (msg_head->nframes) {
+ 			err = memcpy_from_msg(op->frames, msg,
+ 					      msg_head->nframes * op->cfsiz);
+-			if (err < 0) {
+-				if (op->frames != &op->sframe)
+-					kfree(op->frames);
+-				if (op->last_frames != &op->last_sframe)
+-					kfree(op->last_frames);
+-				kfree(op);
+-				return err;
+-			}
++			if (err < 0)
++				goto free_op;
+ 
+-			bcm_rx_setup_rtr_check(msg_head, op, op->frames);
++			err = bcm_rx_setup_rtr_check(msg_head, op, op->frames);
++			if (err < 0)
++				goto free_op;
+ 		}
+ 
+ 		/* bcm_can_tx / bcm_tx_timeout_handler needs this */
+@@ -1505,6 +1520,14 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
  	}
  
--	/* save rx timestamp and originator for recvfrom() under lock.
--	 * For an op subscribed on all interfaces (ifindex == 0)
--	 * bcm_rx_handler() can run concurrently on different CPUs so
--	 * the CAN content and the meta data must be bundled correctly.
-+	/* save rx timestamp and originator for recvfrom() under lock: an
-+	 * ANYDEV op without an active timer can still run concurrently on
-+	 * different CPUs, so content and meta data must be bundled here.
- 	 */
- 	op->rx_stamp = skb->tstamp;
- 	op->rx_ifindex = skb->dev->ifindex;
-@@ -1369,6 +1396,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 			op->kt_ival1 = bcm_timeval_to_ktime(msg_head->ival1);
- 			op->kt_ival2 = bcm_timeval_to_ktime(msg_head->ival2);
- 			op->kt_lastmsg = 0;
-+			op->if_detected = 0; /* reclaim ifindex in ANYDEV mode */
- 		}
- 		spin_unlock_bh(&op->bcm_rx_update_lock);
- 
-@@ -1775,10 +1803,21 @@ static void bcm_notify(struct bcm_sock *bo, unsigned long msg,
- 		lock_sock(sk);
- 
- 		/* rx_ops: remove device specific receive entries */
--		list_for_each_entry(op, &bo->rx_ops, list)
-+		list_for_each_entry(op, &bo->rx_ops, list) {
- 			if (op->rx_reg_dev == dev)
- 				bcm_rx_unreg(dev, op);
- 
-+			/* release an ANYDEV op's claim (see bcm_rx_handler())
-+			 * on this now confirmed-gone interface.
-+			 */
-+			if (!op->ifindex) {
-+				spin_lock_bh(&op->bcm_rx_update_lock);
-+				if (op->if_detected == dev->ifindex)
-+					op->if_detected = 0;
-+				spin_unlock_bh(&op->bcm_rx_update_lock);
-+			}
-+		}
+ 	return msg_head->nframes * op->cfsiz + MHSIZ;
 +
- 		/* tx_ops: stop device specific cyclic transmissions on the
- 		 * vanishing ifindex. Cancelling the timer is enough to stop
- 		 * cyclic bcm_can_tx() calls as there is no re-arming.
++free_op:
++	if (op->frames != &op->sframe)
++		kfree(op->frames);
++	if (op->last_frames != &op->last_sframe)
++		kfree(op->last_frames);
++	kfree(op);
++	return err;
+ }
+ 
+ /*
 
