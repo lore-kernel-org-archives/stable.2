@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD01B4071E4
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:27:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A559D43F8BF
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 17:27:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784568458; cv=none; b=TDOuhbusEvCE+Z5wyWfvwzeaGxkpPs7lLpBbTtRUWhXv54pG6BFc9chISfXu/g2vjSOtDSYQ77nO6JaCFJ3ukwWxq/ESf4ieeeRBzUoNxkrGeAYYI3u4DOUIhlYRdfFoIxvrSAZxGWogoU0JfIvvdunCSpjFh7zrRjg6fkFE9QI=
+	t=1784568460; cv=none; b=OW/CjifjoUS3WCmJQ3MNz/U5erHUWPFUdXeYqN4eMDJwfEm8FFAZrZhoeKxupEPgF79Bt2wBwhPmWqWxbvcpRq7HpRKFstaqzPilzXlZGUJviEJR3bE56jCI6CI5X+nqJT0mWESV0e1iKbko4iRPZ1Lfe+MqG2rw3cyMcCpwrg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784568458; c=relaxed/simple;
-	bh=Np5PtkyZ+4XfI5ZyYTBJIBMw2DPvCGy7gw+nISiyMyY=;
+	s=arc-20240116; t=1784568460; c=relaxed/simple;
+	bh=i7gjOdRQRmHey9HAQTnoByQsf6nO7weqR6bdRmigqvg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bkjVS84x/QQAee2D3CE7fuTQVQI5rBXD0jAuHXb/l8WbNFRsgLwWEgbsdv/15jeR4QjFCZS5KA+Ol3fCfcL3+DB79OYZzjK2RWEuQ+Jz6ZSgrd4EsDuI7FEVtnoOKB0O0xaF3IEkLStk7y9Ae4hpIqqAyhnRxSoUXSkWrjPn6nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WhBCMakx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VM+kmA02QgWa2cbXtE+UzHCFZOiWVnq1TmBxXeLyNnXikqJyV9ZBaSmiVIwmQ/A3AtBxOUzuZWklE7qfAE5q1X1m/a6l7DAFrYrIG4LBxElKfYex5+1uMP/Gyg1pquDFe9KTaIiJFQ15IeOZG4v1zRRbVHl5XFDzRk+rlVCfl9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Faeh6VVt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WhBCMakx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591D81F000E9;
-	Mon, 20 Jul 2026 17:27:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Faeh6VVt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C27D11F00A3E;
+	Mon, 20 Jul 2026 17:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784568452;
-	bh=WCc4HaLeokiRhM8dRHoKV8C97igPbtaKkZEC/EbBvq4=;
+	s=k20260515; t=1784568455;
+	bh=Pkad8VqviXYN+lseEd7gRcn2QN3CZHKIUAxMa4VhX4M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WhBCMakxASCDnL8zfOVjhRl2RXcsQTxwkMaw2tIQml9gLBJ0Y+wql77EFHCKzW7dG
-	 +Yl6EjfvRGu1zPPJcq2fpMdUXMHR0r8ebH97kSlaZTXm1G/xN6CGRj5JhbFp3hEjUB
-	 gIvz14OboJ5ixeaalZtjE1iFa9AoveilB1AKxgWW5/VCl0Og4Qe7mDC/uyj36qSjOA
-	 Gq2mh9srATXh8KI6JUWMBKmzT4Q7uTn9IRtJzssOAR/Lo1jBWeNpcD2/RBoLgspE8L
-	 Ahp78KMEjwWxB4ER7R5XgEh04aDPInr/cZIZsDe70yeaPObn7oLad/t6XoGMIjy+Y6
-	 6hUrS01CwPqtA==
+	b=Faeh6VVtgIW0dj2CXJtWCxE0QUYS6/70T1DViKt+6UYTbc+XvgTYRrvYoGe0eCC42
+	 QBdUZwCRSAPQAgp0xVgNMPtvo6O8xIMetd1Odp3x0KAUNj97AxWTOGngpBuZRl/Xa9
+	 BALHKuGsRGDVWlchzHzp5tezQ5hVbkRuAHzWHZkWgJK82ZDJPM7vVNvp8yjQAGyHIH
+	 +JXf4ajgq0DEOH6ojA4hM7EnImvmnAeXK4Zb/oyUZie3/Uc5frJi1BURYalYnId7WP
+	 ph8LMNu4wWyIuiOAjnndEI7XtLMzpWXyg93lBRwc90xNZc3GQnZgaMMExkii+3Azy9
+	 GLH9A5p3WVrCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Qu Wenruo <wqu@suse.com>,
 	Boris Burkov <boris@bur.io>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/5] btrfs: concentrate the error handling of submit_one_sector()
-Date: Mon, 20 Jul 2026 13:27:26 -0400
-Message-ID: <20260720172730.2757976-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/5] btrfs: fix false IO failure after falling back to buffered write
+Date: Mon, 20 Jul 2026 13:27:29 -0400
+Message-ID: <20260720172730.2757976-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071509-recess-egomaniac-9782@gregkh>
+In-Reply-To: <20260720172730.2757976-1-sashal@kernel.org>
 References: <2026071509-recess-egomaniac-9782@gregkh>
+ <20260720172730.2757976-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,109 +49,193 @@ Content-Transfer-Encoding: 8bit
 
 From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 44820d80026e0b509007d41c83d42f1213ee8589 ]
+[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
 
-Currently submit_one_sector() has only one failure path from
-btrfs_get_extent().
+[BUG]
+The test case generic/362 will fail with "nodatasum" mount option (*):
 
-However the error handling is split into two parts, one inside
-submit_one_sector(), which clears the dirty flag and finishes the
-writeback for the fs block.
+ MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
-The other part is to submit any remaining bio inside bio_ctrl and mark
-the ordered extent finished for the fs block.
+ generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
+    @@ -1,2 +1,3 @@
+     QA output created by 362
+    +First write failed: Input/output error
+     Silence is golden
+    ...
 
-There is no special reason that we must split the error handling, let's
-just concentrate all the error handling into submit_one_sector().
+*: If the test case has been executed before with default data checksum,
+the failure will not reproduce. Need the following fix to make it
+reliably reproducible:
+https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
 
+[CAUSE]
+Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
+Thus we never got an error pointer from __iomap_dio_rw().
+
+The call chain looks like this:
+
+ btrfs_direct_write()
+ |- btrfs_dio_write()
+ |-  __iomap_dio_rw()
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_begin()
+ |  |     Now an ordered extent is allocated for the 4K write.
+ |  |
+ |  |- iomi.status = iomap_dio_iter()
+ |  |  Where iomap_dio_iter() returned -EFAULT.
+ |  |
+ |  |- ret = iomap_iter()
+ |  |  |- btrfs_dio_iomap_end()
+ |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
+ |  |  |  |  |- can_finish_ordered_extent()
+ |  |  |  |     |- btrfs_mark_ordered_extent_error()
+ |  |  |  |        |- mapping_set_error()
+ |  |  |  |           Now the address space is marked error.
+ |  |  |  | return -ENOTBLK
+ |  |  |- return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0; }
+ |     Now the return value is reset to 0.
+ |     Thus no error pointer will be returned.
+ |
+ |- ret = iomap_dio_complete()
+ |  Since no byte is submitted, @ret is 0.
+ |
+ |- Fallback to buffered IO
+ |  And the buffered write finished without error
+ |
+ |- filemap_fdatawait_range()
+    |- filemap_check_errors()
+       The previous error is recorded, thus an error is returned
+
+However the buffered write is properly submitted and finished, the error
+is from the btrfs_finish_ordered_extent() call with @uptodate = false.
+
+[FIX]
+When a short dio write happened, any range that is submitted will have
+btrfs_extract_ordered_extent() to be called, thus the submitted range
+will always have an OE just covering the submitted range.
+
+The remaining OE range is never submitted, thus they should be treated
+as truncated, not an error. So that we can properly reclaim and not
+insert an unnecessary file extent item, without marking the mapping as
+error.
+
+Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
+that helper to mark the direct IO ordered extent as truncated, so it
+won't cause failure for the later buffered fallback.
+
+[REASON FOR NO FIXES TAG]
+The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we're already passing @uptodate=false finishing
+the OE.
+But at that time OE with IOERR won't call mapping_set_error(), so it's
+not exposed.
+Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
+error if we fail to finish") finally exposed the bug, but that commit
+is doing a correct job, not the root cause.
+
+Anyway the bug is very old, dating back to 5.1x days, thus only CC to
+stable.
+
+CC: stable@vger.kernel.org # 5.15+
 Reviewed-by: Boris Burkov <boris@bur.io>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: ff66fe666233 ("btrfs: fix incorrect buffered IO fallback for append direct writes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/extent_io.c | 46 +++++++++++++++++++++++++++-----------------
- 1 file changed, 28 insertions(+), 18 deletions(-)
+ fs/btrfs/direct-io.c    | 17 ++++++++++++++---
+ fs/btrfs/inode.c        |  6 +-----
+ fs/btrfs/ordered-data.c | 12 ++++++++++++
+ fs/btrfs/ordered-data.h |  2 ++
+ 4 files changed, 29 insertions(+), 8 deletions(-)
 
-diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-index 0d50f3063d346d..af5244900adf26 100644
---- a/fs/btrfs/extent_io.c
-+++ b/fs/btrfs/extent_io.c
-@@ -1417,7 +1417,7 @@ static noinline_for_stack int writepage_delalloc(struct btrfs_inode *inode,
+diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+index fae5e005da45a5..ccdfc6b67038a3 100644
+--- a/fs/btrfs/direct-io.c
++++ b/fs/btrfs/direct-io.c
+@@ -623,12 +623,23 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 	if (submitted < length) {
+ 		pos += submitted;
+ 		length -= submitted;
+-		if (write)
++		if (write) {
++			/*
++			 * We have a short write, if there is any range
++			 * that is submitted properly, that part will have
++			 * its own OE split from the original one.
++			 *
++			 * So for the OE at dio_data->ordered, it's the part
++			 * that is not submitted, and should be marked
++			 * as fully truncated.
++			 */
++			btrfs_mark_ordered_extent_truncated(dio_data->ordered, 0);
+ 			btrfs_finish_ordered_extent(dio_data->ordered,
+-						    pos, length, false);
+-		else
++						    pos, length, true);
++		} else {
+ 			unlock_dio_extent(&BTRFS_I(inode)->io_tree, pos,
+ 					  pos + length - 1, NULL);
++		}
+ 		ret = -ENOTBLK;
+ 	}
+ 	if (write) {
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 3f5312b1823afb..8bbb054c38fe78 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -7532,11 +7532,7 @@ static void btrfs_invalidate_folio(struct folio *folio, size_t offset,
+ 					 EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
+ 					 EXTENT_DEFRAG, &cached_state);
  
- /*
-  * Return 0 if we have submitted or queued the sector for submission.
-- * Return <0 for critical errors.
-+ * Return <0 for critical errors, and the involved sector will be cleaned up.
-  *
-  * Caller should make sure filepos < i_size and handle filepos >= i_size case.
-  */
-@@ -1440,8 +1440,31 @@ static int submit_one_sector(struct btrfs_inode *inode,
- 	ASSERT(filepos < i_size);
+-		spin_lock_irq(&inode->ordered_tree_lock);
+-		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
+-		ordered->truncated_len = min(ordered->truncated_len,
+-					     cur - ordered->file_offset);
+-		spin_unlock_irq(&inode->ordered_tree_lock);
++		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
  
- 	em = btrfs_get_extent(inode, NULL, filepos, sectorsize);
--	if (IS_ERR(em))
--		return PTR_ERR_OR_ZERO(em);
-+	if (IS_ERR(em)) {
-+		/*
-+		 * bio_ctrl may contain a bio crossing several folios.
-+		 * Submit it immediately so that the bio has a chance
-+		 * to finish normally, other than marked as error.
-+		 */
-+		submit_one_bio(bio_ctrl);
+ 		/*
+ 		 * If the ordered extent has finished, we're safe to delete all
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index c7901fb167db79..692f03803da9eb 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -329,6 +329,18 @@ void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered)
+ 		mapping_set_error(ordered->inode->vfs_inode.i_mapping, -EIO);
+ }
+ 
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len)
++{
++	struct btrfs_inode *inode = ordered->inode;
 +
-+		/*
-+		 * When submission failed, we should still clear the folio dirty.
-+		 * Or the folio will be written back again but without any
-+		 * ordered extent.
-+		 */
-+		btrfs_folio_clear_dirty(fs_info, folio, filepos, sectorsize);
-+		btrfs_folio_set_writeback(fs_info, folio, filepos, sectorsize);
-+		btrfs_folio_clear_writeback(fs_info, folio, filepos, sectorsize);
++	ASSERT(truncate_len <= ordered->num_bytes);
++	spin_lock_irq(&inode->ordered_tree_lock);
++	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
++	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
++	spin_unlock_irq(&inode->ordered_tree_lock);
++}
 +
-+		/*
-+		 * Since there is no bio submitted to finish the ordered
-+		 * extent, we have to manually finish this sector.
-+		 */
-+		btrfs_mark_ordered_io_finished(inode, folio, filepos,
-+					       fs_info->sectorsize, false);
-+		return PTR_ERR(em);
-+	}
+ static void finish_ordered_fn(struct btrfs_work *work)
+ {
+ 	struct btrfs_ordered_extent *ordered_extent;
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index cbfac6044dfb6a..a1a9f8d46e10e2 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -213,6 +213,8 @@ bool btrfs_try_lock_ordered_range(struct btrfs_inode *inode, u64 start, u64 end,
+ struct btrfs_ordered_extent *btrfs_split_ordered_extent(
+ 			struct btrfs_ordered_extent *ordered, u64 len);
+ void btrfs_mark_ordered_extent_error(struct btrfs_ordered_extent *ordered);
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len);
+ int __init ordered_data_init(void);
+ void __cold ordered_data_exit(void);
  
- 	extent_offset = filepos - em->start;
- 	em_end = extent_map_end(em);
-@@ -1559,19 +1582,6 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
- 		}
- 		ret = submit_one_sector(inode, folio, cur, bio_ctrl, i_size);
- 		if (unlikely(ret < 0)) {
--			/*
--			 * bio_ctrl may contain a bio crossing several folios.
--			 * Submit it immediately so that the bio has a chance
--			 * to finish normally, other than marked as error.
--			 */
--			submit_one_bio(bio_ctrl);
--			/*
--			 * Failed to grab the extent map which should be very rare.
--			 * Since there is no bio submitted to finish the ordered
--			 * extent, we have to manually finish this sector.
--			 */
--			btrfs_mark_ordered_io_finished(inode, folio, cur,
--						       fs_info->sectorsize, false);
- 			if (!found_error)
- 				found_error = ret;
- 			continue;
-@@ -1587,8 +1597,8 @@ static noinline_for_stack int extent_writepage_io(struct btrfs_inode *inode,
- 	 * Here we set writeback and clear for the range. If the full folio
- 	 * is no longer dirty then we clear the PAGECACHE_TAG_DIRTY tag.
- 	 *
--	 * If we hit any error, the corresponding sector will still be dirty
--	 * thus no need to clear PAGECACHE_TAG_DIRTY.
-+	 * If we hit any error, the corresponding sector will have its dirty
-+	 * flag cleared and writeback finished, thus no need to handle the error case.
- 	 */
- 	if (!submitted_io && !found_error) {
- 		btrfs_folio_set_writeback(fs_info, folio, start, len);
 -- 
 2.53.0
 
