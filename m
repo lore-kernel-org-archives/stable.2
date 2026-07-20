@@ -1,105 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3072842642E;
-	Mon, 20 Jul 2026 13:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30994330D2A
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784553613; cv=none; b=JcPq2QniRMhFDXdQI/Dwy/xdBJn1XOqV57f4PqJwuF/GiU47xYfT9hEt6QAFxcfQVInSV7Q8Uox3E0yXCJC3ceDGoCqHy+JKXBg53iTYnDHigRJrqfLO7UWAbwWrHx13+Ld2VB0aPjBdUNCYiK8GfUhIrdd7ED/jEYmpJZQlw1M=
+	t=1784553673; cv=none; b=UlXgqka4G/DoHUgW2Ia3TqQD/si5V+V+XTUOdL6yI5UFa0eaaR9PHVYGYCkBB9ORAtncF812EySPperS0Zu2xvWtWl3kOKZDlzWPCYYCRSF9ZH2kfTuLPSYTikegW07yK8LltrAARogZp/da3nVOIHHSXNOA7T+3zYp9VmAP6RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784553613; c=relaxed/simple;
-	bh=ZZGbl8VLcVUxPYMHHx9hIEhdJOf8nwWQOm9etWdl6Gc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=fe2DLEyXhexR/nAsROphOWBLzcRgdrbfEkd00gq0paF2QEuPkkt9CzwpdHfOD9wZTx/4pTTMPwaky3omHZ1vC0uk3q6K6QZpUqoPSm9xeECbDQ5pigdkgI3vPxangaDMccvy7EygCRtGtxTQBUP7LBlbfB4xtlt/w9MmR5zsFzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCLIFrWW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784553673; c=relaxed/simple;
+	bh=xm+wpfShNKuecMaYN7AjwqZ/XzgN7iH8zKy6cQ99cbY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oq7y/8uj1wbHf/VBjPoGIEZm6EKmNUBNfdS52XWvi/L6j4Ix22lZxLt5cW3Lciy/oA3nUFFqegnHZjA6AyAjQ3AMMC00bR04FhId/QjW8U+Of0pWUgqmaKV6rY4qyfK1WQpOogDVWA1YXbnNStfZ2+f/ioZsiZXrUQNgjeA680s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=eMQPV+cT; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCLIFrWW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6FF1F000E9;
-	Mon, 20 Jul 2026 13:20:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784553611;
-	bh=P9pTdlaEOPFbBuO5H5hUgd6MssJSxnbUnkFhHgXMa2c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WCLIFrWWYM2i6ygnxNbig4XfjUtP1bLQRo7Dm5KpBcVUBnN8IsxlTYcfuMIFziWrz
-	 H9oyvVW2jWmT3NqbL6tusAiTeE1V5v9q1DetVKSai056cOF59OjVWp7bluTQJ7LbIt
-	 2UsQTknYOjBA9j61QGusH+ZixXJILx4H+dXdJcgbgYaiwvl2A0YaKsx36aGGgSw86f
-	 trINVmhq7DSHioz8VtAFqWptGOijZRoX1ro/BSUlKX8rec0NynMzevnqtG2HxnU+3u
-	 eZS+fp7J057etux2rUieWtfZR5w/i5e0CNKlblB9gmvqfugzo2z52lCzdWh0aFQfz3
-	 qUcEmwpOlkr9g==
-From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Dan Murphy <dmurphy@ti.com>, 
- Haidar Lee <haidar.lee@adlinktech.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260715-tas2562-dvc-fix-v1-0-072b13901b20@adlinktech.com>
-References: <20260715-tas2562-dvc-fix-v1-0-072b13901b20@adlinktech.com>
-Subject: Re: [PATCH 0/2] ASoC: tas2562: fix Digital Volume Control
-Message-Id: <178449490619.33801.13781097046784774665.b4-ty@b4>
-Date: Sun, 19 Jul 2026 22:01:46 +0100
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="eMQPV+cT"
+Received: by dvalin.narfation.org (Postfix) id 19AF61FEC5;
+	Mon, 20 Jul 2026 13:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1784553670;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gZW3xAvJ+UEliLHzLg+KcYd04D6HDP4QJ7o6BzfMyyk=;
+	b=eMQPV+cTm5QQxLYoDphUpH+w3Guuc85Dsj8R0Miz9RcF84JLf1fqG04d44jeOnvKMIavwH
+	OO1n802t8KicxGUVe3REUo8J/vGfu5JBvTTPFplt3yLNI14AN3fuxMYZsI/bdnppIoq5Dm
+	H1DH+Q/fi8sichuRFPEBYvHtgxUdi30=
+From: Sven Eckelmann <sven@narfation.org>
+To: stable@vger.kernel.org
+Cc: Sven Eckelmann <sven@narfation.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH 6.6.y] batman-adv: retrieve ethhdr after potential skb realloc on RX
+Date: Mon, 20 Jul 2026 15:20:56 +0200
+Message-ID: <20260720132056.176231-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026072056-squatting-boss-26a5@gregkh>
+References: <2026072056-squatting-boss-26a5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1704; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ZZGbl8VLcVUxPYMHHx9hIEhdJOf8nwWQOm9etWdl6Gc=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqXiCILC55z1U3/1r+O6UgOJ+UFnrrLvR0n58nn
- IiVMZfP/YWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCal4giAAKCRAk1otyXVSH
- 0LnVB/9RYwnhlqFJDQhnE2PUMibuDtCualhSY4+OUXKHpHTUBQOaTHawXj1HwXBMWryxqPWhewy
- O/OlncS8VsSayd3Nol89ABUhSpEWzV3u3FLlmM97APDtyshvn1RLiqA4mfdxbS7kgF7RoRSxtHR
- ffLcTeSDiFRY2MV2CRfOA8I4QIFLRx+PI1OPtfITGMn9Rp/YB1lDTO4IsdxrBkgTeZAE3Y9zzOn
- c6pCxPe30Zg4N8A5XGiIeHVZxpi38EQmIqrcs8bX3JYMMhVcb8Pa9mbIoqLpEGDIXvvptIS8tww
- knVGyjUzzD4STw6FnneSQONiQHjGgnWN/JCGNzXhfGKqlJO/
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Wed, 15 Jul 2026 14:04:39 +0800, Haidar Lee wrote:
-> ASoC: tas2562: fix Digital Volume Control
-> 
-> The 'Digital Volume Control' added in v5.7 has never worked correctly:
-> the driver writes the 32-bit DVC coefficient LSB first, but the device
-> latches the whole coefficient on the write to the last byte (DVC_CFG4),
-> so every volume change applies a mix of the previous coefficient's
-> upper bytes and the new LSB. Depending on the sequence of values this
-> mutes the output entirely or plays at full volume regardless of the
-> requested level.
-> 
-> [...]
+commit 035e1fed892d3d06002a73ff73668f618a514644 upstream.
 
-Applied to
+pskb_may_pull() in batadv_interface_rx() could reallocate the buffer behind
+the skb. Variables which were pointing to the old buffer need to be
+reassigned to avoid an use-after-free.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+This was done correctly for the VLAN header but missed for the ethernet
+header which is later used for the TT and AP isolation handling.
 
-Thanks!
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: c6c8fea29769 ("net: Add batman-adv meshing protocol")
+Fixes: c78296665c3d ("batman-adv: Check skb size before using encapsulated ETH+VLAN header")
+[ move from mesh- to soft-interface.c ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+---
+ net/batman-adv/soft-interface.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-[1/2] ASoC: tas2562: fix DVC coefficient write order
-      https://git.kernel.org/broonie/sound/c/8e957e4907c5
-[2/2] ASoC: tas2562: fix broken entries in the volume lookup table
-      https://git.kernel.org/broonie/sound/c/bdb0fd6de403
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/net/batman-adv/soft-interface.c b/net/batman-adv/soft-interface.c
+index 680f729b3b022..e4d302c93478b 100644
+--- a/net/batman-adv/soft-interface.c
++++ b/net/batman-adv/soft-interface.c
+@@ -442,6 +442,7 @@ void batadv_interface_rx(struct net_device *soft_iface,
+ 		if (!pskb_may_pull(skb, VLAN_ETH_HLEN))
+ 			goto dropped;
+ 
++		ethhdr = eth_hdr(skb);
+ 		vhdr = skb_vlan_eth_hdr(skb);
+ 
+ 		/* drop batman-in-batman packets to prevent loops */
+-- 
+2.47.3
 
