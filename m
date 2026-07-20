@@ -1,59 +1,43 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from forward200b.mail.yandex.net (forward200b.mail.yandex.net [178.154.239.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C92D2E7366;
-	Mon, 20 Jul 2026 17:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C1343E066
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 18:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784570246; cv=none; b=APx5yKw1G91grXAjxz/gCWvvZBxHqzUSsnvEoUHhweog/vNtvhKoK9rSoy/RchBore6CBxynrGg9E8sddnm0jC0K3bG1R6C4lTy48pFHfVMRot3hT0WuQqzRiHjVn+4WP6rjzdumgZRG0DbA4VbE2MzZ2I50NLrxBrlG5PMtaEI=
+	t=1784570804; cv=none; b=PwLv65fuN1Cdp+1ysnZFDYKIG9v3g50ulammEw+iFw4kCteACG7OwfgCQi2NOJ8CnOQVY73si6euYR5Wb6PDyCVNsCNLU4aFhOnP+UAXa5GLuaL4FavZLVwPEcmaKTVgEv3WE49YxjhB+1J+QetimgGtS6eFbM9jQURCKPREhyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784570246; c=relaxed/simple;
-	bh=iBipNNCa4SACukw0LpzX7vOYnNLBCyeY2IhWlxk51W4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fnsBw4N/RIfKlutCFS18iHRZMpuETSXNRVVN3/bTW9eAi4SotPfPhU0IERlCzER3AxNv/0msa8B+hJPbmiQoxQGaTV4B5UKRBK9D/X5lhZH6NSebFs8M6r8BMwXdil3/NTShlUrAuxCht5S5P7i6kxorB4N+m1WSHq4PoDTF0Os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=w27+if9T; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=gkpXiI2W; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1784570804; c=relaxed/simple;
+	bh=hSqcpYgm4WpInn7Tyj0s2iZIQZXFzTtCksFKx9ZnDBU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XFhzeLcJ7hcKgLwGQHe/zBUaQvwwVs09ImvlU9/31XRuAOSJHs9x2/JdtPM3ar7eRVqxEVnOgQvrjvgbETnFWIO7M5s7xf2ZtRkVwjRXw4xlEbS6WHvRGSXRKR8DTIMI/Bp3Z7MXzpU9GIq31PvhSBdKauB2FdHh7s5zoY3nQG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=XrPXA1Mz; arc=none smtp.client-ip=178.154.239.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="w27+if9T";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="gkpXiI2W"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h3pBR1l1zz8v2N;
-	Mon, 20 Jul 2026 19:57:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784570239;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=9/NcPVq+5yU0f3GDkZTECnaZvyY6Bv5QbbArZrpQ04Q=;
-	b=w27+if9T5lY9m2GZm/G3v4MBtdXiAmDiBBBn19U3wZjK4HuIjaQGmYcmnLsWxLQ1Fsdfn0
-	SR5kICyKmnTokvvKPTmYnPEvlNKeyBhNoJJlnvQ0HNCH87aYuNaH28+p4C7XdTHIijzkrf
-	Ociuv2QJbmw8mzUnDjbkUJYCO1DSaAorZqK/Doa5me/YLrWS1cBwaLTk84YMzWmH8ZDIKo
-	D1mz+098zKdk0U3fYFqkcJlrMDpiMRXy56Ejw89tAlTmgGQY1arHsSJozndCUGO1Y0uWRF
-	vglFxs8o8atn88umMb0hE7JON3edlGlQI+OHGWCrx15/Ceni+FvafehBEzujsw==
-From: Benjamin Boortz <bennib@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784570237;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=9/NcPVq+5yU0f3GDkZTECnaZvyY6Bv5QbbArZrpQ04Q=;
-	b=gkpXiI2Wr/VCu+7nyfWQ9KXH5bQ++klF1LFd1WLqT+Jfdn8xhqO4joO+HXkbFU82AJrjMW
-	EXccccdoh3dMKHF/hP+Qg2FqlpMjnwImfZO7vK87V3Kw4df/FJrsyJhXXGi08oKIKJRyUQ
-	NItb46i9oNCF0yWXUNT99wdlAHra4uq1In57EPN92VjDTsqpZkAfFxIAvQUHh045ykDUcu
-	0OrraLrnNgsGengszhLTdcjnDLAVzvcvVjGApVHavCMHVa6dOvJW9K9h4QLd7dGx9JHt3K
-	Tt902Gmge7RCPiGwQUA0O4f+tZrz6BDg6/uDp1VHAEorQUbhs/VLagSffIDUig==
-To: linux-gpio@vger.kernel.org
-Cc: linusw@kernel.org,
-	mani@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Benjamin Boortz <bennib@mailbox.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] pinctrl: bm1880: add missing select GENERIC_PINCONF
-Date: Mon, 20 Jul 2026 19:51:04 +0200
-Message-ID: <20260720175611.2294418-1-bennib@mailbox.org>
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="XrPXA1Mz"
+Received: from forward102b.mail.yandex.net (forward102b.mail.yandex.net [IPv6:2a02:6b8:c02:900:1:45:d181:d102])
+	by forward200b.mail.yandex.net (postfix) with ESMTPS id C4AA481CC4
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 21:01:30 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-63.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-63.sas.yp-c.yandex.net [IPv6:2a02:6b8:c23:4403:0:640:bf85:0])
+	by forward102b.mail.yandex.net (postfix) with ESMTPS id 9667AC0101
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 21:01:21 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-63.sas.yp-c.yandex.net (smtp) with ESMTPSA id H1aNUN5dHeA0-T2mXwFHh;
+	Mon, 20 Jul 2026 21:01:21 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1784570481; bh=0Ndm/hZjXE4FeU5Ck7H/t71L3f7NKMa4XDDfp+Tbg9c=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=XrPXA1Mzo/KntqW4rhkGtTbGtM+M7M/kFh+xWwdDrSy+AKtWPt8pqh09XW18C8ej+
+	 aSGoBExi19D8lPoSGh+3OCCdvwufOOKO4pxjmy4M1YGRa2FUeHIvI0iUmhaEEBr6rT
+	 ipXcTZX6X8yc/jM/Xj+vnf6nFHYU4vBNDWdyXm20=
+Authentication-Results: mail-nwsmtp-smtp-production-main-63.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Nikita Maksimov <nickstogramm@yandex.ru>
+To: nickstogramm@yandex.ru
+Cc: stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Fix speakers on Lunnen Ground 14
+Date: Mon, 20 Jul 2026 21:01:12 +0300
+Message-ID: <20260720180112.73517-1-nickstogramm@yandex.ru>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,50 +45,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 75f6d0ecbf86a25bcbc
-X-MBO-RS-META: on16cpyzae17esas1k3dadu9rescftme
 
-drivers/pinctrl/pinctrl-bm1880.c initialises its pinconf_ops with
-.is_generic = true, but that field is only present when
-CONFIG_GENERIC_PINCONF is enabled (guarded by #ifdef in pinconf.h).
-The Kconfig entry for PINCTRL_BM1880 never selects GENERIC_PINCONF,
-so any config that enables CONFIG_PINCTRL_BM1880=y without
-CONFIG_GENERIC_PINCONF=y fails to compile:
+The firmware on the Lunnen Ground 14 marks pin 0x1b as unused even
+though the internal speakers are connected to it. As a result, the
+speakers are not detected.
 
-  drivers/pinctrl/pinctrl-bm1880.c:1288:10: error: 'const struct pinconf_ops' has no member named 'is_generic'
+Add a pin configuration quirk for PCI subsystem ID 2782:a212 to configure
+pin 0x1b as an internal speaker.
 
-Found by randconfig testing on arm64; tinyconfig reproducer below.
-Add the missing select to fix the build.
+The pin configuration was tested on a Lunnen Ground 14 (DMI product LL4FA)
+with an ALC269VC codec. The internal speakers and microphone work as
+expected.
 
-Fixes: 49bd61ebce5f ("pinctrl: Add pinconf support for BM1880 SoC")
 Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Boortz <bennib@mailbox.org>
-
+Signed-off-by: Nikita Maksimov <nickstogramm@yandex.ru>
 ---
-Reproducer (tinyconfig, arm64, without patch):
+ sound/hda/codecs/realtek/alc269.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- tinyconfig
-  scripts/config --enable CONFIG_PINCTRL
-  scripts/config --enable CONFIG_PINCTRL_BM1880
-  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig
-  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
-      drivers/pinctrl/pinctrl-bm1880.o
----
- drivers/pinctrl/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 09e724749..97632d2f9 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -3906,6 +3906,7 @@ enum {
+ 	ALC269_FIXUP_DMIC_THINKPAD_ACPI,
+ 	ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13,
+ 	ALC269VC_FIXUP_INFINIX_Y4_MAX,
++	ALC269VC_FIXUP_LUNNEN_GROUND_14,
+ 	ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO,
+ 	ALC255_FIXUP_ACER_MIC_NO_PRESENCE,
+ 	ALC255_FIXUP_ASUS_MIC_NO_PRESENCE,
+@@ -4389,6 +4390,13 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC269_FIXUP_LIMIT_INT_MIC_BOOST
+ 	},
++	[ALC269VC_FIXUP_LUNNEN_GROUND_14] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x1b, 0x90170150 }, /* internal speaker */
++			{ }
++		},
++	},
+ 	[ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -7974,6 +7982,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x2782, 0x1705, "MEDION E15433", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ 	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
+ 	SND_PCI_QUIRK(0x2782, 0x4900, "MEDION E15443", ALC233_FIXUP_MEDION_MTL_SPK),
++	SND_PCI_QUIRK(0x2782, 0xa212, "Lunnen Ground 14", ALC269VC_FIXUP_LUNNEN_GROUND_14),
+ 	SND_PCI_QUIRK(0x7017, 0x2014, "Star Labs StarFighter", ALC233_FIXUP_STARLABS_STARFIGHTER),
+ 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
+ 	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
 
-diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-index 23ea76dc6261..eda54aa5fde6 100644
---- a/drivers/pinctrl/Kconfig
-+++ b/drivers/pinctrl/Kconfig
-@@ -166,6 +166,7 @@ config PINCTRL_BM1880
- 	depends on OF && (ARCH_BITMAIN || COMPILE_TEST)
- 	default ARCH_BITMAIN
- 	select PINMUX
-+	select GENERIC_PINCONF
- 	help
- 	  Pinctrl driver for Bitmain BM1880 SoC.
- 
+base-commit: 2d0769387594eb26df33c72c08c6429e4fddf5fd
 -- 
-2.55.0
+2.50.1
 
