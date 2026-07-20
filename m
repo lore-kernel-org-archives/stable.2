@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CA743305E
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:09:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB2D432BD6
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784560190; cv=none; b=n8wGy3OAoKLHAr5U4O70z7SOaOSSLjlM23EPrOC05XSAiWpfTw6wY5uFkJB78Xn1HtJIZIS/hdH2DGFoDATdLqo0++3HO+wQbqEmood9qj2sPgSRHQhHKxzsKcjgIq38SOWxtvIWXVAAHebjGoJsT0KHNBdBHgqSZyi1CRzZLUs=
+	t=1784560208; cv=none; b=q8Z08pwI30VikIx9p541z1/+teamiLxNKaiGK/TmqWvfUrD1MKttA5GC/TsAhb8lbrCnd2oHQIEQ1+r7rI3dZ4SXjQ6821v/T4ezBgMYOqveaBWxVA3fYXcLQJDf6n7l3e3oSXBvqEy1Opou5AISkMqO7BDd4fIFzV8rzans9eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784560190; c=relaxed/simple;
-	bh=msLZtkXKPFzF7mw0N2KavaZtfFYv1rBcjyDaHvwlFLg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=F3gD6Pr3XtaMpLy8iHHmd2bSifJbdTlSOtnJtb8Vo2+f95/JCtKtoSvl2wXNGRl/7hz3crZ/N1PLvi8dGQD401vG5U0oktq5ENT+bLuTrQc39uD89EBSsO/E0bblMU5WR8v5Ca0SlOXp4zDijd1qBxUerC1Lham3KsuTKmzlPdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l4yfbu/3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784560208; c=relaxed/simple;
+	bh=Wh27N65lYJ/5ORurkFliOtVWSjrzOqOkWwC6h+4BGOU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ceV8OuYBSO5j0QCWC0N918WjPLsmPxL/uX/74QDnxxwT5b7h8OhK4+UIeUVUMZweYL3omg+74q4L/b4mDbkWqmPbXQGutuN0ncIOk8aNLk6y1zacFaWHt24X3u8iKjh2V2cJVmg2b4otFJQtw8mf2wrLzM8Fre9wN465YLM5uHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vc+4vu+o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l4yfbu/3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8EA1F00A3A;
-	Mon, 20 Jul 2026 15:09:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vc+4vu+o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB971F000E9;
+	Mon, 20 Jul 2026 15:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784560188;
-	bh=BA2jxhy32SFGBlOT3iqhj3deJS7CKsM6LNRGwWRivn0=;
+	s=korg; t=1784560207;
+	bh=j7S/tbjNgO1TGvJakiHeQSB3HIldjuTIOuIO6ngvEpU=;
 	h=Subject:To:Cc:From:Date;
-	b=l4yfbu/3rSNrM4pVOuFqps6anemiwncbnzrtTsnNq4ZDo7iWi+VJC6fgQtH01OciH
-	 gk30/xUstjsNE76lP5eIGRmekkLaIJaJF4q90EcuvefWYww6FLlUwxMutvU2ym3GH6
-	 990R5Oju9YvwtYXqwWsn9UKtaZra0MErsTOgoutw=
-Subject: FAILED: patch "[PATCH] NFS: Charge unstable writes by request size, not folio size" failed to apply to 6.6-stable tree
-To: ben.coddington@hammerspace.com,anna.schumaker@hammerspace.com,bcodding@hammerspace.com,noreply@anthropic.com
+	b=Vc+4vu+onxPXDN9xOOWbeRCSREuQKuwxC/zXd8t1liTznPUCIxXXhJhDxHz0+vECp
+	 xeNyh/wwE3iy5RpycaO9pdDtLZH0ie8Egr5fCIAm36mw246uqMuLqvIKwk3tfMZnUl
+	 vwaDHgrJC9F8kOHDqZBYop5Eag0YFRM2iRSxdNFM=
+Subject: FAILED: patch "[PATCH] nvmet-auth: reject short AUTH_RECEIVE buffers" failed to apply to 6.12-stable tree
+To: michael.bommarito@gmail.com,hare@kernel.org,kbusch@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:09:39 +0200
-Message-ID: <2026072039-unheard-expand-767d@gregkh>
+Date: Mon, 20 Jul 2026 17:09:58 +0200
+Message-ID: <2026072058-flattery-mammogram-5fea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 27934d02cbeb8a957dd11c985a579e58d30c5270
+git cherry-pick -x 779575bc35c687697ba69e904f2cd22e60112534
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072039-unheard-expand-767d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072058-flattery-mammogram-5fea@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,129 +62,79 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 27934d02cbeb8a957dd11c985a579e58d30c5270 Mon Sep 17 00:00:00 2001
-From: Benjamin Coddington <ben.coddington@hammerspace.com>
-Date: Tue, 7 Jul 2026 11:07:16 -0400
-Subject: [PATCH] NFS: Charge unstable writes by request size, not folio size
+From 779575bc35c687697ba69e904f2cd22e60112534 Mon Sep 17 00:00:00 2001
+From: Michael Bommarito <michael.bommarito@gmail.com>
+Date: Tue, 9 Jun 2026 14:24:31 -0400
+Subject: [PATCH] nvmet-auth: reject short AUTH_RECEIVE buffers
 
-nfs_folio_mark_unstable() and nfs_folio_clear_commit() charge and
-uncharge NR_WRITEBACK/WB_WRITEBACK by folio_nr_pages(folio) once per
-*request* added to or removed from a commit list. This is correct only
-when a folio has a single associated request. When pg_test splits a
-folio into N sub-folio requests (e.g. pNFS flexfiles striping with a
-stripe unit smaller than the folio size, or plain wsize-limited
-splitting), each of the N requests independently charges the whole
-folio's page count, inflating the accounting by a factor of N per
-folio. With large folios and small stripe units this reaches multiple
-orders of magnitude: a 2 MiB folio split into 512 4 KiB requests can
-charge up to 512x its real size, pushing global dirty+writeback
-accounting past the system's dirty threshold and forcing every
-buffered writer on the host into the hard-throttle path, including
-unrelated in-kernel NFS server threads sharing the box.
+nvmet_execute_auth_receive() trusts the AUTH_RECEIVE allocation length
+after checking only that it is nonzero and matches the transfer length.
+In the SUCCESS1 and FAILURE1/default states, that lets a remote NVMe-oF
+initiator reach the fixed-size DH-HMAC-CHAP response builders with a
+kmalloc() buffer shorter than the response, so nvmet_auth_success1() and
+nvmet_auth_failure1() write past the allocation; both only WARN_ON the
+short length and then format the message anyway.
 
-Charge each request only for the pages it actually covers.
+Impact: A remote NVMe-oF initiator with access to an auth-enabled target
+can trigger a 16-byte heap out-of-bounds write via a one-byte
+AUTH_RECEIVE allocation length.
 
-Fixes: 0c493b5cf16e ("NFS: Convert buffered writes to use folios")
+Compute the minimum response length for the current DH-HMAC-CHAP step in
+nvmet_auth_receive_data_len() and report a zero data length when the
+host-supplied allocation length is shorter, so the existing zero-length
+check in nvmet_execute_auth_receive() rejects the command before any
+builder runs. The SUCCESS1 minimum is sizeof(struct
+nvmf_auth_dhchap_success1_data) plus the HMAC hash length, because the
+response hash is written into the rval[] flexible-array tail, so the
+minimum is state dependent rather than a flat sizeof. CHALLENGE keeps its
+existing variable-length guard in nvmet_auth_challenge().
+
+This is reachable only when in-band DH-HMAC-CHAP authentication is
+configured on the target.
+
+Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
 Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
-Assisted-By: Claude Sonnet 5 <noreply@anthropic.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+Assisted-by: Codex:gpt-5-5-xhigh
+Assisted-by: Claude:claude-opus-4-8
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 
-diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
-index acaeff7ddfdf..e4533f583632 100644
---- a/fs/nfs/internal.h
-+++ b/fs/nfs/internal.h
-@@ -851,17 +851,19 @@ void nfs_super_set_maxbytes(struct super_block *sb, __u64 maxfilesize)
- }
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index 0a85acf1e5c7..45820a12750d 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -493,7 +493,31 @@ static void nvmet_auth_failure1(struct nvmet_req *req, void *d, int al)
  
- /*
-- * Record the page as unstable (an extra writeback period) and mark its
-- * inode as dirty.
-+ * Record the request's range as unstable (an extra writeback period) and
-+ * mark its inode as dirty.
-  */
--static inline void nfs_folio_mark_unstable(struct folio *folio,
-+static inline void nfs_folio_mark_unstable(struct nfs_page *req,
- 					   struct nfs_commit_info *cinfo)
+ u32 nvmet_auth_receive_data_len(struct nvmet_req *req)
  {
-+	struct folio *folio = nfs_page_to_folio(req);
+-	return le32_to_cpu(req->cmd->auth_receive.al);
++	struct nvmet_ctrl *ctrl = req->sq->ctrl;
++	u32 al = le32_to_cpu(req->cmd->auth_receive.al);
++	u32 min_len;
 +
- 	if (folio && !cinfo->dreq) {
- 		struct inode *inode = folio->mapping->host;
--		long nr = folio_nr_pages(folio);
-+		long nr = DIV_ROUND_UP(req->wb_bytes, PAGE_SIZE);
- 
--		/* This page is really still in write-back - just that the
-+		/* This range is really still in write-back - just that the
- 		 * writeback is happening on the server now.
- 		 */
- 		node_stat_mod_folio(folio, NR_WRITEBACK, nr);
-diff --git a/fs/nfs/pnfs_nfs.c b/fs/nfs/pnfs_nfs.c
-index 0ff43dbcb7cd..648c95b78eea 100644
---- a/fs/nfs/pnfs_nfs.c
-+++ b/fs/nfs/pnfs_nfs.c
-@@ -1199,7 +1199,7 @@ pnfs_layout_mark_request_commit(struct nfs_page *req,
- 
- 	nfs_request_add_commit_list_locked(req, list, cinfo);
- 	mutex_unlock(&NFS_I(cinfo->inode)->commit_mutex);
--	nfs_folio_mark_unstable(nfs_page_to_folio(req), cinfo);
-+	nfs_folio_mark_unstable(req, cinfo);
- 	return;
- out_resched:
- 	mutex_unlock(&NFS_I(cinfo->inode)->commit_mutex);
-diff --git a/fs/nfs/write.c b/fs/nfs/write.c
-index fcffb8c9e9df..d2b03ceaeb4f 100644
---- a/fs/nfs/write.c
-+++ b/fs/nfs/write.c
-@@ -807,7 +807,7 @@ nfs_request_add_commit_list(struct nfs_page *req, struct nfs_commit_info *cinfo)
- 	mutex_lock(&NFS_I(cinfo->inode)->commit_mutex);
- 	nfs_request_add_commit_list_locked(req, &cinfo->mds->list, cinfo);
- 	mutex_unlock(&NFS_I(cinfo->inode)->commit_mutex);
--	nfs_folio_mark_unstable(nfs_page_to_folio(req), cinfo);
-+	nfs_folio_mark_unstable(req, cinfo);
- }
- EXPORT_SYMBOL_GPL(nfs_request_add_commit_list);
- 
-@@ -866,10 +866,12 @@ nfs_mark_request_commit(struct nfs_page *req, struct pnfs_layout_segment *lseg,
- 	nfs_request_add_commit_list(req, cinfo);
- }
- 
--static void nfs_folio_clear_commit(struct folio *folio)
-+static void nfs_folio_clear_commit(struct nfs_page *req)
- {
-+	struct folio *folio = nfs_page_to_folio(req);
++	/*
++	 * Reject too-short al before kmalloc(al), since the SUCCESS1 and
++	 * FAILURE1/default builders write fixed response headers into it.
++	 */
++	switch (req->sq->dhchap_step) {
++	case NVME_AUTH_DHCHAP_MESSAGE_CHALLENGE:
++		return al;
++	case NVME_AUTH_DHCHAP_MESSAGE_SUCCESS1:
++		min_len = sizeof(struct nvmf_auth_dhchap_success1_data);
++		if (req->sq->dhchap_c2)
++			min_len += nvme_auth_hmac_hash_len(ctrl->shash_id);
++		break;
++	default:
++		min_len = sizeof(struct nvmf_auth_dhchap_failure_data);
++		break;
++	}
 +
- 	if (folio) {
--		long nr = folio_nr_pages(folio);
-+		long nr = DIV_ROUND_UP(req->wb_bytes, PAGE_SIZE);
- 
- 		node_stat_mod_folio(folio, NR_WRITEBACK, -nr);
- 		bdi_wb_stat_mod(folio->mapping->host, WB_WRITEBACK, -nr);
-@@ -889,7 +891,7 @@ static void nfs_clear_request_commit(struct nfs_commit_info *cinfo,
- 			nfs_request_remove_commit_list(req, cinfo);
- 		}
- 		mutex_unlock(&NFS_I(inode)->commit_mutex);
--		nfs_folio_clear_commit(nfs_page_to_folio(req));
-+		nfs_folio_clear_commit(req);
- 	}
++	if (al < min_len)
++		return 0;
++
++	return al;
  }
  
-@@ -1741,7 +1743,7 @@ void nfs_retry_commit(struct list_head *page_list,
- 		req = nfs_list_entry(page_list->next);
- 		nfs_list_remove_request(req);
- 		nfs_mark_request_commit(req, lseg, cinfo, ds_commit_idx);
--		nfs_folio_clear_commit(nfs_page_to_folio(req));
-+		nfs_folio_clear_commit(req);
- 		nfs_unlock_and_release_request(req);
- 	}
- }
-@@ -1813,7 +1815,7 @@ static void nfs_commit_release_pages(struct nfs_commit_data *data)
- 		req = nfs_list_entry(data->pages.next);
- 		nfs_list_remove_request(req);
- 		folio = nfs_page_to_folio(req);
--		nfs_folio_clear_commit(folio);
-+		nfs_folio_clear_commit(req);
- 
- 		dprintk("NFS:       commit (%s/%llu %d@%lld)",
- 			nfs_req_openctx(req)->dentry->d_sb->s_id,
+ void nvmet_execute_auth_receive(struct nvmet_req *req)
 
