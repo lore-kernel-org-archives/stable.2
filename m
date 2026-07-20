@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49F41930E
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:35:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1744195A1
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:35:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784550926; cv=none; b=tsXu2Qjw/2Fyp7zHapW8JH+m0qjCJqxxNX+W6doxUxG41wKCDk65yeLrtHXGUVAXwXva0jGK5yqfFOQLiV1C5UzSt7zj9XO1PK5m0rR47btAg+fHyMFUi3sCBRg9V8uUxUTHPVg8n0Cwo7GaUKAOwSLcAaQk0r3bJlZkaX2CK1s=
+	t=1784550928; cv=none; b=F8pfnObanhZCcXiTE6tOmTWIbX+1ajiRErIefhl+JiYeZKHM9oztEUMuYSMlH0mJksscT+UDXbMNNnhfQwyZdnpm/epfLKoKUBbwjPRCOyYlzZYchoCeUN+5ojId7xnAqZwBqcxblJqEakmsyitrX1vhfhGCzSqxevSfqEJgQu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784550926; c=relaxed/simple;
-	bh=WQDoBQvCGZpQ9CjIW9YNmcYZ79H1ZcBpwg1fvl93750=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Qb/0Nj5IXIYjcFKmFetiMSQLQ/61H1Z5NvOFoQzLRtwn4jlUJe3Xg+/+/KHAQKy7kA9K3ZoRmoLLvLZEuBWt0ZZE54ryGXifYwo9Oo8mb2ifMb4q3d6/CLDM1x7vyaGgX3IzHiAVeES3rUJyZg29XtPaxfmaOA9jTjMOq6PLYYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B+WKufOf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784550928; c=relaxed/simple;
+	bh=MoQGKPXS5sLI0sUDBPMZ7bz6rs8HhcEe9u6TdVDUAIg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uubjq0v6o/PEW+UOFnoGV/MDL+HeDgohmTkxlrIQAMfpKxBcwNmcOL24sx3asni4eCZKhDJhGUxn4QAQaxKmoL3EsgPGLN+S4HJCe1E1EZRlX9fWlYaPWuj96yYqGU4mPuyZf3uzcNJ1m9nWEVr2Px8JiVaGUKU8avS+LwrqljQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XsQrrTWE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B+WKufOf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7144C1F000E9;
-	Mon, 20 Jul 2026 12:35:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XsQrrTWE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1182F1F000E9;
+	Mon, 20 Jul 2026 12:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784550924;
-	bh=uuy8as8WDCjPlFW0P2cKsBxdowr5V7EvjT528pe/QRo=;
+	s=korg; t=1784550927;
+	bh=S9fnJ2pTVmWL+Z/lNCFL28kCz3kygaSHwgLdYLZOnyQ=;
 	h=Subject:To:Cc:From:Date;
-	b=B+WKufOfZray6++jxvskGnFI9ZcR1dhf/IRu4658JM3LjdTyIueLuIj/ecxQjvRls
-	 viIdoFcCCwpvwl+0w4/01GM2GXS/u9xsjgyORat82cH/2UGjKlUvh9ISrzmkX/uHj7
-	 xaoXbE6zHxCcCgvuHoZWmvPw8+DtnX0YkFhlbbUc=
-Subject: FAILED: patch "[PATCH] ASoC: mediatek: mt8192: Check runtime resume during probe" failed to apply to 6.6-stable tree
+	b=XsQrrTWEOr5A3PPwbiIO1wx1CWckcy+IVNqtXxRE0iLr5FVekbhTwOe1xcAR19Y0T
+	 W+ju8Z+Gw/mbLaN6bscdsOBgbdUDakhcHOwL1x6Bv3kAPrO0Q7/bNyU6ftjpSWxGvi
+	 oHUHdPN2sfXvJCd0mmrpnjTjQuxvdQYCuOsBY9GE=
+Subject: FAILED: patch "[PATCH] ASoC: mediatek: mt8183: Check runtime resume during probe" failed to apply to 6.6-stable tree
 To: cassiogabrielcontato@gmail.com,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 14:32:22 +0200
-Message-ID: <2026072021-woof-etching-9d40@gregkh>
+Date: Mon, 20 Jul 2026 14:32:39 +0200
+Message-ID: <2026072039-snuff-nuptials-7e1d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e24d5dde56a50946020b134fa8448869093db76a
+git cherry-pick -x f0334fbfd107682d0c95f3f71e25f6127038e2b9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072021-woof-etching-9d40@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072039-snuff-nuptials-7e1d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,38 +62,34 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e24d5dde56a50946020b134fa8448869093db76a Mon Sep 17 00:00:00 2001
+From f0334fbfd107682d0c95f3f71e25f6127038e2b9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>
-Date: Wed, 27 May 2026 10:55:47 -0300
-Subject: [PATCH] ASoC: mediatek: mt8192: Check runtime resume during probe
+Date: Wed, 27 May 2026 10:41:49 -0300
+Subject: [PATCH] ASoC: mediatek: mt8183: Check runtime resume during probe
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The MT8192 AFE probe enables runtime PM temporarily while reinitializing
-the regmap cache from hardware, but it uses pm_runtime_get_sync()
-without checking the return value. If runtime resume fails, probe keeps
-going without the device necessarily being accessible, and
-pm_runtime_get_sync() may leave the PM usage count incremented.
+The MT8183 AFE probe uses pm_runtime_get_sync() before reading hardware
+defaults into the regmap cache, but does not check whether runtime resume
+failed. If regmap_reinit_cache() then fails, the temporary runtime PM
+usage count is also not released.
 
-The regmap_reinit_cache() failure path also returns before dropping the
-temporary PM reference and before clearing pm_runtime_bypass_reg_ctl.
+Use pm_runtime_resume_and_get() so resume failures abort probe without
+leaking a usage count, and release the temporary reference before
+handling the regmap cache result.
 
-Use pm_runtime_resume_and_get() so resume failures do not leak a usage
-count, and clear the temporary bypass flag after dropping the probe PM
-reference on all regmap_reinit_cache() outcomes.
-
-Fixes: 125ab5d588b0 ("ASoC: mediatek: mt8192: add platform driver")
+Fixes: a94aec035a12 ("ASoC: mediatek: mt8183: add platform driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
-Link: https://patch.msgid.link/20260527-asoc-mt8192-probe-cleanup-v1-2-1bb834d05b72@gmail.com
+Link: https://patch.msgid.link/20260527-asoc-mt8183-probe-cleanup-v1-2-4f4f5593c8d1@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-index 9f5057eeeff9..db0ae44a86af 100644
---- a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-@@ -2227,15 +2227,19 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+index 49a69728fd72..2634699534db 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
++++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+@@ -844,17 +844,21 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
  
  	/* enable clock for regcache get default value from hw */
  	afe_priv->pm_runtime_bypass_reg_ctl = true;
@@ -101,19 +97,21 @@ index 9f5057eeeff9..db0ae44a86af 100644
 +	ret = pm_runtime_resume_and_get(dev);
 +	if (ret) {
 +		afe_priv->pm_runtime_bypass_reg_ctl = false;
-+		return dev_err_probe(dev, ret, "failed to resume device\n");
++		goto err_pm_disable;
 +	}
  
- 	ret = regmap_reinit_cache(afe->regmap, &mt8192_afe_regmap_config);
--	if (ret)
--		return dev_err_probe(dev, ret, "regmap_reinit_cache fail\n");
--
- 	pm_runtime_put_sync(dev);
- 	afe_priv->pm_runtime_bypass_reg_ctl = false;
- 
-+	if (ret)
-+		return dev_err_probe(dev, ret, "regmap_reinit_cache fail\n");
+ 	ret = regmap_reinit_cache(afe->regmap, &mt8183_afe_regmap_config);
++	pm_runtime_put_sync(dev);
++	afe_priv->pm_runtime_bypass_reg_ctl = false;
 +
+ 	if (ret) {
+ 		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
+ 		goto err_pm_disable;
+ 	}
+ 
+-	pm_runtime_put_sync(dev);
+-	afe_priv->pm_runtime_bypass_reg_ctl = false;
+-
  	regcache_cache_only(afe->regmap, true);
  	regcache_mark_dirty(afe->regmap);
  
