@@ -1,234 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7607443F8DE
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 16:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784566284; cv=none; b=qxvx6uqOWd8x/xKbLfaTWFFV4YOxRcGraYc5IvifDDqrXnTftcZlWRvRTfq8BTbmoc8D83DqRIIjaCwoKNpIXVdyzjZBUFCkDNwr0kC0A/aEdJSSTEmxDHIih2z18QngoX4EFjt+u+QBaACL7hH06yscKjFPmRnSXhbHRY1diyM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784566284; c=relaxed/simple;
-	bh=vqiXu7ND7zoKOINCRvys/PDAKhobKoBk88FBjTDxR3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zqeais3CMNlT/PHJj1E8InWA/qO8krgqko5VLLc176ruo+/nKbsrLuZ7A03d7jYkmVVSNCdwCcUJogpeOGj5vf8klfbP6UjBwR5B31WFRrO/R0PEfkc1sRM+qbJ0M1sLyfBzY1Mz6vviU5W/3NLASmmQbz522r0D6iwdwCEXjyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfhZSch5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BB143E4B5
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 16:51:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784566311; cv=pass; b=o37fDNTmQENAQWGtsHAxMj5Ys6tmfITBmD3Yd0wjz3L0AyTy+AZV85MD0kerX/tJiRgY0huhOM8nFQB9Ed/H8em0sDkI5OQ7aAVoGTZgVwJEsSYe5ulcVEKBU8Xc2VZUtfJChYhdIHcdpUbrZXnvCjmyLL4K6VggTGofGoUQmKc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784566311; c=relaxed/simple;
+	bh=h//PlCpI0ud1F5KsjJcqmQMXG40LlSIcqpcNuGnT1H4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RCEaQ2W8g+Fv22574ENTHxxy0AL1NZPe2HocYfLW7Zd98VuFLm1Cm+Ab5xA3T/dygTiKX05o6GSdSOCFTrpn570t3tKSLBSyl0ju9tTtKS1tmwTALnG4BvhKb/1v3a+EW98qsj5HE/Jh29iYy4FcbX5yl+4qBf/68NSoUNtM0qQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uf68WFyY; arc=pass smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfhZSch5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C3D1F000E9;
-	Mon, 20 Jul 2026 16:51:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784566283;
-	bh=v05nhrI9nyrWTorKUdJJFL4UI2it/UR3KBKzLiDXqsw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JfhZSch5gDOVWjutzbnuc6wDa706je7NVlSaJ2uH6JZG5J7dGR7CuFAnQsqjA34Df
-	 Jx4fh0gE5sE4bbX3CLwaI/+CwPsI3uvFcGjVUYZOQ+GrqsrTxguWjPBWWyre00SHpD
-	 6sk76NE/1RMBeiAnPcm24UBqTFuu5Q68SpRdq67wurbELiQ9YzjuYFXCZ+8XrJvKVo
-	 1HWHiOFzjY3SKBOCu92coKPi+CAieWKYv7/CUW2KJqLuCoDh+Owg2/K4hZ8wk3G85e
-	 p34Nnam3TwovBeQhfboZSwQhJgcWj9hNVsSRSuFir3tRPlFl7GQnAX4FGaX6kX6adh
-	 GP4JnrHIGygmQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	Boris Burkov <boris@bur.io>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] btrfs: fix false IO failure after falling back to buffered write
-Date: Mon, 20 Jul 2026 12:51:20 -0400
-Message-ID: <20260720165120.2527510-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071553-purplish-custodian-e133@gregkh>
-References: <2026071553-purplish-custodian-e133@gregkh>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uf68WFyY"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c197e7e4e94so152987566b.2
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 09:51:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784566308; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dR5CVR7KxXzcK09Sx6DoFgCT8lekHi7OPaEopTRMyxZn0wxCIucl9PybHbFIF7yoDs
+         uepnrpuowoOrYintQN+tJqbGm2YogATQE+0Z8arpZsrpdHYWK86Rs2GFqR0akyzsZY3g
+         PUTfH83fAvwDewRi1DXdWbwCpZ8AAl+xRm5foxEpK25TZOie6i0o2jcQR1wqfGVTfVPE
+         XtYYFZxFG9Rf9ILanEYIZsYZJVV5YknqayD9g5GR7V/ZDIGSWdCAtDdlQ7NTMXzuasXv
+         XlYCTvZ027hhs+FZsCYI7wNlnN0nlG6KW/pZw47MVkurvX9g7tJATDTpr7nyOinVgfas
+         TUAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tY6y2m6mRP/UJJ+mAovKHgHIAfizO2XUbqAv58WxDvY=;
+        fh=zojEJ8FoegReEiP3QPz4hgOfer2/yQvMh/7eIr+YE94=;
+        b=S4Uwwr0As6r3uvAl4Gqmfe3+OPf27qbHLifggB9pBPxvbdLCP9M05B2MhB06SRi8Gm
+         /85QZFPhjvWtISSLCydlo2/ZMYHEV9THbq+9/LrIkhgEeW7MFdJeUtcdQxgvy7EC8Xg0
+         E1xNGgxRzwSeXyLZ3ZIHahgkml86kU669BzVdur70sDr8qS4AOv0KLxyJZ5ZlkardYRF
+         hkMlMWY5yOAy+G41AZDR3jb6IorYWAa9erAoA5nSt3bicN8STg0/ylRaDCZd40c9j4xo
+         v0vrw1IQ4SYV6PHOaAyUc1kPzpufRjj9fVm1qeQVxsnWCARxlDP31OE8b989rqEi6wsH
+         HXJw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784566308; x=1785171108; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tY6y2m6mRP/UJJ+mAovKHgHIAfizO2XUbqAv58WxDvY=;
+        b=uf68WFyYEDuXdjq90kP1ehF7rWirneN1EUWEu0qGiU8QS3mBkHFlrFvkaikY8UxaaA
+         rxMXf1FDRd7t7PSw/c8aP94XG+wH6sV0ZhhXS4/rEC9bhptVqvP1dAzjxatq+in/NkK7
+         6OSrs8L9kggljekLb7gVG78gcUxxsZi8z3nS73UIZRBKb8cmvAyXeel19wAx5xvm9XaY
+         Bx4rMuBeN6m1kKYpYiJ2AjDlJpwBWgecnCnBgSpsOgS3Oxyf6nahHuR9UvmPPtwoDQW6
+         EVFhfBtI05RN4b1yT1fWi98oGqAwZAB2iTeqGzNdn4WrGJ+hl+8VoZs9IXgiz6qDh/Q0
+         vc7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784566308; x=1785171108;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tY6y2m6mRP/UJJ+mAovKHgHIAfizO2XUbqAv58WxDvY=;
+        b=YeIpl9GMspKTTLwSGdk0WZC22+8fafUGSfo7fI+HGv3ndLUF+B7enG3XdlOc4QEmyP
+         3dI9vogpIzOp9k0R/BGkV1v7kEtknNR3KDNzJSJZlYTO23iwSN+TIfE0msUXOX6MDk9U
+         T4/1mAxPYjnrl1GEoM3WfmJeAJWrsB2fUDfcEnJANJMoJexs6A76MScaWLTGo8Gpgp5i
+         W5FpI6IOBWo385N3gxA8Du63xIgyY1sGPHUL8/d+GDsTqSSBiGr/4ycCehg03CHlhEQw
+         Mb8CLoAE40XYbS2djj3IPENG3wlNw5zzeFd4KuSbBPAKXLuWgKSFuf1TKCl/WhGgoHtB
+         Q7fg==
+X-Forwarded-Encrypted: i=1; AHgh+RpmRn/EuIXle13ifYVSTosYX1pp5kSMbBpRO+sMk6XVaLkyeYX+rsP+yCGZ1cZ26pDb6eztHag=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlERGaGjnkQUayYX38WQtR8bVoGNkIJn5gbxxsuTt2iIw38lY2
+	7kIQHZPxZz4beWhWTmsKMrgZ5YS+3k4ANuGGFjfjzaze3WvK3rOHoZ/IInxSdvYkww0LnuIELMY
+	OdhtRLhkHNP+qSuIbuFa62Ge/R8cuqfWUYZwRuzzl
+X-Gm-Gg: AfdE7clEb3EpU3huSO4V+mLGqbg+HvMhiqd01b3yPzgxICugCbfLh7wPsPH3JNVYrW+
+	+N5mkeLU6Yfhb9/S+ZsF+Z9acy5NDpFLM15D4c/zQAX5KxlnF+iok/TZcrzqKmuMAYj83sflprt
+	Au0KDF1bZf886hub403M7IhlcRvtAoQqmU+M5FZ3MBzpg1yFVcQRNj0i0k9nRuoVu38jjTb2msM
+	uHdJ0ZtNVQaJ2XmX9xF6acHmqm9JeFCmAjExXrVM2hDwixvXeX8Yx8TbsWNLLnHalcd4kNuti0a
+	aiS2Vv5aygduXWlZ8ab1+ig2M5TQeRgFM7+z0Sz6ZsCoE/zruB0/at/fuPc4BgYeKEYcdnLwjd3
+	l
+X-Received: by 2002:a17:906:ef02:b0:c16:5e73:b3e3 with SMTP id
+ a640c23a62f3a-c16b46b6f5fmr615505966b.7.1784566307098; Mon, 20 Jul 2026
+ 09:51:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260717141648.1007059-1-linux@yoavmoshe.com> <CAKwvOdkGYLWAR+5q+XaO6VZc3-sGEm0nX0MvXoJOghx7Gn1tRg@mail.gmail.com>
+In-Reply-To: <CAKwvOdkGYLWAR+5q+XaO6VZc3-sGEm0nX0MvXoJOghx7Gn1tRg@mail.gmail.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Mon, 20 Jul 2026 09:51:35 -0700
+X-Gm-Features: AUfX_myHGrPuTu_ujS6tW3mC0SHvE_GdWe_YqayLYt46d3sdd9_DfoxWORNfKQw
+Message-ID: <CAKwvOdn5xgtqv9NvMew0yBnH5E0xQMLaX+Z=bX3L_a9_K5orHQ@mail.gmail.com>
+Subject: Re: [PATCH] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: "Yo'av Moshe" <linux@yoavmoshe.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Kees Cook <kees@kernel.org>, Sami Tolvanen <samitolvanen@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Qu Wenruo <wqu@suse.com>
+On Mon, Jul 20, 2026 at 9:49=E2=80=AFAM Nick Desaulniers
+<ndesaulniers@google.com> wrote:
+>
+> On Fri, Jul 17, 2026 at 7:17=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com>=
+ wrote:
+> >
+> > Relocated suspend code in OCRAM lacks compiler-generated CFI type
+> > signatures. When CONFIG_CFI=3Dy is active, the indirect call to
+> > imx6_suspend_in_ocram_fn triggers a strict CFI violation panic.
+> >
+> > Annotate imx6q_suspend_finish with __nocfi to bypass CFI checking
+> > for this specific indirect call.
+> >
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Yo'av Moshe <linux@yoavmoshe.com>
+>
+> Thanks for the patch.
+> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
 
-[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
+Ah, looks like I'm reviewing v1, but there's already been a v2 and v3.
+Disregard.
 
-[BUG]
-The test case generic/362 will fail with "nodatasum" mount option (*):
+>
+> > ---
+> > Tested on a Kobo Clara HD (i.MX6SLL SoC) running postmarketOS edge.
+> > Before this patch, suspending the device caused an immediate silent
+> > hang requiring a hard-reboot. With this patch applied, suspend and
+> > resume work successfully.
+> >
+> >  arch/arm/mach-imx/pm-imx6.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/arch/arm/mach-imx/pm-imx6.c b/arch/arm/mach-imx/pm-imx6.c
+> > index a671ca498..d9b0c1803 100644
+> > --- a/arch/arm/mach-imx/pm-imx6.c
+> > +++ b/arch/arm/mach-imx/pm-imx6.c
+> > @@ -360,7 +360,7 @@ int imx6_set_lpm(enum mxc_cpu_pwr_mode mode)
+> >         return 0;
+> >  }
+> >
+> > -static int imx6q_suspend_finish(unsigned long val)
+> > +static int __nocfi imx6q_suspend_finish(unsigned long val)
+> >  {
+> >         if (!imx6_suspend_in_ocram_fn) {
+> >                 cpu_do_idle();
+> > --
+> > 2.55.0
+> >
+>
+>
+> --
+> Thanks,
+> ~Nick Desaulniers
 
- MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
- generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
-    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
-    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
-    @@ -1,2 +1,3 @@
-     QA output created by 362
-    +First write failed: Input/output error
-     Silence is golden
-    ...
 
-*: If the test case has been executed before with default data checksum,
-the failure will not reproduce. Need the following fix to make it
-reliably reproducible:
-https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
-
-[CAUSE]
-Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
-Thus we never got an error pointer from __iomap_dio_rw().
-
-The call chain looks like this:
-
- btrfs_direct_write()
- |- btrfs_dio_write()
- |-  __iomap_dio_rw()
- |  |- iomap_iter()
- |  |  |- btrfs_dio_iomap_begin()
- |  |     Now an ordered extent is allocated for the 4K write.
- |  |
- |  |- iomi.status = iomap_dio_iter()
- |  |  Where iomap_dio_iter() returned -EFAULT.
- |  |
- |  |- ret = iomap_iter()
- |  |  |- btrfs_dio_iomap_end()
- |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
- |  |  |  |  |- can_finish_ordered_extent()
- |  |  |  |     |- btrfs_mark_ordered_extent_error()
- |  |  |  |        |- mapping_set_error()
- |  |  |  |           Now the address space is marked error.
- |  |  |  | return -ENOTBLK
- |  |  |- return -ENOTBLK
- |  |- if (ret == -ENOTBLK) { ret = 0; }
- |     Now the return value is reset to 0.
- |     Thus no error pointer will be returned.
- |
- |- ret = iomap_dio_complete()
- |  Since no byte is submitted, @ret is 0.
- |
- |- Fallback to buffered IO
- |  And the buffered write finished without error
- |
- |- filemap_fdatawait_range()
-    |- filemap_check_errors()
-       The previous error is recorded, thus an error is returned
-
-However the buffered write is properly submitted and finished, the error
-is from the btrfs_finish_ordered_extent() call with @uptodate = false.
-
-[FIX]
-When a short dio write happened, any range that is submitted will have
-btrfs_extract_ordered_extent() to be called, thus the submitted range
-will always have an OE just covering the submitted range.
-
-The remaining OE range is never submitted, thus they should be treated
-as truncated, not an error. So that we can properly reclaim and not
-insert an unnecessary file extent item, without marking the mapping as
-error.
-
-Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
-that helper to mark the direct IO ordered extent as truncated, so it
-won't cause failure for the later buffered fallback.
-
-[REASON FOR NO FIXES TAG]
-The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
-iomap for direct IO") we're already passing @uptodate=false finishing
-the OE.
-But at that time OE with IOERR won't call mapping_set_error(), so it's
-not exposed.
-Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
-error if we fail to finish") finally exposed the bug, but that commit
-is doing a correct job, not the root cause.
-
-Anyway the bug is very old, dating back to 5.1x days, thus only CC to
-stable.
-
-CC: stable@vger.kernel.org # 5.15+
-Reviewed-by: Boris Burkov <boris@bur.io>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/btrfs/inode.c        | 23 +++++++++++++++--------
- fs/btrfs/ordered-data.c | 12 ++++++++++++
- fs/btrfs/ordered-data.h |  2 ++
- 3 files changed, 29 insertions(+), 8 deletions(-)
-
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 7add1a019d8578..cf647e6157a3e2 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -7754,12 +7754,23 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 	if (submitted < length) {
- 		pos += submitted;
- 		length -= submitted;
--		if (write)
-+		if (write) {
-+			/*
-+			 * We have a short write, if there is any range
-+			 * that is submitted properly, that part will have
-+			 * its own OE split from the original one.
-+			 *
-+			 * So for the OE at dio_data->ordered, it's the part
-+			 * that is not submitted, and should be marked
-+			 * as fully truncated.
-+			 */
-+			btrfs_mark_ordered_extent_truncated(dio_data->ordered, 0);
- 			btrfs_finish_ordered_extent(dio_data->ordered, NULL,
--						    pos, length, false);
--		else
-+						    pos, length, true);
-+		} else {
- 			unlock_extent(&BTRFS_I(inode)->io_tree, pos,
- 				      pos + length - 1, NULL);
-+		}
- 		ret = -ENOTBLK;
- 	}
- 	if (write) {
-@@ -8109,11 +8120,7 @@ static void btrfs_invalidate_folio(struct folio *folio, size_t offset,
- 					 EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
- 					 EXTENT_DEFRAG, &cached_state);
- 
--		spin_lock_irq(&inode->ordered_tree.lock);
--		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
--		ordered->truncated_len = min(ordered->truncated_len,
--					     cur - ordered->file_offset);
--		spin_unlock_irq(&inode->ordered_tree.lock);
-+		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
- 
- 		/*
- 		 * If the ordered extent has finished, we're safe to delete all
-diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
-index e0a2d0cfd5ebe7..ff37971ef89743 100644
---- a/fs/btrfs/ordered-data.c
-+++ b/fs/btrfs/ordered-data.c
-@@ -303,6 +303,18 @@ void btrfs_add_ordered_sum(struct btrfs_ordered_extent *entry,
- 	spin_unlock_irq(&tree->lock);
- }
- 
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len)
-+{
-+	struct btrfs_inode *inode = BTRFS_I(ordered->inode);
-+
-+	ASSERT(truncate_len <= ordered->num_bytes);
-+	spin_lock_irq(&inode->ordered_tree.lock);
-+	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
-+	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
-+	spin_unlock_irq(&inode->ordered_tree.lock);
-+}
-+
- static void finish_ordered_fn(struct btrfs_work *work)
- {
- 	struct btrfs_ordered_extent *ordered_extent;
-diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
-index 1c51ac57e5dfde..ef06ba6117c20f 100644
---- a/fs/btrfs/ordered-data.h
-+++ b/fs/btrfs/ordered-data.h
-@@ -210,6 +210,8 @@ bool btrfs_try_lock_ordered_range(struct btrfs_inode *inode, u64 start, u64 end,
- 				  struct extent_state **cached_state);
- struct btrfs_ordered_extent *btrfs_split_ordered_extent(
- 			struct btrfs_ordered_extent *ordered, u64 len);
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len);
- int __init ordered_data_init(void);
- void __cold ordered_data_exit(void);
- 
--- 
-2.53.0
-
+--=20
+Thanks,
+~Nick Desaulniers
