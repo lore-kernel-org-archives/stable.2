@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D103F5BF8
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AEE435AA4
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562027; cv=none; b=IdOCqKTuSP4MS6g+xf2YlfMN87fuqmr0XghhfJ1fxRXyBnoMsrvvzpBHBKvWPBdFhEFmeTGZjBGmnw06QfIO0h/P9+m5blmC4WWxhZnjWdJMMLk5uRFhYJ1te1ZH7MahXnfZHh4woAPYT1tEVfGY140m6FURGNTYOeJTuW5QVT0=
+	t=1784562227; cv=none; b=GeQGfOidXCSkepNCkQPVb+hq27ak/INx6/dkUIwExSj54pS+FvkNVkV8JXaDqJBU95DWQ9TNM/hF2HkOKEh4qyM9u02h0NtvfG5YIs1wRQ93AAcmdqnvqsyrwNewFBGa0QB0wDh9CvMYXXslFJjvA3alRxrJLdPig6NSG5pI7cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562027; c=relaxed/simple;
-	bh=iLC1xTUICEOSZepqXkbqigOLZKr/R17xAV3pTMAyWtc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tl0uH0y2V/5r5EzindewCaI+Sk2cwV7TfotTPzSO/n2r3uTIcSFvp2E3BhDc9oTJ8/YQ9BCOrxxjm6sk/NSPerJ70Kv0Y2U6+kvbSdatVYfP6uh/OZqqyTGdGsLUSw+GR1688keK5cq8JTjLrPJH6fkpqrqSU8uwb9SvIN9sxxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B+YG1ZTm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784562227; c=relaxed/simple;
+	bh=Z2ynaCbuV5H+pHTyUe5Edp7p271uDWNUPKSOLr8U9SE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=t7aK65TGOeO2z+yANiyiLYnyvkBQzGWIP3dP8XPK1lK4I5sQv+JDqOTgx0+kSXs+84vcu+3oc4vNPuOCjLEsLZfz8TywWPsuHknKzYoirikbRXR0WsupDC58St6C8GcMYCf0QBuL8+twZSOHOOV52e32hPN3blduObCjvJ+kGdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hAJs+4vZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B+YG1ZTm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1AE1F000E9;
-	Mon, 20 Jul 2026 15:40:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hAJs+4vZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B93ED1F000E9;
+	Mon, 20 Jul 2026 15:43:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562026;
-	bh=NcEPGo+buMN9OE+noXO0JtCKq+Ft7R7HSXrRbZNyu4g=;
+	s=korg; t=1784562226;
+	bh=6QvyuWUWGoKcoxCO87E6jXaWA0QgH+sS8xpZ10Jtt8g=;
 	h=Subject:To:Cc:From:Date;
-	b=B+YG1ZTmue2/+INuxdhO4sutK5D2zxNu12RVb3uWpNh7YQgMTmKhFE2c4zyo88oIq
-	 BuVoj3n5WDrFMwQURdawxX9MebJyECfl8OAPvNcW4HusrptTgUgmNNJD3y/u9DBfZu
-	 q11FLACMHyZFsM3Fad72v5qjPDaR+uKvDDSjMG3o=
-Subject: FAILED: patch "[PATCH] dm: avoid leaking the caller's thread keyring via the table" failed to apply to 6.12-stable tree
-To: iblech@speicherleck.de,mpatocka@redhat.com,okozina@redhat.com
+	b=hAJs+4vZD5ivLkWZF55yUeLGK4H92eUBr+iyh0HbrZXvpOnxHYiAU+8E+Va5P2WDP
+	 +pfzeBHKPMKhsdJ0o56g+rCmE6kiddR7BnqxrY0TiiG8YrAH8+wz+cOquDD/IQEobz
+	 ZWi4EwZFgkcM3DunJ0Vvp+2uxJtyLJMkbDjgVqbQ=
+Subject: FAILED: patch "[PATCH] platform/x86: hp-wmi: Add support for Omen 16-ap0xxx (8D26)" failed to apply to 6.18-stable tree
+To: krishna.chomal108@gmail.com,alberto_e_88@yahoo.es,ilpo.jarvinen@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:26:43 +0200
-Message-ID: <2026072043-kennel-tasting-5eb0@gregkh>
+Date: Mon, 20 Jul 2026 17:28:21 +0200
+Message-ID: <2026072021-said-startling-e2c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 981ccd97f7153d310dfa92a534525bbaf46752c2
+git cherry-pick -x 0aab31d47c2e857ca05028d718d1e0d239e683ad
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072043-kennel-tasting-5eb0@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072021-said-startling-e2c4@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,67 +62,46 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 981ccd97f7153d310dfa92a534525bbaf46752c2 Mon Sep 17 00:00:00 2001
-From: Ingo Blechschmidt <iblech@speicherleck.de>
-Date: Wed, 17 Jun 2026 16:33:42 +0200
-Subject: [PATCH] dm: avoid leaking the caller's thread keyring via the table
- device file
+From 0aab31d47c2e857ca05028d718d1e0d239e683ad Mon Sep 17 00:00:00 2001
+From: Krishna Chomal <krishna.chomal108@gmail.com>
+Date: Mon, 25 May 2026 15:52:26 +0530
+Subject: [PATCH] platform/x86: hp-wmi: Add support for Omen 16-ap0xxx (8D26)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The refactoring in commit a28d893eb327 ("md: port block device access to file")
-accidentally causes the caller's thread keyring to be kept alive long
-beyond the caller's lifetime.
+The HP Omen 16-ap0xxx (board ID: 8D26) has the same WMI interface as
+other Victus S boards, but requires quirks for correctly switching
+thermal profile.
 
-As a result, "cryptsetup luksSuspend" silently fails to wipe the
-LUKS volume key from memory.
+Add the DMI board name to victus_s_thermal_profile_boards[] table and
+map it to omen_v1_legacy_thermal_params.
 
-In detail: "cryptsetup luksOpen" uses its supposedly ephemeral thread
-keyring to pass the volume key to the kernel. dm-crypt's
-crypt_set_keyring_key() copies the key material into its own
-crypt_config structure and then drops its own reference to the key in
-the keyring with key_put().
+Testing on board 8D26 confirmed that platform profile is registered
+successfully and fan RPMs are readable and controllable.
 
-With this fix, restoring pre-v6.9 behavior, the copy in the thread
-keyring is then promptly garbage collected, such that exactly one copy
-of the volume key remains. This single copy is correctly wiped from
-memory on "cryptsetup luksSuspend".
+Tested-by: Alberto Escaño <alberto_e_88@yahoo.es>
+Reported-by: Alberto Escaño <alberto_e_88@yahoo.es>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221514
+Cc: stable@vger.kernel.org # v6.18+
+Signed-off-by: Krishna Chomal <krishna.chomal108@gmail.com>
+Link: https://patch.msgid.link/20260525102226.56300-1-krishna.chomal108@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-Without this fix, the thread keyring and the volume key in it remains.
-This second copy is only freed on "luksClose". "luksSuspend" neither
-knows about this copy nor has any way to remove it, so the key remains
-recoverable from RAM after a suspend that is documented to have wiped it.
-
-This fix should not introduce new security problems, as the code is
-anyway gated by CAP_SYS_ADMIN. The device-mapper core, not the calling
-task, is the legitimate owner of this long-lived file.
-
-Fixes: a28d893eb327 ("md: port block device access to file")
-Closes: https://gitlab.com/cryptsetup/cryptsetup/-/work_items/993
-Link: https://www.speicherleck.de/iblech/cryptsetup-luksSuspend-issue-reproduction/
-Signed-off-by: Ingo Blechschmidt <iblech@speicherleck.de>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Cc: stable@vger.kernel.org
-Tested-by: Ondrej Kozina <okozina@redhat.com>
-
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 7287bed6eb64..d413bfaf3527 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -735,7 +735,16 @@ static struct table_device *open_table_device(struct mapped_device *md,
- 		return ERR_PTR(-ENOMEM);
- 	refcount_set(&td->count, 1);
- 
--	bdev_file = bdev_file_open_by_dev(dev, mode, _dm_claim_ptr, NULL);
-+	/*
-+	 * Open the backing device with kernel rather than caller
-+	 * credentials. Otherwise the caller's credentials would be
-+	 * pinned in bdev_file->f_cred until the table device is closed.
-+	 * That would keep the caller's thread keyring alive long beyond the
-+	 * lifetime of the caller, breaking userspace expectation (e.g.
-+	 * cryptsetup(8) leaking the LUKS volume key).
-+	 */
-+	scoped_with_kernel_creds()
-+		bdev_file = bdev_file_open_by_dev(dev, mode, _dm_claim_ptr, NULL);
- 	if (IS_ERR(bdev_file)) {
- 		r = PTR_ERR(bdev_file);
- 		goto out_free_td;
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 5042d124dea0..079db53bf10c 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -253,6 +253,10 @@ static const struct dmi_system_id victus_s_thermal_profile_boards[] __initconst
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8C9C") },
+ 		.driver_data = (void *)&victus_s_thermal_params,
+ 	},
++	{
++		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D26") },
++		.driver_data = (void *)&omen_v1_legacy_thermal_params,
++	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D41") },
+ 		.driver_data = (void *)&omen_v1_no_ec_thermal_params,
 
