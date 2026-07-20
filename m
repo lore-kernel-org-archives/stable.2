@@ -1,75 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F4D42BC33;
-	Mon, 20 Jul 2026 14:13:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5794429CD4
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784556809; cv=none; b=smJRU+x57aUBnpYzNs3aV0YfTwrIYVmgLtQjvmxDJKGdPwJPfgy8ODUMUU9uq0Ej3OBNGy+cI/JRkLlNejDL5KZdXidLi5pnS7sEkXJVjF8542USQ9qXRMozhItisxqoEe1zsa+vjvidsoqOVWe1IIS5BfAbibahyOm1Wf6+JY4=
+	t=1784557064; cv=none; b=SNoPA8KW/e7eNWQZv4NC4hZhjyns82RmRSpg/X5jltnScd/hutCSNFH9dquI4YFXOQx+lqifTPqBG7wc/Vr5Qkbqvup84yCNV1k114WPT+dYhh/eJLQjmLRJPfcHhT+1ui/8M6o4FO9zeTZLo2IZV9X58Grnfj3R9Lv6HS4KG4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784556809; c=relaxed/simple;
-	bh=gyeYMfx2Pv4MTur87xIatlvuP/dsiXYa/GpSF3VAJ0M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hN3FLSC5P7+Kl2FyvpNQXTTZ3gm1zC55Iy6cX/jHsfmw7aZSISZwUjx7I8JKeNCKv/QPNcvn2kXfTmbtliiv+kr2b6Ua/LZ38kwgwH2QExEUXDdxyzaEKL4+EM8XbPU2/OtocHxrdL+Iq+hkRBXp5rBoJOexlRV4KX6aDe6dltg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzV/mjHc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557064; c=relaxed/simple;
+	bh=a9rLrD/2IeOxVojBxxVCtrPsvF86absDc1zKBAdGCzE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N90h8BbDBABXMNPeakiUINYlGew0n4k4wQ4ipV3BfLUYtPfGi71ZL3l7+oprXUQ9r5e9aSUkLgkcq3fRh/63/zxzUXYnnvPNRrhC9buOqRV7/l7KfnpOvFT/kEHlt1I3/+pY9/rQY1IG+QKjA8FG43mF3w9WTU/R9yDr7X0ezq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbV+YROz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzV/mjHc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24BDE1F000E9;
-	Mon, 20 Jul 2026 14:13:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbV+YROz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2BEC1F000E9;
+	Mon, 20 Jul 2026 14:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784556807;
-	bh=CqvcRS8MbvZHooKKiQBEFXsX+dokNE5uYuQ0vfjb0yg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BzV/mjHcCWZS1tZpMs1jroe5i1aPVgJKpaz41Z9oo7B+aXubYGUq/nt/JAOCjThlN
-	 jaQJLDbFqDa1w4g4MUb6XM9s/YfX8/sO71Yn1rMtS9ywrgiIMcEkxrUbgncRslqHCf
-	 brJ0vetUmp9RXVuBro0CihwhqJ94crg2WBjVGc8xm2H+D3r9FUDhZ+4TTqG2oRZ9Mf
-	 jXVBBMgNrLXp4gMZTyvcpc5nhHXgjjPXfXpPBZbHIThXvtID5Syl442AiEVSlrV/QP
-	 FGEj+HY+B7gyKZWuAbkcHsAWMXgDnjcWHCgXgDywBhLPucrNzMK0WHc3VKZLyTUWEo
-	 yTKeZL70tD91A==
-Message-ID: <e1ef6af9-3040-44ae-ad00-5e9011c8edda@kernel.org>
-Date: Mon, 20 Jul 2026 09:13:25 -0500
+	s=k20260515; t=1784557063;
+	bh=ZHi/k/LKg0U7p0FYP/xtJl+HEGZoeAeDPuL7eA9OvW8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bbV+YROze0g9l0q3bpBsU0FThhCBD7I8/NfBrsSxj2sXzAE2tjQ/zXZ0Ef6RQ7ZZC
+	 up/GK7hhtWCx2AULIf86x/Ab8mF3xZAcPTz+Bs3ON0EnyIA4GDA856THiIoeLjffCM
+	 p+0i0POxPgEtOyMb9At5y63kfaSGY8xvga67/Rb2EXB4zJELuLXmFhJgPCJFeeBQOj
+	 jnUQpUpXewcmDIQqjMcYSk3PT+Of0RvNAq5yBRP5GdZWsG1PFYPGBe7Xl7V4SFE8T4
+	 hZjHAjV/rysHPpMytt3QuU/rcdly+FF57XEWLMeN9gtz20rL/dTXILtUphys4ksQjT
+	 5XLVpbd1e/B6Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Neill Kapron <nkapron@google.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] usb: gadget: f_fs: Tie read_buffer lifetime to ffs_epfile
+Date: Mon, 20 Jul 2026 10:17:37 -0400
+Message-ID: <20260720141737.1619471-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071425-sadly-dimmer-0668@gregkh>
+References: <2026071425-sadly-dimmer-0668@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] EDAC/altera: Fix device node reference leaks in the
- SDMMC ECC setup
-Content-Language: en-US
-To: Rounak Das <rounakdas2025@gmail.com>
-Cc: bp@alien8.de, tony.luck@intel.com, stable@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <182c3d64-17b7-4e18-9bbe-2fd97eb231a2@kernel.org>
- <20260717131720.19038-1-rounakdas2025@gmail.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20260717131720.19038-1-rounakdas2025@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Neill Kapron <nkapron@google.com>
 
+[ Upstream commit 8bdcf96eb135aebacac319667f87db034fb38406 ]
 
-On 7/17/26 08:17, Rounak Das wrote:
-> Under altr_portb_setup() and socfpga_init_sdmmc_ecc(),
-> of_find_compatible_node() was being used to look up the sdmmc-ecc
-> node. This node wasn't being dropped using of_node_put().
-> 
-> altr_portb_setup() did not drop its reference under its success path
-> or on any error path.
-> 
-> socfpga_init_sdmmc_ecc() did an early return thereby skipping the
-> common exit label and thus leaking the reference.
-> 
-> Add the missing of_node_put() calls in altr_portb_setup(), and route
-> socfpga_init_sdmmc_ecc()'s success path through the common exit label.
-> 
-> Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
-> Fixes: 788586efd116 ("EDAC/altera: Initialize peripheral FIFOs in probe()")
-> Cc: stable@vger.kernel.org
-> Closes: https://sashiko.dev/#/patchset/20260708091135.94114-1-rounakdas2025%40gmail.com
-> Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
-> ---
+Currently, ffs_epfile_release unconditionally frees the endpoint's
+read_buffer when a file descriptor is closed. If userspace explicitly
+opens the endpoint multiple times and closes one, the read_buffer is
+destroyed. This can lead to silent data loss if other file descriptors
+are still actively reading from the endpoint.
 
-Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+By tying the lifetime of the read_buffer to the ffs_epfile structure itself
+(which is destroyed when the functionfs instance is torn down in
+ffs_epfiles_destroy), we eliminate the brittle dependency on open/release
+calls while correctly matching the conceptual lifetime of unread data on
+the hardware endpoint.
+
+Fixes: 9353afbbfa7b ("usb: gadget: f_fs: buffer data from ‘oversized’ OUT requests")
+Cc: stable <stable@kernel.org>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Neill Kapron <nkapron@google.com>
+Link: https://patch.msgid.link/20260619040609.4010746-3-nkapron@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ adjusted context in ffs_epfiles_destroy() since 6.12 lacks the simple_remove_by_name() rework and still uses dentry-based cleanup ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/gadget/function/f_fs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 17724b12b88059..2825fa24242eec 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -1268,7 +1268,6 @@ ffs_epfile_release(struct inode *inode, struct file *file)
+ {
+ 	struct ffs_epfile *epfile = inode->i_private;
+ 
+-	__ffs_epfile_read_buffer_free(epfile);
+ 	ffs_data_closed(epfile->ffs);
+ 
+ 	return 0;
+@@ -1891,6 +1890,7 @@ static void ffs_epfiles_destroy(struct ffs_epfile *epfiles, unsigned count)
+ 
+ 	for (; count; --count, ++epfile) {
+ 		BUG_ON(mutex_is_locked(&epfile->mutex));
++		__ffs_epfile_read_buffer_free(epfile);
+ 		if (epfile->dentry) {
+ 			d_delete(epfile->dentry);
+ 			dput(epfile->dentry);
+-- 
+2.53.0
 
