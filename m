@@ -1,235 +1,206 @@
 Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9363038BF9C
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:55:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191F1391E7C
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 19:58:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.169
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784577314; cv=pass; b=K6Qr1erJZ+HUSpRvO7jEMahB+5JPrpn7jI15jRg/G2BAGrJAC5WZdwotnI5HC/bX+F9SHz4KXKrOWIOZjTsaaScFZQNJUY3gUTN/3rKJNanitHAE8BOhchK4oktHw2JQSP7+/1cAZvzGxCSA9TKvEn8EgEHCKi65J2MXcIQfNPA=
+	t=1784577516; cv=pass; b=J/QehEEY8tuY3gW8ngJ2stChZKzKo0nwU+RoaJ6lGUS8QN5IEPb8crtrY12q9qIqNZ/f1C15OqaZNA1MkI7lsk5zWQV6XGmJStPB4GXLenSeQZza1bM4+7SVtD39CWQpLvnSgf3VsToM1GNJxwIBCAtQCxmCsd3MZeQPEYIZqwE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784577314; c=relaxed/simple;
-	bh=U6naqr8/fm2E7FQtlwL+QylvLk20pczaI7HxTKdFd5s=;
+	s=arc-20240116; t=1784577516; c=relaxed/simple;
+	bh=e8K8qnCQMQCq7N/GCNIIdQb00fKuyW33qvPofgyhMmI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MHh2wTPoqkmHmbX+DWXlE34VclbB9vu7MxYnv+nWKtQywMR6/Oe7OxpISuBZyOrZcULHqxbL/6Efg+yRAJFVnBxl5SPV/8XxFmRuU7w4sNBjtlN5fUhfriYJlgNCjpjz02Duj2RJInziX6ooZgnMllw/sjYv4R9yH7TjaZ6k0iQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FWiRO74l; arc=pass smtp.client-ip=209.85.128.169
+	 To:Cc:Content-Type; b=LLjEK1mDIVQzQmYXnHrSUSE0TKQQoKP3rfcpzlpTiTtUDNMD+k5DnLq58vlHtTBBW/v8VjVrSagWLhk1Zfy5Y85DJFL/Yt54ciIQ6v1VPPJ2Rl2oQbvPd3iWgRDc4AqE+Am2yvcyZewPHfnv09df+PdmhfPlSiT3kEqr3qUHE1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LpoFpK2C; arc=pass smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FWiRO74l"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81eff3ddba4so30664547b3.3
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:55:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784577310; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LpoFpK2C"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81eb41c1f1aso85278797b3.2
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 12:58:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784577514; cv=none;
         d=google.com; s=arc-20260327;
-        b=NbSmX2kuPIec47srJy1bhltcwlWrgET7N+nGxiWVWutO+PyDfzSax5eJw6a4xHAf1n
-         mZARELw5Fg+QloxRpV8ll9XjgT5QjYgFUSZXbG809EMz5GvDyVCoDFXYxUo1jMwHMKhm
-         Xdkb5E11KZ/HoIfA+YQCBuOxfESb0uCrAmjjmR7jjtCAIubaSx7UtUnnyDuWw1m4r7Lg
-         jfvqRabcqVeCrePKdYG6kcTHgvL7RiZmfr9Us/isani18gjyM06y/Rcfhe2XYdRsIPtL
-         mZt/Slbz7/fx8kMTI8IO2WFaN7eGGCtLyD8+iNUNE/qhHd6ud2UvUlcpTQLVqfdQ9yol
-         HuZA==
+        b=TslZd3IyR9AW5WH2KOaldbTL5i9MjemkBRJ5k2ffzVmZ3mF31o88esklqg0l8BLYF4
+         WRhU1c7g0zL0iV8BhNYO0RDy/twhyfrbnN/4zedBRn+SjLrvuH01OmhKm/9V52Nr3amh
+         4GTV+8gHGd4IEZ1G1hJwDQiMQlNhEwqLmoUKkEtk606JzTgEe1qjqv19YmWFdNyDnoo9
+         ODCjq8C+S46/ejI/jsrJhz/ddLN/oSgyhQ7x124/n8VxPhAKR2er/6Eqe4se+4hyhDfV
+         0ZttR0irMc8qUYGAFnlMcJkI0DcKuELRsw6DPFhraPE6i3685p3UxkeY3/3Pfp824Mni
+         WBeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=/AOtXMyuIHsHhRfVMauZWyjtCTCZoSPj81jh5GgUwec=;
-        fh=7QUH51M1LLVfl+UjI5KURHp8BUB5MpBWZhSVYYcwbUQ=;
-        b=B/AG/wHFuOpu6l5I5+H01P/1r43TuSjmkH8ab+axGGf3iO732wVvBQppBJ54izMlzx
-         lRmybOsuUSTT6V+Z8Qc6M3EhSoErcrlYsSMyMRZsb53/pTiI8j0UIzYxV0b67RfZhyDm
-         P1OVmTo1riB3iw/5tPE4tREr13hwXlaKakupRqYwminQmvpecDbjtYhrJj/43UFDUAjb
-         ye3Bdb+TRxGvczf54K0SJvxsroDF3s8EhJh84ytvkVmnB0P7os20GwHYJ1CzSZgh4gvP
-         4s5TQfXgMeYySq36XPwRtDgnDx32aYKsvYlwaBAGWP8N4gY4Q0J4WjJ0wMM7tWWdPVn7
-         yk8g==;
+        bh=Q8AkqCxGJFiQ6x89Rk4bmv20Sq84wArInU3KYGKskVU=;
+        fh=sQVHQSk/oY0wkByAHDPAZR/4qu7u0WUvUJxwCwXkLQs=;
+        b=lLdG0N0s54KGekyGOQLvlKQmra7nZVz2l+MCBcLsqUDpezkcntAJPzoMKNqLqUJaxW
+         +38ekVPqgiomqqkpJX4xSpDjRH5GZj0UHlJU3SLg+wByz/P/yyBVteTnO5HnbiAhqBNS
+         22I4z1EGOoWjPuMu+K2Z38o6s1J8eCJn6aBG+tXalVEozGJC5gg5s3SZcYso0+qQLd4m
+         u+8KnAl4j4Y+ElwxPW/H1NElQn6HdyOTGmUtQCx5VcP+3iDR4Wp9JWhRAT2LeLuamRlX
+         31QN04whxy6W/+DAmkKbTF+JjTsCm1rfUuMlHcdHjeui23XzmMwZV+L6xKi+g6rJTigq
+         4hqQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784577310; x=1785182110; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784577514; x=1785182314; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/AOtXMyuIHsHhRfVMauZWyjtCTCZoSPj81jh5GgUwec=;
-        b=FWiRO74lhMxjxDk1LJhjl3w7DuNoRlmfDWqxJjJsyiAW+mnUhf87q+4lvWDg4O3VSc
-         aOtePuRrmshG1TQchNxYgQdGCfXDI44KT8/zjQ97KoxRiY/LA2EGFS0nevUhpuykRMe7
-         a25Ym9J4NvTzwF0zbg4mkSadvKPGdFb/MVQSZZDBxyoYDaxplhSQ2Ac5qL/s/aRslfAY
-         BrM75O5ZFKeRcty/fALGa9DKcpSptQmlQiStgF6t2Mv7jSQY5pqPy6ppqtssyhMGtorA
-         5MxkwDwEAHRCuWuLqS7iH802zev0FfHrjUgLOei9IjvyPN2Xp9wOgBFsn78BNBwIoQA1
-         kdmQ==
+        bh=Q8AkqCxGJFiQ6x89Rk4bmv20Sq84wArInU3KYGKskVU=;
+        b=LpoFpK2CG5v8+5KVTzWksUlbim32tC2EPMIkdpckXajSpfoljRnDloWbqYR0SLgkje
+         aRWWXAAmtLUZcukVVVkmIc9TxOU6xVSz22XPHhFuuSc/pbKwA8uW/BO4BzeMEefa7Izx
+         qwzZfuZjDYOZTGNFoixPAoXDuuFGk2es8xrTApYPq9zd7ouXDPKnooavgwWMrGitIw9o
+         G83IZF0IAz2Pl7r46rQpRXUhD06ZCPXSZwZ1nh/NqHnhiI57CCpf1AYW9RXx1ZYHIlpI
+         5AdcXIkCOopeyMj7gDlRGzbqS51Z6WyoXfhnc6RW9MrrAsJwpZ6AXMpR5k3yx6y8w0XA
+         QlQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784577310; x=1785182110;
+        d=1e100.net; s=20251104; t=1784577514; x=1785182314;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/AOtXMyuIHsHhRfVMauZWyjtCTCZoSPj81jh5GgUwec=;
-        b=fVoLRAE5xVIcMsZCPPpQqPcCkIhJv75AEMLUWlmI16ecPG1UXohJz21UkYQEZFLiJb
-         WKDHFuLCQ+BAJu0AENJeIeTX+6l6fKYKeEK/cyF59FnogavDU4Y/5GtAB52zyxaRpq3p
-         EpD3pMxkEMjyDqYs1hAGPviYNVdgU/3u2N8dX4A8zgDF+krTcx/2YFrx30E7x9sUtoZ0
-         /Ym73eWY789ZLgHK5YijP8fufuRVw7/IDJscptFlHw01/05a1XZQVfZQmtkkHa79clp1
-         Ubfo6MCJribxgLvyvZreDO9YALXtlF0yd4fYlnWOVZtWKtD/YdzwaieHocJztYegSLZX
-         Ta3A==
-X-Forwarded-Encrypted: i=1; AHgh+RpHFJDgwkcTyKwlmYbF5aqD4ydF8LDVGuOm9DMm2lGHiPrlFII6w2Dg7dM2w1Z6riGYpTgBV4A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBpVZVgj70wtOqRz95ac9JtgXTCxYARtS5+9I5I0mmV1stuggn
-	s4lyku8lUC4qfPHreb+qawT5BoT81gtMDrqZ2H7ot/QtpEr+C5An35b0u0cBkvoDgN4vpeqKlD2
-	XYiyrazrb3YKRxZ2wWzAb32ZOnZnu5H0=
-X-Gm-Gg: AR+sD10KeLqbAniQ3N3ANeAod/X8v/ovBIuSIxS56Maq0b3D6imyEX+fGkpNNr3o/8M
-	RM3nmKLjz3P6BVPLEHB50+qrTo9i9lW7OGC2uNk6wfOKL9UfZdFQQh27ehTmcmsA5pitVWpGPYM
-	23x6oFheoj8eymPmcC6g+OlUIzxEGgaFDiR0pfDHLLuYQFSYdGP5aCa4Om9ShMi9omfubD2SRnF
-	cI3fXYTyw5vw7fjc76aOgEmpX46T4dcXaHgPyQl/wOuA2lj9M2fjrD4MaxlqWX+Oc358b9De1Ca
-	vRgJ/OkU67ON3E5yMmTEwlDp1Ey3jMbW1pUZhByuHErCe1bo
-X-Received: by 2002:a05:690c:6702:b0:81e:2e67:bb9b with SMTP id
- 00721157ae682-81ef26edccfmr47109007b3.58.1784577310290; Mon, 20 Jul 2026
- 12:55:10 -0700 (PDT)
+        bh=Q8AkqCxGJFiQ6x89Rk4bmv20Sq84wArInU3KYGKskVU=;
+        b=V817U2R/KJrQ6DJ//nh5+fmftGzBWRBxkXKReP601eFiWj4VqxwU03NiulVCE/S8b+
+         0Uim+eLKu+HsUWS91FWaPZgjWJPLQjWaAdiBt72z8JLMmeKYumrS8FMWabHFCJOt8IGK
+         h2k6GyGVgU+CBanixfSaavYfFj06SgVzJuP4dK6kHxLlwYye7a2lt/3KoduEdoQHoH29
+         61yF/jbgnj7lUQpZOsvLhoYzMtGcl/Br5q0sqrITZSQxDqwi976CBJIKcE0JMsg0uNV5
+         ZbGUxdUeW4qwcVt2JnmrJlUTg7pKP1mWsBWEOD3xJTKFC3GyEahkHalTCvlAMH+mmOIl
+         aFuA==
+X-Forwarded-Encrypted: i=1; AHgh+RqXITT2P0qKADtTiW+zJqTPPSTxJRkrcy/UKq4yNzxkoNRMBU4Ey1fUBZOV2oDtdlh2hEKODik=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvzddidlMOGAN41SSjjqMP+1g9piNU5L7dva9mRfhdVgxCDxmY
+	gS+bqdTL9Da6ZE/OSS4pOC0zG3miW0hFisULz4Ro/L4Xuoo84nqr9+EWIXetUAIwcyjtnYWz1KX
+	XpN3/fYXqn2PsKz+eojRMG6i2iOf96Yw=
+X-Gm-Gg: AR+sD130qBAYpLjXo/gp1YOUpYER2SMurbAdey1y3WTabENYfQGDNDjkWMc84W5n3CA
+	2IKv0CifecjHgcrWA/z/0Tks7d03NVYd8qCHhVaLHQXOKRXDOtK1bBMjh/hSRumfokHBm/byRQB
+	T3yHpXmYLAMvGXOMKDoPNNJNao5K7LfsAOV9BvQl5wyVn7JBn0wnn+NtWo6siwubVhzOM/lUxDF
+	2ZDd6MmhBZq7/Nj4Fl9U+Kx0lz+leN3854WexriO35jH+nv1wp4sTaIz0qGB66lT6kCbxxxjL8B
+	8WgGVlbBmoqMLdcRYL4fq9hQjJWQ6PfaU4us+vb002YxK8yy
+X-Received: by 2002:a05:690c:3344:b0:81e:79f0:4898 with SMTP id
+ 00721157ae682-81ef26cd1a0mr42024967b3.15.1784577513969; Mon, 20 Jul 2026
+ 12:58:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
+References: <20260720191322.14432-1-doruk@0sec.ai>
+In-Reply-To: <20260720191322.14432-1-doruk@0sec.ai>
 From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 20 Jul 2026 15:54:58 -0400
-X-Gm-Features: AUfX_mwx2tFRY0jR9aCJZGYE-cu6e-hrJK27ReHcPbzYy4X9ldy2V3BG6Q6JokQ
-Message-ID: <CABBYNZ+G3jD3A6-k1fEm2sSRa27o8s0PNN_arzVa8de-eJK8oQ@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: hci_sync: Fix scan response data UAF
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 20 Jul 2026 15:58:22 -0400
+X-Gm-Features: AUfX_mx6T-muarEkjZNXWuZXNO-Iwx5kWJ56Oe7o3dTKk0KPjblNm-Vbd1VRM5U
+Message-ID: <CABBYNZLaFuoektaPQkzr4ioiz9_pUpbun1oow0kwgSOhbHM11g@mail.gmail.com>
+Subject: Re: [PATCH v2] Bluetooth: btnxpuart: Fix out-of-bounds firmware read
+ in nxp_recv_fw_req_v1()
+To: Doruk Tan Ozturk <doruk@0sec.ai>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Amitkumar Karwar <amitkumar.karwar@nxp.com>, 
+	Neeraj Kale <neeraj.sanjaykale@nxp.com>, Paul Menzel <pmenzel@molgen.mpg.de>, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Doruk,
 
-On Mon, Jul 20, 2026 at 12:47=E2=80=AFPM Chengfeng Ye <nicoyip.dev@gmail.co=
-m> wrote:
+On Mon, Jul 20, 2026 at 3:13=E2=80=AFPM Doruk Tan Ozturk <doruk@0sec.ai> wr=
+ote:
 >
-> eir_create_scan_rsp() calls hci_find_adv_instance(), whose return value i=
-s
-> valid only while hdev->lock is held.  After advertising setup was moved t=
-o
-> hci_cmd_sync_work, neither scan response data builder held that lock.
-> hci_set_ext_scan_rsp_data_sync() also kept the returned pointer while
-> waiting for the controller and wrote scan_rsp_changed through it afterwar=
-d.
+> Commit 25c286d75821 ("Bluetooth: btnxpuart: Fix out-of-bounds firmware
+> read in nxp_recv_fw_req_v3()") bounded the v3 firmware download offset bu=
+t
+> left an unbounded read in the v1 handler.
 >
-> An advertising termination event can therefore interleave as follows:
+> nxp_recv_fw_req_v1() advances a device-driven download offset
+> (fw_dnld_v1_offset) by fw_v1_sent_bytes on every request, and that
+> bookkeeping runs even when the payload write is skipped, so the offset ca=
+n
+> walk past nxpdev->fw->size. When the controller then requests a header
+> (len =3D=3D HDR_LEN), the driver reads the 16-byte bootloader header at
 >
->   hci_cmd_sync_work                 hci_rx_work
->   hci_find_adv_instance()
->   __hci_cmd_sync_status()
->     wait for controller reply       hci_dev_lock()
->                                     hci_remove_adv_instance()
->                                       kfree(adv)
->   adv->scan_rsp_changed =3D false
+>   nxp_get_data_len(nxpdev->fw->data + nxpdev->fw_dnld_v1_offset)
 >
-> KASAN reported:
+> with no bound on the offset, reading past the end of the firmware image.
+> A malicious or malfunctioning NXP UART controller can drive this to read
+> out-of-bounds kernel memory during firmware download.
 >
->   BUG: KASAN: slab-use-after-free in hci_set_ext_scan_rsp_data_sync+0x2e1=
-/0x300
->   Write of size 1 at addr ffff88810a45d21d by task kworker/u17:0/88
->   Workqueue: hci0 hci_cmd_sync_work
->   Call Trace:
->    hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
->    hci_schedule_adv_instance_sync+0x390/0x4c0
->    hci_cmd_sync_work+0x173/0x300
->   Allocated by task 87:
->    hci_add_adv_instance+0x538/0xac0
->    add_advertising+0x885/0x1160
->   Freed by task 89:
->    kfree+0x131/0x3c0
->    hci_remove_adv_instance+0x1d8/0x3b0
->    hci_le_ext_adv_term_evt+0x17b/0x730
+> Bound the offset before the header read, and convert the payload write
+> guard to the overflow-safe form used by the v3 path (fw_dnld_v1_offset is
+> u32, so fw_dnld_v1_offset + len can wrap). Log the offset, expected lengt=
+h
+> and firmware size at the reject site to aid debugging of a real device.
 >
-> Hold hdev->lock while looking up the instance, building the scan
-> response, and clearing its dirty bit.  Clear the bit before waiting for
-> the controller so no adv_info pointer survives the wait, and restore it
-> under the lock if the command fails.  This also preserves an update that
-> races with a successful command because that update sets the bit again.
-> Protect the legacy scan response builder with the same lock.
+> This was found by 0sec automated security-research tooling
+> (https://0sec.ai).
 >
-> Fixes: cba6b758711c ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue=
- set 2")
+> Fixes: 689ca16e5232 ("Bluetooth: NXP: Add protocol support for NXP Blueto=
+oth chipsets")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> Reviewed-by: Neeraj Sanjay Kale <neeraj.sanjaykale@nxp.com>
+> Assisted-by: 0sec:claude-opus-4-8
+> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 > ---
->  net/bluetooth/hci_sync.c | 32 +++++++++++++++++++++++++++-----
->  1 file changed, 27 insertions(+), 5 deletions(-)
+> v2: log offset/expected_len/fw size at the reject site (requested by
+>     Neeraj Kale and Paul Menzel).  No functional change to the bound
+>     itself vs v1.
 >
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> index 532534bc601c..8c69a98c71e8 100644
-> --- a/net/bluetooth/hci_sync.c
-> +++ b/net/bluetooth/hci_sync.c
-> @@ -1490,9 +1490,13 @@ static int hci_set_ext_scan_rsp_data_sync(struct h=
-ci_dev *hdev, u8 instance)
->         int err;
+> v1: https://lore.kernel.org/linux-bluetooth/20260705115650.81724-1-doruk@=
+0sec.ai/
+>  drivers/bluetooth/btnxpuart.c | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
 >
->         if (instance) {
-> +               hci_dev_lock(hdev);
-> +
->                 adv =3D hci_find_adv_instance(hdev, instance);
-> -               if (!adv || !adv->scan_rsp_changed)
-> +               if (!adv || !adv->scan_rsp_changed) {
-> +                       hci_dev_unlock(hdev);
->                         return 0;
-> +               }
+> diff --git a/drivers/bluetooth/btnxpuart.c b/drivers/bluetooth/btnxpuart.=
+c
+> index 0bb300eef157..6d62d07a542b 100644
+> --- a/drivers/bluetooth/btnxpuart.c
+> +++ b/drivers/bluetooth/btnxpuart.c
+> @@ -1041,11 +1041,19 @@ static int nxp_recv_fw_req_v1(struct hci_dev *hde=
+v, struct sk_buff *skb)
+>                  * and we need to re-send the previous header again.
+>                  */
+>                 if (len =3D=3D nxpdev->fw_v1_expected_len) {
+> -                       if (len =3D=3D HDR_LEN)
+> +                       if (len =3D=3D HDR_LEN) {
+> +                               if (nxpdev->fw_dnld_v1_offset >=3D nxpdev=
+->fw->size ||
+> +                                   nxpdev->fw->size - nxpdev->fw_dnld_v1=
+_offset < HDR_LEN) {
+> +                                       bt_dev_err(hdev, "FW request out =
+of bounds: offset %u, expected_len %u, fw size %zu",
+
+We still have the 80 columns limit in Bluetooth.
+
+> +                                                  nxpdev->fw_dnld_v1_off=
+set, len,
+> +                                                  nxpdev->fw->size);
+> +                                       goto free_skb;
+> +                               }
+>                                 nxpdev->fw_v1_expected_len =3D nxp_get_da=
+ta_len(nxpdev->fw->data +
+>                                                                         n=
+xpdev->fw_dnld_v1_offset);
+> -                       else
+> +                       } else {
+>                                 nxpdev->fw_v1_expected_len =3D HDR_LEN;
+> +                       }
+>                 } else if (len =3D=3D HDR_LEN) {
+>                         /* FW download out of sync. Send previous chunk a=
+gain */
+>                         nxpdev->fw_dnld_v1_offset -=3D nxpdev->fw_v1_sent=
+_bytes;
+> @@ -1053,7 +1061,8 @@ static int nxp_recv_fw_req_v1(struct hci_dev *hdev,=
+ struct sk_buff *skb)
+>                 }
 >         }
 >
->         len =3D eir_create_scan_rsp(hdev, instance, pdu->data);
-> @@ -1502,15 +1506,27 @@ static int hci_set_ext_scan_rsp_data_sync(struct =
-hci_dev *hdev, u8 instance)
->         pdu->operation =3D LE_SET_ADV_DATA_OP_COMPLETE;
->         pdu->frag_pref =3D LE_SET_ADV_DATA_NO_FRAG;
->
-> +       if (adv) {
-> +               adv->scan_rsp_changed =3D false;
-> +               hci_dev_unlock(hdev);
-> +       }
-> +
->         err =3D __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_SCAN_RSP_DA=
-TA,
->                                     struct_size(pdu, data, len), pdu,
->                                     HCI_CMD_TIMEOUT);
-> -       if (err)
-> +       if (err) {
-> +               if (instance) {
-> +                       hci_dev_lock(hdev);
-> +                       adv =3D hci_find_adv_instance(hdev, instance);
-> +                       if (adv)
-> +                               adv->scan_rsp_changed =3D true;
-> +                       hci_dev_unlock(hdev);
-> +               }
-> +
->                 return err;
-> +       }
->
-> -       if (adv) {
-> -               adv->scan_rsp_changed =3D false;
-> -       } else {
-> +       if (!instance) {
->                 memcpy(hdev->scan_rsp_data, pdu->data, len);
->                 hdev->scan_rsp_data_len =3D len;
->         }
-> @@ -1525,8 +1541,14 @@ static int __hci_set_scan_rsp_data_sync(struct hci=
-_dev *hdev, u8 instance)
->
->         memset(&cp, 0, sizeof(cp));
->
-> +       if (instance)
-> +               hci_dev_lock(hdev);
-> +
->         len =3D eir_create_scan_rsp(hdev, instance, cp.data);
->
-> +       if (instance)
-> +               hci_dev_unlock(hdev);
-> +
->         if (hdev->scan_rsp_data_len =3D=3D len &&
->             !memcmp(cp.data, hdev->scan_rsp_data, len))
->                 return 0;
+> -       if (nxpdev->fw_dnld_v1_offset + len <=3D nxpdev->fw->size)
+> +       if (nxpdev->fw_dnld_v1_offset < nxpdev->fw->size &&
+> +           len <=3D nxpdev->fw->size - nxpdev->fw_dnld_v1_offset)
+>                 serdev_device_write_buf(nxpdev->serdev, nxpdev->fw->data =
++
+>                                         nxpdev->fw_dnld_v1_offset, len);
+>         nxpdev->fw_v1_sent_bytes =3D len;
 > --
 > 2.43.0
+>
 
-It looks like Sashiko found some other places where this could be a problem=
-:
-
-https://sashiko.dev/#/patchset/20260720164738.2921802-1-nicoyip.dev%40gmail=
-.com
 
 --=20
 Luiz Augusto von Dentz
