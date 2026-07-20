@@ -1,149 +1,100 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D77D41A79C
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 13:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390072F549C;
+	Mon, 20 Jul 2026 13:12:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784553090; cv=none; b=oTzItRBICvmhcLZxJ1tiZSIA3tCYSBfl9XzTK/gOO6xLuK3W6WEBvef+xQyc/ONTEVX0/08tO31R7U3f4wZ32M8KN2dtrzPRp75ONZ28aHwR+AqqkN+HNUBAUVP+uJvW1lDiwKrXtd4YLHWXlVKPmz8TiCKt9tFT+/S2Ii9kd6w=
+	t=1784553162; cv=none; b=vAT3REPQCGAfjBVmYmw64LAt5pVyzRHP6/R4+CoNQkMdbh8nJ5Gs3G4fCYcy/Z6e9S4p4aZKRmmaOntupzRn2O7KELBiXdGI2Uz4axrffKSi3S5Y67ffEBFh7ScZISu0oPMR7LMjJfHXD38uWVuT9zxynumXrBBIFExXoTf5Z7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784553090; c=relaxed/simple;
-	bh=Ic1mjyhG74UKb3Y9WRfTc4sM8v6bo+xZ0k8sXMFYhoE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=b72poUaNdGtnpM22CAZU/Lo6QCNzTm4Ad1ammwFPu58i7XzkOSk0hvhbCl9Vh7XDQFZ2MF/WWvXQr3MJZpaCEbJduP1kAPalASpMi8XGSCebZpu1zl38gq0FSp/+l3OHi4wjhjxAwZwWG5wSDtUnqk5xv/OCi64BYnyNP8/AQhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=owFADj4T; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784553162; c=relaxed/simple;
+	bh=V8olBzgCWnDgRVd8UWAEEhSxw3do8AuI47mFJfafZ40=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=s6SqnSteGprRi6xJBKPMK3CfBKTWmpjSbqjXPW1rFak7DjusbCVjMx4l3PVDLBvCGXqRuDNBY0i48obgKFA0adkrzyx8ui4I5ILttB4VwrXXwL9pQnMKvA+bE3UtVJFdT/LZ5Bog6LsBdZrbiMSRcoylLFrVvxsSKebbIX6FPyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=rxte0Yb2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=B42pDmYI; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="owFADj4T"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-8f0d6853360so80511636d6.0
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 06:11:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784553088; x=1785157888; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NQ61Qwl4wNBqojEyy6dBtjcn4fhIUIzUAIvLJbLRdSU=;
-        b=owFADj4TX2D5vwkBFt1J+Awop72VivILRED1280s76Ax62QlBHkZiIqnt9KBD9dRI6
-         m/HC2iKKv2/NVTOJst1EykapER461asGimRonIUWJ0DAAGMAHuhV8rf0BHI64Dr5KgE6
-         N8QBbw/m+E1WSl282ZP9JsP8xopn9guyWolwG/OawsP9H9O5IA9TdXXzjXRJ63VfZjKg
-         qHLAAA5irBWs9GL1Rv67EB6y2EIrty06UbRyMbWmuViwqhn0romblAC4qSdnstPDlVLU
-         wJaim0vIakFQIIomo2QYeesupnSUPXBXUu86u2bVaH4tQWOF6aU624gKTrhGgcP4ksqt
-         Z1SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784553088; x=1785157888;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NQ61Qwl4wNBqojEyy6dBtjcn4fhIUIzUAIvLJbLRdSU=;
-        b=Z1NHrlowG/8afTOqnXRRAz3nITI7B2nU7ye+1HUc5wFD6TpfZqOjL/qV1HXY0x1pTC
-         H/r38vV0KeNXVNLhDf6LGzwQAOwzVn8YPnGkZHCOqdwVmVEbohlq4r/oc6BtwNrexorl
-         hyb2XzjHajYXbTNn+kuQFu/C3pfJXtwfv+z1Q7fWEhSyUTRVGqgCqCdvDaV5BrJlyfNo
-         pOiMT20p/a3tMs7ty6XwNyv6QiDWTY9tNPBSLKS7jW9H1u7oyhjvCJ0AVbWU/7EJhc9L
-         rVo0971VlAC40OwGa08SwYHB9T3jUOdsdzwwb1YDd01P+iTqc5aorEINWvoNyVLLisso
-         NjHg==
-X-Forwarded-Encrypted: i=1; AHgh+RpWdnj4Rtf1aQEh8SCe9FS/qFv4QYKWbDCR4LusxKOT+fUyca8jgtNJVMKmd16D4/NBc2QGWt0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx40fmE1h/I38ZvtCJKH56liXS5JIR8VRNtFHccnEDjnXUd1vp6
-	DZJokiUCrYG5RdT/WDSiuUe7d+UBrj07to4Y7qXxWbAp3KHNVl5Rq64=
-X-Gm-Gg: AR+sD11KeLN/KBhH/8bnxWN3o/Z+0voAg72ePDtFXWjb4XoynGDfgV9lsGLUAxyhtRB
-	v49vus2LUVIsiOP930ycLaS+rXkMk0xlesTQrzHAovT4VP0W/53PLLip0HD4TXenWxHLTPJ3k0j
-	mpJBWXUoAm8POuzv93dwcC0dsFAtsbafpujWd2MwxZIDEwaOm7wLI0cEFbVcBonwHSJYKROmNZS
-	vt2sn8o19SqGdHJ1S0g4kbVZI9uoVHDw0gND6W7tgvqa4pQy1R1I+2GX8nUJaOpQUsBhVxg4KI0
-	i0Sy1qyO0ikrvkLHF/wGWhh2BgZYshkqOOBI3YzCGQJTqsvVfmSO0NYzZFkhtLfi8lvfJiFgQmE
-	9E8DbqQfLDbR0swLxqj0udgZWWgYjFz1WXZWhgzsCW7sGrw4LD3XCW8Y6egVfuLX4pQxYOhKk0J
-	qh61Wx/LqXQhm3YSdnjorBG5p5LomnpZKqxezlsUU8z+DTVmM7XaL5kfw=
-X-Received: by 2002:a05:6214:5886:b0:8b5:e126:e77d with SMTP id 6a1803df08f44-90778345ddamr154463306d6.8.1784553088200;
-        Mon, 20 Jul 2026 06:11:28 -0700 (PDT)
-Received: from NAUTEL-9N0B043.nautel.com (host-76-11-42-59.public.eastlink.ca. [76.11.42.59])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9078b6d8cd4sm61211476d6.29.2026.07.20.06.11.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 06:11:27 -0700 (PDT)
-From: Ryan Wilbur <rwilbur633@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: ilpo.jarvinen@linux.intel.com,
-	andriy.shevchenko@linux.intel.com,
-	john.ogness@linutronix.de,
-	hvilleneuve@dimonoff.com,
-	m.felsch@pengutronix.de,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ryan Wilbur <rwilbur633@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] serial: 8250: clear a stuck RX-timeout interrupt with an empty FIFO
-Date: Mon, 20 Jul 2026 10:11:23 -0300
-Message-Id: <20260720131123.29840-1-rwilbur633@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="rxte0Yb2";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="B42pDmYI"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 496C4EC008C;
+	Mon, 20 Jul 2026 09:12:39 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+  by phl-compute-04.internal (MEProxy); Mon, 20 Jul 2026 09:12:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1784553159;
+	 x=1784639559; bh=ukg+w52uf91GxZwsFjJ7xU4HY7tCe9szRVM4fgfKbmU=; b=
+	rxte0Yb2XsgVoklBDdxDsNdNSfQxstQG7Smv6PXtQd48QsoapLrEDL8JLxU103gb
+	pN88jT9KjtnuSncuqFtYBeOeFMrryUvoepoAHavST5K3SY7aEBVwX/CazkybMpm3
+	DgdIVzBiaeGaUzmpL06wir2RExeFvSzMeFnIWbSr79sq8ML7P+q1FArGAB/zSwXb
+	MXR7jew1zfzk4xwanT0+7YFOSNagmEqnt24YiDUAaXhanQDfiwYaZkZiuEaJyt0I
+	jHsGcTnigskRsjthFNLqTsNclUtxYIBnhNCxthcG99aF16yNnXPzjmvgbSuqnuro
+	8U1FZwBXIFQa9ZyMTVlXiQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784553159; x=
+	1784639559; bh=ukg+w52uf91GxZwsFjJ7xU4HY7tCe9szRVM4fgfKbmU=; b=B
+	42pDmYI3yGg5WoDkb2mBufUdX4h55PhUtKF7nZSU9lZypEekwBTy4Yt4ZLeDHOCn
+	26Aj0oiBIDnL+8T3T1i4crorLk1GJ/HlBqmiCpbUlaUB4ztTk0O6oiJ9EfOjkbaN
+	8VAzlbF0gs6zBl9VXPd3w/5dFvU/Gv93pP4LPUwoeYlDssuIGvnzgcpvr6g/wUG2
+	yPmfvcsM0A9hI1ZvaNBP6wxZnG4e5GEa84kkSoVBwzZe17LRFHcasf/Z2+9JcAtG
+	B2ncc/iTUUq/xe1IdNEegJ1HSoJo2v35EMWlIiIHFThsdYt+Fb7BkfpWvvGj2vHn
+	qHkA3E6G5moBbXrJMOvRw==
+X-ME-Sender: <xms:xh5eaiaMAT3PbaioMLBasxhWOBKmqhT6x0Q7N8zojBZP7RGfNmoxbA>
+    <xme:xh5eagOkKWBpGAH9IWHmtz0YBqcJXLeiMFTs0PD49tTxRWk5eKsqANu4XiZagQ4KB
+    SNuHLIUDBAPXZJbFimDBOcLOIyTvJB0iGOC66sS4-bwGHonJhP6Sw>
+X-ME-Proxy-Cause: dmFkZTG0tkMvWsOTcph4MYSTqJPwtrt9IGpyB53DWtHx1ycp+tCdqyiVpVwAoTviyn+6OG
+    47E/nNXjBjcMXFqxyNvIGHv322haTn7R2/8GkjQevga9zPLfAcwqEzX4gjbf+uUouo3kdi
+    bC1T3CrMBPXTgZpOLAo5NTbUvDCooKDmcgF2G+SNz6Ea0ki6ecUWR5G4kbpoy9Ly7qaHCn
+    osUPQLzRsfnn0JaYDqNx/tyXCgPg/R0RXzCu+3itNF2iLVV/JIX2ZXuBUc6WtMPAsQek7e
+    iEwXtPHctHLbcEnQEy3AKNa36IF0/sQFgxHh0gmFSHsS4K3i45cja8mQMrT6GJ99SUUUWT
+    3nIleir6HQUOhj+//H+DYpn45uRyTFlZunbi2oywydiqYdB8q7duNHFqKn1ZOD2W9yfKGS
+    wbiJuBUyvGZrzjSDEdKNpt53waGAMaVkpvz9Pr1erP6Bko839WxQf1026+dQ6WDpuVXXk8
+    2tCYPkjfA2dsPuCIGKoOiw58hfROTkxYrXmO88XHGa7IvMGgXRtDWFkoNm7Fk2o0SiT0EZ
+    JIpfuRumM+RR7wD8R/wSYfwSp5i4D6qGlxH14PUGc83BTvgU+xZKlq8D8u6Mn3LWveURi6
+    R0znZMc9Y/VmNYdl5XV3QTa0Dm4bjdP5hD0ST9HE/bYZGZF2UnEIsji727bw
+X-ME-Proxy: <xmx:xh5earYGIpzc-6MEIAMALNGj25Wgdj8hHtM5hNN0K7t8Wh8f_UpwMw>
+    <xmx:xh5ealV-fJ-iGXnV56Af-mv5dxkSrcNcmzvIki8uQw3YMAWC3WqyCQ>
+    <xmx:xh5eas-e5vuHJbHn_SVU55QxjVPpT5w5dMZ4KRTvQMKcdKF7x8nJfA>
+    <xmx:xh5eam-cgVuOdrsUbxipgNMb42d1NpxXHMnM9HlbGoVqQQB0Sge-6Q>
+    <xmx:xx5ear_NqZ3bhJejMBRSxFvtBtWs-mZf23swNhA67lpU7V8M0O055xmy>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id BA83A182007E; Mon, 20 Jul 2026 09:12:38 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AgK4b-lwe6sJ
+Date: Mon, 20 Jul 2026 15:12:18 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: stable@vger.kernel.org, stable-commits@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ "Matthew Wilcox" <willy@infradead.org>, "Hannes Reinecke" <hare@suse.com>
+Message-Id: <11842725-e747-4502-953c-996bb8d24da8@app.fastmail.com>
+In-Reply-To: <20260720104750.157926-1-sashal@kernel.org>
+References: <20260720104750.157926-1-sashal@kernel.org>
+Subject: Re: Patch "scsi: advansys: Drop ISA_DMA_API remnants" has been added to the
+ 7.1-stable tree
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Some UARTs can latch an RX character-timeout interrupt while the
-RX FIFO is empty: IIR reports UART_IIR_RX_TIMEOUT (0x0c) but LSR.DR is
-clear. A character timeout is only cleared by reading RHR, but
-serial8250_rx_chars() reads RHR only when LSR.DR is set, so nothing ever
-clears the condition. The interrupt is level-triggered and re-fires
-immediately, so on a single-core ARM926 the resulting interrupt
-storm livelocks the CPU.
+On Mon, Jul 20, 2026, at 12:47, Sasha Levin wrote:
+>
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
+>
 
-It is reproducible when userspace repeatedly opens the front-panel port
-(ttyS1): serial8250_do_set_termios() re-enables interrupts on unlock and
-the handler then spins forever with iir=0xcc lsr=0x60 ier=0x05, tripping
-the soft-lockup detector in serial8250_handle_irq_locked().
+This is only a cleanup, not a bugfix.
 
-Fix this by doing one throwaway RHR read to clear the timeout when the
-FIFO is empty (LSR.DR clear), so no real received data is ever discarded,
-and it is a no-op on healthy UARTs which never report a timeout with
-DR==0.
-
-This is the same class of bug already worked around in 8250 drivers;
-see commit 424d79183af0 ("serial: 8250_dw: Avoid "too much work" from bogus rx timeout interrupt")
-which reports the identical iir=0xcc/lsr=0x60. See also
-UART_RX_TIMEOUT_QUIRK in 8250_omap, and the note in 8250_bcm7271.
-
-LPC32xx (PORT_LPC3220) has no dedicated 8250 glue driver, driven
-by generic 8250_of, so it's handled here.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryan Wilbur <rwilbur633@gmail.com>
----
-Changes in v2:
-- Drop the PORT_LPC3220 gate and handle the spurious RX timeout generically
-
-v1: https://lore.kernel.org/linux-serial/20260717123530.481021-1-rwilbur633@gmail.com/
-
- drivers/tty/serial/8250/8250_port.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index 8c241ec7f4f2..c63c4165105a 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -1803,6 +1803,21 @@ void serial8250_handle_irq_locked(struct uart_port *port, unsigned int iir)
- 	if (!(status & UART_LSR_DR) && (status & UART_LSR_FIFOE))
- 		serial8250_clear_and_reinit_fifos(up);
- 
-+	/*
-+	 * A UART can raise an RX character-timeout interrupt while the RX
-+	 * FIFO is already empty (IIR reports RX_TIMEOUT but LSR.DR is
-+	 * clear). The timeout is only cleared by reading RHR, but the RX
-+	 * path below is skipped when the FIFO is empty, so nothing clears
-+	 * it. With a level-triggered IRQ it re-fires immediately and can
-+	 * livelock a single-core. Observed on the NXP LPC32xx
-+	 * UART (PORT_LPC3220). Do one throwaway RHR read to
-+	 * clear it. A healthy 16550 UART never reports a timeout with DR clear,
-+	 * so this is a no-op elsewhere.
-+	 */
-+	if ((iir & UART_IIR_RX_TIMEOUT) == UART_IIR_RX_TIMEOUT &&
-+	    !(status & UART_LSR_DR))
-+		serial_in(up, UART_RX);
-+
- 	/*
- 	 * If port is stopped and there are no error conditions in the
- 	 * FIFO, then don't drain the FIFO, as this may lead to TTY buffer
-
-base-commit: da7b5fd4e17f8e44c5590f2d603c01d499f056e6
--- 
-2.25.1
+     Arnd
