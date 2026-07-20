@@ -1,161 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B4B39DBFF;
-	Mon, 20 Jul 2026 10:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974F73E0730
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 10:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784544213; cv=none; b=sZ3RuPmlkZeBYZ+nPSvTwq/HcqmIppz/1q6yD5ch8tBGIg5zX+Z5qSv6TO1euTxzA8zTpjeSK26Hw620pEbkq4Jdh19Bi8CktiMpuJEIBCWnr4y3wD4Y+m45UzKETob9mzKsU5jggRH/vFmQnvi8K6UipJWheUIkgemlvPhwZnE=
+	t=1784544686; cv=none; b=RAJ2LxLZX+mFoTXLgbJ0SvGGI23U0MYDYXbFr8Uw6TKJ0Nch6r1sXHwaBPqc/cR4Z8gQWPa68K9PgzF3j0fFQy3NBCRry+51pEIjYLG/Z6oQ+VxeDqkSmnQHCVkXNBWIczn6jWibT9nC/7lxJzPS9HkyutgK45sgGHWg/bS/FP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784544213; c=relaxed/simple;
-	bh=JOcq7YdmE8pqxYCXCoOmg3kyDP0SwghFQZ3mMEmpZd0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RiVwa2F66wvnZ4p4NUGnenqT8D70yS10fN0ve9sXsfna37aod/ITQqm8GnvfP4g9xcG9iuBkUTvqo+agRCNww0o9nBaxVgh/cE5ANb1OUEe2OxqApym8z18anR92DTdZCGKiTUOficzrLsosQawHLqnQV54Dehd9eBc6lrD+sO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGlKo/x4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784544686; c=relaxed/simple;
+	bh=leEbpYuwhyT10yXsjsjvXBLVjDBk66ZGyLbR/8EVFA8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YNFa5GiMxk+g9ZBjEpEvGHbV8uR01QTDrp2XRn7FTBcY+xvExyAC1QbFBoqnmW5xhjA6XKKZ+vd0tKsoUoOBRWFzg8ofu66SdWE+/rQ0E1zHvEPOMBa9qTlORBrikX9d7EkaGXQlqYLO/XjeKzgFDd3L0m8b8PEeJ6eT3rIslhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=pX19tnTS; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGlKo/x4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31DA61F000E9;
-	Mon, 20 Jul 2026 10:43:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784544208;
-	bh=OSjqkmld1DCh7sm1IDi6p3kqnOBZ5HqEziqUJWOhbWc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AGlKo/x4XQ3vxklby5zZFphibrxtMMcdLCLH7lGxkQ54ymR1F9WWKWMsVOmtuE4AS
-	 se2bywTExEuGNwhHi5xwWsrGFAZfC351R4hXN7j9lMUnuaR2S+5IDpyH/fMdvQmwD7
-	 MjopMGNS5L/yypBKGw70gNKm7cjbEPfuLvwFfpXyq/yLp/H69RzEe5K1YQWsQhhJ6h
-	 OugYDVO0YIDlWk43u7XtZu67QNadurOwafeKKRkWF+55oJ2TOkE6wGhT/bdnm7qwpt
-	 zQ63rjzWDLLoqTNzAGx3+u8g9QAH2t0hJ8Ce8Pu3OmXl+LpLaFxkEnU1uaXnzy39T6
-	 yel7c46U6xOlg==
-From: Simon Horman <horms@kernel.org>
-To: michael.bommarito@gmail.com
-Cc: Simon Horman <horms@kernel.org>,
-	haiyangz@microsoft.com,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	kys@microsoft.com,
-	wei.liu@kernel.org,
-	andrew+netdev@lunn.ch,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] net: mana: cap HWC init max message size to HW_CHANNEL_MAX_REQUEST_SIZE
-Date: Mon, 20 Jul 2026 11:40:44 +0100
-Message-ID: <20260720104043.61416-2-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260711150628.2914205-1-michael.bommarito@gmail.com>
-References: <20260711150628.2914205-1-michael.bommarito@gmail.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="pX19tnTS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=KJKAyQcsco6SBzscz84riJCl4l2UDg9GwNoMz1ewLeU=; b=pX19tnTSpwXH5LBEo+Bv8r51MV
+	nlQmozX6Td2Ukd2lUZLgAII/Lt51P0Aa4CcuQHEQ8YRAE4Bh8/xuw148t1pJJxR+z1qOl0zM8iBYG
+	waqPIL/bRXF17QqLLScwmLf1xk27V18JnbGHrcwC9VhcLmQsCy9V76hI55f7tK6E5rptgBW8MmaRS
+	JK2+M8VQd/Lq+DUI+Y2UB9swMfyRjtvkFuhqLMAvArScXjsP4nnaZmrzzvmFcMWqHgdm3tILtNhFl
+	d7T3J1gFooHFmmXcmM85Nlg+37ym+zizDvS57Bomsnc2PXuFKcCXrl28euF1nZ8PQsAqKSCXcmHkU
+	EmYak6vw==;
+Received: from [189.7.87.67] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1wllaT-000yYM-Vy; Mon, 20 Jul 2026 12:51:06 +0200
+Message-ID: <4a933063-14da-4164-9422-3b110ddad675@igalia.com>
+Date: Mon, 20 Jul 2026 07:51:00 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/v3d: Idle AXI transactions before disabling the
+ clock on suspend
+To: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20260718-v3d-pm-axi-transactions-v1-0-4ecd7729ed70@igalia.com>
+ <20260718-v3d-pm-axi-transactions-v1-2-4ecd7729ed70@igalia.com>
+ <c4b5bfd3a5fe8d4ee1d283b77db3530158bb3a17.camel@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <c4b5bfd3a5fe8d4ee1d283b77db3530158bb3a17.camel@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-https://sashiko.dev/#/patchset/20260711150628.2914205-1-michael.bommarito@gmail.com?part=1
----
---- Patch [1]: [PATCH] net: mana: cap HWC init max message size to HW_CHANNEL_MAX_REQUEST_SIZE ---
-commit ea80048daa839e9f12f06618139e15fddebc0ac5
-Author: Michael Bommarito <michael.bommarito@gmail.com>
+Hi Iago,
 
-net: mana: cap HWC init max message size to HW_CHANNEL_MAX_REQUEST_SIZE
+On 20/07/26 04:38, Iago Toral wrote:
+> Hi Maíra,
+> 
+> I question below:
+> 
+> (...)
+> 
+> El sáb, 18-07-2026 a las 10:44 -0300, Maíra Canal escribió:
+>> diff --git a/drivers/gpu/drm/v3d/v3d_power.c
+>> b/drivers/gpu/drm/v3d/v3d_power.c
+>> index ade8e932fb9c..f608e6d5516a 100644
+>> --- a/drivers/gpu/drm/v3d/v3d_power.c
+>> +++ b/drivers/gpu/drm/v3d/v3d_power.c
+>> @@ -56,8 +56,15 @@ int v3d_power_suspend(struct device *dev)
+>>   
+>>   	v3d_clean_caches(v3d);
+>>   
+>> +	/* Wait until V3D has no active or pending AXI transactions.
+>> */
+>> +	v3d_idle_axi(v3d, 0);
+>> +	v3d_idle_gca(v3d);
+> 
+> Don't we need to do anything on the resume path for these?
 
-The commit adds bounds checking for max message size during HWC initialization.
-It claims this prevents an out-of-bounds DMA buffer write in
-mana_hwc_alloc_dma_buf().
+The documentation states that we don't need to re-enable the AXI
+transactions after a V3D reset/shutdown.
 
->    mana_hwc_init_event_handler() in hw_channel.c stores device-advertised
->    HWC_INIT_DATA_MAX_REQUEST and HWC_INIT_DATA_MAX_RESPONSE values
->    without bounds checking. mana_hwc_alloc_dma_buf() later computes the
->    DMA buffer size as MANA_PAGE_ALIGN(q_depth * max_msg_size) in 32-bit
->    arithmetic. A malicious device returning a large max_msg_size causes
->    the product to wrap, allocating a small buffer while laying out
->    q_depth request slots at the unwrapped stride, placing slots outside
->    the allocation.
+Best regards,
+- Maíra
 
-[Severity: Medium]
-Is this description accurate?
+> 
+> Iago
+> 
+>> +
+>>   	ret = v3d_suspend_sms(v3d);
+>>   	if (ret) {
+>> +		/* Staying active: undo the GMP STOP_REQ from
+>> v3d_idle_axi(). */
+>> +		V3D_WRITE(V3D_GMP_CFG(v3d->ver),
+>> +			  V3D_READ(V3D_GMP_CFG(v3d->ver)) &
+>> ~V3D_GMP_CFG_STOP_REQ);
+>>   		v3d_irq_enable(v3d);
+>>   		return ret;
+>>   	}
+>>
+> 
 
-The modified variables (hwc->hwc_init_max_req_msg_size and
-hwc->hwc_init_max_resp_msg_size) appear to be dead code that do not affect
-memory allocation. mana_hwc_alloc_dma_buf() is invoked before the event
-handler runs (via mana_hwc_init_queues()) using hardcoded sizes (4096),
-not the hardware-provided ones.
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> index e3c24d50dad07..94594fba112f9 100644
-> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> @@ -150,10 +150,14 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
->  			break;
->  
->  		case HWC_INIT_DATA_MAX_REQUEST:
-> +			if (val == 0 || val > HW_CHANNEL_MAX_REQUEST_SIZE)
-> +				val = HW_CHANNEL_MAX_REQUEST_SIZE;
->  			hwc->hwc_init_max_req_msg_size = val;
->  			break;
->  
->  		case HWC_INIT_DATA_MAX_RESPONSE:
-> +			if (val == 0 || val > HW_CHANNEL_MAX_REQUEST_SIZE)
-> +				val = HW_CHANNEL_MAX_REQUEST_SIZE;
-
-[Severity: Low]
-Does this incorrectly clamp HWC_INIT_DATA_MAX_RESPONSE using
-HW_CHANNEL_MAX_REQUEST_SIZE instead of HW_CHANNEL_MAX_RESPONSE_SIZE?
-
->  			hwc->hwc_init_max_resp_msg_size = val;
->  			break;
->  
-
-[Severity: High]
-This is a pre-existing issue, but is it possible for a malicious device
-to trigger an out-of-bounds MMIO write via an unchecked doorbell index?
-
-Earlier in mana_hwc_init_event_handler():
-
-	case GDMA_EQE_HWC_INIT_EQ_ID_DB:
-		eq_db.as_uint32 = event->details[0];
-		hwc->cq->gdma_eq->id = eq_db.eq_id;
-		gd->doorbell = eq_db.doorbell;
-
-When the driver posts WQEs and rings the doorbell via mana_gd_ring_doorbell():
-
-drivers/net/ethernet/microsoft/mana/gdma_main.c:mana_gd_ring_doorbell() {
-    ...
-    void __iomem *addr = gc->db_page_base + gc->db_page_size * db_index;
-    ...
-    writeq(e.as_uint64, addr);
-    ...
-}
-
-If eq_db.doorbell is excessively large, could it calculate a memory-mapped
-address that exceeds gc->bar0_size, resulting in an out-of-bounds writeq()
-that corrupts adjacent mappings?
-
-
-[Severity: High]
-This is a pre-existing issue, but does the unchecked max_num_cqs value
-allow a malicious device to exhaust system memory?
-
-Later in mana_hwc_init_event_handler():
-
-		case HWC_INIT_DATA_MAX_NUM_CQS:
-			gd->gdma_context->max_num_cqs = val;
-			break;
-
-This unbounded max_num_cqs value is later used for memory allocation:
-
-drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_establish_channel() {
-    ...
-	gc->cq_table = vcalloc(gc->max_num_cqs, sizeof(struct gdma_queue *));
-    ...
-}
-
-If max_num_cqs is an exceptionally large 32-bit value (e.g., 0x1FFFFFFF),
-could vcalloc() attempt to allocate multiple gigabytes of memory and cause a
-host-level denial of service?
