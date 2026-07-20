@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CA83E5EDA
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:29:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3959A42A7AC
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557758; cv=none; b=MPs+d369ZuwxMTSmWXLVO+qUZoW9y7/v6DZqCmJ27qS07UagRIknKD55dxxJJUtjQ99Xb/cgZckjruVxcJVX895OFlbV96BpqOpjgQvheTqdIBuEoH3DMdEZR6dMUfK5qOHviozsFOwrg/5z+BvK5xViM7oQKAU4E60K2rR49JM=
+	t=1784557766; cv=none; b=j5MusBh1P4SafVdlEaj2z9IqM2geFK/5TEMwRWDNODMfLgGeLnjO+p66MkFzVWqS26UgEl+8FWEGd7efK6y/6Gt3r2fc/PAxE7Gt1smM3d+AdhM3ghB9ePYNQ65LZeM6eCbTs00XDV62ql9E6Maw3Sp2ty7uZ8A4cJrb89/GhqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557758; c=relaxed/simple;
-	bh=N5ohTd8stRtTfIKGXJFQODq9t9UthXZf0eHK8Hsj6xk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=L7Gz/aYowrWKOgQ/0dcEq2JQi6rILKs2hEbGLXu16HET3+MuRyp1MWif1lZFdhqpyB68dFS1TXKDCWruG06n5P6utNx7LNT8CdaHX0TF/PBrLEDP+nVKyn8VYkvhLV/W64r4Xi0fOzXKf7QBC4DgGoENUf5MzviCwFGXNc2Ezac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VGK+ZoKN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557766; c=relaxed/simple;
+	bh=0j3OrRly1Ezjhk8KMbWpVxPqk5Zb/939gq93LnMO1Kk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PRdU1Xx5ySYGzmnVhcsSR16oYY3U8V9eRfxTlInWDhqfLMdZhKeM2vlY/Kh3mUWrnxx0X8FnpN+GpqGWbfnkxNb4adWbJxrinampQLTaALXlK0VEw24ZhX9THFb1mh+NpA24EgaY6/ythqnqKguSFiyAq0UzsHLJE9XVJEbA7us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ANSui0HD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VGK+ZoKN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3152D1F00A3E;
-	Mon, 20 Jul 2026 14:29:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ANSui0HD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6713C1F000E9;
+	Mon, 20 Jul 2026 14:29:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557756;
-	bh=0BuCO1NPBU2KRe2DRoF9Xr6LLMXu+dWETXdfXH9ixsA=;
+	s=korg; t=1784557764;
+	bh=UTW31pM6Z3NNnzS8MckdpPRL7uwPZvf0IvdyWMcYNqM=;
 	h=Subject:To:Cc:From:Date;
-	b=VGK+ZoKNDFjWbAmh8IvdXIXX7Ov2BWE0aReD0jCkMdpJq0rH7FRYwPPkMm77RCfV8
-	 J9D2sFt8sgAa6uyfxK4jUG1deEa5AZXTWGcmIr+ZNYq5NsQnALzLfJCDWQlHnf7doC
-	 F41pU/X+TOjoTfBtOVhjxm0s1tzpymVkYZUGsLQc=
-Subject: FAILED: patch "[PATCH] samples/damon/mtier: fail early if address range parameters" failed to apply to 7.1-stable tree
+	b=ANSui0HDdOFTB3qnTy9rg23cShAapVCq7684PM/LX+l88+VLs9kGNLVJCXNG3oPoc
+	 EXUn83UP8tytXny9fhXRhQdXU4iuv/GEK9K05B+Ludu4l8jYPht+WIJJTKmQERsLdv
+	 4cUck1TVZcXTjzCb3YQmI9G54gz84Bs2XqfQujNI=
+Subject: FAILED: patch "[PATCH] samples/damon/mtier: fail early if address range parameters" failed to apply to 6.18-stable tree
 To: yuzenghui@huawei.com,akpm@linux-foundation.org,sj@kernel.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:29:07 +0200
-Message-ID: <2026072007-eldercare-amusing-37b4@gregkh>
+Date: Mon, 20 Jul 2026 16:29:08 +0200
+Message-ID: <2026072008-humongous-quintuple-a2a9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7746d72c64054976887928d64d2caf25c5a6dcc0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072007-eldercare-amusing-37b4@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072008-humongous-quintuple-a2a9@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
