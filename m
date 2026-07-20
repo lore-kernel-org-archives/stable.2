@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A930434E43
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:48:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31FA843635E
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 15:48:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784562536; cv=none; b=QtyC4Kovjt8wD/zXGuf61c1hXy6WM9IXaAp7uqk00mPDJERToyv6Oo/mZayWm8BJMqvus/yKl1wH/XDVHRJZHSHGrxLV84bzNwblB95SeH1rFGggr1Z3e+YU4NESmLQViojXdetb7sunCP+FUsLbC65EdKGXCi3yG1pEuv2gGh8=
+	t=1784562539; cv=none; b=p7SxPKoAFx99I1YpUWM3j0j8oaizWWbe7oZF9t7dyQgj4yovNIQsFPsOCtJJ4WEsVMVtujjuBoHqdcQL3F5J2PmqDkp2HoGLjbP/HrxZ/EruenIxzL4NChHav3xOGg03PkIC1mgxbuuMpsnGPgBM0uB5Ldt+qu+c1ZfTerYvlZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784562536; c=relaxed/simple;
-	bh=EJ/C4Wv1Xyu+52UvKY+Cjin0LhbIheOqY0L3oOjqu8E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=soXW5OA3f3MqOQmv1LtHtEgX5jjO4cBJ+LqUPr3kN0Gkiy7lixheHJHkDVa1arWwhTffMLGJASIIn2mOh0HUUDCKmFMVRUYcK/nRTQU0Uflb6+yZpBY/0vTPNOFU4ptkz+DEg4wI7awMwgRai7+MMdafRD8CX2INA2QXRIGugtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=s+K2AkhS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784562539; c=relaxed/simple;
+	bh=vBfrbSmllAb+u/YXhTa8xYuKPbRvWaYWDoZBPkJDOyM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Q4URYT4nhFqfhFhLrqReDVztWbce13zFpNeeAVUIBnwzlpKQYQXFeqizCjlcUBLYfkNiLzgDhZ1mR703yZjoR8v0+09kh0cRgJ1YkPURwNHaVJBTgUh1AmBLj+HpkK36reuoFean5E9iR1V+dMmviFGtlld8jwIwTrHHTe+ma3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dmYDZIeY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="s+K2AkhS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00DF81F000E9;
-	Mon, 20 Jul 2026 15:48:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dmYDZIeY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 981E61F000E9;
+	Mon, 20 Jul 2026 15:48:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784562535;
-	bh=DJN6juxQulhClOySGxcZsW/zsIp+pTntql0gDOr+vTQ=;
+	s=korg; t=1784562538;
+	bh=Z2GUqipCU/GMNdhojmOhZrexXhiK1fxg6kqgvmeqAJw=;
 	h=Subject:To:Cc:From:Date;
-	b=s+K2AkhSODI+wHgMvY7eAR4QDA6wnNj5+nUhbhxKU8O90Z3lHc13oymlieicqQJIL
-	 ORhsw9pcglQwATfet8Vau4zq2ImEuMhgTPDRf5Tiz+G6CFHBMLfUZpQ5Zu/wFwev61
-	 0Q0FCDyQjzHxbyX138COB6aWj4ftRUTqdHHisYBA=
-Subject: FAILED: patch "[PATCH] mmc: vub300: fix use-after-free on probe failure" failed to apply to 5.10-stable tree
-To: lgs201920130244@gmail.com,johan@kernel.org,ulfh@kernel.org
+	b=dmYDZIeYXH6XcgyXpip+S7M3D6egnF32roYyP+MmpvvNSNejlXKYUcp0W82zeNVrz
+	 5RF07oXQ+jWZKBkjR64LsxGgjuLBCPxF3GPUoa852v2D50z91ORAQZVW0L7RcKFwR+
+	 fCun0oIuY1pCz/SyHavtkRti0htNnHRLE8fC43V8=
+Subject: FAILED: patch "[PATCH] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()" failed to apply to 6.6-stable tree
+To: maoyixie.tju@gmail.com,johannes.berg@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 17:42:48 +0200
-Message-ID: <2026072048-private-repackage-90f2@gregkh>
+Date: Mon, 20 Jul 2026 17:43:09 +0200
+Message-ID: <2026072009-steerable-peculiar-5fd1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x a3b5f242997a3be7404112fd48784881560aea57
+git cherry-pick -x aa6dcd5c8dd9ba1d7d0f60093bcda41c0d6d438d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072048-private-repackage-90f2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072009-steerable-peculiar-5fd1@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,83 +62,43 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a3b5f242997a3be7404112fd48784881560aea57 Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Fri, 12 Jun 2026 11:27:56 +0800
-Subject: [PATCH] mmc: vub300: fix use-after-free on probe failure
+From aa6dcd5c8dd9ba1d7d0f60093bcda41c0d6d438d Mon Sep 17 00:00:00 2001
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+Date: Mon, 22 Jun 2026 15:53:38 +0800
+Subject: [PATCH] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
 
-The vub300 driver lifetime-manages its controller state using
-vub300->kref, with vub300_delete() freeing the mmc host when the last
-reference is dropped. The probe error path after the inactivity timer has
-been armed still bypasses that lifetime rule, however, and falls through
-to mmc_free_host() directly if mmc_add_host() fails.
+lbtf_free_adapter() calls timer_delete(&priv->command_timer), which does
+not wait for a running command_timer_fn() callback. lbtf_free_adapter()
+runs on the teardown path right before ieee80211_free_hw() frees priv,
+both in lbtf_remove_card() and in the probe error path. command_timer is
+armed by mod_timer() in lbtf_cmd() whenever a firmware command is sent.
+command_timer_fn() dereferences priv. If a command times out as the
+device is removed, command_timer_fn() runs concurrently with teardown and
+dereferences priv after it has been freed.
 
-The race window is between arming the inactivity timer and reaching the
-probe error unwind after mmc_add_host() fails:
+This is the same use-after-free that commit 03cc8f90d053 ("wifi: libertas:
+fix use-after-free in lbs_free_adapter()") fixed in the sibling libertas
+driver. The libertas_tf variant has the identical pattern and was left
+unchanged. Use timer_delete_sync() so any in-flight callback completes
+before priv is freed.
 
-        probe thread                     timer/workqueue
-        ------------                     ---------------
-        kref_init(&vub300->kref)         ref = 1
-        kref_get(&vub300->kref)          ref = 2, timer ref
-        add_timer(inactivity_timer)      fires after one second
-        |
-        |   race window
-        |<---------------------------------------------------->
-        |
-        mmc_add_host(mmc)
-                                         inactivity timer fires
-                                         vub300_queue_dead_work()
-                                           kref_get()          ref = 3
-                                           queue_work(deadwork)
-        mmc_add_host() fails
-        timer_delete_sync()
-        mmc_free_host(mmc)
-          frees vub300
-                                         deadwork runs
-                                           use-after-free
-
-The inactivity timeout is one second, so this would require
-mmc_add_host() to both fail and take more than one second to do so. This
-is unlikely to happen in practice, but the error path is still wrong.
-
-timer_delete_sync() only waits for the timer callback itself. It does
-not flush deadwork that the callback may already have queued. As a
-result, queued deadwork can still hold a kref while the probe error path
-directly frees the backing mmc host, including the vub300 storage.
-
-Fix this by using the same lifetime mechanism as disconnect. Clear
-vub300->interface so that the timer callback and any queued deadwork
-return early and drop their references, then drop the initial probe
-reference and return without falling through to err_free_host.
-
-Fixes: 0613ad2401f8 ("mmc: vub300: fix return value check of mmc_add_host()")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Johan Hovold <johan@kernel.org>
+Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Link: https://patch.msgid.link/178211481807.2212567.8773346114561900100@maoyixie.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index 6c3cb2f1c9d3..c1c21e95f5bf 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -2336,12 +2336,16 @@ static int vub300_probe(struct usb_interface *interface,
- 			 interface_to_InterfaceNumber(interface));
- 	retval = mmc_add_host(mmc);
- 	if (retval)
--		goto err_delete_timer;
-+		goto err_stop_io;
+diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
+index fb20fe31cd36..42be6fa22f9c 100644
+--- a/drivers/net/wireless/marvell/libertas_tf/main.c
++++ b/drivers/net/wireless/marvell/libertas_tf/main.c
+@@ -174,7 +174,7 @@ static void lbtf_free_adapter(struct lbtf_private *priv)
+ {
+ 	lbtf_deb_enter(LBTF_DEB_MAIN);
+ 	lbtf_free_cmd_buffer(priv);
+-	timer_delete(&priv->command_timer);
++	timer_delete_sync(&priv->command_timer);
+ 	lbtf_deb_leave(LBTF_DEB_MAIN);
+ }
  
- 	return 0;
- 
--err_delete_timer:
--	timer_delete_sync(&vub300->inactivity_timer);
-+err_stop_io:
-+	vub300->interface = NULL;
-+	kref_put(&vub300->kref, vub300_delete);
-+
-+	return retval;
-+
- err_free_host:
- 	mmc_free_host(mmc);
- 	/*
 
