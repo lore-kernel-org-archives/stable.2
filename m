@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB953D333D
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 09:53:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864E430566F
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 09:53:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784541194; cv=none; b=b+MDS600XwCqItFXOhaZPgmvncdg94ukg84OYDMMBw2nywMf+pVguOOQOj8wlDSf3d632yTaWFQ6B+sHBRFwpKFiqs1xVmktWeEm9+OS0uja5wF3xI0yi6Vea4gFiEVOfe55aWSKjhiaWS0ZjjImJRlMKfJxl7ux8ptXMZIkFeo=
+	t=1784541194; cv=none; b=K08ePmXr1kvA3nNKe07PUuOHyMNj0ztL46bEmTtZATRWhcmTMKdQHZZB6qPzFH9Cv9SuA2i1pFiaVWgC8Sqb1uWJjA34A3k1mQG4n5Y8/kukSU3yeaNEMzh12jZxR7Zn2lUIq7R99I5sFJyZr4XH0bGj61+yst7OwfHzHamkph4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784541194; c=relaxed/simple;
-	bh=Cw3VA8gMa5VAjgVEtVUo+U0o4M6gfFg5Weq9se8v32U=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BcnSFacEFZfDlWrCQwJlvl7H0j+mmtGehPvtwU8uj1JfE1x3Awnb4A1TPbkA//fAwSvtC7xubCMpVSZe7M7Kcrf4/N5kRJGi9t6aviwSqMK3RJvliItqPUUL4apSgswJ1UUPtGAuEsane6i89sagRLSZoUMfqx0do5zP1asFjSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tMpHpxiS; arc=none smtp.client-ip=100.103.45.18
+	bh=VCI47UWXScE+i5fsxMVrTKHL/edH8t/ufTpbYrSlnqU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fxaR5nDtKvsrwMrxeSHuQuNuskFNUJ3StXVkx92vtDBjhYvjc20ulznTN1MlklOMEPdBgzWmfVVcS42tfqFm09Ixz3UsmiqoL8DrKRoefVdnYVd+rlCdXs2OVVQQju9Xwk5MR4AWWtSaZx9nk8zHS0pOmTzFYIpKwpg4i/sUPaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VlgSm8IC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tMpHpxiS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D4B1F000E9;
-	Mon, 20 Jul 2026 09:53:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VlgSm8IC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9EB1F00A3A;
+	Mon, 20 Jul 2026 09:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784541190;
-	bh=oQMEqZIStpxx+bFwnyEn4x3mvZ+2L4WIXtsA4y/L+mc=;
+	s=korg; t=1784541193;
+	bh=BQA6TUwXHmL5gpbzHAKL1p0FvDdhyzf/RDR8G9WD+vM=;
 	h=Subject:To:Cc:From:Date;
-	b=tMpHpxiSs5xxAqHAGVFI5vzDY7SAwcAOFkmVSEyddNNf9Kqe7YDYNIDy5/TpXM4BS
-	 6yBPTBu4aZMai9WCm2Msu0x9TWpJg3hUyuE3q0vVfAblRto9Fi0JKLfagBP89WoV6g
-	 8I1mZZ6t5pipMMpFVdQsaCZ1DIdU7KiV/+XagJ/o=
-Subject: FAILED: patch "[PATCH] rxrpc: serialize kernel accept preallocation with socket" failed to apply to 6.6-stable tree
+	b=VlgSm8IC92lked5DLXPjaIBA8levgqsnDsLD4rZOZ4s39E9+NHb42d0IXLQTpK0IW
+	 I3xM5yMqY8hHT2KoU+YhsyQQMDnkS2wU52lTgcSziQcizELDcOfPGOMUhh3Vpnn8AP
+	 zG3xzglCvJbsora+XJdPq36UX2SfbbcgAoUOBlXc=
+Subject: FAILED: patch "[PATCH] rxrpc: serialize kernel accept preallocation with socket" failed to apply to 5.15-stable tree
 To: d4n.for.sec@gmail.com,bird@lzu.edu.cn,dhowells@redhat.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,marc.dionne@auristor.com,n05ec@lzu.edu.cn,tomapufckgml@gmail.com,yifanwucs@gmail.com,yuantan098@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 11:52:53 +0200
-Message-ID: <2026072053-iciness-ecosystem-430e@gregkh>
+Date: Mon, 20 Jul 2026 11:52:54 +0200
+Message-ID: <2026072054-disk-reassign-c317@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x dc175389b18c29a5303ee83169ec653adfae3e17
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072053-iciness-ecosystem-430e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072054-disk-reassign-c317@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
