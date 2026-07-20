@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DEF3B811F
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:23:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C909F42A176
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:25:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557390; cv=none; b=J2R9Z2uYt3YUUzgA65aaYXduAg1n5HekFbBkf5dh9WGFlRpzbzERw0Pdv/zj6rYvPOEai5md8tf4AUvkuQmW1kDb+3kF6aaHSdTdikInpSivPnqdiNMAM12VMD62ND1Z5874VdKHHUxzao/eN1YdW2haT7fdJmt9Qwavxu1s9b0=
+	t=1784557553; cv=none; b=DR+apBJfSYNHQ9su38uTYdRH4vSMu2brAy0/ubbFvf2WXAd4OpqqoOYS95i27NTls5KIZh5hu9xXZZKTAY/lWgGX7R3LPtlK/KVx4ew7pyRXgPW+M1QJ2yxA4lccOegcuZ+6fn68tszErqNbSsLjsv8VWnW/Nqvo/D3F4Txs6n4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557390; c=relaxed/simple;
-	bh=m5DucAfRn4OTGrvlwC0i62PVkP7gurKENWRbDT3cyjI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=e6PwrJuyoXRszAzALj/k4arzXeg/L8aMYb5mw7N2MPb+SCEFTnOxvOAXQS49kguOJlWhsXNjMXKDO20ZlQUDEsqzzwHysblmvmw+z39ZG2lmzHO7EfA5/eGZkQv6b0ar2buZz+sEu7C66+TwsuW6zT4wgj1QhqaaiVSX7MVJXSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BVAtrvxN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557553; c=relaxed/simple;
+	bh=g/sGZsww3m13piLl+SXK5ffffy4MCyTBXNMBs1xTeTA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tBAt2nA+ya3+vpIHEL7mthjFZDkjOBDPpqd4Ii2LItwuycMhX7lmpVpI/MnHqESGtCLcjXlragzNq8RcoeB3rDN87JWgzz1+F2sPxj4y4FvbPsORHzSL48Kn0hgAc9gK2YtI32OptbIGd5QigKdBonhhZZ2IkyX135zon4MjGUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fpCkKkHu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BVAtrvxN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38A8D1F000E9;
-	Mon, 20 Jul 2026 14:23:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fpCkKkHu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1EB01F000E9;
+	Mon, 20 Jul 2026 14:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557388;
-	bh=eWcYcUcWc5Z0OidblDXr4bLZkkvOMfHfb+nDG1tBNcY=;
+	s=korg; t=1784557551;
+	bh=2PyjQZxiujv+I9NO+U1WIpQ3yv02ZscQRaKUJoPlPWc=;
 	h=Subject:To:Cc:From:Date;
-	b=BVAtrvxNscIIq9RU8pWG0yIWiUpz5JSInr2fQMBebSqTl9+IFB6VcPL8jNHnkw5bl
-	 cpWWqacvGmpSb40xxe6nqK1fMikE0zby3LAq4lOVN3zxBVrO2r18mvoE5hA5fDqA4/
-	 eRDzOqxMGizDqeerGFOZD+QMro1XW1a+ayQ/qEA4=
-Subject: FAILED: patch "[PATCH] mm/damon/core: make charge_addr_from aware of end-address" failed to apply to 6.1-stable tree
-To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
+	b=fpCkKkHuGLh3r3rB2z+4MA7+b3VaMia+dNilHbS7RzEXKVZEtG6L45TJ/VhrTjA0d
+	 t/C69/+PlxfqKiOdBgPCc+0BqunQAwjondlOYuO8ND1irZjJZiaQU28hvVMMCOK9vj
+	 +Jf4BBp/ia/c1TH+HxL0ltUybU5H83pxemHCy9PA=
+Subject: FAILED: patch "[PATCH] fs/ntfs3: bound copy_lcns dp->page_lcns[] index in analysis" failed to apply to 5.15-stable tree
+To: michael.bommarito@gmail.com,20260502154252.164586-1-jhapavitra98@gmail.com,almaz.alexandrovich@paragon-software.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:22:59 +0200
-Message-ID: <2026072059-refocus-lizard-6528@gregkh>
+Date: Mon, 20 Jul 2026 16:25:42 +0200
+Message-ID: <2026072042-litter-retold-6915@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5a2d162e22bf33eb89d53e802d0fc1ec422e19b6
+git cherry-pick -x 5e7b598660cfa8e5af172cf4c65cffc126333307
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072059-refocus-lizard-6528@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072042-litter-retold-6915@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,39 +62,114 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5a2d162e22bf33eb89d53e802d0fc1ec422e19b6 Mon Sep 17 00:00:00 2001
-From: SeongJae Park <sj@kernel.org>
-Date: Mon, 27 Apr 2026 21:29:40 -0700
-Subject: [PATCH] mm/damon/core: make charge_addr_from aware of end-address
- exclusivity
+From 5e7b598660cfa8e5af172cf4c65cffc126333307 Mon Sep 17 00:00:00 2001
+From: Michael Bommarito <michael.bommarito@gmail.com>
+Date: Fri, 15 May 2026 12:34:05 -0400
+Subject: [PATCH] fs/ntfs3: bound copy_lcns dp->page_lcns[] index in analysis
+ pass
 
-DAMON region end address is exclusive one, but charge_addr_from is
-assigned assuming the end address is inclusive.  As a result, DAMOS action
-to next up to min_region_sz memory can be skipped.  This is quite
-negligible user impact.  But, the bug is a bug that can be very simply
-fixed.  Fix the wrong assignment to respect the exclusiveness of the
-address.
+In log_replay()'s analysis pass, after find_dp() returns a
+valid DIR_PAGE_ENTRY for the (target_attr, target_vcn) tuple,
+the copy_lcns block walks lrh->lcns_follow further entries:
 
-The issue was discovered [1] by Sashiko.
+	t16 = le16_to_cpu(lrh->lcns_follow);
+	for (i = 0; i < t16; i++) {
+	    size_t j = (size_t)(le64_to_cpu(lrh->target_vcn) -
+	                        le64_to_cpu(dp->vcn));
+	    dp->page_lcns[j + i] = lrh->page_lcns[i];
+	}
 
-Link: https://lore.kernel.org/20260428042942.118230-1-sj@kernel.org
-Link: https://lore.kernel.org/20260428032324.115663-1-sj@kernel.org [1]
-Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.16.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+find_dp() only validates that target_vcn falls within
+[dp->vcn, dp->vcn + dp->lcns_follow), i.e., that the FIRST
+cluster is covered.  The walk through the further entries is
+not bounded against dp->lcns_follow.  For a malformed LRH
+where target_vcn = dp->vcn + dp->lcns_follow - 1 and
+lrh->lcns_follow > 1, the i > 0 writes overflow the dp's
+allocated page_lcns[] array.
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 3dbbbfdeff71..901ffdaefb7f 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2106,7 +2106,7 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
- 		if (damos_quota_is_set(quota) &&
- 				quota->charged_sz >= quota->esz) {
- 			quota->charge_target_from = t;
--			quota->charge_addr_from = r->ar.end + 1;
-+			quota->charge_addr_from = r->ar.end;
+Add the missing j + lrh->lcns_follow <= dp->lcns_follow guard.
+
+Reproduced under UML+KASAN on mainline 8d90b09e6741 as a
+slab-out-of-bounds write of size 8 from log_replay+0x68d4 on
+the mount path.
+
+This is distinct from Pavitra Jha's 2026-05-02 patch
+("fs/ntfs3: validate lcns_follow in log_replay conversion",
+<20260502154252.164586-1-jhapavitra98@gmail.com>) which
+addresses the separate version-0 dirty-page-table conversion
+path's memmove(&dp->vcn, ...) call.  The two fixes are
+complementary; both should land.
+
+Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+[almaz.alexandrovich@paragon-software.com: clang-formatted the changes,
+fixed conflicts]
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index 2bd8754ef26d..81a305d4bcf2 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -3394,8 +3394,8 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+ 
+ 		if (run_get_highest_vcn(le64_to_cpu(attr->nres.svcn),
+ 					attr_run(attr),
+-				        le32_to_cpu(attr->size) - 
+-				                le16_to_cpu(attr->nres.run_off),	
++					le32_to_cpu(attr->size) -
++						le16_to_cpu(attr->nres.run_off),
+ 					&t64)) {
+ 			goto dirty_vol;
  		}
- 	}
- 	if (s->action != DAMOS_STAT)
+@@ -4585,22 +4585,34 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
+ 		 * whole routine a loop, case Lcns do not fit below.
+ 		 */
+ 		t16 = le16_to_cpu(lrh->lcns_follow);
+-                t32 = le32_to_cpu(dp->lcns_follow);
+-                if (le64_to_cpu(lrh->target_vcn) < le64_to_cpu(dp->vcn)) {
+-                        err = -EINVAL;
+-                        goto out;
+-                }
++		t32 = le32_to_cpu(dp->lcns_follow);
++		if (le64_to_cpu(lrh->target_vcn) < le64_to_cpu(dp->vcn)) {
++			err = -EINVAL;
++			goto out;
++		}
+ 
+-                for (i = 0; i < t16; i++) {
+-                        size_t j = (size_t)(le64_to_cpu(lrh->target_vcn) -
+-                                            le64_to_cpu(dp->vcn));
+-                        if (j >= t32 || i >= t32 - j) {
+-                                err = -EINVAL;
+-                                goto out;
+-                        }
+-                        dp->page_lcns[j + i] = lrh->page_lcns[i];
+-                }
++		/*
++         * find_dp() only validates that target_vcn is the first
++         * cluster covered by dp.  The walk through lrh->lcns_follow
++         * further entries must stay within the allocated
++         * dp->page_lcns[] array, which is sized by dp->lcns_follow.
++         */
++		if (le64_to_cpu(lrh->target_vcn) - le64_to_cpu(dp->vcn) + t16 >
++		    le32_to_cpu(dp->lcns_follow)) {
++			err = -EINVAL;
++			log->set_dirty = true;
++			goto out;
++		}
+ 
++		for (i = 0; i < t16; i++) {
++			size_t j = (size_t)(le64_to_cpu(lrh->target_vcn) -
++					    le64_to_cpu(dp->vcn));
++			if (j >= t32 || i >= t32 - j) {
++				err = -EINVAL;
++				goto out;
++			}
++			dp->page_lcns[j + i] = lrh->page_lcns[i];
++		}
+ 		goto next_log_record_analyze;
+ 
+ 	case DeleteDirtyClusters: {
 
