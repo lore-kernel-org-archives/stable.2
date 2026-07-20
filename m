@@ -1,141 +1,243 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD09939DBE9;
-	Mon, 20 Jul 2026 11:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B122B407565;
+	Mon, 20 Jul 2026 12:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784548668; cv=none; b=p/WXMADvGZz7eLTlQlry25dBabYN4P9ojkTV7eUCruDGUufSRrLwjHyEw0PTUaHfVy5s8N78SFpzVLfvnSuPvH7u3fjj2ropEK18fJwVrKoaxRdMByUG2Mc1ylmNeLq3mdyOcnOeBH9bFQybYtt86xE8lJEcmphG7WDu5FfMK1U=
+	t=1784549055; cv=none; b=gUT7dPXKLkpqoMzpr0bTsk20LpwUfaawdivcffXnAC+S/zEBz6r915x2O6oC2Og5ewQ9fYoT2O9NAfusqoIa4O4vGvKFNPJ4fRL+vCVa0Acer8Hhbxl4dbwZk7fyXpBss9HdrKx7RFri14lTkuRvQZK5m8460KOpXIJKWjU7GI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784548668; c=relaxed/simple;
-	bh=JXP+g5Yop+DVNzHM9hBac//FxjxZfze3PQ57RxDyT80=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=jJowjD6Qvw1A2ijlGM9LsEMsbzNzmbBMIhg/bQIba6IYC8T/9KbMQ2QSt6GJH/Oej9SOSR9bI9QMC5/SkSfP9a+SOunO5mC1azv9YyjL9w1X4UwLVbMGJuxjqXup2wH3rC4kFeqWA9ZF7BAOP1Brtk+ZwUEfSbYuKVRb+w006HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.245.140])
-	by APP-05 (Coremail) with SMTP id zQCowADHNUAlDV5qCNuIAA--.52364S2;
-	Mon, 20 Jul 2026 19:57:25 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Huang Shijie <b32955@freescale.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: [PATCH v2] mtd: rawnand: validate ONFI extended parameter page sections
-Date: Mon, 20 Jul 2026 19:57:25 +0800
-Message-ID: <20260720115725.10096-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1784549055; c=relaxed/simple;
+	bh=jwQI/Pf9NgcNp+DK3zQQGTyKt/dsw3MbYO0e3utNawk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cToprLpahXKo+/cpI8sLZTwYOTx7xC0LmwnFf2RXGYc9Mx2vxh4PW2TT4MGMMcCMnX+cYh/LkwlR2He8HMjG+IzJDDKe8DRRsBcjIi8QMHqPeXAE2mBXb7P2EZBOcHAoJDRABXIFAQMCYgs4PJM8ILXsTKaOQ7RE2qM3YRV77GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EImnMY0U; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EImnMY0U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296D01F000E9;
+	Mon, 20 Jul 2026 12:04:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784549053;
+	bh=GrjyUrFA1NruvtisUz4gp+RpWRHZm15WecJhiwdx36M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EImnMY0U0L6e9FoTHcqYRk4KnGvjXq+2u9UK7ILXDVd8nPJ3kvm0k4BPVzHyLSAh/
+	 qk4J+FUPLP9Wa7VfEZlcdVfbrJzRWL1dJGql6odNBDVrf/r1HaDEoBmsYcdZFgbKCE
+	 hhAGosbgqqEZ8XCYLKdy7/K0OukRqy/gaRGBpmHlv/cOtMgCCXvWE0JMggWzSIUTMa
+	 VqeP175mPSrKDwiD9Cg44xQxMY02HlbHaIDKaH6+tmnSpx9Mm2CUCqpE0o80BUGnP7
+	 RpdXH2oqTF4k42FapqzISKscYDArm1VFcPUvvMpP8YG+zCqlQm7zOlN+il/P/eLcMR
+	 mN8ZfdJp/qehg==
+Date: Mon, 20 Jul 2026 14:04:09 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Ibrahim Hashimov <security@auditcode.ai>
+Cc: djwong@kernel.org, linux-xfs@vger.kernel.org, bfoster@redhat.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5] xfs: bounds-check buffer log item's dirty bitmap
+Message-ID: <al4OdTezVWyhrKwe@nidhogg.toxiclabs.cc>
+References: <20260714175532.74257-1-security@auditcode.ai>
+ <20260715071723.81917-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADHNUAlDV5qCNuIAA--.52364S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWr15ur4xKr1rJry5KF4DJwb_yoW5WryDpF
-	4F934akws8J3W7Z3sFka1DCFyFy395GFW8GFyfu34Yk3ZFvr1vkas8Kr1jvFnrKay8Cry8
-	Xrsrt3Z5C3W5Ca7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUnGQDUU
-	UUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715071723.81917-1-security@auditcode.ai>
 
-nand_flash_detect_ext_param_page() allocates the length declared by the
-ONFI parameter page, then treats the data as a fixed header followed by
-variable-length sections. It reads that header and advances over sections
-without first proving that the fixed page and each current section fit in
-the allocation.
+On Wed, Jul 15, 2026 at 09:17:23AM +0200, Ibrahim Hashimov wrote:
+> xlog_recover_do_reg_buffer() replays each dirty region described by a
+> buffer log item's bitmap into the buffer read for that item:
+> 
+> 	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
+> 		item->ri_buf[i].iov_base,
+> 		nbits << XFS_BLF_SHIFT);
+> 
+> The destination offset (bit/nbits, from the logged dirty bitmap) and the
+> buffer size (from the logged blf_len) are both attacker-controlled and
+> otherwise unrelated, yet the only thing bounding the copy is an ASSERT(),
+> which compiles away on production kernels. A crafted image logging a
+> small blf_len together with a bitmap bit past the end of that buffer
+> drives the memcpy() past the buffer's allocation, corrupting adjacent
+> kernel heap during mount-time log recovery. This is reachable by anyone
+> who can get a crafted image mounted -- the malicious-filesystem threat
+> model XFS already guards against elsewhere.
+> 
+> Turn the ASSERT() into a real XFS_IS_CORRUPT() check that aborts recovery
+> of the buffer with -EFSCORRUPTED, consistent with the validate-and-fail
+> idiom already used in xlog_recover_do_inode_buffer() and
+> xfs_dquot_item_recover.c. xlog_recover_do_reg_buffer() therefore becomes
+> STATIC int and its three callers propagate the error.
+> 
+> Found and confirmed with KASAN on a CONFIG_XFS_DEBUG=n build: the crafted
+> image trips a slab-out-of-bounds write before this change and fails
+> recovery cleanly with -EFSCORRUPTED after it.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
 
-Reject pages shorter than the fixed header, track the remaining variable
-area while walking sections, and require the ECC section to contain every
-field read from struct onfi_ext_ecc_info. Use device-scoped diagnostics
-that identify the malformed ONFI section.
+We are starting to get rid of Assisted-by tags mentioning specific
+models or completely getting rid of them at all.
 
-Fixes: 6dcbe0cdd83f ("mtd: get the ECC info from the Extended Parameter Page")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
-Changes since v1: https://lore.kernel.org/all/20260715084226.38336-1-pengpeng@iscas.ac.cn/
-- replace generic pr_debug() messages with ONFI-specific dev_dbg() diagnostics
-- keep the low-cost bounds hardening conservative because the page is
-  CRC-protected
-- rebase onto v7.2-rc4
+If you are ok with it I'll just remove this tag during commit time, or
+if you prefer, please send a new version without the tag.
 
- drivers/mtd/nand/raw/nand_onfi.c | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+Cheers.
 
-diff --git a/drivers/mtd/nand/raw/nand_onfi.c b/drivers/mtd/nand/raw/nand_onfi.c
-index cd3ad373883e..b5e304c35738 100644
---- a/drivers/mtd/nand/raw/nand_onfi.c
-+++ b/drivers/mtd/nand/raw/nand_onfi.c
-@@ -35,16 +35,21 @@ static int nand_flash_detect_ext_param_page(struct nand_chip *chip,
- 					    struct nand_onfi_params *p)
- {
- 	struct nand_device *base = &chip->base;
-+	struct mtd_info *mtd = nand_to_mtd(chip);
- 	struct nand_ecc_props requirements;
- 	struct onfi_ext_param_page *ep;
- 	struct onfi_ext_section *s;
- 	struct onfi_ext_ecc_info *ecc;
-+	size_t remaining, section_len;
- 	uint8_t *cursor;
- 	int ret;
- 	int len;
- 	int i;
- 
- 	len = le16_to_cpu(p->ext_param_page_length) * 16;
-+	if (len < sizeof(*ep))
-+		return -EINVAL;
-+
- 	ep = kmalloc(len, GFP_KERNEL);
- 	if (!ep)
- 		return -ENOMEM;
-@@ -77,11 +82,29 @@ static int nand_flash_detect_ext_param_page(struct nand_chip *chip,
- 
- 	/* find the ECC section. */
- 	cursor = (uint8_t *)(ep + 1);
-+	remaining = len - sizeof(*ep);
- 	for (i = 0; i < ONFI_EXT_SECTION_MAX; i++) {
- 		s = ep->sections + i;
--		if (s->type == ONFI_SECTION_TYPE_2)
-+		section_len = s->length * 16;
-+		if (section_len > remaining) {
-+			dev_dbg(&mtd->dev,
-+				"ONFI extended parameter section %d exceeds page\n",
-+				i);
-+			goto ext_out;
-+		}
-+
-+		if (s->type == ONFI_SECTION_TYPE_2) {
-+			if (section_len < sizeof(*ecc)) {
-+				dev_dbg(&mtd->dev,
-+					"ONFI extended parameter ECC section %d is too short\n",
-+					i);
-+				goto ext_out;
-+			}
- 			break;
--		cursor += s->length * 16;
-+		}
-+
-+		cursor += section_len;
-+		remaining -= section_len;
- 	}
- 	if (i == ONFI_EXT_SECTION_MAX) {
- 		pr_debug("We can not find the ECC section.\n");
-
+> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+> Reviewed-by: Brian Foster <bfoster@redhat.com>
+> ---
+> v5: add the "/* write dirty buffer */" comment Darrick and Brian asked
+>     for above the error reset; no functional change. Carry their
+>     Reviewed-by tags.
+> v4: fold xlog_recover_do_dquot_buffer()'s bool return and error
+>     out-parameter into a single int return (1 if dirty, 0 if clean, or a
+>     negative errno on failure), per Darrick's review.
+> v3: trim the changelog per Brian Foster's review. Add a Fixes: tag --
+>     the destination-bounds check has been an ASSERT since the initial git
+>     import (2.6.12-rc2), so it predates the git era.
+> v2: resend; v1 went out with an empty Subject line due to a local
+>     git send-email glitch (leading blank line in the patch file).
+> 
+>  fs/xfs/xfs_buf_item_recover.c | 57 +++++++++++++++++++++++++++++--------------
+>  1 file changed, 41 insertions(+), 16 deletions(-)
+> 
+> diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+> index 02b95b89d1b5..240deb3f7827 100644
+> --- a/fs/xfs/xfs_buf_item_recover.c
+> +++ b/fs/xfs/xfs_buf_item_recover.c
+> @@ -461,7 +461,7 @@ xlog_recover_validate_buf_type(
+>   * given buffer.  The bitmap in the buf log format structure indicates
+>   * where to place the logged data.
+>   */
+> -STATIC void
+> +STATIC int
+>  xlog_recover_do_reg_buffer(
+>  	struct xfs_mount		*mp,
+>  	struct xlog_recover_item	*item,
+> @@ -489,8 +489,24 @@ xlog_recover_do_reg_buffer(
+>  		ASSERT(nbits > 0);
+>  		ASSERT(item->ri_buf[i].iov_base != NULL);
+>  		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+> -		ASSERT(BBTOB(bp->b_length) >=
+> -		       ((uint)bit << XFS_BLF_SHIFT) + (nbits << XFS_BLF_SHIFT));
+> +		/*
+> +		 * The bitmap is only trustworthy to the extent that it
+> +		 * describes a region that actually fits inside the buffer we
+> +		 * read in based on the (attacker-controlled) blf_len.  Do not
+> +		 * rely on an ASSERT() for this -- it compiles away entirely on
+> +		 * non-DEBUG kernels, which is exactly where this matters, so
+> +		 * validate it for real and abort recovery of this buffer rather
+> +		 * than copying past the end of it.
+> +		 */
+> +		if (XFS_IS_CORRUPT(mp, BBTOB(bp->b_length) <
+> +				((uint)bit << XFS_BLF_SHIFT) +
+> +				(nbits << XFS_BLF_SHIFT))) {
+> +			xfs_alert(mp,
+> +	"Bad buffer log item dirty bitmap (bit %d, nbits %d) for %d-byte buffer at daddr 0x%llx.",
+> +				bit, nbits, BBTOB(bp->b_length),
+> +				xfs_buf_daddr(bp));
+> +			return -EFSCORRUPTED;
+> +		}
+>  
+>  		/*
+>  		 * The dirty regions logged in the buffer, even though
+> @@ -544,6 +560,7 @@ xlog_recover_do_reg_buffer(
+>  	ASSERT(i == item->ri_total);
+>  
+>  	xlog_recover_validate_buf_type(mp, bp, buf_f, current_lsn);
+> +	return 0;
+>  }
+>  
+>  /*
+> @@ -552,10 +569,10 @@ xlog_recover_do_reg_buffer(
+>   * (ie. USR or GRP), then just toss this buffer away; don't recover it.
+>   * Else, treat it as a regular buffer and do recovery.
+>   *
+> - * Return false if the buffer was tossed and true if we recovered the buffer to
+> - * indicate to the caller if the buffer needs writing.
+> + * Return 0 if the buffer was not recovered (tossed), 1 if it was recovered and
+> + * needs writing, or a negative errno if recovery of the buffer failed.
+>   */
+> -STATIC bool
+> +STATIC int
+>  xlog_recover_do_dquot_buffer(
+>  	struct xfs_mount		*mp,
+>  	struct xlog			*log,
+> @@ -564,6 +581,7 @@ xlog_recover_do_dquot_buffer(
+>  	struct xfs_buf_log_format	*buf_f)
+>  {
+>  	uint			type;
+> +	int			error;
+>  
+>  	trace_xfs_log_recover_buf_dquot_buf(log, buf_f);
+>  
+> @@ -571,7 +589,7 @@ xlog_recover_do_dquot_buffer(
+>  	 * Filesystems are required to send in quota flags at mount time.
+>  	 */
+>  	if (!mp->m_qflags)
+> -		return false;
+> +		return 0;
+>  
+>  	type = 0;
+>  	if (buf_f->blf_flags & XFS_BLF_UDQUOT_BUF)
+> @@ -584,10 +602,12 @@ xlog_recover_do_dquot_buffer(
+>  	 * This type of quotas was turned off, so ignore this buffer
+>  	 */
+>  	if (log->l_quotaoffs_flag & type)
+> -		return false;
+> +		return 0;
+>  
+> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+> -	return true;
+> +	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, NULLCOMMITLSN);
+> +	if (error)
+> +		return error;
+> +	return 1;
+>  }
+>  
+>  /*
+> @@ -724,7 +744,9 @@ xlog_recover_do_primary_sb_buffer(
+>  	xfs_rgnumber_t			orig_rgcount = mp->m_sb.sb_rgcount;
+>  	int				error;
+>  
+> -	xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
+> +	error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
+> +	if (error)
+> +		return error;
+>  
+>  	if (orig_agcount == 0) {
+>  		xfs_alert(mp, "Trying to grow file system without AGs");
+> @@ -1081,11 +1103,11 @@ xlog_recover_buf_commit_pass2(
+>  			goto out_release;
+>  	} else if (buf_f->blf_flags &
+>  		  (XFS_BLF_UDQUOT_BUF|XFS_BLF_PDQUOT_BUF|XFS_BLF_GDQUOT_BUF)) {
+> -		bool	dirty;
+> -
+> -		dirty = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+> -		if (!dirty)
+> +		error = xlog_recover_do_dquot_buffer(mp, log, item, bp, buf_f);
+> +		if (error <= 0)
+>  			goto out_release;
+> +		/* write dirty buffer */
+> +		error = 0;
+>  	} else if ((xfs_blft_from_flags(buf_f) & XFS_BLFT_SB_BUF) &&
+>  			xfs_buf_daddr(bp) == 0) {
+>  		error = xlog_recover_do_primary_sb_buffer(mp, item, bp, buf_f,
+> @@ -1105,7 +1127,10 @@ xlog_recover_buf_commit_pass2(
+>  			xfs_buf_relse(rtsb_bp);
+>  		}
+>  	} else {
+> -		xlog_recover_do_reg_buffer(mp, item, bp, buf_f, current_lsn);
+> +		error = xlog_recover_do_reg_buffer(mp, item, bp, buf_f,
+> +						   current_lsn);
+> +		if (error)
+> +			goto out_release;
+>  	}
+>  
+>  	/*
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
