@@ -1,74 +1,80 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD124611EE
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 18:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE2A2DF3DA
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 18:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784572853; cv=none; b=plf1zdA8Bkv4zo5hJDbz1lWSMmuczkHqTq5+TJ7Pe2XhzwuhEbrKCdBuRlw8xHCfemxHIw7eWFsGf4+t2ErNuSsEib4Qvvk2KC1jeZXG7qZU9MF4aXVO3lrbsMlBPTIh825LgWrL7xjkWPu1ZNGJ0dxYBsoUluwo5ozhfpHzCSs=
+	t=1784573405; cv=none; b=SBNi3jAW23iRHwTWzpt4BWwyp/hRigIor0z00828KceF8qcDhVSqzBeO/kHZ48jrjE1yd1JzdMJ1JyQGcqZzMaI++ZxGLhoRcgikHQKJu5tWNTQJZ907QwITYdwJMPP6BDu8Ggf6QU+uUrdgMGDDvredSnj1hiBvk17SdCVoG+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784572853; c=relaxed/simple;
-	bh=IDOXc2ksnJ7yvgqbRgtFzV+7bZqxgMcEWALPvR5eZwE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tFzlZKIePey04DGNxS385Iig6wvLUuW2Bs1rr/mVuHO94GoMmcJp5uwGvVlQOHzITs2oBEmUJAe92/LgMd+ibtQ27PvlhMDRAXahfqiNOUbKgdqef01Zeci/+srHOlCRipGbXflklIdq6CqnDGjWOaqlEYze3QfUTU8VOblTC28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ehijxy1X; arc=none smtp.client-ip=209.85.160.169
+	s=arc-20240116; t=1784573405; c=relaxed/simple;
+	bh=V8QegDPA1ucXzNfwp1IItNCBavFQej1S4MQNpFDWQcw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B64dRWju6/5NZd6+pVseE3x7b8kVcokYwNeCkjgIzTbJHOa2x3QFA+Lv8zSnOue6vZpPRFl8LgRS6iOb/Aobdxtoh5minRnjKc2s7R2rcStFDJfZbYYizLtQO/y3C9aDuwIkWIUiXmBKQkRQztCFbES2zk25S6Ih6WiVtdklA30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ebCjthYG; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ehijxy1X"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51c0c45c580so90903991cf.0
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 11:40:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ebCjthYG"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-ca53979f8e8so848691a12.2
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 11:50:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784572850; x=1785177650; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784573404; x=1785178204; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7usnKBS1qvOF6Txeg4inGxwu3o7K4Mtvix/BZ3+/BJw=;
-        b=ehijxy1XzglQf4vUsvRdZPWTe6Gri6H6je/bYQzhcsf1TqAatU9EZ+iZKT4/XUU2NK
-         MwGWtouM/kk7YHQWgH3d9xV3mYQhUedcDYUOtYFIL7F4S6WrzUn31Jq+W/w0QA7lWVLE
-         QU292XuRGfvSlOVXjOmsWStETN0Gvwg2t1syOLEU0t8/hFZILiHDjMA1ggwk3stdz6Si
-         mhvyNx3iVUqGCPjrWfjMJpf2dYSHB83b7PJ+1UnEunPyhgsNlRWI8wx1AvLZcquyL7Y+
-         vItbajl/Na2q4329+mMv1FF4FYEwSwv3xrdpao//0lRSx55aGOV4JXrCezWHTMBS4GG6
-         Xh2A==
+        bh=sxHcT8HFiLzGJ4nYxQqGgTijAjXRu6HWR5YSk3UWDU4=;
+        b=ebCjthYGKdHiCA+kaGEayMJox9M8HA+RzmiaWelzE22wGEytRZABXbyyVyYd0eXa8I
+         E7wzdoeWDyoO3zpihLlML3a0kkwn3+MrFJCoYhH3B0DbdA5ydcJ+xFXJX8eWzSNA/oBQ
+         KEmWDirCntlmWfqg4vFr7ymPmBKuHE02kCn659Fh5CUTy24zHnOo0ljM1w4Ivv+83gMt
+         RBJ0O9UoNncbDIXSLUnM8GtUf2p+NWAMa/3DzjHzlbOWRGlAItCAOSK+dY8xGvuDVeVL
+         Lw61kA9k//brhrjTKtEcpHNg2X9bw0yOKe5x6OXX1bLFlJ3Qouer5j91zP9Na4DS1O+m
+         4pUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784572850; x=1785177650;
+        d=1e100.net; s=20251104; t=1784573404; x=1785178204;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7usnKBS1qvOF6Txeg4inGxwu3o7K4Mtvix/BZ3+/BJw=;
-        b=D5161e2t+x0jQvAgDLIOqm7N77FGvMXhLy+kW83G5ktuTGn/oD/zjWPrDheHxDUA7q
-         R4E1+QcbYyUK5GxJ0y8vgMzkRRoBsRP9hKXAaFtay8FZl9/L9aIs0RXkl6tuRPonaK7l
-         IU58rqNWNRW0d3KLhuOQs+fqNTcIGHbLjm2KX/v1VIpw0HMA7BZSHzUQ/uO1Pa7Qh9P9
-         AOqv8vdvOOnGDnWklorqHXYCxDBl/nMBldI6ksI+A4JnWgrIYXVlvm/FScu7Tjjlc2NL
-         BMn/IOjKxZaddXXQKYx5WfIKfu7b84omkAjMzAsxLVoW04+qoSq9wY6uA9fEhaH78Vsn
-         /ylQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrzF3RpguIY3FPcLcWYo0vdi+bw2gucwD6CCRrqihlVZswEt0PAcw8hBhropvFyoAb4z36Hrmg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9WKsS4VHzDfCccnSt0FuPvSxRBAM841yHy38pRVXAwkYL4r7/
-	XiVg+8/bdkH1o8wJeoQ6UHUzX0hMf2//dZxA/yzzzRGdY8YssF67QqYk
-X-Gm-Gg: AfdE7cl+UHbb/9WvjT5i5vbZZfmO9mdWbOBgFEEwsBq/12r9fqUt6EMQszfh3VEOW2k
-	yBLuk6yfpxHQA97w0EapT8Jt3vsmVyDKhzlqM1rZn42xuPGmZpnUJjywdiT7Ivj0syQD/iW8eyD
-	7nH7U07xPGifXz+P0Sy0vrCPc2q4JXqgtdRAt9aBsJ0Qtzz+ImBqjAN6cFelSEsma74q9nHUkSn
-	609yn2LFVNVXFSE2Bn54Mw+shruh/J894gFhHDWrvbFyz3Ne+Kmk0duxZMMv3/U7Wuba5SOCsC1
-	kEWKK9xbjQ6Dbm7WuAPXMCqpbNqNcJSN8Y9EhGz6Xc0Q9r+E+T8IxuT/+s73TuOJWV+rs8Mqyph
-	UOwdCxYNAFhZ7sIKfXhyFHBf1vzX15rao4IWyBqyeC1kpAs4u5ala2PmjNz9Rt5O99bZy0EA8Zu
-	McBJxQidVjnFG84ktDinDAhxpbJzuy5+k=
-X-Received: by 2002:ac8:5714:0:b0:51c:1857:b622 with SMTP id d75a77b69052e-5213e082210mr141974371cf.54.1784572849532;
-        Mon, 20 Jul 2026 11:40:49 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5214f01654fsm79458301cf.19.2026.07.20.11.40.48
+        bh=sxHcT8HFiLzGJ4nYxQqGgTijAjXRu6HWR5YSk3UWDU4=;
+        b=UyOFpDo/1QPpb+TekQ8LG3Yc8Z4B78jNQM8WtuBy3W9WPb95JBh0GIQHH7CdP8Xzbu
+         z7nYcc7nLuufloFuZYc4Lwi+OmK9qNVcvcyD0LjAgh38rwytyQceizWFDe1zh9mQhYSr
+         PRpg1654lf2yCQ21dW20eaMUzx1EBnM3GJH8oymmoK1weqVpSZklRTcQ5+A7SBKkz8ZW
+         mwN1Z8S4nYY55ymRCN6MPrRIFuwTmstWPwK6kRjpL6Vrwa4xdLiAFJWuJy9jc3y98v5P
+         7tjFHYR4D9B/QkoEs8Cv//TGKQVcJFK5rtz4eQ3pXPs1UWsnmF63+LWWrEIjxyb+d0Gv
+         MlxQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrIC0MSwBZWrP94GWrcpxKYZ7TZtV/oX1bd5dEcAfXfImts+kiLYsVNHVa8g+BuOc+6O5bp8Mo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVuu1K9T0NS+JVyXL4I/O5WEk4TlbkobOovu0LCh2u8GNVQiOT
+	S0gw15HUNSG/axAOqVjGPwO94DmqmFjCUO/ikyLPXC2zMcU4B+Qrssuw
+X-Gm-Gg: AfdE7cnhCyuj+wS3ru+k1RF0aZ/bl+CWY1a2L9NhUGOYGO6UAVIYM6IueDzHk5cEphv
+	FHc4s72zmWt2rnyI0n7N3DbA2Abq2im0uT/AhP/Zip5oc+eR6pxu1Adwtb1SW7Dc62djeSIJmJu
+	tUTLgaPlIMNYN2AJytEtwPFatPO46NpqhU/2+4tkTcVv4YVWBCjNQya58m4YICurnFiDwRfiwus
+	AULm8RMYz1yGASV5syP37VHPBOv8A7g0VkQxqHxbC/yCXheOrH2+WBgs2Cd194OPgHLTz+qhDSW
+	Q9Q2OkGW9jYAz4P8m0RVaNLE89w2OZUcW27JzG3qN9KDTH/h2e8iSD/X/T7W4peY57vHmUs8zft
+	JuWMEL5HEGK7f19WE1CTQTZVb5uzEa22q955hY5hCLF+x7OB5Gq46CAqd57HjeFHY6mA86CZtTc
+	p+X22VCPv4B3aOpxjlcF59f6qu6DhOCHSwamklWD0jc5xSd5spQkD6u/vHm+WVY9X1pfMT
+X-Received: by 2002:a05:6a20:9c8c:b0:3c3:5e14:461b with SMTP id adf61e73a8af0-3c40fa2d957mr138703637.5.1784573403439;
+        Mon, 20 Jul 2026 11:50:03 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31429ff04absm36349595eec.8.2026.07.20.11.49.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2026 11:40:49 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: mkl@pengutronix.de,
-	mailhol@kernel.org
-Cc: vadim.fedorenko@linux.dev,
-	uwu@coelacanthus.name,
-	kees@kernel.org,
-	linux-can@vger.kernel.org,
+        Mon, 20 Jul 2026 11:50:02 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Allison Henderson <achender@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Santosh Shilimkar <santosh.shilimkar@oracle.com>,
+	Ka-Cheong Poon <ka-cheong.poon@oracle.com>,
+	Dan Carpenter <error27@gmail.com>
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Subject: [PATCH can v3] can: gs_usb: fix hardware timestamp state for mixed channels
-Date: Mon, 20 Jul 2026 14:40:42 -0400
-Message-ID: <20260720184042.1712217-1-shuangpeng.kernel@gmail.com>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] rds: synchronize info callbacks with connection teardown
+Date: Tue, 21 Jul 2026 02:49:55 +0800
+Message-ID: <20260720184955.3008978-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,213 +84,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hardware timestamp state is shared by struct gs_usb, but
-gs_can_open() and gs_can_close() tie its initialization and teardown to
-active_channels and to the feature bits of the channel being opened or
-closed.
+rds_info_getsockopt() reads an info callback without holding
+rds_info_lock across its invocation.  At the same time, rds_exit()
+destroys all connections before unregistering the socket info callbacks.
 
-This is wrong for mixed-channel devices in both directions. If a
-non-timestamp channel opens first, a later timestamp-capable channel does
-not initialize the shared cyclecounter/timecounter because active_channels
-is already non-zero. Timestamp RX then calls timecounter_cyc2time() with
-parent->tc.cc unset.
+This permits the following interleaving:
 
-Conversely, if a timestamp-capable channel opens first and starts the
-shared delayed work, then closes while a non-timestamp channel remains
-active, disconnect may close the non-timestamp channel last. The old
-teardown check skips gs_usb_timestamp_stop() in that case and frees
-struct gs_usb while the delayed work timer is still queued.
+  CPU0                              CPU1
+  rds_info_getsockopt()
+    func = rds6_sock_inc_info
+                                    rds_exit()
+                                      rds_conn_exit()
+                                        rds_conn_destroy()
+                                          kmem_cache_free(conn)
+    func()
+      rds6_inc_info_copy()
+        inc->i_conn->c_tos
 
-Count the number of active timestamp-capable channels instead. Start the
-shared timestamp state when the first such channel opens, stop it when the
-last such channel closes, and unwind the count if open fails.
+The receive queue lock keeps the incoming message on its socket queue,
+but it does not keep inc->i_conn alive.  KASAN reports:
 
-Initialize the shared timestamp lock and delayed work once during probe.
-The first timestamp-capable channel may be opened while RX URBs are
-already active, so guard the count and timecounter access with the same
-lock. Keep the count zero until timecounter_init() completes, and make RX
-and delayed work skip the timecounter while the count is zero.
+  BUG: KASAN: slab-use-after-free in rds6_inc_info_copy+0x459/0x530 [rds]
+  Read of size 1 at addr ffff888106031c50 by task poc/101
+  Call Trace:
+   rds6_inc_info_copy+0x459/0x530 [rds]
+   rds6_sock_inc_info+0x2b9/0x3c0 [rds]
+   rds_info_getsockopt+0x19d/0x380 [rds]
+   do_sock_getsockopt+0x2ac/0x480
+   __sys_getsockopt+0x128/0x210
+  Allocated by task 99:
+   kmem_cache_alloc_noprof+0x11a/0x360
+   __rds_conn_create+0x7e/0xd60 [rds]
+   rds_conn_create_outgoing+0x61/0x80 [rds]
+   rds_sendmsg+0xb83/0x1d00 [rds]
+  Freed by task 102:
+   kmem_cache_free+0x1b5/0x3d0
+   rds_conn_destroy+0x484/0x600 [rds]
+   rds_loop_exit_net+0x32/0x50 [rds]
+   unregister_pernet_device+0x2c/0x50
+   rds_conn_exit+0x13/0xa0 [rds]
+   rds_exit+0x1a/0xc40 [rds]
+   __do_sys_delete_module+0x30a/0x4d0
 
-Fixes: 45dfa45f52e6 ("can: gs_usb: add RX and TX hardware timestamp support")
+Publish and clear callback pointers with SRCU, and keep the SRCU read-side
+critical section across callback execution. SRCU permits callbacks such as
+RDS_INFO_COUNTERS to sleep, unlike classic RCU. After clearing a slot,
+synchronize_srcu() waits for every in-flight callback.
+Move socket callback deregistration ahead of protocol and connection
+teardown. This prevents callbacks from reaching a connection after it is
+freed.
+
+Fixes: 7d0a06586b26 ("net/rds: Fix info leak in rds6_inc_info_copy()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
-Changes in v3:
-- Drop Suggested-by tag.
-- Move active_timestamp_channels management into the timestamp init/stop
-  helpers.
-- Protect active_timestamp_channels with tc_lock, and keep it zero until
-  timecounter_init() has completed.
-- Make RX timestamp conversion and the delayed work skip the timecounter
-  while no timestamp-capable channel is active.
-- Initialize the shared timestamp lock and delayed work once during probe.
+ net/rds/af_rds.c | 12 ++++++------
+ net/rds/info.c   | 20 ++++++++++++++------
+ 2 files changed, 20 insertions(+), 12 deletions(-)
 
-Changes in v2:
-- Count active timestamp-capable channels instead of tracking only whether
-  the shared timestamp worker has been started.
-- Stop the shared timestamp worker when the last timestamp-capable channel
-  closes, even if non-timestamp channels remain open.
-- Unwind the timestamp-capable channel count on gs_can_open() failures.
-
- drivers/net/can/usb/gs_usb.c | 81 ++++++++++++++++++++++++------------
- 1 file changed, 54 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-index ec9a7cbbbc69..be25d82cedcb 100644
---- a/drivers/net/can/usb/gs_usb.c
-+++ b/drivers/net/can/usb/gs_usb.c
-@@ -337,6 +337,7 @@ struct gs_usb {
- 
- 	unsigned int hf_size_rx;
- 	u8 active_channels;
-+	u8 active_timestamp_channels;
- 	u8 channel_cnt;
- 
- 	unsigned int pipe_in;
-@@ -447,14 +448,20 @@ static void gs_usb_timestamp_work(struct work_struct *work)
+diff --git a/net/rds/af_rds.c b/net/rds/af_rds.c
+index d5defe9172e3..b3fe2bd6ea35 100644
+--- a/net/rds/af_rds.c
++++ b/net/rds/af_rds.c
+@@ -925,6 +925,12 @@ static void rds6_sock_info(struct socket *sock, unsigned int len,
+ static void rds_exit(void)
  {
- 	struct delayed_work *delayed_work = to_delayed_work(work);
- 	struct gs_usb *parent;
-+	bool active;
- 
- 	parent = container_of(delayed_work, struct gs_usb, timestamp);
- 	spin_lock_bh(&parent->tc_lock);
--	timecounter_read(&parent->tc);
-+	active = parent->active_timestamp_channels;
-+	if (active) {
-+		timecounter_read(&parent->tc);
-+		active = parent->active_timestamp_channels;
-+	}
- 	spin_unlock_bh(&parent->tc_lock);
- 
--	schedule_delayed_work(&parent->timestamp,
--			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
-+	if (active)
-+		schedule_delayed_work(&parent->timestamp,
-+				      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+ 	sock_unregister(rds_family_ops.family);
++	rds_info_deregister_func(RDS_INFO_SOCKETS, rds_sock_info);
++	rds_info_deregister_func(RDS_INFO_RECV_MESSAGES, rds_sock_inc_info);
++#if IS_ENABLED(CONFIG_IPV6)
++	rds_info_deregister_func(RDS6_INFO_SOCKETS, rds6_sock_info);
++	rds_info_deregister_func(RDS6_INFO_RECV_MESSAGES, rds6_sock_inc_info);
++#endif
+ 	proto_unregister(&rds_proto);
+ 	rds_conn_exit();
+ 	rds_cong_exit();
+@@ -933,12 +939,6 @@ static void rds_exit(void)
+ 	rds_stats_exit();
+ 	rds_page_exit();
+ 	rds_bind_lock_destroy();
+-	rds_info_deregister_func(RDS_INFO_SOCKETS, rds_sock_info);
+-	rds_info_deregister_func(RDS_INFO_RECV_MESSAGES, rds_sock_inc_info);
+-#if IS_ENABLED(CONFIG_IPV6)
+-	rds_info_deregister_func(RDS6_INFO_SOCKETS, rds6_sock_info);
+-	rds_info_deregister_func(RDS6_INFO_RECV_MESSAGES, rds6_sock_inc_info);
+-#endif
  }
+ module_exit(rds_exit);
  
- static void gs_usb_skb_set_timestamp(struct gs_can *dev,
-@@ -465,6 +472,11 @@ static void gs_usb_skb_set_timestamp(struct gs_can *dev,
- 	u64 ns;
+diff --git a/net/rds/info.c b/net/rds/info.c
+index 21b32eb16559..7d6f3552d65b 100644
+--- a/net/rds/info.c
++++ b/net/rds/info.c
+@@ -32,6 +32,7 @@
+  */
+ #include <linux/percpu.h>
+ #include <linux/seq_file.h>
++#include <linux/srcu.h>
+ #include <linux/slab.h>
+ #include <linux/proc_fs.h>
+ #include <linux/export.h>
+@@ -68,8 +69,9 @@ struct rds_info_iterator {
+ 	unsigned long offset;
+ };
  
- 	spin_lock_bh(&parent->tc_lock);
-+	if (!parent->active_timestamp_channels) {
-+		spin_unlock_bh(&parent->tc_lock);
-+		return;
-+	}
-+
- 	ns = timecounter_cyc2time(&parent->tc, timestamp);
- 	spin_unlock_bh(&parent->tc_lock);
++DEFINE_STATIC_SRCU(rds_info_srcu);
+ static DEFINE_SPINLOCK(rds_info_lock);
+-static rds_info_func rds_info_funcs[RDS_INFO_LAST - RDS_INFO_FIRST + 1];
++static rds_info_func __rcu rds_info_funcs[RDS_INFO_LAST - RDS_INFO_FIRST + 1];
  
-@@ -474,25 +486,40 @@ static void gs_usb_skb_set_timestamp(struct gs_can *dev,
- static void gs_usb_timestamp_init(struct gs_usb *parent)
+ void rds_info_register_func(int optname, rds_info_func func)
  {
- 	struct cyclecounter *cc = &parent->cc;
-+	bool first = false;
+@@ -78,8 +80,8 @@ void rds_info_register_func(int optname, rds_info_func func)
+ 	BUG_ON(optname < RDS_INFO_FIRST || optname > RDS_INFO_LAST);
  
--	cc->read = gs_usb_timestamp_read;
--	cc->mask = CYCLECOUNTER_MASK(32);
--	cc->shift = 32 - bits_per(NSEC_PER_SEC / GS_USB_TIMESTAMP_TIMER_HZ);
--	cc->mult = clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ, cc->shift);
--
--	spin_lock_init(&parent->tc_lock);
- 	spin_lock_bh(&parent->tc_lock);
--	timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
-+	if (!parent->active_timestamp_channels) {
-+		cc->read = gs_usb_timestamp_read;
-+		cc->mask = CYCLECOUNTER_MASK(32);
-+		cc->shift = 32 - bits_per(NSEC_PER_SEC /
-+					      GS_USB_TIMESTAMP_TIMER_HZ);
-+		cc->mult = clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ,
-+					       cc->shift);
-+
-+		timecounter_init(&parent->tc, &parent->cc,
-+				 ktime_get_real_ns());
-+		first = true;
-+	}
-+	parent->active_timestamp_channels++;
- 	spin_unlock_bh(&parent->tc_lock);
- 
--	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
--	schedule_delayed_work(&parent->timestamp,
--			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
-+	if (first)
-+		schedule_delayed_work(&parent->timestamp,
-+				      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+ 	spin_lock(&rds_info_lock);
+-	BUG_ON(rds_info_funcs[offset]);
+-	rds_info_funcs[offset] = func;
++	BUG_ON(rcu_access_pointer(rds_info_funcs[offset]));
++	rcu_assign_pointer(rds_info_funcs[offset], func);
+ 	spin_unlock(&rds_info_lock);
  }
+ EXPORT_SYMBOL_GPL(rds_info_register_func);
+@@ -91,9 +93,10 @@ void rds_info_deregister_func(int optname, rds_info_func func)
+ 	BUG_ON(optname < RDS_INFO_FIRST || optname > RDS_INFO_LAST);
  
- static void gs_usb_timestamp_stop(struct gs_usb *parent)
- {
--	cancel_delayed_work_sync(&parent->timestamp);
-+	bool last;
-+
-+	spin_lock_bh(&parent->tc_lock);
-+	parent->active_timestamp_channels--;
-+	last = !parent->active_timestamp_channels;
-+	spin_unlock_bh(&parent->tc_lock);
-+
-+	if (last)
-+		cancel_delayed_work_sync(&parent->timestamp);
+ 	spin_lock(&rds_info_lock);
+-	BUG_ON(rds_info_funcs[offset] != func);
+-	rds_info_funcs[offset] = NULL;
++	BUG_ON(rcu_access_pointer(rds_info_funcs[offset]) != func);
++	RCU_INIT_POINTER(rds_info_funcs[offset], NULL);
+ 	spin_unlock(&rds_info_lock);
++	synchronize_srcu(&rds_info_srcu);
  }
+ EXPORT_SYMBOL_GPL(rds_info_deregister_func);
  
- static void gs_update_state(struct gs_can *dev, struct can_frame *cf)
-@@ -980,10 +1007,10 @@ static int gs_can_open(struct net_device *netdev)
+@@ -165,6 +168,7 @@ int rds_info_getsockopt(struct socket *sock, int optname, sockopt_t *opt)
+ 	int npages = 0;
+ 	int ret;
+ 	int len;
++	int srcu_idx;
+ 	int total;
  
- 	can_rx_offload_enable(&dev->offload);
+ 	len = opt->optlen;
+@@ -214,8 +218,11 @@ int rds_info_getsockopt(struct socket *sock, int optname, sockopt_t *opt)
+ 	rdsdebug("len %d nr_pages %lu\n", len, nr_pages);
  
--	if (!parent->active_channels) {
--		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
--			gs_usb_timestamp_init(parent);
-+	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-+		gs_usb_timestamp_init(parent);
+ call_func:
+-	func = rds_info_funcs[optname - RDS_INFO_FIRST];
++	srcu_idx = srcu_read_lock(&rds_info_srcu);
++	func = srcu_dereference(rds_info_funcs[optname - RDS_INFO_FIRST],
++				&rds_info_srcu);
+ 	if (!func) {
++		srcu_read_unlock(&rds_info_srcu, srcu_idx);
+ 		ret = -ENOPROTOOPT;
+ 		goto out;
+ 	}
+@@ -225,6 +232,7 @@ int rds_info_getsockopt(struct socket *sock, int optname, sockopt_t *opt)
+ 	iter.offset = offset0;
  
-+	if (!parent->active_channels) {
- 		for (i = 0; i < GS_MAX_RX_URBS; i++) {
- 			u8 *buf;
+ 	func(sock, len, &iter, &lens);
++	srcu_read_unlock(&rds_info_srcu, srcu_idx);
+ 	BUG_ON(lens.each == 0);
  
-@@ -1094,12 +1121,11 @@ static int gs_can_open(struct net_device *netdev)
- out_usb_free_urb:
- 	usb_free_urb(urb);
- out_usb_kill_anchored_urbs:
--	if (!parent->active_channels) {
--		usb_kill_anchored_urbs(&parent->rx_submitted);
-+	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-+		gs_usb_timestamp_stop(parent);
- 
--		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
--			gs_usb_timestamp_stop(parent);
--	}
-+	if (!parent->active_channels)
-+		usb_kill_anchored_urbs(&parent->rx_submitted);
- 
- 	can_rx_offload_disable(&dev->offload);
- 	close_candev(netdev);
-@@ -1152,12 +1178,11 @@ static int gs_can_close(struct net_device *netdev)
- 
- 	/* Stop polling */
- 	parent->active_channels--;
--	if (!parent->active_channels) {
--		usb_kill_anchored_urbs(&parent->rx_submitted);
-+	if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
-+		gs_usb_timestamp_stop(parent);
- 
--		if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
--			gs_usb_timestamp_stop(parent);
--	}
-+	if (!parent->active_channels)
-+		usb_kill_anchored_urbs(&parent->rx_submitted);
- 
- 	/* Stop sending URBs */
- 	usb_kill_anchored_urbs(&dev->tx_submitted);
-@@ -1577,6 +1602,8 @@ static int gs_usb_probe(struct usb_interface *intf,
- 	parent->channel_cnt = icount;
- 
- 	init_usb_anchor(&parent->rx_submitted);
-+	spin_lock_init(&parent->tc_lock);
-+	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
- 
- 	usb_set_intfdata(intf, parent);
- 	parent->udev = udev;
+ 	total = lens.nr * lens.each;
 -- 
 2.43.0
+
