@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5343E5EDA
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2242D3A380A
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557730; cv=none; b=mBtKYnIgpYczqh/xrGAmYtXxLHPaSnPT5mJPAsxC5lD6CNPDCps1YvG1tc4hvw3EvqIPHIehQlUPBoaC1b3i0Ua7+lO5kkPRAF5UarQPYDtBsTQGTKGzhaNB9BMMh37fHmaWmkiKrOqN0Z1dj+COktHhslIMTgyBs+HHAH272wM=
+	t=1784557745; cv=none; b=szrQW9F4BtZ86p+Z7ZV5+CeAO2/tLOHC8DDju3d5qh0j+vd+2zDcKElwcMtjLe964BLZ8W+ta4jzCu4s99gWkjhrwxs6XZhkBFnR7PvBU7sDzTQHzpQbB1AkBG1CnSAI//rZKz1MiTxnvMR0SeLcMyq15S4JLdtbw640K9m780I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557730; c=relaxed/simple;
-	bh=hTVMaQHTLgNvny7LkSCUp10zFfA7trbQDLlXjeXYHp4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=flCyFeYO0x1aBhmfZ2AXxgXenU5aMibGc1QZ/7Djl9IWgrLIK3svVNUcD/vyBQom4BVHriz+XfM73vRehUv83G1mPX3sU6xgn5bl2B97NaNKcNKMPJfWaeRqKRtptqy1HCC/pP4lw/1yVooaHCkUZV6PDbQarpaxsNWj4NTUKio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pskqXCUd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557745; c=relaxed/simple;
+	bh=RWrppgNvtU6ZBKIvIO3+GPQyN/Ki7GdSxA3loLg4InM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=h31RflS+YR+HDYMHlo5m4BU70YtqyFb5h7ZX+vz7cEs/OrIbij1ah2zI8kXVse66Eczoozzn3+fZmI6faNAmZ3Tavis7BPjEUke6chiLJ2hvtcYINXJdTyTWfOwdZBxUEs+gUdzn/BlvcWlN+DvB73LJpVNK4xH/MHrZfdvGHnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bT654izs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pskqXCUd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421111F00A3A;
-	Mon, 20 Jul 2026 14:28:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bT654izs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63FDA1F00A3A;
+	Mon, 20 Jul 2026 14:29:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557728;
-	bh=5MK/5rnKKSQP7NQ3jQBl9fvErViKwRFEpihGR6ni7VU=;
+	s=korg; t=1784557743;
+	bh=akix6vvXtnlClfzE+Qta6UUBUSgn4TLE7e9CMJ/UxYk=;
 	h=Subject:To:Cc:From:Date;
-	b=pskqXCUdbvUoRBqdJHbtOC+fWUrR+k6o2L+EaiBCnniwpgxasFIKDyjEN33cVqeAe
-	 r2bVs/+RmeNjzayFfGvfh+tpq/wNcMwSn4wgJuOMXujZTThexjeKn/iYXunvwnF/FH
-	 D/JQFhdtk8CI2URV/q3l4TG9CmUjVsqe7VsKhFnA=
-Subject: FAILED: patch "[PATCH] mm/damon/core: always put unsuccessfully committed target" failed to apply to 6.12-stable tree
+	b=bT654izsNnMVNJN+SC8/MBPvANo6U4qeWF/bOsLwnt0i0TYlWKUZM0TdBhV8MjZXk
+	 tt6nAhxeWV3lNlLTSjnf49BlVl2SijbG5W7htx9UmY7YaBS0GY+gNiFw0d9uklxSlq
+	 JkvscYWxoJ6dGPfJSu5/ig3SN0/XAB2/dGzGruTM=
+Subject: FAILED: patch "[PATCH] mm/damon/sysfs-schemes: fix dir put orders in" failed to apply to 6.1-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:28:31 +0200
-Message-ID: <2026072031-shingle-buddy-1bbb@gregkh>
+Date: Mon, 20 Jul 2026 16:28:54 +0200
+Message-ID: <2026072054-throwing-myth-2a13@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6a66c557a2ab2609575bafd15e093669c05f9711
+git cherry-pick -x d58fdbe37a829fd2e5803dd4e5a72992dd8c5368
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072031-shingle-buddy-1bbb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072054-throwing-myth-2a13@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,160 +62,66 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6a66c557a2ab2609575bafd15e093669c05f9711 Mon Sep 17 00:00:00 2001
+From d58fdbe37a829fd2e5803dd4e5a72992dd8c5368 Mon Sep 17 00:00:00 2001
 From: SeongJae Park <sj@kernel.org>
-Date: Thu, 4 Jun 2026 18:38:48 -0700
-Subject: [PATCH] mm/damon/core: always put unsuccessfully committed target
- pids
+Date: Wed, 17 Jun 2026 17:56:47 -0700
+Subject: [PATCH] mm/damon/sysfs-schemes: fix dir put orders in
+ access_pattern_add_dirs()
 
-damon_commit_target() puts and gets the destination and the source target
-pids.  It puts the destination target pid because it will be overwritten
-by the source target pid.  It gets the source pid because the caller is
-supposed to eventually put the pids.  In more detail, the caller will call
-damon_destroy_ctx() after damon_commit_ctx() to destroy the entire source
-context.  And in this case, [f]vaddr operation set's cleanup_target()
-callback will put the pids.
+Patch series "mm/damon/sysfs-schemes: fix wrong directories put orders in
+error paths".
 
-The commit operation is made at the context level.  The operation can fail
-in multiple places including in the middle and after the targets commit
-operations.  For any such failures, immediately the error is returned to
-the damon_commit_ctx() caller.  If some or all of the source target pids
-were committed to the destination during the unsuccessful context commit
-attempt, those pids should be put twice.
+Error paths of damon_sysfs_access_pattern_add_dirs() and
+damon_sysfs_scheme_add_dirs() functions put references to directories in
+wrong orders.  As a result, uninitialized memory dereference and/or
+memory leak can happen.  Fix those.
 
-The source context will do the put operations using the above explained
-routine.  However, let's suppose the destination context was not
-originally using [f]vaddr operation set and the commit failed before the
-ops of the source context is committed.  The destination does not have the
-cleanup_target() ops callback, so it cannot put the pids via the
-damon_destroy_ctx().
 
-As a result, the pids are leaked.  The issue in the real world would be
-not very common.  The commit feature is for changing parameters of running
-DAMON context while inheriting internal status like the monitoring
-results.  The monitoring results of a physical address range ain't have
-things that are beneficial to be inherited to a virtual address ranges
-monitoring.  So the problem-causing DAMON control would be not very common
-in the real world.  That said, it is a supported feature.  And
-damon_commit_target() failure due to memory allocation is relatively
-realistic [1] if there are a huge number of target regions.
+This patch (of 2):
 
-Fix by putting the pids in the commit operation in case of the failures.
+In access_pattern_add_dirs(), error handling path puts references starting
+from setup failed directories.  If the failure happpened from the initial
+allication in the setup functions, uninitialized memory dereference
+happen.  The allocation failures will not commonly happen, but the
+consequence is quite bad.  Fix the wrong reference put orders.
 
-The issue was discovered [2] by Sashiko.
+The issue was discovered [1] by Sashiko.
 
-Link: https://lore.kernel.org/20260605013849.83750-1-sj@kernel.org
-Link: https://lore.kernel.org/20260603112306.58490-1-akinobu.mita@gmail.com [1]
-Link: https://lore.kernel.org/20260320020056.835-1-sj@kernel.org [2]
-Fixes: 83dc7bbaecae ("mm/damon/sysfs: use damon_commit_ctx()")
+Link: https://lore.kernel.org/20260618005650.83868-2-sj@kernel.org
+Link: https://lore.kernel.org/20260617060005.86852-1-sj@kernel.org [1]
+Fixes: 7e84b1f8212a ("mm/damon/sysfs: support DAMON-based Operation Schemes")
 Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.11.x
+Cc: <stable@vger.kernel.org> # 5.18.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 265d51ade25b..7e4b9affc5b0 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1387,10 +1387,36 @@ static int damon_commit_target(
+diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
+index 329cfd0bbe9f..7c00aa78b2f5 100644
+--- a/mm/damon/sysfs-schemes.c
++++ b/mm/damon/sysfs-schemes.c
+@@ -1993,22 +1993,19 @@ static int damon_sysfs_access_pattern_add_dirs(
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->sz, "sz");
+ 	if (err)
+-		goto put_sz_out;
++		return err;
+ 
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->nr_accesses, "nr_accesses");
+ 	if (err)
+-		goto put_nr_accesses_sz_out;
++		goto put_sz_out;
+ 
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->age, "age");
+ 	if (err)
+-		goto put_age_nr_accesses_sz_out;
++		goto put_nr_accesses_sz_out;
  	return 0;
- }
  
-+/*
-+ * damon_revert_target_commits() - revert unsuccessful target commits.
-+ * @dst:	Commit destination context
-+ * @failed:	Commit failed destination target
-+ * @src:	Commit source context
-+ *
-+ * Revert target states that changed by damon_commit_target(), and cannot be
-+ * cleaned up by the destination context's ops.cleanup_target().
-+ */
-+static void damon_revert_target_commits(struct damon_ctx *dst,
-+		struct damon_target *failed, struct damon_ctx *src)
-+{
-+	struct damon_target *target;
-+
-+	if (!damon_target_has_pid(src))
-+		return;
-+	if (dst->ops.cleanup_target)
-+		return;
-+	damon_for_each_target(target, dst) {
-+		if (target == failed)
-+			return;
-+		put_pid(target->pid);
-+	}
-+}
-+
- static int damon_commit_targets(
- 		struct damon_ctx *dst, struct damon_ctx *src)
- {
- 	struct damon_target *dst_target, *next, *src_target, *new_target;
-+	struct damon_target *failed;
- 	int i = 0, j = 0, err;
- 
- 	damon_for_each_target_safe(dst_target, next, dst) {
-@@ -1404,8 +1430,10 @@ static int damon_commit_targets(
- 					dst_target, damon_target_has_pid(dst),
- 					src_target, damon_target_has_pid(src),
- 					src->min_region_sz);
--			if (err)
--				return err;
-+			if (err) {
-+				failed = dst_target;
-+				goto out;
-+			}
- 		} else {
- 			struct damos *s;
- 
-@@ -1419,25 +1447,34 @@ static int damon_commit_targets(
- 		}
- 	}
- 
-+	failed = NULL;
- 	damon_for_each_target_safe(src_target, next, src) {
- 		if (j++ < i)
- 			continue;
- 		/* target to remove has no matching dst */
--		if (src_target->obsolete)
--			return -EINVAL;
-+		if (src_target->obsolete) {
-+			err = -EINVAL;
-+			goto out;
-+		}
- 		new_target = damon_new_target();
--		if (!new_target)
--			return -ENOMEM;
-+		if (!new_target) {
-+			err = -ENOMEM;
-+			goto out;
-+		}
- 		err = damon_commit_target(new_target, false,
- 				src_target, damon_target_has_pid(src),
- 				src->min_region_sz);
- 		if (err) {
- 			damon_destroy_target(new_target, NULL);
--			return err;
-+			goto out;
- 		}
- 		damon_add_target(dst, new_target);
- 	}
- 	return 0;
-+
-+out:
-+	damon_revert_target_commits(dst, failed, src);
-+	return err;
- }
- 
- static void damon_commit_filter(struct damon_filter *dst,
-@@ -1571,8 +1608,10 @@ int damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src)
- 	 */
- 	if (!damon_attrs_equals(&dst->attrs, &src->attrs)) {
- 		err = damon_set_attrs(dst, &src->attrs);
--		if (err)
-+		if (err) {
-+			damon_revert_target_commits(dst, NULL, src);
- 			return err;
-+		}
- 	}
- 	dst->pause = src->pause;
- 	dst->ops = src->ops;
+-put_age_nr_accesses_sz_out:
+-	kobject_put(&access_pattern->age->kobj);
+-	access_pattern->age = NULL;
+ put_nr_accesses_sz_out:
+ 	kobject_put(&access_pattern->nr_accesses->kobj);
+ 	access_pattern->nr_accesses = NULL;
 
