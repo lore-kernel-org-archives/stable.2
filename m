@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897133E9C08
-	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937993A380A
+	for <stable@vger.kernel.org>; Mon, 20 Jul 2026 14:28:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784557690; cv=none; b=Zh6s4LeDkP8h9ZhMpFJ5WOrbL0kLHV21qj2pvDf6N4cYbcb/pPbuZv5vHollW2Kj/a6NRPAXh6FI6NhgS9b+UG88ZJFrAESazHqqoJTC7m3dshcbeVB/iec2pOcd0m3bEf34se28mse1erhDF2eOQnzfCLHIn+rTC8v7bTq3ha4=
+	t=1784557722; cv=none; b=WMADYwJv/4MrysGvviaoWyZraaVCXsdc510F+JmLCo7jdcRghJKRsirPhCKQhZ7DqKlwbzXX8Lrxo3kZ6TSef0+yGD3rtyCOZ4FkLiY3cNpO74j7emguAC/ajVWmaFLH1rKs2iXIbjToOqLhOkqCIJq3Ei3kEUuibnRAKwR43Z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784557690; c=relaxed/simple;
-	bh=PYsuzSGVo2uL3FwhAraWjfsYDWpM7uMaiauyFN3IE3k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kMEMsngNhomCuwEan4R0TF3yPu45Vj1AFCbgMuZ8d7/26fstHiwEGD9pKiESo9BQhtLrti4GeWhZ8J1iWYzP9iJmg+stNkB43uDdFH3Sm+zHDXs8DQH11o4QwR7sanqKYzIEYYpVvFDykQxbVCRHjNxQvAP6Z45st8brA+T6TF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ByAKslbB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784557722; c=relaxed/simple;
+	bh=z2ILuPcdivdckkxS147vN/yMEdFB1UUsqsClItb1Jh8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=n8v1xXhqsypDCry94xX3/Vx4mLOMQcjWiAEYAlst2WOuU9Eg7mPHwX2DpyJgrht4jXVT1P32E+JoCVrSdHDqNMqafrkzUdxfXFVbSLwXX0vjoR0o5/anvIgFx0ud9JojQv58EgtqQAWtVDEJEqigLKox3alda1izuA1fZ3Mbyiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Yw/ETwj6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ByAKslbB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98EF1F000E9;
-	Mon, 20 Jul 2026 14:28:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Yw/ETwj6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CED31F00A3A;
+	Mon, 20 Jul 2026 14:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784557689;
-	bh=Xb6oyVWsLY+U43M+D3avWERzlUqjT5HNRg/D4c/l2po=;
+	s=korg; t=1784557720;
+	bh=J6mkUKc77v6WAnsLjumNoqCJyygjVSvfQcPRncLl20I=;
 	h=Subject:To:Cc:From:Date;
-	b=ByAKslbBeaK4EL5deCIoFft2P7g9uTdshoGNaJaBlLBLvvE6MxWlvA7Tb6Zz3Vc1o
-	 75s4Sj+IJmMQHWjennRXxaJiyuPUnMka8avi2X2BoFBeTz04HvcmWAFj/ZXIxqcthP
-	 kNgQtrQpVkDg5xg9/BSI5n6emUH7wRhXHu4bpLB0=
-Subject: FAILED: patch "[PATCH] mips: sched: Fix CPUMASK_OFFSTACK memory corruption" failed to apply to 5.10-stable tree
-To: atomlin@atomlin.com,tsbogend@alpha.franken.de
+	b=Yw/ETwj6IlRT78Xk+3wl4Xg2bNrux3tU0sUS8ZAHkFuB28bC772zfCyCcOvJKWPMU
+	 WWhjapldj9zYkUBhM3gSij/rfJZTeXt0KMkT34xspPr7IDoE1m/ByN5dmim+hGa4mV
+	 /BbBjtwKsvrRIlWe/qeHli+wSP+4ZwjxZokUu9m0=
+Subject: FAILED: patch "[PATCH] mm/damon/core: always put unsuccessfully committed target" failed to apply to 6.18-stable tree
+To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 20 Jul 2026 16:28:00 +0200
-Message-ID: <2026072000-riveter-snowsuit-903d@gregkh>
+Date: Mon, 20 Jul 2026 16:28:31 +0200
+Message-ID: <2026072031-machine-rectified-f366@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 98e37db4a34d3af3fb2f4648295c25b5e40b20e3
+git cherry-pick -x 6a66c557a2ab2609575bafd15e093669c05f9711
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072000-riveter-snowsuit-903d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072031-machine-rectified-f366@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,92 +62,160 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 98e37db4a34d3af3fb2f4648295c25b5e40b20e3 Mon Sep 17 00:00:00 2001
-From: Aaron Tomlin <atomlin@atomlin.com>
-Date: Tue, 26 May 2026 10:16:51 -0400
-Subject: [PATCH] mips: sched: Fix CPUMASK_OFFSTACK memory corruption
+From 6a66c557a2ab2609575bafd15e093669c05f9711 Mon Sep 17 00:00:00 2001
+From: SeongJae Park <sj@kernel.org>
+Date: Thu, 4 Jun 2026 18:38:48 -0700
+Subject: [PATCH] mm/damon/core: always put unsuccessfully committed target
+ pids
 
-This patch addresses a critical memory management flaw. When
-CONFIG_CPUMASK_OFFSTACK is enabled, cpumask_var_t is a pointer.
-Consequently, sizeof(new_mask) evaluates to the pointer size, causing
-copy_from_user() to clobber the mask pointer. Furthermore, the old
-logic performed copy_from_user() before allocating the mask.
+damon_commit_target() puts and gets the destination and the source target
+pids.  It puts the destination target pid because it will be overwritten
+by the source target pid.  It gets the source pid because the caller is
+supposed to eventually put the pids.  In more detail, the caller will call
+damon_destroy_ctx() after damon_commit_ctx() to destroy the entire source
+context.  And in this case, [f]vaddr operation set's cleanup_target()
+callback will put the pids.
 
-Fix this by allocating new_mask first. To handle variable-sized user
-masks correctly, use cpumask_size() to truncate overly large user masks
-or pad undersized masks with zeros before copying the data directly into
-the allocated buffer.
+The commit operation is made at the context level.  The operation can fail
+in multiple places including in the middle and after the targets commit
+operations.  For any such failures, immediately the error is returned to
+the damon_commit_ctx() caller.  If some or all of the source target pids
+were committed to the destination during the unsuccessful context commit
+attempt, those pids should be put twice.
 
-Fixes: 295cbf6d63165 ("[MIPS] Move FPU affinity code into separate file.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+The source context will do the put operations using the above explained
+routine.  However, let's suppose the destination context was not
+originally using [f]vaddr operation set and the commit failed before the
+ops of the source context is committed.  The destination does not have the
+cleanup_target() ops callback, so it cannot put the pids via the
+damon_destroy_ctx().
 
-diff --git a/arch/mips/kernel/mips-mt-fpaff.c b/arch/mips/kernel/mips-mt-fpaff.c
-index 10172fc4f627..4fead87d2f43 100644
---- a/arch/mips/kernel/mips-mt-fpaff.c
-+++ b/arch/mips/kernel/mips-mt-fpaff.c
-@@ -71,11 +71,16 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
- 	struct task_struct *p;
- 	int retval;
- 
--	if (len < sizeof(new_mask))
--		return -EINVAL;
--
--	if (copy_from_user(&new_mask, user_mask_ptr, sizeof(new_mask)))
--		return -EFAULT;
-+	if (!alloc_cpumask_var(&new_mask, GFP_KERNEL))
-+		return -ENOMEM;
-+	if (len < cpumask_size())
-+		cpumask_clear(new_mask);
-+	else if (len > cpumask_size())
-+		len = cpumask_size();
-+	if (copy_from_user(new_mask, user_mask_ptr, len)) {
-+		retval = -EFAULT;
-+		goto out_free_new_mask;
-+	}
- 
- 	cpus_read_lock();
- 	rcu_read_lock();
-@@ -84,7 +89,8 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
- 	if (!p) {
- 		rcu_read_unlock();
- 		cpus_read_unlock();
--		return -ESRCH;
-+		retval = -ESRCH;
-+		goto out_free_new_mask;
- 	}
- 
- 	/* Prevent p going away */
-@@ -95,13 +101,9 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
- 		retval = -ENOMEM;
- 		goto out_put_task;
- 	}
--	if (!alloc_cpumask_var(&new_mask, GFP_KERNEL)) {
--		retval = -ENOMEM;
--		goto out_free_cpus_allowed;
--	}
- 	if (!alloc_cpumask_var(&effective_mask, GFP_KERNEL)) {
- 		retval = -ENOMEM;
--		goto out_free_new_mask;
-+		goto out_free_cpus_allowed;
- 	}
- 	if (!check_same_owner(p) && !capable(CAP_SYS_NICE)) {
- 		retval = -EPERM;
-@@ -142,13 +144,13 @@ asmlinkage long mipsmt_sys_sched_setaffinity(pid_t pid, unsigned int len,
- 	}
- out_unlock:
- 	free_cpumask_var(effective_mask);
--out_free_new_mask:
--	free_cpumask_var(new_mask);
- out_free_cpus_allowed:
- 	free_cpumask_var(cpus_allowed);
- out_put_task:
- 	put_task_struct(p);
- 	cpus_read_unlock();
-+out_free_new_mask:
-+	free_cpumask_var(new_mask);
- 	return retval;
+As a result, the pids are leaked.  The issue in the real world would be
+not very common.  The commit feature is for changing parameters of running
+DAMON context while inheriting internal status like the monitoring
+results.  The monitoring results of a physical address range ain't have
+things that are beneficial to be inherited to a virtual address ranges
+monitoring.  So the problem-causing DAMON control would be not very common
+in the real world.  That said, it is a supported feature.  And
+damon_commit_target() failure due to memory allocation is relatively
+realistic [1] if there are a huge number of target regions.
+
+Fix by putting the pids in the commit operation in case of the failures.
+
+The issue was discovered [2] by Sashiko.
+
+Link: https://lore.kernel.org/20260605013849.83750-1-sj@kernel.org
+Link: https://lore.kernel.org/20260603112306.58490-1-akinobu.mita@gmail.com [1]
+Link: https://lore.kernel.org/20260320020056.835-1-sj@kernel.org [2]
+Fixes: 83dc7bbaecae ("mm/damon/sysfs: use damon_commit_ctx()")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.11.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 265d51ade25b..7e4b9affc5b0 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1387,10 +1387,36 @@ static int damon_commit_target(
+ 	return 0;
  }
  
++/*
++ * damon_revert_target_commits() - revert unsuccessful target commits.
++ * @dst:	Commit destination context
++ * @failed:	Commit failed destination target
++ * @src:	Commit source context
++ *
++ * Revert target states that changed by damon_commit_target(), and cannot be
++ * cleaned up by the destination context's ops.cleanup_target().
++ */
++static void damon_revert_target_commits(struct damon_ctx *dst,
++		struct damon_target *failed, struct damon_ctx *src)
++{
++	struct damon_target *target;
++
++	if (!damon_target_has_pid(src))
++		return;
++	if (dst->ops.cleanup_target)
++		return;
++	damon_for_each_target(target, dst) {
++		if (target == failed)
++			return;
++		put_pid(target->pid);
++	}
++}
++
+ static int damon_commit_targets(
+ 		struct damon_ctx *dst, struct damon_ctx *src)
+ {
+ 	struct damon_target *dst_target, *next, *src_target, *new_target;
++	struct damon_target *failed;
+ 	int i = 0, j = 0, err;
+ 
+ 	damon_for_each_target_safe(dst_target, next, dst) {
+@@ -1404,8 +1430,10 @@ static int damon_commit_targets(
+ 					dst_target, damon_target_has_pid(dst),
+ 					src_target, damon_target_has_pid(src),
+ 					src->min_region_sz);
+-			if (err)
+-				return err;
++			if (err) {
++				failed = dst_target;
++				goto out;
++			}
+ 		} else {
+ 			struct damos *s;
+ 
+@@ -1419,25 +1447,34 @@ static int damon_commit_targets(
+ 		}
+ 	}
+ 
++	failed = NULL;
+ 	damon_for_each_target_safe(src_target, next, src) {
+ 		if (j++ < i)
+ 			continue;
+ 		/* target to remove has no matching dst */
+-		if (src_target->obsolete)
+-			return -EINVAL;
++		if (src_target->obsolete) {
++			err = -EINVAL;
++			goto out;
++		}
+ 		new_target = damon_new_target();
+-		if (!new_target)
+-			return -ENOMEM;
++		if (!new_target) {
++			err = -ENOMEM;
++			goto out;
++		}
+ 		err = damon_commit_target(new_target, false,
+ 				src_target, damon_target_has_pid(src),
+ 				src->min_region_sz);
+ 		if (err) {
+ 			damon_destroy_target(new_target, NULL);
+-			return err;
++			goto out;
+ 		}
+ 		damon_add_target(dst, new_target);
+ 	}
+ 	return 0;
++
++out:
++	damon_revert_target_commits(dst, failed, src);
++	return err;
+ }
+ 
+ static void damon_commit_filter(struct damon_filter *dst,
+@@ -1571,8 +1608,10 @@ int damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src)
+ 	 */
+ 	if (!damon_attrs_equals(&dst->attrs, &src->attrs)) {
+ 		err = damon_set_attrs(dst, &src->attrs);
+-		if (err)
++		if (err) {
++			damon_revert_target_commits(dst, NULL, src);
+ 			return err;
++		}
+ 	}
+ 	dst->pause = src->pause;
+ 	dst->ops = src->ops;
 
