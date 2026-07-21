@@ -1,43 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45213B19D9;
-	Tue, 21 Jul 2026 05:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467F9404BF9;
+	Tue, 21 Jul 2026 05:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784612404; cv=none; b=c9MUIDxRxg9Vq/jKsQuYkv/cUAJvBJG0mrM7eZIaUYUFP32yX6pH77tvM+smup/FmF24mXkuQ5qnEf83fkjhlzzA7qJVp5/MZCu/v8ZEeiqvkVla5eeD4xDfhj25+216K/WPHYRH2B8ff4bmCT6mJRgSOb61KwQtf9Bjqy7quA8=
+	t=1784613368; cv=none; b=uEajAh5xssyPoXW7l8h+1NZIGpMuoitsp1snr7PcAMticbBNBCmTWJ4MoCNeWC/wGeQyqJdkvi3Ds8DHauzAUPAmz36JH3ImFFhermec2dZXL3NEj1JpKl3R2jKfwaCL3hm5I5bUBfHKHRafZZrLUml+9IeAapbVP4H99KfJ4m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784612404; c=relaxed/simple;
-	bh=c4M3jRlqtSx7k4Fs9CzNUbTBEh8/1wpB1NIh1fvqsnM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=miWF6gt3hGf4hqwehrHupRHscfWDTgZ6MbTzGLc5UrcvU/N/LflEC2w2ktpx2ddJXVsUC4P1t1qzAeOpZIj7OSPjbLBp11xSizVQU9gLt+Z3ohZmk+CGqgjNQrohY4MYjwoXiTxSKfzGttlPUsYvBEQHk1EU0howvGf6Bups298=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCpBk2wW; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCpBk2wW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3781F000E9;
-	Tue, 21 Jul 2026 05:40:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784612402;
-	bh=PuflvRpV0/G/rMKVpE40NhiuuK6VGHdPh4LWwMCVrYw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OCpBk2wW3HItgx7By34nRekSmYcmte2f80VOSPeAlopjTxJN6bme18tUQyLvcIcRP
-	 rvTt9w2h5iDRQBjdQRT3F6Jb6UJil+bFdiBCdHLQL2O1aADrLuEZi6PXvvlH0IQ4Z9
-	 QflsWVgPikFhjWy0R6NVqKPM7/YZZ0V6fAKDp/L0e+Kg7T1wZPWWVLTG42AKAVBV+o
-	 wp5qGevP/5eIJaZsE4Mcgn6Z4EsMcCtjdNJtXJpck3p//Y2IUsPQ6EvOUk/JzJO7a9
-	 2Z6OYQ1OmwaYGOcRV9Ml+1ENA9n5UJLMrh2k9MrM9kE5EmXL7mxcw414wQOiK2+6Ll
-	 nT4BWvR1rlemg==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 7.1.y] samples/damon/mtier: fail early if address range parameters are invalid
-Date: Mon, 20 Jul 2026 22:39:53 -0700
-Message-ID: <20260721053953.181336-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072007-eldercare-amusing-37b4@gregkh>
-References: <2026072007-eldercare-amusing-37b4@gregkh>
+	s=arc-20240116; t=1784613368; c=relaxed/simple;
+	bh=Y2gwgHaEj+jCfi3QyAWF0Bcz8UsY+imk7JgmQWPie/U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gNxUEo2EuBSb1jnHpYlKJS79yy82NUKGO3x6t3/QGm+3ggG9xysYT9q/hNWPZE/xoAeEicj6eWZVnFQy/l0tnKGp/Y6zpSI6TzFaO2L4iPYf/QMdxL61TahTQA8+JQYF3E6i6SIGk0OWUdPUCMhe54oi1B6RjKoxwZWdfg5m+O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d755ea0c84c811f1aa26b74ffac11d73-20260721
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:3abbd7cb-4d31-4bfa-9081-963275be62bb,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:e7bac3a,CLOUDID:ae008b5714b89812c1283027768eccd9,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d755ea0c84c811f1aa26b74ffac11d73-20260721
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1894067425; Tue, 21 Jul 2026 13:55:56 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Haotian Zhang <vulab@iscas.ac.cn>,
+	Tomohiro Yoshidomi <sylph23k@gmail.com>,
+	David Rheinsberg <david@readahead.eu>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: psxpad-spi - set driver data before use
+Date: Tue, 21 Jul 2026 13:55:51 +0800
+Message-Id: <20260721055551.1714965-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,75 +53,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zenghui Yu <yuzenghui@huawei.com>
+psxpad_spi_suspend() retrieves the controller state with
+spi_get_drvdata(), but probe never stores it, so suspend dereferences a
+NULL pointer. Store it during probe.
 
-The comment on top of `struct damon_region` clearly says that
-
-    For any use case, @ar should be non-zero positive size.
-
-which is now verified in damon_verify_new_region() if the kernel is built
-with DAMON_DEBUG_SANITY.
-
-The WARN_ONCE() can be triggered if the mtier sample module is enabled
-before node{0,1}_{start,end}_addr have been properly initialized, which is
-obviously not good.
-
- ------------[ cut here ]------------
- start 0 >= end 0
- WARNING: mm/damon/core.c:217 at damon_new_region+0xf4/0x118, CPU#59: bash/341468
- Call trace:
-  damon_new_region+0xf4/0x118 (P)
-  damon_set_regions+0xfc/0x3c0
-  damon_sample_mtier_build_ctx+0xe8/0x3a8
-  damon_sample_mtier_start+0x1c/0x90
-  damon_sample_mtier_enable_store+0x98/0xb0
-  param_attr_store+0xb4/0x128
-  module_attr_store+0x2c/0x50
-  sysfs_kf_write+0x58/0x90
-  kernfs_fop_write_iter+0x16c/0x238
-  vfs_write+0x2c0/0x370
-  ksys_write+0x74/0x118
-  __arm64_sys_write+0x24/0x38
-  invoke_syscall+0xa8/0x118
-  el0_svc_common.constprop.0+0x48/0xf0
-  do_el0_svc+0x24/0x38
-  el0_svc+0x54/0x370
-  el0t_64_sync_handler+0xa0/0xe8
-  el0t_64_sync+0x1ac/0x1b0
- ---[ end trace 0000000000000000 ]---
-
-Note that the same issue can happen if detect_node_addresses is true, and
-node 0 or 1 is memoryless.  Fix it together by checking the validity of
-parameters right before damon_new_region() and fail early if they're
-invalid.
-
-Link: https://lore.kernel.org/20260629144432.133962-1-sj@kernel.org
-Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
-Signed-off-by: Zenghui Yu <yuzenghui@huawei.com>
-Signed-off-by: SJ Park <sj@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.16.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 7746d72c64054976887928d64d2caf25c5a6dcc0)
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: 8be193c7b1f4 ("Input: add support for PlayStation 1/2 joypads connected via SPI")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 ---
- samples/damon/mtier.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/input/joystick/psxpad-spi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/samples/damon/mtier.c b/samples/damon/mtier.c
-index 775838a23d935..7f84367ad3e58 100644
---- a/samples/damon/mtier.c
-+++ b/samples/damon/mtier.c
-@@ -120,6 +120,9 @@ static struct damon_ctx *damon_sample_mtier_build_ctx(bool promote)
- 		addr.end = promote ? node1_end_addr : node0_end_addr;
- 	}
+diff --git a/drivers/input/joystick/psxpad-spi.c b/drivers/input/joystick/psxpad-spi.c
+index f902a56d011f..b1ab2486bb0d 100644
+--- a/drivers/input/joystick/psxpad-spi.c
++++ b/drivers/input/joystick/psxpad-spi.c
+@@ -301,6 +301,7 @@ static int psxpad_spi_probe(struct spi_device *spi)
+ 	/* input poll device settings */
+ 	pad->idev = idev;
+ 	pad->spi = spi;
++	spi_set_drvdata(spi, pad);
  
-+	if (addr.start >= addr.end)
-+		goto free_out;
-+
- 	region = damon_new_region(addr.start, addr.end);
- 	if (!region)
- 		goto free_out;
+ 	/* input device settings */
+ 	input_set_drvdata(idev, pad);
 -- 
-2.47.3
+2.25.1
 
