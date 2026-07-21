@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348DE23394E;
-	Tue, 21 Jul 2026 05:37:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45213B19D9;
+	Tue, 21 Jul 2026 05:40:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784612247; cv=none; b=YbXx9fgzlwfkHJzLf0odvcCbNoPVcJzxZpRYu1F2dokO/Fy0tuU8hKMsEzuNg9HMXCl/nqQjJ5ggcbQc74V3S12+1WRuCwje3wFcoM8ZXoNamBQw+YOtwDEcFrs4tNIQvQqesWktxLcer4BfkRFkhRGEOj6018UVs4YqqJV9x4A=
+	t=1784612404; cv=none; b=c9MUIDxRxg9Vq/jKsQuYkv/cUAJvBJG0mrM7eZIaUYUFP32yX6pH77tvM+smup/FmF24mXkuQ5qnEf83fkjhlzzA7qJVp5/MZCu/v8ZEeiqvkVla5eeD4xDfhj25+216K/WPHYRH2B8ff4bmCT6mJRgSOb61KwQtf9Bjqy7quA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784612247; c=relaxed/simple;
-	bh=Fs32/Rj+5wkyYKtsUBdarEl+Wndjy3GcwXijEqLBn5M=;
+	s=arc-20240116; t=1784612404; c=relaxed/simple;
+	bh=c4M3jRlqtSx7k4Fs9CzNUbTBEh8/1wpB1NIh1fvqsnM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sRzVMK4dM6tsJLKQetjGfevPjsU+bTIMPREgQrqWWMc3U7iD0EoiH3FvsIAs2Vu8gzuVyV3ny6Gnb4LvTvTytPwFN4lH0RteW+1zFwBQlJ3MIvhFnjB73SP5zL2uTfXh1wXNmQT+jycYs1cUsWKRk6sgsKZ8RxWFe5yrA9bHfvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gLSL5hr8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=miWF6gt3hGf4hqwehrHupRHscfWDTgZ6MbTzGLc5UrcvU/N/LflEC2w2ktpx2ddJXVsUC4P1t1qzAeOpZIj7OSPjbLBp11xSizVQU9gLt+Z3ohZmk+CGqgjNQrohY4MYjwoXiTxSKfzGttlPUsYvBEQHk1EU0howvGf6Bups298=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCpBk2wW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gLSL5hr8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4021F000E9;
-	Tue, 21 Jul 2026 05:37:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCpBk2wW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3781F000E9;
+	Tue, 21 Jul 2026 05:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784612246;
-	bh=RGsup1c1AD/U6aOlIhmnfWYsM4x3sjH6Ebvzt7E0ixU=;
+	s=k20260515; t=1784612402;
+	bh=PuflvRpV0/G/rMKVpE40NhiuuK6VGHdPh4LWwMCVrYw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gLSL5hr8CB43HPFhdQxoGHwJAosG4o9XRKBAZREUt3ZLvHyeO4pZYQDnlb3lXLd5w
-	 7mMZcInyuAyOzLY9vLmcbyO+AAFI4XNIbbpPcc/pu45Az7M9XX8vtLyQ5AXpzI1gtG
-	 d8mMiCn6k/f30yyJ5gTOP7ElNzhEja8tw+XObE3zYW9AiKtKl+79MSel5NVLJD42qU
-	 Y064rx2XofN45WTnA3Kfe5YGGt6VKpUyOxx/48yUmDHkoWvOzxdHdkI+uO/0N5MibV
-	 ZKY3PFu+0jnTHAFspHlB7rgcB1uC/uSxq1VSRJHVmcGdQ4JtL1UAdkTO7DqpvRVSPB
-	 xFhRaW9uQZnjw==
+	b=OCpBk2wW3HItgx7By34nRekSmYcmte2f80VOSPeAlopjTxJN6bme18tUQyLvcIcRP
+	 rvTt9w2h5iDRQBjdQRT3F6Jb6UJil+bFdiBCdHLQL2O1aADrLuEZi6PXvvlH0IQ4Z9
+	 QflsWVgPikFhjWy0R6NVqKPM7/YZZ0V6fAKDp/L0e+Kg7T1wZPWWVLTG42AKAVBV+o
+	 wp5qGevP/5eIJaZsE4Mcgn6Z4EsMcCtjdNJtXJpck3p//Y2IUsPQ6EvOUk/JzJO7a9
+	 2Z6OYQ1OmwaYGOcRV9Ml+1ENA9n5UJLMrh2k9MrM9kE5EmXL7mxcw414wQOiK2+6Ll
+	 nT4BWvR1rlemg==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	Zenghui Yu <yuzenghui@huawei.com>,
 	SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] samples/damon/mtier: fail early if address range parameters are invalid
-Date: Mon, 20 Jul 2026 22:37:18 -0700
-Message-ID: <20260721053718.177006-1-sj@kernel.org>
+Subject: [PATCH 7.1.y] samples/damon/mtier: fail early if address range parameters are invalid
+Date: Mon, 20 Jul 2026 22:39:53 -0700
+Message-ID: <20260721053953.181336-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072008-humongous-quintuple-a2a9@gregkh>
-References: <2026072008-humongous-quintuple-a2a9@gregkh>
+In-Reply-To: <2026072007-eldercare-amusing-37b4@gregkh>
+References: <2026072007-eldercare-amusing-37b4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -98,19 +98,20 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 (cherry picked from commit 7746d72c64054976887928d64d2caf25c5a6dcc0)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- samples/damon/mtier.c | 2 ++
- 1 file changed, 2 insertions(+)
+ samples/damon/mtier.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/samples/damon/mtier.c b/samples/damon/mtier.c
-index 775838a23d935..dab8fb10b617a 100644
+index 775838a23d935..7f84367ad3e58 100644
 --- a/samples/damon/mtier.c
 +++ b/samples/damon/mtier.c
-@@ -120,6 +120,8 @@ static struct damon_ctx *damon_sample_mtier_build_ctx(bool promote)
+@@ -120,6 +120,9 @@ static struct damon_ctx *damon_sample_mtier_build_ctx(bool promote)
  		addr.end = promote ? node1_end_addr : node0_end_addr;
  	}
  
 +	if (addr.start >= addr.end)
 +		goto free_out;
++
  	region = damon_new_region(addr.start, addr.end);
  	if (!region)
  		goto free_out;
