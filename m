@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB70B46F48B;
-	Tue, 21 Jul 2026 19:48:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3239F43302F
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 19:48:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784663320; cv=none; b=NgSmqF2pX9CT23fOmqttxvCLKIxtEuRDqiNlDdt0c3YnNgmU6RbUTd0HLlemZ4w99TsKjPVh7MDEvkvqujBMA94kxNzsXo/hYgFPYJQk7+lwYvcacO3T+kQWZF14u0mTofdnwqUKHd5N2xMpbYeNaT+gjZv9VBvDqWpk8ZsScyE=
+	t=1784663320; cv=none; b=hISj3tpGYVuUk7kNa3Ulm5wcIGdkVaPV8h/hrOkwcZ0QNIcpFvnQj/AQKw7HmDvQnSfPjaEXsRWXzkbCbacYYe1NWPDLIeKvp8Sm+D7kyN36j4acti/PbDODPJvwFp/+WkA/SPD15VtbbRb4cbq3cQ6S5Tvgo+CN30qa53Jqfek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784663320; c=relaxed/simple;
-	bh=J2cJFF6YGH94NpYyAH5YQceOtxLEoaMNgew6RmEAiFA=;
+	bh=k7l2pCNhy8P8YKzKiMnW0SLWxugvg5dTrrNaq53gP5o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MNOdwV4OhueaF6paZAl+DHsF3xvB0NBADls2OQLN431BW+KKaHEPQxxGJRgMpVEcSNC+EGQhoMO/e7EirQ9aqpuB80zrT7+2peRekC1y+Yh6U1LxWdvgJGNkxeoOM10atoD9GS8Yhgs+Y3R7bKA6V0iyn9sI9nJN6HjeK4FoWqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UJRA24Bn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ICTcZucpwRDi1N1RPkoiF/4EEv6g+ECWg9amkXDhOEzf2kXmBqutCAbAjzc6rFQLYCWPnOGYEHSSwlEAoFRZQvB/PPJEk1imkqh4bB7bi1oz+TXxI6DrXr0pWU5aMvS/KZoZ/x3KbBDJ9fXG31szQbCATBjLpn1GOSHQoxsS+4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dt4rd0NC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UJRA24Bn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3F21F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dt4rd0NC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9761F00A3A;
 	Tue, 21 Jul 2026 19:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784663318;
-	bh=9SbjbJqi3W0NzaZ4XmASCVdlcYjIvuzHkUkvYJNmJzg=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784663318;
+	bh=4Uv+tn3T4XAPMZXM1NjCDzF56JloQSSUwcPMgnLEk0w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UJRA24BnLj3rISi2jQjNEYcC4ZyXwSixcKm5Sz9fqHI1qSH0PfZ6bXCU2dgusNpsH
-	 rS18MoBfKusZ5JzGzuy1qnOMd9yhN0i5CITc/Uk25gCENg5NuII2+KSvOIhxQxDKiW
-	 1EYga+9RfcJLiBhru8mMxPXToCghtrCWjHL/tPQc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=dt4rd0NCMkLuDMGWeCy56KeURoTGbEWgXHMh/CVkwBhaMZqUkZm4c9A+abFsTSiRP
+	 aqCMbJz6Kd7WDarD9iTUFB9C7aLVaQsuKgo3KUDXaItdOAviO8kqIY+DH6Y/fB7CKP
+	 DvG0jl0h+NeyaJ50PzTxkFTu54e09weHJT5xlncmk0ejTBs1j2k8l6iIg2ek7pW+2o
+	 DVPJfQuKior/CyB48zheDFwmXo3Ax9ZY/9SCRhUOryqvIoKl0ZtPYTOE7H08CLQvYG
+	 EE/Psna6X78LazkCz1Rukn21yFXM/USE5Ds6MrvCg3/zo48eqZzOP5xLJSnCdvj81K
+	 zKrS6n5s61NoA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Pauli Virtanen <pav@iki.fi>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0776/1276] Bluetooth: ISO: exclude RFU bits from ISO_SDU_Length
-Date: Tue, 21 Jul 2026 17:20:19 +0200
-Message-ID: <20260721152503.442989526@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152446.065700225@linuxfoundation.org>
-References: <20260721152446.065700225@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y 5/5] i2c: core: fix adapter probe deferral loop
+Date: Tue, 21 Jul 2026 15:48:33 -0400
+Message-ID: <20260721194833.416799-5-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260721194833.416799-1-sashal@kernel.org>
+References: <2026071656-confess-dean-8762@gregkh>
+ <20260721194833.416799-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,46 +47,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Johan Hovold <johan@kernel.org>
 
-------------------
+[ Upstream commit 158efa411c57111d87bf265a3776614f32d70007 ]
 
-From: Pauli Virtanen <pav@iki.fi>
+Drivers must not probe defer after having registered devices as that
+will trigger a probe loop if the devices bind to a driver (cf. commit
+fbc35b45f9f6 ("Add documentation on meaning of -EPROBE_DEFER")).
 
-[ Upstream commit fd076d8deeab6f9f18ef13400f89e1f550df665b ]
+Move the recovery initialisation, where the GPIO lookup may fail, before
+registering the adapter to prevent this.
 
-slen contains ISO_SDU_Length (12 bits), RFU (2 bits),
-Packet_Status_Flags (2 bits).
-
-Exclude the RFU bits from hci_iso_data_len. Also add masks to the pack
-macro.
-
-Fixes: 4de0fc599eb9 ("Bluetooth: Add definitions for CIS connections")
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Fixes: 75820314de26 ("i2c: core: add generic I2C GPIO recovery")
+Cc: stable@vger.kernel.org	# 5.9
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/bluetooth/hci.h | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/i2c/i2c-core-base.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-index 999ac27050993b..41b4e27a01b9f7 100644
---- a/include/net/bluetooth/hci.h
-+++ b/include/net/bluetooth/hci.h
-@@ -2958,8 +2958,9 @@ static inline struct hci_iso_hdr *hci_iso_hdr(const struct sk_buff *skb)
- #define hci_iso_flags_pack(pb, ts)	((pb & 0x03) | ((ts & 0x01) << 2))
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index 739d9d8cce2216..73f0f3b7b5987c 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -1550,6 +1550,10 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	adap->dev.type = &i2c_adapter_type;
+ 	device_initialize(&adap->dev);
  
- /* ISO data length and flags pack/unpack */
--#define hci_iso_data_len_pack(h, f)	((__u16) ((h) | ((f) << 14)))
--#define hci_iso_data_len(h)		((h) & 0x3fff)
-+#define hci_iso_data_len_pack(h, f)	((__u16) (((h) & 0x0fff) | \
-+						  (((f) & 0x3) << 14)))
-+#define hci_iso_data_len(h)		((h) & 0x0fff)
- #define hci_iso_data_flags(h)		((h) >> 14)
++	res = i2c_init_recovery(adap);
++	if (res == -EPROBE_DEFER)
++		goto err_put_adap;
++
+ 	/*
+ 	 * This adapter can be used as a parent immediately after device_add(),
+ 	 * setup runtime-pm (especially ignore-children) before hand.
+@@ -1571,10 +1575,6 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	if (res)
+ 		goto out_reg;
  
- /* codec transport types */
+-	res = i2c_init_recovery(adap);
+-	if (res == -EPROBE_DEFER)
+-		goto out_reg;
+-
+ 	dev_dbg(&adap->dev, "adapter [%s] registered\n", adap->name);
+ 
+ #ifdef CONFIG_I2C_COMPAT
 -- 
 2.53.0
-
-
 
