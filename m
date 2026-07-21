@@ -1,127 +1,111 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A953FA5D9
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 15:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F884D90B0
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 15:07:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646265; cv=none; b=tSwxfHYMYJxB2UoZ6DYxwSYvNjznMtAI/IRCOhavTC/YxzkAqcBHtp0r2CApXIvME/o/DcQ2yzvRd7noYg5HpqtYmWxQelEXw36/yHYjAXIGofplrCarr/hNYAf9UeJ0LHZ5cNFEJRE8hFVfcM1uAxMNDzbYyYo0Hv/u920ZIl8=
+	t=1784646460; cv=none; b=bUA0mbtHBFs8zgLsiIzkI6+zYnVXPB6FpBvu8yfWL/CjmEhyfbhVI02uhUvDuwU4g1zAmC7WIyxTDe9RUUHLh1YLHozinsnKKYivzqLSW84+UTQvNB5QchrUUuAicODTfhxg9UFy6U56TN2xeLL6pPE7ToJsuNmg37DH2dSynZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646265; c=relaxed/simple;
-	bh=ESBt2axBKrVR0udVQ3Y5ZltJFCjr8Mty7mdhFuyuEm0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=opSL8d9q3xSN1Rnyj1U6soAeUpVhh4vTwd6AtYIL709KXa78dcpGaPVmMgBFr6ck8dZChGmooGthqPZHWxVAQ+oZBFo+IVgmhnycwUmFlc5/Swfe9HDe9oIOUiGJBqyT59+4gtlRveWLyHExY0i82LN0tiQ5QkRjC3V3j153oTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nWOkcaDN; arc=none smtp.client-ip=209.85.128.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
+	s=arc-20240116; t=1784646460; c=relaxed/simple;
+	bh=zGv+ZxbIKhMULgXJZIcfQf9Yr4bxNo1Zqmmu0qUQ28Q=;
+	h=Subject:Date:Message-Id:Content-Type:To:Cc:From:References:
+	 Mime-Version:In-Reply-To; b=bjlTyWQ3crnZEf10tf694qlPZzywU/26tq1FjeVJCJbNbUSV26OQRl5HieZGORgl+z6/OX6LMErGbOxGoCqTAK3T0y9xgHw7nFqYHHQI1hDsryhjsDh/EYfepQus/AMJUnw12UT+PuIhOfAvRIBol/8xvzizdqmKYg3OEa68pfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=m3LvUV4d; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nWOkcaDN"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49560dddaa4so11268205e9.3
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784646261; x=1785251061; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=knCaavhIORphHCroX5A9QpUfpRhRvM7KxVNhbgc74GY=;
-        b=nWOkcaDNnvpGiVeM2tyJKVMqubsX5Ve167nMTb0l6b32CJlYIUsUeBAoDajs7FmpAl
-         Hggk8CFHHFD2TAlK/rZYNlBcSxlMwYouBNhNaNueXn79AzEWIw6Y1zw/oEkcqGk6VBzE
-         82OFyPBYa292FZ5bCVlxC5mnTPs5MrxcjkboKtiscbF1K3xTG+0OltYsUE2UVzR96j6K
-         z1Srq8qofiGjJ8rMCQgWnWdoHIDbhhtXtPyRcovGcde85+yboi5UihrLT77X79yegsCw
-         Yv0f1DoaCMFFCxh78F6GcVmrXNHbYW5K/6cJK4sLlsdUJkTSWWkxgxEvIomP0Nqe4uzb
-         dklQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784646261; x=1785251061;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=knCaavhIORphHCroX5A9QpUfpRhRvM7KxVNhbgc74GY=;
-        b=sjaSkwV6WpH5fMPj+bAEjMHdA1l0K/5uzmNGypj9iJ9F3GMmvwfAega+6yaP5qLGvW
-         oAb5+wbFCjcsR+zakA9uLHgO8YKLWT7BtVAk5HGbnnt4yJ6NtwjwBHXnxHc7ozvPiaCr
-         6DyJiSBBgEt1u89nIpJVR+puybb8gSxHbHx6YZXtPR5OGRXMTmjASZQd9jozmtfHn5+Q
-         kpewRNC6MB1SYWkm+v0UQG407zRWmDraQSuCd1P7A0zDC8VwYNh/MpfmkQGIwCOPdpq/
-         Ed7CEvu8M1J0lN0kdgCPWerPEZZiEvkMGR5/XhhOnPtlT2UetXZCiUo49f4bBGXh0jos
-         XbcQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoFreOGFSFNKbWY9Rt0/yKhwnCjssRs8O2Xo0mmSe0k1YNE7EjRszNZHlEQyO8eY111LQf+TKM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBmuRzAh8s2mUUh5wZlP4YFUScj3WfG6TohiffiAx3khker/v7
-	ASi2eA93qfFM8wskbJV1zLHMvlfWM3xhItED3fOtFEjUENcF8E10IF3jAhLD6hMT8u4dMunZmif
-	AgW/pjvlQadGGUA==
-X-Received: from wmpj33.prod.google.com ([2002:a05:600c:48a1:b0:495:4b69:ac4c])
- (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:470a:b0:495:69bd:17f7 with SMTP id 5b1f17b1804b1-49569bd1862mr9487595e9.32.1784646260635;
- Tue, 21 Jul 2026 08:04:20 -0700 (PDT)
-Date: Tue, 21 Jul 2026 15:04:03 +0000
-In-Reply-To: <2026072139-phrasing-scroll-e4fa@gregkh>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="m3LvUV4d"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1784646448; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=2RbBOq1Kwr4ihKn9qjdSSDPQpYDoY1RBbyj60hJpC5s=;
+ b=m3LvUV4dFp19Ngb0LE8ffkiHAvzER8WWnNQQWj3koCXCncv09qE51HVhu/DbBpFd4LvUaB
+ Rf6DNLHjZizxyT112Qjh6IqkUr5hJ+l3F75C6M5ucnZKN40zIdPynPNK6hOylvqyuy6XZy
+ I5DdsA9EEoMmSb5JYIMU1045fVZJunaruil7ocueZoC0Qa8HWY/Hzy23rWKAsvdlcU1y6p
+ fX/9jekubZ5h6tJHDsn3YAYGbyqeRm8ElvWm34ACR74vJLt4PgH8kxc5YgeMwVeNb4k5nS
+ WeAr0PN8DECfhRBtjGndbYjbxeCZ+eW8pksT3HRvXOg8aJ9D2ISChBqPvct/Tg==
+Subject: [PATCH 6.1.y] platform/x86/intel-uncore-freq: Fix current_freq_khz after CPU hotplug
+Date: Tue, 21 Jul 2026 23:07:15 +0800
+Message-Id: <20260721150714.46115-2-weiguixiong@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26a5f8b2e+9ef15b+vger.kernel.org+weiguixiong@bytedance.com>
+To: <stable@vger.kernel.org>
+Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
+	"Srinivas Pandruvada" <srinivas.pandruvada@linux.intel.com>, 
+	=?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+References: <2026072030-ashamed-reformed-c254@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <2026072139-phrasing-scroll-e4fa@gregkh>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-Message-ID: <20260721150403.3680077-1-jpiecuch@google.com>
-Subject: [PATCH 7.1.y] sched_ext: Skip ops.set_weight() for disabled tasks
-From: Kuba Piecuch <jpiecuch@google.com>
-To: Greg KH <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: Kuba Piecuch <jpiecuch@google.com>, Tejun Heo <tj@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <2026072030-ashamed-reformed-c254@gregkh>
+X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
 
-When switching a task's sched_class away from sched_ext, we get the
-following sequence of events in __sched_setscheduler():
+commit 6b63520ed14b17bbe9c2103debbd2152dde1fba3 upstream.
 
-sched_change_begin()
-  switched_from_scx()
-    scx_disable_task(p)
-      ops.disable(p)
-__setscheduler_params()
-  set_load_weight()
-    reweight_task_scx(p)
-      ops.set_weight(p)
-p->sched_class = next_class;
-sched_change_end()
-  ...
+When the last CPU of a legacy uncore die goes offline,
+uncore_freq_remove_die_entry() clears control_cpu. During CPU hotplug
+re-add, uncore_freq_add_entry() still populates sysfs attributes before
+assigning the new control CPU. As a result, the current frequency read
+returns -ENXIO and current_freq_khz is omitted from the recreated sysfs
+group.
 
-Notably, ops.set_weight() is called _after_ ops.disable().
-This violates the expected semantics of the callbacks, the expectation
-being that ops.disable() can only be followed by ops.exit_task() or
-ops.enable().
+Assign control_cpu before the initial read paths and before
+create_attr_group() so sysfs recreation uses the new online CPU. If
+sysfs creation fails, restore control_cpu to -1 to keep the error path
+state consistent.
 
-Skipping the weight adjustment for disabled tasks should be harmless
-since the weight will be recalculated in scx_enable_task() if the task
-ever rejoins SCX.
-
-Fixes: 637b0682821b ("sched: Fold sched_class::switch{ing,ed}_{to,from}() into the change pattern")
-Cc: stable@vger.kernel.org # v6.19+
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-(cherry picked from commit 0e2f4ab68a89fad42e0f5a9ff4b740738e7aa1d6)
+Fixes: 4d73c6772ab7 ("platform/x86: intel-uncore-freq: Conditionally create=
+ attribute for read frequency")
+Cc: stable@vger.kernel.org
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Link: https://patch.msgid.link/20260602020752.3126-1-weiguixiong@bytedance.=
+com
+Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+[weiguixiong: Adapt to legacy uncore_read() and create_attr_group() flow.]
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
 ---
- kernel/sched/ext.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../intel/uncore-frequency/uncore-frequency-common.c  | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index 5d2d19473a82..8429bebc21a1 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -3904,6 +3904,17 @@ static void reweight_task_scx(struct rq *rq, struct task_struct *p,
- 	if (task_dead_and_done(p))
- 		return;
- 
+diff --git a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-c=
+ommon.c b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-comm=
+on.c
+index dd2e654daf..88316ceb4c 100644
+--- a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c
++++ b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c
+@@ -197,13 +197,18 @@ int uncore_freq_add_entry(struct uncore_data *data, i=
+nt cpu)
+=20
+ 	sprintf(data->name, "package_%02d_die_%02d", data->package_id, data->die_=
+id);
+=20
 +	/*
-+	 * When switching sched_class away from SCX, reweight_task_scx()
-+	 * is called _after_ scx_disable_task(). Skip calling ops.set_weight()
-+	 * since the BPF scheduler may have already forgotten the task in
-+	 * ops.disable().
-+	 * p->scx.weight will be recalculated in scx_enable_task() if the task
-+	 * ever returns to SCX class.
++	 * Set the control CPU before any read path so entry recreation after CPU
++	 * hotplug can populate read-only attributes from the new online CPU.
 +	 */
-+	if (scx_get_task_state(p) != SCX_TASK_ENABLED)
-+		return;
-+
- 	p->scx.weight = sched_weight_to_cgroup(scale_load_down(lw->weight));
- 	if (SCX_HAS_OP(sch, set_weight))
- 		SCX_CALL_OP_TASK(sch, set_weight, rq, p, p->scx.weight);
--- 
-2.55.0.229.g6434b31f56-goog
-
++	data->control_cpu =3D cpu;
+ 	uncore_read(data, &data->initial_min_freq_khz, &data->initial_max_freq_kh=
+z);
+=20
+ 	ret =3D create_attr_group(data, data->name);
+-	if (!ret) {
+-		data->control_cpu =3D cpu;
++	if (ret)
++		data->control_cpu =3D -1;
++	else
+ 		data->valid =3D true;
+-	}
+=20
+ uncore_unlock:
+ 	mutex_unlock(&uncore_lock);
+--=20
+2.39.5
