@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09B446C4D9;
-	Tue, 21 Jul 2026 19:13:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5971746C4B9
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 19:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784661239; cv=none; b=VPRnM+qp/Q6zbqbfROh6duq8dVBmvJFiXIgPOLJEHaDIUwYccEgygPmem+RkJo2eCNfM298v8VA7fOC3v36Ahb2My+nbX0GwiYwRDBUDEAB7jw9GWjhPDgeAW/iEP3eUDdAM19I8TfZ68lW4q8KgDOA5TLPKil92Tofghd0LaAI=
+	t=1784661239; cv=none; b=sDAJ0JSfN6+BX2C/686sQq14nUDOvoDapl1PFx08hmVZ8IOG7K8yXvRUocm/OE7KgJdrosEaLQuoKLYmCyGNcdZTvbn483jRv7zjc1rm7qD6vC4WsIdCN8Gxi7HdKFX28VzjAAtG77d556dXZmtle/c8bO7KQbFeJQGqLTgV6h8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784661239; c=relaxed/simple;
-	bh=MLdUXPFi25znRuqVFHVYJ5EgjFVKh2ElUOI1/Pk4jNM=;
+	bh=U1aoH4D6k8rB300V+8dAgY0Vhw2ILmfLjm1mA25og74=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mw9urHB2JZCKQ/BPJMDrkAbnSuAfOd/Ho3LQQNMS8ixRHhcCHs5OCv1H2dIuJ3q5DmRQU1YEYEHlk6POiHFjCDnS2njGvYEEZ8Ek+RldBcZlAGPoYeX1P0cfr8inoZVSPsegzG7TUbnJNlfJtAlH9Nm+UgkOtRpHN861X35RC2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JgGRLNpw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kRsfs46s/f/GOgsuY6IGhtIJjCiF88THR/NWBG9BPf/9pKK8pst3pJMRSf/OWd9sRIqhkjGFYLexunFr5MgyP14fba7bFyfHmOeq0Q+0BvDdB+xT6khGxkl0wCXD5UoPBv9+VMg+5QELzkQWb7DAWtHtsq+U/JMf3Yo4FgWhPcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H45q4asS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JgGRLNpw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566F41F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H45q4asS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F711F00A3A;
 	Tue, 21 Jul 2026 19:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784661237;
-	bh=GK72p1Mxn7IZjzLlo4iyLw1y6psHCnzcsRhq992VFH8=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784661238;
+	bh=hDcU64/gQac9duEk8vto8gUJtjU17hElbOtW2c+pW6E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JgGRLNpwaVKX16+WO7YspRA7rpGv9CCfXB7dzt6CqyTWYnw9vYlUt1Liv0YGcNpRz
-	 vIqDMRYMkVLBjuWdgF0k9mSoeDzxUXKV2VO2/fkVorPxKABH0QMyoAZMYjkPRTj7oM
-	 mZ/ijgg0diYKigo6dty0igKRgK+QgsnGZ0xrk3Jo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=H45q4asSwSr5tbzeMzYaeNS5Y3ug8ypEwHD1h2zCDStPo6QjVtDhUEHHj0pxcHUB+
+	 7CD8DIeb/mymkCGp9VUzVgyoCz0Z+9t6dUh58afoeAoRI57fKAxLt/OJbfdkvAVYat
+	 OzIAvE+XCoceGjKvL0uYRjXeJEXpJIrNB4qiQB0ECScJSAKGhosRpePm75Q9+hZ3gH
+	 hA4CTotG3nUil+M1xpXQkSzFXr64FhDWzdQb/DI+xLnYW90X/V3/Iv644JZKAkg2vu
+	 mwSbL6SQJO/b7Fx/7Cuzv/GV9EEm/VUhaxnLVWHsRhO3LqYZVYc2tAq7SzWvb34evE
+	 3+8ejB/rnbOsA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Dave Jiang <dave.jiang@intel.com>,
-	Koichiro Den <den@valinux.co.jp>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Frank Li <Frank.Li@nxp.com>,
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Julian Orth <ju.orth@gmail.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 1246/2077] NTB: epf: Fix doorbell bitmask and IRQ vector handling
-Date: Tue, 21 Jul 2026 17:15:19 +0200
-Message-ID: <20260721152622.202682225@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.10.y 1/2] udmabuf: Do not create malformed scatterlists
+Date: Tue, 21 Jul 2026 15:13:55 -0400
+Message-ID: <20260721191356.403244-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071652-riveter-energy-4da7@gregkh>
+References: <2026071652-riveter-energy-4da7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,215 +46,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-------------------
+[ Upstream commit 5bf888673e0dda5a53220fa0c4956271a46c353c ]
 
-From: Koichiro Den <den@valinux.co.jp>
+Using a sg_set_folio() loop for every 4K results in a malformed scatterlist
+because sg_set_folio() has an issue with offsets > PAGE_SIZE and because
+scatterlist expects the creator to build a list which consolidates any
+physical contiguity.
 
-[ Upstream commit 4fdea8dbb62d746429498e07385a3ba0b0f6d1ab ]
+sg_alloc_table_from_pages() creates a valid scatterlist directly from a
+struct page array, so go back to that.
 
-The EPF driver currently stores the incoming doorbell as a vector number
-(irq_no + 1) in db_val and db_clear() clears all bits unconditionally.
-This breaks db_read()/db_clear() semantics when multiple doorbells are
-used.
+Remove the offsets allocation and just store an array of tail pages as it
+did before the below commit. Everything wants that anyhow.
 
-Store doorbells as a bitmask (BIT_ULL(vector)) and make
-db_clear(db_bits) clear only the specified bits. Use atomic64 operations
-as db_val is updated from interrupt context.
-
-Once db_val is stored as a bitmask, the ISR's doorbell vector is used
-not only for ntb_db_event(), but also as the bit index for BIT_ULL().
-The existing ISR derives that vector by subtracting pci_irq_vector(pdev,
-0) from the Linux IRQ number passed to the handler, but Linux IRQ
-numbers are not guaranteed to be contiguous.
-
-Pass per-vector context as request_irq() dev_id instead, so the ISR gets
-the device vector directly.
-
-Validate the doorbell vector before updating db_val or calling
-ntb_db_event(), so an unexpected vector cannot create an invalid shift
-or be reported to NTB clients.
-
-While at it, read and validate mw_count before requesting interrupt
-vectors. An unsupported memory-window count does not need IRQs, and
-failing before ntb_epf_init_isr() keeps the probe error path simple.
-
-Fixes: 812ce2f8d14e ("NTB: Add support for EPF PCI Non-Transparent Bridge")
-Suggested-by: Dave Jiang <dave.jiang@intel.com>
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260513024923.451765-12-den@valinux.co.jp
+Fixes: 0c8b91ef5100 ("udmabuf: add back support for mapping hugetlb pages")
+Reported-by: Julian Orth <ju.orth@gmail.com>
+Closes: https://lore.kernel.org/all/20260308-scatterlist-v1-1-39c4566b0bba@gmail.com/
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Link: https://patch.msgid.link/0-v1-42779f29381a+4b9-udmabuf_sg_jgg@nvidia.com
+Stable-dep-of: 504e2b4ab97a ("dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ntb/hw/epf/ntb_hw_epf.c | 61 +++++++++++++++++++++------------
- 1 file changed, 39 insertions(+), 22 deletions(-)
+ drivers/dma-buf/udmabuf.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/ntb/hw/epf/ntb_hw_epf.c b/drivers/ntb/hw/epf/ntb_hw_epf.c
-index 292e2ca059ac39..200409b4e4ddff 100644
---- a/drivers/ntb/hw/epf/ntb_hw_epf.c
-+++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
-@@ -6,6 +6,7 @@
-  * Author: Kishon Vijay Abraham I <kishon@ti.com>
-  */
- 
-+#include <linux/atomic.h>
- #include <linux/delay.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-@@ -77,6 +78,13 @@ enum epf_irq_slot {
- 
- #define NTB_EPF_MAX_MW_COUNT	(NTB_BAR_NUM - BAR_MW1)
- 
-+struct ntb_epf_dev;
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 4264d88a5e6b4d..15b8656abb9f84 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -65,14 +65,16 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ 					0, ubuf->pagecount << PAGE_SHIFT,
+ 					GFP_KERNEL);
+ 	if (ret < 0)
+-		goto err;
++		goto err_alloc;
 +
-+struct ntb_epf_irq_ctx {
-+	struct ntb_epf_dev *ndev;
-+	unsigned int irq_no;
-+};
-+
- struct ntb_epf_dev {
- 	struct ntb_dev ntb;
- 	struct device *dev;
-@@ -96,9 +104,9 @@ struct ntb_epf_dev {
- 	unsigned int self_spad;
- 	unsigned int peer_spad;
+ 	ret = dma_map_sgtable(dev, sg, direction, 0);
+ 	if (ret < 0)
+-		goto err;
++		goto err_map;
+ 	return sg;
  
--	int db_val;
-+	atomic64_t db_val;
- 	u64 db_valid_mask;
--	int irq_base;
-+	struct ntb_epf_irq_ctx irq_ctx[NTB_EPF_MAX_DB_COUNT + 1];
- };
- 
- #define ntb_ndev(__ntb) container_of(__ntb, struct ntb_epf_dev, ntb)
-@@ -322,11 +330,10 @@ static int ntb_epf_link_disable(struct ntb_dev *ntb)
- 
- static irqreturn_t ntb_epf_vec_isr(int irq, void *dev)
- {
--	struct ntb_epf_dev *ndev = dev;
--	int irq_no;
--
--	irq_no = irq - ndev->irq_base;
--	ndev->db_val = irq_no + 1;
-+	struct ntb_epf_irq_ctx *ctx = dev;
-+	struct ntb_epf_dev *ndev = ctx->ndev;
-+	unsigned int db_vector;
-+	unsigned int irq_no = ctx->irq_no;
- 
- 	if (irq_no == EPF_IRQ_LINK) {
- 		ntb_link_event(&ndev->ntb);
-@@ -334,7 +341,17 @@ static irqreturn_t ntb_epf_vec_isr(int irq, void *dev)
- 		dev_warn_ratelimited(ndev->dev,
- 				     "Unexpected reserved doorbell slot IRQ received\n");
- 	} else {
--		ntb_db_event(&ndev->ntb, irq_no - EPF_IRQ_DB_START);
-+		db_vector = irq_no - EPF_IRQ_DB_START;
-+		if (ndev->db_count < NTB_EPF_MIN_DB_COUNT ||
-+		    db_vector >= ndev->db_count - 1) {
-+			dev_warn_ratelimited(ndev->dev,
-+					     "Unexpected doorbell vector %u (db_count %u)\n",
-+					     db_vector, ndev->db_count);
-+			return IRQ_HANDLED;
-+		}
-+
-+		atomic64_or(BIT_ULL(db_vector), &ndev->db_val);
-+		ntb_db_event(&ndev->ntb, db_vector);
- 	}
- 
- 	return IRQ_HANDLED;
-@@ -361,18 +378,18 @@ static int ntb_epf_init_isr(struct ntb_epf_dev *ndev, int msi_min, int msi_max)
- 		argument &= ~MSIX_ENABLE;
- 	}
- 
--	ndev->irq_base = pci_irq_vector(pdev, 0);
-+	ndev->db_count = irq - 1;
- 	for (i = 0; i < irq; i++) {
-+		ndev->irq_ctx[i].ndev = ndev;
-+		ndev->irq_ctx[i].irq_no = i;
- 		ret = request_irq(pci_irq_vector(pdev, i), ntb_epf_vec_isr,
--				  0, "ntb_epf", ndev);
-+				  0, "ntb_epf", &ndev->irq_ctx[i]);
- 		if (ret) {
- 			dev_err(dev, "Failed to request irq\n");
- 			goto err_free_irq;
- 		}
- 	}
- 
--	ndev->db_count = irq - 1;
--
- 	ret = ntb_epf_send_command(ndev, CMD_CONFIGURE_DOORBELL,
- 				   argument | irq);
- 	if (ret) {
-@@ -384,7 +401,7 @@ static int ntb_epf_init_isr(struct ntb_epf_dev *ndev, int msi_min, int msi_max)
- 
- err_free_irq:
- 	while (i--)
--		free_irq(pci_irq_vector(pdev, i), ndev);
-+		free_irq(pci_irq_vector(pdev, i), &ndev->irq_ctx[i]);
- 	pci_free_irq_vectors(pdev);
- 
- 	return ret;
-@@ -509,7 +526,7 @@ static u64 ntb_epf_db_read(struct ntb_dev *ntb)
- {
- 	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
- 
--	return ndev->db_val;
-+	return atomic64_read(&ndev->db_val);
+-err:
++err_map:
+ 	sg_free_table(sg);
++err_alloc:
+ 	kfree(sg);
+ 	return ERR_PTR(ret);
  }
- 
- static int ntb_epf_db_clear_mask(struct ntb_dev *ntb, u64 db_bits)
-@@ -521,7 +538,7 @@ static int ntb_epf_db_clear(struct ntb_dev *ntb, u64 db_bits)
- {
- 	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
- 
--	ndev->db_val = 0;
-+	atomic64_and(~db_bits, &ndev->db_val);
- 
- 	return 0;
- }
-@@ -562,6 +579,12 @@ static int ntb_epf_init_dev(struct ntb_epf_dev *ndev)
- 	struct device *dev = ndev->dev;
- 	int ret;
- 
-+	ndev->mw_count = readl(ndev->ctrl_reg + NTB_EPF_MW_COUNT);
-+	if (ndev->mw_count > NTB_EPF_MAX_MW_COUNT) {
-+		dev_err(dev, "Unsupported MW count: %u\n", ndev->mw_count);
-+		return -EINVAL;
-+	}
-+
- 	/* One Link interrupt and rest doorbell interrupt */
- 	ret = ntb_epf_init_isr(ndev, NTB_EPF_MIN_DB_COUNT + 1,
- 			       NTB_EPF_MAX_DB_COUNT + 1);
-@@ -575,14 +598,8 @@ static int ntb_epf_init_dev(struct ntb_epf_dev *ndev)
- 	 * doorbell layout, hence -1.
- 	 */
- 	ndev->db_valid_mask = BIT_ULL(ndev->db_count - 1) - 1;
--	ndev->mw_count = readl(ndev->ctrl_reg + NTB_EPF_MW_COUNT);
- 	ndev->spad_count = readl(ndev->ctrl_reg + NTB_EPF_SPAD_COUNT);
- 
--	if (ndev->mw_count > NTB_EPF_MAX_MW_COUNT) {
--		dev_err(dev, "Unsupported MW count: %u\n", ndev->mw_count);
--		return -EINVAL;
--	}
--
- 	return 0;
- }
- 
-@@ -677,7 +694,7 @@ static void ntb_epf_cleanup_isr(struct ntb_epf_dev *ndev)
- 	ntb_epf_send_command(ndev, CMD_TEARDOWN_DOORBELL, ndev->db_count + 1);
- 
- 	for (i = 0; i < ndev->db_count + 1; i++)
--		free_irq(pci_irq_vector(pdev, i), ndev);
-+		free_irq(pci_irq_vector(pdev, i), &ndev->irq_ctx[i]);
- 	pci_free_irq_vectors(pdev);
- }
- 
 -- 
 2.53.0
-
-
 
