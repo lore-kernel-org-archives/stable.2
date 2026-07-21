@@ -1,112 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA8739A06B;
-	Tue, 21 Jul 2026 05:02:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784610166; cv=none; b=kWVkn+xmyB/2vwWhvdH6JmvXU77nPuyrHtpu6NgmpM2Kxe9PY5ZIBrQNPo1qQGuxyJvDnvnG7Osh7uK31t5GKQ4HEzuAF+vgCwVDByNwKl/m2J4PDBe5E2PLbGGHWwzEro69PDhOyGGTrDcvD1UOuV1ovrI5sHhyeKwFkDyP2vc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784610166; c=relaxed/simple;
-	bh=OlmEQz5D7YedgkQ9mNeO1hFANhWbXmk2P6UPxbX70xw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=blTuuykMETTxLCInFSl6CINWDM6hGZd9mWDzFSdd831WI5CAuA/yJv4iQA0GcuAhb6nvvY6W/11vMJArvcb9psW6cK4BmkVLwsG3TlhAXvHpyD6J4U5HpHE5m5EFTyIcu+AQwHEMtckJ13KCYsv/1iGz7m4/t3bkjnfgd6BQVFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mi8Qakup; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E1E2D7393;
+	Tue, 21 Jul 2026 05:20:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784611247; cv=pass; b=nmGxE0nM40w9ix06kIRCCTQPrd9OtIlQh38UwoOy07Z8yAgYTmC3FDRj2ZllcFKX/vj0rj+G5B11hMHIAg5Tzv3mgtGGrXhj4Ad55tCA34jMDVthE23iuho4vfTzH3RpHMqueHwpGyVPUR3TU/xi69iRaqi0i23zChdN4ZZBhXs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784611247; c=relaxed/simple;
+	bh=Sqyd2iI5fkWmHnSlSSQrdsfjb/NYarTLfaWlS+hcGYE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TaEk2ZPa+7EdJq0CJRdWA+ojZ8NitCGEfS9M4VDkiraby/Fw9oyoXEGaT1AkqfmI5o6XZ4On3/VzkZ+r8i4SWNedCSzsl+asDHPf6hLHNSXGHYaivAjVj9K8pQqtkA7JZUM3Huy9UrS59wvYxF+Cz00Wo+kG02IoHqbnBufLjZE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=ClKTDFa1; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mi8Qakup"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50DDE1F000E9;
-	Tue, 21 Jul 2026 05:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784610165;
-	bh=EeEHuBn7hSKVkCw08NIuO6JQM862xQHx7uSjOf4z+BM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mi8QakupYcXnejviUwrsDw4Goe6wimm+FiGIpUzbINY6Piu0mDmdn58HfOdqUxcU3
-	 AmBuLYOY28urvzdGlTVDBGFiCh7act9chizmPyQw/bpS/ZOOTvR4PzZ/MMOKblkHGY
-	 8Wwk3XYYCdcN9/ilUfPI1D2p+aGXzH+kNshILJBnijmkKDGYrj5RP4sdwqp1xMrzir
-	 I132VCGsv3YtOVX++Vl+rLlFLsLPFiPdLxavcRsrLphw5reu/HT6Blvxm0IXpJR3hY
-	 GrvxvNjoRj5HuSMXBe43mwEno6EatXZmKnLgp9i6A3pi0lWOEm7pmcwS+HSAF0uT72
-	 GKC82zHlF78tg==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.1.y] mm/damon/sysfs-schemes: fix dir put orders in access_pattern_add_dirs()
-Date: Mon, 20 Jul 2026 22:02:37 -0700
-Message-ID: <20260721050237.159205-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072054-throwing-myth-2a13@gregkh>
-References: <2026072054-throwing-myth-2a13@gregkh>
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="ClKTDFa1"
+ARC-Seal: i=1; a=rsa-sha256; t=1784611218; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=YXldcrMVRv9AwB2SCKvjY5ah80LK7PLbegwI5zE7S33lG/zc8ZuXYp2ztLQFu3okbgIWEjZ8C2gu7RdVwU4ouOXmT8yjzVQbbASBSbVoJ+3DqzhT+gTuLdSACs+kWCU1SunSKB1qK/J7qwE6V50VdCEJ0Kp/0xd8X42UWk+ffPU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784611218; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=MeAIg/nFoLV4HPdy7uK9Th+eYhFPpG/Q07Hu7di9WW4=; 
+	b=f538/rQMV8XuRF0T0jIM11UM/z50ftLwDvASkGvmQFRmJQu3cwvby3BwzD9xCAa86dPEFvIvg3/NK3Hg1/Nqk7+e1g74CsiWPm1kP1t5takI1wYzUDsn31MRyar80CZ7FaNiPm0QQcysVyR5fqFKCHHOJlSmKnz5Bk8fY48ttjY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784611218;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=MeAIg/nFoLV4HPdy7uK9Th+eYhFPpG/Q07Hu7di9WW4=;
+	b=ClKTDFa1P9nJhbRjKKoB9/a6FYZyD47U4yY7+fn5Ub2/dgBWFIa+EI02zvx4/U+I
+	4JkT+KJA5zRFF9gRqRPPobS/1eBtGpiW/qtuVc4+1roCziNf+cdGN1iBwVRVo62efW/
+	3/aUJGqVIsGXJy4hPnl15PvXXXHOTVg1h+6MnYT4=
+Received: by mx.zohomail.com with SMTPS id 1784611216000751.5066369487145;
+	Mon, 20 Jul 2026 22:20:16 -0700 (PDT)
+Message-ID: <38fd4fc1-7aad-464d-9d8c-5667ebcff89f@yoavmoshe.com>
+Date: Tue, 21 Jul 2026 07:20:11 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Nick Desaulniers <ndesaulniers@google.com>,
+ Yo'av Moshe <linux@yoavmoshe.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Russell King <linux@armlinux.org.uk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718111340.159896-1-linux@yoavmoshe.com>
+ <CAKwvOd=eAC-Mz0kZhbHQMFOY=ba=WXDH6X_Zzh6KGfuq5PmJ4A@mail.gmail.com>
+Content-Language: en-GB, sv-SE
+From: Yo'av Moshe <linux@yoavmoshe.com>
+In-Reply-To: <CAKwvOd=eAC-Mz0kZhbHQMFOY=ba=WXDH6X_Zzh6KGfuq5PmJ4A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-From: SeongJae Park <sj@kernel.org>
+On 2026-07-20 6:53 PM, Nick Desaulniers wrote:
+> 
+> Are we able to just put __nocfi on the declaration of
+> `imx6_suspend_in_ocram_fn`, rather than bother with a wrapper
+> (imx6_suspend_in_ocram)? I don't know if that works, but surely you
+> can test that quickly?
+Thanks for the suggestion! I tested placing __nocfi directly on the
+imx6_suspend_in_ocram_fn variable declaration:
 
-Patch series "mm/damon/sysfs-schemes: fix wrong directories put orders in
-error paths".
+    static void (* __nocfi imx6_suspend_in_ocram_fn)(void __iomem *ocram_vbase);
 
-Error paths of damon_sysfs_access_pattern_add_dirs() and
-damon_sysfs_scheme_add_dirs() functions put references to directories in
-wrong orders.  As a result, uninitialized memory dereference and/or
-memory leak can happen.  Fix those.
+Unfortunately, Clang ignores no_sanitize("cfi") on variable declarations and
+emits a compiler warning:
 
-This patch (of 2):
+    warning: 'no_sanitize' attribute argument 'cfi' not supported on a
+    global variable [-Wignored-attributes]
 
-In access_pattern_add_dirs(), error handling path puts references starting
-from setup failed directories.  If the failure happpened from the initial
-allication in the setup functions, uninitialized memory dereference
-happen.  The allocation failures will not commonly happen, but the
-consequence is quite bad.  Fix the wrong reference put orders.
+Because Clang ignores it, it still injects the CFI check at the call site.
+I tested this on physical hardware (Kobo Clara HD), and it crashes on suspend.
 
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260618005650.83868-2-sj@kernel.org
-Link: https://lore.kernel.org/20260617060005.86852-1-sj@kernel.org [1]
-Fixes: 7e84b1f8212a ("mm/damon/sysfs: support DAMON-based Operation Schemes")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.18.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit d58fdbe37a829fd2e5803dd4e5a72992dd8c5368)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/sysfs.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index bdcf895a29a78..bb2f4650741fa 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -679,22 +679,19 @@ static int damon_sysfs_access_pattern_add_dirs(
- 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
- 			&access_pattern->sz, "sz");
- 	if (err)
--		goto put_sz_out;
-+		return err;
- 
- 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
- 			&access_pattern->nr_accesses, "nr_accesses");
- 	if (err)
--		goto put_nr_accesses_sz_out;
-+		goto put_sz_out;
- 
- 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
- 			&access_pattern->age, "age");
- 	if (err)
--		goto put_age_nr_accesses_sz_out;
-+		goto put_nr_accesses_sz_out;
- 	return 0;
- 
--put_age_nr_accesses_sz_out:
--	kobject_put(&access_pattern->age->kobj);
--	access_pattern->age = NULL;
- put_nr_accesses_sz_out:
- 	kobject_put(&access_pattern->nr_accesses->kobj);
- 	access_pattern->nr_accesses = NULL;
--- 
-2.47.3
-
+Best regards,
+Yo'av
