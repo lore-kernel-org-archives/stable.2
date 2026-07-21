@@ -1,249 +1,261 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010064.outbound.protection.outlook.com [52.101.85.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13921A262A;
-	Tue, 21 Jul 2026 00:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784592116; cv=none; b=R1bGQg8QRa/fAbtM7L/JSMAiQZ5dA8YCzhyfojy56iiuiNVeJGhBnLO83W96hwF3Qk0a6hgVBPGoUT8JIJp+jyyzifwXxo3TnM0hdnSA8aj8RTb6FcO9ZEt5jKM8m0xo5JFTsDzx41sFW2+bAKSBOc90knNom1P4p1H0THuQOpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784592116; c=relaxed/simple;
-	bh=n7vkdzC0YSpubJsZVnKY4CiWNaOBHHO2qChBLYEvqqU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FK57uv7siH7GeG8c951BgSicPbVZiwGzHHyrAf10KbAou92h7lKG/JRO2RxnqqDrGh/sxtOjBIwiiffINFnDQiru7bfYtRvpE3fwiX3AuKii9MoorNTQSI8x4kOYOiluiIANzi5kNKCMuZWOpaK1eF7Vhf6SE6GA8uLiuSkxV1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Yowkji8m; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0152AEE4
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784593143; cv=fail; b=Lkiwc6GcfvftKvPDAUox5h4M7UCZ0tbyORZ7qeOP8cYU9ydW9Hd/8UaDwTBq2v9rwMDMCdfENGRndSdM+eGbVjQZOA/NgsRAX03qa/56smlsEiC5Rs72sIsrqRXeef8UAT5VSCojhee+tmueXF8dHsgulq9yOWIAejRE6BZJbMo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784593143; c=relaxed/simple;
+	bh=PFziIfUfHUE47itBaZTXmEthoe3cZZMqcPl9AJ7weCo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QcEvfixBKdqUl9j0hzQsX3IkRVWGPMInVFGlz2kDGgiNlGooOqrg/4u0YC+dxfnjFoK2uhD7OS8/+wB4stC/O+ceHEslwLB/IQ+sVJdKBoippTvjwCIf33nt2FYQeiBE+nRO2x890J5zX0NtbX2rUtZHcG3FgQ7kxEWXaxIphEs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=bV19taBQ; arc=fail smtp.client-ip=52.101.85.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Yowkji8m"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KNDHVT1677282;
-	Tue, 21 Jul 2026 00:01:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=60EkiR
-	hdUz40wuv37dLOKsRbRz9If7jrddfmFHDnYXM=; b=Yowkji8mS00BR8rOHFvnwJ
-	u/Dp13fOgRyZ9T1CAE872FXZh6cfwo6uPnu+uWC98Pz+zijBFuKyJxqW0ToduS2H
-	tYwx8VFslO/kigIIfkJZ+f8NMvDxwWPKj/xckB5Qz94XTUccBGW9ajy9dj6+wEDQ
-	+bqXZzfYhKwG9qL0GHjNuvn5WhZ0jGJ9H40usgCwcwM/zGZ6rKw8iDq42Jiw9Ox+
-	6am1hix6i6u+5CthNjqy97nQ/W1OEJ2h6y1ldn3rWu87ox5bXWQV4UmszrRVxVDK
-	WTnM4pfTNeIihrbptoQsOUXpFfPM/7T12i0L51Tg8CU51+K0NeuMpyaQ0Kd+bEuQ
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg77aa0uk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 21 Jul 2026 00:01:45 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66KNnYAx017807;
-	Tue, 21 Jul 2026 00:01:44 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fgpgy7kup-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 21 Jul 2026 00:01:44 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66L01h7t31851114
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 21 Jul 2026 00:01:43 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0E0365805A;
-	Tue, 21 Jul 2026 00:01:43 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 514E158064;
-	Tue, 21 Jul 2026 00:01:42 +0000 (GMT)
-Received: from [9.61.41.22] (unknown [9.61.41.22])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 21 Jul 2026 00:01:42 +0000 (GMT)
-Message-ID: <72f9931d-9e1f-441f-b1b2-247d183582cf@linux.ibm.com>
-Date: Mon, 20 Jul 2026 20:01:41 -0400
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="bV19taBQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rHx2dLcw5fc/CK2O0Dn8lpA+WD6sGAWuPI37IxabU8GsVL1x64bE2X22hsgg+DENK8efpVBW3B/RlEnOhU9R79ohvOms4clDGseQFK5kBHPEy7y7j7VRNv67BNhYGOlEIMGybjefUVxn9kz0d+CqIdktlM4VIqeEBkvKPu3bkZGeVB7buXlxPachFvDRMttPxgNc83AggAnhhwx/DyB+V26sxO2mobvf+LHlINETGTJdvAMPGFqBDXiHs4I6bMt9XMCg1ZhMCVN45tbz29I+c/QWn1TyZuoE/MABIQ3tb3xfwIZAriVcvAzhYnQDOUV8+EPfVtoIubYQ4Dkt48UuOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qBqSSHlk2LWs5lcOOVpinWEkaewGYpcf8edGPJ0QHdI=;
+ b=BrxoEe7RmiumCTVA/qym9SUT6fG36BizDaNn7FMfTFg3mjCCDo/jFuTs4mmasZ/qH20qhqv5Bjhb45ZTHf6/qFb2iaz/I9ISlFq9WG5YetptsTxooPmTj4JR0I+Ep78CN/NF1SnZo/v2qR6O6jQvQ8uaZ+Q37LYEFJRTtn9Ut9rRHBZskgSoWFcOC1wcugUPGGWGCV5klDmbeWlxpTycN7Vvj/xAgi4notjA0VT0RUYCS/aJ0DAsrA0fqGW1JI+I40TAraN5XXTCRn1RSfYhO69qjmMdTVZh45SEYnch2ybdcC2Ygr6Pd0Ptw+RrBSaWqtMbl4Rx8WpLN9yLIXOAEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qBqSSHlk2LWs5lcOOVpinWEkaewGYpcf8edGPJ0QHdI=;
+ b=bV19taBQlSXUF/dki6+mr9i0eeEPZUuq6gXu/pU7q4uxCM07xCyefZKcShNHeQ5mwQ0EXs0mOsImKswV07KxoMj6zgOCgd+nNRfi6oQJJXdPIvo4lRDF4MgMnqRTio0+ZzDQO04hxkclkScsaXKoISLIx4aSUJj2WK7UjbT7wBA=
+Received: from BN9PR03CA0452.namprd03.prod.outlook.com (2603:10b6:408:139::7)
+ by MW3PR12MB4345.namprd12.prod.outlook.com (2603:10b6:303:59::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Tue, 21 Jul
+ 2026 00:18:57 +0000
+Received: from BN3PEPF0000B077.namprd04.prod.outlook.com
+ (2603:10b6:408:139:cafe::a8) by BN9PR03CA0452.outlook.office365.com
+ (2603:10b6:408:139::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.16 via Frontend Transport; Tue,
+ 21 Jul 2026 00:18:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B077.mail.protection.outlook.com (10.167.243.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 00:18:57 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 20 Jul
+ 2026 19:18:56 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 20 Jul
+ 2026 19:18:55 -0500
+Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 20 Jul 2026 19:18:55 -0500
+From: <vitaly.prosyak@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>, Mikhail Gavrilov
+	<mikhail.v.gavrilov@gmail.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+	<christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH 2/2] drm/amdgpu: Fix lockdep false positive in amdgpu_lockdep_init
+Date: Mon, 20 Jul 2026 20:18:04 -0400
+Message-ID: <20260721001851.113927-2-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260721001851.113927-1-vitaly.prosyak@amd.com>
+References: <20260721001851.113927-1-vitaly.prosyak@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] s390/vfio_ccw: free all memory if cp_init() fails
-To: Farhan Ali <alifm@linux.ibm.com>, linux-s390@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Matthew Rosato <mjrosato@linux.ibm.com>,
-        Halil Pasic
- <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        stable@vger.kernel.org
-References: <20260720201931.976660-1-farman@linux.ibm.com>
- <20260720201931.976660-2-farman@linux.ibm.com>
- <74b5de0b-b52f-40a8-8fca-9876bb12ac48@linux.ibm.com>
-Content-Language: en-US
-From: Eric Farman <farman@linux.ibm.com>
-Autocrypt: addr=farman@linux.ibm.com; keydata=
- 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
- y8m0x6unNti2MZIUMy0m2gcE
-In-Reply-To: <74b5de0b-b52f-40a8-8fca-9876bb12ac48@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: _mKIDLFCgzwUCZDCnYQjWcT8wmo3mXmR
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIwMDI1NiBTYWx0ZWRfX3uVjyBGKabKb
- rbO9Q1CYe/hOzYv7MkXaz/0egpPkWC/Gs6NjdDQV5Lfsz6AySefw2VhphPl8VDzeq5ECwjYWhVF
- Vkwh4De7DcwAb7Jk3ihXbvkJYuotofM=
-X-Proofpoint-GUID: _mKIDLFCgzwUCZDCnYQjWcT8wmo3mXmR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIwMDI1NiBTYWx0ZWRfX8oXY8CndNAPq
- q8OMKpkGQWFQDTlZfI1KLPg6+eHn0a9FjzNnwNzDNHAso7YVK1dAeDGNyDnD0w44NS+a5JL1kpg
- XUx16YDN3659ribafSo1CcMNr6SqYURFqt0L6MjWExdtT4O+Gn9PW7TcwffI3EjCA6EACo85NL0
- olp98qBdzkr8Vn6S4QdJ9gd0JrOGypMT4SeGygQnMy7/ZzQF737lFFN1kE/V9r+2g3kUjbPXLoL
- qL9bT1pn4jgg1v8GqWwgMzsMwCdMyUn8bWISr0lgf4WlybBOzqV/rHxwKKFxNuhgBvVqOQzP3oM
- /TuO4l+qP8BcZaRVaQqg1UcxRL4FZkNRzX+PyNTNlRsSLjWTaZOYablrJJ6dPrSNBr2621acRnY
- RBCEjuXOKub2JPJOD0YV5C38hMmo4yBAFjfTUPbje4C9PXGKsuEPmlS745+iinGhaoWoqwdfFz8
- ZjBF1RXG5H886+a7enw==
-X-Authority-Analysis: v=2.4 cv=K7AS2SWI c=1 sm=1 tr=0 ts=6a5eb6e9 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=3pY_3P-V3KhXw8xrUiAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607200256
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|MW3PR12MB4345:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83da2d31-3c35-46a0-5b42-08dee6bda7e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|22082099003|18002099003|56012099006|10067099003|5023799004|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	7R9Yi0LUSBSszyD7+E22pVsopReNzANDqwk0zQrrBYs96EFEsWtoredXLya6HH3zN1+0yIdJ3QfGFSYdWgE2WAqPyLDGxXNiTvMhf9zFWCvD983ZlNSoeFM4/tXIxB+BPlTKNO/B7cDVGjL2dfO1nne1M3jufiQyYQkib1UTQCDGMFW8qYEaYIFKwggG9mse/C+e26SAQVplAJsw7UJzD08uKK/wjj/iLhQ/CufJMi0oghKgasjr2dthDDHXkSo1nZhy1jGtrcnG/zJYgCLjCqW0zoj9f/9u9SZxfADjyFWq8I8ZW58Yurl7NiM/EAnC5/Hhaj4fnSjlldpylmqXirdWlSnSnBkkNFEx6vIAj1Eyhhyr0uEFgjz4LyngjHgkepyItOue3FhLW9iy0NjvfDxkt7InoIz/HIugG3jkUnLW8uuPHTXffwU4LW7Q4v3i0dPBDGE6pP7W5Kyu5IhVWLIhxfZs9dJ42uM/6z8jUoZvGPSEK7yxCZtkACbuOvOxScftUAsxhrXP6Ykq9GLTAUA6Lf4g+o8ILNM5FjwqnTeLuPeKfwFJyUhwQbTdVYNeombY1MDN/NKOekIgh3Vl1lmkdRXU6vx2H5QFIO2AtZ7bfJudyYt6ieN8jklgNxck3EFOG2zUkbIdCdkpNmsEjRhiNbkKoq9MbxFaY/3GKY7b13PKYeDKB0tI/wQ/yvi5jGsQBaeMsHbvpskUXbwzQA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(10067099003)(5023799004)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Yc4qOUZOklzaUWrA/UzfOI6ciOEueUVWPWNWUcrSw6t5BSTPCx88LEIpj53clgbLWV+RnF9+81YiruWd0aEyMjG94B/BXOqgANdqoYtb6CO10MDbsmjXLRhjSw9yBVAvPmgNqlnv3Q5hUC/3BkWI/Fh6huf7V3FENiWauuen85f1ivuKvkCE8NKDaZdrvSTYACtWCz/A18gq11xCN9f/IPxTbvM4cI03YdO6FRoIh4W9VEyX40RWMYgWMENbztPTkEC9JbzjtihL0xTr9tkMmJxjNbYYC5XzNUqmln1N8sOvtFrUiSU0SQBygZ65cM3ppKNzT+0KYErV+isOBPIS302XQITSvho9w2Ob9eBhwLyfjEGx4lrps7a1+uIe2qvPkVdtsqlsu150CCMB2Q1RXvZ9lQenLDDQ+T8KM8t2P39hjMqiBGBQxrlnWEcFZu3l
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 00:18:57.3059
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83da2d31-3c35-46a0-5b42-08dee6bda7e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B077.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4345
 
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
+Move fs_reclaim_acquire() to before all lock acquisitions to eliminate
+false positive circular locking dependency warning.
 
-On 7/20/26 5:48 PM, Farhan Ali wrote:
-> 
-> On 7/20/2026 1:19 PM, Eric Farman wrote:
->> The routine cp_free() is called to unpin/free any memory once an I/O
->> is completed successfully, or if cp_prefetch() fails. But if cp_init()
->> fails, and cp->initialized is not enabled, the same routine cannot be
->> used to free all the memory.
->>
->> An attempt to address this exists in ccwchain_handle_ccw(), where a
->> single call to ccwchain_free() is made for the currently-processed
->> CCW segment. But this will leak other segments (created as a result
->> of a Transfer in Channel) that had been allocated as part of the same
->> channel program.
->>
->> Address this by performing the cleanup outside of the recursive
->> ccwchain_handle_ccw()/ccwchain_loop_tic() logic.
->>
->> Fixes: 8b515be512a2 ("vfio-ccw: Fix memory leak and don't call cp_free 
->> in cp_init")
->> Cc: stable@vger.kernel.org
->> Cc: Farhan Ali <alifm@linux.ibm.com>
->> Signed-off-by: Eric Farman <farman@linux.ibm.com>
->> ---
->>   drivers/s390/cio/vfio_ccw_cp.c | 22 ++++++++++++++++++----
->>   1 file changed, 18 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/ 
->> vfio_ccw_cp.c
->> index 7561aa7d3e01..086d1b54bdb0 100644
->> --- a/drivers/s390/cio/vfio_ccw_cp.c
->> +++ b/drivers/s390/cio/vfio_ccw_cp.c
->> @@ -455,9 +455,6 @@ static int ccwchain_handle_ccw(dma32_t cda, struct 
->> channel_program *cp)
->>       /* Loop for tics on this new chain. */
->>       ret = ccwchain_loop_tic(chain, cp);
->> -    if (ret)
->> -        ccwchain_free(chain);
->> -
->>       return ret;
->>   }
->> @@ -486,6 +483,23 @@ static int ccwchain_loop_tic(struct ccwchain 
->> *chain, struct channel_program *cp)
->>       return 0;
->>   }
->> +static int ccwchain_build_ccws(dma32_t cda, struct channel_program *cp)
->> +{
->> +    struct ccwchain *chain, *temp;
->> +    int ret;
->> +
->> +    ret = ccwchain_handle_ccw(cda, cp);
->> +
->> +    if (ret) {
->> +        /* Cleanup if an error occurred */
->> +        list_for_each_entry_safe(chain, temp, &cp->ccwchain_list, 
->> next) {
->> +            ccwchain_free(chain);
->> +        }
->> +    }
->> +
->> +    return ret;
->> +}
->> +
->>   static int ccwchain_fetch_tic(struct ccw1 *ccw,
->>                     struct channel_program *cp)
->>   {
->> @@ -735,7 +749,7 @@ int cp_init(struct channel_program *cp, union orb 
->> *orb)
->>       memcpy(&cp->orb, orb, sizeof(*orb));
->>       /* Build a ccwchain for the first CCW segment */
->> -    ret = ccwchain_handle_ccw(orb->cmd.cpa, cp);
->> +    ret = ccwchain_build_ccws(orb->cmd.cpa, cp);
->>       if (!ret)
->>           cp->initialized = true;
-> 
-> The fix looks correct to me and I don't think Sashiko found any issues 
-> with this patch (issues identified as pre-existing and i think something 
-> this series is trying to fix).
+This is a 7.2-cycle regression fix suitable for stable backport.
 
-Correct, the two pre-existing findings reported against this patch 
-should be addressed by patches 2 and 3, respectively, in this series.
+PROBLEM:
 
-> 
-> Reviewed-by: Farhan Ali<alifm@linux.ibm.com>
-> 
+amdgpu_lockdep_init() trains lockdep by acquiring locks in sequence
+while calling fs_reclaim_acquire() in the middle. The fs_reclaim call
+was placed while notifier_lock was held, teaching lockdep:
 
-Thank you!
+    notifier_lock -> fs_reclaim
 
-> Thanks
-> 
-> Farhan
-> 
-> 
-> 
+However, at runtime, MMU notifier callbacks run from inside memory
+reclaim, establishing the opposite dependency:
+
+    fs_reclaim -> mmu_notifier -> notifier_lock
+
+These form a false cycle that lockdep reports when reclaim unmaps a
+page covered by an amdgpu userptr notifier.
+
+LOCKDEP WARNING EXAMPLE (BEFORE FIX):
+
+    WARNING: possible circular locking dependency detected
+    6.19.0+ #48 Not tainted
+    amd_lockdep/3762 is trying to acquire lock:
+    ffff8881756f3c30 (&amdgpu_notifier_lock_key), at: amdgpu_hmm_invalidate_gfx
+
+    but task is already holding lock:
+    ffffffff92e4b5c0 (mmu_notifier_invalidate_range_start), at: try_to_unmap_one
+
+    Chain exists of:
+      &amdgpu_notifier_lock_key --> fs_reclaim --> mmu_notifier_invalidate_range_start
+
+    Possible unsafe locking scenario:
+          CPU0                    CPU1
+          ----                    ----
+     lock(mmu_notifier_invalidate_range_start);
+                                  lock(fs_reclaim);
+                                  lock(mmu_notifier_invalidate_range_start);
+     lock(&amdgpu_notifier_lock_key);
+
+     *** DEADLOCK ***
+
+The dependency chain shows:
+  -> #5 (fs_reclaim):
+       amdgpu_lockdep_init+0x61e/0x730 [amdgpu]  <- FALSE EDGE
+  -> #0 (&amdgpu_notifier_lock_key):
+       amdgpu_hmm_invalidate_gfx+0x77/0x110 [amdgpu]  <- RUNTIME PATH
+
+SOLUTION:
+
+Move fs_reclaim_acquire/release to BEFORE all lock acquisitions.
+The acquire/release pair does not create a static lockdep edge by itself
+(no locks are held between acquire and release), but it registers the
+fs_reclaim lock class. The actual fs_reclaim -> notifier_lock ordering
+is established at runtime when memory reclaim invokes MMU notifiers that
+take notifier_lock. By moving the fs_reclaim registration before any
+lock acquisition, we avoid teaching lockdep the false reverse dependency.
+
+VERIFICATION (AFTER FIX):
+
+Test reproducer (based on Mikhail Gavrilov's standalone test case)
+creates a 64MB GPU userptr memory buffer, then repeatedly forces the
+kernel to reclaim it by moving pages to disk (simulating memory
+pressure). Each reclaim cycle triggers the MMU notifier callback path.
+
+The test is available as an IGT subtest:
+  tests/amdgpu/amd_lockdep.c::notifier-reclaim-splat
+
+Results:
+  Before fix: Lockdep false positive warning on first reclaim attempt
+  After fix:  Completed 8 reclaim cycles with no lockdep warnings
+
+dmesg after fix shows only test success messages, no circular dependency
+warnings. The fix is minimal (relocate 2 lines) with no runtime overhead,
+only corrects lockdep's static analysis model.
+
+v2: Address Mikhail Gavrilov's review feedback:
+    - Fix author name: Michael -> Mikhail Gavrilov in all trailers
+    - Add Fixes: tag to link regression to original commit
+    - Add Tested-by: Mikhail Gavrilov (tested on RX 7900 XTX)
+    - Rewrite fs_reclaim comment to be technically accurate about what
+      fs_reclaim_acquire/release actually does (registers lock class,
+      doesn't create static edge)
+    - Add note that this is a 7.2-cycle regression for stable routing
+
+Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock ordering validation")
+Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Analyzed-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Test-case-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Tested-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
+index b251350b1fb2..718411f724f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
+@@ -150,6 +150,18 @@ int amdgpu_lockdep_init(void)
+ 	 * Take locks in the correct order to train lockdep.
+ 	 * This establishes the dependency chain.
+ 	 */
++	/*
++	 * Train fs_reclaim FIRST, before taking any locks.
++	 * This teaches lockdep that fs_reclaim is the OUTERMOST context.
++	 * When memory reclaim later calls MMU notifiers (which take notifier_lock),
++	 * lockdep will see: fs_reclaim -> notifier_lock (correct runtime edge).
++	 *
++	 * Bug fix: Previously fs_reclaim_acquire() was called while holding
++	 * notifier_lock, teaching lockdep the FALSE edge: notifier_lock -> fs_reclaim.
++	 * This caused false positive circular dependency warnings.
++	 */
++	fs_reclaim_acquire(GFP_KERNEL);
++	fs_reclaim_release(GFP_KERNEL);
+ 
+ 	/* Level 1: Global userq scheduler mutex (outermost) */
+ 	mutex_lock(&locks->userq_sch_mutex);
+@@ -168,11 +180,6 @@ int amdgpu_lockdep_init(void)
+ 
+ 	/* Level 7: DRM file list mutex */
+ 	mutex_lock(&locks->filelist_mutex);
+-	/*
+-	 * Mark potential memory reclaim boundary.
+-	 * GPU operations might trigger memory allocation/reclaim.
+-	 */
+-	fs_reclaim_acquire(GFP_KERNEL);
+ 
+ 	/* Level 8: SRBM register access */
+ 	mutex_lock(&locks->srbm_mutex);
+@@ -190,7 +197,6 @@ int amdgpu_lockdep_init(void)
+ 	spin_unlock_irqrestore(&locks->mmio_idx_lock, flags);
+ 	mutex_unlock(&locks->grbm_idx_mutex);
+ 	mutex_unlock(&locks->srbm_mutex);
+-	fs_reclaim_release(GFP_KERNEL);
+ 
+ 	mutex_unlock(&locks->filelist_mutex);
+ 	mutex_unlock(&locks->reset_lock);
+-- 
+2.54.0
 
