@@ -1,79 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660893C1413;
-	Tue, 21 Jul 2026 09:10:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2106D3C76A6
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625043; cv=none; b=lTPZ3IDt2HPZFANSoz+UT1u6V9v3J+ATupKX2BHdWPoRGEuJHBsm7YCar3dO48fWBCXx9UjIP9CQ0ZQ079W6srAHJmZQnP6Y8mzKuy9Lyeb23vj0JF5jdl1reXpCzcFrcODWqoNPQvebS+sU6yWSGSpfws70W8rLvCtklcOnsNo=
+	t=1784625222; cv=none; b=cUvGN2EKTG/JP8otzhPKRtwVWaqFXrWuL7xK9B0fcP5GKrt2GZjXmi3i1z/Dz8quvnRPuL+xz1oxrHAJt6KN03l2j7FCWC39FJxeXgBhAmQuBQ2AVBfS0RI9/SPhJmXVkAEIoSuURih8iDqCqEJAHL18EP+/TvWqyd5tVGTYPOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625043; c=relaxed/simple;
-	bh=KHKIKATEyak83j5SIRabn/2UjrCX8kWTQ4irjkZh7wA=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=RN3p/xE4uqIlEJZX1V/lH38qrV69ZUjVjjMsxQ2lertMdS8SVzDQ+Rr4xNP4PPysIMOj/RwXGfg5JbdG+GOGjjeYdbs96DkvczO3BChcz9TZDAij8M1KaytGs8JqBBCi8EjhqB81Xb+MruCNgO7QL0WwRQdxEHXJy+qFPJbrfIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8S2YEmJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784625222; c=relaxed/simple;
+	bh=KoGQq1sd5duvuGw1g1JQIA9672t6+gC3EWTc1NpHLUg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kRuZj2WYUr9eAcRXhaX3yeGaRhT7hSG1kfxDpYacvr5V28T0EweOAkTggn/D9p7y8HwH3rCp/7Mmgs96Pudqe6GHIo49JZc0ToGhLjEXKpDkhQXscHXIuzcanaIAhEseQgoxuSKTLOJMJoVx+YvThv2xQ2aNIUhiJozX0VYEYuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JxCitgE/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8S2YEmJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139B21F000E9;
-	Tue, 21 Jul 2026 09:10:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784625042;
-	bh=hnhYA46ozRSFpvMkIAc06SAayAAL5T7KALnvk4A8eSA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=H8S2YEmJ+QiAcb+6VOU0CpW6/fJI81YXGGcitrt3eEUZ+XR9Ts1vcVA9JBhu0+JA/
-	 o/QrAs1H7oar1Un/FaSeuxum82k5wLgpaXHrveeJmaEoa2khFYT461ZgizENIFlb3h
-	 /T5f03oC6bBNDyv6/jx50q0HPzw2sl1Jr25qkPvLmcz7LGF/syAem6FLirYUSnCLNm
-	 CN21vaXGkZQs6c0R2sE9KQGl2EEDdKcz2nu8ozZ+vMA172PGo7lxZjC3VN06gcYc+r
-	 gQbQ22d+RvmVfnu07aK0P1fMFXlTVjXBV+1e2vKmLU7xWCrZShWbj+fRaWQa2nWXTv
-	 JkmyZPutugIFQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199693924A44;
-	Tue, 21 Jul 2026 09:10:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JxCitgE/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848961F000E9;
+	Tue, 21 Jul 2026 09:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784625221;
+	bh=8T6Cjj1lbNkK2UMMMMIu4h3+bG8mrzvwj/N788NwlvQ=;
+	h=Subject:To:Cc:From:Date;
+	b=JxCitgE/pM3/Lb81Dwr6xmQNGfRqvDNJzTqYO7hpo8QetxvaUm08oZzZ5tt6UtW2S
+	 I4Dv++GDVrOhse8lQnmWetN+JKYVfXMPNqk58f/iEVewojsve6iSjjJ65Sm8DhAA2b
+	 8PU5mAT37f8y6ysqvGB/7QaUHkIY4E6MHQdYhTLw=
+Subject: FAILED: patch "[PATCH] octeontx2-pf: fix SQB pointer leak on init failure" failed to apply to 6.6-stable tree
+To: dawei.feng@seu.edu.cn,pabeni@redhat.com,rkannoth@marvell.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 21 Jul 2026 11:13:27 +0200
+Message-ID: <2026072127-dwelling-chop-ba5d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net/mlx5e: Use sender devcom for MPV master-up
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178462501164.174171.13160914545976929275.git-patchwork-notify@kernel.org>
-Date: Tue, 21 Jul 2026 09:10:11 +0000
-References: <20260707233911.3651139-1-manjunath.b.patil@oracle.com>
-In-Reply-To: <20260707233911.3651139-1-manjunath.b.patil@oracle.com>
-To: Manjunath Patil <manjunath.b.patil@oracle.com>
-Cc: saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com, leon@kernel.org,
- netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, phaddad@nvidia.com,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
 
-Hello:
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-On Tue,  7 Jul 2026 16:39:11 -0700 you wrote:
-> After PCIe DPC recovery, mlx5 reloads the affected functions and
-> replays multiport affiliation events. In the reported failure, the
-> first relevant device error was:
-> 
->   pcieport 0000:10:01.1: DPC: containment event
->   pcieport 0000:10:01.1: PCIe Bus Error: severity=Uncorrected (Fatal)
->   pcieport 0000:10:01.1:    [ 5] SDES                   (First)
-> 
-> [...]
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Here is the summary with links:
-  - [net,v2] net/mlx5e: Use sender devcom for MPV master-up
-    https://git.kernel.org/netdev/net/c/e32649b4bad9
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 62e7df6d042aeebd5efb581074e28865c04477be
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072127-dwelling-chop-ba5d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Possible dependencies:
 
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 62e7df6d042aeebd5efb581074e28865c04477be Mon Sep 17 00:00:00 2001
+From: Dawei Feng <dawei.feng@seu.edu.cn>
+Date: Tue, 30 Jun 2026 15:16:25 +0800
+Subject: [PATCH] octeontx2-pf: fix SQB pointer leak on init failure
+
+otx2_init_hw_resources() initializes SQ aura and pool resources before
+several later setup steps. On failure, err_free_sq_ptrs only frees SQB
+pages, leaving the per-SQ sqb_ptrs arrays behind.
+
+Use otx2_free_sq_res() for the SQ unwind path and let it free sqb_ptrs
+even when sq->sqe has not been allocated yet.
+
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1.1.
+
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+OcteonTX2 PF device and the corresponding AF mailbox setup to test with,
+no runtime testing was able to be performed.
+
+Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
+Cc: stable@vger.kernel.org
+Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Link: https://patch.msgid.link/20260630071625.349996-1-dawei.feng@seu.edu.cn
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+index b63df5737ff2..88ac85354445 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+@@ -1568,15 +1568,15 @@ static void otx2_free_sq_res(struct otx2_nic *pf)
+ 	otx2_sq_free_sqbs(pf);
+ 	for (qidx = 0; qidx < otx2_get_total_tx_queues(pf); qidx++) {
+ 		sq = &qset->sq[qidx];
+-		/* Skip freeing Qos queues if they are not initialized */
+-		if (!sq->sqe)
+-			continue;
+-		qmem_free(pf->dev, sq->sqe);
+-		qmem_free(pf->dev, sq->sqe_ring);
+-		qmem_free(pf->dev, sq->cpt_resp);
+-		qmem_free(pf->dev, sq->tso_hdrs);
+-		qmem_free(pf->dev, sq->timestamps);
+-		kfree(sq->sg);
++		/* sq->sqe is not initialized for unused QoS queues */
++		if (sq->sqe) {
++			qmem_free(pf->dev, sq->sqe);
++			qmem_free(pf->dev, sq->sqe_ring);
++			qmem_free(pf->dev, sq->cpt_resp);
++			qmem_free(pf->dev, sq->tso_hdrs);
++			qmem_free(pf->dev, sq->timestamps);
++			kfree(sq->sg);
++		}
+ 		kfree(sq->sqb_ptrs);
+ 	}
+ }
+@@ -1711,13 +1711,12 @@ int otx2_init_hw_resources(struct otx2_nic *pf)
+ 	return err;
+ 
+ err_free_nix_queues:
+-	otx2_free_sq_res(pf);
+ 	otx2_free_cq_res(pf);
+ 	otx2_ctx_disable(mbox, NIX_AQ_CTYPE_RQ, false);
+ err_free_txsch:
+ 	otx2_txschq_stop(pf);
+ err_free_sq_ptrs:
+-	otx2_sq_free_sqbs(pf);
++	otx2_free_sq_res(pf);
+ err_free_rq_ptrs:
+ 	otx2_free_aura_ptr(pf, AURA_NIX_RQ);
+ 	otx2_ctx_disable(mbox, NPA_AQ_CTYPE_POOL, true);
 
