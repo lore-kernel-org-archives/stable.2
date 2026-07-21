@@ -1,88 +1,199 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E1E2D7393;
-	Tue, 21 Jul 2026 05:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784611247; cv=pass; b=nmGxE0nM40w9ix06kIRCCTQPrd9OtIlQh38UwoOy07Z8yAgYTmC3FDRj2ZllcFKX/vj0rj+G5B11hMHIAg5Tzv3mgtGGrXhj4Ad55tCA34jMDVthE23iuho4vfTzH3RpHMqueHwpGyVPUR3TU/xi69iRaqi0i23zChdN4ZZBhXs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784611247; c=relaxed/simple;
-	bh=Sqyd2iI5fkWmHnSlSSQrdsfjb/NYarTLfaWlS+hcGYE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TaEk2ZPa+7EdJq0CJRdWA+ojZ8NitCGEfS9M4VDkiraby/Fw9oyoXEGaT1AkqfmI5o6XZ4On3/VzkZ+r8i4SWNedCSzsl+asDHPf6hLHNSXGHYaivAjVj9K8pQqtkA7JZUM3Huy9UrS59wvYxF+Cz00Wo+kG02IoHqbnBufLjZE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=ClKTDFa1; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C79F3E958F;
+	Tue, 21 Jul 2026 05:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784611368; cv=none; b=WruBzw/RCDWRHzX1orRSvWXSHaLgvBLD/G2UQ4UC/9XoGSFsLT7YnZhCaC9JAgrcbnfQ27ePD9FxkiChOEHewCegZcJFV4nynZyc+41O+UtiY3+baV4wKE1P5Iyw33xkJL7PYM2XSMoZ1SQpYdtmy/3Ye4YW8N/OCpeczWYgVcE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784611368; c=relaxed/simple;
+	bh=2uDdXvlfBlIhBOVQT1/oSY/Q/+XRLdg69Q8MyQIWFq8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jHB5Qh8joCIMda6+ICgMXSPkchcX7DvU3nFOfSOxFTZkVoUa8rHDejFeY6TVd47uzObbHOIaE3aT17I4fFhdQscQ+p0/wOp2sDObQSosw2mREzH3h1cqTFcwB0LJ5D3Cl5/MZnL5Xcf3vITsBLWyO34Pk42bRNeACTJ7+13oPjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RjXSIQS3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="ClKTDFa1"
-ARC-Seal: i=1; a=rsa-sha256; t=1784611218; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YXldcrMVRv9AwB2SCKvjY5ah80LK7PLbegwI5zE7S33lG/zc8ZuXYp2ztLQFu3okbgIWEjZ8C2gu7RdVwU4ouOXmT8yjzVQbbASBSbVoJ+3DqzhT+gTuLdSACs+kWCU1SunSKB1qK/J7qwE6V50VdCEJ0Kp/0xd8X42UWk+ffPU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784611218; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=MeAIg/nFoLV4HPdy7uK9Th+eYhFPpG/Q07Hu7di9WW4=; 
-	b=f538/rQMV8XuRF0T0jIM11UM/z50ftLwDvASkGvmQFRmJQu3cwvby3BwzD9xCAa86dPEFvIvg3/NK3Hg1/Nqk7+e1g74CsiWPm1kP1t5takI1wYzUDsn31MRyar80CZ7FaNiPm0QQcysVyR5fqFKCHHOJlSmKnz5Bk8fY48ttjY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=yoavmoshe.com;
-	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
-	dmarc=pass header.from=<linux@yoavmoshe.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784611218;
-	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=MeAIg/nFoLV4HPdy7uK9Th+eYhFPpG/Q07Hu7di9WW4=;
-	b=ClKTDFa1P9nJhbRjKKoB9/a6FYZyD47U4yY7+fn5Ub2/dgBWFIa+EI02zvx4/U+I
-	4JkT+KJA5zRFF9gRqRPPobS/1eBtGpiW/qtuVc4+1roCziNf+cdGN1iBwVRVo62efW/
-	3/aUJGqVIsGXJy4hPnl15PvXXXHOTVg1h+6MnYT4=
-Received: by mx.zohomail.com with SMTPS id 1784611216000751.5066369487145;
-	Mon, 20 Jul 2026 22:20:16 -0700 (PDT)
-Message-ID: <38fd4fc1-7aad-464d-9d8c-5667ebcff89f@yoavmoshe.com>
-Date: Tue, 21 Jul 2026 07:20:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RjXSIQS3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059D21F000E9;
+	Tue, 21 Jul 2026 05:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784611367;
+	bh=kveFPF5cnocjHqe00S0Rn4FWt8I91aFY2LbGJXfoKes=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RjXSIQS3i4v9mSXoKqlI8xa7vth4IEeI4FqwSlEflTUIXopHNSDCDlPz/16JCZ4Kl
+	 i4R4SrSnPuYOGOBghyLTZxYhcON0aeNV1PRvzUXtEDPiJi9gxC57dDvSBssZkGYLHf
+	 z36rnUQ5aHy7VppyowTvJ1uPIN9sZQFiPtESG/iU+94btYGSLmVTgbM3mOctpeqk2M
+	 1PGuyQZhuLXQgEMyJJDdtrob/Jnr1AKgL4uqaq8rFvHjQspJvloW68pchbihoOU0lD
+	 a6l4zzJwxb6al2vdGVnoSbGgT21aX+hOEghgYCc/Uhpmok+NOTUAYUcqluwpKw1f9R
+	 lXNIGFbFSL0RA==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: damon@lists.linux.dev,
+	SeongJae Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.12.y] mm/damon/core: always put unsuccessfully committed target pids
+Date: Mon, 20 Jul 2026 22:22:38 -0700
+Message-ID: <20260721052238.163760-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026072031-shingle-buddy-1bbb@gregkh>
+References: <2026072031-shingle-buddy-1bbb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
-To: Nick Desaulniers <ndesaulniers@google.com>,
- Yo'av Moshe <linux@yoavmoshe.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Russell King <linux@armlinux.org.uk>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260718111340.159896-1-linux@yoavmoshe.com>
- <CAKwvOd=eAC-Mz0kZhbHQMFOY=ba=WXDH6X_Zzh6KGfuq5PmJ4A@mail.gmail.com>
-Content-Language: en-GB, sv-SE
-From: Yo'av Moshe <linux@yoavmoshe.com>
-In-Reply-To: <CAKwvOd=eAC-Mz0kZhbHQMFOY=ba=WXDH6X_Zzh6KGfuq5PmJ4A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On 2026-07-20 6:53 PM, Nick Desaulniers wrote:
-> 
-> Are we able to just put __nocfi on the declaration of
-> `imx6_suspend_in_ocram_fn`, rather than bother with a wrapper
-> (imx6_suspend_in_ocram)? I don't know if that works, but surely you
-> can test that quickly?
-Thanks for the suggestion! I tested placing __nocfi directly on the
-imx6_suspend_in_ocram_fn variable declaration:
+From: SeongJae Park <sj@kernel.org>
 
-    static void (* __nocfi imx6_suspend_in_ocram_fn)(void __iomem *ocram_vbase);
+damon_commit_target() puts and gets the destination and the source target
+pids.  It puts the destination target pid because it will be overwritten
+by the source target pid.  It gets the source pid because the caller is
+supposed to eventually put the pids.  In more detail, the caller will call
+damon_destroy_ctx() after damon_commit_ctx() to destroy the entire source
+context.  And in this case, [f]vaddr operation set's cleanup_target()
+callback will put the pids.
 
-Unfortunately, Clang ignores no_sanitize("cfi") on variable declarations and
-emits a compiler warning:
+The commit operation is made at the context level.  The operation can fail
+in multiple places including in the middle and after the targets commit
+operations.  For any such failures, immediately the error is returned to
+the damon_commit_ctx() caller.  If some or all of the source target pids
+were committed to the destination during the unsuccessful context commit
+attempt, those pids should be put twice.
 
-    warning: 'no_sanitize' attribute argument 'cfi' not supported on a
-    global variable [-Wignored-attributes]
+The source context will do the put operations using the above explained
+routine.  However, let's suppose the destination context was not
+originally using [f]vaddr operation set and the commit failed before the
+ops of the source context is committed.  The destination does not have the
+cleanup_target() ops callback, so it cannot put the pids via the
+damon_destroy_ctx().
 
-Because Clang ignores it, it still injects the CFI check at the call site.
-I tested this on physical hardware (Kobo Clara HD), and it crashes on suspend.
+As a result, the pids are leaked.  The issue in the real world would be
+not very common.  The commit feature is for changing parameters of running
+DAMON context while inheriting internal status like the monitoring
+results.  The monitoring results of a physical address range ain't have
+things that are beneficial to be inherited to a virtual address ranges
+monitoring.  So the problem-causing DAMON control would be not very common
+in the real world.  That said, it is a supported feature.  And
+damon_commit_target() failure due to memory allocation is relatively
+realistic [1] if there are a huge number of target regions.
 
-Best regards,
-Yo'av
+Fix by putting the pids in the commit operation in case of the failures.
+
+The issue was discovered [2] by Sashiko.
+
+Link: https://lore.kernel.org/20260605013849.83750-1-sj@kernel.org
+Link: https://lore.kernel.org/20260603112306.58490-1-akinobu.mita@gmail.com [1]
+Link: https://lore.kernel.org/20260320020056.835-1-sj@kernel.org [2]
+Fixes: 83dc7bbaecae ("mm/damon/sysfs: use damon_commit_ctx()")
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.11.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 6a66c557a2ab2609575bafd15e093669c05f9711)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 49 +++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 43 insertions(+), 6 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 2a6da49816526..416ef750ad140 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -938,10 +938,36 @@ static int damon_commit_target(
+ 	return 0;
+ }
+ 
++/*
++ * damon_revert_target_commits() - revert unsuccessful target commits.
++ * @dst:	Commit destination context
++ * @failed:	Commit failed destination target
++ * @src:	Commit source context
++ *
++ * Revert target states that changed by damon_commit_target(), and cannot be
++ * cleaned up by the destination context's ops.cleanup_target().
++ */
++static void damon_revert_target_commits(struct damon_ctx *dst,
++		struct damon_target *failed, struct damon_ctx *src)
++{
++	struct damon_target *target;
++
++	if (!damon_target_has_pid(src))
++		return;
++	if (damon_target_has_pid(dst))
++		return;
++	damon_for_each_target(target, dst) {
++		if (target == failed)
++			return;
++		put_pid(target->pid);
++	}
++}
++
+ static int damon_commit_targets(
+ 		struct damon_ctx *dst, struct damon_ctx *src)
+ {
+ 	struct damon_target *dst_target, *next, *src_target, *new_target;
++	struct damon_target *failed;
+ 	int i = 0, j = 0, err;
+ 
+ 	damon_for_each_target_safe(dst_target, next, dst) {
+@@ -950,8 +976,10 @@ static int damon_commit_targets(
+ 			err = damon_commit_target(
+ 					dst_target, damon_target_has_pid(dst),
+ 					src_target, damon_target_has_pid(src));
+-			if (err)
+-				return err;
++			if (err) {
++				failed = dst_target;
++				goto out;
++			}
+ 		} else {
+ 			if (damon_target_has_pid(dst))
+ 				put_pid(dst_target->pid);
+@@ -959,21 +987,28 @@ static int damon_commit_targets(
+ 		}
+ 	}
+ 
++	failed = NULL;
+ 	damon_for_each_target_safe(src_target, next, src) {
+ 		if (j++ < i)
+ 			continue;
+ 		new_target = damon_new_target();
+-		if (!new_target)
+-			return -ENOMEM;
++		if (!new_target) {
++			err = -ENOMEM;
++			goto out;
++		}
+ 		err = damon_commit_target(new_target, false,
+ 				src_target, damon_target_has_pid(src));
+ 		if (err) {
+ 			damon_destroy_target(new_target);
+-			return err;
++			goto out;
+ 		}
+ 		damon_add_target(dst, new_target);
+ 	}
+ 	return 0;
++
++out:
++	damon_revert_target_commits(dst, failed, src);
++	return err;
+ }
+ 
+ /**
+@@ -1007,8 +1042,10 @@ int damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src)
+ 	 *    committing require putting pids).
+ 	 */
+ 	err = damon_set_attrs(dst, &src->attrs);
+-	if (err)
++	if (err) {
++		damon_revert_target_commits(dst, NULL, src);
+ 		return err;
++	}
+ 	dst->ops = src->ops;
+ 
+ 	return 0;
+-- 
+2.47.3
+
