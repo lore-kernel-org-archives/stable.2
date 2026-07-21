@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3ED126BF1
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE07D126BF1
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784594724; cv=none; b=hJ/QTLtHuPzq/HjgscOoXyRW0nZ294fA+9bbCm6qmAr5p529DKQ1kH1Dc00/CJKlO+lUXvayuAATOXkEkFdga/AhbOCiBkEO/cGh/0v/P+q5EV+swJgYAAmHMO4u8jwlk1hObsvXQyjBYMEPORnxNRfTSmOLLwk9cw36eFcF7Us=
+	t=1784594728; cv=none; b=QhCaN2h8hdDHMbbCyFZPsNC8pZhjxfxJIsIw73tTTolEk6EAzK5Fpslcthc7GOyD5XyzNSFTntU5rDDlObT5aE2wvDhoLT5oYDmQrNTRjc9RoihGGRkP0++Y3Kv2ZSob2e2WCHFxs+9OyymIhCJ1Nhuqdcun5MWM4ZoiN+rMu04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784594724; c=relaxed/simple;
-	bh=xu/TcRFkRKp5n0ODiATZ9FujlxTgLO1qwVxGFsRM/Uc=;
+	s=arc-20240116; t=1784594728; c=relaxed/simple;
+	bh=gKQ/W0WUkGeEfdaBljuYu7UuhMdeWGLg1qoHCG1oqUM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TZ/kaqPZNfkIJtkQpJQST9CLxgm+fpOSQLfKrV1n8UNUzeOJYO3a90mdjSzmNJ6gtjm6AwmA6jfDqL7wYbueFAaBZZmXVtvOVEk19R5jnqUEGP03SuhGoRnY/GLXlf3FDfJSdOcdhhTrx+0Z4e+wiBcxMPIuquPMCwRhWd/pDng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9V7+YSp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Uz8CxhsOQoJ3VsNwfhMiFqdkMAJK/GsXa/L5DbrFHIZBBdjIx06HXy1wtjafboe06Kt3ttt1rccOCsRV3xHCBiNUNIJyYOMUVzSlMN+ZcmyIpteRXREKV3cad4NyRv2WybR5WSTJ/8yJcClKMKETJB4SDpx2mJ5DXNPcpz84kFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FToBLQ1L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9V7+YSp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828411F00A3A;
-	Tue, 21 Jul 2026 00:45:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FToBLQ1L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155E51F000E9;
+	Tue, 21 Jul 2026 00:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784594723;
-	bh=aWkAA+5ZNJ0Ygq+2OLGV5C58JkmKsM2V9uKBUnMvIaY=;
+	s=k20260515; t=1784594726;
+	bh=wO+4N8ib5T+DlXA0k+ZYXzJVE4EKFmUqblVUiIdzSxU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n9V7+YSpTCAjMCKnc01gRDWNOqzQbuWp8cCE6TF6T9E/L3fIjzbd4moHs3XjZwRBQ
-	 yGygxALP/DOApR3kd6fytx7CwXhetLxqdoreSyJPIdLzNg4/g2K6K08qj2hnExj140
-	 pnAtq7PWJbOTJsxJ7WGn5n2E83w7Go4/+LPFUYgMOCgz/pmCkxi97D9cX2KReg9YOP
-	 jotzj26PXhJfo1Poi6k3R1T0NkyIjuDdKAmVuWroG3UTwD91wereIbNIQ8a/rGtFgP
-	 BIG0HZ2y9ymJw1OCHtlOb3usIOGcUhm0xU8W6qxdSi91lqsPHJZNI7aXHexG+D+Olj
-	 Ftr+3xQ3j2yLA==
+	b=FToBLQ1Li0QRNyZdwpKa9jnB8MQMpzAVe98QYo7OhLtlQh+FrmT28dCIJtSPceKEI
+	 iRZ/3n3igbrDhkefuaS1EYGUTTnCRlt8jy9E5duNGfrq5VXLkzy9Vi4783BtaIaHuI
+	 O1C6lfBr9nu8F1d8mzOb8rCwFxj9Pw/phJh4WQ97MzuHJ0DYIGE3IfW1dr62qslFYG
+	 YwRZDP7SX1PxopsvdAm+NPUsAHhMBFwNGUwTbELDjDTnBPsND+fCkRfVSFQhcihQPK
+	 ZGR8jLjQyshd1IznG8lIUlmciiqkVKOT4bGqaU1Ub9NhzPO4We7E6uEN5HJRSfGtyn
+	 WNXbKMD6ZW7XQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Qu Wenruo <wqu@suse.com>,
+	Boris Burkov <boris@bur.io>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] regulator: scmi: fix of_node refcount leak in scmi_regulator_probe()
-Date: Mon, 20 Jul 2026 20:45:19 -0400
-Message-ID: <20260721004519.3422055-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] btrfs: fix false IO failure after falling back to buffered write
+Date: Mon, 20 Jul 2026 20:45:23 -0400
+Message-ID: <20260721004524.3422340-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721004519.3422055-1-sashal@kernel.org>
-References: <2026071525-evade-yogurt-25a3@gregkh>
- <20260721004519.3422055-1-sashal@kernel.org>
+In-Reply-To: <2026071510-plexiglas-finishing-b299@gregkh>
+References: <2026071510-plexiglas-finishing-b299@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,44 +46,202 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit fa11039d6cdff84584a3ef8cc1f5e1b56e045da2 ]
+[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
 
-scmi_regulator_probe() calls of_find_node_by_name() which takes a
-reference on the returned device node. On the error path where
-process_scmi_regulator_of_node() fails, the function returns without
-calling of_node_put() on the child node, leaking the reference.
+[BUG]
+The test case generic/362 will fail with "nodatasum" mount option (*):
 
-Add of_node_put(np) on the error path to properly release the
-reference.
+ MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
-Cc: stable@vger.kernel.org
-Fixes: 0fbeae70ee7c ("regulator: add SCMI driver")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260527104850.872415-1-vulab@iscas.ac.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
+ generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+    --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
+    @@ -1,2 +1,3 @@
+     QA output created by 362
+    +First write failed: Input/output error
+     Silence is golden
+    ...
+
+*: If the test case has been executed before with default data checksum,
+the failure will not reproduce. Need the following fix to make it
+reliably reproducible:
+https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
+
+[CAUSE]
+Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
+Thus we never got an error pointer from __iomap_dio_rw().
+
+The call chain looks like this:
+
+ btrfs_direct_write()
+ |- btrfs_dio_write()
+ |-  __iomap_dio_rw()
+ |  |- iomap_iter()
+ |  |  |- btrfs_dio_iomap_begin()
+ |  |     Now an ordered extent is allocated for the 4K write.
+ |  |
+ |  |- iomi.status = iomap_dio_iter()
+ |  |  Where iomap_dio_iter() returned -EFAULT.
+ |  |
+ |  |- ret = iomap_iter()
+ |  |  |- btrfs_dio_iomap_end()
+ |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
+ |  |  |  |  |- can_finish_ordered_extent()
+ |  |  |  |     |- btrfs_mark_ordered_extent_error()
+ |  |  |  |        |- mapping_set_error()
+ |  |  |  |           Now the address space is marked error.
+ |  |  |  | return -ENOTBLK
+ |  |  |- return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0; }
+ |     Now the return value is reset to 0.
+ |     Thus no error pointer will be returned.
+ |
+ |- ret = iomap_dio_complete()
+ |  Since no byte is submitted, @ret is 0.
+ |
+ |- Fallback to buffered IO
+ |  And the buffered write finished without error
+ |
+ |- filemap_fdatawait_range()
+    |- filemap_check_errors()
+       The previous error is recorded, thus an error is returned
+
+However the buffered write is properly submitted and finished, the error
+is from the btrfs_finish_ordered_extent() call with @uptodate = false.
+
+[FIX]
+When a short dio write happened, any range that is submitted will have
+btrfs_extract_ordered_extent() to be called, thus the submitted range
+will always have an OE just covering the submitted range.
+
+The remaining OE range is never submitted, thus they should be treated
+as truncated, not an error. So that we can properly reclaim and not
+insert an unnecessary file extent item, without marking the mapping as
+error.
+
+Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
+that helper to mark the direct IO ordered extent as truncated, so it
+won't cause failure for the later buffered fallback.
+
+[REASON FOR NO FIXES TAG]
+The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we're already passing @uptodate=false finishing
+the OE.
+But at that time OE with IOERR won't call mapping_set_error(), so it's
+not exposed.
+Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
+error if we fail to finish") finally exposed the bug, but that commit
+is doing a correct job, not the root cause.
+
+Anyway the bug is very old, dating back to 5.1x days, thus only CC to
+stable.
+
+CC: stable@vger.kernel.org # 5.15+
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: ff66fe666233 ("btrfs: fix incorrect buffered IO fallback for append direct writes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/regulator/scmi-regulator.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ fs/btrfs/inode.c        | 34 ++++++++++++++++++++++++++--------
+ fs/btrfs/ordered-data.c | 13 +++++++++++++
+ fs/btrfs/ordered-data.h |  2 ++
+ 3 files changed, 41 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/regulator/scmi-regulator.c b/drivers/regulator/scmi-regulator.c
-index 6d609c42e4793b..c005e65ba0ecbe 100644
---- a/drivers/regulator/scmi-regulator.c
-+++ b/drivers/regulator/scmi-regulator.c
-@@ -345,8 +345,10 @@ static int scmi_regulator_probe(struct scmi_device *sdev)
- 	for_each_child_of_node_scoped(np, child) {
- 		ret = process_scmi_regulator_of_node(sdev, ph, child, rinfo);
- 		/* abort on any mem issue */
--		if (ret == -ENOMEM)
-+		if (ret == -ENOMEM) {
-+			of_node_put(np);
- 			return ret;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 62cf96fa12f239..6b08ee4aa4edba 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -8207,12 +8207,34 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 	if (submitted < length) {
+ 		pos += submitted;
+ 		length -= submitted;
+-		if (write)
++		if (write) {
++			struct btrfs_ordered_extent *ordered;
++
++			/*
++			 * We have a short write. Any range that was properly
++			 * submitted will be finished through the bio
++			 * completion path with an uptodate status matching
++			 * the bio status.
++			 *
++			 * The remaining range was never submitted, so mark
++			 * it as truncated and finish it without an error, so
++			 * the extent is reclaimed without inserting a file
++			 * extent item for it and without marking the mapping
++			 * as failed, which would make a later buffered write
++			 * fallback fail with a false -EIO.
++			 */
++			ordered = btrfs_lookup_ordered_extent(BTRFS_I(inode),
++							      pos);
++			ASSERT(ordered);
++			btrfs_mark_ordered_extent_truncated(ordered,
++					pos - ordered->file_offset);
++			btrfs_put_ordered_extent(ordered);
+ 			__endio_write_update_ordered(BTRFS_I(inode), pos,
+-					length, false);
+-		else
++					length, true);
++		} else {
+ 			unlock_extent(&BTRFS_I(inode)->io_tree, pos,
+ 				      pos + length - 1);
 +		}
+ 		ret = -ENOTBLK;
  	}
- 	of_node_put(np);
- 	/*
+ 
+@@ -8839,11 +8861,7 @@ static void btrfs_invalidatepage(struct page *page, unsigned int offset,
+ 					 EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
+ 					 EXTENT_DEFRAG, 1, 0, &cached_state);
+ 
+-		spin_lock_irq(&inode->ordered_tree.lock);
+-		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
+-		ordered->truncated_len = min(ordered->truncated_len,
+-					     cur - ordered->file_offset);
+-		spin_unlock_irq(&inode->ordered_tree.lock);
++		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
+ 
+ 		if (btrfs_dec_test_ordered_pending(inode, &ordered,
+ 						   cur, range_end + 1 - cur)) {
+diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+index 6b51fd2ec5ac53..32c9afee334889 100644
+--- a/fs/btrfs/ordered-data.c
++++ b/fs/btrfs/ordered-data.c
+@@ -298,6 +298,19 @@ void btrfs_add_ordered_sum(struct btrfs_ordered_extent *entry,
+ 	spin_unlock_irq(&tree->lock);
+ }
+ 
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len)
++{
++	struct btrfs_ordered_inode_tree *tree;
++
++	tree = &BTRFS_I(ordered->inode)->ordered_tree;
++	ASSERT(truncate_len <= ordered->num_bytes);
++	spin_lock_irq(&tree->lock);
++	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
++	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
++	spin_unlock_irq(&tree->lock);
++}
++
+ /*
+  * Mark all ordered extents io inside the specified range finished.
+  *
+diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
+index 4194e960ff6177..ba6a4d6a5a6637 100644
+--- a/fs/btrfs/ordered-data.h
++++ b/fs/btrfs/ordered-data.h
+@@ -212,6 +212,8 @@ void btrfs_lock_and_flush_ordered_range(struct btrfs_inode *inode, u64 start,
+ 					struct extent_state **cached_state);
+ int btrfs_split_ordered_extent(struct btrfs_ordered_extent *ordered, u64 pre,
+ 			       u64 post);
++void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
++					 u64 truncate_len);
+ int __init ordered_data_init(void);
+ void __cold ordered_data_exit(void);
+ 
 -- 
 2.53.0
 
