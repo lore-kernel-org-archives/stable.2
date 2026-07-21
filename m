@@ -1,106 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70ED336E495
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 13:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1D0374A0E
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 13:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784641226; cv=none; b=pWZI4bQx+4kRrTP6GsybiLDrhTAHu1eZtdcKY5VlYb5Gn2Do5ZzuSF+LFlNqnVqr2hSK9M0E/yfLRSdDOfdJ4+8GLfZfwFrxdRfxPPoxbZK9m//1HkEnOGrtp6QmDi8pEWqmYKDCK/A9Edhkg9OSPONHcqBbiGGxORjaRTl7pzk=
+	t=1784641629; cv=none; b=jtcd0MyMTAEfiIAzMiqPaFNVAUxip7KgKbUe/sRC66D2NKTzhdBaPe8aZsAnb0KcdW2bSZ761hL5Puium0LjoANQURD4Lyu4xt4NyhfYDAOxg3ebySUiqh4MwaevZL6b5Pms1Qv8sZkxcH5rsUUGDeDqCqNs1ikMiMBgk/vV6Mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784641226; c=relaxed/simple;
-	bh=Hm96/DXpJkXjSNGuUzX/OuEFvS8gRRl0SWjmUCj1iBI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m1zK2w/D/M7rk+CwHymvA0mf88JHIHFDYHI1yhBBhuiRoZa9JUQns+CVAYZjqHRujQ5zydhuAivqdvbZYh172Qer6eN0SBbYqCSvKXVxBLXF7+ra5eXXFE0UvT/HTYEa0UKyE6qCVb8zXiRdA+AGNPQFC/h/TYVLOrp0EjmQCxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDmBmQ58; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784641629; c=relaxed/simple;
+	bh=LaX1q5VWiR5x0tn/HSIQFSx/gGer/j4SLQAX2ipJwRw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=WqAYWLgcYUIpOgONLDdmVqjcrFjNXC3sZ1HZhl68fi3Qckn++tU2WQ1g29j8Vo1s2ToFL6S8/0RYZKN7aK+ZfocYioLfsjc0C8ehm4C4utJUOUPTVyOmXn+KZEM5GMUl68EZGux7av5aUDSLsvOdjHJy2U2mQSXAdTnaMUhdwwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UtzJP6FF; arc=none smtp.client-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDmBmQ58"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472031F00AC4
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 13:40:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784641225;
-	bh=CdJj5nKqEObBB1xkwyRi/zaKZ4Wn7rvGnIYm7xgOmmg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IDmBmQ58clmBlLaJI3oGiupJG7807RCv0Je6/sewvX5+psSowjwboZS7z0twCZO7y
-	 svGL0LYfACfLTT7pbbWO1c6HzBRo8hhJmUXhNeqEUrilfG4Jt+2AmjoQTjjrsNAFS4
-	 7SRFo7TdQrSsiE4kJdW4fhfMK2v5ku4MHMCyFrT6Z6a+5iIPw6FVrodFboa0i8JdRA
-	 +3q4KmNksBFzvKyt4Oc+w6op4eBruO+049kmcTZRgfL0YTHeH25nsZHagI0+9vwZkj
-	 DSks8iCyezNZA+qchJwRYM1RWkwN7W8N/Iu1bKwP3k14Q5WGNm3sn5jl04U0T3RMrw
-	 3uqt0nv0D5Jhg==
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6986578d8c0so17690522a12.1
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 06:40:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqZO66AgtKFc5WjCXpfNcOPBRFOXwAm/imCh2K2so0uGuMhlq+jXIxMn91KzCZOSGJ3bx2AZ60=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeGkdjmrJqaRtrA7/KTRSvxNFCubf0mVuD5oFrlmSOdzZ4rXHF
-	2ZGX2lTxatJRs0q837u0q6m1lCMKJluJGGIRFCvlqgpc2jlCB4BBSenYGkxU5ZmhBsIqgKCMG4A
-	OvSa/0lnQhcVYW2sDT8jSlTc0VGJE834=
-X-Received: by 2002:a17:907:72cd:b0:c16:3187:997e with SMTP id
- a640c23a62f3a-c16b46ade61mr722490666b.7.1784641223892; Tue, 21 Jul 2026
- 06:40:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UtzJP6FF"
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6986557937eso6726779a12.3
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 06:47:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784641626; x=1785246426; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=45zSO8zldnJyRSwb0Rze7jbaf6ih9yPr5w2JS8HwOGA=;
+        b=UtzJP6FFatIzPltU9coOb/6Fz4mB8KVZJNriHlIS97E+ul3yZEhlHxzF1iM7wEmxfp
+         oF2DQNelHMcEdo6O1mGxN2GUNvP/rtRoMfnalMWqh76sokP570p51iXryYoi29p89D9G
+         nmf4itJFZOJ4DaY23DSwodO+mWYU24ayw0q+YUKr2hew/RLeLJgW8zJEdqS4u/9WmvBE
+         eWx1eSXsG4y6n/+eYG/nUfaI8udmLZBrTj+jh6WyJqL6NCawSsey2zUTLwVz1ZSDSHB/
+         82pXx9xma6h7TBVlYqKy1BKOdcgiR27/wymfZ40+/+X7GII9E4ARFCDHMG713oegEc+z
+         1DOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784641626; x=1785246426;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=45zSO8zldnJyRSwb0Rze7jbaf6ih9yPr5w2JS8HwOGA=;
+        b=nbfgBdmixaI3dOO5JyDTYPGLBYrrt1OczYIWP5j+j6DCk1eQZlzoCuYuceUoiQ8/2R
+         KQqAXFGTdg1h5rSNRrFFy2yNBpJ+utwLxz7C/BxDrVAPS959eDR6DEeW135Vzzdl9DjD
+         RcT3ZjrmVgAeC0pnj2/rPNnPYk9ZX11DQBnlSK+Ir4ZzgjzfxPzS9wrXppBi/eM1Ldpd
+         o2/Nda/mAzbvi3rzcUJC8Ie3Yh+DwroluwT2BVB223jcxoYUcgGejM9MrbazpKlTiIZO
+         1nhbQJt40GvYXiIC3mw1LlmD559tLgdMsIx8/IWKOnCFQsDIdXW76SkwLM2shKonYd26
+         YDxw==
+X-Gm-Message-State: AOJu0YyRTmF+7xyWvqeqlCtzzjEBFwsGQJRMPfBWveTldIbEzEo+5Iut
+	G3VnR1HDZCNACGxD8lZEpcXiVZFIul10Cht8AbRRBqcLTbq8Q96/w1oYxwIliSxDMLrQEmD9JBS
+	QvW8Xv/QN2F3jPw==
+X-Received: from edrm24.prod.google.com ([2002:aa7:d358:0:b0:698:3e8f:5f8f])
+ (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:51c9:b0:695:f580:a66f with SMTP id 4fb4d7f45d1cf-69e652ddfaamr6834370a12.21.1784641625618;
+ Tue, 21 Jul 2026 06:47:05 -0700 (PDT)
+Date: Tue, 21 Jul 2026 13:47:04 +0000
+In-Reply-To: <2026072131-citation-reshape-587c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <4EAAF864-52A2-429F-A7F1-46228DDE6884@nozominetworks.com>
-In-Reply-To: <4EAAF864-52A2-429F-A7F1-46228DDE6884@nozominetworks.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 21 Jul 2026 22:40:11 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8UG2iEWppy=LWH=1x3iTybqKg6XRjQLv7tyaagDOYnQA@mail.gmail.com>
-X-Gm-Features: AUfX_mw7kg5Yh_oMLiKw7uaHvjgvVHhpl6vGb6wp8elarrcqQEFVCWkj8T_U6us
-Message-ID: <CAKYAXd8UG2iEWppy=LWH=1x3iTybqKg6XRjQLv7tyaagDOYnQA@mail.gmail.com>
-Subject: Re: [PATCH v2] fs/ntfs: Fix index_root heap OOB write in ntfs_ir_to_ib()
-To: =?UTF-8?Q?Alexandro_Cal=C3=B2?= <alexandro.calo@nozominetworks.com>
-Cc: "hyc.lee@gmail.com" <hyc.lee@gmail.com>, 
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Mime-Version: 1.0
+References: <2026072131-citation-reshape-587c@gregkh>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+Message-ID: <DK4AN7P1B5KK.15R8G3B5L5E85@google.com>
+Subject: Re: FAILED: patch "[PATCH] sched_ext: Skip ops.set_weight() for
+ disabled tasks" failed to apply to 7.1-stable tree
+From: Kuba Piecuch <jpiecuch@google.com>
+To: <gregkh@linuxfoundation.org>, <jpiecuch@google.com>, <tj@kernel.org>
+Cc: <stable@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 17, 2026 at 7:52=E2=80=AFPM Alexandro Cal=C3=B2
-<alexandro.calo@nozominetworks.com> wrote:
->
-> From: Alexandro Calo <alexandro.calo@nozominetworks.com>
-> Date: Fri, 17 Jul 2026 12:14:51 +0200
-> Subject: [PATCH v2] fs/ntfs: Fix index_root heap OOB write in ntfs_ir_to_=
-ib()
->
-> ntfs_ir_to_ib copies all entries from index_root into a freshly allocated
-> index_block_size-byte buffer without verifying that the entries fit in th=
-e
-> available space. The entries in index_root may be larger than the usable
-> entry space in the index block.
->
-> This can cause OOB writes past the end of the allocation.
->
-> The validator ntfs_index_root_inconsistent() checks that entries are
-> self-consistent within the IR value, but never cross-checks them against
-> index_block_size. There is no bounds check in ntfs_ir_to_ib() before the
-> memcpy.
->
-> Fixing this at the sink in ntfs_ir_to_ib() since
-> ntfs_index_root_inconsistent() validates the logical consistency of
-> index_root as a structure and a root with large entries is a structurally
-> valid root. The bug is a size conflict of ntfs_ir_to_ib().
-> Also, the validator is called once per inode load in
-> ntfs_read_locked_inode() while ntfs_ir_to_ib() is only called during a
-> reparent, a check there adds no overhead to the common path.
-> Moreover, even a future call path that bypasses the validator would still
-> be protected.
->
-> With NULL as first parameter of ntfs_error(), the volume error flag is
-> never set by this call, so the device name will be absent from the error
-> message. In any case, that the caller, ntfs_ir_reparent(), prints an erro=
-r
-> message that includes the device name on NULL returns.
-> I think this is the best solution available without adding
-> 'struct super_block *sb' as a parameter to ntfs_ir_to_ib().
->
-> This heap out-of-bounds write is triggered by a crafted filesystem image,
-> which is not in the kernel threat model, anyway, fixing memory errors wou=
-ld
-> be nice to keep  things secure.
->
-> Signed-off-by: Alexandro Calo <alexandro.calo@nozominetworks.com>
-Applied it to #ntfs-next.
-Thanks!
+Hi Greg,
+
+I'm unable to reproduce the failure using the steps provided.
+The patch applies cleanly. The code compiles and tests are passing.
+
+FWIW, below is the patch after cherry-picking the commit:
+
+Thanks,
+Kuba
+
+------------------------ 8< ----------------------------
+
+From adc748e669cc1564255430299abf086b9ecd9b45 Mon Sep 17 00:00:00 2001
+From: Kuba Piecuch <jpiecuch@google.com>
+Date: Fri, 10 Jul 2026 14:43:41 +0000
+Subject: [PATCH] sched_ext: Skip ops.set_weight() for disabled tasks
+
+When switching a task's sched_class away from sched_ext, we get the
+following sequence of events in __sched_setscheduler():
+
+sched_change_begin()
+  switched_from_scx()
+    scx_disable_task(p)
+      ops.disable(p)
+__setscheduler_params()
+  set_load_weight()
+    reweight_task_scx(p)
+      ops.set_weight(p)
+p->sched_class = next_class;
+sched_change_end()
+  ...
+
+Notably, ops.set_weight() is called _after_ ops.disable().
+This violates the expected semantics of the callbacks, the expectation
+being that ops.disable() can only be followed by ops.exit_task() or
+ops.enable().
+
+Skipping the weight adjustment for disabled tasks should be harmless
+since the weight will be recalculated in scx_enable_task() if the task
+ever rejoins SCX.
+
+Fixes: 637b0682821b ("sched: Fold sched_class::switch{ing,ed}_{to,from}() into the change pattern")
+Cc: stable@vger.kernel.org # v6.19+
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+(cherry picked from commit 0e2f4ab68a89fad42e0f5a9ff4b740738e7aa1d6)
+---
+ kernel/sched/ext.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index 5d2d19473a82..8429bebc21a1 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -3904,6 +3904,17 @@ static void reweight_task_scx(struct rq *rq, struct task_struct *p,
+        if (task_dead_and_done(p))
+                return;
+ 
++       /*
++        * When switching sched_class away from SCX, reweight_task_scx()
++        * is called _after_ scx_disable_task(). Skip calling ops.set_weight()
++        * since the BPF scheduler may have already forgotten the task in
++        * ops.disable().
++        * p->scx.weight will be recalculated in scx_enable_task() if the task
++        * ever returns to SCX class.
++        */
++       if (scx_get_task_state(p) != SCX_TASK_ENABLED)
++               return;
++
+        p->scx.weight = sched_weight_to_cgroup(scale_load_down(lw->weight));
+        if (SCX_HAS_OP(sch, set_weight))
+                SCX_CALL_OP_TASK(sch, set_weight, rq, p, p->scx.weight);
+
