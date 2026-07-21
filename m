@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C79F3E958F;
-	Tue, 21 Jul 2026 05:22:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D673403E1;
+	Tue, 21 Jul 2026 05:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784611368; cv=none; b=WruBzw/RCDWRHzX1orRSvWXSHaLgvBLD/G2UQ4UC/9XoGSFsLT7YnZhCaC9JAgrcbnfQ27ePD9FxkiChOEHewCegZcJFV4nynZyc+41O+UtiY3+baV4wKE1P5Iyw33xkJL7PYM2XSMoZ1SQpYdtmy/3Ye4YW8N/OCpeczWYgVcE=
+	t=1784611629; cv=none; b=WW1bhqG6oI1qguX4TxQb4sWW3D+BXNA36dJaWAa79Grs4fWchKlIm13qRKFZTGF8nijx65R/VXfpF3yRZGrIDNytuD7AMiaBzXA1BOZZq0Gw9yXumpoVQ3CxtsVzaMLlxR4WrVJ1pKb1UwcQUnN98yt+fcFv1GvJ07fGbx8uJqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784611368; c=relaxed/simple;
-	bh=2uDdXvlfBlIhBOVQT1/oSY/Q/+XRLdg69Q8MyQIWFq8=;
+	s=arc-20240116; t=1784611629; c=relaxed/simple;
+	bh=In/7xE4xOKhCQwKX2GwH37KZiKLFTMuvVFb0sseK64Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jHB5Qh8joCIMda6+ICgMXSPkchcX7DvU3nFOfSOxFTZkVoUa8rHDejFeY6TVd47uzObbHOIaE3aT17I4fFhdQscQ+p0/wOp2sDObQSosw2mREzH3h1cqTFcwB0LJ5D3Cl5/MZnL5Xcf3vITsBLWyO34Pk42bRNeACTJ7+13oPjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RjXSIQS3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=o5LROO9Vxew9xaGNAIyMm65rLYBm7TLVsqaFAcisd8LIyrSwxYT0mPYZH8vOgsSvqvKD6kwhm5FBVUtrsoRZAyd+9taSu67Cx63kd+Mx+nm64RGzjaqesC/arDOeDKOjjtjnMg/DGMOcPX8W258MMIgdXE6gmkbxQgT2Oj12zBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aS9zdTtk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RjXSIQS3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059D21F000E9;
-	Tue, 21 Jul 2026 05:22:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aS9zdTtk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129811F000E9;
+	Tue, 21 Jul 2026 05:27:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784611367;
-	bh=kveFPF5cnocjHqe00S0Rn4FWt8I91aFY2LbGJXfoKes=;
+	s=k20260515; t=1784611628;
+	bh=aTn/tdiIdUd/VKwE0RBna1J0T6yQ7J8btE4WeJ6zkKU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RjXSIQS3i4v9mSXoKqlI8xa7vth4IEeI4FqwSlEflTUIXopHNSDCDlPz/16JCZ4Kl
-	 i4R4SrSnPuYOGOBghyLTZxYhcON0aeNV1PRvzUXtEDPiJi9gxC57dDvSBssZkGYLHf
-	 z36rnUQ5aHy7VppyowTvJ1uPIN9sZQFiPtESG/iU+94btYGSLmVTgbM3mOctpeqk2M
-	 1PGuyQZhuLXQgEMyJJDdtrob/Jnr1AKgL4uqaq8rFvHjQspJvloW68pchbihoOU0lD
-	 a6l4zzJwxb6al2vdGVnoSbGgT21aX+hOEghgYCc/Uhpmok+NOTUAYUcqluwpKw1f9R
-	 lXNIGFbFSL0RA==
+	b=aS9zdTtkzddMpH7LODNohJiPOeIVqF+jc/enVpEXw9aFXZ13RHh6RnmscRR85aMpZ
+	 4o4ZfQ359NbXU3ZKzvo5kko5s808JbCrP9sFni77UiP+hfTeIAfumRkRbwwpfjPDnF
+	 uUo9Dvj9H5fEWhXG0mcWqO7eAx9h4fzJBoQgqFC8w1srOeZ/4VvLicO2+t+ONvWOTA
+	 oYCvgibX1K7RG3VRstVVKZe1Li8xDyT8GFoIwzis54//2+K9WdLsdJvZGJlKV20qKM
+	 ezqqWsnnbkKIp98Yuwyq8OnScLjpAkqeR38uXnHWXzE9noARyT9fL5rsI3jbl1ILd1
+	 l5jadjP+7CAZg==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	SeongJae Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.12.y] mm/damon/core: always put unsuccessfully committed target pids
-Date: Mon, 20 Jul 2026 22:22:38 -0700
-Message-ID: <20260721052238.163760-1-sj@kernel.org>
+Subject: [PATCH 6.18.y] mm/damon/core: always put unsuccessfully committed target pids
+Date: Mon, 20 Jul 2026 22:26:59 -0700
+Message-ID: <20260721052659.166596-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072031-shingle-buddy-1bbb@gregkh>
-References: <2026072031-shingle-buddy-1bbb@gregkh>
+In-Reply-To: <2026072031-machine-rectified-f366@gregkh>
+References: <2026072031-machine-rectified-f366@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,10 +97,10 @@ Signed-off-by: SJ Park <sj@kernel.org>
  1 file changed, 43 insertions(+), 6 deletions(-)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 2a6da49816526..416ef750ad140 100644
+index 00c80b7c8c3f6..2b7e0ee772f32 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -938,10 +938,36 @@ static int damon_commit_target(
+@@ -1173,10 +1173,36 @@ static int damon_commit_target(
  	return 0;
  }
  
@@ -120,7 +120,7 @@ index 2a6da49816526..416ef750ad140 100644
 +
 +	if (!damon_target_has_pid(src))
 +		return;
-+	if (damon_target_has_pid(dst))
++	if (dst->ops.cleanup_target)
 +		return;
 +	damon_for_each_target(target, dst) {
 +		if (target == failed)
@@ -137,10 +137,10 @@ index 2a6da49816526..416ef750ad140 100644
  	int i = 0, j = 0, err;
  
  	damon_for_each_target_safe(dst_target, next, dst) {
-@@ -950,8 +976,10 @@ static int damon_commit_targets(
- 			err = damon_commit_target(
+@@ -1186,8 +1212,10 @@ static int damon_commit_targets(
  					dst_target, damon_target_has_pid(dst),
- 					src_target, damon_target_has_pid(src));
+ 					src_target, damon_target_has_pid(src),
+ 					src->min_sz_region);
 -			if (err)
 -				return err;
 +			if (err) {
@@ -148,9 +148,9 @@ index 2a6da49816526..416ef750ad140 100644
 +				goto out;
 +			}
  		} else {
- 			if (damon_target_has_pid(dst))
- 				put_pid(dst_target->pid);
-@@ -959,21 +987,28 @@ static int damon_commit_targets(
+ 			struct damos *s;
+ 
+@@ -1201,22 +1229,29 @@ static int damon_commit_targets(
  		}
  	}
  
@@ -166,9 +166,10 @@ index 2a6da49816526..416ef750ad140 100644
 +			goto out;
 +		}
  		err = damon_commit_target(new_target, false,
- 				src_target, damon_target_has_pid(src));
+ 				src_target, damon_target_has_pid(src),
+ 				src->min_sz_region);
  		if (err) {
- 			damon_destroy_target(new_target);
+ 			damon_destroy_target(new_target, NULL);
 -			return err;
 +			goto out;
  		}
@@ -182,18 +183,18 @@ index 2a6da49816526..416ef750ad140 100644
  }
  
  /**
-@@ -1007,8 +1042,10 @@ int damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src)
- 	 *    committing require putting pids).
+@@ -1255,8 +1290,10 @@ int damon_commit_ctx(struct damon_ctx *dst, struct damon_ctx *src)
  	 */
- 	err = damon_set_attrs(dst, &src->attrs);
--	if (err)
-+	if (err) {
-+		damon_revert_target_commits(dst, NULL, src);
- 		return err;
-+	}
+ 	if (!damon_attrs_equals(&dst->attrs, &src->attrs)) {
+ 		err = damon_set_attrs(dst, &src->attrs);
+-		if (err)
++		if (err) {
++			damon_revert_target_commits(dst, NULL, src);
+ 			return err;
++		}
+ 	}
  	dst->ops = src->ops;
- 
- 	return 0;
+ 	dst->addr_unit = src->addr_unit;
 -- 
 2.47.3
 
