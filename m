@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8ABB35C68D;
-	Tue, 21 Jul 2026 21:27:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EE13B6356;
+	Tue, 21 Jul 2026 21:27:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784669286; cv=none; b=mC5ey/RHDXFFKKn/9eVtBhwcbX6HHxBrF02S9JPTBxdarJsWAO9DcH99jtkDapSl6Ue86fjJlSVErmU0OiglcQ1nkVj5FwzfxXejdFIkdajKRRHwecjdAol4Y2yIdwTHNOcsxEm2czSA5t3I0ckOy3r7K/G9z6D1SA851N+g7zo=
+	t=1784669282; cv=none; b=U3LEzQPV3iZgDYT3MaWpWuTsMkxWFnzaXzGWTnruGwv13NLfiJ2MVsQkOOYZRHJIRhW8fQwElfjuaALPlxj7pLbCOlGjW5y9mQShcGTIG9EgO1uFZymR6kF3zGJfJm9CZoxYOECZrFE/go1XARgrqU2iex5nVW3pRIeOer5LikY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784669286; c=relaxed/simple;
-	bh=cBeByIKrYgi9AbnwgYY2TvF3d6N4xBc1bCm+WBTcNb4=;
+	s=arc-20240116; t=1784669282; c=relaxed/simple;
+	bh=BuqSuijslrzonMF4FP1PFt/cNF+TFmD9JHISV7HRYVs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YH1Yd56jBdwHjss+XIveh1pjgYZri7XIxMHLram5ccIJKJKy7FdzfkUWCWEcyUBQvIMV32d2hfWQiad3hp00mgulpZ7tldqje3fl+d+aTklHvwWWrC3+omoHTYX4gFilAEgMGUgnZcRdRvzGsZ3L17sJ4sTXJdJUSn/2tonTiDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PLYKEuCb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bGInSUPBjNw7GX9vQRy4US7ngloDjEij2sg/AS2UT8C91IeE7ulCNMbDRpBAzcFk4+j2NMlSE5+TpkyC2xVPVPLRSyE1Qo31ItiVu1dZsxxCCJEZl2kV7GPmHgTC2yBZlD6znixsemb9lsdKxOhJebnQGJFuoHCT6sigdjjz5rY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kTeIDti9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PLYKEuCb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A5F1F00A3D;
-	Tue, 21 Jul 2026 21:27:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kTeIDti9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5F31F000E9;
+	Tue, 21 Jul 2026 21:27:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784669274;
-	bh=/LNCOXWey1/VdIREH9ItCQwTTSBvQDBgo5kyZ9EG1qw=;
+	s=korg; t=1784669271;
+	bh=uPtfW5WaTXzLX8EYRsrUNCTJRZLTa7zqsCuMpjqiECI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PLYKEuCbC1+qR9nZidfMsbnGPp/apBtDrxsBYzl7mdc8ckToidMtAVwZMPZpG2fEU
-	 cgPWTmjkCL9ib5xh4a1MDz4Q8NZvk9akzQCsT/Q8gW1ERCDYbcmqL/b4092V1i2EW4
-	 ZiZPRhchAz/eFj8kgmEVd9uqiPQx8PMWEaDuNJ5w=
+	b=kTeIDti9X+4ebQs4R7wUwGumGvZwGJl3YWjms+DRGrf7PiwIG8vcUaPycBW7k/XfT
+	 jX8y0pnxHflKFXUT8Hg8DpJ8UFka6Sj1C1dRP4E2Dw3zCLUbznIhnWFTT1h/CWSFcc
+	 AnkLV/5JAOYSuo5Ufc2zyqxnPYTfAnmYrqTl0kgM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Guilherme Ivo Bozi <guilherme.bozi@usp.br>,
-	Salih Erim <salih.erim@amd.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0493/1067] iio: adc: xilinx-ams: fix out-of-bounds channel lookup in event handling
-Date: Tue, 21 Jul 2026 17:18:14 +0200
-Message-ID: <20260721152435.641610257@linuxfoundation.org>
+Subject: [PATCH 6.1 0492/1067] iio: magnetometer: ak8975: fix potential kernel stack memory leak
+Date: Tue, 21 Jul 2026 17:18:13 +0200
+Message-ID: <20260721152435.619787273@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
 References: <20260721152424.521567757@linuxfoundation.org>
@@ -52,51 +52,77 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+From: Joshua Crofts <joshua.crofts1@gmail.com>
 
-[ Upstream commit 947eb6f0a274f8b15a0248051a65b069effd5057 ]
+[ Upstream commit a9a00d727b7bbc5e913a919530a9dd468935bf95 ]
 
-ams_event_to_channel() may return a pointer past the end of
-dev->channels when no matching scan_index is found. This can lead
-to invalid memory access in ams_handle_event().
+Currently in the AK8975 driver there are four instances where potential
+uninitialized kernel stack memory leaks can occur. If
+i2c_smbus_read_i2c_block_data_or_emulated() returns a value less than
+the size of the buffer, uninitialized bytes are retained in the buffer
+and later the buffer is passed on to IIO buffers, potentially leaking
+memory to userspace.
 
-Add a bounds check in ams_event_to_channel() and return NULL when
-no channel is found. Also guard the caller to safely handle this
-case.
+Fix this by adding checks whether the return value of the function is
+equal to the size of the buffer and subsequently if the value is
+lesser than zero to distinguish from a returned error code.
 
-Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
-Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-Reviewed-by: Salih Erim <salih.erim@amd.com>
-Tested-by: Salih Erim <salih.erim@amd.com>
+Fixes: bc11ca4a0b84 ("iio:magnetometer:ak8975: triggered buffer support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260513-ak8975-fix-v1-1-104ea605dd54%40gmail.com
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Signed-off-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/xilinx-ams.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/iio/magnetometer/ak8975.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
-index e1a1f50b4885f4..9045e2fa1154d8 100644
---- a/drivers/iio/adc/xilinx-ams.c
-+++ b/drivers/iio/adc/xilinx-ams.c
-@@ -861,6 +861,9 @@ static const struct iio_chan_spec *ams_event_to_channel(struct iio_dev *dev,
- 		if (dev->channels[i].scan_index == scan_index)
- 			break;
+diff --git a/drivers/iio/magnetometer/ak8975.c b/drivers/iio/magnetometer/ak8975.c
+index 44f3ab2bb1b330..ac7541e1b7da54 100644
+--- a/drivers/iio/magnetometer/ak8975.c
++++ b/drivers/iio/magnetometer/ak8975.c
+@@ -464,6 +464,10 @@ static int ak8975_who_i_am(struct i2c_client *client,
+ 		dev_err(&client->dev, "Error reading WIA\n");
+ 		return ret;
+ 	}
++	if (ret != sizeof(wia_val)) {
++		dev_err(&client->dev, "Error reading WIA\n");
++		return -EIO;
++	}
  
-+	if (i == dev->num_channels)
-+		return NULL;
-+
- 	return &dev->channels[i];
- }
+ 	if (wia_val[0] != AK8975_DEVICE_ID)
+ 		return -ENODEV;
+@@ -580,6 +584,10 @@ static int ak8975_setup(struct i2c_client *client)
+ 		dev_err(&client->dev, "Not able to read asa data\n");
+ 		return ret;
+ 	}
++	if (ret != sizeof(data->asa)) {
++		dev_err(&client->dev, "Error reading asa data\n");
++		return -EIO;
++	}
  
-@@ -1002,6 +1005,8 @@ static void ams_handle_event(struct iio_dev *indio_dev, u32 event)
- 	const struct iio_chan_spec *chan;
+ 	/* After reading fuse ROM data set power-down mode */
+ 	ret = ak8975_set_mode(data, POWER_DOWN);
+@@ -719,6 +727,10 @@ static int ak8975_read_axis(struct iio_dev *indio_dev, int index, int *val)
+ 			sizeof(rval), (u8*)&rval);
+ 	if (ret < 0)
+ 		goto exit;
++	if (ret != sizeof(rval)) {
++		ret = -EIO;
++		goto exit;
++	}
  
- 	chan = ams_event_to_channel(indio_dev, event);
-+	if (!chan)
-+		return;
+ 	/* Read out ST2 for release lock on measurment data. */
+ 	ret = i2c_smbus_read_byte_data(client, data->def->ctrl_regs[ST2]);
+@@ -848,6 +860,8 @@ static void ak8975_fill_buffer(struct iio_dev *indio_dev)
+ 							(u8 *)fval);
+ 	if (ret < 0)
+ 		goto unlock;
++	if (ret != sizeof(fval))
++		goto unlock;
  
- 	if (chan->type == IIO_TEMP) {
- 		/*
+ 	mutex_unlock(&data->lock);
+ 
 -- 
 2.53.0
 
