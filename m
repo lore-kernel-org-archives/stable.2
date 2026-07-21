@@ -1,44 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC9F439328
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784634473; cv=none; b=MnHLFA3lBtfY1cqsENbOSpu2klGYrJoC/k2kwoAb4yWfKyqTlnI2TaSOFnhVVtrIKNfIN7Kuk/8g++YYifBAiZQ7R6kNa3CHC2fGt0cwPLPVa2jEb8bYO6b4JIqvrBooN3E4dDk0mtn8URdw+C95T05o1hMqF8VAQTDiUZ3qMZ0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784634473; c=relaxed/simple;
-	bh=dQXkPQ0wNFjmPgmZO3fCuWnTBkkDlYaE1Ak2gc2LTEA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hjm3M5ywKCERqgK27sOiFaYx3grTH0NPe7exkfawaZW+ioUl6BH4Fj3JwhouhgtqMH6vEfBeXiphrNZxtR6PC+N3v8Sbzx/WdLbMe1uqi4cr9yaYP71FxX6HuiD5yWYMtdhXUxuopXbWVJDidm/r28TA3qGZcIcjTpaxptxBkE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2M7P3Ba; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA6E367B91;
+	Tue, 21 Jul 2026 11:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784634838; cv=pass; b=rehSyZCPsRl+rJqtLds+5KpE2sX5CrAjMg4QecPerRHsP95Tf4WpjwyA8IwG3pCVYlm1n76GUwCAvrBNBFJ4RP14ZZ80myespOqESSycwEANQhXQhUSnOuLurjuPk95Vklo/iFM9RkHGVteNrccUOrxP1dYL/F+NZcqbxCU+la8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784634838; c=relaxed/simple;
+	bh=uTNoa6lDL951+VrXFtqB8boZt2XAVc0sPNk62nN8eHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a4njzaketDZdUQVYaknYY+F8bygHZEKHj4lftq7brXBzMHdvXZZmX4Du6ZlFHOfv5G8S2Ew8/ljjZfDjnKfove16WcX6YcOZFskbywfGwipdaJQUEdaefingWzgO/1Xwu3G8YtsIgEVsLCtVZI8TQzsdLz5Uc7WL2/55wa9EQTI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=TkZeXLq0; arc=pass smtp.client-ip=136.143.169.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2M7P3Ba"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3648C1F000E9;
-	Tue, 21 Jul 2026 11:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784634470;
-	bh=83Wo/lqW1mP5gEoC4UBLaDgLqqzy5iRw5AcJxrKYIlc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J2M7P3BaZv0bI1rh9WWoINWMiYLzDKXPVeHpKLFwqstsXi69BL055erI3hscnXbbk
-	 J1Wi/9ici6FZGgJv4UP0O6DSYTedMA5y2ih+5+wOdLvZCMBvotK8SE+a6ra+zI64ae
-	 OfXFKZ0x3BcmvKF0ye+NytZuKHsNznEhr6oTdJQzVIc4QRtCg9Lx1UVfMHhyqBpeJ4
-	 DS3KryCL18JmcB6sX4tSDh7b5O3ox4PK1ULBO4/TXUGz9bpJl9b2xssNIbnZAY7oMB
-	 1wrfjjW8XUhrlPjUVBQpnKf5oZahiWjNpna8qZxION3poeYMz6INN2IiKcRtngeEMa
-	 G3Iav1TqImR/g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Rochan Avlur <rochan.avlur@gmail.com>,
-	Yuezhang Mo <Yuezhang.Mo@sony.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/6] exfat: preserve benign secondary entries during rename and move
-Date: Tue, 21 Jul 2026 07:47:43 -0400
-Message-ID: <20260721114743.3689685-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721114743.3689685-1-sashal@kernel.org>
-References: <2026071545-counting-slander-c4c4@gregkh>
- <20260721114743.3689685-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="TkZeXLq0"
+ARC-Seal: i=1; a=rsa-sha256; t=1784634832; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=iTNGu6ktd4WbvC3tt7sZAVrDp1KNinmMsQdBasvI6TMD2sk8cIvGf9HQCSDNfXVbp98g3my6qPabhMoSTFTLsHYyLNfzQA1w3RAcAVeKQY/Jsz170w8MXm3vZQBl10vvdM4yv+Ugrg5vLyMcyAuCt2PDvoFCUiBwAJcrP7szL8w=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1784634832; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rU1WkHQOb3meklTzuM7p6qtpmGsfsNjM5cpcbGKHx9U=; 
+	b=ORx5V0N1D1av5NXUbihcZ+U+floAF6deiZWK5yqWdQPYOMEiE4apOPvMPuZItQlTcdzbrpSzqO485MP7V4ATRYa2mO6LMs86v+MMJzY8TA+dEvuP2XrAiqJGkB+ALP1jqEwmzOYJFHdnnfzwCmpOyvBmTQEkDqUJFejoAogVAKM=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784634832;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=rU1WkHQOb3meklTzuM7p6qtpmGsfsNjM5cpcbGKHx9U=;
+	b=TkZeXLq0Wix7SPg6MQF1bmRta5xhhDMGHPusu39d+z4qD29Au+BBmTn2PEFh6v7c
+	VuTFm0dmzpTJANlXakojF2qnsqk66d83/1bcCyqzjB4zFzOW1Uav/MQJp+ELdn60WO4
+	vjKxzzNEcx6Jaaq6W7+5OziBc7wB3/6arffTAK6k=
+Received: by mx.zoho.eu with SMTPS id 1784634829901515.1672491023868;
+	Tue, 21 Jul 2026 13:53:49 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless v2] wifi: mac80211_hwsim: reject undersized HWSIM_ATTR_TX_INFO
+Date: Tue, 21 Jul 2026 13:53:46 +0200
+Message-ID: <20260721115346.17236-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,467 +52,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Rochan Avlur <rochan.avlur@gmail.com>
+hwsim_tx_info_frame_received_nl() casts the HWSIM_ATTR_TX_INFO payload
+to a struct hwsim_tx_rate * and unconditionally reads
+IEEE80211_TX_MAX_RATES entries (8 bytes) from it. The policy only bounds
+the attribute from above (NLA_BINARY .len is a maximum) and the op sets
+GENL_DONT_VALIDATE_STRICT, so a short or zero-length attribute is
+accepted and the loop reads past the payload.
 
-[ Upstream commit 942296784b2a9439651750c42f540bf2579b330f ]
+Require the exact length in the policy, so a malformed attribute is
+rejected before the handler runs.
 
-Commit 8258ef28001a ("exfat: handle unreconized benign secondary
-entries") added cluster freeing for benign secondary entries inside
-exfat_remove_entries().  However, exfat_remove_entries() is also called
-from the rename and move paths (exfat_rename_file and exfat_move_file),
-where the old entry set is being relocated rather than deleted.  This
-causes benign secondary entries such as vendor extension entries to be
-silently destroyed on rename or cross-directory move, violating the
-exFAT spec requirement (section 8.2) that implementations preserve
-unrecognized benign secondary entries.
-
-Fix this by adding a free_benign parameter to exfat_remove_entries()
-so callers can suppress cluster freeing during relocation, and
-extending exfat_init_ext_entry() to copy trailing benign secondary
-entries from the old entry set into the new one internally.  Also
-clean up the error paths to delete newly allocated entries on failure.
-
-Fixes: 8258ef28001a ("exfat: handle unreconized benign secondary entries")
+Fixes: 7882513bacb1 ("mac80211_hwsim driver support userspace frame tx/rx")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-fsdevel/CAG7tbBV--waov7XVu2FHQEc6paR92dufS=em9DW5Kzsrpu3iQg@mail.gmail.com/
-Signed-off-by: Rochan Avlur <rochan.avlur@gmail.com>
-Reviewed-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
- fs/exfat/dir.c      |  45 +++++++++--
- fs/exfat/exfat_fs.h |   5 +-
- fs/exfat/namei.c    | 191 +++++++++++++++++++++++++++++---------------
- 3 files changed, 169 insertions(+), 72 deletions(-)
+v2: enforce the length via NLA_POLICY_EXACT_LEN in the policy instead of
+    a manual nla_len() check in the handler, and trim the changelog, per
+    Johannes Berg's review.
 
-diff --git a/fs/exfat/dir.c b/fs/exfat/dir.c
-index 6c714b110f089b..2c4afa6675f55a 100644
---- a/fs/exfat/dir.c
-+++ b/fs/exfat/dir.c
-@@ -552,21 +552,43 @@ static void exfat_free_benign_secondary_clusters(struct inode *inode,
- 	exfat_free_cluster(inode, &dir);
- }
- 
-+/*
-+ * exfat_init_ext_entry - initialize extension entries of a dentry set
-+ * @inode:       parent directory inode
-+ * @p_dir:       directory the dentry set is in
-+ * @entry:       index of the first entry of the dentry set
-+ * @num_entries: number of entries excluding benign secondary entries
-+ * @p_uniname:   filename to store
-+ * @old_es:      optional source entry set with benign secondary entries, or NULL
-+ * @num_extra:   number of benign secondary entries to copy from @old_es
-+ *
-+ * Set up the file, stream extension, and filename entries, optionally
-+ * preserving @num_extra benign secondary entries from @old_es.  @old_es
-+ * may refer to the same dentry set that is being initialized.
-+ */
- int exfat_init_ext_entry(struct inode *inode, struct exfat_chain *p_dir,
--		int entry, int num_entries, struct exfat_uni_name *p_uniname)
-+		int entry, int num_entries, struct exfat_uni_name *p_uniname,
-+		struct exfat_entry_set_cache *old_es, int num_extra)
- {
- 	struct super_block *sb = inode->i_sb;
--	int i;
-+	int i, src_start = 0;
- 	unsigned short *uniname = p_uniname->name;
- 	struct exfat_dentry *ep;
- 	struct buffer_head *bh;
- 	int sync = IS_DIRSYNC(inode);
- 
-+	if (WARN_ON(num_extra < 0 || (num_extra && (!old_es ||
-+		    old_es->num_entries < ES_IDX_FIRST_FILENAME + num_extra))))
-+		num_extra = 0;
-+
-+	if (old_es && num_extra > 0)
-+		src_start = old_es->num_entries - num_extra;
-+
- 	ep = exfat_get_dentry(sb, p_dir, entry, &bh);
- 	if (!ep)
- 		return -EIO;
- 
--	ep->dentry.file.num_ext = (unsigned char)(num_entries - 1);
-+	ep->dentry.file.num_ext = (unsigned char)(num_entries - 1 + num_extra);
- 	exfat_update_bh(bh, sync);
- 	brelse(bh);
- 
-@@ -579,6 +601,19 @@ int exfat_init_ext_entry(struct inode *inode, struct exfat_chain *p_dir,
- 	exfat_update_bh(bh, sync);
- 	brelse(bh);
- 
-+	if (old_es && num_extra > 0) {
-+		for (i = 0; i < num_extra; i++) {
-+			ep = exfat_get_dentry(sb, p_dir,
-+					      entry + num_entries + i, &bh);
-+			if (!ep)
-+				return -EIO;
-+
-+			*ep = *exfat_get_dentry_cached(old_es, src_start + i);
-+			exfat_update_bh(bh, sync);
-+			brelse(bh);
-+		}
-+	}
-+
- 	for (i = EXFAT_FIRST_CLUSTER; i < num_entries; i++) {
- 		ep = exfat_get_dentry(sb, p_dir, entry + i, &bh);
- 		if (!ep)
-@@ -595,7 +630,7 @@ int exfat_init_ext_entry(struct inode *inode, struct exfat_chain *p_dir,
- }
- 
- int exfat_remove_entries(struct inode *inode, struct exfat_chain *p_dir,
--		int entry, int order, int num_entries)
-+		int entry, int order, int num_entries, bool free_benign)
- {
- 	struct super_block *sb = inode->i_sb;
- 	int i;
-@@ -607,7 +642,7 @@ int exfat_remove_entries(struct inode *inode, struct exfat_chain *p_dir,
- 		if (!ep)
- 			return -EIO;
- 
--		if (exfat_get_entry_type(ep) & TYPE_BENIGN_SEC)
-+		if (free_benign && (exfat_get_entry_type(ep) & TYPE_BENIGN_SEC))
- 			exfat_free_benign_secondary_clusters(inode, ep);
- 
- 		exfat_set_entry_type(ep, TYPE_DELETED);
-diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
-index e154284be63b6f..96b1faa25aaa9a 100644
---- a/fs/exfat/exfat_fs.h
-+++ b/fs/exfat/exfat_fs.h
-@@ -480,9 +480,10 @@ int exfat_init_dir_entry(struct inode *inode, struct exfat_chain *p_dir,
- 		int entry, unsigned int type, unsigned int start_clu,
- 		unsigned long long size);
- int exfat_init_ext_entry(struct inode *inode, struct exfat_chain *p_dir,
--		int entry, int num_entries, struct exfat_uni_name *p_uniname);
-+		int entry, int num_entries, struct exfat_uni_name *p_uniname,
-+		struct exfat_entry_set_cache *old_es, int num_extra);
- int exfat_remove_entries(struct inode *inode, struct exfat_chain *p_dir,
--		int entry, int order, int num_entries);
-+		int entry, int order, int num_entries, bool free_benign);
- int exfat_update_dir_chksum(struct inode *inode, struct exfat_chain *p_dir,
- 		int entry);
- void exfat_update_dir_chksum_with_entry_set(struct exfat_entry_set_cache *es);
-diff --git a/fs/exfat/namei.c b/fs/exfat/namei.c
-index f0856f7d9d5910..83a146d3c684ce 100644
---- a/fs/exfat/namei.c
-+++ b/fs/exfat/namei.c
-@@ -531,7 +531,8 @@ static int exfat_add_entry(struct inode *inode, const char *path,
- 	if (ret)
- 		goto out;
- 
--	ret = exfat_init_ext_entry(inode, p_dir, dentry, num_entries, &uniname);
-+	ret = exfat_init_ext_entry(inode, p_dir, dentry, num_entries, &uniname,
-+		NULL, 0);
- 	if (ret)
- 		goto out;
- 
-@@ -814,7 +815,8 @@ static int exfat_unlink(struct inode *dir, struct dentry *dentry)
- 
- 	exfat_set_volume_dirty(sb);
- 	/* update the directory entry */
--	if (exfat_remove_entries(dir, &ei->dir, ei->entry, 0, num_entries)) {
-+	if (exfat_remove_entries(dir, &ei->dir, ei->entry, 0, num_entries,
-+			true)) {
- 		err = -EIO;
- 		goto unlock;
- 	}
-@@ -981,7 +983,8 @@ static int exfat_rmdir(struct inode *dir, struct dentry *dentry)
- 	brelse(bh);
- 
- 	exfat_set_volume_dirty(sb);
--	err = exfat_remove_entries(dir, &ei->dir, ei->entry, 0, num_entries);
-+	err = exfat_remove_entries(dir, &ei->dir, ei->entry, 0, num_entries,
-+			true);
- 	if (err) {
- 		exfat_err(sb, "failed to exfat_remove_entries : err(%d)", err);
- 		goto unlock;
-@@ -1007,41 +1010,67 @@ static int exfat_rmdir(struct inode *dir, struct dentry *dentry)
- 	return err;
- }
- 
-+/*
-+ * Count benign secondary entries beyond the filename entries.
-+ * Returns the count, or -EIO if the entry set is inconsistent.
-+ */
-+static int exfat_count_extra_entries(struct exfat_entry_set_cache *es)
-+{
-+	struct exfat_dentry *stream;
-+	unsigned int name_entries;
-+	int extra;
-+
-+	stream = exfat_get_dentry_cached(es, ES_IDX_STREAM);
-+	name_entries = EXFAT_FILENAME_ENTRY_NUM(stream->dentry.stream.name_len);
-+	extra = es->num_entries - (ES_IDX_FIRST_FILENAME + name_entries);
-+
-+	return extra >= 0 ? extra : -EIO;
-+}
-+
- static int exfat_rename_file(struct inode *parent_inode,
- 		struct exfat_uni_name *p_uniname, struct exfat_inode_info *ei)
- {
- 	int ret, num_old_entries, num_new_entries;
- 	struct exfat_dentry *epold, *epnew;
- 	struct super_block *sb = parent_inode->i_sb;
-+	struct exfat_entry_set_cache old_es;
- 	struct buffer_head *new_bh, *old_bh;
- 	int sync = IS_DIRSYNC(parent_inode);
--
--	epold = exfat_get_dentry(sb, &ei->dir, ei->entry, &old_bh);
--	if (!epold)
--		return -EIO;
--
--	num_old_entries = exfat_count_ext_entries(sb, &ei->dir, ei->entry,
--		epold);
--	if (num_old_entries < 0)
--		return -EIO;
--	num_old_entries++;
-+	unsigned int num_extra_entries, num_total_entries;
- 
- 	num_new_entries = exfat_calc_num_entries(p_uniname);
- 	if (num_new_entries < 0)
- 		return num_new_entries;
- 
--	if (num_old_entries < num_new_entries) {
-+	ret = exfat_get_dentry_set_by_ei(&old_es, sb, ei);
-+	if (ret)
-+		return -EIO;
-+
-+	num_old_entries = old_es.num_entries;
-+
-+	ret = exfat_count_extra_entries(&old_es);
-+	if (ret < 0)
-+		goto put_old_es;
-+	num_extra_entries = ret;
-+	num_total_entries = num_new_entries + num_extra_entries;
-+
-+	if (num_old_entries < num_total_entries) {
- 		int newentry;
- 		struct exfat_chain dir;
- 
- 		newentry = exfat_find_empty_entry(parent_inode, &dir,
--				num_new_entries);
--		if (newentry < 0)
--			return newentry; /* -EIO or -ENOSPC */
-+				num_total_entries);
-+		if (newentry < 0) {
-+			ret = newentry; /* -EIO or -ENOSPC */
-+			goto put_old_es;
-+		}
- 
-+		epold = exfat_get_dentry_cached(&old_es, ES_IDX_FILE);
- 		epnew = exfat_get_dentry(sb, &dir, newentry, &new_bh);
--		if (!epnew)
--			return -EIO;
-+		if (!epnew) {
-+			ret = -EIO;
-+			goto put_old_es;
-+		}
- 
- 		*epnew = *epold;
- 		if (exfat_get_entry_type(epnew) == TYPE_FILE) {
-@@ -1049,33 +1078,43 @@ static int exfat_rename_file(struct inode *parent_inode,
- 			ei->attr |= ATTR_ARCHIVE;
- 		}
- 		exfat_update_bh(new_bh, sync);
--		brelse(old_bh);
- 		brelse(new_bh);
- 
--		epold = exfat_get_dentry(sb, &ei->dir, ei->entry + 1, &old_bh);
--		if (!epold)
--			return -EIO;
-+		epold = exfat_get_dentry_cached(&old_es, ES_IDX_STREAM);
- 		epnew = exfat_get_dentry(sb, &dir, newentry + 1, &new_bh);
- 		if (!epnew) {
--			brelse(old_bh);
--			return -EIO;
-+			/* Best-effort delete to avoid duplicate entries */
-+			exfat_remove_entries(parent_inode, &dir, newentry, 0,
-+				num_total_entries, false);
-+			ret = -EIO;
-+			goto put_old_es;
- 		}
- 
- 		*epnew = *epold;
- 		exfat_update_bh(new_bh, sync);
--		brelse(old_bh);
- 		brelse(new_bh);
- 
- 		ret = exfat_init_ext_entry(parent_inode, &dir, newentry,
--			num_new_entries, p_uniname);
--		if (ret)
--			return ret;
-+			num_new_entries, p_uniname, &old_es,
-+			num_extra_entries);
-+		if (ret) {
-+			/* Best-effort delete to avoid duplicate entries */
-+			exfat_remove_entries(parent_inode, &dir, newentry, 0,
-+				num_total_entries, false);
-+			goto put_old_es;
-+		}
- 
- 		exfat_remove_entries(parent_inode, &ei->dir, ei->entry, 0,
--			num_old_entries);
-+			num_old_entries, false);
- 		ei->dir = dir;
- 		ei->entry = newentry;
- 	} else {
-+		epold = exfat_get_dentry(sb, &ei->dir, ei->entry, &old_bh);
-+		if (!epold) {
-+			ret = -EIO;
-+			goto put_old_es;
-+		}
-+
- 		if (exfat_get_entry_type(epold) == TYPE_FILE) {
- 			epold->dentry.file.attr |= cpu_to_le16(ATTR_ARCHIVE);
- 			ei->attr |= ATTR_ARCHIVE;
-@@ -1083,15 +1122,21 @@ static int exfat_rename_file(struct inode *parent_inode,
- 		exfat_update_bh(old_bh, sync);
- 		brelse(old_bh);
- 
--		exfat_remove_entries(parent_inode, &ei->dir, ei->entry,
--			ES_IDX_FIRST_FILENAME + 1, num_old_entries);
--
- 		ret = exfat_init_ext_entry(parent_inode, &ei->dir, ei->entry,
--			num_new_entries, p_uniname);
-+			num_new_entries, p_uniname, &old_es,
-+			num_extra_entries);
- 		if (ret)
--			return ret;
-+			goto put_old_es;
-+
-+		/* Mark excess old entries as deleted (in-place shrink) */
-+		exfat_remove_entries(parent_inode, &ei->dir, ei->entry,
-+			num_total_entries, num_old_entries, false);
- 	}
--	return 0;
-+	ret = 0;
-+
-+put_old_es:
-+	exfat_put_dentry_set(&old_es, false);
-+	return ret;
- }
- 
- static int exfat_move_file(struct inode *parent_inode,
-@@ -1100,31 +1145,40 @@ static int exfat_move_file(struct inode *parent_inode,
- 	int ret, newentry, num_new_entries, num_old_entries;
- 	struct exfat_dentry *epmov, *epnew;
- 	struct super_block *sb = parent_inode->i_sb;
--	struct buffer_head *mov_bh, *new_bh;
-+	struct exfat_entry_set_cache mov_es;
-+	struct buffer_head *new_bh;
- 	struct exfat_chain newdir;
--
--	epmov = exfat_get_dentry(sb, &ei->dir, ei->entry, &mov_bh);
--	if (!epmov)
--		return -EIO;
--
--	num_old_entries = exfat_count_ext_entries(sb, &ei->dir, ei->entry,
--		epmov);
--	if (num_old_entries < 0)
--		return -EIO;
--	num_old_entries++;
-+	unsigned int num_extra_entries, num_total_entries;
- 
- 	num_new_entries = exfat_calc_num_entries(p_uniname);
- 	if (num_new_entries < 0)
- 		return num_new_entries;
- 
-+	ret = exfat_get_dentry_set_by_ei(&mov_es, sb, ei);
-+	if (ret)
-+		return -EIO;
-+
-+	num_old_entries = mov_es.num_entries;
-+
-+	ret = exfat_count_extra_entries(&mov_es);
-+	if (ret < 0)
-+		goto put_mov_es;
-+	num_extra_entries = ret;
-+	num_total_entries = num_new_entries + num_extra_entries;
-+
- 	newentry = exfat_find_empty_entry(parent_inode, &newdir,
--			num_new_entries);
--	if (newentry < 0)
--		return newentry; /* -EIO or -ENOSPC */
-+			num_total_entries);
-+	if (newentry < 0) {
-+		ret = newentry; /* -EIO or -ENOSPC */
-+		goto put_mov_es;
-+	}
- 
-+	epmov = exfat_get_dentry_cached(&mov_es, ES_IDX_FILE);
- 	epnew = exfat_get_dentry(sb, &newdir, newentry, &new_bh);
--	if (!epnew)
--		return -EIO;
-+	if (!epnew) {
-+		ret = -EIO;
-+		goto put_mov_es;
-+	}
- 
- 	*epnew = *epmov;
- 	if (exfat_get_entry_type(epnew) == TYPE_FILE) {
-@@ -1132,34 +1186,41 @@ static int exfat_move_file(struct inode *parent_inode,
- 		ei->attr |= ATTR_ARCHIVE;
- 	}
- 	exfat_update_bh(new_bh, IS_DIRSYNC(parent_inode));
--	brelse(mov_bh);
- 	brelse(new_bh);
- 
--	epmov = exfat_get_dentry(sb, &ei->dir, ei->entry + 1, &mov_bh);
--	if (!epmov)
--		return -EIO;
-+	epmov = exfat_get_dentry_cached(&mov_es, ES_IDX_STREAM);
- 	epnew = exfat_get_dentry(sb, &newdir, newentry + 1, &new_bh);
- 	if (!epnew) {
--		brelse(mov_bh);
--		return -EIO;
-+		/* Best-effort delete to avoid duplicate entries */
-+		exfat_remove_entries(parent_inode, &newdir, newentry, 0,
-+			num_total_entries, false);
-+		ret = -EIO;
-+		goto put_mov_es;
- 	}
- 
- 	*epnew = *epmov;
- 	exfat_update_bh(new_bh, IS_DIRSYNC(parent_inode));
--	brelse(mov_bh);
- 	brelse(new_bh);
- 
- 	ret = exfat_init_ext_entry(parent_inode, &newdir, newentry,
--		num_new_entries, p_uniname);
--	if (ret)
--		return ret;
-+		num_new_entries, p_uniname, &mov_es, num_extra_entries);
-+	if (ret) {
-+		/* Best-effort delete to avoid duplicate entries */
-+		exfat_remove_entries(parent_inode, &newdir, newentry, 0,
-+			num_total_entries, false);
-+		goto put_mov_es;
-+	}
- 
- 	exfat_remove_entries(parent_inode, &ei->dir, ei->entry, 0,
--		num_old_entries);
-+		num_old_entries, false);
- 
- 	ei->dir = newdir;
- 	ei->entry = newentry;
--	return 0;
-+	ret = 0;
-+
-+put_mov_es:
-+	exfat_put_dentry_set(&mov_es, false);
-+	return ret;
- }
- 
- /* rename or move a old file into a new file */
-@@ -1243,7 +1304,7 @@ static int __exfat_rename(struct inode *old_parent_inode,
- 		brelse(new_bh);
- 
- 		if (exfat_remove_entries(new_inode, &new_ei->dir, new_ei->entry,
--				0, num_entries + 1)) {
-+				0, num_entries + 1, true)) {
- 			ret = -EIO;
- 			goto del_out;
- 		}
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+index 0dd8a6c85953..836dd25e5c61 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+@@ -870,9 +870,9 @@ static const struct nla_policy hwsim_genl_policy[HWSIM_ATTR_MAX + 1] = {
+ 	[HWSIM_ATTR_FLAGS] = { .type = NLA_U32 },
+ 	[HWSIM_ATTR_RX_RATE] = { .type = NLA_U32 },
+ 	[HWSIM_ATTR_SIGNAL] = { .type = NLA_U32 },
+-	[HWSIM_ATTR_TX_INFO] = { .type = NLA_BINARY,
+-				 .len = IEEE80211_TX_MAX_RATES *
+-					sizeof(struct hwsim_tx_rate)},
++	[HWSIM_ATTR_TX_INFO] =
++		NLA_POLICY_EXACT_LEN(IEEE80211_TX_MAX_RATES *
++				     sizeof(struct hwsim_tx_rate)),
+ 	[HWSIM_ATTR_COOKIE] = { .type = NLA_U64 },
+ 	[HWSIM_ATTR_CHANNELS] = { .type = NLA_U32 },
+ 	[HWSIM_ATTR_RADIO_ID] = { .type = NLA_U32 },
 -- 
-2.53.0
-
+2.50.1 (Apple Git-155)
