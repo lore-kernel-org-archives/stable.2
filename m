@@ -1,145 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10AF480978;
-	Tue, 21 Jul 2026 12:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664863BB11B;
+	Tue, 21 Jul 2026 12:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784635788; cv=none; b=qOcPkXQk5bE/X4guDdmit5GiuStGPfMpXe9j7Py+Tla03hCOGXNTzChDtFdS+FWbc+AFe5advzWH+eVbeR5V82NSJPC4l47y/RvLysVCLKWy0PPIlv1qrvkMaygaT1BnLOUjJqubMKG4HKvBhU4qu2BeYSHRRuns7phqvPxizdY=
+	t=1784635839; cv=none; b=A6GNYF7ghVNps83vRrfKDJb8cBVL35BAQL6KbqLrBkfqYufljB+UQTzPWp+o96cAbifTtW0OZ6HVlr4eS3IE4yztaZqAPe8Pn1pLassNZZaUjYkCMXYxTkdOuKsdbVYZ0XdwprtRZqI54pVbGri8fKjppK95exM/5iMdixr7hn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784635788; c=relaxed/simple;
-	bh=A7RpNfh6HhENIkWk/z+a/o2A0wzRVZZLzyn0aLn7sRg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CxFp+G8G5j5c5h4By7i6M87LbmI1VRXroZEYJl7U7BCXDB8EDkFDk8i4agLH5DGU4agoa6U+1Bt3jzM8tKQ8wb4c1AtCtfQzxFOYgFnR+gFZsOIlTJW4+A1hDsqeb9ca8d8xTC+OaMQVox098FFipNHgRt/jBR4c3QL+LPU0NuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCBchnQk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784635839; c=relaxed/simple;
+	bh=XqSUnTCT5BmpcGLO10lA1I3XmkdkD5PqInuS9MnabNY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iI8T62mLJIajYR0shvo/s4NvnW37E44Mwvi7sXj5nxqZoP2oBa/RG6DQr+kzJwUoRzyTsbZLQMYbBBK/IOBwA2Isx8MfLVKgioOWGskqi7ogrNP5f7tT1WENFvvXSzQxdC4y5apG9MxFO8MiOisHjlvvhYiVR1AWCqGhSECrHIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f5DychrC; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCBchnQk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328B31F000E9;
-	Tue, 21 Jul 2026 12:09:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784635786;
-	bh=+aU74TjwGAKlM1ykbFleIgZ0kqOSlolWT3M16XgHiR4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FCBchnQktpU1hJI6VVEm3hDfoYdq9iEkrTct/AwFrdSPMeIM2JM9lcfnYGZvRazXy
-	 a8/zEgTWzzu21EtZuE/yXLKIsr8+xmCSw8VQto9H55e/F7BOkcmdPrGKpFlnLdU6re
-	 P5k4ZG9I+odTrG5rVGkxSNyesNhUmgrLt1GhgnhPRojWuMUoJrqjXdLb7V3XMqg5AD
-	 TVSfO+pgPO/2Q2pQFDfTf/qYvPC89XKyTy1TvbKgp8UuJBe1ZqU0Pds2kZC0rvCNPJ
-	 uFFsxHyaTsWjBb2HyzjjQXmE1nd7xxIcOhjwTfRrF7994SGksKawr0zsLyM2nHMz5D
-	 hsUSrDxoKoW0g==
-Date: Tue, 21 Jul 2026 13:09:27 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Vishal Moola <vishal.moola@gmail.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Kiryl Shutsemau <kas@kernel.org>, iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm/pat: allocate split page tables as kernel page
- tables
-Message-ID: <al9hMyqpjd4l0Fql@lucifer>
-References: <20260720-fix-cpa-kernel-pagetables-v1-1-0766e782cefe@kernel.org>
- <al5-fDRStgU6gjk6@fedora>
- <al5_Le9QlD4zlt25@fedora>
- <al8hE_ded6qyWiDv@lucifer>
- <al8_xx_99BjAUn5A@fedora>
- <al9BpTu2ma8GpiPW@lucifer>
- <al9KzIhKXa3PCMqa@kernel.org>
- <al9b5uE-ep9ADtLt@lucifer>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f5DychrC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784635836; x=1816171836;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=XqSUnTCT5BmpcGLO10lA1I3XmkdkD5PqInuS9MnabNY=;
+  b=f5DychrCnL/O5qxFedvy/xXkbzW/LX3Sgv59bxamygwot3R7ov9U6Pqh
+   0mz8Jm/9I9BMQ11lH506Mm7X9eYKZLXdfelXvVbAClturjtkOpSj/a0qV
+   /tpaZDxx1HVd0SvQVJihKeKEjgEoQ3AJO0xX9dyLlsaT+XmRH5OOu5nif
+   IR/YjVcH0NYFrLmY3NwWSP2Agst2Sr9nnGNhGbKbZ54VxskYiHXK611DJ
+   zqDwrLXJDSfSSaTLhFhBGzBcm7H+6yUgtY0brYK9lDoTmq8j8T4SOiOAY
+   pI70BeG3XlHegdtKIMdrtpZ0b5iJgnd+gatfwpNrMTzEFfxOTZR6u6eK9
+   w==;
+X-CSE-ConnectionGUID: my6emF2bTp+uUr0AxSIU/A==
+X-CSE-MsgGUID: +rf8GZgWSyGivlTVStASmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="95887128"
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="95887128"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:10:35 -0700
+X-CSE-ConnectionGUID: 83S1zJEXSLKUsdZJTisvdA==
+X-CSE-MsgGUID: ukkcRf6jQTO2hf8ogStMHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="255103335"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.57]) ([10.245.245.57])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:10:30 -0700
+Message-ID: <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Arunpravin Paneer
+ Selvam <arunpravin.paneerselvam@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>, Friedrich Vock
+ <friedrich.vock@gmx.de>,  Maarten Lankhorst	 <dev@lankhorst.se>, Tejun Heo
+ <tj@kernel.org>, Maxime Ripard <mripard@kernel.org>,  Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 	stable@vger.kernel.org, Natalie Vock
+ <natalie.vock@gmx.de>, Johannes Weiner	 <hannes@cmpxchg.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, David Airlie
+ <airlied@gmail.com>,  Thadeu Lima de Souza Cascardo	 <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 	linux-kernel@vger.kernel.org
+Date: Tue, 21 Jul 2026 14:10:28 +0200
+In-Reply-To: <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+	 <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+	 <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+	 <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
+	 <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al9b5uE-ep9ADtLt@lucifer>
 
-On Tue, Jul 21, 2026 at 01:00:53PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Jul 21, 2026 at 01:32:44PM +0300, Mike Rapoport wrote:
-> > On Tue, Jul 21, 2026 at 10:58:50AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > On Tue, Jul 21, 2026 at 02:45:43AM -0700, Vishal Moola wrote:
-> > > > >
-> > > > > Well some kernel page tables are still allocated without ctor (early allocated
-> > > > > direct map for isntance), and if you did pagetable_dtor_free() it
-> > > > > unconditionally calls pagetable_dtor().
-> >
-> > TBH, I cannot think of a scenario when page tables allocated at boot would
-> > be collapsed. But surely, checking the page type is safer just in case.
->
-> Yeah nor can to be honest, anything that could be made large in the direct map
-> would already be large right?
->
-> But it's 'just in case' somebody did something dumb :) Later can maybe make it a
-> WARN_ON(). But just to fix the proximate issue for now.
->
-> >
-> > > > > The ptlock_free() and __folio_clear_pgtable() there would be harmelss (no locks
-> > > > > assigned for kernel page table, and if PG_table never set clearing it is a noop)
-> > > > > but the lruvec_stat_sub_folio() would cause an unbalanced decrement of
-> > > > > nr_page_table_pages.
-> > > >
-> > > > Gotcha, thanks for the explanation :)
-> > >
-> > > No worries, this is subtle stuff with lots of weird gotchas and stuff we need to
-> > > improve... I seem to have fallen down an unexpected rabbit hole with these fixes
-> > > :)
-> > >
-> > > >
-> > > > > It sucks, but until everything is updated to call the ctor we have to do it this
-> > > > > way :>)
-> > > >
-> > > > Yeah that makes sense. Although I'd rather see the condition as:
-> > > > if(PageTable(ptdesc_page(...)))
-> > > >
-> > > > We really shouldn't be calling ptdesc_folio() anywhere anymore.
-> > >
-> > > I think better for a follow up since the code already uses ptdesc all over the
-> > > place (fundamental to the approach really, keeping a list of page tables etc.)
-> > > and this is a fix that needs backporting.
-> >
-> > I agree with Vishal that it's better to use page type rather than folio
-> > type. And it's the same for backporting ;-)
->
-> Ah sorry misunderstood, you mean straight up PageTable(ptdesc_page()), I thought
-> Vishal was saying we shouldn't be directly referencing ptdesc's at all (which
-> would be the rework).
->
-> I guess definitionally page tables are never folios. I lazily went with what I
-> saw elsewhere, my bad :)
+Hi, Maarten,
 
-Ah yeah I remember now, i saw __pagetable_ctor() dealt with folios:
+On Tue, 2026-07-21 at 13:46 +0200, Maarten Lankhorst wrote:
+> Hey,
+>=20
+> Can I merge this through drm-misc-next together with the rest of the
+> series?
+>=20
+> Kind regards
+> ~Maarten
 
-static inline void __pagetable_ctor(struct ptdesc *ptdesc)
-{
-	struct folio *folio = ptdesc_folio(ptdesc);
+For the xe patches, Ack from me.
 
-	__folio_set_pgtable(folio);
-	lruvec_stat_add_folio(folio, NR_PAGETABLE);
-}
+I do have a v8 that fixes a sashiko comment on the last patch, though,
+but I was holding that awaiting a review on the other patches.
+
+Thanks,
+Thomas
 
 
-And was like 'huh?' (surely definitionally they're _not_ folios) but went with
-that on that basis.
 
-Another place to clean up I guess? (that one _definitely_ is a follow up though
-;)
-
->
-> Will respin!
->
->
-> >
-> > > Cheers, Lorenzo
-> >
-> > --
-> > Sincerely yours,
-> > Mike.
->
-> Cheers, Lorenzo
-
-Cheers, Lorenzo
+>=20
+> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
+> >=20
+> >=20
+> > On 7/3/2026 6:38 PM, Christian K=C3=B6nig wrote:
+> > > Arun please take a look at this.
+> > Sure Christian. This fix looks correct to me.
+> > Reviewed-by: Arunpravin Paneer Selvam
+> > <Arunpravin.PaneerSelvam@amd.com>
+> >=20
+> > Thanks,
+> > Arun.
+> > >=20
+> > > Thanks,
+> > > Christian.
+> > >=20
+> > > On 7/3/26 15:05, Thomas Hellstr=C3=B6m wrote:
+> > > > drmm_cgroup_register_region() is called before INIT_LIST_HEAD()
+> > > > and
+> > > > gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
+> > > > function
+> > > > returns early and bypasses those initializations.
+> > > >=20
+> > > > Since adev->mman.initialized is set to true before
+> > > > amdgpu_vram_mgr_init()
+> > > > is called, a failure triggers amdgpu_ttm_fini(), which calls
+> > > > amdgpu_vram_mgr_fini(), which then:
+> > > >=20
+> > > > =C2=A0 - Calls list_for_each_entry_safe() on reservations_pending
+> > > > and
+> > > > =C2=A0=C2=A0=C2=A0 reserved_pages, whose list_head::next pointers a=
+re zero-
+> > > > initialized
+> > > > =C2=A0=C2=A0=C2=A0 (NULL). The loop does not recognize them as empt=
+y and
+> > > > dereferences NULL.
+> > > >=20
+> > > > =C2=A0 - Calls gpu_buddy_fini(), which iterates free_trees[]
+> > > > unconditionally
+> > > > =C2=A0=C2=A0=C2=A0 via for_each_free_tree(). Since mm->free_trees i=
+s NULL
+> > > > =C2=A0=C2=A0=C2=A0 (never allocated), this dereferences NULL.
+> > > >=20
+> > > > Both result in a kernel panic on the module load error path.
+> > > >=20
+> > > > Fix by moving drmm_cgroup_register_region() to after the list
+> > > > and buddy
+> > > > allocator are fully initialized, so the teardown path is safe
+> > > > to run.
+> > > >=20
+> > > > Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+> > > > Closes:
+> > > > https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellst=
+rom@linux.intel.com?part=3D4
+> > > > Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
+> > > > TTM")
+> > > > Cc: Friedrich Vock <friedrich.vock@gmx.de>
+> > > > Cc: Maarten Lankhorst <dev@lankhorst.se>
+> > > > Cc: Tejun Heo <tj@kernel.org>
+> > > > Cc: Maxime Ripard <mripard@kernel.org>
+> > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > Cc: amd-gfx@lists.freedesktop.org
+> > > > Cc: dri-devel@lists.freedesktop.org
+> > > > Cc: <stable@vger.kernel.org> # v6.14+
+> > > > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> > > > Signed-off-by: Thomas Hellstr=C3=B6m
+> > > > <thomas.hellstrom@linux.intel.com>
+> > > > ---
+> > > > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+> > > > =C2=A0 1 file changed, 4 insertions(+), 3 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > index 2a241a5b12c4..ac3f71d77140 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> > > > @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct
+> > > > amdgpu_device *adev)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_resource_manager *man =3D=
+ &mgr->manager;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int err;
+> > > > =C2=A0 -=C2=A0=C2=A0=C2=A0 man->cg =3D drmm_cgroup_register_region(=
+adev_to_drm(adev),
+> > > > "vram", adev->gmc.real_vram_size);
+> > > > -=C2=A0=C2=A0=C2=A0 if (IS_ERR(man->cg))
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return PTR_ERR(man->cg)=
+;
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_resource_manager_init(man, &adev=
+->mman.bdev,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->gmc.real_vram_size);
+> > > > =C2=A0 @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct
+> > > > amdgpu_device *adev)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
+> > > > =C2=A0 +=C2=A0=C2=A0=C2=A0 man->cg =3D drmm_cgroup_register_region(=
+adev_to_drm(adev),
+> > > > "vram", adev->gmc.real_vram_size);
+> > > > +=C2=A0=C2=A0=C2=A0 if (IS_ERR(man->cg))
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return PTR_ERR(man->cg)=
+;
+> > > > +
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_set_driver_manager(&adev->mman.b=
+dev, TTM_PL_VRAM,
+> > > > &mgr->manager);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_resource_manager_set_used(man, t=
+rue);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+> >=20
