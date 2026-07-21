@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C540D47A0A9;
-	Tue, 21 Jul 2026 10:44:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28641480973;
+	Tue, 21 Jul 2026 10:45:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784630708; cv=none; b=sQ6rrtQAOpsa2II1ekg8q51Ec65TZirLIMdd/MwW82cTxm8FhNGkd9eCVyCY3yLuyb3L8xCkdEPeXeSBKjaMP/AMmGtOVMZMpy0wINfgzANt9SeQsGEwJk2s6idrTis1XsB5qk5HYpd1uwQOtBgtfGGEPHaZ+LXplKEZyaIE9SQ=
+	t=1784630714; cv=none; b=MiM9xnq+IGSHHdRFjJq37bm2/vN4AIG84Op2aedAWl430upTwdFDZPoJM4EtUk8czZlvxvPUUDmmHSWPDbIru4zbvFbZDnbfSab2UenI7aXp5KSZSur8di5YAj7B97zV3hiM3D8sDQX+nbNONzUUzizNxwxV1KX6jJ0R4zO+QZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784630708; c=relaxed/simple;
-	bh=fUhC26o+AawoCH4Cgf27miKwI/Zu25y7UaUyFfLvyL8=;
+	s=arc-20240116; t=1784630714; c=relaxed/simple;
+	bh=TCzI1K0kG3ZszcQlzQPF9rx7YSbK7w6q8owxkwh+pzE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=jNsQjZTQDNSrWE7FJPoPDHtjkiPdbhRBma7XBf84D5p75+xZanRZMJK1+Z+hay/kf0x76fpQlnfv/WekHIVYS7C4FvPcykd+2c+d/ZUiX+uybLq8QLcVx+H7NN/WCY3NtDFk0mbhc8WvKPN5ZoktA3d/6o7H6ix1W+jxcVdAces=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tlaw3oIa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=p7sA6tC4alOFnyrPw0DVo64OokoeKvMtKGWruLgsypAcMx4px2XGvgu5Y6qrlMqCuBUL7E1StyY8J1UtMD5ZX3mIFqZAxLHQqbd6PKT19OStoNNSiSP+UjiqNgOHFWh6PaxxXOGPy/uxRc0zQWTtsECc9i0cTYb8RJEfwRrEgi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ma2maXlg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tlaw3oIa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AE071F00A3A;
-	Tue, 21 Jul 2026 10:44:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ma2maXlg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83AE1F01562;
+	Tue, 21 Jul 2026 10:44:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784630693;
-	bh=/7gKrygiveFz576bMbFnThKhghzfk8TzZCm1qj1QcEw=;
+	s=k20260515; t=1784630698;
+	bh=MVzQnfqLE/nstQnHQJfaI7cv9yLHMUmBRVo3BThwY6E=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Tlaw3oIaRN0UiIw8a12riaulph2xuNq1TWlVJl9fVkNeuUEI12rFxn5/st2EUxkcN
-	 L3yf/fZEeUNifZ/kGFnEPABeDQ4DvCKDCbxxS1l/ioR8JUglGBjNu/uJZNFM1ivGa+
-	 ciFPB4gkmd1+mRbJi2bPruFRevdsfWjHYaHNvuYGSGVQzZbsydujydaE4/jg2tJA/I
-	 5n3QFcRpju+q7thqEFu4ieE3AbK9kI7kVNr8Mxxxo5d/pJCM4JISWAKysv/U07G7mB
-	 Vv29Bk2yJGoylQECaWJkAk/9Y//Eqbgo34NOWs87DTfSQ50A3aYau/dIvsIOyxa2OC
-	 1nU7VP4lwC0xQ==
+	b=ma2maXlgPSeQSq2isZ++vNbZnC0MQv1HzR8gYOY4Y2XgPTPbcXChLFIW2ayYHYTD1
+	 zPjxhggVBTnWKnFRA99D0cn7lD5BnSL+HzchAAVZyssOXgm4q2lveyaEmoVX9h816r
+	 xbwqAiEHUF0fsbbxbfzmUCGnZ2BDI59vbAlo+CzxTgoXqu7fGGg+sQ+KCeQ5tRqUUm
+	 C48RPDA8BoIeXu5s7tdHRBX+RQ5yjEgTXXAoHY+0+DndaiHt8YFF3Sj+qP+4y+x5qU
+	 UnceyfoBe9/wgiz50tdqj3IVLa/sDHQfQdsy/CpTNaybJ+Giw2AAEsfiFFSoFL4DjJ
+	 ZVGicdMKi8+aw==
 From: Carlos Maiolino <cem@kernel.org>
-To: djwong@kernel.org, linux-xfs@vger.kernel.org, 
- Ibrahim Hashimov <security@auditcode.ai>
-Cc: bfoster@redhat.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260715071723.81917-1-security@auditcode.ai>
-References: <20260715071723.81917-1-security@auditcode.ai>
-Subject: Re: [PATCH v5] xfs: bounds-check buffer log item's dirty bitmap
-Message-Id: <178463069213.324722.9171765123928848896.b4-ty@b4>
-Date: Tue, 21 Jul 2026 12:44:52 +0200
+To: hch@lst.de, "Darrick J. Wong" <djwong@kernel.org>
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+In-Reply-To: <178460419060.830618.6327864598367400225.stgit@frogsfrogsfrogs>
+References: <178460419060.830618.6327864598367400225.stgit@frogsfrogsfrogs>
+Subject: Re: [PATCHSET v2 1/2] xfs: LLM-inspired bug fixes, part 3
+Message-Id: <178463069758.324722.3523337122830710867.b4-ty@b4>
+Date: Tue, 21 Jul 2026 12:44:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,20 +44,29 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
-On Wed, 15 Jul 2026 09:17:23 +0200, Ibrahim Hashimov wrote:
-> xlog_recover_do_reg_buffer() replays each dirty region described by a
-> buffer log item's bitmap into the buffer read for that item:
+On Mon, 20 Jul 2026 20:23:35 -0700, Darrick J. Wong wrote:
+> Here's a third batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+> mwa...
 > 
-> 	memcpy(xfs_buf_offset(bp, (uint)bit << XFS_BLF_SHIFT),
-> 		item->ri_buf[i].iov_base,
-> 		nbits << XFS_BLF_SHIFT);
+> v2: apply rvb tags, split out unlinked inode list repair fixes
+> 
+> If you're going to start using this code, I strongly recommend pulling
+> from my git trees, which are linked below.
 > 
 > [...]
 
 Applied to for-next, thanks!
 
-[1/1] xfs: bounds-check buffer log item's dirty bitmap
-      commit: c42b8e3237f697aedd6f75d07c5a6d59ef2a26e0
+[1/5] xfs: check cowextsize in xrep_inode_cowextsize
+      commit: a75913d5543709c8f4a76435a7a629335f166b1e
+[2/5] xfs: fix transaction block reservation in xrep_rtbitmap
+      commit: 442b827ea7d3646c5a395d5282f00f67229f2061
+[3/5] xfs: rtsummary scrub should treat rtbitmap corruption errors as an xref error
+      commit: b6d9247dd5f092169e731afb8375cc14f921991c
+[4/5] xfs: zero i_nlink before repair puts inode on unlinked list
+      commit: 266088be85e78d0d9ab3429d0bd0364858001a9c
+[5/5] xfs: mark nonzero sb_gquotino as corrupt on metadir filesystems
+      commit: 7b2a43bb08b789905716504d50700a0bedba0b35
 
 Best regards,
 -- 
