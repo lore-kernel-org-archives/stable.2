@@ -1,163 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89E93F12CE;
-	Tue, 21 Jul 2026 00:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F102449B12;
+	Tue, 21 Jul 2026 00:43:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784594627; cv=none; b=PrzrOYl1kkWtUGIm48kRV6LCOF05uJtI45F6qYl+hDkzbUvgW53lm7/MK+o4ZpJRpgn+v83CkjbCVQbxANdy95A5c6xmzwH3WwYymxmsgC5oI/Mr3Sm4caoD244MgIyeqLABZ76k/1i2g222C75EbCQ0tTFzkieVxO4582aC7mY=
+	t=1784594634; cv=none; b=dwFdHwnNXtZIqgVOHaEQ2NjmuCUbHvT/dex7cnpfVzTdbZnPo9UgLJPNbfy2+16me2UxZolWSvhnn4zPbAWAhLAB6TWrVjLTn2Gp57ZQIM8lr1KF6vWyH1svoMDlX8wL1BtMSGtV2zYH5Xb2FBctHr4MkkUby+fF1C25CX8hkBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784594627; c=relaxed/simple;
-	bh=43ZxXXsAfYcCctHue+wujJirGLHjUhBOIRe2Iylcqfs=;
-	h=Date:To:From:Subject:Message-Id; b=bsP0ZVaDj7IYT3l2zmCP7++DarT76wXTcqTwbsBe4pjSeyUjKfDTyAQeGngNxY7A46/QKl9wp1kU7/IvLyEyEqPu+kZHN4OQxAWU4N8QOWNVjKj+MNL4eG24IE0c9juN3mr9ZIkJ5E+LFt6OR/17Nj5Omm02CzQSVVHKaKSDwtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gJoY/Zb2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784594634; c=relaxed/simple;
+	bh=cbUUJ+eotvRm5zqUM2Kx6OHXTRyJBbLTfUabYVaGVJU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eUM3a/7ivqmgD8ZCMd3ZaT+2T+bOLM+Vrl5UDWx1XxR/+rMlGFDh57QSnDTcpd/hLdwa6JXFaNhSW3TcaPsxQBDj+xemPkfHiZsi3YbYNowm2XURAKjTNTfroSUDFzaNxnjxlRhDMNQk4VSM1VYDXiPG6J6WNvRXPPGnHxp6ZOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RcUB+xYs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gJoY/Zb2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5125A1F000E9;
-	Tue, 21 Jul 2026 00:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784594625;
-	bh=pnzG4hrpkqebZ5cSkYXU3Wr/gyzEJUMgNOXCRmjaSmw=;
-	h=Date:To:From:Subject;
-	b=gJoY/Zb2IcDNoFw0UTHxPI0ulnbj+N0Zohu/9Y0NdjM3BAw53ALpT/4M5MLIIGJpW
-	 ijG+Gkh16sU4dH+Ae2/g0e6yYttJPkoCBsCNaRsQkFuBHBMXlY3Fcep6Q5AFnVOuyU
-	 Ig3Z0dgYqGlwPp7/EXNL88uYcC1jwUySzr0WfPOs=
-Date: Mon, 20 Jul 2026 17:43:44 -0700
-To: mm-commits@vger.kernel.org,zenghui.yu@linux.dev,vbabka@kernel.org,usama.anjum@arm.com,surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,sashiko-bot@kernel.org,rppt@kernel.org,pfalcato@suse.de,peterx@redhat.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jannh@google.com,david@kernel.org,kas@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch removed from -mm tree
-Message-Id: <20260721004345.5125A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RcUB+xYs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60AA41F000E9;
+	Tue, 21 Jul 2026 00:43:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784594633;
+	bh=Fd7hZsvKd8rP/mpwq0Fu3nIETh38pakepxFmYnJYgxg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RcUB+xYsd+/61NPi9gClvOM297EcDNaD3cip6fmFmafrbDFc35548GifLazPnBIE7
+	 72vA+A031otpSAV4CSK+7zxnl39hBheSrMIj7rf28bo3naMhrR8q+QkGuM8jywBGR4
+	 AqpSba3upqKYQrEzeW3hU0sGclvpreircWESkf0H82zqO9yaDa0k9BJn8dotvaK0EI
+	 GeiIrJLVP1s7Pa+aqCtPZvpT328JqaMzeFYs3wWz5EkBky1sTrjnNjtssxjeKeIZtX
+	 OcUS/+XPTeE0NzhhVj1Di4KN66SZIzu6KY0gNXvf6K/lEvTSuZoaQD4RO2AerjPzXy
+	 z7/oXCTWCFw6Q==
+Received: by venus (Postfix, from userid 1000)
+	id CF0C81804CE; Tue, 21 Jul 2026 02:43:51 +0200 (CEST)
+Date: Tue, 21 Jul 2026 02:43:51 +0200
+From: Sebastian Reichel <sre@kernel.org>
+To: jens.glathe@oldschoolsolutions.biz
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, stable@vger.kernel.org, 
+	"Dr. David Alan Gilbert" <dave@treblig.org>
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+Message-ID: <al6-IyyWYRnEW4VC@venus>
+References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fkc6jiysmodswgij"
+Content-Disposition: inline
+In-Reply-To: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
 
 
-The quilt patch titled
-     Subject: fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
-has been removed from the -mm tree.  Its filename was
-     fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes.patch
+--fkc6jiysmodswgij
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+MIME-Version: 1.0
 
-This patch was dropped because it was merged into the mm-hotfixes-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Hello,
 
-------------------------------------------------------
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
-Date: Wed, 15 Jul 2026 15:42:33 +0100
+On Sat, Jul 18, 2026 at 07:06:28PM +0200, Jens Glathe via B4 Relay wrote:
+> On Qualcomm X1E80100 platforms (e.g. Lenovo ThinkPad T14s Gen 6)
+> using the Parade PS883x retimer, connecting USB4-capable docks such
+> as the Lenovo 40B0 via a regular Type-C cable (which forces the dock
+> into Type-C fallback mode) often results in working USB but no
+> DisplayPort output.
+>=20
+> This series addresses the issue with two main changes:
+>=20
+> - Add a new optional DT property "parade,disable-usb4". When present,
+>   the PS883x driver rejects USB4 mode (-EOPNOTSUPP). This forces the
+>   Type-C stack to fall back to USB3 + DP Alt Mode, which works
+>   reliably with the 40B0.
+>=20
+> - Refactor DP altmode handling to also support the legacy
+>   TYPEC_DP_STATE_F request (deprecated since DP Alt Mode 1.0b) sent by
+>   the 40B0 and other docks (e.g. SSK SC220).
+>=20
+> - Add a short delay after writing configuration registers, which
+>   improves hotplug reliability.
+>=20
+> This is a temporary workaround until full USB4 DP tunneling support is
+> available in the X1E USB4 controller and qmp-combo PHY stack.
+>=20
+> Note: The DT patch adds the new property to all currently upstream
+> boards using the PS883x retimer (15 files). Happy to split it on v2
+> if requested.
 
-PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written, but a
-range with no page table at all -- a PMD hole -- is skipped:
-pagemap_scan_pte_hole() tests p->cur_vma_category, which never carries
-PAGE_IS_WRITTEN, so the hole is neither reported nor (under
-PM_SCAN_WP_MATCHING) armed.
+I don't think a kernel driver limitation is a good reason for the DT
+property. I suggest to add something like this in the ps883x driver
+instead:
 
-In a uffd-wp VMA, WP_UNPOPULATED installs uffd-wp markers when protecting
-a range, allocating page tables as needed, so an unpopulated slot is
-treated as written -- see the pte_none() handling in
-pagemap_page_category().  A missing marker therefore means the range was
-zapped, e.g.  via MADV_DONTNEED.  This applies to anon and shmem VMAs.
+/*
+ * Hamoa does not yet support USB4, disable it for now to gracefully
+ * fall back to USB3 + DP AltMode. This should be removed once USB4
+ * support landed for X1E.
+ */
+if (of_machine_is_compatible("qcom,x1e80100"))
+    disable_usb4 =3D true;
 
-An anonymous THP is write-protected in place as a huge PMD, so a full-PMD
-MADV_DONTNEED clears it to pmd_none -- a hole with no page table -- and
-pagemap_scan_pte_hole() misses it.  For a MAP_PRIVATE|MAP_ANON mapping
-MADV_DONTNEED has fill-with-zeros semantics, so a write-tracking
-checkpoint/migration tool (e.g.  CRIU) treats the range as unchanged and
-keeps its previous contents; after restore or live migration the process
-reads stale data instead of zeroes -- data corruption.
+Greetings,
 
-Report a hole in a non-hugetlb uffd-wp VMA as written, matching the
-pte_none handling in pagemap_page_category(); the existing
-PM_SCAN_WP_MATCHING path then arms it via uffd_wp_range().
+-- Sebastian
 
-hugetlb is excluded: pagemap_hugetlb_category() reports an empty hugetlb
-entry (huge_pte_none) as not-written, unlike pagemap_page_category(),
-which reports pte_none as written.  pagemap_scan_pte_hole() fires for a
-hugetlb slot only when it has no page table; keeping that not-written
-matches how an allocated-but-empty hugetlb entry reads, so the hole and
-the empty-entry cases agree within the VMA.
+> As an additional observation, the same dock with type-c cable works well
+> on Thinkpad X13s, Thinkbook 16 G7 QOY, Ideapad 5 14Q8X9, but doesn't need
+> the ps883x changes (naturally).=20
+>=20
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> ---
+> Jens Glathe (5):
+>       dt-bindings: usb: parade,ps8830: Add parade,disable-usb4 property
+>       usb: typec: ps883x: Return -EOPNOTSUPP for USB4 when parade,disable=
+-usb4 is set
+>       usb: typec: mux: ps883x: refactor DP altmode handling and support T=
+YPEC_DP_STATE_F
+>       usb: typec: mux: ps883x: add a delay after writing config regs
+>       arm64: dts: qcom: x1: disable ps883x USB4 capability
+>=20
+>  .../devicetree/bindings/usb/parade,ps8830.yaml     |  6 +++
+>  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts         |  4 ++
+>  .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  |  2 +
+>  arch/arm64/boot/dts/qcom/purwa-iot-evk.dts         |  6 +++
+>  arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi |  4 ++
+>  arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi  |  4 ++
+>  arch/arm64/boot/dts/qcom/x1-crd.dtsi               |  6 +++
+>  arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi        |  4 ++
+>  arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi   |  2 +
+>  arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi  |  4 ++
+>  arch/arm64/boot/dts/qcom/x1e001de-devkit.dts       |  6 +++
+>  .../dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi    |  4 ++
+>  .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  4 ++
+>  .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts  |  6 +++
+>  .../dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts    |  2 +
+>  .../boot/dts/qcom/x1e80100-microsoft-romulus.dtsi  |  4 ++
+>  drivers/usb/typec/mux/ps883x.c                     | 47 +++++++++++++++-=
+------
+>  17 files changed, 100 insertions(+), 15 deletions(-)
+> ---
+> base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
+> change-id: 20260718-ps883x-disable-usb4-19b0fc13b5ab
+>=20
+> Best regards,
+> --=20
+> Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+>=20
+>=20
+>=20
 
-Link: https://lore.kernel.org/20260715144234.442721-2-kirill@shutemov.name
-Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260707151349.92143-1-kirill@shutemov.name
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zenghui Yu <zenghui.yu@linux.dev>
-Assisted-by: Claude:claude-fable-5
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
+--fkc6jiysmodswgij
+Content-Type: application/pgp-signature; name="signature.asc"
 
- fs/proc/task_mmu.c |   20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
---- a/fs/proc/task_mmu.c~fs-proc-task_mmu-fix-pagemap_scan-written-state-for-pmd-holes
-+++ a/fs/proc/task_mmu.c
-@@ -3049,12 +3049,28 @@ static int pagemap_scan_pte_hole(unsigne
- {
- 	struct pagemap_scan_private *p = walk->private;
- 	struct vm_area_struct *vma = walk->vma;
-+	unsigned long categories;
- 	int ret, err;
- 
--	if (!vma || !pagemap_scan_is_interesting_page(p->cur_vma_category, p))
-+	if (!vma)
- 		return 0;
- 
--	ret = pagemap_scan_output(p->cur_vma_category, p, addr, &end);
-+	/*
-+	 * In a uffd-wp VMA an unpopulated range is treated as written:
-+	 * uffd-wp registration populates page tables and installs markers
-+	 * with WP_UNPOPULATED, so a missing marker means the range was
-+	 * zapped. See the pte_none() handling in pagemap_page_category().
-+	 *
-+	 * hugetlb differs, see pagemap_hugetlb_category().
-+	 */
-+	categories = p->cur_vma_category;
-+	if (userfaultfd_wp(vma) && !is_vm_hugetlb_page(vma))
-+		categories |= PAGE_IS_WRITTEN;
-+
-+	if (!pagemap_scan_is_interesting_page(categories, p))
-+		return 0;
-+
-+	ret = pagemap_scan_output(categories, p, addr, &end);
- 	if (addr == end)
- 		return ret;
- 
-_
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpewMMACgkQ2O7X88g7
++powWBAAol0/PBJ1eXYYjlNiwB7qCbCecEfZTULQrX4zFmaA3o1MaYHhWFBR2WlK
+L74HXVNCoFn/IDQV0U4qDy15RPrOAr+NLj2sdyr6jqHx54IPi3OBHumGmEWrJmAO
+EGvtyp/AJb5mt7cvLlOoZukTcqgEP/oKgufLnER4KfHzcemjWMmcspzbOpz3648z
+7igV6sjiF0IoxzrzZKhWLKu12UWAPZE6BsrI/J2v3oojgJShxBZPaD+QblK7M4ME
+/b8tSYxWIVMiHCKQVebR4ZGyjEbMW5FvMYqZ3+H7otYTZu3VniPu8C/XSyohj3fy
+wxN/lOUOrSeM9uTaQWUjgQIongdBLc5gEoWQCp1U512bKCXkozn1UQThc5raqhoa
+wbTD/ZMioGLf//hOBk1FT+Gq/O+SEABPcMQ2zmHvHF8Pueeld7QuFU8Pd9dCbY5b
+/k7VlT/sKkJ0EvRZ6eEtdqCthk855FAvDQPS6Y3cVTfurlobnXPR7saZ7sR8AEne
+letJqKFPNXGMC5LQA7EdoQxNHU0lmYLeHsTKiDRvI34YluwsRvRH1fR/B7ipB150
+/bkqIu+I88a/9DFFBbkcr1+QUYxRdFTFnG5bNew6BqIUQrBA/GeqOOXGQ2BMm4cQ
+8l0Mblkqr3Gv3ZoZIx5R784zqBlD/3CwR3SwhU4nOF3Z8z5GMdc=
+=lVu4
+-----END PGP SIGNATURE-----
 
-Patches currently in -mm which might be from kas@kernel.org are
-
-mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-after-split-folios.patch
-mm-decouple-protnone-helpers-from-config_numa_balancing.patch
-mm-rename-uffd-wp-pte-bit-macros-to-uffd.patch
-mm-rename-uffd-wp-pte-accessors-to-uffd.patch
-userfaultfd-test-uffd-vma-flags-through-the-vma_flags_t-api.patch
-mm-add-vm_uffd_rwp-vma-flag.patch
-mm-add-mm_cp_uffd_rwp-change_protection-flag.patch
-mm-preserve-rwp-marker-across-pte-rewrites.patch
-mm-handle-vm_uffd_rwp-in-khugepaged-rmap-and-gup.patch
-userfaultfd-add-uffdio_register_mode_rwp-and-uffdio_rwprotect-plumbing.patch
-mm-userfaultfd-add-rwp-fault-delivery-and-expose-uffdio_register_mode_rwp.patch
-mm-pagemap-add-page_is_accessed-for-rwp-tracking.patch
-userfaultfd-add-uffd_feature_rwp_async-for-async-fault-resolution.patch
-userfaultfd-add-uffdio_set_mode-for-runtime-sync-async-toggle.patch
-selftests-mm-add-userfaultfd-rwp-tests.patch
-documentation-userfaultfd-document-rwp-working-set-tracking.patch
-selftests-mm-add-pagemap_scan-test-for-thp-pmd-holes.patch
-mm-huge_memory-remove-unused-can_split_folio.patch
-mm-huge_memory-fold-split_folio_to_list_to_order-into-split_folio_to_order.patch
-
+--fkc6jiysmodswgij--
