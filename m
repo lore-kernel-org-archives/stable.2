@@ -1,102 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4760E3403E1;
-	Tue, 21 Jul 2026 05:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784611751; cv=none; b=ekjQITEOh8VlCTmAOJCgSLFsGveIjW3pgXwYFsGemP2E0vBf+rtCE3jiYLSaExV+lm1T2G8/Oms8bQizwj/4jQ7FmchvtQTAUcpTm549F1zI7b6zHE6MPIU17xK6V8hNdHG7HcaBI7efKloIiQnkKDg1noJxnjh+3dMZ9wc36qQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784611751; c=relaxed/simple;
-	bh=Jsl4XsjolC2q22fxg/W6qtyOPVZT5V818r5o9ySmTh4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t5slbe92vw4UrC6O4u6GATnmHkvDDGA5Dn0Ew4vewb9gVlJJc+U0P0w0e8EwWNsmNhJd6W+6l0xOrtO0ST0xFWcQohnCyVLqddd/4VQwMNfNbFVSiay/dkKa9bug7OhNuOc+srbjaVJBm4nAuRvSj4zjrP+5yCf+NAqsp0d+WzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8CTjt72; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10842DF3D1;
+	Tue, 21 Jul 2026 05:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784611825; cv=pass; b=RxfsY4voCZG/pyXncas8sccq6ZUcHaZkgIML+vMr8g1mj/ZPw6yfDYKQ4JuMLYnMZf1Ja8KwbD5QeBffgEGCrHqjoq2s3T5ruVccs1onRsv9/3wfTt97GXyUMyzGcdhUFXdS44AWsIYEM+uC/UvWf83ulyWqcluCY6Gs23AzRVM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784611825; c=relaxed/simple;
+	bh=3T0/hE0Stcsw2vObmLCtl5WoxVyBzpYUy5cEmhuJKSA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=unwKSK3gIsbr0RUzyelGGt+BpYo14cFmCgmUF3Cil/LoxYD2J2whFJPShbsULuSYbkPT6pIysq5im7tV/VMhPuMNnrbsbY6jsm1sbVLPzJslVxW8Si3XJzaqldUwrpXOops1XGCUwGDu4FPkOBU+1H3a1Z9IVGfc52CE+GP4hdY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=d3O4CyJ5; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8CTjt72"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035241F000E9;
-	Tue, 21 Jul 2026 05:29:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784611750;
-	bh=BH34Iq02e1ZazbCpDnoF+kImwBIgT5OJqyLihxokqHE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e8CTjt72VaCg+aJnSkrJ04yGIVv5AuEHKW8BjUVWAQaa2ukJaYCXIa8C/fmJyWHTd
-	 Jwa+JdE0CdNHLStEQUvHw0sR7HS+tVOSZUw/+zIBstRaNwsg5143Eiw60EwukeDGEI
-	 VN2jRsHGxdjBgd1h6wNThlfS7UcH9qurRymXq/C7AvE5PWljpHbO3eVnydY+k1TWRy
-	 Pjg/QMXHPJTZP+KZOBRLtEF+8E1JBYlxMY7D7AS8MRn+GvuH6HxfKh5mAr2sOr4Nla
-	 q3W8BSBfQyaT3eZXCRvO4I1hlzzcAu9w4AA9dNR0P3yACKN9czXx2JsIetntGV5Tqa
-	 OBcV9x9UGskYQ==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] mm/damon/core: trace esz at first setup
-Date: Mon, 20 Jul 2026 22:29:01 -0700
-Message-ID: <20260721052901.167162-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072016-imprison-unknown-9cd4@gregkh>
-References: <2026072016-imprison-unknown-9cd4@gregkh>
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="d3O4CyJ5"
+ARC-Seal: i=1; a=rsa-sha256; t=1784611796; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JAZiciWAxdxaDBm2ejDbsi2u4MRQYwPOdjHpziQKaz+RowHBvMLWn+kLCDNKLLs8g4wtAVvM/FzolwdWcLSV4H47537+9qtUVThJ1nL3KTlhE2ERm2THFFbUnApys5fJymWy09ngFRAtityti0PZnb4XEAH7ahijy2VRGRabNj4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784611796; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=usf/+HzMy5QNUILiRJd2VbwOtJqgY9KL8yy6nGvOQ84=; 
+	b=LPK/Wr8gDaTuY7nY2XrqDfoLOuo2JQbFFvRdeZW9M1jaMc1gMfXLA+tARUskHG8dY/xA+v3A2Ze7lt7GBqDY0xx361k/wP1bI5JLrcl8ihJ/sZQUfgS2Oj8A6iDkXYuQ6gxRNA8zt686L+qbYkFgTfISvym/y4LjE77KdUnlGEc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784611796;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=usf/+HzMy5QNUILiRJd2VbwOtJqgY9KL8yy6nGvOQ84=;
+	b=d3O4CyJ53P11soT2mNxOURxEvpxU4BlR180UjT86gX0AMs7wGKVUpN96CyeKLIEF
+	SwFCQUWLCU926lM7CMz9Ue62NHNtklAmQCyE/p2Sw/wSXqfu05tu3d9+C4Pm7RPYGVV
+	R467EkaGJjGtcUDv3/8FYFZkF8ni0gPvV12kYfPc=
+Received: by mx.zohomail.com with SMTPS id 178461179350753.645045637920475;
+	Mon, 20 Jul 2026 22:29:53 -0700 (PDT)
+Message-ID: <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com>
+Date: Tue, 21 Jul 2026 07:29:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Sami Tolvanen <samitolvanen@google.com>, Yo'av Moshe <linux@yoavmoshe.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Russell King <linux@armlinux.org.uk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718111340.159896-1-linux@yoavmoshe.com>
+ <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+Content-Language: en-GB, sv-SE
+From: Yo'av Moshe <linux@yoavmoshe.com>
+In-Reply-To: <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-From: SeongJae Park <sj@kernel.org>
+On 2026-07-20 9:29 PM, Sami Tolvanen wrote:
+> Would it be possible to just copy the 4-byte CFI hash prefix to OCRAM
+> when relocating the function? If not, the __nocfi approach seems
+> reasonable to me.
+> 
+> Sami
 
-DAMON traces effective size quota from the second update, only if a change
-has been made by the update.  Tracing only changed updates was an
-intentional decision to avoid unnecessary same value tracing.  Always
-skipping the first value is just an unintended mistake.
+I gave this a try - I tried copying 4 bytes from before imx6_suspend
+into OCRAM, but when I tested it on physical hardware (Kobo Clara HD),
+it still crashed on suspend.
 
-The mistake makes the tracepoint based investigation incomplete, because
-the first effective size quota is never traced.  It is not a big issue
-when the 'consist' quota tuner is used, because it keeps changing the
-quota in the usual setup.
+I suspect it's because imx6_suspend is written in assembly
+(suspend-imx6.S) rather than C, so Clang doesn't emit a CFI hash prefix
+before it in the first place.
 
-However, when the 'temporal' tuner is used, the quota value is not changed
-before the goal achievement status is completely changed.  For example, if
-the DAMOS scheme is started with an under-achieved goal, the quota is set
-to the maximum value, and kept the same value until the goal is achieved.
-Because DAMON skips the first value, the user cannot know what effective
-quota the current scheme is using.  Only after the goal is achieved, the
-effective quota is changed to zero, and traced.
-
-Unconditionally trace the initial quota value to fix this problem.
-
-Note that the 'temporal' quota tuner was introduced by commit af738a6a00c1
-("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL"), which was
-added to 7.1-rc1.  But even with the 'consist' quota tuner, the tracing is
-unintentionally incomplete.  Hence this commit marks the introduction of
-the trace event as the broken commit.
-
-Link: https://lore.kernel.org/20260520150311.80925-1-sj@kernel.org
-Fixes: a86d695193bf ("mm/damon: add trace event for effective size quota")
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.17.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 7e6cc35f5283eab81a14231a64ecd640b690c48c)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 2b7e0ee772f32..9fb96d55d13a7 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2237,6 +2237,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 	if (!quota->total_charged_sz && !quota->charged_from) {
- 		quota->charged_from = jiffies;
- 		damos_set_effective_quota(quota, c);
-+		if (trace_damos_esz_enabled())
-+			damos_trace_esz(c, s, quota);
- 	}
- 
- 	/* New charge window starts */
--- 
-2.47.3
-
+Best regards,
+Yo'av
