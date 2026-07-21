@@ -1,102 +1,113 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA0246C4CC
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 16:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB0046A611;
+	Tue, 21 Jul 2026 16:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784649708; cv=none; b=dtBu0nPcpLfQeeNj9XMDhjrAc07yKkn0A5/2MfBtbMSV+Dlsz6xJIISAPpZ6+0s3F9k0QFcRA4PvTmpxNfnpWJiJsqjEIvsw4tAffm0Bu48Du9y48PywTm5P3ZOEUQl+eGvfZ6nYUtebcUCbGYvy1BulY9JBKUIFXT46dPGHWYM=
+	t=1784649709; cv=none; b=d15vcoHaTzw+Z/KzRsli+6gC/jVHhvSc0itm384qYX6VzLxKT9lR3R4dGwn8u1AP/M/D8qkBOYfol9b+3FP39iU40weamuSnmZvQzbG4JiIUXs9cAY521Cix1ctyZZZpei/2BtwmWf4B8PT5rg4NgO7Q7QpD2QlXdVLAebcFH3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784649708; c=relaxed/simple;
-	bh=Yw7gXVTpHGxoY7yJEfIsDmK02NOZo3M96XvsnBu4N3o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MrEz/hwF30AydikupiSI9+Mc0jFST+OsLJ1hC4zSlf/nmjp1RlUVmfNpaXufRE/dh6nBf+l+fQk/3Z0UKFs9CKyJbTw1os+bbGqvjqYBDMr8fXXv3TsDf76s1cDBTEAVcKvbNdMKySVA7UmczAEkQ9pE6TC6VvDzsOtxiTMhkCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z0PYrRUR; arc=none smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784649709; c=relaxed/simple;
+	bh=yud2988m4cI87kFBYxTHWvr0fCDByG7VPw6kluaCm98=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PnsllRzmi+1FdVXwK5igfglVEtun3qCR7KYv2qp3BpLlNKJ/AdFNheTmRt+ZtHurVjOG/bycVguSYrD0Ay15iZzZFZhv2AQZu9y33tM+yeQ29C49h2AlarGLjTBGSERMkVYo19lOypcZ25UeRmNCP2srHQMDECKzILAyMUWhGCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lXf7Nq6B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z0PYrRUR"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51c0006ea8eso89154601cf.1
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:01:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784649706; x=1785254506; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CCsMWHiy8lvPYOE+m0FXhgzrH3sURDkHCgMUoZjYcmg=;
-        b=Z0PYrRURp/Vur1z1THGf/K4iA+z3IhJIo6jdpyikFyRbG7wmL87+FF+ch8VtXFvZq+
-         BRuS/vGg2HMCsQ2P5RGbSlpJy6bnIFjuv77+HG8YY9hKszZ15rqbfHHtKNm2+VZSkjPu
-         DdIMlIJoPiBtY2uTn3aA33nuYLW/48OQdH6KWeg1sEi8AqmX9X0yj+JRUfGl/O9pzczE
-         IG5/ay4Kw/kbVTiN1weLSa03iC/o2BikVHnQOiI5yZFdcOoHqOLiErBDfGC5pp1XA2J9
-         pnTu3IjQ/pSj1L+/3F7Tyy1iRZtkBF1QakcyVZARY0n+3jNwA2BMrW9eBnUY3Y+yOs++
-         Fcpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784649706; x=1785254506;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CCsMWHiy8lvPYOE+m0FXhgzrH3sURDkHCgMUoZjYcmg=;
-        b=d5DIM5XfiZm2PygHdXspuVG3TuEV5QpN02zP4Z8Uwh5me+p/zfDM/g0cojpsjlxVUE
-         WYgPbrreGZlp4FiGpDHhKYu1839lIQHXVhO60uXnaAP6OFYkR0ctjcql+m/rIt+wP4UH
-         517p2FjlkAVLZj0xx3W/6w93/M8Zz91MET4kwAGBT/SKFxraV9xaHHf4b/qFKBfmmI8l
-         5JjqihSdSKMibYEvyosRXjVhD3MXLq/744JktXzDOM4T3rm00RJ8si9ijUhO1/bLwFd8
-         WHIhlw6KnzEq/ZqKW0ceJ0JXDKDqg9i5U3sTZqVwS3LNmfDuWcFKYC0dExLurvic7XTC
-         4qqA==
-X-Forwarded-Encrypted: i=1; AHgh+RpFrEkq1FVJvHB7lScYSLw2W35x6cFYlqEoBqO3Q04NgGlstRwsu7kMZ8NihzAk/UDeo3itnM8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxp1eFNrk3wOi905tJpZbEVisBpYOAGfocu1m324FWIh6O2JIA4
-	aBn7mbU+Bg/yVdXa5Nw19iXt8y+QoIQKWFrcLC2OXa19Wes73Yen0Sd2
-X-Gm-Gg: AfdE7cmMeBeanXrm+/oQFqtg1WjFJOfsbhfrMq/c+5KBvXrGGOmf7Hj8lwUsWxASUZH
-	VVMW7dUp4q3AltgwSVdRJSjJnjhBs6lgm780Cgl4ryDdrSiCybmZd6ki3y5yC4YlYV0zGFfyt0q
-	VarL5pV0vB5ezHqcvmML25bOZmu/aaItv7sM8FgwZqQ31wkBCxoRlsTTgiUC09NK50UrxCGKd6G
-	m3ZsX5Ktc3YP98zDaFWtVSdoP+1r+EvQhpInfmCLD5S0gGld4is7tqFtfdm5MnUB5NQL+KednWG
-	vbV+0m+bIK8iyqcmWkApB5NXpZQQg/iEuVVjeR9LktwUuxEOReHXoqyL75Cpe1Cwkyj8ly4iu8e
-	YsYYa93b9cNawiUAQVIbjW3bSGYkjScgJNwvOQU3t4Bcum3ULDmRwNIxPfKXbkItd3Wbq2rZQrP
-	XnYPQOHH3x1pJwScvm12OSS8IG7wYJ2g6QIg==
-X-Received: by 2002:ac8:5d49:0:b0:51b:f98f:ea5e with SMTP id d75a77b69052e-5213a97367fmr190789071cf.22.1784649705533;
-        Tue, 21 Jul 2026 09:01:45 -0700 (PDT)
-Received: from ?IPV6:2a03:83e0:1145:4:9e60:fa04:7d21:c1b0? ([2620:10d:c091:500::2:19e3])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-521500c552dsm100014701cf.28.2026.07.21.09.01.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 09:01:45 -0700 (PDT)
-Message-ID: <3e4b1552-57d4-42ad-a244-a91b74b8dae1@gmail.com>
-Date: Tue, 21 Jul 2026 12:01:44 -0400
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lXf7Nq6B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913FE1F00A3A;
+	Tue, 21 Jul 2026 16:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784649708;
+	bh=V2uRvpEy6+HfyWEjQkEhwSFVo/cY7fUoGq80RVyLqQQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lXf7Nq6BIqeCfiZ+eVFUTy8riIG0Nxmb3FEWRnHr6UghKzQ3/5gmoLTsLLrhDntIx
+	 KWqIziXYaSJdgxhfYzIxx2+0eqD8ulSzvNdomaqRdEukchq5LaJ/OsjBJ6SSmbUanJ
+	 AGrat0mQfMOuLqsEJWJbeMv7/obIb2gZ7697HUAg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zijun Hu <zijun.hu@oss.qualcomm.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 0677/2077] Bluetooth: hci_qca: fix NULL pointer dereference in qca_setup() for non-serdev device
+Date: Tue, 21 Jul 2026 17:05:50 +0200
+Message-ID: <20260721152608.765246104@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] packet: use a consistent hard_header_len in send
- paths
-To: Qihang <q.h.hack.winter@gmail.com>, netdev@vger.kernel.org
-Cc: willemdebruijn.kernel@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- stable@vger.kernel.org
-References: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
-Content-Language: en-US
-From: Daniel Zahka <daniel.zahka@gmail.com>
-In-Reply-To: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+7.1-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
+
+[ Upstream commit 3ec629fee178d429f01ae843e4ea888de93012bf ]
+
+hu->serdev is NULL for hci_uart attached via non-serdev paths, but
+qca_setup() unconditionally calls serdev_device_get_drvdata(hu->serdev)
+and dereferences the result, causing a NULL pointer dereference.
+
+Fix by guarding the dereference with a NULL check, consistent with the
+rest of qca_setup().
+
+Fixes: 22d893eec0d5 ("Bluetooth: hci_qca: Refactor HFP hardware offload capability handling")
+Signed-off-by: Zijun Hu <zijun.hu@oss.qualcomm.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/bluetooth/hci_qca.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+index 34500137df2c10..cc7b34a61fa783 100644
+--- a/drivers/bluetooth/hci_qca.c
++++ b/drivers/bluetooth/hci_qca.c
+@@ -1916,9 +1916,12 @@ static int qca_setup(struct hci_uart *hu)
+ 	const char *rampatch_name = qca_get_rampatch_name(hu);
+ 	int ret;
+ 	struct qca_btsoc_version ver;
+-	struct qca_serdev *qcadev = serdev_device_get_drvdata(hu->serdev);
++	struct qca_serdev *qcadev = NULL;
+ 	const char *soc_name;
+ 
++	if (hu->serdev)
++		qcadev = serdev_device_get_drvdata(hu->serdev);
++
+ 	ret = qca_check_speeds(hu);
+ 	if (ret)
+ 		return ret;
+@@ -1980,7 +1983,7 @@ static int qca_setup(struct hci_uart *hu)
+ 	case QCA_WCN6750:
+ 	case QCA_WCN6855:
+ 	case QCA_WCN7850:
+-		if (qcadev->bdaddr_property_broken)
++		if (qcadev && qcadev->bdaddr_property_broken)
+ 			hci_set_quirk(hdev, HCI_QUIRK_BDADDR_PROPERTY_BROKEN);
+ 
+ 		hci_set_aosp_capable(hdev);
+@@ -2073,7 +2076,7 @@ static int qca_setup(struct hci_uart *hu)
+ 	else
+ 		hu->hdev->set_bdaddr = qca_set_bdaddr;
+ 
+-	if (qcadev->support_hfp_hw_offload)
++	if (qcadev && qcadev->support_hfp_hw_offload)
+ 		qca_configure_hfp_offload(hdev);
+ 
+ 	qca->fw_version = le16_to_cpu(ver.patch_ver);
+-- 
+2.53.0
 
 
 
-On 7/21/26 4:49 AM, Qihang wrote:
-> packet_snd() and tpacket_snd() read dev->hard_header_len multiple times
-> while building an skb. Device reconfiguration can change this value
-> concurrently, for example through bonding device type changes.
-> 
-> For SOCK_RAW, packet_snd() stores the first value in reserve, later
-> allocates headroom using LL_RESERVED_SPACE(dev), and then subtracts
-> reserve from the skb headroom. If hard_header_len decreases between the
-> reads, the skb can be allocated with less headroom than reserve, moving
-> skb->data before skb->head. The subsequent skb_copy_datagram_from_iter()
-> can then attempt an out-of-bounds copy. Hardened usercopy catches this as
-> a kernel memory overwrite attempt.
-> 
-
-Wouldn't there be a similar issue in the SOCK_DGRAM path with 
-dev_hard_header() calling skb_push() after packet_alloc_skb()?
