@@ -1,43 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CBF445A2A7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0EC45A2AB;
 	Tue, 21 Jul 2026 22:20:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784672448; cv=none; b=MWGPM0ADzY851x+BPQYAmHhj10YWYRLdeCYZJYVOA0t3WHaFEbJxB7MAQBLmJ+DwehLJyDIijSceF8BUVWyenT0bMjEKrGT90JJdR7p8o1tv3zo/h5xADcQiubfdtRD8je3vELmzMf+LGKfK6s7ik72WbFPRQqYrHhFr2fyqT/Y=
+	t=1784672448; cv=none; b=AU/hKwrDzd89fZvO3TTBDKb7ZrjCK0jHKigBdsG857uSl6GNYFaKHFzmh8EOTWAhGM+Pzyy7lha3V1kShk4Omu2csgajAEHLJolIqvcdCVrQcbqhUp2Cw7znceAWC5ZIj8a56kohUw3puo0+vlzpIh9tUK2zL69QQxr7YFMukU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784672448; c=relaxed/simple;
-	bh=Z7oTPN2u1ja9PmJ0egs4OFJSYFpmfAhTOgzRkoo/JFE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cJHnxCFnaVs99lcJMxfPsrNfSJezsmW49FXZuixAP/ADg6eBF2d5W+Dn1Bsca4teweDxw052SMoVrSLDC7DH98fqZ3yieDKv9b+R4ILyWLZUAX6nP+fzPW1zO7Layoa/K/GI1Fgfu4FFW75RHnZ6Nhng2le6zdIUgUKkntUlcHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W4Mm7jjn; arc=none smtp.client-ip=100.103.45.18
+	bh=QIQh1LdMMndMhz+L/LERUwLYT3a3pIfoXWq1+5CF3d0=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=WC0qCHBpdq4npztDRXX1ZJAuqs5l+dzlnI7uqWyUdy6uVL0/NYagwuGmYeJOSve8cBPHqnQjDnuBl7CNcXAjFEOZprreZtN6Mwzub7W1IfGwfy3AtkM446koq+jX12oQ01IyGLqEkxshC0/NWrUZbi0WgmFtQCRawHHT03Svays=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUw0X5F1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W4Mm7jjn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F6E1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUw0X5F1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9E81F00A3A;
 	Tue, 21 Jul 2026 22:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784672446;
-	bh=LUksPscPfZ1IdQ/fqx773GWiB1YRenOjLmrW9HJyM4o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W4Mm7jjnkK0z5ugJovZmoeA4M5QKccmHnot6jTl9V0sqem7CZYfIbVZmmMIHIvf1V
-	 2+Fb4HgFTrdI+KRyiNi/N8nul1jDCeZyCO2OPmoz678GktmgBvKmukBlNEXkpHVI1/
-	 NzUzqjf3RoGR4lSMQuAfYWiu8cSKDXiUeoSIMSSU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vasiliy Kovalev <kovalev@altlinux.org>,
-	Dominique Martinet <asmadeus@codewreck.org>
-Subject: [PATCH 5.15 626/843] net/9p: fix infinite loop in p9_client_rpc on fatal signal
-Date: Tue, 21 Jul 2026 17:24:21 +0200
-Message-ID: <20260721152420.143685485@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152405.946368001@linuxfoundation.org>
-References: <20260721152405.946368001@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784672447;
+	bh=d406LyygWXzblmhEB6WYT/uTq484gzGIOF02k4unhqI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=IUw0X5F1XlHvov5TFySN8S69WLT74DrO4pNYBUXvZQPKw2FUMJik0ktfMoa/AgFhX
+	 Aq3PJ7igVktzEAK4apEW+qiuVnMGWlLnO4IL87kO1DdymWOJ9kX8/fwW6n4PNmeykq
+	 MiOb6h/MSrDcMAepqtcew0o3WuB2X8PcMCEMSSF0Oyu1V0QF1PgspSqESejaNl8UTo
+	 qG2UR7kgJ/bonmNbs4++RYZD2k49GoiCf/YcTkR7F2hSPz5V3O97DDc7rxeU7kYmfs
+	 siI2y7aab6znkBprnPFGLgKZklFtVMZmrHs2q+rcZEOLDvyknCjfRfpkGFeubcatlC
+	 ehQNIX3ViDAxQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93AFD380820D;
+	Tue, 21 Jul 2026 22:20:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,106 +37,41 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: qrtr: ns: Raise node count limit to 512
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178467241614.1119846.11186866513095831620.git-patchwork-notify@kernel.org>
+Date: Tue, 21 Jul 2026 22:20:16 +0000
+References: <20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com>
+In-Reply-To: <20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com>
+To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Cc: mani@kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ jeff.hugo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org, stable@vger.kernel.org
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Hello:
 
-------------------
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-From: Vasiliy Kovalev <kovalev@altlinux.org>
+On Mon, 13 Jul 2026 16:59:01 +0200 you wrote:
+> The current node limit of 64 breaks the functionality for a number of AI200
+> deployments that have up to 384 nodes. Raise the limit to 512.
+> 
+> Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+> 
+> [...]
 
-commit 6b4f48728faa8bb514368f7eacda05565dea8696 upstream.
+Here is the summary with links:
+  - net: qrtr: ns: Raise node count limit to 512
+    https://git.kernel.org/netdev/net/c/ff194cffd586
 
-When p9_client_rpc() is called with type P9_TFLUSH and the transport
-has no peer (e.g. fd transport backed by pipes with no 9p server),
-a fatal signal causes an infinite loop:
-
-  again:
-	err = io_wait_event_killable(req->wq, ...)
-	/* SIGKILL wakes the task, returns -ERESTARTSYS */
-
-	if (err == -ERESTARTSYS && c->status == Connected &&
-		type == P9_TFLUSH) {
-		sigpending = 1;
-		clear_thread_flag(TIF_SIGPENDING);
-		goto again;
-	}
-
-clear_thread_flag() clears TIF_SIGPENDING before jumping back to
-io_wait_event_killable(). signal_pending_state() checks TIF_SIGPENDING,
-finds it zero, and the task goes to sleep again. The task can only wake
-on the next signal delivery that calls signal_wake_up() and sets
-TIF_SIGPENDING again. When that happens the loop repeats, clears
-TIF_SIGPENDING, and sleeps again indefinitely.
-
-This is triggered in practice by coredump_wait(): when a thread in a
-multi-threaded process causes a coredump (e.g. via SIGSYS from Syscall
-User Dispatch), coredump_wait() sends SIGKILL to all other threads and
-waits for them to call mm_release(). If one of those threads is blocked
-in p9_client_rpc() over an fd transport with no peer, it enters the
-P9_TFLUSH loop and never calls mm_release(), so coredump_wait() stalls
-forever:
-
-INFO: task syz.0.18:676 blocked for more than 143 seconds.
-      Not tainted 6.12.77+ #1
-task:syz.0.18 state:D stack:27600 pid:676 tgid:673 ppid:630 flags:0x00000004
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5344 [inline]
- __schedule+0xcb4/0x5d50 kernel/sched/core.c:6724
- __schedule_loop kernel/sched/core.c:6801 [inline]
- schedule+0xe5/0x350 kernel/sched/core.c:6816
- schedule_timeout+0x253/0x290 kernel/time/timer.c:2593
- do_wait_for_common kernel/sched/completion.c:95 [inline]
- __wait_for_common+0x409/0x600 kernel/sched/completion.c:116
- wait_for_common kernel/sched/completion.c:127 [inline]
- wait_for_completion_state+0x1d/0x40 kernel/sched/completion.c:264
- coredump_wait fs/coredump.c:448 [inline]
- do_coredump+0x854/0x4350 fs/coredump.c:629
- get_signal+0x1425/0x2730 kernel/signal.c:2903
- arch_do_signal_or_restart+0x81/0x880 arch/x86/kernel/signal.c:337
- exit_to_user_mode_loop kernel/entry/common.c:111 [inline]
- exit_to_user_mode_prepare include/linux/entry-common.h:328 [inline]
- __syscall_exit_to_user_mode_work kernel/entry/common.c:207 [inline]
- syscall_exit_to_user_mode+0xf9/0x160 kernel/entry/common.c:218
- do_syscall_64+0x102/0x220 arch/x86/entry/common.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
- </TASK>
-
-Fix: check fatal_signal_pending() before clearing TIF_SIGPENDING in the
-P9_TFLUSH retry loop. At that point TIF_SIGPENDING is still set, so
-fatal_signal_pending() works correctly. If a fatal signal is pending,
-jump to recalc_sigpending to restore TIF_SIGPENDING and return
--ERESTARTSYS to the caller.
-
-The same defect is present in stable kernels back to 5.4. On those
-kernels the infinite loop is broken earlier by a second SIGKILL from
-the parent process (e.g. kill_and_wait() retrying after a timeout),
-resulting in a zombie process and a shutdown delay rather than a
-permanent D-state hang, but the underlying flaw is the same.
-
-Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
-
-Fixes: 91b8534fa8f5 ("9p: make rpc code common and rework flush code")
-Closes: https://syzkaller.appspot.com/bug?extid=3ce7863f8fc836a427e7
-Cc: stable@vger.kernel.org
-Signed-off-by: Vasiliy Kovalev <kovalev@altlinux.org>
-Message-ID: <20260415155237.182891-1-kovalev@altlinux.org>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/9p/client.c |    2 ++
- 1 file changed, 2 insertions(+)
-
---- a/net/9p/client.c
-+++ b/net/9p/client.c
-@@ -770,6 +770,8 @@ again:
- 
- 	if (err == -ERESTARTSYS && c->status == Connected &&
- 	    type == P9_TFLUSH) {
-+		if (fatal_signal_pending(current))
-+			goto recalc_sigpending;
- 		sigpending = 1;
- 		clear_thread_flag(TIF_SIGPENDING);
- 		goto again;
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
