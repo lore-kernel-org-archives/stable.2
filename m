@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC2A36DA1D;
-	Tue, 21 Jul 2026 21:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 659A535C6AF;
+	Tue, 21 Jul 2026 21:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784668638; cv=none; b=GWKjMusWp3ARJbO6Baqmngyd1dwNYrBzgdG0f2O8TVuW4ok2fed+8pwxFZkeiSOEDiUagQMEYMB2fq3FFfWPcKkGR6gzNnCs7MdREgfX5Fd+zk9iVhLxz9NWjd/RARV2ooWSm0THxf0vOuOAfAkfXfk8cZCYhARMa3pIvs2cIqk=
+	t=1784668641; cv=none; b=Zdi2yHkka6F8OOES+Z3RrHYaCVS+JwHn8dGx0QrOLjF9EdNe0ReCDcjPKspl4guNSl2U508lLpmucTZLNKH1D7VDCYjaGrjyhBs5maZBf1Mfi49vg4IsTJTWrd2asqZPKqdN/id1n//yIIYpguq0QE15DmT7B4QUr+9xvbGsE2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784668638; c=relaxed/simple;
-	bh=rS0kKZBisOP5EGQCaRSg/69T/gQKWbbmgiZzWJUxCvs=;
+	s=arc-20240116; t=1784668641; c=relaxed/simple;
+	bh=DjeDCkykhGYz0qoEQCnbaI93oarNKpTOU61c0gTWL7A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S2Hakv7L3kyTFruNvl4/5AG+Wg3rmAg4TqJYbeTzWlAm5RFc0N1pQvTuoJxYWEv92V/l6rsL4umTJhNJuNqFHRdDW4OcRpamJG0Wg4csl1K+aRpQyYRfFXo6X5l2eahsUGJml+w0t6UYtR/ysJJEZUmK0hObGUwwuD8T2laW/X8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PVVgVtEb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gqkFGt/1xCWNLVVb3p3nDUKrVgmlUgVEwoChB7a84MdOlUihlFFtrRi+P3ljoM6D7dgATq6vuoE1B1x6zzEevWeooyTE4Avd93isgfxR1ijUG1YwZhWhekDHxiQTMMNOMsi5yNYmPSO47R+NJ0oJh2tz2xs9eX9daCj1Y4noAHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xVAZcKrC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PVVgVtEb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82201F000E9;
-	Tue, 21 Jul 2026 21:17:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xVAZcKrC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110FC1F00A3D;
+	Tue, 21 Jul 2026 21:17:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784668631;
-	bh=uzUE6crRS5iSri9gt+eTiZ0pYiIxtIsDKp9p+HXm9u4=;
+	s=korg; t=1784668636;
+	bh=hNJnctCAB/IiCqdfqs0GwXX+aHCE63OnJBG4PBazLY4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PVVgVtEbJe/D7MmGyAq/5He9vb3bK2Dr+kgfVupdTzRQU15U9i9ef1cPvQZ+ODKHV
-	 d/IfqAEPrS6tmDkW08au3+OomgXZGYPnYFjnJy5OssH99rpzpr2BGxjI0A2arhZAd0
-	 n3khwQTO7mH0af9WkHb2EfrvdORb6AfrkrJ/BbbY=
+	b=xVAZcKrC6RfbFuQrMEdxYhFpenIJQrDiN24QcpLR+q8jIWjZB5EbFcrazAcagfjSk
+	 r8MZaBIC10Mwb9zXU1zqx68VxyxIBhAlOB9u6/jMcqu0EIRSrebJyLNO22LhzcqaAv
+	 8SauZ137VcbQFeg8r0BF+SP7iRJwxru59aNwL89k=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jungwoo Lee <jwlee2217@gmail.com>,
-	Wongi Lee <qw3rtyp0@gmail.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.1 0250/1067] ipv4: account for fraggap on the paged allocation path
-Date: Tue, 21 Jul 2026 17:14:11 +0200
-Message-ID: <20260721152430.189949575@linuxfoundation.org>
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>
+Subject: [PATCH 6.1 0252/1067] xfs: fail recovery on a committed log item with no regions
+Date: Tue, 21 Jul 2026 17:14:13 +0200
+Message-ID: <20260721152430.234503905@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
 References: <20260721152424.521567757@linuxfoundation.org>
@@ -52,52 +53,69 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Wongi Lee <qw3rtyp0@gmail.com>
+From: Weiming Shi <bestswngs@gmail.com>
 
-commit eca856950f7cb1a221e02b99d758409f2c5cec42 upstream.
+commit 2094dab19d45c487285617b7b68913d0cc0c1211 upstream.
 
-In __ip_append_data(), when the paged-allocation branch is taken,
-alloclen and pagedlen are computed as
+If the first op of a transaction is a bare transaction header
+(len == sizeof(struct xfs_trans_header)), xlog_recover_add_to_trans()
+adds an item but no region, leaving it on r_itemq with ri_cnt == 0 and
+ri_buf == NULL.
 
-	alloclen = fragheaderlen + transhdrlen;
-	pagedlen = datalen - transhdrlen;
+The header can be split across op records, so later ops may still add
+regions; the item is only invalid if the transaction commits with none.
+The runtime commit path never emits such a transaction, so this only
+happens on a crafted log.  It came from an AI-assisted code audit of the
+recovery parser.
 
-datalen already includes fraggap, but the fraggap bytes carried over
-from the previous skb are copied into the new skb's linear area at
-offset transhdrlen by the subsequent skb_copy_and_csum_bits(). The
-linear area is therefore undersized by fraggap bytes while pagedlen is
-overstated by the same amount.
+xlog_recover_reorder_trans() calls ITEM_TYPE() on the item, which reads
+*(unsigned short *)item->ri_buf[0].iov_base and faults on the NULL
+ri_buf.  Reject it there, before the commit handlers that also read
+ri_buf[0].
 
-The non-paged branch sets alloclen to fraglen, which already accounts
-for fraggap because datalen does. Bring the paged branch in line by
-adding fraggap to alloclen and subtracting it from pagedlen.
+ KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+ RIP: 0010:xlog_recover_reorder_trans (fs/xfs/xfs_log_recover.c:1836)
+  xlog_recover_commit_trans (fs/xfs/xfs_log_recover.c:2043)
+  xlog_recover_process_data (fs/xfs/xfs_log_recover.c:2501)
+  xlog_do_recovery_pass (fs/xfs/xfs_log_recover.c:3244)
+  xlog_recover (fs/xfs/xfs_log_recover.c:3493)
+  xfs_log_mount (fs/xfs/xfs_log.c:618)
+  xfs_mountfs (fs/xfs/xfs_mount.c:1034)
+  xfs_fs_fill_super (fs/xfs/xfs_super.c:1938)
+  vfs_get_tree (fs/super.c:1695)
+  path_mount (fs/namespace.c:4161)
+  __x64_sys_mount (fs/namespace.c:4367)
 
-After this adjustment, copy no longer collapses to -fraggap on the
-paged path, so remove the stale comment describing that old arithmetic.
-
-Fixes: 8eb77cc73977 ("ipv4: avoid partial copy for zc")
-Signed-off-by: Jungwoo Lee <jwlee2217@gmail.com>
-Signed-off-by: Wongi Lee <qw3rtyp0@gmail.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/ajFR1eLAIs42TN3g@DESKTOP-19IMU7U.localdomain
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 89cebc847729 ("xfs: validate transaction header length on log recovery")
+Cc: stable@vger.kernel.org # v4.3
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/ipv4/ip_output.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/xfs/xfs_log_recover.c |    9 +++++++++
+ 1 file changed, 9 insertions(+)
 
---- a/net/ipv4/ip_output.c
-+++ b/net/ipv4/ip_output.c
-@@ -1117,8 +1117,8 @@ alloc_new_skb:
- 				  !(rt->dst.dev->features & NETIF_F_SG)))
- 				alloclen = fraglen;
- 			else {
--				alloclen = fragheaderlen + transhdrlen;
--				pagedlen = datalen - transhdrlen;
-+				alloclen = fragheaderlen + transhdrlen + fraggap;
-+				pagedlen = datalen - transhdrlen - fraggap;
- 			}
+--- a/fs/xfs/xfs_log_recover.c
++++ b/fs/xfs/xfs_log_recover.c
+@@ -1878,6 +1878,15 @@ xlog_recover_reorder_trans(
+ 	list_for_each_entry_safe(item, n, &sort_list, ri_list) {
+ 		enum xlog_recover_reorder	fate = XLOG_REORDER_ITEM_LIST;
  
- 			alloclen += alloc_extra;
++		/* a committed item with no regions has a NULL ri_buf[0] */
++		if (!item->ri_cnt || !item->ri_buf) {
++			xfs_warn(log->l_mp,
++				"%s: committed log item has no regions",
++				__func__);
++			error = -EFSCORRUPTED;
++			break;
++		}
++
+ 		item->ri_ops = xlog_find_item_ops(item);
+ 		if (!item->ri_ops) {
+ 			xfs_warn(log->l_mp,
 
 
