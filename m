@@ -1,214 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0ED3E49F0;
-	Tue, 21 Jul 2026 17:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63DD3E3DB4
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653575; cv=none; b=VyXtJvnbFW+fWzoeDc5tGCmepPsMLP1P/SLsDmaDPcfKIDWXEMGQv2XqzjQl1IMr101lmUJOrH3XedNZ0Ok2Yj5ovudK49NIKI7XEgzXzExKcGGDY7jrIKGEPAGlABJgxk3hjTpn33Q49RPpDvXR3PjNM2uqz2nqizXDNXzp+BA=
+	t=1784653577; cv=none; b=kv0U2MFMDgbmsBgnuXgBgJh51QYaVvlthPJ6ZvHR+8O8JDoSPno5SmFlyPOT6pLP53WaCbzGwKsdJingIHYrm8+DSB2F/4irt4Yyh0P9z0QVA1a8zzPKCU4r1wErO4aCkYvc0SxHCxes//ZIKDiYRMzbt6D3LW9wPBIfni/CSnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784653575; c=relaxed/simple;
-	bh=TEhbTgHDy8TEd/MMUC5PtnWlXOHJ7dk39pvOarh1tuo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WKzXnTprxbUTZsZGbrox2jaNBEaPEKYCXsxftWI9ORFRG77YbIvmitqSMoOSr+KYGYbwqxH5PDb1rWx9Tdk0BJbQpXUiTa6I5QtfbIJBE1qNTeXgPUraIgyWfQukYGcl6DEII3ZWy4a4Im+5hHySfkyFWzYuUDrxWdub2psF918=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yutrV6jC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784653577; c=relaxed/simple;
+	bh=Z1kfHjZshRyq0OhKtA+4Xwyb45jgsWJ5RkfvK1EhOX4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZDa/glcbw80EvDMxiuo6yDLKsfPBnxpp5438OndYJ1qjL6pYlkxRwxulBS/lSTTVf1g25btkYo9O1u4X7C1KDfKZ75WPHt77t/py70ja9nkh0QY1P/tS2frrmFG3UdajN01ISRPBLA3r1kwQ583z9UL2FDq6N+1eCpiQu27Zokc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S+1nXKVu; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yutrV6jC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65291F00A3A;
-	Tue, 21 Jul 2026 17:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784653573;
-	bh=6wuqRyb9hZgo4MuPFxUCrhs4YIrjtXjgRFWDYoquS9w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yutrV6jCIf8cSoXRKqcYud+uwgpXMA8h3uZmxaVBA9ayUCrwIWz86xqDLoAIjygLP
-	 7eSoVE0tka0fULYBmBwwX/gS/FcdAhXrC7g+5VKjYcOBJA/8etMQMlnx9EEmIWv3hG
-	 USXgTk1Lw5mAU/dMDQIbv4lJZKHf4pSHGd86hj3s=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Marc Dionne <marc.dionne@auristor.com>,
-	David Howells <dhowells@redhat.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	linux-afs@lists.infradead.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 1376/2077] afs: Fix bulk lookup malfunction due to change in dir_emit() API
-Date: Tue, 21 Jul 2026 17:17:29 +0200
-Message-ID: <20260721152625.270770750@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S+1nXKVu"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb5bdd8450dso2686711a12.0
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:06:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784653575; x=1785258375; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TpgRh3CeErOqYeAN760I7EgBZOZeFXDcwxkCd+u/yDU=;
+        b=S+1nXKVu4AynIbk7uv38BmmPZoxDdLC9ConuFm6ia5Je0h0B+y8EwMSWznWpltNXWX
+         XG/Un9jV63TAlZMfXuoDtcEYG06IbQtJUlVJyicwF0iR8jmYR5Ruj6a7JxL2VI5Q29By
+         lCH3BiC4cz6nRrrsuCfMaNNN01Nw2jTZt6KX3eWnqnnMD8F3XqBfy2S05drH0tfak+FL
+         1yqQcw4CBvfbAorwsOS3xj2OAKZQ+lawNRbR+PJw+cIHp71hAHAZaIENTgBNYHAP1MYw
+         DK3e98z0dD53eQXA0XOLLy1aZ8ifet5Cs3J6KSbIwyBiQT6mW3rnoxSppIPKE15CM2wg
+         ji1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784653575; x=1785258375;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TpgRh3CeErOqYeAN760I7EgBZOZeFXDcwxkCd+u/yDU=;
+        b=tT3OrLX1X3+t3KSsIin9CkktxwO2OpY+7tX0Ac6ihyAVV88ZGmFwT+ra5UAkgGHdx3
+         P5tdguCmHTrJ8nSiAizG7/X3ImuqNGTuWBq6IzX+q8lkjDREYw8kh/qq0Dgg2kQb4Kof
+         Iid0xaQ5g89oDD5XDHStJxmUullvg92EG+Bhukyfdh3W3TBQseodeDDawgTQ4TaByN04
+         B1RR10qQ3g0Vo9CwYWr6yx17Yc7Ap4R5w9EqpBqKvU3ecp2TLDHs/GkwIEIrSnHlSpp6
+         G/f0smeqyz7qy3/w2VSNbqwvpFGONyT26PoIfIxZcr/1V6R+sfazYDUKtfqRDMNFxRby
+         9Ylw==
+X-Forwarded-Encrypted: i=1; AHgh+RoObol4vg86iI8pJMg6MGQUQPrW5Fyi6JRbF4JMGWUbAxGH6pgyqR+jQTVs+m01sKsZnlCsP8E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBmXXjAixwAS97MmleCyORAinL1+K2iI6JBkG5g+Q7T2JThs7p
+	XWrncVXd76pawp9ZZ4n+0pZ5F7TofdQa8xz4uT+5zUZGfbIZGltk/N2PqhNRuD3xSIUDBqZkX1I
+	QpFQBjA==
+X-Received: from pgmk20.prod.google.com ([2002:a63:5a54:0:b0:c8b:19f4:6228])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:db09:b0:3bf:b885:2fae
+ with SMTP id adf61e73a8af0-3c3ada8bc69mr21255876637.56.1784653574972; Tue, 21
+ Jul 2026 10:06:14 -0700 (PDT)
+Date: Tue, 21 Jul 2026 10:06:14 -0700
+In-Reply-To: <20260721164746.376551-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260721164746.376551-1-pbonzini@redhat.com>
+Message-ID: <al-nBuxK5cOcJUsz@google.com>
+Subject: Re: [PATCH] KVM: VMX: add memory clobber to asm for VMX instructions
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Jul 21, 2026, Paolo Bonzini wrote:
+> VMCLEAR/VMREAD/VMWRITE/VMPTRLD access the internal VMCS cache, which
+> is not visible to the compiler; without a memory clobber, the compiler
+> can reorder them in troublesome ways because "asm volatile" and "asm goto"
+> only protect against removal of the asm.  For example, placing a VMWRITE
+> before the corresponding VMCS pointer is loaded can lead to corruption.
+> While none of this has been observed, it is better to prevent than cure.
+> 
+> Likewise, INVEPT and INVVPID access the TLB and, even though in their
+> case the effect is only visible to the next VMLAUNCH/VMRESUME, it is
+> technically correct to add the clobber there too.  So avoid any urge to
+> special case them, and simply hardcode "memory" into the clobber list
+> of vmx_asm1() and vmx_asm2().  __vmcs_readl() open-codes its own asm,
+> so add the clobber there as well.
+> 
+> Link: https://lore.kernel.org/kvm/CABgObfbL3t21yVeSwiLSjjOUER+rTYDPHYAH9YU4TWGRjx6XHg@mail.gmail.com/
+> Cc: Sean Christopherson <seanjc@google.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
 
-------------------
-
-From: David Howells <dhowells@redhat.com>
-
-[ Upstream commit 2f79d1b93c62470fe02dbdc24770f1ae5a9e1be6 ]
-
-afs_do_lookup() and afs_do_lookup_one() use the same directory parsing code
-as afs_readdir() and were supplying alternative dir_context actors to
-retrieve dirents, but because lookup needs the vnode's uniquifier as part
-of the reference, but not the DT flags, the uniquifier was being passed in
-the dt flags argument to the lookup actors.
-
-Unfortunately, commit c644bce62b9c, added to fix overlayfs with fuse, broke
-this by masking off part of the uniquifier.  This doesn't matter enough to
-be directly noticeable, instead causing bulk advance inode lookups to fail
-(which are retried later) and may cause dir revalidation to malfunction if
-the uniquifier is changed by masking.
-
-Fix this by making the afs directory parsing code take special ->actor
-values of AFS_LOOKUP or AFS_LOOKUP_ONE instead that tell it to call
-afs_lookup_filldir() or afs_lookup_one_filldir() directly rather than going
-through dir_emit().  dir_emit() is still used for readdir.
-
-Fixes: c644bce62b9c ("readdir: require opt-in for d_type flags")
-Reported-by: Marc Dionne <marc.dionne@auristor.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
-Link: https://patch.msgid.link/20260622090856.2746629-11-dhowells@redhat.com
-cc: Amir Goldstein <amir73il@gmail.com>
-cc: linux-afs@lists.infradead.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/afs/dir.c | 40 +++++++++++++++++++++++++---------------
- 1 file changed, 25 insertions(+), 15 deletions(-)
-
-diff --git a/fs/afs/dir.c b/fs/afs/dir.c
-index 498b99ccdf0e27..6df56fe9163fd7 100644
---- a/fs/afs/dir.c
-+++ b/fs/afs/dir.c
-@@ -28,9 +28,11 @@ static int afs_d_revalidate(struct inode *dir, const struct qstr *name,
- static int afs_d_delete(const struct dentry *dentry);
- static void afs_d_iput(struct dentry *dentry, struct inode *inode);
- static bool afs_lookup_one_filldir(struct dir_context *ctx, const char *name, int nlen,
--				  loff_t fpos, u64 ino, unsigned dtype);
-+				   u64 ino, u32 uniquifier);
-+#define AFS_LOOKUP_ONE ((filldir_t)0x123UL)
- static bool afs_lookup_filldir(struct dir_context *ctx, const char *name, int nlen,
--			      loff_t fpos, u64 ino, unsigned dtype);
-+			       u64 ino, u32 uniquifier);
-+#define AFS_LOOKUP ((filldir_t)0x137UL)
- static int afs_create(struct mnt_idmap *idmap, struct inode *dir,
- 		      struct dentry *dentry, umode_t mode, bool excl);
- static struct dentry *afs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
-@@ -421,11 +423,18 @@ static int afs_dir_iterate_block(struct afs_vnode *dvnode,
- 		}
- 
- 		/* found the next entry */
--		if (!dir_emit(ctx, dire->u.name, nlen,
--			      ntohl(dire->u.vnode),
--			      (ctx->actor == afs_lookup_filldir ||
--			       ctx->actor == afs_lookup_one_filldir)?
--			      ntohl(dire->u.unique) : DT_UNKNOWN)) {
-+		if (ctx->actor == AFS_LOOKUP) {
-+			if (!afs_lookup_filldir(ctx, dire->u.name, nlen,
-+						ntohl(dire->u.vnode),
-+						ntohl(dire->u.unique)))
-+				return 0;
-+		} else if (ctx->actor == AFS_LOOKUP_ONE) {
-+			if (!afs_lookup_one_filldir(ctx, dire->u.name, nlen,
-+						    ntohl(dire->u.vnode),
-+						    ntohl(dire->u.unique)))
-+				return 0;
-+		} else if (!dir_emit(ctx, dire->u.name, nlen,
-+				     ntohl(dire->u.vnode), DT_UNKNOWN)) {
- 			_leave(" = 0 [full]");
- 			return 0;
- 		}
-@@ -545,6 +554,7 @@ static int afs_readdir(struct file *file, struct dir_context *ctx)
- {
- 	afs_dataversion_t dir_version;
- 
-+	ctx->dt_flags_mask = UINT_MAX;
- 	return afs_dir_iterate(file_inode(file), ctx, file, &dir_version);
- }
- 
-@@ -554,14 +564,14 @@ static int afs_readdir(struct file *file, struct dir_context *ctx)
-  *   uniquifier through dtype
-  */
- static bool afs_lookup_one_filldir(struct dir_context *ctx, const char *name,
--				  int nlen, loff_t fpos, u64 ino, unsigned dtype)
-+				  int nlen, u64 ino, u32 uniquifier)
- {
- 	struct afs_lookup_one_cookie *cookie =
- 		container_of(ctx, struct afs_lookup_one_cookie, ctx);
- 
- 	_enter("{%s,%u},%s,%u,,%llu,%u",
- 	       cookie->name.name, cookie->name.len, name, nlen,
--	       (unsigned long long) ino, dtype);
-+	       (unsigned long long) ino, uniquifier);
- 
- 	/* insanity checks first */
- 	BUILD_BUG_ON(sizeof(union afs_xdr_dir_block) != 2048);
-@@ -574,7 +584,7 @@ static bool afs_lookup_one_filldir(struct dir_context *ctx, const char *name,
- 	}
- 
- 	cookie->fid.vnode = ino;
--	cookie->fid.unique = dtype;
-+	cookie->fid.unique = uniquifier;
- 	cookie->found = 1;
- 
- 	_leave(" = false [found]");
-@@ -591,7 +601,7 @@ static int afs_do_lookup_one(struct inode *dir, const struct qstr *name,
- {
- 	struct afs_super_info *as = dir->i_sb->s_fs_info;
- 	struct afs_lookup_one_cookie cookie = {
--		.ctx.actor = afs_lookup_one_filldir,
-+		.ctx.actor = AFS_LOOKUP_ONE,
- 		.name = *name,
- 		.fid.vid = as->volume->vid
- 	};
-@@ -622,14 +632,14 @@ static int afs_do_lookup_one(struct inode *dir, const struct qstr *name,
-  *   uniquifier through dtype
-  */
- static bool afs_lookup_filldir(struct dir_context *ctx, const char *name,
--			      int nlen, loff_t fpos, u64 ino, unsigned dtype)
-+			      int nlen, u64 ino, u32 uniquifier)
- {
- 	struct afs_lookup_cookie *cookie =
- 		container_of(ctx, struct afs_lookup_cookie, ctx);
- 
- 	_enter("{%s,%u},%s,%u,,%llu,%u",
- 	       cookie->name.name, cookie->name.len, name, nlen,
--	       (unsigned long long) ino, dtype);
-+	       (unsigned long long) ino, uniquifier);
- 
- 	/* insanity checks first */
- 	BUILD_BUG_ON(sizeof(union afs_xdr_dir_block) != 2048);
-@@ -637,7 +647,7 @@ static bool afs_lookup_filldir(struct dir_context *ctx, const char *name,
- 
- 	if (cookie->nr_fids < 50) {
- 		cookie->fids[cookie->nr_fids].vnode	= ino;
--		cookie->fids[cookie->nr_fids].unique	= dtype;
-+		cookie->fids[cookie->nr_fids].unique	= uniquifier;
- 		cookie->nr_fids++;
- 	}
- 
-@@ -778,7 +788,7 @@ static struct inode *afs_do_lookup(struct inode *dir, struct dentry *dentry)
- 
- 	for (i = 0; i < ARRAY_SIZE(cookie->fids); i++)
- 		cookie->fids[i].vid = dvnode->fid.vid;
--	cookie->ctx.actor = afs_lookup_filldir;
-+	cookie->ctx.actor = AFS_LOOKUP;
- 	cookie->name = dentry->d_name;
- 	cookie->nr_fids = 2; /* slot 1 is saved for the fid we actually want
- 			      * and slot 0 for the directory */
--- 
-2.53.0
-
-
-
+Reviewed-by: Sean Christopherson <seanjc@google.com>
