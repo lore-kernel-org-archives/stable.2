@@ -1,138 +1,105 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CE747F2F8;
-	Tue, 21 Jul 2026 10:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E174508EB;
+	Tue, 21 Jul 2026 10:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629780; cv=none; b=dS3LXE8QFXLdgB654ET38V5mpgJ3OtiRXrLoTRH7HtEdlDDPLrUpY85TZkdDbTY3JgTaIKdxljaDcLkzaHjq9u7omKW9e8fQxYwTUWrMYkBFm9ZriZzosXDoqKMfh/mBOPy+CE2YjL75vzX1L/K6dSsMAZCvy5pLiXTdv5kHdiI=
+	t=1784629976; cv=none; b=UmFQXdI8BYY6mSY79H/sk8EJhY2oZpvRC53j542L4J2jwTwmY0KFkisNLWDDVyPpBq95WLZv+ec+G54P5Nk8KKqj6GGEQa0vypMXJfR4/cRiuBICPJ5rk7fTPXxx49EjLJTqVd+/Bv3FbLp53lymrDJIRfo4E3yjZI1IGYnUkVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629780; c=relaxed/simple;
-	bh=aogjYpbl1dNrqWrEblawQlhCqOx5bUkFeqGH/Mw1oYk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=cx0mMPOdDH1PNxzqFPdupUL41sDie+VTy0NdT+rJUFmOBIVfE8efaiTrcj+JbHUe/VrHKOh7WQem5wVb+EqyDUpUM7Bxrj1H+vZvmcGtdeeO2+MSgHsYibeIQfxoc9HcO2tEirrU4ttFrUEa1NTjukSXk7y6JH7lmDl2eeMSjwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ff1s0h7/; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1784629976; c=relaxed/simple;
+	bh=jkN5zvUVJMCMUwbhclhdZ1CqXTlXOySWqV5FoXfM4Ek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=azyTi0xdkb2wd7ePicKVweZn8LpUTAb6Kbolpz2aVrv7pYuLsq8nz2jeG4CtPVxp2UxAR0wKAcVeKgWVYV0wEGHkrss8g9CQgo+pXvGVQSvVgNq9I4W2TdTzhp4BbJWyxEXNqqXmF/HiEdg2oow37Pi2+pHUA2Dv1PEA6RwDPlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhA9VFRm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ff1s0h7/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1784629781; x=1816165781;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=aogjYpbl1dNrqWrEblawQlhCqOx5bUkFeqGH/Mw1oYk=;
-  b=ff1s0h7/hcK+ojrRgWMY9TT/YE/k40eZj1m6BbdHIRwfHVRTJ1Rud5g7
-   033D34EGt4fzuByHwqTC9+C9HaGCDSSCpq8eV8nmJfyilIiizvJ6H0JmM
-   xG6uzeMAPasNUtd7FDQyh/DVkQ03M0Pd+mTx1LrImD+AvXiTXleL4hX5W
-   +k1rVHu4wh23b2QexhAMVC9G8IMEuiyoekx5mNIXP+xnwFNikGov2A0XI
-   2wUp3+skVRQS/b1YtnfRBCrQPie8TxmNducxoAiK7QT9MMha2ISMrvCgh
-   f1O+wnL0NdcAbARftW1iSFq3FAcWQOzjSv/HAPBr6CO+JhCmSMBTgqwzu
-   g==;
-X-CSE-ConnectionGUID: D2c1vx3nQ1+SdgTrhpwxSg==
-X-CSE-MsgGUID: jvlARwtjReWEgPS37W3Otw==
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="61253572"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 21 Jul 2026 03:29:40 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 21 Jul 2026 03:29:37 -0700
-Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
- (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Tue, 21 Jul 2026 03:29:34 -0700
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Tue, 21 Jul 2026 15:59:04 +0530
-Subject: [PATCH v3 10/10] media: microchip-isc: fix WB offset and gain
- register field masking
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhA9VFRm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E511F000E9;
+	Tue, 21 Jul 2026 10:32:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784629975;
+	bh=mspC1fdG+pvm63GGOQ7/xTAnO2WjExN52IoSROfvj/Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IhA9VFRm5IdbLL+pEstMzqMhkdBytj5LItEqDpa1Yq1SgODLuKNcDGyr3S7LyFhg0
+	 I1tjMsit9yiuPWJquHM5hmxH7ZW89EasFRtXDDEXDQ24GNhR3Tj0h64K5WgpOUKs2E
+	 ppTD3mLmWLCXMDQGXrBZ7kDNJBh7R+J60fex/Ps6JTXB0wMWRD6AemPEvh0E89nT47
+	 g3B2vlw0SdP7IkE3EWCOE7Zny3Z8k6NCjiJ4P5/Hh7SjRTOf9NYb/t0OuL0MR+V3R+
+	 Sg/8rD57YwRLfQENAOAd3xO1iXPQ44H1qLKink+8bEAqZJgYoEpsFZwEPKdPoTtlf7
+	 Q28eR8c7qDh1g==
+Date: Tue, 21 Jul 2026 13:32:44 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Vishal Moola <vishal.moola@gmail.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, Kiryl Shutsemau <kas@kernel.org>,
+	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm/pat: allocate split page tables as kernel page
+ tables
+Message-ID: <al9KzIhKXa3PCMqa@kernel.org>
+References: <20260720-fix-cpa-kernel-pagetables-v1-1-0766e782cefe@kernel.org>
+ <al5-fDRStgU6gjk6@fedora>
+ <al5_Le9QlD4zlt25@fedora>
+ <al8hE_ded6qyWiDv@lucifer>
+ <al8_xx_99BjAUn5A@fedora>
+ <al9BpTu2ma8GpiPW@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260721-balki-isc-prefix-fixes-v1-v3-10-ffe10640a2d9@microchip.com>
-References: <20260721-balki-isc-prefix-fixes-v1-v3-0-ffe10640a2d9@microchip.com>
-In-Reply-To: <20260721-balki-isc-prefix-fixes-v1-v3-0-ffe10640a2d9@microchip.com>
-To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>
-CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Balakrishnan Sambath
-	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <al9BpTu2ma8GpiPW@lucifer>
 
-ISC_WB_O_* and ISC_WB_G_* each pack two 13-bit fields. A negative offset
-sign-extends and corrupts the adjacent field. Add masks for the two
-fields and write them with FIELD_PREP(), which masks each value into its
-field, so sign extension can no longer bleed across.
+On Tue, Jul 21, 2026 at 10:58:50AM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Jul 21, 2026 at 02:45:43AM -0700, Vishal Moola wrote:
+> > >
+> > > Well some kernel page tables are still allocated without ctor (early allocated
+> > > direct map for isntance), and if you did pagetable_dtor_free() it
+> > > unconditionally calls pagetable_dtor().
 
-Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
----
- .../media/platform/microchip/microchip-isc-base.c   | 21 +++++++++++++--------
- .../media/platform/microchip/microchip-isc-regs.h   |  6 ++++++
- 2 files changed, 19 insertions(+), 8 deletions(-)
+TBH, I cannot think of a scenario when page tables allocated at boot would
+be collapsed. But surely, checking the page type is safer just in case.
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index 1a9b97edfa32..3d25d7d28652 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -62,18 +62,23 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
+> > > The ptlock_free() and __folio_clear_pgtable() there would be harmelss (no locks
+> > > assigned for kernel page table, and if PG_table never set clearing it is a noop)
+> > > but the lruvec_stat_sub_folio() would cause an unbalanced decrement of
+> > > nr_page_table_pages.
+> >
+> > Gotcha, thanks for the explanation :)
+> 
+> No worries, this is subtle stuff with lots of weird gotchas and stuff we need to
+> improve... I seem to have fallen down an unexpected rabbit hole with these fixes
+> :)
+> 
+> >
+> > > It sucks, but until everything is updated to call the ctor we have to do it this
+> > > way :>)
+> >
+> > Yeah that makes sense. Although I'd rather see the condition as:
+> > if(PageTable(ptdesc_page(...)))
+> >
+> > We really shouldn't be calling ptdesc_folio() anywhere anymore.
+> 
+> I think better for a follow up since the code already uses ptdesc all over the
+> place (fundamental to the approach really, keeping a list of page tables etc.)
+> and this is a fix that needs backporting.
+
+I agree with Vishal that it's better to use page type rather than folio
+type. And it's the same for backporting ;-) 
  
- 	/* In here we set our actual hw pipeline config */
- 
-+	/*
-+	 * Each register packs two 13-bit fields. FIELD_PREP() masks every
-+	 * value into its field, so sign extension of a negative offset can
-+	 * no longer bleed into the adjacent field.
-+	 */
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GB]));
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GB]));
- }
- 
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
-index 9ddbbb6dd68b..fe145b142b82 100644
---- a/drivers/media/platform/microchip/microchip-isc-regs.h
-+++ b/drivers/media/platform/microchip/microchip-isc-regs.h
-@@ -149,6 +149,12 @@
- /* ISC White Balance Gain for B, GB Register */
- #define ISC_WB_G_BGB	0x0000006c
- 
-+/* Each WB offset/gain register packs two 13-bit fields, low and high */
-+#define ISC_WB_O_LO	GENMASK(12, 0)	/* R or B  offset [12:0]  */
-+#define ISC_WB_O_HI	GENMASK(28, 16)	/* GR or GB offset [28:16] */
-+#define ISC_WB_G_LO	GENMASK(12, 0)	/* R or B  gain [12:0]  */
-+#define ISC_WB_G_HI	GENMASK(28, 16)	/* GR or GB gain [28:16] */
-+
- /* ISC Color Filter Array Control Register */
- #define ISC_CFA_CTRL    0x00000070
- 
+> Cheers, Lorenzo
 
 -- 
-2.34.1
-
+Sincerely yours,
+Mike.
