@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E88B37996C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40293A9624
 	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:46:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784634420; cv=none; b=UA7GAbXuqwUxTxqk33ouLbL5PpN5M4XgHNYJtbGEqJRy2GWImQ9cJrqTuDCummpuoMa8pBvChWwzt3Zc4kgmrEvdtufMkr+XwFOni21Sce8CKRmMjjPOYfbL1jyfJ9ZJXTCwtkDZksRg89tZJmWDGAkRXUkKaDEFIMJHhPwfRzM=
+	t=1784634420; cv=none; b=rbxJQTZKYtevF6VHtKVNzVHZv6e5r13r/biP3WemAUq/scsO66orfcdsmd0C2paT2GUnEe0u2YyWHiwlk5EJzknJOQzT9fZk10AAq1BGU+9WtCUFYLBk416qDXDnQLVPrUsaWCg0HETYwuIxEUqWoqddfIgUbBs9weQLUQcQoOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784634420; c=relaxed/simple;
-	bh=d7rtRVMO3eahvGJJ02ztOhpLEfm+jCOgG1ulgZDT19s=;
+	bh=8EpDO0gWS4PBWE9LYzEDvPJhleAi9XASWn9B3cS8Tlo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DQiJhL9BkzB247u+so4gQUHfExPk+Ws5DsxRQsXDHqYK4eNzLjKGNv/WqVlA6LDFGlZKvKNl1Gwea0NKbjiCgJBp+LkFqe+d052uXjOvrVoCniE9Et7FrIvDtbtbpKwhXvWuW0RJSvsAJm1PMEmzk2cmLOpD6PbNn/cCB+1VfTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuG59OPO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qSQlzhgJV6HCqjt04t4tfXis3V5/efNIrSJwjuJCIW3j266ahe4uk9U5YimLWiMSO4fiU6WaF3sMLtd+xNMsvfK5Uqpj4H31XMCUr88JwUcYRK08oJ4c6qGuomia3ObqOV746zw95k8K5Kpb7ewXDr98y3Hu82iphYbOVmNWazA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=af0IgnQP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuG59OPO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5841F00A3E;
-	Tue, 21 Jul 2026 11:46:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="af0IgnQP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 359ED1F00A3D;
+	Tue, 21 Jul 2026 11:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784634418;
-	bh=o0hJiuubONaDcJ6GG/Yzq0LSxEfvAWXICx8+sbwvNjs=;
+	s=k20260515; t=1784634419;
+	bh=HfOJpsEFQytYGFVZ35/wxnAKDLq/pO1oClbNdgyEcoo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cuG59OPOC5WUuUTHSpuu7NzetCyyYIdO9+TTecnB3dbFk4p3S312gVxw11nhqeR2C
-	 aNmcTXjMkeDkKqT2GyevjnOrMSGIriNX0zOgzSusUXHPCo6FwMnAfAKv1rhQ1WcyS5
-	 z8Tq4ixmMOS2lu/Fiudeir0UDyYwLJkdT+Dt2NVxen3XZ1yLvPE1vMiV5S5kw8Qqfv
-	 jxalfyv1NWw7CAydzzR+0FsfDUrfiEsFyl9n070M9MpAQNvyCLlvsnO/GGBxd4pMM9
-	 82L7aMKYf5gf8B1NnRHPwVGNdXZ8YjpEsNESn8izAmP1vkkbsJ/1Ks8BDEQHjLR2In
-	 GDyU69WzhXZrQ==
+	b=af0IgnQPwOfixzHF8ctQ5JksV3hUOT6E0BkeF/xu84wgdkKKzNv3tc7x/tq+B7NPt
+	 hBIkLy3uGGQ1iLKwers4sjKqCZi1rcC39k7vKi6KGAkptAk49f/3BtwD1ldbHdJj8e
+	 +KVh0lfy7rOXNGOBl/57jSHWm0kuZK7H8hkOgXVXUsonTzIcqbC6bBPCcMn0+EenDy
+	 1q2zkJW1SRL8V2KDPmcK6sIZKBvxRwvSSIF49wk6lsiHpr0zqkzfin8DmE0auITGGx
+	 y1g8tA2IYBoboNWW/D0PcMpiSp6YXIusRBzyAbAd1Rt+V9cAH4gGQ3KUX2eFZT2uaT
+	 //fylUnQ6b+hA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	"Darrick J. Wong" <djwong@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 2/5] exfat: add balloc parameter to exfat_map_cluster() for iomap support
-Date: Tue, 21 Jul 2026 07:46:53 -0400
-Message-ID: <20260721114656.3687966-2-sashal@kernel.org>
+Subject: [PATCH 7.1.y 3/5] exfat: add data_start_bytes and exfat_cluster_to_phys_bytes() helper
+Date: Tue, 21 Jul 2026 07:46:54 -0400
+Message-ID: <20260721114656.3687966-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260721114656.3687966-1-sashal@kernel.org>
 References: <2026071548-sinister-joystick-e062@gregkh>
@@ -49,14 +49,11 @@ Content-Transfer-Encoding: 8bit
 
 From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 3474416bb9abafca2e79b7ff700a100b7e8bc766 ]
+[ Upstream commit 3b9450beeb961c7ddf4cccddba37fcfa6d1fcb7a ]
 
-In preparation for supporting the iomap infrastructure, we need to know
-whether a new cluster was allocated or not in exfat_map_cluster().
-
-Add an optional 'bool *balloc' output parameter. When a new cluster is
-allocated, *balloc is set to true. Pass NULL from exfat_get_block() to
-preserve the existing behavior.
+This caches the data area start offset in bytes (data_start_bytes)
+and introduces a helper function exfat_cluster_to_phys_bytes() to compute
+the physical byte position of a given cluster.
 
 Acked-by: Christoph Hellwig <hch@lst.de>
 Acked-by: "Darrick J. Wong" <djwong@kernel.org>
@@ -64,41 +61,48 @@ Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Stable-dep-of: 044472d5ee7d ("iomap: consolidate bio submission")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/exfat/inode.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/exfat/exfat_fs.h | 8 ++++++++
+ fs/exfat/super.c    | 1 +
+ 2 files changed, 9 insertions(+)
 
-diff --git a/fs/exfat/inode.c b/fs/exfat/inode.c
-index 249a35e2b4b237..a10d4f3c66a178 100644
---- a/fs/exfat/inode.c
-+++ b/fs/exfat/inode.c
-@@ -124,7 +124,8 @@ void exfat_sync_inode(struct inode *inode)
-  * *clu = (~0), if it's unable to allocate a new cluster
-  */
- static int exfat_map_cluster(struct inode *inode, unsigned int clu_offset,
--		unsigned int *clu, unsigned int *count, int create)
-+		unsigned int *clu, unsigned int *count, int create,
-+		bool *balloc)
- {
- 	int ret;
- 	unsigned int last_clu;
-@@ -229,6 +230,8 @@ static int exfat_map_cluster(struct inode *inode, unsigned int clu_offset,
- 		if (exfat_cluster_walk(sb, clu, num_to_be_allocated - 1, ei->flags))
- 			return -EIO;
- 		*count = 1;
-+		if (balloc)
-+			*balloc = true;
- 	}
+diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
+index 6ec480b53fe6dc..d2eec3a0bbc070 100644
+--- a/fs/exfat/exfat_fs.h
++++ b/fs/exfat/exfat_fs.h
+@@ -227,6 +227,7 @@ struct exfat_sb_info {
+ 	unsigned long long FAT1_start_sector; /* FAT1 start sector */
+ 	unsigned long long FAT2_start_sector; /* FAT2 start sector */
+ 	unsigned long long data_start_sector; /* data area start sector */
++	unsigned long long data_start_bytes;
+ 	unsigned int num_FAT_sectors; /* num of FAT sectors */
+ 	unsigned int root_dir; /* root dir cluster */
+ 	unsigned int dentries_per_clu; /* num of dentries per cluster */
+@@ -400,6 +401,13 @@ static inline loff_t exfat_ondisk_size(const struct inode *inode)
+ 	return ((loff_t)inode->i_blocks) << 9;
+ }
  
- 	/* hint information */
-@@ -262,7 +265,7 @@ static int exfat_get_block(struct inode *inode, sector_t iblock,
- 	/* Is this block already allocated? */
- 	count = exfat_bytes_to_cluster_round_up(sbi, bh_result->b_size);
- 	err = exfat_map_cluster(inode, iblock >> sbi->sect_per_clus_bits,
--			&cluster, &count, create);
-+			&cluster, &count, create, NULL);
- 	if (err) {
- 		if (err != -ENOSPC)
- 			exfat_fs_error_ratelimit(sb,
++static inline loff_t exfat_cluster_to_phys_bytes(struct exfat_sb_info *sbi,
++		unsigned int clus)
++{
++	return ((loff_t)(clus - EXFAT_RESERVED_CLUSTERS) << sbi->cluster_size_bits) +
++		sbi->data_start_bytes;
++}
++
+ /*
+  * helpers for cluster size to byte conversion.
+  */
+diff --git a/fs/exfat/super.c b/fs/exfat/super.c
+index cb2f8eefff9957..388db271c6bf53 100644
+--- a/fs/exfat/super.c
++++ b/fs/exfat/super.c
+@@ -499,6 +499,7 @@ static int exfat_read_boot_sector(struct super_block *sb)
+ 	if (p_boot->num_fats == 2)
+ 		sbi->FAT2_start_sector += sbi->num_FAT_sectors;
+ 	sbi->data_start_sector = le32_to_cpu(p_boot->clu_offset);
++	sbi->data_start_bytes = sbi->data_start_sector << p_boot->sect_size_bits;
+ 	sbi->num_sectors = le64_to_cpu(p_boot->vol_length);
+ 	/* because the cluster index starts with 2 */
+ 	sbi->num_clusters = le32_to_cpu(p_boot->clu_count) +
 -- 
 2.53.0
 
