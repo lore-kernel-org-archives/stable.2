@@ -1,111 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE35E46AA69;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FC946AA72;
 	Tue, 21 Jul 2026 15:33:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784648008; cv=none; b=ltbylQK+QivKpHJMvetw1IPIoEIJ1rA0k1c3JyLq6zkxe6L3NZFHpkQcc5qGlNbKsyegMmgVzLuiOgrKBUjd9X9YL8ludIjeW87ZoSM8GnXUTjIwV7RyJujCHN0T7mhvcURSNiaoOareZv36Fvj3PqwiMY6eevbmbiM2bWEV5/o=
+	t=1784648009; cv=none; b=jN3kNbo3D/w1o3TlEjL1E+OWJkKszRWshiMi/BeNXvF/C4B7y8BJH4H6RWdA/qT9Kl/VF3pt8ZCumYCJ2L4xZ6AcK6F9PZYAe3aR49Yw4o4WeWxdtRo2Hlinq1teZ4xpzilwfHH3ATp/Np0qADG2dAALFAGU+xMqDZDHX8wteCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784648008; c=relaxed/simple;
-	bh=ehzTYaWAi2ODCUMfca3OA6uyVvf1WS/WB2LjqKE9Ijo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D91soFw4MgenXs/M0IF0baY4RCwcRBnfNfmRrnSZQFKBUY4oT4ImWduDiOxJ8JPxOvfiO+nmQ0VEcldK2SK4LnEvAROy9+GwbNLd+1VIekEOlhRZOVEWx4EldrN6vkhB3vQR9E6wzW2SMZqJpgiHIW8GiUv5lggNzQXLSS5SMEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oB6W/XiZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784648009; c=relaxed/simple;
+	bh=+YZQfaaTiJHIA2ETq/1rzRtmtcZbyzJHfNuMtqgXGws=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=phVlrdVavE6az5nBZiKeV3um1WhhaofsCN8WZ46HwrR90l+otyzWMNE8qtD2x4D487sGb1U7gpU5P2mrQMGPqk7oAr7sK7H0F9r5FaRDknukytFJE5mqNDHqSDK74iURC4c/Y1pjBmcdAn1EvNOBKpl+7wOnoCCy7bBtCGx0sro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RtTlvsgB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oB6W/XiZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E12001F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RtTlvsgB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E401F000E9;
 	Tue, 21 Jul 2026 15:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784648007;
-	bh=QefEtPEAmHth8oh5E/YHD1Yj9whMd9ILXfRzFHwNa00=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oB6W/XiZ1eVtTYJe+y9zAoIKjFCA+F06EZTrGsc6SdJDCVBpcZFbWudSseKMzmAxd
-	 jgqkTFDWiGJyxV6jWtHcbrLYd1yjjSpzqqbINPWM0DtSmO1antBaugE4ESY6IbpA2j
-	 z9pyzVW8m9kHI5MwzEEJ/dDyv6Al7FBSTS2oD5Xg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Yunke Cao <yunkec@google.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 7.1 0009/2077] media: uvcvideo: Use hw timestaming if the clock buffer is full
-Date: Tue, 21 Jul 2026 16:54:42 +0200
-Message-ID: <20260721152552.884575293@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784648007;
+	bh=0MsfUHsh7/pU0dEmGJ8yQrcxAOBrj57aAW4TYmEgSa4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RtTlvsgBwpvI0cpC2iB7lmnZsJJQS3iN2nxCIQ//4/R7sa6Ddwam0EfjjO67bp+fO
+	 ZUvnFVQCbVdC+rprpImnQ71P/DXiWl4BcNPLzChAK5mZc6IC7Fg7/+u3KpDARDYE48
+	 783F22LzzVw+RaD1DEkOXy6Hmr7sf5hej91oSPVKZPxvUyT34ZcmiF29+aHPPjBQ5I
+	 GQ9xQgSmPNM3x8bNp45OOFOZDKpUwuRY+pw61HJlkyNZZPXHkzn4MuVJl8wAQQncL0
+	 xB0NTm977UpaO8i1yNgz9I7sxcKIQ34Wqb3yHygOtgO5PY3h0RqiM4Fh+NA77y/ggd
+	 u6EVDacyAMw7w==
+Date: Tue, 21 Jul 2026 18:33:21 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <20260721153321.GO110966@unreal>
+References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
+ <20260717180442.110954-2-aneesh.kumar@kernel.org>
+ <20260721115456.GI110966@unreal>
+ <yq5atsps77c5.fsf@kernel.org>
+ <20260721142921.GN110966@unreal>
+ <yq5ao6g0750v.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5ao6g0750v.fsf@kernel.org>
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Jul 21, 2026 at 08:40:08PM +0530, Aneesh Kumar K.V wrote:
+> Leon Romanovsky <leon@kernel.org> writes:
+> 
+> > On Tue, Jul 21, 2026 at 07:50:10PM +0530, Aneesh Kumar K.V wrote:
+> >> Leon Romanovsky <leon@kernel.org> writes:
+> >> 
+> >> > On Fri, Jul 17, 2026 at 11:34:19PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> ....
+> >> >>  static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
+> >> >> @@ -247,8 +246,11 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+> >> >>  	 * the atomic pools instead if we aren't allowed block.
+> >> >>  	 */
+> >> >>  	if ((remap || force_dma_unencrypted(dev)) &&
+> >> >> -	    dma_direct_use_pool(dev, gfp))
+> >> >> -		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
+> >> >> +	    dma_direct_use_pool(dev, gfp)) {
+> >> >> +		page = dma_direct_alloc_from_pool(dev, size, dma_handle,
+> >> >> +						  &ret, gfp);
+> >> >> +		return page ? ret : NULL;
+> >> >
+> >> > Sorry for joining the discussion late, but the line above caught my
+> >> > attention.
+> >> >
+> >> > Why do we need both ret and page? We can derive cpu_addr from page and
+> >> > vice versa. Do we really need the &ret parameter? Or, more generally, do
+> >> > we really need "struct page *"?
+> >> >
+> >> > static struct page *__dma_alloc_from_pool(struct device *dev, size_t size,
+> >> > 		struct gen_pool *pool, void **cpu_addr,
+> >> > 		bool (*phys_addr_ok)(struct device *, phys_addr_t, size_t))
+> >> > {
+> >> > ...
+> >> > 	*cpu_addr = (void *)addr;
+> >> > 	memset(*cpu_addr, 0, size);
+> >> > 	return pfn_to_page(__phys_to_pfn(phys));
+> >> > }
+> >> >
+> >> > Why
+> >> >
+> >> 
+> >> With CONFIG_DMA_DIRECT_REMAP the cpu_addr can be different from
+> >> page_address.
+> >
+> > Can you please point to the code there it can happen?
+> > __dma_alloc_from_pool() has direct connection between physical address
+> > and struct page.
+> >
+> 
+> dma_direct_alloc -> 	remap = IS_ENABLED(CONFIG_DMA_DIRECT_REMAP);
+> 	if ((remap && dma_direct_use_pool(dev, gfp)) {
+> 		page = dma_direct_alloc_from_pool(dev, size,
+> 
+> ..
+> __dma_alloc_from_pool -> 
+> 	addr = gen_pool_alloc(pool, size);
+> 	if (!addr)
+> 
+> 
+> We expand the pool as below..
+> 
+> atomic_pool_expand ->
+> 
+> #ifdef CONFIG_DMA_DIRECT_REMAP
+> 	addr = dma_common_contiguous_remap(page, pool_size,
+> 			pgprot_decrypted(pgprot_dmacoherent(PAGE_KERNEL)),
+> 			__builtin_return_address(0));
+> 	if (!addr)
+> 		goto free_page;
+> #else
+> 	addr = page_to_virt(page);
+> #endif
 
-------------------
+Right, and nothing prevents you from adding a small DMA helper
+that translates mapped/direct addresses back to struct page.
 
-From: Ricardo Ribalda <ribalda@chromium.org>
+Something like, but probably void* needs to be phys_addr_t:
 
-commit ede7de6e6b3db552d10ac50557d69c50d1b08486 upstream.
+static inline struct page *dma_phys_to_page(void *addr)
+{
+#ifdef CONFIG_DMA_DIRECT_REMAP
+	return vmalloc_to_page(addr);
+#else
+	return virt_to_page(addr);
+#endif
+}
 
-In some situations, even with a full clock buffer, it does not contain
-250msec of data. This results in the driver jumping back from software
-to hardware timestapsing creating a nasty artifact in the video.
+Architecture code already does this throughout the tree.
 
-If the clock buffer is full, use it to calculate the timestamp instead
-of defaulting to software stamps, the reduced accuracy is less visible
-than jumping from one timestamping mechanism to the other.
-
-Fixes: 6243c83be6ee8 ("media: uvcvideo: Allow hw clock updates with buffers not full")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Tested-by: Yunke Cao <yunkec@google.com>
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Link: https://patch.msgid.link/20260513-uvc-hwtimestamp-v3-2-7a64838b0b02@chromium.org
-Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/media/usb/uvc/uvc_video.c |   17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -833,15 +833,22 @@ void uvc_video_clock_update(struct uvc_s
- 		y2 += 2048 << 16;
- 
- 	/*
--	 * Have at least 1/4 of a second of timestamps before we
--	 * try to do any calculation. Otherwise we do not have enough
--	 * precision. This value was determined by running Android CTS
--	 * on different devices.
-+	 * If the buffer is not full, we want to gather at least 1/4th of
-+	 * timestamps before using HW timestamping. We do this to avoid jitter
-+	 * on the initial frames.
-+	 *
-+	 * If the buffer is full we would use it regardless of how much data
-+	 * it represents. This could be solved with an infinite big circular
-+	 * buffer, but RAM is expensive these days, specially the infinitely
-+	 * big.
-+	 *
-+	 * The value of 1/4th of a second was determined by running Android's
-+	 * CTS on different devices.
- 	 *
- 	 * dev_sof runs at 1KHz, and we have a fixed point precision of
- 	 * 16 bits.
- 	 */
--	if ((y2 - y1) < ((1000 / 4) << 16))
-+	if (clock->size != clock->count && (y2 - y1) < ((1000 / 4) << 16))
- 		goto done;
- 
- 	y = (u64)(y2 - y1) * (1ULL << 31) + (u64)y1 * (u64)x2
+Thanks
 
 
+> 
+> 
+> -aneesh
+> 
