@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE47146E013;
-	Tue, 21 Jul 2026 18:49:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5EC46C4BC
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:49:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784659748; cv=none; b=pNtawcE1Wfs2V701abgfsFClYZpOSsCPOl9kqH90EL1CeewGjLZOiQsmUHWi4ePknKO4fN0akrPXdyAW8kVTiCem8n1LhNuIPPS3P7HfNz/9+4shSPTTkwgZzdcOIzpSXTxBSJ2v/vaWKnFjJTCvBMopSQXMEy2vvq8BdRU/G/k=
+	t=1784659751; cv=none; b=eYxU4hK/wL3JJitr30SHYR15/ZOciP94d9TStY2i9pNU/5HoqEuxyYs7vBBwlg3R+pLIdh8IB9ewONd4XjQZjYfpR4R9kXtcpjqKC1uG5UwDsMoG+e3hC08YtACOY+9eUj05WNttKBADBkUp7GSxtUsc7H5CAoy2kVB/ZqFw5XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784659748; c=relaxed/simple;
-	bh=eYW1JahI/kw62G5tLfcRBai7CScwZhBbcMJNqQruLRw=;
+	s=arc-20240116; t=1784659751; c=relaxed/simple;
+	bh=v22MGEjiNy9gkJNYAgKDzSf85drG2W0vAn9Ca+TDBqQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LiiQLrW51WTbMMDZ5Fk0xdPVjHHx9L3R8h9216hVk13DcCph3VtJO57ZZyscrmnDTgOTJqIiQvqfx1sHBJ+zQz6oTC9AAduejYk8r3bC7miiLwZgo+843FMwBHIp7Cu3LWYVOXPtCsSuNxllYrnPhX7z0JLOECjOXtOAGlMGG84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zsUugJhh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nuYmTw2cuyS1BdbJtI6RvzyxWx95uRUQg6OWDzEs0JObVm3IWKcfCAH/1rZ6PWPE9yG5Ry6ZfCz+RiEc91Yx64On8DXlamuqZms4ACtXxjsLuUurcFeoFrUyIlyuXfK5l7WPeMJWtxtaxxSKNMWlDNaE6Cx+VpeVvdrOWg6xavU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aSqiKbWK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zsUugJhh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E5F1F000E9;
-	Tue, 21 Jul 2026 18:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784659746;
-	bh=aPkzWHewvX0aSDqRHquM4DHxdRo4P9qEZ1RgfRiv4aQ=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aSqiKbWK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1C41F000E9;
+	Tue, 21 Jul 2026 18:49:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784659748;
+	bh=uReOU+YViBbLxmH4h5CdafqcWcVBHQWtVzHPSSm/oLk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zsUugJhhWho1/W61NW4jtSW0+DlYqtj5hgSBxK58gY1/5xJ+y/3iUQL7qylPqmj8R
-	 yl8bKoQ6Qd6AYn3oZ91m1ZVYbCLYVt00tQ5Xc3uRUuoYpCJJlhkT3HMNAXQM9tKkRR
-	 KFcSF+jKyjtguUyu14DrieZxkSQJa3V2ZzMqtvqs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=aSqiKbWKeDpPGpXmA6DNu4GhlGv59Z5MzqRttO4+iYZa7zhq82maw4jVmnCu7uPhz
+	 4QqKZsPuE80dB9ePbis9rCl175msjCxzJXDEuMB3cqHcrpYENFjgGjqbikx1e9Ow8E
+	 lzvF6erErcd3a4maB09yxpdZqPI7tbcUNUBXuwEXs1jio/BjacvAgSupXAkUBmGkPt
+	 sGPsPpxBzEHn0FOT+ifbhdr/afyaR/6vFkOHcmK2V9mHR9+buauvURzHyS58QINMRp
+	 Qd4hJMCrFRFBVVsoGP8LKYezOjNTpbXh0PdWPP+pLRJuxyzmcESZ/iNGUvco0DqaBF
+	 RIT06FCzju+IQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	Tung Nguyen <tung.quang.nguyen@est.tech>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Sebastian Alba Vives <sebasjosue84@gmail.com>,
+	Xu Yilun <yilun.xu@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 0717/2077] tipc: require net admin for TIPCv2 netlink mutators
-Date: Tue, 21 Jul 2026 17:06:30 +0200
-Message-ID: <20260721152609.714741423@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] fpga: dfl-afu: validate DMA mapping length in afu_dma_map_region()
+Date: Tue, 21 Jul 2026 14:49:06 -0400
+Message-ID: <20260721184906.383124-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071619-replay-composite-2348@gregkh>
+References: <2026071619-replay-composite-2348@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,140 +46,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Sebastian Alba Vives <sebasjosue84@gmail.com>
 
-------------------
+[ Upstream commit fc3b071a7c8dc0f5d56defddf6e6fd5aaa3e1e27 ]
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+afu_ioctl_dma_map() accepts a 64-bit length from userspace via
+DFL_FPGA_PORT_DMA_MAP ioctl without an upper bound check. The value
+is passed to afu_dma_pin_pages() where npages is derived as
+length >> PAGE_SHIFT and passed to pin_user_pages_fast() which takes
+int nr_pages, causing implicit truncation if length is very large.
 
-[ Upstream commit 86b0c540e2ea397cde021eecd24145f7c16a3d4e ]
+Validate map.length at the ioctl entry point before calling
+afu_dma_map_region(), rejecting values whose page count exceeds
+INT_MAX.
 
-TIPCv2 registers mutating generic-netlink operations without admin
-permission flags. Generic netlink only checks CAP_NET_ADMIN when an
-operation sets GENL_ADMIN_PERM or GENL_UNS_ADMIN_PERM, so a local
-unprivileged process can currently change TIPC state through commands
-such as TIPC_NL_NET_SET, TIPC_NL_KEY_SET, TIPC_NL_KEY_FLUSH, and
-bearer enable/disable.
-
-The legacy TIPC netlink API already checks netlink_net_capable(...,
-CAP_NET_ADMIN) for administrative commands. Give the TIPCv2 mutators
-the equivalent generic-netlink gate. Use GENL_UNS_ADMIN_PERM, which
-maps to the same namespace-aware CAP_NET_ADMIN check that
-netlink_net_capable() performs, so the behaviour matches the legacy
-path and keeps working for CAP_NET_ADMIN holders in a non-initial user
-namespace (containers).
-
-A QEMU/KASAN repro run as uid/gid 65534 with zero effective
-capabilities previously succeeded in changing the network id and node
-identity, setting and flushing key material, and enabling/disabling a
-UDP bearer. With this patch applied the same operations fail with
--EPERM.
-
-Fixes: 0655f6a8635b ("tipc: add bearer disable/enable to new netlink api")
-Link: https://lore.kernel.org/all/20260604163102.2658553-1-dominik.czarnota@trailofbits.com/
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
-Link: https://patch.msgid.link/20260610124003.3831170-2-michael.bommarito@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: fa8dda1edef9 ("fpga: dfl: afu: add DFL_FPGA_PORT_DMA_MAP/UNMAP ioctls support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sebastian Alba Vives <sebasjosue84@gmail.com>
+Reviewed-by: Xu Yilun <yilun.xu@intel.com>
+Link: https://lore.kernel.org/r/20260518190742.61426-3-sebasjosue84@gmail.com
+Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/tipc/netlink.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/fpga/dfl-afu-main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/tipc/netlink.c b/net/tipc/netlink.c
-index 1a9a5bdaccf4fc..8336a9664703fe 100644
---- a/net/tipc/netlink.c
-+++ b/net/tipc/netlink.c
-@@ -152,11 +152,13 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_BEARER_DISABLE,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_bearer_disable,
- 	},
- 	{
- 		.cmd	= TIPC_NL_BEARER_ENABLE,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_bearer_enable,
- 	},
- 	{
-@@ -168,11 +170,13 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_BEARER_ADD,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_bearer_add,
- 	},
- 	{
- 		.cmd	= TIPC_NL_BEARER_SET,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_bearer_set,
- 	},
- 	{
-@@ -197,11 +201,13 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_LINK_SET,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_node_set_link,
- 	},
- 	{
- 		.cmd	= TIPC_NL_LINK_RESET_STATS,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit   = tipc_nl_node_reset_link_stats,
- 	},
- 	{
-@@ -213,6 +219,7 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_MEDIA_SET,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_media_set,
- 	},
- 	{
-@@ -228,6 +235,7 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_NET_SET,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_net_set,
- 	},
- 	{
-@@ -238,6 +246,7 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_MON_SET,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_node_set_monitor,
- 	},
- 	{
-@@ -255,6 +264,7 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_PEER_REMOVE,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_peer_rm,
- 	},
- #ifdef CONFIG_TIPC_MEDIA_UDP
-@@ -269,11 +279,13 @@ static const struct genl_ops tipc_genl_v2_ops[] = {
- 	{
- 		.cmd	= TIPC_NL_KEY_SET,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_node_set_key,
- 	},
- 	{
- 		.cmd	= TIPC_NL_KEY_FLUSH,
- 		.validate = GENL_DONT_VALIDATE_STRICT | GENL_DONT_VALIDATE_DUMP,
-+		.flags	= GENL_UNS_ADMIN_PERM,
- 		.doit	= tipc_nl_node_flush_key,
- 	},
- #endif
+diff --git a/drivers/fpga/dfl-afu-main.c b/drivers/fpga/dfl-afu-main.c
+index 6b97c073849ea9..89e922d9f6d583 100644
+--- a/drivers/fpga/dfl-afu-main.c
++++ b/drivers/fpga/dfl-afu-main.c
+@@ -720,6 +720,9 @@ afu_ioctl_dma_map(struct dfl_feature_platform_data *pdata, void __user *arg)
+ 	if (map.argsz < minsz || map.flags)
+ 		return -EINVAL;
+ 
++	if (map.length >> PAGE_SHIFT > (u64)INT_MAX)
++		return -EINVAL;
++
+ 	ret = afu_dma_map_region(pdata, map.user_addr, map.length, &map.iova);
+ 	if (ret)
+ 		return ret;
 -- 
 2.53.0
-
-
 
