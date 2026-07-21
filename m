@@ -1,122 +1,214 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 19583248896;
-	Tue, 21 Jul 2026 12:25:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7937B3016E0;
+	Tue, 21 Jul 2026 12:25:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784636710; cv=none; b=E/NiC8wK3Z75pIUeHnhHHoiFFI3Urdpg565sI0C1qV9fSx+DSt4UYkCx4pkUtxcwL7u/IBhsLzt6xXFHi/UOwcUwhCTagWz1MtqdtkOvQ0pBX22GB69ZZayf//tEp8/6mH6GNlUJlc7/tGbh7J4etOnLFQa8oSmsSRs3wXiQhxM=
+	t=1784636747; cv=none; b=ryZCgZbMXLmJPzDJfGPQWino5kxKug2O4b81tvmPkUdsbC01Syrm+B1Wimz3ABL+hZe7nbot29x/h0G0tgaJRyzng7kzvIIRS7e3LvAoRDDQwty+rC9vSQpU1aGDlH0H36lcqeFoXfI6ah6pRpzgZSyO2uBqpKddJy5ScmAxgq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784636710; c=relaxed/simple;
-	bh=fT4tIqv2cqumD85Iw5AxwOsERPCS0vVaRYH8+oQzFHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P57gwv6F0vlV0nilT4j3kawAguA24zkcoUe39PycavW+MZ8HG7/1k8DwSVsfORXIsNKzT6A0EwcY7kCl0YI4iVPYOXiu+Zq372jF3HXw21963fUc5m75VxbMj97ZKHPiisgaJazeqz8Ns+5k8HUuF7az0/ineMW64MENZ3A5Sjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.205])
-	by gateway (Coremail) with SMTP id _____8AxBOoiZV9q16AFAA--.17055S3;
-	Tue, 21 Jul 2026 20:25:06 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.205])
-	by front1 (Coremail) with SMTP id qMiowJCxq8QRZV9qRfsTAA--.52432S3;
-	Tue, 21 Jul 2026 20:25:02 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	zhanghongchen <zhanghongchen@loongson.cn>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2 1/4] thermal/drivers/loongson2: Correct thermal sensor registration loop
-Date: Tue, 21 Jul 2026 20:24:20 +0800
-Message-ID: <38116cb29537aecc7ae88a6e4c2916f1a7966c4f.1784619512.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1784619512.git.zhoubinbin@loongson.cn>
-References: <cover.1784619512.git.zhoubinbin@loongson.cn>
+	s=arc-20240116; t=1784636747; c=relaxed/simple;
+	bh=I/YKssBTmCWpxAzh41dfBNeIEMvOCor3EGtfl9H79gE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cTzehcIeavMDyLdt7w59sEHT6C726mbdVsGjNfUEDlhbyjfLO73sGX5zsvoBZWgXK+j74H8cN2ETKIURjJTNLh5flHtCa4E6RTSfyK/2cS+RTjn5A9GEg5s4pCvApzvdQQQjNmImfbfGYbFRHSRyxD5HsA0sS01cPe2TnpZg5ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AjqLv/8a; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AjqLv/8a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784636744; x=1816172744;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=I/YKssBTmCWpxAzh41dfBNeIEMvOCor3EGtfl9H79gE=;
+  b=AjqLv/8abUyiHtrDjb60GbyOHTnBPsAyNnLBh424IhFApmFbIZQ3/yD4
+   cnQq0ZJ68i2Kp3LJqbK9d7KbZEwqYk9/ZqOPV5/rbMaLosvyAGuPyNDwk
+   9+OqgY+9Rhr0kSOBibC5LrohOOM307rAs37c2RMaLwt7BjOrJ7mTWjRMG
+   LBI5K4xxdv5v7vxlZLsEVaU7DHg0aEKWXi4gKqlqbwZIGu06NpYL2lvFK
+   /aSs5caHRHaA5dgKU2z8/rgY+HTeUr6aWTHTLJn3K3nK6eMzYTQykC4Rm
+   KvgrRK9jdsQzteRZvwzlYGiBePUOtp0VL5IyMA17k5McV+r2h8KYgFaJ/
+   A==;
+X-CSE-ConnectionGUID: uIRJlM+QQNawce5QeMx3Vw==
+X-CSE-MsgGUID: Au1TkbzORtWtHBrkRRyhyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85251822"
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="85251822"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:25:43 -0700
+X-CSE-ConnectionGUID: TRZNSRRfRZmcBxvcQyaQxA==
+X-CSE-MsgGUID: PHvGZ7zoS+u3lvSXILpcyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="258396724"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93]) ([10.245.245.93])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:25:38 -0700
+Message-ID: <06bcc2e8-a7fd-483d-8c73-2a253b433840@linux.intel.com>
+Date: Tue, 21 Jul 2026 14:26:34 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>,
+ Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
+ <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+ <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
+ <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+ <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxq8QRZV9qRfsTAA--.52432S3
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEPCGpe808I+QAAs+
-X-Coremail-Antispam: 1Uk129KBj93XoW7tr1UCFW8ZFy5Jw13Wr43CFX_yoW8Cr18pF
-	sxC3WYkry5GFs7Z34DArWUXan0ya4ftFW7WF4xWw1rWrnxJ34agryrJFW2qa40yFy8ZF1Y
-	qrZ8tFWDCayDZrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
-	6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
-	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
-	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8XTm3UUUUU==
 
-The registration loop in loongson2_thermal_probe() incorrectly uses
-dev_err_probe() when the sensor is not present (-ENODEV). In that case,
-the driver should continue to the next sensor index rather than treating
-it as a fatal error.
+Hey,
 
-Fix this by correctly handling -ENODEV and only returning on other
-errors. Also add a final check to ensure at least one thermal zone was
-registered.
+On 7/21/26 14:10, Thomas Hellström wrote:
+> Hi, Maarten,
+> 
+> On Tue, 2026-07-21 at 13:46 +0200, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> Can I merge this through drm-misc-next together with the rest of the
+>> series?
+>>
+>> Kind regards
+>> ~Maarten
+> 
+> For the xe patches, Ack from me.
+> 
+> I do have a v8 that fixes a sashiko comment on the last patch, though,
+> but I was holding that awaiting a review on the other patches.
+Yeah seems about right. Patches themselves look good to me now, so would be nice if amd can ack here or in v8.
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@loongson.cn?part=2
-Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
----
- drivers/thermal/loongson2_thermal.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Series themselves look good, so feel free to add my r-b to entire series: (and Thadeu's t-b)
 
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index ea4dd2fb1f47..d7d221c3136d 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -161,16 +161,18 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 
- 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
- 		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
--
- 		if (!IS_ERR(tzd))
- 			break;
- 
--		if (PTR_ERR(tzd) != -ENODEV)
-+		if (PTR_ERR(tzd) == -ENODEV)
- 			continue;
- 
--		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
-+		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor %d", i);
- 	}
- 
-+	if (IS_ERR(tzd))
-+		return dev_err_probe(dev, -ENODEV, "No thermal sensor registered\n");
-+
- 	ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
- 					IRQF_ONESHOT, "loongson2_thermal", tzd);
- 	if (ret < 0)
--- 
-2.52.0
+Reviewed-By: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+
+> 
+> Thanks,
+> Thomas
+> 
+> 
+> 
+>>
+>> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
+>>>
+>>>
+>>> On 7/3/2026 6:38 PM, Christian König wrote:
+>>>> Arun please take a look at this.
+>>> Sure Christian. This fix looks correct to me.
+>>> Reviewed-by: Arunpravin Paneer Selvam
+>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>
+>>> Thanks,
+>>> Arun.
+>>>>
+>>>> Thanks,
+>>>> Christian.
+>>>>
+>>>> On 7/3/26 15:05, Thomas Hellström wrote:
+>>>>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD()
+>>>>> and
+>>>>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
+>>>>> function
+>>>>> returns early and bypasses those initializations.
+>>>>>
+>>>>> Since adev->mman.initialized is set to true before
+>>>>> amdgpu_vram_mgr_init()
+>>>>> is called, a failure triggers amdgpu_ttm_fini(), which calls
+>>>>> amdgpu_vram_mgr_fini(), which then:
+>>>>>
+>>>>>   - Calls list_for_each_entry_safe() on reservations_pending
+>>>>> and
+>>>>>     reserved_pages, whose list_head::next pointers are zero-
+>>>>> initialized
+>>>>>     (NULL). The loop does not recognize them as empty and
+>>>>> dereferences NULL.
+>>>>>
+>>>>>   - Calls gpu_buddy_fini(), which iterates free_trees[]
+>>>>> unconditionally
+>>>>>     via for_each_free_tree(). Since mm->free_trees is NULL
+>>>>>     (never allocated), this dereferences NULL.
+>>>>>
+>>>>> Both result in a kernel panic on the module load error path.
+>>>>>
+>>>>> Fix by moving drmm_cgroup_register_region() to after the list
+>>>>> and buddy
+>>>>> allocator are fully initialized, so the teardown path is safe
+>>>>> to run.
+>>>>>
+>>>>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+>>>>> Closes:
+>>>>> https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
+>>>>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
+>>>>> TTM")
+>>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>>>> Cc: Maarten Lankhorst <dev@lankhorst.se>
+>>>>> Cc: Tejun Heo <tj@kernel.org>
+>>>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>>> Cc: amd-gfx@lists.freedesktop.org
+>>>>> Cc: dri-devel@lists.freedesktop.org
+>>>>> Cc: <stable@vger.kernel.org> # v6.14+
+>>>>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+>>>>> Signed-off-by: Thomas Hellström
+>>>>> <thomas.hellstrom@linux.intel.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+>>>>>   1 file changed, 4 insertions(+), 3 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> index 2a241a5b12c4..ac3f71d77140 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct
+>>>>> amdgpu_device *adev)
+>>>>>       struct ttm_resource_manager *man = &mgr->manager;
+>>>>>       int err;
+>>>>>   -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
+>>>>> "vram", adev->gmc.real_vram_size);
+>>>>> -    if (IS_ERR(man->cg))
+>>>>> -        return PTR_ERR(man->cg);
+>>>>>       ttm_resource_manager_init(man, &adev->mman.bdev,
+>>>>>                     adev->gmc.real_vram_size);
+>>>>>   @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct
+>>>>> amdgpu_device *adev)
+>>>>>       if (err)
+>>>>>           return err;
+>>>>>   +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
+>>>>> "vram", adev->gmc.real_vram_size);
+>>>>> +    if (IS_ERR(man->cg))
+>>>>> +        return PTR_ERR(man->cg);
+>>>>> +
+>>>>>       ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
+>>>>> &mgr->manager);
+>>>>>       ttm_resource_manager_set_used(man, true);
+>>>>>       return 0;
+>>>
 
