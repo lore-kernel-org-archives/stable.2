@@ -1,214 +1,187 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7937B3016E0;
-	Tue, 21 Jul 2026 12:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 564F82E7657;
+	Tue, 21 Jul 2026 12:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784636747; cv=none; b=ryZCgZbMXLmJPzDJfGPQWino5kxKug2O4b81tvmPkUdsbC01Syrm+B1Wimz3ABL+hZe7nbot29x/h0G0tgaJRyzng7kzvIIRS7e3LvAoRDDQwty+rC9vSQpU1aGDlH0H36lcqeFoXfI6ah6pRpzgZSyO2uBqpKddJy5ScmAxgq0=
+	t=1784636908; cv=none; b=p+zcBMlot0MRyWgHTnJf9vrdcENStqRJor4lRgKvgwE8+yuHiHn8gq0kguLb7eDqLH0nYJF2oEVJbOwwlHdria/2b8kmE7y5IVZGbhVwxohFWC8tXTFiKPiTM/mkg4+GoyuBZXnZiw6KQ319bFy1Mn65rHqC6jXf8xzrYcHVBi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784636747; c=relaxed/simple;
-	bh=I/YKssBTmCWpxAzh41dfBNeIEMvOCor3EGtfl9H79gE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cTzehcIeavMDyLdt7w59sEHT6C726mbdVsGjNfUEDlhbyjfLO73sGX5zsvoBZWgXK+j74H8cN2ETKIURjJTNLh5flHtCa4E6RTSfyK/2cS+RTjn5A9GEg5s4pCvApzvdQQQjNmImfbfGYbFRHSRyxD5HsA0sS01cPe2TnpZg5ZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AjqLv/8a; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AjqLv/8a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784636744; x=1816172744;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=I/YKssBTmCWpxAzh41dfBNeIEMvOCor3EGtfl9H79gE=;
-  b=AjqLv/8abUyiHtrDjb60GbyOHTnBPsAyNnLBh424IhFApmFbIZQ3/yD4
-   cnQq0ZJ68i2Kp3LJqbK9d7KbZEwqYk9/ZqOPV5/rbMaLosvyAGuPyNDwk
-   9+OqgY+9Rhr0kSOBibC5LrohOOM307rAs37c2RMaLwt7BjOrJ7mTWjRMG
-   LBI5K4xxdv5v7vxlZLsEVaU7DHg0aEKWXi4gKqlqbwZIGu06NpYL2lvFK
-   /aSs5caHRHaA5dgKU2z8/rgY+HTeUr6aWTHTLJn3K3nK6eMzYTQykC4Rm
-   KvgrRK9jdsQzteRZvwzlYGiBePUOtp0VL5IyMA17k5McV+r2h8KYgFaJ/
-   A==;
-X-CSE-ConnectionGUID: uIRJlM+QQNawce5QeMx3Vw==
-X-CSE-MsgGUID: Au1TkbzORtWtHBrkRRyhyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85251822"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="85251822"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:25:43 -0700
-X-CSE-ConnectionGUID: TRZNSRRfRZmcBxvcQyaQxA==
-X-CSE-MsgGUID: PHvGZ7zoS+u3lvSXILpcyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="258396724"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93]) ([10.245.245.93])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:25:38 -0700
-Message-ID: <06bcc2e8-a7fd-483d-8c73-2a253b433840@linux.intel.com>
-Date: Tue, 21 Jul 2026 14:26:34 +0200
+	s=arc-20240116; t=1784636908; c=relaxed/simple;
+	bh=Wd+NI9g3AwUxj0OBN9t9+FYpGLUq06mSwyBr/C6/8n8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=AUO3fzT7zI17aUub8pnsq0vJbHlx5b4v0wTVFWUIDUjIzHooBCuBnbBZ0Hh/9caKXwDrpsVU1k66cWcum80deCGFZdjuIveT0ZBGgMP6XpIOgkvvdfZG1nHeLH1WgGFnyHXMOmypWhQeuy3C8h3fgghUYkTwG4ovfJcKs3iuPDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8Dx8+npZV9qj6EFAA--.12747S3;
+	Tue, 21 Jul 2026 20:28:25 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJBxWsThZV9qTfwTAA--.6622S4;
+	Tue, 21 Jul 2026 20:28:24 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Hongliang Wang <wanghongliang@loongson.cn>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+Date: Tue, 21 Jul 2026 20:26:04 +0800
+Message-Id: <20260721122604.12717-3-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260721122604.12717-1-wanghongliang@loongson.cn>
+References: <20260721122604.12717-1-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- intel-xe@lists.freedesktop.org
-Cc: Sashiko-bot <sashiko-bot@kernel.org>,
- Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
- <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
- <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
- <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
- <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
- <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxWsThZV9qTfwTAA--.6622S4
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCr15KF15uw15Xw1DCr4DGFX_yoWrXw1Dpa
+	n8CF95Gr4qgF42grsxt3W8ZFyayws5Jay8GFy7Kw1xW3Z3Arn8X3WftFnIvF4v9F97WayD
+	XayDWrsxCFWjvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
+	14v26r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1q6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
+	z7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
+	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
+	2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42
+	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF
+	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxhiSDUUUU
 
-Hey,
+The i2c-ls2x driver supports dts and acpi parameter passing.
 
-On 7/21/26 14:10, Thomas Hellström wrote:
-> Hi, Maarten,
-> 
-> On Tue, 2026-07-21 at 13:46 +0200, Maarten Lankhorst wrote:
->> Hey,
->>
->> Can I merge this through drm-misc-next together with the rest of the
->> series?
->>
->> Kind regards
->> ~Maarten
-> 
-> For the xe patches, Ack from me.
-> 
-> I do have a v8 that fixes a sashiko comment on the last patch, though,
-> but I was holding that awaiting a review on the other patches.
-Yeah seems about right. Patches themselves look good to me now, so would be nice if amd can ack here or in v8.
+In dts, uses clock framework, by parsing clocks property to
+get i2c bus reference clock, and define the div of reference
+clock by device data.
 
-Series themselves look good, so feel free to add my r-b to entire series: (and Thadeu's t-b)
+In acpi, by passing clocks property to describe i2c bus reference
+clock and clock-div property to describe the div of reference clock.
 
-Reviewed-By: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
+and div, calculate the prcescale of i2c divider register. The
+calculation formula is
 
-> 
-> Thanks,
-> Thomas
-> 
-> 
-> 
->>
->> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
->>>
->>>
->>> On 7/3/2026 6:38 PM, Christian König wrote:
->>>> Arun please take a look at this.
->>> Sure Christian. This fix looks correct to me.
->>> Reviewed-by: Arunpravin Paneer Selvam
->>> <Arunpravin.PaneerSelvam@amd.com>
->>>
->>> Thanks,
->>> Arun.
->>>>
->>>> Thanks,
->>>> Christian.
->>>>
->>>> On 7/3/26 15:05, Thomas Hellström wrote:
->>>>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD()
->>>>> and
->>>>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
->>>>> function
->>>>> returns early and bypasses those initializations.
->>>>>
->>>>> Since adev->mman.initialized is set to true before
->>>>> amdgpu_vram_mgr_init()
->>>>> is called, a failure triggers amdgpu_ttm_fini(), which calls
->>>>> amdgpu_vram_mgr_fini(), which then:
->>>>>
->>>>>   - Calls list_for_each_entry_safe() on reservations_pending
->>>>> and
->>>>>     reserved_pages, whose list_head::next pointers are zero-
->>>>> initialized
->>>>>     (NULL). The loop does not recognize them as empty and
->>>>> dereferences NULL.
->>>>>
->>>>>   - Calls gpu_buddy_fini(), which iterates free_trees[]
->>>>> unconditionally
->>>>>     via for_each_free_tree(). Since mm->free_trees is NULL
->>>>>     (never allocated), this dereferences NULL.
->>>>>
->>>>> Both result in a kernel panic on the module load error path.
->>>>>
->>>>> Fix by moving drmm_cgroup_register_region() to after the list
->>>>> and buddy
->>>>> allocator are fully initialized, so the teardown path is safe
->>>>> to run.
->>>>>
->>>>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
->>>>> Closes:
->>>>> https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
->>>>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
->>>>> TTM")
->>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>>>> Cc: Maarten Lankhorst <dev@lankhorst.se>
->>>>> Cc: Tejun Heo <tj@kernel.org>
->>>>> Cc: Maxime Ripard <mripard@kernel.org>
->>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>> Cc: amd-gfx@lists.freedesktop.org
->>>>> Cc: dri-devel@lists.freedesktop.org
->>>>> Cc: <stable@vger.kernel.org> # v6.14+
->>>>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
->>>>> Signed-off-by: Thomas Hellström
->>>>> <thomas.hellstrom@linux.intel.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
->>>>>   1 file changed, 4 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> index 2a241a5b12c4..ac3f71d77140 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct
->>>>> amdgpu_device *adev)
->>>>>       struct ttm_resource_manager *man = &mgr->manager;
->>>>>       int err;
->>>>>   -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
->>>>> "vram", adev->gmc.real_vram_size);
->>>>> -    if (IS_ERR(man->cg))
->>>>> -        return PTR_ERR(man->cg);
->>>>>       ttm_resource_manager_init(man, &adev->mman.bdev,
->>>>>                     adev->gmc.real_vram_size);
->>>>>   @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct
->>>>> amdgpu_device *adev)
->>>>>       if (err)
->>>>>           return err;
->>>>>   +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
->>>>> "vram", adev->gmc.real_vram_size);
->>>>> +    if (IS_ERR(man->cg))
->>>>> +        return PTR_ERR(man->cg);
->>>>> +
->>>>>       ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
->>>>> &mgr->manager);
->>>>>       ttm_resource_manager_set_used(man, true);
->>>>>       return 0;
->>>
+prcescale = (clock_a*10)/(div*clock_s)-1
+
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+---
+ drivers/i2c/busses/i2c-ls2x.c | 40 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
+index b475dd27b7af..25f8301ae14f 100644
+--- a/drivers/i2c/busses/i2c-ls2x.c
++++ b/drivers/i2c/busses/i2c-ls2x.c
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/clk.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
+@@ -63,11 +64,19 @@
+ /* The default bus frequency, which is an empirical value */
+ #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
+ 
++/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
++#define LS2X_I2C_2K_CLOCK_DIV	40
++
++/* The div of i2c reference clock on LS7A1000/7A2000 */
++#define LS2X_I2C_7A_CLOCK_DIV	50
++
+ struct ls2x_i2c_priv {
+ 	struct i2c_adapter	adapter;
+ 	void __iomem		*base;
+ 	struct i2c_timings	i2c_t;
+ 	struct completion	cmd_complete;
++	unsigned int		div;
++	unsigned int		pclk;
+ };
+ 
+ /*
+@@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+ 	else
+ 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+ 
++	val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
++
+ 	/*
+ 	 * According to the chip manual, we can only access the registers as bytes,
+ 	 * otherwise the high bits will be truncated.
+ 	 * So set the I2C frequency with a sequential writeb() instead of writew().
+ 	 */
+-	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+ 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
+ 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
+ }
+@@ -287,6 +297,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
+ static int ls2x_i2c_probe(struct platform_device *pdev)
+ {
+ 	int ret, irq;
++	struct clk *clk;
+ 	struct i2c_adapter *adap;
+ 	struct ls2x_i2c_priv *priv;
+ 	struct device *dev = &pdev->dev;
+@@ -304,6 +315,29 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	if (dev_of_node(dev)) {
++		clk = devm_clk_get_optional_enabled(dev, NULL);
++		if (IS_ERR(clk))
++			return PTR_ERR(clk);
++		if (clk)
++			priv->pclk = clk_get_rate(clk);
++		else
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++
++		priv->div = (unsigned long)device_get_match_data(dev);
++		if (!priv->div)
++			priv->div = LS2X_I2C_2K_CLOCK_DIV;
++	} else {
++		/* clocks and clock-div are only ACPI properties. */
++		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
++		if (ret)
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++
++		ret = device_property_read_u32(dev, "clock-div", &priv->div);
++		if (ret || !priv->div)
++			priv->div = LS2X_I2C_7A_CLOCK_DIV;
++	}
++
+ 	/* Add the i2c adapter */
+ 	adap = &priv->adapter;
+ 	adap->retries = 5;
+@@ -349,8 +383,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
+ 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
+ 
+ static const struct of_device_id ls2x_i2c_id_table[] = {
+-	{ .compatible = "loongson,ls2k-i2c" },
+-	{ .compatible = "loongson,ls7a-i2c" },
++	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
++	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+-- 
+2.47.2
 
