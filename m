@@ -1,92 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1199946D2C8;
-	Tue, 21 Jul 2026 16:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E142054652;
+	Tue, 21 Jul 2026 16:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784651304; cv=none; b=ZKy+ybF4TrEe5cDRBaSuhCYXjECwrR6JoXOKkCk2FLaXTGxz9Cn1J4kWjY8pJ6g4opAnbrlwgO8CyM2GBp9patyHZQzsgGj2DRw5+VRIK4krSt1MJj7IUeJUWk7gVJaKDuf3+oVoKTEH2qqEk4dWtesHXuC36NNQa/VvO9ywnMM=
+	t=1784651545; cv=none; b=RJgTGUPtCyE4Oj8qxsvIOh5loXq0JfgIHHSQ1LGBMDOheBBiFHtGafVTOx/N6KCjRp6ntOurikpboK8B9f69kWEH5UGI4jL4IcLED9z7RRHGqJ9sYRYBvBHVeYjnzpd6fP07tiAixxedGSHkA2Fc/8K82vy00M6ubmAZ2YkIE2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784651304; c=relaxed/simple;
-	bh=0g1p8YKIE71TU+sqJW4vyCLd3WmftBg8dmFfLAjv/js=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=biIC7Gm/Y9Rm8iqNU9W+STVlhnzvOnVnMzk/mt+Jtnubb400hSNHYwlrTEiGP5Ks3n+lwVfS8/sqN9X0u/znMO1hgxeBOaObvzLBvGnGmuyXc3Hu0v/Wd19SasSRiyk+7db0IDcXDYyYtjM/1TJDlBO5SlUK8j8oP4ukc2M7sEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0uhu9fP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784651545; c=relaxed/simple;
+	bh=Uf0ltgVuATLeRHzYZT6Fh/0aClKe9O8x7HSafajDKHM=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=i4JMqXDwKnNeygy9ngVL1MlVk7Vg7TgUnB/6b8l4NhfcIj7U/OU93qSOlAtJMdgT2z74a0PNLo50ECa34VmZVXqy1G2Y80qREJ4jyJ+DOrNRZf8AMVG80idk5oTRXahJJMbyW5yMSoWf7Ee2y+8NhItJImHIBaXMaFJxD9tdy30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LDXlTkvn; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0uhu9fP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE92A1F00A3A;
-	Tue, 21 Jul 2026 16:28:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784651303;
-	bh=6VO5TFovKdiYaUF1XpN9HMdtCIy6aNvr3B6X5YAjvcA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=A0uhu9fPlgHS9/Glw7FYvYs7AE54IX9obz/o9Z67uON7wV9Ts2ERuEQyHbmU2r5xi
-	 GuZNWat5HQ+rVFB7GOnFJfKwaCpKb78vxD8Ll3CSIW/jJQA+/LmEcziWrmk8TZs+/K
-	 Kw+BHAe3/Xx0gkFAd/eTROvTUiVHOYOKxE/GRNzQU2uB5N3yx7sxPSIYVx2pPzQStF
-	 3r5+kHjPBNEDAIPB6vH8preCZHQYx1S/zDIHtcJbYZGQ7fW/fSCu3wlX4iEQWVHe06
-	 4zKBW3RXX5c3afktBxkIWjfmy2leCuJM2InQMmCyz0IHoT03J+c2mqzG2zcUq03R2v
-	 pi2SBlBa17+cw==
-Date: Tue, 21 Jul 2026 11:28:21 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Tim Harvey <tharvey@gateworks.com>,
-	Nathan Rossi <nathan.rossi@digi.com>,
-	Nathan Rossi <nathan@nathanrossi.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] PCI: Add ACS quirk for Pericom PI7C9X2G608 switches
- [12d8:2608]
-Message-ID: <20260721162821.GA596492@bhelgaas>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LDXlTkvn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784651544; x=1816187544;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=Uf0ltgVuATLeRHzYZT6Fh/0aClKe9O8x7HSafajDKHM=;
+  b=LDXlTkvnzEuBcgAqb06x0IqAyEtt8H0Yx49H7vx9xZUtfq6x2Un6anit
+   cJF/P5BXbYcTUr6WyLoHAr7FTkxCQbvI72ToMs94GTuEmwnx2KcRPhRn+
+   RhdiC2R3ePF/7tX2nRxeHPQXLzlLbBNjy35ckaQhtU+rNrmBx0iOvKgXn
+   4TjWYul0kPvyxg4SLkzAiK1keUcMICOtLX3NVm+2bK24RBjlbpK0FCw2F
+   IyEtG5xR//dZQiTkjQ1sXkv9/fTdh+68hKa8Yk0kDcFoWfYLkKTCa1Z9e
+   NH7B/GUDrYkgIZJJeBW8Kl4FYFzQhWDmO4noi9YHGUjvjPVxA4Z7GEiVt
+   g==;
+X-CSE-ConnectionGUID: Ot+P+w6fSdukd9zLgEBKEg==
+X-CSE-MsgGUID: HUpMIp+ASBGDVb1uxCgzJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="85460599"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
+   d="scan'208";a="85460599"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 09:32:24 -0700
+X-CSE-ConnectionGUID: vN68EUeITJ6AHAwMPVb3dA==
+X-CSE-MsgGUID: pwviNDYxTamkCe5wPdAFBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
+   d="scan'208";a="257885145"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 09:32:20 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 21 Jul 2026 19:32:17 +0300 (EEST)
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+cc: Shravan Sudhakar <s.shravan@intel.com>, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 2/2] platform/x86: int1092: Fix info leak in
+ parse_package()
+In-Reply-To: <20260713-platx86-v1-2-c8991bff03a0@cse.iitm.ac.in>
+Message-ID: <a41c1ab7-49a3-39c8-637c-6b3011ed4a2a@linux.intel.com>
+References: <20260713-platx86-v1-0-c8991bff03a0@cse.iitm.ac.in> <20260713-platx86-v1-2-c8991bff03a0@cse.iitm.ac.in>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720215718.2139510-1-tharvey@gateworks.com>
+Content-Type: text/plain; charset=US-ASCII
 
-[+to Nathan]
+On Mon, 13 Jul 2026, Abdun Nihaal wrote:
 
-On Mon, Jul 20, 2026 at 02:57:18PM -0700, Tim Harvey wrote:
-> The Pericom PI7C9X2G608 6-port Gen2 PCIe switch is also affected by
-> the PI7C9X2G errata per the errata document:
-> E2: ACS P2P Request Redirect Is Not Functional
-> 
-> Apply the same quirk to this PCI ID as well to apply the workaround
-> required if using ACS.
-> 
-> Fixes: acd61ffb2f16 ("PCI: Add ACS quirk for Pericom PI7C9X2G switches")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tim Harvey <tharvey@gateworks.com>
+> Sashiko reports a possible information leak due to a non-zeroized
+> memory allocation for device_mode_info. Fix that by switching to use
+> devm_kcalloc() for allocation.
 
-Applied to pci/virtualization for v7.3, thanks!
+Hi,
 
-Note that Sashiko found what looks like a legit pre-existing issue
-with acd61ffb2f16 ("PCI: Add ACS quirk for Pericom PI7C9X2G
-switches"):
+Please also explain here through which path the information is leaked to 
+permanently record it into commit itself.
 
-  https://lore.kernel.org/all/20260720223203.A30841F000E9@smtp.kernel.org
+You can mostly base it on Sashiko's findings but please avoid making it 
+too verbose (AI tends to be overly verbose about trivialities).
+
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260710052806.100107-1-nihaal%40cse.iitm.ac.in
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+
+--
+ i.
+
 
 > ---
->  drivers/pci/quirks.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> Newly added in v3
+> ---
+>  drivers/platform/x86/intel/int1092/intel_sar.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index b09f27f7846f..27f7d56c9ac3 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -6263,6 +6263,10 @@ DECLARE_PCI_FIXUP_ENABLE(PCI_VENDOR_ID_PERICOM, 0xb404,
->  			 pci_fixup_pericom_acs_store_forward);
->  DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_PERICOM, 0xb404,
->  			 pci_fixup_pericom_acs_store_forward);
-> +DECLARE_PCI_FIXUP_ENABLE(PCI_VENDOR_ID_PERICOM, 0x2608,
-> +			 pci_fixup_pericom_acs_store_forward);
-> +DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_PERICOM, 0x2608,
-> +			 pci_fixup_pericom_acs_store_forward);
+> diff --git a/drivers/platform/x86/intel/int1092/intel_sar.c b/drivers/platform/x86/intel/int1092/intel_sar.c
+> index 7263114f0b3d..f506155f35d4 100644
+> --- a/drivers/platform/x86/intel/int1092/intel_sar.c
+> +++ b/drivers/platform/x86/intel/int1092/intel_sar.c
+> @@ -91,10 +91,10 @@ static acpi_status parse_package(struct wwan_sar_context *context, union acpi_ob
+>  	    item->package.count <= data->total_dev_mode)
+>  		return AE_ERROR;
 >  
->  static void nvidia_ion_ahci_fixup(struct pci_dev *pdev)
->  {
-> -- 
-> 2.34.1
+> -	data->device_mode_info = devm_kmalloc_array(&context->sar_device->dev,
+> -						    data->total_dev_mode,
+> -						    sizeof(*data->device_mode_info),
+> -						    GFP_KERNEL);
+> +	data->device_mode_info = devm_kcalloc(&context->sar_device->dev,
+> +					      data->total_dev_mode,
+> +					      sizeof(*data->device_mode_info),
+> +					      GFP_KERNEL);
+>  	if (!data->device_mode_info)
+>  		return AE_ERROR;
+>  
 > 
+> 
+
