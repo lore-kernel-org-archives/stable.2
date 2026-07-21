@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8E13F12C1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88183F39CA
 	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:44:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784594692; cv=none; b=Ciy9X6muLvQl78CanehMNb2ERw1aeQ6sDb+bF31hv3niWE+5sHlf+K3J4FSiXQ9YJ3789W459gcYI1T56V/5s0J9A0EtXf6FKtuxECYiCRNzWC3Ter9qAaw6iZGd9ZJTuWr8wX6qNby+0bjLb5YGE0UqIlIpXRs19Njnz75CQKU=
+	t=1784594692; cv=none; b=HOHMIg/YxIufclPf+6W4fpWpYrl0XIKUf4xr6uRUZtijssyz8jS+VAWwRR1R7+yXNbRl8871rwFt2EO2NiWj/4TwmAQitZixyx14JxwuOCVdppRt9w5JL4apOzFezTmGQJMpeoQ6FjpZpv4Ey62A1mwn1L4sgQ0UwLy7pgdjfFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784594692; c=relaxed/simple;
-	bh=sOc6I6610C13MyKEJhQ6Lusj+niPsmbyEnmgcnFaaic=;
+	bh=moD4yj427AoQ1yUGGencNpiQKREBXelRNCQoonP8gz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qWs75IIl69BIEX02I9MecSycle65mIqxstiHReth8pnLSrwM6jYJ1aLveRbDNIMnSu3rNuQqKauOXNZXKpQccA3nBaeHQj/rYi70NTKdY4RUf4WZdIS7S/xPaRZimNAgGMHbecfofO4kstFFp9I2X2OAIQeRX1Yg+cNblz2yfa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cyFkMIpu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WnavamR0DQe5X/5yjOd/moqIoP4xCtVN7U6iRtGt8uCEZIQwvp+0FX3mjVZeFnawxXkpyHA9zo5Nmiill1LwIbooFvpKPg844EHxDYoVgcteinQMD1uvMoosgcbqi/uHhVWJA729aVHL4gPF/SY8EXYmEzgeEg7W53KvdWI3GPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ni2dN/z9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cyFkMIpu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61F8F1F00A3D;
-	Tue, 21 Jul 2026 00:44:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ni2dN/z9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F421F00A3F;
+	Tue, 21 Jul 2026 00:44:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784594691;
-	bh=P/wdxj+tNHtq+fGGglrW8gcJ13ZzwHHa9u60MjhoczQ=;
+	bh=Z+CEjjhlMgsdqDVehVd1MRfIXwJTxSSFJrrjW7jRbMM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cyFkMIpupqDAJ1PXml+cP24vlkj3mXDkaL+PbADXcJkKC6aM3m4oLHlpPKIq3NrvV
-	 gCIhA8Zhie+G6/g8D+9wKs9Gca59dRu0QOt75xlsa40WqwIJBxJ52cJMfe6lMt9Ltm
-	 +xKuxOrFeRxqyrok/7WHTYGEHfT3ycZI1G4jZ1SVpIDX8zWmSDy+EXzPrSp2Y0rKJk
-	 rnVkv73MZfBzSybylA8hc0CGZgxLNX5O6oG/3KNjicsIG0pyJOCA7P54nMaYYVKG1s
-	 Y6Mz15AQuYYdrYKIoJRDpM9mXNAHkTydUO1+AEsP7B/YAHnSQcxbBIkcA3B6KFF93X
-	 nIYXHQBVFILxQ==
+	b=Ni2dN/z9LyR3QBJ1nDnfkB20JLHK8nUfCqMMbuKJrOux05Js19DWe8fKw/S2yHCLk
+	 lBgKMpcsjcul4hup5n+moPpIo0dNnlfRNkgLUhROxbZ+eUSswP1SBQUYBzLAoDvZf/
+	 dNQvRtJaN/QeFN/Fc5a/iv9UnfrwitI2GwcCdWOTLC3WWEhTFm0mQQFUQ2+jCVwszA
+	 yb8+BGy0vU0CwaBGK0Wz8SVAlirYpmy6+GLs0NYhdbkjAxgZk6r4JENEeZg3s0MB0o
+	 x5D4AG1egzij5HHABId04Kp40yN5OI7V6qTHtpjsxzY/A3ZFwBGWXoU7hIrOsCPDmH
+	 grSMXdQSDZspA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ricardo Robaina <rrobaina@redhat.com>,
-	Florian Westphal <fw@strlen.de>,
+	Richard Guy Briggs <rgb@redhat.com>,
 	Paul Moore <paul@paul-moore.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] audit: add audit_log_nf_skb helper function
-Date: Mon, 20 Jul 2026 20:44:47 -0400
-Message-ID: <20260721004448.3420885-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] audit: fix potential integer overflow in audit_log_n_hex()
+Date: Mon, 20 Jul 2026 20:44:48 -0400
+Message-ID: <20260721004448.3420885-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071526-tartar-ammonium-a9f0@gregkh>
+In-Reply-To: <20260721004448.3420885-1-sashal@kernel.org>
 References: <2026071526-tartar-ammonium-a9f0@gregkh>
+ <20260721004448.3420885-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,299 +49,63 @@ Content-Transfer-Encoding: 8bit
 
 From: Ricardo Robaina <rrobaina@redhat.com>
 
-[ Upstream commit f19590b07cb620be1fcd5474c49515e21a05d406 ]
+[ Upstream commit 65dfde57d1e29ce2b76fc23dd565eccd5c0bc0f0 ]
 
-Netfilter code (net/netfilter/nft_log.c and net/netfilter/xt_AUDIT.c)
-have to be kept in sync. Both source files had duplicated versions of
-audit_ip4() and audit_ip6() functions, which can result in lack of
-consistency and/or duplicated work.
+The function calculates new_len as len << 1 for hex encoding. This
+has two overflow risks: the shift itself can overflow when len is
+large, and the result can be truncated when assigned to new_len
+(declared as int) from the size_t calculation.
 
-This patch adds a helper function in audit.c that can be called by
-netfilter code commonly, aiming to improve maintainability and
-consistency.
+Fix by using check_shl_overflow() to catch shift overflow and
+changing new_len and loop counter i to size_t to prevent truncation.
 
-Suggested-by: Florian Westphal <fw@strlen.de>
-Suggested-by: Paul Moore <paul@paul-moore.com>
+Cc: stable@vger.kernel.org
+Fixes: 168b7173959f ("AUDIT: Clean up logging of untrusted strings")
+Reviewed-by: Richard Guy Briggs <rgb@redhat.com>
 Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
-Acked-by: Florian Westphal <fw@strlen.de>
+[PM: remove vertical whitspace noise]
 Signed-off-by: Paul Moore <paul@paul-moore.com>
-Stable-dep-of: 65dfde57d1e2 ("audit: fix potential integer overflow in audit_log_n_hex()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/audit.h    |  8 +++++
- kernel/audit.c           | 64 ++++++++++++++++++++++++++++++++++++++++
- net/netfilter/nft_log.c  | 58 +-----------------------------------
- net/netfilter/xt_AUDIT.c | 58 +-----------------------------------
- 4 files changed, 74 insertions(+), 114 deletions(-)
+ kernel/audit.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/audit.h b/include/linux/audit.h
-index 517c665da25975..625210306813b5 100644
---- a/include/linux/audit.h
-+++ b/include/linux/audit.h
-@@ -180,6 +180,8 @@ extern void		    audit_log_lost(const char *message);
- 
- extern int audit_log_task_context(struct audit_buffer *ab);
- extern void audit_log_task_info(struct audit_buffer *ab);
-+extern int audit_log_nf_skb(struct audit_buffer *ab,
-+			    const struct sk_buff *skb, u8 nfproto);
- 
- extern int		    audit_update_lsm_rules(void);
- 
-@@ -245,6 +247,12 @@ static inline int audit_log_task_context(struct audit_buffer *ab)
- static inline void audit_log_task_info(struct audit_buffer *ab)
- { }
- 
-+static inline int audit_log_nf_skb(struct audit_buffer *ab,
-+				   const struct sk_buff *skb, u8 nfproto)
-+{
-+	return 0;
-+}
-+
- static inline kuid_t audit_get_loginuid(struct task_struct *tsk)
- {
- 	return INVALID_UID;
 diff --git a/kernel/audit.c b/kernel/audit.c
-index 433672f81e30dd..db783043ad9680 100644
+index db783043ad9680..1786e73834d02a 100644
 --- a/kernel/audit.c
 +++ b/kernel/audit.c
-@@ -57,6 +57,8 @@
- #include <linux/freezer.h>
- #include <linux/pid_namespace.h>
+@@ -59,6 +59,7 @@
  #include <net/netns/generic.h>
-+#include <net/ip.h>
-+#include <net/ipv6.h>
+ #include <net/ip.h>
+ #include <net/ipv6.h>
++#include <linux/overflow.h>
  
  #include "audit.h"
  
-@@ -2304,6 +2306,68 @@ void audit_log_path_denied(int type, const char *operation)
- 	audit_log_end(ab);
- }
- 
-+int audit_log_nf_skb(struct audit_buffer *ab,
-+		     const struct sk_buff *skb, u8 nfproto)
-+{
-+	/* find the IP protocol in the case of NFPROTO_BRIDGE */
-+	if (nfproto == NFPROTO_BRIDGE) {
-+		switch (eth_hdr(skb)->h_proto) {
-+		case htons(ETH_P_IP):
-+			nfproto = NFPROTO_IPV4;
-+			break;
-+		case htons(ETH_P_IPV6):
-+			nfproto = NFPROTO_IPV6;
-+			break;
-+		default:
-+			goto unknown_proto;
-+		}
-+	}
-+
-+	switch (nfproto) {
-+	case NFPROTO_IPV4: {
-+		struct iphdr iph;
-+		const struct iphdr *ih;
-+
-+		ih = skb_header_pointer(skb, skb_network_offset(skb),
-+					sizeof(iph), &iph);
-+		if (!ih)
-+			return -ENOMEM;
-+
-+		audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
-+				 &ih->saddr, &ih->daddr, ih->protocol);
-+		break;
-+	}
-+	case NFPROTO_IPV6: {
-+		struct ipv6hdr iph;
-+		const struct ipv6hdr *ih;
-+		u8 nexthdr;
-+		__be16 frag_off;
-+
-+		ih = skb_header_pointer(skb, skb_network_offset(skb),
-+					sizeof(iph), &iph);
-+		if (!ih)
-+			return -ENOMEM;
-+
-+		nexthdr = ih->nexthdr;
-+		ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(iph),
-+				 &nexthdr, &frag_off);
-+
-+		audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
-+				 &ih->saddr, &ih->daddr, nexthdr);
-+		break;
-+	}
-+	default:
-+		goto unknown_proto;
-+	}
-+
-+	return 0;
-+
-+unknown_proto:
-+	audit_log_format(ab, " saddr=? daddr=? proto=?");
-+	return -EPFNOSUPPORT;
-+}
-+EXPORT_SYMBOL(audit_log_nf_skb);
-+
- /* global counter which is incremented every time something logs in */
- static atomic_t session_id = ATOMIC_INIT(0);
- 
-diff --git a/net/netfilter/nft_log.c b/net/netfilter/nft_log.c
-index e3558813799579..bf01cf8a8907b5 100644
---- a/net/netfilter/nft_log.c
-+++ b/net/netfilter/nft_log.c
-@@ -26,46 +26,10 @@ struct nft_log {
- 	char			*prefix;
- };
- 
--static bool audit_ip4(struct audit_buffer *ab, struct sk_buff *skb)
--{
--	struct iphdr _iph;
--	const struct iphdr *ih;
--
--	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_iph), &_iph);
--	if (!ih)
--		return false;
--
--	audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
--			 &ih->saddr, &ih->daddr, ih->protocol);
--
--	return true;
--}
--
--static bool audit_ip6(struct audit_buffer *ab, struct sk_buff *skb)
--{
--	struct ipv6hdr _ip6h;
--	const struct ipv6hdr *ih;
--	u8 nexthdr;
--	__be16 frag_off;
--
--	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_ip6h), &_ip6h);
--	if (!ih)
--		return false;
--
--	nexthdr = ih->nexthdr;
--	ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(_ip6h), &nexthdr, &frag_off);
--
--	audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
--			 &ih->saddr, &ih->daddr, nexthdr);
--
--	return true;
--}
--
- static void nft_log_eval_audit(const struct nft_pktinfo *pkt)
+@@ -2034,7 +2035,8 @@ void audit_log_format(struct audit_buffer *ab, const char *fmt, ...)
+ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
+ 		size_t len)
  {
- 	struct sk_buff *skb = pkt->skb;
- 	struct audit_buffer *ab;
--	int fam = -1;
+-	int i, avail, new_len;
++	int avail;
++	size_t i, new_len;
+ 	unsigned char *ptr;
+ 	struct sk_buff *skb;
  
- 	if (!audit_enabled)
- 		return;
-@@ -76,27 +40,7 @@ static void nft_log_eval_audit(const struct nft_pktinfo *pkt)
- 
- 	audit_log_format(ab, "mark=%#x", skb->mark);
- 
--	switch (nft_pf(pkt)) {
--	case NFPROTO_BRIDGE:
--		switch (eth_hdr(skb)->h_proto) {
--		case htons(ETH_P_IP):
--			fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
--			break;
--		case htons(ETH_P_IPV6):
--			fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
--			break;
--		}
--		break;
--	case NFPROTO_IPV4:
--		fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
--		break;
--	case NFPROTO_IPV6:
--		fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
--		break;
--	}
--
--	if (fam == -1)
--		audit_log_format(ab, " saddr=? daddr=? proto=-1");
-+	audit_log_nf_skb(ab, skb, nft_pf(pkt));
- 
- 	audit_log_end(ab);
- }
-diff --git a/net/netfilter/xt_AUDIT.c b/net/netfilter/xt_AUDIT.c
-index b6a015aee0cecc..4c18606b8654ba 100644
---- a/net/netfilter/xt_AUDIT.c
-+++ b/net/netfilter/xt_AUDIT.c
-@@ -28,46 +28,10 @@ MODULE_ALIAS("ip6t_AUDIT");
- MODULE_ALIAS("ebt_AUDIT");
- MODULE_ALIAS("arpt_AUDIT");
- 
--static bool audit_ip4(struct audit_buffer *ab, struct sk_buff *skb)
--{
--	struct iphdr _iph;
--	const struct iphdr *ih;
--
--	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_iph), &_iph);
--	if (!ih)
--		return false;
--
--	audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
--			 &ih->saddr, &ih->daddr, ih->protocol);
--
--	return true;
--}
--
--static bool audit_ip6(struct audit_buffer *ab, struct sk_buff *skb)
--{
--	struct ipv6hdr _ip6h;
--	const struct ipv6hdr *ih;
--	u8 nexthdr;
--	__be16 frag_off;
--
--	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_ip6h), &_ip6h);
--	if (!ih)
--		return false;
--
--	nexthdr = ih->nexthdr;
--	ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(_ip6h), &nexthdr, &frag_off);
--
--	audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
--			 &ih->saddr, &ih->daddr, nexthdr);
--
--	return true;
--}
--
- static unsigned int
- audit_tg(struct sk_buff *skb, const struct xt_action_param *par)
- {
- 	struct audit_buffer *ab;
--	int fam = -1;
- 
- 	if (audit_enabled == AUDIT_OFF)
- 		goto errout;
-@@ -77,27 +41,7 @@ audit_tg(struct sk_buff *skb, const struct xt_action_param *par)
- 
- 	audit_log_format(ab, "mark=%#x", skb->mark);
- 
--	switch (xt_family(par)) {
--	case NFPROTO_BRIDGE:
--		switch (eth_hdr(skb)->h_proto) {
--		case htons(ETH_P_IP):
--			fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
--			break;
--		case htons(ETH_P_IPV6):
--			fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
--			break;
--		}
--		break;
--	case NFPROTO_IPV4:
--		fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
--		break;
--	case NFPROTO_IPV6:
--		fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
--		break;
--	}
--
--	if (fam == -1)
--		audit_log_format(ab, " saddr=? daddr=? proto=-1");
-+	audit_log_nf_skb(ab, skb, xt_family(par));
- 
- 	audit_log_end(ab);
- 
+@@ -2044,7 +2046,12 @@ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
+ 	BUG_ON(!ab->skb);
+ 	skb = ab->skb;
+ 	avail = skb_tailroom(skb);
+-	new_len = len<<1;
++
++	if (check_shl_overflow(len, 1, &new_len)) {
++		audit_log_format(ab, "?");
++		return;
++	}
++
+ 	if (new_len >= avail) {
+ 		/* Round the buffer request up to the next multiple */
+ 		new_len = AUDIT_BUFSIZ*(((new_len-avail)/AUDIT_BUFSIZ) + 1);
 -- 
 2.53.0
 
