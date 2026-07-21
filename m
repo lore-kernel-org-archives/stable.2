@@ -1,44 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpdh16-2.aruba.it (smtpdh16-2.aruba.it [62.149.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B803B774D;
-	Tue, 21 Jul 2026 22:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E55A3B6C17
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 22:27:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784672837; cv=none; b=PmN5fV3WzzXzWL7Njx1yOYzpPjh2Om7vRvh0NOg0tZ4GutX9HeUBYzpadcgy1+g6Yc0e44he6RSZ7xBi3hT7AoEQNUu9VVamluco3qav9ropBzcARM1vbqmIt0pdfNqsjVvNKXPWyi7lU/3r9Ohbqkzq7SpRFg8dgEZoCc4hJiE=
+	t=1784672838; cv=none; b=OwkcDqRRT1iUZjW1G4QArCCtRCqIZpWsHnctJfMCpqNH2xjLKV5F8itPvQAYKvyugUFYN0z4wQC4ewRvqb6gm4gUnuiZUOer+qkUGd0swHAWk/7X+pLLrD+G4V9guGLbyMkc/rsKNxgqrlT7GdGUTxXqKXwsF9YjhIB389ojGQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784672837; c=relaxed/simple;
-	bh=vY5lJThll9Jr3ottZgKnhbSapasohOi9OmWxSGN4ia8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fXwpshQbU2yWruTmB8HSy8/CcuOrkmkHGXG3I4eRUME8tnvxLcq1ouXXNOsSw1/eOXMAB04Q3XKX/ZV30hraEGr5FJaTWLmPzV1dHKZH+prKGR+eY32J8VmIq/qiQN/0bZO7SM6+12q+TWknWU1pwu98IS8iXzOw9VQO/9qW5Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pZM1bStF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784672838; c=relaxed/simple;
+	bh=7zmPz26VekVv8pGTJ1pX5ab73d1VWSa/+KFYsz0RL9g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CvT/9cURYjSZk9NE09EToosenQn4Zwynnq5gUufD9QTRWFEbs7Fz3sSjTDMgUWW/Jpskoj6MtQqVuY5ojjbFtHMpQjbZPV20Z8rtQjtrY8XUd+JmrMlyc5IWTBUpXQcCklJCzYyuMUMg9bJh7AVwsMwMgZ6ojPqwemsRZ7XR7Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bithiatec.com; spf=pass smtp.mailfrom=bithiatec.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=cIGxxMep; arc=none smtp.client-ip=62.149.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bithiatec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bithiatec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pZM1bStF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92EBD1F000E9;
-	Tue, 21 Jul 2026 22:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784672835;
-	bh=Xx1uGqicVycO660Xx8GOrmx96IR1h1u9lx5UbXGBx0k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pZM1bStF3u+ntUCw9Ng4nE6/5s/gPgiUmmtwdGI/F7/iVuByak2YHlIMQA2OVXlzn
-	 IiDDMQjgcJlHftMtzujZ4QiADIxZkm2Rf6wCzEmSb+Ip8HHwMfTz5FJBL4Royx+aTe
-	 TgmSS3pW6Mye+qnDsToDu5nH/Q7vazTDbTkDF4MY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 732/843] iio: imu: adis: add IRQF_NO_THREAD to non-FIFO trigger IRQ
-Date: Tue, 21 Jul 2026 17:26:07 +0200
-Message-ID: <20260721152422.510264803@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152405.946368001@linuxfoundation.org>
-References: <20260721152405.946368001@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="cIGxxMep"
+Received: from bithiatec.com ([85.18.246.178])
+	by Aruba SMTP with ESMTPSA
+	id mIsewWxXk9tEmmIsewdqDH; Wed, 22 Jul 2026 00:24:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1784672644; bh=7zmPz26VekVv8pGTJ1pX5ab73d1VWSa/+KFYsz0RL9g=;
+	h=From:To:Subject:Date:MIME-Version;
+	b=cIGxxMepPcT2hLdDwW1cSgBY9MilJlrUJkE4dzv0ERpuRhzSd1myAT/ZrwSc6YspQ
+	 KahW1jUGgQMO/xRC13JniuhywJbNk9neXo7rw29LWFhTD83Y7XwpNH+xeXP9yVZvKj
+	 YrMxhRaBpfPw0YOYnhv0y2vBd/ftQBHgf4gQM0Kv8TeftZoDxoHJo8cYMiOK7ftGHB
+	 rji9euVyO3a5yCubhENu5+QQl2/jp6Q2lpTcMKmnz903RTUC1R1hYm6vHWzVHUxrw9
+	 LimAcj2X3nfgf3nzYulKdVzKAuFkZtjv0a+Zmz/4nSXj4aVZOi1C1mIXAh/YvP0wLE
+	 J2eXtZmAF1OoA==
+From: Luca Fresi <luca.fresi@bithiatec.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: =?UTF-8?q?Tomasz=20Mo=C5=84?= <tomasz.mon@camlingroup.com>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Luca Fresi <luca.fresi@bithiatec.com>
+Subject: [PATCH] serial: sc16is7xx: enable THRI before filling TX FIFO
+Date: Wed, 22 Jul 2026 00:24:04 +0200
+Message-Id: <20260721222404.204746-1-luca.fresi@bithiatec.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,51 +46,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfKqqLMK7wqqG0ewBMTAmxtYH1jVyodMYfe1Vgpl6yJK+Ra7YiZLYB7rbMb5OqYCAsAZM8dqwdni9HJTjW6SBLzPaMyRJbqs5TnKnJky7lTGtYS4COnVv
+ lH/B1h9AEPUXX71Yj9+AQjZjYY8XXmkkhmOM/fV44Kau0ELCDoZBvTiH/FwOwUuA3HBOVMahGoZmiyRIio81HHF+cjpobmPH3Uw3lTL9cSgWCBbEp6UvnV73
+ wl53QhyqrK6fKiU3m7BJPeVolj4h3vtDOZy2WbgqxRfFptO7+fLHEo8xfRRqTLdV0Va22qHl9Jxg/HcMALKn0yDauqfNLCzvLgWcP+K/V1tsIsk4GKHrMJE6
+ DSj/PeyvGZYYwv9v7sDehqylxneU3bR/tH2lE0S4OhBMpGzvH+3YR1VWqQ+7+BMjB23vRxXS5vdWuGhLDM5Zua/PU74uhg==
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+sc16is7xx_handle_tx() currently requests the THRI enable only after it has
+filled the TX FIFO. The request is asynchronous because the IER update is
+performed later by reg_work.
 
-------------------
+The SC16IS7xx generates a THRI interrupt when the TX FIFO crosses its
+trigger level. If the FIFO drains past that level before reg_work enables
+THRI, the chip does not generate a new interrupt. Characters remain queued
+indefinitely even though the hardware FIFO is empty.
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+This was observed on an SC16IS752 while both UART channels were active.
+During the stall the software TX buffer remained non-empty while TXLVL
+reported 64 bytes free, LSR reported THR and transmitter empty, IER had
+THRI enabled, and IIR reported no interrupt pending.
 
-[ Upstream commit 6e1b9bff1202da55c464e36bd34a2b6863d7fe30 ]
+Enable THRI synchronously before filling the FIFO so the threshold crossing
+cannot be missed.
 
-devm_adis_probe_trigger() registers iio_trigger_generic_data_rdy_poll()
-through devm_request_irq() on the non-FIFO path, but it does not add
-IRQF_NO_THREAD to the IRQ flags.
-
-When the kernel is booted with forced IRQ threading, the parent IRQ can
-otherwise be threaded by the IRQ core and the subsequent IIO trigger
-child IRQ is then dispatched from irq/... thread context instead of
-hardirq context. Because iio_trigger_generic_data_rdy_poll()
-immediately drives iio_trigger_poll(), this violates the hardirq-only
-IIO trigger helper contract and can push downstream trigger consumers
-through the wrong execution context.
-
-Add IRQF_NO_THREAD on top of the existing adis->irq_flag value for the
-non-FIFO request_irq() path, while preserving the current trigger
-polarity and IRQF_NO_AUTOEN behavior.
-
-Fixes: fec86c6b8369 ("iio: imu: adis: Add Managed device functions")
+Fixes: cc4c1d05eb10 ("sc16is7xx: Properly resume TX after stop")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Luca Fresi <luca.fresi@bithiatec.com>
 ---
- drivers/iio/imu/adis_trigger.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/serial/sc16is7xx.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
---- a/drivers/iio/imu/adis_trigger.c
-+++ b/drivers/iio/imu/adis_trigger.c
-@@ -79,7 +79,7 @@ int devm_adis_probe_trigger(struct adis
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index daebd92f32c7..a1bd175e2feb 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -827,6 +827,9 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
+ 		msleep(port->rs485.delay_rts_before_send);
  
- 	ret = devm_request_irq(&adis->spi->dev, adis->spi->irq,
- 			       &iio_trigger_generic_data_rdy_poll,
--			       adis->irq_flag,
-+			       adis->irq_flag | IRQF_NO_THREAD,
- 			       indio_dev->name,
- 			       adis->trig);
- 	if (ret)
-
+ 	guard(mutex)(&one->lock);
++	sc16is7xx_port_update(port, SC16IS7XX_IER_REG,
++			      SC16IS7XX_IER_THRI_BIT,
++			      SC16IS7XX_IER_THRI_BIT);
+ 	sc16is7xx_handle_tx(port);
+ }
+ 
+-- 
+2.34.1
 
