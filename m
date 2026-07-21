@@ -1,42 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FF83EFD04
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B712343BE;
+	Tue, 21 Jul 2026 00:56:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784595409; cv=none; b=W8207mfaiCMoiHXKeRTREI+DAbSwCTwmHkKnYf1W3d6GLMul3LXDXqFJKndXu1vwfV8Q+J4GOLDz/wCzibB/c8C764LleZSGsyTYjEEkdCqik42tFF6A53Y2I71vfTnSBFtIlgykJrwSzxiumIEcIzpECuiUQAT8Q1Z/75pUlTA=
+	t=1784595411; cv=none; b=cemqn2UG1LCOzV2XT7ybCk0IjMKsAAWx0cmzu/nOYKdJcMnAF+XAlbw5W+7E0TfiN29I8NU+r0PkMevXy2ZSXmaItnCcdsAfMhTQj3FvfFF0X9F/hm0IqzLuC/wny/HZShWH4ytZZElQke0jRumWRB5QnGMtNg5k/5QmB1CHDZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784595409; c=relaxed/simple;
-	bh=j8JXvHy3aSzDpn9fWLDhZe49pudcxLfgLYWtq/jmz9s=;
+	s=arc-20240116; t=1784595411; c=relaxed/simple;
+	bh=JVwnFGCAnbjB/qSE/g8BJHZsuhAls8GNPLWblFmdOto=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GHUY2rKAfc5a6NsGu91N4Fw7D21hKFdN/gYKNAqRevM7J0+/BwOTRcG7DNLtIueGJimoEoaB66Fr/z+tWREKXF0/VXqJ9wp1CuT42rQBVLGg0LNRzg6tLVe+PqchseJVGwGBdTWteOH7oJaYex3Ea/BlAtkDy7rvxfkSsN+J7gE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nFXszBTF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FIp+/zXMm63RR9imcC2I4UzzVU4MC/gmmO1GJnIYhVQ5WvBBRy+TbAucU/9ZihyQJZZ9IPuhRo0QilL2paq5n7L0gp4kbDVzMm4YxqwSWfpp0q21+AN45YCfrSbRaBx+GIPqhVo2w/aQAsV+EdqUSTJk5NpdmI2anHMnVcJKWPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHV5SGCm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nFXszBTF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8801F000E9;
-	Tue, 21 Jul 2026 00:56:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHV5SGCm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DBB1F00A3E;
+	Tue, 21 Jul 2026 00:56:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784595408;
-	bh=HtPONjiymAmOUCi6yRoyACSvNErA+i4msgYDn4BMFd0=;
+	s=k20260515; t=1784595410;
+	bh=gGdWM/13jGHuz3wJTyl8SuDGKXG0eRMStW6GAOaGyR8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nFXszBTFo+QWWNEH2nyfOwHR1DocJHLcsdOM02KmKYSezLJfIe10LfV869XjpnBSE
-	 xCSOGOYaA2+nqg8amCNy0qOxIlt9v2MKQccA618Dd+O994th1Q6uhKtNx77t+adKdN
-	 gKDIgMFgVjAd2uL1XgJ1rwt4JeCCq2SYUThuW3zD3wmt/6ZPIZcnqgN25mU7LHCh9Y
-	 KkuPLL8IX7fM8TNNmirnDSysb9+KZ3J6WPUTmmJHbcZhoMrZZYg+QkbRdlob4L7SP2
-	 YEmiFoakIAVw8deKtSegx00rXLyIeN16nXnMf/WfGoz9CvenpxkwUXKT3eGe+7lMHF
-	 PK2qHjpM2WKeg==
+	b=iHV5SGCmmd8KCF3tfXYtuhTQbTdPOWM/oL1kcXqAT4OoLeErzKlWUvLEFD/E7bTPN
+	 hJV9tjTH2yTAeyb0zvZKYewZolTRO5VFjdb1onkxdwArXR6hkdqSxOKiVwjqoWqR3j
+	 Uofpl7be990MWQpuOAIm6III5VJt+/sbj+zlWmfciP6AuP6DqhGJJ+8Bv/Q6inCjvP
+	 XbjIhA8+kcmCyCkRQoJ84ROQBaY6OgE1vxQp12Nu6cIh6DojMQ+xci8hbpfKZHF1Pv
+	 JFmm6+HfYtmOoDK8cJ2ab7ix05txf2kxZ2RiY9AFT0QSkPeaOIawO5b/OuFAcGcw6O
+	 L2V9bGTqauTTw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 5.10.y] batman-adv: ensure minimal ethernet header on TX
-Date: Mon, 20 Jul 2026 20:56:22 -0400
-Message-ID: <20260720175500.0015-stable-reply@kernel.org>
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Boqun Feng <boqun@kernel.org>,
+	linux-block@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Subject: Re: [PATCH 6.12.y] rust: block: `allow(deprecated)` for `fetch_update` for Rust >= 1.99.0
+Date: Mon, 20 Jul 2026 20:56:23 -0400
+Message-ID: <20260720175500.0016-stable-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720133205.385345-1-sven@narfation.org>
-References: <20260720133205.385345-1-sven@narfation.org>
+In-Reply-To: <CANiq72nLTuv2s71bNBVV85bTbWriiCdhG_O+-=t+1Ubv-sHFJw@mail.gmail.com>
+References: <CANiq72nLTuv2s71bNBVV85bTbWriiCdhG_O+-=t+1Ubv-sHFJw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,10 +61,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The batadv_interface_tx() must therefore always check itself if enough data
-> is available for the ethernet header and don't rely on min_header_len.
+>> Warning: this is a 6.12.y-only patch -- I assume you prefer something
+>> local like this instead of backporting the commit that made this go away
+>> later with the move to `Refcount`.
+>
+> Cc'ing stable here in the reply.
 
-Queued for 5.10, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
