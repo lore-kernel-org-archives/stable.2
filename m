@@ -1,128 +1,167 @@
-Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2F5269D18
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5A646C4D2;
+	Tue, 21 Jul 2026 18:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784659165; cv=none; b=e4RG7mvmW7//4eQy3bKKCkCCDdqxEKP37/5b5Tqk/PrX3FTMFhdfx/lBKQkIS1rniAbZmwhJTka+373RBCeDWxeZZ0f/QOSuxHLg0uEOct0qQM6NYaj0XdpGCCEd0fumWdYtSLJAaIxvptHUvEWN+EE73inwj9em3TbdccY+U4E=
+	t=1784659166; cv=none; b=Hu4dKzByjtbdtTS5+DzcJ41xodfdvufMt9mXAJMFXJyF5dYyD8GUgcIysH4a+MioXyIP/vhTe5IT6voAphnQmCbyTXR9tD+A/cJ+Q7HVuGa94ow99NaFLkcURjvzNV/mpR8TLKQZ7iNEPYZZpOYf0aIoQ+1wJBawi6ZCq+E1b0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784659165; c=relaxed/simple;
-	bh=YyqUHAQufPap2wIBxW8yQO0iBXCogrSPdJZUjddL2yE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Ca8dkdEZYm2AH71VUF+M/9zTqrneY7YZY6zftAQe6gh57W7+ege44xBE98HbeWn7opc/7Y7Azdx2sChPwfApnucj6xbcsRUYmYsKY4oiNPco6oME7iuSbXMgRcffqaRWvKTZ0W3CXsDBi+7x22wNYUb2pbj/uNTKFtXm4fsKpGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ntIK7684; arc=none smtp.client-ip=74.125.228.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784659166; c=relaxed/simple;
+	bh=SpL6pNXNjIZQPhHVGRwMfU0PIMN7yYLGQCa0YhokbTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u2d3r2hwNjZvYb3wCs9eOgNQy0jRKib/4Tsk9K9NghmNcYSKZgOIxItmJHmCmU0NtKPnvdbDBL1Y5LJBFDT35RsYnGt6Rj1sCwxDkcybto/lGA4OH2m3xI7s/YSbA/VEirMpx/F0g9+sDgWfZH+HDUE/nZFH7JBkwCpvAKs7dcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tPjGOT68; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ntIK7684"
-Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-ca7a25cd87dso7029206a12.1
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:39:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784659163; x=1785263963; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=dD0DYUkH4io7g5v9/QnwJ9sas0tI0cyqhrv35uBUJNY=;
-        b=ntIK7684UqUgBSPRZlsCYZhuL8NBr4U9hCECsPEZbSOQg7bqEO9M0n7iBpJEROgLup
-         Fku9KmUKBgwN33KoXWARvF3TRQllhwF6VRNrAw8VLVFWiuzu7wFlDQ0R5ywQWrXpJdIt
-         +/Ev7bHCklEBhcZfqfhIdoaRUlbFGMQjzZIFGaiukt6AtmB7Hb42TSY+FesqKj4GgDQL
-         WJvN5Up7eFPOZ/057gnUnR+aXxwUZii6TAKQEE+0UDGrZ2PeTiVT1fSOZRZLexyKsZMH
-         SiqdWxSPsy3Sf1oejW5Ny4qp9Riu9fGYS3bhkqaGQzMbyxFSS3qa/0K3FwPuJPLSdGAa
-         5eQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784659163; x=1785263963;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dD0DYUkH4io7g5v9/QnwJ9sas0tI0cyqhrv35uBUJNY=;
-        b=jk9lQU45CJcphegb92pAaHmfY+Y1HxeaNg0VbNlzUq73lF7mY2ZjdrivL3DtFD+els
-         iSKzMaSw+Ayekz2+pUzfdKvn0XBX0MSuMM4a75jS8BXHbn+xU+GPHHOLKxu6GoE7IK7N
-         bu/cvYggkYE5EiQOxdktNq6bgOOCTLz+0e6vGaaMA3H+PvlMyZueUyuBh94K8faLU3Zo
-         Y2sRp6ndKcArxJjYc3o3/TItp5qfGTqAWUxHSzLPpcxGG+4Cht6JH/ukhHUnneSelyBa
-         b89W8XmGu8E970W83S87XEC6QnGWKz7vhQKGyP9nNBA/VrhScLmmpGA+IHylf1fO5yuc
-         nF7A==
-X-Forwarded-Encrypted: i=1; AHgh+RqfkI+xlU4Jjfe9t66cqlmEJ1plVD9eKZ1khH4ukFfdOus7xpyTz/RMOROAsjMReZ3UJeaoEC8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxoIT/Ks4KGEE41xiAvp6F6jsgpOLAgWxPmZBm7egk0/dd44MJ
-	4vqR5mUCsIMyXlz3JnXFQPz5LRHgVDYk5rp3w4lNgvRhdwiyQ6ogMfPe
-X-Gm-Gg: AR+sD135m60MfAKxppRIL5rUGS+tw6FaTjgz0cQg97LuxzdWSI3wRSxyY0WZvjvur/Y
-	2b9zRBVU9eiK+nQyq+HmTCpy6wkJCqVPWjNXi0QYs0ZBsqgGLiv2uqSzq3dhVnGkVogKXmcyPDM
-	UTFw4V18gwDaGJJeggsvMdMz6iWdYCBMosGRBGSUuCnVDo5EAaKjrawqkOZnscnu/nb8s3b685P
-	VMPaNesHhVdL4dGqNWXj1/4fsbkTBCqj4XA3lnHECBe4BznsGDJm4zV9yx8wkTjiENqV0KkWEwH
-	tv+gwEI/hGiUfWJh8DBbcP6qhvIp91aN/nXocHHLRWbOZ5jNyJsmMpxeHCzbgWibMfxgp1UGaMv
-	EiF2Ahdx1y/Xfet6NIqURXZ8HND4pGf/QWFgafnTZVRZOvbxt4JqrxPwbIGqEgos/qepZokY=
-X-Received: by 2002:a05:6a00:9517:b0:848:2f77:e2dc with SMTP id d2e1a72fcca58-84c2952d1ddmr19433753b3a.69.1784659163088;
-        Tue, 21 Jul 2026 11:39:23 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2401:5a0:1000:10:233::14])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17604d76sm125835b3a.61.2026.07.21.11.39.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 11:39:22 -0700 (PDT)
-Date: Wed, 22 Jul 2026 02:39:18 +0800
-From: Coia Prant <coiaprant@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Jakub Kicinski <kuba@kernel.org>
-CC: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: pcs: xpcs-plat: fix runtime PM initialization
-User-Agent: K-9 Mail for Android
-In-Reply-To: <c666a262-579c-4e23-9172-c35fc9b3f3c5@bootlin.com>
-References: <20260704214808.1566710-1-coiaprant@gmail.com> <20260720172433.77b83dc7@kernel.org> <7BA9366A-3243-4A46-BA8F-BB170C8AD912@gmail.com> <20260721064910.217a6af7@kernel.org> <c666a262-579c-4e23-9172-c35fc9b3f3c5@bootlin.com>
-Message-ID: <AE3574FD-4B74-411B-9213-1B95EB6BF3F2@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tPjGOT68"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D139C1F00A3A;
+	Tue, 21 Jul 2026 18:39:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784659165;
+	bh=MeRjmkCeSalinDUnaobspCMKL4eAl6ybDUaZDxQ6OxU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=tPjGOT689dnoO5nlvp7SljVx6hqM3+nmj6LXaUpo5tS+XM9qCS8qodAHb7zI8TVzh
+	 dC6lnDOg8lq2QuF+jATrdKUmo+f15PglBAS68YYpLT9Ytxtsz/Cm2tOY6pSXiTkEUF
+	 mawLtZ9bfJ1zQCIizq7ZSerErQdH7Ty60+oTSsVI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 6.18 1418/1611] net/sched: sch_teql: move rcu_read_lock()/spin_lock() from _bh variants
+Date: Tue, 21 Jul 2026 17:25:34 +0200
+Message-ID: <20260721152547.333011709@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
+References: <20260721152514.750365251@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On July 21, 2026 11:00:23 PM GMT+08:00, Maxime Chevallier <maxime=2Echevall=
-ier@bootlin=2Ecom> wrote:
->
->>> 3=2E Should we add a =2Eremove callback to force suspend the device on
->>>    unbind? Otherwise the clock might remain enabled if the driver is
->>>    removed while active=2E
->>=20
->> Embedded experts would have to chime in on this one=2E AFAIK this is a =
-bit
->> of a gray area=2E Some users may want the link to stay up, eg to allow
->> WoL or avoid link training, maybe?
->
->Avoiding link flaps/training is mostly a concern at boot time if the
->bootloader set everything up beforehand, but I'd say for unbinding,
->this should be OK and would mirror the probe=2E
->
->Maxime
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Hi Maxime,
+------------------
 
-Thanks for the feedback on the =2Eremove callback =E2=80=94 I'll include i=
-t in
-the next version=2E
+From: Jamal Hadi Salim <jhs@mojatatu.com>
 
-One more question regarding PM dependency: the current pcs-xpcs-plat
-driver uses runtime PM to manage the CSR clock, but the driver works
-fine without PM only if the platform doesn't have a CSR clock at all=2E
+commit 6301f6a34ed86fe6f3b7b3211ea069f3677fc559 upstream.
 
-On Rockchip, the CSR clock (PCLK_XPCS) is required for register access,
-and without PM enabled, the clock is never prepared/enabled, so the
-driver simply won't work=2E
+This is a followup based on sashiko comments [1] on commit e5b811fe7931
+("net/sched: sch_teql: Introduce slaves_lock to avoid race condition and UAF")
 
-That said, I think in practice, almost no one disables CONFIG_PM in
-their kernel builds these days =E2=80=94 it's enabled by default on most
-architectures=2E So forcing the dependency (e=2Eg=2E, `select PM` or
-`depends on PM`) wouldn't really hurt anyone, and it would ensure
-the driver works correctly on platforms that do need the clock=2E
+Use plain rcu_read_lock()/spin_lock() in teql_master_xmit() instead of the
+_bh variants, since ndo_start_xmit is already invoked with BH disabled
+by the core stack and the _bh primitives can warn in_hardirq() when xmit
+is reached through netpoll or a softirq xmit path with hard IRQs disabled.
 
-Do you think it's worth adding `select PM` in Kconfig for
-pcs-xpcs-plat, or should we just leave it as-is since PM is almost
-always already enabled anyway?
+Moves rcu_read_lock() after restart: label + adds rcu_read_unlock() before
+goto restart (fixes the unbounded RCU hold across retries)
 
-Thanks,
-Coia
+[1] https://sashiko.dev/#/patchset/20260628111229.669751-1-jhs%40mojatatu.com
+
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Fixes: e5b811fe7931 ("net/sched: sch_teql: Introduce slaves_lock to avoid race condition and UAF")
+Link: https://patch.msgid.link/20260630150922.238714-1-jhs@mojatatu.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/sched/sch_teql.c |   27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
+
+--- a/net/sched/sch_teql.c
++++ b/net/sched/sch_teql.c
+@@ -311,14 +311,14 @@ static netdev_tx_t teql_master_xmit(stru
+ 	int subq = skb_get_queue_mapping(skb);
+ 	struct sk_buff *skb_res = NULL;
+ 
+-	rcu_read_lock_bh();
+-
+-	start = rcu_dereference_bh(master->slaves);
+-
+ restart:
+ 	nores = 0;
+ 	busy = 0;
+ 
++	rcu_read_lock();
++
++	start = rcu_dereference(master->slaves);
++
+ 	q = start;
+ 	if (!q)
+ 		goto drop;
+@@ -345,17 +345,17 @@ restart:
+ 				    netdev_start_xmit(skb, slave, slave_txq, false) ==
+ 				    NETDEV_TX_OK) {
+ 					__netif_tx_unlock(slave_txq);
+-					spin_lock_bh(&master->slaves_lock);
++					spin_lock(&master->slaves_lock);
+ 					if (rcu_dereference_protected(master->slaves,
+ 								      lockdep_is_held(&master->slaves_lock)) == q)
+ 						rcu_assign_pointer(master->slaves,
+ 								   rcu_dereference_protected(NEXT_SLAVE(q),
+ 											     lockdep_is_held(&master->slaves_lock)));
+-					spin_unlock_bh(&master->slaves_lock);
++					spin_unlock(&master->slaves_lock);
+ 					netif_wake_queue(dev);
+ 					master->tx_packets++;
+ 					master->tx_bytes += length;
+-					rcu_read_unlock_bh();
++					rcu_read_unlock();
+ 					return NETDEV_TX_OK;
+ 				}
+ 				__netif_tx_unlock(slave_txq);
+@@ -364,37 +364,38 @@ restart:
+ 				busy = 1;
+ 			break;
+ 		case 1:
+-			spin_lock_bh(&master->slaves_lock);
++			spin_lock(&master->slaves_lock);
+ 			if (rcu_dereference_protected(master->slaves,
+ 						      lockdep_is_held(&master->slaves_lock)) == q)
+ 				rcu_assign_pointer(master->slaves,
+ 						   rcu_dereference_protected(NEXT_SLAVE(q),
+ 									     lockdep_is_held(&master->slaves_lock)));
+-			spin_unlock_bh(&master->slaves_lock);
+-			rcu_read_unlock_bh();
++			spin_unlock(&master->slaves_lock);
++			rcu_read_unlock();
+ 			return NETDEV_TX_OK;
+ 		default:
+ 			nores = 1;
+ 			break;
+ 		}
+ 		__skb_pull(skb, skb_network_offset(skb));
+-	} while ((q = rcu_dereference_bh(NEXT_SLAVE(q))) != start);
++	} while ((q = rcu_dereference(NEXT_SLAVE(q))) != start);
+ 
+ 	if (nores && skb_res == NULL) {
+ 		skb_res = skb;
++		rcu_read_unlock();
+ 		goto restart;
+ 	}
+ 
+ 	if (busy) {
+ 		netif_stop_queue(dev);
+-		rcu_read_unlock_bh();
++		rcu_read_unlock();
+ 		return NETDEV_TX_BUSY;
+ 	}
+ 	master->tx_errors++;
+ 
+ drop:
+ 	master->tx_dropped++;
+-	rcu_read_unlock_bh();
++	rcu_read_unlock();
+ 	dev_kfree_skb(skb);
+ 	return NETDEV_TX_OK;
+ }
+
+
