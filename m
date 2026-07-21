@@ -1,175 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B873BB680;
-	Tue, 21 Jul 2026 10:05:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD29F3CA493;
+	Tue, 21 Jul 2026 10:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784628349; cv=none; b=MVmf8ZlWmYkiPWEzi0V1seOPRBIorgiiyW8N959KWZ+0G728r+Mg7//AnEQgQtwhqk1JEOClvRwnd4E/6GntgueKJpL0utXeWXoUaZs6KROsjXPcNH62RQw1+XLrUj99VqXjsEARkgTV8HnRykVKw9mL2/PELc5jZeFVgutYitQ=
+	t=1784628548; cv=none; b=PKxqP/+4c6GgeY1JjHY6pv4PwhD3lYGo3YxEwo3vMTJUGracEx+iFDV2OhNB6+PvDhY8es5nKquC11vB4po+E/+JbVLZDDnmQ4g49GCCCfbzU/NlRNuLAulu3T1wPqCtLZ4X/+vGDu1xbAzcigzY0d7FBqXj7klGA9xAZgxCf8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784628349; c=relaxed/simple;
-	bh=NFhyskmRZPHldhrwwIzXa5ek/HEJ3Bg4EVvNXIK9xzU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GehXvojQuw1SGHOK6ByzmMPwwCQi852vnOKFrhVb+f0b3GzytL+WM0cRyZvSA4Oc0nSg6RaFwz0oEli+9BnuRtM+v/UtIrrsk7KNjbWtEQCeWAtOv6WTsboBAgojPVss68jzgFsg+yXLc/OfgqblW35J3UsxeapLcOK0u4U+T54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Id+EDO2F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784628548; c=relaxed/simple;
+	bh=BfGVnvLylOR1ukv19F3xDAtbizuM3JaHDvahSFlKH8w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U23Z8cBf+ARx2Y/sN9J3RjpPBozvCn8Qx9HCeZjLzFKa6V1XSpKFS7sZpTMW0xo2AhwylbugtwnTtLsORibbFlfYORAs3OQJ/xka9ovZkW5bpUtQ2SdKQPb1MrRYIbHsnX887IS+Ji9KhI4tXZ1GVNuoeCejju7AlMpEXoLs6TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfFcQbR1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Id+EDO2F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0BAA1F000E9;
-	Tue, 21 Jul 2026 10:05:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfFcQbR1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0F71F00A3D;
+	Tue, 21 Jul 2026 10:09:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784628348;
-	bh=eBBmPaMF2me330caw3najNlvU5OLEQJLv5nTlPJ9018=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Id+EDO2FTbKNxAswXaewsqA6pVfNpMaxyh1obnhv946ZrN66ZCIdW2hq24TrlZsT7
-	 vALVtQARYTsxs3gjsr6xCBXEYRFMN3MCZ4abvNwearAkA2VjfDwB2sIsXD0Gxlyzs6
-	 JjCkwWiBp8mHNJKHO3/bV9oAjKCUr554unjA89EHGa1pQfQ05JSFvNdMUEERbw9dOB
-	 ur4JetVhM9o1yubKDLZ4zHysRzzJoHBD+6L8cHvbZkozbN9EsPTxd/MApLwL7rOdJJ
-	 +8Bm99CHOfOeDwMBQRkZs/U0pe/05k23eSpX+ym8kGb74Ux6Fn2eK/+VLzNAoiXgQB
-	 RhDAtqWo/gPKA==
-Date: Tue, 21 Jul 2026 12:05:45 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Matt Fleming <matt@readmodwrite.com>
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@toke.dk>,
-	bpf@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org,
-	kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH bpf v2] veth: convert frag_list skbs before running XDP
-Message-ID: <al9EeXMW9Mi-YDZZ@lore-desk>
-References: <20260720140545.461747-1-matt@readmodwrite.com>
+	s=k20260515; t=1784628546;
+	bh=HhgiFT7gO89ZbsoBF977sX4zSyifCWX/9pr2xPYrWr8=;
+	h=From:To:Cc:Subject:Date;
+	b=dfFcQbR1u/TdFv+tY8MlY9H7YDBQJaV5W8E4oIz4qNkMOVVKJiXONvo87Dvecag0S
+	 QCsF6+gLgGAATS2Vka9Y8U13kG39TPBfME96ic7LHtwSkkuv/FpyDakq0ssUqyzYfO
+	 kzKcxru4YGETZLSYs/J958X6/iaX0rhNEJwga0n4PJFnFT/YrF9sRp1YP+7X9hOwni
+	 40l5VC+n82c+sRlZo2NHFf/GnRrGoDfy5oVXf5YhTIvqs4CVGDvV9qsMD8iBYeUVi3
+	 sb/2cZBspZi50pxT4vUIM79ZdphD/yLwYLspdQLWWY4F780fwDnP9zu3asvuDNNNxN
+	 74k8nqmqY7giA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [PATCH] exec: fix unsigned loop counter wrap in transfer_args_to_stack()
+Date: Tue, 21 Jul 2026 12:08:49 +0200
+Message-ID: <20260721-hochachtung-staumauer-pigmente-15d71f7d7d04@brauner>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VfY0+0HuWFiEeolm"
-Content-Disposition: inline
-In-Reply-To: <20260720140545.461747-1-matt@readmodwrite.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2999; i=brauner@kernel.org; h=from:subject:message-id; bh=BfGVnvLylOR1ukv19F3xDAtbizuM3JaHDvahSFlKH8w=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTFu5pnM/w/kBcX9SbY+PubiPnV+7x8rr7S7cpb43nM8 Mthj9O+HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABN5/JGR4Wrvu9/sk82/vp/6 beWPXXytMjv9P9pcPXTY5GmenYpM/iFGhu0iQveOWRmUfdJQOWl9v6Hf4q/N9OLMdU+UTu74ya/ 1lh8A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
---VfY0+0HuWFiEeolm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The stop value is derived from bprm->p >> PAGE_SHIFT. The index variable
+is an unsigned long. If bprm->p drops below PAGE_SIZE and stop becomes
+zero the loop condition index >= stop is always true.
 
-> From: Matt Fleming <mfleming@cloudflare.com>
->=20
-> A frag_list skb can reach veth with data_len set but nr_frags zero.
-> veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
-> locked, have frags[], or do not have enough headroom. It later uses
-> skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
-> xdp_frags_size.
->=20
-> That exposes frag_list data to XDP as if it were stored in frags[], but
-> frags[] is empty. AF_XDP copy mode can then trust the bogus XDP fragment
-> metadata, walk an empty fragment entry, and crash in memcpy() from
-> __xsk_rcv().
->=20
-> Route non-linear skbs through skb_pp_cow_data() before exposing them to
-> XDP, and only advertise XDP frags when the resulting skb has frags[].
-> skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
-> builds frags[] output with skb_add_rx_frag(), which is the
-> representation XDP multi-buffer expects.
->=20
-> Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept no=
-n-linear skb")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+After the index == 0 iteration the decrement wraps to ULONG_MAX and
+bprm->page[ULONG_MAX] reads sizeof(void *) bytes in front of the array.
+The pointer has wrapped to -1. That garbage pointer is then passed to
+kmap_local_page() and PAGE_SIZE bytes are copied from wherever that
+lands into the stack of the process being created. And the loop doesn't
+terminate either...
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+Getting there only requires bprm->p < PAGE_SIZE. On !MMU
+bprm_set_stack_limit() and bprm_hit_stack_limit() are empty. So the only
+constraint on how far bprm->p is pushed down is valid_arg_len(), i.e.
+that each individual string still fits in what is left.
 
-> ---
-> Changes in v2:
-> - Use skb_is_nonlinear() in veth_convert_skb_to_xdp_buff().
-> - Move the skb_pp_cow_data() comment into kerneldoc.
->=20
->  drivers/net/veth.c |  4 ++--
->  net/core/skbuff.c  | 16 ++++++++++------
->  2 files changed, 12 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 1c5142149175..00e34afd858e 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -756,7 +756,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_r=
-q *rq,
->  	u32 frame_sz;
-> =20
->  	if (skb_shared(skb) || skb_head_is_locked(skb) ||
-> -	    skb_shinfo(skb)->nr_frags ||
-> +	    skb_is_nonlinear(skb) ||
->  	    skb_headroom(skb) < XDP_PACKET_HEADROOM) {
->  		if (skb_pp_cow_data(rq->page_pool, pskb, XDP_PACKET_HEADROOM))
->  			goto drop;
-> @@ -771,7 +771,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_r=
-q *rq,
->  	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
->  			 skb_headlen(skb), true);
-> =20
-> -	if (skb_is_nonlinear(skb)) {
-> +	if (skb_shinfo(skb)->nr_frags) {
->  		skb_shinfo(skb)->xdp_frags_size =3D skb->data_len;
->  		xdp_buff_set_frags_flag(xdp);
->  	} else {
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 18dabb4e9cfa..66f57131633a 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -927,6 +927,16 @@ static void skb_clone_fraglist(struct sk_buff *skb)
->  		skb_get(list);
->  }
-> =20
-> +/**
-> + * skb_pp_cow_data() - copy skb data into page-pool backed storage
-> + * @pool: page pool to allocate from
-> + * @pskb: pointer to skb pointer, replaced with the copied skb on success
-> + * @headroom: headroom to reserve in the copied skb
-> + *
-> + * skb_copy_bits() handles both frags[] and frag_list input. If the copi=
-ed
-> + * skb remains non-linear, it uses frags[], which is the representation =
-used
-> + * by XDP multi-buffer.
-> + */
->  int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
->  		    unsigned int headroom)
->  {
-> @@ -936,12 +946,6 @@ int skb_pp_cow_data(struct page_pool *pool, struct s=
-k_buff **pskb,
->  	int err, i, head_off;
->  	void *data;
-> =20
-> -	/* XDP does not support fraglist so we need to linearize
-> -	 * the skb.
-> -	 */
-> -	if (skb_has_frag_list(skb))
-> -		return -EOPNOTSUPP;
-> -
->  	max_head_size =3D SKB_WITH_OVERHEAD(PAGE_SIZE - headroom);
->  	if (skb->len > max_head_size + MAX_SKB_FRAGS * PAGE_SIZE)
->  		return -ENOMEM;
-> --=20
-> 2.43.0
->=20
+bprm->p starts at PAGE_SIZE * MAX_ARG_PAGES - sizeof(void *) so a
+single argument or environment string of a little over 31 pages leaves
+it in the first page:
 
---VfY0+0HuWFiEeolm
-Content-Type: application/pgp-signature; name=signature.asc
+  Oops - load access fault [#1]
+  CPU: 0 UID: 0 PID: 1 Comm: victim Not tainted 7.2.0-rc4 #1
+  epc : __memcpy+0xd4/0xf8
+   ra : transfer_args_to_stack+0xaa/0xae
+   s4 : ffffffffffffffff   s2 : 0000000000000000
+   a1 : ffffffdc98000000   a2 : 0000000000001000
+  status: 0000000a00001880 badaddr: ffffffdc98000000 cause: 0000000000000005
+  [<801a5324>] __memcpy+0xd4/0xf8
+  [<800d5f6a>] load_flat_binary+0x43a/0x65e
+  [<800a2de4>] bprm_execve+0x1d4/0x316
+  [<800a351a>] do_execveat_common+0x12e/0x138
+  [<800a3d44>] __riscv_sys_execve+0x38/0x4e
+  Kernel panic - not syncing: Fatal exception in interrupt
 
------BEGIN PGP SIGNATURE-----
+This is an arcane bug but we should still fix it.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCal9EeQAKCRA6cBh0uS2t
-rD64APwOVWC3bpQjfLEbGW15cSNK2rrmlYql0WRyioHpf0VPAwD+PQ8cyFnSbszt
-pjeKVOPsqPoDKwuVoBVLeR+MUy+GiAk=
-=Nvpn
------END PGP SIGNATURE-----
+Count down from MAX_ARG_PAGES so the loop ends when index reaches stop,
+stop == 0 included. The iterations performed are unchanged for every
+other value of stop.
 
---VfY0+0HuWFiEeolm--
+Only CONFIG_MMU=n builds are affected, transfer_args_to_stack() is used
+by binfmt_flat and binfmt_elf_fdpic on nommu only.
+
+The loop predates git history. commit 7e7ec6a93434
+("elf_fdpic_transfer_args_to_stack(): make it generic") only moved it
+from binfmt_elf_fdpic.c into fs/exec.c and narrowed the copy to the used
+part of the first page. The condition and the decrement are unchanged
+from 2.6.12-rc2.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/exec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/exec.c b/fs/exec.c
+index d5993cedc829..c7b8f2d6366c 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -740,7 +740,7 @@ int transfer_args_to_stack(struct linux_binprm *bprm,
+ 	stop = bprm->p >> PAGE_SHIFT;
+ 	sp = *sp_location;
+ 
+-	for (index = MAX_ARG_PAGES - 1; index >= stop; index--) {
++	for (index = MAX_ARG_PAGES; index-- > stop; ) {
+ 		unsigned int offset = index == stop ? bprm->p & ~PAGE_MASK : 0;
+ 		char *src = kmap_local_page(bprm->page[index]) + offset;
+ 		sp -= PAGE_SIZE - offset;
+-- 
+2.53.0
+
