@@ -1,50 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429FF3403F7
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A43A481FB4
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:47:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784634440; cv=none; b=YfjAwMF0W2fYZPcQU03pA8t1I13fNi9PJoqo3esaCW/ijlxeLnqniItemgKM/74E43iQzkC5DaknFOHXCeRyHH/+B0MGliNWPH/NuD6ucBpuN9bwY0q4b7HB67qHlPzNDCTz1By9L6QbyXPPOY6VN42A1hWJHR6HvIFl/+fijI4=
+	t=1784634461; cv=none; b=OmpqlS0yu6oipDPYBYmvT/moQc7qpbpsd8ARAKkz/1hDm8bjPdzCdye6QxhUwACvd7q+gdnBLVKAXNrCrsvtg9OfQzd4kO5L1Zuu3SKqtruX2UTUqaMJe03TbXwRKwmD/pJ4S4CY+lXorEU/iU23u6raJhDQP+/qB1yeWwnuW+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784634440; c=relaxed/simple;
-	bh=iu2008KtTD6wYz2FqtsfzcK/MYVkN/IBbDovKW9lajQ=;
+	s=arc-20240116; t=1784634461; c=relaxed/simple;
+	bh=YAwXnRhfCVGVQQq245GJOsN1ODPd86RUs7XQIdmi3dI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J5mY+LTxgLjmvjPp1EoRvbntgmgq2lGNDPtlerth4taPqRASVmcgUlMorsMIA6ZaB5+n6dC+W+uM3wsTBflmDbAXIWC5tigPpveZAg8XKo1RqtQcABcbWhQqbIvUnZf687mIlqE0Bu1OFK2INE58hwkoqtAn+Hz4mPll6vCO2nA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iT1arrRD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tfNd/21Dix9NlQKih9vUIaePEmp47R4tITsv51kmE+7k8r2G2XZNM8tYE/ZSrXnuSGLH6ENApGXLTdQBcP4cx05xvPEX1NeK+BhhLSvV0szQGCAkUZx1fTUkt5fpygzpdaBoYsgIEQVngxItL7wnBLzf1TdNhXAshA8Gqg9Fmc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RoZ+Kg3T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iT1arrRD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21281F000E9;
-	Tue, 21 Jul 2026 11:47:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RoZ+Kg3T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A7D1F00A3A;
+	Tue, 21 Jul 2026 11:47:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784634439;
-	bh=SJHAP7klLEoMhjzewv4T7lofXfU8p3UkLBv6dqHza/g=;
+	s=k20260515; t=1784634460;
+	bh=vLcAyRrO3i67Spw0hvPYhpUh272b9OI5XcHo+H5v9QU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iT1arrRD0aA1ohDIDjOkRbm9uK9YNdBTccKLL+d41roNVpRp1HPs7i+4e24zw54r5
-	 zXHy8Ne6XL+MKi7fN9GPYVXMq4EO0jhQXmKkbd6APVB5pR8S1RG4TVL7fNFyc6TAFr
-	 iwL8jM3I/DJRkWXIBtM6O2vXfMtSfTfDES2u0dlLya1HAmp9WQfvvnSPIZ3JyGuDdE
-	 CejHDEr7iOXmrvWAkQ2UisykysIdSUAGtaGPsVUff3uKUexlgWOlIwVcLyaJ4oruOy
-	 EYKk/waBZKtc260bQeglQ0/nORQAzQCHpJx8/2DGxTrQcQ59CaJMhc7lly6N4WwhR8
-	 Rsh1abEemJmJg==
+	b=RoZ+Kg3T3CVkePawR78FM4W5DRVpixTA8oL54IDnXfvkW3+CGzZBQwM6KwuVH+AUw
+	 ILMcxE1mzwsn9xjAl4I7YONjWOIbAw5YniRw+CZ1U7CYLd8Xmy+3dQn1UDZoiWHwSW
+	 u++vTomfqPK8bT1hRIAuhR48Ctq9o6NcrAYD6b8EB+LnIfg9QhzRhdF/bE/tuMngqN
+	 xmIR9yjumEXa3PrHsny3oiFUsEANNkRNMjj8+83RLvBbkzmi0OcJjE2U64T5bZ30NV
+	 6IKNVxUOPaq7wEjIqfpfVjHrBt5RkGL3s8IpB1gq1WldWkOTkaPu7fYXlOwLrcN596
+	 e9Z8Zb1bsG2GA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pedro Falcato <pfalcato@suse.de>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm: do file ownership checks with the proper mount idmap
-Date: Tue, 21 Jul 2026 07:47:16 -0400
-Message-ID: <20260721114716.3688887-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] regulator: scmi: fix of_node refcount leak in scmi_regulator_probe()
+Date: Tue, 21 Jul 2026 07:47:38 -0400
+Message-ID: <20260721114738.3689493-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071511-chastise-overplay-bd0a@gregkh>
-References: <2026071511-chastise-overplay-bd0a@gregkh>
+In-Reply-To: <2026071525-curtly-mothproof-9d7c@gregkh>
+References: <2026071525-curtly-mothproof-9d7c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,112 +45,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pedro Falcato <pfalcato@suse.de>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit e187bc02f8fa4226d62814592cf064ee4557c470 ]
+[ Upstream commit fa11039d6cdff84584a3ef8cc1f5e1b56e045da2 ]
 
-Ever since idmapped mounts were introduced, inode ownership checks (for
-side-channel protection) in mincore() and madvise(MADV_PAGEOUT) were done
-against the nop_mnt_idmap, which completely ignores the file's mount's
-idmap.  This results in odd edgecases like:
+scmi_regulator_probe() calls of_find_node_by_name() which takes a
+reference on the returned device node. On the error path where
+process_scmi_regulator_of_node() fails, the function returns without
+calling of_node_put() on the child node, leaking the reference.
 
-1) mount/bind-mount with an idmap userA:userB:1
-2) userB runs an owner_or_capable() check on file that is owned by userA
-on-disk/in-memory, but owned by userB after idmap translation
-3) owner_or_capable() mysteriously fails as the correct idmap wasn't supplied
+Add of_node_put(np) on the error path to properly release the
+reference.
 
-In the case of mincore/madvise MADV_PAGEOUT, this is usually benign,
-because file_permission(file, MAY_WRITE) will probably succeed, as it uses
-the proper idmap internally, but it does not need to be the case on e.g a
-0444 file where even the owner itself doesn't have permissions to write to
-it.
-
-Since this is clearly not trivial to get right, introduce a
-file_owner_or_capable() that can carry the correct semantics, and switch
-the various users in mm to it.
-
-The issue was found by manual code inspection & an off-list discussion
-with Jan Kara.
-
-Link: https://lore.kernel.org/20260625153853.913949-1-pfalcato@suse.de
-Fixes: 9caccd41541a ("fs: introduce MOUNT_ATTR_IDMAP")
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ dropped const from file_owner_or_capable()'s parameter since 6.6's file_mnt_idmap() takes a non-const struct file * ]
+Cc: stable@vger.kernel.org
+Fixes: 0fbeae70ee7c ("regulator: add SCMI driver")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260527104850.872415-1-vulab@iscas.ac.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ kept the existing of_node_put(child) since 5.15 still uses the non-scoped for_each_child_of_node() loop, only adding the new of_node_put(np) line ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/fs.h | 5 +++++
- mm/filemap.c       | 2 +-
- mm/madvise.c       | 3 +--
- mm/mincore.c       | 3 +--
- 4 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/regulator/scmi-regulator.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 5a897ee50f29cf..e6b2e2749e3791 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2481,6 +2481,11 @@ static inline struct mnt_idmap *file_mnt_idmap(struct file *file)
- 	return mnt_idmap(file->f_path.mnt);
- }
- 
-+static inline bool file_owner_or_capable(struct file *file)
-+{
-+	return inode_owner_or_capable(file_mnt_idmap(file), file_inode(file));
-+}
-+
- /**
-  * is_idmapped_mnt - check whether a mount is mapped
-  * @mnt: the mount to check
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 7416868d044913..5a340cad44ed41 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -4314,7 +4314,7 @@ static inline bool can_do_cachestat(struct file *f)
- {
- 	if (f->f_mode & FMODE_WRITE)
- 		return true;
--	if (inode_owner_or_capable(file_mnt_idmap(f), file_inode(f)))
-+	if (file_owner_or_capable(f))
- 		return true;
- 	return file_permission(f, MAY_WRITE) == 0;
- }
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 3d6370d3199f31..73ea053c9003ab 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -334,8 +334,7 @@ static inline bool can_do_file_pageout(struct vm_area_struct *vma)
- 	 * otherwise we'd be including shared non-exclusive mappings, which
- 	 * opens a side channel.
- 	 */
--	return inode_owner_or_capable(&nop_mnt_idmap,
--				      file_inode(vma->vm_file)) ||
-+	return file_owner_or_capable(vma->vm_file) ||
- 	       file_permission(vma->vm_file, MAY_WRITE) == 0;
- }
- 
-diff --git a/mm/mincore.c b/mm/mincore.c
-index dad3622cc963e8..2a55eed792b647 100644
---- a/mm/mincore.c
-+++ b/mm/mincore.c
-@@ -167,8 +167,7 @@ static inline bool can_do_mincore(struct vm_area_struct *vma)
- 	 * for writing; otherwise we'd be including shared non-exclusive
- 	 * mappings, which opens a side channel.
- 	 */
--	return inode_owner_or_capable(&nop_mnt_idmap,
--				      file_inode(vma->vm_file)) ||
-+	return file_owner_or_capable(vma->vm_file) ||
- 	       file_permission(vma->vm_file, MAY_WRITE) == 0;
- }
- 
+diff --git a/drivers/regulator/scmi-regulator.c b/drivers/regulator/scmi-regulator.c
+index 7c0d29c7856bb6..3fdc5130523e3b 100644
+--- a/drivers/regulator/scmi-regulator.c
++++ b/drivers/regulator/scmi-regulator.c
+@@ -350,6 +350,7 @@ static int scmi_regulator_probe(struct scmi_device *sdev)
+ 		/* abort on any mem issue */
+ 		if (ret == -ENOMEM) {
+ 			of_node_put(child);
++			of_node_put(np);
+ 			return ret;
+ 		}
+ 	}
 -- 
 2.53.0
 
