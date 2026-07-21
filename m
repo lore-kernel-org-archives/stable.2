@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5492D471271
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:28:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21D8415F3C;
+	Tue, 21 Jul 2026 18:28:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784658483; cv=none; b=mKB9m4Os/q1Y96eTBLJgI/LSBqmOZzULANsBPqhchhDRUoW4+hNajWRmRZY136+pvACkFGDbfCaSdygIbOABxv0pq1j/ueucI+pFGmx2r0pHLjn+zdpRKEhrfrVWl2T0eO1BmxRfFEPlM6XgKbkQlbSPe0bQ1Y2gvnk84MRSXEQ=
+	t=1784658484; cv=none; b=ZJBgUg17wv2/XE7LP5dyL3ZPoWA/IBdWK30K6UndMubRxUY/rAfo3dk02S4W8IczLBC2KGuCq0ffSzlpkU9TWDkIn9t8Frvy9wVsJIaYAL1AonIvAnNih57I1Y0VHr+DLFqP8r3/jk4L1tn17Ff5J0WMvpTjuMq1A4Kxknn2GiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784658483; c=relaxed/simple;
-	bh=1+4oDfuamLa6fmUIbHdVv4PGf3/tBJhyDcW1+EEeUYc=;
+	s=arc-20240116; t=1784658484; c=relaxed/simple;
+	bh=vAFAGMKdIRUc8vXdvuUbY6t1of1A1eu9VHp/dBqoxs4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=usCOjaSBL/Z+/XK/w145PJhldNHc7J3bimOa/tuVTethC+OlqTiYZfVhiLg2tnZGYEob+NpEJaM0hSnVTSC8Y2yTnc06e+TNdoU5ihjWfbXoVv7uJns4nEpKoV0jSkoiJ63mLypaaaxRQqP1iagwq2l6/SXkCOlVQUU4+CgVY34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVBIs073; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HHNG2gt/SjCyGdsjmw1y2yCbKyw/KKhPYJ7PoyZBxeATXjj90s1psEx1LZO7O0qq7cqy+FumkMDLZPuIGRikpVqvJt/9eFDNnRVWAif8MVC0ANSXG6yBFj0qer36/wGQxz9QRTo6Ogbin7/uaT7xI2xzYmNqyluBlngK71vZhl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RRPvlNVn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVBIs073"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4061F000E9;
-	Tue, 21 Jul 2026 18:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784658481;
-	bh=7PnnmfXtAdUQsi7QOPDjTl/FdZ2RGdVypRtxrkeecfM=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RRPvlNVn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B481F00A3D;
+	Tue, 21 Jul 2026 18:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784658481;
+	bh=6w1DVeKA8zNRni0J6Va6E08DC7S64L5ylLJOflGp/M0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dVBIs073G+bCWRruBnhjGZzv+dqh/nZVixxL9exmR7Kerv6OaEfV/DYX9zcuxhWNB
-	 rjzDy1L/yV3mE+lwWOZruF5WhaN7diTXA02U4wkkFwqJT4wEH+o8P1FzDPa+apZeTu
-	 nbU5nlvOyY94kh3m11Pcv6K6tHCQPoD4K+jOmfcvWNfZD1p9lpI6EIRpBB6pOzipDU
-	 rUSbUnUQPjvdd5WT5r69nWSTnadYkYwRTSLjC4h7eHENJ3TH41ZhBz0kpySOB6nPpn
-	 e0MQ7j5UTIt53IJziGwEGe1rsRLVhUGLvmSY3cT60WZNyy0WWh+diYsoAdqUEqoWGP
-	 SjPkrM+XO2FxA==
-From: Sasha Levin <sashal@kernel.org>
+	b=RRPvlNVn69AtmB37MfDoN6+xaKKW9VFqNqmOour7JbJ8GqjcgDJsEfUMX5fn3KEwE
+	 RbMxMb3mdCbFTQDwl+qI90nzbj8TZDu9RJhBAYXOwLX2YEFAgnXtwsGKUj0FdOKEDx
+	 iJGaJdPgWxQH+R2DXgdyArTbCC3EoxRkwDiAEny8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Phil Reid <preid@electromag.com.au>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] i2c: core: fix hang on adapter registration failure
-Date: Tue, 21 Jul 2026 14:27:56 -0400
-Message-ID: <20260721182758.332454-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721182758.332454-1-sashal@kernel.org>
-References: <2026071636-amusing-conduit-3c6b@gregkh>
- <20260721182758.332454-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	David Jander <david@protonic.nl>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Subject: [PATCH 6.18 1117/1611] ARM: dts: stm32: stm32mp15x-mecio1-io: Enable internal ADC reference
+Date: Tue, 21 Jul 2026 17:20:33 +0200
+Message-ID: <20260721152540.544912383@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
+References: <20260721152514.750365251@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,113 +47,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 3c7e164344e5bcf6f274bbf59a3274f5caad9bc1 ]
+------------------
 
-Clients may be registered from bus notifier callbacks when the adapter
-is registered. On a subsequent error during registration, the adapter
-references taken by such clients prevent the wait for the references to
-be released from ever completing.
+From: David Jander <david@protonic.nl>
 
-Fix this by refactoring client deregistration and deregistering also on
-late adapter registration failures.
+commit c84f22405085d91cd5f0c5b967318371c07904ba upstream.
 
-Fixes: f8756c67b3de ("i2c: core: call of_i2c_setup_smbus_alert in i2c_register_adapter")
-Cc: stable@vger.kernel.org	# 4.15
-Cc: Phil Reid <preid@electromag.com.au>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Stable-dep-of: 07d5fb537928 ("i2c: core: fix adapter debugfs creation")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Switch the ADC reference supply from the general 3.3V rail to the
+internal 2.5V VREFBUF regulator. The ADC circuits on this board are
+designed for the internal 2.5V reference. Without this change, all ADC
+measurement values are incorrect.
+
+Fixes: 8267753c891c ("ARM: dts: stm32: Add MECIO1 and MECT1S board variants")
+Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: David Jander <david@protonic.nl>
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: <stable@vger.kernel.org>
+Link: https://lore.kernel.org/r/20260318105123.819807-2-o.rempel@pengutronix.de
+Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/i2c/i2c-core-base.c | 49 ++++++++++++++++++++++---------------
- 1 file changed, 29 insertions(+), 20 deletions(-)
+ arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi |    9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 4b3bc72ef53ddf..14f09576bf5fc5 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -63,6 +63,7 @@
- static DEFINE_MUTEX(core_lock);
- static DEFINE_IDR(i2c_adapter_idr);
+--- a/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
+@@ -95,7 +95,7 @@
+ 	pinctrl-names = "default";
+ 	vdd-supply = <&v3v3>;
+ 	vdda-supply = <&v3v3>;
+-	vref-supply = <&v3v3>;
++	vref-supply = <&vrefbuf>;
+ 	status = "okay";
+ };
  
-+static void i2c_deregister_clients(struct i2c_adapter *adap);
- static int i2c_detect(struct i2c_adapter *adapter, struct i2c_driver *driver);
+@@ -362,6 +362,13 @@
+ 	phy-supply = <&v3v3>;
+ };
  
- static DEFINE_STATIC_KEY_FALSE(i2c_trace_msg_key);
-@@ -1595,6 +1596,7 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	return 0;
- 
- out_reg:
-+	i2c_deregister_clients(adap);
- 	debugfs_remove_recursive(adap->debugfs);
- 	init_completion(&adap->dev_released);
- 	device_unregister(&adap->dev);
-@@ -1738,29 +1740,10 @@ static int __process_removed_adapter(struct device_driver *d, void *data)
- 	return 0;
- }
- 
--/**
-- * i2c_del_adapter - unregister I2C adapter
-- * @adap: the adapter being unregistered
-- * Context: can sleep
-- *
-- * This unregisters an I2C adapter which was previously registered
-- * by @i2c_add_adapter or @i2c_add_numbered_adapter.
-- */
--void i2c_del_adapter(struct i2c_adapter *adap)
-+static void i2c_deregister_clients(struct i2c_adapter *adap)
- {
--	struct i2c_adapter *found;
- 	struct i2c_client *client, *next;
- 
--	/* First make sure that this adapter was ever added */
--	mutex_lock(&core_lock);
--	found = idr_find(&i2c_adapter_idr, adap->nr);
--	mutex_unlock(&core_lock);
--	if (found != adap) {
--		pr_debug("attempting to delete unregistered adapter [%s]\n", adap->name);
--		return;
--	}
--
--	i2c_acpi_remove_space_handler(adap);
- 	/* Tell drivers about this removal */
- 	mutex_lock(&core_lock);
- 	bus_for_each_drv(&i2c_bus_type, NULL, adap,
-@@ -1786,6 +1769,32 @@ void i2c_del_adapter(struct i2c_adapter *adap)
- 	 * them up properly, so we give them a chance to do that first. */
- 	device_for_each_child(&adap->dev, NULL, __unregister_client);
- 	device_for_each_child(&adap->dev, NULL, __unregister_dummy);
-+}
++&vrefbuf {
++	regulator-min-microvolt = <2500000>;
++	regulator-max-microvolt = <2500000>;
++	vdda-supply = <&v3v3>;
++	status = "okay";
++};
 +
-+/**
-+ * i2c_del_adapter - unregister I2C adapter
-+ * @adap: the adapter being unregistered
-+ * Context: can sleep
-+ *
-+ * This unregisters an I2C adapter which was previously registered
-+ * by @i2c_add_adapter or @i2c_add_numbered_adapter.
-+ */
-+void i2c_del_adapter(struct i2c_adapter *adap)
-+{
-+	struct i2c_adapter *found;
-+
-+	/* First make sure that this adapter was ever added */
-+	mutex_lock(&core_lock);
-+	found = idr_find(&i2c_adapter_idr, adap->nr);
-+	mutex_unlock(&core_lock);
-+	if (found != adap) {
-+		pr_debug("attempting to delete unregistered adapter [%s]\n", adap->name);
-+		return;
-+	}
-+
-+	i2c_acpi_remove_space_handler(adap);
-+
-+	i2c_deregister_clients(adap);
- 
- #ifdef CONFIG_I2C_COMPAT
- 	class_compat_remove_link(i2c_adapter_compat_class, &adap->dev,
--- 
-2.53.0
+ &pinctrl {
+ 	adc12_pins_mecsbc: adc12-ain-mecsbc-0 {
+ 		pins {
+
 
