@@ -1,99 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4AB2E736D;
-	Tue, 21 Jul 2026 17:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9E83368A5
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:23:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784654637; cv=none; b=IsJZMMgYB2A20A650wfMZ0gubL8OzdrdVH54BEIxkIpvaUw/xicgG4WYagJovCHhi+OA7lhh6Jkmbo8txHfhvi8iaDL9eAcDM3u8YKshDT+LKxbQwjeza17OC121k13W8xfydE8NYH4goiqoOSgPAkTTedzYN8omkRvBg1cmmlM=
+	t=1784654639; cv=none; b=eSn7ZIl+jdS3agQfhecL+4Q1/Qv7T6Vjoe4GjWvhaYof5tLY1Nupn7aFYhHNpwT5/6eLBCilPN3WRnoqi+AlHY2CrWUmpdvkozYuiGT4zymNSLlpexjtq8OvS9FumthuLf0JfOOdrX4rIW94o3FxvnhNzDQqFYrygp6JEedyyKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784654637; c=relaxed/simple;
-	bh=vuZfKRaS0Jrt3Jt0Z7bMDrluDsEu+L4XuewijMMobGM=;
+	s=arc-20240116; t=1784654639; c=relaxed/simple;
+	bh=YmM/biNNOwq+1WHYwUeepsVC8RUIUr0hVEt+fak1PmQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h75iMbZRznejgVJoj2aVmn/lVH5yJgF/rqBKkCHJgYIU5DOMQ47LYY0tUhYhu55u8+dEesuGQ4d1Wct/aqUm1C27fCEpYBxUUsDYRalOsy4yEEssdeD+nIJCWMAIEG72AZL0exC2+BSN1zMTL3gnwvNLjBsWCDz184ez25c2aiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=izrFIMN+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=c+X+ufDpjWQc6dEFADbk0hZ+owTTitgKgmmyME9dRZDfJ+ddLLWw/kOipKUktaEx78eB4crz3iDKXL+i5x9Sn33ZmsWJUwTXABxdJUxXk2MlRzu1vZrXxfkCqHLhlV34DCNgA26vD+Xe4/oZXQ5hKA2ZXyBkhnR2HJPkNExf7sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZ3E5riV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="izrFIMN+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828BA1F000E9;
-	Tue, 21 Jul 2026 17:23:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784654636;
-	bh=W5DIRbR42miRTgkH2zZ3KBMWKoaHibBFYOBYnbhgPpw=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZ3E5riV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60B01F00A3A;
+	Tue, 21 Jul 2026 17:23:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784654637;
+	bh=crpyBeM08QwflRDTH/AbCsNaitL5SlV0O5rHZkCpZ7E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=izrFIMN+wGV35jpuxQbK5OZqURDW4G2Q2AE+R+qW41XbAhXRg9TnoUwIMsKzHaPlX
-	 lRbH/loZfS459J5U3WHdrpBNzwHJjYLqym9EzCjae5vs71miGZ+WdLnIrBSeh9MlJo
-	 52/aAXspMiE3SI3LvxqEgnQBpMOh/RIXqD2iiC1I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=SZ3E5riVa5CBEEHRXlLaDoBPvhvZ+vhExH6xLNO6s4p4z8/BcdzZ6uIQIgSQwzw+u
+	 hAYXZqc1WHgcqthlY09f8J7ROCPolR4GVFiVY9MX8YVSQuaYnP9tMUQXgE0m4n4qLG
+	 VOIDLpRXKbyY9L68CZ9klMU3rbDXbNcP+x/DpXyfUr0N9SLkahT7nPqCV5MKdZpZjX
+	 26K2scvhYVUKs31KIbGprnO+SiIyPFT95wEoX5PvtOZiQIN1l/tsNPKsd6P2ekwwpq
+	 IYMPQj/QNXMmZDUMvDWmJCUh6Zu9LwHPEIoRRgeBKpdV27SH9oiaHYXyDUdEYO98Tp
+	 DlGTj8MXQStzA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 7.1 1780/2077] platform/x86: dell-laptop: fix missing cleanups in init error path
-Date: Tue, 21 Jul 2026 17:24:13 +0200
-Message-ID: <20260721152634.732537068@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Weinan Liu <wnliu@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Wei Wang <wei.w.wang@hotmail.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] iommu/amd: Don't split flush for amd_iommu_domain_flush_all()
+Date: Tue, 21 Jul 2026 13:23:54 -0400
+Message-ID: <20260721172354.120758-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071648-splendor-barracuda-1843@gregkh>
+References: <2026071648-splendor-barracuda-1843@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Weinan Liu <wnliu@google.com>
 
-------------------
+[ Upstream commit 69fe699afe1afcb730164b86c228483c2da05f94 ]
 
-From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+We have observed multiple full invalidations occurring during device
+detach when we are done using the vfio-device.
 
-commit 6e9cab2247e5b243ae2d907ce7c948a8a9c8d61a upstream.
+blocked_domain_attach_device()
+  -> detach_device()
+    -> amd_iommu_domain_flush_all()
+      -> amd_iommu_domain_flush_pages(..., CMD_INV_IOMMU_ALL_PAGES_ADDRESS)
 
-dell_init() initializes several resources after dell_setup_rfkill(),
-including the optional touchpad LED, keyboard backlight LED, battery
-hook, debugfs directory and dell-laptop notifier.
+      	while (size != 0) {
 
-If a later LED or backlight registration fails, the error path only
-tears down the battery hook and rfkill resources. This leaves the
-notifier, debugfs directory, keyboard backlight LED and optional
-touchpad LED registered after dell_init() returns an error.
+          -> __domain_flush_pages( flush_size /* power of 2 flush_size */)
+            -> domain_flush_pages_v1()
+              -> build_inv_iommu_pages()
+                -> build_inv_address()
 
-Add the missing cleanup calls before tearing down rfkill.
+         }
 
-Fixes: 9c656b07997f ("platform/x86: dell-*: Call new led hw_changed API on kbd brightness change")
-Fixes: 037accfa14b2 ("dell-laptop: Add debugfs support")
-Fixes: 2d8b90be4f1c ("dell-laptop: support Synaptics/Alps touchpad led")
-Fixes: 6cff8d60aa0a ("platform: x86: dell-laptop: Add support for keyboard backlight")
+build_inv_address() will trigger a full invalidation  if the chunk
+size > (1 << 51). Consequently, the guest will issue multiple full
+invalidations for a single call to  amd_iommu_domain_flush_all()
+
+Without this patch, we will see 10 time instead of 1 time full
+invalidations for every amd_iommu_domain_flush_all().
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-Link: https://patch.msgid.link/20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: a270be1b3fdf ("iommu/amd: Use only natural aligned flushes in a VM")
+Suggested-by: Josef Bacik <josef@toxicpanda.com>
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Weinan Liu <wnliu@google.com>
+Reviewed-by: Wei Wang <wei.w.wang@hotmail.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
+Reviewed-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/dell/dell-laptop.c |    5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/iommu/amd/iommu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/drivers/platform/x86/dell/dell-laptop.c
-+++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -2551,7 +2551,12 @@ fail_backlight:
- 	if (mute_led_registered)
- 		led_classdev_unregister(&mute_led_cdev);
- fail_led:
-+	dell_laptop_unregister_notifier(&dell_laptop_notifier);
-+	debugfs_remove_recursive(dell_laptop_dir);
- 	dell_battery_exit();
-+	kbd_led_exit();
-+	if (quirks && quirks->touchpad_led)
-+		touchpad_led_exit();
- 	dell_cleanup_rfkill();
- fail_rfkill:
- 	platform_device_del(platform_device);
-
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index b778023388715b..d4b6a32f258e7d 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -1395,7 +1395,8 @@ static void __domain_flush_pages(struct protection_domain *domain,
+ static void domain_flush_pages(struct protection_domain *domain,
+ 			       u64 address, size_t size, int pde)
+ {
+-	if (likely(!amd_iommu_np_cache)) {
++	if (likely(!amd_iommu_np_cache) ||
++		size >= (1ULL<<52)) {
+ 		__domain_flush_pages(domain, address, size, pde);
+ 		return;
+ 	}
+-- 
+2.53.0
 
