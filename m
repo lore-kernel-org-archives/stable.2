@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B20843E071;
-	Tue, 21 Jul 2026 22:28:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0210043F08A;
+	Tue, 21 Jul 2026 22:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784672907; cv=none; b=jfrSA3c4DWKwmdjX1fHsn5u5WKdg3cDQAPHggIMgNFPIactLqPzxvzGLESEMtLSp28tdkr+eV/6dqWTwYlXF8v9KUTIB/Nj02UuCA/DqudkMy6TiVBRhlpOohlIQ8VHawZe2LXYusrk2fszLTMas6HTHDkgvqnHo1DoHDFuDsAA=
+	t=1784672909; cv=none; b=MU9pr9Bh5yPJq3SsOnOxocLoYdK+sL0AJDdxhSNoSyIsn8guZCOEcGnGQ0Qw8gSnY0Ge9oXQkCsFEaF+wYyaUJIxctjfFUDqVBFxzVH9D6k+R2hwfzBNDOEHB1tk2Z6VdbjoJw27D4ieg/asQn9zM2u59CJylQoVR+rQEalT0kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784672907; c=relaxed/simple;
-	bh=SnGm9kK4KD07znpIDns024YXt7x2EGiog01KwalBJBw=;
+	s=arc-20240116; t=1784672909; c=relaxed/simple;
+	bh=NQKCa91mLZbcfm/fStsQlO8DjKpIa57px8Gy1FVQmYs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ds9+ccbc7fOOtsxUPORr0WgsFONBqCiVWgbTBj3sQJDdZdgK5UHik3IHOzMpaEFtuOkzMyJGipZEw54CAPJckxTxj3md83JR2SSqoNpnNTQc3IMe0ok2NZiio4GvfUVlFscGiJIETQf8WpPf/4TsguzbcC0aMDoMoTzXKc312kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EswWUQdm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ecD9iarGE0YX4/DAc6yA8vARYbyEK+WVvmyI+RL5W7yvVcl07eVfrbFMf1NhNXouAa5CajCFHYhS/lmltroY9QI1LDCCERFnJ9R9UK9BK0bkpyPYdM0B26yLDU6GlS66GKl9+30fmYdI9tgzp6DkcwA+QsEJdhekVN7z7s82vkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iYxed/bL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EswWUQdm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8600A1F000E9;
-	Tue, 21 Jul 2026 22:28:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iYxed/bL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E431F00A3E;
+	Tue, 21 Jul 2026 22:28:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784672899;
-	bh=28iGLy4Htpb7HsXZMjM+KR3NDsiTsfvVAKUJnOU6YpM=;
+	s=korg; t=1784672896;
+	bh=oL5yAdPaCDSaNxgdidIxBK+tZcj1U1LQinLAwuOHArg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EswWUQdmkTzRySkAiSwcFxH08n2J2tdQhYXpCB5rAlWGuJuQjOFJSMaznhUM2/r4g
-	 mHij9y/6biVOCVDk+qJCs7XugA5Ipha7GR2aPmHC4d4Hrddi28utgw2xi5hpceTC2/
-	 ielsDAyaM24vHueu6ZvTTSFOIHAcN9UpuqEc8u5Q=
+	b=iYxed/bLtswyDK9xzwpAexbUw8+J97PvcJD5a30ZQR0D6STpaJtES9rwPv698lSIy
+	 H8jdWFgPZZYx8eRHVTGPa8iRr4H5VJmeRxIR0cdSY0XosUwyDfjWmPi1Jg/NHuJ5zS
+	 mGx/9hDs0LLfZE2QUhj/4iv4yXTJvweKPTHXJbEE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+	Jann Horn <jannh@google.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 772/843] gpio: sch: use new GPIO line value setter callbacks
-Date: Tue, 21 Jul 2026 17:26:47 +0200
-Message-ID: <20260721152423.420940424@linuxfoundation.org>
+Subject: [PATCH 5.15 798/843] proc: protect ptrace_may_access() with exec_update_lock (part 1)
+Date: Tue, 21 Jul 2026 17:27:13 +0200
+Message-ID: <20260721152424.018412657@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152405.946368001@linuxfoundation.org>
 References: <20260721152405.946368001@linuxfoundation.org>
@@ -51,62 +51,207 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit 883c7eb2c4a9e143b2662ba754f9c16fb31adced ]
+[ Upstream commit 6650527444dadc63d84aa939d14ecba4fadb2f69 ]
 
-struct gpio_chip now has callbacks for setting line values that return
-an integer, allowing to indicate failures. Convert the driver to using
-them.
+Fix the easy cases where procfs currently calls ptrace_may_access() without
+exec_update_lock protection, where the fix is to simply add the extra lock
+or use mm_access():
 
-Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Link: https://lore.kernel.org/r/20250625-gpiochip-set-rv-gpio-round2-v1-3-bc110a3b52ff@linaro.org
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Stable-dep-of: 286533cb14a3 ("gpio: sch: use raw_spinlock_t in the irq startup path")
+ - do_task_stat(): grab exec_update_lock
+ - proc_pid_wchan(): grab exec_update_lock
+ - proc_map_files_lookup(): use mm_access() instead of get_task_mm()
+ - proc_map_files_readdir(): use mm_access() instead of get_task_mm()
+ - proc_ns_get_link(): grab exec_update_lock
+ - proc_ns_readlink(): grab exec_update_lock
+
+Fixes: f83ce3e6b02d ("proc: avoid information leaks to non-privileged processes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jann Horn <jannh@google.com>
+Link: https://patch.msgid.link/20260518-procfs-lockfix-part1-v1-1-5c3d20e0ac33@google.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ converted NULL return from mm_access() to ERR_PTR(-ESRCH) at call sites since 5.15's mm_access() returns NULL when the task has no mm ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpio/gpio-sch.c |    9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ fs/proc/array.c      |    6 ++++++
+ fs/proc/base.c       |   41 ++++++++++++++++++++++++-----------------
+ fs/proc/namespaces.c |   12 ++++++++++++
+ 3 files changed, 42 insertions(+), 17 deletions(-)
 
---- a/drivers/gpio/gpio-sch.c
-+++ b/drivers/gpio/gpio-sch.c
-@@ -116,7 +116,7 @@ static int sch_gpio_get(struct gpio_chip
- 	return sch_gpio_reg_get(sch, gpio_num, GLV);
- }
- 
--static void sch_gpio_set(struct gpio_chip *gc, unsigned int gpio_num, int val)
-+static int sch_gpio_set(struct gpio_chip *gc, unsigned int gpio_num, int val)
- {
- 	struct sch_gpio *sch = gpiochip_get_data(gc);
+--- a/fs/proc/array.c
++++ b/fs/proc/array.c
+@@ -468,6 +468,11 @@ static int do_task_stat(struct seq_file
  	unsigned long flags;
-@@ -124,6 +124,8 @@ static void sch_gpio_set(struct gpio_chi
- 	spin_lock_irqsave(&sch->lock, flags);
- 	sch_gpio_reg_set(sch, gpio_num, GLV, val);
- 	spin_unlock_irqrestore(&sch->lock, flags);
+ 	struct signal_struct *sig = task->signal;
+ 	unsigned int seq = 1;
++	int ret;
 +
-+	return 0;
++	ret = down_read_killable(&task->signal->exec_update_lock);
++	if (ret)
++		return ret;
+ 
+ 	state = *get_task_state(task);
+ 	vsize = eip = esp = 0;
+@@ -642,6 +647,7 @@ static int do_task_stat(struct seq_file
+ 		seq_puts(m, " 0");
+ 
+ 	seq_putc(m, '\n');
++	up_read(&task->signal->exec_update_lock);
+ 	if (mm)
+ 		mmput(mm);
+ 	return 0;
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -414,18 +414,24 @@ static int proc_pid_wchan(struct seq_fil
+ {
+ 	unsigned long wchan;
+ 	char symname[KSYM_NAME_LEN];
++	int err;
+ 
++	err = down_read_killable(&task->signal->exec_update_lock);
++	if (err)
++		return err;
+ 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+ 		goto print0;
+ 
+ 	wchan = get_wchan(task);
+ 	if (wchan && !lookup_symbol_name(wchan, symname)) {
+ 		seq_puts(m, symname);
++		up_read(&task->signal->exec_update_lock);
+ 		return 0;
+ 	}
+ 
+ print0:
+ 	seq_putc(m, '0');
++	up_read(&task->signal->exec_update_lock);
+ 	return 0;
  }
+ #endif /* CONFIG_KALLSYMS */
+@@ -2332,17 +2338,17 @@ static struct dentry *proc_map_files_loo
+ 	if (!task)
+ 		goto out;
  
- static int sch_gpio_direction_out(struct gpio_chip *gc, unsigned int gpio_num,
-@@ -145,8 +147,7 @@ static int sch_gpio_direction_out(struct
- 	 * But we cannot prevent a short low pulse if direction is set to high
- 	 * and an external pull-up is connected.
- 	 */
--	sch_gpio_set(gc, gpio_num, val);
--	return 0;
-+	return sch_gpio_set(gc, gpio_num, val);
+-	result = ERR_PTR(-EACCES);
+-	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+-		goto out_put_task;
+-
+ 	result = ERR_PTR(-ENOENT);
+ 	if (dname_to_vma_addr(dentry, &vm_start, &vm_end))
+ 		goto out_put_task;
+ 
+-	mm = get_task_mm(task);
++	mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
+ 	if (!mm)
++		mm = ERR_PTR(-ESRCH);
++	if (IS_ERR(mm)) {
++		result = ERR_CAST(mm);
+ 		goto out_put_task;
++	}
+ 
+ 	result = ERR_PTR(-EINTR);
+ 	if (mmap_read_lock_killable(mm))
+@@ -2391,23 +2397,24 @@ proc_map_files_readdir(struct file *file
+ 	if (!task)
+ 		goto out;
+ 
+-	ret = -EACCES;
+-	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+-		goto out_put_task;
+-
+ 	ret = 0;
+ 	if (!dir_emit_dots(file, ctx))
+ 		goto out_put_task;
+ 
+-	mm = get_task_mm(task);
++	mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
+ 	if (!mm)
++		mm = ERR_PTR(-ESRCH);
++	if (IS_ERR(mm)) {
++		ret = PTR_ERR(mm);
++		/* if the task has no mm, the directory should just be empty */
++		if (ret == -ESRCH)
++			ret = 0;
+ 		goto out_put_task;
++	}
+ 
+ 	ret = mmap_read_lock_killable(mm);
+-	if (ret) {
+-		mmput(mm);
+-		goto out_put_task;
+-	}
++	if (ret)
++		goto out_put_mm;
+ 
+ 	nr_files = 0;
+ 
+@@ -2431,8 +2438,7 @@ proc_map_files_readdir(struct file *file
+ 		if (!p) {
+ 			ret = -ENOMEM;
+ 			mmap_read_unlock(mm);
+-			mmput(mm);
+-			goto out_put_task;
++			goto out_put_mm;
+ 		}
+ 
+ 		p->start = vma->vm_start;
+@@ -2440,7 +2446,6 @@ proc_map_files_readdir(struct file *file
+ 		p->mode = vma->vm_file->f_mode;
+ 	}
+ 	mmap_read_unlock(mm);
+-	mmput(mm);
+ 
+ 	for (i = 0; i < nr_files; i++) {
+ 		char buf[4 * sizeof(long) + 2];	/* max: %lx-%lx\0 */
+@@ -2457,6 +2462,8 @@ proc_map_files_readdir(struct file *file
+ 		ctx->pos++;
+ 	}
+ 
++out_put_mm:
++	mmput(mm);
+ out_put_task:
+ 	put_task_struct(task);
+ out:
+--- a/fs/proc/namespaces.c
++++ b/fs/proc/namespaces.c
+@@ -55,6 +55,10 @@ static const char *proc_ns_get_link(stru
+ 	if (!task)
+ 		return ERR_PTR(-EACCES);
+ 
++	error = down_read_killable(&task->signal->exec_update_lock);
++	if (error)
++		goto out_put_task;
++
+ 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+ 		goto out;
+ 
+@@ -64,6 +68,8 @@ static const char *proc_ns_get_link(stru
+ 
+ 	error = nd_jump_link(&ns_path);
+ out:
++	up_read(&task->signal->exec_update_lock);
++out_put_task:
+ 	put_task_struct(task);
+ 	return ERR_PTR(error);
  }
+@@ -80,11 +86,17 @@ static int proc_ns_readlink(struct dentr
+ 	if (!task)
+ 		return res;
  
- static int sch_gpio_get_direction(struct gpio_chip *gc, unsigned int gpio_num)
-@@ -165,7 +166,7 @@ static const struct gpio_chip sch_gpio_c
- 	.direction_input	= sch_gpio_direction_in,
- 	.get			= sch_gpio_get,
- 	.direction_output	= sch_gpio_direction_out,
--	.set			= sch_gpio_set,
-+	.set_rv			= sch_gpio_set,
- 	.get_direction		= sch_gpio_get_direction,
- };
- 
++	res = down_read_killable(&task->signal->exec_update_lock);
++	if (res)
++		goto out_put_task;
++
+ 	if (ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
+ 		res = ns_get_name(name, sizeof(name), task, ns_ops);
+ 		if (res >= 0)
+ 			res = readlink_copy(buffer, buflen, name);
+ 	}
++	up_read(&task->signal->exec_update_lock);
++out_put_task:
+ 	put_task_struct(task);
+ 	return res;
+ }
 
 
