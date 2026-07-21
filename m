@@ -1,141 +1,194 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DCB3E3DB4
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A2C3E49EF;
+	Tue, 21 Jul 2026 17:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653821; cv=none; b=KnrKiasUvQkTLP1LqIuTNf0Z4wzI2rDo4x5BqlXEy5uJRbRYGDr1AnKD6pJfhTd20lpiJWq0E4P5VAPr95EWDYm5NfkfVNU4PLYjS0jGuKRTVF95BnwEMUqMeO9I6pekqSabYMmfro2+O3ZiHAmG2hiUDf/vx38f9KtQrFiC054=
+	t=1784653823; cv=none; b=Fn+cucAQmCVQmjxBVYBag4+xsmqen5uTDAxCKUrPtqDHm83gI1VV8B/LNK+yugB6GjqsWRNWJ85j7NZfma94jWImmwc0Vfy7Dy2+X99UBB4I43k2ZILNoSc02Wip9C5xU7fpNWs44ngL9n5jJ/1tQ8qOKTRcfufcqSRZkwnjuNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784653821; c=relaxed/simple;
-	bh=2JTgTd9toINIPryUJzZ4cjvrunjhL4Ann5jB8FnbsS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jsEUkyfgFxm3+ZXpYBBVVcb/poqB18HGJdsq/ziDCu0wJJkHZkoKjlIyCFK9DL3oQDX1UcReO+38byPCp2NUhHkzoRBRMHXoOgEApEzzTYxU19M34oKdP1FL7ERqKFK0oELgPvyeP0tetUM/2MDxyUc6yDAOYMt9zc4P99/Qnf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JfYrTuwc; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784653823; c=relaxed/simple;
+	bh=c8UUE5Tg3JBRZrjUuhPfs+ee4Q00SHZs4eqVbawnoDc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cNFDvs2cAlaQSm83dRy8e5l1aejmVvevzYG6ZBqp4FHbShw2CCgyco72RMU7r22oZxZdm7SW+xtNRbQcHosc5+jF/F6vwG99kFfS4NcAB03JX5B3/Y0zVW4PNquDdSEqZSw3grgh41shWgkYab4vwE0f8aYewZ78xCzcJ8O0eXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lmklhe5M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JfYrTuwc"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ccf2360620so76435865ad.3
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:10:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784653820; x=1785258620; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Fkn3JmTHyZHrmeo+sPGbWVcJWg9Sa/ZKVruguzBjPig=;
-        b=JfYrTuwciC0eNKbWbFj6cx/b3lnp4/Yz9+ZCra/h+71kTF6R7OpQgCmzY7RZBckyqM
-         lCCrKJRRiCGcPxsYQQnYmcDUM/fqzjYZOEjFk3kW2TL5W8HUIDrw2wiMtK3Y2fc5qcT7
-         UuvLgNvMyDwNgSVceDfKRYeGu9YINnoB2V1Nos+hlu75UewBPjw9FrKrrp4Xj+Bf1ZMg
-         e8hFnRxGn7XtD+F5hTfFkPZQX2m/g2nmXQlG7cimvMcRGFy/BmBLTby4GrZa9GxXkfsr
-         tSPuhWoUxkUCNzW/qjPlUyN8xkCyNMyhfxkTrKjrqyYAVl0bAIDRZBImPm6OHluVjfg6
-         vjag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784653820; x=1785258620;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fkn3JmTHyZHrmeo+sPGbWVcJWg9Sa/ZKVruguzBjPig=;
-        b=AM3nwwekG5/q4zyLFjmDsxeLS0xBhD87sERZGur4qYQrEx8lw+nHGtsxbNcMLoXJ6f
-         OoJWAYbVKZsPdmAXt9RErkXZpML6qE4cWXYF3+FpJA8/vIUzDz8tNHeoo9jlCQXdZ4sS
-         xt6Edt1VSV0+npA8QoxYIpTkv/YdbEc1Lku+W26IBBl83tSA/+2G/+HrW8b/oVViEMXP
-         RETjyeevNtlRjKWvVRAhMeQ+a0GgeSnStFCO+6L3MmBd/X0Q2a6LziyAszyxEKcad0N+
-         fd5w60IvwjViCvT3zFkw/2/ZUy4Z6UQNxmivP19WVYDeMcMGCtJLEJSWsj7nXEu/iWyb
-         y8MA==
-X-Gm-Message-State: AOJu0YxwYtU5Rr8LxC3LMrBMqMEJsqwOMoRtgunfutyKfBZ70k6lCjc3
-	220cqRx9F8cjvJwtHmzuuA9Ob/GXUuPePSn1JtNQDs2jxZfPQxmy8t1W
-X-Gm-Gg: AR+sD10CLpSVYh6SbyvesZ/8zzHY2B1l3DlWBGNesJaMDzi5tF0LMohmaPZOPCIdxq+
-	fmHckXfDGb35fWQCvp0noB9pjnpr/Aszq6K7zQWxJa49E5uhjvWwdFS8d/t5vhJ/G+5sWZjB5No
-	XZNQ2P7Sc5kM5HmX4z/VD4sYyHWqCOcE7HePc/94jwJvPfeIO0DnkOYMVB3Wb2+C9CJN8YvYI/r
-	TZpNDnuAn1gEdyO8byvSdLUGzZdRIrxs8wsIMitLTSGLNyj3IjVD+RKyD8RUdDmT4vDXx9gPV1n
-	2odXvwbKEtypFx1/CR4uDf2uC01w5+1TbPVgccwSGnIOo7QJ8Ww5WQxa/EFKObZnqGOAx5TP2Yx
-	vdGBVptgZRAo0BVBlui0HS+5ZUxC0Oj3utfiJOxkzQMAo40bpigNx6RBWa8hsi+n99eXDAOvX1X
-	U1cGujr+u/UJItv5JOGR73UujW6c91C9lN3w==
-X-Received: by 2002:a17:902:e541:b0:2ca:b4b9:4586 with SMTP id d9443c01a7336-2cf348b0a43mr211904095ad.19.1784653819673;
-        Tue, 21 Jul 2026 10:10:19 -0700 (PDT)
-Received: from fedora ([2601:644:937c:6c90:6d4e:7b2d:4a39:fb0c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1bc886sm585939eec.26.2026.07.21.10.10.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 10:10:18 -0700 (PDT)
-Date: Tue, 21 Jul 2026 10:10:16 -0700
-From: Vishal Moola <vishal.moola@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: stable@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu <baolu.lu@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, Kiryl Shutsemau <kas@kernel.org>,
-	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>
-Subject: Re: [PATCH v2] x86/mm/pat: allocate split page tables as kernel page
- tables
-Message-ID: <al-n-Eos9mc_7lvd@fedora>
-References: <20260721-fix-cpa-kernel-pagetables-v2-1-2b255deed710@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lmklhe5M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7F21F000E9;
+	Tue, 21 Jul 2026 17:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784653822;
+	bh=7qwLkB4juBFVxHVoWSP7iOKe843ux3q9BRI/GCLrU9o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Lmklhe5Mqox9xtWFSxupM4VOYI6tgj+NnQllp/k/uFKNSTASCrnh3e3XLM2USez34
+	 wBIzUDaxscR+rsrtkhShJLqzj8HfjLxPVMEXMO/AG+aDNxbqtBfBy8Wse4zCujto08
+	 nbR87AhRu0a/IshGJPe6tS0LuwCDd6wn3/pPOZx0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Max Zhen <max.zhen@amd.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 1470/2077] accel/amdxdna: Fix VMA access race
+Date: Tue, 21 Jul 2026 17:19:03 +0200
+Message-ID: <20260721152627.466028620@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721-fix-cpa-kernel-pagetables-v2-1-2b255deed710@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 01:14:52PM +0100, Lorenzo Stoakes (ARM) wrote:
-> When splitting a large page in CPA in __split_large_page() we allocate a
-> PTE directly without going through the standard page table allocation
-> routines such as pte_alloc_one_kernel().
-> 
-> This means the page table constructor is never called nor is the page table
-> marked as a kernel page table.
-> 
-> The former results in the folio associated with the page table not being
-> marked as a page table (__pagetable_ctor() is never called thus neither is
-> __folio_set_pgtable()) nor are statistics updated to reflect
-> it (lruvec_stat_add_folio() is never called).
-> 
-> The latter issue of failing to mark the page table as a kernel page
-> table (ptdesc_set_kernel() is never called) is far more problematic.
-> 
-> Since commit 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page
-> tables") kernel page table freeing has been batched and since the
-> subsequent commit e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries
-> for kernel address space") IOTLB cache entries for kernel page tables have
-> been invalidated upon being freed.
-> 
-> Since split page tables are freed without this invalidation, the IOTLB can
-> contain stale entries for them.
-> 
-> Resolve the issue by using the ordinary PTE allocation API at split time.
-> 
-> This results in these kernel page tables invoking a page table constructor,
-> and thus requires a page table destructor.
-> 
-> Since we cannot assume one is always present (early allocated direct map
-> page tables are not marked as such), we conditionally call
-> pagetable_dtor_free() if the PG_table folio flag for the ptdesc is set,
-> otherwise we free the page table via pagetable_free().
-> 
-> Regardless of which path is taken page tables marked as kernel page tables,
-> which now includes split page tables, take the correct route through
-> pagetable_free_kernel().
-> 
-> There is a user-visible side effect in that split page tables will appear
-> in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
-> allocated after early boot), however this is a positive change.
-> 
-> This issue started being markedly problematic after commit
-> 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables") so
-> choose this as the Fixes target.
-> 
-> Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Acked-by: Vishal Moola <vishal.moola@gmail.com>
+------------------
+
+From: Lizhi Hou <lizhi.hou@amd.com>
+
+[ Upstream commit 1ba02717e821cf14ece642273958647e79698d3d ]
+
+aie2_populate_range() and amdxdna_umap_release() access a saved VMA
+pointer that may have already been freed, leading to a potential
+use-after-free.
+
+Remove the VMA accesses from these functions to avoid the race.
+
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Reviewed-by: Max Zhen <max.zhen@amd.com>
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Link: https://patch.msgid.link/20260609011242.2833740-1-lizhi.hou@amd.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/accel/amdxdna/aie2_ctx.c    |  2 --
+ drivers/accel/amdxdna/amdxdna_gem.c | 31 +++++++++++++++++++----------
+ drivers/accel/amdxdna/amdxdna_gem.h |  1 -
+ 3 files changed, 21 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+index f5d247d65cb065..884a64fa3e4fac 100644
+--- a/drivers/accel/amdxdna/aie2_ctx.c
++++ b/drivers/accel/amdxdna/aie2_ctx.c
+@@ -977,8 +977,6 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
+ 	kref_get(&mapp->refcnt);
+ 	up_write(&xdna->notifier_lock);
+ 
+-	XDNA_DBG(xdna, "populate memory range %lx %lx",
+-		 mapp->vma->vm_start, mapp->vma->vm_end);
+ 	mm = mapp->notifier.mm;
+ 	if (!mmget_not_zero(mm)) {
+ 		amdxdna_umap_put(mapp);
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 2ac12b49a70035..eb440bccd0cbd7 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -200,7 +200,7 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
+ 
+ 	xdna = to_xdna_dev(to_gobj(abo)->dev);
+ 	XDNA_DBG(xdna, "Invalidating range 0x%lx, 0x%lx, type %d",
+-		 mapp->vma->vm_start, mapp->vma->vm_end, abo->type);
++		 mapp->range.start, mapp->range.end, abo->type);
+ 
+ 	if (!mmu_notifier_range_blockable(range))
+ 		return false;
+@@ -229,15 +229,23 @@ static const struct mmu_interval_notifier_ops amdxdna_hmm_ops = {
+ 	.invalidate = amdxdna_hmm_invalidate,
+ };
+ 
++static inline bool compare_range(struct amdxdna_umap *mapp,
++				 struct mm_struct *mm,
++				 unsigned long start, unsigned long end)
++{
++	return (!mapp->unmapped && mapp->notifier.mm == mm &&
++		mapp->range.start == start && mapp->range.end == end);
++}
++
+ static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
+ 				   struct vm_area_struct *vma)
+ {
+ 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
+ 	struct amdxdna_umap *mapp;
+ 
+-	down_read(&xdna->notifier_lock);
++	down_write(&xdna->notifier_lock);
+ 	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
+-		if (!vma || mapp->vma == vma) {
++		if (!vma || compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end)) {
+ 			if (!mapp->unmapped) {
+ 				queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
+ 				mapp->unmapped = true;
+@@ -246,19 +254,16 @@ static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
+ 				break;
+ 		}
+ 	}
+-	up_read(&xdna->notifier_lock);
++	up_write(&xdna->notifier_lock);
+ }
+ 
+ static void amdxdna_umap_release(struct kref *ref)
+ {
+ 	struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
+ 	struct amdxdna_gem_obj *abo = mapp->abo;
+-	struct vm_area_struct *vma = mapp->vma;
+ 	struct amdxdna_dev *xdna;
+ 
+ 	mmu_interval_notifier_remove(&mapp->notifier);
+-	if (is_import_bo(abo) && vma->vm_file && vma->vm_file->f_mapping)
+-		mapping_clear_unevictable(vma->vm_file->f_mapping);
+ 
+ 	xdna = to_xdna_dev(to_gobj(mapp->abo)->dev);
+ 	down_write(&xdna->notifier_lock);
+@@ -297,6 +302,15 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+ 	if (!xdna->dev_info->ops->hmm_invalidate)
+ 		return 0;
+ 
++	down_read(&xdna->notifier_lock);
++	list_for_each_entry(mapp, &abo->mem.umap_list, node) {
++		if (compare_range(mapp, current->mm, addr, addr + len)) {
++			up_read(&xdna->notifier_lock);
++			return 0;
++		}
++	}
++	up_read(&xdna->notifier_lock);
++
+ 	mapp = kzalloc_obj(*mapp);
+ 	if (!mapp)
+ 		return -ENOMEM;
+@@ -322,13 +336,10 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+ 	mapp->range.start = vma->vm_start;
+ 	mapp->range.end = vma->vm_end;
+ 	mapp->range.default_flags = HMM_PFN_REQ_FAULT;
+-	mapp->vma = vma;
+ 	mapp->abo = abo;
+ 	kref_init(&mapp->refcnt);
+ 
+ 	INIT_WORK(&mapp->hmm_unreg_work, amdxdna_hmm_unreg_work);
+-	if (is_import_bo(abo) && vma->vm_file && vma->vm_file->f_mapping)
+-		mapping_set_unevictable(vma->vm_file->f_mapping);
+ 
+ 	down_write(&xdna->notifier_lock);
+ 	if (list_empty(&abo->mem.umap_list))
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
+index 957305ccb485af..10242f4a5ca983 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.h
++++ b/drivers/accel/amdxdna/amdxdna_gem.h
+@@ -12,7 +12,6 @@
+ #include "amdxdna_pci_drv.h"
+ 
+ struct amdxdna_umap {
+-	struct vm_area_struct		*vma;
+ 	struct mmu_interval_notifier	notifier;
+ 	struct hmm_range		range;
+ 	struct work_struct		hmm_unreg_work;
+-- 
+2.53.0
+
+
+
