@@ -1,183 +1,182 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABC143F4D5
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE633B8D7B
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784622095; cv=none; b=Wqyfu49jWyNl6TzDg+XFIc3sySat5BmSmFRBBt9545DzL5NTXB2dni+9ufOqEi2Av0q1D4mgsN1syW2XaeBLMxjcT5e/45Fwey5OTYGaDJqKN1KakJ4WuFRYkzLRo0yhLHeP8Eo98TOlUdHxvDP/Ml4aqTsg4p9O31vVYnFxK+Y=
+	t=1784622316; cv=none; b=Aq3EXMk8iZnJOLbJQzpLecznXtwdUJ7WL7bauLf8YZhWGvw0Qa+3Gsi8NkBsxyHvOq53qqMFvUfj/B6rJn9qHVJXPmNe3Xs/sDc0ibLev4CayK25kwRub4WeEeUzsarbLdOZ8NyxN5ObSTX2C3hfMNjL/4CZvzOFzP1OVeMhYH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784622095; c=relaxed/simple;
-	bh=ctu2JAjDb4vEv2Ofqw5ZSiuq7IdmtEWY9UJl9tqds/g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M1HdeLFCpwrS1mCw+yENGxDlNzUhoCEJOsBmnaqDerP2ePJ6yAtD5SAyA60mBHql1dhYIujuqCCRAIPE/0pTf43K2OccpYF+HBaF5tA776IpkrgYkjzrxTN7nHMsRidADRy59DLE2GFDmuWxuNaYa7dRmY7EEfXYEa8V6z4p+To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=kyt04m/P; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784622316; c=relaxed/simple;
+	bh=zfTn2Kc9WqhfDc14tF4xKypbGNJXvuqTxtRlcOWMzUQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K+Tle8zR76+5fn7HCoNNiDq2I3LeRqt45PtXTSac8JxsGvySAFdWO1abS+tW/ZirQuXJb0VdEFXJpQmogpy6Iosio9SjZY3jYPiO5eJ5Ypu7EdWQJw3c1AE/KK/zjAuptVYPMAnQDtXe+FrMO2x8s0f/pC1rVSG0WGDBcgrtPfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gCrU7rNE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OX203Bus; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="kyt04m/P"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15ba5b151dso1064015266b.3
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 01:21:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gCrU7rNE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OX203Bus"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66L7fas9091338
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:25:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=ZOpXARkKmNj
+	6Eb4RGQZtpa8uRlFLKJu52rmjCAOrvGE=; b=gCrU7rNESdBaziZfASg/j/KEnMQ
+	sdlPBSIT5NYy8W/vsKm1PIHRQOoaN1kZx+0mOp3sFJgxqa9gnVQ0+LjRX/x8uzcN
+	C4ZwgcgIDNI1+mIUyfLz+6J/yhejv6Elal4j7p/vmpumcaIPWtLNfXMI+Vm7QjOd
+	4DeNvwp5dVK98Axqbt91dTcWJcT3r/slntjW+4llujsAcm4OQphLHGyvD7/T13Gp
+	EDs4bp8O4wcyswzyNF7j7ifD03hESYOfCokjbvfLYXdz4w9+sD7iVhu4HBkqmVOW
+	vXI6NoEScJ2l4LZPJBUggIzVUavw7yWejaIGwva49mQJ6bKPhHA455WGdRQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fj01a9bky-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:25:14 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c0ab07320so157855981cf.2
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 01:25:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784622092; x=1785226892; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1784622313; x=1785227113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yOwKc54gLFklrg6TasEGy36BkhC9F73PBQa2PoKh7F4=;
-        b=kyt04m/P2r5oxEC7ywbWuP+tmSyEzFkvUV4fMlHCNbYNb3aTEbUQv1kqASeYNC7dna
-         IOnCzpSojBAZmUw9/E2NyK8rtUjW2Y3KOoHJ0ijDBeebq6OIioBCzOr4gikWeyyUDggQ
-         Yy4QJ7WZ0fitLw27yTQv8sJXKsi60zpDAIY664OzPPb58JWLojqSXrNKl2sUyFQyJ0d/
-         IpF5qOaAHm15UraZee/UkvRiTeM4eZbRe6iVi6TUGrglPuicP8EkK387LJ3hZVeL7sfh
-         Fmd8V1RF5NstAAK9428gdb1lO2WwJp8CkE+BfaIBQoKGjloYrwd1Phf0h0n/TujIZQM5
-         UKiA==
+        bh=ZOpXARkKmNj6Eb4RGQZtpa8uRlFLKJu52rmjCAOrvGE=;
+        b=OX203Bus17ZpjFIj+OCPVxUoQM/Mc9QZ3YxXZzcrROltYw9uwsH9vkkPAk6nXhVkdO
+         /E7NaaX9XQ+qgqMJjVCzbXGDaWgTXpaY/YeWxNs7lBeep8W3sg1abwevG5EHvUFQPTW+
+         c+J8XJhPAAoxkRag5B2Bs2/bCle2TeZcyIlC1+Owpn2Xi6BCpXc5kT+ovBj+14dwsaN6
+         G64qiC0JDx34JYZSJbjQJSbda6WzPRi7ylyFzy44yiFmlFlMK734zTgkn/UsRc9LzF/d
+         3L/3cxTGsrjKxQFcOp/RIMUaurC6uFZC3LPqsLTqABxAcn6dcfgJtTgvFeICyU9kKhAH
+         Xciw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784622092; x=1785226892;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yOwKc54gLFklrg6TasEGy36BkhC9F73PBQa2PoKh7F4=;
-        b=B+w17qv0p7AOqUguBMjUleVMT9N24CNz8Hb1LsGSJ+CadE2n9rOhR1gTvK/1bHyVzL
-         V4IqFip+pBTRT/7+7SSQNx/d5EiXLC6zBQH5+ATvtSeMPKlBsBUC6d/lSlNn/Mr1hHNO
-         3xGC7zPJO8fPuRHnPk645SuLQy50APYHgk2LFx9GctijE7IwnoJx3A31mQZCMaeouGmH
-         hNeAZuL6d8HBb7az3ac3WMkTuG35XgcF0YnQwyc5ycxa4ufphCUT7HfujVsX8BpIp6ND
-         COTcui8KzVePKyhvLLWAnN0h3y7VmOi7QzRjU1luzf3cu67c005xcTxW4aWbVs1TzA6j
-         WXUA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqq7CvYTt/HoTNsonoY0chWL92+xEybEMPPLjNXZlUC5iLA97VVhYWcz6X5Ai5tg+79GWIIdlU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfFbyfWeY596D3qMGsvFhk7iylUe65CdCmcPyZpWEE46p1ORKd
-	V50yORenLUkSsf8H7xReFyY18bkMtumhz7IOJz5/owhGA0yAlQHufGi47l6Y07q2btum0ZD19Og
-	OBlWpTzE=
-X-Gm-Gg: AfdE7cl4UU0pqNXrnwnGXK2a+Wv0d/cBwTKM3fuNB5CF0AIwDyt/s4rJwVvk+ijFG0H
-	/K3nGO0N58UwwuawM62Mun1N6DRZm7ogMOPIZEiDXQMEAEYm0+P7ZQAQDEyFN/nY8ouKCPsPLcq
-	TikQKoArbr4XIkqMsJd+RKY0SsS+cs9l+AVsXiR7hzSNfp31phvvq0U02hytCgI57rZnfzfBLXk
-	K/++6rRZU80EONcZi91sEttJAYn66JZincsfcQfudw0AVwXBiiUICd9KOgHvSd6kYmkMsKYQSt0
-	s4H9478odVv6eevoseKNU+6ZA8Ysihw+kappMAb2djRPEvtf6TOgTwXJTag0Yx+1Bq09x5hxmpa
-	kctXQ322hbck45ibf9bslLEsYWY2pOyUv0mbGC1S/ikNb5zfw8xHn6y/z5yVBDmAOEPstU8O5Qy
-	qM4rDuQ1q7QTMlo/7Lf5IGoy6Q8wn7VmRGbfU1SEw4qOE+b/n3aZzx+gzrLufiJCcxKw==
-X-Received: by 2002:a17:907:c5c5:b0:c12:f81:661f with SMTP id a640c23a62f3a-c16b4833e24mr638733366b.51.1784622092166;
-        Tue, 21 Jul 2026 01:21:32 -0700 (PDT)
-Received: from puffmais2.c.googlers.com (185.155.90.34.bc.googleusercontent.com. [34.90.155.185])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1724f50b72sm564725066b.48.2026.07.21.01.21.31
+        d=1e100.net; s=20251104; t=1784622313; x=1785227113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZOpXARkKmNj6Eb4RGQZtpa8uRlFLKJu52rmjCAOrvGE=;
+        b=byfA4XK9w2CMmMwC92TbThXEdxL2dr4Xo49y3ZhqrrJPOQIhkqFw8SedxC+xaXw7VM
+         sR8Q3wSrRHiXVO8HWtBlRYkMreFf2bLBggNViKujsxsnwqXagjspPYp5GriYfEcSHcgA
+         Zx1fObBM8ba7Kklynk55zEFTLcfVizDbqAsy12b3zrHMcgnoXFu7yn++4GJJXQveJjpa
+         AmoY+DgHXj50yLxFg5w0Rtb4rdmXhRTlaHTOkKhpzhGLHRjIHOD4psf1FFkrGwEvm2nu
+         6sKLSNZg9TCkDNnmX1SqPm56jQrfEf8iTvQFN0LOkZLqN0SRzQJuRk14QdbSxDFMleB6
+         Vuqw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro1vhl+swQO+QAofFWfKppg5QgN8JW6On0N84qBqP5qeccbJl8OCvK85ain5qOsILtIgVR2ulg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoYMm0UBA31xM4JXFwPqrkDTpdGYOhY4/7a9t6nzsrDtZx8eT1
+	S8UZcVMIZSL3aTobo6eEnHFOVyu1pVVrEtbJO0jGI2Sgo+ZhB95wUxRuoQV6iB4iG/izRH/n7hj
+	KztXOC2vOJju11rD7VLuhGvh0NLuC6BunrIULh1We5Ylt1j8AVeknqyWjiHA=
+X-Gm-Gg: AfdE7cl53IbYkbkm2WH+JOe0ezeI6m/sH/P5yqLgt5C7fHAiYrP7UMkj5mJXwmtXnW1
+	Z2ohE77D2dBkU7UFrVN7qnl10nQcBeYDuSXi+eKAX1X2OIDl886Yx6JZQbWj7VApJiL74DEDkhX
+	2c6wnqt2eOdq1DKRJqIggd4YxEks1aLr5qCnsorH0piVJtFP2Hx7TyUekr+D9c9uZgagfVsTyHw
+	FVIdeSYAliZwxf+4inXfpJs5oR2DRGKznyAY0DgMPSBsdaSZCdPtX2bWZ6WWAwhHms7eAisJZvn
+	xJATH3PB0JYFO53ltuyc7GWDwkrRhnuvk7d+EuHEDzyJXC3SV85VwDuFOUCeeWrGIvr0MFeG7Rv
+	wXQ+sA+k6IbZxkKYxbI6RvGwfm1Ik
+X-Received: by 2002:ac8:5d13:0:b0:51c:bb79:a52d with SMTP id d75a77b69052e-5213aa6d813mr166971021cf.14.1784622311887;
+        Tue, 21 Jul 2026 01:25:11 -0700 (PDT)
+X-Received: by 2002:ac8:5d13:0:b0:51c:bb79:a52d with SMTP id d75a77b69052e-5213aa6d813mr166970631cf.14.1784622310894;
+        Tue, 21 Jul 2026 01:25:10 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:9dcf:9ab8:bffb:ec35])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f67466e09sm39901054f8f.21.2026.07.21.01.25.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 01:21:31 -0700 (PDT)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Tue, 21 Jul 2026 09:21:27 +0100
-Subject: [PATCH v3 2/2] drm/drm_crtc: fix race with dma_fence_signal() in
- ::get_driver_name()
+        Tue, 21 Jul 2026 01:25:09 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        demiobenour@gmail.com, Russell King <linux@armlinux.org.uk>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Biggers <ebiggers@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        stable@vger.kernel.org, brgl@kernel.org
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+Date: Tue, 21 Jul 2026 10:24:58 +0200
+Message-ID: <20260721082501.6128-1-bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <alnlaCXmoLRAlr96@gondor.apana.org.au>
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com> <alnlaCXmoLRAlr96@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260721-linux-drm_crtc_fix2-v3-2-afa8c71506e6@linaro.org>
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
-In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Sean Paul <seanpaul@chromium.org>, 
- Gustavo Padovan <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+X-Authority-Analysis: v=2.4 cv=BL6DalQG c=1 sm=1 tr=0 ts=6a5f2cea cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=SHEdVmtcqMJQtNp9YQoA:9 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA4NiBTYWx0ZWRfX5mbN5LgCXKFf
+ 1ZPigKwMUcj5cgR8qcZU0IK8iTngLMN1ct/Xp5O8YGCayhctzQSfDwNiLiziOKCv4GWWs8n64dV
+ oUYBH7XbdPYSi4t1E+CHecN7ckxfeNr/7cTRMDglPsTjCXz7zEmxt4+bKzjWFUPw2rEuob9aWnm
+ wp9CKSfSB5zJ59R/ld9y7Nnlv0F90AE2uiCzFR7aLvFf1wA17tQZGziGv59ixzvf5Yvz5yfetZf
+ hXIpySVjVfqL7QrMOYOENfaCpGNWa/aOGIjzSGXeYxZG9DdNrx+Lcx8Li1iv1TK39Xqlu9iMnK9
+ dpkPSChHu+RnCjNel5D6wtWz2mgUNw6dGoWyTf8bHgbixt0YlSHfJ5FTWS29zmFIDW9h8R18GmB
+ Qqe8NxjQwF8FGm2qm5bQjsfF5Q1O6aVGcAucjxQk91d9RorzLS9E5hw5VmdZ6XWbNMAeTXRwHD9
+ miWTS1i1q4yLfnGxyug==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA4NiBTYWx0ZWRfX1OYiWnSF+Rq5
+ a6lRzhwKGRtr2SQ6uSTdPNTx6r5sp3Q1FuJFvUroFoixIcv/hjRa8fbhsFgdInS4gj+MjRTpxX1
+ GUGHiu8qn0rCUl/peE5Foicn0nn/+BA=
+X-Proofpoint-ORIG-GUID: ZP9-r2tlAaghgA_qYxNcuZQJ0wadz12w
+X-Proofpoint-GUID: ZP9-r2tlAaghgA_qYxNcuZQJ0wadz12w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210086
 
-Since commit 541c8f2468b9 ("dma-buf: detach fence ops on signal v3"),
-I'm seeing the BUG_ON() triggering in drm_crtc's fence_to_crtc() via
-drm_crtc_fence_get_driver_name() regularly:
+On Fri, Jul 17, 2026 at 06:18:48PM +1000, Herbert Xu wrote:
+> On Sun, Jul 12, 2026 at 05:31:31PM -0400, Demi Marie Obenour via B4 Relay wrote:
+> > From: Demi Marie Obenour <demiobenour@gmail.com>
+> >
+> > This driver is harmful:
+> >
+> > - It is much slower than the CPU [1] [2].
+> > - It Has a history of bugs [2] [3].
+> > - It does not have exclusive access to the hardware [4], causing races
+> >   with the secure world.
+> > - It register its implementations with too low a cra_priority for them
+> >   to be actually used [5].
+> >
+> > Therefore, disable it to ensure that nobody builds it into kernels they
+> > intend to ship.
+> >
+> > In the future, the driver will be used for processing restricted media
+> > content.  However, the kernel does not currently support this.  Since
+> > the driver will have future uses, allow building it if COMPILE_TEST is
+> > enabled.
+> >
+> > [1]: https://lore.kernel.org/r/20250704070322.20692-1-ebiggers@kernel.org/
+> > [2]: https://lore.kernel.org/r/20250615031807.GA81869@sol/
+> > [3]: https://lore.kernel.org/r/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com/
+> > [4]: https://lore.kernel.org/r/20260629-qcom-qce-cmd-descr-v20-0-56f67da84c05@oss.qualcomm.com/
+> > [5]: https://lore.kernel.org/r/20260524204537.GB110177@quark/
+> >
+> > Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine driver")
+> > Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Add Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine driver")
+> > - Add Cc: stable@vger.kernel.org
+> > - Link to v1: https://lore.kernel.org/r/20260712-qce-broken-v1-1-85e2bff17871@gmail.com
+> > ---
+> >  arch/arm/configs/multi_v7_defconfig | 1 -
+> >  arch/arm64/configs/defconfig        | 1 -
+> >  drivers/crypto/Kconfig              | 6 +++++-
+> >  3 files changed, 5 insertions(+), 3 deletions(-)
+>
+> Patch applied.  Thanks.
 
-    Call trace:
-     panic+0x58/0x5c
-     die+0x160/0x178
-     bug_brk_handler+0x70/0xa4
-     call_el1_break_hook+0x3c/0x1a0
-     do_el1_brk64+0x24/0x74
-     el1_brk64+0x34/0x54
-     el1h_64_sync_handler+0x80/0xfc
-     el1h_64_sync+0x84/0x88
-     drm_crtc_fence_get_driver_name+0x60/0x68 (P)
-     sync_file_get_name+0x184/0x45c
-     sync_file_ioctl+0x404/0xf70
-     __arm64_sys_ioctl+0x124/0x1dc
+Hi Herbert,
 
-This looks to be caused by a code flow similar to the following:
+I'd like to ask you to back this patch out. Admittedly I should have NAKed this
+under the v1 thread but I thought the discussion we had under the Shikra series
+and the subsequent patch making myself the maintainer of this driver (note: Demi
+did not Cc me on this nor the Qcom mailing list at linux-arm-msm) as well as the
+pending series[1] fixing the QCE issues was enough to imply we should not mark
+it as broken. Please consider applying [1] if the fixes in v6 are correct.
 
-+++ snip +++
-thread A                             thread B
+Bartosz
 
-                                     ioctl(SYNC_IOC_FILE_INFO)
-                                     sync_file_ioctl()
-                                     sync_file_get_name()
-dma_fence_signal_timestamp_locked()  dma_fence_driver_name()
-                                       ops = rcu_dereference(fence->ops)
-                                       if (!dma_fence_test_signaled_flag())
-                                         ops->get_driver_name(fence) i.e.
-                                         drm_crtc_fence_get_driver_name()
-test_and_set_bit(SIGNALED)
-RCU_INIT_POINTER(fence->ops, NULL)
-                                     drm_crtc_fence_get_driver_name()
-                                       BUG_ON(rcu_access_pointer(fence->ops)
-                                              != &drm_crtc_fence_ops)
-+++ snap +++
-
-In other words, a fence's ops pointer can now change to NULL on signal,
-which wasn't the case before the culprit commit and hence the BUG_ON()
-triggers.
-
-Simply drop the BUG_ON() as it's usage of fence ops is invalid now, and
-because using BUG_ON() and friends to take down the system is an
-unacceptable way to handle a failure.
-
-Note that the adjacent drm_crtc_fence_get_timeline_name() has the same
-problem and is fixed by this patch as well.
-
-Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
-Cc: stable@vger.kernel.org
-Reviewed-by: Philipp Stanner <phasta@kernel.org>
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
----
-v3:
-- Philipp:
-  - shorten commit message
-  - explicitly Cc: stable
-  - collect tag
-
-v2:
-- don't turn fence_to_crtc() into macro
-- update commit message to include reference to unacceptable use of BUG
----
- drivers/gpu/drm/drm_crtc.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-index e8e80c936852..5295ec122e0d 100644
---- a/drivers/gpu/drm/drm_crtc.c
-+++ b/drivers/gpu/drm/drm_crtc.c
-@@ -154,11 +154,8 @@ static void drm_crtc_crc_fini(struct drm_crtc *crtc)
- #endif
- }
- 
--static const struct dma_fence_ops drm_crtc_fence_ops;
--
- static struct drm_crtc *fence_to_crtc(struct dma_fence *fence)
- {
--	BUG_ON(rcu_access_pointer(fence->ops) != &drm_crtc_fence_ops);
- 	return container_of(fence->extern_lock, struct drm_crtc, fence_lock);
- }
- 
-
--- 
-2.55.0.229.g6434b31f56-goog
-
+[1] https://lore.kernel.org/all/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com/
