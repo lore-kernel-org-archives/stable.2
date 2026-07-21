@@ -1,103 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08DC3B6BEB;
-	Tue, 21 Jul 2026 21:00:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6E2439012;
+	Tue, 21 Jul 2026 21:00:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784667637; cv=none; b=EBIpTzuWitlLn3Dr1iVl83sXuyemd477yR+1n2eD04P3MdwXx6Wf5aIIpPbx5JSaaGG1P84z8KDQqoBuGLCJDtiM36WNSZ0VcCISh8kwjbIHlMaSBV1yhRW1fi55AgWP8TrXhteJruMQAN/L4/UkhqA2SOcYLXb1hSl93TD7GrU=
+	t=1784667639; cv=none; b=Nb9tOajLfsW+ur7QmJfzJQfvpfs0/ox+14JHcryLlWEXsUo86Es05JKbvOjPJt7RFUrrIoGt2buzaxpxu0nWxioVwm37MrftL5YqExLkhppNHGjnE0wURz90G5grwDfxQi4NoO+KRatnxRrJyLgraGUusDWT0OA558a97q+aUPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784667637; c=relaxed/simple;
-	bh=vA16qSqZpZFE6yzM487lTBu688ARhDu1JlIUrg3URdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UhVpN3SSYbGXxAwXRxS6YcvgRsXLJlSHJwv2GfKYtxESPlGMn1s/riAarfL53AiTvQddsWUqo1oxCPIast6O9k8tNvK3zvBfOt3/w1PpS+U17LG/tThVEZPGRmTVuzrU81VvYrj4l+wFFVPJlL3ykWvrXOtEPNut2V7qn9ACPMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X36deF4s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784667639; c=relaxed/simple;
+	bh=wDZAdfh4YitlwM5SYpXENkwHDSLF7ZaTMaIfmd9XjpU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AUP25WdznuQGdtj283iDg8H9cGnhSP5T9vsiEG72hM11AryLA3lKo/5VaqUSG5zuB2HT9wHV8bsIBOaoxvQbwKKJppk34PDWX1HGhuYMlm/vrV2oVUheV8rJv5WNUCrc6rOF0ELZ4XmRcbdikKpEyb/481rr2HP2vRahogNLdx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THsdyW+1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X36deF4s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F31FD1F000E9;
-	Tue, 21 Jul 2026 21:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784667636;
-	bh=Bysw7kD0Obh+rmYbvl5HHbn0Wr0+DqVIQiZ2mccTwlI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X36deF4s5IShjH4s3mOFzLp4IUeS5lgmiwWZBGI4j2wwuoHl6ILGa9y8B6v2Drd+o
-	 siJVVTvmyQxBZ7qrg3vchS5mLdX37tLwsn+by4zNL/BsbSmAN238JCGYyqYFkD8pVs
-	 Ga84ATf7uW7GVRhNNpUrN5j1MZM809u4GL0SqYUE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH 6.6 1135/1266] memstick: ms_block: reject a card that reports too many blocks
-Date: Tue, 21 Jul 2026 17:26:12 +0200
-Message-ID: <20260721152507.193259195@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
-References: <20260721152441.786066624@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THsdyW+1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982211F00A3A;
+	Tue, 21 Jul 2026 21:00:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784667637;
+	bh=Y1Fqr3yD+eTJzYODUSrjqSjU2oxxaBaa6ty7X9vYvWs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=THsdyW+1tbanf7hmz3l6Ni3GoM29oYpaQuIawLAHUbbD449orliOuz1sd4NLBMCDQ
+	 fjRjv87Z3RS55EK2+M8evnsfEDovJmsrLAjZCRgipBEx8G4gTVuANQHtZPSogfmEHn
+	 3pZ+0O5wobZnskkw9S6sFRRc8lfu6FmoUDlS+MMeJWA4mMTvABVIyeFL95IsfnX+/i
+	 IKKPOzLqtQKrLCplk/kl8OH/JsdQKZ/40khJ3w4/Mg7Iegg62127tt2NHdmvpG6UMF
+	 XgheDekd2KpIVFEc/Zt1R5TwizvSP932ubSJScLY2g/iYaQz/h7rHKiLAvJlVXKAqT
+	 ++GZgbx1ayZaw==
+Date: Tue, 21 Jul 2026 14:00:37 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ibrahim Hashimov <security@auditcode.ai>
+Cc: alex.aring@gmail.com, miquel.raynal@bootlin.com,
+ stefan@datenfreihafen.org, linux-wpan@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] mac802154: hold an interface reference across the
+ scan worker
+Message-ID: <20260721140037.61bf4635@kernel.org>
+In-Reply-To: <20260717105810.26226-1-security@auditcode.ai>
+References: <20260710140927.13228-1-security@auditcode.ai>
+	<20260717105810.26226-1-security@auditcode.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On Fri, 17 Jul 2026 12:58:09 +0200 Ibrahim Hashimov wrote:
+> +	/*
+> +	 * sdata->dev is dereferenced below after rcu_read_unlock() and outside
+> +	 * the rtnl, and a concurrent DEL_INTERFACE / PHY teardown can free it
+> +	 * asynchronously from netdev_run_todo(). Pin it with a reference taken
+> +	 * while the RCU read lock is still held, and drop it at every exit.
+> +	 */
+> +	dev_hold(sdata->dev);
 
-------------------
-
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-
-commit 718178f524b98bc920d74bc771aed823c8b81425 upstream.
-
-msb_ftl_initialize() computes the zone count from the card block count
-with no bound:
-
-	msb->zone_count = msb->block_count / MS_BLOCKS_IN_ZONE;
-	...
-	for (i = 0; i < msb->zone_count; i++)
-		msb->free_block_count[i] = MS_BLOCKS_IN_ZONE;
-
-msb->block_count is a card value. msb_read_boot_blocks() reads
-number_of_blocks from the card boot page and byte swaps it.
-free_block_count is a fixed int[MS_MAX_ZONES]. MS_MAX_ZONES is 16, so the
-valid indices are 0 to 15. The init loop above indexes it by zone_count.
-msb_mark_block_used() and msb_mark_block_unused() index it by
-pba / MS_BLOCKS_IN_ZONE, for pba up to block_count - 1. A card may report
-up to 65535 blocks. A block_count above 8192 (MS_MAX_ZONES *
-MS_BLOCKS_IN_ZONE) lets the pba index reach 16. That writes past
-free_block_count[] and corrupts struct msb_data. A larger count runs the
-init loop past the end too.
-
-A real Memory Stick has at most 16 zones. So it has at most 8192 blocks.
-msb_ftl_initialize() now rejects a card that reports more than
-MS_MAX_ZONES * MS_BLOCKS_IN_ZONE blocks.
-
-Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/memstick/core/ms_block.c |    4 ++++
- 1 file changed, 4 insertions(+)
-
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -1339,6 +1339,10 @@ static int msb_ftl_initialize(struct msb
- 		return 0;
- 
- 	msb->zone_count = msb->block_count / MS_BLOCKS_IN_ZONE;
-+	if (msb->block_count > MS_MAX_ZONES * MS_BLOCKS_IN_ZONE) {
-+		pr_err("Too many blocks: %d\n", msb->block_count);
-+		return -EINVAL;
-+	}
- 	msb->logical_block_count = msb->zone_count * 496 - 2;
- 
- 	msb->used_blocks_bitmap = bitmap_zalloc(msb->block_count, GFP_KERNEL);
-
-
+Please use netdev_hold() with a tracker on the stack.
+Please don't post new versions in reply to old ones.
