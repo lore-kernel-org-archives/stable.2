@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3893C10B8
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:03:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8153BBFAA
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:07:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784624582; cv=none; b=FBdJMEb25RyPn6WzPt7IPwkw1G7fsVKHkNN6UohgRs37Z6ObdaE5/XlHhlKbCl0+fjPz0el+PmZxj4QILcJDKl8uDN0yVW0wFKrPWUvizBy95lkx0z2JsdzeC60/eYyz3Qm/a3krnhtN5opJkbPNTBxIhYSaoCAVOhfyf0KtWGI=
+	t=1784624838; cv=none; b=d4zMWSN2eWy238awsp2ycpJ2fivA3/PwmlUf7+BIQoGfnuX4S9o/odm+7vLo1CVuZKTLTJixOWmPYpHHJ/xAJCQmKw6O6/YAmK4w/ItppxjmXMK/StVilKS1KSlg6UtEbfCYZI5WP4gDnL6sAEb3s044g1OmIf+IaLrmcE9ZkIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784624582; c=relaxed/simple;
-	bh=8vQNJweWv0DBbEjiHJcP1/DCFLphKuEQuBu/C4LQ/Ak=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Xd5wRkMC7a4swl3X8XGa5dLPqw/a+vNspCIKOgtWrFHuKOfXdtr6SX2ITS9buAnulmwflKqYwciCzrJFHMPkf5QTarPBHzoaHYCe/EFP7wdqQqeek2T8o5WPSRwooUmq2eLC4fY4RGFGJT/z/tZrDsjaJDAJoh1gmJeuXXqjA9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AZ6pcf4p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784624838; c=relaxed/simple;
+	bh=iywaDaaptjWiwliizGDOlvM+RJiPwH30UNmIy8Q+ibI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sLDD0cwfY9cVVFgaEG+QgxpVtrTJfLAR4O3pJstBCYzMdfRmMDjNuxC/qIQSwM5ZXSGJoNRWQhCe0DsH+1YuNQdgv9MSGpGju08yOKKnsBbyRGQsmQED0cGOBXuA3VUkcYM67DzCHaAcqdgMH/GHfNDrhMrKKk1MQUTEsoa49z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cpaHFpEG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AZ6pcf4p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1171F000E9;
-	Tue, 21 Jul 2026 09:03:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cpaHFpEG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2841F000E9;
+	Tue, 21 Jul 2026 09:07:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784624581;
-	bh=tXgCh/i80dGotlzxMJcKZDR6m8+GkTFq9P8Wks7tpZI=;
+	s=korg; t=1784624836;
+	bh=XIb/gnkcHhJEh34GvsNNoNFkFcNajeRhBye2qjDDdZA=;
 	h=Subject:To:Cc:From:Date;
-	b=AZ6pcf4pnY9d2Dxr661kdX0jdBYqpOXcVTEYJ6JTbsg031qHLjluTzACzek/USXoW
-	 MTzqB9mzSDvxz9TLqy1yhkHBIsHQ75kWFJHt1wSjEqBX0jMXZ+vFuz6WEUiGAVrx7T
-	 rc3JTCttNrl9UbAKxAM3ko2KbbhyynvlcldhIwuY=
-Subject: FAILED: patch "[PATCH] net: ipa: fix SMEM state handle leaks in SMP2P init" failed to apply to 5.15-stable tree
-To: haoxiang_li2024@163.com,elder@riscstar.com,kuba@kernel.org,larysa.zaremba@intel.com
+	b=cpaHFpEGTIsFPJlFpdLLVRkOR9C6Z1I+o8no26aiJ2hlfkpHgAwWtfJzqKKopmcxE
+	 KffE9ggUmoKWDaR7rbKdld8yrMTHdWzwJiL6QBLGNcbd9827t2b2m7l4Xe6b9J7hVM
+	 1Mgoj9spEqJVSDtkjWetsrHA2aO9HMMvkfwjy/Sc=
+Subject: FAILED: patch "[PATCH] riscv: probes: save original sp in rethook trampoline" failed to apply to 6.1-stable tree
+To: martin@kaiser.cx,mhiramat@kernel.org,pjw@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 11:02:34 +0200
-Message-ID: <2026072133-buffalo-cortex-74ca@gregkh>
+Date: Tue, 21 Jul 2026 11:07:07 +0200
+Message-ID: <2026072107-shale-fraction-527c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 96ca1e658ae459276292bd6d971ab5d8c7e0379a
+git cherry-pick -x bc7b086a45521a986a49045907f017e3e46c763e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072133-buffalo-cortex-74ca@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072107-shale-fraction-527c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,84 +62,57 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 96ca1e658ae459276292bd6d971ab5d8c7e0379a Mon Sep 17 00:00:00 2001
-From: Haoxiang Li <haoxiang_li2024@163.com>
-Date: Wed, 24 Jun 2026 14:59:55 +0800
-Subject: [PATCH] net: ipa: fix SMEM state handle leaks in SMP2P init
+From bc7b086a45521a986a49045907f017e3e46c763e Mon Sep 17 00:00:00 2001
+From: Martin Kaiser <martin@kaiser.cx>
+Date: Tue, 30 Jun 2026 21:40:03 +0200
+Subject: [PATCH] riscv: probes: save original sp in rethook trampoline
 
-ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
-qcom_smem_state_get(). However, neither the init error paths
-nor ipa_smp2p_exit() release them.
+Reading a word from the stack in a kretprobe crashes a risc-v kernel.
 
-Release both handles with qcom_smem_state_put() in the init
-error paths and in ipa_smp2p_exit().
+$ cd /sys/kernel/tracing/
+$ echo 'r n_tty_write $stack0' > dynamic_events
+$ echo 1 > events/kprobes/enable
+Unable to handle kernel paging request at virtual address 0000000200000128
+...
+[<ffffffff80016d16>] regs_get_kernel_stack_nth+0x26/0x38
+[<ffffffff80177196>] process_fetch_insn+0x3ee/0x760
+[<ffffffff80177836>] kretprobe_trace_func+0x116/0x1f0
+[<ffffffff8017795a>] kretprobe_dispatcher+0x4a/0x58
+[<ffffffff8013572e>] kretprobe_rethook_handler+0x5e/0x90
+[<ffffffff80180838>] rethook_trampoline_handler+0x70/0x108
+[<ffffffff8001ba32>] arch_rethook_trampoline_callback+0x12/0x1c
+[<ffffffff8001ba84>] arch_rethook_trampoline+0x48/0x94
+[<ffffffff8067872a>] tty_write+0x1a/0x30
 
-Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+In regs_get_kernel_stack_nth, regs->sp contains an arbitrary value.
+
+arch_rethook_trampoline saves the registers from the probed function in a
+struct pt_regs. sp is not saved. Instead, sp is decremented for
+arch_rethook_trampoline's local stack.
+
+Fix this crash and save the original sp along with the other registers.
+Use a0 as a temporary register, it is overwritten anyway.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
-Reviewed-by: Alex Elder <elder@riscstar.com>
-Link: https://patch.msgid.link/20260624065955.2822765-1-haoxiang_li2024@163.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: c22b0bcb1dd02 ("riscv: Add kprobes supported")
+Signed-off-by: Martin Kaiser <martin@kaiser.cx>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Link: https://patch.msgid.link/20260630194010.1824039-1-martin@kaiser.cx
+[pjw@kernel.org: added Fixes tag; cc'ed stable]
+Signed-off-by: Paul Walmsley <pjw@kernel.org>
 
-diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
-index 2f0ccdd937cc..331c00ad02c0 100644
---- a/drivers/net/ipa/ipa_smp2p.c
-+++ b/drivers/net/ipa/ipa_smp2p.c
-@@ -232,19 +232,27 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
- 					  &valid_bit);
- 	if (IS_ERR(valid_state))
- 		return PTR_ERR(valid_state);
--	if (valid_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (valid_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_valid_state_put;
-+	}
+diff --git a/arch/riscv/kernel/probes/rethook_trampoline.S b/arch/riscv/kernel/probes/rethook_trampoline.S
+index f2cd83d9b0f0..c3aa8d8cf5af 100644
+--- a/arch/riscv/kernel/probes/rethook_trampoline.S
++++ b/arch/riscv/kernel/probes/rethook_trampoline.S
+@@ -41,6 +41,9 @@
+ 	REG_S x29, PT_T4(sp)
+ 	REG_S x30, PT_T5(sp)
+ 	REG_S x31, PT_T6(sp)
++	/* save original sp */
++	addi a0, sp, PT_SIZE_ON_STACK
++	REG_S a0, PT_SP(sp)
+ 	.endm
  
- 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
- 					    &enabled_bit);
--	if (IS_ERR(enabled_state))
--		return PTR_ERR(enabled_state);
--	if (enabled_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (IS_ERR(enabled_state)) {
-+		ret = PTR_ERR(enabled_state);
-+		goto err_valid_state_put;
-+	}
-+	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_enabled_state_put;
-+	}
- 
- 	smp2p = kzalloc_obj(*smp2p);
--	if (!smp2p)
--		return -ENOMEM;
-+	if (!smp2p) {
-+		ret = -ENOMEM;
-+		goto err_enabled_state_put;
-+	}
- 
- 	smp2p->ipa = ipa;
- 
-@@ -289,6 +297,10 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
- 	kfree(smp2p);
-+err_enabled_state_put:
-+	qcom_smem_state_put(enabled_state);
-+err_valid_state_put:
-+	qcom_smem_state_put(valid_state);
- 
- 	return ret;
- }
-@@ -305,6 +317,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
- 	ipa_smp2p_power_release(ipa);
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
-+	qcom_smem_state_put(smp2p->enabled_state);
-+	qcom_smem_state_put(smp2p->valid_state);
- 	kfree(smp2p);
- }
- 
+ 	.macro restore_all_base_regs
 
