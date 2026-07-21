@@ -1,43 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bregans-1.gladserv.net (bregans-1.gladserv.net [185.128.211.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D19143901B;
-	Tue, 21 Jul 2026 22:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D9B445AED;
+	Tue, 21 Jul 2026 22:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.128.211.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784672482; cv=none; b=fBOhQFRiV01BS2RlFkMgi9zuB55Fas1besNngHioCDlg/PVz6A4ce+i55I9Xxw6C/taPfxiACpZc3146VB2FmcnuYcU0pNcKTkgmIXPEmU9sE27kLCpzlmG/xJE8aKw9TE3+KgVmG84l6j2Z1qqhgpeOKUdx8qFPMHOFEJrMr5A=
+	t=1784672485; cv=none; b=i+zo2rwZSN2lzZIdGZiQ/EJTRlt9q35vCiGn6P5viU/ZqGZf5w4aIpZRozTGoS4Vvnowh4g6pgg6AuQdwo4r/aBiHsevo3cOsJQRLHM5fi35hUOWgKV5Wb3OBZvDJyjNEtXX4MrppGXk0XaFBv9J5LQ7ry6qd2ypMYqYJ8kdBwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784672482; c=relaxed/simple;
-	bh=wmOFr6o3uNHssbkrYe2O8cxFJFnYoPasQVpFPuHePG0=;
+	s=arc-20240116; t=1784672485; c=relaxed/simple;
+	bh=jfthUt3yl3hPYzX5TSi9ryPWAyqLls2KhbdlO9xwTn0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c76zU/oM1sjHQh6WyMTPUQJvETlZ9sdHk8YMhvKy7f33EUm0tD1Un3FqD0j5DHwEPzmOa/Jcg9ITWYzyd/tSodCQvGXaeCqu9V7GzAHcwyNWAj54Ct97A2gfTOq62JT5oa2w+BlCxQ5YAikf/CN40DHQKRmn3HV+6P3EnRNi/fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=esrdIXbO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="esrdIXbO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2E761F00A3A;
-	Tue, 21 Jul 2026 22:21:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784672481;
-	bh=bGRaW5krzIHu5OqvAwDoRUr6ZUs8xC+Ywa4kytBbHJk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=esrdIXbOf72mL1mOFCic9yQNO7aSKAi7vAhiFQnBJ54jPQ4vwHAssM2OMvii1bA+a
-	 Q7J0xY75yk95uTwVQmph9kMUHxhMS1GVC9TVzS7jX9z6mTfZ2FD8t6yuJ7EmBnPnCr
-	 Qrckx7vuH6TsW34ngUbFbE0S4745AA3rB5xhzOsw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	 MIME-Version; b=epgdJWXJDUqCco5Gn5f8m+tHXuJn3Pq2oq4Rgiz64iSg87pOQPosOF68ar0UDt+fKnUHDjHW/If9G5LyDHSFz4CdPfnQK88KbhV0J7XNztIzQYPLZKyfOJX1wYnqHXPLITcA3xoSs1VhpfN9hqW3P/O0kDPiclxq7PZZovrcKvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net; spf=pass smtp.mailfrom=librecast.net; arc=none smtp.client-ip=185.128.211.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
 	patches@lists.linux.dev,
-	Jaewon Yang <yong010301@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [PATCH 5.15 642/843] tpm: Make the TPM character devices non-seekable
-Date: Tue, 21 Jul 2026 17:24:37 +0200
-Message-ID: <20260721152420.508041500@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152405.946368001@linuxfoundation.org>
-References: <20260721152405.946368001@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 6.6 0000/1266] 6.6.145-rc1 review
+Date: Tue, 21 Jul 2026 22:21:08 +0000
+Message-ID: <20260721222111.46884-1-bacs@librecast.net>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
+References: <20260721152441.786066624@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,79 +50,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+# Librecast Test Results
 
-------------------
+020/020 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-From: Jaewon Yang <yong010301@gmail.com>
+CPU/kernel: Linux auntie 6.6.145-rc1-g5b1c90a58c89 #1 SMP PREEMPT_DYNAMIC Tue Jul 21 20:42:54 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
 
-commit f20d61c22bcaf172d6790b6500e3838e532e71c8 upstream.
-
-The TPM character devices expose a sequential command/response
-interface, but their open handlers leave FMODE_PREAD and FMODE_PWRITE
-enabled.
-
-After a command leaves a response pending, pread(fd, buf, 16, 0x1400)
-passes 0x1400 as *off to tpm_common_read(). The transfer length is
-bounded by response_length, but the offset is used unchecked when
-forming data_buffer + *off. A sufficiently large offset therefore causes
-an out-of-bounds heap read through copy_to_user() and, if the copy
-succeeds, an out-of-bounds zero-write through the following memset().
-
-Positional I/O does not provide coherent semantics for this interface.
-An arbitrary pread offset cannot represent how much of a response has
-been consumed sequentially. The write callback always stores a command
-at the start of data_buffer, while pwrite() does not update file->f_pos
-and can leave the sequential read cursor stale.
-
-Call nonseekable_open() from both open handlers. This removes
-FMODE_PREAD and FMODE_PWRITE, causing positional reads and writes to
-fail with -ESPIPE before reaching the TPM callbacks, and explicitly
-marks the files non-seekable. Normal read() and write() continue to use
-the existing sequential f_pos cursor, leaving the response state machine
-unchanged.
-
-Tested on Linux 6.12 with KASAN and a swtpm TPM2 device:
-
- - sequential partial reads returned the complete response
- - pread() and preadv() with offset 0x1400 returned -ESPIPE
- - pwrite() and pwritev() with offset zero returned -ESPIPE
- - the pending response remained intact after the rejected operations
- - a subsequent normal command/response cycle completed normally
- - no KASAN report was produced.
-
-Fixes: 9488585b21be ("tpm: add support for partial reads")
-Link: https://lore.kernel.org/all/20260710090217.191289-1-yong010301@gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jaewon Yang <yong010301@gmail.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/char/tpm/tpm-dev.c   |    2 +-
- drivers/char/tpm/tpmrm-dev.c |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
---- a/drivers/char/tpm/tpm-dev.c
-+++ b/drivers/char/tpm/tpm-dev.c
-@@ -36,7 +36,7 @@ static int tpm_open(struct inode *inode,
- 
- 	tpm_common_open(file, chip, priv, NULL);
- 
--	return 0;
-+	return nonseekable_open(inode, file);
- 
-  out:
- 	clear_bit(0, &chip->is_open);
---- a/drivers/char/tpm/tpmrm-dev.c
-+++ b/drivers/char/tpm/tpmrm-dev.c
-@@ -29,7 +29,7 @@ static int tpmrm_open(struct inode *inod
- 
- 	tpm_common_open(file, chip, &priv->priv, &priv->space);
- 
--	return 0;
-+	return nonseekable_open(inode, file);
- }
- 
- static int tpmrm_release(struct inode *inode, struct file *file)
-
-
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
