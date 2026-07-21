@@ -1,83 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1148442107;
-	Tue, 21 Jul 2026 21:06:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2854418F5;
+	Tue, 21 Jul 2026 21:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784668021; cv=none; b=FwMc/dAGPAqouA7OXmcCHGR4jVX+YNYS870zpTYSGVegQhirUcy4AcNajqyKdhcB7EPux4dByR/zB4O2mzPpuh6qTWpgl9PcA2NOQDMatIjWgwbC2Vx2iuIpb0vw+sep6lvs9LHWiRfOXlgw882Y6ZegFKMyl4sxaXls21emUWM=
+	t=1784668022; cv=none; b=Sp2obSdEx+9da/JqoJyAzfMKk50OXRPTeDggYFgO/0JArKftLwxd+Kt8fVBba4wYUYVl0jhy5F6YY4R6obQtqD4fxtdTAuCXGVfWO+Bag9IimNJqLt9BvFFtpbREthczMtYyXqzvMme3RgjLAI5hKISRZEYl8RX3EXGRtryqGWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784668021; c=relaxed/simple;
-	bh=JltIqwd2g4PZsbTsOlBMggkBKsK6QXyPs+p0vF/bQuE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ss08EtBOLq1LElXKOFnBer9G9G6ypAGRQEfhGUNrxRwuc4NG9oRVIIwnavAunKyyrEFzbPw2twET1gitocV7MGeVQbQ9BZIdBSWfR7DQRSmXp2JOTfoxEprPuDGpLmQwB6pkWheOrVDZVxzRlhGnbWlusoV9De74gnj0O3LaOPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ln2ByyT6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784668022; c=relaxed/simple;
+	bh=hiKLXhU1Uc94DaT91XC5BmEuBHimF10C2+0zMXEDVGs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SLpXGEFE/LIia4DPU5SL5jSLZY6G4u7HC2kuWgYhFWoCyCfApScy2GjLw/gbdhIZ2VnrTZn4/+/BH+k0F2lsQSgUhTC3lM6mOvDawJ5p787kIH6kjDY8ZoHX+NRVDnSMWRC8/OZQOd/XEE4vWZo44dkKf0HMpoZEoeeBBw6LU5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nblZO3Xu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ln2ByyT6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F601F00A3A;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nblZO3Xu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273301F000E9;
 	Tue, 21 Jul 2026 21:06:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784668019;
-	bh=7abXyW5cA3rz+bga/ufpLUDWGqJKwYg+XMhDXnLdN1M=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Ln2ByyT65k9ls7JpzavSEX+UODFqy0DYM9oXz+jXMpNyCIPwTzsIKxgUfG+sS74Dm
-	 +tXns42gZ/hCoNw4l2LlCJS6nJCWXbjffYNAvFy1/xwL9wIJ4AdGWcIChwSzrZWLRl
-	 vSuh0BpWfWuBcNfc9H3c92rRXRfakXZqc3xJgdRGwAjS1Am6KUpB7NFQObuR203HsJ
-	 Yi/E53Z0d/G1/8ZuBeR4SCdndhoHlo/X9kWizNOkXAjQtXw0HEEos2ejPjkuvofDhg
-	 HpRZJlNXQch1NefUsxOUHy7qnGOQ+Xviw9Q4UhXcdAU16OwCuNxPVOlpO7H1KWLiLV
-	 eOGmtC3KrtS8Q==
-Date: Tue, 21 Jul 2026 14:06:58 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: MingXuan <omeux327@gmail.com>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Xin Long
- <lucien.xin@gmail.com>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, linux-sctp@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] sctp: diag: fix uninitialized stack leak via
- INET_DIAG_LOCALS/PEERS
-Message-ID: <20260721140658.21d898ef@kernel.org>
-In-Reply-To: <20260715033536.64963-1-omeux327@gmail.com>
-References: <20260715033536.64963-1-omeux327@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784668020;
+	bh=rZSg5djmxDgl70LvhwPDQs2bYcns/Lrzt3S6vSnzgew=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nblZO3XuF4MN10599fF5CAyuJ+YUG3ghvrH1MymyYli51KjAKrfFW53LA0Wj4xQKm
+	 F4h1NdbYQLq8ocqDWCzbgwJdFUepa5TgHROeasTAaJqE6KHZvAOpco3Hd3I07PeXQm
+	 TcNcTHw7WJpl2/Ldj3wA9jlIhhljELGGeGLS5JM0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@kernel.org,
+	Ruipeng Qi <ruipengqi3@gmail.com>,
+	Chao Yu <chao@kernel.org>,
+	Chao Yu <chaseyu@google.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0019/1067] f2fs: fix potential deadlock in gc_merge path of f2fs_balance_fs()
+Date: Tue, 21 Jul 2026 17:10:20 +0200
+Message-ID: <20260721152424.964082688@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
+References: <20260721152424.521567757@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 15 Jul 2026 11:35:36 +0800 MingXuan wrote:
-> Fixes: 8f840e47f190cbe61a96945c13e9551048d42cef ("sctp: add the sctp_diag.c file")
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Please trim the commit hash per recommended format of the Fixes tag
+------------------
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: MingXuan <omeux327@gmail.com>
-> ---
->  net/sctp/diag.c | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/sctp/diag.c b/net/sctp/diag.c
-> index d758f5c3e06e..12557e924cc2 100644
-> --- a/net/sctp/diag.c
-> +++ b/net/sctp/diag.c
-> @@ -85,8 +85,12 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buff *skb,
->  	info = nla_data(attr);
->  	rcu_read_lock();
->  	list_for_each_entry_rcu(laddr, address_list, list) {
-> -		memcpy(info, &laddr->a, sizeof(laddr->a));
-> -		memset(info + sizeof(laddr->a), 0, addrlen - sizeof(laddr->a));
-> +		size_t addr_len = laddr->a.sa.sa_family == AF_INET ?
-> +				  sizeof(struct sockaddr_in) :
-> +				  sizeof(struct sockaddr_in6);
-> +
-> +		memset(info, 0, addrlen);
-> +		memcpy(info, &laddr->a, addr_len);
+From: Chao Yu <chao@kernel.org>
 
-Having a variables called addrlen and addr_len in the same context
-is quite confusing. Can you come up with a better name?
--- 
-pw-bot: cr
+[ Upstream commit 8b4468ec023d0d1b4669dfb867588997cc03a06b ]
+
+When we mount device w/ gc_merge mount option, we may suffer below
+potential deadlock:
+
+Kworker					GC trehad			Truncator
+- f2fs_write_cache_pages
+ - f2fs_write_single_data_page
+  - f2fs_do_write_data_page
+   - folio_start_writeback  --- set writeback flag on folio
+   - f2fs_outplace_write_data
+   : cached folio in internal bio cache
+  - f2fs_balance_fs
+   - wake_up(gc_thread)
+   : wake up gc thread to run foreground GC
+   - finish_wait(fggc_wq)
+   : wait on the waitqueue --- wait on GC thread to finish the work
+									- truncate_inode_pages_range
+									 - __filemap_get_folio(, FGP_LOCK)  --- lock folio
+									 - truncate_inode_partial_folio
+									  - folio_wait_writeback            --- wait on writeback being cleared
+					- do_garbage_collect
+					 - move_data_page
+					  - f2fs_get_lock_data_folio
+					   - lock on folio  --- blocked on folio's lock
+
+In order to avoid such deadlock, let's call below functions to commit
+cached bios in GC_MERGE path of f2fs_balance_fs() as the same as we did
+in NOGC_MERGE path.
+- f2fs_submit_merged_write(sbi, DATA);
+- f2fs_submit_all_merged_ipu_writes(sbi);
+
+Cc: stable@kernel.org
+Fixes: 351df4b20115 ("f2fs: add segment operations")
+Cc: Ruipeng Qi <ruipengqi3@gmail.com>
+Reported: Sandeep Dhavale <dhavale@google.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Chao Yu <chaseyu@google.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ fs/f2fs/segment.c |   14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -408,6 +408,13 @@ void f2fs_balance_fs(struct f2fs_sb_info
+ 	 * dir/node pages without enough free segments.
+ 	 */
+ 	if (has_not_enough_free_secs(sbi, 0, 0)) {
++		/*
++		 * Submit all cached OPU/IPU DATA bios before triggering
++		 * foreground GC to avoid potential deadlocks.
++		 */
++		f2fs_submit_merged_write(sbi, DATA);
++		f2fs_submit_all_merged_ipu_writes(sbi);
++
+ 		if (test_opt(sbi, GC_MERGE) && sbi->gc_thread &&
+ 					sbi->gc_thread->f2fs_gc_task) {
+ 			DEFINE_WAIT(wait);
+@@ -426,13 +433,6 @@ void f2fs_balance_fs(struct f2fs_sb_info
+ 				.err_gc_skipped = false,
+ 				.nr_free_secs = 1 };
+ 
+-			/*
+-			 * Submit all cached OPU/IPU DATA bios before triggering
+-			 * foreground GC to avoid potential deadlocks.
+-			 */
+-			f2fs_submit_merged_write(sbi, DATA);
+-			f2fs_submit_all_merged_ipu_writes(sbi);
+-
+ 			f2fs_down_write(&sbi->gc_lock);
+ 			f2fs_gc(sbi, &gc_control);
+ 		}
+
+
