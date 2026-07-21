@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A1E372B57;
-	Tue, 21 Jul 2026 17:12:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344A33ACA5D
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653974; cv=none; b=Vxhx49faYJPjHFpEBkjb7W/ZJrpMhg4wYHSCTgGTg+Oqacif5D2lLJjAOh2PQbvNACp21fk3TJb+R7SltrMRZeewQS3Z7pqhARze/5h8TIoeUJf5p87/KyBGgRZqRj5YSgnJS5G7+CWo9bP8Wfcx9AUmi8y9tda1UEpb2vD12kI=
+	t=1784653974; cv=none; b=neii+OJVFpEZJdyCEMHCP3a1+LqAAp6ZjIrKdED4lI+6K+rZjhezQV3HHuwr69W64XKCDooUDqC9wEW4cDs7mGKifATn8Wx5NHXEB18w0rc4mdekQqoHA649PixwRjMNfLWPJPM12Tw3aYGJBhPfnLkTtG4Qtwe8sHj7wylKz08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784653974; c=relaxed/simple;
-	bh=O/GK+T4KIzC+4rXpxY1vdJ8fh/TYFvEugdq+/YJQgdA=;
+	bh=q9loNUDxcWZI1oUmEy7pb5foQQLOwAPHX/FEtOGX6Gg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bJLrkBhsGOkXphpozQ7/77b6d90Mo4t5cfZ6gUYReXQoITWeupFXgoELn+axcQ3Xjm2y35/NSHPsSsdyrMtDfNSBYuE4yrg8J1H7o/QI47DD6EhQIeRMISj5MtyjNAidkfk7CaBijVuz/eNA/XsFbn+iB9RV3u/gxEp3YNgM2SU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RMW5XEZp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EIuCbOVyiGg7iI9K0bX1TTbOV9s6OnlHvjWYGyp7AuMsbAAbABIKxdrckb0Cj4O8/a4qThLT8gIuC2hcFWQ7EMuFdwUpwKpBlDuBQ3XpXu2klsUpiE/UsiiExOiIxWvq8KWHsy2HwBj4q09+JzQGceFBihVQeG2+Q2ChmwUStLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bk4MuhW2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RMW5XEZp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E531F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bk4MuhW2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63DAD1F000E9;
 	Tue, 21 Jul 2026 17:12:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784653973;
-	bh=+o+jyVtx4CUvnL/C3S7dJCm3nFYNgysLYIbdVPOKHrc=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784653973;
+	bh=O5rA5V/Nf4o0sX+fbziaVhxucuZ5cEr/z3l4cBh0jVo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RMW5XEZpnnhwLZttIbyP4OayfLWlkqdatZAi4xMgC+CH8KGWTsCqHJXM6Fl6tJd1v
-	 HVtYecGnF2YY9VL+7lw1Iy4IcJ2eqox+3Wpxdj14rBay71/6pBir0A9+9wKepBZ05z
-	 8bAPgovXb+C7cDEu1Humj7zotOI8KpTATn7GPdlc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=bk4MuhW2OlAo969WVXZhTJaijksXGa2Gq5rW70RzZodhNEx34rBFGr9vQ2T0VjaRq
+	 jnp8egieRqQDAUMrYY73Jt+Kmu8DfM0NDiyA5Ddu0nU+SD0qysW9s/Fujz48ky8JJJ
+	 /WHDSFg8/qqV31S8s+tAKj/AREIc1M/pF1wEGJZzB5G+NYa1Mp6PXFt1E6iki9rrEy
+	 78YVgmYp+tFIw7qGt+73gdcev0DsO4iSV0Uk2vX8wgMReOYhR3TyMtf3sWqC6SNexP
+	 keZ4GCwHfcsDQJgMbsG21wf0Pb+96jGbKTenZWrqJCRKj/OOe6xyJDdiPiENyMdmX8
+	 NbPBfmBZH3rSA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yuan Tan <yuantan098@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Yong Wang <edragain@163.com>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 7.1 1530/2077] net: ife: require ETH_HLEN to be pullable in ife_decode()
-Date: Tue, 21 Jul 2026 17:20:03 +0200
-Message-ID: <20260721152628.867698259@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Nicolin Chen <nicolinc@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] iommufd: Reject invalid read count in iommufd_fault_fops_read()
+Date: Tue, 21 Jul 2026 13:12:50 -0400
+Message-ID: <20260721171250.107567-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071602-java-pointing-40af@gregkh>
+References: <2026071602-java-pointing-40af@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,49 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Nicolin Chen <nicolinc@nvidia.com>
 
-------------------
+[ Upstream commit 47916a54eeb2a9e654512ee609f71bd5b29db702 ]
 
-From: Yong Wang <edragain@163.com>
+The read count must be large enough to hold one fault or a group's faults.
 
-commit 9406f6012b7343661efb516a11c62d4db2b62f75 upstream.
+iommufd_fault_fops_read() does not validate the count, but returns 0 as if
+the read had succeeded while leaving the pending fault in the queue.
 
-ife decode may return after making only the outer IFE header and
-metadata pullable. The caller then passes the decapsulated packet to
-eth_type_trans(), which expects the inner Ethernet header to be
-accessible from the linear data area.
+Return -EINVAL in the undersize cases.
 
-With a malformed IFE frame, the inner Ethernet header may still be
-shorter than ETH_HLEN in the linear area, which can lead to a crash in
-the original code.
-
-Fix this by extending the pull check in ife_decode() so that the inner
-Ethernet header is also guaranteed to be pullable before returning.
-
-Fixes: ef6980b6becb ("introduce IFE action")
+Fixes: 07838f7fd529 ("iommufd: Add iommufd fault object")
+Link: https://patch.msgid.link/r/85c118a606fbedc5c132a1f5ec223a5ba23b92d2.1780343944.git.nicolinc@nvidia.com
 Cc: stable@vger.kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Signed-off-by: Yong Wang <edragain@163.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Link: https://patch.msgid.link/20260610183814.1648888-2-n05ec@lzu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ife/ife.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iommu/iommufd/fault.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
---- a/net/ife/ife.c
-+++ b/net/ife/ife.c
-@@ -79,7 +79,7 @@ void *ife_decode(struct sk_buff *skb, u1
- 	if (unlikely(ifehdrln < 2))
- 		return NULL;
+diff --git a/drivers/iommu/iommufd/fault.c b/drivers/iommu/iommufd/fault.c
+index 8226e28d79a510..6048d8a1c8380e 100644
+--- a/drivers/iommu/iommufd/fault.c
++++ b/drivers/iommu/iommufd/fault.c
+@@ -273,6 +273,9 @@ static ssize_t iommufd_fault_fops_read(struct file *filep, char __user *buf,
+ 		if (done >= count ||
+ 		    group->fault_count * fault_size > count - done) {
+ 			iommufd_fault_deliver_restore(fault, group);
++			/* Read count doesn't fit the first fault group */
++			if (done == 0)
++				rc = -EINVAL;
+ 			break;
+ 		}
  
--	if (unlikely(!pskb_may_pull(skb, total_pull)))
-+	if (unlikely(!pskb_may_pull(skb, total_pull + ETH_HLEN)))
- 		return NULL;
- 
- 	ifehdr = (struct ifeheadr *)(skb->data + skb->dev->hard_header_len);
-
+-- 
+2.53.0
 
