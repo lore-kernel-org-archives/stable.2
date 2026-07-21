@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A7940B396
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:56:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE57481FDF
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784635006; cv=none; b=WnV6pAA/G7VWwRHgfq44t/IddYQJduqhBG357j3IEu/tXiCWkribof7A0OVrPPSJR73gU78EgqFYF1YYBvTswwrn36zJuyXO9UXVe7nT5xc7LPUqyXve6xbe1IwuMp7bRMmUtVrlEprPSXycvo9VT1b5yNPDWhJL/lGzkJrVMgs=
+	t=1784635016; cv=none; b=Gn8wPf2rV1drJsC1LM229p8EqtEOZc30bJR5Txn4Azi2+Md3ZnKhNkbjoqNEd485klPDvPOQzX+eTSgQQFg/X9FcOAA6Z6RJmR+GYQiWkvvaH6sloW+JDzuBOEwXRnW1obeAebFD/cUW2V4UEMlfa6uMm8SZWy1IF2diWd38cmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784635006; c=relaxed/simple;
-	bh=6A/oEKLYnKPpZA0jI/W65o6JxdDIoxuwaBwvvna/E+c=;
+	s=arc-20240116; t=1784635016; c=relaxed/simple;
+	bh=iCPg0l0fKWdRIcOsN9NvM+J5wYQ3XhLz4XoyDu0Ej4c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sPwF9eSnamysSYWYsn1w5nLt461wrHqOnhFeiF+9gMumslwkAiciqQV/gV4w2RklXJNxxmh9TrOEdiQRKf+R1ZW/tdz2BIwEBd5sr7DuFTrgASB3cg/9MPiRr9lnqt+4rA8U+ZuHoqKIVLZp1Bb8XZzAuyWHfHy6mYDlZezEw0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3YWPa+x; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KKfgeHTD5twcVMsSRDxDPrsLDXiwYGC4bd4DwO0gt1H3Ilvju7J5eO+qXo//n6s9ZtruqTOcCb/U2Kx0OWtV4KtxUP775Q/KpAVzx7pBCNoE77vqpszHVzdBY/rmc7NZnQ28f4eLj67YJYj4r6207AQWyEvfwfIeaK1M0uL3Pcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/jZqfIV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3YWPa+x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863971F00A3D;
-	Tue, 21 Jul 2026 11:56:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/jZqfIV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0AF1F000E9;
+	Tue, 21 Jul 2026 11:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784635005;
-	bh=D7awcoz+w7Wx1Dk6mImW/KEzUUl+FT3DDM0YNT1nXn4=;
+	s=k20260515; t=1784635014;
+	bh=oTNAAoj2qEB1//9Xv4jky8QngvKgJKUF98Z9RF5UIXQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m3YWPa+xgtHtcwXLHUP6WSTmU32A0x/BlkLVCMPOUPzDOEoyIT8bGU5XRv1t4duyL
-	 BM6B9lYLH7j3qu7DemH+bk8j/3IpoezEdh7wkJkihs8f3XnA5VVa31hMPTnLik8YAx
-	 h0eXHnkSWHEj8L82zUfOq8g1Hvc4E/ULCCujP0zBHvsjx+XJzGGd5yMM414HOwNxji
-	 VyStIB/IZRxMKNQF9ROR217SHAonGCQq9QaM/HhYp5eIN7ettFPr3knzyehsQ/h0Z1
-	 zw5L5Vb5u/yG5XUonUCHBcNVbxSSsYfAK/zlDpKfBE1A3OO7Mvljjke6ZGuoT3bM1J
-	 CXaC9FAa+++wQ==
+	b=U/jZqfIVH2miVxDO1jcIQy1/bPO8DJrLkWuhVqweFBNLtf+4UXkfR7VHtTClEzQiF
+	 oLUJqfotQegoyrQ7XhIuo4YFUI/Wkjr6F4GRhv0ci8Z00dHtOtZ2m1ZdwS5nffcGr1
+	 cgNNzUPlANvo6cHqgpPArrYhcK9iM38TE4jn5kBXg+mUpAK7XdiUX/UmF4bwwSzi+g
+	 YmfHJzB4+rKTgOlZExk5+cc4Yk209YQE7SHX2aHNlhkDYLX2cKrh5RiPBksZKxkm6c
+	 Z10gGLuUGmDo4vUfvRzUVFB+AKsj1jLu9dNDdbTsn0/uZEqy3TkTzM8+L7X1K2wwry
+	 9fd65KeWzS14g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ricardo Robaina <rrobaina@redhat.com>,
-	Richard Guy Briggs <rgb@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
+Cc: Matt Bobrowski <mattbobrowski@google.com>,
+	oxsignal <awo@kakao.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Amery Hung <ameryhung@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] audit: fix potential integer overflow in audit_log_n_hex()
-Date: Tue, 21 Jul 2026 07:56:42 -0400
-Message-ID: <20260721115642.3699441-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] bpf: Reject BPF_MAP_TYPE_INODE_STORAGE creation if BPF LSM is uninitialized
+Date: Tue, 21 Jul 2026 07:56:52 -0400
+Message-ID: <20260721115652.3699691-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721115642.3699441-1-sashal@kernel.org>
-References: <2026071527-delusion-yarn-0b07@gregkh>
- <20260721115642.3699441-1-sashal@kernel.org>
+In-Reply-To: <2026071658-connected-camisole-01ce@gregkh>
+References: <2026071658-connected-camisole-01ce@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,65 +48,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Robaina <rrobaina@redhat.com>
+From: Matt Bobrowski <mattbobrowski@google.com>
 
-[ Upstream commit 65dfde57d1e29ce2b76fc23dd565eccd5c0bc0f0 ]
+[ Upstream commit a6f0643e4f63cfaa0d5d4a69de4f132eac4b8fe4 ]
 
-The function calculates new_len as len << 1 for hex encoding. This
-has two overflow risks: the shift itself can overflow when len is
-large, and the result can be truncated when assigned to new_len
-(declared as int) from the size_t calculation.
+When CONFIG_BPF_LSM=y is set, BPF inode storage maps
+(BPF_MAP_TYPE_INODE_STORAGE) are compiled into the kernel. However,
+if the BPF LSM is not explicitly enabled at boot time (e.g. omitted
+from the "lsm=" boot parameter), lsm_prepare() is never executed for
+the BPF LSM.
 
-Fix by using check_shl_overflow() to catch shift overflow and
-changing new_len and loop counter i to size_t to prevent truncation.
+Consequently, the BPF inode security blob offset
+(bpf_lsm_blob_sizes.lbs_inode) is never initialized and remains at
+its default compiled size of 8 bytes instead of being updated to a
+valid offset past the reserved struct rcu_head (typically 16 bytes
+or more).
 
-Cc: stable@vger.kernel.org
-Fixes: 168b7173959f ("AUDIT: Clean up logging of untrusted strings")
-Reviewed-by: Richard Guy Briggs <rgb@redhat.com>
-Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
-[PM: remove vertical whitspace noise]
-Signed-off-by: Paul Moore <paul@paul-moore.com>
+When a privileged user creates and updates a BPF_MAP_TYPE_INODE_STORAGE
+map, bpf_inode() evaluates inode->i_security + 8. This erroneously
+aliases the struct rcu_head.func callback pointer at the beginning
+of the inode->i_security blob. During subsequent map element cleanup
+or inode destruction, writing NULL to owner_storage clears the queued
+RCU callback pointer. When rcu_do_batch() later executes the queued
+callback, it attempts an instruction fetch at address 0x0, triggering
+an immediate kernel panic.
+
+Fix this by introducing a global bpf_lsm_initialized boolean flag
+marked with __ro_after_init. Set this flag to true inside bpf_lsm_init()
+when the LSM framework successfully registers the BPF LSM. Gate map
+allocation in inode_storage_map_alloc() on this flag, returning
+-EOPNOTSUPP if the BPF LSM is in turn uninitialized.
+
+This fail-fast approach prevents userspace from allocating inode
+storage maps when the supporting BPF LSM infrastructure is absent,
+avoiding zombie map states.
+
+Fixes: 8ea636848aca ("bpf: Implement bpf_local_storage for inodes")
+Reported-by: oxsignal <awo@kakao.com>
+Signed-off-by: Matt Bobrowski <mattbobrowski@google.com>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+Reviewed-by: Amery Hung <ameryhung@gmail.com>
+Link: https://lore.kernel.org/bpf/20260628201103.3624525-1-mattbobrowski@google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/audit.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ include/linux/bpf_lsm.h        | 4 ++++
+ kernel/bpf/bpf_inode_storage.c | 9 +++++++++
+ security/bpf/hooks.c           | 3 +++
+ 3 files changed, 16 insertions(+)
 
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 2d38092a30322a..b8014cfe276cf0 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -61,6 +61,7 @@
- #include <net/netns/generic.h>
- #include <net/ip.h>
- #include <net/ipv6.h>
-+#include <linux/overflow.h>
+diff --git a/include/linux/bpf_lsm.h b/include/linux/bpf_lsm.h
+index aefcd656425126..625f4926da534a 100644
+--- a/include/linux/bpf_lsm.h
++++ b/include/linux/bpf_lsm.h
+@@ -14,6 +14,8 @@
  
- #include "audit.h"
+ #ifdef CONFIG_BPF_LSM
  
-@@ -2034,7 +2035,8 @@ void audit_log_format(struct audit_buffer *ab, const char *fmt, ...)
- void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
- 		size_t len)
++extern bool bpf_lsm_initialized __ro_after_init;
++
+ #define LSM_HOOK(RET, DEFAULT, NAME, ...) \
+ 	RET bpf_lsm_##NAME(__VA_ARGS__);
+ #include <linux/lsm_hook_defs.h>
+@@ -50,6 +52,8 @@ int bpf_lsm_get_retval_range(const struct bpf_prog *prog,
+ 			     struct bpf_retval_range *range);
+ #else /* !CONFIG_BPF_LSM */
+ 
++#define bpf_lsm_initialized false
++
+ static inline bool bpf_lsm_is_sleepable_hook(u32 btf_id)
  {
--	int i, avail, new_len;
-+	int avail;
-+	size_t i, new_len;
- 	unsigned char *ptr;
- 	struct sk_buff *skb;
+ 	return false;
+diff --git a/kernel/bpf/bpf_inode_storage.c b/kernel/bpf/bpf_inode_storage.c
+index e16e79f8cd6dc3..564ba5f414f57c 100644
+--- a/kernel/bpf/bpf_inode_storage.c
++++ b/kernel/bpf/bpf_inode_storage.c
+@@ -182,6 +182,15 @@ static int notsupp_get_next_key(struct bpf_map *map, void *key,
  
-@@ -2044,7 +2046,12 @@ void audit_log_n_hex(struct audit_buffer *ab, const unsigned char *buf,
- 	BUG_ON(!ab->skb);
- 	skb = ab->skb;
- 	avail = skb_tailroom(skb);
--	new_len = len<<1;
+ static struct bpf_map *inode_storage_map_alloc(union bpf_attr *attr)
+ {
++	/*
++	 * Do not allow allocation of BPF_MAP_TYPE_INODE_STORAGE if the BPF LSM
++	 * was not initialized by the LSM framework at boot. Without proper
++	 * initialization, the BPF inode security blob offset remains unprepared,
++	 * causing bpf_inode() to calculate an invalid memory offset and corrupt
++	 * inode->i_security.
++	 */
++	if (!bpf_lsm_initialized)
++		return ERR_PTR(-EOPNOTSUPP);
+ 	return bpf_local_storage_map_alloc(attr, &inode_cache, false);
+ }
+ 
+diff --git a/security/bpf/hooks.c b/security/bpf/hooks.c
+index 3663aec7bcbd21..aa1c7915ed2258 100644
+--- a/security/bpf/hooks.c
++++ b/security/bpf/hooks.c
+@@ -7,6 +7,8 @@
+ #include <linux/bpf_lsm.h>
+ #include <uapi/linux/lsm.h>
+ 
++bool bpf_lsm_initialized __ro_after_init;
 +
-+	if (check_shl_overflow(len, 1, &new_len)) {
-+		audit_log_format(ab, "?");
-+		return;
-+	}
-+
- 	if (new_len >= avail) {
- 		/* Round the buffer request up to the next multiple */
- 		new_len = AUDIT_BUFSIZ*(((new_len-avail)/AUDIT_BUFSIZ) + 1);
+ static struct security_hook_list bpf_lsm_hooks[] __ro_after_init = {
+ 	#define LSM_HOOK(RET, DEFAULT, NAME, ...) \
+ 	LSM_HOOK_INIT(NAME, bpf_lsm_##NAME),
+@@ -25,6 +27,7 @@ static int __init bpf_lsm_init(void)
+ {
+ 	security_add_hooks(bpf_lsm_hooks, ARRAY_SIZE(bpf_lsm_hooks),
+ 			   &bpf_lsmid);
++	bpf_lsm_initialized = true;
+ 	pr_info("LSM support for eBPF active\n");
+ 	return 0;
+ }
 -- 
 2.53.0
 
