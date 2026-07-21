@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101DB376BD6
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 14:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CEC146588
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 14:41:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784644865; cv=none; b=jJXkXezoadsTMQSvi3DXyVrMduD0HU6QWo+gRrOTbG36Y179XFnumXGFMj9ZO9FIRMynqPJy5VasP817JihWtYZFaoXZ9n3o6AEfZlH6eJM6GBM2LnguuIZGJsBVAv7ag/IyJ56ydgmNoIiD8XsX5Uz5dET42wRDsKWxamdpbtE=
+	t=1784644873; cv=none; b=BgyBSIq9NrhuJ0AIPvGw64gEyiprfoefGZJIKobSDOEnDpdHTw5L9TzpqpQDbgzjtblTvf0oqO26ViLmVIzvLa7Zg3e2gRalEnNrMytUAERJnHhTBiIfLFhNG9LG08KosE208I+oLSdTHevQpL/Nu9+VRxjkrQ5zeysAXul2gr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784644865; c=relaxed/simple;
-	bh=ghkwrbNSbkPF1LyM/Camc2L4uFI2DvXsHhrJaB0RrBk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kI0FUfuMrsnqyLyLSPObow9+aldibfEKQ+zCM1IEtxuzp38+n41pB1UxVLNB3/dI/ZPQSqY9mJ+7IEe/p2vlwjyjgxhYir589DY6Txa4DbjLyxnKn+lKYQaEnHVDJm0z4twwbr5genCgwCTh0zZSwIymskddWnFRgyT0O1JHoVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BZAnEWV5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784644873; c=relaxed/simple;
+	bh=zv+pg/drn87aQlQW2C1G4XCW4fV2oM87oZahIILRgDI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qpEwPHRynJhRVIzLEu6Ds74zGWQKVRXbMvBTOgN1U35p6f52xWawDzB89cUTdiDG8dZFumH5w0fVVDhTNcDApkyrlDVyO/AJudMWnRmSW4yoN753CQ7x917SvZ8zGxyVWGa62lbrbO80U41c68IH2STQgptZF/Zra8M5/T5CStU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u89PIDEn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BZAnEWV5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD441F000E9;
-	Tue, 21 Jul 2026 14:41:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u89PIDEn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE3E1F000E9;
+	Tue, 21 Jul 2026 14:41:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784644863;
-	bh=07ktNWqU/I1hF3iGIwGJOsncvMXceuCizQHGlSoZRn8=;
+	s=korg; t=1784644871;
+	bh=nswFRb5Tb9cBCZwmMVcLu5nnee7vVVZGNdwfdQQPRVo=;
 	h=Subject:To:Cc:From:Date;
-	b=BZAnEWV5cmChu5gNfTSXIQnmDU1E8Z+x6jA7lhCjANEPzwz4sOEqExNe6vt9Lgu1L
-	 e45D8vdVYgevIglyt02APA5WiHYGBv4rF/y2o2xCGQCVRxCdU6Wctam+QENC/S7fEQ
-	 WEi6NShyTcUX6bmo/K+A32LMRf2vV3n9GokmOuHc=
-Subject: FAILED: patch "[PATCH] net: airoha: Fix skb->priority underflow in" failed to apply to 6.12-stable tree
-To: win847@gmail.com,joe@dama.to,kuba@kernel.org,lorenzo@kernel.org
+	b=u89PIDEnqeTWhnNFMo1iczgaR8xrGxu4fc566H7jjoF6NuGDBlX1PoFaFvPAJJVuH
+	 MIeewFiV8EPnR1BbBqWrd/0JGyC2GzAFBf917I3sYo1r0UrSu+QlsGrSHgakHE6QZU
+	 szo/l31uinmKImmGFmqAcGxYlSbl7r9CGeBIvlKQ=
+Subject: FAILED: patch "[PATCH] net: airoha: Fix register index for Tx-fwd counter" failed to apply to 6.12-stable tree
+To: win847@gmail.com,kuba@kernel.org,lorenzo@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 16:40:54 +0200
-Message-ID: <2026072154-partly-effective-6632@gregkh>
+Date: Tue, 21 Jul 2026 16:41:02 +0200
+Message-ID: <2026072102-stack-mardi-5c7c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 86e51aa24686cc95bb35613059e8b94b9b81e3f0
+git cherry-pick -x 1402ecccf5630a0b7fa4749d7d2e72abc3f3d73d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072154-partly-effective-6632@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072102-stack-mardi-5c7c@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,54 +62,39 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 86e51aa24686cc95bb35613059e8b94b9b81e3f0 Mon Sep 17 00:00:00 2001
-From: Wayen Yan <win847@gmail.com>
-Date: Sat, 20 Jun 2026 16:17:44 +0800
-Subject: [PATCH] net: airoha: Fix skb->priority underflow in
- airoha_dev_select_queue()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 1402ecccf5630a0b7fa4749d7d2e72abc3f3d73d Mon Sep 17 00:00:00 2001
+From: "Wayen.Yan" <win847@gmail.com>
+Date: Fri, 12 Jun 2026 07:09:13 +0800
+Subject: [PATCH] net: airoha: Fix register index for Tx-fwd counter
+ configuration
 
-In airoha_dev_select_queue(), the expression:
+In airoha_qdma_init_qos_stats(), the Tx-fwd counter configuration
+register uses the same index (i << 1) as the Tx-cpu counter, which
+overwrites the Tx-cpu configuration. The Tx-fwd counter value register
+correctly uses (i << 1) + 1, so the configuration register should use
+the same index.
 
-  queue = (skb->priority - 1) % AIROHA_NUM_QOS_QUEUES;
+Fix the REG_CNTR_CFG index from (i << 1) to ((i << 1) + 1) so that
+the Tx-fwd counter is properly configured instead of clobbering the
+Tx-cpu counter config.
 
-implicitly converts to unsigned arithmetic: when skb->priority is 0
-(the default for unclassified traffic), (0u - 1u) wraps to UINT_MAX,
-and UINT_MAX % 8 = 7, routing default best-effort packets to the
-highest-priority QoS queue. This causes QoS inversion where the
-majority of traffic on a PON gateway starves actual high-priority
-flows (VoIP, gaming, etc.).
-
-The "- 1" offset was a leftover from the ETS offload implementation
-that has since been removed. The correct mapping is a direct modulo:
-
-  queue = skb->priority % AIROHA_NUM_QOS_QUEUES;
-
-This maps priority 0 → queue 0 (lowest), priority 7 → queue 7
-(highest), with higher priorities wrapping around. This is the
-standard Linux sk_prio → HW queue mapping used by other drivers.
-
-Fixes: 2b288b81560b ("net: airoha: Introduce ndo_select_queue callback")
-Link: https://lore.kernel.org/netdev/178185573207.2378135.3729126358670287878@gmail.com/
+Fixes: 20bf7d07c956 ("net: airoha: Add sched ETS offload support")
+Signed-off-by: Wayen.Yan <win847@gmail.com>
 Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Reviewed-by: Joe Damato <joe@dama.to>
-Signed-off-by: Wayen Yan <win847@gmail.com>
-Link: https://patch.msgid.link/178194366700.2485734.5368768965976693502@gmail.com
+Link: https://patch.msgid.link/6a2b40e7.4dd82583.3a5c46.e566@mx.google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
 diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index 64dde6464f3f..3370c3df7c10 100644
+index 31cdb11cd78d..329988a8400c 100644
 --- a/drivers/net/ethernet/airoha/airoha_eth.c
 +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -2110,7 +2110,7 @@ static u16 airoha_dev_select_queue(struct net_device *netdev,
- 	 */
- 	channel = netdev_uses_dsa(netdev) ? skb_get_queue_mapping(skb) : port->id;
- 	channel = channel % AIROHA_NUM_QOS_CHANNELS;
--	queue = (skb->priority - 1) % AIROHA_NUM_QOS_QUEUES; /* QoS queue */
-+	queue = skb->priority % AIROHA_NUM_QOS_QUEUES;
- 	queue = channel * AIROHA_NUM_QOS_QUEUES + queue;
- 
- 	return queue < netdev->num_tx_queues ? queue : 0;
+@@ -1256,7 +1256,7 @@ static void airoha_qdma_init_qos_stats(struct airoha_qdma *qdma)
+ 			       FIELD_PREP(CNTR_CHAN_MASK, i));
+ 		/* Tx-fwd transferred count */
+ 		airoha_qdma_wr(qdma, REG_CNTR_VAL((i << 1) + 1), 0);
+-		airoha_qdma_wr(qdma, REG_CNTR_CFG(i << 1),
++		airoha_qdma_wr(qdma, REG_CNTR_CFG((i << 1) + 1),
+ 			       CNTR_EN_MASK | CNTR_ALL_QUEUE_EN_MASK |
+ 			       CNTR_ALL_DSCP_RING_EN_MASK |
+ 			       FIELD_PREP(CNTR_SRC_MASK, 1) |
 
