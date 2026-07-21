@@ -1,105 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E174508EB;
-	Tue, 21 Jul 2026 10:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466354BC020;
+	Tue, 21 Jul 2026 10:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629976; cv=none; b=UmFQXdI8BYY6mSY79H/sk8EJhY2oZpvRC53j542L4J2jwTwmY0KFkisNLWDDVyPpBq95WLZv+ec+G54P5Nk8KKqj6GGEQa0vypMXJfR4/cRiuBICPJ5rk7fTPXxx49EjLJTqVd+/Bv3FbLp53lymrDJIRfo4E3yjZI1IGYnUkVI=
+	t=1784630208; cv=none; b=gnYOdvD4WTRDt5c+cEafJdDbhanlY2QkR2M0gKZQJXOW1iZBLrSVSy4PxJ6kJo8xdLdf15cfm4jZOkgV2O0R07iHNOAiIkpvls/fsbAkGHjrOrdOwqA2VFY8bBq28XapaO2Vxhljg6njth3n3G5hvwHafxDeGHA/0nsvvjaNU1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629976; c=relaxed/simple;
-	bh=jkN5zvUVJMCMUwbhclhdZ1CqXTlXOySWqV5FoXfM4Ek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=azyTi0xdkb2wd7ePicKVweZn8LpUTAb6Kbolpz2aVrv7pYuLsq8nz2jeG4CtPVxp2UxAR0wKAcVeKgWVYV0wEGHkrss8g9CQgo+pXvGVQSvVgNq9I4W2TdTzhp4BbJWyxEXNqqXmF/HiEdg2oow37Pi2+pHUA2Dv1PEA6RwDPlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhA9VFRm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784630208; c=relaxed/simple;
+	bh=uk9+PAfhiDn1pJ0V7lxZBU/RUKIOyzf7ZqCPJq+EOwk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qebJtowxcuNSrl/f1lzriITUZNDCvSAbbQMZV7WwoVPmB00S3tcXe4MxbBEfnGKW4DbMGyn7Zb1exGhZOto0nlXNG6kjmhp2jnGdAYxifP89ywlfXFGkSrJ+/luRSPtFXK1oE4gos7EfAfwYxLR/hukvyn/49nQ6KCdXbjqFSvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mDO9LErl; arc=none smtp.client-ip=95.215.58.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhA9VFRm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E511F000E9;
-	Tue, 21 Jul 2026 10:32:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784629975;
-	bh=mspC1fdG+pvm63GGOQ7/xTAnO2WjExN52IoSROfvj/Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IhA9VFRm5IdbLL+pEstMzqMhkdBytj5LItEqDpa1Yq1SgODLuKNcDGyr3S7LyFhg0
-	 I1tjMsit9yiuPWJquHM5hmxH7ZW89EasFRtXDDEXDQ24GNhR3Tj0h64K5WgpOUKs2E
-	 ppTD3mLmWLCXMDQGXrBZ7kDNJBh7R+J60fex/Ps6JTXB0wMWRD6AemPEvh0E89nT47
-	 g3B2vlw0SdP7IkE3EWCOE7Zny3Z8k6NCjiJ4P5/Hh7SjRTOf9NYb/t0OuL0MR+V3R+
-	 Sg/8rD57YwRLfQENAOAd3xO1iXPQ44H1qLKink+8bEAqZJgYoEpsFZwEPKdPoTtlf7
-	 Q28eR8c7qDh1g==
-Date: Tue, 21 Jul 2026 13:32:44 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Vishal Moola <vishal.moola@gmail.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, Kiryl Shutsemau <kas@kernel.org>,
-	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mDO9LErl"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784630204;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=2zzTDGQly5AVxe/+9Ui/CdewjiD+JPqlP23irktRQUk=;
+	b=mDO9LErlNCxVEWXtC6Il3c80LAKdHR3u+x2Qpwq/fp6/IQRcOAwqLPd+50t7sS4GaVxGZy
+	zZ2dy1OxoDrzjbksQnnOz2qJ39F1xbbgmVcMrSkEmAg0yI2mvBzDz8qfqQO/BEqypTOge9
+	BvcjPay13/VHzZf2SE6FoNxeB/Kpcm8=
+From: xuanqiang.luo@linux.dev
+To: intel-wired-lan@lists.osuosl.org
+Cc: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	tj@kernel.org,
+	netdev@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm/pat: allocate split page tables as kernel page
- tables
-Message-ID: <al9KzIhKXa3PCMqa@kernel.org>
-References: <20260720-fix-cpa-kernel-pagetables-v1-1-0766e782cefe@kernel.org>
- <al5-fDRStgU6gjk6@fedora>
- <al5_Le9QlD4zlt25@fedora>
- <al8hE_ded6qyWiDv@lucifer>
- <al8_xx_99BjAUn5A@fedora>
- <al9BpTu2ma8GpiPW@lucifer>
+Subject: [PATCH iwl-net v1] igb/igbvf: disable work items before device removal
+Date: Tue, 21 Jul 2026 18:35:39 +0800
+Message-ID: <20260721103539.57990-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al9BpTu2ma8GpiPW@lucifer>
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Tue, Jul 21, 2026 at 10:58:50AM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Jul 21, 2026 at 02:45:43AM -0700, Vishal Moola wrote:
-> > >
-> > > Well some kernel page tables are still allocated without ctor (early allocated
-> > > direct map for isntance), and if you did pagetable_dtor_free() it
-> > > unconditionally calls pagetable_dtor().
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-TBH, I cannot think of a scenario when page tables allocated at boot would
-be collapsed. But surely, checking the page type is safer just in case.
+A watchdog work item that is already running can queue the reset work after
+the remove path has canceled it. The netdev Tx timeout handler can also
+queue the reset work until unregister_netdev() shuts the interface down.
+In igb, device reset interrupts provide another enqueue path. The reset
+work may then run after free_netdev(), resulting in access to the freed
+adapter memory.
 
-> > > The ptlock_free() and __folio_clear_pgtable() there would be harmelss (no locks
-> > > assigned for kernel page table, and if PG_table never set clearing it is a noop)
-> > > but the lruvec_stat_sub_folio() would cause an unbalanced decrement of
-> > > nr_page_table_pages.
-> >
-> > Gotcha, thanks for the explanation :)
-> 
-> No worries, this is subtle stuff with lots of weird gotchas and stuff we need to
-> improve... I seem to have fallen down an unexpected rabbit hole with these fixes
-> :)
-> 
-> >
-> > > It sucks, but until everything is updated to call the ctor we have to do it this
-> > > way :>)
-> >
-> > Yeah that makes sense. Although I'd rather see the condition as:
-> > if(PageTable(ptdesc_page(...)))
-> >
-> > We really shouldn't be calling ptdesc_folio() anywhere anymore.
-> 
-> I think better for a follow up since the code already uses ptdesc all over the
-> place (fundamental to the approach really, keeping a list of page tables etc.)
-> and this is a fix that needs backporting.
+Although igb_reset_task() checks __IGB_DOWN, checking the bit already
+dereferences the adapter and therefore cannot protect its lifetime.
 
-I agree with Vishal that it's better to use page type rather than folio
-type. And it's the same for backporting ;-) 
+Disable the watchdog work first and the reset work second in both drivers.
+Disabling the work items also prevents racing attempts to queue them during
+device removal.
+
+Fixes: 760141a53e5d ("igb[v],ixgbe: don't use flush_scheduled_work()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+---
+ drivers/net/ethernet/intel/igb/igb_main.c | 4 ++--
+ drivers/net/ethernet/intel/igbvf/netdev.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index a1e89a375744c..5ffc0ad318914 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -3887,8 +3887,8 @@ static void igb_remove(struct pci_dev *pdev)
+ 	timer_delete_sync(&adapter->watchdog_timer);
+ 	timer_delete_sync(&adapter->phy_info_timer);
  
-> Cheers, Lorenzo
-
+-	cancel_work_sync(&adapter->reset_task);
+-	cancel_work_sync(&adapter->watchdog_task);
++	disable_work_sync(&adapter->watchdog_task);
++	disable_work_sync(&adapter->reset_task);
+ 
+ #ifdef CONFIG_IGB_DCA
+ 	if (adapter->flags & IGB_FLAG_DCA_ENABLED) {
+diff --git a/drivers/net/ethernet/intel/igbvf/netdev.c b/drivers/net/ethernet/intel/igbvf/netdev.c
+index ec308a5f5302a..c5ae15fcdca75 100644
+--- a/drivers/net/ethernet/intel/igbvf/netdev.c
++++ b/drivers/net/ethernet/intel/igbvf/netdev.c
+@@ -2906,8 +2906,8 @@ static void igbvf_remove(struct pci_dev *pdev)
+ 	set_bit(__IGBVF_DOWN, &adapter->state);
+ 	timer_delete_sync(&adapter->watchdog_timer);
+ 
+-	cancel_work_sync(&adapter->reset_task);
+-	cancel_work_sync(&adapter->watchdog_task);
++	disable_work_sync(&adapter->watchdog_task);
++	disable_work_sync(&adapter->reset_task);
+ 
+ 	unregister_netdev(netdev);
+ 
 -- 
-Sincerely yours,
-Mike.
+2.43.0
+
