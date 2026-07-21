@@ -1,143 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC873AE19C;
-	Tue, 21 Jul 2026 10:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8ED45BD78;
+	Tue, 21 Jul 2026 10:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629184; cv=none; b=GwBOgSrE2Q8Qu5TP7JR0WlQet+txjwF8+LMyYb07tJvIy8n+kyNNYmN3gJLeFs70K5nldjpdDm5VhVYeyt87OLdeS6H76yfx7nsBxraP4DaHzvoAHI/TqNEbGQM45p3QLy1HCXmazvUdHqIJD2CYjtjFOClEm8DHVlvmJaY7wmk=
+	t=1784629478; cv=none; b=Zz+ZdbelINgWNEq2K8Ww5/k1wvJrojinOdVO3HNVxX+ss47frnAz8mEsKNFx0EfmwWahFkFwV2wRsTCNckBs6bcSpzml6rkjtC0LzMjBrFMqHmV7i8sHbPl1MvMdxuETO0hAoLQwXgYFVxEmxCUPtoxGYi8C2VofSj5UUkW7THw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629184; c=relaxed/simple;
-	bh=JNbDPvZlLqNKzFvNH+8QFfcsJvoWiygaXJJa+SetBN4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=GUS10imMvdABuq4eN+Je6hqiWi9LTGzyfSI+NMbZDTC0DlReei3s9pAwomLao9Oj3xqd+uXRwf1UuZJ7ATVdX11aUB2rU6vrCx1KxeJ5Nwycvby5tLXeCvBSGPUxC8kDOEGgOWiRLXRsYfObfb/1tzErFaX1vCLT3iR/DQZTpxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I1V8JHWo; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784629478; c=relaxed/simple;
+	bh=8kyVLgfefu/oT3YJXfkoO+ml1KqFnGihaI4aBgjp3CM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o1Ho3ffw8p+2urHg11YUIDVWs0eEbafdG4kQmWIFqwK0ADDCUp+wT7mInuD60Sx0hZYdPIoTA9AcssTmQHXeqGuo3EmiSc9D69wVMHLKIakS6J0BX6Q0OHekoc9YD22zm9m//sJuXmAVyNwe3T/n4Vr0MbQ1k+J4/3UpezAdiF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MUqoKZJh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I1V8JHWo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784629180; x=1816165180;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=JNbDPvZlLqNKzFvNH+8QFfcsJvoWiygaXJJa+SetBN4=;
-  b=I1V8JHWoC50RmgbZzU4Oa+r2hoOBD/Xe7u8FnsIOagzdgWaIbiBUomrE
-   B2RmljJwQ/vT3YfV5KxrJBt0OsM9NyX7Pzeoce2ZpvQ3rcMhPsgrEP6zQ
-   m52gHVHDtKGXt0yMGbOphlYETpnHTLEyF912Zv/ex6V/H4/dfDLCbm/4+
-   TtXr7OkSxL3qwgYDr8LltPItIELq4WgEDgTJDOFrzocRXj72x+r5HpAme
-   YjOoxADCZlx6ZX7s9GiQZ4/eqJ7V5F5EhW5FF6B34lSkbKNEyMVJzRfDY
-   yH+dmz/Kk+a83QSeR30Dk3nnom5JY6KRH68qLcSUSt3QIsw7n4ComeHJo
-   w==;
-X-CSE-ConnectionGUID: YuLCn6HPRZuIPbFAL1zZ6A==
-X-CSE-MsgGUID: qr+NEYWKSPusRX8d4l6B0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="89049318"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="89049318"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:19:39 -0700
-X-CSE-ConnectionGUID: W6SVnmIaTeWof6lfnYwRrw==
-X-CSE-MsgGUID: 1zvDLDZwTe+Jz/P0S5C9Hw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="255938269"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:19:37 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 21 Jul 2026 13:19:33 +0300 (EEST)
-To: Mario Limonciello <mario.limonciello@amd.com>
-cc: Hans de Goede <hansg@kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-    "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>, 
-    Francis De Brabandere <francisdb@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] platform/x86/amd/pmc: Fix LPS0 and debugfs leaks
- when STB init fails
-In-Reply-To: <20260717162023.956346-2-mario.limonciello@amd.com>
-Message-ID: <2d61d763-8e4b-ed5c-2040-38e48894ae69@linux.intel.com>
-References: <20260717162023.956346-1-mario.limonciello@amd.com> <20260717162023.956346-2-mario.limonciello@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MUqoKZJh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2BEB1F000E9;
+	Tue, 21 Jul 2026 10:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784629476;
+	bh=pT5BtT4gQxptRHiptEfDygJMcbVQACDKOZrYIYo2Zfo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MUqoKZJhjkN+nW9EenUQ+6WbzVhKeTDi3HFvsnl3gvkeitOUSgY0DQo2fk9S8Mj32
+	 K6A+1UedsQZrmPRfj66hSvQ/HCcD+vTsLevGcQtzOlgOcUIWnPN+xlSVkwhexisx06
+	 n9uZttZMPa88XlK2FFLD512x9628wJB5TpqFvK2xPPJPMF5kW1FVIv8Jy8s7O1MkGH
+	 mgjujNCklUOKvLcS2JpVBRNtoGXkp88nXvNhV64WN8rjFPu2HGsaG6QMTvHSoZFXln
+	 JdnaDquzwIARmH8CygsuuZ9ajboonUzIgMszY/wAzaV0fZbjVFmX0A05wTPJ/yWumE
+	 IvtsAv/Fq6syg==
+Date: Tue, 21 Jul 2026 12:24:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, stable@vger.kernel.org, 
+	"Dr. David Alan Gilbert" <dave@treblig.org>
+Subject: Re: [PATCH 1/5] dt-bindings: usb: parade,ps8830: Add
+ parade,disable-usb4 property
+Message-ID: <20260721-imperial-wrasse-of-pride-ac53f5@quoll>
+References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+ <20260718-ps883x-disable-usb4-v1-1-cec86d0b909e@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260718-ps883x-disable-usb4-v1-1-cec86d0b909e@oldschoolsolutions.biz>
 
-On Fri, 17 Jul 2026, Mario Limonciello wrote:
-
-> amd_pmc_probe() registers the LPS0 s2idle handler with
-> acpi_register_lps0_dev() and creates the driver's debugfs directory
-> before calling amd_stb_s2d_init(), which is the last step in probe that
-> can fail.
+On Sat, Jul 18, 2026 at 07:06:29PM +0200, Jens Glathe wrote:
+> Document a new optional boolean property "parade,disable-usb4".
+> When present, the retimer rejects USB4 mode by returning -EOPNOTSUPP,
+> forcing a fallback to USB3 + DP Alternate Mode.
 > 
-> When amd_stb_s2d_init() fails (for example the S2D telemetry region
-> cannot be ioremapped on a long-running system, or the SMU rejects the
-> S2D setup) the error path only calls pci_dev_put() and returns.  This
-> leaves amd_pmc_s2idle_dev_ops on the global lps0_s2idle_devops_head list
-> and leaks the debugfs directory, while the devm-managed resources
-> backing the handler are torn down.
-> 
-> Reloading the module then walks the corrupted list in
-> acpi_register_lps0_dev() and hits:
-> 
->   list_add corruption. next->prev should be prev, but was NULL.
->   kernel BUG at lib/list_debug.c:29!
->    acpi_register_lps0_dev+0x44/0x80
->    amd_pmc_probe+0x224/0x380 [amd_pmc]
->    platform_probe+0x67/0x90
-> 
-> Even without a reload, the stale registration means the next s2idle
-> transition calls into torn-down driver state.
-> 
-> Unwind the debugfs directory and the LPS0 registration on the
-> amd_stb_s2d_init() error path.  acpi_unregister_lps0_dev() is safe to
-> call unconditionally here: it is guarded on the same conditions as
-> acpi_register_lps0_dev(), which is exactly what amd_pmc_remove() already
-> relies on.
-> 
-> Assisted-by: Claude:opus
-> Reported-by: Francis De Brabandere <francisdb@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221759
-> Tested-by: Francis De Brabandere <francisdb@gmail.com>
-> Fixes: 83ad6974dd3b ("platform/x86/amd/pmc: Move STB block into amd_pmc_s2d_init()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Assisted-by: Grok(xAI):4.3
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 > ---
->  drivers/platform/x86/amd/pmc/pmc.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  Documentation/devicetree/bindings/usb/parade,ps8830.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
-> index d50ea62fa2f3a..630a664bdd2f4 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc.c
-> +++ b/drivers/platform/x86/amd/pmc/pmc.c
-> @@ -919,13 +919,17 @@ static int amd_pmc_probe(struct platform_device *pdev)
->  	amd_pmc_dbgfs_register(dev);
->  	err = amd_stb_s2d_init(dev);
->  	if (err)
-> -		goto err_pci_dev_put;
-> +		goto err_dbgfs_unregister;
+> diff --git a/Documentation/devicetree/bindings/usb/parade,ps8830.yaml b/Documentation/devicetree/bindings/usb/parade,ps8830.yaml
+> index eaeab1c01a594..44242907461eb 100644
+> --- a/Documentation/devicetree/bindings/usb/parade,ps8830.yaml
+> +++ b/Documentation/devicetree/bindings/usb/parade,ps8830.yaml
+> @@ -66,6 +66,12 @@ properties:
+>            Sideband Use (SBU) AUX lines endpoint to the Type-C connector for the purpose of
+>            handling altmode muxing and orientation switching.
 >  
->  	if (IS_ENABLED(CONFIG_AMD_MP2_STB))
->  		amd_mp2_stb_init(dev);
->  	pm_report_max_hw_sleep(U64_MAX);
->  	return 0;
->  
-> +err_dbgfs_unregister:
-> +	amd_pmc_dbgfs_unregister(dev);
-> +	if (IS_ENABLED(CONFIG_SUSPEND))
-> +		acpi_unregister_lps0_dev(&amd_pmc_s2idle_dev_ops);
->  err_pci_dev_put:
->  	pci_dev_put(rdev);
->  	return err;
+> +  parade,disable-usb4:
+> +    type: boolean
+> +    description:
+> +      When present, the retimer rejects USB4 mode (returns -EOPNOTSUPP).
+
+You described the desired Linux feature or behavior, not the actual
+hardware. The bindings are about the latter, so instead you need to
+rephrase the property and its description to match actual hardware
+capabilities/features/configuration etc.
+
+> +      This forces the Type-C stack to fall back to USB3 + DP Alternate Mode.
+> +
+>  required:
+>    - compatible
+>    - reg
 > 
-
-No need to change this patch as this looks to be using reverse from the 
-order they were init in, but amd_pmc_remove() is using different order
-and should IMO changed to match (there probably isn't any good reason 
-for the other order).
-
-Sashiko mentions a few low value pre-existing problems that too would be 
-nice to address eventually.
-
--- 
- i.
-
+> -- 
+> 2.53.0
+> 
