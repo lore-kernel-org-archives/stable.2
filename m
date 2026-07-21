@@ -1,180 +1,124 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDE248BD5E
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE1047DF99;
+	Tue, 21 Jul 2026 10:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629718; cv=none; b=gnlr+svBLlmkDH2cZhpJvOrXjwj/Qz013rgO9dy7lBP01qjeDJYMAN/sGKWWb+cTq1wDCTec3XdQ+zTORC9GJwAO+dZ4Kab9TJXlnUHqGhTe9QIRLHRGs9NiNGo4sWJJ6R4x9ITGsniWvF+rNKM8v0NsUWe5ZmZ/nM28xicld38=
+	t=1784629742; cv=none; b=NoRfAKGFPU66aeFydq20jkowmFaffR5MG7g/d827o/X8TpfvTx14niljwFI/Svyf/tbzOhVmT7yzq9Gbz4BOP5cvG/x9KkF5fXaX1wsgaMT+M1Zu30weW6OOposJ8ylvvXvzVa8d7d3oyTz0WORpNXSe1+8PQTeSOrj2CPBm13w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629718; c=relaxed/simple;
-	bh=flLnTzzvdktYAMXGKCG/ht6BWQVMu8ko2+dOzbhNc0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4sNQug09Fwo/D3aIluYOCKXWuybRPugL6Ih9F4ukdHSZ5eUom2m35e+bw7e/eN9rXiQltwUogqtHOz1vjbFlTiZShhSUrY9skZBeQfWQGKzM67HB+oeC7c8HpUujwIJ+Qqkt40hEDAJORazDkxDV0ZUC/voutI7fPt6RjlkbSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fEyBqXFJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TsHuZG7A; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784629742; c=relaxed/simple;
+	bh=F1+UVwOZEeJF59KEp06xDRMWI4CbcDVCbWUBCs0hIZM=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=ceX9ycupjYoJ44LvHVMRBBU+mAwM5z0Sf6zDUIYTWrXpzXDl2yqF1iOgIor/13dxv65F41SSgz3Fhbuh1zGSwBqNN36cnwTe8f6nuzPU/gAwS9OWArWfqcJ+vWaV3710LXPOf1Ru5uF0KKqGeiBXJ0grIgHAjr8cRIQLwEKHX0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=1hClCNfS; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fEyBqXFJ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TsHuZG7A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784629716;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=qX+yOp5vEEJO47GrrgFjd6hpRsB9whe/kZX5TD9uf8A=;
-	b=fEyBqXFJe2GJXq3BzIrtPbWXcTKN/oA482fi+cSerBOZxf3SuuZxqqxGJqdZubKF87Q/uG
-	rS3Pvwzta8iX58SQfrlES9vIrNMxtXysRD9L8odMVrHUz+4ssk5GUctLkaDxYdrTyE6BKa
-	UUzYIhDIzvt0YzYRw48+c/UOL3845yY=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-88-wsqSe65WOAyYsNQu7xhgEA-1; Tue, 21 Jul 2026 06:28:35 -0400
-X-MC-Unique: wsqSe65WOAyYsNQu7xhgEA-1
-X-Mimecast-MFC-AGG-ID: wsqSe65WOAyYsNQu7xhgEA_1784629714
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4954c2d4081so39076445e9.2
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 03:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784629714; x=1785234514; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qX+yOp5vEEJO47GrrgFjd6hpRsB9whe/kZX5TD9uf8A=;
-        b=TsHuZG7A43/BydLbUNZXnP9AMTAlcTxD8OmCJhuwQ2cpxE+4w3DsqP5pyGSIvN8/o3
-         bjZTglMg6OxQz40zW0+nkyD7mGJoJbFDwTRqrDNDzt2an76wnUYyCZyoA41++30ZKgfH
-         K6RN89Mr4NaLci9cfvnp/62gigNRjSjPU9wIfQgfQeGP9VNCOD5vOacVzr5PKAcOxyOM
-         aGEGNUohAY2JIeN3Rk0QXbkJ6oKAd5Ob3ezE+4fe/YSKCxeQ0Js7bxXrjSyk8wgSTZVn
-         hSxAmr67C3LCnJ5Rs7+7flAFg6FDs5iOORlEL3arGquj6EoNaiupvfFoSAfY3u+AASlq
-         aD5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784629714; x=1785234514;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qX+yOp5vEEJO47GrrgFjd6hpRsB9whe/kZX5TD9uf8A=;
-        b=Lgq2Xcd2vDigRJuEDiqUeP/HhIOsWTx91gn65BSBCdijL8i0VUhNgynAjxK7/MAITJ
-         aonisw/Dm9bvSJ0zlXiT2XtoieHYlGyqp7+vhmv5lypTz6paBnSvUi+Vn9n5R0ASdNzO
-         yT8sWNIhNs/6YKSp6P3C+R+DPnfCy/DkaH+0LUMGh/WkqMbO6aS5pdKFkG6arbWYaC33
-         X5UduFJHnB+pm2uRbBHmQcfWfqyyHF5lT2OY3J5zS2elAA6Gp57EqkTBM7R7bVzqyBQF
-         W1NKjSFIJ+BmPDI4Eix8hGHJUSkfg2iZVby9rGIcSUIdUVmCs2P5Inxj7v5vBFZmTPhB
-         ThJA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5MuT3qcdoigwX5rvNbCJvQPfZCjYq/uacfNT6n2zZblLsAHAczW5LsF2vbyRQIhdRSEWwz8A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXSJxeBrxXZ2ASgxiuptTx7F9sKxGS73tvaqYIOWKDHVbMyqHQ
-	sSphAjlLD17V6nv6IHf/fmZLFxgJhTujVxitklrYt/haJIK7OmHnpZVH3Ang5ZUXTmDVPjgSVd8
-	e5WCKGI+YNv4fUQ/cCao6Q2o4bZTIYsi1TUEigYx3d+7Uhp+dAHRhlAt3Fw==
-X-Gm-Gg: AfdE7clwowaNT8BjibCwMs2xiFIkKasF7C3vBnz2kye5/AlyWoZ1O2j0/mMaWw3x8YC
-	n2iZOKPBVV3zuUkKLeoPpss/n+n7r3S8FS0AVfEM0dJsaDFdaHMcp5j72rIlAKq3wLC9VyhTkBn
-	FItEtV84flo8q/Br1hXkcB7vWf5e1Z5UPtmVWVXqaXsTgbAjpFd3kQfeWGXLm3h3rC+HhqyIxis
-	iJrDxsULi71/HINL1P26gpx0NpUZwIUX/78Yw4IoFPFiAyCX81D6qmNPJQ6Sc+QnDkVoI6HypVY
-	R1lIGZP49c/XwTc8rE+J0xRiQGiXG5WM/fLiIQ51katq53tgPWCCs7f/NfuLm9cMt6q1oCgxlVN
-	DUNCzLEfjw34bTr1+anDxZCkZ3ZCIfie4DmdA/2FuRMV5qVPC+U0njv8245awIzfFqLe7Ik9zD/
-	gwGk2c
-X-Received: by 2002:a05:600c:3510:b0:493:cc25:85cb with SMTP id 5b1f17b1804b1-4954a3e20b1mr207187195e9.8.1784629713271;
-        Tue, 21 Jul 2026 03:28:33 -0700 (PDT)
-X-Received: by 2002:a05:600c:3510:b0:493:cc25:85cb with SMTP id 5b1f17b1804b1-4954a3e20b1mr207186825e9.8.1784629712755;
-        Tue, 21 Jul 2026 03:28:32 -0700 (PDT)
-Received: from [192.168.10.48] ([151.49.94.110])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495653687b2sm67947495e9.1.2026.07.21.03.28.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 03:28:31 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] KVM: x86: Check for invalid/obsolete root *after* making MMU pages available
-Date: Tue, 21 Jul 2026 12:28:29 +0200
-Message-ID: <20260721102829.313226-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="1hClCNfS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1784629741; x=1816165741;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=F1+UVwOZEeJF59KEp06xDRMWI4CbcDVCbWUBCs0hIZM=;
+  b=1hClCNfSADCQGB4Gitq7DFJXiyN4+DEjVREkv9LOkbRrWMRZZGZm9LNf
+   Z0sXfdf+lTrQuoG/oV91x7KHz6/jPBCn/DXDDMKX1KpNYDtJUPZoGfeqU
+   qREx6BQJUyxGGFiujvpgtBAyYpGYreI/b+YK9LpZD67CotI4y0XHKf9A9
+   T6xAGehUUoWNit6+GMtySERj7ptPtEof2DAUMEHOl35Jh/AtZLOToSPWS
+   DVPMGpSy1CFD6BX7jb48bw4fN3MuNE2bPr71KXHcxykIQpos1pneRDL/M
+   gtwoYqdGttRDBFem3F/8m72qXadHJWttvqzVR96pa/fOi8U9jpf6Qmf9L
+   Q==;
+X-CSE-ConnectionGUID: LWWthe45RSCkMNQK45Vl5g==
+X-CSE-MsgGUID: kxCwG9w0TN23nXZUQepujw==
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
+   d="scan'208";a="292316646"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:29:00 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.43; Tue, 21 Jul 2026 03:28:59 -0700
+Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Tue, 21 Jul 2026 03:28:56 -0700
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Subject: [PATCH v3 00/10] media: microchip-isc: AWB, stream-stop and
+ endpoint-ref fixes
+Date: Tue, 21 Jul 2026 15:58:54 +0530
+Message-ID: <20260721-balki-isc-prefix-fixes-v1-v3-0-ffe10640a2d9@microchip.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOdJX2oC/33NwQrCMAwG4FcZPVtZ065TT76HeGhj54JuHa0UZ
+ ezd7SaCeBgkhz8hX0YWXSAX2aEYWXCJIvk+B7kpGLamvzpOl5wZlKBLLSpuzf1GnCLyIbiGnjy
+ 3izwJjjtUCkChMYLl+89+sU/nnFuKDx9ey6sk5ulX1StqrpJbkLquG6yM1ceOMHhsadii79gsJ
+ /jRYL+mQdakFVAiylpB869N0/QGJWZssxQBAAA=
+X-Change-ID: 20260615-balki-isc-prefix-fixes-v1-c8c44224caa1
+To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>
+CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Balakrishnan Sambath
+	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-From: Sean Christopherson <seanjc@google.com>
+This series has a few fixes for the Microchip ISC/XISC driver, found
+while testing and from the feedback on the combined series [1].
 
-Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
-after making MMU pages available for the shadow MMU.  If reclaiming shadow
-pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
-map memory into an invalid root.  On its own, populating an invalid root is
-"fine", but because child shadow pages inherit their parent's role, any
-children created during the map/fetch will be created as invalid pages,
-thus violating KVM's invariant that invalid pages are never on the list of
-active MMU pages.
+Fixes only, sent ahead of the enhancements so they can reach stable.
+The SBGGR10 and PM leak fixes are unchanged from [1] and keep their
+Reviewed-by.
 
-Note, the underlying flaw has existed since KVM first started tracking
-invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
-pagetables"), but the true badness only came along in 2020 (Linux 5.9)
-with the invariant that invalid shadow pages can't be on the list of
-active pages.
+All but the two pfe_cfg0_bps cleanups carry a Fixes tag and Cc: stable.
 
-Note #2, inheriting role.invalid when creating child shadow pages is also
-far from ideal; that flaw will be addressed separately.
+[1] https://lore.kernel.org/r/20260603-microchip-isc-fixes-v6-0-8c3d7474a768@microchip.com
 
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Fixes: f95eec9bed76 ("KVM: x86/mmu: Don't put invalid SPs back on the list of active pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 ---
- arch/x86/kvm/mmu/mmu.c         |  9 +++++----
- arch/x86/kvm/mmu/paging_tmpl.h | 10 ++++++----
- 2 files changed, 11 insertions(+), 8 deletions(-)
+Changes in v3:
+- Rewrite the WB offset/gain register writes with FIELD_PREP() (Eugen). No
+  functional change; verified on SAMA7G5-EK.
+- Collect Eugen's Reviewed-by on the PFE_CFG0 and macro-typo patches.
+- Link to v2: https://lore.kernel.org/r/20260629-balki-isc-prefix-fixes-v1-v2-0-3b120cc3742f@microchip.com
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 234d0a95abf5..41f92ed1ca37 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4852,16 +4852,17 @@ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 	if (r != RET_PF_CONTINUE)
- 		return r;
- 
--	r = RET_PF_RETRY;
- 	write_lock(&vcpu->kvm->mmu_lock);
- 
--	if (is_page_fault_stale(vcpu, fault))
--		goto out_unlock;
--
- 	r = make_mmu_pages_available(vcpu);
- 	if (r)
- 		goto out_unlock;
- 
-+	if (is_page_fault_stale(vcpu, fault)) {
-+		r = RET_PF_RETRY;
-+		goto out_unlock;
-+	}
-+
- 	r = direct_map(vcpu, fault);
- 
- out_unlock:
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index df3ae0c7ec2c..1ba840a73b7a 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -864,15 +864,17 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 	}
- #endif
- 
--	r = RET_PF_RETRY;
- 	write_lock(&vcpu->kvm->mmu_lock);
- 
--	if (is_page_fault_stale(vcpu, fault))
--		goto out_unlock;
--
- 	r = make_mmu_pages_available(vcpu);
- 	if (r)
- 		goto out_unlock;
-+
-+	if (is_page_fault_stale(vcpu, fault)) {
-+		r = RET_PF_RETRY;
-+		goto out_unlock;
-+	}
-+
- 	r = FNAME(fetch)(vcpu, fault, &walker);
- 
- out_unlock:
+Changes in v2:
+- Squash the stop and start-error histogram/AWB-flush patches into one (Eugen).
+- Store pfe_cfg0_bps unshifted, apply with FIELD_PREP() at the write (Eugen).
+- Skip the WB register writes during the stop window too (isc->stop check).
+- New patch: fix the ISC_PFG_CFG0_BPS macro name typo.
+- Add Eugen's Reviewed-by on the IRQ-sync patch.
+- Link to v1: https://lore.kernel.org/r/20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com
+
+---
+Balakrishnan Sambath (10):
+      media: microchip-isc: fix awb_mutex and lock lifecycle
+      media: microchip-isc: take a reference on the parsed endpoints
+      media: microchip-isc: synchronize the IRQ before disabling clocks on stop
+      media: microchip-isc: disable histogram and flush AWB work on teardown
+      media: microchip-isc: do not touch WB registers when not streaming
+      media: microchip-isc: store the unshifted PFE_CFG0 BPS value
+      media: microchip-isc: fix ISC_PFG_CFG0_BPS macro name typo
+      media: microchip-isc: fix PM runtime leak in AWB work handler
+      media: microchip-isc: fix SBGGR10 Bayer pattern
+      media: microchip-isc: fix WB offset and gain register field masking
+
+ .../media/platform/microchip/microchip-isc-base.c  | 77 +++++++++++++++-------
+ .../media/platform/microchip/microchip-isc-regs.h  | 16 +++--
+ drivers/media/platform/microchip/microchip-isc.h   |  5 +-
+ .../platform/microchip/microchip-sama5d2-isc.c     | 40 ++++++-----
+ .../platform/microchip/microchip-sama7g5-isc.c     | 40 ++++++-----
+ 5 files changed, 117 insertions(+), 61 deletions(-)
+---
+base-commit: 05f7e89ab9731565d8a62e3b5d1ec206485eeb0b
+change-id: 20260615-balki-isc-prefix-fixes-v1-c8c44224caa1
+
+Best regards,
 -- 
-2.55.0
+Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
