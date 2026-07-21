@@ -1,105 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24431.protonmail.ch (mail-24431.protonmail.ch [109.224.244.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067403F2101;
-	Tue, 21 Jul 2026 18:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2A32DEA74
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784659931; cv=none; b=jyU0es9NEFs/iRWgDeUTIL7JO4dswkyXH2hrFtcN+d0cwI7fw825xlNRM20BR11fojiu4rAw6fKAbWrBtlvx4atOKzTYBAJ1WehlPLxy6s9S5vbrGP2JKFZpQQA17KsCzaCXfctwEpLal/CiF3svp5ugSex0NvHi4HVo3owpQ7Q=
+	t=1784659929; cv=none; b=odvM98KyxyOdHsy84gfoERVC9F4Klai9iJahN5Ws2q5aZM6HnMvB49A3pFYPt19f/1lSUUGpMeN8oIwFTdwd1v0evTgQoXGRapMPWCksrQqL8AeKHQt5Z53YwyiJxPXIZpgx2WgQnj/cnQ05BXnYFlIzPH3T3Neq+FyITxaYGOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784659931; c=relaxed/simple;
-	bh=fRxt4sfQxpNuJT8Blvwxx0eZL391p/gLft4c2itZz/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qVL9nUkATiiYchkbgU8R4fVvmMijMJyteo83W5bbHT38KBGJZcOj+eOecPXydc+k3/gVYlK1+6fJZApAEs5w4/DbzZ+9vZq2PtuYJu6QaaK34Ly5gGayJpdB5Q5kgn0R8qLWwN45bCsT0GZnLvIHCV0BtPwMl6UrP1enOk/g1Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VVboc6Fj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784659929; c=relaxed/simple;
+	bh=H3b/ROqSge60oAHBUHiIH4TfcUDWhDXCVKMHgyVpvmg=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=JsrV4WyeTGSWq1zGY1ddOwgrZIJogI2Jm8Islcr6c6Jmj+HF71jJOFC13b24he9CCrrq1GRCyOpAE9B2WiuHaCYKWDn438YjQWoS00ZMtjSpKS5nh8+0L2UvE0hAY53nmesqJTtUHa+zyxnPxIuysMbvM2qV8/2SzFUWaYnGMB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=JBe7HvQO; arc=none smtp.client-ip=109.224.244.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VVboc6Fj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668931F000E9;
-	Tue, 21 Jul 2026 18:52:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784659929;
-	bh=Eth7TVKKPrvGki05WlEnTyusYLTxB011JG7aLLLlLbw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VVboc6Fji1kl5cEePKfRzHDAHyMHejtpOQhDtIBl+8Pk9qaBxzIW+ncAlJWElazJM
-	 7QWZCBSpJQqz6B6YgW5bg4hkHnJRslA9kfvvZcIymZS/fzKo6NKyNqCHmFgKfTOCYG
-	 oRNcP+hDcsi7j0hoYk5aHVblxiGZhiYZoZChihW0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 0780/2077] bpf: Guard __get_user acesss with access_ok for uprobe_multi data
-Date: Tue, 21 Jul 2026 17:07:33 +0200
-Message-ID: <20260721152611.195223838@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="JBe7HvQO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1784659916; x=1784919116;
+	bh=H3b/ROqSge60oAHBUHiIH4TfcUDWhDXCVKMHgyVpvmg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=JBe7HvQOC9PPkijk8aH9uI/bI5eT59sj15WFKrwJhEgDGZoSbohlBOOL2cXwJXMVf
+	 L7UA1C0bAjAfvE7jKE0giehSjZnChXirFvbq90SwrZdYMipLJ7wmejP358FIdkj8AQ
+	 SlG2ztP551eoRbQIW3VHg1bWWejczJh7TkjjszuaYysqxjR3Kf/akJrNsIcPd04vMR
+	 chq8HTQ0pBzNulymQXyQQtoALML77nD4Ua9KTHOA4Eg6JJaeSYQqfjvuCsdEAapcP4
+	 w0gbZwL1ntBhFlZ9LbaH8eC93kRhfyrqYPmvDIGNtgYrgJMt3Jg30bqt2pNX5LrLFb
+	 h63r18KNlpXXA==
+Date: Tue, 21 Jul 2026 18:51:53 +0000
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
+From: "Alex L." <lkstl7@proton.me>
+Cc: "sashal@kernel.org" <sashal@kernel.org>
+Subject: Backport patch that wasn't dropped, but not applied in the actual stable release
+Message-ID: <Dwu6EPhoqrm1RQ9cqVTWmxbiSKyzKQLg9BXcfdVDrUiF2_MAdSlmA6gU9EOdv0PaX6vysSJUVsVSOMu6aNnppuA3sfg7Z8M3rYdaf75KkO0=@proton.me>
+Feedback-ID: 210542756:user:proton
+X-Pm-Message-ID: 27c09e0cfb8c4e4af3f079a1bb08e2d1addaedb6
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+Hello,
+I'm writing with regards to drm-amd-display-fix-ism-dc_lock-deadlock-during=
+-susp.patch that can be found in the stable-queue repo, under releases/7.1.=
+3/ on the master branch.=20
+(https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/tr=
+ee/releases/7.1.3/drm-amd-display-fix-ism-dc_lock-deadlock-during-susp.patc=
+h)
 
-------------------
+Despite being under the releases directory to this date, this patch wasn't =
+actually applied in the 7.1.3 release upon inspection of the stable tree. I=
+t also wasn't included in the release announcement for 7.1.3 nor the diffst=
+at within. It wasn't even included in the RC's for 7.1.3.
+I have searched the stable mailing list and the stable-queue repo's commit =
+histories to establish whether the patch was dropped later for some reason =
+- to my knowledge, this doesn't appear to be the case.
 
-From: Jiri Olsa <jolsa@kernel.org>
+On further investigation I found that the commit that first introduced this=
+ patch to stable-queue's queue-7.1/ added the patch file to the directory, =
+but did not add it to the queue-7.1/series file. (https://git.kernel.org/pu=
+b/scm/linux/kernel/git/stable/stable-queue.git/commit/?id=3D76522806dbfb589=
+41f6fa4b6116b891b66689613)
 
-[ Upstream commit 4d87a251d45b4a95eb4c0abcfab809c9f231258a ]
+Could this be an accidental omission of the patch due to it not being on th=
+e series file, or was there some other reason that the patch was not includ=
+ed?=20
+As a user who's affected by the regression that the patch addresses,=20
+I would very much appreciate it being included in future 7.1.y releases.=20
 
-As reported by sashiko [1] we need to use access_ok to check the user
-space data bounds before we use __get-user to get it.
-
-[1] https://lore.kernel.org/bpf/20260610145235.CB1441F00893@smtp.kernel.org/
-Fixes: 0b779b61f651 ("bpf: Add cookies support for uprobe_multi link")
-Fixes: 89ae89f53d20 ("bpf: Add multi uprobe link")
-Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-Link: https://lore.kernel.org/r/20260611114230.950379-2-jolsa@kernel.org
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/bpf_trace.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-index a02bd258677ee1..a4de502950c4b9 100644
---- a/kernel/trace/bpf_trace.c
-+++ b/kernel/trace/bpf_trace.c
-@@ -3180,6 +3180,7 @@ int bpf_uprobe_multi_link_attach(const union bpf_attr *attr, struct bpf_prog *pr
- 	unsigned long __user *uoffsets;
- 	u64 __user *ucookies;
- 	void __user *upath;
-+	unsigned long size;
- 	u32 flags, cnt, i;
- 	struct path path;
- 	char *name;
-@@ -3217,6 +3218,16 @@ int bpf_uprobe_multi_link_attach(const union bpf_attr *attr, struct bpf_prog *pr
- 	uref_ctr_offsets = u64_to_user_ptr(attr->link_create.uprobe_multi.ref_ctr_offsets);
- 	ucookies = u64_to_user_ptr(attr->link_create.uprobe_multi.cookies);
- 
-+	/*
-+	 * All uoffsets/uref_ctr_offsets/ucookies arrays have the same value
-+	 * size, we need to check their address range is safe for __get_user
-+	 * calls.
-+	 */
-+	size = sizeof(*uoffsets) * cnt;
-+	if (!access_ok(uoffsets, size) || !access_ok(uref_ctr_offsets, size) ||
-+	    !access_ok(ucookies, size))
-+		return -EFAULT;
-+
- 	name = strndup_user(upath, PATH_MAX);
- 	if (IS_ERR(name)) {
- 		err = PTR_ERR(name);
--- 
-2.53.0
-
-
+Thank you,
+Alex
 
