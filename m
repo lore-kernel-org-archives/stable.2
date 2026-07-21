@@ -1,75 +1,47 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C924386550
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:49:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6523BF69C
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784623792; cv=none; b=Xe+43fHNmxxfAFOM0mwFEFwJylOPpkusEEfG9VPLK3q535wqhbnLTRoJl/ZNMOj2jNPE359DultmNnuwR2R6fO8vLtvK88drL0Bg+5/pDQ2MUci+FwK+o1H4yyfhllRPwWziT8Z7Up913cwv1Jxe4MYH3hZtpp3uolR3jDULdHo=
+	t=1784623948; cv=none; b=c/owmTphcjkUycaLRaSAvgUL9oZU9f7j8U1Bjx7cAxIHQb+ljUjVRffDsJo1ImZ22WqbZ152tNTpQPgy3mxe/SqcW1X0WdivLgpqIrDEEVPQmyQjFVEwt30LdZcZwYKf6yXxtutxcfPeJvE+/gxBcgTHg0J1OKB8gciYn2Muj3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784623792; c=relaxed/simple;
-	bh=RcrpbeZPSkwjz1aTB0ZgqvLy6rjwPuW7YLvzBf6pDfA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TywwYnkPKpmual9L0HZ5j35C3dkvZGG3qNXzrSD27LwtOnOC585XEnrNASHwpkEnd4bQUSKPbLEO1HgaJt8GkSGTxcRkFc9vsG8VetDme1J2231Q98IlyMO6ZC+TShtLngwUDfnQtaHaim7DH6HETOPmuLeteuLzYMY6KsL8Nrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hDRVM07G; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784623948; c=relaxed/simple;
+	bh=4NliFZPaPnWcmyUws0J5B9Gl9ip0X94g7hEdeE4izjI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=glTElZ7d0Tg7pXVmTezepDVTt5/l9lyTPHuKHptrducqUWI6/9GULX0zUk+li9YX2pHe888gtHVspjj0bDd1hiPR+QObBLv+PE2XdXzYf88c50mHfzxlxj+q3tIkrU+ZBNySP4puAK8bqPVRE5+KszRocvhub29bwooyr2NxRXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFShpKud; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hDRVM07G"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cb2513ec378so793037a12.3
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 01:49:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784623790; x=1785228590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8j4hIAfzbn00Z/jaQ9ccgbCithXJ/H8iHtNs94IUW2U=;
-        b=hDRVM07GkiouTVCY17T/cYVemyyC9s0OtvcB+EMINVLRJb7H3xRNyJ89bzv5Q5UuB1
-         1HaSAhSK7BX6dIXVo6nT4U9+Rq4F4l8wxb9y5TQ/oDjlWOky5hcrzVIfyzAMcd8HMTNe
-         17TyVaH6nyFFpNoRfjFPgdqJmzMENbtdsRJTiP2W63GP/LXSKheqNiPk2NQ4QEk2wotG
-         fUiH9X45aAwuH9kmANgbuhrzXEuIccdlblvTaTLTL3ToQiOzTmSwSB3QG5hwjlCcmbFo
-         qbBIr8W8Y2mSz1748dbZybxrQcQJiw9dqVo7ILC5XoixtKJfDdNVs7ZaDRMSbF2NK2p1
-         O5vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784623790; x=1785228590;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8j4hIAfzbn00Z/jaQ9ccgbCithXJ/H8iHtNs94IUW2U=;
-        b=QmJTYlAcAoYZRGvMdnVf2SDn9bgybiifGRtVFqosuP33V47jEKtmS6oJOx9dDI7aQ/
-         +N/gJTQZUNH7UQaYPyJQKCiCf4L+Rzd3+0ivlZCgD5bZKT0gObF+So0y/OGDsLI3Hy1I
-         jycGEARe8ZC2b48sL0AcjMxMvgriptJ4xfeFiheo9dF2aoyHblTxM91oKXc3ysVdIpcP
-         BnudcHTzFHBHWkqPXM4Y0LnAozEAzh81YAicydRfGSE7ktzXx5PT9T2nJyLVXZVp3qmA
-         qu2LsnGMUTvAtyTwfsPsQeGBGIAPS4aJQLiCm2xnE5ri0claW3IXjxbYgB9z2yPHfp7k
-         H0Wg==
-X-Forwarded-Encrypted: i=1; AHgh+RrKzzaqY0TTvSCI5ZEn2pBQkvoaQ0mB28XqOh05sWutE91uCQjdkapQ06tLPBAFVTC7nP+NRSI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhomuMCZetfkwkKUFCqRGvpevzzpnBkTsqQlme6Y2v42ptkzAr
-	y0zf0qar/rzIfsUBrUUEF4MJPAb87mV0SV3UBJMkEUCkma+5Vuyaef5L
-X-Gm-Gg: AR+sD13vj6qvN9eDS880fk8nnyaawyOhQuJCBNraV8L4vFqAQVWTggswkD0SvmvkdAs
-	AZs4VXEtMqFOEoj4pSs6S7roe+PV/Qruz1+2x0ABy2Hi9ln79PFEx0YRrF9PQH+DtuGtLNiPifl
-	LxxChbR5v9qgTyigDU6Zk/rKNEJizaVhFoxGPsFklw1bTI42cmHTh3ca8dwWGUEEIhshYYFNvnQ
-	kPtpwnYurcj8cSb/h7JDNvQv1vu6eg9kE5wfQA6m3eAc0GJq//IsQl10qWbC7LFTNKw/V1evXJA
-	vVCyoO070IL74RSi+OnuGi1rLQ6Rmf0yFIYwMD4lLf1kdZqggv9PgKVSqM7rlEeEnhVW2oBmXHn
-	QFJsxfTcXP+2TqIOWr5kHg9PaWl/OWPnc5B5F8vV6x7dXvzGp404GBMz8fv4bARdnKLTGPdln+H
-	d8WQhN22mntK7OiUMzQfiGL2LKt/ycy0+Y2FjEpgcRvg4cVCCu/pnKbLpXxUBEIlPn
-X-Received: by 2002:a05:6a00:408a:b0:845:cb89:c1a3 with SMTP id d2e1a72fcca58-84e0313e3f6mr1884354b3a.1.1784623790220;
-        Tue, 21 Jul 2026 01:49:50 -0700 (PDT)
-Received: from localhost.localdomain ([139.159.170.80])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c3793ec61sm5853450b3a.42.2026.07.21.01.49.44
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 21 Jul 2026 01:49:49 -0700 (PDT)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: netdev@vger.kernel.org
-Cc: willemdebruijn.kernel@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	Qihang <q.h.hack.winter@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] packet: use a consistent hard_header_len in send paths
-Date: Tue, 21 Jul 2026 16:49:35 +0800
-Message-ID: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFShpKud"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAC41F000E9;
+	Tue, 21 Jul 2026 08:52:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784623947;
+	bh=RMa5ACXtx6h9YIm/JkueoEigvroqPjYeGnOF4FqysYU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CFShpKudxw+/Wd8+0/iD2JgitHe3SQEpBSiimHL48ZVOBZQcLohduYJEZwWMt0K95
+	 u6i0whZLoDV+SeUdikLzf1v6ebr0g/ufBOz9YeSrokgoxgMHBWMYEYskWniw5Olxxv
+	 2hn9pGtX4j4T8lLq1xvyy8zaHsbklArXrEg5zME13zPA3KggSF1zWr3OFzqgVvj/R6
+	 OhCIhcknxuR1ALIgMt7qHZutLQreBFPdHkaPz96HYeAjgV6vkvtFipnEQ/rB+w6WUy
+	 aFa9G8jMP9kBQODGu5ll5Np73sMG+IKG4g0/PdKfBmp5KmJoWHOvN3KLZj1hmw/ort
+	 XaLzkOXQ7ZugA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wm6DB-000000078aW-0Lfo;
+	Tue, 21 Jul 2026 08:52:25 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: stable@vger.kernel.org
+Cc: Will Deacon <will@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Subject: [PATCH 5.10.y] KVM: Move kvm_io_bus_get_dev() locking responsibilities to callers
+Date: Tue, 21 Jul 2026 09:52:10 +0100
+Message-ID: <20260721085210.2808477-1-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026072007-gift-earwig-6100@gregkh>
+References: <2026072007-gift-earwig-6100@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,159 +49,115 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: stable@vger.kernel.org, will@kernel.org, oupton@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-packet_snd() and tpacket_snd() read dev->hard_header_len multiple times
-while building an skb. Device reconfiguration can change this value
-concurrently, for example through bonding device type changes.
+kvm_io_bus_get_dev() returns a device that is only matched by the
+address, and nothing else. This can cause a lifetime issue if
+the matched device is not the expected type, as by the time
+the caller can introspect the object, it might be gone (the srcu
+lock having been dropped).
 
-For SOCK_RAW, packet_snd() stores the first value in reserve, later
-allocates headroom using LL_RESERVED_SPACE(dev), and then subtracts
-reserve from the skb headroom. If hard_header_len decreases between the
-reads, the skb can be allocated with less headroom than reserve, moving
-skb->data before skb->head. The subsequent skb_copy_datagram_from_iter()
-can then attempt an out-of-bounds copy. Hardened usercopy catches this as
-a kernel memory overwrite attempt.
+Given that there is only a single user of this helper, the simplest
+option is to move the locking responsibility to the caller, which
+can keep the srcu lock held for as long as it wants.
 
-tpacket_snd() has the same issue because its allocation and
-tpacket_fill_skb() use separate hard_header_len reads.
+Note that this aligns with other kvm_io_bus*() helpers, which
+already require the srcu lock to be held by the callers.
 
-Read hard_header_len once in each send path and use that snapshot
-consistently for skb allocation and construction.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Will Deacon <will@kernel.org>
+Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
+Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/20260627105105.1005990-1-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+(cherry picked from commit 3a07249981629ace483ebbef81ef6b34c2d2afec)
+[maz: replaced guard() with lock/unlock to avoid C99 warnings]
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- net/packet/af_packet.c | 35 +++++++++++++++++++++--------------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ arch/arm64/kvm/vgic/vgic-its.c | 15 +++++++++++----
+ virt/kvm/kvm_main.c            | 16 +++++-----------
+ 2 files changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 8e6f3a734ba0..d29e59273054 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2569,6 +2569,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
- static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 		void *frame, struct net_device *dev, void *data, int tp_len,
- 		__be16 proto, unsigned char *addr, int hlen, int copylen,
-+		int hard_header_len,
- 		const struct sockcm_cookie *sockc)
- {
- 	union tpacket_uhdr ph;
-@@ -2600,8 +2601,8 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 	} else if (copylen) {
- 		int hdrlen = min_t(int, copylen, tp_len);
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 399f70b60dcb3..e6ec0701f5616 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -704,6 +704,8 @@ struct vgic_its *vgic_msi_to_its(struct kvm *kvm, struct kvm_msi *msi)
+ 	u64 address;
+ 	struct kvm_io_device *kvm_io_dev;
+ 	struct vgic_io_device *iodev;
++	struct vgic_its *its = NULL;
++	int srcu_idx;
  
--		skb_push(skb, dev->hard_header_len);
--		skb_put(skb, copylen - dev->hard_header_len);
-+		skb_push(skb, hard_header_len);
-+		skb_put(skb, copylen - hard_header_len);
- 		err = skb_store_bits(skb, 0, data, hdrlen);
- 		if (unlikely(err))
- 			return err;
-@@ -2732,7 +2733,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 	void *data;
- 	int len_sum = 0;
- 	int status = TP_STATUS_AVAILABLE;
--	int hlen, tlen, copylen = 0;
-+	int hard_header_len, hlen, tlen, copylen = 0;
- 	long timeo;
+ 	if (!vgic_has_its(kvm))
+ 		return ERR_PTR(-ENODEV);
+@@ -713,18 +715,23 @@ struct vgic_its *vgic_msi_to_its(struct kvm *kvm, struct kvm_msi *msi)
  
- 	mutex_lock(&po->pg_vec_lock);
-@@ -2779,8 +2780,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_put;
- 	}
+ 	address = (u64)msi->address_hi << 32 | msi->address_lo;
  
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
- 	if (po->sk.sk_socket->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
-+		reserve = hard_header_len;
- 	size_max = po->tx_ring.frame_size
- 		- (po->tp_hdrlen - sizeof(struct sockaddr_ll));
- 
-@@ -2817,7 +2819,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto tpacket_error;
- 
- 		status = TP_STATUS_SEND_REQUEST;
--		hlen = LL_RESERVED_SPACE(dev);
-+		hlen = ((hard_header_len + READ_ONCE(dev->needed_headroom)) &
-+			~(HH_DATA_MOD - 1)) + HH_DATA_MOD;
- 		tlen = dev->needed_tailroom;
- 		if (vnet_hdr_sz) {
- 			data += vnet_hdr_sz;
-@@ -2835,10 +2838,10 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 						    vnet_hdr.hdr_len);
- 			has_vnet_hdr = true;
- 		}
--		copylen = max_t(int, copylen, dev->hard_header_len);
-+		copylen = max_t(int, copylen, hard_header_len);
- 		skb = sock_alloc_send_skb(&po->sk,
- 				hlen + tlen + sizeof(struct sockaddr_ll) +
--				(copylen - dev->hard_header_len),
-+				(copylen - hard_header_len),
- 				!need_wait, &err);
- 
- 		if (unlikely(skb == NULL)) {
-@@ -2848,7 +2851,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_status;
- 		}
- 		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
--					  addr, hlen, copylen, &sockc);
-+					  addr, hlen, copylen, hard_header_len,
-+					  &sockc);
- 		if (likely(tp_len >= 0) &&
- 		    tp_len > dev->mtu + reserve &&
- 		    !vnet_hdr_sz &&
-@@ -2956,7 +2960,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 	int offset = 0;
- 	struct packet_sock *po = pkt_sk(sk);
- 	int vnet_hdr_sz = READ_ONCE(po->vnet_hdr_sz);
--	int hlen, tlen, linear;
-+	int hard_header_len, hlen, tlen, linear;
- 	int extra_len = 0;
- 
- 	/*
-@@ -2996,14 +3000,16 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 			goto out_unlock;
- 	}
- 
--	if (sock->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
- 	if (vnet_hdr_sz) {
- 		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr, vnet_hdr_sz);
- 		if (err)
- 			goto out_unlock;
- 	}
- 
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
-+	if (sock->type == SOCK_RAW)
-+		reserve = hard_header_len;
++	srcu_idx = srcu_read_lock(&kvm->srcu);
 +
- 	if (unlikely(sock_flag(sk, SOCK_NOFCS))) {
- 		if (!netif_supports_nofcs(dev)) {
- 			err = -EPROTONOSUPPORT;
-@@ -3018,10 +3024,11 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 		goto out_unlock;
+ 	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, address);
+ 	if (!kvm_io_dev)
+-		return ERR_PTR(-EINVAL);
++		goto out;
  
- 	err = -ENOBUFS;
--	hlen = LL_RESERVED_SPACE(dev);
-+	hlen = ((hard_header_len + READ_ONCE(dev->needed_headroom)) &
-+		~(HH_DATA_MOD - 1)) + HH_DATA_MOD;
- 	tlen = dev->needed_tailroom;
- 	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
--	linear = max(linear, min_t(int, len, dev->hard_header_len));
-+	linear = max(linear, min_t(int, len, hard_header_len));
- 	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
- 			       msg->msg_flags & MSG_DONTWAIT, &err);
- 	if (skb == NULL)
-@@ -3037,7 +3044,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 	} else if (reserve) {
- 		skb_reserve(skb, -reserve);
- 		if (len < reserve + sizeof(struct ipv6hdr) &&
--		    dev->min_header_len != dev->hard_header_len)
-+		    dev->min_header_len != hard_header_len)
- 			skb_reset_network_header(skb);
- 	}
+ 	if (kvm_io_dev->ops != &kvm_io_gic_ops)
+-		return ERR_PTR(-EINVAL);
++		goto out;
+ 
+ 	iodev = container_of(kvm_io_dev, struct vgic_io_device, dev);
+ 	if (iodev->iodev_type != IODEV_ITS)
+-		return ERR_PTR(-EINVAL);
++		goto out;
+ 
+-	return iodev->its;
++	its = iodev->its;
++out:
++	srcu_read_unlock(&kvm->srcu, srcu_idx);
++	return its ?: ERR_PTR(-EINVAL);
+ }
+ 
+ /*
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index ef66abe687d78..b340be2d81a3b 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -4558,25 +4558,19 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+ 					 gpa_t addr)
+ {
+ 	struct kvm_io_bus *bus;
+-	int dev_idx, srcu_idx;
+-	struct kvm_io_device *iodev = NULL;
++	int dev_idx;
+ 
+-	srcu_idx = srcu_read_lock(&kvm->srcu);
++	lockdep_assert_held(&kvm->srcu);
+ 
+ 	bus = srcu_dereference(kvm->buses[bus_idx], &kvm->srcu);
+ 	if (!bus)
+-		goto out_unlock;
++		return NULL;
+ 
+ 	dev_idx = kvm_io_bus_get_first_dev(bus, addr, 1);
+ 	if (dev_idx < 0)
+-		goto out_unlock;
++		return NULL;
+ 
+-	iodev = bus->range[dev_idx].dev;
+-
+-out_unlock:
+-	srcu_read_unlock(&kvm->srcu, srcu_idx);
+-
+-	return iodev;
++	return bus->range[dev_idx].dev;
+ }
+ EXPORT_SYMBOL_GPL(kvm_io_bus_get_dev);
  
 -- 
-2.50.1 (Apple Git-155)
+2.47.3
 
