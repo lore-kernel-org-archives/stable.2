@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D9D46C4BC;
-	Tue, 21 Jul 2026 18:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1579946D2CB
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784660348; cv=none; b=XrB3lYPfcKtxBF+Z9fqRjrhG/U7EKwUTNIh700c+e4XBFm9jr3GtZobiomBBUyMR/PkOmpvNXLS6169KXiWecayoD3UqBMCz2Bmhv8ekOku97QWJFnDDDjqhp2rn0EmFpG16Z2zm6tb/HipbWqLc4Mmhyh55WIDHQJxVypCtBtE=
+	t=1784660349; cv=none; b=stD5wabqKkOyvX+yYtwdsHCPMotvugtR+ykpGnEVkeTRJLlmJngrol5xtlKPQqjcMqcKnq/u5dwzwPoIc+8TibpO+QZHOFK2aWFiJaWnvUGvwvShFueKq3yjN/29goveooS5IBZbK1TuswHs3OaTJKQVX4/pu2j83ulydDGKiYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784660348; c=relaxed/simple;
-	bh=dKSy1TVC0LzjwWfLApvY47Y5/BmGYAHz2Cmymqx8pLI=;
+	s=arc-20240116; t=1784660349; c=relaxed/simple;
+	bh=V/Cf4Vc+DbL5SPmtZIS93It9QLWM9omwyfdZAsKsBaw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XArt32f1IpaQuvSww7Fi6x6filuCAPD91cVfQfQD/MnbLKo///LwhInr0lQH40nBRzjM+8uAOfsVDVWDQLxjRg+76OKwbfNdruOGinB/N7DJGPRDa8GMKM0uCKWxk2dp2KhESeOCFzuk4yKqW9t8EFBUFJa8q+lqgwYmQ43yA/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WWds/+wQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UTjh7e8J+IHR73WLXCD6P2vOJX+UCOM5QNaQfPTyWeXemJ/U4dSuBlnMsRM7ZWDd+5U5+2iFHJhBNn5fCu7/yeD3m/14buWvazqGWRFZ1pnGIFVphUb3p2oPGSPAw7A4ZoSJvKrFo8y7gI7XWBUENkFlWJZaZRadDj85aup8Yew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXsMjvPN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WWds/+wQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECD451F00A3A;
-	Tue, 21 Jul 2026 18:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784660345;
-	bh=8mtYq7HGSZepy+BgoerW2FBEzFErvvyIOG3aRYzicnk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXsMjvPN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA38B1F000E9;
+	Tue, 21 Jul 2026 18:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784660346;
+	bh=4yZ1mSxtPkm0g+iZgxa72jkUiMo1fdD0WbKFPq2Vk0c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WWds/+wQR7U0XBAx7T9BV3/G7wi/iIv0NLM/YqMjIwiElBcLFuBOoafUjgu+g4aND
-	 MWrl8uUMzNBSHYdsH7PHupgJfdbX/fEuGXFaUKxn0arGIOcrMXF06+WlqtilWXPBBm
-	 pGHhs4Xwp0tt1QWEl41ADZsCUx8gSNlj5KeaQBwE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=PXsMjvPNfivYXsG+7UdqEaKFbJM151rdILwehkGxNdmYvvNNs+71z53WsIWdEKfqy
+	 3mLsSH5P41A5+iGW/F/TDPdl7m7AUxax63wRTk0hpTQWilZjn+4yvG1PgcfGPAumjF
+	 P2BJctjRN+CfeedGrZDgdXDz5hVNeEFT56fJWwBnFqFv8JHq61vxxe/lt5pAsC69gN
+	 4UKQ16zuLMiLuB+eTUnTz11w9GhBNrOaew2vCe6gVjo5J87gN52t0DB+qArjR8aT+g
+	 F51v/3a4gDq5tWykPt5xVZWg6fdB+2X/9QwjC/rFGqcHtNfXMUSJifdqzWkK6+WGEU
+	 3l4eTL7dj3CHQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	David Ahern <dsahern@gmail.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 0945/2077] perf sched: Fix thread reference leak in idle hist processing
-Date: Tue, 21 Jul 2026 17:10:18 +0200
-Message-ID: <20260721152615.108053623@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y 1/4] i2c: core: fix irq domain leak on adapter registration failure
+Date: Tue, 21 Jul 2026 14:59:00 -0400
+Message-ID: <20260721185903.397573-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071637-frenzied-roundworm-4d38@gregkh>
+References: <2026071637-frenzied-roundworm-4d38@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,49 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Johan Hovold <johan@kernel.org>
 
-------------------
+[ Upstream commit 8ce19524e4cc2462685f596a6402fbd8fb984ab2 ]
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+Make sure to tear down the host notify irq domain on adapter
+registration failure to avoid leaking it.
 
-[ Upstream commit 662d56d48e527ee21a0b03082ee318258a6f7919 ]
+This issue was flagged by Sashiko when reviewing another adapter
+registration fix.
 
-timehist_sched_change_event() sets itr->last_thread to NULL at the end
-of idle hist processing without calling thread__put() first.  The
-thread reference was acquired via thread__get() in timehist_get_thread()
-(line 2581), so every idle context switch leaks a thread reference when
---idle-hist is active.
-
-Use thread__zput() to properly release the reference before clearing
-the pointer.
-
-Fixes: 5d8f17fb5822 ("perf sched timehist: Add -I/--idle-hist option")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Cc: David Ahern <dsahern@gmail.com>
-Cc: Namhyung Kim <namhyung@kernel.org>
-Assisted-by: Claude:claude-opus-4.6
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Fixes: 4d5538f5882a ("i2c: use an IRQ to report Host Notify events, not alert")
+Cc: stable@vger.kernel.org	# 4.10
+Cc: Benjamin Tissoires <bentiss@kernel.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Stable-dep-of: 07d5fb537928 ("i2c: core: fix adapter debugfs creation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/perf/builtin-sched.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/i2c/i2c-core-base.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
-index 9ea3416f30ac6d..7222fe428e7fa7 100644
---- a/tools/perf/builtin-sched.c
-+++ b/tools/perf/builtin-sched.c
-@@ -2942,7 +2942,7 @@ static int timehist_sched_change_event(const struct perf_tool *tool,
- 			if (itr->cursor.nr)
- 				callchain_append(&itr->callchain, &itr->cursor, t - tprev);
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index 265b7f7f38c6eb..3761c922d01fff 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -1554,7 +1554,7 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	res = device_register(&adap->dev);
+ 	if (res) {
+ 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
+-		goto out_list;
++		goto err_remove_irq_domain;
+ 	}
  
--			itr->last_thread = NULL;
-+			thread__zput(itr->last_thread);
- 		}
- 
- 		if (!sched->summary_only)
+ 	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
+@@ -1601,6 +1601,8 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	init_completion(&adap->dev_released);
+ 	device_unregister(&adap->dev);
+ 	wait_for_completion(&adap->dev_released);
++err_remove_irq_domain:
++	i2c_host_notify_irq_teardown(adap);
+ out_list:
+ 	mutex_lock(&core_lock);
+ 	idr_remove(&i2c_adapter_idr, adap->nr);
 -- 
 2.53.0
-
-
 
