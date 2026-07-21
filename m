@@ -1,150 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F022AD2E;
-	Tue, 21 Jul 2026 07:44:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675A4413D99
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 07:46:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784619852; cv=none; b=qB3fdSQZdgXEYMDmCqJwoVy2tFY44KUKtRAiTEUu2C2MnKnuDajc3mQUHeJxUR7/JTswr65AN3c3n/w1CCq53FEQV1WaIExJ39qc8ySa3HqOrcagFE/ozAbSVXsT52t9++UJPUAN28mVSaGWU3cJ37BuQIPMfWuT4wioCzE3uGk=
+	t=1784620007; cv=none; b=KIM2IWQ85RTmCZPsQCF4ju1Nw6jM818+HIIrdS7t41c7dzpFNopPKSFc868P93+OELfZa6kTdhZPQCcE2PkZInEiyNRsCCm60Bot49L/GJ3v5VKmW06zwd+I0ovAA7XNmdHLsTyhdZRg1VeVHY5spCfkm8cOA+0Q0oYtIXyq3+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784619852; c=relaxed/simple;
-	bh=P9+8o3CEmRiRW0R69M4PMmizB7JpG1wjznlS8R2G5wQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zujx0xaMrGrYtgeBtVpS2Yg3q7KkFmt5dPl1G3+lQZqAAc4wgDsP6vkVpfHC6eVpKeBIMWlj6eZqvR3HEd7tDUPkIhnqxSTVviLnufV1b9MxIDT+QL3x78qEXyG/2+DUhvnBu4Cj0IbN2FUXtDX0t3UpLeVQTVjbrqYBSzdmoMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ha9IS53O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784620007; c=relaxed/simple;
+	bh=9zJuOZsd4XWQjiXgu97n1iLizqVlzMUiNgCTkeXf4DU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L2rD6JsQNf/pB7gxbGcUmnjPHEWzlBr3VkZLwEGRzOZAgcGFv7FU0xDKOjf+Nc9BQ3k3cqMl9UGpGQqXywyWqe1SZCyeEqwAfZGkhCU+QavwirsJyeZL+T2/nUR74185B/vc3ajbsQH0gbnTJuZoNRQLjBpNOa5uscypPXK1/Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQgqPfpD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ha9IS53O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83491F000E9;
-	Tue, 21 Jul 2026 07:44:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQgqPfpD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5601F000E9;
+	Tue, 21 Jul 2026 07:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784619850;
-	bh=rtFkn/mfMTIuYOWYRQFzEbxdk2PyFOEa96NYZZ89cn8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ha9IS53OCz37rW2lp5eXzb0wUrip7zSDnqnZ989Svkz/RICacEJWMriB4qEXAuEWx
-	 FQGmHuwGklOwD7GtieTS+QuDS5HTY52UVqf+5sSVrhelirehT+/EampviUu1taWD08
-	 rQiw6RRDliszAEvWi9fNVDEzDFds/TudFWRymwY4WFasELLb5iGZ6Nue8TONB1j+1W
-	 T2nBsJC9Ve8POYVJ4/0Mj5n0h6za1r+yTpq0EnIG+68oPpYMSPMcqMFSc5xrCywEud
-	 2drX/ljX6usPah/mfJwJ+gjFZQ0YPhctgDCALycA1l32PBnV1J1LaNkstLFExwz0HV
-	 HhcAXpT6XspBg==
-Date: Tue, 21 Jul 2026 08:43:51 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Vishal Moola <vishal.moola@gmail.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Kiryl Shutsemau <kas@kernel.org>, iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm/pat: allocate split page tables as kernel page
- tables
-Message-ID: <al8hE_ded6qyWiDv@lucifer>
-References: <20260720-fix-cpa-kernel-pagetables-v1-1-0766e782cefe@kernel.org>
- <al5-fDRStgU6gjk6@fedora>
- <al5_Le9QlD4zlt25@fedora>
+	s=k20260515; t=1784620006;
+	bh=cJ5otZYnN3yIq0h5Xm/zrUZhLX/FLxODUxEHpczKkvc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EQgqPfpDrerqetwzaVgRauJuXsiYCTdMDmuPsHYnptw+93/cG+C6PzmCaq9zBKR8N
+	 6yB2i+PM9OEIjSZKVS0W8L/ZbUu0TxVbzqtz2IxIOzr0HVF1a+dJPusMxFKoPN8UFO
+	 H71Ik8kYaEI6SVBd0qHQP7LOo2V4Kb7sfv6uVVVfrsCcDmrTbJYp0p+vguSdjnG4mL
+	 50Fa1zRPYWkGEfU+OudZzt2Kmy7eaxfcP2Md2kiMu6uOXDg3Lko9LfE4ujMOVYYfUk
+	 4BS9S3gbeXuqcbYu5bgSHdaKY1XeH7nY2n/dmRpnht3V190dNc5MsH10zjaynJ0+vC
+	 Kdv7JeOkbvu6w==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wm5Bc-000000076wF-2dGD;
+	Tue, 21 Jul 2026 07:46:44 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: stable@vger.kernel.org
+Cc: Will Deacon <will@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Subject: [PATCH 6.1.y] KVM: Move kvm_io_bus_get_dev() locking responsibilities to callers
+Date: Tue, 21 Jul 2026 08:46:36 +0100
+Message-ID: <20260721074636.2686021-1-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026072006-overtake-skillet-e49c@gregkh>
+References: <2026072006-overtake-skillet-e49c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al5_Le9QlD4zlt25@fedora>
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: stable@vger.kernel.org, will@kernel.org, oupton@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Jul 20, 2026 at 01:03:57PM -0700, Vishal Moola wrote:
-> On Mon, Jul 20, 2026 at 01:01:00PM -0700, Vishal Moola wrote:
-> > On Mon, Jul 20, 2026 at 10:27:29AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > When splitting a large page in CPA in __split_large_page() we allocate a
-> > > PTE directly without going through the standard page table allocation
-> > > routines such as pte_alloc_one_kernel().
-> > >
-> > > This means the page table constructor is never called nor is the page table
-> > > marked as a kernel page table.
-> > >
-> > > The former results in the folio associated with the page table not being
-> > > marked as a page table (__pagetable_ctor() is never called thus neither is
-> > > __folio_set_pgtable()) nor are statistics updated to reflect
-> > > it (lruvec_stat_add_folio() is never called).
-> > >
-> > > The latter issue of failing to mark the page table as a kernel page
-> > > table (ptdesc_set_kernel() is never called) is far more problematic.
-> > >
-> > > Since commit 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page
-> > > tables") kernel page table freeing has been batched and since the
-> > > subsequent commit e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries
-> > > for kernel address space") IOTLB cache entries for kernel page tables have
-> > > been invalidated upon being freed.
-> > >
-> > > Since split page tables are freed without this invalidation, the IOTLB can
-> > > contain stale entries for them.
-> > >
-> > > Resolve the issue by using the ordinary PTE allocation API at split time.
-> > >
-> > > This results in these kernel page tables invoking a page table constructor,
-> > > and thus requires a page table destructor.
-> > >
-> > > Since we cannot assume one is always present (early allocated direct map
-> > > page tables are not marked as such), we conditionally call
-> > > pagetable_dtor_free() if the PG_table folio flag for the ptdesc is set,
-> > > otherwise we free the page table via pagetable_free().
-> > >
-> > > Regardless of which path is taken page tables marked as kernel page tables,
-> > > which now includes split page tables, take the correct route through
-> > > pagetable_free_kernel().
-> > >
-> > > There is a user-visible side effect in that split page tables will appear
-> > > in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
-> > > allocated after early boot), however this is a positive change.
-> > >
-> > > This issue started being markedly problematic after commit
-> > > 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables") so
-> > > choose this as the Fixes target.
-> > >
-> > > Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > ---
-> > >  arch/x86/mm/pat/set_memory.c | 21 ++++++++++++---------
-> > >  1 file changed, 12 insertions(+), 9 deletions(-)
-> > >
-> > > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> > > index 301fb9e77d91..a67ca33b9dd1 100644
-> > > --- a/arch/x86/mm/pat/set_memory.c
-> > > +++ b/arch/x86/mm/pat/set_memory.c
-> > > @@ -439,7 +439,11 @@ static void __cpa_collapse_large_pages(struct cpa_data *cpa)
-> > >
-> > >  	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
-> > >  		list_del(&ptdesc->pt_list);
-> > > -		pagetable_free(ptdesc);
-> > > +
-> > > +		if (folio_test_pgtable(ptdesc_folio(ptdesc)))
-> > > +			pagetable_dtor_free(ptdesc);
-> > > +		else
-> > > +			pagetable_free(ptdesc);
-> >
-> > Lets not introduce more folio-ptdesc crossovers, we're trying to get
-> > rid of them :)
-> >
-> > I believe pagetable_dtor_free() should do what you're looking for on its
-> > own anyway.
->
-> Actually, looking at it closer, maybe not because of the conditional
-> portion? But that makes me think it might be better to just replace the
-> ptdesc_clear_kernel() with pagetable_dtor() in the free function...
+kvm_io_bus_get_dev() returns a device that is only matched by the
+address, and nothing else. This can cause a lifetime issue if
+the matched device is not the expected type, as by the time
+the caller can introspect the object, it might be gone (the srcu
+lock having been dropped).
 
-Well some kernel page tables are still allocated without ctor (early allocated
-direct map for isntance), and if you did pagetable_dtor_free() it
-unconditionally calls pagetable_dtor().
+Given that there is only a single user of this helper, the simplest
+option is to move the locking responsibility to the caller, which
+can keep the srcu lock held for as long as it wants.
 
-The ptlock_free() and __folio_clear_pgtable() there would be harmelss (no locks
-assigned for kernel page table, and if PG_table never set clearing it is a noop)
-but the lruvec_stat_sub_folio() would cause an unbalanced decrement of
-nr_page_table_pages.
+Note that this aligns with other kvm_io_bus*() helpers, which
+already require the srcu lock to be held by the callers.
 
-It sucks, but until everything is updated to call the ctor we have to do it this
-way :>)
+Reported-by: Will Deacon <will@kernel.org>
+Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
+Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
+Cc: stable@vger.kernel.org
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/20260627105105.1005990-1-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+(cherry picked from commit 3a07249981629ace483ebbef81ef6b34c2d2afec)
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+---
+ arch/arm64/kvm/vgic/vgic-its.c |  2 ++
+ virt/kvm/kvm_main.c            | 16 +++++-----------
+ 2 files changed, 7 insertions(+), 11 deletions(-)
 
-Cheers, Lorenzo
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index c3b469b32b83f..15c047d7539d1 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -713,6 +713,8 @@ struct vgic_its *vgic_msi_to_its(struct kvm *kvm, struct kvm_msi *msi)
+ 
+ 	address = (u64)msi->address_hi << 32 | msi->address_lo;
+ 
++	guard(srcu)(&kvm->srcu);
++
+ 	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, address);
+ 	if (!kvm_io_dev)
+ 		return ERR_PTR(-EINVAL);
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 7a4fd1dbe0d78..f060c914d6810 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -5465,25 +5465,19 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+ 					 gpa_t addr)
+ {
+ 	struct kvm_io_bus *bus;
+-	int dev_idx, srcu_idx;
+-	struct kvm_io_device *iodev = NULL;
++	int dev_idx;
+ 
+-	srcu_idx = srcu_read_lock(&kvm->srcu);
++	lockdep_assert_held(&kvm->srcu);
+ 
+ 	bus = srcu_dereference(kvm->buses[bus_idx], &kvm->srcu);
+ 	if (!bus)
+-		goto out_unlock;
++		return NULL;
+ 
+ 	dev_idx = kvm_io_bus_get_first_dev(bus, addr, 1);
+ 	if (dev_idx < 0)
+-		goto out_unlock;
++		return NULL;
+ 
+-	iodev = bus->range[dev_idx].dev;
+-
+-out_unlock:
+-	srcu_read_unlock(&kvm->srcu, srcu_idx);
+-
+-	return iodev;
++	return bus->range[dev_idx].dev;
+ }
+ EXPORT_SYMBOL_GPL(kvm_io_bus_get_dev);
+ 
+-- 
+2.47.3
+
