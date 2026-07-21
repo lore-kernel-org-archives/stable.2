@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEBC471432;
-	Tue, 21 Jul 2026 21:03:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68F4473C72;
+	Tue, 21 Jul 2026 21:03:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784667810; cv=none; b=jZ76cyW07kqqmyPCn4XAHQCQNk+nc51ecTGIgINpfGoOyWYEd3fZhMllhV5GElk7o37z+a1DCB01dy9rlUPaQKAtqsg9WpGRXVAbSHY+iaZy0Q7qed6ecSLZvkPz19Ay31zJESfDnQuzceDInhO5kfPxiy5NVzValDIPjaGub5U=
+	t=1784667813; cv=none; b=lKdM+vtX6YohB2m6cx/nBoDumWMwpWXUDJ9hrem6frJqVjOin5CIJbYGSoktCXJmZG+eExpWHlzUk7G/n45zLQii0ZLr1w/APV6DSwb+ClwlqWOi671WZSEWxxWUl/TpH0QqfaRdAz+o/IsV8Vq/K+4aoE9iveXpdvCFp7RrE+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784667810; c=relaxed/simple;
-	bh=VDx7r5obNS/6xmqwB+zxrE9GMlFiWNtliSktKe1fkzE=;
+	s=arc-20240116; t=1784667813; c=relaxed/simple;
+	bh=+N60dD3S0mUPZ7GwahGUxgIEL1f44ikK8lSdW/ghRn8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KWZxCRvZOfD6W42QAJZNuBDlMNlVD9T14+ZU6br/mI1kTFgP1rlF+gVU6hFVh/Ka3nAARxqEYN+5gLcOWtPD4pGZV7XvLRQaEqy1nNI0a4R6RQ7Xh2YTy8QaEBULFrfdSO8nCdhESxtVEsfQ+lP9kJRvdsyvFbCIqK0WUNHzh74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XaUwnOnM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IxVEg4VJCrZkeUZ5DOdeDeAbiu9OScKX5L/5FYzGjCs+loMqCXDrUiBobhc0seh3OYv4KdOqy8mBvgIKI3ZfbpbuZv2Y27yIYy512Fo2thVRxkM05/QzZWMH9wbj/oD23Cdq3lq/PZNX8IgUKopOwLtRWIi3edmy41bHPewVkmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bTpcjb8d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XaUwnOnM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C911F000E9;
-	Tue, 21 Jul 2026 21:03:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bTpcjb8d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2344A1F00A3A;
+	Tue, 21 Jul 2026 21:03:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784667806;
-	bh=1Rqw+fShSLGDWjusk6xfFDXS7HPjS/1NiXSVGGQkLVI=;
+	s=korg; t=1784667808;
+	bh=kspW37uxW3JOqqoo/2Rz0GKHx9HXRdvYVPZ4hQu8uGA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XaUwnOnMF1U2wQsR83jrhn7t36xAKzLII7qX5wMljWF6L1hs9gb6OBCH+1F1gnpSA
-	 mL9QHQClFyZ+7TsgCOV1gps5aiWfOYDLxVxMQosuq9uQcLt8XmqXy9RfyWqTshRRdP
-	 DXV9B/ls/7ZlxZKj9A+ycl4Wn9FQRrlganKPhF7I=
+	b=bTpcjb8dyNv2vzPYRoZwM+l4pXcfPZ1oltF2yCE4tBfCtNZZiZcSVVv2beUkr6ysZ
+	 qaBomQ7Rot3eWkLEG/EYCO2Rto+IV4yT+RmqMXPJAS32USmCTSfkfVN+q9bccRP8ts
+	 Gs7oA7tmfa+W/USuwXWxIEZfw3Djjuv/1vjBw1+0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Stable@vger.kernel.org,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1158/1266] iio: invensense: fix timestamp glitches when switching frequency
-Date: Tue, 21 Jul 2026 17:26:35 +0200
-Message-ID: <20260721152507.697621265@linuxfoundation.org>
+	Sashiko <sashiko-bot@kernel.org>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Stephane Eranian <eranian@google.com>
+Subject: [PATCH 6.6 1149/1266] perf/x86/amd/brs: Fix kernel address leakage
+Date: Tue, 21 Jul 2026 17:26:26 +0200
+Message-ID: <20260721152507.494086498@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
 References: <20260721152441.786066624@linuxfoundation.org>
@@ -52,182 +53,87 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+From: Sandipan Das <sandipan.das@amd.com>
 
-[ Upstream commit bf8367b00c33c64a9391c262bb2e11d274c9f2a4 ]
+commit 47915e855fb38b42133e31ba917d99565f862154 upstream.
 
-When a sensor is running and there is a FIFO frequency change due to
-another sensor turned on/off, there are glitches on timestamp. Fix that
-by using only interrupt timestamp when there is the corresponding sensor
-data in the FIFO.
+A user-only branch stack can contain branches that originate from
+the kernel. As a result, kernel addresses are exposed to user space
+even when PERF_SAMPLE_BRANCH_USER is requested. On AMD processors
+supporting X86_FEATURE_BRS (Zen 3 only), perf can still report entries
+such as SYSRET/interrupt returns for which the branch-from addresses
+are in the kernel.
 
-Delete FIFO period handling and simplify internal functions.
+E.g.
 
-Update integration inside inv_mpu6050 and inv_icm42600 drivers.
+  $ perf record -j any,u -c 4000 -e branch-brs -o - -- \
+        perf bench syscall basic --loop 1000 | \
+        perf script -i - -F brstack|tr ' ' '\n'| \
+        grep -E '0x[89a-f][0-9a-f]{15}'
 
-Fixes: 0ecc363ccea7 ("iio: make invensense timestamp module generic")
-Cc: Stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Link: https://lore.kernel.org/r/20240426094835.138389-1-inv.git-commit@tdk.com
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Stable-dep-of: affe3f077d7a ("iio: imu: inv_icm42600: fix timestamping by limiting FIFO reading")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+  ...
+  0xffffffff810001c4/0x72e2e32955eb/-/-/-/0//-
+  0xffffffff810001c4/0x72e2d94a9821/-/-/-/0//-
+  0xffffffff810001c4/0x72e2d94ffa1b/-/-/-/0//-
+  ...
+
+BRS provides no hardware branch filtering, so privilege level
+filtering is performed entirely in software. However, amd_brs_match_plm()
+only validates the branch-to address against the requested privilege
+levels. For branches from the kernel to user space, the branch-from
+address is left unchecked and is leaked. Extend the software filter to
+also validate the branch-from address, so that any branch record whose
+branch-from address is in the kernel is dropped when
+PERF_SAMPLE_BRANCH_USER is requested.
+
+Fixes: 8910075d61a3 ("perf/x86/amd: Enable branch sampling priv level filtering")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Sandipan Das <sandipan.das@amd.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Cc: stable@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Stephane Eranian <eranian@google.com>
+Link: https://patch.msgid.link/f05931c4f89a146c364bd5dc6b8170b1ac611c65.1783701239.git.sandipan.das@amd.com
+Closes: https://lore.kernel.org/all/20260710110235.F3FD81F000E9@smtp.kernel.org/
+[sandipan: backport to linux-6.6.y]
+Signed-off-by: Sandipan Das <sandipan.das@amd.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iio/common/inv_sensors/inv_sensors_timestamp.c |   24 +++++++----------
- drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c     |   20 +++++---------
- drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c             |    2 -
- include/linux/iio/common/inv_sensors_timestamp.h       |    3 --
- 4 files changed, 21 insertions(+), 28 deletions(-)
+ arch/x86/events/amd/brs.c |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
---- a/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-+++ b/drivers/iio/common/inv_sensors/inv_sensors_timestamp.c
-@@ -78,13 +78,13 @@ int inv_sensors_timestamp_update_odr(str
- }
- EXPORT_SYMBOL_NS_GPL(inv_sensors_timestamp_update_odr, IIO_INV_SENSORS_TIMESTAMP);
- 
--static bool inv_validate_period(struct inv_sensors_timestamp *ts, uint32_t period, uint32_t mult)
-+static bool inv_validate_period(struct inv_sensors_timestamp *ts, uint32_t period)
- {
- 	uint32_t period_min, period_max;
- 
- 	/* check that period is acceptable */
--	period_min = ts->min_period * mult;
--	period_max = ts->max_period * mult;
-+	period_min = ts->min_period * ts->mult;
-+	period_max = ts->max_period * ts->mult;
- 	if (period > period_min && period < period_max)
- 		return true;
- 	else
-@@ -92,15 +92,15 @@ static bool inv_validate_period(struct i
+--- a/arch/x86/events/amd/brs.c
++++ b/arch/x86/events/amd/brs.c
+@@ -259,13 +259,13 @@ void amd_brs_disable_all(void)
+ 		amd_brs_disable();
  }
  
- static bool inv_update_chip_period(struct inv_sensors_timestamp *ts,
--				    uint32_t mult, uint32_t period)
-+				   uint32_t period)
+-static bool amd_brs_match_plm(struct perf_event *event, u64 to)
++static bool amd_brs_match_plm(struct perf_event *event, u64 from, u64 to)
  {
- 	uint32_t new_chip_period;
+ 	int type = event->attr.branch_sample_type;
+ 	int plm_k = PERF_SAMPLE_BRANCH_KERNEL | PERF_SAMPLE_BRANCH_HV;
+ 	int plm_u = PERF_SAMPLE_BRANCH_USER;
  
--	if (!inv_validate_period(ts, period, mult))
-+	if (!inv_validate_period(ts, period))
- 		return false;
- 
- 	/* update chip internal period estimation */
--	new_chip_period = period / mult;
-+	new_chip_period = period / ts->mult;
- 	inv_update_acc(&ts->chip_period, new_chip_period);
- 	ts->period = ts->mult * ts->chip_period.val;
- 
-@@ -133,16 +133,14 @@ static void inv_align_timestamp_it(struc
- }
- 
- void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
--				      uint32_t fifo_period, size_t fifo_nb,
--				      size_t sensor_nb, int64_t timestamp)
-+				     size_t sample_nb, int64_t timestamp)
- {
- 	struct inv_sensors_timestamp_interval *it;
- 	int64_t delta, interval;
--	const uint32_t fifo_mult = fifo_period / ts->chip.clock_period;
- 	uint32_t period;
- 	bool valid = false;
- 
--	if (fifo_nb == 0)
-+	if (sample_nb == 0)
- 		return;
- 
- 	/* update interrupt timestamp and compute chip and sensor periods */
-@@ -152,14 +150,14 @@ void inv_sensors_timestamp_interrupt(str
- 	delta = it->up - it->lo;
- 	if (it->lo != 0) {
- 		/* compute period: delta time divided by number of samples */
--		period = div_s64(delta, fifo_nb);
--		valid = inv_update_chip_period(ts, fifo_mult, period);
-+		period = div_s64(delta, sample_nb);
-+		valid = inv_update_chip_period(ts, period);
- 	}
- 
- 	/* no previous data, compute theoritical value from interrupt */
- 	if (ts->timestamp == 0) {
- 		/* elapsed time: sensor period * sensor samples number */
--		interval = (int64_t)ts->period * (int64_t)sensor_nb;
-+		interval = (int64_t)ts->period * (int64_t)sample_nb;
- 		ts->timestamp = it->up - interval;
- 		return;
- 	}
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
-@@ -515,20 +515,20 @@ int inv_icm42600_buffer_fifo_parse(struc
+-	if (!(type & plm_k) && kernel_ip(to))
++	if (!(type & plm_k) && (kernel_ip(to) || kernel_ip(from)))
  		return 0;
  
- 	/* handle gyroscope timestamp and FIFO data parsing */
--	ts = iio_priv(st->indio_gyro);
--	inv_sensors_timestamp_interrupt(ts, st->fifo.period, st->fifo.nb.total,
--					st->fifo.nb.gyro, st->timestamp.gyro);
- 	if (st->fifo.nb.gyro > 0) {
-+		ts = iio_priv(st->indio_gyro);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro,
-+						st->timestamp.gyro);
- 		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
- 		if (ret)
- 			return ret;
- 	}
+ 	if (!(type & plm_u) && !kernel_ip(to))
+@@ -338,11 +338,11 @@ void amd_brs_drain(void)
+ 		 */
+ 		to = (u64)(((s64)to << shift) >> shift);
  
- 	/* handle accelerometer timestamp and FIFO data parsing */
--	ts = iio_priv(st->indio_accel);
--	inv_sensors_timestamp_interrupt(ts, st->fifo.period, st->fifo.nb.total,
--					st->fifo.nb.accel, st->timestamp.accel);
- 	if (st->fifo.nb.accel > 0) {
-+		ts = iio_priv(st->indio_accel);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel,
-+						st->timestamp.accel);
- 		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
- 		if (ret)
- 			return ret;
-@@ -556,9 +556,7 @@ int inv_icm42600_buffer_hwfifo_flush(str
+-		if (!amd_brs_match_plm(event, to))
+-			continue;
+-
+ 		rdmsrl(brs_from(brs_idx), from);
  
- 	if (st->fifo.nb.gyro > 0) {
- 		ts = iio_priv(st->indio_gyro);
--		inv_sensors_timestamp_interrupt(ts, st->fifo.period,
--						st->fifo.nb.total, st->fifo.nb.gyro,
--						gyro_ts);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
- 		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
- 		if (ret)
- 			return ret;
-@@ -566,9 +564,7 @@ int inv_icm42600_buffer_hwfifo_flush(str
++		if (!amd_brs_match_plm(event, from, to))
++			continue;
++
+ 		perf_clear_branch_entry_bitfields(br+nr);
  
- 	if (st->fifo.nb.accel > 0) {
- 		ts = iio_priv(st->indio_accel);
--		inv_sensors_timestamp_interrupt(ts, st->fifo.period,
--						st->fifo.nb.total, st->fifo.nb.accel,
--						accel_ts);
-+		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
- 		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
- 		if (ret)
- 			return ret;
---- a/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
-+++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_ring.c
-@@ -113,7 +113,7 @@ irqreturn_t inv_mpu6050_read_fifo(int ir
- 		goto end_session;
- 	/* Each FIFO data contains all sensors, so same number for FIFO and sensor data */
- 	fifo_period = NSEC_PER_SEC / INV_MPU6050_DIVIDER_TO_FIFO_RATE(st->chip_config.divider);
--	inv_sensors_timestamp_interrupt(&st->timestamp, fifo_period, nb, nb, pf->timestamp);
-+	inv_sensors_timestamp_interrupt(&st->timestamp, nb, pf->timestamp);
- 	inv_sensors_timestamp_apply_odr(&st->timestamp, fifo_period, nb, 0);
- 
- 	/* clear internal data buffer for avoiding kernel data leak */
---- a/include/linux/iio/common/inv_sensors_timestamp.h
-+++ b/include/linux/iio/common/inv_sensors_timestamp.h
-@@ -71,8 +71,7 @@ int inv_sensors_timestamp_update_odr(str
- 				     uint32_t period, bool fifo);
- 
- void inv_sensors_timestamp_interrupt(struct inv_sensors_timestamp *ts,
--				     uint32_t fifo_period, size_t fifo_nb,
--				     size_t sensor_nb, int64_t timestamp);
-+				     size_t sample_nb, int64_t timestamp);
- 
- static inline int64_t inv_sensors_timestamp_pop(struct inv_sensors_timestamp *ts)
- {
+ 		br[nr].from = from;
 
 
