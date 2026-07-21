@@ -1,102 +1,94 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE3342883D;
-	Tue, 21 Jul 2026 06:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EC33C98B3
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 07:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784616502; cv=none; b=Seu1nWUltz4kUwDsXwXl/cFX5bW+8lAosLpuUL03GPjgn7Ie1UzWeXCXi6wdNlQCWqne2E7Op9PomdEYuVwzl/fq0ZDi5sNvtK4Ap2yxgrxb7TO1nmybrEdLgcpPyE7T7bWc49BRiqMNm6jE6nSKjZVhARiT9X5j7gluuQxfu3Y=
+	t=1784618525; cv=none; b=h3eo0GQABabSq52zaq556NkoI0scBeTWLft99Ob8uurZhVDqIvYeMA5uK64h4b77f9UKkbd5jbNP+z3QfCoDwj07nBqkl9uYcR7Cs6f8vr1yhzjc9h/IK8FcaSjEnYCTJc2PU6KmLE1sxgLupxCJEJg9zqFIod9YdNwCY34rs1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784616502; c=relaxed/simple;
-	bh=8qtYWFIyqNitdneNzuzz0atY0ca9fmAexYaRFaSFixM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tFe7yZNC/fphtcmRT3pn3zTmC8x4xZ6GwrObqudb9OURC07wJu00PlzTobGwa3U9t5GitXVOf8VJ6bYI1S7OCz2z93kIghXeiEHLGcQufSDvIYoIozFZ5i/imiZ1WXhlvvYP5MdqseXHF0DpEkAFn+3d5oJ9ZYtEiGn2ca+edwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 246fc4aa84d011f1aa26b74ffac11d73-20260721
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:79d72310-165d-4435-98d6-59e84d751874,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:3049064dc9f762a36daa46b2ce985449,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50
-	,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 246fc4aa84d011f1aa26b74ffac11d73-20260721
-X-User: pengcan@kylinos.cn
-Received: from lenovo [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <pengcan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 2031218206; Tue, 21 Jul 2026 14:48:12 +0800
-From: Can Peng <pengcan@kylinos.cn>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	bmasney@redhat.com
-Cc: linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Can Peng <pengcan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/4] phy: freescale: fsl-samsung-hdmi: Only gate APB clock in runtime PM
-Date: Tue, 21 Jul 2026 14:47:51 +0800
-Message-ID: <20260721064752.153338-4-pengcan@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721064752.153338-1-pengcan@kylinos.cn>
-References: <20260721064752.153338-1-pengcan@kylinos.cn>
+	s=arc-20240116; t=1784618525; c=relaxed/simple;
+	bh=jMh5EiQSVVj594l45L/6B20epYKRiM/o/m72wmjBcTM=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=LkgJO904zB6nUpBTgKSizK7U9BoB3xGjtgyX6B1aj1E7cOXaGXyaRGNbfR94I9gdzyKp3tXZxwR2A946/WjdRqRa9Dy6x/wVwX7sSNj7xQkRAb9ZZ2zaEfUVREfvKNiU/QmOC1SfZHdcq5iQ8t4eO31fR3ueuRvsZ45dX43XOqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=SvWZ2NVN; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="SvWZ2NVN"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so812728066b.1
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:22:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1784618522; x=1785223322; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g77UsBHw6Ia3GLFrQkV2WFlqkjhMYCc0L+bE3sl7QY0=;
+        b=SvWZ2NVNerIbYUjeyBUVNZEh7Nd8CyVFQXrX5tijMSAc3fxXmWn+E5aReoWwlAyu/F
+         gz1zgJf45HkvnMq+yB7no0X8qO1RdqdHLp1VwEw6V2/u9KkzcNtOA23odi0/1lIH+GrV
+         VVQP+bwIcuByedao5j0Mr36y5yqLI4QpIqhLXAyfJ21zBuXMNU/hCjQWcngLTYuKclgt
+         aZNc7jFm+RekNQGX7xYfy/LpsGL1tLgzNaEcD3Qy+dC7HaJiTnleB4ws7eSoftDa3Vyw
+         1lAIuWb2wyvV1l/u38GnLNKIrazx+n5LL/yqUoRe2mANH5SGw9GzmCSFOWF1o+WFSxjJ
+         rL8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784618522; x=1785223322;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g77UsBHw6Ia3GLFrQkV2WFlqkjhMYCc0L+bE3sl7QY0=;
+        b=s+X09lGTJpSouNrYzzYimuyHUgvcP1lCdqZFe0BSfxZoAcpj/bjIdw5uPCMKM7m0QA
+         BrUEphyfRhvfkpU/RB+HXrkHiaH7sSG3pOKhRrT+R+kdy9qoWDNh7JYZe1DR81KX42lg
+         4TBmmSSxv7TM4gRgovBImaG5KhT6p+OyCGECVNV2ja4dg4eVkxDwqu/AXG/PgPDoDMOR
+         z1Fh8y41nXWqL95wOAMLL+T55XZVWEhvnvqRUvRL2W6o29z4XxFsHAo4VX+FQQa9emh7
+         8VXs3x5OCTMk16qFqS/VDrTsvcsBPC6JQRQuEdLxFlpfaa0LG7rSdpu2m1JB3S3r23Wh
+         03aw==
+X-Forwarded-Encrypted: i=1; AHgh+RqZy7Gm0VkxVk5MGl56zjz5w5d+EV5EIwwNdXpQHKX9hq5vZz1YHNutXO00SsZfXxesBhqTI34=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw878L2SlWSKjd7XqqvhC7fRnFZ7QYGnoIPxBW1YRWuvwzbXh9w
+	HWHIxhwBdKJfwP4YDoc+AfDxbsM+jvQ+QduObt0p2A7wrSQFVrzx170j5WYaYf8OrncdooSZabm
+	HTDeiEA7XUg==
+X-Gm-Gg: AfdE7ckh11a+3QL2sKZEy117kXvtPuB1C6BqB6ZzX/REpeM4wu/ElKJ/TO86DQFw7Ro
+	SeG7U0ea1i2aNX+13v7FitCR9Ba1HIK7uhKwjelZnVkOde7qoO9d8ErWKyvw+Q7ULmWBmo8cPwT
+	LaTShCgaaQu52Ve+eTGOaaxotV8+rRfnJZJs7USHB50zrOeUZZ5c1DtMg1IBHhWrdBCPDgnJ7y6
+	WQmLqG4d5KDkn0ZKHYNp7tBNXZD9snF7sJQgDzt3Ngz1iKh0V5lVcu/l9lOnLSxSHTeMtknh5yW
+	PhBTet++xtdKum4XBFE30+9CWUTedOyafgSkZHWtzJbGZCchd+JeXjfPlmzgFGGC8ruQUP1IEjW
+	xVhTF94Jc2owJVwCBoMBu8+J98CStcLONEFBHrkJgEbvfiqGNR4Gfde8htA45sPSHIvGVw2p9/U
+	HcvFj/Hb1tJaZN3wkH1GTRnS1vcdi8atRPo2U=
+X-Received: by 2002:a17:907:9625:b0:c15:dd1f:f2d with SMTP id a640c23a62f3a-c1692413dd8mr940884766b.25.1784618522602;
+        Tue, 21 Jul 2026 00:22:02 -0700 (PDT)
+Received: from u94a (27-53-137-220.adsl.fetnet.net. [27.53.137.220])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf3471f42csm69973685ad.61.2026.07.21.00.22.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 00:22:01 -0700 (PDT)
+Date: Tue, 21 Jul 2026 15:21:55 +0800
+From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Subject: BPF selftests compilation failure due to
+ selftests-bpf-initialize-operation-name-before-use.patch
+Message-ID: <al8dSv_OvhwxFCar@u94a>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-The APB clock is acquired with devm_clk_get_enabled(), so it remains
-prepared until devres cleanup and runtime PM only needs to gate or ungate
-it.
+Hi Sasha,
 
-Using clk_prepare_enable() from runtime resume is also problematic when
-the common clock framework runtime-resumes the provider device before
-calling the PHY clock rate callbacks, because clk_set_rate() is executed
-while holding the clock prepare lock.
+I am running into BPF selftests compilation error on 6.18 (but it
+possibly affect other branches as well, haven't check) due to
+selftests-bpf-initialize-operation-name-before-use.patch currently
+sitting in stable-queue:
 
-Use clk_enable() and clk_disable() in the runtime PM callbacks so the APB
-clock remains prepared for the lifetime of the device and runtime resume
-does not re-enter the prepare path.
+/tmp/work/linux-stable/linux-stable/tools/testing/selftests/bpf/prog_tests/verifier_log.c: In function ‘verif_btf_log_subtest’:
+/tmp/work/linux-stable/linux-stable/tools/testing/selftests/bpf/prog_tests/verifier_log.c:320:9: error: implicit declaration of function ‘strscpy’; did you mean ‘strlcpy’? [-Werror=implicit-function-declaration]
+  320 |         strscpy(op_name, "log_fixed", sizeof(op_name));
+      |         ^~~~~~~
+      |         strlcpy
 
-Fixes: 6ad082bee902 ("phy: freescale: add Samsung HDMI PHY")
-Cc: stable@vger.kernel.org
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
----
- drivers/phy/freescale/phy-fsl-samsung-hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-index 5f41890bd134..455d03220b72 100644
---- a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-+++ b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-@@ -706,7 +706,7 @@ static int __maybe_unused fsl_samsung_hdmi_phy_suspend(struct device *dev)
- {
- 	struct fsl_samsung_hdmi_phy *phy = dev_get_drvdata(dev);
- 
--	clk_disable_unprepare(phy->apbclk);
-+	clk_disable(phy->apbclk);
- 
- 	return 0;
- }
-@@ -716,7 +716,7 @@ static int __maybe_unused fsl_samsung_hdmi_phy_resume(struct device *dev)
- 	struct fsl_samsung_hdmi_phy *phy = dev_get_drvdata(dev);
- 	int ret = 0;
- 
--	ret = clk_prepare_enable(phy->apbclk);
-+	ret = clk_enable(phy->apbclk);
- 	if (ret) {
- 		dev_err(phy->dev, "failed to enable apbclk\n");
- 		return ret;
--- 
-2.53.0
-
+Can you pick up commit 63c49efc987a ("selftests/bpf: Add simple
+strscpy() implementation") along? I think that should be enough to fix
+the build failure.
