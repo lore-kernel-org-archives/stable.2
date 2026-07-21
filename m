@@ -1,169 +1,647 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E635C481FBC;
-	Tue, 21 Jul 2026 11:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C7D33A717
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784634328; cv=none; b=kug2j/MBDUXklRU4pSyTGGzxDx219c2RLJ86jkVAwsVaKOC1Qa5UhmSD738yizxL5d9kq36GtMO+gwINIeJnMYWYYK/gfrSaxcBhpTAabAc+LaMEhQSkK1ifQ1PVTX6y+Ob30MNC8xJw1HCzZxHFechX0EvXnOTpPjFsGPGWteU=
+	t=1784634419; cv=none; b=Cc2Ms2oht6WjuUf20dmE1N26HcArmq3CFpRBiuyMhEVOTflRShzFX/8ZDYRD8L52RG5OBfY4uF5aYwPjI7YDxt88FRMJri+6L3lsUeibsVbS4rHPKQQ1qnJTHKLMmwJKy/qDRM0MydYQjiOgVJTK2pHFoCwVHj2qRuigHAxiGEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784634328; c=relaxed/simple;
-	bh=J1xsi8VIiBy3ADMhHE51f9v/YO6RpUregFBkwBXQQeo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CUlqu0qeLofaHUay/wSQLa61F+lmJdNAy7J8Fep9tOxy7leOZk23UqxedEV5mxcIs+nM4dGM3cO6ogI3tSRgagozNLs/LIi7vLKBCibHZHbg7xlwGOagun0S6JrIGYkwRs3eE2mtl4awoQbBQyI/YXrd5b8iKDouXrkzEc6gQKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bZnXy0sZ; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784634419; c=relaxed/simple;
+	bh=bSoaDKaXZBSsiu3faZBRlvlk2z22zzzMe9HZRlozdkc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fkLX/0n8cGdM8Ma98Kj8O9Mys//DwCy47FPdLG4gQoBAquqzhyPDeIlzRnGYDy193bv80HaV7ig2jik4FUf1IVOcpptOSHjgvYWRtQGKZvbVoottVykq9sz6b0e7PknWJcb5tTxbBl2n+XEeexEeLTHSEKTb0fNGXq1vQSJzF0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICuCDLCv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bZnXy0sZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784634325; x=1816170325;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=J1xsi8VIiBy3ADMhHE51f9v/YO6RpUregFBkwBXQQeo=;
-  b=bZnXy0sZBrm++e5fp/wsZReB3T0ZDPVlLzrOiA/8+oiVk/bfVX52Kbie
-   DN2Auz4z2mABSCaSIpggTwN0i6oNmc6rSTBaAhbEOt/YHz8UvFxupj2LY
-   SbBlBRvZ7qW/4zEIEebxRbQsPiRodOC70bOkdyWO0YEh8nq4EIGeYc+tT
-   dC41/eAGoZTc7QGHNeZi/LUYsGf10IMfxkD1JtKZzWIZt442TejGUGy/6
-   4gGOArp4wXF53PRV+L9fABdXLRYkMVM6Rgjk4N0qzAGz/sIKB4VaDbzD2
-   l7KVWgmf2inh/tlqIkzwu+YLGP8Or6Un5UfAy/iTWXjFzxsdlaz4s573f
-   Q==;
-X-CSE-ConnectionGUID: dXULuZp8RFuW3X4UzAxKJA==
-X-CSE-MsgGUID: 7iw7XyrnQR23f9E+WNVPGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85323369"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="85323369"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 04:45:24 -0700
-X-CSE-ConnectionGUID: ku8MPGn/Tp29kK3iZ9FQwg==
-X-CSE-MsgGUID: 7EkwXeWOTE28ofZcw2n6qw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="281016028"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93]) ([10.245.245.93])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 04:45:18 -0700
-Message-ID: <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
-Date: Tue, 21 Jul 2026 13:46:15 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICuCDLCv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870AE1F000E9;
+	Tue, 21 Jul 2026 11:46:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784634418;
+	bh=Bua5uepwpVLaHiV7XGi+KUcPVliL/d7joHvW36T68MY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ICuCDLCvGX5MQor2jcnsbwu/Tlrmulcl9Hcdutt29JDCCDKMgB9UxV+Xq2BKWIoB0
+	 fYqeQBrgvdvyLlrUxyu6tIEpPgEQ4D8pX3BOkxbUZgaunfQ6iM/N0ZRYd4y4l3uxOr
+	 w+GqE8IRNgP5HhBmkCNXl35P8UjpzbKDOIAkBxcJRdP4A7ed0vfDB7+70Xeg7685BD
+	 i7v5fVYSnvFmGwCgCmCaZ/ARYOYXV0lTu4cVFYKshq9r3Hv+Va2MF4Dbzmx/wshNKf
+	 uT6O1lX0fXlTcT0nhBYVLNYexT3Fth034WqpoZ5KlpNBIyIeRUMKN5qgzfkk5brvXT
+	 wAuQQsP49e+Ig==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/5] exfat: replace unsafe macros with static inline functions
+Date: Tue, 21 Jul 2026 07:46:52 -0400
+Message-ID: <20260721114656.3687966-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071548-sinister-joystick-e062@gregkh>
+References: <2026071548-sinister-joystick-e062@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Sashiko-bot <sashiko-bot@kernel.org>,
- Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
- <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
- <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
- <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hey,
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-Can I merge this through drm-misc-next together with the rest of the series?
+[ Upstream commit f07db38084dc45162d5fe2871ed72674ddc0f9ae ]
 
-Kind regards
-~Maarten
+The current exFAT driver relies on various macros for unit conversions
+between clusters, blocks, sectors, and directory entries. These macros
+are structurally unsafe as they lack type enforcement and are prone to
+potential integer overflows during bit-shift operations, especially
+on 64-bit architectures. Replace all arithmetic macros with static inline
+functions to provide strict type checking and explicit casting.
 
-On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
-> 
-> 
-> On 7/3/2026 6:38 PM, Christian König wrote:
->> Arun please take a look at this.
-> Sure Christian. This fix looks correct to me.
-> Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> 
-> Thanks,
-> Arun.
->>
->> Thanks,
->> Christian.
->>
->> On 7/3/26 15:05, Thomas Hellström wrote:
->>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
->>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
->>> returns early and bypasses those initializations.
->>>
->>> Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
->>> is called, a failure triggers amdgpu_ttm_fini(), which calls
->>> amdgpu_vram_mgr_fini(), which then:
->>>
->>>   - Calls list_for_each_entry_safe() on reservations_pending and
->>>     reserved_pages, whose list_head::next pointers are zero-initialized
->>>     (NULL). The loop does not recognize them as empty and dereferences NULL.
->>>
->>>   - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
->>>     via for_each_free_tree(). Since mm->free_trees is NULL
->>>     (never allocated), this dereferences NULL.
->>>
->>> Both result in a kernel panic on the module load error path.
->>>
->>> Fix by moving drmm_cgroup_register_region() to after the list and buddy
->>> allocator are fully initialized, so the teardown path is safe to run.
->>>
->>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
->>> Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
->>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
->>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>> Cc: Maarten Lankhorst <dev@lankhorst.se>
->>> Cc: Tejun Heo <tj@kernel.org>
->>> Cc: Maxime Ripard <mripard@kernel.org>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: amd-gfx@lists.freedesktop.org
->>> Cc: dri-devel@lists.freedesktop.org
->>> Cc: <stable@vger.kernel.org> # v6.14+
->>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
->>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
->>>   1 file changed, 4 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> index 2a241a5b12c4..ac3f71d77140 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->>>       struct ttm_resource_manager *man = &mgr->manager;
->>>       int err;
->>>   -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
->>> -    if (IS_ERR(man->cg))
->>> -        return PTR_ERR(man->cg);
->>>       ttm_resource_manager_init(man, &adev->mman.bdev,
->>>                     adev->gmc.real_vram_size);
->>>   @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->>>       if (err)
->>>           return err;
->>>   +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
->>> +    if (IS_ERR(man->cg))
->>> +        return PTR_ERR(man->cg);
->>> +
->>>       ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->>>       ttm_resource_manager_set_used(man, true);
->>>       return 0;
-> 
+Acked-by: Christoph Hellwig <hch@lst.de>
+Acked-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Stable-dep-of: 044472d5ee7d ("iomap: consolidate bio submission")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/exfat/balloc.c   |   2 +-
+ fs/exfat/dir.c      |  48 ++++++++---------
+ fs/exfat/exfat_fs.h | 122 ++++++++++++++++++++++++++++++++------------
+ fs/exfat/fatent.c   |   4 +-
+ fs/exfat/file.c     |   8 +--
+ fs/exfat/inode.c    |  19 +++----
+ fs/exfat/namei.c    |  26 +++++-----
+ fs/exfat/super.c    |   4 +-
+ 8 files changed, 147 insertions(+), 86 deletions(-)
+
+diff --git a/fs/exfat/balloc.c b/fs/exfat/balloc.c
+index 625f2f14d4fe01..e66ebf899778c1 100644
+--- a/fs/exfat/balloc.c
++++ b/fs/exfat/balloc.c
+@@ -112,7 +112,7 @@ static int exfat_allocate_bitmap(struct super_block *sb,
+ 	}
+ 
+ 	if (exfat_test_bitmap_range(sb, sbi->map_clu,
+-		EXFAT_B_TO_CLU_ROUND_UP(map_size, sbi)) == false)
++		exfat_bytes_to_cluster_round_up(sbi, map_size)) == false)
+ 		goto err_out;
+ 
+ 	return 0;
+diff --git a/fs/exfat/dir.c b/fs/exfat/dir.c
+index 500094c60c138b..b316541a09aedd 100644
+--- a/fs/exfat/dir.c
++++ b/fs/exfat/dir.c
+@@ -76,7 +76,7 @@ static int exfat_readdir(struct inode *inode, loff_t *cpos, struct exfat_dir_ent
+ 	struct super_block *sb = inode->i_sb;
+ 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
+ 	struct exfat_inode_info *ei = EXFAT_I(inode);
+-	unsigned int dentry = EXFAT_B_TO_DEN(*cpos) & 0xFFFFFFFF;
++	unsigned int dentry = exfat_bytes_to_dentries(*cpos) & 0xFFFFFFFF;
+ 	struct buffer_head *bh;
+ 
+ 	/* check if the given file ID is opened */
+@@ -84,13 +84,13 @@ static int exfat_readdir(struct inode *inode, loff_t *cpos, struct exfat_dir_ent
+ 		return -EPERM;
+ 
+ 	exfat_chain_set(&dir, ei->start_clu,
+-		EXFAT_B_TO_CLU(i_size_read(inode), sbi), ei->flags);
++		exfat_bytes_to_cluster(sbi, i_size_read(inode)), ei->flags);
+ 
+ 	dentries_per_clu = sbi->dentries_per_clu;
+-	max_dentries = (unsigned int)min_t(u64, MAX_EXFAT_DENTRIES,
+-				(u64)EXFAT_CLU_TO_DEN(sbi->num_clusters, sbi));
++	max_dentries = min(MAX_EXFAT_DENTRIES,
++			exfat_cluster_to_dentries(sbi, sbi->num_clusters));
+ 
+-	clu_offset = EXFAT_DEN_TO_CLU(dentry, sbi);
++	clu_offset = exfat_dentries_to_cluster(sbi, dentry);
+ 	exfat_chain_dup(&clu, &dir);
+ 
+ 	if (clu.flags == ALLOC_FAT_CHAIN) {
+@@ -147,10 +147,10 @@ static int exfat_readdir(struct inode *inode, loff_t *cpos, struct exfat_dir_ent
+ 			dir_entry->dir = clu;
+ 			brelse(bh);
+ 
+-			ei->hint_bmap.off = EXFAT_DEN_TO_CLU(dentry, sbi);
++			ei->hint_bmap.off = exfat_dentries_to_cluster(sbi, dentry);
+ 			ei->hint_bmap.clu = clu.dir;
+ 
+-			*cpos = EXFAT_DEN_TO_B(dentry + 1 + num_ext);
++			*cpos = exfat_dentries_to_bytes(dentry + 1 + num_ext);
+ 			return 0;
+ 		}
+ 
+@@ -160,7 +160,7 @@ static int exfat_readdir(struct inode *inode, loff_t *cpos, struct exfat_dir_ent
+ 
+ out:
+ 	dir_entry->namebuf.lfn[0] = '\0';
+-	*cpos = EXFAT_DEN_TO_B(dentry);
++	*cpos = exfat_dentries_to_bytes(dentry);
+ 	return 0;
+ }
+ 
+@@ -465,7 +465,7 @@ static void exfat_free_benign_secondary_clusters(struct inode *inode,
+ 		return;
+ 
+ 	exfat_chain_set(&dir, start_clu,
+-			EXFAT_B_TO_CLU_ROUND_UP(size, EXFAT_SB(sb)),
++			exfat_bytes_to_cluster_round_up(EXFAT_SB(sb), size),
+ 			flags);
+ 	exfat_free_cluster(inode, &dir);
+ }
+@@ -594,10 +594,11 @@ static int exfat_find_location(struct super_block *sb, struct exfat_chain *p_dir
+ 	unsigned int off, clu = 0;
+ 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
+ 
+-	off = EXFAT_DEN_TO_B(entry);
++	off = exfat_dentries_to_bytes(entry);
+ 
+ 	clu = p_dir->dir;
+-	ret = exfat_cluster_walk(sb, &clu, EXFAT_B_TO_CLU(off, sbi), p_dir->flags);
++	ret = exfat_cluster_walk(sb, &clu, exfat_bytes_to_cluster(sbi, off),
++			p_dir->flags);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -605,7 +606,7 @@ static int exfat_find_location(struct super_block *sb, struct exfat_chain *p_dir
+ 		exfat_fs_error(sb,
+ 			"unexpected early break in cluster chain (clu : %u, len : %d)",
+ 			p_dir->dir,
+-			EXFAT_B_TO_CLU(off, sbi));
++			exfat_bytes_to_cluster(sbi, off));
+ 		return -EIO;
+ 	}
+ 
+@@ -615,13 +616,13 @@ static int exfat_find_location(struct super_block *sb, struct exfat_chain *p_dir
+ 	}
+ 
+ 	/* byte offset in cluster */
+-	off = EXFAT_CLU_OFFSET(off, sbi);
++	off = exfat_cluster_offset(sbi, off);
+ 
+ 	/* byte offset in sector    */
+-	*offset = EXFAT_BLK_OFFSET(off, sb);
++	*offset = exfat_block_offset(sb, off);
+ 
+ 	/* sector offset in cluster */
+-	*sector = EXFAT_B_TO_BLK(off, sb);
++	*sector = exfat_bytes_to_block(sb, off);
+ 	*sector += exfat_cluster_to_sector(sbi, clu);
+ 	return 0;
+ }
+@@ -631,7 +632,7 @@ struct exfat_dentry *exfat_get_dentry(struct super_block *sb,
+ {
+ 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
+ 	unsigned int sect_per_clus = sbi->sect_per_clus;
+-	unsigned int dentries_per_page = EXFAT_B_TO_DEN(PAGE_SIZE);
++	unsigned int dentries_per_page = exfat_bytes_to_dentries(PAGE_SIZE);
+ 	int off;
+ 	sector_t sec;
+ 
+@@ -710,8 +711,8 @@ struct exfat_dentry *exfat_get_dentry_cached(
+ 	struct exfat_entry_set_cache *es, int num)
+ {
+ 	int off = es->start_off + num * DENTRY_SIZE;
+-	struct buffer_head *bh = es->bh[EXFAT_B_TO_BLK(off, es->sb)];
+-	char *p = bh->b_data + EXFAT_BLK_OFFSET(off, es->sb);
++	struct buffer_head *bh = es->bh[exfat_bytes_to_block(es->sb, off)];
++	char *p = bh->b_data + exfat_block_offset(es->sb, off);
+ 
+ 	return (struct exfat_dentry *)p;
+ }
+@@ -779,7 +780,7 @@ static int __exfat_get_dentry_set(struct exfat_entry_set_cache *es,
+ 
+ 	es->num_entries = num_entries;
+ 
+-	num_bh = EXFAT_B_TO_BLK_ROUND_UP(off + num_entries * DENTRY_SIZE, sb);
++	num_bh = exfat_bytes_to_block_round_up(sb, off + num_entries * DENTRY_SIZE);
+ 	if (num_bh > ARRAY_SIZE(es->__bh)) {
+ 		es->bh = kmalloc_objs(*es->bh, num_bh, GFP_NOFS);
+ 		if (!es->bh) {
+@@ -868,7 +869,7 @@ static int exfat_validate_empty_dentry_set(struct exfat_entry_set_cache *es)
+ 
+ err_used_follow_unused:
+ 	off = es->start_off + (i << DENTRY_SIZE_BITS);
+-	bh = es->bh[EXFAT_B_TO_BLK(off, es->sb)];
++	bh = es->bh[exfat_bytes_to_block(es->sb, off)];
+ 
+ 	exfat_fs_error(es->sb,
+ 		"in sector %lld, dentry %d should be unused, but 0x%x",
+@@ -877,7 +878,8 @@ static int exfat_validate_empty_dentry_set(struct exfat_entry_set_cache *es)
+ 	return -EIO;
+ 
+ count_skip_entries:
+-	es->num_entries = EXFAT_B_TO_DEN(EXFAT_BLK_TO_B(es->num_bh, es->sb) - es->start_off);
++	es->num_entries =
++		exfat_bytes_to_dentries(exfat_block_to_bytes(es->sb, es->num_bh) - es->start_off);
+ 	for (; i < es->num_entries; i++) {
+ 		ep = exfat_get_dentry_cached(es, i);
+ 		if (IS_EXFAT_DELETED(ep->type))
+@@ -930,7 +932,7 @@ static inline void exfat_set_empty_hint(struct exfat_inode_info *ei,
+ {
+ 	if (ei->hint_femp.eidx == EXFAT_HINT_NONE ||
+ 	    ei->hint_femp.eidx > dentry) {
+-		int total_entries = EXFAT_B_TO_DEN(i_size_read(&ei->vfs_inode));
++		int total_entries = exfat_bytes_to_dentries(i_size_read(&ei->vfs_inode));
+ 
+ 		if (candi_empty->count == 0) {
+ 			candi_empty->cur = *clu;
+@@ -1258,7 +1260,7 @@ static int exfat_get_volume_label_dentry(struct super_block *sb,
+ 			es->bh = es->__bh;
+ 			es->bh[0] = bh;
+ 			es->num_bh = 1;
+-			es->start_off = EXFAT_DEN_TO_B(i) % sb->s_blocksize;
++			es->start_off = exfat_dentries_to_bytes(i) % sb->s_blocksize;
+ 
+ 			return 0;
+ 		}
+diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
+index e22b4ca3ec7fb6..6ec480b53fe6dc 100644
+--- a/fs/exfat/exfat_fs.h
++++ b/fs/exfat/exfat_fs.h
+@@ -84,38 +84,6 @@ enum {
+ 	(min_t(blkcnt_t, (sb)->s_bdi->ra_pages, (sb)->s_bdi->io_pages) \
+ 	<< (PAGE_SHIFT - (sb)->s_blocksize_bits))
+ 
+-/*
+- * helpers for cluster size to byte conversion.
+- */
+-#define EXFAT_CLU_TO_B(b, sbi)		((b) << (sbi)->cluster_size_bits)
+-#define EXFAT_B_TO_CLU(b, sbi)		((b) >> (sbi)->cluster_size_bits)
+-#define EXFAT_B_TO_CLU_ROUND_UP(b, sbi)	\
+-	(((b - 1) >> (sbi)->cluster_size_bits) + 1)
+-#define EXFAT_CLU_OFFSET(off, sbi)	((off) & ((sbi)->cluster_size - 1))
+-
+-/*
+- * helpers for block size to byte conversion.
+- */
+-#define EXFAT_BLK_TO_B(b, sb)		((b) << (sb)->s_blocksize_bits)
+-#define EXFAT_B_TO_BLK(b, sb)		((b) >> (sb)->s_blocksize_bits)
+-#define EXFAT_B_TO_BLK_ROUND_UP(b, sb)	\
+-	(((b - 1) >> (sb)->s_blocksize_bits) + 1)
+-#define EXFAT_BLK_OFFSET(off, sb)	((off) & ((sb)->s_blocksize - 1))
+-
+-/*
+- * helpers for block size to dentry size conversion.
+- */
+-#define EXFAT_B_TO_DEN(b)		((b) >> DENTRY_SIZE_BITS)
+-#define EXFAT_DEN_TO_B(b)		((b) << DENTRY_SIZE_BITS)
+-
+-/*
+- * helpers for cluster size to dentry size conversion.
+- */
+-#define EXFAT_CLU_TO_DEN(clu, sbi)	\
+-	((clu) << ((sbi)->cluster_size_bits - DENTRY_SIZE_BITS))
+-#define EXFAT_DEN_TO_CLU(dentry, sbi)	\
+-	((dentry) >> ((sbi)->cluster_size_bits - DENTRY_SIZE_BITS))
+-
+ /*
+  * helpers for fat entry.
+  */
+@@ -149,7 +117,7 @@ enum {
+  * The 608 bytes are in 3 sectors at most (even 512 Byte sector).
+  */
+ #define DIR_CACHE_SIZE		\
+-	(DIV_ROUND_UP(EXFAT_DEN_TO_B(ES_MAX_ENTRY_NUM), SECTOR_SIZE) + 1)
++	(DIV_ROUND_UP(ES_MAX_ENTRY_NUM << DENTRY_SIZE_BITS, SECTOR_SIZE) + 1)
+ 
+ /* Superblock flags */
+ #define EXFAT_FLAGS_SHUTDOWN	1
+@@ -432,6 +400,94 @@ static inline loff_t exfat_ondisk_size(const struct inode *inode)
+ 	return ((loff_t)inode->i_blocks) << 9;
+ }
+ 
++/*
++ * helpers for cluster size to byte conversion.
++ */
++static inline loff_t exfat_cluster_to_bytes(struct exfat_sb_info *sbi,
++		u32 nr_clusters)
++{
++	return (loff_t)nr_clusters << sbi->cluster_size_bits;
++}
++
++static inline blkcnt_t exfat_cluster_to_sectors(struct exfat_sb_info *sbi,
++		u32 nr_clusters)
++{
++	return (blkcnt_t)nr_clusters << (sbi->cluster_size_bits - 9);
++}
++
++static inline u32 exfat_bytes_to_cluster(struct exfat_sb_info *sbi, loff_t size)
++{
++	return (u32)(size >> sbi->cluster_size_bits);
++}
++
++static inline u32 exfat_bytes_to_cluster_round_up(struct exfat_sb_info *sbi,
++		loff_t size)
++{
++	if (size <= 0)
++		return 0;
++	return (u32)((size - 1) >> sbi->cluster_size_bits) + 1;
++}
++
++static inline u32 exfat_cluster_offset(struct exfat_sb_info *sbi, loff_t off)
++{
++	return off & (sbi->cluster_size - 1);
++}
++
++/*
++ * helpers for block size to byte conversion.
++ */
++static inline loff_t exfat_block_to_bytes(struct super_block *sb,
++		sector_t block)
++{
++	return (loff_t)block << sb->s_blocksize_bits;
++}
++
++static inline sector_t exfat_bytes_to_block(struct super_block *sb, loff_t size)
++{
++	return (sector_t)(size >> sb->s_blocksize_bits);
++}
++
++static inline sector_t exfat_bytes_to_block_round_up(struct super_block *sb,
++		loff_t size)
++{
++	if (size <= 0)
++		return 0;
++	return (sector_t)(((size - 1) >> sb->s_blocksize_bits) + 1);
++}
++
++static inline u32 exfat_block_offset(struct super_block *sb, loff_t off)
++{
++	return (u32)(off & (sb->s_blocksize - 1));
++}
++
++/*
++ * helpers for block size to dentry size conversion.
++ */
++static inline u32 exfat_bytes_to_dentries(loff_t b)
++{
++	return (u32)(b >> DENTRY_SIZE_BITS);
++}
++
++static inline u32 exfat_dentries_to_bytes(u32 dentry)
++{
++	return dentry << DENTRY_SIZE_BITS;
++}
++
++/*
++ * helpers for cluster size to dentry size conversion.
++ */
++static inline u32 exfat_cluster_to_dentries(struct exfat_sb_info *sbi,
++		u32 nr_clusters)
++{
++	return nr_clusters << (sbi->cluster_size_bits - DENTRY_SIZE_BITS);
++}
++
++static inline u32 exfat_dentries_to_cluster(struct exfat_sb_info *sbi,
++		u32 dentry)
++{
++	return dentry >> (sbi->cluster_size_bits - DENTRY_SIZE_BITS);
++}
++
+ /* super.c */
+ int exfat_set_volume_dirty(struct super_block *sb);
+ int exfat_clear_volume_dirty(struct super_block *sb);
+diff --git a/fs/exfat/fatent.c b/fs/exfat/fatent.c
+index dce0955e689aa5..45b0b754a2e4b5 100644
+--- a/fs/exfat/fatent.c
++++ b/fs/exfat/fatent.c
+@@ -412,8 +412,8 @@ int exfat_zeroed_cluster(struct inode *dir, unsigned int clu)
+ 
+ 	if (IS_DIRSYNC(dir))
+ 		return sync_blockdev_range(sb->s_bdev,
+-				EXFAT_BLK_TO_B(blknr, sb),
+-				EXFAT_BLK_TO_B(last_blknr, sb) - 1);
++				exfat_block_to_bytes(sb, blknr),
++				exfat_block_to_bytes(sb, last_blknr) - 1);
+ 
+ 	return 0;
+ }
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index 354bdcfe4abcdf..29a36a80e29bca 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -33,9 +33,9 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
+ 	if (ret)
+ 		return ret;
+ 
+-	num_clusters = EXFAT_B_TO_CLU(exfat_ondisk_size(inode), sbi);
++	num_clusters = exfat_bytes_to_cluster(sbi, exfat_ondisk_size(inode));
+ 	/* integer overflow is already checked in inode_newsize_ok(). */
+-	new_num_clusters = EXFAT_B_TO_CLU_ROUND_UP(size, sbi);
++	new_num_clusters = exfat_bytes_to_cluster_round_up(sbi, size);
+ 
+ 	if (new_num_clusters == num_clusters)
+ 		goto out;
+@@ -200,8 +200,8 @@ int __exfat_truncate(struct inode *inode)
+ 
+ 	exfat_set_volume_dirty(sb);
+ 
+-	num_clusters_new = EXFAT_B_TO_CLU_ROUND_UP(i_size_read(inode), sbi);
+-	num_clusters_phys = EXFAT_B_TO_CLU(exfat_ondisk_size(inode), sbi);
++	num_clusters_new = exfat_bytes_to_cluster_round_up(sbi, i_size_read(inode));
++	num_clusters_phys = exfat_bytes_to_cluster(sbi, exfat_ondisk_size(inode));
+ 
+ 	exfat_chain_set(&clu, ei->start_clu, num_clusters_phys, ei->flags);
+ 
+diff --git a/fs/exfat/inode.c b/fs/exfat/inode.c
+index 1ea4c740fef9ef..249a35e2b4b237 100644
+--- a/fs/exfat/inode.c
++++ b/fs/exfat/inode.c
+@@ -135,7 +135,7 @@ static int exfat_map_cluster(struct inode *inode, unsigned int clu_offset,
+ 	unsigned int local_clu_offset = clu_offset;
+ 	unsigned int num_to_be_allocated = 0, num_clusters;
+ 
+-	num_clusters = EXFAT_B_TO_CLU(exfat_ondisk_size(inode), sbi);
++	num_clusters = exfat_bytes_to_cluster(sbi, exfat_ondisk_size(inode));
+ 
+ 	if (clu_offset >= num_clusters)
+ 		num_to_be_allocated = clu_offset - num_clusters + 1;
+@@ -216,7 +216,8 @@ static int exfat_map_cluster(struct inode *inode, unsigned int clu_offset,
+ 
+ 		*clu = new_clu.dir;
+ 
+-		inode->i_blocks += EXFAT_CLU_TO_B(num_to_be_allocated, sbi) >> 9;
++		inode->i_blocks +=
++			exfat_cluster_to_sectors(sbi, num_to_be_allocated);
+ 
+ 		/*
+ 		 * Move *clu pointer along FAT chains (hole care) because the
+@@ -254,12 +255,12 @@ static int exfat_get_block(struct inode *inode, sector_t iblock,
+ 
+ 	mutex_lock(&sbi->s_lock);
+ 	i_size = i_size_read(inode);
+-	last_block = EXFAT_B_TO_BLK_ROUND_UP(i_size, sb);
++	last_block = exfat_bytes_to_block_round_up(sb, i_size);
+ 	if (iblock >= last_block && !create)
+ 		goto done;
+ 
+ 	/* Is this block already allocated? */
+-	count = EXFAT_B_TO_CLU_ROUND_UP(bh_result->b_size, sbi);
++	count = exfat_bytes_to_cluster_round_up(sbi, bh_result->b_size);
+ 	err = exfat_map_cluster(inode, iblock >> sbi->sect_per_clus_bits,
+ 			&cluster, &count, create);
+ 	if (err) {
+@@ -296,9 +297,9 @@ static int exfat_get_block(struct inode *inode, sector_t iblock,
+ 	 * care the last nested block if valid_size is not equal to i_size.
+ 	 */
+ 	if (i_size == ei->valid_size || create || !bh_result->b_folio)
+-		valid_blks = EXFAT_B_TO_BLK_ROUND_UP(ei->valid_size, sb);
++		valid_blks = exfat_bytes_to_block_round_up(sb, ei->valid_size);
+ 	else
+-		valid_blks = EXFAT_B_TO_BLK(ei->valid_size, sb);
++		valid_blks = exfat_bytes_to_block(sb, ei->valid_size);
+ 
+ 	/* The range has been fully written, map it */
+ 	if (iblock + max_blocks < valid_blks)
+@@ -313,7 +314,7 @@ static int exfat_get_block(struct inode *inode, sector_t iblock,
+ 	/* The area has not been written, map and mark as new for create case */
+ 	if (create) {
+ 		set_buffer_new(bh_result);
+-		ei->valid_size = EXFAT_BLK_TO_B(iblock + max_blocks, sb);
++		ei->valid_size = exfat_block_to_bytes(sb, iblock + max_blocks);
+ 		mark_inode_dirty(inode);
+ 		goto done;
+ 	}
+@@ -343,7 +344,7 @@ static int exfat_get_block(struct inode *inode, sector_t iblock,
+ 			goto done;
+ 		}
+ 
+-		pos = EXFAT_BLK_TO_B(iblock, sb);
++		pos = exfat_block_to_bytes(sb, iblock);
+ 		size = ei->valid_size - pos;
+ 		addr = folio_address(bh_result->b_folio) +
+ 			offset_in_folio(bh_result->b_folio, pos);
+@@ -374,7 +375,7 @@ static int exfat_get_block(struct inode *inode, sector_t iblock,
+ 	 */
+ 	clear_buffer_mapped(bh_result);
+ done:
+-	bh_result->b_size = EXFAT_BLK_TO_B(max_blocks, sb);
++	bh_result->b_size = exfat_block_to_bytes(sb, max_blocks);
+ 	if (err < 0)
+ 		clear_buffer_mapped(bh_result);
+ unlock_ret:
+diff --git a/fs/exfat/namei.c b/fs/exfat/namei.c
+index 76b2e2db80fbab..3191b88113e3b1 100644
+--- a/fs/exfat/namei.c
++++ b/fs/exfat/namei.c
+@@ -208,7 +208,7 @@ static int exfat_search_empty_slot(struct super_block *sb,
+ 	int dentries_per_clu;
+ 	struct exfat_chain clu;
+ 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
+-	int total_entries = EXFAT_CLU_TO_DEN(p_dir->size, sbi);
++	unsigned int total_entries = exfat_cluster_to_dentries(sbi, p_dir->size);
+ 
+ 	dentries_per_clu = sbi->dentries_per_clu;
+ 
+@@ -266,7 +266,7 @@ static int exfat_search_empty_slot(struct super_block *sb,
+ 
+ static int exfat_check_max_dentries(struct inode *inode)
+ {
+-	if (EXFAT_B_TO_DEN(i_size_read(inode)) >= MAX_EXFAT_DENTRIES) {
++	if (exfat_bytes_to_dentries(i_size_read(inode)) >= MAX_EXFAT_DENTRIES) {
+ 		/*
+ 		 * exFAT spec allows a dir to grow up to 8388608(256MB)
+ 		 * dentries
+@@ -314,7 +314,8 @@ int exfat_find_empty_entry(struct inode *inode,
+ 	}
+ 
+ 	exfat_chain_set(p_dir, ei->start_clu,
+-			EXFAT_B_TO_CLU(i_size_read(inode), sbi), ei->flags);
++			exfat_bytes_to_cluster(sbi, i_size_read(inode)),
++			ei->flags);
+ 
+ 	while ((dentry = exfat_search_empty_slot(sb, &hint_femp, p_dir,
+ 					num_entries, es)) < 0) {
+@@ -375,7 +376,7 @@ int exfat_find_empty_entry(struct inode *inode,
+ 
+ 		hint_femp.cur.size++;
+ 		p_dir->size++;
+-		size = EXFAT_CLU_TO_B(p_dir->size, sbi);
++		size = exfat_cluster_to_bytes(sbi, p_dir->size);
+ 
+ 		/* directory inode should be updated in here */
+ 		i_size_write(inode, size);
+@@ -604,7 +605,7 @@ static int exfat_find(struct inode *dir, const struct qstr *qname,
+ 		return ret;
+ 
+ 	exfat_chain_set(&cdir, ei->start_clu,
+-		EXFAT_B_TO_CLU(i_size_read(dir), sbi), ei->flags);
++		exfat_bytes_to_cluster(sbi, i_size_read(dir)), ei->flags);
+ 
+ 	/* check the validation of hint_stat and initialize it if required */
+ 	if (ei->version != (inode_peek_iversion_raw(dir) & 0xffffffff)) {
+@@ -681,7 +682,7 @@ static int exfat_find(struct inode *dir, const struct qstr *qname,
+ 		return -EIO;
+ 	}
+ 
+-	if (unlikely(EXFAT_B_TO_CLU_ROUND_UP(info->size, sbi) > sbi->used_clusters)) {
++	if (unlikely(exfat_bytes_to_cluster_round_up(sbi, info->size) > sbi->used_clusters)) {
+ 		exfat_fs_error(sb, "data size is invalid(%lld)", info->size);
+ 		return -EIO;
+ 	}
+@@ -695,7 +696,8 @@ static int exfat_find(struct inode *dir, const struct qstr *qname,
+ 
+ 	if (info->type == TYPE_DIR) {
+ 		exfat_chain_set(&cdir, info->start_clu,
+-				EXFAT_B_TO_CLU(info->size, sbi), info->flags);
++				exfat_bytes_to_cluster(sbi, info->size),
++				info->flags);
+ 		count = exfat_count_dir_entries(sb, &cdir);
+ 		if (count < 0)
+ 			return -EIO;
+@@ -951,7 +953,7 @@ static int exfat_rmdir(struct inode *dir, struct dentry *dentry)
+ 	}
+ 
+ 	exfat_chain_set(&clu_to_free, ei->start_clu,
+-		EXFAT_B_TO_CLU_ROUND_UP(i_size_read(inode), sbi), ei->flags);
++		exfat_bytes_to_cluster_round_up(sbi, i_size_read(inode)), ei->flags);
+ 
+ 	err = exfat_check_dir_empty(sb, &clu_to_free);
+ 	if (err) {
+@@ -1207,8 +1209,8 @@ static int __exfat_rename(struct inode *old_parent_inode,
+ 
+ 			new_clu.dir = new_ei->start_clu;
+ 			new_clu.size =
+-				EXFAT_B_TO_CLU_ROUND_UP(i_size_read(new_inode),
+-				sbi);
++				exfat_bytes_to_cluster_round_up(sbi,
++						i_size_read(new_inode));
+ 			new_clu.flags = new_ei->flags;
+ 
+ 			ret = exfat_check_dir_empty(sb, &new_clu);
+@@ -1252,8 +1254,8 @@ static int __exfat_rename(struct inode *old_parent_inode,
+ 			struct exfat_chain new_clu_to_free;
+ 
+ 			exfat_chain_set(&new_clu_to_free, new_ei->start_clu,
+-				EXFAT_B_TO_CLU_ROUND_UP(i_size_read(new_inode),
+-				sbi), new_ei->flags);
++				exfat_bytes_to_cluster_round_up(sbi, i_size_read(new_inode)),
++				new_ei->flags);
+ 
+ 			if (exfat_free_cluster(new_inode, &new_clu_to_free)) {
+ 				/* just set I/O error only */
+diff --git a/fs/exfat/super.c b/fs/exfat/super.c
+index 95d87e2d7717f7..cb2f8eefff9957 100644
+--- a/fs/exfat/super.c
++++ b/fs/exfat/super.c
+@@ -369,7 +369,7 @@ static int exfat_read_root(struct inode *inode, struct exfat_chain *root_clu)
+ 	ei->hint_stat.clu = sbi->root_dir;
+ 	ei->hint_femp.eidx = EXFAT_HINT_NONE;
+ 
+-	i_size_write(inode, EXFAT_CLU_TO_B(root_clu->size, sbi));
++	i_size_write(inode, exfat_cluster_to_bytes(sbi, root_clu->size));
+ 
+ 	num_subdirs = exfat_count_dir_entries(sb, root_clu);
+ 	if (num_subdirs < 0)
+@@ -538,7 +538,7 @@ static int exfat_read_boot_sector(struct super_block *sb)
+ 	 * machines.
+ 	 */
+ 	sb->s_maxbytes = min(MAX_LFS_FILESIZE,
+-			     EXFAT_CLU_TO_B((loff_t)EXFAT_MAX_NUM_CLUSTER, sbi));
++			     exfat_cluster_to_bytes(sbi, (loff_t)EXFAT_MAX_NUM_CLUSTER));
+ 
+ 	/* check logical sector size */
+ 	if (exfat_calibrate_blocksize(sb, 1 << p_boot->sect_size_bits))
+-- 
+2.53.0
 
