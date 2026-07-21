@@ -1,56 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C6F3B637C
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 20:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277A13B1ECC;
+	Tue, 21 Jul 2026 20:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784666644; cv=none; b=HZiy1HQ8rixYqwL3WAOu5XxbgRYhymmhCfiEPpZEu4mxTp2M/LW38mf8W9CP2voXG4AXt8614McMldD+r6HSFT7xW92+2qiMQb/KpWP++A/rXreHL9hvG1RYjrcB/qg68r7CbAnIXjgYVqaWUvcx8OxnA5aa4U0st5oXwMuylKc=
+	t=1784666645; cv=none; b=kVAanSUPeAi33bgWOdn5sJu+8Z2A30xiY44vviw9Rp5EYQd9Ov+weaCc3RErTtfBaolAeSIZk0WlflsvwvaUlP3E93CIEpWZdS8aIBPA6XJNcYc99x1wzRuoYjPWrMdAKQGQbKslFSNjGk6aNgZO2bvviWUd/U/aA0IXr+uWqtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784666644; c=relaxed/simple;
-	bh=ujuuPtTMhapUF03co5hOJM+7cFnNCSg9KOpLT2PeRvE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kadRkrUXNA5w86U2ZpVBl9yEy0v3f/QK6J8ZNw5FfbZRZU5M8Gtypz7X3TtVvQQu8R3i4zXCVe/8CXaPyHr5/LKiJoG2fIcrtHruF4kIp1llLxXmlyyqBlnRtYqe5YfsEG3XLOO5IF2deJV3Dx1zIbwLNPqMYrovyYTj9p6N02M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cfGRvioJ; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784666645; c=relaxed/simple;
+	bh=H7FBOrV3tcxoTSpeLdJm6KGsNmTiH4tK5uEZpVK3F9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B2BKBOe9uyYwlclplvOxgzDa1iATKgQSZhgOGc1dzn4SmXNhQ40kHGwA5aN25hg4CQQZ7PhtUwSySrUuu2jt/ByRewENB62AlWDKpnk2z7apKtlNBKyXG63ZO0RlRRglJAwmqxr+534ipaJXU4TKHO4PwjqH2/RyaXi7PopzNaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HDvyL5Ga; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cfGRvioJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784666639; x=1816202639;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ujuuPtTMhapUF03co5hOJM+7cFnNCSg9KOpLT2PeRvE=;
-  b=cfGRvioJs4Wwt9NGmhiCa2g2GVA5cW/jXZXw7++mAqgUBNsqi+OEbJVo
-   xZH1CLnbDk/W1+pSW+FIoBUcaRhC4RMfAWxZDXCldmjkonEHgIcUUUS69
-   fIwU3WwDP+Qwr6VDITp2+7UbtyDfoyTvZgcZ7V36w7zWt0wwUyu9r10sJ
-   Cly72uJ0bSlwnhs94MKhRCEI64TTbsOBeQxqvpYDKPeN+tnXpQkcb5pxJ
-   1WoQJne5vkCPPxDDa4w8Yg9bum8C2DyF11bIVL6f3FtE0+aEhCDmPf27B
-   IUxCO45vMkOMiu9QIuXAeqI8cG4pCY/Ujvocu7F2GmQe8mQMO3pWogJD9
-   g==;
-X-CSE-ConnectionGUID: UFYmYkkgThy9Kjm86UXFrg==
-X-CSE-MsgGUID: coau5EkhTjy1BDTg4lvrag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="96798331"
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="96798331"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 13:43:59 -0700
-X-CSE-ConnectionGUID: t7Ju8d6FQyCGP7337Vr8jg==
-X-CSE-MsgGUID: XFFRVyMSRfmFNmwf9n5K0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="258538139"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 13:43:58 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/pagemap: Clear driver-provided PFNs from migration PFN array
-Date: Tue, 21 Jul 2026 13:43:53 -0700
-Message-Id: <20260721204353.1082632-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HDvyL5Ga"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6301F000E9;
+	Tue, 21 Jul 2026 20:44:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784666644;
+	bh=xySw2gBPFa8RnPHY6c5oODjeYxS5xsCDsCmq+ujZHMk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HDvyL5GanxnKM2dV/Kz3YeDKruaKjuqXmj7KBRcQvDcvdYFrQbo1a1j56YN99EFrG
+	 QiUVZnejzzJhojhq1xdX3dML5j7ABVJEteHI6MEYzuzrphdOSh68tCtd1kwTE0zDAt
+	 8x75RuKQI3BY1a4WNkCT+SYWtqChEocIvakj2fsQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Amery Hung <ameryhung@gmail.com>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 0761/1266] bpf: Fix effective prog array index with BPF_F_PREORDER
+Date: Tue, 21 Jul 2026 17:19:58 +0200
+Message-ID: <20260721152458.894957394@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
+References: <20260721152441.786066624@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,60 +48,222 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DRM pagemap overloads the migration PFN array to store driver-provided
-PFNs before calling migrate_vma_*() to finalize the migration. If an
-error occurs during the incremental copy phase, the migration PFN
-entries are reverted to their original state. After reverting the
-device-folio mutations, clear any remaining driver-provided PFNs to
-avoid confusing the migrate_vma_*() helpers.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-Also clear any driver-provided PFNs if populate_devmem_pfn() fails, as
-a precaution against stale entries being interpreted as migration PFNs.
+------------------
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 3902846af36b ("drm/pagemap Fix error paths in drm_pagemap_migrate_to_devmem")
-Fixes: ec265e1f1cfc ("drm/pagemap: Support source migration over interconnect")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+From: Amery Hung <ameryhung@gmail.com>
 
+[ Upstream commit f08aaee3152d0dfc578b3f2586932d82062701dd ]
+
+replace_effective_prog() and purge_effective_progs() located the slot in
+the effective array by walking the program hlist and counting entries
+linearly. That count does not match the array layout: compute_effective_
+progs() places BPF_F_PREORDER programs at the front (ancestor cgroup
+first, attach order within a cgroup) and the rest after them (descendant
+cgroup first). So when a preorder program is present, the linear hlist
+position no longer equals the program's index in the effective array.
+
+For replace_effective_prog() (bpf_link_update()) this overwrote the
+wrong slot, corrupting the effective order. For purge_effective_progs(),
+it could dummy out a slot belonging to a different program and leave the
+detached program in the array while bpf_prog_put() drops its reference,
+i.e. a use-after-free.
+
+Fix both by replaying compute_effective_progs()'s placement (including
+the per-cgroup preorder reversal) in a shared effective_prog_pos()
+helper. Identify the entry by its struct bpf_prog_list pointer rather
+than by (prog, link) value, so the lookup resolves to exactly the
+attachment the syscall selected even when the same bpf_prog is attached
+to several cgroups in the hierarchy.
+
+Fixes: 4b82b181a26c ("bpf: Allow pre-ordering for bpf cgroup progs")
+Signed-off-by: Amery Hung <ameryhung@gmail.com>
+Acked-by: Yonghong Song <yonghong.song@linux.dev>
+Link: https://lore.kernel.org/r/20260619063520.2690547-2-ameryhung@gmail.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2:
- - Be paranoid and also clear driver-provided on populate_devmem_pfn()
-   failure (Sashiko)
----
- drivers/gpu/drm/drm_pagemap.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ kernel/bpf/cgroup.c | 108 +++++++++++++++++++++++++-------------------
+ 1 file changed, 62 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 15c78eca180b..892b325fa99b 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -727,8 +727,10 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
+index 6f59bf271ece89..b75b63e675066f 100644
+--- a/kernel/bpf/cgroup.c
++++ b/kernel/bpf/cgroup.c
+@@ -769,19 +769,65 @@ static int cgroup_bpf_attach(struct cgroup *cgrp,
+ 	return ret;
+ }
+ 
++static int effective_prog_pos(struct cgroup *cgrp,
++			      enum cgroup_bpf_attach_type atype,
++			      struct bpf_prog_list *target_pl)
++{
++	int cnt = 0, preorder_cnt = 0, fstart, bstart, init_bstart, pos = -1;
++	struct bpf_prog_list *pl;
++	struct cgroup *p = cgrp;
++
++	/* count effective programs to find where the preorder region ends */
++	do {
++		if (cnt == 0 || (p->bpf.flags[atype] & BPF_F_ALLOW_MULTI))
++			cnt += prog_list_length(&p->bpf.progs[atype], &preorder_cnt);
++		p = cgroup_parent(p);
++	} while (p);
++
++	/* replay compute_effective_progs() placement and record target's slot */
++	cnt = 0;
++	p = cgrp;
++	fstart = preorder_cnt;
++	bstart = preorder_cnt - 1;
++	do {
++		if (cnt > 0 && !(p->bpf.flags[atype] & BPF_F_ALLOW_MULTI))
++			continue;
++
++		init_bstart = bstart;
++		hlist_for_each_entry(pl, &p->bpf.progs[atype], node) {
++			if (!prog_list_prog(pl))
++				continue;
++
++			if (pl->flags & BPF_F_PREORDER) {
++				if (pl == target_pl)
++					pos = bstart;
++				bstart--;
++			} else {
++				if (pl == target_pl)
++					pos = fstart;
++				fstart++;
++			}
++			cnt++;
++		}
++
++		/* reverse pre-ordering progs at this cgroup level */
++		if (pos >= bstart + 1 && pos <= init_bstart)
++			pos = bstart + 1 + init_bstart - pos;
++	} while ((p = cgroup_parent(p)));
++
++	return pos;
++}
++
+ /* Swap updated BPF program for given link in effective program arrays across
+  * all descendant cgroups. This function is guaranteed to succeed.
+  */
+ static void replace_effective_prog(struct cgroup *cgrp,
+ 				   enum cgroup_bpf_attach_type atype,
+-				   struct bpf_cgroup_link *link)
++				   struct bpf_prog_list *pl)
+ {
+ 	struct bpf_prog_array_item *item;
+ 	struct cgroup_subsys_state *css;
+ 	struct bpf_prog_array *progs;
+-	struct bpf_prog_list *pl;
+-	struct hlist_head *head;
+-	struct cgroup *cg;
+ 	int pos;
+ 
+ 	css_for_each_descendant_pre(css, &cgrp->self) {
+@@ -790,27 +836,15 @@ static void replace_effective_prog(struct cgroup *cgrp,
+ 		if (percpu_ref_is_zero(&desc->bpf.refcnt))
+ 			continue;
+ 
+-		/* find position of link in effective progs array */
+-		for (pos = 0, cg = desc; cg; cg = cgroup_parent(cg)) {
+-			if (pos && !(cg->bpf.flags[atype] & BPF_F_ALLOW_MULTI))
+-				continue;
++		pos = effective_prog_pos(desc, atype, pl);
++		if (WARN_ON_ONCE(pos < 0))
++			continue;
+ 
+-			head = &cg->bpf.progs[atype];
+-			hlist_for_each_entry(pl, head, node) {
+-				if (!prog_list_prog(pl))
+-					continue;
+-				if (pl->link == link)
+-					goto found;
+-				pos++;
+-			}
+-		}
+-found:
+-		BUG_ON(!cg);
+ 		progs = rcu_dereference_protected(
+ 				desc->bpf.effective[atype],
+ 				lockdep_is_held(&cgroup_mutex));
+ 		item = &progs->items[pos];
+-		WRITE_ONCE(item->prog, link->link.prog);
++		WRITE_ONCE(item->prog, pl->link->link.prog);
+ 	}
+ }
+ 
+@@ -853,7 +887,7 @@ static int __cgroup_bpf_replace(struct cgroup *cgrp,
+ 		return -ENOENT;
+ 
+ 	old_prog = xchg(&link->link.prog, new_prog);
+-	replace_effective_prog(cgrp, atype, link);
++	replace_effective_prog(cgrp, atype, pl);
+ 	bpf_prog_put(old_prog);
+ 	return 0;
+ }
+@@ -920,19 +954,14 @@ static struct bpf_prog_list *find_detach_entry(struct hlist_head *progs,
+  *                           recomputing the array in place.
+  *
+  * @cgrp: The cgroup which descendants to travers
+- * @prog: A program to detach or NULL
+- * @link: A link to detach or NULL
++ * @pl: The prog_list entry being detached
+  * @atype: Type of detach operation
+  */
+-static void purge_effective_progs(struct cgroup *cgrp, struct bpf_prog *prog,
+-				  struct bpf_cgroup_link *link,
++static void purge_effective_progs(struct cgroup *cgrp, struct bpf_prog_list *pl,
+ 				  enum cgroup_bpf_attach_type atype)
+ {
+ 	struct cgroup_subsys_state *css;
+ 	struct bpf_prog_array *progs;
+-	struct bpf_prog_list *pl;
+-	struct hlist_head *head;
+-	struct cgroup *cg;
+ 	int pos;
+ 
+ 	/* recompute effective prog array in place */
+@@ -942,24 +971,11 @@ static void purge_effective_progs(struct cgroup *cgrp, struct bpf_prog *prog,
+ 		if (percpu_ref_is_zero(&desc->bpf.refcnt))
+ 			continue;
+ 
+-		/* find position of link or prog in effective progs array */
+-		for (pos = 0, cg = desc; cg; cg = cgroup_parent(cg)) {
+-			if (pos && !(cg->bpf.flags[atype] & BPF_F_ALLOW_MULTI))
+-				continue;
+-
+-			head = &cg->bpf.progs[atype];
+-			hlist_for_each_entry(pl, head, node) {
+-				if (!prog_list_prog(pl))
+-					continue;
+-				if (pl->prog == prog && pl->link == link)
+-					goto found;
+-				pos++;
+-			}
+-		}
+-
++		pos = effective_prog_pos(desc, atype, pl);
+ 		/* no link or prog match, skip the cgroup of this layer */
+-		continue;
+-found:
++		if (pos < 0)
++			continue;
++
+ 		progs = rcu_dereference_protected(
+ 				desc->bpf.effective[atype],
+ 				lockdep_is_held(&cgroup_mutex));
+@@ -1020,7 +1036,7 @@ static int __cgroup_bpf_detach(struct cgroup *cgrp, struct bpf_prog *prog,
+ 		/* if update effective array failed replace the prog with a dummy prog*/
+ 		pl->prog = old_prog;
+ 		pl->link = link;
+-		purge_effective_progs(cgrp, old_prog, link, atype);
++		purge_effective_progs(cgrp, pl, atype);
  	}
  
- 	err = ops->populate_devmem_pfn(devmem_allocation, npages, migrate.dst);
--	if (err)
--		goto err_aborted_migration;
-+	if (err) {
-+		npages = 0;
-+		goto err_finalize;
-+	}
- 
- 	own_pages = 0;
- 
-@@ -807,8 +809,11 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 		msecs_to_jiffies(mdetails->timeslice_ms);
- 
- err_finalize:
--	if (err)
-+	if (err) {
- 		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
-+		for (i = npages; i < npages_in_range(start, end); ++i)
-+			migrate.dst[i] = 0;
-+	}
- err_aborted_migration:
- 	migrate_vma_pages(&migrate);
- 
+ 	/* now can actually delete it from this cgroup list */
 -- 
-2.34.1
+2.53.0
+
+
 
