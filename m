@@ -1,47 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3921D432E6D
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 07:50:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC8B435ED0;
+	Tue, 21 Jul 2026 07:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784620220; cv=none; b=MsPC//wO3rAcNeNnZDrt7b2ZinJIDyRLw9GI5WC3Ps/hlP19F1bS7oeYe6LAO4JrvYZJSOOvbhCgcvCATZjKujYbzhfwQyKqhV2JiVxXi6rp2BSSNGPeG79vzo6o1Jc0qBb10/QFqNpnvVBR+Mqf9i3CqjqhuTrtjTo9yZ4MyS4=
+	t=1784620512; cv=none; b=bBr0VNuA5j6R+6Biy7FFDstVKBhrLoyrG5S09AcFhzqinJ8UmA6YBFEswyPPxNZemZX2ku2fQLwawc4WmSadxr62fK+MBss1cNA83ZWQkgX/whUiG7hb7oNooA+1UswFA+dhV4ctW5cNK6Y4xPIEmntm+xaw7X7DGd5EVXq/mZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784620220; c=relaxed/simple;
-	bh=FV19CHB0BJ+FXvmL9LnYnfGZK69d9txSTy598+f3xa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BPFpE4odCuQ4Av/4S6PTR73qZcIxKs1xLCIFdEuUSF4Yp58kic26L/1phUjx/iaAaxb1dKB5raiCHKkVdoBw7vNaGjZEK6H5gVxg4LTcrCEf0e2krgRgq9HhqfouBwnG283ilGXigi5/ytITJjr+P8SWdaGMUIydNivFPuk6aEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aemeHtw7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784620512; c=relaxed/simple;
+	bh=LEyffTHmMPKmvxE1F8/aui1m0CrC9UpAk6uIZV8NrRM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c689aJW5qtTXJBpgPOISuNAW8NBDRM7Tj5Q/PKbRnAx67gBX+d1RAYcwwlO5lXEdZ27CTbwmYqG9JkqI2W/OC26z5vIki1paGouaNL/XFWta84BfqUPw/r3QIbVucUjfgbOmnE5FUZgk/zjdsf5I/pQFgAZryznexvMCpVFD8cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCeU/yxw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aemeHtw7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E34841F000E9;
-	Tue, 21 Jul 2026 07:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCeU/yxw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D36261F000E9;
+	Tue, 21 Jul 2026 07:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784620218;
-	bh=C018YGXUkpRpFiU4y30xeH+PyFPlzxMQELGqLg+NYcM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aemeHtw7ErNLawk1IHtZawXu68Tlj1dEHYYEHyoTgL/LxtUOcWlzDYDSwgHjGKZ3G
-	 0RlcynMf3hTjUSL1SYoVcscoorcHeweXdvo44daio0dE9Fo28PmqZSq66IrkRc1VrS
-	 3Xvadok27LXrggaU+/vgD6yDF8r11LLfTpAnJY5NGquJJqDzbfIcTQ1QS8PjZuynFB
-	 0zhiOCXgOqVCukWpahggMsH+J0lpDkd3R0hMr7UeQ4n3rx7p9eEZDzQo2l7VlKSgZu
-	 VQ/Uu3wODb6OeRD5vKazz1QuKLJUS2d9H5xoVYF4sbsv5Antd4ctJUbWHlZTJLPVvV
-	 4SyrayOeXENzw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wm5F3-000000076zZ-16Sg;
-	Tue, 21 Jul 2026 07:50:17 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: stable@vger.kernel.org
-Cc: Will Deacon <will@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Subject: [PATCH 5.15.y] KVM: Move kvm_io_bus_get_dev() locking responsibilities to callers
-Date: Tue, 21 Jul 2026 08:50:14 +0100
-Message-ID: <20260721075014.2739473-1-maz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072006-vixen-purging-6bf2@gregkh>
-References: <2026072006-vixen-purging-6bf2@gregkh>
+	s=k20260515; t=1784620510;
+	bh=b7vYQhguU740syKNSWYQ0h3PqXT9T6A3fFsJKPmQ218=;
+	h=From:To:Cc:Subject:Date;
+	b=lCeU/yxwsO6vP0Bhs//tpwFPhJlyk1tFMBJDQSO2JKYCbYVphdHb34KgjdiKccjpR
+	 74C4nFRIPdwMdbu9XF4EjcnX9bgRAbeUkSJR5aCRNdSbfhhDpv3+9GO1Mlq+OD56CV
+	 msCZJA/M22K2PE8wqNmRKYMlOpAVF8q7CvkVNFEB+83M68TanntEeY+tyUp3exLao8
+	 jpvaaRc4TrRM3rkZFS7MWkDgvmBrAm8hxlYlOEND0Z90kIn63NOH1LLOwJu7d8wHUG
+	 9midjPYX09kGziQ8EEFW4STUhaHflo/z5fFASyI/wEiU28qn7neuu0O2rvGklPuHLj
+	 dh18RM3oMyDEQ==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <laijs@cn.fujitsu.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Keenan Dong <keenanat2000@gmail.com>,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Yuan Tan <yuantan098@gmail.com>,
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [STABLE v5.10 1/2] rtmutex: Use waiter::task instead of current in remove_waiter()
+Date: Tue, 21 Jul 2026 08:54:53 +0100
+Message-ID: <20260721075459.1970132-1-lee@kernel.org>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,86 +52,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: stable@vger.kernel.org, will@kernel.org, oupton@kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-kvm_io_bus_get_dev() returns a device that is only matched by the
-address, and nothing else. This can cause a lifetime issue if
-the matched device is not the expected type, as by the time
-the caller can introspect the object, it might be gone (the srcu
-lock having been dropped).
+From: Keenan Dong <keenanat2000@gmail.com>
 
-Given that there is only a single user of this helper, the simplest
-option is to move the locking responsibility to the caller, which
-can keep the srcu lock held for as long as it wants.
+commit 3bfdc63936dd4773109b7b8c280c0f3b5ae7d349 upstream.
 
-Note that this aligns with other kvm_io_bus*() helpers, which
-already require the srcu lock to be held by the callers.
+remove_waiter() is used by the slowlock paths, but it is also used for
+proxy-lock rollback in rt_mutex_start_proxy_lock() when invoked from
+futex_requeue().
 
-Reported-by: Will Deacon <will@kernel.org>
-Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
-Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
+In the latter case waiter::task is not current, but remove_waiter()
+operates on current for the dequeue operation. That results in several
+problems:
+
+  1) the rbtree dequeue happens without waiter::task::pi_lock being held
+
+  2) the waiter task's pi_blocked_on state is not cleared, which leaves a
+     dangling pointer primed for UAF around.
+
+  3) rt_mutex_adjust_prio_chain() operates on the wrong top priority waiter
+     task
+
+Use waiter::task instead of current in all related operations in
+remove_waiter() to cure those problems.
+
+[ tglx: Fixup rt_mutex_adjust_prio_chain(), add a comment and amend the
+  	changelog ]
+
+Fixes: 8161239a8bcc ("rtmutex: Simplify PI algorithm and make highest prio task get lock")
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Keenan Dong <keenanat2000@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Reviewed-by: Oliver Upton <oupton@kernel.org>
-Link: https://patch.msgid.link/20260627105105.1005990-1-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-(cherry picked from commit 3a07249981629ace483ebbef81ef6b34c2d2afec)
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit d8cce4773c2b23d819baf5abedc62f7b430e8745)
+[Lee: Backported to linux-5.10.y from linux-6.1.y]
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- arch/arm64/kvm/vgic/vgic-its.c |  2 ++
- virt/kvm/kvm_main.c            | 16 +++++-----------
- 2 files changed, 7 insertions(+), 11 deletions(-)
+ kernel/locking/rtmutex.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 4890131c87ef1..f25edf0a3a88c 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -713,6 +713,8 @@ struct vgic_its *vgic_msi_to_its(struct kvm *kvm, struct kvm_msi *msi)
- 
- 	address = (u64)msi->address_hi << 32 | msi->address_lo;
- 
-+	guard(srcu)(&kvm->srcu);
-+
- 	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, address);
- 	if (!kvm_io_dev)
- 		return ERR_PTR(-EINVAL);
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 243ef8fa40050..79422642ae00f 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -5222,25 +5222,19 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
- 					 gpa_t addr)
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+index c6a2dafd4a3b..2ab2d6cce004 100644
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -1061,20 +1061,23 @@ static void mark_wakeup_next_waiter(struct wake_q_head *wake_q,
+  *
+  * Must be called with lock->wait_lock held and interrupts disabled. I must
+  * have just failed to try_to_take_rt_mutex().
++ *
++ * When invoked from rt_mutex_start_proxy_lock() waiter::task != current !
+  */
+ static void remove_waiter(struct rt_mutex *lock,
+ 			  struct rt_mutex_waiter *waiter)
  {
- 	struct kvm_io_bus *bus;
--	int dev_idx, srcu_idx;
--	struct kvm_io_device *iodev = NULL;
-+	int dev_idx;
+ 	bool is_top_waiter = (waiter == rt_mutex_top_waiter(lock));
+ 	struct task_struct *owner = rt_mutex_owner(lock);
++	struct task_struct *waiter_task = waiter->task;
+ 	struct rt_mutex *next_lock;
  
--	srcu_idx = srcu_read_lock(&kvm->srcu);
-+	lockdep_assert_held(&kvm->srcu);
+ 	lockdep_assert_held(&lock->wait_lock);
  
- 	bus = srcu_dereference(kvm->buses[bus_idx], &kvm->srcu);
- 	if (!bus)
--		goto out_unlock;
-+		return NULL;
+-	raw_spin_lock(&current->pi_lock);
++	raw_spin_lock(&waiter_task->pi_lock);
+ 	rt_mutex_dequeue(lock, waiter);
+-	current->pi_blocked_on = NULL;
+-	raw_spin_unlock(&current->pi_lock);
++	waiter_task->pi_blocked_on = NULL;
++	raw_spin_unlock(&waiter_task->pi_lock);
  
- 	dev_idx = kvm_io_bus_get_first_dev(bus, addr, 1);
- 	if (dev_idx < 0)
--		goto out_unlock;
-+		return NULL;
+ 	/*
+ 	 * Only update priority if the waiter was the highest priority
+@@ -1110,7 +1113,7 @@ static void remove_waiter(struct rt_mutex *lock,
+ 	raw_spin_unlock_irq(&lock->wait_lock);
  
--	iodev = bus->range[dev_idx].dev;
--
--out_unlock:
--	srcu_read_unlock(&kvm->srcu, srcu_idx);
--
--	return iodev;
-+	return bus->range[dev_idx].dev;
+ 	rt_mutex_adjust_prio_chain(owner, RT_MUTEX_MIN_CHAINWALK, lock,
+-				   next_lock, NULL, current);
++				   next_lock, NULL, waiter_task);
+ 
+ 	raw_spin_lock_irq(&lock->wait_lock);
  }
- EXPORT_SYMBOL_GPL(kvm_io_bus_get_dev);
- 
 -- 
-2.47.3
+2.55.0.229.g6434b31f56-goog
 
