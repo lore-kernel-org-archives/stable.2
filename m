@@ -1,194 +1,137 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502F242D746
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB258419307
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784627150; cv=none; b=ETfz1tR6VeFxg+RAbiyPVk3CqbQoeEHruHZDwm/9HK8bhY0JwqjJnSZu/EWzXnOhaoJs4RdhvSZGbHJ9V24N4zWCrbTrNYcrcvs2+PSU7ausInhwxSr3ifrTX/xjFAdk7S/TXaFeWXFkvJ3PzKOItaWMUjZ0vw9DHvF9lzzZlGM=
+	t=1784627199; cv=none; b=SsU9+pyu86i4FH+ePk/ZeuAIGEWHBM+psLX+i5hrXBzz8dvY8m5L1bC7RbMJz4DBY0npfghgsecjaNUU2+p6CNLn8eNXKy7gmRRyUGBFi5cuLNFG5SE5PIvoOz7twk+TdgeQMlP53NCJR/LGd7yJC/KqTI/hnYGOu2nsUgdAvw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784627150; c=relaxed/simple;
-	bh=Sqx9Im1HASTcqkv7NqQM1Fv6UhjQ0/wjErEc7Em/n6c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ppSWTELVFtYiYMuimqMYl7gGWJGy5ieBMgjdjrmrRhCT8M2pm1lM3Qk4jAJz047ep5h6gzUMXPuwsp8DEyyO3C3VlcSZ3Nlga129f3Akt3ha4nXM+VgJpqhuAdgHObbYC0Vv6lcTbGGGqyoFjbQXwpkFi/IdFt+4Ta701LzMKZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+0m8bsS; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784627199; c=relaxed/simple;
+	bh=PlGEc4c4DSjEEez9OrkoqyBKa2bPynUKN8BpbZRIMcI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HcAGi4KfT9n9BOwbQFe6jJ2gNndKDo4c1V1TdIC/Tz14KppJ0P/wMG97BquE8SBcjhrjfDR+ZfV9DOemlUmY0hGsI9rj8UHo+L+Qo/Dp9UyYHQQjn0FdebW2quvLckxNof7l7VRS+574EcZbZGHyMxtQQBtyW95JO0idfHkZWdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VdMe2Qzg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+0m8bsS"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cc891373e0so138605775ad.2
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 02:45:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784627147; x=1785231947; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BlAqH8OpzhDNUGaMI/yhdZ5tSuc+jcqv1mstlCTQxyA=;
-        b=L+0m8bsSyRxpMXcLbuoKbPLVxjuRKw/70gAeG1KZmwiD/T4UT1c8JP3LBY+LznBtV4
-         xBdzu9P8sBGkn9doNX+k+6oVkORHxmONZ5Xa7dm/nFd7BDYpScXj7VNzJu7iFkdyDA7N
-         xZ8QXKds1y94291FYQwMfA+/qcqHKMulaVF6cagrbmHCjgtZvOffKhe2sC3GJOyh1++f
-         Ht7AkRzYLSZlXUInMZlUob5BWmudS5Tq7IO7YYiNQ6kPFCJzUwuETb7gveNZBJkk5heI
-         pf16kWCgTycmSNjRXuukqHb48VmLfnPD1t7S9KpdgYZxiXfawhVwoISc71oFfodN6wGA
-         si/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784627147; x=1785231947;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BlAqH8OpzhDNUGaMI/yhdZ5tSuc+jcqv1mstlCTQxyA=;
-        b=IenWbgjwLURZ/24Hk02HfeTTCcvTAHkM1DPZVthhm6g3PblMa0warP9Fa0dAB9F+3Y
-         6rcYbNYFitBY4xEZCrhhcMENulhQYVHLat0PWyXYKmm8To0dvRtB8hfxIEQIMIKJrcJT
-         TWoqI2dB8j7htqxUky9eV3bDIcABAhpdRBfndbQAgYzAlzeC3PEhYGl1XGrby3Vynij+
-         U5XYyKfBLhu2byHdE8IwGlnl3yD9ij/rQmfM6NVerWgfdoFDdylPXvNnbc9uOMzNLKye
-         hCdExnfx6u+4tirmE91bL3D+Y5YCfJeqYrWeXp7EHHaygPjDniltRnvohLSnAVBLGGLy
-         Eevw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro5QXJsHgWcZO/gYt2pcRX0u8z73mbJQBBMr/s4s9YAUAenVLMPmPiZkwcqPmTu9gEGjseFHl8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEsY/aKQ6qpdMl5rrOgB39bR2nvypjOk0OL70jgIAmJ2dBjz4G
-	7yn4QIY1f0wp+RpYctAV89HNK4r+i3NpRAlfc1NJKo7pSflhgy/bxI7O
-X-Gm-Gg: AfdE7cl7h9XpqqZcl3cPUOBHpibb7ax5jh7V0/6Ci4yv9gBwjsI+n1t8SWfxq4Q+0db
-	aVChGU2DYlW6L0qXX1Udk/MYNieKVhyihHalml5gJj5Dg7QO5R9EUOohxzOU18xLzoBvOv3o3Ix
-	Bg55oLPc3N6tLwVhe06Ply/C5AMRl5PNPNZq9g9CS21dVzf/yCHHYjIrKnH+IZKO6C4qbE8UbUz
-	spK7Nz7u61ln4SSzr0KDOD6Ske5JoAMnziLouGWOI4KsRaas7Z+8xjNsARnVl7EoBM4oQST/TCO
-	Wp/hn7HVxlma6SQXXVJWwXWL26eAOyhuMJ4k+Uf/sepn/q475iFGCNbXpvdfdOBZJIK2wE9vnwD
-	jhgb0WPG44fJJEpOsPqw/A2zfn7j0Zy69Kx6X/MSx2YsMnInO3MPyRoGiV/pnAfL3nDbRlp8ROo
-	FgNmARi7MlZUJiaWZ/Zv3yZX7xcCq/dd3s3A==
-X-Received: by 2002:a05:6a20:e292:b0:3bf:63af:859 with SMTP id adf61e73a8af0-3c3ad973443mr18673082637.45.1784627147515;
-        Tue, 21 Jul 2026 02:45:47 -0700 (PDT)
-Received: from fedora ([2601:644:937c:6c90:6d4e:7b2d:4a39:fb0c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3142a1bb8a4sm49625478eec.14.2026.07.21.02.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 02:45:46 -0700 (PDT)
-Date: Tue, 21 Jul 2026 02:45:43 -0700
-From: Vishal Moola <vishal.moola@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu <baolu.lu@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, Kiryl Shutsemau <kas@kernel.org>,
-	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm/pat: allocate split page tables as kernel page
- tables
-Message-ID: <al8_xx_99BjAUn5A@fedora>
-References: <20260720-fix-cpa-kernel-pagetables-v1-1-0766e782cefe@kernel.org>
- <al5-fDRStgU6gjk6@fedora>
- <al5_Le9QlD4zlt25@fedora>
- <al8hE_ded6qyWiDv@lucifer>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VdMe2Qzg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10F91F000E9;
+	Tue, 21 Jul 2026 09:46:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784627197;
+	bh=l2tQFnLUf3rzCAjhF1A7Lre1DuB08DRChpReFyGNtZc=;
+	h=Subject:To:Cc:From:Date;
+	b=VdMe2Qzgm+xa2cTk7k+NYnLYP5FNzguu0IdyVwPG2qmu+HPGL1bggoaOt489s1Dr+
+	 Xcu/SA0sG8rIfStgFYTVKFmQssv9TB1Ys2Jqzm7HnjiKkxh4HQJH6x9QO0XWy4IRkL
+	 vgG3z3zt+Tuyk/UAM1xzBcn0p1Ikkw9NMUq0m8WU=
+Subject: FAILED: patch "[PATCH] mmc: sdhci-of-dwcmshc: check bus clock enable result in the" failed to apply to 6.6-stable tree
+To: s.shtylyov@auroraos.dev,adrian.hunter@intel.com,ulfh@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 21 Jul 2026 11:46:28 +0200
+Message-ID: <2026072128-occupier-diaphragm-350d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al8hE_ded6qyWiDv@lucifer>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 08:43:51AM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Jul 20, 2026 at 01:03:57PM -0700, Vishal Moola wrote:
-> > On Mon, Jul 20, 2026 at 01:01:00PM -0700, Vishal Moola wrote:
-> > > On Mon, Jul 20, 2026 at 10:27:29AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > When splitting a large page in CPA in __split_large_page() we allocate a
-> > > > PTE directly without going through the standard page table allocation
-> > > > routines such as pte_alloc_one_kernel().
-> > > >
-> > > > This means the page table constructor is never called nor is the page table
-> > > > marked as a kernel page table.
-> > > >
-> > > > The former results in the folio associated with the page table not being
-> > > > marked as a page table (__pagetable_ctor() is never called thus neither is
-> > > > __folio_set_pgtable()) nor are statistics updated to reflect
-> > > > it (lruvec_stat_add_folio() is never called).
-> > > >
-> > > > The latter issue of failing to mark the page table as a kernel page
-> > > > table (ptdesc_set_kernel() is never called) is far more problematic.
-> > > >
-> > > > Since commit 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page
-> > > > tables") kernel page table freeing has been batched and since the
-> > > > subsequent commit e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries
-> > > > for kernel address space") IOTLB cache entries for kernel page tables have
-> > > > been invalidated upon being freed.
-> > > >
-> > > > Since split page tables are freed without this invalidation, the IOTLB can
-> > > > contain stale entries for them.
-> > > >
-> > > > Resolve the issue by using the ordinary PTE allocation API at split time.
-> > > >
-> > > > This results in these kernel page tables invoking a page table constructor,
-> > > > and thus requires a page table destructor.
-> > > >
-> > > > Since we cannot assume one is always present (early allocated direct map
-> > > > page tables are not marked as such), we conditionally call
-> > > > pagetable_dtor_free() if the PG_table folio flag for the ptdesc is set,
-> > > > otherwise we free the page table via pagetable_free().
-> > > >
-> > > > Regardless of which path is taken page tables marked as kernel page tables,
-> > > > which now includes split page tables, take the correct route through
-> > > > pagetable_free_kernel().
-> > > >
-> > > > There is a user-visible side effect in that split page tables will appear
-> > > > in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
-> > > > allocated after early boot), however this is a positive change.
-> > > >
-> > > > This issue started being markedly problematic after commit
-> > > > 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables") so
-> > > > choose this as the Fixes target.
-> > > >
-> > > > Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > > ---
-> > > >  arch/x86/mm/pat/set_memory.c | 21 ++++++++++++---------
-> > > >  1 file changed, 12 insertions(+), 9 deletions(-)
-> > > >
-> > > > diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> > > > index 301fb9e77d91..a67ca33b9dd1 100644
-> > > > --- a/arch/x86/mm/pat/set_memory.c
-> > > > +++ b/arch/x86/mm/pat/set_memory.c
-> > > > @@ -439,7 +439,11 @@ static void __cpa_collapse_large_pages(struct cpa_data *cpa)
-> > > >
-> > > >  	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
-> > > >  		list_del(&ptdesc->pt_list);
-> > > > -		pagetable_free(ptdesc);
-> > > > +
-> > > > +		if (folio_test_pgtable(ptdesc_folio(ptdesc)))
-> > > > +			pagetable_dtor_free(ptdesc);
-> > > > +		else
-> > > > +			pagetable_free(ptdesc);
-> > >
-> > > Lets not introduce more folio-ptdesc crossovers, we're trying to get
-> > > rid of them :)
-> > >
-> > > I believe pagetable_dtor_free() should do what you're looking for on its
-> > > own anyway.
-> >
-> > Actually, looking at it closer, maybe not because of the conditional
-> > portion? But that makes me think it might be better to just replace the
-> > ptdesc_clear_kernel() with pagetable_dtor() in the free function...
-> 
-> Well some kernel page tables are still allocated without ctor (early allocated
-> direct map for isntance), and if you did pagetable_dtor_free() it
-> unconditionally calls pagetable_dtor().
-> 
-> The ptlock_free() and __folio_clear_pgtable() there would be harmelss (no locks
-> assigned for kernel page table, and if PG_table never set clearing it is a noop)
-> but the lruvec_stat_sub_folio() would cause an unbalanced decrement of
-> nr_page_table_pages.
 
-Gotcha, thanks for the explanation :)
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> It sucks, but until everything is updated to call the ctor we have to do it this
-> way :>)
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Yeah that makes sense. Although I'd rather see the condition as:
-if(PageTable(ptdesc_page(...)))
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 521f39ca93cc43ce1b3eae8d44201f8f55dd9151
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072128-occupier-diaphragm-350d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-We really shouldn't be calling ptdesc_folio() anywhere anymore.
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 521f39ca93cc43ce1b3eae8d44201f8f55dd9151 Mon Sep 17 00:00:00 2001
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+Date: Mon, 1 Jun 2026 17:49:01 +0300
+Subject: [PATCH] mmc: sdhci-of-dwcmshc: check bus clock enable result in the
+ probe() method
+
+In the driver's probe() method, clk_disable_unprepare() for the bus clock
+is called on the error path even if the prior clk_prepare_enable() call has
+failed (and the same thing happens in the remove() method as well) -- that
+would cause the prepare/enable counter imbalance.  Also, the same problem
+can happen in the driver's suspend() method; note that the resume() method
+does check the clk_prepare_enable()'s result -- let's be consistent and do
+that in probe() method as well.  BTW, I don't know for sure what does the
+bus clock control -- if it affects the register accesses, the driver will
+likely cause (e.g. on ARM) a kernel oops if it fails to prepare/enable the
+bus clock in the probe() method...
+
+Found by Linux Verification Center (linuxtesting.org) with the Svace static
+analysis tool.
+
+Fixes: e438cf49b305 ("mmc: sdhci-of-dwcmshc: add SDHCI OF Synopsys DWC MSHC driver")
+Fixes: bccce2ec7790 ("mmc: sdhci-of-dwcmshc: add suspend/resume support")
+Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+
+diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci-of-dwcmshc.c
+index eef53455b8ee..c688f3eaf468 100644
+--- a/drivers/mmc/host/sdhci-of-dwcmshc.c
++++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
+@@ -2433,13 +2433,16 @@ static int dwcmshc_probe(struct platform_device *pdev)
+ 			return err;
+ 
+ 		priv->bus_clk = devm_clk_get(dev, "bus");
+-		if (!IS_ERR(priv->bus_clk))
+-			clk_prepare_enable(priv->bus_clk);
++		if (!IS_ERR(priv->bus_clk)) {
++			err = clk_prepare_enable(priv->bus_clk);
++			if (err)
++				goto err_clk;
++		}
+ 	}
+ 
+ 	err = mmc_of_parse(host->mmc);
+ 	if (err)
+-		goto err_clk;
++		goto err_bus_clk;
+ 
+ 	sdhci_get_of_property(pdev);
+ 
+@@ -2453,7 +2456,7 @@ static int dwcmshc_probe(struct platform_device *pdev)
+ 	if (pltfm_data->init) {
+ 		err = pltfm_data->init(&pdev->dev, host, priv);
+ 		if (err)
+-			goto err_clk;
++			goto err_bus_clk;
+ 	}
+ 
+ #ifdef CONFIG_ACPI
+@@ -2499,9 +2502,10 @@ static int dwcmshc_probe(struct platform_device *pdev)
+ err_rpm:
+ 	pm_runtime_disable(dev);
+ 	pm_runtime_put_noidle(dev);
++err_bus_clk:
++	clk_disable_unprepare(priv->bus_clk);
+ err_clk:
+ 	clk_disable_unprepare(pltfm_host->clk);
+-	clk_disable_unprepare(priv->bus_clk);
+ 	clk_bulk_disable_unprepare(priv->num_other_clks, priv->other_clks);
+ 	return err;
+ }
+
