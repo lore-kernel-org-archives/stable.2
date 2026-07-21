@@ -1,45 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C2E471438;
-	Tue, 21 Jul 2026 20:20:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3000A472534
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 20:20:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784665206; cv=none; b=u23XiW4qNRWvXWdXmOtWlu6o1PZsrrMPXkby7oZUG5ZgHP3FD9mEd6HiLJsFWPOL/ZYnj7T5SqzW5aIqWV/mPKbTQCRbEbqwowfRAHmUt0Au2elv5V5bwaP+5u84CZ3riCMp6uuth0UnRwFdTnnOUdqkNoPY5S1+oYFQh2MFs+E=
+	t=1784665207; cv=none; b=m59pUIW7RJmfxe3YUoDXdZxPnWIFQ0zpKlPuJ9rVZkZ7o/GNcpS1pVuTt3kgesh4d2qUTGDV+q4pWUZ1Q5xPirb0ugAiS+uXsbQfb9wlg9gtsu6+usWuBbb2Ygzzsfx3BzRgyFsN85KO8GI2aZnBQ1K5tpq2w2XQiF3q1aIqt+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784665206; c=relaxed/simple;
-	bh=PSIvo2hvj/7eP2Z3/blYRnKIk4RUOiodQh8iUePBoDs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DVbpkmPEo4HHWaAyDJnuY0gAM69KocgfTvUvz4kUcIPM4Wx0QgNGOxhs+BuebwQN7hyUd9axOSd5Hq1rcGKxs8VRmk6iRKWPoDfiyDqTA5bytnegz4cZLpOsYE2quUnNLNIBlmxUZucgVBSBjpHZ9OHCAtMGNDfVs5M7Lp5CNKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cfj8Ebrb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784665207; c=relaxed/simple;
+	bh=PNIej+pFL396EvUVvZLG/dYSWwiLpVcQZci6t7vie/A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dmCIGK4lovZYiEKV/8XAWpcf1I+DwNq2+54GUvESJD2Bj/bcBjsoVCEZhN6WjpChlRPbia4N7RhPeTgp8rp9wpJB8AxaCjt03qnFgKYlHHICvwgv6nm0G5r0hrVp367CTB+ZDVmpVR6L3zI06x0OAylMcm7vREyA5dQInmYNoa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dpA6oWjJ; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cfj8Ebrb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E59241F000E9;
-	Tue, 21 Jul 2026 20:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784665204;
-	bh=Zj+FFKaTQIT5SoP4SVx/pB+12xZTYy7ZKDphZ8olPeE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cfj8EbrbbdmF86sR3B5TMQWrctl4uQNQN6e2637FUszj1NlK+KgjWr08tDa4CksVn
-	 c506R7q4a1t7ouiyqAoYzaDhXLhG2DFBxqy1KfUEpgqgImMIG54gf2M5kDnUgV+wV6
-	 /mA9kX8CBpLfjtePCErK521R0yMAdeJL7MMTW81w=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hans de Goede <hansg@kernel.org>,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Jiri Kosina <jkosina@suse.com>
-Subject: [PATCH 6.6 0215/1266] HID: lg-g15: cancel pending work on remove to fix a use-after-free
-Date: Tue, 21 Jul 2026 17:10:52 +0200
-Message-ID: <20260721152446.628378038@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
-References: <20260721152441.786066624@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dpA6oWjJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784665204; x=1816201204;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=PNIej+pFL396EvUVvZLG/dYSWwiLpVcQZci6t7vie/A=;
+  b=dpA6oWjJ1ECpHkMnyxgzdspsBPWPhVPOh/2DnTtQvneeq+jfpjKH5sS9
+   lQ0HZYb5yJEQHEqVY4dhgNyhNZvWQCzpVLYoZipfW2120swBi6qK6jbPz
+   TeY7Hq9oavlFtOO00tGMbBi1ukl1NsK/awhW4ofOu5u29y9PRtHrpX13+
+   YEgwSdnAqo2MMfyjTO6VcHsZ+eA2swP9GYo+TDx1h6Bl6wCCb75un2r0v
+   /9ZQoZXqf+inDVTztoVA7xBRFKmmL2KxBb4HSiVVR6s1sdhX38qobQ9pE
+   eztx8AE28HFv8ZT68DfpFI+zc+Ni1DUPumKDNfFhgXdOHQ1+N+7050nhU
+   g==;
+X-CSE-ConnectionGUID: jKh/hzw8TkaAGoHKFAb8/w==
+X-CSE-MsgGUID: ETuxt7sGS9e2pye0B/5GSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="85319677"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
+   d="scan'208";a="85319677"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 13:20:03 -0700
+X-CSE-ConnectionGUID: owA6kmc1RcSAN6EXHsa4Fg==
+X-CSE-MsgGUID: s8A4Ql16TtaMB1dssZIJjA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
+   d="scan'208";a="253505829"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 13:20:03 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/pagemap: Clear driver-provided PFNs from migration PFN array
+Date: Tue, 21 Jul 2026 13:19:59 -0700
+Message-Id: <20260721201959.1082266-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,72 +59,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+DRM pagemap overloads the migration PFN array to store driver-provided
+PFNs before calling migrate_vma_*() to finalize the migration. If an
+error occurs during the incremental copy phase, the migration PFN
+entries are reverted to their original state. After reverting the
+device-folio mutations, clear any remaining driver-provided PFNs to
+avoid confusing the migrate_vma_*() functions.
 
-------------------
-
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-
-commit 7705b4140d188ce22656f6e541ae7ef834c7e11a upstream.
-
-lg_g15_data is allocated with devm and holds a work item. The report
-handlers schedule that work straight from device input.
-lg_g15_event() and lg_g15_v2_event() do it on the backlight cycle key,
-and lg_g510_leds_event() does it too. The worker dereferences the
-lg_g15_data back through container_of.
-
-The driver had no remove callback and never cancelled the work. So if a
-report scheduled the work and the keyboard was then unplugged, devres
-freed lg_g15_data while the work was still pending or running, and the
-worker touched freed memory. This is a use-after-free. It is reachable
-as a race on device unplug.
-
-Add a remove callback that cancels the work before devres frees the
-state. g15->work is only initialized for the models that schedule it
-(G15, G15 v2, G510). The G13 and Z-10 leave it zeroed, so guard the
-cancel on g15->work.func to avoid cancelling a work that was never set
-up. The g15 NULL test mirrors the one already in lg_g15_raw_event().
-
-Fixes: 97b741aba918 ("HID: lg-g15: Add keyboard and LCD backlight control")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 3902846af36b ("drm/pagemap Fix error paths in drm_pagemap_migrate_to_devmem")
+Fixes: ec265e1f1cfc ("drm/pagemap: Support source migration over interconnect")
 Cc: stable@vger.kernel.org
-Suggested-by: Hans de Goede <hansg@kernel.org>
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/hid/hid-lg-g15.c |   16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/drm_pagemap.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
---- a/drivers/hid/hid-lg-g15.c
-+++ b/drivers/hid/hid-lg-g15.c
-@@ -945,11 +945,27 @@ static const struct hid_device_id lg_g15
- };
- MODULE_DEVICE_TABLE(hid, lg_g15_devices);
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 15c78eca180b..f991b296c8e1 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -807,8 +807,11 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+ 		msecs_to_jiffies(mdetails->timeslice_ms);
  
-+static void lg_g15_remove(struct hid_device *hdev)
-+{
-+	struct lg_g15_data *g15 = hid_get_drvdata(hdev);
-+
-+	/*
-+	 * g15->work is only initialized for the models that schedule it
-+	 * (G15, G15 v2, G510). The G13 and Z-10 leave it zeroed, so only
-+	 * cancel it when it was set up.
-+	 */
-+	if (g15 && g15->work.func)
-+		cancel_work_sync(&g15->work);
-+
-+	hid_hw_stop(hdev);
-+}
-+
- static struct hid_driver lg_g15_driver = {
- 	.name			= "lg-g15",
- 	.id_table		= lg_g15_devices,
- 	.raw_event		= lg_g15_raw_event,
- 	.probe			= lg_g15_probe,
-+	.remove			= lg_g15_remove,
- };
- module_hid_driver(lg_g15_driver);
+ err_finalize:
+-	if (err)
++	if (err) {
+ 		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
++		for (i = npages; i < npages_in_range(start, end); ++i)
++			migrate.dst[i] = 0;
++	}
+ err_aborted_migration:
+ 	migrate_vma_pages(&migrate);
  
-
+-- 
+2.34.1
 
