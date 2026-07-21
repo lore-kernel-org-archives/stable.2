@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0EFE417D67
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 19:13:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EA4417D67;
+	Tue, 21 Jul 2026 19:14:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784661240; cv=none; b=Uv7W2cgk1sSXKAGe/NSaYYfxupV5DrvfbyniiQEDtdTDtBpHFFQAGU4nNAr1xvda6XAOHOp5xR1KaHNfGgrS+GKRmcbXzZQLdsfi16i+EteHSCNHTAeQ3r0xK3TxW7xqXzx2K1N9pYJI8gUAt3XE7Fj6Zt72hFB2rq+EGn9br7s=
+	t=1784661241; cv=none; b=e/waZIiilj6ev1AQVbQjwCL6/i/PUWQAR8CpedQqvd2Mr9DEUHlOFE3pGia2H8HuuTNGBxWZlVo/WHzoVracoVOqwYwxCp/nzVdtb7PLUR52ihjlqf65kJmVmW9jrCmK9eWfeN4jl3eZwOYE69AbzKNkQPebWb9iQYdXQVzSw4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784661240; c=relaxed/simple;
-	bh=INqRfMxZtKzOKya0am/+atTQ7tY8lwia4tkkvo6uNhE=;
+	s=arc-20240116; t=1784661241; c=relaxed/simple;
+	bh=1z+8X/Bfi/hTgkelSUnWVMSY0jZfFSbkjabbw5xuvQM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hJHVcQs6Xt/7yvZGzUTRQEuLnEQVGfJzTkX6QdXcLaZL4SZ4YV/Z5p9wv06a+FT5WRFxXAvi6uyGdBwC5YevL6qCCiP0luGhWXK1DGXv09aBRhp/Kv2MUt+GlGbQlnTjJ1rOGKnMjf8RHv//46qrG8PfZJ1QjEf4HecmU9Cz3T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAlrtpfp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=l/RVEy1eFKIJ0scAfHutGf7F6VZoQ4e45Lco8emqqBcNP0zWbQPlAYJw+dR0XQf3TPvSP9vOTZY+ArMSg1WCbn/L/41K6EZQzoKTYltDdX+ILN8b1N1PQg/Xn8A24WGrpR5vknZRQm78SrONareQDyTIaRVmuDbOU/uU/4BZbV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F8zO2F+4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAlrtpfp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DB61F00A3D;
-	Tue, 21 Jul 2026 19:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784661238;
-	bh=lurHaPqg1lgXMB93gDnmBezmTsR8UoNLNYkHnMV0u6k=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F8zO2F+4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7231F000E9;
+	Tue, 21 Jul 2026 19:13:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784661240;
+	bh=24iEizFDyiBdr1uPf0tfcHpnPk2wLgdUtegjzs4zWnI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mAlrtpfprelAuMb5Kgu/+4cmEkguQKlkgSFB6Q6YQOfQXtxQWu1eOt0s9prPzJpq1
-	 13JMupMl+zrHi4kphWNHPaW7AplM8Kqx1kBds5Ojc2A4oROeOimG6K55dRLsY50P4d
-	 NyParhBVO6NSlQRiJI/ADOiF+GD/FtpLAHCi8rgNwLJbaCZPva8NSOispU+IK4HU3M
-	 W8NFS4SB4jozLjtB36KC+Y57R/Hte9POhw61mBh5eRTMsKSDBL1qcDj996bn36I3xJ
-	 wNif3Ywwd5WlwBnBuzu/3zvRm3hb+VDRxEqI6hyn2xJ0Xj7PqaNUrkr/V0eL4FJzT3
-	 0Z8aWSmDYCBuQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=F8zO2F+4aJSYUCfoh5g0xNPMpU57PMJk1uPQSLEGl6DyVxBk1pAFtALUNeHHpobBW
+	 gAj2Anp06xddBeagORehbL1XSJ35oPtas9CDWb6iRNEFQazqGaH1FWGws9+1SudXim
+	 U4KcTYRki0uUOrOoiylR5AZ0wn/IKEcMZfHb1niU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning
-Date: Tue, 21 Jul 2026 15:13:56 -0400
-Message-ID: <20260721191356.403244-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721191356.403244-1-sashal@kernel.org>
-References: <2026071652-riveter-energy-4da7@gregkh>
- <20260721191356.403244-1-sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Paolo Abeni <pabeni@redhat.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Weiming Shi <bestswngs@gmail.com>
+Subject: [PATCH 7.1 1282/2077] geneve: validate inner network offset in geneve_gro_complete()
+Date: Tue, 21 Jul 2026 17:15:55 +0200
+Message-ID: <20260721152623.054061662@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,84 +49,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 504e2b4ab97a51d56d966cd36d0997ad30b65b2d ]
+------------------
 
-When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM
-driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
-triggers a spurious warning:
+From: Xiang Mei <xmei5@asu.edu>
 
-  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
-      overlapping mappings aren't supported
-  WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
+[ Upstream commit cbb0d30a1ad6fc9439b1dc9b4f5a7a9140d3b11f ]
 
-The call chain is:
+Even with both paths gated on gs->gro_hint, geneve_gro_complete()
+re-derives the inner dispatch type and length from the packet and the
+current gs->gro_hint, independently of geneve_gro_receive(). The two can
+disagree if gs->gro_hint flips under a concurrent geneve_quiesce()/
+geneve_unquiesce() (sk_user_data is NULL across a synchronize_net()), or if
+the re-read option bytes differ from the ones receive parsed.
 
-  amdgpu_cs_ioctl
-   -> amdgpu_ttm_backend_bind
-    -> dma_buf_map_attachment
-     -> [udmabuf] map_udmabuf -> get_sg_table
-      -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=0
-       -> debug_dma_map_sg -> add_dma_entry -> EEXIST
+geneve_gro_receive() already records the inner network header position in
+NAPI_GRO_CB()->inner_network_offset. Have geneve_gro_complete() compute the
+offset it is about to dispatch at, adding ETH_HLEN in the ETH_P_TEB case
+where eth_gro_complete() steps over the inner MAC header, and bail out if
+it lands past inner_network_offset.
 
-This happens because udmabuf builds a per-page scatter-gather list via
-sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
-table mapped for the misc device, and an importer such as amdgpu maps
-the same pages for its own device via map_udmabuf(), the DMA debug
-infrastructure sees two active mappings whose physical addresses share
-cacheline boundaries and warns about the overlap.
+Use a lower bound rather than exact equality: between gh_len and the inner
+L3 header, geneve_gro_receive() may also have pulled an inner VLAN tag
+(vlan_gro_receive() advances the recorded offset past it), which only moves
+inner_network_offset further out. A valid frame therefore always satisfies
+inner_nh <= inner_network_offset, while a gh_len inflated by a hint
+gro_receive() did not honour dispatches past the validated inner header,
+i.e. the out-of-bounds completion. Only the latter is rejected.
 
-The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
-add_dma_entry() because it signals that no CPU cache maintenance is
-performed at map/unmap time, making the cacheline overlap harmless.
-
-All other major dma-buf exporters already pass this flag:
-  - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
-  - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
-
-The CPU sync at map/unmap time is also redundant for udmabuf:
-begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
-cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
-access is requested through the dma-buf interface.
-
-Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
-dma_unmap_sgtable() in udmabuf to suppress the spurious warning and
-skip the redundant sync.
-
-Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Acked-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-Link: https://patch.msgid.link/20260331061657.79983-1-mikhail.v.gavrilov@gmail.com
+Fixes: fd0dd796576e ("geneve: use GRO hint option in the RX path")
+Suggested-by: Paolo Abeni <pabeni@redhat.com>
+Co-developed-by: Weiming Shi <bestswngs@gmail.com>
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Link: https://patch.msgid.link/20260618032622.484720-2-xmei5@asu.edu
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma-buf/udmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/geneve.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index 15b8656abb9f84..23ec52b4387c9a 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -67,7 +67,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- 	if (ret < 0)
- 		goto err_alloc;
+diff --git a/drivers/net/geneve.c b/drivers/net/geneve.c
+index a48f6c52f12695..c760c0655c8a16 100644
+--- a/drivers/net/geneve.c
++++ b/drivers/net/geneve.c
+@@ -956,6 +956,20 @@ static int geneve_gro_complete(struct sock *sk, struct sk_buff *skb,
+ 	type = gh->proto_type;
+ 	geneve_sk_gro_hint_off(sk, gh, &type, &gh_len);
  
--	ret = dma_map_sgtable(dev, sg, direction, 0);
-+	ret = dma_map_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	if (ret < 0)
- 		goto err_map;
- 	return sg;
-@@ -82,7 +82,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- static void put_sg_table(struct device *dev, struct sg_table *sg,
- 			 enum dma_data_direction direction)
- {
--	dma_unmap_sgtable(dev, sg, direction, 0);
-+	dma_unmap_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	sg_free_table(sg);
- 	kfree(sg);
- }
++	/* Bail out if we are about to dispatch past the inner network header
++	 * gro_receive() validated. An inner VLAN tag only pushes
++	 * inner_network_offset out, so use a lower bound.
++	 */
++	if (skb->encapsulation) {
++		unsigned int inner_nh = nhoff + gh_len;
++
++		if (type == htons(ETH_P_TEB))
++			inner_nh += ETH_HLEN;
++
++		if (unlikely(inner_nh > NAPI_GRO_CB(skb)->inner_network_offset))
++			return -EINVAL;
++	}
++
+ 	/* since skb->encapsulation is set, eth_gro_complete() sets the inner mac header */
+ 	if (likely(type == htons(ETH_P_TEB)))
+ 		return eth_gro_complete(skb, nhoff + gh_len);
 -- 
 2.53.0
+
+
 
