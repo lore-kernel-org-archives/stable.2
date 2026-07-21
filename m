@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EC5430CDC
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 19:48:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420403A4F4B;
+	Tue, 21 Jul 2026 19:48:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784663311; cv=none; b=apRQR/xRbn94t7J2c4PcZd+Phb4ZP7Di6u2xXYEPPKi9ccJMC3K+91pTvGmpTY0ibR0Pmn1ZYPMI1dvTVeUiPpa1RKCX/ScoqosTzLBa/OsFGMJ6CY+t989FyIWSWxYVztlHXxRNuU8beJfGofON20C9Qq7pxB8jiGGi2xbJ4Jg=
+	t=1784663312; cv=none; b=OpzyFc5vtHDvTInK/x0WcZEWEdh6JftvueJoAnmj//k9O5E4On61sAH7ps1WhbQ4oCAGQCYGcr+EZmOnAOzTbLtOgZLXI5o0BmYbNX4uG56/MGi4QkJ7lyeZwuc7JaBdvkB4WF9Fjcy96JY1J0SGRvnihcRAjbQl3gOEG+q9Pl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784663311; c=relaxed/simple;
-	bh=bwdme1NE14B4S/VgKkVI8lA3G0P8KhhBLbpduVaclLo=;
+	s=arc-20240116; t=1784663312; c=relaxed/simple;
+	bh=J8o9QrHW2leWhf8pvdSrLsiY/runEJHji5lSgVucG84=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QUuQtX1o0SZfM+zaC3LfzzKExdod2WTGDX5ghQ/xsAehyBh2eHTJhXS4ZzoS+8YGjaKsRQBJ/jnOfWhuNzmaj7rTKTxfQFywPftEtIUdEPiVRLAFF7CzEEneSruqQKgycyHltM2NOn4+UjH0N0e0tL/N7kCBfA9Fg3GdRDIWXTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WIQEYtFB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XQ+e8LCVKEKf5FGQ+ypAX7A4jTU1/Gv2SN+/5CrVqcNWlXXHY5Mkz3P3AWDGzPIkY+WWik+BgMdmOc7wEhRo7+iToG6ZUOGolmWTTaCga92cYaQswAmC0x+rQq2Agd10hhMOKzk13C5SIgNM+fMPEp5DV/aVudd38zeOrBKWgCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WT0unP54; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WIQEYtFB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C301F1F000E9;
-	Tue, 21 Jul 2026 19:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784663310;
-	bh=Grf6wlvasYDKfnXzcjuwKiX3UlvdPJvTF8ecOQ9o13A=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WT0unP54"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FD61F00A3E;
+	Tue, 21 Jul 2026 19:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784663311;
+	bh=yRdEmsqbs5SoxR7WHHGVAhDzNJ0VW+o4vk6JcNCxJi0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WIQEYtFBwo+2u5Sv6E436/QyHiFyB1Uy/Xi+76nIpZIiVco5Kiw82w0sa3eEr8Xrz
-	 OrkyD04x9Ymoh3f/BXsQx+2jHR1yZlL7LHQlAv/wMSPmqFLaMj/1q8bPKOC9xGKeS+
-	 cPR2bn2Ms//xXeiwK3h5U+8U/D8h1exrVGrLdbG2IxGTF40KkOBZsiAfwJL9Y8g19i
-	 4KrUcqgL6XnrYYnvadt8FDsTOO7arBZjvvNq7cMKmFbWufDTnWEXbSJR0ve5Ylyx/X
-	 H7tf1GZib+giOjuHl8P224tIa3AM6C0Z29sElijh3bOMeERdRxsY5WSLcZ5siWm9L4
-	 Rc1wISUGIXFFQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=WT0unP54GzQc5A6BnEJad+D6gYmsBn88HuSBdSmFwINvCEGG8Eomp5brx+l7EAy2A
+	 miIHoKjqQzuzLfh/rvUC5//hgZBBccVfAI5bL4uCk07BnUnWH+B5y/XUGEZXLiK8md
+	 UMiYzO7qQwjlOGFEOLzvXSdw6qsQ0CDWUWQj4llA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Haoxiang Li <haoxiang_li2024@163.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Cen Zhang <zzzccc427@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] i2c: davinci: Unregister cpufreq notifier on probe failure
-Date: Tue, 21 Jul 2026 15:48:28 -0400
-Message-ID: <20260721194828.416617-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071619-glancing-hydrated-8528@gregkh>
-References: <2026071619-glancing-hydrated-8528@gregkh>
+Subject: [PATCH 6.12 0774/1276] Bluetooth: 6lowpan: hold L2CAP conn across debugfs control
+Date: Tue, 21 Jul 2026 17:20:17 +0200
+Message-ID: <20260721152503.397746172@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152446.065700225@linuxfoundation.org>
+References: <20260721152446.065700225@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,49 +47,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit e43f32816a1b1fe5a86279411626fe3a9be56d45 ]
+------------------
 
-davinci_i2c_probe() registers a cpufreq transition notifier before adding
-the I2C adapter.  If i2c_add_numbered_adapter() fails, the probe error path
-releases the device resources without unregistering the notifier.
+From: Cen Zhang <zzzccc427@gmail.com>
 
-Add a dedicated error path to unregister the cpufreq notifier after
-i2c_add_numbered_adapter() fails.
+[ Upstream commit 518aa9505fa10ea5662349e5d2efd8c9e32a820b ]
 
-Fixes: 82c0de11b734 ("i2c: davinci: Add cpufreq support")
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Cc: <stable@vger.kernel.org> # v2.6.36+
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260610030513.2651018-1-haoxiang_li2024@163.com
+get_l2cap_conn() looks up an LE hci_conn under hdev protection, but
+then drops that protection before reading hcon->l2cap_data and before
+lowpan_control_write() later dereferences conn->hcon.  A disconnect or
+device close can tear down the same L2CAP connection in that window.
+
+The buggy scenario involves two paths, with each column showing the order
+within that path:
+
+6LoWPAN control write:              HCI disconnect/device close:
+  1. get_l2cap_conn() finds hcon      1. hci_disconn_cfm() dispatches
+     and hcon->l2cap_data.               the L2CAP disconnect callback.
+  2. get_l2cap_conn() drops hdev      2. l2cap_conn_del() clears
+     protection and returns conn.        hcon->l2cap_data and drops the
+                                         L2CAP connection reference.
+  3. lowpan_control_write() reads     3. hci_conn_del() removes and drops
+     conn->hcon.                         the HCI connection.
+
+Take a reference to the L2CAP connection with
+l2cap_conn_hold_unless_zero() while hdev is still locked, and drop that
+reference after the debugfs command's last use of conn.  This mirrors the
+existing L2CAP ACL receive-side handoff and keeps the connection
+dereferenceable after leaving hdev protection.  Export the existing helper
+so the bluetooth_6lowpan module can use the same lifetime primitive.
+
+Validation reproduced this kernel report:
+BUG: KASAN: slab-use-after-free in lowpan_control_write+0x374/0x520
+The buggy address belongs to the object at ffff888111b9d000 which belongs
+to the cache kmalloc-1k of size 1024
+The buggy address is located 0 bytes inside of freed 1024-byte region
+[ffff888111b9d000, ffff888111b9d400)
+Read of size 8
+Call trace:
+  dump_stack_lvl+0x66/0xa0
+  print_report+0xce/0x5f0
+  lowpan_control_write+0x374/0x520 (net/bluetooth/6lowpan.c:1131)
+  srso_alias_return_thunk+0x5/0xfbef5
+  __virt_addr_valid+0x19f/0x330
+  kasan_report+0xe0/0x110
+  __debugfs_file_get+0xf7/0x400
+  full_proxy_write+0x9e/0xd0
+  vfs_write+0x1b0/0x810
+  ksys_write+0xd2/0x170
+  dnotify_flush+0x32/0x220
+  do_syscall_64+0x115/0x6a0 (arch/x86/entry/syscall_64.c:87)
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Allocated by task stack:
+  kasan_save_stack+0x33/0x60
+  kasan_save_track+0x17/0x60
+  __kasan_kmalloc+0xaa/0xb0
+  l2cap_conn_add+0x45/0x520
+  l2cap_chan_connect+0xac6/0xd90
+  l2cap_sock_connect+0x216/0x350
+  __sys_connect+0x101/0x130
+  __x64_sys_connect+0x40/0x50
+  do_syscall_64+0x115/0x6a0 (arch/x86/entry/syscall_64.c:87)
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Freed by task stack:
+  kasan_save_stack+0x33/0x60
+  kasan_save_track+0x17/0x60
+  kasan_save_free_info+0x3b/0x60
+  __kasan_slab_free+0x5f/0x80
+  kfree+0x313/0x590
+  hci_conn_hash_flush+0xc0/0x140
+  hci_dev_close_sync+0x41a/0xb00
+  hci_dev_close+0x12f/0x160
+  hci_sock_ioctl+0x157/0x570
+  sock_do_ioctl+0xf7/0x210
+  sock_ioctl+0x32f/0x490
+  __x64_sys_ioctl+0xc7/0x110
+  do_syscall_64+0x115/0x6a0 (arch/x86/entry/syscall_64.c:87)
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  kasan_record_aux_stack+0xa7/0xc0
+  insert_work+0x32/0x100
+  __queue_work+0x262/0xa60
+  queue_work_on+0xad/0xb0
+  l2cap_connect_cfm+0x4ef/0x670
+  hci_le_remote_feat_complete_evt+0x247/0x430
+  hci_event_packet+0x360/0x6f0
+  hci_rx_work+0x2ae/0x7a0
+  process_one_work+0x4fd/0xbc0
+  worker_thread+0x2d8/0x570
+  kthread+0x1ad/0x1f0
+  ret_from_fork+0x3c9/0x540
+  ret_from_fork_asm+0x1a/0x30
+
+Fixes: 6b8d4a6a0314 ("Bluetooth: 6LoWPAN: Use connected oriented channel instead of fixed one")
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-davinci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/bluetooth/6lowpan.c    | 21 +++++++++++++++------
+ net/bluetooth/l2cap_core.c |  1 +
+ 2 files changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-davinci.c b/drivers/i2c/busses/i2c-davinci.c
-index 02b3b1160fb062..359cb7732db120 100644
---- a/drivers/i2c/busses/i2c-davinci.c
-+++ b/drivers/i2c/busses/i2c-davinci.c
-@@ -866,13 +866,15 @@ static int davinci_i2c_probe(struct platform_device *pdev)
- 	adap->nr = pdev->id;
- 	r = i2c_add_numbered_adapter(adap);
- 	if (r)
--		goto err_unuse_clocks;
-+		goto err_cpufreq;
+diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
+index 03f0b5d27b60d3..2befe4fa0318cc 100644
+--- a/net/bluetooth/6lowpan.c
++++ b/net/bluetooth/6lowpan.c
+@@ -1006,16 +1006,19 @@ static int get_l2cap_conn(char *buf, bdaddr_t *addr, u8 *addr_type,
  
- 	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
+ 	hci_dev_lock(hdev);
+ 	hcon = hci_conn_hash_lookup_le(hdev, addr, le_addr_type);
+-	hci_dev_unlock(hdev);
+-	hci_dev_put(hdev);
+-
+-	if (!hcon)
++	if (!hcon) {
++		hci_dev_unlock(hdev);
++		hci_dev_put(hdev);
+ 		return -ENOENT;
++	}
  
+-	*conn = (struct l2cap_conn *)hcon->l2cap_data;
++	*conn = l2cap_conn_hold_unless_zero(hcon->l2cap_data);
+ 
+ 	BT_DBG("conn %p dst %pMR type %u", *conn, &hcon->dst, hcon->dst_type);
+ 
++	hci_dev_unlock(hdev);
++	hci_dev_put(hdev);
++
  	return 0;
+ }
  
-+err_cpufreq:
-+	i2c_davinci_cpufreq_deregister(dev);
- err_unuse_clocks:
- 	pm_runtime_dont_use_autosuspend(dev->dev);
- 	pm_runtime_put_sync(dev->dev);
+@@ -1158,18 +1161,22 @@ static ssize_t lowpan_control_write(struct file *fp,
+ 		if (conn) {
+ 			struct lowpan_peer *peer;
+ 
+-			if (!is_bt_6lowpan(conn->hcon))
++			if (!is_bt_6lowpan(conn->hcon)) {
++				l2cap_conn_put(conn);
+ 				return -EINVAL;
++			}
+ 
+ 			peer = lookup_peer(conn);
+ 			if (peer) {
+ 				BT_DBG("6LoWPAN connection already exists");
++				l2cap_conn_put(conn);
+ 				return -EALREADY;
+ 			}
+ 
+ 			BT_DBG("conn %p dst %pMR type %d user %u", conn,
+ 			       &conn->hcon->dst, conn->hcon->dst_type,
+ 			       addr_type);
++			l2cap_conn_put(conn);
+ 		}
+ 
+ 		ret = bt_6lowpan_connect(&addr, addr_type);
+@@ -1185,6 +1192,8 @@ static ssize_t lowpan_control_write(struct file *fp,
+ 			return ret;
+ 
+ 		ret = bt_6lowpan_disconnect(conn, addr_type);
++		if (conn)
++			l2cap_conn_put(conn);
+ 		if (ret < 0)
+ 			return ret;
+ 
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 8a41d4b05b007f..221149ddcecfdd 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -7639,6 +7639,7 @@ struct l2cap_conn *l2cap_conn_hold_unless_zero(struct l2cap_conn *c)
+ 
+ 	return c;
+ }
++EXPORT_SYMBOL(l2cap_conn_hold_unless_zero);
+ 
+ void l2cap_recv_acldata(struct hci_conn *hcon, struct sk_buff *skb, u16 flags)
+ {
 -- 
 2.53.0
+
+
 
