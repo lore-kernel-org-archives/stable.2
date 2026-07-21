@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9B6476CFB;
-	Tue, 21 Jul 2026 21:03:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9982D4746AC;
+	Tue, 21 Jul 2026 21:03:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784667828; cv=none; b=b1y7svw25FSSQpszFnRG3B6NchhnDEQQlrpWHbE/1PaYh5P5E5fbAk+MbVRGVgZ5xBhe4xxmz+C6rx8UsAaMDvhEUUnWyDgV7d/srmuQdVbFjwYgR80LP/aeZar4XcIOhj6r9PRcwdaRmWPnNtaovmTHEiT6tL8HcnbKZIyzxTE=
+	t=1784667835; cv=none; b=lUuEBJTF3Ay0pCB5X/eh8uF1h+jBmJuKEnCjN+nYeQPjFxnurOWWFFvnDcqAZKt14FkrMOuogPMRl40YHZhTxE2CyXEQrb35mIya9Po7U8h8s6VWL4BcQM6z3baBqgMtqbNBIw7ouqAuVoiMSJ4x9vRvTBQVOSGvTjrL/U4Ml5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784667828; c=relaxed/simple;
-	bh=f8QbRovcdCEvPa5GKa3DZeJppbc8kQOb21IMxKvc7Jg=;
+	s=arc-20240116; t=1784667835; c=relaxed/simple;
+	bh=LuMYLDe7uhv1aNN2iyZr0M+2dVn6nSogoyPOP9CKfz8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aWfaWZJYE5eek80285MDUi9sdoX8HjMzE6lwiOBnKauMX+XE+AAT7m0Z9coziT7TYdt7X3z8021pe5ne+xoUUdSeJkR8UsxTMTorcsjhbJqVIVfISQeoTsMGt5qrNvN1Y/Ck0V2LaXa3nUl02RElXUxcJJ9COJVK5fg4VOv7E7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VlKddFmy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bomhB4+yUGVwfNQgXl6s1C+pZBhFd0FuSgDNzkiCyT60LQr0xH9ze1FWMNJHhXFDFFlc5VZ56mtlhpuA2DnjujbBgQloJljEIp3+7e+c/xCIZtIPAnODpLdwpT3mv5V/7/yxDH3npUV1753rEVr8ZYk+IujtMdxvDlja/b9M5NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GFnVkle2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VlKddFmy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49961F000E9;
-	Tue, 21 Jul 2026 21:03:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GFnVkle2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BCB71F00A3A;
+	Tue, 21 Jul 2026 21:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784667824;
-	bh=8WjZdqXSOMFGr76GZSU3tb3zLMfE5saVrb7+h353ocg=;
+	s=korg; t=1784667829;
+	bh=GnCTCVpuHbvH0XCXyP3fccIVCWHzj4dcRz3S/KVJuBQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VlKddFmyVHIFrWH3rBcK4C0MqrNvD5TOmxvieGVwryxLbKt9ICyQ5btv/NQ/ne4N7
-	 3R62jUpl4DVf/ISDad0xyIq70jBp+38kCJSsWYH1wA41b3NfUep+vIr+1b91McFasB
-	 T3R4g2yww4lVhQyK+cLwzxTwhT72TB8A+mSei7tk=
+	b=GFnVkle2g7+Qm4Va6/EgkvC0GU5tRGP9Rk4iiDVxqbR1umwKNS3kgIMr1J8KZNaEf
+	 6L+r1F05cCK3CtsumsuWTSBlzEPjXv+8RtdEb9edOpY4Y4nUOzwPqwRaQWF6FdEgNF
+	 tE3NARM/p+QXYS0tfWcZcXtBdJyc6an+X7HOj4CE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Angela Czubak <aczubak@google.com>,
-	Jonathan Denose <jdenose@google.com>,
-	Benjamin Tissoires <bentiss@kernel.org>,
+	"Harry Yoo (Oracle)" <harry@kernel.org>,
+	Hao Li <hao.li@linux.dev>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1208/1266] HID: add haptics page defines
-Date: Tue, 21 Jul 2026 17:27:25 +0200
-Message-ID: <20260721152508.833722708@linuxfoundation.org>
+Subject: [PATCH 6.6 1210/1266] mm/slab: do not limit zeroing to orig_size when only red zoning is enabled
+Date: Tue, 21 Jul 2026 17:27:27 +0200
+Message-ID: <20260721152508.878012251@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
 References: <20260721152441.786066624@linuxfoundation.org>
@@ -52,75 +52,67 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Angela Czubak <aczubak@google.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 
-[ Upstream commit 5e0ae59159e3a07391a35865bb79ff335473fa79 ]
+[ Upstream commit 648927ceb84021a25a0fbd5673740956f318d534 ]
 
-Introduce haptic usages as defined in HID Usage Tables specification.
-Add HID units for newton and gram.
+When init (zeroing) on allocation is requested, for kmalloc() we
+generally have to zero the full object size even if a smaller size is
+requested, in order to provide krealloc()'s __GFP_ZERO guarantees.
 
-Signed-off-by: Angela Czubak <aczubak@google.com>
-Co-developed-by: Jonathan Denose <jdenose@google.com>
-Signed-off-by: Jonathan Denose <jdenose@google.com>
-Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
-Stable-dep-of: 8813b0612275 ("HID: multitouch: fix out-of-bounds bit access on mt_io_flags")
+But if we track the requested size, krealloc() uses that information to
+do the right thing, so we can zero only the requested size. With red
+zoning also enabled, any extra size became part of the red zone, so it
+must not be zeroed and thus we must zero only the requested size.
+
+However the current check is imprecise, and will trigger also when only
+SLAB_RED_ZONE is enabled without SLAB_STORE_USER (which enables tracking
+the requested size). This means enabling red zoning alone can compromise
+krealloc()'s __GFP_ZERO contract.
+
+Fix this by using slub_debug_orig_size() instead, which is the exact
+check for whether the requested size is tracked. We don't need to care
+if red zoning is also enabled or not. Also update and expand the
+comment accordingly.
+
+Fixes: 9ce67395f5a0 ("mm/slub: only zero requested size of buffer for kzalloc when debug enabled")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260610-slab_alloc_flags-v2-1-7190909db118@kernel.org
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Reviewed-by: Hao Li <hao.li@linux.dev>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- include/linux/hid.h |   29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ mm/slab.h |   17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
---- a/include/linux/hid.h
-+++ b/include/linux/hid.h
-@@ -154,6 +154,7 @@ struct hid_item {
- #define HID_UP_TELEPHONY	0x000b0000
- #define HID_UP_CONSUMER		0x000c0000
- #define HID_UP_DIGITIZER	0x000d0000
-+#define HID_UP_HAPTIC		0x000e0000
- #define HID_UP_PID		0x000f0000
- #define HID_UP_BATTERY		0x00850000
- #define HID_UP_CAMERA		0x00900000
-@@ -314,6 +315,28 @@ struct hid_item {
- #define HID_DG_TOOLSERIALNUMBER	0x000d005b
- #define HID_DG_LATENCYMODE	0x000d0060
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -734,14 +734,17 @@ static inline void slab_post_alloc_hook(
+ 	flags &= gfp_allowed_mask;
  
-+#define HID_HP_SIMPLECONTROLLER	0x000e0001
-+#define HID_HP_WAVEFORMLIST	0x000e0010
-+#define HID_HP_DURATIONLIST	0x000e0011
-+#define HID_HP_AUTOTRIGGER	0x000e0020
-+#define HID_HP_MANUALTRIGGER	0x000e0021
-+#define HID_HP_AUTOTRIGGERASSOCIATEDCONTROL 0x000e0022
-+#define HID_HP_INTENSITY	0x000e0023
-+#define HID_HP_REPEATCOUNT	0x000e0024
-+#define HID_HP_RETRIGGERPERIOD	0x000e0025
-+#define HID_HP_WAVEFORMVENDORPAGE	0x000e0026
-+#define HID_HP_WAVEFORMVENDORID	0x000e0027
-+#define HID_HP_WAVEFORMCUTOFFTIME	0x000e0028
-+#define HID_HP_WAVEFORMNONE	0x000e1001
-+#define HID_HP_WAVEFORMSTOP	0x000e1002
-+#define HID_HP_WAVEFORMCLICK	0x000e1003
-+#define HID_HP_WAVEFORMBUZZCONTINUOUS	0x000e1004
-+#define HID_HP_WAVEFORMRUMBLECONTINUOUS	0x000e1005
-+#define HID_HP_WAVEFORMPRESS	0x000e1006
-+#define HID_HP_WAVEFORMRELEASE	0x000e1007
-+#define HID_HP_VENDORWAVEFORMMIN	0x000e2001
-+#define HID_HP_VENDORWAVEFORMMAX	0x000e2fff
-+
- #define HID_BAT_ABSOLUTESTATEOFCHARGE	0x00850065
- #define HID_BAT_CHARGING		0x00850044
+ 	/*
+-	 * For kmalloc object, the allocated memory size(object_size) is likely
+-	 * larger than the requested size(orig_size). If redzone check is
+-	 * enabled for the extra space, don't zero it, as it will be redzoned
+-	 * soon. The redzone operation for this extra space could be seen as a
+-	 * replacement of current poisoning under certain debug option, and
+-	 * won't break other sanity checks.
++	 * For kmalloc object, the allocated size (object_size) can be larger
++	 * than the requested size (orig_size). We however need to zero the
++	 * whole object_size to handle possible later krealloc() with
++	 *__GFP_ZERO properly.
++	 *
++	 * But if we keep track of the requested size, krealloc() uses that
++	 * information. Additionally if red zoning is enabled, the extra space
++	 * is also red zone, so we should not overwrite it. So limit zeroing to
++	 * orig_size if we track it.
+ 	 */
+-	if (kmem_cache_debug_flags(s, SLAB_STORE_USER | SLAB_RED_ZONE) &&
++	if (kmem_cache_debug_flags(s, SLAB_STORE_USER) &&
+ 	    (s->flags & SLAB_KMALLOC))
+ 		zero_size = orig_size;
  
-@@ -420,6 +443,12 @@ struct hid_item {
- #define HID_BOOT_PROTOCOL	0
- 
- /*
-+ * HID units
-+ */
-+#define HID_UNIT_GRAM		0x0101
-+#define HID_UNIT_NEWTON		0xe111
-+
-+/*
-  * This is the global environment of the parser. This information is
-  * persistent for main-items. The global environment can be saved and
-  * restored with PUSH/POP statements.
 
 
