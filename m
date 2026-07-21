@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C885F46D080;
-	Tue, 21 Jul 2026 18:28:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDE9379C32
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:28:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784658487; cv=none; b=RcIpLECEcK4qlVp3Zg0Rdrs21g4xteVk+qVYnflrgYS+4Bfg6UmsOXrJtiN0Xz2jrZlanSxRT0Qa8uoXWwDXOGTwsi7vGuPrzSwm8dlkIPmIr+lCUbJ+DO2EF++6eItcMScbB53EZoXaOZffTqBz2S6mCCivXHScPqWdKFfoVlU=
+	t=1784658488; cv=none; b=A7ewOY3by4uzRaWly4j0YGKES7hiVslZCtrRq7pyrf2QtgWzh2iFSyL/EWvGTxFHdneeJTWTA0oD55d4Q3tJ557JOuKZd73Dw/iWJcLm8WrX5+SqD5yGezbhKEKK3phVPBgmFMt1/whdxteeBzLrO0vXk/i1wLboSg21MyBh9WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784658487; c=relaxed/simple;
-	bh=GcGgXjUg+XR1DAJGz6rJsEccLE8DN5TBXNEd0H1ZW3c=;
+	s=arc-20240116; t=1784658488; c=relaxed/simple;
+	bh=hMyd4TwoQYnt6PIlB0SS+P6iAVH31UAeedJhZNun3/o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sjVyZOaf1qmy30ZlfvPD/Fo8xrki50lBLZqCR6HK1LD1IdnXyDmlDW7bNwsB1InI7AbB5h7o5RH1cgas4MeQN4LQjjojWGy+ajHXBUpmIFrJOJYNVo0Vq9qxpGFEabktfpl6qHpqbpQJI+6JaffKXFO116USaBFZhPcNkdprCGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cPvpDpaq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Cj0sWpQpCIW0e8YmFZb6Z7SCuLah6QkWGpjGllozsTpJKc41s0A/2JInTfUd1WbWwNLkdNozaKOe13dj5rJjawY7nG1yT5MSP9o+kv8JiTfdLvBvRlVEltZrOW46Cx/VqnhpQ2WyvPoVk8bG9ECQJYT9KAcNwWJdqDitCmk2tUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCDBvHDv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cPvpDpaq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0BA01F00A3E;
-	Tue, 21 Jul 2026 18:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784658484;
-	bh=SwYOHpARaTqjYW52remdQGhzHlDYtze3uR4IBxVk5bg=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCDBvHDv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E6871F000E9;
+	Tue, 21 Jul 2026 18:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784658485;
+	bh=FOafenVLKKgaS3ibrV2AdrTuCx4RCxk2AiCBcsLFp+k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cPvpDpaqrAhdayUm5fpUBQf7vwARK1qoEr+cLGOtrB+7LSMRdzFzb8EYpV4I9tKtn
-	 yc8cLkRYJEr5z1PjHF99TUkZn+W2xcfEtvu36Wx75q4rhgIdHTESpgAW8IRfQDbqwI
-	 9MOOb3FwOdboUrus7Jqpw5NdqhLJNUaP4HPf99PQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=KCDBvHDv16E1uRQyH8/vy2w/ZTWBs0IMxvjekD+tRPfbDTIPDzFMngXn1Dq0rOi1i
+	 qsA5Jzw+Z2GQ2vDUKgv5vzViGY/qCDIV8kStWaMqG14/1Yas54xY68ScJ1X/4vmiUE
+	 JuSzV8av0kjwbESUpz0beAumOT/M+1X6Hob6Xf3xXF/lViciuXsxCdKeU9FAD0lM1G
+	 bH9+aV7Ej6HK7CIMcrSYo6aUy4eK0adksDtwTT1236aLsdQTZ5DJgWlYu1+hBH3Fdj
+	 JfWSzH79xh4MNCv5lGYDTOS5CwJqSD3M7DYrYnz+mi+LxJhMksOBbcvNdgG0RdZqp6
+	 iSIW7T9Of3KBw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH 6.18 1118/1611] arm64: dts: imx8ulp-evk: Correct Type-C int GPIO flags
-Date: Tue, 21 Jul 2026 17:20:34 +0200
-Message-ID: <20260721152540.566191812@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
-References: <20260721152514.750365251@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Julian Orth <ju.orth@gmail.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] udmabuf: Do not create malformed scatterlists
+Date: Tue, 21 Jul 2026 14:28:02 -0400
+Message-ID: <20260721182803.332607-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071651-preorder-shawl-7dbc@gregkh>
+References: <2026071651-preorder-shawl-7dbc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,51 +46,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-------------------
+[ Upstream commit 5bf888673e0dda5a53220fa0c4956271a46c353c ]
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Using a sg_set_folio() loop for every 4K results in a malformed scatterlist
+because sg_set_folio() has an issue with offsets > PAGE_SIZE and because
+scatterlist expects the creator to build a list which consolidates any
+physical contiguity.
 
-commit b4f5c46163b3fe3ec7ed8a76dff8b7e80a776a1f upstream.
+sg_alloc_table_from_pages() creates a valid scatterlist directly from a
+struct page array, so go back to that.
 
-IRQ_TYPE_xxx flags are not correct in the context of GPIO flags.
-These are simple defines so they could be used in DTS but they will not
-have the same meaning: IRQ_TYPE_EDGE_FALLING = 2 = GPIO_SINGLE_ENDED.
+Remove the offsets allocation and just store an array of tail pages as it
+did before the below commit. Everything wants that anyhow.
 
-Correct the Type-C int-gpios to use proper flags, assuming the author of
-the code wanted similar logical behavior:
-
-  IRQ_TYPE_EDGE_FALLING => GPIO_ACTIVE_LOW
-
-Fixes: c4b4593ecb0b ("arm64: dts: imx8ulp-evk: enable usb nodes and add ptn5150 nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 0c8b91ef5100 ("udmabuf: add back support for mapping hugetlb pages")
+Reported-by: Julian Orth <ju.orth@gmail.com>
+Closes: https://lore.kernel.org/all/20260308-scatterlist-v1-1-39c4566b0bba@gmail.com/
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Link: https://patch.msgid.link/0-v1-42779f29381a+4b9-udmabuf_sg_jgg@nvidia.com
+Stable-dep-of: 504e2b4ab97a ("dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/freescale/imx8ulp-evk.dts |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/dma-buf/udmabuf.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
---- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-@@ -166,7 +166,7 @@
- 	ptn5150_1: typec@1d {
- 		compatible = "nxp,ptn5150";
- 		reg = <0x1d>;
--		int-gpios = <&gpiof 3 IRQ_TYPE_EDGE_FALLING>;
-+		int-gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_typec1>;
- 		status = "disabled";
-@@ -182,7 +182,7 @@
- 	ptn5150_2: typec@3d {
- 		compatible = "nxp,ptn5150";
- 		reg = <0x3d>;
--		int-gpios = <&gpiof 5 IRQ_TYPE_EDGE_FALLING>;
-+		int-gpios = <&gpiof 5 GPIO_ACTIVE_LOW>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_typec2>;
- 		status = "disabled";
-
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 980975ffc55d3c..de3a7e395a6d99 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -99,14 +99,16 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ 					0, ubuf->pagecount << PAGE_SHIFT,
+ 					GFP_KERNEL);
+ 	if (ret < 0)
+-		goto err;
++		goto err_alloc;
++
+ 	ret = dma_map_sgtable(dev, sg, direction, 0);
+ 	if (ret < 0)
+-		goto err;
++		goto err_map;
+ 	return sg;
+ 
+-err:
++err_map:
+ 	sg_free_table(sg);
++err_alloc:
+ 	kfree(sg);
+ 	return ERR_PTR(ret);
+ }
+-- 
+2.53.0
 
