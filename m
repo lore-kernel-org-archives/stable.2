@@ -1,75 +1,70 @@
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA38445ADC;
-	Tue, 21 Jul 2026 08:15:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9369542EEB8
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:15:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784621728; cv=none; b=YWFrpwObjV2ATadJNAoeEa1BT6L7gmy7/kJY2o2hH9e7ioV6TD6fNxZXt4Lqy1MX3xdxNWxbULg8PX6JLUznpPQAHssnsxB3YQAKEmTRDeQU95cJF+bNH4SIahwgrhI112MPyAqgc/XNYWI8WOjWcprNP83GiCf1VEYSi2THvEo=
+	t=1784621732; cv=none; b=QpHjB03Pz6UEK0uEcqi+n2/55aUGeDJMqOBXh2x1XUE5RgRYtbLQQ7xmyRTjV77X6210PlE+4gpaoASXCret0EDQu7jp0UHEvvEP5qQea86YBR+liRGJPFnEWSxW4yRgHULaZjvIaamUR0BLEyAdpSEjxa3BTrEczRuh9sYjDtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784621728; c=relaxed/simple;
-	bh=2Iz6BGPe0gdkZ0kS3LoKVu1JLJUXAZyzwwGntlEqJmU=;
+	s=arc-20240116; t=1784621732; c=relaxed/simple;
+	bh=CRdVeN4q0KGLes1JkHA0OBje7AHMlepcrpKUhlzWorQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TeDLB7kwbEa07iFmAz5/v9hCdML1v/t42kj1NwzsfKPo4vA/DhTx6HlE7ywWzmCUMCCr/DRzkCoTfDeAG9KNGZO15U44hCeUNI3IAE1UiMFKWhmnIa5jXQay4HsjwYugQs6wPYqeDPFiZLw1vpehYer0nlNSQnFxuohY/FQxj0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cfXP7iat; arc=none smtp.client-ip=148.163.156.1
+	 MIME-Version:Content-Type; b=qLwuLgeVewi5zxmC4a0iXjOwBmP3ao7j1uXu30B1SzdRzRu0NjHjzS9izChfOGZcvbn6yNm3nANrI4hokziinJMA7AcJyWOEkuIKKeWRh5QhBsvmgQqxxT1Wr+LkS1RBXc3MXm2nbZYvwAM4aTOs1/K+skDVCYWJraVDvEHIelw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=jFE0cpdj; arc=none smtp.client-ip=148.163.156.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cfXP7iat"
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="jFE0cpdj"
 Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KNCqwS3553300;
-	Tue, 21 Jul 2026 08:15:05 GMT
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KNDDIf3554522;
+	Tue, 21 Jul 2026 08:15:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=5maZlO
-	bb71SVft1hqg+S1xtcX9ZieXBCZ37lv8ju+FY=; b=cfXP7iatEbrop2c/y8aG9Z
-	H1zoVOo9Xq+ivIHhYEIIjhMn0hxylxNMUJl/yI4Oid1ryHO9301WS0HxOTsSUTOc
-	244RdE/2vIFLlvVtGa75jbheRGeDXAmsdQu6Q0zajwCYNKtRSxojrNVotPRDt/7X
-	5coT3VoDAzS6dXeSPoIiXavqzLkL2NkJ3LjCgXOLzctAeTOa1ZcetRkhQDEGLbpc
-	VQejL6nyP+i9Whx1S5PzxcYujJXrXWvAReleBRgvfvT5z3Ncxm6SN95T5BGH1t3P
-	JZLbM0QkPtl8OHW0ynuTX8omE35gMkUYFGar2C6NJ3DOw9T6oK0f9S5S35dMDegA
+	:message-id:mime-version:references:subject:to; s=pp1; bh=AeJI+J
+	NylrIZtFfXY4Awdjghv9SPdLiivbZZVmjkiBg=; b=jFE0cpdjVDZVeRBgY++VGE
+	vtJNSajLaOFl1hbmaaB2hX+1m7EQCBYVJcv7qZX2LA0sqnNyFgshTzfgiDVWhcxX
+	svv/EPHyyLe5UqJUZleOYXxT6r/JWVWMhDdSJTA3CzbLxuJIkDgz+XlPozXaXyYF
+	TK09XDJ7IGZLnhg5nBaAhu4lRpKkPqr58jD8Qsom6mGJOvdmHn5+zdAzxMET0eBP
+	cjzbSXg92TzSZfqbYw/+poveHQGs7IV2GWw53EPvUpCJX5ktYdcGrLPw5v9gn2iL
+	+TBGb0N1Cw3JDhPOw8l+4/1dLc7cbMPrFKSos5pmsiohLMrS/5Ii3WiPDUB6weUA
 	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7abbju1-1
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7abbjub-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 21 Jul 2026 08:15:04 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66L84aGd013933;
-	Tue, 21 Jul 2026 08:15:04 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fgpgy948k-1
+	Tue, 21 Jul 2026 08:15:08 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66L84b7Z016890;
+	Tue, 21 Jul 2026 08:15:08 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fgktq1jsy-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 21 Jul 2026 08:15:03 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66L8Exh952494652
+	Tue, 21 Jul 2026 08:15:08 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66L8F6Tb51708246
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 21 Jul 2026 08:15:00 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DCCF82004D;
-	Tue, 21 Jul 2026 08:14:59 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 08FAB20040;
-	Tue, 21 Jul 2026 08:14:57 +0000 (GMT)
+	Tue, 21 Jul 2026 08:15:06 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3E4242005A;
+	Tue, 21 Jul 2026 08:15:06 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 63D702004E;
+	Tue, 21 Jul 2026 08:15:04 +0000 (GMT)
 Received: from Linuxdev.bl1-in.ibm.com (unknown [9.123.5.176])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 21 Jul 2026 08:14:56 +0000 (GMT)
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 21 Jul 2026 08:15:04 +0000 (GMT)
 From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org, Amit Machhiwal <amachhiw@linux.ibm.com>
-Cc: Vaibhav Jain <vaibhav@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>,
-        Gautam Menghani <gautam@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
+To: Nicholas Piggin <npiggin@gmail.com>,
         "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powerpc/dt_cpu_ftrs: Set CPU_FTR_P11_PVR for Power11 and later processors
-Date: Tue, 21 Jul 2026 13:44:55 +0530
-Message-ID: <178462153941.1974055.9212884139202871921.b4-ty@linux.ibm.com>
+        Sayali Patil <sayalip@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: stable@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>
+Subject: Re: [PATCH v2] powerpc/uaccess: correct check for CONFIG_PPC_E500 in mask_user_address()
+Date: Tue, 21 Jul 2026 13:45:03 +0530
+Message-ID: <178462153938.1974055.13213303810865302248.b4-ty@linux.ibm.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260614173437.26352-1-amachhiw@linux.ibm.com>
-References: <20260614173437.26352-1-amachhiw@linux.ibm.com>
+In-Reply-To: <20260615233729.29386-1-enelsonmoore@gmail.com>
+References: <20260615233729.29386-1-enelsonmoore@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,24 +75,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA4NSBTYWx0ZWRfXwh8HdkC0ZDGO
- 4G15U5xJWwBIOX6LjTL7JIZncbNv9BIgd+bdl7SyiW/KCFFDyzxSbBlvuIFyMvtSj5tZ85Do/Hm
- rwPPcV1D0IDGwASYzOErUko7IGE6UIGZQRNjBk4r6H9uv1IzSEeC6SICEXlzW6VdDvw4RdN+bfq
- mcEzq8Uid1nqRl8/lum9UloffhpVRE8UJ0G/arPLWjAsB8JAcSjZBRtBtPcIR+LU7pCaJBvuAu1
- rnktnnloO45F/GgULhLWQ2laHi5BIEvgL/pFuovSBJ1T3ZlZOZJyYTIyopD2VoOsZUeeKcatwzX
- KDIhPI0d7AMo7+LRNWJCFJHcuF7NXvvFlVuhG/h/rTGLwbD1C1Rmyx/jZXR9pM2YTcp09ncqoip
- pcdkcZeA2fWm4jxZN3ZgZ777GR0mUqcC2qlPb7wMbg/F45Wllv5CXSCclgOGCyF2Rg2C1lzRfiU
- E3/rMUYVY5lLvM2fhEA==
-X-Authority-Analysis: v=2.4 cv=F7ZnsKhN c=1 sm=1 tr=0 ts=6a5f2a89 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA4NSBTYWx0ZWRfXyrcpP1GGoApC
+ suslpr2WMRqACDlViCQfTXQqT8jsNYGxgHw/Q7tdGBzSA0E/UrJfpE0KJEBfTEFYSmOBS6NEERS
+ d71BI6Zrc6En3NvLQQykICzuy0gH3rip98xyMw8/CNwci3Pe+QTjzZ+PxBuCMrAQflZX1TqPrVN
+ BQucd+cR5OCXoFBrgawHZkptCJd8Z75JuU0DF7vo7ry8An6EKEBCf9BiQNkVbughNbKk4MkZYE6
+ X5hXjqb3KCfGBKJM/8PAiacJxwkQxivzUvagZa5O/dWc5+wr5z54V7GwGDAExTho+cObMz3NI6b
+ kxHb3Vx5+EnCeRK0H6DBkzs6Hedwy6k7Ffh856vQwXKPVe1OB1O+Jh4ORhAD1J5h7E1MP1AYeH8
+ 0its2LAtEZt+VKYtEvFI4H4bkRlWAfFysh/10CcuMcAs8NMTHU1g+1UkDedlWnzdk0V6cnwbp7S
+ /anRcWsH66oOQt57nmw==
+X-Authority-Analysis: v=2.4 cv=F7ZnsKhN c=1 sm=1 tr=0 ts=6a5f2a8d cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=IyTs_d-QMcr_bO2y0b0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: Bf2sdHPbYs-etfcCoaB5-GyV-jVoAK9x
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA4NSBTYWx0ZWRfX+hIdVZhp25MW
- BoQCE+DkXCH17F6XRs1wJi3+fkf1+bSVsGesn43mXSfyY2cA8cgbBsYCRnU6pw4wwpsrDbpnVR2
- pqczLLlJNYR5oGIsMURqJ74IANsiRgM=
-X-Proofpoint-GUID: snN9Jx8g2HDPkLrM-Bn4ukFDxyn103s1
+ a=Z59ShqV6-iyD_9e8NWYA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+X-Proofpoint-ORIG-GUID: 8-kJeEgXvO4PnAtaqHkJ_phIhchJhFVq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA4NSBTYWx0ZWRfX8vJK5+FBirev
+ hXN41a1LIhPfCRBAhT0Fvm26/t8T/77y+EZtEvC9lXEDFQuxJ7V2v6SIR6Obtw0cTMVGleqYvfc
+ U3CIi7tc0nNFFFR3bknFl5/0C5ChUP8=
+X-Proofpoint-GUID: ooLQYhrj8PIKRM93jo5HThky_M-U36xQ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
@@ -107,24 +102,19 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210085
 
-On Sun, 14 Jun 2026 23:04:37 +0530, Amit Machhiwal wrote:
-> When using device tree CPU features (dt-cpu-ftrs), the kernel bypasses
-> the traditional cputable-based CPU identification and instead derives
-> CPU features from the device tree's "ibm,powerpc-cpu-features" node
-> provided by firmware.
+On Mon, 15 Jun 2026 16:37:26 -0700, Ethan Nelson-Moore wrote:
+> mask_user_address() incorrectly checks for CONFIG_E500 instead of
+> CONFIG_PPC_E500, causing mask_user_address_isel() to not be used on
+> E500 hardware. Fix the check to use the correct name.
 > 
-> However, CPU_FTR_P11_PVR is a kernel-internal feature flag used to
-> identify Power11 and later processors, and is not represented in the
-> device tree's ISA feature set. While ISA v3.1 support (indicated by
-> CPU_FTR_ARCH_31) is present on both Power10 and Power11, the
-> CPU_FTR_P11_PVR flag is specifically needed by code that must
-> distinguish between Power10 and Power11 processors.
+> Fixes: 861574d51bbd ("powerpc/uaccess: Implement masked user access")
+> Cc: stable@vger.kernel.org # 7.0+
 > 
 > [...]
 
 Applied to powerpc/fixes.
 
-[1/1] powerpc/dt_cpu_ftrs: Set CPU_FTR_P11_PVR for Power11 and later processors
-      https://git.kernel.org/powerpc/c/e4de1b9cb3b5c981e4fe9bca253a7fb9161f5acd
+[1/1] powerpc/uaccess: correct check for CONFIG_PPC_E500 in mask_user_address()
+      https://git.kernel.org/powerpc/c/d610d3ab18197d87618da11ec5fe8b3cebf32208
 
 cheers
