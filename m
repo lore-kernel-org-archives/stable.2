@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3239F43302F
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 19:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944AF46D08C;
+	Tue, 21 Jul 2026 19:48:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784663320; cv=none; b=hISj3tpGYVuUk7kNa3Ulm5wcIGdkVaPV8h/hrOkwcZ0QNIcpFvnQj/AQKw7HmDvQnSfPjaEXsRWXzkbCbacYYe1NWPDLIeKvp8Sm+D7kyN36j4acti/PbDODPJvwFp/+WkA/SPD15VtbbRb4cbq3cQ6S5Tvgo+CN30qa53Jqfek=
+	t=1784663322; cv=none; b=dvcf0pGdPH0cMtedsozqwGRIbNPU/ABg1TReRHawaQUoA6jY4aiDBgdAZuQ3E8gHM72F8Wv8MGMO2NWB74tl80MdeFkMJVB4rrFp5+DFXXlNQByPIqZJBUt7QI3y2nse9UrUkD3x9nuU3RKcTYzqfqqdam5Z32ukb3J8Ah55lP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784663320; c=relaxed/simple;
-	bh=k7l2pCNhy8P8YKzKiMnW0SLWxugvg5dTrrNaq53gP5o=;
+	s=arc-20240116; t=1784663322; c=relaxed/simple;
+	bh=CIlAdMOcfFWDWK9bWdVF65IyJoe0HUVaNQBKzp+sMgM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ICTcZucpwRDi1N1RPkoiF/4EEv6g+ECWg9amkXDhOEzf2kXmBqutCAbAjzc6rFQLYCWPnOGYEHSSwlEAoFRZQvB/PPJEk1imkqh4bB7bi1oz+TXxI6DrXr0pWU5aMvS/KZoZ/x3KbBDJ9fXG31szQbCATBjLpn1GOSHQoxsS+4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dt4rd0NC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MG25IDLCvZtgJzm27V8G51um+6fpcy1PoCXL8LA0ZQt1DkWd2lca3cS3iKmyA7ex39waOoGwAFJwQ/UUPGSmE0Oa9HImMfqBmfkYu1PpiYORI6pPfFWagWD+f3fK0DbcQRM6Mt/yeXWdK9zGC6rc1xqH/dU2EjNjxr+Zn2cUyJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=U3Kmj9GW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dt4rd0NC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9761F00A3A;
-	Tue, 21 Jul 2026 19:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784663318;
-	bh=4Uv+tn3T4XAPMZXM1NjCDzF56JloQSSUwcPMgnLEk0w=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="U3Kmj9GW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0562F1F000E9;
+	Tue, 21 Jul 2026 19:48:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784663321;
+	bh=km9gWwXBtUkJQvF6RWxhtLk+o8XD4htNjc5559G+k2U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dt4rd0NCMkLuDMGWeCy56KeURoTGbEWgXHMh/CVkwBhaMZqUkZm4c9A+abFsTSiRP
-	 aqCMbJz6Kd7WDarD9iTUFB9C7aLVaQsuKgo3KUDXaItdOAviO8kqIY+DH6Y/fB7CKP
-	 DvG0jl0h+NeyaJ50PzTxkFTu54e09weHJT5xlncmk0ejTBs1j2k8l6iIg2ek7pW+2o
-	 DVPJfQuKior/CyB48zheDFwmXo3Ax9ZY/9SCRhUOryqvIoKl0ZtPYTOE7H08CLQvYG
-	 EE/Psna6X78LazkCz1Rukn21yFXM/USE5Ds6MrvCg3/zo48eqZzOP5xLJSnCdvj81K
-	 zKrS6n5s61NoA==
-From: Sasha Levin <sashal@kernel.org>
+	b=U3Kmj9GW44NRbbFbKlRWQRl9zqvPjRWCdJuhBC5J/i5iedR4nEtVQMVz2xasnKV8l
+	 98EwUfbSu+w5CsgnQLrWt4i+AI6liPtvKJuoQ3pbYuOjG/fh185bRe2Dqm/0XyIAfv
+	 ClpGTdmvCLUcVZCK/zXaGzBiPp6brZIBWASzSqlo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/5] i2c: core: fix adapter probe deferral loop
-Date: Tue, 21 Jul 2026 15:48:33 -0400
-Message-ID: <20260721194833.416799-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721194833.416799-1-sashal@kernel.org>
-References: <2026071656-confess-dean-8762@gregkh>
- <20260721194833.416799-1-sashal@kernel.org>
+Subject: [PATCH 6.12 0777/1276] Bluetooth: bpa10x: avoid OOB read of revision string in bpa10x_setup()
+Date: Tue, 21 Jul 2026 17:20:20 +0200
+Message-ID: <20260721152503.464575975@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152446.065700225@linuxfoundation.org>
+References: <20260721152446.065700225@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +48,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 158efa411c57111d87bf265a3776614f32d70007 ]
+------------------
 
-Drivers must not probe defer after having registered devices as that
-will trigger a probe loop if the devices bind to a driver (cf. commit
-fbc35b45f9f6 ("Add documentation on meaning of -EPROBE_DEFER")).
+From: Weiming Shi <bestswngs@gmail.com>
 
-Move the recovery initialisation, where the GPIO lookup may fail, before
-registering the adapter to prevent this.
+[ Upstream commit dd068ef044128db655f48323a4acfd5907e04903 ]
 
-Fixes: 75820314de26 ("i2c: core: add generic I2C GPIO recovery")
-Cc: stable@vger.kernel.org	# 5.9
-Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+bpa10x_setup() sends the vendor command 0xfc0e and passes the response
+to bt_dev_info() and hci_set_fw_info() as a "%s" string starting at
+skb->data + 1, without checking the length:
+
+	bt_dev_info(hdev, "%s", (char *)(skb->data + 1));
+	hci_set_fw_info(hdev, "%s", skb->data + 1);
+
+A device that returns a one-byte response (status only) leaves
+skb->data + 1 past the end of the data, and the %s walk reads adjacent
+slab memory until it meets a NUL. The same happens when the payload is
+not NUL-terminated within skb->len. The out-of-bounds bytes end up in
+the kernel log and the firmware-info debugfs file.
+
+Print the revision string with a bounded "%.*s" limited to skb->len - 1
+instead. This keeps the string readable for well-behaved devices while
+never reading past the received data, and does not fail setup, so a
+device returning a short or unterminated response keeps working.
+
+Fixes: ddd68ec8f484 ("Bluetooth: bpa10x: Read revision information in setup stage")
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/bluetooth/bpa10x.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 739d9d8cce2216..73f0f3b7b5987c 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -1550,6 +1550,10 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	adap->dev.type = &i2c_adapter_type;
- 	device_initialize(&adap->dev);
+diff --git a/drivers/bluetooth/bpa10x.c b/drivers/bluetooth/bpa10x.c
+index 1fa58c059cbf5c..8942ebd0d0b9f6 100644
+--- a/drivers/bluetooth/bpa10x.c
++++ b/drivers/bluetooth/bpa10x.c
+@@ -254,9 +254,13 @@ static int bpa10x_setup(struct hci_dev *hdev)
+ 	if (IS_ERR(skb))
+ 		return PTR_ERR(skb);
  
-+	res = i2c_init_recovery(adap);
-+	if (res == -EPROBE_DEFER)
-+		goto err_put_adap;
-+
- 	/*
- 	 * This adapter can be used as a parent immediately after device_add(),
- 	 * setup runtime-pm (especially ignore-children) before hand.
-@@ -1571,10 +1575,6 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	if (res)
- 		goto out_reg;
+-	bt_dev_info(hdev, "%s", (char *)(skb->data + 1));
++	/* Bounded print: the device controls skb->len. */
++	if (skb->len > 1) {
++		int len = skb->len - 1;
  
--	res = i2c_init_recovery(adap);
--	if (res == -EPROBE_DEFER)
--		goto out_reg;
--
- 	dev_dbg(&adap->dev, "adapter [%s] registered\n", adap->name);
+-	hci_set_fw_info(hdev, "%s", skb->data + 1);
++		bt_dev_info(hdev, "%.*s", len, (char *)(skb->data + 1));
++		hci_set_fw_info(hdev, "%.*s", len, skb->data + 1);
++	}
  
- #ifdef CONFIG_I2C_COMPAT
+ 	kfree_skb(skb);
+ 	return 0;
 -- 
 2.53.0
+
+
 
