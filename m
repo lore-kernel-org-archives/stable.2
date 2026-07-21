@@ -1,61 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6E2439012;
-	Tue, 21 Jul 2026 21:00:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8923D4582E2;
+	Tue, 21 Jul 2026 21:00:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784667639; cv=none; b=Nb9tOajLfsW+ur7QmJfzJQfvpfs0/ox+14JHcryLlWEXsUo86Es05JKbvOjPJt7RFUrrIoGt2buzaxpxu0nWxioVwm37MrftL5YqExLkhppNHGjnE0wURz90G5grwDfxQi4NoO+KRatnxRrJyLgraGUusDWT0OA558a97q+aUPA=
+	t=1784667640; cv=none; b=HmtoYoE9Bgw46++6iBqlg5H9QYux+Hbl2aChp0jJ8z+zmDg8QtplSi46S3jikAsu/G/DSPZMERqWobHYTjjudXHR/puJ/oc7cepVNp7rBgARmgcLoqsZCDXvOFs0p4/bsKWj1moBONoHBj0p4dlWhAUD1h7pzU7yv+94yvaruNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784667639; c=relaxed/simple;
-	bh=wDZAdfh4YitlwM5SYpXENkwHDSLF7ZaTMaIfmd9XjpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AUP25WdznuQGdtj283iDg8H9cGnhSP5T9vsiEG72hM11AryLA3lKo/5VaqUSG5zuB2HT9wHV8bsIBOaoxvQbwKKJppk34PDWX1HGhuYMlm/vrV2oVUheV8rJv5WNUCrc6rOF0ELZ4XmRcbdikKpEyb/481rr2HP2vRahogNLdx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THsdyW+1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784667640; c=relaxed/simple;
+	bh=MWj+43IlDw8zJeZtyWWY5KL46fkLrO51yJo4xaSWoos=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fZke87Co23YDOm8AU0yE2ziXwcdWK6FIMGPqLfjuFWF9lbujse9/Nv1VCqS8UiH81ZPbzeoYl+UH2fez+DXUl4Pytsn24OQUw3R5RaFBJmCujTWJy7AR9v4X0P46L3nbefZ+/nYevPU4RIMzOJZFcbRtjQZ1uncUhHklOC4KwXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MUkP1FvV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THsdyW+1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982211F00A3A;
-	Tue, 21 Jul 2026 21:00:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784667637;
-	bh=Y1Fqr3yD+eTJzYODUSrjqSjU2oxxaBaa6ty7X9vYvWs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=THsdyW+1tbanf7hmz3l6Ni3GoM29oYpaQuIawLAHUbbD449orliOuz1sd4NLBMCDQ
-	 fjRjv87Z3RS55EK2+M8evnsfEDovJmsrLAjZCRgipBEx8G4gTVuANQHtZPSogfmEHn
-	 3pZ+0O5wobZnskkw9S6sFRRc8lfu6FmoUDlS+MMeJWA4mMTvABVIyeFL95IsfnX+/i
-	 IKKPOzLqtQKrLCplk/kl8OH/JsdQKZ/40khJ3w4/Mg7Iegg62127tt2NHdmvpG6UMF
-	 XgheDekd2KpIVFEc/Zt1R5TwizvSP932ubSJScLY2g/iYaQz/h7rHKiLAvJlVXKAqT
-	 ++GZgbx1ayZaw==
-Date: Tue, 21 Jul 2026 14:00:37 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ibrahim Hashimov <security@auditcode.ai>
-Cc: alex.aring@gmail.com, miquel.raynal@bootlin.com,
- stefan@datenfreihafen.org, linux-wpan@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] mac802154: hold an interface reference across the
- scan worker
-Message-ID: <20260721140037.61bf4635@kernel.org>
-In-Reply-To: <20260717105810.26226-1-security@auditcode.ai>
-References: <20260710140927.13228-1-security@auditcode.ai>
-	<20260717105810.26226-1-security@auditcode.ai>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MUkP1FvV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A701F00A3E;
+	Tue, 21 Jul 2026 21:00:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784667639;
+	bh=SCQ/9dsdhNv18YbLepeJELkKLcb9/BbuqQjXfC8KRkE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MUkP1FvV8KCbIVQv+eCaz+CxP0bHfFLZbgS9sLRdyPCzu9npcDyxulxLDtaBjLZWR
+	 evBoT42sI3KcentESBZbewUuhsyxEKvXgtb9LYLiniWUYOBoq0YT1HuJ0795Iox7vJ
+	 jNPG2fe+7ibW7rNNz8A8mW0FCJ3OOJekma2AjdmM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Julian Anastasov <ja@ssi.bg>,
+	Florian Westphal <fw@strlen.de>
+Subject: [PATCH 6.6 1136/1266] ipvs: fix more places with wrong ipv6 transport offsets
+Date: Tue, 21 Jul 2026 17:26:13 +0200
+Message-ID: <20260721152507.214399815@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
+References: <20260721152441.786066624@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 17 Jul 2026 12:58:09 +0200 Ibrahim Hashimov wrote:
-> +	/*
-> +	 * sdata->dev is dereferenced below after rcu_read_unlock() and outside
-> +	 * the rtnl, and a concurrent DEL_INTERFACE / PHY teardown can free it
-> +	 * asynchronously from netdev_run_todo(). Pin it with a reference taken
-> +	 * while the RCU read lock is still held, and drop it at every exit.
-> +	 */
-> +	dev_hold(sdata->dev);
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-Please use netdev_hold() with a tracker on the stack.
-Please don't post new versions in reply to old ones.
+------------------
+
+From: Julian Anastasov <ja@ssi.bg>
+
+commit b3fe4cbd583895987935a9bdad01c8f9d3a02310 upstream.
+
+Sashiko reports for more incorrect IPv6 transport offsets.
+
+The app code for TCP was assuming IPv4 network header
+even after the ipvsh argument was provided. This can
+cause problems with apps over IPv6. As for the only
+official app in the kernel tree (FTP) this problem is
+harmless because we use Netfilter to mangle the FTP
+ports and we do not adjust the TCP seq numbers.
+
+Also, provide correct offset of the ICMPV6 header in
+ip_vs_out_icmp_v6() for correct checksum checks when
+the IPv6 packet has extension headers.
+
+Fixes: d12e12299a69 ("ipvs: add ipv6 support to ftp")
+Fixes: 2a3b791e6e11 ("IPVS: Add/adjust Netfilter hook functions and helpers for v6")
+Cc: stable@vger.kernel.org
+Link: https://sashiko.dev/#/patchset/20260706101624.69471-1-zhaoyz24%40mails.tsinghua.edu.cn
+Signed-off-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/netfilter/ipvs/ip_vs_app.c  |   10 ++++------
+ net/netfilter/ipvs/ip_vs_core.c |    3 +--
+ 2 files changed, 5 insertions(+), 8 deletions(-)
+
+--- a/net/netfilter/ipvs/ip_vs_app.c
++++ b/net/netfilter/ipvs/ip_vs_app.c
+@@ -362,14 +362,13 @@ static inline int app_tcp_pkt_out(struct
+ 				  struct ip_vs_iphdr *ipvsh)
+ {
+ 	int diff;
+-	const unsigned int tcp_offset = ip_hdrlen(skb);
+ 	struct tcphdr *th;
+ 	__u32 seq;
+ 
+-	if (skb_ensure_writable(skb, tcp_offset + sizeof(*th)))
++	if (skb_ensure_writable(skb, ipvsh->len + sizeof(*th)))
+ 		return 0;
+ 
+-	th = (struct tcphdr *)(skb_network_header(skb) + tcp_offset);
++	th = (struct tcphdr *)(skb_network_header(skb) + ipvsh->len);
+ 
+ 	/*
+ 	 *	Remember seq number in case this pkt gets resized
+@@ -439,14 +438,13 @@ static inline int app_tcp_pkt_in(struct
+ 				 struct ip_vs_iphdr *ipvsh)
+ {
+ 	int diff;
+-	const unsigned int tcp_offset = ip_hdrlen(skb);
+ 	struct tcphdr *th;
+ 	__u32 seq;
+ 
+-	if (skb_ensure_writable(skb, tcp_offset + sizeof(*th)))
++	if (skb_ensure_writable(skb, ipvsh->len + sizeof(*th)))
+ 		return 0;
+ 
+-	th = (struct tcphdr *)(skb_network_header(skb) + tcp_offset);
++	th = (struct tcphdr *)(skb_network_header(skb) + ipvsh->len);
+ 
+ 	/*
+ 	 *	Remember seq number in case this pkt gets resized
+--- a/net/netfilter/ipvs/ip_vs_core.c
++++ b/net/netfilter/ipvs/ip_vs_core.c
+@@ -1041,8 +1041,7 @@ static int ip_vs_out_icmp_v6(struct netn
+ 	snet.in6 = ciph.saddr.in6;
+ 	offset = ciph.len;
+ 	return handle_response_icmp(AF_INET6, skb, &snet, ciph.protocol, cp,
+-				    pp, offset, sizeof(struct ipv6hdr),
+-				    hooknum);
++				    pp, offset, ipvsh->len, hooknum);
+ }
+ #endif
+ 
+
+
