@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0607A397E9A
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:12:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04604384CD6;
+	Tue, 21 Jul 2026 17:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653981; cv=none; b=WSJKKKiLIXOcShTAjBEqt/vNMG3EVOz1kIoJ33R/FfIOkx65B7YkJx9nO2ULzyWtmBIPMHTQts7a8vUBt+5UW/+yQCxk+3UPhOMuoOSxGwrMDVATy/ArIcq7t6zl++6H4t0UsGDw1les1d88/TaP81DV+Y4OpcQQ8kE5s4Tl0bg=
+	t=1784653982; cv=none; b=Dhy4Z5HBn8lnH31kLgC9c/b23P5+DcAXL8XNXbIG+86/F0IrstCbcDTzc84LRnVOtL1bwdRmQH+z2pCprXt2Z26Gstp1YiqFT/QRIP96KDo7tPmUyJMhTX2u95EYyN5ljQvP6AholtXRAokuPFOV2tDzJk9Adz0k91N4RhOJR6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784653981; c=relaxed/simple;
-	bh=++1HmHcNPdY78Jd0LgpZPA1W8+99FsixkD/maWSLZuQ=;
+	s=arc-20240116; t=1784653982; c=relaxed/simple;
+	bh=69dG9k+fw+lMRYXnXHLDT3+R3a6/hecgzK83RFh957g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k9cssqwPO/I0HymQUFcT6B8tHtNY47MBC3AtRK4ggCc3cl+dFntH9vdIHl8aSp35yD7UPL+pOv/o/+zfJJEDnO4dPJi5NbPt7u7B9ikhs6/V8xu+0rY7q9rKWnZW2haESca9fNbLEtiohaJVg80/KQo6CUErPlHlzl0kKZG9iE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GH84p51B; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nen+fRSnRCaTAo0ze5jBCGN/mlUY3gfXbRv++D1uWBaMCqlpFSRE/lKGGcKFQ5LlvpGxNw/c+CKXO1LOdocEG8pZTL9POtq/GrERuTyZnQvfFzck5ADdqv75zAq8SZN89llqRHNPM55DQOTqzp4i5hbyTOis+wpNqFhIkg6MhHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vwNDmeMK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GH84p51B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49BD1F00A3A;
-	Tue, 21 Jul 2026 17:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784653979;
-	bh=Y17JZ2JvHoLPSOLBtQV5dFWIb1Jfruoz8W7UjKbeyoA=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vwNDmeMK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926AF1F000E9;
+	Tue, 21 Jul 2026 17:13:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784653980;
+	bh=50hqhgwAujOai0U2l3NGtlGihD8Qet9yTeparS2E9xw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GH84p51BDmzjoN81qnkCfAtPyjI26SUHBsGY+wHTRwXCHQ6bltCRwvikU/ks4Pshs
-	 TWFUS3nclxxEevIihmdf1+aO7fH2sTMqTql6tvNXkG22LpyfEC2+bUi2ayyY8z+9Dd
-	 EIpT2odRjvpMpfviZXcMTrDzJlOa86O7qHFhhomSSex0dqUxSHjCBH7FEUOtoubuNT
-	 0HZYmRNX3Mf+GpP5wPwrWR64YA8BRuhwgdNJkjWndQc6fbdswAcOlYIqTJHIfxewz9
-	 +PbYLEPXAZmHq6m34clQekYqwlQ98dbKr9njQxQJ6oSFMEmJNAAR4mqHJSz7yARJ2w
-	 0Qf/3ziC0fqKQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=vwNDmeMKgf5Rhz0oYKv7Gm0bddi3QhoUqZJX0Se9MJM7UiXrWeSoPaMIGWjpnabC4
+	 p2lCiYYA6uqzt1QbR3Seq8FdUgA6bLncACimQCxunRQBoGKP8QRM1wZQCOryvY8d1S
+	 sIDdHOL64o3tcQyRbrmoNQjnnEazmp+3SLSyOV/o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Weinan Liu <wnliu@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Wei Wang <wei.w.wang@hotmail.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] iommu/amd: Don't split flush for amd_iommu_domain_flush_all()
-Date: Tue, 21 Jul 2026 13:12:57 -0400
-Message-ID: <20260721171257.107653-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071647-unfrozen-iron-b8ab@gregkh>
-References: <2026071647-unfrozen-iron-b8ab@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH 7.1 1533/2077] arm64: dts: renesas: ironhide: Describe inline ECC carveouts
+Date: Tue, 21 Jul 2026 17:20:06 +0200
+Message-ID: <20260721152628.936766209@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,64 +46,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weinan Liu <wnliu@google.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 69fe699afe1afcb730164b86c228483c2da05f94 ]
+------------------
 
-We have observed multiple full invalidations occurring during device
-detach when we are done using the vfio-device.
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-blocked_domain_attach_device()
-  -> detach_device()
-    -> amd_iommu_domain_flush_all()
-      -> amd_iommu_domain_flush_pages(..., CMD_INV_IOMMU_ALL_PAGES_ADDRESS)
+commit 6fa6ee724d8dadf392139e242ac936b5da730c4b upstream.
 
-      	while (size != 0) {
+The DBSC5 DRAM controller protects DRAM content using inline ECC.
+The inline ECC utilizes areas of DRAM for its operation, which are
+in the DRAM address range, but must not be accessed or modified.
+Describe the inline ECC carveout areas used by the DBSC5 controller
+on this hardware as reserved-memory, which must not be accessed.
+Include DRAM areas which are unprotected by ECC as well, those are
+parts of the DRAM which directly precede the ECC carveout.
 
-          -> __domain_flush_pages( flush_size /* power of 2 flush_size */)
-            -> domain_flush_pages_v1()
-              -> build_inv_iommu_pages()
-                -> build_inv_address()
+In case of high DRAM utilization, unless the inline ECC carveouts
+are properly reserved, Linux may use and corrupt the memory used
+by the DBSC5 DRAM controller for inline ECC, which would lead to
+the system becoming unstable.
 
-         }
-
-build_inv_address() will trigger a full invalidation  if the chunk
-size > (1 << 51). Consequently, the guest will issue multiple full
-invalidations for a single call to  amd_iommu_domain_flush_all()
-
-Without this patch, we will see 10 time instead of 1 time full
-invalidations for every amd_iommu_domain_flush_all().
-
+Fixes: ad142a4ef710 ("arm64: dts: renesas: r8a78000: Add initial Ironhide board support")
 Cc: stable@vger.kernel.org
-Fixes: a270be1b3fdf ("iommu/amd: Use only natural aligned flushes in a VM")
-Suggested-by: Josef Bacik <josef@toxicpanda.com>
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Weinan Liu <wnliu@google.com>
-Reviewed-by: Wei Wang <wei.w.wang@hotmail.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
-Reviewed-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
-Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Link: https://patch.msgid.link/20260710160450.64967-1-marek.vasut+renesas@mailbox.org
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iommu/amd/iommu.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts |   41 ++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 48cf9e9e15976c..bf8cd78abfbd93 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -1431,7 +1431,8 @@ static void __domain_flush_pages(struct protection_domain *domain,
- static void domain_flush_pages(struct protection_domain *domain,
- 			       u64 address, size_t size, int pde)
- {
--	if (likely(!amd_iommu_np_cache)) {
-+	if (likely(!amd_iommu_np_cache) ||
-+		size >= (1ULL<<52)) {
- 		__domain_flush_pages(domain, address, size, pde);
- 		return;
- 	}
--- 
-2.53.0
+--- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
++++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+@@ -93,6 +93,47 @@
+ 			reg = <0x0 0x8c400000 0x0 0x02000000>;
+ 			no-map;
+ 		};
++
++		/* DRAM controller inline ECC areas */
++		ecc@10cccc0000 {
++			reg = <0x10 0xcccc0000 0x0 0x33340000>;
++			no-map;
++		};
++
++		ecc@12cccc0000 {
++			reg = <0x12 0xcccc0000 0x0 0x33340000>;
++			no-map;
++		};
++
++		ecc@14cccc0000 {
++			reg = <0x14 0xcccc0000 0x0 0x33340000>;
++			no-map;
++		};
++
++		ecc@16cccc0000 {
++			reg = <0x16 0xcccc0000 0x0 0x33340000>;
++			no-map;
++		};
++
++		ecc@18cccc0000 {
++			reg = <0x18 0xcccc0000 0x0 0x33340000>;
++			no-map;
++		};
++
++		ecc@1a66660000 {
++			reg = <0x1a 0x66660000 0x0 0x999a0000>;
++			no-map;
++		};
++
++		ecc@1c66660000 {
++			reg = <0x1c 0x66660000 0x0 0x999a0000>;
++			no-map;
++		};
++
++		ecc@1e66660000 {
++			reg = <0x1e 0x66660000 0x0 0x999a0000>;
++			no-map;
++		};
+ 	};
+ };
+ 
+
 
