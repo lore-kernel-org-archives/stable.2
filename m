@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07F433689F;
-	Tue, 21 Jul 2026 17:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA1B33689F
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:13:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653992; cv=none; b=O2ENTdYRDdboT202KfxcROk9BW3F2gmRJqPf9MGFbt4LBcyj+lh1Q5Wx/OLL8kE1bkhjJ6qKMpeByMjKuSCOv2iSs5DlvY1Rp2PjN1jWhCy9/tx3amCNKbjciNgVoCkQP9+fpF9abeSWukv5LW6upzhxpw5JypZqW/vkUWixGqI=
+	t=1784653994; cv=none; b=S9eaJvh8wo5gje3/8ksPk1inKzn7GlZOE8IAJePhM65eCh6bVy70UBr5zqqIGxxE+n7jfyP6QqYsqzSiPDZaVU+hS5OFf1mes7wY4JGohR+83hS9rNV2qu60gdHNklrWh7uJXueZiHMbjQFLG1ydBANLMo8irhrp5HSVn3340jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784653992; c=relaxed/simple;
-	bh=VwQ37w74Zktqo+XTggMHcSMdmpnqYnC+ZH4SSucRh0k=;
+	s=arc-20240116; t=1784653994; c=relaxed/simple;
+	bh=30zUDDWRQj5KsPgwotYgJEOzht5ermfNIfN/8Ee0EuA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y+D23YMGGbk/woUggp8VB9W7/Xk0XZrorBKir8NV0zCAREujRuzC6KPuFbrCNZKipxjAh7uB6UN0oizZJldTw/nk3E/0Bk1uHA1Ozhu1DCcNF8RLG7OAEmdhScqb993HrnQP2rIMLMg7Ya3jg5SfZLANpx9IpqckzYpfaUNlSd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WFvjyUMt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oAJw08y9tmnU7ZA0ORktRn920edN2QR9m8dLBVsWXLFs3Cl/ffqq7t8g4UKR2fFQn5u2x/PKJQez00AvqbOOy+Qc7dEF8NQrHz1DKQWIFzMTik4lK3DkWMP8F9rc7eeb48TSx2LGpnEvIuz4Bu3+enOu/Hr5eNZ5lxEZbrmk5Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jcFJoUvt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WFvjyUMt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B67A1F000E9;
-	Tue, 21 Jul 2026 17:13:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784653991;
-	bh=B2ikpmCUH2BsSHVBGcpeOQYzRqVQJb/W8vd008P9dU8=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jcFJoUvt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2C91F000E9;
+	Tue, 21 Jul 2026 17:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784653993;
+	bh=fOQ3616HDNlss8VS86r0GaOv6dK1Win+86QzaYGX8Gk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WFvjyUMtvYYGhU+fvYZBNm6/jZC4GDeyCOFHsBYcISaYPTyKx3uF5TYIIjUe6cq9G
-	 axpN7Kmka1i4NvLOB2nMc3CaVJ5jGNhouLvtOY6LSSpAjB8JPFYpaUwpIq1OnKHQo8
-	 d040M3WHQiGlyMfl0nEVWlZt4VKP0i2JfJNVEK9k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=jcFJoUvtWK67OFC7Y6YWxuegxyGC7A+AATk2W2w3xd/NO5CKxlBNHkXh3vYrof3BY
+	 pABoxYBUwPn3nxCSLt1pt6xnfqg/svajcPyLb4i5xWURCoeLer6T95kk4gAdua82GS
+	 XSb4f7N48oOApSOEdHtYpllNJgvdOqkAY/V3aGopiz91kjPCPm5YxnIknPQQ27BB36
+	 85Rv2220CCHiAr3swZCGVTWSUCEjNMIQrsvvhGrWg1Tt+2LxqdMIs+Uep7qXTgwLCO
+	 u5TD2OP1PeCkPjlRaXoT+FAOUPWqUJ4TJhXGS0TgkncR21Pp26rayACHLAj0Zk17MA
+	 IlIzu/t5wB42g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	David Jander <david@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Subject: [PATCH 7.1 1537/2077] ARM: dts: stm32: stm32mp15x-mecio1-io: Fix ADC sampling times
-Date: Tue, 21 Jul 2026 17:20:10 +0200
-Message-ID: <20260721152629.027506297@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Nicolin Chen <nicolinc@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] iommufd: Break the loop on failure in iommufd_fault_fops_read()
+Date: Tue, 21 Jul 2026 13:13:11 -0400
+Message-ID: <20260721171311.108330-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071611-prong-distrust-2ab3@gregkh>
+References: <2026071611-prong-distrust-2ab3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,150 +47,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Nicolin Chen <nicolinc@nvidia.com>
 
-------------------
+[ Upstream commit 172fc8b19825a0f5884c38f2289188284e2d45ee ]
 
-From: David Jander <david@protonic.nl>
+On a copy_to_user() failure inside the inner list_for_each_entry, only the
+inner loop breaks; the outer while re-fetches the just-restored fault group
+and retries the failing copy_to_user() forever, spinning the reader at 100%
+CPU with fault->mutex held.
 
-commit 8407e611faf80ce790a393addf7b44cc595742af upstream.
+Check rc after the inner loop and break the outer while as well.
 
-Increase the minimum ADC sample times for all configured channels on
-ADC1 and ADC2 to ensure measurement accuracy meets specifications.
-
-The default 5us sample time is insufficient for the internal sampling
-capacitor to fully charge. Increase the default time to 20us to relax
-the input impedance requirements.
-
-Additionally, the phint0_ain and phint1_ain channels require a much
-longer sampling period due to their specific circuit design. Increase
-their sample times to 200us. Remove stale comments regarding clock
-cycles that no longer match the updated timings.
-
-Fixes: 8267753c891c ("ARM: dts: stm32: Add MECIO1 and MECT1S board variants")
-Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Signed-off-by: David Jander <david@protonic.nl>
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20260318105123.819807-3-o.rempel@pengutronix.de
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 07838f7fd529 ("iommufd: Add iommufd fault object")
+Link: https://patch.msgid.link/r/336a9b6e44fe66a24199d3be777c405c85c98622.1780343944.git.nicolinc@nvidia.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi |   32 +++++++++++--------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
+ drivers/iommu/iommufd/fault.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
-@@ -104,80 +104,79 @@
+diff --git a/drivers/iommu/iommufd/fault.c b/drivers/iommu/iommufd/fault.c
+index 8226e28d79a510..4b37244003f2d7 100644
+--- a/drivers/iommu/iommufd/fault.c
++++ b/drivers/iommu/iommufd/fault.c
+@@ -296,6 +296,8 @@ static ssize_t iommufd_fault_fops_read(struct file *filep, char __user *buf,
+ 			}
+ 			done += fault_size;
+ 		}
++		if (rc)
++			break;
+ 	}
+ 	mutex_unlock(&fault->mutex);
  
- 	channel@0 {
- 		reg = <0>;
--		/* 16.5 ck_cycles sampling time */
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "p24v_stp";
- 	};
- 
- 	channel@1 {
- 		reg = <1>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "p24v_hpdcm";
- 	};
- 
- 	channel@2 {
- 		reg = <2>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "ain0";
- 	};
- 
- 	channel@3 {
- 		reg = <3>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "hpdcm1_i2";
- 	};
- 
- 	channel@5 {
- 		reg = <5>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "hpout1_i";
- 	};
- 
- 	channel@6 {
- 		reg = <6>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "ain1";
- 	};
- 
- 	channel@9 {
- 		reg = <9>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "hpout0_i";
- 	};
- 
- 	channel@10 {
- 		reg = <10>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <200000>;
- 		label = "phint0_ain";
- 	};
- 
- 	channel@13 {
- 		reg = <13>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <200000>;
- 		label = "phint1_ain";
- 	};
- 
- 	channel@15 {
- 		reg = <15>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "hpdcm0_i1";
- 	};
- 
- 	channel@16 {
- 		reg = <16>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "lsin";
- 	};
- 
- 	channel@18 {
- 		reg = <18>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "hpdcm0_i2";
- 	};
- 
- 	channel@19 {
- 		reg = <19>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "hpdcm1_i1";
- 	};
- };
-@@ -187,14 +186,13 @@
- 
- 	channel@2 {
- 		reg = <2>;
--		/* 16.5 ck_cycles sampling time */
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "ain2";
- 	};
- 
- 	channel@6 {
- 		reg = <6>;
--		st,min-sample-time-ns = <5000>;
-+		st,min-sample-time-ns = <20000>;
- 		label = "ain3";
- 	};
- };
-
+-- 
+2.53.0
 
