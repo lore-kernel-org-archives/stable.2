@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBBE046EC76
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:49:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865EC46D08F;
+	Tue, 21 Jul 2026 18:49:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784659754; cv=none; b=phbdVtNt2ZcOb6HSaIi1Dy1eNYluu23m1YrOgSCFIyMC3ZslVgVwb01ZNPDjrmFw+cF3cEIMvp+mop6yyO0wBc7fUvh4GhjvcWlYOqP3RrvSD5A1Z1gwx6itFSoNn0gf6vRZD8uuBquuWGA2s+vdlie+b27XiEoyGwzi57OOfNw=
+	t=1784659756; cv=none; b=VeEYz/SwHjpNhA07lEO8TzRHc3Wx7chQM3v1AbYI0s6FhqpyzCuhLbv0MBtYUUklPlUw/hxlR5VFccfRLxe/wfxGH32yOldNpbkVAboZqJns82P7nlMdP6Odpl/e9xSk4djEaCnbqPS+ktY7/+V7ojIW6kXmG64ZskrHOz6nHAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784659754; c=relaxed/simple;
-	bh=Jhw6j3vJwyvphX0lGgc8xVPcu4qBRKl8G59TZkTJGLE=;
+	s=arc-20240116; t=1784659756; c=relaxed/simple;
+	bh=CE8dKCzj6R9C63gN1L/QzDzEmbnkGKIt+Kuuloytfx0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BtKTw/QQ9CC/z3lgAYNDhKu2ExXIP9GxZ47hK4+ivM2odpRJMLP2Bm3fGnqhcX/DOuXoLzdQkhTnEZ44Nh5dg3uO3gsCL3IbLodmdbdrYm9khh/9q+Za3pNC6SIlgl196JkwxAXw5XnbHID46Q2TVLmqTEt1A+6D/dJWp2IW3c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JSs7RSOT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FtnXK2B5uIu1SGjFK5ZK8DjM5B2pBktslzbSYOLeuwQY2tDOIOH7SdbDoplXKVPwfWMcnG0piwenn9j0mNR075nFEsjnLeWbEcXADaw5wpUkeCQZ7YuxygfswplQlbmQDd1ex00uxjdYmKXAx+yLjsZDLmHnwqnwEhfz5+/5dYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tGyKRn10; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JSs7RSOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B151F00A3E;
-	Tue, 21 Jul 2026 18:49:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784659752;
-	bh=L2wI6RtmeFHg6GLdN6/FlAlRFvulzKtxKZq9BWeDFa8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tGyKRn10"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5F61F000E9;
+	Tue, 21 Jul 2026 18:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784659754;
+	bh=LysgT4RV1WnOm9jkg5YFTOHECaKQqoyW19GuJUjRK60=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JSs7RSOTjsPX9dFJUXjseLUY+iDAB+NnKIlTTfIA45hrO+PY9+fiamC/IjMMAM/zo
-	 of996ZNTZmUZFvdAe+SUK5PFJDZWoTNZfdvRXADAb/mV2g4BxvukDMVAtzXAzPobVc
-	 8qkgnPVgk5yTVhJ6GA7vgg484phkTRqcSwW2EOb2kYF274r2QEZIQu1egC+6BxVFpG
-	 464IM+M8KnQsXRXaikXrw+poDwUq5H5kx/VnZrNaq8wxavzlhEz+HTdb4wExuzwArt
-	 SxX7T1R4WmN7MVayPh+s83MI7O3JYpoB/DBhV1J+pdV1kao12HnwkW+/R/uBD1emvc
-	 nEjSPHt+fyQpw==
-From: Sasha Levin <sashal@kernel.org>
+	b=tGyKRn10K+jseSnXs9eug4nkLi2CdLPQFdnd6xw2BhgH+nE1B9PSLKCVXv2WqGNu2
+	 6elpSupOzWeqKd/2GPsrHc78mpek2VjOgfcI8nmajUp3IBSgBgnzu5klA/PQmN8lCb
+	 Tf2HhRT67rCNqz5wcWD7UVOK+0vXi0wZtOT+TCIQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Alison Schofield <alison.schofield@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning
-Date: Tue, 21 Jul 2026 14:49:09 -0400
-Message-ID: <20260721184909.383278-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721184909.383278-1-sashal@kernel.org>
-References: <2026071651-ditzy-durably-4f3e@gregkh>
- <20260721184909.383278-1-sashal@kernel.org>
+Subject: [PATCH 7.1 0720/2077] cxl/test: Unregister cxl_acpi in cxl_test_init() error path
+Date: Tue, 21 Jul 2026 17:06:33 +0200
+Message-ID: <20260721152609.785628411@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,84 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 504e2b4ab97a51d56d966cd36d0997ad30b65b2d ]
+------------------
 
-When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM
-driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
-triggers a spurious warning:
+From: Dave Jiang <dave.jiang@intel.com>
 
-  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
-      overlapping mappings aren't supported
-  WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
+[ Upstream commit 50cc34be04a0ea7522b739c9c7a71367cfbc489c ]
 
-The call chain is:
+In cxl_test_init(), Once cxl_mock_platform_device_add() succeeds, all
+error paths after needs to call platform_device_unregister() instead of
+platform_device_put() to clean up.
 
-  amdgpu_cs_ioctl
-   -> amdgpu_ttm_backend_bind
-    -> dma_buf_map_attachment
-     -> [udmabuf] map_udmabuf -> get_sg_table
-      -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=0
-       -> debug_dma_map_sg -> add_dma_entry -> EEXIST
-
-This happens because udmabuf builds a per-page scatter-gather list via
-sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
-table mapped for the misc device, and an importer such as amdgpu maps
-the same pages for its own device via map_udmabuf(), the DMA debug
-infrastructure sees two active mappings whose physical addresses share
-cacheline boundaries and warns about the overlap.
-
-The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
-add_dma_entry() because it signals that no CPU cache maintenance is
-performed at map/unmap time, making the cacheline overlap harmless.
-
-All other major dma-buf exporters already pass this flag:
-  - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
-  - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
-
-The CPU sync at map/unmap time is also redundant for udmabuf:
-begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
-cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
-access is requested through the dma-buf interface.
-
-Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
-dma_unmap_sgtable() in udmabuf to suppress the spurious warning and
-skip the redundant sync.
-
-Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Acked-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-Link: https://patch.msgid.link/20260331061657.79983-1-mikhail.v.gavrilov@gmail.com
+Fixes: 67dcdd4d3b83 ("tools/testing/cxl: Introduce a mocked-up CXL port hierarchy")
+Reported-by: sashiko-bot
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+Link: https://patch.msgid.link/20260611230355.198912-1-dave.jiang@intel.com
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma-buf/udmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/testing/cxl/test/cxl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index d871157e2cced1..8b620e3aaab183 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -73,7 +73,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- 	if (ret < 0)
- 		goto err_alloc;
- 
--	ret = dma_map_sgtable(dev, sg, direction, 0);
-+	ret = dma_map_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	if (ret < 0)
- 		goto err_map;
- 	return sg;
-@@ -88,7 +88,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- static void put_sg_table(struct device *dev, struct sg_table *sg,
- 			 enum dma_data_direction direction)
- {
--	dma_unmap_sgtable(dev, sg, direction, 0);
-+	dma_unmap_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	sg_free_table(sg);
- 	kfree(sg);
- }
+diff --git a/tools/testing/cxl/test/cxl.c b/tools/testing/cxl/test/cxl.c
+index 296516eecfd6af..fd6ff00541dced 100644
+--- a/tools/testing/cxl/test/cxl.c
++++ b/tools/testing/cxl/test/cxl.c
+@@ -1951,7 +1951,7 @@ static __init int cxl_test_init(void)
+ err_mem:
+ 	cxl_mem_exit();
+ err_root:
+-	platform_device_put(cxl_acpi);
++	platform_device_unregister(cxl_acpi);
+ err_rch:
+ 	cxl_rch_topo_exit();
+ err_single:
 -- 
 2.53.0
+
+
 
