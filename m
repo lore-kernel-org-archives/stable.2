@@ -1,53 +1,45 @@
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E19D943B3C0;
-	Tue, 21 Jul 2026 21:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784668394; cv=pass; b=WVUC3BnhzXv8xi5F9/lv6ArfnEwvwSWiR3aaRrszvZtJ0s0JhqGQ+K0YTPV1mj6/IYLxDXiPACd3Xfzlcybrye9YZ0zIWn8OzsHCDL0AkqJKitgcXGyytJPor3tjlrYHuEbI6jKmzyLjrXE3QHdft/+HKjCb2kHZKFW6rnCosBM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784668394; c=relaxed/simple;
-	bh=kopSzOLFv0LYRPvL5e3te8gpYYgGX/dfPD9eGvVZGlE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K8KxyZOfiCc1q+Q71/fHtRHHAo//DNsfkmEr8icJsc6n9e8esWy5/7BFVNTLHQC6okdZpUhBHNjes1UTzSIJ8CiUrgRE1AfEIsS+ES2beyKaBqID0ffs7YoTTOxbTwXT5c8JKnPBNTkNaNeDsRKqoHuVwahH78tv6VHOrVuM+1Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=aIj0XNpi; arc=pass smtp.client-ip=136.143.169.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BF24398F6;
+	Tue, 21 Jul 2026 21:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784668395; cv=none; b=ddV/P0QsuH1tNJAIUE5+ONW2GJSqpHqaBGyNfJqj85f5Z4GSy1CxXvL9b9wCC2IZmqstxpp731Rv2hP9uWBzHVftDhgzb4HJTluexrk+iWIdY7kckg/DNR5nvQlStXJqpB6xWF2RztnYfqPVWpSsEiHERpC4EQ7PnuNzW+ty42Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784668395; c=relaxed/simple;
+	bh=HTW10bZdh9xXVAGxt/4K5k2yms8kQ7bre1p1M2/yA4Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=vD2oS1nHkBBFgJmI2Pe6pFCga5l+hxL3dAeLVNvrXe6LWtPqzQW3/SEtCUc6sbHP0OMo8ucEdHRCozebuhjezJt9Xk1qn8X2tgNynMX6XPwmpKu8zyyX7k789hH6ax5/5Sn73C5ryoxSqbgGxYx8DlcT12Oq7hZI+hNb5MrRRPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yxw1pO7u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="aIj0XNpi"
-ARC-Seal: i=1; a=rsa-sha256; t=1784668355; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=N5t9/eYwfyPRBYtAccYzkFs2bEU4XODrS9Ssp3RUxso+0qzB9Fnwqh5Z7xwjC0aPLfH/E6OQ/hlLPD2XY0DYaYufD7KFzCHD04hwlbJjlT/LkHT5rJySstFwnMVwfvVgOzARGcdD+MKt8A+cG4g96LxxGvTYshxNdNYfQvFBpqE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1784668355; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QeFUDXTU+8c0zbYt8CslVaYA7kSqyrt/Ag6133VbfvQ=; 
-	b=lko69w83d3DmqHwSD0GOnzepJu3qopXvQP4zQwiLrncaml4n4rqOQwoV3n4A+ivKrlCrN8d7M83eZ3afUZVSIc86KsgGqPu6V5RHWVRuo5yMBZ+lLs5z1S1xtkx1KwdOPL10FT4JyWZL3pC5BXDg1HGgfR437Xhvw8vlT2boZwc=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784668355;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=QeFUDXTU+8c0zbYt8CslVaYA7kSqyrt/Ag6133VbfvQ=;
-	b=aIj0XNpi2vjLB8Oi0Di9tvDfGrkkBzf7PRv73sTERNDZ7cRyXnJQ80MaQBT32rSZ
-	mqFSvQQ4ZOYK28b4Fx1FUK0xjxt5GKLMr6W6tiQCszqq+U3IEGBvwqlCEWcTKam6rey
-	X5kMhRuRBvhm2DQqT12wsZ/ZGYwZewcgPLFxVbVE=
-Received: by mx.zoho.eu with SMTPS id 1784668353161225.38155391120165;
-	Tue, 21 Jul 2026 23:12:33 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: alex.aring@gmail.com,
-	miquel.raynal@bootlin.com,
-	stefan@datenfreihafen.org
-Cc: kuba@kernel.org,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] mac802154: hold an interface reference across the scan worker
-Date: Tue, 21 Jul 2026 23:12:28 +0200
-Message-ID: <20260721211228.34578-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yxw1pO7u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3811F000E9;
+	Tue, 21 Jul 2026 21:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784668394;
+	bh=v3tALoL7Leh2u4BwT71sPyCI6lFxZEbZOl2WW1plWqE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=yxw1pO7uycVSShZUmX6P5GC8E/JD2BjddZv/TwVUCfy9qG+HiMMwzkoDAUEgQuSrI
+	 daGB3sJSfwJEmxDiDJhrA1GEaJL/iQwu1Is4XrQVVtcuVpmn68wnEcB1ZaaVeqLzlB
+	 E2QX2TGcjqs5W75dtywhORuor2VzSEUu8LouIbUo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com,
+	Deepanshu Kartikey <kartikey406@gmail.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Subject: [PATCH 6.1 0160/1067] nilfs2: reject CLEAN_SEGMENTS ioctl with out-of-range segment numbers
+Date: Tue, 21 Jul 2026 17:12:41 +0200
+Message-ID: <20260721152428.167898219@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
+References: <20260721152424.521567757@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,80 +47,119 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-mac802154_scan_worker() captures the scanning sub-interface under RCU
-and then keeps dereferencing sdata->dev after rcu_read_unlock() and
-outside the rtnl -- in the failure traces, in
-mac802154_transmit_beacon_req() (skb->dev = sdata->dev), and in the
-end_scan cleanup. Nothing keeps that netdev alive across the worker
-iteration.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-A concurrent DEL_INTERFACE or PHY removal can unregister the interface
-once the worker drops the rtnl between its two drv_set_channel()
-sections. unregister_netdevice() frees the netdev asynchronously from
-netdev_run_todo() with the rtnl already dropped, so neither holding the
-rtnl nor the per-PHY IEEE802154_IS_SCANNING flag prevents a stale worker
-iteration from dereferencing the freed netdev -- a KASAN
-slab-use-after-free, reachable by racing TRIGGER_SCAN against
-DEL_INTERFACE (both CAP_NET_ADMIN).
+------------------
 
-Pin the netdev with netdev_hold() while the RCU read lock is still held,
-and release it at every worker exit.
+From: Deepanshu Kartikey <kartikey406@gmail.com>
 
-Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+commit 0e7a690fe435f8d5ea3feb7c1d8d73ba7e8b8aa9 upstream.
+
+Syzbot reported a hung task in nilfs_transaction_begin() where multiple
+tasks performing chmod() on a nilfs2 mount blocked for over 143 seconds
+waiting to acquire ns_segctor_sem for read:
+
+  INFO: task syz.0.17:5918 blocked for more than 143 seconds.
+  Call Trace:
+   schedule+0x164/0x360
+   rwsem_down_read_slowpath+0x6d9/0x940
+   down_read+0x99/0x2e0
+   nilfs_transaction_begin+0x364/0x710 fs/nilfs2/segment.c:221
+   nilfs_setattr+0x124/0x2c0 fs/nilfs2/inode.c:921
+   notify_change+0xc1a/0xf40
+   chmod_common+0x273/0x4a0
+   do_fchmodat+0x12d/0x230
+
+The writer holding ns_segctor_sem was a concurrent
+NILFS_IOCTL_CLEAN_SEGMENTS caller, stuck inside printk while emitting
+per-element warnings from nilfs_sufile_updatev():
+
+   __nilfs_msg+0x373/0x450 fs/nilfs2/super.c:78
+   nilfs_sufile_updatev+0x21c/0x6d0 fs/nilfs2/sufile.c:186
+   nilfs_sufile_freev fs/nilfs2/sufile.h:93 [inline]
+   nilfs_free_segments fs/nilfs2/segment.c:1140 [inline]
+   nilfs_segctor_collect_blocks fs/nilfs2/segment.c:1261 [inline]
+   nilfs_segctor_do_construct+0x1f55/0x76c0
+   nilfs_clean_segments+0x3bd/0xa50
+   nilfs_ioctl_clean_segments fs/nilfs2/ioctl.c:922 [inline]
+   nilfs_ioctl+0x261f/0x2780
+
+The root cause is that user-supplied segment numbers are not validated
+before nilfs_clean_segments() begins doing work; the range check on
+each segnum is performed deep inside the call chain by
+nilfs_sufile_updatev(), which emits a nilfs_warn() per invalid entry
+while still holding the segctor lock and the sufile mi_sem.  Under load
+(repeated invocations across multiple mounts saturating the global
+printk path), the cumulative printk latency keeps ns_segctor_sem held
+long enough to trip the hung_task watchdog, blocking concurrent
+operations such as chmod() that need ns_segctor_sem for read.
+
+Fix by validating the contents of kbufs[4] in nilfs_clean_segments()
+immediately after acquiring ns_segctor_sem via nilfs_transaction_lock().
+Holding ns_segctor_sem serializes the check against
+nilfs_ioctl_resize(), which can modify ns_nsegments, so the validation
+uses a consistent value.  Out-of-range segment numbers are rejected
+with -EINVAL before any segment-cleaning work begins, so the bad
+entries never reach the per-element diagnostic path inside
+nilfs_sufile_updatev().
+
+Reported-by: syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=62f0f99d2f2bb8e3bbd7
+Tested-by: syzbot+62f0f99d2f2bb8e3bbd7@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Fixes: 071cb4b81987 ("nilfs2: eliminate removal list of segments")
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-v3: use netdev_hold()/netdev_put() with a stack tracker instead of
-    dev_hold()/dev_put(), per Jakub Kicinski. Posted standalone.
-v2: trim the in-worker comment, per Miquel Raynal.
+ fs/nilfs2/segment.c |   22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
- net/mac802154/scan.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
-index 300d4584533e..d452b8d8fbb6 100644
---- a/net/mac802154/scan.c
-+++ b/net/mac802154/scan.c
-@@ -180,6 +180,7 @@ void mac802154_scan_worker(struct work_struct *work)
- 	struct ieee802154_sub_if_data *sdata;
- 	unsigned int scan_duration = 0;
- 	struct wpan_phy *wpan_phy;
-+	netdevice_tracker dev_tracker;
- 	u8 scan_req_duration;
- 	u8 page, channel;
- 	int ret;
-@@ -209,6 +210,14 @@ void mac802154_scan_worker(struct work_struct *work)
- 		return;
- 	}
+--- a/fs/nilfs2/segment.c
++++ b/fs/nilfs2/segment.c
+@@ -2503,12 +2503,33 @@ int nilfs_clean_segments(struct super_bl
+ 	struct nilfs_sc_info *sci = nilfs->ns_writer;
+ 	struct nilfs_transaction_info ti;
+ 	int err;
++	size_t i, nfreesegs = argv[4].v_nmembs;
++	__u64 *segnumv = kbufs[4];
+ 
+ 	if (unlikely(!sci))
+ 		return -EROFS;
+ 
+ 	nilfs_transaction_lock(sb, &ti, 1);
  
 +	/*
-+	 * sdata->dev is dereferenced below after rcu_read_unlock() and outside
-+	 * the rtnl, and a concurrent DEL_INTERFACE / PHY teardown can free it
-+	 * asynchronously from netdev_run_todo(). Pin it with a reference taken
-+	 * while the RCU read lock is still held, and drop it at every exit.
++	 * Validate segment numbers under ns_segctor_sem (held for write
++	 * by nilfs_transaction_lock above) so the check is serialized
++	 * against nilfs_ioctl_resize(), which can modify ns_nsegments.
++	 * Rejecting bad input here, before any segment-cleaning work
++	 * begins, avoids the per-element diagnostic path inside
++	 * nilfs_sufile_updatev() that would otherwise run under this
++	 * same lock and stall concurrent readers.
 +	 */
-+	netdev_hold(sdata->dev, &dev_tracker, GFP_ATOMIC);
++	for (i = 0; i < nfreesegs; i++) {
++		if (segnumv[i] >= nilfs->ns_nsegments) {
++			nilfs_err(sb,
++				 "Segment number %llu to be freed is out of range",
++				 (unsigned long long)segnumv[i]);
++			err = -EINVAL;
++			goto bail_unlock;
++		}
++	}
 +
- 	wpan_phy = scan_req->wpan_phy;
- 	scan_req_type = scan_req->type;
- 	scan_req_duration = scan_req->duration;
-@@ -262,12 +271,14 @@ void mac802154_scan_worker(struct work_struct *work)
- 		"Scan page %u channel %u for %ums\n",
- 		page, channel, jiffies_to_msecs(scan_duration));
- 	queue_delayed_work(local->mac_wq, &local->scan_work, scan_duration);
-+	netdev_put(sdata->dev, &dev_tracker);
- 	return;
- 
- end_scan:
- 	rtnl_lock();
- 	mac802154_scan_cleanup_locked(local, sdata, false);
- 	rtnl_unlock();
-+	netdev_put(sdata->dev, &dev_tracker);
+ 	err = nilfs_mdt_save_to_shadow_map(nilfs->ns_dat);
+ 	if (unlikely(err))
+ 		goto out_unlock;
+@@ -2549,6 +2570,7 @@ int nilfs_clean_segments(struct super_bl
+ 	sci->sc_freesegs = NULL;
+ 	sci->sc_nfreesegs = 0;
+ 	nilfs_mdt_clear_shadow_map(nilfs->ns_dat);
++ bail_unlock:
+ 	nilfs_transaction_unlock(sb);
+ 	return err;
  }
- 
- int mac802154_trigger_scan_locked(struct ieee802154_sub_if_data *sdata,
--- 
-2.50.1 (Apple Git-155)
+
+
