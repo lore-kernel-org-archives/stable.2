@@ -1,73 +1,73 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B775E34DCE4
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 23:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CCA44CAD3
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 23:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784677304; cv=none; b=DH48XMUOW3EnGN6RLSPkLJitHyaATZ+NtlbYktoggh3AxKNWzSXct0qpBtLOCKb+/MvWNv4yqEwX9smMGDTOrN+1SCQimaYrl6hqF6NRaMdyjMQHcQoerpNhbx3Jc+JhAkazorLaDSpr58KxLzRz1WBNbiP48prTyMl1Uls5fWs=
+	t=1784677332; cv=none; b=QuKDQ1DoqrSEWes5kuhw2QhUyrcwju0yn1pI9+TdEQml1Ar0NUosffRmW1pXfWGCphHSd43b12wkLXTcJ4aQ/HeojuYD6sYss0/AakjKJsoj4rXPd7vEIFPyt9iHQymfZJmYGy/4V/vq5TsEpreRTjkPSBRoKe+E5Ok0j6m0mnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784677304; c=relaxed/simple;
-	bh=uJw/j7XXAIX+37l+sRNWuyCP9Qw++QDGzi0pU1m5OpU=;
+	s=arc-20240116; t=1784677332; c=relaxed/simple;
+	bh=lfsKa/6nWd1WeNSKQEWCORZMu18sdg3PgeSTNTGJNjg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GNy0lNPpGWnUsSuRqUzVQSjXTe6SX9OxIbmvp7EujtwBmOcAi7oFSwOvp15Y6+TAeH+PvcN41Oj2Lbh6xzdZSXPYo55fASZGtQe5LsCCHxfj1N/5wQvY17bqtM0GFe4783itc1llIX9B49xgMfOsQmBPbcL6CnYFP+rQhJ5ZumU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fezMharW; arc=none smtp.client-ip=209.85.215.169
+	 MIME-Version; b=Dl6osbNOOLzJ5S3XVgfb35w+9GpkxgUj+JI8BrphVZoyTPUoFU3RACCjZIedQ4uCZ1XF/eYDBgABOAS7VeTor+D+sYycL6SKntI+9mgv2f44+KNtJ83J3/JkG7gsEs0q0HyDevw1h/CDJXEjKfdM2nfIRCjwTRrlgnY0fPn4+YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YQmMK16y; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fezMharW"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ca00f126b7eso8178661a12.2
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 16:41:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YQmMK16y"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cf41bab353so60884285ad.0
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 16:42:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784677302; x=1785282102; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784677330; x=1785282130; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r6dWzaVGKWGEEGUN1y0cZ5+QPx/NLUXjn6OIbSQi+UI=;
-        b=fezMharWZuC438K4v4+FdXicKdhRCvHK5nCxZysgW5/B5xPXmi/jKt6UiMW3poO7Eb
-         +xlYwFL6Uey622+m7pT3HzED//xFbyNYCAUldvt0NCEYiKXapDAtIm2eQjzyQlFaFohB
-         LmTkFVXCFb9Q5yVlPzXIZjzoOg3+GSNEnRiUwd11ldraPWuST1UTMlSwPCt1xMHnPjFE
-         jXUwRCXH6SXp+Xo1S0Mr5br0vCFke9M0Y5xN2bpqB9/WTDzORbWSVP+YMzfZ9A6YZFtn
-         cKd0VoJnC+QtpRyrzwAYScACsAG0OkUyhGRk/+UTnnTKNmxBoKIvcU9kfPGw+sLqQQpH
-         HlyQ==
+        bh=AcCaNVJMRbgRqDGVlIVjG45ESGz/FOCLpttKwD0Luz8=;
+        b=YQmMK16yepWFVog/ACOP1qOwYgvwXrVYNou3Lq4pOG1AzOSiZh97QqIoDHPWJhpV3F
+         jeltmSxU6eSAzJ5W2xcoixSFH5qoYY3fxu0eUT8ibrDSKtZiMOY2qXfyyktko2/PwFRt
+         xeECt1WXasFTSHY7l5vuBXKc6QvKxJ2MVNPC4xsO5W7xe/bPV1y0zk7KRlmbOoSOzbaS
+         QQjnK2uQV2bH5GtqgwVwtSW1LlcwYTEwP4trSVcUg2X+vWBV/on9iTT0Zk5pP64JM8vf
+         4qVAiAUy7dwXy/khiRZnr21YstR0zpH01aHpmlgHGdU1x79kaoia+MLfoR9QT1391s4m
+         nERQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784677302; x=1785282102;
+        d=1e100.net; s=20251104; t=1784677330; x=1785282130;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r6dWzaVGKWGEEGUN1y0cZ5+QPx/NLUXjn6OIbSQi+UI=;
-        b=G/yqOHkjTeICyEtm/jMpmmedfDCBHob68bE6jWcpdFM3sULCt6s3k5ccC8YKx8wdLq
-         MifOFZAZbkMUKYH0cOaUemE7uYq3xQsxqmzMJguoTLF6yW5n2n8v60K/bh104L637CWP
-         c814lfHkENtPWi1ojB0AH7TgHvOwUJj4iQLQDuov6mAPGPWNwQu12joAqqEvNAHQS0va
-         CiqeywB4n7qrBjxftcqqb0c80qn/CYFwPeh/t2Sc7+R6USVZtrxToHxbapAgWDfKntjo
-         5eKYeIlhIwOfDubSkmrJqy7LQ1Asm3etRDOo9Jsod31NNEchMsba2FeOkG2MLzzi1gqg
-         uhfg==
-X-Gm-Message-State: AOJu0YxOWmqkBZ/Rkzqvoh+dhPVUvrdIovuQIPOwfyk7M6jhElpX/fNj
-	i4MMBx3X9yRVFFRjwxf8D1X4Jj+IhVEED/uJ2nuIdKLZK1bHno65Q1OQhBFPb9vEqU0=
-X-Gm-Gg: AR+sD13Y4FIG5kPuSPhgswQ1pkp0c04UKPORj1qaOuJQhgdVuq4quubfL+vm5MkvrXU
-	V48AKMQqotn1L/94wiYvEQ2WajB6mvP/BMuR9uFsky2aTxysOgrV/NpptY4mvfPVQ97RUd7iEDf
-	1hna6VH7NKSZ+8pVRPloUi0QV7DhYShT/CoqtpGxbTrnkF7P/Sow1CulPnN6NGFicAdFea9qCfy
-	gaPBRgHjtBgdzsMAVZ5LxUHTiZlVsg9QrSIEBcjH3KpNmOqByB/v14ZfTUJsVLzSde1avzeWUJo
-	2PKcihQftDecQ1bBU7mlTBa41iA/OqoUtFHJHcYV32iiHky/wNW2uJ3vITQCRJGnTeKSIP2N13m
-	5jYqzw4e2m0EkxMML5FBx8y9JwTzcXdwNy9ZC65kumxKVG/vDIFzBtKqoyslLGD2zYEYnaGzvKg
-	VOOPEmn9ugXPpZMA==
-X-Received: by 2002:a05:6a00:ac3:b0:82f:38df:681c with SMTP id d2e1a72fcca58-84c293053b0mr20729793b3a.6.1784677297318;
-        Tue, 21 Jul 2026 16:41:37 -0700 (PDT)
+        bh=AcCaNVJMRbgRqDGVlIVjG45ESGz/FOCLpttKwD0Luz8=;
+        b=V/BhysER/a2voJiJvYVjVmfKRnpkcfxfFd2UzHCAZQJPTi6S6QbS4OCORb1Zyq+IZ7
+         f9KK5Fk435Ou44wOXXHO+Lv2MSJlqzuvkehaFDrnfoNNP9wMKQnCudowZT8+RZjcJ/Ku
+         S4SFg0G09Iqzua7dMCXj9pGdjZRNrlET4GsNK3bmMr7kCJHKGpGUpQ8KrKDmyZVLz+8q
+         Lz5/b9TrQ/RGGCQCMEUMMdM2lb+gUCkwbY7pdKef2ripPcUDWkzLwWENs6lGR0MA29XT
+         xBkJz8xYz7Pp2DJvHx52H954z7W/1tAt6AgfJ2oEdftwF2Fp2cEMmpSdWQfqg2gQNajD
+         2VCg==
+X-Gm-Message-State: AOJu0Yy9TM3Ncm8Bax/0Hg1UqUvAAR5rxmtuWMdVN07LjRs77aTnfEFw
+	LMeYXRCWxCUhtSnPcR5ikmj9bRzEkju6CsNAGVFhct8y39iB+rwQ6CMNm5D617+puxc=
+X-Gm-Gg: AR+sD10VlFTadGHjN2/UMa2or1OshoHby7ldQe4qZO/gxFCMb2/m1daTn+mkWfQi00q
+	yhe1D5iB+6pNujGM0CuO7I3OEykGRKwzGBHVnmRLfjjDaI8lhaqA5TPeckgevwIn9QjCv7meiy4
+	w5MLUQI8wBDWL20HiCoFMJrnLrIi0YIi3plXc1K8S47B92QhNmGgN+KanUyA/iTRY5fA4UX+q34
+	03feKxnJqOd2jPQB9Pn4GdK6jt+2VEqOey9zCdLFfX11tAOqUt/mh1QA7XGKKyrFCx5SpmqiWmD
+	X1Jzt2W8db5PzqOhzKTXjsgo1n8PwQ2DdmPFI71ByPuWYHkpAuolohVJHnG5SXcM3ysWGSglIfD
+	RBNo9zwBnV+HlyZuqSe6tkNfQOrWO9ae9mn1whuTOOatSy9YID236l6blUXLjPAqF/AOeI99kfn
+	H2WM08Lj204BT0XpAeU9ndbShn
+X-Received: by 2002:a17:903:458d:b0:2ca:e19c:986 with SMTP id d9443c01a7336-2cf3484bed4mr206563945ad.1.1784677330499;
+        Tue, 21 Jul 2026 16:42:10 -0700 (PDT)
 Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17604a46sm375928b3a.60.2026.07.21.16.41.35
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f3bbf58sm4119325ad.82.2026.07.21.16.42.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 16:41:36 -0700 (PDT)
+        Tue, 21 Jul 2026 16:42:08 -0700 (PDT)
 From: Daehyeon Ko <4ncienth@gmail.com>
 To: stable@vger.kernel.org
 Cc: Daehyeon Ko <4ncienth@gmail.com>,
 	Sabrina Dubroca <sd@queasysnail.net>,
 	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 5.15.y] macsec: don't read an unset MAC header in macsec_encrypt()
-Date: Wed, 22 Jul 2026 08:40:44 +0900
-Message-ID: <20260721234044.3472868-1-4ncienth@gmail.com>
+Subject: [PATCH 5.10.y] macsec: don't read an unset MAC header in macsec_encrypt()
+Date: Wed, 22 Jul 2026 08:41:53 +0900
+Message-ID: <20260721234153.3480447-1-4ncienth@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026072122-whinny-gravel-daab@gregkh>
-References: <2026072122-whinny-gravel-daab@gregkh>
+In-Reply-To: <2026072122-thriving-elevator-16fa@gregkh>
+References: <2026072122-thriving-elevator-16fa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -105,10 +105,10 @@ Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 011665c81f15..2ec0ccae7fd8 100644
+index a8fd213b586d..3a672655fcf7 100644
 --- a/drivers/net/macsec.c
 +++ b/drivers/net/macsec.c
-@@ -662,7 +662,7 @@ static struct sk_buff *macsec_encrypt(struct sk_buff *skb,
+@@ -666,7 +666,7 @@ static struct sk_buff *macsec_encrypt(struct sk_buff *skb,
  	}
  
  	unprotected_len = skb->len;
