@@ -1,47 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61B242A786
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E6D4499BC
 	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:58:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784627932; cv=none; b=opqkMji4wNM+WTRU0ACZYenchYwS2J/7t9hRYK8tTa/1EDdN6Mc+H+/xmwxFrlzt5ZsBGCkYCRZmwT9E794VsgzvDOhvLFjAabGg1ViYeJCaf9+Cj+z+UsLHWk3JjZv6XWIX7i0HS+LpqIO3wrsFC8+GI4umkU+grz1j8DdXqH8=
+	t=1784627933; cv=none; b=kxBOqB7gdhKzlE4MwOAg8xRKKgwFWqeZN48iWtMRC0elApGLGKGKdPxsN2hxJLj+Uzj0g/fShn6pY5ZEJVbjjhXnnDomBNLlhL1G6yObq+WbIp1zhugoQ0i9/YY6VkrAFPRMWKraeUqpdfrDf6Ke5fS6/eQH/HBYN2pnu06pBjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784627932; c=relaxed/simple;
-	bh=LT5ONm6t1zd3xHjYSEmoUFuFW791kjYXD0qMCiUuftY=;
+	s=arc-20240116; t=1784627933; c=relaxed/simple;
+	bh=v/hDZlH4UBLOuwH/oEoT4jRFwEjoZqRPd6TRhtdGXOw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r0+ejt2071W4y4slYBxf9/MdnwKIhB59XIgTJ4doyspwqelgvkESjixGkrCYmfWdLcMhIj0jJNoWhrNBCAD27Az/vFpwVfLN02+2cXWQZZo4+qKHXYv1kggv+dT+zyI5smlux/fhVt6CGcZ1BTDJTY5DdDE+8Q6COFnEIZLK58w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NNOR8e3t; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=a74FhZGVzi5oxvSzjcgGtHovtbBTEtG8lsMAOOkNqKLKv0I+GFIQnn+vE7gUZFRHuZKIJv5MpUGK75Et/sZzNbgdGE3LC12kWjPeng6AjdbGNiPgDxsa6gk665n93i2TE+1XCW9ydZh31Xf2s8U9W2uraqbkfIQ20ZKw6tBX9cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnVU4IAI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NNOR8e3t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EF21F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnVU4IAI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50F11F00A3D;
 	Tue, 21 Jul 2026 09:58:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784627930;
-	bh=1hzdcXOQdbQu/m3y+5gVXyk1kj98YpAgf8YG9q6I3sA=;
+	bh=+Hdff+XWP9RfjJqJFf8G4GQ1F9l/x7CkhD0HVxQ3evA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NNOR8e3tgczSj9KZxBGaIhmiy25d6JNE56gnAaqwnkinGjHUOs/4h1+QJYD7jFAxc
-	 YEhXtdo2zmGf6Cr7J59OPy25WXHMuIfCsUtPooeoPnCi7mO94mM5P0Mdm+DkeUz0Tw
-	 zXaVpoijgNihZEthfsdC6R0lLCXh/VUUzeLBjYmEQEMcjHd+8kl3bMnX4rJPvS0vXM
-	 DDKL+edgnJM6sOHFEFL2Gf9/dKslf5yNyVkSEDxNgLEOUk0Q7fBMqKy2D8mrw13yFi
-	 eQQzk1rXK9vBtg4XnWf6qTvQCsALlK3P/l4xTmbzx/NCxQSml61euTzE4cHssydhaQ
-	 hRqKfbFEWFfqQ==
+	b=EnVU4IAI9EwXhdz0d8K1eGuXH+u6Bdw59kentFWihi8ZhDXqIly9J2Lk8Coe/Lbt+
+	 8y/1BhvU5FT2zIMJrxxJQyJZr9nbFINwzpEPKKQJL3buBoc1GBwC1/gGzyeUS+mPD/
+	 x2QEkGQwGfR+le8y9HelJaNk+xh0CHi9xFIR34MfCAejmIWSc5JY2CgYeLE5Et5MOv
+	 wECC5oz6fxEWq9yA/PaI78E5X7aHxRWM0eq9DLuNrbZzyLKjdtHAqbE8NeNDPx21uv
+	 fYN9ammpAjPB+DcRM/vtgpmr09PvVnvKaov2L0PEfvf+hDFYVSTTwSMbLMjrxxAtEv
+	 T+bw0uH47Zx1w==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1wm7FQ-00000007A0q-2RVb;
-	Tue, 21 Jul 2026 09:58:48 +0000
+	id 1wm7FQ-00000007A0q-42Yc;
+	Tue, 21 Jul 2026 09:58:49 +0000
 From: Marc Zyngier <maz@kernel.org>
 To: stable@vger.kernel.org
 Cc: Joey Gouly <joey.gouly@arm.com>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>
-Subject: [PATCH 6.18.y 1/5] KVM: arm64: Deduplicate ASID retrieval code
-Date: Tue, 21 Jul 2026 10:58:37 +0100
-Message-ID: <20260721095841.2845371-1-maz@kernel.org>
+	Jonathan Cameron <jonathan.cameron@huawei.com>,
+	Oliver Upton <oupton@kernel.org>
+Subject: [PATCH 6.18.y 3/5] KVM: arm64: nv: Inject SEA if kvm_translate_vncr() can't resolve PFN
+Date: Tue, 21 Jul 2026 10:58:39 +0100
+Message-ID: <20260721095841.2845371-3-maz@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072033-frigidly-corncob-3b28@gregkh>
+In-Reply-To: <20260721095841.2845371-1-maz@kernel.org>
 References: <2026072033-frigidly-corncob-3b28@gregkh>
+ <20260721095841.2845371-1-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,165 +52,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: stable@vger.kernel.org, joey.gouly@arm.com, jonathan.cameron@huawei.com
+X-SA-Exim-Rcpt-To: stable@vger.kernel.org, joey.gouly@arm.com, jonathan.cameron@huawei.com, oupton@kernel.org
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-We currently have three versions of the ASID retrieval code, one
-in the S1 walker, and two in the VNCR handling (although the last
-two are limited to the EL2&0 translation regime).
+From: Oliver Upton <oupton@kernel.org>
 
-Make this code common, and take this opportunity to also simplify
-the code a bit while switching over to the TTBRx_EL1_ASID macro.
+kvm_handle_vncr_abort() assumes that s1_walk_result conveys an abort
+when kvm_translate_vncr() returns -EFAULT. This is not always the case
+as it's possible to encounter 'late' failures on the output of S1
+translation, e.g. a GFN outside of the memslots.
 
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-Link: https://patch.msgid.link/20260225104718.14209-1-maz@kernel.org
+Fix it by preparing an external abort before returning from
+kvm_translate_vncr(). Get rid of the BUG_ON() in the fault injection
+path while at it.
+
+Cc: stable@vger.kernel.org
+Fixes: 2a359e072596 ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/20260618234207.1063941-3-oupton@kernel.org
 Signed-off-by: Marc Zyngier <maz@kernel.org>
-(cherry picked from commit 54e367cb94d6bef941bbc1132d9959dc73bd4b6f)
-[maz: cherry-pick as dependency of bb645aa0a4caeaf7f9cd32e9a948594d434c1a8f]
+(cherry picked from commit 9f3e83345a56280efffe235c65593c7e544c0fcc)
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- arch/arm64/include/asm/kvm_nested.h |  2 +
- arch/arm64/kvm/at.c                 | 27 +------------
- arch/arm64/kvm/nested.c             | 60 +++++++++++++++--------------
- 3 files changed, 35 insertions(+), 54 deletions(-)
+ arch/arm64/include/asm/kvm_nested.h |  8 ++++++++
+ arch/arm64/kvm/at.c                 |  8 --------
+ arch/arm64/kvm/nested.c             | 10 ++++++----
+ 3 files changed, 14 insertions(+), 12 deletions(-)
 
 diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index f7c06a840963d..4d7df3aa7dde6 100644
+index 4d7df3aa7dde6..6f768e361c894 100644
 --- a/arch/arm64/include/asm/kvm_nested.h
 +++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -363,6 +363,8 @@ int kvm_vcpu_allocate_vncr_tlb(struct kvm_vcpu *vcpu);
- int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu);
- void kvm_handle_s1e2_tlbi(struct kvm_vcpu *vcpu, u32 inst, u64 val);
+@@ -353,6 +353,14 @@ struct s1_walk_result {
+ 	bool	failed;
+ };
  
-+u16 get_asid_by_regime(struct kvm_vcpu *vcpu, enum trans_regime regime);
-+
- #define vncr_fixmap(c)						\
- 	({							\
- 		u32 __c = (c);					\
-diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-index e6de6aac6ede2..7a3d07ee6a76c 100644
---- a/arch/arm64/kvm/at.c
-+++ b/arch/arm64/kvm/at.c
-@@ -491,31 +491,8 @@ static int walk_s1(struct kvm_vcpu *vcpu, struct s1_walk_info *wi,
- 	wr->pa |= va & GENMASK_ULL(va_bottom - 1, 0);
- 
- 	wr->nG = (wi->regime != TR_EL2) && (desc & PTE_NG);
--	if (wr->nG) {
--		u64 asid_ttbr, tcr;
--
--		switch (wi->regime) {
--		case TR_EL10:
--			tcr = vcpu_read_sys_reg(vcpu, TCR_EL1);
--			asid_ttbr = ((tcr & TCR_A1) ?
--				     vcpu_read_sys_reg(vcpu, TTBR1_EL1) :
--				     vcpu_read_sys_reg(vcpu, TTBR0_EL1));
--			break;
--		case TR_EL20:
--			tcr = vcpu_read_sys_reg(vcpu, TCR_EL2);
--			asid_ttbr = ((tcr & TCR_A1) ?
--				     vcpu_read_sys_reg(vcpu, TTBR1_EL2) :
--				     vcpu_read_sys_reg(vcpu, TTBR0_EL2));
--			break;
--		default:
--			BUG();
--		}
--
--		wr->asid = FIELD_GET(TTBR_ASID_MASK, asid_ttbr);
--		if (!kvm_has_feat_enum(vcpu->kvm, ID_AA64MMFR0_EL1, ASIDBITS, 16) ||
--		    !(tcr & TCR_ASID16))
--			wr->asid &= GENMASK(7, 0);
--	}
-+	if (wr->nG)
-+		wr->asid = get_asid_by_regime(vcpu, wi->regime);
- 
- 	return 0;
- 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index b1f52f82c9ef6..255a69d03584f 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -817,6 +817,33 @@ int kvm_inject_s2_fault(struct kvm_vcpu *vcpu, u64 esr_el2)
- 	return kvm_inject_nested_sync(vcpu, esr_el2);
- }
- 
-+u16 get_asid_by_regime(struct kvm_vcpu *vcpu, enum trans_regime regime)
++static inline void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
 +{
-+	enum vcpu_sysreg ttbr_elx;
-+	u64 tcr;
-+	u16 asid;
-+
-+	switch (regime) {
-+	case TR_EL10:
-+		tcr = vcpu_read_sys_reg(vcpu, TCR_EL1);
-+		ttbr_elx = (tcr & TCR_A1) ? TTBR1_EL1 : TTBR0_EL1;
-+		break;
-+	case TR_EL20:
-+		tcr = vcpu_read_sys_reg(vcpu, TCR_EL2);
-+		ttbr_elx = (tcr & TCR_A1) ? TTBR1_EL2 : TTBR0_EL2;
-+		break;
-+	default:
-+		BUG();
-+	}
-+
-+	asid = FIELD_GET(TTBRx_EL1_ASID, vcpu_read_sys_reg(vcpu, ttbr_elx));
-+	if (!kvm_has_feat_enum(vcpu->kvm, ID_AA64MMFR0_EL1, ASIDBITS, 16) ||
-+	    !(tcr & TCR_ASID16))
-+		asid &= GENMASK(7, 0);
-+
-+	return asid;
++	wr->fst		= fst;
++	wr->ptw		= s1ptw;
++	wr->s2		= s1ptw;
++	wr->failed	= true;
 +}
 +
- static void invalidate_vncr(struct vncr_tlb *vt)
- {
- 	vt->valid = false;
-@@ -1283,20 +1310,8 @@ static bool kvm_vncr_tlb_lookup(struct kvm_vcpu *vcpu)
- 	if (read_vncr_el2(vcpu) != vt->gva)
- 		return false;
+ int __kvm_translate_va(struct kvm_vcpu *vcpu, struct s1_walk_info *wi,
+ 		       struct s1_walk_result *wr, u64 va);
+ int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa,
+diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
+index 7a3d07ee6a76c..2bdc49bef8613 100644
+--- a/arch/arm64/kvm/at.c
++++ b/arch/arm64/kvm/at.c
+@@ -10,14 +10,6 @@
+ #include <asm/kvm_hyp.h>
+ #include <asm/kvm_mmu.h>
  
--	if (vt->wr.nG) {
--		u64 tcr = vcpu_read_sys_reg(vcpu, TCR_EL2);
--		u64 ttbr = ((tcr & TCR_A1) ?
--			    vcpu_read_sys_reg(vcpu, TTBR1_EL2) :
--			    vcpu_read_sys_reg(vcpu, TTBR0_EL2));
--		u16 asid;
+-static void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
+-{
+-	wr->fst		= fst;
+-	wr->ptw		= s1ptw;
+-	wr->s2		= s1ptw;
+-	wr->failed	= true;
+-}
 -
--		asid = FIELD_GET(TTBR_ASID_MASK, ttbr);
--		if (!kvm_has_feat_enum(vcpu->kvm, ID_AA64MMFR0_EL1, ASIDBITS, 16) ||
--		    !(tcr & TCR_ASID16))
--			asid &= GENMASK(7, 0);
--
--		return asid == vt->wr.asid;
--	}
-+	if (vt->wr.nG)
-+		return get_asid_by_regime(vcpu, TR_EL20) == vt->wr.asid;
+ #define S1_MMU_DISABLED		(-127)
  
- 	return true;
- }
-@@ -1399,21 +1414,8 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
- 	if (read_vncr_el2(vcpu) != vt->gva)
- 		return;
+ static int get_ia_size(struct s1_walk_info *wi)
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 7aabddfd895ef..ece0fd268ecc2 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -1247,15 +1247,19 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
  
--	if (vt->wr.nG) {
--		u64 tcr = vcpu_read_sys_reg(vcpu, TCR_EL2);
--		u64 ttbr = ((tcr & TCR_A1) ?
--			    vcpu_read_sys_reg(vcpu, TTBR1_EL2) :
--			    vcpu_read_sys_reg(vcpu, TTBR0_EL2));
--		u16 asid;
--
--		asid = FIELD_GET(TTBR_ASID_MASK, ttbr);
--		if (!kvm_has_feat_enum(vcpu->kvm, ID_AA64MMFR0_EL1, ASIDBITS, 16) ||
--		    !(tcr & TCR_ASID16))
--			asid &= GENMASK(7, 0);
--
--		if (asid != vt->wr.asid)
--			return;
--	}
-+	if (vt->wr.nG && get_asid_by_regime(vcpu, TR_EL20) != vt->wr.asid)
-+		return;
+ 	gfn = vt->wr.pa >> PAGE_SHIFT;
+ 	memslot = gfn_to_memslot(vcpu->kvm, gfn);
+-	if (!memslot)
++	if (!memslot) {
++		fail_s1_walk(&vt->wr, ESR_ELx_FSC_EXTABT, false);
+ 		return -EFAULT;
++	}
  
- 	vt->cpu = smp_processor_id();
+ 	*is_gmem = kvm_slot_has_gmem(memslot);
+ 	if (!*is_gmem) {
+ 		pfn = __kvm_faultin_pfn(memslot, gfn, write_fault ? FOLL_WRITE : 0,
+ 					&writable, &page);
+-		if (is_error_noslot_pfn(pfn))
++		if (is_error_noslot_pfn(pfn)) {
++			fail_s1_walk(&vt->wr, ESR_ELx_FSC_EXTABT, false);
+ 			return -EFAULT;
++		}
+ 	} else {
+ 		ret = kvm_gmem_get_pfn(vcpu->kvm, memslot, gfn, &pfn, &page, NULL);
+ 		if (ret) {
+@@ -1382,8 +1386,6 @@ int kvm_handle_vncr_abort(struct kvm_vcpu *vcpu)
+ 			 * Translation failed, inject the corresponding
+ 			 * exception back to EL2.
+ 			 */
+-			BUG_ON(!vt->wr.failed);
+-
+ 			esr &= ~ESR_ELx_FSC;
+ 			esr |= FIELD_PREP(ESR_ELx_FSC, vt->wr.fst);
  
 -- 
 2.47.3
