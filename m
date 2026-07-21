@@ -1,143 +1,117 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B0A368D65;
-	Tue, 21 Jul 2026 00:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485E73E95A0;
+	Tue, 21 Jul 2026 00:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784594141; cv=none; b=QxmVsUCSivrGOIdLuyb2r9YfbWfkw5ol7JsRnnXcMjAKw9WpuGz3qWvSRmKIeIfoFxNEckxV27VJD4kQyPTZqyhC2XR7NUFwgJtPQ935muF0vGm5mkLEzcb9izMExUfmkKDBUokJpfXDszgseqq3YVDbxc2iDajyocDfh9weKLg=
+	t=1784594251; cv=none; b=L5gM2rjJHz16lhieV04PkGksHY3JT7Ho9Dclppd3vAd3jxT6c8c2gKQ79xLfLIcGWz2FYCibBGtG7CC9HIe8tX8AorZnebrknXkTByGiv2MsEapxtz2ZHtZ1c9ilJoqKYPOSHxrcZIb8bblfgDVjYxBpOtth3prL2mwDyDN/nC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784594141; c=relaxed/simple;
-	bh=Lvn5frLrdeg6fXfiqJU2JIXyGGVkn3WbSOMkwEazTX0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HterovZWS5+t2nIp61oUNVzC3GmDbx/buFpH0RMw7b0hAItmSGgj0YZ8yQHKt2aiMxVYkOsC9aU8m1Gh/j/YgSZW29oFOZF2eh39BsEDeRB3HEGJmjT3BY4JWhJZwYBIozY+F5xWLpq7qgskNjQZf6qkl1UiPyC48+CN2YdQWR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=s8+BC2pO; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784594251; c=relaxed/simple;
+	bh=xe8V8/lM28GRpy62dcipQyokgnfte5mcd3RxhguMFgU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V++l6LGy7sXkXuToOwoylsUnTQrrr9VxGkWVGFy5/iAYoXKuwL8byaME8lBO2zm0R6pUQsugrDIDq15jA373R8C7bWZDzW1ZBXfCoGOhJ8SlHymOkQ96J39ZTUSpYNif1bATl1X8LVC2qM4621eZ0obIF/j1swNZNvr3QvhS2uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jf9hj4X9; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="s8+BC2pO"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D8B9D517;
-	Tue, 21 Jul 2026 02:34:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784594079;
-	bh=Lvn5frLrdeg6fXfiqJU2JIXyGGVkn3WbSOMkwEazTX0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s8+BC2pOEUVbPBsZ1GSJZIMVRcM3xdIFr8ctRjF3hIl0Nb6KkUdk4+RyYEbyzx+PT
-	 FWQjJ7MspMnw7Zl/V1KcrhBsGsfX1AYZxWvMBKQIzCjWBZadTDuWiT62HvIgPreefm
-	 zVj9/xTlh03q/15ngZpLA5WbUWOgEzisqeDWMglA=
-Date: Tue, 21 Jul 2026 03:35:36 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Christian Hemp <c.hemp@phytec.de>,
-	Stefan Riedmueller <s.riedmueller@phytec.de>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-media@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
-	Robert Chiras <robert.chiras@nxp.com>
-Subject: Re: [PATCH v2 0/6] imx8-isi: Bug fixes and format support
- enhancements
-Message-ID: <20260721003536.GH50424@killaraus.ideasonboard.com>
-References: <20260720-isi-v2-0-45845bc5d4fa@oss.nxp.com>
- <20260721003240.GG50424@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jf9hj4X9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784594250; x=1816130250;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=xe8V8/lM28GRpy62dcipQyokgnfte5mcd3RxhguMFgU=;
+  b=Jf9hj4X9HF6pNxqFIWIEYrLuM4GwWDZmNh5KG9QSh0zHJjhZuJJb/LZl
+   WBj5XmTgpsyKzgDoza0VXKB6549Zdtd1+B38WphnO5mWExDfLCA8zzX/y
+   4UClaCuv3z3ic765EIj99qUrO9OKnb6shEwkIT6Tj6HUbzAL8OTp/6MXM
+   D5cO1bU35nL1RyjkwZkqDf5dz3eQz+LJi/v1/FmFRem7BoqUZ2ho41Mqf
+   pwHJkR0pjWA2yvvHN/0A07lYQCYXbU0nDNpLgyFgXc4T2Mp6FNGybw9GT
+   y7NOxx/ssl9OkuTRWbPG7/pkw5eijVGXln5Vn337QtW+lKxcJB2a128AL
+   g==;
+X-CSE-ConnectionGUID: Tj4Zo/M5SCqbKWxlb/8dnA==
+X-CSE-MsgGUID: Oaq9WP+ITMue8/MzjkQxww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="96544679"
+X-IronPort-AV: E=Sophos;i="6.25,175,1779174000"; 
+   d="scan'208";a="96544679"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 17:37:29 -0700
+X-CSE-ConnectionGUID: FkU5R4aaSbaC5UM/aHpRrQ==
+X-CSE-MsgGUID: XglyZnC6Tk2p+rTgKlOczA==
+X-ExtLoop1: 1
+Received: from unknown (HELO [10.238.208.132]) ([10.238.208.132])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2026 17:37:27 -0700
+Message-ID: <f1ace36f-bbc8-4537-928a-98e0d61d61a3@intel.com>
+Date: Tue, 21 Jul 2026 08:37:24 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260721003240.GG50424@killaraus.ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] KVM: x86: Remove AMX-TF32 enumeration
+To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org
+Cc: kvm@vger.kernel.org, pbonzini@redhat.com, seanjc@google.com,
+ stable@vger.kernel.org, Zhao Liu <zhao1.liu@intel.com>,
+ Binbin Wu <binbin.wu@linux.intel.com>
+References: <20260720205208.519622-1-chang.seok.bae@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20260720205208.519622-1-chang.seok.bae@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 21, 2026 at 03:32:41AM +0300, Laurent Pinchart wrote:
-> On Mon, Jul 20, 2026 at 11:34:02AM +0800, Guoniu Zhou wrote:
-> > This series addresses critical bugs in the imx8-isi driver and extends
-> > format support for high-end sensors and Android requirements.
-> > 
-> > Patch 1 fixes a critical stream ID validation bug in the crossbar routing
-> > where the validation loop iterates over the wrong routing table, allowing
-> > userspace to bypass validation entirely and configure invalid routes.
-> > 
-> > Patch 2 adds additional stream ID validation to enforce hardware constraints
-> > (SOURCE stream must be 0).
-> > 
-> > Patch 3 fixes a stream reference counting bug in the crossbar that prevents
-> > multiple streams from different virtual channels on the same input pad from
-> > being enabled correctly. Only the first stream gets enabled in hardware,
-> > subsequent streams are silently ignored.
-> > 
-> > Patch 4 adds support for 16-bit raw Bayer formats (SBGGR16, SGBRG16,
-> > SGRBG16, SRGGB16) commonly used by high-end image sensors.
-> > 
-> > Patch 5 fixes incorrect color mapping for XBGR32 format in memory-to-memory
-> > mode (marked for stable backport).
-> > 
-> > Patch 6 extends RGB format support by adding BGRA32, RGBA32, BGRX32, RGBX32,
-> > and ARGB2101010 formats with full M2M capabilities to meet Android
-> > requirements.
-> > 
-> > Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+On 7/21/2026 4:52 AM, Chang S. Bae wrote:
+> AMX-TF32 enumeration was added based on the Intel documentation [1]. The
+> recent update removed the feature, indicating that the feature is no
+> longer planned for hardware implementation.
 > 
-> I have taken patches 1, 2 and 5 in my tree already ([1]). The CI
-> pipeline is running ([2]). Once it completes successfully, I will send a
-> pull request. You can base the next version of this series (patches 3, 4
-> and 6) on top of [1].
+> [1] Intel Architecture Instruction Set Extensions and Future Features
 > 
-> [1] https://gitlab.freedesktop.org/linux-media/users/pinchartl/-/commit/db30b841e534f6b97008583f6e63c93473f14afc
-> [2] https://gitlab.freedesktop.org/linux-media/users/pinchartl/-/pipelines/1710408
+> Note: The feature first appeared in the September 2025 revision of the
+> document and was removed in the June 2026 revision.
 
-This failed due to a mistake on my side. I've submitted a new pipeline:
+The feature was first introduced in revision 054, October 2024.
 
-https://gitlab.freedesktop.org/linux-media/users/pinchartl/-/pipelines/1710412
+It's recorded in the revision history.
 
-> > ---
-> > Changes in v2:
-> > - [1/6] Split v1 patch 1/5 into two patches: this patch fixes the core
-> >   for_each_active_route() bug, next patch adds additional stream
-> >   validation (Frank Li)
-> > - [2/6] New patch split from v1 1/5: adds stream ID validation on top of
-> >   for_each_active_route() fix (Frank Li)
-> > - [2/6] Remove incorrect sink_stream validation
-> > - [3/6] Use fixed-size array for enabled_count instead of dynamic allocation
-> > - [3/6] Use BIT_ULL() macro for u64 bitmask operations
-> > - [3/6] Use MXC_ISI_MAX_STREAMS (64) as loop boundary instead of num_sources
-> > - [3/6] Remove mxc_isi_stream_counters_alloc/free functions
-> > - [4/6] Add Reviewed-by tag from Frank Li
-> > - [5/6] Reword commit description for clarity (Frank Li)
-> > - [6/6] Add Reviewed-by tag from Frank Li
-> > - Link to v1: https://lore.kernel.org/r/20260629-isi-v1-0-deebfdb1b07b@oss.nxp.com
-> > 
-> > ---
-> > Guoniu Zhou (5):
-> >       media: nxp: imx8-isi: Fix stream ID validation bypass in crossbar routing
-> >       media: nxp: imx8-isi: Add stream ID validation for crossbar routing
-> >       media: nxp: imx8-isi: Fix per-stream reference counting for multiplexed streams
-> >       media: nxp: imx8-isi: Correct color map between V4L2 and ISI
-> >       media: nxp: imx8-isi: Add additional 32-bit RGB format support
-> > 
-> > Laurentiu Palcu (1):
-> >       media: nxp: imx8-isi: Add 16-bit raw Bayer format support
-> > 
-> >  .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |  7 +-
-> >  .../platform/nxp/imx8-isi/imx8-isi-crossbar.c      | 92 +++++++++++++++-----
-> >  .../media/platform/nxp/imx8-isi/imx8-isi-pipe.c    | 24 ++++++
-> >  .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 97 +++++++++++++++++++++-
-> >  4 files changed, 196 insertions(+), 24 deletions(-)
-> > ---
-> > base-commit: 06cb687a5132fcffe624c0070576ab852ac6b568
-> > change-id: 20260626-isi-00f05b044ac9
+> Cc: stable@vger.kernel.org # v6.20+
+> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 
--- 
-Regards,
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 
-Laurent Pinchart
+> ---
+> V1 -> V2: Collect tags (Zhao, Binbin), put note (Binbu), and cc @stable
+> ---
+>   arch/x86/kvm/cpuid.c         | 1 -
+>   arch/x86/kvm/reverse_cpuid.h | 1 -
+>   2 files changed, 2 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+> index 591d2294acd7..759a1c557080 100644
+> --- a/arch/x86/kvm/cpuid.c
+> +++ b/arch/x86/kvm/cpuid.c
+> @@ -1082,7 +1082,6 @@ void kvm_initialize_cpu_caps(void)
+>   		F(AMX_COMPLEX_ALIAS),
+>   		F(AMX_FP16_ALIAS),
+>   		F(AMX_FP8),
+> -		F(AMX_TF32),
+>   		F(AMX_AVX512),
+>   		F(AMX_MOVRS),
+>   	);
+> diff --git a/arch/x86/kvm/reverse_cpuid.h b/arch/x86/kvm/reverse_cpuid.h
+> index 2ad25781cefb..1bb13903c5b2 100644
+> --- a/arch/x86/kvm/reverse_cpuid.h
+> +++ b/arch/x86/kvm/reverse_cpuid.h
+> @@ -56,7 +56,6 @@
+>   #define X86_FEATURE_AMX_COMPLEX_ALIAS	KVM_X86_FEATURE(CPUID_1E_1_EAX, 2)
+>   #define X86_FEATURE_AMX_FP16_ALIAS	KVM_X86_FEATURE(CPUID_1E_1_EAX, 3)
+>   #define X86_FEATURE_AMX_FP8		KVM_X86_FEATURE(CPUID_1E_1_EAX, 4)
+> -#define X86_FEATURE_AMX_TF32		KVM_X86_FEATURE(CPUID_1E_1_EAX, 6)
+>   #define X86_FEATURE_AMX_AVX512		KVM_X86_FEATURE(CPUID_1E_1_EAX, 7)
+>   #define X86_FEATURE_AMX_MOVRS		KVM_X86_FEATURE(CPUID_1E_1_EAX, 8)
+>   
+
