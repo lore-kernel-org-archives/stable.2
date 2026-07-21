@@ -1,38 +1,38 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F4241A776;
-	Tue, 21 Jul 2026 06:48:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDB141A776;
+	Tue, 21 Jul 2026 06:48:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784616492; cv=none; b=Oz23wSyEbQCBfbHi6hgzp0+GHWlLAMSEEzvwJGliZUINhQ4Ikr458E4XCSQ4s4kP+vOI8p39iiD95kvtOhTC6ha54BNxhPya7NVHaki01PgiHMcqNmaC8PB/9rRBQ6067CZ8QH6T+5gGzcg+LtuJN3SG2sFJFHJ4bnH1RIs3y80=
+	t=1784616495; cv=none; b=As9s2wAWZSNqWbv6vhqECCWpwb0z7WP5b8ozjne6uNiQjnjifbpxCxiCOM0RArr8vw/AWi09zbhSl4fckpTmWKYOhEWbEhrUgFU4S64u+Gw/CEKIFRhlrItCyBJaQY8kb/5bYgTSJNIfrIoJDusLk7GZ1siNzKB0N0D1gAK5q14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784616492; c=relaxed/simple;
-	bh=RA2oV+3c/CvsMB9fvFh/SIvyGMvtkJ06RvzSEbVj9cs=;
+	s=arc-20240116; t=1784616495; c=relaxed/simple;
+	bh=ge+TWb4icNanYC4RtWtGqHS2iaK9/amQnITQLQSQKDQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NGhf3ubbmSRulvTCeMM6TadLSkuOJLCuYvmqt72MZmTBJICVJgggSQ664xHRAXDm9Npr62vJBH2Z9US3ga/ITOcyGzXXsM8piQeWD39LvixguVDTKw9eybf5RykumrDcXNwmDF6QCUhruiO0CDbmr6FG4QDOthM6zDIi34vkA6Q=
+	 MIME-Version; b=uwaLe8RWE2tk6wR/wZd8PRNyBwz5e7wSo1+juRENP+NLNXw5jhJRosUCRh1KQHKDWDh7uxlilwmt7JOFzPpd+hhwtUKsWmZ8ClgmkpbrBqCShLJUrjEALsoS4grHQOrnPEn8CszdgFsZhI5VFwhitnI2LFXUW9/k0QwUBeOttN8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 1e97771284d011f1aa26b74ffac11d73-20260721
+X-UUID: 2266606a84d011f1aa26b74ffac11d73-20260721
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:464eec67-f3a5-4af9-a821-b6825e563397,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:019d5c6ce7d0507cf04a6c64187fe719,BulkI
+X-CID-O-INFO: VERSION:1.3.12,REQID:69d927d5-af34-4c5b-a9c0-d4640c077d08,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:3e7a4f355dedc4bf6a97cc7a7de41efa,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50
-	,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1e97771284d011f1aa26b74ffac11d73-20260721
+X-UUID: 2266606a84d011f1aa26b74ffac11d73-20260721
 X-User: pengcan@kylinos.cn
 Received: from lenovo [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <pengcan@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1705813608; Tue, 21 Jul 2026 14:48:02 +0800
+	with ESMTP id 1501765214; Tue, 21 Jul 2026 14:48:09 +0800
 From: Can Peng <pengcan@kylinos.cn>
 To: vkoul@kernel.org,
 	neil.armstrong@linaro.org,
@@ -41,9 +41,9 @@ Cc: linux-phy@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Can Peng <pengcan@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/4] phy: freescale: fsl-samsung-hdmi: Fix runtime PM cleanup
-Date: Tue, 21 Jul 2026 14:47:49 +0800
-Message-ID: <20260721064752.153338-2-pengcan@kylinos.cn>
+Subject: [PATCH v2 2/4] phy: freescale: fsl-samsung-hdmi: Resume device on remove
+Date: Tue, 21 Jul 2026 14:47:50 +0800
+Message-ID: <20260721064752.153338-3-pengcan@kylinos.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260721064752.153338-1-pengcan@kylinos.cn>
 References: <20260721064752.153338-1-pengcan@kylinos.cn>
@@ -55,60 +55,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fsl_samsung_hdmi_phy_probe() takes a runtime PM reference, marks the
-device active and enables runtime PM before registering the PHY clock.
-If phy_clk_register() fails, probe returns without dropping the runtime
-PM reference or disabling runtime PM.
+The APB clock is acquired with devm_clk_get_enabled(), so devres will
+disable and unprepare it when the driver is unbound.
 
-The remove callback only unregisters the clock provider, so runtime PM
-is also left enabled after a successful probe followed by driver unbind.
+Runtime suspend also disables the APB clock. If the device is runtime
+suspended when the driver is removed, devres will disable the already
+disabled clock and the clock enable count can underflow.
 
-Check pm_runtime_set_active(), use devm_pm_runtime_enable() so runtime
-PM is disabled automatically, and drop the initial noresume reference
-on PM setup and clock registration failures.
+Resume the device in the remove callback before devres runs so the final
+devres disable is balanced. Drop the runtime PM reference with noidle so
+the device is not suspended again before devres cleanup.
 
 Fixes: 6ad082bee902 ("phy: freescale: add Samsung HDMI PHY")
 Cc: stable@vger.kernel.org
 Signed-off-by: Can Peng <pengcan@kylinos.cn>
 ---
- drivers/phy/freescale/phy-fsl-samsung-hdmi.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/phy/freescale/phy-fsl-samsung-hdmi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-index d010fec15671..e7af4f9c7b20 100644
+index e7af4f9c7b20..5f41890bd134 100644
 --- a/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
 +++ b/drivers/phy/freescale/phy-fsl-samsung-hdmi.c
-@@ -665,20 +665,26 @@ static int fsl_samsung_hdmi_phy_probe(struct platform_device *pdev)
- 				     "failed to get ref clk\n");
+@@ -690,7 +690,16 @@ static int fsl_samsung_hdmi_phy_probe(struct platform_device *pdev)
  
- 	pm_runtime_get_noresume(phy->dev);
--	pm_runtime_set_active(phy->dev);
--	pm_runtime_enable(phy->dev);
-+	ret = pm_runtime_set_active(phy->dev);
-+	if (ret)
-+		goto pm_put_noidle;
+ static void fsl_samsung_hdmi_phy_remove(struct platform_device *pdev)
+ {
++	int ret;
 +
-+	ret = devm_pm_runtime_enable(phy->dev);
-+	if (ret)
-+		goto pm_put_noidle;
- 
- 	ret = phy_clk_register(phy);
- 	if (ret) {
- 		dev_err(&pdev->dev, "register clk failed\n");
--		goto register_clk_failed;
-+		goto pm_put_noidle;
- 	}
- 
- 	pm_runtime_put(phy->dev);
- 
- 	return 0;
- 
--register_clk_failed:
-+pm_put_noidle:
-+	pm_runtime_put_noidle(phy->dev);
- 	return ret;
++	ret = pm_runtime_resume_and_get(&pdev->dev);
++	if (ret < 0)
++		dev_warn(&pdev->dev, "failed to resume on remove: %d\n", ret);
++
+ 	of_clk_del_provider(pdev->dev.of_node);
++
++	if (!ret)
++		pm_runtime_put_noidle(&pdev->dev);
  }
  
+ static int __maybe_unused fsl_samsung_hdmi_phy_suspend(struct device *dev)
 -- 
 2.53.0
 
