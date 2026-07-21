@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B563C7691
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856133C73F6
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:13:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625224; cv=none; b=dc3TaGGysxNyjBQ+dfhI7pUMoAIV8KgP1kkR39J6LmSRaDhADyLgEWcGacSOgpoGDyytYVpNyp4bZ3HsMXdEfvAJU+NHZgi8G8ZEA0Sv6M1+PUeDQpMc8G7YRu7qCJofOzYXkcV3xYs2Muma6PQkjt3W921KIhmdBE5e6eKWtrM=
+	t=1784625227; cv=none; b=tuNKCwgF5P9GfsJfxY9xxga2z8qLNxnmxF4gAeyemxHSiHvzU5NFWKE37IThWctAUfF94OY4PcuG7ax+CMeijaAnXQ15YDZPx5oojNMBLrr98TsHbMFDEu3J4ucyof5HfmSIbbnFKEq3mO+7IGE1NegpXzzg4105FqPwDpU3800=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625224; c=relaxed/simple;
-	bh=5cbaS9ARsdPzY/bwMrJY1npxZKxBTyGlXNGdFPe9xNg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=o/OTQaq5O7PXpGB7jTzukSMexfJVt4C20Tyab8vtut+G2LYaDrn6FEDW8tlZ+Swzs65K9jj1eqKeFkPMTBjSnldNROj/VRVyUUV7pZ+6nC1pLvLlflGShkj8cR/WyUWvplaQ8JL+jpnal9rAzTr/MhoegTmwGaxQ5Xtfdnar2mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FV7L+MuN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784625227; c=relaxed/simple;
+	bh=+ECJXtsPC/SBZp29Y9L0lDWEYHPH4X4Xk2aX+Y8iR8g=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZmnFT5qf9ltkAD2dC5iTl1TsUfreSZEue4C5GStHakm4hEmB+Nkcx5bi4/jdmTa97Dt6+0dU9UCNmM/UNCvi6Y4j09rgD8ftfw63Dr2Za6FUol4hg7DhkEh32MsmUzeirckKNxXoV0U0QEPERciD4QuqP6c3ZcsKgef9zXCV14s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BMc/r1Ik; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FV7L+MuN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276D51F000E9;
-	Tue, 21 Jul 2026 09:13:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BMc/r1Ik"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8EF1F000E9;
+	Tue, 21 Jul 2026 09:13:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784625223;
-	bh=R/fyWDrpvYZEJn4eLpuxX6ncbya5UYaGwnzQuD1ra2Y=;
+	s=korg; t=1784625226;
+	bh=TjOC7N/fyOtQEUl9ceDCRBUxbW8XlY+WblPvAg1B3Eo=;
 	h=Subject:To:Cc:From:Date;
-	b=FV7L+MuNeVlGeM0MkBKZoHuXTIQ/JlAEGLS4f9N7g3UGtpnVUxa9ORbOd5yIJi2Bl
-	 1ZBQdBygJNP+hMEAa1Jeg4Kj5sazITQXcTw9RZZ0OauMbONTWZvy2xIKm+7AwSc2w6
-	 YjwNzpbzoQCPvJYumNTwDFMpFcjT9F/pN5Mo1aeo=
-Subject: FAILED: patch "[PATCH] octeontx2-pf: fix SQB pointer leak on init failure" failed to apply to 6.12-stable tree
+	b=BMc/r1Ik7rq4pH/SUkbN7sBoqUJIcwmnmGhQbvTsgiISS1Q5lQkHPItRIJiXoPOph
+	 hzPYjaft3DGYTo7ReWj0kF7Ly27qVZtMT6/rZBfIomgqvNRSySkJibLGneXBpIbAcE
+	 8U+jgwnQYskwP8O11y4Wjdj88J+KAzhOFY+mSjKg=
+Subject: FAILED: patch "[PATCH] octeontx2-pf: fix SQB pointer leak on init failure" failed to apply to 5.15-stable tree
 To: dawei.feng@seu.edu.cn,pabeni@redhat.com,rkannoth@marvell.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 11:13:27 +0200
-Message-ID: <2026072127-glitch-eel-f400@gregkh>
+Date: Tue, 21 Jul 2026 11:13:28 +0200
+Message-ID: <2026072128-robotics-duplicate-a186@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 62e7df6d042aeebd5efb581074e28865c04477be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072127-glitch-eel-f400@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072128-robotics-duplicate-a186@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
