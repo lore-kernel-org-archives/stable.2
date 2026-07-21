@@ -1,101 +1,136 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4283835C68A
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 21:28:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362233C1098;
+	Tue, 21 Jul 2026 21:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784669310; cv=none; b=igFN6EfCwqIoGrw0JhAuTaPPH7Umqhd1vcQmyvv43OX5syYBrIrC6ky94MDYylk7/iu3v2jlbUZ8Up3oS9teVTFL3wHO7uMJVnX2Qy5WzkhgOKh41vR3o3ZrjsOocEEE78o0jNTr2ETlTYwLhKd8hBc7+7TEilBs123TLrRlQkE=
+	t=1784669312; cv=none; b=Y7Q8J+Ac0dQx2pUcUC0SSiRL7oDIsMYbYvvpSivhQ3H2vqSoJhg6gMW+IgSBHi531QwwUvLV+TuiWBpPvwm1IePO39vqr62c4riDLRJ3W6GUAAG/dNLBv5J9ZDXmtDMK5WdCZplrDY/wpLwVhBRjRqWojEJPfJ4aUKI1WsHOasE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784669310; c=relaxed/simple;
-	bh=HboMcYGMtnD56tcUaSlwCUoEiipjssw2OLR1zNCFDEM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=W4e7GNbvun+ROSvYfN24v0KIMebJR5/Gl5+EAi92c8WwjUgHsy2A/ATTzHu/Wq8zQECKsd1yr1287TLTAI7l8uQhpxVpKSHHVSJsxtHN0Mn9Y3U1lN2G8svGSY+dJIrAN5HV55vUr8jJm3cghhw+dXqfSKvFJqTblWEFe3J38mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pUV+NYwp; arc=none smtp.client-ip=74.125.225.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784669312; c=relaxed/simple;
+	bh=DNpbOWashVQJdUVFPN/dXrR4CrU9rwMq8mRMHb2aO8A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PnAUUhIDJRQ5nOqFlbkhP9rOcADPe8s+bsWjwgax95JJ3sQkCWk+xtLFXO0Y5bIbmmobdvJpdx154ljU6rul5qcP2Omihj5MMFan0MCzD8BtyGU0h/4UYPyBhqvA+vl0yiNmd1VubTmjkiS0UcYqNhyeO+oNzF2YkM5NWPzYrrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=i52WRgMI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pUV+NYwp"
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-495501e57beso10920675e9.1
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 14:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784669294; x=1785274094; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HboMcYGMtnD56tcUaSlwCUoEiipjssw2OLR1zNCFDEM=;
-        b=pUV+NYwphf9W445DN1dJ8R3tBAAlnimDF2jzWM4LFDLgMIk2coiFdwV6nOMaH/j4nR
-         yRX5WTIm9cl9Lcq6LRADdGuMbB7p1ilkLzSeIv/VODL2aZmI37hOqj65yBVjlwKotPlu
-         Xp/E+iOFVjjjovhtTLzn6z8bJm3miUNInYu4MiuGmA61k8C5OiatalU+pewLxnWjVbkz
-         FMVTay5ZpeZnn9thVldb9Zdrko/tmVe63xZ9Znuyrl1gpNAV9uhSQc87UiuCbIbhtWQs
-         Wb/pL4inyH2FY0ZFbHsC4g+Fz6PLFNQlZDDckriFnm3y3GHtrgpUu7DlCfKji3JT62Do
-         jh7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784669294; x=1785274094;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HboMcYGMtnD56tcUaSlwCUoEiipjssw2OLR1zNCFDEM=;
-        b=e7UGQcZIkAmPqzzx3KzjZBJb4f2mGIWeVxXTpYHF4uBtjl7GiGgIZcQdyPaYJlX65G
-         H9SfsxjoDR8nnFoN+FpbNbDfSmK6+VVXSaOHnVPtwwvpy0VEy8zG+IZXdUowLuZfgyIo
-         W6rP831qmyVlOaSOGhnXuBXv+XzmorTXfni/SW0X8sazaqbs1NnEjM17EIHd05bhAvli
-         vRoApWPJcA55RJXW5rX4g1OWwXWo9FVMNoUcCJCBpNcF+WmvQXywp6LKjPP6QbI40K3t
-         EWEIBEAKzwnfMMrULFwrTSSgghn1ZFP/KpvZFzWayMy1jqA70Uh2BY8PzDoXAcYN84nC
-         GcGg==
-X-Forwarded-Encrypted: i=1; AHgh+RqpgDkCTkMqJZlZbm/DMCP8dqOIv7pKapnX/BXN8EPI+pEa3oAziNbBzMYPuowbYZVIQkVnFQI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNboIl/MbQOw7BBIiNJHMi/q7T6Yt4lY4cTIPG7yOiazLo8FkH
-	ej29KK1CyuAZG1jm77Q6cw6UsJRR/MUXmZ4ldqzmzckFjYBUjWDNtVLv
-X-Gm-Gg: AfdE7cluOoWuppqiFZo2zmGdqfLssNpZJDUeWI3ObQpgrCMjfqyyhnH5iawQqbQYOB2
-	rodG1e7pJSm/+D6ddcycmh3dmeGdW6AYlwtzi4d6cYdgXM7gAbrCtTocyFE7eyYPR9K0ahkN0NI
-	7DvrI5XSIstphQdDJn/CfHfxZ6+UjpdPHYAn7R1IxZMnR/JscwRQspE4IWaZ++OyfdSqQYSjul/
-	2rYYbwb4BxIXHqvoxIb+xkIvWTjFu+rHyyrjOSW49DwOWki+mqEXEnIOOCN5W+TtFT5652ADTkj
-	EMytcIkBpevlcIz7MSyP0YRm6tLZHx5s8j9w2rpewUq/IPwnDY3Qdl50Mj20Gu2ndVgoR7I09/6
-	QzopWbAvXGx73WzY1JqxeMxngLdXEitUB09wnHTmp5gTsj/aZb9/1sb+WLuGI7Dj7wfpFvmKXf9
-	nm1isK8f8KOTYUzblKpilEBB/hfzywZLMCu3GVUa9l9R2PBbCWzaOYrelpMBPyNuZt0nZWTDf7n
-	GRIUd9hec2IJtqS/Ue9OWYh8EGLjY7dJ3ewUuKLnJAr
-X-Received: by 2002:a05:600c:4e94:b0:495:522f:d994 with SMTP id 5b1f17b1804b1-495522fda7amr177340205e9.0.1784669294194;
-        Tue, 21 Jul 2026 14:28:14 -0700 (PDT)
-Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495653698bcsm87109195e9.2.2026.07.21.14.28.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 14:28:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="i52WRgMI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD721F00ACA;
+	Tue, 21 Jul 2026 21:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784669297;
+	bh=idXcfXFmovpLUnW3ulZXKHKUXhQl8QrCOZSErzqv8Vc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=i52WRgMINT9VmYOzM4/esK/Jrc5hm5yOHYBeH/sacbb79ZQT34IDTPrXanAA29nHK
+	 elZ3O5bamKRg0nbqW6OTOtArV/CeNQjBRkDgabSSWZljx7mE82XcLliXWaEdVKIvoO
+	 baKe0m0mECuPcv/WEgR2TdEc+Qe6Y2RLLC07F3qk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Ian Rogers <irogers@google.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Sasha Levin <sashal@kernel.org>,
+	sashiko-bot@kernel.org
+Subject: [PATCH 6.1 0501/1067] perf sched: Replace BUG_ON on invalid CPU with graceful skip
+Date: Tue, 21 Jul 2026 17:18:22 +0200
+Message-ID: <20260721152435.821744333@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
+References: <20260721152424.521567757@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 21 Jul 2026 23:28:13 +0200
-Message-Id: <DK4KGR25SLFD.3S54RZY16RYQU@gmail.com>
-Cc: "Matt Fleming" <matt@readmodwrite.com>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
- <edumazet@google.com>, <pabeni@redhat.com>, <horms@kernel.org>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <lorenzo@kernel.org>, <toke@toke.dk>, <bpf@vger.kernel.org>,
- <netdev@vger.kernel.org>, <stable@vger.kernel.org>,
- <kernel-team@cloudflare.com>, <mfleming@cloudflare.com>
-Subject: Re: [PATCH bpf v2] veth: convert frag_list skbs before running XDP
-From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
-To: "Jakub Kicinski" <kuba@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260720140545.461747-1-matt@readmodwrite.com>
- <178465260565.839953.7972365481675163007.git-patchwork-notify@kernel.org>
- <20260721141438.0b7a9594@kernel.org>
-In-Reply-To: <20260721141438.0b7a9594@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue Jul 21, 2026 at 11:14 PM CEST, Jakub Kicinski wrote:
-> On Tue, 21 Jul 2026 16:50:05 +0000 patchwork-bot+netdevbpf@kernel.org
-> wrote:
->> Hello:
->>
->> This patch was applied to bpf/bpf.git (master)
->> by Kumar Kartikeya Dwivedi <memxor@gmail.com>:
->
-> Kumar, this looks like a networking patch.
-> Also the kdoc is missing a returns statement.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Sorry about that, I had the feeling it should be tagging net instead.
-I tossed it from the bpf tree.
+------------------
+
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
+
+[ Upstream commit 1e2c83f732deb329ebce23e26cbc482f4c4bf194 ]
+
+latency_switch_event(), latency_runtime_event(), and map_switch_event()
+use BUG_ON(cpu >= MAX_CPUS || cpu < 0) to validate the sample CPU.
+When PERF_SAMPLE_CPU is absent from the sample type,
+evsel__parse_sample() initializes sample->cpu to (u32)-1.  Casting
+this to int yields -1, which triggers the BUG_ON and aborts perf sched.
+
+The central CPU validation in perf_session__deliver_event() intentionally
+preserves the (u32)-1 sentinel for downstream tools like perf script
+and perf inject, so leaf callbacks must handle it themselves.
+
+Replace the three BUG_ON calls with graceful skips using pr_warning(),
+matching the existing pattern in process_sched_switch_event() and
+process_sched_runtime_event() earlier in the same file.  Include the
+file offset for cross-referencing with perf report -D.
+
+Reported-by: sashiko-bot@kernel.org # Running on a local machine
+Reviewed-by: Ian Rogers <irogers@google.com>
+Assisted-by: Claude:claude-opus-4.6
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Stable-dep-of: 8cbca8a480e1 ("perf sched: Fix NULL dereference in latency_runtime_event")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ tools/perf/builtin-sched.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
+index 6584e39b2a8d48..2c954de3ed419c 100644
+--- a/tools/perf/builtin-sched.c
++++ b/tools/perf/builtin-sched.c
+@@ -1154,7 +1154,12 @@ static int latency_switch_event(struct perf_sched *sched,
+ 	int cpu = sample->cpu, err = -1;
+ 	s64 delta;
+ 
+-	BUG_ON(cpu >= MAX_CPUS || cpu < 0);
++	/* perf.data is untrusted input — CPU may be absent or corrupted */
++	if (cpu >= MAX_CPUS || cpu < 0) {
++		pr_warning("WARNING: at offset %#" PRIx64 ": out-of-bound sample CPU %d, skipping sample\n",
++			   sample->file_offset, cpu);
++		return 0;
++	}
+ 
+ 	timestamp0 = sched->cpu_last_switched[cpu];
+ 	sched->cpu_last_switched[cpu] = timestamp;
+@@ -1225,7 +1230,13 @@ static int latency_runtime_event(struct perf_sched *sched,
+ 	if (thread == NULL)
+ 		return -1;
+ 
+-	BUG_ON(cpu >= MAX_CPUS || cpu < 0);
++	/* perf.data is untrusted input — CPU may be absent or corrupted */
++	if (cpu >= MAX_CPUS || cpu < 0) {
++		pr_warning("WARNING: at offset %#" PRIx64 ": out-of-bound sample CPU %d, skipping sample\n",
++			   sample->file_offset, cpu);
++		err = 0;
++		goto out_put;
++	}
+ 	if (!atoms) {
+ 		if (thread_atoms_insert(sched, thread))
+ 			goto out_put;
+@@ -1581,7 +1592,12 @@ static int map_switch_event(struct perf_sched *sched, struct evsel *evsel,
+ 	const char *color = PERF_COLOR_NORMAL;
+ 	char stimestamp[32];
+ 
+-	BUG_ON(this_cpu.cpu >= MAX_CPUS || this_cpu.cpu < 0);
++	/* perf.data is untrusted input — CPU may be absent or corrupted */
++	if (this_cpu.cpu >= MAX_CPUS || this_cpu.cpu < 0) {
++		pr_warning("WARNING: at offset %#" PRIx64 ": out-of-bound sample CPU %d, skipping sample\n",
++			   sample->file_offset, this_cpu.cpu);
++		return 0;
++	}
+ 
+ 	if (this_cpu.cpu > sched->max_cpu.cpu)
+ 		sched->max_cpu = this_cpu;
+-- 
+2.53.0
+
+
+
