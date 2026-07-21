@@ -1,142 +1,106 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1D0374A0E
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 13:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B604B373C10;
+	Tue, 21 Jul 2026 13:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784641629; cv=none; b=jtcd0MyMTAEfiIAzMiqPaFNVAUxip7KgKbUe/sRC66D2NKTzhdBaPe8aZsAnb0KcdW2bSZ761hL5Puium0LjoANQURD4Lyu4xt4NyhfYDAOxg3ebySUiqh4MwaevZL6b5Pms1Qv8sZkxcH5rsUUGDeDqCqNs1ikMiMBgk/vV6Mc=
+	t=1784641752; cv=none; b=JAV0nZ7y5HM/PB/ZHHOr3PyGjBq8NyhEshzG5EWO77JJmigmG4BNwQZm4DcbU4OCdEKPc92bRq3+kqBpIuNprJHu+8gswLbHA/FBizQw94hcLgON7A8H82MG3s50Vlr9c8r94OUsnVJ/qXwqdmi7DCaX1lQchSx1c9mlxvt51yQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784641629; c=relaxed/simple;
-	bh=LaX1q5VWiR5x0tn/HSIQFSx/gGer/j4SLQAX2ipJwRw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=WqAYWLgcYUIpOgONLDdmVqjcrFjNXC3sZ1HZhl68fi3Qckn++tU2WQ1g29j8Vo1s2ToFL6S8/0RYZKN7aK+ZfocYioLfsjc0C8ehm4C4utJUOUPTVyOmXn+KZEM5GMUl68EZGux7av5aUDSLsvOdjHJy2U2mQSXAdTnaMUhdwwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UtzJP6FF; arc=none smtp.client-ip=209.85.208.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
+	s=arc-20240116; t=1784641752; c=relaxed/simple;
+	bh=2pMitxr8h3dju6qIefG3cMKyqO6M24/P9s7g9GHPrL4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jbpLyI8h/ceJRWGugI0m7+Y4pZtG7n/JsYueQ0GCyMv1P+4ONIK7z8jaaJEBumkSEr+jjyEru803DnURC1VYG0Kc4L2REvNCIG83LpcMusbAOCSAAbeCrRRBHN+2G/kzQ1r7tQmgIvV9n7HVxBkJMXC3feT3C1NVBXlP/9kKh8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dNiz+QHl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UtzJP6FF"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6986557937eso6726779a12.3
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 06:47:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784641626; x=1785246426; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=45zSO8zldnJyRSwb0Rze7jbaf6ih9yPr5w2JS8HwOGA=;
-        b=UtzJP6FFatIzPltU9coOb/6Fz4mB8KVZJNriHlIS97E+ul3yZEhlHxzF1iM7wEmxfp
-         oF2DQNelHMcEdo6O1mGxN2GUNvP/rtRoMfnalMWqh76sokP570p51iXryYoi29p89D9G
-         nmf4itJFZOJ4DaY23DSwodO+mWYU24ayw0q+YUKr2hew/RLeLJgW8zJEdqS4u/9WmvBE
-         eWx1eSXsG4y6n/+eYG/nUfaI8udmLZBrTj+jh6WyJqL6NCawSsey2zUTLwVz1ZSDSHB/
-         82pXx9xma6h7TBVlYqKy1BKOdcgiR27/wymfZ40+/+X7GII9E4ARFCDHMG713oegEc+z
-         1DOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784641626; x=1785246426;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=45zSO8zldnJyRSwb0Rze7jbaf6ih9yPr5w2JS8HwOGA=;
-        b=nbfgBdmixaI3dOO5JyDTYPGLBYrrt1OczYIWP5j+j6DCk1eQZlzoCuYuceUoiQ8/2R
-         KQqAXFGTdg1h5rSNRrFFy2yNBpJ+utwLxz7C/BxDrVAPS959eDR6DEeW135Vzzdl9DjD
-         RcT3ZjrmVgAeC0pnj2/rPNnPYk9ZX11DQBnlSK+Ir4ZzgjzfxPzS9wrXppBi/eM1Ldpd
-         o2/Nda/mAzbvi3rzcUJC8Ie3Yh+DwroluwT2BVB223jcxoYUcgGejM9MrbazpKlTiIZO
-         1nhbQJt40GvYXiIC3mw1LlmD559tLgdMsIx8/IWKOnCFQsDIdXW76SkwLM2shKonYd26
-         YDxw==
-X-Gm-Message-State: AOJu0YyRTmF+7xyWvqeqlCtzzjEBFwsGQJRMPfBWveTldIbEzEo+5Iut
-	G3VnR1HDZCNACGxD8lZEpcXiVZFIul10Cht8AbRRBqcLTbq8Q96/w1oYxwIliSxDMLrQEmD9JBS
-	QvW8Xv/QN2F3jPw==
-X-Received: from edrm24.prod.google.com ([2002:aa7:d358:0:b0:698:3e8f:5f8f])
- (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:51c9:b0:695:f580:a66f with SMTP id 4fb4d7f45d1cf-69e652ddfaamr6834370a12.21.1784641625618;
- Tue, 21 Jul 2026 06:47:05 -0700 (PDT)
-Date: Tue, 21 Jul 2026 13:47:04 +0000
-In-Reply-To: <2026072131-citation-reshape-587c@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dNiz+QHl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32541F000E9;
+	Tue, 21 Jul 2026 13:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784641751;
+	bh=gt0r4eFtUYu9vgkUjUSOPX28KChsmWBAhEYVp38RFPo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dNiz+QHlmfkly9Br2iTanLPZcnhuYQIKomL6rhr2onP1AI3OkeBcBCPwmP1Q7Ar58
+	 U8iiZFr/chO/1x7tUtCU9Yzk9pBmZAHrYTnfrlgiIfllcHwDfdTyBLCWBOOejXxrT7
+	 GrhxE1rzXu8DfTl3/aDIdZbnb3ruIDqF8bV5Xyz9C2/f3g8/m6ZuGwSmvJnBVCOsXU
+	 tnA220FBOUMuO5OaaubMrrOyJu2ST7EIuEYUd3RzEBHKdnM/vGrCz5Hx8cc8dgI8/N
+	 OND8jmcxhGelADRhzD2iiBXWw/meaDcVwLB5ie0zaBnGXy+F8pOH1KYerruMY3WcqD
+	 5nhm1s5CAvj3w==
+Date: Tue, 21 Jul 2026 06:49:10 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "David S .
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: pcs: xpcs-plat: fix runtime PM initialization
+Message-ID: <20260721064910.217a6af7@kernel.org>
+In-Reply-To: <7BA9366A-3243-4A46-BA8F-BB170C8AD912@gmail.com>
+References: <20260704214808.1566710-1-coiaprant@gmail.com>
+	<20260720172433.77b83dc7@kernel.org>
+	<7BA9366A-3243-4A46-BA8F-BB170C8AD912@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <2026072131-citation-reshape-587c@gregkh>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-Message-ID: <DK4AN7P1B5KK.15R8G3B5L5E85@google.com>
-Subject: Re: FAILED: patch "[PATCH] sched_ext: Skip ops.set_weight() for
- disabled tasks" failed to apply to 7.1-stable tree
-From: Kuba Piecuch <jpiecuch@google.com>
-To: <gregkh@linuxfoundation.org>, <jpiecuch@google.com>, <tj@kernel.org>
-Cc: <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Greg,
+On Tue, 21 Jul 2026 09:53:53 +0800 Coia Prant wrote:
+> I came across what looks like a runtime PM initialization issue while
+> using pcs-xpcs-plat.c as a reference for the Rockchip XPCS glue driver
+> (drivers/net/pcs/pcs-xpcs-rk.c).
+> 
+> The current code in pcs-xpcs-plat.c does:
+> 
+>     pm_runtime_set_active(dev);
+>     ret = devm_pm_runtime_enable(dev);
+> 
+> This sets the initial PM state to ACTIVE before runtime PM is fully
+> enabled, and before the clock is prepared and enabled.
+> 
+> If the device is later suspended (e.g., during unbind), the suspend
+> callback may try to disable a clock that was never enabled, leading to:
+> 
+>     clk_csr already disabled
+>     clk_csr already unprepared
+> 
+> On Rockchip platforms, the CSR clock (PCLK_XPCS) is required for register
+> access, and this pattern seems problematic when a clock is actually
+> provided.
 
-I'm unable to reproduce the failure using the steps provided.
-The patch applies cleanly. The code compiles and tests are passing.
+Thanks for a clear explanation! A couple of sentences to this effect in
+the commit msg could help backporters understand the severity of the
+issue.
 
-FWIW, below is the patch after cherry-picking the commit:
+> I have a few questions:
+> 
+> 1. Is there a reason this hasn't been noticed before?
+>    As far as I can tell, there is currently no mainline device tree
+>    user that enables this driver on a platform with a real clock
+>    dependency. Out-of-tree users might be using it without any clock
+>    at all, or ACPI users might behave differently.
 
-Thanks,
-Kuba
+Ditto. I think we should drop the Fixes / CC: stable and instead
+add a sentence that no upstream platform can currently trigger this.
 
------------------------- 8< ----------------------------
+> 2. Should we select PM in Kconfig and drop __maybe_unused from the
+>    PM callbacks? Since this driver relies on runtime PM for clock
+>    management, it seems odd to allow !PM builds.
 
-From adc748e669cc1564255430299abf086b9ecd9b45 Mon Sep 17 00:00:00 2001
-From: Kuba Piecuch <jpiecuch@google.com>
-Date: Fri, 10 Jul 2026 14:43:41 +0000
-Subject: [PATCH] sched_ext: Skip ops.set_weight() for disabled tasks
+I'm no PM expert but if it works for current users I don't see the need
+to force the dependency?
 
-When switching a task's sched_class away from sched_ext, we get the
-following sequence of events in __sched_setscheduler():
+> 3. Should we add a .remove callback to force suspend the device on
+>    unbind? Otherwise the clock might remain enabled if the driver is
+>    removed while active.
 
-sched_change_begin()
-  switched_from_scx()
-    scx_disable_task(p)
-      ops.disable(p)
-__setscheduler_params()
-  set_load_weight()
-    reweight_task_scx(p)
-      ops.set_weight(p)
-p->sched_class = next_class;
-sched_change_end()
-  ...
+Embedded experts would have to chime in on this one. AFAIK this is a bit
+of a gray area. Some users may want the link to stay up, eg to allow
+WoL or avoid link training, maybe?
 
-Notably, ops.set_weight() is called _after_ ops.disable().
-This violates the expected semantics of the callbacks, the expectation
-being that ops.disable() can only be followed by ops.exit_task() or
-ops.enable().
-
-Skipping the weight adjustment for disabled tasks should be harmless
-since the weight will be recalculated in scx_enable_task() if the task
-ever rejoins SCX.
-
-Fixes: 637b0682821b ("sched: Fold sched_class::switch{ing,ed}_{to,from}() into the change pattern")
-Cc: stable@vger.kernel.org # v6.19+
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-(cherry picked from commit 0e2f4ab68a89fad42e0f5a9ff4b740738e7aa1d6)
----
- kernel/sched/ext.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index 5d2d19473a82..8429bebc21a1 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -3904,6 +3904,17 @@ static void reweight_task_scx(struct rq *rq, struct task_struct *p,
-        if (task_dead_and_done(p))
-                return;
- 
-+       /*
-+        * When switching sched_class away from SCX, reweight_task_scx()
-+        * is called _after_ scx_disable_task(). Skip calling ops.set_weight()
-+        * since the BPF scheduler may have already forgotten the task in
-+        * ops.disable().
-+        * p->scx.weight will be recalculated in scx_enable_task() if the task
-+        * ever returns to SCX class.
-+        */
-+       if (scx_get_task_state(p) != SCX_TASK_ENABLED)
-+               return;
-+
-        p->scx.weight = sched_weight_to_cgroup(scale_load_down(lw->weight));
-        if (SCX_HAS_OP(sch, set_weight))
-                SCX_CALL_OP_TASK(sch, set_weight, rq, p, p->scx.weight);
-
+> I'm happy to send a follow-up patch addressing these points if you
+> agree with the direction. Let me know what you think.
