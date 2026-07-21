@@ -1,113 +1,115 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769EC3382DE;
-	Tue, 21 Jul 2026 10:53:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745DF372EEF;
+	Tue, 21 Jul 2026 10:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784631204; cv=none; b=eWuEvcGIN1gxwa9Kw1wxhSropzrUoO3sr1ClTi5wlX+JF7p/UhF5THhtpWpDT0DpEt7RrQ5Y1MB8YWZ7CBIFSCDgeJbWQgzCPnBIQI6piAeJZsgW2vcnb+BellWYBIyC6bW+M3+Sjnw/OGeLbVamV5YzfCu9v3suoc7kiQMfK4U=
+	t=1784631503; cv=none; b=sB8qYBWbfkWz9klI1JuNLWh18UEnaBYElcXR/KTmagNVvcTGp5O6jZ2wJTXIrzlD3bdtreRSMOGy2b5xxXEYTEdWEylEa8XHKnKyhqoY4rPkTBGys4MoFM37oLLYwu3IenEgll8tUXwxuiAeVVbjHKyq8sQwjUwYZvOgKYVINGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784631204; c=relaxed/simple;
-	bh=QMGS7lx3vu8AaoPDefBrGoqx/yvSgRVo5uIAQgLhrn8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CCkAOiWPB9hxjaqYppg3b63rIn646/8QewB61A28FSFi+3upd6iBTFaeGhkZVG/OxXziKCbmtmHxWOfUm3Z5fQ4Fs/bwelA9u2NF3hjVrBE0BFaWLGYHq22f7QK7UmfQMy7CxmJjDe3lIZUUe6yDapKO1RTDPontrvrvB28ySYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZEJcpgly; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784631503; c=relaxed/simple;
+	bh=5ERNSbrgHsBf+Kc422Gd9piA11oc+mCc2IKVHlCSe14=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
+	 In-Reply-To:Content-Type; b=OhlIuh57EXRC2/Pv+cOjWE4SpUm5qD4++ny9LoIfjd+ywvG7OF3TTPj7cdezpU6Lv//9+bCLK6fnwIZ5ZQSHmoD9vy9fTZZ1pYmXxEPllkkesiROIlh54jKTVl3NwyNlzvqWc5C6qoDcuEgXHfh67TBOIPnQlP0ZgmU591CPwkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=QMJRwrJo; arc=none smtp.client-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZEJcpgly"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784631203; x=1816167203;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QMGS7lx3vu8AaoPDefBrGoqx/yvSgRVo5uIAQgLhrn8=;
-  b=ZEJcpglyQSKLunW2gpVKAopLJbpweCJQh5rMl6nd+XE2v+H5iwo3lBjK
-   04sF4h7pqmRJGbh65KoFahCaukqc6YkqcOvyh6Mzqrmj7Z1RATu0a3LI2
-   uo2KVV82KSerykAh9Z02DczcLhBMFchZYB4KYpeZxKhyKIwnKkHAdZSMF
-   tcNn4r/2mBnLrH3/zDpgindTsRMfd0SaY6KI0ZlYdIrrG23l9FKKkwInb
-   0aKPSo9BZJqqiqPUGg4kUQV8oNKBoa1ZeyYZcD+q58/y5LZQI5qcTdK6R
-   cHw1bhlzYDUTHHBVDsm6rY2waj0XfNHuDgTwGyHa8BUS6lF4qFM7y5WTF
-   w==;
-X-CSE-ConnectionGUID: kM0Gn2PaQkedZEaGe8H+mg==
-X-CSE-MsgGUID: q5O17zHXTMqVifDWFVt1Vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="102775977"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="102775977"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:53:22 -0700
-X-CSE-ConnectionGUID: ypSbHRg9RdmixMtd2ng8XQ==
-X-CSE-MsgGUID: rs7/BOhST8yYqfzqZX1f2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="256526220"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa010.jf.intel.com with ESMTP; 21 Jul 2026 03:53:18 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 94FF895; Tue, 21 Jul 2026 12:53:17 +0200 (CEST)
-Date: Tue, 21 Jul 2026 13:53:16 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
-	"Dr. David Alan Gilbert" <dave@treblig.org>
-Subject: Re: [PATCH 4/5] usb: typec: mux: ps883x: add a delay after writing
- config regs
-Message-ID: <al9PnLOTW-1OoR6G@kuha>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <20260718-ps883x-disable-usb4-v1-4-cec86d0b909e@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="QMJRwrJo"
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4h4Ddw6fFvz4GK4;
+	Tue, 21 Jul 2026 12:49:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1784630948;
+	bh=5ERNSbrgHsBf+Kc422Gd9piA11oc+mCc2IKVHlCSe14=;
+	h=Date:Subject:To:References:From:Cc:In-Reply-To:From;
+	b=QMJRwrJonYk4zTGopCFJX8HLYvA6vnsIGKN2gS+/X3XllzwKgCosqFsYVxWGK0JOQ
+	 Yb7JR77m2JYqONoMiwx+w5DQ4wBGFFMwkJddZUlPhe7qLM3bZYYmEQRXxdcXBNvAtQ
+	 wmLQkrEqJOuoTn9erYxiMAzQzm/mPdHHi/I3OPqv5jOOw9AhjVZA62EhsZO6NWGGN3
+	 r2dPf+uUbI10LU56V9CKYkUJ8wwmKFejLZXhi+VNREvkB/PNCtiUjblKCyXMGqkY0H
+	 nRUAqWq77V+fmeQY5FazmWqBMsX974kgXJJ5UNRZAhfnk1wf/Ic436uRaiFYxDXoS4
+	 NAigCl2o0RDYw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4h4Ddw5wTFz7w5b;
+	Tue, 21 Jul 2026 12:49:08 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4h4Ddw1J47z8sb9;
+	Tue, 21 Jul 2026 12:49:08 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id DE0CE5F94C;
+	Tue, 21 Jul 2026 12:49:06 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <e2555ce7-0313-4fec-8bc4-739b51a009f3@leemhuis.info>
+Date: Tue, 21 Jul 2026 12:49:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260718-ps883x-disable-usb4-v1-4-cec86d0b909e@oldschoolsolutions.biz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: iw scan hangs in netlink ENOBUFS loop with kernel 6.6.99+
+To: Peter Astrand <astrand@lysator.liu.se>, linux-wireless@vger.kernel.org
+References: <19b022d0-76ff-23cc-ba63-f00fedc65ed1@lysator.liu.se>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+In-Reply-To: <19b022d0-76ff-23cc-ba63-f00fedc65ed1@lysator.liu.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <178463094785.1041444.13436106746578465653@mxe9fb.netcup.net>
+X-NC-CID: YnC2l/69BSGLRFDnFtUiaUr0qZ5ck+X0sjG/ys6pRKLiIBSABWI=
 
-Hi,
-
-On Sat, Jul 18, 2026 at 07:06:32PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On 7/14/26 00:37, Peter Astrand wrote:
 > 
-> The config regs seem to need a few ms to propagate the changes through the
-> system (like, PLLs). This improves the hotplug dp altmode success rate
-> on the Lenovo 40B0 dock to 100%.
-
-20ms - 30ms is a bit more than a few ms.
-
-> Tested with T14s G6 and 40B0 dock on the HDMI port with a type-c host cable.
+> kernel 6.6.y
+> iw 6.7
+> libnl-genl-3-200 3.9.0
+> mac80211_hwsim
 > 
-> Assisted-by: Gemini:3
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
->  drivers/usb/typec/mux/ps883x.c | 2 ++
->  1 file changed, 2 insertions(+)
+> With kernel 6.6.99 and later, "iw dev <device> scan" sometimes hangs in 
+> busy loop:
+
+Thanks for the report. We need to rule out if this is a 6.6.y specific
+problem (like a broken or incomplete backport) or something general.
+Could you please check if 7.2-rc is affected as well? Testing 6.18.y
+might help, too, if it's easy for you to try. Maybe switching to that
+might be the easies way to resolve the problem and a good idea in
+general, as explained here:
+http://www.kroah.com/log/blog/2018/08/24/what-stable-kernel-should-i-use/
+
+Ciao, Thorsten
+> recvmsg(3, {msg_namelen=12}, 0)         = -1 ENOBUFS (No buffer space available)
+> recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, 
+> msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=48, nlmsg_type=NLMSG_ERROR, 
+> nlmsg_flags=0, nlmsg_seq=2511084235, nlmsg_pid=-1866444344}, 
+> {error=-ENOBUFS, msg=[{nlmsg_len=28, nlmsg_type=0x18 /* NLMSG_??? */, 
+> nlmsg_flags=NLM_F_REQUEST|NLM_F_ACK|0x300, nlmsg_seq=2511084235, 
+> nlmsg_pid=-1866444344}, 
+> "\x20\x00\x00\x00\x08\x00\x03\x00\x0e\x00\x00\x00"]}], iov_len=16384}], 
+> msg_iovlen=1, msg_controllen=0, msg_flags=0}, MSG_PEEK|MSG_TRUNC) = 48
 > 
-> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-> index 3533d4f363286..3ca2952e6a0a3 100644
-> --- a/drivers/usb/typec/mux/ps883x.c
-> +++ b/drivers/usb/typec/mux/ps883x.c
-> @@ -185,6 +185,8 @@ static int ps883x_configure(struct ps883x_retimer *retimer, int cfg0,
->  		return ret;
->  	}
->  
-> +	usleep_range(20000, 30000);
+> This issue appears with kernel 6.6.99 and later, even latest version 
+> 6.6.144. 
+> 
+> If I revert these commits:
+> 
+> 346c820ef513 netlink: avoid infinite retry looping in netlink_unicast()
+> c31ee1695b6d netlink: make sure we allow at least one dump skb
+> ce2ac2e46719 netlink: Fix rmem check in netlink_broadcast_deliver().
+> 55baecb9eb90 netlink: Fix wraparounds of sk->sk_rmem_alloc.
+> 
+> ...then 6.6.144 works fine as well. Seems like there is a regression here. 
+> Any ideas? 
+> 
+> Br,
+> Peter Astrand
+> 
 
-/* <explanation why is the delay is necessary> */
-fsleep(20000);
-
->  	return 0;
->  }
-
-thanks,
-
--- 
-heikki
