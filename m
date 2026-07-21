@@ -1,82 +1,39 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E27F33F594
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 13:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E42C339719
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 13:05:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784638934; cv=none; b=r6A4AeoJH4mhh3d6kcJrngEwk4FJXXgYH3MavIv3OMlVqQEhOMp6CmoBVXAlB833sgMi7r7cXAZ0g+Z3FSFoNX55mHtcgw2SO4n3t9CgjfbOp7QYs3jTnMIlimW9mNfIV6gnS2RFmkPFgkeZqmNDLBfdLPkbAQ8n7EZQQ8ImK+k=
+	t=1784639101; cv=none; b=WH0XjSqpHED213oar/EBb4XSXPKuOfkCjaHj2qKPTVo3vJilg/ZLFN11VSAwNtMHCbJxXZGTmOgyWr9Eis+qhopbzm1No0LP0vjUQrGcXd/WDbl3hl7Q1RDdKhdA8KRPRaSh7JFV6NjMFZu2EVLKcgpUrWB3B5SQQHcJAehJk2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784638934; c=relaxed/simple;
-	bh=+DCrHFLSoW0VYsNZrSU6mj0mZzAaljdKnrfDGbIg4pM=;
+	s=arc-20240116; t=1784639101; c=relaxed/simple;
+	bh=pi6fphJT5y/hBvNzDkdHjGcABVtNUo6ScN1hwiga26s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mVWBfXGUoMZ8GVgxpQZPL3baj1qfPSieiZ4/x1W9wjKF7csp8TZR45hyxMqtkDTdlmuZtTtcwQtSHzd41/YHud/r0SNhSuj8MN/HUVIkJcZ97f65CzXhiQQiFKNZdxs0lDegNDZpD578WCjJbsIoOdeSNcZgT9T7ajfV1bXYzXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=x3SnENyN; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=F51LXvyjiXxOSpq7KiXACcsr1Wh8Q5zZhFozebROehye3oj0jbXR0Qj2PuMwJlhIqE6esbLo6S11bp2Yw6ykR9sphdx1bs9vNY5CLwVJz/JwydfSgvXq2sHQRJnqCYl8zl4TfsbaA5pwlbSIRYmNqNxSyEjtTh5M39mY53ENuvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QMrUILjn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="x3SnENyN"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69c20ba892eso6532747a12.1
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 06:02:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1784638931; x=1785243731; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xj5Jk9L5vRk00naBBfj1xpmzt1sYizYOkTxM4/R0a/0=;
-        b=x3SnENyNx2zWVsQYe0z+GEOyYXMxJ/pWAohEkrBkyQ61dQMsTUzr4P/d2inciBG7XJ
-         ij+C/7DAmF++qHLvBUk3c2mi4aNR8RbbNCc+ONZOzoNn/wGnJawz7g3n043vhSPoZ6Op
-         68gAbJZmyUnXrNSQacLILquqfBw1xZsYRgHS1gjNe3CvtPCuSJ8FnpiL1V9AGv3FAZIg
-         zYVfkHiixuV7j18YY0QKUVS7t9yoqzfhLb6FH9f9G/7rFJYE2dlsOJXHEACuy9NXpW8a
-         lYNXRuc36H2v+AP4YVor4tnFuDN/lgWPy4plpKO6FdZDVTy8oU3zUe8PkfGGfoz/Vve3
-         HzvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784638931; x=1785243731;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xj5Jk9L5vRk00naBBfj1xpmzt1sYizYOkTxM4/R0a/0=;
-        b=KpM+XadqyNeegKRTfBrCMsY5VrDSyXtQ1VjCwyjH/4eIZmDNy6+1/JOJKVaRlfKSYl
-         U3eYFcrVp0Z8SWuUXn2csr1JDL6FWGA68ERWqw4lYe4tw+BK9g+jcjBY3dIupjHXVdba
-         MwVVWuDuLy/w6nSY5wd4vQSTIkviaOUprS6z+jo5vd+jnp/+yJQ4nu1GMy1vsP9sBHCy
-         chSci2wRbgiPICjopRRHoFAfnC2vOoThL5h2YyDgUeVPgOFJ/Wf1IOOjnwdVtayMnKT+
-         b7O2TqMNgCbSbHOPnsI8/oEkqTQrc4eF8muYsEpdJiEkV6LEuthW2FktZoTZhvsB0Fov
-         moSA==
-X-Forwarded-Encrypted: i=1; AHgh+RoS6KOuvBpoJ899K6CUd6BfO/IJ7zBjUhQjbfCl4KztFWGtLT9+gquXsdVtBixOBX2cyVHMCqM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqtPuJyCxXjcIt0a3xO7qfDV6Ekz37k70M6r3i1RkCKJnXsrx9
-	NnZEFphqzmE92/2E+mm2xHkCl6/S9LBhxvvJyWAfbwyl7uWU4dMrZIpo3I7AgiYgHdg=
-X-Gm-Gg: AR+sD11xzAiGVeq7fyP0MduD6MVgYIvC3IyHNma76k69ORNn7p4XpP+IbjCyZ0n7Qvx
-	5UtNtW0bmxSd98atoHDIBbO1IB97Nf4F94bq+BPBKW5CL34vxEO7JYn2J3ttR9ejyvoCFl0ecAu
-	hHzozfaMFRPvaSM0oNNwaHsXc8znpdd790bFnVsL3YfK+btGhbOGIku+INXxRpszf0yEBER4fkA
-	9MG0jIpQ7TmTRKt7Dn1OT0MqDcVEM1CmsH/X0mAX56+wwgS5K3ff4OT/wHLVjcFNHbDoxabqQa6
-	adFaNninRRAzX/biw7wc+R8ygb98UByjgSPUSuTwDrTzgoLwRFka+L4IxHE1IF140Rua/VasUC7
-	hPwSSG+zDciWWyzlGXambsUGtp7zCoGqPdRz5zR8c8DsChpSgVTYfjaJ1iUBrCjXeRfaRDOPcvA
-	s=
-X-Received: by 2002:a17:907:9625:b0:c15:dd1f:f2d with SMTP id a640c23a62f3a-c1692413dd8mr998381866b.25.1784638930437;
-        Tue, 21 Jul 2026 06:02:10 -0700 (PDT)
-Received: from localhost ([2a09:bac6:37a8:26c8::3dd:26])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c185c59624dsm581676466b.62.2026.07.21.06.02.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 06:02:09 -0700 (PDT)
-Date: Tue, 21 Jul 2026 14:02:07 +0100
-From: Matt Fleming <matt@readmodwrite.com>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Lorenzo Bianconi <lorenzo@kernel.org>, bpf@vger.kernel.org, 
-	netdev@vger.kernel.org, stable@vger.kernel.org, kernel-team@cloudflare.com, 
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH bpf] veth: convert frag_list skbs before running XDP
-Message-ID: <al9tl_YzWmPXGweT@matt-Precision-5490>
-References: <20260716100605.939654-1-matt@readmodwrite.com>
- <87jyquj5wm.fsf@toke.dk>
- <al3oXdjTYM_PziJp@matt-Precision-5490>
- <al9Q8yPOfQIVxvp1@boxer>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QMrUILjn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3B41F000E9;
+	Tue, 21 Jul 2026 13:04:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784639099;
+	bh=OwXIxsP1WVTGVWXMd8DdFNkQ9AxeNkUouHrhRy0MYHU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QMrUILjnRa+DIeU9IffY0AdL1uhWgX3C0yrAzlslHTFYshRLmLrycIirk1cwokWh6
+	 EYgRf/m5gWEuAK+bSB0TgvJ3VHTcsOz4pFtdDeZTCYylI0EcAfX5oEPOG4rooJ/VLo
+	 uVdJn25oSkN1xdIr/SQE0CUXTaw1FnpHUYX1yY2I=
+Date: Tue, 21 Jul 2026 15:04:50 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Cc: stable@vger.kernel.org, jianxin.pan@amlogic.com, tuan.zhang@amlogic.com,
+	JY <JY.Ho@mediatek.com>, Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>
+Subject: Re: [PATCH] f2fs: fix UAF issue in f2fs_merge_page_bio()
+Message-ID: <2026072110-tweet-comment-9180@gregkh>
+References: <20260709-origin-5-15-y-v1-1-5ac64636d2e8@amlogic.com>
+ <2026070937-unveiling-atlantic-b798@gregkh>
+ <21c69c82-f947-49b6-a046-cd0cd3037dce@amlogic.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,20 +42,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <al9Q8yPOfQIVxvp1@boxer>
+In-Reply-To: <21c69c82-f947-49b6-a046-cd0cd3037dce@amlogic.com>
 
-On Tue, Jul 21, 2026 at 12:58:59PM +0200, Maciej Fijalkowski wrote:
+On Fri, Jul 10, 2026 at 11:17:19AM +0800, Jiucheng Xu wrote:
 > 
-> Hi all,
+> On 7/9/2026 7:04 PM, Greg KH wrote:
+> > [ EXTERNAL EMAIL ]
+> > 
+> > On Thu, Jul 09, 2026 at 05:35:40PM +0800, Jiucheng Xu via B4 Relay wrote:
+> > > From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+> > > 
+> > > commit edf7e9040fc52c922db947f9c6c36f07377c52ea upstream.
+> > > 
+> > > As JY reported in bugzilla [1],
+> > 
+> > What kernel(s) is this for?
 > 
-> I had an RFC that made veth to reuse generic XDP code path [0]. Jakub
-> commented we could have a common pp cow check on both sides. My plan is to
-> revive this work as this still causes page_pool issues when AF_XDP is used
-> on veth.
+> I'm really sorry, Greg.
 > 
-> [0]: https://lore.kernel.org/bpf/20260509084858.773921-1-maciej.fijalkowski@intel.com/
+> This is my first time submitting code to the stable git tree, and I'm not
+> quite familiar with the process and rules yet. Please forgive me.
+> 
+> I hope this patch can be applied to the v5.15.y branch. I referred to other
+> patches and added a "[Mark: backport to v5.15.y]" in the commit message. I'm
+> not sure if this is correct.
 
-That sounds great. I'd be happy to test out the next version.
+It needs to go to the newer kernels first, so that you do not have a
+regression when moving to a newer release.  So can you submit backports
+for all of the relevant stable kernel trees, including 5.15.y, and we
+will be glad to queue them all up then.
 
-Thanks,
-Matt
+thanks,
+
+greg k-h
