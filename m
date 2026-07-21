@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC0637996C
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:47:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5765481FAE
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 11:47:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784634423; cv=none; b=HtVueNI9IUaamMu/reU/Ad8Pu/Z3sc9M/0uSQ+3w50G70sntvhhocb/0GaLHWMd/pbg/cwaWTiPJGaQf3eC75sslqhxiUfSA7SBIdmFmNxr5Xp/se6XM1tV7HulvLN3zjmz82hbZTUZOjCEpfgGQ+igCXYYnegHf4OB3vu5cF/g=
+	t=1784634427; cv=none; b=NjtdiTrt5UrjkNGnyTo8y+StjbGsd81ZhwQ1oojBc51Bl5nYjxIzm1eYahjA10bJSjdrR+/eyyNRjlAX+FuJwjkkeprkcduxOzOavmal/gf6Db+6dB2PkaRvB65fWO6jD0zb6G550X2OYIXKu6SChKHNTNRY5J4DSHtahRu9Lqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784634423; c=relaxed/simple;
-	bh=p4UYlJfQsB1p8QWhZ0QA3bsMTEUUlcaWp82WgPIaygw=;
+	s=arc-20240116; t=1784634427; c=relaxed/simple;
+	bh=GelMaiDOR5Zz5GEyppY7YdeTVNZ6aVogGSPpG8eKLaY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DIWmbyrLhdperznFUbSwxO+nIPI5nOb2hagafZ+sYFDyLOB9wv7R3pJeSHnfJn+pfiZ9hL5EfoFIM/nxcZaZuYI50zwnKxFmPi4c+fEAuhLS5rQdDW47sx0ssAzVOiV2IiV4duhzYGwz1vEEovk9qjo9+08onAkUC45JQmrJpFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g00UYkhJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=clrWOppoq3VU782c39TTYTzSjEJYqyJCKDAOZtFB9tz0mIm4vchVZvf8k+pFiFQ38nN6QLlC7cNkJR3XnntJ/4e62M+o8iZtWOB9ObZ3WrDUFHst9AgurX5l1PZLAYlYvroHapz6WnROoo6J2dI8wJD5BC8tNZ4t7dEvC278stk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PiCOl+tY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g00UYkhJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DE51F000E9;
-	Tue, 21 Jul 2026 11:47:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PiCOl+tY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C0F1F00A3A;
+	Tue, 21 Jul 2026 11:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784634422;
-	bh=UjckwDbX46UIC+lePn7jY8cpY9W7Qxuew2mvY6AZgn4=;
+	s=k20260515; t=1784634425;
+	bh=0Cn+rYnDrwYts3iF03o/fVGkrTjRmAj4JiOD/0/eqZY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g00UYkhJJUR070JivKbawUha9MZfYFvuSNFrZQr52rJM3U90nXnNqYR4j/BFpfD7l
-	 coR/FwIibFD9GPS4edhj085e/GdTbRBa0YVHR10xQPcRYdjmnpt1/KxCF9rsD1+fjl
-	 b6mXrm+j5V+e+EgVFGF/R8aJd39DbmogGu97A4x/Q3uLFzR0NDR9aLcmW2jUJgCrdf
-	 jh8igdYb8Lu/7cKHcoCvvm7vcphJwK0FOfQ/Qm5tqnRWF+49OJUNe+11AuRAK+tvur
-	 4U2bNKdkhl8PPIGfUA48JSq0bN/SEYny6vEMdT1jJIvPGTX7BrX4dR5+jvUdQi7b3p
-	 /ko6cRzOjvPmQ==
+	b=PiCOl+tYCnsK6E87Kh8lDMW4J3JOdop9OMJ2rp65vu9n3n28KgSgeSHNVb7z5ugYo
+	 wpSaCmbGAhLKwaQYALpYicPSaBXzaWNYohTEPbo86NJpTH46/CRb29xgkHWYVGAHNs
+	 IQba4Oo2Fm13iLEQ9ePVrRfhTirEl6t1IGnimRffP9SQiGEzCsdjBGHFy+N0yyxNSb
+	 +Ql1tcwWEBQzkwHqosvS5FWy3eqD2ggvEzVHUB1v8vq08Gi9/ahFVJ3TyXKv4GM61V
+	 kQ21Z2EooGsLXSb7V1VIKKPzfkKU7Van9gBO4u8WI/gFqNEDXS0BRXrqOR6cuZANva
+	 zrxTegBe0uKhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Matt Bobrowski <mattbobrowski@google.com>,
-	oxsignal <awo@kakao.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Amery Hung <ameryhung@gmail.com>,
+Cc: Ricardo Robaina <rrobaina@redhat.com>,
+	Florian Westphal <fw@strlen.de>,
+	Paul Moore <paul@paul-moore.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] bpf: Reject BPF_MAP_TYPE_INODE_STORAGE creation if BPF LSM is uninitialized
-Date: Tue, 21 Jul 2026 07:47:00 -0400
-Message-ID: <20260721114700.3688104-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] audit: add audit_log_nf_skb helper function
+Date: Tue, 21 Jul 2026 07:47:02 -0400
+Message-ID: <20260721114703.3688208-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071658-valium-tidal-ddaa@gregkh>
-References: <2026071658-valium-tidal-ddaa@gregkh>
+In-Reply-To: <2026071526-subarctic-bloating-472e@gregkh>
+References: <2026071526-subarctic-bloating-472e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,118 +46,301 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matt Bobrowski <mattbobrowski@google.com>
+From: Ricardo Robaina <rrobaina@redhat.com>
 
-[ Upstream commit a6f0643e4f63cfaa0d5d4a69de4f132eac4b8fe4 ]
+[ Upstream commit f19590b07cb620be1fcd5474c49515e21a05d406 ]
 
-When CONFIG_BPF_LSM=y is set, BPF inode storage maps
-(BPF_MAP_TYPE_INODE_STORAGE) are compiled into the kernel. However,
-if the BPF LSM is not explicitly enabled at boot time (e.g. omitted
-from the "lsm=" boot parameter), lsm_prepare() is never executed for
-the BPF LSM.
+Netfilter code (net/netfilter/nft_log.c and net/netfilter/xt_AUDIT.c)
+have to be kept in sync. Both source files had duplicated versions of
+audit_ip4() and audit_ip6() functions, which can result in lack of
+consistency and/or duplicated work.
 
-Consequently, the BPF inode security blob offset
-(bpf_lsm_blob_sizes.lbs_inode) is never initialized and remains at
-its default compiled size of 8 bytes instead of being updated to a
-valid offset past the reserved struct rcu_head (typically 16 bytes
-or more).
+This patch adds a helper function in audit.c that can be called by
+netfilter code commonly, aiming to improve maintainability and
+consistency.
 
-When a privileged user creates and updates a BPF_MAP_TYPE_INODE_STORAGE
-map, bpf_inode() evaluates inode->i_security + 8. This erroneously
-aliases the struct rcu_head.func callback pointer at the beginning
-of the inode->i_security blob. During subsequent map element cleanup
-or inode destruction, writing NULL to owner_storage clears the queued
-RCU callback pointer. When rcu_do_batch() later executes the queued
-callback, it attempts an instruction fetch at address 0x0, triggering
-an immediate kernel panic.
-
-Fix this by introducing a global bpf_lsm_initialized boolean flag
-marked with __ro_after_init. Set this flag to true inside bpf_lsm_init()
-when the LSM framework successfully registers the BPF LSM. Gate map
-allocation in inode_storage_map_alloc() on this flag, returning
--EOPNOTSUPP if the BPF LSM is in turn uninitialized.
-
-This fail-fast approach prevents userspace from allocating inode
-storage maps when the supporting BPF LSM infrastructure is absent,
-avoiding zombie map states.
-
-Fixes: 8ea636848aca ("bpf: Implement bpf_local_storage for inodes")
-Reported-by: oxsignal <awo@kakao.com>
-Signed-off-by: Matt Bobrowski <mattbobrowski@google.com>
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Reviewed-by: Amery Hung <ameryhung@gmail.com>
-Link: https://lore.kernel.org/bpf/20260628201103.3624525-1-mattbobrowski@google.com
+Suggested-by: Florian Westphal <fw@strlen.de>
+Suggested-by: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+Acked-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+Stable-dep-of: 65dfde57d1e2 ("audit: fix potential integer overflow in audit_log_n_hex()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/bpf_lsm.h        | 4 ++++
- kernel/bpf/bpf_inode_storage.c | 9 +++++++++
- security/bpf/hooks.c           | 3 +++
- 3 files changed, 16 insertions(+)
+ include/linux/audit.h    |  8 +++++
+ kernel/audit.c           | 64 ++++++++++++++++++++++++++++++++++++++++
+ net/netfilter/nft_log.c  | 58 +-----------------------------------
+ net/netfilter/xt_AUDIT.c | 58 +-----------------------------------
+ 4 files changed, 74 insertions(+), 114 deletions(-)
 
-diff --git a/include/linux/bpf_lsm.h b/include/linux/bpf_lsm.h
-index 643809cc78c33e..e4593b4a123824 100644
---- a/include/linux/bpf_lsm.h
-+++ b/include/linux/bpf_lsm.h
-@@ -14,6 +14,8 @@
+diff --git a/include/linux/audit.h b/include/linux/audit.h
+index 82b7c1116a85c4..4c64e054c74694 100644
+--- a/include/linux/audit.h
++++ b/include/linux/audit.h
+@@ -186,6 +186,8 @@ extern void		    audit_log_lost(const char *message);
  
- #ifdef CONFIG_BPF_LSM
+ extern int audit_log_task_context(struct audit_buffer *ab);
+ extern void audit_log_task_info(struct audit_buffer *ab);
++extern int audit_log_nf_skb(struct audit_buffer *ab,
++			    const struct sk_buff *skb, u8 nfproto);
  
-+extern bool bpf_lsm_initialized __ro_after_init;
+ extern int		    audit_update_lsm_rules(void);
+ 
+@@ -251,6 +253,12 @@ static inline int audit_log_task_context(struct audit_buffer *ab)
+ static inline void audit_log_task_info(struct audit_buffer *ab)
+ { }
+ 
++static inline int audit_log_nf_skb(struct audit_buffer *ab,
++				   const struct sk_buff *skb, u8 nfproto)
++{
++	return 0;
++}
 +
- #define LSM_HOOK(RET, DEFAULT, NAME, ...) \
- 	RET bpf_lsm_##NAME(__VA_ARGS__);
- #include <linux/lsm_hook_defs.h>
-@@ -55,6 +57,8 @@ bool bpf_lsm_has_d_inode_locked(const struct bpf_prog *prog);
- 
- #else /* !CONFIG_BPF_LSM */
- 
-+#define bpf_lsm_initialized false
-+
- static inline bool bpf_lsm_is_sleepable_hook(u32 btf_id)
+ static inline kuid_t audit_get_loginuid(struct task_struct *tsk)
  {
- 	return false;
-diff --git a/kernel/bpf/bpf_inode_storage.c b/kernel/bpf/bpf_inode_storage.c
-index e54cce2b91754c..97c3e8f1a929a3 100644
---- a/kernel/bpf/bpf_inode_storage.c
-+++ b/kernel/bpf/bpf_inode_storage.c
-@@ -181,6 +181,15 @@ static int notsupp_get_next_key(struct bpf_map *map, void *key,
+ 	return INVALID_UID;
+diff --git a/kernel/audit.c b/kernel/audit.c
+index 3e1c18a4110138..6cd9421a5610fd 100644
+--- a/kernel/audit.c
++++ b/kernel/audit.c
+@@ -59,6 +59,8 @@
+ #include <linux/freezer.h>
+ #include <linux/pid_namespace.h>
+ #include <net/netns/generic.h>
++#include <net/ip.h>
++#include <net/ipv6.h>
  
- static struct bpf_map *inode_storage_map_alloc(union bpf_attr *attr)
- {
-+	/*
-+	 * Do not allow allocation of BPF_MAP_TYPE_INODE_STORAGE if the BPF LSM
-+	 * was not initialized by the LSM framework at boot. Without proper
-+	 * initialization, the BPF inode security blob offset remains unprepared,
-+	 * causing bpf_inode() to calculate an invalid memory offset and corrupt
-+	 * inode->i_security.
-+	 */
-+	if (!bpf_lsm_initialized)
-+		return ERR_PTR(-EOPNOTSUPP);
- 	return bpf_local_storage_map_alloc(attr, &inode_cache, false);
+ #include "audit.h"
+ 
+@@ -2307,6 +2309,68 @@ void audit_log_path_denied(int type, const char *operation)
+ 	audit_log_end(ab);
  }
  
-diff --git a/security/bpf/hooks.c b/security/bpf/hooks.c
-index db759025abe11f..9ea9eb9c5d25ee 100644
---- a/security/bpf/hooks.c
-+++ b/security/bpf/hooks.c
-@@ -7,6 +7,8 @@
- #include <linux/bpf_lsm.h>
- #include <uapi/linux/lsm.h>
- 
-+bool bpf_lsm_initialized __ro_after_init;
++int audit_log_nf_skb(struct audit_buffer *ab,
++		     const struct sk_buff *skb, u8 nfproto)
++{
++	/* find the IP protocol in the case of NFPROTO_BRIDGE */
++	if (nfproto == NFPROTO_BRIDGE) {
++		switch (eth_hdr(skb)->h_proto) {
++		case htons(ETH_P_IP):
++			nfproto = NFPROTO_IPV4;
++			break;
++		case htons(ETH_P_IPV6):
++			nfproto = NFPROTO_IPV6;
++			break;
++		default:
++			goto unknown_proto;
++		}
++	}
 +
- static struct security_hook_list bpf_lsm_hooks[] __ro_after_init = {
- 	#define LSM_HOOK(RET, DEFAULT, NAME, ...) \
- 	LSM_HOOK_INIT(NAME, bpf_lsm_##NAME),
-@@ -24,6 +26,7 @@ static int __init bpf_lsm_init(void)
++	switch (nfproto) {
++	case NFPROTO_IPV4: {
++		struct iphdr iph;
++		const struct iphdr *ih;
++
++		ih = skb_header_pointer(skb, skb_network_offset(skb),
++					sizeof(iph), &iph);
++		if (!ih)
++			return -ENOMEM;
++
++		audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
++				 &ih->saddr, &ih->daddr, ih->protocol);
++		break;
++	}
++	case NFPROTO_IPV6: {
++		struct ipv6hdr iph;
++		const struct ipv6hdr *ih;
++		u8 nexthdr;
++		__be16 frag_off;
++
++		ih = skb_header_pointer(skb, skb_network_offset(skb),
++					sizeof(iph), &iph);
++		if (!ih)
++			return -ENOMEM;
++
++		nexthdr = ih->nexthdr;
++		ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(iph),
++				 &nexthdr, &frag_off);
++
++		audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
++				 &ih->saddr, &ih->daddr, nexthdr);
++		break;
++	}
++	default:
++		goto unknown_proto;
++	}
++
++	return 0;
++
++unknown_proto:
++	audit_log_format(ab, " saddr=? daddr=? proto=?");
++	return -EPFNOSUPPORT;
++}
++EXPORT_SYMBOL(audit_log_nf_skb);
++
+ /* global counter which is incremented every time something logs in */
+ static atomic_t session_id = ATOMIC_INIT(0);
+ 
+diff --git a/net/netfilter/nft_log.c b/net/netfilter/nft_log.c
+index 54f6c2035e84d7..48b3049d8666fd 100644
+--- a/net/netfilter/nft_log.c
++++ b/net/netfilter/nft_log.c
+@@ -26,46 +26,10 @@ struct nft_log {
+ 	char			*prefix;
+ };
+ 
+-static bool audit_ip4(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct iphdr _iph;
+-	const struct iphdr *ih;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_iph), &_iph);
+-	if (!ih)
+-		return false;
+-
+-	audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
+-			 &ih->saddr, &ih->daddr, ih->protocol);
+-
+-	return true;
+-}
+-
+-static bool audit_ip6(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct ipv6hdr _ip6h;
+-	const struct ipv6hdr *ih;
+-	u8 nexthdr;
+-	__be16 frag_off;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_ip6h), &_ip6h);
+-	if (!ih)
+-		return false;
+-
+-	nexthdr = ih->nexthdr;
+-	ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(_ip6h), &nexthdr, &frag_off);
+-
+-	audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
+-			 &ih->saddr, &ih->daddr, nexthdr);
+-
+-	return true;
+-}
+-
+ static void nft_log_eval_audit(const struct nft_pktinfo *pkt)
  {
- 	security_add_hooks(bpf_lsm_hooks, ARRAY_SIZE(bpf_lsm_hooks),
- 			   &bpf_lsmid);
-+	bpf_lsm_initialized = true;
- 	pr_info("LSM support for eBPF active\n");
- 	return 0;
+ 	struct sk_buff *skb = pkt->skb;
+ 	struct audit_buffer *ab;
+-	int fam = -1;
+ 
+ 	if (!audit_enabled)
+ 		return;
+@@ -76,27 +40,7 @@ static void nft_log_eval_audit(const struct nft_pktinfo *pkt)
+ 
+ 	audit_log_format(ab, "mark=%#x", skb->mark);
+ 
+-	switch (nft_pf(pkt)) {
+-	case NFPROTO_BRIDGE:
+-		switch (eth_hdr(skb)->h_proto) {
+-		case htons(ETH_P_IP):
+-			fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-			break;
+-		case htons(ETH_P_IPV6):
+-			fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-			break;
+-		}
+-		break;
+-	case NFPROTO_IPV4:
+-		fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-		break;
+-	case NFPROTO_IPV6:
+-		fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-		break;
+-	}
+-
+-	if (fam == -1)
+-		audit_log_format(ab, " saddr=? daddr=? proto=-1");
++	audit_log_nf_skb(ab, skb, nft_pf(pkt));
+ 
+ 	audit_log_end(ab);
  }
+diff --git a/net/netfilter/xt_AUDIT.c b/net/netfilter/xt_AUDIT.c
+index b6a015aee0cecc..4c18606b8654ba 100644
+--- a/net/netfilter/xt_AUDIT.c
++++ b/net/netfilter/xt_AUDIT.c
+@@ -28,46 +28,10 @@ MODULE_ALIAS("ip6t_AUDIT");
+ MODULE_ALIAS("ebt_AUDIT");
+ MODULE_ALIAS("arpt_AUDIT");
+ 
+-static bool audit_ip4(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct iphdr _iph;
+-	const struct iphdr *ih;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_iph), &_iph);
+-	if (!ih)
+-		return false;
+-
+-	audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
+-			 &ih->saddr, &ih->daddr, ih->protocol);
+-
+-	return true;
+-}
+-
+-static bool audit_ip6(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct ipv6hdr _ip6h;
+-	const struct ipv6hdr *ih;
+-	u8 nexthdr;
+-	__be16 frag_off;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_ip6h), &_ip6h);
+-	if (!ih)
+-		return false;
+-
+-	nexthdr = ih->nexthdr;
+-	ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(_ip6h), &nexthdr, &frag_off);
+-
+-	audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
+-			 &ih->saddr, &ih->daddr, nexthdr);
+-
+-	return true;
+-}
+-
+ static unsigned int
+ audit_tg(struct sk_buff *skb, const struct xt_action_param *par)
+ {
+ 	struct audit_buffer *ab;
+-	int fam = -1;
+ 
+ 	if (audit_enabled == AUDIT_OFF)
+ 		goto errout;
+@@ -77,27 +41,7 @@ audit_tg(struct sk_buff *skb, const struct xt_action_param *par)
+ 
+ 	audit_log_format(ab, "mark=%#x", skb->mark);
+ 
+-	switch (xt_family(par)) {
+-	case NFPROTO_BRIDGE:
+-		switch (eth_hdr(skb)->h_proto) {
+-		case htons(ETH_P_IP):
+-			fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-			break;
+-		case htons(ETH_P_IPV6):
+-			fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-			break;
+-		}
+-		break;
+-	case NFPROTO_IPV4:
+-		fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-		break;
+-	case NFPROTO_IPV6:
+-		fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-		break;
+-	}
+-
+-	if (fam == -1)
+-		audit_log_format(ab, " saddr=? daddr=? proto=-1");
++	audit_log_nf_skb(ab, skb, xt_family(par));
+ 
+ 	audit_log_end(ab);
+ 
 -- 
 2.53.0
 
