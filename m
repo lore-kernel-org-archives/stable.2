@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F089A46D2B9
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:13:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC121F3D56;
+	Tue, 21 Jul 2026 17:13:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784654037; cv=none; b=MSQaUzmw0ITRY/W8QLqh5w7MKVokv7SvQ6pFKFdNPIH/prDnxB7GOSXWHtOF0L9u2zAXRqJR5upfL98RrsJLimGPDnnvh32I4+rhj1ouXOCB0v9W6FAF/a79UHPwAIMjrz1cWHycBtPINq1rj9JWimrROkdjp40gVjvIwuLpW3E=
+	t=1784654037; cv=none; b=YsrFbS9/bjvpH3U2z9OqbP5YnYi/1CRVWTdNU81Y1sr0gyVSBsxDZ3x3abQXVASy+0OGbIV3/0I5RuexTfVQBs2frtwpaMFj29G2l9cenzVRG5aUPM3R/WJKfVn2HFcTz2OGzBIXpwMjvV86RmBVI+fV7xYNNWZzOFMly+s/ENs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784654037; c=relaxed/simple;
-	bh=/LVutYw7OZVzvpXOMS82SzBIgA831AlAuQnj3jEml74=;
+	bh=wdJx7yNZ1fKwkqqDNP0w46Ag8IXPvYlCySyi8WJfOR0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sHAKq0Zll8LD4pzH2yZtf5aqBQCUgv/ZRHXjFrtp1w5DASd3pO827hjoqkivZ59ayogS7wzXM4W91Exh/P8W9xAaUQv/Q5DwcBa/yvXmUxPyW6fuHpDOHxpOg0LtnmM+RX/3Ii2CIiSSTyIqPJyw2cLOxCFWWmz7atPViMw+OMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+0NmKMv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gM9uoUyQMGgveVZ0PK/BZSXHtjacIapMoe/PPfzgRVW+ktZCCsaq9uKIRqL05jV3AU1rFJ33XFf1cwwNgFy52vV7ed3R5sr3cHv7Yeg+/TC8ovYIrQS9L/ciTajI/1LzH5AMncnLj9a4bS158Dpep2axoiIGLbllVIgVtlDcLl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EXkRfzip; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+0NmKMv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F3E1F000E9;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EXkRfzip"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C721F00A3A;
 	Tue, 21 Jul 2026 17:13:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784654035;
-	bh=un6NB/ztRrc9En4iItIouTNBY6LWlhMcXy4di5Xyx+A=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784654036;
+	bh=xvjDgyu9BY/7b0dh1Ej5XeJAWeLCcC8uMZ7YEvbzHzc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i+0NmKMvdjitjQj0puK0VhGF8oKKFNHvpcVvr+/ILjqbQWiiI4gKpFyyvU/BgfOIP
-	 sE26nqJ/ut3xwhFvkSm0zN+4lRfg9XNlDC9rCURv/lNFRqu01RVzFsdZRmM0IxCZFm
-	 SsImb7ZxLyPHJ+YK+rbV/HLceXYH/QGUuHaOx5yCQSKbUjJrMXtQhE6p0CqFVks6gI
-	 vnO7LNP3bu/biu0FFOkaj65SV9DopjSrfs6XHLkhGSJ5ZuVhgsrQhRujC7h+znhqQ6
-	 sF1AkMLGYIC0EcjPzFz4R0+6HFlkFR2c0hISgSpclbOI3k+bKhtje1EITc0s6ubech
-	 sJHZE21UKE9IQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=EXkRfzipV2Lv/h3zNJlRbGShTD6whdKT+Ncoj0G4TShqzNybL5gXDx5Y1MqlhQtlN
+	 4huRwb4H6fF8XNI52ud6TEBa0h5BPirmyDL+VAPRpsDaFv3WyrsiEK2O9wjbHk/OLu
+	 /3zdmmpwW4AFJsuYA5CydAait3gW4cBza0LjlXtY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Nicolin Chen <nicolinc@nvidia.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] iommufd: Reject invalid read count in iommufd_fault_fops_read()
-Date: Tue, 21 Jul 2026 13:13:51 -0400
-Message-ID: <20260721171353.111431-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071619-canning-snowdrop-2a4d@gregkh>
-References: <2026071619-canning-snowdrop-2a4d@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>
+Subject: [PATCH 7.1 1552/2077] KVM: s390: vsie: Fix allocation of struct vsie_rmap
+Date: Tue, 21 Jul 2026 17:20:25 +0200
+Message-ID: <20260721152629.381488561@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,44 +45,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nicolin Chen <nicolinc@nvidia.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 47916a54eeb2a9e654512ee609f71bd5b29db702 ]
+------------------
 
-The read count must be large enough to hold one fault or a group's faults.
+From: Claudio Imbrenda <imbrenda@linux.ibm.com>
 
-iommufd_fault_fops_read() does not validate the count, but returns 0 as if
-the read had succeeded while leaving the pending fault in the queue.
+commit 505fcce0c64957f475f9b11fb1403821b7f33e7e upstream.
 
-Return -EINVAL in the undersize cases.
+The allocation size for struct vsie_rmap in kvm_s390_mmu_cache_topup()
+was wrong due to a copy-paste error.
 
-Fixes: 07838f7fd529 ("iommufd: Add iommufd fault object")
-Link: https://patch.msgid.link/r/85c118a606fbedc5c132a1f5ec223a5ba23b92d2.1780343944.git.nicolinc@nvidia.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-[ sashal: applied to fault.c as 6.12 lacks the eventq.c split ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fix it by using the type name.
+
+Fixes: 12f2f61a9e1a ("KVM: s390: KVM page table management functions: allocation")
+CC: stable@vger.kernel.org # 7.1
+Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Message-ID: <20260611104850.110313-4-imbrenda@linux.ibm.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iommu/iommufd/fault.c | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/s390/kvm/dat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/iommufd/fault.c b/drivers/iommu/iommufd/fault.c
-index 8226e28d79a510..6048d8a1c8380e 100644
---- a/drivers/iommu/iommufd/fault.c
-+++ b/drivers/iommu/iommufd/fault.c
-@@ -273,6 +273,9 @@ static ssize_t iommufd_fault_fops_read(struct file *filep, char __user *buf,
- 		if (done >= count ||
- 		    group->fault_count * fault_size > count - done) {
- 			iommufd_fault_deliver_restore(fault, group);
-+			/* Read count doesn't fit the first fault group */
-+			if (done == 0)
-+				rc = -EINVAL;
- 			break;
- 		}
- 
+diff --git a/arch/s390/kvm/dat.c b/arch/s390/kvm/dat.c
+index 4a41c0247ffa..a4fe664f65ee 100644
+--- a/arch/s390/kvm/dat.c
++++ b/arch/s390/kvm/dat.c
+@@ -45,7 +45,7 @@ int kvm_s390_mmu_cache_topup(struct kvm_s390_mmu_cache *mc)
+ 		mc->pts[mc->n_pts] = o;
+ 	}
+ 	for ( ; mc->n_rmaps < KVM_S390_MMU_CACHE_N_RMAPS; mc->n_rmaps++) {
+-		o = kzalloc_obj(*mc->rmaps[0], GFP_KERNEL_ACCOUNT);
++		o = kzalloc_obj(struct vsie_rmap, GFP_KERNEL_ACCOUNT);
+ 		if (!o)
+ 			return -ENOMEM;
+ 		mc->rmaps[mc->n_rmaps] = o;
 -- 
-2.53.0
+2.55.0
+
+
 
