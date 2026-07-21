@@ -1,35 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B15332913;
-	Tue, 21 Jul 2026 19:01:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D6341A776;
+	Tue, 21 Jul 2026 19:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784660490; cv=none; b=ovlgMOH/jUDRVB9Ecr69MmHZAUJ1hybNpsjiD4Ta502hL2yoqqpsfaQ7s6atdksoPmTIB7+SlZmjest8tovpDAYV6TEPJmZaf+w8YHBLsfROs2PyZJFBxjfodZTEERXLE/kpZgWfTUdPmGY1aXT4qX+7XOHkNxWhiEa6UG9VpJk=
+	t=1784660490; cv=none; b=g7GU7qsGnY7ZJCnuWyd8HTGekZTMko6XeGdgnL5y0Pd+6M571pU5WLbGkp8SNnhGlnuRDRIt+Ns4zy+e6Fk3n3YH7trI1mxP5quGvkCODKLSmSBnMBlMcRkPVa+r8JGNb5wlW8zGpfxOwuvMxOHFaDxcqjWAks+yH4wW/ac4AXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784660490; c=relaxed/simple;
-	bh=wNCyKJLYwbw41gEGw7oQ6t/yBuhlDJaeVHiLXl/bTu8=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=a0463C3sNeqEOC8r2abScXxYQCKgt93DLWkmWPRfFbX6IXaYSlc2RGbRh9fvysQmcLhkhZ/Mt2Xyb/XE/SYjYT7A2XEvpMPmOoiS53wwgerUv+7PmqfZhbhmZL77LgIZbGuh4a2SCxSdDZt+aQFsPxC9v8Xtxn+r0H9doNIWVso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WWVPOc28; arc=none smtp.client-ip=100.103.45.18
+	bh=Qh7fJyTTagsmaj+9p0zMEMmUkbtm4glZ6Sq+m919AHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OOg+KSLjifJS7vVuCNXBOJzHgDMgz1mMxi/dipqUjrvZ8c1l2PVcOAglxvf7aZUWt796X0eRknFf/CR9T/THLzSrIdd2rEPiEjE+drRe1Mns66aQ9SHsy1q7JKOznO4VWpCpWxnTOvKMG9angODlaDOILEDxu7DQUmr+VCVYVd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oB0C1XMn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WWVPOc28"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5765A1F0155A;
-	Tue, 21 Jul 2026 19:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784660451;
-	bh=UwtjOB0Zj20D3ATPYXjm0ZXlhSFaikQJlwm+B1jRySI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=WWVPOc28TYbhvxcr1f8G9B60aQgZalU6v4rgzN0UTqHkq1TJezJXXJisCdgRidLhQ
-	 bPDwc84OUT6aTPLwFh96G4rxHsgcQVMUDWQGH5QY0ihwCRWY+MWo/gyR63FdookGrs
-	 HEbiITkbR1GQ3qztUl3xnRolAMvjMbg0ZrvmiIJfh43/mTr50ZDYMmUjXDGufriSIT
-	 2QPkydxe7+ixI9TRwi+UlID65RfYjTMiOc2hOMT2K+xt5zSFabayyXS8mCrZBoAcMi
-	 3cHPL9XNkzDuW3YTHyIJSkgHc3GXTeZsRBG3womCE8oQZdwh2xzJvWJA/P9pwNR+zI
-	 QUX5or85Flk4Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1984639253F6;
-	Tue, 21 Jul 2026 19:00:22 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oB0C1XMn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754C21F00ADF;
+	Tue, 21 Jul 2026 19:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784660444;
+	bh=4RzBPoEr7UbbBtAMY3YeP56XxLNvN7B67P88zltVr5Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oB0C1XMniUnjUDdD7UEFpJDP0AwCFx8ZIACgFNN/bp9DWKKx++EyJYt9+zNtz37Pu
+	 MWdZjl5PDQxPa3WmQv1QD969soECG8qPMf8QXH/qGZnre6sTAoijhTSlg/nLAmwzIu
+	 Kt7b1ru1E6LM8tsGYjls/zOS/WA19hTMElettm4U=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Kan Liang <kan.liang@intel.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 0983/2077] perf tools: Use perf_env__get_cpu_topology() in machine__resolve()
+Date: Tue, 21 Jul 2026 17:10:56 +0200
+Message-ID: <20260721152616.004137626@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,45 +48,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: mvneta: bm: fix device reference leak on failed
- lookup
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178466042064.954483.15403749887126592985.git-patchwork-notify@kernel.org>
-Date: Tue, 21 Jul 2026 19:00:20 +0000
-References: <20260709082713.829446-1-johan@kernel.org>
-In-Reply-To: <20260709082713.829446-1-johan@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- gregory.clement@bootlin.com, netdev@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+------------------
 
-On Thu,  9 Jul 2026 10:27:13 +0200 you wrote:
-> Make sure to drop the reference taken to the buffer manager device when
-> attempting to look up its driver data before the driver has been bound.
-> 
-> Note that holding a reference to a device does not prevent its driver
-> data from going away.
-> 
-> Fixes: 965cbbec7f20 ("net: mvneta: remove data pointer usage from device_node structure")
-> Cc: stable@vger.kernel.org	# 4.19
-> Cc: Gregory CLEMENT <gregory.clement@bootlin.com>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> 
-> [...]
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-Here is the summary with links:
-  - net: mvneta: bm: fix device reference leak on failed lookup
-    https://git.kernel.org/netdev/net-next/c/ede0f99cef53
+[ Upstream commit 5484b43a0ec8231c36fba6ead654cb72dbba8b8f ]
 
-You are awesome, thank you!
+machine__resolve() accesses env->cpu[al->cpu].socket_id after checking
+al->cpu >= 0 and env->cpu != NULL, but without validating al->cpu
+against env->nr_cpus_avail.  Since al->cpu comes from the untrusted
+perf.data sample, a crafted file with a large CPU index causes an
+out-of-bounds heap read.
+
+Use perf_env__get_cpu_topology() which validates both NULL and bounds.
+Also bounds-check al->cpu before the cast to struct perf_cpu (int16_t):
+without this, values like 65536 silently truncate to 0, bypassing the
+accessor's internal check and returning CPU 0's topology.
+
+Fixes: 0c4c4debb0adda4c ("perf tools: Add processor socket info to hist_entry and addr_location")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Reviewed-by: Ian Rogers <irogers@google.com>
+Cc: Kan Liang <kan.liang@intel.com>
+Cc: Ian Rogers <irogers@google.com>
+Assisted-by: Claude:claude-opus-4.6
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ tools/perf/util/event.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/tools/perf/util/event.c b/tools/perf/util/event.c
+index 66f4843bb235df..ea75816d126a14 100644
+--- a/tools/perf/util/event.c
++++ b/tools/perf/util/event.c
+@@ -14,6 +14,7 @@
+ #include <linux/perf_event.h>
+ #include "cpumap.h"
+ #include "dso.h"
++#include "env.h"
+ #include "event.h"
+ #include "debug.h"
+ #include "hist.h"
+@@ -836,8 +837,18 @@ int machine__resolve(struct machine *machine, struct addr_location *al,
+ 	if (al->cpu >= 0) {
+ 		struct perf_env *env = machine->env;
+ 
+-		if (env && env->cpu)
+-			al->socket = env->cpu[al->cpu].socket_id;
++		/*
++		 * Bounds-check al->cpu (s32) before casting to struct perf_cpu
++		 * (int16_t): without this, e.g. 65536 truncates to 0 and silently
++		 * returns CPU 0's topology.  Can go once perf_cpu.cpu is widened.
++		 */
++		if (env && al->cpu < env->nr_cpus_avail) {
++			struct cpu_topology_map *topo;
++
++			topo = perf_env__get_cpu_topology(env, (struct perf_cpu){ al->cpu });
++			if (topo)
++				al->socket = topo->socket_id;
++		}
+ 	}
+ 
+ 	/* Account for possible out-of-order switch events. */
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+2.53.0
+
 
 
