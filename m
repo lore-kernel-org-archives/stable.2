@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32015415F12;
-	Tue, 21 Jul 2026 18:48:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD8433A9FC
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:48:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784659721; cv=none; b=e9vmRVsKBTcF2GCLKR8UseBRHmI2eq5wDYoIfMZx3+yw9EQglcs0dq1TFAEINquAZDPn/tdlUoxlVtkcbH2HE6gcK56lbp8jx7qj7pBgwNhXU75Lal/K/sFNRCT2NhIV84CEZi3AHtrlX25NOamoPgESsoGY+FqArnXMkule4Nc=
+	t=1784659721; cv=none; b=taKRXKbY0xjSZ4g17XOqP00eJEOZFeSja0QGk9qwb1rcFen5OWW0tBlbTPLBrcBVYGyvnT6YJ2Cuom/qVx7gZEWUV59t3Sc5DUqLRyya0N7r08uEI7II32ZcbUFYYpSxnLZUv+cTYUXY8DOQb5j2d1SmBTbKMQU/FdeEPOWGTOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784659721; c=relaxed/simple;
-	bh=dcy95YjIMpHohEtjfo+C5s2Dmo5KqvUOxlAAzHAnZuQ=;
+	bh=6X5tg/qVmaoTktb11pO2ZJ1v6PxEGyO9LKNAz3DhQO4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dtez5VHpfYpVqhSw9X6crj8gM28OzGPvo5NFQWFNgkQQj/OlTljpcx/RwTBOzZ+hLPi0Fg9HiGJI+hI7DJWrqdS1ePrjNrvqW+ocbw6HlGrvbTjFHS4iX+VrfyYl1pI89Wtd21Z7Jb/yvnqD8+lX47LI/wZTgiY+LCiRKB5+0DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=q/ZMOGRs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qOn5rg3L8V0p33abUQPyglIdrwmI3hBqo/9HKArTZovViwRqLTN5BnJcm7zEXal1vH0tF3GsOKVZBB+RGy6Q4USqCFHJGfdmqZ2vBE7eoX/3M820QpIvUS3EzwU6+DGqFD/I5B++OykQFgR+E+RFyxfVCKGJrSM5/6t0u7R6nC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckCjncJt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="q/ZMOGRs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D221F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckCjncJt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83D11F00ACA;
 	Tue, 21 Jul 2026 18:48:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784659720;
-	bh=LsU7CNx4dPCQpOtYcKCPGTTlYpqsG23QIzAdgovdeLI=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784659720;
+	bh=W+sFzXtnpjt7aSXhwSgF2XV2yyHCPvj6cg5qi0BLGfY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=q/ZMOGRsK6rJmnm/GCyfuGYUEVVEBPbzso+oXxgFoOpCmE7QJsWN8uxCfOo6AUIMW
-	 B8DHKwr+WEH+LGDaU2CQuSDJX8x9QAfj/R9nONF0Na/L5jvOm4QtS+AqRepYypCbUG
-	 Y/RveqhE5vk24L0lvfzDIQ3TM3x9NBocpjXrUxOg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=ckCjncJtiIvopSlt/VmF4sUyQIU2ogYC/bQNsji4K3T3fg5EuW2szbvtkS0qB9nwQ
+	 ho9o1HcbfkRElGN+MVhXXX0H0kG8fRmf7I4ySnDx/A7bVs+OpJMiHdZYTgfqmS2iol
+	 q1fIRrxpwk3kL97WqLagHMc/G0vOJ6yV9K9ctrqDI7WYjzfXxKZ1/QP8JqY6g7lo8p
+	 POz+DDilMnBWZ3YsghvLeyi5CSNqEiPnmZaqIfZCM+K+0mxiBnaD1AuR5iAcQGlbk8
+	 rIOWfLriR7QHoSrMzi4s+KHu0Y3tyogxZAbNOIOPZMWcJKa/6GslL/BLJlFU0Lht3p
+	 iL4hAw75Hp21w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	George Moussalem <george.moussalem@outlook.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 0708/2077] net: dsa: qca8k: fix led devicename when using external mdio bus
-Date: Tue, 21 Jul 2026 17:06:21 +0200
-Message-ID: <20260721152609.495562780@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.1.y 3/4] i2c: core: fix NULL-deref on adapter registration failure
+Date: Tue, 21 Jul 2026 14:48:34 -0400
+Message-ID: <20260721184835.382100-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260721184835.382100-1-sashal@kernel.org>
+References: <2026071636-deceiver-subzero-c7fe@gregkh>
+ <20260721184835.382100-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,51 +47,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+From: Johan Hovold <johan@kernel.org>
 
-------------------
+[ Upstream commit 2295d2bb101faa663fbc45fadbb3fec45f107441 ]
 
-From: George Moussalem <george.moussalem@outlook.com>
+If adapter registration ever fails the release callback would trigger a
+NULL-pointer dereference as the completion struct has not been
+initialised.
 
-[ Upstream commit 0b7b378ce6cafbb948786cb6f17f406d94016c8c ]
+Note that before the offending commit this would instead have resulted
+in a minor memory leak of the adapter name.
 
-The qca8k dsa switch can use either an external or internal mdio bus.
-This depends on whether the mdio node is defined under the switch node
-itself. Upon registering the internal mdio bus, the internal_mdio_bus
-of the dsa switch is assigned to this bus. When an external mdio bus is
-used, the driver still uses the internal_mdio_bus id which is used to
-create the device names of the leds.
-This leads to the leds being prefixed with '(efault)' as the
-internal_mii_bus is null. So let's fix this by adding a null check and
-use the devicename of the external bus instead when an external bus is
-configured.
-
-Fixes: 1e264f9d2918 ("net: dsa: qca8k: add LEDs basic support")
-Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Link: https://patch.msgid.link/20260608-qca8k-leds-fix-v3-1-a915bb2f37ae@outlook.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 3f8c4f5e9a57 ("i2c: core: fix reference leak in i2c_register_adapter()")
+Cc: stable@vger.kernel.org
+Cc: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Stable-dep-of: 07d5fb537928 ("i2c: core: fix adapter debugfs creation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/dsa/qca/qca8k-leds.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/i2c/i2c-core-base.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/dsa/qca/qca8k-leds.c b/drivers/net/dsa/qca/qca8k-leds.c
-index 43ac68052baf9f..ef496e345a4e7d 100644
---- a/drivers/net/dsa/qca/qca8k-leds.c
-+++ b/drivers/net/dsa/qca/qca8k-leds.c
-@@ -429,7 +429,8 @@ qca8k_parse_port_leds(struct qca8k_priv *priv, struct fwnode_handle *port, int p
- 		init_data.fwnode = led;
- 		init_data.devname_mandatory = true;
- 		init_data.devicename = kasprintf(GFP_KERNEL, "%s:0%d",
--						 priv->internal_mdio_bus->id,
-+						 priv->internal_mdio_bus ?
-+						 priv->internal_mdio_bus->id : priv->bus->id,
- 						 port_num);
- 		if (!init_data.devicename) {
- 			fwnode_handle_put(led);
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index 8d688d631ccbfe..70876470348ab4 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -1557,7 +1557,7 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	res = device_register(&adap->dev);
+ 	if (res) {
+ 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
+-		goto err_remove_irq_domain;
++		goto err_put_adap;
+ 	}
+ 
+ 	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
+@@ -1603,10 +1603,12 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ out_reg:
+ 	i2c_deregister_clients(adap);
+ 	debugfs_remove_recursive(adap->debugfs);
++	device_del(&adap->dev);
++err_put_adap:
+ 	init_completion(&adap->dev_released);
+-	device_unregister(&adap->dev);
++	put_device(&adap->dev);
+ 	wait_for_completion(&adap->dev_released);
+-err_remove_irq_domain:
++
+ 	i2c_host_notify_irq_teardown(adap);
+ out_list:
+ 	mutex_lock(&core_lock);
 -- 
 2.53.0
-
-
 
