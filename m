@@ -1,90 +1,97 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63DD3E3DB4
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36ED03DDB19;
+	Tue, 21 Jul 2026 17:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653577; cv=none; b=kv0U2MFMDgbmsBgnuXgBgJh51QYaVvlthPJ6ZvHR+8O8JDoSPno5SmFlyPOT6pLP53WaCbzGwKsdJingIHYrm8+DSB2F/4irt4Yyh0P9z0QVA1a8zzPKCU4r1wErO4aCkYvc0SxHCxes//ZIKDiYRMzbt6D3LW9wPBIfni/CSnU=
+	t=1784653577; cv=none; b=o5wciE5WaOw9vKKbSRFiMJzFsLrMZtHrU6JAF8Up5gTZA/6vjb6rP2vMRfPKrRJFmL3wlQLJ9hCXq5aBv0cpLJkmWflKlfTSAFOsex3wUSSgAzhcQEWIPVlsau0S7QzechPautp/+cD2t6clpKHVfY9ApYEVs9kHUGaPr4QoQlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784653577; c=relaxed/simple;
-	bh=Z1kfHjZshRyq0OhKtA+4Xwyb45jgsWJ5RkfvK1EhOX4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZDa/glcbw80EvDMxiuo6yDLKsfPBnxpp5438OndYJ1qjL6pYlkxRwxulBS/lSTTVf1g25btkYo9O1u4X7C1KDfKZ75WPHt77t/py70ja9nkh0QY1P/tS2frrmFG3UdajN01ISRPBLA3r1kwQ583z9UL2FDq6N+1eCpiQu27Zokc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S+1nXKVu; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	bh=8afvkG3HzUhlIs96Jdl7c+/cTj/5wTfSPw29ibcatvo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RfPdj9BYDPGgSxBdiR01rIFV0ZVoHyONJfvwApvEOFIAH7n0Daq16T2BdEr4qIjZpLCv1d6Ut32iHE+JJM8gpy7k+IeO+22k8o6POT1v5S3l7l6keYs2SQS402aqZkZUOR9Fdtp+o/1Xxqv+i957a7rIjGYz/wjuwvO2BmSqzjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WualbsaR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S+1nXKVu"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb5bdd8450dso2686711a12.0
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:06:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784653575; x=1785258375; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TpgRh3CeErOqYeAN760I7EgBZOZeFXDcwxkCd+u/yDU=;
-        b=S+1nXKVu4AynIbk7uv38BmmPZoxDdLC9ConuFm6ia5Je0h0B+y8EwMSWznWpltNXWX
-         XG/Un9jV63TAlZMfXuoDtcEYG06IbQtJUlVJyicwF0iR8jmYR5Ruj6a7JxL2VI5Q29By
-         lCH3BiC4cz6nRrrsuCfMaNNN01Nw2jTZt6KX3eWnqnnMD8F3XqBfy2S05drH0tfak+FL
-         1yqQcw4CBvfbAorwsOS3xj2OAKZQ+lawNRbR+PJw+cIHp71hAHAZaIENTgBNYHAP1MYw
-         DK3e98z0dD53eQXA0XOLLy1aZ8ifet5Cs3J6KSbIwyBiQT6mW3rnoxSppIPKE15CM2wg
-         ji1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784653575; x=1785258375;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TpgRh3CeErOqYeAN760I7EgBZOZeFXDcwxkCd+u/yDU=;
-        b=tT3OrLX1X3+t3KSsIin9CkktxwO2OpY+7tX0Ac6ihyAVV88ZGmFwT+ra5UAkgGHdx3
-         P5tdguCmHTrJ8nSiAizG7/X3ImuqNGTuWBq6IzX+q8lkjDREYw8kh/qq0Dgg2kQb4Kof
-         Iid0xaQ5g89oDD5XDHStJxmUullvg92EG+Bhukyfdh3W3TBQseodeDDawgTQ4TaByN04
-         B1RR10qQ3g0Vo9CwYWr6yx17Yc7Ap4R5w9EqpBqKvU3ecp2TLDHs/GkwIEIrSnHlSpp6
-         G/f0smeqyz7qy3/w2VSNbqwvpFGONyT26PoIfIxZcr/1V6R+sfazYDUKtfqRDMNFxRby
-         9Ylw==
-X-Forwarded-Encrypted: i=1; AHgh+RoObol4vg86iI8pJMg6MGQUQPrW5Fyi6JRbF4JMGWUbAxGH6pgyqR+jQTVs+m01sKsZnlCsP8E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBmXXjAixwAS97MmleCyORAinL1+K2iI6JBkG5g+Q7T2JThs7p
-	XWrncVXd76pawp9ZZ4n+0pZ5F7TofdQa8xz4uT+5zUZGfbIZGltk/N2PqhNRuD3xSIUDBqZkX1I
-	QpFQBjA==
-X-Received: from pgmk20.prod.google.com ([2002:a63:5a54:0:b0:c8b:19f4:6228])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:db09:b0:3bf:b885:2fae
- with SMTP id adf61e73a8af0-3c3ada8bc69mr21255876637.56.1784653574972; Tue, 21
- Jul 2026 10:06:14 -0700 (PDT)
-Date: Tue, 21 Jul 2026 10:06:14 -0700
-In-Reply-To: <20260721164746.376551-1-pbonzini@redhat.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WualbsaR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78A721F000E9;
+	Tue, 21 Jul 2026 17:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784653575;
+	bh=ackawq4vyhksTxAaLdvBS7PCRI9MnUSeFPYkxQ5SsEI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WualbsaRn/z+Pq5KAiBgMgkej31ULh0Dt0Iwq7zBYz9wgivYB52kMn7hub/GnLN+7
+	 VFIm7jR6nK6Y1VUspJjYiry8M5dGqdzHsVRWKGp2i7TlDkuRN00orb5l9XWX8RSQ3n
+	 8wjIMXhOfh/iNHW/gr3LqtkpGlOf0b3lkNqJM1jU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hillf Danton <hdanton@sina.com>,
+	David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	linux-afs@lists.infradead.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 1377/2077] afs: Fix misplaced inc of net->cells_outstanding
+Date: Tue, 21 Jul 2026 17:17:30 +0200
+Message-ID: <20260721152625.295046493@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260721164746.376551-1-pbonzini@redhat.com>
-Message-ID: <al-nBuxK5cOcJUsz@google.com>
-Subject: Re: [PATCH] KVM: VMX: add memory clobber to asm for VMX instructions
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026, Paolo Bonzini wrote:
-> VMCLEAR/VMREAD/VMWRITE/VMPTRLD access the internal VMCS cache, which
-> is not visible to the compiler; without a memory clobber, the compiler
-> can reorder them in troublesome ways because "asm volatile" and "asm goto"
-> only protect against removal of the asm.  For example, placing a VMWRITE
-> before the corresponding VMCS pointer is loaded can lead to corruption.
-> While none of this has been observed, it is better to prevent than cure.
-> 
-> Likewise, INVEPT and INVVPID access the TLB and, even though in their
-> case the effect is only visible to the next VMLAUNCH/VMRESUME, it is
-> technically correct to add the clobber there too.  So avoid any urge to
-> special case them, and simply hardcode "memory" into the clobber list
-> of vmx_asm1() and vmx_asm2().  __vmcs_readl() open-codes its own asm,
-> so add the clobber there as well.
-> 
-> Link: https://lore.kernel.org/kvm/CABgObfbL3t21yVeSwiLSjjOUER+rTYDPHYAH9YU4TWGRjx6XHg@mail.gmail.com/
-> Cc: Sean Christopherson <seanjc@google.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Sean Christopherson <seanjc@google.com>
+------------------
+
+From: David Howells <dhowells@redhat.com>
+
+[ Upstream commit c9c3b615a462a4023bd148f02c564e175ed10502 ]
+
+Fix net->cells_outstanding being incremented before the check for failure
+of idr_alloc_cyclic(), leaving the count incremented on error.
+
+Fixes: 88c853c3f5c0 ("afs: Fix cell refcounting by splitting the usage counter")
+Reported-by: Hillf Danton <hdanton@sina.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Link: https://patch.msgid.link/20260622090856.2746629-12-dhowells@redhat.com
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: linux-afs@lists.infradead.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/afs/cell.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/afs/cell.c b/fs/afs/cell.c
+index 9738684dbdd268..e0fab1609f2787 100644
+--- a/fs/afs/cell.c
++++ b/fs/afs/cell.c
+@@ -205,11 +205,11 @@ static struct afs_cell *afs_alloc_cell(struct afs_net *net,
+ 	cell->dns_source = vllist->source;
+ 	cell->dns_status = vllist->status;
+ 	smp_store_release(&cell->dns_lookup_count, 1); /* vs source/status */
+-	atomic_inc(&net->cells_outstanding);
+ 	ret = idr_alloc_cyclic(&net->cells_dyn_ino, cell,
+ 			       2, INT_MAX / 2, GFP_KERNEL);
+ 	if (ret < 0)
+ 		goto error;
++	atomic_inc(&net->cells_outstanding);
+ 	cell->dynroot_ino = ret;
+ 	cell->debug_id = atomic_inc_return(&cell_debug_id);
+ 
+-- 
+2.53.0
+
+
+
