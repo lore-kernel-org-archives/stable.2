@@ -1,56 +1,43 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3781ADDA9;
-	Tue, 21 Jul 2026 01:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C6B330D2A
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 01:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784596576; cv=none; b=R2UFknbWLAaSD1Z/mlxmtJR5UNSj/Ns7o4vB0EQDxLaZr/ZpPmBP4ngl67VAZRCPqJG39i2oZzWT8ybiKFQytnNrUT42dAABbXaW2CuVzf+TRq2nZ2O3ryOMia2J5OWXu1mYiZkLZ52hDobwxi5K4Z4d50E6Xz6FwX05AtbwHSY=
+	t=1784597274; cv=none; b=UB0na9X5MoCRIlBMvyOO5OTUn/oawP/n7xui9SRE/Fs7I90Ln263wFmDpuolF7f1/bRsQZP9sQ2Aik8R8iM6QixuVR8I1G3ypQSG8Uo2yuOVcdTyLM1GIHc/a6/Yy7yZHxRJi5Ni+g/sqqNTxvkNMbPmFXiAUICM19M/0kjrvMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784596576; c=relaxed/simple;
-	bh=OqYBYrcJJwWhnFI0QkiA2+LSHzV+2KIS2ZdGgUhl8Ko=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fyBxl8H5m76u8FiKbWddom54eZGGLQ6M4dIYWbIy1JBrASIZdiGsyzGUhpKC9HQ59CCZKG0znIYKdIEvpGZPnw/CenyHGNzRqiVO3zxmkykeM06kDO2+LIy0xayTD7h+3/NInWDc9prUPfQkvGBQq5a0NSFFs7WTGlHnfc+IUpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c003c35a84a111f1aa26b74ffac11d73-20260721
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:a11b9ea3-9fb6-418f-8c87-62669e37c309,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:6ca964d20c1be408408dd0f51fef32ef,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c003c35a84a111f1aa26b74ffac11d73-20260721
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1513926998; Tue, 21 Jul 2026 09:16:07 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Eric Anholt <eric@anholt.net>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>,
-	stable@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: [PATCH] drm/vc4: Prevent shader BO mappings from becoming writable
-Date: Tue, 21 Jul 2026 09:15:58 +0800
-Message-Id: <20260721011558.1672477-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1784597274; c=relaxed/simple;
+	bh=KdnLsMCvmazlurJbIiVj59aHWUbXiq/chHNtQrSARXc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pA9ULjttuHDyjCeU9mBbo+tB3e+AxebcWcPFOp25fLs60ozmrCLNauwbzjUQUQFdloedNEwr1Ug74cif7DpdxntCUui9rUQi6x1H13gtS1g6NE2bGSZ6c0LmMSJnL0bHLywkgra4xqperCSyW4SUVmOjUknmuqKWizl8bePtQDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIx0dRdo; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIx0dRdo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9592D1F000E9;
+	Tue, 21 Jul 2026 01:27:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784597273;
+	bh=vx+tqZuDwTx8hdZWQ9nbdEjSvoAdHmfi/iJDbqiUv+Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lIx0dRdogefsIGOvBrqilHShFi81u4Mr/jjSFZ89ctOn2SzG83IctGQbL6Vtyf8/i
+	 9J42mr0SMXKzm/hpdpIbjeRgmyFgfN0euBz4m8MbbNdR++F59IZFnXLIS9HhB4ZChj
+	 yr+Uwnv8hmr7SWU9GcXzp88c6VPXMoj8ZqR3Tkf1imAdDgXdsqcvAOSPcguvNJHjcY
+	 CcLwGgQMFAOM0B3E8fKs6zbD1YAqIX3XAvJzIGxraCFKD3HR+uZTRAXsmHtIVegju4
+	 8Vr91PWwOqymiMdbDmXHD3CNPxyORofcqLSV5btPJUJhSm2M7HFfKS8BRgnH3gJoHI
+	 l1KFsp0IukVsA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ricardo Robaina <rrobaina@redhat.com>,
+	Florian Westphal <fw@strlen.de>,
+	Paul Moore <paul@paul-moore.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] audit: add audit_log_nf_skb helper function
+Date: Mon, 20 Jul 2026 21:27:50 -0400
+Message-ID: <20260721012751.3458464-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071526-proposal-crusher-04da@gregkh>
+References: <2026071526-proposal-crusher-04da@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,48 +46,301 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vc4_gem_object_mmap() rejects a writable mapping of a validated shader
-BO, but leaves VM_MAYWRITE set.  Userspace can map the BO read-only and
-then turn it writable with mprotect().
+From: Ricardo Robaina <rrobaina@redhat.com>
 
-Validated shader BOs must stay read-only: the validator checks the
-instructions once and the GPU trusts them afterwards.  A writable
-mapping lets userspace rewrite the code after validation, bypassing the
-validator.
+[ Upstream commit f19590b07cb620be1fcd5474c49515e21a05d406 ]
 
-Clear VM_MAYWRITE on the read-only path so the mapping cannot be
-upgraded, as i915 already does for its read-only objects.
+Netfilter code (net/netfilter/nft_log.c and net/netfilter/xt_AUDIT.c)
+have to be kept in sync. Both source files had duplicated versions of
+audit_ip4() and audit_ip6() functions, which can result in lack of
+consistency and/or duplicated work.
 
-Fixes: 463873d57014 ("drm/vc4: Add an API for creating GPU shaders in GEM BOs.")
-Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/dri-devel/20260720085554.B0AF01F000E9@smtp.kernel.org/
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+This patch adds a helper function in audit.c that can be called by
+netfilter code commonly, aiming to improve maintainability and
+consistency.
+
+Suggested-by: Florian Westphal <fw@strlen.de>
+Suggested-by: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+Acked-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+Stable-dep-of: 65dfde57d1e2 ("audit: fix potential integer overflow in audit_log_n_hex()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/vc4/vc4_bo.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ include/linux/audit.h    |  8 +++++
+ kernel/audit.c           | 64 ++++++++++++++++++++++++++++++++++++++++
+ net/netfilter/nft_log.c  | 58 +-----------------------------------
+ net/netfilter/xt_AUDIT.c | 58 +-----------------------------------
+ 4 files changed, 74 insertions(+), 114 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
-index 2161761b1f22..5e7c46dd7823 100644
---- a/drivers/gpu/drm/vc4/vc4_bo.c
-+++ b/drivers/gpu/drm/vc4/vc4_bo.c
-@@ -732,9 +732,13 @@ static int vc4_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct
- {
- 	struct vc4_bo *bo = to_vc4_bo(obj);
+diff --git a/include/linux/audit.h b/include/linux/audit.h
+index e952868c8d2e9c..48517ef8deaa75 100644
+--- a/include/linux/audit.h
++++ b/include/linux/audit.h
+@@ -177,6 +177,8 @@ extern void		    audit_log_lost(const char *message);
  
--	if (bo->validated_shader && (vma->vm_flags & VM_WRITE)) {
--		DRM_DEBUG("mmapping of shader BOs for writing not allowed.\n");
--		return -EINVAL;
-+	if (bo->validated_shader) {
-+		if (vma->vm_flags & VM_WRITE) {
-+			DRM_DEBUG("mmapping of shader BOs for writing not allowed.\n");
-+			return -EINVAL;
-+		}
+ extern int audit_log_task_context(struct audit_buffer *ab);
+ extern void audit_log_task_info(struct audit_buffer *ab);
++extern int audit_log_nf_skb(struct audit_buffer *ab,
++			    const struct sk_buff *skb, u8 nfproto);
+ 
+ extern int		    audit_update_lsm_rules(void);
+ 
+@@ -242,6 +244,12 @@ static inline int audit_log_task_context(struct audit_buffer *ab)
+ static inline void audit_log_task_info(struct audit_buffer *ab)
+ { }
+ 
++static inline int audit_log_nf_skb(struct audit_buffer *ab,
++				   const struct sk_buff *skb, u8 nfproto)
++{
++	return 0;
++}
 +
-+		vm_flags_clear(vma, VM_MAYWRITE);
- 	}
+ static inline kuid_t audit_get_loginuid(struct task_struct *tsk)
+ {
+ 	return INVALID_UID;
+diff --git a/kernel/audit.c b/kernel/audit.c
+index 4a94c2410530b2..48f8824cca491b 100644
+--- a/kernel/audit.c
++++ b/kernel/audit.c
+@@ -59,6 +59,8 @@
+ #include <linux/freezer.h>
+ #include <linux/pid_namespace.h>
+ #include <net/netns/generic.h>
++#include <net/ip.h>
++#include <net/ipv6.h>
  
- 	mutex_lock(&bo->madv_lock);
+ #include "audit.h"
+ 
+@@ -2305,6 +2307,68 @@ void audit_log_path_denied(int type, const char *operation)
+ 	audit_log_end(ab);
+ }
+ 
++int audit_log_nf_skb(struct audit_buffer *ab,
++		     const struct sk_buff *skb, u8 nfproto)
++{
++	/* find the IP protocol in the case of NFPROTO_BRIDGE */
++	if (nfproto == NFPROTO_BRIDGE) {
++		switch (eth_hdr(skb)->h_proto) {
++		case htons(ETH_P_IP):
++			nfproto = NFPROTO_IPV4;
++			break;
++		case htons(ETH_P_IPV6):
++			nfproto = NFPROTO_IPV6;
++			break;
++		default:
++			goto unknown_proto;
++		}
++	}
++
++	switch (nfproto) {
++	case NFPROTO_IPV4: {
++		struct iphdr iph;
++		const struct iphdr *ih;
++
++		ih = skb_header_pointer(skb, skb_network_offset(skb),
++					sizeof(iph), &iph);
++		if (!ih)
++			return -ENOMEM;
++
++		audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
++				 &ih->saddr, &ih->daddr, ih->protocol);
++		break;
++	}
++	case NFPROTO_IPV6: {
++		struct ipv6hdr iph;
++		const struct ipv6hdr *ih;
++		u8 nexthdr;
++		__be16 frag_off;
++
++		ih = skb_header_pointer(skb, skb_network_offset(skb),
++					sizeof(iph), &iph);
++		if (!ih)
++			return -ENOMEM;
++
++		nexthdr = ih->nexthdr;
++		ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(iph),
++				 &nexthdr, &frag_off);
++
++		audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
++				 &ih->saddr, &ih->daddr, nexthdr);
++		break;
++	}
++	default:
++		goto unknown_proto;
++	}
++
++	return 0;
++
++unknown_proto:
++	audit_log_format(ab, " saddr=? daddr=? proto=?");
++	return -EPFNOSUPPORT;
++}
++EXPORT_SYMBOL(audit_log_nf_skb);
++
+ /* global counter which is incremented every time something logs in */
+ static atomic_t session_id = ATOMIC_INIT(0);
+ 
+diff --git a/net/netfilter/nft_log.c b/net/netfilter/nft_log.c
+index 4eb59c3f42b817..b510b01a06abd5 100644
+--- a/net/netfilter/nft_log.c
++++ b/net/netfilter/nft_log.c
+@@ -26,46 +26,10 @@ struct nft_log {
+ 	char			*prefix;
+ };
+ 
+-static bool audit_ip4(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct iphdr _iph;
+-	const struct iphdr *ih;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_iph), &_iph);
+-	if (!ih)
+-		return false;
+-
+-	audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
+-			 &ih->saddr, &ih->daddr, ih->protocol);
+-
+-	return true;
+-}
+-
+-static bool audit_ip6(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct ipv6hdr _ip6h;
+-	const struct ipv6hdr *ih;
+-	u8 nexthdr;
+-	__be16 frag_off;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_ip6h), &_ip6h);
+-	if (!ih)
+-		return false;
+-
+-	nexthdr = ih->nexthdr;
+-	ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(_ip6h), &nexthdr, &frag_off);
+-
+-	audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
+-			 &ih->saddr, &ih->daddr, nexthdr);
+-
+-	return true;
+-}
+-
+ static void nft_log_eval_audit(const struct nft_pktinfo *pkt)
+ {
+ 	struct sk_buff *skb = pkt->skb;
+ 	struct audit_buffer *ab;
+-	int fam = -1;
+ 
+ 	if (!audit_enabled)
+ 		return;
+@@ -76,27 +40,7 @@ static void nft_log_eval_audit(const struct nft_pktinfo *pkt)
+ 
+ 	audit_log_format(ab, "mark=%#x", skb->mark);
+ 
+-	switch (nft_pf(pkt)) {
+-	case NFPROTO_BRIDGE:
+-		switch (eth_hdr(skb)->h_proto) {
+-		case htons(ETH_P_IP):
+-			fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-			break;
+-		case htons(ETH_P_IPV6):
+-			fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-			break;
+-		}
+-		break;
+-	case NFPROTO_IPV4:
+-		fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-		break;
+-	case NFPROTO_IPV6:
+-		fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-		break;
+-	}
+-
+-	if (fam == -1)
+-		audit_log_format(ab, " saddr=? daddr=? proto=-1");
++	audit_log_nf_skb(ab, skb, nft_pf(pkt));
+ 
+ 	audit_log_end(ab);
+ }
+diff --git a/net/netfilter/xt_AUDIT.c b/net/netfilter/xt_AUDIT.c
+index b6a015aee0cecc..4c18606b8654ba 100644
+--- a/net/netfilter/xt_AUDIT.c
++++ b/net/netfilter/xt_AUDIT.c
+@@ -28,46 +28,10 @@ MODULE_ALIAS("ip6t_AUDIT");
+ MODULE_ALIAS("ebt_AUDIT");
+ MODULE_ALIAS("arpt_AUDIT");
+ 
+-static bool audit_ip4(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct iphdr _iph;
+-	const struct iphdr *ih;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_iph), &_iph);
+-	if (!ih)
+-		return false;
+-
+-	audit_log_format(ab, " saddr=%pI4 daddr=%pI4 proto=%hhu",
+-			 &ih->saddr, &ih->daddr, ih->protocol);
+-
+-	return true;
+-}
+-
+-static bool audit_ip6(struct audit_buffer *ab, struct sk_buff *skb)
+-{
+-	struct ipv6hdr _ip6h;
+-	const struct ipv6hdr *ih;
+-	u8 nexthdr;
+-	__be16 frag_off;
+-
+-	ih = skb_header_pointer(skb, skb_network_offset(skb), sizeof(_ip6h), &_ip6h);
+-	if (!ih)
+-		return false;
+-
+-	nexthdr = ih->nexthdr;
+-	ipv6_skip_exthdr(skb, skb_network_offset(skb) + sizeof(_ip6h), &nexthdr, &frag_off);
+-
+-	audit_log_format(ab, " saddr=%pI6c daddr=%pI6c proto=%hhu",
+-			 &ih->saddr, &ih->daddr, nexthdr);
+-
+-	return true;
+-}
+-
+ static unsigned int
+ audit_tg(struct sk_buff *skb, const struct xt_action_param *par)
+ {
+ 	struct audit_buffer *ab;
+-	int fam = -1;
+ 
+ 	if (audit_enabled == AUDIT_OFF)
+ 		goto errout;
+@@ -77,27 +41,7 @@ audit_tg(struct sk_buff *skb, const struct xt_action_param *par)
+ 
+ 	audit_log_format(ab, "mark=%#x", skb->mark);
+ 
+-	switch (xt_family(par)) {
+-	case NFPROTO_BRIDGE:
+-		switch (eth_hdr(skb)->h_proto) {
+-		case htons(ETH_P_IP):
+-			fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-			break;
+-		case htons(ETH_P_IPV6):
+-			fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-			break;
+-		}
+-		break;
+-	case NFPROTO_IPV4:
+-		fam = audit_ip4(ab, skb) ? NFPROTO_IPV4 : -1;
+-		break;
+-	case NFPROTO_IPV6:
+-		fam = audit_ip6(ab, skb) ? NFPROTO_IPV6 : -1;
+-		break;
+-	}
+-
+-	if (fam == -1)
+-		audit_log_format(ab, " saddr=? daddr=? proto=-1");
++	audit_log_nf_skb(ab, skb, xt_family(par));
+ 
+ 	audit_log_end(ab);
+ 
 -- 
-2.25.1
+2.53.0
 
