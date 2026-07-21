@@ -1,44 +1,44 @@
-Received: from smtpdh16-2.aruba.it (smtpdh16-2.aruba.it [62.149.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E55A3B6C17
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 22:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2C43B6C17;
+	Tue, 21 Jul 2026 22:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784672838; cv=none; b=OwkcDqRRT1iUZjW1G4QArCCtRCqIZpWsHnctJfMCpqNH2xjLKV5F8itPvQAYKvyugUFYN0z4wQC4ewRvqb6gm4gUnuiZUOer+qkUGd0swHAWk/7X+pLLrD+G4V9guGLbyMkc/rsKNxgqrlT7GdGUTxXqKXwsF9YjhIB389ojGQY=
+	t=1784672840; cv=none; b=OIHtrLoB0kcD/AAEUT67kKRnOf5bUSanM4q9Q14KqgjdBWdu8ts1tu7e0Y0klTqQH8XEf/qQEefU9NX9m7ZjbD8t2LAiZqA8lRMcSjUtum8gZ53vzsC9BfrzSqmnDGbPvaqE/thwHfyNM/Q0D8pn8JUdxBmatVvXwcZgC9U/OaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784672838; c=relaxed/simple;
-	bh=7zmPz26VekVv8pGTJ1pX5ab73d1VWSa/+KFYsz0RL9g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CvT/9cURYjSZk9NE09EToosenQn4Zwynnq5gUufD9QTRWFEbs7Fz3sSjTDMgUWW/Jpskoj6MtQqVuY5ojjbFtHMpQjbZPV20Z8rtQjtrY8XUd+JmrMlyc5IWTBUpXQcCklJCzYyuMUMg9bJh7AVwsMwMgZ6ojPqwemsRZ7XR7Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bithiatec.com; spf=pass smtp.mailfrom=bithiatec.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=cIGxxMep; arc=none smtp.client-ip=62.149.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bithiatec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bithiatec.com
+	s=arc-20240116; t=1784672840; c=relaxed/simple;
+	bh=HqTsv8jmy6exx2U22TfS70oAe3wxp5yqEtZkfKXk5jQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K08Uqf0LWh9JDiZ8/sYaBLKYKU2sarIL7VJ37vj36Vs438gxPcnWJRqyNXMFK9qdou7hhCh3uk1MU+EKnMy4x5yl0FPg3hODHlrSllpNhGxkdKMMyjJUXjscBc4MlfHMp+BaM8gTe/L0ogLwgsWAMgfhNnXp2miV4OD/USLIwPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PH4gEZHZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="cIGxxMep"
-Received: from bithiatec.com ([85.18.246.178])
-	by Aruba SMTP with ESMTPSA
-	id mIsewWxXk9tEmmIsewdqDH; Wed, 22 Jul 2026 00:24:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1784672644; bh=7zmPz26VekVv8pGTJ1pX5ab73d1VWSa/+KFYsz0RL9g=;
-	h=From:To:Subject:Date:MIME-Version;
-	b=cIGxxMepPcT2hLdDwW1cSgBY9MilJlrUJkE4dzv0ERpuRhzSd1myAT/ZrwSc6YspQ
-	 KahW1jUGgQMO/xRC13JniuhywJbNk9neXo7rw29LWFhTD83Y7XwpNH+xeXP9yVZvKj
-	 YrMxhRaBpfPw0YOYnhv0y2vBd/ftQBHgf4gQM0Kv8TeftZoDxoHJo8cYMiOK7ftGHB
-	 rji9euVyO3a5yCubhENu5+QQl2/jp6Q2lpTcMKmnz903RTUC1R1hYm6vHWzVHUxrw9
-	 LimAcj2X3nfgf3nzYulKdVzKAuFkZtjv0a+Zmz/4nSXj4aVZOi1C1mIXAh/YvP0wLE
-	 J2eXtZmAF1OoA==
-From: Luca Fresi <luca.fresi@bithiatec.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: =?UTF-8?q?Tomasz=20Mo=C5=84?= <tomasz.mon@camlingroup.com>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Luca Fresi <luca.fresi@bithiatec.com>
-Subject: [PATCH] serial: sc16is7xx: enable THRI before filling TX FIFO
-Date: Wed, 22 Jul 2026 00:24:04 +0200
-Message-Id: <20260721222404.204746-1-luca.fresi@bithiatec.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PH4gEZHZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101CF1F000E9;
+	Tue, 21 Jul 2026 22:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784672838;
+	bh=1G5B9J/w1GCH1EGNrqB5CNC+OGABlSocivInoT6pA+0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PH4gEZHZaeoStCInvns+vQtqVfGI2uq7ibCElal6dnliFNrVUmiY9q4kuNmajH9Be
+	 mIXxkdBnkbLyO+HnkNk2m8snkyFs5sXVsvg4lWtAqIiUXoLBfSl1C4ZmKQys24oP3G
+	 ZoeqE52q9oDfH1p+XhziyPbuOj0M8O6iZENC/Ux0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Rafael Beims <rafael.beims@toradex.com>,
+	Jeff Chen <jeff.chen_1@nxp.com>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 5.15 723/843] wifi: mwifiex: fix permanently busy scans after multiple roam iterations
+Date: Tue, 21 Jul 2026 17:25:58 +0200
+Message-ID: <20260721152422.306992070@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152405.946368001@linuxfoundation.org>
+References: <20260721152405.946368001@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,49 +46,92 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfKqqLMK7wqqG0ewBMTAmxtYH1jVyodMYfe1Vgpl6yJK+Ra7YiZLYB7rbMb5OqYCAsAZM8dqwdni9HJTjW6SBLzPaMyRJbqs5TnKnJky7lTGtYS4COnVv
- lH/B1h9AEPUXX71Yj9+AQjZjYY8XXmkkhmOM/fV44Kau0ELCDoZBvTiH/FwOwUuA3HBOVMahGoZmiyRIio81HHF+cjpobmPH3Uw3lTL9cSgWCBbEp6UvnV73
- wl53QhyqrK6fKiU3m7BJPeVolj4h3vtDOZy2WbgqxRfFptO7+fLHEo8xfRRqTLdV0Va22qHl9Jxg/HcMALKn0yDauqfNLCzvLgWcP+K/V1tsIsk4GKHrMJE6
- DSj/PeyvGZYYwv9v7sDehqylxneU3bR/tH2lE0S4OhBMpGzvH+3YR1VWqQ+7+BMjB23vRxXS5vdWuGhLDM5Zua/PU74uhg==
 
-sc16is7xx_handle_tx() currently requests the THRI enable only after it has
-filled the TX FIFO. The request is asynchronous because the IER update is
-performed later by reg_work.
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-The SC16IS7xx generates a THRI interrupt when the TX FIFO crosses its
-trigger level. If the FIFO drains past that level before reg_work enables
-THRI, the chip does not generate a new interrupt. Characters remain queued
-indefinitely even though the hardware FIFO is empty.
+------------------
 
-This was observed on an SC16IS752 while both UART channels were active.
-During the stall the software TX buffer remained non-empty while TXLVL
-reported 64 bytes free, LSR reported THR and transmitter empty, IER had
-THRI enabled, and IIR reported no interrupt pending.
+From: Rafael Beims <rafael.beims@toradex.com>
 
-Enable THRI synchronously before filling the FIFO so the threshold crossing
-cannot be missed.
+commit d78a407bad6f500884a8606aea1a5a9207be4030 upstream.
 
-Fixes: cc4c1d05eb10 ("sc16is7xx: Properly resume TX after stop")
+In order for the firmware to sleep, the driver has to confirm a
+previously received sleep request. The normal sequence of evets goes
+like this:
+EVENT_SLEEP -> adapter->ps_state = PS_STATE_PRE_SLEEP -> sleep-confirm
+-> SLEEP -> EVENT_AWAKE -> AWAKE.
+Before sending the sleep-confirm command, the driver must make sure
+there are no commands either running or waiting to be completed.
+
+mwifiex_ret_802_11_associate() unconditionally sets
+ps_state = PS_STATE_AWAKE when it processes the association command
+response, outside of the normal powersave management flow. If
+EVENT_SLEEP arrives while the association command is in flight,
+ps_state is PRE_SLEEP when the association command response is parsed,
+and the forced AWAKE overwrites it. The deferred sleep-confirm is
+never sent.
+
+A subsequent scan_start command is correctly acknowledged, but the
+firmware doesn't generate scan_result events. The scan request never
+finishes, and additional requests from userspace fail with -EBUSY.
+
+After testing on both IW412 and W8997, I could only trigger the bug on
+the IW412 and observed the firmwares behave differently. On the IW412
+the firmware still sends EVENT_SLEEP while the authentication /
+association process is ongoing. A W8997 under the same
+conditions seems to suppress power-save for the duration of the
+association, so PRE_SLEEP never coincided with the association response
+even after extended periods of testing using the loops
+described below (>12hours).
+
+On the IW412, the delay between commands that triggers an EVENT_SLEEP
+was empirically determined to be ~20ms. This delay can naturally occur
+when the driver is outputting debugging information
+(debug_mask = 0x00000037), in which situation the busy scans issue is
+repeatable while running "test 1)" as described below. If the delay
+between commands is less than ~20ms, the firmware stays awake and
+the issue was not reproducible running the same test.
+
+The host_mlme=false path also behaves differently. In this case, the
+entire authentication / association transaction is executed by one
+command (HostCmd_CMD_802_11_ASSOCIATE), and the firmware doesn't emit
+EVENT_SLEEP while the command is running.
+
+Remove the assignment so the ps_state is only manipulated in the paths
+that are related to powersave event handling and on the main workqueue
+for correct sleep confirmation.
+
+The following loop tests were performed (with debugging output enabled):
+1) force roaming between two AP's, one 5GHz and one 2.4GHz, same
+SSID. Use wpa_cli to trigger the roaming behavior, sleep 2s
+between iterations.
+2) force a disconnection to AP 1 and a connection to AP 2, test
+scan. Use wpa_cli to trigger the connection changes, sleep 2s
+between iterations.
+
+Each test ran in each device for at least 3 hours.
+
+Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Luca Fresi <luca.fresi@bithiatec.com>
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Rafael Beims <rafael.beims@toradex.com>
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
+Link: https://patch.msgid.link/20260612122547.1586872-2-rafael@beims.me
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/wireless/marvell/mwifiex/join.c |    1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index daebd92f32c7..a1bd175e2feb 100644
---- a/drivers/tty/serial/sc16is7xx.c
-+++ b/drivers/tty/serial/sc16is7xx.c
-@@ -827,6 +827,9 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
- 		msleep(port->rs485.delay_rts_before_send);
+--- a/drivers/net/wireless/marvell/mwifiex/join.c
++++ b/drivers/net/wireless/marvell/mwifiex/join.c
+@@ -702,7 +702,6 @@ int mwifiex_ret_802_11_associate(struct
+ 	/* Send a Media Connected event, according to the Spec */
+ 	priv->media_connected = true;
  
- 	guard(mutex)(&one->lock);
-+	sc16is7xx_port_update(port, SC16IS7XX_IER_REG,
-+			      SC16IS7XX_IER_THRI_BIT,
-+			      SC16IS7XX_IER_THRI_BIT);
- 	sc16is7xx_handle_tx(port);
- }
+-	priv->adapter->ps_state = PS_STATE_AWAKE;
+ 	priv->adapter->pps_uapsd_mode = false;
+ 	priv->adapter->tx_lock_flag = false;
  
--- 
-2.34.1
+
 
