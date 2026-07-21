@@ -1,92 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C246C46A5FB;
-	Tue, 21 Jul 2026 16:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D2846DFEE;
+	Tue, 21 Jul 2026 16:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784649817; cv=none; b=ES5a04GyCjpeuI4u+LMuhyVwCgxofYCOyNgW54YFkDKcGUcAHaJTLbw3wTDr8uhSfcnRWBRg+OwBqBb01HRvQFv+b7tOHn2DnxbZGIAPoU21g2DpC5dzkpxgWYnl/AREJ6s5CR7lMlCJ4t1DpB0jJ3o9guDrT19U46NvJr9YhXE=
+	t=1784650843; cv=none; b=j+oAVPBkrtVBt860IjGIoWxRfJAQIzBxq9/fl7znhFeZA+3M+yL+Z//EPJwVdFXyHbOoYZrO2/WjDdaQiBn203Onwd1MWxML26WVsnnXJSSSVCMZMvo/QhG8Rv14v5pEpGo+z8It1VMnkJfKtiPS5WKTws3CJDTulxQS+zBumPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784649817; c=relaxed/simple;
-	bh=KMgTbTWKaG9NQREe1FHO+XIH9W2+K9G65O26h8QkCm0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=olHlbeUEOO/8S/hFiff5uYHIOR5AAUb5d445h629gGXFWK3C+sEMmUeImAsytHQgviFCGgHsnvatnz+r5ck0+vSpDfbnaPEZ3ggNYEwFgMdwXm05kipzOpf8PLQmhH21AQvLG+zTJgovv330EFI3EAqJFeTX1E7IkQyqvDe7U60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jn23ge19; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784650843; c=relaxed/simple;
+	bh=eXpHhurv7kzyzJr5wyPXbHAGAPEL+72AdrbdqQp1dt8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=MTi9WsRx/RyuYJpjyjf8QJo2Q8pHDHbBIbH3RZZiFwSXW0RrSPe+5MYplBCYnmhW8wC9oId/hKEcGjgTnZuBbjDJk71sHFo0ur3rvbk0BPAiemjTaGSBFL/qOdRLW4No1bMwPCocEko0HNLNuMtoBxek9QleRPGYnes5jN/FfGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y3jEMJYP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jn23ge19"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A751F00A3A;
-	Tue, 21 Jul 2026 16:03:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y3jEMJYP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831111F000E9;
+	Tue, 21 Jul 2026 16:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784649816;
-	bh=knVnxubrgobf7tjT7gTlNb8boEHPM95Zv1y4aZWV32U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jn23ge19Sp3OHi7/dZ5LahFQ2JCeoBtEv5QSAz+Zr31WMELW/dB6pb68iQSU7uUUL
-	 3EGBoLEuY65SGcVYSRSNIToLskuX48TAg3jhTLtmC1aBxKqsCVblMTrBtUB88+zGHf
-	 49A49ho8xMivpVm0VSzNi0lwyomstB7RepOxWGU2lmDGr2p0/zaNj56FOYpYwnx0UN
-	 pYR0+DWbMeSFjBI/Cu/GV2iY1c/m94ItYJn7OzSe93WW8qY8q4Gj/tUXeE3cLJSRLz
-	 ipP7mZoGhOap+hcsFLP3Xo75YIbK+FUJhUSuKhGYuBjGLUWF8w9e7LxlklBucI+4Hc
-	 q98CgVg0RG0GQ==
-Date: Tue, 21 Jul 2026 17:03:32 +0100
-From: Simon Horman <horms@kernel.org>
-To: Michael Bommarito <michael.bommarito@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	Tom Herbert <tom@herbertland.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] ila: reload IPv6 header after pskb_may_pull in
- checksum adjust
-Message-ID: <20260721160242.GK19108@horms.kernel.org>
-References: <20260714114903.3763420-1-michael.bommarito@gmail.com>
+	s=k20260515; t=1784650842;
+	bh=vOXJqZBq7kJKKJZif/QJuoo19qQj/Am4g5tOlmsEm8Q=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Y3jEMJYPXK7L7g5mjUyckvhclxoLNo8rYwIzM/0tiAuVH8Owbw32EnIwrGLRATpc1
+	 t0yi7m8cp2Y2s/82+SAR1aN8xdckq0ShxaJbQ42NZR1YH1+vMBTdZKahDVC2FgPziQ
+	 qNVKbY3R/Ss/EwNXJ549nN/PAA0l3Z4Z3SKu/q2abSz7sPOC9lHYuTzjm78vvGJkqN
+	 aI5k9KG60ZhuP+6CXnVtTcxfZfcnp7VMixAvCpG434qnsE3jrtxSpG1GWzHqMhbE4S
+	 fRJWRZT6uEzA16cIuYtiEfO4rUSo/62BUORKBayGuqMEbPyCPoXDVV1QYLIYGaVlfz
+	 FPGq14Ggl/JgA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56C803924FFE;
+	Tue, 21 Jul 2026 16:20:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714114903.3763420-1-michael.bommarito@gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] amd-xgbe: fix MAC_AUTO_SW handling in CL37 AN
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178465081196.386198.12551993871523492296.git-patchwork-notify@kernel.org>
+Date: Tue, 21 Jul 2026 16:20:11 +0000
+References: <20260709095006.3683940-1-prashanthkumar.k.r@amd.com>
+In-Reply-To: <20260709095006.3683940-1-prashanthkumar.k.r@amd.com>
+To: Prashanth Kumar KR <PrashanthKumar.K.R@amd.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Shyam-sundar.S-k@amd.com, patrick.oppenlander@gmail.com,
+ regressions@leemhuis.info
 
-On Tue, Jul 14, 2026 at 07:49:03AM -0400, Michael Bommarito wrote:
-> ila_csum_adjust_transport() caches ip6h = ipv6_hdr(skb) before calling
-> pskb_may_pull(). On a non-linear skb whose transport header sits in a page
-> fragment, pskb_may_pull() can call __pskb_pull_tail() / pskb_expand_head()
-> and free the old skb head, leaving ip6h dangling; the following
-> get_csum_diff(ip6h, p) then reads freed memory. ila_update_ipv6_locator()
-> uses ip6h (and the iaddr derived from it) again after the csum-adjust
-> call and additionally writes the new locator through that pointer.
-> 
-> Impact: a remote IPv6 packet routed through a configured ILA
-> csum-adjust-transport route or receive-side mapping triggers a
-> slab-use-after-free in ila_update_ipv6_locator() (KASAN). The route or
-> mapping requires CAP_NET_ADMIN to configure, but trigger packets are
-> unauthenticated once it exists.
-> 
-> Reload ip6h after each pskb_may_pull() in ila_csum_adjust_transport()
-> before the csum-diff read. In ila_update_ipv6_locator() only the
-> ILA_CSUM_ADJUST_TRANSPORT case pulls the skb, so reload ip6h and iaddr in
-> that case alone before the destination-address write; the neutral-map
-> modes never pull and keep their cached pointers.
-> 
-> Fixes: 33f11d16142b ("ila: Create net/ipv6/ila directory")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-> ---
-> v2: In ila_update_ipv6_locator() reload ip6h/iaddr only in the
->     ILA_CSUM_ADJUST_TRANSPORT case instead of unconditionally, per
->     Antoine Tenart's review; the neutral-map modes never pull the skb,
->     so their cached pointers remain valid.
-> v1: https://lore.kernel.org/netdev/20260711150648.2915106-1-michael.bommarito@gmail.com/
-> 
-> Evidence: a KUnit case on UML+KASAN drives ila_update_ipv6_locator()
-> with a non-linear skb whose transport header sits in a fragment, so the
-> pskb_may_pull() in ila_csum_adjust_transport() reallocates the head.
-> Stock: BUG: KASAN: slab-use-after-free in ila_update_ipv6_locator, Read of
-> size 4 (the stale ip6h/iaddr). Patched: both the valid-linear control and
-> the fragmented case pass, KASAN-clean. Built clean, no new warnings.
+Hello:
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 9 Jul 2026 15:20:06 +0530 you wrote:
+> From: Prashanth Kumar KR <PrashanthKumar.K.R@amd.com>
+> 
+> MAC_AUTO_SW (VR_MII_DIG_CTRL1 bit 9) enables automatic XPCS speed
+> mode switching after CL37 auto-negotiation and is only meaningful in
+> SGMII MAC mode. The original code unconditionally set this bit on
+> every call to xgbe_an37_set(), including when called from
+> xgbe_an37_disable() with enable=false. This left MAC_AUTO_SW=1 after
+> AN was disabled, causing the XPCS to autonomously switch speed from
+> stale AN state during subsequent mode changes, breaking SGMII speed
+> negotiation on 1G copper SFP modules.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] amd-xgbe: fix MAC_AUTO_SW handling in CL37 AN
+    https://git.kernel.org/netdev/net/c/4bf22afe53a1
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
