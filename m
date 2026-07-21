@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305CB476076
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 23:58:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C263C476078
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 23:58:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784678330; cv=none; b=fGBCEvYG7fYW/wHLwJJA+9hpA+D5Fu1GnbREM8FgS4ZCTF/nCq4b0ZmkAf7rNsfv9B8wgmA7Ja7kk0rcQylhw77Py4lD+fgT9bCIYNW3YWasVaSINe0TK4qjOEUA2FdSZlEFLdVqRKiHewJt84sIH/QqMcOFMCgZh2gJmZEGfn4=
+	t=1784678331; cv=none; b=krhtdcuJ5bEn0bN98/JtLmH1I2YgVLuHee1sRkM6tmDHeFGHSwGLCEd6k+lmffhqjmgzoZYWZAIvffZVH3Ev8XVHlgeXXtXxNc0OCebK/q3JAIxflHjkeEfUvobVpnbkia1c9bMzqSVFGedrFQDQhvYstV45tU3D6PzvbAVv3yM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784678330; c=relaxed/simple;
-	bh=VX63Wqb1IqRq+8tnS1ePPq6bW8SCh6uYdOwBpUU5LKo=;
+	s=arc-20240116; t=1784678331; c=relaxed/simple;
+	bh=yphffioGIE2brTsneXPxwZyKcq2t2T+sffybcqs7QfI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h2lfrX5jbqUguWW6tegCxEVpti7x15IWZ6CuIi8LixOt2ZRUVpC+Bsek3J0dn1fqE9GE/GVzS+VCsl7kxMTwvfl1H9urfWMza98mXnyujoGY5urXSOiZqEUkBR+M7RcttY4hgqc/0RAl6Ik60VguIjAJz3RKryvL/jdS0fPG+y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WwRcC6MT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CYfl8lhSDhzzDBIL5X5237sCxuQ9UsBlK91NO3VwaqU3cFDjUM27AX4tNMrLU5tKusGsuv54S1jNQ/vax4yJBAuItv2h04LZ/tQBdLIKgUjw4GSyHZblZsvAizUTdoQKcuQSOrBKVXvFqQcZD2tY3Afth6yAr6XOBTWrowy8c4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QHBzd6Ra; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WwRcC6MT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA801F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QHBzd6Ra"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097DB1F00AC4;
 	Tue, 21 Jul 2026 23:58:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784678328;
-	bh=+unELteHb9G+p6Ki+g4KL+UO81n26xaWr/TaRhOhbuU=;
+	s=k20260515; t=1784678329;
+	bh=yxvsKd100HTCG320yGGnvTcGszkHCq20oC+xfsgMTLo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WwRcC6MTrwk8gpl6TgiD2YvwGtahie4HZ6PhwpY1RnJu9BmsKbBQk36/7dnP7QWaD
-	 xrzIG8lqapkDvlI6MogMp8cSOPiHgt/vPAWwOdZskYzGyqEkLFgdBdgQjzTxIQy7JR
-	 N1oGSrv9Q/RFQ1hKVILZ++IfnWwkdF0akNrUSA8q3GOq8sg2gPDrEv84juB0uTJpMN
-	 EZUhWff8Z6t3KjgG/uMnlNKF2/IjTWS+gcmmoU18cvf4tgOfrwpR8JPkc3lnt7ZNhh
-	 I8nCqkvAkbLoQuONNXcCyELDBEticMtUvUPTV8BsgE9hsP9Nx+C8+wYVRW/10LBuaV
-	 uokV2eiR5XKnA==
+	b=QHBzd6RaK3AgCfXpFtUksTwhZ6WuHnMQHfxDjl8FBsDZugUKmdUv44csGF6csKYAA
+	 HJCP9ap3k16jpPQ8lx8DOhLSVhd288RC8fVULXyfYj24aqd7bb9JytxcGpkZMbGeT1
+	 1/mHsVgxxwidzi5gZs5zMGhqnQ0Cf+oBQmKI/R8roABBBTNkZb9c+FRq/aLAHN17hW
+	 fiGjdyEQF8KgdwWiYdYm2NYOl0GGF9gAdxAI3GCLGuvumg56jIP8OPNIOHZEYNPZVg
+	 DsxNLQls1rKs/UJmVTYTzOgEcIJsj7joHSSQeeap4s4cMptm7unAGjVtPS4+ae0N/X
+	 e4HPiDre1zOXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Haoxiang Li <haoxiang_li2024@163.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] i2c: davinci: Unregister cpufreq notifier on probe failure
-Date: Tue, 21 Jul 2026 19:58:46 -0400
-Message-ID: <20260721235846.523947-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 5/5] i2c: core: fix adapter probe deferral loop
+Date: Tue, 21 Jul 2026 19:58:44 -0400
+Message-ID: <20260721235844.523900-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071619-reunite-unleveled-9bad@gregkh>
-References: <2026071619-reunite-unleveled-9bad@gregkh>
+In-Reply-To: <20260721235844.523900-1-sashal@kernel.org>
+References: <2026071656-trivial-state-54ad@gregkh>
+ <20260721235844.523900-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,49 +47,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit e43f32816a1b1fe5a86279411626fe3a9be56d45 ]
+[ Upstream commit 158efa411c57111d87bf265a3776614f32d70007 ]
 
-davinci_i2c_probe() registers a cpufreq transition notifier before adding
-the I2C adapter.  If i2c_add_numbered_adapter() fails, the probe error path
-releases the device resources without unregistering the notifier.
+Drivers must not probe defer after having registered devices as that
+will trigger a probe loop if the devices bind to a driver (cf. commit
+fbc35b45f9f6 ("Add documentation on meaning of -EPROBE_DEFER")).
 
-Add a dedicated error path to unregister the cpufreq notifier after
-i2c_add_numbered_adapter() fails.
+Move the recovery initialisation, where the GPIO lookup may fail, before
+registering the adapter to prevent this.
 
-Fixes: 82c0de11b734 ("i2c: davinci: Add cpufreq support")
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Cc: <stable@vger.kernel.org> # v2.6.36+
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260610030513.2651018-1-haoxiang_li2024@163.com
+Fixes: 75820314de26 ("i2c: core: add generic I2C GPIO recovery")
+Cc: stable@vger.kernel.org	# 5.9
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-davinci.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/i2c/i2c-core-base.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-davinci.c b/drivers/i2c/busses/i2c-davinci.c
-index c836cf8841850a..fa71e3b619d762 100644
---- a/drivers/i2c/busses/i2c-davinci.c
-+++ b/drivers/i2c/busses/i2c-davinci.c
-@@ -872,13 +872,15 @@ static int davinci_i2c_probe(struct platform_device *pdev)
- 	adap->nr = pdev->id;
- 	r = i2c_add_numbered_adapter(adap);
- 	if (r)
--		goto err_unuse_clocks;
-+		goto err_cpufreq;
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index e82607643ebfb4..dd1b6d8779e210 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -1555,6 +1555,10 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	adap->dev.type = &i2c_adapter_type;
+ 	device_initialize(&adap->dev);
  
- 	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
++	res = i2c_init_recovery(adap);
++	if (res == -EPROBE_DEFER)
++		goto err_put_adap;
++
+ 	/*
+ 	 * This adapter can be used as a parent immediately after device_add(),
+ 	 * setup runtime-pm (especially ignore-children) before hand.
+@@ -1576,10 +1580,6 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	if (res)
+ 		goto out_reg;
  
- 	return 0;
+-	res = i2c_init_recovery(adap);
+-	if (res == -EPROBE_DEFER)
+-		goto out_reg;
+-
+ 	dev_dbg(&adap->dev, "adapter [%s] registered\n", adap->name);
  
-+err_cpufreq:
-+	i2c_davinci_cpufreq_deregister(dev);
- err_unuse_clocks:
- 	pm_runtime_dont_use_autosuspend(dev->dev);
- 	pm_runtime_put_sync(dev->dev);
+ #ifdef CONFIG_I2C_COMPAT
 -- 
 2.53.0
 
