@@ -1,163 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DAD39AD3A;
-	Tue, 21 Jul 2026 14:20:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D973783D1
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 14:28:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784643626; cv=none; b=U6s8E4iksv1XujehotOGvVkS/Ly0xxQ9KQWRxumY8QBMGWxJTkkbia2YatLZoTocZy3DM0aoNh3xq5Kg8Xou5SIt60+cB9zTVKJVd5jof+PMvF9RB5ELSDwsQHmcu/+iBTX4rm3jfAxnkYi8ELWE/R+xzIJPqJgktGjwZW9yxiY=
+	t=1784644093; cv=none; b=o2fZ61sc3QPDwyVpqeoqPNnfpviS8D7zb5C0c8q7eupDNizWjAMOhAWMwMN7Q5mYxAwu/veKm1EgyYl7mQ2czSOFJGQOlilQq5YMTxxdki5zeDcSJ1ZXOpyO67N/TCc0neCSJvK1rqVRabMoGpL2y/dPH1myQTVNh2j9FG0yVCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784643626; c=relaxed/simple;
-	bh=Q/j682BHn4/bqEtQENQgsu0DCJvAVU5yzDBtUSeFGGY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=B5o/m9FE6eD1mxSOzz1JOEUgJrxrmM/MYvJs66uhrqKJUIXsnmJowOS3ISM9wZKK7cVBk3S0zyHybTnenZ2HRaMV/MSOYiSistuLej29hN1RotF2l7BlJpecAbE+w1/bJdps5+Xwg8bnkgtioTuPJvCIoWIgMCbdifBBQQZN5WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAXeJTn5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784644093; c=relaxed/simple;
+	bh=QMdISAhkuBTAbsNKHadP8NXmADrtJp/gPYpzTKqIQkU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Px/9GvIlp+SOxR6B8VKhLT9ZD0yfBFCMC0O8ixGgvQxyQJMGjyxeAL50u6beB7iW7UWX7z2P4vQ06la7jplqahHcWnkRMO3yyAD8B9xJmKIaVBP6gIX0VC1OQohXwgF4rI/rrNP113kNnmqk3WOHsraO+qf+CxS8+4g2yD5I/kI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hu0oSYG4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAXeJTn5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992DD1F000E9;
-	Tue, 21 Jul 2026 14:20:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784643624;
-	bh=0vlMnn1H9hiO4jT5wquIo2lbFYyrtK27kHf9bWe+2BM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ZAXeJTn5Gpmsi+fP/8KnFVJrWtLr1s+gLT8XCY+gJDlj/j3JD5/rYU5iAxSrzp+pd
-	 olYQzw9d9qnF622vSrO0xgj0l2V/UWVA/TwCEdteCq9j5ZG5/DBjpuMXcH9FrxHWil
-	 v85SMWGDxZbPRG2SeJtJpKBw0NI86LxW0iHL6uBUKgcqneXjADoUesd7rroKVKo3mm
-	 SC9mFdCU8LmsaoJ7LEzSPJZXaM2HeNcQ54nqu/ic/L5F5VrXdzNVoDsdMC66+nliHc
-	 cM0qXX4fadGnq6/2LCkf6IQ7hjwQ818TGBo7IX/dKg+5Y2YA0GOVfKLHel40zJ33wz
-	 APR8zrlv8Umyg==
-X-Mailer: emacs 30.2 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
-	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>,
-	Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
- dma_direct_alloc_from_pool()
-In-Reply-To: <20260721115456.GI110966@unreal>
-References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
- <20260717180442.110954-2-aneesh.kumar@kernel.org>
- <20260721115456.GI110966@unreal>
-Date: Tue, 21 Jul 2026 19:50:10 +0530
-Message-ID: <yq5atsps77c5.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hu0oSYG4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762A01F000E9;
+	Tue, 21 Jul 2026 14:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784644092;
+	bh=sidrSsZOCGBXID2zts+XkKChx/tYOkyH21OAd05MUa4=;
+	h=Subject:To:Cc:From:Date;
+	b=hu0oSYG4ZxzpXYuc9niiZt8/KT6P9zemx409nV6ekgVQdWQb1NT1MxwlVxBMqdr1N
+	 +k9Td2KkwV7A4VAcPALAkjWCJH1QBP/OVHQALVoA6qYX8y5hMHTDQKNDneQ2kt9map
+	 Xb6iDLhmow85cRj53fatXmVWmuRNqjp1YxlIGq4Y=
+Subject: FAILED: patch "[PATCH] i3c: mipi-i3c-hci: Fix handling of shared IRQs during early" failed to apply to 6.18-stable tree
+To: adrian.hunter@intel.com,Frank.Li@nxp.com,alexandre.belloni@bootlin.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 21 Jul 2026 16:28:02 +0200
+Message-ID: <2026072102-gliding-bloated-dfaa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Leon Romanovsky <leon@kernel.org> writes:
 
-> On Fri, Jul 17, 2026 at 11:34:19PM +0530, Aneesh Kumar K.V (Arm) wrote:
->> Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
->> helper") changed dma_direct_alloc_from_pool() to return the CPU address
->> from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
->> dma_direct_alloc_pages() also uses the helper and expects a struct page *.
->> 
->> Fix this by making dma_direct_alloc_from_pool() return the struct page *
->> again, and pass the CPU address back through an out-parameter for the
->> dma_direct_alloc() caller.
->> 
->> Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
->> Cc: stable@vger.kernel.org
->> Tested-by: Michael Kelley <mhklinux@outlook.com>
->> Tested-by: Mostafa Saleh <smostafa@google.com>
->> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
->> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
->> ---
->>  kernel/dma/direct.c | 18 ++++++++++--------
->>  1 file changed, 10 insertions(+), 8 deletions(-)
->> 
->> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
->> index d8219efe3273..363d984d90e7 100644
->> --- a/kernel/dma/direct.c
->> +++ b/kernel/dma/direct.c
->> @@ -164,22 +164,21 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
->>  	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
->>  }
->>  
->> -static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
->> -		dma_addr_t *dma_handle, gfp_t gfp)
->> +static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
->> +		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp)
->>  {
->>  	struct page *page;
->>  	u64 phys_limit;
->> -	void *ret;
->>  
->>  	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
->>  		return NULL;
->>  
->>  	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
->> -	page = dma_alloc_from_pool(dev, size, &ret, gfp, dma_coherent_ok);
->> +	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, dma_coherent_ok);
->>  	if (!page)
->>  		return NULL;
->>  	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page));
->> -	return ret;
->> +	return page;
->>  }
->>  
->>  static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
->> @@ -247,8 +246,11 @@ void *dma_direct_alloc(struct device *dev, size_t size,
->>  	 * the atomic pools instead if we aren't allowed block.
->>  	 */
->>  	if ((remap || force_dma_unencrypted(dev)) &&
->> -	    dma_direct_use_pool(dev, gfp))
->> -		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
->> +	    dma_direct_use_pool(dev, gfp)) {
->> +		page = dma_direct_alloc_from_pool(dev, size, dma_handle,
->> +						  &ret, gfp);
->> +		return page ? ret : NULL;
->
-> Sorry for joining the discussion late, but the line above caught my
-> attention.
->
-> Why do we need both ret and page? We can derive cpu_addr from page and
-> vice versa. Do we really need the &ret parameter? Or, more generally, do
-> we really need "struct page *"?
->
-> static struct page *__dma_alloc_from_pool(struct device *dev, size_t size,
-> 		struct gen_pool *pool, void **cpu_addr,
-> 		bool (*phys_addr_ok)(struct device *, phys_addr_t, size_t))
-> {
-> ...
-> 	*cpu_addr = (void *)addr;
-> 	memset(*cpu_addr, 0, size);
-> 	return pfn_to_page(__phys_to_pfn(phys));
-> }
->
-> Why
->
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-With CONFIG_DMA_DIRECT_REMAP the cpu_addr can be different from
-page_address.
+To reproduce the conflict and resubmit, you may use the following commands:
 
--aneesh
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x c6396b835a5e599c4df656112140f065bb544a24
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072102-gliding-bloated-dfaa@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From c6396b835a5e599c4df656112140f065bb544a24 Mon Sep 17 00:00:00 2001
+From: Adrian Hunter <adrian.hunter@intel.com>
+Date: Fri, 6 Mar 2026 09:24:50 +0200
+Subject: [PATCH] i3c: mipi-i3c-hci: Fix handling of shared IRQs during early
+ initialization
+
+Shared interrupts may fire unexpectedly, including during periods when the
+controller is not yet fully initialized. Commit b9a15012a1452
+("i3c: mipi-i3c-hci: Add optional Runtime PM support") addressed this issue
+for the runtime-suspended state, but the same problem can also occur before
+the bus is enabled for the first time.
+
+Ensure the IRQ handler ignores interrupts until initialization is complete
+by making consistent use of the existing irq_inactive flag.  The flag is
+now set to false immediately before enabling the bus.
+
+To guarantee correct ordering with respect to the IRQ handler, protect
+all transitions of irq_inactive with the same spinlock used inside the
+handler.
+
+Fixes: b8460480f62e1 ("i3c: mipi-i3c-hci: Allow for Multi-Bus Instances")
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260306072451.11131-14-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+
+diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+index b98952d12d7c..d5e91af7d569 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/core.c
++++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+@@ -152,6 +152,9 @@ static int i3c_hci_bus_init(struct i3c_master_controller *m)
+ 	if (hci->quirks & HCI_QUIRK_RESP_BUF_THLD)
+ 		amd_set_resp_buf_thld(hci);
+ 
++	scoped_guard(spinlock_irqsave, &hci->lock)
++		hci->irq_inactive = false;
++
+ 	/* Enable bus with Hot-Join disabled */
+ 	reg_set(HC_CONTROL, HC_CONTROL_BUS_ENABLE | HC_CONTROL_HOT_JOIN_CTRL);
+ 	dev_dbg(&hci->master.dev, "HC_CONTROL = %#x", reg_read(HC_CONTROL));
+@@ -184,8 +187,9 @@ void i3c_hci_sync_irq_inactive(struct i3c_hci *hci)
+ 	int irq = platform_get_irq(pdev, 0);
+ 
+ 	reg_write(INTR_SIGNAL_ENABLE, 0x0);
+-	hci->irq_inactive = true;
+ 	synchronize_irq(irq);
++	scoped_guard(spinlock_irqsave, &hci->lock)
++		hci->irq_inactive = true;
+ }
+ 
+ static void i3c_hci_bus_cleanup(struct i3c_master_controller *m)
+@@ -781,10 +785,11 @@ static int i3c_hci_runtime_resume(struct device *dev)
+ 
+ 	mipi_i3c_hci_dat_v1.restore(hci);
+ 
+-	hci->irq_inactive = false;
+-
+ 	hci->io->resume(hci);
+ 
++	scoped_guard(spinlock_irqsave, &hci->lock)
++		hci->irq_inactive = false;
++
+ 	/* Enable bus with Hot-Join disabled */
+ 	reg_set(HC_CONTROL, HC_CONTROL_BUS_ENABLE | HC_CONTROL_HOT_JOIN_CTRL);
+ 
+@@ -975,6 +980,8 @@ static int i3c_hci_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	hci->irq_inactive = true;
++
+ 	irq = platform_get_irq(pdev, 0);
+ 	ret = devm_request_irq(&pdev->dev, irq, i3c_hci_irq_handler,
+ 			       IRQF_SHARED, NULL, hci);
+
