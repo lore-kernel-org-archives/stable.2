@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BEAD2F4A0C
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EF82BDC28
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:24:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625462; cv=none; b=n0+7XfOzQGayX6SuA//A+qD57wiwYuTNvOdLdffN6PcenXk5Ogko2NxfozLKvZsaMH6E1oGhfhvGiglVjKf6X8VGcrFLxvni7l8VlxNecEu43az58v7VLscUyDc64Ckns/SfCGt/Lnsa3o+u36BGmwgiqxJIWGJqif//QjZExko=
+	t=1784625864; cv=none; b=XnyTJ5Kiw7yM0eJkTxWI1cSmeN734dzK6cm/10f0J6FTAc7u6QS0hwWX9IulSWIWR5vcFGUc89G+4tvG4y1xisXJByyyGBROGtkNcm5UscrGbtJ7ibyX0lsAXe2seuWK1vVt8VRDt5zxh8BRYQSzQjeo3YSWZaw+EnTHc5/k5lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625462; c=relaxed/simple;
-	bh=sLR0n2t310wETun8CoNMTKf6LTPgQZ7xCR8cu17ba/I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VMYN+pB9xbFkynZlPKbetAwSYKoLUmmBY7oZ28kYuKmA+Um2mYMt9AhB+ebRIg+HUUN4cWb1z0ctVB/rF0feTS8yznJew9iCnRtOd9UOc71zliCeU8ziU8l9dAblelE7inGRrRjaerNy5n/z48kJI12PNs09wfPHlyTkL+XKlX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XfoUSzEB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784625864; c=relaxed/simple;
+	bh=FKgc7opCtnCxS9kbc2J7/BexGsudvNhbGq61psB+QW0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=K+FqkkPoXHRQMeBGbLlMRxkev1gjlJNiPDMyyIlRzKrmMN/kMD1qVA0Asr1k1WhwH4+KUfDEh+dHh1mtoJstv6g2h0egGg1BeMU0vuML/yXWisOOTA3giuRWCL+DJkmG/OJKj8tGSlk8AbKN/eG5G+KxuVNbrikEdFnAxO8iE6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mno8dAXT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XfoUSzEB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27511F000E9;
-	Tue, 21 Jul 2026 09:17:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mno8dAXT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAFC51F000E9;
+	Tue, 21 Jul 2026 09:24:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784625461;
-	bh=9WXu9O6sdc5Vie3o8jgTe5evoXqhbcs33PQvVvAhndk=;
+	s=korg; t=1784625863;
+	bh=+w3mt1uTidtn5BU8rT1wAab23vmVryL0j2Gts4/8gfc=;
 	h=Subject:To:Cc:From:Date;
-	b=XfoUSzEBrSTES+HZQZ5yPh+rL9g6pvJB9Uwm/NWY0YKA6iu5Xc3v4Mksej+jQkScO
-	 tHqwTeUBjUVT9785qdf84cn1aOQfJhBo+2BdhGoYysh4SOwW9VEHFtf7vLVpZoSPNE
-	 5YwCG8PRUoC0L5Bd5MGp4+mCqVanwXAat0XcqioM=
-Subject: FAILED: patch "[PATCH] sched_ext: Skip ops.set_weight() for disabled tasks" failed to apply to 7.1-stable tree
-To: jpiecuch@google.com,tj@kernel.org
+	b=Mno8dAXT+qhTBFgrZH4jas/aLBrHROfGx7SM+pltrLDJfdg272aWE/VgDrhq6e+kf
+	 4qV+uPqkOFQ0CrHFYSiTMO3Osu52oMQA7fz7j5+SeGDu4LWQN65GaxvWqyJk2e0dEm
+	 BwCtEVXMF8rSIi7ZKNAvsMEnj3OYcWDUcN5pz40s=
+Subject: FAILED: patch "[PATCH] pmdomain: imx93-blk-ctrl: Extract PHY as shared domain for" failed to apply to 6.12-stable tree
+To: guoniu.zhou@oss.nxp.com,Frank.Li@nxp.com,peng.fan@nxp.com,ulfh@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 11:17:31 +0200
-Message-ID: <2026072131-citation-reshape-587c@gregkh>
+Date: Tue, 21 Jul 2026 11:22:58 +0200
+Message-ID: <2026072158-spirits-daunting-21eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0e2f4ab68a89fad42e0f5a9ff4b740738e7aa1d6
+git cherry-pick -x 99611233f8cda833169fa6487d5dacdf189e5cb0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072131-citation-reshape-587c@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072158-spirits-daunting-21eb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,60 +62,165 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0e2f4ab68a89fad42e0f5a9ff4b740738e7aa1d6 Mon Sep 17 00:00:00 2001
-From: Kuba Piecuch <jpiecuch@google.com>
-Date: Fri, 10 Jul 2026 14:43:41 +0000
-Subject: [PATCH] sched_ext: Skip ops.set_weight() for disabled tasks
+From 99611233f8cda833169fa6487d5dacdf189e5cb0 Mon Sep 17 00:00:00 2001
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Date: Tue, 9 Jun 2026 14:26:41 +0800
+Subject: [PATCH] pmdomain: imx93-blk-ctrl: Extract PHY as shared domain for
+ DSI/CSI
 
-When switching a task's sched_class away from sched_ext, we get the
-following sequence of events in __sched_setscheduler():
+The MIPI DSI and CSI domains share control bits for clock and reset, which
+can lead to incorrect behavior if one domain disables the shared resource
+while the other is still active.
 
-sched_change_begin()
-  switched_from_scx()
-    scx_disable_task(p)
-      ops.disable(p)
-__setscheduler_params()
-  set_load_weight()
-    reweight_task_scx(p)
-      ops.set_weight(p)
-p->sched_class = next_class;
-sched_change_end()
-  ...
+To fix the issue, introduce a shared MIPI PHY power domain to own the
+common resources and make DSI and CSI its subdomains. This ensures the
+shared bits are properly managed and not disabled while still in use.
 
-Notably, ops.set_weight() is called _after_ ops.disable().
-This violates the expected semantics of the callbacks, the expectation
-being that ops.disable() can only be followed by ops.exit_task() or
-ops.enable().
+Fixes: e9aa77d413c9 ("soc: imx: add i.MX93 media blk ctrl driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
 
-Skipping the weight adjustment for disabled tasks should be harmless
-since the weight will be recalculated in scx_enable_task() if the task
-ever rejoins SCX.
-
-Fixes: 637b0682821b ("sched: Fold sched_class::switch{ing,ed}_{to,from}() into the change pattern")
-Cc: stable@vger.kernel.org # v6.19+
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index aeee44e016ab..e3fa7b2fac9d 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -3967,6 +3967,17 @@ static void reweight_task_scx(struct rq *rq, struct task_struct *p,
- 	if (task_dead_and_done(p))
- 		return;
+diff --git a/drivers/pmdomain/imx/imx93-blk-ctrl.c b/drivers/pmdomain/imx/imx93-blk-ctrl.c
+index 1afc78b034fa..243ce939ba68 100644
+--- a/drivers/pmdomain/imx/imx93-blk-ctrl.c
++++ b/drivers/pmdomain/imx/imx93-blk-ctrl.c
+@@ -48,6 +48,8 @@
  
-+	/*
-+	 * When switching sched_class away from SCX, reweight_task_scx()
-+	 * is called _after_ scx_disable_task(). Skip calling ops.set_weight()
-+	 * since the BPF scheduler may have already forgotten the task in
-+	 * ops.disable().
-+	 * p->scx.weight will be recalculated in scx_enable_task() if the task
-+	 * ever returns to SCX class.
-+	 */
-+	if (scx_get_task_state(p) != SCX_TASK_ENABLED)
-+		return;
+ #define PRIO(X)			(X)
+ 
++#define BLK_CTRL_NO_PARENT	UINT_MAX
 +
- 	p->scx.weight = sched_weight_to_cgroup(scale_load_down(lw->weight));
- 	if (SCX_HAS_OP(sch, set_weight))
- 		SCX_CALL_OP_TASK(sch, set_weight, rq, p, p->scx.weight);
+ struct imx93_blk_ctrl_domain;
+ 
+ struct imx93_blk_ctrl {
+@@ -68,12 +70,18 @@ struct imx93_blk_ctrl_qos {
+ 	u32 cfg_prio;
+ };
+ 
++struct imx93_blk_ctrl_subdomain_link {
++	struct generic_pm_domain *parent;
++	struct generic_pm_domain *subdomain;
++};
++
+ struct imx93_blk_ctrl_domain_data {
+ 	const char *name;
+ 	const char * const *clk_names;
+ 	int num_clks;
+ 	u32 rst_mask;
+ 	u32 clk_mask;
++	u32 parent;
+ 	int num_qos;
+ 	struct imx93_blk_ctrl_qos qos[DOMAIN_MAX_QOS];
+ };
+@@ -203,6 +211,13 @@ static void imx93_release_pm_genpd(void *data)
+ 	pm_genpd_remove(genpd);
+ }
+ 
++static void imx93_release_subdomain(void *data)
++{
++	struct imx93_blk_ctrl_subdomain_link *link = data;
++
++	pm_genpd_remove_subdomain(link->parent, link->subdomain);
++}
++
+ static struct lock_class_key blk_ctrl_genpd_lock_class;
+ 
+ static int imx93_blk_ctrl_probe(struct platform_device *pdev)
+@@ -302,6 +317,34 @@ static int imx93_blk_ctrl_probe(struct platform_device *pdev)
+ 		bc->onecell_data.domains[i] = &domain->genpd;
+ 	}
+ 
++	for (i = 0; i < bc_data->num_domains; i++) {
++		struct imx93_blk_ctrl_domain *domain = &bc->domains[i];
++		const struct imx93_blk_ctrl_domain_data *data = domain->data;
++		struct imx93_blk_ctrl_subdomain_link *link;
++
++		if (bc_data->skip_mask & BIT(i) ||
++		    data->parent == BLK_CTRL_NO_PARENT)
++			continue;
++
++		link = devm_kzalloc(dev, sizeof(*link), GFP_KERNEL);
++		if (!link)
++			return -ENOMEM;
++
++		link->parent = &bc->domains[data->parent].genpd;
++		link->subdomain = &domain->genpd;
++
++		ret = pm_genpd_add_subdomain(&bc->domains[data->parent].genpd,
++					     &domain->genpd);
++		if (ret)
++			return dev_err_probe(dev, ret, "failed to add subdomain %s\n",
++					     domain->genpd.name);
++
++		ret = devm_add_action_or_reset(dev, imx93_release_subdomain, link);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to add subdomain release callback\n");
++	}
++
+ 	ret = devm_pm_runtime_enable(dev);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to enable pm-runtime\n");
+@@ -326,8 +369,9 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.name = "mediablk-mipi-dsi",
+ 		.clk_names = (const char *[]){ "dsi" },
+ 		.num_clks = 1,
+-		.rst_mask = BIT(11) | BIT(12),
+-		.clk_mask = BIT(11) | BIT(12),
++		.rst_mask = BIT(11),
++		.clk_mask = BIT(11),
++		.parent = IMX93_MEDIABLK_PD_MIPI_PHY,
+ 	},
+ 	[IMX93_MEDIABLK_PD_MIPI_CSI] = {
+ 		.name = "mediablk-mipi-csi",
+@@ -335,6 +379,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 2,
+ 		.rst_mask = BIT(9) | BIT(10),
+ 		.clk_mask = BIT(9) | BIT(10),
++		.parent = IMX93_MEDIABLK_PD_MIPI_PHY,
+ 	},
+ 	[IMX93_MEDIABLK_PD_PXP] = {
+ 		.name = "mediablk-pxp",
+@@ -342,6 +387,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 1,
+ 		.rst_mask = BIT(7) | BIT(8),
+ 		.clk_mask = BIT(7) | BIT(8),
++		.parent = BLK_CTRL_NO_PARENT,
+ 		.num_qos = 2,
+ 		.qos = {
+ 			{
+@@ -363,6 +409,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 2,
+ 		.rst_mask = BIT(4) | BIT(5) | BIT(6),
+ 		.clk_mask = BIT(4) | BIT(5) | BIT(6),
++		.parent = BLK_CTRL_NO_PARENT,
+ 		.num_qos = 1,
+ 		.qos = {
+ 			{
+@@ -379,6 +426,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 1,
+ 		.rst_mask = BIT(2) | BIT(3),
+ 		.clk_mask = BIT(2) | BIT(3),
++		.parent = BLK_CTRL_NO_PARENT,
+ 		.num_qos = 4,
+ 		.qos = {
+ 			{
+@@ -404,6 +452,14 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 			}
+ 		}
+ 	},
++	[IMX93_MEDIABLK_PD_MIPI_PHY] = {
++		.name = "mediablk-mipi-phy",
++		.clk_names = NULL,
++		.num_clks = 0,
++		.rst_mask = BIT(12),
++		.clk_mask = BIT(12),
++		.parent = BLK_CTRL_NO_PARENT,
++	},
+ };
+ 
+ static const struct regmap_range imx93_media_blk_ctl_yes_ranges[] = {
 
