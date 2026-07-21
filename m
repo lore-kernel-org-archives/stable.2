@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516B845A291;
-	Tue, 21 Jul 2026 21:58:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C339A442107;
+	Tue, 21 Jul 2026 21:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784671105; cv=none; b=gn9KUKmEqslU+mVrzEPR5Lf6l0mH9Q9l48p+zAjDE/0I9BjH5PMZJQYdzZajr16UjrGpYY7ncm2wR5ljFb83D+dEinmhcd/sCqP8ufPRMNz4ek0kBIJRfEURhPgyoIebq7JfhxRapCpwGvKsrhlH0ZGzDX2XQLcKGQdnipGeA2Y=
+	t=1784671114; cv=none; b=eerMayPF/XVXTO0m3usP3zJQqwBfFbXD0IgO4C0mlMgT7zQ8xD43qK6Mkrhqk1xUXDqsPpdK7ekVbhYjTcYnKpauFCrZpqAN7Svo0/eJg0MXTCE/RCszzqQ5C7BXahNSXR7RFmpM0yY6BmKEOljS+f0XcVkG4OWyso5LY9b+Hsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784671105; c=relaxed/simple;
-	bh=BIkE0DNgH2Mo9/9BiuluY98/9ueQk/i2TLNAW31iMCU=;
+	s=arc-20240116; t=1784671114; c=relaxed/simple;
+	bh=d99yeUqZ+qu48zZkGwNk7Dub4tKH6ZEIursKLvePpHE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tzv9BABQTgEHfinnVfAaZafbA6UYF10vzmSJoFEY2EG0QoeweBuU514GopsSZDR3OHX3KFRYRDu4tsOCIfZydSOnMtyGxpMijhkC2Pi6cABmdTuORFUug3NSPGxdYwusfTtiboU/Cjbe3y7+BwJjfo+tYWaIu5EW/oPXxiv6eAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AnaH8oVX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uw8Zhu1YOBz4dcgOtuiWjDYTdidpWms9Fri0kwnTc5QkufLI+GpfZPyHBAHJyFwkByA0EZGqGiD9jOjsnbiY3F1fUT4m6h71B5H8boxZt37qTuF1TS7ORVIBWADpOJ+WQW8JBJkAMb+Uss3XWXwvnQZZ7J86YQw2qCV407Xotoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dwYajlAf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AnaH8oVX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF9D1F00A3A;
-	Tue, 21 Jul 2026 21:58:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dwYajlAf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57EDC1F00A3E;
+	Tue, 21 Jul 2026 21:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784671095;
-	bh=Fe5/pB/ws+vJjm0o2TlHyAPpx48ekLo86Z88v5ZV2R8=;
+	s=korg; t=1784671100;
+	bh=i828wQS5VditYBnA8OfBdDwATbzFXAF7H4zMpX/OZww=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AnaH8oVXdEIif8AzQSIP46DvHVSgjqh4HgKTdPSyWWPwjBRVAi6QfIntaQ8VYAII6
-	 zH1tv3Yo0Hd4bMVdocE2OPFZbAOr9hEub2OqVoExANinMlulKxk8CgAtjxrGOyYDNO
-	 HIs/PSNPMlNs/QCgkkZPF5HP1A+Mx4i7PDKoMBns=
+	b=dwYajlAf0t0k5x/aoYRqkrS9pZO/08kto9bArcVspcY4jEubLCxvwFZunBd0cT7aJ
+	 aW2Wm/k+eGfujd9PJ1GX98L/s29yKTSXFMf0+bEYhhJk8JpsClHaYpE2HOGpccFZHx
+	 TkW5hFkmMJPwSAXDNeTmoR1JbBg9CeNbo7MJtQjE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Fushuai Wang <wangfushuai@baidu.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Subject: [PATCH 5.15 116/843] cpufreq: intel_pstate: Sync policy->cur during CPU offline
-Date: Tue, 21 Jul 2026 17:15:51 +0200
-Message-ID: <20260721152408.614059110@linuxfoundation.org>
+	Mahesh Vaidya <mahesh.vaidya@altera.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	"Subhransu S. Prusty" <subhransu.sekhar.prusty@altera.com>
+Subject: [PATCH 5.15 082/843] PCI: altera: Do not dispose parent IRQ mapping
+Date: Tue, 21 Jul 2026 17:15:17 +0200
+Message-ID: <20260721152407.845323546@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152405.946368001@linuxfoundation.org>
 References: <20260721152405.946368001@linuxfoundation.org>
@@ -51,51 +51,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Fushuai Wang <wangfushuai@baidu.com>
+From: Mahesh Vaidya <mahesh.vaidya@altera.com>
 
-commit bcbdaa1086c25a8a5d48e04e1b82fdfb0682b681 upstream.
+commit 5ef4bac02189bee0b7c170e352d7a38e13fe9678 upstream.
 
-When a CPU goes offline with HWP disabled, intel_pstate_set_min_pstate()
-sets the MSR_IA32_PERF_CTL to minimum frequency to prevent SMT siblings
-from being restricted. However, the policy->cur value was not updated,
-leaving it at the previous value.
+altera_pcie_irq_teardown() calls irq_dispose_mapping() on pcie->irq.
+However, pcie->irq is the parent IRQ returned by platform_get_irq(), not
+the mapping created by Altera INTx irq_domain.
 
-When the CPU comes back online, governor->limits() checks if target_freq
-equals policy->cur and skips the frequency adjustment if they match. Since
-policy->cur still holds the previous value, the governor does not call
-cpufreq_driver->target to update MSR_IA32_PERF_CTL.
+The Altera driver only sets the chained handler on the parent IRQ. It
+should detach that handler during teardown, but it should not dispose the
+parent IRQ mapping, which belongs to the parent interrupt controller's
+irq_domain.
 
-Fix this by synchronizing policy->cur with the hardware state when setting
-minimum pstate during CPU offline.
+Drop irq_dispose_mapping(pcie->irq) from the teardown path.
 
-Fixes: bb18008f8086 ("intel_pstate: Set core to min P state during core offline")
-Cc: stable@vger.kernel.org # 3.15+
-Suggested-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Fushuai Wang <wangfushuai@baidu.com>
-[ rjw: Subject refinement ]
-Link: https://patch.msgid.link/20260520032119.30615-1-fushuai.wang@linux.dev
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Note that during irqchip remove(), the child IRQs should've disposed. But
+since the chained handler itself is removed, there is no way the stale
+child IRQs (if exists) could fire. So it is safe here.
+
+Fixes: ec15c4d0d5d2 ("PCI: altera: Allow building as module")
+Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
+[mani: added a note about IRQ disposal]
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Reviewed-by: Subhransu S. Prusty <subhransu.sekhar.prusty@altera.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260430204330.3121003-2-mahesh.vaidya@altera.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/cpufreq/intel_pstate.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/pci/controller/pcie-altera.c |    1 -
+ 1 file changed, 1 deletion(-)
 
---- a/drivers/cpufreq/intel_pstate.c
-+++ b/drivers/cpufreq/intel_pstate.c
-@@ -2498,10 +2498,12 @@ static int intel_cpufreq_cpu_offline(str
- 	 * from getting to lower performance levels, so force the minimum
- 	 * performance on CPU offline to prevent that from happening.
- 	 */
--	if (hwp_active)
-+	if (hwp_active) {
- 		intel_pstate_hwp_offline(cpu);
--	else
-+	} else {
- 		intel_pstate_set_min_pstate(cpu);
-+		policy->cur = cpu->pstate.min_freq;
-+	}
+--- a/drivers/pci/controller/pcie-altera.c
++++ b/drivers/pci/controller/pcie-altera.c
+@@ -687,7 +687,6 @@ static void altera_pcie_irq_teardown(str
+ {
+ 	irq_set_chained_handler_and_data(pcie->irq, NULL, NULL);
+ 	irq_domain_remove(pcie->irq_domain);
+-	irq_dispose_mapping(pcie->irq);
+ }
  
- 	intel_pstate_exit_perf_limits(policy);
- 
+ static int altera_pcie_parse_dt(struct altera_pcie *pcie)
 
 
