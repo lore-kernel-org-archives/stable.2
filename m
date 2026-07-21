@@ -1,120 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACAF3242BC;
-	Tue, 21 Jul 2026 16:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B203314AE
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 16:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784651847; cv=none; b=BUKPsoNCrfEJgLmAZDlBqbMMYdKiBR6dVCWetkRmp7gwJENBNz2U2fenyRsqdnb043X3wg/toq5Aofn/1flv46jDjOxGNw31ADpTYfdw7HBGrIWvaDAD/L96nif7GiMIbzry/wts6OPiYgMGQFVlEi/lvsKDDzFnlYgSrG/nMRA=
+	t=1784652086; cv=none; b=J1XeClKrAlLCidUU4VCT9Jdy4fXOayckSVXkogFU+JV27PLI7/56cwhtoYfdouu9ynWL4PUVOdGX3OCgm+gmUVHTzA/8hKNIQ11TCO2TB825fNeiU0JYFyQIOhpdOyiIbebUxG02mjvMQknwFvXv8DNtIdx2b3n44o7DssnGUWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784651847; c=relaxed/simple;
-	bh=TGRXPFVgdEbdmkg0xf4c8T1CfMNAcqsktfaj8aD4Vkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W5UrY8g9XqxsPTYgrNMqcAyztQt9HAdZMlxA6mHI5y3fHPphahF6LEtOgd5rQi0RPPQgZ+wkazA5foQxrkZmpv5icUv2Kee5/HR+bUn93xqF63SZlfAT5wsbA+pDd9i9b+6bapJA4ANDuQEKpHsrroxXKEt7vVJyiFX8y+6B2d4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXY/lMV5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784652086; c=relaxed/simple;
+	bh=RtVC9ObLN/g3Wp5qytCN+fjJG3HJQkGff/4m8yZQ6Xk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oOlWDwx58gFhooN5Y4yhL2SrqLOH16JJEKd1+InArNV7kpQFa+JCyTZA84XLiNzNTxAervQf+CPeKvOLXpZHHcWqeMr6wd5innQ/0Bhkf9qBDcx3t3lApEYs17Xe2zKIbOpKeXToZpO7jkGXA11gfpUsSkTtKkmrFKniYGanMoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o+gFrMXC; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXY/lMV5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ABEB1F000E9;
-	Tue, 21 Jul 2026 16:37:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784651846;
-	bh=+HFeLFiMpt2saQXzTckcp9zHr3aZ9dLPuWwmmJp0sqI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GXY/lMV5LQKzNRnV+C077iSjTzm+1GjerEInR97FxIe3XvMmsBIsvMygiBO/8pQ7f
-	 usT47T6nokDReErxzN2SNoz1M64BSTrMxeubf4KASMqPo7CQCxjw17u3O70KSgV3WA
-	 mi3DmG0wdqkN5Oj0NPTFcPOpl4NPWHJn0O7S1W+/gUVmPP3scHKaTRuKU7ifc4P+tx
-	 4rJEiuKdLlbs6xM6aGTLV9XyVyUw2ZxUpZdH0aLCAY+Oix6JKa/PAL/Vrnxxr+0hHS
-	 zDmHv6WZdgNdqPyIVYEi/Y7ctQPrkpL+hjWsn/7MU05nZstbmgeqo/YOv4JpGw/PZm
-	 TdeYpLrSkJHUw==
-Date: Tue, 21 Jul 2026 17:37:21 +0100
-From: Simon Horman <horms@kernel.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: netdev@vger.kernel.org, Jon Maloy <jmaloy@redhat.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	Breno Leitao <leitao@debian.org>,
-	tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3] tipc: clear sock->sk on the failed-insert path in
- tipc_sk_create()
-Message-ID: <20260721163721.GA418547@horms.kernel.org>
-References: <20260714131939.1255974-1-4ncienth@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o+gFrMXC"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so6492502a91.0
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:41:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784652084; x=1785256884; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EDg/svCPJeFyDo4IXuZRcJVazgPS2ZfjuCatuWZTKtI=;
+        b=o+gFrMXCQeP6rUUIjGgpnGwY8Sng/+7jaV/GGYQ+iRY2IQp1qeBM2qefRSNfR36ko0
+         cTSr0z1bXGHGohDFExw6xWXUVrr3SL0SuUQqNul6WVi/INugZrb2KB9PtCbzE0dHkgLD
+         y0f90hP8Sy8G1Z24ADqgPR+ST5pBmFU/QWUwOoqNLUQQMRvx535KolpI2jY9iebJkq0l
+         pGKBnR9sLwNq6kKVB423TTXATfg4hLZk9rYdVvLkbYfhPBxIHPqheznGs74s06B7JUG5
+         3/7Cqr2wJmePOkdtRYZRTqYlUvIwQNGVz9jlLGUfJcAzvgSy6N2+bT+fSfpUeuyUSXrN
+         IXkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784652084; x=1785256884;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EDg/svCPJeFyDo4IXuZRcJVazgPS2ZfjuCatuWZTKtI=;
+        b=BmlGgZLSAgOUHctFWlLLzC0jKtNHSh3R5eOSgZmT/tSVXFHZX2Qhsxr4G5C+r/tMNs
+         LrPSOCjZmnIRZAGVuxjIJjIg2bDJ839k026p/kUNzEBjRgFI83kMQbIudzxsi94ZqDek
+         amLRA09RW3d7xQmkcdY8xUVUmVUVCYDvRbshPvTM9gAwILbM1KPbcfU7CQwfVqblPhaL
+         eyeKkee0MtSAHn99pPAaCR+3jHt91NQz1iPDwq80Ejt1w5LtRdnYgT6ejkPDRjZGGTUg
+         rRwLo46dqwwkcNl8UMeOBcfpHMqjSdlTh36qbnprQgvI+muNqhP6x/YeYEFhOGV8GHKS
+         sMKg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqc76X/GQ27Kr01inA0CzDt8yANlAMnOesHXcMf9DPX7u+JOKBnMG9OO1GXfuC6RFA0qL/m3VI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzd/+jcvREPF/2btNmyDP9lzGeoqtAWss2c8/EhjBfCt7MoUFQy
+	82aJZatMNCrOly1tNCV1YtQyFn/R86SLIZ/Ehi2dDz8YtQDoRMx0LDg=
+X-Gm-Gg: AfdE7cmXYTv9KuW1SfA7AG0rxBqRlqsGNunXk7aOgIcDfndoVp4lxQmBAPMgrWHHsYe
+	fLp1S+tu1kJ4uH3Zr1Xw72JK6IdbdyzpthIt7Lm6IKu327FRfDcFGhpbYD0EdEzZZU1hA889dCS
+	FJE+2zlLp7hFI5rdX1xCLz9o/T23++0f/kNLLmNVwFt6pYi01KlQJL32W8FZLJYANaqbpNEDByP
+	wTf+2rWcdWQYueuxtKC0VslHAGRhrNIHcngcTpHiW3gFV/4lyBIP2DqFCoWXrMikE1B1vIWO89I
+	UJ/6twFZmlj8sYE9rXdR0NwOREnBQYWFzaYprvQJb/atnx46Ve5PZfaDEmXhrQs9wX2u9xT8M83
+	0oVSsDly4q/tA4TY+Ivr6ZQzTxEwCCGgf4GgFlQ+KU14O6DzR24NVHZVghacpTiw+Wg4Sx2+wux
+	5i9rbtFPyFA5rItISSbahOvZItFWJY0FQv9gB6oX5OqDlJXPPvgsc7Xw==
+X-Received: by 2002:a05:6a20:244c:b0:3bf:6237:4d4a with SMTP id adf61e73a8af0-3c3ad80d53amr19459946637.24.1784652083866;
+        Tue, 21 Jul 2026 09:41:23 -0700 (PDT)
+Received: from coe.tail83f5bd.ts.net ([125.19.217.182])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1c7ff4sm447487eec.27.2026.07.21.09.41.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 09:41:23 -0700 (PDT)
+From: Ramesh Adhikari <adhikari.resume@gmail.com>
+To: colyli@fygo.io
+Cc: axboe@kernel.dk,
+	gregkh@linuxfoundation.org,
+	linux-block@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ramesh Adhikari <adhikari.resume@gmail.com>
+Subject: [PATCH v7 0/2] badblocks: fix rounding bug and validate input range
+Date: Tue, 21 Jul 2026 22:10:22 +0530
+Message-ID: <20260721164027.637078-1-adhikari.resume@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260709131904.596684-3-adhikari.resume@gmail.com>
+References: <20260709131904.596684-3-adhikari.resume@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714131939.1255974-1-4ncienth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 14, 2026 at 10:19:39PM +0900, Daehyeon Ko wrote:
-> When tipc_sk_create() fails to insert the new socket (tipc_sk_insert()
-> returns non-zero), its error path frees the sk with sk_free() but leaves
-> sock->sk pointing at the freed object:
-> 
-> 	if (tipc_sk_insert(tsk)) {
-> 		sk_free(sk);
-> 		pr_warn("Socket create failed; port number exhausted\n");
-> 		return -EINVAL;
-> 	}
-> 
-> This is harmless for plain socket(): the syscall layer clears sock->ops
-> before releasing, so tipc_release() is never called. It is not harmless
-> on the accept() path. tipc_accept() creates the pre-allocated child
-> socket with tipc_sk_create(net, new_sock, 0, kern); on failure it leaves
-> new_sock->sk dangling and new_sock->ops non-NULL, and do_accept() then
-> fput()s the new file, so __sock_release() -> tipc_release() runs
-> lock_sock(new_sock->sk) on the freed sk -- a use-after-free write of the
-> sk_lock spinlock.
-> 
-> tipc_release() already guards this exact "failed accept() releases a
-> pre-allocated child" case with "if (sk == NULL) return 0;", but the
-> guard is bypassed because tipc_sk_create() left sock->sk non-NULL
-> (dangling) rather than NULL.
-> 
-> Clear sock->sk on the failed-insert path so the existing tipc_release()
-> NULL check fires and the use-after-free is avoided.
-> 
-> The tipc_sk_insert() failure is reached when the per-netns socket
-> rhashtable hits its max_size (tsk_rht_params.max_size = 1048576, ~2M
-> elements) -- i.e. once a netns holds ~2M TIPC sockets every insert
-> returns -E2BIG.
-> 
->   BUG: KASAN: slab-use-after-free in lock_sock_nested (net/core/sock.c:3839)
->   Write of size 8 at addr ffff8880047cdc38 by task init/1
->    lock_sock_nested (net/core/sock.c:3839)
->    tipc_release (net/tipc/socket.c:638)
->    __sock_release (net/socket.c:710)
->    sock_close (net/socket.c:1501)
->    __fput (fs/file_table.c:512)
->   Allocated by task 1:
->    sk_alloc (net/core/sock.c:2308)
->    tipc_sk_create (net/tipc/socket.c:487)
->    tipc_accept (net/tipc/socket.c:2744)
->    do_accept (net/socket.c:2034)
->   Freed by task 1:
->    __sk_destruct (net/core/sock.c:2391)
->    tipc_sk_create (net/tipc/socket.c:504)
->    tipc_accept (net/tipc/socket.c:2744)
->    do_accept (net/socket.c:2034)
-> 
-> Fixes: 00aff3590fc0 ("net: tipc: fix possible refcount leak in tipc_sk_create()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
-> Reviewed-by: Breno Leitao <leitao@debian.org>
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-> ---
-> v3: correct the Fixes: tag to 00aff3590fc0 ("net: tipc: fix possible
->     refcount leak in tipc_sk_create()") -- that commit added the sk_free()
->     on the insert-failure path; before it the path leaked sk rather than
->     freeing it, so the use-after-free only exists since then (v5.19+).
->     Thanks Breno. Collect Reviewed-by from Tung and Breno. No code change.
-> v2: https://lore.kernel.org/netdev/20260713082342.3803379-1-4ncienth@gmail.com/
-> v1: https://lore.kernel.org/netdev/20260710014440.2055584-1-4ncienth@gmail.com/
+Two related fixes to block/badblocks.c:
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Patch 1/2 fixes the actual reported bug: round_up()/round_down() don't
+modify their argument in place, they return the rounded value, and the
+callers in _badblocks_set()/_badblocks_clear()/badblocks_check() were
+discarding that return value. Depending on caller alignment this could
+leave sectors unrounded or, in the reported case, stall the CPU with a
+non-advancing cursor when reached via the nvdimm ioctl path. It also
+fixes a 32-bit build breakage reported by kernel test robot, since the
+old rounddown()/roundup() macros pull in 64-bit division helpers not
+linked on 32-bit builds. Unchanged since v6.
+
+Patch 2/2 hardens the same three functions against the input-range and
+shift edge cases the round_up/round_down fix exposed: s + sectors
+overflow, and rounding itself wrapping past ULLONG_MAX. Revised in v7
+per Coly's review of v6 — see the changelog in that patch for details.
+The remaining open item, bounding bb->shift where it's populated from
+the on-disk MD superblock in drivers/md/md.c, is being sent separately
+since it's a different file and a different root cause (missing input
+validation, not a rounding bug).
+
+Ramesh Adhikari (2):
+  badblocks: fix in-place round_up/round_down usage bug
+  badblocks: validate sector range and shift before rounding
+
+ block/badblocks.c         | 40 ++++++++++++++++++++++++++++++++-------
+ include/linux/badblocks.h |  6 +++++-
+ 2 files changed, 38 insertions(+), 8 deletions(-)
+
+-- 
+2.43.0
 
