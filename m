@@ -1,35 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60AD3B4E87;
-	Tue, 21 Jul 2026 21:50:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94483B8412;
+	Tue, 21 Jul 2026 21:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784670637; cv=none; b=miFsTts1bBfScTs/uxsq1dV64dDCNzUuOb3OsedVYXiEY9AsqW/mM94zIntKV1BUw4Pv+VjSomXKijUzskcTZdOfs/X7oW+S3FoUN1kUpBdorUjfTf/a4VUUNf+xeDAYXU7+tI7QymkeBnNcOv40NMqXAkSEQvPHCCNlgHk9Qr8=
+	t=1784670639; cv=none; b=CWWHrYxXRH/UEtU/Cjfes4rh6bGg0fcxRy9gtxnmJWaYrY/flv8968cRNsCilqtrTZLBTBiaSdSjpjXtlpJYJSX59QriKgo9ld3V62ZgNx5xLNck9kkgm7ciY8jsw1kF1CE4anyQ3cvmhICYH2HYZDORjlDlKiIlcIuNe5+f360=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784670637; c=relaxed/simple;
-	bh=mmDp6KtvmpCCYrQNDSxwmxVb4WkkzeKnrEedZz6lktw=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=dkp5/rS453i3WTqYl5Pish21kdowbKz3L636DiqApPkK882omvjlnN6Srj/+RpN0OLuO9QT2MjinqPknVWV6fLqcZ4GdLrwBAyLfh+h35hbFTxYfzOv+zDTzTTX9ubsX5ZRvWHkSxPXtiHIkMIsD+kbqUI70gInAauuJcyMtSgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LwjE5agm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784670639; c=relaxed/simple;
+	bh=oUJCJKNpxKxOb6EPfTzSL+KSsNtpjQNKDXV6ZUv3jFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MMnVjvlv4K51is5qKK7sbQaLCvHfN6RCbXFEWpFSgpZkiIbLNlqu8t4NVVhdUZsgRsGXVFrJM3ILPgivsgY31o1HE0FFOaQxLM1dibQEKfTQo0ZX/7MLFYkM/1JEhIMo2O+QlmLhRliJUU7V5ujUqBq/WNdELti94Q+U8LUtTRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gHU/M180; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LwjE5agm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05AD1F000E9;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gHU/M180"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54341F00A3D;
 	Tue, 21 Jul 2026 21:50:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784670636;
-	bh=Mcam1qbTN5NGekmZTRnNnLbz4zTvKS77aW3ghNSTnhE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LwjE5agmmd3139osG/F6doehV7Ta8ly/P4qyqURHF2d1pTyaTV3gTfWX3awXpSXG7
-	 pJmnElDBtT77B0DbODweYQfDw6eGb9hJtZRQ5U4+CAXolhnGxKD9wwG9S7L72R2kZ0
-	 JiEcoIZCgG14iiJl7Vo3NBP1iB6ak00Ib/QglBjStHfpsyxAqxbWBX2lvW+sFYQQ/P
-	 GWO4qkcjJnME6FdNgFV2piKFUD/oA+Qr+VAGyx3aiZ7t4/0+VYU512mOGX3YoqqibZ
-	 YX1JhDCrz6COk+GNe8dE7YKd5Ahg073KKyMpJUv/UJo/EuPxefom7Iru7p4rlx12pf
-	 FLJgnBAIWH5wQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569B2380820D;
-	Tue, 21 Jul 2026 21:50:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784670637;
+	bh=hiGNV5pNFgc3QlcD8/BHGysN6RDvFgxYb4+AavvlgGQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gHU/M180WSau6rutWdmAgIRuNJV2m6iV2XwAxe7iZoCvu/GGdKwJZSocdHpHGMy87
+	 t3xywtu1U/O8eE9iPh7jpM2830xIaU0B3b/FlDK4MZ5eRaNZ6h+Wl7VQSk2RzzKA+J
+	 kH8x4t32SJ0tajdq0qwOY8TlzqS5WDVTaQaXld1g=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jan Kara <jack@suse.cz>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 1007/1067] writeback: fix race between cgroup_writeback_umount() and inode_switch_wbs()
+Date: Tue, 21 Jul 2026 17:26:48 +0200
+Message-ID: <20260721152447.097641972@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
+References: <20260721152424.521567757@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,43 +48,183 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] gve: fix Rx queue stall on alloc failure
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178467060615.1100105.13388292280071884550.git-patchwork-notify@kernel.org>
-Date: Tue, 21 Jul 2026 21:50:06 +0000
-References: <20260709211906.3322883-1-hramamurthy@google.com>
-In-Reply-To: <20260709211906.3322883-1-hramamurthy@google.com>
-To: Harshitha Ramamurthy <hramamurthy@google.com>
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- willemb@google.com, jordanrhee@google.com, nktgrg@google.com,
- maolson@google.com, thostet@google.com, csully@google.com, bcf@google.com,
- maciej.fijalkowski@intel.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, eddiephillips@google.com
 
-Hello:
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+------------------
 
-On Thu,  9 Jul 2026 21:19:06 +0000 you wrote:
-> From: Eddie Phillips <eddiephillips@google.com>
-> 
-> When the system is under extreme memory pressure, page allocations can
-> fail during the Rx buffer refill loop. If the number of buffers posted
-> to hardware falls below a critical low threshold and the refill loop
-> exits due to allocation failures, the queue can stall:
-> 
-> [...]
+From: Baokun Li <libaokun@linux.alibaba.com>
 
-Here is the summary with links:
-  - [net,v2] gve: fix Rx queue stall on alloc failure
-    https://git.kernel.org/netdev/net/c/b65352a1bac6
+[ Upstream commit cba38ec4cbd3a7b8b942a8d52531a05be8a9ff0d ]
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+When a container exits, the following BUG_ON() is occasionally triggered:
+
+==================================================================
+ VFS: Busy inodes after unmount of sdb (ext4)
+ ------------[ cut here ]------------
+ kernel BUG at fs/super.c:695!
+ CPU: 3 PID: 6 Comm: containerd-shim Tainted: G OE K 6.6 #1
+ pstate: 63400009 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+ pc : generic_shutdown_super+0xf0/0x100
+ lr : generic_shutdown_super+0xf0/0x100
+ Call trace:
+  generic_shutdown_super+0xf0/0x100
+  kill_block_super+0x20/0x48
+  ext4_kill_sb+0x28/0x60
+  deactivate_locked_super+0x54/0x130
+  deactivate_super+0x84/0xa0
+  cleanup_mnt+0xa4/0x140
+  __cleanup_mnt+0x18/0x28
+  task_work_run+0x78/0xe0
+  do_notify_resume+0x204/0x240
+==================================================================
+
+The root cause is a race between cgroup_writeback_umount() and
+inode_switch_wbs()/cleanup_offline_cgwb(). There is a window between
+inode_prepare_wbs_switch() returning true and the subsequent
+wb_queue_isw() call. Following is the process that triggers the issue:
+
+      CPU A (umount)           |          CPU B (writeback)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                 inode_switch_wbs/cleanup_offline_cgwb
+                                  atomic_inc(&isw_nr_in_flight)
+                                  inode_prepare_wbs_switch
+                                   -> passes SB_ACTIVE check
+                                   __iget(inode)
+ generic_shutdown_super
+  sb->s_flags &= ~SB_ACTIVE
+  cgroup_writeback_umount(sb)
+   smp_mb()
+   atomic_read(&isw_nr_in_flight)
+   rcu_barrier()
+    -> no pending RCU callbacks
+   flush_workqueue(isw_wq)
+    -> nothing queued, returns
+  evict_inodes(sb)
+   -> Inode skipped as isw still holds a ref.
+  sop->put_super(sb)
+   /* destroys percpu counters */
+  -> VFS: Busy inodes after unmount!
+                                  wb_queue_isw()
+                                   queue_work(isw_wq, ...)
+                                  /* later in work function */
+                                  inode_switch_wbs_work_fn
+                                   process_inode_switch_wbs
+                                    iput() -> evict
+                                     percpu_counter_dec() // UAF!
+
+Fix this by extending the RCU read-side critical section in
+inode_switch_wbs() and cleanup_offline_cgwb() to cover from
+inode_prepare_wbs_switch() through wb_queue_isw().  Since there is
+no sleep in this window, rcu_read_lock() can be used.  Then add a
+synchronize_rcu() in cgroup_writeback_umount() before the existing
+rcu_barrier(), so that all in-flight switchers that have passed the
+SB_ACTIVE check have completed queue_work() before flush_workqueue()
+is called.
+
+The existing rcu_barrier() is intentionally retained so this fix can
+be backported unchanged to stable kernels (5.10.y, 6.6.y, ...) that
+still queue switches via queue_rcu_work(). It is a no-op on current
+mainline (since commit e1b849cfa6b6 ("writeback: Avoid contention on
+wb->list_lock when switching inodes")) and is removed in a follow-up
+patch.
+
+Fixes: a1a0e23e4903 ("writeback: flush inode cgroup wb switches instead of pinning super_block")
+Cc: stable@vger.kernel.org
+Suggested-by: Jan Kara <jack@suse.cz>
+Link: https://lore.kernel.org/all/mxnjq2l6guusfchvauxr3v7c4bwjasybxlleqbbh4efloeqspz@iqylk76ohufz
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+Link: https://patch.msgid.link/20260521095016.2791354-2-libaokun@linux.alibaba.com
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ fs/fs-writeback.c |   31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
+
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -623,12 +623,19 @@ static void inode_switch_wbs(struct inod
+ 
+ 	atomic_inc(&isw_nr_in_flight);
+ 
+-	/* find and pin the new wb */
++	/*
++	 * Paired with synchronize_rcu() in cgroup_writeback_umount():
++	 * holding rcu_read_lock across inode_prepare_wbs_switch()
++	 * (covering the SB_ACTIVE check and the inode grab) and
++	 * wb_queue_isw() ensures synchronize_rcu() cannot return until
++	 * the work is queued, so the subsequent flush_workqueue() will
++	 * wait for the switch.
++	 */
+ 	rcu_read_lock();
++	/* find and pin the new wb */
+ 	memcg_css = css_from_id(new_wb_id, &memory_cgrp_subsys);
+ 	if (memcg_css && !css_tryget(memcg_css))
+ 		memcg_css = NULL;
+-	rcu_read_unlock();
+ 	if (!memcg_css)
+ 		goto out_free;
+ 
+@@ -643,9 +650,11 @@ static void inode_switch_wbs(struct inod
+ 	isw->inodes[0] = inode;
+ 
+ 	wb_queue_isw(new_wb, isw);
++	rcu_read_unlock();
+ 	return;
+ 
+ out_free:
++	rcu_read_unlock();
+ 	atomic_dec(&isw_nr_in_flight);
+ 	if (new_wb)
+ 		wb_put(new_wb);
+@@ -704,6 +713,14 @@ bool cleanup_offline_cgwb(struct bdi_wri
+ 		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
+ 
+ 	nr = 0;
++	/*
++	 * Paired with synchronize_rcu() in cgroup_writeback_umount().
++	 * Holding rcu_read_lock across the SB_ACTIVE check, the inode grab
++	 * and wb_queue_isw() ensures synchronize_rcu() cannot return until
++	 * the work is queued, so the subsequent flush_workqueue() will wait
++	 * for the switch.
++	 */
++	rcu_read_lock();
+ 	spin_lock(&wb->list_lock);
+ 	/*
+ 	 * In addition to the inodes that have completed writeback, also switch
+@@ -721,6 +738,7 @@ bool cleanup_offline_cgwb(struct bdi_wri
+ 
+ 	/* no attached inodes? bail out */
+ 	if (nr == 0) {
++		rcu_read_unlock();
+ 		atomic_dec(&isw_nr_in_flight);
+ 		wb_put(new_wb);
+ 		kfree(isw);
+@@ -728,6 +746,7 @@ bool cleanup_offline_cgwb(struct bdi_wri
+ 	}
+ 
+ 	wb_queue_isw(new_wb, isw);
++	rcu_read_unlock();
+ 
+ 	return restart;
+ }
+@@ -1159,6 +1178,14 @@ void cgroup_writeback_umount(void)
+ 
+ 	if (atomic_read(&isw_nr_in_flight)) {
+ 		/*
++		 * Paired with rcu_read_lock() in inode_switch_wbs() and
++		 * cleanup_offline_cgwb().  synchronize_rcu() waits for any
++		 * in-flight switcher that already passed the SB_ACTIVE check
++		 * to finish queueing its work, so flush_workqueue() below
++		 * will then drain it.
++		 */
++		synchronize_rcu();
++		/*
+ 		 * Use rcu_barrier() to wait for all pending callbacks to
+ 		 * ensure that all in-flight wb switches are in the workqueue.
+ 		 */
 
 
