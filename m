@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE07D126BF1
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61311EEE6
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 00:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784594728; cv=none; b=QhCaN2h8hdDHMbbCyFZPsNC8pZhjxfxJIsIw73tTTolEk6EAzK5Fpslcthc7GOyD5XyzNSFTntU5rDDlObT5aE2wvDhoLT5oYDmQrNTRjc9RoihGGRkP0++Y3Kv2ZSob2e2WCHFxs+9OyymIhCJ1Nhuqdcun5MWM4ZoiN+rMu04=
+	t=1784594728; cv=none; b=JQkxxGNOk95WNyb2oAKA/QPTLnMeboWUZWUP9Rcvm3QZCeMMlyb/O9sugJJ/sjASj0TeDTRXM3n82/t0uXCU4r6sag++B41vg9sJ4rMA7hO1/x2V+JjmJOywHlVm1znxk/El9lLV8Z7PQQ+sdStqOVg8DKfxb+sW2p0+9S6hT4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784594728; c=relaxed/simple;
-	bh=gKQ/W0WUkGeEfdaBljuYu7UuhMdeWGLg1qoHCG1oqUM=;
+	bh=lwUGLCZSjhEvtCWLAmfebShGQpWRcjqV5agEzWJ8woA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uz8CxhsOQoJ3VsNwfhMiFqdkMAJK/GsXa/L5DbrFHIZBBdjIx06HXy1wtjafboe06Kt3ttt1rccOCsRV3xHCBiNUNIJyYOMUVzSlMN+ZcmyIpteRXREKV3cad4NyRv2WybR5WSTJ/8yJcClKMKETJB4SDpx2mJ5DXNPcpz84kFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FToBLQ1L; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=joVxRWQiJlubtc60PbaREfdKJInZRHHxLp98WNOIdWPqSy3f77jtdYGe+FjI25yUuwZbpibooeOq7jie1B+GC3w3CxlbBR5hcC5csBrB9vnQhLAdGdY8jSmJIx1opJ7HY3BcA5lo7wj3yA3PH4GwJioU8LpMqcV0jYcXOKeKh0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XX/HX5iU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FToBLQ1L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155E51F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XX/HX5iU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54E31F00A3D;
 	Tue, 21 Jul 2026 00:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784594726;
-	bh=wO+4N8ib5T+DlXA0k+ZYXzJVE4EKFmUqblVUiIdzSxU=;
+	s=k20260515; t=1784594727;
+	bh=Tz4EOGQZE5azCRInKTBUD4JDpLYM51Ue06N9qK2HCPc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FToBLQ1Li0QRNyZdwpKa9jnB8MQMpzAVe98QYo7OhLtlQh+FrmT28dCIJtSPceKEI
-	 iRZ/3n3igbrDhkefuaS1EYGUTTnCRlt8jy9E5duNGfrq5VXLkzy9Vi4783BtaIaHuI
-	 O1C6lfBr9nu8F1d8mzOb8rCwFxj9Pw/phJh4WQ97MzuHJ0DYIGE3IfW1dr62qslFYG
-	 YwRZDP7SX1PxopsvdAm+NPUsAHhMBFwNGUwTbELDjDTnBPsND+fCkRfVSFQhcihQPK
-	 ZGR8jLjQyshd1IznG8lIUlmciiqkVKOT4bGqaU1Ub9NhzPO4We7E6uEN5HJRSfGtyn
-	 WNXbKMD6ZW7XQ==
+	b=XX/HX5iUxI+F/Ea2TrpZYztCndSM4tRiuLXWbu4iHjS4Shuk07TJIFty3AeNQbvX1
+	 OFrPAvFWg+jxsm5YPV0C5wPgr6aJTMSVwDhhhtU4oH3y5KZTSzXwCWyCGEDD/ew89l
+	 Jf7zzBHmINc0VNVyyXddDyv6PwP9NcbkuG5Q2jOqvh92tcS2OLZCVmZaQPAAuIsnqb
+	 gvCCr4IsPe0pqZPjh0IkJbs6t2FCnInYDxjw2qoNgDuRKUhaXsUGWsQVWr8lV0Yf3c
+	 2Tb7XDKDhMVLN8KLVU/UDea4s035PXGMrTMhi8rPkDnNmXD9maUS5ViAIs434FcQfO
+	 NzmMzPy0JACIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Qu Wenruo <wqu@suse.com>,
 	Boris Burkov <boris@bur.io>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] btrfs: fix false IO failure after falling back to buffered write
-Date: Mon, 20 Jul 2026 20:45:23 -0400
-Message-ID: <20260721004524.3422340-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] btrfs: fix incorrect buffered IO fallback for append direct writes
+Date: Mon, 20 Jul 2026 20:45:24 -0400
+Message-ID: <20260721004524.3422340-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071510-plexiglas-finishing-b299@gregkh>
+In-Reply-To: <20260721004524.3422340-1-sashal@kernel.org>
 References: <2026071510-plexiglas-finishing-b299@gregkh>
+ <20260721004524.3422340-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,19 +49,20 @@ Content-Transfer-Encoding: 8bit
 
 From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 66ff4d366e7eb4d31813d2acabf3af512ce03aa5 ]
+[ Upstream commit ff66fe6662330226b3f486014c375538d91c44aa ]
 
 [BUG]
-The test case generic/362 will fail with "nodatasum" mount option (*):
-
- MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
+With the previous bug of short direct writes fixed, test case
+generic/362 (*) still fails with the following error with nodatasum
+mount option:
 
  generic/362  0s ... - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
+ - output mismatch (see /home/adam/xfstests/results//generic/362.out.bad)
     --- tests/generic/362.out	2024-08-24 15:31:37.200000000 +0930
-    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:21:17.574771567 +0930
+    +++ /home/adam/xfstests/results//generic/362.out.bad	2026-05-27 10:13:09.072485767 +0930
     @@ -1,2 +1,3 @@
      QA output created by 362
-    +First write failed: Input/output error
+    +Wrong file size after first write, got 8192 expected 4096
      Silence is golden
     ...
 
@@ -70,178 +72,171 @@ reliably reproducible:
 https://lore.kernel.org/linux-btrfs/20260528111659.87113-1-wqu@suse.com/
 
 [CAUSE]
-Inside __iomap_dio_rw(), the -EFAULT/-ENOTBLK error is not directly returned.
-Thus we never got an error pointer from __iomap_dio_rw().
+Inside btrfs_dio_iomap_begin() for a direct write, we increase the isize
+if it's beyond the current isize.
+
+But if the direct io finished short, we do not revert the isize to the
+previous value nor to the short write end.
+
+Then if we need to fall back to buffered writes, and the write has
+IOCB_APPEND flag, then the buffered write will be positioned at the
+incorrect isize.
 
 The call chain looks like this:
 
- btrfs_direct_write()
- |- btrfs_dio_write()
- |-  __iomap_dio_rw()
+ btrfs_direct_write(pos=0, length=4K)
+ |- __iomap_dio_rw()
  |  |- iomap_iter()
  |  |  |- btrfs_dio_iomap_begin()
- |  |     Now an ordered extent is allocated for the 4K write.
+ |  |     |- btrfs_get_blocks_direct_write()
+ |  |        |- i_size_write()
+ |  |           Which updates the isize to the write end (4K).
  |  |
- |  |- iomi.status = iomap_dio_iter()
- |  |  Where iomap_dio_iter() returned -EFAULT.
+ |  |- iomap_dio_iter()
+ |  |  Failed with -EFAULT on the first page.
  |  |
- |  |- ret = iomap_iter()
+ |  |- iomap_iter()
  |  |  |- btrfs_dio_iomap_end()
- |  |  |  |- btrfs_finish_ordered_extent(uptodate = false)
- |  |  |  |  |- can_finish_ordered_extent()
- |  |  |  |     |- btrfs_mark_ordered_extent_error()
- |  |  |  |        |- mapping_set_error()
- |  |  |  |           Now the address space is marked error.
- |  |  |  | return -ENOTBLK
- |  |  |- return -ENOTBLK
- |  |- if (ret == -ENOTBLK) { ret = 0; }
- |     Now the return value is reset to 0.
- |     Thus no error pointer will be returned.
+ |  |     Detects a short write, return -ENOTBLK
+ |  |- if (ret == -ENOTBLK) { ret = 0;}
+ |     Which resets the return value.
  |
- |- ret = iomap_dio_complete()
- |  Since no byte is submitted, @ret is 0.
+ |- ret = iomap_dio_complet()
+ |  Which returns 0.
  |
- |- Fallback to buffered IO
- |  And the buffered write finished without error
- |
- |- filemap_fdatawait_range()
-    |- filemap_check_errors()
-       The previous error is recorded, thus an error is returned
-
-However the buffered write is properly submitted and finished, the error
-is from the btrfs_finish_ordered_extent() call with @uptodate = false.
+ |- btrfs_buffered_write(iocb, from);
+    |- generic_write_checks()
+       |- iocb->ki_pos = i_size_read()
+          Which is still the new size (4K), other than the original
+	  isize 0.
 
 [FIX]
-When a short dio write happened, any range that is submitted will have
-btrfs_extract_ordered_extent() to be called, thus the submitted range
-will always have an OE just covering the submitted range.
+Introduce the following btrfs_dio_data members:
 
-The remaining OE range is never submitted, thus they should be treated
-as truncated, not an error. So that we can properly reclaim and not
-insert an unnecessary file extent item, without marking the mapping as
-error.
+- old_isize
 
-Extract a helper, btrfs_mark_ordered_extent_truncated(), and utilize
-that helper to mark the direct IO ordered extent as truncated, so it
-won't cause failure for the later buffered fallback.
+- updated_isize
+  If the direct write has enlarged the isize.
+
+Then if we got a short write, and btrfs_dio_data::updated_isize is set,
+revert to the correct isize based on old_isize and current file
+position.
+
+And here we call i_size_write() without holding an extent lock, which is
+a very special case that we're safe to do:
+
+ - Only a single writer can be enlarging isize
+   Enlarging isize will take the exclusive inode lock.
+
+ - Buffered readers need to wait for the OE we're holding
+   Buffered readers will lock extent and wait for OE of the folio range.
+   Sometimes we can skip the OE wait, but since all page cache is
+   invalidated, the OE wait can not be skipped.
+
+But I do not think this is the most elegant solution, nor covers all
+cases. E.g. if the bio is submitted but IO failed, we are unable to do
+the revert.
+
+I believe the more elegant one would be extend the EXTENT_DIO_LOCKED
+lifespan for direct writes, so that we can update the isize when a
+write beyond EOF finished successfully.
+
+However that change is too huge for a small bug fix.
+So only implement the minimal partial fix for now.
 
 [REASON FOR NO FIXES TAG]
-The bug itself is pretty old, at commit f85781fb505e ("btrfs: switch to
-iomap for direct IO") we're already passing @uptodate=false finishing
-the OE.
-But at that time OE with IOERR won't call mapping_set_error(), so it's
-not exposed.
-Later commit d61bec08b904 ("btrfs: mark ordered extent and inode with
-error if we fail to finish") finally exposed the bug, but that commit
-is doing a correct job, not the root cause.
+The bug is again very old, before commit f85781fb505e ("btrfs: switch to
+iomap for direct IO") we are already increasing isize without a
+proper rollback for short writes.
 
-Anyway the bug is very old, dating back to 5.1x days, thus only CC to
-stable.
+Thus only a CC to stable.
 
 CC: stable@vger.kernel.org # 5.15+
 Reviewed-by: Boris Burkov <boris@bur.io>
 Signed-off-by: Qu Wenruo <wqu@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
-Stable-dep-of: ff66fe666233 ("btrfs: fix incorrect buffered IO fallback for append direct writes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/inode.c        | 34 ++++++++++++++++++++++++++--------
- fs/btrfs/ordered-data.c | 13 +++++++++++++
- fs/btrfs/ordered-data.h |  2 ++
- 3 files changed, 41 insertions(+), 8 deletions(-)
+ fs/btrfs/inode.c | 43 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
 
 diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 62cf96fa12f239..6b08ee4aa4edba 100644
+index 6b08ee4aa4edba..1f8e8cd49c12a2 100644
 --- a/fs/btrfs/inode.c
 +++ b/fs/btrfs/inode.c
-@@ -8207,12 +8207,34 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 	if (submitted < length) {
- 		pos += submitted;
- 		length -= submitted;
--		if (write)
-+		if (write) {
-+			struct btrfs_ordered_extent *ordered;
-+
-+			/*
-+			 * We have a short write. Any range that was properly
-+			 * submitted will be finished through the bio
-+			 * completion path with an uptodate status matching
-+			 * the bio status.
-+			 *
-+			 * The remaining range was never submitted, so mark
-+			 * it as truncated and finish it without an error, so
-+			 * the extent is reclaimed without inserting a file
-+			 * extent item for it and without marking the mapping
-+			 * as failed, which would make a later buffered write
-+			 * fallback fail with a false -EIO.
-+			 */
-+			ordered = btrfs_lookup_ordered_extent(BTRFS_I(inode),
-+							      pos);
-+			ASSERT(ordered);
-+			btrfs_mark_ordered_extent_truncated(ordered,
-+					pos - ordered->file_offset);
-+			btrfs_put_ordered_extent(ordered);
- 			__endio_write_update_ordered(BTRFS_I(inode), pos,
--					length, false);
--		else
-+					length, true);
-+		} else {
- 			unlock_extent(&BTRFS_I(inode)->io_tree, pos,
- 				      pos + length - 1);
+@@ -61,7 +61,9 @@ struct btrfs_iget_args {
+ 
+ struct btrfs_dio_data {
+ 	ssize_t submitted;
++	loff_t old_isize;
+ 	struct extent_changeset *data_reserved;
++	bool updated_isize;
+ };
+ 
+ static const struct inode_operations btrfs_dir_inode_operations;
+@@ -7904,6 +7906,7 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+ 	bool can_nocow = false;
+ 	bool space_reserved = false;
+ 	u64 prev_len;
++	loff_t old_isize;
+ 	int ret = 0;
+ 
+ 	/*
+@@ -7997,8 +8000,14 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+ 	 * Need to update the i_size under the extent lock so buffered
+ 	 * readers will get the updated i_size when we unlock.
+ 	 */
+-	if (start + len > i_size_read(inode))
++	old_isize = i_size_read(inode);
++	if (start + len > old_isize) {
++		if (!dio_data->updated_isize) {
++			dio_data->old_isize = old_isize;
++			dio_data->updated_isize = true;
 +		}
- 		ret = -ENOTBLK;
- 	}
+ 		i_size_write(inode, start + len);
++	}
+ out:
+ 	if (ret && space_reserved) {
+ 		btrfs_delalloc_release_extents(BTRFS_I(inode), len);
+@@ -8210,6 +8219,38 @@ static int btrfs_dio_iomap_end(struct inode *inode, loff_t pos, loff_t length,
+ 		if (write) {
+ 			struct btrfs_ordered_extent *ordered;
  
-@@ -8839,11 +8861,7 @@ static void btrfs_invalidatepage(struct page *page, unsigned int offset,
- 					 EXTENT_LOCKED | EXTENT_DO_ACCOUNTING |
- 					 EXTENT_DEFRAG, 1, 0, &cached_state);
- 
--		spin_lock_irq(&inode->ordered_tree.lock);
--		set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
--		ordered->truncated_len = min(ordered->truncated_len,
--					     cur - ordered->file_offset);
--		spin_unlock_irq(&inode->ordered_tree.lock);
-+		btrfs_mark_ordered_extent_truncated(ordered, cur - ordered->file_offset);
- 
- 		if (btrfs_dec_test_ordered_pending(inode, &ordered,
- 						   cur, range_end + 1 - cur)) {
-diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
-index 6b51fd2ec5ac53..32c9afee334889 100644
---- a/fs/btrfs/ordered-data.c
-+++ b/fs/btrfs/ordered-data.c
-@@ -298,6 +298,19 @@ void btrfs_add_ordered_sum(struct btrfs_ordered_extent *entry,
- 	spin_unlock_irq(&tree->lock);
- }
- 
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len)
-+{
-+	struct btrfs_ordered_inode_tree *tree;
++			/*
++			 * Got a short write and have updated the isize, need to
++			 * revert the isize change.
++			 *
++			 * Normally we need to update isize with extent lock hold,
++			 * but we're safe due to the following factors:
++			 *
++			 * - Only a single writer can be enlarging isize
++			 *   Enlarging isize will take the exclusive inode lock.
++			 *
++			 * - Buffered readers need to wait for the OE we're holding
++			 *   Buffered readers will lock extent and wait for OE
++			 *   of the folio range, and since page cache is invalidated
++			 *   the OE wait can not be skipped.
++			 *
++			 * So here we are safe to revert the isize before
++			 * finishing the OE, and no reader of the remaining range
++			 * can see the enlarged size.
++			 *
++			 * TODO: Extend the DIO_LOCKED lifespan for direct writes,
++			 * and only enlarge isize after a successful write.
++			 */
++			if (dio_data->updated_isize) {
++				u64 new_isize;
 +
-+	tree = &BTRFS_I(ordered->inode)->ordered_tree;
-+	ASSERT(truncate_len <= ordered->num_bytes);
-+	spin_lock_irq(&tree->lock);
-+	set_bit(BTRFS_ORDERED_TRUNCATED, &ordered->flags);
-+	ordered->truncated_len = min(ordered->truncated_len, truncate_len);
-+	spin_unlock_irq(&tree->lock);
-+}
-+
- /*
-  * Mark all ordered extents io inside the specified range finished.
-  *
-diff --git a/fs/btrfs/ordered-data.h b/fs/btrfs/ordered-data.h
-index 4194e960ff6177..ba6a4d6a5a6637 100644
---- a/fs/btrfs/ordered-data.h
-+++ b/fs/btrfs/ordered-data.h
-@@ -212,6 +212,8 @@ void btrfs_lock_and_flush_ordered_range(struct btrfs_inode *inode, u64 start,
- 					struct extent_state **cached_state);
- int btrfs_split_ordered_extent(struct btrfs_ordered_extent *ordered, u64 pre,
- 			       u64 post);
-+void btrfs_mark_ordered_extent_truncated(struct btrfs_ordered_extent *ordered,
-+					 u64 truncate_len);
- int __init ordered_data_init(void);
- void __cold ordered_data_exit(void);
- 
++				if (submitted == 0)
++					new_isize = dio_data->old_isize;
++				else
++					new_isize = max(dio_data->old_isize, pos);
++				i_size_write(inode, new_isize);
++				dio_data->updated_isize = false;
++			}
+ 			/*
+ 			 * We have a short write. Any range that was properly
+ 			 * submitted will be finished through the bio
 -- 
 2.53.0
 
