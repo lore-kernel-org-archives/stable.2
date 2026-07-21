@@ -1,73 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA5C30BF6D
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 12:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56123290C2;
+	Tue, 21 Jul 2026 12:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784638437; cv=none; b=jDCnrwwBIjlWtRAEI77LxbtSosyPzz8/8Bv1teFhXwz1utR9vnw+yO9/YSYYk803CL10Vq1xJGYv82xs6g2dKrrMB9rCYwyP7apAgbgOsNDFlxSIIxC6a0FYvgETrjptYU0nE9pJrVHHfNZO8gfFFm1VOksbD4ttgrMSxrwWis8=
+	t=1784638706; cv=none; b=gVsRKjqyKtYo2/BZO8H3qWzZ2FGll09JBcBbB9w4MNj9xCG1zkQF1odk/nCEiwDZpxEwRzljb7m8/iz7fmFCAqY2cr1LBr0blvbvMy8udqV+xgivKePM5WItEvVwPqbeFJ4rumujr8AFb3pjQfjgwCHOZG+rqOq2GwHwnSYJEec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784638437; c=relaxed/simple;
-	bh=RJnCF7AORXjZSYfvCtmieSkNwWCUvUGJotEd32NMSHY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O/e7RrPr9kx9y2MMfA0t/gv/r6ceYVGvgSHxV1/QdGwlJcbRMsKZ+gKe7tJtWH4sNkCggBaHs0vE2UbJaq93dRh+lxd+lLWCT8yHI5Bn3XMR6bG+ZErbQQS9TZBEcIhS73JrDRpaWxOSxtI/Z7NGaLDEaqpB2MApyRe1DhW6fpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rqByLWGA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784638706; c=relaxed/simple;
+	bh=7xPCDOizQ1u7SHrQhIIgtw5kShKYCbn8FfDfyS5wJ0g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OXNP1tDtU08xexoDqcQPT9Y+oghhjbe5p4txaDSr/y46YGvHV8lHi6fsVxqAhkvjCdaeMw7opc3j0DoP1AaYdGthPlEmaRoTb5FpR5KqJvsEp+c5WEZIcXSluYhFpTbCa4/ZFFrFXjcRjBOfguOycz9HEu4xaC5O3GxpQhRjRlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=ASoppT39; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rqByLWGA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CFD1F000E9;
-	Tue, 21 Jul 2026 12:53:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784638436;
-	bh=N+AafY0HXdNh/39FffWCaI4b0NFtFutqt6pFND7riQw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=rqByLWGATr7e8YXkEHqubXQMJ7g92+i/CPDk+J+3EBIatHPnpguBP+xdc/Y+NF1Dh
-	 KBfUNdVxOfRUTLKZQvZx5xWe/GnutjqgVulhKfLl88VbD14FAgRN14ulRYMaUY0FUR
-	 gmNq3B6choB7F/VroLWhSTy0kf94wrO2rqYKUWRc=
-Date: Tue, 21 Jul 2026 14:53:46 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: stable@vger.kernel.org, Oliver Upton <oupton@kernel.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>
-Subject: Re: [PATCH 6.12.y 1/2] KVM: arm64: Ensure level is always
- initialized when relaxing perms
-Message-ID: <2026072128-eggplant-pancreas-743d@gregkh>
-References: <2026072033-wrinkle-closure-7d3c@gregkh>
- <20260721100523.2877434-1-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="ASoppT39"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=yh3N54zLlz8BH1XRK2/9xSCC5x98Z1QaeABlZ/LsjWw=; b=ASoppT39WOgGBGgHWdkkvYQe4S
+	cJgyLlbSl6I3xacjY5qv6/YFG/MZ3TDEDXQh1jv/Bv1hjP+/9pdzequpKIBhwr+3pCw6Ux55C62Dx
+	oN+Qwdtz6Rl0xsqu+8drdNChRqE0jNiLDG4IpMdXAs6SpZg26+k/VoZ6MLvJKC5EjoXUVc5N6z1qy
+	JFMnl4H2ALF/pa3y0BlkWPr2gds27JlpVHf/rE03+i4LP/cKGqg4XoDypipWPT/JnYZGA1LNZmLXU
+	GEjBj71FkAFQqEp7wtvzl6E3VhFVX599EfedQ1Y/B3HOY0bsEFP2ZC33ZbhZJk8dqvr5Y0u3OiBIh
+	3kCAipkA==;
+Received: from [187.36.208.132] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wmA2w-001bms-DV; Tue, 21 Jul 2026 14:58:06 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Linmao Li <lilinmao@kylinos.cn>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Eric Anholt <eric@anholt.net>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/vc4: Prevent shader BO mappings from becoming writable
+Date: Tue, 21 Jul 2026 09:57:32 -0300
+Message-ID: <178463864902.189636.14796217669170863767.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721011558.1672477-1-lilinmao@kylinos.cn>
+References: <20260721011558.1672477-1-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721100523.2877434-1-maz@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 11:05:22AM +0100, Marc Zyngier wrote:
-> From: Oliver Upton <oupton@kernel.org>
+
+On Tue, 21 Jul 2026 09:15:58 +0800, Linmao Li wrote:
+> vc4_gem_object_mmap() rejects a writable mapping of a validated shader
+> BO, but leaves VM_MAYWRITE set.  Userspace can map the BO read-only and
+> then turn it writable with mprotect().
 > 
-> stage2_update_leaf_attrs() returns early before writing to @level if the
-> table walker returned an error. At the same time,
-> kvm_pgtable_stage2_relax_perms() uses the level as a TLBI TTL hint when the
-> error was EAGAIN, indicating the vCPU raced with a table update and the TLB
-> entry it hit is now stale.
+> Validated shader BOs must stay read-only: the validator checks the
+> instructions once and the GPU trusts them afterwards.  A writable
+> mapping lets userspace rewrite the code after validation, bypassing the
+> validator.
 > 
-> Fall back to an unknown TTL if none was provided by the walk.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: be097997a273 ("KVM: arm64: Always invalidate TLB for stage-2 permission faults")
-> Signed-off-by: Oliver Upton <oupton@kernel.org>
-> Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
-> Link: https://patch.msgid.link/20260701231620.3300204-2-oupton@kernel.org
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> (cherry picked from commit 100baf0184896f859290a684f864b8200d8ac872)
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> (cherry picked from commit f35e314d4512480316454d3e963c513faa68decf)
+> [...]
 
-This id isn't in the tree, something went wrong?
+Applied, thanks!
 
-I'll just drop it and use the real one here.
+[1/1] drm/vc4: Prevent shader BO mappings from becoming writable
+      commit: 0c9e6367639548307d3f578f6943ce72c9d39087
 
-thanks,
-
-greg k-h
+Best regards,
+- Maíra
