@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21D8415F3C;
-	Tue, 21 Jul 2026 18:28:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E1840587A
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:28:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784658484; cv=none; b=ZJBgUg17wv2/XE7LP5dyL3ZPoWA/IBdWK30K6UndMubRxUY/rAfo3dk02S4W8IczLBC2KGuCq0ffSzlpkU9TWDkIn9t8Frvy9wVsJIaYAL1AonIvAnNih57I1Y0VHr+DLFqP8r3/jk4L1tn17Ff5J0WMvpTjuMq1A4Kxknn2GiM=
+	t=1784658484; cv=none; b=RZEGk/0DMd/1dUnmgLOdRA6tNkInCkJiHq+iLoLmUxHczeCKVXxBealn0mMupsq3w0AmZjqelMw6dcJ9gTD5qoWhzQVzYP/3MDSruUtxT7BxcRvUhnQTvqOpD3k7JiUXOCe3qpuYoNXXubyPkOzQOtHgPtdYtUcRslInAZSHErc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784658484; c=relaxed/simple;
-	bh=vAFAGMKdIRUc8vXdvuUbY6t1of1A1eu9VHp/dBqoxs4=;
+	bh=UcA2GIgb6nLwcs9r4I36jYGJAxTmmnesArR2nF4tzCE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HHNG2gt/SjCyGdsjmw1y2yCbKyw/KKhPYJ7PoyZBxeATXjj90s1psEx1LZO7O0qq7cqy+FumkMDLZPuIGRikpVqvJt/9eFDNnRVWAif8MVC0ANSXG6yBFj0qer36/wGQxz9QRTo6Ogbin7/uaT7xI2xzYmNqyluBlngK71vZhl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RRPvlNVn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BRm8pay8O9NqIIouTXibwLQPNiaKEt+oUrDzsRAbUsrrccrfs0BwE5mxqYoSLj6cFSpsc7F9qB7SNPP5JFnHNgdqzlBXguPXGYyu77pRoYYZs+Lm32hEGDUaXsMSAzBhZXtZGu3Eh+oxaHOw2Fn7AFJwfDRO7VZ9fp6Ml2m3GFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLHA2ESn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RRPvlNVn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B481F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLHA2ESn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D3F31F00A3F;
 	Tue, 21 Jul 2026 18:28:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784658481;
-	bh=6w1DVeKA8zNRni0J6Va6E08DC7S64L5ylLJOflGp/M0=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784658482;
+	bh=GwucgIVE71b98vkhijoZfo/vwh4fJtT2yc+B+tFO+Lc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RRPvlNVn69AtmB37MfDoN6+xaKKW9VFqNqmOour7JbJ8GqjcgDJsEfUMX5fn3KEwE
-	 RbMxMb3mdCbFTQDwl+qI90nzbj8TZDu9RJhBAYXOwLX2YEFAgnXtwsGKUj0FdOKEDx
-	 iJGaJdPgWxQH+R2DXgdyArTbCC3EoxRkwDiAEny8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=kLHA2ESnOoHFpqCl8Z5afi5e4MYSgecRicuDige8+xwPe8c7kHUwVhoBuGHl5eNqS
+	 H+xUiq/6iIsoW1zkotkpDmTjovPmM/V3cJBAf/4MUa8PC96O0eFfzfrhH5K8kbR8VN
+	 l6DorcHrea/kiY72JRD2qoJzW3nnlSj27rK6HjnjZTtlTMryYL5nOuHro2KayGosbE
+	 wqeO7otQPhQucSn6gU9qwHz4zqcDkE3uzJPnnDjuGYgmwc9gXyxMijeV68zF+tld/h
+	 6s69OuuOngbXiN1/MkZX//hTAKMeshXl0BXdwtdt57cgCCdjAzEZSu39Xq2a6rWpsH
+	 q9dxSQS5+wK9w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	David Jander <david@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Subject: [PATCH 6.18 1117/1611] ARM: dts: stm32: stm32mp15x-mecio1-io: Enable internal ADC reference
-Date: Tue, 21 Jul 2026 17:20:33 +0200
-Message-ID: <20260721152540.544912383@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
-References: <20260721152514.750365251@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Johan Hovold <johan@kernel.org>,
+	Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] i2c: core: fix NULL-deref on adapter registration failure
+Date: Tue, 21 Jul 2026 14:27:57 -0400
+Message-ID: <20260721182758.332454-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260721182758.332454-1-sashal@kernel.org>
+References: <2026071636-amusing-conduit-3c6b@gregkh>
+ <20260721182758.332454-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,55 +47,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Johan Hovold <johan@kernel.org>
 
-------------------
+[ Upstream commit 2295d2bb101faa663fbc45fadbb3fec45f107441 ]
 
-From: David Jander <david@protonic.nl>
+If adapter registration ever fails the release callback would trigger a
+NULL-pointer dereference as the completion struct has not been
+initialised.
 
-commit c84f22405085d91cd5f0c5b967318371c07904ba upstream.
+Note that before the offending commit this would instead have resulted
+in a minor memory leak of the adapter name.
 
-Switch the ADC reference supply from the general 3.3V rail to the
-internal 2.5V VREFBUF regulator. The ADC circuits on this board are
-designed for the internal 2.5V reference. Without this change, all ADC
-measurement values are incorrect.
-
-Fixes: 8267753c891c ("ARM: dts: stm32: Add MECIO1 and MECT1S board variants")
-Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Signed-off-by: David Jander <david@protonic.nl>
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/20260318105123.819807-2-o.rempel@pengutronix.de
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 3f8c4f5e9a57 ("i2c: core: fix reference leak in i2c_register_adapter()")
+Cc: stable@vger.kernel.org
+Cc: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Stable-dep-of: 07d5fb537928 ("i2c: core: fix adapter debugfs creation")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi |    9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/i2c/i2c-core-base.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
---- a/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
-@@ -95,7 +95,7 @@
- 	pinctrl-names = "default";
- 	vdd-supply = <&v3v3>;
- 	vdda-supply = <&v3v3>;
--	vref-supply = <&v3v3>;
-+	vref-supply = <&vrefbuf>;
- 	status = "okay";
- };
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index 14f09576bf5fc5..afa51e3e6b5b08 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -1552,7 +1552,7 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	res = device_register(&adap->dev);
+ 	if (res) {
+ 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
+-		goto err_remove_irq_domain;
++		goto err_put_adap;
+ 	}
  
-@@ -362,6 +362,13 @@
- 	phy-supply = <&v3v3>;
- };
- 
-+&vrefbuf {
-+	regulator-min-microvolt = <2500000>;
-+	regulator-max-microvolt = <2500000>;
-+	vdda-supply = <&v3v3>;
-+	status = "okay";
-+};
+ 	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
+@@ -1598,10 +1598,12 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ out_reg:
+ 	i2c_deregister_clients(adap);
+ 	debugfs_remove_recursive(adap->debugfs);
++	device_del(&adap->dev);
++err_put_adap:
+ 	init_completion(&adap->dev_released);
+-	device_unregister(&adap->dev);
++	put_device(&adap->dev);
+ 	wait_for_completion(&adap->dev_released);
+-err_remove_irq_domain:
 +
- &pinctrl {
- 	adc12_pins_mecsbc: adc12-ain-mecsbc-0 {
- 		pins {
-
+ 	i2c_host_notify_irq_teardown(adap);
+ out_list:
+ 	mutex_lock(&core_lock);
+-- 
+2.53.0
 
