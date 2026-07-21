@@ -1,136 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1163B9D97;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC8E415F34;
 	Tue, 21 Jul 2026 18:09:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784657397; cv=none; b=Nis9HPA9LCj4GiYQPpU0+yekywCayPSCUAZfjOnoNtWTJbyZQDl4aP20yQtP3DdM6i5XIZRmXhkttD2fcuoojCwSjogdY0qDZCAcKyGTkAAv0gEzo4uiRYFku0+ful9D36r4scniIJbI79niqUsd1aY6SyF8OlBmZ1CZdsXKQCU=
+	t=1784657397; cv=none; b=bP650zOO+8W97VrSv+GvE1dqHRFr64FxSxmf9xuD1cI+CEy7Tag2iYFZhzRceFxHlqarH7I2wHYUVhY/0wJVb6PnPmP47FQj88W8ZXN/9/eTbMaRsOUXxP10PPGDPN3JmtVXMS65lWGC0z09qR9MNcJLI+Qv/Ri4IpnPuEc8WcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784657397; c=relaxed/simple;
-	bh=ZAHp1hdaE+vhDG+SwR87eG5v+tlEpV/60yWmD7iY04I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KhfWVHtOBvQib8bRa++1xXqY7npo2vQ8kNocvEuCUlL3ZEOC0DGJU21HlW65EAryQiSWpauZ+GVQdOmvNt9sa+BH+M9BRMb4q1bsx9zxhBCOPF/lYiX/qbaqleDG9yE0iub3aI+nvZfuESPe1CW58NR0HTwVfeY3zuKSNXKINP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PCIDRdXb; arc=none smtp.client-ip=100.103.45.18
+	bh=nuNTVFD1rwit60S2Kw4SKK+ZZrTvA/PLDNyslBAOzUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AujEiYJrglDwou4HtD8pPHtxT+jaN0n9bQgV0rJrUVbfbq1if05PAInTUBIe9bEpaz2HtW+9TiNruAIS2zfglhdSUXeKSK3MQEkjDqCHGR/RNthI0XEFfYFX2FfimWtzosbhDIZ1PAwOdpeH3peInBs+xTrYnSHgvrVHzkxdGhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M30dXX/s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PCIDRdXb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B617C1F00A3D;
-	Tue, 21 Jul 2026 18:09:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784657396;
-	bh=y2fF7XpoFyXOpRnVj+lRtCYAsADttR0EhesdXOntR/g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PCIDRdXbyngRqz9aUS7FKI825jfJo9kQ3cWU+7v2MOWeJpyXnybikfWv7pCGIFEfz
-	 czNkGB3Mb/PIGFsuNkDEy4hhSDDZU303ksqTSIErWAEQaL95T52BP5WMNCA5JWjY/W
-	 ItS27XfIDZD9agcjbg9cfCm5+Ye6A+Ra4vbc3PLg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chris Mason <clm@meta.com>,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0696/1611] xprtrdma: Fix ep kref imbalance on ADDR_CHANGE
-Date: Tue, 21 Jul 2026 17:13:32 +0200
-Message-ID: <20260721152531.036062842@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
-References: <20260721152514.750365251@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M30dXX/s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D841F00A3A;
+	Tue, 21 Jul 2026 18:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784657396;
+	bh=qJ2PC1oOUN/lV90CXEwewsm2mx2rssquszpJHMN4XBo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M30dXX/sgOYHq+tH0rU+Ulien6D5uQDu69XilF4cR/c3jFtGoo2SJPKmaS7FkkXyo
+	 SRRTaoplw7zDgeiBuqWblypHcZoV3vCAKWZfW3yldRXo5GQvUS4qhW6a7w0q4drL7E
+	 aYjxieBNBz8lO9XjSOhH76uxRl8d1lS/7V+FcPElHJezohJqjofl4Wc4JNeQe0C/81
+	 VecKSQXkI7rmMBXB3l1320zMCTKDepfA7f8t2yXeAHyh6kktizMqfmD8+77ucLgNRh
+	 UCyQY05HDxt5gcsA1cdsncRpq2NzPsHGXA3+FvXZU4Q9SrwAfdOKizX1aJTz1xtPvS
+	 WvxVgtwAQ+9Sg==
+Date: Tue, 21 Jul 2026 11:09:50 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Yo'av Moshe <linux@yoavmoshe.com>
+Cc: Sami Tolvanen <samitolvanen@google.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+Message-ID: <20260721180950.GA3684684@ax162>
+References: <20260718111340.159896-1-linux@yoavmoshe.com>
+ <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+ <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Jul 21, 2026 at 07:29:50AM +0200, Yo'av Moshe wrote:
+> On 2026-07-20 9:29 PM, Sami Tolvanen wrote:
+> > Would it be possible to just copy the 4-byte CFI hash prefix to OCRAM
+> > when relocating the function? If not, the __nocfi approach seems
+> > reasonable to me.
+> > 
+> > Sami
+> 
+> I gave this a try - I tried copying 4 bytes from before imx6_suspend
+> into OCRAM, but when I tested it on physical hardware (Kobo Clara HD),
+> it still crashed on suspend.
+> 
+> I suspect it's because imx6_suspend is written in assembly
+> (suspend-imx6.S) rather than C, so Clang doesn't emit a CFI hash prefix
+> before it in the first place.
 
-------------------
+Does using SYM_TYPED_FUNC_START for imx6_suspend() make that work?
+Something like this builds fine for me and I see
+__kcfi_typeid_imx6_suspend generated by Clang.
 
-From: Chris Mason <clm@meta.com>
+diff --git a/arch/arm/mach-imx/suspend-imx6.S b/arch/arm/mach-imx/suspend-imx6.S
+index 63ccc2d0e920..6ded29a38c99 100644
+--- a/arch/arm/mach-imx/suspend-imx6.S
++++ b/arch/arm/mach-imx/suspend-imx6.S
+@@ -3,6 +3,7 @@
+  * Copyright 2014 Freescale Semiconductor, Inc.
+  */
+ 
++#include <linux/cfi_types.h>
+ #include <linux/linkage.h>
+ #include <asm/assembler.h>
+ #include <asm/asm-offsets.h>
+@@ -148,7 +149,7 @@
+ 
+ 	.endm
+ 
+-ENTRY(imx6_suspend)
++SYM_TYPED_FUNC_START(imx6_suspend)
+ 	ldr	r1, [r0, #PM_INFO_PBASE_OFFSET]
+ 	ldr	r2, [r0, #PM_INFO_RESUME_ADDR_OFFSET]
+ 	ldr	r3, [r0, #PM_INFO_DDR_TYPE_OFFSET]
+@@ -329,4 +330,4 @@ resume:
+ 	resume_mmdc
+ 
+ 	ret	lr
+-ENDPROC(imx6_suspend)
++SYM_FUNC_END(imx6_suspend)
 
-[ Upstream commit af9b65b29af341932625c4283dc7a23cdb62688a ]
-
-rpcrdma_cm_event_handler() falls through to the disconnected: label
-on RDMA_CM_EVENT_ADDR_CHANGE and calls rpcrdma_ep_put() with no
-matching get when the event arrives before RDMA_CM_EVENT_ESTABLISHED.
-The kref then underflows during connect teardown and
-rpcrdma_xprt_disconnect() operates on a freed ep.
-
-Reference counts across a normal connection lifecycle:
-
-    rpcrdma_ep_create()             kref_init     ->1
-    rpcrdma_xprt_connect()          ep_get        ->2  (before post_recvs)
-    RDMA_CM_EVENT_ESTABLISHED       ep_get        ->3
-    RDMA_CM_EVENT_DISCONNECTED      ep_put        ->2
-    rpcrdma_xprt_drain()            ep_put        ->1
-    rpcrdma_xprt_disconnect() tail  ep_put        ->0  (ep_destroy)
-
-The connect-time get in rpcrdma_xprt_connect(), taken just before
-rpcrdma_post_recvs() "while there are outstanding Receives," is
-balanced by rpcrdma_xprt_drain. ADDR_CHANGE before ESTABLISHED has
-no get to consume, so its put drops the count to 1 and the drain
-put then frees the ep while rpcrdma_xprt_disconnect() still holds a
-pointer to it.
-
-Fix by dispatching on the prior re_connect_status via xchg(): for
-prev == 0 (pre-ESTABLISHED) wake the connect waiter and return with
-no put; for prev == 1 call rpcrdma_force_disconnect() and return.
-The case-1 arm relies on the subsequent RDMA_CM_EVENT_DISCONNECTED
-event -- reliably delivered when rdma_disconnect() is called on a
-still-connected cm_id -- to balance the ESTABLISHED get;
-rpcrdma_xprt_drain() continues to balance only that connect-time
-get. Any other prior value means teardown is already in flight.
-
-Fixes: 2acc5cae2923 ("xprtrdma: Prevent dereferencing r_xprt->rx_ep after it is freed")
-Assisted-by: kres:claude-opus-4-7
-Signed-off-by: Chris Mason <clm@meta.com>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/sunrpc/xprtrdma/verbs.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
-index 59fc1aebe8c317..ab7c6178a2b9ba 100644
---- a/net/sunrpc/xprtrdma/verbs.c
-+++ b/net/sunrpc/xprtrdma/verbs.c
-@@ -245,8 +245,17 @@ rpcrdma_cm_event_handler(struct rdma_cm_id *id, struct rdma_cm_event *event)
- 		complete(&ep->re_done);
- 		return 0;
- 	case RDMA_CM_EVENT_ADDR_CHANGE:
--		ep->re_connect_status = -ENODEV;
--		goto disconnected;
-+		switch (xchg(&ep->re_connect_status, -ENODEV)) {
-+		case 0:
-+			goto wake_connect_worker;
-+		case 1:
-+			/* The later DISCONNECTED event balances the
-+			 * ESTABLISHED get; do not put here.
-+			 */
-+			rpcrdma_force_disconnect(ep);
-+			return 0;
-+		}
-+		return 0;
- 	case RDMA_CM_EVENT_ESTABLISHED:
- 		rpcrdma_ep_get(ep);
- 		ep->re_connect_status = 1;
-@@ -269,7 +278,6 @@ rpcrdma_cm_event_handler(struct rdma_cm_id *id, struct rdma_cm_event *event)
- 		return 0;
- 	case RDMA_CM_EVENT_DISCONNECTED:
- 		ep->re_connect_status = -ECONNABORTED;
--disconnected:
- 		rpcrdma_force_disconnect(ep);
- 		return rpcrdma_ep_put(ep);
- 	default:
 -- 
-2.53.0
-
-
-
+Cheers,
+Nathan
