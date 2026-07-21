@@ -1,152 +1,317 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6130346EC8D;
-	Tue, 21 Jul 2026 17:56:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E13346D549;
+	Tue, 21 Jul 2026 17:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784656567; cv=none; b=ufJWSzJVp8xMk8OsY1sl2fk5dZJu5U0JoPWr9xIuECxXM34/Geu0bFiOh7fZ/ZwMPL0ZLtomH/JuAGfdP70NP/EnGlo/+P0UL+dA0sxaZw3fptK+EEhQqgtPzrOepSo+10ENjY1kAoPu72UPokgU2u6C+RE/urpx6nAA/ZsfywQ=
+	t=1784656569; cv=none; b=f1lAGlsS/hSNvm3x5GT3Fuw62LiZ/+v6ohEPuW2fqT4yZQuAZcAsITEyvstCZEyQdjmDtj+m+Wc+X4M03gv/QYoyvsJzUPNtZMPxyok+ymAWKr01Tj0uJFj2zcqIzH0QwIwYlfDzq4Mf2sirtSPskfoYdKNxlMmVXc+BFLY9vTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784656567; c=relaxed/simple;
-	bh=fX7R5IGOc1D6w8sx0sP/lpAtjwLs93xJJ19qPaYVetA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NPh3hVii3SC30d0NpK0ftZrV98oS4bZoD7WcfPG0DUqvGgh1K5JJUyjeHZlCmukbfB6Opf0Cw5PivUOlQDYZpjgy1rrmWBRV811cq3uFSwLS06e3ssZlOEfjyoFYAr5yzmEo/IdT6yU5gJP1CYCQAPL1BhIVg/xO00MZVa690mU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mHQ+/f8u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784656569; c=relaxed/simple;
+	bh=cPzelD8lmNovYfkNyU1uX0I6t1iw2vBU+72jNFPztks=;
+	h=Date:To:From:Subject:Message-Id; b=KCVhVbS9Tv6kUJbecw0lNTvnRuE1wkezeRImM2vFFvcpzzcko1UgCEuPvji/EYTyS6Qcr3DVOrw/jIBqck/aHW+nxad7svlSib8eg17DhCYVY2TWalQ+c3BylbVmEEuwGM9CvZU+2ouTc50HWevO14QMglT5cu97titi6nGkxZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Ii0ufrAk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mHQ+/f8u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7EE51F000E9;
-	Tue, 21 Jul 2026 17:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784656566;
-	bh=OHeYUBuP/LhrtvgwA28LKt8kX+Xrs3NAgTOrwjAFYVE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mHQ+/f8uHGAEUdON1BIdffj4O6rpXmPfHY/i3C1xZc4Gws2uiHbyboCWSpshss6iD
-	 bJ3s0Eoc/SGpHWfFECUuubSf25LAlHu7R2SXxxGb1sW5GFJEyIJXo989CvfwJH1QDb
-	 u2oa76dX3Wgpb5Bhgigmf5JtagE1A54dOLSP89Ak=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Filip Hejsek <filip.hejsek@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0437/1611] virtio_console: read size from config space during device init
-Date: Tue, 21 Jul 2026 17:09:13 +0200
-Message-ID: <20260721152525.114421631@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
-References: <20260721152514.750365251@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Ii0ufrAk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380571F00A3A;
+	Tue, 21 Jul 2026 17:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784656567;
+	bh=EWpOR20mfoNh32g9Q2u5eqiqyVhgP7hI8FAsDiMMVg4=;
+	h=Date:To:From:Subject;
+	b=Ii0ufrAkdIer2tC9bkh4FSwJCdFfPJaulBMKLYPNIrnLP3OpgocQ2ngg2/NxbF4iX
+	 gvUb1ftcjWF3ED+i5yk36dJHY1igyP/55rnT5adxFZeBrghfW+rMD/oc0Xp38VTyga
+	 D26u1bExBDFEU3uhg9eAWdlE8Zbvh+KVrwnTwc/Y=
+Date: Tue, 21 Jul 2026 10:56:06 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch added to mm-nonmm-unstable branch
+Message-Id: <20260721175607.380571F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
 
-------------------
+The patch titled
+     Subject: ocfs2: cluster: don't sleep while holding o2hb_live_lock in o2hb_region_pin()
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch
 
-From: Filip Hejsek <filip.hejsek@gmail.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch
 
-[ Upstream commit b3592a32b34f37874dc94aa1a0d15c4334ed86ca ]
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Previously, the size was only read upon receiving the config interrupt.
-This interrupt is sent when the size changes. However, we also need to
-read the initial size.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Also make sure to only read the size from config if F_SIZE is enabled.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: 9778829cffd4 ("virtio: console: Store each console's size in the console structure")
-Signed-off-by: Filip Hejsek <filip.hejsek@gmail.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260223-virtio-console-fix-v1-1-0cf08303b428@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: cluster: don't sleep while holding o2hb_live_lock in o2hb_region_pin()
+Date: Tue, 21 Jul 2026 19:49:16 +0800
+
+o2hb_region_pin() is always called with the o2hb_live_lock spinlock held
+(from o2hb_region_inc_user() and o2hb_heartbeat_group_drop_item()), but it
+calls o2nm_depend_item() -> configfs_depend_item(), which sleeps: it pins
+the configfs filesystem and takes the configfs root inode rwsem.  Under
+CONFIG_DEBUG_ATOMIC_SLEEP this triggers:
+
+  BUG: sleeping function called from invalid context at kernel/locking/rwsem.c
+  in_atomic(): 1, ... name: mount.ocfs2
+    down_write
+    configfs_depend_item
+    o2hb_region_pin
+    o2hb_region_inc_user
+    o2hb_register_callback
+    dlm_register_domain_handlers
+    ...
+    ocfs2_dlm_init
+    ocfs2_mount_volume
+    ocfs2_fill_super
+
+Rework o2hb_region_pin() to pin one region at a time with the lock dropped
+across the sleeping call: under o2hb_live_lock find the next eligible
+region and take a config_item reference to keep it alive, drop the lock,
+call o2nm_depend_item(), then retake the lock and record the pin.  The
+config_item_put() is done with the lock released as well, since
+o2hb_region_release() also acquires o2hb_live_lock and can sleep.  The
+region list may change while unlocked, so the scan restarts from the top
+after each pin.  Local heartbeat still pins only the matching region;
+global heartbeat pins all eligible regions.
+
+The unpin path is unaffected: configfs_undepend_item() only takes a
+spinlock and does not sleep.
+
+Link: https://lore.kernel.org/20260721114916.2098617-1-joseph.qi@linux.alibaba.com
+Fixes: 58a3158a5d17 ("ocfs2/cluster: Pin/unpin o2hb regions")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/char/virtio_console.c | 52 +++++++++++++++++++++--------------
- 1 file changed, 31 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.c
-index 088182e54debd6..c355f6d3927481 100644
---- a/drivers/char/virtio_console.c
-+++ b/drivers/char/virtio_console.c
-@@ -1771,32 +1771,40 @@ static void config_intr(struct virtio_device *vdev)
- 		schedule_work(&portdev->config_work);
+ fs/ocfs2/cluster/heartbeat.c |  126 ++++++++++++++++++++++++++-------
+ 1 file changed, 101 insertions(+), 25 deletions(-)
+
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -43,6 +43,14 @@ static DECLARE_RWSEM(o2hb_callback_sem);
+  * whenever any of the threads sees activity from the node in its region.
+  */
+ static DEFINE_SPINLOCK(o2hb_live_lock);
++/*
++ * Serializes region pin/unpin dependency management (o2hb_dependent_users
++ * and the o2nm_depend_item()/o2nm_undepend_item() calls). o2hb_region_pin()
++ * has to drop o2hb_live_lock across the sleeping o2nm_depend_item(), so the
++ * spinlock alone can no longer keep pin and unpin mutually exclusive; this
++ * mutex, taken outside o2hb_live_lock, does.
++ */
++static DEFINE_MUTEX(o2hb_dependency_mutex);
+ static struct list_head o2hb_live_slots[O2NM_MAX_NODES];
+ static unsigned long o2hb_live_node_bitmap[BITS_TO_LONGS(O2NM_MAX_NODES)];
+ static LIST_HEAD(o2hb_node_events);
+@@ -2172,6 +2180,7 @@ static void o2hb_heartbeat_group_drop_it
+ 	 * If global heartbeat active and there are dependent users,
+ 	 * pin all regions if quorum region count <= CUT_OFF
+ 	 */
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
+ 
+ 	if (!o2hb_dependent_users)
+@@ -2183,6 +2192,7 @@ static void o2hb_heartbeat_group_drop_it
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
  }
  
--static void config_work_handler(struct work_struct *work)
-+static void update_size_from_config(struct ports_device *portdev)
+ static ssize_t o2hb_heartbeat_group_dead_threshold_show(struct config_item *item,
+@@ -2322,46 +2332,108 @@ EXPORT_SYMBOL_GPL(o2hb_setup_callback);
+  */
+ static int o2hb_region_pin(const char *region_uuid)
  {
--	struct ports_device *portdev;
-+	struct virtio_device *vdev;
-+	struct port *port;
-+	u16 rows, cols;
+-	int ret = 0, found = 0;
+-	struct o2hb_region *reg;
++	int ret = 0, found;
++	struct o2hb_region *reg, *pinned;
+ 	char *uuid;
  
--	portdev = container_of(work, struct ports_device, config_work);
--	if (!use_multiport(portdev)) {
--		struct virtio_device *vdev;
--		struct port *port;
--		u16 rows, cols;
-+	vdev = portdev->vdev;
+ 	assert_spin_locked(&o2hb_live_lock);
  
--		vdev = portdev->vdev;
--		virtio_cread(vdev, struct virtio_console_config, cols, &cols);
--		virtio_cread(vdev, struct virtio_console_config, rows, &rows);
-+	/*
-+	 * We'll use this way of resizing only for legacy support.
-+	 * For multiport devices, use control messages to indicate
-+	 * console size changes so that it can be done per-port.
-+	 *
-+	 * Don't test F_SIZE at all if we're rproc: not a valid feature.
-+	 */
-+	if (is_rproc_serial(vdev) ||
-+	    use_multiport(portdev) ||
-+	    !virtio_has_feature(vdev, VIRTIO_CONSOLE_F_SIZE))
-+		return;
+-	list_for_each_entry(reg, &o2hb_all_regions, hr_all_item) {
+-		if (reg->hr_item_dropped)
+-			continue;
++	do {
++		found = 0;
++		pinned = NULL;
  
--		port = find_port_by_id(portdev, 0);
--		set_console_size(port, rows, cols);
-+	virtio_cread(vdev, struct virtio_console_config, cols, &cols);
-+	virtio_cread(vdev, struct virtio_console_config, rows, &rows);
+-		uuid = config_item_name(&reg->hr_item);
++		list_for_each_entry(reg, &o2hb_all_regions, hr_all_item) {
++			if (reg->hr_item_dropped)
++				continue;
  
--		/*
--		 * We'll use this way of resizing only for legacy
--		 * support.  For newer userspace
--		 * (VIRTIO_CONSOLE_F_MULTPORT+), use control messages
--		 * to indicate console size changes so that it can be
--		 * done per-port.
--		 */
--		resize_console(port);
+-		/* local heartbeat */
+-		if (region_uuid) {
+-			if (strcmp(region_uuid, uuid))
++			uuid = config_item_name(&reg->hr_item);
++
++			/* local heartbeat */
++			if (region_uuid) {
++				if (strcmp(region_uuid, uuid))
++					continue;
++				found = 1;
++			}
++
++			if (reg->hr_item_pinned || reg->hr_item_dropped) {
++				if (found)
++					break;
+ 				continue;
+-			found = 1;
++			}
++
++			/*
++			 * Found a region that needs pinning. Take a reference
++			 * so it stays alive while we drop the lock below.
++			 */
++			pinned = reg;
++			config_item_get(&reg->hr_item);
++			break;
+ 		}
+ 
+-		if (reg->hr_item_pinned || reg->hr_item_dropped)
+-			goto skip_pin;
++		if (!pinned)
++			break;
++
++		uuid = config_item_name(&pinned->hr_item);
++
++		/*
++		 * o2nm_depend_item() -> configfs_depend_item() can sleep (it
++		 * takes the configfs root inode rwsem), so it must not run
++		 * under o2hb_live_lock. Drop the lock across it; @pinned is
++		 * kept alive by the reference taken above. The region list may
++		 * change while unlocked, so we rescan from the top afterwards.
++		 */
++		spin_unlock(&o2hb_live_lock);
+ 
+ 		/* Ignore ENOENT only for local hb (userdlm domain) */
+-		ret = o2nm_depend_item(&reg->hr_item);
++		ret = o2nm_depend_item(&pinned->hr_item);
++
++		spin_lock(&o2hb_live_lock);
+ 		if (!ret) {
+-			mlog(ML_CLUSTER, "Pin region %s\n", uuid);
+-			reg->hr_item_pinned = 1;
+-		} else {
+-			if (ret == -ENOENT && found)
+-				ret = 0;
+-			else {
+-				mlog(ML_ERROR, "Pin region %s fails with %d\n",
+-				     uuid, ret);
++			/*
++			 * o2hb_live_lock was dropped across o2nm_depend_item().
++			 * o2hb_set_quorum_device() runs in the heartbeat thread
++			 * without o2hb_dependency_mutex, so for global heartbeat
++			 * it may have crossed O2HB_PIN_CUT_OFF and unpinned the
++			 * regions while we slept. If that happened this pin is
++			 * no longer wanted; undo it and stop rather than
++			 * resurrecting it on the rescan below.
++			 */
++			if (!region_uuid &&
++			    bitmap_weight(o2hb_quorum_region_bitmap,
++					  O2NM_MAX_REGIONS) > O2HB_PIN_CUT_OFF) {
++				o2nm_undepend_item(&pinned->hr_item);
++				spin_unlock(&o2hb_live_lock);
++				config_item_put(&pinned->hr_item);
++				spin_lock(&o2hb_live_lock);
+ 				break;
+ 			}
++			mlog(ML_CLUSTER, "Pin region %s\n", uuid);
++			pinned->hr_item_pinned = 1;
++		} else if (ret == -ENOENT && (found || !region_uuid)) {
++			/*
++			 * For local hb (found): ignore ENOENT from userdlm
++			 * domains as before.  For global hb (!region_uuid):
++			 * the region may have been detached from configfs
++			 * while the lock was dropped — skip it and continue
++			 * pinning the remaining regions.
++			 */
++			ret = 0;
++		} else {
++			mlog(ML_ERROR, "Pin region %s fails with %d\n",
++			     uuid, ret);
+ 		}
+-skip_pin:
+-		if (found)
+-			break;
 -	}
-+	port = find_port_by_id(portdev, 0);
-+	set_console_size(port, rows, cols);
-+	resize_console(port);
-+}
 +
-+static void config_work_handler(struct work_struct *work)
-+{
-+	struct ports_device *portdev;
++		/*
++		 * config_item_put() may drop the last reference and run
++		 * o2hb_region_release(), which also grabs o2hb_live_lock and
++		 * can sleep, so it must happen with the lock released.
++		 */
++		spin_unlock(&o2hb_live_lock);
++		config_item_put(&pinned->hr_item);
++		spin_lock(&o2hb_live_lock);
 +
-+	portdev = container_of(work, struct ports_device, config_work);
-+	update_size_from_config(portdev);
++		/* local hb pins a single matching region */
++	} while (!ret && !region_uuid);
+ 
+ 	return ret;
+ }
+@@ -2406,6 +2478,7 @@ static int o2hb_region_inc_user(const ch
+ {
+ 	int ret = 0;
+ 
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
+ 
+ 	/* local heartbeat */
+@@ -2428,11 +2501,13 @@ static int o2hb_region_inc_user(const ch
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ 	return ret;
  }
  
- static int init_vqs(struct ports_device *portdev)
-@@ -2054,6 +2062,8 @@ static int virtcons_probe(struct virtio_device *vdev)
- 	__send_control_msg(portdev, VIRTIO_CONSOLE_BAD_ID,
- 			   VIRTIO_CONSOLE_DEVICE_READY, 1);
+ static void o2hb_region_dec_user(const char *region_uuid)
+ {
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
  
-+	update_size_from_config(portdev);
-+
- 	return 0;
+ 	/* local heartbeat */
+@@ -2451,6 +2526,7 @@ static void o2hb_region_dec_user(const c
  
- free_chrdev:
--- 
-2.53.0
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ }
+ 
+ int o2hb_register_callback(const char *region_uuid,
+_
 
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
 
+ocfs2-cluster-use-gfp_nofs-for-heartbeat-bio-allocation.patch
+ocfs2-cluster-use-an-on-stack-bio-for-the-heartbeat-write.patch
+ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch
 
