@@ -1,300 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0877B1643B;
-	Tue, 21 Jul 2026 03:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B6112DF144;
+	Tue, 21 Jul 2026 03:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784605267; cv=none; b=bhz6lT726E8XLz+hmZ9kSw6768Iw/JEBHUSHADVMCkSQyJFE0GQxXiB2z3PTghAqNtCmZOeW166wVlQauYeZZgpbrbUzRfFOdSUaHT7xx6z6DxVHSXBW4fOz541A/+r2bq1PPhb7IHr83fa1PVhaszdG/t2huIDHeFnf3W6+hxY=
+	t=1784606266; cv=none; b=WBBx31uyOyBFVhFEr9oD9Ech/NmBp49lbpPO7CocDbMhlIcrM8pysdd2ql2pCa2z8bils8cvE0ZDigIMhZGjKLeuI41nuMN77/ShScA2ubbUD/f2rYNAYzRBiLlBkkOpTFWqeZUNU8Wn+LA5tGxeA5tYIV75gChFNG1mNai75nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784605267; c=relaxed/simple;
-	bh=oiLk8v52qEagfxOqpJRqonofNskAcnaoiY+PnlVwKLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gj7mHl0WXi3YEIMBw+H8JXIjrWrF+b4rqYDcBeWpLPLSmWyPytiESPxNjZV+yCtaYorDUjphjtEZTqoNm3t2a56cjZyyAV3hqiaB0Sph2CHVXVCz8Es1eSWII8FKZT1PGFe0EIJrRrdKW+v8Oj10QKJL9lb1Wz4SkwmPFVYTd5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTmmiFOX; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTmmiFOX"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 764621F000E9;
-	Tue, 21 Jul 2026 03:41:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784605265;
-	bh=YjV2q/l+J0YHDMtZ2Hfvwz7DELIH4UgCOdTLqi0sgKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kTmmiFOXFliS2AEXUUtaIKtPSsw12HS9QNuvD14J07z7rlFKhx0dDzD11ReRpWj7u
-	 TG8YBqtqXlv5KKqI0lBwEp8huqddN/52wkLuXu/zVEvnm1FI65tWEKP6DKglXmbt4Q
-	 3+4/0ZT8L7Ip91m1y55rT0AA2RwecuoiYquITggOAI8Qz14gHcM/LAag+JCfKMzA08
-	 3K/ZCUvoIaCZLRJ8hIW+xn6rjdIE+Xo2XDtJNjrk5B5kg3aIceX9HNvW7aFJe77Wcs
-	 oOxy7vQGx2SlVBmJxEpNjsZb3USj+9h7nV3H1r55dofDIfm5PUcYbqn2EbiXT3YDIn
-	 1qIY9mRs1l6wQ==
-Date: Mon, 20 Jul 2026 20:41:05 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: hch@lst.de, cem@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: [RFC PATCH] xfs: test unlinked inode list checking and repair with
- loops
-Message-ID: <20260721034105.GX7380@frogsfrogsfrogs>
-References: <178460419438.830862.6755198157088208229.stgit@frogsfrogsfrogs>
+	s=arc-20240116; t=1784606266; c=relaxed/simple;
+	bh=5v6xU5sNB0P7VeWMsdybI50JFTbhfCKGhDdPP4crLdQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bX1jqH9T96oQHKQVwdMmm451psVkto5tqzzQSxZgty6KZIt8oFwahYsE+bhm7Yz11KabLp6RjQKzpieLqlASidGdyYQHr2YrMyF3Fo0iL3OJL+jgJ5x8PzJs/8Eq4WCMdHbycQq3mOEhTNto3LfO3iGGym6njNPtD8H0RJ2b81U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBHA34n7l5q588fAA--.1621S3;
+	Tue, 21 Jul 2026 11:57:28 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgB35com7l5qf6kTAw--.50170S2;
+	Tue, 21 Jul 2026 11:57:26 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	broonie@kernel.org,
+	zhao.xichao@vivo.com,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] tty: serial: max3100: drain async producers in remove() to fix timer UAF
+Date: Tue, 21 Jul 2026 03:56:31 +0000
+Message-Id: <20260721035631.3186613-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178460419438.830862.6755198157088208229.stgit@frogsfrogsfrogs>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgB35com7l5qf6kTAw--.50170S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?fEO3LQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI1/PTMMwWm4rIWFnTCvd1Va+N+PtAATrNebvM7n2CtUojJQ
+	foKMrIuJxhHIysilKeSp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW3Gw17ArWDurykWFW8Wr13Jrc_yoW7Ar17pa
+	9a9rsxKrs8WF47Zrn3Gw4DXF1fXw1rJw47Jr1xG3sY9rs5GrWUKF10yasFvFW5ur9xtFnF
+	yF9Yv39xCr4jyFbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-From: Darrick J. Wong <djwong@kernel.org>
+All teardown of the driver's async producers (polling timer, SPI
+workqueue, IRQ) lives in the max3100_shutdown() uart_ops callback.
+On the suspend-then-remove path, max3100_shutdown() returns without
+draining these producers, so max3100_remove() can call kfree() while
+the polling timer remains armed.
 
-Simple test of various weird ways we can screw up unlinked inode list
-reconstruction.
+max3100_startup() arms the polling timer via max3100_enable_ms().  The
+timer callback max3100_timeout() unconditionally re-arms itself with
+mod_timer(), and on each tick dereferences the owning struct
+max3100_port (recovered via container_of(), then uart_poll_timeout on
+s->port).
 
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+max3100_shutdown() opens with "if (s->suspending) return;", which
+short-circuits the whole drain block.  max3100_suspend() sets
+s->suspending before calling uart_suspend_port().
+uart_suspend_port() (serial_core.c) clears tty_port_initialized() and
+then invokes ops->shutdown = max3100_shutdown, which takes the
+s->suspending early return above and runs none of the drain.  The
+timer stays armed.
+
+On a later SPI unbind, max3100_remove() calls uart_remove_one_port(),
+which (serial_core_remove_one_port) invokes tty_port_tty_vhangup() but
+does not invoke ops->shutdown() directly.  ops->shutdown() is reachable
+only through tty_port_shutdown() and uart_port_shutdown(), but
+tty_port_shutdown() is gated on tty_port_initialized(), which suspend
+clears.  The removal path therefore does not invoke max3100_shutdown(),
+and max3100_remove() proceeds directly to kfree(max3100s[i]) with the
+timer still armed.
+
+A port that was opened before system suspend can retain its polling
+timer.  If the SPI device is then unbound before resume, max3100_remove()
+frees the port while the timer can still run and re-arm itself.
+
+Factor a drain helper with a final-teardown argument.  Both variants
+stop the timer, IRQ, and workqueue in that order.  Normal shutdown uses
+timer_delete_sync(), which preserves the timer for a later open.  Final
+remove uses timer_shutdown_sync(), because max3100_timeout() re-arms via
+mod_timer() and the object is about to be freed; shutdown makes a racing
+re-arm a no-op.
+
+Track whether request_irq() succeeded separately from port->irq.  The
+latter is the hardware resource number and must survive a normal close
+for the next startup; irq_requested makes the drain idempotent without
+changing it.
+
+Call the non-final form from max3100_shutdown() and the final form
+after uart_remove_one_port() in max3100_remove().  The s->suspending
+early return in max3100_shutdown() remains intact, while remove()
+drains unconditionally.
+
+timer_shutdown_sync() is available since v6.2.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 7831d56b0a35 ("tty: MAX3100")
+Cc: stable@vger.kernel.org # 6.2+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- tests/xfs/1907     |  212 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- tests/xfs/1907.out |   17 ++++
- 2 files changed, 229 insertions(+)
- create mode 100755 tests/xfs/1907
- create mode 100644 tests/xfs/1907.out
+ drivers/tty/serial/max3100.c | 37 ++++++++++++++++++++++++++----------
+ 1 file changed, 27 insertions(+), 10 deletions(-)
 
-diff --git a/tests/xfs/1907 b/tests/xfs/1907
-new file mode 100755
-index 00000000000000..3b8634f3f16b3c
---- /dev/null
-+++ b/tests/xfs/1907
-@@ -0,0 +1,212 @@
-+#! /bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (c) 2026 Oracle.  All Rights Reserved.
-+#
-+# FS QA Test No. 1907
-+#
-+# Test using online fsck code to fix unlinked inodes on a clean filesystem that
-+# never got cleaned up.
-+#
-+. ./common/preamble
-+_begin_fstest auto quick unlink
-+
-+. ./common/filter
-+. ./common/fuzzy
-+. ./common/quota
-+
-+_require_command "$TIMEOUT_PROG" timeout
-+_require_xfs_db_command iunlink
-+_require_scratch_nocheck	# we'll run repair ourselves
-+
-+_scratch_mount
-+$XFS_IO_PROG -x -c 'repair -R agi 0' $SCRATCH_MNT 2>&1 | \
-+	grep -q 'Operation not supported' && \
-+	_notrun "cannot repair agi"
-+_scratch_unmount
-+
-+# From the AGI definition
-+XFS_AGI_UNLINKED_BUCKETS=64
-+NULLAGINO="0xffffffff"
-+
-+# Try to make each iunlink bucket have this many inodes in it.
-+IUNLINK_BUCKETLEN=5
-+
-+# Disable quota since quotacheck will break this test
-+orig_mount_options="$MOUNT_OPTIONS"
-+_qmount_option 'noquota'
-+
-+format_scratch() {
-+	_scratch_mkfs -d agcount=1 | _filter_mkfs 2> "${tmp}.mkfs" >> $seqres.full
-+	source "${tmp}.mkfs"
-+	test "${agcount}" -eq 1 || _notrun "test requires 1 AG for error injection"
-+
-+	local nr_iunlinks="$((IUNLINK_BUCKETLEN * XFS_AGI_UNLINKED_BUCKETS))"
-+	readarray -t BADINODES < <(_scratch_xfs_db -x -c "iunlink -n $nr_iunlinks" | awk '{print $4}')
-+
-+	ROOTINO="$(_scratch_xfs_db -c 'sb' -c 'print rootino' | cut -d ' ' -f 3)"
-+
-+	BUCKET_23=()
-+	BUCKET_24=()
-+	for badinode in "${BADINODES[@]}"; do
-+		(( (badinode % 64) == 23 )) && BUCKET_23+=("${badinode}")
-+		(( (badinode % 64) == 24 )) && BUCKET_24+=("${badinode}")
-+	done
-+	test "${#BUCKET_23[@]}" -ge "$IUNLINK_BUCKETLEN" || \
-+		echo "bucket 23 should have at least $IUNLINK_BUCKETLEN inodes, has ${#BUCKET_23[@]}"
-+	test "${#BUCKET_24[@]}" -ge "$IUNLINK_BUCKETLEN" || \
-+		echo "bucket 24 should have at least $IUNLINK_BUCKETLEN inodes, has ${#BUCKET_23[@]}"
-+
-+	# Log what we think the bucket 23 unlinked list will look like
-+	printf "ROOTINO 0x%x\n" "$ROOTINO" >> $seqres.full
-+	for badinode in "${BUCKET_23[@]}"; do
-+		printf "0x%x <- " "${badinode}" >> $seqres.full
-+	done
-+	echo " AGI.iunlinked[23]" >> $seqres.full
-+	for badinode in "${BUCKET_24[@]}"; do
-+		printf "0x%x <- " "${badinode}" >> $seqres.full
-+	done
-+	echo " AGI.iunlinked[24]" >> $seqres.full
-+
-+	# Log what the actual bucket 23 unlinked list ended up looking like
-+	local subcommands=()
-+	for badinode in "${BUCKET_23[@]}"; do
-+		subcommands+=(-c "inode ${badinode}" -c "print next_unlinked")
-+	done
-+	_scratch_xfs_db -x "${subcommands[@]}" >> $seqres.full
+diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
+index 44b745fa26c6..9dac733a9b81 100644
+--- a/drivers/tty/serial/max3100.c
++++ b/drivers/tty/serial/max3100.c
+@@ -107,6 +107,7 @@ struct max3100_port {
+ 	int  force_end_work;
+ 	/* need to know we are suspending to avoid deadlock on workqueue */
+ 	int suspending;
++	bool irq_requested;
+ 
+ 	struct timer_list	timer;
+ };
+@@ -306,6 +307,29 @@ static void max3100_dowork(struct max3100_port *s)
+ 		queue_work(s->workqueue, &s->work);
+ }
+ 
++/*
++ * Stop async producers before tearing down the workqueue.  A normal
++ * shutdown must leave the timer re-armable for the next open, while final
++ * removal uses timer_shutdown_sync() to prevent max3100_timeout() from
++ * re-arming a timer embedded in an object about to be freed.
++ */
++static void max3100_drain_async(struct max3100_port *s, bool final)
++{
++	s->force_end_work = 1;
++	if (final)
++		timer_shutdown_sync(&s->timer);
++	else
++		timer_delete_sync(&s->timer);
++	if (s->irq_requested) {
++		free_irq(s->port.irq, s);
++		s->irq_requested = false;
++	}
++	if (s->workqueue) {
++		destroy_workqueue(s->workqueue);
++		s->workqueue = NULL;
++	}
 +}
 +
-+__repair_check_scratch() {
-+	_scratch_xfs_repair -o force_geometry -n 2>&1 | \
-+		tee -a $seqres.full | \
-+		grep -E '(disconnected inode.*would move|next_unlinked in inode|unlinked bucket.*is.*in ag)'
-+	return "${PIPESTATUS[0]}"
-+}
-+
-+exercise_scratch() {
-+	# Create a bunch of files...
-+	declare -A inums
-+	for ((i = 0; i < (XFS_AGI_UNLINKED_BUCKETS * 2); i++)); do
-+		touch "${SCRATCH_MNT}/${i}" || break
-+		inums["${i}"]="$(stat -c %i "${SCRATCH_MNT}/${i}")"
-+	done
-+
-+	# ...then delete them to exercise the unlinked buckets
-+	for ((i = 0; i < (XFS_AGI_UNLINKED_BUCKETS * 2); i++)); do
-+		if ! rm -f "${SCRATCH_MNT}/${i}"; then
-+			echo "rm failed on inum ${inums[$i]}"
-+			break
-+		fi
-+	done
-+}
-+
-+test_body() {
-+	_scratch_mount
-+	timeout 30s $XFS_IO_PROG -x -c 'scrub agi 0' -c 'repair agi 0' $SCRATCH_MNT
-+	$XFS_IO_PROG -x -c 'repair fscounters' $SCRATCH_MNT >> $seqres.full
-+	exercise_scratch
-+	_scratch_unmount
-+	final_check_scratch
-+}
-+
-+# Offline repair should not find anything
-+final_check_scratch() {
-+	__repair_check_scratch
-+	res=$?
-+	if [ $res -eq 2 ]; then
-+		echo "scratch fs went offline?"
-+		_scratch_mount
-+		_scratch_unmount
-+		__repair_check_scratch
-+	fi
-+	test "$res" -ne 0 && echo "repair returned $res?"
-+}
-+
-+echo "+ Part 1: Fix a correct unlinked list" | tee -a $seqres.full
-+_kernlog "part 1"
-+format_scratch
-+test_body
-+
-+echo "+ Part 2: Fix a loop between 1 and 3" | tee -a $seqres.full
-+_kernlog "part 2"
-+format_scratch
-+# BUCKET_23 is in reverse order of the ondisk list, so we make
-+# inode 1 point back to inode 3.
-+_scratch_xfs_db -x \
-+	-c "inode ${BUCKET_23[1]}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked ${BUCKET_23[3]}" \
-+	>> $seqres.full
-+test_body
-+
-+echo "+ Part 3: Fix a truncated bucket" | tee -a $seqres.full
-+_kernlog "part 3"
-+format_scratch
-+_scratch_xfs_db -x \
-+	-c "agi 0" \
-+	-c "print" \
-+	-c "write -d unlinked[23] ${NULLAGINO}" \
-+	>> $seqres.full
-+test_body
-+
-+echo "+ Part 4: Fix a loop at the end" | tee -a $seqres.full
-+_kernlog "part 4"
-+format_scratch
-+# BUCKET_23 is in reverse order of the ondisk list, so we make
-+# inode 0 point back to inode 0.
-+_scratch_xfs_db -x \
-+	-c "inode ${BUCKET_23[0]}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked ${BUCKET_23[0]}" \
-+	>> $seqres.full
-+test_body
-+
-+echo "+ Part 5: Fix an inode in the wrong bucket" | tee -a $seqres.full
-+_kernlog "part 5"
-+format_scratch
-+_scratch_xfs_db -x \
-+	-c "inode ${BUCKET_23[0]}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked ${BUCKET_24[1]}" \
-+	-c "inode ${BUCKET_24[2]}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked ${NULLAGINO}" \
-+	>> $seqres.full
-+test_body
-+
-+echo "+ Part 6: Fix an inode that isn't free and truncates list" | tee -a $seqres.full
-+_kernlog "part 6"
-+format_scratch
-+_scratch_xfs_db -x \
-+	-c "inode ${BUCKET_23[2]}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked ${ROOTINO}" \
-+	>> $seqres.full
-+test_body
-+
-+echo "+ Part 7: Fix an inode that isn't free" | tee -a $seqres.full
-+_kernlog "part 7"
-+format_scratch
-+_scratch_xfs_db -x \
-+	-c "inode ${BUCKET_23[2]}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked ${ROOTINO}" \
-+	-c "inode ${ROOTINO}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked ${BUCKET_23[1]}" \
-+	>> $seqres.full
-+test_body
-+
-+echo "+ Part 8: Fix an totally unallocated inode" | tee -a $seqres.full
-+_kernlog "part 8"
-+format_scratch
-+target=$(( BADINODES[-1] + 256 ))
-+_scratch_xfs_db -x \
-+	-c "inode ${BUCKET_23[2]}" \
-+	-c "print next_unlinked" \
-+	-c "write -d next_unlinked $target" \
-+	>> $seqres.full
-+test_body
-+
-+# success, all done
-+status=0
-+exit
-diff --git a/tests/xfs/1907.out b/tests/xfs/1907.out
-new file mode 100644
-index 00000000000000..83746ad602b21d
---- /dev/null
-+++ b/tests/xfs/1907.out
-@@ -0,0 +1,17 @@
-+QA output created by 1907
-++ Part 1: Fix a correct unlinked list
-+Corruption detected.
-++ Part 2: Fix a loop between 1 and 3
-+Corruption detected.
-++ Part 3: Fix a truncated bucket
-+Corruption detected.
-++ Part 4: Fix a loop at the end
-+Corruption detected.
-++ Part 5: Fix an inode in the wrong bucket
-+Corruption detected.
-++ Part 6: Fix an inode that isn't free and truncates list
-+Corruption detected.
-++ Part 7: Fix an inode that isn't free
-+Corruption detected.
-++ Part 8: Fix an totally unallocated inode
-+Corruption detected.
+ static void max3100_timeout(struct timer_list *t)
+ {
+ 	struct max3100_port *s = timer_container_of(s, t, timer);
+@@ -530,16 +554,7 @@ static void max3100_shutdown(struct uart_port *port)
+ 	if (s->suspending)
+ 		return;
+ 
+-	s->force_end_work = 1;
+-
+-	timer_delete_sync(&s->timer);
+-
+-	if (s->workqueue) {
+-		destroy_workqueue(s->workqueue);
+-		s->workqueue = NULL;
+-	}
+-	if (port->irq)
+-		free_irq(port->irq, s);
++	max3100_drain_async(s, false);
+ 
+ 	/* set shutdown mode to save power */
+ 	max3100_sr(s, MAX3100_WC | MAX3100_SHDN, &rx);
+@@ -581,6 +596,7 @@ static int max3100_startup(struct uart_port *port)
+ 		return -EBUSY;
+ 	}
+ 
++	s->irq_requested = true;
+ 	s->conf_commit = 1;
+ 	max3100_dowork(s);
+ 	/* wait for clock to settle */
+@@ -752,6 +768,7 @@ static void max3100_remove(struct spi_device *spi)
+ 		if (max3100s[i] == s) {
+ 			dev_dbg(&spi->dev, "%s: removing port %d\n", __func__, i);
+ 			uart_remove_one_port(&max3100_uart_driver, &max3100s[i]->port);
++			max3100_drain_async(max3100s[i], true);
+ 			kfree(max3100s[i]);
+ 			max3100s[i] = NULL;
+ 			break;
+-- 
+2.34.1
+
