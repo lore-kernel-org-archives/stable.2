@@ -1,80 +1,47 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1134DD6FD
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 15:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1473367B60;
+	Tue, 21 Jul 2026 15:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784647374; cv=none; b=TmB/NxQFT5zKHLD1bfoXdagvJZAAxdU1ViuCpB8sC5T5q44zuqMSy5sY44AfLaKYZPqYXcNMRdfr3jYmkCLk7J1y7M1fQirRJS5xTebtizORU24kPmKQV2OxVWdnLT2Cg868o2UD22QS7R8dgko/aucZ5dX0wo/D4UZlgf8GtdM=
+	t=1784647762; cv=none; b=bmiBNFOBYLTmUrOxCd6giNkTTTS6kOfFU3JPWnvYTUr00oTGxB7gbG9kwuo0FkM+qTGjgtTLcV+Kcln3WuMCswJIguk5vqn4Yv8TziA8xagOj7Lw5jrgGv4uYrXUHils/dsx8k8lFo+tXYiUjtZ36KqzTjsBk0ZlBtrrDJOvB3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784647374; c=relaxed/simple;
-	bh=vymvzdq6k/6TlyDR7YkwC0qyXhOrNERQdYig/qlY66I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gxGC3lm8DxNNA0ThbH4Xdr0MR0f+reA+gTqTjfuxCVspXxBOPQft7lRUz4l3DAIucvm6KpMmJylhxr3QTLzSsZ8zLXi6Y6u7dYdYa8FREkASQL0X8af4NT0DV/BbR7y44HZd2XNh8j717Ezqym54gSS8JzHTd92sOwQA0WKLLCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TwUzUAge; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784647762; c=relaxed/simple;
+	bh=Od7zGve5y9S/a3+qTltfCxsLsMyGeygowvt2PcYPUTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZGtexQx2KHkZsXFLwIhGZ415FTAE+vW5PULqukjSBMYeyIgGngfLr8SGMAxliGrroOQfsEQ/X/IP6njGK0JrMRP7OQYLGN+QUxs20ig7s04xzVXdmm5NUNQd4G4/T+jU1UlXjJ0egUozupCDzarm2TKtJV3hT/7tYlGeM5jYE5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=P6Eof9az; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TwUzUAge"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38deea72eebso9511418a91.1
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:22:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784647372; x=1785252172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9eXHmL2FrSSPACEJW/ZdN2+RZSdHtJBbjO91JeCFP0A=;
-        b=TwUzUAgevKGXxz6jo86T8Cm5ePzayIHClVUrAkEQnLrTEE6t2QpFUigyy9zARqtfA9
-         L97vknLXEnlDFOZjn2xcA498vqZ2FYI8IE5V+b/VGo/8HN4K5dmywc0cJVJ2XV9ef8t/
-         Ug4oZAV+inktHs/bOnJneYpiVKadPxcsVRqQSGaJt0y9YFUVD2MGlckPRc6tLpsWu3pt
-         qiAyOOZovtpC9bTCXhTqVXTSQ7i5zxLr+KXAUcYym4QXRRJ/S9T7LZQ9i5F1DZ7mczgg
-         jpnEQ9qe6LbFzlzO96xrYQs2CqwJq+SN+6jO8f0vuY3p8PkdtNF81dlRFQ37Gpe3Fc5e
-         DSqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784647372; x=1785252172;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9eXHmL2FrSSPACEJW/ZdN2+RZSdHtJBbjO91JeCFP0A=;
-        b=kOHvXwsxDV/Q8kuqQRZkKT3D+oiR+Hm2fghqaMx2p3cv0HbQZYRSw35TybHOsc8yu+
-         2XyjbyiVH5jdmPfufb+zx4mx52NYQgOTi/izTusq4M3loXbUNcGhGuJwCG7FMRPg35HW
-         Hm9WoU0qQrpPcIbLpKySwUXAJUviepEhB++xj85liF6qxyx4VgWYYjlbWg5jH6wjlN0u
-         t3FIFnLkhV+z9lOtziEnJxr+h3Cct7qXy8B8yQ9vkWurH3rexy2cuwn8odDxVfA6y0MP
-         gKjo/PwObrKXiJe3Yp7hDlQhCQaDGlU01MvWGITN4nZ+rcL/Tsiq7tf2WOHt8f4DwS7y
-         iCow==
-X-Forwarded-Encrypted: i=1; AHgh+RrqkQS6VfxsQQeGiFUON4ni9Z0qoRuYTbDoUNHSxgZR4lnv7aMdZYuNTsURK15nUy32c3Av4kI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmZguzbWvXkxe7ukpRhTtxU0C85Uub4lbklsKr+iO5eA5qFlX3
-	onqUdtVaduP2o791Jq+hObHwe0J1l8mXxUaxvYqfqou5ToNxkL4Ze/0=
-X-Gm-Gg: AR+sD119tq+G5TmxI9KaokZXSvHPYydUPa/yBvT9NbwjsIkzcTUq267xOvMCf+I0v7z
-	hlBxWuD5EQRnh0kTA4I8RbRb+C6kYup6VMPzRuC//HcRN4Lq5WfMNnZiZDacgBhpbSmS4WRkgr3
-	x3XqsUGye+IGhpRHEwrWPoJNej2WzzlnzuQeL4WzWAWASmrktSNH6t0XRocQratsuA+tJ25SC/8
-	AnmcsdLWcCJSeSSJCIBSBCvft8071hpkuLCGfzkLWav6D8eL+4DNZHdQPPgARI4w6CvKqmfGkPb
-	pAXdeCb0oahDQjj85kEHJ9xi2xOXyHIRG+cBB+0ktpSyZd+JWU8sE4niqYjGaMsHMAxl/al71kH
-	uRz/O/cLdBpSMGHB7jPiVpxojYILNy8Em10flgfjufs7Kz6XrugFpo5jlePgA8PgKSCEIqb5Yzm
-	6Jfh64nYzofFo3Q/Zi75SB1omztu/4/kdQMtCb5b+2pl4UmQUIQhRXgEXHUWqPpI6XidvUm1t88
-	Guprsu324eRHnUFSCTKZrkBib4cz4RqjuO9IGwi
-X-Received: by 2002:a17:90b:1c02:b0:38e:2aa8:60d0 with SMTP id 98e67ed59e1d1-38e4b586067mr20371153a91.37.1784647371935;
-        Tue, 21 Jul 2026 08:22:51 -0700 (PDT)
-Received: from localhost.localdomain ([14.5.152.27])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e60cc2ad5sm1402904a91.4.2026.07.21.08.22.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 21 Jul 2026 08:22:51 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] drm/mediatek: ovl_adaptor: balance component registrations
-Date: Wed, 22 Jul 2026 00:22:42 +0900
-Message-Id: <20260721152242.47138-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P6Eof9az"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5891F00A3F;
+	Tue, 21 Jul 2026 15:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784647760;
+	bh=uIZeSf3/WdCo0q8Gp5wnShdm38N7vZcnRrvzwDjx6Kw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P6Eof9azgbevwjA8dkJEaah9aA1F28qyQ+NkOw8mnbHC4tSNDWS7T8LgvMDHtZG6n
+	 YJw3p6kIqhgIKh3yDkbbymCJQBHk7sNNXB4Dri8ZbbrJ23eGq2jQowsghLb5nceHZ5
+	 S6HIEDGECtKwgNDG/qJT8o60kUzzOMuYOzbm5ygI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Shivam Kumar <skumar47@syr.edu>,
+	Shivam Kumar <kumar.shivam43666@gmail.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Philo Lu <lulie@linux.alibaba.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 001/699] nvmet-tcp: fix race between ICReq handling and queue teardown
+Date: Tue, 21 Jul 2026 17:16:00 +0200
+Message-ID: <20260721152355.706200271@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152355.667394603@linuxfoundation.org>
+References: <20260721152355.667394603@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,68 +50,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The OVL adaptor registers both an aggregate driver for its child devices
-and a component for the main DRM aggregate. Probe currently ignores an
-error from registering the child aggregate and leaves that aggregate
-registered if registering the DRM component fails. The remove callback
-also leaves the DRM component registered.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-These imbalances can leave component framework entries referring to a
-device whose probe failed or whose driver has been detached. The aggregate
-unbind callback also fails to undo component_bind_all(), leaving its child
-components marked as bound when the aggregate is removed.
+------------------
 
-Check the aggregate registration result, unwind it when the component
-registration fails, and unregister the component before the aggregate on
-remove. Keep runtime PM enabled until both framework registrations have
-been removed, and unbind all child components from the aggregate unbind
-callback.
+From: Chaitanya Kulkarni <kch@nvidia.com>
 
-Fixes: 453c3364632a ("drm/mediatek: Add ovl_adaptor support for MT8195")
-Cc: stable@vger.kernel.org # 6.4+
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+commit 5293a8882c549fab4a878bc76b0b6c951f980a61 upstream.
+
+nvmet_tcp_handle_icreq() updates queue->state after sending an
+Initialization Connection Response (ICResp), but it does so without
+serializing against target-side queue teardown.
+
+If an NVMe/TCP host sends an Initialization Connection Request
+(ICReq) and immediately closes the connection, target-side teardown
+may start in softirq context before io_work drains the already
+buffered ICReq. In that case, nvmet_tcp_schedule_release_queue()
+sets queue->state to NVMET_TCP_Q_DISCONNECTING and drops the queue
+reference under state_lock.
+
+If io_work later processes that ICReq, nvmet_tcp_handle_icreq() can
+still overwrite the state back to NVMET_TCP_Q_LIVE. That defeats the
+DISCONNECTING-state guard in nvmet_tcp_schedule_release_queue() and
+allows a later socket state change to re-enter teardown and issue a
+second kref_put() on an already released queue.
+
+The ICResp send failure path has the same problem. If teardown has
+already moved the queue to DISCONNECTING, a send error can still
+overwrite the state with NVMET_TCP_Q_FAILED, again reopening the
+window for a second teardown path to drop the queue reference.
+
+Fix this by serializing both post-send state transitions with
+state_lock and bailing out if teardown has already started.
+
+Use -ESHUTDOWN as an internal sentinel for that bail-out path rather
+than propagating it as a transport error like -ECONNRESET. Keep
+nvmet_tcp_socket_error() setting rcv_state to NVMET_TCP_RECV_ERR before
+honoring that sentinel so receive-side parsing stays quiesced until the
+existing release path completes.
+
+Fixes: c46a6465bac2 ("nvmet-tcp: add NVMe over TCP target driver")
+Cc: stable@vger.kernel.org
+Reported-by: Shivam Kumar <skumar47@syr.edu>
+Tested-by: Shivam Kumar <kumar.shivam43666@gmail.com>
+Signed-off-by: Chaitanya Kulkarni <kch@nvidia.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+[ context diff adaptation: drop `queue->state = NVMET_TCP_Q_FAILED` since
+ the enum introduced in 6.7, 675b453e0241 ("nvmet-tcp: enable TLS handshake
+ upcall" ]
+Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/nvme/target/tcp.c | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c b/drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c
-index c0af3e3b5..6a259872b 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_ovl_adaptor.c
-@@ -625,6 +625,7 @@ static void mtk_disp_ovl_adaptor_master_unbind(struct device *dev)
- 	struct mtk_disp_ovl_adaptor *priv = dev_get_drvdata(dev);
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index edcc0662c3e571..4bd82e9b113ff5 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -345,6 +345,19 @@ static void nvmet_tcp_build_pdu_iovec(struct nvmet_tcp_cmd *cmd)
  
- 	priv->children_bound = false;
-+	component_unbind_all(dev, priv->mmsys_dev);
- }
- 
- static const struct component_master_ops mtk_disp_ovl_adaptor_master_ops = {
-@@ -651,12 +652,15 @@ static int mtk_disp_ovl_adaptor_probe(struct platform_device *pdev)
- 
- 	priv->mmsys_dev = pdev->dev.platform_data;
- 
--	component_master_add_with_match(dev, &mtk_disp_ovl_adaptor_master_ops, match);
-+	ret = component_master_add_with_match(dev, &mtk_disp_ovl_adaptor_master_ops, match);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add component master\n");
- 
- 	pm_runtime_enable(dev);
- 
- 	ret = component_add(dev, &mtk_disp_ovl_adaptor_comp_ops);
- 	if (ret != 0) {
-+		component_master_del(dev, &mtk_disp_ovl_adaptor_master_ops);
- 		pm_runtime_disable(dev);
- 		return dev_err_probe(dev, ret, "Failed to add component\n");
- 	}
-@@ -666,6 +670,7 @@ static int mtk_disp_ovl_adaptor_probe(struct platform_device *pdev)
- 
- static void mtk_disp_ovl_adaptor_remove(struct platform_device *pdev)
+ static void nvmet_tcp_fatal_error(struct nvmet_tcp_queue *queue)
  {
-+	component_del(&pdev->dev, &mtk_disp_ovl_adaptor_comp_ops);
- 	component_master_del(&pdev->dev, &mtk_disp_ovl_adaptor_master_ops);
- 	pm_runtime_disable(&pdev->dev);
++	/*
++	 * Keep rcv_state at RECV_ERR even for the internal -ESHUTDOWN path.
++	 * nvmet_tcp_handle_icreq() can return -ESHUTDOWN after the ICReq has
++	 * already been consumed and queue teardown has started.
++	 *
++	 * If nvmet_tcp_data_ready() or nvmet_tcp_write_space() queues
++	 * nvmet_tcp_io_work() again before nvmet_tcp_release_queue_work()
++	 * cancels it, the queue must not keep that old receive state.
++	 * Otherwise the next nvmet_tcp_io_work() run can reach
++	 * nvmet_tcp_done_recv_pdu() and try to handle the same ICReq again.
++	 *
++	 * That is why queue->rcv_state needs to be updated before we return.
++	 */
+ 	queue->rcv_state = NVMET_TCP_RECV_ERR;
+ 	if (queue->nvme_sq.ctrl)
+ 		nvmet_ctrl_fatal_error(queue->nvme_sq.ctrl);
+@@ -888,10 +901,24 @@ static int nvmet_tcp_handle_icreq(struct nvmet_tcp_queue *queue)
+ 	iov.iov_base = icresp;
+ 	iov.iov_len = sizeof(*icresp);
+ 	ret = kernel_sendmsg(queue->sock, &msg, &iov, 1, iov.iov_len);
+-	if (ret < 0)
++	if (ret < 0) {
++		spin_lock_bh(&queue->state_lock);
++		if (queue->state == NVMET_TCP_Q_DISCONNECTING) {
++			spin_unlock_bh(&queue->state_lock);
++			return -ESHUTDOWN;
++		}
++		spin_unlock_bh(&queue->state_lock);
+ 		return ret; /* queue removal will cleanup */
++	}
+ 
++	spin_lock_bh(&queue->state_lock);
++	if (queue->state == NVMET_TCP_Q_DISCONNECTING) {
++		spin_unlock_bh(&queue->state_lock);
++		/* Tell nvmet_tcp_socket_error() teardown is in progress. */
++		return -ESHUTDOWN;
++	}
+ 	queue->state = NVMET_TCP_Q_LIVE;
++	spin_unlock_bh(&queue->state_lock);
+ 	nvmet_prepare_receive_pdu(queue);
+ 	return 0;
  }
 -- 
-2.51.0
+2.53.0
+
+
+
