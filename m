@@ -1,153 +1,264 @@
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CBE368D65
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 01:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB5F3FE65D
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 01:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784598902; cv=none; b=Uc2bAJFVK8WzPdHcKzuC29q3+DKhBIc1a6ZeaYuyNViNpPrw93VG6dcVIhffljW7PV69eryWMgBPieJXh6lBU+IYAJPuvUmGVREVeM5i2mna6m5mnxkOFxTA2Ha3t2h+FaltZ7/XIGIIsgt0H0TAbQtju3fY81keNLOOS8HcOFQ=
+	t=1784598986; cv=none; b=LfPJTauUr3mR5bFArUyMxEhRMvP7+myeUOGblAbyipWR0hnWG5MvqIhTVmXsQYGNotwxCH96ryLC0AOXOOVnWSyGQhCS62JdQv7rlcGt02Ya0LDuV2yYHWtuchLeoCdUJlIpqSPkvJjyb9129irB2mVtwabZo1XQALgwLYIUBo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784598902; c=relaxed/simple;
-	bh=CmwH/B0PtnzgfGqG8j8e2Mypnvqls/YlFIwqIJNUr1I=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=WpnnhAKLIJU7hI9xIOZmJXqdNdimhc3B6AZYPqKjmTTCJV461LrBpI3tys2MQkN9lpDZkUzm5Qp5ggr7A36LJyHgcTxtg0NVk14912nbgH5dO6AyD49JA5HEKlO+i5zWXTEzT14jtGs2Srf/9xK0kyMkAlRmPwFc0f0kZY94Wgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GrvXjHlX; arc=none smtp.client-ip=74.125.227.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784598986; c=relaxed/simple;
+	bh=kfcA0jtQM2vxhoUMmTZaEx+SFxxAGDbBXmXwON70ieU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q2ewzNLbpxaRAo+12lJQG/teVRZG5SbnTtCS81KbJxptQDqPP4o9HgM21+O4DMfGSNPPGFWFPz5yEamklLC+I1QXfJmt3bJYhf24Df25qa0N6yrBJ6Yek+vS3/GhoA0eFgS9kRlYSmZerfq+ahc6g3VZ1zugPRIVIyfm/EOl1Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=d+L9zjcA; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GrvXjHlX"
-Received: by mail-pj2-f0.google.com with SMTP id d9443c01a7336-2cc2c6e0688so90491105ad.0
-        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 18:55:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="d+L9zjcA"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-8ff88549786so133039546d6.3
+        for <stable@vger.kernel.org>; Mon, 20 Jul 2026 18:56:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784598900; x=1785203700; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ffAaSrXTHoX1nF2FpytraIRkGW9osx4fNIumZb54aqE=;
-        b=GrvXjHlX96cF/nN+KFdLoOZ+fxYBMYUTIhg9gYjxgWebsenRph3E6QaqDEVcsxkD7H
-         pbf26lyy4Ow0i+NU7fvww839p9SDSG0hTVjU4BG2Qp22xnA2FG0cAJx6ueZDIB9eU1dX
-         iOk7V6/C656CHz7euR7a5Nr0nbGLSXkUelY0a5r4737aHnhE7l71jY2wjrz5uEFzHYCY
-         iEDNOTHAVFRDj5EiUZEXllqhPI37cXxQMHd0puUhizsWSp1jgVFOWCj4eELcHO54gL4/
-         5sPsGV/V1FzTUWhOW7YCyPIz0PopymVADdfN7RBnLOUsNejEPve8JabGaEHSXCpmX9kp
-         9P8g==
+        d=openai.com; s=google; t=1784598984; x=1785203784; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gvfid7rw/l1nHM0s2D/GVV5QJykAVKQqpYZKzlHL3SE=;
+        b=d+L9zjcAogt5hQxlRwYCDEx9cdBMgvQcDEAXPvUvZqdDBEEbgb9zNgc/PKbLELl8ck
+         3E2vxI2vRqcda5ot9VvkmSqApxSkpX+5FaDlDZdL9qKKerOS+mU84+HdGMxUzLgW7JK+
+         hkhRUnGAbT8kxRg+afx0ity60L5a1E61lPlqU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784598900; x=1785203700;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ffAaSrXTHoX1nF2FpytraIRkGW9osx4fNIumZb54aqE=;
-        b=SPqhw7Ewj7sNuM8/UNv4q7ZG9R3Ltah001coVFa50JbofkaIcFjYnlGpeO7Tu0WEY0
-         lqyrCy98JWFPqVNv5Y1ESDm3t3+hyFllUZHJBNzvW0T37PmhYMp1D8QVA4DQvfJmW7/I
-         yruheQ4SaxxQ4ATVe+cFOa3Pk1gI3eWh6o8JZU7504F+vluaieAZ3P7WkWq43PIaYRD3
-         S7OVoObxG/PbuP2JWGmm9ZBr6sl0hwmI27IDR9Af4yyC3I0PX26PfF/IpGThjiDw3TzO
-         bWTodHtY0ARKaLkTSiH9CjLXGz1eEFSxS+I6tI8A7YMCx8LhF2obp5Yl/M4+EPxUteDp
-         s33Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpKYrQLlJOfarh6xGGyVtoY2kkkOjLg2mmnQg9DwWJGqgvoSZPK5Yxy/ZVdmQHIXNAm3EGUO2c=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzx+8ju1DcOF/xWVA+rePBfXldRdXGFgk2wMfO7hQs7Fdtimqa9
-	bBIdlev4OWlbe1sWJF5Vbt4tCHGByKATMyujJnQaGOf2bMEiNCa8LvEd
-X-Gm-Gg: AR+sD11oJ80lq4m1U21GvkfsvVAJaYXF6qE+cyQYnTWwS/EH1zbne2S7hi8p+l6bvJi
-	i4NMg9dYDCsxsgmUHlMBNQZEjauFfVFJejYDOJ0wstB8UAZhp8sRgfMqqcsjllG69mEIBsq98j2
-	YI0lhQhqDhJ5FN1W9aRo1F1cmROVy919IGPgxHqOl8XWFkpa7E4rsg1X+CkVF95oHAh3S57aiPI
-	cVEsQgXDqBxz2pYYSRQ5nUd+PEy57xuUawNLksmzKs42lTmCkDlMxGehvWaHLdnsRd172cOFx61
-	+wktSqtDwzaZNYECl1X1I1M3eWdS2+00ptf38L+bzBWXCgovVMJPKoLR9oxJtp8J0hBOhT9oAKD
-	Q4DiVLUWpWiICaPjSPIvNoA/h7sFFDdjoq5sv3r1glMLukB5D7jZ4SzWU7aKWcdT7HhBUlVNRnC
-	M=
-X-Received: by 2002:a17:903:3c4e:b0:2cc:9179:335 with SMTP id d9443c01a7336-2cf3481b661mr171881705ad.8.1784598900381;
-        Mon, 20 Jul 2026 18:55:00 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2603:c021:8000:9500:233::14])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf344b1ef8sm68539495ad.21.2026.07.20.18.54.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Jul 2026 18:54:59 -0700 (PDT)
-Date: Tue, 21 Jul 2026 09:53:53 +0800
-From: Coia Prant <coiaprant@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: pcs: xpcs-plat: fix runtime PM initialization
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260720172433.77b83dc7@kernel.org>
-References: <20260704214808.1566710-1-coiaprant@gmail.com> <20260720172433.77b83dc7@kernel.org>
-Message-ID: <7BA9366A-3243-4A46-BA8F-BB170C8AD912@gmail.com>
+        d=1e100.net; s=20251104; t=1784598984; x=1785203784;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gvfid7rw/l1nHM0s2D/GVV5QJykAVKQqpYZKzlHL3SE=;
+        b=byBd+ZvdBWOgYr/77i0nvf0tMrMjTQzjUa5DwVwhfTblYdI6NlVQaNMzakbO+mCiKB
+         nvNjpeyyLMAZ6PWPBFAANwE9DLbqult/tq3TukHhJ0g2BeVPbCsIT1BQVXr9Nf20aDeZ
+         Q0DRgejgtWLobEigC/szUO0qMrbYC/Mb9qfHkSJHupnUt3sDunlbTcUCwpbyq46Rzb/n
+         XBy1zsDJu7MAQQ6i0I3kTGi5EQHmk74q6G6EuZMrVSJb5BN6hBV6NkQclW2+Dqk+7kbk
+         Vh9VNOyYf7KuaToMnwMzd3naQcvyB20wZzcEi5pYNw4e//5nn2kwgGYVQ6FjfbwJ09Ng
+         1Uyg==
+X-Gm-Message-State: AOJu0YwjBu+zmmlp0gDAmclJ4yymryFeTY8Xfirpfk14icK8TWD4enQV
+	kFXcDGDc9VgC4b41ACXiREk0g/NmEwqIKVghzAdkV4asNUr/CGsPz93el18FK+4P/rs=
+X-Gm-Gg: AR+sD13iPPmra2RN9GQrM9LXMl+a1pebYAX7d+IodzX49shrlV2Sd1Q7LxWMvLbgyzd
+	vPJGkv6Y664kqUiMEZOgvbsw3F34XWqqtpYyMsbcjBuLxwfne9wQWdKF6swiiLsbT78Xa8uGhvW
+	aPDyNN9z0x4tC3zG7yrMqWJjp5sG9Wk/G1m+klwb/3ZnIy4eGxJoq8HZcCT4HWOgKsLGveY6hRL
+	HQ6kCmv728w/WlBdJFhRwiGF8Bm79Qc9MUrYWG9QBOztnkl1OcTyfUUjbg+NIAmyzAPL3dksiQf
+	vquH2NIXq9FhTHkBC0PreYBnkQcvKiId2AWj73gL8j2dFR6QLfv/fyipmTHiR0aMgq1Ixcc+/Pn
+	6ckpgf6tdOBVOQ1cyMT1YMKcQziPNTbK33o2Pe65exkqj2bQgxDt0l4SJBSILbJS65t7QdnIyHU
+	K00uBxawAGTn9wifAO2iYOWFGpKuz4IC6FtpEq78sDXzapQ2NOniB15gp2SQPRtybHi2+HvGEI5
+	Qis1fYk
+X-Received: by 2002:a05:6214:d6d:b0:8ef:4749:b1cb with SMTP id 6a1803df08f44-9077831388cmr182263386d6.6.1784598983949;
+        Mon, 20 Jul 2026 18:56:23 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([209.249.37.148])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90778543d85sm104247446d6.3.2026.07.20.18.56.23
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 20 Jul 2026 18:56:23 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: stable@vger.kernel.org,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Subject: [PATCH net] net/packet: defer vmalloc TX_RING free until skbs finish
+Date: Mon, 20 Jul 2026 18:56:18 -0700
+Message-ID: <20260721015618.44688-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On July 21, 2026 8:24:33 AM GMT+08:00, Jakub Kicinski <kuba@kernel=2Eorg> w=
-rote:
->On Sun,  5 Jul 2026 05:48:08 +0800 Coia Prant wrote:
->> The driver calls `pm_runtime_set_active()` before runtime PM is enabled=
-,
->> and before the clock is prepared and enabled=2E
->>=20
->> This causes the clock to be unprepared/disabled later in the suspend
->> callback even though it was never prepared/enabled, resulting in warnin=
-gs:
->>=20
->> clk_csr already disabled
->> clk_csr already unprepared
->>=20
->> Fix this by setting the initial runtime PM status to SUSPENDED instead
->> of ACTIVE=2E
->>=20
->> The clock will be properly enabled when the device is first resumed
->> via runtime PM (e=2Eg=2E, during MDIO access)=2E
->
->Seems a bit odd that this hasn't been discovered until now=2E
->Could you add more details about your platform and maybe
->a hypothesis why we haven't noticed?
+AF_PACKET TX_RING skbs keep a raw pointer to their ring frame. The skb
+page references preserve page-backed ring blocks after pg_vec is freed,
+but they do not preserve a vmalloc mapping.
 
-Hi,
+tpacket_destruct_skb() currently drops the pending reference before
+writing the timestamp and TP_STATUS_AVAILABLE to the frame. Move the
+decrement after those stores. The smp_wmb() in __packet_set_status()
+orders the frame stores before the decrement.
 
-I came across what looks like a runtime PM initialization issue while
-using pcs-xpcs-plat=2Ec as a reference for the Rockchip XPCS glue driver
-(drivers/net/pcs/pcs-xpcs-rk=2Ec)=2E
+On socket close, scan every pg_vec entry because allocation can produce
+a mixture of page-backed and vmalloc-backed blocks. If any block is
+vmalloc-backed and TX skbs remain pending, defer the whole vector to
+system_long_wq.
 
-The current code in pcs-xpcs-plat=2Ec does:
+After pg_vec is detached, a late destructor can skip the pending
+decrement. Use socket write-memory accounting as the deferred lifetime
+gate instead: an skb remains charged through its final sock_wfree(),
+after all ring-frame accesses. The delayed work retains a socket
+reference and reschedules itself until no TX skbs remain. Fall back to
+a synchronous wait if the work allocation fails.
 
-    pm_runtime_set_active(dev);
-    ret =3D devm_pm_runtime_enable(dev);
+Move pending_refcnt release to packet_sock_destruct() so late skb
+destructors and deferred cleanup can safely use it after
+packet_release(). Page-backed teardown remains synchronous, and no lock
+is added to the TX completion hot path.
 
-This sets the initial PM state to ACTIVE before runtime PM is fully
-enabled, and before the clock is prepared and enabled=2E
+Fixes: b013840810c2 ("packet: use percpu mmap tx frame pending refcount")
+Cc: stable@vger.kernel.org
+Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+ net/packet/af_packet.c | 90 ++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 82 insertions(+), 8 deletions(-)
 
-If the device is later suspended (e=2Eg=2E, during unbind), the suspend
-callback may try to disable a clock that was never enabled, leading to:
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 8e6f3a734ba0..1a4c548c59ac 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -88,6 +88,7 @@
+ #include <linux/errqueue.h>
+ #include <linux/net_tstamp.h>
+ #include <linux/percpu.h>
++#include <linux/workqueue.h>
+ #ifdef CONFIG_INET
+ #include <net/inet_common.h>
+ #endif
+@@ -1329,6 +1330,8 @@ static void packet_sock_destruct(struct sock *sk)
+ 	WARN_ON(atomic_read(&sk->sk_rmem_alloc));
+ 	WARN_ON(refcount_read(&sk->sk_wmem_alloc));
+ 
++	packet_free_pending(pkt_sk(sk));
++
+ 	if (!sock_flag(sk, SOCK_DEAD)) {
+ 		pr_err("Attempt to release alive packet socket: %p\n", sk);
+ 		return;
+@@ -2516,14 +2519,12 @@ static void tpacket_destruct_skb(struct sk_buff *skb)
+ 		__u32 ts;
+ 
+ 		ph = skb_zcopy_get_nouarg(skb);
+-		packet_dec_pending(&po->tx_ring);
+ 
+ 		ts = __packet_set_timestamp(po, ph, skb);
+ 		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
+-
++		packet_dec_pending(&po->tx_ring);
+ 		complete(&po->skb_completion);
+ 	}
+-
+ 	sock_wfree(skb);
+ }
+ 
+@@ -3182,7 +3183,6 @@ static int packet_release(struct socket *sock)
+ 	/* Purge queues */
+ 
+ 	skb_queue_purge(&sk->sk_receive_queue);
+-	packet_free_pending(po);
+ 
+ 	sock_put(sk);
+ 	return 0;
+@@ -4345,8 +4345,16 @@ static const struct vm_operations_struct packet_mmap_ops = {
+ 	.close	=	packet_mm_close,
+ };
+ 
+-static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
+-			unsigned int len)
++struct packet_pg_vec_free {
++	struct delayed_work work;
++	struct sock *sk;
++	struct pgv *pg_vec;
++	unsigned int order;
++	unsigned int len;
++};
++
++static void __free_pg_vec(struct pgv *pg_vec, unsigned int order,
++			  unsigned int len)
+ {
+ 	int i;
+ 
+@@ -4363,6 +4371,69 @@ static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
+ 	kfree(pg_vec);
+ }
+ 
++static void packet_wait_for_tx_skbs(struct packet_sock *po)
++{
++	while (sk_wmem_alloc_get(&po->sk))
++		wait_for_completion_timeout(&po->skb_completion, 1);
++}
++
++static void packet_free_pg_vec_work(struct work_struct *work)
++{
++	struct packet_pg_vec_free *deferred;
++	struct sock *sk;
++
++	deferred = container_of(to_delayed_work(work),
++				struct packet_pg_vec_free, work);
++	sk = deferred->sk;
++	if (sk_wmem_alloc_get(sk)) {
++		queue_delayed_work(system_long_wq, &deferred->work, 1);
++		return;
++	}
++
++	__free_pg_vec(deferred->pg_vec, deferred->order, deferred->len);
++	kfree(deferred);
++	sock_put(sk);
++}
++
++static bool pg_vec_has_vmalloc(struct pgv *pg_vec, unsigned int len)
++{
++	int i;
++
++	for (i = 0; i < len; i++)
++		if (pg_vec[i].buffer && is_vmalloc_addr(pg_vec[i].buffer))
++			return true;
++
++	return false;
++}
++
++static void free_pg_vec(struct packet_sock *po, struct pgv *pg_vec,
++			unsigned int order, unsigned int len)
++{
++	struct packet_pg_vec_free *deferred;
++
++	if (!pg_vec_has_vmalloc(pg_vec, len) ||
++	    !packet_read_pending(&po->tx_ring)) {
++		__free_pg_vec(pg_vec, order, len);
++		return;
++	}
++
++	deferred = kmalloc(sizeof(*deferred), GFP_KERNEL);
++	if (!deferred) {
++		packet_wait_for_tx_skbs(po);
++		__free_pg_vec(pg_vec, order, len);
++		return;
++	}
++
++	INIT_DELAYED_WORK(&deferred->work, packet_free_pg_vec_work);
++	deferred->sk = &po->sk;
++	deferred->pg_vec = pg_vec;
++	deferred->order = order;
++	deferred->len = len;
++
++	sock_hold(deferred->sk);
++	queue_delayed_work(system_long_wq, &deferred->work, 0);
++}
++
+ static char *alloc_one_pg_vec_page(unsigned long order)
+ {
+ 	char *buffer;
+@@ -4408,7 +4479,7 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order)
+ 	return pg_vec;
+ 
+ out_free_pgvec:
+-	free_pg_vec(pg_vec, order, block_nr);
++	__free_pg_vec(pg_vec, order, block_nr);
+ 	pg_vec = NULL;
+ 	goto out;
+ }
+@@ -4574,7 +4645,10 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ out_free_pg_vec:
+ 	if (pg_vec) {
+ 		bitmap_free(rx_owner_map);
+-		free_pg_vec(pg_vec, order, req->tp_block_nr);
++		if (tx_ring && closing)
++			free_pg_vec(po, pg_vec, order, req->tp_block_nr);
++		else
++			__free_pg_vec(pg_vec, order, req->tp_block_nr);
+ 	}
+ out:
+ 	return err;
+-- 
+2.54.0
 
-    clk_csr already disabled
-    clk_csr already unprepared
-
-On Rockchip platforms, the CSR clock (PCLK_XPCS) is required for register
-access, and this pattern seems problematic when a clock is actually
-provided=2E
-
-I have a few questions:
-
-1=2E Is there a reason this hasn't been noticed before?
-   As far as I can tell, there is currently no mainline device tree
-   user that enables this driver on a platform with a real clock
-   dependency=2E Out-of-tree users might be using it without any clock
-   at all, or ACPI users might behave differently=2E
-
-2=2E Should we select PM in Kconfig and drop __maybe_unused from the
-   PM callbacks? Since this driver relies on runtime PM for clock
-   management, it seems odd to allow !PM builds=2E
-
-3=2E Should we add a =2Eremove callback to force suspend the device on
-   unbind? Otherwise the clock might remain enabled if the driver is
-   removed while active=2E
-
-I'm happy to send a follow-up patch addressing these points if you
-agree with the direction=2E Let me know what you think=2E
-
-Thanks,
-Coia
