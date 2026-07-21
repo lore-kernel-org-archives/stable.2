@@ -1,140 +1,209 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085711F3D56
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B4A223708;
+	Tue, 21 Jul 2026 17:10:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784653859; cv=none; b=I7jLA3Ioqg3H+Iqc0PpiP6JmpkckM6V2srDcGzRbIN9Dh83AbO7o6d1wQ8NAq0Y6bx3cc5Gqj/Z9EcBE8Jh1KZj6Z9GJ68ZozrgiAJNiTX8ndZKpM8jw3pZTQ8ArcLYpAHUAD4wRSmGrCSwTYgn1MYKCRVyjMfY6U2h0WbFzLxk=
+	t=1784653860; cv=none; b=JFh1w6sD8OscKN+UBBmIoQUQdBh10rJ5WNfnBNMBw4rIyXfI4tM0uHxl5D+tVuaCtp2xcS78fYEjLEqNYIAmfV3nasjNcey2dX5A9vA4/HV9MRaaz/E5S1++ypkYKND7aJFkCCNU40YCKW/i6klFnD4ef1dYxrdlL6xtMPgNpHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784653859; c=relaxed/simple;
-	bh=6eidNqkwPlgy1eyK1ErXs4WrdbSONsBgimGthP2xbn0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NH5zrvpaG4qFPdMm4lXq/3Q89WRGdHHMe/05jaCy1G6SuzcVpj7XBEu8fNgTxZeqHy0Svtf4vFZTUm7c/HnU5i38jzcdqtCLA8E9uKJDKnqa+tph2sgSSyYHLcmatGZroKuL/mqLC9Hc0zK8Xy1LkwRVjiddF5W8hBgZKBEsAY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpCDfjRE; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784653860; c=relaxed/simple;
+	bh=409mL9xy9UcvgBZTS5psNTQrimbLkg7lWofmr8S4DUE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Bc/onnMpuDy5dyPZLU445fiO+92nrsY31Ge/13O0dXvboZ3NZOXvYH/BYF+KVOtjiirP7aciVArFdlRwCRHimfyNnZj17kHiQAsh6BhLt60K3E49wRiWp02Rbyl6vcQipN6URg3/3w311WWDxveig31Mjv5jMT/WP6T+JTtuwjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tK5lWqrF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpCDfjRE"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e533aacf2so451044285a.2
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:10:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784653857; x=1785258657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G2zl8WdfYsburxD4Z1OSPDQaVBCCfCCyiW3l2jHNiTw=;
-        b=mpCDfjREC+zt1mS9Ow3nNiEHy1ksPvZBgjf8d6NEGZAtpKIumFdFMg+M/i+NSDIzsK
-         Y9J5lGIXaM8r0i4gvWYsjVZ5ZM2kRd396MRH5AIAUQLkXx8TTIgCX7PZRLQugYWHJ1MT
-         3wEVb1KSvjb2r1B1Zuh1IffFeSE/8fC4+EqCmYYCrTGvbLYisMYiFSKYBCzQoNdjv2ab
-         MBkFF4jNNNjjYeMg04H6/dKiWQn/ruLkeANIKnyWFZbXAjGm8l2ykJH+h5ewAbKBrQPU
-         9CUJX/CQfP/XiiaGAZYbK+HSHqub6LYbv0hWGwRHIf9T2XI8h6yWoyHFoqGSLoMS3tD6
-         Vcdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784653857; x=1785258657;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G2zl8WdfYsburxD4Z1OSPDQaVBCCfCCyiW3l2jHNiTw=;
-        b=WwK05uthz43RG82JE3KihW57zak5+8uvm3RMjPYSX5ie+UAzGH6anyfTJnBeSoylcO
-         uNEB2WbqaO2YNbIsxHU3BdWo3D1TgeV+cs+23Q28BEk6HTCENBb366GyyNglbi6Kx4At
-         O4PtDu3xl0235ozRJJUd89s5NPMcu97FaFAiOXeFePSwpA+MPI3sKatq/BfvLgsWI1bD
-         Ek1hwz8R84UILUb7H76p/tqds5N0MQ3NDIATdBbDn4JpkL2LSJWpXnn9bAr0P7wto5hR
-         OHMP/lEVqWw+01VaxLMjKUXCowYeNPnqKs83zskaiYqwH+HocjKvN6EHCjbpdftm03WY
-         L0mg==
-X-Forwarded-Encrypted: i=1; AHgh+Rruj+TUSi2Z0e0W+YuaNyy8/FFjaLVVJtwAkoYaghdqALLuRpk0wp0rYW/rb4ov4vyxnv/NgPo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzov5u+dXMALTNeOXCbLQyfi6kPaFERICxUUGjNwfT0SoAt/hag
-	uTPt2tRVwinNfyIK4+tAoNeDtLumlUdhOCnsHFTU7/o6NUimclC4VaNU
-X-Gm-Gg: AfdE7clrjVno8GppU3PQpeOWZ24NOhbPILbyx4Pwa7RFMWhUrRBBXHK56WZ+dvN0ZL9
-	2TGKcSlRAVuZk41oi5D3UH8GwO6EYNN3mDK2aKACXWuAACWF8fxzqihglUcp1VetWmvyZ88YcKG
-	CyKJO4l+gJixjYPUrHl650NlQ37PAuQHvdCrq4Bu1MgpMkzmDvG7Y10kGhsrbw8pGIKRwoSgJiT
-	XlcW2W6yj4YQ+M30pTqYFj87prnWFux2yr4TYC8hCVNZhYAdBeEIZ4dV/wZRV0wdEkbLbUEQBu/
-	+0XlWqj6qvsxRqdJRbFzTa8SzBaqrYJc2N91BapILoYWNvuraJFBq5pE3v6B/zO0X0OrrVfP5mR
-	y+ioliTcDuPu28fGpYpXPNgRhaXo9SgRtcCJbTEZaf82I8jGNtxThjIWN/HTZxC2/o9N0c5L6E2
-	ZVjmqQxGcFRdMv76LSvLiMAZPpjHHH
-X-Received: by 2002:a05:620a:3708:b0:92e:e695:d622 with SMTP id af79cd13be357-930b3ea8f77mr1959767285a.28.1784653856795;
-        Tue, 21 Jul 2026 10:10:56 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-930b542bcefsm1201589685a.28.2026.07.21.10.10.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 10:10:55 -0700 (PDT)
-Message-ID: <e24d45a1-c83e-4905-9593-abed06251c14@gmail.com>
-Date: Tue, 21 Jul 2026 10:10:53 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tK5lWqrF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1AC1F00ACA;
+	Tue, 21 Jul 2026 17:10:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784653859;
+	bh=NuNLkCeyUA3pjHJR1D5GTnTpWxuaiBiU+zDAnhnrikY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=tK5lWqrF/Z5RiKGKSkrOKTExSiL05VDwM5p+Vz9tPn98r+kr4uuH4ni8Pu67GPdVT
+	 W5RBbrfkT+nQaOs+srR9ju/DCcbDVapRfEQ3aQaQgdlv136Rf25mWSaT5cp9WsjpEj
+	 7SmasmelbAFF7j1sSUUeyKT7LgGavrcMErKRAsyM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 1487/2077] ipv6: mcast: Fix potential UAF in MLD delayed work
+Date: Tue, 21 Jul 2026 17:19:20 +0200
+Message-ID: <20260721152627.870706417@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/1266] 6.6.145-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260721152441.786066624@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/21/26 08:07, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.145 release.
-> There are 1266 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.145-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Same perf build error on 6.6.145-rc1 as reported for 6.1.178-rc1:
+------------------
 
-In file included from builtin-sched.c:27:
-builtin-sched.c: In function 'latency_switch_event':
-builtin-sched.c:1182:34: error: 'struct perf_sample' has no member named 
-'file_offset'
-  1182 |                            sample->file_offset, cpu);
-       |                                  ^~
-util/debug.h:24:44: note: in definition of macro 'pr_warning'
-    24 |         eprintf(0, verbose, pr_fmt(fmt), ##__VA_ARGS__)
-       |                                            ^~~~~~~~~~~
-builtin-sched.c: In function 'latency_runtime_event':
-builtin-sched.c:1260:34: error: 'struct perf_sample' has no member named 
-'file_offset'
-  1260 |                            sample->file_offset, cpu);
-       |                                  ^~
-util/debug.h:24:44: note: in definition of macro 'pr_warning'
-    24 |         eprintf(0, verbose, pr_fmt(fmt), ##__VA_ARGS__)
-       |                                            ^~~~~~~~~~~
-builtin-sched.c: In function 'map_switch_event':
-builtin-sched.c:1637:34: error: 'struct perf_sample' has no member named 
-'file_offset'
-  1637 |                            sample->file_offset, this_cpu.cpu);
-       |                                  ^~
-util/debug.h:24:44: note: in definition of macro 'pr_warning'
-    24 |         eprintf(0, verbose, pr_fmt(fmt), ##__VA_ARGS__)
-       |                                            ^~~~~~~~~~~
-make[5]: *** 
-[/local/users/fainelli/buildroot/output/arm64/build/linux-custom/tools/build/Makefile.build:97: 
-/local/users/fainelli/buildroot/output/arm64/build/linux-custom/tools/perf/builtin-sched.o] 
-Error 1
+From: Eric Dumazet <edumazet@google.com>
 
+[ Upstream commit 9b26518b6896a16b809b1e42986f4ebac7bccc1e ]
+
+A race condition exists between device teardown and incoming MLD query
+processing, leading to a Use-After-Free in the MLD delayed work.
+
+During device destruction, the primary reference to inet6_dev is dropped,
+which can drop its refcount to 0. The actual freeing of inet6_dev memory
+is deferred via RCU.
+
+Concurrently, the packet receive path runs under RCU read lock and obtains
+the inet6_dev pointer. Because the memory is RCU-protected, CPU-0 can
+safely dereference inet6_dev even if its refcount has hit 0.
+
+However, if CPU-0 calls igmp6_event_query() and schedules delayed work, it
+attempts to acquire a reference using in6_dev_hold(). This increments the
+refcount from 0 to 1, triggering a "refcount_t: addition on 0" warning.
+Since the inet6_dev memory is still scheduled to be freed after the RCU
+grace period, the device is freed while the work is still scheduled.
+When the work runs, it accesses the freed memory, causing a kernel panic.
+
+Fix this by using refcount_inc_not_zero() (via a new helper
+in6_dev_hold_safe()) to prevent acquiring a reference if the device is
+already being destroyed. If the refcount is 0, we do not schedule the work.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260705181756.963063-3-edumazet@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/addrconf.h |  5 +++++
+ net/ipv6/mcast.c       | 40 ++++++++++++++++++++++++++++------------
+ 2 files changed, 33 insertions(+), 12 deletions(-)
+
+diff --git a/include/net/addrconf.h b/include/net/addrconf.h
+index 539bbbe54b14e8..8ced27a8229b6e 100644
+--- a/include/net/addrconf.h
++++ b/include/net/addrconf.h
+@@ -446,6 +446,11 @@ static inline void in6_dev_hold(struct inet6_dev *idev)
+ 	refcount_inc(&idev->refcnt);
+ }
+ 
++static inline bool in6_dev_hold_safe(struct inet6_dev *idev)
++{
++	return refcount_inc_not_zero(&idev->refcnt);
++}
++
+ /* called with rcu_read_lock held */
+ static inline bool ip6_ignore_linkdown(const struct net_device *dev)
+ {
+diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
+index d9b855d5191bf6..2a5e76a38002ad 100644
+--- a/net/ipv6/mcast.c
++++ b/net/ipv6/mcast.c
+@@ -1080,8 +1080,10 @@ static void mld_gq_start_work(struct inet6_dev *idev)
+ 	mc_assert_locked(idev);
+ 
+ 	idev->mc_gq_running = 1;
+-	if (!mod_delayed_work(mld_wq, &idev->mc_gq_work, tv + 2))
+-		in6_dev_hold(idev);
++	if (in6_dev_hold_safe(idev)) {
++		if (mod_delayed_work(mld_wq, &idev->mc_gq_work, tv + 2))
++			in6_dev_put(idev);
++	}
+ }
+ 
+ static void mld_gq_stop_work(struct inet6_dev *idev)
+@@ -1099,8 +1101,10 @@ static void mld_ifc_start_work(struct inet6_dev *idev, unsigned long delay)
+ 
+ 	mc_assert_locked(idev);
+ 
+-	if (!mod_delayed_work(mld_wq, &idev->mc_ifc_work, tv + 2))
+-		in6_dev_hold(idev);
++	if (in6_dev_hold_safe(idev)) {
++		if (mod_delayed_work(mld_wq, &idev->mc_ifc_work, tv + 2))
++			in6_dev_put(idev);
++	}
+ }
+ 
+ static void mld_ifc_stop_work(struct inet6_dev *idev)
+@@ -1118,8 +1122,10 @@ static void mld_dad_start_work(struct inet6_dev *idev, unsigned long delay)
+ 
+ 	mc_assert_locked(idev);
+ 
+-	if (!mod_delayed_work(mld_wq, &idev->mc_dad_work, tv + 2))
+-		in6_dev_hold(idev);
++	if (in6_dev_hold_safe(idev)) {
++		if (mod_delayed_work(mld_wq, &idev->mc_dad_work, tv + 2))
++			in6_dev_put(idev);
++	}
+ }
+ 
+ static void mld_dad_stop_work(struct inet6_dev *idev)
+@@ -1405,18 +1411,23 @@ static void mld_process_v2(struct inet6_dev *idev, struct mld2_query *mld,
+ void igmp6_event_query(struct sk_buff *skb)
+ {
+ 	struct inet6_dev *idev = __in6_dev_get(skb->dev);
++	bool put = false;
+ 
+ 	if (!idev || idev->dead)
+ 		goto out;
+ 
+ 	spin_lock_bh(&idev->mc_query_lock);
+-	if (skb_queue_len(&idev->mc_query_queue) < MLD_MAX_SKBS) {
++	if (skb_queue_len(&idev->mc_query_queue) < MLD_MAX_SKBS &&
++	    in6_dev_hold_safe(idev)) {
+ 		__skb_queue_tail(&idev->mc_query_queue, skb);
+-		if (!mod_delayed_work(mld_wq, &idev->mc_query_work, 0))
+-			in6_dev_hold(idev);
++		if (mod_delayed_work(mld_wq, &idev->mc_query_work, 0))
++			put = true;
+ 		skb = NULL;
+ 	}
+ 	spin_unlock_bh(&idev->mc_query_lock);
++
++	if (put)
++		in6_dev_put(idev);
+ out:
+ 	kfree_skb(skb);
+ }
+@@ -1573,18 +1584,23 @@ static void mld_query_work(struct work_struct *work)
+ void igmp6_event_report(struct sk_buff *skb)
+ {
+ 	struct inet6_dev *idev = __in6_dev_get(skb->dev);
++	bool put = false;
+ 
+ 	if (!idev || idev->dead)
+ 		goto out;
+ 
+ 	spin_lock_bh(&idev->mc_report_lock);
+-	if (skb_queue_len(&idev->mc_report_queue) < MLD_MAX_SKBS) {
++	if (skb_queue_len(&idev->mc_report_queue) < MLD_MAX_SKBS &&
++	    in6_dev_hold_safe(idev)) {
+ 		__skb_queue_tail(&idev->mc_report_queue, skb);
+-		if (!mod_delayed_work(mld_wq, &idev->mc_report_work, 0))
+-			in6_dev_hold(idev);
++		if (mod_delayed_work(mld_wq, &idev->mc_report_work, 0))
++			put = true;
+ 		skb = NULL;
+ 	}
+ 	spin_unlock_bh(&idev->mc_report_lock);
++
++	if (put)
++		in6_dev_put(idev);
+ out:
+ 	kfree_skb(skb);
+ }
 -- 
-Florian
+2.53.0
+
+
+
