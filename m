@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686F63D3CE2;
-	Tue, 21 Jul 2026 04:58:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA8739A06B;
+	Tue, 21 Jul 2026 05:02:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784609912; cv=none; b=C40rtheppvgQb5p23rtTWAZqb2kRifsb9XcZRUQT8BANGCs4kq/naA7yTYbSawrMaoAGq3K5fJEdY4juY6vSP2xUh6lzuPY+SSlHbu8GY9qfYaXpMBbqhAQSzbTcujE4BP8WmXKrLSI7E8hZtoptLon0vAqqgseIbp2WM9ovSh0=
+	t=1784610166; cv=none; b=kWVkn+xmyB/2vwWhvdH6JmvXU77nPuyrHtpu6NgmpM2Kxe9PY5ZIBrQNPo1qQGuxyJvDnvnG7Osh7uK31t5GKQ4HEzuAF+vgCwVDByNwKl/m2J4PDBe5E2PLbGGHWwzEro69PDhOyGGTrDcvD1UOuV1ovrI5sHhyeKwFkDyP2vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784609912; c=relaxed/simple;
-	bh=dhRmIlMGJZePgOKLMaQI4oeLcAHXn7W04wGzlY70/nA=;
+	s=arc-20240116; t=1784610166; c=relaxed/simple;
+	bh=OlmEQz5D7YedgkQ9mNeO1hFANhWbXmk2P6UPxbX70xw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JLt41HuWTuOMMsAHfvden817hOEcojQiUbO+UsBh3UVd5jqeHYSpdyylnOVInxI/7ikNzlnomR2G8wFwhc57wQW0iyjN6vrbxiOuFfx2h2bWO/XKKq3COwGrpY1yeKrhv8sfnG5iwCwOeWROnd2tUwjilGClLZA3gFe1rgdPvHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocO/Dr6c; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=blTuuykMETTxLCInFSl6CINWDM6hGZd9mWDzFSdd831WI5CAuA/yJv4iQA0GcuAhb6nvvY6W/11vMJArvcb9psW6cK4BmkVLwsG3TlhAXvHpyD6J4U5HpHE5m5EFTyIcu+AQwHEMtckJ13KCYsv/1iGz7m4/t3bkjnfgd6BQVFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mi8Qakup; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocO/Dr6c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D003A1F000E9;
-	Tue, 21 Jul 2026 04:58:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mi8Qakup"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50DDE1F000E9;
+	Tue, 21 Jul 2026 05:02:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784609911;
-	bh=J5yQEBXGQYKlXTuJWTKJ5jl/uKM937zNduRrrgh0V/U=;
+	s=k20260515; t=1784610165;
+	bh=EeEHuBn7hSKVkCw08NIuO6JQM862xQHx7uSjOf4z+BM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ocO/Dr6cQVX/++uEVTH2tHTKGZk/vH65Qd90HfNjM8e9kJNj+rzg8iNsx0/n2irXq
-	 m3K9OvHpvc1TLubL5tDHq8/DLAC6IhWlgrc7zoB82amCrJ+t0zqTfgqAkY1yP3wA1x
-	 u42ivEkiO7V4tcUR5cZ/iEMU+TypM6mjr15N1F9MNlMqZhNgFx7EsyeWUMJfrY7EOA
-	 rIvuGn/aP1SUbqqVnCiDkgjrKcJBADl/tVAroP0jcbfbHFoQkKhYZnW5cAfeGYmOOP
-	 rjUoiKcr9by4SEv4XZ95ZzGmIm047HpzM54HfEHqDQdVJoSBf6CH19hqYweuskEFhc
-	 hjlVyCWzuXcbg==
+	b=Mi8QakupYcXnejviUwrsDw4Goe6wimm+FiGIpUzbINY6Piu0mDmdn58HfOdqUxcU3
+	 AmBuLYOY28urvzdGlTVDBGFiCh7act9chizmPyQw/bpS/ZOOTvR4PzZ/MMOKblkHGY
+	 8Wwk3XYYCdcN9/ilUfPI1D2p+aGXzH+kNshILJBnijmkKDGYrj5RP4sdwqp1xMrzir
+	 I132VCGsv3YtOVX++Vl+rLlFLsLPFiPdLxavcRsrLphw5reu/HT6Blvxm0IXpJR3hY
+	 GrvxvNjoRj5HuSMXBe43mwEno6EatXZmKnLgp9i6A3pi0lWOEm7pmcwS+HSAF0uT72
+	 GKC82zHlF78tg==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: damon@lists.linux.dev,
 	SeongJae Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.1.y] mm/damon/core: make charge_addr_from aware of end-address exclusivity
-Date: Mon, 20 Jul 2026 21:58:17 -0700
-Message-ID: <20260721045818.157773-1-sj@kernel.org>
+Subject: [PATCH 6.1.y] mm/damon/sysfs-schemes: fix dir put orders in access_pattern_add_dirs()
+Date: Mon, 20 Jul 2026 22:02:37 -0700
+Message-ID: <20260721050237.159205-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072059-refocus-lizard-6528@gregkh>
-References: <2026072059-refocus-lizard-6528@gregkh>
+In-Reply-To: <2026072054-throwing-myth-2a13@gregkh>
+References: <2026072054-throwing-myth-2a13@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,40 +47,66 @@ Content-Transfer-Encoding: 8bit
 
 From: SeongJae Park <sj@kernel.org>
 
-DAMON region end address is exclusive one, but charge_addr_from is
-assigned assuming the end address is inclusive.  As a result, DAMOS action
-to next up to min_region_sz memory can be skipped.  This is quite
-negligible user impact.  But, the bug is a bug that can be very simply
-fixed.  Fix the wrong assignment to respect the exclusiveness of the
-address.
+Patch series "mm/damon/sysfs-schemes: fix wrong directories put orders in
+error paths".
+
+Error paths of damon_sysfs_access_pattern_add_dirs() and
+damon_sysfs_scheme_add_dirs() functions put references to directories in
+wrong orders.  As a result, uninitialized memory dereference and/or
+memory leak can happen.  Fix those.
+
+This patch (of 2):
+
+In access_pattern_add_dirs(), error handling path puts references starting
+from setup failed directories.  If the failure happpened from the initial
+allication in the setup functions, uninitialized memory dereference
+happen.  The allocation failures will not commonly happen, but the
+consequence is quite bad.  Fix the wrong reference put orders.
 
 The issue was discovered [1] by Sashiko.
 
-Link: https://lore.kernel.org/20260428042942.118230-1-sj@kernel.org
-Link: https://lore.kernel.org/20260428032324.115663-1-sj@kernel.org [1]
-Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+Link: https://lore.kernel.org/20260618005650.83868-2-sj@kernel.org
+Link: https://lore.kernel.org/20260617060005.86852-1-sj@kernel.org [1]
+Fixes: 7e84b1f8212a ("mm/damon/sysfs: support DAMON-based Operation Schemes")
 Signed-off-by: SeongJae Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.16.x
+Cc: <stable@vger.kernel.org> # 5.18.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 5a2d162e22bf33eb89d53e802d0fc1ec422e19b6)
+(cherry picked from commit d58fdbe37a829fd2e5803dd4e5a72992dd8c5368)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/damon/sysfs.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index d293200d824e9..4b434ebd37c53 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -803,7 +803,7 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 			quota->charged_sz += sz;
- 			if (quota->esz && quota->charged_sz >= quota->esz) {
- 				quota->charge_target_from = t;
--				quota->charge_addr_from = r->ar.end + 1;
-+				quota->charge_addr_from = r->ar.end;
- 			}
- 		}
- 		if (s->action != DAMOS_STAT)
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index bdcf895a29a78..bb2f4650741fa 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -679,22 +679,19 @@ static int damon_sysfs_access_pattern_add_dirs(
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->sz, "sz");
+ 	if (err)
+-		goto put_sz_out;
++		return err;
+ 
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->nr_accesses, "nr_accesses");
+ 	if (err)
+-		goto put_nr_accesses_sz_out;
++		goto put_sz_out;
+ 
+ 	err = damon_sysfs_access_pattern_add_range_dir(access_pattern,
+ 			&access_pattern->age, "age");
+ 	if (err)
+-		goto put_age_nr_accesses_sz_out;
++		goto put_nr_accesses_sz_out;
+ 	return 0;
+ 
+-put_age_nr_accesses_sz_out:
+-	kobject_put(&access_pattern->age->kobj);
+-	access_pattern->age = NULL;
+ put_nr_accesses_sz_out:
+ 	kobject_put(&access_pattern->nr_accesses->kobj);
+ 	access_pattern->nr_accesses = NULL;
 -- 
 2.47.3
 
