@@ -1,43 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB7C403AE9;
-	Tue, 21 Jul 2026 22:50:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414F1298CC4;
+	Tue, 21 Jul 2026 22:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784674243; cv=none; b=sFetZvDUrCrq+GrFivUXYqJQ3vP6l6cRyMWjEc56GC7x03YNLpYW/azDlJut786gh9ciKmYarZLWOuBWxeso7V0Tv+ygLAyH7htQF+QJewbTPQ3Da/5Fs1+/pZuJ+nau9VQ6cssNZPrY8J+oSzaNQQ2RhBRt9trZtQKnNuClTcU=
+	t=1784674245; cv=none; b=Ul0gdLGJZerEcJpKwoe84gV+QAXnGQ9k9ihMEtFWhKMYp+eJ7FLe8fjPtwG4g81Ds4tDVhnP6qJC36aiPnQCRmS0XFtEM7R9epPVdNcI23LG2EAk9HHgLfo2X2GduCPQlrvSsXIMdExfRHcE0UYk6t0Yy2IDE/Mv77ztX6JRnoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784674243; c=relaxed/simple;
-	bh=Nc8S8WAVtjFihE9XfRKrEY008EicjAdSLR+OZ01bUhs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jpsiIeknCgEj+QchOSqwkHVXncHxbpRo+wVAqLQ9w3S87FqXR7Uyx2L9fockCbqQq3twzkp1cROfy7HzRSiOJ12wAydhIWAt42H1ztlMNxUrU5VPW3lVE+Kb1/sUvFSebmhsX6H4k9COeZf2tOZnFSZtCY9cQPA79gk1j9D7Cqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1OltAds1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784674245; c=relaxed/simple;
+	bh=eXgVAldGxgS4Lp/AxZmo2QQ0NxvVS74fqrfpqxHwmGQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=TNk7rjyP2BmVT7IoZgQPbQlw+e34YlYwJIG0W8FIO4TPYyb6w8OrNIU2Bya2mzcsPnWyScGo63v/pXjmeDKKYWwyNmfuCKIfm1nOe7udU90dudiQWkQVhn5TsVB8MucZmT9i5zKUwTRxl6368/ipdvZEexZzdPo3gc+HNBsvoYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXSUfZkK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1OltAds1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99C381F00A3A;
-	Tue, 21 Jul 2026 22:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784674242;
-	bh=rjiLdg9N5GbvFpSgwo6WZkVuEw0cnCw9BcKi3E0ZoxI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=1OltAds1SvL9xnhsBLWf0E55TFEtEu6dF5ofbir5jzHb1l4s+QgXM8miXS5fQb8sX
-	 BgyKJWpfViOcV2kJF7fTrIzT0XlEfwQX74oDjPU+YL3t9oAVq4qPw0XrTBg9b7IOm8
-	 1ZvjX46w+7BckfBpyN8TzPuStakmoRrRoiEblGAc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.10 468/699] batman-adv: frag: fix primary_if leak on failed linearization
-Date: Tue, 21 Jul 2026 17:23:47 +0200
-Message-ID: <20260721152406.253933772@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152355.667394603@linuxfoundation.org>
-References: <20260721152355.667394603@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXSUfZkK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003781F000E9;
+	Tue, 21 Jul 2026 22:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784674244;
+	bh=Bhg5FayJF4Uj0dXAjwg3kjC7mkfhcAlBhFcmyt9Ozm8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=fXSUfZkK8i02FTgr95zgHRtCnK7+sP8NmC/zlPFmmU4irtwiLq8ZLnITKQgZMlc8O
+	 ZjY//tOOyGYjLhv7IT0VJ1z2hHCAMwrjmxdyGG18XB1meoIzUc/oOBliDxhQ4KzOcK
+	 sZfYgU816GNf63V89FmXbegQSW5Z1oRhfKXvOAJmyDbD2CUqkCI8D6TjX3XT3HaXIB
+	 lKPjGQAUYosPfvzc+NmukUgbhL0edrQRw744l88qMgjrlMtPGo595Qwzb7Rhrumm30
+	 5fBVPmBsLPTZ2ulOwo9PL2e+8fezmFARyzH64qIQ3+eCWtc4gpv61RDf/C8gb7578W
+	 K7vQBkNtvcseQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93CDD380820D;
+	Tue, 21 Jul 2026 22:50:14 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,38 +37,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] tcp: initialize standalone TCP-AO response padding
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178467421315.1142823.17462720379435193321.git-patchwork-notify@kernel.org>
+Date: Tue, 21 Jul 2026 22:50:13 +0000
+References: <20260713105631.8616-1-zhaoyz24@mails.tsinghua.edu.cn>
+In-Reply-To: <20260713105631.8616-1-zhaoyz24@mails.tsinghua.edu.cn>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Cc: netdev@vger.kernel.org, edumazet@google.com, ncardwell@google.com,
+ kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org,
+ yangyx22@mails.tsinghua.edu.cn, wangao@seu.edu.cn, fengxw06@126.com,
+ qli01@tsinghua.edu.cn, xuke@tsinghua.edu.cn, stable@vger.kernel.org
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+Hello:
 
-------------------
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-From: Sven Eckelmann <sven@narfation.org>
+On Mon, 13 Jul 2026 18:56:30 +0800 you wrote:
+> tcp_v4_send_ack() and tcp_v6_send_response() construct standalone TCP
+> responses with TCP-AO options.  The option length carries the actual MAC
+> length, but the TCP header length includes the option rounded up to a
+> four-byte boundary.
+> 
+> tcp_ao_hash_hdr() writes the MAC only.  Thus, when the MAC length is not
+> four-byte aligned, the one to three bytes after the MAC are left
+> uninitialized and may be transmitted.  For the normal TCP-AO hashing
+> mode, those bytes also have to be initialized before computing the MAC.
+> 
+> [...]
 
-commit 353d2c1d5492e53ae34f490a84494124dc3d3531 upstream.
+Here is the summary with links:
+  - [net,v2] tcp: initialize standalone TCP-AO response padding
+    https://git.kernel.org/netdev/net/c/e1a9d3cc1182
 
-If the skb has a frag_list, it must be linearized before it can be split
-using skb_split(). But when this step failed, it must not only free the skb
-but also take care of the reference to the already found primary_if.
-
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: a063f2fba3fa ("batman-adv: Don't skb_split skbuffs with frag_list")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/batman-adv/fragmentation.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/net/batman-adv/fragmentation.c
-+++ b/net/batman-adv/fragmentation.c
-@@ -554,7 +554,7 @@ int batadv_frag_send_packet(struct sk_bu
- 	 */
- 	if (skb_has_frag_list(skb) && __skb_linearize(skb)) {
- 		ret = -ENOMEM;
--		goto free_skb;
-+		goto put_primary_if;
- 	}
- 
- 	/* Create one header to be copied to all fragments */
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
