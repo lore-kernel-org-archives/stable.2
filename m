@@ -1,118 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E053B3C0A;
-	Tue, 21 Jul 2026 20:32:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431AC3B1034;
+	Tue, 21 Jul 2026 20:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784665938; cv=none; b=XQjqfPZJqBtNU5FC+nEB3KfGogo1qwz8omEF1preR6yUb1KKYXKT9eMMo/s1mJuN86YWDAyWjYXIN/qOLOLlSxYGCE30klba2xqGs9c38xaU5nRIqqLP+feTOO6dFxYIWFxTkGrT3cRhMBPWVPER8LvIURy1gybkpIykGNu/a9g=
+	t=1784665939; cv=none; b=eBJ/5XAs6UwUckCNuvjQdCBfgI90fPCqaWyNRzoqpuc75lBrOdyIt5d6L+7LA6BhIgEM7EH/hzMAZASfONC5A/3lho4JZH54iC760nuB84VoMuAzCXGzNpT8lGvxqss6kC02n1OPF7OM8eagH++Zf0YW2juAFPL8LHFTjK6I88Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784665938; c=relaxed/simple;
-	bh=XMOAgkw8RhaYdA5QDwjeqGoT0gIekXqfzcBAik0GSRE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XlpxxGLQyiPGWsTBa9uvir5o5o+TchqKsvGxiYbnVVItGts/a+Wpuo2SHouOVIG81S5j/WwsEM8D4RbQtXHIfWuIrCszYLIzKw6OAuVvn/48dCzntV3C+4F8/SXoi5Jo6Et/pkVEiI7i0UtDVg4mArSl8CtnJm0+f+Yj8uioSYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OTmCZEzd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784665939; c=relaxed/simple;
+	bh=DykyDuyFEhbCHnz5TNzBUt+AgXAt91BGfLPp8Ip5eKA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GShBUwop5asl0E0rbNm/qZLgwVOa1x3crfQ3c7363YnydgQYRjAoaKNWRrxn4bX3zQJeDAD0NCl1PSqc13d/tE7Vya0YjxeLX0kZvU8gzEi07y31++qAxr/cu6/14HTPQiEnodPd/80KlOtYhdprwWA2z4lwAWicmxaLu5zaIUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NM8vrpcs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OTmCZEzd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A43021F000E9;
-	Tue, 21 Jul 2026 20:32:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784665937;
-	bh=AbSsKT/1ptK1iRlaty4g/6h7M4Nf31LJaKdbtk/ArYE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OTmCZEzd6C7CYBg6Ko0e+Lwo8v2C92FsgNA1BA/24+xLtUTMZF5CFfp7fcAjg8nEQ
-	 FPAjN9nYBw3sNV51vzMirmN+WXYN1f9kvY4YOl36etiDJjDHY+r+XYk6gCb7n/7X+N
-	 TXCgHmEwaHX+PvQcYxeB3F6IU+ws/sDwWnFnozZg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Ginger <ginger.jzllee@gmail.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Changwei Ge <gechangwei@live.cn>,
-	Jun Piao <piaojun@huawei.com>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0492/1266] ocfs2: fix race between ocfs2_control_install_private() and ocfs2_control_release()
-Date: Tue, 21 Jul 2026 17:15:29 +0200
-Message-ID: <20260721152452.853128234@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
-References: <20260721152441.786066624@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NM8vrpcs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08391F00A3A;
+	Tue, 21 Jul 2026 20:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784665938;
+	bh=fXcBVne5ohici36n5TWRcWXwxZvSHVl+8Sm6paAv9D8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NM8vrpcsTfZq6e4fmZZgoDqORndUHB7Cg0MAkTZ8hcpYPDlLwtVclyK3IEqB31ZRw
+	 QPoipikTZcTg85DZG9f2CMIUSZWlSrKRtcIBLwl1CBmQs9wFVF0eSTvktCFMAg+0e8
+	 Uo9MwQCQ/IZzjBLFMbVLm5IQrVfTFZUzUH7AbuZlodfhEJ9iQmEu/PiKy1yDeMaL92
+	 Tfv1LEUNBZmLTXYdC7FXP0RyUH5Gp0SasWZ6B/zwxMV2iMfD9Dl0R6A7VS7kubuVVE
+	 TsldK3p1hsu30A1nn+nR13fK652AVfuGFIArvAomw+H3ogobP9JzvU3lFcDESMyABW
+	 Wm9FZYQ60sMEA==
+Date: Tue, 21 Jul 2026 13:32:16 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Doruk Tan Ozturk <doruk@0sec.ai>
+Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Ricardo
+ Martinez <ricardo.martinez@linux.intel.com>, Liu Haijun
+ <haijun.liu@mediatek.com>, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>, Johannes Berg
+ <johannes@sipsolutions.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: wwan: t7xx: validate control-message data_length
+ against the skb
+Message-ID: <20260721133216.459fc2c9@kernel.org>
+In-Reply-To: <20260711071338.58345-1-doruk@0sec.ai>
+References: <20260711071338.58345-1-doruk@0sec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On Sat, 11 Jul 2026 09:13:38 +0200 Doruk Tan Ozturk wrote:
+> Fixes: da45d2566a1d ("net: wwan: t7xx: Add control port")
+> Cc: stable@vger.kernel.org
+> Assisted-by: 0sec:claude-opus-4-8
 
-------------------
-
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-
-[ Upstream commit 57dcfd9049d497c31151787a0696d59f0a98f8e6 ]
-
-Move atomic_inc(&ocfs2_control_opened) and the handshake state update
-inside ocfs2_control_lock to close a race window where
-ocfs2_control_release() can observe ocfs2_control_opened dropping to zero
-(resetting ocfs2_control_this_node and running_proto) while
-ocfs2_control_install_private() is about to bump the counter and mark the
-connection valid.
-
-Link: https://lore.kernel.org/20260601121618.1263346-1-joseph.qi@linux.alibaba.com
-Fixes: 3cfd4ab6b6b4 ("ocfs2: Add the local node id to the handshake.")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reported-by: Ginger <ginger.jzllee@gmail.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ocfs2/stack_user.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ocfs2/stack_user.c b/fs/ocfs2/stack_user.c
-index 38c0d6f64fce38..eeb1c29b033e63 100644
---- a/fs/ocfs2/stack_user.c
-+++ b/fs/ocfs2/stack_user.c
-@@ -327,18 +327,14 @@ static int ocfs2_control_install_private(struct file *file)
- 		ocfs2_control_this_node = p->op_this_node;
- 		running_proto.pv_major = p->op_proto.pv_major;
- 		running_proto.pv_minor = p->op_proto.pv_minor;
--	}
--
--out_unlock:
--	mutex_unlock(&ocfs2_control_lock);
--
--	if (!rc && set_p) {
--		/* We set the global values successfully */
- 		atomic_inc(&ocfs2_control_opened);
- 		ocfs2_control_set_handshake_state(file,
- 					OCFS2_CONTROL_HANDSHAKE_VALID);
- 	}
- 
-+out_unlock:
-+	mutex_unlock(&ocfs2_control_lock);
-+
- 	return rc;
- }
- 
+AFAIU the general guidance is that it's okay to assume that PCIe
+devices respond with sane data. And AFAIU^2 this is a PCI device.
 -- 
-2.53.0
-
-
-
+pw-bot: reject
