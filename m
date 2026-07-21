@@ -1,106 +1,131 @@
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF9184A2E2D;
-	Tue, 21 Jul 2026 14:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA64C900C
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 14:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784645309; cv=none; b=HsY6S6gnDYFq1KX5RSNrmrjJxM9V2KtQsEYvAIwh+A2yZKxWyHIT/2bh+/h6K3aMDsLNxICgaRdeYcyRQAAArrrWodCfRew2tRc87YYMDRrj3tJ4joWUQxNJYwTTwt+POyEsgfC2VfI8dSZhV61LO4tAsXgqy8Oq0dkuVo8oqFk=
+	t=1784645386; cv=none; b=jlJeDHSLEVm9XS9/cQ1u5ndNbU3Tgmt0TeJui0NGzH1jUCqQD9ZYj24DyRaa2Qu6WgA0wftQ+6bQlOnRbai6p/a0cXVqmh+Dao0Aoe6/Ch+Tt0RFSC3i7kJbnpEi9tFmYzLhsrJiOiQAPt9d3l4ytq2ckScrIrzWQwI3cJ4G1Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784645309; c=relaxed/simple;
-	bh=M6PUUG9um/n1vJEIfyj77W2zsTnAQYi3uaxcpP5nfWA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=P/Y+E+STn0SjkMvY5I0vrBtJoYpa1WplIjSz3/UOfox9SN68SOJHySRgb0LPhySmvMaZrerZ0b2152A8CAZqi8L4pu59U3FN6J5t12W9iIjQTCj7G8MOhqRl3w0kCg8INgwaQk69vbvwrFb5LBRrwBuNqlhPvZ+hMmKEaDwEig4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.97.49.238])
-	by mtasvr (Coremail) with SMTP id _____wDXZTWqhl9qe+AjAA--.61812S3;
-	Tue, 21 Jul 2026 22:48:11 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.97.49.238])
-	by mail-app3 (Coremail) with SMTP id zS_KCgBnf3Gphl9q0ONoAw--.53334S2;
-	Tue, 21 Jul 2026 22:48:09 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+	s=arc-20240116; t=1784645386; c=relaxed/simple;
+	bh=VdUNsCJ+5bqRNGtbtAebcyezVUBl7GJC3INP9RKLIqw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V+yZwGUbUJhLVV46ZuFLcALlSh1sJXzWDjn+3WxW9Q0RmU0OfLevrcCwEGL6YUeN2UdiZeKjd8Dh+L2a+QtT7RCCZ+RaVcLCH2QMiG+B+yM35oecqZYhS5Tw2nSbVETNX25QMQLSqHKcvJj+/diXFY+UXcEUkAHSPGzKVWEpGiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0YU83Qvd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0YU83Qvd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF921F00A3D;
+	Tue, 21 Jul 2026 14:49:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784645384;
+	bh=COrLGDp3FZn5Y/PmKUTWI5nvu4wQAImY9zTDALgygEI=;
+	h=Subject:To:Cc:From:Date;
+	b=0YU83QvdZTshCzvlk8t/L2mdfLa/YjKp1/I1DN91z2eXGB3wLDTsaXT8ZSxMoknZb
+	 rZRnWUx2TXj1AYP8xPpYBGGoLee5dfsDa4aa8p2i5euF7ejiOx3KI5XKjLobbF0q4E
+	 w70B03TxWH+6KtdCjG2E51X+ERIYJJenM32gxFNo=
+Subject: FAILED: patch "[PATCH] virtio_net: Allocate rss_hdr with devres" failed to apply to 6.1-stable tree
+To: akihiko.odaki@daynix.com,jasowang@redhat.com,kuba@kernel.org,leiyang@redhat.com,mst@redhat.com,xuanzhuo@linux.alibaba.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 21 Jul 2026 16:49:35 +0200
+Message-ID: <2026072134-bootlace-obscure-cbc0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] usb: typec: ucsi: acpi: Fix use-after-free of ucsi on
- remove
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <al8thH8aWmMOUuAZ@kuha>
-Date: Tue, 21 Jul 2026 22:47:59 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F4203724-2CD7-446A-B766-79015B8E37B2@zju.edu.cn>
-References: <20260718021142.3146566-1-fanwu01@zju.edu.cn>
- <al8thH8aWmMOUuAZ@kuha>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:zS_KCgBnf3Gphl9q0ONoAw--.53334S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?e5QFjgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WN0Q2EU//07hLCuQFu1C4kxAHgw0980SEoSzNLBCaa4RYmd
-	4elvWv+U/t0OrYkVm5qp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Ary3Xr18JF45WF4xXr1DurX_yoW8GF1fpa
-	y3K34fArWUGF4Sga9xZF4fCFy7ur97Jr4jkr15J345Aws8GF9a9rs7K3y5uFyxZrs5ua1Y
-	qw45Zw4xuayjywcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> On Jul 21, 2026, at 16:27, Heikki Krogerus =
-<heikki.krogerus@linux.intel.com> wrote:
->=20
->=20
-> I don't think this is enough. You now create a window where the ucsi
-> is unregistered, but you can still call ucsi_notify_common(),
-> ucsi_connector_change(), etc. So you'll end up with even more =
-problems.
->=20
-> If I understood correctly the long explanation (I'm guessing generated
-> by gpt-5.6), the problem is that ucsi_unregister() disables the
-> notification, but it does not flush them. My proposal is that you fix
-> that by setting the ua->ucsi to NULL after calling ucsi_unregister()
-> and then always check it in ucsi_acpi_notify(). You probable also need
-> a lock for that.
->=20
-> thanks,
->=20
-> --=20
-> heikki
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Thank you, you are right. The proposed reordering does not protect the
-connector state freed by ucsi_unregister(), while the notify handler can
-still enter ucsi_notify_common() and ucsi_connector_change().
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 4944be2f5ad8c74b93e4e272f3a0f1a136bbc438
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072134-bootlace-obscure-cbc0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-I also see that simply serializing the handler with ucsi_unregister()
-could prevent pending command completions needed by work being cancelled
-there. Thus, a driver-local reorder or NULL check alone is not =
-sufficient.
+Possible dependencies:
 
-I will drop this patch and investigate the appropriate synchronization
-scheme. Do you have a preferred direction: should this be handled by a
-core-UCSI quiesce interface, or by a transport-side locking protocol?
+
 
 thanks,
-Fan=
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 4944be2f5ad8c74b93e4e272f3a0f1a136bbc438 Mon Sep 17 00:00:00 2001
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+Date: Fri, 21 Mar 2025 15:48:35 +0900
+Subject: [PATCH] virtio_net: Allocate rss_hdr with devres
+
+virtnet_probe() lacks the code to free rss_hdr in its error path.
+Allocate rss_hdr with devres so that it will be automatically freed.
+
+Fixes: 86a48a00efdf ("virtio_net: Support dynamic rss indirection table size")
+Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+Acked-by: Jason Wang <jasowang@redhat.com>
+Reviewed-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
+Tested-by: Lei Yang <leiyang@redhat.com>
+Link: https://patch.msgid.link/20250321-virtio-v2-4-33afb8f4640b@daynix.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index e46241c6fdab..aac5a5184ba9 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -3642,7 +3642,7 @@ static int virtnet_set_queues(struct virtnet_info *vi, u16 queue_pairs)
+ 	if (vi->has_rss && !netif_is_rxfh_configured(dev)) {
+ 		old_rss_hdr = vi->rss_hdr;
+ 		old_rss_trailer = vi->rss_trailer;
+-		vi->rss_hdr = kzalloc(virtnet_rss_hdr_size(vi), GFP_KERNEL);
++		vi->rss_hdr = devm_kzalloc(&dev->dev, virtnet_rss_hdr_size(vi), GFP_KERNEL);
+ 		if (!vi->rss_hdr) {
+ 			vi->rss_hdr = old_rss_hdr;
+ 			return -ENOMEM;
+@@ -3653,7 +3653,7 @@ static int virtnet_set_queues(struct virtnet_info *vi, u16 queue_pairs)
+ 
+ 		if (!virtnet_commit_rss_command(vi)) {
+ 			/* restore ctrl_rss if commit_rss_command failed */
+-			kfree(vi->rss_hdr);
++			devm_kfree(&dev->dev, vi->rss_hdr);
+ 			vi->rss_hdr = old_rss_hdr;
+ 			vi->rss_trailer = old_rss_trailer;
+ 
+@@ -3661,7 +3661,7 @@ static int virtnet_set_queues(struct virtnet_info *vi, u16 queue_pairs)
+ 				 queue_pairs);
+ 			return -EINVAL;
+ 		}
+-		kfree(old_rss_hdr);
++		devm_kfree(&dev->dev, old_rss_hdr);
+ 		goto succ;
+ 	}
+ 
+@@ -6768,7 +6768,7 @@ static int virtnet_probe(struct virtio_device *vdev)
+ 			virtio_cread16(vdev, offsetof(struct virtio_net_config,
+ 				rss_max_indirection_table_length));
+ 	}
+-	vi->rss_hdr = kzalloc(virtnet_rss_hdr_size(vi), GFP_KERNEL);
++	vi->rss_hdr = devm_kzalloc(&vdev->dev, virtnet_rss_hdr_size(vi), GFP_KERNEL);
+ 	if (!vi->rss_hdr) {
+ 		err = -ENOMEM;
+ 		goto free;
+@@ -7051,8 +7051,6 @@ static void virtnet_remove(struct virtio_device *vdev)
+ 
+ 	remove_vq_common(vi);
+ 
+-	kfree(vi->rss_hdr);
+-
+ 	free_netdev(vi->dev);
+ }
+ 
 
