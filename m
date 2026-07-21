@@ -1,101 +1,130 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AD23EE1D6
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 08:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA38445ADC;
+	Tue, 21 Jul 2026 08:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784621047; cv=none; b=ncXlzq3hEfGODFpghaOekow/6REqsJERC/fe3U80oNOdQ00CExccobMfn0Dhctc1ED0AUif5QrN00DCWCpl2M+2/o/o75Q/OYnzYltDwfqZJjkkY8H6aeHexsiq96sKd5D8iMpkFvTNa9OY5iXFYZ3SNoZeaH7f/WeJr+XzvUY0=
+	t=1784621728; cv=none; b=YWFrpwObjV2ATadJNAoeEa1BT6L7gmy7/kJY2o2hH9e7ioV6TD6fNxZXt4Lqy1MX3xdxNWxbULg8PX6JLUznpPQAHssnsxB3YQAKEmTRDeQU95cJF+bNH4SIahwgrhI112MPyAqgc/XNYWI8WOjWcprNP83GiCf1VEYSi2THvEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784621047; c=relaxed/simple;
-	bh=PM6Psgw0LOHdUqYR41tWNvfnOKVZCkA1iAfk9OdjHS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p7E6E0O9TMprsi/lufbZXUrmXCw6x4KvQyNe/M8FYHFNfH2nm7VeHcS2mhgI5r6bz2GeBrgIHoFNq8qj04yL03mhx4uocBbNE1JjvzPEzzcBKy5kRbtOrEeubeNpdF99zZHEUBpsgKHT0P5ZwcOsE39w2rOQgqdprXp1K6DcFLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YhYcParQ; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1784621728; c=relaxed/simple;
+	bh=2Iz6BGPe0gdkZ0kS3LoKVu1JLJUXAZyzwwGntlEqJmU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TeDLB7kwbEa07iFmAz5/v9hCdML1v/t42kj1NwzsfKPo4vA/DhTx6HlE7ywWzmCUMCCr/DRzkCoTfDeAG9KNGZO15U44hCeUNI3IAE1UiMFKWhmnIa5jXQay4HsjwYugQs6wPYqeDPFiZLw1vpehYer0nlNSQnFxuohY/FQxj0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cfXP7iat; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YhYcParQ"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c167aa9500dso814720566b.3
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 01:04:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784621045; x=1785225845; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ln8pbd6ZXzhM2Lfnk5v+YSie585FC8L0hWv+/ORFtx0=;
-        b=YhYcParQlJoONHV0uzkcpnV8CVE3YNXDX4bacgyMSppSDSmc+pXUphK3qPmf2lKRID
-         zgyuqSMtF9pub++pt/aN6R4dR1xcvb5mAy3Bvp4d8rjJvbddgpwUYDlVSIgMuP3Tbq6z
-         ExDd27t6W1CbKenbS55Es017cWFx5e8plKVwbFB617DMP/IHduL16TwbbG6Ih+q/Inze
-         SLlHAFPsjHoFAB/qeAJ90BtqOtvpa+iGbO4pMuN2BvYJSe1yIlC1YX8MvSNdyQoL4uSB
-         wCasYNs2+VlZN1kBz3h7nItQvTjCC/0Xo8B1WPrfdhgQXnAWRYcLjfgsl6MsOGkM6n79
-         u27Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784621045; x=1785225845;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ln8pbd6ZXzhM2Lfnk5v+YSie585FC8L0hWv+/ORFtx0=;
-        b=rRhISIdIWHCsU5dwv0y+BDd/3X4P7wMPDD2pKUuVYSrp16YSNnxL34YX40xTEsjbVO
-         4GHsi/Yi0wO4OAmLQc/nL2aIE6mWWAy6E1Whc9omLIIETc5k6Y2ChQA5EA0xGRGSFubL
-         HX6owFS3JOUvfMNKII9XfVNyBDjVO2asAgtjLq/52PE0D7/HL6+hi3pfdAPAfFBe2Fjd
-         ZKWn7rSIUR54vfs/WRq3Pj4NrOAsGK/5zANfuOwrpG+66I2b4zhYdOS5wacbxh7UE3mf
-         hUmtmlX2wTE6Pr7y76TPq3fa77bxtnAz2gnLASUnWbDoLC3A1oK1jSTJJHbB5LENDf/S
-         DZOA==
-X-Gm-Message-State: AOJu0YytUrrtcfzwzf4uBT9zfQ/0vPNY38YJmx8YDllZN2l0950MKJgZ
-	dSHc/1gPXNQqT/B03QKhg5TslPCLGlWlH98YB2XiBSYBeUGx/AdhgCUZxRdK3Pw5MGa4xHv9c58
-	NGzCW3zA2yg==
-X-Gm-Gg: AfdE7clfN3jnpr9gwNyzSM7s1JXn1Pdx2QPjwh22ZF2gAsi8NEus2wQeyOS7t+dT/EA
-	PETVhLBVF7H4IuSbsBs1yWFovCqB+KxmtnZRdSXSmkDwZc1vPx5sLNGrM+aI5bm3d4RVfkjGiuG
-	CD1eGAWT8+zlHaXYxi4j7W2CAGapGnT6k2kDo81TfxspGljAdQEwLPkHRfrEGCCf7rwN6UMGTjU
-	rFkjF6TlDJhMw3aUxuT1mM8bzRIUna/FuCvX4il9tG9FAF5PymH/WmCkJCdAGPRe3BYJMt95k75
-	D3Ma9avXz+1ZyHPHleF04RrHE0IZgd68v8vnNkZ1ACt4B+irv+7lFmJ1s5VuBQGLtp8pnaYZGeI
-	/1KOIgnKc5v/8vX+3o9/iQs+V4bb7+KE/ulgALqYFgaPKW2AU7zOS2XaK6yc5PcOfHDsjwXvsSd
-	VcILYnR2yLToOiTVdGpeMlBF5U
-X-Received: by 2002:a17:906:ee81:b0:c16:9d5f:df50 with SMTP id a640c23a62f3a-c16b4868d70mr678836966b.63.1784621044618;
-        Tue, 21 Jul 2026 01:04:04 -0700 (PDT)
-Received: from u94a (27-53-137-220.adsl.fetnet.net. [27.53.137.220])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2abe3e23sm7011304b3a.0.2026.07.21.01.04.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 01:04:03 -0700 (PDT)
-Date: Tue, 21 Jul 2026 16:03:58 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Puranjay Mohan <puranjay@kernel.org>
-Subject: Re: [PATCH stable 6.18 0/6] bpf: verifier: linked register tests and
- fixes
-Message-ID: <al8ne7ZecARiFQHs@u94a>
-References: <20260717044731.121353-1-shung-hsi.yu@suse.com>
- <20260718192718.0008-stable-reply@kernel.org>
- <al7zWrJAeYdQ2ytz@u94a>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cfXP7iat"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66KNCqwS3553300;
+	Tue, 21 Jul 2026 08:15:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=5maZlO
+	bb71SVft1hqg+S1xtcX9ZieXBCZ37lv8ju+FY=; b=cfXP7iatEbrop2c/y8aG9Z
+	H1zoVOo9Xq+ivIHhYEIIjhMn0hxylxNMUJl/yI4Oid1ryHO9301WS0HxOTsSUTOc
+	244RdE/2vIFLlvVtGa75jbheRGeDXAmsdQu6Q0zajwCYNKtRSxojrNVotPRDt/7X
+	5coT3VoDAzS6dXeSPoIiXavqzLkL2NkJ3LjCgXOLzctAeTOa1ZcetRkhQDEGLbpc
+	VQejL6nyP+i9Whx1S5PzxcYujJXrXWvAReleBRgvfvT5z3Ncxm6SN95T5BGH1t3P
+	JZLbM0QkPtl8OHW0ynuTX8omE35gMkUYFGar2C6NJ3DOw9T6oK0f9S5S35dMDegA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7abbju1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 21 Jul 2026 08:15:04 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66L84aGd013933;
+	Tue, 21 Jul 2026 08:15:04 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fgpgy948k-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 21 Jul 2026 08:15:03 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66L8Exh952494652
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 21 Jul 2026 08:15:00 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DCCF82004D;
+	Tue, 21 Jul 2026 08:14:59 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 08FAB20040;
+	Tue, 21 Jul 2026 08:14:57 +0000 (GMT)
+Received: from Linuxdev.bl1-in.ibm.com (unknown [9.123.5.176])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 21 Jul 2026 08:14:56 +0000 (GMT)
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org, Amit Machhiwal <amachhiw@linux.ibm.com>
+Cc: Vaibhav Jain <vaibhav@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Anushree Mathur <anushree.mathur@linux.ibm.com>,
+        Gautam Menghani <gautam@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc/dt_cpu_ftrs: Set CPU_FTR_P11_PVR for Power11 and later processors
+Date: Tue, 21 Jul 2026 13:44:55 +0530
+Message-ID: <178462153941.1974055.9212884139202871921.b4-ty@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260614173437.26352-1-amachhiw@linux.ibm.com>
+References: <20260614173437.26352-1-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al7zWrJAeYdQ2ytz@u94a>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDA4NSBTYWx0ZWRfXwh8HdkC0ZDGO
+ 4G15U5xJWwBIOX6LjTL7JIZncbNv9BIgd+bdl7SyiW/KCFFDyzxSbBlvuIFyMvtSj5tZ85Do/Hm
+ rwPPcV1D0IDGwASYzOErUko7IGE6UIGZQRNjBk4r6H9uv1IzSEeC6SICEXlzW6VdDvw4RdN+bfq
+ mcEzq8Uid1nqRl8/lum9UloffhpVRE8UJ0G/arPLWjAsB8JAcSjZBRtBtPcIR+LU7pCaJBvuAu1
+ rnktnnloO45F/GgULhLWQ2laHi5BIEvgL/pFuovSBJ1T3ZlZOZJyYTIyopD2VoOsZUeeKcatwzX
+ KDIhPI0d7AMo7+LRNWJCFJHcuF7NXvvFlVuhG/h/rTGLwbD1C1Rmyx/jZXR9pM2YTcp09ncqoip
+ pcdkcZeA2fWm4jxZN3ZgZ777GR0mUqcC2qlPb7wMbg/F45Wllv5CXSCclgOGCyF2Rg2C1lzRfiU
+ E3/rMUYVY5lLvM2fhEA==
+X-Authority-Analysis: v=2.4 cv=F7ZnsKhN c=1 sm=1 tr=0 ts=6a5f2a89 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=IyTs_d-QMcr_bO2y0b0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: Bf2sdHPbYs-etfcCoaB5-GyV-jVoAK9x
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDA4NSBTYWx0ZWRfX+hIdVZhp25MW
+ BoQCE+DkXCH17F6XRs1wJi3+fkf1+bSVsGesn43mXSfyY2cA8cgbBsYCRnU6pw4wwpsrDbpnVR2
+ pqczLLlJNYR5oGIsMURqJ74IANsiRgM=
+X-Proofpoint-GUID: snN9Jx8g2HDPkLrM-Bn4ukFDxyn103s1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-20_06,2026-07-20_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210085
 
-On Tue, Jul 21, 2026 at 02:45:15PM +0800, Shung-Hsi Yu wrote:
-> On Sun, Jul 19, 2026 at 11:00:22AM -0400, Sasha Levin wrote:
-> > > This patchset mainly aims to backport upstream commit 1b327732c846
-> > > ("bpf: Clear delta when clearing reg id for non-{add,sub} ops") (patch
-> > > 4), and its selftests patch in commit cac16ce1e378 ("selftests/bpf: Add
-> > > tests for stale delta leaking through id reassignment") (patch 6).
-> > 
-> > Queued the series for 6.18, thanks.
-[...]
-> I going with the conservative approach of reverting b0388bafa494.
-> However that also means that commit 1b327732c846 "bpf: Clear delta when
-> clearing reg id for non-{add,sub} ops" will no longer apply cleanly. Let
-> me send a v2 to address this whole thing.
+On Sun, 14 Jun 2026 23:04:37 +0530, Amit Machhiwal wrote:
+> When using device tree CPU features (dt-cpu-ftrs), the kernel bypasses
+> the traditional cputable-based CPU identification and instead derives
+> CPU features from the device tree's "ibm,powerpc-cpu-features" node
+> provided by firmware.
+> 
+> However, CPU_FTR_P11_PVR is a kernel-internal feature flag used to
+> identify Power11 and later processors, and is not represented in the
+> device tree's ISA feature set. While ISA v3.1 support (indicated by
+> CPU_FTR_ARCH_31) is present on both Power10 and Power11, the
+> CPU_FTR_P11_PVR flag is specifically needed by code that must
+> distinguish between Power10 and Power11 processors.
+> 
+> [...]
 
-Nevermind, this patchset doesn't need a refresh. Commit 1b327732c846
-("bpf: Clear delta when clearing reg id for non-{add,sub} ops") fails to
-apply due to a different reason unrelated to the revert. 
+Applied to powerpc/fixes.
 
-Please keep this patchset in the queue. I'll send the revert for
-b0388bafa494 separately.
+[1/1] powerpc/dt_cpu_ftrs: Set CPU_FTR_P11_PVR for Power11 and later processors
+      https://git.kernel.org/powerpc/c/e4de1b9cb3b5c981e4fe9bca253a7fb9161f5acd
+
+cheers
