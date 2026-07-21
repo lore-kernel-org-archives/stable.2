@@ -1,122 +1,94 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7F01D416C
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 12:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0734C1EDA0F;
+	Tue, 21 Jul 2026 12:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784637132; cv=none; b=CVLg0KrG86GHDR6XlfiRXHIlEcUt0sDAZayiogPv4u2fZxELFjGI1+RkNl6EhX9sguP5BqmJtBDdW/rb3+Ic2TVvpwo8wAVQoWfBK1llIJ7l2JT9w61B4+nXsMHAKC+812nylOVrpkq2P6yuYm1tCcPulC7gUGyV6wLaA6Bylww=
+	t=1784637296; cv=none; b=alIkRXUXuRjzdefsyMqZvER1VqZG1hbsNMewp7bg1TsTBTNktCAbSSh0dbtfTvYDylVDLGRfxwg25Cq/J0VpFjgPmzZ4SelwAUDmXqzlLzsZsqZJtFMQsIZ31/8e+cj4BYgYczIwec+zVwR3zhpBXizHmXamI3AF20oASvwhNYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784637132; c=relaxed/simple;
-	bh=nY7DnnzzmElMSyHiuhMCgbyowwuaTPe7GX5RQdAmmEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UeNIIjd+LjwfNqB9+LtjDYDAb+gAcCm4FMCugCawfqSkQyDCrdAXj+wAPNEkHh4o+3zFAnZav0MNyW6Vlfp61qISUB6QwYrYUZ7DSe7kWOEIUfgMn9igSPYo4gh2d50YbDP36CLJiYrOAkS+PACzRviGUiWOx7wURKbDrq1+ibo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gQrTeC9F; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784637296; c=relaxed/simple;
+	bh=WTWsdk0tiyN6gtuMp8CDi20si1ZRC85em22vHK/UEcw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MfwEamE6rEipHHPcEm7rOQxTXGxZ0h0boCHMYrdArt7Tcjgvn/k6dOuSpZEaFzi4Y69qdekojtKIUjokuvO7958EPE9+0lYMNkGnoaGsnlrdrjr94WM4tQq48GZRFnv/H/jiTud5JdQ/7mgyGmR4kSiqIh2uvrGxOQT7SOZYvnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=n1X+slWl; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gQrTeC9F"
-Message-ID: <68c2f52f-8d26-4325-b567-4e99597922f0@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784637128;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q65LQxTH7P5MnN4PrDsN4BJErnDygKIsrKqfzVP5ncQ=;
-	b=gQrTeC9FpIZcTs+d76ZU0PT1Vzmf0lEyRvmXmYqIAVjj1ApP0ozNfGyPpjQyCQfws2ad8h
-	fxkXVS9Z4p12t2QdSc6V8q0CmJxZd5rIvW4Yi5W+dgZClimI+svf4KifWbzIGnp+JZGh50
-	GcvvleW9MbTkhh5rxbPAzadO6DQ2usI=
-Date: Tue, 21 Jul 2026 20:31:55 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="n1X+slWl"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=9KtnsxyRZEF01/CsKv9VL4GH6V2rNoA4quHnbHU4djg=;
+	b=n1X+slWlhhk0evH11mpxM4aZ/9CGHMh4mT0sZD1ksMsDzo8Lk9G9xsQrAyW1oR/Eikwdd62rY
+	YyJ7eVY+UQ83gHM7Xw6EHWJibAsivs69M2fXYJ2OEnivjKoCGC9rkWUBLoXQGlKQVz27LZrWBMp
+	oUxdyX7L9VKHrk7g9qkDmGY=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4h4Gmq0WMYz12LDV;
+	Tue, 21 Jul 2026 20:25:15 +0800 (CST)
+Received: from kwepemo200010.china.huawei.com (unknown [7.202.195.178])
+	by mail.maildlp.com (Postfix) with ESMTPS id 621A740579;
+	Tue, 21 Jul 2026 20:34:49 +0800 (CST)
+Received: from huawei.com (10.44.142.85) by kwepemo200010.china.huawei.com
+ (7.202.195.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 21 Jul
+ 2026 20:34:48 +0800
+From: Qi Xi <xiqi2@huawei.com>
+To: <stable@vger.kernel.org>
+CC: Naoya Horiguchi <naoya.horiguchi@nec.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Miaohe Lin <linmiaohe@huawei.com>, Sasha Levin
+	<sashal@kernel.org>, Jane Chu <jane.chu@oracle.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <sunnanyong@huawei.com>,
+	<wangkefeng.wang@huawei.com>, <xiqi2@huawei.com>
+Subject: [PATCH 6.6.y] mm/memory-failure: fix missing ->mf_stats count when hugetlb folio already poisoned
+Date: Tue, 21 Jul 2026 20:19:56 +0800
+Message-ID: <20260721121956.124887-1-xiqi2@huawei.com>
+X-Mailer: git-send-email 2.33.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 5.15.y] netfilter: nf_tables: restore set elements when
- delete set fails
-To: Sasha Levin <sashal@kernel.org>, Sid Kumar <sidkumar1@gmail.com>,
- stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: Vegard Nossum <vegard.nossum@oracle.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jakub Acs <acsjakub@amazon.de>
-References: <20260624213654.2762749-1-sidkumar1@gmail.com>
- <afa30b9a-07fb-4f21-973a-72bc7ceeb9e4@linux.dev>
- <20260721120236.100005-1-sashal@kernel.org>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20260721120236.100005-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemo200010.china.huawei.com (7.202.195.178)
 
+[ Upstream commit a148a2040191b12b45b82cb29c281cb3036baf90 ]
 
-On 7/21/26 8:08 PM, Sasha Levin wrote:
-> On Tue, Jul 21, 2026 at 05:07:00PM +0800, Jiayuan Chen wrote:
->> Is this patch associated with cve-2026-23111
->> (https://fuzzinglabs.com/repro-cve-2026-23111/) ?
-> No - this patch is the 5.15 backport of the CVE-2024-27012 fix
-> (upstream e79b47a8615d), a different vulnerability. CVE-2026-23111 is
-> the inverted genmask check in nft_map_catchall_activate(), fixed
-> upstream by f41c5d151078 ("netfilter: nf_tables: fix inverted genmask
-> check in nft_map_catchall_activate()"), and that fix is already in
-> linux-5.15.y as commit 8c760ba4e36c (released back in February).
->
->> I'm verifying cve-2026-23111 in latest 5.15 stable, but I can still get
->> garbled text by running 'nft list maps' like this:
-> [...]
->> Does that means cve-2026-23111 is still exist in latest 5.15 ?
-> I don't believe so. What you're most likely reproducing is
-> CVE-2024-27012 itself: released 5.15.y still lacks this patch, so
-> nft_map_catchall_activate() doesn't restore catchall map elements on
-> the abort path (there's no nft_clear() there), which leaves a freed
-> element visible to 'nft list maps'. That's exactly the bug this
-> backport fixes, and it doesn't reintroduce the inverted check - the
-> nft_set_elem_active() test it builds on is the corrected one.
->
-> So this patch stays queued for 5.15. Could you retest with it applied
-> and confirm the UAF is gone?
+When a new subpage is poisoned on a hugetlb folio that has already been
+marked hwpoison (MF_HUGETLB_FOLIO_PRE_POISONED), hugetlb_update_hwpoison()
+increments num_poisoned_pages directly, but the per-node ->mf_stats is
+not updated because this path bypasses action_result().
 
-Yes, after applying this thread, the UAF disappeared.
+The upstream commit fixed this by routing all counting through
+action_result(), but the backport to 6.6 as commit 252bb328b36f applied
+only the refactoring without the core counting fix. This patch adds the
+missing update_per_node_mf_stats() call to fix the inconsistency.
 
-Operation 'nft delete chain inet mytable mychain' will rejected just 
-like 6.6 did (I'm also testing 6.6 stable).
+Fixes: 252bb328b36f ("mm/memory-failure: fix missing ->mf_stats count in hugetlb poison")
+Signed-off-by: Qi Xi <xiqi2@huawei.com>
+---
+ mm/memory-failure.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-
-~# FILE_BASH="file_bash"
-~# nft flush ruleset
-~# rm -f "$FILE_BASH"
-~# nft add table inet mytable
-~# nft add chain inet mytable mychain
-~# nft add map inet mytable mymap { type ipv4_addr : verdict \; }
-~# nft add element inet mytable mymap { \* : goto mychain }
-~# nft add map inet mytable triggermap { type ipv4_addr : verdict \; }
-~# nft add element inet mytable triggermap { \* : goto mychain }
-~# cat > "$FILE_BASH" << 'BATCH_CONTENT'
-delete map inet mytable triggermap
-delete map inet mytable bonjour
-BATCH_CONTENT
-
-~# nft -f "$FILE_BASH"
-file_bash:2:25-31: Error: Could not process rule: No such file or directory
-delete map inet mytable bonjour
-                         ^^^^^^^
-~# nft delete map inet mytable mymap
-~# nft delete chain inet mytable mychain
-Error: Could not process rule: Device or resource busy
-delete chain inet mytable mychain
-                           ^^^^^^^
-~# nft list chains
-table inet mytable {
-     chain mychain {
-     }
-}
-~# nft list maps
-table inet mytable {
-     map triggermap {
-         type ipv4_addr : verdict
-         elements = { * : goto mychain }
-     }
-}
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index 86cdf36ee3bb..5f9203bf8ec1 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1947,8 +1947,10 @@ static int hugetlb_update_hwpoison(struct folio *folio, struct page *page)
+ 		raw_hwp->page = page;
+ 		llist_add(&raw_hwp->node, head);
+ 		/* the first error event will be counted in action_result(). */
+-		if (ret)
++		if (ret) {
+ 			num_poisoned_pages_inc(page_to_pfn(page));
++			update_per_node_mf_stats(page_to_pfn(page), MF_FAILED);
++		}
+ 	} else {
+ 		/*
+ 		 * Failed to save raw error info.  We no longer trace all
+-- 
+2.33.0
 
