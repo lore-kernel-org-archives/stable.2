@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F4146DFFF
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEF246C4BC
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784660353; cv=none; b=DDubMl5UUZ7FnIWuPaQfVEPozUe0JJXDjGEHuarPVPcCvYgm/mJCWv4Unee1eP6D97l3ZAj03tVz6S2aj2+hVkVT0CnZzYrlEmwJIWFh97kZ4qt+4NSTxXKEcSS9WFBl0W0JE/2EjXylkt6aU2b+LGeAZzUEivez26CQbtaTVGU=
+	t=1784660353; cv=none; b=ctSfIbN1CIoYZZ9msR3RzvHRG7VAxv+YvC+Oo1BIrpIPkUwDGERwclbhKTNFg//hKx16bnl8fozrxF8KH+EwnmqZZYUehbhuji4hb8w3iO/+KEzp5O8NAIo5c/V4RG5YT0mqwpIU+aCAbMIgEKYJIW+souGnkiB8FJtXfw3zsSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784660353; c=relaxed/simple;
-	bh=TV1t3k9m7jk9bKRwO/MMLwf3C2WgmU34kgLEWWMnVzM=;
+	bh=EzPj6s+LOwBuzumgfTubt2qQor3yQZI5LBfK5uIBntA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iip8uM8ivwM+gt5Cq2mB2xxxAMJc/la+UJxXbAVOBS9x7ZtpRzEtwj3rp7faAz4YQnEgclFBfP0zOhwdJegKvSKvyZnYcKMYjTBRQMJKuGellEA2b9gXrSzz+PL5BnK+vlePUJyG+d6kduepkkNQG+kkL86/yiZ2BIyItxuFe/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YF1cEFQ3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hXXzEQTJ5+tFx4cHeT29UjHGru/pieXnCQ6Peb9Fmq7JFrEV/Dh5Serw6ETFLMbF9O+5rCQ4h9KM655XIKkL0NPUOCx6TkaCGigPZarSd1FG1yXnXOpVTJTzxk7EFLkKTryYUlrMsh9qQX5VcHO/6KYk99m3d5B4ZZbhROySP/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmNlCCwn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YF1cEFQ3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704AF1F00ACF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmNlCCwn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0001F00A3A;
 	Tue, 21 Jul 2026 18:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784660348;
-	bh=37Rt5LHeeRtj1ewlawLrzqT/jCOMkoDJr1OQ60X09YU=;
+	s=k20260515; t=1784660349;
+	bh=2TCqFz5uQmSI9a1R6ZrsEia6/ThTF0g48t814vf69fs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YF1cEFQ3jBH1+PkhMefxLPFM6FxJHHiDrtlhKwtGgQm8+KGB2OBwsoBzkeKcfuR1y
-	 Zr0Xn3TsGmdLlrrv+bhfSe6TQVBkNgI/nUqB3BCl8pluXEK0aop8KY/KWUVcGMeJXX
-	 ieYlnuFlb+IZ1FdRiizhtRb2xcS4Jl8+NOfaacnpw4Hc0iEm7LNo1TO6CT8klCMqz5
-	 zYlajp0kLDoiJauwdLvav76KLu5BSPvadjs/G5FjyrGMZcK9bClO7cKadiNsN1SvHq
-	 gmK1HR1gmqYDXvABMXubHzoyesQK7paf/34fxm1eliRg7NIRC+t9IZ5hv59tMbXANr
-	 V/VW43n7iWEsg==
+	b=bmNlCCwnyfYBCK3zVjSmeowWr9z2vPYFX6Hyq/+cSeR5RmtqkTITY28di2aj7Ts2c
+	 rkfCNCK7iHjek19C82DseHmC/h2iiyqAHPyl0OU69xangYCrm60SMifZ50tpB9Q0ig
+	 pT4gGaSTAMMUBvdtD9jFeie7vNRR9DRX5KyTCf70KLgjX4dCcfIGvNWhzelqRnNMjn
+	 aS1czIg23uMtPsUL2dGYE05ZamdoFwFV1/gS/5voUKYhkfc40+eLUQa+oBLnCvTMQ4
+	 YrLfyLTRQULX2W9qtcbS1UBe9DF81Ygg/oBiG+GPYp7eQ9XHaFlmFu+tXs8nmrTeeb
+	 Ay3bymtu/GAiw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] i2c: core: fix adapter debugfs creation
-Date: Tue, 21 Jul 2026 14:59:03 -0400
-Message-ID: <20260721185903.397573-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning
+Date: Tue, 21 Jul 2026 14:59:06 -0400
+Message-ID: <20260721185906.397615-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721185903.397573-1-sashal@kernel.org>
-References: <2026071637-frenzied-roundworm-4d38@gregkh>
- <20260721185903.397573-1-sashal@kernel.org>
+In-Reply-To: <20260721185906.397615-1-sashal@kernel.org>
+References: <2026071652-dandelion-handbook-8d52@gregkh>
+ <20260721185906.397615-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,81 +46,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 
-[ Upstream commit 07d5fb537928aad4369aaff0cbae73ba38a719af ]
+[ Upstream commit 504e2b4ab97a51d56d966cd36d0997ad30b65b2d ]
 
-Clients can be registered from bus notifier callbacks so the debugfs
-directory needs to be created before registering the adapter as clients
-use that directory as their debugfs parent.
+When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM
+driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
+triggers a spurious warning:
 
-Move debugfs creation before adapter registration to avoid having
-clients create their debugfs directories in the debugfs root (which is
-also more likely to fail due to name collisions).
+  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
+      overlapping mappings aren't supported
+  WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
 
-Note that failure to allocate the adapter name must now be handled
-explicitly as debugfs_create_dir() cannot handle a NULL name (unlike
-device_add() which returns an error).
+The call chain is:
 
-Fixes: 73febd775bdb ("i2c: create debugfs entry per adapter")
-Cc: stable@vger.kernel.org	# 6.8
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+  amdgpu_cs_ioctl
+   -> amdgpu_ttm_backend_bind
+    -> dma_buf_map_attachment
+     -> [udmabuf] map_udmabuf -> get_sg_table
+      -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=0
+       -> debug_dma_map_sg -> add_dma_entry -> EEXIST
+
+This happens because udmabuf builds a per-page scatter-gather list via
+sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
+table mapped for the misc device, and an importer such as amdgpu maps
+the same pages for its own device via map_udmabuf(), the DMA debug
+infrastructure sees two active mappings whose physical addresses share
+cacheline boundaries and warns about the overlap.
+
+The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
+add_dma_entry() because it signals that no CPU cache maintenance is
+performed at map/unmap time, making the cacheline overlap harmless.
+
+All other major dma-buf exporters already pass this flag:
+  - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
+  - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
+
+The CPU sync at map/unmap time is also redundant for udmabuf:
+begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
+cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
+access is requested through the dma-buf interface.
+
+Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
+dma_unmap_sgtable() in udmabuf to suppress the spurious warning and
+skip the redundant sync.
+
+Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Acked-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Link: https://patch.msgid.link/20260331061657.79983-1-mikhail.v.gavrilov@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 899c7310c77423..37a75d57175b25 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -1549,17 +1549,22 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 		goto out_list;
- 	}
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 3cd9c4a84e76fb..68ffa01ced63db 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -73,7 +73,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ 	if (ret < 0)
+ 		goto err_alloc;
  
--	dev_set_name(&adap->dev, "i2c-%d", adap->nr);
-+	res = dev_set_name(&adap->dev, "i2c-%d", adap->nr);
-+	if (res)
-+		goto err_remove_irq_domain;
-+
- 	adap->dev.bus = &i2c_bus_type;
- 	adap->dev.type = &i2c_adapter_type;
--	res = device_register(&adap->dev);
-+	device_initialize(&adap->dev);
-+
-+	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
-+
-+	res = device_add(&adap->dev);
- 	if (res) {
- 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
--		goto err_put_adap;
-+		goto err_remove_debugfs;
- 	}
- 
--	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
--
- 	res = i2c_setup_smbus_alert(adap);
- 	if (res)
- 		goto out_reg;
-@@ -1599,13 +1604,13 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 
- out_reg:
- 	i2c_deregister_clients(adap);
--	debugfs_remove_recursive(adap->debugfs);
- 	device_del(&adap->dev);
--err_put_adap:
-+err_remove_debugfs:
-+	debugfs_remove_recursive(adap->debugfs);
- 	init_completion(&adap->dev_released);
- 	put_device(&adap->dev);
- 	wait_for_completion(&adap->dev_released);
--
-+err_remove_irq_domain:
- 	i2c_host_notify_irq_teardown(adap);
- out_list:
- 	mutex_lock(&core_lock);
+-	ret = dma_map_sgtable(dev, sg, direction, 0);
++	ret = dma_map_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
+ 	if (ret < 0)
+ 		goto err_map;
+ 	return sg;
+@@ -88,7 +88,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ static void put_sg_table(struct device *dev, struct sg_table *sg,
+ 			 enum dma_data_direction direction)
+ {
+-	dma_unmap_sgtable(dev, sg, direction, 0);
++	dma_unmap_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
+ 	sg_free_table(sg);
+ 	kfree(sg);
+ }
 -- 
 2.53.0
 
