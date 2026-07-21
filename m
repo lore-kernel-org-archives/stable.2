@@ -1,193 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FC83C8C74
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9542BDC28
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625893; cv=none; b=GJoNdU4axedU17TMR77RbPTFBXoW4pPQ737UZEuHkR03+xhezABi3qGs1qxAjACoeraJScoXKqZqIk1JD9367w04lq0oJiC3dly1g1Q2J4f8I0/YB38upRgTIChq1RbBPqHSbPey8uVEFD2iqau+AVpsEElE7yBdMs0SxUoheC8=
+	t=1784625898; cv=none; b=g/8CDjpPpTtheDVdvzztb/dHp6dnA7JifB66XS3xXw4zdTHtMEf1/j/j3z2PL6riWBnv30FwIDPICA1OOM70zaZxTgvdGtV+biStE0VRBIxqjvqNBpO5pxT+2oyOA7MZZoeObDSUcXpqlKhx2c94eCJr74o85Rdgz98VJL5vt2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625893; c=relaxed/simple;
-	bh=0JY7bN4bJOz6aP5NQyfcaS16uEY/4GBjfsiQVrIl0NM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JrfuOzz0yCbC7Tu/1hUwA8HkbHfimKT55ZQ3WjzytLXlgdMjcd7u/LJRsHmWwF2yo9dEtXx7qUaVCTOvEvCnljjw7xKAkHtX89rDdkY1oqu+V11h0RPG0cqffeEBGis5ssJ3bS/oegSpQuO+g8hCgbiZVTLRIR4pEhO4Txqw5c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kWMI8mq+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784625898; c=relaxed/simple;
+	bh=0U0oAcA9o8sdBN9pKl0cVteVFaA5+ODIdL6bQcmyNmk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DEbUW39KQRL9XKPPuu61tliAq+qmmmH4j+WGG9R/cpL0/6HlfDXNI8t2S39PVuOvA4+PbGSjBYISOL5As6G6en5xG0c9FaG34sexlFYDVprzVuVs3ZkocAnDBjq0d5Ivs6FMQDecHoTRvDab8hZBmCItG47rv3C7rebcIAzzBVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AWYax0qi; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kWMI8mq+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4531F000E9;
-	Tue, 21 Jul 2026 09:24:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784625891;
-	bh=2BaUCfZXlJyCZEhDvEw98WZYjzVu8hmuocuGcDjcTqw=;
-	h=Subject:To:Cc:From:Date;
-	b=kWMI8mq+7Yrk0TlKEmtAg0bJ+aJGzmb39GGEV9cgRt9UjNN3lnZWqXrbNMu9n1uaN
-	 jRd3VqLD5O9CDAQHGw2ju3+TmIFDk/enmI/72gj91sv+UkMiTyiCNPfw9JiDNbd7bo
-	 YSsOU7YWmo6lia5ndcv/7EDX8NYrc5EpPvIX31BA=
-Subject: FAILED: patch "[PATCH] selftests/landlock: Add test for TCP fast open" failed to apply to 7.1-stable tree
-To: matthieu@buffet.re,mic@digikod.net
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 11:23:58 +0200
-Message-ID: <2026072158-rocklike-explode-9ab6@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AWYax0qi"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784625893;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=2FQXDCxrT8tPYV+NgHQ01O/7Lq/+d5KF/3y46YmuZSI=;
+	b=AWYax0qiizAfZB7H7rUqAhJ/kXN26xzpuRUQmNnSQorVoaI5kU8WaPXQKBsEfNC9NMd2xF
+	BXYL+4sdJ2tVjWOZLoF8WCWgow1A4bbA0uss3W8LqVUqG3JJklidcNWwkxO0N+bjll+xz8
+	7zLjyWoNcryk5UdJ2ttVIJ5+RiWFvjU=
+From: xuanqiang.luo@linux.dev
+To: intel-wired-lan@lists.osuosl.org
+Cc: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	roel.kluin@gmail.com,
+	tactii@gmail.com,
+	netdev@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH iwl-net v1] igbvf: fix DMA mapping leak on Tx error
+Date: Tue, 21 Jul 2026 17:23:23 +0800
+Message-ID: <20260721092323.39372-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-The patch below does not apply to the 7.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+When mapping a fragmented skb fails, count already matches the number of
+successful mappings that must be undone. Decrementing it before the cleanup
+loop leaves one mapping active. Reusing the descriptor then overwrites its
+DMA address and loses the mapping.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Remove the extra decrement so the error path unmaps every successful
+mapping.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x f4b30e0b1d488e7ffd8ea28d1365b9ba8e551edb
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072158-rocklike-explode-9ab6@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From f4b30e0b1d488e7ffd8ea28d1365b9ba8e551edb Mon Sep 17 00:00:00 2001
-From: Matthieu Buffet <matthieu@buffet.re>
-Date: Wed, 1 Jul 2026 23:46:28 +0200
-Subject: [PATCH] selftests/landlock: Add test for TCP fast open
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Enforce that TCP Fast Open is controlled by
-LANDLOCK_ACCESS_NET_CONNECT_TCP. Semantics of connect() and
-sendmsg(MSG_FASTOPEN) should be identical from Landlock's perspective.
-Also enforce error code consistency, since UDP sockets ignore the
-MSG_FASTOPEN flag while Unix sockets reject it.
-
-Signed-off-by: Matthieu Buffet <matthieu@buffet.re>
-Link: https://patch.msgid.link/20260701214628.33319-2-matthieu@buffet.re
+Fixes: c1fa347f20f1 ("e1000/e1000e/igb/igbvf/ixgb/ixgbe: Fix tests of unsigned in *_tx_map()")
 Cc: stable@vger.kernel.org
-[mic: Fix formatting]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+---
+ drivers/net/ethernet/intel/igbvf/netdev.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
-index 2ed1f76b7a8b..be2eb88092fb 100644
---- a/tools/testing/selftests/landlock/net_test.c
-+++ b/tools/testing/selftests/landlock/net_test.c
-@@ -1281,6 +1281,103 @@ TEST_F(protocol, connect_unspec)
- 	EXPECT_EQ(0, close(bind_fd));
- }
+diff --git a/drivers/net/ethernet/intel/igbvf/netdev.c b/drivers/net/ethernet/intel/igbvf/netdev.c
+index c5ae15fcdca75..3d2aba5c3f126 100644
+--- a/drivers/net/ethernet/intel/igbvf/netdev.c
++++ b/drivers/net/ethernet/intel/igbvf/netdev.c
+@@ -2190,8 +2190,6 @@ static inline int igbvf_tx_map_adv(struct igbvf_adapter *adapter,
+ 	buffer_info->time_stamp = 0;
+ 	buffer_info->length = 0;
+ 	buffer_info->mapped_as_page = false;
+-	if (count)
+-		count--;
  
-+TEST_F(protocol, tcp_fastopen)
-+{
-+	const bool restricted = variant->sandbox == TCP_SANDBOX &&
-+				variant->prot.type == SOCK_STREAM &&
-+				(variant->prot.protocol == IPPROTO_TCP ||
-+				 variant->prot.protocol == IPPROTO_IP) &&
-+				(variant->prot.domain == AF_INET ||
-+				 variant->prot.domain == AF_INET6);
-+	const struct landlock_ruleset_attr ruleset_attr = {
-+		.handled_access_net = LANDLOCK_ACCESS_NET_CONNECT_TCP,
-+	};
-+	int bind_fd, client_fd, status;
-+	char buf;
-+	pid_t child;
-+
-+	bind_fd = socket_variant(&self->srv0);
-+	ASSERT_LE(0, bind_fd);
-+	EXPECT_EQ(0, bind_variant(bind_fd, &self->srv0));
-+	if (self->srv0.protocol.type == SOCK_STREAM)
-+		EXPECT_EQ(0, listen(bind_fd, backlog));
-+
-+	child = fork();
-+	ASSERT_LE(0, child);
-+	if (child == 0) {
-+		int connect_fd, ret;
-+
-+		/* Closes listening socket for the child. */
-+		EXPECT_EQ(0, close(bind_fd));
-+
-+		connect_fd = socket_variant(&self->srv0);
-+		ASSERT_LE(0, connect_fd);
-+
-+		if (variant->sandbox == TCP_SANDBOX) {
-+			const int ruleset_fd = landlock_create_ruleset(
-+				&ruleset_attr, sizeof(ruleset_attr), 0);
-+			ASSERT_LE(0, ruleset_fd);
-+
-+			enforce_ruleset(_metadata, ruleset_fd);
-+			EXPECT_EQ(0, close(ruleset_fd));
-+		}
-+
-+		/* Fast Open with no address. */
-+		ret = sendto_variant(connect_fd, NULL, NULL, 0, MSG_FASTOPEN);
-+		if (self->srv0.protocol.domain == AF_UNIX) {
-+			EXPECT_EQ(-ENOTCONN, ret);
-+		} else if (self->srv0.protocol.type == SOCK_DGRAM) {
-+			EXPECT_EQ(-EDESTADDRREQ, ret);
-+		} else {
-+			EXPECT_EQ(-EINVAL, ret);
-+		}
-+
-+		/* Fast Open to a denied address. */
-+		ret = sendto_variant(connect_fd, &self->srv0, "A", 1,
-+				     MSG_FASTOPEN);
-+		if (restricted) {
-+			EXPECT_EQ(-EACCES, ret);
-+		} else if (self->srv0.protocol.domain == AF_UNIX &&
-+			   self->srv0.protocol.type == SOCK_STREAM) {
-+			EXPECT_EQ(-EOPNOTSUPP, ret);
-+		} else {
-+			EXPECT_EQ(0, ret);
-+		}
-+
-+		EXPECT_EQ(0, close(connect_fd));
-+		_exit(_metadata->exit_code);
-+		return;
-+	}
-+
-+	client_fd = bind_fd;
-+	if (!restricted && self->srv0.protocol.type == SOCK_STREAM &&
-+	    self->srv0.protocol.domain != AF_UNIX) {
-+		client_fd = accept(bind_fd, NULL, 0);
-+		ASSERT_LE(0, client_fd);
-+	}
-+
-+	if (restricted) {
-+		EXPECT_EQ(-1, read(client_fd, &buf, 1));
-+		EXPECT_EQ(ENOTCONN, errno);
-+	} else if (self->srv0.protocol.domain == AF_UNIX &&
-+		   self->srv0.protocol.type == SOCK_STREAM) {
-+		EXPECT_EQ(-1, read(client_fd, &buf, 1));
-+		EXPECT_EQ(EINVAL, errno);
-+	} else {
-+		EXPECT_EQ(1, read(client_fd, &buf, 1));
-+		EXPECT_EQ('A', buf);
-+	}
-+
-+	EXPECT_EQ(child, waitpid(child, &status, 0));
-+	EXPECT_EQ(1, WIFEXITED(status));
-+	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
-+
-+	if (client_fd != bind_fd)
-+		EXPECT_LE(0, close(client_fd));
-+
-+	EXPECT_EQ(0, close(bind_fd));
-+}
-+
- TEST_F(protocol, sendmsg_stream)
- {
- 	int srv0_fd, tmp_fd, client_fd, res;
+ 	/* clear timestamp and dma mappings for remaining portion of packet */
+ 	while (count--) {
+-- 
+2.43.0
 
