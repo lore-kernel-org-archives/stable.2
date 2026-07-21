@@ -1,214 +1,216 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664863BB11B;
-	Tue, 21 Jul 2026 12:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21FF1C68F;
+	Tue, 21 Jul 2026 12:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784635839; cv=none; b=A6GNYF7ghVNps83vRrfKDJb8cBVL35BAQL6KbqLrBkfqYufljB+UQTzPWp+o96cAbifTtW0OZ6HVlr4eS3IE4yztaZqAPe8Pn1pLassNZZaUjYkCMXYxTkdOuKsdbVYZ0XdwprtRZqI54pVbGri8fKjppK95exM/5iMdixr7hn0=
+	t=1784636118; cv=none; b=Qqoe6ul0GN3d3LXtWNGsTfmz/TeoibfKoqwzbi+o7z+XMSzbVdu0GmkT+GSjxAk79a7E3pIqvqGPvOQkKlIPGKDqGmU6Tdl8ZNxNJgRk3GqZpi5wSxm43z9N+Cx/6kxbTcsanBaOOp3Qnn6a0jhNv27BzfTts1JIDbW85iE7STk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784635839; c=relaxed/simple;
-	bh=XqSUnTCT5BmpcGLO10lA1I3XmkdkD5PqInuS9MnabNY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iI8T62mLJIajYR0shvo/s4NvnW37E44Mwvi7sXj5nxqZoP2oBa/RG6DQr+kzJwUoRzyTsbZLQMYbBBK/IOBwA2Isx8MfLVKgioOWGskqi7ogrNP5f7tT1WENFvvXSzQxdC4y5apG9MxFO8MiOisHjlvvhYiVR1AWCqGhSECrHIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f5DychrC; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784636118; c=relaxed/simple;
+	bh=pCtXRjw6ZgMa3cHzlvS20X0DiuXByBGQ9I2rhzbSYX4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=b3E1rB07yjpKjRTNuX/RVkfp9JHRlb2H0aGCiTiRiLswzx2nQ1PzHvyZQxCNAO7Zu6/54QZvqzdK6oqTLozTI29Tz+2r07sDsWt/HbyFv4Ejv6yzNjqK/k9V8yNWGwctPsA9EVYS5vSRtyqs/AFPSNNv4oKdcGfcKXcNLJlAA5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3MlDfIO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f5DychrC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784635836; x=1816171836;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=XqSUnTCT5BmpcGLO10lA1I3XmkdkD5PqInuS9MnabNY=;
-  b=f5DychrCnL/O5qxFedvy/xXkbzW/LX3Sgv59bxamygwot3R7ov9U6Pqh
-   0mz8Jm/9I9BMQ11lH506Mm7X9eYKZLXdfelXvVbAClturjtkOpSj/a0qV
-   /tpaZDxx1HVd0SvQVJihKeKEjgEoQ3AJO0xX9dyLlsaT+XmRH5OOu5nif
-   IR/YjVcH0NYFrLmY3NwWSP2Agst2Sr9nnGNhGbKbZ54VxskYiHXK611DJ
-   zqDwrLXJDSfSSaTLhFhBGzBcm7H+6yUgtY0brYK9lDoTmq8j8T4SOiOAY
-   pI70BeG3XlHegdtKIMdrtpZ0b5iJgnd+gatfwpNrMTzEFfxOTZR6u6eK9
-   w==;
-X-CSE-ConnectionGUID: my6emF2bTp+uUr0AxSIU/A==
-X-CSE-MsgGUID: +rf8GZgWSyGivlTVStASmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="95887128"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="95887128"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:10:35 -0700
-X-CSE-ConnectionGUID: 83S1zJEXSLKUsdZJTisvdA==
-X-CSE-MsgGUID: ukkcRf6jQTO2hf8ogStMHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="255103335"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.57]) ([10.245.245.57])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 05:10:30 -0700
-Message-ID: <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Arunpravin Paneer
- Selvam <arunpravin.paneerselvam@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	intel-xe@lists.freedesktop.org
-Cc: Sashiko-bot <sashiko-bot@kernel.org>, Friedrich Vock
- <friedrich.vock@gmx.de>,  Maarten Lankhorst	 <dev@lankhorst.se>, Tejun Heo
- <tj@kernel.org>, Maxime Ripard <mripard@kernel.org>,  Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 	stable@vger.kernel.org, Natalie Vock
- <natalie.vock@gmx.de>, Johannes Weiner	 <hannes@cmpxchg.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, David Airlie
- <airlied@gmail.com>,  Thadeu Lima de Souza Cascardo	 <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 	linux-kernel@vger.kernel.org
-Date: Tue, 21 Jul 2026 14:10:28 +0200
-In-Reply-To: <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
-	 <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
-	 <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
-	 <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
-	 <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3MlDfIO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5BB1F000E9;
+	Tue, 21 Jul 2026 12:15:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784636116;
+	bh=Rgk19z5wBcSkopJP5DQnZm6oUtjPmjQV+SnoXSevxp0=;
+	h=From:Date:Subject:To:Cc;
+	b=P3MlDfIOpiVgiX71b7+hBO/WkLafEp01fAHThAIGtbzT0Ytz2r/B+bNKAPr8pLYdK
+	 sWELk56vfnbsnb1/TVf9VwMRF9TsU87/ebYfzCoIXynczqVibbThSvcIz8vViSzf1F
+	 dkxbOA73VJGti3tcxh5AKr/Piq3ErsDXV3r/fTLslpJglzCOeDIJZhImVZNAjYfU5P
+	 U25Y8V3rURaBnQz/pl3+UVeCwRDnC+lrUCGlg7K5T3Qo7kWTUiBSSN3oyV4bgTXC9S
+	 2VhCwNuayesP2925rbuETzlnUH9ABQ80AJ8msQR4yK1ooz1p4gIBTlPJsp2U8G36k2
+	 6JeygAUXzTOAA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 21 Jul 2026 13:14:52 +0100
+Subject: [PATCH v2] x86/mm/pat: allocate split page tables as kernel page
+ tables
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260721-fix-cpa-kernel-pagetables-v2-1-2b255deed710@kernel.org>
+X-B4-Tracking: v=1; b=H4sIALtiX2oC/42NQQqDMBQFryJ/3V+SIFG66j2KixifmlZUklRax
+ Ls36gW6HJg3b6UA7xDolq3ksbjgpjGBumRkezN2YNckJiWUFoUS3LoP29nwC37EwLPpEE09IDB
+ 0Lusml1aVktJ+9kjy0X5UJ4d3/YSNe3A3ehfi5L/H+SJ375+fRbJkUWiNolQWLe6nc518R9W2b
+ T8rayna1QAAAA==
+X-Change-ID: 20260720-fix-cpa-kernel-pagetables-e641bd41c281
+To: ljs@kernel.org
+Cc: stable@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu <baolu.lu@linux.intel.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, Kiryl Shutsemau <kas@kernel.org>, iommu@lists.linux.dev, 
+ Kevin Tian <kevin.tian@intel.com>, Vishal Moola <vishal.moola@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5554; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=pCtXRjw6ZgMa3cHzlvS20X0DiuXByBGQ9I2rhzbSYX4=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLikw6/nXTY3+f0Pz7tQB47DscqY9uIxZlc8a0b3jp/2
+ MFaxGDcUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIm0TmdkaOz9+/+5zIxTAQmX
+ 7aoPd048nN56Ied+YdR6zsDjExbvd2NkeMG7TVrmUm18g94fAWn2sw5dr+bszDWKXzLBTrPZ7tV
+ XfgA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi, Maarten,
+When splitting a large page in CPA in __split_large_page() we allocate a
+PTE directly without going through the standard page table allocation
+routines such as pte_alloc_one_kernel().
 
-On Tue, 2026-07-21 at 13:46 +0200, Maarten Lankhorst wrote:
-> Hey,
->=20
-> Can I merge this through drm-misc-next together with the rest of the
-> series?
->=20
-> Kind regards
-> ~Maarten
+This means the page table constructor is never called nor is the page table
+marked as a kernel page table.
 
-For the xe patches, Ack from me.
+The former results in the folio associated with the page table not being
+marked as a page table (__pagetable_ctor() is never called thus neither is
+__folio_set_pgtable()) nor are statistics updated to reflect
+it (lruvec_stat_add_folio() is never called).
 
-I do have a v8 that fixes a sashiko comment on the last patch, though,
-but I was holding that awaiting a review on the other patches.
+The latter issue of failing to mark the page table as a kernel page
+table (ptdesc_set_kernel() is never called) is far more problematic.
 
-Thanks,
-Thomas
+Since commit 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page
+tables") kernel page table freeing has been batched and since the
+subsequent commit e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries
+for kernel address space") IOTLB cache entries for kernel page tables have
+been invalidated upon being freed.
 
+Since split page tables are freed without this invalidation, the IOTLB can
+contain stale entries for them.
 
+Resolve the issue by using the ordinary PTE allocation API at split time.
 
->=20
-> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
-> >=20
-> >=20
-> > On 7/3/2026 6:38 PM, Christian K=C3=B6nig wrote:
-> > > Arun please take a look at this.
-> > Sure Christian. This fix looks correct to me.
-> > Reviewed-by: Arunpravin Paneer Selvam
-> > <Arunpravin.PaneerSelvam@amd.com>
-> >=20
-> > Thanks,
-> > Arun.
-> > >=20
-> > > Thanks,
-> > > Christian.
-> > >=20
-> > > On 7/3/26 15:05, Thomas Hellstr=C3=B6m wrote:
-> > > > drmm_cgroup_register_region() is called before INIT_LIST_HEAD()
-> > > > and
-> > > > gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
-> > > > function
-> > > > returns early and bypasses those initializations.
-> > > >=20
-> > > > Since adev->mman.initialized is set to true before
-> > > > amdgpu_vram_mgr_init()
-> > > > is called, a failure triggers amdgpu_ttm_fini(), which calls
-> > > > amdgpu_vram_mgr_fini(), which then:
-> > > >=20
-> > > > =C2=A0 - Calls list_for_each_entry_safe() on reservations_pending
-> > > > and
-> > > > =C2=A0=C2=A0=C2=A0 reserved_pages, whose list_head::next pointers a=
-re zero-
-> > > > initialized
-> > > > =C2=A0=C2=A0=C2=A0 (NULL). The loop does not recognize them as empt=
-y and
-> > > > dereferences NULL.
-> > > >=20
-> > > > =C2=A0 - Calls gpu_buddy_fini(), which iterates free_trees[]
-> > > > unconditionally
-> > > > =C2=A0=C2=A0=C2=A0 via for_each_free_tree(). Since mm->free_trees i=
-s NULL
-> > > > =C2=A0=C2=A0=C2=A0 (never allocated), this dereferences NULL.
-> > > >=20
-> > > > Both result in a kernel panic on the module load error path.
-> > > >=20
-> > > > Fix by moving drmm_cgroup_register_region() to after the list
-> > > > and buddy
-> > > > allocator are fully initialized, so the teardown path is safe
-> > > > to run.
-> > > >=20
-> > > > Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-> > > > Closes:
-> > > > https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellst=
-rom@linux.intel.com?part=3D4
-> > > > Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
-> > > > TTM")
-> > > > Cc: Friedrich Vock <friedrich.vock@gmx.de>
-> > > > Cc: Maarten Lankhorst <dev@lankhorst.se>
-> > > > Cc: Tejun Heo <tj@kernel.org>
-> > > > Cc: Maxime Ripard <mripard@kernel.org>
-> > > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > > Cc: amd-gfx@lists.freedesktop.org
-> > > > Cc: dri-devel@lists.freedesktop.org
-> > > > Cc: <stable@vger.kernel.org> # v6.14+
-> > > > Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> > > > Signed-off-by: Thomas Hellstr=C3=B6m
-> > > > <thomas.hellstrom@linux.intel.com>
-> > > > ---
-> > > > =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
-> > > > =C2=A0 1 file changed, 4 insertions(+), 3 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > > > index 2a241a5b12c4..ac3f71d77140 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> > > > @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct
-> > > > amdgpu_device *adev)
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ttm_resource_manager *man =3D=
- &mgr->manager;
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int err;
-> > > > =C2=A0 -=C2=A0=C2=A0=C2=A0 man->cg =3D drmm_cgroup_register_region(=
-adev_to_drm(adev),
-> > > > "vram", adev->gmc.real_vram_size);
-> > > > -=C2=A0=C2=A0=C2=A0 if (IS_ERR(man->cg))
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return PTR_ERR(man->cg)=
-;
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_resource_manager_init(man, &adev=
-->mman.bdev,
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->gmc.real_vram_size);
-> > > > =C2=A0 @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct
-> > > > amdgpu_device *adev)
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return err;
-> > > > =C2=A0 +=C2=A0=C2=A0=C2=A0 man->cg =3D drmm_cgroup_register_region(=
-adev_to_drm(adev),
-> > > > "vram", adev->gmc.real_vram_size);
-> > > > +=C2=A0=C2=A0=C2=A0 if (IS_ERR(man->cg))
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return PTR_ERR(man->cg)=
-;
-> > > > +
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_set_driver_manager(&adev->mman.b=
-dev, TTM_PL_VRAM,
-> > > > &mgr->manager);
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_resource_manager_set_used(man, t=
-rue);
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
-> >=20
+This results in these kernel page tables invoking a page table constructor,
+and thus requires a page table destructor.
+
+Since we cannot assume one is always present (early allocated direct map
+page tables are not marked as such), we conditionally call
+pagetable_dtor_free() if the PG_table folio flag for the ptdesc is set,
+otherwise we free the page table via pagetable_free().
+
+Regardless of which path is taken page tables marked as kernel page tables,
+which now includes split page tables, take the correct route through
+pagetable_free_kernel().
+
+There is a user-visible side effect in that split page tables will appear
+in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
+allocated after early boot), however this is a positive change.
+
+This issue started being markedly problematic after commit
+5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables") so
+choose this as the Fixes target.
+
+Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+v2:
+- Prefer PageTable(ptdesc_page()) over folio variants as per Vishal, Mike.
+- Add comment to explain why we're conditionally calling dtor.
+
+v1:
+https://patch.msgid.link/20260720-fix-cpa-kernel-pagetables-v1-1-0766e782cefe@kernel.org
+
+To: Dave Hansen <dave.hansen@linux.intel.com>
+To: Andy Lutomirski <luto@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Ingo Molnar <mingo@redhat.com>
+To: Borislav Petkov <bp@alien8.de>
+To: x86@kernel.org
+To: "H. Peter Anvin" <hpa@zytor.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+To: Lu Baolu <baolu.lu@linux.intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: David Hildenbrand <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: iommu@lists.linux.dev
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: ljs@kernel.org
+Cc: Vishal Moola <vishal.moola@gmail.com>
+---
+ arch/x86/mm/pat/set_memory.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
+
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index 301fb9e77d91..078689aa7206 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -439,7 +439,15 @@ static void __cpa_collapse_large_pages(struct cpa_data *cpa)
+ 
+ 	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+ 		list_del(&ptdesc->pt_list);
+-		pagetable_free(ptdesc);
++		/*
++		 * Only early alloc'd direct map should not be flagged PG_table
++		 * here and those shouldn't be collapsed. However be abundantly
++		 * cautious and handle the !PG_table case too.
++		 */
++		if (PageTable((ptdesc_page(ptdesc))))
++			pagetable_dtor_free(ptdesc);
++		else
++			pagetable_free(ptdesc);
+ 	}
+ }
+ 
+@@ -1138,11 +1146,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
+ 
+ static int
+ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+-		   struct ptdesc *ptdesc)
++		   pte_t *pbase)
+ {
+ 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
+-	struct page *base = ptdesc_page(ptdesc);
+-	pte_t *pbase = (pte_t *)page_address(base);
++	struct page *base = virt_to_page(pbase);
+ 	unsigned int i, level;
+ 	pgprot_t ref_prot;
+ 	bool nx, rw;
+@@ -1246,18 +1253,18 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
+ 			    unsigned long address)
+ {
+-	struct ptdesc *ptdesc;
++	pte_t *pte;
+ 
+ 	if (!debug_pagealloc_enabled())
+ 		spin_unlock(&cpa_lock);
+-	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
++	pte = pte_alloc_one_kernel(&init_mm);
+ 	if (!debug_pagealloc_enabled())
+ 		spin_lock(&cpa_lock);
+-	if (!ptdesc)
++	if (!pte)
+ 		return -ENOMEM;
+ 
+-	if (__split_large_page(cpa, kpte, address, ptdesc))
+-		pagetable_free(ptdesc);
++	if (__split_large_page(cpa, kpte, address, pte))
++		pte_free_kernel(&init_mm, pte);
+ 
+ 	return 0;
+ }
+
+---
+base-commit: 890f8c4e827c918dac668a12eaf63180ba8a9e6d
+change-id: 20260720-fix-cpa-kernel-pagetables-e641bd41c281
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
