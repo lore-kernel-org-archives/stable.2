@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967FC36DA1D;
-	Tue, 21 Jul 2026 21:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB4A3B83E0;
+	Tue, 21 Jul 2026 21:28:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784669314; cv=none; b=UJoNxVNYdN85Oeweg8Mk51kr8e6ARefpHyqbazFS+OfRJ3KUpI7mQzsjjw4WqBzOHFZRu+PYOSiprNTGcru5VcAiRzdfdcSq4zT3IGH8gUl2fkLNh/X1g+jmkr/5f2wFEcXLGeiD8gv3HkVHUp+SzpczQVWNy3bypBGunFNlpQU=
+	t=1784669315; cv=none; b=BDMeptaRwoCftMy1qnp+oNYAREAX2V6a3QYGfzWj+GvQxmCUXGIUQTKYHSlsF71fbWa0QEbsrQBAylCCd398BFU7B7R+FUtQw0sFhaL1mEeSrR/+001ZTokzr+SrwcPa8fYcIvbqMSjrHPvKTfaz+LLl2VstscONcnziCkbpF1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784669314; c=relaxed/simple;
-	bh=smuAyTFuzEk6k7bKbu52kPKBkzilocS8HP1G810aU6Y=;
+	s=arc-20240116; t=1784669315; c=relaxed/simple;
+	bh=3H02CE8ldFbCLDD6dRJ6VQW/ytKk4T9n0wZHNXzJY3k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ge6tU5IgBbdbKhGrlA5QcWQyB4z0qjYGcAoETGvpN7JMie73wkoc7BCF6OJvZetzT8x0kNQ21YjugWI339BpYBU78WJVjTTrm86txfLMrC+0ZA0l3s5GgOfQDRUiHCQ0rEHMXXnwj8VLzJg/3luFA3/rmOyUL05Q5yUA4IfD6pA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YWBUYefp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KUu1rztcjS7UsWwv93VDO+DMJ4KkLYVkNmaFVc23hbVg9TqM8nb0vSLrx5e+NZzF+xQ7h7LNXOeLuiCI2aa/zWRgwFIBNDIKk/zO6NEBbXz2QudHwss1rPh6A/3sEsVBjOZxXKKua3AcPYe4GRmsPPBdJovUtQHGTwGBxp151wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o4FoqKjN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YWBUYefp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86EA21F000E9;
-	Tue, 21 Jul 2026 21:28:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o4FoqKjN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C545C1F00A3F;
+	Tue, 21 Jul 2026 21:28:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784669303;
-	bh=omb7jTYVfSGtsM/nfBOPzFzxMHQ2/wNrp6klblE+prQ=;
+	s=korg; t=1784669308;
+	bh=dQg0CJJlbokusrWDQ3TOAMyM1rsQuP2cQoaYT5pufng=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YWBUYefp3J/7LiQ3v9jtHhQiavMtl2UWqRZ53Bmdw5thZ6LPB9ZL3fZ3WKOgf+b7J
-	 l9I/u6QU4WNLxsvtKtCdVGUl/iQ476XKoZQbPIivrD4SW65rJzOwLV5ZopzgBSGU/1
-	 w9kneEYwNYODLoSGLXY53KSOBKGnVE+KDQFdRK8A=
+	b=o4FoqKjNS/iWFlrS+MnPLvxBjLIcQxmcJHDeSJAFMMKlhnGRm1RyKpBxtkGnso1mQ
+	 KMex5foloDPYTmfT16EejVcG3Suhsq9LZdbd/zHO4HZQoDXPQKSGRRDvKcrNWD9uoH
+	 er0TaaO8PeGxntvxXmFl6y4ONNFsSluj/XhyZaFY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
 	sashiko-bot <sashiko-bot@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
+	David Ahern <dsahern@gmail.com>,
+	Namhyung Kim <namhyung@kernel.org>,
 	Arnaldo Carvalho de Melo <acme@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0503/1067] perf tools: Add bounds check to cpu__get_node()
-Date: Tue, 21 Jul 2026 17:18:24 +0200
-Message-ID: <20260721152435.868795038@linuxfoundation.org>
+Subject: [PATCH 6.1 0505/1067] perf sched: Clean up idle_threads entry on init failure
+Date: Tue, 21 Jul 2026 17:18:26 +0200
+Message-ID: <20260721152435.912524321@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
 References: <20260721152424.521567757@linuxfoundation.org>
@@ -54,42 +55,49 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-[ Upstream commit 1e7921d7227de5da0dfc167943092c823ec7e49b ]
+[ Upstream commit cda5a94ad9181cd60cbf04be11d524201bf489a2 ]
 
-cpu__get_node() accesses cpunode_map[cpu.cpu] without checking against
-max_cpu_num, the allocation size of cpunode_map.  Callers such as
-builtin-kmem.c:evsel__process_alloc_event() pass sample->cpu from
-perf.data events, which may exceed the host's CPU count when analyzing
-cross-machine recordings.
+get_idle_thread() allocates a thread via thread__new() and stores it in
+idle_threads[cpu], then calls init_idle_thread() to set up the private
+data.  If init_idle_thread() fails (e.g. OOM for the idle_thread_runtime
+struct), the function returns NULL but leaves the partially initialized
+thread in idle_threads[cpu].
 
-Add a bounds check against max_cpu_num before indexing, returning -1
-for out-of-range values.  This is a central fix that protects all
-callers.
+On subsequent calls for the same CPU, get_idle_thread() finds a non-NULL
+idle_threads[cpu], skips allocation, and returns thread__get() on a
+thread that has no priv data.  Callers then get a thread whose
+thread__priv() returns NULL, leading to unexpected behavior.
 
-Fixes: 86895b480a2f ("perf stat: Add --per-node agregation support")
+Release the thread and reset the slot to NULL on init failure so the
+entry doesn't persist in a corrupted state.
+
+Fixes: 49394a2a24c7 ("perf sched timehist: Introduce timehist command")
 Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: David Ahern <dsahern@gmail.com>
+Cc: Namhyung Kim <namhyung@kernel.org>
 Assisted-by: Claude:claude-opus-4.6
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/perf/util/cpumap.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/perf/builtin-sched.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/util/cpumap.c b/tools/perf/util/cpumap.c
-index 8486ca3bec75ff..370bc498b7a2e4 100644
---- a/tools/perf/util/cpumap.c
-+++ b/tools/perf/util/cpumap.c
-@@ -486,6 +486,10 @@ int cpu__get_node(struct perf_cpu cpu)
- 		return -1;
- 	}
+diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
+index 927c0ece3a074f..167532c7adf006 100644
+--- a/tools/perf/builtin-sched.c
++++ b/tools/perf/builtin-sched.c
+@@ -2349,8 +2349,11 @@ static struct thread *get_idle_thread(int cpu)
+ 		idle_threads[cpu] = thread__new(0, 0);
  
-+	/* cpunode_map allocated for max_cpu_num entries; input may be untrusted */
-+	if (cpu.cpu < 0 || cpu.cpu >= max_cpu_num.cpu)
-+		return -1;
-+
- 	return cpunode_map[cpu.cpu];
- }
+ 		if (idle_threads[cpu]) {
+-			if (init_idle_thread(idle_threads[cpu]) < 0)
++			if (init_idle_thread(idle_threads[cpu]) < 0) {
++				/* clean up so next call doesn't find a half-initialized thread */
++				thread__zput(idle_threads[cpu]);
+ 				return NULL;
++			}
+ 		}
+ 	}
  
 -- 
 2.53.0
