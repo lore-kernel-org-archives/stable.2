@@ -1,123 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9494548AE20;
-	Tue, 21 Jul 2026 12:01:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280B348C408;
+	Tue, 21 Jul 2026 12:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784635266; cv=none; b=lOqsTtQFOoAplpuDQBw8ggGwVMCYu3p2H/D3gvUyNDw3riREuPdJAKbQKPHkvR8mibc7bvRRBrw1CX9Y6vvJV0dx6trVaZRvBXndiTA8pUpGzubbbeq2mB8IkE/8wPXXZSgjk6E2vKLdWrYFJobWHmqq/bdR6aq8ue2u8FM1ZGM=
+	t=1784635725; cv=none; b=eO8JFtJDvmi4pCihepSIn7Jr+85n3MpBbKwyqk/BcbeXJARa/EaCsk0eDMS64drap8WnH2yhmMKwmsE/j6aMCusuLd43QMOdv4cazxBLIwrobl6D2eAHTv/CaGMjnbwqffNqgyXsqYqaQlY2spFvA4hTdY3fwctnmV5my+aGtZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784635266; c=relaxed/simple;
-	bh=5XIKQnZ9opHJEwvD0dLMnBqSTBDPCPOWWPyJ5Trj2VM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d88R7CS1nVHum9ylinoJ4oa/CbtnjMQBHP2U5AAjRodtxWdTmZEv5IeMYTaPlDQgZMz9wcA+eWoZ6nTofyZXNSIPGuEmFTJFlakWycuCakW1ONroMaj6miW/QMyKtBqBYRRhDi7tu7Ap2NKR6qBzyuQwteh1yPPYNIVTem/r7uA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bgWWDECm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784635725; c=relaxed/simple;
+	bh=6XVl8CINWvYEzIGmsY8sKNYifQod1+ZHPNDENyXpF5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oQk7f6C0GDZxiOiNp14rId5N/cdQt0TmWBwtXs3bpdU4NORfPNAEqAFAW8Csbmba8ESXnSdN67tcSQTpFRocT3joVvx17Z2HQ7THcqXT1CABq6iu7v3Fc/hoT6anzGxBZ+hsZ5mJv8Z5rEXUp7jz4Pmw6u06aFsUslnejfpHKKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Txbbr7jT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bgWWDECm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D848D1F00A3A;
-	Tue, 21 Jul 2026 12:01:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Txbbr7jT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EF581F000E9;
+	Tue, 21 Jul 2026 12:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784635265;
-	bh=5XIKQnZ9opHJEwvD0dLMnBqSTBDPCPOWWPyJ5Trj2VM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bgWWDECmRNILlRghGfTo7PFAwy3rtWmPtf0AQfcSd4kE3u/9Agf5gZw1CuOmb6GjH
-	 JoJ8HUGlqiko8ii2JVoiptpIzGvaj4MZnNZ4Xp/6ZtmOxln54UHl/SqxzVhCiAsKXA
-	 CmU0+Vw4ucvBmsQiZn8DUCeI8BCa0kB9tSuVPR6V3xLaqyJPdQHuUSMt/XoDpFxoGf
-	 Zx3SwxyuIPPEhhnrhWt/HcvrF1cYUJxQFhVD8FFM5VKCn2SB/mvo4ztkkUnogQ3wiD
-	 2ihDsexCWYf00RwWyMuyBd8AQzR4bsSMIFCUJrLAK47RxUg49jBRp0SfLtp5rLHr8Y
-	 2XHjiLOChAUKw==
-Date: Tue, 21 Jul 2026 13:00:46 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Vishal Moola <vishal.moola@gmail.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Kiryl Shutsemau <kas@kernel.org>, iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/mm/pat: allocate split page tables as kernel page
- tables
-Message-ID: <al9b5uE-ep9ADtLt@lucifer>
-References: <20260720-fix-cpa-kernel-pagetables-v1-1-0766e782cefe@kernel.org>
- <al5-fDRStgU6gjk6@fedora>
- <al5_Le9QlD4zlt25@fedora>
- <al8hE_ded6qyWiDv@lucifer>
- <al8_xx_99BjAUn5A@fedora>
- <al9BpTu2ma8GpiPW@lucifer>
- <al9KzIhKXa3PCMqa@kernel.org>
+	s=k20260515; t=1784635724;
+	bh=SL4r1Q6qN4OxGEySHC6+JHdyhSATXZG1LqkgWQGzEHU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Txbbr7jTcVuNUV32z9MVaZL5p/w2n78o7n6I5W9hd7Qwrzyge3RZXvj321VZf1cA5
+	 /7E9jjcUYfhKfEAT/SwtC/BWz1ivE1qaa+/y4XVQENLdZ0d8dntyjjqMxHZQkT+eMe
+	 cG3QfxhZSwYgOsuMNzlCi+MS65+KxTEeBf6MQKxsDYm6a3qbDu69eoDnEgxrtXkI4P
+	 XjPWBC3kbJzQGjWsg56VTU3JcNgUQvvDyz5qSeJtFob1z1JwUMvUZevFOdSx6/z0iM
+	 WB1XvOOxYQDPwxnHGnzPVJZI8IQc8YX2hi2PLbL8clsR8agvOdE0rxZgqD+L09KzxR
+	 oaF1qgNSuTgBw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org,
+	stable-commits@vger.kernel.org,
+	adzicmirko97@gmail.com
+Cc: Sasha Levin <sashal@kernel.org>,
+	Benno Lossin <lossin@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: Re: Patch "rust: pin-init: internal: suppress `non_snake_case` lint in `[pin_]init!`" has been added to the 7.1-stable tree
+Date: Tue, 21 Jul 2026 08:08:35 -0400
+Message-ID: <20260721120236.100001-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <DK3HV8BJG6G6.1URBMSOVVLT7@garyguo.net>
+References: <20260720105951.247306-1-sashal@kernel.org> <DK3HV8BJG6G6.1URBMSOVVLT7@garyguo.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al9KzIhKXa3PCMqa@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 01:32:44PM +0300, Mike Rapoport wrote:
-> On Tue, Jul 21, 2026 at 10:58:50AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Jul 21, 2026 at 02:45:43AM -0700, Vishal Moola wrote:
-> > > >
-> > > > Well some kernel page tables are still allocated without ctor (early allocated
-> > > > direct map for isntance), and if you did pagetable_dtor_free() it
-> > > > unconditionally calls pagetable_dtor().
+On Mon, Jul 20, 2026 at 04:13:24PM +0100, Gary Guo wrote:
+>Looks like quite a lot of patches have been picked up as dependency in order to
+>pick this to 7.1.
 >
-> TBH, I cannot think of a scenario when page tables allocated at boot would
-> be collapsed. But surely, checking the page type is safer just in case.
+>The warning that this fix addresses are already worked around on the user side,
+>so it probably isn't worth backporting.
 
-Yeah nor can to be honest, anything that could be made large in the direct map
-would already be large right?
+Dropped from the 7.1 queue along with the following dependencies:
 
-But it's 'just in case' somebody did something dumb :) Later can maybe make it a
-WARN_ON(). But just to fix the proximate issue for now.
+  - rust: pin-init: internal: remove redundant `pin` filtering
+  - rust: pin-init: internal: turn PhantomPinned error into a warning
+  - rust: pin-init: internal: remove collect_tuple polyfill
+  - rust: pin-init: internal: pin_data: use closure for handling
+  - rust: pin-init: internal: pin_data: add struct to record
+  - rust: pin-init: internal: init: handle code blocks early
+  - rust: pin-init: internal: use marker on drop guard type for pinned fields
+  - rust: pin-init: internal: project slots instead of references
 
->
-> > > > The ptlock_free() and __folio_clear_pgtable() there would be harmelss (no locks
-> > > > assigned for kernel page table, and if PG_table never set clearing it is a noop)
-> > > > but the lruvec_stat_sub_folio() would cause an unbalanced decrement of
-> > > > nr_page_table_pages.
-> > >
-> > > Gotcha, thanks for the explanation :)
-> >
-> > No worries, this is subtle stuff with lots of weird gotchas and stuff we need to
-> > improve... I seem to have fallen down an unexpected rabbit hole with these fixes
-> > :)
-> >
-> > >
-> > > > It sucks, but until everything is updated to call the ctor we have to do it this
-> > > > way :>)
-> > >
-> > > Yeah that makes sense. Although I'd rather see the condition as:
-> > > if(PageTable(ptdesc_page(...)))
-> > >
-> > > We really shouldn't be calling ptdesc_folio() anywhere anymore.
-> >
-> > I think better for a follow up since the code already uses ptdesc all over the
-> > place (fundamental to the approach really, keeping a list of page tables etc.)
-> > and this is a fix that needs backporting.
->
-> I agree with Vishal that it's better to use page type rather than folio
-> type. And it's the same for backporting ;-)
+Thanks for the report!
 
-Ah sorry misunderstood, you mean straight up PageTable(ptdesc_page()), I thought
-Vishal was saying we shouldn't be directly referencing ptdesc's at all (which
-would be the rework).
-
-I guess definitionally page tables are never folios. I lazily went with what I
-saw elsewhere, my bad :)
-
-Will respin!
-
-
->
-> > Cheers, Lorenzo
->
-> --
-> Sincerely yours,
-> Mike.
-
-Cheers, Lorenzo
+-- 
+Thanks,
+Sasha
