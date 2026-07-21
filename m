@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956993B7778
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:16:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B3B3BAD9F
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:16:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625361; cv=none; b=OdfLMg1I/L4Yk4dFH1vP120TWyp9mPT5hM3ASqBt5Jrd5vgJIOO90VMNIGvJZrRsTh1kXUwTPC+2W5zG6QegP4F7cjWbsmg/YCpNRlgEb6CrSw4oHTSD4ZbUKLx7+sknDnUWpQ8Jof3hS1ol3zcCDiWH1DmZuqECT4lvfWiZH0E=
+	t=1784625389; cv=none; b=fFJ5rzJE7A8ViT6lj2csosW5LJKFK48m04lAfnBTLAqQ6SxUGYH2O87FeA6h0lazLgPc7xEPzgl9vnBXojFiVyQ8U3dhJndm3geNFxDlI9Xv8rkeZ3Xp2TqCfEYKlq1RJ3v+2LXlar7KQ5Wz7ABs+6Mf6xZeqRG96PYFlKRv9M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625361; c=relaxed/simple;
-	bh=4AK8Q69ANYHXYCQptePPo+HSakjExciA3uJvfZ4DYPo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oXDkg94kgWdBocpy2dvPxp3ZDNiZWcoYZ3jUE0WPjdeou2HNAlclS/W/ehtBXmo39NvBADVSu5CP2INfcB9btzmAkIa4tFyVPKaSf2G70Z+5+rWj5gTAes92xsY8AUrze+nEq75UDneSwXfaY1MlPwgt5nS6/SQANLtpftln4B4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f80/0eaD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784625389; c=relaxed/simple;
+	bh=BxSIWjqpj3/C9fKywX+/WDBl39BfU192nUyvekJmefc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Xlz7zIwD/p+L7Q0ntgq9j7WYmO9WrH3gXAQBKQFEDi+dssMZ73BDy4K/u1JofUHXm6QXPeA+vx70+mMAE9EBbJ78X2HV92t10ogxFjbGJjdiKd5o8lCIU79lObSbiaDHGtsyTk7bYL9wZ9hYctjwNmJeJlFusuZIJ3MeKyDzH9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aSsO31eB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f80/0eaD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA07B1F000E9;
-	Tue, 21 Jul 2026 09:15:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aSsO31eB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68DE11F00A3A;
+	Tue, 21 Jul 2026 09:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784625360;
-	bh=J+DCw5eMV6YwOFusTdHRW/s62G3RXey+iWKAHMnq+7I=;
+	s=korg; t=1784625386;
+	bh=h6cRVeh7XXmOGizo99IV+xxt2gXRruyy0i7X0yuliRA=;
 	h=Subject:To:Cc:From:Date;
-	b=f80/0eaD3TISJI00sMipfGIxO8vu/P7G/mVz9fKpMFh97yv7zG715SMH4+n4HhNl6
-	 p4IXho8uVkEXOnZBanx/wnORht8va6T/TOys+1kZnVYQXK9NupPmr4TBCI7NDxA+xV
-	 7CmTvXnFbsRqq1zn7zLG2/Em2HsYLceeLLbDWjCU=
-Subject: FAILED: patch "[PATCH] fs/resctrl: Fix double-add of pseudo-locked region's RMID to" failed to apply to 5.10-stable tree
-To: reinette.chatre@intel.com,bp@alien8.de,stable@kernel.org
+	b=aSsO31eBR0d1Lkn5LRYrgdMzA+5GzeHqjKQaIYPr9cIMSDyzKQCjYdfEa6pGB4oT6
+	 bgKt0HJw0IjxwYoHmPYjS3ip4GcvjCcpxMxCdF/ZHVOh0BPgzIzNjyntW0hRGuFaXs
+	 s2YN+2HNdIRGLp3kMEQAkjRUPAsCwI5E+NSESe5Q=
+Subject: FAILED: patch "[PATCH] posix-cpu-timers: Prevent UAF caused by non-leader exec()" failed to apply to 7.1-stable tree
+To: tglx@kernel.org,jwlee2217@gmail.com,oleg@redhat.com,qw3rtyp0@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 11:15:36 +0200
-Message-ID: <2026072136-revisable-repeal-74a2@gregkh>
+Date: Tue, 21 Jul 2026 11:16:17 +0200
+Message-ID: <2026072117-diffused-proven-3e4f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x b9f089723aee892efc77c349ae47a6b452b293c4
+git cherry-pick -x 920f893f735e92ba3a1cd9256899a186b161928d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072136-revisable-repeal-74a2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072117-diffused-proven-3e4f@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,411 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b9f089723aee892efc77c349ae47a6b452b293c4 Mon Sep 17 00:00:00 2001
-From: Reinette Chatre <reinette.chatre@intel.com>
-Date: Mon, 6 Jul 2026 15:46:23 -0700
-Subject: [PATCH] fs/resctrl: Fix double-add of pseudo-locked region's RMID to
- free list
+From 920f893f735e92ba3a1cd9256899a186b161928d Mon Sep 17 00:00:00 2001
+From: Thomas Gleixner <tglx@kernel.org>
+Date: Fri, 3 Jul 2026 12:02:38 +0200
+Subject: [PATCH] posix-cpu-timers: Prevent UAF caused by non-leader exec()
+ race
 
-A pseudo-locked group's RMID is freed when it is created. On unmount
-rmdir_all_sub() unconditionally frees all RMID of all groups, resulting
-in a double-free of the pseudo-locked group's RMID. The consequence of this
-is that the original free results in the pseudo-locked group's RMID being
-added to the rmid_free_lru linked list and the second free then attempts
-to add the same RMID entry to the rmid_free_lru again.
+Wongi and Jungwoo decoded and reported a non-leader exec() related race
+which can result in an UAF:
 
-Do not double-free a pseudo-locked group's RMID.
+ sys_timer_delete()			exec()
+   posix_cpu_timer_del()
+   // Observes old leader
+   p = pid_task(pid, pid_type);		de_thread()
+   					  switch_leader();
+					  release_task(old_leader)
+					    __exit_signal(old_leader)
+					      sighand = lock(old_leader, sighand);
+					      posix_cpu_timers*_exit();
+   sighand = lock_task_sighand(p)	      unhash_task(old_leader);
+     sh = lock(p, sighand)	    	      old_leader->sighand = NULL;
+					      unlock(sighand);
+     (p->sighand == NULL)
+	unlock(sh)
+	return NULL;
 
-Fixes: e0bdfe8e36f3 ("x86/intel_rdt: Support creation/removal of pseudo-locked region")
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Cc: <stable@kernel.org>
-Link: https://patch.msgid.link/551432dd7e624a862b8e58314c38aaba0afff3e9.1783377598.git.reinette.chatre@intel.com
+   // Returns without action
+   if(!sighand)
+      return 0;
+   free_posix_timer();
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index ce277f16ea12..cc9966ff6cdf 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -3084,10 +3084,6 @@ static void rmdir_all_sub(void)
- 		if (rdtgrp == &rdtgroup_default)
- 			continue;
+This is "harmless" unless the deleted timer was armed and enqueued in
+p->signal because on exec() a TGID targeted timer is inherited.
+
+As sys_timer_delete() freed the underlying posix timer object
+run_posix_cpu_timers() or any timerqueue related add/delete operations on
+other timers will access the freed object's timerqueue node, which results
+in an UAF.
+
+There is a similar problem vs. posix_cpu_timer_set(). For regular posix
+timers it just transiently returns -ESRCH to user space, but for the use
+case in do_cpu_nanosleep() it's the same UAF just that the k_itimer is
+allocated on the stack.
+
+Also posix_cpu_timer_rearm() fails to rearm the timer, which means it stops
+to expire.
+
+While debating solutions Frederic pointed out another problem:
+
+   posix_cpu_timer_del(tmr)
+					__exit_signal(p)
+					  posix_cpu_timers*_exit(p);
+					  unhash_task(p);
+					  p->sighand = NULL;
+     sh = lock_task_sighand(p)
+        sighand = p->sighand;
+	if (!sighand)
+	    return NULL;
+	lock(sighand);
+
+     if (!sh)
+	WARN_ON_ONCE(timer_queued(tmr));
+
+On weakly ordered architectures it is not guaranteed that
+posix_cpu_timer_del() will observe the stores in posix_cpu_timers*_exit()
+when p->sighand is observed as NULL, which means the WARN() can be a false
+positive.
+
+Solve these issues by:
+
+  1) Changing the store in __exit_signal() to smp_store_release().
+
+  2) Adding a smp_acquire__after_ctrl_dep() into the !sighand path
+     of lock_task_sighand().
+
+  3) Creating a helper function for looking up the task and locking sighand
+     which does not return when sighand == NULL. Instead it retries the
+     task lookup and only if that fails it gives up.
+
+  4) Using that helper in the three affected functions.
+
+#1/#2 ensures that the reader side which observes sighand == NULL also
+observes all preceeding stores, i.e. the stores in posix_cpu_timers*_exit()
+and the ones in unhash_task().
+
+#3 ensures that the above described non-leader exec() situation is handled
+gracefully. When the task lookup returns the old leader, but sighand ==
+NULL then it retries. In the non-leader exec() case the subsequent task
+lookup will observe the new leader due to #1/#2. In normal exit() scenarios
+the subsequent lookup fails.
+
+When the task lookup fails, the function also checks whether the timer is
+still enqueued and issues a warning if that's the case. Unfortunately there
+is nothing which can be done about it, but as the task is already not
+longer visible the timer should not be accessed anymore. This check also
+requires memory ordering, which is not provided when the first lookup
+fails. To achieve that the check is preceeded by a smp_rmb() which pairs
+with the smp_wmb() in write_seqlock() in __exit_signal(). That ensures that
+the stores in posix_cpu_timers*_exit() are visible.
+
+The history of the non-leader exec() issue goes back to the early days of
+posix CPU timers, which stored a pointer to the group leader task in the
+timer. That obviously fails when a non-leader exec() switches the leader.
+commit e0a70217107e ("posix-cpu-timers: workaround to suppress the problems
+with mt exec") added a temporary workaround for that in 2010 which survived
+about 10 years. The fix for the workaround changed the task pointer to a
+pid pointer, but failed to see the subtle race described above. So the
+Fixes tag picks that commit, which seems to be halfways accurate.
+
+Thanks to Frederic Weissbecker, Oleg Nesterov and Peter Zijlstra for
+review, feedback and suggestions and to Wongi and Jungwoo for the excellent
+bug report and analysis!
+
+Fixes: 55e8c8eb2c7b ("posix-cpu-timers: Store a reference to a pid not a task")
+Reported-by: Wongi Lee <qw3rtyp0@gmail.com>
+Reported-by: Jungwoo Lee <jwlee2217@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Cc: stable@vger.kernel.org
+
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 1056422bc101..2c0b1c02920f 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -212,7 +212,12 @@ static void __exit_signal(struct release_task_post *post, struct task_struct *ts
+ 	__unhash_process(post, tsk, group_dead);
+ 	write_sequnlock(&sig->stats_lock);
  
--		if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP ||
--		    rdtgrp->mode == RDT_MODE_PSEUDO_LOCKED)
--			rdtgroup_pseudo_lock_remove(rdtgrp);
--
- 		/*
- 		 * Give any CPUs back to the default group. We cannot copy
- 		 * cpu_online_mask because a CPU might have executed the
-@@ -3098,7 +3094,13 @@ static void rmdir_all_sub(void)
+-	tsk->sighand = NULL;
++	/*
++	 * Ensure that all preceeding state is visible. Pairs with
++	 * the smp_acquire__after_ctrl_dep() in the sighand == NULL
++	 * path of lock_task_sighand().
++	 */
++	smp_store_release(&tsk->sighand, NULL);
+ 	spin_unlock(&sighand->siglock);
  
- 		rdtgroup_unassign_cntrs(rdtgrp);
- 
--		free_rmid(rdtgrp->closid, rdtgrp->mon.rmid);
-+		if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP ||
-+		    rdtgrp->mode == RDT_MODE_PSEUDO_LOCKED) {
-+			rdtgroup_pseudo_lock_remove(rdtgrp);
-+		} else {
-+			/* Pseudo-locked group's RMID is freed during setup. */
-+			free_rmid(rdtgrp->closid, rdtgrp->mon.rmid);
+ 	__cleanup_sighand(sighand);
+diff --git a/kernel/signal.c b/kernel/signal.c
+index 9c2b32c4d755..bbc0fd4cc4d7 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -1362,8 +1362,16 @@ struct sighand_struct *lock_task_sighand(struct task_struct *tsk,
+ 	rcu_read_lock();
+ 	for (;;) {
+ 		sighand = rcu_dereference(tsk->sighand);
+-		if (unlikely(sighand == NULL))
++		if (unlikely(sighand == NULL)) {
++			/*
++			 * Pairs with the smp_store_release() in
++			 * __exit_signal().  It ensures that all state
++			 * modifications to the task preceeding the store are
++			 * visible to the callers of lock_task_sighand().
++			 */
++			smp_acquire__after_ctrl_dep();
+ 			break;
 +		}
  
- 		kernfs_remove(rdtgrp->kn);
- 		list_del(&rdtgrp->rdtgroup_list);
+ 		/*
+ 		 * This sighand can be already freed and even reused, but
+diff --git a/kernel/time/posix-cpu-timers.c b/kernel/time/posix-cpu-timers.c
+index 5e633d8750d1..a7d3e8229c4b 100644
+--- a/kernel/time/posix-cpu-timers.c
++++ b/kernel/time/posix-cpu-timers.c
+@@ -461,6 +461,109 @@ static void disarm_timer(struct k_itimer *timer, struct task_struct *p)
+ 		trigger_base_recalc_expires(timer, p);
+ }
+ 
++/*
++ * Lookup the task via timer->it.cpu.pid and attempt to lock the task's sighand.
++ *
++ * This can race with the reaping of the task:
++ *
++ * CPU0					CPU1
++ *
++ * // Finds task
++ * p = pid_task(pid, pid_type);		__exit_signal(p)
++ *					  lock(p, sighand);
++ *					  posix_cpu_timers*_exit();
++ * sighand = lock_task_sighand(p);	  unhash_task(p);
++ *					  p->sighand = NULL;
++ *					  unlock(sighand);
++ *
++ * In this case sighand is NULL, which means the task and the associated timer
++ * queue cannot be longer accessed safely.
++ *
++ * __exit_signal() invokes posix_cpu_timers_exit() and if the thread group is
++ * dead it also invokes posix_cpu_timers_group_exit(). These functions delete
++ * all pending timers from the related timer queues. The POSIX timers (k_itimer)
++ * themself are still accessible, but not longer connected to the task.
++ *
++ * exec() works slightly differently. The task which exec()'s terminates all
++ * other threads in the thread group and runs __exit_signal() on them. As the
++ * thread group is not dead they only clean up the per task timers via
++ * posix_cpu_timers_exit().
++ *
++ * As the TGID on exec() stays the same per process timers stay queued, if they
++ * are armed. This works without a problem when exec() is done by the thread
++ * group leader. If a non-leader thread exec()'s this can end up in the
++ * following scenario:
++ *
++ * CPU0					CPU1
++ * // Returns old leader
++ * p = pid_task(pid, pid_type);		de_thread()
++ *					switch_leader()
++ *					release_task(old leader)
++ *					  __exit_signal()
++ *					  old_leader->sighand = NULL;
++ * // Returns NULL
++ * sighand = lock_task_sighand(p)
++ *
++ * That's problematic for several functions:
++ *
++ *  - posix_cpu_timer_del(): If the timer is still enqueued on the task the
++ *    underlying k_itimer will be freed which results in a UAF in
++ *    run_posix_cpu_timers() or on timerqueue related add/delete operations.
++ *    If the timer is not enqueued, the failure is harmless
++ *
++ *  - posix_cpu_timer_set(): Independent of the enqueued state that results in a
++ *    transient failure which is user space visible (-ESRCH) for regular posix
++ *    timers. But for the use case in do_cpu_nanosleep() it's the same UAF
++ *    problem just that the timer is allocated on the stack.
++ *
++ *  - posix_cpu_timer_rearm(): Timer is not enqueued at that point, but this
++ *    silently ignores the rearm request, which is a functional problem as the
++ *    timer wont expire anymore.
++ */
++static struct task_struct *timer_lock_sighand(struct k_itimer *timer, unsigned long *flags)
++{
++	enum pid_type type = clock_pid_type(timer->it_clock);
++	struct cpu_timer *ctmr = &timer->it.cpu;
++
++	guard(rcu)();
++
++	for (;;) {
++		struct task_struct *t = pid_task(timer->it.cpu.pid, type);
++
++		/* Fail if the task cannot be found. */
++		if (!t)
++			break;
++
++		/* Try to lock the task's sighand */
++		if (lock_task_sighand(t, flags))
++			return t;
++
++		/*
++		 * The next PID lookup might either fail or return the new
++		 * leader. This is correct for both exit() and exec().
++		 */
++	}
++
++	/*
++	 * If the timer is still enqueued, warn. There is nothing safe to do
++	 * here as there might be two timers in there which are removed in
++	 * parallel and that will cause more damage than good. This should never
++	 * happen!
++	 *
++	 * Ensure that the stores to the timer and timerqueue are visible:
++	 *
++	 * __exit_signal()
++	 *   posix_cpu_timers*_exit()
++	 *   write_seqlock(seqlock)
++	 *	smp_wmb(); <-------
++	 *   __unhash_process()	  |	!pid_task()
++	 *			  ---->	smp_rmb();
++	 *				WARN_ON_ONCE(...)
++	 */
++	smp_rmb();
++	WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
++	return NULL;
++}
+ 
+ /*
+  * Clean up a CPU-clock timer that is about to be destroyed.
+@@ -470,29 +573,13 @@ static void disarm_timer(struct k_itimer *timer, struct task_struct *p)
+  */
+ static int posix_cpu_timer_del(struct k_itimer *timer)
+ {
+-	struct cpu_timer *ctmr = &timer->it.cpu;
+-	struct sighand_struct *sighand;
+ 	struct task_struct *p;
+ 	unsigned long flags;
+ 	int ret = 0;
+ 
+-	rcu_read_lock();
+-	p = cpu_timer_task_rcu(timer);
+-	if (!p)
+-		goto out;
++	p = timer_lock_sighand(timer, &flags);
+ 
+-	/*
+-	 * Protect against sighand release/switch in exit/exec and process/
+-	 * thread timer list entry concurrent read/writes.
+-	 */
+-	sighand = lock_task_sighand(p, &flags);
+-	if (unlikely(sighand == NULL)) {
+-		/*
+-		 * This raced with the reaping of the task. The exit cleanup
+-		 * should have removed this timer from the timer queue.
+-		 */
+-		WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
+-	} else {
++	if (likely(p)) {
+ 		if (timer->it.cpu.firing) {
+ 			/*
+ 			 * Prevent signal delivery. The timer cannot be dequeued
+@@ -508,11 +595,8 @@ static int posix_cpu_timer_del(struct k_itimer *timer)
+ 		unlock_task_sighand(p, &flags);
+ 	}
+ 
+-out:
+-	rcu_read_unlock();
+-
+ 	if (!ret) {
+-		put_pid(ctmr->pid);
++		put_pid(timer->it.cpu.pid);
+ 		timer->it_status = POSIX_TIMER_DISARMED;
+ 	}
+ 	return ret;
+@@ -626,21 +710,17 @@ static int posix_cpu_timer_set(struct k_itimer *timer, int timer_flags,
+ 	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
+ 	struct cpu_timer *ctmr = &timer->it.cpu;
+ 	u64 old_expires, new_expires, now;
+-	struct sighand_struct *sighand;
+ 	struct task_struct *p;
+ 	unsigned long flags;
+ 	int ret = 0;
+ 
+-	rcu_read_lock();
+-	p = cpu_timer_task_rcu(timer);
+-	if (!p) {
+-		/*
+-		 * If p has just been reaped, we can no
+-		 * longer get any information about it at all.
+-		 */
+-		rcu_read_unlock();
++	p = timer_lock_sighand(timer, &flags);
++	/*
++	 * If p has just been reaped, we can no longer get any information about
++	 * it at all.
++	 */
++	if (!p)
+ 		return -ESRCH;
+-	}
+ 
+ 	/*
+ 	 * Use the to_ktime conversion because that clamps the maximum
+@@ -648,20 +728,6 @@ static int posix_cpu_timer_set(struct k_itimer *timer, int timer_flags,
+ 	 */
+ 	new_expires = ktime_to_ns(timespec64_to_ktime(new->it_value));
+ 
+-	/*
+-	 * Protect against sighand release/switch in exit/exec and p->cpu_timers
+-	 * and p->signal->cpu_timers read/write in arm_timer()
+-	 */
+-	sighand = lock_task_sighand(p, &flags);
+-	/*
+-	 * If p has just been reaped, we can no
+-	 * longer get any information about it at all.
+-	 */
+-	if (unlikely(sighand == NULL)) {
+-		rcu_read_unlock();
+-		return -ESRCH;
+-	}
+-
+ 	/* Retrieve the current expiry time before disarming the timer */
+ 	old_expires = cpu_timer_getexpires(ctmr);
+ 
+@@ -698,7 +764,7 @@ static int posix_cpu_timer_set(struct k_itimer *timer, int timer_flags,
+ 	/* Retry if the timer expiry is running concurrently */
+ 	if (unlikely(ret)) {
+ 		unlock_task_sighand(p, &flags);
+-		goto out;
++		return ret;
+ 	}
+ 
+ 	/* Convert relative expiry time to absolute */
+@@ -733,8 +799,6 @@ static int posix_cpu_timer_set(struct k_itimer *timer, int timer_flags,
+ 	 */
+ 	if (!sigev_none && new_expires && now >= new_expires)
+ 		cpu_timer_fire(timer);
+-out:
+-	rcu_read_unlock();
+ 	return ret;
+ }
+ 
+@@ -1018,19 +1082,12 @@ static void check_process_timers(struct task_struct *tsk,
+ static bool posix_cpu_timer_rearm(struct k_itimer *timer)
+ {
+ 	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
+-	struct sighand_struct *sighand;
+ 	struct task_struct *p;
+ 	unsigned long flags;
+ 	u64 now;
+ 
+-	guard(rcu)();
+-	p = cpu_timer_task_rcu(timer);
+-	if (!p)
+-		return true;
+-
+-	/* Protect timer list r/w in arm_timer() */
+-	sighand = lock_task_sighand(p, &flags);
+-	if (unlikely(sighand == NULL))
++	p = timer_lock_sighand(timer, &flags);
++	if (unlikely(!p))
+ 		return true;
+ 
+ 	/*
 
