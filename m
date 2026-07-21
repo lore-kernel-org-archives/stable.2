@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7777D46D2C3
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 19:48:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB70B46F48B;
+	Tue, 21 Jul 2026 19:48:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784663319; cv=none; b=K/FzCI6FU/jjoCxICZ4+hjhFrZrffX41oyHgMh3LLjOrOM1iTYaIaCL97HGeVMNIkDav8YjMjlV/l+4Kj5uitvn/DzTPcLiVMelV9gpSNV5ECq/q6cl4dUpYjkZ3bbJ07T74g+ZX8YwWYEaQ0od2Un62TxLPUj4cmvtJ7IZQga8=
+	t=1784663320; cv=none; b=NgSmqF2pX9CT23fOmqttxvCLKIxtEuRDqiNlDdt0c3YnNgmU6RbUTd0HLlemZ4w99TsKjPVh7MDEvkvqujBMA94kxNzsXo/hYgFPYJQk7+lwYvcacO3T+kQWZF14u0mTofdnwqUKHd5N2xMpbYeNaT+gjZv9VBvDqWpk8ZsScyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784663319; c=relaxed/simple;
-	bh=JiE4Cw+SxDQbFsdaH1LPrxbW0mIR3lpqcavbWPltACM=;
+	s=arc-20240116; t=1784663320; c=relaxed/simple;
+	bh=J2cJFF6YGH94NpYyAH5YQceOtxLEoaMNgew6RmEAiFA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FEXf/FxE7L8tRAPxknghr2W7MBE7ME/Gr8e72NCNECAuccCS23axxpd+jlkVzXk2h+wGiUz55c2QLbCaJMewzifpdEPv2yzkyVNV94esuxnXNzRIkhb6LFiJN2akGBkEF1tyiKQSZQZCOqf+4Cuc/zwndChJSyis/oT234s7tNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mp4dW9EA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MNOdwV4OhueaF6paZAl+DHsF3xvB0NBADls2OQLN431BW+KKaHEPQxxGJRgMpVEcSNC+EGQhoMO/e7EirQ9aqpuB80zrT7+2peRekC1y+Yh6U1LxWdvgJGNkxeoOM10atoD9GS8Yhgs+Y3R7bKA6V0iyn9sI9nJN6HjeK4FoWqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UJRA24Bn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mp4dW9EA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 855D61F00AC4;
-	Tue, 21 Jul 2026 19:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784663318;
-	bh=KLq2tYzHKZeTGA2u/KwooopPvCg+41VjXthFVfYOIkQ=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UJRA24Bn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3F21F00A3E;
+	Tue, 21 Jul 2026 19:48:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784663318;
+	bh=9SbjbJqi3W0NzaZ4XmASCVdlcYjIvuzHkUkvYJNmJzg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mp4dW9EALJBwN6BKrv/dh2TjD+bx8zVvZ+8yWf0UpI4DE9ziOP3GCef7aQtBGr8eg
-	 Q99+Fxt0/0cJXrWNhN9Kjq6+vfi3eiggpcIvMGgGd7J0GqBlnp7vHoDc96b4wFBwTM
-	 ycpaPEDTaYDVwn3VIM8dRv/Z29qVidyEDqxUYzuOwUleVJ1gFwWqDUkAfiGA9OiUBD
-	 5vyKHdltSXe8JNctKlVT/m6GEevHG637hzTbmF4PUjwsM5T5gldt4NRdUMmgDKVDZ1
-	 OzPKWPIrbc/2jSSMf7QL9Ibb2nvRl5U8wmkXrIpP7KZ2f7k6uVZ2mLy4uOdE2UwKiL
-	 1+AdAVdNTJf9Q==
-From: Sasha Levin <sashal@kernel.org>
+	b=UJRA24BnLj3rISi2jQjNEYcC4ZyXwSixcKm5Sz9fqHI1qSH0PfZ6bXCU2dgusNpsH
+	 rS18MoBfKusZ5JzGzuy1qnOMd9yhN0i5CITc/Uk25gCENg5NuII2+KSvOIhxQxDKiW
+	 1EYga+9RfcJLiBhru8mMxPXToCghtrCWjHL/tPQc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Pauli Virtanen <pav@iki.fi>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/5] i2c: core: fix NULL-deref on adapter registration failure
-Date: Tue, 21 Jul 2026 15:48:32 -0400
-Message-ID: <20260721194833.416799-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721194833.416799-1-sashal@kernel.org>
-References: <2026071656-confess-dean-8762@gregkh>
- <20260721194833.416799-1-sashal@kernel.org>
+Subject: [PATCH 6.12 0776/1276] Bluetooth: ISO: exclude RFU bits from ISO_SDU_Length
+Date: Tue, 21 Jul 2026 17:20:19 +0200
+Message-ID: <20260721152503.442989526@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152446.065700225@linuxfoundation.org>
+References: <20260721152446.065700225@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,57 +47,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 2295d2bb101faa663fbc45fadbb3fec45f107441 ]
+------------------
 
-If adapter registration ever fails the release callback would trigger a
-NULL-pointer dereference as the completion struct has not been
-initialised.
+From: Pauli Virtanen <pav@iki.fi>
 
-Note that before the offending commit this would instead have resulted
-in a minor memory leak of the adapter name.
+[ Upstream commit fd076d8deeab6f9f18ef13400f89e1f550df665b ]
 
-Fixes: 3f8c4f5e9a57 ("i2c: core: fix reference leak in i2c_register_adapter()")
-Cc: stable@vger.kernel.org
-Cc: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Stable-dep-of: 158efa411c57 ("i2c: core: fix adapter probe deferral loop")
+slen contains ISO_SDU_Length (12 bits), RFU (2 bits),
+Packet_Status_Flags (2 bits).
+
+Exclude the RFU bits from hci_iso_data_len. Also add masks to the pack
+macro.
+
+Fixes: 4de0fc599eb9 ("Bluetooth: Add definitions for CIS connections")
+Signed-off-by: Pauli Virtanen <pav@iki.fi>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ include/net/bluetooth/hci.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 9e6cd1942e201d..739d9d8cce2216 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -1562,8 +1562,7 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	res = device_add(&adap->dev);
- 	if (res) {
- 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
--		put_device(&adap->dev);
--		goto err_remove_irq_domain;
-+		goto err_put_adap;
- 	}
+diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+index 999ac27050993b..41b4e27a01b9f7 100644
+--- a/include/net/bluetooth/hci.h
++++ b/include/net/bluetooth/hci.h
+@@ -2958,8 +2958,9 @@ static inline struct hci_iso_hdr *hci_iso_hdr(const struct sk_buff *skb)
+ #define hci_iso_flags_pack(pb, ts)	((pb & 0x03) | ((ts & 0x01) << 2))
  
- 	adap->debugfs = debugfs_create_dir(dev_name(&adap->dev), i2c_debugfs_root);
-@@ -1603,10 +1602,12 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ /* ISO data length and flags pack/unpack */
+-#define hci_iso_data_len_pack(h, f)	((__u16) ((h) | ((f) << 14)))
+-#define hci_iso_data_len(h)		((h) & 0x3fff)
++#define hci_iso_data_len_pack(h, f)	((__u16) (((h) & 0x0fff) | \
++						  (((f) & 0x3) << 14)))
++#define hci_iso_data_len(h)		((h) & 0x0fff)
+ #define hci_iso_data_flags(h)		((h) >> 14)
  
- out_reg:
- 	debugfs_remove_recursive(adap->debugfs);
-+	device_del(&adap->dev);
-+err_put_adap:
- 	init_completion(&adap->dev_released);
--	device_unregister(&adap->dev);
-+	put_device(&adap->dev);
- 	wait_for_completion(&adap->dev_released);
--err_remove_irq_domain:
-+
- 	i2c_host_notify_irq_teardown(adap);
- out_list:
- 	mutex_lock(&core_lock);
+ /* codec transport types */
 -- 
 2.53.0
+
+
 
