@@ -1,111 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91F446AA60;
-	Tue, 21 Jul 2026 15:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13CC46AA7B
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 15:35:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784648112; cv=none; b=GrYG/h+TdKJE7+XmyAGeNwwIiP0isVBrl04KHtLpTk4uXPVnVr8Qjr+OLal4c6PninhkjUeILbG0DmnKHRZyl8bOSfyJ2GFTEqh/PD+MXJj0//HfqIw2qlV1yEseGXmU37mLxcMS7n6x9EeN6TGpXOTWr/28OtvJCV8YfL20Mxo=
+	t=1784648113; cv=none; b=uL4TzVn5LKmIhjS2A0Be9M2N8eB6KsilWaA/g7xz0Yo1SEja8E9WFG9d8epRw/g/zI9f7VBcElVACbqz0gQvVpixEXn/hUykUG81xEC5ntZykAG6xFyarLNqCIhLa+olojM2LPqQB4lg6edqo/ejJjJ04Ya23t7KSY526aCUYX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784648112; c=relaxed/simple;
-	bh=zjPF5G0KQEG5c8iJPHd8dUkAVViaZgtAQ3dY+MfOGI8=;
+	s=arc-20240116; t=1784648113; c=relaxed/simple;
+	bh=2+8jG6jI+dimhmqP2ySW3r9WCChohs6wY9fJCohlnbU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OOdoCfQBUlBnCDXsUheA0nGPU31p+OdJyUu2MdIf4CqiQ/wg6mb6ZSz6p9xyKV1sd+cLA54fIhFJwQmB4GQsrZKiAmZPaXflNA8GShpMEwpl4/8ERkhwlv5taGd+IdC4iu1p7ZiRi8y3e/ZT6LPdMDslT7j+OuT1SM+w9fxbIB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M1kwqJ+2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=f4K9qCMURQRKA3xEwUzVYnUHlTm2hyYjgcDdQs9TgxvPe5t4XUQTlHnV0WQmucbHDXYGh1KRcib4KZO9QzWMdaaybITMULzg/Duq7nbLHx7m80sBrYlWD9qg05idOuipKzsSRWNiHd7L2YrMbdLOqkXNi7KKDQQW2b/j9/Flo7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=i+8K7khL; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M1kwqJ+2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5041F000E9;
-	Tue, 21 Jul 2026 15:35:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784648110;
-	bh=smkOcthVLyhxrHwrIRHiSuk0qGi0HzhnaKnyiu7XuGU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M1kwqJ+2iqBsmrIVH900EEsyE/F2IbEN6FSDXhU3SIs1l2mMaVGKtgnZA2ZNaAtne
-	 hwzY79DflSZnkOQECZuzIOMRK0S/UCiKE+Vg/P/HeNKTd2LOBQWbHbXSAgNSiUDhgI
-	 00kKdxN5+M6Gchg0xBCEujbSvOxRlO9CYoVKWK8o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	syzbot+42525d636f430fd5d983@syzkaller.appspotmail.com,
-	Ian Bridges <icb@fastmail.org>,
-	Helge Deller <deller@gmx.de>
-Subject: [PATCH 7.1 0039/2077] fbcon: fix NULL pointer dereference for a console without vc_data
-Date: Tue, 21 Jul 2026 16:55:12 +0200
-Message-ID: <20260721152553.610865880@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-References: <20260721152552.646164743@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="i+8K7khL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=2+8jG6jI+dimhmqP2ySW3r9WCChohs6wY9fJCohlnbU=; b=i+8K7khLSQM5x+z1HmIgDRrawA
+	jrybN/9nH3p41z47UPGjysyvw8xXDvOWueeSGUGI5dCchG6Ea9ez+bSd7J77W/6CRowPHsXKVeuxu
+	GrGPLezvNPuSVjb8CrcOTVHYBLWGqtnkMyga53yLEGPuSm7MXakEQiuAB4QShn9bxqGtRbC128nM3
+	PQX/E947mkBkzMNz2PKWnufzpp1lFgakSas2GSYuzFQbNS5kfePgy9hFMN53kUyIr1RMhEOYcRPug
+	kAfebsmHQ++wYM36N1OySrdorStUVvxF/+TS8/cqIb5aw56xZyJn7z/nf/RV4AWId2D3znZFQAHi3
+	C+7nTzOg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, quentin.schulz@cherry.de,
+ kuniyu@amazon.com, kuniyu@google.com,
+ Heiko Stuebner <heiko.stuebner@cherry.de>
+Subject:
+ Re: [PATCH 6.12.y 0/9] Backport "af_unix: Drop all SCM attributes for
+ SOCKMAP"
+Date: Tue, 21 Jul 2026 17:35:07 +0200
+Message-ID: <7935491.oDFzTOozpa@diego>
+In-Reply-To: <20260718192718.0009-stable-reply@kernel.org>
+References:
+ <20260717172922.3398851-1-heiko@sntech.de>
+ <20260718192718.0009-stable-reply@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+Hi Sasha,
 
-------------------
+Am Sonntag, 19. Juli 2026, 17:00:23 Mitteleurop=C3=A4ische Sommerzeit schri=
+eb Sasha Levin:
+> > This series backports the "Drop all SCM attributes for SOCKMAP" for
+> > af_unix onto 6.12.
+>=20
+> Queued the series for 6.12, and picked up the fix for 6.18 as well,
+> thanks.
+>=20
+> 6.6.y/6.1.y/5.15.y still lack the fix, so backports along the same
+> lines would be welcome there too if you'd like to extend coverage.
 
-From: Ian Bridges <icb@fastmail.org>
+sadly, that is way out of scope for me.
 
-commit 5fae9a928482d4845bca169a3a098789203a1ca4 upstream.
+I did look at 6.6 to see if that would be easily doable, but the number of
+(required) changes adds up quickly, so I stopped quite fast.
 
-fbcon_new_modelist() runs when a framebuffer's modelist changes. For each
-console mapped to it with fb_display[i].mode set, it reads vc_cons[i].d and
-passes the vc_num to fbcon_set_disp(). This assumes a console with a mode
-set has a vc_data, but it can be NULL. fbcon_set_disp() sets
-fb_display[i].mode before it checks vc_data, and fbcon_deinit() leaves the
-mode set after the vc_data is freed. fbcon_new_modelist() then dereferences
-the NULL vc_data.
+6.12 is the LTS I _need_ to look at, but hopefully someone requiring
+6.6, 6.1 or 5.15 will step up.
 
-Keep fb_display[i].mode set only while the console has a vc_data. Check
-vc_data before setting the mode in fbcon_set_disp(), and clear the mode in
-fbcon_deinit(). The existing mode check in fbcon_new_modelist() then skips
-such consoles.
 
-Reported-by: syzbot+42525d636f430fd5d983@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=42525d636f430fd5d983
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Helge Deller <deller@gmx.de>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/video/fbdev/core/fbcon.c |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -1274,6 +1274,7 @@ static void fbcon_deinit(struct vc_data
- 	int idx;
- 
- 	fbcon_free_font(p);
-+	p->mode = NULL;
- 	idx = con2fb_map[vc->vc_num];
- 
- 	if (idx == -1)
-@@ -1445,14 +1446,14 @@ static void fbcon_set_disp(struct fb_inf
- 
- 	p = &fb_display[unit];
- 
--	if (var_to_display(p, var, info))
--		return;
--
- 	vc = vc_cons[unit].d;
- 
- 	if (!vc)
- 		return;
- 
-+	if (var_to_display(p, var, info))
-+		return;
-+
- 	default_mode = vc->vc_display_fg;
- 	svc = *default_mode;
- 	t = &fb_display[svc->vc_num];
+Heiko
 
 
