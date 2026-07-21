@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391093C0617;
-	Tue, 21 Jul 2026 21:34:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0748415F33;
+	Tue, 21 Jul 2026 21:34:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784669671; cv=none; b=LqHXe/6pjOVKz2VZ2iWulI7Gpevvy8wEwKL3o4QdqlFweeLYkQd1joXyJwv0IWIXfxt/pa/pzxC7Jg4hZYTOcZgve3xEROZijyZTq0eHFvYS+o5JFuJtG9lBHFtui/i1JFhXvji9v7Vxw6WILw36UKA6D6Fq+R7Wq0dyFoqkhS4=
+	t=1784669673; cv=none; b=WjORaYoQH1YFlmtepGlF7DgW8w10P04Y/Reb8PI2BDR1HChReh20CZkWJ+xmbpJ5PhN+B/zEn2aQBAZp0fvjb/CeP4wC4zYAToN+YX6Cmkn1O5xdwORjrSiArmBVJFRkvzVJvkh/Ag8yOnoXAxM6QAfAbamSbxVeiPkC5dKr2Lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784669671; c=relaxed/simple;
-	bh=ELcG9J4AtZIMfKBAIzFuPsHJ+3jyeI37BMIM0lIYvx8=;
+	s=arc-20240116; t=1784669673; c=relaxed/simple;
+	bh=gaoGdYhOAJNHQ0lcJtA1ItYELpaMz7Ez7DrEGwkolkg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BXkuWLfnapaDh+2cLffiaf2URuGImwKKYo281j5E9hAsd5t4l25kGZHNg5CSPnYCVeb2M3tJJ/PAKXVA31jSuHC3JHs2aVMCmVeLqtERbaG/lF91xTU1xc43u7sUCjbtCa2v4tWIjCo/fkHrtpLBomNNPJjuKt3TFn84igCet9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RYz8C+LW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mzbS7untdB4Vj7weUem1+yIEOu2lQVE9Ah4F3dBBUFwR5p9AsFdukeCbA+n3kCxhhMlpR3OwUb5k4n0JJ22eicqVLnenLciTI9paLyTwy1rLsYsZ0tKPrLt/LxNn9w4MI1Qlc/kxtVEo+YR4xQ/U5ksMAbYSLE1iDlC9UNsvkw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pRV1Snb7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RYz8C+LW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E2E31F000E9;
-	Tue, 21 Jul 2026 21:34:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pRV1Snb7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F370F1F00A3D;
+	Tue, 21 Jul 2026 21:34:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784669660;
-	bh=y8kEPdYDeS3F1nJYLzG7ARefuIKFHsqOmqt3K9aOOUE=;
+	s=korg; t=1784669671;
+	bh=xyo/2wkoXP+uCL+25sa2WpsFrJx16dKo8mbNvQszLgQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RYz8C+LWSFcupN6gj+nziigLSUUq+v4B6yzXqgDUVqB75D83bRbrangxciZ72uEgd
-	 ZITCkCxEyO/7dXDd9yJQIwK/fL1gMDmjkvaJ05z5kzSPqjgh7bIVBXXls6AJ8nFoay
-	 W0HHQ7i+VmI/CdDeInnCqF9atDFpKyMZiPBZAdTs=
+	b=pRV1Snb7e8Acy08XHRRp1gc0iHak95vyBud5cp1mrK+FXSo8aXt2t2CIm5GFtW+/F
+	 +2OYhiZh7HU7YIhkgDukmGIhYCI6nO9f9F0t1DTeV8OiMHqSo+h6AhaPosFGYXyEsG
+	 p+RQWRDHBDNE5d0oNdNYc7kxYoPUX4L3rKNFNQJA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0638/1067] ipv6: fix error handling in forwarding sysctl
-Date: Tue, 21 Jul 2026 17:20:39 +0200
-Message-ID: <20260721152438.866530675@linuxfoundation.org>
+Subject: [PATCH 6.1 0642/1067] rtc: cmos: unregister HPET IRQ handler on probe failure
+Date: Tue, 21 Jul 2026 17:20:43 +0200
+Message-ID: <20260721152438.953629110@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
 References: <20260721152424.521567757@linuxfoundation.org>
@@ -53,56 +51,61 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Fernando Fernandez Mancera <fmancera@suse.de>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-[ Upstream commit 058b9b19f9639fe1e1225a17c540f61b65bee6ad ]
+[ Upstream commit a5bb580df018b5d1c5668f05f7979044fb19e23a ]
 
-When writing to the forwarding sysctl, if proc_dointvec() fails to parse
-the input, it returns a negative error code. The current implementation
-is overwriting that error for write operations.
+cmos_do_probe() registers cmos_interrupt() as the HPET RTC IRQ
+handler before requesting the RTC IRQ and registering the RTC
+device. If either request_irq() or devm_rtc_register_device()
+fails afterwards, the error path leaves the HPET RTC IRQ handler
+installed. This leaves a stale handler behind and make a later
+hpet_register_irq_handler() fail with -EBUSY.
 
-This results in a silent failure, it returns a successful write although
-the configuration was not modified at all. When modifying the "all"
-variant it can also modify the configuration of existing interfaces to
-the wrong value.
+Track whether the HPET handler was registered successfully and
+undo the registration on the probe error path. Also mask the HPET
+RTC IRQ bits to match the normal shutdown cleanup.
 
-Fix this by checking the return value of proc_dointvec() and returning
-early on failure. In addition, adjust return code of
-addrconf_fixup_forwarding() for successful operation.
-
-Fixes: b325fddb7f86 ("ipv6: Fix sysctl unregistration deadlock")
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20260622130857.5115-4-fmancera@suse.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 9d8af78b0797 ("rtc: add HPET RTC emulation to RTC_DRV_CMOS")
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Link: https://patch.msgid.link/20260623100848.2127281-1-haoxiang_li2024@163.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/addrconf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/rtc/rtc-cmos.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 7994b93ccaed9f..db66a8f1e16885 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -916,7 +916,7 @@ static int addrconf_fixup_forwarding(struct ctl_table *table, int *p, int newf)
+diff --git a/drivers/rtc/rtc-cmos.c b/drivers/rtc/rtc-cmos.c
+index 1442c629d0d550..47799baa32d760 100644
+--- a/drivers/rtc/rtc-cmos.c
++++ b/drivers/rtc/rtc-cmos.c
+@@ -928,6 +928,7 @@ cmos_do_probe(struct device *dev, struct resource *ports, int rtc_irq)
+ 	unsigned char			rtc_control;
+ 	unsigned			address_space;
+ 	u32				flags = 0;
++	bool				hpet_registered = false;
+ 	struct nvmem_config nvmem_cfg = {
+ 		.name = "cmos_nvram",
+ 		.word_size = 1,
+@@ -1078,6 +1079,7 @@ cmos_do_probe(struct device *dev, struct resource *ports, int rtc_irq)
+ 						" failed in rtc_init().");
+ 				goto cleanup1;
+ 			}
++			hpet_registered = true;
+ 		} else
+ 			rtc_cmos_int_handler = cmos_interrupt;
  
- 	if (newf)
- 		rt6_purge_dflt_routers(net);
--	return 1;
-+	return 0;
- }
- 
- static void addrconf_linkdown_change(struct net *net, __s32 newf)
-@@ -6279,6 +6279,8 @@ static int addrconf_sysctl_forward(struct ctl_table *ctl, int write,
- 	lctl.data = &val;
- 
- 	ret = proc_dointvec(&lctl, write, buffer, lenp, ppos);
-+	if (ret)
-+		return ret;
- 
- 	if (write)
- 		ret = addrconf_fixup_forwarding(ctl, valp, val);
+@@ -1127,6 +1129,10 @@ cmos_do_probe(struct device *dev, struct resource *ports, int rtc_irq)
+ 	if (is_valid_irq(rtc_irq))
+ 		free_irq(rtc_irq, cmos_rtc.rtc);
+ cleanup1:
++	if (hpet_registered) {
++		hpet_mask_rtc_irq_bit(RTC_IRQMASK);
++		hpet_unregister_irq_handler(cmos_interrupt);
++	}
+ 	cmos_rtc.dev = NULL;
+ cleanup0:
+ 	if (RTC_IOMAPPED)
 -- 
 2.53.0
 
