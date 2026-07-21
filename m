@@ -1,45 +1,47 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 04BD8433055;
-	Tue, 21 Jul 2026 07:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21512AD2E
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 07:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784619390; cv=none; b=hCoL2uW33r/RInqcyv0ZH7sDgvd/Sf3yL22bD8eEH6Ik4OxM9ZEKUXwffNY5YY3BEnhEluk9GvY7yCw26hQG/qhIBkn0D71YS0LOR3DWcRWNf9pVNiUCHPeB6ogvD5/6puj5JMGI86xEW7o8KwtvwxPKiww7LWn7+WY4cWMVmVg=
+	t=1784619761; cv=none; b=gbfQSkJhOEydCWrvoSHhKguMDNkIktl9EWYMpZ5VolGC6dQpFkBk4oOmNZCahfblWhm5/eUgxnCoFrQRpTP+RBOK6sa7xran8rUQX9PaFopoL5IoCpGi6oWj8vjm1Ka/EdLrg+5AWvtZhpoTl3r57eAufCky54l3TwlqCgHbxKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784619390; c=relaxed/simple;
-	bh=Iv0AT2dhFmIxRsUgpYTSV9dCsy6ufgLF3smNBcHBA6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p9f7byBLDW5MsH2cAJPuDYBx/L6qQrWmCUY4zD5SQk/lYBkfUChswchT8GyFxXQyQcwvC8QBkqm/B+RYzqPtDcqrDXECmaQOyA57s/Irz56F9/8ryZ9N6CTnGKMRuZT6f/D/CSFZYvZwr9ZcEAMISKLFj/jKvy+VAjc95Bw6UPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=JPakA6HY; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1784619761; c=relaxed/simple;
+	bh=xaSsds/GVwzxpze99+O2ofEty2QqsTOZhHKP38Rc6ho=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R8yy6Ce0SOkQeG4njRoqvmMkJ1MgtizxcFcsacMjHHTyZTlPBbjR99Qe1TPv5scwIAi1EdcmD5YwBklY86tzIQmW3c5LPXAWQd7wnRGKwHoClzWz2tahtgSoHM+d8m24HKnPfIYma5EQtpWGU6H3xc7QhoBKn2/xipzSndq5OHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQCk87Df; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="JPakA6HY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=5x1rA2f2vH
-	eEloH8tmOOyMnyiRwuDQwFcjZOP1sZT1A=; b=JPakA6HY7ppl95cwipIyOPYLDe
-	IebksX2t7jlCYJ9d2mKL1+/yKNziHF6dqvRU2laHhFZqOH2E1ilkInpxv4ZfnTuJ
-	pEeyR3mCVU97vFjVx4kGHq/kS/6rz0lIavSVNJ/7e/jr84qtcwSmhLC6h4W+BZZq
-	Sujzmktxn9Sap37Dc=
-Received: from ur-dp1000 (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUKJIV9qSWgUAA--.17346S2;
-	Tue, 21 Jul 2026 15:36:41 +0800 (CST)
-From: Xie Bo <xb@ultrarisc.com>
-To: Anup Patel <anup@brainfault.org>
-Cc: Atish Patra <atish.patra@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Xie Bo <xb@ultrarisc.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] RISC-V: KVM: Serialize IMSIC attributes with vCPU migration
-Date: Tue, 21 Jul 2026 15:36:12 +0800
-Message-ID: <20260721073612.137259-1-xb@ultrarisc.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQCk87Df"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F90C1F000E9;
+	Tue, 21 Jul 2026 07:42:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784619759;
+	bh=RgH5pmGbrpcA2vczzLvjRSGJQVZuqKv3XplTCWhumwY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kQCk87DfeNcDhTYxUfWENXYsfxZfn4+D28sbG1/Q3VZipZAL9V6ByX62Vg1Gt94/m
+	 YZSzEgJx/1gnH8O0SW+rpcpadwTk6oqbsB+O0NLUMpx47xToQrj9JWx/n7aMuzUlio
+	 RBGKeGlUVLbyMWixm8jbarfw+EzvY9C3f4sSXYQ08hwtQuYK9eSFwEnMr70d1UMXEV
+	 zq4jmARlAdk/AJXVA8hc0gzu9NmXCzr5y4YrV+NKQHS248sAc04ESQJ+8A+jxrIdaE
+	 PT+HmmlJwyTnK7xgp2g9aywOj5uGnXzxCp2U6Ia3bZxwNfz/mfqBA1NOttWlfjxW/B
+	 pWu9mFNS2Fjfw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wm57d-000000076rY-1sqo;
+	Tue, 21 Jul 2026 07:42:37 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: stable@vger.kernel.org
+Cc: Will Deacon <will@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Subject: [PATCH 6.6.y] KVM: Move kvm_io_bus_get_dev() locking responsibilities to callers
+Date: Tue, 21 Jul 2026 08:42:34 +0100
+Message-ID: <20260721074234.2609204-1-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026072006-diameter-prenatal-cecf@gregkh>
+References: <2026072006-diameter-prenatal-cecf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,73 +49,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAfwAnYUKJIV9qSWgUAA--.17346S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7trW8uw4xAryxJF1DGFy3Arb_yoW8WFWrpF
-	4FkryFkryrAw1xZ39Fqw4kWayvkrnY93WYgr4Iga1fArs5JwnY9rn3urWjgF15GFykZFnF
-	yF1rCF9YkFWUXaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQAOB2pdm1EAHAAEst
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: stable@vger.kernel.org, will@kernel.org, oupton@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-KVM device ioctls are not serialized against KVM_RUN. As a result,
-kvm_riscv_aia_imsic_rw_attr() can snapshot the physical CPU and HGEI of
-an IMSIC VS-file before a concurrent vCPU migration releases it.
+kvm_io_bus_get_dev() returns a device that is only matched by the
+address, and nothing else. This can cause a lifetime issue if
+the matched device is not the expected type, as by the time
+the caller can introspect the object, it might be gone (the srcu
+lock having been dropped).
 
-The HGEI can then be allocated to another vCPU before imsic_vsfile_rw()
-uses the stale tuple. A GET or SET attribute may consequently access the
-new owner's interrupt file.
+Given that there is only a single user of this helper, the simplest
+option is to move the locking responsibility to the caller, which
+can keep the srcu lock held for as long as it wants.
 
-Serialize the entire IMSIC attribute operation with the target vCPU
-mutex. This prevents the VS-file from being migrated and recycled until
-the attribute access completes.
+Note that this aligns with other kvm_io_bus*() helpers, which
+already require the srcu lock to be held by the callers.
 
-Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IMSIC")
+Reported-by: Will Deacon <will@kernel.org>
+Fixes: 8a39d00670f07 ("KVM: kvm_io_bus: Add kvm_io_bus_get_dev() call")
+Link: https://lore.kernel.org/all/20260626111344.802555-1-maz@kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Xie Bo <xb@ultrarisc.com>
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/20260627105105.1005990-1-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+(cherry picked from commit 3a07249981629ace483ebbef81ef6b34c2d2afec)
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- arch/riscv/kvm/aia_imsic.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/arm64/kvm/vgic/vgic-its.c |  2 ++
+ virt/kvm/kvm_main.c            | 16 +++++-----------
+ 2 files changed, 7 insertions(+), 11 deletions(-)
 
-diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
-index d38f5de08..2a4f88efe 100644
---- a/arch/riscv/kvm/aia_imsic.c
-+++ b/arch/riscv/kvm/aia_imsic.c
-@@ -969,9 +969,13 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
- 	if (!vcpu)
- 		return -ENODEV;
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index c53186d84869b..c8d180b80abdf 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -713,6 +713,8 @@ struct vgic_its *vgic_msi_to_its(struct kvm *kvm, struct kvm_msi *msi)
  
-+	mutex_lock(&vcpu->mutex);
+ 	address = (u64)msi->address_hi << 32 | msi->address_lo;
+ 
++	guard(srcu)(&kvm->srcu);
 +
- 	imsic = vcpu->arch.aia_context.imsic_state;
--	if (!imsic)
--		return -ENODEV;
-+	if (!imsic) {
-+		rc = -ENODEV;
-+		goto out_unlock;
-+	}
- 	isel = KVM_DEV_RISCV_AIA_IMSIC_GET_ISEL(type);
+ 	kvm_io_dev = kvm_io_bus_get_dev(kvm, KVM_MMIO_BUS, address);
+ 	if (!kvm_io_dev)
+ 		return ERR_PTR(-EINVAL);
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index c2bcd9e6d1d51..b83f7612f2506 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -5643,25 +5643,19 @@ struct kvm_io_device *kvm_io_bus_get_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+ 					 gpa_t addr)
+ {
+ 	struct kvm_io_bus *bus;
+-	int dev_idx, srcu_idx;
+-	struct kvm_io_device *iodev = NULL;
++	int dev_idx;
  
- 	read_lock_irqsave(&imsic->vsfile_lock, flags);
-@@ -995,6 +999,8 @@ int kvm_riscv_aia_imsic_rw_attr(struct kvm *kvm, unsigned long type,
- 		rc = imsic_vsfile_rw(vsfile_hgei, vsfile_cpu, imsic->nr_eix,
- 				     isel, write, val);
+-	srcu_idx = srcu_read_lock(&kvm->srcu);
++	lockdep_assert_held(&kvm->srcu);
  
-+out_unlock:
-+	mutex_unlock(&vcpu->mutex);
- 	return rc;
+ 	bus = srcu_dereference(kvm->buses[bus_idx], &kvm->srcu);
+ 	if (!bus)
+-		goto out_unlock;
++		return NULL;
+ 
+ 	dev_idx = kvm_io_bus_get_first_dev(bus, addr, 1);
+ 	if (dev_idx < 0)
+-		goto out_unlock;
++		return NULL;
+ 
+-	iodev = bus->range[dev_idx].dev;
+-
+-out_unlock:
+-	srcu_read_unlock(&kvm->srcu, srcu_idx);
+-
+-	return iodev;
++	return bus->range[dev_idx].dev;
  }
+ EXPORT_SYMBOL_GPL(kvm_io_bus_get_dev);
  
 -- 
-2.54.0
+2.47.3
 
