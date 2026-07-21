@@ -1,116 +1,106 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2DD3F8245
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 14:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CF9184A2E2D;
+	Tue, 21 Jul 2026 14:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784644916; cv=none; b=ZyCzgGiQSuPlCBfCPC2YPnnpQv6M42DfcfMZEB1rH2ObU8TMBeotKapWF6RcInUiQ9P7Dwp/bBVoQae3LF1OvzTEdXiNELP9CWEimJaqd5UU12ZwCFZhyIj9yEyBJF68b5r17DH7EkAJCwn+eRdYhZx6NUOXSIzzPKAJ8mM9SHA=
+	t=1784645309; cv=none; b=HsY6S6gnDYFq1KX5RSNrmrjJxM9V2KtQsEYvAIwh+A2yZKxWyHIT/2bh+/h6K3aMDsLNxICgaRdeYcyRQAAArrrWodCfRew2tRc87YYMDRrj3tJ4joWUQxNJYwTTwt+POyEsgfC2VfI8dSZhV61LO4tAsXgqy8Oq0dkuVo8oqFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784644916; c=relaxed/simple;
-	bh=4/VXWgsIRIKfrVHunlg8WMDRE+QLI3xVo05RjJxnkwE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ucca0n3MlIUf/oerEWnLf46zPy92ll5jePLr+zSpa/0acrb86naxhY7wnfd81EMxh0D2b9/APOaZzG6zIj58BRNoQnph6z5RJl+Apj7DLlTMUjAfC0YOqui+13OQCW+SY+QLPi1y+ZiJp80M4SW7M3MWs3tWjnvHALvRVN7b68Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5D+ev3T; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5D+ev3T"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-845c92bc464so7087738b3a.2
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 07:41:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784644915; x=1785249715; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YAwfc5iFE/E+WtAWO7/fCyQvb8Oo2HFdE/v5P8GpI9A=;
-        b=V5D+ev3TFS8adlNMISbPmTPOjrVQBd7yQhzN4yxinPOadXIxMCv5AeOUElfaXhbKmO
-         D5m7JyDpEitvl2WRi+7LlkgFnlwfod8o59F54Z1osD04+55+El5dGw31h3LoKZzT83Xq
-         /B9iXPj99a6G215x8ZTDoTBDlA+gW778IypZ0wK0rkZD8CX6cOls5VkntaEAk4ynzmvq
-         V4Yas/Xm3uv7fIZoO5Q4MWzJ6o6ESBS/RFgNlrC56tzmo4IWHSvq9DHsa3CCstdWiDwC
-         PTK/3ZZqeYUPKBBRx4gtb3HtOZ1FnTr5ZJzShL1qpSleTiwmEAI3jRTyaVkQw8gXsGdC
-         4law==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784644915; x=1785249715;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YAwfc5iFE/E+WtAWO7/fCyQvb8Oo2HFdE/v5P8GpI9A=;
-        b=Jkrtsqqad2kTskg4xQMHih0l9NvMwu9TZ8rwijgFTDEaTtoVAIYvVcX/Ows7sRrmIq
-         dR9j+LV750RCga6vTd6P2d/10Wd0Wqw1FCjzqyg0x/GlYyPWo1T+FAEo5k8rp8Jleai0
-         S2juBftrqsInfyaLGkU2d6eRd5W72M1nqAfZ5TDWYzfPIAcyN24aB9PuqMJbI3re6eUl
-         kVKNwa3i3ww2c2nY8n13UR/6Jsn/kcqkQDsWS3rJtHcpM7rYYZt6NtQQri/KXliMmbJV
-         qofURwN9vPBJo9ra7bgnyNN8dIUdlGSj0c9VIb2EnRZtQyFnINUiukwD/jvMBICxwN33
-         gu0Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrZacYbc7EuCIT5qNLiiKBs0s3oQGZY0DPvFhJUCHEeonuHvtw26byqt49p8H4gfXxDLhup5oE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLbUQ8axglHCbxZHYq4bIgPtGjtB12AbFg7HBbwriZK3pJfNoM
-	cKeI2rtJMqtJLSycxFSR49/TyByP4bMigbg7KmjCsIs4FmUvtuSXJpo=
-X-Gm-Gg: AR+sD10iAt6O0uLyH4uq8B/5iuQsVXHZOsi454QFx+3eZ79nKQJjUe96kRJzHeixV1i
-	reusWsDG2pYukxtffnF1y8aYalabtPat7HDXmPTeSSk3H3vsb6s05th7DL0jo+rho4I/2x9lzUA
-	fyjhedwG88aXdOKsoxshoaK95m6DOLHHZTaTbNcT1k9OHhKpnxHlCsSeUCp4mRJ7cRtLzAwnef4
-	RVa+T3eNVh/v8lYHeaC+8oOV0paO4UNlaf7JEhX/esPzs+FGnWjK8feF5tPILOrVYSEvP9ZBUVj
-	zDFidoFearX6ek+o+cmz5WWPpGOnfCuU00A9Q625fx5UoglWIFtnG/yjSvjLBEq0mSlZTZtXW19
-	+3vZX76wcljMHelp69Z4MVvnP7i9lmS5xru7sX37JDE8/2ljFsb6jgNRoS8hINapVfi062v+kY3
-	VbYEJ9ePAevq6dbwVKDBJuxVXtPMOnFLjB5v8LrWT+44o3Oo3PuGHbfVQQhOyEMjkrjbQCnBWG+
-	mPY7eO7WGCj/wS0FMnLynl9iBLNUn2Z8qKyhhh2
-X-Received: by 2002:a05:6a00:1c82:b0:845:c6fc:2821 with SMTP id d2e1a72fcca58-84c292a3dc9mr19309918b3a.22.1784644914563;
-        Tue, 21 Jul 2026 07:41:54 -0700 (PDT)
-Received: from localhost.localdomain ([14.5.152.27])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84c2adcc78asm7649075b3a.23.2026.07.21.07.41.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 21 Jul 2026 07:41:53 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Elie Morisse <syniurge@gmail.com>,
-	Shyam Sundar S K <shyam-sundar.s-k@amd.com>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] i2c: amd-mp2: Unregister callback on adapter add failure
-Date: Tue, 21 Jul 2026 23:41:47 +0900
-Message-Id: <20260721144147.31150-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	s=arc-20240116; t=1784645309; c=relaxed/simple;
+	bh=M6PUUG9um/n1vJEIfyj77W2zsTnAQYi3uaxcpP5nfWA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=P/Y+E+STn0SjkMvY5I0vrBtJoYpa1WplIjSz3/UOfox9SN68SOJHySRgb0LPhySmvMaZrerZ0b2152A8CAZqi8L4pu59U3FN6J5t12W9iIjQTCj7G8MOhqRl3w0kCg8INgwaQk69vbvwrFb5LBRrwBuNqlhPvZ+hMmKEaDwEig4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.97.49.238])
+	by mtasvr (Coremail) with SMTP id _____wDXZTWqhl9qe+AjAA--.61812S3;
+	Tue, 21 Jul 2026 22:48:11 +0800 (CST)
+Received: from smtpclient.apple (unknown [10.97.49.238])
+	by mail-app3 (Coremail) with SMTP id zS_KCgBnf3Gphl9q0ONoAw--.53334S2;
+	Tue, 21 Jul 2026 22:48:09 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH] usb: typec: ucsi: acpi: Fix use-after-free of ucsi on
+ remove
+From: Fan Wu <12321260@zju.edu.cn>
+In-Reply-To: <al8thH8aWmMOUuAZ@kuha>
+Date: Tue, 21 Jul 2026 22:47:59 +0800
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <F4203724-2CD7-446A-B766-79015B8E37B2@zju.edu.cn>
+References: <20260718021142.3146566-1-fanwu01@zju.edu.cn>
+ <al8thH8aWmMOUuAZ@kuha>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-CM-TRANSID:zS_KCgBnf3Gphl9q0ONoAw--.53334S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?e5QFjgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WN0Q2EU//07hLCuQFu1C4kxAHgw0980SEoSzNLBCaa4RYmd
+	4elvWv+U/t0OrYkVm5qp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Ary3Xr18JF45WF4xXr1DurX_yoW8GF1fpa
+	y3K34fArWUGF4Sga9xZF4fCFy7ur97Jr4jkr15J345Aws8GF9a9rs7K3y5uFyxZrs5ua1Y
+	qw45Zw4xuayjywcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-amd_mp2_register_cb() stores the platform I2C context in the MP2 PCI
-driver's callback table before the adapter is registered. If
-i2c_add_adapter() fails, probe returns and devres frees the context,
-but the PCI driver can still dereference the stale pointer from its IRQ
-and system-sleep callbacks.
 
-Unregister the callback before returning the adapter registration error.
 
-Fixes: 529766e0a011 ("i2c: Add drivers for the AMD PCIe MP2 I2C controller")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/i2c/busses/i2c-amd-mp2-plat.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> On Jul 21, 2026, at 16:27, Heikki Krogerus =
+<heikki.krogerus@linux.intel.com> wrote:
+>=20
+>=20
+> I don't think this is enough. You now create a window where the ucsi
+> is unregistered, but you can still call ucsi_notify_common(),
+> ucsi_connector_change(), etc. So you'll end up with even more =
+problems.
+>=20
+> If I understood correctly the long explanation (I'm guessing generated
+> by gpt-5.6), the problem is that ucsi_unregister() disables the
+> notification, but it does not flush them. My proposal is that you fix
+> that by setting the ua->ucsi to NULL after calling ucsi_unregister()
+> and then always check it in ucsi_acpi_notify(). You probable also need
+> a lock for that.
+>=20
+> thanks,
+>=20
+> --=20
+> heikki
 
-diff --git a/drivers/i2c/busses/i2c-amd-mp2-plat.c b/drivers/i2c/busses/i2c-amd-mp2-plat.c
-index 188e24cc4d..9fdd6a5fb8 100644
---- a/drivers/i2c/busses/i2c-amd-mp2-plat.c
-+++ b/drivers/i2c/busses/i2c-amd-mp2-plat.c
-@@ -316,8 +316,10 @@ static int i2c_amd_probe(struct platform_device *pdev)
- 
- 	amd_mp2_pm_runtime_put(mp2_dev);
- 
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(&pdev->dev, "i2c add adapter failed = %d\n", ret);
-+		amd_mp2_unregister_cb(&i2c_dev->common);
-+	}
- 
- 	return ret;
- }
--- 
-2.47.1
+Thank you, you are right. The proposed reordering does not protect the
+connector state freed by ucsi_unregister(), while the notify handler can
+still enter ucsi_notify_common() and ucsi_connector_change().
+
+I also see that simply serializing the handler with ucsi_unregister()
+could prevent pending command completions needed by work being cancelled
+there. Thus, a driver-local reorder or NULL check alone is not =
+sufficient.
+
+I will drop this patch and investigate the appropriate synchronization
+scheme. Do you have a preferred direction: should this be handled by a
+core-UCSI quiesce interface, or by a transport-side locking protocol?
+
+thanks,
+Fan=
 
