@@ -1,161 +1,145 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C033D4611C7;
-	Tue, 21 Jul 2026 10:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F72481A8B
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629479; cv=none; b=sFiu+Wp31Ofk0tghNIpMPR/whO74pyDGOhLKwswWG7EWPzf1p7RQ7CjWJE+KKlH+1+ANmIlgIUAHkfSRiTpTfDoSAGWRjq8A4zK4p8xNRf2ugCY7n4NzFrNAkB5DBi9/Yg/JYjT+sv1c2lrDdET7MBNlDRzZ57D8/YFOXB8glB0=
+	t=1784629715; cv=none; b=jFnT8LRdiKVDSwF+FjXACFmWAXdmueXakJiFVl3sNxhrCTCpC93eo+vu25+IpJS3HIPegZKT1c9FlB+9CTrp0ioq1ddDqF3XiFYvDw//CFbCqVVVwjTnUtByXfRyjbXFXTnrygVKw4maT2hTQEEIUqCXrawkdmPlF5Pnxf7si7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629479; c=relaxed/simple;
-	bh=w+QCs7/PtircRe0e6UhnPZUwxnm+QR57pLfRt5nVixc=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=V4rHxKdorq5GP14rLJsPMjcRtMRyz9blziXxAX8TXQO2RKzq0RTHmmTqhON5dXZaKBCwSY15YRyETv/YvvQqHuvaImHMDRMklGn711QZvRjEpiElLGGNCsK6rE/SNreelw5GJHID7qgq4Xukjx3lkhttK71mwqaNwnY3Pamkw9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VUlOJL1T; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784629715; c=relaxed/simple;
+	bh=rxE672ury9tWTdjh2fA+6R5h3E2l5Y7B22DohOut5Hk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TnigXqk6GTQWEJQJJ2TXkZ/khZhL7UyjxwkuzX+u5CDsazGEDDyyR8PgkSFK4W3p3geBklVEDaV/MDyPixyEuxMu+Y33Cy5OdpTenrzbr1H+bOaoiXOjlPjUrIGH5+vI7l5z4G/0sYto7i+BBiNVbxOxyeTonJ+adWACccyD5DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MYMXDmAH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SylRphOL; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VUlOJL1T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784629478; x=1816165478;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=w+QCs7/PtircRe0e6UhnPZUwxnm+QR57pLfRt5nVixc=;
-  b=VUlOJL1TK2qCyDc2a3ND5kEt79P5rk1BB+s9eVb4BF6zxcQ2vkCEHwak
-   cbAuuZZsjcBfuW5Hfwv9JAcoQyK3s7RG3QTMqbh33l+KYt//f6JPMEOhC
-   5pZg1ikpHCawJ2T93onejOdp/WYFFxLqoIUIkCKZD0q+BILRwSzWs4Zlv
-   Ljz7BXe/pxj6Psu2c1Ex5LPm3+aYJI2QczhiGJTHoWaf+sZAJGl40bZFE
-   8/DfgrTk0BLrNIjqjQSZBIlXNfJlKUEheLLdMyJCkWkIZF7LtNnuqIDsE
-   19KbidFvI9w0h6EQQCPttSVrWaV4OrYffuk13O46GvuKAtEmRqsMqNyr/
-   g==;
-X-CSE-ConnectionGUID: fzDv+01JT0uQY5yUh2+03g==
-X-CSE-MsgGUID: XPC9/9/UQvqMrgfKctuj0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85241951"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="85241951"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:24:37 -0700
-X-CSE-ConnectionGUID: Y848cS0WS2+OJshr3DIcWg==
-X-CSE-MsgGUID: BECveOkhT2av94s5AcAK1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; 
-   d="scan'208";a="295931620"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 03:24:35 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 21 Jul 2026 13:24:32 +0300 (EEST)
-To: Mario Limonciello <mario.limonciello@amd.com>
-cc: Hans de Goede <hansg@kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-    "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>, 
-    Francis De Brabandere <francisdb@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] platform/x86/amd/pmc: Fix error handling in
- amd_stb_s2d_init()
-In-Reply-To: <20260717162023.956346-3-mario.limonciello@amd.com>
-Message-ID: <54655f38-edf4-e756-e24c-5f4cb041d63c@linux.intel.com>
-References: <20260717162023.956346-1-mario.limonciello@amd.com> <20260717162023.956346-3-mario.limonciello@amd.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MYMXDmAH";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SylRphOL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784629712;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=E1MIb1SYEneoGIcT7yLYFlL1UIRAz+KVXytnxrYIFiM=;
+	b=MYMXDmAH+257Grln1H0GrimnrZCzj4PokVlqyvdmaOrj1ykX5/+Ujko0cQLJxdRTU8WOZw
+	GQSJ9wb/KmEhEt/1T3xkHOiJd4R6aOnq2P0U7FHcgIhr2e3A9hPzHzXyBa/2KBVxLaQHt5
+	WSUG8dY/AH7iaIiI8dBV2e44+RJnavs=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-577-qW6_yS7bMQOtn3Hu0Y74Fg-1; Tue, 21 Jul 2026 06:28:30 -0400
+X-MC-Unique: qW6_yS7bMQOtn3Hu0Y74Fg-1
+X-Mimecast-MFC-AGG-ID: qW6_yS7bMQOtn3Hu0Y74Fg_1784629710
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47162f83c75so2923834f8f.1
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 03:28:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784629709; x=1785234509; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E1MIb1SYEneoGIcT7yLYFlL1UIRAz+KVXytnxrYIFiM=;
+        b=SylRphOLjQ5+xSK5K+oYgvB2qRZk5BjGY+fTW3t0gV4DrA4liifFo/68OgPsZJbwgX
+         TANllWDn0o4tGor6LuMesJDyPAFsLi85wLYJeC9AlbrBdtcg88rna5i/Ta0h+PLwS2GS
+         gtZGJguWi6lh8HXGlJNVQQTwF9ddWvLYgN4nkpy2dhWfKGSS3c5NKpf+2gAKL1UQLd5C
+         K5lHRKalrwFTL5R7QxN3CoEIC8H3qYH/O9HloPJfcbZ9rLqhEKBAeC+RrDZsu1e5hBGr
+         +lmN1MzdG5cErcspqVkQ6FEBHyogqefp3bHoWEevZ6OL4vpzw3SxWemYpPxDmNC4FVjr
+         h/Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784629709; x=1785234509;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E1MIb1SYEneoGIcT7yLYFlL1UIRAz+KVXytnxrYIFiM=;
+        b=Fnsa9SkKQClNE1X2XCR1YCqu6huK26hQGv3cdU0q1jhMBJXnCGC25KQvz8hSTNk5T5
+         p+DUqWKXWsmIC1oEwtcA23W0NUxJ4tgDyaVloxYdFOxcQMTUhWBD+BEWOiXZSNjzGtkJ
+         LF20n7OMs12VBijx0ENaqcdybsJvaHFehOTOaOgVibej6tga63rBcuKCofLZjtiws0W+
+         Nyey2b7MKS4tEBcGMOWMKR1ITysfvl4fHF8dp9fXPY2bxq2+uB3eFZhGazu5U61ZmGVE
+         FrxdOus44nDxbnSYqLZ0CN95P6WwZaoyLjBOM19d6q9h76WSOhhPXiEVvQxWP49xC70x
+         Ew+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoDCDqlinaLuHUDNURHyKv6qQLSRKkJSwIwPxHdLfhobDSovqszH3ZlaMXQvpPbJIpogtxsCgo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YylLw31TakGIuuGMiSa5NGBH/HGu7ObpeaiYxpXu1Lp6X4Cjpf0
+	wEFKNcGn4WlvAjJGjVgb+eoZToxPagApM9XxOdjpb9lnXvB2n2An55zIYGfEbLqgdf40AiH46FQ
+	3PlT8tmvzWcMlmL179ZpF642ltrg7kAIeiqyShfPdIpEXlEjvSb/8JNcWEg==
+X-Gm-Gg: AfdE7cn04+NyeFpYUmA/p0kUcxgLmGGcr06SfLT2rdDl2LS+KCZhOqDuYKq+jDRFpRJ
+	OVLskI0otEfoGg60+xFqKsh1E5ianzXnkqd3gS9Ap5q+/n4KwSRbr6aXmVkwv6F2udyEi4T5kvs
+	lX+XWzAkv7NVcpndAajtyb7+iAOuFsh4tz9wyw1VSycNy5/USuMU1HvJWH7Mo7t7PLRMSg+GWic
+	XY+rBrpDoxokE2BeDfwMw9AweHuBYNkhAaUsyzUEPDF4rM/vr9FntGMEmN5XnqfFiLsAJZavXSh
+	A/64EXeCsujPFz8BRBZpTiYcb1s2Zz3D/f2y8NXT9XXX+PxVGqeowZhbvdZmEEbevgUrjJcyeGw
+	8a1UL85iZ/Mw6MZhGSJgv4DD3MX1EjhqNa/NxE0FpUImXljv24rrOxc2V9hc79uVx2VUSjPITy+
+	z8Ifz1
+X-Received: by 2002:a05:600c:4f0e:b0:495:4f84:7280 with SMTP id 5b1f17b1804b1-4954f847354mr171614905e9.4.1784629709485;
+        Tue, 21 Jul 2026 03:28:29 -0700 (PDT)
+X-Received: by 2002:a05:600c:4f0e:b0:495:4f84:7280 with SMTP id 5b1f17b1804b1-4954f847354mr171614635e9.4.1784629709119;
+        Tue, 21 Jul 2026 03:28:29 -0700 (PDT)
+Received: from [192.168.10.48] ([151.49.94.110])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956537c7desm77013385e9.7.2026.07.21.03.28.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 03:28:28 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] KVM: nVMX: Hide shadow VMCS right after VMCLEAR
+Date: Tue, 21 Jul 2026 12:28:27 +0200
+Message-ID: <20260721102827.313208-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Fri, 17 Jul 2026, Mario Limonciello wrote:
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-> amd_stb_s2d_init() has two problems on its error paths:
-> 
->  - The return value of the S2D_TELEMETRY_SIZE SMU command is discarded.
->    When the SMU refuses the command (e.g. "SMU cmd failed. err: 0xff")
->    the failure is only noticed indirectly through the telemetry size
->    check and reported as -EIO, masking the real error.
-> 
->  - dev->msg_port is switched to MSG_PORT_S2D before issuing the S2D SMU
->    commands but is only restored to MSG_PORT_PMC on the success path.
->    The early "return -EIO" leaves the port stuck on MSG_PORT_S2D, so all
->    subsequent SMU communication - including the s2idle prepare/restore
->    handlers - is directed at the wrong mailbox.
+free_nested() frees the shadow VMCS while vmcs01 still points to it. But
+because it is asynchronous with respect to loaded_vmcs_clear(), the vCPU
+might migrate before the pointer is cleared and __loaded_vmcs_clear()
+may then execute VMCLEAR.
 
-If you fix the second one first (see below, it seems another place needs 
-similar fix), the first one can be fixed on top of it in own patch.
+The VMCS needs to stay attached until its explicit VMCLEAR completes, but
+then it can be hidden and the page safely freed.
 
-> Consolidate the exit path through a single label so the message port is
-> always restored, and propagate the SMU command error directly instead of
-> inferring it from the size.
-> 
-> Assisted-by: Claude:opus
-> Reported-by: Francis De Brabandere <francisdb@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221759
-> Tested-by: Francis De Brabandere <francisdb@gmail.com>
-> Fixes: 3d7d407dfb05 ("platform/x86: amd-pmc: Add support for AMD Spill to DRAM STB feature")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/platform/x86/amd/pmc/mp1_stb.c | 28 +++++++++++++++-----------
->  1 file changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-> index 753d630f3283d..6a048cb2605ec 100644
-> --- a/drivers/platform/x86/amd/pmc/mp1_stb.c
-> +++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-> @@ -289,7 +289,7 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
->  	u32 phys_addr_low, phys_addr_hi;
->  	u64 stb_phys_addr;
->  	u32 size = 0;
-> -	int ret;
-> +	int ret = 0;
->  
->  	if (!enable_stb)
->  		return 0;
-> @@ -306,13 +306,17 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
->  	/* Spill to DRAM feature uses separate SMU message port */
->  	dev->msg_port = MSG_PORT_S2D;
->  
-> -	amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-> -	if (size != S2D_TELEMETRY_BYTES_MAX)
-> -		return -EIO;
-> +	ret = amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-> +	if (ret)
-> +		goto out;
-> +	if (size != S2D_TELEMETRY_BYTES_MAX) {
-> +		ret = -EIO;
-> +		goto out;
-> +	}
->  
-> -	/* Get DRAM size */
-> -	ret = amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true);
-> -	if (ret || !dev->dram_size)
-> +	/* Get DRAM size; fall back to the default if the query fails */
-> +	if (amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true) ||
-> +	    !dev->dram_size)
->  		dev->dram_size = S2D_TELEMETRY_DRAMBYTES_MAX;
->  
->  	/* Get STB DRAM address */
-> @@ -321,12 +325,12 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
->  
->  	stb_phys_addr = ((u64)phys_addr_hi << 32 | phys_addr_low);
->  
-> -	/* Clear msg_port for other SMU operation */
-> -	dev->msg_port = MSG_PORT_PMC;
-> -
->  	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
->  	if (!dev->stb_virt_addr)
-> -		return -ENOMEM;
-> +		ret = -ENOMEM;
->  
-> -	return 0;
-> +out:
-> +	/* Restore the default message port for subsequent SMU operations */
-> +	dev->msg_port = MSG_PORT_PMC;
+Fixes: 355f4fb1405e ("kvm: nVMX: VMCLEAR an active shadow VMCS after last use")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/vmx/nested.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-Sashiko (correctly?) points out amd_stb_debugfs_open_v2() has the same 
-problem of leaving from msg_port.
-
-To me it looks like having ->msg_port in dev is design error and it should 
-be a parameter to the relevant functions instead or with some wrapping 
-given by those functions that actually need to give the non-default port.
-
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 220d42ebc82e..ddf6df7bee93 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -336,6 +336,7 @@ static void nested_put_vmcs12_pages(struct kvm_vcpu *vcpu)
+ static void free_nested(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
++	struct vmcs *shadow_vmcs;
+ 
+ 	if (WARN_ON_ONCE(vmx->loaded_vmcs != &vmx->vmcs01))
+ 		vmx_switch_vmcs(vcpu, &vmx->vmcs01);
+@@ -353,9 +354,15 @@ static void free_nested(struct kvm_vcpu *vcpu)
+ 	vmx->nested.current_vmptr = INVALID_GPA;
+ 	if (enable_shadow_vmcs) {
+ 		vmx_disable_shadow_vmcs(vmx);
+-		vmcs_clear(vmx->vmcs01.shadow_vmcs);
+-		free_vmcs(vmx->vmcs01.shadow_vmcs);
++
++		/*
++		 * Keep the pointer visible until after VMCLEAR, so migration
++		 * can clear an active shadow VMCS on the old CPU.
++		 */
++		shadow_vmcs = vmx->vmcs01.shadow_vmcs;
++		vmcs_clear(shadow_vmcs);
+ 		vmx->vmcs01.shadow_vmcs = NULL;
++		free_vmcs(shadow_vmcs);
+ 	}
+ 	kfree(vmx->nested.cached_vmcs12);
+ 	vmx->nested.cached_vmcs12 = NULL;
 -- 
- i.
+2.55.0
 
