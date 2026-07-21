@@ -1,107 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC8E415F34;
-	Tue, 21 Jul 2026 18:09:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC65B38757B;
+	Tue, 21 Jul 2026 18:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784657397; cv=none; b=bP650zOO+8W97VrSv+GvE1dqHRFr64FxSxmf9xuD1cI+CEy7Tag2iYFZhzRceFxHlqarH7I2wHYUVhY/0wJVb6PnPmP47FQj88W8ZXN/9/eTbMaRsOUXxP10PPGDPN3JmtVXMS65lWGC0z09qR9MNcJLI+Qv/Ri4IpnPuEc8WcY=
+	t=1784657398; cv=none; b=jkYXJKbIlmyh7tthJmu8MBByt0thpXMV5eAWxYP1DWBWdo9QVuCVHSgWF0Vk8c25V2BDNAREjXtBleYVxbbq9iICVQckwJavCaqpGV1Z6+OJsiyiTJCK7gIz7NhWTr0Gu2biP8c1p2j2TePSAoiQ5Ym63LNUrfO6B4guLjzUYG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784657397; c=relaxed/simple;
-	bh=nuNTVFD1rwit60S2Kw4SKK+ZZrTvA/PLDNyslBAOzUQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AujEiYJrglDwou4HtD8pPHtxT+jaN0n9bQgV0rJrUVbfbq1if05PAInTUBIe9bEpaz2HtW+9TiNruAIS2zfglhdSUXeKSK3MQEkjDqCHGR/RNthI0XEFfYFX2FfimWtzosbhDIZ1PAwOdpeH3peInBs+xTrYnSHgvrVHzkxdGhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M30dXX/s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784657398; c=relaxed/simple;
+	bh=FiPjXK+Matdj+jruLNLc2RMDZtPsPcAK/Kj8aONsBuU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r49vtaDG3Gpc9s9/yyo2mxtDEmedzzgzpU1Ajsv/0yneSxONoovSygvYtmdEL0al7DYj8EiEolhUrjbZv917f23Ve7At7kmjjsm/lFOcsW5fpzcTsU0HHQYwCSVoUqb0qbnnI7+1m5ua4IQNPultHC6xrpv41hOiX/2tJmHDNOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XDB3136q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M30dXX/s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D841F00A3A;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XDB3136q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD0B1F000E9;
 	Tue, 21 Jul 2026 18:09:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784657396;
-	bh=qJ2PC1oOUN/lV90CXEwewsm2mx2rssquszpJHMN4XBo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M30dXX/sgOYHq+tH0rU+Ulien6D5uQDu69XilF4cR/c3jFtGoo2SJPKmaS7FkkXyo
-	 SRRTaoplw7zDgeiBuqWblypHcZoV3vCAKWZfW3yldRXo5GQvUS4qhW6a7w0q4drL7E
-	 aYjxieBNBz8lO9XjSOhH76uxRl8d1lS/7V+FcPElHJezohJqjofl4Wc4JNeQe0C/81
-	 VecKSQXkI7rmMBXB3l1320zMCTKDepfA7f8t2yXeAHyh6kktizMqfmD8+77ucLgNRh
-	 UCyQY05HDxt5gcsA1cdsncRpq2NzPsHGXA3+FvXZU4Q9SrwAfdOKizX1aJTz1xtPvS
-	 WvxVgtwAQ+9Sg==
-Date: Tue, 21 Jul 2026 11:09:50 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Yo'av Moshe <linux@yoavmoshe.com>
-Cc: Sami Tolvanen <samitolvanen@google.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784657393;
+	bh=VlKNgWWAThZ+zIxYcwlRz/hmn1n3rr53iLlxzEe+HDA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XDB3136qGRVio/ySGpnroFrzgYYbMEWbDh9iEjuIjj9A/JTzwzwlEIX4BboDhhx70
+	 VYhGjLCBwIPj8RANZlGBJjUL7PkIu7BgNmhTgPjdN76F8n37Wikh/ZlkNB9bFDt+JA
+	 wJ3QOZCHVpVzCOrRElp3RIxyQIQKw9of0tcuEARY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Thomas Richter <tmricht@linux.ibm.com>,
+	Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	Jens Remus <jremus@linux.ibm.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
 	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
-Message-ID: <20260721180950.GA3684684@ax162>
-References: <20260718111340.159896-1-linux@yoavmoshe.com>
- <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
- <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com>
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jan Polensky <japo@linux.ibm.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0705/1611] perf s390: Fix TEXTREL in Python extension by compiling as PIC
+Date: Tue, 21 Jul 2026 17:13:41 +0200
+Message-ID: <20260721152531.238048475@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
+References: <20260721152514.750365251@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 07:29:50AM +0200, Yo'av Moshe wrote:
-> On 2026-07-20 9:29 PM, Sami Tolvanen wrote:
-> > Would it be possible to just copy the 4-byte CFI hash prefix to OCRAM
-> > when relocating the function? If not, the __nocfi approach seems
-> > reasonable to me.
-> > 
-> > Sami
-> 
-> I gave this a try - I tried copying 4 bytes from before imx6_suspend
-> into OCRAM, but when I tested it on physical hardware (Kobo Clara HD),
-> it still crashed on suspend.
-> 
-> I suspect it's because imx6_suspend is written in assembly
-> (suspend-imx6.S) rather than C, so Clang doesn't emit a CFI hash prefix
-> before it in the first place.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Does using SYM_TYPED_FUNC_START for imx6_suspend() make that work?
-Something like this builds fine for me and I see
-__kcfi_typeid_imx6_suspend generated by Clang.
+------------------
 
-diff --git a/arch/arm/mach-imx/suspend-imx6.S b/arch/arm/mach-imx/suspend-imx6.S
-index 63ccc2d0e920..6ded29a38c99 100644
---- a/arch/arm/mach-imx/suspend-imx6.S
-+++ b/arch/arm/mach-imx/suspend-imx6.S
-@@ -3,6 +3,7 @@
-  * Copyright 2014 Freescale Semiconductor, Inc.
-  */
- 
-+#include <linux/cfi_types.h>
- #include <linux/linkage.h>
- #include <asm/assembler.h>
- #include <asm/asm-offsets.h>
-@@ -148,7 +149,7 @@
- 
- 	.endm
- 
--ENTRY(imx6_suspend)
-+SYM_TYPED_FUNC_START(imx6_suspend)
- 	ldr	r1, [r0, #PM_INFO_PBASE_OFFSET]
- 	ldr	r2, [r0, #PM_INFO_RESUME_ADDR_OFFSET]
- 	ldr	r3, [r0, #PM_INFO_DDR_TYPE_OFFSET]
-@@ -329,4 +330,4 @@ resume:
- 	resume_mmdc
- 
- 	ret	lr
--ENDPROC(imx6_suspend)
-+SYM_FUNC_END(imx6_suspend)
+From: Jens Remus <jremus@linux.ibm.com>
 
+[ Upstream commit 49f5f6ae67dec54014584bb3126a5a94f14e2a5c ]
+
+On s390 the Python extension build fails as follows when using a linker
+that is configured to treat text relocations (TEXTREL) in shared
+libraries as error by default:
+
+  GEN     python/perf.cpython-314-s390x-linux-gnu.so
+/usr/bin/ld.bfd: error: read-only segment has dynamic relocations
+
+This occurrs because util/llvm-c-helpers.o is erroneously built from
+util/llvm-c-helpers.cpp without compiler option -fPIC but linked into
+the shared library (via libperf-util.a(perf-util-in.o)).
+
+On s390, object files must be compiled as position-indepedent code (PIC)
+in order to be linked into shared libraries.  Commit a9a3f1d18a6c ("perf
+s390: Always build with -fPIC") added compiler option -fPIC to CFLAGS
+for s390, which is used in C compiles.  Add -fPIC to CXXFLAGS for s390
+as well, so that it is also used in C++ compiles.
+
+Fixes: a9a3f1d18a6c9ccf ("perf s390: Always build with -fPIC")
+Reported-by: Thomas Richter <tmricht@linux.ibm.com>
+Reviewed-by: Ian Rogers <irogers@google.com>
+Reviewed-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Jens Remus <jremus@linux.ibm.com>
+Cc: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Bill Wendling <morbo@google.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Hendrik Brueckner <brueckner@linux.ibm.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jan Polensky <japo@linux.ibm.com>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: Justin Stitt <justinstitt@google.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Namhyung Kim <namhyung@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <nick.desaulniers+lkml@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ tools/perf/Makefile.config | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index 2dd5f5a60568d0..8ae13809f68b2e 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -110,6 +110,7 @@ endif
+ 
+ ifeq ($(ARCH),s390)
+   CFLAGS += -fPIC
++  CXXFLAGS += -fPIC
+ endif
+ 
+ ifeq ($(ARCH),mips)
 -- 
-Cheers,
-Nathan
+2.53.0
+
+
+
