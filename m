@@ -1,146 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7373783D1
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 14:29:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D2E39EF16;
+	Tue, 21 Jul 2026 14:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784644152; cv=none; b=EaoBvQSAMf3CqTN/OBxiFxLrGA9IuLeePzrN2HxkE2p71uRgd2GuqFLZ005orQbkMPrbNc5OrJyE/WpyRJeaLY6TRqQFZDbpaCGAEKQviztFGbGYVdpsE5qZ2Lst7DsSeo8FzHXP5bvg+l+yseBlQrwc55CJBnin0mSyzI5NSps=
+	t=1784644169; cv=none; b=TFb3PdFFfKNRB2tbP1ZLymyatrt5wd2q9YZtBo/MsYeGmW2Q24uZr/bSRWnURvKB3DCYdF7EZJ/48labjIsulTkq1t+rIzxXosB6yOuhfRDJvZmNxR+snd6di5Ypo4cgp85Gr479z+n3KQIm/ZycIrQOU5dDfFYbCTqx5YpbQuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784644152; c=relaxed/simple;
-	bh=MTxambI95VvodLImfc3jvwYatAcoAiRVv7LH9gqxj1E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sse6JuWT6x0iNzqnJ46kKKGAwALZBHLGePRwQsYijBnBLj3evHgaMZxTTmbA7VxFdVXZvME+oStu5oTPkCzUHtxpR2IQa8WxrxbU1mKAdaa973eC/OijZUEvkUHhi9HQgjUztqHO1q76gacOZLDMUDHAAAj94Rz6fYlxVNZx35E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XnKINOW/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784644169; c=relaxed/simple;
+	bh=QH4RFAHkBOrpSezy4lFQGFmp/CUrmtoTSqvH8wmrqe4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ex7h5g8wZunCZ2ssFTK+PIGrqtKFLS/2xw+dv2kuH+gGxhTxmPHD27dfRkaokA4NV/kRHNm9PzG5HvU5nxgcFCNxyWL++o919nDPXxl3SLWyB2T2kg52qPji+6HfchZ2VI3C4w1+V1/Sx1oUp02AGa4pQjrl/FH+lU4br3VdQ40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6Y53Eln; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XnKINOW/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88B01F000E9;
-	Tue, 21 Jul 2026 14:29:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784644151;
-	bh=4iKSMtzpRWwnEKYOIHgQ2jrdDFHN0YEVsZvSPc4H0Cw=;
-	h=Subject:To:Cc:From:Date;
-	b=XnKINOW/224hVtcOzoNyFQPo3Uc45os9EwtLDp1fREVEOt/+50PTPI64bILJMaoUj
-	 wjahz3Q5oyqxgEvmJ4iFQMsPeM7P26Xlw5FD0QfsSFqA3BcUzc+nb6HOMBtifKK2A3
-	 OQULk3v20Z+bYniAHE0iQ6TMaofLVLR/3Rqm7Ex4=
-Subject: FAILED: patch "[PATCH] ksmbd: fix durable reconnect double-bind race in" failed to apply to 5.15-stable tree
-To: dddhkts1@gmail.com,linkinjeon@kernel.org,stfrench@microsoft.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 16:28:53 +0200
-Message-ID: <2026072153-oxidation-gong-003f@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6Y53Eln"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F491F000E9;
+	Tue, 21 Jul 2026 14:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784644168;
+	bh=1soRxN4hiDcUXCxjs1PA7SeZGbKgmvbO8BnI4N1ZFe8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z6Y53ElnThJz/QmjNlBI90Yu7tbBuCvQU60QJ4DbRT5TXWdL7w3KuZzUdsCjKtoL/
+	 71ZaLms1OHJ+aJGCsLyIDPyM7gGELMJkUoUEEKbfKXlEoG+CcCrbpbAg43lxbizIqO
+	 yXWwFnJWX4Ru3nShSGjh7T+m6/UYy1o50khWKiQF8rvhylkfkDK/1Kki7v+jYxq5aI
+	 gO/tbH5nUZoF4TeZXpFnsJTsnW6/YStJLzyv9G5e7g6RhjKNbNUznJMyPNGHNkYE0+
+	 ZTUeuFNaF4ExWmaFhhdtjEOn8TaeQv52hbnyhHF4K8laJqqVGxQz+/SpgRyB1FtKpa
+	 iraCr9pMDtqtA==
+Date: Tue, 21 Jul 2026 17:29:21 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <20260721142921.GN110966@unreal>
+References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
+ <20260717180442.110954-2-aneesh.kumar@kernel.org>
+ <20260721115456.GI110966@unreal>
+ <yq5atsps77c5.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5atsps77c5.fsf@kernel.org>
 
+On Tue, Jul 21, 2026 at 07:50:10PM +0530, Aneesh Kumar K.V wrote:
+> Leon Romanovsky <leon@kernel.org> writes:
+> 
+> > On Fri, Jul 17, 2026 at 11:34:19PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> >> Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
+> >> helper") changed dma_direct_alloc_from_pool() to return the CPU address
+> >> from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
+> >> dma_direct_alloc_pages() also uses the helper and expects a struct page *.
+> >> 
+> >> Fix this by making dma_direct_alloc_from_pool() return the struct page *
+> >> again, and pass the CPU address back through an out-parameter for the
+> >> dma_direct_alloc() caller.
+> >> 
+> >> Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
+> >> Cc: stable@vger.kernel.org
+> >> Tested-by: Michael Kelley <mhklinux@outlook.com>
+> >> Tested-by: Mostafa Saleh <smostafa@google.com>
+> >> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> >> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> >> ---
+> >>  kernel/dma/direct.c | 18 ++++++++++--------
+> >>  1 file changed, 10 insertions(+), 8 deletions(-)
+> >> 
+> >> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> >> index d8219efe3273..363d984d90e7 100644
+> >> --- a/kernel/dma/direct.c
+> >> +++ b/kernel/dma/direct.c
+> >> @@ -164,22 +164,21 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
+> >>  	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
+> >>  }
+> >>  
+> >> -static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+> >> -		dma_addr_t *dma_handle, gfp_t gfp)
+> >> +static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+> >> +		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp)
+> >>  {
+> >>  	struct page *page;
+> >>  	u64 phys_limit;
+> >> -	void *ret;
+> >>  
+> >>  	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
+> >>  		return NULL;
+> >>  
+> >>  	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
+> >> -	page = dma_alloc_from_pool(dev, size, &ret, gfp, dma_coherent_ok);
+> >> +	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, dma_coherent_ok);
+> >>  	if (!page)
+> >>  		return NULL;
+> >>  	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page));
+> >> -	return ret;
+> >> +	return page;
+> >>  }
+> >>  
+> >>  static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
+> >> @@ -247,8 +246,11 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+> >>  	 * the atomic pools instead if we aren't allowed block.
+> >>  	 */
+> >>  	if ((remap || force_dma_unencrypted(dev)) &&
+> >> -	    dma_direct_use_pool(dev, gfp))
+> >> -		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
+> >> +	    dma_direct_use_pool(dev, gfp)) {
+> >> +		page = dma_direct_alloc_from_pool(dev, size, dma_handle,
+> >> +						  &ret, gfp);
+> >> +		return page ? ret : NULL;
+> >
+> > Sorry for joining the discussion late, but the line above caught my
+> > attention.
+> >
+> > Why do we need both ret and page? We can derive cpu_addr from page and
+> > vice versa. Do we really need the &ret parameter? Or, more generally, do
+> > we really need "struct page *"?
+> >
+> > static struct page *__dma_alloc_from_pool(struct device *dev, size_t size,
+> > 		struct gen_pool *pool, void **cpu_addr,
+> > 		bool (*phys_addr_ok)(struct device *, phys_addr_t, size_t))
+> > {
+> > ...
+> > 	*cpu_addr = (void *)addr;
+> > 	memset(*cpu_addr, 0, size);
+> > 	return pfn_to_page(__phys_to_pfn(phys));
+> > }
+> >
+> > Why
+> >
+> 
+> With CONFIG_DMA_DIRECT_REMAP the cpu_addr can be different from
+> page_address.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Can you please point to the code there it can happen?
+__dma_alloc_from_pool() has direct connection between physical address
+and struct page.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Thanks
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 7ce4fc40018de07f05f3035241122d992610dbfb
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072153-oxidation-gong-003f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 7ce4fc40018de07f05f3035241122d992610dbfb Mon Sep 17 00:00:00 2001
-From: Gil Portnoy <dddhkts1@gmail.com>
-Date: Thu, 28 May 2026 00:00:00 +0000
-Subject: [PATCH] ksmbd: fix durable reconnect double-bind race in
- ksmbd_reopen_durable_fd
-
-Two concurrent same-user DHnC reconnects can both observe fp->conn == NULL
-before either sets it. ksmbd_reopen_durable_fd() checks fp->conn to guard
-against a handle already being reconnected, but the check and the binding
-assignment are not atomic: both threads pass the guard, both call
-ksmbd_conn_get() on the same fp, and both eventually reach
-kfree(fp->owner.name) -- a double-free of the owner.name slab object.
-The double-bound ksmbd_file also causes a write-UAF on the 344-byte
-ksmbd_file_cache object when a concurrent smb2_close() spins on fp->f_lock
-after the object has been freed by the losing reconnect path.
-
-KASAN on 7.1-rc5 (48-thread concurrent reconnect, 3000 cycles):
-  BUG: KASAN: double-free in ksmbd_reopen_durable_fd+0x268/0x308
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock+0xac/0x150
-    Write of size 4 at offset 24 into freed ksmbd_file_cache object
-Five double-bind windows observed; 63 total KASAN reports triggered.
-
-Fix: validate and claim fp->conn under write_lock(&global_ft.lock) so the
-check-and-claim is atomic. ksmbd_lookup_durable_fd() already treats
-fp->conn != NULL as "in use" and skips such an fp; setting fp->conn before
-dropping the lock closes the race. ksmbd_conn_get() is a non-sleeping
-refcount increment, safe under the rwlock. The rollback path on __open_id()
-failure also clears fp->conn/tcon under the lock so concurrent readers see
-a consistent state.
-
-Fixes: b1f1e80620de ("ksmbd: centralize ksmbd_conn final release to plug transport leak")
-Assisted-by: Henry (Claude):claude-opus-4
-Signed-off-by: Gil Portnoy <dddhkts1@gmail.com>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 4d2d33df6231..ba3355a6057a 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -1390,19 +1390,19 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	struct ksmbd_lock *smb_lock;
- 	unsigned int old_f_state;
- 
-+	write_lock(&global_ft.lock);
- 	if (!fp->is_durable || fp->conn || fp->tcon) {
-+		write_unlock(&global_ft.lock);
- 		pr_err("Invalid durable fd [%p:%p]\n", fp->conn, fp->tcon);
- 		return -EBADF;
- 	}
- 
- 	if (has_file_id(fp->volatile_id)) {
-+		write_unlock(&global_ft.lock);
- 		pr_err("Still in use durable fd: %llu\n", fp->volatile_id);
- 		return -EBADF;
- 	}
- 
--	old_f_state = fp->f_state;
--	fp->f_state = FP_NEW;
--
- 	/*
- 	 * Initialize fp's connection binding before publishing fp into the
- 	 * session's file table.  If __open_id() is ordered first, a
-@@ -1413,11 +1413,17 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	 */
- 	fp->conn = ksmbd_conn_get(conn);
- 	fp->tcon = work->tcon;
-+	write_unlock(&global_ft.lock);
-+
-+	old_f_state = fp->f_state;
-+	fp->f_state = FP_NEW;
- 
- 	__open_id(&work->sess->file_table, fp, OPEN_ID_TYPE_VOLATILE_ID);
- 	if (!has_file_id(fp->volatile_id)) {
-+		write_lock(&global_ft.lock);
- 		fp->conn = NULL;
- 		fp->tcon = NULL;
-+		write_unlock(&global_ft.lock);
- 		ksmbd_conn_put(conn);
- 		fp->f_state = old_f_state;
- 		return -EBADF;
-
+> 
+> -aneesh
+> 
