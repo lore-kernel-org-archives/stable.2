@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEF246C4BC
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:59:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65306386571
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:59:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784660353; cv=none; b=ctSfIbN1CIoYZZ9msR3RzvHRG7VAxv+YvC+Oo1BIrpIPkUwDGERwclbhKTNFg//hKx16bnl8fozrxF8KH+EwnmqZZYUehbhuji4hb8w3iO/+KEzp5O8NAIo5c/V4RG5YT0mqwpIU+aCAbMIgEKYJIW+souGnkiB8FJtXfw3zsSM=
+	t=1784660353; cv=none; b=Rrtex8A7y6O/2xegC4v1egQc6XRj38UjrJzy60e4tRNBHacmsa2aNNUoPee4L0R7a0t2ErDnBkbY9g57a26XocAPy218V5Ps2tH4Ca+UR9FZ2RE6vCGfIrnWFCtCbNzgnLMzHybLodwKNJ9WblDby5GrBo13EdEdDQ7tkaj2lis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784660353; c=relaxed/simple;
-	bh=EzPj6s+LOwBuzumgfTubt2qQor3yQZI5LBfK5uIBntA=;
+	bh=AyX2CXBwN9Y6JiFfYOlXd7kzzSM1hkohZMw+yLO6XEk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hXXzEQTJ5+tFx4cHeT29UjHGru/pieXnCQ6Peb9Fmq7JFrEV/Dh5Serw6ETFLMbF9O+5rCQ4h9KM655XIKkL0NPUOCx6TkaCGigPZarSd1FG1yXnXOpVTJTzxk7EFLkKTryYUlrMsh9qQX5VcHO/6KYk99m3d5B4ZZbhROySP/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmNlCCwn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=c/ULKxU55FF9AtOUlPRR3tamEDeVyOlymkmd46Hp190pGi/9esNW0Q3ljNdWfuC0902wsjUWQ+OFPCJkPM7x5bheV+me77XpWOyMN4yb+SnRCssXzlZf6VmBV3TFlzrZYSqG7cne62okhTjXGLsdlgD8cwPBaWiHEHdvDHbFavs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J+Rg7SeV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmNlCCwn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0001F00A3A;
-	Tue, 21 Jul 2026 18:59:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J+Rg7SeV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810501F00A3F;
+	Tue, 21 Jul 2026 18:59:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784660349;
-	bh=2TCqFz5uQmSI9a1R6ZrsEia6/ThTF0g48t814vf69fs=;
+	s=k20260515; t=1784660351;
+	bh=qDQnLuNKKHj2/JYQWQGsvti1i7IBHRPdBp0ViYCBM3o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bmNlCCwnyfYBCK3zVjSmeowWr9z2vPYFX6Hyq/+cSeR5RmtqkTITY28di2aj7Ts2c
-	 rkfCNCK7iHjek19C82DseHmC/h2iiyqAHPyl0OU69xangYCrm60SMifZ50tpB9Q0ig
-	 pT4gGaSTAMMUBvdtD9jFeie7vNRR9DRX5KyTCf70KLgjX4dCcfIGvNWhzelqRnNMjn
-	 aS1czIg23uMtPsUL2dGYE05ZamdoFwFV1/gS/5voUKYhkfc40+eLUQa+oBLnCvTMQ4
-	 YrLfyLTRQULX2W9qtcbS1UBe9DF81Ygg/oBiG+GPYp7eQ9XHaFlmFu+tXs8nmrTeeb
-	 Ay3bymtu/GAiw==
+	b=J+Rg7SeVLUnJAl37QfGyYO8m9GPsm2PkLemTBeqRS344975q75++hlczv+fOfcbyQ
+	 HPNvxsPOyJBXSc8CltUUKudwr7OjeIGfP/99TQXqLYqh46d28q88TJxWtcpbAlrnYy
+	 eDhQ5sSZyQ8ZvCxTb9rIQ0gXyMLe7hJn7nYyWq1YbC9h7IXnyMEWilzkEKG/V2w+Wt
+	 kW28F2aear9qzWkre9iZw9N8tucJ5Bfp+LubEjXhMj/Klrnwe1HQD8ki3D3kNHh1pS
+	 Fg1q2jHSsWwgWTUyw43WnjL27lJ56D1qHlyZSTMFC6/UN9ZWoiVX5vh6Z1Yf7pjGDE
+	 ZgeYKAQ1dBq+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+Cc: Sebastian Alba Vives <sebasjosue84@gmail.com>,
+	Xu Yilun <yilun.xu@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning
-Date: Tue, 21 Jul 2026 14:59:06 -0400
-Message-ID: <20260721185906.397615-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] fpga: dfl-afu: validate DMA mapping length in afu_dma_map_region()
+Date: Tue, 21 Jul 2026 14:59:09 -0400
+Message-ID: <20260721185909.397655-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721185906.397615-1-sashal@kernel.org>
-References: <2026071652-dandelion-handbook-8d52@gregkh>
- <20260721185906.397615-1-sashal@kernel.org>
+In-Reply-To: <2026071619-cannot-evaluate-f3ca@gregkh>
+References: <2026071619-cannot-evaluate-f3ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,84 +46,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+From: Sebastian Alba Vives <sebasjosue84@gmail.com>
 
-[ Upstream commit 504e2b4ab97a51d56d966cd36d0997ad30b65b2d ]
+[ Upstream commit fc3b071a7c8dc0f5d56defddf6e6fd5aaa3e1e27 ]
 
-When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM
-driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
-triggers a spurious warning:
+afu_ioctl_dma_map() accepts a 64-bit length from userspace via
+DFL_FPGA_PORT_DMA_MAP ioctl without an upper bound check. The value
+is passed to afu_dma_pin_pages() where npages is derived as
+length >> PAGE_SHIFT and passed to pin_user_pages_fast() which takes
+int nr_pages, causing implicit truncation if length is very large.
 
-  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
-      overlapping mappings aren't supported
-  WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
+Validate map.length at the ioctl entry point before calling
+afu_dma_map_region(), rejecting values whose page count exceeds
+INT_MAX.
 
-The call chain is:
-
-  amdgpu_cs_ioctl
-   -> amdgpu_ttm_backend_bind
-    -> dma_buf_map_attachment
-     -> [udmabuf] map_udmabuf -> get_sg_table
-      -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=0
-       -> debug_dma_map_sg -> add_dma_entry -> EEXIST
-
-This happens because udmabuf builds a per-page scatter-gather list via
-sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
-table mapped for the misc device, and an importer such as amdgpu maps
-the same pages for its own device via map_udmabuf(), the DMA debug
-infrastructure sees two active mappings whose physical addresses share
-cacheline boundaries and warns about the overlap.
-
-The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
-add_dma_entry() because it signals that no CPU cache maintenance is
-performed at map/unmap time, making the cacheline overlap harmless.
-
-All other major dma-buf exporters already pass this flag:
-  - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
-  - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
-
-The CPU sync at map/unmap time is also redundant for udmabuf:
-begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
-cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
-access is requested through the dma-buf interface.
-
-Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
-dma_unmap_sgtable() in udmabuf to suppress the spurious warning and
-skip the redundant sync.
-
-Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
+Fixes: fa8dda1edef9 ("fpga: dfl: afu: add DFL_FPGA_PORT_DMA_MAP/UNMAP ioctls support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Acked-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-Signed-off-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-Link: https://patch.msgid.link/20260331061657.79983-1-mikhail.v.gavrilov@gmail.com
+Signed-off-by: Sebastian Alba Vives <sebasjosue84@gmail.com>
+Reviewed-by: Xu Yilun <yilun.xu@intel.com>
+Link: https://lore.kernel.org/r/20260518190742.61426-3-sebasjosue84@gmail.com
+Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma-buf/udmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/fpga/dfl-afu-main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index 3cd9c4a84e76fb..68ffa01ced63db 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -73,7 +73,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- 	if (ret < 0)
- 		goto err_alloc;
+diff --git a/drivers/fpga/dfl-afu-main.c b/drivers/fpga/dfl-afu-main.c
+index 7f621e96d3b8d8..dd4107ffa7158c 100644
+--- a/drivers/fpga/dfl-afu-main.c
++++ b/drivers/fpga/dfl-afu-main.c
+@@ -720,6 +720,9 @@ afu_ioctl_dma_map(struct dfl_feature_platform_data *pdata, void __user *arg)
+ 	if (map.argsz < minsz || map.flags)
+ 		return -EINVAL;
  
--	ret = dma_map_sgtable(dev, sg, direction, 0);
-+	ret = dma_map_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	if (ret < 0)
- 		goto err_map;
- 	return sg;
-@@ -88,7 +88,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
- static void put_sg_table(struct device *dev, struct sg_table *sg,
- 			 enum dma_data_direction direction)
- {
--	dma_unmap_sgtable(dev, sg, direction, 0);
-+	dma_unmap_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
- 	sg_free_table(sg);
- 	kfree(sg);
- }
++	if (map.length >> PAGE_SHIFT > (u64)INT_MAX)
++		return -EINVAL;
++
+ 	ret = afu_dma_map_region(pdata, map.user_addr, map.length, &map.iova);
+ 	if (ret)
+ 		return ret;
 -- 
 2.53.0
 
