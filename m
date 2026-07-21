@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FD947044A;
-	Tue, 21 Jul 2026 20:28:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3C3403B13;
+	Tue, 21 Jul 2026 20:28:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784665696; cv=none; b=UZIATtMGRSGKSpM806EReOHwlYXNA195UfHkn+eIwUh/LereV20anrlBsvtZ7/6Nvw6djYeIHGWeqy7FC5II0JrGtCb8VphDDahUzwwosJUEDGylGu/QgZctANHVCq4yd1iKOJ3KdGWihDYMnd0GkE3D93wVd7G0fYZ3419aecQ=
+	t=1784665699; cv=none; b=V1cQYNbsRwQTwLqR6swQxxN1bsRirN4qaPP8+zk+HlS8Ev6s0bVtq6Q+egAkrEmhLwMrW/lVv9Dvus0ITqEqeOTOMxNdaQGy43eMG0bjCrJpHj05Su3VaauU9Rd0JprgmkUUXsXLxl9TscvIc3rZurjBofCMeRcLdyObbTfTXGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784665696; c=relaxed/simple;
-	bh=FApdMeMvIwZpkc7sPudE+Fk81JamsOIXuwMbPGcF160=;
+	s=arc-20240116; t=1784665699; c=relaxed/simple;
+	bh=V/TnjtvxBOTn3qaMwuUlK2MKXLE3wHe4FpFHXZBZoHI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=csJKQzhCJXFcmSmhbdzmvvwZWktQkQyAh1+2Eu2dpszqAAqObbSe1kFyqLGTPNGwCoDSELWti+I49wdWPG1eCvVyciavhZd8XYBRfonIyxM5uoocfQWeH3UhC+DNKYUp+7nL49tKvTdr710HeviemX0oSzg5A6eCXdukskHAPfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eYabCAy2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Es9kG8yFU2CrpzR6Fo9GqdEwL/sA5TuVEFqC09H2spPgEPkwg5dM5JWqcl6UC3S2iF7Cx3A8K1J2TGxoBfGE4ipMQn/jp/UZi9Axl55wOj0kWk6h2GGV0wRHGKUf1MV5AgN5DqRO4YG2zTu168jNKw8xoTkRWZ9teshTw0N+1vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Jtp182Cq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eYabCAy2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8661F00A3A;
-	Tue, 21 Jul 2026 20:28:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Jtp182Cq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4D41F000E9;
+	Tue, 21 Jul 2026 20:28:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784665689;
-	bh=f5lj/QdPJKV91X0Mk5llUpVVTeuicq5+ZPL81Q9XoAk=;
+	s=korg; t=1784665694;
+	bh=lle9S/zDgDybyjyKllCwDr8d+1QtZPBVUuB+QTG3Qyg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eYabCAy2wYP/VAnsLF4spR1MglH4wPz7ANtHqhKV6W+k13Tb4ESrWJCTYjD4+m7Nn
-	 W3cZWammYaP051HJbgaWG9WaFZbSVZCq19AJtBc6jj5LXm77uK6iKJWKFDxhsOGlYk
-	 Au0uqx9AZDU5ehf67yhHuwNPO2gt1ar7JOLzkAfI=
+	b=Jtp182CqrGiFJD7J292ZlEO5YS4Zz3P33nmxm3UkRn0jh81OMwrGrELTnvjeMG3Bj
+	 N0fkLs4ZGf0VBD0/V166d7cwkbx/A89ca0yxij2fphYyPxbze9uzb1Je+BGWn7v2J3
+	 Yj0UVTf0Ncb8d+F58mXRRnhHrrcUMpc4VfvSNL0c=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
+	Stepan Ionichev <sozdayvek@gmail.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 0398/1266] evm: terminate and bound the evm_xattrs read buffer
-Date: Tue, 21 Jul 2026 17:13:55 +0200
-Message-ID: <20260721152450.736945745@linuxfoundation.org>
+Subject: [PATCH 6.6 0400/1266] clk: scpi: Unregister child clock providers on remove
+Date: Tue, 21 Jul 2026 17:13:57 +0200
+Message-ID: <20260721152450.781990661@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
 References: <20260721152441.786066624@linuxfoundation.org>
@@ -52,70 +51,45 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Stepan Ionichev <sozdayvek@gmail.com>
 
-[ Upstream commit 11143a19f5b8dc8f414deab87571134f9f447313 ]
+[ Upstream commit b79d9b5747d961516c35ef4d5e91efa579fd3e9a ]
 
-evm_read_xattrs() allocates size + 1 bytes, fills them from the list of
-enabled xattrs, and then passes strlen(temp) to
-simple_read_from_buffer(). When no configured xattrs are enabled, the
-fill loop stores nothing and temp[0] remains uninitialized, so strlen()
-reads beyond initialized memory.
+SCPI clock providers are registered for each child node in
+scpi_clk_add(), but scpi_clocks_remove() unregisters the parent node on
+each iteration.
 
-Explicitly terminate the buffer after allocation, use snprintf() for
-each formatted line, and pass the accumulated length, without risk of
-truncation, to simple_read_from_buffer().
+of_clk_del_provider() matches providers by the node used at registration
+time, so passing the parent node leaves the child providers registered.
+This leaks the provider allocations and the node references held by the
+clock provider core.
 
-Fixes: fa516b66a1bf ("EVM: Allow runtime modification of the set of verified xattrs")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Reviewed-by: Roberto Sassu <roberto.sassu@huawei.com>
-Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
+Pass the child node to of_clk_del_provider() so the remove path matches
+the probe path.
+
+Fixes: cd52c2a4b5c4 ("clk: add support for clocks provided by SCP(System Control Processor)")
+Signed-off-by: Stepan Ionichev <sozdayvek@gmail.com>
+Link: https://patch.msgid.link/20260513090900.5323-1-sozdayvek@gmail.com
+(sudeep.holla: Updated commit title and message a bit)
+Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/integrity/evm/evm_secfs.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/clk/clk-scpi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/security/integrity/evm/evm_secfs.c b/security/integrity/evm/evm_secfs.c
-index 9b907c2fee60b6..07c6982e1faca8 100644
---- a/security/integrity/evm/evm_secfs.c
-+++ b/security/integrity/evm/evm_secfs.c
-@@ -128,8 +128,8 @@ static ssize_t evm_read_xattrs(struct file *filp, char __user *buf,
- 			       size_t count, loff_t *ppos)
- {
- 	char *temp;
--	int offset = 0;
--	ssize_t rc, size = 0;
-+	size_t offset = 0, size = 0;
-+	ssize_t rc;
- 	struct xattr_list *xattr;
- 
- 	if (*ppos != 0)
-@@ -152,16 +152,22 @@ static ssize_t evm_read_xattrs(struct file *filp, char __user *buf,
- 		return -ENOMEM;
+diff --git a/drivers/clk/clk-scpi.c b/drivers/clk/clk-scpi.c
+index 108b697bd317dc..5ab46a537b5d31 100644
+--- a/drivers/clk/clk-scpi.c
++++ b/drivers/clk/clk-scpi.c
+@@ -256,7 +256,7 @@ static void scpi_clocks_remove(struct platform_device *pdev)
  	}
  
-+	temp[size] = '\0';
-+
-+	/*
-+	 * No truncation possible: size is computed over the same enabled
-+	 * xattrs under xattr_list_mutex, so offset never exceeds size.
-+	 */
- 	list_for_each_entry(xattr, &evm_config_xattrnames, list) {
- 		if (!xattr->enabled)
- 			continue;
+ 	for_each_available_child_of_node(np, child)
+-		of_clk_del_provider(np);
++		of_clk_del_provider(child);
+ }
  
--		sprintf(temp + offset, "%s\n", xattr->name);
--		offset += strlen(xattr->name) + 1;
-+		offset += snprintf(temp + offset, size + 1 - offset, "%s\n",
-+				   xattr->name);
- 	}
- 
- 	mutex_unlock(&xattr_list_mutex);
--	rc = simple_read_from_buffer(buf, count, ppos, temp, strlen(temp));
-+	rc = simple_read_from_buffer(buf, count, ppos, temp, offset);
- 
- 	kfree(temp);
- 
+ static int scpi_clocks_probe(struct platform_device *pdev)
 -- 
 2.53.0
 
