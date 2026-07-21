@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A5547143A
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:48:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68748471437;
+	Tue, 21 Jul 2026 18:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784659725; cv=none; b=mGyOnE9SI9q2DazehJ9Chn98O/XaGX2iOJAb9vxGPWQVPJ9SZKqYLfR4y+Zt+ed9O08QuVqzCiEN1HIjSl9g911hk17pzWgnlPCmrZNIjybngXLqtkT4G/lh8ChlwEGu8XPkpPhvh91hs7uf8d5YK5hGT8vvOap1is3jCA+MzA0=
+	t=1784659726; cv=none; b=Dj2tZl+9rVoXCK0EED+jHXR0AjK3DpSC2qnP+W3bjMJsDTPUk5IDVdkZ8w7BNTBE7yG2yuLVGzkwTFcj75poMvEYDKbHVatm0KJI7VofJ3enmoVvw26+0deHR5vVa92tC3awN/wo9dHzaJsBU7hYL0WrdgN8m+MQ+1qDgDwHiAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784659725; c=relaxed/simple;
-	bh=o381dTyWtlo3tp0VlT5P1IdvLGd2YwAKnzUlEsEYxR4=;
+	s=arc-20240116; t=1784659726; c=relaxed/simple;
+	bh=d1XK3kt5Y0lEuDGgaQ8BToz3sUGyaWo1fnEsq2h8HKw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rGueBDjjV9UWhkUlgMXoi+qDJ6ZRkIlo+gniUqPtXH1VTsdN+Xp1m5jK6jC+H04Vt/SJlJJDByAE6N8e7ziqi5NoMyrtZcD9Iy+g8KtiZCKxn2vasai19Wsm4v2JLZ8IteSrghtgQ4ULsQpzg7BxIFEWjNwpl8iOBKQ+Sg5QM/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6tvkteR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eUhWXYcxUSDQFozF5KbsdIWdi97fyMawB/ps+vQXTWouxZVFp+vHmYpnAFde6ImXdzZS+KBPnCVg/iIsRpcRLEB6LLwPgrgDpfs/tXTfo6ED3eU6qXTSO9t4ZFP7bOln8oy4J7zJakaJ0wQ+PYTVh2+8Vzlz/xYdFy+h4MQ59hI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bFEOhzD+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6tvkteR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55B21F000E9;
-	Tue, 21 Jul 2026 18:48:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784659722;
-	bh=eFeRa9HaE4qCgCxWb0oYp8IxTnQmVhyjZAs1nSTY6/w=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bFEOhzD+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D344A1F00A3A;
+	Tue, 21 Jul 2026 18:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784659725;
+	bh=TEWNy/ZU5Ul3UTz5/7aU4FdHaJ65TnRdhBvIiqaBAFw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E6tvkteRmtgvRPhSUnrm4Q526q5/gAK7/Bg911vf0MAFJfNYW6DwOWJwSrvp3c08v
-	 cH3LnZ8ab2w2Nf7aVkuvoQ4Yn/LxrhVUNl1SDYNXK3xr54H7fXWlm7wnFpEjrE8S48
-	 ZUtW6LpF8ZVEgzNbo6sn7RAVC2DK5IMy0eDvoNx6gF8zOR/F8a27zt/CxRpR/q154o
-	 tsXG8/8y8NlICmf5I2ByMRdHhVXQvOFgFvCET24M4mCnEngtrdheX9LNqyKwC4kf3S
-	 bnkiZ02ahcw/vTtqiGgzasALHSsQs7uUVBAki7evRN9mb2X3P/1hvOK2asLqBRIxH1
-	 X1luzCQbTNgQg==
-From: Sasha Levin <sashal@kernel.org>
+	b=bFEOhzD+sA6rfX/r9dirzwtBpkD2SyCoB399cN835hhu1jvUTD+Ty27KIMsiS/OqB
+	 S7DozJRPmbJzYOxgQdnYMIpNlWwth96y3/R+E/KnGAWTV9gIIByvP36yfxMryIt73D
+	 ActMVtGoTkHZKWLDzlFvdj4GGgfXUjG5I3FOmS2k=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Matt Bobrowski <mattbobrowski@google.com>,
-	oxsignal <awo@kakao.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Amery Hung <ameryhung@gmail.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+cb2aa2390ac024e25f5c@syzkaller.appspotmail.com,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] bpf: Reject BPF_MAP_TYPE_INODE_STORAGE creation if BPF LSM is uninitialized
-Date: Tue, 21 Jul 2026 14:48:40 -0400
-Message-ID: <20260721184840.382217-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071601-concerned-arousal-ac66@gregkh>
-References: <2026071601-concerned-arousal-ac66@gregkh>
+Subject: [PATCH 7.1 0710/2077] ipv4: fib: Dont dump dying fib_info in fib_leaf_notify().
+Date: Tue, 21 Jul 2026 17:06:23 +0200
+Message-ID: <20260721152609.542241076@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+References: <20260721152552.646164743@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,119 +50,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matt Bobrowski <mattbobrowski@google.com>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit a6f0643e4f63cfaa0d5d4a69de4f132eac4b8fe4 ]
+------------------
 
-When CONFIG_BPF_LSM=y is set, BPF inode storage maps
-(BPF_MAP_TYPE_INODE_STORAGE) are compiled into the kernel. However,
-if the BPF LSM is not explicitly enabled at boot time (e.g. omitted
-from the "lsm=" boot parameter), lsm_prepare() is never executed for
-the BPF LSM.
+From: Kuniyuki Iwashima <kuniyu@google.com>
 
-Consequently, the BPF inode security blob offset
-(bpf_lsm_blob_sizes.lbs_inode) is never initialized and remains at
-its default compiled size of 8 bytes instead of being updated to a
-valid offset past the reserved struct rcu_head (typically 16 bytes
-or more).
+[ Upstream commit 06b693d2eb6651a63ad85bad8673de3b7d4edd6d ]
 
-When a privileged user creates and updates a BPF_MAP_TYPE_INODE_STORAGE
-map, bpf_inode() evaluates inode->i_security + 8. This erroneously
-aliases the struct rcu_head.func callback pointer at the beginning
-of the inode->i_security blob. During subsequent map element cleanup
-or inode destruction, writing NULL to owner_storage clears the queued
-RCU callback pointer. When rcu_do_batch() later executes the queued
-callback, it attempts an instruction fetch at address 0x0, triggering
-an immediate kernel panic.
+syzbot reported use-after-free in nsim_fib4_prepare_event(). [0]
 
-Fix this by introducing a global bpf_lsm_initialized boolean flag
-marked with __ro_after_init. Set this flag to true inside bpf_lsm_init()
-when the LSM framework successfully registers the BPF LSM. Gate map
-allocation in inode_storage_map_alloc() on this flag, returning
--EOPNOTSUPP if the BPF LSM is in turn uninitialized.
+The problem is that the following functions call fib_info_hold() /
+refcount_inc() while dumping fib_info under RCU, which is unsafe.
 
-This fail-fast approach prevents userspace from allocating inode
-storage maps when the supporting BPF LSM infrastructure is absent,
-avoiding zombie map states.
+  * mlxsw_sp_router_fib4_event()
+  * rocker_router_fib_event()
+  * nsim_fib4_prepare_event()
 
-Fixes: 8ea636848aca ("bpf: Implement bpf_local_storage for inodes")
-Reported-by: oxsignal <awo@kakao.com>
-Signed-off-by: Matt Bobrowski <mattbobrowski@google.com>
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Reviewed-by: Amery Hung <ameryhung@gmail.com>
-Link: https://lore.kernel.org/bpf/20260628201103.3624525-1-mattbobrowski@google.com
+refcount_inc_not_zero() must be used, but it would be too late
+there.
+
+Let's guarantee the lifetime of fib_info in fib_leaf_notify().
+
+Note that IPv6 does not need the corresponding change since
+fib6_table_dump() holds fib6_table.tb6_lock.
+
+[0]:
+refcount_t: addition on 0; use-after-free.
+WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25, CPU#0: kworker/u8:15/3420
+Modules linked in:
+CPU: 0 UID: 0 PID: 3420 Comm: kworker/u8:15 Not tainted syzkaller #0 PREEMPT_{RT,(full)}
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 04/18/2026
+Workqueue: netns cleanup_net
+RIP: 0010:refcount_warn_saturate+0x9f/0x110 lib/refcount.c:25
+Code: eb 66 85 db 74 3e 83 fb 01 75 4c e8 1b f1 22 fd 48 8d 3d 84 cb f1 0a 67 48 0f b9 3a eb 4a e8 08 f1 22 fd 48 8d 3d 81 cb f1 0a <67> 48 0f b9 3a eb 37 e8 f5 f0 22 fd 48 8d 3d 7e cb f1 0a 67 48 0f
+RSP: 0018:ffffc9000f2c7270 EFLAGS: 00010293
+RAX: ffffffff84a18858 RBX: 0000000000000002 RCX: ffff888032ff9ec0
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8f9353e0
+RBP: 0000000000000000 R08: ffff888032ff9ec0 R09: 0000000000000005
+R10: 0000000000000100 R11: 0000000000000004 R12: ffff8880570cc000
+R13: dffffc0000000000 R14: ffff88802b40563c R15: ffff8880570cc000
+FS:  0000000000000000(0000) GS:ffff888126173000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb1f4d5d000 CR3: 000000006072a000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __refcount_add include/linux/refcount.h:-1 [inline]
+ __refcount_inc include/linux/refcount.h:366 [inline]
+ refcount_inc include/linux/refcount.h:383 [inline]
+ fib_info_hold include/net/ip_fib.h:629 [inline]
+ nsim_fib4_prepare_event drivers/net/netdevsim/fib.c:930 [inline]
+ nsim_fib_event_schedule_work drivers/net/netdevsim/fib.c:1000 [inline]
+ nsim_fib_event_nb+0x1055/0x1240 drivers/net/netdevsim/fib.c:1043
+ call_fib_notifier+0x45/0x80 net/core/fib_notifier.c:25
+ call_fib_entry_notifier net/ipv4/fib_trie.c:90 [inline]
+ fib_leaf_notify net/ipv4/fib_trie.c:2176 [inline]
+ fib_table_notify net/ipv4/fib_trie.c:2194 [inline]
+ fib_notify+0x36b/0x5e0 net/ipv4/fib_trie.c:2217
+ fib_net_dump net/core/fib_notifier.c:70 [inline]
+ register_fib_notifier+0x184/0x360 net/core/fib_notifier.c:108
+ nsim_fib_create+0x85d/0x9f0 drivers/net/netdevsim/fib.c:1596
+ nsim_dev_reload_create drivers/net/netdevsim/dev.c:1604 [inline]
+ nsim_dev_reload_up+0x374/0x7c0 drivers/net/netdevsim/dev.c:1058
+ devlink_reload+0x501/0x8d0 net/devlink/dev.c:475
+ devlink_pernet_pre_exit+0x1ff/0x420 net/devlink/core.c:558
+ ops_pre_exit_list net/core/net_namespace.c:161 [inline]
+ ops_undo_list+0x187/0x940 net/core/net_namespace.c:234
+ cleanup_net+0x56e/0x800 net/core/net_namespace.c:702
+ process_one_work kernel/workqueue.c:3314 [inline]
+ process_scheduled_works+0xb5d/0x1860 kernel/workqueue.c:3397
+ worker_thread+0xa53/0xfc0 kernel/workqueue.c:3478
+ kthread+0x388/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Fixes: 0ae3eb7b4611 ("netdevsim: fib: Perform the route programming in a non-atomic context")
+Fixes: c3852ef7f2f8 ("ipv4: fib: Replay events when registering FIB notifier")
+Reported-by: syzbot+cb2aa2390ac024e25f5c@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6a290011.39669fcc.33b062.00b1.GAE@google.com/
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20260610061744.2030996-2-kuniyu@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/bpf_lsm.h        |  4 ++++
- kernel/bpf/bpf_inode_storage.c | 10 ++++++++++
- security/bpf/hooks.c           |  3 +++
- 3 files changed, 17 insertions(+)
+ include/net/ip_fib.h | 5 +++++
+ net/ipv4/fib_trie.c  | 4 ++++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/include/linux/bpf_lsm.h b/include/linux/bpf_lsm.h
-index aaacb6aafc87e8..df992a81e31111 100644
---- a/include/linux/bpf_lsm.h
-+++ b/include/linux/bpf_lsm.h
-@@ -12,6 +12,8 @@
- 
- #ifdef CONFIG_BPF_LSM
- 
-+extern bool bpf_lsm_initialized __ro_after_init;
-+
- #define LSM_HOOK(RET, DEFAULT, NAME, ...) \
- 	RET bpf_lsm_##NAME(__VA_ARGS__);
- #include <linux/lsm_hook_defs.h>
-@@ -41,6 +43,8 @@ void bpf_inode_storage_free(struct inode *inode);
- 
- #else /* !CONFIG_BPF_LSM */
- 
-+#define bpf_lsm_initialized false
-+
- static inline int bpf_lsm_verify_prog(struct bpf_verifier_log *vlog,
- 				      const struct bpf_prog *prog)
- {
-diff --git a/kernel/bpf/bpf_inode_storage.c b/kernel/bpf/bpf_inode_storage.c
-index a4ac48c7dada12..4fd82425febaf1 100644
---- a/kernel/bpf/bpf_inode_storage.c
-+++ b/kernel/bpf/bpf_inode_storage.c
-@@ -223,6 +223,16 @@ static struct bpf_map *inode_storage_map_alloc(union bpf_attr *attr)
- {
- 	struct bpf_local_storage_map *smap;
- 
-+	/*
-+	 * Do not allow allocation of BPF_MAP_TYPE_INODE_STORAGE if the BPF LSM
-+	 * was not initialized by the LSM framework at boot. Without proper
-+	 * initialization, the BPF inode security blob offset remains unprepared,
-+	 * causing bpf_inode() to calculate an invalid memory offset and corrupt
-+	 * inode->i_security.
-+	 */
-+	if (!bpf_lsm_initialized)
-+		return ERR_PTR(-EOPNOTSUPP);
-+
- 	smap = bpf_local_storage_map_alloc(attr);
- 	if (IS_ERR(smap))
- 		return ERR_CAST(smap);
-diff --git a/security/bpf/hooks.c b/security/bpf/hooks.c
-index 788667d582ae57..18f6ceccbfba65 100644
---- a/security/bpf/hooks.c
-+++ b/security/bpf/hooks.c
-@@ -6,6 +6,8 @@
- #include <linux/lsm_hooks.h>
- #include <linux/bpf_lsm.h>
- 
-+bool bpf_lsm_initialized __ro_after_init;
-+
- static struct security_hook_list bpf_lsm_hooks[] __lsm_ro_after_init = {
- 	#define LSM_HOOK(RET, DEFAULT, NAME, ...) \
- 	LSM_HOOK_INIT(NAME, bpf_lsm_##NAME),
-@@ -17,6 +19,7 @@ static struct security_hook_list bpf_lsm_hooks[] __lsm_ro_after_init = {
- static int __init bpf_lsm_init(void)
- {
- 	security_add_hooks(bpf_lsm_hooks, ARRAY_SIZE(bpf_lsm_hooks), "bpf");
-+	bpf_lsm_initialized = true;
- 	pr_info("LSM support for eBPF active\n");
- 	return 0;
+diff --git a/include/net/ip_fib.h b/include/net/ip_fib.h
+index 318593743b6e15..541da2dde6266d 100644
+--- a/include/net/ip_fib.h
++++ b/include/net/ip_fib.h
+@@ -629,6 +629,11 @@ static inline void fib_info_hold(struct fib_info *fi)
+ 	refcount_inc(&fi->fib_clntref);
  }
+ 
++static inline bool fib_info_hold_safe(struct fib_info *fi)
++{
++	return refcount_inc_not_zero(&fi->fib_clntref);
++}
++
+ static inline void fib_info_put(struct fib_info *fi)
+ {
+ 	if (refcount_dec_and_test(&fi->fib_clntref))
+diff --git a/net/ipv4/fib_trie.c b/net/ipv4/fib_trie.c
+index 1308213791f19d..dac543c1d6867a 100644
+--- a/net/ipv4/fib_trie.c
++++ b/net/ipv4/fib_trie.c
+@@ -2172,10 +2172,14 @@ static int fib_leaf_notify(struct key_vector *l, struct fib_table *tb,
+ 		if (fa->fa_slen == last_slen)
+ 			continue;
+ 
++		if (!fib_info_hold_safe(fa->fa_info))
++			continue;
++
+ 		last_slen = fa->fa_slen;
+ 		err = call_fib_entry_notifier(nb, FIB_EVENT_ENTRY_REPLACE,
+ 					      l->key, KEYLENGTH - fa->fa_slen,
+ 					      fa, extack);
++		fib_info_put(fa->fa_info);
+ 		if (err)
+ 			return err;
+ 	}
 -- 
 2.53.0
+
+
 
