@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE5B392822
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:15:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956993B7778
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 09:16:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784625359; cv=none; b=fgS5XneuIAIY+8914bW1GMhVIzip+JUyupiufIi+btsrMj22MZ2qAVmz7iTsFCUUTBvjRT33qKesadKjg004AZ8z3UUjBurgBA2rGktdaFytcVJSiSXL3t+nU2tVHYpW8TMqaUZ0AEmha01zIR1M6AM86tkLMDA1s2My/lshuiE=
+	t=1784625361; cv=none; b=OdfLMg1I/L4Yk4dFH1vP120TWyp9mPT5hM3ASqBt5Jrd5vgJIOO90VMNIGvJZrRsTh1kXUwTPC+2W5zG6QegP4F7cjWbsmg/YCpNRlgEb6CrSw4oHTSD4ZbUKLx7+sknDnUWpQ8Jof3hS1ol3zcCDiWH1DmZuqECT4lvfWiZH0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784625359; c=relaxed/simple;
-	bh=IZPIXZ802Elz7sWWH7JryZyyhflMA6pZLk9aPjfKxl8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hv+KtAeo1213yasCIYOnTdq0cgeyKpw/oOhClNdvm60dfI4wmOtpDd2nNI0EPyv30VpvVe9wqJBfhV5h9ZZ4J7vL6ePcQRXznoNibZYtCPBTNXx5yeQLPMGr7Zx5iRWmQoP0HuwoQ/jhJshdX+0pubfTqNfFoUzaWiijRjLkV0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mt5hcZf7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784625361; c=relaxed/simple;
+	bh=4AK8Q69ANYHXYCQptePPo+HSakjExciA3uJvfZ4DYPo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oXDkg94kgWdBocpy2dvPxp3ZDNiZWcoYZ3jUE0WPjdeou2HNAlclS/W/ehtBXmo39NvBADVSu5CP2INfcB9btzmAkIa4tFyVPKaSf2G70Z+5+rWj5gTAes92xsY8AUrze+nEq75UDneSwXfaY1MlPwgt5nS6/SQANLtpftln4B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f80/0eaD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mt5hcZf7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 371841F000E9;
-	Tue, 21 Jul 2026 09:15:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f80/0eaD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA07B1F000E9;
+	Tue, 21 Jul 2026 09:15:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784625357;
-	bh=u8JIW2hbhH4K2PUdGZHN9wU5TrcPz0HFH3yidqnVKVY=;
+	s=korg; t=1784625360;
+	bh=J+DCw5eMV6YwOFusTdHRW/s62G3RXey+iWKAHMnq+7I=;
 	h=Subject:To:Cc:From:Date;
-	b=mt5hcZf7QyIG3W4pWoD3eHzXFus9KJhlY/8qWDrUdISsjFub1tnYz5Lu1z5Pj+UHO
-	 VqYZwL8ssNNHdasmGS5ZYMTk/jvDFAVpbLhjnVyCjDLErqP2Kt/nEBnkoYIZYeFX7P
-	 dnElygZHKtMp/Y49zlByoYQOUurVNAonouXEUuGU=
-Subject: FAILED: patch "[PATCH] fs/resctrl: Fix double-add of pseudo-locked region's RMID to" failed to apply to 6.6-stable tree
+	b=f80/0eaD3TISJI00sMipfGIxO8vu/P7G/mVz9fKpMFh97yv7zG715SMH4+n4HhNl6
+	 p4IXho8uVkEXOnZBanx/wnORht8va6T/TOys+1kZnVYQXK9NupPmr4TBCI7NDxA+xV
+	 7CmTvXnFbsRqq1zn7zLG2/Em2HsYLceeLLbDWjCU=
+Subject: FAILED: patch "[PATCH] fs/resctrl: Fix double-add of pseudo-locked region's RMID to" failed to apply to 5.10-stable tree
 To: reinette.chatre@intel.com,bp@alien8.de,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 21 Jul 2026 11:15:35 +0200
-Message-ID: <2026072135-smashing-sudoku-fcfa@gregkh>
+Date: Tue, 21 Jul 2026 11:15:36 +0200
+Message-ID: <2026072136-revisable-repeal-74a2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x b9f089723aee892efc77c349ae47a6b452b293c4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072135-smashing-sudoku-fcfa@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072136-revisable-repeal-74a2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
