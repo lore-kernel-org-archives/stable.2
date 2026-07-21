@@ -1,88 +1,89 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F72481A8B
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDE248BD5E
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 10:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784629715; cv=none; b=jFnT8LRdiKVDSwF+FjXACFmWAXdmueXakJiFVl3sNxhrCTCpC93eo+vu25+IpJS3HIPegZKT1c9FlB+9CTrp0ioq1ddDqF3XiFYvDw//CFbCqVVVwjTnUtByXfRyjbXFXTnrygVKw4maT2hTQEEIUqCXrawkdmPlF5Pnxf7si7E=
+	t=1784629718; cv=none; b=gnlr+svBLlmkDH2cZhpJvOrXjwj/Qz013rgO9dy7lBP01qjeDJYMAN/sGKWWb+cTq1wDCTec3XdQ+zTORC9GJwAO+dZ4Kab9TJXlnUHqGhTe9QIRLHRGs9NiNGo4sWJJ6R4x9ITGsniWvF+rNKM8v0NsUWe5ZmZ/nM28xicld38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784629715; c=relaxed/simple;
-	bh=rxE672ury9tWTdjh2fA+6R5h3E2l5Y7B22DohOut5Hk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TnigXqk6GTQWEJQJJ2TXkZ/khZhL7UyjxwkuzX+u5CDsazGEDDyyR8PgkSFK4W3p3geBklVEDaV/MDyPixyEuxMu+Y33Cy5OdpTenrzbr1H+bOaoiXOjlPjUrIGH5+vI7l5z4G/0sYto7i+BBiNVbxOxyeTonJ+adWACccyD5DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MYMXDmAH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SylRphOL; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1784629718; c=relaxed/simple;
+	bh=flLnTzzvdktYAMXGKCG/ht6BWQVMu8ko2+dOzbhNc0o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e4sNQug09Fwo/D3aIluYOCKXWuybRPugL6Ih9F4ukdHSZ5eUom2m35e+bw7e/eN9rXiQltwUogqtHOz1vjbFlTiZShhSUrY9skZBeQfWQGKzM67HB+oeC7c8HpUujwIJ+Qqkt40hEDAJORazDkxDV0ZUC/voutI7fPt6RjlkbSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fEyBqXFJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TsHuZG7A; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MYMXDmAH";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SylRphOL"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fEyBqXFJ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TsHuZG7A"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784629712;
+	s=mimecast20190719; t=1784629716;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=E1MIb1SYEneoGIcT7yLYFlL1UIRAz+KVXytnxrYIFiM=;
-	b=MYMXDmAH+257Grln1H0GrimnrZCzj4PokVlqyvdmaOrj1ykX5/+Ujko0cQLJxdRTU8WOZw
-	GQSJ9wb/KmEhEt/1T3xkHOiJd4R6aOnq2P0U7FHcgIhr2e3A9hPzHzXyBa/2KBVxLaQHt5
-	WSUG8dY/AH7iaIiI8dBV2e44+RJnavs=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=qX+yOp5vEEJO47GrrgFjd6hpRsB9whe/kZX5TD9uf8A=;
+	b=fEyBqXFJe2GJXq3BzIrtPbWXcTKN/oA482fi+cSerBOZxf3SuuZxqqxGJqdZubKF87Q/uG
+	rS3Pvwzta8iX58SQfrlES9vIrNMxtXysRD9L8odMVrHUz+4ssk5GUctLkaDxYdrTyE6BKa
+	UUzYIhDIzvt0YzYRw48+c/UOL3845yY=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-577-qW6_yS7bMQOtn3Hu0Y74Fg-1; Tue, 21 Jul 2026 06:28:30 -0400
-X-MC-Unique: qW6_yS7bMQOtn3Hu0Y74Fg-1
-X-Mimecast-MFC-AGG-ID: qW6_yS7bMQOtn3Hu0Y74Fg_1784629710
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47162f83c75so2923834f8f.1
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 03:28:30 -0700 (PDT)
+ us-mta-88-wsqSe65WOAyYsNQu7xhgEA-1; Tue, 21 Jul 2026 06:28:35 -0400
+X-MC-Unique: wsqSe65WOAyYsNQu7xhgEA-1
+X-Mimecast-MFC-AGG-ID: wsqSe65WOAyYsNQu7xhgEA_1784629714
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4954c2d4081so39076445e9.2
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 03:28:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784629709; x=1785234509; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1784629714; x=1785234514; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E1MIb1SYEneoGIcT7yLYFlL1UIRAz+KVXytnxrYIFiM=;
-        b=SylRphOLjQ5+xSK5K+oYgvB2qRZk5BjGY+fTW3t0gV4DrA4liifFo/68OgPsZJbwgX
-         TANllWDn0o4tGor6LuMesJDyPAFsLi85wLYJeC9AlbrBdtcg88rna5i/Ta0h+PLwS2GS
-         gtZGJguWi6lh8HXGlJNVQQTwF9ddWvLYgN4nkpy2dhWfKGSS3c5NKpf+2gAKL1UQLd5C
-         K5lHRKalrwFTL5R7QxN3CoEIC8H3qYH/O9HloPJfcbZ9rLqhEKBAeC+RrDZsu1e5hBGr
-         +lmN1MzdG5cErcspqVkQ6FEBHyogqefp3bHoWEevZ6OL4vpzw3SxWemYpPxDmNC4FVjr
-         h/Dg==
+        bh=qX+yOp5vEEJO47GrrgFjd6hpRsB9whe/kZX5TD9uf8A=;
+        b=TsHuZG7A43/BydLbUNZXnP9AMTAlcTxD8OmCJhuwQ2cpxE+4w3DsqP5pyGSIvN8/o3
+         bjZTglMg6OxQz40zW0+nkyD7mGJoJbFDwTRqrDNDzt2an76wnUYyCZyoA41++30ZKgfH
+         K6RN89Mr4NaLci9cfvnp/62gigNRjSjPU9wIfQgfQeGP9VNCOD5vOacVzr5PKAcOxyOM
+         aGEGNUohAY2JIeN3Rk0QXbkJ6oKAd5Ob3ezE+4fe/YSKCxeQ0Js7bxXrjSyk8wgSTZVn
+         hSxAmr67C3LCnJ5Rs7+7flAFg6FDs5iOORlEL3arGquj6EoNaiupvfFoSAfY3u+AASlq
+         aD5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784629709; x=1785234509;
+        d=1e100.net; s=20251104; t=1784629714; x=1785234514;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E1MIb1SYEneoGIcT7yLYFlL1UIRAz+KVXytnxrYIFiM=;
-        b=Fnsa9SkKQClNE1X2XCR1YCqu6huK26hQGv3cdU0q1jhMBJXnCGC25KQvz8hSTNk5T5
-         p+DUqWKXWsmIC1oEwtcA23W0NUxJ4tgDyaVloxYdFOxcQMTUhWBD+BEWOiXZSNjzGtkJ
-         LF20n7OMs12VBijx0ENaqcdybsJvaHFehOTOaOgVibej6tga63rBcuKCofLZjtiws0W+
-         Nyey2b7MKS4tEBcGMOWMKR1ITysfvl4fHF8dp9fXPY2bxq2+uB3eFZhGazu5U61ZmGVE
-         FrxdOus44nDxbnSYqLZ0CN95P6WwZaoyLjBOM19d6q9h76WSOhhPXiEVvQxWP49xC70x
-         Ew+Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoDCDqlinaLuHUDNURHyKv6qQLSRKkJSwIwPxHdLfhobDSovqszH3ZlaMXQvpPbJIpogtxsCgo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YylLw31TakGIuuGMiSa5NGBH/HGu7ObpeaiYxpXu1Lp6X4Cjpf0
-	wEFKNcGn4WlvAjJGjVgb+eoZToxPagApM9XxOdjpb9lnXvB2n2An55zIYGfEbLqgdf40AiH46FQ
-	3PlT8tmvzWcMlmL179ZpF642ltrg7kAIeiqyShfPdIpEXlEjvSb/8JNcWEg==
-X-Gm-Gg: AfdE7cn04+NyeFpYUmA/p0kUcxgLmGGcr06SfLT2rdDl2LS+KCZhOqDuYKq+jDRFpRJ
-	OVLskI0otEfoGg60+xFqKsh1E5ianzXnkqd3gS9Ap5q+/n4KwSRbr6aXmVkwv6F2udyEi4T5kvs
-	lX+XWzAkv7NVcpndAajtyb7+iAOuFsh4tz9wyw1VSycNy5/USuMU1HvJWH7Mo7t7PLRMSg+GWic
-	XY+rBrpDoxokE2BeDfwMw9AweHuBYNkhAaUsyzUEPDF4rM/vr9FntGMEmN5XnqfFiLsAJZavXSh
-	A/64EXeCsujPFz8BRBZpTiYcb1s2Zz3D/f2y8NXT9XXX+PxVGqeowZhbvdZmEEbevgUrjJcyeGw
-	8a1UL85iZ/Mw6MZhGSJgv4DD3MX1EjhqNa/NxE0FpUImXljv24rrOxc2V9hc79uVx2VUSjPITy+
-	z8Ifz1
-X-Received: by 2002:a05:600c:4f0e:b0:495:4f84:7280 with SMTP id 5b1f17b1804b1-4954f847354mr171614905e9.4.1784629709485;
-        Tue, 21 Jul 2026 03:28:29 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f0e:b0:495:4f84:7280 with SMTP id 5b1f17b1804b1-4954f847354mr171614635e9.4.1784629709119;
-        Tue, 21 Jul 2026 03:28:29 -0700 (PDT)
+        bh=qX+yOp5vEEJO47GrrgFjd6hpRsB9whe/kZX5TD9uf8A=;
+        b=Lgq2Xcd2vDigRJuEDiqUeP/HhIOsWTx91gn65BSBCdijL8i0VUhNgynAjxK7/MAITJ
+         aonisw/Dm9bvSJ0zlXiT2XtoieHYlGyqp7+vhmv5lypTz6paBnSvUi+Vn9n5R0ASdNzO
+         yT8sWNIhNs/6YKSp6P3C+R+DPnfCy/DkaH+0LUMGh/WkqMbO6aS5pdKFkG6arbWYaC33
+         X5UduFJHnB+pm2uRbBHmQcfWfqyyHF5lT2OY3J5zS2elAA6Gp57EqkTBM7R7bVzqyBQF
+         W1NKjSFIJ+BmPDI4Eix8hGHJUSkfg2iZVby9rGIcSUIdUVmCs2P5Inxj7v5vBFZmTPhB
+         ThJA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5MuT3qcdoigwX5rvNbCJvQPfZCjYq/uacfNT6n2zZblLsAHAczW5LsF2vbyRQIhdRSEWwz8A=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXSJxeBrxXZ2ASgxiuptTx7F9sKxGS73tvaqYIOWKDHVbMyqHQ
+	sSphAjlLD17V6nv6IHf/fmZLFxgJhTujVxitklrYt/haJIK7OmHnpZVH3Ang5ZUXTmDVPjgSVd8
+	e5WCKGI+YNv4fUQ/cCao6Q2o4bZTIYsi1TUEigYx3d+7Uhp+dAHRhlAt3Fw==
+X-Gm-Gg: AfdE7clwowaNT8BjibCwMs2xiFIkKasF7C3vBnz2kye5/AlyWoZ1O2j0/mMaWw3x8YC
+	n2iZOKPBVV3zuUkKLeoPpss/n+n7r3S8FS0AVfEM0dJsaDFdaHMcp5j72rIlAKq3wLC9VyhTkBn
+	FItEtV84flo8q/Br1hXkcB7vWf5e1Z5UPtmVWVXqaXsTgbAjpFd3kQfeWGXLm3h3rC+HhqyIxis
+	iJrDxsULi71/HINL1P26gpx0NpUZwIUX/78Yw4IoFPFiAyCX81D6qmNPJQ6Sc+QnDkVoI6HypVY
+	R1lIGZP49c/XwTc8rE+J0xRiQGiXG5WM/fLiIQ51katq53tgPWCCs7f/NfuLm9cMt6q1oCgxlVN
+	DUNCzLEfjw34bTr1+anDxZCkZ3ZCIfie4DmdA/2FuRMV5qVPC+U0njv8245awIzfFqLe7Ik9zD/
+	gwGk2c
+X-Received: by 2002:a05:600c:3510:b0:493:cc25:85cb with SMTP id 5b1f17b1804b1-4954a3e20b1mr207187195e9.8.1784629713271;
+        Tue, 21 Jul 2026 03:28:33 -0700 (PDT)
+X-Received: by 2002:a05:600c:3510:b0:493:cc25:85cb with SMTP id 5b1f17b1804b1-4954a3e20b1mr207186825e9.8.1784629712755;
+        Tue, 21 Jul 2026 03:28:32 -0700 (PDT)
 Received: from [192.168.10.48] ([151.49.94.110])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956537c7desm77013385e9.7.2026.07.21.03.28.28
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495653687b2sm67947495e9.1.2026.07.21.03.28.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Jul 2026 03:28:28 -0700 (PDT)
+        Tue, 21 Jul 2026 03:28:31 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] KVM: nVMX: Hide shadow VMCS right after VMCLEAR
-Date: Tue, 21 Jul 2026 12:28:27 +0200
-Message-ID: <20260721102827.313208-1-pbonzini@redhat.com>
+Subject: [PATCH] KVM: x86: Check for invalid/obsolete root *after* making MMU pages available
+Date: Tue, 21 Jul 2026 12:28:29 +0200
+Message-ID: <20260721102829.313226-1-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -92,54 +93,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+From: Sean Christopherson <seanjc@google.com>
 
-free_nested() frees the shadow VMCS while vmcs01 still points to it. But
-because it is asynchronous with respect to loaded_vmcs_clear(), the vCPU
-might migrate before the pointer is cleared and __loaded_vmcs_clear()
-may then execute VMCLEAR.
+Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
+after making MMU pages available for the shadow MMU.  If reclaiming shadow
+pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
+map memory into an invalid root.  On its own, populating an invalid root is
+"fine", but because child shadow pages inherit their parent's role, any
+children created during the map/fetch will be created as invalid pages,
+thus violating KVM's invariant that invalid pages are never on the list of
+active MMU pages.
 
-The VMCS needs to stay attached until its explicit VMCLEAR completes, but
-then it can be hidden and the page safely freed.
+Note, the underlying flaw has existed since KVM first started tracking
+invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
+pagetables"), but the true badness only came along in 2020 (Linux 5.9)
+with the invariant that invalid shadow pages can't be on the list of
+active pages.
 
-Fixes: 355f4fb1405e ("kvm: nVMX: VMCLEAR an active shadow VMCS after last use")
+Note #2, inheriting role.invalid when creating child shadow pages is also
+far from ideal; that flaw will be addressed separately.
+
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Fixes: f95eec9bed76 ("KVM: x86/mmu: Don't put invalid SPs back on the list of active pages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/vmx/nested.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ arch/x86/kvm/mmu/mmu.c         |  9 +++++----
+ arch/x86/kvm/mmu/paging_tmpl.h | 10 ++++++----
+ 2 files changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 220d42ebc82e..ddf6df7bee93 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -336,6 +336,7 @@ static void nested_put_vmcs12_pages(struct kvm_vcpu *vcpu)
- static void free_nested(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_vmx *vmx = to_vmx(vcpu);
-+	struct vmcs *shadow_vmcs;
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 234d0a95abf5..41f92ed1ca37 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -4852,16 +4852,17 @@ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 	if (r != RET_PF_CONTINUE)
+ 		return r;
  
- 	if (WARN_ON_ONCE(vmx->loaded_vmcs != &vmx->vmcs01))
- 		vmx_switch_vmcs(vcpu, &vmx->vmcs01);
-@@ -353,9 +354,15 @@ static void free_nested(struct kvm_vcpu *vcpu)
- 	vmx->nested.current_vmptr = INVALID_GPA;
- 	if (enable_shadow_vmcs) {
- 		vmx_disable_shadow_vmcs(vmx);
--		vmcs_clear(vmx->vmcs01.shadow_vmcs);
--		free_vmcs(vmx->vmcs01.shadow_vmcs);
+-	r = RET_PF_RETRY;
+ 	write_lock(&vcpu->kvm->mmu_lock);
+ 
+-	if (is_page_fault_stale(vcpu, fault))
+-		goto out_unlock;
+-
+ 	r = make_mmu_pages_available(vcpu);
+ 	if (r)
+ 		goto out_unlock;
+ 
++	if (is_page_fault_stale(vcpu, fault)) {
++		r = RET_PF_RETRY;
++		goto out_unlock;
++	}
 +
-+		/*
-+		 * Keep the pointer visible until after VMCLEAR, so migration
-+		 * can clear an active shadow VMCS on the old CPU.
-+		 */
-+		shadow_vmcs = vmx->vmcs01.shadow_vmcs;
-+		vmcs_clear(shadow_vmcs);
- 		vmx->vmcs01.shadow_vmcs = NULL;
-+		free_vmcs(shadow_vmcs);
+ 	r = direct_map(vcpu, fault);
+ 
+ out_unlock:
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index df3ae0c7ec2c..1ba840a73b7a 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -864,15 +864,17 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
  	}
- 	kfree(vmx->nested.cached_vmcs12);
- 	vmx->nested.cached_vmcs12 = NULL;
+ #endif
+ 
+-	r = RET_PF_RETRY;
+ 	write_lock(&vcpu->kvm->mmu_lock);
+ 
+-	if (is_page_fault_stale(vcpu, fault))
+-		goto out_unlock;
+-
+ 	r = make_mmu_pages_available(vcpu);
+ 	if (r)
+ 		goto out_unlock;
++
++	if (is_page_fault_stale(vcpu, fault)) {
++		r = RET_PF_RETRY;
++		goto out_unlock;
++	}
++
+ 	r = FNAME(fetch)(vcpu, fault, &walker);
+ 
+ out_unlock:
 -- 
 2.55.0
 
