@@ -1,52 +1,52 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F884D90B0
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 15:07:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134B14CA280
+	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 15:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784646460; cv=none; b=bUA0mbtHBFs8zgLsiIzkI6+zYnVXPB6FpBvu8yfWL/CjmEhyfbhVI02uhUvDuwU4g1zAmC7WIyxTDe9RUUHLh1YLHozinsnKKYivzqLSW84+UTQvNB5QchrUUuAicODTfhxg9UFy6U56TN2xeLL6pPE7ToJsuNmg37DH2dSynZY=
+	t=1784646480; cv=none; b=oSxndnlQqo4D9ejkfBnbp5UoMnGcVSk5NgZDp37pcBUsRe1qheSph4w8OuW3QxPg90paJCKgtH3K963Sh6S/Kc88P62XoYhDbZRzYfZHr5/bdhzIIV8BKxIXe8nq7+ZD5ffI05L1uZK93JV8G+IjTBG2vZNgj76THmkTIDHSscM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784646460; c=relaxed/simple;
-	bh=zGv+ZxbIKhMULgXJZIcfQf9Yr4bxNo1Zqmmu0qUQ28Q=;
-	h=Subject:Date:Message-Id:Content-Type:To:Cc:From:References:
-	 Mime-Version:In-Reply-To; b=bjlTyWQ3crnZEf10tf694qlPZzywU/26tq1FjeVJCJbNbUSV26OQRl5HieZGORgl+z6/OX6LMErGbOxGoCqTAK3T0y9xgHw7nFqYHHQI1hDsryhjsDh/EYfepQus/AMJUnw12UT+PuIhOfAvRIBol/8xvzizdqmKYg3OEa68pfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=m3LvUV4d; arc=none smtp.client-ip=209.127.230.112
+	s=arc-20240116; t=1784646480; c=relaxed/simple;
+	bh=gm2jOPStbq32/mbAPJlAsOpDjpz2skZzAiQfSqpB+e8=;
+	h=Cc:Mime-Version:Message-Id:To:From:Date:In-Reply-To:References:
+	 Subject:Content-Type; b=dXW06E2QuGqrrutFov5s3gUCQOtdUD1JjYjksfF6A3PEs3zqu9JJkJPsCYmfwnPNx1bBNpOe8KkSZ1WXfcvf0+tJxT5CX9YukDlCNfCUou7dB3GZM/xY8nJeQZxJz9DzS7+gkZWTS7n4kMX7hxfyTuXhlV4ohHr9//Y3vFCDzKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=lxIOxhfQ; arc=none smtp.client-ip=209.127.230.113
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="m3LvUV4d"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="lxIOxhfQ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1784646448; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1784646464; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=2RbBOq1Kwr4ihKn9qjdSSDPQpYDoY1RBbyj60hJpC5s=;
- b=m3LvUV4dFp19Ngb0LE8ffkiHAvzER8WWnNQQWj3koCXCncv09qE51HVhu/DbBpFd4LvUaB
- Rf6DNLHjZizxyT112Qjh6IqkUr5hJ+l3F75C6M5ucnZKN40zIdPynPNK6hOylvqyuy6XZy
- I5DdsA9EEoMmSb5JYIMU1045fVZJunaruil7ocueZoC0Qa8HWY/Hzy23rWKAsvdlcU1y6p
- fX/9jekubZ5h6tJHDsn3YAYGbyqeRm8ElvWm34ACR74vJLt4PgH8kxc5YgeMwVeNb4k5nS
- WeAr0PN8DECfhRBtjGndbYjbxeCZ+eW8pksT3HRvXOg8aJ9D2ISChBqPvct/Tg==
-Subject: [PATCH 6.1.y] platform/x86/intel-uncore-freq: Fix current_freq_khz after CPU hotplug
-Date: Tue, 21 Jul 2026 23:07:15 +0800
-Message-Id: <20260721150714.46115-2-weiguixiong@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26a5f8b2e+9ef15b+vger.kernel.org+weiguixiong@bytedance.com>
-To: <stable@vger.kernel.org>
+ bh=p0ZgvsGQKvayJQq+KCh49kxQgFcdkyYPkCoBPb3jghs=;
+ b=lxIOxhfQJY+GU+oaVcUvgs+CFKW7hvbxexg1QcJbmzVDhogXXQpiSqlE9Uvg0ZUp006xhD
+ Bu0LnT/Aencrq2VywMqZQMgcIhSFSsR2iWa68nxo+ejovc/5R5gT8UeaGgqhOq8t6Bj51X
+ AtKxRg2Ehmbzh3K6cOX/9EtdyEhBTfbBhf362wCW+6i4e6QuLSJTyfpPj2xThp8/wg+Xpy
+ bNpTGtHZEWzYtnI6ienGOZrA2qiUEhWIN65DyN4VWF5EQXcQj8Jm9qaMUWsRuhSxbd3cho
+ 7J5zJCk3UBbBgzmgYE4hd/aleDEBI8rGy1R/ULC9iG7tyxiYAMo0OwI20hmHuw==
 Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
 	"Srinivas Pandruvada" <srinivas.pandruvada@linux.intel.com>, 
 	=?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-References: <2026072030-ashamed-reformed-c254@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+Message-Id: <20260721150727.46546-2-weiguixiong@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <2026072030-ashamed-reformed-c254@gregkh>
+To: <stable@vger.kernel.org>
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+Date: Tue, 21 Jul 2026 23:07:28 +0800
+In-Reply-To: <2026072030-guy-reborn-3b8c@gregkh>
+References: <2026072030-guy-reborn-3b8c@gregkh>
+Subject: [PATCH 6.6.y] platform/x86/intel-uncore-freq: Fix current_freq_khz after CPU hotplug
+Content-Type: text/plain; charset=UTF-8
 X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
+X-Lms-Return-Path: <lba+26a5f8b3e+1ea9d2+vger.kernel.org+weiguixiong@bytedance.com>
 
 commit 6b63520ed14b17bbe9c2103debbd2152dde1fba3 upstream.
 
@@ -70,23 +70,23 @@ Link: https://patch.msgid.link/20260602020752.3126-1-weiguixiong@bytedance.=
 com
 Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-[weiguixiong: Adapt to legacy uncore_read() and create_attr_group() flow.]
+[weiguixiong: Adapt to legacy uncore_read() and instance_id naming.]
 Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
 ---
- .../intel/uncore-frequency/uncore-frequency-common.c  | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ .../x86/intel/uncore-frequency/uncore-frequency-common.c   | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-c=
 ommon.c b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-comm=
 on.c
-index dd2e654daf..88316ceb4c 100644
+index 33bb58dc3f..b362e0170a 100644
 --- a/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c
 +++ b/drivers/platform/x86/intel/uncore-frequency/uncore-frequency-common.c
-@@ -197,13 +197,18 @@ int uncore_freq_add_entry(struct uncore_data *data, i=
+@@ -238,14 +238,19 @@ int uncore_freq_add_entry(struct uncore_data *data, i=
 nt cpu)
-=20
- 	sprintf(data->name, "package_%02d_die_%02d", data->package_id, data->die_=
-id);
+ 		sprintf(data->name, "package_%02d_die_%02d", data->package_id, data->die=
+_id);
+ 	}
 =20
 +	/*
 +	 * Set the control CPU before any read path so entry recreation after CPU
@@ -97,15 +97,14 @@ id);
 z);
 =20
  	ret =3D create_attr_group(data, data->name);
--	if (!ret) {
--		data->control_cpu =3D cpu;
-+	if (ret)
+ 	if (ret) {
 +		data->control_cpu =3D -1;
-+	else
+ 		if (data->domain_id !=3D UNCORE_DOMAIN_ID_INVALID)
+ 			ida_free(&intel_uncore_ida, data->instance_id);
+ 	} else {
+-		data->control_cpu =3D cpu;
  		data->valid =3D true;
--	}
+ 	}
 =20
- uncore_unlock:
- 	mutex_unlock(&uncore_lock);
 --=20
 2.39.5
