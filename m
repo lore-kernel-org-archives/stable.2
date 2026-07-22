@@ -1,112 +1,141 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E8F360EC6
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F8E379C21
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784744079; cv=none; b=JJfWvqXqrG3BEIGF/54Fqusk8jco6KhmtY/wRAEaaus35HtVztTuJ+/oPzCRjRH1dq8+ZPqtALH3dVG8+J4izhV6vEhke8RTVc/8zH6OFH0V8yZqdAMuIF+cUJmuVWEVaCrTRBy6BqdRlTxV4VwNxjf+uG92x2e/mtRAAKdU0hw=
+	t=1784744411; cv=none; b=NCvN2exppA0D3L1Dw6GJ3UZ1/lizV/ZDljBnJdnTOlGeOJ18eVsJ23AfBa8yG0yIrw+DbVTHcBCky7QoYGOFQH+a6QKQvwBIPK8rJoV23yVUxG7Jv32vkRB0I4XRkiafscRVwQi1bx9Ugl13qanyu56is5XtrulM7+zf2+UY554=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784744079; c=relaxed/simple;
-	bh=nMt6B4/q1TBCAQ6F7lNKXLoEDYctWbQcqkd1+vkzyak=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B3UChCtGU+hPynZsscA3rNn+e7lNT02kxyOxpmnNcVuKhTczPu6jgFahU3XmXF0t5uZz265hE9QqBhX/mNLJBrvRPc4SIjkDMHsLk5u65kyvzXAMQOYxbs12u15X1433Vlr+ATLjvLODa/Yd4PquHhEzYdJDgwY7WoKKsBvwCXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pmx3zf1A; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784744411; c=relaxed/simple;
+	bh=cg4gEcbAOdL4vQJ3nX2S70+IR6gWhBCxkGObZfuFok8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K8XlJokrFINAnBk/w1sJoDZhA1GwprEdqTWZ6JJZyHTaRgaav2vOuUkARSNmQgZ9jciUR7GnNrltsyPFMFu0+cY0A/UppDUrXz/+9/QEBe3B7Y8YdqNm1oaFGN7d3qQjYhXhhFviM6oyB8VNzYGh7bC7d9VD6zpL8rEqGBCZu3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQkBlyEm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pmx3zf1A"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2caf228a910so102881955ad.2
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:14:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784744076; x=1785348876; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6f7oFf4DmJuS0FEyIve6i/ssgkTTmEBTgdClK4vAOoQ=;
-        b=pmx3zf1AFv0MFij7FKBQdwFKCGIgQ5qTt/8QB8hBqLJgveCedHP3629zdHysJjusr7
-         SMm6BTnDDYQiR9w7Pzn5lnJV4FhASL0NBNpgYIJMD/vcCt2mSKT0LlOT0PP+DCj74Hay
-         as9NhyW8uZKreB9487frhK80j4gTBC2RQuI6owzo5pHEusyl5TgoHGLMKZL9mfvg9ueK
-         67a6Qs53Pm1A/+rTZoj93OWchjGDKo+pOENYvaFE0LI+yXlcEhD9+3IGxiy2Tx6ycZQC
-         s7LdtE8a5DsiW2aatdCFCxe+QUo+Q+3/TaxUXoVoaifcXUtseDZrs6akgfNPyQkVdlwG
-         61Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784744076; x=1785348876;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6f7oFf4DmJuS0FEyIve6i/ssgkTTmEBTgdClK4vAOoQ=;
-        b=iHdyFnr6sSiTeHtKK74mFujrVcMPlm9fqq5nXs+xwtoRGLLovU2YiXj8WpncuSJjMU
-         7Y+oqD3w3x+Z/DmPuIrOtO2A/A+sJtR5akQu1y+44D9HqSymDucDYx+qYijxZ+bvPmqN
-         8apNZvOMaMkLLXn1IfJxd3Qgnwt7rLyyvnuF+HyYcarvED9h72e+IsyEM6aj4FfdHwI8
-         NStuE8YULdXq42wn+iONVr6aEMXBLOZQUcX0Q5fznKg8/6Z3uiSc7iiRzPNIGQ+I9QS7
-         dz4vPzVn9k9ECg6I+d8Co1dGaNsxl/UHwrol+J9iYiMFxDOIxuZcNRsUkBkmzNWJrQAD
-         cSNA==
-X-Forwarded-Encrypted: i=1; AHgh+RrCRrZ7TvY0VZONPiPHN5R2h8YBcele2xLg9wInMhYqFZj6V8rdwp55m4qNELFZCciBwo0OWSQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw117jobbFT11SyEuL2hWa6nXExca+rmGSEmnWfZ3zhjXGxGh2C
-	84BFHjkmUhmRpZrRZpnGocdEpbjLTdJDfwQsJqqrL9oLcg4XjJG5/Oh7
-X-Gm-Gg: AR+sD10Pk5a2xUYRZou8WujSTuHOv5NwIUV7EicO5m/hCK1Ao748nQHmYLey5TmkQzi
-	s3KAh7Bh8qfq+n4yvfnXFT4aKn0LawZJiw6I9Ux99tU3pB1/dWAA0cEbsesTgvG+KWpSXCCpHLj
-	LUKKM7L93iChX7hpXXWjNMy2w+4t8GSo+bTm2mf+qtCnkQJLEidZ3yH/0HKMWgOErBH9TrYGK1X
-	By97gBnmLmyoG7+LoUNBJbCSH1OQQWkX0/O/VM+v2JWgJPxvfAondWUwuuEek2p2gY5VnUziYkR
-	Fvh5cTnVjfvdGXDcZIgtyoBE5YhQK1vS20rxFErYuQDTLN0zx96FvSEWPqbLaMLv9Vc0Uk8LklQ
-	rFio9kKIiKeEHsieH9kGUsQ6Vxyhx7werq/UP6iBlG9+W1QTmftFbvlZN0ZD3nVYsW1za4DJuDb
-	yvhVp09GYSLE19Cju3WDk/cf7HkSyV
-X-Received: by 2002:a17:903:13c6:b0:2c9:cb1b:64d6 with SMTP id d9443c01a7336-2cf348686a0mr256025365ad.19.1784744075796;
-        Wed, 22 Jul 2026 11:14:35 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1bc886sm10928008eec.26.2026.07.22.11.14.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Jul 2026 11:14:34 -0700 (PDT)
-Message-ID: <b1a98c21-f0b6-4608-83ed-63c49188a33b@gmail.com>
-Date: Wed, 22 Jul 2026 11:14:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQkBlyEm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB831F000E9;
+	Wed, 22 Jul 2026 18:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784744409;
+	bh=7f1CM59BhXAp3QIyrJZ9rJvGppIjOmufp3lGYbWwO6s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oQkBlyEmQrlNsGA3hnjBCTe7nMjFsXAZM2hcG++xbwEiwYMGPYgv4Cmgns6Ik1hjW
+	 gr0yH/kLU+8KlkWUiSLBsRNPM1A70W/0MzKEYKNrpef++Swn6F6nFDYgiCAsj4qlzv
+	 nihOAv/QjUwnfl8Ta8HCBCnh6NGmd88darBEmwB6jN+zzcLvO4HpDTZiX0KBZod/Xc
+	 otvDlbEtu3+xS7dqt5m+A0KVlt/8UR/UkRRLZdkq/AIOdirfOBxp44OkTJosKCnmu0
+	 x4o/FTp77JpEL8FjeiiVXc6trytlEGRAghJP1qBoyIAnTLRq9ZS3RI6bjzIajKv0Ws
+	 lD1VItpDQO5UQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Li Xiasong <lixiasong1@huawei.com>,
+	Tung Nguyen <tung.quang.nguyen@est.tech>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] tipc: restrict socket queue dumps in enqueue tracepoints
+Date: Wed, 22 Jul 2026 14:20:07 -0400
+Message-ID: <20260722182007.2242819-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072051-ploy-disbelief-f80b@gregkh>
+References: <2026072051-ploy-disbelief-f80b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1029] 6.1.178-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260722143218.909123637@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260722143218.909123637@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/22/26 07:32, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.178 release.
-> There are 1029 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 24 Jul 2026 14:30:58 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.178-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Li Xiasong <lixiasong1@huawei.com>
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+[ Upstream commit acd7df8d955480a6f6e5bb809da67b1500cc3cf4 ]
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+tipc_sk_enqueue() runs with sk->sk_lock.slock held while the socket is
+owned by user context. The spinlock protects the backlog queue in this
+path, but it does not serialize against the socket owner consuming or
+purging sk_receive_queue.
+
+KASAN reported:
+
+  CPU: 14 UID: 0 PID: 1050 Comm: tipc3 Not tainted 7.1.0-rc6+ #126 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+  Call Trace:
+    <TASK>
+    dump_stack_lvl+0x76/0xa0 lib/dump_stack.c:123
+    print_report+0xce/0x5b0 mm/kasan/report.c:482
+    kasan_report+0xc6/0x100 mm/kasan/report.c:597
+    __asan_report_load4_noabort+0x14/0x30 mm/kasan/report_generic.c:380
+    tipc_skb_dump+0x1327/0x16f0 net/tipc/trace.c:73
+    tipc_list_dump+0x208/0x2e0 net/tipc/trace.c:187
+    tipc_sk_dump+0xaf6/0xd60 net/tipc/socket.c:3996
+    trace_event_raw_event_tipc_sk_class+0x312/0x5a0 net/tipc/trace.h:188
+    tipc_sk_rcv+0xb1d/0x1d50 net/tipc/socket.c:2497
+    tipc_node_xmit+0x1c3/0x1440 net/tipc/node.c:1689
+    __tipc_sendmsg+0x97a/0x1440 net/tipc/socket.c:1512
+    tipc_sendmsg+0x52/0x80 net/tipc/socket.c:1400
+    sock_sendmsg+0x2f6/0x3e0 net/socket.c:825
+    splice_to_socket+0x7f9/0x1010 fs/splice.c:884
+    do_splice+0xe21/0x2330 fs/splice.c:936
+    __do_splice+0x153/0x260 fs/splice.c:1431
+    __x64_sys_splice+0x150/0x230 fs/splice.c:1616
+    x64_sys_call+0xeb5/0x2790 arch/x86/entry/syscall_64.c:41
+    do_syscall_64+0xf3/0x620 arch/x86/entry/syscall_64.c:63
+    entry_SYSCALL_64_after_hwframe+0x76/0x7e arch/x86/entry/entry_64.S:130
+  RIP: 0033:0x71624e8aafe2
+  Code: 08 0f 85 71 3a ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 66
+  RSP: 002b:0000716157ffed68 EFLAGS: 00000246 ORIG_RAX: 0000000000000113
+  RAX: ffffffffffffffda RBX: 0000716157fff6c0 RCX: 000071624e8aafe2
+  RDX: 000000000000005f RSI: 0000000000000000 RDI: 0000000000000066
+  RBP: 0000716157ffed90 R08: 0000000000008000 R09: 0000000000000001
+  R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffff00
+  R13: 0000000000000021 R14: 0000000000000000 R15: 00007fff89799c40
+    </TASK>
+
+The TIPC_DUMP_ALL tracepoints in tipc_sk_enqueue() also dump
+sk_receive_queue and can therefore dereference skbs that the socket
+owner has already dequeued or freed. Restrict these dumps to
+TIPC_DUMP_SK_BKLGQ, which matches the queue protected by the held
+spinlock.
+
+Keep the change limited to the enqueue path, where the unsafe queue dump
+is reachable while the socket is owned by user context.
+
+Fixes: 01e661ebfbad ("tipc: add trace_events for tipc socket")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
+Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
+Link: https://patch.msgid.link/20260611135647.3666727-1-lixiasong1@huawei.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/tipc/socket.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index 5adfd0d854a2b2..cf435dfbfa8163 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -2451,17 +2451,17 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
+ 			atomic_set(dcnt, 0);
+ 		lim = rcvbuf_limit(sk, skb) + atomic_read(dcnt);
+ 		if (likely(!sk_add_backlog(sk, skb, lim))) {
+-			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_ALL,
++			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_SK_BKLGQ,
+ 						 "bklg & rcvq >90% allocated!");
+ 			continue;
+ 		}
+ 
+-		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_ALL, "err_overload!");
++		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_SK_BKLGQ, "err_overload!");
+ 		/* Overload => reject message back to sender */
+ 		onode = tipc_own_addr(sock_net(sk));
+ 		atomic_inc(&sk->sk_drops);
+ 		if (tipc_msg_reverse(onode, &skb, TIPC_ERR_OVERLOAD)) {
+-			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_ALL,
++			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_SK_BKLGQ,
+ 					      "@sk_enqueue!");
+ 			__skb_queue_tail(xmitq, skb);
+ 		}
 -- 
-Florian
+2.53.0
+
