@@ -1,175 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCE11DDC35;
-	Wed, 22 Jul 2026 08:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81961472526;
+	Wed, 22 Jul 2026 08:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784708710; cv=none; b=g0NVOGeWZkoVe9Vxf9eUHfsw83b0W9nfxvTTn6VZCvyhQdMGzmJVPiXIkMJFqJNV+3e223eGmzZdq4WaD3wXU3UltwRsA+za9FXiN3aliQLds1eR8RBtKYHqLHoVxveyHWsX/J1xlnbuipk6joegE9JK3ApTMsxn/3z2lIZbE4k=
+	t=1784708896; cv=none; b=YGB51M/qFYYflK9qQ7G1neXEYRHJzamiGnnFJYSEomZUWhJ10RT81AHqPlAFwnzLtdqEF98NVDG3N3tu+NQ2ijuXJwmBRrj4VTYpIKOlAZStsnXvmCLBoHJhhEvAalbY8XGRJrwlMJ+jpyd7sAtnstQmnYHwHN0TZY2pDt+fUwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784708710; c=relaxed/simple;
-	bh=8Fm1NhxEv4ThFGfFigKRHL10dAlyTCC6pNNg8Ntn/4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U6J6q3MHsFDNOQyK6avB4FxH2YPJNN3RVCePK6bvntbbx8PIxCLyH9/yaFP2/XDF1YIH/TqbAG+fh19eCaUw3CSfFGncUNHxvSwtpgPF3yFbW6xcYdfd0dJzLRZfGnVScEZbefauIu4eK4FRrHZLYZDWjJhenbiX+pfFaDOcksQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XSpVWTMe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784708896; c=relaxed/simple;
+	bh=h0exZmolevSAFHMaMCUhmcWBgHBKHV5vopcxMibkPEM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WRQVKUmMIpvBD9ImoNGMjwys3I2966UZYVPv/BMZ+pKXyGHZX+saaywXAMJ2Q8YSSu2RPfE+CbBVravBN6noHaoVzv9/CrlJYx0lEPSOPYar/jOJZP81xb0rd6rdRvEpxEHpgiQyxb2ocpfmNi8Dy+CQqqOBVbEe0i7bwN+2ygE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=kbR83VV3; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XSpVWTMe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAF491F00A3D;
-	Wed, 22 Jul 2026 08:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784708709;
-	bh=Vlk1XgoQCSbQxn/T8Z8FjUzrB0XKs9ddJy6TAd1zdxA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XSpVWTMetwsRR7nK315yCCO3rHjzzLMmdMVRUR9UHlIlsxBLb8C/vqnpzrBMdglFY
-	 WxkGvD0LLNeNtzsB+lTY6kQSjiXaJuNHLhAtSZShOS1TUSBe0upZZF8Mf4SkspMY1p
-	 eh/A0BcCHo86NgarXl9pUYxNbeYsNLj4+utbe5vB7emqQwsTmCFyKAuesPxCIvA35c
-	 XpQXzjOgFaOFCY24fzh3daE06/Sdue1rHT6vG0w+el7oYi7Fb1QOK0+P1Hf1ALcV51
-	 QIdbhp+pZ/fY5tB71coxSfQsVMepewtcCIwUfAtmNgps6k7QkXwci1HwMS3JXUYR+v
-	 /MxFKtrpQ0Sow==
-Date: Wed, 22 Jul 2026 10:25:03 +0200
-From: Antoine Tenart <atenart@kernel.org>
-To: James Raphael Tiovalen <jamestiotio@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	stable@vger.kernel.org, Kees Cook <kees@kernel.org>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] vxlan: mdb: Fix source list corruption on a failed
- replace
-Message-ID: <amB-O8v0P2AfY9Oh@kwain>
-References: <20260720160428.249356-1-jamestiotio@gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="kbR83VV3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1784708809;
+	bh=iKNePkvLO+Xkw4Bg0UaylTaIwN/EKafypBJWLgjl5y8=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=kbR83VV3JyyYu1rgzk+fK1Jcd4MjGsr1+jUmVp0sM+njSTnSHRbcBx9uf5QBcwIUD
+	 5K3mQQus1HlUEerIAEdW3zIYr0Tc4/oQsWAL9jGiH3xQwnoCOfI3f6IC43qXB9j6Jy
+	 qXBOH/TYm0bmJLJpckaZmOGLtvREDI0iHaKHWT24=
+X-QQ-mid: zesmtpgz4t1784708802t73708a2a
+X-QQ-Originating-IP: bVGPw5OQyeFGT0ThO/+s3jTvmbzZE8gXJE3hoH4saXs=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 22 Jul 2026 16:26:40 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 17902874601284001575
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.6 0000/1266] 6.6.145-rc1 review
+Date: Wed, 22 Jul 2026 16:26:32 +0800
+Message-Id: <20260722082631.845313-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
+References: <20260721152441.786066624@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720160428.249356-1-jamestiotio@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NvHY+L1zKPWo1GwNFvjWrNrI3vGhOBp9EvisgVlW5li1IGt2dYS+fepN
+	xTCI9yD6AAuz8nqk05QEASw4Gz/bb7vRfK7AXdtbudN+UdCjB+qP6uKkSa98ZqDFbOq4J0M
+	FyLlMieY/hB5BDL6NJFgegks9FPFh7Q0XXvamnUZd67Sh0TD5YJI89FAyMz04IMOoG04gy4
+	y/J/wvmxMfPnC8B/6iRhddQtWExGWvB4V/eBhyMdh7a9dVoPYnKLefCVicd4Z2khrB6aTFr
+	Dw8kNsUdxS0+tsFTO82xG0cRqgBsFItw7Dr07N1GOuUM3QWlWMEJHmEtW5PYmtXvLVMvnvv
+	jIAQm4CiPWrhJO1XOMftrNxvGJGt+tvCENB9oLs3FlE7b2lchuEgaLa+nkTpRI+KIKLom3b
+	aoke9ITzxTR0jW8rr84tWiQ7S19f2NvQ7yT9hN27scvke+1ceW1Wbosb0Ex2e/qhp3qFDON
+	QC/wgoYlDmKHoLVL1HOLVKpciYcu5tUQeQLJ5DAFLEPiqoFwnNRIkH1BtklToqoqODYe0Rq
+	xKEolq653M2BehvdyWoa1es+uNt2Xq9pshAafOdNTXYlqk6Dz/VL2PWr2iFDvD5iENFoXjM
+	Wi4lqOurs7zmOkc2m+kUg7tvQObPfotXOQR1J+fNA/zDvk384EYNV2YIRwzqqVufaZm1gjf
+	+9SdwzrV/wY1Alx8cl1odQIsdOk2eHmOI8Hco+7YK8tW7QXlLSGB66soEBnrkr4EoON0Gaj
+	xiLUxd5I41vTWWakdHLcQPFkAg+EQDY85scFOJ0oYZ0d1wSMyR825nQmZQ3oYstAWCuCZud
+	IzLy8jSoLeupsFg8voAhbB7pXWy9NBHVZHYNj7oQjwCPe3khF5WEsAk+TAmJTh7bFQK8baz
+	xww++Zy1PL48Ow2iENRworBTfnJt+ulO5OhpUm6G+51n4LkxEj0n9759E2KTjnXh2EaQL5H
+	kxZ8sFbdwWO/4N1DJNjvafiAMG8agmFl9GE4Sr5QMARtMUAxhaaS5MKkySPTLFiKVq/X0Kn
+	Om8DGwLK+z3aVfGOVv0Fii7yMQv9SwVCq+V1mK8KGH6XP2dKqTXATlSdJMVyIozyVLGGUfH
+	cY0Ohd76XGmsyQJP9fPyTs=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Tue, Jul 21, 2026 at 12:04:24AM +0800, James Raphael Tiovalen wrote:
-> When replacing the source list of an MDB remote entry, all existing
-> sources are first marked for deletion and vxlan_mdb_remote_srcs_add()
-> is then called to add the new source list. Sources present in the new
-> list have their deletion mark cleared, and any sources left marked
-> afterwards are removed.
-> 
-> If vxlan_mdb_remote_srcs_add() fails partway through, its error path
-> deletes all entries on the remote's source list. That rollback is only
-> correct for its other caller, vxlan_mdb_remote_add(), where the remote
-> was just allocated and the list contains solely entries added during
-> the call. On the replace path the list also holds pre-existing sources,
-> so a failed replace tears them down together with their (S, G)
-> forwarding entries instead of leaving the entry unchanged.
-> 
-> This is reachable from an existing (*, G) remote. An EXCLUDE filter
-> that loses sources starts forwarding traffic that should be blocked,
-> while an INCLUDE filter that loses sources drops traffic that should be
-> forwarded.
-> 
-> Mark entries created during the current pass with a new
-> VXLAN_SGRP_F_NEW flag. On failure, delete only those entries and clear
-> the deletion mark on the pre-existing ones, so a failed replace leaves
-> the source list untouched. Retain the flag until the whole operation
-> succeeds and then clear it. Also stop vxlan_mdb_remote_src_add() from
-> deleting a pre-existing entry it only looked up when adding that
-> entry's forwarding entry fails.
-> 
-> Fixes: a3a48de5eade ("vxlan: mdb: Add MDB control path support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Raphael Tiovalen <jamestiotio@gmail.com>
+Hi, 
 
-Reviewed-by: Antoine Tenart <atenart@kernel.org>
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-> ---
->  drivers/net/vxlan/vxlan_mdb.c | 30 ++++++++++++++++++------------
->  1 file changed, 18 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
-> index 055a4969f593..af7a0d7f95a5 100644
-> --- a/drivers/net/vxlan/vxlan_mdb.c
-> +++ b/drivers/net/vxlan/vxlan_mdb.c
-> @@ -42,6 +42,7 @@ struct vxlan_mdb_remote {
->  };
->  
->  #define VXLAN_SGRP_F_DELETE	BIT(0)
-> +#define VXLAN_SGRP_F_NEW	BIT(1)
->  
->  struct vxlan_mdb_src_entry {
->  	struct hlist_node node;
-> @@ -844,6 +845,7 @@ vxlan_mdb_remote_src_add(const struct vxlan_mdb_config *cfg,
->  		ent = vxlan_mdb_remote_src_entry_add(remote, &src->addr);
->  		if (!ent)
->  			return -ENOMEM;
-> +		ent->flags |= VXLAN_SGRP_F_NEW;
->  	} else if (!(cfg->nlflags & NLM_F_REPLACE)) {
->  		NL_SET_ERR_MSG_MOD(extack, "Source entry already exists");
->  		return -EEXIST;
-> @@ -853,15 +855,16 @@ vxlan_mdb_remote_src_add(const struct vxlan_mdb_config *cfg,
->  	if (err)
->  		goto err_src_del;
->  
-> -	/* Clear flags in case source entry was marked for deletion as part of
-> -	 * replace flow.
-> +	/* Clear the deletion mark so the entry survives the replace sweep.
-> +	 * The new mark is retained until the whole operation succeeds.
->  	 */
-> -	ent->flags = 0;
-> +	ent->flags &= ~VXLAN_SGRP_F_DELETE;
->  
->  	return 0;
->  
->  err_src_del:
-> -	vxlan_mdb_remote_src_entry_del(ent);
-> +	if (ent->flags & VXLAN_SGRP_F_NEW)
-> +		vxlan_mdb_remote_src_entry_del(ent);
->  	return err;
->  }
->  
-> @@ -889,11 +892,19 @@ static int vxlan_mdb_remote_srcs_add(const struct vxlan_mdb_config *cfg,
->  			goto err_src_del;
->  	}
->  
-> +	hlist_for_each_entry(ent, &remote->src_list, node)
-> +		ent->flags &= ~VXLAN_SGRP_F_NEW;
-> +
->  	return 0;
->  
->  err_src_del:
-> -	hlist_for_each_entry_safe(ent, tmp, &remote->src_list, node)
-> -		vxlan_mdb_remote_src_del(cfg->vxlan, &cfg->group, remote, ent);
-> +	hlist_for_each_entry_safe(ent, tmp, &remote->src_list, node) {
-> +		if (ent->flags & VXLAN_SGRP_F_NEW)
-> +			vxlan_mdb_remote_src_del(cfg->vxlan, &cfg->group, remote,
-> +						 ent);
-> +		else
-> +			ent->flags &= ~VXLAN_SGRP_F_DELETE;
-> +	}
->  	return err;
->  }
->  
-> @@ -1069,7 +1080,7 @@ vxlan_mdb_remote_srcs_replace(const struct vxlan_mdb_config *cfg,
->  
->  	err = vxlan_mdb_remote_srcs_add(cfg, remote, extack);
->  	if (err)
-> -		goto err_clear_delete;
-> +		return err;
->  
->  	hlist_for_each_entry_safe(ent, tmp, &remote->src_list, node) {
->  		if (ent->flags & VXLAN_SGRP_F_DELETE)
-> @@ -1078,11 +1089,6 @@ vxlan_mdb_remote_srcs_replace(const struct vxlan_mdb_config *cfg,
->  	}
->  
->  	return 0;
-> -
-> -err_clear_delete:
-> -	hlist_for_each_entry(ent, &remote->src_list, node)
-> -		ent->flags &= ~VXLAN_SGRP_F_DELETE;
-> -	return err;
->  }
->  
->  static int vxlan_mdb_remote_replace(const struct vxlan_mdb_config *cfg,
-> -- 
-> 2.43.0
-> 
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
+
+BRs
+Wentao Guan
+
+Log:
+Linux version 6.6.145-rc1-arm64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.6.145-rc1-arm64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Wed Jul 22 14:02:44 CST 2026
+Linux version 6.6.145-rc1-loong64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.6.145-rc1-loong64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Wed Jul 22 14:19:39 CST 2026
+Linux version 6.6.145-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP 
+Linux version 6.6.145-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Wed Jul 22 14:35:36 CST 2026
+Linux version 6.6.145-rc1-amd64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.6.145-rc1-amd64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Jul 22 13:43:48 CST 2026
+
