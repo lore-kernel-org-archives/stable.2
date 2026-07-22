@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4593F411F99
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698CB368D4D
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:29:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784741395; cv=none; b=EWP9Oyiikvl42vlhnUgi2CJWVN6OQBnwQFACX3WVnhxWsgGUXdaKcHPIb2YpPr0QOp67RTkohjvPoGZyGqf+Mzg31rZfxcwptzR8CMS1708HCJIzLLK1iTuASzDvowoYdEGgrReSdmfZ/y4XMP5icXDkv5blNbopCv30Bc7dOsc=
+	t=1784741396; cv=none; b=UGHq3lEtJ9ryq5mEAc3/xwLiD7GyosJDPCl6xCXJcu1RdWS3BrVGUbuRYwypRvI7k0cAjLeGuJc5/Z3lQ0Hulv8SKsShQzF9H5fdWXESjrqk4t2lzQLQVoc8ASVyIOyeBE1RUQJpHF5MEL/oETG23T42sw56H44IBKR8Bx2m4DM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784741395; c=relaxed/simple;
-	bh=IFaw2vTgGPKtuqqWeBtqLUWufIPcbYxs2GprlqYDGxE=;
+	s=arc-20240116; t=1784741396; c=relaxed/simple;
+	bh=gyHpprIGMYsxXnrjtfbvziE486Lm7Rktoah9snJWC2c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OunntrPnZNyNAH/amwDqODDmuAWIPWuCAGzQk6piWqfA6myYVJuu2NAswm7b7f1qbr1mk7eqvI+hTuoQbzl7R9zjxw++E8slOMZKUnTDZxcKKJg0qJfuRCa+kcL9NhdzLVZk7svG1aJSkflS6b7ahbzK5NsJvieifFYd1mhNnsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JllhDxzc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h7xzDPWRQZt1QxunaMv9AHgXtxCpFaUI+TikeOLrNz4gvlkY7MT28iqNMwkSwmRWQgef9aKSr1lgPJg/HCoICcgcatVpfbz7zeG+hqxRqLpwWOensFR/opb+Slp/1LTAuMrwfMC5EWXb4IiiJAf/0ZBlIe/9q4/v6VNpcLC3IKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0Mr5lqf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JllhDxzc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823171F00A3D;
-	Wed, 22 Jul 2026 17:29:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0Mr5lqf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5A91F00A3F;
+	Wed, 22 Jul 2026 17:29:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784741394;
-	bh=2ec3Z7Td4jg788+MpUH7wCPeIRypjdxRDf0YuwtkeEo=;
+	s=k20260515; t=1784741395;
+	bh=vRChF+OUkxkK8rVb8sqqSH1IxrKrlnnTZgC7DvjXFcw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JllhDxzcYvLJ8hDjT4RGVs/aiFR3fh8LPA4867UbYEmvsGzpzlLgbQCmVGMHjZGZY
-	 ZBop1R9+Zo1Uzp2NDU6+2upt/DmiI8+/oYYLfwWCWRrv6htWr4ijHW3aUVQNLFiy+E
-	 rgCFHa9SpEzFZ0lBUd0Fv3W4KY4+XayBHjkHKAgss4yE2An8b0jKQ7tFLNjDCJ1Kf3
-	 9TeT9Pxnt+S8hnCzvbv2w0Brrm/tNMlqxvEoS5wzJcd3ZhWAGdYv4ariSXQQO5Pnax
-	 kpEddktde5TFXt0TxGKCydQ8J4lAhc7n8sdZYUONzhI/kOlczrb/A+bmdS2uuvcqJN
-	 QIiPuDYUobTrw==
+	b=o0Mr5lqfgxL3r4f+xX7ldfr5kayl807I6EytPV2b1V5HXdxYUq5oryLygzClxPZ83
+	 2rz0P3mJcpmCwBgthJ7LaTi2tre7xg4BU1EaNLHeVSPrwsEpxF7ueIvANCyj8b18qS
+	 D3EuZNEnEI2gQWhDl/KGCJWkQWZTBapOyB9Tl1Xm5Og3kuOaPJW0E0rYCpU7jWf9bQ
+	 tMExRyq5UsFB9KIWU8I++Db6nRJY5McpDpHTkOZ552cfhHh+xjRJ3Vik2RmnrEvwi/
+	 r6CgwqCvT2M2ex0IxQd0k8rUhXvCBckPAnO8MWDB/pH/pxB3NDt4Z62BwRs4939O53
+	 MjqmgMp5s+oPg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Isaac Scott <isaac.scott@ideasonboard.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
+Cc: Ricardo Ribalda <ribalda@chromium.org>,
+	stable@kernel.org,
+	Hans de Goede <hansg@kernel.org>,
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 5/6] media: uvcvideo: Implement dual stream quirk to fix loss of usb packets
-Date: Wed, 22 Jul 2026 13:29:47 -0400
-Message-ID: <20260722172948.2068213-5-sashal@kernel.org>
+Subject: [PATCH 5.10.y 6/6] media: uvcvideo: Fix sequence number when no EOF
+Date: Wed, 22 Jul 2026 13:29:48 -0400
+Message-ID: <20260722172948.2068213-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260722172948.2068213-1-sashal@kernel.org>
 References: <2026072042-handgun-nature-b630@gregkh>
@@ -48,63 +50,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Isaac Scott <isaac.scott@ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
 
-[ Upstream commit c2eda35e675b6ea4a0a21a4b1167b121571a9036 ]
+[ Upstream commit f078966ca1fb1b3865d8e6bbe2705cfd277fc637 ]
 
-Some cameras, such as the Sonix Technology Co. 292A, exhibit issues when
-running two parallel streams, causing USB packets to be dropped when an
-H.264 stream posts a keyframe while an MJPEG stream is running
-simultaneously. This occasionally causes the driver to erroneously
-output two consecutive JPEG images as a single frame.
+If the driver could not detect the EOF, the sequence number is increased
+twice:
+ 1) When we enter uvc_video_decode_start() with the old buffer and FID has
+   flipped => We return -EAGAIN and last_fid is not flipped
+ 2) When we enter uvc_video_decode_start() with the new buffer.
 
-To fix this, we inspect the buffer, and trigger a new frame when we
-find an SOI.
+Fix this issue by moving the new frame detection logic earlier in
+uvc_video_decode_start().
 
-Signed-off-by: Isaac Scott <isaac.scott@ideasonboard.com>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Link: https://lore.kernel.org/r/20241128145144.61475-2-isaac.scott@ideasonboard.com
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Stable-dep-of: f078966ca1fb ("media: uvcvideo: Fix sequence number when no EOF")
+This also has some nice side affects:
+
+- The error status from the new packet will no longer get propagated
+  to the previous frame-buffer.
+- uvc_video_clock_decode() will no longer update the previous frame
+  buf->stf with info from the new packet.
+- uvc_video_clock_decode() and uvc_video_stats_decode() will no longer
+  get called twice for the same packet.
+
+Cc: stable@kernel.org
+Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
+Reported-by: Hans de Goede <hansg@kernel.org>
+Closes: https://lore.kernel.org/linux-media/CANiDSCuj4cPuB5_v2xyvAagA5FjoN8V5scXiFFOeD3aKDMqkCg@mail.gmail.com/T/#me39fb134e8c2c085567a31548c3403eb639625e4
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/usb/uvc/uvc_video.c | 27 ++++++++++++++++++++++++++-
- drivers/media/usb/uvc/uvcvideo.h  |  1 +
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ drivers/media/usb/uvc/uvc_video.c | 91 ++++++++++++++++---------------
+ 1 file changed, 47 insertions(+), 44 deletions(-)
 
 diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index b81422ebf9f85f..864c7e65aaa54a 100644
+index 864c7e65aaa54a..ffb126c7d5894c 100644
 --- a/drivers/media/usb/uvc/uvc_video.c
 +++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -17,6 +17,7 @@
- #include <linux/atomic.h>
- #include <asm/unaligned.h>
- 
-+#include <media/jpeg.h>
- #include <media/v4l2-common.h>
- 
- #include "uvcvideo.h"
-@@ -1084,6 +1085,7 @@ static void uvc_video_stats_stop(struct uvc_streaming *stream)
- static int uvc_video_decode_start(struct uvc_streaming *stream,
- 		struct uvc_buffer *buf, const u8 *data, int len)
- {
-+	u8 header_len;
- 	u8 fid;
- 
- 	/* Sanity checks:
-@@ -1096,6 +1098,7 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 		return -EINVAL;
- 	}
- 
-+	header_len = data[0];
+@@ -1101,6 +1101,53 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 	header_len = data[0];
  	fid = data[1] & UVC_STREAM_FID;
  
- 	/* Increase the sequence number regardless of any buffer states, so
-@@ -1173,9 +1176,31 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 		return -EAGAIN;
- 	}
- 
++	/*
++	 * Mark the buffer as done if we're at the beginning of a new frame.
++	 * End of frame detection is better implemented by checking the EOF
++	 * bit (FID bit toggling is delayed by one frame compared to the EOF
++	 * bit), but some devices don't set the bit at end of frame (and the
++	 * last payload can be lost anyway). We thus must check if the FID has
++	 * been toggled.
++	 *
++	 * stream->last_fid is initialized to -1, and buf->bytesused to 0,
++	 * so the first isochronous frame will never trigger an end of frame
++	 * detection.
++	 *
++	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
++	 * as it doesn't make sense to return an empty buffer. This also
++	 * avoids detecting end of frame conditions at FID toggling if the
++	 * previous payload had the EOF bit set.
++	 */
++	if (fid != stream->last_fid && buf && buf->bytesused != 0) {
++		uvc_trace(UVC_TRACE_FRAME, "Frame complete (FID bit "
++				"toggled).\n");
++		buf->state = UVC_BUF_STATE_READY;
++
++		return -EAGAIN;
++	}
++
 +	/*
 +	 * Some cameras, when running two parallel streams (one MJPEG alongside
 +	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
@@ -114,12 +128,12 @@ index b81422ebf9f85f..864c7e65aaa54a 100644
 +	 */
 +	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
 +	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
-+	    stream->cur_format->fcc == V4L2_PIX_FMT_JPEG)) {
++	     stream->cur_format->fcc == V4L2_PIX_FMT_JPEG) &&
++	    buf && buf->bytesused != 0) {
 +		const u8 *packet = data + header_len;
 +
 +		if (len >= header_len + 2 &&
-+		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI &&
-+		    buf->bytesused != 0) {
++		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI) {
 +			buf->state = UVC_BUF_STATE_READY;
 +			buf->error = 1;
 +			stream->last_fid ^= UVC_STREAM_FID;
@@ -127,25 +141,60 @@ index b81422ebf9f85f..864c7e65aaa54a 100644
 +		}
 +	}
 +
+ 	/* Increase the sequence number regardless of any buffer states, so
+ 	 * that discontinuous sequence numbers always indicate lost frames.
+ 	 */
+@@ -1154,50 +1201,6 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 		buf->state = UVC_BUF_STATE_ACTIVE;
+ 	}
+ 
+-	/* Mark the buffer as done if we're at the beginning of a new frame.
+-	 * End of frame detection is better implemented by checking the EOF
+-	 * bit (FID bit toggling is delayed by one frame compared to the EOF
+-	 * bit), but some devices don't set the bit at end of frame (and the
+-	 * last payload can be lost anyway). We thus must check if the FID has
+-	 * been toggled.
+-	 *
+-	 * stream->last_fid is initialized to -1, so the first isochronous
+-	 * frame will never trigger an end of frame detection.
+-	 *
+-	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
+-	 * as it doesn't make sense to return an empty buffer. This also
+-	 * avoids detecting end of frame conditions at FID toggling if the
+-	 * previous payload had the EOF bit set.
+-	 */
+-	if (fid != stream->last_fid && buf->bytesused != 0) {
+-		uvc_trace(UVC_TRACE_FRAME, "Frame complete (FID bit "
+-				"toggled).\n");
+-		buf->state = UVC_BUF_STATE_READY;
+-		return -EAGAIN;
+-	}
+-
+-	/*
+-	 * Some cameras, when running two parallel streams (one MJPEG alongside
+-	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
+-	 * We can detect the end of a frame by checking for a new SOI marker, as
+-	 * the SOI always lies on the packet boundary between two frames for
+-	 * these devices.
+-	 */
+-	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
+-	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
+-	    stream->cur_format->fcc == V4L2_PIX_FMT_JPEG)) {
+-		const u8 *packet = data + header_len;
+-
+-		if (len >= header_len + 2 &&
+-		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI &&
+-		    buf->bytesused != 0) {
+-			buf->state = UVC_BUF_STATE_READY;
+-			buf->error = 1;
+-			stream->last_fid ^= UVC_STREAM_FID;
+-			return -EAGAIN;
+-		}
+-	}
+-
  	stream->last_fid = fid;
  
--	return data[0];
-+	return header_len;
- }
- 
- /*
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index 6d24953f489154..4a1ff08453d770 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -207,6 +207,7 @@
- #define UVC_QUIRK_NO_RESET_RESUME	0x00004000
- #define UVC_QUIRK_DISABLE_AUTOSUSPEND	0x00008000
- #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
-+#define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
- 
- /* Format flags */
- #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+ 	return header_len;
 -- 
 2.53.0
 
