@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4451DED5C
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:51:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DCA40F726
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784717467; cv=none; b=GdzBCtxnuVE5r9nKdBVnDFKg4sHNZPbF1fK7sseBi46em6rOkz6fm5OXZcGaUOwcqABiqBSQ10Ey5sFo69Arbtz/ts3yzGQ1bBG0nXx20zV483wjCB0ySNi581/T7AuW+HN/SQGdUYOUjN3TdaetIQQg+x+/zKz61Qr9k+btfug=
+	t=1784717479; cv=none; b=Ds1tpmfTxO9uPnQGZMqex0KaYVpBSrzgjLzcynauR2C/IaWgifRJQ7Y2pPgFOYskKXFjWHG8NC9Xir97nD8wXEXcoMSKPOybuOe4VaXEsia5GwwG4j3sadj0LUkL+fcNEeVbjBpMEwlbFLzKByVTQDxkm4WHqoIvUkBq92KDhfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784717467; c=relaxed/simple;
-	bh=mwKAQwcS7eE20mgmeBDxXXzw8CKZ+mp6E+Vp8wnBbV4=;
+	s=arc-20240116; t=1784717479; c=relaxed/simple;
+	bh=TN28kpJU6F1WDjFpK9FMy0WK26IGdSxgM6RzEAr8bYg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g/b1HwaxrR/LHuEJTM/iqOOdVxe77Za5Eb6MXz7mREgoUmlN2W8kJPHNbrzuOZ3GB67Kz/bBqUyuRDSE3nAqjMat0+8420ISPDV4whkJmuHIh+3N1oi/oFwc5j3T3OK4lEhPCGSa5DK6/Lbq26RkxVhtV7ecJQJqXgiP1z4atGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYTLnmxW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=THES8OergcJai5XsGC8FEDfyF0piTXaKN4+P5J9HY6NdfGnAupwyEGjVxmqKMwPjr5FPxjKCkeO2wArjZ6bfyaW6G9jg+cqcwyxa94PUYKgoPJqB49P+iDn+S5HR+0oqGX7eWcenF0u9oV67qgZvlLPgaq8CJC5P/PMyqEWUQSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WoW2ut11; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYTLnmxW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAF5A1F000E9;
-	Wed, 22 Jul 2026 10:51:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WoW2ut11"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE7C1F000E9;
+	Wed, 22 Jul 2026 10:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784717466;
-	bh=SGLnvQVM5nP+Lfv9L4ZaOmPbCjyZ7bJBSFvvo7cBdtQ=;
+	s=k20260515; t=1784717477;
+	bh=/jP63cDhnnMLklOUMO0duw07b+xaCOgSu3ZIIdnt/9o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eYTLnmxWJV4bWPhRCOK7QbDx6KQCNfzlpg5ClqtosYpV9ILbslMaJrMHI4T6fQJwN
-	 9rEbBCSyyLQKx/PWuO6d9NbnXxtGjpOZlenq0aPY7hGWQnaMgGEZtj9Sw/Hz0gG6vH
-	 vLXKG5ttE/5LU1x3Tv4mdZSw+6FhbkdS8RVeDFzFx0R/hR29ruHGq8+KXEYjyUbWHl
-	 2m6iiaF+NjRSkhw4oDWd0K5X1DgP7uXCMM6x4rP4EQfokL3jioxtcaDIjuZgKs8rrB
-	 dH1/sqxKOJQR1Oo5+uSRpjLtrx5ZjmeJzoM5iM+KBUvrukDjmfClKEYB6WTEIs5INr
-	 XeiLX7m1IxieQ==
+	b=WoW2ut11NRcjGJ2HVDPhVrEEqQS8KY2Fjiuty95Uf1/XgsC6hRnxsVEYDM9+LK/zg
+	 fCX0zQEfDonSvSbkJiCeS451r6NOoJ699lLJ17ekxYmRrUenroMsliJr4MGxdoJRCs
+	 FnemjKgHjINnUcnPKArLt+AVz0I9PkaxqBNm6KGXR9cUhrosNKyu2ICmfnS26gl/Em
+	 y8pjmvBvYf7IhHo/o2/g4Ic0fiNdpNMnoAoPMZ05bkuflOJU2RxE1fzHKXXqCSexEG
+	 7Lws2ko89AWbgMWCG+R5jcR54T/lSn7BRbEvCJNKFG83bc1KohGR70CYCe92FqJov7
+	 iCkQBpOD7tjJg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhang Heng <zhangheng@kylinos.cn>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ALSA: hda: conexant: Remove mic bias threshold override
-Date: Wed, 22 Jul 2026 06:51:04 -0400
-Message-ID: <20260722105104.989130-1-sashal@kernel.org>
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH 5.10.y] Input: mms114 - reject an oversized device packet size
+Date: Wed, 22 Jul 2026 06:51:14 -0400
+Message-ID: <20260722105114.989610-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072001-reference-frosted-9a1e@gregkh>
-References: <2026072001-reference-frosted-9a1e@gregkh>
+In-Reply-To: <2026071638-seltzer-gambling-3268@gregkh>
+References: <2026071638-seltzer-gambling-3268@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,46 +44,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Heng <zhangheng@kylinos.cn>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit f52524da7084c1a54683ae9fbc73e93fff19dd64 ]
+mms114_interrupt() reads a packet of touch data from the device into a
+fixed-size on-stack buffer
 
-Remove the mic bias current comparator threshold override (NID 0x1c,
-verb 0x320, value 0x010) from Conexant codec driver.
+	struct mms114_touch touch[MMS114_MAX_TOUCH];
 
-This override was originally intended to support volume up/down controls on
-headsets with inline remote controls, but it causes microphone detection
-failures on some headsets with impedance less than 1k ohm.
+which holds MMS114_MAX_TOUCH (10) events of MMS114_EVENT_SIZE (8) bytes,
+i.e. 80 bytes. The length of the I2C read into it is taken verbatim from
+the device:
 
-After consulting with the vendor's engineers, it was confirmed that this
-setting is board-specific and should be handled by BIOS/firmware rather
-than the generic codec driver, especially since inline remote support
-is not currently implemented.
+	packet_size = mms114_read_reg(data, MMS114_PACKET_SIZE);
+	if (packet_size <= 0)
+		goto out;
+	...
+	error = __mms114_read_reg(data, MMS114_INFORMATION, packet_size,
+			(u8 *)touch);
 
-Fixes: 7aeb25908648 ("ALSA: hda/conexant: Fix headset auto detect fail in cx8070 and SN6140")
+packet_size is a single device register byte (0x0F) and the only check
+is the lower bound packet_size <= 0; it is never bounded against the
+size of touch[]. A malfunctioning, malicious or counterfeit controller
+(or an attacker tampering with the I2C bus) can report a packet_size of
+up to 255, so __mms114_read_reg() writes up to 175 bytes past the end of
+touch[] on the IRQ-thread stack: a stack out-of-bounds write that can
+overwrite the stack canary, saved registers and the return address.
+
+A well-formed device never reports more than the buffer holds, so reject
+an oversized packet and drop the report, consistent with the handler's
+other error paths, rather than reading past the buffer.
+
+Fixes: 07b8481d4aff ("Input: add MELFAS mms114 touchscreen driver")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
-Link: https://patch.msgid.link/20260713100329.306892-1-zhangheng@kylinos.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/pci/hda/patch_conexant.c | 3 ---
- 1 file changed, 3 deletions(-)
+Link: https://patch.msgid.link/20260612-b4-disp-dc4b8dc4-v1-1-d7cb0a828d92@proton.me
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+(cherry picked from commit 66725039f7090afe14c31bd259e2059a68f04023)
 
-diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
-index 0296777bb380b4..90089fc131859b 100644
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -168,9 +168,6 @@ static void cx_fixup_headset_recog(struct hda_codec *codec)
- {
- 	unsigned int mic_present;
+[ sashal: adjusted for 5.10, which lacks 53fefdd1d3a3 ("Input: mms114 -
+  support MMS136") and bf93349b11ab ("Input: mms114 - add support for
+  touch keys"): kept the flat touch_size = packet_size / MMS114_PACKET_NUM
+  computation instead of the MMS136/MMS134S event-size selection, and used
+  &data->client->dev in the new dev_err() since mms114_interrupt() has no
+  client local here. ]
+---
+ drivers/input/touchscreen/mms114.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/input/touchscreen/mms114.c b/drivers/input/touchscreen/mms114.c
+index 1f96657310b751..f89676655dd3f3 100644
+--- a/drivers/input/touchscreen/mms114.c
++++ b/drivers/input/touchscreen/mms114.c
+@@ -209,6 +209,12 @@ static irqreturn_t mms114_interrupt(int irq, void *dev_id)
+ 	if (packet_size <= 0)
+ 		goto out;
  
--	/* fix some headset type recognize fail issue, such as EDIFIER headset */
--	/* set micbias output current comparator threshold from 66% to 55%. */
--	snd_hda_codec_write(codec, 0x1c, 0, 0x320, 0x010);
- 	/* set OFF voltage for DFET from -1.2V to -0.8V, set headset micbias register
- 	 * value adjustment trim from 2.2K ohms to 2.0K ohms.
- 	 */
++	if (packet_size > sizeof(touch)) {
++		dev_err(&data->client->dev, "Invalid packet size %d (max %zu)\n",
++			packet_size, sizeof(touch));
++		goto out;
++	}
++
+ 	touch_size = packet_size / MMS114_PACKET_NUM;
+ 
+ 	error = __mms114_read_reg(data, MMS114_INFORMATION, packet_size,
 -- 
 2.53.0
 
