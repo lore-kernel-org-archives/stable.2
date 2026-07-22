@@ -1,110 +1,179 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81961472526;
-	Wed, 22 Jul 2026 08:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB967479871
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784708896; cv=none; b=YGB51M/qFYYflK9qQ7G1neXEYRHJzamiGnnFJYSEomZUWhJ10RT81AHqPlAFwnzLtdqEF98NVDG3N3tu+NQ2ijuXJwmBRrj4VTYpIKOlAZStsnXvmCLBoHJhhEvAalbY8XGRJrwlMJ+jpyd7sAtnstQmnYHwHN0TZY2pDt+fUwo=
+	t=1784708900; cv=none; b=g/70eFEHPZy2SdhWLJXYHJMXpYHsAnU3z7IL3nBuoxRyKFVvnFo3ZeYwKJbRKzZjxaelu4yeuK9nE5RgejtYwmvBp+WJydw5ZqUmq03SKlbYj/Jq/WVecsW3O3qjZCkKxxl1tzUHi84qfvGMQN7uLvG/p7g3H4eT5vt9t8H1C/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784708896; c=relaxed/simple;
-	bh=h0exZmolevSAFHMaMCUhmcWBgHBKHV5vopcxMibkPEM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WRQVKUmMIpvBD9ImoNGMjwys3I2966UZYVPv/BMZ+pKXyGHZX+saaywXAMJ2Q8YSSu2RPfE+CbBVravBN6noHaoVzv9/CrlJYx0lEPSOPYar/jOJZP81xb0rd6rdRvEpxEHpgiQyxb2ocpfmNi8Dy+CQqqOBVbEe0i7bwN+2ygE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=kbR83VV3; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1784708900; c=relaxed/simple;
+	bh=TkK8+LPz3NLYgchZpLtTgVE409WX1AzhZy1O6ggVhyQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=urMqGC0kmK5YAOrIGud3G12LTYGODlzBoJR8IBQdd2vDynDwB7WlAU83NzY0pQnRLlFfJRkLg/0eBWiUMKgodeHN9AgAjEgRAR0vKBoKBWq6fVyPBzKuofqAqPynkleRCXphSzcGfXa+kzdAz9lESq/a33nLzZI2RzuOfpMZcZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TkhDpZ4t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KuFeEGAg; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="kbR83VV3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1784708809;
-	bh=iKNePkvLO+Xkw4Bg0UaylTaIwN/EKafypBJWLgjl5y8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=kbR83VV3JyyYu1rgzk+fK1Jcd4MjGsr1+jUmVp0sM+njSTnSHRbcBx9uf5QBcwIUD
-	 5K3mQQus1HlUEerIAEdW3zIYr0Tc4/oQsWAL9jGiH3xQwnoCOfI3f6IC43qXB9j6Jy
-	 qXBOH/TYm0bmJLJpckaZmOGLtvREDI0iHaKHWT24=
-X-QQ-mid: zesmtpgz4t1784708802t73708a2a
-X-QQ-Originating-IP: bVGPw5OQyeFGT0ThO/+s3jTvmbzZE8gXJE3hoH4saXs=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 22 Jul 2026 16:26:40 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 17902874601284001575
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 0000/1266] 6.6.145-rc1 review
-Date: Wed, 22 Jul 2026 16:26:32 +0800
-Message-Id: <20260722082631.845313-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
-References: <20260721152441.786066624@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TkhDpZ4t";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KuFeEGAg"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M7CGkn131675
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:28:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mIsymjFuprG4so7Q98HuwxLOIzy0qsmeHV37HSxMH4Q=; b=TkhDpZ4tS7+g6FSu
+	V7hA31jvtXYwG8KYuedqPWY2GzKy10BPTSi76qlCpspHrBvRIpDD6sZjr8tRdJyD
+	5SgMYd+5tUtvFIDkcPUR89Kej60q2/cRRhTMCmLCdTGmXacX8Skz6H3KSqYwF02E
+	KuQS5Tw5yjxdY3+IWY3rCoYvAyp+VLz4uO6svqk8oRV7umNEedPcP4tytvgAQ/D6
+	2L7ulhngw4C6rA7P4W1zZzCJSAOhIa+TEDiJ/ZJ1zEQZoXZfCdMyndzNnV5CGCcy
+	GjBKW7wLRhJIDe4XFZThZM03+utPhHYrJrUFW5giJBeoVJdGpBvbwVvGmPqzednG
+	3SExMA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjs928abt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:28:03 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9309b0f05fcso114742085a.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 01:28:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784708882; x=1785313682; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mIsymjFuprG4so7Q98HuwxLOIzy0qsmeHV37HSxMH4Q=;
+        b=KuFeEGAgvF+vZl5wdpo+I3s3KtYfiXzcl1ww7ofB4rGIEgf1f4lKntUwH8+Qodz/38
+         iZ5+iwh6+7VbQ8XPb5uL/L7hDYXCFszuGXUP+UwYcxygBKByO9F+Tp3jWNuiR/FrnGSO
+         EgGWaCUOA4NUqqjnbERY4WysIH1tNTvrb3DePTQtHBoyQN1D20jFU9RwRrjzgxMHeS8U
+         /wk6z9pcd/oY0fR7jhHmM68Es5TWt1h5SBUthFkp99/bixn2+ng4Jc2LAUW3RmNuFPSY
+         Rl+MprY+5WFtKYMvg5KEXjmh5wcClNCrvBNp/uoJBCwx4M7d0erpjZx85N97yHecmvtR
+         Zg5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784708882; x=1785313682;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mIsymjFuprG4so7Q98HuwxLOIzy0qsmeHV37HSxMH4Q=;
+        b=HcHo6cBnhEj87jl+/rwaP+hVN2uxqLBQjtUMljq35+ZGg8Ql6sckIqdsWb9H4V5rMB
+         jeR2V3fQdPxU3VeF2mTCRE4YRO4DA3vD2t0a/Q3PXi7TlwWyGtd7i2bD7c4n3PJmV8+0
+         RRGO6uRIR9Iacii2WAVrzKhs+ZJEcV7I5tEhTTEoMS0p+BgQlSq6r1zLshV4WMm06rxa
+         kEua9GcxZzLWic1/hX7yx1YvOUdkuyxUs87+m//WTKGPSimRW0pEjd8bPh+4cvyD1czN
+         7ayZ3JNHM6i2pmPlYY3aX4wbVoxT7frP3iLlvaz7iQBz29HZIY6Y1RlSMVmJaPQX6XnZ
+         MokQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqliCYTK5Jxblr3/y4xDFh3EOPf4XcNExkC+95kKzgvdMfZT3dYuamPoHWfmXm9ACxuQTmlTH4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxobmDh7bSXylCkDdxD2tyMojt0oQ3v68f32t+Ix1xGt8hhPPk
+	1W5nmNfvuFyBMIi8XiI7Vo6RdAwk0MGGIcZRWIGfyKmz77/XAWld9/1PRp2UkvH7uouX14ahOuT
+	4dZOwNJS0MVRpUK3osMy6+JgULPWybETSzJYW2W9GFUqA7RPWoDvrPlQDJdwSTAPJRcI=
+X-Gm-Gg: AR+sD12DQCGe2iomBR7qLFYHvswwUNen5kFXsBGAO5tVtl3BctxtRQ4mcfAoM47FB4Y
+	106Q5UeXxX9VHkaO26skDwVsF39LD/YfzQVlOw9kktUyg1RoB1Fv8mvotA3Msj6+QiSbppFQL4I
+	cRzR0ipbKiyozwhljxA1i4bPESTjupSOp7IoqUJv2JyRl11uY3WH13V9qQAJRG2p5RIBdLNIMq/
+	kxfK795dIur1iCzvcdLlEVHNxBoNzt46IX0qMxItVHssYmfbeOw99QEzy8xovC4S6VsSDhPBjry
+	5YLZw5Meb9bvGYT7vsU/9iFg68O2XV3axHxr/581qoV0kcLN2t+wdcplZmCeuHNCvtddaymrMEF
+	Shwj9wvTN4M4dynymy1vAlIjS
+X-Received: by 2002:a05:620a:1709:b0:92e:705f:1626 with SMTP id af79cd13be357-930f458fd0emr196447585a.6.1784708882443;
+        Wed, 22 Jul 2026 01:28:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:1709:b0:92e:705f:1626 with SMTP id af79cd13be357-930f458fd0emr196445785a.6.1784708882047;
+        Wed, 22 Jul 2026 01:28:02 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f34ba67f0sm621763a12.12.2026.07.22.01.27.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 01:28:00 -0700 (PDT)
+Message-ID: <f54271f1-477e-433f-9839-e1111898088f@oss.qualcomm.com>
+Date: Wed, 22 Jul 2026 10:27:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NvHY+L1zKPWo1GwNFvjWrNrI3vGhOBp9EvisgVlW5li1IGt2dYS+fepN
-	xTCI9yD6AAuz8nqk05QEASw4Gz/bb7vRfK7AXdtbudN+UdCjB+qP6uKkSa98ZqDFbOq4J0M
-	FyLlMieY/hB5BDL6NJFgegks9FPFh7Q0XXvamnUZd67Sh0TD5YJI89FAyMz04IMOoG04gy4
-	y/J/wvmxMfPnC8B/6iRhddQtWExGWvB4V/eBhyMdh7a9dVoPYnKLefCVicd4Z2khrB6aTFr
-	Dw8kNsUdxS0+tsFTO82xG0cRqgBsFItw7Dr07N1GOuUM3QWlWMEJHmEtW5PYmtXvLVMvnvv
-	jIAQm4CiPWrhJO1XOMftrNxvGJGt+tvCENB9oLs3FlE7b2lchuEgaLa+nkTpRI+KIKLom3b
-	aoke9ITzxTR0jW8rr84tWiQ7S19f2NvQ7yT9hN27scvke+1ceW1Wbosb0Ex2e/qhp3qFDON
-	QC/wgoYlDmKHoLVL1HOLVKpciYcu5tUQeQLJ5DAFLEPiqoFwnNRIkH1BtklToqoqODYe0Rq
-	xKEolq653M2BehvdyWoa1es+uNt2Xq9pshAafOdNTXYlqk6Dz/VL2PWr2iFDvD5iENFoXjM
-	Wi4lqOurs7zmOkc2m+kUg7tvQObPfotXOQR1J+fNA/zDvk384EYNV2YIRwzqqVufaZm1gjf
-	+9SdwzrV/wY1Alx8cl1odQIsdOk2eHmOI8Hco+7YK8tW7QXlLSGB66soEBnrkr4EoON0Gaj
-	xiLUxd5I41vTWWakdHLcQPFkAg+EQDY85scFOJ0oYZ0d1wSMyR825nQmZQ3oYstAWCuCZud
-	IzLy8jSoLeupsFg8voAhbB7pXWy9NBHVZHYNj7oQjwCPe3khF5WEsAk+TAmJTh7bFQK8baz
-	xww++Zy1PL48Ow2iENRworBTfnJt+ulO5OhpUm6G+51n4LkxEj0n9759E2KTjnXh2EaQL5H
-	kxZ8sFbdwWO/4N1DJNjvafiAMG8agmFl9GE4Sr5QMARtMUAxhaaS5MKkySPTLFiKVq/X0Kn
-	Om8DGwLK+z3aVfGOVv0Fii7yMQv9SwVCq+V1mK8KGH6XP2dKqTXATlSdJMVyIozyVLGGUfH
-	cY0Ohd76XGmsyQJP9fPyTs=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+To: Sebastian Reichel <sre@kernel.org>,
+        "Dr. David Alan Gilbert" <dave@treblig.org>
+Cc: jens.glathe@oldschoolsolutions.biz,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+ <al6-IyyWYRnEW4VC@venus> <al-dJjzorP-I4Yff@gallifrey>
+ <al_0LjwmfW-cECnY@venus>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <al_0LjwmfW-cECnY@venus>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA3OCBTYWx0ZWRfX112ro4fO6Oac
+ bKnU+DRg1ssf3U/gSkf4e+j3RgL41+gA1cPCOvB7PgXQ8YZjFO4MhK17Dc/K8c85YKizWVYspWB
+ pZvEDku6UZI6F4K/lGpJeUywgcuLNIw=
+X-Proofpoint-ORIG-GUID: l-COyXtWqnnqGi8MHdNDdRBkxrTq3bbh
+X-Proofpoint-GUID: l-COyXtWqnnqGi8MHdNDdRBkxrTq3bbh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA3OCBTYWx0ZWRfX4jNnrSR9tTKI
+ GZIveVtXrNu1pq62wNlkElLaxIf7BMwmWkltzVogILms/0yAT91IyqQAlB4Zj7+K2THQA3gQVvb
+ xWC4i6153BWexGVrjcihDmao0xwpqRZ1kv1pMq/qm5dLbocImlFCYYC4qyAr+bB5ixegKT5AKum
+ xa6g8TK5/lKjTj1CZQMzL9cUVSAAYBzwYfclGpizN9gjc/KzW+44We/wPvSYT44S3qM39aik6qS
+ UpyHX7b0BI45M+LRwG/pg6AThosGdGalLDEoD0xece/l0UzsfL4XL1blS86GP0/qsJNwHd+WE5U
+ UjT3zlG5QIzCvABQ0d5z6i3cwkGcGfx/4fwgQCEtKybfV7cdqpx8CiYGPMR1YVDCdiHtKmUdQEv
+ WJlpA7TRqAOv2xSSTebB88+IFXpa72rNXQ12l+O3j/yfmv6g4be8Q5YPUAgO+8EVdAUO2JiOmnz
+ IcPMr5a+C//X9JmdDJw==
+X-Authority-Analysis: v=2.4 cv=QahWeMbv c=1 sm=1 tr=0 ts=6a607f13 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=B0dxQpQml5LPzYmAcjoA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=lhd_8Stf4_Oa5sg58ivl:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_02,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 clxscore=1015 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607220078
 
-Hi, 
+On 7/22/26 1:34 AM, Sebastian Reichel wrote:
+> Hi,
+> 
+> On Tue, Jul 21, 2026 at 04:24:06PM +0000, Dr. David Alan Gilbert wrote:
+>> * Sebastian Reichel (sre@kernel.org) wrote:
+>>> On Sat, Jul 18, 2026 at 07:06:28PM +0200, Jens Glathe via B4 Relay wrote:
+>>>> On Qualcomm X1E80100 platforms (e.g. Lenovo ThinkPad T14s Gen 6)
+>>>> using the Parade PS883x retimer, connecting USB4-capable docks such
+>>>> as the Lenovo 40B0 via a regular Type-C cable (which forces the dock
+>>>> into Type-C fallback mode) often results in working USB but no
+>>>> DisplayPort output.
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+[...]
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+> AFAIK only Qcom and Apple M series support it. A quick search
+> suggsts Apple used an Intel retimer in the past and a custom one
+> nowadays. From the looks of it the x86 world cannot use this driver
+> either and probably handles retimers transparently in ACPI, so it's
+> effectively Qcom specific until other vendors start adding USB4
+> support. The only thing announced potentially running into this
+> would be the Nvidia RTX Spark, which first needs to be released,
+> then find a bunch of people motivated to implement upstream support.
+> Nothing with USB4 capabilities has been announced from Mediatek or
+> Rockchip. So I wouldn't hold my breath for another user and still
+> suggested adding the machine check instead of simply disabling USB4
+> for everyone ;)
 
-BRs
-Wentao Guan
+The PS883x is used on x86 machines too. Apart from I2C, it also
+""speaks thunderbolt"" - the bus has a way for retimers to enumerate
+and communicate with the routers (controllers) through a sideband
+UART-like interface. But for that, it still probably needs the
+platform firmware to program it into the right mode over I2C,
+which Linux is unaware of (as it effectively should be).
 
-Log:
-Linux version 6.6.145-rc1-arm64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
-Linux version 6.6.145-rc1-arm64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Wed Jul 22 14:02:44 CST 2026
-Linux version 6.6.145-rc1-loong64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
-Linux version 6.6.145-rc1-loong64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Wed Jul 22 14:19:39 CST 2026
-Linux version 6.6.145-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP 
-Linux version 6.6.145-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Wed Jul 22 14:35:36 CST 2026
-Linux version 6.6.145-rc1-amd64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
-Linux version 6.6.145-rc1-amd64-desktop-hwe-g5b1c90a58c89 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Wed Jul 22 13:43:48 CST 2026
+FWIW, we do the same on X2. An MCU takes care of setting it up.
 
+Konrad
