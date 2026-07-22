@@ -1,224 +1,230 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78781DF748
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:33:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784698387; cv=fail; b=X7Wj+lFqW3AK4QK8fQbjGjo0zbpSm0c38btB0zV6pv5UMPLaMZcPCJW0ScuiPBxIyO4kPMNRnru43zO1vyh5QPZpniNtmaFatGXj+l6/vVuXkXtkaWt0u6tPcHVaH1UqQXU4+c+AqN2YbIWom4IOVWj6Zq5gXBAeB1a01240kHE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784698387; c=relaxed/simple;
-	bh=tXtALZIasFEbRggx3HtFaRYgHIjQM9JZErtRW0nOBKs=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=RblVG6Xi1Q4JANLhsoBn6wZT0TtUO4JoEXzNWmPqbpKckoOe215ItX5now/Z7b8xbK0zWU6ys4eMl7ofij7uVQ5bqw2KKZNeXizsKWTCT4FEk1Fl5o92jIPcs6shWrBkyx3AmbZNPnRBiMc2Gc/5I8j/rC6p56YnftddjdTRR9k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g7Qae5n/; arc=fail smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17DB1DF748
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784698513; cv=none; b=nrswg6KB/XymDcQKjeRLYdyxMTpSK/sRyhQUUkLkS1SXmN4Gmi+aNjTuJSXaEONd+ogaZhNnDdNsEmdyma023ydtjdy67Vlnup+E185wwz0C/zPhGEhKWi50H8v+xk0fyjbFMrl5ky2wGij/MVS0myDPIhWWt1aGqVrHkbwi8As=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784698513; c=relaxed/simple;
+	bh=zPDcuznOvcve02vFBxicq+2KFBZSvFlFzamGzM3kqVw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IzCfI8w+nffH3HpszIT7GuZjY6KLo1Q9qFKTIssmoSEx+T15vYiC/hwAGmRCMniAD4+vjR6f9sYLxkfdYRNXEIRm143z009LNq7sRyDuL5mB3h+PiIl8rJgODCMe9+5ZukWKBRXFs9VrKjKZfYwaZVPq/e1eC/ofxY5qxbtUsu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l2Jq1i5D; arc=none smtp.client-ip=198.175.65.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g7Qae5n/"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l2Jq1i5D"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784698385; x=1816234385;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=tXtALZIasFEbRggx3HtFaRYgHIjQM9JZErtRW0nOBKs=;
-  b=g7Qae5n/IQh/p2EC9X6FzxJ0Wp4CfmLgzTBvDbX0HmbfkAMeEngm8/qD
-   9b19XnRojIt9H+vtnnpd2cOzP8jvCe8w39x2lUi78auns0jqKR7/o5Y1P
-   dGoBTxrf9xT98MkXjGZi/wEswg8pkYHE4ouwlbvNx0383jAVuzBs7tL6y
-   jZ2MnneHC3RcXUn9Q7OeOiBjF1gZrtgnnfxt4+VL/OazLT1guKW/mawZD
-   ZLFNrQPlo45+eKYzxhkZsNaEgwx29C+4yxGCJeyNLYEROHPXudI5yJyXr
-   KD8KF3Mafp+Ngx5XzOLz8hZMFeCLa3noghcRbR2wtT8rMcvdy/QawpDlW
+  t=1784698512; x=1816234512;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=zPDcuznOvcve02vFBxicq+2KFBZSvFlFzamGzM3kqVw=;
+  b=l2Jq1i5DBsm49ugW0CIKyP97j+yqEdHNqMJBXrZMFtYvkUGTlygp+ZWn
+   jSd6ttRbch9i1DI0YXbadx6AI76H+AW9Otvvz8LWAwxjRM4Tmbf5AIXeL
+   L/3ju+nFaHK46+k61jL/qIIRpaPqZ1ZaeVmZ2otyotr3ePrTn3TIy225D
+   AXU2FmgOorHproIbvne0okfTDKXT3uF8/zN9Znc3cXJ+hz01M2keE+y3Q
+   cbe9SK4vQg4jEZP+5aCyRd9DGg0c62sv+N35SKe0R2UKjd53//zF1ngti
+   WNOY2FSxjM1jcvi3rFZFn1UrLeP3uiSGeBx1cqdu6plGzMyzh6TY5cGMQ
    w==;
-X-CSE-ConnectionGUID: HuIEGj7xRqKPJCHeJDQ90A==
-X-CSE-MsgGUID: q6zqxJdgR1mjbgto+wZeZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="85440379"
+X-CSE-ConnectionGUID: gRAevFLYTxuepi9b8nRccQ==
+X-CSE-MsgGUID: LNdhie0BTIOymL/ddjExkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="88998396"
 X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="85440379"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 22:33:04 -0700
-X-CSE-ConnectionGUID: HwsKFPqARZSz2LP/czJ5UQ==
-X-CSE-MsgGUID: agSYxFVoTDeKU1nrDpIeoQ==
+   d="scan'208";a="88998396"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 22:35:11 -0700
+X-CSE-ConnectionGUID: Hha6/A21QMSR4gk066b4zg==
+X-CSE-MsgGUID: ilZ8JNoqQWKmnD0Vfmv+eA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; 
-   d="scan'208";a="288000198"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Jul 2026 22:33:05 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 21 Jul 2026 22:33:03 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Tue, 21 Jul 2026 22:33:03 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.42) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 21 Jul 2026 22:33:02 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j6Jr3q2I/OtzuTsaAyIMdJjS9RS752AkoV+0VSiwloVQQfyKCcbLID3gLG7lZDUQ7GEW45GnK2UU6mZ7IQyrtWjQBqgtRRjn6TlL1Eivq1+AacKpBLSmna2mZ055sVzw27gcY5szpC/T9TrNP3FsKYgWnUSIOCsGGHz5B2gFCGxbFR9WQbMYi083pp3bC57OZQqTmnttvWriJvrDu8kqJJ+pDS+YVeh8tEdgW46cAoBC8zMW0T2lNQi2HlrPdYs39IKZkbs06amouHeoE1tQaJgMo5dI8S3SczxZIcG4BdJaihXNK7JzjW7GghDuRE1N/FCOM2GTJO7JheG9NqkwkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BbpVOgc4uNcGpzYpufNRBi64StkvdMzsC518mqjQ7FM=;
- b=R63oC7PYUTliysKH6F4wTpPCxecX2MzzpNOTX8ybkqj6Mi/mmIhBM5rzeOmaSZKYYRD0bwl+PmmuHPJDnuKUm//84u4uIdfKjxFJUqLJd4StNxYzY3WypmqDkiSWCJyWzCQ0kJvY5EJWs+LJwNXN20fam7d07eygc/lsG2S+DyCIjQpE6Ze4e1DWxHEizj961QifdxuLEvZUotw71nux5XAsNAdP+dcTzPT9jBjOl+ijtHrEM0qnoSV1icPCBASDBiYks+62LF0PVIoSu+h2yRMkYjGC4DEh/ZSKOFsZqhpEiNeqFAhkrFrQ7t9HCB4M7PoQ5RDKZNO/9RMfEhFDGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::2a) by IA1PR11MB7173.namprd11.prod.outlook.com
- (2603:10b6:208:41b::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 05:32:59 +0000
-Received: from DS4PPF691668CDD.namprd11.prod.outlook.com
- ([fe80::a3b:efa:42d5:e983]) by DS4PPF691668CDD.namprd11.prod.outlook.com
- ([fe80::a3b:efa:42d5:e983%8]) with mapi id 15.21.0223.017; Wed, 22 Jul 2026
- 05:32:59 +0000
-Message-ID: <0098bedf-a884-48ec-a8fa-0b484b05b4b8@intel.com>
-Date: Wed, 22 Jul 2026 11:02:49 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/pagemap: Clear driver-provided PFNs from migration
- PFN array
-To: Matthew Brost <matthew.brost@intel.com>, <intel-xe@lists.freedesktop.org>,
-	<dri-devel@lists.freedesktop.org>
-CC: Sashiko <sashiko-bot@kernel.org>, <stable@vger.kernel.org>
-References: <20260721204353.1082632-1-matthew.brost@intel.com>
-Content-Language: en-US
-From: "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>
-In-Reply-To: <20260721204353.1082632-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0053.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b8::15) To DS4PPF691668CDD.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::2a)
+   d="scan'208";a="262266067"
+Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.54])
+  by orviesa005.jf.intel.com with ESMTP; 21 Jul 2026 22:35:10 -0700
+From: Jia Yao <jia.yao@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Jia Yao <jia.yao@intel.com>,
+	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/1] drm/xe/guc_ads: allocate UM queues in a separate UC BO
+Date: Wed, 22 Jul 2026 05:34:10 +0000
+Message-ID: <20260722053410.2767369-2-jia.yao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260722053410.2767369-1-jia.yao@intel.com>
+References: <20260722053410.2767369-1-jia.yao@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF691668CDD:EE_|IA1PR11MB7173:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea87baab-23ad-4374-2555-08dee7b2b0f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: +Ppn7IBXoFekCh6OckQjHgelNR0TpGqqEa2QQI49fRIHyl8xKz+e3teRgpHwPJAQ0DAyqP6ibfjeQy0/bS5S95NA3vPDd1NMhnp5nsZdyDCUgWvXGqWF9rNhV+zMsG/WDeUh8Ou1UxUDNnsOES3aWFozH9WB8Pkg5NwGcIXTNYUWLO0X7uKFcx3YmC9MY/2cmNHat+2ZqA+2ggSP/tjkHdW+aAdOOK6no/0cKFHgNy2JhjiTWEk6QflfSc0Hqnp0gBuYa0qpAYw2bDecIAKjHh8/WTy2HF99rg3qlrZJTeQsDflKR4ATXU1GbTcTe6iXy5ha3ZMl579yiXlrsuHTB+5aEm9KxxldpOYEl77gLTEGVzm5dmCiBmj8ovmwXpT1dohLVQVDPtl3rj2++ri8huX2To3/X3V+s6JN1pa+sP17LPDtnPRVRPv78+I9fawtq6IN6W1MIq+WkZIaDAdjl2oFEo8/5jMWcxzj+XQXZej3fUn3DrAFZauqrchisvHwa+tej9QnsuwUHB3GN5W41RbJcl2VnDgJrorsldNfKw9dHDnIxF8rBZusXi5vdlLK+6NaJC1beepIbbjZIbj5ECLBu3J+XGvUd34eh3g0zY4Fi9hwpN/buK5rCLD74XUEFySgfofa7y1QXBKnC++izB8hVUUVKPWveiiP1SzaUkY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF691668CDD.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WTdsS1NLd3hNRWVCL0h1cGtUaXZYM3d4NkhHNk1UWGdxNjFhZVdSTWZENWF0?=
- =?utf-8?B?dktXQ3o4b1FDaHZHbnBpQy9NaWVidzJqWWM5ZWFEdURWTkFkUFNzdnZrNWE0?=
- =?utf-8?B?VGM1L1BFNjZLNmtqT0thRk42Q1ljQkdvQWVmdmdGYitZNzNrdlpjYmNPYnI2?=
- =?utf-8?B?M21IdVZFdGhOaDNEcnBWaWZiRjZwdjh5REZKMVpvaFMycWNncGxMZ1VyTDQw?=
- =?utf-8?B?Q1VkQTI3KzYrbEgrL0h3NmsyYmJoNVQ2YStmMTJNVy9BUnZwQXduTERMcDMx?=
- =?utf-8?B?S21yYVV1cG9FNVpwUmc4ZWZmVi95Y1FjcUVmcjJnNWFid1NZblErZHRMRFZS?=
- =?utf-8?B?YmszSTR5ZEYvRVExS1Vhd0s5dHI2V2NNOVFqVmc3K00yMzRPUHlqU2x2UXBs?=
- =?utf-8?B?YmROa1grQWVWMWM5MEliMjJjMjV1NXR6SVZYOUQ3Y3JOWFp0SlpwTHBnZWZu?=
- =?utf-8?B?NjJucEJrSnBIR01FZHZ4RnFyY2tUc1p4V1Jrbys2NXp1TnZLRU5scXl6d0la?=
- =?utf-8?B?eUQ4WFducGUzVGQ3UG1RQU53U1N5K0Z6dVY0MWgzYkV0VTIyZFR5R1pBdzF3?=
- =?utf-8?B?QmgzcDBWd2daMEVVM05CaGVzRk5RakJ4bVdIeHhVMElpREVGam5NS0luNGxi?=
- =?utf-8?B?RHNPekJSNjg1ZlFMb0hNN3lOZmQ2Ym9ybUI4UTkwSHE5Q215Sk03ZmdKWTY4?=
- =?utf-8?B?ZFNGMUtzRFh4bnVrTVlmcHM1bCs4VytvZmVJN0UyNVBZR3J4MjhETkNqL3ds?=
- =?utf-8?B?eWMySVl6b3hwY1BjbkgxQldQcjVicHpEaU1CTG1BaXdyekFKM2Y0N2NYNEFT?=
- =?utf-8?B?V2gyZjg2c2dEdWVlZVd2MXdRQngwQlhrdTh1czhLQTMySGd5Z01xVEd4dmdP?=
- =?utf-8?B?WXdlVldRYVhjNUlzd09uek9xSlNTUVBEVGJUK1ZjN0VGQUVqR1RZaE02Wmpt?=
- =?utf-8?B?Tk1kSnpZTXdrR0ZaT1BIU3BGYVRmNjJWcnhhNWRxOEFlWmpSalVVTFQ3dXVS?=
- =?utf-8?B?M3FwU3ZKM1lBZDRTZE1uRU82Q0g4V3c4R25VcjMzLzBIc0FGejhPMzB2UCs0?=
- =?utf-8?B?Y1k0UkxhRlhSQjRXTWZhU0hkdElyQmoyOCtES0orYmxTVGpXZ1Q4d1dnSEp3?=
- =?utf-8?B?SVVFMjRwelBkeXlEajk1ZGpMR1JVWkIvelJrY3lkZXRuNjFVZnUwZm52bnRt?=
- =?utf-8?B?ZGNRQnBHZy9SM05OYjcxTDJCNU9qUXA1LytCYk5JUm8zOUhKdU5HUUJHcURl?=
- =?utf-8?B?L1lzelJjYUx3NnYzN0R6WDJwa1hsTHptanQxbXgvb2xubVN6N0NwUENGZzZU?=
- =?utf-8?B?Ykk5MkFoc1JRN3E0L3Q1cTZtY0VuTjJvN3VUcldvTjVaN3YwcUxUUG5uM1lY?=
- =?utf-8?B?K00rU25sMzlVSFhPdHB1WngwMGY4ekVEVXc2WDlpUTFiZGxvZVZwSDdGcXl3?=
- =?utf-8?B?Sys1UElsdVlpM2tWdkRSSWNqbnVRQW9Jei9lZFNwR1d0QTVYcHRTTGtWcmFY?=
- =?utf-8?B?ejNVa2lBdGVTZFpFMFQyZCtPWDc5N0E0SURJNUxOT3A1Q0dQZU9uaUpoejY5?=
- =?utf-8?B?c0EvRXdJVThWcnIyVzF6THpTSGgwaHlJN1gySkZnRkJ5Y0s0V0JjMi94VUw4?=
- =?utf-8?B?SXpEY2xUNjJabDl0TnRCUENZalhQWnJ3LzF5YS8rNDQ3aWRjTjhQSnNOQi9j?=
- =?utf-8?B?dWk3a2NnSEo1T0hydVFmV2lJWS9iek5iaFlndHpFb04xWTE2eE55S3Q0eEIw?=
- =?utf-8?B?WnBXWGNIdW9rbHBuRnRKd3F5WHM2T2ZOTlZHYlduNGhWN0R6ZXNNWElNSnJa?=
- =?utf-8?B?SERVOFJ0a29mY3BKNTA1TGxKdDlnVVBYWFZOK04zQ1VrQ3gwb0xYYzNjZmcx?=
- =?utf-8?B?KzFnQS9KdVpKRWhJdDdSTzVnazF1eDhuK2toTFMyMXFGSlJXbzFiajUrZmNC?=
- =?utf-8?B?VGd6WHVnYUFYbGduOHExQ3Roa2xodTVaZ0ZqSitsQ1FyOEo3SVdqd1BBZkVI?=
- =?utf-8?B?UFNqNTBIQXFKYXFER1ZNZzBPS202N1hTVm9vYk1kWitoVnFTdEJMUjAxekhP?=
- =?utf-8?B?dmtLMXduaWJVZkdGRzZzeDRVbWExdzNKUG1RSUZmVjNBWFVDWXIvOFNLS29L?=
- =?utf-8?B?bzhBNEx5R2ptTE9sYlhoQi83OS9hbzExUnFsRzNzYUo0YWpLbW9qblY4cjVH?=
- =?utf-8?B?eVI1Z1RqWitSL1cwMXVzcTJKUkNJVFpiN3JLeFZIR1JVWW9KK1VuT3VVcmYz?=
- =?utf-8?B?bEIzTzRZVGhIa1hvMXZxVjkrK2RYT3VETjBSeitIV3NVcE9uZ2ZtSU8xaVU5?=
- =?utf-8?B?ejc0eGVPMzlSOXYzMWVrZjhVMTh4WGM0Q2N1M0NhdE5WNlUvbFBVZzJpdS92?=
- =?utf-8?Q?5JK27NcfSo06wdw8=3D?=
-X-Exchange-RoutingPolicyChecked: V+GCn/zcG3pRUTbzKyqslTwbdSzJQHcAToE+UL0OOfh+tGJJ50pt9z4r+AosbLaZEIgg8wh7L2oZGjrfAiaP/N0gF6lk3kuPkx0akvvBNzcanAg1OdpZ/TR+esCBtYeBHWSoJqDlNjRNvJATa5YJozK1v7e0djPPBwO2qwIMzqnjsA8rNKbIUR48hh9a6PKf5+Lva21/vkARMNojSDXnPnPAfZsLukPRE7fxgOYqG5Hb6zsQ0Qo8FJ1qxQ9iT2XXFTTfGsxmfdkPqdYDeiKCtZc9Mr0x37WCzXtHXDILkcjvS73mmC41skjhD6ya9OVmsZI+ZDP24inYZFNe8rw0UQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea87baab-23ad-4374-2555-08dee7b2b0f9
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF691668CDD.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 05:32:59.4064
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JtVihz0xitnD1yuJLYfdu2kDV8SqbC7zlx9eXmdpqYSr3SX80MqBwQSH1QWPfPUNH4LYJYavYHK78QoDP1ZsmStuGZX16MOjFkcoc1PCfrI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7173
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
+The HW unit that writes to the UM fault queue is not always coherent
+with the CPU cache. Ensure the UM queue memory is uncached on the CPU
+side so that GuC always reads descriptors from memory rather than a
+stale CPU cache line.
 
+Allocate the UM queues in a dedicated UC BO (ads->um_queue_bo) instead
+of the main ADS blob. This also prevents xe_guc_ads_populate()'s
+memset from zeroing any fault descriptor written between GDRST and GuC
+restart. On dGFX, VRAM placement gives a well-defined DPA.
 
-On 22-07-2026 02:13, Matthew Brost wrote:
-> DRM pagemap overloads the migration PFN array to store driver-provided
-> PFNs before calling migrate_vma_*() to finalize the migration. If an
-> error occurs during the incremental copy phase, the migration PFN
-> entries are reverted to their original state. After reverting the
-> device-folio mutations, clear any remaining driver-provided PFNs to
-> avoid confusing the migrate_vma_*() helpers.
-> 
-> Also clear any driver-provided PFNs if populate_devmem_pfn() fails, as
-> a precaution against stale entries being interpreted as migration PFNs.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Fixes: 3902846af36b ("drm/pagemap Fix error paths in drm_pagemap_migrate_to_devmem")
-> Fixes: ec265e1f1cfc ("drm/pagemap: Support source migration over interconnect")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+v3: simplify commit message and code comments per reviewer feedback;
+    add Fixes tag and stable Cc
 
-Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+v2: also fix dGFX (VRAM placement + UC flag); remove now-dead
+    guc_ads_um_queues_size/offset helpers
 
-> 
-> ---
-> v2:
->   - Be paranoid and also clear driver-provided on populate_devmem_pfn()
->     failure (Sashiko)
-> ---
->   drivers/gpu/drm/drm_pagemap.c | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> index 15c78eca180b..892b325fa99b 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -727,8 +727,10 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
->   	}
->   
->   	err = ops->populate_devmem_pfn(devmem_allocation, npages, migrate.dst);
-> -	if (err)
-> -		goto err_aborted_migration;
-> +	if (err) {
-> +		npages = 0;
-> +		goto err_finalize;
-> +	}
->   
->   	own_pages = 0;
->   
-> @@ -807,8 +809,11 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
->   		msecs_to_jiffies(mdetails->timeslice_ms);
->   
->   err_finalize:
-> -	if (err)
-> +	if (err) {
->   		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
-> +		for (i = npages; i < npages_in_range(start, end); ++i)
-> +			migrate.dst[i] = 0;
-> +	}
->   err_aborted_migration:
->   	migrate_vma_pages(&migrate);
->   
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+---
+ drivers/gpu/drm/xe/xe_guc_ads.c       | 64 ++++++++++++++++-----------
+ drivers/gpu/drm/xe/xe_guc_ads_types.h |  8 +++-
+ 2 files changed, 46 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index c98454545a85..ec36a5db7fc8 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -155,16 +155,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(ads->capture_size);
+ }
+ 
+-static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
+-{
+-	struct xe_device *xe = ads_to_xe(ads);
+-
+-	if (!xe->info.has_usm)
+-		return 0;
+-
+-	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
+-}
+-
+ static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
+ {
+ 	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
+@@ -205,22 +195,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(offset);
+ }
+ 
+-static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
+-{
+-	u32 offset;
+-
+-	offset = guc_ads_capture_offset(ads) +
+-		 guc_ads_capture_size(ads);
+-
+-	return PAGE_ALIGN(offset);
+-}
+-
+ static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
+ {
+ 	size_t offset;
+ 
+-	offset = guc_ads_um_queues_offset(ads) +
+-		guc_ads_um_queues_size(ads);
++	offset = guc_ads_capture_offset(ads) +
++		 guc_ads_capture_size(ads);
+ 
+ 	return PAGE_ALIGN(offset);
+ }
+@@ -409,6 +389,30 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+ 
+ 	ads->bo = bo;
+ 
++	/*
++	 * The HW unit that writes to the UM fault queue is not coherent with
++	 * the CPU cache.  Use a dedicated UC BO to ensure GuC always reads
++	 * descriptors from memory rather than a stale CPU cache line.  A
++	 * separate BO also prevents xe_guc_ads_populate()'s memset from
++	 * zeroing descriptors written between GDRST and GuC restart.  On
++	 * dGFX, VRAM gives a well-defined DPA.
++	 */
++	if (xe->info.has_usm) {
++		u32 um_flags = XE_BO_FLAG_GGTT |
++			       XE_BO_FLAG_GGTT_INVALIDATE |
++			       XE_BO_FLAG_PINNED_NORESTORE |
++			       XE_BO_FLAG_NEEDS_UC |
++			       XE_BO_FLAG_VRAM_IF_DGFX(tile);
++
++		bo = xe_managed_bo_create_pin_map(xe, tile,
++					  GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX,
++					  um_flags);
++		if (IS_ERR(bo))
++			return PTR_ERR(bo);
++
++		ads->um_queue_bo = bo;
++	}
++
+ 	return 0;
+ }
+ ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
+@@ -820,9 +824,9 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
+ 
+ static void guc_um_init_params(struct xe_guc_ads *ads)
+ {
+-	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
+ 	struct xe_guc *guc = ads_to_guc(ads);
+ 	struct xe_device *xe = ads_to_xe(ads);
++	struct xe_bo *um_bo = ads->um_queue_bo;
+ 	u64 base_dpa;
+ 	u32 base_ggtt;
+ 	bool with_dpa;
+@@ -830,8 +834,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
+ 
+ 	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
+ 
+-	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
+-	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
++	if (um_bo) {
++		/* All USM platforms: UM queues in dedicated um_queue_bo */
++		base_ggtt = xe_bo_ggtt_addr(um_bo);
++		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
++	} else {
++		/* Platform does not support USM: no UM queues, nothing to do */
++		return;
++	}
+ 
+ 	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
+ 		/*
+@@ -912,6 +922,10 @@ void xe_guc_ads_populate(struct xe_guc_ads *ads)
+ 	xe_gt_assert(gt, ads->bo);
+ 
+ 	xe_map_memset(ads_to_xe(ads), ads_to_map(ads), 0, 0, xe_bo_size(ads->bo));
++	/*
++	 * um_queue_bo is not zeroed here. GuC resets head/tail via MMIO on
++	 * every restart so stale ring contents are never consumed.
++	 */
+ 	guc_policies_init(ads);
+ 	fill_engine_enable_masks(gt, &info_map);
+ 	guc_mmio_reg_state_init(ads);
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+index 48a8e092023f..a63ef000dc8a 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
++++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+@@ -14,8 +14,14 @@ struct xe_bo;
+  * struct xe_guc_ads - GuC additional data structures (ADS)
+  */
+ struct xe_guc_ads {
+-	/** @bo: Xe BO for GuC ads blob */
++	/** @bo: Xe BO for GuC ads blob (WB cached) */
+ 	struct xe_bo *bo;
++	/**
++	 * @um_queue_bo: Dedicated UC BO for the HW fault ring (UM queues).
++	 * The HW unit writing to this ring is not coherent with the CPU cache;
++	 * UC ensures GuC reads descriptors from memory. NULL if no USM support.
++	 */
++	struct xe_bo *um_queue_bo;
+ 	/** @golden_lrc_size: golden LRC size */
+ 	size_t golden_lrc_size;
+ 	/** @regset_size: size of register set passed to GuC for save/restore */
+-- 
+2.43.0
 
