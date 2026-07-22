@@ -1,82 +1,113 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9CE36D51F;
-	Wed, 22 Jul 2026 02:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B96D1A0BF3;
+	Wed, 22 Jul 2026 02:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784687567; cv=none; b=MjLsuyT1xVS1oTxHJxyheQQVSLfzEhpWbBStENv+DSDxAtRneMMu7C5q3CP+MYfc8xmwbGdaXm2Wke+kPNcA0VKSYsT2pQYXoTMnYm67rXNzMhd7C2+OkQ85wDA6MXEsDJtLrki3wIIHPn+QjjAlB6pVHrrM2hFKDAUsjhMRAIw=
+	t=1784688395; cv=none; b=qMiQZrV9z3NqqYAxFSyRyky/gsZUVG3gJYjm6W4tOEC0wz0rsRsKWJnab30/S7pvVaED0eXKnK4+hMAbLE0tjGK+hKWaUpqSU2YbQ0cwuIbQpgItagZg4ZxKw802Tjqsr3Sibq/IYySLDPpEgGdnjMFgUFSvOvABaEqlpC/n7wY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784687567; c=relaxed/simple;
-	bh=qCrJKT1ci3lEnYRYRzat94/hZm4bPLRwXk0G9e/ki1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GoSOssPXGHjjlef0CcpG9SJecKiSZv6KXQutWfA2o9C3MHVyNBFhAiUmkCN1xckbe1oKNkQRLL4iykqNAiWyub3DUSuMTkU3Rj0/BkC9fxfpCUYdYq+5NTpvFCxweP2RphAmqRNWDCOus6b43O5yAunkQ67NwoRUlXlWi6/YqT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=Gmrnob4q; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="Gmrnob4q"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 7070D14C2D6;
-	Wed, 22 Jul 2026 04:32:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1784687563;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BaSQVtcWCKrTwJ4AlvpXSNjQ/l41HlANjlpENbMgND0=;
-	b=Gmrnob4qYSS9Sc6FSQlkFQoqlYw1Jejq3aLH1eV5PXB8e/Bxc48uwwLl7M44G7QIdsvpiM
-	kirDOjgzSdxhgYwwwDS9YEoBlbWqSx9ITP0Eiuond5jzCQ7OJXHRTuuDK6J1zZZMQkhzSk
-	8RSMjsKWv1/UBtlwe2kLLq/x7UyG1Kyf1rPDA5VyXVmf2kgHeDXJrMSf6w73Kv/j86XOHL
-	uZA8GjuDAsQCZGasJ1lCuaNv77ppO/jemmd+Su5WQSnfD9p6IzwWPRqAdYibTFwVjGtX/M
-	T05prW4bStePziiLvzvqAB7/sw/alH8zW9e6MSNxdwgVa2ySoETGQwAOnh1lrQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 33df741f;
-	Wed, 22 Jul 2026 02:32:36 +0000 (UTC)
-Date: Wed, 22 Jul 2026 11:32:21 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1276] 6.12.97-rc1 review
-Message-ID: <amArtcs6q5YqtsgC@codewreck.org>
-References: <20260721152446.065700225@linuxfoundation.org>
+	s=arc-20240116; t=1784688395; c=relaxed/simple;
+	bh=eBEUljZFnGOPLmLa9T+x4M86hM6V7BbUGXRiv914x7s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W7osJm+X3QZiLOaX4QHQpzAgzuHtuzBV0iKV9DkgLtr3CLOFxuEyElMuSfrbrXxo+PHUcRPZ4qRTzpYlmsL/Rd9w/1F94rJDEFIEocN/efiJUE5Jcg4SQ9mWRmUCDG7KHi844S0lO8CPMH5c7GP0dq+jPSwytBEs1Ojjc0gRfr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDHhDz1LmBq6ksnAA--.17690S3;
+	Wed, 22 Jul 2026 10:46:14 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgDH+TD1LmBqyNh+Ag--.10622S2;
+	Wed, 22 Jul 2026 10:46:13 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-input@vger.kernel.org
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: wm831x-ts - drain pen-down work at teardown
+Date: Wed, 22 Jul 2026 02:45:18 +0000
+Message-Id: <20260722024518.3253280-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260721152446.065700225@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgDH+TD1LmBqyNh+Ag--.10622S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?DVpB6AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZxGfK7p3xnbq4j7hoN9YHI9aJxm5aub9ZEJ1ANCZa3MDPMY
+	Rv0J13PrswES+NYY2ogv2+Wb6KUKDY/xT0BrLixK
+X-Coremail-Antispam: 1Uk129KBj93XoW7CF45Cw18KryxWF4rKry3GFX_yoW8uFWkpa
+	s8AryUK348JF1Fka1UG3sFvFyrAF1Ut397Ar1DCw1fWwn8ZF1ftr1F9Fyvqa1rGr4kJr12
+	yr9F9rWrCrZ5A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-Greg Kroah-Hartman wrote on Tue, Jul 21, 2026 at 05:07:23PM +0200:
-> This is the start of the stable review cycle for the 6.12.97 release.
-> There are 1276 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.97-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
+The pen-down and data IRQ handlers queue pd_data_work to switch between the
+two IRQs.  The worker obtains wm831x_ts with container_of() and calls
+enable_irq().  free_irq() synchronizes an IRQ handler, but does not drain a
+work item already queued by that handler.
 
-Tested 160123ebe781 ("Linux 6.12.97-rc1") on:
-- arm i.MX6ULL (Armadillo 640)
-- arm64 i.MX8ULP (Armadillo IoT A9E)
+wm831x_ts_remove() can therefore free the IRQ actions while pd_data_work is
+pending or running.  The work may then dereference wm831x_ts after devres
+frees it, or enable an IRQ after its action has been freed.
 
-No obvious regression in dmesg or basic tests:
-Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+Disable both IRQs before cancelling the work, so neither handler can queue
+another instance while cancel_work_sync() drains it.  Free the IRQ actions
+only after the work has stopped.  Apply the same sequence to err_pd_irq:
+both IRQ actions exist there when input_register_device() fails.
+
+This issue was found by an in-house static analysis tool and confirmed by
+manual code review.
+
+Fixes: f5346668150c ("Input: wm831x-ts - fix races with IRQ management")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/input/touchscreen/wm831x-ts.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/input/touchscreen/wm831x-ts.c b/drivers/input/touchscreen/wm831x-ts.c
+index 98f8ec408cad..705772025648 100644
+--- a/drivers/input/touchscreen/wm831x-ts.c
++++ b/drivers/input/touchscreen/wm831x-ts.c
+@@ -366,6 +366,10 @@ static int wm831x_ts_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ err_pd_irq:
++	disable_irq(wm831x_ts->pd_irq);
++	disable_irq(wm831x_ts->data_irq);
++	cancel_work_sync(&wm831x_ts->pd_data_work);
++
+ 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
+ err_data_irq:
+ 	free_irq(wm831x_ts->data_irq, wm831x_ts);
+@@ -378,6 +382,10 @@ static void wm831x_ts_remove(struct platform_device *pdev)
+ {
+ 	struct wm831x_ts *wm831x_ts = platform_get_drvdata(pdev);
+ 
++	disable_irq(wm831x_ts->pd_irq);
++	disable_irq(wm831x_ts->data_irq);
++	cancel_work_sync(&wm831x_ts->pd_data_work);
++
+ 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
+ 	free_irq(wm831x_ts->data_irq, wm831x_ts);
+ }
 -- 
-Dominique Martinet
+2.34.1
+
