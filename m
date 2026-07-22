@@ -1,129 +1,138 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C64472F6B;
-	Wed, 22 Jul 2026 08:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96E43D955F;
+	Wed, 22 Jul 2026 08:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784709935; cv=none; b=juFLV65MyVAjYX89bmGwBEsdjhY9F62TkZFUbOFAfByEw68PM/XL2WO68pCJ+QvtfB8sNvC/Pt2qsot+GvoRHVvET/LvgC0atsF96aavIA+BlGBK/0l8LivGziCnBT7pxxMA2iGE95BmPuc/v7b9m+8F2c+86YqzzyDuoxUBvtA=
+	t=1784710174; cv=none; b=ikmYGK0FMRXPI4moW0eq7oKno917jTprhQkJWsr+lBrTgBxxasZqpwn32zZurdIIgt42LZDifENIJbys4xH1c1MyJ4AR1z/kgrVCFf56b2k12lIyjGGiOgwNIQebVAC+7VwFC+mX/8ZxrK3iriKM4ohPhH9wSLh93wp4FZH/HbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784709935; c=relaxed/simple;
-	bh=iciwrskWuOo/beaAgryEWYkM/Q1y9IW8mIW/Yj7mM+0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tOr7aFc/ptNz33tqsN8jtIiTjHkxo13xjAp4veChIHcNsxK1lLJnELeZikISz31KtoKvaBy2lGENlhW4TpQNNqk6XjI/RiSekMb6ArmCx6iaFGuyD1vIrAbMWbwDFsP/zhe+8IsSRaV29lWUmHQsZ6tWF1xJpUa06ecch/mAK5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=ULtP0+x0; arc=none smtp.client-ip=212.227.17.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
+	s=arc-20240116; t=1784710174; c=relaxed/simple;
+	bh=0eJ51hMEsT4i3G2wfs25Efu3Dg4DjZJuEOzTbGfJxgQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=eiTTcYpc0NZSH6mcsAN2M+hbhjrzzO9nq8NSFpHrSKH6Z6gfY80QSyYoqtn3Ayv4aYrPkIKar0zKfhRo0N2CxQ+iNLHmKmB4y33fzVhQ8y1n1bWah26Oe3Ss5dlIfkEKzNQBFutUfSuUr5VagHdGoyZwbKc242PL/AGRT0z5Bh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=1asIkeXV; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="ULtP0+x0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=oldschoolsolutions.biz; s=s1-ionos; t=1784709909; x=1785314709;
-	i=jens.glathe@oldschoolsolutions.biz;
-	bh=iciwrskWuOo/beaAgryEWYkM/Q1y9IW8mIW/Yj7mM+0=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=ULtP0+x0DvPxDdURzquiPEUkVXVDo//0OR3My7HnBRJSxDuycvWJMwVpf1XfD6Mt
-	 Pa8KRpnqBMpmi0mDsONGFlaJXxmsZtK8OJ5nx2IMDxuo5NurLhqEQQ1DXLcVQUJAp
-	 Z0fDeIt7ZwTldgSuv7u9k2agPMTxxSRmxo22mcl3aFik8EjLi0j6cYFiwXKEJ0TD+
-	 CQGlv4N882gn0D2nQt6Xn/abjT7FZXxd8x2h5Fr3Hh9sQF/2Rk7dYyI3c8iLa4af+
-	 5T7J+UlcdFKZiuMCRKWzcienOCbzybfHcbXsVvCdfNQW0557PPcKhNlncNj8+1w1M
-	 TWnXmypPmLU7PuxEIg==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
- [212.227.15.183]) with ESMTPSA (Nemesis) id 1N8GEY-1wzduX05aa-00vQ9l; Wed, 22
- Jul 2026 10:45:09 +0200
-Message-ID: <a50294b0-b651-407e-affe-49784fd84ae1@oldschoolsolutions.biz>
-Date: Wed, 22 Jul 2026 10:45:07 +0200
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="1asIkeXV"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=wP2YIMoJu7BNs5/6oLWSmAw++AAZluHFpCpirm2hGzQ=;
+	b=1asIkeXVDKKfx8MmR/G4t9RG3MC6sJXRoxCLXoqrhDE47S3vQQv/TSAuNs41yLZm2qJAri384
+	O1UkJa7Sq+NKsUdYeTRweydQ48biIaTTIoFHUbCQRJ1eC+4nuow7+vN+iK3NRjK8l2Hd7zqkmKh
+	gtC8cGYjFY8Omn25ydT5DDk=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4h4nkD3StqzcZyH;
+	Wed, 22 Jul 2026 16:39:48 +0800 (CST)
+Received: from kwepemf100007.china.huawei.com (unknown [7.202.181.221])
+	by mail.maildlp.com (Postfix) with ESMTPS id 35444202E6;
+	Wed, 22 Jul 2026 16:49:17 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemf100007.china.huawei.com
+ (7.202.181.221) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 22 Jul
+ 2026 16:49:16 +0800
+Message-ID: <cb2d9feb-bf4b-4625-a9c5-2f71381214b1@huawei.com>
+Date: Wed, 22 Jul 2026 16:49:15 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 2/5] usb: typec: ps883x: Return -EOPNOTSUPP for USB4 when
- parade,disable-usb4 is set
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
- "Dr. David Alan Gilbert" <dave@treblig.org>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <20260718-ps883x-disable-usb4-v1-2-cec86d0b909e@oldschoolsolutions.biz>
- <6vg2kezxu6jguqassp2l6rsx3cg7ja3rxffitzmzhtbc765pnt@m4lalzge22td>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y/6.12.y/6.18.y 1/2] bpf: Fix ld_{abs,ind} failure
+ path analysis in subprogs
 Content-Language: en-US
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-In-Reply-To: <6vg2kezxu6jguqassp2l6rsx3cg7ja3rxffitzmzhtbc765pnt@m4lalzge22td>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:FlHs39OXsevSVY95IWpPK0uqWWhUn/wGxogUY/sSiKFhWj4zQ7i
- ZPHhKblqrb0GWWuU+mO/gnRTcPN3LkNIoAi5V2odJ33qPg+ZIOqFrWN/soHpPAXiBNDHa2R
- WgpJwLNUlGunphTNBiLZMUddQzfptkCQBxscdeuojv/2fqS7/bZv0mZT1gJE5idE7aipyTs
- 8RbkNs0xeNuA2xr6xFBqw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:c1boM3WCWm4=;FhdfGWc2Yr2GBXCLfPkDr8+YQP1
- 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
- =
+To: Philo Lu <lulie@linux.alibaba.com>, <stable@vger.kernel.org>
+CC: <daniel@iogearbox.net>, <info@starlabs.sg>, <ast@kernel.org>,
+	<john.fastabend@gmail.com>, <andrii@kernel.org>, <martin.lau@linux.dev>,
+	<song@kernel.org>, <yonghong.song@linux.dev>, <kpsingh@kernel.org>,
+	<sdf@google.com>, <haoluo@google.com>, <jolsa@kernel.org>,
+	<bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <mykolal@fb.com>,
+	<shuah@kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<dust.li@linux.alibaba.com>
+References: <20260722073908.72382-1-lulie@linux.alibaba.com>
+ <20260722073908.72382-2-lulie@linux.alibaba.com>
+From: Pu Lehui <pulehui@huawei.com>
+In-Reply-To: <20260722073908.72382-2-lulie@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemf100007.china.huawei.com (7.202.181.221)
 
-Hi,
 
-On 7/21/26 19:57, Dmitry Baryshkov wrote:
-> On Sat, Jul 18, 2026 at 07:06:30PM +0200, Jens Glathe via B4 Relay wrote=
-:
->> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
->>
->> On Qualcomm X1E80100 platforms using the Parade PS883x retimer (like
->> Lenovo ThinkPad T14s Gen6), hotplugging USB4-capable docks such as the
->> Lenovo 40B0 results in working USB but no DisplayPort output on the
->> dock's HDMI/DP ports.
->>
->> When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
->> and forwards it via typec_mux_set(). The qmp_combo PHY then selects
->> QMPPHY_MODE_USB3_ONLY because no classic DP altmode SVID is present in
->> the state, leaving the DP transmitter and AUX channel disabled.
-> Would it be enough to make QMP combo PHY to treat USB4 as USB3+DP for
-> the sake of this issue?
-AFAIU, no. USB4 has some tunneling protocol for DP altmode, not=20
-dedicated lanes. Therefore you need to either support that or enforce=20
-USB3 DP altmode negotiation. The role-switch on the qmmphy would be too=20
-late IMO.
+On 2026/7/22 15:39, Philo Lu wrote:
+> From: Daniel Borkmann <daniel@iogearbox.net>
+> 
+> commit ee861486e377edc55361c08dcbceab3f6b6577bd upstream.
+> 
+> Usage of ld_{abs,ind} instructions got extended into subprogs some time
+> ago via commit 09b28d76eac4 ("bpf: Add abnormal return checks."). These
+> are only allowed in subprograms when the latter are BTF annotated and
+> have scalar return types.
+> 
+> The code generator in bpf_gen_ld_abs() has an abnormal exit path (r0=0 +
+> exit) from legacy cBPF times. While the enforcement is on scalar return
+> types, the verifier must also simulate the path of abnormal exit if the
+> packet data load via ld_{abs,ind} failed.
+> 
+> This is currently not the case. Fix it by having the verifier simulate
+> both success and failure paths, and extend it in similar ways as we do
+> for tail calls. The success path (r0=unknown, continue to next insn) is
+> pushed onto stack for later validation and the r0=0 and return to the
+> caller is done on the fall-through side.
+> 
+> Fixes: 09b28d76eac4 ("bpf: Add abnormal return checks.")
+> Reported-by: STAR Labs SG <info@starlabs.sg>
+> Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+> Link: https://lore.kernel.org/r/20260408191242.526279-2-daniel@iogearbox.net
+> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+> [ Dropped visit_abnormal_return_insn changes: depends on 7.0 symbols from
+>   e40f5a6bf88a ("bpf: correct stack liveness for tail calls");
+>   Hunk1: adapted IS_ERR/PTR_ERR to !branch/-EFAULT to match push_stack()
+>   NULL-on-failure convention. ]
 
-with best regards
+These versions does not introduce consumers corresponding to the output
+of jump tables; therefore, the assignment of jump tables is not involved.
 
-Jens
+Reviewed-by: Pu Lehui <pulehui@huawei.com>
 
+> Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
+> ---
+>   kernel/bpf/verifier.c | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+> 
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index f638b2d3a42fb..3f74767e47484 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -15119,6 +15119,23 @@ static int check_ld_abs(struct bpf_verifier_env *env, struct bpf_insn *insn)
+>   	mark_reg_unknown(env, regs, BPF_REG_0);
+>   	/* ld_abs load up to 32-bit skb data. */
+>   	regs[BPF_REG_0].subreg_def = env->insn_idx + 1;
+> +	/*
+> +	 * See bpf_gen_ld_abs() which emits a hidden BPF_EXIT with r0=0
+> +	 * which must be explored by the verifier when in a subprog.
+> +	 */
+> +	if (env->cur_state->curframe) {
+> +		struct bpf_verifier_state *branch;
+> +
+> +		mark_reg_scratched(env, BPF_REG_0);
+> +		branch = push_stack(env, env->insn_idx + 1, env->insn_idx, false);
+> +		if (!branch)
+> +			return -EFAULT;
+> +		mark_reg_known_zero(env, regs, BPF_REG_0);
+> +		err = prepare_func_exit(env, &env->insn_idx);
+> +		if (err)
+> +			return err;
+> +		env->insn_idx--;
+> +	}
+>   	return 0;
+>   }
+> 
+> --
+> 2.47.3
+> 
+> 
