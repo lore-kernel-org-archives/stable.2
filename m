@@ -1,197 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE1E33939C
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:00:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B7F4749EC
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784743258; cv=none; b=HPNHuiwzkvZbHPTORzec41CrskUjCw97lzJjwZGNvUoeoNFRY5OWpaQqLRixH2cuVD0MzsTtb/zLqJkqYCDmkLubZGVU9ENGoGNeq3yFZgqgieUCGevkzVEA2VR0jL9EEtjj2K+JYTVr1TNOE/gTqvqVSzsMuOksCy7sOEJJOBU=
+	t=1784743259; cv=none; b=TGooey7WDHHcrG4+U+0clSoyXXhsSyIDteyLkFGw3GqCGALRERYWmIVf8CEVxVF1pngBVP/Tvx89p2Ot7kfyBe8MG4ptf25dC4FKGOQMjPdQlRYz+cAofLmtLxGgYc6avVJMwLr5Na/k8+v5YHO8GiLhuHhQwwtL6jlIQ/6BrZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784743258; c=relaxed/simple;
-	bh=+JgoYPdUS9pAPFer3Dly2MHTo6NqfIgX3hIkdIPd0MU=;
+	s=arc-20240116; t=1784743259; c=relaxed/simple;
+	bh=lac1Y0TxXMCytVYCO/qwvSf+KagjcnHjjDa4icwMXDk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a9HcDnC1HnxU7biDhyqKCMwtCdjixDUY19XtQdz9A4RpqdFO6AxOp8Zo7Txrb1Bc395WyAS54xxuvl2HljoXv85yPnb4AAjFx1qUGT8E0H6tT/JcbyK5hiViFgFnqsGZhrzFBoXcea1/eE3zQJHDNiIpAlXlOFWthlrpxWe0fZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FbYU+FUt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HEdnpatfGxp13f0VHiFnz2vEJO+PB19vPIPkBlcCtEtYbMWA9nIZfu2kOWB+jcthzuXqz67iy0p2MXa+vgEhloLdG3y3X2KAfUMCTyTM6LzJhWXemKTn26/VLxS7d5qTMa4tEKjKYjQ9Ai/mW0XSBHGR9CfHcm2lMJEiO/dJYwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5HmV9Fk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FbYU+FUt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED9BB1F00A3A;
-	Wed, 22 Jul 2026 18:00:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5HmV9Fk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19381F00A3E;
+	Wed, 22 Jul 2026 18:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784743256;
-	bh=H7cV4NEtEWHwQhoOy+7vjzBdNtylg+KGiuFP0AI80F0=;
+	s=k20260515; t=1784743257;
+	bh=aikSysYmTcZsl3qrvMp64fKvWGttKFbA+lMr2YQ46EE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FbYU+FUtnRo8wN/vTMNpQqObZ+oRki5W26wHlJtm40toVTovNmwDZEYip7m67oFhD
-	 v403ZJqqmVOBwBxG8QeUf6O2kLvwoq/G3IswyRv7eRZniwegoiewEGdZhuBt5oHjWH
-	 HxtrQdVG0/YPmSH0yW9L9dhK2uS5nfkcDROY3+QpU07/5NLos1P6bDyqUAapsK6pFI
-	 4yLeG+IyeZr1BnWuWFzlUffSuA6wVeqHDNEn2ZhPJVs+zw5BwoACz9MfhhfLTVYnUO
-	 0GrhDbupnOr4qJ45JQ9j1nAhfTBH+lPfvcWj0kVdL9fxVjs322h9hDHYCC9N1Nm5A9
-	 5BWlFm1gBXs7w==
+	b=k5HmV9FkDcZicE/rjiQoceajOuXW2ZTndj50HNDS3i0cSMAgUlgM5hzjUBOZDWr+K
+	 EPnqR/pgH+Pk5d3X7ykPakE8HUUOvHfT6Qo+yZVe07jgqpBGUj/gXya4wemwN45Pga
+	 5jk0dz1Bty1hNfufxhjngta/ga7TzvxHaGV0S0VF3JTdQqBaN0g8d6lNbT7FNNp8x8
+	 4n2Ej40KnhoAylnqiHienBy8oeoGg5xTwhiCokYawq/EeCbQuGdEQMRxIILQmyZ1xC
+	 +WuBl8Tz2kHsqvWjW0OE67S41oFAHLyRwQyKsgsUV8KHlqy9JAy87nQG8omAGOfZSg
+	 bR4M2zTSzC6kQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
+Cc: Li Xiasong <lixiasong1@huawei.com>,
+	Tung Nguyen <tung.quang.nguyen@est.tech>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] vduse: take out allocations from vduse_dev_alloc_coherent
-Date: Wed, 22 Jul 2026 14:00:51 -0400
-Message-ID: <20260722180052.2184339-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y] tipc: restrict socket queue dumps in enqueue tracepoints
+Date: Wed, 22 Jul 2026 14:00:55 -0400
+Message-ID: <20260722180055.2184421-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722180052.2184339-1-sashal@kernel.org>
-References: <2026072041-rectal-mammogram-740b@gregkh>
- <20260722180052.2184339-1-sashal@kernel.org>
+In-Reply-To: <2026072050-renovator-skylight-79d9@gregkh>
+References: <2026072050-renovator-skylight-79d9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Eugenio Pérez <eperezma@redhat.com>
+From: Li Xiasong <lixiasong1@huawei.com>
 
-[ Upstream commit 489d76520612abf9a4ede4344349105406c91a73 ]
+[ Upstream commit acd7df8d955480a6f6e5bb809da67b1500cc3cf4 ]
 
-The function vduse_dev_alloc_coherent will be called under rwlock in
-next patches.  Make it out of the lock to avoid increasing its fail
-rate.
+tipc_sk_enqueue() runs with sk->sk_lock.slock held while the socket is
+owned by user context. The spinlock protects the backlog queue in this
+path, but it does not serialize against the socket owner consuming or
+purging sk_receive_queue.
 
-Acked-by: Jason Wang <jasowang@redhat.com>
-Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-Id: <20260119143306.1818855-10-eperezma@redhat.com>
-Stable-dep-of: 9c1523803445 ("VDUSE: avoid leaking information to userspace")
+KASAN reported:
+
+  CPU: 14 UID: 0 PID: 1050 Comm: tipc3 Not tainted 7.1.0-rc6+ #126 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+  Call Trace:
+    <TASK>
+    dump_stack_lvl+0x76/0xa0 lib/dump_stack.c:123
+    print_report+0xce/0x5b0 mm/kasan/report.c:482
+    kasan_report+0xc6/0x100 mm/kasan/report.c:597
+    __asan_report_load4_noabort+0x14/0x30 mm/kasan/report_generic.c:380
+    tipc_skb_dump+0x1327/0x16f0 net/tipc/trace.c:73
+    tipc_list_dump+0x208/0x2e0 net/tipc/trace.c:187
+    tipc_sk_dump+0xaf6/0xd60 net/tipc/socket.c:3996
+    trace_event_raw_event_tipc_sk_class+0x312/0x5a0 net/tipc/trace.h:188
+    tipc_sk_rcv+0xb1d/0x1d50 net/tipc/socket.c:2497
+    tipc_node_xmit+0x1c3/0x1440 net/tipc/node.c:1689
+    __tipc_sendmsg+0x97a/0x1440 net/tipc/socket.c:1512
+    tipc_sendmsg+0x52/0x80 net/tipc/socket.c:1400
+    sock_sendmsg+0x2f6/0x3e0 net/socket.c:825
+    splice_to_socket+0x7f9/0x1010 fs/splice.c:884
+    do_splice+0xe21/0x2330 fs/splice.c:936
+    __do_splice+0x153/0x260 fs/splice.c:1431
+    __x64_sys_splice+0x150/0x230 fs/splice.c:1616
+    x64_sys_call+0xeb5/0x2790 arch/x86/entry/syscall_64.c:41
+    do_syscall_64+0xf3/0x620 arch/x86/entry/syscall_64.c:63
+    entry_SYSCALL_64_after_hwframe+0x76/0x7e arch/x86/entry/entry_64.S:130
+  RIP: 0033:0x71624e8aafe2
+  Code: 08 0f 85 71 3a ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 66
+  RSP: 002b:0000716157ffed68 EFLAGS: 00000246 ORIG_RAX: 0000000000000113
+  RAX: ffffffffffffffda RBX: 0000716157fff6c0 RCX: 000071624e8aafe2
+  RDX: 000000000000005f RSI: 0000000000000000 RDI: 0000000000000066
+  RBP: 0000716157ffed90 R08: 0000000000008000 R09: 0000000000000001
+  R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffff00
+  R13: 0000000000000021 R14: 0000000000000000 R15: 00007fff89799c40
+    </TASK>
+
+The TIPC_DUMP_ALL tracepoints in tipc_sk_enqueue() also dump
+sk_receive_queue and can therefore dereference skbs that the socket
+owner has already dequeued or freed. Restrict these dumps to
+TIPC_DUMP_SK_BKLGQ, which matches the queue protected by the held
+spinlock.
+
+Keep the change limited to the enqueue path, where the unsafe queue dump
+is reachable while the socket is owned by user context.
+
+Fixes: 01e661ebfbad ("tipc: add trace_events for tipc socket")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
+Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
+Link: https://patch.msgid.link/20260611135647.3666727-1-lixiasong1@huawei.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vdpa/vdpa_user/iova_domain.c | 24 +++++++-----------------
- drivers/vdpa/vdpa_user/iova_domain.h |  5 ++---
- drivers/vdpa/vdpa_user/vduse_dev.c   | 14 ++++++++++----
- 3 files changed, 19 insertions(+), 24 deletions(-)
+ net/tipc/socket.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
-index b686561be40031..2b1ee3f1ba6c92 100644
---- a/drivers/vdpa/vdpa_user/iova_domain.c
-+++ b/drivers/vdpa/vdpa_user/iova_domain.c
-@@ -479,17 +479,15 @@ void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
- 	vduse_domain_free_iova(iovad, dma_addr, size);
- }
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index 1d828ae769fd67..58e5390bc47a08 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -2454,17 +2454,17 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
+ 			atomic_set(dcnt, 0);
+ 		lim = rcvbuf_limit(sk, skb) + atomic_read(dcnt);
+ 		if (likely(!sk_add_backlog(sk, skb, lim))) {
+-			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_ALL,
++			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_SK_BKLGQ,
+ 						 "bklg & rcvq >90% allocated!");
+ 			continue;
+ 		}
  
--void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
--				  size_t size, dma_addr_t *dma_addr,
--				  gfp_t flag, unsigned long attrs)
-+dma_addr_t vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
-+				       size_t size, void *orig)
- {
- 	struct iova_domain *iovad = &domain->consistent_iovad;
- 	unsigned long limit = domain->iova_limit;
- 	dma_addr_t iova = vduse_domain_alloc_iova(iovad, size, limit);
--	void *orig = alloc_pages_exact(size, flag);
- 
--	if (!iova || !orig)
--		goto err;
-+	if (!iova)
-+		return DMA_MAPPING_ERROR;
- 
- 	spin_lock(&domain->iotlb_lock);
- 	if (vduse_iotlb_add_range(domain, (u64)iova, (u64)iova + size - 1,
-@@ -500,17 +498,12 @@ void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
- 	}
- 	spin_unlock(&domain->iotlb_lock);
- 
--	*dma_addr = iova;
-+	return iova;
- 
--	return orig;
- err:
--	*dma_addr = DMA_MAPPING_ERROR;
--	if (orig)
--		free_pages_exact(orig, size);
--	if (iova)
--		vduse_domain_free_iova(iovad, iova, size);
-+	vduse_domain_free_iova(iovad, iova, size);
- 
--	return NULL;
-+	return DMA_MAPPING_ERROR;
- }
- 
- void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
-@@ -519,7 +512,6 @@ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
- 	struct iova_domain *iovad = &domain->consistent_iovad;
- 	struct vhost_iotlb_map *map;
- 	struct vdpa_map_file *map_file;
--	phys_addr_t pa;
- 
- 	spin_lock(&domain->iotlb_lock);
- 	map = vhost_iotlb_itree_first(domain->iotlb, (u64)dma_addr,
-@@ -531,12 +523,10 @@ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
- 	map_file = (struct vdpa_map_file *)map->opaque;
- 	fput(map_file->file);
- 	kfree(map_file);
--	pa = map->addr;
- 	vhost_iotlb_map_free(domain->iotlb, map);
- 	spin_unlock(&domain->iotlb_lock);
- 
- 	vduse_domain_free_iova(iovad, dma_addr, size);
--	free_pages_exact(phys_to_virt(pa), size);
- }
- 
- static vm_fault_t vduse_domain_mmap_fault(struct vm_fault *vmf)
-diff --git a/drivers/vdpa/vdpa_user/iova_domain.h b/drivers/vdpa/vdpa_user/iova_domain.h
-index b07dd9eff1056a..14b4370ce93963 100644
---- a/drivers/vdpa/vdpa_user/iova_domain.h
-+++ b/drivers/vdpa/vdpa_user/iova_domain.h
-@@ -58,9 +58,8 @@ void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
- 			     dma_addr_t dma_addr, size_t size,
- 			     enum dma_data_direction dir, unsigned long attrs);
- 
--void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
--				  size_t size, dma_addr_t *dma_addr,
--				  gfp_t flag, unsigned long attrs);
-+dma_addr_t vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
-+				       size_t size, void *orig);
- 
- void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
- 				dma_addr_t dma_addr, unsigned long attrs);
-diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
-index ab6045d6154f3f..f576e50c7ae8da 100644
---- a/drivers/vdpa/vdpa_user/vduse_dev.c
-+++ b/drivers/vdpa/vdpa_user/vduse_dev.c
-@@ -828,18 +828,23 @@ static void *vduse_dev_alloc_coherent(struct device *dev, size_t size,
- {
- 	struct vduse_dev *vdev = dev_to_vduse(dev);
- 	struct vduse_iova_domain *domain = vdev->domain;
--	unsigned long iova;
- 	void *addr;
- 
- 	*dma_addr = DMA_MAPPING_ERROR;
--	addr = vduse_domain_alloc_coherent(domain, size,
--				(dma_addr_t *)&iova, flag, attrs);
-+
-+	addr = alloc_pages_exact(size, flag);
- 	if (!addr)
- 		return NULL;
- 
--	*dma_addr = (dma_addr_t)iova;
-+	*dma_addr = vduse_domain_alloc_coherent(domain, size, addr);
-+	if (*dma_addr == DMA_MAPPING_ERROR)
-+		goto err;
- 
- 	return addr;
-+
-+err:
-+	free_pages_exact(addr, size);
-+	return NULL;
- }
- 
- static void vduse_dev_free_coherent(struct device *dev, size_t size,
-@@ -850,6 +855,7 @@ static void vduse_dev_free_coherent(struct device *dev, size_t size,
- 	struct vduse_iova_domain *domain = vdev->domain;
- 
- 	vduse_domain_free_coherent(domain, size, dma_addr, attrs);
-+	free_pages_exact(vaddr, size);
- }
- 
- static size_t vduse_dev_max_mapping_size(struct device *dev)
+-		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_ALL, "err_overload!");
++		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_SK_BKLGQ, "err_overload!");
+ 		/* Overload => reject message back to sender */
+ 		onode = tipc_own_addr(sock_net(sk));
+ 		atomic_inc(&sk->sk_drops);
+ 		if (tipc_msg_reverse(onode, &skb, TIPC_ERR_OVERLOAD)) {
+-			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_ALL,
++			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_SK_BKLGQ,
+ 					      "@sk_enqueue!");
+ 			__skb_queue_tail(xmitq, skb);
+ 		}
 -- 
 2.53.0
 
