@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C263546EB
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E7F353A87
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784728506; cv=none; b=gOiqRGpL0vrRJbUF2E1XqqlW+nmMneiC2Vv58aVrLAoWixxO3px2exH8TZPdMt3Z+GQYAaLbr83h/lilmK8KtKlwu5jiojMzN9RghrQcrck2crmfoZN9L5Fwns80eDCH4PQ7mBZpV9Mkt79fWxNlUmShGJo72BJ9J3wsllFl9qM=
+	t=1784728509; cv=none; b=A4H2kssXURdCfRwkMsucP3OgYV7WAlGNtlP9kEjvpcpQOiQsRTLiNTjFduXRDmCwtOQSpZk7vwbXoCW0T8pvOlGX93HH9zmF8wqXgTsPxFQdc6nnZN9GM1rPPirkneinor2DT8FOaOkgw5rxk0DGlH1vgi9+Z1I+sGTJhJs8hYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784728506; c=relaxed/simple;
-	bh=f4cqe26P95MgC9WMYn5SF3FOJdpSg6FnmzKjKJqJGGo=;
+	s=arc-20240116; t=1784728509; c=relaxed/simple;
+	bh=y6QgHh8+BMz3x7XQbIHbN26e6q3ddoxLi63lFDZD11c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZAys4iNchApSoblNa0TTymnjALPMcJg6ClLO4dF1kkohDsNC4pvQY2gz31pNMz51NlZwKMCZxT7nx4mXKZ4JWJVw9cke5QL2E5H2ZI6oJGOGB73kun9BDwDACvdg6zaIHQjMTpjOCXu7aCkcKiIN6x//AKd1uObc1bn6I4x5YR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3caQYK7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rU/rXmPvYxpfeRAd/H4PXNze8BZFQB9nMiZZxdCLBzznS6cD1z98Ry81t70gjSwGa0EOzAGwQFjU0sN2LKWauMVj9fYmJ9/38nTQ8/UkNz1Hue3xmlNoRZwWx4KAlh5hepG6bToyS42XKu3Vr9aWZG9rGlg4sQiYWGZy7CihpeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTBldM5O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3caQYK7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877AB1F00A3A;
-	Wed, 22 Jul 2026 13:55:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTBldM5O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3AFB1F00A3A;
+	Wed, 22 Jul 2026 13:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784728505;
-	bh=8vyyBp6nltduCpFEsW7SPdyl8dhfuv9LML0YDoJ8UZE=;
+	s=k20260515; t=1784728508;
+	bh=yP1m72LJdCLkuNO+e+bo3GH8/CCS9NoOntq6SttnGF4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F3caQYK7LOZ4Vl+Udg19xAH5xmnJnRZsRUwTZLGNEvWJ8Rf+rWQfXpjVqkl0LIWOy
-	 S0uPW3xbNoMMlia5krc8oC3ZR0CQAHPPSKdU86OFzbL6vVXgbhCc5hxpG867yQuewT
-	 Tiz9iscHwrC/XCLf60LxAOvGPmou74fijfX7I57BIv33oUQKFjosJLN3OpkGfFzLJI
-	 SKGYjIQOh2qnT4mU88FZQc/OknUx+5YfwU8DHJo1ANzdpSqWy9bzjvA649NwRyXYPk
-	 RxRyhd1CV8Os/RHxQNJFnWV+RRtisILwmM4/ttAFGlfFGfpqlwnu0xvKxYj5rgAjcO
-	 TDQBy+y+F9rEQ==
+	b=cTBldM5OYM1G4vWvKxESBFF7HjhvuC0UBnSDJ9V8E9YOQoRw1EJ8a198TMrDTKYTh
+	 8C/saa1yVGgtba4yYK8nuq/akdKIcvTCKaq08gVfncdR4JnMBgWeQ7Xx6ioVmentaz
+	 dvFFnGEPefx+wWxS+Diwgd0QFsP6P5iYt6+YeNFN/cWO2Dm/6o2iqxBV8FpZ3mlMY0
+	 PiejiM4ckgAKkI0CVOT5s/QpB42m24riWFXwfQlV3VEKY4GQyvo1a93GsN+RsqBwzA
+	 B/P/+7R7PenBGJK0f9GxEnfeopgvuLKYHyDmwcAkhqaRy70+gwfnRCS2h4V1fYbWQo
+	 nrNb3uphGxjLw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ricardo Ribalda <ribalda@chromium.org>,
-	stable@kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: NeilBrown <neil@brown.name>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 7/7] media: uvcvideo: Fix sequence number when no EOF
-Date: Wed, 22 Jul 2026 09:54:57 -0400
-Message-ID: <20260722135457.1366301-7-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/4] VFS/audit: introduce kern_path_parent() for audit
+Date: Wed, 22 Jul 2026 09:55:03 -0400
+Message-ID: <20260722135506.1367414-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722135457.1366301-1-sashal@kernel.org>
-References: <2026072041-maverick-blooper-4a13@gregkh>
- <20260722135457.1366301-1-sashal@kernel.org>
+In-Reply-To: <2026071654-compile-alkaline-1e63@gregkh>
+References: <2026071654-compile-alkaline-1e63@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,152 +45,198 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Ribalda <ribalda@chromium.org>
+From: NeilBrown <neil@brown.name>
 
-[ Upstream commit f078966ca1fb1b3865d8e6bbe2705cfd277fc637 ]
+[ Upstream commit 76a53de6f7ff0641570364234fb4489f4d4fc8e9 ]
 
-If the driver could not detect the EOF, the sequence number is increased
-twice:
- 1) When we enter uvc_video_decode_start() with the old buffer and FID has
-   flipped => We return -EAGAIN and last_fid is not flipped
- 2) When we enter uvc_video_decode_start() with the new buffer.
+audit_alloc_mark() and audit_get_nd() both need to perform a path
+lookup getting the parent dentry (which must exist) and the final
+target (following a LAST_NORM name) which sometimes doesn't need to
+exist.
 
-Fix this issue by moving the new frame detection logic earlier in
-uvc_video_decode_start().
+They don't need the parent to be locked, but use kern_path_locked() or
+kern_path_locked_negative() anyway.  This is somewhat misleading to the
+casual reader.
 
-This also has some nice side affects:
+This patch introduces a more targeted function, kern_path_parent(),
+which returns not holding locks.  On success the "path" will
+be set to the parent, which must be found, and the return value is the
+dentry of the target, which might be negative.
 
-- The error status from the new packet will no longer get propagated
-  to the previous frame-buffer.
-- uvc_video_clock_decode() will no longer update the previous frame
-  buf->stf with info from the new packet.
-- uvc_video_clock_decode() and uvc_video_stats_decode() will no longer
-  get called twice for the same packet.
+This will clear the way to rename kern_path_locked() which is
+otherwise only used to prepare for removing something.
 
-Cc: stable@kernel.org
-Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
-Reported-by: Hans de Goede <hansg@kernel.org>
-Closes: https://lore.kernel.org/linux-media/CANiDSCuj4cPuB5_v2xyvAagA5FjoN8V5scXiFFOeD3aKDMqkCg@mail.gmail.com/T/#me39fb134e8c2c085567a31548c3403eb639625e4
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+It also allows us to remove kern_path_locked_negative(), which is
+transformed into the new kern_path_parent().
+
+Signed-off-by: NeilBrown <neil@brown.name>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 81905b5acbe7 ("audit: fix recursive locking deadlock in audit_dupe_exe()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/usb/uvc/uvc_video.c | 92 ++++++++++++++++---------------
- 1 file changed, 47 insertions(+), 45 deletions(-)
+ fs/namei.c              | 42 +++++++++++++++++++++++++++++++++++++++++
+ include/linux/namei.h   |  1 +
+ kernel/audit.h          |  4 ++--
+ kernel/audit_fsnotify.c | 11 ++++-------
+ kernel/audit_watch.c    |  9 ++++++---
+ 5 files changed, 55 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 1a92cbe728ce87..3a056738c04e6e 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1116,6 +1116,53 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 	header_len = data[0];
- 	fid = data[1] & UVC_STREAM_FID;
+diff --git a/fs/namei.c b/fs/namei.c
+index debebcbe702f06..6ffa898ea3c866 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -2439,6 +2439,48 @@ static struct filename *filename_parentat(int dfd, struct filename *name,
+ 	return name;
+ }
  
-+	/*
-+	 * Mark the buffer as done if we're at the beginning of a new frame.
-+	 * End of frame detection is better implemented by checking the EOF
-+	 * bit (FID bit toggling is delayed by one frame compared to the EOF
-+	 * bit), but some devices don't set the bit at end of frame (and the
-+	 * last payload can be lost anyway). We thus must check if the FID has
-+	 * been toggled.
-+	 *
-+	 * stream->last_fid is initialized to -1, and buf->bytesused to 0,
-+	 * so the first isochronous frame will never trigger an end of frame
-+	 * detection.
-+	 *
-+	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
-+	 * as it doesn't make sense to return an empty buffer. This also
-+	 * avoids detecting end of frame conditions at FID toggling if the
-+	 * previous payload had the EOF bit set.
-+	 */
-+	if (fid != stream->last_fid && buf && buf->bytesused != 0) {
-+		uvc_dbg(stream->dev, FRAME,
-+			"Frame complete (FID bit toggled)\n");
-+		buf->state = UVC_BUF_STATE_READY;
++/**
++ * kern_path_parent: lookup path returning parent and target
++ * @name: path name
++ * @path: path to store parent in
++ *
++ * The path @name should end with a normal component, not "." or ".." or "/".
++ * A lookup is performed and if successful the parent information
++ * is store in @parent and the dentry is returned.
++ *
++ * The dentry maybe negative, the parent will be positive.
++ *
++ * Returns:  dentry or error.
++ */
++struct dentry *kern_path_parent(const char *name, struct path *path)
++{
++	struct filename *filename;
++	struct path parent_path;
++	struct dentry *d;
++	struct qstr last;
++	int type;
 +
-+		return -EAGAIN;
++	filename = filename_parentat(AT_FDCWD, getname_kernel(name), 0,
++				     &parent_path, &last, &type);
++	if (IS_ERR(filename))
++		return ERR_CAST(filename);
++	if (unlikely(type != LAST_NORM)) {
++		path_put(&parent_path);
++		d = ERR_PTR(-EINVAL);
++		goto out;
 +	}
 +
-+	/*
-+	 * Some cameras, when running two parallel streams (one MJPEG alongside
-+	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
-+	 * We can detect the end of a frame by checking for a new SOI marker, as
-+	 * the SOI always lies on the packet boundary between two frames for
-+	 * these devices.
-+	 */
-+	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
-+	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
-+	     stream->cur_format->fcc == V4L2_PIX_FMT_JPEG) &&
-+	    buf && buf->bytesused != 0) {
-+		const u8 *packet = data + header_len;
-+
-+		if (len >= header_len + 2 &&
-+		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI) {
-+			buf->state = UVC_BUF_STATE_READY;
-+			buf->error = 1;
-+			stream->last_fid ^= UVC_STREAM_FID;
-+			return -EAGAIN;
-+		}
++	d = lookup_one_len_unlocked(last.name, parent_path.dentry, last.len);
++	if (IS_ERR(d)) {
++		path_put(&parent_path);
++		goto out;
 +	}
++	*path = parent_path;
++out:
++	putname(filename);
++	return d;
++}
 +
- 	/*
- 	 * Increase the sequence number regardless of any buffer states, so
- 	 * that discontinuous sequence numbers always indicate lost frames.
-@@ -1172,51 +1219,6 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 		buf->state = UVC_BUF_STATE_ACTIVE;
+ /* does lookup, returns the object with parent locked */
+ struct dentry *kern_path_locked(const char *name, struct path *path)
+ {
+diff --git a/include/linux/namei.h b/include/linux/namei.h
+index b9605b2b46e714..2fcc99e28d44a5 100644
+--- a/include/linux/namei.h
++++ b/include/linux/namei.h
+@@ -61,6 +61,7 @@ static inline int user_path_at(int dfd, const char __user *name, unsigned flags,
+ }
+ 
+ extern int kern_path(const char *, unsigned, struct path *);
++struct dentry *kern_path_parent(const char *name, struct path *parent);
+ 
+ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigned int);
+ extern struct dentry *user_path_create(int, const char __user *, struct path *, unsigned int);
+diff --git a/kernel/audit.h b/kernel/audit.h
+index 1918019e6aaf7b..aef2e1c1c9f3b9 100644
+--- a/kernel/audit.h
++++ b/kernel/audit.h
+@@ -271,8 +271,8 @@ extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
+ extern char *audit_mark_path(struct audit_fsnotify_mark *mark);
+ extern void audit_remove_mark(struct audit_fsnotify_mark *audit_mark);
+ extern void audit_remove_mark_rule(struct audit_krule *krule);
+-extern int audit_mark_compare(struct audit_fsnotify_mark *mark,
+-			      unsigned long ino, dev_t dev);
++extern int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino,
++			      dev_t dev);
+ extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old);
+ extern int audit_exe_compare(struct task_struct *tsk,
+ 			     struct audit_fsnotify_mark *mark);
+diff --git a/kernel/audit_fsnotify.c b/kernel/audit_fsnotify.c
+index 691f90dd09d25b..2b237895157d6e 100644
+--- a/kernel/audit_fsnotify.c
++++ b/kernel/audit_fsnotify.c
+@@ -57,7 +57,7 @@ char *audit_mark_path(struct audit_fsnotify_mark *mark)
+ 	return mark->path;
+ }
+ 
+-int audit_mark_compare(struct audit_fsnotify_mark *mark, unsigned long ino, dev_t dev)
++int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino, dev_t dev)
+ {
+ 	if (mark->ino == AUDIT_INO_UNSET)
+ 		return 0;
+@@ -76,17 +76,14 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
+ 	struct audit_fsnotify_mark *audit_mark;
+ 	struct path path;
+ 	struct dentry *dentry;
+-	struct inode *inode;
+ 	int ret;
+ 
+ 	if (pathname[0] != '/' || pathname[len-1] == '/')
+ 		return ERR_PTR(-EINVAL);
+ 
+-	dentry = kern_path_locked(pathname, &path);
++	dentry = kern_path_parent(pathname, &path);
+ 	if (IS_ERR(dentry))
+-		return (void *)dentry; /* returning an error */
+-	inode = path.dentry->d_inode;
+-	inode_unlock(inode);
++		return ERR_CAST(dentry); /* returning an error */
+ 
+ 	audit_mark = kzalloc(sizeof(*audit_mark), GFP_KERNEL);
+ 	if (unlikely(!audit_mark)) {
+@@ -100,7 +97,7 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
+ 	audit_update_mark(audit_mark, dentry->d_inode);
+ 	audit_mark->rule = krule;
+ 
+-	ret = fsnotify_add_inode_mark(&audit_mark->mark, inode, 0);
++	ret = fsnotify_add_inode_mark(&audit_mark->mark, path.dentry->d_inode, 0);
+ 	if (ret < 0) {
+ 		audit_mark->path = NULL;
+ 		fsnotify_put_mark(&audit_mark->mark);
+diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
+index 5cf22fe301493f..d8c6c523ed70a8 100644
+--- a/kernel/audit_watch.c
++++ b/kernel/audit_watch.c
+@@ -243,7 +243,7 @@ static void audit_watch_log_rule_change(struct audit_krule *r, struct audit_watc
+ /* Update inode info in audit rules based on filesystem event. */
+ static void audit_update_watch(struct audit_parent *parent,
+ 			       const struct qstr *dname, dev_t dev,
+-			       unsigned long ino, unsigned invalidating)
++			       u64 ino, unsigned int invalidating)
+ {
+ 	struct audit_watch *owatch, *nwatch, *nextw;
+ 	struct audit_krule *r, *nextr;
+@@ -346,15 +346,18 @@ static void audit_remove_parent_watches(struct audit_parent *parent)
+ /* Get path information necessary for adding watches. */
+ static int audit_get_nd(struct audit_watch *watch, struct path *parent)
+ {
+-	struct dentry *d = kern_path_locked(watch->path, parent);
++	struct dentry *d;
++
++	d = kern_path_parent(watch->path, parent);
+ 	if (IS_ERR(d))
+ 		return PTR_ERR(d);
++
+ 	if (d_is_positive(d)) {
+ 		/* update watch filter fields */
+ 		watch->dev = d->d_sb->s_dev;
+ 		watch->ino = d_backing_inode(d)->i_ino;
  	}
- 
--	/*
--	 * Mark the buffer as done if we're at the beginning of a new frame.
--	 * End of frame detection is better implemented by checking the EOF
--	 * bit (FID bit toggling is delayed by one frame compared to the EOF
--	 * bit), but some devices don't set the bit at end of frame (and the
--	 * last payload can be lost anyway). We thus must check if the FID has
--	 * been toggled.
--	 *
--	 * stream->last_fid is initialized to -1, so the first isochronous
--	 * frame will never trigger an end of frame detection.
--	 *
--	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
--	 * as it doesn't make sense to return an empty buffer. This also
--	 * avoids detecting end of frame conditions at FID toggling if the
--	 * previous payload had the EOF bit set.
--	 */
--	if (fid != stream->last_fid && buf->bytesused != 0) {
--		uvc_dbg(stream->dev, FRAME,
--			"Frame complete (FID bit toggled)\n");
--		buf->state = UVC_BUF_STATE_READY;
--		return -EAGAIN;
--	}
--
--	/*
--	 * Some cameras, when running two parallel streams (one MJPEG alongside
--	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
--	 * We can detect the end of a frame by checking for a new SOI marker, as
--	 * the SOI always lies on the packet boundary between two frames for
--	 * these devices.
--	 */
--	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
--	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
--	    stream->cur_format->fcc == V4L2_PIX_FMT_JPEG)) {
--		const u8 *packet = data + header_len;
--
--		if (len >= header_len + 2 &&
--		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI &&
--		    buf->bytesused != 0) {
--			buf->state = UVC_BUF_STATE_READY;
--			buf->error = 1;
--			stream->last_fid ^= UVC_STREAM_FID;
--			return -EAGAIN;
--		}
--	}
--
- 	stream->last_fid = fid;
- 
- 	return header_len;
+-	inode_unlock(d_backing_inode(parent->dentry));
++
+ 	dput(d);
+ 	return 0;
+ }
 -- 
 2.53.0
 
