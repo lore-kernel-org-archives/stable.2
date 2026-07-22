@@ -1,475 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559EF438013
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978644D2EC2;
+	Wed, 22 Jul 2026 11:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784719492; cv=none; b=WK95x/YpA1LthZ9VFPAdzvcuEhpOFAaIFoYBBJGVGkQarIx5hgHHun9cO+R12Jl4gRpQB0rhjuodkXuRHPm/+GcyxbUsVpLp0Czei2T//YnKEP8Y71/CpYsGb3CjGcv4MmDVrSMftIGDwTk1/0sgKc+vG4jE8k9XzHZSEWlsIJg=
+	t=1784719691; cv=none; b=A6NTVnyf+VhImKnOZk1bklmCInqwjSMBNVeCVq+ZjF9Uhkc1pE06UtwIKxO9Bqnh3vW8UpUmqpdCMJfjw7F+6+ofOgciCGuMiyvm2UQ5FnJZ0L/f6bhpDhCPA4lPt2+XiLI9eWjZNT5WFmOC/hf0nCxlCmcaXkXaii/Jr0nb0kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784719492; c=relaxed/simple;
-	bh=06pqaUy2aj3o5hT1RxCqcyjVlV8fkhkoUVFPolEY7Ww=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IKPtC9ongib6n6IMyns6MKUQ3lr8Q3zWvbVKyiD4acjx3eNkY9vdfLgXy3MeK0bsM4mdSViNg1UgrK8a+vFfTj7KVtZZ4lX7vT8KRzF5i/PKKO9mVlCKfr7+tyfonZWgP0cqyucphUMr8PbKuP6v3LZq88DgbvKnNf2T7BhG/AQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a8pZ/Bm0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784719691; c=relaxed/simple;
+	bh=/pUL7BxgGzHrRTl4Wiz3aJKa6cJH3AvJr8sfEzq/DPI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tW849RbDH2y8F1eptiAew60mG8XS+eBs4eTYXTdKGWnCfgs1Yq1oFyMQhVBXG6ezj8GTJ1y0UZvJjiAtJax7WtsewNz/NwzTbc5p/kl6o4AKCnDvveM8TZrZSb+gA8FzG5dITOP0B2l8kgI3H0L/uFhxeS8ImtwXAyj/e4hxkDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=EjHUwNJV; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a8pZ/Bm0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62ABF1F000E9;
-	Wed, 22 Jul 2026 11:24:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784719491;
-	bh=5+7MF9tfSuNzjh/PROrx2o6zHg8lcWJjQvTRyPT18tQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a8pZ/Bm0543DA2tgS+VqC4v9rXmaK0vvK2w6dVFdiXLAE0d9WKchhJpEva5uc90ri
-	 h3jXZ/pE/9TWpDPsPUyEPPtDNJWmWhMa3FNISQkMzmiUfc/sVsEl4zbwAiAgA+By6g
-	 a2WdWYHMkm4OYc6M1S/d3sJOcTJGkNCr4qroBdnljVDNZ1l6swjF8rbZ6EaljOa0Jd
-	 mDj1prKLYkH+azSFAo+K1Um4nlC4esn4aUNBc8vbueT6dqMtBYUPai1haq4Ln/gSE5
-	 hiJFI7Lhdb91Dc0eI5FRcnPJ0trvMjBDBqqHOpG0lpT/y0g8lbQW76OGOFx9Ng5PzE
-	 /OAsf8Ls9ylfQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y] xfs: don't replace the wrong part of the cow fork
-Date: Wed, 22 Jul 2026 07:24:48 -0400
-Message-ID: <20260722112448.1117201-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071710-dental-gracious-1e66@gregkh>
-References: <2026071710-dental-gracious-1e66@gregkh>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="EjHUwNJV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=wXOTISGZu/Qojt9imWYNgQJMiCgbqjSybkKHBOPZG70=; b=EjHUwNJVilkwcwOfjllANrcRQ6
+	Z3yRMOcjFTGpNRxytaY9Hxmw54QmU0HLMyUr15Zyon/70jXtZI9crn3fYVo7xrA13t5ijr/w66dnV
+	Ey59MNqly1TK6uLzUatOObR92G+ZaL9AvIOf7cIznpOp6LeTmCRGP0qy3R/Q+7L/91roptLQP0ca0
+	5GNMgjIiBaUYEDKT/bURe+1s7Vl58dAY9N0mX8Pi8SMfLGVLHSGHm+FsihcDpzXOVzPsCmhxbzeEH
+	0y+JOM9uAs+BxQE/cynnbJYAJuA1wBtIpypvXHzBjtvq09EPdTdrpq+W0VQJkN9rAn7bXTzUK3cOI
+	bjOJ2fmQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wmV72-002xhO-1i;
+	Wed, 22 Jul 2026 11:27:44 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 22 Jul 2026 04:27:36 -0700
+Subject: [PATCH] usb: xhci: bail out of setup if the controller is
+ inaccessible
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260722-xhci_dead_hc-v1-1-78f55597524b@debian.org>
+X-B4-Tracking: v=1; b=H4sIACepYGoC/x3MSwqEMBAFwKs0b21AO+MvVxGRTNKa3qgkIIJ49
+ 4GpA9SDIlmlwNGDLJcWPXY4aipCSH7fxGiEI3DNXd0zmzsFXaL4uKRgbLv64dONbL+MinBmWfX
+ +d9P8vj+Ei04AXgAAAA==
+X-Change-ID: 20260722-xhci_dead_hc-35fa846923b2
+To: Mathias Nyman <mathias.nyman@intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sarah Sharp <sarah.a.sharp@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@suse.de>, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2567; i=leitao@debian.org;
+ h=from:subject:message-id; bh=/pUL7BxgGzHrRTl4Wiz3aJKa6cJH3AvJr8sfEzq/DPI=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqYKksecVMq5xwOetkM4NiIEtlt8LEQu7YlK0Y4
+ 2NaAo5BnsSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCamCpLAAKCRA1o5Of/Hh3
+ bW3YD/9wcS38dh3Fj99NvcjGped2lMpT7rMacFtSTPFyQZ37jJtwH1i3StOQkRxfGnNoAcN7FyH
+ jsl16Bwq+uYuNrt50p9NuQ526SX3HvwChl/Agv5SDbpeJ0OFdZ1M7gIEbZWw33pA2w648hylvT4
+ JFtzKdVy417wShQyMcMdxQIi8ihLync3N27AYHrtLi2TkvM2dKds50JljDGwoRuc8FEvQfl3qWf
+ KfH9fGg6xgUdXUuJHdFZBCQpC4MG7mcJWh49bdvQGMnWxlXNl1et1RRYVNMldXr+WZ90NhZk6PJ
+ 0GzCsv/CaupmL0cjhq0GxqM7ECXP9mxOwjfDccnOfF5M0/gMr6lmtTiTjPccsLkcaiFgX1I0C/V
+ B+0xSBxSZebpXkM/mDOpnfRb3hKGQ0EYqIR86yffAm8zKTp9z7yD2oVxwYT2saMO75OA8cQ3Qwc
+ 64D3MUeebbGU+Z1FB1Ra5fIGo+0R1ZlDuT4HsJz9CkJ8i+IX3Qsjqj+ymae2HuxlFF3kbLSCA/l
+ 34QtWyKRcO9uU0CcU276tuDVG7Iq9KSSsij/EqlLxu+UTHiV0gXRWmd3Ru3GmxblURzy/yYYqFy
+ vgxFrMiF2sjTCbYdxT67g1JRJXDvjRWStIjXHiPo2lzKDtHx9trEyd2FWt+lmkkdsfRuYd93S7F
+ ntEXS6oRuMbjs7Q==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+xhci_gen_setup() locates the operational registers using the capability
+length read from the very first register:
 
-[ Upstream commit a1caeeadbf57ff86dfc3454398c46de86056a74e ]
+	xhci->op_regs = hcd->regs +
+		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
 
-LOLLM points out that xfs_iext_lookup_extent can return a @got where
-got->br_startoff < startoff.  In this case, xrep_cow_replace_range
-replaces the entire mapping instead of just the part that had been
-marked bad in the bitmap, but advances the bitmap cursor in
-xrep_cow_replace by the amount replaced.  As a result, we fail to
-replace the end of the bad range, and replace part of the good range.
+If the controller is dead or has dropped off the bus, that read returns
+~0, as I saw in practice.
 
-Fix this by rewriting the replace method to handle replacing the middle
-of a cow fork mapping.  This we do by returning both the current mapping
-as @got, and the subset of the mapping that we want to replace as @rep,
-using @rep to store the results of the new allocation, and comparing
-@rep to @got to figure out the exact transformations needed.
+The first access through it, xhci_halt() -> xhci_handshake() reading
+op_regs->status,  unaligned readl() on device memory. arm64
+faults on unaligned device accesses, so instead of xhci_handshake()
+catching the all-ones value and returning -ENODEV, setup oopses:
 
-Cc: stable@vger.kernel.org # v6.8
-Fixes: dbbdbd0086320a ("xfs: repair problems in CoW forks")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+  Unable to handle kernel paging request at virtual address ffff80030a770103
+    ESR = 0x0000000096000021
+    FSC = 0x21: alignment fault
+  Internal error: Oops: 0000000096000021 [#1]  SMP
+  pc : xhci_halt [xhci_hcd]
+  Call trace:
+   xhci_halt
+   xhci_gen_setup
+   xhci_pci_setup
+   usb_add_hcd
+   usb_hcd_pci_probe
+   xhci_pci_common_prob
+   xhci_pci_renesas_probe
+
+This was hit with a Renesas uPD720201 that failed to power up ("Unable
+to change power state from D3cold to D0, device inaccessible") yet still
+reached the HCD probe path.
+
+Detect the removed controller the way xhci_handshake() and xhci_reset()
+already do, by testing the register for the all-ones value, and abort
+setup with -ENODEV before op_regs is derived from it.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- fs/xfs/scrub/cow_repair.c | 203 ++++++++++++++++++++++++--------------
- fs/xfs/scrub/trace.h      |  28 +++---
- 2 files changed, 148 insertions(+), 83 deletions(-)
+ drivers/usb/host/xhci.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/xfs/scrub/cow_repair.c b/fs/xfs/scrub/cow_repair.c
-index c25716fc4feee4..acd6e80e8e9837 100644
---- a/fs/xfs/scrub/cow_repair.c
-+++ b/fs/xfs/scrub/cow_repair.c
-@@ -80,12 +80,6 @@ struct xrep_cow {
- 	unsigned int		next_bno;
- };
- 
--/* CoW staging extent. */
--struct xrep_cow_extent {
--	xfs_fsblock_t		fsbno;
--	xfs_extlen_t		len;
--};
--
- /*
-  * Mark the part of the file range that corresponds to the given physical
-  * space.  Caller must ensure that the physical range is within xc->irec.
-@@ -401,22 +395,21 @@ xrep_cow_find_bad_rt(
- STATIC int
- xrep_cow_alloc(
- 	struct xfs_scrub	*sc,
--	xfs_extlen_t		maxlen,
--	struct xrep_cow_extent	*repl)
-+	struct xfs_bmbt_irec	*del)
- {
- 	struct xfs_alloc_arg	args = {
- 		.tp		= sc->tp,
- 		.mp		= sc->mp,
- 		.oinfo		= XFS_RMAP_OINFO_SKIP_UPDATE,
- 		.minlen		= 1,
--		.maxlen		= maxlen,
-+		.maxlen		= del->br_blockcount,
- 		.prod		= 1,
- 		.resv		= XFS_AG_RESV_NONE,
- 		.datatype	= XFS_ALLOC_USERDATA,
- 	};
- 	int			error;
- 
--	error = xfs_trans_reserve_more(sc->tp, maxlen, 0);
-+	error = xfs_trans_reserve_more(sc->tp, del->br_blockcount, 0);
- 	if (error)
- 		return error;
- 
-@@ -429,8 +422,8 @@ xrep_cow_alloc(
- 
- 	xfs_refcount_alloc_cow_extent(sc->tp, false, args.fsbno, args.len);
- 
--	repl->fsbno = args.fsbno;
--	repl->len = args.len;
-+	del->br_startblock = args.fsbno;
-+	del->br_blockcount = args.len;
- 	return 0;
- }
- 
-@@ -441,10 +434,12 @@ xrep_cow_alloc(
- STATIC int
- xrep_cow_alloc_rt(
- 	struct xfs_scrub	*sc,
--	xfs_extlen_t		maxlen,
--	struct xrep_cow_extent	*repl)
-+	struct xfs_bmbt_irec	*del)
- {
--	xfs_rtxlen_t		maxrtx = xfs_rtb_to_rtx(sc->mp, maxlen);
-+	xfs_fsblock_t		fsbno;
-+	xfs_rtxlen_t		maxrtx =
-+		min(U32_MAX, xfs_blen_to_rtbxlen(sc->mp, del->br_blockcount));
-+	xfs_extlen_t		len;
- 	int			error;
- 
- 	error = xfs_trans_reserve_more(sc->tp, 0, maxrtx);
-@@ -452,11 +447,14 @@ xrep_cow_alloc_rt(
- 		return error;
- 
- 	error = xfs_rtallocate_rtgs(sc->tp, NULLRTBLOCK, 1, maxrtx, 1, false,
--			false, &repl->fsbno, &repl->len);
-+			false, &fsbno, &len);
- 	if (error)
- 		return error;
- 
--	xfs_refcount_alloc_cow_extent(sc->tp, true, repl->fsbno, repl->len);
-+	xfs_refcount_alloc_cow_extent(sc->tp, true, fsbno, len);
-+
-+	del->br_startblock = fsbno;
-+	del->br_blockcount = len;
- 	return 0;
- }
- 
-@@ -470,19 +468,19 @@ static inline int
- xrep_cow_find_mapping(
- 	struct xrep_cow		*xc,
- 	struct xfs_iext_cursor	*icur,
--	xfs_fileoff_t		startoff,
--	struct xfs_bmbt_irec	*got)
-+	xfs_fileoff_t		badoff,
-+	xfs_extlen_t		badlen,
-+	struct xfs_bmbt_irec	*got,
-+	struct xfs_bmbt_irec	*rep)
- {
- 	struct xfs_inode	*ip = xc->sc->ip;
- 	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
- 
--	if (!xfs_iext_lookup_extent(ip, ifp, startoff, icur, got))
-+	if (!xfs_iext_lookup_extent(ip, ifp, badoff, icur, got))
- 		goto bad;
-+	memcpy(rep, got, sizeof(*rep));
- 
--	if (got->br_startoff > startoff)
--		goto bad;
--
--	if (got->br_blockcount == 0)
-+	if (got->br_startoff > badoff)
- 		goto bad;
- 
- 	if (isnullstartblock(got->br_startblock))
-@@ -491,6 +489,24 @@ xrep_cow_find_mapping(
- 	if (xfs_bmap_is_written_extent(got))
- 		goto bad;
- 
-+	if (got->br_startoff < badoff) {
-+		const int64_t	delta = badoff - got->br_startoff;
-+
-+		rep->br_blockcount -= delta;
-+		rep->br_startoff += delta;
-+		rep->br_startblock += delta;
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 091c82ca8ee29..4e8a87df91d9d 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -5453,6 +5453,10 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	mutex_init(&xhci->mutex);
+ 	xhci->main_hcd = hcd;
+ 	xhci->cap_regs = hcd->regs;
++	if (readl(&xhci->cap_regs->hc_capbase) == U32_MAX) {
++		xhci_warn(xhci, "Host controller not accessible, removed?\n");
++		return -ENODEV;
 +	}
-+
-+	if (got->br_startoff + got->br_blockcount > badoff + badlen) {
-+		const int64_t	delta = (got->br_startoff + got->br_blockcount) -
-+					(badoff + badlen);
-+
-+		rep->br_blockcount -= delta;
-+	}
-+
-+	if (got->br_blockcount == 0)
-+		goto bad;
-+
- 	return 0;
- bad:
- 	ASSERT(0);
-@@ -501,46 +517,92 @@ xrep_cow_find_mapping(
- #define REPLACE_RIGHT_SIDE	(1U << 1)
- 
- /*
-- * Given a CoW fork mapping @got and a replacement mapping @repl, remap the
-- * beginning of @got with the space described by @rep.
-+ * Given a CoW fork mapping @got and a replacement mapping @rep, map the space
-+ * described by @rep into the cow fork, pushing aside @got as necessary.  @icur
-+ * must point to iext tree leaf containing @got.
-  */
- static inline void
- xrep_cow_replace_mapping(
--	struct xfs_inode		*ip,
--	struct xfs_iext_cursor		*icur,
--	const struct xfs_bmbt_irec	*got,
--	const struct xrep_cow_extent	*repl)
-+	struct xfs_inode	*ip,
-+	struct xfs_iext_cursor	*icur,
-+	struct xfs_bmbt_irec	*got,
-+	struct xfs_bmbt_irec	*rep)
- {
--	struct xfs_bmbt_irec		new = *got; /* struct copy */
-+	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
-+	xfs_fileoff_t		rep_endoff =
-+			rep->br_startoff + rep->br_blockcount;
-+	xfs_fileoff_t		got_endoff =
-+			got->br_startoff + got->br_blockcount;
-+	uint32_t		state = BMAP_COWFORK;
- 
--	ASSERT(repl->len > 0);
-+	ASSERT(rep->br_blockcount > 0);
- 	ASSERT(!isnullstartblock(got->br_startblock));
-+	ASSERT(got->br_startoff <= rep->br_startoff);
-+	ASSERT(got_endoff >= rep_endoff);
-+
-+	trace_xrep_cow_replace_mapping(ip, got, rep);
- 
--	trace_xrep_cow_replace_mapping(ip, got, repl->fsbno, repl->len);
-+	if (got->br_startoff == rep->br_startoff)
-+		state |= BMAP_LEFT_FILLING;
-+	if (got_endoff == rep_endoff)
-+		state |= BMAP_RIGHT_FILLING;
- 
--	if (got->br_blockcount == repl->len) {
-+	switch (state & (BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING)) {
-+	case BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING:
- 		/*
--		 * The new extent is a complete replacement for the existing
--		 * extent.  Update the COW fork record.
-+		 * Replacement matches the whole mapping, update the record.
- 		 */
--		new.br_startblock = repl->fsbno;
--		xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
--		return;
--	}
-+		xfs_iext_update_extent(ip, state, icur, rep);
-+		break;
-+	case BMAP_LEFT_FILLING:
-+		/*
-+		 * Replace the first part of the mapping: Update the cursor
-+		 * position with the new mapping, then add a record with the
-+		 * tail of the old mapping.
-+		 */
-+		got->br_startoff = rep_endoff;
-+		got->br_blockcount -= rep->br_blockcount;
-+		got->br_startblock += rep->br_blockcount;
-+
-+		xfs_iext_update_extent(ip, state, icur, rep);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, got, state);
-+		break;
-+	case BMAP_RIGHT_FILLING:
-+		/*
-+		 * Replacing the last part of the mapping.  Shorten the current
-+		 * mapping then add a record with the new mapping.
-+		 */
-+		got->br_blockcount -= rep->br_blockcount;
- 
--	/*
--	 * The new extent can replace the beginning of the COW fork record.
--	 * Move the left side of @got upwards, then insert the new record.
--	 */
--	new.br_startoff += repl->len;
--	new.br_startblock += repl->len;
--	new.br_blockcount -= repl->len;
--	xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
--
--	new.br_startoff = got->br_startoff;
--	new.br_startblock = repl->fsbno;
--	new.br_blockcount = repl->len;
--	xfs_iext_insert(ip, icur, &new, BMAP_COWFORK);
-+		xfs_iext_update_extent(ip, state, icur, got);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, rep, state);
-+		break;
-+	case 0:
-+		/*
-+		 * Replacing the middle of the extent.  Shorten the current
-+		 * mapping, add a new record with the new mapping, and add a
-+		 * second new record with the tail of the old mapping.
-+		 */
-+		got->br_blockcount = rep->br_startoff - got->br_startoff;
-+
-+		struct xfs_bmbt_irec	new = {
-+			.br_startoff	= rep_endoff,
-+			.br_blockcount	= got_endoff - rep_endoff,
-+			.br_state	= got->br_state,
-+			.br_startblock	= got->br_startblock +
-+						rep->br_blockcount +
-+						got->br_blockcount,
-+		};
-+
-+		xfs_iext_update_extent(ip, state, icur, got);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, rep, state);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, &new, state);
-+		break;
-+	}
- }
- 
- /*
-@@ -554,33 +616,30 @@ xrep_cow_replace_range(
- 	xfs_extlen_t		*blockcount)
- {
- 	struct xfs_iext_cursor	icur;
--	struct xrep_cow_extent	repl;
--	struct xfs_bmbt_irec	got;
-+	struct xfs_bmbt_irec	got, rep;
- 	struct xfs_scrub	*sc = xc->sc;
--	xfs_fileoff_t		nextoff;
--	xfs_extlen_t		alloc_len;
-+	xfs_fsblock_t		old_fsbno;
- 	int			error;
- 
- 	/*
--	 * Put the existing CoW fork mapping in @got.  If @got ends before
--	 * @rep, truncate @rep so we only replace one extent mapping at a time.
-+	 * Put the existing CoW fork mapping in @got, and put in @rep the
-+	 * contents of @got trimmed to @startoff/@blockcount.  We only want
-+	 * to replace the bad region, and only one mapping at a time.
- 	 */
--	error = xrep_cow_find_mapping(xc, &icur, startoff, &got);
-+	error = xrep_cow_find_mapping(xc, &icur, startoff, *blockcount, &got,
-+			&rep);
- 	if (error)
- 		return error;
--	nextoff = min(startoff + *blockcount,
--		      got.br_startoff + got.br_blockcount);
-+	old_fsbno = rep.br_startblock;
- 
- 	/*
- 	 * Allocate a replacement extent.  If we don't fill all the blocks,
- 	 * shorten the quantity that will be deleted in this step.
- 	 */
--	alloc_len = min_t(xfs_fileoff_t, XFS_MAX_BMBT_EXTLEN,
--			  nextoff - startoff);
- 	if (XFS_IS_REALTIME_INODE(sc->ip))
--		error = xrep_cow_alloc_rt(sc, alloc_len, &repl);
-+		error = xrep_cow_alloc_rt(sc, &rep);
- 	else
--		error = xrep_cow_alloc(sc, alloc_len, &repl);
-+		error = xrep_cow_alloc(sc, &rep);
- 	if (error)
- 		return error;
- 
-@@ -588,7 +647,7 @@ xrep_cow_replace_range(
- 	 * Replace the old mapping with the new one, and commit the metadata
- 	 * changes made so far.
- 	 */
--	xrep_cow_replace_mapping(sc->ip, &icur, &got, &repl);
-+	xrep_cow_replace_mapping(sc->ip, &icur, &got, &rep);
- 
- 	xfs_inode_set_cowblocks_tag(sc->ip);
- 	error = xfs_defer_finish(&sc->tp);
-@@ -597,15 +656,15 @@ xrep_cow_replace_range(
- 
- 	/* Note the old CoW staging extents; we'll reap them all later. */
- 	if (XFS_IS_REALTIME_INODE(sc->ip))
--		error = xrtb_bitmap_set(&xc->old_cowfork_rtblocks,
--				got.br_startblock, repl.len);
-+		error = xrtb_bitmap_set(&xc->old_cowfork_rtblocks, old_fsbno,
-+				rep.br_blockcount);
- 	else
--		error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks,
--				got.br_startblock, repl.len);
-+		error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks, old_fsbno,
-+				rep.br_blockcount);
- 	if (error)
- 		return error;
- 
--	*blockcount = repl.len;
-+	*blockcount = rep.br_blockcount;
- 	return 0;
- }
- 
-diff --git a/fs/xfs/scrub/trace.h b/fs/xfs/scrub/trace.h
-index 286c5f5e054449..fab3ce323e4c78 100644
---- a/fs/xfs/scrub/trace.h
-+++ b/fs/xfs/scrub/trace.h
-@@ -2672,9 +2672,9 @@ TRACE_EVENT(xrep_cow_mark_file_range,
- );
- 
- TRACE_EVENT(xrep_cow_replace_mapping,
--	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *irec,
--		 xfs_fsblock_t new_startblock, xfs_extlen_t new_blockcount),
--	TP_ARGS(ip, irec, new_startblock, new_blockcount),
-+	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *got,
-+		 const struct xfs_bmbt_irec *rep),
-+	TP_ARGS(ip, got, rep),
- 	TP_STRUCT__entry(
- 		__field(dev_t, dev)
- 		__field(xfs_ino_t, ino)
-@@ -2682,28 +2682,34 @@ TRACE_EVENT(xrep_cow_replace_mapping,
- 		__field(xfs_fileoff_t, startoff)
- 		__field(xfs_filblks_t, blockcount)
- 		__field(xfs_exntst_t, state)
-+		__field(xfs_fileoff_t, new_startoff)
- 		__field(xfs_fsblock_t, new_startblock)
- 		__field(xfs_extlen_t, new_blockcount)
-+		__field(xfs_exntst_t, new_state)
- 	),
- 	TP_fast_assign(
- 		__entry->dev = ip->i_mount->m_super->s_dev;
- 		__entry->ino = ip->i_ino;
--		__entry->startoff = irec->br_startoff;
--		__entry->startblock = irec->br_startblock;
--		__entry->blockcount = irec->br_blockcount;
--		__entry->state = irec->br_state;
--		__entry->new_startblock = new_startblock;
--		__entry->new_blockcount = new_blockcount;
-+		__entry->startoff = got->br_startoff;
-+		__entry->startblock = got->br_startblock;
-+		__entry->blockcount = got->br_blockcount;
-+		__entry->state = got->br_state;
-+		__entry->new_startoff = rep->br_startoff;
-+		__entry->new_startblock = rep->br_startblock;
-+		__entry->new_blockcount = rep->br_blockcount;
-+		__entry->new_state = rep->br_state;
- 	),
--	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startblock 0x%llx new_fsbcount 0x%x",
-+	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startoff 0x%llx new_startblock 0x%llx new_fsbcount 0x%x new_state 0x%x",
- 		  MAJOR(__entry->dev), MINOR(__entry->dev),
- 		  __entry->ino,
- 		  __entry->startoff,
- 		  __entry->startblock,
- 		  __entry->blockcount,
- 		  __entry->state,
-+		  __entry->new_startoff,
- 		  __entry->new_startblock,
--		  __entry->new_blockcount)
-+		  __entry->new_blockcount,
-+		  __entry->new_state)
- );
- 
- TRACE_EVENT(xrep_cow_free_staging,
--- 
-2.53.0
+ 	xhci->op_regs = hcd->regs +
+ 		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
+ 	xhci->run_regs = hcd->regs +
+
+---
+base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
+change-id: 20260722-xhci_dead_hc-35fa846923b2
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
