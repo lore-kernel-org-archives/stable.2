@@ -1,83 +1,129 @@
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A73353A8B;
-	Wed, 22 Jul 2026 17:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E360A368D4D
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784741409; cv=none; b=UQGEC6WFlJFdJZpkhX8CnitC2T8/JsGWnXT6iq3XSS+39knA7ch74fPoggZI9KAmABXNNY+ZDZDx7ryI91U1mxl/OHX59POiZrULtWaOZwXNqDL0BGqpbrwLnjY/N8XdEMlM26Xb9cePSyL94YwvK1GMnWRCfoLWZhRktk8BFow=
+	t=1784741410; cv=none; b=ePkkBNO5nYxTr30l57HGU7U4fK94wPdf6AGl+ibW/eOdbfeHiukplCce3YB9y5ufsLeQGjQCppIOEBfCxawxxzmRGCR6Wfb5FJURnB5+l0OsfQzYlL6wrwxltA+hg1glD14+K+1pUYJu7lOve0Y9Ruac77vfXkbVnYK3Go9ZqgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784741409; c=relaxed/simple;
-	bh=nlLmeH7xH/folA9mfTTMuflG4FL70EHpAO2MqZXRYpo=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=n3skH8RHoCB+vRooVuga49dyvuRlopiuOvjlkbCuKOMAuIYK3rPDvsMAzY/c4vaqsLtxNSWAICWEiiZzb8Yrx5+XIHd/yd3UQ3+Mzjo8NgHw7rJmxNcuByg5IKdfVQXp4fV8pqJh48fF/fp+JFjPgVjJWwunT4DhhGhy/Q0Gj6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=Qcj9JU6r; arc=none smtp.client-ip=95.143.211.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
+	s=arc-20240116; t=1784741410; c=relaxed/simple;
+	bh=sGd5fS984n6t4LX92j21yf8pUbUVdEY9P0Hp+vxP/7g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RFEtDwLKzWwnnh/dglwAMu+LKvrCzXB3+6Ds/Sl2y6DbgMNPHHs09gWSSRCBynKFijW1vFDtHVOOJvAftRAP2MCtAlD/MtgXN/slz4VfxnuPhcDCoz7MmT7tvuagNhFk37dinP7VMMWYIGJ3ZoQJ5jDQDJ+9hVI0PiPqpYSO4gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TBcRCCrN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="Qcj9JU6r"
-Message-ID: <07b303cd-03f1-4d0c-ae58-7439503247a5@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1784740968;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xXKpS1A6HMxkAGGR1xzLcWjj0SgZpCW98YlKonaaVzw=;
-	b=Qcj9JU6r5KXtnAEM/5/ezkHRPDc+pgsomz4QAFUHtAehJkCtzAHu0fLTUVpBoqT86LBlVt
-	KsFSlid1hirGe9/4uXY2Q9eTDolLvTAzKJAlbukryzTN+51AuZp2jpaF+zIxeI+lh+eVLQ
-	+ZGSCd3nAny7pX/T9Qcu9avcu9A1M0s=
-Date: Wed, 22 Jul 2026 20:22:47 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TBcRCCrN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2A91F000E9;
+	Wed, 22 Jul 2026 17:30:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784741408;
+	bh=dJneP7k2D+4eql1vmpmd9epcNVSZ3CM5FnZxaATESic=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TBcRCCrNEPYE46deRJydruBWWelSb8Vznqhmj8Ah8/OXgfItO9sfwGzqyoR7GFLt/
+	 MF/QsF3biWpwHs4PFmNs32BdgDudCkNc14fbrzcVmF3py0qd3q8YbvvvKFUunCrlto
+	 Q26VeyR0/iiTgyeo5Mb11GuFp987H39CsCYIU58TbB88Wa2SjGLbk8t8v05uJNVeKe
+	 vWY0fPItL3FwGVV33Z279lfXubTrRh2Cu0VoxwYGmGoIx0pAqeM10vsVxJhcCLiVj5
+	 YkeXF6ByXS2Uo2d9iLHDeLQS6ijZ1r9VfhRvkiMvZv4/zw5sXa105CVQJxJI+autDR
+	 CcTrEP78ByehQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	linux-afs@lists.infradead.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] rxrpc: Don't need barrier for ->tx_bottom and ->acks_hard_ack
+Date: Wed, 22 Jul 2026 13:30:03 -0400
+Message-ID: <20260722173006.2069029-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072024-devalue-womanly-8b22@gregkh>
+References: <2026072024-devalue-womanly-8b22@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Language: en-US
-To: stable@vger.kernel.org
-Cc: netdev@vger.kernel.org, Brian Witte <brianwitte@mailfence.com>,
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>
-From: Konstantin Andreev <andreev@swemel.ru>
-Subject: =?UTF-8?Q?=5Bbackport_request=5D_=E2=80=9Cnetfilter=3A_nf=5Ftables?=
- =?UTF-8?Q?=3A_fix_reset_request_deadlock=E2=80=9D_to_LTS_6=2E18=2C_6=2E12?=
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-OriginalArrivalTime: 22 Jul 2026 17:22:48.0063 (UTC) FILETIME=[B76B40F0:01DD19FE]
+Content-Transfer-Encoding: 8bit
 
-Please consider backporting the following series to LTS 6.18, 6.12
-(listed in the order of appearance in mainline)
+From: David Howells <dhowells@redhat.com>
 
-779c60a5190c ("netfilter: nft_counter: serialize reset with spinlock")
-30c4d7fb59ac ("netfilter: nft_quota: use atomic64_xchg for reset")
-7f261bb906bf ("netfilter: nf_tables: revert commit_mutex usage in reset path")
+[ Upstream commit 6396b48ac0a77165f9c2c40ab03d6c8188c89739 ]
 
-The last and the first commits are registered as CVE:
+We don't need a barrier for the ->tx_bottom value (which indicates the
+lowest sequence still in the transmission queue) and the ->acks_hard_ack
+value (which tracks the DATA packets hard-ack'd by the latest ACK packet
+received and thus indicates which DATA packets can now be discarded) as the
+app thread doesn't use either value as a reference to memory to access.
+Rather, the app thread merely uses these as a guide to how much space is
+available in the transmission queue
 
-     CVE-2026-45897 for 779c60a5190c
-     CVE-2026-45901 for 7f261bb906bf
+Change the code to use READ/WRITE_ONCE() instead.
 
-The series came into mainline in v7.0-rc1 and
-was backported into concurrent 6.19 stable,
-but was not backported into LTS kernels.
+Also, change rxrpc_check_tx_space() to use the same value for tx_bottom
+throughout.
 
-The series applies cleanly on top of v6.18.39 and v6.12.96.
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: linux-afs@lists.infradead.org
+Link: https://patch.msgid.link/20241204074710.990092-18-dhowells@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: e66f8f32f501 ("rxrpc: Fix socket notification race")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/rxrpc/sendmsg.c | 8 +++++---
+ net/rxrpc/txbuf.c   | 4 ++--
+ 2 files changed, 7 insertions(+), 5 deletions(-)
 
-The series came into mainline as parts 2-4 of the wider patch set:
+diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+index 6939617afc7bcd..3dc54d6d4e316f 100644
+--- a/net/rxrpc/sendmsg.c
++++ b/net/rxrpc/sendmsg.c
+@@ -93,9 +93,11 @@ static int rxrpc_wait_to_be_connected(struct rxrpc_call *call, long *timeo)
+  */
+ static bool rxrpc_check_tx_space(struct rxrpc_call *call, rxrpc_seq_t *_tx_win)
+ {
++	rxrpc_seq_t tx_bottom = READ_ONCE(call->tx_bottom);
++
+ 	if (_tx_win)
+-		*_tx_win = call->tx_bottom;
+-	return call->tx_prepared - call->tx_bottom < 256;
++		*_tx_win = tx_bottom;
++	return call->tx_prepared - tx_bottom < 256;
+ }
+ 
+ /*
+@@ -137,7 +139,7 @@ static int rxrpc_wait_for_tx_window_waitall(struct rxrpc_sock *rx,
+ 		rtt = 2;
+ 
+ 	timeout = rtt;
+-	tx_start = smp_load_acquire(&call->acks_hard_ack);
++	tx_start = READ_ONCE(call->acks_hard_ack);
+ 
+ 	for (;;) {
+ 		set_current_state(TASK_UNINTERRUPTIBLE);
+diff --git a/net/rxrpc/txbuf.c b/net/rxrpc/txbuf.c
+index d43be851238640..84d067fbc2fd10 100644
+--- a/net/rxrpc/txbuf.c
++++ b/net/rxrpc/txbuf.c
+@@ -112,14 +112,14 @@ void rxrpc_shrink_call_tx_buffer(struct rxrpc_call *call)
+ 
+ 	while ((txb = list_first_entry_or_null(&call->tx_buffer,
+ 					       struct rxrpc_txbuf, call_link))) {
+-		hard_ack = smp_load_acquire(&call->acks_hard_ack);
++		hard_ack = call->acks_hard_ack;
+ 		if (before(hard_ack, txb->seq))
+ 			break;
+ 
+ 		if (txb->seq != call->tx_bottom + 1)
+ 			rxrpc_see_txbuf(txb, rxrpc_txbuf_see_out_of_step);
+ 		ASSERTCMP(txb->seq, ==, call->tx_bottom + 1);
+-		smp_store_release(&call->tx_bottom, call->tx_bottom + 1);
++		WRITE_ONCE(call->tx_bottom, call->tx_bottom + 1);
+ 		list_del_rcu(&txb->call_link);
+ 
+ 		trace_rxrpc_txqueue(call, rxrpc_txqueue_dequeue);
+-- 
+2.53.0
 
-[PATCH net 00/10] netfilter: updates for net
-Link: https://lore.kernel.org/netdev/20260217163233.31455-1-fw@strlen.de/
-
-and comprises a distinct, self-contained functional unit
-originating from Brian Witte's series in netfilter-devel:
-
-[PATCH v5 nf-next 0/3] netfilter: nf_tables: fix reset request deadlock
-Link: https://lore.kernel.org/netfilter-devel/20260204202639.497235-1-brianwitte@mailfence.com/
-
-Here is a relevant excerpt from Brian Witte's cover letter:
-
-| syzbot reported a possible circular locking dependency between
-| commit_mutex, nfnl_subsys_ipset and nlk_cb_mutex-NETFILTER:
-|   ...
-| Link: https://syzkaller.appspot.com/bug?extid=ff16b505ec9152e5f448
-|
-| The bug was introduced by commits that added commit_mutex locking to
-| serialize reset requests.
