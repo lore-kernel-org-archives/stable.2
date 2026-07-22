@@ -1,51 +1,52 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9566A339389;
-	Wed, 22 Jul 2026 11:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CE349551A
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784718110; cv=none; b=bjXZlX+2q1+FSk5V/yVKCl1h942d1n0MvZrssXMbzaDTzYmEdk1klIwL2dFiG9J5vvKH1NM3Qi7nQXTJffidzI5/doPKbXO9yoJv1ZdrsLnnzs/4I2MFuooT5HWgs2bgChiXOUpNLfRxnMgowN8Ab/P2KJQkRCZFTw6zKam61P0=
+	t=1784718196; cv=none; b=UGSNa9L2u0AkTRiV9Hb+mFYDGwps6TkAxNCDXOj/FNLlUu6LQ93EMazjR1djPBQNE1cS64wWuuogVfLRHurxypfncl4bzPZoTQ4z3bQAMpdBHjLMebkUc1k5MCID8JxlnH2JQqLnDp8AgkIgalRiBmfYJb12vwamp3MieB4gbFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784718110; c=relaxed/simple;
-	bh=cG/B0g9q0+QcmeULGy+Js7UWfAWmU05prADlSHfUvLQ=;
+	s=arc-20240116; t=1784718196; c=relaxed/simple;
+	bh=nzMiOcvMBf3K+RPUNkrXmck92lcGefVB6Y6DEq4Pz0g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MA131tMqHgAhW860TE0QWox2l1MICkBMqcT6EHy8xmKDIjkG/3NKjCYwmBcFK6lbpLznKArG8u13NKNCMn2HqRC5P+EX7tF83xzAAZk3psAbkueXpRgEJxqxotJEjBvsMDoJCnAkNnxZYrjULUgdBWEzaSjVUe6L4Fc8Yy+itQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=cGR7/S6S; arc=none smtp.client-ip=188.68.63.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	 In-Reply-To:Content-Type; b=avypg56j4IAFPzifStf678bsiLGvzKVEC4ZCzHYn0arvZW13iHrXc3umnKPNvM/ChOW/PN+06v0xECeQUvNYSpnptgWIFf6J3tntDiW2v5Ka33ZSMiR/8KenYkgjSpkzFttm7CinIO8PmniMgU2j/or6iJKTOhkmi48tp9NCetU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=tpgLu2oQ; arc=none smtp.client-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="cGR7/S6S"
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4h4rsx031pz6Hg0;
-	Wed, 22 Jul 2026 13:01:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1784718101;
-	bh=cG/B0g9q0+QcmeULGy+Js7UWfAWmU05prADlSHfUvLQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cGR7/S6S5GJcxSJEHqbQQF8oYIRl9lDz4/0yJvHXs/AxT++KVMuR3dEBFohBhf0LP
-	 zc+HU8w3FsSZqYIeiGjG/SrRdMlxl+BO8za3WOi0GgL5OMSDYQO49OO5BVwqpb5vYP
-	 xXNeJU/czd3sU5s10OSy5CsUk4CODMJy9RZl1uCsKRLrDvyf+kY1GSJilA4Wa+aPTE
-	 DjfkwSWIpNYFQEN5uQMdKDKtF/0TW2w24aa5N50m4n5icgpuJ24L8722wuJrbXXaJe
-	 xjk5k6BoHOcAaDQ7pkJBBR52M56YX2zj1abqGF3n9rQ5nFmo/1WO2pxBRJfYpfy2RC
-	 LktQtOdhhYGyg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4h4rsw6L23z4xq1;
-	Wed, 22 Jul 2026 13:01:40 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4h4rsw1V6rz8sch;
-	Wed, 22 Jul 2026 13:01:40 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 87FCA5FC9C;
-	Wed, 22 Jul 2026 13:01:39 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <3e603bd9-927a-487e-9ff4-32e80752732e@leemhuis.info>
-Date: Wed, 22 Jul 2026 13:01:39 +0200
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="tpgLu2oQ"
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id mLDswO2Opv0ndmUjKwbjya; Wed, 22 Jul 2026 11:03:14 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id mUjKwBEjHwn18mUjKwf8Ew; Wed, 22 Jul 2026 11:03:14 +0000
+X-Authority-Analysis: v=2.4 cv=ZbYdNtVA c=1 sm=1 tr=0 ts=6a60a372
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=drHL9oBl_C1s5T8VGSUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=FKe3JV9BAPW3K/8yS1Ki4GrpsNN6nzcBkDCzXSzFgtA=; b=tpgLu2oQ/kWh7nP84OEC6pDaTg
+	4TuuJUWHgS6ZrtB5xfn9ih+ZQ/EXSze7g+m0DVfSv7cpAf5D8ND3G0MD8MW9DMiWbwbz9+9qh4hk/
+	bgY4jXJ64de5ijpUfqIAAeQlERme283rzXbibutOBCWVpeihWsCzdo10StaEGkFdCius3L78kgSx2
+	dKmexkjPm4MfjUNUUrE9IK87iLe9OPP/DSR/Gjj62Ltgq/E1SEza6VMqIyaPnTay0J5iNoYOXYuBP
+	MYbIT0vRYY6DHErFcP/3U+PwuPLNVTaLx5q/+M/eB5gMkVVuwiAYcybq18+RpETpRn7pe9MNuEgkY
+	RjxgVgvQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:40006 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.2)
+	(envelope-from <re@w6rz.net>)
+	id 1wmUjJ-00000001NHr-2gwO;
+	Wed, 22 Jul 2026 05:03:13 -0600
+Message-ID: <b4420b92-deb0-4ea6-8404-3016abeb1c0c@w6rz.net>
+Date: Wed, 22 Jul 2026 04:03:11 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,125 +54,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] proc: Fix broken error paths for namespace links
-To: Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Magnus Lindholm <linmag7@gmail.com>,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- stable@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260706-procfs-ns-eacces-fix-v1-1-a69ab14c02e6@google.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-X-Enigmail-Draft-Status: N11222
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <20260706-procfs-ns-eacces-fix-v1-1-a69ab14c02e6@google.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 6.1 0000/1067] 6.1.178-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260721152424.521567757@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178471809995.669965.9875073833875267135@mxe9fb.netcup.net>
-X-NC-CID: qcJvrsyyCLandev9wblAK65UJV8YArD+UVr3MTaHyNbYJN/RKCo=
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1wmUjJ-00000001NHr-2gwO
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:40006
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfN/LWpSJSRPdCnywBQc5NNPJCrSnj7BjBBqDdKhSIDcGBYSbTxM2r21qcQ/yke9PiY2r47bc0TPi5smbNpv3mGRaCgZ4ByzYNAaf8d6cSXiunv9CFCOG
+ Ebt+OCPtCv1xLUH1avsLU/rfOkFk0oIzYjBJ94C0PxDO6OmxVq90Cxm14gQ6yGkaGu75IDcKzIXEFA==
 
-On 7/6/26 20:22, Jann Horn wrote:
-> Don't return the return value of down_read_killable() (0) when a ptrace
-> access check fails, return -EACCES as intended.
-> 
-> Reported-by: Magnus Lindholm <linmag7@gmail.com>
-> Closes: https://lore.kernel.org/r/20260706170735.2941493-1-linmag7@gmail.com
-> Fixes: 6650527444da ("proc: protect ptrace_may_access() with exec_update_lock (part 1)")
+On 7/21/26 08:10, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.178 release.
+> There are 1067 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.178-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Wondering is this regression fix fell through the cracks. Or was Magnus'
-problem (several strace --pidns-translation tests started failing) fixed
-some other way and I just missed it?
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Side note: the culprit meanwhile made it to 7.1.4.
-
-Ciao, Thorsten
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jann Horn <jannh@google.com>
-> ---
->  fs/proc/namespaces.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/proc/namespaces.c b/fs/proc/namespaces.c
-> index 2f46f1396744..ea6ec61a0430 100644
-> --- a/fs/proc/namespaces.c
-> +++ b/fs/proc/namespaces.c
-> @@ -46,7 +46,7 @@ static const char *proc_ns_get_link(struct dentry *dentry,
->  	const struct proc_ns_operations *ns_ops = PROC_I(inode)->ns_ops;
->  	struct task_struct *task;
->  	struct path ns_path;
-> -	int error = -EACCES;
-> +	int error;
->  
->  	if (!dentry)
->  		return ERR_PTR(-ECHILD);
-> @@ -59,6 +59,7 @@ static const char *proc_ns_get_link(struct dentry *dentry,
->  	if (error)
->  		goto out_put_task;
->  
-> +	error = -EACCES;
->  	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
->  		goto out;
->  
-> @@ -90,6 +91,7 @@ static int proc_ns_readlink(struct dentry *dentry, char __user *buffer, int bufl
->  	if (res)
->  		goto out_put_task;
->  
-> +	res = -EACCES;
->  	if (ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
->  		res = ns_get_name(name, sizeof(name), task, ns_ops);
->  		if (res >= 0)
-> 
-> ---
-> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
-> change-id: 20260706-procfs-ns-eacces-fix-3abd8e307936
-> 
-> Best regards,
-> --  
-> Jann Horn <jannh@google.com>
-> 
-> 
+Tested-by: Ron Economos <re@w6rz.net>
 
