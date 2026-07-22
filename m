@@ -1,76 +1,54 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8CB448035F
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784715150; cv=none; b=ZCdKIcsSyddCUnmNTMFq0j1H2G7BDCrQg8EmiI8brqxtd+ZG14Skv0y9sUDn3dkdLJO2aAYoA8V4UYaTXO99Y6txY6qiVcCSA8e4iMJPrU7qgJJbMhYIGSuiiwjXQty8pYM5reeedSw80ZBo+n/uKj2pGXm7U3u5dHVjZej70js=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784715150; c=relaxed/simple;
-	bh=+EO+/DM+UqXo1X+9c7qNvx+s5xrKmkfKbDX0PDh5eCA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z1DVc40bI8pLbRHVj9lB7/SQ/FjPYVXMIbW3pg1nmWPjKpWABd4/F6CVO4ont36FmGCWnmzKPWSzO/bqn6TXU7tlwms3gZtIibGW0lKpE9OQ89/qRn3qi0nlxGclR45085C54sHxik0ZvPP+XSeXZFa4lX9HrLLmyeoMzNuo+aY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=PugG/3xX; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCA647043D;
+	Wed, 22 Jul 2026 10:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784715403; cv=pass; b=tnRdV+0J4D2epF1NyagTmVgdlNhM/iFTQkv1c5U6yhpBiJzfTiPBE7WEjKVYv0U9EVMJbwg9Ir7rh9q0t8G9UgwgS73UL5J1O2Q5E94XQMQnG6YIKyEcbtVbk8wZx4h6LaCRnc4tJ1pXjEkRwH4NZLp+btyorKErfGZNaS2WRDM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784715403; c=relaxed/simple;
+	bh=yex1mJd/ERybZlo3clQpmxfMFCjnG0UtBmfZ5Sunt4o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=boAwks4KxhUye/VzGWDcw/uT8C74Tv27FgzwynBEiR1pvKPQ8y7Akf67+uqp3RrvJAtuvpbXDoLFs1XN6/YqdIbZItia+8wQPSE+rebhFzD1i/Xd036xomUI+GqUAoiBCg5tQ2QWsPvLgxbxjwVpBHB7hlEPVL32ki38Ys73DkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=pIiTsw8t; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="PugG/3xX"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c96c92c0980so5914062a12.3
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 03:12:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1784715144; x=1785319944; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zSKRTMZROa7njeBdu59rhX1AOvMB9lBLaZAp5eIkHZI=;
-        b=PugG/3xXJLXadBFoMbHAwq4I3H+uP000COGvuhY4GXkfIs85LmnThqljQkmHsDYyGv
-         0Q9CGcjfg+qQyLVSzWFTPkp3cjHong6qffP6GcCObTNk7hjjDKhm6QbnJlCeHqPW1vmj
-         IwpeelW/CE+CPDowVctHz3zi3aTPTFHIgRSGmObb21+0WtQ86TsoUCw/uSCsILxLhR4z
-         ccxYa+qAr3YHzanw0tqf7bHGwB5dNig6foqasT4b0vXTOynXz5QVLKpDKawxfO3biJSN
-         pNPIQkYpWu+bRBT8IuEExkhx+D1sMj8YeW591lsd+mhZ1ktq1JG/AjjdhY+E7n2a7uFZ
-         B3vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784715144; x=1785319944;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zSKRTMZROa7njeBdu59rhX1AOvMB9lBLaZAp5eIkHZI=;
-        b=FwsVyjHsQqTL2hmLzbn29V3vxe1WhNRirlec4KY+X3ZJzhrggiIN9YbaKgOMJ8AyTw
-         aW5GL9vyqHrxK8cm+3b/rSK0GdggivTZiLxU5HpN+4JEvXyFNWS9G9KQko4XO56oJ81p
-         gc6vqFPVjPLYcAw5D2rY5s8sQ0Uy32+ax95Xw0PJUr7Tfzmf7NKnSif+HDjTG9FQeh/b
-         kpW0spila4kXHdUL//8C21Gdwx+jyyWW+iTi8yz++bTTDZmSaLpsVSWrjvrZCH16BTsK
-         j3cOwb9LJlpgtUSvkNtMDWxbqXS2cy6T0srQSRhnc7kDr1D3GYa0IhYQy/DBj6dDMSa2
-         h0NA==
-X-Forwarded-Encrypted: i=1; AHgh+RpxOjMjoxjYpJnt35j2lxc9Xv772QGdVOoaEem/RtpH+Vr357MbpisGstZ0XCUX0QfUcuQ/kMM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXnFkfyX+GfNoa5VlKu2Kg6wmuwEWvkXRPgBaS/hH07tlWZs2O
-	vuzW5uRrxug7hpBNfD53ekXdObfE6uh38T9nxnKFOCTZqbsp7LI390ujawbALupFYNkZzwUTvZS
-	l6lww/XzhyA==
-X-Gm-Gg: AR+sD11Qz1O2LniPpty++wlbqEqVR6OS4HTc3WVF/gMTdg8i1BNvTsbzJU0iLBxfOS4
-	yEnjVdhHBlm3DT/4u4NQvEzkgjFqJMyqEU0BR+o9WiNg3k2yTtREOEXsayWqfLhFr14weR87QdC
-	w3TpVmc9pp+9zpswYjjIacrhTSfBuFBJcGDhUzuAWWC4+hnIb0RAvBZgJzy8p6EX74+e8FE8Ri1
-	PrQHzdX+pHqn6Af5RVVzN4u5ge80Pvk4N0Sn/yAhyH8f5mrCWJA2RgMlTs5L55dp+fx4uiGNrf/
-	RITE1RXkqi4mF4jaPsxjRShNPWh+WH1pHsT3K8W3wUWPBUetymT/mxNTW/O3fxyU2oTjYP3RnEC
-	Ne8l1bq82WN9t4LWUvk0UD8rNxvtU9l43e5jOlteb8KUaT92LkUTtaRqeCBlElrsesq0Y4dblfT
-	INgE1MOzGhkzeBki3E9voSW/dqnleTqUFwwNpEG3UZ/x+uLE4Zf/ABfJfglxMkmwj8oLbVw0cjq
-	gchibkAYFoEoCRMK4l7juJML2zXtgukDCwEvzZLKJM=
-X-Received: by 2002:a05:6372:a743:b0:3c3:cb39:669a with SMTP id adf61e73a8af0-3c3cb398792mr17162832637.73.1784715143594;
-        Wed, 22 Jul 2026 03:12:23 -0700 (PDT)
-Received: from Metius.iitm.ac.in ([103.158.43.43])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3147e1c9289sm8012662eec.29.2026.07.22.03.12.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 03:12:23 -0700 (PDT)
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-To: bryan-bt.tan@broadcom.com
-Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	vishnu.dasa@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org,
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="pIiTsw8t"
+ARC-Seal: i=1; a=rsa-sha256; t=1784715373; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=WIS/wT/kK7IgMUD2SSX6PUE9vzUeT+a/QCz8sRxsirHCfbZ4M05mgpFQxCDZ8hPYL48lOC/umvjgmBbxpVF2vlWffArrcteBxYIsk5Wj6PK0gdjL3RdcITiWWsYsNSxrpd1GOzRooaucgOxxw84X+SS3G3h0E2jun3ln77QH924=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1784715373; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=C4lOxytgR0KsOyq/Jp7BHXLZa/gFViZEf2t1LUgKwts=; 
+	b=fH2Eq3UHchQdb/3vkVOoI09OV1ox6ITHTpsSkRVKPwbRI/8eapXFOA1I82EWtnJSgxAqjeuLU5quJ+d0Ixnu+nyPwQJF78kCr89EK0uTjMOxDyj9dUfMy2aZGYxveGZfRKYxvclG4a7EGyHkXbRpYrNUm5uPYDMm7LoFrFUdlv4=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784715373;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=C4lOxytgR0KsOyq/Jp7BHXLZa/gFViZEf2t1LUgKwts=;
+	b=pIiTsw8tTO3olnPxPzhcjZmbTP49KA9VwEEgJvetQ6WwcSUkUSIL6YyED7XyIRIz
+	ZX/ypoJgqs2sBOGHRPNu6QNs27eyBCbSVeVbYtyvS7HzpI+g4T57TxAlBiY3FdNmFt7
+	SEMc23+49r3ijbttV9HA9opK7kaMl32oIP7fY//Q=
+Received: by mx.zoho.eu with SMTPS id 1784715371230952.2475580867131;
+	Wed, 22 Jul 2026 12:16:11 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com
+Cc: horms@kernel.org,
+	kuba@kernel.org,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] misc: vmc_vmci: Fix potential memory leak in vmci_event_subscribe()
-Date: Wed, 22 Jul 2026 15:42:13 +0530
-Message-ID: <20260722101215.76680-1-nihaal@cse.iitm.ac.in>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH net v2] mac802154: lock rx_mac_cmd_list and drain it before freeing sdata
+Date: Wed, 22 Jul 2026 12:16:08 +0200
+Message-ID: <20260722101608.37744-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,49 +56,185 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-The memory allocated for struct vmci_subscription (sub) is not freed
-in the error path when have_new_id is false. Fix that by adding a
-kfree() call, and moving the read of sub->id to a point before freeing.
+rx_mac_cmd_list has no locking. The RX softirq producer in
+ieee802154_subif_frame() list_add_tail()s while the mac_wq worker
+list_del()s, and the worker dereferences mac_pkt->sdata with no
+liveness check.
 
-Fixes: 1d990201f9bb ("VMCI: event handling implementation.")
+Removing an interface (or the phy) thus frees its sdata while a queued
+packet still points at it, and a later worker run reads freed memory: a
+KASAN use-after-free, reproduced by flooding a victim interface with MAC
+command frames and deleting it. Meanwhile sibling interfaces on the same
+phy keep adding to the list, corrupting it.
+
+Add rx_mac_cmd_lock around every access -- producer, worker (which now
+dequeues under the lock and processes the packet after) and the new
+mac802154_flush_queued_mac_cmds(). Drain the queue before the sdata is
+freed: from ieee802154_if_remove() after the RCU grace period (filtered
+to that sdata) and from ieee802154_unregister_hw(). The drain precedes
+cancel_work_sync() so a run that already dequeued a matching packet is
+waited out while its sdata is still alive.
+
+Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
 Cc: stable@vger.kernel.org
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
 ---
-Compile tested only. Issue found using static analysis.
+v2: v1 only added mac802154_flush_queued_mac_cmds() guarded by
+    cancel_work_sync(), which cannot fix a race whose corrupting party is
+    the lockless softirq producer (not a work item), as the review of v1
+    pointed out. Add rx_mac_cmd_lock around every list access and drain
+    before cancel_work_sync(). rx_beacon_list has the same lockless
+    pattern, but its worker never dereferences sdata, so it is left as a
+    separate follow-up to keep this fix minimal.
 
-v1->v2:
-- Moved the new_subscription_id assignment to the point before the
-  if/else to simplify the code, as suggested by Vishnu Dasa.
-
-v1 link: https://lore.kernel.org/all/CAF+opq15TtOnHaLvYr0TH18sCDEPbTYRTsFZMcyjgvvLd_ARkw@mail.gmail.com/
-
- drivers/misc/vmw_vmci/vmci_event.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/misc/vmw_vmci/vmci_event.c b/drivers/misc/vmw_vmci/vmci_event.c
-index fffe068a26eb..c3ef3b98c432 100644
---- a/drivers/misc/vmw_vmci/vmci_event.c
-+++ b/drivers/misc/vmw_vmci/vmci_event.c
-@@ -179,16 +179,16 @@ int vmci_event_subscribe(u32 event,
- 		}
- 	}
+diff --git a/net/mac802154/ieee802154_i.h b/net/mac802154/ieee802154_i.h
+index 8f2bff268392..b497b5abab0a 100644
+--- a/net/mac802154/ieee802154_i.h
++++ b/net/mac802154/ieee802154_i.h
+@@ -74,6 +74,10 @@ struct ieee802154_local {
+ 	struct work_struct rx_beacon_work;
+ 	struct list_head rx_mac_cmd_list;
+ 	struct work_struct rx_mac_cmd_work;
++	/* protects rx_mac_cmd_list against the RX softirq producer, the
++	 * mac_wq worker and the teardown flush running concurrently
++	 */
++	spinlock_t rx_mac_cmd_lock;
  
-+	*new_subscription_id = sub->id;
- 	if (have_new_id) {
- 		list_add_rcu(&sub->node, &subscriber_array[event]);
- 		retval = VMCI_SUCCESS;
- 	} else {
-+		kfree(sub);
- 		retval = VMCI_ERROR_NO_RESOURCES;
- 	}
- 
- 	mutex_unlock(&subscriber_mutex);
--
--	*new_subscription_id = sub->id;
- 	return retval;
+ 	/* Association */
+ 	struct ieee802154_pan_device *assoc_dev;
+@@ -300,6 +304,8 @@ static inline bool mac802154_is_beaconing(struct ieee802154_local *local)
  }
- EXPORT_SYMBOL_GPL(vmci_event_subscribe);
+ 
+ void mac802154_rx_mac_cmd_worker(struct work_struct *work);
++void mac802154_flush_queued_mac_cmds(struct ieee802154_local *local,
++				     struct ieee802154_sub_if_data *sdata);
+ 
+ int mac802154_perform_association(struct ieee802154_sub_if_data *sdata,
+ 				  struct ieee802154_pan_device *coord,
+diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
+index b823720630e7..82c86f253b5d 100644
+--- a/net/mac802154/iface.c
++++ b/net/mac802154/iface.c
+@@ -694,6 +694,13 @@ void ieee802154_if_remove(struct ieee802154_sub_if_data *sdata)
+ 	mutex_unlock(&sdata->local->iflist_mtx);
+ 
+ 	synchronize_rcu();
++
++	/* After the grace period no new rx_mac_cmd_list entry can point at
++	 * @sdata; drop the ones already queued before it is freed below, as
++	 * the mac_wq worker derefs mac_pkt->sdata with no liveness check.
++	 */
++	mac802154_flush_queued_mac_cmds(sdata->local, sdata);
++
+ 	unregister_netdevice(sdata->dev);
+ }
+ 
+diff --git a/net/mac802154/main.c b/net/mac802154/main.c
+index ea1efef3572a..24d1e398d3d9 100644
+--- a/net/mac802154/main.c
++++ b/net/mac802154/main.c
+@@ -91,6 +91,7 @@ ieee802154_alloc_hw(size_t priv_data_len, const struct ieee802154_ops *ops)
+ 	INIT_LIST_HEAD(&local->interfaces);
+ 	INIT_LIST_HEAD(&local->rx_beacon_list);
+ 	INIT_LIST_HEAD(&local->rx_mac_cmd_list);
++	spin_lock_init(&local->rx_mac_cmd_lock);
+ 	mutex_init(&local->iflist_mtx);
+ 
+ 	tasklet_setup(&local->tasklet, ieee802154_tasklet_handler);
+@@ -277,6 +278,12 @@ void ieee802154_unregister_hw(struct ieee802154_hw *hw)
+ 	tasklet_kill(&local->tasklet);
+ 	flush_workqueue(local->workqueue);
+ 
++	/* Drain rx_mac_cmd_list before ieee802154_remove_interfaces()
++	 * frees every sdata: the mac_wq worker derefs mac_pkt->sdata and
++	 * is not covered by the flush above (that is the data workqueue).
++	 */
++	mac802154_flush_queued_mac_cmds(local, NULL);
++
+ 	rtnl_lock();
+ 
+ 	ieee802154_remove_interfaces(local);
+diff --git a/net/mac802154/rx.c b/net/mac802154/rx.c
+index cd8f2a11920d..c869c1c0c65f 100644
+--- a/net/mac802154/rx.c
++++ b/net/mac802154/rx.c
+@@ -76,8 +76,12 @@ void mac802154_rx_mac_cmd_worker(struct work_struct *work)
+ 	u8 mac_cmd;
+ 	int rc;
+ 
++	spin_lock_bh(&local->rx_mac_cmd_lock);
+ 	mac_pkt = list_first_entry_or_null(&local->rx_mac_cmd_list,
+ 					   struct cfg802154_mac_pkt, node);
++	if (mac_pkt)
++		list_del(&mac_pkt->node);
++	spin_unlock_bh(&local->rx_mac_cmd_lock);
+ 	if (!mac_pkt)
+ 		return;
+ 
+@@ -123,11 +127,48 @@ void mac802154_rx_mac_cmd_worker(struct work_struct *work)
+ 	}
+ 
+ out:
+-	list_del(&mac_pkt->node);
+ 	kfree_skb(mac_pkt->skb);
+ 	kfree(mac_pkt);
+ }
+ 
++/**
++ * mac802154_flush_queued_mac_cmds - drop pending rx_mac_cmd_list work
++ * @local: the mac802154 device the queue belongs to
++ * @sdata: interface being torn down, or %NULL to flush unconditionally
++ *
++ * Each queued &struct cfg802154_mac_pkt stashes a raw pointer to the
++ * interface it was received on, which mac802154_rx_mac_cmd_worker() later
++ * dereferences without checking whether that interface is still alive.
++ * Callers must invoke this before freeing @sdata (or before freeing every
++ * interface, when @sdata is %NULL) so the worker never runs against freed
++ * memory. The list is drained under rx_mac_cmd_lock, then cancel_work_sync()
++ * waits out a run that already dequeued a matching packet before the drain.
++ */
++void mac802154_flush_queued_mac_cmds(struct ieee802154_local *local,
++				     struct ieee802154_sub_if_data *sdata)
++{
++	struct cfg802154_mac_pkt *mac_pkt, *tmp;
++
++	spin_lock_bh(&local->rx_mac_cmd_lock);
++	list_for_each_entry_safe(mac_pkt, tmp, &local->rx_mac_cmd_list, node) {
++		if (sdata && mac_pkt->sdata != sdata)
++			continue;
++
++		list_del(&mac_pkt->node);
++		kfree_skb(mac_pkt->skb);
++		kfree(mac_pkt);
++	}
++	spin_unlock_bh(&local->rx_mac_cmd_lock);
++
++	cancel_work_sync(&local->rx_mac_cmd_work);
++
++	/* Other interfaces on @local may still have entries pending. */
++	spin_lock_bh(&local->rx_mac_cmd_lock);
++	if (!list_empty(&local->rx_mac_cmd_list))
++		queue_work(local->mac_wq, &local->rx_mac_cmd_work);
++	spin_unlock_bh(&local->rx_mac_cmd_lock);
++}
++
+ static int
+ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 		       struct sk_buff *skb, const struct ieee802154_hdr *hdr)
+@@ -233,7 +274,11 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 
+ 		mac_pkt->skb = skb_get(skb);
+ 		mac_pkt->sdata = sdata;
++
++		spin_lock(&sdata->local->rx_mac_cmd_lock);
+ 		list_add_tail(&mac_pkt->node, &sdata->local->rx_mac_cmd_list);
++		spin_unlock(&sdata->local->rx_mac_cmd_lock);
++
+ 		queue_work(sdata->local->mac_wq, &sdata->local->rx_mac_cmd_work);
+ 		return NET_RX_SUCCESS;
+ 
 -- 
-2.43.0
-
+2.50.1 (Apple Git-155)
