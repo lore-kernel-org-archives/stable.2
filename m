@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8266840F755
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:54:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726BD352C52
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:54:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784728471; cv=none; b=T07ocMTsLuLd3/VAupvQXvhQetfeuYYLM9OzgLnYoFqUPOeG5jeEShn88vzva3vwoYgu6MhWA6cr8jAdpzlkrYASc4tIo1SiLqKu7quj9mRsAnKR4Sb+isOeQ01kQKW5lVQ4dyWbxiOn2LP4zKWjya5f1N1bc32J6tFxneDBJUE=
+	t=1784728473; cv=none; b=RA4IIP4VwOZhGSJbkhSwcTTNYFkFPeiS5jUaTHepTxMAhnMDEaMadsFmCwSktNW8do7AzZDwk3iV9pgfkbhqfX9NWiBcMhzUW1ttj/3wGvmWvyDvYwMHQK647IBbq2X2qGuxBmRIIbe8YQic1keFy0z/o8Rs6H2b+osF7vB40WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784728471; c=relaxed/simple;
-	bh=axwKA09QoFn2wvvkP3Oro5w2hdW0INVllUoojcFMCDY=;
+	s=arc-20240116; t=1784728473; c=relaxed/simple;
+	bh=lIr27eKZyp0KCQwj4+r/zztDpoBk9qcN1Q+pPCioKlg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NEMXp6Xg3/zr/hOJLcTkqoV7lbSxVOsw5Ri+kah9eg0zY5oJjAyRXvEt8H060vy6jaTMTiqwsq8/5+PAX9Dz62Z2vYMhZemha0UsdA7XWo9c/xOe8yRZkwat19wr0GOlko3194VRt7ATx0faFnRDvLldCzoCxIQqdzMxsV+L3k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZMh20Dd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ezD+0HxnBvF0urb+zUYVR2E0Zos/dgJBjAFOgdD3yOtANdpjId7N/aZw7aDirZZuG7uCKy+IGnGB/WKzJj3YXsRHVXckswBXpHMrrmVQq2/Bq+rZd8m3knRf7EOI5cG0Oe0pLnVnMb07s7Bb2EfNxrmwx5lw2WMwYo8w6VW8s/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=InkEmxa2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZMh20Dd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89CA81F000E9;
-	Wed, 22 Jul 2026 13:54:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="InkEmxa2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59CF71F00A3D;
+	Wed, 22 Jul 2026 13:54:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784728470;
-	bh=5nNcYHy1v22o5mMJV29z2vdxpf1k2BGTUTL2rL+AnpM=;
+	s=k20260515; t=1784728471;
+	bh=HYojK57AV4dlVeGzt1KSc+ABC4rsPujqWLVldz1ev9s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NZMh20Dd6v6zBPd/vPl3KCpNBSF4ctDpjChFtkMbKggiN/QaRRcaZnUU49oL41HEZ
-	 WpZO2P7ro588UIGOIT2xGg5QH7n5lrZw+dVhQKXKxffCiNBS7lDte7GArfHkBI67Hp
-	 I+75b2u+EOdHXxLYbd5y6agfSW0VgM2u58Mm94qxiqDtMQg1G6eyiWNHlXuYkl6/Bn
-	 3K7EoZm9R2zn1Kg5VOsLMl/kSC5AE3tDg370XCi1VpQ6iC6zX7aTMvBhl9tJRYRzjw
-	 VWaefaJftruLmZq3mSeeiai6mF1z5dSoF1+vrVq/eKH5Yh47SEwFODfh/qWunGUV5a
-	 +rl9hseO/o6dA==
+	b=InkEmxa2gynzjZ/zuy8qTXQI6JpNu/F4MXC2xZVON0ia0ocGK9rn1sseHqEk9SPti
+	 i+JCvjxhK49rBjcbb+Sf6jhLp7bix4OuQrxmPH0MW+Cts5KgOHmTirCIHPbmRi9GPU
+	 y6YZKblaCIKrDVXuWbG9lz9nIfBbCndBdiy0e5BcKnC1q8LntwF7DUUvyTQ6klKkPf
+	 F6e6DYTYWQgI8wkrSJkhGhcqXvjqK/0z6hlVAx2+QS/Kn4wNwyWTYakAVuhgyJ9kPR
+	 OCBGdLu1DrXlJt5HmuJ3zrBYfvMErXfEsiugO4xOciNoPUjh9s6dG/wueDHpRWSNol
+	 /lCJyVwbPlfjA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
+Cc: Tapio Reijonen <tapio.reijonen@vaisala.com>,
+	stable <stable@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] serial: max310x: replace bare use of 'unsigned' with 'unsigned int' (checkpatch)
-Date: Wed, 22 Jul 2026 09:54:27 -0400
-Message-ID: <20260722135428.1365359-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] serial: max310x: implement gpio_chip::get_direction()
+Date: Wed, 22 Jul 2026 09:54:28 -0400
+Message-ID: <20260722135428.1365359-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072034-gnat-junkyard-971e@gregkh>
+In-Reply-To: <20260722135428.1365359-1-sashal@kernel.org>
 References: <2026072034-gnat-junkyard-971e@gregkh>
+ <20260722135428.1365359-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,67 +50,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
 
-[ Upstream commit 79b69eb09cf5b6a77e621b2838b7e0d38113debb ]
+[ Upstream commit a483b1a91b33b7533280e7c3efd2bc1275caef18 ]
 
-Fixes the following checkpatch warnings:
+It's strongly recommended for GPIO drivers to always implement the
+.get_direction() callback - even when the direction is tracked in
+software. The GPIO core emits a warning when the callback is missing
+and a user reads the direction of a line, e.g. via
+/sys/kernel/debug/gpio.
 
-    WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
+The MAX310X keeps the GPIO direction in the GPIOCFG register (a set bit
+selects output), which the existing direction_input/output callbacks
+already program, so the current direction can be read back directly.
 
-With this change, the affected functions now match the prototypes in
-struct gpio_chip.
-
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://lore.kernel.org/r/20240118152213.2644269-16-hugo@hugovil.com
+Fixes: f65444187a66 ("serial: New serial driver MAX310X")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://patch.msgid.link/20260615-b4-serial-max310x-gpio-get-direction-v2-1-4704ba2b181a@vaisala.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: a483b1a91b33 ("serial: max310x: implement gpio_chip::get_direction()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/max310x.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/tty/serial/max310x.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-index e10dcdeeda2d32..6db83ecf77d690 100644
+index 6db83ecf77d690..1cee4e1f312246 100644
 --- a/drivers/tty/serial/max310x.c
 +++ b/drivers/tty/serial/max310x.c
-@@ -1209,7 +1209,7 @@ static int __maybe_unused max310x_resume(struct device *dev)
- static SIMPLE_DEV_PM_OPS(max310x_pm_ops, max310x_suspend, max310x_resume);
- 
- #ifdef CONFIG_GPIOLIB
--static int max310x_gpio_get(struct gpio_chip *chip, unsigned offset)
-+static int max310x_gpio_get(struct gpio_chip *chip, unsigned int offset)
- {
- 	unsigned int val;
- 	struct max310x_port *s = gpiochip_get_data(chip);
-@@ -1220,7 +1220,7 @@ static int max310x_gpio_get(struct gpio_chip *chip, unsigned offset)
- 	return !!((val >> 4) & (1 << (offset % 4)));
- }
- 
--static void max310x_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
-+static void max310x_gpio_set(struct gpio_chip *chip, unsigned int offset, int value)
- {
- 	struct max310x_port *s = gpiochip_get_data(chip);
- 	struct uart_port *port = &s->p[offset / 4].port;
-@@ -1229,7 +1229,7 @@ static void max310x_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
+@@ -1229,6 +1229,17 @@ static void max310x_gpio_set(struct gpio_chip *chip, unsigned int offset, int va
  			    value ? 1 << (offset % 4) : 0);
  }
  
--static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
-+static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned int offset)
++static int max310x_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
++{
++	struct max310x_port *s = gpiochip_get_data(chip);
++	struct uart_port *port = &s->p[offset / 4].port;
++	unsigned int val;
++
++	val = max310x_port_read(port, MAX310X_GPIOCFG_REG);
++
++	return val & BIT(offset % 4) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
++}
++
+ static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned int offset)
  {
  	struct max310x_port *s = gpiochip_get_data(chip);
- 	struct uart_port *port = &s->p[offset / 4].port;
-@@ -1240,7 +1240,7 @@ static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
- }
- 
- static int max310x_gpio_direction_output(struct gpio_chip *chip,
--					 unsigned offset, int value)
-+					 unsigned int offset, int value)
- {
- 	struct max310x_port *s = gpiochip_get_data(chip);
- 	struct uart_port *port = &s->p[offset / 4].port;
+@@ -1442,6 +1453,7 @@ static int max310x_probe(struct device *dev, const struct max310x_devtype *devty
+ 	s->gpio.owner		= THIS_MODULE;
+ 	s->gpio.parent		= dev;
+ 	s->gpio.label		= devtype->name;
++	s->gpio.get_direction	= max310x_gpio_get_direction;
+ 	s->gpio.direction_input	= max310x_gpio_direction_input;
+ 	s->gpio.get		= max310x_gpio_get;
+ 	s->gpio.direction_output= max310x_gpio_direction_output;
 -- 
 2.53.0
 
