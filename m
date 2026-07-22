@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E9935B63D
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E10334C9AD
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784681475; cv=none; b=CTe7Tv6MjmPlTQK8mQ3nYJY2oz+jmC7m8qPwKh8taNLdcqx1NWh+H5LfzPW2VzcICOIXlmK+UQQ99Ti8+ft0IV+3F/hPqy4DUgCfDnUNsL4CUD3MpptQq+POc6PL+T20S5jmhrxK1lcx0hXJ6JpH5pbAxWEX5Vy7dH3HaDN7+FI=
+	t=1784681479; cv=none; b=jDuGABBAc869Q/AGzMQHTRMLDtlqnRP9168X5DzjN0JCMUrUa63SI07x/Up+sgblGXq+z2JtMVMTNH8bT8QOf83U6shwZOVCh0RRSTOGd0yAIacV3yFPOWFDelvppImL0hat28HrA0xyUQXZ7h/aYIwLdUqzIjrDAnn5nl5JuFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784681475; c=relaxed/simple;
-	bh=7Vq5bmY50ByqkvBZQ27v2wsImA3RFJ+/YmrnW/YCWZY=;
+	s=arc-20240116; t=1784681479; c=relaxed/simple;
+	bh=eY6oXRseSePwAbgS34Aph/FkAFRi0dlgco5xPihM0jQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G1AUqDK1DgEyq7NpPhd6pA2Y9/VUTJCLR6VrLEB+aJQ7yA3YAF3XjKFtxYsuAuvULwwU8iduXbgQblxA5xyxbBZ2942AAueWNbcI+79y801q0tRGalVnxsr+iWfdX2ZHOauI0y53dEP26GJ3WF3mzxz1oyj2Rai/nXorJFcTeWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N3gysMRu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fSXDm+kt6xeivjOGsCYqqspUunnpjFCpIF+CVtAOwmcA1zDGryb60diRIFHWFA3DJsNDTt9hnbqexDGA8jK8u5uNFifxo5xhb73iBTaZyO8LCzeomVoZvIVTXlNnHcCWPzZ07kn5Iz3dRPap9nZMkaWlU/Vf00i5Kzy5JInXgg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYAz/1as; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N3gysMRu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C08D1F000E9;
-	Wed, 22 Jul 2026 00:51:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYAz/1as"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830681F000E9;
+	Wed, 22 Jul 2026 00:51:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784681473;
-	bh=dTpnVdooM3QR69AX2QXyk/lONLEuNRJau51VnOLRR10=;
+	s=k20260515; t=1784681478;
+	bh=Tx5y8h/SUEjy1mY4FZLmLjAMcWWGmOI+sHCXADzu4QI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N3gysMRuHv9iY4hMQXPl0mqa81jOTVSwzKnYdZhdEB2NIJgwmnG0cV6a6C5leHd7w
-	 GXuF5avVpTvpIuHkhTpjFlFiOWSJj1DW1AS6poO951lruVIa28HrW0l0z2dQLuvHH1
-	 ywQuPoU9vJkYZAiKsuR4L0xLahtPtz3Dsckmi7OCFjKC+lb4QGH7wqm4UFkwt69bzv
-	 h2qIguhhfI7dDKb/N+ZwkApYigCDUZ1W0p/NCrBL0PAxGWZB11FOczucZzAPtjpfPP
-	 kVEGz1CdSx3TJGakmdtKzIEpA6xgfLY/TQyW+2x6RRZoZNa2RbItipe/j+M9IaOYgd
-	 v6kHHwKioDKYw==
+	b=jYAz/1asNXpMIFCIdON4Z+ZOOYjhuRm2+IQH1gxl8E1DcO9QIdjSWkVFQlVsb8ite
+	 GwFDsHtSu4LRa1r/zeqvJHbTpYxxX6EzGLkhbLmGFI2LLJ84WX/sG9nIHrKHSi3ah/
+	 w6y+xHOnJAcAW/he61nF0qqQ9PvtySIpv74O+ub1TCwUNNoPzFIeK7lzZnApzDmE8F
+	 Io3LE3DANRln5b//5ZZiBL1IA0AM1NDaKvRJw9sRt5iApIEHhSGHqUF5o3vr8+ebDZ
+	 4+Tszp8T44WO2fqwGlEANX9OBM48L75GGHFIwO3h5on98X9d+ZJOItKYWezgqbvgxw
+	 fDG34OGhUAX3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mingyu Wang <25181214217@stu.xidian.edu.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
+Cc: NeilBrown <neil@brown.name>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] i2c: i801: fix hardware state machine corruption in error path
-Date: Tue, 21 Jul 2026 20:51:11 -0400
-Message-ID: <20260722005111.605431-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] VFS/audit: introduce kern_path_parent() for audit
+Date: Tue, 21 Jul 2026 20:51:12 -0400
+Message-ID: <20260722005116.605624-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071642-divinity-volatile-1a36@gregkh>
-References: <2026071642-divinity-volatile-1a36@gregkh>
+In-Reply-To: <2026071651-dismount-trapped-aafe@gregkh>
+References: <2026071651-dismount-trapped-aafe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,67 +45,198 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+From: NeilBrown <neil@brown.name>
 
-[ Upstream commit 10dd1a736d557e310a77117832874729a0175d57 ]
+[ Upstream commit 76a53de6f7ff0641570364234fb4489f4d4fc8e9 ]
 
-A severe livelock and subsequent Hung Task panic were observed in the
-i2c-i801 driver during concurrent Fuzzing. The crash is caused by an
-unconditional hardware register cleanup in the error handling path of
-i801_access().
+audit_alloc_mark() and audit_get_nd() both need to perform a path
+lookup getting the parent dentry (which must exist) and the final
+target (following a LAST_NORM name) which sometimes doesn't need to
+exist.
 
-When i801_check_pre() fails (e.g., returning -EBUSY because the SMBus
-controller is actively used by BIOS/ACPI), the kernel does not actually
-acquire the hardware ownership. However, the code jumps to the 'out'
-label and executes:
+They don't need the parent to be locked, but use kern_path_locked() or
+kern_path_locked_negative() anyway.  This is somewhat misleading to the
+casual reader.
 
-    iowrite8(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
+This patch introduces a more targeted function, kern_path_parent(),
+which returns not holding locks.  On success the "path" will
+be set to the parent, which must be found, and the return value is the
+dentry of the target, which might be negative.
 
-This forcefully clears the INUSE_STS lock and resets the hardware status
-flags without owning the controller. Doing so interrupts ongoing BIOS/ACPI
-transactions and totally corrupts the SMBus hardware state machine.
+This will clear the way to rename kern_path_locked() which is
+otherwise only used to prepare for removing something.
 
-Consequently, all subsequent i801_access() calls fail at the pre-check
-stage, triggering an endless stream of "SMBus is busy, can't use it!"
-error logs. Over a slow serial console, this printk flood monopolizes
-the CPU (Console Livelock), starving other processes trying to acquire
-the mmap_lock down_read semaphore, ultimately triggering the hung task
-watchdog.
+It also allows us to remove kern_path_locked_negative(), which is
+transformed into the new kern_path_parent().
 
-Fix this by moving the 'out' label below the hardware register cleanup.
-If i801_check_pre() fails, we safely bypass the iowrite8() and only
-release the software locks (pm_runtime and mutex), strictly adhering to
-the rule of not releasing resources that were never acquired.
-
-Fixes: 1f760b87e54c ("i2c: i801: Call i801_check_pre() from i801_access()")
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: <stable@vger.kernel.org> # v6.3+
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260512093534.348655-1-w15303746062@163.com
+Signed-off-by: NeilBrown <neil@brown.name>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 81905b5acbe7 ("audit: fix recursive locking deadlock in audit_dupe_exe()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-i801.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/namei.c              | 43 +++++++++++++++++++++++++++++++++++++++++
+ include/linux/namei.h   |  1 +
+ kernel/audit.h          |  4 ++--
+ kernel/audit_fsnotify.c |  9 +++------
+ kernel/audit_watch.c    |  9 ++++++---
+ 5 files changed, 55 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-i801.c b/drivers/i2c/busses/i2c-i801.c
-index 24363acfc3f8c2..321fed8117222a 100644
---- a/drivers/i2c/busses/i2c-i801.c
-+++ b/drivers/i2c/busses/i2c-i801.c
-@@ -930,13 +930,13 @@ static s32 i801_access(struct i2c_adapter *adap, u16 addr,
- 	 */
- 	if (hwpec)
- 		outb_p(inb_p(SMBAUXCTL(priv)) & ~SMBAUXCTL_CRC, SMBAUXCTL(priv));
--out:
- 	/*
- 	 * Unlock the SMBus device for use by BIOS/ACPI,
- 	 * and clear status flags if not done already.
- 	 */
- 	outb_p(SMBHSTSTS_INUSE_STS | STATUS_FLAGS, SMBHSTSTS(priv));
+diff --git a/fs/namei.c b/fs/namei.c
+index 02b0c273129824..a3e4cf480ade46 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -2603,6 +2603,49 @@ static struct dentry *__kern_path_locked(struct filename *name, struct path *pat
+ 	return d;
+ }
  
++/**
++ * kern_path_parent: lookup path returning parent and target
++ * @name: path name
++ * @path: path to store parent in
++ *
++ * The path @name should end with a normal component, not "." or ".." or "/".
++ * A lookup is performed and if successful the parent information
++ * is store in @parent and the dentry is returned.
++ *
++ * The dentry maybe negative, the parent will be positive.
++ *
++ * Returns:  dentry or error.
++ */
++struct dentry *kern_path_parent(const char *name, struct path *path)
++{
++	struct filename *filename = getname_kernel(name);
++	struct path parent_path;
++	struct dentry *d;
++	struct qstr last;
++	int type, error;
++
++	error = filename_parentat(AT_FDCWD, filename, 0, &parent_path, &last, &type);
++	if (error) {
++		d = ERR_PTR(error);
++		goto out;
++	}
++	if (unlikely(type != LAST_NORM)) {
++		path_put(&parent_path);
++		d = ERR_PTR(-EINVAL);
++		goto out;
++	}
++
++	d = lookup_one_len_unlocked(last.name, parent_path.dentry, last.len);
++	if (IS_ERR(d)) {
++		path_put(&parent_path);
++		goto out;
++	}
++	*path = parent_path;
 +out:
- 	pm_runtime_mark_last_busy(&priv->pci_dev->dev);
- 	pm_runtime_put_autosuspend(&priv->pci_dev->dev);
- 	mutex_unlock(&priv->acpi_lock);
++	putname(filename);
++	return d;
++}
++
+ struct dentry *kern_path_locked(const char *name, struct path *path)
+ {
+ 	struct filename *filename = getname_kernel(name);
+diff --git a/include/linux/namei.h b/include/linux/namei.h
+index 1463cbda488867..c1ff032607dd6e 100644
+--- a/include/linux/namei.h
++++ b/include/linux/namei.h
+@@ -61,6 +61,7 @@ struct dentry *lookup_one_qstr_excl(const struct qstr *name,
+ 				    struct dentry *base,
+ 				    unsigned int flags);
+ extern int kern_path(const char *, unsigned, struct path *);
++struct dentry *kern_path_parent(const char *name, struct path *parent);
+ 
+ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigned int);
+ extern struct dentry *user_path_create(int, const char __user *, struct path *, unsigned int);
+diff --git a/kernel/audit.h b/kernel/audit.h
+index 5156ecd3545733..99afd1c58ebc9f 100644
+--- a/kernel/audit.h
++++ b/kernel/audit.h
+@@ -279,8 +279,8 @@ extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
+ extern char *audit_mark_path(struct audit_fsnotify_mark *mark);
+ extern void audit_remove_mark(struct audit_fsnotify_mark *audit_mark);
+ extern void audit_remove_mark_rule(struct audit_krule *krule);
+-extern int audit_mark_compare(struct audit_fsnotify_mark *mark,
+-			      unsigned long ino, dev_t dev);
++extern int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino,
++			      dev_t dev);
+ extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old);
+ extern int audit_exe_compare(struct task_struct *tsk,
+ 			     struct audit_fsnotify_mark *mark);
+diff --git a/kernel/audit_fsnotify.c b/kernel/audit_fsnotify.c
+index c565fbf66ac876..2b237895157d6e 100644
+--- a/kernel/audit_fsnotify.c
++++ b/kernel/audit_fsnotify.c
+@@ -57,7 +57,7 @@ char *audit_mark_path(struct audit_fsnotify_mark *mark)
+ 	return mark->path;
+ }
+ 
+-int audit_mark_compare(struct audit_fsnotify_mark *mark, unsigned long ino, dev_t dev)
++int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino, dev_t dev)
+ {
+ 	if (mark->ino == AUDIT_INO_UNSET)
+ 		return 0;
+@@ -76,17 +76,14 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
+ 	struct audit_fsnotify_mark *audit_mark;
+ 	struct path path;
+ 	struct dentry *dentry;
+-	struct inode *inode;
+ 	int ret;
+ 
+ 	if (pathname[0] != '/' || pathname[len-1] == '/')
+ 		return ERR_PTR(-EINVAL);
+ 
+-	dentry = kern_path_locked(pathname, &path);
++	dentry = kern_path_parent(pathname, &path);
+ 	if (IS_ERR(dentry))
+ 		return ERR_CAST(dentry); /* returning an error */
+-	inode = path.dentry->d_inode;
+-	inode_unlock(inode);
+ 
+ 	audit_mark = kzalloc(sizeof(*audit_mark), GFP_KERNEL);
+ 	if (unlikely(!audit_mark)) {
+@@ -100,7 +97,7 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
+ 	audit_update_mark(audit_mark, dentry->d_inode);
+ 	audit_mark->rule = krule;
+ 
+-	ret = fsnotify_add_inode_mark(&audit_mark->mark, inode, 0);
++	ret = fsnotify_add_inode_mark(&audit_mark->mark, path.dentry->d_inode, 0);
+ 	if (ret < 0) {
+ 		audit_mark->path = NULL;
+ 		fsnotify_put_mark(&audit_mark->mark);
+diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
+index 7a98cd176a127d..60f5daebc5ef83 100644
+--- a/kernel/audit_watch.c
++++ b/kernel/audit_watch.c
+@@ -244,7 +244,7 @@ static void audit_watch_log_rule_change(struct audit_krule *r, struct audit_watc
+ /* Update inode info in audit rules based on filesystem event. */
+ static void audit_update_watch(struct audit_parent *parent,
+ 			       const struct qstr *dname, dev_t dev,
+-			       unsigned long ino, unsigned invalidating)
++			       u64 ino, unsigned int invalidating)
+ {
+ 	struct audit_watch *owatch, *nwatch, *nextw;
+ 	struct audit_krule *r, *nextr;
+@@ -347,15 +347,18 @@ static void audit_remove_parent_watches(struct audit_parent *parent)
+ /* Get path information necessary for adding watches. */
+ static int audit_get_nd(struct audit_watch *watch, struct path *parent)
+ {
+-	struct dentry *d = kern_path_locked(watch->path, parent);
++	struct dentry *d;
++
++	d = kern_path_parent(watch->path, parent);
+ 	if (IS_ERR(d))
+ 		return PTR_ERR(d);
++
+ 	if (d_is_positive(d)) {
+ 		/* update watch filter fields */
+ 		watch->dev = d->d_sb->s_dev;
+ 		watch->ino = d_backing_inode(d)->i_ino;
+ 	}
+-	inode_unlock(d_backing_inode(parent->dentry));
++
+ 	dput(d);
+ 	return 0;
+ }
 -- 
 2.53.0
 
