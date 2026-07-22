@@ -1,133 +1,101 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 799513E832B;
-	Wed, 22 Jul 2026 04:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EC92139C9
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784696400; cv=none; b=EZcP+M4bpKqgFGFSddU9OU6YpLEGsGsnmfclFie0SmUwpMSbm/uVRXVAgPKjTU3CEG27LTt7q6VzRnivpoY2Q5UU04EPgnJvM9yQvgYOfjftIJGtkYIA5G34atOWwAzwsCbldphBIAlKInsfpdkc/TpKJloHydz/4cq/Xh8B3KY=
+	t=1784696604; cv=none; b=KqDTm4wDee0POoqOs2XKuNCDiTB369SGs9B6JvpG0rfAmCb+EV70WUTDXysTkk3jjsY4tdBPknhUgv3li3sXG6zvpj6qskAW7hDbtT8ODCWUXJiFsa57y/fyMZdCvNj4kNo9c8U8qOFhG5ci28V7oao9dOr/dTmArhpY3vk2hkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784696400; c=relaxed/simple;
-	bh=ln6+Lhz5HTnAAXUCrPVSupjGC5P309qXb9msf3kuvfE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rgISQo2nFohVkjDBWSGP3Hrm9SP0bRuagY2Jle13qpJ3qn75kzht2Z/Sboy3Z1Ig8PDg4jqEKeRAHIzkan3hlLBzQZWra/gFDTyU8wfCZtEd0GCKZ+H/Ey7pv4pBvLiH0eNgv6qbEoiGK7WegbSiri9fX4MsjJynWf1l+HF7kjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDXlDxETmBqt3YoAA--.13764S3;
-	Wed, 22 Jul 2026 12:59:49 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgCXUppETmBq0JcPAw--.31528S2;
-	Wed, 22 Jul 2026 12:59:48 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-input@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Input: wm831x-ts - drain pen-down work at teardown
-Date: Wed, 22 Jul 2026 04:58:53 +0000
-Message-Id: <20260722045853.3255262-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260722024518.3253280-1-fanwu01@zju.edu.cn>
-References: <20260722024518.3253280-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1784696604; c=relaxed/simple;
+	bh=juRRSyYhBnrSn4n1u7S44/2D4HKkiqq9TslGeoCWimY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tMwr9qMBmrMnDnXB/rW6zdI378YDQs8tensz4cgDRfr4EqW6LpxlbsYGP2eq0D8Z+uuzwETtMSLNYST2VP1lVoFySP1TwotWdkHolMOIF+Q48upBA9omGGd0HPchIwZ0iQri3BHMTBGil8ECOuXGfBu9qkdll1HnHlmSBrL9POc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PA/KLYmN; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PA/KLYmN"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so27361555e9.0
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 22:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784696601; x=1785301401; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bfEBwMTb0T8/mEZKR83LG9PnBynaSlP6/23toP1lQEs=;
+        b=PA/KLYmNjQKRr4ticRVpZLrDZgcEr6QzJ7J14agOw0OcZxo3WfQA+WAHRI4f6xp2Dg
+         trd9DrMK0ou+ZjztFKWYUlIQS0/G+KqxFRCZ/PWWgyGBb36mXCYdCctUr7v50CavhpFY
+         TdQdHVzR+KNP7jeQ0uq2PQVAtUHtt1fEBi4EjJgnYoW28OC8mwpGbzgIH4ZIu7hy9Nq2
+         WfqOlcF9O2nn+Rlv6sZfL3lEOsOErW8X5caLALgw2qzTZ3PqauZrCs7HlHk7GQVyZbQ8
+         YkDLOpNP6cs5WWAkC6tYoU/DDkSvnPVZfa0IgNyJ10zv5gp19DbmwJiypFrIjeFAlKBa
+         m/+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784696601; x=1785301401;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bfEBwMTb0T8/mEZKR83LG9PnBynaSlP6/23toP1lQEs=;
+        b=ahFPiBn6W4/ALX3dKDSsFTuYo1N/H5KG/N3p0QdvwPcuDZvFRYEpW0yjWP9gHDO93r
+         dKyzfLgQolutx2YkoMIMKtmfSuGx4WmgrcZlAQ9FwCVTukSL86s0qTRVTXSXv14mIl6w
+         AnNi/yNZIPlRW3vocPe0EYhqW/T92NkEbBQ9pOM6qIwHsfMtbUGpJPYGfBgeQuUOLFUH
+         XqB6DjO6PZxVk/XzTQ8gIL2tzzW4eN8t+SmsyDK6HN1EHIWqNU+Mlfj+qNtVvXFxk8vq
+         up+pBtDHM7YI/z6h4wZRNQXA4VialhEj6SztKyd+x39QqRzKyAj+41LoJGcc6ywF1EjA
+         IegQ==
+X-Gm-Message-State: AOJu0Yx3LDdy1vb7Gc3c0HTz40KXaUnu0kUEvmKgaNMKOnBs6D9GLdWP
+	J9az3D/pwJJdsuuqh6FOcICRElpoTS41l8NVgW+HsibaY4jUAzl7gm9V
+X-Gm-Gg: AR+sD10K4jfVrj2cJCm26EwIQges97mfJcJbrFTYCHVhB5515rTJ3fTyoexNISfDc1B
+	nWuFbLOMd7sFakenG5vG+aMsaiMdPp2eF63OAlolvoGfPncICJ4HzBmBzuoURZiMjoNKOpI6WIb
+	g6aafpK77Tx475U4cqot2qP9s7a8OovZ/d5Us6umAQdAlhCt+YrD3nV84n9tOryUtdnIqOzUBut
+	V79X1QRnp2TfhwJu/mEz1c97ZR8u2I/WPxOsoTaAI95aT1eeSEtM0tnNov0svIML1Z9LH2SC/BV
+	6F4ZdpZ7MsPerDrSMHxF2CKA/AHYbozxXwdFS9drGeDWcEEWEtfEunEw/etLOQf818D8/bOY3GZ
+	mqwFhICXDH6StjR8vesnzlK+XQv0Scplqmvf14VltE12qJDYRl3aP1MLD/OxB7fQr
+X-Received: by 2002:a05:600c:4515:b0:495:3af9:4cfe with SMTP id 5b1f17b1804b1-4954a40e322mr269127065e9.20.1784696600527;
+        Tue, 21 Jul 2026 22:03:20 -0700 (PDT)
+Received: from eldamar.lan ([213.55.223.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956d475e24sm6212035e9.0.2026.07.21.22.03.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jul 2026 22:03:19 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Received: by eldamar.lan (Postfix, from userid 1000)
+	id D1A90BE2EE7; Wed, 22 Jul 2026 07:03:16 +0200 (CEST)
+Date: Wed, 22 Jul 2026 07:03:16 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable <stable@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Wongi Lee <qw3rtyp0@gmail.com>, Jungwoo Lee <jwlee2217@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: RFC: How to backport 920f893f735e ("posix-cpu-timers: Prevent
+ UAF caused by non-leader exec() race") down to 5.15.y?
+Message-ID: <amBPFET33odhDXb5@eldamar.lan>
+References: <alVfR78eqdaRbOIy@eldamar.lan>
+ <2026072148-saggy-broken-3ee6@gregkh>
+ <20260721201114.0003-stable-reply@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgCXUppETmBq0JcPAw--.31528S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?p1bGmwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBHnl4onf/PFp4juhU4xhfLyq4wOAq9Qh6kxiWx++GHWsc0Y
-	P87phS+Z+MVDVMkdpkOp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxCF4UJw1xAF4kKFWkAFW7KFX_yoW5Zry5pa
-	y5AryUK34ktF48ur48W34vvFyrGF4xJ393Ar1DK34fWw15ur1ftr95ZFyvqF4rGrWkJr4j
-	yr9I9w48CrZ5AagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721201114.0003-stable-reply@kernel.org>
 
-The pen-down and data IRQ handlers queue pd_data_work to switch between the
-two IRQs.  The worker obtains wm831x_ts with container_of() and calls
-enable_irq().  free_irq() synchronizes an IRQ handler, but does not drain a
-work item already queued by that handler.
+Hi Sasha,
 
-wm831x_ts_remove() can therefore free the IRQ actions while pd_data_work is
-pending or running.  The work may then dereference wm831x_ts after devres
-frees it (use-after-free), or re-enable an IRQ whose action has been freed.
+On Tue, Jul 21, 2026 at 08:53:50PM -0400, Sasha Levin wrote:
+> > > At least that would apply cleanly (though not yet even compile tested)
+> > > to 7.1.y and 6.18.y but then already not anymore to 6.12.y, which will
+> > > need more adjustments.
+> >
+> > These look sane, I've queued them up now, thanks!
+> 
+> Queued the pair for 6.18 as well, thanks.
 
-The input device is devm-allocated, so the input core unregisters it after
-wm831x_ts_remove() returns.  If a userspace handle is still open, that
-unregister drives the input close callback, which on pen-down calls
-enable_irq(pd_irq) - after wm831x_ts_remove() has already freed the pd_irq
-action.  Unregister the input device before freeing the IRQs, so the close
-callback runs while the actions are still installed.  This must precede the
-IRQ teardown: disabling and cancelling first would still let the close
-callback re-enable pd_irq after its action is gone.
+Thanks Sasha and Greg. So this means now we can have a look how this
+should be backported as well to things down the other stable series.
 
-After unregistering, drain the work: disable both IRQs so neither handler
-can queue another instance, cancel_work_sync() to make the drain final,
-then free the actions.  Apply the same drain to err_pd_irq; the input
-device is not registered there, so it is not unregistered.
-
-This issue was found by an in-house static analysis tool and confirmed by
-manual code review.
-
-Fixes: f5346668150c ("Input: wm831x-ts - fix races with IRQ management")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-Changes since v1:
-- Unregister the input device before freeing the IRQs. v1 drained the
-  work in wm831x_ts_remove(), but the input device is devm-managed and is
-  unregistered by the input core only after remove() returns; with a
-  userspace handle open, that unregister drives the close callback, which
-  on pen-down calls enable_irq(pd_irq) after its action has been freed.
- drivers/input/touchscreen/wm831x-ts.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/input/touchscreen/wm831x-ts.c b/drivers/input/touchscreen/wm831x-ts.c
-index 98f8ec408cad..a465b1b96fd8 100644
---- a/drivers/input/touchscreen/wm831x-ts.c
-+++ b/drivers/input/touchscreen/wm831x-ts.c
-@@ -366,6 +366,10 @@ static int wm831x_ts_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_pd_irq:
-+	disable_irq(wm831x_ts->pd_irq);
-+	disable_irq(wm831x_ts->data_irq);
-+	cancel_work_sync(&wm831x_ts->pd_data_work);
-+
- 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
- err_data_irq:
- 	free_irq(wm831x_ts->data_irq, wm831x_ts);
-@@ -378,6 +382,12 @@ static void wm831x_ts_remove(struct platform_device *pdev)
- {
- 	struct wm831x_ts *wm831x_ts = platform_get_drvdata(pdev);
- 
-+	input_unregister_device(wm831x_ts->input_dev);
-+
-+	disable_irq(wm831x_ts->pd_irq);
-+	disable_irq(wm831x_ts->data_irq);
-+	cancel_work_sync(&wm831x_ts->pd_data_work);
-+
- 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
- 	free_irq(wm831x_ts->data_irq, wm831x_ts);
- }
--- 
-2.34.1
-
+Regards,
+Salvatore
