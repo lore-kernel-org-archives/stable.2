@@ -1,115 +1,110 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F11F339399
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2287368D4D
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784716836; cv=none; b=qB7RygaowRMWB95Xwxp2QmJs/A0Ei98nXldOPGTsTGkAQnJv8yvjL+ExYSTFuwG6VwqyBd/ctMB5Y/FjzvWUEALNhWpchV0YDn9VgJhzRSS98b3sJ2+sKGlvL+wbI15TvkLzErAimERlEnwX9Fw7nlZrfwICpsQZfOSlYgMUJd8=
+	t=1784716915; cv=none; b=F818jSXJv/2jwb4CbH4YvS/2DpgvW+zzWYpkoHFpZqpBAkfKVM5Kxrd1ACTDMlziHJqv01ZzXy12sF/CuNimEtW+gcbhqcqH2KKMcvyR2/+EG0eUbTVE2NCx508SCwhi2JhtrkfH/Pr+mF3m87d0flUccrsUs5gGnda6rffFE7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784716836; c=relaxed/simple;
-	bh=8ZsiCUDb/nlYznnS1GfY66bdWDGuPxr1dgqGsMmXJ4c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tbv7wN+5ovCmUQ5NtdhdIPdfberY33EL8dNX/Y6s+0YGFaJYw7BxUKFm3H9/kXwfD7sVDIYMoq9aQjtkpBwnwYmP4zT0XA4s8uB01xEJyC6XgGi/riVCWIUHX9h2IWzyMRMTFxoHt3FMxrJJPv/CXvXOS8O+vopiUeDGkeseJCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=AidyjRYy; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1784716915; c=relaxed/simple;
+	bh=RhehwHHBb8H4OBjE7eqWKzTTFv6N/2VV1vQcwbnVPZg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R2zpAW3wVyk/CZWCjobF8Lo7oeLW9telr5jiEqTMGSw6g7m8Lbd7QE4Yd3th8ZtKWq5lFLTnL7pdC1qJw668UPvCG+kipw1KS14rCWOevm8nPTg1K57NCCyQI7dKM2G1L3Ix0L3vPa6GCJvPlV4M5bhFSlHiSqC7LuaNRWGP3BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fmqT6EIB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="AidyjRYy"
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id mQpIwH1pkQ4O6mUNNw3UvF; Wed, 22 Jul 2026 10:40:33 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id mUNNwsT9zFb3lmUNNwoJnR; Wed, 22 Jul 2026 10:40:33 +0000
-X-Authority-Analysis: v=2.4 cv=Xo36OUF9 c=1 sm=1 tr=0 ts=6a609e21
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=btLXYk-BEA0ieRnlDc8A:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Kgx/OkRXPUEOJAcyUMD9nCgFGQet2bBuI5FYrDUaHGk=; b=AidyjRYyGhFGU0MCLTSxeXaFCi
-	IjTCPuJQjLsQRw7Dt97tnZGS0YA614h0UiCg8mEiZKcnZo9jbhEvM+Q5zR8vchQueMmAHMRKnKjWV
-	xa+uGDeHohL6X0lnifmiT2nBNPzypWaCVOFJUqjVjCuXU8suqCDGpopsE84T8HyM6W2oX2UAmeiYi
-	dpEKB6QgojDyALNX0+tBH4X+5cUWL3IdnK+4E8VByKjruYYAvS/sxaH3MlqXQI0JzBnv43C7IXss6
-	DnOZiPLUzZfihopQIlPLH/2kKTSIWsZ20Dj6WpOZF3NXZ2DTaCbEBhKEB+yxNVfNWQwNYYkkc2p8H
-	jSWeTaFA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:58490 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wmUNM-000000015QD-2m3V;
-	Wed, 22 Jul 2026 04:40:32 -0600
-Message-ID: <3093d16e-9ccd-4edb-9fbf-8cbe9274ced2@w6rz.net>
-Date: Wed, 22 Jul 2026 03:40:30 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fmqT6EIB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472DC1F000E9;
+	Wed, 22 Jul 2026 10:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784716913;
+	bh=64Q4fCb7iHZWkyyvPNGmWvoD0jglG3qdOb4ULx/Yvo8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fmqT6EIBSUeOMLOh9YsWrTMH5YytrGVdNFMbfdAginXAbVH0mtvZFnNuo7d3Gnr4N
+	 SO2PgmFZGxdWOwK98LeVAzMzFsGyL12MJGhysbDMEKYShAlG3LeYOt1wZcHpRXbnuz
+	 bo9Ni10LUAR8t8llRsmx1eyimXaV3vXOghqrRcychTcQDSrgacxvWNosOwu8woko6F
+	 o7bNFB0CrriqwrFhkrx5J794oa0Y4JsRBiQykx/Jlzi+Wz9uaYPCSo1eQn7p+XsG4G
+	 oGr5ReeAfSf9R3j5lGtqQU9SvbM49GsX1YDGt/HOqxUShOFhukMbxGG1qPE3jYEw5b
+	 ftPKgBmYOO2jw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] Input: mms114 - reject an oversized device packet size
+Date: Wed, 22 Jul 2026 06:41:51 -0400
+Message-ID: <20260722104151.934336-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026071645-latch-matchless-9242@gregkh>
+References: <2026071645-latch-matchless-9242@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/1611] 6.18.40-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260721152514.750365251@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wmUNM-000000015QD-2m3V
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:58490
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 39
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJOts8Z8y5DZOwEzhulLpUQWoL/6WPhi6y/NeGU0MfgOKMyiYs8jp7N42+cAaQvb7LURWJw+eoqdvKRZcrsjXX4cfiGpkTEWlIKGMDXZgex4MTZ8wdeX
- r2nSWUtfChC3dQuOxZiyclq4A9+uKognLNzP2LzM+YwCW3Yrld9xpnZ5gS9AqleFekAG4HpYfYOuTQ==
+Content-Transfer-Encoding: 8bit
 
-On 7/21/26 08:01, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.40 release.
-> There are 1611 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.40-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+[ Upstream commit 66725039f7090afe14c31bd259e2059a68f04023 ]
 
-Tested-by: Ron Economos <re@w6rz.net>
+mms114_interrupt() reads a packet of touch data from the device into a
+fixed-size on-stack buffer
+
+	struct mms114_touch touch[MMS114_MAX_TOUCH];
+
+which holds MMS114_MAX_TOUCH (10) events of MMS114_EVENT_SIZE (8) bytes,
+i.e. 80 bytes. The length of the I2C read into it is taken verbatim from
+the device:
+
+	packet_size = mms114_read_reg(data, MMS114_PACKET_SIZE);
+	if (packet_size <= 0)
+		goto out;
+	...
+	error = __mms114_read_reg(data, MMS114_INFORMATION, packet_size,
+			(u8 *)touch);
+
+packet_size is a single device register byte (0x0F) and the only check
+is the lower bound packet_size <= 0; it is never bounded against the
+size of touch[]. A malfunctioning, malicious or counterfeit controller
+(or an attacker tampering with the I2C bus) can report a packet_size of
+up to 255, so __mms114_read_reg() writes up to 175 bytes past the end of
+touch[] on the IRQ-thread stack: a stack out-of-bounds write that can
+overwrite the stack canary, saved registers and the return address.
+
+A well-formed device never reports more than the buffer holds, so reject
+an oversized packet and drop the report, consistent with the handler's
+other error paths, rather than reading past the buffer.
+
+Fixes: 07b8481d4aff ("Input: add MELFAS mms114 touchscreen driver")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260612-b4-disp-dc4b8dc4-v1-1-d7cb0a828d92@proton.me
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+[ changed `&client->dev` to `&data->client->dev` since 6.1's interrupt handler lacks the `client` local variable ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/input/touchscreen/mms114.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/input/touchscreen/mms114.c b/drivers/input/touchscreen/mms114.c
+index 9fa3b0e421be2a..566a95ab0cc347 100644
+--- a/drivers/input/touchscreen/mms114.c
++++ b/drivers/input/touchscreen/mms114.c
+@@ -212,6 +212,12 @@ static irqreturn_t mms114_interrupt(int irq, void *dev_id)
+ 	if (packet_size <= 0)
+ 		goto out;
+ 
++	if (packet_size > sizeof(touch)) {
++		dev_err(&data->client->dev, "Invalid packet size %d (max %zu)\n",
++			packet_size, sizeof(touch));
++		goto out;
++	}
++
+ 	/* MMS136 has slightly different event size */
+ 	if (data->type == TYPE_MMS134S || data->type == TYPE_MMS136)
+ 		touch_size = packet_size / MMS136_EVENT_SIZE;
+-- 
+2.53.0
 
