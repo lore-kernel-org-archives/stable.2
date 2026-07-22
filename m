@@ -1,178 +1,154 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013051.outbound.protection.outlook.com [52.101.83.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B975443AAD;
-	Wed, 22 Jul 2026 15:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784734253; cv=fail; b=RhsOTM1u1tB+3ZJ07ovGQsz8WowKdHPG0fyKq56bOlRWgnd6WCFzLB7Hpk4MdS642lXFCpNIgt96yz3mzyqaGTNyZU3zRwvGkatwi2aeM1ZfBBHGj6phS4mgcK5eYMocUA9P8t/HsqWeJPcE7mbTYH9h4+/I4JLsohKrZWSGVqQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784734253; c=relaxed/simple;
-	bh=oSnMGKDA/L1luxDP7ZujbfO1/tg0+zoebY1IffVIscE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=rlw9zX408H81OVC4T5Y8TOsg2B5xpd7ViApqOY1Ubwri3gq4gMbw88w/fXMklX9why/xFyrZVr0mqIjTXT8nHRKvzejKQdN35IlKj0YAHMzePUkIxDnBNq7/U+8VMdRLVPbC4RSCQxuZdswpcOnND+dzZpbuuRqVBnRirjEtrzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=mU268o3D; arc=fail smtp.client-ip=52.101.83.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BF236B917
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 15:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784734287; cv=none; b=CO0u9nMZvSMScztArV2Tvcm8hyKBzb/Nn7j341np/W9tNVG0lEe+XY1DnKQHmDWuFTREzI2V4OB1YUn9C3CnF/6xKflpslPym9EwXFXhUZhYoBDZBXq9ucEUpeIZpVSLhpKYF3v0F/ZEMNHpmn7lFKRlZeFsnN8sFA+zCy7YFRw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784734287; c=relaxed/simple;
+	bh=25eR6IORAeg+BJ95HEQGj2JLdVumdAVnM5WJNvg0pdI=;
+	h=Date:To:Cc:Subject:From:References:In-Reply-To:Message-Id:
+	 MIME-Version:Content-Type; b=lieNiJ2JfuAh6G6mGyb1ybXETEFLQdDaadWH67E3xWI29Vs3tTBTSDFsP5nQhboLs6CFBQN0qgCxv0SjaVKHxRKYLBiQX5omiZs8HBn44DIVgykY6FRlDuxeQArVI2JzkdbZFMxW2qXftvixpzXts5URzf7uXVh7gFjI27G7m/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dz3hcZcJ; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mU268o3D"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c8POvpc84BYROtQnwnmtEZpZ6eEwVyrlEwLa8/PkcDO23SmauhUhX+SHCzpmSIqbS9d44lmKEtzmmyOpZZhBusX7j5airHfxaT3nX0FQFiBcmz3KiJf7EEmhI85+7XpRzoIbUUGJkVpx+MirXjw1Mehk28sejw1r/CaOkKAugk7+yq8MiYSfHjS+VmidUQtfiiv87g6WMn7L9tQwsyzk3zeBXO/pytJZorer8sx/aPZvQZXPxRRVavdqBcioyEK40lU9qcsVhmo+kG17j7e+Ww4iWBz1f4+bbcIw/eHLKs/Zg4eJJoPR45MGjJYk9eYYcVSd5B3s2WGuW5J3Sl0pDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cOCfGAWgbE5McsMYyOnuSGnx0+90LTimQv11BfBA474=;
- b=XhEDXQQzGjq8SpJHaTsBAiiXiAtdMdVU2r5e6zSV/Jodf+mMWp8ebrrMhNEZImP/eohj5zOrY+XIy3eKPTBfeiFexWZzu4vW0oq8fHdTTzy2xMnb8WlsykSjQAaYoLYV6l2DFyJMlvKwK1ujGGk7zPTXQHAZEFXyuu1pEM2JZ2vFg4Aw8elNiN8N1H4j8Ivg09Iaxcf0cqNMzqeXCCiXICtdN7kbBNoqarvZzQ6pKRRWAuIVNqo0vIBBYhJ8BqBlROxY+ksgUSrvuiltfQ7K+liZJumJhRdmhBzjcBt/TudI/+36yWz1CGSX6e20Dxco1Ee83IPKOV0yg/NLco1+sA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cOCfGAWgbE5McsMYyOnuSGnx0+90LTimQv11BfBA474=;
- b=mU268o3DsnWboRzqIR9RL69QKem+wY/WG8LLwnML1jNGWP7VrTrBWdxardtl4dZATGF72JKYRtztGhpvuyMQXMMhXlA1S4aEp5zQep3r+2rF14T4M36Jni8dYrJrRMm8KGpabBHOkzO7VMMU9DBVlC2HxroM2uhhga6iq/xxGsD3J8t+fHvtwfQNWCBDhohbzuWKE8I8/MxJV3nC4U5Jz0KJRlHvX52sy5hZCdroYIz4uKmdoPg53yIHW3DAoa9v6wX0e+dAiCcVHA/crrVL0sXdVm9z05nTw5NSQATL2JEvJU7yy2LagcFzTyXUiMvrkNcwREFPr9K6d/wKmoa49Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI1PR04MB9980.eurprd04.prod.outlook.com (2603:10a6:800:1d0::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 15:30:44 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 15:30:44 +0000
-Date: Wed, 22 Jul 2026 10:30:34 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Can Peng <pengcan@kylinos.cn>
-Cc: rafael@kernel.org, daniel.lezcano@kernel.org, rui.zhang@intel.com,
-	lukasz.luba@arm.com, Frank.Li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com, linux-pm@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] thermal/drivers/imx: Disable clock on runtime resume
- failure
-Message-ID: <amDiGlN13RX9J1rC@SMW015318>
-References: <20260722084909.463437-1-pengcan@kylinos.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722084909.463437-1-pengcan@kylinos.cn>
-X-ClientProxiedBy: SA9PR13CA0134.namprd13.prod.outlook.com
- (2603:10b6:806:27::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dz3hcZcJ"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4954d383e64so30861675e9.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:31:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784734282; x=1785339082; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:user-agent
+         :message-id:in-reply-to:references:from:subject:cc:to:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=EGApyBTE5b4jGTRLUHAvD3BADA1gtPfspkpd7xsnlDo=;
+        b=dz3hcZcJlg6klD3BkJ6FGqtn2AQrWF8ojoFfm+hmDvL9vskA4sG6VENrDkhXvmVSvz
+         dPekpiEYHEO6F0oimWMMeBUaSzuDA0khgM92+iM+O8lAv0oZ9FCxoRhVJR+OVugwHFhR
+         ZEZJG8izGAZXSGgyYCoDg00Fv97kr1yXX/NNkhGczYREwmMhn2rGzBoaEU5C5npDlMv3
+         vHUzP32/A/cNAbrcdLr5YYgvsqkdywK/EityFnmLVaU3HCeo81vFlmylgcA+cz9VCiJx
+         eisnMZ5EXwoMcvJPR+o05pBB7VD1IceQ30uoyqgXFgKaBMXw/kdm8ZfiNCl8uj8PlpiA
+         uJ2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784734282; x=1785339082;
+        h=content-transfer-encoding:content-type:mime-version:user-agent
+         :message-id:in-reply-to:references:from:subject:cc:to:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EGApyBTE5b4jGTRLUHAvD3BADA1gtPfspkpd7xsnlDo=;
+        b=ZjdfsO3u4vYkP9ck23bEjpHlam7Gpt/WT5L1YosEOdSyDbZwWysKtD6/6vhIcJs5JO
+         w4JtO+97GrDsEEnxB/Sdo/IlyLSJDMrbcnhMylIWY3/gSni5atsUP9t6uHSHVv8THB4p
+         SmiSjfyib6gpoLbbLRieonukAKl9MnH3n7Bo9yO6Xb+YaOiOrclCC6K+BMUyOH6qOeO4
+         0aqTUWPmfIIe5WnRHxFo5VuiTv6Q1MyxpbUw/E2+WbTtIzUx8D74973a+s7pBaSvGT1N
+         lqIzHx0wSn7GhCHwbcgLjuy9IAAt1iciLnl9Od+p+ROU8wVqSre1+VxySCECCTzzGC7i
+         s9nw==
+X-Forwarded-Encrypted: i=1; AHgh+RpOhbzA5pHiP0FE0gSf2okZWRHhGkLSf31U14CbWjbnhGrNh/e0fwpTGDgntcmlxPV+bELRgpI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YygKy2k5gFqpo5KCCa/IslDsOoExoUDwpm4Ezk4fPR41Q5q+p9U
+	wdS4O4J1njVWzIt9hhilhGjYxTokWQYCaC8Xi3i0sx0zUyxfhlIyVgE6
+X-Gm-Gg: AR+sD109Rp9hNdkMy58rPhG6by4momZDeB2LgRQRIs7phD9scT1TTxk3CcjwEm0pCxa
+	uvazYVC4dYTckke/paY2U/P0YDVrjlG/LiIYg9Kf1dgXJbmbwigx14aGgtwsMTOoDb6+kSq/Iu9
+	CKgULhrDKpafe5Ah1EpdrqX70cW5vSDr2rqhZHk2b6/B9f8HdoB8HM0vYZINVvkOZoB8G87AwHe
+	n35LaFyjDp653tlzp9o7QFJGkEurNtNEQ5so4YiMpcXH+cJQPVUUINPZdqvlBHM+BzuMI7t/CNC
+	HiN8oJJN8pyTTmN9lMckssNwEKnAXS5hqdLmd2EvxR10fp+FCGZV2iFAj/mMZ9DO4UxNMXVYhio
+	qtjUrrbgtRFBOtQHcg9MYklFXGUMUSm8nxes0vkJHBImWD2ZO1p7qz/zT3D5N7okx1X40pdlDhe
+	n+H0a1
+X-Received: by 2002:a05:600c:c84:b0:495:4491:b8c2 with SMTP id 5b1f17b1804b1-4954a3e6ed0mr255571095e9.3.1784734282446;
+        Wed, 22 Jul 2026 08:31:22 -0700 (PDT)
+Received: from localhost ([2a02:169:1e9:0:8f4d:9ee2:cc35:c67b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b021fa6sm51073175e9.2.2026.07.22.08.31.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 08:31:22 -0700 (PDT)
+Date: Wed, 22 Jul 2026 17:31:21 +0200
+To: Ibrahim Hashimov <security@auditcode.ai>
+Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] HID: nintendo: fix out-of-bounds read in
+ joycon_ctlr_read_handler()
+From: "Silvan Jegen" <s.jegen@gmail.com>
+References: <20260715115253.91029-1-security@auditcode.ai>
+In-Reply-To: <20260715115253.91029-1-security@auditcode.ai>
+Message-Id: <1Z0LP5TPL7LU9.3C7JC6QACT6RW@homearch.localdomain>
+User-Agent: mblaze/1.4-3-ga04b747 (2026-07-03)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB9980:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a9ba6eb-418f-43cf-f8d9-08dee8063236
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|7416014|366016|1800799024|23010399003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	VPabih3ElMy7YnokdNe1YusX+JVcDBX8J4ZnPQgV4F6vp4hPhz85HvlPjqotTOO1jeidw8bHD55OckLjHxZCE01O94JUYvh9GcSpM9saeRxObvgchA7VN23/PrmxMN8xhCN3PxO7bdIPKaUSN2XLQnjF/p0CgEl/rxyt2nm52cfWdJzMmvndng3PLYrZYKN3DKT3SO1gX7SSh1Qv8/fbIIETbsEteZboaj2pmhDjxreFX1TDFixUpTXAprti4/eQMPzG/orrp75nwPzy+x3KR7TuQo1MdpTwZWsRnnClu00CFp6M9Uv4iSDRV+y7sZeEpIIE4jK43xYDJktEoa6SiKyqdGn8LdsfuqFHxvOD9eZQ5szykB51BexjfodXq4JoLkZmvBEcJAIXREiyfF9jrzEsmqZ4oSr6Sj83VKFURfuVs6gBr6I9qYacx9/+UjtpwsZuTlHAuuw4VhzxTfcDjd8SFQaNkAYXCXOgPnDG+7IJhRZ3r3UEk6hni2JMjjzdua64kb8brh2ooq++x6nWPd8LVLVEsIQ5Nww+h0iXueKOfmVx5hvcgu0dLlUL7+XuvZFigl+XqGKd1cutmsuJihW96W2OfnoySQlEbj2XM6lZl7JPd8mLeEpsi1dTkBDNfHb7umpHHAJnN7v+Yl+7uywbj8YWNOGiR571uHVtfoM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(366016)(1800799024)(23010399003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?96MiDxi8WSQTik+mmZdFaO4yxyCh4ubOf96z8rsZ75exZhblMyFaJIa9Aqvm?=
- =?us-ascii?Q?Z9rY4LUrYe5WFRSsHbkOv+JwGuC92Z7C66os2pt08AJxzJGkZRNKMc5KLfme?=
- =?us-ascii?Q?/PQVRAQNpu8vq118RpAWbuq33m7qm1QfDZ2vLwyF5Dcky+JfQru1+SG8K19F?=
- =?us-ascii?Q?U5zd0qmP8oiSb+G8yBCTTBLr5CvYyC3/A2qgnFqRB0wI+O2CV9/cUGvOT3dc?=
- =?us-ascii?Q?aX8cJwpRmlftr0m7shemyhK8VBegynH8rMEMm1L7idRMpgC7DFaTgRSKg0iA?=
- =?us-ascii?Q?9Pv+WQqXOtKzh+RC7gzJOQZA2wtL98fBE7tRklQzVPoTM8n528yjK3bBuClb?=
- =?us-ascii?Q?nY+KVgZkuBJNQDjm2GXZEh5Bq3PkalCaaVUrqipezn2Uap6pe+srReylwItS?=
- =?us-ascii?Q?sXLQ22L3+ajldL7sOX9oNAoTP7PjYCBaHpxRe90ubNnnbFVDwhx+b0t32njh?=
- =?us-ascii?Q?4Cq85mgvILr55Ov1TXShvKyE6cfBmKsRa9Yk+Ir8TY+Ip2XSCoR7U5JU7sLd?=
- =?us-ascii?Q?JtNzPVg4x7zq8ZLe0x1iMWuwl+8B5ybABNFfbt+pnU5heBjX61/kWJgqzvf5?=
- =?us-ascii?Q?tGIAxXV/3ToDhxFsoBCeONaXb5+NAcOtSES29kK8VYRFpU0uB4gC4ci1t+ZO?=
- =?us-ascii?Q?2VcntSyqsPBonY+30I3riiB8f3lwIKZ0jfdJb7sNfZzB86+n0Rd3BCGOSkm7?=
- =?us-ascii?Q?OlO7qvkZArww+ACeqh7qSr7ToGpb4/OeL/s0gfR7Ala0HXZVk+O+79ojCLmn?=
- =?us-ascii?Q?kQl3Ig+9sWDlBdmzbgBTY12j0UsDO086jE+OINuVjsa6Vf3d5EolHSA0J3q9?=
- =?us-ascii?Q?E61gIf3D5WTCQnue2RrbLlXS5UjAditWKagO1Fv9d0PGFC6JEAFCkG205RnH?=
- =?us-ascii?Q?vWKEXZ61llOfps5sG8Yo1TP+l+zcrfqeL23EYlfIU36BoGAVsyM5wgieL6bZ?=
- =?us-ascii?Q?pdaO1YIeKxCfSzHjk2CXnjZmsc2ILqEBmeOpqc5cWwwvMVR/KSk6IZVW+q11?=
- =?us-ascii?Q?js+07n8dXg33fzHV/Nm1RaVHPdQ8+jjS7FlbKAWWPXrHhQljl9SwNa6nni/y?=
- =?us-ascii?Q?NiIKeFTiE4f0yW2lYIgL8fRpekk9wR8E5HV0EAwOPr+ejD5m2DhqvI6+XpYL?=
- =?us-ascii?Q?WsCpUXDxDqpv+IOMfv3XVfrWeM7wBdfuPSJR5M/UNSP02mvbmRWG1orl8tuH?=
- =?us-ascii?Q?zLoyQ1/uzehQgRYumQ0SVB/gg/CZfCSzWF9oq3yK0Rlr8iSeSJ1+XrbQpEEf?=
- =?us-ascii?Q?zjaUoyB2cYpU0YKbYgk/zI5kEfLpT5UNCksVZi3ahZswd4aYr79TgDq9GJR1?=
- =?us-ascii?Q?F/ChuhT2IqY/6Dti09cgE/Jx0y82HR1L9Vwua00OmoBUzRQ4FwPbaEzvJYqB?=
- =?us-ascii?Q?4FLAL7Mccwr7OYFOZpI9YE31EDLgqDabeA4FvqTCU9BlB3zK2BSBtYWCULR8?=
- =?us-ascii?Q?JZyxwq1iTq22mhiIVP2ylGPomJ5fe2iCKI7KgMPZICgxaocyWConi8/vNpJe?=
- =?us-ascii?Q?meoReVpRjh32D4SBwJshT7B7aSjrtzZWx3kcg/hPgD3vECcMbwoKiNlDrH7h?=
- =?us-ascii?Q?vebRs5XiVvLUVW+U1V5Lz6NgZ1k7kiq3tsCQbT3WIiep/jtWF+Xs7z4Plkv+?=
- =?us-ascii?Q?nYjdYN7K3yETeK1gPOM5nxY7FihZw9vJpMLEiArSWguBXv+spjVW7TozDX3+?=
- =?us-ascii?Q?zKrPsZa3VO5e0uPwn5hfGNMACKYCtrAJK83teXTlyZ36paewRSgCl/442n54?=
- =?us-ascii?Q?1i//J2LFUGXF3jdYMXKvIL2iRPH0D/paTxg1p1WS20TGCDw+9Ujm?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a9ba6eb-418f-43cf-f8d9-08dee8063236
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 15:30:44.7609
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ur4ih+L2/SmsuYezZ8UQwxeAAg38yfpr0liBFCgb6oHoIa1sDcVvN62oKOPF+bDFJwTTQonw8c00qnRnQaE5EGhZ0E/80iKv7jqvlpO1m57NJEM8soN6fUSLKck67Qnh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9980
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 22, 2026 at 04:49:09PM +0800, Can Peng wrote:
-> imx_thermal_runtime_resume() enables the thermal clock before
-> powering up the sensor and enabling measurements.
->
-> If either regmap_write() fails, the function returns with the clock
-> still enabled. This leaves the clock enable count unbalanced after a
-> failed runtime resume.
->
-> Disable the clock on those failure paths before returning the error.
->
-> Fixes: 4cf2ddf16e17 ("thermal/drivers/imx: Implement runtime PM support")
+heyhey!
+
+Ibrahim Hashimov <security@auditcode.ai> wrote:
+> joycon_ctlr_read_handler() casts an incoming HID input report to
+> struct joycon_input_report and parses it, guarding the cast only with a
+> 12-byte length check:
+>=20
+> 	if (size >=3D 12) /* make sure it contains the input report */
+> 		joycon_parse_report(ctlr, (struct joycon_input_report *)data);
+>=20
+> struct joycon_input_report is 49 bytes: a 13-byte header followed by a
+> union whose IMU arm is 36 bytes. For an IMU report joycon_parse_report()
+> -> joycon_parse_imu_report() walks that union (struct offsets 13..48),
+> so a report of exactly 12 bytes with data[0] =3D=3D JC_INPUT_IMU_DATA pas=
+ses
+> the guard yet is read up to 37 bytes past its declared length. The
+> over-read bytes are decoded into accelerometer/gyroscope values and
+> forwarded to userspace through the "(IMU)" input device, leaking
+> driver-internal memory. data[0] and size are fully controlled by a
+> malicious or spoofed Joy-Con/Pro Controller.
+>=20
+> Receive buffers are sized to the maximum report length, so this is an
+> over-read within the allocation rather than a slab OOB, but the decoded
+> bytes still reach userspace.
+>=20
+> The sibling subcmd path in joycon_ctlr_handle_event() already bounds the
+> same cast correctly:
+>=20
+> 	if (size < sizeof(struct joycon_input_report) ||
+> 	    data[0] !=3D JC_INPUT_SUBCMD_REPLY)
+> 		break;
+>=20
+> Use the same sizeof(struct joycon_input_report) bound here.
+>=20
+> Fixes: 2af16c1f846b ("HID: nintendo: add nintendo switch controller drive=
+r")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Can Peng <pengcan@kylinos.cn>
+> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+> Assisted-by: AuditCode-AI:2026.07
 > ---
+>  drivers/hid/hid-nintendo.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+This LGTM!
 
->  drivers/thermal/imx_thermal.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-> index 5aaacbc53478..b0e88b6a9352 100644
-> --- a/drivers/thermal/imx_thermal.c
-> +++ b/drivers/thermal/imx_thermal.c
-> @@ -832,12 +832,12 @@ static int imx_thermal_runtime_resume(struct device *dev)
->  	ret = regmap_write(map, socdata->sensor_ctrl + REG_CLR,
->  			   socdata->power_down_mask);
->  	if (ret)
-> -		return ret;
-> +		goto disable_clk;
->
->  	ret = regmap_write(map, socdata->sensor_ctrl + REG_SET,
->  			   socdata->measure_temp_mask);
->  	if (ret)
-> -		return ret;
-> +		goto disable_clk;
->
->  	/*
->  	 * According to the temp sensor designers, it may require up to ~17us
-> @@ -846,6 +846,11 @@ static int imx_thermal_runtime_resume(struct device *dev)
->  	usleep_range(20, 50);
->
->  	return 0;
-> +
-> +disable_clk:
-> +	clk_disable_unprepare(data->thermal_clk);
-> +
-> +	return ret;
->  }
->
->  static const struct dev_pm_ops imx_thermal_pm_ops = {
-> --
-> 2.53.0
->
->
+Reviewed-by: Silvan Jegen <s.jegen@gmail.com>
+
+Cheers,
+Silvan
+
+>=20
+> diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
+> index e7302ec01ff1..11b5fe05acf4 100644
+> --- a/drivers/hid/hid-nintendo.c
+> +++ b/drivers/hid/hid-nintendo.c
+> @@ -2607,7 +2607,12 @@ static int joycon_ctlr_read_handler(struct joycon_=
+ctlr *ctlr, u8 *data,
+>  {
+>  	if (data[0] =3D=3D JC_INPUT_SUBCMD_REPLY || data[0] =3D=3D JC_INPUT_IMU=
+_DATA ||
+>  	    data[0] =3D=3D JC_INPUT_MCU_DATA) {
+> -		if (size >=3D 12) /* make sure it contains the input report */
+> +		/*
+> +		 * The whole struct is cast and parsed below, including the
+> +		 * IMU/subcmd union, not just the 12-byte partial header this
+> +		 * used to check for.
+> +		 */
+> +		if (size >=3D sizeof(struct joycon_input_report))
+>  			joycon_parse_report(ctlr,
+>  					    (struct joycon_input_report *)data);
+>  	}
+
+
