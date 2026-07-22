@@ -1,157 +1,62 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25A83382E1
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 06:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784701412; cv=pass; b=Gg9s1U/G9RX/5HHZ7RksFixSC3j1mI4jAL2TzynzciHJWdrVnXhkt/vlzLt4CXt8IWTKI2eAHqtVhCwOAD3bx+F3+sAZQ7zyMfbjqveAM4c1T4qlQMep3aZ0Zprk4ccF/o5ZWAxrLm0R7C0omUTEBaOy+Ta3YkoPrdu3U/DRbz8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784701412; c=relaxed/simple;
-	bh=Zi0TTWnVRjrxAgsXOkLUFjc66Q3O/SaTw7EJ09/k9t0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o/JgkwCyO3eytv44/v/3V7PljzlOqklhf2dBdUWE3RjPqhG0e+KHln5DYVUYGdIfm3qey0mC/WJTqwSokIEtr74hk9yj4HJYFNNkaNr/nXP0+Lz+7NX0x2NDCe+mWF7jVHuJ9kk/GMlT6fYjU8rHuor2b5tMkGvC8OiCPDgMljk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=opLnJ9bP; arc=pass smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96A92EBDFA;
+	Wed, 22 Jul 2026 06:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784702075; cv=none; b=I4AvJWkkQ8DTXUqZgyB03kN61vvzxpjbEmyYt9Mk9pQxOC+jkxvSH29C8S30LsXeBbashvLg+anHfjtqMThDFM4+WOoFJtIbFQYnKtA7vdisZv/ExSR27Z4e9qqvuMZjuFWcqaU1HsnNhxQ7KmVEqEfaRmXlzvNHYjAJ3w34Q4Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784702075; c=relaxed/simple;
+	bh=wRv7NwmYw4jRk4hsSlUoYVACnODYzINxW1cvx+QslGg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jA8d+BzY1gsLHZguDmnUH5z2VXilqy4s/rf+HrmqEVIVWD0pqMHfgOoMpMexJMfa3jraUj6TpePJ6vPb3B+LpycXsQFuVnpNR0qEETtuboRPNyLY/rqmPxhCJ5bLU5h5TLr6SsFXtHtQAqKcjS8fV6zwxO72X1OBTknBRRFdeg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=DIbVny+H; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="opLnJ9bP"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47f878135e0so68983f8f.2
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 23:23:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784701409; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hQkbuBJZ1DKEORU8YpA5+vjCg2gT3eTKT2TTp4rBqsV2Qt/UY2B0OgLeoPainhmUTo
-         1Lo2Xa4flL11PS0aPGHPFNZ93lnhrNsuQ0y+ZrVWYlJJY7TVsugJg2fROMJQ+vAoLzRX
-         YD169QPE63JMdrs3SmhdA/076wKdNNJB725mG3WiT33gzKhxm/gLGMvvPGT12olPSq2A
-         iMGKoRubJwRWWrOHd8jQoXHSm2UsCS8nhmQYdTfoGvHyvl2UqFH4c8kuXSto1YoFmFHT
-         WX6ofe0ZMeBpfTeA03tMzq+tTXfK09fIrrzCvVohlhLRnhYMvfeBhDLmwQb6ugAXBsHL
-         bfKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DYM9uk4RjTWm27MB5EyNDXkYKmnCgxdummGBOSonWTA=;
-        fh=DK/TXC/z/n5i+9IwmT8f5grLkL/Vt4VbItfb/GiLI/I=;
-        b=igid7mtMfwywDMDG7TgFKPnUnvxlkKNvaLLv8UqHyDhQkXuySnePZr0J0jysL6MWTI
-         4PbC5X8pDES7kaF3+4O+vKZRvnzBMsLnWWwBQatIe8jgRk/r2znLRpmmpx/ysw/RFhg5
-         ibcJis0MBuP8NxxRi9L5rCrjA78io7RiMikRsNZ2MGzry5z3TG/4vIityJyrqNQWhizF
-         EmGqt4vPuTNa/uZ422noe1bX6KJIYm3gcuj1bN/h5lpWo24y9lcD9+zkdT0cL0cp/KWb
-         w90gk6M9ETZKzSeeJK2JcZEgEv8D0JNTeV9dAWgF8D/Mnn8n4fr7OtueAVqQoLCw2YHP
-         uqNg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784701409; x=1785306209; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DYM9uk4RjTWm27MB5EyNDXkYKmnCgxdummGBOSonWTA=;
-        b=opLnJ9bPwt1V8SCf1WrchknM5TWdt4ZRDf2S9KOZJ4OO8IOKaDFM8NT5I6ox8DvXrp
-         ngTLH2hAv7cnLmrO+uxpKNu/J8C08iT6F0XkVEra0BLfK937bnVXf7US1TDQPc70ny13
-         lG7xuuHlmlAw7+DHeOom1pqg+g+cVlUpEC6GZlWpjpScXjP8wQbd8QOsq/c8g+Bq+kRf
-         3kPQ8/V2zuJjpt/mtnfGa2aurtBvqWQUgH2LvvS0RopfKzHZoyEzHxQqeLG9kIk3xyCD
-         GZHVOlSFhPfqZF3yPMPk0vFsMStLi4fYqBATbeHenb/MNYdLQmNmuUM146EscxxAm7hD
-         uOvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784701409; x=1785306209;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DYM9uk4RjTWm27MB5EyNDXkYKmnCgxdummGBOSonWTA=;
-        b=g4IcxayoBSDMhz1IahXrO8fBYunqK6sCADG0wNootKF8IdusNDVKCn1J6l49waVyf5
-         aH32y0gUCc8OL+TKQasjxHMDLyhuf9+lv7oAvnSEyi96yLN6ng9a3QJU3r1z1TZQXuzl
-         YEtTrNepkAdDkcfxey+/Klmx2+w8CJ7xAcB0ZM9J90QCmbkPXYNkEMmTm8oHLV+61w3c
-         cqIztLwJ7yvtCaLPji/57kHvxyApItNvBVRYdplWVBcWTEKhSqV2OukNQxZyaBY9qGz4
-         wXBAYuvcx02sejHd8k+ai1DAdHHdr0jXIQOlUAO/NCAR3uJcRrmgNuUfZ3X4wXcTbMtC
-         oJ3w==
-X-Gm-Message-State: AOJu0Yw/U+gTKyoKpVPCoCi4GP31qRPVnMh8J3S4PvqTdgqZug6X4lIl
-	qaYlYWw3irOrCpdLhLHfIhCg7Q1P4l3bcHFFLhJ9svxoSsYJix2z5VJDN7q2erBvV5emfrlVDji
-	d/E6rdmKa2EJjsb5Lm5wZyg7j/tl3inTFoXB0xXZW
-X-Gm-Gg: AR+sD12Z3rqN6R0iZiEaAbgXNZfbAEuWsGXxD6jGGsRzT8kO/a/mjQj+yNyXOedPx5w
-	My1l9ERJLcDIdc7kXK+Wdq2hxyKKHJlFSmKR4uDVIZmB1zp9JyNpAspRwV9mVIHvsycFmj7Wuvg
-	vM5gKx56Kmm1xEdtIPap8lqHIgIQiNiaNqHhyBqYA9z4ieayALB/+kCYUtVZOWANhj89rO611zc
-	oqgVR6ffVsD0BKdQbWLqPHtOUe9eifBk4Mju2wF3L4FngXnaEDYPb1vXmMird2zOCkuWAy3iAZv
-	ylQoId01jTOnsn6N
-X-Received: by 2002:a05:6000:41c2:b0:475:f100:360c with SMTP id
- ffacd0b85a97d-47f6234003dmr25443546f8f.59.1784701408647; Tue, 21 Jul 2026
- 23:23:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="DIbVny+H"
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
+	by mail11.truemail.it (Postfix) with ESMTPA id 21E4A225D9;
+	Wed, 22 Jul 2026 08:34:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1784702070;
+	bh=+vQ1FD9ZQF4OK8ldPTvcAbIxp0CbuhPEhUYWox1c/Xw=; h=From:To:Subject;
+	b=DIbVny+HFUcyfQrAUnz15K8VU7dQ05RLITb3HIySdiLRbRfgUMus0JeLklz6Q7Ay6
+	 fKZbUUQdr4x+EvmfZPWoQmPfBR5kfC8k/qhx3Rri3ZAlZAIAwWBmiGbDL8kHY90wGk
+	 hJEsHOLF8PymVS5HCqt0VklOCy1NGuAE/FadlJAitnFwfpT23jfJ4FNEEHadib0VUy
+	 7La4dSJJHYurnzawm6XK5R/R+THPq6xswr7/RnMYFfGIu7UOh0Aj32Y6AsJ8b8JCTn
+	 NojBpPNH4ancaTxC3jblpTtzCspCcmDDo+HBjndoktB7vMM67YC5K6kN+0NLKblsA5
+	 GqdmyQkrlJOtw==
+Date: Wed, 22 Jul 2026 08:34:26 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.6 0000/1266] 6.6.145-rc1 review
+Message-ID: <20260722063426.GA27207@francesco-nb>
+References: <20260721152441.786066624@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721152424.521567757@linuxfoundation.org> <20260721152425.635542881@linuxfoundation.org>
-In-Reply-To: <20260721152425.635542881@linuxfoundation.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 22 Jul 2026 08:23:16 +0200
-X-Gm-Features: AUfX_mxsrSdDyl3_7tKTy7_aH7RAMmHRJQ1nNTAE4JfYa1EUInn7tOh6qeIXNRE
-Message-ID: <CAH5fLgjeGuBf3DBSwRDXbWCCc1__ZmkZ4W+5F1iwhAFCc2A25A@mail.gmail.com>
-Subject: Re: [PATCH 6.1 0048/1067] rust: Kbuild: set frame-pointer llvm module
- flag for CONFIG_FRAME_POINTER
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	Miguel Ojeda <ojeda@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721152441.786066624@linuxfoundation.org>
 
-On Tue, Jul 21, 2026 at 11:08=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> 6.1-stable review patch.  If anyone has any objections, please let me kno=
-w.
->
-> ------------------
->
-> From: Alice Ryhl <aliceryhl@google.com>
->
-> commit 191f49f1e38b1c10eb44b0f967c6175c884ef7db upstream.
->
-> Due to a rustc bug, the -Cforce-frame-pointers=3Dy flag only emits the
-> frame-pointer annotation for functions, but not for the module. This
-> means that functions generated by the LLVM backend such as
-> 'asan.module_ctor' do not receive the frame-pointer annotation.
->
-> This is likely to lead to broken backtraces and may also cause issues
-> with ftrace if these features are used with functions generated by the
-> LLVM backend.
->
-> Thus, use -Zllvm_module_flag to work around this rustc bug if using a
-> rustc without the fix.
->
-> [ The fix [1] has landed for Rust 1.98.0 (expected release on
->   2026-08-20). - Miguel ]
->
-> Cc: stable@vger.kernel.org # 6.12.y and later (flag not available in pinn=
-ed Rust in older LTSs).
-> Fixes: 2f7ab1267dc9 ("Kbuild: add Rust support")
-> Link: https://github.com/rust-lang/rust/pull/156980 [1]
-> Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-> Link: https://patch.msgid.link/20260616-frame-ptr-fix-v1-1-dc6b29a631d9@g=
-oogle.com
-> [ - Adjusted Cc: stable@ as discussed.
->   - Added comment with link to the PR, similar to what we did in commit
->     ac35b5580ace ("rust: arm64: set uwtable llvm module flag for
->     CONFIG_UNWIND_TABLES").
->     - Miguel ]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  Makefile |    3 +++
->  1 file changed, 3 insertions(+)
->
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -904,6 +904,9 @@ KBUILD_CFLAGS +=3D $(call cc-disable-warni
->  ifdef CONFIG_FRAME_POINTER
->  KBUILD_CFLAGS  +=3D -fno-omit-frame-pointer -fno-optimize-sibling-calls
->  KBUILD_RUSTFLAGS +=3D -Cforce-frame-pointers=3Dy
-> +# Work around rustc bug on compilers without
-> +# https://github.com/rust-lang/rust/pull/156980.
-> +KBUILD_RUSTFLAGS +=3D $(if $(call rustc-min-version,109800),,-Zllvm_modu=
-le_flag=3Dframe-pointer:u32:2:max)
+On Tue, Jul 21, 2026 at 05:07:17PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.145 release.
+> There are 1266 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-We shouldn't backport this to 6.1 because -Zllvm_module_flag does not
-exist on the rustc version used by the 6.1 kernel.
+Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Alice
