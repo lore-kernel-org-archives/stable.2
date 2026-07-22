@@ -1,343 +1,197 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5054035C19D
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:00:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE1E33939C
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:00:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784743256; cv=none; b=NeKL5TFhA2P9QRcbxo/bcBo4vRUyw8TM1dRMRuMfnt7FdKaswPUGS9gZQk26ah9BtQSqspy46soiOyjJdKFqKkrlu3FIlRLRaP428PLOblfO6uts1ndFddx2MDz3lB1+OMY+ZDqJy57NNsj64SeSuMusO2qgfQR8w5CN4ReCHp8=
+	t=1784743258; cv=none; b=HPNHuiwzkvZbHPTORzec41CrskUjCw97lzJjwZGNvUoeoNFRY5OWpaQqLRixH2cuVD0MzsTtb/zLqJkqYCDmkLubZGVU9ENGoGNeq3yFZgqgieUCGevkzVEA2VR0jL9EEtjj2K+JYTVr1TNOE/gTqvqVSzsMuOksCy7sOEJJOBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784743256; c=relaxed/simple;
-	bh=/1JSyiYIDUKxqVDlJE/hoOKz5p5jfshyR/aoyKiSdSY=;
+	s=arc-20240116; t=1784743258; c=relaxed/simple;
+	bh=+JgoYPdUS9pAPFer3Dly2MHTo6NqfIgX3hIkdIPd0MU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H/ii/KmblZ2Kgx0WoyYKsws7VTpaCL1okxldAgftM7xZMGpdBbiwjjuj4s1/edE8/tln6U3bs/lSQcnoWhzysYAyVs3Q+C7ARIaF02RwryLcJ5ZlSxnIM4ReSQJSP/1yFgmmzfKR6s4S3zN6P04/d12ppPDWyuK1XbGpLAFAMqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4OyeF/Q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=a9HcDnC1HnxU7biDhyqKCMwtCdjixDUY19XtQdz9A4RpqdFO6AxOp8Zo7Txrb1Bc395WyAS54xxuvl2HljoXv85yPnb4AAjFx1qUGT8E0H6tT/JcbyK5hiViFgFnqsGZhrzFBoXcea1/eE3zQJHDNiIpAlXlOFWthlrpxWe0fZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FbYU+FUt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4OyeF/Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705B71F000E9;
-	Wed, 22 Jul 2026 18:00:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FbYU+FUt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED9BB1F00A3A;
+	Wed, 22 Jul 2026 18:00:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784743254;
-	bh=UDM8BnwfuKCQpzvFbfS8F3q/pYWpxV3DAtV11dq9fDI=;
+	s=k20260515; t=1784743256;
+	bh=H7cV4NEtEWHwQhoOy+7vjzBdNtylg+KGiuFP0AI80F0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M4OyeF/QawXQ9SYGWxo5wNXdN0Jqn6wcJogT5Jlwg5dDJr8KzDN7jqAuXg+8UTN9a
-	 2wF1pckmZjTJeS1TdbuFn9AyQJlSGKDqRopoTAPrVj61yqyaVSG3JDp2PU1RSUA5x3
-	 g8EwL9teDLvT5DvTalCr0DD4wNtoFO3qF8hmc5IqtbMCLj/Oy4S/PVv0aD4j+6jV0H
-	 v5KOm8cFzGmNBDfbfDdcqkXHWtfko/n6Es//trCbBUgiDt2abpeCBrbWn8f7ER1QQF
-	 s1LFsL3XklOZg7QFmXuYkrA9yHSn6NWqiYXGFS/c3DJ1cQpskSCsfZU+yghVPFT2MB
-	 PNGECc+o89ZfQ==
+	b=FbYU+FUtnRo8wN/vTMNpQqObZ+oRki5W26wHlJtm40toVTovNmwDZEYip7m67oFhD
+	 v403ZJqqmVOBwBxG8QeUf6O2kLvwoq/G3IswyRv7eRZniwegoiewEGdZhuBt5oHjWH
+	 HxtrQdVG0/YPmSH0yW9L9dhK2uS5nfkcDROY3+QpU07/5NLos1P6bDyqUAapsK6pFI
+	 4yLeG+IyeZr1BnWuWFzlUffSuA6wVeqHDNEn2ZhPJVs+zw5BwoACz9MfhhfLTVYnUO
+	 0GrhDbupnOr4qJ45JQ9j1nAhfTBH+lPfvcWj0kVdL9fxVjs322h9hDHYCC9N1Nm5A9
+	 5BWlFm1gBXs7w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sheng Zhao <sheng.zhao@bytedance.com>,
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] vduse: Use fixed 4KB bounce pages for non-4KB page size
-Date: Wed, 22 Jul 2026 14:00:49 -0400
-Message-ID: <20260722180052.2184339-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] vduse: take out allocations from vduse_dev_alloc_coherent
+Date: Wed, 22 Jul 2026 14:00:51 -0400
+Message-ID: <20260722180052.2184339-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072041-rectal-mammogram-740b@gregkh>
+In-Reply-To: <20260722180052.2184339-1-sashal@kernel.org>
 References: <2026072041-rectal-mammogram-740b@gregkh>
+ <20260722180052.2184339-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Sheng Zhao <sheng.zhao@bytedance.com>
+From: Eugenio Pérez <eperezma@redhat.com>
 
-[ Upstream commit 3fc3068e7247c94dec08e93fea422a1bb649bfe5 ]
+[ Upstream commit 489d76520612abf9a4ede4344349105406c91a73 ]
 
-The allocation granularity of bounce pages is PAGE_SIZE. This may cause
-even small IO requests to occupy an entire bounce page exclusively. The
-kind of memory waste will be more significant when PAGE_SIZE is larger
-than 4KB (e.g. arm64 with 64KB pages).
+The function vduse_dev_alloc_coherent will be called under rwlock in
+next patches.  Make it out of the lock to avoid increasing its fail
+rate.
 
-So, optimize it by using fixed 4KB bounce maps and iova allocation
-granularity. A single IO request occupies at least a 4KB bounce page
-instead of the entire memory page of PAGE_SIZE.
-
-Signed-off-by: Sheng Zhao <sheng.zhao@bytedance.com>
-Message-Id: <20250925113516.60305-1-sheng.zhao@bytedance.com>
+Acked-by: Jason Wang <jasowang@redhat.com>
+Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-Id: <20260119143306.1818855-10-eperezma@redhat.com>
 Stable-dep-of: 9c1523803445 ("VDUSE: avoid leaking information to userspace")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vdpa/vdpa_user/iova_domain.c | 136 +++++++++++++++++++--------
- drivers/vdpa/vdpa_user/iova_domain.h |   5 +
- 2 files changed, 102 insertions(+), 39 deletions(-)
+ drivers/vdpa/vdpa_user/iova_domain.c | 24 +++++++-----------------
+ drivers/vdpa/vdpa_user/iova_domain.h |  5 ++---
+ drivers/vdpa/vdpa_user/vduse_dev.c   | 14 ++++++++++----
+ 3 files changed, 19 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
-index 5e4a77b9bae6be..4e8fa3f7af5f94 100644
+index b686561be40031..2b1ee3f1ba6c92 100644
 --- a/drivers/vdpa/vdpa_user/iova_domain.c
 +++ b/drivers/vdpa/vdpa_user/iova_domain.c
-@@ -103,19 +103,38 @@ void vduse_domain_clear_map(struct vduse_iova_domain *domain,
- static int vduse_domain_map_bounce_page(struct vduse_iova_domain *domain,
- 					 u64 iova, u64 size, u64 paddr)
- {
--	struct vduse_bounce_map *map;
-+	struct vduse_bounce_map *map, *head_map;
-+	struct page *tmp_page;
- 	u64 last = iova + size - 1;
- 
- 	while (iova <= last) {
--		map = &domain->bounce_maps[iova >> PAGE_SHIFT];
-+		/*
-+		 * When PAGE_SIZE is larger than 4KB, multiple adjacent bounce_maps will
-+		 * point to the same memory page of PAGE_SIZE. Since bounce_maps originate
-+		 * from IO requests, we may not be able to guarantee that the orig_phys
-+		 * values of all IO requests within the same 64KB memory page are contiguous.
-+		 * Therefore, we need to store them separately.
-+		 *
-+		 * Bounce pages are allocated on demand. As a result, it may occur that
-+		 * multiple bounce pages corresponding to the same 64KB memory page attempt
-+		 * to allocate memory simultaneously, so we use cmpxchg to handle this
-+		 * concurrency.
-+		 */
-+		map = &domain->bounce_maps[iova >> BOUNCE_MAP_SHIFT];
- 		if (!map->bounce_page) {
--			map->bounce_page = alloc_page(GFP_ATOMIC);
--			if (!map->bounce_page)
--				return -ENOMEM;
-+			head_map = &domain->bounce_maps[(iova & PAGE_MASK) >> BOUNCE_MAP_SHIFT];
-+			if (!head_map->bounce_page) {
-+				tmp_page = alloc_page(GFP_ATOMIC);
-+				if (!tmp_page)
-+					return -ENOMEM;
-+				if (cmpxchg(&head_map->bounce_page, NULL, tmp_page))
-+					__free_page(tmp_page);
-+			}
-+			map->bounce_page = head_map->bounce_page;
- 		}
- 		map->orig_phys = paddr;
--		paddr += PAGE_SIZE;
--		iova += PAGE_SIZE;
-+		paddr += BOUNCE_MAP_SIZE;
-+		iova += BOUNCE_MAP_SIZE;
- 	}
- 	return 0;
- }
-@@ -127,12 +146,17 @@ static void vduse_domain_unmap_bounce_page(struct vduse_iova_domain *domain,
- 	u64 last = iova + size - 1;
- 
- 	while (iova <= last) {
--		map = &domain->bounce_maps[iova >> PAGE_SHIFT];
-+		map = &domain->bounce_maps[iova >> BOUNCE_MAP_SHIFT];
- 		map->orig_phys = INVALID_PHYS_ADDR;
--		iova += PAGE_SIZE;
-+		iova += BOUNCE_MAP_SIZE;
- 	}
+@@ -479,17 +479,15 @@ void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
+ 	vduse_domain_free_iova(iovad, dma_addr, size);
  }
  
-+static unsigned int offset_in_bounce_page(dma_addr_t addr)
-+{
-+	return (addr & ~BOUNCE_MAP_MASK);
-+}
-+
- static void do_bounce(phys_addr_t orig, void *addr, size_t size,
- 		      enum dma_data_direction dir)
+-void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
+-				  size_t size, dma_addr_t *dma_addr,
+-				  gfp_t flag, unsigned long attrs)
++dma_addr_t vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
++				       size_t size, void *orig)
  {
-@@ -162,7 +186,7 @@ static void vduse_domain_bounce(struct vduse_iova_domain *domain,
- 				enum dma_data_direction dir)
- {
- 	struct vduse_bounce_map *map;
--	unsigned int offset;
-+	unsigned int offset, head_offset;
- 	void *addr;
- 	size_t sz;
+ 	struct iova_domain *iovad = &domain->consistent_iovad;
+ 	unsigned long limit = domain->iova_limit;
+ 	dma_addr_t iova = vduse_domain_alloc_iova(iovad, size, limit);
+-	void *orig = alloc_pages_exact(size, flag);
  
-@@ -170,16 +194,17 @@ static void vduse_domain_bounce(struct vduse_iova_domain *domain,
- 		return;
+-	if (!iova || !orig)
+-		goto err;
++	if (!iova)
++		return DMA_MAPPING_ERROR;
  
- 	while (size) {
--		map = &domain->bounce_maps[iova >> PAGE_SHIFT];
--		offset = offset_in_page(iova);
--		sz = min_t(size_t, PAGE_SIZE - offset, size);
-+		map = &domain->bounce_maps[iova >> BOUNCE_MAP_SHIFT];
-+		head_offset = offset_in_page(iova);
-+		offset = offset_in_bounce_page(iova);
-+		sz = min_t(size_t, BOUNCE_MAP_SIZE - offset, size);
- 
- 		if (WARN_ON(!map->bounce_page ||
- 			    map->orig_phys == INVALID_PHYS_ADDR))
- 			return;
- 
- 		addr = kmap_local_page(map->bounce_page);
--		do_bounce(map->orig_phys + offset, addr + offset, sz, dir);
-+		do_bounce(map->orig_phys + offset, addr + head_offset, sz, dir);
- 		kunmap_local(addr);
- 		size -= sz;
- 		iova += sz;
-@@ -214,7 +239,7 @@ vduse_domain_get_bounce_page(struct vduse_iova_domain *domain, u64 iova)
- 	struct page *page = NULL;
- 
- 	read_lock(&domain->bounce_lock);
--	map = &domain->bounce_maps[iova >> PAGE_SHIFT];
-+	map = &domain->bounce_maps[iova >> BOUNCE_MAP_SHIFT];
- 	if (domain->user_bounce_pages || !map->bounce_page)
- 		goto out;
- 
-@@ -232,7 +257,7 @@ vduse_domain_free_kernel_bounce_pages(struct vduse_iova_domain *domain)
- 	struct vduse_bounce_map *map;
- 	unsigned long pfn, bounce_pfns;
- 
--	bounce_pfns = domain->bounce_size >> PAGE_SHIFT;
-+	bounce_pfns = domain->bounce_size >> BOUNCE_MAP_SHIFT;
- 
- 	for (pfn = 0; pfn < bounce_pfns; pfn++) {
- 		map = &domain->bounce_maps[pfn];
-@@ -242,7 +267,8 @@ vduse_domain_free_kernel_bounce_pages(struct vduse_iova_domain *domain)
- 		if (!map->bounce_page)
- 			continue;
- 
--		__free_page(map->bounce_page);
-+		if (!((pfn << BOUNCE_MAP_SHIFT) & ~PAGE_MASK))
-+			__free_page(map->bounce_page);
- 		map->bounce_page = NULL;
+ 	spin_lock(&domain->iotlb_lock);
+ 	if (vduse_iotlb_add_range(domain, (u64)iova, (u64)iova + size - 1,
+@@ -500,17 +498,12 @@ void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
  	}
+ 	spin_unlock(&domain->iotlb_lock);
+ 
+-	*dma_addr = iova;
++	return iova;
+ 
+-	return orig;
+ err:
+-	*dma_addr = DMA_MAPPING_ERROR;
+-	if (orig)
+-		free_pages_exact(orig, size);
+-	if (iova)
+-		vduse_domain_free_iova(iovad, iova, size);
++	vduse_domain_free_iova(iovad, iova, size);
+ 
+-	return NULL;
++	return DMA_MAPPING_ERROR;
  }
-@@ -250,8 +276,12 @@ vduse_domain_free_kernel_bounce_pages(struct vduse_iova_domain *domain)
- int vduse_domain_add_user_bounce_pages(struct vduse_iova_domain *domain,
- 				       struct page **pages, int count)
- {
--	struct vduse_bounce_map *map;
--	int i, ret;
-+	struct vduse_bounce_map *map, *head_map;
-+	int i, j, ret;
-+	int inner_pages = PAGE_SIZE / BOUNCE_MAP_SIZE;
-+	int bounce_pfns = domain->bounce_size >> BOUNCE_MAP_SHIFT;
-+	struct page *head_page = NULL;
-+	bool need_copy;
  
- 	/* Now we don't support partial mapping */
- 	if (count != (domain->bounce_size >> PAGE_SHIFT))
-@@ -263,17 +293,25 @@ int vduse_domain_add_user_bounce_pages(struct vduse_iova_domain *domain,
- 		goto out;
+ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+@@ -519,7 +512,6 @@ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+ 	struct iova_domain *iovad = &domain->consistent_iovad;
+ 	struct vhost_iotlb_map *map;
+ 	struct vdpa_map_file *map_file;
+-	phys_addr_t pa;
  
- 	for (i = 0; i < count; i++) {
--		map = &domain->bounce_maps[i];
--		if (map->bounce_page) {
-+		need_copy = false;
-+		head_map = &domain->bounce_maps[(i * inner_pages)];
-+		head_page = head_map->bounce_page;
-+		for (j = 0; j < inner_pages; j++) {
-+			if ((i * inner_pages + j) >= bounce_pfns)
-+				break;
-+			map = &domain->bounce_maps[(i * inner_pages + j)];
- 			/* Copy kernel page to user page if it's in use */
--			if (map->orig_phys != INVALID_PHYS_ADDR)
--				memcpy_to_page(pages[i], 0,
--					       page_address(map->bounce_page),
--					       PAGE_SIZE);
--			__free_page(map->bounce_page);
-+			if ((head_page) && (map->orig_phys != INVALID_PHYS_ADDR))
-+				need_copy = true;
-+			map->bounce_page = pages[i];
- 		}
--		map->bounce_page = pages[i];
- 		get_page(pages[i]);
-+		if ((head_page) && (need_copy))
-+			memcpy_to_page(pages[i], 0,
-+				       page_address(head_page),
-+				       PAGE_SIZE);
-+		if (head_page)
-+			__free_page(head_page);
- 	}
- 	domain->user_bounce_pages = true;
- 	ret = 0;
-@@ -285,8 +323,12 @@ int vduse_domain_add_user_bounce_pages(struct vduse_iova_domain *domain,
+ 	spin_lock(&domain->iotlb_lock);
+ 	map = vhost_iotlb_itree_first(domain->iotlb, (u64)dma_addr,
+@@ -531,12 +523,10 @@ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+ 	map_file = (struct vdpa_map_file *)map->opaque;
+ 	fput(map_file->file);
+ 	kfree(map_file);
+-	pa = map->addr;
+ 	vhost_iotlb_map_free(domain->iotlb, map);
+ 	spin_unlock(&domain->iotlb_lock);
  
- void vduse_domain_remove_user_bounce_pages(struct vduse_iova_domain *domain)
- {
--	struct vduse_bounce_map *map;
--	unsigned long i, count;
-+	struct vduse_bounce_map *map, *head_map;
-+	unsigned long i, j, count;
-+	int inner_pages = PAGE_SIZE / BOUNCE_MAP_SIZE;
-+	int bounce_pfns = domain->bounce_size >> BOUNCE_MAP_SHIFT;
-+	struct page *head_page = NULL;
-+	bool need_copy;
+ 	vduse_domain_free_iova(iovad, dma_addr, size);
+-	free_pages_exact(phys_to_virt(pa), size);
+ }
  
- 	write_lock(&domain->bounce_lock);
- 	if (!domain->user_bounce_pages)
-@@ -296,18 +338,34 @@ void vduse_domain_remove_user_bounce_pages(struct vduse_iova_domain *domain)
- 	for (i = 0; i < count; i++) {
- 		struct page *page = NULL;
- 
--		map = &domain->bounce_maps[i];
--		if (WARN_ON(!map->bounce_page))
-+		need_copy = false;
-+		head_map = &domain->bounce_maps[(i * inner_pages)];
-+		if (WARN_ON(!head_map->bounce_page))
- 			continue;
--
--		/* Copy user page to kernel page if it's in use */
--		if (map->orig_phys != INVALID_PHYS_ADDR) {
-+		head_page = head_map->bounce_page;
-+
-+		for (j = 0; j < inner_pages; j++) {
-+			if ((i * inner_pages + j) >= bounce_pfns)
-+				break;
-+			map = &domain->bounce_maps[(i * inner_pages + j)];
-+			if (WARN_ON(!map->bounce_page))
-+				continue;
-+			/* Copy user page to kernel page if it's in use */
-+			if (map->orig_phys != INVALID_PHYS_ADDR)
-+				need_copy = true;
-+		}
-+		if (need_copy) {
- 			page = alloc_page(GFP_ATOMIC | __GFP_NOFAIL);
- 			memcpy_from_page(page_address(page),
--					 map->bounce_page, 0, PAGE_SIZE);
-+					 head_page, 0, PAGE_SIZE);
-+		}
-+		for (j = 0; j < inner_pages; j++) {
-+			if ((i * inner_pages + j) >= bounce_pfns)
-+				break;
-+			map = &domain->bounce_maps[(i * inner_pages + j)];
-+			map->bounce_page = page;
- 		}
--		put_page(map->bounce_page);
--		map->bounce_page = page;
-+		put_page(head_page);
- 	}
- 	domain->user_bounce_pages = false;
- out:
-@@ -557,7 +615,7 @@ vduse_domain_create(unsigned long iova_limit, size_t bounce_size)
- 	unsigned long pfn, bounce_pfns;
- 	int ret;
- 
--	bounce_pfns = PAGE_ALIGN(bounce_size) >> PAGE_SHIFT;
-+	bounce_pfns = PAGE_ALIGN(bounce_size) >> BOUNCE_MAP_SHIFT;
- 	if (iova_limit <= bounce_size)
- 		return NULL;
- 
-@@ -589,7 +647,7 @@ vduse_domain_create(unsigned long iova_limit, size_t bounce_size)
- 	rwlock_init(&domain->bounce_lock);
- 	spin_lock_init(&domain->iotlb_lock);
- 	init_iova_domain(&domain->stream_iovad,
--			PAGE_SIZE, IOVA_START_PFN);
-+			BOUNCE_MAP_SIZE, IOVA_START_PFN);
- 	ret = iova_domain_init_rcaches(&domain->stream_iovad);
- 	if (ret)
- 		goto err_iovad_stream;
+ static vm_fault_t vduse_domain_mmap_fault(struct vm_fault *vmf)
 diff --git a/drivers/vdpa/vdpa_user/iova_domain.h b/drivers/vdpa/vdpa_user/iova_domain.h
-index 173e979b84a937..b08946be6f4a08 100644
+index b07dd9eff1056a..14b4370ce93963 100644
 --- a/drivers/vdpa/vdpa_user/iova_domain.h
 +++ b/drivers/vdpa/vdpa_user/iova_domain.h
-@@ -19,6 +19,11 @@
+@@ -58,9 +58,8 @@ void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
+ 			     dma_addr_t dma_addr, size_t size,
+ 			     enum dma_data_direction dir, unsigned long attrs);
  
- #define INVALID_PHYS_ADDR (~(phys_addr_t)0)
+-void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
+-				  size_t size, dma_addr_t *dma_addr,
+-				  gfp_t flag, unsigned long attrs);
++dma_addr_t vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
++				       size_t size, void *orig);
  
-+#define BOUNCE_MAP_SHIFT	12
-+#define BOUNCE_MAP_SIZE	(1 << BOUNCE_MAP_SHIFT)
-+#define BOUNCE_MAP_MASK	(~(BOUNCE_MAP_SIZE - 1))
-+#define BOUNCE_MAP_ALIGN(addr)	(((addr) + BOUNCE_MAP_SIZE - 1) & ~(BOUNCE_MAP_SIZE - 1))
+ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+ 				dma_addr_t dma_addr, unsigned long attrs);
+diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
+index ab6045d6154f3f..f576e50c7ae8da 100644
+--- a/drivers/vdpa/vdpa_user/vduse_dev.c
++++ b/drivers/vdpa/vdpa_user/vduse_dev.c
+@@ -828,18 +828,23 @@ static void *vduse_dev_alloc_coherent(struct device *dev, size_t size,
+ {
+ 	struct vduse_dev *vdev = dev_to_vduse(dev);
+ 	struct vduse_iova_domain *domain = vdev->domain;
+-	unsigned long iova;
+ 	void *addr;
+ 
+ 	*dma_addr = DMA_MAPPING_ERROR;
+-	addr = vduse_domain_alloc_coherent(domain, size,
+-				(dma_addr_t *)&iova, flag, attrs);
 +
- struct vduse_bounce_map {
- 	struct page *bounce_page;
- 	u64 orig_phys;
++	addr = alloc_pages_exact(size, flag);
+ 	if (!addr)
+ 		return NULL;
+ 
+-	*dma_addr = (dma_addr_t)iova;
++	*dma_addr = vduse_domain_alloc_coherent(domain, size, addr);
++	if (*dma_addr == DMA_MAPPING_ERROR)
++		goto err;
+ 
+ 	return addr;
++
++err:
++	free_pages_exact(addr, size);
++	return NULL;
+ }
+ 
+ static void vduse_dev_free_coherent(struct device *dev, size_t size,
+@@ -850,6 +855,7 @@ static void vduse_dev_free_coherent(struct device *dev, size_t size,
+ 	struct vduse_iova_domain *domain = vdev->domain;
+ 
+ 	vduse_domain_free_coherent(domain, size, dma_addr, attrs);
++	free_pages_exact(vaddr, size);
+ }
+ 
+ static size_t vduse_dev_max_mapping_size(struct device *dev)
 -- 
 2.53.0
 
