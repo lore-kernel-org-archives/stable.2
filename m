@@ -1,168 +1,251 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88BF4ADD88
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 09:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784714230; cv=none; b=Tzv0DP/On0fJdEiJJTP9NKyfouEbfVeWFMeXEo4QpePLYaVe6J9aQcOaJ0EFa1Ok0foSBDRj34e11fPtPDIi4re/NmSYXTnRsrRYvo2cjGiY1GhYSAsODKRdytwE/ifTwgEQvjx3f1eeuNuicpEal60ok7hnXI2sdolfcuOl2Kc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784714230; c=relaxed/simple;
-	bh=3pH63PZrNIrrK9dHFELvurvMG28vzwC0HG3QJj/W1Eg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xz35XZaMgOWM1r8HXPgr8ePbE8BT/PMJLQmvN+xveg8R0R4q3mqKJ8PiLMTq4a94fWGWm2p6qxXkBB6IteWQRquzQMB62/KQHb9FGSHtYcnewK/ZskyW2tXROV6pKpi4lY4uBtiQyg4ZBOwEckg265aLXAI4G5PNUs05zRE9ZZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lN0Xl8JT; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D8B4A13BE;
+	Wed, 22 Jul 2026 09:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784714355; cv=fail; b=DUzYgldUQBGSU9vbsm5AWpBR+7By5CRmlmREASpRr0f9W+63q7uTQDUQQzSSR9PutvLDOeRP/3LpOwPVZpynr5KnuPvMX/HYd7/7Ioumj/cOMKn4iytUDujsYs3Veg28/V8UK9+qwid6iuQP/FiKtgTFsdTc0DzYs/bD+kTKm+w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784714355; c=relaxed/simple;
+	bh=5q4kfjizm+XCQTT/qhM2eOnPBsWZnV9yR8IAzuC0L2Q=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qeIJQPP++jjMqdBvGfTXmT38ZCyTJx210ykhbB4z/lUOiY76Q5bAeqP+Q8n3f8n/8rz709Bv7AXfnxzwm8EbfuKmzP1+lTWGeJveL51icttemooBvR3wN6A+iTuhdy0nk2UrDl5T+zsVDQ9ekjH/7mFMuR5Gh7mU+rxmxFggk7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zInd2DDI; arc=fail smtp.client-ip=52.101.201.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lN0Xl8JT"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38dc69c74b8so9973387a91.0
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 02:57:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784714226; x=1785319026; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qlo6v/j1mktOqnKmy44ulbYNPMM7z5pnpSzY1f8OpC4=;
-        b=lN0Xl8JTQnIZs26ANuUHuQR2zaqnqrM3lq6CItENpC9dBlq8Lx/ZEx6HWGC3EWh2je
-         KZ9skkRtFPt9FxRQ9Uj85cB1VvLkFUnsDyqz8bCCOwrjJk6+3M3Tr2iUrxKxZd85kRtV
-         uZW4GwhGRYRBsYckndlj1i/oIckJ1Bc7P4x+6TLSf1BDKafDMPMXeQBtpu0v4H4+0OxL
-         Amlkvb+ZOfif6c5VUZnKnRpXnfmqhDUp5aQm9vpo/ruAeKJUpnosHWrCSQ1yjxZcMR7N
-         61mr2AB+ehChT1I4zlM7QA3s4p1GPtslR0a+sktqQSitNbq567HnuD0Sy9SrzaG8Fvll
-         cOoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784714226; x=1785319026;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qlo6v/j1mktOqnKmy44ulbYNPMM7z5pnpSzY1f8OpC4=;
-        b=rGHPSdTA8gAhPpZgs7ydiv7z6wI9Csls5f37bpFCPJBP5qS4zPcvRdQJTcG1bh4DSF
-         1tOPkgo8Gr6+/r+6wpkGWDiPobq78aLrHx0umly6YaLiAbyECpxesdjWdTJLxZ2rljK+
-         Xq59s7Q2SbkCQplZe6MrugZtjSm3hFmpo7pBIQLobTKToAf2sJyc9Wm3XHafcfA0alyj
-         c+MOdcFkM36oxoKG+p4TM796v0eOAqFwT+rDilfkIrFxYJuY7tZBzoeEr9yokzHTS8Xh
-         DjRugOP+XCDRLlZQ8vlds1HnUtDvFREze9HdqY1FwAc/W92U+4vGcolw8T8kZ79cusTa
-         5Bwg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2pgkjQUM4kknPUXzvwCp/jILedwZXnQ9LlZ6NReuk+wLS9AOZczcUkdke59WrHAipleKdAVw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0MuP7WgWigToUAhBSyKRIQANKl9r2KXnyUwpivCU3oJe4DSPS
-	yJVf0WIUU9qHxbF8UjfmXD0e81WqYTNMtU2S5XM3T68Xwc9ob9+wZKsF
-X-Gm-Gg: AR+sD118I48JkLCPGl/v4VGY8+YwtHwyClh9OnEAOXTwSnob4I1mYbHwfmAFslv0ZZT
-	IwR27CogHgloNoo91vGKChnUfoGd25ViUxCmJJi7pkbzSvqQJfr0+EBWkFubPEp1aJNH646/qEo
-	h6oPPsEfhp9sNjvlSv4adeDt0w0kPZQfqRbgV1SzfYTLZAfSN/eAbpJ+iS0MueiRda1+zpak3z6
-	6xKyc7EMwk1Ww/Qj9ncN3CKJ2SgELnEprgjKkIRLXsvbOJIOxROJhdW33fnEUI5tjoAsPwbxxkO
-	LDaYdmjEPXDa4XJqXJd4brOhzbBFh4JGq0tsIDvqSMxs/x64Xj8s4Zvn6dGjSwBaEAUEIr3cVIc
-	pZwYUhJrZMEaiAU5u68zWUM9rGgRz6Cw340qxxmjElH40wKqwAFmdarE8FQGsMPMWhA/dA9THrn
-	5ANnS/AHvODwtBxWaYzWsQAHI56lbhtlsP/AGeeBUZFBEEZKSpN9O8
-X-Received: by 2002:a17:90b:2890:b0:36d:7b62:4767 with SMTP id 98e67ed59e1d1-38e4b434f04mr22899707a91.5.1784714226352;
-        Wed, 22 Jul 2026 02:57:06 -0700 (PDT)
-Received: from DESKTOP-L3Q0GIV.localdomain ([203.230.195.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38eab3dbcacsm572378a91.3.2026.07.22.02.57.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 02:57:05 -0700 (PDT)
-From: Sangho Lee <kudo3228@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: Sangho Lee <kudo3228@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] romfs: reject directory entry cycles
-Date: Wed, 22 Jul 2026 18:57:02 +0900
-Message-ID: <20260722095702.1382671-1-kudo3228@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zInd2DDI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wVENGY3576ZbQYQAfzsMrQlbCjJ2QMuAs2MBoR65SORWzRWsYRHIlrf6F9ifbULVFss73fNOpB5/yffrlBKahtx2N8jPiUF9dP//LdFJhbdRUnDZfnD4N/k7IXBm1RXV1LLT69mbOV1VBABWFSE/CU97pdGMGSpA5m/OahDDD3dHj76f5L0JsXGdM4WhHbe0xpHE3metaSnGkLSLSZjN93wxJtwUnFogytup6R3MJsECTuBUa5yqq20GWsROVeb/t31nGLFDanli19/hg2HsFCutNRnIxxnc7BWhk9srwPPmHBBtielHO3buj+lu9NY56iEPer9UudD+Dm4+3yCOzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dWePdtTu7JA4JODm0gw9vd4vNZ83H2W2yR419H86W2A=;
+ b=MeE8jFJkV67K9/2V5Zmvqs1kRmsu4jvrcPNt7vfnBJeYyL5rMzcMtijwavKLhrO24i8RDRT/8sA6gyxkJifKS6LUxPqKRmICGFaKSICo3owDQQ/Vvy+APHdGTJyfuiqerPGqAwZ0GvH9um2kWRUwabbGQMFMxRSL+5F1ORxeqrB0R3ZEQEFF61cJ2iJptS142Aa4/KxkNlpRyhba3SY3sAUMfftpZL6x0yAljODI2AbrPeoYzhyiGUGldAsVTwlrtNzD7RGuVFw535DbhLRxZYuZvEsat3JszGFGS5GhkXZ/5/wEWva5ZTxhFvb1dAujKS2gAuV70vhDthsnHggqBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dWePdtTu7JA4JODm0gw9vd4vNZ83H2W2yR419H86W2A=;
+ b=zInd2DDIIZe9SkETPWwt4AhEYgZVWcdQgU2YiAdVkD8RyvRtkCBZYvQW+tYCGMiVUUc8oRxwYjQVNNwNF3cfVuuv98aaEm66zaHk4A2zd56kBmdn4JfY2jVyj8O0WzIAkyN5V3Na1h8sVNv321mxMqawTCKNDYq5LxkfGeRAkBA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by PH0PR12MB5605.namprd12.prod.outlook.com (2603:10b6:510:129::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 09:59:10 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 09:59:10 +0000
+Message-ID: <42359a5d-29ca-4001-a32a-7ef14fafb643@amd.com>
+Date: Wed, 22 Jul 2026 15:28:58 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>,
+ Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
+ <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+ <92e3c9210c4038969b24c7b0f3df0a998587ff4c.camel@linux.intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <92e3c9210c4038969b24c7b0f3df0a998587ff4c.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0167.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1cf::8) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|PH0PR12MB5605:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4018040-8971-4567-f2ce-08dee7d7e03e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|4143699003|11063799006|56012099006|10067099003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	qtkPWafDbuP0p0K9gBcApDj3+niNWbx6nKli7Rlv2KzVAoNSDZoZ4N9FQQwxooIOY0KeZbPrv2AuzqDg2u9EcU20bzu/JduvKFgKAPbid39Hg0qxlKQ106QynG9tEcwAq8CW+PFDGQF5OxC8fsA2UR48ZfQB5CIe6UAgL7dwzQBBBu8uuwef2QwnqlF2/rTltNnqREHE5UtLtLcLQOhOMHjjjP1PhdfU/KbwnbyV0b4KfNi6gOe702O4Mubw+TYc/Zv/u0J7UJeJIFvkpbQZDfsvnjtZQYix0Z+E1jgqXk8H0dIN7Nt100rxD4cCcE+zd4xl3iS/976FzkaD8hz8VZToc+2FJbm+7kK5nRnS1HrOl7TwzFuw9SdP1GDE2jl0iUfCSm+zfuFMrFy7UYrHxVmMKtAjjyoIh8ltZ9r+afG05V7tfEQIp2mPc556PH/odgklHcGiJ7Cll5A06WscWf4M7i63UfHWfBkQbk2Hb4DmBtoBRV3k6aLFdqZF2pGazQV0wERxBbpJssv71dr5tuAMJeJBzW+W2ZSPj2+e+orY+csyKss25v/jFKgLhyGDYyMHKJeMoyz3UFWQbSg6tsZv3W3UhqfweFWcpaFIUGM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5039.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(4143699003)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b0lSYWMrbFNoKys5M01sRy9lemJucnprZ214WngwZGFYRm16cnRxSVFXZlZ5?=
+ =?utf-8?B?MmtzSEJhQTE2dXBOSXdYcjBlT05WeWhrWEZhR2h4U2Q2Mks0S21iaG55K3hD?=
+ =?utf-8?B?bVBHSmt5UDMvOExSeVE0SVFIRW54clhCbkIyTmJUUkFnYkdoMTVLVXhVKzkr?=
+ =?utf-8?B?N1ViUW16bWxFUXYwWjNpYXhpT3IwSVRYSHhKblB3OEpMMzdMaDFxTXBuMURo?=
+ =?utf-8?B?QUY3QkkydHlnQkJEMUZYSUNlSXZMS1ZvTEZvSjJBTEhGaXQvVkdsaEszZTJO?=
+ =?utf-8?B?SEtpNzNnS1JaYnBaaXBVbW0rYnU2dmcrUUhhVmlYY0JZTVZBS0xsTXpmZW5U?=
+ =?utf-8?B?K29XeFhXVXA0ZVBXWkIzaC93WnFRdW1GRDNnTzdKZjFzWlp0M0lvd0FFbnpr?=
+ =?utf-8?B?QUVZR0ZTTmJRTFRZWVp6ait5aTFjTERyekppVnNYUTVKeW5RWVpUL2FQalFD?=
+ =?utf-8?B?Q01GaURZZlJoanRaQXVlUWE1cGdrbVlha2oxUXMyRnVkaVdaQm51UEdOYklR?=
+ =?utf-8?B?UTUwMkZuRWtBTGU3eDhYTjFYc3dKeE5lVUZPd2ZJMVZaZXBEZ2cwS2FFRGhs?=
+ =?utf-8?B?SEFMWGhOUGY5ZnJpT2xLcVZMc2hoU0pya0JiaVUxbjV3L2I3NS9OR0VEbnpz?=
+ =?utf-8?B?ZitiODVHeWVWMFYwazhrZFlSNXRnakljSFpkT203WmczRFUzZlB0bGlXNlJZ?=
+ =?utf-8?B?ekNSQXFNOVpJeTloc2ZaeTIvekFWOHljdkNPUVNjZWJtWVF6RXduaFNoUUNG?=
+ =?utf-8?B?dTB3RWRJeXhad3FyRWVyRVhxNmtvcVIyV0JObEZNV0lYNnRvTWVEOTNFSVNp?=
+ =?utf-8?B?dGd5WUw4TlJYYnVuclUxU3ZGSE9mY1Bwa3l3NDBON1l3VzBXSVlQQmZXMyti?=
+ =?utf-8?B?MXh6b1RMWEI3RjRNbnhIZjIyenBZM3hPdUxuMEpwSVBnaFdmN0MwNVVicXZn?=
+ =?utf-8?B?ek4wb2NsenVqUHpsZitvUEd5NmVMMHVGNkFQNWx3YUUyck1SdHk0aHdmWkZw?=
+ =?utf-8?B?YXZtcm9KOEsrZEw1QnZJQXFNc1dmNjJObzkvMjdmM0plYjN2bnhIWllRS0x4?=
+ =?utf-8?B?Yys5dnhCeGFoYUNaTStQTUdqQkFuRXFzOTBHZUVpbGtlbVVZMVZhUXdnS3Bx?=
+ =?utf-8?B?Q3NaYmdnS0V5UEtKYU1tdEdhVmEvSm1Ea3I4dEVtRVFrK25hQ2pEWE82cjRj?=
+ =?utf-8?B?Tlk2NUs4YUs3SndRWGZ6Uklqb0ZkOHBQZ0xkQ01xeWRTT3ZsbXZSV2xXS2Fx?=
+ =?utf-8?B?T255Y3k0TTlnTXRLK01JODdyRDF3Z2oyQm9UVWVyb1Bxb2hnenVtUExoYVJ2?=
+ =?utf-8?B?K0dMU0F5djRnZEd0cDNtRVNBRGdKRm91eHY3eEdRYzR1b3k2bUEwakN4aXI0?=
+ =?utf-8?B?aFVMR0pUZVVNME05NThQcWlJQ1dudlI2ZTArOXprK2Rkcm00WC9RcUFCUTVS?=
+ =?utf-8?B?TXYwYVBjSE9ZWThYbHFXdWtyTXVqRHNFWWttZ1JNSDhXZUk0V2xWQmU0ZnJD?=
+ =?utf-8?B?eWwreTN1LzVPZ0lMUU93UUUrdE41dEt6Y1RIWlZoQWExczNoMzFMN09yVzlT?=
+ =?utf-8?B?VHBFYkVzMmtaWUFMVnBnWCt2clpFbFZTT2QvQVZoNEZvYVFFeC9GSm4xSTVI?=
+ =?utf-8?B?N3NFaWJXTXVCK2pvd2lYSUtuR0hvdGZ6S3Qydlphc21xNHEwbTFnR2ozT0pD?=
+ =?utf-8?B?S1VsaTdpYytxdFZWUUEzcVplRXUyUG02RkgvcGowWEIyN3V3NXZVZmJSL0xP?=
+ =?utf-8?B?UUNUKzg4Y0pYUTBlS2VuQnczRFEyaXZ5a1MyVUVuVzVzY0lmcVBOdldpWUht?=
+ =?utf-8?B?Rk5IY2FqaFFGa0pKM0JHVkY1bW0xa0VnbXVHLzhNT1JjbmlPT2FwZVdOcUtR?=
+ =?utf-8?B?bDR0dUF5aUphNWZSNFM2MFdBclBraHNFRXQwUittTzZJN0ZwMVAyTUtQLzBM?=
+ =?utf-8?B?YXFjeUxsZ2V3dWF5VTNUdXdDM2dIL3NZNGhMOHl0QzEwRDJIam5aZStQQ21w?=
+ =?utf-8?B?eXpuODhtekVCV3FlV1NJVUN2NFIzeVZJclNYOWJHRlZPQXNjVU5ITWFHek12?=
+ =?utf-8?B?QWdRWjhtaXZKZnlpZjR3R2tUckRmaFg2OWZVRGFac1NTZlRwMGRaU1IrUUJ1?=
+ =?utf-8?B?QkJQQWF2ampjVVpPUlhkWWxZSWVnYnNFUkxSUTFBQnYya1BWbWlmZGtTQUVZ?=
+ =?utf-8?B?Q1NLeEZ6cm1lUW5FdmRUWnBwUXdrMlVHTzFrMEJLZXZwdFlFQVJ3anA2TkVC?=
+ =?utf-8?B?eU5lbytmYXB2T2hkZm1WNVI0cjNPMXRORC9pTlFBRHdvQklna3l3b0twcXNo?=
+ =?utf-8?B?aWlGTWJXYlZ2a0ZoV3pSQk44QmptblpqaThITU9Ra2ovWDg2UWVwQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4018040-8971-4567-f2ce-08dee7d7e03e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 09:59:10.2641
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rv4kbp/sY+iVt6cqww+wEu0Y1nlqo8C7eQk7iwm0hz9ilYJa7R10jxtza35IbAjaa6RIIveGItp1+VpS493qgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5605
 
-A ROMFS directory stores the first entry offset in ri.spec and links its
-entries through the next field in each on-disk file header.  Both
-romfs_lookup() and romfs_readdir() follow this image-controlled chain
-without checking for cycles.
 
-A crafted image can point an entry back to itself or to an earlier entry.
-Looking up a missing name then loops forever in romfs_lookup(), consuming a
-CPU in kernel context.  This is independent of hard-link cycle handling:
-directory next pointers and hard-link spec pointers are separate chains.
 
-Validate each directory entry chain when the directory inode is
-instantiated.  Use Floyd cycle detection so validation needs constant
-memory and does not impose an arbitrary directory size limit.  Reject a
-cycle with -ELOOP before lookup or readdir can traverse it.
+On 7/3/2026 6:41 PM, Thomas Hellström wrote:
+> On Fri, 2026-07-03 at 15:08 +0200, Christian König wrote:
+>> Arun please take a look at this.
+>>
+>> Thanks,
+>> Christian.
+> FWIW Sashiko claims there is yet another pre-existing bug WRT ordering
+> here, but since the fix wasn't needed for the rest of the series, I
+> focused on this one.
+Thanks for pointing that out. I have sent a fix for the pre-existing bug 
+reported by Sashiko as a separate patch.
+https://patchwork.freedesktop.org/patch/741782/
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sangho Lee <kudo3228@gmail.com>
----
- fs/romfs/super.c | 52 ++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+Thanks,
+Arun.
+>
+> Thanks,
+> Thomas
+>
+>
+>> On 7/3/26 15:05, Thomas Hellström wrote:
+>>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
+>>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
+>>> function
+>>> returns early and bypasses those initializations.
+>>>
+>>> Since adev->mman.initialized is set to true before
+>>> amdgpu_vram_mgr_init()
+>>> is called, a failure triggers amdgpu_ttm_fini(), which calls
+>>> amdgpu_vram_mgr_fini(), which then:
+>>>
+>>>   - Calls list_for_each_entry_safe() on reservations_pending and
+>>>     reserved_pages, whose list_head::next pointers are zero-
+>>> initialized
+>>>     (NULL). The loop does not recognize them as empty and
+>>> dereferences NULL.
+>>>
+>>>   - Calls gpu_buddy_fini(), which iterates free_trees[]
+>>> unconditionally
+>>>     via for_each_free_tree(). Since mm->free_trees is NULL
+>>>     (never allocated), this dereferences NULL.
+>>>
+>>> Both result in a kernel panic on the module load error path.
+>>>
+>>> Fix by moving drmm_cgroup_register_region() to after the list and
+>>> buddy
+>>> allocator are fully initialized, so the teardown path is safe to
+>>> run.
+>>>
+>>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+>>> Closes:
+>>> https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
+>>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
+>>> TTM")
+>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>> Cc: Maarten Lankhorst <dev@lankhorst.se>
+>>> Cc: Tejun Heo <tj@kernel.org>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: amd-gfx@lists.freedesktop.org
+>>> Cc: dri-devel@lists.freedesktop.org
+>>> Cc: <stable@vger.kernel.org> # v6.14+
+>>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+>>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+>>>   1 file changed, 4 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>> index 2a241a5b12c4..ac3f71d77140 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+>>> *adev)
+>>>   	struct ttm_resource_manager *man = &mgr->manager;
+>>>   	int err;
+>>>   
+>>> -	man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
+>>> "vram", adev->gmc.real_vram_size);
+>>> -	if (IS_ERR(man->cg))
+>>> -		return PTR_ERR(man->cg);
+>>>   	ttm_resource_manager_init(man, &adev->mman.bdev,
+>>>   				  adev->gmc.real_vram_size);
+>>>   
+>>> @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device
+>>> *adev)
+>>>   	if (err)
+>>>   		return err;
+>>>   
+>>> +	man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
+>>> "vram", adev->gmc.real_vram_size);
+>>> +	if (IS_ERR(man->cg))
+>>> +		return PTR_ERR(man->cg);
+>>> +
+>>>   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
+>>> &mgr->manager);
+>>>   	ttm_resource_manager_set_used(man, true);
+>>>   	return 0;
 
-diff --git a/fs/romfs/super.c b/fs/romfs/super.c
-index ac55193bf..061275761 100644
---- a/fs/romfs/super.c
-+++ b/fs/romfs/super.c
-@@ -96,6 +96,51 @@ static const unsigned char romfs_dtype_table[] = {
- 
- static struct inode *romfs_iget(struct super_block *sb, unsigned long pos);
- 
-+static int romfs_next_dirent(struct super_block *sb, unsigned long pos,
-+			     unsigned long maxoff, unsigned long *next)
-+{
-+	struct romfs_inode ri;
-+	int ret;
-+
-+	if (!pos || pos >= maxoff) {
-+		*next = 0;
-+		return 0;
-+	}
-+
-+	ret = romfs_dev_read(sb, pos, &ri, ROMFH_SIZE);
-+	if (ret < 0)
-+		return ret;
-+
-+	*next = be32_to_cpu(ri.next) & ROMFH_MASK;
-+	return 0;
-+}
-+
-+static int romfs_validate_dir_chain(struct super_block *sb, unsigned long pos)
-+{
-+	unsigned long maxoff = romfs_maxsize(sb);
-+	unsigned long slow = pos;
-+	unsigned long fast = pos;
-+	int ret;
-+
-+	for (;;) {
-+		ret = romfs_next_dirent(sb, slow, maxoff, &slow);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = romfs_next_dirent(sb, fast, maxoff, &fast);
-+		if (ret < 0)
-+			return ret;
-+		ret = romfs_next_dirent(sb, fast, maxoff, &fast);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (!slow || !fast)
-+			return 0;
-+		if (slow == fast)
-+			return -ELOOP;
-+	}
-+}
-+
- /*
-  * read a page worth of data from the image
-  */
-@@ -292,6 +337,13 @@ static struct inode *romfs_iget(struct super_block *sb, unsigned long pos)
- 		pos = be32_to_cpu(ri.spec) & ROMFH_MASK;
- 	}
- 
-+	if ((nextfh & ROMFH_TYPE) == ROMFH_DIR) {
-+		ret = romfs_validate_dir_chain(sb,
-+					       be32_to_cpu(ri.spec) & ROMFH_MASK);
-+		if (ret < 0)
-+			goto error;
-+	}
-+
- 	/* determine the length of the filename */
- 	nlen = romfs_dev_strnlen(sb, pos + ROMFH_SIZE, ROMFS_MAXFN);
- 	if (IS_ERR_VALUE(nlen))
--- 
-2.43.0
