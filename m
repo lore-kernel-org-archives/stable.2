@@ -1,189 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51CB1A6806;
-	Wed, 22 Jul 2026 12:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784723758; cv=none; b=jg0pXiX1jvzSRcg62jtTKY77w/UiFHLhBwcznwiuiPw7K4Ygz4lhCvF9nDffJcNKhFjKo1v0iVRMWw0hpa0eYR2B0sMx7PAd4CvOZgH34lb6oD/yl1ygxhcsEseQvGzhleuQaOJVLDcXYz9kBVxHGyimiMfg3UiSKXWwBM3Uybg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784723758; c=relaxed/simple;
-	bh=jGMB6iE9lxJe5nKtxoXNDfrLRI4gR7M3ptjh6wD6/WI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ayLc+oGGCXmHSIxirEdTDXtqoxf3l1lxLfNqju/5ZF5XX6cWMnZ97QAmVNITCv1up7ShQuI+JgcKkCfHGl9QGlHJyKgdOoIx+gY82QTVICL8BrTg64LLd7eq5gmRR8jlXxIzHQvbiHCPqAZLMPmH8KEH24quz+BBjxPFov/zv/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HyIzudcH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03592F290A
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784724060; cv=pass; b=jUOezjrq/HoSNB2ors9SZP3wdjbopV3SHz2FulhJJTbDMaZltBwoxohhZaBsiSzjpLxa23oQLJK0yCuhif/8/Uw4+fSKDnLVNI8b+Ex23cI6eDNMztIHft3v9CXWlwpDlTMLdCgrTn0T2i6YKJdL7Hhvr6dR7Z/1uP310g5Ljdw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784724060; c=relaxed/simple;
+	bh=pZ1WDIDZlnd78tAWM6ujRUwRrnJmwqrdqQUCDuW1oZE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Yy/joivCDlr6aL25ab2fKwOkWbQY/MO93lqsNqb5P0ez/HVwQTQK4m9vGnLGNpa9aP+VCbx8c9mjCmSOsEX9XgSh7zPiXDjCFfJOfCLaYxd3793P1thK9tcLkaoqX1aVZ1JuBxwnSdyMz86ouGzmPs2Yjmelc/ADVmrLMFTMmY0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=EMqklI0e; arc=pass smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HyIzudcH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003651F000E9;
-	Wed, 22 Jul 2026 12:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784723757;
-	bh=2Jd1GANGwM+PXpSKQ+CRzq/E6/EDkcfhb0HgkIh9hJw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HyIzudcHgwOZMnwvnVThzTbiSoYQgWKiZ7BSA5Nn93yO5ZwK9lei72TD5EsIyvErW
-	 IBdApPWF/AFiQzqCq6bhBEkYP7OBWar0qnqBy6tDn0UVNS/UQDyr4Tr49g9ife1kGG
-	 PjgiL6sCmL5DZQR2/qRy3V6BSx7RPXHJ9QG9Tsm6etiWSMv+PcWkqBXCseFJR0wKjC
-	 2EiLaTBxgsBcsTcEPY6IrLBGKcD5HpS4iTaK+Ep2QcVcZ/xQT6/7WZKjkyW0RbAhX4
-	 2QTChyiE4YyE/kBFyhpYK/tppcL5nZQpL7EuRWN9qfuuxq3FtATsfFiTdrsAKf0uIE
-	 phOj7bGLdPLfQ==
-Message-ID: <7ddb704c-76a9-4071-8969-06fa1403eb07@kernel.org>
-Date: Wed, 22 Jul 2026 14:35:51 +0200
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="EMqklI0e"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so8086131a91.2
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:40:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784724059; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cYd2p/3B/q7BcW0HN0RtGwc0Lgq2b8I/KTeEQSUuBLkKqyyiSGRtJhB3q1usYgOwCK
+         0kzXNkl50eoi2Q7V7rpdeiCiU1yANim5jLhhkXWy0ijMdcXsER1PVWBFIvOCeEF5Sevh
+         dUkE6Nff/KjRicuV50fdBH52J655bhfedQFAIs1v3Fl1qV9b/amJ0VPiapV/gp2hzpGm
+         Bx3qqK1w9l6wH/Rwqp0O/78cOkfZ0cAxll5GmNEAhjXJmBa04xgWWSmRKYTb6jsmtz9+
+         WcNGqo3Ty0XxDj/A5uZNIIVmwTH04IrjonCcfMkJCEZ52U6hHccK1+/bRRW7w3c1pRTP
+         AU3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Kj0y7vGSTuWcIMCDEdm/LDUzje6wFVBCY0Bt2MWRjlU=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=f9HkFpjpCzPjPTfUsGVrbdx/GDFajZneDiVbw17UEX3STC/+Wp2vFRhXlxE7CcRmkB
+         yeeOWe06Gsz/aROUmBM5+NyMGi6PmE/Gq3dPrV2c+tTKehn6MEDN8lKEwQMi/kKzSN4i
+         CEYs6SjDcgNDqSnQ9Tt/sVmnfsrwQJs9+1j0QHqErqyLRvPgKAd1OhwwwPLpb8FOA12w
+         tMfxztJe+8MUDEwcKQq0SWmi0VH40NooyOtC9m1zB/DbgnxO/9lHbmE/pxxXD5C6VmnY
+         oH1H+kzmOWRqPgt034PU5gNnChsuXwMl2WPP1V7BdIlLCKpgj2FLUM1or3Aq2EXZWD7W
+         27kA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1784724059; x=1785328859; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Kj0y7vGSTuWcIMCDEdm/LDUzje6wFVBCY0Bt2MWRjlU=;
+        b=EMqklI0eB2X+IcyWzwoqeG65TdKp11jcz3F7X8w2bmvsEkzQ28hKNvzrP0fFqDCC0u
+         BciCmMBpaDBKq09UlI7t4O/vpTSa7cb4xYaKBUcG21bcR1ad1R04of+ZsDhoCDafB7Wv
+         OyqGvyx+WyS0mqN0k2bXu2fgTjJZdSwEe0E9MSwze3GMI3S3ZABjWdf7JgjqI8ylO/Zf
+         zzeMI3ZbvGTAhice1fS5KIxYbPIuEBIXZcwyocvWb4foU5aVdK079HQGM6HgU0GyqyxZ
+         eO7NTzrc7DPH5GTYH7yWAkmYuEdtg6tdeWijygHAFZ8MPzrt+6ZyAF2lxYKRi1Ks4PjC
+         JIfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784724059; x=1785328859;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kj0y7vGSTuWcIMCDEdm/LDUzje6wFVBCY0Bt2MWRjlU=;
+        b=PE+40QmH7Ytu4xE2zyPN3BocAz5m9HY/rMOP2UwiUgQJJPBf2JHApFVDmW16vO4y3Y
+         e0x86n1VYThA591D9IW3kBnBuGVrsDxp6wN3taC9vSvXi3tIXli6lx/aou7lNrQuOOvD
+         yrgKf+b0x+NiYNmwEd02KIl+1rK7DK4Z8R7TwGyvAWjWdPWOsdGgQ1pk5cYDoF6vfbPR
+         Md5l9LCzaYHn8R4Y7VLk0HX0xXFebT3P3/3ZO3Zzh+HZeI5UpOoYvBGtEUnzcjpHRXW4
+         YZ5anqctK6NY0tCmmzQ9XAIRZWhsONc0b69mKyfQm4uILNJy0Q7GGyEYOxwca0Mz1dlI
+         bm6w==
+X-Gm-Message-State: AOJu0Yw6wGwXKtQ936EJQUh0QgVDWXpVcNUKTheXVvW74+RCqBiEdPgk
+	4ShU5xo50Hopo1NAoR0+tdYgsQMME5ujCAkLVTDP1dEz4hli//tEJ7AXs8dBgQrnM/eMoEsZkyP
+	WG6VrTO2WkWjiY/wghCHYZkIxyPcq06VpPWaZ7dc98A==
+X-Gm-Gg: AR+sD10cWDAEpR2EOvK3+wCptK0GIEllqQBiyUJgeElKeG33ZL7U3D1g50W04QN5rDs
+	uPDItvpS2jqangPICJsLOn9o9HelbFHA+0SO1j0dSDOfOWYYgWdBxAeE1H8u9oEfNWi8h+quNzu
+	2/Jtk0GzSxm1+AfI0mjldHqoU33FA2kl2jyZDGP/qzcuaUDCUh5FGzfKxu8IseKk3DADF3zKbnV
+	KIJ+sHOl8Mdpaibd2QeJkorCzApC1e5Vt4kSy4i1+RPIcY0gImk7h2xrP7KSyQ=
+X-Received: by 2002:a17:90b:5583:b0:38e:9279:468c with SMTP id
+ 98e67ed59e1d1-38e92794f00mr7560875a91.25.1784724058833; Wed, 22 Jul 2026
+ 05:40:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/page_alloc: avoid direct compaction for costly
- __GFP_NORETRY allocations
-Content-Language: en-US
-To: Salvatore Dipietro <dipiets@amazon.it>, hannes@cmpxchg.org,
- willy@infradead.org
-Cc: abuehaze@amazon.com, akpm@linux-foundation.org, alisaidi@amazon.com,
- blakgeof@amazon.com, brauner@kernel.org, dgc@kernel.org,
- dipietro.salvatore@gmail.com, djwong@kernel.org, hch@infradead.org,
- jackmanb@google.com, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-xfs@vger.kernel.org,
- mhocko@suse.com, ritesh.list@gmail.com, stable@vger.kernel.org,
- surenb@google.com, ziy@nvidia.com
-References: <alEz4Chf7Ibyg-ZG@casper.infradead.org>
- <20260714120204.542300-1-dipiets@amazon.it>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260714120204.542300-1-dipiets@amazon.it>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260721152552.646164743@linuxfoundation.org>
+In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Wed, 22 Jul 2026 21:40:42 +0900
+X-Gm-Features: AUfX_mzcdC9Ws3AbYBQOMw16woTbrgc2td07tn2v7gcAQhw0UDcwjcOFa7D-zSo
+Message-ID: <CAKL4bV6dCGx_KK=8i7MqXVDPvyjRN6c-rhi2Axum0bOQ-GXLWg@mail.gmail.com>
+Subject: Re: [PATCH 7.1 0000/2077] 7.1.5-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/14/26 14:02, Salvatore Dipietro wrote:
-> 
-> Hi Johannes, Matthew,
-> 
-> Thank you both for the alternative proposals. I've tested both
-> approaches on the same test environment used for v3.
-> 
-> Results (4 runs each):
-> 
->   Config                   Avg TPS      % vs Baseline
->   --------------------------------------------------------
->   baseline (no patch)       70,735       -
->   Johannes' approach       156,908      +121.8%
->   Matthew's approach        70,145       -0.8% (within noise)
-> 
-> 
-> Johannes' approach (clearing __GFP_DIRECT_RECLAIM early in the
-> slowpath for costly __GFP_NORETRY) delivers the same ~2.2x speedup
-> as v3, as expected - it prevents the entire direct reclaim and
-> compaction machinery from running for these opportunistic allocations.
+Hi Greg
 
-AFAICS both your v3 and the implemented Johannes' suggestion effectively
-make all the compact_first logic dead code - at least for the intended THP
-use case based on costly_order. It will only continue to do something for
-the non-movable order>0  case. So that's a significant change which will not
-show up in your results, but might affect other workloads (I'd expect mainly
-by having fewer THPs).
+On Wed, Jul 22, 2026 at 12:32=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.5 release.
+> There are 2077 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.1.5-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-> Matthew's filemap.c approach does not help in this workload.  The
-> reason is that the first allocation attempt at max order still carries
-> __GFP_DIRECT_RECLAIM and enters the slowpath with direct compaction
-> enabled.  The __GFP_DIRECT_RECLAIM clearing only takes effect for 
-> subsequent lower-order attempts in the fallback loop, but the costly 
-> compaction has already executed on the first try.
-> 
-> Let me know if you have any other variant you want me to test, 
-> or if I should prepare a v4 based on Johannes' suggestion.
-> 
-> This is what I tested for Johannes' approach:
-> 
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index a63733dac659..6e960c969e67 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -4733,10 +4733,10 @@ static inline struct page *
->  __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  					struct alloc_context *ac)
->  {
-> -	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-> -	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
-> -	bool nofail = gfp_mask & __GFP_NOFAIL;
->  	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
-> +	bool can_direct_reclaim;
-> +	bool can_compact;
-> +	bool nofail;
->  	struct page *page = NULL;
->  	unsigned int alloc_flags;
->  	unsigned long did_some_progress;
-> @@ -4751,6 +4751,20 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  	bool can_retry_reserves = true;
->  	unsigned long alloc_start_time = jiffies;
->  
-> +	/*
-> +	 * Costly __GFP_NORETRY allocations are opportunistic: the caller
-> +	 * can fall back to smaller orders.  Don't stall on direct reclaim
-> +	 * or compaction; clearing __GFP_DIRECT_RECLAIM makes the entire
-> +	 * slowpath treat this as a non-blocking request.  kswapd will wake
-> +	 * kcompactd as needed for background defragmentation.
-> +	 */
-> +	if (costly_order && (gfp_mask & __GFP_NORETRY))
-> +		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
-> +
-> +	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-> +	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
-> +	nofail = gfp_mask & __GFP_NOFAIL;
-> +
->  	if (unlikely(nofail)) {
->  		/*
->  		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
-> 
-> 
-> Thanks,
-> Salvatore
-> 
-> 
-> 
-> 
-> 
-> AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-> 
-> 
-> 
+Linux version 7.1.5-rc1 tested.
 
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
+
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+
+[    0.000000] Linux version 7.1.5-rc1rv-g06ed1e6c413d
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260625, GNU ld (GNU
+Binutils) 2.46.1) #1 SMP PREEMPT_DYNAMIC Wed Jul 22 21:13:10 JST 2026
+
+Thanks
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
