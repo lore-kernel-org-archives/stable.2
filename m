@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC763339390
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:30:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C9033938B
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:30:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784716236; cv=none; b=bgRncbOXo1SybmyMbWghc5sOyfNTxrDc0IB9AD3H1yuTiRmMSZ5AN9z9mZ+jeYVNPdIFTlNtaiXvVjrKr3/LdgdgTHDGVx6iCvJXdhVFCxZt3NjO9kS+S29NAt5Ua4HLmDeoAUpi9d+G/3cQi5XLAapTW3txNKiicWEH6IPnXI4=
+	t=1784716237; cv=none; b=UFFxNh1k+q53LapZQbbaY8xFLVjXswYygl6tG03nun/xtutDPlvjtTVPDgRCz308OaYTzQHG769c0kBB7mRSAMOAg8PcMsZMNKgq9gT6DmPj4C3wn+bf1wi6YvZ+6pevpBhwQE7kpwIWfp81hKSeUtjJVqdH7Qr/fKWKIULSCh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784716236; c=relaxed/simple;
-	bh=5iEAN97LopZkozzi0jI9NqiMw0QrC+hHNRYqpAbD+JQ=;
+	s=arc-20240116; t=1784716237; c=relaxed/simple;
+	bh=sYZgmQjEoB2hvC7VVELsFO3JyCfeijehVrDXIdFq7go=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jfa9UDrXZ0SvlU/k9gzSfILMPE29Xzb8nrkNgrIgNqvVNnkrxI889kRujxOsiEqdzAlGiytq6a9uPzjepacM8Ukijms68V2OhtyyO9fabZs+35kvlqkccNIafo446SgPMxyrYD+8K4SDMxfbEja49q8+SPEOyxQojKMPWo86KXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8EmuXW5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p0JYwfrJeez2L5DGou7AKx4evd6jm1KeVELM25BBx8rNg/Vypk9cf+5nCJtXX3EDE0a9l71wTg/FJkacmHyzhtlx+R5Du0Ut9ZIfbgA1i0+R2Qh84kLsuutXAOMjNLEyj9jy7nRVr67LaG2Wbf0ukemULuA0zCYqQeJ3DzTa824=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKJc2Qfo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8EmuXW5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350E61F00AC4;
-	Wed, 22 Jul 2026 10:30:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKJc2Qfo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92BAB1F00A3F;
+	Wed, 22 Jul 2026 10:30:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784716233;
-	bh=y40TReRac2MsHJuJgMIcGcDe4tasrVOi7w9+34ERbIo=;
+	s=k20260515; t=1784716236;
+	bh=Bzq36+KWF+zbJ8GnlXsdUMbjSy7mVPbkc9OgwnG4i1U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e8EmuXW5p2H/Lb5WHaj8g1v2IwjUeepBh3q/kFB0lakQwd79d1HyKQmhu6TcrbH7Q
-	 ybmbmTuTGJE8vwLRxMno5+UY4N5HgS3dX/GySleBQN6AcOHXVeJbyHIvG/HGz0TSoB
-	 izTsTWP27GCFTZ6/SNSGybG6DlL6duGhSFY+tEH3zDb4wZltQq2DtPAMtBNFS0XO3U
-	 qfVgOePpx3lRLDBiGVL5gm6bhHpsQLph8ca4os6HoWXDwNl+iHSZnk+pIUiSEQohnS
-	 OXpwCdxkSilvFfco8d9cusOXN4Am18xd975Ymnc2SMrNKWuL3BXIajs5oB2vKcS2+D
-	 qBLw0uudeHqqg==
+	b=RKJc2QfoqhYetbuQ7Nl4wb59sGCea623M+h2rmQOlbrSRqJcwJmBiepgu/N2iAFxL
+	 Vm48NDf3onk1JyJyUCE2USerse1vcEFZStvpkPbaEP8eeQVKSof0Upl5icxSu2k9UI
+	 dJGOHzDwvZWVdzzOFkwhCG8ETdZRlX+oAV2Yspxf6FSoOb3PC2zTQKqahwpzkrkQ4M
+	 xFy/FrTm9Nyzroe8ia8j4et0gRK1/c4ayZEbZAUuZN8Lp2gc6hGQOlql8pf4LrptGO
+	 eBq/QvKDCc++Dkxr7uY3FjPF6FbzvRWlrZwu7mJ0zOgeZtWDfylcfbmQe7X0ARVO1y
+	 iJHzCkqJEyVpQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/7] i2c: core: fix reference leak in i2c_register_adapter()
-Date: Wed, 22 Jul 2026 06:30:25 -0400
-Message-ID: <20260722103029.890864-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 7/7] i2c: core: fix adapter probe deferral loop
+Date: Wed, 22 Jul 2026 06:30:28 -0400
+Message-ID: <20260722103029.890864-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260722103029.890864-1-sashal@kernel.org>
 References: <2026071657-book-manhandle-a0e6@gregkh>
@@ -46,38 +47,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit 3f8c4f5e9a57868fa107016c81165686d23325f2 ]
+[ Upstream commit 158efa411c57111d87bf265a3776614f32d70007 ]
 
-The reference count of the device incremented in device_initialize() is
-not decremented when device_add() fails. Add a put_device() call before
-returning from the function.
+Drivers must not probe defer after having registered devices as that
+will trigger a probe loop if the devices bind to a driver (cf. commit
+fbc35b45f9f6 ("Add documentation on meaning of -EPROBE_DEFER")).
 
-This bug was found by an experimental static analysis tool that I am
-developing.
+Move the recovery initialisation, where the GPIO lookup may fail, before
+registering the adapter to prevent this.
 
-Fixes: 60f68597024d ("i2c: core: Setup i2c_adapter runtime-pm before calling device_add()")
-Signed-off-by: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
+Fixes: 75820314de26 ("i2c: core: add generic I2C GPIO recovery")
+Cc: stable@vger.kernel.org	# 5.9
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
 Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Stable-dep-of: 158efa411c57 ("i2c: core: fix adapter probe deferral loop")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/i2c/i2c-core-base.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 1200f5fe41e1fa..4e7e8af87750fc 100644
+index 1c4afb30b29c42..9b2ce5b7adaedf 100644
 --- a/drivers/i2c/i2c-core-base.c
 +++ b/drivers/i2c/i2c-core-base.c
-@@ -1471,6 +1471,7 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	res = device_add(&adap->dev);
- 	if (res) {
- 		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
-+		put_device(&adap->dev);
- 		goto out_list;
- 	}
+@@ -1460,6 +1460,10 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	adap->dev.type = &i2c_adapter_type;
+ 	device_initialize(&adap->dev);
  
++	res = i2c_init_recovery(adap);
++	if (res == -EPROBE_DEFER)
++		goto err_put_adap;
++
+ 	/*
+ 	 * This adapter can be used as a parent immediately after device_add(),
+ 	 * setup runtime-pm (especially ignore-children) before hand.
+@@ -1478,10 +1482,6 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	if (res)
+ 		goto out_reg;
+ 
+-	res = i2c_init_recovery(adap);
+-	if (res == -EPROBE_DEFER)
+-		goto out_reg;
+-
+ 	dev_dbg(&adap->dev, "adapter [%s] registered\n", adap->name);
+ 
+ #ifdef CONFIG_I2C_COMPAT
 -- 
 2.53.0
 
