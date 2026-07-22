@@ -1,215 +1,300 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0278F388881
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 23:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D249043C7BE;
+	Wed, 22 Jul 2026 23:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763510; cv=none; b=XfRmquj7HnjsrSmlYBpII0vTNZ+4RE1uxwCPpCp/oRcrgH7yC45V1LE+VZix9JawMl0mKLalQ0V1h8GolBINHDjQldB2qZZFG8O5WGifpw6Z/H10NEkow1vDDuuzvERehm+C1es57PIsLpsNFq/1cpraAqkEd//I6LMtGrb6pko=
+	t=1784763546; cv=none; b=fph9Obn4MeeaA5wA0aSHRxMeUoaFGOF8neP4tZVWBoopN3h2Nk0kUtijlEwAIkMcTExgFTkTmNPg91erF6cZbYLPDt6FEjjU5HJ7dlH3tl9qSJsBDeMKElhIOduZMRIxidlwisGM+VRojkUdHpQ9NqBKeJiy5LecJ8qCpq5Se+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784763510; c=relaxed/simple;
-	bh=482j/rlGL/MyUIfK5vi1HCJAff/SkFOJEYzr2v72u54=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b4OSDy+n0WK2facgSXEmy+sSA2i02Lsbpc0iaplsqbFB+LjFF+AmEOYAj+zlcH007NgqTfWPJXhW/HKju+1h/NCSOjAzFzjrySuFOiBkSWvgpNUulpOgbXCz/69LfBunaLzc25Iti7KiP8tJM+Ov3KzMGP6ZSgFzLyiIB8qr+Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=iA+/kGZo; arc=none smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	s=arc-20240116; t=1784763546; c=relaxed/simple;
+	bh=qVHARy+6ra279kN2QfXTPZhgT1U3CV+K7tqN1uRMxdI=;
+	h=Date:To:From:Subject:Message-Id; b=NAqWg0T586Jk3hyikimA3MkpMigZ/jYbYUxOLPR0WGZIg0We9WdUbFWkJwJMbLtHgns7nlD3d8b/368loNATgZyxtoIaRz2oU9JrtvUo/j432Cp0xepauHK4yl3D0zYEvuacz0kfwXl/+C5Hi9lfKPcU6yfRNToKK3m59re2qfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=rixnH85W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="iA+/kGZo"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-667bae10ba3so6634d50.2
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:38:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="rixnH85W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9EF1F000E9;
+	Wed, 22 Jul 2026 23:39:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1784763508; x=1785368308; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=czUeoqytFwl2f4wSjedp4ua+inBVMuooqHyWYibjU+0=;
-        b=iA+/kGZobaT+lSDLZ45F6N0UzEEl1f46UkH+BD25EBWjM2bPmi86e2wxn3LogtyAxV
-         FsOeHVfoRSucvTww5WRhSAjQlSpZzL73YNbklZ7woMak9x6Xe7mUlbhfutEUSjfXofwq
-         LgN/GwezkBhzMxfoIQztgpFRpdIuTiLPp1Y6/PbJrHIpM4mj8uEvUdsCjPaHZeOS/VO8
-         dmfqEj7Q2OQZ3ZG6OYNEKaXdFXsmauhMMxxxN0W+Vl4l6Sff58mbBPN2kwvj5/mfQuvk
-         kPmZi/YWoE0IlVhhtYdnf0fyh3x750v8YortRxwSOIbjgyMDE+pWAc4KOiC5Sp9xXKWT
-         2ElA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784763508; x=1785368308;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=czUeoqytFwl2f4wSjedp4ua+inBVMuooqHyWYibjU+0=;
-        b=bRZ7JHaAKe1l4f0pygWuljxoLQ6ups3L3XxdBXCbRLi6xxBHnzzoYv2vIqFovS88WX
-         /H4+tz/0lbl60/uXM+hTWWq9wnJk2kmpMfGCsq55AK9MS1nWbTTQf9UjmbxioWlmAZgh
-         Ss4zQqnUszSPXqFDgS7hBDnQEqZezyYmGeAXjQtjVC/2JFCSMT9XHwPsG4iWOBZTdaj7
-         pDgey0Odrn78xnEMUwvdpA6/zJzmGcDYDdxta6kZynllWILpo1DLEPGtN1Y8hPgTF3+h
-         8gRfAa6wi6o3jbzx353nnlUIhi5JubM5mvhhnfIyczTLrGtaNQI0R2apXtS1Z91CRf7i
-         qzZw==
-X-Forwarded-Encrypted: i=1; AHgh+Roysi+l1Usmzjcttn8q3xHcJqaqOhrMiKttU4h4mEwQ1NuhsJsPYV50QDeCQQ7FRidqTzGA/mo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvamnhjqWzfiWbB3M3nW1Quivhz8evsq1sdpGQ6bJ1yf7mE083
-	VmKM/aui5C/Rh+isUAcYrP0XmKWev/DaEFohwWzxiiv5zR52vYBA8xHYBSupkBZvQDmx
-X-Gm-Gg: AR+sD13VQ85CE+8OPzLuK+IQ65TPHo5qy80Us/iq75/9VhHsHge9sDqUKxwndkaaUlB
-	fcXRUG563gaSYB82hZPmUfmuKSqRp5DYaozlbL3yzelupH6CsgpUp+UYysO5yGevz2PKRdBniPE
-	ff2wv3gDG5lSQSVtHhdqn68TkN4SuoqENy+AlPfpjMjHcKAR5yZwmJo+TOsnaWt7dXXzcPipIOE
-	Gxk3nmCTlUuURf8KjX7ks6a6X8XFAalXFK/79/eEvWOoqLk3YoKukHCEv1In2tXNH1tV1RkLKKN
-	vpxUWaEgfeRrKfBaCHG2gy5jfEro7NGPL+Z2g4e6zjBArfN+nWP+wn7rLbwuByjhLEsLiO7StuR
-	yBBSssGCaug8JiFfLnT/WlkHHMwff5ofeqc1bK/MSyf86i7P2kVTtBvD2qfY5yUBhGO4JQjwFaq
-	S3fvPiZlviggqlwj6vwH/dHDSh0ICKwvoQ9LNpe9k8VvVWy7jQtbZ10BWp
-X-Received: by 2002:a53:ce84:0:b0:667:af05:2e8d with SMTP id 956f58d0204a3-668a4fbd261mr142804d50.79.1784763507854;
-        Wed, 22 Jul 2026 16:38:27 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66890521188sm2193219d50.1.2026.07.22.16.38.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 16:38:27 -0700 (PDT)
-From: dhu@x6u.co
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	David Laight <david.laight.linux@gmail.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	stable@vger.kernel.org,
-	jmoroni@google.com,
-	kpberry@google.com,
-	chriscli@google.com,
-	viursachi@google.com,
-	xuehaohu@google.com,
-	sashiko-bot <sashiko-bot@kernel.org>
-Subject: [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk
-Date: Wed, 22 Jul 2026 23:38:06 +0000
-Message-ID: <20260722233806.3922093-1-dhu@x6u.co>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260623015459.1153884-1-xuehaohu@google.com>
-References: <20260623015459.1153884-1-xuehaohu@google.com>
+	d=linux-foundation.org; s=korg; t=1784763544;
+	bh=nIrcEuwvicV2J/jEAjcrLL6W7RMVqA07R1pXms2OU6o=;
+	h=Date:To:From:Subject;
+	b=rixnH85WWan5MEw2zOXOg3gSR1ugeba344OYTT81V6w26aD9iL7K4y6LF6i7LvI+x
+	 IqS+5JhnWVBQoWLKo2mKa5howga+Z+LtjSnh++0O+OFRvz33AE1BNl76draegbIlB3
+	 pj6MXSvGdNhGX9WJ9oHjDTMeFiNqx1TzhtFRCQnE=
+Date: Wed, 22 Jul 2026 16:39:03 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch removed from -mm tree
+Message-Id: <20260722233904.3E9EF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: David Hu <xuehaohu@google.com>
 
-Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-first entry, resulting in non-page-aligned DMA addresses for all
-subsequent entries.
+The quilt patch titled
+     Subject: ocfs2: cluster: don't sleep while holding o2hb_live_lock in o2hb_region_pin()
+has been removed from the -mm tree.  Its filename was
+     ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch
 
-While the underlying IOMMU mapping may be contiguous, hardware
-DMA engines often require explicit address alignment (e.g., page,
-cacheline, or storage sector boundaries). Passing unaligned
-addresses and lengths can cause explicit failures in DMA descriptor
-creation or silent data corruption if lower unaligned bits are
-truncated.
+This patch was dropped because an updated version will be issued
 
-In addition, a non-page-aligned sgl length will trigger an edge case
-in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-buffers, we will have a `va` with lowest bit set to 1. That will lead
-to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-to find best page size for the mapping on the NIC side.
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: cluster: don't sleep while holding o2hb_live_lock in o2hb_region_pin()
+Date: Tue, 21 Jul 2026 19:49:16 +0800
 
-Fix this by splitting the scatterlist by the largest possible page
-aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
-This ensures all scatterlist DMA addresses and lengths remain page
-aligned, while minimizing the total number of sgl entries.
+o2hb_region_pin() is always called with the o2hb_live_lock spinlock held
+(from o2hb_region_inc_user() and o2hb_heartbeat_group_drop_item()), but it
+calls o2nm_depend_item() -> configfs_depend_item(), which sleeps: it pins
+the configfs filesystem and takes the configfs root inode rwsem.  Under
+CONFIG_DEBUG_ATOMIC_SLEEP this triggers:
 
-Page-aligned entries allow the system to cleanly chunk payloads into
-PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
-As a result, this may help reduce TLP fragmentation in P2P transfers
-and alleviate potential congestion within a logical PCIe switch
-partition, especially when Relaxed Ordering is not possible due to
-hardware constraints.
+  BUG: sleeping function called from invalid context at kernel/locking/rwsem.c
+  in_atomic(): 1, ... name: mount.ocfs2
+    down_write
+    configfs_depend_item
+    o2hb_region_pin
+    o2hb_region_inc_user
+    o2hb_register_callback
+    dlm_register_domain_handlers
+    ...
+    ocfs2_dlm_init
+    ocfs2_mount_volume
+    ocfs2_fill_super
 
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hu <xuehaohu@google.com>
+Rework o2hb_region_pin() to pin one region at a time with the lock dropped
+across the sleeping call: under o2hb_live_lock find the next eligible
+region and take a config_item reference to keep it alive, drop the lock,
+call o2nm_depend_item(), then retake the lock and record the pin.  The
+config_item_put() is done with the lock released as well, since
+o2hb_region_release() also acquires o2hb_live_lock and can sleep.  The
+region list may change while unlocked, so the scan restarts from the top
+after each pin.  Local heartbeat still pins only the matching region;
+global heartbeat pins all eligible regions.
+
+The unpin path is unaffected: configfs_undepend_item() only takes a
+spinlock and does not sleep.
+
+Link: https://lore.kernel.org/20260721114916.2098617-1-joseph.qi@linux.alibaba.com
+Fixes: 58a3158a5d17 ("ocfs2/cluster: Pin/unpin o2hb regions")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- Changes in v3:
- - Removed the type cast for `min` (David Laight)
- - Reverted max ent size to be `ALIGN_DOWN(UINT_MAX, PAGE_SIZE)` and
-   updated commit message to reflect that (Jason Gunthorpe)
- - Updated commit message to reflect that this also fixes an edge case
-   in `ib_umem_find_best_pgsz()`
 
- Changes in v2:
- - Updated commit title and message to reflect the switch to 2G chunks
- - Switch to using 2G as the max sg entry size as it naturally aligns
-   with most hardware boundaries, while allowing compiler optimizations
-   with bit shifts (David Laight)
- - Optimized away division calculation for `nent`, and multiplication
-   calculation for sgl address, by dropping the `for` loop in favor of a
-   `while (length)` loop (David Laight)
- - Dropped `min_t` in favor of `min()` to maintain a strict type
-   checking safety net (David Laight)
+ fs/ocfs2/cluster/heartbeat.c |  126 ++++++++++++++++++++++++++-------
+ 1 file changed, 101 insertions(+), 25 deletions(-)
 
- drivers/dma-buf/dma-buf-mapping.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 794acff2546a..50ded9daf5fb 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -5,16 +5,17 @@
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -43,6 +43,14 @@ static DECLARE_RWSEM(o2hb_callback_sem);
+  * whenever any of the threads sees activity from the node in its region.
   */
- #include <linux/dma-buf-mapping.h>
- #include <linux/dma-resv.h>
-+#include <linux/align.h>
-+
-+#define MAX_SG_ENT_SZ ALIGN_DOWN(UINT_MAX, PAGE_SIZE)
+ static DEFINE_SPINLOCK(o2hb_live_lock);
++/*
++ * Serializes region pin/unpin dependency management (o2hb_dependent_users
++ * and the o2nm_depend_item()/o2nm_undepend_item() calls). o2hb_region_pin()
++ * has to drop o2hb_live_lock across the sleeping o2nm_depend_item(), so the
++ * spinlock alone can no longer keep pin and unpin mutually exclusive; this
++ * mutex, taken outside o2hb_live_lock, does.
++ */
++static DEFINE_MUTEX(o2hb_dependency_mutex);
+ static struct list_head o2hb_live_slots[O2NM_MAX_NODES];
+ static unsigned long o2hb_live_node_bitmap[BITS_TO_LONGS(O2NM_MAX_NODES)];
+ static LIST_HEAD(o2hb_node_events);
+@@ -2172,6 +2180,7 @@ static void o2hb_heartbeat_group_drop_it
+ 	 * If global heartbeat active and there are dependent users,
+ 	 * pin all regions if quorum region count <= CUT_OFF
+ 	 */
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
  
- static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 					 dma_addr_t addr)
+ 	if (!o2hb_dependent_users)
+@@ -2183,6 +2192,7 @@ static void o2hb_heartbeat_group_drop_it
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ }
+ 
+ static ssize_t o2hb_heartbeat_group_dead_threshold_show(struct config_item *item,
+@@ -2322,46 +2332,108 @@ EXPORT_SYMBOL_GPL(o2hb_setup_callback);
+  */
+ static int o2hb_region_pin(const char *region_uuid)
  {
--	unsigned int len, nents;
--	int i;
-+	size_t len;
+-	int ret = 0, found = 0;
+-	struct o2hb_region *reg;
++	int ret = 0, found;
++	struct o2hb_region *reg, *pinned;
+ 	char *uuid;
  
--	nents = DIV_ROUND_UP(length, UINT_MAX);
--	for (i = 0; i < nents; i++) {
--		len = min_t(size_t, length, UINT_MAX);
-+	while (length) {
-+		len = min(length, MAX_SG_ENT_SZ);
- 		length -= len;
- 		/*
- 		 * DMABUF abuses scatterlist to create a scatterlist
-@@ -24,8 +25,10 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 		 * does not require the CPU list for mapping or unmapping.
- 		 */
- 		sg_set_page(sgl, NULL, 0, 0);
--		sg_dma_address(sgl) = addr + (dma_addr_t)i * UINT_MAX;
-+		sg_dma_address(sgl) = addr;
- 		sg_dma_len(sgl) = len;
-+		addr += len;
-+		/* Unconditionally advance. On last segment, this becomes NULL */
- 		sgl = sg_next(sgl);
- 	}
+ 	assert_spin_locked(&o2hb_live_lock);
  
-@@ -41,14 +44,14 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+-	list_for_each_entry(reg, &o2hb_all_regions, hr_all_item) {
+-		if (reg->hr_item_dropped)
+-			continue;
++	do {
++		found = 0;
++		pinned = NULL;
  
- 	if (!state || !dma_use_iova(state)) {
- 		for (i = 0; i < nr_ranges; i++)
--			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
-+			nents += DIV_ROUND_UP(phys_vec[i].len, MAX_SG_ENT_SZ);
- 	} else {
- 		/*
- 		 * In IOVA case, there is only one SG entry which spans
- 		 * for whole IOVA address space, but we need to make sure
- 		 * that it fits sg->length, maybe we need more.
- 		 */
--		nents = DIV_ROUND_UP(size, UINT_MAX);
-+		nents = DIV_ROUND_UP(size, MAX_SG_ENT_SZ);
- 	}
+-		uuid = config_item_name(&reg->hr_item);
++		list_for_each_entry(reg, &o2hb_all_regions, hr_all_item) {
++			if (reg->hr_item_dropped)
++				continue;
  
- 	return nents;
--- 
-2.55.0.229.g6434b31f56-goog
+-		/* local heartbeat */
+-		if (region_uuid) {
+-			if (strcmp(region_uuid, uuid))
++			uuid = config_item_name(&reg->hr_item);
++
++			/* local heartbeat */
++			if (region_uuid) {
++				if (strcmp(region_uuid, uuid))
++					continue;
++				found = 1;
++			}
++
++			if (reg->hr_item_pinned || reg->hr_item_dropped) {
++				if (found)
++					break;
+ 				continue;
+-			found = 1;
++			}
++
++			/*
++			 * Found a region that needs pinning. Take a reference
++			 * so it stays alive while we drop the lock below.
++			 */
++			pinned = reg;
++			config_item_get(&reg->hr_item);
++			break;
+ 		}
+ 
+-		if (reg->hr_item_pinned || reg->hr_item_dropped)
+-			goto skip_pin;
++		if (!pinned)
++			break;
++
++		uuid = config_item_name(&pinned->hr_item);
++
++		/*
++		 * o2nm_depend_item() -> configfs_depend_item() can sleep (it
++		 * takes the configfs root inode rwsem), so it must not run
++		 * under o2hb_live_lock. Drop the lock across it; @pinned is
++		 * kept alive by the reference taken above. The region list may
++		 * change while unlocked, so we rescan from the top afterwards.
++		 */
++		spin_unlock(&o2hb_live_lock);
+ 
+ 		/* Ignore ENOENT only for local hb (userdlm domain) */
+-		ret = o2nm_depend_item(&reg->hr_item);
++		ret = o2nm_depend_item(&pinned->hr_item);
++
++		spin_lock(&o2hb_live_lock);
+ 		if (!ret) {
+-			mlog(ML_CLUSTER, "Pin region %s\n", uuid);
+-			reg->hr_item_pinned = 1;
+-		} else {
+-			if (ret == -ENOENT && found)
+-				ret = 0;
+-			else {
+-				mlog(ML_ERROR, "Pin region %s fails with %d\n",
+-				     uuid, ret);
++			/*
++			 * o2hb_live_lock was dropped across o2nm_depend_item().
++			 * o2hb_set_quorum_device() runs in the heartbeat thread
++			 * without o2hb_dependency_mutex, so for global heartbeat
++			 * it may have crossed O2HB_PIN_CUT_OFF and unpinned the
++			 * regions while we slept. If that happened this pin is
++			 * no longer wanted; undo it and stop rather than
++			 * resurrecting it on the rescan below.
++			 */
++			if (!region_uuid &&
++			    bitmap_weight(o2hb_quorum_region_bitmap,
++					  O2NM_MAX_REGIONS) > O2HB_PIN_CUT_OFF) {
++				o2nm_undepend_item(&pinned->hr_item);
++				spin_unlock(&o2hb_live_lock);
++				config_item_put(&pinned->hr_item);
++				spin_lock(&o2hb_live_lock);
+ 				break;
+ 			}
++			mlog(ML_CLUSTER, "Pin region %s\n", uuid);
++			pinned->hr_item_pinned = 1;
++		} else if (ret == -ENOENT && (found || !region_uuid)) {
++			/*
++			 * For local hb (found): ignore ENOENT from userdlm
++			 * domains as before.  For global hb (!region_uuid):
++			 * the region may have been detached from configfs
++			 * while the lock was dropped — skip it and continue
++			 * pinning the remaining regions.
++			 */
++			ret = 0;
++		} else {
++			mlog(ML_ERROR, "Pin region %s fails with %d\n",
++			     uuid, ret);
+ 		}
+-skip_pin:
+-		if (found)
+-			break;
+-	}
++
++		/*
++		 * config_item_put() may drop the last reference and run
++		 * o2hb_region_release(), which also grabs o2hb_live_lock and
++		 * can sleep, so it must happen with the lock released.
++		 */
++		spin_unlock(&o2hb_live_lock);
++		config_item_put(&pinned->hr_item);
++		spin_lock(&o2hb_live_lock);
++
++		/* local hb pins a single matching region */
++	} while (!ret && !region_uuid);
+ 
+ 	return ret;
+ }
+@@ -2406,6 +2478,7 @@ static int o2hb_region_inc_user(const ch
+ {
+ 	int ret = 0;
+ 
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
+ 
+ 	/* local heartbeat */
+@@ -2428,11 +2501,13 @@ static int o2hb_region_inc_user(const ch
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ 	return ret;
+ }
+ 
+ static void o2hb_region_dec_user(const char *region_uuid)
+ {
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
+ 
+ 	/* local heartbeat */
+@@ -2451,6 +2526,7 @@ static void o2hb_region_dec_user(const c
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ }
+ 
+ int o2hb_register_callback(const char *region_uuid,
+_
+
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
+
+ocfs2-cluster-use-gfp_nofs-for-heartbeat-bio-allocation.patch
+ocfs2-cluster-use-an-on-stack-bio-for-the-heartbeat-write.patch
 
