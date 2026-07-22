@@ -1,201 +1,169 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6955A317163
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 21:03:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784754227; cv=pass; b=ju6gscwcUthg1TcSQhvbns2DnZKQx6G+F3jZQZOEm4oDFQ1Ofg5ULL1t8Qc7hRZeew4ZsfMDQqaS6sThBQiQeNCexyYmcw5SxrYEf+YMpzzfEqVQ4D2auHWEhaASEAvI3pFqcBiRQizjNcshSIqrTBtmDIVlWFyUypltMJlYKQ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784754227; c=relaxed/simple;
-	bh=pqw+4F5UxMsZ+Gmhe/bd3XKvqXdh+gUmrlvL4jHSYEw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HHLw/hbc48GBu8OHl3STdUZuW/RojqN6qOXgFCMBnLM+uhrPdT/aNroTegKIV86OLARCcKs7xyhdM0vgsea4n0XRkE0DkmvYXoY3gwPS3CrJTDGlsQQllfdnQy+gE/BUH6xnrpSW+m76hyYxX20prCYqGXj80oX4zA73TLhU2t4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O91eiT78; arc=pass smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FD73D954E
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 21:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784754280; cv=none; b=iLn/rLzwHYVdh6bTpLBIjATMo8JGjJXDWe0aGmBuDKYNuzkofMq+anrkmZ7ehPSl+9da2Itpomj9UD0xGWj3NscNwGU/ADU93PSHjvtpRNEsoZpq3pLhiY4y+Vq6qdf6TiO3OSx/e4AUfIOrCcgl+uavkyqPv/i1w0RIwf9GCpI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784754280; c=relaxed/simple;
+	bh=CWkXh/mVTEoWKc0N911hWr25ky7AI3k4TRB9BGNu6VA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DNoxn+8x5Rzxh6BYzSPEMsBRmk59o5/iAHiiMkqn+07BTr09F6uUVigCmSPm/tZsYpfEc8E2A8QU1lhZ53HLCXjyLfje6texRU0bGUXcGzYb5WgKUVW1DBCJemDus0MNmRHTG/RspuuHjZA0h5Ud0xJ2xyZxZB9denyb+YQ+HvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lY3g22bN; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O91eiT78"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-69e08ad526cso10236335a12.1
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:03:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784754224; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GVLHy9bj/0H4qXgi9v4+dN5prmsbe5Ikea4QEQn96/ioCOcRK1X1gIOO4T+I0KZopn
-         dZMrkCGCKl3lfa90T+CbeBk0wFgYiTWnQUcoRFUO+yjspxwscT06aN8LcwSD5Yig71B9
-         6z9yUBdEgYTmhUtwe+z86U+9y6f73oEV8jEmsFN2F7RH3MKQ9zhxtlcCcaIvP+95M3pJ
-         NUH7a/rhVuawngUgT+9fUmey81aG5WwFaJ3asJGvxU4oluuhZDGhwjylaNY7DkBtSVq2
-         tjUXh5ktj9n2J+76v3cMMakf3yKQl5yZ6zOhv1yZe44MynE7K55EjEV8c9dwUvreulqI
-         8+7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iDk9GJaFBzM0ar9MYB8RB/ZFgtMZjf2y1b5NLaLr2MU=;
-        fh=NT6sbx8+9EPifyf5A1Y/emALgn7JyxzHiH5xZxy32Rc=;
-        b=Y8E79uFs1Y5eOhBVgMt302R85CbeUkat37oiSNhDnmQE2I93jbAKV6da8lUO/5adFc
-         hQV7/Izb7Q8ReYy/NEssIrjwA60D/OhLFwITPm7Igj4v3/rABaOpibrUvprkD6tn1yGk
-         CDFqf4i5cDOBaDRZd7OnmeC6pOqDqjSs4gY39m3MzxXf9Tgatm4+iLy4nYGcj/6wMk4R
-         m2oOd2siIurUoNefwBpCQjIsgyVeZ+uwzueADra+OLtBxsoY7jXxG3U/ewc61n3y2xGF
-         BvJ6A0E31un5l5FlbUKwdBgimo1/4egbJQGGQ+Vf+kKBGkeMiM/t9gdXQZIlatthBr4x
-         7NgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lY3g22bN"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so11449965f8f.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:04:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784754224; x=1785359024; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1784754277; x=1785359077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=iDk9GJaFBzM0ar9MYB8RB/ZFgtMZjf2y1b5NLaLr2MU=;
-        b=O91eiT788IlTEIPZZ1fo8eUKPD1tqJaHgs2vxhbpEyQzpwXhL4qX+cji9iO9BijotK
-         8YGyDn4gvG82sEJfKJ60wev1QMVbYntD/xAn8zCxjcTeDFsnUQfoxh4JRzu5jUnnvHcm
-         +wfVs0fL7fPn6znJePcc9fDWWY83MZYAOWZiryRvidoE8Ym0ceEGDN6af28/hUlelEi9
-         C0iuqDxsurj3lN5ZFlkycYTgEgWsPCJuYVDOwWalxzrlDowSb8DJ8qrRlCu719huCCzs
-         rhI9aBsZUEs05Y4uc/Rw5PU9jUVhf9XSQFF2Jk79CcRg7Snlv7zcFMxZU1Mn42QlL8RA
-         XBHg==
+        bh=viuWpyRyias3SaBiIZU8Wm8wddtNAMSTHpyQzh3dLJc=;
+        b=lY3g22bNIgpVsY8c0cTvHLAmH7IqrmIONynVEhrs4ngSwPhc6e602mluRE7Z/7cvHU
+         QtpcGjVYe/z/uUaOe2N5gyux5MWm9+iw/6WNAukHPjYZ0Eo4dle+88mQJ0sD3e/GMUB/
+         UIgmWljqjL6FUywUdLtLh/xmuRsIbDVbTEuyncPWWkfGFA9QkbDJ4DP5iE4HihgWzPL3
+         Xt4LpRcg+7yfbfiFgh/5mnVX64a9LXCqzd5Uuley8gDaT3GaAvmhUB2nYrUVPPfVpyfZ
+         NuxvCjt/PVLHE+qevD/YZIE9uYQj8abNAJsArsr1AbjmZokg1YAjhgtXfxY4x+KidF3h
+         7n1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784754224; x=1785359024;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1784754277; x=1785359077;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iDk9GJaFBzM0ar9MYB8RB/ZFgtMZjf2y1b5NLaLr2MU=;
-        b=V3xlBdT1abaAeahpBlahI6cNC4G4DS6xDCEWSl4fCTVyoB27W+52OTFeyGoui2YTKs
-         7o9coCXptXE67TGEH6DKSpL4NXJuT6ysb9TtejfPTJXFXi4dariOrQNT9vTnsdi+MM/B
-         kmba8SK3Izv9yscGKcDoskCjlwgIY9ljsiAwYwak9nZnL9A+iXmVerHRbWsnWTzAJxLT
-         0k5NFZLzE5bdpZm5z9dnxdp1Y18Fq15+l279HddHb/tbqS8p50tddQJLQOAJ4BbTA3ec
-         xQmLL/KAU1U7G8PXO48wIP6j+ZCEIP2BeIn561o+k5pP8iN3QG1yzk2RL19t3hZyOiyH
-         I1gw==
-X-Forwarded-Encrypted: i=1; AHgh+RoCs9etOHDuCYdKS5bYjjDoZHXVfzUhUJH4WNRIikGPderXvida9G3xYFE+vUQhO6vshvdDx8w=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxa8+0xYLFvHoybU+kmqhE1tqRiHNxXtBHi6N3ATEKED+9quxau
-	1sCLLR26Md1HAzujFWMzh3k4GiY+LnGX1D4ANvwYX1pTl9NwTVs544DxbvVBbY26ej8XlA8DJ1x
-	ZCyHhCGSocId232fjTex99Oymtu+Rl7P2wkr9duoz
-X-Gm-Gg: AR+sD1354TyCFRkWI6EifD/DCJIXnESO1Nz1XrYeKcLV+MEBDdnySA+NjwN2XwMCcNP
-	T//ZnGjwzfFJuyebDU8gssehPFfJmiQa7OFFjZYW0hMfhvR5QnfeklcJ5Qf5+eviNjZmw5UmmNB
-	ZBlAzeqpa7KDE7ZcR+gbYcmOO1QNz8djfcfoT7UF6CxG4eG9hpBDAm5O7Q+i7N1SEsVtTp4JxTC
-	9HlmArCc1f3fL6I/a2OiGrTGfQgIVKOsu6wyzQuZdvXUN0iOVYCHMOyAlEpim1nDONIMpxeIYTT
-	1NBZyga/1R0RH1wxwGgapBcBXQUPWlmnPXNNVAHFEK7iJVhimollyBdmNLDi97XHC8OB+/A=
-X-Received: by 2002:a17:907:7245:b0:c12:b227:614b with SMTP id
- a640c23a62f3a-c1c507c5992mr22090766b.27.1784754223030; Wed, 22 Jul 2026
- 14:03:43 -0700 (PDT)
+        bh=viuWpyRyias3SaBiIZU8Wm8wddtNAMSTHpyQzh3dLJc=;
+        b=PKP8H7y5jCiMBhD/78U0mqVwsJO7ldVXnx6P7XIFszuadI+WEiMOZdPBVfiCm9gViX
+         CJkj+7qE+4G575OktW9hosULx85BCGLqoueKOHRpkGqJRF9ZVa0m1nxJZsiF4DsAgHGv
+         eIEy+IWRgUEiDiB3jPYXExNvtRvcgAonElX0R5Zbqd7B0uXfXa0VJBpQreuNnBYelWVs
+         Ftkt84F3q18PBu7bh9btl/ATr0BzJgpHy7QONbVO9ukMdjBjcTaAiatlK7ID7ODU8QW2
+         gt0KDLVxljrAEVDrMfB3yeZ0pukmFgwRSFud9fDTW0YOY2EVgMGhTdtKPlSk+QoKZ0XX
+         Ou2g==
+X-Forwarded-Encrypted: i=1; AHgh+RqrSEg2XpmbbotFIVxPao3twuPjti/gNW+tZA3kXuWx8TM2KjL7SqXZuocQoCBtzNRf2WSaNKg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFXs56X9WfqboJpHfuM+wMlPnQhGsw7HWILnDo7YF/d3uVlIkh
+	vIsjMxfXDPhxdpDdIdR1diPImB3TwDToXjtTTahK/DStI8VxW/2RgZ9x
+X-Gm-Gg: AR+sD130QT9+fyA57GzLFwWGT0DeiPm49KcD9AmUo6N4xldP3dbPKxTmdrAmHgLH5f5
+	c5QlvEbN1TjDUOkT+inx1d7Eh7ZJvAcJoG0qJ0I1FylxDy+552Cs+zKgvyCg25MmsRPHcBJyURy
+	EfPX6bT3wPd6N2+DQzOLbGJUv0G8cPG7Yp2CBBsJzhX8IulInHvf9G7qNnckZ7JVR+eQ590zueE
+	Cxyu2B2O9a4tI3YaKxdFjzzrJn8RJcnUzjMgHYlm+0e2q+yuaFdOEVQAdQvpa+NWF/ghenIDjvA
+	s9pTRtK17WuFJ/Nt58J8OjzwpWORLjQmgZYX4dHUigU2h2gAe3wN4DCX2HJoPQJfyJ1IeND0aMt
+	IKHAvBhj8cSuUwAGshz0Qj+aj37uMWwXioxR5m25Qf9txwhegJeA+mS7ZKsTE75qGFBgh3w4MrZ
+	CtleUWW5haR7zTyewGLommNg==
+X-Received: by 2002:a05:6000:481e:b0:478:3f4b:348b with SMTP id ffacd0b85a97d-47f8d710fe7mr546018f8f.7.1784754277421;
+        Wed, 22 Jul 2026 14:04:37 -0700 (PDT)
+Received: from foxbook (bey56.neoplus.adsl.tpnet.pl. [83.28.36.56])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c631fdsm8934817f8f.28.2026.07.22.14.04.34
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 22 Jul 2026 14:04:36 -0700 (PDT)
+Date: Wed, 22 Jul 2026 23:04:30 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Sarah Sharp <sarah.a.sharp@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@suse.de>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: xhci: bail out of setup if the controller is
+ inaccessible
+Message-ID: <20260722230430.2256c8a4.michal.pecio@gmail.com>
+In-Reply-To: <20260722-xhci_dead_hc-v1-1-78f55597524b@debian.org>
+References: <20260722-xhci_dead_hc-v1-1-78f55597524b@debian.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722172443.534251-1-akkun11.open@gmail.com>
-In-Reply-To: <20260722172443.534251-1-akkun11.open@gmail.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 22 Jul 2026 14:03:31 -0700
-X-Gm-Features: AUfX_mzKunA_ErzQZrqRUgnl5wCMQPxyOcP43n29TIvcYdToB-p2ggVGLa6Vk7o
-Message-ID: <CAKwvOdnbPKoTy72EvfpKtT9Ne-r+O0j99KFX8OvjGk8ZxsuEGw@mail.gmail.com>
-Subject: Re: [PATCH] arm: mediatek: fix secondary CPU boot on Thumb-2 kernels
- with Clang
-To: Akari Tsuyukusa <akkun11.open@gmail.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Russell King <linux@armlinux.org.uk>, Nathan Chancellor <nathan@kernel.org>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Yingjoe Chen <yingjoe.chen@mediatek.com>, 
-	"moderated list:ARM SUB-ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
-	"open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b" <llvm@lists.linux.dev>, stable@vger.kernel.org, 
-	Arnd Bergmann <arnd@kernel.org>, Ard Biesheuvel <ardb@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 22, 2026 at 10:25=E2=80=AFAM Akari Tsuyukusa <akkun11.open@gmai=
-l.com> wrote:
->
-> When building with CONFIG_THUMB2_KERNEL=3Dy and Clang, secondary CPUs
+On Wed, 22 Jul 2026 04:27:36 -0700, Breno Leitao wrote:
+> xhci_gen_setup() locates the operational registers using the capability
+> length read from the very first register:
+> 
+> 	xhci->op_regs = hcd->regs +
+> 		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
+> 
+> If the controller is dead or has dropped off the bus, that read returns
+> ~0, as I saw in practice.
+> 
+> The first access through it, xhci_halt() -> xhci_handshake() reading
+> op_regs->status,  unaligned readl() on device memory. arm64
+> faults on unaligned device accesses, so instead of xhci_handshake()
+> catching the all-ones value and returning -ENODEV, setup oopses:
 
-Specifically, was LLVM=3D1 or CC=3Dclang or something else used?
+And if it didn't oops then it would read some other register, and later
+write it, and maybe do stupid things. At least HC_LENGTH macro
+truncates ~0 to 255, so the other register would most likely still
+belong to this xHCI.
 
-> fail to come online with "CPU1: failed to come online". The address
-> written to the jump register has bit 0 set, causing the secondary CPU
-> to start in Thumb mode.
+>   xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+>   xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+>   xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+>   Unable to handle kernel paging request at virtual address ffff80030a770103
+>     ESR = 0x0000000096000021
+>     FSC = 0x21: alignment fault
+>   Internal error: Oops: 0000000096000021 [#1]  SMP
+>   pc : xhci_halt [xhci_hcd]
+>   Call trace:
+>    xhci_halt
+>    xhci_gen_setup
+>    xhci_pci_setup
+>    usb_add_hcd
+>    usb_hcd_pci_probe
+>    xhci_pci_common_prob
+>    xhci_pci_renesas_probe
+> 
+> This was hit with a Renesas uPD720201 that failed to power up ("Unable
+> to change power state from D3cold to D0, device inaccessible") yet still
+> reached the HCD probe path.
 
-Ah, yeah missing those is going to be a noticeable perf hit!
+Seems unproductive, I wonder if it's somehow intentional or a PCI bug.
+You would need to ask linux-pci about it.
 
->
-> secondary_startup_arm is ARM-mode code (.arm) and, on a Thumb-2 kernel,
-> expects to be entered in ARM mode in order to switch to Thumb via the
-> standard sequence at that label. Starting in Thumb mode causes the CPU
-> to execute ARM instructions as Thumb, resulting in an immediate crash.
->
-> Clear bit 0 of the entry address so the CPU always starts in ARM mode.
-
-Thanks for the patch. Any idea why this isn't an issue for
-GCC+GAS+BFD? Perhaps there's a difference in the LLVM tools that we
-need to address?
-
-There's definitely some difference between clang and GAS here.
-https://github.com/llvm/llvm-project/issues/211376
-
-I wonder if perhaps a better machine-agnostic assembler-agnostic
-assembler-version-agnostic patch would be something like:
-
-```
-diff --git a/arch/arm/kernel/head.S b/arch/arm/kernel/head.S
-index f22c50d4bd41..687ee7063a73 100644
---- a/arch/arm/kernel/head.S
-+++ b/arch/arm/kernel/head.S
-@@ -383,6 +383,7 @@ ENDPROC(__create_page_tables)
- ENTRY(secondary_startup_arm)
-  THUMB(        badr    r9, 1f          )       @ Kernel is entered in ARM.
-  THUMB(        bx      r9              )       @ If this is a Thumb-2 kern=
-el,
-+ENDPROC(secondary_startup_arm)
-  THUMB(        .thumb                  )       @ switch to Thumb now.
-  THUMB(1:                      )
- ENTRY(secondary_startup)
-@@ -429,7 +430,6 @@ ARM_BE8(eor r4, r4, r5)                     @
-without using a temp reg.
-                                                @ (return control reg)
-        ret     r12
- ENDPROC(secondary_startup)
--ENDPROC(secondary_startup_arm)
-
- ENTRY(__secondary_switched)
- #if defined(CONFIG_VMAP_STACK) && !defined(CONFIG_ARM_LPAE)
-
-```
-
-Can you perhaps help test/verify that Akari?
-
-
->
-> Tested on Lenovo YOGA Tablet 10 (Wi-Fi).
->
-> Fixes: 0cda07001a94 ("ARM: mediatek: add smp bringup code")
-> Assisted-by: DeepSeek:deepseek-v4-pro
+> Detect the removed controller the way xhci_handshake() and xhci_reset()
+> already do, by testing the register for the all-ones value, and abort
+> setup with -ENODEV before op_regs is derived from it.
+> 
+> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 > ---
->  arch/arm/mach-mediatek/platsmp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm/mach-mediatek/platsmp.c b/arch/arm/mach-mediatek/pl=
-atsmp.c
-> index 6b0943d95555..9a7c65fc3ae1 100644
-> --- a/arch/arm/mach-mediatek/platsmp.c
-> +++ b/arch/arm/mach-mediatek/platsmp.c
-> @@ -124,7 +124,7 @@ static void __init __mtk_smp_prepare_cpus(unsigned in=
-t max_cpus, int trustzone)
->          * write the address of slave startup address into the system-wid=
-e
->          * jump register
->          */
-> -       writel_relaxed(__pa_symbol(secondary_startup_arm),
-> +       writel_relaxed(__pa_symbol(secondary_startup_arm) & ~1,
->                         mtk_smp_base + mtk_smp_info->jump_reg);
->  }
->
-> --
-> 2.54.0
->
+>  drivers/usb/host/xhci.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+> index 091c82ca8ee29..4e8a87df91d9d 100644
+> --- a/drivers/usb/host/xhci.c
+> +++ b/drivers/usb/host/xhci.c
+> @@ -5453,6 +5453,10 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+>  	mutex_init(&xhci->mutex);
+>  	xhci->main_hcd = hcd;
+>  	xhci->cap_regs = hcd->regs;
+> +	if (readl(&xhci->cap_regs->hc_capbase) == U32_MAX) {
+> +		xhci_warn(xhci, "Host controller not accessible, removed?\n");
+> +		return -ENODEV;
+> +	}
 
+Good idea, but there is one more case to potentially worry about: hot
+removal. In theory, you could read a valid value here and then U32_MAX
+below and crash the same as before.
 
---=20
-Thanks,
-~Nick Desaulniers
+It would be more robust (and efficient) to read the register once to
+some tmp variable, validate it and then use that to set xhci->op_regs.
+
+>  	xhci->op_regs = hcd->regs +
+>  		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
+>  	xhci->run_regs = hcd->regs +
+>  		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+
+One may wonder if run_regs shouldn't have similar check. However, if
+the chip is hot removed here after successfully reading hc_capbase,
+xhci_halt() will not crash and return -ENODEV before anyone uses the
+bogus run_regs pointer. So there is no urgent problem here, I think.
+
+Regards,
+Michal
