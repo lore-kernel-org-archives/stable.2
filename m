@@ -1,172 +1,116 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F44F470E88;
-	Wed, 22 Jul 2026 19:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD823D3338
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 19:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784749491; cv=none; b=JSrSFUmDKLc3zLwKztLmyY2681t4qjf1FsBXjaRxblG1VTVPTCe4o0VX62CpmOsfLA2aZvqgZjwWe+k9LGs4VdhRBeGCpafPDIHslg3cCPgJlSPe1pGEcXz+JBoCJrv24Z6pctBkXJ5GVfiyOYjehXyL/zflWD5w2s2iPtIKYwc=
+	t=1784749873; cv=none; b=M28aA7Cg6XtKMsiCwuYFqHqYHfKBztuL1Yw5D2PaIQlkvREipw4o+co0OJ37ASKVpdE5ZXnggoBgjyOhhdIi5hfmvKfFNuOxrHgo74y7+GHw98B4LyUceMc1x6bPtXe0GrHjfOY1w/mGKt6OxrYvO6H3oQDRhXPkfElQVu2aT4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784749491; c=relaxed/simple;
-	bh=ovp2DkAQxSFtGdrZt3qt+dwHwhZRCL38L+KRrmFji+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qtqiTEmwBhhM2rPWzLOElB8PMufMAHL80+M5wSh+ZVI2V6OZlnk46oSXP6u7jEzb+47AuTDoe+32ICAUT4xTzHCPbyr1mdCdKUT7R6nqF3mQ0lttAj/k0SQVODG4zaasL6mxVvLIJHauXEVWFWpEaDJPpmR7czaJX3b7V0BC55Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id 4CBECC02E5;
-	Wed, 22 Jul 2026 19:44:48 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 7718C2000F;
-	Wed, 22 Jul 2026 19:44:46 +0000 (UTC)
-Date: Wed, 22 Jul 2026 15:45:07 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Li Qiang <liqiang01@kylinos.cn>
-Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 3/4] tracing/inject: Validate entry allocation size
-Message-ID: <20260722154507.12e91c34@gandalf.local.home>
-In-Reply-To: <20260722061040.112747-4-liqiang01@kylinos.cn>
-References: <20260722061040.112747-1-liqiang01@kylinos.cn>
-	<20260722061040.112747-4-liqiang01@kylinos.cn>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1784749873; c=relaxed/simple;
+	bh=4jUCMdTQDiY8nnaNgKzeTR4BiuPclNDBdR4sa4EX4Vk=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=nstMYkWXPdDkWHfd67JaLa/cX72DC2oEQa5iZfsBicIM5faH8J7oxTMrLfMCj0kU79VMyIv4CK+L0+wfor5Hgrf4/8spK7Cml5eJ/zfA6x9X2z1Jaojq1dYS9l1dZq/tKK+mXg29V/uQO4JrsjaLlAzb6wQUF8w5g94teuQoh74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthies.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j1cMmoDk; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthies.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j1cMmoDk"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb733fc5024so6150786a12.2
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:51:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784749868; x=1785354668; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X8TW7+1XOyC8evaweToXtmQSrjCuUbN9HYIt2ES0cRE=;
+        b=j1cMmoDkp6soDlTDapRK5/184mRGyVOK9pAGnR3WTDl2CE5uwAQdBKW1IYfBf3J949
+         E64rA4akFgYGAaN1G8rNZTHpfeq6zLrGBHlPDeg9hxFFZE+mBzDsgpsV3AQY4CV2q1r+
+         BsBmeiI/bOAukqdeJRF8WTWx74MPCWlug4A/T6S11AD1MIt5+dkhs4nIzdw/YXrXtf/C
+         ltyRTGhf6sOos/WMXg0YJTcTxakXUpcAT8vSUd64dABOd9FWogkd/9cmdPZL1iDY34lj
+         0rodhG0SuoY8CFxk3K3SzCIYj+YnBFthI4PiEx5sWSHFJlggqGRn9CbCix7eC/em1rMC
+         3UcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784749868; x=1785354668;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X8TW7+1XOyC8evaweToXtmQSrjCuUbN9HYIt2ES0cRE=;
+        b=ouwHrTO3y07uO2oY5BvckQ3X99EmHK70dEZh7XVSbuua4gKgGFLFBlFXQOwO3TMKGz
+         Kc7VD1WW/T+NZJJJm11FRuskUp0PY8zF58eVa7J32GhAdJMPnwZeVaFpWpgSKw4r5iKZ
+         Sjw8xo0WblRpOC9VTSdI9Ixz4/qs6rH41D5OLU2L1YDmtsGy3jYsKs2t/9yfxB0G46cm
+         sAQ2AMFBnkgz8cGbLknXVjJuDKO9vworG215b1SqRhWgiFfRP6KzfAt63CFmUaKOw7eu
+         OawDH7JWI8CUi2BA2OrygIBzpd3uP8IcivMWIpoj95EJAkuz3FERKsHtbwuR8GgHrT00
+         NUQA==
+X-Forwarded-Encrypted: i=1; AHgh+RoNcPpJtRmzEtpp1Ub8tEb3HVqMuzHAzkycSTJwSr/cktZUBIa9ApYfYny27E2g9qGLPQ8EcE8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYEks4Hjcpp1ECL2rqwe8AHhDVBP0lDTx8Uj0EVRhiYtxZq8uk
+	Zc4eT1JtdjX4USRmGJv+5AywIS3jBzw/UznLujlwdFgcUbcxad4VBPBUtik/thMpMbTIWXFzYrx
+	+VMtU+A==
+X-Received: from dyng25.prod.google.com ([2002:a05:7300:7f19:b0:30c:2bdd:dcdf])
+ (user=jthies job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:9206:b0:3c3:9993:d5c3
+ with SMTP id adf61e73a8af0-3c3ad665cdcmr27250375637.9.1784749868246; Wed, 22
+ Jul 2026 12:51:08 -0700 (PDT)
+Date: Wed, 22 Jul 2026 19:50:59 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: schffwjy3mdgybjkqo3ke53sh836cime
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 7718C2000F
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+7N008mxetN1tp9Jjs/q4tEwuClT3Tb9Y=
-X-HE-Tag: 1784749486-677547
-X-HE-Meta: U2FsdGVkX1+PUd+tprx4fpwv/ypOcQtkw5pEQkbc+8z472Wzyz9YEPw2UwG32Uo6E9pdW4sqfhiDxhRU6ufihP06O1HYdmd1uYiJ44SNV+gMO/t5/nUnZN/WeiZA3pq9L2wvfxiC274tl7bV0oLo4bpMLscZisYxSlagwyYCsXeGpePmh8JQXyMfqghH8cUHU7nxA1qhQUqz4h+V/JzaXzwGesPM1961maI1jFhNkVBKY4qBrf9f3STQFjNwNdVZdowrq7Al3t/QPPS8bFp3gzlOFuBPiV7AiiiGwp5/RYdi+f5phpCGogG5wkXAry3XA+qY413mWx6x/0gFRZlY4ssiZ2A2IhVp/Ui1YYIaAIpysBGyoA1a38dXu/BqNRLR
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+Message-ID: <20260722195059.1420738-1-jthies@google.com>
+Subject: [PATCH v1] power: supply: cros_usbpd: Limit port counts to EC_USB_PD_MAX_PORTS
+From: Jameson Thies <jthies@google.com>
+To: bleung@chromium.org, tzungbi@kernel.org
+Cc: sre@kernel.org, fparent@baylibre.com, chrome-platform@lists.linux.dev, 
+	linux-pm@vger.kernel.org, Jameson Thies <jthies@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 22 Jul 2026 14:10:39 +0800
-Li Qiang <liqiang01@kylinos.cn> wrote:
+Currently the cros_usbpd-charger driver probe iterates based on raw
+charger port count returned by the embedded controller. The only check
+is against the number of USB PD ports which the embedded controller
+also defines. A malicious embedded controller could return an inaccurate
+port count (up to 255) resulting in an out of bounds write and
+subsequent memory corruption.
 
-> trace_get_entry_size() calculated the allocation from signed field offsets
-> and sizes without validating their sum. A malformed event could use a
+Update helper functions in cros_usbpd-charger to limit port counts to
+EC_USB_PD_MAX_PORTS.
 
-What type of malformed event are you talking about?
+Fixes: 3af15cfacd1e ("power: supply: cros: add support for dedicated port")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jameson Thies <jthies@google.com>
+---
+ drivers/power/supply/cros_usbpd-charger.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-> negative range or overflow the calculation, allocate too little memory, and
-> then write past it while initializing or populating the entry. Events with
-> no fields also allocated less than a trace_entry.
+diff --git a/drivers/power/supply/cros_usbpd-charger.c b/drivers/power/supply/cros_usbpd-charger.c
+index 308e1d4e6dd8..82185ee33fd4 100644
+--- a/drivers/power/supply/cros_usbpd-charger.c
++++ b/drivers/power/supply/cros_usbpd-charger.c
+@@ -125,6 +125,11 @@ static int cros_usbpd_charger_get_num_ports(struct charger_data *charger)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	if (resp.port_count > EC_USB_PD_MAX_PORTS) {
++		dev_warn(charger->dev, "Charge port count out of bounds\n");
++		return EC_USB_PD_MAX_PORTS;
++	}
++
+ 	return resp.port_count;
+ }
+ 
+@@ -138,6 +143,11 @@ static int cros_usbpd_charger_get_usbpd_num_ports(struct charger_data *charger)
+ 	if (ret < 0)
+ 		return ret;
+ 
++	if (resp.num_ports > EC_USB_PD_MAX_PORTS) {
++		dev_warn(charger->dev, "USB PD port count out of bounds\n");
++		return EC_USB_PD_MAX_PORTS;
++	}
++
+ 	return resp.num_ports;
+ }
+ 
 
-What event has no fields?
-
-Note, trace event injection is only for debugging tools that read trace
-events. It is in no-way something that should *ever* be used by a
-production machine.
-
-Is this being found by AI? If it is, you must specify that.
-
-> 
-> Start at sizeof(struct trace_entry), validate each field range, and reserve
-> room for the trailing NUL. Propagate sizing errors to parse_entry() before
-> it initializes the allocation.
-
-Was an AI agent used to create this?
-
-> 
-> Fixes: 6c3edaf9fd6a ("tracing: Introduce trace event injection")
-> Cc: stable@vger.kernel.org
-
-No need for the stable Cc. This is not something anyone should care about.
-If you want to inject a bad event, by all means, crash your machine!
-As I stated, it would be a bug to have this enabled on a production machine.
-
-That said, I'm all for making this more robust.
-
-> Signed-off-by: Li Qiang <liqiang01@kylinos.cn>
-> ---
->  kernel/trace/trace_events_inject.c | 31 ++++++++++++++++++++++++------
->  1 file changed, 25 insertions(+), 6 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_events_inject.c b/kernel/trace/trace_events_inject.c
-> index a8f076809db4..b8b141c00d5c 100644
-> --- a/kernel/trace/trace_events_inject.c
-> +++ b/kernel/trace/trace_events_inject.c
-> @@ -135,27 +135,43 @@ parse_field(char *str, struct trace_event_call *call,
->  	return -EINVAL;
->  }
->  
-> -static int trace_get_entry_size(struct trace_event_call *call)
-> +static int trace_get_entry_size(struct trace_event_call *call, int *entry_size)
-
-Why does entry_size need to be a separate parameter? Just return it, and
-have a negative be an error.
-
->  {
->  	struct ftrace_event_field *field;
->  	struct list_head *head;
-> -	int size = 0;
-> +	int field_size;
-> +	int size = sizeof(struct trace_entry);
-
-Keep the upside-down declarations please.
-
->  
->  	head = trace_get_fields(call);
->  	list_for_each_entry(field, head, link) {
-> -		if (field->size + field->offset > size)
-> -			size = field->size + field->offset;
-> +		if (field->offset < 0 || field->size < 0 ||
-
-Explain to me how the field->offset or field->size can be less than zero?
-
-> +		    field->size > INT_MAX - field->offset)
-> +			return -E2BIG;
-> +
-> +		field_size = field->size + field->offset;
-> +		if (field_size > size)
-> +			size = field_size;
->  	}
->  
-> -	return size;
-> +	/* trace_alloc_entry() reserves an extra NUL byte. */
-> +	if (size == INT_MAX)
-> +		return -E2BIG;
-> +
-> +	*entry_size = size;
-> +	return 0;
->  }
->  
->  static void *trace_alloc_entry(struct trace_event_call *call, int *size)
->  {
-> -	int entry_size = trace_get_entry_size(call);
-> +	int entry_size;
->  	struct ftrace_event_field *field;
->  	struct list_head *head;
->  	void *entry = NULL;
-> +	int ret;
-> +
-> +	ret = trace_get_entry_size(call, &entry_size);
-> +	if (ret)
-> +		return ERR_PTR(ret);
->  
->  	/* We need an extra '\0' at the end. */
->  	entry = kzalloc(entry_size + 1, GFP_KERNEL);
-> @@ -202,6 +218,9 @@ static int parse_entry(char *str, struct trace_event_call *call, void **pentry)
->  	int len;
->  
->  	entry = trace_alloc_entry(call, &entry_size);
-> +	if (IS_ERR(entry))
-> +		return PTR_ERR(entry);
-
-Why this change? trace_alloc_entry() returns NULL on error. The above chunk
-broken.
-
--- Steve
-
-
-> +
->  	*pentry = entry;
->  	if (!entry)
->  		return -ENOMEM;
+base-commit: 17376e7311cdec252b61cb1ecec43be61907781b
+-- 
+2.55.0.229.g6434b31f56-goog
 
