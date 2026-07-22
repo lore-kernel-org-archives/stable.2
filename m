@@ -1,76 +1,85 @@
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5D1385D66;
-	Wed, 22 Jul 2026 20:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E95138888E;
+	Wed, 22 Jul 2026 21:00:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784753629; cv=none; b=rbv50iVFIaNs1+31gfeaRfyD3FLGQ/gyJz4BAIyJ4sjHO1YBUm+Jx3UK28rbT4rMOsqME9hpuNwdcXj6sgjZtyl0cv+h6I9zraw2lCx6Za79QC5qd1rS5UaggYfHLFXrWsU97jfsqiZg8ZaVGt4GQaO8QnVh3KwUobzalG6uvbE=
+	t=1784754040; cv=none; b=qCirVnltxdvRWOQLqsw+GQEE0EfwpgLp+w6eL9WLGtJ8dmBFnaluDchZC1K3PNW+hkW1x0PYhW9q0HoCBN38eIJEDDDrn2k/kgcxmUdRYImmHVIg2eHB/jRN6Zj71coVB40NUVxYHNlNpAanZta0F84MUjNN0JLc3cjjoQ0mwps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784753629; c=relaxed/simple;
-	bh=I9Cvppx7U9GfgxA2K4XGpIn9merQ+1FSpPD/zh6HbfQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=sAiBxdUfD2+116bpn+yySG032JliYgCzF3JEVarvXiNfZS0v0m2/xn70lCBjGvQcWYR0ZKq9uZQhz3ChDGSHzZsIvHfnsLfs5W6GaKy/XhdGXt/veA34weQgCcz4HY4kbTHphYwtgRQ4qfLmxeAe1mxc9tO1hqP5r347qK2f9oM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-Date: Wed, 22 Jul 2026 22:53:34 +0200
-From: =?ISO-8859-1?Q?Toke_H=F8iland-J=F8rgensen?= <toke@toke.dk>
-To: Matt Fleming <matt@readmodwrite.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>
-CC: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Lorenzo Bianconi <lorenzo@kernel.org>,
- bpf@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org,
- kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH net v3] veth: convert frag_list skbs before running XDP
-In-Reply-To: <20260722191925.2192070-1-matt@readmodwrite.com>
-References: <20260722191925.2192070-1-matt@readmodwrite.com>
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <C8A20909-E6B4-419B-B6D6-35EE7DE78C79@toke.dk>
+	s=arc-20240116; t=1784754040; c=relaxed/simple;
+	bh=/Rae/DoT6Yjm6B/TwGNwsBjjMKKQoz2fECR00sTjV8g=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=as7WRmkoTQYmThqDvLzqSk6QRmwdqneXMV3LQA+7WMkzX4I1BcPS65DMpwSX/u3rILRwf0q4VV19a0NGtkOvmEEm+g0I9HbssISHaoLBzh/OJCnSmWtcat7rdFiDspBy+wqRfubz/qUL9Y2wOS3jeSQntpJlAX0pj5ORNw8Zld4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lqo7X56T; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lqo7X56T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E549B1F000E9;
+	Wed, 22 Jul 2026 21:00:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784754038;
+	bh=nczCwjOja0W2RJd255Uy/4ytPzbOxBXktF6nqQMOUtw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Lqo7X56ToZ+fJmfZ39zKedDThHo8wIPphJ85KJnXEgl60Z8gr93jwjIZQa7UZheRU
+	 4AQP1dQ+aSwiTlaUnoRPvWzKb034weQnAq1XyUhBxsgKLKBxvzC7XiVG1aMYADS3cv
+	 YEpqU32b+WoCXOZozwEIpAL8Zan+tjklizMtNG5JEzagd8W2X7Aann6K6iK1coqvxa
+	 Qod2gVGD+mdpKuinDFjzJcyN2PsRTGCMvo37XRqXF5xXqPGE19GccT88H5gAzkytzJ
+	 KZSAHXDBKvjUdkZYl1YXvJov6YI8+mVjk2eqg+AZgbOzGlrvEOS+uG8menrhvw4ism
+	 MNNWbUxZKQhaw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0978380CED5;
+	Wed, 22 Jul 2026 21:00:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] vxlan: mdb: Fix source list corruption on a failed
+ replace
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178475400739.2022998.13699263721848648039.git-patchwork-notify@kernel.org>
+Date: Wed, 22 Jul 2026 21:00:07 +0000
+References: <20260720160428.249356-1-jamestiotio@gmail.com>
+In-Reply-To: <20260720160428.249356-1-jamestiotio@gmail.com>
+To: James Raphael Tiovalen <jamestiotio@gmail.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ stable@vger.kernel.org, kees@kernel.org, razor@blackwall.org,
+ idosch@nvidia.com, linux-kernel@vger.kernel.org
+
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Tue, 21 Jul 2026 00:04:24 +0800 you wrote:
+> When replacing the source list of an MDB remote entry, all existing
+> sources are first marked for deletion and vxlan_mdb_remote_srcs_add()
+> is then called to add the new source list. Sources present in the new
+> list have their deletion mark cleared, and any sources left marked
+> afterwards are removed.
+> 
+> If vxlan_mdb_remote_srcs_add() fails partway through, its error path
+> deletes all entries on the remote's source list. That rollback is only
+> correct for its other caller, vxlan_mdb_remote_add(), where the remote
+> was just allocated and the list contains solely entries added during
+> the call. On the replace path the list also holds pre-existing sources,
+> so a failed replace tears them down together with their (S, G)
+> forwarding entries instead of leaving the entry unchanged.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] vxlan: mdb: Fix source list corruption on a failed replace
+    https://git.kernel.org/netdev/net/c/dcd9b4659654
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-
-On 22 July 2026 21=2E19=2E25 CEST, Matt Fleming <matt@readmodwrite=2Ecom> =
-wrote:
->From: Matt Fleming <mfleming@cloudflare=2Ecom>
->
->A frag_list skb can reach veth with data_len set but nr_frags zero=2E
->veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
->locked, have frags[], or do not have enough headroom=2E It later uses
->skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
->xdp_frags_size=2E
->
->That exposes frag_list data to XDP as if it were stored in frags[], but
->frags[] is empty=2E AF_XDP copy mode can then trust the bogus XDP fragmen=
-t
->metadata, walk an empty fragment entry, and crash in memcpy() from
->__xsk_rcv()=2E
->
->Route non-linear skbs through skb_pp_cow_data() before exposing them to
->XDP, and only advertise XDP frags when the resulting skb has frags[]=2E
->skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
->builds frags[] output with skb_add_rx_frag(), which is the
->representation XDP multi-buffer expects=2E
->
->Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept no=
-n-linear skb")
->Cc: stable@vger=2Ekernel=2Eorg
->Signed-off-by: Matt Fleming <mfleming@cloudflare=2Ecom>
-
-Please retain tags when respinning=2E
-
-Reviewed-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@toke=2Edk>
