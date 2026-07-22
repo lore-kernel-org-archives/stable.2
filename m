@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B90A3264D8
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:24:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378E0366816
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:24:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784719462; cv=none; b=pgE+QO8F9kNGG8awdOyIOZrzqk78BVgCkf9AL4ZfL2XHmMWNfnPav93w3WK++uGccsXjkwnf2pv+PvZ+ld7KffswWhKnW0OMLHSP25bG7v8oaO1Rl9dgxEU9gxD+33OvcM3HOSDZXpbfpj8MYROZPd1q57htLRNWHDijO/9mVyU=
+	t=1784719465; cv=none; b=JKUVHxIBkDLIioZXkNfIIqpqW9q+7YpCougyS10eQF/q90SP5tzcwqHmGi/dOy9/szrjHX+mrJ3XXaZeQLn8kQUff+FxDNkjlTBhXHwryykRVEVxUXPr/bCEc7tj2kcnRLBB6dlA2qlpekXEvV7d9+1Er4JzyckuC6zmityZ5+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784719462; c=relaxed/simple;
-	bh=zRkIdp8i0Z1q4k/Lint4s1PsVI5vGI+tdVdMDWI2DPI=;
+	s=arc-20240116; t=1784719465; c=relaxed/simple;
+	bh=cmq6VmbtjVAGDjVj2SlOAghqo7Co3qZifsljxwWs5DU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kxy/yg91qFfJH9Zgrc9fHQnnh9IDXWGkI2xNu5cBHHMWuo+6MSn2tDMi8UZ7Yq6ij6Evu3negzQCKuW/JhHak3FrgPwTUJfMpI2H5ASiBvYSKoAMpRgmfPh+mg9mELCRm17z3d7LQGLpL6xsMj0OQekY3Ry4LJpkOXZY+eB3Sac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGNXVBWl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ejdebJxl3pKPowRV/SO1DzXcLX7VeCZMMJYUzN3m/IBcFYLX1x+yFmEGZW3QrZTTDU9rgUH4ocnAhAqJx68M/kK6Y/p3Fwa2HdHxItBB3dS19k4IVs/zeTv/JJ7eTnloIQhM7nWb6KXyjTmk/27LvByS5BLdrOx2W/BY8yR2QZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QC7H06LQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGNXVBWl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D42A41F000E9;
-	Wed, 22 Jul 2026 11:24:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QC7H06LQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FF11F000E9;
+	Wed, 22 Jul 2026 11:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784719461;
-	bh=jK5ywpNFsp8uUqwLqrYZJ1MhwJfcbaWsJf3htZvaVM0=;
+	s=k20260515; t=1784719463;
+	bh=whsWH9JJjU9x17YJP/XQnEQj1U9fbpgiTlnUZEfD5NE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EGNXVBWlCGZ3thsNHdBW1zbqMoOM7xmdUSWbp5QJc6MmuwbiCK4+C6jmXk9XU6lz2
-	 7wlYna8B6r4r6hcpOh6DHnGd7ELcWUBcU2Pqb+/YxjuEwfwxDtEgWSQEiAGcJcy7Wo
-	 TwNny6b+8Y/BfFMQpBv000GCFqtrM6B2Ci28l/DQEFB/pM0Bkz6NG6yLazubNwFV5l
-	 YT4PHH7l3msxCx8YmavpWurI927qE6gO/sO19j4OZkfMGxNI1YiePAs/CESFsPDXfu
-	 meDme3Hjj2gNwaEdj5NwQdtO+NIAIGhhJ3qx0ZG8IUAeEDaIKnXSZM7yeTkDvM2zXO
-	 u5Z1ksgJXls3A==
+	b=QC7H06LQvNnOiIdshSynUBC3q63t3vNH6AjbLW5yAlcAgjYfo7I0BZ2leMWSwEKU2
+	 i+w1YFzcDcseTAvdsaCWyGsCXsrQzHg9s/rQ9TDkXGTLs1icIw2Zzf+eGrr7xnxuoA
+	 MyFUojTzkRNLUyxNIeHCbhEn3W8KqRAaECwPj6YBwSaFWvOb+ysgYXhyhy9Teg2d+I
+	 KYZoUuZSDBQEORY9ZWnxLb+KTcccIiQlgSfUQ/VNB/9kj16P3DfFmRbsYbK9gB05x7
+	 hM2V0f1HCK9TLuyZikwKc7KF/rHD27o+g8unUNsTS98/KSfD53GA8KelhN17PoTbp0
+	 d1auSju3h4Tng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhang Heng <zhangheng@kylinos.cn>,
+Cc: Xu Rao <raoxu@uniontech.com>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ALSA: hda: conexant: Remove mic bias threshold override
-Date: Wed, 22 Jul 2026 07:24:19 -0400
-Message-ID: <20260722112419.1114390-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ALSA: hda: Fix cached processing coefficient verbs
+Date: Wed, 22 Jul 2026 07:24:21 -0400
+Message-ID: <20260722112421.1114485-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072002-drinkable-verbally-6958@gregkh>
-References: <2026072002-drinkable-verbally-6958@gregkh>
+In-Reply-To: <2026072011-pedigree-pebbly-e0e6@gregkh>
+References: <2026072011-pedigree-pebbly-e0e6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,46 +45,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Heng <zhangheng@kylinos.cn>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit f52524da7084c1a54683ae9fbc73e93fff19dd64 ]
+[ Upstream commit f67be28fdf8b5d31ac1cc1152bb17250f9f8f513 ]
 
-Remove the mic bias current comparator threshold override (NID 0x1c,
-verb 0x320, value 0x010) from Conexant codec driver.
+Intel HD Audio defines Coefficient Index and Processing Coefficient as
+separate audio widget controls in the Audio Widget Verb Definitions:
+Coefficient Index selects the coefficient slot, while Processing
+Coefficient accesses the value at the selected slot.
 
-This override was originally intended to support volume up/down controls on
-headsets with inline remote controls, but it causes microphone detection
-failures on some headsets with impedance less than 1k ohm.
+hda_reg_read_coef() selects the slot with AC_VERB_SET_COEF_INDEX, but
+then uses AC_VERB_GET_COEF_INDEX for the value read.  That reads back the
+selected index instead of the coefficient value.  hda_reg_write_coef()
+has the same issue and builds the value write from AC_VERB_GET_COEF_INDEX
+instead of AC_VERB_SET_PROC_COEF.
 
-After consulting with the vendor's engineers, it was confirmed that this
-setting is board-specific and should be handled by BIOS/firmware rather
-than the generic codec driver, especially since inline remote support
-is not currently implemented.
+This only affects the regmap coefficient cache path used by codecs that
+set codec->cache_coef.  Direct coefficient helpers already use the normal
+SET_COEF_INDEX followed by GET_PROC_COEF or SET_PROC_COEF sequence, which
+is likely why this has not been noticed widely.
 
-Fixes: 7aeb25908648 ("ALSA: hda/conexant: Fix headset auto detect fail in cx8070 and SN6140")
+Use AC_VERB_GET_PROC_COEF for cached coefficient reads and
+AC_VERB_SET_PROC_COEF for cached coefficient writes.
+
+Fixes: 40ba66a702b8 ("ALSA: hda - Add cache support for COEF read/write")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
-Link: https://patch.msgid.link/20260713100329.306892-1-zhangheng@kylinos.cn
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Link: https://patch.msgid.link/DB9023BF2920BA99+20260707132419.1731342-1-raoxu@uniontech.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_conexant.c | 3 ---
- 1 file changed, 3 deletions(-)
+ sound/hda/hdac_regmap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
-index 82186c4364c9b8..0aed86820402c5 100644
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -168,9 +168,6 @@ static void cx_fixup_headset_recog(struct hda_codec *codec)
- {
- 	unsigned int mic_present;
+diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
+index 97cee096a2864f..1ebc6dcc66893f 100644
+--- a/sound/hda/hdac_regmap.c
++++ b/sound/hda/hdac_regmap.c
+@@ -214,7 +214,7 @@ static int hda_reg_read_coef(struct hdac_device *codec, unsigned int reg,
+ 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
+ 	if (err < 0)
+ 		return err;
+-	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8);
++	verb = (reg & ~0xfffff) | (AC_VERB_GET_PROC_COEF << 8);
+ 	return snd_hdac_exec_verb(codec, verb, 0, val);
+ }
  
--	/* fix some headset type recognize fail issue, such as EDIFIER headset */
--	/* set micbias output current comparator threshold from 66% to 55%. */
--	snd_hda_codec_write(codec, 0x1c, 0, 0x320, 0x010);
- 	/* set OFF voltage for DFET from -1.2V to -0.8V, set headset micbias register
- 	 * value adjustment trim from 2.2K ohms to 2.0K ohms.
- 	 */
+@@ -232,7 +232,7 @@ static int hda_reg_write_coef(struct hdac_device *codec, unsigned int reg,
+ 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
+ 	if (err < 0)
+ 		return err;
+-	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8) |
++	verb = (reg & ~0xfffff) | (AC_VERB_SET_PROC_COEF << 8) |
+ 		(val & 0xffff);
+ 	return snd_hdac_exec_verb(codec, verb, 0, NULL);
+ }
 -- 
 2.53.0
 
