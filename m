@@ -1,83 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC21360EE5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6EA361651
 	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:50:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784681452; cv=none; b=FhGQcFcmIEFvNkyLOIsHZbIau5y20ewHJpKY++alZsoe05gAAS1lYCUTp9CqNxv2HMayGup5DfcQqImioiIblLmJA2erL7SyMvBRSx4NW0EQ9qJpz9Q2nSOtUlV9jTJ2gceb3FwoiOM4TsG0+A+OpP0PzObom2/OB+4tFFtBWm4=
+	t=1784681452; cv=none; b=OHl9mP/DJcsNnGx+68gRWDsRxf/05Pq03i9ZlbYwgBNmGfbIHoPhkdp0ufLMlAM0H3y9MizcMJS9QvSNLpuQWtlIh6ky5P/0oJfF9RZNM1im0PoK/WQ0F+eDvQfogSeieMCk8Hf3ZVXhXFXTnl+pVPmV2gnuEa4Hz4hVJ6wo8t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784681452; c=relaxed/simple;
-	bh=qrwFas4yLlV7uo5WtikPFi4mO+WH7B36GhqhSwOjx0c=;
+	bh=u/ryCgwJ5I6WpR7n0SxYhYEbHwZX7c5LvYlGQ+ckBNU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SS1WfKrTYqAnYeCq/IDJdGmt5m9fT/gEGS5Zw1/t54SJKoNaUNSY1oPM1Oyn1KM5irE5gOTXMcoO83PjwspaRsIy2YF10xqWT29Z125+hL8JgNCHZVmqOl4ufLLWCSkAWze6UC74r6bAkEfU7qbXS09BVfBa3pBQ7cvkFQTbewY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DyaAoKSI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cvAaHyQTZyBZ0aFyPZ4gC2IgIm98y3x717X7Jy2DeqeMCffDqpCABfTVSjNt2O/aCEAa+/+ynLR9KiQrKjfijZqqotsyttGxnwihlkbkI1v58PurnuxGSVye2fGYZFQMbOiKA5clgVOWIHGdI9GXeRaHT9vpnHptTTmozBjPtxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaJacUFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DyaAoKSI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4481F00A3A;
-	Wed, 22 Jul 2026 00:50:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaJacUFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 935C01F000E9;
+	Wed, 22 Jul 2026 00:50:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784681449;
-	bh=G3QWXRQo/mUETWjX7m2+npNiPN9UQfAfeKsB9CrGU84=;
+	s=k20260515; t=1784681448;
+	bh=rv8gOrUJwOG9lsbHv2sioKO7WkJxkYw2X0Qo9a5yqEo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DyaAoKSIhpfGDR+bkNyhwt0sxvpXLx0+d3EU3db1cRn78/rU2KkVG25QARwhc+KNx
-	 9VXu40WplQirfhud82IW4fjNTGp1j9Kl3yNAgwBBRY3vWm3YIirQjgddfu3uwbJ08/
-	 jwpwiMFpSb8Ng+9Sv7WXq2EGZF1P7Re0IJ/bsfANXFJqL3sK+FnL2eWu+dH3bWMaU6
-	 kQc8pCn9NOX74QKG5+tQCATPe0Sm2U7oYgslpyBnbcT825sdelO44JR4cZMFQnQBaO
-	 oWLqcr0b0rhFWYkFYf14+sj6N9+hQSOQdVQnHKy9wBm7C22duxMHfGVHIzToFruYwW
-	 TBUl9cdassHyg==
+	b=ZaJacUFEYmNQjFp+YY2y/VcIiBM26J/XEY18ZOaZLci/wzxxly1cYtS1Qj5gUT0D6
+	 OdUi8AwR91OHiI+B3hmXfOvdHwBjt4nGYaocRBjO1J25Uj5cOpDZGq26mmOZq1eDLc
+	 4PHDsuuG7kPnrftk+4cDabC80hkW9qq0/LsrEyLjwU/2p8DH+T3tP9LNF6/QFZtIjp
+	 nZbe2zYLFdudjg/5uPb4Q1eXzoPe0CQV9Z2X+PXK0xDHwZbEiJMQstrg56HoxXjVFK
+	 58zT7qR5Ob7y7WENZ5Yo0wdYl4xtjRzS0iA3dM4gnOAJmtowVo/WwlZW9ifnYx/zmH
+	 K3LxKjZgtEs9g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>,
+Cc: Hans de Goede <hdegoede@redhat.com>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/5] i2c: core: fix reference leak in i2c_register_adapter()
-Date: Tue, 21 Jul 2026 20:50:43 -0400
-Message-ID: <20260722005046.603973-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/5] i2c: core: Setup i2c_adapter runtime-pm before calling device_add()
+Date: Tue, 21 Jul 2026 20:50:42 -0400
+Message-ID: <20260722005046.603973-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722005046.603973-1-sashal@kernel.org>
+In-Reply-To: <2026071656-dullness-penalize-0e99@gregkh>
 References: <2026071656-dullness-penalize-0e99@gregkh>
- <20260722005046.603973-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit 3f8c4f5e9a57868fa107016c81165686d23325f2 ]
+[ Upstream commit 60f68597024d5af727c8a5f5f3b11f246265192b ]
 
-The reference count of the device incremented in device_initialize() is
-not decremented when device_add() fails. Add a put_device() call before
-returning from the function.
+Platform glue code, which is not build into the kernel and thus cannot
+use i2c_register_board_info() may want to use bus_register_notifier()
+to listen for i2c-adapters to show up on which the platform code needs
+to manually instantiate platform specific i2c_clients.
 
-This bug was found by an experimental static analysis tool that I am
-developing.
+This results in calling i2c_new_client_device() from the bus notifier
+which happens near the device_add() call.
 
-Fixes: 60f68597024d ("i2c: core: Setup i2c_adapter runtime-pm before calling device_add()")
-Signed-off-by: Joe Hattori <joe@pf.is.s.u-tokyo.ac.jp>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+If the i2c-core has not yet setup runtime-pm (specifically the
+no-callbacks and ignore-children flags) for the device embedded
+inside struct i2c_adapter and the driver for the i2c_client
+calls pm_runtime_set_active() this will trigger the following
+error inside __pm_runtime_set_status():
+
+"runtime PM trying to activate child device %s but parent (%s) is not active\n"
+
+and the i2c_client's runtime-status will not be updated.
+
+Split the device_register() call for the adapter into device_initialize()
+and device_add() and move the pm-runtime init calls inbetween these 2 calls
+so that the runtime-status can be correctly set when a driver binds from
+the bus-notifier.
+
+Note the moved pm-runtime init calls just override the initial value of
+some flags in struct device set by device_initialize() and calling these
+before device_add() is safe.
+
+Reviewed-by: Pali Rohár <pali@kernel.org>
+Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
 Stable-dep-of: 158efa411c57 ("i2c: core: fix adapter probe deferral loop")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/i2c/i2c-core-base.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 1df75dcea8b97f..4b3960fa35f7bb 100644
+index 265b7f7f38c6eb..1df75dcea8b97f 100644
 --- a/drivers/i2c/i2c-core-base.c
 +++ b/drivers/i2c/i2c-core-base.c
-@@ -1564,6 +1564,7 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	res = device_add(&adap->dev);
+@@ -1551,7 +1551,17 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	dev_set_name(&adap->dev, "i2c-%d", adap->nr);
+ 	adap->dev.bus = &i2c_bus_type;
+ 	adap->dev.type = &i2c_adapter_type;
+-	res = device_register(&adap->dev);
++	device_initialize(&adap->dev);
++
++	/*
++	 * This adapter can be used as a parent immediately after device_add(),
++	 * setup runtime-pm (especially ignore-children) before hand.
++	 */
++	pm_runtime_no_callbacks(&adap->dev);
++	pm_suspend_ignore_children(&adap->dev, true);
++	pm_runtime_enable(&adap->dev);
++
++	res = device_add(&adap->dev);
  	if (res) {
  		pr_err("adapter '%s': can't register device (%d)\n", adap->name, res);
-+		put_device(&adap->dev);
  		goto out_list;
- 	}
+@@ -1563,10 +1573,6 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	if (res)
+ 		goto out_reg;
  
+-	pm_runtime_no_callbacks(&adap->dev);
+-	pm_suspend_ignore_children(&adap->dev, true);
+-	pm_runtime_enable(&adap->dev);
+-
+ 	res = i2c_init_recovery(adap);
+ 	if (res == -EPROBE_DEFER)
+ 		goto out_reg;
 -- 
 2.53.0
 
