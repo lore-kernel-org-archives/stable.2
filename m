@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E10334C9AD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78CE336EDA
 	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784681479; cv=none; b=jDuGABBAc869Q/AGzMQHTRMLDtlqnRP9168X5DzjN0JCMUrUa63SI07x/Up+sgblGXq+z2JtMVMTNH8bT8QOf83U6shwZOVCh0RRSTOGd0yAIacV3yFPOWFDelvppImL0hat28HrA0xyUQXZ7h/aYIwLdUqzIjrDAnn5nl5JuFk=
+	t=1784681480; cv=none; b=mroLIH2hsX3UksH/2HE5GfzcOVQfMNn7c3kcF9cHsWd6fus0kDVCQWWwrQlYVJISG6y5W+L6JTM2BUHvcOBnrgIDX20PY6Cft8WeKUoFsk2bHWmBSqlvIdZM9RErVXtpw+Rr3ClMCXYaGKpTs3htAZQYgdRpqmFBwaL9gy5G5Is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784681479; c=relaxed/simple;
-	bh=eY6oXRseSePwAbgS34Aph/FkAFRi0dlgco5xPihM0jQ=;
+	s=arc-20240116; t=1784681480; c=relaxed/simple;
+	bh=bum2pqc0LGl20DsYmJccD8QoaP+/GTRpmsYAh78himg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fSXDm+kt6xeivjOGsCYqqspUunnpjFCpIF+CVtAOwmcA1zDGryb60diRIFHWFA3DJsNDTt9hnbqexDGA8jK8u5uNFifxo5xhb73iBTaZyO8LCzeomVoZvIVTXlNnHcCWPzZ07kn5Iz3dRPap9nZMkaWlU/Vf00i5Kzy5JInXgg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYAz/1as; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NFXuEmBVigZIGEtd707eFnvykG7RWJsmrjcNxhWobwa/XyYoXw9AB64uQn70n0jt3VK9ku1Joe5JajcAYQCUEgYhUT6+taMdpEa+VWrBcJ5WdKg0M7vGfd+CxTGOxAGbPO/oPqs1ZHBWBLRcmMdDnQ4Y5VY34UIXnEcU3/2U6K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nk0rSYA5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYAz/1as"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830681F000E9;
-	Wed, 22 Jul 2026 00:51:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nk0rSYA5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44F5E1F00A3E;
+	Wed, 22 Jul 2026 00:51:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784681478;
-	bh=Tx5y8h/SUEjy1mY4FZLmLjAMcWWGmOI+sHCXADzu4QI=;
+	bh=Er0XtKZPHO3zx42u061iXRwi2L9UUGIgT1kJjLiAHXw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jYAz/1asNXpMIFCIdON4Z+ZOOYjhuRm2+IQH1gxl8E1DcO9QIdjSWkVFQlVsb8ite
-	 GwFDsHtSu4LRa1r/zeqvJHbTpYxxX6EzGLkhbLmGFI2LLJ84WX/sG9nIHrKHSi3ah/
-	 w6y+xHOnJAcAW/he61nF0qqQ9PvtySIpv74O+ub1TCwUNNoPzFIeK7lzZnApzDmE8F
-	 Io3LE3DANRln5b//5ZZiBL1IA0AM1NDaKvRJw9sRt5iApIEHhSGHqUF5o3vr8+ebDZ
-	 4+Tszp8T44WO2fqwGlEANX9OBM48L75GGHFIwO3h5on98X9d+ZJOItKYWezgqbvgxw
-	 fDG34OGhUAX3A==
+	b=nk0rSYA5PAJF48IDnYQTQ/lzEGcw2gyxarYQSAJxoypO8ueAd/f5Q19QJAlEUGIoo
+	 VjTTPg8pXmKSKnQC95ybL8hogNliE2wyZdlHDXBqQM9m5PJqDKWw61BQ2t9vjO8CU4
+	 7Gg3Zxed7JGK6tQTlVUcj/wpTLYCrChW63c0/aI+NYufHuOyzfPhywKJO48QP/xvEE
+	 A6UIxWyyenDHCm1vKgROpKP2KvpOcx8Ahl4GG+meaazI9T7VGe6SM0DZLOUZEZ5eGC
+	 HhqWzzot5Qmdvv9yq8FYw6GPo5A6lMDRWbvn/S6gIjJtbg+5hJ47hvNEZeCWALHJPH
+	 jhvMG8W5skSww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: NeilBrown <neil@brown.name>,
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Paul Moore <paul@paul-moore.com>,
 	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] VFS/audit: introduce kern_path_parent() for audit
-Date: Tue, 21 Jul 2026 20:51:12 -0400
-Message-ID: <20260722005116.605624-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/4] audit: widen ino fields to u64
+Date: Tue, 21 Jul 2026 20:51:13 -0400
+Message-ID: <20260722005116.605624-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071651-dismount-trapped-aafe@gregkh>
+In-Reply-To: <20260722005116.605624-1-sashal@kernel.org>
 References: <2026071651-dismount-trapped-aafe@gregkh>
+ <20260722005116.605624-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,198 +47,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: NeilBrown <neil@brown.name>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 76a53de6f7ff0641570364234fb4489f4d4fc8e9 ]
+[ Upstream commit 125dfa218134df7cc112667e92984de9d8cd0bf6 ]
 
-audit_alloc_mark() and audit_get_nd() both need to perform a path
-lookup getting the parent dentry (which must exist) and the final
-target (following a LAST_NORM name) which sometimes doesn't need to
-exist.
+inode->i_ino is being widened from unsigned long to u64. The audit
+subsystem uses unsigned long ino in struct fields, function parameters,
+and local variables that store inode numbers from arbitrary filesystems.
+On 32-bit platforms this truncates inode numbers that exceed 32 bits,
+which will cause incorrect audit log entries and broken watch/mark
+comparisons.
 
-They don't need the parent to be locked, but use kern_path_locked() or
-kern_path_locked_negative() anyway.  This is somewhat misleading to the
-casual reader.
+Widen all audit ino fields, parameters, and locals to u64, and update
+the inode format string from %lu to %llu to match.
 
-This patch introduces a more targeted function, kern_path_parent(),
-which returns not holding locks.  On success the "path" will
-be set to the parent, which must be found, and the return value is the
-dentry of the target, which might be negative.
-
-This will clear the way to rename kern_path_locked() which is
-otherwise only used to prepare for removing something.
-
-It also allows us to remove kern_path_locked_negative(), which is
-transformed into the new kern_path_parent().
-
-Signed-off-by: NeilBrown <neil@brown.name>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260304-iino-u64-v3-2-2257ad83d372@kernel.org
+Acked-by: Paul Moore <paul@paul-moore.com>
 Signed-off-by: Christian Brauner <brauner@kernel.org>
 Stable-dep-of: 81905b5acbe7 ("audit: fix recursive locking deadlock in audit_dupe_exe()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/namei.c              | 43 +++++++++++++++++++++++++++++++++++++++++
- include/linux/namei.h   |  1 +
- kernel/audit.h          |  4 ++--
- kernel/audit_fsnotify.c |  9 +++------
- kernel/audit_watch.c    |  9 ++++++---
- 5 files changed, 55 insertions(+), 11 deletions(-)
+ include/linux/audit.h   |  2 +-
+ kernel/audit.h          |  9 ++++-----
+ kernel/audit_fsnotify.c |  2 +-
+ kernel/audit_watch.c    | 10 +++++-----
+ kernel/auditsc.c        |  4 ++--
+ 5 files changed, 13 insertions(+), 14 deletions(-)
 
-diff --git a/fs/namei.c b/fs/namei.c
-index 02b0c273129824..a3e4cf480ade46 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@ -2603,6 +2603,49 @@ static struct dentry *__kern_path_locked(struct filename *name, struct path *pat
- 	return d;
- }
+diff --git a/include/linux/audit.h b/include/linux/audit.h
+index 517c665da25975..4b060b0f3d70cd 100644
+--- a/include/linux/audit.h
++++ b/include/linux/audit.h
+@@ -16,7 +16,7 @@
+ #include <uapi/linux/netfilter/nf_tables.h>
+ #include <uapi/linux/fanotify.h>
  
-+/**
-+ * kern_path_parent: lookup path returning parent and target
-+ * @name: path name
-+ * @path: path to store parent in
-+ *
-+ * The path @name should end with a normal component, not "." or ".." or "/".
-+ * A lookup is performed and if successful the parent information
-+ * is store in @parent and the dentry is returned.
-+ *
-+ * The dentry maybe negative, the parent will be positive.
-+ *
-+ * Returns:  dentry or error.
-+ */
-+struct dentry *kern_path_parent(const char *name, struct path *path)
-+{
-+	struct filename *filename = getname_kernel(name);
-+	struct path parent_path;
-+	struct dentry *d;
-+	struct qstr last;
-+	int type, error;
-+
-+	error = filename_parentat(AT_FDCWD, filename, 0, &parent_path, &last, &type);
-+	if (error) {
-+		d = ERR_PTR(error);
-+		goto out;
-+	}
-+	if (unlikely(type != LAST_NORM)) {
-+		path_put(&parent_path);
-+		d = ERR_PTR(-EINVAL);
-+		goto out;
-+	}
-+
-+	d = lookup_one_len_unlocked(last.name, parent_path.dentry, last.len);
-+	if (IS_ERR(d)) {
-+		path_put(&parent_path);
-+		goto out;
-+	}
-+	*path = parent_path;
-+out:
-+	putname(filename);
-+	return d;
-+}
-+
- struct dentry *kern_path_locked(const char *name, struct path *path)
- {
- 	struct filename *filename = getname_kernel(name);
-diff --git a/include/linux/namei.h b/include/linux/namei.h
-index 1463cbda488867..c1ff032607dd6e 100644
---- a/include/linux/namei.h
-+++ b/include/linux/namei.h
-@@ -61,6 +61,7 @@ struct dentry *lookup_one_qstr_excl(const struct qstr *name,
- 				    struct dentry *base,
- 				    unsigned int flags);
- extern int kern_path(const char *, unsigned, struct path *);
-+struct dentry *kern_path_parent(const char *name, struct path *parent);
+-#define AUDIT_INO_UNSET ((unsigned long)-1)
++#define AUDIT_INO_UNSET ((u64)-1)
+ #define AUDIT_DEV_UNSET ((dev_t)-1)
  
- extern struct dentry *kern_path_create(int, const char *, struct path *, unsigned int);
- extern struct dentry *user_path_create(int, const char __user *, struct path *, unsigned int);
+ struct audit_sig_info {
 diff --git a/kernel/audit.h b/kernel/audit.h
-index 5156ecd3545733..99afd1c58ebc9f 100644
+index 99afd1c58ebc9f..e7610428ee448b 100644
 --- a/kernel/audit.h
 +++ b/kernel/audit.h
-@@ -279,8 +279,8 @@ extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
- extern char *audit_mark_path(struct audit_fsnotify_mark *mark);
- extern void audit_remove_mark(struct audit_fsnotify_mark *audit_mark);
- extern void audit_remove_mark_rule(struct audit_krule *krule);
--extern int audit_mark_compare(struct audit_fsnotify_mark *mark,
--			      unsigned long ino, dev_t dev);
-+extern int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino,
-+			      dev_t dev);
- extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old);
- extern int audit_exe_compare(struct task_struct *tsk,
- 			     struct audit_fsnotify_mark *mark);
+@@ -75,7 +75,7 @@ struct audit_names {
+ 	int			name_len;	/* number of chars to log */
+ 	bool			hidden;		/* don't log this record */
+ 
+-	unsigned long		ino;
++	u64			ino;
+ 	dev_t			dev;
+ 	umode_t			mode;
+ 	kuid_t			uid;
+@@ -219,9 +219,9 @@ extern int auditd_test_task(struct task_struct *task);
+ #define AUDIT_INODE_BUCKETS	32
+ extern struct list_head audit_inode_hash[AUDIT_INODE_BUCKETS];
+ 
+-static inline int audit_hash_ino(u32 ino)
++static inline int audit_hash_ino(u64 ino)
+ {
+-	return (ino & (AUDIT_INODE_BUCKETS-1));
++	return ((u32)ino & (AUDIT_INODE_BUCKETS-1));
+ }
+ 
+ /* Indicates that audit should log the full pathname. */
+@@ -271,8 +271,7 @@ extern int audit_to_watch(struct audit_krule *krule, char *path, int len,
+ extern int audit_add_watch(struct audit_krule *krule, struct list_head **list);
+ extern void audit_remove_watch_rule(struct audit_krule *krule);
+ extern char *audit_watch_path(struct audit_watch *watch);
+-extern int audit_watch_compare(struct audit_watch *watch, unsigned long ino,
+-			       dev_t dev);
++extern int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev);
+ 
+ extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
+ 						    char *pathname, int len);
 diff --git a/kernel/audit_fsnotify.c b/kernel/audit_fsnotify.c
-index c565fbf66ac876..2b237895157d6e 100644
+index 2b237895157d6e..35753fb9029a29 100644
 --- a/kernel/audit_fsnotify.c
 +++ b/kernel/audit_fsnotify.c
-@@ -57,7 +57,7 @@ char *audit_mark_path(struct audit_fsnotify_mark *mark)
- 	return mark->path;
- }
- 
--int audit_mark_compare(struct audit_fsnotify_mark *mark, unsigned long ino, dev_t dev)
-+int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino, dev_t dev)
- {
- 	if (mark->ino == AUDIT_INO_UNSET)
- 		return 0;
-@@ -76,17 +76,14 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
- 	struct audit_fsnotify_mark *audit_mark;
- 	struct path path;
- 	struct dentry *dentry;
--	struct inode *inode;
- 	int ret;
- 
- 	if (pathname[0] != '/' || pathname[len-1] == '/')
- 		return ERR_PTR(-EINVAL);
- 
--	dentry = kern_path_locked(pathname, &path);
-+	dentry = kern_path_parent(pathname, &path);
- 	if (IS_ERR(dentry))
- 		return ERR_CAST(dentry); /* returning an error */
--	inode = path.dentry->d_inode;
--	inode_unlock(inode);
- 
- 	audit_mark = kzalloc(sizeof(*audit_mark), GFP_KERNEL);
- 	if (unlikely(!audit_mark)) {
-@@ -100,7 +97,7 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
- 	audit_update_mark(audit_mark, dentry->d_inode);
- 	audit_mark->rule = krule;
- 
--	ret = fsnotify_add_inode_mark(&audit_mark->mark, inode, 0);
-+	ret = fsnotify_add_inode_mark(&audit_mark->mark, path.dentry->d_inode, 0);
- 	if (ret < 0) {
- 		audit_mark->path = NULL;
- 		fsnotify_put_mark(&audit_mark->mark);
+@@ -25,7 +25,7 @@
+  */
+ struct audit_fsnotify_mark {
+ 	dev_t dev;		/* associated superblock device */
+-	unsigned long ino;	/* associated inode number */
++	u64 ino;		/* associated inode number */
+ 	char *path;		/* insertion path */
+ 	struct fsnotify_mark mark; /* fsnotify mark on the inode */
+ 	struct audit_krule *rule;
 diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
-index 7a98cd176a127d..60f5daebc5ef83 100644
+index 60f5daebc5ef83..c3a665fd635e22 100644
 --- a/kernel/audit_watch.c
 +++ b/kernel/audit_watch.c
-@@ -244,7 +244,7 @@ static void audit_watch_log_rule_change(struct audit_krule *r, struct audit_watc
- /* Update inode info in audit rules based on filesystem event. */
- static void audit_update_watch(struct audit_parent *parent,
- 			       const struct qstr *dname, dev_t dev,
--			       unsigned long ino, unsigned invalidating)
-+			       u64 ino, unsigned int invalidating)
- {
- 	struct audit_watch *owatch, *nwatch, *nextw;
- 	struct audit_krule *r, *nextr;
-@@ -347,15 +347,18 @@ static void audit_remove_parent_watches(struct audit_parent *parent)
- /* Get path information necessary for adding watches. */
- static int audit_get_nd(struct audit_watch *watch, struct path *parent)
- {
--	struct dentry *d = kern_path_locked(watch->path, parent);
-+	struct dentry *d;
-+
-+	d = kern_path_parent(watch->path, parent);
- 	if (IS_ERR(d))
- 		return PTR_ERR(d);
-+
- 	if (d_is_positive(d)) {
- 		/* update watch filter fields */
- 		watch->dev = d->d_sb->s_dev;
- 		watch->ino = d_backing_inode(d)->i_ino;
- 	}
--	inode_unlock(d_backing_inode(parent->dentry));
-+
- 	dput(d);
- 	return 0;
+@@ -37,7 +37,7 @@ struct audit_watch {
+ 	refcount_t		count;	/* reference count */
+ 	dev_t			dev;	/* associated superblock device */
+ 	char			*path;	/* insertion path */
+-	unsigned long		ino;	/* associated inode number */
++	u64			ino;	/* associated inode number */
+ 	struct audit_parent	*parent; /* associated parent */
+ 	struct list_head	wlist;	/* entry in parent->watches list */
+ 	struct list_head	rules;	/* anchor for krule->rlist */
+@@ -125,7 +125,7 @@ char *audit_watch_path(struct audit_watch *watch)
+ 	return watch->path;
  }
+ 
+-int audit_watch_compare(struct audit_watch *watch, unsigned long ino, dev_t dev)
++int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev)
+ {
+ 	return (watch->ino != AUDIT_INO_UNSET) &&
+ 		(watch->ino == ino) &&
+@@ -285,7 +285,7 @@ static void audit_update_watch(struct audit_parent *parent,
+ 				list_del(&oentry->rule.list);
+ 				audit_panic("error updating watch, removing");
+ 			} else {
+-				int h = audit_hash_ino((u32)ino);
++				int h = audit_hash_ino(ino);
+ 
+ 				/*
+ 				 * nentry->rule.watch == oentry->rule.watch so
+@@ -439,7 +439,7 @@ int audit_add_watch(struct audit_krule *krule, struct list_head **list)
+ 
+ 	audit_add_to_parent(krule, parent);
+ 
+-	h = audit_hash_ino((u32)watch->ino);
++	h = audit_hash_ino(watch->ino);
+ 	*list = &audit_inode_hash[h];
+ error:
+ 	path_put(&parent_path);
+@@ -527,7 +527,7 @@ int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old)
+ int audit_exe_compare(struct task_struct *tsk, struct audit_fsnotify_mark *mark)
+ {
+ 	struct file *exe_file;
+-	unsigned long ino;
++	u64 ino;
+ 	dev_t dev;
+ 
+ 	/* only do exe filtering if we are recording @current events/records */
+diff --git a/kernel/auditsc.c b/kernel/auditsc.c
+index bb3cea8c71488f..575551b50b3d14 100644
+--- a/kernel/auditsc.c
++++ b/kernel/auditsc.c
+@@ -884,7 +884,7 @@ static int audit_filter_inode_name(struct task_struct *tsk,
+ 				   struct audit_names *n,
+ 				   struct audit_context *ctx)
+ {
+-	int h = audit_hash_ino((u32)n->ino);
++	int h = audit_hash_ino(n->ino);
+ 	struct list_head *list = &audit_inode_hash[h];
+ 
+ 	return __audit_filter_op(tsk, ctx, list, n, ctx->major);
+@@ -1549,7 +1549,7 @@ static void audit_log_name(struct audit_context *context, struct audit_names *n,
+ 		audit_log_format(ab, " name=(null)");
+ 
+ 	if (n->ino != AUDIT_INO_UNSET)
+-		audit_log_format(ab, " inode=%lu dev=%02x:%02x mode=%#ho ouid=%u ogid=%u rdev=%02x:%02x",
++		audit_log_format(ab, " inode=%llu dev=%02x:%02x mode=%#ho ouid=%u ogid=%u rdev=%02x:%02x",
+ 				 n->ino,
+ 				 MAJOR(n->dev),
+ 				 MINOR(n->dev),
 -- 
 2.53.0
 
