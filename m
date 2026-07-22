@@ -1,156 +1,125 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145F128FFF6;
-	Wed, 22 Jul 2026 03:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1AE93E49ED;
+	Wed, 22 Jul 2026 03:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784692073; cv=none; b=qgbbl+Q9YN6CT4vPl7kJiwSaqhPY6KLcVjwz4TvHze6EMcW6tQjk7D8HYFNoq2Cynf+Vl7wVWQ/5vUJCqGlWD/diWtKdefAyT9cSeIDkltw5IKpQM7EOpUTfJcyXqDlNlxhb8uqoIjCTS5Ql0ta95+z3evCxRZ7YipHk2SeUaK8=
+	t=1784692115; cv=none; b=i08CgQziIZDZd+7wHEO8TJBp2biAowOnJwgrrupIW52QhbDQwMroogV2YWYFo4lLgrwiP2AIeYkIuPW7/GOpNr/t9MzhodxobLBKONlpr/oSS3Ibn1ecXQePwZ6HZrmsDpB2H7FATnwrIZ/9/7/BP/J2/TNAO+N2c90dqhFy08c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784692073; c=relaxed/simple;
-	bh=U5orYbkn7aAXqsiQ0r8ZE2YgklsSx9sVL827kt2SKYo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ljqt92kJimSPvYtxzLhn8SCejajYmihWkeG/3odGtYGgmmCFAWR9zhgOX7201n2DKE6v6m6MqKoWZdEs+Clh7Hn2m+CuNvUTsHR1vVnSi915yqH9Ij7PvBnCI0UGATm0Eoh3HVTPHBckYvwwtsfwcCPvliNKONX0Avi3jwwGiYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=s21uDTcD; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="s21uDTcD"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1784692062; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=DdS7iV0fw22ioV9moVyPfHztNR68dF8K57N0I2joKNU=;
-	b=s21uDTcD3VrW9l1M0JeIeRvvJ2Hgms8uE80W4NsOpqjay6s1vp5+obyF3QFP991NFJj4lqBgAv9YObkitqxG3HUeHfrvRzgEleWpcH570376j6L4QShXIelw49rL6rS2tYf8jLfHH1b/RjWXNPRYtIGokTCGqOfVKT19Ea2QyeY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0X7c0hKr_1784692060;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0X7c0hKr_1784692060 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 22 Jul 2026 11:47:41 +0800
-Date: Wed, 22 Jul 2026 11:47:40 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Ibrahim Hashimov <security@auditcode.ai>, alibuda@linux.alibaba.com,
-	wenjia@linux.ibm.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com
-Cc: tonylu@linux.alibaba.com, guwen@linux.alibaba.com, horms@kernel.org,
-	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net/smc: validate peer CDC cursor against RMBE size
- before accepting it
-Message-ID: <amA9XGOWH3z4Z1fu@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20260720170717.11425-1-security@auditcode.ai>
+	s=arc-20240116; t=1784692115; c=relaxed/simple;
+	bh=UmKuuZQpohVj3w2AFQYD4GmmXRTYcVEHqzEGR4vFDAg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ffwHlriySVSG3O8gZXvn82XZFDSQr2203yqEiI1c0zbltgX7FRyx+eql32aAcDXKPvHQRaGff6IuAYHwEllGxlaD1zibRKt5I58s1aoZ5nFrlq0wED9V7uGEKdDwHNj7L/NefrG4TosRq1syuLt62LVBF8RzQCBkI/RaJ35oawQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wC3kX6JPWBq9fknAA--.20719S3;
+	Wed, 22 Jul 2026 11:48:26 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgAnezOIPWBq4Bh_Ag--.62695S2;
+	Wed, 22 Jul 2026 11:48:25 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: christophe.ricard@gmail.com,
+	sameo@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH net] nfc: st-nci: drain se_info timers on remove before NCI teardown
+Date: Wed, 22 Jul 2026 03:47:29 +0000
+Message-Id: <20260722034729.3254078-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720170717.11425-1-security@auditcode.ai>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgAnezOIPWBq4Bh_Ag--.62695S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?AUWV8QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZy3SvDuBObN7l4IH2E4HjVYqLqjXqJUj9QcL8TFtcS9ewp/
+	OpWml1djgt0NJD2ZrkOp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxArWUZFWftw4xKrW5Cry5Jrc_yoW5XFy3pa
+	y5WF1ftr18Cr47CaykAr17WFy5Ja1SkFWUG34xJaySvr45KF4Fq3W0yFWa9FZxJFZ5WF1a
+	yw4Fqw15WFyDtagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-On 2026-07-20 19:07:17, Ibrahim Hashimov wrote:
+st_nci_se_init() initializes two se_info timers (bwi_timer and
+se_active_timer) in probe, but st_nci_se_deinit(), the teardown helper
+that drains both timers, has no caller in drivers/nfc/st-nci/:
+st_nci_remove() tears the device down with ndlc_close /
+nci_unregister_device / nci_free_device and never reaches it (dead since
+the st21nfcb -> st-nci rename). The bwi_timer callback
+st_nci_se_wt_timeout() calls nci_hci_send_event(), i.e. it uses the NCI
+core. Both callbacks dereference info->se_info, and the bwi_timer callback
+also dereferences info->ndlc->ndev.
+info is devm_kzalloc()'d, so a timer armed during operation survives
+st_nci_remove, fires after the devm release, and dereferences freed
+memory (and a half-torn-down NCI core).
 
-Hi Ibrahim,
+Call st_nci_se_deinit(ndev) from st_nci_remove() before
+nci_unregister_device(ndev): the bwi callback reaches into the NCI core,
+so the timers must be drained while the NCI workqueues still exist.
+Convert both drains to timer_shutdown_sync() and drop the bwi_active /
+se_active predicate guards. timer_shutdown_sync() is harmless for an
+inactive timer and prevents later mod_timer() calls from rearming it, so
+any residual HCI work during nci_unregister_device()'s workqueue teardown
+cannot rearm a se_info timer.
 
-I believe Bryam already sent a similar patch to the mailist and I have already
-reviewed it.
+This issue was found by an in-house static analysis tool.
 
-https://lore.kernel.org/netdev/20260705-b4-disp-28a1bbca-v4-1-be089b98acc6@proton.me/
+Fixes: ed06aeefdac3 ("nfc: st-nci: Rename st21nfcb to st-nci")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/nfc/st-nci/core.c | 1 +
+ drivers/nfc/st-nci/se.c   | 6 ++----
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-Best regards,
-Dust
+diff --git a/drivers/nfc/st-nci/core.c b/drivers/nfc/st-nci/core.c
+index a367136..57dbc4a 100644
+--- a/drivers/nfc/st-nci/core.c
++++ b/drivers/nfc/st-nci/core.c
+@@ -166,6 +166,7 @@ void st_nci_remove(struct nci_dev *ndev)
+ 
+ 	ndlc_close(info->ndlc);
+ 
++	st_nci_se_deinit(ndev);
+ 	nci_unregister_device(ndev);
+ 	nci_free_device(ndev);
+ }
+diff --git a/drivers/nfc/st-nci/se.c b/drivers/nfc/st-nci/se.c
+index 607ec76..8ab18cb 100644
+--- a/drivers/nfc/st-nci/se.c
++++ b/drivers/nfc/st-nci/se.c
+@@ -751,10 +751,8 @@ void st_nci_se_deinit(struct nci_dev *ndev)
+ {
+ 	struct st_nci_info *info = nci_get_drvdata(ndev);
+ 
+-	if (info->se_info.bwi_active)
+-		timer_delete_sync(&info->se_info.bwi_timer);
+-	if (info->se_info.se_active)
+-		timer_delete_sync(&info->se_info.se_active_timer);
++	timer_shutdown_sync(&info->se_info.bwi_timer);
++	timer_shutdown_sync(&info->se_info.se_active_timer);
+ 
+ 	info->se_info.se_active = false;
+ 	info->se_info.bwi_active = false;
+-- 
+2.34.1
 
-
->smc_cdc_cursor_to_host() converts the wire-format producer/consumer
->cursor of an incoming CDC message into a host smc_host_cursor. It rejects
->a cursor that goes backwards, but never checks that the cursor's count is
->inside the buffer it indexes. Per smc_host_cursor ("an offset in an
->RMBE") and the invariant smc_curs_add() enforces for every local advance
->(0 <= count < size), a valid cursor count must be < size; the wire cursor
->is peer-controlled and was never checked against that.
->
->smcr_cdc_msg_to_host() accepts the producer and consumer cursors, and the
->unbounded value feeds smc_curs_diff() in smc_cdc_msg_recv_action(), which
->computes new->count - old->count without clamping against size. A peer
->that puts an out-of-range prod.count on the wire (e.g. 0x7fffffff) drives
->bytes_to_rcv far past rmb_desc->len -- the very invariant the comment
->above the atomic_add() claims but does not enforce.
->
->smc_rx_recvmsg() then trusts bytes_to_rcv as the amount of valid RMB
->data. Its first copy chunk is safely bounded by rmb_desc->len -
->cons.count, but the second chunk copies (copylen - chunk_len) bytes from
->offset 0, and copylen came from the inflated readable -- an out-of-bounds
->read of the RMB's backing (v)malloc allocation, copied straight to the
->receiving process via _copy_to_iter(). This is a remote kernel-memory
->disclosure driven by a malicious SMC-R peer, needing no local privilege
->on the victim. The same unbounded count also reaches
->smc_cdc_handle_urg_data_arrival() (base + urg_curs.count - 1) -- a
->second, narrower OOB read.
->
->Fix it where the wire cursor is accepted, mirroring the cursor-sanity
->idiom two lines above: reject any incoming cursor whose count is >= the
->size of the buffer it will index. smc_cdc_cursor_to_host() gains a size
->parameter; smcr_cdc_msg_to_host() passes conn->rmb_desc->len for the
->producer cursor and conn->peer_rmbe_size for the consumer cursor. This
->bounds it at its single origin instead of patching every downstream
->consumer. SMC-D (smcd_cdc_msg_to_host()) does not use this helper and is
->a separate, out-of-scope gap.
->
->Reproduced on a v6.19 KASAN kernel (SMC-Rv2 over soft-RoCE): a peer
->emitting prod.count=0x7fffffff triggers a vmalloc-out-of-bounds read in
->_copy_to_iter() via smc_rx_recvmsg(), returning ~960 KB of RMB-adjacent
->kernel heap to userspace; an in-range cursor transfers cleanly. With the
->fix the out-of-range cursor is dropped before it reaches
->conn->local_rx_ctrl.prod, and the reproducer returns rc=0 with no report.
->
->Fixes: 5f08318f617b ("smc: connection data control (CDC)")
->Cc: stable@vger.kernel.org
->Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
->Assisted-by: AuditCode-AI:2026.07
->---
-> net/smc/smc_cdc.h | 15 +++++++++++++--
-> 1 file changed, 13 insertions(+), 2 deletions(-)
->
->diff --git a/net/smc/smc_cdc.h b/net/smc/smc_cdc.h
->index 696cc11f2303..f07bbef47073 100644
->--- a/net/smc/smc_cdc.h
->+++ b/net/smc/smc_cdc.h
->@@ -221,6 +221,7 @@ static inline void smc_host_msg_to_cdc(struct smc_cdc_msg *peer,
-> 
-> static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
-> 					  union smc_cdc_cursor *peer,
->+					  unsigned int size,
-> 					  struct smc_connection *conn)
-> {
-> 	union smc_host_cursor temp, old;
->@@ -235,6 +236,14 @@ static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
-> 	if ((old.wrap == temp.wrap) &&
-> 	    (old.count > temp.count))
-> 		return;
->+	/* count is an offset into the RMBE and must always stay inside
->+	 * it (see smc_curs_add()); the peer is untrusted, so reject an
->+	 * out-of-range wire cursor the same way an out-of-order one is
->+	 * already rejected above, instead of letting it drive
->+	 * bytes_to_rcv / the urgent-byte offset past the buffer end
->+	 */
->+	if (temp.count >= size)
->+		return;
-> 	smc_curs_copy(local, &temp, conn);
-> }
-> 
->@@ -246,8 +255,10 @@ static inline void smcr_cdc_msg_to_host(struct smc_host_cdc_msg *local,
-> 	local->len = peer->len;
-> 	local->seqno = ntohs(peer->seqno);
-> 	local->token = ntohl(peer->token);
->-	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn);
->-	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn);
->+	smc_cdc_cursor_to_host(&local->prod, &peer->prod,
->+			       conn->rmb_desc->len, conn);
->+	smc_cdc_cursor_to_host(&local->cons, &peer->cons,
->+			       conn->peer_rmbe_size, conn);
-> 	local->prod_flags = peer->prod_flags;
-> 	local->conn_state_flags = peer->conn_state_flags;
-> }
->-- 
->2.50.1 (Apple Git-155)
