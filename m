@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FC235E1A0
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:50:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDBB3624C8
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:51:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784681455; cv=none; b=hTJa9ESuD3+BB9PArfpeT9L3b7SEk/QsTxGE4Jh8tiE0D/7XU5WhIeXw/4hT0Nw5fwNDcs6pY3lXlgOkysvpyXluB6U/549tA9q9uuU5bs02I5NObkBAIx840N1wRPdgDPD96++m7HgcP7rXsap+g9gloe4oATMRYedBWo63YTk=
+	t=1784681463; cv=none; b=Xh4IXaZ+PkPK8mtQ5v1y+/A7yB4pDnaAvmlXtvyjo6HBphuwhL03UDEwc3kyLr/cWAvf+8/5Ce8zh2k9uMsfmQTvinBV8/bY2Ia7DUQYO60l/HU4ga6hs4SLs1Tce7Gm/yZk1pkoac4DSQu23aoXyI1hwQrHE1WlLNk8S3RGNd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784681455; c=relaxed/simple;
-	bh=xSBiqKEL76epL2Pc1g0NqgiCoxY1vFqhwiqr15betus=;
+	s=arc-20240116; t=1784681463; c=relaxed/simple;
+	bh=RhehwHHBb8H4OBjE7eqWKzTTFv6N/2VV1vQcwbnVPZg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DF9+Vdz58rxhcs+jSnYAkypIdXfFEghFlcR+1/YV7fBoNaDSyeV62DUif1ZPnebCrs4b9QCjSaDiEK4NixplZoN+ejKwx1LctUJHHUnqxrFd1ef2FNKfdnpIHfxyi4pd8ZHfpP1oYtv395suBnntITlKA6GzwmVL+wCL5ZY6C2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgrB3njw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h9DFoSbRYLr2OESEWl9/wRl3CQqBjeswRSL84aFLxKMSfgkmnTWpfQ+sllSTMpRp65dKM2yusIhm6i5EdkGX4ywlE1hQ3IaMZ35GnwvIwQ+iGyNyMAZ/F9bylnoxZB3nUM2GZ6uIeatTkDAmeuvcBWBOtRTnKj39c+VUL9AVLNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cs4K/AC3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgrB3njw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBCC71F00ACF;
-	Wed, 22 Jul 2026 00:50:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cs4K/AC3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9171F000E9;
+	Wed, 22 Jul 2026 00:50:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784681451;
-	bh=oH7P+s1klW4QiX/3s23/QQPELPIyCTPlVz/r2NXaEOk=;
+	s=k20260515; t=1784681459;
+	bh=64Q4fCb7iHZWkyyvPNGmWvoD0jglG3qdOb4ULx/Yvo8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dgrB3njwxDgq2dq7IJR6z9W/otQRkAP2ZH9cy+jVYUf2lbnH99/GqYyHpL2t95/zN
-	 ADqt9IqIZvfZRBk/xonN6YgIlGbOPA1UbWZq8jt6UslX1Qocc4upcEWCmOjkKHqlbE
-	 7ORfn3p9VJaUzoDG+sZMkc1A4IzxLfEVqZVRPcdlEKvscHBCOmKV4qJWR9uuBXATrL
-	 2MouorzpIvPFV93n9UhXDp+Z4OMNJbeu+FPM7FjOK4rg37fTPSkxhXeqClDLUCg17Z
-	 sVcPa2pTh/JwU0Faxlw5gTWFtHMOpNHT/dtK00pqFS48KiaqsErZL76E5eIXLws724
-	 vfSx0cVgVF5+Q==
+	b=cs4K/AC3Scom2ozL8qAX6/wFm3qb/5YZjBsBAUVaFC7rL0YL7pJPYEcXOsmIIoD3y
+	 o4c/fw2++HiBSdET6KoUW3smTRMUUcRs+iv01+RldNOAgQFhYkWJozjAnduszdWD3J
+	 oIImOf+mUEl2rKvjb8cnNkxCRgiFhigBAsbxcv+gbDgTNEAPms1KMGHD7W9PyOFbRY
+	 4fOJTv/uGFAYAq3rBa7PFkcJVCVWPwCVBmHFX3fJbpMTYDDVAHcNRU/lLXlkZNA0/o
+	 0fIXEa4NMysG9GMrm58FDWomXtULRHLp0CpiyFKK7/odPxKiC0e0u+Z1jzE9PwJaT4
+	 aDfHboP9EY/CQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 5/5] i2c: core: fix adapter probe deferral loop
-Date: Tue, 21 Jul 2026 20:50:46 -0400
-Message-ID: <20260722005046.603973-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y] Input: mms114 - reject an oversized device packet size
+Date: Tue, 21 Jul 2026 20:50:57 -0400
+Message-ID: <20260722005057.604420-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722005046.603973-1-sashal@kernel.org>
-References: <2026071656-dullness-penalize-0e99@gregkh>
- <20260722005046.603973-1-sashal@kernel.org>
+In-Reply-To: <2026071644-upscale-amaze-5106@gregkh>
+References: <2026071644-upscale-amaze-5106@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +45,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 158efa411c57111d87bf265a3776614f32d70007 ]
+[ Upstream commit 66725039f7090afe14c31bd259e2059a68f04023 ]
 
-Drivers must not probe defer after having registered devices as that
-will trigger a probe loop if the devices bind to a driver (cf. commit
-fbc35b45f9f6 ("Add documentation on meaning of -EPROBE_DEFER")).
+mms114_interrupt() reads a packet of touch data from the device into a
+fixed-size on-stack buffer
 
-Move the recovery initialisation, where the GPIO lookup may fail, before
-registering the adapter to prevent this.
+	struct mms114_touch touch[MMS114_MAX_TOUCH];
 
-Fixes: 75820314de26 ("i2c: core: add generic I2C GPIO recovery")
-Cc: stable@vger.kernel.org	# 5.9
-Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+which holds MMS114_MAX_TOUCH (10) events of MMS114_EVENT_SIZE (8) bytes,
+i.e. 80 bytes. The length of the I2C read into it is taken verbatim from
+the device:
+
+	packet_size = mms114_read_reg(data, MMS114_PACKET_SIZE);
+	if (packet_size <= 0)
+		goto out;
+	...
+	error = __mms114_read_reg(data, MMS114_INFORMATION, packet_size,
+			(u8 *)touch);
+
+packet_size is a single device register byte (0x0F) and the only check
+is the lower bound packet_size <= 0; it is never bounded against the
+size of touch[]. A malfunctioning, malicious or counterfeit controller
+(or an attacker tampering with the I2C bus) can report a packet_size of
+up to 255, so __mms114_read_reg() writes up to 175 bytes past the end of
+touch[] on the IRQ-thread stack: a stack out-of-bounds write that can
+overwrite the stack canary, saved registers and the return address.
+
+A well-formed device never reports more than the buffer holds, so reject
+an oversized packet and drop the report, consistent with the handler's
+other error paths, rather than reading past the buffer.
+
+Fixes: 07b8481d4aff ("Input: add MELFAS mms114 touchscreen driver")
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260612-b4-disp-dc4b8dc4-v1-1-d7cb0a828d92@proton.me
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+[ changed `&client->dev` to `&data->client->dev` since 6.1's interrupt handler lacks the `client` local variable ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/i2c-core-base.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/input/touchscreen/mms114.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index a4005dea21f054..f78ae38c7fd2c2 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -1553,6 +1553,10 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	adap->dev.type = &i2c_adapter_type;
- 	device_initialize(&adap->dev);
+diff --git a/drivers/input/touchscreen/mms114.c b/drivers/input/touchscreen/mms114.c
+index 9fa3b0e421be2a..566a95ab0cc347 100644
+--- a/drivers/input/touchscreen/mms114.c
++++ b/drivers/input/touchscreen/mms114.c
+@@ -212,6 +212,12 @@ static irqreturn_t mms114_interrupt(int irq, void *dev_id)
+ 	if (packet_size <= 0)
+ 		goto out;
  
-+	res = i2c_init_recovery(adap);
-+	if (res == -EPROBE_DEFER)
-+		goto err_put_adap;
++	if (packet_size > sizeof(touch)) {
++		dev_err(&data->client->dev, "Invalid packet size %d (max %zu)\n",
++			packet_size, sizeof(touch));
++		goto out;
++	}
 +
- 	/*
- 	 * This adapter can be used as a parent immediately after device_add(),
- 	 * setup runtime-pm (especially ignore-children) before hand.
-@@ -1573,10 +1577,6 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
- 	if (res)
- 		goto out_reg;
- 
--	res = i2c_init_recovery(adap);
--	if (res == -EPROBE_DEFER)
--		goto out_reg;
--
- 	dev_dbg(&adap->dev, "adapter [%s] registered\n", adap->name);
- 
- #ifdef CONFIG_I2C_COMPAT
+ 	/* MMS136 has slightly different event size */
+ 	if (data->type == TYPE_MMS134S || data->type == TYPE_MMS136)
+ 		touch_size = packet_size / MMS136_EVENT_SIZE;
 -- 
 2.53.0
 
