@@ -1,68 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A433F351C02;
-	Wed, 22 Jul 2026 13:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D41313535
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784727597; cv=none; b=gNPTUmqOIclMBwyyEzdDtqhK5Q5Y3GkxW5DV+Zf++0dlD4oo+gAGDtfjeLZydXGjnf9Jkd03BEdZFB+5XQCOO29H2gRBD5+Husz2R/AppUh9zGI/ZsvwcQSTBxA5CJlpE5XyaClBC+7Fw0am2CZ4W2CidxVJcvjmZa1tJKHbOwI=
+	t=1784727598; cv=none; b=mfDLA0hQBK6SuWWb04+k3GjUvlIX/tSX4iLgCDNR+VCH5GyUDnHUH6uwQtaqo5aLqQWYzi9ZRGj1Kxkh/hzU5yrlZHGPqByi9bZgFIcKGBuiVWvg6k+jruRM3xJcxgcY3dotqn9cpMEnh4WhrQm700rT/3TS7UAtHh51kl7EXJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784727597; c=relaxed/simple;
-	bh=9ovBGpAGRAAy+eFpmgNum8TFboy86/4jB4OgTOnMw+4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H8XeH94qJeB8LudaGoGqiwDIfd77RmD/UZ1UPnRoqNfdmLvRrqHbTCY0d7lqHjO5EElsE6VPeUWEkQeP+nQr3/9YBMj5T/EBGMJwbT6UMOfeuf+/aOitPnk45FfqB1aL8iogGjOrM67F/+i9UZl4W8qACOM1DdHiBNr/oEzgmSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DEDXYl8r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784727598; c=relaxed/simple;
+	bh=fHQGw3qwEeLCPiOc2Lhcml3DBX497J9B0JemH97k9dY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GgqCkYKrXTwKIsr/9Bxhmk3dWb+CNF/XnKS+BiWWS1xOodgssZNCIF1AhCxr07JKl2xlhR8n22mxErTsmjNprYT7kW7fGJDAH/Xg6HTOT2w+klSizt7vs0fxo//ydrCKSJhyvsV2VnYxScopfxw6p44AWiZN1iyHDEt693IlUL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=hkA9mOAr; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DEDXYl8r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CA01F000E9;
-	Wed, 22 Jul 2026 13:39:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784727586;
-	bh=d8B9T2XktET4VRdMMXw8EWEHTpDynih6bY7MA/xUs+w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DEDXYl8rfJoHfRWxQJdWBtahQ5QnA7NKTkaQMlZHbblimdp4rYlWy0KcF3ULFPI8x
-	 f5wI9gMn/N7o1v8g/RkH6irwj6Fureizz/EekZsdR7ighSMjbL07txYMePYZHCat+m
-	 mM58BpgBg/tctDfFBAq8q4UZjX/4ENwJk2SVbD18=
-Date: Wed, 22 Jul 2026 15:39:37 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Robby Cai <robby.cai@nxp.com>,
-	Guoniu Zhou <guoniu.zhou@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 6.12 1118/1276] reset: imx7: Correct polarity of MIPI CSI
- resets on i.MX8MQ
-Message-ID: <2026072205-starving-embark-2a39@gregkh>
-References: <20260721152446.065700225@linuxfoundation.org>
- <20260721152511.013410224@linuxfoundation.org>
- <a64558dcb06d62931e73b638dca077ed4562779c.camel@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="hkA9mOAr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=tFP9teOJG3GKeYmxPYNazXzHWh61fp1/54dvrTxEfAY=; b=hkA9mOArXkdg45yE4KjRUeCa6v
+	CCNpHleSQiYabFZRoHXkj+5OBxvZkfyX1Hn2sBeB5bo0XHJjeb4mhDkTEFdTCobdB7tQhieMIuQ3t
+	YFFJNYX0ul1WM6S1iFvBPKw24YaJ+nRyhkpBB7Ay7vBTgh2ikupaocrjMfuvxkJ0G4vxXcuy9jBUU
+	jgnEXVKJUxSiauU8nlljy0LnNSvYQKf4tds4Nl4b0pfCmrTY1xzTh+4+ioxVSLohEPURErZEVID0g
+	sHCih5p2nz6jML9rMzodX/P1y8mOL/LFNFbdKlFkYVT2q+2k6DhKjBkOj4V5mKF9MsiKmFqwgYzg3
+	KilCyQqg==;
+Received: from [187.36.208.132] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wmXAh-0030yZ-G6; Wed, 22 Jul 2026 15:39:40 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>,
+	Iago Toral Quiroga <itoral@igalia.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: kernel-dev@igalia.com,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] drm/v3d: Idle AXI transactions before cutting the clock on suspend
+Date: Wed, 22 Jul 2026 10:39:17 -0300
+Message-ID: <178472755224.461453.16781147218856784522.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260718-v3d-pm-axi-transactions-v1-0-4ecd7729ed70@igalia.com>
+References: <20260718-v3d-pm-axi-transactions-v1-0-4ecd7729ed70@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a64558dcb06d62931e73b638dca077ed4562779c.camel@pengutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 08:36:59AM +0200, Philipp Zabel wrote:
-> On Di, 2026-07-21 at 17:26 +0200, Greg Kroah-Hartman wrote:
-> > 6.12-stable review patch.  If anyone has any objections, please let me know.
+
+On Sat, 18 Jul 2026 10:44:35 -0300, Maíra Canal wrote:
+> This series fixes a GPU hang seen on the first job submitted after a
+> runtime PM resume [1][2]. v3d_power_suspend() disables the GPU clock
+> without first quiescing the memory interface (AXI), so if the core still
+> has outstanding transactions in flight the hardware freezes
+> mid-transaction. That corrupted state survives the power cycle and surfaces
+> on resume as a GPU hang with an L2T "pte invalid" MMU fault.
 > 
-> This patch also requires 6d79bb8fd2aa ("media: imx8mq-mipi-csi2:
-> Explicitly release reset"), but I don't see that in in the list.
-> 
-> It's there for 6.18-stable, but missing in the 6.12-stable (and 6.6-
-> stable) patchsets, I haven't looked at the older ones yet. 7.1-stable
-> doesn't need it because the commit is part of v7.1.
-> 
-> Did we tag this incorrectly?
+> [...]
 
-No, you did it right, I missed it.
+Applied, thanks!
 
-But the commit you reference here is not in the 6.18.y tree, so I'll
-just drop this one from all older queues as well.
+[1/2] drm/v3d: Reach the GMP through the hub registers on V3D 7.x
+      commit: f7df2da0d1c375c1c4c70e1e0b569592de0d6b73
+[2/2] drm/v3d: Idle AXI transactions before disabling the clock on suspend
+      commit: 07e769ba3d82ac614725c81c512a8b54d33f2c9e
 
-thaks,
-
-greg k-h
+Best regards,
+- Maíra
