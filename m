@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26ABA41229C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5C442B302;
 	Wed, 22 Jul 2026 23:41:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763680; cv=none; b=M9bjkrD++wRpw+WSmVdvGKN1gOrHg3CQjbY3yvGgvBamwNpaQjVOPuo4yleKoIA1Zfv1ya1PXWPCta0UUbYABN2nfjJdP9uSowqAcIWIEZHEYVOY7TzLlEXZpb10WFcmIeIOE7dKVSj1E2a5KiIOPw/yBJKKue3Zlc/Qsc7L+Y4=
+	t=1784763680; cv=none; b=spxHoVa6Qq50YKeOsiEC4eNp0HtbtZJYnIm9amuqnHDlE80Ma3dHAcGlH9VZViAzNEyvTs8MlJck7iqftspRXHwkPZb96gHoyNzqDp7UI12B/GMLjasJy1kMshwbu1lpu6uJbxo+wIgVpce+GahRfP69qCRAUqWG3c9a4GkuqEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784763680; c=relaxed/simple;
-	bh=asDu53szvZ8BxoP3xBFFR39bZX7xQtE305TUvB0bAIE=;
+	bh=gdyXfp6oV2z7yddoLW13M8klm/MDNV0FUwUjUXRLoak=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mqtyfU1yj/pCZAyPIwNw3oMrM4fYltsYXVMEHH9snRDoFFV0vnQ9msaQmjDvZ17BTkOygECfuXwtkAwRml5RakOsc8hf5NcUi/VjTSz7j/rcra0z1PCuOvkdbF65Y4P51Jhfwl13wG5NbR3ZEQlh77xYwJgTfuFR+RgayJWVaXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxknJXe7; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=OMvlqVALxYS+PMSoRFFPqxiRLH/30iO7jIvR5YxvT7yTQz6udcdFlKqfwNx62EqC9/dHSHVoH6s7qf1QnZrLLtNXt6r5CypFnUvuq+uiQzLldD5JpaxtCFz7qKFkCdpndZrptTvp9HC++xnKVqrIeMyngrNfF7iw8cCLHiIjKgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/+b1J2j; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxknJXe7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C6518C2BCC6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/+b1J2j"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EBEE0C2BD00;
 	Wed, 22 Jul 2026 23:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784763679;
-	bh=asDu53szvZ8BxoP3xBFFR39bZX7xQtE305TUvB0bAIE=;
+	s=k20201202; t=1784763680;
+	bh=gdyXfp6oV2z7yddoLW13M8klm/MDNV0FUwUjUXRLoak=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=lxknJXe7l9WWVl1nrdgPiDECtcTR/T0+0QyM5xKGNuyOhOYaOFp6SdHkZle3Cmsoc
-	 Fu59LGcdYS7jLw/n7M7E+GtnE/sUYF6xkkhiOcgzVvfurCiYerWm/ECSetMhR0HqYr
-	 Vt6Bv0du2qmOM8DxocCyXhex9yRokvfeENUjVAQTSasaITQs72EP77EzOpDWhpXXkR
-	 94vYDqDsQnLa2Sk7FG+RZjISvTQeN0duxCqh3Xsi3DwBYJQLDubjz3HTJwCTv3rUre
-	 U5qOfF9SoXIeceLDrvZUJ6fUkWdQNrsvoMBcwtHHgV2nJOwwzGdHCEvowgbkSxYNW0
-	 YyTr1Bi9zTKWw==
+	b=Z/+b1J2jr/NLTK6eDcWdxX8SF6KLayk+pvoOrE7IGnih1EV3hEMXO4Zd6HuamfKeF
+	 SDifgvho/8/TKQgoDuzA2ZSYkS9pZ25zVo8tzL/ouRtU6pKTksopLgtD3XziJnD7HX
+	 IT1RbjcehTU3JJAXnufFjVSCU7dK0htbcOhvHxpXoSIVaku1S7dEPMIO1mEj9m6hyJ
+	 imJmB6N4r9Fq7a8ad5ltb+mHj9yGrhass7umXJ23HpzTWUgfr1kCulHvbx5egVAppE
+	 hyu1BTeifjBoIVu5wHcp0csuHPXizP8Sa007V90gfP+q5nmiX6L4maSb7SSV81DImV
+	 d3LoFfzi0sFeA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A49A3C44536;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6CC6C44532;
 	Wed, 22 Jul 2026 23:41:19 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 22 Jul 2026 16:41:10 -0700
-Subject: [PATCH v4 02/16] mm: hugetlb: Return -ENOSPC on memcg charge
- failure
+Date: Wed, 22 Jul 2026 16:41:11 -0700
+Subject: [PATCH v4 03/16] mm: hugetlb: Use try-commit-cancel protocol for
+ memcg charge of folios
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-hugetlb-alloc-failure-fixes-v4-2-88e8b81970dc@google.com>
+Message-Id: <20260722-hugetlb-alloc-failure-fixes-v4-3-88e8b81970dc@google.com>
 References: <20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com>
 In-Reply-To: <20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com>
 To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -63,11 +63,11 @@ Cc: vannapurve@google.com, erdemaktas@google.com, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784763678; l=2279;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784763678; l=10726;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=wmoXONTSMCE0pZEPoT08cRwobUPLPpiUr/LRWZQPS8U=;
- b=KDHlw7WdJmh8mcn+h2AhBlYR5bdH3uYOuVSgl+nfxzJXdfEHSQ3u3Zm+FIYqoIRms5b4sL//9
- RkxUzY2QUxjAzwB8bEk+AgPBG+by/l/X50vgdac5sR6PTRn695EIGVh
+ bh=vqQmK3vN70VbiuGHrvYrgKdPuFJc0Ryl2R9yY2WzCMc=;
+ b=FrpFLnNeyQ3odoN5g/ynV4evoTr/eoT6mQ2NGQz780SQ4+n3wcukCV/XcDDhN/ShTiyR4BlX1
+ p8UNLtHCnEMCI5eROYm7u8CY3JSd5dEg9TehHnOB1fSlzXl16S/e3nL
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -77,63 +77,305 @@ Reply-To: ackerleytng@google.com
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-When mem_cgroup_charge_hugetlb() fails with -ENOMEM, alloc_hugetlb_folio()
-currently propagates this error. This results in the page fault handler
-returning VM_FAULT_OOM.
+Using mem_cgroup_charge_hugetlb() to charge a HugeTLB folio during page
+fault creates a reservation leak bug if the task hits its memory cgroup
+limit.
 
-Because HugeTLB allocations are high-order and use __GFP_RETRY_MAYFAIL,
-they bypass the OOM killer. Returning VM_FAULT_OOM to the #PF handler
-without triggering the OOM killer (or having it make progress) leads to
-an infinite loop of retrying the fault.
+When alloc_hugetlb_folio() commits the VMA reservation, the reserved
+page is removed from the reserve map. If a subsequent call to
+mem_cgroup_charge_hugetlb() returns -ENOMEM, the allocation is aborted
+and the physical folio is disposed of via free_huge_page(). However,
+because the VMA reservation was already consumed, the reservation count
+in the reserve map is lost. This causes subsequent faults in the VMA
+address range to fail with premature reservation exhaustion.
 
-Avoid this loop by returning -ENOSPC when charging fails, which maps to
-VM_FAULT_SIGBUS, terminating the process cleanly.
+Additionally, dropping the use of free_huge_folio() on the failure path
+fixes an issue where free_huge_folio() was incorrectly invoked on a
+folio with a refcount of 1, triggering refcount mismatches and kernel
+warnings.
 
-Make mem_cgroup_charge_hugetlb() fault handling use a common error handling
-path, the same handling used for hugetlb_cgroup_uncharge_cgroup{,_rsvd}(),
-which also don't trigger the OOM killer and hence opt to terminate the
-process with a SIGBUS.
+To fix this, introduce a try-commit-cancel protocol for memory cgroup
+charging of HugeTLB folios, matching the architecture used by the
+hugetlb cgroup controller. Invoking mem_cgroup_hugetlb_try_charge()
+before consuming the VMA reservation ensures that if the memory cgroup
+limit is reached, the allocation is aborted cleanly without leaking
+the reservation entry or having to dispose of a partially initialized
+folio.
+
+An alternative would be to retain the current usage of
+mem_cgroup_charge_hugetlb() and free_huge_page(), but freeing the folio
+performs reservation management for subpools and global hstate, which
+complicates rollback in alloc_hugetlb_folio(). Using a try-commit-cancel
+protocol is more consistent with the other charging performed in
+alloc_hugetlb_folio() and easier to understand.
 
 Fixes: 991135774c0e0 ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 ---
- mm/hugetlb.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ include/linux/memcontrol.h |  30 ++++++++++++
+ mm/hugetlb.c               |  30 ++++++------
+ mm/memcontrol.c            | 114 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 159 insertions(+), 15 deletions(-)
 
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index e1f46a0016fcf..2c3e2c62f4176 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -642,6 +642,15 @@ static inline int mem_cgroup_charge(struct folio *folio, struct mm_struct *mm,
+ }
+ 
+ int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp);
++int mem_cgroup_hugetlb_try_charge(unsigned int nr_pages, gfp_t gfp,
++				  struct mem_cgroup **memcg_p,
++				  struct obj_cgroup **objcg_p);
++void mem_cgroup_hugetlb_commit_charge(struct folio *folio,
++				      struct mem_cgroup *memcg,
++				      struct obj_cgroup *objcg);
++void mem_cgroup_hugetlb_cancel_charge(unsigned int nr_pages,
++				      struct mem_cgroup *memcg,
++				      struct obj_cgroup *objcg);
+ 
+ int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
+ 				   struct mm_struct *mm, gfp_t gfp);
+@@ -1133,6 +1142,27 @@ static inline int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp)
+         return 0;
+ }
+ 
++static inline int mem_cgroup_hugetlb_try_charge(unsigned int nr_pages, gfp_t gfp,
++						struct mem_cgroup **memcg_p,
++						struct obj_cgroup **objcg_p)
++{
++	*memcg_p = NULL;
++	*objcg_p = NULL;
++	return 0;
++}
++
++static inline void mem_cgroup_hugetlb_commit_charge(struct folio *folio,
++						    struct mem_cgroup *memcg,
++						    struct obj_cgroup *objcg)
++{
++}
++
++static inline void mem_cgroup_hugetlb_cancel_charge(unsigned int nr_pages,
++						    struct mem_cgroup *memcg,
++						    struct obj_cgroup *objcg)
++{
++}
++
+ static inline int mem_cgroup_swapin_charge_folio(struct folio *folio,
+ 		 unsigned short id, struct mm_struct *mm, gfp_t gfp)
+ {
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 36fa3fb3945d8..15f9c5a9f75e2 100644
+index 15f9c5a9f75e2..5ee1bc5c00bfe 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -3010,7 +3010,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+@@ -38,6 +38,7 @@
+ #include <linux/mm_inline.h>
+ #include <linux/padata.h>
+ #include <linux/pgalloc.h>
++#include <linux/memcontrol.h>
  
- 	if (ret == -ENOMEM) {
- 		free_huge_folio(folio);
--		return ERR_PTR(-ENOMEM);
-+		goto err;
+ #include <asm/page.h>
+ #include <asm/tlb.h>
+@@ -2876,6 +2877,8 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 	int ret, idx;
+ 	struct hugetlb_cgroup *h_cg = NULL;
+ 	struct hugetlb_cgroup *h_cg_rsvd = NULL;
++	struct mem_cgroup *mem_cg = NULL;
++	struct obj_cgroup *obj_cg = NULL;
+ 	gfp_t gfp = htlb_alloc_mask(h) | __GFP_RETRY_MAYFAIL;
+ 
+ 	idx = hstate_index(h);
+@@ -2935,6 +2938,11 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 	if (ret)
+ 		goto out_uncharge_cgroup_reservation;
+ 
++	ret = mem_cgroup_hugetlb_try_charge(pages_per_huge_page(h), gfp,
++					    &mem_cg, &obj_cg);
++	if (ret)
++		goto out_uncharge_cgroup;
++
+ 	spin_lock_irq(&hugetlb_lock);
+ 	/*
+ 	 * glb_chg is passed to indicate whether or not a page must be taken
+@@ -2946,7 +2954,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 		spin_unlock_irq(&hugetlb_lock);
+ 		folio = alloc_buddy_hugetlb_folio_with_mpol(h, vma, addr);
+ 		if (!folio)
+-			goto out_uncharge_cgroup;
++			goto out_uncharge_cgroup_memcg;
+ 		spin_lock_irq(&hugetlb_lock);
+ 		list_add(&folio->lru, &h->hugepage_activelist);
+ 		folio_ref_unfreeze(folio, 1);
+@@ -2973,6 +2981,9 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
++	mem_cgroup_hugetlb_commit_charge(folio, mem_cg, obj_cg);
++	lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
++
+ 	hugetlb_set_folio_subpool(folio, spool);
+ 
+ 	if (map_chg != MAP_CHG_ENFORCED) {
+@@ -3000,21 +3011,10 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 		}
  	}
  
+-	ret = mem_cgroup_charge_hugetlb(folio, gfp);
+-	/*
+-	 * Unconditionally increment NR_HUGETLB here. If it turns out that
+-	 * mem_cgroup_charge_hugetlb failed, then immediately free the page and
+-	 * decrement NR_HUGETLB.
+-	 */
+-	lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
+-
+-	if (ret == -ENOMEM) {
+-		free_huge_folio(folio);
+-		goto err;
+-	}
+-
  	return folio;
-@@ -3035,6 +3035,16 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 
++out_uncharge_cgroup_memcg:
++	mem_cgroup_hugetlb_cancel_charge(pages_per_huge_page(h), mem_cg, obj_cg);
+ out_uncharge_cgroup:
+ 	hugetlb_cgroup_uncharge_cgroup(idx, pages_per_huge_page(h), h_cg);
+ out_uncharge_cgroup_reservation:
+@@ -3035,7 +3035,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
  out_end_reservation:
  	if (map_chg != MAP_CHG_ENFORCED)
  		vma_end_reservation(h, vma, addr);
-+err:
-+	/*
-+	 * Return -ENOSPC when this function fails to allocate or charge a huge
-+	 * page. If a standard (PAGE_SIZE) page allocation fails, the OOM killer
-+	 * is given a chance to run, which may resolve the failure on
-+	 * retry. However, for HugeTLB allocations, the OOM killer is not
-+	 * triggered.  Returning -ENOMEM (or anything resulting in VM_FAULT_OOM)
-+	 * would leak to the #PF handler, causing it to loop indefinitely
-+	 * retrying the fault.
-+	 */
- 	return ERR_PTR(-ENOSPC);
+-err:
++
+ 	/*
+ 	 * Return -ENOSPC when this function fails to allocate or charge a huge
+ 	 * page. If a standard (PAGE_SIZE) page allocation fails, the OOM killer
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 6dc4888a90f3f..0beee5c0ce93b 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5180,6 +5180,120 @@ int mem_cgroup_charge_hugetlb(struct folio *folio, gfp_t gfp)
+ 	return ret;
  }
  
++/**
++ * mem_cgroup_hugetlb_try_charge - Try to charge the memcg for a hugetlb folio
++ * @nr_pages: number of base pages to charge
++ * @gfp: reclaim mode
++ * @memcg_p: Output pointer to the charged mem_cgroup (if successful and enabled)
++ * @objcg_p: Output pointer to the charged obj_cgroup (if successful and enabled)
++ *
++ * Prepares and tries to reserve the memory counter for the folio from the current
++ * task's memcg. If successful, both *memcg_p and *objcg_p are populated and their
++ * references are pinned until a subsequent call to mem_cgroup_hugetlb_commit_charge
++ * or mem_cgroup_hugetlb_cancel_charge.
++ *
++ * Returns ENOMEM if the memcg is already full.
++ * Returns 0 if either the charge was successful, or if we skip charging.
++ */
++int mem_cgroup_hugetlb_try_charge(unsigned int nr_pages, gfp_t gfp,
++				  struct mem_cgroup **memcg_p,
++				  struct obj_cgroup **objcg_p)
++{
++	struct mem_cgroup *memcg;
++	struct obj_cgroup *objcg;
++	int ret = 0;
++
++	*memcg_p = NULL;
++	*objcg_p = NULL;
++
++	if (mem_cgroup_disabled() || !memcg_accounts_hugetlb() ||
++	    !cgroup_subsys_on_dfl(memory_cgrp_subsys))
++		return 0;
++
++	memcg = get_mem_cgroup_from_current();
++	if (!memcg)
++		return 0;
++
++	objcg = get_obj_cgroup_from_memcg(memcg);
++	if (!objcg)
++		goto put_memcg;
++
++	if (!obj_cgroup_is_root(objcg)) {
++		ret = try_charge_memcg(memcg, gfp, nr_pages);
++		if (ret)
++			goto put_objcg;
++	}
++
++	*memcg_p = memcg;
++	*objcg_p = objcg;
++	return 0;
++
++put_objcg:
++	obj_cgroup_put(objcg);
++put_memcg:
++	mem_cgroup_put(memcg);
++	return ret;
++}
++
++/**
++ * mem_cgroup_hugetlb_commit_charge - Commit the memcg charge for a hugetlb folio
++ * @folio: folio being charged
++ * @memcg: Target mem_cgroup obtained from mem_cgroup_hugetlb_try_charge
++ * @objcg: Target obj_cgroup obtained from mem_cgroup_hugetlb_try_charge
++ *
++ * Finalizes the memory and statistics charging for the folio in the specified memcg.
++ * Transfers the pinned objcg reference to the folio structure (for automatic
++ * uncharging upon freeing via mem_cgroup_uncharge). Releases the try-commit reference
++ * on memcg.
++ */
++void mem_cgroup_hugetlb_commit_charge(struct folio *folio,
++				      struct mem_cgroup *memcg,
++				      struct obj_cgroup *objcg)
++{
++	if (!memcg || !objcg)
++		return;
++
++	commit_charge(folio, objcg);
++	memcg1_commit_charge(folio, memcg);
++
++	/*
++	 * Drop our try-commit-cancel protocol reference on memcg.
++	 * The objcg reference is TRANSFERRED to the folio by commit_charge,
++	 * so it will be put automatically by __mem_cgroup_uncharge() when
++	 * the folio is freed.
++	 */
++	mem_cgroup_put(memcg);
++}
++
++/**
++ * mem_cgroup_hugetlb_cancel_charge - Cancel and undo a hugetlb folio memcg charge
++ * @nr_pages: number of base pages to uncharge
++ * @memcg: Target mem_cgroup obtained from mem_cgroup_hugetlb_try_charge
++ * @objcg: Target obj_cgroup obtained from mem_cgroup_hugetlb_try_charge
++ *
++ * Cancels and safely rolls back the prepared memory charge for the folio in the
++ * specified memcg. Releases the try-commit pinned references on both memcg and objcg.
++ */
++void mem_cgroup_hugetlb_cancel_charge(unsigned int nr_pages,
++				      struct mem_cgroup *memcg,
++				      struct obj_cgroup *objcg)
++{
++	if (!memcg || !objcg)
++		return;
++
++	if (!obj_cgroup_is_root(objcg))
++		refill_stock(memcg, nr_pages);
++
++	/*
++	 * Drop our try-commit-cancel protocol references on both objcg
++	 * and memcg, since this mapping attempt was aborted and the folio
++	 * was never committed.
++	 */
++	obj_cgroup_put(objcg);
++	mem_cgroup_put(memcg);
++}
++
++
+ /**
+  * mem_cgroup_swapin_charge_folio - Charge a newly allocated folio for swapin.
+  * @folio: the folio to charge
 
 -- 
 2.55.0.229.g6434b31f56-goog
