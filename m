@@ -1,43 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0A3411F94
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:29:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E617411F94
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:29:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784741384; cv=none; b=e8ZbIt3cIQcvA9ZGW7NroZQvIpgtKrAcie1+EVMfCXjnjz5IQkZOxCYwbIUlCgyZ6504IaMLJokd7WqJw7kFThp5ZDvwVXylk0eh69C8GVFSK6Mw+4ctbNf0rvnLuCkUAj6z0CPBsF3ORhZ2Qvv35ZgxnxzoTqkF1O3myIjGepc=
+	t=1784741387; cv=none; b=lkJSEuHgcyEq54DtCjKe0u9H6NtXJ7TN+NS/LYsB71fbTArBRUHs2XIHnJ+/bPJo0hCX0SpfOh2wmI9xcjVTaVJEypx/cUSH8d3C5o/mLKI2FNzOXgS+dU9WvGlf2cq2v/j5gYiuCfYjq8Grn9WB6Bu8Db9YCFplteLNU+t/X9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784741384; c=relaxed/simple;
-	bh=RKztaBcvv050xxUCo9ivwstFIg48N3+rPRFUL++Cw64=;
+	s=arc-20240116; t=1784741387; c=relaxed/simple;
+	bh=HWVqueF6UiAdQXCcszxRATkEOn2H5z9Hu/CCuSQI8HI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uN4XzFQK46pD9cqJjME8aUdjdTrHn8A5UEmMP/+Vsnd/DD39UPftRW0x5fUKz8ppW/WDgl67AbL+30LOK9XbBoz0G8UMdCLwPNL+rQVUTtL3UB1CT6Lc3NtWNE8WxzR01UBZQq6OSdC/PmGahxS2YSk+EV43uVK8jvQP91TLIV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DfQne0kX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HvdKR0xBlUvls8DGlQF7Z7aISWGi6vTX33jj/K1RcfG5dYcaUz4RNud5NJixV9+k0nZqN9iUaXnX22JC/+kJyUV2dkbSTviPCszbk+9pXbl1P8gVWuV3uS3XX07JQ6IRIu/5S6y3Tj+qT1qlbSR7MxGEJM12NnjLDuoNYuw8Mbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XeKCTKf/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DfQne0kX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70B021F000E9;
-	Wed, 22 Jul 2026 17:29:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XeKCTKf/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848771F00A3A;
+	Wed, 22 Jul 2026 17:29:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784741383;
-	bh=39L0b9RxmqSHyhGoEUzFnVYXaJ04AQvA1CmV85ehsLw=;
+	s=k20260515; t=1784741385;
+	bh=1Xh+pUbfjUGLWLWtpDMw3RniMKc09oYdva7Z9+vPetA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DfQne0kXwT3auq2FYmSk/7mUn6SUoOlTqz63Ac1qCnN8qwt1XzzzzN1pkhuXDlRX2
-	 7H/jOPA5Di8tGSMaQ5G/KvVtIQ7WEdVNe8lSDJHHKErQrcfs5mQhgaVloAwwriQg1U
-	 NKwmJ5NU3qZ7QIJCuaJA/25hUIXz4GNgQ8vVZu1YXLNUVgY9uZ5fvpRYkPeGQyNgSI
-	 ZGMPxtQ0upsZ8bnc0xK1JOi/Zf0ontYtknnWgTvyMf6rmdmTRHj0ySmL+rCgxlXElC
-	 Ne+E9INzYTjTo1NQQa/6wKFeMsq0/KG87idPO4sPnjHyAJ2vel+lcXt9KFoPsM+ijR
-	 QEcmtzvOPuFKg==
+	b=XeKCTKf/a5GCoFKUTK+NylvTFs1k7CHxA0jgLkoY1kSV9ix6qkkvJW/TbqOT38Rr3
+	 hLhNjH1SmU17d9SUfyOxfz6mYxV6thPdI01yQAhziWBBV+xtNcr4ixgvAlbzcEMJhr
+	 Ap8rGmAbU/tllFWddwSoRl73xrpO80mCyWAFRMhwO24DEHMURLT6sBtWPBWPSwzzlY
+	 HcgWUMeOVunEIQ0tYJPcjSvD8s1aYjx8xVMwNESRC3bxM0jCX2zUNRXaGJZhxfwIyg
+	 nt0gbH5pPCSmrn1Duy46bH4PZDehlzhE0OAMV48bBO9xYgAjJcIKdVSNUU8qYVax3n
+	 F0sgCNIcQ6itg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Li Xiasong <lixiasong1@huawei.com>,
-	Tung Nguyen <tung.quang.nguyen@est.tech>,
+Cc: Li Daming <d4n.for.sec@gmail.com>,
+	Yuan Tan <yuantan098@gmail.com>,
+	Yifan Wu <yifanwucs@gmail.com>,
+	Juefei Pu <tomapufckgml@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jeffrey Altman <jaltman@auristor.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	stable@kernel.org,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] tipc: restrict socket queue dumps in enqueue tracepoints
-Date: Wed, 22 Jul 2026 13:29:40 -0400
-Message-ID: <20260722172940.2067866-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] rxrpc: serialize kernel accept preallocation with socket teardown
+Date: Wed, 22 Jul 2026 13:29:43 -0400
+Message-ID: <20260722172943.2067905-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072050-tableware-puzzle-9044@gregkh>
-References: <2026072050-tableware-puzzle-9044@gregkh>
+In-Reply-To: <2026072055-kleenex-motocross-d624@gregkh>
+References: <2026072055-kleenex-motocross-d624@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,96 +56,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Li Xiasong <lixiasong1@huawei.com>
+From: Li Daming <d4n.for.sec@gmail.com>
 
-[ Upstream commit acd7df8d955480a6f6e5bb809da67b1500cc3cf4 ]
+[ Upstream commit dc175389b18c29a5303ee83169ec653adfae3e17 ]
 
-tipc_sk_enqueue() runs with sk->sk_lock.slock held while the socket is
-owned by user context. The spinlock protects the backlog queue in this
-path, but it does not serialize against the socket owner consuming or
-purging sk_receive_queue.
+rxrpc_kernel_charge_accept() reads rx->backlog without any
+socket/backlog synchronization and passes that raw pointer into
+rxrpc_service_prealloc_one(). A concurrent rxrpc_discard_prealloc()
+sets rx->backlog = NULL and frees the backlog rings, so a kernel
+preallocation worker can keep using a freed struct rxrpc_backlog
+while updating *_backlog_head/tail and array slots.
 
-KASAN reported:
+Serialize the state check and backlog lookup with the socket lock,
+and reject kernel preallocation once teardown has disabled
+listening or discarded the service backlog.
 
-  CPU: 14 UID: 0 PID: 1050 Comm: tipc3 Not tainted 7.1.0-rc6+ #126 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-  Call Trace:
-    <TASK>
-    dump_stack_lvl+0x76/0xa0 lib/dump_stack.c:123
-    print_report+0xce/0x5b0 mm/kasan/report.c:482
-    kasan_report+0xc6/0x100 mm/kasan/report.c:597
-    __asan_report_load4_noabort+0x14/0x30 mm/kasan/report_generic.c:380
-    tipc_skb_dump+0x1327/0x16f0 net/tipc/trace.c:73
-    tipc_list_dump+0x208/0x2e0 net/tipc/trace.c:187
-    tipc_sk_dump+0xaf6/0xd60 net/tipc/socket.c:3996
-    trace_event_raw_event_tipc_sk_class+0x312/0x5a0 net/tipc/trace.h:188
-    tipc_sk_rcv+0xb1d/0x1d50 net/tipc/socket.c:2497
-    tipc_node_xmit+0x1c3/0x1440 net/tipc/node.c:1689
-    __tipc_sendmsg+0x97a/0x1440 net/tipc/socket.c:1512
-    tipc_sendmsg+0x52/0x80 net/tipc/socket.c:1400
-    sock_sendmsg+0x2f6/0x3e0 net/socket.c:825
-    splice_to_socket+0x7f9/0x1010 fs/splice.c:884
-    do_splice+0xe21/0x2330 fs/splice.c:936
-    __do_splice+0x153/0x260 fs/splice.c:1431
-    __x64_sys_splice+0x150/0x230 fs/splice.c:1616
-    x64_sys_call+0xeb5/0x2790 arch/x86/entry/syscall_64.c:41
-    do_syscall_64+0xf3/0x620 arch/x86/entry/syscall_64.c:63
-    entry_SYSCALL_64_after_hwframe+0x76/0x7e arch/x86/entry/entry_64.S:130
-  RIP: 0033:0x71624e8aafe2
-  Code: 08 0f 85 71 3a ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 66
-  RSP: 002b:0000716157ffed68 EFLAGS: 00000246 ORIG_RAX: 0000000000000113
-  RAX: ffffffffffffffda RBX: 0000716157fff6c0 RCX: 000071624e8aafe2
-  RDX: 000000000000005f RSI: 0000000000000000 RDI: 0000000000000066
-  RBP: 0000716157ffed90 R08: 0000000000008000 R09: 0000000000000001
-  R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffff00
-  R13: 0000000000000021 R14: 0000000000000000 R15: 00007fff89799c40
-    </TASK>
-
-The TIPC_DUMP_ALL tracepoints in tipc_sk_enqueue() also dump
-sk_receive_queue and can therefore dereference skbs that the socket
-owner has already dequeued or freed. Restrict these dumps to
-TIPC_DUMP_SK_BKLGQ, which matches the queue protected by the held
-spinlock.
-
-Keep the change limited to the enqueue path, where the unsafe queue dump
-is reachable while the socket is owned by user context.
-
-Fixes: 01e661ebfbad ("tipc: add trace_events for tipc socket")
-Cc: stable@vger.kernel.org
-Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
-Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
-Link: https://patch.msgid.link/20260611135647.3666727-1-lixiasong1@huawei.com
+Fixes: 00e907127e6f ("rxrpc: Preallocate peers, conns and calls for incoming service requests")
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Li Daming <d4n.for.sec@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Jeffrey Altman <jaltman@auristor.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@kernel.org
+Link: https://patch.msgid.link/20260609140911.838677-6-dhowells@redhat.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ kept 6.1's extra user_attach_call argument in the rxrpc_service_prealloc_one() call ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/tipc/socket.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/rxrpc/call_accept.c | 27 ++++++++++++++++++++-------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/net/tipc/socket.c b/net/tipc/socket.c
-index e5931e56ef094e..afa71d647ad5ed 100644
---- a/net/tipc/socket.c
-+++ b/net/tipc/socket.c
-@@ -2457,17 +2457,17 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
- 			atomic_set(dcnt, 0);
- 		lim = rcvbuf_limit(sk, skb) + atomic_read(dcnt);
- 		if (likely(!sk_add_backlog(sk, skb, lim))) {
--			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_ALL,
-+			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_SK_BKLGQ,
- 						 "bklg & rcvq >90% allocated!");
- 			continue;
- 		}
+diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
+index b96af42a1b0415..e3df2dbd37ab56 100644
+--- a/net/rxrpc/call_accept.c
++++ b/net/rxrpc/call_accept.c
+@@ -481,14 +481,27 @@ int rxrpc_kernel_charge_accept(struct socket *sock,
+ 			       unsigned long user_call_ID, gfp_t gfp,
+ 			       unsigned int debug_id)
+ {
+-	struct rxrpc_sock *rx = rxrpc_sk(sock->sk);
+-	struct rxrpc_backlog *b = rx->backlog;
++	struct rxrpc_backlog *b;
++	struct rxrpc_sock *rx;
++	struct sock *sk;
++	int ret;
++
++	sk = sock->sk;
++	rx = rxrpc_sk(sk);
++
++	lock_sock(sk);
++	if (sk->sk_state != RXRPC_SERVER_LISTENING || !rx->backlog) {
++		ret = -ESHUTDOWN;
++		goto out;
++	}
  
--		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_ALL, "err_overload!");
-+		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_SK_BKLGQ, "err_overload!");
- 		/* Overload => reject message back to sender */
- 		onode = tipc_own_addr(sock_net(sk));
- 		atomic_inc(&sk->sk_drops);
- 		if (tipc_msg_reverse(onode, &skb, TIPC_ERR_OVERLOAD)) {
--			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_ALL,
-+			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_SK_BKLGQ,
- 					      "@sk_enqueue!");
- 			__skb_queue_tail(xmitq, skb);
- 		}
+-	if (sock->sk->sk_state == RXRPC_CLOSE)
+-		return -ESHUTDOWN;
++	b = rx->backlog;
++	ret = rxrpc_service_prealloc_one(rx, b, notify_rx,
++					 user_attach_call, user_call_ID,
++					 gfp, debug_id);
+ 
+-	return rxrpc_service_prealloc_one(rx, b, notify_rx,
+-					  user_attach_call, user_call_ID,
+-					  gfp, debug_id);
++out:
++	release_sock(sk);
++	return ret;
+ }
+ EXPORT_SYMBOL(rxrpc_kernel_charge_accept);
 -- 
 2.53.0
 
