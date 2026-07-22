@@ -1,88 +1,88 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC31B442B00;
-	Wed, 22 Jul 2026 17:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784742409; cv=none; b=PBhpysL6fNomPpmqpvhb0//Dm8MTo9GApnYlfQi6iofBJbB9EtDC/JtSNd6WyGWfl5rTtgIhiIkJfpXVzne8MeXoQoGjMqxa2KdvCDNJ8gJIQixQvlxBYcnlvL3bM8jJWOG0jpcll+W2tqGQy6QZvRYvdXMDTpxxDA/XkEuHTZQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784742409; c=relaxed/simple;
-	bh=P7eDxmnfb878Wjsr90/6iUsFNKNNXsEaDtmf0pHtlyU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SQLmYmyh0nKunR56AI1LcWuanDhkPU3j9QVR63sf1QJhIQxY67Kpwme1iICsMuXd+JvyJnfGxeDlFUwW+16YuR57H0INFzWoVkjjYrwRYExFIJwVQBd+oJFKNg+IILP+dGvqnDCkKSJ9z60fOOkH1PpCk/WhXPkd4RV5VY3IgV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Ucq1opX9; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05F8314B6E;
+	Wed, 22 Jul 2026 17:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784742441; cv=pass; b=b5DW5zN6C6BLj02LvNqTofxzDDVpnH+TxEi1VsgLPFxvBVI9wQuoP2znKP6gOjWSk6c+luKJuPYsq2HO9mY4w4+x4Lfy+WY50deO+zCRl5XoyeqlRcVz2NAD2jEu1+6LYvI1YEg+09UeKJPQ3TxvDDvxB2o+w2dvjinibyHPxrI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784742441; c=relaxed/simple;
+	bh=XCrzWIHXMTC6vLxmZAYmJB0rVPxCp1X90KZnT66wKo8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q3Wm2sLpU6sRNRQ2IUfYZvWq7tVBGjUwsWhDmVahD579uvLeGOYBRkz+Eh9gFZieUAMWiSEHgo6+eooqyMAGJ1bgRgzPDv90aIGSxBJkuFKnjRmDjjc6+VMrsj5vMTXlEaRinwC5aPKLdg3TBEKFG5P5ZOHYwRFwnS8BMpnhdVY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=VNxQAg5B; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Ucq1opX9"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 21FA411AEA2;
-	Wed, 22 Jul 2026 19:46:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1784742402;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=d5Zz9nHvSBYgQFJ5eZq6ghSzBPzRoGa1nFXQHkHo+Io=;
-	b=Ucq1opX93vYVUXibDn2flCqITx9k1/s5SKkWu6hjDEvVlHBOffWBTAZmMYQPdkbV5bCJ9l
-	906t1yAf/5rot1NE4UXk/gndoF72LAVyEjdNvvoUO+CEJk9yhDfsM9xkN9IZWvJRWxW3bt
-	VMxQdW25/9OsKl3X/qMpIbBuYNItiUR6YWRmHP9fuD90ebJNL7xP5aaKKMYHDp9qrjwPn0
-	ZSb92iaxYFBtvCJ75NtNPRwBO1b78pnLAS6xvieco4ITycsClG7JXE4ITlb28lzJEG0aLv
-	RiYyZRHPlwiCXgj+ww51WIgPU1e+pIbuUUX3KhukRJXbI0U0qqYXqZuFAy3acA==
-Date: Wed, 22 Jul 2026 19:46:38 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 0000/1611] 6.18.40-rc1 review
-Message-ID: <amEB_rk3JVpkY-d4@duo.ucw.cz>
-References: <20260721152514.750365251@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="VNxQAg5B"
+ARC-Seal: i=1; a=rsa-sha256; t=1784742411; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=msFSU0cXWpZHma5l8e1RgE+vsAuTgCi0+2fZtmz2bkSkCak8aCcWxqaxHD8V+IKirv3a9/hpED5T5hW57OKAVI3q7upgQEOcKgWOBQGfyIaSSwQLYjGX9nak33gsU2VKXDC7FONDF/L36DB+9c96fDvaig4/YinNeSocTDlfzBM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784742411; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=XCrzWIHXMTC6vLxmZAYmJB0rVPxCp1X90KZnT66wKo8=; 
+	b=jCiSzJ7J/PinuTxMmiSZpOKV6gQZKSVlq62LfvVEtNgC62cqMi1ejyraBHr6We+KPolbvQ0CQJD1RSp9S/GA5urWCEbJHsRe59pwqEWuXLMfmbkKpbmkgNZdRoN5aB2pCrxcnxhfsKAESFbgS90Liai9UGH6x3YRoAe5xe8EjvY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784742410;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=XCrzWIHXMTC6vLxmZAYmJB0rVPxCp1X90KZnT66wKo8=;
+	b=VNxQAg5BokdoSQOY/uISQM8jI/tpEcYc+vHRmCnkNiGXivOucZT3kDX9OihMBQrj
+	aClr0C5SbCXW7DI116JO7imxlKcYTrieUV6uxOkoX9rQW5nRSGnImtzCTIoD6Wr54eE
+	552Kz3FvsvldHt5mVRFsb4TkJQ4Wv/dQikURjbP0=
+Received: by mx.zohomail.com with SMTPS id 1784742407582988.2620092098992;
+	Wed, 22 Jul 2026 10:46:47 -0700 (PDT)
+Message-ID: <7f273a08-b29c-4e15-b340-898b251efe57@yoavmoshe.com>
+Date: Wed, 22 Jul 2026 19:46:42 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="0StbMKygZWQVDiT+"
-Content-Disposition: inline
-In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Sami Tolvanen <samitolvanen@google.com>, Yo'av Moshe <linux@yoavmoshe.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718111340.159896-1-linux@yoavmoshe.com>
+ <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+ <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com>
+ <20260721180950.GA3684684@ax162>
+ <180001f5-bddd-4e58-8442-f7ef3c979500@yoavmoshe.com>
+ <CABCJKufhvTxmVm8y7xr4RWWKsoZk0h8UGBnem+F5fknnimaqPA@mail.gmail.com>
+Content-Language: en-GB, sv-SE
+From: Yo'av Moshe <linux@yoavmoshe.com>
+In-Reply-To: <CABCJKufhvTxmVm8y7xr4RWWKsoZk0h8UGBnem+F5fknnimaqPA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
+On 2026-07-22 5:00 PM, Sami Tolvanen wrote:
+> Are relocations applied to this code before the function is copied?
+> Because SYM_TYPED_FUNC_START doesn't embed the actual CFI hash in the
+> binary, just a reference to a symbol that contains the hash, and it
+> relies on the kernel to apply relocations before indirect calls are
+> made to the function.
+Hi Sami,
 
---0StbMKygZWQVDiT+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+AFAICT, kernel relocations are already applied at boot before fncpy()
+is called during init.
 
-Hi!
-
-> This is the start of the stable review cycle for the 6.18.40 release.
-> There are 1611 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-CIP testing did not find any problems here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+I think the issue might be a parameter mismatch: in C, the pointer is
+declared as taking a parameter `void (*)(void __iomem *)`, but in assembly
+`imx6_suspend` has no parameters, so Clang generates two different hashes
+for them?
 
 Best regards,
-                                                                Pavel
-
-
---0StbMKygZWQVDiT+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCamEB/gAKCRAw5/Bqldv6
-8oHPAJ0ajg3bQwIWcLMgcnpLmEY+NIGI7wCgwtvk2FAmeY4AbgWCJQrjScPr7CI=
-=tse3
------END PGP SIGNATURE-----
-
---0StbMKygZWQVDiT+--
+Yo'av
