@@ -1,74 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791762E2665;
-	Wed, 22 Jul 2026 13:24:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127F533F8A3;
+	Wed, 22 Jul 2026 13:25:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784726689; cv=none; b=D9Re5bMo4IsNKpr+SCI8ss6DgfIdAPPBfSHQFM+BOXiu1UwvNzKd+4vngWGAMDq1K6ayrxMJVqRu/scoyE2BdSBVd0D35xAKGp8hZRksw1pY454X05MNEN0wfGl2h+To0MjleGDVCX98sUenNC6Pgams/S3d3M0dQGb78FQqS+I=
+	t=1784726747; cv=none; b=ELOhGLteHiCeiPYpsZB83yt4MEx+0zSXyVU4b3fIQ+LVjvCbiWhlTs4CQy/pUZ55wKEW5LRJIVxoaORpVr+3HoKhhs50Cahrh4/2XXxvIJfv1PMAlNws2QG/KYhmRgozz0xrTcBLob47ffwLlBQoEhXHuAPog7pXvt/jjCdSaiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784726689; c=relaxed/simple;
-	bh=3Pv/mM9EexH5umZTOWtW4bK0711TlASt4S/BqOifAFk=;
+	s=arc-20240116; t=1784726747; c=relaxed/simple;
+	bh=ORF0NR03uUvejeVPGOQ1gjz/F9vxipBG+0yAybP4WQI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZCA+I9RJum02H0Fk+VliABRWIZd8JIYPg+FfaLrGHPWhffFRiU+5Tent6ckO2yoUJ5YFlYm+gFcgz5ZaaabEDNLeGkhs9Bj9mQcb+HGmJu61EeB4rX2azFp7R0WuSFZNqpkhnvZ5PSOZpYyUTtfq6b+vrXQJzZ+8yahS2j6n3yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpB1ajNa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ipmKW8NgbWoBIkYopLLE42Y7hbPlv14gjd9p8SOO2+SMT+hz3VaHsZZCwm1c1naVI7q59F/hhXRQ/+b9sEvljdw4EIXzaCoHoeoFFtKK7h17nrx/3qWEeLRfbcE67RPL0Yyt540FjCdLNSNpW9FU9YQoPEBt42OHHvjqaAeoKZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Dnf59Is8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpB1ajNa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF6C1F000E9;
-	Wed, 22 Jul 2026 13:24:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784726688;
-	bh=6aDhpdQaHijSq9esch5+WU8dacA002S+0r+30kHtios=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Dnf59Is8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260541F000E9;
+	Wed, 22 Jul 2026 13:25:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1784726745;
+	bh=JlVwsgUU44JlChANx8iFerR99T32QYVdq68KqtRkrEI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PpB1ajNaE2DYHXFwM/2M8Offi2IW09ORNIXaMj9ZoAp3j2id7U7RQcvGBnJrs/Yjq
-	 /r9pCis9WWRf22Y34q74VZ/2Ui0+ScMMOP2J4zVgMtsqSCiGJ7/WotWKZ0np/iDpTk
-	 OrCh6Y3kvc7bFRmezmnv1MEfGIm5gcpKV3MZdjqstHZ6r6OpALxlxJ3iwjdLrDpwbk
-	 XFf9coYywFWr0KOleLs5xLmaglD4DVDqU9TGwySzfQKC+MDtmokyGqBorLIOHYEKFl
-	 54SF+8VI1U5NscpU+rq+wvh6cWFiCa/0uH/ZByDvwRy5tJNyJxGLi/zGMsEDcc7B7O
-	 3IVsac2M8Muhw==
-Date: Wed, 22 Jul 2026 14:24:42 +0100
-From: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: joro@8bytes.org, jpb@kernel.org, catalin.marinas@arm.com,
-	yangyicong@hisilicon.com, linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
-Message-ID: <amDEmlcyC3Tfmkel@willie-the-truck>
-References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
+	b=Dnf59Is8KO2c3A4u7dTip8mtTVVi1Y7pQ8nfN5pBKnak/2WVVocUxcbwEpXGBcTRE
+	 h4Z68cpx+TaCkaB+8bCh9R2JACVwJvEifiA1jyk3hvr7StWMFvMIq5plxI1y7LBDkF
+	 JveNKdaZSn/oy8iRXoADIqm1nhEwRYJlr+7DPdgM=
+Date: Wed, 22 Jul 2026 15:25:35 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH 7.1 0944/2077] perf sched: Use is_idle_sample() for idle
+ thread runtime cast guard
+Message-ID: <2026072225-polyester-lid-1a1d@gregkh>
+References: <20260721152552.646164743@linuxfoundation.org>
+ <20260721152615.083823288@linuxfoundation.org>
+ <5d1db582-46e2-49e4-9884-eb96b573079e@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5d1db582-46e2-49e4-9884-eb96b573079e@kernel.org>
 
-On Wed, Jul 01, 2026 at 06:45:17PM +0100, Robin Murphy wrote:
-> Since table access flags cannot be software-managed, if process
-> pagetables are using HAFT then SVA must require the SMMU to support and
-> enable it too, otherwise page aging is liable to get out of whack.
+On Wed, Jul 22, 2026 at 07:29:43AM +0200, Jiri Slaby wrote:
+> On 21. 07. 26, 17:10, Greg Kroah-Hartman wrote:
+> > 7.1-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> > 
+> > [ Upstream commit c9b3054c99cafd5f5f92158101760992a83e5a5e ]
+> ...
+> > --- a/tools/perf/builtin-sched.c
+> > +++ b/tools/perf/builtin-sched.c
+> > @@ -2904,7 +2904,13 @@ static int timehist_sched_change_event(const struct perf_tool *tool,
+> >   			t = ptime->end;
+> >   	}
+> > -	if (!sched->idle_hist || thread__tid(thread) == 0) {
+> > +	/*
+> > +	 * Use is_idle_sample() not thread__tid() == 0: a crafted perf.data
+> > +	 * can set common_pid=0 with prev_pid!=0, giving us a machine thread
+> > +	 * whose priv is thread_runtime, not idle_thread_runtime — the cast
+> > +	 * below would read past the allocation.
+> > +	 */
+> > +	if (!sched->idle_hist || is_idle_sample(sample)) {
 > 
-> Cc: <stable@vger.kernel.org>
-> Fixes: 62df5870ebf7 ("arm64: Enable ARCH_HAS_NONLEAF_PMD_YOUNG")
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-> ---
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c | 5 +++++
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c     | 6 ++++++
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h     | 3 +++
->  3 files changed, 14 insertions(+)
+> This would need:
+> 1ac10645bb29 perf sched: Don't pass evsel with sample
+> 
+> Instead, calling
+>   is_idle_sample(sample, evsel)
+> here would be simpler backport.
 
-This looks ok to *me*, but Sashiko raises two interesting points:
+Yes, thanks, I've made that change now.
 
-https://sashiko.dev/#/patchset/878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com
-
-1. This may break hitless updates when transitioning to a faulting entry.
-2. IORT has HTTU overrides for HA/HD. Does it (will it?) have anything
-   for HAFT? At the moment, it looks like you'll trigger a warning
-   message.
-
-Given Jason's comments, it's probably worth sending the idreg override
-patch as well...
-
-Will
+greg k-h
