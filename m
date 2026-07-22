@@ -1,131 +1,71 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77313F4116;
-	Wed, 22 Jul 2026 16:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D0B3F58CA;
+	Wed, 22 Jul 2026 16:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784737980; cv=none; b=BGUTM5pKgHWEywq8WeCE9KD6s9S61N7VRkGXeOkPkOZPQx5JbrPEnO5DFvgqcPiELhr4W+rVbnJ2Ln1u0drkglG2qKLDYLn+1H/kBmCtJR/x1TyX1/IbBCD2NfXmJgUSvfywteZQ6FD6MCok82YZRrlZQ0yBAGDvdpukEe9hju4=
+	t=1784738014; cv=none; b=SOqelScaaVLypvW/2vpUkWn/DfTaXzanzEQ7E5WgOnHk4vQLYNsWC/q0JJCN7vLvYRBMhmViEAXy1jYViA4IawACME/3oJMzBoxzswGdsmDUwsnaZPznBBqVegmGmdUoFGxXXmDsKRVNmFt2jP0pk6md4ZNoRQSbEXufrd+k+es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784737980; c=relaxed/simple;
-	bh=A1X4jlbHmfdLxnOq0mtlD0Iah+B9g2IxUL29gBW9jRU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YPSpPJFezrM1qVu/T0/MvUl+FjJrC9dPFAvUk/52CzzYdhN9pDu3ra3dp6CwSq3Qe/S2Svmp1x7DLPO0tTsWrA0y2TqaLpjvMD9veKKw1DrPf9y0fdxOntqORleM9nbXpXF6o5q5aPjW3mL2jdm9Q0Henh4DjgxGUNFLqTkIOj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 8764E120225;
-	Wed, 22 Jul 2026 16:32:51 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id A740B2F;
-	Wed, 22 Jul 2026 16:32:49 +0000 (UTC)
-Date: Wed, 22 Jul 2026 12:33:10 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Li Qiang <liqiang01@kylinos.cn>, Beau Belgrave
- <beaub@linux.microsoft.com>
-Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] tracing/user_events: Validate explicit struct field
- sizes
-Message-ID: <20260722123310.7da7166b@gandalf.local.home>
-In-Reply-To: <20260722061040.112747-3-liqiang01@kylinos.cn>
-References: <20260722061040.112747-1-liqiang01@kylinos.cn>
-	<20260722061040.112747-3-liqiang01@kylinos.cn>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1784738014; c=relaxed/simple;
+	bh=WdYQjHqz0WxK/3wW+np6k2Dth2qI3mgTky+yhMAGq9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qY5pKhD/mVZC8/UPXGJml1ksywe9uTg7z6qOGns5XSw4LuYuYH1JwqrU+W/wVKyH6y47hk08C761NmKf5vNKfEUik2EzVJHzjW1aC/F27DThRK5F8j+L6eLsWYxFuzSSUX5qXFOmCjb9g5lhQuWBkxEOaCgyD9Emp8QbCHdy8Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUgoIFtI; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUgoIFtI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1EB1F00A3A;
+	Wed, 22 Jul 2026 16:33:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784738012;
+	bh=U26BwfjGu0ZDjt757734uba9SAS16WYrs7B3QfwHKTk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SUgoIFtIjw9t9w+5MgYFRZc9WdrCBEgfU6t5R+bd2mkxS1b24Vis5wQ3T2Czl8pmD
+	 x+7tIlmI8dQjFb4nA9BuqskcoRGdeirD6HxOGRASksHhDrSJQ23n2Xx/5yntyQ0h9q
+	 OP6m4xFgLkbHADZ1pD2sIKg5TLH9013S0x6YTMQ201gEBRFQx43RFFmV/+pI1X6tlj
+	 HYwrMl+UbmTiVOVBEpoFXIoKiCFQyV/g+/G4ecUzWGsxn6ezQo7DLqjCayYhRmpAHw
+	 tcfpJVatXDSSE5cu7EPot8Jgf1T+63Y+QrsDY9hqg/bze/IfHQqf3PbVeYWDR+sfly
+	 zLkFrZu0R+Lxg==
+Date: Wed, 22 Jul 2026 16:33:31 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+Message-ID: <20260722163331.GA2865613@google.com>
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+ <alnlaCXmoLRAlr96@gondor.apana.org.au>
+ <20260721082501.6128-1-bartosz.golaszewski@oss.qualcomm.com>
+ <c826b73d-6307-4237-a065-b7a8487350ce@gmail.com>
+ <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
+ <8e9101ce-e9ec-4111-a1a6-7a9a07788818@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: A740B2F
-X-Stat-Signature: ancedkmtn49abdjpkeh6e8fsaaxwouzh
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18J1v51EZnju6bHkxJXDl6BSE+LrZ0wHeQ=
-X-HE-Tag: 1784737969-937150
-X-HE-Meta: U2FsdGVkX1/SwjgGrILjnwnYCS/aLOcJOtjOmWGz8QRQ5RDThEEY1q4ICl/uONdqlPkKyXW0WfDdpnJ/Za7nCEJ6g1WLvIGJzzBuhogkpRhebJBreKQnOW86BOU5/1vAIA9JzUV+SNgNsdc1PrU+CPomfK+v+krEPNf1U6z1fcOBez0AvIr3CjxVXSgHlqLo/ppTdbjCyvyqbXUcm/DRVFwVCB3L+LxwPNSz6hV1e0jRghljC6yG0rdjcZ0Gfn33WeOnKuDUuVlLvikwFSVF1DMNVXNcoiUU6RXM+vA1OLZZVr/GQK9XKMhuJ2RkFtCbQgl+F0Wxru+c44has80ULrMgivxWXZFJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8e9101ce-e9ec-4111-a1a6-7a9a07788818@gmail.com>
 
-Beau,
+On Wed, Jul 22, 2026 at 11:46:16AM -0400, Demi Marie Obenour wrote:
+> With your patch, does the driver also pass stress tests, such as
+> multiple threads using it in parallel with varying algorithms and
+> message sizes?
 
-Can you review this?
+As I've mentioned before, the self-tests (crypto/testmgr.c) don't issue
+more than one request concurrently.  They are really designed for
+testing the software implementations, not the hardware drivers.  None of
+the hardware driver authors has ever caused enough about quality to make
+any significant improvements to the tests.  Inevitably it's just push
+the driver in, *maybe* run the existing incomplete tests once (for QCE
+it's finally getting done just now), and job done I guess.
 
-Thanks,
-
--- Steve
-
-
-On Wed, 22 Jul 2026 14:10:38 +0800
-Li Qiang <liqiang01@kylinos.cn> wrote:
-
-> User event declarations permit an explicit size for a struct field. The
-> parser accumulated that size in an unsigned offset, then assigned the
-> parsed unsigned value directly to signed field metadata. Oversized
-> declarations or cumulative offsets could wrap or become invalid signed
-> values.
-> 
-> Validate an explicit size is representable as int before storing it. Keep
-> the running offset signed and reject additions exceeding INT_MAX, so
-> invalid field layouts are rejected during declaration parsing.
-> 
-> Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li Qiang <liqiang01@kylinos.cn>
-> ---
->  kernel/trace/trace_events_user.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-> index 8c82ecb735f4..fd5b3946921c 100644
-> --- a/kernel/trace/trace_events_user.c
-> +++ b/kernel/trace/trace_events_user.c
-> @@ -1197,10 +1197,12 @@ static int user_event_add_field(struct user_event *user, const char *type,
->   * Format: type name [size]
->   */
->  static int user_event_parse_field(char *field, struct user_event *user,
-> -				  u32 *offset)
-> +				  int *offset)
->  {
->  	char *part, *type, *name;
-> -	u32 depth = 0, saved_offset = *offset;
-> +	u32 depth = 0;
-> +	unsigned int field_size;
-> +	int saved_offset = *offset;
->  	int len, size = -EINVAL;
->  	bool is_struct = false;
->  
-> @@ -1261,8 +1263,11 @@ static int user_event_parse_field(char *field, struct user_event *user,
->  			if (!is_struct)
->  				return -EINVAL;
->  
-> -			if (kstrtou32(part, 10, &size))
-> +			if (kstrtouint(part, 10, &field_size))
->  				return -EINVAL;
-> +			if (field_size > INT_MAX)
-> +				return -E2BIG;
-> +			size = field_size;
->  			break;
->  		default:
->  			return -EINVAL;
-> @@ -1281,6 +1286,9 @@ static int user_event_parse_field(char *field, struct user_event *user,
->  	if (size < 0)
->  		return size;
->  
-> +	if (size > INT_MAX - saved_offset)
-> +		return -E2BIG;
-> +
->  	*offset = saved_offset + size;
->  
->  	return user_event_add_field(user, type, name, saved_offset, size,
-> @@ -1290,7 +1298,7 @@ static int user_event_parse_field(char *field, struct user_event *user,
->  static int user_event_parse_fields(struct user_event *user, char *args)
->  {
->  	char *field;
-> -	u32 offset = sizeof(struct trace_entry);
-> +	int offset = sizeof(struct trace_entry);
->  	int ret = -EINVAL;
->  
->  	if (args == NULL)
-
+- Eric
