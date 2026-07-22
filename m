@@ -1,80 +1,80 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3D94BC030
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:01:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B24F4C0419
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784718086; cv=none; b=fppBt2SCvPW8EAayPBKK9fCaRwRwqTof5SPrpN6PqsfEZqogFxY8OtJhVfIMl6CFQhhGURMWPly5gbrPXaXUdsvVvt0Lk7vSGXj2mwngM0ZHHtv2XjQS9ivPtJ1U1lAuFW3vqKR6V5TWrMI8xCzoV24nnLamz/c69sz2GeF/CsA=
+	t=1784718087; cv=none; b=n/wwEuzw0+ugD8a3bSv7Afumd9/NgGlh0cRCEYuH7DTOuxaPmDHopfVVk6lUuKbpmapZt63+X1xoY63WPsxZdJUF6i/IQeWF3iv9su+Z/HqVAMX4RJ6mJ0ASIG+eWHb/5L6VsUsNKovajey9neeJJk3Z+0/ZmdT7qtsxwQxIjCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784718086; c=relaxed/simple;
-	bh=AlyQiJMxT7qMFC+6QLfj8lj9OFYbygQZqHeP7NYp/Ak=;
+	s=arc-20240116; t=1784718087; c=relaxed/simple;
+	bh=r7xwQjrAt41KsqR/DwYWv2dVhTosDu8irts7nySysXo=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YpGzAFsXSJ5nS/g81ufuweGo4dcCg34VrPJuuz1j1tVvb6n4P8K15evheA01jgchvb21CBz35RmllgnXtc5Oc2enOCzZ8LEVtl+zVZ3Y4j7dlCZhjI4HI/YvPzu9n9/G9z2/Kdbw/33SSN5dA4JW3yy36Fu1pX7YQkUlVhkFaPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=soRpDHLV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=FBTEI+pV; arc=none smtp.client-ip=202.12.124.148
+	 MIME-Version; b=bTm25nQGikrzbWndl3GFPdAmC9jojSXnwOJ5GlORFIEZfYxOQVTXzDymdmipx+f71xT+Lv1EAj4/4NaaEYTZK9SpyxEeu8VRDw6UGFnw5Kj+sXu2+3n3/C4TGZOxjbSjbwv/4+XJ3HN6ZtC1zBrhB4CKC1U9ijxetsvG3UMtfA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=EWYJfi2e; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MPLCCboF; arc=none smtp.client-ip=202.12.124.156
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="soRpDHLV";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="FBTEI+pV"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.stl.internal (Postfix) with ESMTP id A69B31D00153
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 07:01:23 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="EWYJfi2e";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MPLCCboF"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 736787A0057
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 07:01:25 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Wed, 22 Jul 2026 07:01:23 -0400
+  by phl-compute-04.internal (MEProxy); Wed, 22 Jul 2026 07:01:25 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:content-transfer-encoding:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1784718083; x=
-	1784804483; bh=JC6aWOhXfkYQ8pK3WHuOpIFh/tCLVtdCSstqOiRDSgI=; b=s
-	oRpDHLVrT7qlcpwU1lAw8oNTVtLccuGhXJz7evNqie0dFrTqQEDB0pT7Pf/jvCax
-	sxQNm5pike8YCCPsIRPUTBD2HZG2poDeu/rqzvmBs0LyNUKzOSBR3Yw9fn0j99qb
-	inoD7948U+HduoVo0KxW/Yx/YbGqP+A5CdJMZdeGIksqhkMxGuR10eb4tRkt7kIe
-	NTe4npoJWoYGmAs4jc0O07OnYf6WeiH+HNK9fpF12scmID3NfN4hFQtl9pj+05Uv
-	YHC7h/bp8SDbICsnXoDqibwbbdIBzKd/wdyQbtgYZft7ZnRmToxFK+qyol5il2C/
-	ZgLKHbJAuA3YHeW6BLBwg==
+	:reply-to:subject:subject:to:to; s=fm1; t=1784718085; x=
+	1784804485; bh=Wl7nPL6Tx+n1rc5GxPIdN9SYihJF+4a+mEc1Hwtwadk=; b=E
+	WYJfi2eqlZoAL6jdkjc2nzSBwFg91E43d6dCj4b1FM3bQoNgzesSW2qD3+KR1/AM
+	MmHYwCFVRZn3cX46P4WdveNbvW2GZ5GwtVyhn/iy2bycbMy3n/0EGcDoKFZijxEX
+	e0SYkqM8ErC+0RuAQ25NEYbYZcXAv75kNbKsK3qF15QgrDlm0NZlbLnSTklcEhzA
+	XS2FMo9mrH3m3n/I2ABMcEfswZspREIHTRs0QOA9ax5yPMPo4kQX+Ez2JeAMtmQy
+	GXTwFcEbpvJUgpJ7Fa/BNeEVqzdhy1d88bidSvZ87+fvIAIql/ig8gqP0qhqr3ri
+	HdAkETqsM3IwrERRln9Xg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:content-transfer-encoding:content-type
 	:date:date:feedback-id:feedback-id:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
 	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1784718083; x=1784804483; bh=JC6aWOhXfkYQ8pK3WHuOpIFh/tCL
-	VtdCSstqOiRDSgI=; b=FBTEI+pVeu4Cy1ggyAQgN16sfWMsDh+XCySv4DEl3BPx
-	1WXOa8nWm94eWpiWU2Fm7PX7YZ+Fd5eDJ3i26+vUV11hLmKT0PP/LllE9RY0eb26
-	0JJnhNtvnzC4UotRLDVO/ICIc4uaVD2CI4Bzftqi6iMi+LzIYVgmWqx0ClbbvsD0
-	+opNCERK/ujxx767x30RuZkHf+UdXGmc2rGH9sValmyKD/MwgkjoIJRbHmYAHmbF
-	BS818jEfK0AJogqOD0P693KLiIUjtTTvIjGf85LjwEfbFR0DQq4zFvmZ7jT6nxJ6
-	n2rMxZ62orXqORqF2DVzjs3BzXkYRa4o8i9vW9TrsA==
-X-ME-Sender: <xms:A6NgakRGuDjTWF9gUAh5eUWhcvJZJOGMDEYyfUIkob3uPANYBrwxBg>
-    <xme:A6NgaosX5xqrE-XaMzSVw6NmDoweHUBN74wSB2eKjErALcY9XcYgyRg8dJtLTlZhw
-    ETO2qkjm_xw_rO871CjVQwK5lyyIqc7g6H4GpjjOcWsQHCcdVUiIVQ>
-X-ME-Received: <xmr:A6NgandT0s3PuU8tqZt28Xre8tgqpUYvlRCEt2YMeVBvlVHkSKTYoLb1HKuP-A>
-X-ME-Proxy-Cause: dmFkZTGoOtiQOO9COd3U2ftphsqZ2TZaQg1itl7UNlfmjYKAn5Gp7bvq6ktIxZ2nsjSlxL
-    0ex+nQQHV0IQTjWK7T1TY+AO160hqzruLiKq9f7yN3D1Z8YZnZ5lmHTYIkRvDj3b5X3psQ
-    a4wSslwqDAV1I21kRdYcvKOvxauhYItTbMpVLgwv17H98EX9WWCYNYC6pn/ilvRL1HwXqy
-    JrfxAhC0lsXIzdtI5dy5iTnjYmXOitaQhIC3SaDf9DY7ZL/eYTlwvElX7Bs4DgONJWLkMJ
-    mBfhUkz1GfoEtZkjM/pq6snVvTP5M653gyUraDpSc4axAQCmMJoO2YYOOqhKwsWFDIp4l8
-    NWXpWzQMWxnsW0WQwY1+cjboMRyqzB2Q5T83I7CJGuCLRHWpEBO1UT1TnTAkK6jjRDG3qa
-    vVvgGWepvqj4z3LhCzRG9BiAc7JV53pbVq/bWispfo+kFcOngUDCs78nDKmZ9H4/RHaCen
-    7CrKtNRNyAG08+3OmasKOq6sAGM6fpurP9liso05mX5VencOx4oPHnvCRu5vZVQpV6Ji+u
-    YzeDW/uOmeqX/+7U+XAeNK12OSVg0iMdKYRdwli8usOyAUcAZsyhZntXsBG8rjuC8KRKtW
-    F1kw7oQOFHEwjsHK8cBsUcVC/6i5jFkUbMo8FNvBHywMIVGDGiVNKwCNap0w
-X-ME-Proxy: <xmx:A6NgatL0syXsp8B-AFsB9196_5t5JdZ0diyAd71nAGRGJYSEvkzj0g>
-    <xmx:A6NgatbeUCqBnAfv3gvv6sItv0r6hQhFWmn4R1OGDdFEVz3g3GKQPA>
-    <xmx:A6NgagsSlm-NSqUJh5qstT-yubxFDO_EDRVPt9-Z2JlFFA8hfVullA>
-    <xmx:A6NgaiuaPpIKyemdRCUpkfyqWK7KyOohDs5LOz5g2W5y2F0xh2dE3A>
-    <xmx:A6NgasQctwvurqMVv3rNocRCtgbRsbb42244OJq2XTquqh9i5Fhe0tgg>
+	fm2; t=1784718085; x=1784804485; bh=Wl7nPL6Tx+n1rc5GxPIdN9SYihJF
+	+4a+mEc1Hwtwadk=; b=MPLCCboFpBkqCyyoOfulZ8dOGq3UHBE94oiSQchk5UPZ
+	cM9CHMuE+OK7gkDM0v3i37SLeuWLskgk2qJqwYDKJYsBBm3RGJRDcZnDm+CQJ0q3
+	Vcpeyf6OwWi3m99FWntMJi3BsyahVgsAdL/Y72xrLu6+die/qhMBSBj2CqbOg/uc
+	E4A8CF+Sw3QYBz2UtAXWJ0hh4ALG5be+QBnoD3FllEE4utLM0TwPBDMvOSuLixdw
+	5JrwmBJH3AH2FFzzhFjmSjF5z4+iaTddDsZ31Z7A1p65wtRF/dfd/OUtdOHeHNcJ
+	np9EUOjrFmIH+le3lpfPVRAhdsTr9WyB2FDw6fTjjQ==
+X-ME-Sender: <xms:BaNgarnPs8z7qAl5Iid5kS8qhNlnj97DZiiKkjOfJ4gdOzQFFSmfeg>
+    <xme:BaNgaly8W0iRA_UMe_d37pAKguMmC2hwVCkyMDkenpJlFwb7-hC_BLhR7giGWlycR
+    1GaLKlmf99QvhS2BYMSAYjX9lxbXPr3Z3BrolGVWlQYzGGvoN9bYJI>
+X-ME-Received: <xmr:BaNganRGPCNjzCRPYN1Y1jIyt8FqEhwSs-0nfQr6QJ1KHzqhsXbUZWxTX9bJTQ>
+X-ME-Proxy-Cause: dmFkZTGLYZZMl2hMwQw1LuHd1aYiZcmKqhmiUdpMpdZLck39rkkZE62y0zJcEMlaN+pJ7+
+    1ZekjjoFnAPmFjlwkYGe0bZF/qzJAkCXS14GWA/4Y+9yRzNaLjViW95ou/RI/kUM0tTjOU
+    ssgNf/mnrZ8kR4Gbunr4wdL2KShfEBiLLNKr1+JA2m82Zn1hGmww6+v6hRXU7ptNJrDJfA
+    hTgzVVWE5/TB3fyEMCfebi1gat0ffC99R2R7732aD4dsvXJzLE9PRI2Hx7DcjBRiTkIqP6
+    rwttFXZR0P+xngTBaG+DXJJTeyus6jDxGF8JIACMlWHF1iKHx4bQ7T7sxxzQRxiBEpIuBD
+    otUsQ1Z+cYCq3juTNyVJ/dNrKERSvN960199ylsPvCMXxLSVgAuvH0zBkmVLfmHjtfBDGs
+    e4V30X4MEU+Gq/fbzpgB9CO26R1wl84/0Q7L9ZBUQOcz7wzrG7CarAku5roGbZfD4b6yAn
+    zmMmZU7cW5cWGiiufNIDn+zN5Y451Bpr0U+1flYgx7tjZlP2Ta6V6ZWoAscKLXh08NrR6o
+    U+s+M05rEVr4qvzH43rQXhTyiIkpz9R9oWv/NuqYejYgBFdvo2pNqF5yWiJYRzHfuULN8v
+    HrNwWs4xGDHc3QA2/lfXHtXBBlKqQdUJnw6HF7T1WU4n7GFHOs69IPvq7kRA
+X-ME-Proxy: <xmx:BaNgaou4WxuzHTfiMjxlXQxYfIoUMimOUFG9AUbqygVijnJKCNjh1w>
+    <xmx:BaNgaptqI1mkmWV-xa5H9lsCd6ueNgUXErSvk_f_A6i6IzcOotzzpA>
+    <xmx:BaNgauySajhM_408XbN239VpPXruY1Teb5GNm0HzMEl5bOX9EUlpAA>
+    <xmx:BaNgavif7-1dvWlzk8gruO5jhiTZVdhk3VmkoQfrcD5b9bXc4nY7nA>
+    <xmx:BaNgar1Aq8r3owHBoevXg86pTlBVddw5IvObJA38btWJb8V5EvlxDPCq>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <stable@vger.kernel.org>; Wed, 22 Jul 2026 07:01:23 -0400 (EDT)
+ <stable@vger.kernel.org>; Wed, 22 Jul 2026 07:01:24 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.12.y] fs/proc/task_mmu: fix make_uffd_wp_huge_pte() prot-update race
-Date: Wed, 22 Jul 2026 12:01:20 +0100
-Message-ID: <20260722110120.1908684-1-kirill@shutemov.name>
+Subject: [PATCH 6.18.y] fs/proc/task_mmu: fix make_uffd_wp_huge_pte() prot-update race
+Date: Wed, 22 Jul 2026 12:01:23 +0100
+Message-ID: <20260722110123.1908692-1-kirill@shutemov.name>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026072036-corsage-untracked-8fee@gregkh>
-References: <2026072036-corsage-untracked-8fee@gregkh>
+In-Reply-To: <2026072035-discolor-busily-8d3a@gregkh>
+References: <2026072035-discolor-busily-8d3a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -169,10 +169,10 @@ Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
  1 file changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index fb01a071b83d..9e0cdae64f2f 100644
+index 4c5adfd4fc1f..8d9d36304246 100644
 --- a/fs/proc/task_mmu.c
 +++ b/fs/proc/task_mmu.c
-@@ -2254,15 +2254,19 @@ static void make_uffd_wp_huge_pte(struct vm_area_struct *vma,
+@@ -2485,15 +2485,19 @@ static void make_uffd_wp_huge_pte(struct vm_area_struct *vma,
  
  	psize = huge_page_size(hstate_vma(vma));
  
