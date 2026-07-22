@@ -1,47 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E624D2ECF
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116C833936A
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784720330; cv=none; b=jaoycq3cBIl4+4bG+JqZs6WxthGZ4Vcs0Htzejct5NUq9jUOh5hje+ZmYwFWWvDj4aVc/9vZrd/m7Om4yM+rD26Ogs8Obj2ZMPaaPk75qQGAvug5/WdfzMqn8OFZVTlmGowyjPzkWHlzZ2rSdXo3XR4trPHG0ADCS9phH7uQchA=
+	t=1784720372; cv=none; b=VAlfRkGzscygldioq3BbQUNBVeGdCLquiA6S1WecxaC+TTRtCB4u6uAzXnPD0JD4O3IyBVfWfBT2qqsXmiHXhUGl6dCvaXVHyfh5E1xAGm+9l5Ynqt5lHc1KQQI6t9VhMLrcoVzqtMhYe1Az2G+OeVMM7Y67yxomUhXmGJHk24w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784720330; c=relaxed/simple;
-	bh=Ssz2t1NCZDxrsSYxlVsSr4unQ7RD1ua5q+GRhy6uWQ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IBUXVowbvUblJgPgcg4+agpp/zj2mBuxW8mWFY8pTzlJKuwQP6geVCmJ4xcIBSDN9+47r9jF7BGinsPe/tUAzZrjK/KMxP8pN7GNLO4WAFObXD7k406yRof2wiO6t2ar/lkbN6ERw8EvqM2A2ktzJyyGDtdfVAcnzu8vH/EAWCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3TXty4d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784720372; c=relaxed/simple;
+	bh=X07etQ/3rh1NMrzWQu8KGXCpHd+SxuX3v3YwUuiR9o0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C/QElHzv17s+PvdsWRBRTWa4VpA+fQ6mi2vMc3i+O15QaVxKCRG0ojWEV0rNqB3HJncqRX2fnOzNLXYZK/m5isZHYU7niDuwXuq333agN05d2ezyTo+b7j6zb7F+R+lU3nkAyacZb31Y6baik5eko6JOYJS3lebJ6deP3pEcMrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=snptwV1M; arc=none smtp.client-ip=74.125.228.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3TXty4d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007D71F00A3A;
-	Wed, 22 Jul 2026 11:38:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784720325;
-	bh=HALKdd/zsBQFBYp3VuFUcPyh3oCeFSpIofbRAj3Nk/I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M3TXty4dRPaZ1xTHfe9vmBGngXl8eAcEQEbMILPMp+AvqDGHimSS4xilcvCHMbYEl
-	 82MwK3NC8DvbXii16cC/DX4xfE3dcAg17Y7tGIZhRcvLdpRJbVN53b7iN9GZBlAPtW
-	 LchQPvoF9p+ZvEEdNwbGBy+IVlAYiVPFmlNZz9gKhuD24M1r1yWRIzgxmSx3c8SahC
-	 IMsKTTkdDWhWM3i/KsliaL5T7wn6Gf1gwoO5urWC2TSDP6UDlGA2fXYWIAC0VdDqKz
-	 rVp694GyaNpgo77CqGkXczSSulRoj3z0LNJ6K89yaGZAxYveJXOl42ZGv33PXcJ0O7
-	 aDbNPkUXIt+Wg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ricardo Robaina <rrobaina@redhat.com>,
-	stable@kernel.org,
-	Waiman Long <longman@redhat.com>,
-	Richard Guy Briggs <rgb@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] audit: fix recursive locking deadlock in audit_dupe_exe()
-Date: Wed, 22 Jul 2026 07:38:41 -0400
-Message-ID: <20260722113841.1168662-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722113841.1168662-1-sashal@kernel.org>
-References: <2026071653-tartly-scoundrel-d2b3@gregkh>
- <20260722113841.1168662-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="snptwV1M"
+Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-c9fe62e0da3so4386178a12.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 04:39:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784720370; x=1785325170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gGO8UhUJTzgp6U+d6xDAFyWuyw0k6ECYlpjyIPSMdhE=;
+        b=snptwV1MF8Anr7XiGg2bjo1yyz3fldDtEQmMbqtvyc98JOpMnHE/CTnIMlVeQYpEK7
+         WmqBScQPkbVn5+2kiknOEGwnaQHtaiKoLNFhdLMtZ8EmVR7hvwTUHVshHkdv/CT/lTav
+         9PQwq/CyeCjZSHYGIn3S6ov7K2pR9NwqAUkYAq04JddmkfcWW/EBfBF3UWbgvgI1WBMo
+         5tpBruGfabbs1A2nAPvPdOiTX9Pz32Xv7ZieRvj/xiXY+hGjcn1mbZT2JWkDCrgGWwcs
+         lOjrP53eJaT9psHkCzuHqf/Bc97gE4TccvMUIhaF2PYhYevv8JPXBSE4bZZPZkVbgHNN
+         2d3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784720370; x=1785325170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gGO8UhUJTzgp6U+d6xDAFyWuyw0k6ECYlpjyIPSMdhE=;
+        b=S0GoJ6+zqDe2ugV0NdIsnBi+hjYXmZvqSTEostWxLltIZ9KvBXtPJ57Up79sOX9Hei
+         mVMvOn5P0CLBJ7OChumCInt6nLeYSoIXRjrxbSff8RRiv0jIQYTicOm0awJwYUVcbUwq
+         K4OLtv1qVw+JaAbx/1hoy3orBFTMB5y969Q/eHqLiKlFuUc6if590jGUOcLDNgV9DL5p
+         nIp5n7JpwdbRrb+RLrPRICSSpiCpnDUUYUZmT82xRxmx0rI0bR/IIIEcsGDuazvU8awq
+         68VGtnDNvVI4vyx7HLq5HvyVM/jUEsn7olyN15KVuI3EAEH5VKNBORq3UL/oH/VrqkV8
+         KqCw==
+X-Forwarded-Encrypted: i=1; AHgh+RpVkfzEW7ydGC8KVZc2eKcrfgOtWwSTiJXvKLIt/HqdKCg8XXbORSg0uBcDovqOdMVIg5Q8pAs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoyKQoi1bWQ90e1mk58OibHDxqtF+DHYd+VlcgwK/MWim2BgAe
+	Wh5rOCnklplf4++EVI3RIvd0Gr5NXk3EDd4/SPs4GB3S4voz1tt4SzvL
+X-Gm-Gg: AR+sD11z+C7UU9lpL/YZI46HwNUsAoYZpotvmeQeUyuCDF5P5uHDLf7i1AeQh601sGP
+	mmS+5crguBGFzQZVMoX7nOFTuwin+wuSt5BlSk6Ygjsfc9pew/RyDqVQPWLppSOF0w/snWIa3GL
+	memBTj+CUxcJ9kQb8Sq8izFrGt2RUDGiY0z0gvFccjq6QELv0BXlZrfwfzcA7JatfsnDZKTkVEu
+	6A5CkhwNY/Nw6f6HKOZ3ap4WL/oaOtU/RS6arJ059Xl1lgD7qd1PDBov/jMYZkOTkkYEUzPe6zn
+	SyqyxLqttxOELDVauPDaVphXFZ3+VnK7IB3QlRGf7AOYRusY9A/HjIz4zcaRmxSPmsiYmDaYpZf
+	WN7EYLEzXdfeONZLiCFH7Lxk+/ihKW7rxYlUqT7O/tB1TOn8cWacpYwPZxDeW2AGfHQ8g4j7MAb
+	yDTn6D7yXy/0W/nKh3ad6Nxg==
+X-Received: by 2002:a05:6a00:4288:b0:842:6a3b:60d8 with SMTP id d2e1a72fcca58-84c29436f1cmr23351332b3a.30.1784720370334;
+        Wed, 22 Jul 2026 04:39:30 -0700 (PDT)
+Received: from J4f-Laptop.localdomain ([2409:8a55:94d3:a1f1:120:207c:3304:503d])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e175f3180sm1177136b3a.56.2026.07.22.04.39.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 04:39:29 -0700 (PDT)
+From: Shihuang Liu <shlomojune6@gmail.com>
+To: netdev@vger.kernel.org,
+	Taehee Yoo <ap420073@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Shihuang Liu <shlomojune6@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH REPOST net] amt: fix use-after-free in AMT delayed works
+Date: Wed, 22 Jul 2026 19:39:19 +0800
+Message-ID: <20260722113919.7723-1-shlomojune6@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,369 +80,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Robaina <rrobaina@redhat.com>
+When an AMT device is removed, pending delayed works can still access
+the freed amt_dev structure, which may result in kernel crashes or
+memory corruption.
 
-[ Upstream commit 81905b5acbe77284734438df3fbec1158e6429a3 ]
+amt_dev_stop() cancels req_wq and discovery_wq with
+cancel_delayed_work_sync(), but these works can be scheduled again
+from event_wq after the cancellation. This allows delayed works to
+access the freed amt_dev structure after the netdev has been released.
 
-A deadlock occurs in the audit subsystem when duplicating
-executable-related rules.
+The following is a simple race scenario:
 
-When a file is moved (e.g., via do_renameat2()), the VFS layer locks
-the parent directory (I_MUTEX_PARENT), which synchronously triggers an
-fsnotify_move event. If an existing executable audit rule matches the
-file being moved, the audit subsystem catches this event and calls
-audit_dupe_exe() to duplicate the watch and update the rule. Then,
-audit_alloc_mark() would call kern_path_parent() to resolve the path,
-leading to a blind attempt to acquire the exact same I_MUTEX_PARENT lock
-already held by the task, resulting in the following recursive locking
-deadlock:
+CPU0                         CPU1
 
- ============================================
- WARNING: possible recursive locking detected
- 6.12.0-55.27.1.el10_0.x86_64+debug #1 Not tainted
- --------------------------------------------
- mv/5099 is trying to acquire lock:
- ffff888132845358 (&inode->i_sb->s_type->i_mutex_dir_key/1){+.+.}-{3:3},
- at: __kern_path_locked+0x10a/0x2f0
+amt_dev_stop()
+cancel_delayed_work_sync()
+                             amt_event_work()
+                             mod_delayed_work(req_wq)
+free netdev
+                             req_wq accesses freed amt_dev
 
- but task is already holding lock:
- ffff888132846b58 (&inode->i_sb->s_type->i_mutex_dir_key/1){+.+.}-{3:3},
- at: lock_two_directories+0x13f/0x2b0
+Use disable_delayed_work_sync() in amt_dev_stop() to prevent req_wq and
+discovery_wq from being queued again and wait for running work items
+to complete.
 
- other info that might help us debug this:
-  Possible unsafe locking scenario:
+The delayed works are disabled after initialization in
+amt_newlink() and enabled only when the device is successfully opened.
+This keeps the delayed work lifecycle synchronized with the lifetime
+of the AMT device.
 
-        CPU0
-        ----
-   lock(&inode->i_sb->s_type->i_mutex_dir_key/1);
-   lock(&inode->i_sb->s_type->i_mutex_dir_key/1);
-
-  *** DEADLOCK ***
-
-  May be due to missing lock nesting notation
-
-  6 locks held by mv/5099:
-  #0: ffff888112a9c440 (sb_writers#13)
-  at: do_renameat2+0x34c/0xbc0
-  #1: ffff888112a9c790 (&type->s_vfs_rename_key#3)
-  at: do_renameat2+0x415/0xbc0
-  #2: ffff888132846b58 (&inode->i_sb->s_type->i_mutex_dir_key/1)
-  at: lock_two_directories+0x13f/0x2b0
-  #3: ffff888132845358 (&inode->i_sb->s_type->i_mutex_dir_key/5)
-  at: lock_two_directories+0x175/0x2b0
-  #4: ffffffffb3a1fb10 (&fsnotify_mark_srcu)
-  at: fsnotify+0x454/0x28a0
-  #5: ffffffffaf886230 (audit_filter_mutex)
-  at: audit_update_watch+0x36/0x11e0
-
- stack backtrace:
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x6f/0xb0
-  print_deadlock_bug.cold+0xbd/0xca
-  validate_chain+0x83a/0xf00
-  __lock_acquire+0xcac/0x1d20
-  lock_acquire.part.0+0x11b/0x360
-  down_write_nested+0x9f/0x230
-  __kern_path_locked+0x10a/0x2f0
-  kern_path_locked+0x26/0x40
-  audit_alloc_mark+0xfb/0x4f0
-  audit_dupe_exe+0x6c/0xe0
-  audit_dupe_rule+0x6c2/0xc00
-  audit_update_watch+0x4cc/0x11e0
-  audit_watch_handle_event+0x12c/0x1b0
-  send_to_group+0x5d0/0x8b0
-  fsnotify+0x615/0x28a0
-  fsnotify_move+0x1d8/0x630
-  vfs_rename+0xdcd/0x1df0
-  do_renameat2+0x9d4/0xbc0
-  __x64_sys_renameat+0x192/0x260
-  do_syscall_64+0x92/0x180
-  entry_SYSCALL_64_after_hwframe+0x76/0x7e
- RIP: 0033:0x7f0491fe8c4e
- Code: 0f 1f 40 00 48 8b 15 c1 e1 16 00 f7 d8 64 89 02 b8 ff ff ff ff
- c3 66 0f 1f 44 00 00 f3 0f 1e fa 49 89 ca b8 08 01 00 00 0f 05 <48>
- 3d 00 f0 ff ff 77 0a c3 66 0f 1f 84 00 00 00 00 00 48 8b 15 89
- RSP: 002b:00007ffc7210bf38 EFLAGS: 00000246 ORIG_RAX: 0000000000000108
- RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f0491fe8c4e
- RDX: 0000000000000003 RSI: 00007ffc7210e6c8 RDI: 00000000ffffff9c
- RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000001
- R10: 00005575eb2dae2a R11: 0000000000000246 R12: 00005575eb2dae2a
- R13: 00007ffc7210e6c8 R14: 0000000000000003 R15: 00000000ffffff9c
-  </TASK>
-
-The aforementioned deadlock can be consistently reproduced by running
-the script below:
-
- audit-dupe-exe-deadlock.sh
- --------------------------
- #!/bin/bash
- auditctl -D
- mkdir -p /tmp/foo
- touch /tmp/file
- auditctl -a always,exit -F exe=/tmp/file -F path=/tmp/file -S all -k dr
- mv /tmp/file /tmp/foo/file
- rm -Rf /tmp/foo
-
-This patch fixes the issue by introducing struct audit_watch_ctx to pass
-the fsnotify event context down to audit_alloc_mark(). By utilizing the
-already-resolved directory inode provided by the event, we bypass the
-kern_path_parent() path resolution entirely, safely avoiding the
-recursive lock. Furthermore, it explicitly allows duplicate fsnotify
-marks (allow_dups = 1) during the rename update, allowing the new rule's
-mark to safely coexist with the old rule's mark until the old rule is
-freed.
-
-P.S.: This issue was identified and reproduced during a comprehensive
-code coverage analysis of the audit subsystem. The full report is
-available at the link below:
-
-https://people.redhat.com/rrobaina/audit-code-coverage-analysis.pdf
-
-P.P.S: With the permission of both Ricardo and Nathan, I've squashed a
-fixup patch from Nathan that addresses a compile time error when
-CONFIG_AUDITSYSCALL=n.
-
-Cc: stable@kernel.org
-Fixes: 34d99af52ad4 ("audit: implement audit by executable")
-Acked-by: Waiman Long <longman@redhat.com>
-Acked-by: Richard Guy Briggs <rgb@redhat.com>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
-[PM: move link metadata into the msg, apply fix from NC]
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
 ---
- kernel/audit.h          | 17 ++++++++++++-----
- kernel/audit_fsnotify.c | 32 +++++++++++++++++++++++---------
- kernel/audit_watch.c    | 25 +++++++++++++++++--------
- kernel/auditfilter.c    |  9 +++++----
- 4 files changed, 57 insertions(+), 26 deletions(-)
+Repost:
+  - Explicitly target the net tree.
+  - Add Reviewed-by from Simon Horman.
 
-diff --git a/kernel/audit.h b/kernel/audit.h
-index 554bbc5bf2a68e..8cfa4482e371fe 100644
---- a/kernel/audit.h
-+++ b/kernel/audit.h
-@@ -245,8 +245,13 @@ extern int audit_del_rule(struct audit_entry *entry);
- extern void audit_free_rule_rcu(struct rcu_head *head);
- extern struct list_head audit_filter_list[];
+Previous submission:
+  https://lore.kernel.org/netdev/20260714072705.129262-1-shlomojune6@gmail.com/
+
+ drivers/net/amt.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+index 951dd10e192b..7eb871b9b7e1 100644
+--- a/drivers/net/amt.c
++++ b/drivers/net/amt.c
+@@ -2995,9 +2995,15 @@ static int amt_dev_open(struct net_device *dev)
+ 	amt->event_idx = 0;
+ 	amt->nr_events = 0;
  
--extern struct audit_entry *audit_dupe_rule(struct audit_krule *old);
-+struct audit_watch_ctx {
-+	struct inode *dir;
-+	struct inode *child;
-+};
- 
-+extern struct audit_entry *audit_dupe_rule(struct audit_krule *old,
-+					   struct audit_watch_ctx *ctx);
- extern void audit_log_d_path_exe(struct audit_buffer *ab,
- 				 struct mm_struct *mm);
- 
-@@ -269,13 +274,15 @@ extern char *audit_watch_path(struct audit_watch *watch);
- extern int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev);
- 
- extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
--						    char *pathname, int len);
-+						    char *pathname, int len,
-+						    struct audit_watch_ctx *ctx);
- extern char *audit_mark_path(struct audit_fsnotify_mark *mark);
- extern void audit_remove_mark(struct audit_fsnotify_mark *audit_mark);
- extern void audit_remove_mark_rule(struct audit_krule *krule);
- extern int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino,
- 			      dev_t dev);
--extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old);
-+extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old,
-+			  struct audit_watch_ctx *ctx);
- extern int audit_exe_compare(struct task_struct *tsk,
- 			     struct audit_fsnotify_mark *mark);
- 
-@@ -306,13 +313,13 @@ extern struct list_head *audit_killed_trees(void);
- #define audit_watch_path(w) ""
- #define audit_watch_compare(w, i, d) 0
- 
--#define audit_alloc_mark(k, p, l) (ERR_PTR(-EINVAL))
-+#define audit_alloc_mark(k, p, l, c) (ERR_PTR(-EINVAL))
- #define audit_mark_path(m) ""
- #define audit_remove_mark(m) do { } while (0)
- #define audit_remove_mark_rule(k) do { } while (0)
- #define audit_mark_compare(m, i, d) 0
- #define audit_exe_compare(t, m) (-EINVAL)
--#define audit_dupe_exe(n, o) (-EINVAL)
-+#define audit_dupe_exe(n, o, c) (-EINVAL)
- 
- #define audit_remove_tree_rule(rule) BUG()
- #define audit_add_tree_rule(rule) -EINVAL
-diff --git a/kernel/audit_fsnotify.c b/kernel/audit_fsnotify.c
-index 35753fb9029a29..e62066bf0b0afa 100644
---- a/kernel/audit_fsnotify.c
-+++ b/kernel/audit_fsnotify.c
-@@ -71,19 +71,30 @@ static void audit_update_mark(struct audit_fsnotify_mark *audit_mark,
- 	audit_mark->ino = inode ? inode->i_ino : AUDIT_INO_UNSET;
- }
- 
--struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pathname, int len)
-+struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pathname,
-+					     int len, struct audit_watch_ctx *ctx)
- {
- 	struct audit_fsnotify_mark *audit_mark;
- 	struct path path;
- 	struct dentry *dentry;
--	int ret;
-+	struct inode *dir, *child;
-+	int ret, allow_dups;
- 
- 	if (pathname[0] != '/' || pathname[len-1] == '/')
- 		return ERR_PTR(-EINVAL);
- 
--	dentry = kern_path_parent(pathname, &path);
--	if (IS_ERR(dentry))
--		return ERR_CAST(dentry); /* returning an error */
-+	if (!ctx) {
-+		dentry = kern_path_parent(pathname, &path);
-+		if (IS_ERR(dentry))
-+			return ERR_CAST(dentry); /* returning an error */
-+		dir = d_inode(path.dentry);
-+		child = d_inode(dentry);
-+		allow_dups = 0;
-+	} else {
-+		dir = ctx->dir;
-+		child = ctx->child;
-+		allow_dups = 1;
++	enable_delayed_work(&amt->discovery_wq);
++	enable_delayed_work(&amt->req_wq);
++
+ 	err = amt_socket_create(amt);
+-	if (err)
++	if (err) {
++		disable_delayed_work(&amt->req_wq);
++		disable_delayed_work(&amt->discovery_wq);
+ 		return err;
 +	}
  
- 	audit_mark = kzalloc(sizeof(*audit_mark), GFP_KERNEL);
- 	if (unlikely(!audit_mark)) {
-@@ -94,18 +105,21 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
- 	fsnotify_init_mark(&audit_mark->mark, audit_fsnotify_group);
- 	audit_mark->mark.mask = AUDIT_FS_EVENTS;
- 	audit_mark->path = pathname;
--	audit_update_mark(audit_mark, dentry->d_inode);
- 	audit_mark->rule = krule;
+ 	amt->req_cnt = 0;
+ 	amt->remote_ip = 0;
+@@ -3023,8 +3029,8 @@ static int amt_dev_stop(struct net_device *dev)
+ 	struct sock *sk;
+ 	int i;
  
--	ret = fsnotify_add_inode_mark(&audit_mark->mark, path.dentry->d_inode, 0);
-+	audit_update_mark(audit_mark, child);
-+	ret = fsnotify_add_inode_mark(&audit_mark->mark, dir, allow_dups);
-+
- 	if (ret < 0) {
- 		audit_mark->path = NULL;
- 		fsnotify_put_mark(&audit_mark->mark);
- 		audit_mark = ERR_PTR(ret);
- 	}
- out:
--	dput(dentry);
--	path_put(&path);
-+	if (!ctx) {
-+		dput(dentry);
-+		path_put(&path);
-+	}
- 	return audit_mark;
- }
+-	cancel_delayed_work_sync(&amt->req_wq);
+-	cancel_delayed_work_sync(&amt->discovery_wq);
++	disable_delayed_work_sync(&amt->req_wq);
++	disable_delayed_work_sync(&amt->discovery_wq);
+ 	cancel_delayed_work_sync(&amt->secret_wq);
  
-diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
-index ad91c190124e41..c449c2af1fa03c 100644
---- a/kernel/audit_watch.c
-+++ b/kernel/audit_watch.c
-@@ -243,7 +243,8 @@ static void audit_watch_log_rule_change(struct audit_krule *r, struct audit_watc
- /* Update inode info in audit rules based on filesystem event. */
- static void audit_update_watch(struct audit_parent *parent,
- 			       const struct qstr *dname, dev_t dev,
--			       u64 ino, unsigned int invalidating)
-+			       u64 ino, unsigned int invalidating,
-+			       struct audit_watch_ctx *ctx)
- {
- 	struct audit_watch *owatch, *nwatch, *nextw;
- 	struct audit_krule *r, *nextr;
-@@ -279,7 +280,7 @@ static void audit_update_watch(struct audit_parent *parent,
- 			list_del(&oentry->rule.rlist);
- 			list_del_rcu(&oentry->list);
- 
--			nentry = audit_dupe_rule(&oentry->rule);
-+			nentry = audit_dupe_rule(&oentry->rule, ctx);
- 			if (IS_ERR(nentry)) {
- 				list_del(&oentry->rule.list);
- 				audit_panic("error updating watch, removing");
-@@ -478,10 +479,17 @@ static int audit_watch_handle_event(struct fsnotify_mark *inode_mark, u32 mask,
- 	if (WARN_ON_ONCE(inode_mark->group != audit_watch_group))
- 		return 0;
- 
--	if (mask & (FS_CREATE|FS_MOVED_TO) && inode)
--		audit_update_watch(parent, dname, inode->i_sb->s_dev, inode->i_ino, 0);
--	else if (mask & (FS_DELETE|FS_MOVED_FROM))
--		audit_update_watch(parent, dname, AUDIT_DEV_UNSET, AUDIT_INO_UNSET, 1);
-+	if (mask & (FS_CREATE|FS_MOVED_TO) && inode) {
-+		struct audit_watch_ctx ctx = { .dir = dir, .child = inode };
-+
-+		audit_update_watch(parent, dname, inode->i_sb->s_dev, inode->i_ino, 0,
-+				   &ctx);
-+	} else if (mask & (FS_DELETE|FS_MOVED_FROM)) {
-+		struct audit_watch_ctx ctx = { .dir = dir, .child = NULL };
-+
-+		audit_update_watch(parent, dname, AUDIT_DEV_UNSET, AUDIT_INO_UNSET, 1,
-+				   &ctx);
-+	}
- 	else if (mask & (FS_DELETE_SELF|FS_UNMOUNT|FS_MOVE_SELF))
- 		audit_remove_parent_watches(parent);
- 
-@@ -504,7 +512,8 @@ static int __init audit_watch_init(void)
- }
- device_initcall(audit_watch_init);
- 
--int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old)
-+int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old,
-+		   struct audit_watch_ctx *ctx)
- {
- 	struct audit_fsnotify_mark *audit_mark;
- 	char *pathname;
-@@ -513,7 +522,7 @@ int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old)
- 	if (!pathname)
- 		return -ENOMEM;
- 
--	audit_mark = audit_alloc_mark(new, pathname, strlen(pathname));
-+	audit_mark = audit_alloc_mark(new, pathname, strlen(pathname), ctx);
- 	if (IS_ERR(audit_mark)) {
- 		kfree(pathname);
- 		return PTR_ERR(audit_mark);
-diff --git a/kernel/auditfilter.c b/kernel/auditfilter.c
-index d1d48085657b55..73c1d5f0fae147 100644
---- a/kernel/auditfilter.c
-+++ b/kernel/auditfilter.c
-@@ -582,7 +582,7 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
- 				err = PTR_ERR(str);
- 				goto exit_free;
- 			}
--			audit_mark = audit_alloc_mark(&entry->rule, str, f_val);
-+			audit_mark = audit_alloc_mark(&entry->rule, str, f_val, NULL);
- 			if (IS_ERR(audit_mark)) {
- 				kfree(str);
- 				err = PTR_ERR(audit_mark);
-@@ -809,7 +809,8 @@ static inline int audit_dupe_lsm_field(struct audit_field *df,
-  * rule with the new rule in the filterlist, then free the old rule.
-  * The rlist element is undefined; list manipulations are handled apart from
-  * the initial copy. */
--struct audit_entry *audit_dupe_rule(struct audit_krule *old)
-+struct audit_entry *audit_dupe_rule(struct audit_krule *old,
-+				    struct audit_watch_ctx *ctx)
- {
- 	u32 fcount = old->field_count;
- 	struct audit_entry *entry;
-@@ -868,7 +869,7 @@ struct audit_entry *audit_dupe_rule(struct audit_krule *old)
- 				new->filterkey = fk;
- 			break;
- 		case AUDIT_EXE:
--			err = audit_dupe_exe(new, old);
-+			err = audit_dupe_exe(new, old, ctx);
- 			break;
- 		}
- 		if (err) {
-@@ -1399,7 +1400,7 @@ static int update_lsm_rule(struct audit_krule *r)
- 	if (!security_audit_rule_known(r))
- 		return 0;
- 
--	nentry = audit_dupe_rule(r);
-+	nentry = audit_dupe_rule(r, NULL);
- 	if (entry->rule.exe)
- 		audit_remove_mark(entry->rule.exe);
- 	if (IS_ERR(nentry)) {
+ 	/* shutdown */
+@@ -3278,6 +3284,8 @@ static int amt_newlink(struct net_device *dev,
+ 	INIT_DELAYED_WORK(&amt->req_wq, amt_req_work);
+ 	INIT_DELAYED_WORK(&amt->secret_wq, amt_secret_work);
+ 	INIT_WORK(&amt->event_wq, amt_event_work);
++	disable_delayed_work(&amt->req_wq);
++	disable_delayed_work(&amt->discovery_wq);
+ 	INIT_LIST_HEAD(&amt->tunnel_list);
+ 	return 0;
+ err:
+
+base-commit: ba712ecfd942b68b21a4b0a5daaf72f6616cc66d
 -- 
-2.53.0
-
+2.43.0
