@@ -1,113 +1,182 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B96D1A0BF3;
-	Wed, 22 Jul 2026 02:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60B573932F0;
+	Wed, 22 Jul 2026 02:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784688395; cv=none; b=qMiQZrV9z3NqqYAxFSyRyky/gsZUVG3gJYjm6W4tOEC0wz0rsRsKWJnab30/S7pvVaED0eXKnK4+hMAbLE0tjGK+hKWaUpqSU2YbQ0cwuIbQpgItagZg4ZxKw802Tjqsr3Sibq/IYySLDPpEgGdnjMFgUFSvOvABaEqlpC/n7wY=
+	t=1784688892; cv=none; b=suTe/hqOxadc+uQzyBiRBxLx8FKPEYT5WRoALWy2TiZqGzVn+B9IlXRuKF5gQWKQd94uel7Pi6mfitEk5/pVsOoig38r/i0Ast5g1uXaepSAu2KFTScwLPH0+fa5SHwWScMq242cf9ByG1cgFit5PVXsy5k26khBZy/5EZIguoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784688395; c=relaxed/simple;
-	bh=eBEUljZFnGOPLmLa9T+x4M86hM6V7BbUGXRiv914x7s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W7osJm+X3QZiLOaX4QHQpzAgzuHtuzBV0iKV9DkgLtr3CLOFxuEyElMuSfrbrXxo+PHUcRPZ4qRTzpYlmsL/Rd9w/1F94rJDEFIEocN/efiJUE5Jcg4SQ9mWRmUCDG7KHi844S0lO8CPMH5c7GP0dq+jPSwytBEs1Ojjc0gRfr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDHhDz1LmBq6ksnAA--.17690S3;
-	Wed, 22 Jul 2026 10:46:14 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgDH+TD1LmBqyNh+Ag--.10622S2;
-	Wed, 22 Jul 2026 10:46:13 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-input@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: wm831x-ts - drain pen-down work at teardown
-Date: Wed, 22 Jul 2026 02:45:18 +0000
-Message-Id: <20260722024518.3253280-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1784688892; c=relaxed/simple;
+	bh=RIQieOyKvsoHB1jjFmzJVT8wCbZkwA7yJHtop2ZhiMI=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=nLLak/DvIZf8mzvjJ1T9hdROHQ47ye0XilAcusYNOsawiti4AA5lnykLo9aQjJjKwsUQ6sF5nU7FsqlttShAU11uLvWL9+LZVE2VulPKxZXbA77JzHM2dgiNJOGToUzdn2aS3rS/zZJkokUZlLvjch5jCoEMUeIpgVD76yJeXhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=m0rVmxmq; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="m0rVmxmq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
+	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	Content-Transfer-Encoding:Message-Id:References:To; bh=Z2H2IwwIt
+	P1S4NpryZcWz4oeis1Hl/KZkpii41lh6E4=; b=m0rVmxmqBu3KJSL49YtCgoHfB
+	eE03/BrpGqpxhoDayQcVTAPqJgoorycEIanOUHPxD+CVE0I8DMDnJ7vpLr95QyzD
+	LbAlOlGvrMw4LmsU++vp+r5BiMjqzxKWOJbRjEvRUKXX7XqU41mQewNV6q0BoZky
+	Yi5EQ1xfNgyQEpZvqU=
+Received: from smtpclient.apple (unknown [121.229.84.192])
+	by web1 (Coremail) with SMTP id yAQGZQBH6MfdMGBqTyVXAA--.53622S2;
+	Wed, 22 Jul 2026 10:54:22 +0800 (CST)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgDH+TD1LmBqyNh+Ag--.10622S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?DVpB6AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZxGfK7p3xnbq4j7hoN9YHI9aJxm5aub9ZEJ1ANCZa3MDPMY
-	Rv0J13PrswES+NYY2ogv2+Wb6KUKDY/xT0BrLixK
-X-Coremail-Antispam: 1Uk129KBj93XoW7CF45Cw18KryxWF4rKry3GFX_yoW8uFWkpa
-	s8AryUK348JF1Fka1UG3sFvFyrAF1Ut397Ar1DCw1fWwn8ZF1ftr1F9Fyvqa1rGr4kJr12
-	yr9F9rWrCrZ5A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH net] ipv4: require matching source address for route hint
+ reuse
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+In-Reply-To: <20260720121629.GA2309447@shredder>
+Date: Wed, 22 Jul 2026 10:54:13 +0800
+Cc: pabeni@redhat.com,
+ netdev@vger.kernel.org,
+ David Ahern <dsahern@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+ Ao Wang <wangao@seu.edu.cn>,
+ Xuewei Feng <fengxw06@126.com>,
+ Qi Li <qli01@tsinghua.edu.cn>,
+ Ke Xu <xuke@tsinghua.edu.cn>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <87514BE5-D9D1-4756-9A39-311A5E988078@mails.tsinghua.edu.cn>
+References: <20260714122618.21698-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <20260720121629.GA2309447@shredder>
+To: Ido Schimmel <idosch@nvidia.com>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
+X-CM-TRANSID:yAQGZQBH6MfdMGBqTyVXAA--.53622S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFWxKryfAw1rZr4xGw43GFg_yoW5Zw48p3
+	4fKa45K3y0vr4UCr1kJa17AF97Z3ykKryrJrn8Ga9I9rs8t34jkF4UKrW3Cw47Cry8Gw40
+	vr4Yv3srAF9avaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl
+	84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0x
+	vYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VCjz48v1sIEY20_
+	GrWkJr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zV
+	CS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkI
+	ecxEwVAFwVW8JwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4rKr1UJr1l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUswIDDUUUU
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQEQAWpf8TNE9gABsV
 
-The pen-down and data IRQ handlers queue pd_data_work to switch between the
-two IRQs.  The worker obtains wm831x_ts with container_of() and calls
-enable_irq().  free_irq() synchronizes an IRQ handler, but does not drain a
-work item already queued by that handler.
+Hi Ido,
 
-wm831x_ts_remove() can therefore free the IRQ actions while pd_data_work is
-pending or running.  The work may then dereference wm831x_ts after devres
-frees it, or enable an IRQ after its action has been freed.
+Thanks for your review.
 
-Disable both IRQs before cancelling the work, so neither handler can queue
-another instance while cancel_work_sync() drains it.  Free the IRQ actions
-only after the work has stopped.  Apply the same sequence to err_pd_irq:
-both IRQ actions exist there when input_register_device() fails.
+> On Jul 20, 2026, at 20:16, Ido Schimmel <idosch@nvidia.com> wrote:
+>=20
+> On Tue, Jul 14, 2026 at 08:26:17PM +0800, Yizhou Zhao wrote:
+>> IPv4 list receive can reuse a route from the previous skb in the same
+>> receive batch. The current eligibility check only compares the =
+destination
+>> address and TOS before calling ip_route_use_hint().
+>>=20
+>> For forwarded routes, ip_route_use_hint() skips fib_validate_source()
+>> unless the hinted route is local. This means a packet with a =
+different
+>> source address can reuse a forwarding dst created for an earlier =
+packet
+>> and avoid source validation such as strict rp_filter.
+>=20
+> I'm not sure why we are skipping source validation for non-local =
+routes.
+>=20
+> The comment above ip_route_use_hint() says "Implements all the
+> saddr-related checks as ip_route_input_slow()". I agree that
+> ip_route_input_slow() only does source validation for RTN_LOCAL, but =
+for
+> RTN_UNICAST it is calling ip_mkroute_input(), which eventually calls
+> fib_validate_source().
+>=20
+> Paolo, WDYT about always performing source validation [1]?
+>=20
+>>=20
+>> In a KASAN QEMU router with strict rp_filter on the ingress device, a
+>=20
+> Why mention KASAN? How is it related to this bug / patch?
 
-This issue was found by an in-house static analysis tool and confirmed by
-manual code review.
+The KASAN mention was only intended to describe the test kernel, but I
+agree that it is not relevant to the issue itself and should be removed.
 
-Fixes: f5346668150c ("Input: wm831x-ts - fix races with IRQ management")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/input/touchscreen/wm831x-ts.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+>=20
+>> bad-only burst was dropped entirely, however, a paired valid/bad =
+burst=20
+>> with the same destination/TOS made all of the bad packets pass =
+rp_filter.
+>>=20
+>> Require the source address to match before reusing the hint. Packets =
+from
+>> the same source/destination/TOS still take the fast path; packets =
+whose
+>> source changes go through the normal route lookup and source =
+validation
+>> path.
+>=20
+> I agree that it fixes the problem, but we will always pay the
+> performance penalty, even when rp_filter is disabled. According to
+> commit 02b24941619f ("ipv4: use dst hint for ipv4 list receive"), =
+there
+> is still a performance gain when we perform the source validation
+> per-packet.
+>=20
+> [1]
+> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+> index 3f3de5164d6e..89338111793b 100644
+> --- a/net/ipv4/route.c
+> +++ b/net/ipv4/route.c
+> @@ -2194,6 +2194,7 @@ ip_route_use_hint(struct sk_buff *skb, __be32 =
+daddr, __be32 saddr,
+> struct rtable *rt =3D skb_rtable(hint);
+> struct net *net =3D dev_net(dev);
+> u32 tag =3D 0;
+> + int oif =3D 0;
+>=20
+> if (!in_dev)
+> return reason;
+> @@ -2214,14 +2215,13 @@ ip_route_use_hint(struct sk_buff *skb, __be32 =
+daddr, __be32 saddr,
+> }
+>=20
+> if (!(rt->rt_flags & RTCF_LOCAL))
+> - goto skip_validate_source;
+> + oif =3D dst_dev_rcu(&rt->dst)->ifindex;
+>=20
+> - reason =3D fib_validate_source_reason(skb, saddr, daddr, dscp, 0, =
+dev,
+> + reason =3D fib_validate_source_reason(skb, saddr, daddr, dscp, oif, =
+dev,
+>    in_dev, &tag);
+> if (reason)
+> goto martian_source;
+>=20
+> -skip_validate_source:
+> skb_dst_copy(skb, hint);
+> return SKB_NOT_DROPPED_YET;
 
-diff --git a/drivers/input/touchscreen/wm831x-ts.c b/drivers/input/touchscreen/wm831x-ts.c
-index 98f8ec408cad..705772025648 100644
---- a/drivers/input/touchscreen/wm831x-ts.c
-+++ b/drivers/input/touchscreen/wm831x-ts.c
-@@ -366,6 +366,10 @@ static int wm831x_ts_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_pd_irq:
-+	disable_irq(wm831x_ts->pd_irq);
-+	disable_irq(wm831x_ts->data_irq);
-+	cancel_work_sync(&wm831x_ts->pd_data_work);
-+
- 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
- err_data_irq:
- 	free_irq(wm831x_ts->data_irq, wm831x_ts);
-@@ -378,6 +382,10 @@ static void wm831x_ts_remove(struct platform_device *pdev)
- {
- 	struct wm831x_ts *wm831x_ts = platform_get_drvdata(pdev);
- 
-+	disable_irq(wm831x_ts->pd_irq);
-+	disable_irq(wm831x_ts->data_irq);
-+	cancel_work_sync(&wm831x_ts->pd_data_work);
-+
- 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
- 	free_irq(wm831x_ts->data_irq, wm831x_ts);
- }
--- 
-2.34.1
+The approach in [1] looks better to me. It appears to make the hint path
+consistent with the source validation performed by __mkroute_input(),
+while still allowing the route hint to be reused.
+
+I'll wait for Paolo=E2=80=99s comments before preparing a v2.
+
+Thanks,
+Yizhou
 
