@@ -1,93 +1,112 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A6935677C
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1A6360EC5
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784731173; cv=none; b=Atb+bMomYQFTMfMipmbHXMJW0nVATej/Bse5FUmQhKNHO6vRVRap9Ef9bjWiTiBhefOT3H3O/lM6yJl0lXqu2W0hlOIPHbwJPjtl+k/X05KRuQ803RyaYrvLLaQKTI/PgUcWo7Anu4ZHe8c6K5dfT1w1ZmkT7QnWhm8V5VNlh+4=
+	t=1784731700; cv=none; b=nkk3TW0gcE2bEzM7Y6y/EnEHEZaMQiHWEqdLLg7fzzAeoo0v+5n6rHc0ZmR2aUA+bxkXJa+mc0jGC86ArtvB1QMkKwPz61RN0PpaRmAkwt54aqMd9tW/WFg+8VSK6YBht9fTvaIWfjZn2slYBP8YbJXF7fhARYV/tED1RUm/zAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784731173; c=relaxed/simple;
-	bh=jcUaMpmjpauStKYFTJAqGvP14ijyRu7tCwY30O35G0o=;
+	s=arc-20240116; t=1784731700; c=relaxed/simple;
+	bh=oHd2h2OG7ZxhOP/T/Onh4JheScYUYZaU2ZDpfE9QrpM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ov+M/MObQkuClj1hk91wDq3GeKvpINxL5t3VITL0HNPkBkB3IGWRkJ5SJc34lr5ceSpfFS/L+qhd9nsdhZ/40PghikUzlkQu1Z7w3NL75dI5M4ABbG5O8nxW31sJj/7UAD05t2MKWJZrMN+BE6gGQxuVISRMCPW0gfgTW2AHzng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jXGbIdfL; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=TQNW5X/SCchf7f33FZABLIFiVkxmANbiPptBhkhjT3+nNh9BQEoC22sgAeejT9fAFPBp06Sq2T2A+Kl2M6dKNZGI0mschO5NtR1QvkkEcad0/dKzSOQU1FWBzR+P5bMlrKDg0LGjiJLqoLNQCby41cNsRp1PU3FT2c4PdGQAbkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGRbji2Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jXGbIdfL"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-845b6d9bf39so6013490b3a.1
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 07:39:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784731171; x=1785335971; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jcUaMpmjpauStKYFTJAqGvP14ijyRu7tCwY30O35G0o=;
-        b=jXGbIdfL8Zb/lxli4CvAId0yXLdEopgj1a6WvKs6eQI9OVArOGfnebeyzzQoDAHQH1
-         94nZGdxyaT5XaCNiSDhAdiCrEa77X4z8bHRg9RJDDJed6nyY7/i8rRl8sIUvXYL7Nqm4
-         7MHHbpUnMAlYvc8U91yv2ilCRSeOmmi72/QyqVTi6kVHMH1oJSsk4jJzorzIEVwVB4wJ
-         kTxAYY4vNben7UeeTiX2YRpQQKCygn5zcCXjvtxoWDd3cgonhO6cdN7jAqBw+vhgBium
-         lD0XXb4DE+UJMkBGhynUyEjsGY3SNtSKgv/kUrUlr8PtXYIQq4fWmK3ATsFeY1pjDTNw
-         3dpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784731171; x=1785335971;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jcUaMpmjpauStKYFTJAqGvP14ijyRu7tCwY30O35G0o=;
-        b=PKHVJtrFSRLdd+HOi9gq68A4kr75SBprWjjr3hKmru8tCUo7lJh4o7htavuhd8EPfh
-         HLVpWnXHaSluy2EnqHN3mSmQiBuRTMhe7bWd9TFRfDyR5cLuYVXBDn1Io3CMRTTeZUb1
-         QGP+m1xHeVKyPbcoY4BEh2JsCiZCaf29F7X2E2xeqSgBDyCrNVSI642n9s3XaLt/JWuz
-         +hB7onMMV86jlJbWdoFTBrXRYmPJJYJc62kHwum/KiDPNJnKF+UmYZMuB88z7apw7M49
-         ID9tCqWS6LfV48mAXEWkh6aVFKYrr2UGtoDVnxIMrKz30PkdP8VvxbBdD4fpVvNWnuqv
-         uUMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrQbfLLbE5GcBkRlCiTafVgTCKHVNFnICdQTv9kBC/YnwQOZ+QWSFd98ycJZ+ysny5DAtE0irk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZyCiWBN2JwiRuXamLq1asUUEXq/ggOF8a4iGV4WQJfxfca04E
-	EsjLRQNWalYTOSUZcdr6CZXCL2Bx5OHkaz/KS/xaLmojFWCRqP/P9gax
-X-Gm-Gg: AR+sD12/zpqE244665QbAcZ2+kQB84nMBj6fKM5FmW/n3A1HxigTFlS9pHFewXK/l2H
-	xWILmWWvNAhT86M+5je03+V0QNO7/dOnNDazlKkIYEeEmFnGzQvd61TQ97j8orez9u/IEghvjRu
-	KUtCHZ9ELsjaan/3eWdlmr4gNWrx2NjPdRxqV39sUmwFs6zLwEdH/c3OQvgqD+7dHdfCENSs9Pd
-	sC714gqWY7714YENASJTgo9kfHGSmHrj/hN8qROlXLTzt9PA38t+UapbHWarCic9yvHvJ7rg0JF
-	B04pW+sKFDPncgdl//FL8lrT9ZJFLJIyU2MMwZQ0F1Vn0f8MmmaLYU5i6Pn6Sb/N93fIGrPsTo5
-	nk3DukukfjcToK16+UclKEB+Ys2PdZVTBhdK7mpgjWFRxHxZIWqIDcR8byXX53+eUyzcLXbK1KX
-	bOM+5LibIETl3vBLrRhPiyFZ7lVbsYEQP9ve1DU4yho6U28OZk+SMy
-X-Received: by 2002:a05:6a00:12d1:b0:84a:65e8:137e with SMTP id d2e1a72fcca58-84e160b567dmr4384228b3a.17.1784731171148;
-        Wed, 22 Jul 2026 07:39:31 -0700 (PDT)
-Received: from DESKTOP-L3Q0GIV.localdomain ([203.230.195.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e175f3180sm1464273b3a.56.2026.07.22.07.39.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 07:39:30 -0700 (PDT)
-From: Sangho Lee <kudo3228@gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Sangho Lee <kudo3228@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] freevxfs: reject invalid OLT record sizes
-Date: Wed, 22 Jul 2026 23:39:27 +0900
-Message-ID: <20260722143927.1393827-1-kudo3228@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <amCzLbCYaj2b_U1S@infradead.org>
-References: <20260722105706.1385095-1-kudo3228@gmail.com> <amCzLbCYaj2b_U1S@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGRbji2Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8211F000E9;
+	Wed, 22 Jul 2026 14:48:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784731698;
+	bh=vX0950vSX0VDLgsHS1BzfZjNo2dfu5iUJJsQMH0RR0Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TGRbji2Z0RNc0Bw20ZAPeeZwI0CPNTcJSlkgZiIuhC8m+ZaHo8ph1CsuQH20mEsX0
+	 vO8OW/lz6YIMM11BVrTTMXmLrLDkh1q/qa8WWNoiHG22gpfmEeFoT78H6+dD4vRbug
+	 fKqBpDc58MGlgPtFBvCGn3cO06+KMO/ap7//jmcwb+qvxLKn1ugja8cIVd5Ydq0m46
+	 n7w4E16uVZjciAgTGgJpDDgMkl1OQVhjBQxiTDqyZmyHHACMjsVIAOtDmNjT6Mp2AX
+	 U+vcr4SI4CCOYR+CTDTjRqpVrYS6evSaIv+Ft1abSH5HqkaTu1GfQ/EfUxYj260dD1
+	 f8GG/OtX1W7Qw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] serial: max310x: replace bare use of 'unsigned' with 'unsigned int' (checkpatch)
+Date: Wed, 22 Jul 2026 10:48:15 -0400
+Message-ID: <20260722144816.1599424-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072034-facing-tracing-f6eb@gregkh>
+References: <2026072034-facing-tracing-f6eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Thanks for the review.
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-I agree that freevxfs has extremely limited usage. My rationale was that the
-filesystem remains buildable in mainline and a malformed image causes a
-deterministic unbounded loop during mount. The fix is small and ensures that
-the on-disk record walk always makes progress.
+[ Upstream commit 79b69eb09cf5b6a77e621b2838b7e0d38113debb ]
 
-If you think freevxfs should no longer receive this kind of hardening, I will
-not pursue the patch further. Otherwise, I can send a v2 with the line wrapped.
+Fixes the following checkpatch warnings:
 
-Thanks,
-Sangho
+    WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
+
+With this change, the affected functions now match the prototypes in
+struct gpio_chip.
+
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://lore.kernel.org/r/20240118152213.2644269-16-hugo@hugovil.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: a483b1a91b33 ("serial: max310x: implement gpio_chip::get_direction()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tty/serial/max310x.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
+index 44b78e979cdc44..cfdd59afdd0a56 100644
+--- a/drivers/tty/serial/max310x.c
++++ b/drivers/tty/serial/max310x.c
+@@ -1211,7 +1211,7 @@ static int __maybe_unused max310x_resume(struct device *dev)
+ static SIMPLE_DEV_PM_OPS(max310x_pm_ops, max310x_suspend, max310x_resume);
+ 
+ #ifdef CONFIG_GPIOLIB
+-static int max310x_gpio_get(struct gpio_chip *chip, unsigned offset)
++static int max310x_gpio_get(struct gpio_chip *chip, unsigned int offset)
+ {
+ 	unsigned int val;
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+@@ -1222,7 +1222,7 @@ static int max310x_gpio_get(struct gpio_chip *chip, unsigned offset)
+ 	return !!((val >> 4) & (1 << (offset % 4)));
+ }
+ 
+-static void max310x_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
++static void max310x_gpio_set(struct gpio_chip *chip, unsigned int offset, int value)
+ {
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+ 	struct uart_port *port = &s->p[offset / 4].port;
+@@ -1231,7 +1231,7 @@ static void max310x_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
+ 			    value ? 1 << (offset % 4) : 0);
+ }
+ 
+-static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
++static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned int offset)
+ {
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+ 	struct uart_port *port = &s->p[offset / 4].port;
+@@ -1242,7 +1242,7 @@ static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
+ }
+ 
+ static int max310x_gpio_direction_output(struct gpio_chip *chip,
+-					 unsigned offset, int value)
++					 unsigned int offset, int value)
+ {
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+ 	struct uart_port *port = &s->p[offset / 4].port;
+-- 
+2.53.0
+
