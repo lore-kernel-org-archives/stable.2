@@ -1,113 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB384399EE
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5011C4399E8
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784743682; cv=none; b=jmm8J2BSiayGHiq1MvVueys+uuvjsYNX3KQ4aAthHvFfiyP70Jr2t3vH0KCQLGiY3u/VHv5WZ0cOGQA3u/bTZxHvzMI4aLxoGircXIHa/+o9E0lNzcFb2Z6Fi1Dkw6YtXLNElBgZVQ0XkLg2HeJRGo3jxfkoWmxh6r1Lx+fjaQQ=
+	t=1784744066; cv=none; b=t1TQjXrEzT6D1L6PpPTkBaWKinuqRRoUVUcDbgrM2KQMj0D//lasyG75Jgr3jQZd3ZaBARY3gRv+5OxdAemqa151O38yl7MbGoOcVCVfrfiuPJw+wwoz08grmE1iq+Vp9uLJRtP+D9Fga08rOZYn1kE/WTZ6O8I4nbvxOnJ/CDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784743682; c=relaxed/simple;
-	bh=lTWm+61S6XxN4kSceDayayQrGTloILGxRK87/1AwWao=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ir176xhiE70hZYEmJvPsVLeLNzSOThiVKrGtzWE8/iYjSSujMXPRl/UfftwHK1gXLjQndfeUY534iUN5vd5hM+DrPmeLmORMzJFYE2AauyURJBMCC9DTCpwJKTF7Xy13/T5YgjbaP42HqQkyvBMuxsiiHcwbPkChN8pye+cDJI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m8fw66tO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784744066; c=relaxed/simple;
+	bh=YOPoIUclH28ukZ9YepMYS8Y9xPg26QbGbwJ2RgkS8iE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GDW6QJrxRFBRpOUvzC+SxRsYd8DZdZvERJuht754u3qoDAXvLhclVmYeZdubLV6sj0qZhOWxfXnH/s9c95kmteNtQo9S4mjtxiPrIUK/JJah2O6EV/U1SvT9kvgPprFwwJ4hEUhMik/5FEc3AQTtOQsydhINE8PHVOxhbqiT/eI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1xd1xtK; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m8fw66tO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25CF21F000E9;
-	Wed, 22 Jul 2026 18:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784743680;
-	bh=AlWaOPrZTjF9MtMkvgtMbi1LaO8gUE0XgE0fz3zp/2I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m8fw66tOaW7FdzVi2mRq0z9w1jj1m1Ri9LneZ06y8pdlLH4Wld/oP2+4kWtoYGVAB
-	 0nB/6a0QwG3sIhr0mvS9FuqwEW+YgEUN9C1apgKvdtBwPbIgyi9P/eX0/6XatbszIn
-	 S8r396MrhnUTTItOe1ZkATq3xPIk/aJ5w1Kx9uc/HlYzgK+q7wBImOhQOamrZFzKLI
-	 kfCOfEBj0SNms3xdNnPYWmd6wlqhusE0VZ61WsVWmYH7L/aEAlLX+1w1ltLJEDdcKG
-	 IAjPI4ObBbJ5TNkKxQ+1wTsy/FEdCHvbdRPn3kMQX01cHdbTEKHFJrvqeQnVO7GyUF
-	 i+If+LBviauDQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Simon Horman <horms@kernel.org>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] octeontx2-pf: clear stale mailbox IRQ state before request_irq()
-Date: Wed, 22 Jul 2026 14:07:57 -0400
-Message-ID: <20260722180757.2202348-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722180757.2202348-1-sashal@kernel.org>
-References: <2026072013-trivial-overlaid-d42a@gregkh>
- <20260722180757.2202348-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1xd1xtK"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cf50c6f235so51693835ad.0
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:14:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784744064; x=1785348864; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o1nxlzxXGxOHYHNh7Zjh3tlK7oPbDKB3XdsU0h+O300=;
+        b=K1xd1xtKbit1D9ey/bpGbv5iTLm5V6sZ4OgdVOmbSPaxTfXUy4aAW7G58oJwmaMpng
+         UZXWckyJpHJeDXWQMGXQjJMLmIKixigekcAm+Y1Co/h+guWdcnygvBFTB5NaDUp/ErWh
+         wgg2YpHxhO/1dtvJ+P+UuZ+yrQWGvjbv4Nw3sT5ftj0yTo86UAHu9MMm3DGlVaDuj7hc
+         UsBtlZ+cCYiVmswb7hhK1+ywRJYC4RwsmgbzLzuPiC2K0cq/25JFE74VPypQQgwXHSer
+         p0G0zjZIGuShfmikNfo3mKsKdbhRhULQQm/TRtYu8+92IBJHRjd8+0vzTDo7eRXIqsV9
+         CYlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784744064; x=1785348864;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o1nxlzxXGxOHYHNh7Zjh3tlK7oPbDKB3XdsU0h+O300=;
+        b=YFGPiN4xzeId0av9RJVx7qJgEZ0o3e4k3xCMnQcXxGg7FsNw7oDYPdYfgk27pVgOp2
+         vIq99XIl8Fem/tqYakbemB7LXy59x8CmNDRMPhx56RFc1nEF6bJDCVfYmMJdhb3D3rsK
+         2p9emrvwNjA5nC57HT9lMhXQCCKo3nYRXGLzHX3JHgASTudNdGNAI/eJhIE9sfYQFxKK
+         x7Rj6nsVfEp7pgbl3xbMCIOX5cjREEu2DgLjhkyB76Ze6iFO20Fqcgr9XBrUoQg8LXyG
+         z8Ro/yzcR09V1tZPwdK7A0KCmdRrgYGWu03EGvmKUrAfb4/tnt5VABcM3Foaf03B7X56
+         pUVQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0Coizb1gxGAwWl+GFPMPm0EIWlPXM6kiMAPCSGyF5B0OnHBTV2Awv8frjf5fbAb+Gm5I36fk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwW1k8Xvo14pU5YtT/oAU3t4H67ShWMES5zDH1J9xUzV0Ugohws
+	0wc9bRqU8wYeYz7rbOHapMzgZVdfeLaZnt/DWdzaM2xj1d1dCldy/Sm9
+X-Gm-Gg: AR+sD12RECv/NWrJGYbUe3KKT/Zt7a6Zz1U9MEGLKOEU4KF/t2KOHIUMpAf7URumeE1
+	mTVKwXJ2GxVbVLgJDVOCDLBdnuB20yJsenkS+Tgf2R3bP/BELigWIINYlPTIRyNIj0T5PYMbYRu
+	O/Oxi4Vu8oWufLJu0ofvQzylj27bju7nggNJ7A4GYERwqouv+EZG85SWVSr1uaaxEKpYOZVjazs
+	oGdWoYN6KqJFXwvg4XVYSnFAnc+RpsyNKFSt+pOQtgJAj22pWGND9JZznVZOripdA1OCHvPSnIx
+	Y5CzbR7LVYWdFg9kOOqCjcM6hzIbknECZrzmEKL6hEa02rVQeYUhwg8oeVmW8Xs9s9PcRLHwBBn
+	PrSmVsjFxBFWBoCIyVMAbaZB7ErCN2iHwv9HRec6P+K5K71z90Wm87t+QtrbubEXAn1Pwp8ulJp
+	T+/Ny11eq4Hmd5U1+BTJApwZqTBQO+
+X-Received: by 2002:a17:903:37cf:b0:2cc:5fae:cc56 with SMTP id d9443c01a7336-2cf3495ffe4mr257798985ad.27.1784744064473;
+        Wed, 22 Jul 2026 11:14:24 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147dc6781dsm12391494eec.9.2026.07.22.11.14.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 11:14:23 -0700 (PDT)
+Message-ID: <36bb4bca-985b-44f8-b3d8-2f0eb092fec5@gmail.com>
+Date: Wed, 22 Jul 2026 11:14:22 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 000/812] 5.15.212-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260722142759.100285390@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260722142759.100285390@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+On 7/22/26 07:30, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.212 release.
+> There are 812 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.212-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-[ Upstream commit f918554fb7246e89b98ef90abe80801f038258b3 ]
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-otx2_register_mbox_intr() currently installs the PF mailbox IRQ handler
-before clearing stale mailbox interrupt state. The function itself then
-comments that the local interrupt bits must be cleared first to avoid
-spurious interrupts, but that clear happens only after request_irq() has
-already exposed the handler to irq delivery.
-
-A running system can reach this during PF mailbox interrupt registration
-while stale or latched RVU_PF_INT state is still present. If delivery
-happens in the request_irq()-to-clear window,
-otx2_pfaf_mbox_intr_handler() can run before local quiesce and touch
-the same pf->mbox and pf->mbox_wq carrier that probe and teardown later
-reuse or destroy.
-
-Move the stale mailbox interrupt clear ahead of request_irq(), but keep
-interrupt enabling after the handler is installed. This closes the
-pre-clear early-IRQ window without creating a new enable-before-handler
-window.
-
-Fixes: 5a6d7c9daef3 ("octeontx2-pf: Mailbox communication with AF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
-Link: https://patch.msgid.link/20260611160014.3202224-2-runyu.xiao@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-index 9274c60ddeedb8..942a18d4619d0f 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-@@ -1023,6 +1023,9 @@ static int otx2_register_mbox_intr(struct otx2_nic *pf, bool probe_af)
- 	char *irq_name;
- 	int err;
- 
-+	/* Clear stale mailbox interrupt state before installing the handler. */
-+	otx2_write64(pf, RVU_PF_INT, BIT_ULL(0));
-+
- 	/* Register mailbox interrupt handler */
- 	irq_name = &hw->irq_name[RVU_PF_INT_VEC_AFPF_MBOX * NAME_SIZE];
- 	snprintf(irq_name, NAME_SIZE, "RVUPFAF Mbox");
-@@ -1034,10 +1037,7 @@ static int otx2_register_mbox_intr(struct otx2_nic *pf, bool probe_af)
- 		return err;
- 	}
- 
--	/* Enable mailbox interrupt for msgs coming from AF.
--	 * First clear to avoid spurious interrupts, if any.
--	 */
--	otx2_write64(pf, RVU_PF_INT, BIT_ULL(0));
-+	/* Enable mailbox interrupt for msgs coming from AF. */
- 	otx2_write64(pf, RVU_PF_INT_ENA_W1S, BIT_ULL(0));
- 
- 	if (!probe_af)
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.53.0
-
+Florian
