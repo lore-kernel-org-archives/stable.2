@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD92368D4D
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4593F411F99
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:29:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784741394; cv=none; b=SeD2Lj8xnUZOb74JFRsHHRcMQufKal5FtwKNfakHtbLtiw4aPqOnS8ResqjQWeIH2uYJZB7P4S32OnhyWhaL4Z/xf7P8+imHnsAieyfp2evAmDM70DSiLPoRaiATT+l80/xPjCtSgeeCIqOCGWKmEbwtz1DGQETNljQqbv6G9iM=
+	t=1784741395; cv=none; b=EWP9Oyiikvl42vlhnUgi2CJWVN6OQBnwQFACX3WVnhxWsgGUXdaKcHPIb2YpPr0QOp67RTkohjvPoGZyGqf+Mzg31rZfxcwptzR8CMS1708HCJIzLLK1iTuASzDvowoYdEGgrReSdmfZ/y4XMP5icXDkv5blNbopCv30Bc7dOsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784741394; c=relaxed/simple;
-	bh=RXcAmFFJDCnQ9lyd2COD1eA8K+OuZOEc9vB6CKu0Euc=;
+	s=arc-20240116; t=1784741395; c=relaxed/simple;
+	bh=IFaw2vTgGPKtuqqWeBtqLUWufIPcbYxs2GprlqYDGxE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BuvgNFLBxECklT0ip02h0oBrbUEAw1NlZ0WN7uW0bykhY79j5zN2/vEsLxZaBtMqebClhE59/b/vmNdCgGdyT2StFotGFl2w99Pn8ON1vhaydZHurgFYDwnbZy2UJg0XsGJBuFl5W9RIUqwnqMz7QIGfT6/dGiLPZ59Ao0nrtFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPsXvlRl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OunntrPnZNyNAH/amwDqODDmuAWIPWuCAGzQk6piWqfA6myYVJuu2NAswm7b7f1qbr1mk7eqvI+hTuoQbzl7R9zjxw++E8slOMZKUnTDZxcKKJg0qJfuRCa+kcL9NhdzLVZk7svG1aJSkflS6b7ahbzK5NsJvieifFYd1mhNnsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JllhDxzc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPsXvlRl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3FB1F000E9;
-	Wed, 22 Jul 2026 17:29:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JllhDxzc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823171F00A3D;
+	Wed, 22 Jul 2026 17:29:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784741393;
-	bh=042sZI4PCLFusw4MIm8fPtQeH2ZmnGg7knpLwH6N+LY=;
+	s=k20260515; t=1784741394;
+	bh=2ec3Z7Td4jg788+MpUH7wCPeIRypjdxRDf0YuwtkeEo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gPsXvlRlrQfJvQXfsqR/Co51WYVrObuqF48CpR+z+0IxGj2VWrZ+zYVEaiFMo4jSy
-	 ucEkYFnNpMQ4dR9GOTRDoSiWYtvJUc+fgXN5OrArbAuykCRhBJ0qKphdFEBipWuXPF
-	 ivdYg/9bJxqYIEfprR8Sn9ds1dy/5AG+d3zDSeg/XIiRy1r12+K9srWI3sYwkl9JMs
-	 YNqrJCJBNGwYm+UGi3IXE0A2b+K8iAuIPrWkIMSPhDCP8yWJI3LYHYEwvkvM9Z+ZCV
-	 7ydrxjDExf/Q+Rvx1GJ5jt31e5Jtu6Pcdto92SzYwi1aI0916Hr69kT/yFNz9Pan/E
-	 aJmaHHKfFl5bw==
+	b=JllhDxzcYvLJ8hDjT4RGVs/aiFR3fh8LPA4867UbYEmvsGzpzlLgbQCmVGMHjZGZY
+	 ZBop1R9+Zo1Uzp2NDU6+2upt/DmiI8+/oYYLfwWCWRrv6htWr4ijHW3aUVQNLFiy+E
+	 rgCFHa9SpEzFZ0lBUd0Fv3W4KY4+XayBHjkHKAgss4yE2An8b0jKQ7tFLNjDCJ1Kf3
+	 9TeT9Pxnt+S8hnCzvbv2w0Brrm/tNMlqxvEoS5wzJcd3ZhWAGdYv4ariSXQQO5Pnax
+	 kpEddktde5TFXt0TxGKCydQ8J4lAhc7n8sdZYUONzhI/kOlczrb/A+bmdS2uuvcqJN
+	 QIiPuDYUobTrw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ricardo Ribalda <ribalda@chromium.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
+Cc: Isaac Scott <isaac.scott@ideasonboard.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Oleksandr Natalenko <oleksandr@natalenko.name>,
-	Tomasz Figa <tfiga@chromium.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/6] media: uvcvideo: Quirk for invalid dev_sof in Logitech C922
-Date: Wed, 22 Jul 2026 13:29:46 -0400
-Message-ID: <20260722172948.2068213-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 5/6] media: uvcvideo: Implement dual stream quirk to fix loss of usb packets
+Date: Wed, 22 Jul 2026 13:29:47 -0400
+Message-ID: <20260722172948.2068213-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260722172948.2068213-1-sashal@kernel.org>
 References: <2026072042-handgun-nature-b630@gregkh>
@@ -49,136 +48,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Ribalda <ribalda@chromium.org>
+From: Isaac Scott <isaac.scott@ideasonboard.com>
 
-[ Upstream commit 9183c6f1a21e0da4415762c504e2d7f784304d12 ]
+[ Upstream commit c2eda35e675b6ea4a0a21a4b1167b121571a9036 ]
 
-Logitech C922 internal SOF does not increases at a stable rate of 1kHz.
-This causes that the device_sof and the host_sof run at different rates,
-breaking the clock domain conversion algorithm. Eg:
+Some cameras, such as the Sonix Technology Co. 292A, exhibit issues when
+running two parallel streams, causing USB packets to be dropped when an
+H.264 stream posts a keyframe while an MJPEG stream is running
+simultaneously. This occasionally causes the driver to erroneously
+output two consecutive JPEG images as a single frame.
 
-30 (6) [-] none 30 614400 B 21.245557 21.395214 34.133 fps ts mono/SoE
-31 (7) [-] none 31 614400 B 21.275327 21.427246 33.591 fps ts mono/SoE
-32 (0) [-] none 32 614400 B 21.304739 21.459256 34.000 fps ts mono/SoE
-33 (1) [-] none 33 614400 B 21.334324 21.495274 33.801 fps ts mono/SoE
-* 34 (2) [-] none 34 614400 B 21.529237 21.527297 5.130 fps ts mono/SoE
-* 35 (3) [-] none 35 614400 B 21.649416 21.559306 8.321 fps ts mono/SoE
-36 (4) [-] none 36 614400 B 21.678789 21.595320 34.045 fps ts mono/SoE
-...
-99 (3) [-] none 99 614400 B 23.542226 23.696352 33.541 fps ts mono/SoE
-100 (4) [-] none 100 614400 B 23.571578 23.728404 34.069 fps ts mono/SoE
-101 (5) [-] none 101 614400 B 23.601425 23.760420 33.504 fps ts mono/SoE
-* 102 (6) [-] none 102 614400 B 23.798324 23.796428 5.079 fps ts mono/SoE
-* 103 (7) [-] none 103 614400 B 23.916271 23.828450 8.478 fps ts mono/SoE
-104 (0) [-] none 104 614400 B 23.945720 23.860479 33.957 fps ts mono/SoE
+To fix this, we inspect the buffer, and trigger a new frame when we
+find an SOI.
 
-Instead of disabling completely the hardware timestamping for such
-hardware we take the assumption that the packet handling jitter is
-under 2ms and use the host_sof as dev_sof.
-
-We can think of the UVC hardware clock as a system with a coarse clock
-(the SOF) and a fine clock (the PTS). The coarse clock can be replaced
-with a clock on the same frequency, if the jitter of such clock is
-smaller than its sampling rate. That way we can save some of the
-precision of the fine clock.
-
-To probe this point we have run three experiments on the Logitech C922.
-On that experiment we run the camera at 33fps and we analyse the
-difference in msec between a frame and its predecessor. If we display
-the histogram of that value, a thinner histogram will mean a better
-meassurement. The results for:
-- original hw timestamp: https://ibb.co/D1HJJ4x
-- pure software timestamp: https://ibb.co/QC9MgVK
-- modified hw timestamp: https://ibb.co/8s9dBdk
-
-This bug in the camera firmware has been confirmed by the vendor.
-
-lsusb -v
-
-Bus 001 Device 044: ID 046d:085c Logitech, Inc. C922 Pro Stream Webcam
-Device Descriptor:
-  bLength                18
-  bDescriptorType         1
-  bcdUSB               2.00
-  bDeviceClass          239 Miscellaneous Device
-  bDeviceSubClass         2
-  bDeviceProtocol         1 Interface Association
-  bMaxPacketSize0        64
-  idVendor           0x046d Logitech, Inc.
-  idProduct          0x085c C922 Pro Stream Webcam
-  bcdDevice            0.16
-  iManufacturer           0
-  iProduct                2 C922 Pro Stream Webcam
-  iSerial                 1 80B912DF
-  bNumConfigurations      1
-
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Isaac Scott <isaac.scott@ideasonboard.com>
 Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Signed-off-by: Oleksandr Natalenko <oleksandr@natalenko.name>
-Reviewed-by: Tomasz Figa <tfiga@chromium.org>
-Link: https://lore.kernel.org/r/20240323-resend-hwtimestamp-v10-3-b08e590d97c7@chromium.org
+Link: https://lore.kernel.org/r/20241128145144.61475-2-isaac.scott@ideasonboard.com
 Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 Stable-dep-of: f078966ca1fb ("media: uvcvideo: Fix sequence number when no EOF")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
- drivers/media/usb/uvc/uvc_video.c  | 11 +++++++++++
- drivers/media/usb/uvc/uvcvideo.h   |  1 +
- 3 files changed, 21 insertions(+)
+ drivers/media/usb/uvc/uvc_video.c | 27 ++++++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  1 +
+ 2 files changed, 27 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index 3c693aa92601cc..b95f90fe43b82f 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -2682,6 +2682,15 @@ static const struct usb_device_id uvc_ids[] = {
- 	  .bInterfaceSubClass	= 1,
- 	  .bInterfaceProtocol	= 0,
- 	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_RESTORE_CTRLS_ON_INIT) },
-+	/* Logitech HD Pro Webcam C922 */
-+	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-+				| USB_DEVICE_ID_MATCH_INT_INFO,
-+	  .idVendor		= 0x046d,
-+	  .idProduct		= 0x085c,
-+	  .bInterfaceClass	= USB_CLASS_VIDEO,
-+	  .bInterfaceSubClass	= 1,
-+	  .bInterfaceProtocol	= 0,
-+	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
- 	/* Logitech Rally Bar Huddle */
- 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
- 				| USB_DEVICE_ID_MATCH_INT_INFO,
 diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 66bed1b64ac99e..b81422ebf9f85f 100644
+index b81422ebf9f85f..864c7e65aaa54a 100644
 --- a/drivers/media/usb/uvc/uvc_video.c
 +++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -553,6 +553,17 @@ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
- 	stream->clock.last_sof = dev_sof;
+@@ -17,6 +17,7 @@
+ #include <linux/atomic.h>
+ #include <asm/unaligned.h>
  
- 	host_sof = usb_get_current_frame_number(stream->dev->udev);
-+
++#include <media/jpeg.h>
+ #include <media/v4l2-common.h>
+ 
+ #include "uvcvideo.h"
+@@ -1084,6 +1085,7 @@ static void uvc_video_stats_stop(struct uvc_streaming *stream)
+ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 		struct uvc_buffer *buf, const u8 *data, int len)
+ {
++	u8 header_len;
+ 	u8 fid;
+ 
+ 	/* Sanity checks:
+@@ -1096,6 +1098,7 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 		return -EINVAL;
+ 	}
+ 
++	header_len = data[0];
+ 	fid = data[1] & UVC_STREAM_FID;
+ 
+ 	/* Increase the sequence number regardless of any buffer states, so
+@@ -1173,9 +1176,31 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 		return -EAGAIN;
+ 	}
+ 
 +	/*
-+	 * On some devices, like the Logitech C922, the device SOF does not run
-+	 * at a stable rate of 1kHz. For those devices use the host SOF instead.
-+	 * In the tests performed so far, this improves the timestamp precision.
-+	 * This is probably explained by a small packet handling jitter from the
-+	 * host, but the exact reason hasn't been fully determined.
++	 * Some cameras, when running two parallel streams (one MJPEG alongside
++	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
++	 * We can detect the end of a frame by checking for a new SOI marker, as
++	 * the SOI always lies on the packet boundary between two frames for
++	 * these devices.
 +	 */
-+	if (stream->dev->quirks & UVC_QUIRK_INVALID_DEVICE_SOF)
-+		dev_sof = host_sof;
++	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
++	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
++	    stream->cur_format->fcc == V4L2_PIX_FMT_JPEG)) {
++		const u8 *packet = data + header_len;
 +
- 	time = uvc_video_get_time();
++		if (len >= header_len + 2 &&
++		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI &&
++		    buf->bytesused != 0) {
++			buf->state = UVC_BUF_STATE_READY;
++			buf->error = 1;
++			stream->last_fid ^= UVC_STREAM_FID;
++			return -EAGAIN;
++		}
++	}
++
+ 	stream->last_fid = fid;
  
- 	/* The UVC specification allows device implementations that can't obtain
+-	return data[0];
++	return header_len;
+ }
+ 
+ /*
 diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index db479b98cfc313..6d24953f489154 100644
+index 6d24953f489154..4a1ff08453d770 100644
 --- a/drivers/media/usb/uvc/uvcvideo.h
 +++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -206,6 +206,7 @@
- #define UVC_QUIRK_WAKE_AUTOSUSPEND	0x00002000
+@@ -207,6 +207,7 @@
  #define UVC_QUIRK_NO_RESET_RESUME	0x00004000
  #define UVC_QUIRK_DISABLE_AUTOSUSPEND	0x00008000
-+#define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
+ #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
++#define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
  
  /* Format flags */
  #define UVC_FMT_FLAG_COMPRESSED		0x00000001
