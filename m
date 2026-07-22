@@ -1,185 +1,172 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEA0377018
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 19:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F44F470E88;
+	Wed, 22 Jul 2026 19:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784747975; cv=none; b=BHCiHt9LxHAzEuq8cf/JRH6G3Ej484diM6IqGplEi308tVnnbUGafTDTqbUHNTxZ2WEryRzBY0klAyJEJ6T92VgE5Cxp+kIU1+g1kjrPKs9l/iUxk1mIsAJIYeB/LGcWGUSRQzWGNMXA53mcV8rIsgxQLElDIZ9HhkjQmcssGsA=
+	t=1784749491; cv=none; b=JSrSFUmDKLc3zLwKztLmyY2681t4qjf1FsBXjaRxblG1VTVPTCe4o0VX62CpmOsfLA2aZvqgZjwWe+k9LGs4VdhRBeGCpafPDIHslg3cCPgJlSPe1pGEcXz+JBoCJrv24Z6pctBkXJ5GVfiyOYjehXyL/zflWD5w2s2iPtIKYwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784747975; c=relaxed/simple;
-	bh=Jb9J5bSOSje9FMdG7C+lQp/nEJBkbTNQ6Tu3vF6YLm4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qOyN6SvOl7Gb8X/yM8kRLhhZarvvuTGPL/GIdtPGXzc+EvcYvFBvxnavO75tOUKGcSSew6KCii0hXrHLicy3Y9oMAuKC6dqP5cIUBqwm5Ssg/3PVjJSntTGZkzeAhqgwDdIpGVW0QPQ0QoAZ2lrBKWrBig7W8CcJsYJpt+vNppY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=KWnoGLja; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="KWnoGLja"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4720f3bf164so3690545f8f.1
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:19:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1784747969; x=1785352769; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pnInvCDAwEksrdCAmMtd6TY5IpoNHnNiOOgeViffG5c=;
-        b=KWnoGLjaztBwfvaNzv3hM8DLIpDdS0MGN/bpFMCS1lIM0PYf7kzJqsX+d3kMWptqx5
-         hLRpjsTf0oAnwAdEBRiBpMMc1lbIYRv5diN4U4M/vhYcbiQxWwqajKEvzttN3xsP4hRe
-         sRYh1ngrIyxB+MnZP9/yqnDzzqHs0XjYMlhAJ04MbHikJ6X/wGNmHmsmt3QuJ4wyUWAB
-         phk0hH873T4tdw8Kr6aoFHL6us7YTvrlzIvYBLLWUg41ZYpqW1WkHuVDyjrrELXGfBEI
-         3kNWiRGjJMAtluPcKd/Aa+2pZhg6NUC0+u9IscRiRmRRReF1nuQ5bMtrqtGBbTQTSfD2
-         efBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784747969; x=1785352769;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pnInvCDAwEksrdCAmMtd6TY5IpoNHnNiOOgeViffG5c=;
-        b=cFsldUSwfGZ7s6tHO/vLawfHLPS4HLVBu7IFlNNrs9jcMP2hy39Bs0QEsSc6gEQblQ
-         PGFDUJnz/HjibiwBez9d+1kpX7UhURSeisXEPARZ3Sf6MtMIupuJ+o5MkN8CeCx6EZQ9
-         Txp03zHdTOEkb2X1xTu6ED3FNaE7FsswOvFMTOE08vKE/7FlXXcj65I7HyUmlbA937mq
-         6MlQ5gKRq0sQqqXkMDEMy0pJveaL8YVIQJpJQ8yk/xZsk/qvm1zeGO0TNn99hed1piZS
-         6Y040g3j8Tbs8O2lvZ8TaE9IUEzb9ctXXBRE2YqbRiMJ9f+Z4m+12yMmZXzie+n9bAq7
-         vhGA==
-X-Forwarded-Encrypted: i=1; AHgh+RofofYjYtAG0i++LJlOJBjPzdZH8vo5dpnG495mVAzPhP2qpqprj3caGo6RDbAoKwvlqFQXlu0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLEGoHkyH3Xx4L9h/2PSyOjx7B42pfzgxzpY7C04E4UBQ8flTR
-	GU8ffYGyp6nO7vY8MeB4u95xamvJcdog5vT39HZp38HBgekVneTVN7mlD998Ospw1mQ=
-X-Gm-Gg: AR+sD12meR9JPtr84avbGeM+SLLu+Ib8ePwchmkQdi1SffRAPrzXtZkBOzHdrsfm6Cx
-	tVxHxbpBREwUS781kdyJH1VuOYjSXPyFa+M7aKyBuAJuHiW5lJ9KjjcgKEoqDPgFsDrWyANUtGn
-	kZyT0hecNrD25dmicMIfoK6ppBMZC/QnYGJd7spAEi75Q6Lk7ICWGK5f0Khx0ONVBhjBz0TdPz6
-	jdjV79omK7HVWppCFnNRaJZzI8UOfYdc3QPUcCOGE9x6iZg0oRzWJ2KaEoO7mRhqAZFtDuIOYJf
-	n6/fG38d6DMVOuVT/ZI6uZxvnv4Db+5OJbeNj+sNZIkLj7EMxxZZtP7q3kO+EQiuO77lu9olpgq
-	APM6d3hUAZRai7FseJOsa3UfC3+B2extQZkwMyxtuGdgkjCJyoG61uh3GB9D3LBom+jeDILeb+c
-	A63HFs
-X-Received: by 2002:a05:6000:25e2:b0:47f:537b:d5d0 with SMTP id ffacd0b85a97d-47f840c95admr7850328f8f.28.1784747969382;
-        Wed, 22 Jul 2026 12:19:29 -0700 (PDT)
-Received: from matt-Precision-5490.. ([2a09:bac6:37a8:26dc::3df:4d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c67339sm8862982f8f.31.2026.07.22.12.19.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 12:19:28 -0700 (PDT)
-From: Matt Fleming <matt@readmodwrite.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: [PATCH net v3] veth: convert frag_list skbs before running XDP
-Date: Wed, 22 Jul 2026 20:19:25 +0100
-Message-ID: <20260722191925.2192070-1-matt@readmodwrite.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1784749491; c=relaxed/simple;
+	bh=ovp2DkAQxSFtGdrZt3qt+dwHwhZRCL38L+KRrmFji+8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qtqiTEmwBhhM2rPWzLOElB8PMufMAHL80+M5wSh+ZVI2V6OZlnk46oSXP6u7jEzb+47AuTDoe+32ICAUT4xTzHCPbyr1mdCdKUT7R6nqF3mQ0lttAj/k0SQVODG4zaasL6mxVvLIJHauXEVWFWpEaDJPpmR7czaJX3b7V0BC55Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id 4CBECC02E5;
+	Wed, 22 Jul 2026 19:44:48 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 7718C2000F;
+	Wed, 22 Jul 2026 19:44:46 +0000 (UTC)
+Date: Wed, 22 Jul 2026 15:45:07 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Li Qiang <liqiang01@kylinos.cn>
+Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 3/4] tracing/inject: Validate entry allocation size
+Message-ID: <20260722154507.12e91c34@gandalf.local.home>
+In-Reply-To: <20260722061040.112747-4-liqiang01@kylinos.cn>
+References: <20260722061040.112747-1-liqiang01@kylinos.cn>
+	<20260722061040.112747-4-liqiang01@kylinos.cn>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: schffwjy3mdgybjkqo3ke53sh836cime
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 7718C2000F
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+7N008mxetN1tp9Jjs/q4tEwuClT3Tb9Y=
+X-HE-Tag: 1784749486-677547
+X-HE-Meta: U2FsdGVkX1+PUd+tprx4fpwv/ypOcQtkw5pEQkbc+8z472Wzyz9YEPw2UwG32Uo6E9pdW4sqfhiDxhRU6ufihP06O1HYdmd1uYiJ44SNV+gMO/t5/nUnZN/WeiZA3pq9L2wvfxiC274tl7bV0oLo4bpMLscZisYxSlagwyYCsXeGpePmh8JQXyMfqghH8cUHU7nxA1qhQUqz4h+V/JzaXzwGesPM1961maI1jFhNkVBKY4qBrf9f3STQFjNwNdVZdowrq7Al3t/QPPS8bFp3gzlOFuBPiV7AiiiGwp5/RYdi+f5phpCGogG5wkXAry3XA+qY413mWx6x/0gFRZlY4ssiZ2A2IhVp/Ui1YYIaAIpysBGyoA1a38dXu/BqNRLR
 
-From: Matt Fleming <mfleming@cloudflare.com>
+On Wed, 22 Jul 2026 14:10:39 +0800
+Li Qiang <liqiang01@kylinos.cn> wrote:
 
-A frag_list skb can reach veth with data_len set but nr_frags zero.
-veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
-locked, have frags[], or do not have enough headroom. It later uses
-skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
-xdp_frags_size.
+> trace_get_entry_size() calculated the allocation from signed field offsets
+> and sizes without validating their sum. A malformed event could use a
 
-That exposes frag_list data to XDP as if it were stored in frags[], but
-frags[] is empty. AF_XDP copy mode can then trust the bogus XDP fragment
-metadata, walk an empty fragment entry, and crash in memcpy() from
-__xsk_rcv().
+What type of malformed event are you talking about?
 
-Route non-linear skbs through skb_pp_cow_data() before exposing them to
-XDP, and only advertise XDP frags when the resulting skb has frags[].
-skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
-builds frags[] output with skb_add_rx_frag(), which is the
-representation XDP multi-buffer expects.
+> negative range or overflow the calculation, allocate too little memory, and
+> then write past it while initializing or populating the entry. Events with
+> no fields also allocated less than a trace_entry.
 
-Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
----
-Changes in v3:
-- Target net instead of bpf.
-- Add Return: to the skb_pp_cow_data() kerneldoc.
+What event has no fields?
 
-Changes in v2:
-- Use skb_is_nonlinear() in veth_convert_skb_to_xdp_buff().
-- Move the skb_pp_cow_data() comment into kerneldoc.
+Note, trace event injection is only for debugging tools that read trace
+events. It is in no-way something that should *ever* be used by a
+production machine.
 
- drivers/net/veth.c |  4 ++--
- net/core/skbuff.c  | 18 ++++++++++++------
- 2 files changed, 14 insertions(+), 8 deletions(-)
+Is this being found by AI? If it is, you must specify that.
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 1c5142149175..00e34afd858e 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -756,7 +756,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	u32 frame_sz;
- 
- 	if (skb_shared(skb) || skb_head_is_locked(skb) ||
--	    skb_shinfo(skb)->nr_frags ||
-+	    skb_is_nonlinear(skb) ||
- 	    skb_headroom(skb) < XDP_PACKET_HEADROOM) {
- 		if (skb_pp_cow_data(rq->page_pool, pskb, XDP_PACKET_HEADROOM))
- 			goto drop;
-@@ -771,7 +771,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
- 			 skb_headlen(skb), true);
- 
--	if (skb_is_nonlinear(skb)) {
-+	if (skb_shinfo(skb)->nr_frags) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
- 	} else {
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 18dabb4e9cfa..ba3dbac80fb4 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -927,6 +927,18 @@ static void skb_clone_fraglist(struct sk_buff *skb)
- 		skb_get(list);
- }
- 
-+/**
-+ * skb_pp_cow_data() - copy skb data into page-pool backed storage
-+ * @pool: page pool to allocate from
-+ * @pskb: pointer to skb pointer, replaced with the copied skb on success
-+ * @headroom: headroom to reserve in the copied skb
-+ *
-+ * skb_copy_bits() handles both frags[] and frag_list input. If the copied
-+ * skb remains non-linear, it uses frags[], which is the representation used
-+ * by XDP multi-buffer.
-+ *
-+ * Return: 0 on success or a negative errno on failure.
-+ */
- int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 		    unsigned int headroom)
- {
-@@ -936,12 +948,6 @@ int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 	int err, i, head_off;
- 	void *data;
- 
--	/* XDP does not support fraglist so we need to linearize
--	 * the skb.
--	 */
--	if (skb_has_frag_list(skb))
--		return -EOPNOTSUPP;
--
- 	max_head_size = SKB_WITH_OVERHEAD(PAGE_SIZE - headroom);
- 	if (skb->len > max_head_size + MAX_SKB_FRAGS * PAGE_SIZE)
- 		return -ENOMEM;
--- 
-2.43.0
+> 
+> Start at sizeof(struct trace_entry), validate each field range, and reserve
+> room for the trailing NUL. Propagate sizing errors to parse_entry() before
+> it initializes the allocation.
+
+Was an AI agent used to create this?
+
+> 
+> Fixes: 6c3edaf9fd6a ("tracing: Introduce trace event injection")
+> Cc: stable@vger.kernel.org
+
+No need for the stable Cc. This is not something anyone should care about.
+If you want to inject a bad event, by all means, crash your machine!
+As I stated, it would be a bug to have this enabled on a production machine.
+
+That said, I'm all for making this more robust.
+
+> Signed-off-by: Li Qiang <liqiang01@kylinos.cn>
+> ---
+>  kernel/trace/trace_events_inject.c | 31 ++++++++++++++++++++++++------
+>  1 file changed, 25 insertions(+), 6 deletions(-)
+> 
+> diff --git a/kernel/trace/trace_events_inject.c b/kernel/trace/trace_events_inject.c
+> index a8f076809db4..b8b141c00d5c 100644
+> --- a/kernel/trace/trace_events_inject.c
+> +++ b/kernel/trace/trace_events_inject.c
+> @@ -135,27 +135,43 @@ parse_field(char *str, struct trace_event_call *call,
+>  	return -EINVAL;
+>  }
+>  
+> -static int trace_get_entry_size(struct trace_event_call *call)
+> +static int trace_get_entry_size(struct trace_event_call *call, int *entry_size)
+
+Why does entry_size need to be a separate parameter? Just return it, and
+have a negative be an error.
+
+>  {
+>  	struct ftrace_event_field *field;
+>  	struct list_head *head;
+> -	int size = 0;
+> +	int field_size;
+> +	int size = sizeof(struct trace_entry);
+
+Keep the upside-down declarations please.
+
+>  
+>  	head = trace_get_fields(call);
+>  	list_for_each_entry(field, head, link) {
+> -		if (field->size + field->offset > size)
+> -			size = field->size + field->offset;
+> +		if (field->offset < 0 || field->size < 0 ||
+
+Explain to me how the field->offset or field->size can be less than zero?
+
+> +		    field->size > INT_MAX - field->offset)
+> +			return -E2BIG;
+> +
+> +		field_size = field->size + field->offset;
+> +		if (field_size > size)
+> +			size = field_size;
+>  	}
+>  
+> -	return size;
+> +	/* trace_alloc_entry() reserves an extra NUL byte. */
+> +	if (size == INT_MAX)
+> +		return -E2BIG;
+> +
+> +	*entry_size = size;
+> +	return 0;
+>  }
+>  
+>  static void *trace_alloc_entry(struct trace_event_call *call, int *size)
+>  {
+> -	int entry_size = trace_get_entry_size(call);
+> +	int entry_size;
+>  	struct ftrace_event_field *field;
+>  	struct list_head *head;
+>  	void *entry = NULL;
+> +	int ret;
+> +
+> +	ret = trace_get_entry_size(call, &entry_size);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+>  
+>  	/* We need an extra '\0' at the end. */
+>  	entry = kzalloc(entry_size + 1, GFP_KERNEL);
+> @@ -202,6 +218,9 @@ static int parse_entry(char *str, struct trace_event_call *call, void **pentry)
+>  	int len;
+>  
+>  	entry = trace_alloc_entry(call, &entry_size);
+> +	if (IS_ERR(entry))
+> +		return PTR_ERR(entry);
+
+Why this change? trace_alloc_entry() returns NULL on error. The above chunk
+broken.
+
+-- Steve
+
+
+> +
+>  	*pentry = entry;
+>  	if (!entry)
+>  		return -ENOMEM;
 
