@@ -1,218 +1,134 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494D737BE71
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 15:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784732426; cv=none; b=XFmVkyvpGPFpCexBdIb4knwndwnotkQjUjLNbQmKo6RJ0qtahfZKdhi5bLTVgD32QfW9MDNuyuLfrIgp0WQr4L4reo9o70gJiI3XIOqKSj6YO0/Eafj8yaOnIUVCHB9cl6o26PAsrG3k/aC1OlOqPQ5cCU9qjjIehK2jk+2mQh4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784732426; c=relaxed/simple;
-	bh=QKg5YGY/yCLwZN3vmT5c5UttyqkYjSANMRTryN3kfVI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uT4b2OyrJOWJJjm/FUu1Bdkc30E+ZxYuyLuHeYjT624GJ8ezhdVEMGkm6SXRWMhVpXbsobLj6wSms83/fgWg63aot9LeJ6V6UDggMsQTBtQgj53OQf0gV7DaFIvMOmaIfBbFhIdU7NwP4miJXT+wu7+VKvm29pLWaDt5MRKGsKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=YquYS/A8; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB74374190
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 15:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784732484; cv=pass; b=b55pps7sFY8Irhgr2YREw401lgyrlmryWs7ELLxYu8Lon8jmkN4lTO9/rAdIrHtUfl+aE1GFN1omeYf68mPFQdzH2bHgVSsT5QBKftP0terN5prSd2C1E3Qd+p95VlINl0rY2ywpuH0WEQ5Ik+VDC5q7W2DSuqh4rpk6vok18+g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784732484; c=relaxed/simple;
+	bh=VI4OwuFEOitISKsCf5TtIc8+gelg15Dp+6Rf9Tq1qX0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MqpNu+cFjmpK3uZ/LZAVhwOkbsecmPNH4uzo6bP46Wb5na/youxEooXe77sonvyWuAF9WTBMnxQ78nhqQm9Af/tybklbCSA4Ai7TOMid5NeMBmuJgFH4Ss2OcCPMM2lwdr0uqtQPBRrc6UEDpa6iPnnZofS4poMBxMLvkHgsvSQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZSPpg0f7; arc=pass smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="YquYS/A8"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8efb708b1a0so124735146d6.3
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:00:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZSPpg0f7"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51c01c79467so1415841cf.0
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:01:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784732482; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RwzOZoMgtNYYzL/cgbc+xBVzcQZqWqeUf8kjgbTMYiTHheMeJWo0T28U84eVm6bwnc
+         QS9MRdmcWWf+77AZb4Dl4XsKh3OpzGqNnA0Lv1f/abMEjgVQPcKBh1jWEtEGb1Ybt2bA
+         VMe8K6+EMFZgT+IlwnUZLhtYeASkSP4SYyiWurLP58TTCQjRXFjIpL2GVlUWD0om0Sp2
+         LLONX3I6VLbUjxuAe5/M0whpGyCxqA9NkxVmh8L101omMzL1JyclAIFCwCdQt07c0TKQ
+         ggNSCeURqlag3rTWxTSqlicf+wFtDoyWsgIPDe/fJ5w8NmP/nJ1d7YwxscAsLbkDjoN/
+         KAiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IUDdFmL3+NA+J1/tlIoHIkJZpryeycSZRENBb+lv4ow=;
+        fh=b9EcZOEYw7LjEYP9k1or0xSM2l61F1Wm0P2TAKKRdLQ=;
+        b=O0Sg/qslgHYh5qYWqcw1pRFbTNNrDYyOlZGg6WWsq1IbC6fT+Z049DbESo1LEhvY2J
+         Hc+zdmI0Yw1DWAMLDovoHcJ9+xk2/89odO6+6ZGQKfswT29yfAIz/gziXyc5ALSd6URk
+         wCdd7ZuttgGwSPIpgTEU3OET10aL2FK+vPx5O9ypLvEgfENmCU+tO/hUoeoFYWaY4Umh
+         +yc8Tldwpv+s9suktkYXQZm8utcpk4aD0ZGKPHgvMH8h2SYlPoVbIDGjiW1NPgn5Gi1W
+         qmYOuKtiEhOWzmJso8jSjm+AJzlGr3IvXtdoKcNMsTsn5bv/MLLBwhmWDeLvkll+e9Bo
+         yyow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1784732422; x=1785337222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ssUPrZXhmKEtcaomL/NSzb6q5Qkj8exc1H0XDUvt4yE=;
-        b=YquYS/A81i4NStxAz2sixHxEV0vy/5FSbqv9AzkNe9wO41B/Q14lKBPu5zR6toHgVl
-         dcLMhkU/wYun0sQKnBOSM3sSiz7G1NBONgJZDRdueIaC43Qir3PZj6ZEdk6lDW26IETh
-         WltWVga59seLsifIWTqK6+yHhMBVRqaZbGjEhWaQmIjh4Z/sMTjlr3wdCcirq4JOPlkW
-         A+4lye9IOCWnVYAs/4hfhEZcOd6E9QnmF5K4ddc7Unr2wfA8ezMpg6LU+sh1pFVEoFlG
-         oE4/HiAFPIb+InIxP9GKbEr3fKNaJxemnET9GMMJdHDGE8Ht4aflCjPF/OEbL5zcAGCB
-         E0Nw==
+        d=google.com; s=20251104; t=1784732482; x=1785337282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IUDdFmL3+NA+J1/tlIoHIkJZpryeycSZRENBb+lv4ow=;
+        b=ZSPpg0f7r/YhvjRoLyIAlFN+4MjqH0BCbbfgUvA0rPW7GS1jxAj6AaTZzCUl/KkV6i
+         VFmERVx56aqvhmxCZOMlNPUOMFLwAr5uVtwunHD/bLu68FxKLf4lcU4y6cyFVArtRGzw
+         19nnHAERW1Cod9XXGbF/6Bf7GcyqfYdC6tuJRB7mvRKrtmQvUI3kHSCxTID8O/jrO7dh
+         4pG1dDCMtESX8N2/heY1Us/Vc6btQQFruIE5ogkTfE4rvEQRVadeoJpYgY3aufBAEnlG
+         B7fywLc+rV3uJKK52OY5d5B2gLkbDTQoZgmOP9m0Q1KK9ZS2VZJhRmytpKdXws8XCZvN
+         t7Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784732422; x=1785337222;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ssUPrZXhmKEtcaomL/NSzb6q5Qkj8exc1H0XDUvt4yE=;
-        b=kbir4yMsv1ZSrSDoXS/4qaZGJL8rljvrD01Ce5akKhGUV9xYlrbR1QIs5MC+BTOETq
-         PHAvqbdeVlD8fGYuG6pyyFRppyrMtWH2NgS1AC7CM2JpdDvOWlY20dKJx9GgD0rCHlg9
-         7J5Bvliv+3Tezz6OC4gm970e5FJMzZ0DdW8xs191JLRSMMDj9IIYquRyRbZMnT/2ttDm
-         gunVRu8022qdEzna5EpHEJxh+/CSEMZtPQXlvAl7ImlLkswgwlY8GmpNKztNgHqF35vd
-         FVIs8/vuIdhWUGG50UpNZnfTFysyOdbj3JBt/MbnFkt6GtFHZKRQGOQh20m59V3FAb2P
-         pgqA==
-X-Forwarded-Encrypted: i=1; AHgh+RpSkGpCHBhQbvnO2nZWWmLLLCDUZKQChtc45EP4MmtcRFUExPB/T5H/tq7z3ZGjrcBZrsR05bM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8iuXmMRCsgOW3NEk9AFPNDl899NNlq65inHOnE2DKvVyZZMCK
-	58rE8lVLkKeN0NZVBFlaSmtJLv54pLBha19FTbC3waei6QNVVxsiz/vt/t0d6MzihKk=
-X-Gm-Gg: AR+sD10cBOGls27oRRKUPEFykiixpBjDUx1nZzHc3CfqRJRazsQuHamb45CQ4uvf7ZS
-	jt4As1n7eEiqkbdy/bBxIMmERCrAI/tD3peOKTD2Z+59S9Pp56D4ejonnwx43HjqOvzDT1PyaYo
-	oZ+gsHCSEGu0EG/aJmDv0RHhSmwewEHJ6LyWbNzntIbGwekTHqzhVEbB6hgJV7wr+dqFeDriw3T
-	9bK07MPsg6LwL2pHutnly0OhDcDJ6S8kcI1P2NoIEUgzUEvg7ivO86W3T7rsUrBb7lMuBqP9fvH
-	sS+7t8QriY+qvap5siESjtWJ7qj3Qqz/2UvbWy3gm0eyLFuKsHAzf2dHM4tcQ8LmzpgQck1N6jA
-	G4JOfHVqZayc1Eb5kdUNubiB9YztHBgsHAE5eBYHLro50bgdjS2rDXUli4Q7qY6LANx2pfuGIYH
-	cz
-X-Received: by 2002:a05:6214:3912:b0:8f1:323a:eede with SMTP id 6a1803df08f44-9077835ab03mr252766896d6.14.1784732418083;
-        Wed, 22 Jul 2026 08:00:18 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907baa0a146sm22359506d6.33.2026.07.22.08.00.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 08:00:17 -0700 (PDT)
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <jackmanb@google.com>,
-	Zi Yan <ziy@nvidia.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in defrag_mode
-Date: Wed, 22 Jul 2026 10:56:47 -0400
-Message-ID: <20260722150006.3848560-5-hannes@cmpxchg.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260722150006.3848560-1-hannes@cmpxchg.org>
-References: <20260722150006.3848560-1-hannes@cmpxchg.org>
+        d=1e100.net; s=20251104; t=1784732482; x=1785337282;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IUDdFmL3+NA+J1/tlIoHIkJZpryeycSZRENBb+lv4ow=;
+        b=WlcdSN6olbEpMlToykqrdBqmDpJRA1mI2lsZw8sRPpySmmCOdy8Iu2Tv5kAZjhhlm3
+         u5AM78DdbEOZTJU/nxFnc6P0Qybayy9iOEN0AWt6KUPCARrDoZkyEUt4iHmDcXGMfBL4
+         eTJUcb5pkHiXMqVhqvlBlylO7oHF0kLlYV1VhzP9UXruFCkG56IyJr1fwrTtZgxw6Njt
+         ULBl2aBkEWZyGA8FDXmT45jsWim+/Q0qzP6QP3G0FlnA6BUmBPFnT8HFNcLbxftqz0Ze
+         6yq4L29yDsVyFy5wwRjcYxEUfmwyZouaxLfsyH7h7b+2A0Zl/pWsCD5j+9LojDQ7HRbY
+         07UQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rps4An+a4rehi8yq4sYuuL3TneMMcIUwzhrlaTgd9L5b0I3ZvWwrvc8vIXku6DpYhuTmXVAQUg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzey0IT/peqHHqo88opQiwMyw1ECdP4M0LzcWM0stmZPXgvasqK
+	+tRFXieO2m1CfymqhgB1VUfXmfwoqH6rrRVTo4gxaUPcn10RRa+4NQWSuSDu2sm7c483LY1mYJ+
+	7J88HDcBTAMnVDpKiDzGS8Bxn+W6yunqSM8EjnNio
+X-Gm-Gg: AR+sD10mNYgi0D8KF6CxawG45aEjK9JOHiMvuT7r5OTxVS4j9fd2UApjD0AzfZLWyZd
+	6FGgpDqqHlryVunjqwm5IhuLmi2FQztF5LsoRHMA8udEfYsRqBl/xQ0UWgBsky24jjFFNCnnxj1
+	mJo5BcflvOprFYLrHreWzLJtf8qZz2jCj335kT7xs51MsZ5lg+WM712ZSqgF5O4Pka14WfSmk/1
+	soSLj+DXoGT5qgRRUx3Fj9WwLZy0jFid22UTvdfnQk+HRTkPXk/VmAoshjMNKQSs+zOnA==
+X-Received: by 2002:ac8:5fcc:0:b0:50f:b69a:f4a8 with SMTP id
+ d75a77b69052e-527ef057dc5mr8866391cf.7.1784732480733; Wed, 22 Jul 2026
+ 08:01:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260718111340.159896-1-linux@yoavmoshe.com> <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+ <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com> <20260721180950.GA3684684@ax162>
+ <180001f5-bddd-4e58-8442-f7ef3c979500@yoavmoshe.com>
+In-Reply-To: <180001f5-bddd-4e58-8442-f7ef3c979500@yoavmoshe.com>
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 22 Jul 2026 08:00:44 -0700
+X-Gm-Features: AUfX_myRDvh7sB8bTl-K_5M53o7Jc2MxCOtToMgfXS4NBIZfb2fG6H4OMTOIhfE
+Message-ID: <CABCJKufhvTxmVm8y7xr4RWWKsoZk0h8UGBnem+F5fknnimaqPA@mail.gmail.com>
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: "Yo'av Moshe" <linux@yoavmoshe.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-As we deployed defrag_mode into Meta production, pressure spikes and
-excessive swapping were observed on some workloads. Tracing confirmed
-that this is unmovable/reclaimable requests spinning in the allocator
-and direct reclaim, causing excessive amounts of swap.
+On Wed, Jul 22, 2026 at 5:54=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com> w=
+rote:
+>
+> On 2026-07-21 8:09 PM, Nathan Chancellor wrote:
+> > Does using SYM_TYPED_FUNC_START for imx6_suspend() make that work?
+> > Something like this builds fine for me and I see
+> > __kcfi_typeid_imx6_suspend generated by Clang.
+> Hi Nathan,
+>
+> Thanks for the suggestion!
+>
+> Unfortunately my physical board died, so I couldn't test this on hardware=
+.
+> However, I gave your patch a try under QEMU emulation (with CONFIG_CFI=3D=
+y
+> and copying the 4-byte hash into OCRAM before fncpy), and it still
+> triggered a CFI panic when suspending:
+>
+>     __und_svc_finish from imx6q_suspend_finish+0x78/0xd0
+>
+> It seems like the hash generated for assembly doesn't match what the C co=
+de
+> expects at the call site.
 
-The initial plan for defrag_mode was to rely on kswapd/kcompactd to
-produce blocks, and if those are overwhelmed under high pressure, let
-the allocator fall back (__rmqueue_steal()) after its retry loops.
-However, that retrying results in more reclaim on some of these
-workloads than we'd hoped, sometimes excessively so, spurred on by the
-!costly order conditions in should_reclaim_retry().
+Are relocations applied to this code before the function is copied?
+Because SYM_TYPED_FUNC_START doesn't embed the actual CFI hash in the
+binary, just a reference to a symbol that contains the hash, and it
+relies on the kernel to apply relocations before indirect calls are
+made to the function.
 
-The storms are dependent on the request type. Reclaim will inevitably
-make room in existing movable blocks, since that's where the LRU pages
-live. So if movable requests retry on reclaim, they make progress.
-
-When non-movable requests spin in reclaim that isn't productive. They
-cannot use the individually freed pages, and the process is unlikely
-to accidentally free whole blocks to meet the ALLOC_NOFRAGMENT bar.
-They spin and overreclaim excessively, which tanks performance and
-triggers userspace guards like swap exhaustion or pressure based OOM.
-
-To fix this, send non-movable requests, regardless of order, into
-pageblock reclaim/compaction. This way, they help move things along to
-meet the ALLOC_NOFRAGMENT bar. After this patch, the reclaim storms
-and excess OOM rates are no longer observed in production.
-
-The longer-term plan is still to have all requests, including the
-movable ones, help make blocks to spread the cost of defragmenting
-more evenly and fairly; combined with proper watermarking to reduce
-allocation latencies in the common case. However, doing this naively
-unearths scaling and concurrency limitations in compaction that need
-to be addressed first. Promoting just non-movables for now is the
-minimally viable bug fix for the above issue.
-
-Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
----
- mm/internal.h   |  6 ++++++
- mm/page_alloc.c | 31 ++++++++++++++++++++++++++-----
- 2 files changed, 32 insertions(+), 5 deletions(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 6d3402001b93..5acba3470659 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1061,6 +1061,12 @@ struct compact_control {
- struct capture_control {
- 	struct zone *zone;
- 	int migratetype;
-+	/*
-+	 * Allocation request order. May differ from the compaction
-+	 * order: defrag_mode promotes sub-block allocations to
-+	 * pageblock-order compaction; capture still matches at the
-+	 * original allocation order so prep_new_page() is consistent.
-+	 */
- 	int order;
- 	struct page *page;
- };
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 4b9686fedb71..f92055827ae9 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4152,8 +4152,24 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
- 		.order = order,
- 		.page = NULL,
- 	};
-+	int compact_order = order;
- 
--	if (!order)
-+	/*
-+	 * If fallbacks are not permitted (defrag_mode), we either
-+	 * need to reclaim space in a block of matching type, or clear
-+	 * out an entire block to allow __rmqueue_claim() to convert.
-+	 *
-+	 * Reclaim by itself is primarily freeing space in movable
-+	 * blocks, since that's where the LRU pages live. So this
-+	 * works for movable requests, but not for others.
-+	 *
-+	 * For those, promote the order to help make blocks, instead
-+	 * of spinning in reclaim alone unproductively.
-+	 */
-+	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-+		compact_order = max(order, pageblock_order);
-+
-+	if (!compact_order)
- 		return NULL;
- 
- 	psi_memstall_enter(&pflags);
-@@ -4169,8 +4185,8 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
- 	barrier();
- 	WRITE_ONCE(current->capture_control, &capc);
- 
--	*compact_result = try_to_compact_pages(gfp_mask, order, alloc_flags, ac,
--							       prio, &capc);
-+	*compact_result = try_to_compact_pages(gfp_mask, compact_order,
-+					       alloc_flags, ac, prio, &capc);
- 
- 	/*
- 	 * Make sure we hide capture control first before we read the captured
-@@ -4215,7 +4231,7 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
- 		struct zone *zone = page_zone(page);
- 
- 		zone->compact_blockskip_flush = false;
--		compaction_defer_reset(zone, order, true);
-+		compaction_defer_reset(zone, compact_order, true);
- 		count_vm_event(COMPACTSUCCESS);
- 		return page;
- 	}
-@@ -4455,9 +4471,14 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
- 	struct page *page = NULL;
- 	unsigned long pflags;
- 	bool drained = false;
-+	int reclaim_order = order;
-+
-+	/* Match the slowpath compaction promotion in __alloc_pages_direct_compact */
-+	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-+		reclaim_order = max(order, pageblock_order);
- 
- 	psi_memstall_enter(&pflags);
--	*did_some_progress = __perform_reclaim(gfp_mask, order, ac);
-+	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
- 	if (unlikely(!(*did_some_progress)))
- 		goto out;
- 
--- 
-2.55.0
-
+Sami
