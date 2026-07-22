@@ -1,108 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A462835F19A
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:15:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBD741D10A;
+	Wed, 22 Jul 2026 16:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784736908; cv=none; b=GI+tNzEbXwMqbB6rYhfByBjK7b/vjHF7AqGuWG2LdKn7u7dMki+cot06cUrWG6rYch8odT++9Y3z5R/6qeDYddogGzd9b3o4EdoWksaaRLIHAoQER5zdUDGS330Ujw8T0C6MtxpNiGDVyrOPvQQxkoBPVn96YE91Zz93c9Dbmq4=
+	t=1784737243; cv=none; b=Its2Z1rRimNuq9oQdwvwsY5aJUjylY4QjlNr9fgOg7W+KBiUdcq+UB+8ErsGg9A7rHFdW1Eb05P4d4z+FTM+uGkNcLFYDf2KI4hYDnZEu+JUwB0T6y8tGouOs1ZAfzyy24gDdrVnk4Gj7eSeSbDgM+lXvqK6rb906Hcmn/5sm1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784736908; c=relaxed/simple;
-	bh=JbD34QVVjz9RnrLVLEaBjJenwz01tFHsDCyVnBgUV6I=;
-	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=i+nAq+82ELDq0XPdMQXCjUF6vASc0Mn17aKRZcljWNebCvIYbwwnq/FGuDqsbjPn3NGd1eWqEDQA0kWm2m2UFwO/6t/m7ijKccnlrh3HGHvFU3FIQudUc+Um64qBUpDo7FldZSL73e2k1znkwO3bABykpsHc9UKH3UNjVzCp9vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VIR7tXL2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784737243; c=relaxed/simple;
+	bh=ko1nD3riK0WkNrw9/nLRc62E2PQBCo3M4PL8aYTl7/0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EzQjef/Xvxu7HUtE6YD4yJ3edJn0NW67ZtSHuMr7IUIhBFBDVvKUoA97jf/pxxi5kJSBlB9HRXpUxSZSAB8Z8z+qgoxwt/FnNGMTtsMY4SNFdRb5qM93ojTbHWQkMgZROYqAz5vnr2iHfKsa5MSzUvJxiosp+8fEa1/WVMh30O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFRfUPAB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VIR7tXL2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8173A1F000E9;
-	Wed, 22 Jul 2026 16:15:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFRfUPAB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830351F000E9;
+	Wed, 22 Jul 2026 16:20:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784736907;
-	bh=dseg9bglq/UiPptAnUgSyAnxnYa/49PE8CXkEWpjiVU=;
-	h=Date:From:To:Cc:Subject:References;
-	b=VIR7tXL2uUCKFP0uO2EinIHIXjMpdGxh74BuCRhZMr21SaJm/Eq/b6XFQ7w2wRfDN
-	 8g6dSYsFpf+Ct2Wnnmmn2gqEkn5DI5m3C/ARaqyBYMULi5pHot5ygkdIdhpXnbC/fx
-	 zrz+pWOuj0wgRhLE+OPQlPJqbAnlJXlKxTxNJ7fQ0G7lNi5wL7WvPZ/QQeQlVP0H61
-	 npBUxU/UNSFUNLc6dQNTdiBatIVSRuVYwHKew+I27deHM8SaqnIKEO9jwUUN3ps0Xr
-	 TNCRAp7Sg3ztjo/XvJzTm28x19e0qy+EYxlchKkT5BrRI1Xyc2W6mCh2lyasrSbYYd
-	 z4jBs1Ezorz+w==
-Date: Wed, 22 Jul 2026 18:15:04 +0200
-Message-ID: <20260722155239.024902788@kernel.org>
-User-Agent: quilt/0.69
-From: Thomas Gleixner <tglx@kernel.org>
-To: stable@vger.kernel.org
-Cc: tglx@kernel.org,
- syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com,
- Davidlohr Bueso <dave@stgolabs.net>
-Subject: [patch 5.15.y 2/2] locking/rtmutex: Skip remove_waiter() when waiter
- is not enqueued
-References: <2026072141-ravage-display-0696@gregkh>
- <20260722155049.973195593@kernel.org>
+	s=k20260515; t=1784737242;
+	bh=1Exwl0AsGwf6M6S13oTNWhmNyTBsKTiqZ5UEvnNJspo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XFRfUPABWpzjJ7fOkBcKIqJ4BWV+1eBvjFuNRgixzas8vrIhpRievAN+vHwpRM9tG
+	 RfgbtQd3Bu08Vv4/ka0sxj+j+psYSiVNox2dCK5uXC0oJ9L0nM1Wugrpi2YutCqSSJ
+	 doFwvVXvqg4TrXdU67FEBE4Srxo8uJxwCynncGWgDm3/dcCbqqKcMm/EYDiZGB3yK+
+	 C9PNJNsepyuoWb1EeN+6hxnUwxSL9HVeLYQ5rxr1STHBu8xDsWO1te4hVGdz9rQZyU
+	 BTKfcGrAOtxZYe3xH5y6ZHcdKjWy3P3bkSvEIke5NKhzbRYmnBHnHRRXrJklq7l99l
+	 yuquli/u/mWbw==
+Date: Wed, 22 Jul 2026 16:20:40 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Demi Marie Obenour <demiobenour@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+Message-ID: <20260722162040.GC2794619@google.com>
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+ <alnlaCXmoLRAlr96@gondor.apana.org.au>
+ <20260721082501.6128-1-bartosz.golaszewski@oss.qualcomm.com>
+ <c826b73d-6307-4237-a065-b7a8487350ce@gmail.com>
+ <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
 
-From: Davidlohr Bueso <dave@stgolabs.net>
+On Wed, Jul 22, 2026 at 01:33:51AM -0700, Bartosz Golaszewski wrote:
+> > Also, what can the current driver do that cannot be done better using
+> > software crypto?  I understand that you have future plans to add more
+> > features to the driver, but those are not relevant to this discussion.
+> >
+> 
+> We can offload crypto operations to the QCE saving CPU cycles but more
+> importantly, the QCE provides HW based isolation which some vendors care
+> about.
 
-commit 40a25d59e85b3c8709ac2424d44f65610467871e upstream.
+Do you have any concrete proof of anyone using this with a specific
+Linux kernel feature and actually getting a benefit from it?
 
-syzbot triggered the following splat in remove_waiter() via
-FUTEX_CMP_REQUEUE_PI:
+Just for some additional context, I've been on the Android team for many
+years and have worked with lots of companies shipping Android devices
+with Qualcomm SoCs.  I also upstreamed the support for the
+Qualcomm Inline Crypto Engine (ICE)
+(https://lore.kernel.org/all/20200710072013.177481-6-ebiggers@kernel.org/
+https://lore.kernel.org/linux-mmc/20210126001456.382989-9-ebiggers@kernel.org/),
+which is what people actually use and isn't the same as QCE.
 
-  KASAN: null-ptr-deref in range [0x0000000000000a88-0x0000000000000a8f]
-   class_raw_spinlock_constructor
-   remove_waiter+0x159/0x1200 kernel/locking/rtmutex.c:1561
-   rt_mutex_start_proxy_lock+0x103/0x120
-   futex_requeue+0x10e4/0x20d0
-   __x64_sys_futex+0x34f/0x4d0
+The only times the Linux QCE driver has ever come up is when someone
+used it accidentally and it destroyed their performance (due to the
+20-60x slower performance than the CPU) or caused a filesystem hang.
 
-task_blocks_on_rt_mutex() does not arm the waiter upon deadlock detection,
-leaving waiter->task nil, where 3bfdc63936dd ("rtmutex: Use waiter::task instead
-of current in remove_waiter()") made this fatal.
+These issues get reported to me -- sometimes even from Qualcomm
+themselves!  It's kind of annoying.
 
-Furthermore, rt_mutex_start_proxy_lock() should not be calling into remove_waiter()
-upon a successfully grabbing the rtmutex. 1a1fb985f2e2 ("futex: Handle early deadlock
-return correctly"), moved the remove_waiter() out of __rt_mutex_start_proxy_lock()
-(where 'ret' was only ever 0 or < 0) into the wrapper. Tighten this check to
-account for try_to_take_rt_mutex().
+(Fortunately it's also quite rare, since the vast majority of people
+just ignore QCE and don't make the mistake of using it in Linux.)
 
-Fixes: 3bfdc63936dd ("rtmutex: Use waiter::task instead of current in remove_waiter()")
-Reported-by: syzbot+78147abe6c524f183ee9@syzkaller.appspotmail.com
-Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/all/69f114ac.050a0220.ac8b.0003.GAE@google.com/
-Link: https://patch.msgid.link/20260507112913.1019537-1-dave@stgolabs.net
----
- kernel/locking/rtmutex.c     |    3 +++
- kernel/locking/rtmutex_api.c |    2 +-
- 2 files changed, 4 insertions(+), 1 deletion(-)
----
---- a/kernel/locking/rtmutex.c
-+++ b/kernel/locking/rtmutex.c
-@@ -1513,6 +1513,9 @@ static void __sched remove_waiter(struct
- 
- 	lockdep_assert_held(&lock->wait_lock);
- 
-+	if (!waiter_task) /* never enqueued */
-+		return;
-+
- 	raw_spin_lock(&waiter_task->pi_lock);
- 	rt_mutex_dequeue(lock, waiter);
- 	waiter_task->pi_blocked_on = NULL;
---- a/kernel/locking/rtmutex_api.c
-+++ b/kernel/locking/rtmutex_api.c
-@@ -322,7 +322,7 @@ int __sched rt_mutex_start_proxy_lock(st
- 
- 	raw_spin_lock_irq(&lock->wait_lock);
- 	ret = __rt_mutex_start_proxy_lock(lock, waiter, task);
--	if (unlikely(ret))
-+	if (unlikely(ret < 0))
- 		remove_waiter(lock, waiter);
- 	raw_spin_unlock_irq(&lock->wait_lock);
- 
+As far as I can tell, what actually works and what people actually use
+in Linux on Qualcomm SoCs is:
 
+- The Qualcomm Inline Crypto Engine (ICE) for storage encryption
+
+- The ARMv8 Crypto Extensions everywhere else, e.g. dm-verity
+
+> These are future plans, yes. But right now we do have active users of this
+> IP
+
+Just because it may be used by the Arm secure world doesn't mean it is
+useful in Linux.
+
+- Eric
