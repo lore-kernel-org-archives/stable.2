@@ -1,169 +1,141 @@
-Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D0B3EAC80
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC393DB960
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784739267; cv=none; b=No3mU3AMoRJMrhpIbJFSm+VocBS7Tu44cNdVLmLWbwkZdaBfoKBhkrwiYY0TCSHs68oHtaGvHcXeuJu/x7qNVmQWVrRo5EopRfKDG8MdlJZTCOqHIQpL8drxKJOG1thnArun9gJGk2n2hB96yT/rm0SggLE7ptoedpub+Vkj8Gw=
+	t=1784739272; cv=none; b=n6sM7tRxcRvXV72ABL7PAFG5ESHXWcTt+CqSL3xcvmBOeZwjC6qLXfIXSrL0RncXsCfiDtTIV1VjKOIIMYl/8207P1Y7wU0A8gn62t+yox/8VKmf9wokP4Ytxfw5lOZKVAPwFT2ovFvgmnjnBsDYZcpKdjLj8mPejUv9vBE79Ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784739267; c=relaxed/simple;
-	bh=I6nbkqOu6mlCF15270Z2FS9/kWABpIDz+y2YfBplpOA=;
+	s=arc-20240116; t=1784739272; c=relaxed/simple;
+	bh=gqGZ9QfctD7z5TXPxSQhXKsZTjxGSxCIY7hP/rUorgA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rHyQEbMGFBEOqFHruId0SQz8a8r5fJ4ku28Tw8iExB9n6gYVbHebIWvHJghY04WvNZBC/nYsyrjP4keNi8sRcyPA2DknhZPBHGX0buQ5nR8g5MIOCJZwf0QoX8fVJ87rRrxUIBU0c3ULBZHox9wyJfYrTb8oFenl/s91aGHY/bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=asnKwomE; arc=none smtp.client-ip=45.157.188.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
+	 MIME-Version; b=VcrOCvERyn40A1lQLYGAp17QBtG0L4TVRmjAog1qyhierQfQFW1F7LLmShtTHG6SPwlPHTAwrXZZRWqHAwplIRtomjb30mfQPS4SUA+3UCMWXWZSon8z7bTNlOgoDnNDkkG3Kq7/djHOoq4n/ukaPRcCmn3CB2lzhxjbo4GDhnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSMKasaz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="asnKwomE"
-Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4h50hm1Rgqzprh
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:54:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
-	s=20260228; t=1784739256;
-	bh=/mnNkwJHOhrAPip5E4Li3vjatahK4uy7cBwCPJUu5EE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=asnKwomEc86wy8p8ExK8Jq9hfzIUKn1jtGE3sBJ0p1VBvWHlz0fUmCElazfU9mfDM
-	 kztOyMrM7Pyt1NQTgN+1YRQy7VE6uLwzm/EJsMIex7qA32pfzoYDjULrH15Dz4RY8p
-	 uwyea7I3aSu8eOCGH3pl8k8kUcoLk1W1SEcYVZC7jnFgrGZTT+8Wdy9zetqI7oE9aq
-	 7sGlOjZJ5mAi0X38nHTwaBRsy3ymiXYIyE6QvBRUi1IOjcvHfcuo5/n5ma3Z7pEJ/p
-	 meQ9SkmiFYzNK+gknXNToEJisdsUsSWcd9g/IRkb6jk57Smjolt5t51tw650pPVC4H
-	 y6mivKFBvp6MQ==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4h50hl5NLQzt8x
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:54:15 +0200 (CEST)
-Received: from unknown by spiderdemon.horst.lan (DragonFly Mail Agent v0.13);
-	Wed, 22 Jul 2026 18:54:15 +0200
-From: Daniel Gibson <daniel@gibson.sh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSMKasaz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69791F000E9;
+	Wed, 22 Jul 2026 16:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784739271;
+	bh=hbRNRvfiNAxniePk9VjU6AqFZeFsHEWB0mf2cEyCEcU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DSMKasazT6OHa8VgXoxQMgJxIFaG8oSZVk8UqDP4nAPInFxu17hfe5tcFQeXcS756
+	 ihC+dokcACv9taifhamR166ZpOjfGQi1ZvZMPIvzt0OqOv/Iki0Rh5hp13SrmKi+pr
+	 WixMiIeQuvoK2+t9t3g0BOOat0eGO4ZHO+vqZ7AXv0aX9CZXZMfXufPsG1KQtTPSgB
+	 hfDXP01ihqpMWdQsqqw1Fn5gY2CZsIhYsy43GW8+qn4x42HjrQoJq4hOJQQNHwzyyM
+	 QtanWDu/d3N9WwqRsaf9UQG9ElGMXT/IIX4PUG6URY5j3QjzxS8DXJxZGojG16aQKy
+	 A+5/zwrUJrfSA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daniel Gibson <daniel@gibson.sh>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 1/2] platform/x86/amd/pmc: Don't log during intermediate wakeups
-Date: Wed, 22 Jul 2026 18:54:01 +0200
-Message-ID: <20260722165402.3199573-2-daniel@gibson.sh>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260722165402.3199573-1-daniel@gibson.sh>
-References: <20260722165402.3199573-1-daniel@gibson.sh>
+Cc: Li Xiasong <lixiasong1@huawei.com>,
+	Tung Nguyen <tung.quang.nguyen@est.tech>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] tipc: restrict socket queue dumps in enqueue tracepoints
+Date: Wed, 22 Jul 2026 12:54:29 -0400
+Message-ID: <20260722165429.1853397-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072049-throbbing-spoilage-bc46@gregkh>
+References: <2026072049-throbbing-spoilage-bc46@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-commit 037f0b03c663a247366673a807834389107995b7 upstream.
+From: Li Xiasong <lixiasong1@huawei.com>
 
-The ECs in the IdeaPads that need the delay_suspend quirk send lots
-of messages when charging, which not only causes intermediate wakeups
-when suspended, but also prevents the device from reaching the deepest
-suspend state.
+[ Upstream commit acd7df8d955480a6f6e5bb809da67b1500cc3cf4 ]
 
-Because of this amd_pmc_intermediate_wakeup_need_delay() returns false
-during intermediate wakeups and amd_pmc_want_suspend_delay() is called.
-So far it always logged its "Delaying suspend by 2.5s ..." messages
-then, which spams dmesg. This commit makes sure that those messages are
-only logged once per suspend.
+tipc_sk_enqueue() runs with sk->sk_lock.slock held while the socket is
+owned by user context. The spinlock protects the backlog queue in this
+path, but it does not serialize against the socket owner consuming or
+purging sk_receive_queue.
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221383
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Daniel Gibson <daniel@gibson.sh>
-Link: https://patch.msgid.link/20260611150426.3683372-5-daniel@gibson.sh
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+KASAN reported:
+
+  CPU: 14 UID: 0 PID: 1050 Comm: tipc3 Not tainted 7.1.0-rc6+ #126 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+  Call Trace:
+    <TASK>
+    dump_stack_lvl+0x76/0xa0 lib/dump_stack.c:123
+    print_report+0xce/0x5b0 mm/kasan/report.c:482
+    kasan_report+0xc6/0x100 mm/kasan/report.c:597
+    __asan_report_load4_noabort+0x14/0x30 mm/kasan/report_generic.c:380
+    tipc_skb_dump+0x1327/0x16f0 net/tipc/trace.c:73
+    tipc_list_dump+0x208/0x2e0 net/tipc/trace.c:187
+    tipc_sk_dump+0xaf6/0xd60 net/tipc/socket.c:3996
+    trace_event_raw_event_tipc_sk_class+0x312/0x5a0 net/tipc/trace.h:188
+    tipc_sk_rcv+0xb1d/0x1d50 net/tipc/socket.c:2497
+    tipc_node_xmit+0x1c3/0x1440 net/tipc/node.c:1689
+    __tipc_sendmsg+0x97a/0x1440 net/tipc/socket.c:1512
+    tipc_sendmsg+0x52/0x80 net/tipc/socket.c:1400
+    sock_sendmsg+0x2f6/0x3e0 net/socket.c:825
+    splice_to_socket+0x7f9/0x1010 fs/splice.c:884
+    do_splice+0xe21/0x2330 fs/splice.c:936
+    __do_splice+0x153/0x260 fs/splice.c:1431
+    __x64_sys_splice+0x150/0x230 fs/splice.c:1616
+    x64_sys_call+0xeb5/0x2790 arch/x86/entry/syscall_64.c:41
+    do_syscall_64+0xf3/0x620 arch/x86/entry/syscall_64.c:63
+    entry_SYSCALL_64_after_hwframe+0x76/0x7e arch/x86/entry/entry_64.S:130
+  RIP: 0033:0x71624e8aafe2
+  Code: 08 0f 85 71 3a ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 66
+  RSP: 002b:0000716157ffed68 EFLAGS: 00000246 ORIG_RAX: 0000000000000113
+  RAX: ffffffffffffffda RBX: 0000716157fff6c0 RCX: 000071624e8aafe2
+  RDX: 000000000000005f RSI: 0000000000000000 RDI: 0000000000000066
+  RBP: 0000716157ffed90 R08: 0000000000008000 R09: 0000000000000001
+  R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffff00
+  R13: 0000000000000021 R14: 0000000000000000 R15: 00007fff89799c40
+    </TASK>
+
+The TIPC_DUMP_ALL tracepoints in tipc_sk_enqueue() also dump
+sk_receive_queue and can therefore dereference skbs that the socket
+owner has already dequeued or freed. Restrict these dumps to
+TIPC_DUMP_SK_BKLGQ, which matches the queue protected by the held
+spinlock.
+
+Keep the change limited to the enqueue path, where the unsafe queue dump
+is reachable while the socket is owned by user context.
+
+Fixes: 01e661ebfbad ("tipc: add trace_events for tipc socket")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
+Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>
+Link: https://patch.msgid.link/20260611135647.3666727-1-lixiasong1@huawei.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/amd/pmc/pmc.c | 39 ++++++++++++++++++++++++------
- drivers/platform/x86/amd/pmc/pmc.h |  1 +
- 2 files changed, 32 insertions(+), 8 deletions(-)
+ net/tipc/socket.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
-index d5b543f74a22..b09512368877 100644
---- a/drivers/platform/x86/amd/pmc/pmc.c
-+++ b/drivers/platform/x86/amd/pmc/pmc.c
-@@ -811,6 +811,20 @@ static bool amd_pmc_intermediate_wakeup_need_delay(struct amd_pmc_dev *pdev)
- 
- static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
- {
-+	/*
-+	 * intermediate_wakeup implies that the machine didn't get to deepest sleep
-+	 * state before - otherwise this function isn't called in amd_pmc_s2idle_check()
-+	 * because amd_pmc_intermediate_wakeup_need_delay() returns true first.
-+	 * On some IdeaPads that happens when charging, because the EC seems
-+	 * to send lots of messages then that wake the machine.
-+	 *
-+	 * But even in that case, the sleep here is necessary (on those IdeaPads),
-+	 * otherwise they wake up completely (resume) after a few seconds.
-+	 * So this variable is only used to avoid spamming dmesg on each
-+	 * intermediate wakeup.
-+	 */
-+	bool intermediate_wakeup = !pdev->is_first_check_after_suspend;
-+
- 	/*
- 	 * Some Lenovo Laptops (like different IdeaPad 3 Slims) need some
- 	 * me-time before sleeping or they get uncooperative after waking
-@@ -829,17 +843,20 @@ static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
- 		 * disabled with disable_workarounds or delay_suspend=0
- 		 */
- 		if (delay_suspend == 1 || (delay_suspend == -1 && !disable_workarounds)) {
--			dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
-+			if (!intermediate_wakeup)
-+				dev_info(pdev->dev, "Delaying suspend by 2.5s to avoid platform bug\n");
- 			return true;
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index f6ae4332c07088..68226b51c0dc0e 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -2452,17 +2452,17 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
+ 			atomic_set(dcnt, 0);
+ 		lim = rcvbuf_limit(sk, skb) + atomic_read(dcnt);
+ 		if (likely(!sk_add_backlog(sk, skb, lim))) {
+-			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_ALL,
++			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_SK_BKLGQ,
+ 						 "bklg & rcvq >90% allocated!");
+ 			continue;
  		}
--		dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
-+		if (!intermediate_wakeup)
-+			dev_info(pdev->dev, "Not delaying suspend because of module parameter, even though your device is assumed to need it!\n");
- 	} else if (delay_suspend == 1) {
--		dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
--			 dmi_get_system_info(DMI_SYS_VENDOR),
--			 dmi_get_system_info(DMI_PRODUCT_NAME),
--			 dmi_get_system_info(DMI_PRODUCT_FAMILY),
--			 dmi_get_system_info(DMI_BOARD_VENDOR),
--			 dmi_get_system_info(DMI_BOARD_NAME));
-+		if (!intermediate_wakeup)
-+			dev_info(pdev->dev, "Delaying suspend by 2.5s because delay_suspend=1. If this solves problems on your machine, please report this whole line to: platform-driver-x86@vger.kernel.org so it can be automatically detected as affected in the future. System Vendor: \"%s\" Product Name: \"%s\" Product Family: \"%s\" Board Vendor: \"%s\" Board Name: \"%s\"\n",
-+				 dmi_get_system_info(DMI_SYS_VENDOR),
-+				 dmi_get_system_info(DMI_PRODUCT_NAME),
-+				 dmi_get_system_info(DMI_PRODUCT_FAMILY),
-+				 dmi_get_system_info(DMI_BOARD_VENDOR),
-+				 dmi_get_system_info(DMI_BOARD_NAME));
- 		return true;
- 	}
- 	return false;
-@@ -852,6 +869,9 @@ static void amd_pmc_s2idle_prepare(void)
- 	u8 msg;
- 	u32 arg = 1;
  
-+	/* Reset this variable because this is a fresh suspend */
-+	pdev->is_first_check_after_suspend = true;
-+
- 	/* Reset and Start SMU logging - to monitor the s0i3 stats */
- 	amd_pmc_setup_smu_logging(pdev);
- 
-@@ -891,6 +911,9 @@ static void amd_pmc_s2idle_check(void)
- 	rc = amd_pmc_write_stb(pdev, AMD_PMC_STB_S2IDLE_CHECK);
- 	if (rc)
- 		dev_err(pdev->dev, "error writing to STB: %d\n", rc);
-+
-+	/* remember that first check after suspend is done (until next prepare) */
-+	pdev->is_first_check_after_suspend = false;
- }
- 
- static int amd_pmc_dump_data(struct amd_pmc_dev *pdev)
-diff --git a/drivers/platform/x86/amd/pmc/pmc.h b/drivers/platform/x86/amd/pmc/pmc.h
-index 5e7b8d5dc5d6..bea65810de5a 100644
---- a/drivers/platform/x86/amd/pmc/pmc.h
-+++ b/drivers/platform/x86/amd/pmc/pmc.h
-@@ -37,6 +37,7 @@ struct amd_pmc_dev {
- 	struct dentry *dbgfs_dir;
- 	struct quirk_entry *quirks;
- 	bool disable_8042_wakeup;
-+	bool is_first_check_after_suspend;
- };
- 
- void amd_pmc_process_restore_quirks(struct amd_pmc_dev *dev);
+-		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_ALL, "err_overload!");
++		trace_tipc_sk_dump(sk, skb, TIPC_DUMP_SK_BKLGQ, "err_overload!");
+ 		/* Overload => reject message back to sender */
+ 		onode = tipc_own_addr(sock_net(sk));
+ 		atomic_inc(&sk->sk_drops);
+ 		if (tipc_msg_reverse(onode, &skb, TIPC_ERR_OVERLOAD)) {
+-			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_ALL,
++			trace_tipc_sk_rej_msg(sk, skb, TIPC_DUMP_SK_BKLGQ,
+ 					      "@sk_enqueue!");
+ 			__skb_queue_tail(xmitq, skb);
+ 		}
 -- 
-2.48.1
+2.53.0
 
