@@ -1,140 +1,396 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE6838F25F;
-	Wed, 22 Jul 2026 15:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011C248B36C
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 15:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784734445; cv=none; b=atEptr17Y3vxfc/glbqVIKQOOkqhw1MBFZBiVi8njFMGKMHXUQBYxoXVnKsXDOKLY2Q2irtiGLsGht6FokGd5Pdfkw381X19hBxq5PwMq+D2qQkMf9xWbrE6pMJygWIuSC6AY5SJbkyyYni9+frlRbiUJm7s6wY5baBi4b/P4uk=
+	t=1784735191; cv=none; b=oyq89+QpWjvehYiOO4vn3H3OK6O2nzc4B8O6+D4ph4N/y9ZXp5tM8fmv63Rv/Onl2anm/TkaOz5snbDeOQNYoAVL8XrntpKfM/pZlzHIed2Dsxg73ArhKlBBn+M/8WtTtCYl4NIPkLbuuUq0e9zREt1FAwYt2+aYqwIsHQe0SXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784734445; c=relaxed/simple;
-	bh=Wj3iGHaFHk5cmK4MBcrZslWG7a1FtT47wL16Mc7fWzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eAQNIkOzQJAjHRfNPq+Qj8HnIqKszniZXYuSddt/ZjTkkycd/Bwa0j/BWxqMeXOHwPR3Jg0Fw3t4vJPea+KNRjsYhsj/kJEAYlcO9wweWlXNr/f+kc1k0Y6u12m21g9wgLfcgI+ObIt/pb0npRgVZnSVHGg6Nc21Z7kJfGoas50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6w3Kc/V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784735191; c=relaxed/simple;
+	bh=AInC2gpUbzb8I65oNlygwh2NK7VqWSrYwlf/18VlcKs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kEhVK/ADtGTaJ9R5c+9/D+o+a33yfZtQqSo0xry8HkElqGVT64/54YoywGsqLMXRgRgBSU9HAfoWwC2iWaVW+bTCub4o+i2fAxgUzq0O1qZryKGw8asZIlHJuTYjVdH5K+N4SXmxDIuz5wVfG6MswjH89aGq9eZvcMFeJy/xOtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pWr/gaNb; arc=none smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6w3Kc/V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225B51F000E9;
-	Wed, 22 Jul 2026 15:34:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784734444;
-	bh=Wj3iGHaFHk5cmK4MBcrZslWG7a1FtT47wL16Mc7fWzc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U6w3Kc/V9lFKzM7M50hu3gsJsv9eztCwL+e8kF0iB8S8EAeV/x7mU0Zhr/uDV5mcC
-	 ELIFTU80sM+NkKNmlcXWqx+QATpoHz9oqxOSfkKW4a+TVr5jx3HZ/xjGXbLMROIPkn
-	 iAUTBsFWceWqsbXVc+WVipoS7+7uQdPHfZeYkaWaGFSEj8uCZlXZMDI/eMONUMW10Y
-	 Qc/wi3D16ZDb6TXOk8TGOpFctCjVjtFYPSqkHc/7uwoc/TDguVKugQMAr2QeZdmIyo
-	 2ZPWWNLhxNpLHRI1UnOrPu1eV2o/QgoL/vK3qk7TgrM1Myl9ZIEVZdiDyOBONRHRa0
-	 eWkmyiT8/aEsw==
-Received: by venus (Postfix, from userid 1000)
-	id DD71218090F; Wed, 22 Jul 2026 17:34:01 +0200 (CEST)
-Date: Wed, 22 Jul 2026 17:34:01 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: "Dr. David Alan Gilbert" <dave@treblig.org>, 
-	jens.glathe@oldschoolsolutions.biz, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-Message-ID: <amDhpbdAElOpxW59@venus>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <al6-IyyWYRnEW4VC@venus>
- <al-dJjzorP-I4Yff@gallifrey>
- <al_0LjwmfW-cECnY@venus>
- <f54271f1-477e-433f-9839-e1111898088f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pWr/gaNb"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66843536f94so3123377d50.3
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:46:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784735184; x=1785339984; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h+DcHVzO50mtkCMyVvHEUPPqgiYR6razHjnBQNDI87Y=;
+        b=pWr/gaNbgngJpaC7Y8aaHbDPvenC2oLjJpUH56dab3lkL2grNJ0yptjDuPHTpu+265
+         bpYqgBQGLYuidkFWNPSK+yykHIF0PvZzhqlZPqfdhHif+wprzAtn3x+9KNipBkxWQVBf
+         lK2EOXmsT50o7jbZ+PZiok9GHUmCq4emGTFQ4x/4SvzFKKreSNMYTyD6G2uy5KAXlFM4
+         OFS2iZfqirtE5nI4hw5esI44WJCRT4O1j3IuT3HyH4Ox44V5GVBBiFCWe7COLKiUe5iK
+         Vm6Cg6CARi6CG9Sapwz0V9sE8fTazcGYWy4aIGIWxDsukMYim4/DCTZT47iN/xgWaCU7
+         h5Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784735184; x=1785339984;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h+DcHVzO50mtkCMyVvHEUPPqgiYR6razHjnBQNDI87Y=;
+        b=sZOeGDEC82KQXFTKY3Bgv0a1oykk/hXAJJq2aD1SW5q4gvpeK0ByYGIgwhZlJWDKa5
+         q/kT19v9dZ0Zl/vsOkMcR7S5uNeeJy5q4Gaqbth9GYHN6LVP7+F6Xh1ccf1BcSLV0aJs
+         2jyrw7+NYSFmLdHtpqUZLtlaZRWTay52X+xtoUru0wirfUd2L8My63ZYG2ln8xA7vJTY
+         QX77RQg7Kobf1+X+ltZpbgGgIIG2vpaZYDTqax1Xp7kYUElOQ5by37H3jFmVuT0+uuFF
+         4R1hrBuOTJdrcRRp98deFRMLsZVsFcOLTiMq20JfKFWuirXVLOLLBBJTlsbiOFOW2qwH
+         NGkA==
+X-Forwarded-Encrypted: i=1; AHgh+RpV/0pV20ZKI0So1CI4oBE7KVFTz5jdUBvFWNdDXVb5GNizg5l96ZywXU06d6eMeryPnMpCzrw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyau+8Vr/6aZ6M2zVlQshnS8K8n7GFD4l8ocLGwokOGZRp0dLUg
+	aAWmiSqBW9fKBkJGwKbcdsgXpKACuYD79r6i5wIHbv8S/y9Lv7Hoz96/bHLc0uJV
+X-Gm-Gg: AR+sD10vY/29VXq8IW7fTerjsxL/U8z9mouFComaBMsc7yNL2L7McJONB7sLLWa4PLo
+	gIB+MRCrPDWxSI9fq11hns24jcHeS0QWpXzdxwR+8ytPXnxQj7zHGE4FsMKV7wDz5Qmg5KsLfqW
+	DCBrY5XGuSMFkvZ60vrkbTg1HzxL23gj8VI+UIOEnQwfFKI5SQBehlqnjSJcTyYhgHwcx0nMqrE
+	qvvdutUMLf6kjtwNGLg3qieoP1dowyd0PXGBw0PT3oXR6BPXZ7bwSiT+Q4TlP2CpluE3xvTtRGu
+	+oAShTm34RN39wJR2jUr8CBsfUamMB4pUaSej1gKphc/f1nSYcg0q3UMF7jhR2sURlnrCqDiFFf
+	MkSvmSMHttnimgD0pYdAhYKJnXLJNAzXXsVqR3ii4RDdjHkXg0ikdRGmtDTQ1/xsBijrBkov2x1
+	U1rlWN
+X-Received: by 2002:a53:a7cd:0:b0:664:c81c:d1 with SMTP id 956f58d0204a3-6683bbef5d0mr5048088d50.45.1784735184185;
+        Wed, 22 Jul 2026 08:46:24 -0700 (PDT)
+Received: from [10.138.10.6] ([185.98.168.14])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66890775512sm1566688d50.19.2026.07.22.08.46.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 08:46:23 -0700 (PDT)
+Message-ID: <8e9101ce-e9ec-4111-a1a6-7a9a07788818@gmail.com>
+Date: Wed, 22 Jul 2026 11:46:16 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3cqpbpihkikroulm"
-Content-Disposition: inline
-In-Reply-To: <f54271f1-477e-433f-9839-e1111898088f@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Biggers <ebiggers@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+ <alnlaCXmoLRAlr96@gondor.apana.org.au>
+ <20260721082501.6128-1-bartosz.golaszewski@oss.qualcomm.com>
+ <c826b73d-6307-4237-a065-b7a8487350ce@gmail.com>
+ <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
+ aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
+ Z7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/UorR+FaSuVwT7rqzGrTlscnT
+ DlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7MMPCJwI8JpPlBedRpe9tfVyfu3euTPLPx
+ wcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9Hzx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR
+ 6h3nBc3eyuZ+q62HS1pJ5EvUT1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl
+ 5FMWo8TCniHynNXsBtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2
+ Bkg1b//r6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+ 9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nSm9BBff0N
+ m0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQABzTxEZW1pIE1hcmll
+ IE9iZW5vdXIgKGxvdmVyIG9mIGNvZGluZykgPGRlbWlvYmVub3VyQGdtYWlsLmNvbT7CwXgE
+ EwECACIFAlp+A0oCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJELKItV//nCLBhr8Q
+ AK/xrb4wyi71xII2hkFBpT59ObLN+32FQT7R3lbZRjVFjc6yMUjOb1H/hJVxx+yo5gsSj5LS
+ 9AwggioUSrcUKldfA/PKKai2mzTlUDxTcF3vKx6iMXKA6AqwAw4B57ZEJoMM6egm57TV19kz
+ PMc879NV2nc6+elaKl+/kbVeD3qvBuEwsTe2Do3HAAdrfUG/j9erwIk6gha/Hp9yZlCnPTX+
+ VK+xifQqt8RtMqS5R/S8z0msJMI/ajNU03kFjOpqrYziv6OZLJ5cuKb3bZU5aoaRQRDzkFIR
+ 6aqtFLTohTo20QywXwRa39uFaOT/0YMpNyel0kdOszFOykTEGI2u+kja35g9TkH90kkBTG+a
+ EWttIht0Hy6YFmwjcAxisSakBuHnHuMSOiyRQLu43ej2+mDWgItLZ48Mu0C3IG1seeQDjEYP
+ tqvyZ6bGkf2Vj+L6wLoLLIhRZxQOedqArIk/Sb2SzQYuxN44IDRt+3ZcDqsPppoKcxSyd1Ny
+ 2tpvjYJXlfKmOYLhTWs8nwlAlSHX/c/jz/ywwf7eSvGknToo1Y0VpRtoxMaKW1nvH0OeCSVJ
+ itfRP7YbiRVc2aNqWPCSgtqHAuVraBRbAFLKh9d2rKFB3BmynTUpc1BQLJP8+D5oNyb8Ts4x
+ Xd3iV/uD8JLGJfYZIR7oGWFLP4uZ3tkneDfYzsFNBFp+A0oBEAC9ynZI9LU+uJkMeEJeJyQ/
+ 8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd8xD57ue0eB47bcJv
+ VqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPpI4gfUbVEIEQuqdqQyO4GAe+M
+ kD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalql1/iSyv1WYeC1OAs+2BLOAT2NEggSiVO
+ txEfgewsQtCWi8H1SoirakIfo45Hz0tk/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJ
+ riwoaRIS8N2C8/nEM53jb1sH0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcN
+ fRAIUrNlatj9TxwivQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6
+ dCxN0GNAORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
+ rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog2LNtcyCj
+ kTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZAgrrnNz0iZG2DVx46
+ x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJELKItV//nCLBwNIP/AiIHE8b
+ oIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwjjVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGj
+ gn0TPtsGzelyQHipaUzEyrsceUGWYoKXYyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8fr
+ RHnJdBcjf112PzQSdKC6kqU0Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2
+ E0rW4tBtDAn2HkT9uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHM
+ OBvy3EhzfAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
+ Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVssZ/rYZ9+5
+ 1yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aWemLLszcYz/u3XnbO
+ vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
+ HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------TQU0bcIC0Lu6CqgUekKUIeTq"
 
-
---3cqpbpihkikroulm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TQU0bcIC0Lu6CqgUekKUIeTq
+Content-Type: multipart/mixed; boundary="------------uwrMxsbcaUPR63gc8Mct0hz9";
+ protected-headers="v1"; hp="clear"
+Message-ID: <8e9101ce-e9ec-4111-a1a6-7a9a07788818@gmail.com>
+Date: Wed, 22 Jul 2026 11:46:16 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Biggers <ebiggers@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+ <alnlaCXmoLRAlr96@gondor.apana.org.au>
+ <20260721082501.6128-1-bartosz.golaszewski@oss.qualcomm.com>
+ <c826b73d-6307-4237-a065-b7a8487350ce@gmail.com>
+ <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
 
-Hi,
+--------------uwrMxsbcaUPR63gc8Mct0hz9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 22, 2026 at 10:27:57AM +0200, Konrad Dybcio wrote:
-> On 7/22/26 1:34 AM, Sebastian Reichel wrote:
-> > On Tue, Jul 21, 2026 at 04:24:06PM +0000, Dr. David Alan Gilbert wrote:
-> >> * Sebastian Reichel (sre@kernel.org) wrote:
-> >>> On Sat, Jul 18, 2026 at 07:06:28PM +0200, Jens Glathe via B4 Relay wr=
-ote:
-> >>>> On Qualcomm X1E80100 platforms (e.g. Lenovo ThinkPad T14s Gen 6)
-> >>>> using the Parade PS883x retimer, connecting USB4-capable docks such
-> >>>> as the Lenovo 40B0 via a regular Type-C cable (which forces the dock
-> >>>> into Type-C fallback mode) often results in working USB but no
-> >>>> DisplayPort output.
+On 7/22/26 04:33, Bartosz Golaszewski wrote:
+> On Tue, 21 Jul 2026 20:29:39 +0200, Demi Marie Obenour
+> <demiobenour@gmail.com> said:
+>> On 7/21/26 04:24, Bartosz Golaszewski wrote:
+>>> On Fri, Jul 17, 2026 at 06:18:48PM +1000, Herbert Xu wrote:
+>>>> On Sun, Jul 12, 2026 at 05:31:31PM -0400, Demi Marie Obenour via B4 =
+Relay wrote:
+>>>>> From: Demi Marie Obenour <demiobenour@gmail.com>
+>>>>>
+>>>>> This driver is harmful:
+>>>>>
+>>>>> - It is much slower than the CPU [1] [2].
+>>>>> - It Has a history of bugs [2] [3].
+>>>>> - It does not have exclusive access to the hardware [4], causing ra=
+ces
+>>>>>   with the secure world.
+>>>>> - It register its implementations with too low a cra_priority for t=
+hem
+>>>>>   to be actually used [5].
+>>>>>
+>>>>> Therefore, disable it to ensure that nobody builds it into kernels =
+they
+>>>>> intend to ship.
+>>>>>
+>>>>> In the future, the driver will be used for processing restricted me=
+dia
+>>>>> content.  However, the kernel does not currently support this.  Sin=
+ce
+>>>>> the driver will have future uses, allow building it if COMPILE_TEST=
+ is
+>>>>> enabled.
+>>>>>
+>>>>> [1]: https://lore.kernel.org/r/20250704070322.20692-1-ebiggers@kern=
+el.org/
+>>>>> [2]: https://lore.kernel.org/r/20250615031807.GA81869@sol/
+>>>>> [3]: https://lore.kernel.org/r/20260706-qce-fix-self-tests-v5-0-86f=
+461ff1829@oss.qualcomm.com/
+>>>>> [4]: https://lore.kernel.org/r/20260629-qcom-qce-cmd-descr-v20-0-56=
+f67da84c05@oss.qualcomm.com/
+>>>>> [5]: https://lore.kernel.org/r/20260524204537.GB110177@quark/
+>>>>>
+>>>>> Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine driver")=
+
+>>>>> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+>>>>> ---
+>>>>> Changes in v2:
+>>>>> - Add Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine dr=
+iver")
+>>>>> - Add Cc: stable@vger.kernel.org
+>>>>> - Link to v1: https://lore.kernel.org/r/20260712-qce-broken-v1-1-85=
+e2bff17871@gmail.com
+>>>>> ---
+>>>>>  arch/arm/configs/multi_v7_defconfig | 1 -
+>>>>>  arch/arm64/configs/defconfig        | 1 -
+>>>>>  drivers/crypto/Kconfig              | 6 +++++-
+>>>>>  3 files changed, 5 insertions(+), 3 deletions(-)
+>>>>
+>>>> Patch applied.  Thanks.
+>>>
+>>> Hi Herbert,
+>>>
+>>> I'd like to ask you to back this patch out. Admittedly I should have =
+NAKed this
+>>> under the v1 thread but I thought the discussion we had under the Shi=
+kra series
+>>> and the subsequent patch making myself the maintainer of this driver =
+(note: Demi
+>>> did not Cc me on this nor the Qcom mailing list at linux-arm-msm) as =
+well as the
+>>> pending series[1] fixing the QCE issues was enough to imply we should=
+ not mark
+>>> it as broken. Please consider applying [1] if the fixes in v6 are cor=
+rect.
+>>>
+>>> Bartosz
+>>>
+>>> [1] https://lore.kernel.org/all/20260717-qce-fix-self-tests-v6-0-4557=
+75fe5f6c@oss.qualcomm.com/
+>>
+>> Is the BAM locking patchset also needed?  My understanding is that
+>> without it, the QCE driver can still produce wrong results due to race=
+s
+>> with the TrustZone firmware.  Until it is merged and the self-tests
+>> are fixed, the driver definitely needs to be marked BROKEN.
+>>
 >=20
-> [...]
+> No, we currently don't ship TZ firmware that could cause such interacti=
+ons.
+> The only driver that currently suffers from such races is the NAND driv=
+er
+> which races with the modem firmware and it too will use the BAM locking=
+
+> feature once it's upstream. However we do plan to support DRM using thi=
+s IP
+> and this is when it'll need to account for possible races. IOW: BAM loc=
+king
+> is not strictly required to fix the QCE.
+
+Thanks for the correction.
+
+Will updated firmware alone cause races, or does the kernel need to
+opt-in to firmware features that can cause them?  I want to make sure
+that a firmware update will not cause the driver to start racing with
+the secure world.
+
+(Nit: DRM usually stands for "Direct Rendering Manager" in Linux.)
+
+>> Also, what can the current driver do that cannot be done better using
+>> software crypto?  I understand that you have future plans to add more
+>> features to the driver, but those are not relevant to this discussion.=
+
+>>
 >=20
-> > AFAIK only Qcom and Apple M series support it. A quick search
-> > suggsts Apple used an Intel retimer in the past and a custom one
-> > nowadays. From the looks of it the x86 world cannot use this driver
-> > either and probably handles retimers transparently in ACPI, so it's
-> > effectively Qcom specific until other vendors start adding USB4
-> > support. The only thing announced potentially running into this
-> > would be the Nvidia RTX Spark, which first needs to be released,
-> > then find a bunch of people motivated to implement upstream support.
-> > Nothing with USB4 capabilities has been announced from Mediatek or
-> > Rockchip. So I wouldn't hold my breath for another user and still
-> > suggested adding the machine check instead of simply disabling USB4
-> > for everyone ;)
+> We can offload crypto operations to the QCE saving CPU cycles but more
+> importantly, the QCE provides HW based isolation which some vendors car=
+e
+> about.
+
+Would you mind explaining what you mean by "HW based isolation"?
+While some crypto engines support keys that Linux doesn't have access
+to, Linux only supports this on IBM mainframes.  Linux does support
+using hardware-wrapped keys for inline storage encryption, but those
+do not use this driver.
+>> Finally, I very much appreciate the work you have done.  I don't
+>> expect that the QCE driver will stay BROKEN forever.  This patch is
+>> purely a reflection of the current state of the driver, the speed of
+>> CPU-accelerated crypto, and the small message sizes used by the kernel=
+=2E
+>>
 >=20
-> The PS883x is used on x86 machines too.
+> That may have been true when you sent the v1 but with a set of proposed=
+ fixes
+> it'll no longer be the case.
 
-In context of x86 I was more talking about the driver than the chip
-itself. The driver can only be loaded via DT. Any quirks and hacks
-in the driver are unrelevant if the driver is not used by a
-platform.
+I trust (and have always trusted) that you can fix the driver.
+I apologize for not CCing you on the patch submission.
 
-> Apart from I2C, it also ""speaks thunderbolt"" - the bus has a way
-> for retimers to enumerate and communicate with the routers
-> (controllers) through a sideband UART-like interface. But for
-> that, it still probably needs the platform firmware to program it
-> into the right mode over I2C, which Linux is unaware of (as it
-> effectively should be).
->
-> FWIW, we do the same on X2. An MCU takes care of setting it up.
+>> That said, is drivers/crypto really the right place for a restricted
+>> content driver?  A driver that uses dmabufs might be a better
+>> alternative, and would be easier to integrate with the Direct Renderin=
+g
+>> Manager (DRM) and Video for Linux 2 (V4L2) subsystems.
+>> --
+>=20
+> These are future plans, yes. But right now we do have active users of t=
+his
+> IP and now also a maintainer - yours truly - who stepped up and is acti=
+vely
+> working on this module. With the fixes applied, the driver will again p=
+ass
+> crypto self-tests and should not be BROKEN.
 
-Thanks for the info.
+With your patch, does the driver also pass stress tests, such as
+multiple threads using it in parallel with varying algorithms and
+message sizes?
 
-Greetings,
+If so, then I agree that the driver should no longer depend on
+BROKEN, but I still question whether it is useful in its current form.
+That's not specific to QCE, though.  I would say the same about many
+other drivers.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
 
--- Sebastian
+--------------uwrMxsbcaUPR63gc8Mct0hz9--
 
---3cqpbpihkikroulm
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------TQU0bcIC0Lu6CqgUekKUIeTq
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpg4uIACgkQ2O7X88g7
-+pqwzA//fhMItCy0gKdoT+UnjnJFPyhQ7Qe4Dg9P0nmUtG+6mGJv+9aKsN1SFePx
-tq+fqwvINni30JUwMfPPm8elmiUS4Y1zFyRD8FuqNxNZ4zypuQUr+wAAqNMgwhMU
-wj7v6Uo6uHLoMD6iStedRHhu6YE3FBKqW2RJf83ng2tsTPX7BNPm7RLsTB4bvnUh
-UO8VnpaHBFTQy2p7YknjRF/wQq2FafqONB6Q9x6H4AnGvA2CcTVguLU2rUuGr508
-jHiLdoyPlBQm45aUAc5xRaDNunoqYvYvcrHbwthiMGvHvuG66POUWxzjmdE1Q71X
-AvmPhezLYh5Z6I+ivrYGoB1CYWALZh7Ggs9r93bCroC4AJBIq/ZiohZ+aM+kzXJE
-43SwtpKkMMK4TruD5A2W2+f6aL2edo+vOvyKCmHLvCykWvR2MUXaFvvGomEIRpzE
-jgfELAWigx94VsJkK5TBTKQ9Gg2ShJexKE0fqj1JDpHVh/v30ATyUL53CZMvCL8b
-Zhd8alUJQDvKb6rPm6t71VBJnLm8UKKiN8nDuRvHa5cWVrvA2mF0jN4kMMmhZfsf
-2WzjXjDx2HpYcZBtDO9lEsdtaDT1S5oid7wh7LXnxeqdJSeUblVTNploMTACIA4K
-kFclFiyAvHbEg5oVUPJgc8fP5Yl4YQx+3ul6IPuSEn7BGMSu+IE=
-=ZoIQ
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmpg5ckACgkQszaHOrMp
+8lO+Fg//U+kk24Rg8dMnY3eAHTPzBun+SQCvZSwgGg0OvhxkDdrNmbnNkyqEAOW/
+zyX4cLq3yO/GdoSMtQRGJ+FmsF44sZeML+hrR5412/3qwg4JFMXICOJ2jGc6DZ4p
+bkDHr5mteg3gT6WQN8qPKn9LCrtkNP05XKzsH1o2MCXJEjlmVbsUL8uJzqDXGtUL
+AMOsdMWvJyKj513aL2oLMlb/LVrIFOGPmfj2gi5MX2/NAf5uFZaCGqUVeCo7ld/6
+ARmabreDLIoCZUt7hWf1ucNPL/0ORAr3af74tEGg5YV07x9iBCDmSQO5aeFWuWcZ
+62mTdJQ0Fukbp/Tjoj15pTsEISWAnBVBTQ4oLiZSpJoxXQquf6e/33x5pi9YRKzp
+E9C58PDV9fR7S0nCjP4kqLTUgthFrooxaBmctiJjyn99kKeVvWaTwGNokjMzbGec
+ifq3rbML4ywEVzA3vsDU42PZqJY36PpdxATJ/t5pDb4g72+x7HbMKfMw1hMjDBOb
+jfsmxyXARS1RSvLsy23pdlqzPtIU24J/mv/YzTKoLZXtP/oTYGKvkQa9jqlw9FM1
+4VjxeN1h8hu1Pap8SnVFnRBMKBLIg3K7APwM1sKbsxqueYU75LEIV7sVfsBMi1px
+iJtuXU8ATVhm4jfIEzHqrQTp+9nPAkdcJ5miWn13ddT5ECQaTxk=
+=NKLC
 -----END PGP SIGNATURE-----
 
---3cqpbpihkikroulm--
+--------------TQU0bcIC0Lu6CqgUekKUIeTq--
