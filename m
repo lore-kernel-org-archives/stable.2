@@ -1,116 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A77154425;
-	Wed, 22 Jul 2026 23:01:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C85154425;
+	Wed, 22 Jul 2026 23:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784761297; cv=none; b=DpIcBui54oFwbeLg7f+60v78B9OQxOkflSQ5taw4iHdfABnqS+rqWXpPq80lRH1Wo0ffJ2ZhwCydj2y7gXmZeffM/J2hrHLECUsUOFkMymOfxnbCdy7gTt4Tz5K2l744RE7mPKiK6Mg6PAl3Y+n18yQUrIvSEc80PGIIEGRkDec=
+	t=1784761788; cv=none; b=XUZs1KCYYrQD2Hmrg79CPwhn+/XzG8QahTlwt48exCVtGYaYv10JumgWOhR5NddaarPb8zlaBEwRurxJRQXss7CizAOybqT+LCey9axiqAiQluA7NdnX8IipUGNMvodyjySDkh3g1hmWqOEFdHXGHb4kuiVq0CYtgtYtljDSdPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784761297; c=relaxed/simple;
-	bh=E+gDlBX8QG4flfrjXfe61WyTV71wIHEJG6fD/2CCi5M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WSEiwG7/jwkvgRVHFpjEKM7amuqZ2bfaf5MMPvntf241y+fPmwSWdtd8OSoDx32AmrGszSUAPqdOoimsCFXv+5sZ+MmXL7QVm+UH36T/vi3u7u44JVD6sXrkCWnpFBqHZyMlfTWLnF6uU6xwDFojC0Nwo2WKUYuBdECGHIs/Q0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFBHabne; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784761788; c=relaxed/simple;
+	bh=ndPFJ7/7heiyeAON/rY0WqsU91YJyM+Ho5ZQJSJfTGw=;
+	h=Date:To:From:Subject:Message-Id; b=WYvuuJUOxaaJRBfQ5TIIha1ERlXp5OGBDljedyIX3NOIQmqaROIn9euHpR7qCCHD+/d/SXSnS4g7aI+HuG1FM2Dgbo/iwRyWg7+rtiG09bBl9BsE6UcU0wF9fDZQ8V+5OzsUTa2f6CLxJrM1L0DwKT9fzJpuQsCE+TwCkIRNq7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gWIsQl59; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFBHabne"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06EA31F000E9;
-	Wed, 22 Jul 2026 23:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784761296;
-	bh=4GGfBkMNd8itCfy9xGdbp/vCSz2IfMikohDpnl1RDao=;
-	h=From:To:Cc:Subject:Date;
-	b=MFBHabneyoxWlpxmEzAvs3tyBIWqFkbhjxOYe9I9YIdz9pPB7H8wAkezYsp+652Uk
-	 WqpF85N9PMRNVjaXeKVQfsLS84+d0C2l/9hSLAtCIFlszPkclGBk2LYb9QWd11dxyg
-	 hjNnM0xoPcQ4HKuAl6yUsFjuL5eRC7ZcJGO6tS2103z64U55XQ4PVxTNhVY6Pomo2J
-	 iVzHKw1vRx2mEzs1vHgDZ92bxhnlLLf5G8d1NWtAXqbKfuUsbPdGHh6GI0Oh4YHsig
-	 Hv95V943oYJ2KVsizqZdlVpMxUNljIZkw+mUwJAUwjFIXHOWFVA7gOUHxYJLFAucx2
-	 LA2F45HMKI3JQ==
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yosry Ahmed <yosry@kernel.org>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2] KVM: nVMX: Service local TLB flushes on failed nested VM-Enter
-Date: Wed, 22 Jul 2026 23:01:28 +0000
-Message-ID: <20260722230128.1587363-1-yosry@kernel.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gWIsQl59"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F751F000E9;
+	Wed, 22 Jul 2026 23:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784761787;
+	bh=9biYUlbQNrpqH5KAKkO4VmjdcWIP6SPcxWZtdZyTIeM=;
+	h=Date:To:From:Subject;
+	b=gWIsQl59PtYGrbw6k1g6EA9OxRg4cOL5rekP3X8yXAma3zkQFK4HsewCu8iCCa/jG
+	 Y4J34UGobbJ2yvEWVl7HolaBSzdJmzGhKx5bv3vqclmsiCWcl4xcRm5cKr/kK761Ci
+	 LS1/MlO89twlnnfsYhGMsaJqaWCd8j5eHx6nBmrs=
+Date: Wed, 22 Jul 2026 16:09:46 -0700
+To: mm-commits@vger.kernel.org,vega@nebusec.ai,stable@vger.kernel.org,pasha.tatashin@soleen.com,enjou1224z@gmail.com,zhilinz@nebusec.ai,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-page_table_check-skip-special-zero-mappings.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260722230946.F3F751F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-KVM services local TLB flushes on "full" nested VM-Exits (through
-__nested_vmx_vmexit()), but not if a nested VM-Enter fails (e.g. due to
-failed VMCS checks in nested_vmx_enter_non_root_mode()).
 
-However, it is possible that KVM had queued TLB flushes that need to be
-performed, even if the nested VM-Enter was not successful. For example,
-if VPID is disabled for L2 (via nested_vmx_transition_tlb_flush(), or if
-via the MSR load lists, as the SDM says:
+The patch titled
+     Subject: mm/page_table_check: skip special zero mappings
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-page_table_check-skip-special-zero-mappings.patch
 
-  If any MSR is being loaded in such a way that would architecturally
-  require a TLB flush, the TLBs are updated so that, after VM entry, the
-  logical processor will not use any translations that were cached before
-  the transition.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_table_check-skip-special-zero-mappings.patch
 
-The SDM is unclear about when the TLB flush should occur, and whether or
-not a failed VM entry would flush the TLB, so it is safer to always
-do the TLB flush in this case.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-More concretely, KVM also updates the last VPID L1 used for L2 in
-nested_vmx_transition_tlb_flush() (i.e. last_vpid), even if the VM entry
-ultimately fails. With the current code, KVM could miss a TLB flush if
-L1 changes L2's VPID, then does a failed VM entry followed by a
-successful one, as the failed VM entry would update last_vpid but not
-actually flush the TLB. Servicing local TLB flushes on failed VM entries
-makes sure that the TLB is always flushed when last_vpid is updated.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Fixes: 5c614b3583e7 ("KVM: nVMX: nested VPID emulation")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org> # Internal review
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Zhiling Zou <zhilinz@nebusec.ai>
+Subject: mm/page_table_check: skip special zero mappings
+Date: Thu, 23 Jul 2026 00:48:13 +0800
+
+page_table_check_set() and page_table_check_clear() account mappings based
+on PageAnon().  Shared zero-page PTEs and huge zero PMDs are special
+mappings, but page_table_check can still account them as file-backed
+pages.
+
+An unprivileged process can populate enough zero mappings to overflow
+file_map_count and hit the existing BUG_ON().  The PTE path can do this
+with the shared zero page, and the PMD path can do the same with huge zero
+mappings.
+
+Skip special zero mappings in the user page-table accounting paths.  Keep
+the PTE-side pte_special() check, and identify huge zero PMDs from the
+mapped folio instead of pmd_special().  That covers architectures where
+pmd_special() is a no-op without adding huge_zero_pfn checks to the
+generic counter helpers.
+
+Link: https://lore.kernel.org/cover.1784717203.git.zhilinz@nebusec.ai
+Link: https://lore.kernel.org/e94478e4fb7912fb7e8ebebed5ce85d00dc9a69d.1784717203.git.zhilinz@nebusec.ai
+Fixes: df4e817b7108 ("mm: page table check")
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Reported-by: Vega <vega@nebusec.ai>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Assisted-by: Codex:gpt-5.4
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
-v1: https://lore.kernel.org/kvm/20260717060505.2971514-1-yosry@kernel.org/
+ mm/page_table_check.c |   20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-v1 -> v2:
-- Service local TLB flushes on failed nested VM entries instead of
-  delaying queuing the flushes, as TLB flushes could be queued in other
-  ways (e.g. via the MSR load lists).
-
----
- arch/x86/kvm/vmx/nested.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index b5460de4b1a72..7e184a9644869 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -3755,6 +3755,14 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
- vmentry_fail_vmexit_guest_mode:
- 	if (vmcs12->cpu_based_vm_exec_control & CPU_BASED_USE_TSC_OFFSETTING)
- 		vcpu->arch.tsc_offset -= vmcs12->tsc_offset;
-+
-+	/*
-+	 * Handle any TLB flush requests that were queued for L2 if KVM made it
-+	 * far enough along to switch to L2 context.  Note, loading host state
-+	 * will generate any flushes for L1 required by VM-Exit.
-+	 */
-+	kvm_service_local_tlb_flush_requests(vcpu);
-+
- 	leave_guest_mode(vcpu);
+--- a/mm/page_table_check.c~mm-page_table_check-skip-special-zero-mappings
++++ a/mm/page_table_check.c
+@@ -151,18 +151,29 @@ void __page_table_check_pte_clear(struct
+ 	if (&init_mm == mm)
+ 		return;
  
- vmentry_fail_vmexit:
+-	if (pte_user_accessible_page(mm, addr, pte))
++	if (pte_user_accessible_page(mm, addr, pte) && !pte_special(pte))
+ 		page_table_check_clear(pte_pfn(pte), PAGE_SIZE >> PAGE_SHIFT);
+ }
+ EXPORT_SYMBOL(__page_table_check_pte_clear);
+ 
++static inline bool page_table_check_huge_zero_pmd(pmd_t pmd)
++{
++	unsigned long pfn = pmd_pfn(pmd);
++
++	if (!pfn_valid(pfn))
++		return false;
++
++	return is_huge_zero_folio(page_folio(pfn_to_page(pfn)));
++}
++
+ void __page_table_check_pmd_clear(struct mm_struct *mm, unsigned long addr,
+ 				  pmd_t pmd)
+ {
+ 	if (&init_mm == mm)
+ 		return;
+ 
+-	if (pmd_user_accessible_page(mm, addr, pmd))
++	if (pmd_user_accessible_page(mm, addr, pmd) &&
++	    !page_table_check_huge_zero_pmd(pmd))
+ 		page_table_check_clear(pmd_pfn(pmd), PMD_SIZE >> PAGE_SHIFT);
+ }
+ EXPORT_SYMBOL(__page_table_check_pmd_clear);
+@@ -208,7 +219,7 @@ void __page_table_check_ptes_set(struct
+ 
+ 	for (i = 0; i < nr; i++)
+ 		__page_table_check_pte_clear(mm, addr + PAGE_SIZE * i, ptep_get(ptep + i));
+-	if (pte_user_accessible_page(mm, addr, pte))
++	if (pte_user_accessible_page(mm, addr, pte) && !pte_special(pte))
+ 		page_table_check_set(pte_pfn(pte), nr, pte_write(pte));
+ }
+ EXPORT_SYMBOL(__page_table_check_ptes_set);
+@@ -238,7 +249,8 @@ void __page_table_check_pmds_set(struct
+ 
+ 	for (i = 0; i < nr; i++)
+ 		__page_table_check_pmd_clear(mm, addr + PMD_SIZE * i, *(pmdp + i));
+-	if (pmd_user_accessible_page(mm, addr, pmd))
++	if (pmd_user_accessible_page(mm, addr, pmd) &&
++	    !page_table_check_huge_zero_pmd(pmd))
+ 		page_table_check_set(pmd_pfn(pmd), stride * nr, pmd_write(pmd));
+ }
+ EXPORT_SYMBOL(__page_table_check_pmds_set);
+_
 
-base-commit: 6bc96b971766fbbbbdd9fb2642cedacaf02da957
--- 
-2.55.0.229.g6434b31f56-goog
+Patches currently in -mm which might be from zhilinz@nebusec.ai are
+
+mm-page_table_check-skip-special-zero-mappings.patch
 
