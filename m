@@ -1,157 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA09040681A;
-	Wed, 22 Jul 2026 23:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0278F388881
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 23:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763479; cv=none; b=NNPPtkUjijpxXOX87+a02FsvBUg0vSF+m2S1qSfkq8kMjuOiwHnEueKBlyghg2pkjSesJUGF4KlkQGC82dkFJY2rW+sGeGas/bLfwS2SRsXGFWT3SB6yLJwuMnZJDygEmqEXA5+f6+3zY0J1LSWBtUf9D/hzeMZFjrv2Fbn1RtA=
+	t=1784763510; cv=none; b=XfRmquj7HnjsrSmlYBpII0vTNZ+4RE1uxwCPpCp/oRcrgH7yC45V1LE+VZix9JawMl0mKLalQ0V1h8GolBINHDjQldB2qZZFG8O5WGifpw6Z/H10NEkow1vDDuuzvERehm+C1es57PIsLpsNFq/1cpraAqkEd//I6LMtGrb6pko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784763479; c=relaxed/simple;
-	bh=vF/8hAICx4bFDDjWgYb6UFhBAUwsY3z9ONkute/i9TI=;
-	h=Date:To:From:Subject:Message-Id; b=WsfuT/5RxU4zF+ZloHMycFdZLiJKrCbgehlo1MnTI3lS8Ppne3nO8dz0ex9TauBWC3RN/+C+MWRNZhCTbXN1BpgMczod9jvxdKH847tb8oZdOFRgAqyrSx/pE/TlG5BX1eJmlkP07m7+3xo0Nk3ieVrWP8xN/FXm17eG5kvN57U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=bly2iOi8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784763510; c=relaxed/simple;
+	bh=482j/rlGL/MyUIfK5vi1HCJAff/SkFOJEYzr2v72u54=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b4OSDy+n0WK2facgSXEmy+sSA2i02Lsbpc0iaplsqbFB+LjFF+AmEOYAj+zlcH007NgqTfWPJXhW/HKju+1h/NCSOjAzFzjrySuFOiBkSWvgpNUulpOgbXCz/69LfBunaLzc25Iti7KiP8tJM+Ov3KzMGP6ZSgFzLyiIB8qr+Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=iA+/kGZo; arc=none smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="bly2iOi8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE85A1F000E9;
-	Wed, 22 Jul 2026 23:37:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="iA+/kGZo"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-667bae10ba3so6634d50.2
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:38:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784763472;
-	bh=//5nbV14hJdemR/PxJbBZyvB+Uul/2syz/AhZEtsyIs=;
-	h=Date:To:From:Subject;
-	b=bly2iOi8Bv5b0RCqE0KOjaaUljVkkn8TEkwkNqr0JZwmn7El1FrdQPGIhgLMNA2qE
-	 T9Mq3JaCew4NgaWYrYAltonc1lVD0oFpRLYYjH61niiyWhub0gHxPyKb/ANDoSDaas
-	 Ah3mQPQxHOgOiUMLxSHjw5BC6kuE/1RJg/tSU4mY=
-Date: Wed, 22 Jul 2026 16:37:51 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,david@kernel.org,brauner@kernel.org,christian.gellermann@codasip.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + selftests-clone3-fix-wild-pointer-access-of-getline-due-to-missing-init.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260722233751.EE85A1F000E9@smtp.kernel.org>
+        d=x6u.co; s=google; t=1784763508; x=1785368308; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=czUeoqytFwl2f4wSjedp4ua+inBVMuooqHyWYibjU+0=;
+        b=iA+/kGZobaT+lSDLZ45F6N0UzEEl1f46UkH+BD25EBWjM2bPmi86e2wxn3LogtyAxV
+         FsOeHVfoRSucvTww5WRhSAjQlSpZzL73YNbklZ7woMak9x6Xe7mUlbhfutEUSjfXofwq
+         LgN/GwezkBhzMxfoIQztgpFRpdIuTiLPp1Y6/PbJrHIpM4mj8uEvUdsCjPaHZeOS/VO8
+         dmfqEj7Q2OQZ3ZG6OYNEKaXdFXsmauhMMxxxN0W+Vl4l6Sff58mbBPN2kwvj5/mfQuvk
+         kPmZi/YWoE0IlVhhtYdnf0fyh3x750v8YortRxwSOIbjgyMDE+pWAc4KOiC5Sp9xXKWT
+         2ElA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784763508; x=1785368308;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=czUeoqytFwl2f4wSjedp4ua+inBVMuooqHyWYibjU+0=;
+        b=bRZ7JHaAKe1l4f0pygWuljxoLQ6ups3L3XxdBXCbRLi6xxBHnzzoYv2vIqFovS88WX
+         /H4+tz/0lbl60/uXM+hTWWq9wnJk2kmpMfGCsq55AK9MS1nWbTTQf9UjmbxioWlmAZgh
+         Ss4zQqnUszSPXqFDgS7hBDnQEqZezyYmGeAXjQtjVC/2JFCSMT9XHwPsG4iWOBZTdaj7
+         pDgey0Odrn78xnEMUwvdpA6/zJzmGcDYDdxta6kZynllWILpo1DLEPGtN1Y8hPgTF3+h
+         8gRfAa6wi6o3jbzx353nnlUIhi5JubM5mvhhnfIyczTLrGtaNQI0R2apXtS1Z91CRf7i
+         qzZw==
+X-Forwarded-Encrypted: i=1; AHgh+Roysi+l1Usmzjcttn8q3xHcJqaqOhrMiKttU4h4mEwQ1NuhsJsPYV50QDeCQQ7FRidqTzGA/mo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvamnhjqWzfiWbB3M3nW1Quivhz8evsq1sdpGQ6bJ1yf7mE083
+	VmKM/aui5C/Rh+isUAcYrP0XmKWev/DaEFohwWzxiiv5zR52vYBA8xHYBSupkBZvQDmx
+X-Gm-Gg: AR+sD13VQ85CE+8OPzLuK+IQ65TPHo5qy80Us/iq75/9VhHsHge9sDqUKxwndkaaUlB
+	fcXRUG563gaSYB82hZPmUfmuKSqRp5DYaozlbL3yzelupH6CsgpUp+UYysO5yGevz2PKRdBniPE
+	ff2wv3gDG5lSQSVtHhdqn68TkN4SuoqENy+AlPfpjMjHcKAR5yZwmJo+TOsnaWt7dXXzcPipIOE
+	Gxk3nmCTlUuURf8KjX7ks6a6X8XFAalXFK/79/eEvWOoqLk3YoKukHCEv1In2tXNH1tV1RkLKKN
+	vpxUWaEgfeRrKfBaCHG2gy5jfEro7NGPL+Z2g4e6zjBArfN+nWP+wn7rLbwuByjhLEsLiO7StuR
+	yBBSssGCaug8JiFfLnT/WlkHHMwff5ofeqc1bK/MSyf86i7P2kVTtBvD2qfY5yUBhGO4JQjwFaq
+	S3fvPiZlviggqlwj6vwH/dHDSh0ICKwvoQ9LNpe9k8VvVWy7jQtbZ10BWp
+X-Received: by 2002:a53:ce84:0:b0:667:af05:2e8d with SMTP id 956f58d0204a3-668a4fbd261mr142804d50.79.1784763507854;
+        Wed, 22 Jul 2026 16:38:27 -0700 (PDT)
+Received: from worldpeace10.c.googlers.com.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66890521188sm2193219d50.1.2026.07.22.16.38.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 16:38:27 -0700 (PDT)
+From: dhu@x6u.co
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	David Laight <david.laight.linux@gmail.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,
+	stable@vger.kernel.org,
+	jmoroni@google.com,
+	kpberry@google.com,
+	chriscli@google.com,
+	viursachi@google.com,
+	xuehaohu@google.com,
+	sashiko-bot <sashiko-bot@kernel.org>
+Subject: [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk
+Date: Wed, 22 Jul 2026 23:38:06 +0000
+Message-ID: <20260722233806.3922093-1-dhu@x6u.co>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+In-Reply-To: <20260623015459.1153884-1-xuehaohu@google.com>
+References: <20260623015459.1153884-1-xuehaohu@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: David Hu <xuehaohu@google.com>
 
-The patch titled
-     Subject: selftests/clone3: fix wild pointer access of getline due to missing init
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     selftests-clone3-fix-wild-pointer-access-of-getline-due-to-missing-init.patch
+Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+first entry, resulting in non-page-aligned DMA addresses for all
+subsequent entries.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/selftests-clone3-fix-wild-pointer-access-of-getline-due-to-missing-init.patch
+While the underlying IOMMU mapping may be contiguous, hardware
+DMA engines often require explicit address alignment (e.g., page,
+cacheline, or storage sector boundaries). Passing unaligned
+addresses and lengths can cause explicit failures in DMA descriptor
+creation or silent data corruption if lower unaligned bits are
+truncated.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+In addition, a non-page-aligned sgl length will trigger an edge case
+in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
+buffers, we will have a `va` with lowest bit set to 1. That will lead
+to `ib_umem_find_best_pgsz()` always return 0, and break the promise
+to find best page size for the mapping on the NIC side.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Fix this by splitting the scatterlist by the largest possible page
+aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
+This ensures all scatterlist DMA addresses and lengths remain page
+aligned, while minimizing the total number of sgl entries.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+Page-aligned entries allow the system to cleanly chunk payloads into
+PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
+As a result, this may help reduce TLP fragmentation in P2P transfers
+and alleviate potential congestion within a logical PCIe switch
+partition, especially when Relaxed Ordering is not possible due to
+hardware constraints.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Chris Gellermann <christian.gellermann@codasip.com>
-Subject: selftests/clone3: fix wild pointer access of getline due to missing init
-Date: Wed, 22 Jul 2026 15:02:45 +0200
-
-Patch series "selftests: Add missing initalization of pointer passed to
-getline", v2.
-
-
-This patch (of 2):
-
-Clone3_set_tid uses getline(&line, ...) in a loop to read the child's
-process status.  The code expects that getline allocates the buffer for
-the line on the first loop iteration.  According to the Open Group
-Spec[1], char *line has to be null pointer for this:
-
-> ssize_t getline(char **restrict lineptr, ...);
-> If *lineptr is a null pointer or if the object pointed to by *lineptr
-> is of insufficient size, an object shall be allocated as if by
-malloc()
-> or the object shall be reallocated as if by realloc()[...].
-
-However, char *line is only declared, leading to an undefined value that
-is potentially non-null.  In an example run with Musl v1.2.6, the realloc
-call[2] of getdelim, which implements getline, triggers a segfault:
-
-./run_kselftest.sh --test clone3:clone3_set_tid
-[ 1366.165898] kselftest: Running tests in clone3
-...
-[ 1367.799244] clone3_set_tid[811]: unhandled signal 11 code 0x1 at
-0x0000000000000000 in libc.so[68184,3fbf69f000+4c000]
-[ 1367.802808] CPU: 0 UID: 0 PID: 811 Comm: clone3_set_tid Not tainted
-..
-[ 1367.804188]  epc: 0x0000003fbf6b0184
-[ 1367.804188]  ra : 0x0000003fbf6d4664
-[ 1367.804188]  sp : 0x0000003fce5f2e40
-[ 1367.805314]  gp : 0x0000002aaab0dfb8
-[ 1367.805314]  tp : 0x0000003fbf6f14a8
-[ 1367.805314]  t0 : 0x0000003fbf63d000
-...
-
-Looking at the realloc implementation, Musl mallocs for a null pointer
-memory.  But for a non-null pointer, it assumes it's passed a valid
-pointer to the heap and tries to access its meta-data.  This leads to the
-segfault we see:
-
-void *realloc(void *p, size_t n)
-{
-        if (!p) return malloc(n);
-        if (size_overflows(n)) return 0;
-
-        struct meta *g = get_meta(p);
-        ...
-}
-
-Fix this by properly initializing the line pointer to NULL.
-
-Link: https://lore.kernel.org/20260722130246.2135563-1-christian.gellermann@codasip.com
-Link: https://lore.kernel.org/20260722130246.2135563-2-christian.gellermann@codasip.com
-Link: https://pubs.opengroup.org/onlinepubs/9799919799/functions/getline.html [1]
-Link: https://git.musl-libc.org/cgit/musl/tree/src/stdio/getdelim.c#n38 [2]
-Fixes: 41585bbeeef9 ("selftests: add tests for clone3() with *set_tid")
-Signed-off-by: Chris Gellermann <christian.gellermann@codasip.com>
-Acked-by: David Hildenbrand (arm) <david@kernel.org>
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
+Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hu <xuehaohu@google.com>
 ---
+ Changes in v3:
+ - Removed the type cast for `min` (David Laight)
+ - Reverted max ent size to be `ALIGN_DOWN(UINT_MAX, PAGE_SIZE)` and
+   updated commit message to reflect that (Jason Gunthorpe)
+ - Updated commit message to reflect that this also fixes an edge case
+   in `ib_umem_find_best_pgsz()`
 
- tools/testing/selftests/clone3/clone3_set_tid.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Changes in v2:
+ - Updated commit title and message to reflect the switch to 2G chunks
+ - Switch to using 2G as the max sg entry size as it naturally aligns
+   with most hardware boundaries, while allowing compiler optimizations
+   with bit shifts (David Laight)
+ - Optimized away division calculation for `nent`, and multiplication
+   calculation for sgl address, by dropping the `for` loop in favor of a
+   `while (length)` loop (David Laight)
+ - Dropped `min_t` in favor of `min()` to maintain a strict type
+   checking safety net (David Laight)
 
---- a/tools/testing/selftests/clone3/clone3_set_tid.c~selftests-clone3-fix-wild-pointer-access-of-getline-due-to-missing-init
-+++ a/tools/testing/selftests/clone3/clone3_set_tid.c
-@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
+ drivers/dma-buf/dma-buf-mapping.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index 794acff2546a..50ded9daf5fb 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -5,16 +5,17 @@
+  */
+ #include <linux/dma-buf-mapping.h>
+ #include <linux/dma-resv.h>
++#include <linux/align.h>
++
++#define MAX_SG_ENT_SZ ALIGN_DOWN(UINT_MAX, PAGE_SIZE)
+ 
+ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+ 					 dma_addr_t addr)
  {
- 	FILE *f;
- 	char buf;
--	char *line;
-+	char *line = NULL;
- 	int status;
- 	int ret = -1;
- 	size_t len = 0;
-_
-
-Patches currently in -mm which might be from christian.gellermann@codasip.com are
-
-selftests-clone3-fix-wild-pointer-access-of-getline-due-to-missing-init.patch
-selftests-mm-fix-potential-wild-pointer-access-of-getline-due-to-missing-init.patch
+-	unsigned int len, nents;
+-	int i;
++	size_t len;
+ 
+-	nents = DIV_ROUND_UP(length, UINT_MAX);
+-	for (i = 0; i < nents; i++) {
+-		len = min_t(size_t, length, UINT_MAX);
++	while (length) {
++		len = min(length, MAX_SG_ENT_SZ);
+ 		length -= len;
+ 		/*
+ 		 * DMABUF abuses scatterlist to create a scatterlist
+@@ -24,8 +25,10 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+ 		 * does not require the CPU list for mapping or unmapping.
+ 		 */
+ 		sg_set_page(sgl, NULL, 0, 0);
+-		sg_dma_address(sgl) = addr + (dma_addr_t)i * UINT_MAX;
++		sg_dma_address(sgl) = addr;
+ 		sg_dma_len(sgl) = len;
++		addr += len;
++		/* Unconditionally advance. On last segment, this becomes NULL */
+ 		sgl = sg_next(sgl);
+ 	}
+ 
+@@ -41,14 +44,14 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+ 
+ 	if (!state || !dma_use_iova(state)) {
+ 		for (i = 0; i < nr_ranges; i++)
+-			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
++			nents += DIV_ROUND_UP(phys_vec[i].len, MAX_SG_ENT_SZ);
+ 	} else {
+ 		/*
+ 		 * In IOVA case, there is only one SG entry which spans
+ 		 * for whole IOVA address space, but we need to make sure
+ 		 * that it fits sg->length, maybe we need more.
+ 		 */
+-		nents = DIV_ROUND_UP(size, UINT_MAX);
++		nents = DIV_ROUND_UP(size, MAX_SG_ENT_SZ);
+ 	}
+ 
+ 	return nents;
+-- 
+2.55.0.229.g6434b31f56-goog
 
