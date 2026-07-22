@@ -1,124 +1,261 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B5E480DFE;
-	Wed, 22 Jul 2026 08:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB65648A2CD;
+	Wed, 22 Jul 2026 08:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784710192; cv=none; b=h9xdiAiAHfAH3i3Ryj9tEAjp4KBPs5gB+tlJG/25ENEuuieI0sv4A3DZt5jIUyMe9t7xBBk6DxYg0skPD0iO5puiVX7M8s2mJylDOPdPEOrF//Wqq6eFjCZURJ+80d2SjHfdN0iMrDHgdJWvWmfdGG/GhYniNvTtQ4z/PmGl200=
+	t=1784710262; cv=none; b=ql/gkg4qXV8HQ1ei8jxG8qH64QY/udNxkQpVCW30YZsf4JST4seifHr9NA4oPKtttboCjZNuBP7hPjmankIx63bgGTk2rjk5iTRim6odGIFSYzNPvUKxPRjbXY7Jh4IJcn+vU5XX2XILufNkdg+sYqQMp+d6IcJHUbRf19bvuOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784710192; c=relaxed/simple;
-	bh=pKGbWwktgKS8hIsYPkDEJKHbEt3+8SdmXjZVJ89XdYI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=onI3jOLfwiNej8f0Xl8RH3BWFfcS4S9zPFVl5ZgGouflr39QNB9HLwsRgzVC+65Qjoi2S4//hieCt9In6lqk6eAoEVZXx40L2DIBHEaG8JdTKdhJUIT8FaH4VxIZXLFbaQFaI7k0DQtZ47toOK1ReXQDaAQNFiqIeYdh9Icvkf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 44efcb8285aa11f1aa26b74ffac11d73-20260722
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
-	IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
-	SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
-	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
-	AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:4612328b-8a2b-49d8-a191-45815e19401b,IP:15,
-	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-10
-X-CID-INFO: VERSION:1.3.12,REQID:4612328b-8a2b-49d8-a191-45815e19401b,IP:15,UR
-	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-10
-X-CID-META: VersionHash:e7bac3a,CLOUDID:896384ec597e9bc3af9490702a4f8d11,BulkI
-	D:260722164940PZX1QA53,BulkQuantity:0,Recheck:0,SF:10|66|78|102|127|136|86
-	5|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,Q
-	S:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,
-	ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 44efcb8285aa11f1aa26b74ffac11d73-20260722
-X-User: pengcan@kylinos.cn
-Received: from lenovo [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <pengcan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 89399544; Wed, 22 Jul 2026 16:49:37 +0800
-From: Can Peng <pengcan@kylinos.cn>
-To: rafael@kernel.org,
-	daniel.lezcano@kernel.org
-Cc: rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	linux-pm@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Can Peng <pengcan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] thermal/drivers/imx: Disable clock on runtime resume failure
-Date: Wed, 22 Jul 2026 16:49:09 +0800
-Message-ID: <20260722084909.463437-1-pengcan@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1784710262; c=relaxed/simple;
+	bh=QbI6v2ttlIdiUfDzOHseEmFNkcpC+uWWFPVwzeay0uI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Y5WovADe07CECD1dndfZU+i1fzlcVSynAaioLXcOxwfi+ERxeHPWpE6rwpR0svRU5DMTpt6v8ln5najCPoubFEcR0NRvB05ISWDLy6yDrjRtyu+xw3odC912ViEi91zcqwNFChcJb7dZVNe2337xjIfqlQH9sVhlhgUzSOhSGjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=DT6kQEN3; arc=none smtp.client-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="DT6kQEN3"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=X8gXVDezIp61XwBaCqIx2DoFEqrx8gFK3iA3Tx+5yHs=;
+	b=DT6kQEN3IBX7VPzkdHCBoONCAT6Nj64N2K5AYF/6CDt6EGSm4NPzDPdPYdNUrBk67dIdizj1v
+	0B2z+zuBvAlkBSUrLVa6eAdBV5I/eN0gp/D/sVXUip8lBz/ydNNrVBXEdNV0OHJfZjVAFWAhBjm
+	XNzbTG/L4/+/JjTj1zSXwYo=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4h4nm04SHMznTVd;
+	Wed, 22 Jul 2026 16:41:20 +0800 (CST)
+Received: from kwepemf100007.china.huawei.com (unknown [7.202.181.221])
+	by mail.maildlp.com (Postfix) with ESMTPS id DC4CF4048B;
+	Wed, 22 Jul 2026 16:50:51 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemf100007.china.huawei.com
+ (7.202.181.221) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 22 Jul
+ 2026 16:50:50 +0800
+Message-ID: <eb7f8617-7a47-4b9c-957e-86c9cd742f7a@huawei.com>
+Date: Wed, 22 Jul 2026 16:50:50 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y/6.12.y/6.18.y 2/2] selftests/bpf: Add tests for
+ ld_{abs,ind} failure path in subprogs
+Content-Language: en-US
+To: Philo Lu <lulie@linux.alibaba.com>, <stable@vger.kernel.org>
+CC: <daniel@iogearbox.net>, <info@starlabs.sg>, <ast@kernel.org>,
+	<john.fastabend@gmail.com>, <andrii@kernel.org>, <martin.lau@linux.dev>,
+	<song@kernel.org>, <yonghong.song@linux.dev>, <kpsingh@kernel.org>,
+	<sdf@google.com>, <haoluo@google.com>, <jolsa@kernel.org>,
+	<bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <mykolal@fb.com>,
+	<shuah@kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<dust.li@linux.alibaba.com>
+References: <20260722073908.72382-1-lulie@linux.alibaba.com>
+ <20260722073908.72382-3-lulie@linux.alibaba.com>
+From: Pu Lehui <pulehui@huawei.com>
+In-Reply-To: <20260722073908.72382-3-lulie@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemf100007.china.huawei.com (7.202.181.221)
 
-imx_thermal_runtime_resume() enables the thermal clock before
-powering up the sensor and enabling measurements.
 
-If either regmap_write() fails, the function returns with the clock
-still enabled. This leaves the clock enable count unbalanced after a
-failed runtime resume.
 
-Disable the clock on those failure paths before returning the error.
+On 2026/7/22 15:39, Philo Lu wrote:
+> From: Daniel Borkmann <daniel@iogearbox.net>
+> 
+> commit e0fcb42bc6f41bab2895757d6610616b3820eff7 upstream.
+> 
+> Extend the verifier_ld_ind BPF selftests with subprogs containing
+> ld_{abs,ind} and craft the test in a way where the invalid register
+> read is rejected in the fixed case. Also add a success case each,
+> and add additional coverage related to the BTF return type enforcement.
+> 
+>    # LDLIBS=-static PKG_CONFIG='pkg-config --static' ./vmtest.sh -- ./test_progs -t verifier_ld_ind
+>    [...]
+>    #611/1   verifier_ld_ind/ld_ind: check calling conv, r1:OK
+>    #611/2   verifier_ld_ind/ld_ind: check calling conv, r1 @unpriv:OK
+>    #611/3   verifier_ld_ind/ld_ind: check calling conv, r2:OK
+>    #611/4   verifier_ld_ind/ld_ind: check calling conv, r2 @unpriv:OK
+>    #611/5   verifier_ld_ind/ld_ind: check calling conv, r3:OK
+>    #611/6   verifier_ld_ind/ld_ind: check calling conv, r3 @unpriv:OK
+>    #611/7   verifier_ld_ind/ld_ind: check calling conv, r4:OK
+>    #611/8   verifier_ld_ind/ld_ind: check calling conv, r4 @unpriv:OK
+>    #611/9   verifier_ld_ind/ld_ind: check calling conv, r5:OK
+>    #611/10  verifier_ld_ind/ld_ind: check calling conv, r5 @unpriv:OK
+>    #611/11  verifier_ld_ind/ld_ind: check calling conv, r7:OK
+>    #611/12  verifier_ld_ind/ld_ind: check calling conv, r7 @unpriv:OK
+>    #611/13  verifier_ld_ind/ld_abs: subprog early exit on ld_abs failure:OK
+>    #611/14  verifier_ld_ind/ld_ind: subprog early exit on ld_ind failure:OK
+>    #611/15  verifier_ld_ind/ld_abs: subprog with both paths safe:OK
+>    #611/16  verifier_ld_ind/ld_ind: subprog with both paths safe:OK
+>    #611/17  verifier_ld_ind/ld_abs: reject void return subprog:OK
+>    #611/18  verifier_ld_ind/ld_ind: reject void return subprog:OK
+>    #611     verifier_ld_ind:OK
+>    Summary: 1/18 PASSED, 0 SKIPPED, 0 FAILED
+> 
+> Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+> Link: https://lore.kernel.org/r/20260408191242.526279-4-daniel@iogearbox.net
+> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+> Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
 
-Fixes: 4cf2ddf16e17 ("thermal/drivers/imx: Implement runtime PM support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
----
- drivers/thermal/imx_thermal.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Reviewed-by: Pu Lehui <pulehui@huawei.com>
 
-diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-index 5aaacbc53478..b0e88b6a9352 100644
---- a/drivers/thermal/imx_thermal.c
-+++ b/drivers/thermal/imx_thermal.c
-@@ -832,12 +832,12 @@ static int imx_thermal_runtime_resume(struct device *dev)
- 	ret = regmap_write(map, socdata->sensor_ctrl + REG_CLR,
- 			   socdata->power_down_mask);
- 	if (ret)
--		return ret;
-+		goto disable_clk;
- 
- 	ret = regmap_write(map, socdata->sensor_ctrl + REG_SET,
- 			   socdata->measure_temp_mask);
- 	if (ret)
--		return ret;
-+		goto disable_clk;
- 
- 	/*
- 	 * According to the temp sensor designers, it may require up to ~17us
-@@ -846,6 +846,11 @@ static int imx_thermal_runtime_resume(struct device *dev)
- 	usleep_range(20, 50);
- 
- 	return 0;
-+
-+disable_clk:
-+	clk_disable_unprepare(data->thermal_clk);
-+
-+	return ret;
- }
- 
- static const struct dev_pm_ops imx_thermal_pm_ops = {
--- 
-2.53.0
-
+> ---
+>   .../selftests/bpf/progs/verifier_ld_ind.c     | 142 ++++++++++++++++++
+>   1 file changed, 142 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_ld_ind.c b/tools/testing/selftests/bpf/progs/verifier_ld_ind.c
+> index c925ba9a2e74c..09e81b99eecb4 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_ld_ind.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_ld_ind.c
+> @@ -107,4 +107,146 @@ __naked void ind_check_calling_conv_r7(void)
+>   	: __clobber_all);
+>   }
+>   
+> +/*
+> + * ld_{abs,ind} subprog that always sets r0=1 on the success path.
+> + * bpf_gen_ld_abs() emits a hidden exit with r0=0 when the load helper
+> + * fails. The verifier must model this failure return so that callers
+> + * account for r0=0 as a possible return value.
+> + */
+> +__naked __noinline __used
+> +static int ldabs_subprog(void)
+> +{
+> +	asm volatile (
+> +	"r6 = r1;"
+> +	".8byte %[ld_abs];"
+> +	"r0 = 1;"
+> +	"exit;"
+> +	:
+> +	: __imm_insn(ld_abs, BPF_LD_ABS(BPF_W, 0))
+> +	: __clobber_all);
+> +}
+> +
+> +__naked __noinline __used
+> +static int ldind_subprog(void)
+> +{
+> +	asm volatile (
+> +	"r6 = r1;"
+> +	"r7 = 0;"
+> +	".8byte %[ld_ind];"
+> +	"r0 = 1;"
+> +	"exit;"
+> +	:
+> +	: __imm_insn(ld_ind, BPF_LD_IND(BPF_W, BPF_REG_7, 0))
+> +	: __clobber_all);
+> +}
+> +
+> +SEC("socket")
+> +__description("ld_abs: subprog early exit on ld_abs failure")
+> +__failure __msg("R9 !read_ok")
+> +__naked void ld_abs_subprog_early_exit(void)
+> +{
+> +	asm volatile (
+> +	"call ldabs_subprog;"
+> +	"if r0 != 0 goto l_exit_%=;"
+> +	"r0 = r9;"
+> +	"l_exit_%=:"
+> +	"r0 = 0;"
+> +	"exit;"
+> +	::: __clobber_all);
+> +}
+> +
+> +SEC("socket")
+> +__description("ld_ind: subprog early exit on ld_ind failure")
+> +__failure __msg("R9 !read_ok")
+> +__naked void ld_ind_subprog_early_exit(void)
+> +{
+> +	asm volatile (
+> +	"call ldind_subprog;"
+> +	"if r0 != 0 goto l_exit_%=;"
+> +	"r0 = r9;"
+> +	"l_exit_%=:"
+> +	"r0 = 0;"
+> +	"exit;"
+> +	::: __clobber_all);
+> +}
+> +
+> +SEC("socket")
+> +__description("ld_abs: subprog with both paths safe")
+> +__success
+> +__naked void ld_abs_subprog_both_paths_safe(void)
+> +{
+> +	asm volatile (
+> +	"call ldabs_subprog;"
+> +	"r0 = 0;"
+> +	"exit;"
+> +	::: __clobber_all);
+> +}
+> +
+> +SEC("socket")
+> +__description("ld_ind: subprog with both paths safe")
+> +__success
+> +__naked void ld_ind_subprog_both_paths_safe(void)
+> +{
+> +	asm volatile (
+> +	"call ldind_subprog;"
+> +	"r0 = 0;"
+> +	"exit;"
+> +	::: __clobber_all);
+> +}
+> +
+> +/*
+> + * ld_{abs,ind} in subprogs require scalar (int) return type in BTF.
+> + * A test with void return must be rejected.
+> + */
+> +__naked __noinline __used
+> +static void ldabs_void_subprog(void)
+> +{
+> +	asm volatile (
+> +	"r6 = r1;"
+> +	".8byte %[ld_abs];"
+> +	"r0 = 1;"
+> +	"exit;"
+> +	:
+> +	: __imm_insn(ld_abs, BPF_LD_ABS(BPF_W, 0))
+> +	: __clobber_all);
+> +}
+> +
+> +SEC("socket")
+> +__description("ld_abs: reject void return subprog")
+> +__failure __msg("LD_ABS is only allowed in functions that return 'int'")
+> +__naked void ld_abs_void_subprog_reject(void)
+> +{
+> +	asm volatile (
+> +	"call ldabs_void_subprog;"
+> +	"r0 = 0;"
+> +	"exit;"
+> +	::: __clobber_all);
+> +}
+> +
+> +__naked __noinline __used
+> +static void ldind_void_subprog(void)
+> +{
+> +	asm volatile (
+> +	"r6 = r1;"
+> +	"r7 = 0;"
+> +	".8byte %[ld_ind];"
+> +	"r0 = 1;"
+> +	"exit;"
+> +	:
+> +	: __imm_insn(ld_ind, BPF_LD_IND(BPF_W, BPF_REG_7, 0))
+> +	: __clobber_all);
+> +}
+> +
+> +SEC("socket")
+> +__description("ld_ind: reject void return subprog")
+> +__failure __msg("LD_ABS is only allowed in functions that return 'int'")
+> +__naked void ld_ind_void_subprog_reject(void)
+> +{
+> +	asm volatile (
+> +	"call ldind_void_subprog;"
+> +	"r0 = 0;"
+> +	"exit;"
+> +	::: __clobber_all);
+> +}
+> +
+>   char _license[] SEC("license") = "GPL";
