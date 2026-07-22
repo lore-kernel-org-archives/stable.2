@@ -1,105 +1,111 @@
-Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB38F43CE7E
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3EE421256
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784740276; cv=none; b=isgJTNGEi08lAi8GySTKQwaU2rxiDTHo9VX0DjYLLQh2LrrehRznDlWoCngrW2qu7azr7a48tyFg51/VDINDohIZ++0uqTBJyOrTniOvuI18bE0U72P/8T+syBp04gEqb6nFgK3mx+CpSevI/Y1VtWJq3vzHJr1zm+OjmClIlZQ=
+	t=1784740586; cv=none; b=d+NcEx0xXzLmG7pfubNZVTbNj1vBDTEe9obvRmhAYnuOvnrdXvo6nN3/FZPU1sWNyr5SUQYwYNS0mluNQnROiztHTzKycumz7yflkLp8OeY0peaC9riAmEdrO019/RwCFLU5qm3qjzz4xCW7qUhlIX2mj9KguigzJlHl/POnfIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784740276; c=relaxed/simple;
-	bh=fW10j5ZOn2YlrXHCpCLgSjE4oo74ZZ7Fu380qiiGmZI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=YtpkrxbyxeiivTAKa/aFKbE03gnshh3Lmy9UepfcPzrhJnvkyyCM+Rx0qDHCFMeDlSSWO9f2HuROyanMB/F9XyFAPxEONWtAzbOA74M8P7z3YPOARoW7HhZiK4rnuCAa7aclQ0y0P3TBI6hp++wQ0iNCjCOUl5gAAxPnhhKAUvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LVvRpmEZ; arc=none smtp.client-ip=91.218.175.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784740586; c=relaxed/simple;
+	bh=kI484T49IdlFyKZ6ymqSXB7r/2MnN9NzxJVXNfyNpr4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QFm7NEUFSZE0lIZpkCHyTop+LX6ZUN+4hpfW1GMrhxn7bf7/FXvZD27W2c451lu0LGDzTCwpXdpNMPScfIq1RMpsJ3SkQiPhcRiNkpwGDJLgLCyAHBRrlP3aH4pHm1KLleAtcrNkCjH4c94reMkGz6GL7+88TmGLm/bPeRkGSaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ALT2Fk6l; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LVvRpmEZ"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ALT2Fk6l"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7e6b554044fso9957221a34.0
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1784740584; x=1785345384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F8i2hMLvis/bSEBIldeXCE1A3TzJ4qPXzcIblPSmycQ=;
+        b=ALT2Fk6lhQT8kE8C8Zo1Q0MHh5JaIC3Hk6pAq2X9zJ5sPv6ooCggkDZy/FwE0mOt13
+         mzh51VJhGTUHpii0yORHyazl2xqEaO9cLMsMnjraQILsBnGoHFNtq3xS3V6G9dIClvWt
+         1lmtlRw3psyNvEQ4VVUsHr5NCQ5ov/cy7nfO4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784740584; x=1785345384;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F8i2hMLvis/bSEBIldeXCE1A3TzJ4qPXzcIblPSmycQ=;
+        b=HsTDrGtBT6GA99rRHJayRxSTRelnZ3tZqrev5rm2uSz3p9KQrGXljSLQdkwweG1PQA
+         bXjFtGmBCrtrY52R9t6GFfE12lJiBxrpjTj/WJZKhUS/gfAhQJHds3zEC02OHb1aKtWs
+         hCWf+giDVElsrIlXDfEMi6kogpAO9+XLRppsU75hux9b2VtkAaPwvBAmvZXlHQ3rkA6s
+         +zROov9wK1Klhin7ZvebeaCD6DSi7ASlldc+D0quBPWT6urjsP3+RW+2KAvZJyhUqoN5
+         f73yM/S/7k1a+ZhqZipQ3Xh1HB+pMdDvfGM3lLxuPeM1jrQWTV8+OJaAf5oOnkso7ZVZ
+         xHKA==
+X-Forwarded-Encrypted: i=1; AHgh+RoAsIeb0UEymrqG1eVITuH+PIXYlxbCa3LCObclZeFTfjvTprkiqkV8MQNTUDoxYRJyzSNrGYQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YybgfmJwOTwYkME2mymxtOKjf35+zAYoDjUlzQdSJSm/NdieDmR
+	t4+0YO799qBwHmL5WsK12q5V2cwZ2qFVrx/GbuelJ2Eypp8mPFQm8UbG78wax75jNqg=
+X-Gm-Gg: AR+sD12DW5i7GnfPuDwH9dZxwwPMftjTZ7GXpKK1CWLYWhVdVuc78gdTogOdR49+M2H
+	yz1o/cfOT0bZ+yIcp/Mx/6g+K3dKBR+1bIRTLU41bRLtNY5D0LOY1W7LbJXT27akF9dq19475+A
+	lJlqBv9ozU1XQyj/4LGzecvxoEsDUP1QSZlC9fIPZ4KEPw+xNrLlZ/D55MCNxGVhQ4g/aq+Dmjw
+	jx/NRVOdfOs0Fl5PoB6IBVI3Ve7kcebfM+AIrYnuS8+vt8S8oLfeRqAWMmX73DkrgnvMlUTBOTf
+	aQOI2hHy87EXuoM8XPaiV7ojb61kKU6o4BmL1zi/8pZxzAZKkO8f1fElVJLXCaCP4u70MZVRcdE
+	U2NJOFE/Rv6cjUH7/7J2hvZAeyHv/g8hcbz6BzTfTUf1HFUIRXeLQem2GYTuiuDktq23K0Tko3P
+	QmnB8zDv/IunI=
+X-Received: by 2002:a05:6830:4195:b0:7e9:d3aa:e391 with SMTP id 46e09a7af769-7ed9aa5776fmr12417851a34.6.1784740583864;
+        Wed, 22 Jul 2026 10:16:23 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ee29e0ec50sm1872169a34.8.2026.07.22.10.16.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 10:16:23 -0700 (PDT)
+Message-ID: <01cf96f9-763e-4c20-8494-1b0388622678@linuxfoundation.org>
+Date: Wed, 22 Jul 2026 11:16:18 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784740257;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fW10j5ZOn2YlrXHCpCLgSjE4oo74ZZ7Fu380qiiGmZI=;
-	b=LVvRpmEZ7sWk0oPATEPFLd77SRo1pl2mZf8svyLk5An9WMOdeFr2VR8DAjJAY/JsZ2w1Th
-	/dp2jQyTc9rnjiQyoHG2HqQyp8W+0scGwhBdaMh2m8nojhUXXI2Lm14pJ64Tqh2g6+L9ap
-	sj3n0CzgAZRW9dn1CAYBazoYTwg5RR4=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 22 Jul 2026 17:10:53 +0000
-Message-Id: <DK59M9QYZ6CE.397V5ZU7P13UD@linux.dev>
-Cc: "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko"
- <mhocko@suse.com>, "Brendan Jackman" <jackmanb@google.com>, "Zi Yan"
- <ziy@nvidia.com>, "David Hildenbrand" <david@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, "Mike Rapoport"
- <rppt@kernel.org>, "Shakeel Butt" <shakeel.butt@linux.dev>,
- <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
- defrag_mode
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Brendan Jackman" <brendan.jackman@linux.dev>
-To: "Johannes Weiner" <hannes@cmpxchg.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Vlastimil Babka" <vbabka@kernel.org>
-References: <20260722150006.3848560-1-hannes@cmpxchg.org>
- <20260722150006.3848560-5-hannes@cmpxchg.org>
-In-Reply-To: <20260722150006.3848560-5-hannes@cmpxchg.org>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 0000/1067] 6.1.178-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260721152424.521567757@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed Jul 22, 2026 at 2:56 PM UTC, Johannes Weiner wrote:
-> As we deployed defrag_mode into Meta production, pressure spikes and
-> excessive swapping were observed on some workloads. Tracing confirmed
-> that this is unmovable/reclaimable requests spinning in the allocator
-> and direct reclaim, causing excessive amounts of swap.
->
-> The initial plan for defrag_mode was to rely on kswapd/kcompactd to
-> produce blocks, and if those are overwhelmed under high pressure, let
-> the allocator fall back (__rmqueue_steal()) after its retry loops.
-> However, that retrying results in more reclaim on some of these
-> workloads than we'd hoped, sometimes excessively so, spurred on by the
-> !costly order conditions in should_reclaim_retry().
->
-> The storms are dependent on the request type. Reclaim will inevitably
-> make room in existing movable blocks, since that's where the LRU pages
-> live. So if movable requests retry on reclaim, they make progress.
->
-> When non-movable requests spin in reclaim that isn't productive. They
-> cannot use the individually freed pages, and the process is unlikely
-> to accidentally free whole blocks to meet the ALLOC_NOFRAGMENT bar.
-> They spin and overreclaim excessively, which tanks performance and
-> triggers userspace guards like swap exhaustion or pressure based OOM.
->
-> To fix this, send non-movable requests, regardless of order, into
-> pageblock reclaim/compaction. This way, they help move things along to
-> meet the ALLOC_NOFRAGMENT bar. After this patch, the reclaim storms
-> and excess OOM rates are no longer observed in production.
->
-> The longer-term plan is still to have all requests, including the
-> movable ones, help make blocks to spread the cost of defragmenting
-> more evenly and fairly; combined with proper watermarking to reduce
-> allocation latencies in the common case. However, doing this naively
-> unearths scaling and concurrency limitations in compaction that need
-> to be addressed first. Promoting just non-movables for now is the
-> minimally viable bug fix for the above issue.
->
-> Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+On 7/21/26 09:10, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.178 release.
+> There are 1067 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.178-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-Just a note that I'm rebasing my ALLOC_UNMAPPED series onto this, per
-the discusison here I have similar needs re making compaction run on
-orders above the allocation order:
+Compiled and booted on my test system. No dmesg regressions.
 
-https://lore.kernel.org/all/17f2f1e7-36ee-4d90-af1c-1fbca6f94025@kernel.org=
-/
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-I think the way you've done it (i.e. use the capture_control for the
-"other" order) is good.
+thanks,
+-- Shuah
