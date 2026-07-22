@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B733F364029
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:48:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413E035C6AE
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:48:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784731701; cv=none; b=hqd6qO9BNm3U+P9QQWAGCsNBoHkhB0/Ug9uQHfYr4okff+dbNMdbMMlhICsTwwxvwUGsYCxbGAdh6fPl+LeWeNwD326kgxzQNX4NlW5OesOmU3wQ5VTdQZLxGDaokpfHj+wRj6UpUwiVPZKyKFK+VVisSsv/iX/zXXyWWItffQY=
+	t=1784731701; cv=none; b=oLy3MdGP7ZVAVXG2XU7iBvpopozhkeJplDbGE5qV2uc91PpVFrpk76Yhzs6pr2jPO2iOb8rjmd9XGsotyPX7NX0505fDzwxJROpW2/8WfQ6lMgjQ+Gm3ZaueD3ShpwN0gkE4LTTFkQZRB0rFiyryEjW7xCt49YQMzI5+MV2FXEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784731701; c=relaxed/simple;
-	bh=W009lVO2d4ktP/sekWUIrml2lliAEZ9vY/foEtB+3Rs=;
+	bh=DbidMpFBGQIlIdQeqqqbrWYhz/akJPH/cjcmr+MSGqQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oRsSBj2ehU6oiUQXZgc6GlSXP70iBfxcoFLPoMqX9A/xFq6rVrDM/5tKUzxGBYDIU78fKh+7/hCiIRjWcIRcdW9B+Lh9c4KXVSs4g+CeX4V+0+V5knRxecNFAbqpzlT3iNNznHmN23dbzbSaF/IRitkdKpTdeyVE+vPYvq8SfbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eSbXRzPI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tjuB+8SE0dFL4lR2L0SFBG4qYeaEkMN9+sVb3QmakbJRw/xcIfRFZbEH152UxQ2XIdgFrVxoOwe8D1vVUFngzSTnDuZHABJq7gZEyl6sTbWbIlT5aD5hVR2tFhhdCVxPS0QOOU3zMrFOb8NRd/MHDLCrjHKwh9j/lOerQKiW+wA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ewVFcxj9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eSbXRzPI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E48B1F00A3A;
-	Wed, 22 Jul 2026 14:48:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ewVFcxj9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61131F00A3D;
+	Wed, 22 Jul 2026 14:48:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784731699;
-	bh=AIDgPH7sqZ92KNhlUD/ArLgijFNr/t5BSFFEqYvkVRw=;
+	s=k20260515; t=1784731700;
+	bh=dhR4l1bi1mOFjvE23KCsXHjxh0R8c3bRAaF1I7jy4EQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eSbXRzPIwQ+pkpTiQCq5A6HbQNCLkN9l3mJ0rF9TeVP9v1aSIYt3bRy1DGkRo8axO
-	 8NR73VzeZ90NihWKM5NPOf4o8sLOnBBOV1k7IO9pwGKBdkrCpAGflAs25eDaGiw4Dg
-	 K+f3bGsSfVaToBVc1gwSq0+zdbrw9+m4+KPjiRoYg8ARV63b0Fq85lQlkQbV/YaoFu
-	 bQ/Ybj/fRR7mDIQAAQpAfDqGiEfGPGZk2w2mwo+dFIeNMLTbjAtRkqNXNgf+fRkk6/
-	 W+FxNHtu3X4xL0eeL0aIFgcx5GEbBlNjuYa0fYHB0nxVIIhrKORqJxFKJoRjaPM95a
-	 /ICJt3W8tD1BQ==
+	b=ewVFcxj9ggD3tLKGG1qtiuXYt9swr+M3X6V2aFw20PkEC5vqRwSlSLFJ7uUlbI4bU
+	 iK+ge9jqmP73ObSHz5ev9ICIqDqwo7Wq1aD7rcknnBeDh0ePcmNDH2qFto+BJxt1Jr
+	 AldAIchvYmdM7MKIsPjCzNammGlYLEJ41H7lC9KD1Sv9RLz2crL+kSppANvAS/I7AV
+	 ExA5XIfo0bOyXizyo1mAOc5/6S0VN2tw8/8w0Axwb/4N+CXOpslgVk3XkDC6MkOjUe
+	 T+LWTJaEcmKxL2oJiaCaWU9LR1d44kesGKxddh/LwGjUhfrGPhiWWEsGa4zw4IArq9
+	 aoCksqFjOOTfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tapio Reijonen <tapio.reijonen@vaisala.com>,
-	stable <stable@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Xu Rao <raoxu@uniontech.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] serial: max310x: implement gpio_chip::get_direction()
-Date: Wed, 22 Jul 2026 10:48:16 -0400
-Message-ID: <20260722144816.1599424-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ALSA: hda: Fix cached processing coefficient verbs
+Date: Wed, 22 Jul 2026 10:48:18 -0400
+Message-ID: <20260722144818.1599468-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722144816.1599424-1-sashal@kernel.org>
-References: <2026072034-facing-tracing-f6eb@gregkh>
- <20260722144816.1599424-1-sashal@kernel.org>
+In-Reply-To: <2026072012-scrambler-friday-82ad@gregkh>
+References: <2026072012-scrambler-friday-82ad@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,63 +45,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit a483b1a91b33b7533280e7c3efd2bc1275caef18 ]
+[ Upstream commit f67be28fdf8b5d31ac1cc1152bb17250f9f8f513 ]
 
-It's strongly recommended for GPIO drivers to always implement the
-.get_direction() callback - even when the direction is tracked in
-software. The GPIO core emits a warning when the callback is missing
-and a user reads the direction of a line, e.g. via
-/sys/kernel/debug/gpio.
+Intel HD Audio defines Coefficient Index and Processing Coefficient as
+separate audio widget controls in the Audio Widget Verb Definitions:
+Coefficient Index selects the coefficient slot, while Processing
+Coefficient accesses the value at the selected slot.
 
-The MAX310X keeps the GPIO direction in the GPIOCFG register (a set bit
-selects output), which the existing direction_input/output callbacks
-already program, so the current direction can be read back directly.
+hda_reg_read_coef() selects the slot with AC_VERB_SET_COEF_INDEX, but
+then uses AC_VERB_GET_COEF_INDEX for the value read.  That reads back the
+selected index instead of the coefficient value.  hda_reg_write_coef()
+has the same issue and builds the value write from AC_VERB_GET_COEF_INDEX
+instead of AC_VERB_SET_PROC_COEF.
 
-Fixes: f65444187a66 ("serial: New serial driver MAX310X")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://patch.msgid.link/20260615-b4-serial-max310x-gpio-get-direction-v2-1-4704ba2b181a@vaisala.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+This only affects the regmap coefficient cache path used by codecs that
+set codec->cache_coef.  Direct coefficient helpers already use the normal
+SET_COEF_INDEX followed by GET_PROC_COEF or SET_PROC_COEF sequence, which
+is likely why this has not been noticed widely.
+
+Use AC_VERB_GET_PROC_COEF for cached coefficient reads and
+AC_VERB_SET_PROC_COEF for cached coefficient writes.
+
+Fixes: 40ba66a702b8 ("ALSA: hda - Add cache support for COEF read/write")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Link: https://patch.msgid.link/DB9023BF2920BA99+20260707132419.1731342-1-raoxu@uniontech.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/max310x.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/hda/hdac_regmap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-index cfdd59afdd0a56..92c5ee79b4b115 100644
---- a/drivers/tty/serial/max310x.c
-+++ b/drivers/tty/serial/max310x.c
-@@ -1231,6 +1231,17 @@ static void max310x_gpio_set(struct gpio_chip *chip, unsigned int offset, int va
- 			    value ? 1 << (offset % 4) : 0);
+diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
+index bf35acca5ea0ea..5c7ac8e8de0da0 100644
+--- a/sound/hda/hdac_regmap.c
++++ b/sound/hda/hdac_regmap.c
+@@ -215,7 +215,7 @@ static int hda_reg_read_coef(struct hdac_device *codec, unsigned int reg,
+ 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
+ 	if (err < 0)
+ 		return err;
+-	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8);
++	verb = (reg & ~0xfffff) | (AC_VERB_GET_PROC_COEF << 8);
+ 	return snd_hdac_exec_verb(codec, verb, 0, val);
  }
  
-+static int max310x_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
-+{
-+	struct max310x_port *s = gpiochip_get_data(chip);
-+	struct uart_port *port = &s->p[offset / 4].port;
-+	unsigned int val;
-+
-+	val = max310x_port_read(port, MAX310X_GPIOCFG_REG);
-+
-+	return val & BIT(offset % 4) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
-+}
-+
- static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned int offset)
- {
- 	struct max310x_port *s = gpiochip_get_data(chip);
-@@ -1439,6 +1450,7 @@ static int max310x_probe(struct device *dev, const struct max310x_devtype *devty
- 	s->gpio.owner		= THIS_MODULE;
- 	s->gpio.parent		= dev;
- 	s->gpio.label		= devtype->name;
-+	s->gpio.get_direction	= max310x_gpio_get_direction;
- 	s->gpio.direction_input	= max310x_gpio_direction_input;
- 	s->gpio.get		= max310x_gpio_get;
- 	s->gpio.direction_output= max310x_gpio_direction_output;
+@@ -233,7 +233,7 @@ static int hda_reg_write_coef(struct hdac_device *codec, unsigned int reg,
+ 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
+ 	if (err < 0)
+ 		return err;
+-	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8) |
++	verb = (reg & ~0xfffff) | (AC_VERB_SET_PROC_COEF << 8) |
+ 		(val & 0xffff);
+ 	return snd_hdac_exec_verb(codec, verb, 0, NULL);
+ }
 -- 
 2.53.0
 
