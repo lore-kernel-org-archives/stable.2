@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45C14399E0
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:07:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA5B4399E8
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:07:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784743674; cv=none; b=slpDso5kRBc2oKaZVpKN/L0n+xnjTNJYa1sKkXPXwhstN0ENzt+n27ejs2Y/O/O80K/EgNS5iKmLXItCJahMgWZ95ypyX4ToRWBb/2hYrCYCIoAyDmKnx236o+JUAkXj3nOy7/Vaam3WzUOXwgzyTveMClI3ds87JXT4PgRq8yI=
+	t=1784743681; cv=none; b=ZJ3MjnFrX80SjpRDvKb0sFcd1AaAdOMlhHfCUKVulBFzQlnvvn51KYtXnwNjZSMJONbv3lR5+/OhxmD5m1ryFNQYnGspoQDylhArIdF6aIh7uTqQnOC5x0rtfBPfQYxcPio5H3cOjVcvFD1T+jniYix8DpJ4QU5AJw844oGcXfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784743674; c=relaxed/simple;
-	bh=T+meUa4pwslXJS4NvORsow66DsLmdi83SPI3W61K9qw=;
+	s=arc-20240116; t=1784743681; c=relaxed/simple;
+	bh=TpE8QClr+OwJyQhNTJ67DLJl9MRQBJxYCmu8d+Q9yt8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PXJMs1DtnrVDS11uhWGLk3bZ1n+xUIufqBJyBJk2j6ONwNWo2ZYF48fm1FSxdxwRJhrZEGlborw5vyDCypyi3EtO6H7p5iTfxXWW8jD6iPRQKsG2bN8ZNk7ZOrpcQvPqQAeeb/VAjOJLAmAP/8WyfNlxMECueFQm7dHAFh/rgpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QpsPJPtU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mnSDiikXzbtPvjQ/KXolENraAprKvgOk9li91fWqwuUd3QFIXy2iuRgqZw5Nci7m/XUOSQDd01od1jyTNdbAtdDYFqVMWzWckrz0LbfDmNG777unZCxH40K/ZMEaTB90WocnuYlTez5dun4+nJCe5Ly0A9rarFaU0J5vG7gjZiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dJ4d2bOZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QpsPJPtU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD7A1F000E9;
-	Wed, 22 Jul 2026 18:07:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dJ4d2bOZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633891F00A3A;
+	Wed, 22 Jul 2026 18:07:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784743671;
-	bh=ekyvrvnPp4kDbRklBkipVV91fyzIOkrnI+Kj1tLACq4=;
+	s=k20260515; t=1784743679;
+	bh=z4F6ZLG/E8o4yZd2gtAI+T0kw9NHXB98FjCaHi0o1Hw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QpsPJPtU4fnsPW/az7Iqd6cVtFnya14IlnjbgRXRJcvuGM/e3azMtXorcLA69aSCM
-	 weC3XyW3J69Oqa0LySjeH2iivW5ffYkqnso5Bb2bpcyLM+HbRd8o+eVbXeCdylA1Uo
-	 aigcgC/+hK8b7qK3Ht3mvLFMB0nzEXwek7zxmRPu9GnaymZV34V+CtYETKjMwbS3SO
-	 ZEX2k/wz5wT2jx1IN/jX5NwhuKs5IUMukOI2bZfmQbgOFCA1N09cGhINnOLx4WS8xL
-	 2F5PWOL1mAE/rtxfg4A/Bi4X4TpS+iitByPefwK6Iu/8MLhuUOBLtpYUj00HqrJROe
-	 n8WcV1BB/zQ1g==
+	b=dJ4d2bOZ+Ke1srAkmdK7SlLhkG8rJdWWcdFNbP8GioHSY1V3c243gpseoe+8MFqT8
+	 EY6RQaW02BoAe/RROQ1ULX2L3iFK5u8S8x9FIf/PrV2oV1jypaXYgRMskbCj5HZe+K
+	 qjfUPG4+v0ad8Jrvb8VH0l9ji62cGiiP1YJ+wwi+amj0MFbhBn95dhuyOpJYI4iK7W
+	 BFjyJKFAYBTUIwb6wYwWIdzOQ9merfmo0uSQr2W8A8TZbBkbzryIwwVDJ3L3dS/6xd
+	 7Ktqf4UTHjnVLfZ3eNOzUl0R1Kp/+Gz5TrCtbGT0ZPDikij2Pk5+UKLwNT4xMbQrvL
+	 +ey/VslSDznWw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Subbaraya Sundeep <sbhatta@marvell.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 6.12.y 1/2] octeontx2: Annotate mmio regions as __iomem
-Date: Wed, 22 Jul 2026 14:07:47 -0400
-Message-ID: <20260722180748.2202109-1-sashal@kernel.org>
+Date: Wed, 22 Jul 2026 14:07:56 -0400
+Message-ID: <20260722180757.2202348-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072022-stupor-recount-8e77@gregkh>
-References: <2026072022-stupor-recount-8e77@gregkh>
+In-Reply-To: <2026072013-trivial-overlaid-d42a@gregkh>
+References: <2026072013-trivial-overlaid-d42a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,7 +57,7 @@ the call to readq() in PF driver by removing redundant type casts.
 Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
 Link: https://patch.msgid.link/1749484309-3434-1-git-send-email-sbhatta@marvell.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 0b352f04b9be ("octeontx2-vf: clear stale mailbox IRQ state before request_irq()")
+Stable-dep-of: f918554fb724 ("octeontx2-pf: clear stale mailbox IRQ state before request_irq()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/net/ethernet/marvell/octeontx2/af/rvu.c      | 12 ++++++------
