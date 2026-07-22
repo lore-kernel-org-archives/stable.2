@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BEE30C174
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:55:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C263546EB
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:55:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784728506; cv=none; b=dW5nWu3xiToNWhYYLGpk3tvd02RTAQPp153DRsrPm4YTDtKaSlkHlboDpcdCpLBD67BVbE/1N4Ph9Tf3kOyNvejH4PODqeUjCKbfprFl1EiW/dHFML+6q6nC1J3xEKQnPJkTcni9sPDr22+tg8XJMtd8ID5SPQymopX/lDTas58=
+	t=1784728506; cv=none; b=gOiqRGpL0vrRJbUF2E1XqqlW+nmMneiC2Vv58aVrLAoWixxO3px2exH8TZPdMt3Z+GQYAaLbr83h/lilmK8KtKlwu5jiojMzN9RghrQcrck2crmfoZN9L5Fwns80eDCH4PQ7mBZpV9Mkt79fWxNlUmShGJo72BJ9J3wsllFl9qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784728506; c=relaxed/simple;
-	bh=/+7vofkkdUhjH3dStTd77ZMrmpLL0fO+3Ln/FLQuJQ4=;
+	bh=f4cqe26P95MgC9WMYn5SF3FOJdpSg6FnmzKjKJqJGGo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R60/Fc86SAFL+fCuXbTTmPFB8U340R7SPLG18T1NIDWRl2IFsrdwNT+yEqD+0LdsHZjZYFeKjK5eFfN+F6Y59rK1I1+VIB8+ar6eZThg7xrKmIJSp71OFNgyoAJz/XmqS2MVoPSyZpUHXRGvY3V70j0yV+Mh2w5MG2YM0WDFpW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZxO66O3L; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZAys4iNchApSoblNa0TTymnjALPMcJg6ClLO4dF1kkohDsNC4pvQY2gz31pNMz51NlZwKMCZxT7nx4mXKZ4JWJVw9cke5QL2E5H2ZI6oJGOGB73kun9BDwDACvdg6zaIHQjMTpjOCXu7aCkcKiIN6x//AKd1uObc1bn6I4x5YR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3caQYK7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZxO66O3L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BE11F00AC4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3caQYK7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877AB1F00A3A;
 	Wed, 22 Jul 2026 13:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784728504;
-	bh=bzZZff6nzh8p+aZqfg9z2UQ8YOaG3v+EUn5JWX8t0CA=;
+	s=k20260515; t=1784728505;
+	bh=8vyyBp6nltduCpFEsW7SPdyl8dhfuv9LML0YDoJ8UZE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZxO66O3LAy6CA/F2jL9oYJ+lHodkIrxMg7szeZt8VuiAwrN/L/L63VJb7+0rOIdKp
-	 aDo6Bj4jvCvM/YgPJTf1+jalh1ihgAEtO7y01mTzfbIqeBaORsTKpdz4EHFfk6Q8PH
-	 vADcrdvdg9tljFeO8UKD31+4hS+lwO8Ev0/i+Y8MLf2U6StT24I3aXletV1cVQm9zc
-	 m+jF1j5hd/Zw6m7tPmZtTOX72QaospYUX6q4+8lSwmS3S+ryOFGRt1hWaPyP6VRvoL
-	 R173i7lU3BMoIvjTTgnStvtLSLJ/sHz/T+Znkb1E3aBdZyxipVUAq4fqZ3DjuJ5s9J
-	 F02mfrHryPTuQ==
+	b=F3caQYK7LOZ4Vl+Udg19xAH5xmnJnRZsRUwTZLGNEvWJ8Rf+rWQfXpjVqkl0LIWOy
+	 S0uPW3xbNoMMlia5krc8oC3ZR0CQAHPPSKdU86OFzbL6vVXgbhCc5hxpG867yQuewT
+	 Tiz9iscHwrC/XCLf60LxAOvGPmou74fijfX7I57BIv33oUQKFjosJLN3OpkGfFzLJI
+	 SKGYjIQOh2qnT4mU88FZQc/OknUx+5YfwU8DHJo1ANzdpSqWy9bzjvA649NwRyXYPk
+	 RxRyhd1CV8Os/RHxQNJFnWV+RRtisILwmM4/ttAFGlfFGfpqlwnu0xvKxYj5rgAjcO
+	 TDQBy+y+F9rEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Ricardo Ribalda <ribalda@chromium.org>,
+	stable@kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] xfs: don't replace the wrong part of the cow fork
-Date: Wed, 22 Jul 2026 09:55:01 -0400
-Message-ID: <20260722135501.1366960-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 7/7] media: uvcvideo: Fix sequence number when no EOF
+Date: Wed, 22 Jul 2026 09:54:57 -0400
+Message-ID: <20260722135457.1366301-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722135501.1366960-1-sashal@kernel.org>
-References: <2026071711-ion-surgery-b10c@gregkh>
- <20260722135501.1366960-1-sashal@kernel.org>
+In-Reply-To: <20260722135457.1366301-1-sashal@kernel.org>
+References: <2026072041-maverick-blooper-4a13@gregkh>
+ <20260722135457.1366301-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,388 +50,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: Ricardo Ribalda <ribalda@chromium.org>
 
-[ Upstream commit a1caeeadbf57ff86dfc3454398c46de86056a74e ]
+[ Upstream commit f078966ca1fb1b3865d8e6bbe2705cfd277fc637 ]
 
-LOLLM points out that xfs_iext_lookup_extent can return a @got where
-got->br_startoff < startoff.  In this case, xrep_cow_replace_range
-replaces the entire mapping instead of just the part that had been
-marked bad in the bitmap, but advances the bitmap cursor in
-xrep_cow_replace by the amount replaced.  As a result, we fail to
-replace the end of the bad range, and replace part of the good range.
+If the driver could not detect the EOF, the sequence number is increased
+twice:
+ 1) When we enter uvc_video_decode_start() with the old buffer and FID has
+   flipped => We return -EAGAIN and last_fid is not flipped
+ 2) When we enter uvc_video_decode_start() with the new buffer.
 
-Fix this by rewriting the replace method to handle replacing the middle
-of a cow fork mapping.  This we do by returning both the current mapping
-as @got, and the subset of the mapping that we want to replace as @rep,
-using @rep to store the results of the new allocation, and comparing
-@rep to @got to figure out the exact transformations needed.
+Fix this issue by moving the new frame detection logic earlier in
+uvc_video_decode_start().
 
-Cc: stable@vger.kernel.org # v6.8
-Fixes: dbbdbd0086320a ("xfs: repair problems in CoW forks")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+This also has some nice side affects:
+
+- The error status from the new packet will no longer get propagated
+  to the previous frame-buffer.
+- uvc_video_clock_decode() will no longer update the previous frame
+  buf->stf with info from the new packet.
+- uvc_video_clock_decode() and uvc_video_stats_decode() will no longer
+  get called twice for the same packet.
+
+Cc: stable@kernel.org
+Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
+Reported-by: Hans de Goede <hansg@kernel.org>
+Closes: https://lore.kernel.org/linux-media/CANiDSCuj4cPuB5_v2xyvAagA5FjoN8V5scXiFFOeD3aKDMqkCg@mail.gmail.com/T/#me39fb134e8c2c085567a31548c3403eb639625e4
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/cow_repair.c | 182 ++++++++++++++++++++++++--------------
- fs/xfs/scrub/trace.h      |  28 +++---
- 2 files changed, 135 insertions(+), 75 deletions(-)
+ drivers/media/usb/uvc/uvc_video.c | 92 ++++++++++++++++---------------
+ 1 file changed, 47 insertions(+), 45 deletions(-)
 
-diff --git a/fs/xfs/scrub/cow_repair.c b/fs/xfs/scrub/cow_repair.c
-index 337bdd524b0103..e8f7cfd4dd22b7 100644
---- a/fs/xfs/scrub/cow_repair.c
-+++ b/fs/xfs/scrub/cow_repair.c
-@@ -73,12 +73,6 @@ struct xrep_cow {
- 	unsigned int		next_bno;
- };
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index 1a92cbe728ce87..3a056738c04e6e 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1116,6 +1116,53 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 	header_len = data[0];
+ 	fid = data[1] & UVC_STREAM_FID;
  
--/* CoW staging extent. */
--struct xrep_cow_extent {
--	xfs_fsblock_t		fsbno;
--	xfs_extlen_t		len;
--};
--
- /*
-  * Mark the part of the file range that corresponds to the given physical
-  * space.  Caller must ensure that the physical range is within xc->irec.
-@@ -315,22 +309,21 @@ xrep_cow_find_bad(
- STATIC int
- xrep_cow_alloc(
- 	struct xfs_scrub	*sc,
--	xfs_extlen_t		maxlen,
--	struct xrep_cow_extent	*repl)
-+	struct xfs_bmbt_irec	*del)
- {
- 	struct xfs_alloc_arg	args = {
- 		.tp		= sc->tp,
- 		.mp		= sc->mp,
- 		.oinfo		= XFS_RMAP_OINFO_SKIP_UPDATE,
- 		.minlen		= 1,
--		.maxlen		= maxlen,
-+		.maxlen		= del->br_blockcount,
- 		.prod		= 1,
- 		.resv		= XFS_AG_RESV_NONE,
- 		.datatype	= XFS_ALLOC_USERDATA,
- 	};
- 	int			error;
- 
--	error = xfs_trans_reserve_more(sc->tp, maxlen, 0);
-+	error = xfs_trans_reserve_more(sc->tp, del->br_blockcount, 0);
- 	if (error)
- 		return error;
- 
-@@ -343,8 +336,8 @@ xrep_cow_alloc(
- 
- 	xfs_refcount_alloc_cow_extent(sc->tp, args.fsbno, args.len);
- 
--	repl->fsbno = args.fsbno;
--	repl->len = args.len;
-+	del->br_startblock = args.fsbno;
-+	del->br_blockcount = args.len;
- 	return 0;
- }
- 
-@@ -358,19 +351,19 @@ static inline int
- xrep_cow_find_mapping(
- 	struct xrep_cow		*xc,
- 	struct xfs_iext_cursor	*icur,
--	xfs_fileoff_t		startoff,
--	struct xfs_bmbt_irec	*got)
-+	xfs_fileoff_t		badoff,
-+	xfs_extlen_t		badlen,
-+	struct xfs_bmbt_irec	*got,
-+	struct xfs_bmbt_irec	*rep)
- {
- 	struct xfs_inode	*ip = xc->sc->ip;
- 	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
- 
--	if (!xfs_iext_lookup_extent(ip, ifp, startoff, icur, got))
-+	if (!xfs_iext_lookup_extent(ip, ifp, badoff, icur, got))
- 		goto bad;
-+	memcpy(rep, got, sizeof(*rep));
- 
--	if (got->br_startoff > startoff)
--		goto bad;
--
--	if (got->br_blockcount == 0)
-+	if (got->br_startoff > badoff)
- 		goto bad;
- 
- 	if (isnullstartblock(got->br_startblock))
-@@ -379,6 +372,24 @@ xrep_cow_find_mapping(
- 	if (xfs_bmap_is_written_extent(got))
- 		goto bad;
- 
-+	if (got->br_startoff < badoff) {
-+		const int64_t	delta = badoff - got->br_startoff;
++	/*
++	 * Mark the buffer as done if we're at the beginning of a new frame.
++	 * End of frame detection is better implemented by checking the EOF
++	 * bit (FID bit toggling is delayed by one frame compared to the EOF
++	 * bit), but some devices don't set the bit at end of frame (and the
++	 * last payload can be lost anyway). We thus must check if the FID has
++	 * been toggled.
++	 *
++	 * stream->last_fid is initialized to -1, and buf->bytesused to 0,
++	 * so the first isochronous frame will never trigger an end of frame
++	 * detection.
++	 *
++	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
++	 * as it doesn't make sense to return an empty buffer. This also
++	 * avoids detecting end of frame conditions at FID toggling if the
++	 * previous payload had the EOF bit set.
++	 */
++	if (fid != stream->last_fid && buf && buf->bytesused != 0) {
++		uvc_dbg(stream->dev, FRAME,
++			"Frame complete (FID bit toggled)\n");
++		buf->state = UVC_BUF_STATE_READY;
 +
-+		rep->br_blockcount -= delta;
-+		rep->br_startoff += delta;
-+		rep->br_startblock += delta;
++		return -EAGAIN;
 +	}
 +
-+	if (got->br_startoff + got->br_blockcount > badoff + badlen) {
-+		const int64_t	delta = (got->br_startoff + got->br_blockcount) -
-+					(badoff + badlen);
++	/*
++	 * Some cameras, when running two parallel streams (one MJPEG alongside
++	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
++	 * We can detect the end of a frame by checking for a new SOI marker, as
++	 * the SOI always lies on the packet boundary between two frames for
++	 * these devices.
++	 */
++	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
++	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
++	     stream->cur_format->fcc == V4L2_PIX_FMT_JPEG) &&
++	    buf && buf->bytesused != 0) {
++		const u8 *packet = data + header_len;
 +
-+		rep->br_blockcount -= delta;
++		if (len >= header_len + 2 &&
++		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI) {
++			buf->state = UVC_BUF_STATE_READY;
++			buf->error = 1;
++			stream->last_fid ^= UVC_STREAM_FID;
++			return -EAGAIN;
++		}
 +	}
 +
-+	if (got->br_blockcount == 0)
-+		goto bad;
-+
- 	return 0;
- bad:
- 	ASSERT(0);
-@@ -389,46 +400,92 @@ xrep_cow_find_mapping(
- #define REPLACE_RIGHT_SIDE	(1U << 1)
- 
- /*
-- * Given a CoW fork mapping @got and a replacement mapping @repl, remap the
-- * beginning of @got with the space described by @rep.
-+ * Given a CoW fork mapping @got and a replacement mapping @rep, map the space
-+ * described by @rep into the cow fork, pushing aside @got as necessary.  @icur
-+ * must point to iext tree leaf containing @got.
-  */
- static inline void
- xrep_cow_replace_mapping(
--	struct xfs_inode		*ip,
--	struct xfs_iext_cursor		*icur,
--	const struct xfs_bmbt_irec	*got,
--	const struct xrep_cow_extent	*repl)
-+	struct xfs_inode	*ip,
-+	struct xfs_iext_cursor	*icur,
-+	struct xfs_bmbt_irec	*got,
-+	struct xfs_bmbt_irec	*rep)
- {
--	struct xfs_bmbt_irec		new = *got; /* struct copy */
-+	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
-+	xfs_fileoff_t		rep_endoff =
-+			rep->br_startoff + rep->br_blockcount;
-+	xfs_fileoff_t		got_endoff =
-+			got->br_startoff + got->br_blockcount;
-+	uint32_t		state = BMAP_COWFORK;
- 
--	ASSERT(repl->len > 0);
-+	ASSERT(rep->br_blockcount > 0);
- 	ASSERT(!isnullstartblock(got->br_startblock));
-+	ASSERT(got->br_startoff <= rep->br_startoff);
-+	ASSERT(got_endoff >= rep_endoff);
-+
-+	trace_xrep_cow_replace_mapping(ip, got, rep);
- 
--	trace_xrep_cow_replace_mapping(ip, got, repl->fsbno, repl->len);
-+	if (got->br_startoff == rep->br_startoff)
-+		state |= BMAP_LEFT_FILLING;
-+	if (got_endoff == rep_endoff)
-+		state |= BMAP_RIGHT_FILLING;
- 
--	if (got->br_blockcount == repl->len) {
-+	switch (state & (BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING)) {
-+	case BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING:
- 		/*
--		 * The new extent is a complete replacement for the existing
--		 * extent.  Update the COW fork record.
-+		 * Replacement matches the whole mapping, update the record.
- 		 */
--		new.br_startblock = repl->fsbno;
--		xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
--		return;
--	}
-+		xfs_iext_update_extent(ip, state, icur, rep);
-+		break;
-+	case BMAP_LEFT_FILLING:
-+		/*
-+		 * Replace the first part of the mapping: Update the cursor
-+		 * position with the new mapping, then add a record with the
-+		 * tail of the old mapping.
-+		 */
-+		got->br_startoff = rep_endoff;
-+		got->br_blockcount -= rep->br_blockcount;
-+		got->br_startblock += rep->br_blockcount;
-+
-+		xfs_iext_update_extent(ip, state, icur, rep);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, got, state);
-+		break;
-+	case BMAP_RIGHT_FILLING:
-+		/*
-+		 * Replacing the last part of the mapping.  Shorten the current
-+		 * mapping then add a record with the new mapping.
-+		 */
-+		got->br_blockcount -= rep->br_blockcount;
+ 	/*
+ 	 * Increase the sequence number regardless of any buffer states, so
+ 	 * that discontinuous sequence numbers always indicate lost frames.
+@@ -1172,51 +1219,6 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
+ 		buf->state = UVC_BUF_STATE_ACTIVE;
+ 	}
  
 -	/*
--	 * The new extent can replace the beginning of the COW fork record.
--	 * Move the left side of @got upwards, then insert the new record.
+-	 * Mark the buffer as done if we're at the beginning of a new frame.
+-	 * End of frame detection is better implemented by checking the EOF
+-	 * bit (FID bit toggling is delayed by one frame compared to the EOF
+-	 * bit), but some devices don't set the bit at end of frame (and the
+-	 * last payload can be lost anyway). We thus must check if the FID has
+-	 * been toggled.
+-	 *
+-	 * stream->last_fid is initialized to -1, so the first isochronous
+-	 * frame will never trigger an end of frame detection.
+-	 *
+-	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
+-	 * as it doesn't make sense to return an empty buffer. This also
+-	 * avoids detecting end of frame conditions at FID toggling if the
+-	 * previous payload had the EOF bit set.
 -	 */
--	new.br_startoff += repl->len;
--	new.br_startblock += repl->len;
--	new.br_blockcount -= repl->len;
--	xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
+-	if (fid != stream->last_fid && buf->bytesused != 0) {
+-		uvc_dbg(stream->dev, FRAME,
+-			"Frame complete (FID bit toggled)\n");
+-		buf->state = UVC_BUF_STATE_READY;
+-		return -EAGAIN;
+-	}
 -
--	new.br_startoff = got->br_startoff;
--	new.br_startblock = repl->fsbno;
--	new.br_blockcount = repl->len;
--	xfs_iext_insert(ip, icur, &new, BMAP_COWFORK);
-+		xfs_iext_update_extent(ip, state, icur, got);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, rep, state);
-+		break;
-+	case 0:
-+		/*
-+		 * Replacing the middle of the extent.  Shorten the current
-+		 * mapping, add a new record with the new mapping, and add a
-+		 * second new record with the tail of the old mapping.
-+		 */
-+		got->br_blockcount = rep->br_startoff - got->br_startoff;
-+
-+		struct xfs_bmbt_irec	new = {
-+			.br_startoff	= rep_endoff,
-+			.br_blockcount	= got_endoff - rep_endoff,
-+			.br_state	= got->br_state,
-+			.br_startblock	= got->br_startblock +
-+						rep->br_blockcount +
-+						got->br_blockcount,
-+		};
-+
-+		xfs_iext_update_extent(ip, state, icur, got);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, rep, state);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, &new, state);
-+		break;
-+	}
- }
+-	/*
+-	 * Some cameras, when running two parallel streams (one MJPEG alongside
+-	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
+-	 * We can detect the end of a frame by checking for a new SOI marker, as
+-	 * the SOI always lies on the packet boundary between two frames for
+-	 * these devices.
+-	 */
+-	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
+-	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
+-	    stream->cur_format->fcc == V4L2_PIX_FMT_JPEG)) {
+-		const u8 *packet = data + header_len;
+-
+-		if (len >= header_len + 2 &&
+-		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI &&
+-		    buf->bytesused != 0) {
+-			buf->state = UVC_BUF_STATE_READY;
+-			buf->error = 1;
+-			stream->last_fid ^= UVC_STREAM_FID;
+-			return -EAGAIN;
+-		}
+-	}
+-
+ 	stream->last_fid = fid;
  
- /*
-@@ -442,30 +499,27 @@ xrep_cow_replace_range(
- 	xfs_extlen_t		*blockcount)
- {
- 	struct xfs_iext_cursor	icur;
--	struct xrep_cow_extent	repl;
--	struct xfs_bmbt_irec	got;
-+	struct xfs_bmbt_irec	got, rep;
- 	struct xfs_scrub	*sc = xc->sc;
--	xfs_fileoff_t		nextoff;
--	xfs_extlen_t		alloc_len;
-+	xfs_fsblock_t		old_fsbno;
- 	int			error;
- 
- 	/*
--	 * Put the existing CoW fork mapping in @got.  If @got ends before
--	 * @rep, truncate @rep so we only replace one extent mapping at a time.
-+	 * Put the existing CoW fork mapping in @got, and put in @rep the
-+	 * contents of @got trimmed to @startoff/@blockcount.  We only want
-+	 * to replace the bad region, and only one mapping at a time.
- 	 */
--	error = xrep_cow_find_mapping(xc, &icur, startoff, &got);
-+	error = xrep_cow_find_mapping(xc, &icur, startoff, *blockcount, &got,
-+			&rep);
- 	if (error)
- 		return error;
--	nextoff = min(startoff + *blockcount,
--		      got.br_startoff + got.br_blockcount);
-+	old_fsbno = rep.br_startblock;
- 
- 	/*
- 	 * Allocate a replacement extent.  If we don't fill all the blocks,
- 	 * shorten the quantity that will be deleted in this step.
- 	 */
--	alloc_len = min_t(xfs_fileoff_t, XFS_MAX_BMBT_EXTLEN,
--			  nextoff - startoff);
--	error = xrep_cow_alloc(sc, alloc_len, &repl);
-+	error = xrep_cow_alloc(sc, &rep);
- 	if (error)
- 		return error;
- 
-@@ -473,7 +527,7 @@ xrep_cow_replace_range(
- 	 * Replace the old mapping with the new one, and commit the metadata
- 	 * changes made so far.
- 	 */
--	xrep_cow_replace_mapping(sc->ip, &icur, &got, &repl);
-+	xrep_cow_replace_mapping(sc->ip, &icur, &got, &rep);
- 
- 	xfs_inode_set_cowblocks_tag(sc->ip);
- 	error = xfs_defer_finish(&sc->tp);
-@@ -481,12 +535,12 @@ xrep_cow_replace_range(
- 		return error;
- 
- 	/* Note the old CoW staging extents; we'll reap them all later. */
--	error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks, got.br_startblock,
--			repl.len);
-+	error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks, old_fsbno,
-+			rep.br_blockcount);
- 	if (error)
- 		return error;
- 
--	*blockcount = repl.len;
-+	*blockcount = rep.br_blockcount;
- 	return 0;
- }
- 
-diff --git a/fs/xfs/scrub/trace.h b/fs/xfs/scrub/trace.h
-index ab4d90de59a8c5..4c43e64b009168 100644
---- a/fs/xfs/scrub/trace.h
-+++ b/fs/xfs/scrub/trace.h
-@@ -2553,9 +2553,9 @@ TRACE_EVENT(xrep_cow_mark_file_range,
- );
- 
- TRACE_EVENT(xrep_cow_replace_mapping,
--	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *irec,
--		 xfs_fsblock_t new_startblock, xfs_extlen_t new_blockcount),
--	TP_ARGS(ip, irec, new_startblock, new_blockcount),
-+	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *got,
-+		 const struct xfs_bmbt_irec *rep),
-+	TP_ARGS(ip, got, rep),
- 	TP_STRUCT__entry(
- 		__field(dev_t, dev)
- 		__field(xfs_ino_t, ino)
-@@ -2563,28 +2563,34 @@ TRACE_EVENT(xrep_cow_replace_mapping,
- 		__field(xfs_fileoff_t, startoff)
- 		__field(xfs_filblks_t, blockcount)
- 		__field(xfs_exntst_t, state)
-+		__field(xfs_fileoff_t, new_startoff)
- 		__field(xfs_fsblock_t, new_startblock)
- 		__field(xfs_extlen_t, new_blockcount)
-+		__field(xfs_exntst_t, new_state)
- 	),
- 	TP_fast_assign(
- 		__entry->dev = ip->i_mount->m_super->s_dev;
- 		__entry->ino = ip->i_ino;
--		__entry->startoff = irec->br_startoff;
--		__entry->startblock = irec->br_startblock;
--		__entry->blockcount = irec->br_blockcount;
--		__entry->state = irec->br_state;
--		__entry->new_startblock = new_startblock;
--		__entry->new_blockcount = new_blockcount;
-+		__entry->startoff = got->br_startoff;
-+		__entry->startblock = got->br_startblock;
-+		__entry->blockcount = got->br_blockcount;
-+		__entry->state = got->br_state;
-+		__entry->new_startoff = rep->br_startoff;
-+		__entry->new_startblock = rep->br_startblock;
-+		__entry->new_blockcount = rep->br_blockcount;
-+		__entry->new_state = rep->br_state;
- 	),
--	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startblock 0x%llx new_fsbcount 0x%x",
-+	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startoff 0x%llx new_startblock 0x%llx new_fsbcount 0x%x new_state 0x%x",
- 		  MAJOR(__entry->dev), MINOR(__entry->dev),
- 		  __entry->ino,
- 		  __entry->startoff,
- 		  __entry->startblock,
- 		  __entry->blockcount,
- 		  __entry->state,
-+		  __entry->new_startoff,
- 		  __entry->new_startblock,
--		  __entry->new_blockcount)
-+		  __entry->new_blockcount,
-+		  __entry->new_state)
- );
- 
- TRACE_EVENT(xrep_cow_free_staging,
+ 	return header_len;
 -- 
 2.53.0
 
