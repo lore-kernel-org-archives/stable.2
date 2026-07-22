@@ -1,33 +1,65 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1F59740B108
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED3D40097A
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784739389; cv=none; b=RxidLMvJEMTq5uDd98EvI4P9CCxALL3YN7TyydLwG2Di8+r2CAA9ICKqHJtdCfMHk6AO/D2v4IOYNTbDxE1ltSF7IbUfrCPqo9xMSQYqlCGhc+wickO6mZ8PHku7NK6H3zcto3RnAaLSv3v0iOGgQj8krcVVDuc9H5jmF4WYQzE=
+	t=1784739451; cv=none; b=HUey0fn7dZuqI768o80dYZE2qme4IXmW/WguVilK66OhuX0vy6xhtezqc9mtOG43pppKGuZ2j6uiuV5B1jeAsGYW88TH1jwXwtJxqaCoPWN4tg3or3wsTxwRNlEpXSeUy63UkZQbNt5Pm1O5qv/bNczWzo5Jb3z8fLzgQYFQ4+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784739389; c=relaxed/simple;
-	bh=pYVmR2L8HCGfHM5Pot89Q8QGJU4mVcZDQ+zR6U0/MXU=;
+	s=arc-20240116; t=1784739451; c=relaxed/simple;
+	bh=uCX/YMZs+bW0+HV3qZk1hPOpTSniASdlSrxjEiGbR2o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FpTYuDWqqbHKM07e4nf6jXtxiFjBBlWQsOgPaQupe+hPlTxnTHBP/lBhm4wI22RLJY/ZBX3A6N8w5DKobWIvHttqvVNBgmYcffu/TcsBtDwAMHIyQ1u8II+pwzgaW2sZH9dI9UrwpoFpLa1HlcgZJBdUpiginaQpyNR0XZDcJoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RhNFo5DN; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=iYGXr+oy2b1IxIsHj7aN3QzDRumBHYvBXGZcqvR8OH+VUDpEHkznKXz6vJ5LJw+6ACw5byl/Gn3zgKyQKLLhikz4FlteCGUFKjlAln/gTvqp9+sLJ6F3scmCxJ7fYHm+AMWFIWIJD1jBwnecQ3CnGVEyoUqWPtiPOtGT9kFEAVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XVqqj+ov; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RhNFo5DN"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 51F4D1595;
-	Wed, 22 Jul 2026 09:56:23 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 83C1F3F59E;
-	Wed, 22 Jul 2026 09:56:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784739387; bh=pYVmR2L8HCGfHM5Pot89Q8QGJU4mVcZDQ+zR6U0/MXU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=RhNFo5DNMetW02ZuI3Jel22P1Iz8VPaf0EsWcOfcCePIHqvt+zIfFF+MwrwsKPW6+
-	 +LeTu0gLcyKqBdVcWzMI1wb0yENrCONvh4g4akizvXP3r1XzERYjCA1vYljLXCglcN
-	 woeSQMAEx1cQvtW/4V2ZfsWvDQQPd411/WBtMaGU=
-Message-ID: <acd85a2a-af1f-4ebf-8370-773338d4fd15@arm.com>
-Date: Wed, 22 Jul 2026 17:56:25 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XVqqj+ov"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7ec3b429a3aso1507714a34.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 09:57:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1784739447; x=1785344247; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ujUCo8FHFBDihMIuGFqtWgMTJvOgj4wPRWijZvZJVaQ=;
+        b=XVqqj+ov0DV4vHE8rOdydM4v1y51wWxnT71gHGYoV2SzR153UGp7QXJzeEttUWV23c
+         QMocIUCd754KVk1QGl9nipop1t3E1ykKWefxPc8ZoHR84d8OmFfbrEam/Ie0xFG+xVC7
+         MNNfQGnP7IuIZhP+iSegXJmkz6X/jLdcCpfwY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784739447; x=1785344247;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ujUCo8FHFBDihMIuGFqtWgMTJvOgj4wPRWijZvZJVaQ=;
+        b=ZcVCjruz3EuGu9qWv4oWScpjuRvtGf1M/XNUprtG/C88oYMMLJznMNFgJszUF21lxU
+         hQPjobs2cXay1VjBsCgyW92CZxUGJf5F/oyKLP28mGpDF+rNmygxg7YbtDSyLVrZ9nrx
+         FSa21Qnc/4RmFlmYqT9kigPd7WBeGH5/vmC4R51GX0tCOv+PYMrrax0Zrw8hNh25innA
+         rKouzV8WrUy1M2DdqGggzTVb3kRAOKpFw1Dp+P9AxM+FdIhNn9qRMNb+Us9Q/VHg6Etk
+         O/n8S5zSAcGlXDxft/XlX5Qr0iBc0xmfQe3d7vzWEy0bYclDYlpAdU3BNurUu00y5AQ0
+         bAhw==
+X-Forwarded-Encrypted: i=1; AHgh+RqxD63FbiQcn3qzplrYXXDMDoBan7b0RyHCxUYGoTJaNG2nz7/v4Q0ncPBrD/kf2yBwVLy2UdI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXAFzTUGmadR1VCZSbsdOtQMbQjMIjTjmEF46YHZoDH8otaYTB
+	B62Tyxq3TIU/nYA1a4WDRml5aEKRZyCjreLGcJ+F0sOx1CvAocFkD2aXkCraZ8FIfoQNIJNEipN
+	OhEGHT5w=
+X-Gm-Gg: AR+sD11fObc/MBhk7KYEhtHvxK6YOeLFnrLnrKWfvLoF/65xvQTeaKbBiDxxyN3+NH6
+	ZVZCugXklmNCTR9jUsZrS7SKqzDkqBCi0YExtK+WrmA5LWyMSIL/5jOGecnutmrTFuvqeLMclVF
+	0OL7PiYvgqElJRB4Y0oO2Qud9ukGqsVtXE7s8X1uiybZB8DRr8PBM9x5Rx4c7hVBqdG14MIYkWJ
+	gNlto/dT2psyCqHZPH9g6CPz5NnjilKHiKoVEJ7hL9UQZm0KqMuAh137tSbvsy/xoLD/TRz6iBq
+	SOETorTQ4pqodh3eoBpwPS7/Cr/tHvi6Ybr7D8BQS1g0pR+jHgAbR+SEquyoeujcdBO4l9X82Xn
+	T9wNDTTOxd0DdE/3bAktNetXvuf/9KUbjzaCjhlCmrlYVn7I1w2KhZ4ScG3RDtaNxVMXoV8uHXw
+	+ZAGVTx6hYn0E=
+X-Received: by 2002:a05:6830:4390:b0:7eb:cc5f:a6df with SMTP id 46e09a7af769-7eda4d39912mr12668713a34.18.1784739447526;
+        Wed, 22 Jul 2026 09:57:27 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ee2a0b3ee5sm1709410a34.24.2026.07.22.09.57.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 09:57:27 -0700 (PDT)
+Message-ID: <d98c92e3-ab03-4732-8343-333222fb83d9@linuxfoundation.org>
+Date: Wed, 22 Jul 2026 10:57:23 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,60 +67,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
-To: Will Deacon <will@kernel.org>
-Cc: joro@8bytes.org, jpb@kernel.org, catalin.marinas@arm.com,
- yangyicong@hisilicon.com, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, stable@vger.kernel.org
-References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
- <amDEmlcyC3Tfmkel@willie-the-truck>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <amDEmlcyC3Tfmkel@willie-the-truck>
+Subject: Re: [PATCH 6.18 0000/1611] 6.18.40-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260721152514.750365251@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260721152514.750365251@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 22/07/2026 2:24 pm, Will Deacon wrote:
-> On Wed, Jul 01, 2026 at 06:45:17PM +0100, Robin Murphy wrote:
->> Since table access flags cannot be software-managed, if process
->> pagetables are using HAFT then SVA must require the SMMU to support and
->> enable it too, otherwise page aging is liable to get out of whack.
->>
->> Cc: <stable@vger.kernel.org>
->> Fixes: 62df5870ebf7 ("arm64: Enable ARCH_HAS_NONLEAF_PMD_YOUNG")
->> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
->> ---
->>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c | 5 +++++
->>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c     | 6 ++++++
->>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h     | 3 +++
->>   3 files changed, 14 insertions(+)
+On 7/21/26 09:01, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.40 release.
+> There are 1611 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> This looks ok to *me*, but Sashiko raises two interesting points:
+> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
+> Anything received after that time might be too late.
 > 
-> https://sashiko.dev/#/patchset/878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.40-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
 > 
-> 1. This may break hitless updates when transitioning to a faulting entry.
+> thanks,
+> 
+> greg k-h
+> 
 
-What does that even mean? We might block traffic in the process of 
-_explicitly blocking traffic_!? Whoop-de-do, surely?
+Compiled and booted on my test system. No dmesg regressions.
 
-But either way, HAFT has bog all to do with EPD0, and it must be cleared 
-if HA is cleared, otherwise the CD becomes illegal.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-> 2. IORT has HTTU overrides for HA/HD. Does it (will it?) have anything
->     for HAFT? At the moment, it looks like you'll trigger a warning
->     message.
-
-Oh, seems I did miss that fiddly fw_features line, so I guess it has 
-half a point that the warning can wonky if both IDR0 and IORT do 
-(correctly) report HAFT. Pretty sure we're already a bit broken if IORT 
-ever did try to override HTTU _upwards_, though.
-
-> Given Jason's comments, it's probably worth sending the idreg override
-> patch as well...
-
-Fair enough, I'm blessed with a moment of calm just now so I should be 
-able to find time to have a crack at that tomorrow...
-
-Cheers,
-Robin.
+thanks,
+-- Shuah
