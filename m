@@ -1,120 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03B5285060
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502D533AD9C;
+	Wed, 22 Jul 2026 06:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784698712; cv=none; b=jemuSf9rAyoRMB7wex8V0Nz77uFhq4E+fGWOlzblwayWQ2fEUGnMmoqrBoEtL//wOWDeK5zYJxJ1s7LgpO+PUNjAj673y1ZqRtVGoeeFjQAT/fBVWT937hLRF7Gy2uCE7pnra/dkj6wy3FNoflsfB/hwGAEXUT9Z0TB8y8MpDJQ=
+	t=1784700673; cv=none; b=d2uwHmaTqpFs4BVbY11l47ryr85DZSZdGI9CQljg0vljtuFYzdLiEXRlDLHD+dQoqnCGoqWVS+nHWkoSLGvQB1OStBTdJUoUuDMR4Mgr2XSyy3spR3jHShR+McCHhOhxiq9FvSBHAaXaeyU1hCrGl1ewWzNLX+ZlLGe+IK9lz4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784698712; c=relaxed/simple;
-	bh=1ZGWoyyvqOJ5KCogeHJ5WHBQVSfDjznr+J1XUiKfBX0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oXjm4RJZGR6IQ2E3bfmCi2Fx7N8s7bSAKkARd5d6Dby0nHCH47/cmLCMRuBd25IC+HwnVBoEg3Yo6MIAfBr/Oa37/ZFyPtiNO+YFEz2IlW0VCX/z7FVpJKugkbl90UfzJL1h9YDmJkU0OQ60sI9reEuErFaG3iOKjurrs2b2OiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gNilz+mv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gNilz+mv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887E41F000E9;
-	Wed, 22 Jul 2026 05:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784698711;
-	bh=MZ+yKqGXEyIQFJPzBcI1cwFDDsgWWAguBDA8Yl30fQk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gNilz+mvKHRP5T5Uo4jQzjSh2AuGNMZWJABqzEtSqLyOzq7VD7rCRy0CLwywEB/xa
-	 j5Jqt2YGllt1EK9ZOmItySD1dwWgws+C3Bj18LMsMFBU+q3kFkQA5uN09S6vYx6C9W
-	 NEtnjfiSGJtEdOJWMfJhwecaJZM/rT4XxiHmdO30=
-Date: Wed, 22 Jul 2026 07:37:07 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] KVM: selftests: Remove duplicate
- LAUNCH_UPDATE_VMSA call in" failed to apply to 6.12-stable tree
-Message-ID: <2026072256-audio-operator-7f84@gregkh>
-References: <2026042008-thesis-flatworm-d8ed@gregkh>
- <al-vQXTtfnq-e7Mf@google.com>
+	s=arc-20240116; t=1784700673; c=relaxed/simple;
+	bh=CFoa86Uz74036+ICkody/I2OxfctQjO/9BLPIQ5LRAo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k3s0QZ5aeilK+/CgSjWASHIMBmIi0GIGUiTU0D6g1kZ016I9H9abw1g4ShlrPyQQI9UCeoGJ/nolTMyse6Nq/S0Iv+A5v24bnSScKbI+R9C7cUF06mTbCorLcv8Rd4SqvchaKgeOqqtbQ3ZB8srf2HKM8cpQy9l8tjdLkoLwM3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1e608648859411f1aa26b74ffac11d73-20260722
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN
+	HR_FROM_NAME, HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
+	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT
+	HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED
+	SA_TRUSTED, SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS
+	DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:ecca982b-22f2-402a-b663-c839365519de,IP:15,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:15
+X-CID-INFO: VERSION:1.3.12,REQID:ecca982b-22f2-402a-b663-c839365519de,IP:15,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:15
+X-CID-META: VersionHash:e7bac3a,CLOUDID:2820e7ca4246b2fd5fbd1793db7675a5,BulkI
+	D:260722141104DLVJ7E1R,BulkQuantity:0,Recheck:0,SF:10|38|66|78|81|82|102|1
+	27|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:
+	nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,B
+	RE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1e608648859411f1aa26b74ffac11d73-20260722
+X-User: liqiang01@kylinos.cn
+Received: from cvdaxia.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <liqiang01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1606383993; Wed, 22 Jul 2026 14:11:03 +0800
+From: Li Qiang <liqiang01@kylinos.cn>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Qiang <liqiang01@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 4/4] tracing/inject: Prevent overflow growing string fields
+Date: Wed, 22 Jul 2026 14:10:40 +0800
+Message-ID: <20260722061040.112747-5-liqiang01@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260722061040.112747-1-liqiang01@kylinos.cn>
+References: <20260722061040.112747-1-liqiang01@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <al-vQXTtfnq-e7Mf@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 10:41:21AM -0700, Sean Christopherson wrote:
-> On Mon, Apr 20, 2026, gregkh@linuxfoundation.org wrote:
-> > 
-> > The patch below does not apply to the 6.12-stable tree.
-> > If someone wants it applied there, or to any other stable or longterm
-> > tree, then please email the backport, including the original git commit
-> > id to <stable@vger.kernel.org>.
-> > 
-> > To reproduce the conflict and resubmit, you may use the following commands:
-> > 
-> > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-> > git checkout FETCH_HEAD
-> > git cherry-pick -x 25a642b6abc98bbbabbf2baef9fc498bbea6aee6
-> > # <resolve conflicts, build, test, etc.>
-> > git commit -s
-> > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026042008-thesis-flatworm-d8ed@gregkh' --subject-prefix 'PATCH 6.12.y' HEAD^..
-> > 
-> > Possible dependencies:
-> > 
-> > 
-> > 
-> > thanks,
-> > 
-> > greg k-h
-> > 
-> > ------------------ original commit in Linus's tree ------------------
-> > 
-> > >From 25a642b6abc98bbbabbf2baef9fc498bbea6aee6 Mon Sep 17 00:00:00 2001
-> > From: Sean Christopherson <seanjc@google.com>
-> > Date: Tue, 10 Mar 2026 16:48:09 -0700
-> > Subject: [PATCH] KVM: selftests: Remove duplicate LAUNCH_UPDATE_VMSA call in
-> >  SEV-ES migrate test
-> > 
-> > Drop the explicit KVM_SEV_LAUNCH_UPDATE_VMSA call when creating an SEV-ES
-> > VM in the SEV migration test, as sev_vm_create() automatically updates the
-> > VMSA pages for SEV-ES guests.  The only reason the duplicate call doesn't
-> > cause visible problems is because the test doesn't actually try to run the
-> > vCPUs.  That will change when KVM adds a check to prevent userspace from
-> > re-launching a VMSA (which corrupts the VMSA page due to KVM writing
-> > encrypted private memory).
-> > 
-> > Fixes: 69f8e15ab61f ("KVM: selftests: Use the SEV library APIs in the intra-host migration test")
-> > Cc: stable@vger.kernel.org
-> > Link: https://patch.msgid.link/20260310234829.2608037-2-seanjc@google.com
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > 
-> > diff --git a/tools/testing/selftests/kvm/x86/sev_migrate_tests.c b/tools/testing/selftests/kvm/x86/sev_migrate_tests.c
-> > index 0a6dfba3905b..6b0928e69051 100644
-> > --- a/tools/testing/selftests/kvm/x86/sev_migrate_tests.c
-> > +++ b/tools/testing/selftests/kvm/x86/sev_migrate_tests.c
-> > @@ -36,8 +36,6 @@ static struct kvm_vm *sev_vm_create(bool es)
-> >  
-> >  	sev_vm_launch(vm, es ? SEV_POLICY_ES : 0);
-> >  
-> > -	if (es)
-> > -		vm_sev_ioctl(vm, KVM_SEV_LAUNCH_UPDATE_VMSA, NULL);
-> >  	return vm;
-> >  }
-> 
-> Can you retry applying this to 6.12.y?  This now cherry-picks cleanly to 6.12.y
-> (and FWIW, the very original patch applies cleanly too).
-> 
-> Oooh, I suspect the issue is that the path in 6.12 is x86_64 instead of x86, i.e.
-> 
->   tools/testing/selftests/kvm/x86_64/sev_migrate_tests.c
-> 
-> instead of
-> 
->   tools/testing/selftests/kvm/x86/sev_migrate_tests.c
-> 
-> and git on my end is configured to automagically handle renames?  Holler if an
-> explicit patch with the x86_64 is preferred and/or easier to consume.
+parse_entry() appends dynamic string data by adding its length to the
+current entry size. An oversized input can overflow this signed addition,
+cause krealloc() to receive too small a length, and then write beyond it.
 
-An explicit patch is preferred, thanks.
+Reject a string length that cannot be added to entry_size before growing
+the allocation.
 
-greg k-h
+Fixes: 6c3edaf9fd6a ("tracing: Introduce trace event injection")
+Cc: stable@vger.kernel.org
+Signed-off-by: Li Qiang <liqiang01@kylinos.cn>
+---
+ kernel/trace/trace_events_inject.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/kernel/trace/trace_events_inject.c b/kernel/trace/trace_events_inject.c
+index b8b141c00d5c..5c551def44f6 100644
+--- a/kernel/trace/trace_events_inject.c
++++ b/kernel/trace/trace_events_inject.c
+@@ -243,6 +243,9 @@ static int parse_entry(char *str, struct trace_event_call *call, void **pentry)
+ 				int str_loc = entry_size & 0xffff;
+ 				u32 *str_item;
+ 
++				if (str_len > INT_MAX - entry_size)
++					return -E2BIG;
++
+ 				entry_size += str_len;
+ 				*pentry = krealloc(entry, entry_size, GFP_KERNEL);
+ 				if (!*pentry) {
+-- 
+2.43.0
+
