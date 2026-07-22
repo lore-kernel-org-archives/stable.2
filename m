@@ -1,222 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C0A4749CE
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:00:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B2442124C
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784743253; cv=none; b=uWJB40/AResEh16xW+w1oZ8yBbQqxdkC+fr9PrXAkcIfPOSuFkw2b7Nj7Wihtyq7Pvj8l2RvrTDUA0ZEm42/Q9HO7qIgrSEDDIrgYB4aQLCCVGdo/PHNOuZjiZrPMwf145p8HK5v2meFvzIFY5nQV5X4KkxdDk8pDVHMGXczyPY=
+	t=1784743256; cv=none; b=QdeM5VOv/mre1z0rb/Ai5PkkEf+EiMQUQN03txPWDl7+uMqMPetZvgMhd8ahexCm61zBLZu663fZ3dv+TvQyKydG0zOxvU9EXkCV86NkHUFrP9COqmNK+BV6k4Bi6Q6fl9BmTDhxZO/0hkuO01T0uqXsaReSWWS2x3nidnf2a58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784743253; c=relaxed/simple;
-	bh=My+Yh22XTHyLeE97IbcxFfExgnwazFSjDJkMVZE7N2o=;
+	s=arc-20240116; t=1784743256; c=relaxed/simple;
+	bh=yp1B5D0nvEFdPqq29eeR6yay4xpNFdv8W4JsWDZPepQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MV8mY+Hk0tNDv4yTKL/QfAwwAtnkTGGOGGnCsmU2Um7K7YiUINrN1ebZLHNkz6ffZd7KbD64uMbUCuD9InhomYkDoYQSmffLILCSlUc5Ep6fckKxIMYtt2eKKG2nUdpw4qtpigmaO3MWP15mDzyFVQqt4DlNDZG4/t+f1LZlWqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=diX2j7H3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=K+Hez57i5155vOpPfgE0LzLOASBP7ip3x82CdnlQKAo1hfXdcZEjbD/i76/hGJTbrRbbcW/cl18jQS+l3jV77J8IkMuEtjot6sXm8WUPSRCcsDTPIwJV2C6l3FIaK0MJO3TidUl70IJ4SuJHYujk9vX8Jn+kMBhfL9y/0u1qmGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUKSxnme; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="diX2j7H3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B8781F00A3E;
-	Wed, 22 Jul 2026 18:00:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUKSxnme"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346301F00A3D;
+	Wed, 22 Jul 2026 18:00:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784743251;
-	bh=piPwnS1u+W9bezhRjRjNv7Ahjhj8Q+gBTQIJ8YNVeFo=;
+	s=k20260515; t=1784743255;
+	bh=qE/IK5nFuXg20I8ijUmvd7xO02BgtYXBJBEgB5J0Ow4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=diX2j7H34OUMtXqT+63ON6c7hX34QhDbkZzLHFAjRISHXbk52HDkB7987fmI5oWaM
-	 dykoHxjsjmwpsV3fSRcQMNFGJLc/Yq488dZJwmwV/OUCtCjGaH9eUhFKjucZiOuMOQ
-	 RenHaod4YUGU/Puab+j5aIEbRLLwMOQiv7Tf0suzMAXpZ72xTBJOEdGW+SZxSZeoCU
-	 KOtcp3fewA2Z+n7DLx3yK012qDZJSTeru3YBVP7ScZnlJ6sjIHu7DzmCdZyasc9DOS
-	 1dWh9ff6gyfz5v4WEfaQY6Eyzc/TaKiGb+crfLwobWRtffWS0i7qoYjiW5GpfcUQPz
-	 CjJE9BzdA/Ztw==
+	b=DUKSxnmeaFbZHnRLy/7dAhKWNOFz9oODRBB+YAR6BoePXQyonFy37iwKMCzIpYXC+
+	 xyMBSu6r9StL/F4kPKhdw4IOlIdAFAwGvKhHCjBb6x83mGRmIdQ33z3WtO2uBoHJGS
+	 /dky8XbrtQccX6o9cEtCAK0xLkG4pGjSOLZXbli0NjoK2PZi0QXoX8OBl2Lj1bSniq
+	 M67Ba8hmrtkgLlC5sIsAnX5qn+7gnKivySaBTmk78aEoYIcjL8LXHK1VDOe+y+mSmU
+	 +dmBk7QxMFALwrKglDFev0WiLhEk/BIkF7AUSojPNSA5wAOWINNXoNtWyKBGUa5tbI
+	 28GA+hNMG0BbA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] arm64: dts: qcom: hamoa: Fix OPP tables for all DisplayPort controllers
-Date: Wed, 22 Jul 2026 14:00:48 -0400
-Message-ID: <20260722180048.2184180-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/4] vduse: remove unused vaddr parameter of vduse_domain_free_coherent
+Date: Wed, 22 Jul 2026 14:00:50 -0400
+Message-ID: <20260722180052.2184339-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722180048.2184180-1-sashal@kernel.org>
-References: <2026072016-discern-gooey-8e42@gregkh>
- <20260722180048.2184180-1-sashal@kernel.org>
+In-Reply-To: <20260722180052.2184339-1-sashal@kernel.org>
+References: <2026072041-rectal-mammogram-740b@gregkh>
+ <20260722180052.2184339-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+From: Eugenio Pérez <eperezma@redhat.com>
 
-[ Upstream commit c17e220946675232d383620ed9cff6685735ec48 ]
+[ Upstream commit 766e1749c0ef6a09651be9b8a8283d508c322b58 ]
 
-According to internal documentation, the corners specific for each rate
-from the DP link clock are:
- - LOWSVS_D1 -> 19.2 MHz
- - LOWSVS    -> 270 MHz
- - SVS       -> 540 MHz (594 MHz in case of DP3)
- - SVS_L1    -> 594 MHz
- - NOM       -> 810 MHz
- - NOM_L1    -> 810 MHz
- - TURBO     -> 810 MHz
+We will modify the function in next patches so let's clean it first.
 
-So fix all tables for each of the four controllers according to the
-documentation, but since DP0 through DP2 have the same entries in their
-tables, lets drop the DP1 and DP2 and have all of them share the DP0
-table instead. However keep a separate table for the DP3 as it is
-different for the SVS, compared to the rest of the controllers.
-
-The 19.2 MHz @ LOWSVS_D1 isn't needed as it's not an actual working
-frequency and the controller will never select it. So remove it.
-
-Cc: stable@vger.kernel.org # v6.9+
-Fixes: 1940c25eaa63 ("arm64: dts: qcom: x1e80100: Add display nodes")
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260323-hamoa-fix-dp3-opp-table-v3-1-a823776bd1b0@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-Id: <20260119143306.1818855-9-eperezma@redhat.com>
+Stable-dep-of: 9c1523803445 ("VDUSE: avoid leaking information to userspace")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/x1e80100.dtsi | 77 ++++----------------------
- 1 file changed, 12 insertions(+), 65 deletions(-)
+ drivers/vdpa/vdpa_user/iova_domain.c | 3 +--
+ drivers/vdpa/vdpa_user/iova_domain.h | 3 +--
+ drivers/vdpa/vdpa_user/vduse_dev.c   | 2 +-
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100.dtsi b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-index 062911cc208322..adb18c10dbd9fe 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e80100.dtsi
-@@ -5522,18 +5522,18 @@ mdss_dp0_out: endpoint {
- 				mdss_dp0_opp_table: opp-table {
- 					compatible = "operating-points-v2";
+diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
+index 4e8fa3f7af5f94..b686561be40031 100644
+--- a/drivers/vdpa/vdpa_user/iova_domain.c
++++ b/drivers/vdpa/vdpa_user/iova_domain.c
+@@ -514,8 +514,7 @@ void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
+ }
  
--					opp-162000000 {
--						opp-hz = /bits/ 64 <162000000>;
--						required-opps = <&rpmhpd_opp_low_svs>;
--					};
--
- 					opp-270000000 {
- 						opp-hz = /bits/ 64 <270000000>;
--						required-opps = <&rpmhpd_opp_svs>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
- 					};
+ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+-				void *vaddr, dma_addr_t dma_addr,
+-				unsigned long attrs)
++				dma_addr_t dma_addr, unsigned long attrs)
+ {
+ 	struct iova_domain *iovad = &domain->consistent_iovad;
+ 	struct vhost_iotlb_map *map;
+diff --git a/drivers/vdpa/vdpa_user/iova_domain.h b/drivers/vdpa/vdpa_user/iova_domain.h
+index b08946be6f4a08..b07dd9eff1056a 100644
+--- a/drivers/vdpa/vdpa_user/iova_domain.h
++++ b/drivers/vdpa/vdpa_user/iova_domain.h
+@@ -63,8 +63,7 @@ void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
+ 				  gfp_t flag, unsigned long attrs);
  
- 					opp-540000000 {
- 						opp-hz = /bits/ 64 <540000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-594000000 {
-+						opp-hz = /bits/ 64 <594000000>;
- 						required-opps = <&rpmhpd_opp_svs_l1>;
- 					};
+ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+-				void *vaddr, dma_addr_t dma_addr,
+-				unsigned long attrs);
++				dma_addr_t dma_addr, unsigned long attrs);
  
-@@ -5574,7 +5574,7 @@ mdss_dp1: displayport-controller@ae98000 {
- 							 <&usb_1_ss1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_ss1_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
+ void vduse_domain_reset_bounce_map(struct vduse_iova_domain *domain);
  
--				operating-points-v2 = <&mdss_dp1_opp_table>;
-+				operating-points-v2 = <&mdss_dp0_opp_table>;
+diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
+index d7bda179ef79f8..ab6045d6154f3f 100644
+--- a/drivers/vdpa/vdpa_user/vduse_dev.c
++++ b/drivers/vdpa/vdpa_user/vduse_dev.c
+@@ -849,7 +849,7 @@ static void vduse_dev_free_coherent(struct device *dev, size_t size,
+ 	struct vduse_dev *vdev = dev_to_vduse(dev);
+ 	struct vduse_iova_domain *domain = vdev->domain;
  
- 				power-domains = <&rpmhpd RPMHPD_MMCX>;
+-	vduse_domain_free_coherent(domain, size, vaddr, dma_addr, attrs);
++	vduse_domain_free_coherent(domain, size, dma_addr, attrs);
+ }
  
-@@ -5606,30 +5606,6 @@ mdss_dp1_out: endpoint {
- 						};
- 					};
- 				};
--
--				mdss_dp1_opp_table: opp-table {
--					compatible = "operating-points-v2";
--
--					opp-162000000 {
--						opp-hz = /bits/ 64 <162000000>;
--						required-opps = <&rpmhpd_opp_low_svs>;
--					};
--
--					opp-270000000 {
--						opp-hz = /bits/ 64 <270000000>;
--						required-opps = <&rpmhpd_opp_svs>;
--					};
--
--					opp-540000000 {
--						opp-hz = /bits/ 64 <540000000>;
--						required-opps = <&rpmhpd_opp_svs_l1>;
--					};
--
--					opp-810000000 {
--						opp-hz = /bits/ 64 <810000000>;
--						required-opps = <&rpmhpd_opp_nom>;
--					};
--				};
- 			};
- 
- 			mdss_dp2: displayport-controller@ae9a000 {
-@@ -5662,7 +5638,7 @@ mdss_dp2: displayport-controller@ae9a000 {
- 							 <&usb_1_ss2_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>,
- 							 <&usb_1_ss2_qmpphy QMP_USB43DP_DP_VCO_DIV_CLK>;
- 
--				operating-points-v2 = <&mdss_dp2_opp_table>;
-+				operating-points-v2 = <&mdss_dp0_opp_table>;
- 
- 				power-domains = <&rpmhpd RPMHPD_MMCX>;
- 
-@@ -5693,30 +5669,6 @@ mdss_dp2_out: endpoint {
- 						};
- 					};
- 				};
--
--				mdss_dp2_opp_table: opp-table {
--					compatible = "operating-points-v2";
--
--					opp-162000000 {
--						opp-hz = /bits/ 64 <162000000>;
--						required-opps = <&rpmhpd_opp_low_svs>;
--					};
--
--					opp-270000000 {
--						opp-hz = /bits/ 64 <270000000>;
--						required-opps = <&rpmhpd_opp_svs>;
--					};
--
--					opp-540000000 {
--						opp-hz = /bits/ 64 <540000000>;
--						required-opps = <&rpmhpd_opp_svs_l1>;
--					};
--
--					opp-810000000 {
--						opp-hz = /bits/ 64 <810000000>;
--						required-opps = <&rpmhpd_opp_nom>;
--					};
--				};
- 			};
- 
- 			mdss_dp3: displayport-controller@aea0000 {
-@@ -5779,19 +5731,14 @@ mdss_dp3_out: endpoint {
- 				mdss_dp3_opp_table: opp-table {
- 					compatible = "operating-points-v2";
- 
--					opp-162000000 {
--						opp-hz = /bits/ 64 <162000000>;
--						required-opps = <&rpmhpd_opp_low_svs>;
--					};
--
- 					opp-270000000 {
- 						opp-hz = /bits/ 64 <270000000>;
--						required-opps = <&rpmhpd_opp_svs>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
- 					};
- 
--					opp-540000000 {
--						opp-hz = /bits/ 64 <540000000>;
--						required-opps = <&rpmhpd_opp_svs_l1>;
-+					opp-594000000 {
-+						opp-hz = /bits/ 64 <594000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
- 					};
- 
- 					opp-810000000 {
+ static size_t vduse_dev_max_mapping_size(struct device *dev)
 -- 
 2.53.0
 
