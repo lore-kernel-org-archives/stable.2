@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F33353A88
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F29342510
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:54:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784728486; cv=none; b=hRSY6BvGWVx3f7vKoXEAlTQLJE6N/49r+NQTq96HcaGLed/ZqK3Z0LsPRricxyuCKz5MzOG+IoXlaFeVIABgWQc9ns3AkqAGiwPnZHXHd3emd+UGHC1bENGL/1chGUkBW57zxGQ3ztO1ggF728h/9HqA9kGatK87tbIyZmz45mk=
+	t=1784728494; cv=none; b=HuAYnKnAWnItGBNQxOww1i52+qOxR51pBCD4Bs1m099kzzUqf/7n1is6Jersn+GK4zZkkQiirutiHOvH5kGjFsKcZmStZvUBuM/zLtlKLb8ePL/M9NutQ3M3Lpa+KWlKWbArdRSVyETb7nYZWxReuT9At8ZZeim1nKZkoNSzMLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784728486; c=relaxed/simple;
-	bh=hQXwVvJiJMAJltB/XBNufMgSyDt9AsinxXQZrVpmMzI=;
+	s=arc-20240116; t=1784728494; c=relaxed/simple;
+	bh=encMAg0IC2dQ38pYBshzqeaKg2pfg5pd75WbAigHUXQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LcTbbtFz5pPq0kErblqfynAKqrZuEfROKpYWfUZq8bFNqY0TR3NhRapnaObS7r1vg/wiKRiYaJCCi7FBwrVegBl03dybNoZeRCESlAyjLae3G+j9YguAAQgnWWCZLb2LAg8pGeXpGmAZcE7kA6i/y0fwsKS6Q776oumcfqPpbTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7fKrgoN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F1IH3qB+pCdY12nqLQM5Z7Fc01bYKEgqiAflrMw1+43z+ob/Cfutoy9jcmxxxmBOsoO9HnVMqknzNx3TSytsgvhnQ/gf8Yy9B4pI8O/vvShcWoX2utgIAWBiKu7SD1JWMM2SL6ErVZJk5NuuR2425oKHYjw5btl+6pDjbAaMKn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j8EXMKd1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7fKrgoN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853DF1F000E9;
-	Wed, 22 Jul 2026 13:54:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j8EXMKd1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1AC1F000E9;
+	Wed, 22 Jul 2026 13:54:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784728485;
-	bh=V+vQtKuXnH6YwUK6i5STl+3iYVgoVttTlS4wO7FBp9o=;
+	s=k20260515; t=1784728492;
+	bh=7GF3s+V18jzEVG4h+nOPZqNQ2/PUGJft6I2I1T3Zp3o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n7fKrgoNlQ7nNniuEzhP/wYy2sGkI0lGMtUMlpwSAGj3TUksHiaDlwlNMDkg570wM
-	 9wq5ZW+gAvImzpu1g+gyfW+qfqQdyf7N+gpK38+XiB3LvRZwixK+w5hSc0pt4u3pE5
-	 hTdPgsyZEePs4/ksvMEnt8nOz9FiXnpaVQKexXWAyEakGXnPmh8M7HUpQyw9kiWD0a
-	 GBxzdhxUTfAR3uknZElF8Nv5aI+CPD12yShPs5DLBU+isgF77jYWjsgBjSdPMU3b7+
-	 PVbcvhzG+Hro9mRzPXyJGyWrliYvcVHR9cLokKV5o1pzdHstt//LaJtiqesgAllQSl
-	 MVwGm42QkV3FQ==
+	b=j8EXMKd1AHPj7WMsY4OGhD4MjVrfVKYZqQt711V35dTTnZYfPKRTtBRkYLoaeuzAZ
+	 AjHe6o4Sj2lV8VORIwj6u/UkMhIfPdL488IR84iukbrjDPTh9A6V047EknOwwZ+KG2
+	 uYMLmOVdWVI+wI+4lcRgEsoUqy1soLTsZy+An39ZIRszhcxzU/v/Jq+y6/A81qYaWE
+	 m90PjzISRVI1MQwrCvc7Yp3Yreuqw3ffWPV454F0Gf9f6+rEY60PM7JzkCFj4h9ML0
+	 lVGfaz8O5iQVNvXkX1uOSdLhxtr3JulxV9JcGmcI4QA1OAlI3ULjH6jdGGvi6ltdA6
+	 CT1MKbCckOP6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ALSA: hda: Fix cached processing coefficient verbs
-Date: Wed, 22 Jul 2026 09:54:42 -0400
-Message-ID: <20260722135442.1365693-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] rxrpc: Pull out certain app callback funcs into an ops table
+Date: Wed, 22 Jul 2026 09:54:49 -0400
+Message-ID: <20260722135450.1365902-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072012-yin-trance-e288@gregkh>
-References: <2026072012-yin-trance-e288@gregkh>
+In-Reply-To: <2026072052-carve-yelp-e5c8@gregkh>
+References: <2026072052-carve-yelp-e5c8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,61 +48,303 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit f67be28fdf8b5d31ac1cc1152bb17250f9f8f513 ]
+[ Upstream commit 23738cc8048322cf324f330cd697380fb3455da5 ]
 
-Intel HD Audio defines Coefficient Index and Processing Coefficient as
-separate audio widget controls in the Audio Widget Verb Definitions:
-Coefficient Index selects the coefficient slot, while Processing
-Coefficient accesses the value at the selected slot.
+A number of functions separately furnish an AF_RXRPC socket with callback
+function pointers into a kernel app (such as the AFS filesystem) that is
+using it.  Replace most of these with an ops table for the entire socket.
+This makes it easier to add more callback functions.
 
-hda_reg_read_coef() selects the slot with AC_VERB_SET_COEF_INDEX, but
-then uses AC_VERB_GET_COEF_INDEX for the value read.  That reads back the
-selected index instead of the coefficient value.  hda_reg_write_coef()
-has the same issue and builds the value write from AC_VERB_GET_COEF_INDEX
-instead of AC_VERB_SET_PROC_COEF.
+Note that the call incoming data processing callback is retaind as that
+gets set to different things, depending on the type of op.
 
-This only affects the regmap coefficient cache path used by codecs that
-set codec->cache_coef.  Direct coefficient helpers already use the normal
-SET_COEF_INDEX followed by GET_PROC_COEF or SET_PROC_COEF sequence, which
-is likely why this has not been noticed widely.
-
-Use AC_VERB_GET_PROC_COEF for cached coefficient reads and
-AC_VERB_SET_PROC_COEF for cached coefficient writes.
-
-Fixes: 40ba66a702b8 ("ALSA: hda - Add cache support for COEF read/write")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Link: https://patch.msgid.link/DB9023BF2920BA99+20260707132419.1731342-1-raoxu@uniontech.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+Link: https://patch.msgid.link/20250411095303.2316168-3-dhowells@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: dc175389b18c ("rxrpc: serialize kernel accept preallocation with socket teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/hdac_regmap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/afs/rxrpc.c          | 11 ++++++++---
+ include/net/af_rxrpc.h  | 25 +++++++++++++++----------
+ net/rxrpc/af_rxrpc.c    | 20 ++++++++------------
+ net/rxrpc/ar-internal.h |  3 +--
+ net/rxrpc/call_accept.c | 34 ++++++++++++++++------------------
+ net/rxrpc/rxperf.c      | 10 +++++++---
+ 6 files changed, 55 insertions(+), 48 deletions(-)
 
-diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
-index 39610a15bcc988..9b786cec8f1e13 100644
---- a/sound/hda/hdac_regmap.c
-+++ b/sound/hda/hdac_regmap.c
-@@ -215,7 +215,7 @@ static int hda_reg_read_coef(struct hdac_device *codec, unsigned int reg,
- 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
- 	if (err < 0)
- 		return err;
--	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8);
-+	verb = (reg & ~0xfffff) | (AC_VERB_GET_PROC_COEF << 8);
- 	return snd_hdac_exec_verb(codec, verb, 0, val);
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index a122c6366ce19f..082933e50427c4 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -24,8 +24,15 @@ static void afs_wake_up_async_call(struct sock *, struct rxrpc_call *, unsigned
+ static void afs_process_async_call(struct work_struct *);
+ static void afs_rx_new_call(struct sock *, struct rxrpc_call *, unsigned long);
+ static void afs_rx_discard_new_call(struct rxrpc_call *, unsigned long);
++static void afs_rx_attach(struct rxrpc_call *rxcall, unsigned long user_call_ID);
+ static int afs_deliver_cm_op_id(struct afs_call *);
+ 
++static const struct rxrpc_kernel_ops afs_rxrpc_callback_ops = {
++	.notify_new_call	= afs_rx_new_call,
++	.discard_new_call	= afs_rx_discard_new_call,
++	.user_attach_call	= afs_rx_attach,
++};
++
+ /* asynchronous incoming call initial processing */
+ static const struct afs_call_type afs_RXCMxxxx = {
+ 	.name		= "CB.xxxx",
+@@ -84,8 +91,7 @@ int afs_open_socket(struct afs_net *net)
+ 	 * it sends back to us.
+ 	 */
+ 
+-	rxrpc_kernel_new_call_notification(socket, afs_rx_new_call,
+-					   afs_rx_discard_new_call);
++	rxrpc_kernel_set_notifications(socket, &afs_rxrpc_callback_ops);
+ 
+ 	ret = kernel_listen(socket, INT_MAX);
+ 	if (ret < 0)
+@@ -752,7 +758,6 @@ void afs_charge_preallocation(struct work_struct *work)
+ 
+ 		if (rxrpc_kernel_charge_accept(net->socket,
+ 					       afs_wake_up_async_call,
+-					       afs_rx_attach,
+ 					       (unsigned long)call,
+ 					       GFP_KERNEL,
+ 					       call->debug_id) < 0)
+diff --git a/include/net/af_rxrpc.h b/include/net/af_rxrpc.h
+index 0754c463224a43..db8e4173fcba49 100644
+--- a/include/net/af_rxrpc.h
++++ b/include/net/af_rxrpc.h
+@@ -29,18 +29,23 @@ enum rxrpc_interruptibility {
+  */
+ extern atomic_t rxrpc_debug_id;
+ 
++/*
++ * Operations table for rxrpc to call out to a kernel application (e.g. kAFS).
++ */
++struct rxrpc_kernel_ops {
++	void (*notify_new_call)(struct sock *sk, struct rxrpc_call *call,
++				unsigned long user_call_ID);
++	void (*discard_new_call)(struct rxrpc_call *call, unsigned long user_call_ID);
++	void (*user_attach_call)(struct rxrpc_call *call, unsigned long user_call_ID);
++};
++
+ typedef void (*rxrpc_notify_rx_t)(struct sock *, struct rxrpc_call *,
+ 				  unsigned long);
+ typedef void (*rxrpc_notify_end_tx_t)(struct sock *, struct rxrpc_call *,
+ 				      unsigned long);
+-typedef void (*rxrpc_notify_new_call_t)(struct sock *, struct rxrpc_call *,
+-					unsigned long);
+-typedef void (*rxrpc_discard_new_call_t)(struct rxrpc_call *, unsigned long);
+-typedef void (*rxrpc_user_attach_call_t)(struct rxrpc_call *, unsigned long);
+ 
+-void rxrpc_kernel_new_call_notification(struct socket *,
+-					rxrpc_notify_new_call_t,
+-					rxrpc_discard_new_call_t);
++void rxrpc_kernel_set_notifications(struct socket *sock,
++				    const struct rxrpc_kernel_ops *app_ops);
+ struct rxrpc_call *rxrpc_kernel_begin_call(struct socket *sock,
+ 					   struct rxrpc_peer *peer,
+ 					   struct key *key,
+@@ -70,9 +75,9 @@ struct rxrpc_peer *rxrpc_kernel_get_call_peer(struct socket *sock, struct rxrpc_
+ const struct sockaddr_rxrpc *rxrpc_kernel_remote_srx(const struct rxrpc_peer *peer);
+ const struct sockaddr *rxrpc_kernel_remote_addr(const struct rxrpc_peer *peer);
+ unsigned int rxrpc_kernel_get_srtt(const struct rxrpc_peer *);
+-int rxrpc_kernel_charge_accept(struct socket *, rxrpc_notify_rx_t,
+-			       rxrpc_user_attach_call_t, unsigned long, gfp_t,
+-			       unsigned int);
++int rxrpc_kernel_charge_accept(struct socket *sock, rxrpc_notify_rx_t notify_rx,
++			       unsigned long user_call_ID, gfp_t gfp,
++			       unsigned int debug_id);
+ void rxrpc_kernel_set_tx_length(struct socket *, struct rxrpc_call *, s64);
+ bool rxrpc_kernel_check_life(const struct socket *, const struct rxrpc_call *);
+ u32 rxrpc_kernel_get_epoch(struct socket *, struct rxrpc_call *);
+diff --git a/net/rxrpc/af_rxrpc.c b/net/rxrpc/af_rxrpc.c
+index fbe9912fbe3f43..4f5c1404be9487 100644
+--- a/net/rxrpc/af_rxrpc.c
++++ b/net/rxrpc/af_rxrpc.c
+@@ -464,24 +464,20 @@ u32 rxrpc_kernel_get_epoch(struct socket *sock, struct rxrpc_call *call)
+ EXPORT_SYMBOL(rxrpc_kernel_get_epoch);
+ 
+ /**
+- * rxrpc_kernel_new_call_notification - Get notifications of new calls
+- * @sock: The socket to intercept received messages on
+- * @notify_new_call: Function to be called when new calls appear
+- * @discard_new_call: Function to discard preallocated calls
++ * rxrpc_kernel_set_notifications - Set table of callback operations
++ * @sock: The socket to install table upon
++ * @app_ops: Callback operation table to set
+  *
+- * Allow a kernel service to be given notifications about new calls.
++ * Allow a kernel service to set a table of event notifications on a socket.
+  */
+-void rxrpc_kernel_new_call_notification(
+-	struct socket *sock,
+-	rxrpc_notify_new_call_t notify_new_call,
+-	rxrpc_discard_new_call_t discard_new_call)
++void rxrpc_kernel_set_notifications(struct socket *sock,
++				    const struct rxrpc_kernel_ops *app_ops)
+ {
+ 	struct rxrpc_sock *rx = rxrpc_sk(sock->sk);
+ 
+-	rx->notify_new_call = notify_new_call;
+-	rx->discard_new_call = discard_new_call;
++	rx->app_ops = app_ops;
+ }
+-EXPORT_SYMBOL(rxrpc_kernel_new_call_notification);
++EXPORT_SYMBOL(rxrpc_kernel_set_notifications);
+ 
+ /**
+  * rxrpc_kernel_set_max_life - Set maximum lifespan on a call
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 61dd1298124f62..1d47dc50c41862 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -142,8 +142,7 @@ struct rxrpc_backlog {
+ struct rxrpc_sock {
+ 	/* WARNING: sk has to be the first member */
+ 	struct sock		sk;
+-	rxrpc_notify_new_call_t	notify_new_call; /* Func to notify of new call */
+-	rxrpc_discard_new_call_t discard_new_call; /* Func to discard a new call */
++	const struct rxrpc_kernel_ops *app_ops;	/* Table of kernel app notification funcs */
+ 	struct rxrpc_local	*local;		/* local endpoint */
+ 	struct rxrpc_backlog	*backlog;	/* Preallocation for services */
+ 	spinlock_t		incoming_lock;	/* Incoming call vs service shutdown lock */
+diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
+index 37ac8a66567866..5343fca982bdad 100644
+--- a/net/rxrpc/call_accept.c
++++ b/net/rxrpc/call_accept.c
+@@ -34,7 +34,6 @@ static void rxrpc_dummy_notify(struct sock *sk, struct rxrpc_call *call,
+ static int rxrpc_service_prealloc_one(struct rxrpc_sock *rx,
+ 				      struct rxrpc_backlog *b,
+ 				      rxrpc_notify_rx_t notify_rx,
+-				      rxrpc_user_attach_call_t user_attach_call,
+ 				      unsigned long user_call_ID, gfp_t gfp,
+ 				      unsigned int debug_id)
+ {
+@@ -123,9 +122,10 @@ static int rxrpc_service_prealloc_one(struct rxrpc_sock *rx,
+ 
+ 	call->user_call_ID = user_call_ID;
+ 	call->notify_rx = notify_rx;
+-	if (user_attach_call) {
++	if (rx->app_ops &&
++	    rx->app_ops->user_attach_call) {
+ 		rxrpc_get_call(call, rxrpc_call_get_kernel_service);
+-		user_attach_call(call, user_call_ID);
++		rx->app_ops->user_attach_call(call, user_call_ID);
+ 	}
+ 
+ 	rxrpc_get_call(call, rxrpc_call_get_userid);
+@@ -221,9 +221,10 @@ void rxrpc_discard_prealloc(struct rxrpc_sock *rx)
+ 		struct rxrpc_call *call = b->call_backlog[tail];
+ 		rxrpc_see_call(call, rxrpc_call_see_discard);
+ 		rcu_assign_pointer(call->socket, rx);
+-		if (rx->discard_new_call) {
++		if (rx->app_ops &&
++		    rx->app_ops->discard_new_call) {
+ 			_debug("discard %lx", call->user_call_ID);
+-			rx->discard_new_call(call, call->user_call_ID);
++			rx->app_ops->discard_new_call(call, call->user_call_ID);
+ 			if (call->notify_rx)
+ 				call->notify_rx = rxrpc_dummy_notify;
+ 			rxrpc_put_call(call, rxrpc_call_put_kernel);
+@@ -392,8 +393,9 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *local,
+ 	rxrpc_incoming_call(rx, call, skb);
+ 	conn = call->conn;
+ 
+-	if (rx->notify_new_call)
+-		rx->notify_new_call(&rx->sk, call, call->user_call_ID);
++	if (rx->app_ops &&
++	    rx->app_ops->notify_new_call)
++		rx->app_ops->notify_new_call(&rx->sk, call, call->user_call_ID);
+ 
+ 	spin_lock(&conn->state_lock);
+ 	if (conn->state == RXRPC_CONN_SERVICE_UNSECURED) {
+@@ -445,8 +447,7 @@ int rxrpc_user_charge_accept(struct rxrpc_sock *rx, unsigned long user_call_ID)
+ 	if (rx->sk.sk_state == RXRPC_CLOSE)
+ 		return -ESHUTDOWN;
+ 
+-	return rxrpc_service_prealloc_one(rx, b, NULL, NULL, user_call_ID,
+-					  GFP_KERNEL,
++	return rxrpc_service_prealloc_one(rx, b, NULL, user_call_ID, GFP_KERNEL,
+ 					  atomic_inc_return(&rxrpc_debug_id));
  }
  
-@@ -233,7 +233,7 @@ static int hda_reg_write_coef(struct hdac_device *codec, unsigned int reg,
- 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
- 	if (err < 0)
- 		return err;
--	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8) |
-+	verb = (reg & ~0xfffff) | (AC_VERB_SET_PROC_COEF << 8) |
- 		(val & 0xffff);
- 	return snd_hdac_exec_verb(codec, verb, 0, NULL);
+@@ -454,20 +455,18 @@ int rxrpc_user_charge_accept(struct rxrpc_sock *rx, unsigned long user_call_ID)
+  * rxrpc_kernel_charge_accept - Charge up socket with preallocated calls
+  * @sock: The socket on which to preallocate
+  * @notify_rx: Event notification function for the call
+- * @user_attach_call: Func to attach call to user_call_ID
+  * @user_call_ID: The tag to attach to the preallocated call
+  * @gfp: The allocation conditions.
+  * @debug_id: The tracing debug ID.
+  *
+- * Charge up the socket with preallocated calls, each with a user ID.  A
+- * function should be provided to effect the attachment from the user's side.
+- * The user is given a ref to hold on the call.
++ * Charge up the socket with preallocated calls, each with a user ID.  The
++ * ->user_attach_call() callback function should be provided to effect the
++ * attachment from the user's side.  The user is given a ref to hold on the
++ * call.
+  *
+  * Note that the call may be come connected before this function returns.
+  */
+-int rxrpc_kernel_charge_accept(struct socket *sock,
+-			       rxrpc_notify_rx_t notify_rx,
+-			       rxrpc_user_attach_call_t user_attach_call,
++int rxrpc_kernel_charge_accept(struct socket *sock, rxrpc_notify_rx_t notify_rx,
+ 			       unsigned long user_call_ID, gfp_t gfp,
+ 			       unsigned int debug_id)
+ {
+@@ -477,8 +476,7 @@ int rxrpc_kernel_charge_accept(struct socket *sock,
+ 	if (sock->sk->sk_state == RXRPC_CLOSE)
+ 		return -ESHUTDOWN;
+ 
+-	return rxrpc_service_prealloc_one(rx, b, notify_rx,
+-					  user_attach_call, user_call_ID,
++	return rxrpc_service_prealloc_one(rx, b, notify_rx, user_call_ID,
+ 					  gfp, debug_id);
  }
+ EXPORT_SYMBOL(rxrpc_kernel_charge_accept);
+diff --git a/net/rxrpc/rxperf.c b/net/rxrpc/rxperf.c
+index b1536da2246b82..7b53e06da45876 100644
+--- a/net/rxrpc/rxperf.c
++++ b/net/rxrpc/rxperf.c
+@@ -136,6 +136,12 @@ static void rxperf_notify_end_reply_tx(struct sock *sock,
+ 			      RXPERF_CALL_SV_AWAIT_ACK);
+ }
+ 
++static const struct rxrpc_kernel_ops rxperf_rxrpc_callback_ops = {
++	.notify_new_call	= rxperf_rx_new_call,
++	.discard_new_call	= rxperf_rx_discard_new_call,
++	.user_attach_call	= rxperf_rx_attach,
++};
++
+ /*
+  * Charge the incoming call preallocation.
+  */
+@@ -161,7 +167,6 @@ static void rxperf_charge_preallocation(struct work_struct *work)
+ 
+ 		if (rxrpc_kernel_charge_accept(rxperf_socket,
+ 					       rxperf_notify_rx,
+-					       rxperf_rx_attach,
+ 					       (unsigned long)call,
+ 					       GFP_KERNEL,
+ 					       call->debug_id) < 0)
+@@ -209,8 +214,7 @@ static int rxperf_open_socket(void)
+ 	if (ret < 0)
+ 		goto error_2;
+ 
+-	rxrpc_kernel_new_call_notification(socket, rxperf_rx_new_call,
+-					   rxperf_rx_discard_new_call);
++	rxrpc_kernel_set_notifications(socket, &rxperf_rxrpc_callback_ops);
+ 
+ 	ret = kernel_listen(socket, INT_MAX);
+ 	if (ret < 0)
 -- 
 2.53.0
 
