@@ -1,53 +1,35 @@
-Received: from relay2.mymailcheap.com (relay2.mymailcheap.com [217.182.113.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F010340BCC1;
-	Wed, 22 Jul 2026 04:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.182.113.132
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 799513E832B;
+	Wed, 22 Jul 2026 04:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784695520; cv=none; b=ZVuI8uIDdhPOCMoeD+DrZ/Ja6eWXHA+vLf4/YcB8eXNJMUixj+0SIiJfswjjdSOU3Cdgb5j7PeJQNDHidfl7zFzsxdo4KrjViDWrHY3i0XRcdnH668Z9KbD5DbH8jtpvnYpfwWtKpCxrwmz24ZTulO+pZpB+w0ZWBb79ia/iZXE=
+	t=1784696400; cv=none; b=EZcP+M4bpKqgFGFSddU9OU6YpLEGsGsnmfclFie0SmUwpMSbm/uVRXVAgPKjTU3CEG27LTt7q6VzRnivpoY2Q5UU04EPgnJvM9yQvgYOfjftIJGtkYIA5G34atOWwAzwsCbldphBIAlKInsfpdkc/TpKJloHydz/4cq/Xh8B3KY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784695520; c=relaxed/simple;
-	bh=VI3sLFMDSUlR1JhhWI6vW8oeTPKDhZKcXhMcS1NZXNA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f835Iuv7Wo2ittp9LmexQdEfYpWbphGSlXVNrX/d+BKH4/jAy4jyd+R7x4SwDC34TdNSQ5YKj3fIlmxjNXCfDiPSb9H47UToS9qIHbaEbPaKYNMBWNkCw3H+vfycOOgxhonDSQ79F6CTHZHpXO0Pu5mdij+0mzvvKA1sL48Dx5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aosc.io; spf=pass smtp.mailfrom=aosc.io; dkim=pass (1024-bit key) header.d=aosc.io header.i=@aosc.io header.b=Ia8npmvw; arc=none smtp.client-ip=217.182.113.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aosc.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aosc.io
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aosc.io header.i=@aosc.io header.b="Ia8npmvw"
-Received: from nf1.mymailcheap.com (nf1.mymailcheap.com [51.75.14.91])
-	by relay2.mymailcheap.com (Postfix) with ESMTPS id 13C3E3E877;
-	Wed, 22 Jul 2026 04:45:11 +0000 (UTC)
-Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
-	by nf1.mymailcheap.com (Postfix) with ESMTPSA id C3D34400E2;
-	Wed, 22 Jul 2026 04:45:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
-	t=1784695510; bh=VI3sLFMDSUlR1JhhWI6vW8oeTPKDhZKcXhMcS1NZXNA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Ia8npmvwIgazIuW0/7eGpRpv3dD9oFvsTnIyXhuiqav37YyTDK6sPYuGmrZ2HyLMv
-	 iyY6tlFolE4pXyymA0LyzEjamZ6HJwaJ30Phb7IJiY3ndgsyVG31QmRCQZBCsjW/+S
-	 NQwLnKIFM0GKHKJhOc/+ILR2kc5qBHZNPzxPf6WI=
-Received: from liushuyu-la64 (unknown [117.151.12.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail20.mymailcheap.com (Postfix) with ESMTPSA id 9E03441283;
-	Wed, 22 Jul 2026 04:45:05 +0000 (UTC)
-From: liushuyu@aosc.io
-To: linux-kernel@vger.kernel.org,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Jianmin Lv <lvjianmin@loongson.cn>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Yao Zi <ziyao@disroot.org>
-Cc: loongarch@lists.linux.dev,
-	Mingcong Bai <jeffbai@aosc.io>,
-	Kexy Biscuit <kexybiscuit@aosc.io>,
-	Zixing Liu <liushuyu@aosc.io>,
+	s=arc-20240116; t=1784696400; c=relaxed/simple;
+	bh=ln6+Lhz5HTnAAXUCrPVSupjGC5P309qXb9msf3kuvfE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=rgISQo2nFohVkjDBWSGP3Hrm9SP0bRuagY2Jle13qpJ3qn75kzht2Z/Sboy3Z1Ig8PDg4jqEKeRAHIzkan3hlLBzQZWra/gFDTyU8wfCZtEd0GCKZ+H/Ey7pv4pBvLiH0eNgv6qbEoiGK7WegbSiri9fX4MsjJynWf1l+HF7kjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDXlDxETmBqt3YoAA--.13764S3;
+	Wed, 22 Jul 2026 12:59:49 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgCXUppETmBq0JcPAw--.31528S2;
+	Wed, 22 Jul 2026 12:59:48 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-input@vger.kernel.org
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] platform/loongarch: laptop: explicitly reset the bl_powered state when resuming
-Date: Wed, 22 Jul 2026 12:44:50 +0800
-Message-ID: <20260722044457.1333404-1-liushuyu@aosc.io>
-X-Mailer: git-send-email 2.52.0
+Subject: [PATCH v2] Input: wm831x-ts - drain pen-down work at teardown
+Date: Wed, 22 Jul 2026 04:58:53 +0000
+Message-Id: <20260722045853.3255262-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260722024518.3253280-1-fanwu01@zju.edu.cn>
+References: <20260722024518.3253280-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,60 +37,97 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: nf1.mymailcheap.com
-X-Rspamd-Queue-Id: C3D34400E2
-X-Spamd-Result: default: False [1.20 / 10.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.10)[+mx];
-	MIME_GOOD(-0.10)[text/plain];
-	R_DKIM_ALLOW(-0.10)[aosc.io:s=default];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	FROM_NO_DN(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_ONE(0.00)[1];
-	TO_DN_SOME(0.00)[];
-	LOCAL_OUTBOUND(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	DKIM_TRACE(0.00)[aosc.io:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[aosc.io,quarantine];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[]
-X-Rspamd-Action: no action
+X-CM-TRANSID:yy_KCgCXUppETmBq0JcPAw--.31528S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?p1bGmwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBHnl4onf/PFp4juhU4xhfLyq4wOAq9Qh6kxiWx++GHWsc0Y
+	P87phS+Z+MVDVMkdpkOp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxCF4UJw1xAF4kKFWkAFW7KFX_yoW5Zry5pa
+	y5AryUK34ktF48ur48W34vvFyrGF4xJ393Ar1DK34fWw15ur1ftr95ZFyvqF4rGrWkJr4j
+	yr9I9w48CrZ5AagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-From: Zixing Liu <liushuyu@aosc.io>
+The pen-down and data IRQ handlers queue pd_data_work to switch between the
+two IRQs.  The worker obtains wm831x_ts with container_of() and calls
+enable_irq().  free_irq() synchronizes an IRQ handler, but does not drain a
+work item already queued by that handler.
 
-On EAECIS NL60R with EC firmware version 1.11, resuming from S3 has a very
-high chance (>= 90%) of causing the EC to lose the previous backlight
-power state. When this happens, the laptop resumes normally from S3, but
-the backlight remains off (when shining on the screen with a flash light,
-we can see the screen contents are updating normally).
+wm831x_ts_remove() can therefore free the IRQ actions while pd_data_work is
+pending or running.  The work may then dereference wm831x_ts after devres
+frees it (use-after-free), or re-enable an IRQ whose action has been freed.
 
-Since there is no generic way to query the EC's backlight state on
-Loongson laptop platforms, assume the worst-case scenario and restart the
-backlight power inside the kernel each time the system resumes.
+The input device is devm-allocated, so the input core unregisters it after
+wm831x_ts_remove() returns.  If a userspace handle is still open, that
+unregister drives the input close callback, which on pen-down calls
+enable_irq(pd_irq) - after wm831x_ts_remove() has already freed the pd_irq
+action.  Unregister the input device before freeing the IRQs, so the close
+callback runs while the actions are still installed.  This must precede the
+IRQ teardown: disabling and cancelling first would still let the close
+callback re-enable pd_irq after its action is gone.
 
+After unregistering, drain the work: disable both IRQs so neither handler
+can queue another instance, cancel_work_sync() to make the drain final,
+then free the actions.  Apply the same drain to err_pd_irq; the input
+device is not registered there, so it is not unregistered.
+
+This issue was found by an in-house static analysis tool and confirmed by
+manual code review.
+
+Fixes: f5346668150c ("Input: wm831x-ts - fix races with IRQ management")
 Cc: stable@vger.kernel.org
-Fixes: 53c762b47f72 ("platform/loongarch: laptop: Add backlight power control support")
-Signed-off-by: Zixing Liu <liushuyu@aosc.io>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/platform/loongarch/loongson-laptop.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes since v1:
+- Unregister the input device before freeing the IRQs. v1 drained the
+  work in wm831x_ts_remove(), but the input device is devm-managed and is
+  unregistered by the input core only after remove() returns; with a
+  userspace handle open, that unregister drives the close callback, which
+  on pen-down calls enable_irq(pd_irq) after its action has been freed.
+ drivers/input/touchscreen/wm831x-ts.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/platform/loongarch/loongson-laptop.c b/drivers/platform/loongarch/loongson-laptop.c
-index 61b18ac206c9e..742a585b0647c 100644
---- a/drivers/platform/loongarch/loongson-laptop.c
-+++ b/drivers/platform/loongarch/loongson-laptop.c
-@@ -200,6 +200,7 @@ static int loongson_hotkey_resume(struct device *dev)
+diff --git a/drivers/input/touchscreen/wm831x-ts.c b/drivers/input/touchscreen/wm831x-ts.c
+index 98f8ec408cad..a465b1b96fd8 100644
+--- a/drivers/input/touchscreen/wm831x-ts.c
++++ b/drivers/input/touchscreen/wm831x-ts.c
+@@ -366,6 +366,10 @@ static int wm831x_ts_probe(struct platform_device *pdev)
+ 	return 0;
  
- 	bd = backlight_device_get_by_type(BACKLIGHT_PLATFORM);
- 	if (bd) {
-+		bl_powered = false;
- 		loongson_laptop_backlight_update(bd) ?
- 		pr_warn("Loongson_backlight: resume brightness failed") :
- 		pr_info("Loongson_backlight: resume brightness %d\n", bd->props.brightness);
+ err_pd_irq:
++	disable_irq(wm831x_ts->pd_irq);
++	disable_irq(wm831x_ts->data_irq);
++	cancel_work_sync(&wm831x_ts->pd_data_work);
++
+ 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
+ err_data_irq:
+ 	free_irq(wm831x_ts->data_irq, wm831x_ts);
+@@ -378,6 +382,12 @@ static void wm831x_ts_remove(struct platform_device *pdev)
+ {
+ 	struct wm831x_ts *wm831x_ts = platform_get_drvdata(pdev);
+ 
++	input_unregister_device(wm831x_ts->input_dev);
++
++	disable_irq(wm831x_ts->pd_irq);
++	disable_irq(wm831x_ts->data_irq);
++	cancel_work_sync(&wm831x_ts->pd_data_work);
++
+ 	free_irq(wm831x_ts->pd_irq, wm831x_ts);
+ 	free_irq(wm831x_ts->data_irq, wm831x_ts);
+ }
 -- 
-2.52.0
+2.34.1
 
