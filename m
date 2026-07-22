@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413E035C6AE
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:48:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ADE0360EC5
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 14:48:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784731701; cv=none; b=oLy3MdGP7ZVAVXG2XU7iBvpopozhkeJplDbGE5qV2uc91PpVFrpk76Yhzs6pr2jPO2iOb8rjmd9XGsotyPX7NX0505fDzwxJROpW2/8WfQ6lMgjQ+Gm3ZaueD3ShpwN0gkE4LTTFkQZRB0rFiyryEjW7xCt49YQMzI5+MV2FXEo=
+	t=1784731721; cv=none; b=cJsUEM/nBn1qSimW93wx6zXHFQQtSHE0rbs0TVcLmn/o2mWSov2+wwr3FG29PXws16UiBEuD15CwQzP9hYrEO5/ARzu9aDp8pA7WWgsz8zOuF9NqwV2rR1MU6AWsggS3PnH4Yz4mWDHq7JJ22mRw8vysLxWANLlD0IOsu+LPhIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784731701; c=relaxed/simple;
-	bh=DbidMpFBGQIlIdQeqqqbrWYhz/akJPH/cjcmr+MSGqQ=;
+	s=arc-20240116; t=1784731721; c=relaxed/simple;
+	bh=PRE9PFDkkXN1FQ9ssvcCtYBQxbDdGUKpltyAFE3Nr2Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tjuB+8SE0dFL4lR2L0SFBG4qYeaEkMN9+sVb3QmakbJRw/xcIfRFZbEH152UxQ2XIdgFrVxoOwe8D1vVUFngzSTnDuZHABJq7gZEyl6sTbWbIlT5aD5hVR2tFhhdCVxPS0QOOU3zMrFOb8NRd/MHDLCrjHKwh9j/lOerQKiW+wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ewVFcxj9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HgSCEsNdPFalu0C7QFzsVJVy+VUUSKdrmMCHNx4m5nSCycetgJDFtQzcDRBuZc0ZwZPxM5NrzIlfOLZij0wS5pwLMETNLFrmMCrJmEBcdJEXNqJQiLq1ixng4MUKOiYecfdnsgpdjNRpElUUCwDNeWaSdc4ddXFl1xu7yOWny8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQyk7ok/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ewVFcxj9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61131F00A3D;
-	Wed, 22 Jul 2026 14:48:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQyk7ok/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17B181F00A3D;
+	Wed, 22 Jul 2026 14:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784731700;
-	bh=dhR4l1bi1mOFjvE23KCsXHjxh0R8c3bRAaF1I7jy4EQ=;
+	s=k20260515; t=1784731718;
+	bh=24vdTDqH2iy/vvDCqAo06zw9g87cbew33gWUIphvvbo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ewVFcxj9ggD3tLKGG1qtiuXYt9swr+M3X6V2aFw20PkEC5vqRwSlSLFJ7uUlbI4bU
-	 iK+ge9jqmP73ObSHz5ev9ICIqDqwo7Wq1aD7rcknnBeDh0ePcmNDH2qFto+BJxt1Jr
-	 AldAIchvYmdM7MKIsPjCzNammGlYLEJ41H7lC9KD1Sv9RLz2crL+kSppANvAS/I7AV
-	 ExA5XIfo0bOyXizyo1mAOc5/6S0VN2tw8/8w0Axwb/4N+CXOpslgVk3XkDC6MkOjUe
-	 T+LWTJaEcmKxL2oJiaCaWU9LR1d44kesGKxddh/LwGjUhfrGPhiWWEsGa4zw4IArq9
-	 aoCksqFjOOTfA==
+	b=cQyk7ok/d4XeXNluisoPECZvSrXcbEiVEt8OLQfvm9KLnZ+brBzZ7qu2Ms/gT0Laq
+	 yfZarM9tCIN/lneu+t96Ndt29OR38wtRohE1L2svquy9XnqhfFYR54NHCKSsojAt/A
+	 ZZYryH4ZNdYQRvqdYwFyfsfS2Fzs0geAFprDZx1u2kOOs5u+GCtf808jb/mevcazTT
+	 HkqrZmvkRUaPidNog63k7s80Lqlzz7KrCzGSSPLSTr70JaCyl34EaYJTOpzkzb64he
+	 FbyiaWMt92pwL093vi+vAC6Hv5nnW+S6sN+kmyrt9TajPud35XtpgJHDm6J8RxNh3+
+	 vM7pFyOy8vlAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Kees Cook <keescook@chromium.org>,
+	David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	linux-afs@lists.infradead.org,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ALSA: hda: Fix cached processing coefficient verbs
-Date: Wed, 22 Jul 2026 10:48:18 -0400
-Message-ID: <20260722144818.1599468-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] afs: Annotate struct afs_addr_list with __counted_by
+Date: Wed, 22 Jul 2026 10:48:33 -0400
+Message-ID: <20260722144836.1601242-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072012-scrambler-friday-82ad@gregkh>
-References: <2026072012-scrambler-friday-82ad@gregkh>
+In-Reply-To: <2026072053-iciness-ecosystem-430e@gregkh>
+References: <2026072053-iciness-ecosystem-430e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,61 +48,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Kees Cook <keescook@chromium.org>
 
-[ Upstream commit f67be28fdf8b5d31ac1cc1152bb17250f9f8f513 ]
+[ Upstream commit 2d26302bdff1300029a67931739f5770eac22493 ]
 
-Intel HD Audio defines Coefficient Index and Processing Coefficient as
-separate audio widget controls in the Audio Widget Verb Definitions:
-Coefficient Index selects the coefficient slot, while Processing
-Coefficient accesses the value at the selected slot.
+Prepare for the coming implementation by GCC and Clang of the __counted_by
+attribute. Flexible array members annotated with __counted_by can have
+their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
+(for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+functions).
 
-hda_reg_read_coef() selects the slot with AC_VERB_SET_COEF_INDEX, but
-then uses AC_VERB_GET_COEF_INDEX for the value read.  That reads back the
-selected index instead of the coefficient value.  hda_reg_write_coef()
-has the same issue and builds the value write from AC_VERB_GET_COEF_INDEX
-instead of AC_VERB_SET_PROC_COEF.
+As found with Coccinelle[1], add __counted_by for struct afs_addr_list.
 
-This only affects the regmap coefficient cache path used by codecs that
-set codec->cache_coef.  Direct coefficient helpers already use the normal
-SET_COEF_INDEX followed by GET_PROC_COEF or SET_PROC_COEF sequence, which
-is likely why this has not been noticed widely.
+[1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 
-Use AC_VERB_GET_PROC_COEF for cached coefficient reads and
-AC_VERB_SET_PROC_COEF for cached coefficient writes.
-
-Fixes: 40ba66a702b8 ("ALSA: hda - Add cache support for COEF read/write")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Link: https://patch.msgid.link/DB9023BF2920BA99+20260707132419.1731342-1-raoxu@uniontech.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Marc Dionne <marc.dionne@auristor.com>
+Cc: linux-afs@lists.infradead.org
+Reviewed-by: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Link: https://lore.kernel.org/r/20230915201449.never.649-kees@kernel.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Stable-dep-of: dc175389b18c ("rxrpc: serialize kernel accept preallocation with socket teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/hdac_regmap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/afs/internal.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
-index bf35acca5ea0ea..5c7ac8e8de0da0 100644
---- a/sound/hda/hdac_regmap.c
-+++ b/sound/hda/hdac_regmap.c
-@@ -215,7 +215,7 @@ static int hda_reg_read_coef(struct hdac_device *codec, unsigned int reg,
- 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
- 	if (err < 0)
- 		return err;
--	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8);
-+	verb = (reg & ~0xfffff) | (AC_VERB_GET_PROC_COEF << 8);
- 	return snd_hdac_exec_verb(codec, verb, 0, val);
- }
+diff --git a/fs/afs/internal.h b/fs/afs/internal.h
+index 0973cd0a396959..771880d4b010d7 100644
+--- a/fs/afs/internal.h
++++ b/fs/afs/internal.h
+@@ -87,7 +87,7 @@ struct afs_addr_list {
+ 	enum dns_lookup_status	status:8;
+ 	unsigned long		failed;		/* Mask of addrs that failed locally/ICMP */
+ 	unsigned long		responded;	/* Mask of addrs that responded */
+-	struct sockaddr_rxrpc	addrs[];
++	struct sockaddr_rxrpc	addrs[] __counted_by(max_addrs);
+ #define AFS_MAX_ADDRESSES ((unsigned int)(sizeof(unsigned long) * 8))
+ };
  
-@@ -233,7 +233,7 @@ static int hda_reg_write_coef(struct hdac_device *codec, unsigned int reg,
- 	err = snd_hdac_exec_verb(codec, verb, 0, NULL);
- 	if (err < 0)
- 		return err;
--	verb = (reg & ~0xfffff) | (AC_VERB_GET_COEF_INDEX << 8) |
-+	verb = (reg & ~0xfffff) | (AC_VERB_SET_PROC_COEF << 8) |
- 		(val & 0xffff);
- 	return snd_hdac_exec_verb(codec, verb, 0, NULL);
- }
 -- 
 2.53.0
 
