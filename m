@@ -1,50 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D0B3F58CA;
-	Wed, 22 Jul 2026 16:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784738014; cv=none; b=SOqelScaaVLypvW/2vpUkWn/DfTaXzanzEQ7E5WgOnHk4vQLYNsWC/q0JJCN7vLvYRBMhmViEAXy1jYViA4IawACME/3oJMzBoxzswGdsmDUwsnaZPznBBqVegmGmdUoFGxXXmDsKRVNmFt2jP0pk6md4ZNoRQSbEXufrd+k+es=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784738014; c=relaxed/simple;
-	bh=WdYQjHqz0WxK/3wW+np6k2Dth2qI3mgTky+yhMAGq9Q=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1233D471CE4;
+	Wed, 22 Jul 2026 16:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784738454; cv=pass; b=BUQ3XBevRVkAi1HdHgg++yEK9vyNPcY/IpyWyZazL29BTnwE1WrhUpsK99MYQhgB2N3+JgQWnp4ZmpNVH9Zp0YiiSChwdfh4e0Ia/wlPKTjfQj1lIdDZc0UWEIjo8wuUwqAfz3hrbGbsBcxoXJDkAW4yZye28C2Fv6Tx/QYKLqA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784738454; c=relaxed/simple;
+	bh=Hqd3Wa56l8zrCTwp+7xadt4cULrUkJxHXjy6wNs66S8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qY5pKhD/mVZC8/UPXGJml1ksywe9uTg7z6qOGns5XSw4LuYuYH1JwqrU+W/wVKyH6y47hk08C761NmKf5vNKfEUik2EzVJHzjW1aC/F27DThRK5F8j+L6eLsWYxFuzSSUX5qXFOmCjb9g5lhQuWBkxEOaCgyD9Emp8QbCHdy8Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUgoIFtI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CgAxYJe+pG0Wx5nWfr5ocBpGbCEaoRWlOKd6Sti4dP1G+pX6zbReOzdL9FOteJw/gkz945dpprBHiS4PMeZW5BDRUVFzqO8IsNB2wtXpJDdOAwulEvo/Rtu6bhIQ0aaNg5JNI3j6C5vdPLtP7QATFvkyjkRbRF+YzV4So4N8UBE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=EnkHAL99; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUgoIFtI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1EB1F00A3A;
-	Wed, 22 Jul 2026 16:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784738012;
-	bh=U26BwfjGu0ZDjt757734uba9SAS16WYrs7B3QfwHKTk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SUgoIFtIjw9t9w+5MgYFRZc9WdrCBEgfU6t5R+bd2mkxS1b24Vis5wQ3T2Czl8pmD
-	 x+7tIlmI8dQjFb4nA9BuqskcoRGdeirD6HxOGRASksHhDrSJQ23n2Xx/5yntyQ0h9q
-	 OP6m4xFgLkbHADZ1pD2sIKg5TLH9013S0x6YTMQ201gEBRFQx43RFFmV/+pI1X6tlj
-	 HYwrMl+UbmTiVOVBEpoFXIoKiCFQyV/g+/G4ecUzWGsxn6ezQo7DLqjCayYhRmpAHw
-	 tcfpJVatXDSSE5cu7EPot8Jgf1T+63Y+QrsDY9hqg/bze/IfHQqf3PbVeYWDR+sfly
-	 zLkFrZu0R+Lxg==
-Date: Wed, 22 Jul 2026 16:33:31 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
-Message-ID: <20260722163331.GA2865613@google.com>
-References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
- <alnlaCXmoLRAlr96@gondor.apana.org.au>
- <20260721082501.6128-1-bartosz.golaszewski@oss.qualcomm.com>
- <c826b73d-6307-4237-a065-b7a8487350ce@gmail.com>
- <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
- <8e9101ce-e9ec-4111-a1a6-7a9a07788818@gmail.com>
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="EnkHAL99"
+ARC-Seal: i=1; a=rsa-sha256; t=1784738413; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=VvrCmdmIeAP+oHE3sQxIA438g7kMdBAJxBc/5MSdQ278fwNQVWag2tA36Mm425SGY/u04Ig56vT4Q/uyOmgPp3r6nyRRUocm6kzTqPRAPEPccj003TZjdvL7BGkcSjZkl8qEpEaEzD4e/ko7SloG8SvprHNlSPsEqUsUdUCSDXs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784738413; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=CFWy8us/akwOtk1Shi3kFXagj21q2YwusuaALSq7GP0=; 
+	b=DNQvvbCH91niP29JhYXBGcc9QnfTHcKl9JOH5jlUnKZWBQowZnhlGqqPof+B7DS0hE/gitAUSJSxPzHGMTSUgIBQeziKJBrj/u1TD8NoZIOoH1vDtDTXGLxf1AGux6T2euVGDijAEfb+/u8zVLd6uQaHr5kxp+IkYKoAlI6udqg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784738413;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=CFWy8us/akwOtk1Shi3kFXagj21q2YwusuaALSq7GP0=;
+	b=EnkHAL994i7MjiPYJwIs9mPD+iem5vMahUKoh5altZ5+J9so3XpHydS1E3XS+LtO
+	IYDwHCJQImi2JhGLv60v3bhiNFzT+wZOqnfbUfjZvv2sQ/82d/2eepz8h11sfvIdRSv
+	mRq4Q20R1QxpFm5UysqgA1QRv09ZHyls9OTsPy+c=
+Received: by mx.zohomail.com with SMTPS id 1784738410484852.0707588581733;
+	Wed, 22 Jul 2026 09:40:10 -0700 (PDT)
+Date: Wed, 22 Jul 2026 16:39:59 +0000
+From: Yao Zi <me@ziyao.cc>
+To: liushuyu@aosc.io, linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Jianmin Lv <lvjianmin@loongson.cn>, WANG Xuerui <kernel@xen0n.name>,
+	Yao Zi <ziyao@disroot.org>
+Cc: loongarch@lists.linux.dev, Mingcong Bai <jeffbai@aosc.io>,
+	Kexy Biscuit <kexybiscuit@aosc.io>, stable@vger.kernel.org,
+	Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH] platform/loongarch: laptop: explicitly reset the
+ bl_powered state when resuming
+Message-ID: <amDyX9gPxjT4Pd1d@pie>
+References: <20260722044457.1333404-1-liushuyu@aosc.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,19 +57,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8e9101ce-e9ec-4111-a1a6-7a9a07788818@gmail.com>
+In-Reply-To: <20260722044457.1333404-1-liushuyu@aosc.io>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.732.17
+X-ZohoMailClient: External
 
-On Wed, Jul 22, 2026 at 11:46:16AM -0400, Demi Marie Obenour wrote:
-> With your patch, does the driver also pass stress tests, such as
-> multiple threads using it in parallel with varying algorithms and
-> message sizes?
+On Wed, Jul 22, 2026 at 12:44:50PM +0800, liushuyu@aosc.io wrote:
+> From: Zixing Liu <liushuyu@aosc.io>
+> 
+> On EAECIS NL60R with EC firmware version 1.11, resuming from S3 has a very
+> high chance (>= 90%) of causing the EC to lose the previous backlight
+> power state. When this happens, the laptop resumes normally from S3, but
+> the backlight remains off (when shining on the screen with a flash light,
+> we can see the screen contents are updating normally).
+> 
+> Since there is no generic way to query the EC's backlight state on
+> Loongson laptop platforms, assume the worst-case scenario and restart the
+> backlight power inside the kernel each time the system resumes.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 53c762b47f72 ("platform/loongarch: laptop: Add backlight power control support")
+> Signed-off-by: Zixing Liu <liushuyu@aosc.io>
 
-As I've mentioned before, the self-tests (crypto/testmgr.c) don't issue
-more than one request concurrently.  They are really designed for
-testing the software implementations, not the hardware drivers.  None of
-the hardware driver authors has ever caused enough about quality to make
-any significant improvements to the tests.  Inevitably it's just push
-the driver in, *maybe* run the existing incomplete tests once (for QCE
-it's finally getting done just now), and job done I guess.
+Tested on my TongFang L860-T2 3A5000 laptop, which isn't affected by
+the EC issue, after resuming from S3 the brightness kept unchanged,
+no regression is observed.
 
-- Eric
+Tested-by: Yao Zi <me@ziyao.cc>
+
+Regards,
+Yao Zi
