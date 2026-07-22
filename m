@@ -1,418 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2AB45DF7A
-	for <stable@vger.kernel.org>; Tue, 21 Jul 2026 23:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784678350; cv=none; b=Fi53s4MiFSwdRZISuD5Jvak8ppI4lJIHQKxITBJNJSz/+zY+xjQF6VKCfz1ZpdFgutCGB6haKmh/H+F4LTe22ZtoeariB5MaLm3KVRRa08cbCJCA4lp52Uurp2v4OhCgfvuYikK3tJGHzISDlJm1zOEFIdFuCahv8fQe9e3IX04=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784678350; c=relaxed/simple;
-	bh=0PusoDzwerj6zXJhez9mJ/fLPUszFPhw4A1dol/ejM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tAZAYeKhUytmLYWG56jFGv3/i9hcxQPj0quzQv8UIg1oAbG8mvuiKJONn3erqfEOYNjFkdB9V3sR+ky/+cy45OOhqjNGYPVuCovARb/uDHD0YkirO4m9mjNHegwHv7zEdxSbiuu7iibS1P0Cg97u09GryJCx6HUx7a4h4nOEMaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FUUlwiT2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5268F2236EE
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784678468; cv=pass; b=kNdQtbwyUkC6L7y2NlbD2Zj+qHvDM39/CUgevKB0KXAwuBUx/2Kcgpb0UY6mRJoeOFU1KuS+tBXcxhohUfuBhB52Ui49rz/XF25y5FVuIEL27e3FOADSKSippkdjm3422sUleEKELsjQSuTU1JXtXDFObU8Z70wgzFB87K7wEqo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784678468; c=relaxed/simple;
+	bh=zPlV3ytA9mYq182TVv8ShHtMlUg4BGn040Ng/0SYAO0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GSzWRUZME/rBUFimntqSpnSCPIApGTEMbzscUGjUq4MgjR6TKvItNOeG97ODilhqoWW2njScWk8LClJE+uQIDI4M30mH3bY4S6Map1/TOwJXyqFdKbYyVzgF9uGUplJOsFsNy85ZH/RVU3XXr3+QgUzawxJXOFZ/9MHmEWSlo9g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eBsuswPm; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FUUlwiT2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FCFE1F00A3E;
-	Tue, 21 Jul 2026 23:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784678348;
-	bh=Xn9K/FINPNPYHt/dY06pbRerHTxQy04SW/APg5kj0iM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FUUlwiT2r8dGNOy+4ordfuSPY8ORz12hdtWOW3sVjXsgBDIRWL2WkJtJKes7bk2jH
-	 49LMuXFmoUNRpsJvIPF5Y3u4bIeJWNtjs9R6ZDNrLL9xnmD85t96oPFDUIjuJLM0hS
-	 7JVh93Fjh3wKomyYG7bouymB63ailSjM4bV6LNFaZAFlUaWV1RWKQgE6LgOZPbIuM9
-	 62dJ5I7YfYgwqIUw2PgNFVYUdcw60PKGTnCnZnEvk2Z4xWzLtWgdu3iXKEkQ49YLil
-	 fmrJ+FRTX0sbK0ycJ3RNOkVpZvaAVtgkYqUbbpbTkui9bjV+s8dyJlrPCI6MOBfvy1
-	 lydBtXugDUcqA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ricardo Robaina <rrobaina@redhat.com>,
-	stable@kernel.org,
-	Waiman Long <longman@redhat.com>,
-	Richard Guy Briggs <rgb@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] audit: fix recursive locking deadlock in audit_dupe_exe()
-Date: Tue, 21 Jul 2026 19:59:04 -0400
-Message-ID: <20260721235904.525962-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721235904.525962-1-sashal@kernel.org>
-References: <2026071650-cycle-stray-bbb5@gregkh>
- <20260721235904.525962-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eBsuswPm"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-51c1372f84dso82506841cf.2
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:01:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784678463; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oI6CuXXZff4wGaPBBCKyhsRjF866AH+AESe+YB0CrKx8y4Kvj7WleSm2CUfsRYUc9t
+         XHip/Gqpu1UDh/4AVM/m8uPNah7EMsJsALZjQblUFmfY+ndRHD+wiLDji8vT6zOhEuAk
+         JBZjjSEjQgIrNDhBnEpk8b9BsIXS6KTUQ5wpTtlI0xnWINotLlwooP1y9KrKah8FT5Ep
+         O5ga/1M9HM+1a0z7KGZKxjsR0IUvDsXtMA1aUEtWXm9VpxU/r9+tFpLIspIHkoilyNKc
+         SB9CDMygTWcvg/aZUiNBPJDl4h8bHIc5pVQrTn1UMw1khHOFUhSBzGQNv89tgclbuhuM
+         VUGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AlnEHI8kT91AydctQLRHbmFtJAyusQQDosMCUEGHLXI=;
+        fh=xkcMkns0LSAZOZWy8yfIUQHxHNSjdFmY4zzbWYsxvkc=;
+        b=E7RisCkBD2+oTV81eO2JIthLjTA3M1fTqhKRqcI/mRKG/AfLHDAjWcad3LkCRdhvSP
+         kyNzAhSVwSGGv6xErCg0xgf0mE3pLSG0jLozlnYnPDN+FPGAC/6+2HIdDhwWDmYxs9Z6
+         zH0FDqArTtKyPEMnBVJL9Y6TAXk78a9piTfJ0R8Ub9nmo0MFkVEgQIH9vYaWsiXcZin2
+         TCYiZc3AC99Nw44ePmGoXZds20/YNvApu8IsU8BiVNRkXQrM15w0gyZHE2wY1mpSqI6S
+         ePgNeQoAoW3joXPZW0pjb+7fKKdcrQfywLlS0v6GhN2mKt7UOcS7fdQx4bTyTR8JZTBG
+         q3SA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784678463; x=1785283263; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AlnEHI8kT91AydctQLRHbmFtJAyusQQDosMCUEGHLXI=;
+        b=eBsuswPm+a2QFmNq59I/Fi/2NnNcQ2SR12pF84ijjQXuVIz5rZiE78NDaqXtYP1p3x
+         TdnVcQRpPrvm79xQOPyg2jnqM5DV1vnT7usJtwx5qYhFN0McFP9+RaegbUbrchAk3UK1
+         Qct2A1vQi59crFaFTfz1VvdPEyj1Ap9I5PVR7LVyFqrQIyK/1lvJY9ojGMlphOLBz9WW
+         pGyEaGc3Gh5a+Qz4To9//MZerbL6STKsNxt3VVBG/Cz3/vG6dV3COWkQdh05PnfFvbgq
+         5KrnD3aQ9vpm45z4tGITpAwJQqu+q4r4gRIBuPQe1J4mJE34Dxi1aDcr45DZ5tmAgkFP
+         WvdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784678463; x=1785283263;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AlnEHI8kT91AydctQLRHbmFtJAyusQQDosMCUEGHLXI=;
+        b=pYnxj+iQRBqIgzlTzjTxxpkAB9q9i8v8c6QSJRtojPf5rfgztoEKyKWQv+mo+bNOGy
+         /vWus2+NxbxBiPQ9fwqq0xM1S9rFH4Y5bMKcezdVyuHPnV2805klWKgBSQGYwkc3CU3x
+         4OyjWPPbXN9rR23Ea2dtVSRdZJHjMKZrzDi0J1Vvvugq+7j9ree7DXWmCzGQrWAn1pcj
+         Hw+KBZiBc4qzrrnrVB6jmBKq+2zX2G8DDfTPaxYZ+KVRVLFLq8YM2nu5dRrZ7RF5LHfN
+         C/Y/r7zXGgf0OYY5LxG+jNho9g2o79QhiyOv2eFMy8+pc50Mr/1gU6uWAJGXmrw9B5we
+         nCpQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrqxcXitPYQAeLlA3wuSX2io1ErhT+vA/zVC+OB6HGRuZGSrmhh+LuEKJy+Dtt9POSVrFMilGA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjZhwh2QwndDEU/70ui2Pv89t0vohrgNEgAykQ8sa1kGckOcpn
+	0zYu/Dyn5HwsyMhn0t2+E7WMgoN9tdNAJv4zsnpvWqg8kAz9lEITzjaSOOKF8Ib+Ml20DF/I/vx
+	cu476XJ0jjHTqVzDup9SqvmwzIoYuInna5jgTbjp8
+X-Gm-Gg: AR+sD1205PUQ2Jb0jVU4ursnSai/3fT0B5y/w+MorCMjOOfPTuiWUjdT8gTTkZD5NUu
+	bUr80HPmGwSS0S8zBpDiBJKj5EZ+EmN/ZoPShtg4YKPdL4JQ/yV0tKD/poZ2kvuZucgCPkjSNXU
+	2Y4RGlNXxryPOHlFTVcc7KZgDMLbm/pmwcJqVBiDoQjFeZS9c0WkR3WxO8MsmCpzpDVMcW4DJWb
+	jzHc3PEHa2UQUHHZpjlXAOnNE9EAeqbPbLjL96Puvd2eGARAEUT3ZtDnfZkMOlznpNVNleZr2u/
+	5OMehhqEdJCNdH6MrjwUFsib/WcpA2QpWMZmkfIoSo7T5cpgD7iKz6PrwNVDP+k3sdWlia5X
+X-Received: by 2002:a05:622a:1b9e:b0:51c:b900:513f with SMTP id
+ d75a77b69052e-5213aa6d821mr199345281cf.10.1784678462197; Tue, 21 Jul 2026
+ 17:01:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAP48HfvFnArD5hDW8gCAWrp4Hz8Pbh7m3A8F6DiPtLYq45WOBg@mail.gmail.com>
+ <CAM0EoMntb24oXpBW-pAYVX1WYTNnTU9eJLe-cvoiD-GGdW-Rkw@mail.gmail.com>
+ <CANn89iK63bSCL3MPBQKiYEwYfioNYkvTBYVL8cavM2THQbPyhA@mail.gmail.com>
+ <CANn89i+6K3TrAx0Jq_6Z+OtLBt6DhV6_dNjU5U6m6epucPzVVg@mail.gmail.com>
+ <CANn89iLFBPHjjOZg5p7b=-vA++17oBLCJtGi8aJXnfJ3j67J1g@mail.gmail.com>
+ <20260715114114.446841-1-qwe.aldo@gmail.com> <CAM0EoM=gikondXD5GAun3p8S_fjmUgBucD0dJriUQhJ5U48E=A@mail.gmail.com>
+In-Reply-To: <CAM0EoM=gikondXD5GAun3p8S_fjmUgBucD0dJriUQhJ5U48E=A@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 22 Jul 2026 02:00:50 +0200
+X-Gm-Features: AUfX_mxYti_u9g3TaEGTEw3d3yXuJoEdcw2O7vlKVcWTjrg4Z9P97FYbNcOSxd0
+Message-ID: <CANn89iJoE1ES0P+dbsPczCwV4bkXTZGQ0YtvrHDiHgzkWtkoQg@mail.gmail.com>
+Subject: Re: [PATCH net v2] net/sched: serialize qdisc_rtab_list against
+ concurrent get/put
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, netdev@vger.kernel.org, 
+	Jiri Pirko <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ricardo Robaina <rrobaina@redhat.com>
+On Wed, Jul 22, 2026 at 1:47=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> On Wed, Jul 15, 2026 at 7:41=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gma=
+il.com> wrote:
+> >
+> > qdisc_get_rtab() and qdisc_put_rtab() mutate the process-global singly
+> > linked list qdisc_rtab_list and a plain non-atomic 'int refcnt' with no
+> > lock. This was only safe because every caller historically held the RTN=
+L
+> > mutex, which serialized all rate-table lookups, inserts and frees.
+> >
+> > That invariant no longer holds. cls_flower sets
+> > TCF_PROTO_OPS_DOIT_UNLOCKED, so tc_new_tfilter() keeps rtnl_held =3D=3D=
+ false
+> > for it and sets TCA_ACT_FLAGS_NO_RTNL. That flag propagates through
+> > tcf_exts_validate_ex() -> tcf_action_init() -> tcf_action_init_1() ->
+> > tcf_police_init(), which calls qdisc_get_rtab()/qdisc_put_rtab() with t=
+he
+> > RTNL mutex NOT held. Two RTM_NEWTFILTER requests on different CPUs, eac=
+h
+> > adding a flower filter with a police action carrying the same rate, the=
+n
+> > race on qdisc_rtab_list and on the non-atomic refcnt, leading to a
+> > use-after-free / double-free of the kmalloc-2k struct qdisc_rate_table.
+> > qdisc_rtab_list is a single global (not per-netns), so the corrupted
+> > object is shared system-wide.
+> >
+> >   BUG: KASAN: slab-use-after-free in qdisc_put_rtab+0x12f/0x160
+> >    qdisc_put_rtab+0x12f/0x160
+> >    tcf_police_init+0xda9/0x1590
+> >    tcf_action_init_1+0x460/0x6b0
+> >    tcf_action_init+0x439/0xa40
+> >    tcf_exts_validate_ex+0x42d/0x550
+> >    fl_change+0xddd/0x7da0
+> >    tc_new_tfilter+0xaa7/0x2420
+> >    rtnetlink_rcv_msg+0x95e/0xe90
+> >   which belongs to the cache kmalloc-2k of size 2048
+> >
+> > Protect qdisc_rtab_list and the refcount with a dedicated spinlock. The
+> > (sleeping, GFP_KERNEL) allocation in qdisc_get_rtab() is performed befo=
+re
+> > taking the lock; if a concurrent inserter added an identical table in t=
+he
+> > meantime the freshly allocated one is freed under the lock, so no
+> > duplicate is leaked. qdisc_put_rtab() now decrements the refcount and
+> > unlinks under the same lock.
+> >
+> > Fixes: 470502de5bdb ("net: sched: unlock rules update API")
+> > Suggested-by: Eric Dumazet <edumazet@google.com>
+> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+>
+> The fix looks reasonable to me. I also tested the poc
+>  So:
+> Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
-[ Upstream commit 81905b5acbe77284734438df3fbec1158e6429a3 ]
+Same here, thanks!
 
-A deadlock occurs in the audit subsystem when duplicating
-executable-related rules.
-
-When a file is moved (e.g., via do_renameat2()), the VFS layer locks
-the parent directory (I_MUTEX_PARENT), which synchronously triggers an
-fsnotify_move event. If an existing executable audit rule matches the
-file being moved, the audit subsystem catches this event and calls
-audit_dupe_exe() to duplicate the watch and update the rule. Then,
-audit_alloc_mark() would call kern_path_parent() to resolve the path,
-leading to a blind attempt to acquire the exact same I_MUTEX_PARENT lock
-already held by the task, resulting in the following recursive locking
-deadlock:
-
- ============================================
- WARNING: possible recursive locking detected
- 6.12.0-55.27.1.el10_0.x86_64+debug #1 Not tainted
- --------------------------------------------
- mv/5099 is trying to acquire lock:
- ffff888132845358 (&inode->i_sb->s_type->i_mutex_dir_key/1){+.+.}-{3:3},
- at: __kern_path_locked+0x10a/0x2f0
-
- but task is already holding lock:
- ffff888132846b58 (&inode->i_sb->s_type->i_mutex_dir_key/1){+.+.}-{3:3},
- at: lock_two_directories+0x13f/0x2b0
-
- other info that might help us debug this:
-  Possible unsafe locking scenario:
-
-        CPU0
-        ----
-   lock(&inode->i_sb->s_type->i_mutex_dir_key/1);
-   lock(&inode->i_sb->s_type->i_mutex_dir_key/1);
-
-  *** DEADLOCK ***
-
-  May be due to missing lock nesting notation
-
-  6 locks held by mv/5099:
-  #0: ffff888112a9c440 (sb_writers#13)
-  at: do_renameat2+0x34c/0xbc0
-  #1: ffff888112a9c790 (&type->s_vfs_rename_key#3)
-  at: do_renameat2+0x415/0xbc0
-  #2: ffff888132846b58 (&inode->i_sb->s_type->i_mutex_dir_key/1)
-  at: lock_two_directories+0x13f/0x2b0
-  #3: ffff888132845358 (&inode->i_sb->s_type->i_mutex_dir_key/5)
-  at: lock_two_directories+0x175/0x2b0
-  #4: ffffffffb3a1fb10 (&fsnotify_mark_srcu)
-  at: fsnotify+0x454/0x28a0
-  #5: ffffffffaf886230 (audit_filter_mutex)
-  at: audit_update_watch+0x36/0x11e0
-
- stack backtrace:
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x6f/0xb0
-  print_deadlock_bug.cold+0xbd/0xca
-  validate_chain+0x83a/0xf00
-  __lock_acquire+0xcac/0x1d20
-  lock_acquire.part.0+0x11b/0x360
-  down_write_nested+0x9f/0x230
-  __kern_path_locked+0x10a/0x2f0
-  kern_path_locked+0x26/0x40
-  audit_alloc_mark+0xfb/0x4f0
-  audit_dupe_exe+0x6c/0xe0
-  audit_dupe_rule+0x6c2/0xc00
-  audit_update_watch+0x4cc/0x11e0
-  audit_watch_handle_event+0x12c/0x1b0
-  send_to_group+0x5d0/0x8b0
-  fsnotify+0x615/0x28a0
-  fsnotify_move+0x1d8/0x630
-  vfs_rename+0xdcd/0x1df0
-  do_renameat2+0x9d4/0xbc0
-  __x64_sys_renameat+0x192/0x260
-  do_syscall_64+0x92/0x180
-  entry_SYSCALL_64_after_hwframe+0x76/0x7e
- RIP: 0033:0x7f0491fe8c4e
- Code: 0f 1f 40 00 48 8b 15 c1 e1 16 00 f7 d8 64 89 02 b8 ff ff ff ff
- c3 66 0f 1f 44 00 00 f3 0f 1e fa 49 89 ca b8 08 01 00 00 0f 05 <48>
- 3d 00 f0 ff ff 77 0a c3 66 0f 1f 84 00 00 00 00 00 48 8b 15 89
- RSP: 002b:00007ffc7210bf38 EFLAGS: 00000246 ORIG_RAX: 0000000000000108
- RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f0491fe8c4e
- RDX: 0000000000000003 RSI: 00007ffc7210e6c8 RDI: 00000000ffffff9c
- RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000001
- R10: 00005575eb2dae2a R11: 0000000000000246 R12: 00005575eb2dae2a
- R13: 00007ffc7210e6c8 R14: 0000000000000003 R15: 00000000ffffff9c
-  </TASK>
-
-The aforementioned deadlock can be consistently reproduced by running
-the script below:
-
- audit-dupe-exe-deadlock.sh
- --------------------------
- #!/bin/bash
- auditctl -D
- mkdir -p /tmp/foo
- touch /tmp/file
- auditctl -a always,exit -F exe=/tmp/file -F path=/tmp/file -S all -k dr
- mv /tmp/file /tmp/foo/file
- rm -Rf /tmp/foo
-
-This patch fixes the issue by introducing struct audit_watch_ctx to pass
-the fsnotify event context down to audit_alloc_mark(). By utilizing the
-already-resolved directory inode provided by the event, we bypass the
-kern_path_parent() path resolution entirely, safely avoiding the
-recursive lock. Furthermore, it explicitly allows duplicate fsnotify
-marks (allow_dups = 1) during the rename update, allowing the new rule's
-mark to safely coexist with the old rule's mark until the old rule is
-freed.
-
-P.S.: This issue was identified and reproduced during a comprehensive
-code coverage analysis of the audit subsystem. The full report is
-available at the link below:
-
-https://people.redhat.com/rrobaina/audit-code-coverage-analysis.pdf
-
-P.P.S: With the permission of both Ricardo and Nathan, I've squashed a
-fixup patch from Nathan that addresses a compile time error when
-CONFIG_AUDITSYSCALL=n.
-
-Cc: stable@kernel.org
-Fixes: 34d99af52ad4 ("audit: implement audit by executable")
-Acked-by: Waiman Long <longman@redhat.com>
-Acked-by: Richard Guy Briggs <rgb@redhat.com>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
-[PM: move link metadata into the msg, apply fix from NC]
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/audit.h          | 17 ++++++++++++-----
- kernel/audit_fsnotify.c | 32 +++++++++++++++++++++++---------
- kernel/audit_watch.c    | 25 +++++++++++++++++--------
- kernel/auditfilter.c    |  9 +++++----
- 4 files changed, 57 insertions(+), 26 deletions(-)
-
-diff --git a/kernel/audit.h b/kernel/audit.h
-index 3504f900a49e42..9cda69f2bd2989 100644
---- a/kernel/audit.h
-+++ b/kernel/audit.h
-@@ -250,8 +250,13 @@ extern int audit_del_rule(struct audit_entry *entry);
- extern void audit_free_rule_rcu(struct rcu_head *head);
- extern struct list_head audit_filter_list[];
- 
--extern struct audit_entry *audit_dupe_rule(struct audit_krule *old);
-+struct audit_watch_ctx {
-+	struct inode *dir;
-+	struct inode *child;
-+};
- 
-+extern struct audit_entry *audit_dupe_rule(struct audit_krule *old,
-+					   struct audit_watch_ctx *ctx);
- extern void audit_log_d_path_exe(struct audit_buffer *ab,
- 				 struct mm_struct *mm);
- 
-@@ -274,13 +279,15 @@ extern char *audit_watch_path(struct audit_watch *watch);
- extern int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev);
- 
- extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
--						    char *pathname, int len);
-+						    char *pathname, int len,
-+						    struct audit_watch_ctx *ctx);
- extern char *audit_mark_path(struct audit_fsnotify_mark *mark);
- extern void audit_remove_mark(struct audit_fsnotify_mark *audit_mark);
- extern void audit_remove_mark_rule(struct audit_krule *krule);
- extern int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino,
- 			      dev_t dev);
--extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old);
-+extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old,
-+			  struct audit_watch_ctx *ctx);
- extern int audit_exe_compare(struct task_struct *tsk,
- 			     struct audit_fsnotify_mark *mark);
- 
-@@ -311,13 +318,13 @@ extern struct list_head *audit_killed_trees(void);
- #define audit_watch_path(w) ""
- #define audit_watch_compare(w, i, d) 0
- 
--#define audit_alloc_mark(k, p, l) (ERR_PTR(-EINVAL))
-+#define audit_alloc_mark(k, p, l, c) (ERR_PTR(-EINVAL))
- #define audit_mark_path(m) ""
- #define audit_remove_mark(m) do { } while (0)
- #define audit_remove_mark_rule(k) do { } while (0)
- #define audit_mark_compare(m, i, d) 0
- #define audit_exe_compare(t, m) (-EINVAL)
--#define audit_dupe_exe(n, o) (-EINVAL)
-+#define audit_dupe_exe(n, o, c) (-EINVAL)
- 
- #define audit_remove_tree_rule(rule) BUG()
- #define audit_add_tree_rule(rule) -EINVAL
-diff --git a/kernel/audit_fsnotify.c b/kernel/audit_fsnotify.c
-index 35753fb9029a29..e62066bf0b0afa 100644
---- a/kernel/audit_fsnotify.c
-+++ b/kernel/audit_fsnotify.c
-@@ -71,19 +71,30 @@ static void audit_update_mark(struct audit_fsnotify_mark *audit_mark,
- 	audit_mark->ino = inode ? inode->i_ino : AUDIT_INO_UNSET;
- }
- 
--struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pathname, int len)
-+struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pathname,
-+					     int len, struct audit_watch_ctx *ctx)
- {
- 	struct audit_fsnotify_mark *audit_mark;
- 	struct path path;
- 	struct dentry *dentry;
--	int ret;
-+	struct inode *dir, *child;
-+	int ret, allow_dups;
- 
- 	if (pathname[0] != '/' || pathname[len-1] == '/')
- 		return ERR_PTR(-EINVAL);
- 
--	dentry = kern_path_parent(pathname, &path);
--	if (IS_ERR(dentry))
--		return ERR_CAST(dentry); /* returning an error */
-+	if (!ctx) {
-+		dentry = kern_path_parent(pathname, &path);
-+		if (IS_ERR(dentry))
-+			return ERR_CAST(dentry); /* returning an error */
-+		dir = d_inode(path.dentry);
-+		child = d_inode(dentry);
-+		allow_dups = 0;
-+	} else {
-+		dir = ctx->dir;
-+		child = ctx->child;
-+		allow_dups = 1;
-+	}
- 
- 	audit_mark = kzalloc(sizeof(*audit_mark), GFP_KERNEL);
- 	if (unlikely(!audit_mark)) {
-@@ -94,18 +105,21 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
- 	fsnotify_init_mark(&audit_mark->mark, audit_fsnotify_group);
- 	audit_mark->mark.mask = AUDIT_FS_EVENTS;
- 	audit_mark->path = pathname;
--	audit_update_mark(audit_mark, dentry->d_inode);
- 	audit_mark->rule = krule;
- 
--	ret = fsnotify_add_inode_mark(&audit_mark->mark, path.dentry->d_inode, 0);
-+	audit_update_mark(audit_mark, child);
-+	ret = fsnotify_add_inode_mark(&audit_mark->mark, dir, allow_dups);
-+
- 	if (ret < 0) {
- 		audit_mark->path = NULL;
- 		fsnotify_put_mark(&audit_mark->mark);
- 		audit_mark = ERR_PTR(ret);
- 	}
- out:
--	dput(dentry);
--	path_put(&path);
-+	if (!ctx) {
-+		dput(dentry);
-+		path_put(&path);
-+	}
- 	return audit_mark;
- }
- 
-diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
-index f7b101e71d002a..ec88f38ee685bf 100644
---- a/kernel/audit_watch.c
-+++ b/kernel/audit_watch.c
-@@ -244,7 +244,8 @@ static void audit_watch_log_rule_change(struct audit_krule *r, struct audit_watc
- /* Update inode info in audit rules based on filesystem event. */
- static void audit_update_watch(struct audit_parent *parent,
- 			       const struct qstr *dname, dev_t dev,
--			       u64 ino, unsigned int invalidating)
-+			       u64 ino, unsigned int invalidating,
-+			       struct audit_watch_ctx *ctx)
- {
- 	struct audit_watch *owatch, *nwatch, *nextw;
- 	struct audit_krule *r, *nextr;
-@@ -280,7 +281,7 @@ static void audit_update_watch(struct audit_parent *parent,
- 			list_del(&oentry->rule.rlist);
- 			list_del_rcu(&oentry->list);
- 
--			nentry = audit_dupe_rule(&oentry->rule);
-+			nentry = audit_dupe_rule(&oentry->rule, ctx);
- 			if (IS_ERR(nentry)) {
- 				list_del(&oentry->rule.list);
- 				audit_panic("error updating watch, removing");
-@@ -479,10 +480,17 @@ static int audit_watch_handle_event(struct fsnotify_mark *inode_mark, u32 mask,
- 	if (WARN_ON_ONCE(inode_mark->group != audit_watch_group))
- 		return 0;
- 
--	if (mask & (FS_CREATE|FS_MOVED_TO) && inode)
--		audit_update_watch(parent, dname, inode->i_sb->s_dev, inode->i_ino, 0);
--	else if (mask & (FS_DELETE|FS_MOVED_FROM))
--		audit_update_watch(parent, dname, AUDIT_DEV_UNSET, AUDIT_INO_UNSET, 1);
-+	if (mask & (FS_CREATE|FS_MOVED_TO) && inode) {
-+		struct audit_watch_ctx ctx = { .dir = dir, .child = inode };
-+
-+		audit_update_watch(parent, dname, inode->i_sb->s_dev, inode->i_ino, 0,
-+				   &ctx);
-+	} else if (mask & (FS_DELETE|FS_MOVED_FROM)) {
-+		struct audit_watch_ctx ctx = { .dir = dir, .child = NULL };
-+
-+		audit_update_watch(parent, dname, AUDIT_DEV_UNSET, AUDIT_INO_UNSET, 1,
-+				   &ctx);
-+	}
- 	else if (mask & (FS_DELETE_SELF|FS_UNMOUNT|FS_MOVE_SELF))
- 		audit_remove_parent_watches(parent);
- 
-@@ -505,7 +513,8 @@ static int __init audit_watch_init(void)
- }
- device_initcall(audit_watch_init);
- 
--int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old)
-+int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old,
-+		   struct audit_watch_ctx *ctx)
- {
- 	struct audit_fsnotify_mark *audit_mark;
- 	char *pathname;
-@@ -514,7 +523,7 @@ int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old)
- 	if (!pathname)
- 		return -ENOMEM;
- 
--	audit_mark = audit_alloc_mark(new, pathname, strlen(pathname));
-+	audit_mark = audit_alloc_mark(new, pathname, strlen(pathname), ctx);
- 	if (IS_ERR(audit_mark)) {
- 		kfree(pathname);
- 		return PTR_ERR(audit_mark);
-diff --git a/kernel/auditfilter.c b/kernel/auditfilter.c
-index 26786abbd7f9bc..88f8ab2b2ffc85 100644
---- a/kernel/auditfilter.c
-+++ b/kernel/auditfilter.c
-@@ -590,7 +590,7 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
- 				err = PTR_ERR(str);
- 				goto exit_free;
- 			}
--			audit_mark = audit_alloc_mark(&entry->rule, str, f_val);
-+			audit_mark = audit_alloc_mark(&entry->rule, str, f_val, NULL);
- 			if (IS_ERR(audit_mark)) {
- 				kfree(str);
- 				err = PTR_ERR(audit_mark);
-@@ -818,7 +818,8 @@ static inline int audit_dupe_lsm_field(struct audit_field *df,
-  * rule with the new rule in the filterlist, then free the old rule.
-  * The rlist element is undefined; list manipulations are handled apart from
-  * the initial copy. */
--struct audit_entry *audit_dupe_rule(struct audit_krule *old)
-+struct audit_entry *audit_dupe_rule(struct audit_krule *old,
-+				    struct audit_watch_ctx *ctx)
- {
- 	u32 fcount = old->field_count;
- 	struct audit_entry *entry;
-@@ -877,7 +878,7 @@ struct audit_entry *audit_dupe_rule(struct audit_krule *old)
- 				new->filterkey = fk;
- 			break;
- 		case AUDIT_EXE:
--			err = audit_dupe_exe(new, old);
-+			err = audit_dupe_exe(new, old, ctx);
- 			break;
- 		}
- 		if (err) {
-@@ -1408,7 +1409,7 @@ static int update_lsm_rule(struct audit_krule *r)
- 	if (!security_audit_rule_known(r))
- 		return 0;
- 
--	nentry = audit_dupe_rule(r);
-+	nentry = audit_dupe_rule(r, NULL);
- 	if (entry->rule.exe)
- 		audit_remove_mark(entry->rule.exe);
- 	if (IS_ERR(nentry)) {
--- 
-2.53.0
-
+Reviewed-by: Eric Dumazet <edumazet@google.com>
