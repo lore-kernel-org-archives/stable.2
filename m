@@ -1,110 +1,98 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9565364E96
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 01:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112A93370EA;
+	Wed, 22 Jul 2026 02:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784685066; cv=none; b=fTk4SmdkwaK1BpLicLM97ouaInQhSddXuThdOObKQd8XJYlF59QvBEXMHBPh5kJVW+upRKrsg9u4A20GYE0NyRox0vfffy8RdgF1ENxNlV3p1RJ8a08zcWMjGcENisOogaI4w3HuWIcNxyHyaUqL19muIXm286eN0rkhY7MNVCs=
+	t=1784685759; cv=none; b=Mv1b0xuP4JB60XfOf9+QvFeariFKyoXVQldVHm1TlTaaM7qp8Gk22KkZHL74soN772N2LFQLth04EwaR9V3FKtcSAwVS3HF6RlBfG/v7SpUDbfBFt4c+203Z4wc3m6qdSKsDZbVW3dZmrOPiRQnXq3ExHRlwqrzyVD/5Afdgvtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784685066; c=relaxed/simple;
-	bh=TXfB4ABh+89iwnKH/McCMIH4/ZFKUeUvf2Q9g7uVgX0=;
+	s=arc-20240116; t=1784685759; c=relaxed/simple;
+	bh=Ms+3hk7hbeWOt4MjdwrrXhO2v/6wikmjnkbxooQcK5Y=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fhvNBenzC6NX9ZYyoKrEsyaxLlv8lY1eCtU1HqT6vu1aNxR4783eqyQmVYqFsUEge3Y5BSWHtK2S/7tYcnsnuvkeW9FnoNAQuR6KEXvkgXkgH1qDtC14i0RyjOz/8IRgcKcA6+Moz8AVQwcBaeOUKTm5L153uJrK4Gm/KG4E6h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=bNGjuy2V; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	 In-Reply-To:Content-Type; b=D6dA32+qo//zNv4BOIhKDsZXrzhbWbF/4fjY565IRgVZ+uCsfMAsDXwGKgNOQg/IdyPYpURjs1rMXZb5XmUQh+bB+6V42nBSLm1TeaJQEO7rB23yfC/dnw5X2xw1UbGMFXMZm1R5aqXNSxlS40MCTDZ3yhUSqRdOmPtkiJ74140=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=FCM/OhwP; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="bNGjuy2V"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47f785467faso1872991f8f.2
-        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 18:51:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1784685063; x=1785289863; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xBjB96HwVGtMp1ml2z9h2HsIvFpnCvmsF4SKp8ImWjo=;
-        b=bNGjuy2Vw5p9rhE+mgIAz92gFcVkjzzh9cnqxFNNvGmMHNvyiYf6TkuXL0XuOBa0AY
-         S0zNGIzeVQQcRiy855LIN8Bz/iJh8F52WHhvY68SKxLzF7ilkWfDxQaldJ4Lha+woc+H
-         Cxh3qiTbH4Xz/TpYn0DFcOtP0zX4zAISolJnV/ZXrFjk8Jxr1nb9hUdkWUNswOxsqmh8
-         vPjicWw8ZITEInB6DW7BAp6wJKc1OklGmlaGPUwSwJueDQHbx8eG82e5pMPkESEzKeXR
-         Kn7TvPKj25prJyGhPlAhzLje05KiLQinGbrKuROj2/38WvMCGg1cYQLkW4vFgi/g71CY
-         jvTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784685063; x=1785289863;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xBjB96HwVGtMp1ml2z9h2HsIvFpnCvmsF4SKp8ImWjo=;
-        b=FxeSTK+h/XEzW2UZ5eoGqm84dnECsZjmwmVo9zV39UBb1bXPEeQLDHxJORzoMGw9le
-         AHMmB7G1g+a3B4QMwRyT3C9uZaoqFekSQ4xePxqu4OZzYkpX5O1Dwo8oT5PmBlrNeSiw
-         3MwqaRIMOhicczdZ7IJfdpY6OCNnhzAHU7iZSVa9F8nQqFTAiZTRf8lpy2bsWVddul3w
-         9k7qfVLTq5ZEh3SKF6Vsc7ebFKY+KMCdBUas8A5/cGfMeZXVUQdyRp0CQNK4CRABoym7
-         F8lMD4KuXmvp4TDDO/4MImUmKu33DsR6jwn50QB/3Q2mwPtIVNIAjUjyrYOXnGkqWIdt
-         eabA==
-X-Forwarded-Encrypted: i=1; AHgh+RrZPJEcuHHSCH1XfKrIZ8xCPCHwaCuDw98SfZvGtQCwZLXaVu0b7EzGtaruUJgFA8gDQEM8it0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbR96uFAGes0VtPenDylWYeDPuz9ytfUeGXO6IdBrYO75qmW0h
-	2L6fiyjlmcF6hKq/NXvo0ZoEEl2tzhuqSi6qaG1rf6PmWqyee6jlqhE=
-X-Gm-Gg: AR+sD103EiUgiAMcnbCmGOI/AHxQc743J5/dZFFZ2lXGy3fioaa9aEHx7ECwXXhWhWi
-	WWcnsNhAjt4jiuOHsfCmgNP+zrzYDfjT7EtFuH9aCfpWSDeQQP0dOiAGPZKRY78iYV7lkwYNIk7
-	S7MOTqog3SnDpdxB2o4RbsPUxW4oMhcsztYLL9vGTlJVCfL/r5ojgPB2UP1r/LY7MoFamLuzpzK
-	RjBaYc2jBmAcKKn2JMjQOyiqgYlLZcyd+y+v+9NrXPax0ZB8TGEIC8GwNk8R5WuvzpEbE7alE4q
-	ojUGPFWyDEkqxT/9Q7EY2EHyrzR342CZRT2txFU0QEwny9s2Tt9V5XlZxlObxV+6xhJh9/GDONK
-	mj9TVitXF17wTZt3J0A2H8P9I1t9LOdmU8qq7q2klvYNLDbwbArwDrYVEI23kAOYGae7dU31s7j
-	ryv5pDaXMxmaHvOFl7yFYxvEDWfe5np9y9sAty4T+TcxHsxHmNN2OfQw==
-X-Received: by 2002:a05:6000:220c:b0:47f:7c4c:8144 with SMTP id ffacd0b85a97d-47f7c4c82aemr10880687f8f.10.1784685062919;
-        Tue, 21 Jul 2026 18:51:02 -0700 (PDT)
-Received: from [192.168.1.3] (p5b05768a.dip0.t-ipconnect.de. [91.5.118.138])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a60asm1366024f8f.3.2026.07.21.18.51.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 21 Jul 2026 18:51:02 -0700 (PDT)
-Message-ID: <2dfd695c-cd5f-4949-9e8b-3a06e99aa47c@googlemail.com>
-Date: Wed, 22 Jul 2026 03:51:01 +0200
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="FCM/OhwP"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1784685753; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=HSaIX6hIosJ/jHt+6+F5JlQMZyVUp21ckgOQoM3Lki4=;
+	b=FCM/OhwPi+KicqDqEul8eNn5BS+02AVP1FPZdIbXC1BJlatnRGKQVPvPyhGeaFUAhDh/HMG9lULRV5WLnUYrK+++1t3lURNiArDciHV+OrQ3TnSCc8v2TKFifvPGr+uC029LMEi6y0xmPrk5Lojs20w8v83Tz+222fhja1bFbSk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=chengyou@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0X7bpXMI_1784685752;
+Received: from 30.221.106.174(mailfrom:chengyou@linux.alibaba.com fp:SMTPD_---0X7bpXMI_1784685752 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 22 Jul 2026 10:02:32 +0800
+Message-ID: <68b9b418-b672-ee31-1c66-9806b8a2eb60@linux.alibaba.com>
+Date: Wed, 22 Jul 2026 10:02:30 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.1 0000/1067] 6.1.178-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260721152424.521567757@linuxfoundation.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260721152424.521567757@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.1
+Subject: Re: [PATCH] RDMA/erdma: fix use-after-free in CEQ tasklet teardown
+Content-Language: en-US
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: kaishen@linux.alibaba.com, jgg@ziepe.ca, leon@kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260721133745.3197015-1-fanwu01@zju.edu.cn>
+From: Cheng Xu <chengyou@linux.alibaba.com>
+In-Reply-To: <20260721133745.3197015-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Am 21.07.2026 um 17:10 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.1.178 release.
-> There are 1067 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
-
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-Beste Grüße,
-Peter Schneider
+On 7/21/26 9:37 PM, Fan Wu wrote:
+> The CEQ interrupt handler schedules a tasklet that accesses the CEQ
+> buffers. During teardown, erdma_free_ceq_irq() removes the interrupt
+> handler and waits for any in-flight handler invocation, but does not
+> wait for a tasklet that was already scheduled by that handler.
+> 
+> erdma_ceq_uninit_one() can then free the EQ qbuf and dbrec while the
+> tasklet is still accessing them.
+> 
+> Call tasklet_kill() after free_irq(). This prevents new tasklet
+> scheduling and waits for any already scheduled tasklet before the EQ
+> buffers are freed.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: f2a0a630b953 ("RDMA/erdma: Add event queue implementation")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>  drivers/infiniband/hw/erdma/erdma_eq.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+Hi, Fan Wu,
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+Thanks your work! But there is another patch fixes this issue already:
+
+https://lore.kernel.org/linux-rdma/CAHYDg1QDaWPxD7pb-A1ZmqxaX6YACWTsinzEG4_EZDKbAX38kQ@mail.gmail.com/T/#t
+
+Thanks,
+Cheng Xu
+
+> diff --git a/drivers/infiniband/hw/erdma/erdma_eq.c b/drivers/infiniband/hw/erdma/erdma_eq.c
+> index 6486234a2360..78ebec6d48a3 100644
+> --- a/drivers/infiniband/hw/erdma/erdma_eq.c
+> +++ b/drivers/infiniband/hw/erdma/erdma_eq.c
+> @@ -219,6 +219,7 @@ static void erdma_free_ceq_irq(struct erdma_dev *dev, u16 ceqn)
+> 
+>  	irq_set_affinity_hint(eqc->irq.msix_vector, NULL);
+>  	free_irq(eqc->irq.msix_vector, eqc);
+> +	tasklet_kill(&dev->ceqs[ceqn].tasklet);
+>  }
+> 
+>  static int create_eq_cmd(struct erdma_dev *dev, u32 eqn, struct erdma_eq *eq)
+> --
+> 2.34.1
