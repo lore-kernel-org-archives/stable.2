@@ -1,173 +1,106 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D02C1EEA3C
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8571F23815B
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784724411; cv=none; b=O4l1zBssxeJuetDBDrHBjs31DCDQ+1UoCQA3RGtzLaLLCOCYycW4irneCw0VE6U0pQjO9C9ykbXgcEtWDvbd4Bxq8n6Qxsb+CuN1apK3XpSCEYapDzd9iUjelytrenNOKli2tvjAzxVp74mATUC+P5nRUrCY9VnGRtQoSmzcry0=
+	t=1784724680; cv=none; b=fdyxCJdo8skn5J8k2vUwJVQErtD7jiqGzzgi0sQgcv4ROjvB+7zv6lSavFnaJ3EB2J6ozPWw8qRP/2EdyQUCAOovkrpleEdeS+MTIMVoXnzkPf5TDPILVsQO3JF8CFTJ0dzOn3JpEiFngs8qwP7TY8vPazjV7lJe0LWkKtGrhqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784724411; c=relaxed/simple;
-	bh=qzJxGXH8Htt0yjiGZUhOAsSD1L9xnX+Cjna4RQOMgcA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JFsshKxDPteCZR8ySYRDQF5eMniSVaK3DSBmx5kmmrKTtSXNuLxGONW/TWCfVpfZJ/X7Ln2ZiOy3RbmcdQM/g3hYna74dW3CTHRHwtihxusVqxGeIfZo8nzQQTNT6TFEInoLBqOpA2j4GZBb2JUVM0cL4GLMjuRjlyYSgeDME8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVzKoD/U; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784724680; c=relaxed/simple;
+	bh=cE1Ojb80pVfEWjHLM/beLVntqt36G2jJhVlZLqJ15G8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uFLNmG/t/Lf+XkA+uPQI98PO4QprhURIZNnFV1XHnbMdWm7XN9r21NV7D6JVEK6AFFFm2AFpd1AcxLrEF1ZZfA/BbCOLHRo89aemhb/soJiT0uRG0Pnjxyvj0nPybZGlBypNb4M3+VRs6DGEiv0d23P0A66hcYIHiuY7DtMOlPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYkL0ghw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVzKoD/U"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2caf228a910so99157045ad.2
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:46:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784724410; x=1785329210; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7hP3CUbxxqWNFygvsCAGPnhevOX5On7UPJqPs3IPq7o=;
-        b=GVzKoD/UU8H+mU3lsK5nRkFvGXZAQFt+Hl4Wn5edcOOqjLa3oV2wXAkD1CnSJjvMSd
-         ZLtsf/0QNECQ+Qtht1e0i45c9gMG1Zuu81a8HLnUbZE5dfxQA8X8vujid2ZH20JzEUtl
-         FHM8cH8pYVHlchGU/FTQokrUn17GDRYmGPSorEyAbGkKaMJ6X0R2ToXWkBNDYj7frWpm
-         t5dKYF2vxbMAKIy1k5OZA9+sEdwW0X2QqjUTxzIyGusGHXvxEg3xWDWDP1u5tAiAmasr
-         AjUFPLb+kz01mqfXTurTIDiqX6f+izu78tzpyp8wSmhoe2OexD6PHPPoxEvIdERTP9qw
-         98zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784724410; x=1785329210;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7hP3CUbxxqWNFygvsCAGPnhevOX5On7UPJqPs3IPq7o=;
-        b=lohby3Q8D3NuiiUPxIrf6jd2bw/MjjDg340hm/59EyZlz0tYLIP1siprqvTh5cv8ni
-         Q5Ik2JKghb6z9xWYgFRS9T3ahuAdr7oDQcYW91XLNxTM1wQGsZNifMoDy79A+BcOugPn
-         5UfSRwMAzCLE4g01wH1lfQRGB/IZ6uCUhgcbzX8T4TePXILJhJArvTc06csu3ehQLRBs
-         mSZo8ZR5LU+SOYRV7S6lLWQBV+/Lq+0ql2On2+1+qXYeiEhmCe785VLV8Q+/2I42/79e
-         Lhc6YxAgan1kU6ICcyK0abrf/jjcWcEpR6FbH+1fbJwPPUGE5y4NcdUzuV53bFm9z5YO
-         9fPw==
-X-Forwarded-Encrypted: i=1; AHgh+RpjUPpAI5E1NeVWDJqVvksgLEa2WDHWjrfaIgybZ0Bp8nf4yW1eHwl3EBRqWaFZ2HwITy/Szto=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5THPj50PtPo/FE4Xyjf9CPzItR932yfX5iphSJWUiVZ6OwaVK
-	07a1+/DQdxcSsaISNWryAUXrQrCQ20TXO3Qnlipa0DYNhH+AivotQaWF
-X-Gm-Gg: AR+sD10jnYFBr0MQTXWyJDFAZ8/P7QmU3NiyyvEzlsygr6RAUBKpxz8k1GM3lbAO+gC
-	eJ2iuwvTCmW8eS64Il4pzLPCMBpacXdmxyHNM7GNxhdoptK8cVVs1hyJybK3474+mgnQFZmYkz6
-	zTiG/pyurASa60xNO59WUTIcc0u92o9/WPHop32jW0DTmdRS4uWkqQZvMhxMg5NDN6BR44XjovL
-	teghY5irCwMp2Z+I08cEXqpibxhLxwHYRVs5RzcWUWASrnP3sM1l4TKOQMUChuhD4n1e+r5Uvyc
-	OFqeuAMKV7qojyMqbOsj+vmHFfANkq9hsFVLmeKJ+WCPiN7G/dvxn9+/s9ha4YFSUimDOSCLVIP
-	Kw0fgwkL8vyeT9nCLpxnKMarsLgywtZoekuBdjVuukFwdJNHxspA3adhg9KmiPcbL7ub1HbIfIe
-	NXjXI6tBnS
-X-Received: by 2002:a17:902:ea02:b0:2c9:97a7:3276 with SMTP id d9443c01a7336-2cf349eb1bbmr259155515ad.39.1784724409650;
-        Wed, 22 Jul 2026 05:46:49 -0700 (PDT)
-Received: from wokron-navi.. ([113.215.38.212])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f38757esm14108605ad.75.2026.07.22.05.46.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 05:46:49 -0700 (PDT)
-From: Yitang Yang <yi1tang.yang@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Gabriel Krisman Bertazi <krisman@suse.de>,
-	io-uring@vger.kernel.org,
-	Yitang Yang <yi1tang.yang@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] io_uring/rw: fix missing ERESTARTSYS conversion in read paths
-Date: Wed, 22 Jul 2026 20:45:51 +0800
-Message-ID: <20260722124551.130563-1-yi1tang.yang@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260720114116.21830-1-yi1tang.yang@gmail.com>
-References: <20260720114116.21830-1-yi1tang.yang@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYkL0ghw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214671F000E9
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784724679;
+	bh=ii9eNLh+OyhBOgKbdCuxq8TmIdZcIlRxyrdNZnalKec=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=gYkL0ghw6pGW7mjktbGeu8qubL+kMkzQ0nY6HUd2MZDamwkOOYcWHzqJrNHsFHhmX
+	 E+Ep4TV/wIiv6j/cVCIEMHcBVZS/pjf/zraRqCWSlNw2mZPHW+IURYxti/cOFs/jQq
+	 a4XQJcl/nxZ9TXZo5coJJQJee6q6BlBBppmkAoU5T7tnoUIDpUQMZ7oeefLaYcEzsD
+	 APpcB4JuAWGiLk7M2YFXsUoVHR7WqCcxDnVZaQ1F37d2ZCXec4YBEv4lqYXtVTfSc9
+	 sutqKbbxp9yj2fFVM8/HF6fUcoTIkIrVQeDj1+28mbVs7BA2+O6HItrGQkgXRtK1lq
+	 gTk6hO2iUT8tw==
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-698ab9aae16so12433056a12.3
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:51:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpkCs7ZsCIZMxE9jcT85P6ge7oRGvGfR/E5ecHdMiDELoRM/P1nH7CXvQ8mUjxxkll3yfaZQrI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4MWI4fCeCDPEgEvg8Af9cAD6rlZ4pUXmTZsh+BIcVegQpKIY3
+	D7iF5Y1D25c89cfdCV196OZJ5yjlpKY825ikqwNUDFcdwCXKdNjznh7mPz7W4splw8iFUIxwtCk
+	itXkwz7qWvQoxj0+nWCDOcJXNX9+PpH0=
+X-Received: by 2002:a05:6402:354b:b0:699:728e:48c3 with SMTP id
+ 4fb4d7f45d1cf-69e6525aa42mr8790195a12.9.1784724677802; Wed, 22 Jul 2026
+ 05:51:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260722044457.1333404-1-liushuyu@aosc.io>
+In-Reply-To: <20260722044457.1333404-1-liushuyu@aosc.io>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 22 Jul 2026 20:51:07 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H74o3hkWOTSSC5vfg3zh88E1isL5ch6ez1k-F8D9PWHXw@mail.gmail.com>
+X-Gm-Features: AUfX_mw9kVHUAENtIPWu-DPbyERVoRUAoRoiOYxo0MnL5ye6Kt2zgSuHlLWFsa8
+Message-ID: <CAAhV-H74o3hkWOTSSC5vfg3zh88E1isL5ch6ez1k-F8D9PWHXw@mail.gmail.com>
+Subject: Re: [PATCH] platform/loongarch: laptop: explicitly reset the
+ bl_powered state when resuming
+To: liushuyu@aosc.io
+Cc: linux-kernel@vger.kernel.org, Jianmin Lv <lvjianmin@loongson.cn>, 
+	WANG Xuerui <kernel@xen0n.name>, Yao Zi <ziyao@disroot.org>, loongarch@lists.linux.dev, 
+	Mingcong Bai <jeffbai@aosc.io>, Kexy Biscuit <kexybiscuit@aosc.io>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Both read and write may receive internal restart error codes from
-the filesystem layer and should be converted to -EINTR. However,
-when multishot read support was added, the error code normalization
-was lost for both io_read() and io_read_mshot().
+Hi, Zixing,
 
-Extract the conversion into io_fixup_restart_res() and apply it
-in all three locations: io_rw_done(), io_read(), and io_read_mshot().
+On Wed, Jul 22, 2026 at 12:45=E2=80=AFPM <liushuyu@aosc.io> wrote:
+>
+> From: Zixing Liu <liushuyu@aosc.io>
+>
+> On EAECIS NL60R with EC firmware version 1.11, resuming from S3 has a ver=
+y
+> high chance (>=3D 90%) of causing the EC to lose the previous backlight
+> power state. When this happens, the laptop resumes normally from S3, but
+> the backlight remains off (when shining on the screen with a flash light,
+> we can see the screen contents are updating normally).
+>
+> Since there is no generic way to query the EC's backlight state on
+> Loongson laptop platforms, assume the worst-case scenario and restart the
+> backlight power inside the kernel each time the system resumes.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 53c762b47f72 ("platform/loongarch: laptop: Add backlight power con=
+trol support")
+> Signed-off-by: Zixing Liu <liushuyu@aosc.io>
+> ---
+>  drivers/platform/loongarch/loongson-laptop.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/platform/loongarch/loongson-laptop.c b/drivers/platf=
+orm/loongarch/loongson-laptop.c
+> index 61b18ac206c9e..742a585b0647c 100644
+> --- a/drivers/platform/loongarch/loongson-laptop.c
+> +++ b/drivers/platform/loongarch/loongson-laptop.c
+> @@ -200,6 +200,7 @@ static int loongson_hotkey_resume(struct device *dev)
+>
+>         bd =3D backlight_device_get_by_type(BACKLIGHT_PLATFORM);
+>         if (bd) {
+> +               bl_powered =3D false;
+I think it is a little better to move this line into loongson_hotkey_suspen=
+d().
 
-Fixes: a08d195b586a ("io_uring/rw: split io_read() into a helper")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yitang Yang <yi1tang.yang@gmail.com>
----
- io_uring/rw.c | 42 +++++++++++++++++++++++++-----------------
- 1 file changed, 25 insertions(+), 17 deletions(-)
+Huacai
 
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index 63b6519e498c..95038cfda615 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -615,6 +615,24 @@ static void io_complete_rw_iopoll(struct kiocb *kiocb, long res)
- 	smp_store_release(&req->iopoll_completed, 1);
- }
- 
-+static inline ssize_t io_fixup_restart_res(ssize_t ret)
-+{
-+	switch (ret) {
-+	case -ERESTARTSYS:
-+	case -ERESTARTNOINTR:
-+	case -ERESTARTNOHAND:
-+	case -ERESTART_RESTARTBLOCK:
-+		/*
-+		 * We can't just restart the syscall, since previously
-+		 * submitted sqes may already be in progress. Just fail
-+		 * this IO with EINTR.
-+		 */
-+		return -EINTR;
-+	default:
-+		return ret;
-+	}
-+}
-+
- static inline void io_rw_done(struct io_kiocb *req, ssize_t ret)
- {
- 	struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
-@@ -624,21 +642,8 @@ static inline void io_rw_done(struct io_kiocb *req, ssize_t ret)
- 		return;
- 
- 	/* transform internal restart error codes */
--	if (unlikely(ret < 0)) {
--		switch (ret) {
--		case -ERESTARTSYS:
--		case -ERESTARTNOINTR:
--		case -ERESTARTNOHAND:
--		case -ERESTART_RESTARTBLOCK:
--			/*
--			 * We can't just restart the syscall, since previously
--			 * submitted sqes may already be in progress. Just fail
--			 * this IO with EINTR.
--			 */
--			ret = -EINTR;
--			break;
--		}
--	}
-+	if (unlikely(ret < 0))
-+		ret = io_fixup_restart_res(ret);
- 
- 	if (req->flags & REQ_F_IOPOLL)
- 		io_complete_rw_iopoll(&rw->kiocb, ret);
-@@ -1034,7 +1039,8 @@ int io_read(struct io_kiocb *req, unsigned int issue_flags)
- 
- 	if (req->flags & REQ_F_BUFFERS_COMMIT)
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
--	return ret;
-+
-+	return io_fixup_restart_res(ret);
- }
- 
- int io_read_mshot(struct io_kiocb *req, unsigned int issue_flags)
-@@ -1068,8 +1074,10 @@ int io_read_mshot(struct io_kiocb *req, unsigned int issue_flags)
- 		return IOU_RETRY;
- 	} else if (ret <= 0) {
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
--		if (ret < 0)
-+		if (ret < 0) {
-+			ret = io_fixup_restart_res(ret);
- 			req_set_fail(req);
-+		}
- 	} else if (!(req->flags & REQ_F_APOLL_MULTISHOT)) {
- 		cflags = io_put_kbuf(req, ret, sel.buf_list);
- 	} else {
--- 
-2.43.0
-
+>                 loongson_laptop_backlight_update(bd) ?
+>                 pr_warn("Loongson_backlight: resume brightness failed") :
+>                 pr_info("Loongson_backlight: resume brightness %d\n", bd-=
+>props.brightness);
+> --
+> 2.52.0
+>
