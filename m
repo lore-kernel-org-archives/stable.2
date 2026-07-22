@@ -1,96 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3363B27FB
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 23:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC953B635A;
+	Wed, 22 Jul 2026 23:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784762500; cv=none; b=sgq/WxLy6WS8OrBRFHdjm6DzQiKr6DLueRKFrw6IYQSv02wmqCo51tAA7kV+UU1MzLv2Mxg9FKaroF4ydTWA7FhbktOXLyF39B59svQLhPYm7Cty540m+TPRz4ALVxf3OJmKMIW2GmQ32yybOxOobliJZzdGHWmmOl0ETTVMLdU=
+	t=1784762529; cv=none; b=QaCL7eNMWSS+RMHFTFbToUFmDymwVG2BSFNbmnyy0rQ4c132nCvux6QbEQU4CZ+fTfYYf0fKf9LDH6Om2vM/ja6z+5HJ0Nx4d0q6j6KvniWP9SdInt4voNza2h2EtG44YJYA+++x4nbN5R3hLZHUPJAwDCCtQR4vZ3z52r/dxbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784762500; c=relaxed/simple;
-	bh=NRl0RVLzWOmbPibdQaZXMWqXv5eJgE7Yhe07QrODhGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jUNAR735EBIPtBxYFPotH/P+ccIdvHV+yG9U7WdFj/Wlx3uept45Xtmz84RuBoU0HQUHazdqodPmnyt7f6pA0TkJK6DQxon6U3mGyyEDMf0LEQvlyMH+BWoZ+i1ihFuwhcTxdOfkR2xmli79lM6B43sionvFJJwgwFRzdebGT0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGQrMPfO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784762529; c=relaxed/simple;
+	bh=jWFZNZ1EgV8oRVw84ullJ9fhzGi7rwBngqRUl9DN0pU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=lOzqlfOXtTDMYLLjmgjsAvnm+TW8dk20qW3Sf//D5rL8sIhL8t4f0QdS4fI5hxNbH+1isGUKMnx1K2bDHc5tLDMAGP2Jc1vcdI9jsLx+yBQXAQgjRrM8Rkhq+pcUSfl7SrgEet1ZODB9mQTUsiu9udsSxuBz74JrhH4LaUR0d/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Z/I3qCih; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGQrMPfO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97AC1F00A3D;
-	Wed, 22 Jul 2026 23:21:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784762498;
-	bh=7efNdlhQ2wsjQruZypIDcso1nLJitCyAVJxNs3TC1JM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BGQrMPfOBJS8iYUc9RWXKNrmN8Uk2zu3FUlCwbhaoqWDvaS8mvtdVJKu03iHVXR0O
-	 w1Os1sSoky0lHaupj7j5m7F2Z7SsZusVokju8p17lJt9VPnG4YYej2IdjhoZnJZVdf
-	 Vs1rYYm2kQ9f9e1U67Wtk4tGN8dqoT3SV+AFqKR81IXWzEbkOvA9+fOiDUV8M8r8XC
-	 dyeVR8r6Rgr32fqnTpM0Q5HB+3NesCk78Twozbm/0CQlakG3grfz5XYIoUlBpfOfUs
-	 er9ulMrbBKdjNDE9V9EGzV5RhFPaNxjPxTc/tVcOZcL51W84RK/8d+HutFBT5+mOpI
-	 vkM8fBEmHy42g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jeffrey Altman <jaltman@auristor.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	stable@kernel.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] rxrpc: Fix socket notification race
-Date: Wed, 22 Jul 2026 19:21:33 -0400
-Message-ID: <20260722232133.2553162-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722232133.2553162-1-sashal@kernel.org>
-References: <2026072025-implode-raider-540f@gregkh>
- <20260722232133.2553162-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Z/I3qCih"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D83DC1F00A3A;
+	Wed, 22 Jul 2026 23:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784762528;
+	bh=fY1Ru2zC/iJcoq3b+FNLhPaZonLcvPq0ZmyTt7fDVBE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Z/I3qCih2+SIO1TN3z9hZ/HcIz/TrW4SD33YNXg69bh5XvDTT2/f5sQ9dIlaja9i7
+	 8D9B5aCITCzWsQGORFtLN/exM8ElKkeewacV90P4Kl4X/Ppc5lCMemuYT0YIorRhrt
+	 a4/svc1oWR4Jhjj3TkOjjmj7wu+Ye1FBfVya3Qsk=
+Date: Wed, 22 Jul 2026 16:22:07 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan Jackman
+ <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>, David Hildenbrand
+ <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, Shakeel Butt
+ <shakeel.butt@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
+ defrag_mode
+Message-Id: <20260722162207.31a2c491ffaf36d1e8948c14@linux-foundation.org>
+In-Reply-To: <20260722150006.3848560-5-hannes@cmpxchg.org>
+References: <20260722150006.3848560-1-hannes@cmpxchg.org>
+	<20260722150006.3848560-5-hannes@cmpxchg.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: David Howells <dhowells@redhat.com>
+On Wed, 22 Jul 2026 10:56:47 -0400 Johannes Weiner <hannes@cmpxchg.org> wrote:
 
-[ Upstream commit e66f8f32f50116670dbbee5bc9e692cd2cd0c8f8 ]
+> As we deployed defrag_mode into Meta production, pressure spikes and
+> excessive swapping were observed on some workloads. Tracing confirmed
+> that this is unmovable/reclaimable requests spinning in the allocator
+> and direct reclaim, causing excessive amounts of swap.
+> 
+> The initial plan for defrag_mode was to rely on kswapd/kcompactd to
+> produce blocks, and if those are overwhelmed under high pressure, let
+> the allocator fall back (__rmqueue_steal()) after its retry loops.
+> However, that retrying results in more reclaim on some of these
+> workloads than we'd hoped, sometimes excessively so, spurred on by the
+> !costly order conditions in should_reclaim_retry().
+> 
+> The storms are dependent on the request type. Reclaim will inevitably
+> make room in existing movable blocks, since that's where the LRU pages
+> live. So if movable requests retry on reclaim, they make progress.
+> 
+> When non-movable requests spin in reclaim that isn't productive. They
+> cannot use the individually freed pages, and the process is unlikely
+> to accidentally free whole blocks to meet the ALLOC_NOFRAGMENT bar.
+> They spin and overreclaim excessively, which tanks performance and
+> triggers userspace guards like swap exhaustion or pressure based OOM.
+> 
+> To fix this, send non-movable requests, regardless of order, into
+> pageblock reclaim/compaction. This way, they help move things along to
+> meet the ALLOC_NOFRAGMENT bar. After this patch, the reclaim storms
+> and excess OOM rates are no longer observed in production.
+> 
+> The longer-term plan is still to have all requests, including the
+> movable ones, help make blocks to spread the cost of defragmenting
+> more evenly and fairly; combined with proper watermarking to reduce
+> allocation latencies in the common case. However, doing this naively
+> unearths scaling and concurrency limitations in compaction that need
+> to be addressed first. Promoting just non-movables for now is the
+> minimally viable bug fix for the above issue.
+> 
+> Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
 
-There's a race between rxrpc_recvmsg() and rxrpc_notify_socket(), whereby
-the latter's attempt to avoid disabling interrupts and taking the socket's
-recvmsg_lock if the call is already queued may happen simultaneously with
-the former's discarding of a call that has nothing queued.
+This cc:stable fix doesn't apply to current mainline because the
+preceding non-cc:stable patches get in the way.
 
-Fix this by removing the shortcut.  Note that this only affects userspace's
-use of AF_RXRPC; the AFS filesystem driver doesn't use the socket queue.
+This means that the -stable maintainers will have to ask you to redo
+the fix to make it backportable.  And you'll then be preparing a patch
+which hasn't had standalone testing in mainline.  All very cumbersome.
 
-Fixes: 248f219cb8bc ("rxrpc: Rewrite the data and ack handling code")
-Link: https://sashiko.dev/#/patchset/20260616155749.2125907-1-dhowells%40redhat.com
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Jeffrey Altman <jaltman@auristor.com>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: stable@kernel.org
-Link: https://patch.msgid.link/20260624163819.3017002-10-dhowells@redhat.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/rxrpc/recvmsg.c | 2 --
- 1 file changed, 2 deletions(-)
+So is it practical to make the fix come first, as a cc:stable hotfix so
+we can upstream the other patches in the next merge window?
 
-diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
-index db93b05067ac89..4fb39d765717d5 100644
---- a/net/rxrpc/recvmsg.c
-+++ b/net/rxrpc/recvmsg.c
-@@ -27,8 +27,6 @@ void rxrpc_notify_socket(struct rxrpc_call *call)
- 
- 	_enter("%d", call->debug_id);
- 
--	if (!list_empty(&call->recvmsg_link))
--		return;
- 	if (test_bit(RXRPC_CALL_RELEASED, &call->flags)) {
- 		rxrpc_see_call(call);
- 		return;
--- 
-2.53.0
+(An alternative would be to put cc:stable on all four patches.  That's
+a bit abusive but we do it rarely).
+
+Either way, I'll get these into mm.git for testing while we await
+review on [4/4], thanks.
 
