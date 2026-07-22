@@ -1,138 +1,124 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96E43D955F;
-	Wed, 22 Jul 2026 08:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B5E480DFE;
+	Wed, 22 Jul 2026 08:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784710174; cv=none; b=ikmYGK0FMRXPI4moW0eq7oKno917jTprhQkJWsr+lBrTgBxxasZqpwn32zZurdIIgt42LZDifENIJbys4xH1c1MyJ4AR1z/kgrVCFf56b2k12lIyjGGiOgwNIQebVAC+7VwFC+mX/8ZxrK3iriKM4ohPhH9wSLh93wp4FZH/HbA=
+	t=1784710192; cv=none; b=h9xdiAiAHfAH3i3Ryj9tEAjp4KBPs5gB+tlJG/25ENEuuieI0sv4A3DZt5jIUyMe9t7xBBk6DxYg0skPD0iO5puiVX7M8s2mJylDOPdPEOrF//Wqq6eFjCZURJ+80d2SjHfdN0iMrDHgdJWvWmfdGG/GhYniNvTtQ4z/PmGl200=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784710174; c=relaxed/simple;
-	bh=0eJ51hMEsT4i3G2wfs25Efu3Dg4DjZJuEOzTbGfJxgQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=eiTTcYpc0NZSH6mcsAN2M+hbhjrzzO9nq8NSFpHrSKH6Z6gfY80QSyYoqtn3Ayv4aYrPkIKar0zKfhRo0N2CxQ+iNLHmKmB4y33fzVhQ8y1n1bWah26Oe3Ss5dlIfkEKzNQBFutUfSuUr5VagHdGoyZwbKc242PL/AGRT0z5Bh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=1asIkeXV; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="1asIkeXV"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=wP2YIMoJu7BNs5/6oLWSmAw++AAZluHFpCpirm2hGzQ=;
-	b=1asIkeXVDKKfx8MmR/G4t9RG3MC6sJXRoxCLXoqrhDE47S3vQQv/TSAuNs41yLZm2qJAri384
-	O1UkJa7Sq+NKsUdYeTRweydQ48biIaTTIoFHUbCQRJ1eC+4nuow7+vN+iK3NRjK8l2Hd7zqkmKh
-	gtC8cGYjFY8Omn25ydT5DDk=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4h4nkD3StqzcZyH;
-	Wed, 22 Jul 2026 16:39:48 +0800 (CST)
-Received: from kwepemf100007.china.huawei.com (unknown [7.202.181.221])
-	by mail.maildlp.com (Postfix) with ESMTPS id 35444202E6;
-	Wed, 22 Jul 2026 16:49:17 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemf100007.china.huawei.com
- (7.202.181.221) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 22 Jul
- 2026 16:49:16 +0800
-Message-ID: <cb2d9feb-bf4b-4625-a9c5-2f71381214b1@huawei.com>
-Date: Wed, 22 Jul 2026 16:49:15 +0800
+	s=arc-20240116; t=1784710192; c=relaxed/simple;
+	bh=pKGbWwktgKS8hIsYPkDEJKHbEt3+8SdmXjZVJ89XdYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=onI3jOLfwiNej8f0Xl8RH3BWFfcS4S9zPFVl5ZgGouflr39QNB9HLwsRgzVC+65Qjoi2S4//hieCt9In6lqk6eAoEVZXx40L2DIBHEaG8JdTKdhJUIT8FaH4VxIZXLFbaQFaI7k0DQtZ47toOK1ReXQDaAQNFiqIeYdh9Icvkf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 44efcb8285aa11f1aa26b74ffac11d73-20260722
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
+	IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
+	SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:4612328b-8a2b-49d8-a191-45815e19401b,IP:15,
+	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-10
+X-CID-INFO: VERSION:1.3.12,REQID:4612328b-8a2b-49d8-a191-45815e19401b,IP:15,UR
+	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-10
+X-CID-META: VersionHash:e7bac3a,CLOUDID:896384ec597e9bc3af9490702a4f8d11,BulkI
+	D:260722164940PZX1QA53,BulkQuantity:0,Recheck:0,SF:10|66|78|102|127|136|86
+	5|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,Q
+	S:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,
+	ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 44efcb8285aa11f1aa26b74ffac11d73-20260722
+X-User: pengcan@kylinos.cn
+Received: from lenovo [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <pengcan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 89399544; Wed, 22 Jul 2026 16:49:37 +0800
+From: Can Peng <pengcan@kylinos.cn>
+To: rafael@kernel.org,
+	daniel.lezcano@kernel.org
+Cc: rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	linux-pm@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Can Peng <pengcan@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] thermal/drivers/imx: Disable clock on runtime resume failure
+Date: Wed, 22 Jul 2026 16:49:09 +0800
+Message-ID: <20260722084909.463437-1-pengcan@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6.y/6.12.y/6.18.y 1/2] bpf: Fix ld_{abs,ind} failure
- path analysis in subprogs
-Content-Language: en-US
-To: Philo Lu <lulie@linux.alibaba.com>, <stable@vger.kernel.org>
-CC: <daniel@iogearbox.net>, <info@starlabs.sg>, <ast@kernel.org>,
-	<john.fastabend@gmail.com>, <andrii@kernel.org>, <martin.lau@linux.dev>,
-	<song@kernel.org>, <yonghong.song@linux.dev>, <kpsingh@kernel.org>,
-	<sdf@google.com>, <haoluo@google.com>, <jolsa@kernel.org>,
-	<bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <mykolal@fb.com>,
-	<shuah@kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<dust.li@linux.alibaba.com>
-References: <20260722073908.72382-1-lulie@linux.alibaba.com>
- <20260722073908.72382-2-lulie@linux.alibaba.com>
-From: Pu Lehui <pulehui@huawei.com>
-In-Reply-To: <20260722073908.72382-2-lulie@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemf100007.china.huawei.com (7.202.181.221)
+Content-Transfer-Encoding: 8bit
 
+imx_thermal_runtime_resume() enables the thermal clock before
+powering up the sensor and enabling measurements.
 
-On 2026/7/22 15:39, Philo Lu wrote:
-> From: Daniel Borkmann <daniel@iogearbox.net>
-> 
-> commit ee861486e377edc55361c08dcbceab3f6b6577bd upstream.
-> 
-> Usage of ld_{abs,ind} instructions got extended into subprogs some time
-> ago via commit 09b28d76eac4 ("bpf: Add abnormal return checks."). These
-> are only allowed in subprograms when the latter are BTF annotated and
-> have scalar return types.
-> 
-> The code generator in bpf_gen_ld_abs() has an abnormal exit path (r0=0 +
-> exit) from legacy cBPF times. While the enforcement is on scalar return
-> types, the verifier must also simulate the path of abnormal exit if the
-> packet data load via ld_{abs,ind} failed.
-> 
-> This is currently not the case. Fix it by having the verifier simulate
-> both success and failure paths, and extend it in similar ways as we do
-> for tail calls. The success path (r0=unknown, continue to next insn) is
-> pushed onto stack for later validation and the r0=0 and return to the
-> caller is done on the fall-through side.
-> 
-> Fixes: 09b28d76eac4 ("bpf: Add abnormal return checks.")
-> Reported-by: STAR Labs SG <info@starlabs.sg>
-> Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-> Link: https://lore.kernel.org/r/20260408191242.526279-2-daniel@iogearbox.net
-> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-> [ Dropped visit_abnormal_return_insn changes: depends on 7.0 symbols from
->   e40f5a6bf88a ("bpf: correct stack liveness for tail calls");
->   Hunk1: adapted IS_ERR/PTR_ERR to !branch/-EFAULT to match push_stack()
->   NULL-on-failure convention. ]
+If either regmap_write() fails, the function returns with the clock
+still enabled. This leaves the clock enable count unbalanced after a
+failed runtime resume.
 
-These versions does not introduce consumers corresponding to the output
-of jump tables; therefore, the assignment of jump tables is not involved.
+Disable the clock on those failure paths before returning the error.
 
-Reviewed-by: Pu Lehui <pulehui@huawei.com>
+Fixes: 4cf2ddf16e17 ("thermal/drivers/imx: Implement runtime PM support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
+---
+ drivers/thermal/imx_thermal.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-> Signed-off-by: Philo Lu <lulie@linux.alibaba.com>
-> ---
->   kernel/bpf/verifier.c | 17 +++++++++++++++++
->   1 file changed, 17 insertions(+)
-> 
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index f638b2d3a42fb..3f74767e47484 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -15119,6 +15119,23 @@ static int check_ld_abs(struct bpf_verifier_env *env, struct bpf_insn *insn)
->   	mark_reg_unknown(env, regs, BPF_REG_0);
->   	/* ld_abs load up to 32-bit skb data. */
->   	regs[BPF_REG_0].subreg_def = env->insn_idx + 1;
-> +	/*
-> +	 * See bpf_gen_ld_abs() which emits a hidden BPF_EXIT with r0=0
-> +	 * which must be explored by the verifier when in a subprog.
-> +	 */
-> +	if (env->cur_state->curframe) {
-> +		struct bpf_verifier_state *branch;
-> +
-> +		mark_reg_scratched(env, BPF_REG_0);
-> +		branch = push_stack(env, env->insn_idx + 1, env->insn_idx, false);
-> +		if (!branch)
-> +			return -EFAULT;
-> +		mark_reg_known_zero(env, regs, BPF_REG_0);
-> +		err = prepare_func_exit(env, &env->insn_idx);
-> +		if (err)
-> +			return err;
-> +		env->insn_idx--;
-> +	}
->   	return 0;
->   }
-> 
-> --
-> 2.47.3
-> 
-> 
+diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
+index 5aaacbc53478..b0e88b6a9352 100644
+--- a/drivers/thermal/imx_thermal.c
++++ b/drivers/thermal/imx_thermal.c
+@@ -832,12 +832,12 @@ static int imx_thermal_runtime_resume(struct device *dev)
+ 	ret = regmap_write(map, socdata->sensor_ctrl + REG_CLR,
+ 			   socdata->power_down_mask);
+ 	if (ret)
+-		return ret;
++		goto disable_clk;
+ 
+ 	ret = regmap_write(map, socdata->sensor_ctrl + REG_SET,
+ 			   socdata->measure_temp_mask);
+ 	if (ret)
+-		return ret;
++		goto disable_clk;
+ 
+ 	/*
+ 	 * According to the temp sensor designers, it may require up to ~17us
+@@ -846,6 +846,11 @@ static int imx_thermal_runtime_resume(struct device *dev)
+ 	usleep_range(20, 50);
+ 
+ 	return 0;
++
++disable_clk:
++	clk_disable_unprepare(data->thermal_clk);
++
++	return ret;
+ }
+ 
+ static const struct dev_pm_ops imx_thermal_pm_ops = {
+-- 
+2.53.0
+
