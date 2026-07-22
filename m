@@ -1,126 +1,355 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748D845A298;
-	Wed, 22 Jul 2026 23:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC51466B08;
+	Wed, 22 Jul 2026 23:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763680; cv=none; b=KYX6blh/Oo3WyRRCMVQypesM9c2sE92XE1NicfzvWvcdp76Mzx4aksLhzl941ech4qle+GIQQlwP0PcQcPWI6Af1N64Pguo/3WQYYqN+mF6TLLgAVqXH6LEii/sk7DdV6iwHQdMh495LImdjjITGr53Ij2joJsuzElorufAQKmQ=
+	t=1784763841; cv=none; b=LWz0KlOsYAcck6FdA++MUjT7moN/4XYIdM6nevCXs7ftJNiXY1fN5+5u9emydi8/XQkfK5Yc4Dc4mF8zf/tbA4I6R+COHJS5hoDbefnH2rhLWS8Rcmj3EVgudoxQND8Hpsu193SO6mJQg4+ITObQofVeaCKk/F7DK7kJRMxufaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784763680; c=relaxed/simple;
-	bh=5jfm2MbqP71BsjfPjrd0Br42vvUHXqP+s/GdXagyPXY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nMPWMPSgNZW3rgn3dQxeNEqPCiv5xpHR9h6K6UhMnF8zeFQmGVBcX0F6xZDA7Lyo1zU+wNj86/WXUVdoT/xI/H8L3k8irgbwb9Lf9PmkbM1okyeDtvGDok6aV1uuF5BDGo1UGg2ysTqqbDtJPNNS35zX6br+cTBL5WIy6jA8XXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFzoNq87; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784763841; c=relaxed/simple;
+	bh=SJG2fbfzN7UV9u0QfuDxEVZCJqJEb/qFtlJmin3Geyw=;
+	h=Date:To:From:Subject:Message-Id; b=M6rtFtWs2X/V/OKVc3P5vXNSt6Isjvyd3IdG5OyCYt3Y070B/T3d94ygRB0YR+om18qIB5f7CJtcz+6gXMoEvxu41iCoQAS+gx0nJhi/qqbr3OpRkXNOdxQj+w/9S2ZS36DsusfBZt18p698ZJQn63/8m+HH1wPm2/xSE3FA1Nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fSd1FFmy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFzoNq87"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A4D3C19425;
-	Wed, 22 Jul 2026 23:41:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784763680;
-	bh=5jfm2MbqP71BsjfPjrd0Br42vvUHXqP+s/GdXagyPXY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=TFzoNq87S38GGo6Ssm7lOwhxQZMCtuARuGEPFPG4IS5BpH2vy5rIMSFiaSyYpl4mJ
-	 Xm0VJdnaW6UqgomQ7nAzsoeX2WAIQnZ8lT26S5m7JpYb1ESNUWOYt1V8cx4zYeqQLY
-	 sED7WuyAx3Q/WXzc1/6v6MYjVuPRnBB9ahGBSYFR90eqZ1Bps6JovLDKWQ2XPcuEjy
-	 h9tq65Q6RqTBhyMp3VmgKPnOLD1k9HsiVZpHD6nlbAwyV+X5dUnm/GHgtuNoqeYTZb
-	 pCqBsZimkvBmjF9jR1I9VI6amHsMAUhQ436dSFTfZ79Qe3D41HpWxv80/Yo3E4sdx5
-	 FVhF9YAYEb2OQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35563C4453A;
-	Wed, 22 Jul 2026 23:41:20 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 22 Jul 2026 16:41:15 -0700
-Subject: [PATCH v4 07/16] mm: hugetlb: Fix Use-After-Free in
- unlock_or_release_subpool()
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fSd1FFmy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD12E1F00A3A;
+	Wed, 22 Jul 2026 23:43:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784763839;
+	bh=drn7poro0ZFzWBX89MvLp996DLcd5y9a80Oxad1X5S8=;
+	h=Date:To:From:Subject;
+	b=fSd1FFmy+KXBJgzoScFqy3Rwk8UDk1mHRXKu99q8fOGDPO94Au2XAqFd3Os8Jsc0r
+	 ctIu+477m37ug+85lLe6TDT+JzCv81zrICRTXcy8KoDQIxNpwc7oETgnsJtifjeXTv
+	 coScEYlG9gdHWayPo39cgGvTU5JpQpicSTi7L+HI=
+Date: Wed, 22 Jul 2026 16:43:59 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch added to mm-nonmm-unstable branch
+Message-Id: <20260722234359.AD12E1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-hugetlb-alloc-failure-fixes-v4-7-88e8b81970dc@google.com>
-References: <20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com>
-In-Reply-To: <20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>, 
- Wupeng Ma <mawupeng1@huawei.com>, fvdl@google.com, rientjes@google.com, 
- jthoughton@google.com, Mike Kravetz <mike.kravetz@oracle.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Alex Shi <alexs@kernel.org>, 
- Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, Miaohe Lin <linmiaohe@huawei.com>
-Cc: vannapurve@google.com, erdemaktas@google.com, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
- linux-doc@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784763678; l=1786;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=+8BKlqcw0osweyRZX4DVMuCuKwenNXcfBjXVW5HQiFI=;
- b=1QJ1v6HnKCN4SUgfZ0zCwSM1fabe4JN3I0E4aRntYBp8Vk2QcabaSyeAnsKBGGeTC3Y76lQen
- YmRVqUCR2SyD0f88goOEuJb9brctkXRJonc3/dbLVzTo9GlGyTpg6do
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
 
-In unlock_or_release_subpool(), spool->lock was released before calling
-subpool_is_free(spool). Because subpool_is_free() accesses spool->count and
-spool->used_hpages locklessly, concurrent threads calling
-hugepage_subpool_put_pages() or hugepage_put_subpool() could race when
-spool->count is 0.
+The patch titled
+     Subject: ocfs2: cluster: don't sleep while holding o2hb_live_lock in o2hb_region_pin()
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch
 
-If Thread 1 drops spool->lock and is preempted before subpool_is_free(),
-Thread 2 can acquire spool->lock, decrement spool->used_hpages to 0,
-evaluate subpool_is_free() as true, and free spool via kfree(). When Thread
-1 resumes, subpool_is_free() dereferences the freed spool pointer, causing
-a Use-After-Free (UAF) or double free.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch
 
-Fix this race by evaluating subpool_is_free() while holding spool->lock
-prior to unlocking.
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fixes: 1d88433bb0085 ("mm/hugetlb: fix use after free when subpool max_hpages accounting is not enabled")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: cluster: don't sleep while holding o2hb_live_lock in o2hb_region_pin()
+Date: Wed, 22 Jul 2026 20:49:31 +0800
+
+Patch series "ocfs2: cluster: o2hb_region_pin() fixes", v2.
+
+This series fixes three related issues in o2hb_region_pin(), all are from
+the original implementation in commit: 58a3158a5d17 ("ocfs2/cluster:
+Pin/unpin o2hb regions"):
+
+1) It is called with o2hb_live_lock (a spinlock) held, but the
+   underlying configfs_depend_item() sleeps (takes inode rwsem and
+   pins the filesystem).  This triggers BUG under
+   CONFIG_DEBUG_ATOMIC_SLEEP.
+
+2) When called from the configfs drop_item callback, it creates a
+   lock order inversion: parent inode_lock -> configfs root
+   inode_lock, which can deadlock against subsystem unregistration
+   paths taking root -> parent.
+
+3) If pinning fails partway through o2hb_region_inc_user(), the
+   o2hb_dependent_users counter is leaked and partially-pinned
+   regions are never released, leaving heartbeat regions
+   unprotected on subsequent mounts.
+
+Patch 1 reworks o2hb_region_pin() to drop o2hb_live_lock across each
+sleeping configfs_depend_item() call, using a config_item reference to
+keep the region alive while unlocked.
+
+Patch 2 adds a from_callback parameter to select
+configfs_depend_item_unlocked() when called from configfs context,
+avoiding the inode_lock nesting.
+
+Patch 3 fixes the error path in o2hb_region_inc_user() to unpin and
+decrement the counter on failure.
+
+
+This patch (of 3):
+
+o2hb_region_pin() is always called with the o2hb_live_lock spinlock held
+(from o2hb_region_inc_user() and o2hb_heartbeat_group_drop_item()), but it
+calls o2nm_depend_item() -> configfs_depend_item(), which sleeps: it pins
+the configfs filesystem and takes the configfs root inode rwsem.  Under
+CONFIG_DEBUG_ATOMIC_SLEEP this triggers:
+
+  BUG: sleeping function called from invalid context at kernel/locking/rwsem.c
+  in_atomic(): 1, ... name: mount.ocfs2
+    down_write
+    configfs_depend_item
+    o2hb_region_pin
+    o2hb_region_inc_user
+    o2hb_register_callback
+    dlm_register_domain_handlers
+    ...
+    ocfs2_dlm_init
+    ocfs2_mount_volume
+    ocfs2_fill_super
+
+Rework o2hb_region_pin() to pin one region at a time with the lock dropped
+across the sleeping call: under o2hb_live_lock find the next eligible
+region and take a config_item reference to keep it alive, drop the lock,
+call o2nm_depend_item(), then retake the lock and record the pin.  The
+config_item_put() is done with the lock released as well, since
+o2hb_region_release() also acquires o2hb_live_lock and can sleep.  The
+region list may change while unlocked, so the scan restarts from the top
+after each pin.  Local heartbeat still pins only the matching region;
+global heartbeat pins all eligible regions.
+
+The unpin path is unaffected: configfs_undepend_item() only takes a
+spinlock and does not sleep.
+
+Link: https://lore.kernel.org/20260722124933.430554-1-joseph.qi@linux.alibaba.com
+Link: https://lore.kernel.org/20260722124933.430554-2-joseph.qi@linux.alibaba.com
+Fixes: 58a3158a5d17 ("ocfs2/cluster: Pin/unpin o2hb regions")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- mm/hugetlb.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 8431c00d48267..b759748468734 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -137,12 +137,11 @@ static inline bool subpool_is_free(struct hugepage_subpool *spool)
- static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
- 						unsigned long irq_flags)
- {
-+	bool is_free = subpool_is_free(spool);
-+
- 	spin_unlock_irqrestore(&spool->lock, irq_flags);
+ fs/ocfs2/cluster/heartbeat.c |  126 ++++++++++++++++++++++++++-------
+ 1 file changed, 101 insertions(+), 25 deletions(-)
+
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -43,6 +43,14 @@ static DECLARE_RWSEM(o2hb_callback_sem);
+  * whenever any of the threads sees activity from the node in its region.
+  */
+ static DEFINE_SPINLOCK(o2hb_live_lock);
++/*
++ * Serializes region pin/unpin dependency management (o2hb_dependent_users
++ * and the o2nm_depend_item()/o2nm_undepend_item() calls). o2hb_region_pin()
++ * has to drop o2hb_live_lock across the sleeping o2nm_depend_item(), so the
++ * spinlock alone can no longer keep pin and unpin mutually exclusive; this
++ * mutex, taken outside o2hb_live_lock, does.
++ */
++static DEFINE_MUTEX(o2hb_dependency_mutex);
+ static struct list_head o2hb_live_slots[O2NM_MAX_NODES];
+ static unsigned long o2hb_live_node_bitmap[BITS_TO_LONGS(O2NM_MAX_NODES)];
+ static LIST_HEAD(o2hb_node_events);
+@@ -2172,6 +2180,7 @@ static void o2hb_heartbeat_group_drop_it
+ 	 * If global heartbeat active and there are dependent users,
+ 	 * pin all regions if quorum region count <= CUT_OFF
+ 	 */
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
  
--	/* If no pages are used, and no other handles to the subpool
--	 * remain, give up any reservations based on minimum size and
--	 * free the subpool */
--	if (subpool_is_free(spool)) {
-+	if (is_free) {
- 		if (spool->min_hpages != -1)
- 			hugetlb_acct_memory(spool->hstate,
- 						-spool->min_hpages);
+ 	if (!o2hb_dependent_users)
+@@ -2183,6 +2192,7 @@ static void o2hb_heartbeat_group_drop_it
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ }
+ 
+ static ssize_t o2hb_heartbeat_group_dead_threshold_show(struct config_item *item,
+@@ -2322,46 +2332,108 @@ EXPORT_SYMBOL_GPL(o2hb_setup_callback);
+  */
+ static int o2hb_region_pin(const char *region_uuid)
+ {
+-	int ret = 0, found = 0;
+-	struct o2hb_region *reg;
++	int ret = 0, found;
++	struct o2hb_region *reg, *pinned;
+ 	char *uuid;
+ 
+ 	assert_spin_locked(&o2hb_live_lock);
+ 
+-	list_for_each_entry(reg, &o2hb_all_regions, hr_all_item) {
+-		if (reg->hr_item_dropped)
+-			continue;
++	do {
++		found = 0;
++		pinned = NULL;
+ 
+-		uuid = config_item_name(&reg->hr_item);
++		list_for_each_entry(reg, &o2hb_all_regions, hr_all_item) {
++			if (reg->hr_item_dropped)
++				continue;
+ 
+-		/* local heartbeat */
+-		if (region_uuid) {
+-			if (strcmp(region_uuid, uuid))
++			uuid = config_item_name(&reg->hr_item);
++
++			/* local heartbeat */
++			if (region_uuid) {
++				if (strcmp(region_uuid, uuid))
++					continue;
++				found = 1;
++			}
++
++			if (reg->hr_item_pinned || reg->hr_item_dropped) {
++				if (found)
++					break;
+ 				continue;
+-			found = 1;
++			}
++
++			/*
++			 * Found a region that needs pinning. Take a reference
++			 * so it stays alive while we drop the lock below.
++			 */
++			pinned = reg;
++			config_item_get(&reg->hr_item);
++			break;
+ 		}
+ 
+-		if (reg->hr_item_pinned || reg->hr_item_dropped)
+-			goto skip_pin;
++		if (!pinned)
++			break;
++
++		uuid = config_item_name(&pinned->hr_item);
++
++		/*
++		 * o2nm_depend_item() -> configfs_depend_item() can sleep (it
++		 * takes the configfs root inode rwsem), so it must not run
++		 * under o2hb_live_lock. Drop the lock across it; @pinned is
++		 * kept alive by the reference taken above. The region list may
++		 * change while unlocked, so we rescan from the top afterwards.
++		 */
++		spin_unlock(&o2hb_live_lock);
+ 
+ 		/* Ignore ENOENT only for local hb (userdlm domain) */
+-		ret = o2nm_depend_item(&reg->hr_item);
++		ret = o2nm_depend_item(&pinned->hr_item);
++
++		spin_lock(&o2hb_live_lock);
+ 		if (!ret) {
+-			mlog(ML_CLUSTER, "Pin region %s\n", uuid);
+-			reg->hr_item_pinned = 1;
+-		} else {
+-			if (ret == -ENOENT && found)
+-				ret = 0;
+-			else {
+-				mlog(ML_ERROR, "Pin region %s fails with %d\n",
+-				     uuid, ret);
++			/*
++			 * o2hb_live_lock was dropped across o2nm_depend_item().
++			 * o2hb_set_quorum_device() runs in the heartbeat thread
++			 * without o2hb_dependency_mutex, so for global heartbeat
++			 * it may have crossed O2HB_PIN_CUT_OFF and unpinned the
++			 * regions while we slept. If that happened this pin is
++			 * no longer wanted; undo it and stop rather than
++			 * resurrecting it on the rescan below.
++			 */
++			if (!region_uuid &&
++			    bitmap_weight(o2hb_quorum_region_bitmap,
++					  O2NM_MAX_REGIONS) > O2HB_PIN_CUT_OFF) {
++				o2nm_undepend_item(&pinned->hr_item);
++				spin_unlock(&o2hb_live_lock);
++				config_item_put(&pinned->hr_item);
++				spin_lock(&o2hb_live_lock);
+ 				break;
+ 			}
++			mlog(ML_CLUSTER, "Pin region %s\n", uuid);
++			pinned->hr_item_pinned = 1;
++		} else if (ret == -ENOENT && (found || !region_uuid)) {
++			/*
++			 * For local hb (found): ignore ENOENT from userdlm
++			 * domains as before.  For global hb (!region_uuid):
++			 * the region may have been detached from configfs
++			 * while the lock was dropped — skip it and continue
++			 * pinning the remaining regions.
++			 */
++			ret = 0;
++		} else {
++			mlog(ML_ERROR, "Pin region %s fails with %d\n",
++			     uuid, ret);
+ 		}
+-skip_pin:
+-		if (found)
+-			break;
+-	}
++
++		/*
++		 * config_item_put() may drop the last reference and run
++		 * o2hb_region_release(), which also grabs o2hb_live_lock and
++		 * can sleep, so it must happen with the lock released.
++		 */
++		spin_unlock(&o2hb_live_lock);
++		config_item_put(&pinned->hr_item);
++		spin_lock(&o2hb_live_lock);
++
++		/* local hb pins a single matching region */
++	} while (!ret && !region_uuid);
+ 
+ 	return ret;
+ }
+@@ -2406,6 +2478,7 @@ static int o2hb_region_inc_user(const ch
+ {
+ 	int ret = 0;
+ 
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
+ 
+ 	/* local heartbeat */
+@@ -2428,11 +2501,13 @@ static int o2hb_region_inc_user(const ch
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ 	return ret;
+ }
+ 
+ static void o2hb_region_dec_user(const char *region_uuid)
+ {
++	mutex_lock(&o2hb_dependency_mutex);
+ 	spin_lock(&o2hb_live_lock);
+ 
+ 	/* local heartbeat */
+@@ -2451,6 +2526,7 @@ static void o2hb_region_dec_user(const c
+ 
+ unlock:
+ 	spin_unlock(&o2hb_live_lock);
++	mutex_unlock(&o2hb_dependency_mutex);
+ }
+ 
+ int o2hb_register_callback(const char *region_uuid,
+_
 
--- 
-2.55.0.229.g6434b31f56-goog
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
 
+ocfs2-cluster-use-gfp_nofs-for-heartbeat-bio-allocation.patch
+ocfs2-cluster-use-an-on-stack-bio-for-the-heartbeat-write.patch
+ocfs2-cluster-dont-sleep-while-holding-o2hb_live_lock-in-o2hb_region_pin.patch
+ocfs2-cluster-avoid-lock-order-inversion-in-o2hb_region_pin-from-drop_item.patch
+ocfs2-cluster-fix-o2hb_dependent_users-leak-on-pin-failure.patch
 
