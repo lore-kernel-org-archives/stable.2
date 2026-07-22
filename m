@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8379A45D5C1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748D845A298;
 	Wed, 22 Jul 2026 23:41:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784763680; cv=none; b=VjPD8+M71HNM/YbGb5kh1Sn3tIpczAEHM0dFXKAQsGu8fZ6lu3cXyOT8w7xAzX+SsnLXEFhYOFxKiCcizBJvQQOtICRPPW95DdEpGT0Tq4QnTF8PlK0QDouKpP7yFSxSHplAhxabEzhWht04cmyy9sSOLIcgmTSm/T7WoGWpwOE=
+	t=1784763680; cv=none; b=KYX6blh/Oo3WyRRCMVQypesM9c2sE92XE1NicfzvWvcdp76Mzx4aksLhzl941ech4qle+GIQQlwP0PcQcPWI6Af1N64Pguo/3WQYYqN+mF6TLLgAVqXH6LEii/sk7DdV6iwHQdMh495LImdjjITGr53Ij2joJsuzElorufAQKmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784763680; c=relaxed/simple;
-	bh=pZEyi0J8om2ghDb6qME7uBKDwU9wZvWkyYWuA+nq1e8=;
+	bh=5jfm2MbqP71BsjfPjrd0Br42vvUHXqP+s/GdXagyPXY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tV12YoVInPYRpWVXahkvJ5Hhiima1Uc8WvA4HNaODIrV9jWvBm0+6p+YoZDWz2AsBqO0C/i4ySOaP1N8nanEvKN4juGerzQPaFlchdPIm7BRUB0x9r+2w4RvqDJhMS4Pu4ndFoZZdxcYLzMyMT4V9GyyH7tZR8iY60u1xAOX3Lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W82BRnUd; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=nMPWMPSgNZW3rgn3dQxeNEqPCiv5xpHR9h6K6UhMnF8zeFQmGVBcX0F6xZDA7Lyo1zU+wNj86/WXUVdoT/xI/H8L3k8irgbwb9Lf9PmkbM1okyeDtvGDok6aV1uuF5BDGo1UGg2ysTqqbDtJPNNS35zX6br+cTBL5WIy6jA8XXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFzoNq87; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W82BRnUd"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 58061C2BCC6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFzoNq87"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A4D3C19425;
 	Wed, 22 Jul 2026 23:41:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1784763680;
-	bh=pZEyi0J8om2ghDb6qME7uBKDwU9wZvWkyYWuA+nq1e8=;
+	bh=5jfm2MbqP71BsjfPjrd0Br42vvUHXqP+s/GdXagyPXY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=W82BRnUdxyWAQ4f+cvMo4Mzo/wV2rmi5lhO2VF23HZfYcpQlM1lcZFumECqhiTapo
-	 DDQcSUd/6W9pwIAL8tUYYQaHBDjrQqJ7zsAw0sWyLEfpPyQurqZksyNlpq9aJ9LN6C
-	 46g6yYXKoivcLALO7nTHcCJ94zTmAajL4Y+ilay0BhY7B0glNXu2KAclYcYK+fuE+U
-	 M5YeUICXkGKJ0dst8euM3PQgtEBvQNQzh+9kuz+zSY2ZY1NA60vH5cXn6bXWDl8SZZ
-	 ZmE7WLlNM4AaVq8ytPb6gMjSj4OFrvYII3K4E8XEWl9D+Kj/QAeD0cvG/8xQbqvOLW
-	 G8Du92zuS5plQ==
+	b=TFzoNq87S38GGo6Ssm7lOwhxQZMCtuARuGEPFPG4IS5BpH2vy5rIMSFiaSyYpl4mJ
+	 Xm0VJdnaW6UqgomQ7nAzsoeX2WAIQnZ8lT26S5m7JpYb1ESNUWOYt1V8cx4zYeqQLY
+	 sED7WuyAx3Q/WXzc1/6v6MYjVuPRnBB9ahGBSYFR90eqZ1Bps6JovLDKWQ2XPcuEjy
+	 h9tq65Q6RqTBhyMp3VmgKPnOLD1k9HsiVZpHD6nlbAwyV+X5dUnm/GHgtuNoqeYTZb
+	 pCqBsZimkvBmjF9jR1I9VI6amHsMAUhQ436dSFTfZ79Qe3D41HpWxv80/Yo3E4sdx5
+	 FVhF9YAYEb2OQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 459EFC4453D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35563C4453A;
 	Wed, 22 Jul 2026 23:41:20 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 22 Jul 2026 16:41:16 -0700
-Subject: [PATCH v4 08/16] fs: hugetlbfs: Fix global reservation leak in
- hugetlbfs_fill_super()
+Date: Wed, 22 Jul 2026 16:41:15 -0700
+Subject: [PATCH v4 07/16] mm: hugetlb: Fix Use-After-Free in
+ unlock_or_release_subpool()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-hugetlb-alloc-failure-fixes-v4-8-88e8b81970dc@google.com>
+Message-Id: <20260722-hugetlb-alloc-failure-fixes-v4-7-88e8b81970dc@google.com>
 References: <20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com>
 In-Reply-To: <20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com>
 To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -63,11 +63,11 @@ Cc: vannapurve@google.com, erdemaktas@google.com, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784763678; l=2642;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784763678; l=1786;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=xpwOn4o/8dwkPGcKx/D+08zZJl/SEz5ntK6oD42SVfo=;
- b=GfSo+082yV0XV2379mD54lWB1yFERnvv5vJcHzxcpA+vOTbZSFPHC1fJRtNvwaK1ItH4SHmMa
- P9nAWPJRDfrDUTI9SSn5NKpQmgKTijYg6y0r21Dm4bc+LzKU2zgTomV
+ bh=+8BKlqcw0osweyRZX4DVMuCuKwenNXcfBjXVW5HQiFI=;
+ b=1QJ1v6HnKCN4SUgfZ0zCwSM1fabe4JN3I0E4aRntYBp8Vk2QcabaSyeAnsKBGGeTC3Y76lQen
+ YmRVqUCR2SyD0f88goOEuJb9brctkXRJonc3/dbLVzTo9GlGyTpg6do
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -77,78 +77,48 @@ Reply-To: ackerleytng@google.com
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-In hugetlbfs_fill_super(), if hugepage_new_subpool() succeeds in
-allocating a subpool (which reserves global huge pages when
-min_hpages != -1), but a subsequent initialization step like
-d_make_root() fails, the error path directly invoked
-kfree(sbinfo->spool).
+In unlock_or_release_subpool(), spool->lock was released before calling
+subpool_is_free(spool). Because subpool_is_free() accesses spool->count and
+spool->used_hpages locklessly, concurrent threads calling
+hugepage_subpool_put_pages() or hugepage_put_subpool() could race when
+spool->count is 0.
 
-Directly freeing the subpool structure with kfree() bypasses
-hugepage_put_subpool() and its underlying unlock_or_release_subpool()
-destructor. Consequently, hugetlb_acct_memory() is never called to
-release the global page reservations allocated for min_hpages,
-permanently leaking global huge page reservations.
+If Thread 1 drops spool->lock and is preempted before subpool_is_free(),
+Thread 2 can acquire spool->lock, decrement spool->used_hpages to 0,
+evaluate subpool_is_free() as true, and free spool via kfree(). When Thread
+1 resumes, subpool_is_free() dereferences the freed spool pointer, causing
+a Use-After-Free (UAF) or double free.
 
-Fix this leak by calling hugepage_put_subpool(sbinfo->spool) on the
-error cleanup path instead of kfree(sbinfo->spool).
+Fix this race by evaluating subpool_is_free() while holding spool->lock
+prior to unlocking.
 
-sbinfo->spool must be checked before dereferencing the subpool in
-hugepage_put_subpool(). Add a NULL guard to hugepage_put_subpool() instead
-of checking it in the caller to align it with other subpool helpers like
-hugepage_subpool_get_pages() and hugepage_subpool_put_pages() that
-gracefully handle NULL subpools. This allows callers to safely invoke
-hugepage_put_subpool() without requiring explicit NULL checks. This is also
-aligned with how kfree() can be called on NULL.
-
-With the NULL guard in hugepage_put_subpool(), the NULL check in the only
-other caller can also be removed.
-
-Fixes: 7ca02d0ae586f ("hugetlbfs: accept subpool min_size mount option and setup accordingly")
+Fixes: 1d88433bb0085 ("mm/hugetlb: fix use after free when subpool max_hpages accounting is not enabled")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- fs/hugetlbfs/inode.c | 6 ++----
- mm/hugetlb.c         | 3 +++
- 2 files changed, 5 insertions(+), 4 deletions(-)
+ mm/hugetlb.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 26c0187340636..e5d86f31eba5b 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1133,9 +1133,7 @@ static void hugetlbfs_put_super(struct super_block *sb)
- 	if (sbi) {
- 		sb->s_fs_info = NULL;
- 
--		if (sbi->spool)
--			hugepage_put_subpool(sbi->spool);
--
-+		hugepage_put_subpool(sbi->spool);
- 		kfree(sbi);
- 	}
- }
-@@ -1423,7 +1421,7 @@ hugetlbfs_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto out_free;
- 	return 0;
- out_free:
--	kfree(sbinfo->spool);
-+	hugepage_put_subpool(sbinfo->spool);
- 	kfree(sbinfo);
- 	return -ENOMEM;
- }
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index b759748468734..90ec015a11181 100644
+index 8431c00d48267..b759748468734 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -177,6 +177,9 @@ void hugepage_put_subpool(struct hugepage_subpool *spool)
+@@ -137,12 +137,11 @@ static inline bool subpool_is_free(struct hugepage_subpool *spool)
+ static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
+ 						unsigned long irq_flags)
  {
- 	unsigned long flags;
- 
-+	if (!spool)
-+		return;
++	bool is_free = subpool_is_free(spool);
 +
- 	spin_lock_irqsave(&spool->lock, flags);
- 	BUG_ON(!spool->count);
- 	spool->count--;
+ 	spin_unlock_irqrestore(&spool->lock, irq_flags);
+ 
+-	/* If no pages are used, and no other handles to the subpool
+-	 * remain, give up any reservations based on minimum size and
+-	 * free the subpool */
+-	if (subpool_is_free(spool)) {
++	if (is_free) {
+ 		if (spool->min_hpages != -1)
+ 			hugetlb_acct_memory(spool->hstate,
+ 						-spool->min_hpages);
 
 -- 
 2.55.0.229.g6434b31f56-goog
