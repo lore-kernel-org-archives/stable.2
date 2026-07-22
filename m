@@ -1,215 +1,128 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB5B4F7995
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D2B345EA5;
+	Wed, 22 Jul 2026 17:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784740726; cv=none; b=a3VHXrfghDTy+1G/Mr40IOUL2VqJnLbGrkUFseD6tNuidnJ+DcLoZYd9Jn72fCtzC6ywGTSrdVwgpII1v5ZV80YgTM6hwsvkAo5Uvn8STsgni/aWxUdYu4E7B16lH221f3ZbKcCa1sjeXfcPl/2EUKt807kNamFtG8VTc1KWo7I=
+	t=1784740755; cv=none; b=bj39y1vMptGp5VYYdw9cD9J5vsKv7OI5V2YDaSiV9AVAjmSiywl65WhdkVytamNrwYp+39aaaCC64RZTgongSZdMSXELG90czXy7NZOsnOlNLnFJfXG/04UBXRe6aMItBzFmp1LcUQ0Lw5yTH+KoLejmkR81+3JGiOf3TzGAgKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784740726; c=relaxed/simple;
-	bh=o/Bu15sDhEOsKHR4CQblrys7TkwgkSC18uEGHD2BjAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kieljL/XZrmpVjFgXSSZQasCXn0yXoXLBHN73rl9yRqCar8OgNEZJvt7SlPrQYRvFuB/JuvZofpr0C4LslwICoSlirewff5r8p57WehWSfL0t8CJFdZFhXKeNDhPcrCj9s9uDx+DgeXwXWmOvayE9hdcepdBKqV3KZUZ026sAeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dMDqjuAx; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784740755; c=relaxed/simple;
+	bh=tTR96qwEtTOKe1tZUq9pLn6ST1x1EO7ALiL3ium/JAE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=StwpotzOvtnRIxCBAO/vwCNdCzuEbGqSybPe12T9roSGCITptYb880eWQfe1Uk+U7+aBsU0bBMcBxLXg0fnQaeCeqTNGofAU0RrVLtgdUbUYlGg06BxSNbsYCb4D9iSV9M3nC3pmG9ssI+W6EmsxppG0HOQybc26JmI5zoTZm1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=SY2LVr9t; arc=none smtp.client-ip=212.227.17.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dMDqjuAx"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495502852d1so101945e9.2
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:18:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="SY2LVr9t"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784740723; x=1785345523; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bgp1uL2zdCSwtHxWPjmVsr5a9ctDEumlGTtccTCWom4=;
-        b=dMDqjuAxJvWvIZ7JSGFL7ZOA621OxDc/HgzQm5UVxJl3/TTnfzzdC6CXniY45fMsyE
-         8l1X3cYnB2ydjPu8gk3Ixlpd5+N8XM+1g2jD+bvKoETcwI6fCvNhohe3x5q7bnK6rrgM
-         xpEwqAysgz2ZEhviGR2a+vZosOXCXKPszaqHru8xn/YH9F4yXPeU3G3ZyprIpdO3Rdzx
-         dmRJGirqQkR/5xGFRV0MbsIGveS3RC8KacGRfdcEDlC5LtEQJccGbwp5LFKR18o/8p+x
-         7sypXEHo9xuSmxrdCpp2p7etbCf+RrMRQIPLH68Og2KvDVZtapILo/7Hlu192Lh4E/jU
-         pYAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784740723; x=1785345523;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bgp1uL2zdCSwtHxWPjmVsr5a9ctDEumlGTtccTCWom4=;
-        b=mDFRHRmvXkT34ZNI2JSXVX1dSwLDOIAvXjC4SYxhsWoq2qoE5R1sv/qsYHso9CN7/q
-         EC1n/lKfWQ6EMSHk6eehLTKRHW7uFvtLgdFvJwxdFfetAU8F1pWqK8poXSfSx3cAttGU
-         C+Oj1hJ/NY/kAnf4Pu3Z7q1D9jSau3CJ5UbIHEDbxcF3gHg7+t4LA+cOczBJ2RTYkLGF
-         /3YULkveppXOT2s+tC7TZep1xusLON5Kicyf3G2bIMIBEd+1Yqi+TD69lDW6O5PNeVFV
-         gA5P98qezDy4wky/ROeu4cUD59DSULCkkhofM3mBLJX5pJ6iy/YXcQpa1CKaY+fKp2tU
-         74/Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoHmMzLOZhG3gnUiaePv1ZMNHSmZgW1LgH45h1DmlAFjKYWmH9hkwYWzQuDi/x7TvSur7n5KG0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXZA4GnAZv9mDIk9Y/FddQDjcXG9zocPcocoMnAiU2bpqxEnA2
-	/ejxrCzJwf4midNE5LZ4Cxh0iPRcXbf9BxRERi1BtIHMij4z0CerhIt0
-X-Gm-Gg: AR+sD120WL1Fd0luZtgpySrB5EGvE/vonsqK4yhfK1pmfJWNy1dIYVqDrYcSv+4ru6q
-	HqFY5ZUlzW+WOGO8NyfWXzK3k3gwVgrY+TxrB0uRdZBf5XS4kAcIi5NobSWRJWxuws1Bb7UsZfV
-	hztlPLUmObsQi1U0+22SwujycMaDsqc/QwRU9019GFnbrqzwq+nJcVbqCjI1ChuPCQ9uH3hLwSV
-	KDacSAE7A5AhuMP6BEiNQFTT/S6KSWjsxbqTBhtz2M4xVP7AUI+uFQkI9Ztho1HD5yr3hSgKzM3
-	1kZMwS6XiasjJvm3UttvWpaxstHjH5LYODERq1DVzqtvhUwdrYhvQphvA5RJUgmUjnDHK08jd4p
-	faVoyMYPiQlqD7d2S7Cb5Rl++dYAxxo33FiFCnYzjq1I+5+03zaCCUaUhpbnU11Qy5ZP32OopN2
-	xwJ+Y9CE/oyy/pRkx7Qkg+L6TLSbm5iy2by3E5GmuwExdY0hINR6aPGbeNKMcpzsYR0SpydFAu/
-	f5IjyEHg022OBZcqgAJxQ2coiTFI5EQjQIBW2vY9Bd6R3gL
-X-Received: by 2002:a05:600c:4584:b0:495:6713:9ae2 with SMTP id 5b1f17b1804b1-4956713a250mr56348975e9.1.1784740722310;
-        Wed, 22 Jul 2026 10:18:42 -0700 (PDT)
-Received: from L-022584.energy.envision.com (dynamic-078-051-150-230.78.51.pool.telefonica.de. [78.51.150.230])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956a634cf9sm92427615e9.9.2026.07.22.10.18.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 10:18:41 -0700 (PDT)
-From: Xin Xie <xiexinet@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	andrew+netdev@lunn.ch,
-	qingfang.deng@linux.dev,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xin Xie <xiexinet@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 3/4] net: hsr: unfold GSO super-packets at the forward entry
-Date: Wed, 22 Jul 2026 19:18:35 +0200
-Message-ID: <20260722171836.196-4-xiexinet@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260722171836.196-1-xiexinet@gmail.com>
-References: <20260722171836.196-1-xiexinet@gmail.com>
+	d=oldschoolsolutions.biz; s=s1-ionos; t=1784740736; x=1785345536;
+	i=jens.glathe@oldschoolsolutions.biz;
+	bh=tTR96qwEtTOKe1tZUq9pLn6ST1x1EO7ALiL3ium/JAE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=SY2LVr9tzHsLzOY0YrSrHeOjOQEscoUxdSB3G7BvW8LmtArH7HHNNRT6/NkdTZgg
+	 jZjYL+Byr8CGBaBLSa+RohQdWiWoH9Qnpnp7asq/dBJhMHydxZhRzUSURrZbKYQZh
+	 Kpesx4bMpmzx2OuNlDnH9NKdMawcjsnAzFShSYOHrJwswkJ7bWLrmS9kAgbX585ut
+	 MRRV6gEpHyfocr/bSgblkX9XSZeSSnpx1cXuuDEK6EcsVugbrEgoX+jr98JmFmndt
+	 K5qUtXodAH61s1GVG0FQTJdkEc9DRiIRIo0a0wZM8e/Sq8sqrdWX86y1kdv6ARX6F
+	 1S48r9BP9B9nNoX16A==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [212.227.15.183]) with ESMTPSA (Nemesis) id 1M89TB-1wrnGN0307-00E4vu; Wed, 22
+ Jul 2026 19:18:56 +0200
+Message-ID: <47810646-3476-4f5b-b140-77b1934fd5b4@oldschoolsolutions.biz>
+Date: Wed, 22 Jul 2026 19:18:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+To: Sebastian Reichel <sre@kernel.org>
+Cc: "Dr. David Alan Gilbert" <dave@treblig.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+ <al6-IyyWYRnEW4VC@venus> <al-dJjzorP-I4Yff@gallifrey>
+ <al_0LjwmfW-cECnY@venus>
+ <41222b67-19e5-4f74-b4aa-928d05db9675@oldschoolsolutions.biz>
+ <amDi7e8fqqzCRlAc@venus>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <amDi7e8fqqzCRlAc@venus>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:xfEtTt+C/P2m1drKcHEpRCiA7AFvkY0/eDi7kazHKEFCwBVpaF+
+ QZupGkShPjbJkgXf/xQy1Ni3I0rhwBYLes8ZRTBo5ugEhtd9qV8n0Rpj4nUIAL8vRWLxXkP
+ 8az460jKbOqyI0/vjuPppEn0IEgoyAKa2/1qfMC7RQevcRoTn+h8A4vWwRpyOxM+hU1kZ2U
+ 0tfFGX/Yt2s6dk28bsPLg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Es8H9HEck34=;mfoNmjz+7jqSwXIkMfFHI//VSYt
+ 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
+ =
 
-HSR/PRP forward frames one by one: each wire frame gets its own tag
-and sequence number, and duplicate discard is per frame. A GSO
-super-packet reaching hsr_forward_skb() breaks that per-frame
-semantics: it would be tagged and forwarded as a single frame.
+Hi Sebastian,
 
-Unfold such super-packets at the forward entry with the top-level GSO
-dispatch: __skb_gso_segment() initializes SKB_GSO_CB() and performs
-the L2->L3->L4 protocol dispatch (calling the low-level skb_segment()
-helper directly is not allowed here -- it reads SKB_GSO_CB(skb) state
-that only __skb_gso_segment() sets up). features = 0 requests full
-software segmentation; tx_path is selected by ingress port (master =
-locally generated TX, interlink = RX) to get the right checksum
-semantics. Each segment then runs through the existing per-frame
-path, which is split out as hsr_forward_skb_one() so that no GSO skb
-can reach it.
+On 7/22/26 18:03, Sebastian Reichel wrote:
+> Hi,
+>
+> On Wed, Jul 22, 2026 at 10:38:34AM +0200, Jens Glathe wrote:
+>> I understand, however I wouldn't want to nerf ps883x for the Hamoa
+>> platform until the USB4 stack is complete. The issues you
+>> currently run into is:
+> That's exactly what this series is doing and not really a problem
+> considering USB4 is not working anyways.
 
-Segmentation is only offered for the ingress roles whose frames are
-known to be plain Ethernet: the master (locally generated) and the
-interlink (SAN side, untagged). A super-packet received from a LAN
-slave may carry per-frame HSR tags or PRP RCT trailers that software
-segmentation cannot recover, and an already-tagged HSR/PRP
-super-packet violates per-frame wire semantics; both are rejected by
-ingress-port policy. (ETH_P_PRP identifies supervision traffic only;
-a PRP data frame keeps its payload EtherType, so RCT carriage cannot
-be tested by protocol.)
+...yet :) Alright, nerf patch it is. Question is how broad we need to=20
+specify. You have ps883x on all x1 (Hamoa and Purwa, like, Zenbook A14,=20
+IdeaCentre Mini X, HP Omnibook X14 fe1). So probably those compatibles:=20
+qcom,x1e80100, qcom,x1p42100, qcom,hamoa, qcom,purwa. Looks like a=20
+nerfing table :)
 
-Also drop NETIF_F_GSO_MASK from the HSR master's hw_features so
-locally generated traffic is segmented before reaching the forward
-path whenever possible.
+I will do this in v2.
 
-Fixes: f421436a591d ("net/hsr: Add support for the High-availability Seamless Redundancy protocol (HSRv0)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xin Xie <xiexinet@gmail.com>
----
- net/hsr/hsr_device.c  |  2 +-
- net/hsr/hsr_forward.c | 50 ++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 50 insertions(+), 2 deletions(-)
+with best regards
 
-diff --git a/net/hsr/hsr_device.c b/net/hsr/hsr_device.c
-index 3fd1762d8..248cbb142 100644
---- a/net/hsr/hsr_device.c
-+++ b/net/hsr/hsr_device.c
-@@ -652,7 +652,7 @@ void hsr_dev_setup(struct net_device *dev)
- 	dev->needs_free_netdev = true;
- 
- 	dev->hw_features = NETIF_F_SG | NETIF_F_FRAGLIST | NETIF_F_HIGHDMA |
--			   NETIF_F_GSO_MASK | NETIF_F_HW_CSUM |
-+			   NETIF_F_HW_CSUM |
- 			   NETIF_F_HW_VLAN_CTAG_TX |
- 			   NETIF_F_HW_VLAN_CTAG_FILTER;
- 
-diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
-index 8e4158a9b..3fcdbac49 100644
---- a/net/hsr/hsr_forward.c
-+++ b/net/hsr/hsr_forward.c
-@@ -12,6 +12,7 @@
- #include <linux/skbuff.h>
- #include <linux/etherdevice.h>
- #include <linux/if_vlan.h>
-+#include <net/gso.h>
- #include "hsr_main.h"
- #include "hsr_framereg.h"
- 
-@@ -732,7 +733,7 @@ static int fill_frame_info(struct hsr_frame_info *frame,
- }
- 
- /* Must be called holding rcu read lock (because of the port parameter) */
--void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
-+static void hsr_forward_skb_one(struct sk_buff *skb, struct hsr_port *port)
- {
- 	struct hsr_frame_info frame;
- 
-@@ -761,3 +762,50 @@ void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
- 	port->dev->stats.tx_dropped++;
- 	kfree_skb(skb);
- }
-+
-+/* GSO fan-out funnel: unfold super-packets before per-frame processing so
-+ * each wire frame gets its own HSR/PRP tag and sequence number.
-+ */
-+void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
-+{
-+	struct sk_buff *segs, *next;
-+
-+	if (likely(!skb_is_gso(skb))) {
-+		hsr_forward_skb_one(skb, port);
-+		return;
-+	}
-+
-+	/* Unfold only plain-Ethernet GSO super-packets: locally generated
-+	 * on the master, or arriving untagged from the SAN side on the
-+	 * interlink. A super-packet from a LAN slave may carry per-frame
-+	 * HSR tags / PRP RCT trailers that software segmentation cannot
-+	 * recover; an already-tagged HSR/PRP super-packet violates
-+	 * per-frame wire semantics. Drop both.
-+	 */
-+	if (port->type != HSR_PT_MASTER && port->type != HSR_PT_INTERLINK)
-+		goto drop_gso;
-+	if (skb->protocol == htons(ETH_P_HSR) ||
-+	    skb->protocol == htons(ETH_P_PRP))
-+		goto drop_gso;
-+
-+	/* features = 0: request full software segmentation. tx_path is true
-+	 * only for locally generated traffic on the master; ingress from
-+	 * the interlink follows RX checksum semantics.
-+	 */
-+	segs = __skb_gso_segment(skb, 0, port->type == HSR_PT_MASTER);
-+	if (IS_ERR(segs) || unlikely(!segs))
-+		goto drop_gso;
-+
-+	consume_skb(skb);
-+	while (segs) {
-+		next = segs->next;
-+		segs->next = NULL;
-+		hsr_forward_skb_one(segs, port);
-+		segs = next;
-+	}
-+	return;
-+
-+drop_gso:
-+	port->dev->stats.tx_dropped++;
-+	kfree_skb(skb);
-+}
--- 
-2.43.0
+Jens
 
