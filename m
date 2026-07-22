@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852CF470106
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:33:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4109E29B781
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:38:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784720037; cv=none; b=DbICErzQo1jglDfDIKzW/9m5qnQCDz7fUnADNb0IUK4mod1W659upAmslhHmaC8sNH5AShMJ+A0DYuXxUexF9GFfaBERghzVVWNkzHtBcLp4L4XKxGukMMpRkuonhqfiCCe0zsdvprc00kC7EG30JA8OMFi9EazXRj97qRE+jho=
+	t=1784720326; cv=none; b=cicm8vRUMWKuGk3pZTQJJ2syx+G7MvBgAgbbyG5bOLVGofEqFVFDMbQtsUITon/chOQjt5AMZl9eMoq7LLucCU4Klytq2JVmDumalKfP8OlwKeI0gSlHQ3z+AmcCG+p0IDO8NulZloCkqmsWf/Tg0PQreic3g4WKW5j3ylQCLn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784720037; c=relaxed/simple;
-	bh=CSaVmwoOz+sc0zIz/ECTMbpAZDHJeWoIGiXsysqxFVM=;
+	s=arc-20240116; t=1784720326; c=relaxed/simple;
+	bh=7Z7V2tFRvul5lDmHYafEfqiQB1CQcxLdxzXW87JcQco=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gXuWBLU2el50FwLQzJJkq6HdKHtZMaa8WtyxB4QlXycG4vHf+kAP2wp2EN/PnMBcmmibwyceZlA5tnlEyViuZxIT44v54ut/JIXjey9e1v00yykr82UPCM+1+UaPXhdUa1Ql7WRzIz+apq8hwq3sScuiWxUKU9tppRAWChjDuKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cqqCsOpw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DPWBVph2OwQ40euYf+FvwwKrbRLjKfb9erAl4nKMed6fSZXB+3L2GYHOcWd5m1TfPmY32nFNntFY4gE3+Rkqcq4kxKwZghP+M5gULihnzO88VPqIghY9x3dd9/Z/7X/FDvCxdP6MNgWl8fRkh1NIYBiFXx3Y8yEHmL1P6TQaqm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PzXNDW0I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cqqCsOpw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7EC11F000E9;
-	Wed, 22 Jul 2026 11:33:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PzXNDW0I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3DA1F000E9;
+	Wed, 22 Jul 2026 11:38:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784720035;
-	bh=EcQVjqdhAUi5LhkrFF9m3zpKu3AY1aTjzVHnnnRRJ9s=;
+	s=k20260515; t=1784720323;
+	bh=2ljfWA744/4zEOas2IgwKnAV54yqB2nz0knxf9OPQSQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cqqCsOpwdPwsjCG8SBIzGtVGWG4vxSbtFip3wWFEjG2tU0Z/NyUyP33My7d6cVL70
-	 xY4148W+t4loHItLznZ6iqDzYqHWLCjmTm/m0R+otFiAvhCE3bMrHaPPVr2JuoawpU
-	 xWtU8qUU/I4NcKEMUrfa3o0Zy0QBVNi7ksKe54Si7k2N3zaLhSJIt02e/ZtzvhEstV
-	 wvrUrqZf1x0AMVMMWOH/B5mrLzFTlHwYNFv859KC+SRx5scien7+j5Pn6alfEpBIDb
-	 0+2ces85KfrW+Uzj2LsdUU5q3KTcq9KpGM9oBVw1oU6EWEu6xaSqxmoBtVqn/ShakX
-	 qIVDIokUIS3AA==
+	b=PzXNDW0InCbtyDgiWIc/hfb2aorhOWtiNorakkunZdEncTvfDed3ObWtexNieysRT
+	 rxPy6n01+QhavwhhVkc/Uikz/N6j4AVMy+roIWRGxNyAIwYf6Vm6Q8iuorkawMk194
+	 jNs+DIXwnTCCqyhs7a1dLLtKiJ0h/NuBcA0vry88+gccgJgG9BpmfyawMYGoBSLlRi
+	 hcRvS5nKlM/rBoQLCkGRAW3v4OnshDDO6TyaiQ5KcKaZVnJwsAMhu//Zi4nd/OULgl
+	 usPyP0T+GG+UNMpIuBmaf1EHq6bGJpw6u+gDLkSaJxuuBTRvCwNe7LRkKEhx3bvcIg
+	 Tv3f4V/X+lELA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: NeilBrown <neil@brown.name>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] xfs: don't replace the wrong part of the cow fork
-Date: Wed, 22 Jul 2026 07:33:53 -0400
-Message-ID: <20260722113353.1151198-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] VFS/audit: introduce kern_path_parent() for audit
+Date: Wed, 22 Jul 2026 07:38:38 -0400
+Message-ID: <20260722113841.1168662-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026071710-snazzy-hertz-29b5@gregkh>
-References: <2026071710-snazzy-hertz-29b5@gregkh>
+In-Reply-To: <2026071653-tartly-scoundrel-d2b3@gregkh>
+References: <2026071653-tartly-scoundrel-d2b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,430 +45,198 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: NeilBrown <neil@brown.name>
 
-[ Upstream commit a1caeeadbf57ff86dfc3454398c46de86056a74e ]
+[ Upstream commit 76a53de6f7ff0641570364234fb4489f4d4fc8e9 ]
 
-LOLLM points out that xfs_iext_lookup_extent can return a @got where
-got->br_startoff < startoff.  In this case, xrep_cow_replace_range
-replaces the entire mapping instead of just the part that had been
-marked bad in the bitmap, but advances the bitmap cursor in
-xrep_cow_replace by the amount replaced.  As a result, we fail to
-replace the end of the bad range, and replace part of the good range.
+audit_alloc_mark() and audit_get_nd() both need to perform a path
+lookup getting the parent dentry (which must exist) and the final
+target (following a LAST_NORM name) which sometimes doesn't need to
+exist.
 
-Fix this by rewriting the replace method to handle replacing the middle
-of a cow fork mapping.  This we do by returning both the current mapping
-as @got, and the subset of the mapping that we want to replace as @rep,
-using @rep to store the results of the new allocation, and comparing
-@rep to @got to figure out the exact transformations needed.
+They don't need the parent to be locked, but use kern_path_locked() or
+kern_path_locked_negative() anyway.  This is somewhat misleading to the
+casual reader.
 
-Cc: stable@vger.kernel.org # v6.8
-Fixes: dbbdbd0086320a ("xfs: repair problems in CoW forks")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+This patch introduces a more targeted function, kern_path_parent(),
+which returns not holding locks.  On success the "path" will
+be set to the parent, which must be found, and the return value is the
+dentry of the target, which might be negative.
+
+This will clear the way to rename kern_path_locked() which is
+otherwise only used to prepare for removing something.
+
+It also allows us to remove kern_path_locked_negative(), which is
+transformed into the new kern_path_parent().
+
+Signed-off-by: NeilBrown <neil@brown.name>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 81905b5acbe7 ("audit: fix recursive locking deadlock in audit_dupe_exe()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/cow_repair.c | 203 ++++++++++++++++++++++++--------------
- fs/xfs/scrub/trace.h      |  28 +++---
- 2 files changed, 148 insertions(+), 83 deletions(-)
+ fs/namei.c              | 43 +++++++++++++++++++++++++++++++++++++++++
+ include/linux/namei.h   |  1 +
+ kernel/audit.h          |  4 ++--
+ kernel/audit_fsnotify.c |  9 +++------
+ kernel/audit_watch.c    |  9 ++++++---
+ 5 files changed, 55 insertions(+), 11 deletions(-)
 
-diff --git a/fs/xfs/scrub/cow_repair.c b/fs/xfs/scrub/cow_repair.c
-index fc70fd5b975a3a..87627ab8943c13 100644
---- a/fs/xfs/scrub/cow_repair.c
-+++ b/fs/xfs/scrub/cow_repair.c
-@@ -80,12 +80,6 @@ struct xrep_cow {
- 	unsigned int		next_bno;
- };
- 
--/* CoW staging extent. */
--struct xrep_cow_extent {
--	xfs_fsblock_t		fsbno;
--	xfs_extlen_t		len;
--};
--
- /*
-  * Mark the part of the file range that corresponds to the given physical
-  * space.  Caller must ensure that the physical range is within xc->irec.
-@@ -401,22 +395,21 @@ xrep_cow_find_bad_rt(
- STATIC int
- xrep_cow_alloc(
- 	struct xfs_scrub	*sc,
--	xfs_extlen_t		maxlen,
--	struct xrep_cow_extent	*repl)
-+	struct xfs_bmbt_irec	*del)
- {
- 	struct xfs_alloc_arg	args = {
- 		.tp		= sc->tp,
- 		.mp		= sc->mp,
- 		.oinfo		= XFS_RMAP_OINFO_SKIP_UPDATE,
- 		.minlen		= 1,
--		.maxlen		= maxlen,
-+		.maxlen		= del->br_blockcount,
- 		.prod		= 1,
- 		.resv		= XFS_AG_RESV_NONE,
- 		.datatype	= XFS_ALLOC_USERDATA,
- 	};
- 	int			error;
- 
--	error = xfs_trans_reserve_more(sc->tp, maxlen, 0);
-+	error = xfs_trans_reserve_more(sc->tp, del->br_blockcount, 0);
- 	if (error)
- 		return error;
- 
-@@ -429,8 +422,8 @@ xrep_cow_alloc(
- 
- 	xfs_refcount_alloc_cow_extent(sc->tp, false, args.fsbno, args.len);
- 
--	repl->fsbno = args.fsbno;
--	repl->len = args.len;
-+	del->br_startblock = args.fsbno;
-+	del->br_blockcount = args.len;
- 	return 0;
+diff --git a/fs/namei.c b/fs/namei.c
+index 5cc5b3e9846284..6dec38e68ce3f3 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -2575,6 +2575,49 @@ static struct dentry *__kern_path_locked(struct filename *name, struct path *pat
+ 	return d;
  }
  
-@@ -441,10 +434,12 @@ xrep_cow_alloc(
- STATIC int
- xrep_cow_alloc_rt(
- 	struct xfs_scrub	*sc,
--	xfs_extlen_t		maxlen,
--	struct xrep_cow_extent	*repl)
-+	struct xfs_bmbt_irec	*del)
- {
--	xfs_rtxlen_t		maxrtx = xfs_rtb_to_rtx(sc->mp, maxlen);
-+	xfs_fsblock_t		fsbno;
-+	xfs_rtxlen_t		maxrtx =
-+		min(U32_MAX, xfs_blen_to_rtbxlen(sc->mp, del->br_blockcount));
-+	xfs_extlen_t		len;
- 	int			error;
- 
- 	error = xfs_trans_reserve_more(sc->tp, 0, maxrtx);
-@@ -452,11 +447,14 @@ xrep_cow_alloc_rt(
- 		return error;
- 
- 	error = xfs_rtallocate_rtgs(sc->tp, NULLRTBLOCK, 1, maxrtx, 1, false,
--			false, &repl->fsbno, &repl->len);
-+			false, &fsbno, &len);
- 	if (error)
- 		return error;
- 
--	xfs_refcount_alloc_cow_extent(sc->tp, true, repl->fsbno, repl->len);
-+	xfs_refcount_alloc_cow_extent(sc->tp, true, fsbno, len);
++/**
++ * kern_path_parent: lookup path returning parent and target
++ * @name: path name
++ * @path: path to store parent in
++ *
++ * The path @name should end with a normal component, not "." or ".." or "/".
++ * A lookup is performed and if successful the parent information
++ * is store in @parent and the dentry is returned.
++ *
++ * The dentry maybe negative, the parent will be positive.
++ *
++ * Returns:  dentry or error.
++ */
++struct dentry *kern_path_parent(const char *name, struct path *path)
++{
++	struct filename *filename = getname_kernel(name);
++	struct path parent_path;
++	struct dentry *d;
++	struct qstr last;
++	int type, error;
 +
-+	del->br_startblock = fsbno;
-+	del->br_blockcount = len;
- 	return 0;
- }
- 
-@@ -470,19 +468,19 @@ static inline int
- xrep_cow_find_mapping(
- 	struct xrep_cow		*xc,
- 	struct xfs_iext_cursor	*icur,
--	xfs_fileoff_t		startoff,
--	struct xfs_bmbt_irec	*got)
-+	xfs_fileoff_t		badoff,
-+	xfs_extlen_t		badlen,
-+	struct xfs_bmbt_irec	*got,
-+	struct xfs_bmbt_irec	*rep)
- {
- 	struct xfs_inode	*ip = xc->sc->ip;
- 	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
- 
--	if (!xfs_iext_lookup_extent(ip, ifp, startoff, icur, got))
-+	if (!xfs_iext_lookup_extent(ip, ifp, badoff, icur, got))
- 		goto bad;
-+	memcpy(rep, got, sizeof(*rep));
- 
--	if (got->br_startoff > startoff)
--		goto bad;
--
--	if (got->br_blockcount == 0)
-+	if (got->br_startoff > badoff)
- 		goto bad;
- 
- 	if (isnullstartblock(got->br_startblock))
-@@ -491,6 +489,24 @@ xrep_cow_find_mapping(
- 	if (xfs_bmap_is_written_extent(got))
- 		goto bad;
- 
-+	if (got->br_startoff < badoff) {
-+		const int64_t	delta = badoff - got->br_startoff;
-+
-+		rep->br_blockcount -= delta;
-+		rep->br_startoff += delta;
-+		rep->br_startblock += delta;
++	error = filename_parentat(AT_FDCWD, filename, 0, &parent_path, &last, &type);
++	if (error) {
++		d = ERR_PTR(error);
++		goto out;
++	}
++	if (unlikely(type != LAST_NORM)) {
++		path_put(&parent_path);
++		d = ERR_PTR(-EINVAL);
++		goto out;
 +	}
 +
-+	if (got->br_startoff + got->br_blockcount > badoff + badlen) {
-+		const int64_t	delta = (got->br_startoff + got->br_blockcount) -
-+					(badoff + badlen);
-+
-+		rep->br_blockcount -= delta;
++	d = lookup_one_len_unlocked(last.name, parent_path.dentry, last.len);
++	if (IS_ERR(d)) {
++		path_put(&parent_path);
++		goto out;
 +	}
++	*path = parent_path;
++out:
++	putname(filename);
++	return d;
++}
 +
-+	if (got->br_blockcount == 0)
-+		goto bad;
-+
- 	return 0;
- bad:
- 	ASSERT(0);
-@@ -501,46 +517,92 @@ xrep_cow_find_mapping(
- #define REPLACE_RIGHT_SIDE	(1U << 1)
- 
- /*
-- * Given a CoW fork mapping @got and a replacement mapping @repl, remap the
-- * beginning of @got with the space described by @rep.
-+ * Given a CoW fork mapping @got and a replacement mapping @rep, map the space
-+ * described by @rep into the cow fork, pushing aside @got as necessary.  @icur
-+ * must point to iext tree leaf containing @got.
-  */
- static inline void
- xrep_cow_replace_mapping(
--	struct xfs_inode		*ip,
--	struct xfs_iext_cursor		*icur,
--	const struct xfs_bmbt_irec	*got,
--	const struct xrep_cow_extent	*repl)
-+	struct xfs_inode	*ip,
-+	struct xfs_iext_cursor	*icur,
-+	struct xfs_bmbt_irec	*got,
-+	struct xfs_bmbt_irec	*rep)
+ struct dentry *kern_path_locked(const char *name, struct path *path)
  {
--	struct xfs_bmbt_irec		new = *got; /* struct copy */
-+	struct xfs_ifork	*ifp = xfs_ifork_ptr(ip, XFS_COW_FORK);
-+	xfs_fileoff_t		rep_endoff =
-+			rep->br_startoff + rep->br_blockcount;
-+	xfs_fileoff_t		got_endoff =
-+			got->br_startoff + got->br_blockcount;
-+	uint32_t		state = BMAP_COWFORK;
+ 	struct filename *filename = getname_kernel(name);
+diff --git a/include/linux/namei.h b/include/linux/namei.h
+index 53c03d9ed34c00..35e805c3be82e4 100644
+--- a/include/linux/namei.h
++++ b/include/linux/namei.h
+@@ -61,6 +61,7 @@ struct dentry *lookup_one_qstr_excl(const struct qstr *name,
+ 				    struct dentry *base,
+ 				    unsigned int flags);
+ extern int kern_path(const char *, unsigned, struct path *);
++struct dentry *kern_path_parent(const char *name, struct path *parent);
  
--	ASSERT(repl->len > 0);
-+	ASSERT(rep->br_blockcount > 0);
- 	ASSERT(!isnullstartblock(got->br_startblock));
-+	ASSERT(got->br_startoff <= rep->br_startoff);
-+	ASSERT(got_endoff >= rep_endoff);
-+
-+	trace_xrep_cow_replace_mapping(ip, got, rep);
- 
--	trace_xrep_cow_replace_mapping(ip, got, repl->fsbno, repl->len);
-+	if (got->br_startoff == rep->br_startoff)
-+		state |= BMAP_LEFT_FILLING;
-+	if (got_endoff == rep_endoff)
-+		state |= BMAP_RIGHT_FILLING;
- 
--	if (got->br_blockcount == repl->len) {
-+	switch (state & (BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING)) {
-+	case BMAP_LEFT_FILLING | BMAP_RIGHT_FILLING:
- 		/*
--		 * The new extent is a complete replacement for the existing
--		 * extent.  Update the COW fork record.
-+		 * Replacement matches the whole mapping, update the record.
- 		 */
--		new.br_startblock = repl->fsbno;
--		xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
--		return;
--	}
-+		xfs_iext_update_extent(ip, state, icur, rep);
-+		break;
-+	case BMAP_LEFT_FILLING:
-+		/*
-+		 * Replace the first part of the mapping: Update the cursor
-+		 * position with the new mapping, then add a record with the
-+		 * tail of the old mapping.
-+		 */
-+		got->br_startoff = rep_endoff;
-+		got->br_blockcount -= rep->br_blockcount;
-+		got->br_startblock += rep->br_blockcount;
-+
-+		xfs_iext_update_extent(ip, state, icur, rep);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, got, state);
-+		break;
-+	case BMAP_RIGHT_FILLING:
-+		/*
-+		 * Replacing the last part of the mapping.  Shorten the current
-+		 * mapping then add a record with the new mapping.
-+		 */
-+		got->br_blockcount -= rep->br_blockcount;
- 
--	/*
--	 * The new extent can replace the beginning of the COW fork record.
--	 * Move the left side of @got upwards, then insert the new record.
--	 */
--	new.br_startoff += repl->len;
--	new.br_startblock += repl->len;
--	new.br_blockcount -= repl->len;
--	xfs_iext_update_extent(ip, BMAP_COWFORK, icur, &new);
--
--	new.br_startoff = got->br_startoff;
--	new.br_startblock = repl->fsbno;
--	new.br_blockcount = repl->len;
--	xfs_iext_insert(ip, icur, &new, BMAP_COWFORK);
-+		xfs_iext_update_extent(ip, state, icur, got);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, rep, state);
-+		break;
-+	case 0:
-+		/*
-+		 * Replacing the middle of the extent.  Shorten the current
-+		 * mapping, add a new record with the new mapping, and add a
-+		 * second new record with the tail of the old mapping.
-+		 */
-+		got->br_blockcount = rep->br_startoff - got->br_startoff;
-+
-+		struct xfs_bmbt_irec	new = {
-+			.br_startoff	= rep_endoff,
-+			.br_blockcount	= got_endoff - rep_endoff,
-+			.br_state	= got->br_state,
-+			.br_startblock	= got->br_startblock +
-+						rep->br_blockcount +
-+						got->br_blockcount,
-+		};
-+
-+		xfs_iext_update_extent(ip, state, icur, got);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, rep, state);
-+		xfs_iext_next(ifp, icur);
-+		xfs_iext_insert(ip, icur, &new, state);
-+		break;
-+	}
+ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigned int);
+ extern struct dentry *user_path_create(int, const char __user *, struct path *, unsigned int);
+diff --git a/kernel/audit.h b/kernel/audit.h
+index b2ef4c0d3ec033..1b65283f306875 100644
+--- a/kernel/audit.h
++++ b/kernel/audit.h
+@@ -274,8 +274,8 @@ extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
+ extern char *audit_mark_path(struct audit_fsnotify_mark *mark);
+ extern void audit_remove_mark(struct audit_fsnotify_mark *audit_mark);
+ extern void audit_remove_mark_rule(struct audit_krule *krule);
+-extern int audit_mark_compare(struct audit_fsnotify_mark *mark,
+-			      unsigned long ino, dev_t dev);
++extern int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino,
++			      dev_t dev);
+ extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old);
+ extern int audit_exe_compare(struct task_struct *tsk,
+ 			     struct audit_fsnotify_mark *mark);
+diff --git a/kernel/audit_fsnotify.c b/kernel/audit_fsnotify.c
+index c565fbf66ac876..2b237895157d6e 100644
+--- a/kernel/audit_fsnotify.c
++++ b/kernel/audit_fsnotify.c
+@@ -57,7 +57,7 @@ char *audit_mark_path(struct audit_fsnotify_mark *mark)
+ 	return mark->path;
  }
  
- /*
-@@ -554,33 +616,30 @@ xrep_cow_replace_range(
- 	xfs_extlen_t		*blockcount)
+-int audit_mark_compare(struct audit_fsnotify_mark *mark, unsigned long ino, dev_t dev)
++int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino, dev_t dev)
  {
- 	struct xfs_iext_cursor	icur;
--	struct xrep_cow_extent	repl;
--	struct xfs_bmbt_irec	got;
-+	struct xfs_bmbt_irec	got, rep;
- 	struct xfs_scrub	*sc = xc->sc;
--	xfs_fileoff_t		nextoff;
--	xfs_extlen_t		alloc_len;
-+	xfs_fsblock_t		old_fsbno;
- 	int			error;
+ 	if (mark->ino == AUDIT_INO_UNSET)
+ 		return 0;
+@@ -76,17 +76,14 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
+ 	struct audit_fsnotify_mark *audit_mark;
+ 	struct path path;
+ 	struct dentry *dentry;
+-	struct inode *inode;
+ 	int ret;
  
- 	/*
--	 * Put the existing CoW fork mapping in @got.  If @got ends before
--	 * @rep, truncate @rep so we only replace one extent mapping at a time.
-+	 * Put the existing CoW fork mapping in @got, and put in @rep the
-+	 * contents of @got trimmed to @startoff/@blockcount.  We only want
-+	 * to replace the bad region, and only one mapping at a time.
- 	 */
--	error = xrep_cow_find_mapping(xc, &icur, startoff, &got);
-+	error = xrep_cow_find_mapping(xc, &icur, startoff, *blockcount, &got,
-+			&rep);
- 	if (error)
- 		return error;
--	nextoff = min(startoff + *blockcount,
--		      got.br_startoff + got.br_blockcount);
-+	old_fsbno = rep.br_startblock;
+ 	if (pathname[0] != '/' || pathname[len-1] == '/')
+ 		return ERR_PTR(-EINVAL);
  
- 	/*
- 	 * Allocate a replacement extent.  If we don't fill all the blocks,
- 	 * shorten the quantity that will be deleted in this step.
- 	 */
--	alloc_len = min_t(xfs_fileoff_t, XFS_MAX_BMBT_EXTLEN,
--			  nextoff - startoff);
- 	if (XFS_IS_REALTIME_INODE(sc->ip))
--		error = xrep_cow_alloc_rt(sc, alloc_len, &repl);
-+		error = xrep_cow_alloc_rt(sc, &rep);
- 	else
--		error = xrep_cow_alloc(sc, alloc_len, &repl);
-+		error = xrep_cow_alloc(sc, &rep);
- 	if (error)
- 		return error;
+-	dentry = kern_path_locked(pathname, &path);
++	dentry = kern_path_parent(pathname, &path);
+ 	if (IS_ERR(dentry))
+ 		return ERR_CAST(dentry); /* returning an error */
+-	inode = path.dentry->d_inode;
+-	inode_unlock(inode);
  
-@@ -588,7 +647,7 @@ xrep_cow_replace_range(
- 	 * Replace the old mapping with the new one, and commit the metadata
- 	 * changes made so far.
- 	 */
--	xrep_cow_replace_mapping(sc->ip, &icur, &got, &repl);
-+	xrep_cow_replace_mapping(sc->ip, &icur, &got, &rep);
+ 	audit_mark = kzalloc(sizeof(*audit_mark), GFP_KERNEL);
+ 	if (unlikely(!audit_mark)) {
+@@ -100,7 +97,7 @@ struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule, char *pa
+ 	audit_update_mark(audit_mark, dentry->d_inode);
+ 	audit_mark->rule = krule;
  
- 	xfs_inode_set_cowblocks_tag(sc->ip);
- 	error = xfs_defer_finish(&sc->tp);
-@@ -597,15 +656,15 @@ xrep_cow_replace_range(
- 
- 	/* Note the old CoW staging extents; we'll reap them all later. */
- 	if (XFS_IS_REALTIME_INODE(sc->ip))
--		error = xrtb_bitmap_set(&xc->old_cowfork_rtblocks,
--				got.br_startblock, repl.len);
-+		error = xrtb_bitmap_set(&xc->old_cowfork_rtblocks, old_fsbno,
-+				rep.br_blockcount);
- 	else
--		error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks,
--				got.br_startblock, repl.len);
-+		error = xfsb_bitmap_set(&xc->old_cowfork_fsblocks, old_fsbno,
-+				rep.br_blockcount);
- 	if (error)
- 		return error;
- 
--	*blockcount = repl.len;
-+	*blockcount = rep.br_blockcount;
+-	ret = fsnotify_add_inode_mark(&audit_mark->mark, inode, 0);
++	ret = fsnotify_add_inode_mark(&audit_mark->mark, path.dentry->d_inode, 0);
+ 	if (ret < 0) {
+ 		audit_mark->path = NULL;
+ 		fsnotify_put_mark(&audit_mark->mark);
+diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
+index 5cf22fe301493f..d8c6c523ed70a8 100644
+--- a/kernel/audit_watch.c
++++ b/kernel/audit_watch.c
+@@ -243,7 +243,7 @@ static void audit_watch_log_rule_change(struct audit_krule *r, struct audit_watc
+ /* Update inode info in audit rules based on filesystem event. */
+ static void audit_update_watch(struct audit_parent *parent,
+ 			       const struct qstr *dname, dev_t dev,
+-			       unsigned long ino, unsigned invalidating)
++			       u64 ino, unsigned int invalidating)
+ {
+ 	struct audit_watch *owatch, *nwatch, *nextw;
+ 	struct audit_krule *r, *nextr;
+@@ -346,15 +346,18 @@ static void audit_remove_parent_watches(struct audit_parent *parent)
+ /* Get path information necessary for adding watches. */
+ static int audit_get_nd(struct audit_watch *watch, struct path *parent)
+ {
+-	struct dentry *d = kern_path_locked(watch->path, parent);
++	struct dentry *d;
++
++	d = kern_path_parent(watch->path, parent);
+ 	if (IS_ERR(d))
+ 		return PTR_ERR(d);
++
+ 	if (d_is_positive(d)) {
+ 		/* update watch filter fields */
+ 		watch->dev = d->d_sb->s_dev;
+ 		watch->ino = d_backing_inode(d)->i_ino;
+ 	}
+-	inode_unlock(d_backing_inode(parent->dentry));
++
+ 	dput(d);
  	return 0;
  }
- 
-diff --git a/fs/xfs/scrub/trace.h b/fs/xfs/scrub/trace.h
-index 286c5f5e054449..fab3ce323e4c78 100644
---- a/fs/xfs/scrub/trace.h
-+++ b/fs/xfs/scrub/trace.h
-@@ -2672,9 +2672,9 @@ TRACE_EVENT(xrep_cow_mark_file_range,
- );
- 
- TRACE_EVENT(xrep_cow_replace_mapping,
--	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *irec,
--		 xfs_fsblock_t new_startblock, xfs_extlen_t new_blockcount),
--	TP_ARGS(ip, irec, new_startblock, new_blockcount),
-+	TP_PROTO(struct xfs_inode *ip, const struct xfs_bmbt_irec *got,
-+		 const struct xfs_bmbt_irec *rep),
-+	TP_ARGS(ip, got, rep),
- 	TP_STRUCT__entry(
- 		__field(dev_t, dev)
- 		__field(xfs_ino_t, ino)
-@@ -2682,28 +2682,34 @@ TRACE_EVENT(xrep_cow_replace_mapping,
- 		__field(xfs_fileoff_t, startoff)
- 		__field(xfs_filblks_t, blockcount)
- 		__field(xfs_exntst_t, state)
-+		__field(xfs_fileoff_t, new_startoff)
- 		__field(xfs_fsblock_t, new_startblock)
- 		__field(xfs_extlen_t, new_blockcount)
-+		__field(xfs_exntst_t, new_state)
- 	),
- 	TP_fast_assign(
- 		__entry->dev = ip->i_mount->m_super->s_dev;
- 		__entry->ino = ip->i_ino;
--		__entry->startoff = irec->br_startoff;
--		__entry->startblock = irec->br_startblock;
--		__entry->blockcount = irec->br_blockcount;
--		__entry->state = irec->br_state;
--		__entry->new_startblock = new_startblock;
--		__entry->new_blockcount = new_blockcount;
-+		__entry->startoff = got->br_startoff;
-+		__entry->startblock = got->br_startblock;
-+		__entry->blockcount = got->br_blockcount;
-+		__entry->state = got->br_state;
-+		__entry->new_startoff = rep->br_startoff;
-+		__entry->new_startblock = rep->br_startblock;
-+		__entry->new_blockcount = rep->br_blockcount;
-+		__entry->new_state = rep->br_state;
- 	),
--	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startblock 0x%llx new_fsbcount 0x%x",
-+	TP_printk("dev %d:%d ino 0x%llx startoff 0x%llx startblock 0x%llx fsbcount 0x%llx state 0x%x new_startoff 0x%llx new_startblock 0x%llx new_fsbcount 0x%x new_state 0x%x",
- 		  MAJOR(__entry->dev), MINOR(__entry->dev),
- 		  __entry->ino,
- 		  __entry->startoff,
- 		  __entry->startblock,
- 		  __entry->blockcount,
- 		  __entry->state,
-+		  __entry->new_startoff,
- 		  __entry->new_startblock,
--		  __entry->new_blockcount)
-+		  __entry->new_blockcount,
-+		  __entry->new_state)
- );
- 
- TRACE_EVENT(xrep_cow_free_staging,
 -- 
 2.53.0
 
