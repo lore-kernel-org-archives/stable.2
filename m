@@ -1,154 +1,140 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BF236B917
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 15:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE6838F25F;
+	Wed, 22 Jul 2026 15:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784734287; cv=none; b=CO0u9nMZvSMScztArV2Tvcm8hyKBzb/Nn7j341np/W9tNVG0lEe+XY1DnKQHmDWuFTREzI2V4OB1YUn9C3CnF/6xKflpslPym9EwXFXhUZhYoBDZBXq9ucEUpeIZpVSLhpKYF3v0F/ZEMNHpmn7lFKRlZeFsnN8sFA+zCy7YFRw=
+	t=1784734445; cv=none; b=atEptr17Y3vxfc/glbqVIKQOOkqhw1MBFZBiVi8njFMGKMHXUQBYxoXVnKsXDOKLY2Q2irtiGLsGht6FokGd5Pdfkw381X19hBxq5PwMq+D2qQkMf9xWbrE6pMJygWIuSC6AY5SJbkyyYni9+frlRbiUJm7s6wY5baBi4b/P4uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784734287; c=relaxed/simple;
-	bh=25eR6IORAeg+BJ95HEQGj2JLdVumdAVnM5WJNvg0pdI=;
-	h=Date:To:Cc:Subject:From:References:In-Reply-To:Message-Id:
-	 MIME-Version:Content-Type; b=lieNiJ2JfuAh6G6mGyb1ybXETEFLQdDaadWH67E3xWI29Vs3tTBTSDFsP5nQhboLs6CFBQN0qgCxv0SjaVKHxRKYLBiQX5omiZs8HBn44DIVgykY6FRlDuxeQArVI2JzkdbZFMxW2qXftvixpzXts5URzf7uXVh7gFjI27G7m/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dz3hcZcJ; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784734445; c=relaxed/simple;
+	bh=Wj3iGHaFHk5cmK4MBcrZslWG7a1FtT47wL16Mc7fWzc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eAQNIkOzQJAjHRfNPq+Qj8HnIqKszniZXYuSddt/ZjTkkycd/Bwa0j/BWxqMeXOHwPR3Jg0Fw3t4vJPea+KNRjsYhsj/kJEAYlcO9wweWlXNr/f+kc1k0Y6u12m21g9wgLfcgI+ObIt/pb0npRgVZnSVHGg6Nc21Z7kJfGoas50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6w3Kc/V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dz3hcZcJ"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4954d383e64so30861675e9.1
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:31:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784734282; x=1785339082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:in-reply-to:references:from:subject:cc:to:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=EGApyBTE5b4jGTRLUHAvD3BADA1gtPfspkpd7xsnlDo=;
-        b=dz3hcZcJlg6klD3BkJ6FGqtn2AQrWF8ojoFfm+hmDvL9vskA4sG6VENrDkhXvmVSvz
-         dPekpiEYHEO6F0oimWMMeBUaSzuDA0khgM92+iM+O8lAv0oZ9FCxoRhVJR+OVugwHFhR
-         ZEZJG8izGAZXSGgyYCoDg00Fv97kr1yXX/NNkhGczYREwmMhn2rGzBoaEU5C5npDlMv3
-         vHUzP32/A/cNAbrcdLr5YYgvsqkdywK/EityFnmLVaU3HCeo81vFlmylgcA+cz9VCiJx
-         eisnMZ5EXwoMcvJPR+o05pBB7VD1IceQ30uoyqgXFgKaBMXw/kdm8ZfiNCl8uj8PlpiA
-         uJ2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784734282; x=1785339082;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:in-reply-to:references:from:subject:cc:to:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EGApyBTE5b4jGTRLUHAvD3BADA1gtPfspkpd7xsnlDo=;
-        b=ZjdfsO3u4vYkP9ck23bEjpHlam7Gpt/WT5L1YosEOdSyDbZwWysKtD6/6vhIcJs5JO
-         w4JtO+97GrDsEEnxB/Sdo/IlyLSJDMrbcnhMylIWY3/gSni5atsUP9t6uHSHVv8THB4p
-         SmiSjfyib6gpoLbbLRieonukAKl9MnH3n7Bo9yO6Xb+YaOiOrclCC6K+BMUyOH6qOeO4
-         0aqTUWPmfIIe5WnRHxFo5VuiTv6Q1MyxpbUw/E2+WbTtIzUx8D74973a+s7pBaSvGT1N
-         lqIzHx0wSn7GhCHwbcgLjuy9IAAt1iciLnl9Od+p+ROU8wVqSre1+VxySCECCTzzGC7i
-         s9nw==
-X-Forwarded-Encrypted: i=1; AHgh+RpOhbzA5pHiP0FE0gSf2okZWRHhGkLSf31U14CbWjbnhGrNh/e0fwpTGDgntcmlxPV+bELRgpI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YygKy2k5gFqpo5KCCa/IslDsOoExoUDwpm4Ezk4fPR41Q5q+p9U
-	wdS4O4J1njVWzIt9hhilhGjYxTokWQYCaC8Xi3i0sx0zUyxfhlIyVgE6
-X-Gm-Gg: AR+sD109Rp9hNdkMy58rPhG6by4momZDeB2LgRQRIs7phD9scT1TTxk3CcjwEm0pCxa
-	uvazYVC4dYTckke/paY2U/P0YDVrjlG/LiIYg9Kf1dgXJbmbwigx14aGgtwsMTOoDb6+kSq/Iu9
-	CKgULhrDKpafe5Ah1EpdrqX70cW5vSDr2rqhZHk2b6/B9f8HdoB8HM0vYZINVvkOZoB8G87AwHe
-	n35LaFyjDp653tlzp9o7QFJGkEurNtNEQ5so4YiMpcXH+cJQPVUUINPZdqvlBHM+BzuMI7t/CNC
-	HiN8oJJN8pyTTmN9lMckssNwEKnAXS5hqdLmd2EvxR10fp+FCGZV2iFAj/mMZ9DO4UxNMXVYhio
-	qtjUrrbgtRFBOtQHcg9MYklFXGUMUSm8nxes0vkJHBImWD2ZO1p7qz/zT3D5N7okx1X40pdlDhe
-	n+H0a1
-X-Received: by 2002:a05:600c:c84:b0:495:4491:b8c2 with SMTP id 5b1f17b1804b1-4954a3e6ed0mr255571095e9.3.1784734282446;
-        Wed, 22 Jul 2026 08:31:22 -0700 (PDT)
-Received: from localhost ([2a02:169:1e9:0:8f4d:9ee2:cc35:c67b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b021fa6sm51073175e9.2.2026.07.22.08.31.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 08:31:22 -0700 (PDT)
-Date: Wed, 22 Jul 2026 17:31:21 +0200
-To: Ibrahim Hashimov <security@auditcode.ai>
-Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] HID: nintendo: fix out-of-bounds read in
- joycon_ctlr_read_handler()
-From: "Silvan Jegen" <s.jegen@gmail.com>
-References: <20260715115253.91029-1-security@auditcode.ai>
-In-Reply-To: <20260715115253.91029-1-security@auditcode.ai>
-Message-Id: <1Z0LP5TPL7LU9.3C7JC6QACT6RW@homearch.localdomain>
-User-Agent: mblaze/1.4-3-ga04b747 (2026-07-03)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6w3Kc/V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225B51F000E9;
+	Wed, 22 Jul 2026 15:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784734444;
+	bh=Wj3iGHaFHk5cmK4MBcrZslWG7a1FtT47wL16Mc7fWzc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U6w3Kc/V9lFKzM7M50hu3gsJsv9eztCwL+e8kF0iB8S8EAeV/x7mU0Zhr/uDV5mcC
+	 ELIFTU80sM+NkKNmlcXWqx+QATpoHz9oqxOSfkKW4a+TVr5jx3HZ/xjGXbLMROIPkn
+	 iAUTBsFWceWqsbXVc+WVipoS7+7uQdPHfZeYkaWaGFSEj8uCZlXZMDI/eMONUMW10Y
+	 Qc/wi3D16ZDb6TXOk8TGOpFctCjVjtFYPSqkHc/7uwoc/TDguVKugQMAr2QeZdmIyo
+	 2ZPWWNLhxNpLHRI1UnOrPu1eV2o/QgoL/vK3qk7TgrM1Myl9ZIEVZdiDyOBONRHRa0
+	 eWkmyiT8/aEsw==
+Received: by venus (Postfix, from userid 1000)
+	id DD71218090F; Wed, 22 Jul 2026 17:34:01 +0200 (CEST)
+Date: Wed, 22 Jul 2026 17:34:01 +0200
+From: Sebastian Reichel <sre@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: "Dr. David Alan Gilbert" <dave@treblig.org>, 
+	jens.glathe@oldschoolsolutions.biz, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+Message-ID: <amDhpbdAElOpxW59@venus>
+References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
+ <al6-IyyWYRnEW4VC@venus>
+ <al-dJjzorP-I4Yff@gallifrey>
+ <al_0LjwmfW-cECnY@venus>
+ <f54271f1-477e-433f-9839-e1111898088f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3cqpbpihkikroulm"
+Content-Disposition: inline
+In-Reply-To: <f54271f1-477e-433f-9839-e1111898088f@oss.qualcomm.com>
+
+
+--3cqpbpihkikroulm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+MIME-Version: 1.0
 
-heyhey!
+Hi,
 
-Ibrahim Hashimov <security@auditcode.ai> wrote:
-> joycon_ctlr_read_handler() casts an incoming HID input report to
-> struct joycon_input_report and parses it, guarding the cast only with a
-> 12-byte length check:
+On Wed, Jul 22, 2026 at 10:27:57AM +0200, Konrad Dybcio wrote:
+> On 7/22/26 1:34 AM, Sebastian Reichel wrote:
+> > On Tue, Jul 21, 2026 at 04:24:06PM +0000, Dr. David Alan Gilbert wrote:
+> >> * Sebastian Reichel (sre@kernel.org) wrote:
+> >>> On Sat, Jul 18, 2026 at 07:06:28PM +0200, Jens Glathe via B4 Relay wr=
+ote:
+> >>>> On Qualcomm X1E80100 platforms (e.g. Lenovo ThinkPad T14s Gen 6)
+> >>>> using the Parade PS883x retimer, connecting USB4-capable docks such
+> >>>> as the Lenovo 40B0 via a regular Type-C cable (which forces the dock
+> >>>> into Type-C fallback mode) often results in working USB but no
+> >>>> DisplayPort output.
 >=20
-> 	if (size >=3D 12) /* make sure it contains the input report */
-> 		joycon_parse_report(ctlr, (struct joycon_input_report *)data);
+> [...]
 >=20
-> struct joycon_input_report is 49 bytes: a 13-byte header followed by a
-> union whose IMU arm is 36 bytes. For an IMU report joycon_parse_report()
-> -> joycon_parse_imu_report() walks that union (struct offsets 13..48),
-> so a report of exactly 12 bytes with data[0] =3D=3D JC_INPUT_IMU_DATA pas=
-ses
-> the guard yet is read up to 37 bytes past its declared length. The
-> over-read bytes are decoded into accelerometer/gyroscope values and
-> forwarded to userspace through the "(IMU)" input device, leaking
-> driver-internal memory. data[0] and size are fully controlled by a
-> malicious or spoofed Joy-Con/Pro Controller.
+> > AFAIK only Qcom and Apple M series support it. A quick search
+> > suggsts Apple used an Intel retimer in the past and a custom one
+> > nowadays. From the looks of it the x86 world cannot use this driver
+> > either and probably handles retimers transparently in ACPI, so it's
+> > effectively Qcom specific until other vendors start adding USB4
+> > support. The only thing announced potentially running into this
+> > would be the Nvidia RTX Spark, which first needs to be released,
+> > then find a bunch of people motivated to implement upstream support.
+> > Nothing with USB4 capabilities has been announced from Mediatek or
+> > Rockchip. So I wouldn't hold my breath for another user and still
+> > suggested adding the machine check instead of simply disabling USB4
+> > for everyone ;)
 >=20
-> Receive buffers are sized to the maximum report length, so this is an
-> over-read within the allocation rather than a slab OOB, but the decoded
-> bytes still reach userspace.
->=20
-> The sibling subcmd path in joycon_ctlr_handle_event() already bounds the
-> same cast correctly:
->=20
-> 	if (size < sizeof(struct joycon_input_report) ||
-> 	    data[0] !=3D JC_INPUT_SUBCMD_REPLY)
-> 		break;
->=20
-> Use the same sizeof(struct joycon_input_report) bound here.
->=20
-> Fixes: 2af16c1f846b ("HID: nintendo: add nintendo switch controller drive=
-r")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
-> ---
->  drivers/hid/hid-nintendo.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+> The PS883x is used on x86 machines too.
 
-This LGTM!
+In context of x86 I was more talking about the driver than the chip
+itself. The driver can only be loaded via DT. Any quirks and hacks
+in the driver are unrelevant if the driver is not used by a
+platform.
 
-Reviewed-by: Silvan Jegen <s.jegen@gmail.com>
+> Apart from I2C, it also ""speaks thunderbolt"" - the bus has a way
+> for retimers to enumerate and communicate with the routers
+> (controllers) through a sideband UART-like interface. But for
+> that, it still probably needs the platform firmware to program it
+> into the right mode over I2C, which Linux is unaware of (as it
+> effectively should be).
+>
+> FWIW, we do the same on X2. An MCU takes care of setting it up.
 
-Cheers,
-Silvan
+Thanks for the info.
 
->=20
-> diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
-> index e7302ec01ff1..11b5fe05acf4 100644
-> --- a/drivers/hid/hid-nintendo.c
-> +++ b/drivers/hid/hid-nintendo.c
-> @@ -2607,7 +2607,12 @@ static int joycon_ctlr_read_handler(struct joycon_=
-ctlr *ctlr, u8 *data,
->  {
->  	if (data[0] =3D=3D JC_INPUT_SUBCMD_REPLY || data[0] =3D=3D JC_INPUT_IMU=
-_DATA ||
->  	    data[0] =3D=3D JC_INPUT_MCU_DATA) {
-> -		if (size >=3D 12) /* make sure it contains the input report */
-> +		/*
-> +		 * The whole struct is cast and parsed below, including the
-> +		 * IMU/subcmd union, not just the 12-byte partial header this
-> +		 * used to check for.
-> +		 */
-> +		if (size >=3D sizeof(struct joycon_input_report))
->  			joycon_parse_report(ctlr,
->  					    (struct joycon_input_report *)data);
->  	}
+Greetings,
 
+-- Sebastian
 
+--3cqpbpihkikroulm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpg4uIACgkQ2O7X88g7
++pqwzA//fhMItCy0gKdoT+UnjnJFPyhQ7Qe4Dg9P0nmUtG+6mGJv+9aKsN1SFePx
+tq+fqwvINni30JUwMfPPm8elmiUS4Y1zFyRD8FuqNxNZ4zypuQUr+wAAqNMgwhMU
+wj7v6Uo6uHLoMD6iStedRHhu6YE3FBKqW2RJf83ng2tsTPX7BNPm7RLsTB4bvnUh
+UO8VnpaHBFTQy2p7YknjRF/wQq2FafqONB6Q9x6H4AnGvA2CcTVguLU2rUuGr508
+jHiLdoyPlBQm45aUAc5xRaDNunoqYvYvcrHbwthiMGvHvuG66POUWxzjmdE1Q71X
+AvmPhezLYh5Z6I+ivrYGoB1CYWALZh7Ggs9r93bCroC4AJBIq/ZiohZ+aM+kzXJE
+43SwtpKkMMK4TruD5A2W2+f6aL2edo+vOvyKCmHLvCykWvR2MUXaFvvGomEIRpzE
+jgfELAWigx94VsJkK5TBTKQ9Gg2ShJexKE0fqj1JDpHVh/v30ATyUL53CZMvCL8b
+Zhd8alUJQDvKb6rPm6t71VBJnLm8UKKiN8nDuRvHa5cWVrvA2mF0jN4kMMmhZfsf
+2WzjXjDx2HpYcZBtDO9lEsdtaDT1S5oid7wh7LXnxeqdJSeUblVTNploMTACIA4K
+kFclFiyAvHbEg5oVUPJgc8fP5Yl4YQx+3ul6IPuSEn7BGMSu+IE=
+=ZoIQ
+-----END PGP SIGNATURE-----
+
+--3cqpbpihkikroulm--
