@@ -1,121 +1,122 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5869447DD42;
-	Wed, 22 Jul 2026 09:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46234233D9E
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 09:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784713131; cv=none; b=AXm5hANNEqaPwRtX3b7+3HnQhg0e63ipW6OYweNTvyBaNavin0/dGRdj1vc5SDQUHo0/otzAKqQHhTiiTtAWR/OPSdy0WeF4UiI7OBAX6JA9fst7NaIBkP9R6XR9rn07QyZDZ+7SXTGtudN+vxbTIROIxp0aPlLRP9y8BKHFGa8=
+	t=1784713228; cv=none; b=ObPQXcQj4NaNDx0Jqgr3KJai0JAbd0+YPLLIsRbq5QWFMbO+eAXkyNzigGyiBk3x7LsthmDHgZVN2IjlSsqn3SFAFzXknbE4+GdLd2gCceZJUBfo96N9URCkAxUzbwxaj3P5Lxk1CRRpscwnkGQ6phU5o8PQKATaID0Gq+n+JFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784713131; c=relaxed/simple;
-	bh=9+5puAjZdwGp4Kyus6+xo36McxelBeom4xWvgQ/KYcA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZAAY5VlKbKR7LS+IqsgM8TpDuOZSkF/i97SH3MHQni0Q2x4l1Css9V3iUSGGffE7deU+esnz6zmXoBbf8FEb11O+ZkaDHhfW8JyYEottrILLUqr1fIjoJhN1Mpqo4PZ9NQc4yISTgW8/fJ/h9aYuwUlHGtX7/wXRQL5yUHF44sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oHIoBrlk; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1784713228; c=relaxed/simple;
+	bh=vhci1phfR/gQYv5BdXq+QvipfB5TklR24VhI4iF7TW4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WNSjy+CQuHp1W6IIobYrs4E7WFbahw6RbhsFjiRMQLy7GT54XrpoV7E1fnFGChnZALIm1LnIYMfogeI/DHUhVjerWOXND1Wr1HOC2mgihxUYNDSclKC1ni4HX5NHGn+Xr5+VdeOODXH1mukgIPGfaNmI9v7Kez76rER6wm3+7Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=LwGqQnEB; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oHIoBrlk"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C3F51691;
-	Wed, 22 Jul 2026 02:38:44 -0700 (PDT)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.1.39.91])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A32913F86F;
-	Wed, 22 Jul 2026 02:38:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1784713128; bh=9+5puAjZdwGp4Kyus6+xo36McxelBeom4xWvgQ/KYcA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=oHIoBrlkFLSP5I3dg+0Kwv6dkjRqUiWknXqNSz3LrNNvXekPLucVwRFkd+Nk4ZDFD
-	 f0gDENWATcCrabMHrC6UXy2Ypo27yA3KPvIuDjG9WT2fcLOM8RCMxMNT7qo/DGRwtf
-	 Wf3kHzt5kl3+Mi4/rCHLcBoz5rZPSdR5M84vuVb8=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Len Brown <lenb@kernel.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Lifeng Zheng <zhenglifeng1@huawei.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] cpufreq: cppc: Sanitize lockless policy limit snapshots
-Date: Wed, 22 Jul 2026 10:38:25 +0100
-Message-Id: <20260722093825.1030594-3-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260722093825.1030594-1-christian.loehle@arm.com>
-References: <20260722093825.1030594-1-christian.loehle@arm.com>
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="LwGqQnEB"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49558ce01afso28572485e9.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 02:40:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blackwall.org; s=google; t=1784713224; x=1785318024; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/L6NTVNwGfeSnnznXMeM0W98zdRXLB4Fnd/478hPd70=;
+        b=LwGqQnEBs2pgLmXt1p1o9MEjLxTVeGg5quuIiyE9OmVMnjmzu6O4PR51QAUacVLMhv
+         zt2jfYqyq3iEB7+7CbiUuPVlSeKNabMGufcoq/phrB/ZoGtlCUUSq8EuGyLtYupXfoRM
+         Vis2QS3oCYpQB9N4WdqqMoRIzftVLYdj+UYs4JWaosliJrIWlWfjWckgulaxB3pmHdeO
+         msiwAMfJ/c7xWo6KFhiEoRJ8oWDOe2ao3CndNKI7sSMO6E5WJcNGRAtR6stE6zzU6lKB
+         PYwB9NwZBCBJo6lBsr6/pKN5dKWIjFSwyrTZIqA65QLhGDoj83q8JbjEOdJoy4i/IuFT
+         gGdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784713224; x=1785318024;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/L6NTVNwGfeSnnznXMeM0W98zdRXLB4Fnd/478hPd70=;
+        b=k4cfuxvep/vpaZHMpzGqxJL8hA0+kzw6xn+uMX3cbkYSBfFRQrKrmoTWX803xpzTPM
+         aZjVWKQb9JPIA2X3yBUlqNxwKHH/FjnJtuwV+VDaC9aTehALhavCtQ7t0R3T5mtGpfPr
+         HjguottYd7ZbcKD3v9s+tsL5apy7AGHKlmHAHc6mmCQjCTxyLf9k7GgnZ+VqLLPs6vzl
+         Pvlqyr5q5stiZtS+1UMRcq/r8hKB/IuddmTZnHYJNdrPeR10aMKS/lv6Q2T0J9KZUSym
+         o60rWExEYq68T+MXr178hs41BUTCoScSVJmfeOc+oX3PDoaAIs2tgN2KFj8099xmn6pj
+         h0yA==
+X-Gm-Message-State: AOJu0YzUhB9adSFiJ3cQ+gx+l5A0MRbvS9/eBiJa1aKTf1p0S6KCXJ7e
+	HNfs63slKIMU4QoN1v8IhXtXr849nBl0hhBz0kZHfO/0t1kCz2L47bfq4SGlYl4fy4w=
+X-Gm-Gg: AR+sD10MmiVyN5CDtxNRmr1IeA1RPBx9MHa5u5kn5szZqpmvHnH9AZQ70czvtyJBiA6
+	Nx8MDZs4DI0ptz8Yyg92QZr/YK6v1xApJiIuXzkMz+MiI7ot8R3V6V8WkrEbNwqmN0ZWrxOOoWK
+	+nyv0HRVKgbrgYwqPSBJeguHVvpjWANTETinRKj/EnHKh5SkjOK5uAbNPlImixWhHQeFxcKEm5A
+	VV/JhGmnhok8GKRq+fRZtl7kuTpw+LFr0b2uJkVRl0HkkUGUNFYgbNgYWHDrnyK8XHMarzd24iN
+	LzzczEtO61nwcXFzuCh33Ol+I6Yj5ufeGhlfJ88uK/EXPsGhWqUgYw/ldm3S6FnMTiI0dhLROqP
+	N9h+LyaBN7l3T3jZKwg4x7Yxa1KARd5tYr4do50lUx1E4a5ATcs7OLXqQiOB+SaPe1h3C8PabNH
+	I2snQY2/1YHyVSAUyuYvVAxdM7blKuySdP
+X-Received: by 2002:a05:600c:5489:b0:495:6f6b:2520 with SMTP id 5b1f17b1804b1-4956f6b2525mr4900225e9.18.1784713223876;
+        Wed, 22 Jul 2026 02:40:23 -0700 (PDT)
+Received: from [192.168.0.161] (78-154-15-182.ip.btc-net.bg. [78.154.15.182])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956b03a93csm37801065e9.4.2026.07.22.02.40.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Jul 2026 02:40:23 -0700 (PDT)
+Message-ID: <4c48f12f-abca-4917-a711-7975ea9df235@blackwall.org>
+Date: Wed, 22 Jul 2026 12:40:22 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] vxlan: mdb: Fix source list corruption on a failed
+ replace
+Content-Language: en-US, bg
+To: James Raphael Tiovalen <jamestiotio@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, Kees Cook <kees@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, linux-kernel@vger.kernel.org
+References: <20260720160428.249356-1-jamestiotio@gmail.com>
+From: Nikolay Aleksandrov <razor@blackwall.org>
+In-Reply-To: <20260720160428.249356-1-jamestiotio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-cppc_cpufreq_update_perf_limits() reads policy->min and policy->max
-without holding the policy lock. The cpufreq core updates those fields
-with separate stores, so a reader can observe the old minimum together
-with the new maximum and construct MIN_PERF greater than MAX_PERF.
+On 20/07/2026 19:04, James Raphael Tiovalen wrote:
+> When replacing the source list of an MDB remote entry, all existing
+> sources are first marked for deletion and vxlan_mdb_remote_srcs_add()
+> is then called to add the new source list. Sources present in the new
+> list have their deletion mark cleared, and any sources left marked
+> afterwards are removed.
+> 
+> If vxlan_mdb_remote_srcs_add() fails partway through, its error path
+> deletes all entries on the remote's source list. That rollback is only
+> correct for its other caller, vxlan_mdb_remote_add(), where the remote
+> was just allocated and the list contains solely entries added during
+> the call. On the replace path the list also holds pre-existing sources,
+> so a failed replace tears them down together with their (S, G)
+> forwarding entries instead of leaving the entry unchanged.
+> 
+> This is reachable from an existing (*, G) remote. An EXCLUDE filter
+> that loses sources starts forwarding traffic that should be blocked,
+> while an INCLUDE filter that loses sources drops traffic that should be
+> forwarded.
+> 
+> Mark entries created during the current pass with a new
+> VXLAN_SGRP_F_NEW flag. On failure, delete only those entries and clear
+> the deletion mark on the pre-existing ones, so a failed replace leaves
+> the source list untouched. Retain the flag until the whole operation
+> succeeds and then clear it. Also stop vxlan_mdb_remote_src_add() from
+> deleting a pre-existing entry it only looked up when adding that
+> entry's forwarding entry fails.
+> 
+> Fixes: a3a48de5eade ("vxlan: mdb: Add MDB control path support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Raphael Tiovalen <jamestiotio@gmail.com>
+> ---
+>   drivers/net/vxlan/vxlan_mdb.c | 30 ++++++++++++++++++------------
+>   1 file changed, 18 insertions(+), 12 deletions(-)
+> 
 
-Read both fields once and, if the lockless snapshot is inconsistent,
-reduce the minimum to the observed maximum. This matches the conservative
-correction used by cpufreq_driver_resolve_freq() and ensures that CPPC
-never receives an inverted limit pair.
-
-Fixes: ea3db45ae476 ("cpufreq: cppc: Update MIN_PERF/MAX_PERF in target callbacks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- drivers/cpufreq/cppc_cpufreq.c | 31 ++++++++++++++++++++++---------
- 1 file changed, 22 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index b943bf78d3f5..6fe0e972952a 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -290,19 +290,32 @@ static inline void cppc_freq_invariance_exit(void)
- }
- #endif /* CONFIG_ACPI_CPPC_CPUFREQ_FIE */
- 
--static void cppc_cpufreq_update_perf_limits(struct cppc_cpudata *cpu_data,
--					    struct cpufreq_policy *policy)
-+static void cppc_cpufreq_get_perf_limits(struct cppc_cpudata *cpu_data,
-+					 struct cpufreq_policy *policy,
-+					 u32 *min_perf, u32 *max_perf)
- {
- 	struct cppc_perf_caps *caps = &cpu_data->perf_caps;
--	u32 min_perf, max_perf;
-+	unsigned int min_freq, max_freq;
-+	u32 min, max;
-+
-+	min_freq = READ_ONCE(policy->min);
-+	max_freq = READ_ONCE(policy->max);
-+	if (unlikely(min_freq > max_freq))
-+		min_freq = max_freq;
-+
-+	min = cppc_khz_to_perf(caps, min_freq);
-+	max = cppc_khz_to_perf(caps, max_freq);
- 
--	min_perf = cppc_khz_to_perf(caps, policy->min);
--	max_perf = cppc_khz_to_perf(caps, policy->max);
-+	*min_perf = clamp_t(u32, min, caps->lowest_perf, caps->highest_perf);
-+	*max_perf = clamp_t(u32, max, caps->lowest_perf, caps->highest_perf);
-+}
- 
--	cpu_data->perf_ctrls.min_perf =
--		clamp_t(u32, min_perf, caps->lowest_perf, caps->highest_perf);
--	cpu_data->perf_ctrls.max_perf =
--		clamp_t(u32, max_perf, caps->lowest_perf, caps->highest_perf);
-+static void cppc_cpufreq_update_perf_limits(struct cppc_cpudata *cpu_data,
-+					    struct cpufreq_policy *policy)
-+{
-+	cppc_cpufreq_get_perf_limits(cpu_data, policy,
-+				     &cpu_data->perf_ctrls.min_perf,
-+				     &cpu_data->perf_ctrls.max_perf);
- }
- 
- static int cppc_cpufreq_set_target(struct cpufreq_policy *policy,
--- 
-2.34.1
-
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
