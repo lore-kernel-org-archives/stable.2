@@ -1,155 +1,218 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747AE33BBAD;
-	Wed, 22 Jul 2026 14:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494D737BE71
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 15:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784731935; cv=none; b=duqhNlLgtTnF2XipHWBYJkTJTDKP+5rFtezC/FZTA/1wu5HVkIDWR4EZZ+Y54HNDL+ycAJI7x4VZcp1v2Uw33EYl+mcKzoLsE+awKWiWWXmobd0WUO9DOhJpI1jVMQXtrVQ2fRBKXxj6cNDFPuca+DyWB9nMxTrQhrxF8tGAdio=
+	t=1784732426; cv=none; b=XFmVkyvpGPFpCexBdIb4knwndwnotkQjUjLNbQmKo6RJ0qtahfZKdhi5bLTVgD32QfW9MDNuyuLfrIgp0WQr4L4reo9o70gJiI3XIOqKSj6YO0/Eafj8yaOnIUVCHB9cl6o26PAsrG3k/aC1OlOqPQ5cCU9qjjIehK2jk+2mQh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784731935; c=relaxed/simple;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nEsDG1TJiAxpw9Xfv496D6dKVmDO644RxQPpDrw91PgWXAjqPetbX0O2Ke+Gmf9xM9Hld/Klyv2UY3YMyExvHNEwV9IBsg0KS3Uc6Rexsq70EtI+a5uAokLszbHMF/jBsE19n6hdmIjIpwFAnY52ACls7Q6vERMzCQVtwW6MDo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=VIklC6AD; arc=none smtp.client-ip=212.227.17.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1784732426; c=relaxed/simple;
+	bh=QKg5YGY/yCLwZN3vmT5c5UttyqkYjSANMRTryN3kfVI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uT4b2OyrJOWJJjm/FUu1Bdkc30E+ZxYuyLuHeYjT624GJ8ezhdVEMGkm6SXRWMhVpXbsobLj6wSms83/fgWg63aot9LeJ6V6UDggMsQTBtQgj53OQf0gV7DaFIvMOmaIfBbFhIdU7NwP4miJXT+wu7+VKvm29pLWaDt5MRKGsKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=YquYS/A8; arc=none smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="VIklC6AD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1784731917; x=1785336717; i=rwarsow@gmx.de;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=VIklC6ADQ4kNCJ/qoBEr9uC1xQS9ZpwF7l3vyGk4vwfBEapeOaQmBzmTQxWHAkaj
-	 ctEUa1+3UomFcZp4HphAtj65qDWvQK2v6SvGeR6lipY+ZnWzV1O2Rf0iSHIrJ1taO
-	 hkG7q3sSfWxu/j1tLURyhAq+5UMUvCdiqyF/GXNqW+FGHvK3c9k8IIBK6Mj7ptUye
-	 WWDGyh3fysSQSgscg5cIGZefodeDfsnKnA6kMYqldKcQEJzFx1gc4kkJWSMxWleE0
-	 cRQBx/vEgo+FfJ0NpLW+44lxA0RanSHT6ceTYthThAR6u9l48STvKWvF3pUB2++d5
-	 bZ8bJAbAOkVrTPkvsQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MGhuU-1wiipL0jZ4-00H4YX; Wed, 22
- Jul 2026 16:51:57 +0200
-Message-ID: <8cae785e-2331-434f-89d6-d8ddaaf4795f@gmx.de>
-Date: Wed, 22 Jul 2026 16:51:55 +0200
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="YquYS/A8"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8efb708b1a0so124735146d6.3
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 08:00:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1784732422; x=1785337222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ssUPrZXhmKEtcaomL/NSzb6q5Qkj8exc1H0XDUvt4yE=;
+        b=YquYS/A81i4NStxAz2sixHxEV0vy/5FSbqv9AzkNe9wO41B/Q14lKBPu5zR6toHgVl
+         dcLMhkU/wYun0sQKnBOSM3sSiz7G1NBONgJZDRdueIaC43Qir3PZj6ZEdk6lDW26IETh
+         WltWVga59seLsifIWTqK6+yHhMBVRqaZbGjEhWaQmIjh4Z/sMTjlr3wdCcirq4JOPlkW
+         A+4lye9IOCWnVYAs/4hfhEZcOd6E9QnmF5K4ddc7Unr2wfA8ezMpg6LU+sh1pFVEoFlG
+         oE4/HiAFPIb+InIxP9GKbEr3fKNaJxemnET9GMMJdHDGE8Ht4aflCjPF/OEbL5zcAGCB
+         E0Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784732422; x=1785337222;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ssUPrZXhmKEtcaomL/NSzb6q5Qkj8exc1H0XDUvt4yE=;
+        b=kbir4yMsv1ZSrSDoXS/4qaZGJL8rljvrD01Ce5akKhGUV9xYlrbR1QIs5MC+BTOETq
+         PHAvqbdeVlD8fGYuG6pyyFRppyrMtWH2NgS1AC7CM2JpdDvOWlY20dKJx9GgD0rCHlg9
+         7J5Bvliv+3Tezz6OC4gm970e5FJMzZ0DdW8xs191JLRSMMDj9IIYquRyRbZMnT/2ttDm
+         gunVRu8022qdEzna5EpHEJxh+/CSEMZtPQXlvAl7ImlLkswgwlY8GmpNKztNgHqF35vd
+         FVIs8/vuIdhWUGG50UpNZnfTFysyOdbj3JBt/MbnFkt6GtFHZKRQGOQh20m59V3FAb2P
+         pgqA==
+X-Forwarded-Encrypted: i=1; AHgh+RpSkGpCHBhQbvnO2nZWWmLLLCDUZKQChtc45EP4MmtcRFUExPB/T5H/tq7z3ZGjrcBZrsR05bM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8iuXmMRCsgOW3NEk9AFPNDl899NNlq65inHOnE2DKvVyZZMCK
+	58rE8lVLkKeN0NZVBFlaSmtJLv54pLBha19FTbC3waei6QNVVxsiz/vt/t0d6MzihKk=
+X-Gm-Gg: AR+sD10cBOGls27oRRKUPEFykiixpBjDUx1nZzHc3CfqRJRazsQuHamb45CQ4uvf7ZS
+	jt4As1n7eEiqkbdy/bBxIMmERCrAI/tD3peOKTD2Z+59S9Pp56D4ejonnwx43HjqOvzDT1PyaYo
+	oZ+gsHCSEGu0EG/aJmDv0RHhSmwewEHJ6LyWbNzntIbGwekTHqzhVEbB6hgJV7wr+dqFeDriw3T
+	9bK07MPsg6LwL2pHutnly0OhDcDJ6S8kcI1P2NoIEUgzUEvg7ivO86W3T7rsUrBb7lMuBqP9fvH
+	sS+7t8QriY+qvap5siESjtWJ7qj3Qqz/2UvbWy3gm0eyLFuKsHAzf2dHM4tcQ8LmzpgQck1N6jA
+	G4JOfHVqZayc1Eb5kdUNubiB9YztHBgsHAE5eBYHLro50bgdjS2rDXUli4Q7qY6LANx2pfuGIYH
+	cz
+X-Received: by 2002:a05:6214:3912:b0:8f1:323a:eede with SMTP id 6a1803df08f44-9077835ab03mr252766896d6.14.1784732418083;
+        Wed, 22 Jul 2026 08:00:18 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907baa0a146sm22359506d6.33.2026.07.22.08.00.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 08:00:17 -0700 (PDT)
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <jackmanb@google.com>,
+	Zi Yan <ziy@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in defrag_mode
+Date: Wed, 22 Jul 2026 10:56:47 -0400
+Message-ID: <20260722150006.3848560-5-hannes@cmpxchg.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260722150006.3848560-1-hannes@cmpxchg.org>
+References: <20260722150006.3848560-1-hannes@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 0000/2079] 7.1.5-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260722142947.085426486@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260722142947.085426486@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:kD+P3Ba1EN0UfohW4W+d1U0dd/EWF+c8Q7AX9DLB5Edffyolshb
- FfTNdVIbcEvUDfG+Xvg0TcS27iYeaaZ1QvhVWbBHZtWFSHepECjTJy1GFF56r4F9y5SQ2df
- 6RAHNezY9KpkGKh/QjeV2pfHlYMwdvr/rzAtEpERZLCKeTo56n+RzQ/RNIY+UhtBu4kS/Hv
- XCLttPv/2U2F3k7T71WQg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:JvtODYpbKzE=;BFu+F3d6AZqfdst6BqUgcB7/1vQ
- xR0nBn2AJ8qzwRpH5tArzEvkYUpGA+aKstkloJDF+fWXvAbSWnPwiscKHQOmnOJdw6krNQGt4
- 039UJt0zOd+wq8wGR7JFe9kURcS/iEJQrPLCC8FZWIXVnSh/tTDFTD5WT7ZO8j7etpumkHxTp
- diDUVjQicQeY7yxJ2JiPn+bOX7VWo1OeM5+le0bw3J41lGIU7O/KM9232QGqMFLQWCA9Q6H0J
- FSMEd4F8NlhYwrNV2ngfcbmbT/JjoxLahyF5Wra7GFV8dtB5ilXHA4id6KtOKf0NXeiModgrW
- DPOiyeMUGDULeNcEdzW5q/F4X7dHFOW0LiQWvrh6t28ziqcj0QzN50/Tg9L1pGBxYq82myIuJ
- Wvjvng/pEtUc8V/uGQ3h2cmfMeoxaT1gKxX/ZXTiOWFhucovhlfBmwLeEZXoCVFdUvPQnr2Md
- EggMFMnMS+HDSTH6+qeNNE9biUcNSZUgacSj4OH3YZQOJs7a6GW3CXPkW8u2LPArOxhihXBcL
- vFnEC3Qaq8UO4VGhqU1xh65krOR8EDdlKt9EoqJaIkgD2wPbUIo/HYn81gx7bvM6Hjt4E10Ts
- /GMLfCafnNMGjoUUghGHSHqqAC6L34h9XHNnaaAl44+I0OghLFSW9nTMhAOzVPaXp7hhGLCDY
- f3gHTI6TlxIcGhTWeDw6Q6tcdPy61N7uocKQwFf00Lss9sW7+Nb5KQiT9Omm43soq2RtA5iSl
- 56quFaW2lcx26o0iSALTgj3oLvKVQc/1cyXtHIOU/F0c1nUexFlHknDpN4ka+AFP+jji2zLwM
- MIHOsIr8t4HjnwLqKeigeIuU4FKPwjjvCWJBIDKJLyByrut7YB+DgetCUToXObRk4OptJowRH
- lZfaiqk/+tN/ChcjRMx712v7LP5uN6v7++nBFmIub5aIMQjsHw0mQGhYiPVTWyDHjI+UmYVza
- 0BmoqXaGdl7ygJuG9lA4a/CpFolE6KlSDwnnk2N+V2Zxjrm6VA/yCEi+1qlVdpa4zhy6umlk2
- MCJcSAqZZmL9PFGs9SDe8p3FiskcNqhfZKcGtIXsIKwVeuqwHDoWRD/rKQcBvRI9KNvwLccv1
- KFCyPfT9KFNyWRgwqvz8WosAcmysh9oFR5kIEeNCaZid/zVxt4qjE3JLHZOVk4O07c1uLsHam
- EO01J/5CjPWS6e69bOeTcPZ0HDBUtIUsLJYEv30m1HKC7JP7dbOOIgzxAc4Thf/PIUtn+6IjX
- BKElePgL29nwEoC+0Q4lmUlauWzX6P+Z+16vqWgwINlGX2edl2MobH6mIpU3ec0A5y5XXK91O
- NhiBWtw9xr7UHnHCiLi+hkb2YBfJOYF6EP0e6eExXnmYB3TxPoWSI1ep7pC6DRd6PzeeWFF/F
- C/GwvLlVLi4nJckYs8dQ53GULeLAuXbgoU4cLVOMzLU2aKaTHyLVsQqhbgxx7UjSBGreb0049
- B0qoqIrGLW2rUcldjlT4cshQXJMOHwFsE2kMiBMfQqjIqe5OnvOVIluUVdLE2umKF/o+cmoiv
- tSSpJt0hkWXyyjU38Qm2c5z0LFv2wLBzxjXt/mh+lNumJb4ftE5g80L6PNKNWGObEYU5VBSs4
- IBU0qMJgT1lWLIQH99+ZW1kbZ6uzPXxZqBcQfpnmBjkBdUFSaUGrc9/UWCG0BG5MM19MpNuUv
- c/kC93x9M85yoIEh4xVMy8p+QX9nNZzOpHEa2RowZEy8vz9NRN6rDA4Nclj7gjgFUkE5Zahwz
- nDGUXbHxkcs+gOaqfUuPKIdP+GcRlwPK07tU03kn0fY09jcvEhPtJlgTrg5LzNhJ5I8dQz/Bz
- bRUoGCrY6KZNeScKZpSqnNlE2w75IkusjeuyK0a7sHutusuCuEyq4M7tPQME3gpHgosSwBdlf
- 1TuyRWR+YAjZSIW2R3YfAJeOMDY2UfRr4WEughVl9l2Jx3HB0uP8Cy/+9sifYQYkjrChzJ/eB
- VACUUu4oNEhhsLlADR0cHwWgtLu3tFe12nZ7B3nRAtwzwzwDAa4CnnhEFqsLUT0dMDJ1KfN4h
- k6m+A1gWS8ksDTG1njm9eha5Dj6yvqMmbVanaxkrz9BgNuJD+3qJgWsTYNPBAjYX2XNszCdUQ
- DDsv+qPkzwemfQnGcgf2D4EpoCf9yk0OfI8KqdOGYgC2IimHQEX2o/MDjXpoczYzxqQiT6EN9
- qgR+v/hFn0Qsi4pAQcGBkDd3GWRTtAYalcNvcmbhy5XzValvjvFKefphztb4v48+rIsCtk2Oj
- IqY1Ot/92XEa5jH72/lyvg0XyFejVqTh1MU6yuF9ZxjLE2DwiUyS2Xw3ZIbZMJzi1gv52eR/9
- JnLcMgajigPzmiIIO+noLzM4LQ87LVjVD3HX/Swc9KsqtYUgDxmpeo9zU1Adrxyl0X+hcetoq
- 4U/Aia+IymnMNUtFgBWGkRdvKP6GBdVpd6LnTwEkcBwINmI6FtfZBw3hsE790XiwecnOYoN/a
- ZxOlQmVbhjMlbDfPvbAZV/q7W4u155qkgA66jCc5dlxwMGwnggOQ98dJhoI22oRNSjYDCbaCh
- ZUKkNowSzUh5j+SlmO5AVfz8ke6r380x4XhQpZSVKvi2ZOagZlB5z9OHv0G5uztBQ4b40a/XD
- kxrzAJ8/rfvkJswIgoJItCp5qBSIHmu7SKf3joW1qW6fdtwOc8gQ30ML6G0fnZeasX5q1PQau
- Mxr62xTVJkT7iY7pJ/X5s8BYtvWjsVLn1Y1rWBEmMa/Dsc1zCfiR4IJ29QAsnk+WWiybViFIs
- gAlvY3CG51bmXEvCXiBev7QnVXDxxOU0AdPtD3n4OtbIZVn9WNLDGI0W4I9ezHZZpo88OCBJ+
- BRqEhwMow5+KM/43nG+pd3SXphUaamLRyJutyYL35H/HJHzp1SzL1cwUkm9ADNjRqHbGuNdA8
- XiMljIvlcKll9znP4VZQgCMFKOU4xM5zfplofSIEMkoxx4j5lM2Vr4OhKjNjNcjq9xDo3ZX3K
- SWEU1lDNapR113cPxrvphKOwRjX0IH0VqLtL0um8+Hv7aAtbmUxNXc4nIdUMPOWH7cFOkaazI
- 3m4poVuHZ1+kO0VMUrFyX5nydyxLnX904MAtbKwG+p2LOi4jIChqzz7PuNO0qoCf+XoRg7KlM
- x4kdFxfrOeEGdyHKBC0VgALo9RBOuGLKSCFvG1/dfKcfyAuL0rYia2HZC3K7IYnkSO9dxb0kL
- bPIuwTbwfRxFkQhDJgm2mA4WJTuEFfMGnjPxhHmbrvMTz7SyV+UB7MSQaSEl5VCckEI5nAn4I
- I4gXicFka4M7GUY7FHO11UDICDVwh+RXbJVfLMla0wy02szbbcV3LGtYjbf/BXmtLjWPTo6VB
- fwU8ppoXEXOZXSPiBnRtHBkOgWpuSKYHhxVeH8yvrLtaCHxNTroNXGZQquxXKnAfbRT9jQPLN
- yJ7qKqsNsQHRTHqGSk9Gbl1TsmrBiPnfnjbyKqinpbpwKRgf/FFT7FJeNEsvjj/dLvcO/8k3x
- wWIXHHTP8Xf/HXRf1y+fhfPlnn92GeXl3piOHbBwJO/f0SWBsR6xL82wQSVnc84MNX8alLn66
- RDsTEIEbT3l3WX7lXVZt8OPGFzIjlbj+AV4zPZSEb+7Czt49fYn2sNIibr0tpKrELMyuWO3as
- UMxN5B590wgW6xaExo8ERg2IvO6ihyuCOcyqMHGI8gYO25wgpUmv4+0hJDbtUU0nJtowD8os2
- XX4KpbnJ9Yby2qmkuNzIp6QPiCiXsEq0TXYoO+lviuD2RyUicGySP1WctHHFl2AIum9cj2y1R
- aWIgp/vwboHwHcuR1fbBMyEXnnwROe0UqYT8KS2UH/bvzjHPMf3w6si+ST62xsX4+1iPAxmfx
- b7POC92HS+SG5tt6QQYtGi+tSGd6cEJkAeGbiR9fC+u4/IX7Bf2RsVfJDWahNYQEygs+lURP5
- BplrWRJwxxYsLpG45aBJZPFKnTV7Vqz/jT0EpHjnmEiitY3u6lxhgKxaq9ysu5Ro38t/dBDjc
- eP/da3yB7P9I3CdHX1aLV81+n8IrPEGgVuw7SyXskiDPsMar3mlPKPLiVKTlZlyfApf+VnSQp
- zppDDmjaFcNGD+8naPlTTYIbFJJeZxQATqmF+xO93OcqX4x0D7BzgLFGknO6bNGQrWM/l+TRJ
- jiGJNL84TENK+kTMTrKEDvcj4933mXW+fZII1EotnJSFRXhDSYH89CbdseIXj95zFJ1BfHdQ8
- oaH8dlZN7uy+S7ghoB30at/OVLOyX2oO9d/nD41+oiS4zqnzzIuJD1c2+jUbzHNTS2dpwal21
- IkKmimRe3PIdhoSjM92mq3WzRlhknvLGyn4pv4X50uU8zIJyFWOY6TEvHh9XZIxQCYUEp/cVT
- G/+IdnaEez3t+p8PKRgZdbPwtXQn0ywlEoA7v8FhixPcGTtVaLj6AEOZIktJCAkkJALxeE3zZ
- pEy9frbKyMprkLWZDa5unmgApN648qUV4EduRXwk9bTdSyBpKSsb/CnJg0OnILr3S5hIWDNZB
- zXhez5kLyasYbFd/Ezk/xqkqVCiYqOI9gToeZ+SJ4cT2X3mo0yrTOMsEsa0WH/8/eSFj4wml6
- EjV3VHRcdFxYvwRqGCpljptZmeKqNPPa7ou4gawUHyAXE0tvCDsPuE/yBEoYP1M+eo+OXJdnB
- RSM1oGozzG/vvNy6nL6UDYnb7symMBpr8JoBPBljFvP9UuwOJCJ6AvgJPqR1WyWeRx5f/s04p
- 9h4K5oupiQWyhgK4T4qP1S89DamKn6bpL7HkFjWV5AHeSp6g42rLbJdguJeDvhOrGXcU9Usf5
- XdIpUxzV6wGJA09hlOcbCQ+MDd0qrGw5BqyGARWl7pcUD6eKsDYPGzF/ZnUIi+sLTOsuOwUSM
- cQtkm7RGvIT4TZ+WZ8PfD6c7ppTkpOu9Dg+8q1fzQAX3g5BRDCahYcxOndvhpK2uVe0F1DbCw
- 07JsKcuCjJiJRRIMDdVf7HWurmUoShvcx2Y8il1Cb31SoTFQh8GTHk5fS84uwLU5wRdEMOaU4
- WuXhDEKEGZqwkxjoGkvEnoHiycwV5/H0S0iPP7IsJhWdbRLH2635xk+L1GpOn+Y0H3RiTpeHc
- /xp3/5L7Hms4jO3eZ3SFeCHgB5rtNRBiupE7NS5ljmA4gUBgXgOmoJhWRakVg3YQbf9pgaHh4
- byv6igrgXZ/FNKoYBV+++0aGBw3X6MxEUWhXzO4sXTwieflHPA5bBd5TCvxscUnvATAGKhTAY
- IMbUZML5ks1Ro+Jba/bIZsuo02e11ckzkyXz6GTOB7ld3ZTIWAzgM5SqQDBJAGMiVlW7hXRQn
- u4S8PaaIUg50u5D75xiYZChTStxrDrQFdT95yJxxvHXG9la9DLdVidHD129hp+5PsMNyvk0vk
- uLCmjRjM2TsurTmnO00N2PIjrQsqE2N79ZdYdqhRscOwwUlvB4C0KuPx7s1Fcw8qf8/W7Oadi
- bgCGVXCPodDPcbg0EL3z+yWvhYwEw7E/9LRxzBRKLuX149tTh7I2YE2AzmwyoFZOP9ZQO0m8c
- dcEhMmbY/g0SY2z/xmuzlE02cpGkXz3J07tPCcL1xXZXfmQXznN7x1iwBv2VbhyhGXLLEwZax
- esqmTFNbY1xdx2pT5HkfrL2mK3F9tqkqvKYPYgVV+u1Bop4BGgY3BPnGIcl7mgBjuVm6FlUV2
- nBJYuCnTKquqvDI1CagctA4t7sUlsmuNZ2NY6/++7Ql+RO/Q8lsbppUQjGmkg==
+Content-Transfer-Encoding: 8bit
 
-Hi
+As we deployed defrag_mode into Meta production, pressure spikes and
+excessive swapping were observed on some workloads. Tracing confirmed
+that this is unmovable/reclaimable requests spinning in the allocator
+and direct reclaim, causing excessive amounts of swap.
 
-kernel build / boot test on x86_64 (Intel).
+The initial plan for defrag_mode was to rely on kswapd/kcompactd to
+produce blocks, and if those are overwhelmed under high pressure, let
+the allocator fall back (__rmqueue_steal()) after its retry loops.
+However, that retrying results in more reclaim on some of these
+workloads than we'd hoped, sometimes excessively so, spurred on by the
+!costly order conditions in should_reclaim_retry().
 
-No regressions here.
+The storms are dependent on the request type. Reclaim will inevitably
+make room in existing movable blocks, since that's where the LRU pages
+live. So if movable requests retry on reclaim, they make progress.
 
-Thanks
+When non-movable requests spin in reclaim that isn't productive. They
+cannot use the individually freed pages, and the process is unlikely
+to accidentally free whole blocks to meet the ALLOC_NOFRAGMENT bar.
+They spin and overreclaim excessively, which tanks performance and
+triggers userspace guards like swap exhaustion or pressure based OOM.
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
+To fix this, send non-movable requests, regardless of order, into
+pageblock reclaim/compaction. This way, they help move things along to
+meet the ALLOC_NOFRAGMENT bar. After this patch, the reclaim storms
+and excess OOM rates are no longer observed in production.
+
+The longer-term plan is still to have all requests, including the
+movable ones, help make blocks to spread the cost of defragmenting
+more evenly and fairly; combined with proper watermarking to reduce
+allocation latencies in the common case. However, doing this naively
+unearths scaling and concurrency limitations in compaction that need
+to be addressed first. Promoting just non-movables for now is the
+minimally viable bug fix for the above issue.
+
+Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+---
+ mm/internal.h   |  6 ++++++
+ mm/page_alloc.c | 31 ++++++++++++++++++++++++++-----
+ 2 files changed, 32 insertions(+), 5 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 6d3402001b93..5acba3470659 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1061,6 +1061,12 @@ struct compact_control {
+ struct capture_control {
+ 	struct zone *zone;
+ 	int migratetype;
++	/*
++	 * Allocation request order. May differ from the compaction
++	 * order: defrag_mode promotes sub-block allocations to
++	 * pageblock-order compaction; capture still matches at the
++	 * original allocation order so prep_new_page() is consistent.
++	 */
+ 	int order;
+ 	struct page *page;
+ };
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 4b9686fedb71..f92055827ae9 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -4152,8 +4152,24 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
+ 		.order = order,
+ 		.page = NULL,
+ 	};
++	int compact_order = order;
+ 
+-	if (!order)
++	/*
++	 * If fallbacks are not permitted (defrag_mode), we either
++	 * need to reclaim space in a block of matching type, or clear
++	 * out an entire block to allow __rmqueue_claim() to convert.
++	 *
++	 * Reclaim by itself is primarily freeing space in movable
++	 * blocks, since that's where the LRU pages live. So this
++	 * works for movable requests, but not for others.
++	 *
++	 * For those, promote the order to help make blocks, instead
++	 * of spinning in reclaim alone unproductively.
++	 */
++	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
++		compact_order = max(order, pageblock_order);
++
++	if (!compact_order)
+ 		return NULL;
+ 
+ 	psi_memstall_enter(&pflags);
+@@ -4169,8 +4185,8 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
+ 	barrier();
+ 	WRITE_ONCE(current->capture_control, &capc);
+ 
+-	*compact_result = try_to_compact_pages(gfp_mask, order, alloc_flags, ac,
+-							       prio, &capc);
++	*compact_result = try_to_compact_pages(gfp_mask, compact_order,
++					       alloc_flags, ac, prio, &capc);
+ 
+ 	/*
+ 	 * Make sure we hide capture control first before we read the captured
+@@ -4215,7 +4231,7 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
+ 		struct zone *zone = page_zone(page);
+ 
+ 		zone->compact_blockskip_flush = false;
+-		compaction_defer_reset(zone, order, true);
++		compaction_defer_reset(zone, compact_order, true);
+ 		count_vm_event(COMPACTSUCCESS);
+ 		return page;
+ 	}
+@@ -4455,9 +4471,14 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
+ 	struct page *page = NULL;
+ 	unsigned long pflags;
+ 	bool drained = false;
++	int reclaim_order = order;
++
++	/* Match the slowpath compaction promotion in __alloc_pages_direct_compact */
++	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
++		reclaim_order = max(order, pageblock_order);
+ 
+ 	psi_memstall_enter(&pflags);
+-	*did_some_progress = __perform_reclaim(gfp_mask, order, ac);
++	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
+ 	if (unlikely(!(*did_some_progress)))
+ 		goto out;
+ 
+-- 
+2.55.0
+
