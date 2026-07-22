@@ -1,115 +1,106 @@
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62D7339392
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FED1339399
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 10:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784716389; cv=none; b=oS+l3h6FVuA3lUgsFq3oV/uxgNYWMMme7NXyVc7BZHFIYU8fQMfqd3EGVBWlcI5VBsg2nPj/H7SZJe9IQmAbP4B+D6lOB0B7TZSDBZD0nQrUNngMh6aktw8aNpc14/IRn2Y/gxsqVFlr470J/vyKI7JhuNd2WWXSvSaP7v1eODg=
+	t=1784716757; cv=none; b=QTv9/1C25aB+zrS65auRNMBERj35QCLxJP8eOMyGUTaMzZn9vO0W2OM035p9aoJA+xmESsb2tS1zOh1K43lFJGNcjIOd877HVpQGzHclyt4FJ3cZzLcm6PQSelJ3hl3WqAqRX7imP8V6Dzz1jWJ7mpu0XWPPjx6XvlrBlxAj2eA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784716389; c=relaxed/simple;
-	bh=WN9aLp1TP0t2XPKbPFiGXcd/HXtnN/J0CaFlbS1Rq4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tBfOZk4YtFq33PCohEAVH2A7IpXJOqsN0fmxqAOP5NK52Qxc5WsRX9kHay58+3K+0hDJmMMGl5IgAmmwOE6bWQ/52YEPZ4umKgI/noo0u2ZSW7JL8pLOO6JEktOltQXmmvALqU9ZRsj3FkkreD2m3Ymd00US8n9cilie7KiNRtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=bL7rG3LR; arc=none smtp.client-ip=44.202.169.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1784716757; c=relaxed/simple;
+	bh=qVkwbm5skxHmjijSQlwkYEBcOxBNQ7+31ovrvai2xds=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B3T0DWBcoc4I1Kaj6Wq9y803tauNNdqfuWgg+1qQMPtT7NrY1LKEAWVAYfVV97YbvRpGnf99bJv37kul/94ZKKQM7TNSt7SpU71wSuE1y7PsuJlTZgGINtmuz/u+cA57ofZMJU6HfbIblbUZEKuw1erIDXavn8zCosPkLykJev8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=Y84w2YQj; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="bL7rG3LR"
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id mSwvwLQxEuFzgmUG5wZptE; Wed, 22 Jul 2026 10:33:01 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id mUG4wsGHjFb3lmUG5wo89K; Wed, 22 Jul 2026 10:33:01 +0000
-X-Authority-Analysis: v=2.4 cv=Xo36OUF9 c=1 sm=1 tr=0 ts=6a609c5d
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=ipcSOhPNF3U-EMDU-H8A:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=HaK3oytKQBKhtZwlt7AJ3CmWOT8w8xYsg/jHOb5cU/Y=; b=bL7rG3LRCH8V0mNkGP0OAZ0HJK
-	DP4wwcp3nipOki4NzazE0Xl/3Ebf+1JOZpDqOxRmuQ5gZUbU1JAeU5u7hsjgsHFtVEPQ/1JaNBukC
-	wm/vdeRojJODZH074Ifvk0Gq4enNEQeLnsFEQAyouA7s/eOT0xkQl5dj/r90PJkgBMb2Xeg5kqtC3
-	Cy3eurypTmKeIXVz2GB0CY9hk9bReLk+8XVTQEkRaIWNks2A5ryJvoZXJ11MNahUtjIYpzJU4IUhB
-	8KHuoCgxUHxB6A3F8th2VIlbyg630n9TZNyY5pk6LmJWrIi31SYK5sbfiI7qgV9+z29beXu5M6KG/
-	t3mS2UOA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:47008 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.2)
-	(envelope-from <re@w6rz.net>)
-	id 1wmUG4-000000011So-0hMp;
-	Wed, 22 Jul 2026 04:33:00 -0600
-Message-ID: <6cd9d704-3b98-4c12-b5f9-2005681f97e9@w6rz.net>
-Date: Wed, 22 Jul 2026 03:32:58 -0700
+	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="Y84w2YQj"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cad8076b01so147119525ad.2
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 03:39:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1784716753; x=1785321553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0Nme6Toj9C3wtO+kV+jhiXnrP22CDDJWcY5DQqOuABI=;
+        b=Y84w2YQjPHNvZbIZaOnXVY03cU1FLLT4uo6G39NScqUCyfG77S+Xm+2FMusxSDp5Ta
+         jqkg+HxyHfaDwgLaBKeD4aSnDF3jfAZHCuPdhGh9ga3rA5JrYvWv+ycjcT8tgJvI0Th3
+         Y7XVwh0NA/SwjK0kmHttTWIADe6ZumEsWinX1+HKov9zRk1rT3Xuy/yvFsPuD9jpKAEe
+         bIUDdthVin3B15Lp/RRuwCie5cXAG0a1iqu8NGeag+1w28cqsa8w9gpI6NevwJWlWXNx
+         JMohUqMI3ipkdHF94lwZxTzmv0+dXkO5tghMTKz3RdL41eo2zqpOIVeKQqGH3HmvK2Bu
+         6SQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784716753; x=1785321553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0Nme6Toj9C3wtO+kV+jhiXnrP22CDDJWcY5DQqOuABI=;
+        b=IgRq/AniZb6Ofj+b7LL9Wi9rJKo+Vl7wczfrARBMnMNE838xkqFzXQ0SbL8agzMZEY
+         jYaWyjahyGy+I/FfM1SRmKJI++ekuCiSxRxGobELCpw/vE62CeOMmmFnpHajSvLkdrqQ
+         NhUyLBP7osT7xo2mZ6vaLdNq5tJHTWjmK5CH8opMP4Fatc5ZvBsuGDlLPW/XsLu9ePsP
+         u2NGucjaJgrz4V9lygMGheCH6EJG1WSVawW58t2+EWiASAYQx5jDRYnqioQddAZc1Pis
+         d6+9yZ6yfiDZ1akpsw28TgmHdPsz141ZvBT5eF4h+Jwvige5Z9eKo6LcJhYqb/exjYBS
+         YljQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpC7waQynIMjRJw5+SALwcxhe7tNBqji36XyI2+UdpvtdsK9W8fpYetz5lc1pfqHMG9VIOqKzs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/hbLoJhDtKHP/vsNBCwb/RZ6DOcbhOr2JNxHBpPZTu2mo+y16
+	ORzkhed/4cohroVW2R4qzF5wDhSfDxlWatIbOv6h4T+Ydnk0+Ts5OVfzTcs58oOT964=
+X-Gm-Gg: AR+sD117CFKTnLR9H0zg3hxFLA8yQprPgCbHsZUNeqqetL1lpO0cBt+zcVVHB17uHgC
+	1ukbDqdg/D/+484d446wBzXeUXilwvzXQiseL6bFd9xgXIihw5Z7VKSZ4sftfbZss08pQu5NbWW
+	Sp0KHiEmED8eVFJ9iTit+dMOCTU32TlARl0REAZrcwTUbTqveZ0VFa1TmZ/aBgWt18QNZPqSs+z
+	KgkQBuNjWjk/ZUnkuDY5C3KXaDsueHozEFf6y02tTOcdLJQKXj+0SPeR4ih60lSlN98ul+SJKO6
+	vNm0N1wZOmyjk8ZFED8URJO0qJskGA9s8zMIMTwD0oOqpFu4IcrBUGP58hSBFdZtI3h2RPJ1maw
+	dXxrPc93ffFyP2vMzIOwjGwEF81e0AKCSobMkiPQL3fvwoSMmM7XmCObLwLtRQMB6qLPK3AFrWB
+	WoczaEPztPH2bHbNZu+0Al1BT8ud7KHuPKktdLHMJOED6ikrcNyhQHR6DDsCg1wjI5r3ac9+NF4
+	zbeXIfdYKHnkHQ4zzrLnFqXTHdLRECy
+X-Received: by 2002:a17:902:ef01:b0:2cc:d192:50b5 with SMTP id d9443c01a7336-2cf349aa87emr250699035ad.34.1784716753616;
+        Wed, 22 Jul 2026 03:39:13 -0700 (PDT)
+Received: from Metius.iitm.ac.in ([103.158.43.43])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3147dc7d8fbsm9185429eec.10.2026.07.22.03.39.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 03:39:13 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+To: mkl@pengutronix.de
+Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	mailhol@kernel.org,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] can: kvaser_usb: Fix memory leak in kvaser_usb_hydra_get_busparams()
+Date: Wed, 22 Jul 2026 16:09:03 +0530
+Message-ID: <20260722103906.108571-1-nihaal@cse.iitm.ac.in>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 0000/2077] 7.1.5-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260721152552.646164743@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260721152552.646164743@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wmUG4-000000011So-0hMp
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:47008
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfFUfYk/7e7LbS6e9m9hOfrUN0s4+4HDrDWDJsDbXwkXPleX0JIrL3l3zwZfz+j4ZRm10rW5fXFlwH+uKK6ISnMH4fPB8Wd2C++DY3m9D0bfpvnBMDp/6
- s5l9LIEd0L0iFfXv70zyWBXYCshqZ/iPjdZeY8Ghue/KnqYbRXKtwI7RrCGioHtHFKjTDnzvLzCppw==
+Content-Transfer-Encoding: 8bit
 
-On 7/21/26 07:54, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.5 release.
-> There are 2077 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Thu, 23 Jul 2026 15:23:00 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.5-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+The memory allocated for cmd is not freed after the call to
+kvaser_usb_send_cmd() in both the normal and error paths.
+Fix that by adding a kfree() immediately after the call.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Fixes: 39d3df6b0ea8 ("can: kvaser_usb: Compare requested bittiming parameters with actual parameters in do_set_{,data}_bittiming")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Compile tested only. Issue found using static analysis.
 
-Tested-by: Ron Economos <re@w6rz.net>
+ drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+index e09d663e362f..efbb7bed34c9 100644
+--- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
++++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+@@ -1626,6 +1626,7 @@ static int kvaser_usb_hydra_get_busparams(struct kvaser_usb_net_priv *priv,
+ 	reinit_completion(&priv->get_busparams_comp);
+ 
+ 	err = kvaser_usb_send_cmd(dev, cmd, cmd_len);
++	kfree(cmd);
+ 	if (err)
+ 		return err;
+ 
+-- 
+2.43.0
 
