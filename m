@@ -1,206 +1,399 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385D24749E1;
-	Wed, 22 Jul 2026 16:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BDA37DE9B
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:07:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784736200; cv=none; b=J17m72UcZ4lQsGvM2Dukcny8vqelx31aCGO456f6oQVBdbpMeZrrHPlZj4YD7xNMLxFZDqfW0ve/I+cJxQDW1jqBRZx4W7Ov5J+Y48gIKRzGE2WVFo/phu2/4jeFFH3e9LB8Rbuoj2ihaJ61hcgN6wLN1fwivx3mIbsJG3yJXJ4=
+	t=1784736455; cv=none; b=A/7ZX80ejYSrh6im53hj8US+P4slZcg/1SVVZL/QuaR1CNkptUZjnoAz/yMoWi2jt2Warzc4PEnsfUUtXUBT1FHszm5rFre+3yGC9MtkxiRTU3DEC2m8YF2djxfUKOKAnfvWAZzLn2dGIVuFsicKPJPEti4czEsS3LSyfYt8gDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784736200; c=relaxed/simple;
-	bh=3JshwvYSGmdmPVT0eS9/vpcUAfew6p/8glliOI2QBIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AA5e1GMA0+izAdQvO83WhqyGCQG7iXSVhQZtTawCXfgQlYElvx9uEOmHXyAfm46vUJw1j+mpNVuM3UsEkHL1b+s1xPCQyXb/9L3QSM16IFram9odPLIM0tK2SGsSkEbILpT3BtnXaNFGdHnpccUX+yoYYO7pXX/4I2HUUo38aBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpPfvu7n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784736455; c=relaxed/simple;
+	bh=XjWKiSzYKHZ8hK4C8Wm4vhSocEiuvO37SM4rvVR2lN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H4Xykv6wPqmmLw7HLrZA/P91KBzuvgvtGIQGZER3IKfLN4PqgUhgFGrtP++XziQ+6ll1izanJe6tELozARv/OmgiIHdNkd2iD1wvtwv4Yoop73OlCk6tGvsFuiouiRM6pxeNLZNixj26RdKftd6iu/VLh8A/lF34xvGmbnP1erI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RGYlRXni; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpPfvu7n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0BDF1F000E9;
-	Wed, 22 Jul 2026 16:03:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RGYlRXni"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63EDE1F000E9;
+	Wed, 22 Jul 2026 16:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784736198;
-	bh=XVF6iboHpx/dJTK18UoKC6gB7U14XwiMPQNnAKiOLzg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WpPfvu7noZMjNHBdfUsuCGidsqrQjqSkT1af6eWYCHiAtBK7tASHCjOXQ3ULbKxDW
-	 mM0TAnrBvwQ0U8002WgR0np6zhlHFW0DyWRA3j2UYixg6WfVaaBYyMSH+iDA7RCw0b
-	 y5OVSTK59g0nQS9T3rcjoPVZJLy8SksDaLZiwSyC/fC9dV1YeZORDvgH1thhc82pcN
-	 aIYFm734Inxq51XVkaGgkpa9/zoRSG9lMCSW59sG7EiLKjrvxjbJZyHkWVPXDAi3Yb
-	 38sN8wtvXmJHmge1B1XSmmz0ikvsHsUXzlc6LCx4/ysU1vEDgN26Fy6t+HaUe0sLUc
-	 Xek9zfQQPnAnA==
-Received: by venus (Postfix, from userid 1000)
-	id 5A67E18090F; Wed, 22 Jul 2026 18:03:16 +0200 (CEST)
-Date: Wed, 22 Jul 2026 18:03:15 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Cc: "Dr. David Alan Gilbert" <dave@treblig.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-Message-ID: <amDi7e8fqqzCRlAc@venus>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <al6-IyyWYRnEW4VC@venus>
- <al-dJjzorP-I4Yff@gallifrey>
- <al_0LjwmfW-cECnY@venus>
- <41222b67-19e5-4f74-b4aa-928d05db9675@oldschoolsolutions.biz>
+	s=k20260515; t=1784736454;
+	bh=upOcqa73KACC3bx7BEP2AfUt5BDde0HkxTf1nTRplpQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RGYlRXnigrr4Nur8XaTrAelT/OaBf4roWlaAlnPMyZMIuzWjj5RlRdg8qnrTpcRhd
+	 XbJcACQbFoGpeRgl+BC8UtyQJth9J1xygJH+cCWd1wdGZ3DAQLE9qKr7JOuQ7wyt6V
+	 mN6FjMNVCO7SZfw5AttRjY4YdeRe/xjxMyMjGGj7wg99jitvrZrPoIV0vH5T3MBh/q
+	 l4FHNj6jJv9BSiQsMaoQjA65CMEKX+kUScyXvrkPCSXqWOPovX4BRvF6SXcsfphCdN
+	 QGTiqKjeoFMcXbt2IdDQHL7dB4B0n6EGEM7tpjf7sraZvj6h/MkUGr8xydm775RUH1
+	 O7tFCi3j1P1uQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/4] vduse: return internal vq group struct as map token
+Date: Wed, 22 Jul 2026 12:07:28 -0400
+Message-ID: <20260722160731.1739521-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072041-connected-dole-9dc1@gregkh>
+References: <2026072041-connected-dole-9dc1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ithrsve4yere6oyx"
-Content-Disposition: inline
-In-Reply-To: <41222b67-19e5-4f74-b4aa-928d05db9675@oldschoolsolutions.biz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Eugenio Pérez <eperezma@redhat.com>
 
---ithrsve4yere6oyx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-MIME-Version: 1.0
+[ Upstream commit 02e3f7ffe2906033da73b7c7ea8180b131d0cdbc ]
 
-Hi,
+Return the internal struct that represents the vq group as virtqueue map
+token, instead of the device.  This allows the map functions to access
+the information per group.
 
-On Wed, Jul 22, 2026 at 10:38:34AM +0200, Jens Glathe wrote:
-> On 7/22/26 01:34, Sebastian Reichel wrote:
-> > On Tue, Jul 21, 2026 at 04:24:06PM +0000, Dr. David Alan Gilbert wrote:
-> > > * Sebastian Reichel (sre@kernel.org) wrote:
-> > > > I don't think a kernel driver limitation is a good reason for the DT
-> > > > property. I suggest to add something like this in the ps883x driver
-> > > > instead:
-> > > >=20
-> > > > /*
-> > > >   * Hamoa does not yet support USB4, disable it for now to graceful=
-ly
-> > > >   * fall back to USB3 + DP AltMode. This should be removed once USB4
-> > > >   * support landed for X1E.
-> > > >   */
-> > > > if (of_machine_is_compatible("qcom,x1e80100"))
-> > > >      disable_usb4 =3D true;
-> > > It seems a bit of a weird abstraction break to put a machine type
-> > > check down in a device that's not specific to qcom.
-> > It's obviously a hack, but this quirk would be simple and fully
-> > contained within the kernel and thus does not create a new ABI (in
-> > opposite to the DT property). Once the kernel supports USB4 on Hamoa
-> > it could simply be dropped and people have working USB4 with their
-> > existing DT.
-> >=20
-> > > I'd bet it's not just qcom's suffering from this as well.
-> > Qcom boards are the only users of ps883x (the driver is exclusively
-> > probed via DT at the moment). So right now one could also simply
-> > remove any USB4 support from ps883x, but that would work against the
-> > people working on _adding_ proper USB4 support.
-> >=20
-> > IIUIC the problem is, that the Qcom board supports USB4, negotiates
-> > this via the PD protocol and then soft-fails because the software
-> > support is not yet ready. Most other ARM platforms do not have any
-> > USB4/Thunderbolt hardware support to begin with and wouldn't
-> > negotiate it, so they do not run into this in the first place.
-> >=20
-> > AFAIK only Qcom and Apple M series support it. A quick search
-> > suggsts Apple used an Intel retimer in the past and a custom one
-> > nowadays. From the looks of it the x86 world cannot use this driver
-> > either and probably handles retimers transparently in ACPI, so it's
-> > effectively Qcom specific until other vendors start adding USB4
-> > support. The only thing announced potentially running into this
-> > would be the Nvidia RTX Spark, which first needs to be released,
-> > then find a bunch of people motivated to implement upstream support.
-> > Nothing with USB4 capabilities has been announced from Mediatek or
-> > Rockchip. So I wouldn't hold my breath for another user and still
-> > suggested adding the machine check instead of simply disabling USB4
-> > for everyone ;)
-> >=20
-> > Greetings,
-> >=20
-> > -- Sebastian
->
-> I understand, however I wouldn't want to nerf ps883x for the Hamoa
-> platform until the USB4 stack is complete. The issues you
-> currently run into is:
+At this moment all the virtqueues share the same vq group, that only
+can point to ASID 0.  This change prepares the infrastructure for actual
+per-group address space handling
 
-That's exactly what this series is doing and not really a problem
-considering USB4 is not working anyways.
+Acked-by: Jason Wang <jasowang@redhat.com>
+Signed-off-by: Eugenio Pérez <eperezma@redhat.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-Id: <20260119143306.1818855-5-eperezma@redhat.com>
+Stable-dep-of: 9c1523803445 ("VDUSE: avoid leaking information to userspace")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/vdpa/vdpa_user/iova_domain.c |  21 ++----
+ drivers/vdpa/vdpa_user/iova_domain.h |   5 +-
+ drivers/vdpa/vdpa_user/vduse_dev.c   | 109 +++++++++++++++++++++++----
+ include/linux/virtio.h               |   6 +-
+ 4 files changed, 108 insertions(+), 33 deletions(-)
 
-> - you use a tbt4 / usb4 cable and nothing works,
->=20
-> - you have a tbt4 / usb4 capable device in fallback mode that does complex
-> stuff when negotiating and firmware / a partial USB4 stack requests USB4,
-> which ends up not working.
->
-> Both cases are not the hardware's fault, it is capable of USB4. The driver
-> stack isn't. Therefore I would prefer to deliberately disable USB4 modes =
-by
-> device via the DT.
+diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
+index 4352b5cf74f078..58a94f81175fd6 100644
+--- a/drivers/vdpa/vdpa_user/iova_domain.c
++++ b/drivers/vdpa/vdpa_user/iova_domain.c
+@@ -493,17 +493,15 @@ void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
+ 	vduse_domain_free_iova(iovad, dma_addr, size);
+ }
+ 
+-void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
+-				  size_t size, dma_addr_t *dma_addr,
+-				  gfp_t flag)
++dma_addr_t vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
++				       size_t size, void *orig)
+ {
+ 	struct iova_domain *iovad = &domain->consistent_iovad;
+ 	unsigned long limit = domain->iova_limit;
+ 	dma_addr_t iova = vduse_domain_alloc_iova(iovad, size, limit);
+-	void *orig = alloc_pages_exact(size, flag);
+ 
+-	if (!iova || !orig)
+-		goto err;
++	if (!iova)
++		return DMA_MAPPING_ERROR;
+ 
+ 	spin_lock(&domain->iotlb_lock);
+ 	if (vduse_iotlb_add_range(domain, (u64)iova, (u64)iova + size - 1,
+@@ -514,17 +512,12 @@ void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
+ 	}
+ 	spin_unlock(&domain->iotlb_lock);
+ 
+-	*dma_addr = iova;
++	return iova;
+ 
+-	return orig;
+ err:
+-	*dma_addr = DMA_MAPPING_ERROR;
+-	if (orig)
+-		free_pages_exact(orig, size);
+-	if (iova)
+-		vduse_domain_free_iova(iovad, iova, size);
++	vduse_domain_free_iova(iovad, iova, size);
+ 
+-	return NULL;
++	return DMA_MAPPING_ERROR;
+ }
+ 
+ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+diff --git a/drivers/vdpa/vdpa_user/iova_domain.h b/drivers/vdpa/vdpa_user/iova_domain.h
+index 775cad5238f3aa..153b8c24c47769 100644
+--- a/drivers/vdpa/vdpa_user/iova_domain.h
++++ b/drivers/vdpa/vdpa_user/iova_domain.h
+@@ -67,9 +67,8 @@ void vduse_domain_unmap_page(struct vduse_iova_domain *domain,
+ 			     dma_addr_t dma_addr, size_t size,
+ 			     enum dma_data_direction dir, unsigned long attrs);
+ 
+-void *vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
+-				  size_t size, dma_addr_t *dma_addr,
+-				  gfp_t flag);
++dma_addr_t vduse_domain_alloc_coherent(struct vduse_iova_domain *domain,
++				       size_t size, void *orig);
+ 
+ void vduse_domain_free_coherent(struct vduse_iova_domain *domain, size_t size,
+ 				void *vaddr, dma_addr_t dma_addr,
+diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
+index e7bced0b554220..530e5f988dc7c3 100644
+--- a/drivers/vdpa/vdpa_user/vduse_dev.c
++++ b/drivers/vdpa/vdpa_user/vduse_dev.c
+@@ -22,6 +22,7 @@
+ #include <linux/uio.h>
+ #include <linux/vdpa.h>
+ #include <linux/nospec.h>
++#include <linux/virtio.h>
+ #include <linux/vmalloc.h>
+ #include <linux/sched/mm.h>
+ #include <uapi/linux/vduse.h>
+@@ -83,6 +84,10 @@ struct vduse_umem {
+ 	struct mm_struct *mm;
+ };
+ 
++struct vduse_vq_group {
++	struct vduse_dev *dev;
++};
++
+ struct vduse_dev {
+ 	struct vduse_vdpa *vdev;
+ 	struct device *dev;
+@@ -115,6 +120,7 @@ struct vduse_dev {
+ 	u32 vq_num;
+ 	u32 vq_align;
+ 	struct vduse_umem *umem;
++	struct vduse_vq_group *groups;
+ 	struct mutex mem_lock;
+ 	unsigned int bounce_size;
+ 	struct mutex domain_lock;
+@@ -592,6 +598,16 @@ static int vduse_vdpa_set_vq_state(struct vdpa_device *vdpa, u16 idx,
+ 	return 0;
+ }
+ 
++static union virtio_map vduse_get_vq_map(struct vdpa_device *vdpa, u16 idx)
++{
++	struct vduse_dev *dev = vdpa_to_vduse(vdpa);
++	union virtio_map ret = {
++		.group = &dev->groups[0],
++	};
++
++	return ret;
++}
++
+ static int vduse_vdpa_get_vq_state(struct vdpa_device *vdpa, u16 idx,
+ 				struct vdpa_vq_state *state)
+ {
+@@ -811,6 +827,7 @@ static const struct vdpa_config_ops vduse_vdpa_config_ops = {
+ 	.get_vq_affinity	= vduse_vdpa_get_vq_affinity,
+ 	.reset			= vduse_vdpa_reset,
+ 	.set_map		= vduse_vdpa_set_map,
++	.get_vq_map		= vduse_get_vq_map,
+ 	.free			= vduse_vdpa_free,
+ };
+ 
+@@ -818,7 +835,14 @@ static void vduse_dev_sync_single_for_device(union virtio_map token,
+ 					     dma_addr_t dma_addr, size_t size,
+ 					     enum dma_data_direction dir)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
++
++	if (!token.group)
++		return;
++
++	vdev = token.group->dev;
++	domain = vdev->domain;
+ 
+ 	vduse_domain_sync_single_for_device(domain, dma_addr, size, dir);
+ }
+@@ -827,7 +851,14 @@ static void vduse_dev_sync_single_for_cpu(union virtio_map token,
+ 					     dma_addr_t dma_addr, size_t size,
+ 					     enum dma_data_direction dir)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
++
++	if (!token.group)
++		return;
++
++	vdev = token.group->dev;
++	domain = vdev->domain;
+ 
+ 	vduse_domain_sync_single_for_cpu(domain, dma_addr, size, dir);
+ }
+@@ -837,7 +868,14 @@ static dma_addr_t vduse_dev_map_page(union virtio_map token, struct page *page,
+ 				     enum dma_data_direction dir,
+ 				     unsigned long attrs)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
++
++	if (!token.group)
++		return DMA_MAPPING_ERROR;
++
++	vdev = token.group->dev;
++	domain = vdev->domain;
+ 
+ 	return vduse_domain_map_page(domain, page, offset, size, dir, attrs);
+ }
+@@ -846,7 +884,14 @@ static void vduse_dev_unmap_page(union virtio_map token, dma_addr_t dma_addr,
+ 				 size_t size, enum dma_data_direction dir,
+ 				 unsigned long attrs)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
++
++	if (!token.group)
++		return;
++
++	vdev = token.group->dev;
++	domain = vdev->domain;
+ 
+ 	return vduse_domain_unmap_page(domain, dma_addr, size, dir, attrs);
+ }
+@@ -854,33 +899,57 @@ static void vduse_dev_unmap_page(union virtio_map token, dma_addr_t dma_addr,
+ static void *vduse_dev_alloc_coherent(union virtio_map token, size_t size,
+ 				      dma_addr_t *dma_addr, gfp_t flag)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
+-	unsigned long iova;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
+ 	void *addr;
+ 
+ 	*dma_addr = DMA_MAPPING_ERROR;
+-	addr = vduse_domain_alloc_coherent(domain, size,
+-					   (dma_addr_t *)&iova, flag);
++	if (!token.group)
++		return NULL;
++
++	addr = alloc_pages_exact(size, flag);
+ 	if (!addr)
+ 		return NULL;
+ 
+-	*dma_addr = (dma_addr_t)iova;
++	vdev = token.group->dev;
++	domain = vdev->domain;
++	*dma_addr = vduse_domain_alloc_coherent(domain, size, addr);
++	if (*dma_addr == DMA_MAPPING_ERROR)
++		goto err;
+ 
+ 	return addr;
++
++err:
++	free_pages_exact(addr, size);
++	return NULL;
+ }
+ 
+ static void vduse_dev_free_coherent(union virtio_map token, size_t size,
+ 				    void *vaddr, dma_addr_t dma_addr,
+ 				    unsigned long attrs)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
++
++	if (!token.group)
++		return;
++
++	vdev = token.group->dev;
++	domain = vdev->domain;
+ 
+ 	vduse_domain_free_coherent(domain, size, vaddr, dma_addr, attrs);
+ }
+ 
+ static bool vduse_dev_need_sync(union virtio_map token, dma_addr_t dma_addr)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
++
++	if (!token.group)
++		return false;
++
++	vdev = token.group->dev;
++	domain = vdev->domain;
+ 
+ 	return dma_addr < domain->bounce_size;
+ }
+@@ -894,7 +963,14 @@ static int vduse_dev_mapping_error(union virtio_map token, dma_addr_t dma_addr)
+ 
+ static size_t vduse_dev_max_mapping_size(union virtio_map token)
+ {
+-	struct vduse_iova_domain *domain = token.iova_domain;
++	struct vduse_dev *vdev;
++	struct vduse_iova_domain *domain;
++
++	if (!token.group)
++		return 0;
++
++	vdev = token.group->dev;
++	domain = vdev->domain;
+ 
+ 	return domain->bounce_size;
+ }
+@@ -1700,6 +1776,7 @@ static int vduse_destroy_dev(char *name)
+ 	if (dev->domain)
+ 		vduse_domain_destroy(dev->domain);
+ 	kfree(dev->name);
++	kfree(dev->groups);
+ 	vduse_dev_destroy(dev);
+ 	module_put(THIS_MODULE);
+ 
+@@ -1858,6 +1935,11 @@ static int vduse_create_dev(struct vduse_dev_config *config,
+ 	dev->device_features = config->features;
+ 	dev->device_id = config->device_id;
+ 	dev->vendor_id = config->vendor_id;
++	dev->groups = kcalloc(1, sizeof(dev->groups[0]), GFP_KERNEL);
++	if (!dev->groups)
++		goto err_vq_groups;
++	dev->groups[0].dev = dev;
++
+ 	dev->name = kstrdup(config->name, GFP_KERNEL);
+ 	if (!dev->name)
+ 		goto err_str;
+@@ -1894,6 +1976,8 @@ static int vduse_create_dev(struct vduse_dev_config *config,
+ err_idr:
+ 	kfree(dev->name);
+ err_str:
++	kfree(dev->groups);
++err_vq_groups:
+ 	vduse_dev_destroy(dev);
+ err:
+ 	return ret;
+@@ -2055,7 +2139,6 @@ static int vdpa_dev_add(struct vdpa_mgmt_dev *mdev, const char *name,
+ 		return -ENOMEM;
+ 	}
+ 
+-	dev->vdev->vdpa.vmap.iova_domain = dev->domain;
+ 	ret = _vdpa_register_device(&dev->vdev->vdpa, dev->vq_num);
+ 	if (ret) {
+ 		put_device(&dev->vdev->vdpa.dev);
+diff --git a/include/linux/virtio.h b/include/linux/virtio.h
+index 132a474e59140a..d3f723b875a784 100644
+--- a/include/linux/virtio.h
++++ b/include/linux/virtio.h
+@@ -41,13 +41,13 @@ struct virtqueue {
+ 	void *priv;
+ };
+ 
+-struct vduse_iova_domain;
++struct vduse_vq_group;
+ 
+ union virtio_map {
+ 	/* Device that performs DMA */
+ 	struct device *dma_dev;
+-	/* VDUSE specific mapping data */
+-	struct vduse_iova_domain *iova_domain;
++	/* VDUSE specific virtqueue group for doing map */
++	struct vduse_vq_group *group;
+ };
+ 
+ int virtqueue_add_outbuf(struct virtqueue *vq,
+-- 
+2.53.0
 
-DT is not a kernel config file. You can find that in .config. The DT
-describes the hardware. Writing in DT "no-usb4" means that the
-hardware does not support USB4. But the board files you are changing
-can do USB4 in hardware. Thus the DT entry is wrong.
-
-> That way it can fall back to re-negotiating something the driver
-> stack is capable of. PS883x is not the place where this starts,
-> but where it's convenient to stop.
-
-I understand that part. That's why I suggested to just put the
-disable_usb4 =3D true; in there without the DT check instead of
-something completley differnt. That's exactly the same, except
-that the information is fully contained within the kernel.
-
-This is actually __less__ intrusive:
-
- - less code
- - there is no need to touch all board files
- - the hardware description stays correct
- - it does not create ABI (you are supposed to continue supporting
-   the new flag also after known users dropped it)
- - affects the same devices (all X1E)
- - but automatically also affects newly added boards
- - it's easier to revert (no need to touch all board files)
-
-If you don't want to have a hack, the proper fix would be to detect
-that the follow-up stack is not capable of handlin USB4 and avoid
-exposing it. I'm aware that this is a quite complex task and
-considering USB4 is WIP anyways, I would go with the hack until
-then.
-
-> I did some tests without USB4 disabled and the 40B0 stack in
-> type-c cable fallback mode, and most of the time it just works.
-> Except for an unlucky plug, and despite it shouldn't request USB4,
-> the request lands at the redriver. Disabling USB4 modes reliably
-> let's it renegotiate.
-
-I'm not doubting the result of the patch series and plan to test
-with my TB capable Dell U2725QE later.
-
-Greetings,
-
--- Sebastian
-
---ithrsve4yere6oyx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpg6b8ACgkQ2O7X88g7
-+poxKRAAhkOHIVGbE9bt/i28okHDL9qLEyOEBiNY9LxYpbyXnI4/iWgSIAfSsCFB
-FqKtm/Wj+o3Y2SmGV7jpKElgDdE3+jyBSMr9rJCS9ZHwBA4Pvh7Mh5IIuUcEDo+N
-isD6EOir1FXINNCIuFgC1zQVGljslyaGSblvBq73BdV2tu/KNKeVtp548fEeHWBW
-8q1o7k618DqD9eKT2OOeD6K+Zsa07BFhelb1LiCujJbetJPTgqTZlIp9TYPVMdCt
-HHButUW9kL4Mzlo3FIehJGwf0rslLNy9cTTwX/1bp97jBPDPzAY3Ylgj17YaXmZw
-HZxq3sZkvEnDeUwuyautZxJdBI6Y1vrkMgk1N4W4C7j5UFP3IuumOgLvT49RZz92
-PGZZBG7pIzAIXhCKZ1CGr0Q/M0VNmmmYcyCzSvQWEVJ3HjIkwjPOTyG5OAwX5TYe
-awY8/TUlWPDo3TSnoKmOZrkiRGzzc4GeoVWb5KgDKq9EZr0tobF8FxFHJDYnSwGW
-1G1MIHOzNpL9HUNKNV4uqGIpFTWT41pwx9RpsJTqu0a5DHwAZ4VyQfA9KOzPSVjv
-iKRK5EJHKfwBD7xw4iOexmqPjL9TRx7zWjuANoSTxmhw8IRM5hZz/yZnuELcu0lh
-VMWAxkkuh3udwqq+oSa/eIXK67ejr6XgXpfHyf5u9IvZaUtyRHk=
-=cRMf
------END PGP SIGNATURE-----
-
---ithrsve4yere6oyx--
