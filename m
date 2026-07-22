@@ -1,215 +1,94 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446043F99E3
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1F59740B108
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784739383; cv=none; b=bIRdiIzpI+iQs7WPisvAw07joLvxNlCP7iSFbLe322aSwdpWq3Znvm6b/8tXyaSuXLAIoLihmolHvyEhkwWy3gP4pLbUQwTWkTyY8ikO6PpYBhzDNbiRB9kpOTxLO6H3GOWs0aJtqCUVyLEtpKB21olGDqjOwN+GmHDVRyWYWVM=
+	t=1784739389; cv=none; b=RxidLMvJEMTq5uDd98EvI4P9CCxALL3YN7TyydLwG2Di8+r2CAA9ICKqHJtdCfMHk6AO/D2v4IOYNTbDxE1ltSF7IbUfrCPqo9xMSQYqlCGhc+wickO6mZ8PHku7NK6H3zcto3RnAaLSv3v0iOGgQj8krcVVDuc9H5jmF4WYQzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784739383; c=relaxed/simple;
-	bh=o/Bu15sDhEOsKHR4CQblrys7TkwgkSC18uEGHD2BjAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D1Li9/3j40lyYHLhPfSeSa0d+MxV9KrnGG/0VDfuB3lo0XQ7tAxhCoElJsY+SpEgofIE9DwBy60J7hEv79Xd5/9F1FP2Bu/TJu23kX1efZCpuLWjlMPINSfdIEE+wAPqJ99gSHF/UmF0IYVZOLj/BFXhDx6aqlad7Zol9kvElBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nHrmmaRM; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784739389; c=relaxed/simple;
+	bh=pYVmR2L8HCGfHM5Pot89Q8QGJU4mVcZDQ+zR6U0/MXU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FpTYuDWqqbHKM07e4nf6jXtxiFjBBlWQsOgPaQupe+hPlTxnTHBP/lBhm4wI22RLJY/ZBX3A6N8w5DKobWIvHttqvVNBgmYcffu/TcsBtDwAMHIyQ1u8II+pwzgaW2sZH9dI9UrwpoFpLa1HlcgZJBdUpiginaQpyNR0XZDcJoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RhNFo5DN; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nHrmmaRM"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4954b3c5cbeso80275e9.1
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 09:56:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784739380; x=1785344180; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bgp1uL2zdCSwtHxWPjmVsr5a9ctDEumlGTtccTCWom4=;
-        b=nHrmmaRMbpx4oYhCymPzaKG9Ja5GZ1kYm/0+Lngb4dPD+nIGlHKlp0Q8IytcARd6XS
-         beL5UJbMw7uYET0wSsFw9quDYiIgLayz/FK/2pBL8eB8Ne+JtiUYUz5xR/5+Y0AwbpHW
-         J7z69h6ag1xZX8OZggrlcjcYEsJaoeEPBI1fUkt12zMbR42m1rxRDtEm9+1ZMWXG+SYH
-         SYDCo1H7wM0l5ljWUw3BnakGkzKog4Zmgk5mPy6SJhZJvdNeNocoOTkhBEk0XRGyr38L
-         JAcylGX+WKvebAJiTD/qOvo0p8rchKGhQHGhKCJqt8zhubgYOKQGcUoD6Al55WG5m/6j
-         W0hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784739380; x=1785344180;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bgp1uL2zdCSwtHxWPjmVsr5a9ctDEumlGTtccTCWom4=;
-        b=JWZGBt5OAkMkQV6u58D2TCnTCogEhuL5mzouChXzyMkj8IzH2Z2SRp2nQez923PcN0
-         +QJ7x9+kJQE48qU5m1IsSI+eyHwqnt/3Fn1zC8nQgcwDTV9M3RamJFrvoXIrIufPqAtW
-         OHJ3FxOggOYcp81ZtSKmOian/ht4pIWPNEiQEpr8hrMYnZokcW0GGFbhFDCd+WE0oSYG
-         ltjzoWA+SSwZSJU7boUt5BJRFiGQpIiHPWt87/yU4GcbVtjung5dYfxeXTRMHZJy57tK
-         N2M/86NDVOm790m32ZKpX5Vw9z4HfShAl2ZNAfRRP9Ggk239oUEgfq8ijXHr5fu/Qbqe
-         uhQA==
-X-Forwarded-Encrypted: i=1; AHgh+RraMXOp/txuNN3w4MnpLDOP6tLvvOLiX+i6yEY0GEW6zsPQUFBQDDihViRuzdAQY3CeGKpBNEE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwdP3E+BI2/QcxKhwkwCUhJVGYdk2qFzNIxQHe+xqx6Q55WJIyP
-	34h0C3OByLgHG4d/rQIPFNBDsxKLnRK59Hne1OgtO7MVRQqh1ocCfkEp
-X-Gm-Gg: AR+sD13MGatLF2qbd4igvOF7fpT+lBZUDvXU61F3F2P0rUH6xiIzSz3xfdaEER4ykXM
-	rszX5eCrX3pAkVsHnf0A7V9RW89GfX8HHV/hBaak3PGYxjnJ7WXBAKcstWYppme73jE2OUydIbk
-	2vNmOtfsaIRTwmLy8QhFpy/qkOYp7maERsJ6FsEyTmsj0b+gvdLh7V+c9aCQ9bEEWuHyU6VvSRD
-	UwWT9ROzoXA3cI7lWXAFCAjJkHdDGe2yc+pW1AsKMI+SFV9wMFKLMchBduAK1Pt1/cDx2ns6Slb
-	eJyJEI6TJDr66JPydXBl4fegXr4iC8rDoT8DcZVr9BfNfQdBw2UIz0pls+4ZjyEjunVfTX+DV+0
-	7aE/XJxl0N3lz780sMkbPZnrsup3PKhsiUwputhVETGf5CJ6P+86FmVaw9PNtH/lrtVfUUfiSDH
-	3LwX38X80+veoSfB7TpfmvzTVbbVAQRih9+B+3Pv3E/KIKTkxvyWC1RG2Xuwkqq+LJnNOKXzdrk
-	VRycyOIUcPyZtDrXybI+p8cjyhlRswB8/dzVQ==
-X-Received: by 2002:a05:600c:1553:b0:493:f42e:1b3f with SMTP id 5b1f17b1804b1-49565988e61mr55330505e9.3.1784739379541;
-        Wed, 22 Jul 2026 09:56:19 -0700 (PDT)
-Received: from L-022584.energy.envision.com (dynamic-078-051-150-230.78.51.pool.telefonica.de. [78.51.150.230])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c532d4sm7288629f8f.22.2026.07.22.09.56.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 09:56:19 -0700 (PDT)
-From: Xin Xie <xiexinet@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	andrew+netdev@lunn.ch,
-	qingfang.deng@linux.dev,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xin Xie <xiexinet@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net 3/4] net: hsr: unfold GSO super-packets at the forward entry
-Date: Wed, 22 Jul 2026 18:56:13 +0200
-Message-ID: <20260722165614.124-4-xiexinet@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260722165614.124-1-xiexinet@gmail.com>
-References: <20260722165614.124-1-xiexinet@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RhNFo5DN"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 51F4D1595;
+	Wed, 22 Jul 2026 09:56:23 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 83C1F3F59E;
+	Wed, 22 Jul 2026 09:56:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784739387; bh=pYVmR2L8HCGfHM5Pot89Q8QGJU4mVcZDQ+zR6U0/MXU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RhNFo5DNMetW02ZuI3Jel22P1Iz8VPaf0EsWcOfcCePIHqvt+zIfFF+MwrwsKPW6+
+	 +LeTu0gLcyKqBdVcWzMI1wb0yENrCONvh4g4akizvXP3r1XzERYjCA1vYljLXCglcN
+	 woeSQMAEx1cQvtW/4V2ZfsWvDQQPd411/WBtMaGU=
+Message-ID: <acd85a2a-af1f-4ebf-8370-773338d4fd15@arm.com>
+Date: Wed, 22 Jul 2026 17:56:25 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/arm-smmu-v3: Add HAFT support for SVA
+To: Will Deacon <will@kernel.org>
+Cc: joro@8bytes.org, jpb@kernel.org, catalin.marinas@arm.com,
+ yangyicong@hisilicon.com, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux.dev, stable@vger.kernel.org
+References: <878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com>
+ <amDEmlcyC3Tfmkel@willie-the-truck>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <amDEmlcyC3Tfmkel@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-HSR/PRP forward frames one by one: each wire frame gets its own tag
-and sequence number, and duplicate discard is per frame. A GSO
-super-packet reaching hsr_forward_skb() breaks that per-frame
-semantics: it would be tagged and forwarded as a single frame.
+On 22/07/2026 2:24 pm, Will Deacon wrote:
+> On Wed, Jul 01, 2026 at 06:45:17PM +0100, Robin Murphy wrote:
+>> Since table access flags cannot be software-managed, if process
+>> pagetables are using HAFT then SVA must require the SMMU to support and
+>> enable it too, otherwise page aging is liable to get out of whack.
+>>
+>> Cc: <stable@vger.kernel.org>
+>> Fixes: 62df5870ebf7 ("arm64: Enable ARCH_HAS_NONLEAF_PMD_YOUNG")
+>> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+>> ---
+>>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c | 5 +++++
+>>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c     | 6 ++++++
+>>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h     | 3 +++
+>>   3 files changed, 14 insertions(+)
+> 
+> This looks ok to *me*, but Sashiko raises two interesting points:
+> 
+> https://sashiko.dev/#/patchset/878cd6bcbbe2d5677d2f63da13294c148268552c.1782927917.git.robin.murphy@arm.com
+> 
+> 1. This may break hitless updates when transitioning to a faulting entry.
 
-Unfold such super-packets at the forward entry with the top-level GSO
-dispatch: __skb_gso_segment() initializes SKB_GSO_CB() and performs
-the L2->L3->L4 protocol dispatch (calling the low-level skb_segment()
-helper directly is not allowed here -- it reads SKB_GSO_CB(skb) state
-that only __skb_gso_segment() sets up). features = 0 requests full
-software segmentation; tx_path is selected by ingress port (master =
-locally generated TX, interlink = RX) to get the right checksum
-semantics. Each segment then runs through the existing per-frame
-path, which is split out as hsr_forward_skb_one() so that no GSO skb
-can reach it.
+What does that even mean? We might block traffic in the process of 
+_explicitly blocking traffic_!? Whoop-de-do, surely?
 
-Segmentation is only offered for the ingress roles whose frames are
-known to be plain Ethernet: the master (locally generated) and the
-interlink (SAN side, untagged). A super-packet received from a LAN
-slave may carry per-frame HSR tags or PRP RCT trailers that software
-segmentation cannot recover, and an already-tagged HSR/PRP
-super-packet violates per-frame wire semantics; both are rejected by
-ingress-port policy. (ETH_P_PRP identifies supervision traffic only;
-a PRP data frame keeps its payload EtherType, so RCT carriage cannot
-be tested by protocol.)
+But either way, HAFT has bog all to do with EPD0, and it must be cleared 
+if HA is cleared, otherwise the CD becomes illegal.
 
-Also drop NETIF_F_GSO_MASK from the HSR master's hw_features so
-locally generated traffic is segmented before reaching the forward
-path whenever possible.
+> 2. IORT has HTTU overrides for HA/HD. Does it (will it?) have anything
+>     for HAFT? At the moment, it looks like you'll trigger a warning
+>     message.
 
-Fixes: f421436a591d ("net/hsr: Add support for the High-availability Seamless Redundancy protocol (HSRv0)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xin Xie <xiexinet@gmail.com>
----
- net/hsr/hsr_device.c  |  2 +-
- net/hsr/hsr_forward.c | 50 ++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 50 insertions(+), 2 deletions(-)
+Oh, seems I did miss that fiddly fw_features line, so I guess it has 
+half a point that the warning can wonky if both IDR0 and IORT do 
+(correctly) report HAFT. Pretty sure we're already a bit broken if IORT 
+ever did try to override HTTU _upwards_, though.
 
-diff --git a/net/hsr/hsr_device.c b/net/hsr/hsr_device.c
-index 3fd1762d8..248cbb142 100644
---- a/net/hsr/hsr_device.c
-+++ b/net/hsr/hsr_device.c
-@@ -652,7 +652,7 @@ void hsr_dev_setup(struct net_device *dev)
- 	dev->needs_free_netdev = true;
- 
- 	dev->hw_features = NETIF_F_SG | NETIF_F_FRAGLIST | NETIF_F_HIGHDMA |
--			   NETIF_F_GSO_MASK | NETIF_F_HW_CSUM |
-+			   NETIF_F_HW_CSUM |
- 			   NETIF_F_HW_VLAN_CTAG_TX |
- 			   NETIF_F_HW_VLAN_CTAG_FILTER;
- 
-diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
-index 8e4158a9b..3fcdbac49 100644
---- a/net/hsr/hsr_forward.c
-+++ b/net/hsr/hsr_forward.c
-@@ -12,6 +12,7 @@
- #include <linux/skbuff.h>
- #include <linux/etherdevice.h>
- #include <linux/if_vlan.h>
-+#include <net/gso.h>
- #include "hsr_main.h"
- #include "hsr_framereg.h"
- 
-@@ -732,7 +733,7 @@ static int fill_frame_info(struct hsr_frame_info *frame,
- }
- 
- /* Must be called holding rcu read lock (because of the port parameter) */
--void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
-+static void hsr_forward_skb_one(struct sk_buff *skb, struct hsr_port *port)
- {
- 	struct hsr_frame_info frame;
- 
-@@ -761,3 +762,50 @@ void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
- 	port->dev->stats.tx_dropped++;
- 	kfree_skb(skb);
- }
-+
-+/* GSO fan-out funnel: unfold super-packets before per-frame processing so
-+ * each wire frame gets its own HSR/PRP tag and sequence number.
-+ */
-+void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
-+{
-+	struct sk_buff *segs, *next;
-+
-+	if (likely(!skb_is_gso(skb))) {
-+		hsr_forward_skb_one(skb, port);
-+		return;
-+	}
-+
-+	/* Unfold only plain-Ethernet GSO super-packets: locally generated
-+	 * on the master, or arriving untagged from the SAN side on the
-+	 * interlink. A super-packet from a LAN slave may carry per-frame
-+	 * HSR tags / PRP RCT trailers that software segmentation cannot
-+	 * recover; an already-tagged HSR/PRP super-packet violates
-+	 * per-frame wire semantics. Drop both.
-+	 */
-+	if (port->type != HSR_PT_MASTER && port->type != HSR_PT_INTERLINK)
-+		goto drop_gso;
-+	if (skb->protocol == htons(ETH_P_HSR) ||
-+	    skb->protocol == htons(ETH_P_PRP))
-+		goto drop_gso;
-+
-+	/* features = 0: request full software segmentation. tx_path is true
-+	 * only for locally generated traffic on the master; ingress from
-+	 * the interlink follows RX checksum semantics.
-+	 */
-+	segs = __skb_gso_segment(skb, 0, port->type == HSR_PT_MASTER);
-+	if (IS_ERR(segs) || unlikely(!segs))
-+		goto drop_gso;
-+
-+	consume_skb(skb);
-+	while (segs) {
-+		next = segs->next;
-+		segs->next = NULL;
-+		hsr_forward_skb_one(segs, port);
-+		segs = next;
-+	}
-+	return;
-+
-+drop_gso:
-+	port->dev->stats.tx_dropped++;
-+	kfree_skb(skb);
-+}
--- 
-2.43.0
+> Given Jason's comments, it's probably worth sending the idreg override
+> patch as well...
 
+Fair enough, I'm blessed with a moment of calm just now so I should be 
+able to find time to have a crack at that tomorrow...
+
+Cheers,
+Robin.
