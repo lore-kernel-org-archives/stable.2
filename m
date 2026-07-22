@@ -1,242 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADAE478E38
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 09:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D526235A385;
+	Wed, 22 Jul 2026 09:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784711901; cv=none; b=bdtz+4+q9oAUU3KJd5Ef7nVs/Ab+XCnn3hurSExK/3qqJgp19oBwIoX0TYjelOrnpEwjFhELXmbof68U1S/tVvUjf9hXThYahAy+eRagWkMUDXsw+iboomxc4jHZCkanQW3aN1n6F1NvqpCGBikXWeUDGjEa6FqyLi/SKBmHLI4=
+	t=1784712712; cv=none; b=JgPy9VGjjVefaTu+vioqf5AJuDcfPBaZkWqVNSNhsIGyv1PqpYYII0dy+lTQFUeOS7kwhnBqHOiAy0drHrLyV3MHIHTQt4Am11hKvZlRKrdtkJnjhiRyKIrIgeV96za6ifKb2K1ASd8ExfRJ4kJjKFX0H5LOJwImX743y6v90gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784711901; c=relaxed/simple;
-	bh=ikqzFJZZjubzBkVKnJfpdAza3vgIB1TLZktr4URHGFM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IvPf+LIr5Jqvq3lIyM4A2uhiQWHwaTvv8TsMw+l1EN7sCsk+/qHsX9pKFs9fskuxCxIt0GA1FHtLjOOXUsFt7dDYw8uONcFYOQ9fvUtIwoKhCa92B0E9xmCtTVenD/tLz8soTgg1zxUdF1ISQpUAvdjVOYQKtCNXvHQ5eD526PQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JYiVO//y; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784712712; c=relaxed/simple;
+	bh=+MX8N44gzDm+IVN9Pmyk0LhrTfJFezuj789V0yncjqE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WZ/yW2gCMtXbV6LW2FEHj0AhJMtpLyYJbU665tslz2BpKKRkgpREvtzNcET9kQABzJEbNPOrpDqrt8mKxXqRfhT/pXgUnrbhItwH1tVdpJoWh7GlKaXiQG+TNBgWO0FV//bxcCRJqZ5jWSqRmkvvLibgGN9esIbcKRqhiC9bNF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=qti.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D7Z1wu02; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=qti.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JYiVO//y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784711897; x=1816247897;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ikqzFJZZjubzBkVKnJfpdAza3vgIB1TLZktr4URHGFM=;
-  b=JYiVO//y31lSB73pV5RC3g2ycDeA6fJ87Z0qIPuetPaTnnzllRtda2Wi
-   E53QQNj96X2jMY8adWdXw+NNEuJvjNifQotWBnT/pYcZ+TRnDn3ejhV0w
-   OSkq85jAykfj3tAlcgv1n4nXyM2B1NvebJlAH0PUBQ07KfSDTDzcheaAV
-   GVt0j1LHESxVqfoUipCvsGzlw+pkUG9Zf4BZPAQJMm2sOL5AyIb1jzh8Q
-   IwZCg7blkL7EeF17y5mpkjVqH7wqudlBKdwGgWNFmbAO01lh957BopYw1
-   LZNkuPHyrsJ9UBepC1tEZ79NPjpu9+ndYu1ZJvKhuLiAkRL2E5Epa1X8h
-   g==;
-X-CSE-ConnectionGUID: tnzA3Mt/RZGhNB7e2gGvUQ==
-X-CSE-MsgGUID: WBa2zbtNRk2aDCGfR8bvrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="96715343"
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; 
-   d="scan'208";a="96715343"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jul 2026 02:18:17 -0700
-X-CSE-ConnectionGUID: r5/YNuhhTUW/ofFaVC2Giw==
-X-CSE-MsgGUID: wjtYV6LSQ5e4NKstssJxvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; 
-   d="scan'208";a="254643138"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.245.212]) ([10.245.245.212])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jul 2026 02:18:15 -0700
-Message-ID: <931fa2cf-dda7-4893-9a70-b83f3631963f@intel.com>
-Date: Wed, 22 Jul 2026 10:18:13 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D7Z1wu02"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66M8xM5F412345;
+	Wed, 22 Jul 2026 09:31:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=jZuhYaMeqAy9ym3Y9m/YxNFsTgDrHOmzpmK
+	fbULnzks=; b=D7Z1wu02cGRNkj8MZqQeY+9AlfG8VpIW47tkalLECuj5qfTXdj/
+	MKXbsEbyLndDWzht+gLmoMrzXpvnIXFHrlgOd4AB01a6ijQ1mnyxNZ24c9U26aWG
+	ogDhAeq/ZNqm1jsCzOBUzLXQ7jJXXRu1XYRehfa9VA23LAy0Za+orLSu9OQmIMk2
+	MLEr/phPsN2cj4KwVCh2MXA55LbEdCDPNbpRLvetjtVbm/mM9gR1JaMJw/iuCYUP
+	OOXzjNmTihY4Bfc6l1HZAtT1+9zRsIjUI5b7dh4IYnsHWjvMNn4LZQNq0QVVAEm9
+	GrkRNhNoqmOkfS67BrWUp8AnZL3cvLdtW1Q==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjpxdh563-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 09:31:44 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66M9VehD006549;
+	Wed, 22 Jul 2026 09:31:40 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fgj3wg1kc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 09:31:40 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66M9VeYn006543;
+	Wed, 22 Jul 2026 09:31:40 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-vnivarth-hyd.qualcomm.com [10.147.248.72])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66M9VenQ006542
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 22 Jul 2026 09:31:40 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3994820)
+	id 21E255C2; Wed, 22 Jul 2026 14:54:17 +0530 (+0530)
+From: Vijaya Krishna Nivarthi <vnivarth@qti.qualcomm.com>
+To: broonie@kernel.org, dianders@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: konrad.dybcio@oss.qualcomm.com, damiendejean@google.com,
+        Vijaya Krishna Nivarthi <vijaya.nivarthi@oss.qualcomm.com>,
+        stable@vger.kernel.org
+Subject: [PATCH v1] spi: qcom-qspi: Correct max DMA length to avoid 64K boundary failure
+Date: Wed, 22 Jul 2026 14:53:58 +0530
+Message-Id: <20260722092358.459943-1-vnivarth@qti.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] drm/xe/guc_ads: allocate UM queues in a separate
- UC BO
-To: Jia Yao <jia.yao@intel.com>, intel-xe@lists.freedesktop.org
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>, stable@vger.kernel.org
-References: <20260722053410.2767369-1-jia.yao@intel.com>
- <20260722053410.2767369-2-jia.yao@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260722053410.2767369-2-jia.yao@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIyMDA5MCBTYWx0ZWRfX/n/m7td2rkaq
+ rsbASqAON2uhkK2+wp6/zMiJcr8sXAdbCQvJTyXkgDa3mlokhNLEhmO5BHbS793sz1YQSv26eG9
+ 4QCVShoqHkN2/aOZx9PjHvVJfYTU7HrN1zi+sAsbZN0GyHXLe8YbIOOMkQBQWpnht36utXAgvvI
+ LaVD+WLnon4eMcqTH31t0at5lSPIKgy0qRatfNYqgGvnVSknrtzJvXajCqB+oz10AfwdC08yBEn
+ j7uJTztdcCeIwmavc4CLXf0QBLilxaXJE1QMMvzpKs1njQv4FJo9bVZ09bkKqV/8tTab1QCYGgJ
+ /CNf4cS+MMnGeFMp9PyLYypZaQT6Z2fO4BtijtD0sLg3ZMxMwxQ51M2/MbuMz67OsIa7GTxaWCw
+ AX43AmvYviTDtp8uXtx+LDL0viQbO0SCSHhLnlxr6vmsB+ZBJyEjgASrfe0zoKbWFGsCc7qR4Ts
+ nutVuDq8/UgJJYYx/JQ==
+X-Proofpoint-GUID: cqO8lSdF5p7VUXfM6Zb4fl58UOU0N9hx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIyMDA5MCBTYWx0ZWRfX3s5s0CTr/Yi/
+ CUyGZgMHS7LL+Rod92Bk5rB5HsSyEJejbSWMiCR5H/bw37iHW8kcosEEDpNsevMz/jfokG0g6jU
+ kpQ0x5JdJ5WYGkCPG2HCyd1IYX5e+KU=
+X-Authority-Analysis: v=2.4 cv=b7iCJNGx c=1 sm=1 tr=0 ts=6a608e00 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=bDri8NSO9_2niQu9DqAA:9
+X-Proofpoint-ORIG-GUID: cqO8lSdF5p7VUXfM6Zb4fl58UOU0N9hx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-22_03,2026-07-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 impostorscore=0 clxscore=1011
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607220090
 
-On 22/07/2026 06:34, Jia Yao wrote:
-> The HW unit that writes to the UM fault queue is not always coherent
-> with the CPU cache. Ensure the UM queue memory is uncached on the CPU
-> side so that GuC always reads descriptors from memory rather than a
-> stale CPU cache line.
-> 
-> Allocate the UM queues in a dedicated UC BO (ads->um_queue_bo) instead
-> of the main ADS blob. This also prevents xe_guc_ads_populate()'s
-> memset from zeroing any fault descriptor written between GDRST and GuC
-> restart. On dGFX, VRAM placement gives a well-defined DPA.
-> 
-> v3: simplify commit message and code comments per reviewer feedback;
->      add Fixes tag and stable Cc
-> 
-> v2: also fix dGFX (VRAM placement + UC flag); remove now-dead
->      guc_ads_um_queues_size/offset helpers
-> 
-> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jia Yao <jia.yao@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_guc_ads.c       | 64 ++++++++++++++++-----------
->   drivers/gpu/drm/xe/xe_guc_ads_types.h |  8 +++-
->   2 files changed, 46 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-> index c98454545a85..ec36a5db7fc8 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-> @@ -155,16 +155,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
->   	return PAGE_ALIGN(ads->capture_size);
->   }
->   
-> -static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
-> -{
-> -	struct xe_device *xe = ads_to_xe(ads);
-> -
-> -	if (!xe->info.has_usm)
-> -		return 0;
-> -
-> -	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
-> -}
-> -
->   static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
->   {
->   	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
-> @@ -205,22 +195,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
->   	return PAGE_ALIGN(offset);
->   }
->   
-> -static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
-> -{
-> -	u32 offset;
-> -
-> -	offset = guc_ads_capture_offset(ads) +
-> -		 guc_ads_capture_size(ads);
-> -
-> -	return PAGE_ALIGN(offset);
-> -}
-> -
->   static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
->   {
->   	size_t offset;
->   
-> -	offset = guc_ads_um_queues_offset(ads) +
-> -		guc_ads_um_queues_size(ads);
-> +	offset = guc_ads_capture_offset(ads) +
-> +		 guc_ads_capture_size(ads);
->   
->   	return PAGE_ALIGN(offset);
->   }
-> @@ -409,6 +389,30 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
->   
->   	ads->bo = bo;
->   
-> +	/*
-> +	 * The HW unit that writes to the UM fault queue is not coherent with
-> +	 * the CPU cache.  Use a dedicated UC BO to ensure GuC always reads
-> +	 * descriptors from memory rather than a stale CPU cache line.  A
-> +	 * separate BO also prevents xe_guc_ads_populate()'s memset from
-> +	 * zeroing descriptors written between GDRST and GuC restart.  On
-> +	 * dGFX, VRAM gives a well-defined DPA.
-> +	 */
-> +	if (xe->info.has_usm) {
-> +		u32 um_flags = XE_BO_FLAG_GGTT |
-> +			       XE_BO_FLAG_GGTT_INVALIDATE |
-> +			       XE_BO_FLAG_PINNED_NORESTORE |
-> +			       XE_BO_FLAG_NEEDS_UC |
-> +			       XE_BO_FLAG_VRAM_IF_DGFX(tile);
+From: Vijaya Krishna Nivarthi <vijaya.nivarthi@oss.qualcomm.com>
 
-Only slight doubt is the dgpu change here. I don't think there can be a 
-coherency issue there, since memory access to system memory should just 
-be like any other PCI transaction, and AFAIK coherency can't be turned 
-off on current dgpu hw. Just wondering if moving this to VRAM is really 
-needed for the fix, or whether there are any perf considerations? Not 
-sure if there is some guidance on where is best to allocate this on 
-dgpu? Also, perhaps this should be split out into a separate commit, 
-since change seems orthogonal to the coherency issue?
+The maximum size for a DMA data descriptor is 64KB-1 because the size
+field in HW is 16 bits wide. For this reason, transfers fail at 64KB
+and beyond.
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Lower max_dma_len to 60KB so larger transfers are split into multiple
+DMA blocks and do not hit the failing 64KB boundary. 60KB is chosen as
+a safe round number below the 64KB-1 hardware limit while satisfying
+alignment requirements.
 
-> +
-> +		bo = xe_managed_bo_create_pin_map(xe, tile,
-> +					  GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX,
-> +					  um_flags);
-> +		if (IS_ERR(bo))
-> +			return PTR_ERR(bo);
-> +
-> +		ads->um_queue_bo = bo;
-> +	}
-> +
->   	return 0;
->   }
->   ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
-> @@ -820,9 +824,9 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
->   
->   static void guc_um_init_params(struct xe_guc_ads *ads)
->   {
-> -	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
->   	struct xe_guc *guc = ads_to_guc(ads);
->   	struct xe_device *xe = ads_to_xe(ads);
-> +	struct xe_bo *um_bo = ads->um_queue_bo;
->   	u64 base_dpa;
->   	u32 base_ggtt;
->   	bool with_dpa;
-> @@ -830,8 +834,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
->   
->   	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
->   
-> -	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
-> -	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
-> +	if (um_bo) {
-> +		/* All USM platforms: UM queues in dedicated um_queue_bo */
-> +		base_ggtt = xe_bo_ggtt_addr(um_bo);
-> +		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
-> +	} else {
-> +		/* Platform does not support USM: no UM queues, nothing to do */
-> +		return;
-> +	}
->   
->   	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
->   		/*
-> @@ -912,6 +922,10 @@ void xe_guc_ads_populate(struct xe_guc_ads *ads)
->   	xe_gt_assert(gt, ads->bo);
->   
->   	xe_map_memset(ads_to_xe(ads), ads_to_map(ads), 0, 0, xe_bo_size(ads->bo));
-> +	/*
-> +	 * um_queue_bo is not zeroed here. GuC resets head/tail via MMIO on
-> +	 * every restart so stale ring contents are never consumed.
-> +	 */
->   	guc_policies_init(ads);
->   	fill_engine_enable_masks(gt, &info_map);
->   	guc_mmio_reg_state_init(ads);
-> diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
-> index 48a8e092023f..a63ef000dc8a 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
-> +++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
-> @@ -14,8 +14,14 @@ struct xe_bo;
->    * struct xe_guc_ads - GuC additional data structures (ADS)
->    */
->   struct xe_guc_ads {
-> -	/** @bo: Xe BO for GuC ads blob */
-> +	/** @bo: Xe BO for GuC ads blob (WB cached) */
->   	struct xe_bo *bo;
-> +	/**
-> +	 * @um_queue_bo: Dedicated UC BO for the HW fault ring (UM queues).
-> +	 * The HW unit writing to this ring is not coherent with the CPU cache;
-> +	 * UC ensures GuC reads descriptors from memory. NULL if no USM support.
-> +	 */
-> +	struct xe_bo *um_queue_bo;
->   	/** @golden_lrc_size: golden LRC size */
->   	size_t golden_lrc_size;
->   	/** @regset_size: size of register set passed to GuC for save/restore */
+Tested on x1e80100 (Hamoa) with SPI-NOR flash (/dev/mtd0):
+
+Without patch:
+  dd if=/dev/mtd0 of=/tmp/spi_dump.bin bs=32768 count=2  # works
+  dd if=/dev/mtd0 of=/tmp/spi_dump.bin bs=65536 count=1  # fails
+
+With patch:
+  dd if=/dev/mtd0 of=/tmp/spi_dump.bin bs=65536 count=1  # works
+
+Fixes: b5762d95607e ("spi: spi-qcom-qspi: Add DMA mode support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vijaya Krishna Nivarthi <vijaya.nivarthi@oss.qualcomm.com>
+---
+ drivers/spi/spi-qcom-qspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi-qcom-qspi.c b/drivers/spi/spi-qcom-qspi.c
+index caf55a6f70b3..e9fdefa9d65d 100644
+--- a/drivers/spi/spi-qcom-qspi.c
++++ b/drivers/spi/spi-qcom-qspi.c
+@@ -775,7 +775,8 @@ static int qcom_qspi_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, ret, "could not set DMA mask\n");
+ 
+ 	host->max_speed_hz = 300000000;
+-	host->max_dma_len = 65536; /* as per HPG */
++	/* as per HPG, it is 64KB, limit to 60KB to avoid boundary condition failures */
++	host->max_dma_len = 0xf000;
+ 	host->dma_alignment = QSPI_ALIGN_REQ;
+ 	host->num_chipselect = QSPI_NUM_CS;
+ 	host->bus_num = -1;
+-- 
+2.34.1
 
