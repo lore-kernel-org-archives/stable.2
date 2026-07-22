@@ -1,106 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8571F23815B
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784724680; cv=none; b=fdyxCJdo8skn5J8k2vUwJVQErtD7jiqGzzgi0sQgcv4ROjvB+7zv6lSavFnaJ3EB2J6ozPWw8qRP/2EdyQUCAOovkrpleEdeS+MTIMVoXnzkPf5TDPILVsQO3JF8CFTJ0dzOn3JpEiFngs8qwP7TY8vPazjV7lJe0LWkKtGrhqI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784724680; c=relaxed/simple;
-	bh=cE1Ojb80pVfEWjHLM/beLVntqt36G2jJhVlZLqJ15G8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uFLNmG/t/Lf+XkA+uPQI98PO4QprhURIZNnFV1XHnbMdWm7XN9r21NV7D6JVEK6AFFFm2AFpd1AcxLrEF1ZZfA/BbCOLHRo89aemhb/soJiT0uRG0Pnjxyvj0nPybZGlBypNb4M3+VRs6DGEiv0d23P0A66hcYIHiuY7DtMOlPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYkL0ghw; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4682C26A08A;
+	Wed, 22 Jul 2026 12:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784724871; cv=pass; b=qQbgMtnhFIF8s8bGdpRYt9bxmcEI4n62P8CoEg4Kot64tdlYVAAwoi7wlEvciF4A7uyKntm0NBv3Z2NkdmcMbuggUkfopq63CVVM14y6GP/D0iv/zFcrikUlIEyC9LBfMTalLu1rNcMyxv/llIpdy87r6IXD9rKHhRmC5ynGqaU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784724871; c=relaxed/simple;
+	bh=7VnZGEAQ3DhtuSfZcpeNXBf163xSu0ZUGhkcLmOeRec=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YnFIx/fD7ZHj/1Dys1TDTqJlUGVkhYNwNhmCGzOm2w1BTYQPtzB9MFxhbhHkixri/UVVQpKAOXfIsDD3P0RLA+7qDRWNTldqhSkfknCzHNtNDI5Sp4DPM/7QwjsKIF9xIf8S1sKAGMObhldWCY1zEIaokfxKiYUsmeHR1niKwWY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com; spf=pass smtp.mailfrom=yoavmoshe.com; dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b=BftG2pab; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yoavmoshe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yoavmoshe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYkL0ghw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214671F000E9
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 12:51:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784724679;
-	bh=ii9eNLh+OyhBOgKbdCuxq8TmIdZcIlRxyrdNZnalKec=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gYkL0ghw6pGW7mjktbGeu8qubL+kMkzQ0nY6HUd2MZDamwkOOYcWHzqJrNHsFHhmX
-	 E+Ep4TV/wIiv6j/cVCIEMHcBVZS/pjf/zraRqCWSlNw2mZPHW+IURYxti/cOFs/jQq
-	 a4XQJcl/nxZ9TXZo5coJJQJee6q6BlBBppmkAoU5T7tnoUIDpUQMZ7oeefLaYcEzsD
-	 APpcB4JuAWGiLk7M2YFXsUoVHR7WqCcxDnVZaQ1F37d2ZCXec4YBEv4lqYXtVTfSc9
-	 sutqKbbxp9yj2fFVM8/HF6fUcoTIkIrVQeDj1+28mbVs7BA2+O6HItrGQkgXRtK1lq
-	 gTk6hO2iUT8tw==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-698ab9aae16so12433056a12.3
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 05:51:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpkCs7ZsCIZMxE9jcT85P6ge7oRGvGfR/E5ecHdMiDELoRM/P1nH7CXvQ8mUjxxkll3yfaZQrI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4MWI4fCeCDPEgEvg8Af9cAD6rlZ4pUXmTZsh+BIcVegQpKIY3
-	D7iF5Y1D25c89cfdCV196OZJ5yjlpKY825ikqwNUDFcdwCXKdNjznh7mPz7W4splw8iFUIxwtCk
-	itXkwz7qWvQoxj0+nWCDOcJXNX9+PpH0=
-X-Received: by 2002:a05:6402:354b:b0:699:728e:48c3 with SMTP id
- 4fb4d7f45d1cf-69e6525aa42mr8790195a12.9.1784724677802; Wed, 22 Jul 2026
- 05:51:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=yoavmoshe.com header.i=linux@yoavmoshe.com header.b="BftG2pab"
+ARC-Seal: i=1; a=rsa-sha256; t=1784724840; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=OabnKG3HRHohSmn1I6Aafm+nQlHcJwu/3SXwQJJVKzk8P7/M6HcHvBqEOkYlkT2eOtvyzE9s8KzsyRs4bIv0pZPEMDHiMJa8ZS9Lc4PPIFsgEKUzBLWgw+EVToBZISgsufIlrLn3FJxr+CQQmlH1KdJzNPiWvQ1pP+6lLEbnma0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784724840; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=FQdJhIsoV9JuLr/1dkO0z+WM7z+OAgZ2kqVl0g9tzyk=; 
+	b=nXuH92L+Qc5i72ZVLXq2YydKP2Rkp3KRCW30RxAciHUmZiwc08eDq4uuN/0q/1MuV4S3GVb7bnwB1K+vpCWwYRAHOlY64pRBGb5FRFvBlifBGfWvcRuUCGHkxzxMKswLeMHEOjiwJpZpB5my8iflmLjiF/LESyYooOXBvA8KWR0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=yoavmoshe.com;
+	spf=pass  smtp.mailfrom=linux@yoavmoshe.com;
+	dmarc=pass header.from=<linux@yoavmoshe.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784724840;
+	s=zoho; d=yoavmoshe.com; i=linux@yoavmoshe.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=FQdJhIsoV9JuLr/1dkO0z+WM7z+OAgZ2kqVl0g9tzyk=;
+	b=BftG2pab8i4ALZLaaOZtPiPoUwKgJnO+YZHtLYMgCXqyxzL6oGNQ1AiCiSJcWbP3
+	5ITRvP8B28usUg4oo+0QAFypqEW2vLV5RbQ6GOFTGj0P8arWlodIWUQVVE/zX+Lar/6
+	moydj4DfxPBlFhqetQ7g990tJinJjSGsWMfH+h/k=
+Received: by mx.zohomail.com with SMTPS id 178472481504875.2682977610848;
+	Wed, 22 Jul 2026 05:53:35 -0700 (PDT)
+Message-ID: <180001f5-bddd-4e58-8442-f7ef3c979500@yoavmoshe.com>
+Date: Wed, 22 Jul 2026 14:53:30 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722044457.1333404-1-liushuyu@aosc.io>
-In-Reply-To: <20260722044457.1333404-1-liushuyu@aosc.io>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 22 Jul 2026 20:51:07 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H74o3hkWOTSSC5vfg3zh88E1isL5ch6ez1k-F8D9PWHXw@mail.gmail.com>
-X-Gm-Features: AUfX_mw9kVHUAENtIPWu-DPbyERVoRUAoRoiOYxo0MnL5ye6Kt2zgSuHlLWFsa8
-Message-ID: <CAAhV-H74o3hkWOTSSC5vfg3zh88E1isL5ch6ez1k-F8D9PWHXw@mail.gmail.com>
-Subject: Re: [PATCH] platform/loongarch: laptop: explicitly reset the
- bl_powered state when resuming
-To: liushuyu@aosc.io
-Cc: linux-kernel@vger.kernel.org, Jianmin Lv <lvjianmin@loongson.cn>, 
-	WANG Xuerui <kernel@xen0n.name>, Yao Zi <ziyao@disroot.org>, loongarch@lists.linux.dev, 
-	Mingcong Bai <jeffbai@aosc.io>, Kexy Biscuit <kexybiscuit@aosc.io>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Nathan Chancellor <nathan@kernel.org>, Yo'av Moshe <linux@yoavmoshe.com>
+Cc: Sami Tolvanen <samitolvanen@google.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260718111340.159896-1-linux@yoavmoshe.com>
+ <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+ <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com>
+ <20260721180950.GA3684684@ax162>
+Content-Language: en-GB, sv-SE
+From: Yo'av Moshe <linux@yoavmoshe.com>
+In-Reply-To: <20260721180950.GA3684684@ax162>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Hi, Zixing,
+On 2026-07-21 8:09 PM, Nathan Chancellor wrote:
+> Does using SYM_TYPED_FUNC_START for imx6_suspend() make that work?
+> Something like this builds fine for me and I see
+> __kcfi_typeid_imx6_suspend generated by Clang.
+Hi Nathan,
 
-On Wed, Jul 22, 2026 at 12:45=E2=80=AFPM <liushuyu@aosc.io> wrote:
->
-> From: Zixing Liu <liushuyu@aosc.io>
->
-> On EAECIS NL60R with EC firmware version 1.11, resuming from S3 has a ver=
-y
-> high chance (>=3D 90%) of causing the EC to lose the previous backlight
-> power state. When this happens, the laptop resumes normally from S3, but
-> the backlight remains off (when shining on the screen with a flash light,
-> we can see the screen contents are updating normally).
->
-> Since there is no generic way to query the EC's backlight state on
-> Loongson laptop platforms, assume the worst-case scenario and restart the
-> backlight power inside the kernel each time the system resumes.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 53c762b47f72 ("platform/loongarch: laptop: Add backlight power con=
-trol support")
-> Signed-off-by: Zixing Liu <liushuyu@aosc.io>
-> ---
->  drivers/platform/loongarch/loongson-laptop.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/platform/loongarch/loongson-laptop.c b/drivers/platf=
-orm/loongarch/loongson-laptop.c
-> index 61b18ac206c9e..742a585b0647c 100644
-> --- a/drivers/platform/loongarch/loongson-laptop.c
-> +++ b/drivers/platform/loongarch/loongson-laptop.c
-> @@ -200,6 +200,7 @@ static int loongson_hotkey_resume(struct device *dev)
->
->         bd =3D backlight_device_get_by_type(BACKLIGHT_PLATFORM);
->         if (bd) {
-> +               bl_powered =3D false;
-I think it is a little better to move this line into loongson_hotkey_suspen=
-d().
+Thanks for the suggestion!
 
-Huacai
+Unfortunately my physical board died, so I couldn't test this on hardware.
+However, I gave your patch a try under QEMU emulation (with CONFIG_CFI=y
+and copying the 4-byte hash into OCRAM before fncpy), and it still
+triggered a CFI panic when suspending:
 
->                 loongson_laptop_backlight_update(bd) ?
->                 pr_warn("Loongson_backlight: resume brightness failed") :
->                 pr_info("Loongson_backlight: resume brightness %d\n", bd-=
->props.brightness);
-> --
-> 2.52.0
->
+    __und_svc_finish from imx6q_suspend_finish+0x78/0xd0
+
+It seems like the hash generated for assembly doesn't match what the C code
+expects at the call site.
+
+Best regards,
+Yo'av
