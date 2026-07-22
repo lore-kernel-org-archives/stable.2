@@ -1,74 +1,71 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2221A6810
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D541C3AE18D
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 11:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784720978; cv=none; b=sxqFXAkkY5pubFmaNCW0rQ+Hgekd8qisRylIjEP4MuHm+uQIBlfbfQm0Np+2pcDCgT/eEt44bSXSZ/WmlSlX38SxKcKNNWiNigFYVZkzP8WuuVnOQrl84i3WjHiu+fOg44z0qFAy7tggsMZVywkxWSkJ6iK+A3PfWLTH8P7w/OY=
+	t=1784721436; cv=none; b=o89PhcUsmRAQS7qFfFpQXQ5Ru4y1V6YWfZF4lPGN93GVqJkmsn/du06qdR3raE6fLGLIu1MVcv04jwCKgthWXzJmXjoG3tw9s1DeY44uTbPrOtBU8LLo1arj6Kvqw50ghXAZZV9syc/iyyqUIPvYSTGnzb7ELQmgcdYwtiLHU9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784720978; c=relaxed/simple;
-	bh=+XDFmOkPEzlJtKktx5wuL9JV6AFHisnnK0NmMTtC1VU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OX3L8RV0QXnfYFR4m5CKpezxCxkdfXe+NTkqzYLufGZY29lwg6Nk4jEiYE+uATddvXnjSCSxpZSYKSLQlwMma0Vx6jreBOr2LqBweXoaDXQu19qzrnCaoxtvO3cuhMSffWoHBYjAf+jAOzNTAyNXpvm285lJw8vhyNCSgWsVAXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=dAImpa7L; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	s=arc-20240116; t=1784721436; c=relaxed/simple;
+	bh=o5SCFDpw/NTrcDujAj2qriVQqa1KlBtZBiszsdGNJb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RbSsC9CuVrnCnefASNOhiOXfe+0477wbIHioUUW+4e6SUewRPlWNNcQD/D6H1Z0cLq6JJY+bVDm1qGsRqFoBkogFgl/Br8Tcy5ABXybjjeqfKX28P9YmC6WPau+iFfDU5IR2vhvdctVjtVgoZmietBj2X/mj8HQ+yY+RbF5/5U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TiJjVplg; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="dAImpa7L"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f703a9d05so2375328f8f.0
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 04:49:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TiJjVplg"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38e08baf860so10060226a91.2
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 04:57:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1784720974; x=1785325774; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784721434; x=1785326234; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CK3HSXUL/NSEp0MJpgE4zEb+gkyu2Vmxsop6Xyf02c8=;
-        b=dAImpa7Lx8+vjqKtfwqZhVBXhDHMQfz8fuqjDb0DpKr8WEHTe+xvfvmfJf57sZzQqo
-         1fUAvPJsJ+YQe1NAchi0UTV++6OFF8gTDpfzIugChJYcvMMgN4RDkfH2EglHtAe5ACW6
-         9Sv2U5uiBoBiKMM6eYrhE8ciqYdYUDA5S8gma5tBA7bxAj6njyeBxliSkHMmq/AJMRm9
-         z2uSH8QWXTUOMKKvKgCX7HlOlvmULBYg/iO2XKuihrrg+mDBLLqvViBzEJjSn7v6EVum
-         9RcsBsvYUGNJpOQ/vf3vuljUXQbS/5zQV82GStwJ34lhFjTMO24msf5mJk1E3oKT56Kn
-         2DtA==
+        bh=dH+C1DRbZ8d3apB1BNH1FuLGa4BaOF4ic+vVx3KCjwc=;
+        b=TiJjVplg8+1zqPM/4YXxxZOnN8PUoSy7QdHoJcgzHN3ML4n74CRJK/6JMuPmLtrGZ3
+         Kbwd49MwzmhH/EVwSYzRkrhUhjsB8rRjQfvl3oydddPxsvVy55yVkdyOhPgBEQuocJ3c
+         P9ijoRXSB/AWChrWpDNm/U2WQFMMXnkfW32sVNPgsOS3KAs55QjmYv3NBmudGSgVxQo8
+         BDTZzuJVrvdwCxS3OnhhCuMQ+ZSll7D9lsnOCFczxaKTRM9tw2zXeMXKOfrAq7d/aXCM
+         +w4Sg2PWrV69U9xiiytgamwFsted6W8V46HROZKX4RJk3EmG5ENFNlmw3VEctNxMIpiw
+         gIrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784720974; x=1785325774;
+        d=1e100.net; s=20251104; t=1784721434; x=1785326234;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CK3HSXUL/NSEp0MJpgE4zEb+gkyu2Vmxsop6Xyf02c8=;
-        b=E5XVuXLsUbHR19RvLszqy5uwIwUij4DLAmEckoa3HnzcQleZRtNrSQgtCmUeYMi0dp
-         sY4ERmgs5Z3rPtLsqOit0wtq+tYYz60SI12EgGvP4iqqQA87Uk6RBAqeGknqEGDCkSTx
-         t0QF+Ko+PABf/CIsSgg2rbj1NqrwN3G7nXfBdsJhFynHvwhw3HrcWxJ9xu+8Gu4oGpxv
-         91WERxktqZypV545jCWAmMoOrB1CvIJ+NOAUQ8wtYtGjKGpUAPxHHxtpiO4pF6ihNWw+
-         Af9lZSQM0CKxtszPSaSI92GqDx/QP3cUVa1vNsru68uVi6a28AdNb+K+VLCcVBAS5dOO
-         +9jg==
-X-Forwarded-Encrypted: i=1; AHgh+RpXVsF4MTaxF5AMUtUQCT8B5tY5wMmKC3DQdGfzwGyCAPWYFYn378WXh6ZuiJebimIARzP/pmw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzJnig2x7mln5LnplpkU+m89PPQTz6goasrlXiu7SIOta0knrZ6
-	5hUMsK/Kjsts1iDr3rlwK/ckpf/AInlRzj0eGgdb6uFyTWG0QVKX8mu7C3kxE6JmgY4=
-X-Gm-Gg: AR+sD12gG6ZAVxCskcvBmoW4kueaTABIy9J3EftAmN7ZLNjnPJUmDkvqhdARnJ5wob+
-	7e0Dma9762fZhGas0b7YKLiq2EQ7QH4Sb4UMfDT6iEFPx/3TErrTD0lywukdiNjqobYB5k/KByj
-	SoX3XmLdO4PoErwSBrA2PxnVqwFQTcc14+TAsjCapvkt8LKTSkIoGtuy0+SHWCDjBjENpNbw2pL
-	iY5x4tVZRcPx/V5pEcf7zrgdJV3EcHI8mTGobKgNH+uqm+LLAkFPqBGsGiR66VDQTu7vvL8Vh8V
-	jw5KNty6pFDqmBzFGnRNgtomSqYLbCChCRe2lLzep0+KoQX61JA0XyaT2i8di2Kq/DTYMPkS1M7
-	+Ghoqq82IYBXs7p2PNgu2FL3g6VsOgGG+OjPeU/qmhLhgLGkJatCDPeRtzovl8EbIQmLouK4EvG
-	/XqvWkN2W2FUFnHSOJ8rUVNwx5ovm23XuGcZAKKn3o3Ats/R4linSWxPph23V0KBCTqvXcjy8Zy
-	LviUNUr8z08XKGG
-X-Received: by 2002:a05:6000:1869:b0:47f:7030:bfbd with SMTP id ffacd0b85a97d-47f817fa7ddmr7823949f8f.48.1784720974278;
-        Wed, 22 Jul 2026 04:49:34 -0700 (PDT)
-Received: from raven.intern.cm-ag (p200300dc6f484700023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f48:4700:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a659sm5699475f8f.6.2026.07.22.04.49.33
+        bh=dH+C1DRbZ8d3apB1BNH1FuLGa4BaOF4ic+vVx3KCjwc=;
+        b=IEIZJds8HDrf3KCNTS/Q3ZsA4Re2UOi6JecbxnWadrnMpFIgS1eXiwBV0k5UBe2Cid
+         ZM0FuySWcEDs10tKw22W0lUoMTFD6zoGKb/obrH/Y8k4Kg6BObX706kN7+Kti8hKSheu
+         OSezVjsZr6VwQAbTvQGW8x+DEUoBOmPoWUODI/uH+5UZ+TmmKFYJdVcpoJ6AthVFWvZG
+         pICtBC4fcY99JIhXBMNkJ9cypW0Dqi2C14Ch9nXr+96FZLwEGkmah/iAsAmAuG6Kwkku
+         U4NAIRloMTxh6782Va3JZFdZXzFegMYrk9VAMk1TqTSTicQueB/fKbybZccWeqL9MnAj
+         xPLw==
+X-Forwarded-Encrypted: i=1; AHgh+RpP5j3QVFJKubljFNCFPijPi1W4Mg6kpMgW0l+g5QGOBEyRpjhYWBBIo9Tp5cNk3J6M9dumqzU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwV0T0makT1RURfXuXFT28Bc1XpHjVvS15k8Uw1mc1nYpEfV2po
+	B5StJui3jfrQmdOLrT4ycYk1+1UgLkgRp6O3ToOENjhOz4EMaPcT33qG
+X-Gm-Gg: AR+sD11XBan9fiF+60zYRd6iNr1Q6G4RNNlM9V9iinV+Bxg1I6KnxQaQ6w0XL/W9YTk
+	iYWGoZBc5qu4FSLyjG/0ZemyqFhEOv3AvWVm8jDgBqV4SAEgntj4Yv3u1wIBQaZwSF9gMyfHip6
+	dh4S4ec9PkwXK0agxJ7Voq/pOzGkPqizb60j50w585JjtaWn/tdJYdZeamCV9+X5UM/7B8mzm9b
+	1SzV4wOiLAjLJzbjMLBJrsPhfQhe5Bh92Jah4+FUi4FzEWA7i6kv2BXO8WOQYXLdX0/p/3JK0Sk
+	/4fajVga53EkFKrM6+RK8N5z7xbIyWSVqCy79cbafKSvhNtfenJQRBwT8UFe0JMWoABB7Kzpb3k
+	7WXPTWY4nLB/uTSVHL6W16iT44l1u3Iy5SoQXig1jdJFNYSgZIgjx5NIJlsQ/RV3BYY5FW4rEdD
+	HgE1/p9zLy8XGFAyDvSJ/HmP+iUIDD+0Y2HEh02ujfGf1cYuO+dsyn
+X-Received: by 2002:a17:903:11c3:b0:2cc:6817:d9b1 with SMTP id d9443c01a7336-2cf34a00b94mr256840395ad.41.1784721433902;
+        Wed, 22 Jul 2026 04:57:13 -0700 (PDT)
+Received: from DESKTOP-L3Q0GIV.localdomain ([203.230.195.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f2e6247sm13435475ad.54.2026.07.22.04.57.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 04:49:33 -0700 (PDT)
-From: Max Kellermann <max.kellermann@ionos.com>
-To: idryomov@gmail.com,
-	amarkuze@redhat.com,
-	xiubo.li@clyso.com,
-	ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
+        Wed, 22 Jul 2026 04:57:13 -0700 (PDT)
+From: Sangho Lee <kudo3228@gmail.com>
+To: Luis de Bethencourt <luisbg@kernel.org>,
+	Salah Triki <salah.triki@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	Sangho Lee <kudo3228@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] ceph: avoid fs reclaim while using `current->journal_info`
-Date: Wed, 22 Jul 2026 13:49:31 +0200
-Message-ID: <20260722114931.3557110-1-max.kellermann@ionos.com>
-X-Mailer: git-send-email 2.47.3
+Subject: [PATCH] befs: bound B-tree descent depth
+Date: Wed, 22 Jul 2026 20:57:10 +0900
+Message-ID: <20260722115710.1387346-1-kudo3228@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,107 +74,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-handle_reply() stores a `ceph_mds_request` pointer in
-`current->journal_info` while filling the inode and dentry cache from
-an MDS reply.
+BeFS B-tree descent follows child and overflow offsets supplied by the
+filesystem image until a leaf node is reached.  It does not compare the
+number of levels traversed with the B-tree superblock's max_depth field.
 
-An allocation in this section can enter direct reclaim and prune
-dentries from another filesystem.  If this dirties an ext4 inode, ext4
-starts a JBD2 transaction.  JBD2 interprets the Ceph request in
-`current->journal_info` as a journal handle and dereferences the
-request's `r_tid` as `h_transaction`, causing a kernel crash, e.g.:
+A crafted directory B-tree can therefore make an empty interior root point
+its overflow field back to itself.  Directory iteration remains in
+befs_btree_seekleaf() indefinitely.  The same unbounded descent exists in
+befs_btree_find().
 
- Unable to handle kernel paging request at virtual address 00000000077b4818
- [...]
- Internal error: Oops: 0000000096000004 [#1]  SMP
- Modules linked in:
- CPU: 6 UID: 0 PID: 2699135 Comm: kworker/6:3 Tainted: G        W           6.18.38-i3 #1113 NONE
- [...]
- Workqueue: ceph-msgr ceph_con_workfn
- pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
- pc : jbd2__journal_start+0x2c/0x208
- lr : __ext4_journal_start_sb+0x100/0x178
- [...]
- Call trace:
-  jbd2__journal_start+0x2c/0x208 (P)
-  __ext4_journal_start_sb+0x100/0x178
-  ext4_dirty_inode+0x3c/0x90
-  __mark_inode_dirty+0x58/0x400
-  iput.part.0+0x2b0/0x370
-  iput+0x18/0x30
-  dentry_unlink_inode+0xc0/0x158
-  __dentry_kill+0x80/0x250
-  shrink_dentry_list+0x90/0x130
-  prune_dcache_sb+0x60/0x98
-  super_cache_scan+0xe8/0x190
-  do_shrink_slab+0x174/0x388
-  shrink_slab+0xd8/0x4c0
-  shrink_node+0x31c/0x908
-  do_try_to_free_pages+0xd0/0x508
-  try_to_free_pages+0x11c/0x238
-  __alloc_frozen_pages_noprof+0x4d0/0xdd0
-  __folio_alloc_noprof+0x18/0x70
-  __filemap_get_folio+0x248/0x440
-  ceph_readdir_prepopulate+0x570/0x9e8
-  mds_dispatch+0x1424/0x1ba0
-  ceph_con_process_message+0x74/0xa0
-  ceph_con_v1_try_read+0x3a0/0x1510
-  ceph_con_workfn+0x260/0x460
+Track the descent depth in both paths and reject trees that exceed their
+declared maximum depth.  Also apply a 64-level absolute limit so a
+corrupted max_depth value cannot itself make the bound ineffective.  A
+valid B-tree in a 64-bit address space cannot require more than 64 interior
+levels.
 
-Enter a scoped NOFS allocation context and leave it after clearing
-`journal_info`.  This prevents filesystem reclaim from recursing into
-another filesystem while the field contains Ceph-private data.
+This is separate from validation of the packed key layout inside each node;
+the looping image uses a structurally valid empty node and malformed graph
+connectivity.
 
-Fixes: 315f24088048 ("ceph: fix security xattr deadlock")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Signed-off-by: Sangho Lee <kudo3228@gmail.com>
 ---
- fs/ceph/mds_client.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ fs/befs/btree.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 853bf698b356..3c692ad02c85 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -6,6 +6,7 @@
- #include <linux/slab.h>
- #include <linux/gfp.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/delay.h>
- #include <linux/debugfs.h>
- #include <linux/seq_file.h>
-@@ -4015,6 +4016,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 	struct ceph_mds_reply_head *head = msg->front.iov_base;
- 	struct ceph_mds_reply_info_parsed *rinfo;  /* parsed reply info */
- 	struct ceph_snap_realm *realm;
-+	unsigned int nofs_flags;
- 	u64 tid;
- 	int err, result;
- 	int mds = session->s_mds;
-@@ -4158,6 +4160,14 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
+diff --git a/fs/befs/btree.c b/fs/befs/btree.c
+index aa24f1dac..f27e8c94e 100644
+--- a/fs/befs/btree.c
++++ b/fs/befs/btree.c
+@@ -87,6 +87,8 @@ struct befs_btree_node {
+ /* local constants */
+ static const befs_off_t BEFS_BT_INVAL = 0xffffffffffffffffULL;
  
- 	/* insert trace into our cache */
- 	mutex_lock(&req->r_fill_mutex);
++#define BEFS_BTREE_MAX_DEPTH 64
 +
-+	/* disable fs reclaim while we are using current->journal_info
-+	 * for our own purposes, or else shrinkers of other
-+	 * filesystems might dereference this pointer as a different
-+	 * type
-+	 */
-+	nofs_flags = memalloc_nofs_save();
-+
- 	current->journal_info = req;
- 	err = ceph_fill_trace(mdsc->fsc->sb, req);
- 	if (err == 0) {
-@@ -4166,6 +4176,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 			err = ceph_readdir_prepopulate(req, req->r_session);
+ /* local functions */
+ static int befs_btree_seekleaf(struct super_block *sb, const befs_data_stream *ds,
+ 			       befs_btree_super * bt_super,
+@@ -248,6 +250,7 @@ befs_btree_find(struct super_block *sb, const befs_data_stream *ds,
+ 	struct befs_btree_node *this_node;
+ 	befs_btree_super bt_super;
+ 	befs_off_t node_off;
++	u32 depth = 0;
+ 	int res;
+ 
+ 	befs_debug(sb, "---> %s Key: %s", __func__, key);
+@@ -276,6 +279,12 @@ befs_btree_find(struct super_block *sb, const befs_data_stream *ds,
  	}
- 	current->journal_info = NULL;
-+	memalloc_nofs_restore(nofs_flags);
- 	mutex_unlock(&req->r_fill_mutex);
  
- 	up_read(&mdsc->snap_rwsem);
+ 	while (!befs_leafnode(this_node)) {
++		if (++depth > bt_super.max_depth ||
++		    depth > BEFS_BTREE_MAX_DEPTH) {
++			befs_error(sb, "B-tree depth exceeds limit");
++			goto error_alloc;
++		}
++
+ 		res = befs_find_key(sb, this_node, key, &node_off);
+ 		/* if no key set, try the overflow node */
+ 		if (res == BEFS_BT_OVERFLOW)
+@@ -543,6 +552,7 @@ befs_btree_seekleaf(struct super_block *sb, const befs_data_stream *ds,
+ 		    struct befs_btree_node *this_node,
+ 		    befs_off_t * node_off)
+ {
++	u32 depth = 0;
+ 
+ 	befs_debug(sb, "---> %s", __func__);
+ 
+@@ -559,6 +569,11 @@ befs_btree_seekleaf(struct super_block *sb, const befs_data_stream *ds,
+ 	}
+ 
+ 	while (!befs_leafnode(this_node)) {
++		if (++depth > bt_super->max_depth ||
++		    depth > BEFS_BTREE_MAX_DEPTH) {
++			befs_error(sb, "B-tree depth exceeds limit");
++			goto error;
++		}
+ 
+ 		if (this_node->head.all_key_count == 0) {
+ 			befs_debug(sb, "%s encountered "
 -- 
-2.47.3
-
+2.43.0
