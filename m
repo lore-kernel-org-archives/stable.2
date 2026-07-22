@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BD33630BA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA6E368D77
 	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:54:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784681653; cv=none; b=Nx1lTnR4iEfRWCBI09Spb3BTcaAwzWhzSe94dMuZ8Jd9wAfE7rmfwHT+3MyPIrAsaBHFXXSnUiqTDsO/lwbb6WLANygrKOW8fD2ZjeKGLSH7y/T97KDnt4MMkc3g17R6MYjQRPd6/jFWDtiaQwAwyq1OOba0tS7sF6CwaHrtTAo=
+	t=1784681653; cv=none; b=TMd4wd4wkXRhXROyhyTkQq+Y+qC1TXbrbhCYmK2UuFTXEis7NCBI6VWOOQ7rFYPl9etB7Pw6y+yxEShkZGqZar2S2JR2JZXwN7v2rqjnirbiK5SOa0fkkbB2jFfJlHF/Sv6ZQWhc2YUbZhnty2gGQaVdkg3lb/XVI1XFtdU/3Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784681653; c=relaxed/simple;
-	bh=qZRFpGmJF8slJVbLGzrGwp68H+5L6Xw1U7FsE3F9mHY=;
+	bh=G7xQkf2mbWjnoi9lDHcLn1FYALpn1Clw2e9gt8vMMxA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fdV+7MPbd15u+3Rzv5zFhwnBqbDmfnO4kHEKTY+fo49Q9+E+o0VBD/xoYlItEMOtl+mzSiKZeH6cgqjPdc/LsXDhfDhge0RLnMYE4kArGhxo7GeJmdxIyhZTKOBGWzmr5PDvs2z0b1+nJIjlC74atJDd4ecfqq35rimH/ZKxV8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDa7oMaE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Pg9Jaaq63bOjh6BHnFUzHRS6x0ryIVlobCkYKga8Kn/JJaJQhukdxgvredqz04xygKfa1gINCxGyBlc74qrxJmVuMnfsZSvCtAv5vtAguWUPy8IH20HIajKEAJL7G7TyjUZq0yldFuP+XkC45SnOw2xr2+p9IwbVxWzTCh6ynBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHx5O0Rk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDa7oMaE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0611F000E9;
-	Wed, 22 Jul 2026 00:54:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHx5O0Rk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C1D1F00ACA;
+	Wed, 22 Jul 2026 00:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784681651;
-	bh=GtOlK403kDgxwDejO0rtWjGT0UJKy5OVu5W0Rx6SV6I=;
+	s=k20260515; t=1784681650;
+	bh=cKOzmCGMCS/HowMBcaJaau563Um5WEY9I932TsYVc2w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RDa7oMaES/wDUjF+RuhYgJ/+6VkOJvOWP0as/sZZ/g88jSiCy1xe92oN/cXvKH2kU
-	 A2U5jvbkGueYfmMHOOU1gvd5+117xGZ+L4tz3sFaQ5qwIWIGro0Y96O98xBCvh/rrm
-	 WlFpwxImGTbhlVu86sby3kbhSj5IwKFH3nTfWkTBRJFX6YtBMPh/RLZt3EbewXaq1e
-	 wCF/idwB8dLDM8NSCyoKKjjLUuaCODMST5qs4FNLPEwF2R+LUt9z1edv4THLz4DZPG
-	 G+TOZGlSbQFWAktXAP081SXvfV27eiOUbIbmUFcgnQAlACde8HA6hX986zsZmp1XC7
-	 Itb8sCbLpBgXw==
+	b=NHx5O0RkaWHSxy9/qEA5XExgK2JH4IUCPLJF2oAO1hufispHlWp0is722WJEbpbYh
+	 5y8ppMBLSWFLxlO9MtGtyUuDOhjnGOmUuurWGoPdH7BRDQC/88HiosBZ0dpPxZ2XNu
+	 QUIpXSTQ0uma6wr1kOl63WXCJE9/CH2uO1WQS9Cpyz3Johkqn/XVqCuICfd3rQVE94
+	 n9bZVxsu030L+YRPlDRgFnk1fze8LQEzAcQxsX2b0a71IcZxXqdeJw99cuBLkPXYyD
+	 S76RVDUVMkLkHLZhwlJxW99L0qtX3TzMFX5b3sN+58REX3Eni7dLfL8rhE4thqxDGF
+	 cjdAeAzino0Yw==
 From: Sasha Levin <sashal@kernel.org>
-To: win847@gmail.com,
-	joe@dama.to,
-	kuba@kernel.org,
-	lorenzo@kernel.org
+To: Greg KH <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
-Subject: Re: FAILED: patch "[PATCH] net: airoha: Fix skb->priority underflow in" failed to apply to 6.12-stable tree
-Date: Tue, 21 Jul 2026 20:53:57 -0400
-Message-ID: <20260721201114.0010-stable-reply@kernel.org>
+	Kuba Piecuch <jpiecuch@google.com>,
+	Tejun Heo <tj@kernel.org>
+Subject: Re: [PATCH 7.1.y] sched_ext: Skip ops.set_weight() for disabled tasks
+Date: Tue, 21 Jul 2026 20:53:56 -0400
+Message-ID: <20260721201114.0009-stable-reply@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072154-partly-effective-6632@gregkh>
-References: <2026072154-partly-effective-6632@gregkh>
+In-Reply-To: <20260721150403.3680077-1-jpiecuch@google.com>
+References: <20260721150403.3680077-1-jpiecuch@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,13 +46,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The patch below does not apply to the 6.12-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
+> Notably, ops.set_weight() is called _after_ ops.disable().
+> This violates the expected semantics of the callbacks, the expectation
+> being that ops.disable() can only be followed by ops.exit_task() or
+> ops.enable().
 
-Queued for 6.12 (the driver still lives under ethernet/mediatek there,
-so only the path needed adjusting), thanks.
+Queued for 7.1, thanks.
 
 -- 
 Thanks,
