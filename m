@@ -1,93 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1478A17A2F6
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 20:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A1C367B7E
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 20:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784753257; cv=none; b=ZJzjzmTQHa34VUo4mvptEpxxQwveseUf4mmuanPQeBnD7olLrtUnBMu9E4auN1b+/HPw8nPRpZNZErAObpY+WVo2G1aRn6md3YZms4/IHZZ894nTJkTtYGDGMcIugzGMb9X3RMSnfUjhZPzLEt0wpT+ln7GklMafCNKKA5xbWZw=
+	t=1784753299; cv=none; b=BdvgGI9YbPxTdxbDPgNj3jBuJoDBbGiu1h7U6vMw5ksITM0fiTsLx76QNJ6SFUyYWTFhPKUzahRHHuzIAIvG9H6AaY5Z5GqiQ6GubC8a8ny6Y2ppKDKhKJzaS2xbhU+dd/9rpM8fstQPeWmDDnmj4jWW6NCS+grE5dYznf3Oe7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784753257; c=relaxed/simple;
-	bh=nB9VrNzuWoGslIOdZzdpFkq9H1Wpjrd6gX6tLwuLbAQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zf9fzqUbORA9o4pcY9qj9HW8ITRXY4HMuKfXROFx8I6yoh1UCJjfp/fNxs6Bsrp+7pD0n6o+UEkD6zy5TPmvmdeEfaedtBKzWha/6Md8YRAK9xCOCZ8EFL3Ovc29Ewz7X8Zh/ye2bKQ30I8wjvo5FBknqfgQQvOrtRPFXKyYBAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRKEtdaT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784753299; c=relaxed/simple;
+	bh=1DRyjPP6PthxNAowhOQK5oEsTIb6+8VD8sdlDmfY9Ao=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=TU+lB3z6dtk4NYUOMdsqq/0hx4cs2a5WaZh0rd4NNvPmsAYHuG4q6Cr5yRJZzD7wyR8XEEgdkEXEYUucS86JyF4fDSswOKD67TcTXP1PkqbKbr41tNRDfo4+utPBltGCgil39nboHoVWT3lGVVlO0F0VJ8UNrsrCxz91waEp6eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZS8pQ2YQ; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRKEtdaT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08931F00A3A
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 20:47:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784753256;
-	bh=cdRr0jmB/T9AWrg/YvJSx1PCAp8xSH/+1A1h2U0ng20=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TRKEtdaTOqn+oWgi8aBjZdtcR0DWnWZ9Kg/giHO6fiS5lYlJymFsOT0Z6dZnN6Y22
-	 /eBouExB1LEyuie9kmPCWCbKV4+CwRxqygxSsAhsPxvvtRwpsFPH7rXRwlMd8vvGcq
-	 4dzz9ZrTZC0kjHlhaeP+a6klmtkcWX2rE3Qi6YEJMhISdwMGZtGb/uBpKLCzhnm2Aq
-	 kBSNDefzzWCQj4p4yOzGQYQ8bWDRMWyNbvP6jM2yAnRVgtV/MCuHi6flFObUiwTweH
-	 qFtaIu803Xwy5EaeOqsBTEt21muygZuAvCXSe+V1iiy8HmmDBUP/GefooqcyCxy94I
-	 8owH3pvRyEqgQ==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c1671ec8692so61662666b.0
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:47:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqTcrnQCs08y1Oh52paa9BkCmbuIECBOye/ip9ZqLLKD1TRtXYfUAuD1eoqpfbOo1NqO8vdSOc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFrd36DQKno2lBrX3rNVUdPj5ueg7KYL8RTLS3z1xo/bF5M14i
-	xnkhjiyxaSqDknnvHsAwp4gbvsW5/bSshF5bAj742j/I9A4mOlNrcKoeHLKgAfxgGeOTZ417qcn
-	db4jbZDyPoq+yrLAnAQdor4jzx6RRm/I=
-X-Received: by 2002:a17:907:72cb:b0:c15:c117:da40 with SMTP id
- a640c23a62f3a-c1c508f9d6emr20165566b.44.1784753254923; Wed, 22 Jul 2026
- 13:47:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZS8pQ2YQ"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb5bdd8450dso3655269a12.0
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:48:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784753297; x=1785358097; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MBj0yg8xeI9MNjX7AgATIvJE+XRBQGTQwqcnQ4/pcDw=;
+        b=ZS8pQ2YQ2qig43dep1MIE6DAQh8u95DSGPXcbG+VrDDNgcLdoRLLZSTUy41QEuvMti
+         PAZm8dSXfVvdb3aMA38QtBNv/FnoLXTKP7KNmxYexvwdi/GQWLwqTz2UB2fgg7NgUAoA
+         56Uum5eX7jP8vtaGtsUjsIl7vCoYSD3DjhESlU/dSrfPDwLN560z7Ofuy0vG2TmcrHmE
+         Ipq5pjhyIsy5WyDLh3SdLklHStSSsOPizPeaAkzaUx7dyp1rDCJCKLxaqGWCW/DFvyK6
+         7Wy9Cd1FQAOnL2qP+bnwyOdbNszid9q7GZ3JQYHoGL9xsAYlFOrP15q2ipmoJDCmaoRI
+         7ZdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784753297; x=1785358097;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MBj0yg8xeI9MNjX7AgATIvJE+XRBQGTQwqcnQ4/pcDw=;
+        b=d0Ot5QPq/Ot/abAV7A6rfMi+WWOxhwMIUw0Csk4mdji5kMZo6dOuJPcWHdQNR9L7jW
+         r/JFmDkLiGkavdbMIOxpZsBxLeyCvsScvLdyix2z9S8gpdYYsQpSUxPhY+cnr+ZbvY0N
+         BGETO2s/aHey8A+5iPOP4TR8eufMwfHcH5ihgJg9GBTj9lkL21E9AKqmVETnGsZkBP3T
+         Dr7SVXOgoWlxXlXxtAdD3KYRtlEpGgL67AuaGJmKF0eMy88wnNkr0O/LO/NU5pOhniBK
+         qjF6nwpgfVKB9jnrBYm3DXm5mxixQT8SWuOGdVN++xYXvIW5bNCe9JfysanmECrernK/
+         OKDg==
+X-Gm-Message-State: AOJu0YwBGHFzSvfbb8kWCXIw8B6oGwfw86A6/CkmiveS8eiP0zhYi3a5
+	wYhSvsvEdJZExYZvFugzNYeGYmL+3jMtLsZ72xyCMSWHsZMknvts8GRkKeXjkWBIBbLN+fn2LIZ
+	1ZG7na7ZeiUTfy3HiU7YrJ5oVAtU5lTUc+iDPyJGQAoLPUYjPloFS+RTLyQVS/Ah2HscpGSskY9
+	VmniwQdvgSjkL7qqX0qwgAN905MZXBURplgYXoG89pnYAtcco=
+X-Received: from dygg9.prod.google.com ([2002:a05:693c:80c9:b0:313:eef3:e9b5])
+ (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:4313:b0:3c0:9c19:b271 with SMTP id adf61e73a8af0-3c44b2616efmr95077637.63.1784753296898;
+ Wed, 22 Jul 2026 13:48:16 -0700 (PDT)
+Date: Wed, 22 Jul 2026 20:47:48 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260713180153.2728382-1-yosry@kernel.org> <20260713180153.2728382-2-yosry@kernel.org>
- <CAO9r8zPhmLNdVgyXib-P+Ge_KSp=a8gA3mLDcpjJ5br-eXpj8w@mail.gmail.com> <amEsBpHgIM_H7lDm@google.com>
-In-Reply-To: <amEsBpHgIM_H7lDm@google.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Wed, 22 Jul 2026 13:47:23 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPE=P52yXeEgs_7xo3pXsVKNHJcCjNeAsdZ6TMT0weqDQ@mail.gmail.com>
-X-Gm-Features: AUfX_my3XTJXEn2Up3EujXSNrb55q0kPbfmaJfjDaXww6yDmGrqsABMSCiK4L00
-Message-ID: <CAO9r8zPE=P52yXeEgs_7xo3pXsVKNHJcCjNeAsdZ6TMT0weqDQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] KVM: x86: Check EFER validity on KVM_SET_SREGS*
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+Message-ID: <20260722204748.104836-1-cmllamas@google.com>
+Subject: [PATCH 5.15.y] futex: Prevent lockup in requeue-PI during signal/
+ timeout wakeup
+From: Carlos Llamas <cmllamas@google.com>
+To: stable@vger.kernel.org
+Cc: kernel-team@android.com, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Moritz Klammler <Moritz.Klammler@ferchau.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Carlos Llamas <cmllamas@google.com>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
+	Davidlohr Bueso <dave@stgolabs.net>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 22, 2026 at 1:46=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> On Mon, Jul 13, 2026, Yosry Ahmed wrote:
-> > On Mon, Jul 13, 2026 at 11:02=E2=80=AFAM Yosry Ahmed <yosry@kernel.org>=
- wrote:
-> > >
-> > > When handling userspace SREGS writes, check the validity of EFER (i.e=
-.
-> > > allowed bits) before writing the new value of EFER through the
-> > > per-vendor set_efer callbacks. This prevents userspace from writing
-> > > bogus values (e.g. EFER.SVME=3D1 with nested=3D0).
-> > >
-> > > Note: on KVM_SET_MSRS, KVM only checks EFER validity in terms of KVM
-> > > caps, not guest caps, so it is possible to set EFER bits that are
-> > > supported by KVM but not by the guest CPUID. Potentially allowing
-> > > userspace to set msrs before CPUID.
-> > >
-> > > However, for KVM_SET_SREGS*, check the validity of the set bits again=
-st
-> > > both KVM and guest caps. This is consistent with other validity check=
-s
-> > > (e.g. for CR4) that check validity against guest caps, which already
-> > > imposes the need to set CPUID before SREGS.
-> > >
-> > > Cc: stable@vger.kernel.org
-> > > Change-Id: I45701ec440e4fdd8f086eb70db0c0845fb0ed509
-> >
-> > Forgot to drop these, sorry :/
->
-> By "these", I assume you mean the Change-Id here and in the next patch?  =
-But keep
-> the Cc: stable@?
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Yes, just the Change-Id.
+[ Upstream commit bc7304f3ae20972d11db6e0b1b541c63feda5f05 ]
+
+During wait-requeue-pi (task A) and requeue-PI (task B) the following
+race can happen:
+
+     Task A                             Task B
+  futex_wait_requeue_pi()
+    futex_setup_timer()
+    futex_do_wait()
+                                   futex_requeue()
+                                        CLASS(hb, hb1)(&key1);
+                                        CLASS(hb, hb2)(&key2);
+        *timeout*
+    futex_requeue_pi_wakeup_sync()
+        requeue_state = Q_REQUEUE_PI_IGNORE
+
+    *blocks on hb->lock*
+
+                                        futex_proxy_trylock_atomic()
+                                          futex_requeue_pi_prepare()
+                                            Q_REQUEUE_PI_IGNORE => -EAGAIN
+                                        double_unlock_hb(hb1, hb2)
+                                         *retry*
+
+Task B acquires both hb locks and attempts to acquire the PI-lock of the
+top most waiter (task B). Task A is leaving early due to a signal/
+timeout and started removing itself from the queue. It updates its
+requeue_state but can not remove it from the list because this requires
+the hb lock which is owned by task B.
+
+Usually task A is able to swoop the lock after task B unlocked it.
+However if task B is of higher priority then task A may not be able to
+wake up in time and acquire the lock before task B gets it again.
+Especially on a UP system where A is never scheduled.
+
+As a result task A blocks on the lock and task B busy loops, trying to
+make progress but live locks the system instead. Tragic.
+
+This can be fixed by removing the top most waiter from the list in this
+case. This allows task B to grab the next top waiter (if any) in the
+next iteration and make progress.
+
+Remove the top most waiter if futex_requeue_pi_prepare() fails.
+Let the waiter conditionally remove itself from the list in
+handle_early_requeue_pi_wakeup().
+
+Fixes: 07d91ef510fb1 ("futex: Prevent requeue_pi() lock nesting issue on RT")
+Reported-by: Moritz Klammler <Moritz.Klammler@ferchau.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20260428103425.dywXyPd3@linutronix.de
+Closes: https://lore.kernel.org/all/VE1PR06MB6894BE61C173D802365BE19DFF4CA@VE1PR06MB6894.eurprd06.prod.outlook.com
+[cmllamas: adapt to 5.15, apply hunk to kernel/futex/core.c prior to the
+ requeue code split and use hb_waiters_dec() before the helper rename]
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
+---
+ kernel/futex/core.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 42cd8f2b6da8..8b4af13b8d26 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -2078,8 +2078,11 @@ futex_proxy_trylock_atomic(u32 __user *pifutex, struct futex_hash_bucket *hb1,
+ 		return -EINVAL;
+ 
+ 	/* Ensure that this does not race against an early wakeup */
+-	if (!futex_requeue_pi_prepare(top_waiter, NULL))
++	if (!futex_requeue_pi_prepare(top_waiter, NULL)) {
++		plist_del(&top_waiter->list, &hb1->chain);
++		hb_waiters_dec(hb1);
+ 		return -EAGAIN;
++	}
+ 
+ 	/*
+ 	 * Try to take the lock for top_waiter and set the FUTEX_WAITERS bit
+@@ -3360,10 +3363,12 @@ int handle_early_requeue_pi_wakeup(struct futex_hash_bucket *hb,
+ 
+ 	/*
+ 	 * We were woken prior to requeue by a timeout or a signal.
+-	 * Unqueue the futex_q and determine which it was.
++	 * Conditionally unqueue the futex_q and determine which it was.
+ 	 */
+-	plist_del(&q->list, &hb->chain);
+-	hb_waiters_dec(hb);
++	if (!plist_node_empty(&q->list)) {
++		plist_del(&q->list, &hb->chain);
++		hb_waiters_dec(hb);
++	}
+ 
+ 	/* Handle spurious wakeups gracefully */
+ 	ret = -EWOULDBLOCK;
+-- 
+2.55.0.229.g6434b31f56-goog
+
