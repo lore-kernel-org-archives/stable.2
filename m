@@ -1,149 +1,143 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10633204C3B;
-	Wed, 22 Jul 2026 13:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3C633E37A
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784726360; cv=none; b=iZPkvLr/sTY4zbX8jVBQvZpkSJhLhCMUsU7XsFqoYHwY5FZd9lBLa3oK/8ARB6RYm15neQGjuv3x17hUMdjo2JVJqlgfE9AhHwFuOkczOPY93hFBJFKsvY7KAl8W8Mh1e4BDwj4r0cBGpAnORLSh/KVkvVN3leqvGkzYiIlGzoc=
+	t=1784726545; cv=none; b=qz0dXd8pbq0QLwdASbnNRrHLX2bcIbX6nlLexPencwX8/Q0HvsIKkdoXpoR8mMjX/D6Af/DWOTH5phIr+7g4T5sDi30fsa9x1XKXkuekkV1FybIbmebCHcZLevitqt8rpL4EXLcnGli+MMIuaP5Rgx+PLD+lVk2596s0efoqtlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784726360; c=relaxed/simple;
-	bh=JSBkiNzFfavHvbp9/1HikK4JUTMwJSEzZ5l4BpJfcZc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=bPgnqrNjqLpgPFrN30bmGDvf/dJonFLe6CiKFh3eN5UapZGrj5e7l7ZYN8D5XIVWnFL4dCdVxS7X2mZeOZ1n8iPV+nLJ93wp1kL1oA/ISwtkPQlGnassCgHTT+1q6ysGL1hyI2l0hnq1Tjed8XrJ578/MEhtViBiIGfpkKReyzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=uX3g+YWJ; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=uX3g+YWJ; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=q4EF+sV7; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1784726545; c=relaxed/simple;
+	bh=VLsp+Nu7L6KRnHUlSECtDsXG17bVTWCS0JQbx581Cms=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aDMrjdFOYVcY5nFmHg2WL7vHIM6LCc1i5FZ1G0yyGdsfbg1C1BGD7D1fyBG7VbgY9U7UaFs88+o1MrT7xoyB1roFjtB1DI4fTz7yoO0xdPEP25LKlZ+dagAoszRcUcczndPi5S0JTJb7tEO357Q0HcW3WjpgRXQTVhtVQdrhutQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kj7KPPRn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="uX3g+YWJ";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="uX3g+YWJ";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="q4EF+sV7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1784726349;
-	bh=JSBkiNzFfavHvbp9/1HikK4JUTMwJSEzZ5l4BpJfcZc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=uX3g+YWJL3g5Mhpninbb4NO/34fpP/LCLUi6OdJRKfu8G7qO8hwpKfzz9LM8Fg3pF
-	 6ZkQyyjhtUqg45iXu7K7hesd9R98MMOk33JiB651vXx4uis97/eVccSN/v2K28uLJI
-	 30ek5minVjAjx6TDDcIJRHpk0XahkkWqGMs+GKwnN1UaWlxxmqld6KMJeAo7wIeMKC
-	 iRFZ7tps+zvOetqZRjnU8HvGiL5EADYPM2BF2C6jxXPYBAs5d0/+FoAZzq7rvO7KHE
-	 4gFfGLOs/gF32Zcjcuu3F/GAz1wkOUigMFJj18wtt7s1e5yRIcPHid72WMwKzfaXcB
-	 ZIenkDZwgGMdA==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id A0DBD17E32;
-	Wed, 22 Jul 2026 15:19:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1784726349;
-	bh=JSBkiNzFfavHvbp9/1HikK4JUTMwJSEzZ5l4BpJfcZc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=uX3g+YWJL3g5Mhpninbb4NO/34fpP/LCLUi6OdJRKfu8G7qO8hwpKfzz9LM8Fg3pF
-	 6ZkQyyjhtUqg45iXu7K7hesd9R98MMOk33JiB651vXx4uis97/eVccSN/v2K28uLJI
-	 30ek5minVjAjx6TDDcIJRHpk0XahkkWqGMs+GKwnN1UaWlxxmqld6KMJeAo7wIeMKC
-	 iRFZ7tps+zvOetqZRjnU8HvGiL5EADYPM2BF2C6jxXPYBAs5d0/+FoAZzq7rvO7KHE
-	 4gFfGLOs/gF32Zcjcuu3F/GAz1wkOUigMFJj18wtt7s1e5yRIcPHid72WMwKzfaXcB
-	 ZIenkDZwgGMdA==
-Received: by mail.lysator.liu.se (Postfix, from userid 1004)
-	id 8834517E31; Wed, 22 Jul 2026 15:19:09 +0200 (CEST)
-X-Spam-Level: 
-X-Spam-Score: -1.1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1784726345;
-	bh=JSBkiNzFfavHvbp9/1HikK4JUTMwJSEzZ5l4BpJfcZc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=q4EF+sV7A+lJMdrdu4rEL8C4VV3XdvXWXorAJZdd9dLqSH/3Z1CEX8p5fiaKqWQMN
-	 NF7I116zpqSVn+jRDn5ajcLYeoKuu52cODMNQjiW89Irf8MmuCkgMMYKJjZBdr9iWR
-	 VCVJuxAp3rZiPW/6S2asqiNflIUb0JCvRK4z6+/bh3ZAeFJrPRYuQRJcSXSnuVCOGi
-	 jR1eOqiO4X7vAR6CtW/2AzzY9apijaM/s8FtovtBsAOIxUng/sZQ2EdSYVfiz/zCWj
-	 OEITOep3p4SENIxiFT3CaCCBFtKT9WG08kbdo4TteeLVAEEJsrdY68CW3y3KfUftQz
-	 WNl0kJjKz9K+Q==
-Received: from sara (unknown [IPv6:2001:9b1:efc:9600:3f5e:3c30:ddba:e325])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id D57E317E2E;
-	Wed, 22 Jul 2026 15:19:04 +0200 (CEST)
-Date: Wed, 22 Jul 2026 15:19:04 +0200 (CEST)
-From: Peter Astrand <astrand@lysator.liu.se>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-cc: linux-wireless@vger.kernel.org, 
-    "stable@vger.kernel.org" <stable@vger.kernel.org>, 
-    Linux kernel regressions list <regressions@lists.linux.dev>
-Subject: Re: iw scan hangs in netlink ENOBUFS loop with kernel 6.6.99+
-In-Reply-To: <e2555ce7-0313-4fec-8bc4-739b51a009f3@leemhuis.info>
-Message-ID: <e12fc0b9-dfd2-ecfc-de54-d5f7d4532044@lysator.liu.se>
-References: <19b022d0-76ff-23cc-ba63-f00fedc65ed1@lysator.liu.se> <e2555ce7-0313-4fec-8bc4-739b51a009f3@leemhuis.info>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kj7KPPRn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14021F00A3D
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 13:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784726543;
+	bh=eFshNarXKv9K8RpS7rwMQi510UoRuGYi/scoSC5EK8o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kj7KPPRnUVDXrXZ/R0946paF7dwEW4rmqbbYb6ndbeufZWQsErBW79ghjFRBYX3yP
+	 nJj/Vgo6V88IGSDnW0IoNcLks8w/v/EXA1ljPMZFycjBAZ7VcRPCGDhypEIkZRm6Rl
+	 5KyYJl/0u6HiCQBkwITUgdAa8HJEhNNpBI0TzAzg+jRwhsvGEdK6+FG1BKnw0h6HQc
+	 bbNr1N6MEdPQMjzIEegA1MK+Kn86vLw8gwUA9JCCQ6wLP5MyNde7yM/6f3LsyjLkEH
+	 m3+0meRGMLPpHp9+RJXcTKobkfNmcpelhFkGTZ1UISmZAVOj4HQwS15jxmlOrCI9Zf
+	 8oscRRSn1iCJA==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b0f19bea2fso8334229e87.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 06:22:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoSZHzvw1g4M+6G5yIL7OL07RrgCgfBemwx1Ra6pzgbIALy9pJAn4dK0rONHXdJ6shKbCqnU4g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXkhYkWpN9Q2KCabX74a3QjjSPS4ADrUhRLAc+QEkjUKI9NeQ/
+	1rcuZpqmvk8BQ35FKOyU9/cfDfq7CDCosOYPvCZ38bMpUhXsJmVz+fFnBZGJjDJAlyTNaxM9rSI
+	h+Di9Lmh1PK8X3SPf4kyq4FUnmQdJCzw=
+X-Received: by 2002:a05:6512:1092:b0:5ae:b86b:71eb with SMTP id
+ 2adb3069b0e04-5b28f9a7c9emr5722582e87.36.1784726542227; Wed, 22 Jul 2026
+ 06:22:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Virus-Scanned: ClamAV using ClamSMTP
+References: <20260716115159.848403-1-zhongqiu.han@oss.qualcomm.com> <6abab7b9-71cf-47d4-b7dd-def43be935bc@arm.com>
+In-Reply-To: <6abab7b9-71cf-47d4-b7dd-def43be935bc@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 22 Jul 2026 15:22:10 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hp5OYTXjJfbbGAbkrVLqQWU2f_NH7eALQ2xJ7L4j=igA@mail.gmail.com>
+X-Gm-Features: AUfX_mwSx8uCeK3t7nmaLm_dlOOftM-G5e4ZGVJOSe7wBnfzYHkFihddEzblGJ0
+Message-ID: <CAJZ5v0hp5OYTXjJfbbGAbkrVLqQWU2f_NH7eALQ2xJ7L4j=igA@mail.gmail.com>
+Subject: Re: [PATCH] cpufreq: schedutil: Publish util hooks only after all
+ sg_cpu are initialized
+To: Christian Loehle <christian.loehle@arm.com>, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Cc: viresh.kumar@linaro.org, mingo@redhat.com, peterz@infradead.org, 
+	juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, liaochang1@huawei.com, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Jul 16, 2026 at 2:25=E2=80=AFPM Christian Loehle
+<christian.loehle@arm.com> wrote:
+>
+> On 7/16/26 12:51, Zhongqiu Han wrote:
+> > Commit 16a03c71bba0 ("cpufreq: schedutil: Merge initialization code of
+> > sg_cpu in single loop") merged the per-CPU initialization and the
+> > utilization-hook registration into a single loop in sugov_start().
+> >
+> > For a shared cpufreq policy this re-introduces the race originally fixe=
+d
+> > by commit ab2f7cf141aa ("cpufreq: schedutil: Fix sugov_start() versus
+> > sugov_update_shared() race").
+> >
+> > The scheduler's util path reaches the hook under RCU-sched and never ta=
+kes
+> > policy->rwsem, so the rwsem held across sugov_start() cannot serialize =
+the
+> > two. Once the first CPU's hook is published, sugov_update_shared() may =
+run
+> > and, via sugov_next_freq_shared(), read/write each sibling sugov_cpu
+> > (iowait_boost, util, bw_min, ...) concurrently with the memset() still
+> > initializing them, with no lock common to both sides: the update side h=
+olds
+> > sg_policy->update_lock while the init side holds only policy->rwsem, wh=
+ich
+> > the scheduler's util path never takes.
+> >
+> > The walk only accesses scalar members, never a pointer like ->sg_policy=
+,
+> > so it does not crash today; it merely uses stale (or zero on first star=
+t)
+> > values that skew the frequency selection and tracepoints. It is still a
+> > genuine data race, and a latent crash once any pointer member is
+> > dereferenced there.
+> >
+> > Restore the two-phase approach: initialize all per-CPU structures first=
+,
+> > and only then publish the per-CPU utilization update hooks.
+> >
+> > Fixes: 16a03c71bba0 ("cpufreq: schedutil: Merge initialization code of =
+sg_cpu in single loop")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> > ---
+> >  kernel/sched/cpufreq_schedutil.c | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> >
+> > diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_sc=
+hedutil.c
+> > index dc0835ceee98..6ad080de8644 100644
+> > --- a/kernel/sched/cpufreq_schedutil.c
+> > +++ b/kernel/sched/cpufreq_schedutil.c
+> > @@ -872,8 +872,19 @@ static int sugov_start(struct cpufreq_policy *poli=
+cy)
+> >               memset(sg_cpu, 0, sizeof(*sg_cpu));
+> >               sg_cpu->cpu =3D cpu;
+> >               sg_cpu->sg_policy =3D sg_policy;
+> > +     }
+> > +
+> > +     /*
+> > +      * Publish the hooks only after all per-CPU data is initialized, =
+so a
+> > +      * shared policy's sugov_update_shared() never reads an uninitial=
+ized
+> > +      * sibling sugov_cpu.
+> > +      */
+> > +     for_each_cpu(cpu, policy->cpus) {
+> > +             struct sugov_cpu *sg_cpu =3D &per_cpu(sugov_cpu, cpu);
+> > +
+> >               cpufreq_add_update_util_hook(cpu, &sg_cpu->update_util, u=
+u);
+> >       }
+> > +
+> >       return 0;
+> >  }
+> >
+>
+>
+> Good catch!
+> Reviewed-by: Christian Loehle <christian.loehle@arm.com>
 
-On Tue, 21 Jul 2026, Thorsten Leemhuis wrote:
-
-> On 7/14/26 00:37, Peter Astrand wrote:
-> > 
-> > kernel 6.6.y
-> > iw 6.7
-> > libnl-genl-3-200 3.9.0
-> > mac80211_hwsim
-> > 
-> > With kernel 6.6.99 and later, "iw dev <device> scan" sometimes hangs in 
-> > busy loop:
-> 
-> Thanks for the report. We need to rule out if this is a 6.6.y specific
-> problem (like a broken or incomplete backport) or something general.
-> Could you please check if 7.2-rc is affected as well? Testing 6.18.y
-> might help, too, if it's easy for you to try. Maybe switching to that
-> might be the easies way to resolve the problem and a good idea in
-> general, as explained here:
-> http://www.kroah.com/log/blog/2018/08/24/what-stable-kernel-should-i-use/
-
-Platform is NXP imx6ull. Forgot to mention that we are actually running 
-https://github.com/Freescale/linux-fslc/tree/6.6-2.2.x-imx rather than 
-upstream kernel. No changes to net/netlink though.
-
-We cannot easily test with 7.X, but I have tested 
-https://github.com/Freescale/linux-fslc/tree/6.18-2.0.x-imx and can 
-reproduce the same problem; this is 6.18.20. strace output is similar:
-
-recvmsg(3, {msg_namelen=12}, 0)         = -1 ENOBUFS (No buffer space available)
-recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=48, nlmsg_type=NLMSG_ERROR, nlmsg_flags=0, nlmsg_seq=2510255223, nlmsg_pid=1468011032}, {error=-ENOBUFS, msg=[{nlmsg_len=28, nlmsg_type=0x1b /* NLMSG_??? */, nlmsg_flags=NLM_F_REQUEST|NLM_F_ACK|0x300, nlmsg_seq=2510255223, nlmsg_pid=1468011032}, "\x20\x00\x00\x00\x08\x00\x03\x00\x0d\x00\x00\x00"]}], iov_len=16384}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, MSG_PEEK|MSG_TRUNC) = 48
-
-Br,
-Peter
-
-
-> 
-> Ciao, Thorsten
-> > recvmsg(3, {msg_namelen=12}, 0)         = -1 ENOBUFS (No buffer space available)
-> > recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, 
-> > msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=48, nlmsg_type=NLMSG_ERROR, 
-> > nlmsg_flags=0, nlmsg_seq=2511084235, nlmsg_pid=-1866444344}, 
-> > {error=-ENOBUFS, msg=[{nlmsg_len=28, nlmsg_type=0x18 /* NLMSG_??? */, 
-> > nlmsg_flags=NLM_F_REQUEST|NLM_F_ACK|0x300, nlmsg_seq=2511084235, 
-> > nlmsg_pid=-1866444344}, 
-> > "\x20\x00\x00\x00\x08\x00\x03\x00\x0e\x00\x00\x00"]}], iov_len=16384}], 
-> > msg_iovlen=1, msg_controllen=0, msg_flags=0}, MSG_PEEK|MSG_TRUNC) = 48
-> > 
-> > This issue appears with kernel 6.6.99 and later, even latest version 
-> > 6.6.144. 
-> > 
-> > If I revert these commits:
-> > 
-> > 346c820ef513 netlink: avoid infinite retry looping in netlink_unicast()
-> > c31ee1695b6d netlink: make sure we allow at least one dump skb
-> > ce2ac2e46719 netlink: Fix rmem check in netlink_broadcast_deliver().
-> > 55baecb9eb90 netlink: Fix wraparounds of sk->sk_rmem_alloc.
-> > 
-> > ...then 6.6.144 works fine as well. Seems like there is a regression here. 
-> > Any ideas? 
-> > 
-> > Br,
-> > Peter Astrand
-> > 
-> 
-> 
-> 
+Applied as 7.2-rc material, thanks!
