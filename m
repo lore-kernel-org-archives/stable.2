@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9B43F3295
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:08:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633513E0C70
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 16:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784736486; cv=none; b=mPWDeZ9XqfR2ybM1QnshiYD792XoL6AYs4KOUxkX+c8MU3h/xGGjH2YhkzcWvRV8i+Y5IOe5lCFFdQQMxOxBKIW/jpxT4939bFzn6JbkmEr+YRn6hUHIhUcos0RynQmeaQ7dbPbD3HfoSt595dYJyZsOO/rizjAE4hLl2WFE67I=
+	t=1784736490; cv=none; b=ujOUf72b/Eh7Qd8tPPm3KypS4MxcGWO+zXrMVWxFwM/cRuHm3jMWEqIXJKhgs32YmVv5q0JdGtPxFE6ENKWh8vLdsh05Cc5VY7uNvnCQptbBtx6u9LfAD6TtyCyf79uUqTsK3xMP40TA3rTnyQGp9QXeSBzp2dEz2OCAnEAfwao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784736486; c=relaxed/simple;
-	bh=j8VFDByGoZa54sNL+SsGTbaZLzigq7tjFPMFPBIyQ2E=;
+	s=arc-20240116; t=1784736490; c=relaxed/simple;
+	bh=GgCJnLx9fH6fF/BK3Bf6GmOTCOdgdS5u9ge5kHz/zx0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F58ENKsEK/Id42FqxMDrYWC0o4t/ptUEnsobdLGz8HyxuI6iVRn1beGa2rXi/2XfwgJckf9SAM3ynTosIejoVBMDbOA9oum2QGw+f2XxdMaq/J1GKHlsUPwsvNcAG/VKlhOz9N5LIFy+D0W3RJ6ezaGCOKFhYw+ll5Am86EvCDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKKNLeJE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IfytnWLUvun5BzHUC30JhFSvT7JAcSPzys3+5hUBLEoCEQKcguX29D9NbYkjPdKLIAeVZFw3oxIdS9KEA4tP7c0TuT8ogDtqlx6W/1l3Zm7p/+HCXjSIBOSwSDx6BnENvB9d3JLCGovHP+ox3g/jk0TexXt0Iz1wIOhqQqqRSN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jX2PIlH0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKKNLeJE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8B91F00A3D;
-	Wed, 22 Jul 2026 16:08:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jX2PIlH0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540401F000E9;
+	Wed, 22 Jul 2026 16:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784736484;
-	bh=xZDX5yIHEwZWeyfFvVo7fgSwhA9XYY1ZXvr2xx9dMwg=;
+	s=k20260515; t=1784736488;
+	bh=2w0hCdW2XvDdx6FwehlwfXFFrkKifKQbhYlKKxlyhUM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MKKNLeJEMFAxLVdCzwdriKtTMgb2j3MXrAJZtRRYbmKf63mBOWg+3G3juVpLVGUmF
-	 UIygD3KWgke7l8gSSe1ACL0M/PAwOgEOJnHIhSVVeAPLfLiseLtdTFukFqPxfSXX6T
-	 I8ERDgFtmZCLvcHHSW9b0NH8WTWLf0X/K6tmpbte2JwCZXLBZEz7mLP7wfSuUQ4K7Y
-	 dGl4CrQk/+7FccLn0YQr69TdZPqQNnZQt+oTfpTh2wqr2gYXQJG+3LqXU9YWdznWlA
-	 AkS4Vgo7xgujfhesyhkIRy72P8iLZ1kwvrAhAJ1B5u6ltJlCNDA0JMKwJbeT3bq8YX
-	 dvD5vXNb1wkqg==
+	b=jX2PIlH0ucJmLK9UBYN1mCagkBVVZ5V7U1fEk0bRcxCMxWblJWv/RpqrSh847vXlY
+	 aVxWWvEm0DadX4LpXNP4duSCg85SM3bBHw4Pi+7wkFtZGz/XzkNTo228NnR0my7NcG
+	 egvZ/tMhqNhqET4sxg++SjVWti5By9g0CIXvOZeh8ouiubk9vga1wWGBMD7ICtlEkg
+	 3+xXAqhM67JEMtwid0yCwt7zXOFUuUtUCRu/u4mxrIOrBgQcOpqTPEU8+U2i3xIZFr
+	 xrwShAjx/TJH/G2mV9kSp/za8HVhphtrhpcKYCbscxolGnR9azAYT4OdLP/FE5Z+jO
+	 KPj1YeyGMQL+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tapio Reijonen <tapio.reijonen@vaisala.com>,
-	stable <stable@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	linux-afs@lists.infradead.org,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] serial: max310x: implement gpio_chip::get_direction()
-Date: Wed, 22 Jul 2026 12:08:00 -0400
-Message-ID: <20260722160800.1740676-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/5] rxrpc: Fix CPU time starvation in I/O thread
+Date: Wed, 22 Jul 2026 12:08:01 -0400
+Message-ID: <20260722160805.1741176-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722160800.1740676-1-sashal@kernel.org>
-References: <2026072035-wiring-celibacy-527d@gregkh>
- <20260722160800.1740676-1-sashal@kernel.org>
+In-Reply-To: <2026072023-cricket-devoutly-1a61@gregkh>
+References: <2026072023-cricket-devoutly-1a61@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,63 +47,418 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit a483b1a91b33b7533280e7c3efd2bc1275caef18 ]
+[ Upstream commit 9e3cccd176b5ec6ff78693287fb03097e453e69c ]
 
-It's strongly recommended for GPIO drivers to always implement the
-.get_direction() callback - even when the direction is tracked in
-software. The GPIO core emits a warning when the callback is missing
-and a user reads the direction of a line, e.g. via
-/sys/kernel/debug/gpio.
+Starvation can happen in the rxrpc I/O thread because it goes back to the
+top of the I/O loop after it does any one thing without trying to give any
+other connection or call CPU time.  Also, because it processes one call
+packet at a time, it tries to do the retransmission loop after each ACK
+without checking to see if there are other ACKs already in the queue that
+can update the SACK state.
 
-The MAX310X keeps the GPIO direction in the GPIOCFG register (a set bit
-selects output), which the existing direction_input/output callbacks
-already program, so the current direction can be read back directly.
+Fix this by:
 
-Fixes: f65444187a66 ("serial: New serial driver MAX310X")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://patch.msgid.link/20260615-b4-serial-max310x-gpio-get-direction-v2-1-4704ba2b181a@vaisala.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ (1) Add a received-packet queue on each call.
+
+ (2) Distribute packets from the master Rx queue to the individual call,
+     conn and error queues and 'poking' calls to add them to the attend
+     queue first thing in the I/O thread.
+
+ (3) Go through all the attention-seeking connections and calls before
+     going back to the top of the I/O thread.  Each queue is extracted as a
+     whole and then gone through so that new additions to insert themselves
+     into the queue.
+
+ (4) Make the call event handler go through all the packets currently on
+     the call's rx_queue before transmitting and retransmitting DATA
+     packets.
+
+ (5) Drop the skb argument from the call event handler as this is now
+     replaced with the rx_queue.  Instead, keep track of whether we
+     received a packet or an ACK for the tests that used to rely on that.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: linux-afs@lists.infradead.org
+Link: https://patch.msgid.link/20241204074710.990092-14-dhowells@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: e66f8f32f501 ("rxrpc: Fix socket notification race")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/max310x.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ include/trace/events/rxrpc.h |   2 +
+ net/rxrpc/ar-internal.h      |  10 +++-
+ net/rxrpc/call_accept.c      |   2 +-
+ net/rxrpc/call_event.c       |  31 ++++++-----
+ net/rxrpc/call_object.c      |   2 +
+ net/rxrpc/conn_client.c      |  12 ++--
+ net/rxrpc/input.c            |   2 +-
+ net/rxrpc/io_thread.c        | 104 ++++++++++++++++++-----------------
+ net/rxrpc/peer_event.c       |   2 +-
+ 9 files changed, 93 insertions(+), 74 deletions(-)
 
-diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-index 08ea98bd6d5ffc..9cbfaa0c0b051a 100644
---- a/drivers/tty/serial/max310x.c
-+++ b/drivers/tty/serial/max310x.c
-@@ -1235,6 +1235,17 @@ static void max310x_gpio_set(struct gpio_chip *chip, unsigned int offset, int va
- 			    value ? 1 << (offset % 4) : 0);
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index 63efc9e4e41026..be25f47cfc7dbb 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -121,6 +121,7 @@
+ 	EM(rxrpc_call_poke_conn_abort,		"Conn-abort")	\
+ 	EM(rxrpc_call_poke_error,		"Error")	\
+ 	EM(rxrpc_call_poke_idle,		"Idle")		\
++	EM(rxrpc_call_poke_rx_packet,		"Rx-packet")	\
+ 	EM(rxrpc_call_poke_set_timeout,		"Set-timo")	\
+ 	EM(rxrpc_call_poke_start,		"Start")	\
+ 	EM(rxrpc_call_poke_timer,		"Timer")	\
+@@ -139,6 +140,7 @@
+ 	EM(rxrpc_skb_new_error_report,		"NEW error-rpt") \
+ 	EM(rxrpc_skb_new_jumbo_subpacket,	"NEW jumbo-sub") \
+ 	EM(rxrpc_skb_new_unshared,		"NEW unshared ") \
++	EM(rxrpc_skb_put_call_rx,		"PUT call-rx  ") \
+ 	EM(rxrpc_skb_put_conn_secured,		"PUT conn-secd") \
+ 	EM(rxrpc_skb_put_conn_work,		"PUT conn-work") \
+ 	EM(rxrpc_skb_put_error_report,		"PUT error-rep") \
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 61dd1298124f62..1b56fafac19155 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -684,6 +684,7 @@ struct rxrpc_call {
+ 
+ 	/* Received data tracking */
+ 	struct sk_buff_head	recvmsg_queue;	/* Queue of packets ready for recvmsg() */
++	struct sk_buff_head	rx_queue;	/* Queue of packets for this call to receive */
+ 	struct sk_buff_head	rx_oos_queue;	/* Queue of out of sequence packets */
+ 	void			*rx_dec_buffer;	/* Decryption buffer */
+ 	unsigned short		rx_dec_bsize;	/* rx_dec_buffer size */
+@@ -872,7 +873,7 @@ void rxrpc_propose_delay_ACK(struct rxrpc_call *, rxrpc_serial_t,
+ void rxrpc_shrink_call_tx_buffer(struct rxrpc_call *);
+ void rxrpc_resend(struct rxrpc_call *call, struct sk_buff *ack_skb);
+ 
+-bool rxrpc_input_call_event(struct rxrpc_call *call, struct sk_buff *skb);
++bool rxrpc_input_call_event(struct rxrpc_call *call);
+ 
+ /*
+  * call_object.c
+@@ -1321,6 +1322,13 @@ static inline bool after_eq(u32 seq1, u32 seq2)
+         return (s32)(seq1 - seq2) >= 0;
  }
  
-+static int max310x_gpio_get_direction(struct gpio_chip *chip, unsigned int offset)
++static inline void rxrpc_queue_rx_call_packet(struct rxrpc_call *call, struct sk_buff *skb)
 +{
-+	struct max310x_port *s = gpiochip_get_data(chip);
-+	struct uart_port *port = &s->p[offset / 4].port;
-+	unsigned int val;
-+
-+	val = max310x_port_read(port, MAX310X_GPIOCFG_REG);
-+
-+	return val & BIT(offset % 4) ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
++	rxrpc_get_skb(skb, rxrpc_skb_get_call_rx);
++	__skb_queue_tail(&call->rx_queue, skb);
++	rxrpc_poke_call(call, rxrpc_call_poke_rx_packet);
 +}
 +
- static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned int offset)
+ /*
+  * debug tracing
+  */
+diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
+index 37ac8a66567866..1bb48e470148ed 100644
+--- a/net/rxrpc/call_accept.c
++++ b/net/rxrpc/call_accept.c
+@@ -413,7 +413,7 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *local,
+ 	}
+ 
+ 	_leave(" = %p{%d}", call, call->debug_id);
+-	rxrpc_input_call_event(call, skb);
++	rxrpc_queue_rx_call_packet(call, skb);
+ 	rxrpc_put_call(call, rxrpc_call_put_input);
+ 	return true;
+ 
+diff --git a/net/rxrpc/call_event.c b/net/rxrpc/call_event.c
+index 7bbb685047667a..1181976972a31c 100644
+--- a/net/rxrpc/call_event.c
++++ b/net/rxrpc/call_event.c
+@@ -315,10 +315,11 @@ static void rxrpc_send_initial_ping(struct rxrpc_call *call)
+ /*
+  * Handle retransmission and deferred ACK/abort generation.
+  */
+-bool rxrpc_input_call_event(struct rxrpc_call *call, struct sk_buff *skb)
++bool rxrpc_input_call_event(struct rxrpc_call *call)
  {
- 	struct max310x_port *s = gpiochip_get_data(chip);
-@@ -1441,6 +1452,7 @@ static int max310x_probe(struct device *dev, const struct max310x_devtype *devty
- 	s->gpio.owner		= THIS_MODULE;
- 	s->gpio.parent		= dev;
- 	s->gpio.label		= devtype->name;
-+	s->gpio.get_direction	= max310x_gpio_get_direction;
- 	s->gpio.direction_input	= max310x_gpio_direction_input;
- 	s->gpio.get		= max310x_gpio_get;
- 	s->gpio.direction_output= max310x_gpio_direction_output;
++	struct sk_buff *skb;
+ 	ktime_t now, t;
+-	bool resend = false;
++	bool resend = false, saw_ack = false;
+ 	s32 abort_code;
+ 
+ 	rxrpc_see_call(call, rxrpc_call_see_input);
+@@ -328,9 +329,6 @@ bool rxrpc_input_call_event(struct rxrpc_call *call, struct sk_buff *skb)
+ 	       call->debug_id, rxrpc_call_states[__rxrpc_call_state(call)],
+ 	       call->events);
+ 
+-	if (__rxrpc_call_is_complete(call))
+-		goto out;
+-
+ 	/* Handle abort request locklessly, vs rxrpc_propose_abort(). */
+ 	abort_code = smp_load_acquire(&call->send_abort);
+ 	if (abort_code) {
+@@ -339,11 +337,20 @@ bool rxrpc_input_call_event(struct rxrpc_call *call, struct sk_buff *skb)
+ 		goto out;
+ 	}
+ 
+-	if (skb && skb->mark == RXRPC_SKB_MARK_ERROR)
+-		goto out;
++	while ((skb = __skb_dequeue(&call->rx_queue))) {
++		struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
++
++		if (__rxrpc_call_is_complete(call) ||
++		    skb->mark == RXRPC_SKB_MARK_ERROR) {
++			rxrpc_free_skb(skb, rxrpc_skb_put_call_rx);
++			goto out;
++		}
++
++		saw_ack |= sp->hdr.type == RXRPC_PACKET_TYPE_ACK;
+ 
+-	if (skb)
+ 		rxrpc_input_call_packet(call, skb);
++		rxrpc_free_skb(skb, rxrpc_skb_put_call_rx);
++	}
+ 
+ 	/* If we see our async-event poke, check for timeout trippage. */
+ 	now = ktime_get_real();
+@@ -409,12 +416,8 @@ bool rxrpc_input_call_event(struct rxrpc_call *call, struct sk_buff *skb)
+ 			       rxrpc_propose_ack_ping_for_keepalive);
+ 	}
+ 
+-	if (skb) {
+-		struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
+-
+-		if (sp->hdr.type == RXRPC_PACKET_TYPE_ACK)
+-			rxrpc_congestion_degrade(call);
+-	}
++	if (saw_ack)
++		rxrpc_congestion_degrade(call);
+ 
+ 	if (test_and_clear_bit(RXRPC_CALL_EV_INITIAL_PING, &call->events))
+ 		rxrpc_send_initial_ping(call);
+diff --git a/net/rxrpc/call_object.c b/net/rxrpc/call_object.c
+index bafffd470c8276..9edd9c1f095f54 100644
+--- a/net/rxrpc/call_object.c
++++ b/net/rxrpc/call_object.c
+@@ -147,6 +147,7 @@ struct rxrpc_call *rxrpc_alloc_call(struct rxrpc_sock *rx, gfp_t gfp,
+ 	INIT_LIST_HEAD(&call->attend_link);
+ 	INIT_LIST_HEAD(&call->tx_sendmsg);
+ 	INIT_LIST_HEAD(&call->tx_buffer);
++	skb_queue_head_init(&call->rx_queue);
+ 	skb_queue_head_init(&call->recvmsg_queue);
+ 	skb_queue_head_init(&call->rx_oos_queue);
+ 	init_waitqueue_head(&call->waitq);
+@@ -535,6 +536,7 @@ void rxrpc_get_call(struct rxrpc_call *call, enum rxrpc_call_trace why)
+ static void rxrpc_cleanup_ring(struct rxrpc_call *call)
+ {
+ 	rxrpc_purge_queue(&call->recvmsg_queue);
++	rxrpc_purge_queue(&call->rx_queue);
+ 	rxrpc_purge_queue(&call->rx_oos_queue);
+ 	kfree(call->rx_dec_buffer);
+ }
+diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
+index bb11e8289d6dcf..22d4e324ee2a12 100644
+--- a/net/rxrpc/conn_client.c
++++ b/net/rxrpc/conn_client.c
+@@ -508,16 +508,18 @@ static void rxrpc_activate_channels(struct rxrpc_bundle *bundle)
+ void rxrpc_connect_client_calls(struct rxrpc_local *local)
+ {
+ 	struct rxrpc_call *call;
++	LIST_HEAD(new_client_calls);
+ 
+-	while ((call = list_first_entry_or_null(&local->new_client_calls,
+-						struct rxrpc_call, wait_link))
+-	       ) {
++	spin_lock(&local->client_call_lock);
++	list_splice_tail_init(&local->new_client_calls, &new_client_calls);
++	spin_unlock(&local->client_call_lock);
++
++	while ((call = list_first_entry_or_null(&new_client_calls,
++						struct rxrpc_call, wait_link))) {
+ 		struct rxrpc_bundle *bundle = call->bundle;
+ 
+-		spin_lock(&local->client_call_lock);
+ 		list_move_tail(&call->wait_link, &bundle->waiting_calls);
+ 		rxrpc_see_call(call, rxrpc_call_see_waiting_call);
+-		spin_unlock(&local->client_call_lock);
+ 
+ 		if (rxrpc_bundle_has_space(bundle))
+ 			rxrpc_activate_channels(bundle);
+diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
+index ca2d40ba7098f5..d72ab51dd2843f 100644
+--- a/net/rxrpc/input.c
++++ b/net/rxrpc/input.c
+@@ -1122,5 +1122,5 @@ void rxrpc_implicit_end_call(struct rxrpc_call *call, struct sk_buff *skb)
+ 		break;
+ 	}
+ 
+-	rxrpc_input_call_event(call, skb);
++	rxrpc_input_call_event(call);
+ }
+diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
+index 8270cac0488d94..40fade5be9a14a 100644
+--- a/net/rxrpc/io_thread.c
++++ b/net/rxrpc/io_thread.c
+@@ -318,7 +318,6 @@ static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
+ 	struct rxrpc_channel *chan;
+ 	struct rxrpc_call *call = NULL;
+ 	unsigned int channel;
+-	bool ret;
+ 
+ 	if (sp->hdr.securityIndex != conn->security_ix)
+ 		return rxrpc_direct_abort(skb, rxrpc_eproto_wrong_security,
+@@ -400,9 +399,9 @@ static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
+ 					       peer_srx, skb);
+ 	}
+ 
+-	ret = rxrpc_input_call_event(call, skb);
++	rxrpc_queue_rx_call_packet(call, skb);
+ 	rxrpc_put_call(call, rxrpc_call_put_input);
+-	return ret;
++	return true;
+ }
+ 
+ /*
+@@ -419,6 +418,8 @@ int rxrpc_io_thread(void *data)
+ 	ktime_t now;
+ #endif
+ 	bool should_stop;
++	LIST_HEAD(conn_attend_q);
++	LIST_HEAD(call_attend_q);
+ 
+ 	complete(&local->io_thread_ready);
+ 
+@@ -429,43 +430,25 @@ int rxrpc_io_thread(void *data)
+ 	for (;;) {
+ 		rxrpc_inc_stat(local->rxnet, stat_io_loop);
+ 
+-		/* Deal with connections that want immediate attention. */
+-		conn = list_first_entry_or_null(&local->conn_attend_q,
+-						struct rxrpc_connection,
+-						attend_link);
+-		if (conn) {
+-			spin_lock_bh(&local->lock);
+-			list_del_init(&conn->attend_link);
+-			spin_unlock_bh(&local->lock);
+-
+-			rxrpc_input_conn_event(conn, NULL);
+-			rxrpc_put_connection(conn, rxrpc_conn_put_poke);
+-			continue;
++		/* Inject a delay into packets if requested. */
++#ifdef CONFIG_AF_RXRPC_INJECT_RX_DELAY
++		now = ktime_get_real();
++		while ((skb = skb_peek(&local->rx_delay_queue))) {
++			if (ktime_before(now, skb->tstamp))
++				break;
++			skb = skb_dequeue(&local->rx_delay_queue);
++			skb_queue_tail(&local->rx_queue, skb);
+ 		}
++#endif
+ 
+-		if (test_and_clear_bit(RXRPC_CLIENT_CONN_REAP_TIMER,
+-				       &local->client_conn_flags))
+-			rxrpc_discard_expired_client_conns(local);
+-
+-		/* Deal with calls that want immediate attention. */
+-		if ((call = list_first_entry_or_null(&local->call_attend_q,
+-						     struct rxrpc_call,
+-						     attend_link))) {
+-			spin_lock_bh(&local->lock);
+-			list_del_init(&call->attend_link);
+-			spin_unlock_bh(&local->lock);
+-
+-			trace_rxrpc_call_poked(call);
+-			rxrpc_input_call_event(call, NULL);
+-			rxrpc_put_call(call, rxrpc_call_put_poke);
+-			continue;
++		if (!skb_queue_empty(&local->rx_queue)) {
++			spin_lock_irq(&local->rx_queue.lock);
++			skb_queue_splice_tail_init(&local->rx_queue, &rx_queue);
++			spin_unlock_irq(&local->rx_queue.lock);
+ 		}
+ 
+-		if (!list_empty(&local->new_client_calls))
+-			rxrpc_connect_client_calls(local);
+-
+-		/* Process received packets and errors. */
+-		if ((skb = __skb_dequeue(&rx_queue))) {
++		/* Distribute packets and errors. */
++		while ((skb = __skb_dequeue(&rx_queue))) {
+ 			struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
+ 			switch (skb->mark) {
+ 			case RXRPC_SKB_MARK_PACKET:
+@@ -489,27 +472,46 @@ int rxrpc_io_thread(void *data)
+ 				rxrpc_free_skb(skb, rxrpc_skb_put_unknown);
+ 				break;
+ 			}
+-			continue;
+ 		}
+ 
+-		/* Inject a delay into packets if requested. */
+-#ifdef CONFIG_AF_RXRPC_INJECT_RX_DELAY
+-		now = ktime_get_real();
+-		while ((skb = skb_peek(&local->rx_delay_queue))) {
+-			if (ktime_before(now, skb->tstamp))
+-				break;
+-			skb = skb_dequeue(&local->rx_delay_queue);
+-			skb_queue_tail(&local->rx_queue, skb);
++		/* Deal with connections that want immediate attention. */
++		spin_lock_bh(&local->lock);
++		list_splice_tail_init(&local->conn_attend_q, &conn_attend_q);
++		spin_unlock_bh(&local->lock);
++
++		while ((conn = list_first_entry_or_null(&conn_attend_q,
++							struct rxrpc_connection,
++							attend_link))) {
++			spin_lock_bh(&local->lock);
++			list_del_init(&conn->attend_link);
++			spin_unlock_bh(&local->lock);
++			rxrpc_input_conn_event(conn, NULL);
++			rxrpc_put_connection(conn, rxrpc_conn_put_poke);
+ 		}
+-#endif
+ 
+-		if (!skb_queue_empty(&local->rx_queue)) {
+-			spin_lock_irq(&local->rx_queue.lock);
+-			skb_queue_splice_tail_init(&local->rx_queue, &rx_queue);
+-			spin_unlock_irq(&local->rx_queue.lock);
+-			continue;
++		if (test_and_clear_bit(RXRPC_CLIENT_CONN_REAP_TIMER,
++				       &local->client_conn_flags))
++			rxrpc_discard_expired_client_conns(local);
++
++		/* Deal with calls that want immediate attention. */
++		spin_lock_bh(&local->lock);
++		list_splice_tail_init(&local->call_attend_q, &call_attend_q);
++		spin_unlock_bh(&local->lock);
++
++		while ((call = list_first_entry_or_null(&call_attend_q,
++							struct rxrpc_call,
++							attend_link))) {
++			spin_lock_bh(&local->lock);
++			list_del_init(&call->attend_link);
++			spin_unlock_bh(&local->lock);
++			trace_rxrpc_call_poked(call);
++			rxrpc_input_call_event(call);
++			rxrpc_put_call(call, rxrpc_call_put_poke);
+ 		}
+ 
++		if (!list_empty(&local->new_client_calls))
++			rxrpc_connect_client_calls(local);
++
+ 		set_current_state(TASK_INTERRUPTIBLE);
+ 		should_stop = kthread_should_stop();
+ 		if (!skb_queue_empty(&local->rx_queue) ||
+diff --git a/net/rxrpc/peer_event.c b/net/rxrpc/peer_event.c
+index adcfb3eb9f5119..9128edf5f44a53 100644
+--- a/net/rxrpc/peer_event.c
++++ b/net/rxrpc/peer_event.c
+@@ -216,7 +216,7 @@ static void rxrpc_distribute_error(struct rxrpc_peer *peer, struct sk_buff *skb,
+ 
+ 		rxrpc_see_call(call, rxrpc_call_see_distribute_error);
+ 		rxrpc_set_call_completion(call, compl, 0, -err);
+-		rxrpc_input_call_event(call, skb);
++		rxrpc_input_call_event(call);
+ 
+ 		spin_lock(&peer->lock);
+ 	}
 -- 
 2.53.0
 
