@@ -1,127 +1,161 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0798220F2A
-	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784680039; cv=none; b=tmuRcvjWmPQAizBaEJYA25mlcwDrCl5meHxLFw4IpMoF3ZVEUj5VsTVkwQ3RP72Sd8N0QPw5UcZm5cLwl1S0b8Fv+RH5mrh738QV5+SC80ANAzZDWgNVFaOCQCxRCKIecc3TfEH1rWV6vXeERlv+6l1a9R4BuBktZAKrHu4TI8E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784680039; c=relaxed/simple;
-	bh=umvdl0QFLj9ed/TG7sYgUiBcbWbeUeTO9V/esPRot90=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LK+zvarNOMziEodl4y2AgUWlIkMgPaRC5BMVekS45TuTqcGLsYd6Z3yTBtvUC/ydVe8cL42HOSWdBr2Ixz7I1Eem4fRQFN8kGiByV8kvbZPDsSQEjb9oc9/lvfg7svgrgN/HDXYR1dCggr/D5BspFk1xmNab9jdBvXsLcp04bPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=pmJ29J+3; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B51335E1A9
+	for <stable@vger.kernel.org>; Wed, 22 Jul 2026 00:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784680609; cv=pass; b=oLupr19gfKoyLzJZmtPhLoAMx0HcgO+CIZocDLdQhdFn2B//pNtMAeij5ak8vfyxFxEN0PKQ+ljgctqTxpE7Wyc+zWR9FfZ1kqAQbK/nqs9tOLyKcgNM+FPkWK/WwEhYPV1owXpn7BS3MLZv0gytVIWZv3V76FSOFZbucrNLrY8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784680609; c=relaxed/simple;
+	bh=VaOjMJW6yROXX2xcZF9AkpALiRyCECcvPnPYKFNeots=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mmmpJehkxYUC0E8ucRL2Z2iGFNwZm9sBMTfyIGZ8p25gmfj6O1cxa2kPIDQmmdkIq+LELuDSc0a7f6fyrNpVUn9+l1JAQoQJe3xosWBHp4IvHJs9FumyJJAYWCXuDN62bIxy99dURKo/KljOFcgKXcGCHZ2gKs3S2co5htVO3YQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rsV+j8tu; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="pmJ29J+3"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rsV+j8tu"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6682259cae6so6017877d50.3
+        for <stable@vger.kernel.org>; Tue, 21 Jul 2026 17:36:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784680606; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SgmDBM1ykIY+g0ai5ixVgfxSM70TQLVCtlAeKsVz6kWeBA9xueIlu2+8usX4Dft5I6
+         OFh73xtazVqR5oTgtzArZY8fRR6FVbIHh21gjK8+kv+JENKXZXIh1mPjdP87UTw3A3Vb
+         uaRztcugR+QyLKCYnwvQ4FBtWEr0e1R4lMiSa0HVHkDXdUtKjLULDSy3JQ1H4oNafR7m
+         skZACH6DDpAnyg8fa6isgMZZ175huRwCKiq+otYzxJChTBR4GbUdfY+3Ab1oqz40zoqb
+         uib7K3i0R8Fn4tcNnd+Zk8JKflnRwU9HAOSuS8LeijgsqNapXNYZLTeVRJ1vazLcYXR0
+         sSOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UBeGMmiwyg0bk2ViaubAzpdFo7Jnmt+cToLDMxTvYHw=;
+        fh=tCql5+U0/fcfybHjhQAygAnc+IE9Wnpf8JOkOHCVdUw=;
+        b=URoZlcueIxF8dCTdW2Qf0Ogrc+uBLR04i+aqSK0Fgi58xfbZ19H8Mis+h4tUAaI74J
+         +8alsc21Al5qlmOH6ah/t0wfh2Dxns9ucC1cjYjoOmnrt9D/0GMwRUXoz8E6QEfL77Iz
+         vln9JcduUo27RbRvUviJlpBpVpnNyvN/6gFTbx3kLu0j70RBC66/CeiQUcaJkSgLQI3x
+         ougee6FPPo5u0PaNMvKZSsSjUB6cQMqpAZcJAKyjoVdtLu8zfgLMvlFrJCUlgByCny9E
+         EGPjUrh3yjnx0n5YGIIpJaxzr8WWjNQbwMiVl1TgI+mXd3zH8T1Ycj4gEawrGc68WEfO
+         uXvw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1784680036; x=1816216036;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=zVCH3SNvGHAqohIZR80x2UwB+yylCYuM1KcyLhD5R9c=;
-  b=pmJ29J+3RpdgfMmiJmEDY6K8Yd2maLvc4RidPG/GgawTTXbIvK4Uvt1j
-   rG5AJggoNMAQTlswTeQd6peIJF9B/OFWw2xThtN3c3V1drrurd6H3aEzj
-   z7y1VwdRfxBB2D8mooN1waEIHieAbSUx9yHx/PpZgtFOpijkv7+5n/B7H
-   PaQ+9+9jvy3tfiOtFUrDpSRoRfQYgIkFXm6gHseqx4dKO8YdT6EtC8wND
-   FOk2VcN3SLEZC9BFHPib1vwhA4LjZl4QnMvOXZVDhfeuwyrntqRczq6kA
-   T1y4vpQZ/t3DDyOvLyu8nGqKGy2VZ7Hi6+qh7H+bDxWWLy/NYNBUBSJtW
-   Q==;
-X-CSE-ConnectionGUID: QjK258VHQLOWW6xv5nlCWA==
-X-CSE-MsgGUID: ZzpZXR1wT+GWNL/5sBnIjQ==
-X-IronPort-AV: E=Sophos;i="6.25,177,1779148800"; 
-   d="scan'208";a="23907828"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jul 2026 00:27:15 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.105:3130]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.58.199:2525] with esmtp (Farcaster)
- id 3b3ad690-f300-4632-bbcd-86f16b6e893b; Wed, 22 Jul 2026 00:27:15 +0000 (UTC)
-X-Farcaster-Flow-ID: 3b3ad690-f300-4632-bbcd-86f16b6e893b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Wed, 22 Jul 2026 00:27:15 +0000
-Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.43;
- Wed, 22 Jul 2026 00:27:14 +0000
-From: Jay Wang <wanjay@amazon.com>
-To: <stable@vger.kernel.org>
-CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>, <kuniyu@google.com>,
-	<kuba@kernel.org>, <sysroot314@gmail.com>
-Subject: [PATCH 6.1.y] af_unix: Set gc_in_progress to true in unix_gc().
-Date: Wed, 22 Jul 2026 00:27:09 +0000
-Message-ID: <20260722002709.12710-1-wanjay@amazon.com>
-X-Mailer: git-send-email 2.47.3
+        d=gmail.com; s=20251104; t=1784680606; x=1785285406; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UBeGMmiwyg0bk2ViaubAzpdFo7Jnmt+cToLDMxTvYHw=;
+        b=rsV+j8tuG6nlKKBN7EnLdjJiXIU0qiWyOsE92CQXo/E41bpQDM7w8L3LrgETy7lssB
+         I+qS3IUfogkiaPtgpxsq6ZyAPt3/NcWh8TJ5tWoF390zS6exfpx7D06+DZqSfQYArODm
+         M6KmRQRio+/I9KXonV3XWMTwK8efJzK5u6Z2WGNgKscgz5LIbpZmwtT1cawR10hnT/5D
+         lgvyHAbhTdgdM5YmTpIaaeV36yYaLCd5zWloHhEYabEgKkg6h91NIrQvV6YNbzcTXdXz
+         aPMbTPCE9aS4y0zlYD+mgo0NonNujZ2uolMHm/l8aI8SHX3tgsg220e50go7LEW3UhRM
+         930w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784680606; x=1785285406;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UBeGMmiwyg0bk2ViaubAzpdFo7Jnmt+cToLDMxTvYHw=;
+        b=gSime181L/1tMULbmv37BlFVMEgrFEF/ItkP8+DWC6qSxo9dWSN0K3OleaH95BJkNf
+         TuEbfsVzuknRQOMZw9QETXdbm5cG7+4dDXwim0bVeA5X+S+VFiOJAg3tJny0/T0X27Gb
+         VH7SlIWkGYff6z8XnYUz4LqyVV7/q8HZ+5czwrGcNOCqgLMlem/sNQPDtPPxdC97hGsg
+         VrZ65LwjG/HM8F5m3XuKJc1pwyKC+SeF9+UEX5xpVPsPKpaNAKKNOXvzGkgQvMLhgcuN
+         WFXKATAHbemnqSpTOg1BsImZaTOcDpoipTG/v3+nqu4vEHRT31C7Lblh6Bspbnjec8qT
+         9lHA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro7gNoMgB1XpoimW+TCgcQ3AvMHjC9Wj04wlIcQmLdtFXmpZs5z5pnd3NA/dE2yRF8xreVcnnM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx06ZZ5gR6svj3s6PzrqIXOOIJhbhjCJDA7NCdLP2IpuKg3TQk4
+	taoKAv74kIwut3dPfca7cJpayruHxfHPxU5uBf2bYkO5zH/18ZEUJcAnTui6VJZhvkfOuLyiyJV
+	L9dxmepxkKa4OQLxQiqKceVL2KCSWw49f+f90
+X-Gm-Gg: AR+sD13itjIJAawI7NbicVRF4oDh4DLR2iTIHfdtWUyrd9MxeJqxpAVIxTxC4y40bFe
+	uEB17aa3Fs0F6PW3qo2b7v9IzIwj5oSUarVK2Sv4w9MhQ+6I0LGqaf6Kmd1vXe6p8WHsBDxsZdd
+	OnEQoABaochqPpY/klMTqtdljlIS0L6HgOCkRGW3kMKiJPDadPcY7aENqzDVOH36MAg94AAY9XM
+	HrsleXofJAez8z3u1X0cYsE6aBpbS9qFY/CvZa3zvHm0bMI2K4DRGWPUzW5zjM=
+X-Received: by 2002:a53:a50b:0:b0:664:ae6b:b4a0 with SMTP id
+ 956f58d0204a3-6683bdfcaaemr4245504d50.85.1784680606085; Tue, 21 Jul 2026
+ 17:36:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20260615070530.371640-1-james010kim@gmail.com>
+In-Reply-To: <20260615070530.371640-1-james010kim@gmail.com>
+From: James Kim <james010kim@gmail.com>
+Date: Wed, 22 Jul 2026 09:36:35 +0900
+X-Gm-Features: AUfX_myH1cFXdW2ehLc2ulk_MEha2_Q36VAE8_khV2ASBwvD9CJDCZeo11aA8xk
+Message-ID: <CAPdMtfdPmmV-d-kT6KfAD_dP9y2Oc-Z7zStMMLRhRXHC+wn2FA@mail.gmail.com>
+Subject: Re: [PATCH v2] rapidio: mport_cdev: fix use-after-free in dma_req_free()
+To: linux-kernel@vger.kernel.org
+Cc: mporter@kernel.crashing.org, alex.bou9@gmail.com, dan.carpenter@linaro.org, 
+	stable@vger.kernel.org, gregkh@linuxfoundation.org, error27@gmail.com, 
+	akpm@linux-foundation.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Kuniyuki Iwashima <kuniyu@google.com>
+Hi,
 
-[ Upstream commit d82ba05263c69fa2437fe93e4e561cc40f4c03af ]
+This is a gentle ping for this patch, as it has not received any
+feedback for some time.
 
-Igor Ushakov reported that unix_gc() could run with gc_in_progress
-being false if the work is scheduled while running:
+I'm CC'ing Dan Carpenter and Andrew Morton for additional visibility,
+as this patch fixes a potential use-after-free in the RapidIO driver.
 
-  Thread 1         Thread 2                     Thread 3
-  --------         --------                     --------
-                   unix_schedule_gc()           unix_schedule_gc()
-                   `- if (!gc_in_progress)      `- if (!gc_in_progress)
-                      |- gc_in_progress = true     |
-                      `- queue_work()              |
-  unix_gc() <----------------/                     |
-  |                                                |- gc_in_progress = true
-  ...                                              `- queue_work()
-  |                                                       |
-  `- gc_in_progress = false                               |
-                                                          |
-  unix_gc() <---------------------------------------------'
-  |
-  ... /* gc_in_progress == false */
-  |
-  `- gc_in_progress = false
+Any comments or reviews would be greatly appreciated.
 
-unix_peek_fpl() relies on gc_in_progress not to confuse GC
-by MSG_PEEK.
+Thanks,
+James Kim
 
-Let's set gc_in_progress to true in unix_gc().
-
-Fixes: 8b90a9f819dc ("af_unix: Run GC on only one CPU.")
-Reported-by: Igor Ushakov <sysroot314@gmail.com>
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260501073945.1884564-1-kuniyu@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Add setting gc_in_progress in __unix_gc(). Keep the existing
-  set in unix_gc() for wait_for_unix_gc() over-limit throttling. ]
-Signed-off-by: Igor Ushakov <sysroot314@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Jay Wang <wanjay@amazon.com>
----
- net/unix/garbage.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/unix/garbage.c b/net/unix/garbage.c
-index 66fd606c43f4..38c8cae13167 100644
---- a/net/unix/garbage.c
-+++ b/net/unix/garbage.c
-@@ -560,6 +560,8 @@ static void __unix_gc(struct work_struct *work)
- 	struct sk_buff_head hitlist;
- 	struct sk_buff *skb;
- 
-+	WRITE_ONCE(gc_in_progress, true);
-+
- 	spin_lock(&unix_gc_lock);
- 
- 	if (!unix_graph_maybe_cyclic) {
--- 
-2.47.3
-
+On Mon, Jun 15, 2026 at 4:08=E2=80=AFPM James Kim <james010kim@gmail.com> w=
+rote:
+>
+> dma_req_free() drops the mapping reference under buf_mutex and then
+> dereferences req->map again to unlock the mutex.
+>
+> If kref_put() drops the last reference, mport_release_mapping() frees
+> the mapping, and the subsequent mutex_unlock() dereferences a freed
+> object. This is a use-after-free.
+>
+> Fix this by caching map and md before kref_put() and using the cached
+> md for mutex unlocking.
+>
+> Fixes: 4b0986a36 ("rapidio: add mport character device support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Kim <james010kim@gmail.com>
+> ---
+> Changes since v1:
+> - Rebased on v7.1.
+> - Add Dan Carpenter to Cc for lifetime and use-after-free review.
+> - No functional changes.
+>
+>  drivers/rapidio/devices/rio_mport_cdev.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/rapidio/devices/rio_mport_cdev.c b/drivers/rapidio/d=
+evices/rio_mport_cdev.c
+> index 009b3b595bbf..9b94c9b2fad0 100644
+> --- a/drivers/rapidio/devices/rio_mport_cdev.c
+> +++ b/drivers/rapidio/devices/rio_mport_cdev.c
+> @@ -564,9 +564,14 @@ static void dma_req_free(struct kref *ref)
+>         }
+>
+>         if (req->map) {
+> -               mutex_lock(&req->map->md->buf_mutex);
+> -               kref_put(&req->map->ref, mport_release_mapping);
+> -               mutex_unlock(&req->map->md->buf_mutex);
+> +               struct rio_mport_mapping *map =3D req->map;
+> +               struct mport_dev *md =3D map->md;
+> +
+> +               mutex_lock(&md->buf_mutex);
+> +               kref_put(&map->ref, mport_release_mapping);
+> +               mutex_unlock(&md->buf_mutex);
+> +
+> +               req->map =3D NULL;
+>         }
+>
+>         kref_put(&priv->dma_ref, mport_release_dma);
+> --
+> 2.43.0
+>
