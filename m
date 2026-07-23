@@ -1,94 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B4339184F;
-	Thu, 23 Jul 2026 19:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF67308F32;
+	Thu, 23 Jul 2026 19:41:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784834926; cv=none; b=OXu2aIbRCL4ipgbYNBK9Seo5WfkQA5KngWwwqxfsJQxIV17MO1fKtUfAD8WcnKDtKvpMtraK8l3okFxd/gJXGygGKnKQq7UomXnGjbvd5qbkSv7TZF3ubmD9AP1R5XYH+neIHYuQJ5cRVVHwwDo/l3B7+2ScNuLvc5hD/q94li0=
+	t=1784835703; cv=none; b=ipY9MjDWP9lF8vQTrMnnMjc9okTtWO9zso6fZq6IUj2HZJjDr73cnx/NKXipktM6D2nzsZbSWMu5i4rJ0Mq7W1XFYesRyXLz/Hhb+1RK0nv/Gnw7hT2knLw6ZSooQqRvurCW2XJkwAlSkQ/swSJUuqPShc2j4pJce5hCyZNpQ0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784834926; c=relaxed/simple;
-	bh=WHizssShpetbiI3ySl30oBnHKVlydmhVH/VHMvwSxAY=;
-	h=Date:To:From:Subject:Message-Id; b=H8+vHOrrLdh+P7Em+EqCd+5BiN4bZpB/cfH8X0G2A8P9jrtgS2MQLjzTcZlmk/h3+eDEXUMP88DuKasI0G1kSOpdhyzJ/QfVnYNMU3OgyhesVKgJoXc9wv3hW6DwVC71+fTVAW1lojpJx6pTX8YFPni8u/HpyAup4iJ8JHkV/Ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=TyQZbgjp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784835703; c=relaxed/simple;
+	bh=0Mc0Jyr4kRDKrEa7wg+/iQc8UfCNnm1H0tZPb34SeA4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iZE171txItPAfTmMfcToPHg49Xg+cRqtqLx9mX0ifI+WTlCfBOmkMUS1QE1OsnnBKRCotoKpfJZluBAit9W33+0yqFstJJs8trENzlA+mnO9gGoabSaStCr/lwP+wbIiTFVzYgFyNNVFvwEG5kMCxVP8zDZxTSIu2ILZOhiwDGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWFrC2NR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="TyQZbgjp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD171F000E9;
-	Thu, 23 Jul 2026 19:28:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784834924;
-	bh=XDqlpZ766fl4kTNcd/nUOe4qA5KuXfg4s8+cWVF74zw=;
-	h=Date:To:From:Subject;
-	b=TyQZbgjpr8/VjfM4K0hkS6gwXCwsF2/9tzHc3XNCcdu1g+L7cNBWQFNIkc3Hxi38t
-	 ruhBhYT4cnczXtPvy1R0xQPIAKzDxfFGcL097jaLRG3g5ClOdxoleo2VG1exs38MjX
-	 cjEXko+RtXpYZMggUVhQnlI7L/qNWjd/ZO/7zNWw=
-Date: Thu, 23 Jul 2026 12:28:44 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,oleg.deomi@gmail.com,bsingharora@gmail.com,akpm@linux-foundation.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [withdrawn] kernel-taskstatsc-parse-fix-buffer-allocation-size.patch removed from -mm tree
-Message-Id: <20260723192844.BBD171F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWFrC2NR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668651F000E9;
+	Thu, 23 Jul 2026 19:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784835694;
+	bh=erTKFW7H9+CoRoRVOrZp+ST96EFwosY/MdQIR3lDgkQ=;
+	h=From:Subject:Date:To:Cc;
+	b=bWFrC2NRQlMff/OsgKdNISoXn/VOAJbwNDYXcHBcrHiByQQQOw1U9D2mGs6mKNsuT
+	 zD7YGSt+k6cBLhPV5irhju5HIo6wFv2zUnhP7eUBdpF3jQXPuxTsPKmfANPXkOvKyJ
+	 NEQxn9rN+5M9VC53efcna255KTHrhVSjtavEcp1YpAru63TeSMR4ZLTXzgi6xvNdj4
+	 U0YsKu4Ev2TWKjMYfmcQOCAytExN2gvS7hGa9oQ5gpzmORsQdxk0AH6sQQ3nWTjdNG
+	 7HLExS4PAlkV6+F5qQnBxtReFkrwzHsOmXnjeMBmHZfW8B7qjsDMKMP/Tu8m2aeRLk
+	 SzM3DRjX3Je+A==
+From: Vincent Mailhol <mailhol@kernel.org>
+Subject: [PATCH v2 0/2] lib/ucs2_string.c: fix out-of-bounds read in
+ ucs2_strnlen()
+Date: Thu, 23 Jul 2026 21:40:30 +0200
+Message-Id: <20260723-fix-ucs2_strnlen-v2-0-9ea94e32a358@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NUQrCMBBEr1L220iyNBX88h5SJGk2bbCksmmDU
+ nJ3Yw/g5xtm3uyQiAMluDY7MOWQwhIr4KmBYTJxJBFcZUCJnbwgCh/eYhsSPtLKcaYoVKu9dq1
+ VvrNQZy+m2jmU977yFNK68Od4yOqX/pFlJaSwRlvjCG2t3Z7EkebzwiP0pZQv43GbCLEAAAA=
+X-Change-ID: 20260722-fix-ucs2_strnlen-145f5d4b1f6b
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Vincent Mailhol <mailhol@kernel.org>, 
+ stable@vger.kernel.org, Kees Cook <kees@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=933; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=0Mc0Jyr4kRDKrEa7wg+/iQc8UfCNnm1H0tZPb34SeA4=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDFlJeRkSrCrLHP0fFZ3OkNq7Oyn75CYhcY9FCyv2Zh991
+ dF9Zd+MjoksDGJcDJZiiizLyjm5FToKvcMO/bWEmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ gQwdIwYuTgGY6mVnGBkaBZPWKvCdlmBLOX2j3Oz+4qsXO9r3RtU9m1MZdn+7Ykwiw/9Y8dur+Zg
+ 13/A+S90iv2rjqwN8H/Yd2ZW0a/Jfu20P9LoZAQ==
+X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
+This series fixes an off-by-one out-of-bounds read in ucs2_strnlen().
 
-The quilt patch titled
-     Subject: kernel/taskstats.c:parse(): fix buffer allocation size
-has been removed from the -mm tree.  Its filename was
-     kernel-taskstatsc-parse-fix-buffer-allocation-size.patch
+The first patch is the real fix, the second patch comes as a bonus and
+fixes the code indentation.
 
-This patch was dropped because it was withdrawn
-
-------------------------------------------------------
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: kernel/taskstats.c:parse(): fix buffer allocation size
-Date: Tue Jul 21 04:30:41 PM PDT 2026
-
-parse() is failing to allow for the nla_strscpy()'s null termination of
-the cpumask string.  This can result in the cpumask string being
-truncated.
-
-This can result in an inappropriate -EINVAL failure or in reporting for an
-incorrect span of CPUs.
-
-Fixes: f9fd8914c1ac ("[PATCH] per-task delay accounting taskstats interface: control exit data through cpumasks")
-Reported-by: Oleg Deomi <oleg.deomi@gmail.com>
-Closes: https://lore.kernel.org/CAByWkfZ6b1=3H9pwkz-dDQOs9cZaF-HYQ6b9Yb0=Hq2r1Vv_Pw@mail.gmail.com
-Cc: Balbir Singh <bsingharora@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
 ---
+Changes in v2:
 
- kernel/taskstats.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  - Toggle the patch order. ucs2_strnlen() is now before the
+    tabulation fix to make it easier to backport.
 
---- a/kernel/taskstats.c~kernel-taskstatsc-parse-fix-buffer-allocation-size
-+++ a/kernel/taskstats.c
-@@ -368,7 +368,7 @@ static int parse(struct nlattr *na, stru
- 		return -E2BIG;
- 	if (len < 1)
- 		return -EINVAL;
--	data = kmalloc(len, GFP_KERNEL);
-+	data = kmalloc(len + 1, GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
- 	nla_strscpy(data, na, len);
-_
+  - Add Cc: stable on the ucs2_strnlen().
 
-Patches currently in -mm which might be from akpm@linux-foundation.org are
+Link to v1: https://lore.kernel.org/r/20260722-fix-ucs2_strnlen-v1-0-ba5bade2b026@kernel.org
 
-mm-mincore-use-walk_page_range_vma-in-do_mincore-fix.patch
-csky-implement-flush_cache_vmap-in-c.patch
-mm-annotate-data-race-in-cpu_needs_drain-fix.patch
-mm-zsmalloc-encode-class-index-in-obj-value-for-lockless-class-lookup-fix.patch
-mm-zsmalloc-drop-pool-lock-from-zs_free-on-64-bit-systems-fix.patch
-mm-zsmalloc-drop-pool-lock-from-zs_free-on-64-bit-systems-fix-fix.patch
-mm-rmap-use-huge_ptep_get-in-try_to_migrate_one-checkpatch-fixes.patch
-mm-mprotect-use-huge_ptep_get-for-hugetlb-fix.patch
-mm-drop-stale-folio_ref_count==1-check-in-do_swap_page-reuse-logic-fix.patch
-alloc_tag-add-ioctl-to-proc-allocinfo-fix.patch
-mm-vma-add-and-use-vma__pgoff-fix.patch
-drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining.patch
+---
+Vincent Mailhol (2):
+      lib/ucs2_string.c: fix out-of-bounds read in ucs2_strnlen()
+      lib/ucs2_string.c: fix indentation
+
+ lib/ucs2_string.c | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260722-fix-ucs2_strnlen-145f5d4b1f6b
+
+Best regards,
+-- 
+Vincent Mailhol <mailhol@kernel.org>
 
