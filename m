@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8285E43D4E0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335A546AED7
 	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:37:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784806632; cv=none; b=UC1FIaK8Xt3FuxwZXx8BIDSfJikVQJJY/ZF8rfqBuQSiDw5ICcYth5MbbTBk6/mQHfw7NDflLZg3tSSzeGZI1GKEP5HzO6ZVG6Waemx1YfKyF/f85c0UHeX4xCbbdbYwkv+dMLS2stmQdTSB0EF8qO/MGXzJfpC0aWrO1udDD0A=
+	t=1784806633; cv=none; b=u44PplAIYG/QQ+p33zqT/BBv8eAwECbHzvBwHsxxICPJP7p3ZxJ/oTrcu3bHNPYa2JoW9VAdYWOtXQ+8MYxyREnnOrAtkW/PXVpIu8YI2VHnsdJbQEKCR0sc+hyxRR9jH+TYjsfgs3K4VQUl0BmKikEAtZVsULSq8pkvmAlmenY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784806632; c=relaxed/simple;
-	bh=LMdZLhfoLWDeJVmz1ZBw8hvrY5NdIiKsEw23kscEnG0=;
+	s=arc-20240116; t=1784806633; c=relaxed/simple;
+	bh=kgRhR//LGVG7B4EBrs+q/3AwE5AUV57r0LAF/co191g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AEezpajuxIeGOKeKACmAacChsLzG8sSC3ChZk1qFNMv1KnhPWgbgxGR8SkPaWhJU6uidZ/ntcDENRZX5bsQoNODHT4ww2JhgspfBcBhjCO++9YT8hUk6XkWF+1tE0qrfQD+K0kFDm57nawpDN0AhYy5YUnWPtk3kLbHX4oHv5/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ge5ic3i6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VmcFIs5EzMcs8DUWYyuhp+X6LIZsbsflTf+Z5X5hcVpFrw/ZeleJYBQ9tIpEHg1h3m3DKUpeFboCc2f1A/7Dn6E2R3qp/6Ra88TDkNsqzYuCb3fTw5UCWAm12Ydzs3d6uahC59DEVu3Uyh6QgKF6p2TZMzy2S+pT3+fRDLPGzU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXC4ijrf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ge5ic3i6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C9C1F00AC4;
-	Thu, 23 Jul 2026 11:37:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXC4ijrf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EB31F00A3D;
+	Thu, 23 Jul 2026 11:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784806631;
-	bh=3JLiJQLJ8gRm4IjibXT4Zf/2FmY9nuhkucZ8T9pHvtE=;
+	bh=AbUVs1XAbSXOWJqIo1EvlVBYp0ouLPRW3kKHRpYhEqk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ge5ic3i620XW7shW6WKgpkcjYr8EXY/koktpFG8MzFgtNdWK3lCGi66/eU+i6qQI2
-	 KKqsbKv1Si7OiHH39cfVWnmJWkG0IRYWirJFcUalSrYhVyFgE2sIoNGLslqvoqtqqo
-	 EZN5RFNAWvcVIGzZLBULgkji+OJnZYurAkyKxoG6wmzr/ts5mFMLsldbOqELSu2Rrp
-	 TkC+EVWviFi87HIpHALzelxTr0ki3Gl8503KNpDrH3Ul/pHsF53l5ZN7XKDte/QfYb
-	 o5W5qKtS54R8Hqcg96jllkaLL+9ZkiwRbn9Y92Eqm9iMQ3J4srOauTzLj2r4zkX0iU
-	 prZkrWAMRR7dg==
+	b=oXC4ijrfEo0pa6B4UZl3nMX1DaqpvlfOZx/ESZrh3rH73pjt7Sm5bKthTN2IYSNdU
+	 yFDmv7lZKHXXr7lV6DJ3Mgag07OhFIO56x2vv1PFqYbUYRUjKTU6Z7Or6/AvzhHjwx
+	 qklth4NyuRaiIewfzCP+SfWeyd7QMZ4GWfXBW42Ywf45vbw0uLShuPhLgWmFMR/RCO
+	 fNUpHdLqviJ1zdaNGvoriROb2jj/IQUreZ1G+CXFztHYzK7ax6S0Dk80kD2KRF5NBs
+	 oEc6NtSfFwnkcxbF9o3x2XwsopP1uvQHGl19aQDwg6HOzi1x/IdY88qHgXjGreUIHE
+	 KF7XYBu24QY2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/6] net: dst: annotate data-races around dst->output
-Date: Thu, 23 Jul 2026 07:36:59 -0400
-Message-ID: <20260723113702.3035088-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/5] ASoC: mediatek: mt8192-afe-pcm: Simplify with dev_err_probe()
+Date: Thu, 23 Jul 2026 07:37:04 -0400
+Message-ID: <20260723113708.3035236-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723113702.3035088-1-sashal@kernel.org>
-References: <2026072042-collide-upturned-2e18@gregkh>
- <20260723113702.3035088-1-sashal@kernel.org>
+In-Reply-To: <20260723113708.3035236-1-sashal@kernel.org>
+References: <2026072022-taps-consensus-7d8b@gregkh>
+ <20260723113708.3035236-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,86 +47,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-[ Upstream commit 2dce8c52a98995c4719def6f88629ab1581c0b82 ]
+[ Upstream commit 324c603a4efca7d1045e0bf3477ca54970eac72c ]
 
-dst_dev_put() can overwrite dst->output while other
-cpus might read this field (for instance from dst_output())
+Simplify the probe function by switching error prints to return
+dev_err_probe(), lowering the lines count; while at it, also
+beautify some messages and change some others' level from warn
+to error.
 
-Add READ_ONCE()/WRITE_ONCE() annotations to suppress
-potential issues.
-
-We will likely need RCU protection in the future.
-
-Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20250630121934.3399505-6-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: c9c9b37f8c55 ("netfilter: nf_queue: pin bridge device while NFQUEUE holds fake dst")
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
+Link: https://msgid.link/r/20240313110147.1267793-3-angelogioacchino.delregno@collabora.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: e24d5dde56a5 ("ASoC: mediatek: mt8192: Check runtime resume during probe")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/dst.h      | 2 +-
- include/net/lwtunnel.h | 4 ++--
- net/core/dst.c         | 2 +-
- net/ipv4/route.c       | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 65 ++++++++--------------
+ 1 file changed, 22 insertions(+), 43 deletions(-)
 
-diff --git a/include/net/dst.h b/include/net/dst.h
-index efbea74d03d915..27494911d6a100 100644
---- a/include/net/dst.h
-+++ b/include/net/dst.h
-@@ -449,7 +449,7 @@ INDIRECT_CALLABLE_DECLARE(int ip_output(struct net *, struct sock *,
- /* Output packet to network from transport.  */
- static inline int dst_output(struct net *net, struct sock *sk, struct sk_buff *skb)
- {
--	return INDIRECT_CALL_INET(skb_dst(skb)->output,
-+	return INDIRECT_CALL_INET(READ_ONCE(skb_dst(skb)->output),
- 				  ip6_output, ip_output,
- 				  net, sk, skb);
- }
-diff --git a/include/net/lwtunnel.h b/include/net/lwtunnel.h
-index a4632a64daae32..09791f5d9b6ec8 100644
---- a/include/net/lwtunnel.h
-+++ b/include/net/lwtunnel.h
-@@ -138,8 +138,8 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len,
- static inline void lwtunnel_set_redirect(struct dst_entry *dst)
- {
- 	if (lwtunnel_output_redirect(dst->lwtstate)) {
--		dst->lwtstate->orig_output = dst->output;
--		dst->output = lwtunnel_output;
-+		dst->lwtstate->orig_output = READ_ONCE(dst->output);
-+		WRITE_ONCE(dst->output, lwtunnel_output);
- 	}
- 	if (lwtunnel_input_redirect(dst->lwtstate)) {
- 		dst->lwtstate->orig_input = READ_ONCE(dst->input);
-diff --git a/net/core/dst.c b/net/core/dst.c
-index 12ab51f87da452..42d7c04d409bd3 100644
---- a/net/core/dst.c
-+++ b/net/core/dst.c
-@@ -150,7 +150,7 @@ void dst_dev_put(struct dst_entry *dst)
- 	if (dst->ops->ifdown)
- 		dst->ops->ifdown(dst, dev, true);
- 	WRITE_ONCE(dst->input, dst_discard);
--	dst->output = dst_discard_out;
-+	WRITE_ONCE(dst->output, dst_discard_out);
- 	dst->dev = blackhole_netdev;
- 	dev_hold(dst->dev);
- 	dev_put(dev);
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index e5a1006daeefcf..186e05a5a9c447 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -1704,7 +1704,7 @@ struct rtable *rt_dst_clone(struct net_device *dev, struct rtable *rt)
- 		INIT_LIST_HEAD(&new_rt->rt_uncached);
+diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
+index 7385cd5e44ecbf..4f4107a415ba5a 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
++++ b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
+@@ -2209,17 +2209,12 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
  
- 		new_rt->dst.input = READ_ONCE(rt->dst.input);
--		new_rt->dst.output = rt->dst.output;
-+		new_rt->dst.output = READ_ONCE(rt->dst.output);
- 		new_rt->dst.error = rt->dst.error;
- 		new_rt->dst.lastuse = jiffies;
- 		new_rt->dst.lwtstate = lwtstate_get(rt->dst.lwtstate);
+ 	/* reset controller to reset audio regs before regmap cache */
+ 	rstc = devm_reset_control_get_exclusive(dev, "audiosys");
+-	if (IS_ERR(rstc)) {
+-		ret = PTR_ERR(rstc);
+-		dev_err(dev, "could not get audiosys reset:%d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(rstc))
++		return dev_err_probe(dev, PTR_ERR(rstc), "could not get audiosys reset\n");
+ 
+ 	ret = reset_control_reset(rstc);
+-	if (ret) {
+-		dev_err(dev, "failed to trigger audio reset:%d\n", ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to trigger audio reset\n");
+ 
+ 	ret = devm_pm_runtime_enable(&pdev->dev);
+ 	if (ret)
+@@ -2227,25 +2222,21 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 
+ 	/* regmap init */
+ 	afe->regmap = syscon_node_to_regmap(dev->parent->of_node);
+-	if (IS_ERR(afe->regmap)) {
+-		dev_err(dev, "could not get regmap from parent\n");
+-		return PTR_ERR(afe->regmap);
+-	}
++	if (IS_ERR(afe->regmap))
++		return dev_err_probe(dev, PTR_ERR(afe->regmap),
++				     "could not get regmap from parent");
++
+ 	ret = regmap_attach_dev(dev, afe->regmap, &mt8192_afe_regmap_config);
+-	if (ret) {
+-		dev_warn(dev, "regmap_attach_dev fail, ret %d\n", ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "regmap_attach_dev fail\n");
+ 
+ 	/* enable clock for regcache get default value from hw */
+ 	afe_priv->pm_runtime_bypass_reg_ctl = true;
+ 	pm_runtime_get_sync(&pdev->dev);
+ 
+ 	ret = regmap_reinit_cache(afe->regmap, &mt8192_afe_regmap_config);
+-	if (ret) {
+-		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "regmap_reinit_cache fail\n");
+ 
+ 	pm_runtime_put_sync(&pdev->dev);
+ 	afe_priv->pm_runtime_bypass_reg_ctl = false;
+@@ -2285,30 +2276,22 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_request_irq(dev, irq_id, mt8192_afe_irq_handler,
+ 			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
+-	if (ret) {
+-		dev_err(dev, "could not request_irq for Afe_ISR_Handle\n");
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "could not request_irq for Afe_ISR_Handle\n");
+ 
+ 	/* init sub_dais */
+ 	INIT_LIST_HEAD(&afe->sub_dais);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
+ 		ret = dai_register_cbs[i](afe);
+-		if (ret) {
+-			dev_warn(afe->dev, "dai register i %d fail, ret %d\n",
+-				 i, ret);
+-			return ret;
+-		}
++		if (ret)
++			return dev_err_probe(afe->dev, ret, "dai %d register fail", i);
+ 	}
+ 
+ 	/* init dai_driver and component_driver */
+ 	ret = mtk_afe_combine_sub_dai(afe);
+-	if (ret) {
+-		dev_warn(afe->dev, "mtk_afe_combine_sub_dai fail, ret %d\n",
+-			 ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(afe->dev, ret, "mtk_afe_combine_sub_dai fail\n");
+ 
+ 	/* others */
+ 	afe->mtk_afe_hardware = &mt8192_afe_hardware;
+@@ -2324,19 +2307,15 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	/* register platform */
+ 	ret = devm_snd_soc_register_component(&pdev->dev,
+ 					      &mt8192_afe_component, NULL, 0);
+-	if (ret) {
+-		dev_warn(dev, "err_platform\n");
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "Couldn't register AFE component\n");
+ 
+ 	ret = devm_snd_soc_register_component(&pdev->dev,
+ 					      &mt8192_afe_pcm_component,
+ 					      afe->dai_drivers,
+ 					      afe->num_dai_drivers);
+-	if (ret) {
+-		dev_warn(dev, "err_dai_component\n");
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "Couldn't register AFE-PCM component\n");
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
