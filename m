@@ -1,203 +1,117 @@
-Received: from mout.web.de (mout.web.de [212.227.15.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDA147B437;
-	Thu, 23 Jul 2026 12:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81B64A13B6
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 12:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784809336; cv=none; b=ab25l3+Ws3WASvm/IBgS6oYLwi3OvRXIjb7J2TAQaCClJhvsk7XlijzpVCLkz5nrRIVViCLLqOx3Xf6fQzRHJDEVT9CfDm/kF2JGSoecuv4QdR+kdbbC7uj4F3hnCnHx6Kea/AfQwG8MGpSyvOPnkVKuky3feqIBXPiIbWRSIAA=
+	t=1784810687; cv=none; b=rpa0CL+iZQdVxlUZOvEcpWGZnxTQBXLibtWcUqdvrU1sNqiA4WXnocy/0PImHR+lTfMvCiNJ6FC1csjMycZqOlUDg7TAh/U6uIaytKaGaV39yZxcvz/PD6u4RzTvoGb+BURKk0aRpKHrDilQDLLzBH/0DAAz/lxs4CXjE0Qa5HI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784809336; c=relaxed/simple;
-	bh=UUwSjKHsoJK9c7uPXAZBIrp8z0VQnIA1clza2wSu+i0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gZwAUt31sYOlkfFkv0s18IA9Fzxxl2CmQZH9Tzbdvh7wfefm9f+Bi/+egdseWneK82KvliUbaL2COEMG2tEeW+shFmkI2p2Hx8HKRBoB28R4ipbW+EAdSv+aSrhfqSW11oOdCPGOsS+W27CbU+iNtBVmb4jR09hM8I6vn8Qf3DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=frank.scheiner@web.de header.b=RxnjUH+8; arc=none smtp.client-ip=212.227.15.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1784810687; c=relaxed/simple;
+	bh=tRxKuBUnGEzCAHc5mGEOrTp+xK28sbZHQsl00p1HmII=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KEzsBY1ysvVc1gv+L6gcEJivYY59/RxkButyxquktj8NDyh7FSdsDz7Y9c2seg3J8dBiYvnkfEVF51IXBT8V+x7wKLDklCwr7fBbSOqLuKBJL3luzGd//LzqSeByOd3ixDXskD6K9uNa6P3zEUa4OzVj0t74bht4lkMaPWZUnS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=0oKzLQ+9; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=frank.scheiner@web.de header.b="RxnjUH+8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1784809291; x=1785414091; i=frank.scheiner@web.de;
-	bh=PRpEARvt7gvc2pJ3VXJ13KKsk9jzbVg8fsjkujvXhFY=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=RxnjUH+8XGFwUbUqGADSzgQX//gljPpfKvjEzR1DMcPtDCIbrEzn4pUO+ImS+Quc
-	 vkNfUG/vwRnAwPCGwdqi7jua9GUomojyN+ewjZApDZUs/bZPDVPLddJR+Fge6PLa8
-	 Azl1olqxXMepEKQiYzG9f0oUGbGQ2/ccYtBk9SrswMC/HyNzLFofE4AxPb1AxFwhg
-	 Gd9t0agU1HzE08iSHgFLYYrE30CbGYjPvlkY2dcoLf+xiGNY+keFWCIiYDpVB6Zj8
-	 d7+RO5Mj32Eijh8WM3Of8A+fBDTVhv6yw9xPxPomm6yw7iqHf+cIgR2PHSTdBTtLt
-	 beRqRNy5ietgWLXyng==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1N5CQT-1wxHqh3o97-00xyij; Thu, 23
- Jul 2026 14:21:31 +0200
-Message-ID: <1e9a0b1d-cc4f-4ac7-ac53-478580181c99@web.de>
-Date: Thu, 23 Jul 2026 14:21:28 +0200
+	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="0oKzLQ+9"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so437952a91.0
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 05:44:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1784810684; x=1785415484; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sYg6j3DW4KziIe3Zb2Ojd7X/M+Xd8OnGpyYa/ce7ds4=;
+        b=0oKzLQ+98ILSn0+PcklOeGxjt8hOMdXDr/LwPTLP0cRtYcsYCE0SUtLRD5dLAcMPhb
+         wzU2Runcrrf7aRiB8aIKmQvDQE48xKAm74kaGoVeSXyB21WVD+NaWTp4IN70cCtnVl2S
+         3OxHyQ50Gp5OLiQRpr+18O9nOPKJ3anCuzyL/X21oJggRQgym1MFU2oQI84T9P0A3xYR
+         4oRAos7x4R/+9YHmP0R2hTi4/IcW+6cqtb5QcX08lWqRL7n4EFnAS4lMfPlHssr+qFyx
+         eLmrdehGf5AsGcsVx8tgkmUA2XgzkU5yw6lsMxdp0lnwhwwUjjaSftQ3l1/JVMX83L58
+         FaTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784810684; x=1785415484;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sYg6j3DW4KziIe3Zb2Ojd7X/M+Xd8OnGpyYa/ce7ds4=;
+        b=bHfw+rQviRSJHuSP5QBVUZ8ThDVG4nGjxslyj3cXGIEaq6k2AzdnKP9LlAB0Me3B2v
+         e4/O1ANs7xkvqlv1hU+Op1uP5GDKVoeQC1SpH79BgwJgDvYBxVY3msjMwcT7ENc+B9De
+         gThR8fApoDKYJNDCnHGVWvs/P6yxB8iN94R/cdVhTb/RiO6ic0bf4p+TfZ4xpw6ONWUt
+         FEn0s2tqnmVRH1Ho3+kjP7XVrVwClQMy6FBFhecEoihmzA2aqZ7WEGeixNMVAWSWSj+8
+         mxtzrt40oOFumfweXTwc+X4XMgEAp6jM2/pq8XiHgCAzrFsFeRtQD31Q4atcjWAMa7Qe
+         qpRQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqavQLMXTNCdflOg6p3wIgE0dLp2rWbCdUYW4PdPSMhg/IZKzxEMk9uVcRc83QA1kdJaJOnQlI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0xysOVfkZnIvU4hNxNn13qoxYRA9AQak2LJt1Nd/+mwkKLGUi
+	D/7vO6RMXg9j9XIKuRT0vrkOJ/39XCpymZkY7HBxEY2ifKr8HFMzbB4AMdiKo94BZYyTzxeqVO2
+	eUauxHjo=
+X-Gm-Gg: AR+sD10GJFL/Hy5MzzyHz3sZkbsE/8Cq4+e8T1ni6LNdfOsbi/fK5Eany9pjPVr6x1U
+	jZ9Cq+qqPacdZ+i6JmF9aOi9yaZTEC1bPpN3V+rNPYaeRI27mMcIwvFZYiaEGmu2bSYUQdTH7aL
+	WWd0a8w+hQGhxsAZ8VlbbqhGT4ztuN27EsF1bYtBlcbafmBgAqoF0hPC1/iu43DpppWVOzI//WF
+	2Qg2aUrmezh0DTwdWfgvFtx8Mz99P1yY3EuuNF9BqwxZ/lOn4r5Rxu2qkOfyw3EbCaz/f/+VnMF
+	YvUeDMvm11Ud5XOB94qURizdOrMUYYcW01BBdCugNEUqCHDhARU70cDv4uqhtXu8csEdnc2dZCX
+	PJNpLYZRKbeIVyd+ygOeRV3/1LJU34vonEwhlhC4Ri7fPM/++K6T6hMFZzwOvQQxWIEm27nFoTU
+	Ws9alcpr6Q2xPCuDyy3LkFwqK0iVeMBk5GBm9xdfa3+p8TX8ZYI7yCt/97Lj4hDRilQ/jcSXqJL
+	HKGySeHFhdU3k7dh57xN3rq
+X-Received: by 2002:a17:90b:4b8e:b0:38e:4e62:f998 with SMTP id 98e67ed59e1d1-38ec658e6f7mr2841170a91.23.1784810683887;
+        Thu, 23 Jul 2026 05:44:43 -0700 (PDT)
+Received: from [127.0.1.1] ([103.158.43.43])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-13d1300401fsm21663197c88.3.2026.07.23.05.44.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 05:44:43 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Subject: [PATCH v4 0/2] platform/x86: int1092: Fix two bugs in SAR driver
+Date: Thu, 23 Jul 2026 18:14:14 +0530
+Message-Id: <20260723-platx86-v4-0-93b4a178b595@cse.iitm.ac.in>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 0000/1226] 6.6.145-rc2 review
-Content-Language: en-US
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
- akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
- patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
- jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
- rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com, cc@epic-linux.org
-References: <20260722143258.264584003@linuxfoundation.org>
- <88255dcb-acac-4a74-a086-b686aaf15eca@web.de>
- <2026072333-creed-overbite-b2a9@gregkh>
-From: Frank Scheiner <frank.scheiner@web.de>
-In-Reply-To: <2026072333-creed-overbite-b2a9@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ZHIeogtpb/oNx6kxzP6y+ljCWASHVt01MhjKS5sj6muP+gaGFqx
- M4OCCqqOfH+2cCARLjEXWRSjUkCBbIeXM98uglo2NVcnwlyUUeoZ5vUpoyuMfc702fyC99C
- +gN9ZqWwY/rUgzHcrlxls8pTUbBKWRUM6YjTaYx0DTa/TSfSpQhLLT2l+scuL34fXZFT5Bg
- 6Ragk8Q0ndysrNU+NRY0Q==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Or1xTBBkRtg=;b3pBDsxTY06uUvp0268jF0UbGNz
- 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
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ4MYmoC/32OQQqDMBBFr1KybkIm0Wi66j1KFzHGOmBVEgkW8
+ e6NUqhQKLOZ/5n3mIUE59EFcjktxLuIAYc+hex8IrY1/cNRrFMmggvFC5B07Mw0l4pWTjmRG2l
+ 1XZN0PXrX4LybbveUWwzT4F+7OMLWfhz75CJjOpdFBhRoj60x3dUGxxCnJzOWYU82SRQHEHjCS
+ q5YWoAX/0F5BL9fR6Cc2lJrqJqGS8N/4HVd331/Wa8VAQAA
+To: Shravan Sudhakar <s.shravan@intel.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Abdun Nihaal <nihaal@cse.iitm.ac.in>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.13.0
 
-On 23.07.26 09:46, Greg Kroah-Hartman wrote:
-> On Wed, Jul 22, 2026 at 07:25:26PM +0200, Frank Scheiner wrote:
->> [...]
->> In our fork of Linux post v6.6 we carry a replay of b4b1ddc that makes
->> the corresponding changes also for ia64. This is available on [3] (and
->> also attached to this message) and fixes the build for me.
->>
->> [3]: https://github.com/linux-ia64/linux-ia64/commit/a4085ca68e49f49f96=
-2ddff46a901ff3468574b8.patch
->>
->> Can this be included for linux-6.6.y, so it continues to build for
->> ia64 as is?
->=20
-> Sure, I'll queue it up.
+The patchset includes two fixes for
+- a potential memory leak in sar_probe()
+- an information leak in parse_package()
 
-Thanks a lot. That should fix our builds.
+Both patches are compile tested only.
 
-> Does anyone still actually use ia64 anymore?  I
-> thought those systems were long dead.
+v2->v3:
+- Converted into a patch set with two patches
+v3->v4:
+- Updated commit message of the info leak patch to include the path in
+  which kernel memory leaks.
 
-Dead, no, not at all, maybe left for dead before we took over in 2023.
-But still there were always people taking care of it in the years before
-- keeping it alive for us. Much obliged for that. And today things look
-vastly different compared to 2023. Tomas already mentioned a few things,
-but let me add a few more:
+Link to v1: https://patchwork.kernel.org/project/platform-driver-x86/patch/20260707070524.953741-1-nihaal@cse.iitm.ac.in/
+Link to v2: https://patchwork.kernel.org/project/platform-driver-x86/patch/20260710052806.100107-1-nihaal@cse.iitm.ac.in/
+Link to v3: https://patchwork.kernel.org/project/platform-driver-x86/cover/20260713-platx86-v1-0-c8991bff03a0@cse.iitm.ac.in/
 
-Today we have it all: distributions that support ia64 (T2, EPIC Slack,
-Afterglow), hardware and simulator support restored, software support
-restored (e.g. Ruby, compilers and more, other things maybe only a
-session with an LLM away), Tomas doing all sorts of optimization work
-that wasn't done in years, other devs bringing in patches for various
-bits of the ecosystem. And just recently out of nowhere ia64 emulators
-popped up, one of it being QEMU based ([1]), currently emulating an
-Itanium 2 system, with MP support and already working well enough for
-MP package builds. There is now even another emulator that tries to
-recreate a Merced based system ([2]).
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Abdun Nihaal (2):
+      platform/x86: int1092: Fix potential memory leak in sar_probe()
+      platform/x86: int1092: Fix info leak in parse_package()
 
-[1]: https://github.com/syunnPC/qemu-system-ia64/
+ drivers/platform/x86/intel/int1092/intel_sar.c | 32 ++++++++------------------
+ 1 file changed, 10 insertions(+), 22 deletions(-)
+---
+base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
+change-id: 20260713-platx86-be6e25a3c9dd
 
-[2]: https://github.com/hotlandsoftware/gemu/
-
-Please excuse my optimism here, but emulators with MP support will
-bring in a lot more people, the scarce hardware failed to bring in so
-far.
-
-Of course we are hobbyists, we're doing it for the fun of it. If you
-want to learn more, please head over to:
-
-https://epic-linux.org/
-
-Cheers,
-Frank
-
+Best regards,
+-- 
+Abdun Nihaal <nihaal@cse.iitm.ac.in>
 
