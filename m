@@ -1,33 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3E842AF93
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD4B318EC5
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:19:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784816369; cv=none; b=sbrRR8hhLXlxHarSWBF7Eop6K9aHb/poKvXxnEzTGQiJcT34o8bKtteAIJ72lQsgtAd9MnyJGHNfWEa9VfybzEOv2RQ4XQznAD/4fSeRKqmTXT2dPJv4rTCmzTFhnXIM+BjfRMJ323SpbQRwbGWuodkCU19i8syuurFmfFCmy0E=
+	t=1784816379; cv=none; b=VUjuQBJ8kXQC/WyxCKt/eMpGWviXjXNH7uwRtT9pQRrOVh8Ok4SrYRNwG2PaDJJEFAnanOlzVRisrinuFqsAXQUHH/QAjxpn+LY8R3F4Dqhb0n6tkIwAD3ZBVynUcME2BCUtb81J4ctZZRWALbnlR2joJiG5SW88e5nomTavquE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784816369; c=relaxed/simple;
-	bh=G25JaZSeJ4gwj7e5EM6pclqrgrBmSxXkqzK7catsc9w=;
+	s=arc-20240116; t=1784816379; c=relaxed/simple;
+	bh=8SfOCnccCik2rnfqCyOFhrxvGYky9J/gKvei7UAWVCY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MtL20MJUcu6P31aKCZ0cVt5wF8YTxXgEw9rTGKYbWVwI7ezMjT7XlHGeuZ1c3t/jz4dERYam2NS/8LROIoCCwanX/7UqFPOwiFwEXH5UXDCOHEgQnjQBjiWgCWJSlkP3vVGfIshWswf9TMfOPY8lCmxO7157JKJWx5hVZosFNZI=
+	 MIME-Version; b=jZmU5dWE8cdzwPV1qqvG7UM5JLJcNN5MZANzfnb/Gk8AM6SfRJkDHR0LekQ6lqgdW5NwXi2NzJ4Rr+ieRxKBFEnVVXvsiebQwDnRinadOvYkwoxDTnbFWXyoJfNxO552F8hLQSfB3tmYRIwRZv/FTqPOiFBv2AnrAdJuX0x2ZC8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC5E1F00ADB;
-	Thu, 23 Jul 2026 14:19:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088C51F00A3A;
+	Thu, 23 Jul 2026 14:19:32 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sumanth Korikkar <sumanthk@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Thomas Richter <tmricht@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
+Cc: Tristan Madani <tristan@talencesecurity.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 5/5] s390/perf_cpum_cf: Add missing array_index_nospec() to __hw_perf_event_init()
-Date: Thu, 23 Jul 2026 10:19:04 -0400
-Message-ID: <20260723141904.3218096-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] selinux: avoid sk_socket dereference in selinux_sctp_bind_connect()
+Date: Thu, 23 Jul 2026 10:19:20 -0400
+Message-ID: <20260723141920.3218519-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723141904.3218096-1-sashal@kernel.org>
-References: <2026072026-chess-imitate-9c14@gregkh>
- <20260723141904.3218096-1-sashal@kernel.org>
+In-Reply-To: <20260723141920.3218519-1-sashal@kernel.org>
+References: <2026072005-statutory-bonus-bc65@gregkh>
+ <20260723141920.3218519-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,56 +35,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sumanth Korikkar <sumanthk@linux.ibm.com>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-[ Upstream commit 49145bce539117db4b6e9e83c0e5ef528e361050 ]
+[ Upstream commit 56acfeb10019e200ab6787d01f8d7cbe0f01526f ]
 
-ev variable is userspace controlled via event->attr.config and used
-as an array index after bounds checking, but without speculation
-barriers.
+selinux_sctp_bind_connect() dereferences sk->sk_socket to pass a
+struct socket * to selinux_socket_bind() and
+selinux_socket_connect_helper().  However, when the hook is invoked
+from the ASCONF softirq path (sctp_process_asconf), there is no file
+reference guaranteeing that sk->sk_socket is non-NULL.  The setsockopt
+callers (bindx, connectx, set_primary, sendmsg connect) hold a file
+reference and are not affected.
 
-Add the missing array_index_nospec() call to prevent speculative
-execution.
+Both selinux_socket_bind() and selinux_socket_connect_helper()
+immediately resolve sock->sk, never using the struct socket * for
+anything else.  Refactor the inner logic into helpers that take a
+struct sock * directly so that selinux_sctp_bind_connect() never needs
+to touch sk->sk_socket at all.
 
 Cc: stable@vger.kernel.org
-Fixes: 212188a596d1 ("[S390] perf: add support for s390x CPU counters")
-Signed-off-by: Sumanth Korikkar <sumanthk@linux.ibm.com>
-Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
-Acked-by: Thomas Richter <tmricht@linux.ibm.com>
-Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
+Fixes: d452930fd3b9 ("selinux: Add SCTP support")
+Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Tested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kernel/perf_cpum_cf.c | 3 +++
- 1 file changed, 3 insertions(+)
+ security/selinux/hooks.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/arch/s390/kernel/perf_cpum_cf.c b/arch/s390/kernel/perf_cpum_cf.c
-index 3e5e88536aa27a..4a2cd39ed38e7f 100644
---- a/arch/s390/kernel/perf_cpum_cf.c
-+++ b/arch/s390/kernel/perf_cpum_cf.c
-@@ -17,6 +17,7 @@
- #include <linux/export.h>
- #include <linux/miscdevice.h>
- #include <linux/perf_event.h>
-+#include <linux/nospec.h>
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index ba4e396b93f314..8dd72e7106934c 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -4771,9 +4771,8 @@ static int selinux_socket_socketpair(struct socket *socka,
+    Need to determine whether we should perform a name_bind
+    permission check between the socket and the port number. */
  
- #include <asm/cpu_mf.h>
- #include <asm/hwctrset.h>
-@@ -633,6 +634,7 @@ static int __hw_perf_event_init(struct perf_event *event, unsigned int type)
- 			if (!is_userspace_event(ev)) {
- 				if (ev >= ARRAY_SIZE(cpumf_generic_events_user))
- 					return -EOPNOTSUPP;
-+				ev = array_index_nospec(ev, ARRAY_SIZE(cpumf_generic_events_user));
- 				ev = cpumf_generic_events_user[ev];
- 			}
- 		} else if (!attr->exclude_kernel && attr->exclude_user) {
-@@ -643,6 +645,7 @@ static int __hw_perf_event_init(struct perf_event *event, unsigned int type)
- 			if (!is_userspace_event(ev)) {
- 				if (ev >= ARRAY_SIZE(cpumf_generic_events_basic))
- 					return -EOPNOTSUPP;
-+				ev = array_index_nospec(ev, ARRAY_SIZE(cpumf_generic_events_basic));
- 				ev = cpumf_generic_events_basic[ev];
- 			}
- 		}
+-static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
++static int __selinux_socket_bind(struct sock *sk, struct sockaddr *address, int addrlen)
+ {
+-	struct sock *sk = sock->sk;
+ 	struct sk_security_struct *sksec = selinux_sock(sk);
+ 	u16 family;
+ 	int err;
+@@ -4907,13 +4906,17 @@ static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, in
+ 	return -EAFNOSUPPORT;
+ }
+ 
++static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, int addrlen)
++{
++	return __selinux_socket_bind(sock->sk, address, addrlen);
++}
++
+ /* This supports connect(2) and SCTP connect services such as sctp_connectx(3)
+  * and sctp_sendmsg(3) as described in Documentation/security/SCTP.rst
+  */
+-static int selinux_socket_connect_helper(struct socket *sock,
++static int selinux_socket_connect_helper(struct sock *sk,
+ 					 struct sockaddr *address, int addrlen)
+ {
+-	struct sock *sk = sock->sk;
+ 	struct sk_security_struct *sksec = selinux_sock(sk);
+ 	int err;
+ 
+@@ -5006,7 +5009,7 @@ static int selinux_socket_connect(struct socket *sock,
+ 	int err;
+ 	struct sock *sk = sock->sk;
+ 
+-	err = selinux_socket_connect_helper(sock, address, addrlen);
++	err = selinux_socket_connect_helper(sk, address, addrlen);
+ 	if (err)
+ 		return err;
+ 
+@@ -5489,13 +5492,11 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+ 	int len, err = 0, walk_size = 0;
+ 	void *addr_buf;
+ 	struct sockaddr *addr;
+-	struct socket *sock;
+ 
+ 	if (!selinux_policycap_extsockclass())
+ 		return 0;
+ 
+ 	/* Process one or more addresses that may be IPv4 or IPv6 */
+-	sock = sk->sk_socket;
+ 	addr_buf = address;
+ 
+ 	while (walk_size < addrlen) {
+@@ -5524,14 +5525,14 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+ 		case SCTP_PRIMARY_ADDR:
+ 		case SCTP_SET_PEER_PRIMARY_ADDR:
+ 		case SCTP_SOCKOPT_BINDX_ADD:
+-			err = selinux_socket_bind(sock, addr, len);
++			err = __selinux_socket_bind(sk, addr, len);
+ 			break;
+ 		/* Connect checks */
+ 		case SCTP_SOCKOPT_CONNECTX:
+ 		case SCTP_PARAM_SET_PRIMARY:
+ 		case SCTP_PARAM_ADD_IP:
+ 		case SCTP_SENDMSG_CONNECT:
+-			err = selinux_socket_connect_helper(sock, addr, len);
++			err = selinux_socket_connect_helper(sk, addr, len);
+ 			if (err)
+ 				return err;
+ 
 -- 
 2.53.0
 
