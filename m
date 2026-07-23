@@ -1,430 +1,208 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878433DE457
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 19:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8063A1A54;
+	Thu, 23 Jul 2026 19:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784835873; cv=pass; b=ns41TyXQ+yMTNdY5nZqB4i3et01ErU56ZQJRl3wKfx1BAt7kA2Lra23LZkGVtD3MtRR3pNYz8OJ+lGPVNZNasxcghSUo5QqHSh53+gCeyNv8prRva4+5IyV0vByH8MEgv4fiTgbgNVT3dcB58okJGqvM9rH6dVFazyjDYWwVABE=
+	t=1784835910; cv=fail; b=qCKRIpfbBaVLDaehZABLlFq5YK5nN3hhSg/ptNiGZeGA9GO8mlMaSFIGBnjbWlxC4+rwRPB2n5qIae5XQbsnjnOJgX8KY3LitGTcO3GosY5z9UGEnKq5LIgnSK1Y3YI4uIHglq9apWSs7xRnZLUEjAAJ40U3OgDOlr0V/PXTzWA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784835873; c=relaxed/simple;
-	bh=w1DU8Rl1YH8JvY02/XfgB8+OmlRx7VZf9zPWJSLM1u0=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OS+lygO0m+vrv4a93SlFLDK4ArVAZ3ZXpR3Ul67PFyzo1bAnUBPu3ehTD641SxO81WJXTe0YymBQCEy1xSq/Q73yY6hxzLBq4870qDv5LMlBITowFRQuHcn4cOVr1ppHchrHGixMR5vghS7I1fhE3+71si9+gidNdDOVbPUTWd4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juliahub.com; spf=pass smtp.mailfrom=juliahub.com; dkim=pass (2048-bit key) header.d=juliahub.com header.i=@juliahub.com header.b=XY/UB8MD; arc=pass smtp.client-ip=209.85.219.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juliahub.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=juliahub.com
+	s=arc-20240116; t=1784835910; c=relaxed/simple;
+	bh=ur87wMurov2zXDZJ7OFiz1cFhirkFaZsVh1P0IM7d+c=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=YlR/UjfKlenyw3/WaPRm3eVLaLLwrRVnpjxYvNPQ8LprfWEplYni/K8l9G3lP1NaKn1my73OshO3yGN2XWtBI1WnJhM1JcuTEWforYZD+/hwafVjwcvu+e/A7j3qQZODjcpjDKGTYug/YGeSM9yyyHczydj4X2vov4gvyIGlF5k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PQgkI48d; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=juliahub.com header.i=@juliahub.com header.b="XY/UB8MD"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-8ff88549786so12758596d6.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 12:44:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784835862; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jPzsJqZwgxt9v9VczRdNARv//IkmW625NK9x9iFLM4RxlMS1uMA998NSBKlRhbfn3A
-         m+fPL2yI2twA0S7aODI7FAS1AClbANoxNEOkhX6T2fwWVaCL3c180JoBG0yD0CC/fycQ
-         drdCZBeT33e/tRYuq4sZbrdUdtGuM/BpgOmYsk4qBahp2uYN7D/0/9quRHD7K8i2k6EH
-         jQZWZuWV0+H37YI8jYakE6ygCOiWSKZvXWPeonCTH8xCLU95OuLyyvuM50UG9l07AzG5
-         glLTLMM9B7HtQMVvzvf+EMK7izaqMzfYqIV+w1azToDT2NUrqb8izF+Wsn1qDJ4EJHhR
-         U/Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=YmAwEUVDsgoqK5MoBv/fTt6tDTPOqS+wZ9ziTUnEPTE=;
-        fh=JRFncvRvgoANjLQKr3FihMPSYIEfyl8iuVTL2bigipM=;
-        b=QlR1EKdCP9B6kJxSJzXqanbENv5aXnrpOz0OWSyN/BuMv11CLXo0K3Sp7WCBOHZZjE
-         tsSmd7oOyhpTtaykbDQTg4O4as/YN1tttfBVnBiQ8lUJ7k03bb3mTgjrQ4B9Wuq8b+Dm
-         TnaxVm1vPAMzUkudtWvJy6ltEJKXfikaRuuDezeUDALHSlQ8GVdty6P2E+oegDdY2eJq
-         bOYCdiL8TmJwp6XvtVHcz6+JpaOtij6LPjmJY5XX8D6VWyI+6yzgX4uGqsre4JhxqlwQ
-         TnqtdEwqM8bubdyTV410ajOSE2tujm6CLMulQlY6idLKRynOjwk+6RWj6USArhrcf0+s
-         RWyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=juliahub.com; s=google; t=1784835862; x=1785440662; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YmAwEUVDsgoqK5MoBv/fTt6tDTPOqS+wZ9ziTUnEPTE=;
-        b=XY/UB8MDi3twbywdregkw8wG5BaLT6Wsgk7qSoBTmTxMxwma5U6DGk7VIiZDpB2s7c
-         N0RYsvsa0Lq41AKnYhr50nxmT/gd9zINI84EA8fhTdcD3/z9yVBQPF62hKc03uhbM73q
-         FNZXXZtNyCfJHQZ1zhA+qE5JOFkBY9QLfK/spyDIuahpwvoArcoq14xuEA46u3HbOLDp
-         gd56E5C0m0DzdLFpIyZm3+kziRkPqn5iRUm66y31Dq4DjnluNVvZcwTPOYuR1T1z02Mu
-         5X+IPnldEjkHd9DbRQpvIl3u4vvTeo4VAS0VxWcKD1nKp9jh1o+Zc7goqX0tOg9xvfRM
-         ZGLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784835862; x=1785440662;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YmAwEUVDsgoqK5MoBv/fTt6tDTPOqS+wZ9ziTUnEPTE=;
-        b=J0mRDprmwgnVII5XtMTsQtT1e6nC0ORXVK7FjGsq5Y0cDKTSo/MZepJFCjCLkbRyw0
-         yWHCtYKJdqzIoP5THeNKfiMqcA95Q07TuxasnrJ8FcEzLA1IoZuma/8ZBby6sN5cUzrH
-         rW+hA3zSAMAqFTLRl5iM7S2RclnU/enZ5czEpeWhRg92rJwMfjClS8PudJeW2+K12UJ7
-         f7LTuoYkK2Lpw//9uboZ6qRLdsR43s2CFx/hr2JyUwCOJzPmy2RibXlJcm8u0BmR4UjM
-         ivAuscYzNePZ0mEWzvMtcoF+LlT6ADB/E0OieSPjWECtCkpuHqVoxR3PP1dV5uLcHupa
-         1Kdw==
-X-Forwarded-Encrypted: i=1; AHgh+RqP4j74u1dK4GRRBh54/oq9hhOcIoTTXlefHIHEmkjE9WZJDMPDQO5HKIsfrIHtT2uU8CcdH7s=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfnY4OHsPwZzwztQ3CmoD2C5frfblgHjiMNj83GZyiKzYZb6RU
-	AS7m4Ocu+b2iVntBJiSt86VUQmy9GTCBy7G6ZwfCQpSiIMqsZTZ7W1pefVPIHrA6S6opeqJ6wDu
-	9jnG5OrXMpw7F1ul7uvozi1oWHhji+nRQTlYvbcutcg==
-X-Gm-Gg: AR+sD12LBb6rsFXR997odn/ikRqEbm0BpGkkFq4q3yTf+EWZTA6/dGy++h2wLB0s4dC
-	vOkVUp1969N/NBMANg/s5DzPYaoyjL08Z1R3JzICbQ0rj6HInZM0i5DBJSyXqQYDKHBlkr+itgY
-	ANqGz6KNArF5vMAfLOsb5bKu5DTqHU/Jd5fp7y8/DRh/aUIowozqfOFdwdyAIz6bebRwpXS5OlK
-	X44+JV/mpICoP5pVa6FhJTyK54LagAqbywMT5xW3zBzme415hoQp5CAOANplP4EZwohC7pzQNU4
-	fAHoBiWp1UjyI+bcuQ==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PQgkI48d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784835905; x=1816371905;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=ur87wMurov2zXDZJ7OFiz1cFhirkFaZsVh1P0IM7d+c=;
+  b=PQgkI48dSCGA0GxkHLjB3PPtgQdC6qZ398Ecwy6KyLmGWSPyhiN6DiMV
+   YwlKyfk9kRElO1qHNWhvAmCDD2OZUykTGmYOhkxM8ektgnW+C4w/0KPS8
+   o5t1+IJwQFNxQpFC1aK0iPMtorVE07QdHbZRnWSRFppnseJpUXgHeeh43
+   EwO73jtX6+QeyVf0ocTgS+qgkVFI+OBAtD8hcSA0+zngY3I/3QB8TPwaU
+   iUt84ITfqDgxvuZsFhPIagTs7/SIbEmwP9FawSXcX+QP3RkRGiZC5ZM5q
+   xRknT+uN9YhkLFOQFWJqWyzH9lK7SgsEbjIR55DkSZd83fxE3Kp6PIc3s
+   A==;
+X-CSE-ConnectionGUID: sXy6Vnw2Q8GTdCz2BCiLAQ==
+X-CSE-MsgGUID: k7SdPKV9SE+qSN8vUvkzjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96092537"
+X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; 
+   d="scan'208";a="96092537"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 12:44:47 -0700
+X-CSE-ConnectionGUID: Orc6zESjQl2tK7keZXt6ng==
+X-CSE-MsgGUID: Uyy1//2IRxmiRmWd1LLX7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; 
+   d="scan'208";a="262039217"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 12:44:48 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 23 Jul 2026 12:44:46 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 12:44:46 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.67) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 23 Jul 2026 12:44:46 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RGMAo48BWCgYOYKzWbf1i38rjq2lCGRocCP2SZkvSBKFRkd4qAUySKfxy7DXn9Ur4BF3rDEXMn0GxqAnV2kYk/V3hcDdieY4ts7wYCOEGK6At6Xoaq2VI/MZmFHqPmm0cEfiyRXhK1uCHcWgRv0VDv0QeugyQ/99uLGTiBT3i0p9W8OCmB9YLHtTL4e+ZKCs/c+AE/zUrlw0iTdOf4pLbCsn0AVdDvVLStgs2KsuJzifyhFdz500mZ60YHft8MTOr8JbooR+hlCnvw1E8fRxHWDkQd5gYP8i0+G5FTgDb73pRpfEkhrKK92HGsB1YfwqRMOdyncPkUNrxxNDOpJ7Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hjecUWWfrg/pL6fhL+/dAqoaxFkVzdOHGdxrw1pnBdQ=;
+ b=sgpu6jFr1mge4aNvi7mGxD2Yj0GnyO8kGzyAVtrMmgvKlYXh942q02rOsJom6pYu7J6Zf7odAB80I3QyIrze5Xbp2pAJOlktcr/5279dPHkKHb60vesVCxTd83yVaaC1PEXBXUcIqprrKEFHiXnC587dLhWDTUU9fG9DntUf3dTbLis59DiUv6lmY8tTeYyAYbpWJ9CdUbdLdibaHLPHUNHXnTt3gg+heg0Kflv5irCqBwlMHHZJkHRogsj2QrIWt1jnp9Qu66mEZB3p4A3FXJXIXnb/YqH8ix2pDy+R9w6Eq5rpG1fsGk/khArhmKtgoW9UXIKq6SgmyCUZ6sK4GA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
+ PH7PR11MB6332.namprd11.prod.outlook.com (2603:10b6:510:1fc::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.11; Thu, 23 Jul 2026 19:44:39 +0000
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84%3]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
+ 19:44:39 +0000
+Message-ID: <52cd5021-0290-401e-85d8-bdff0d07a9f7@intel.com>
+Date: Thu, 23 Jul 2026 12:44:37 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] KVM: x86: Remove AMX-TF32 enumeration
+To: Sean Christopherson <seanjc@google.com>
+CC: <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<pbonzini@redhat.com>, <stable@vger.kernel.org>, Zhao Liu
+	<zhao1.liu@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>
+References: <20260720205208.519622-1-chang.seok.bae@intel.com>
+ <amJXsVGv3xe7GKu1@google.com>
+Content-Language: en-US
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+In-Reply-To: <amJXsVGv3xe7GKu1@google.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0121.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::6) To DS0PR11MB7925.namprd11.prod.outlook.com
+ (2603:10b6:8:f8::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:620a:2590:b0:92b:6805:9191 with SMTP id
- af79cd13be357-93103b0e694mr475503785a.73.1784835862571; Thu, 23 Jul 2026
- 12:44:22 -0700 (PDT)
-Received: from 960782262270 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 23 Jul 2026 12:44:20 -0700
-Received: from 960782262270 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 23 Jul 2026 12:44:20 -0700
-In-Reply-To: <87v7a7jeav.ffs@fw13>
-References: <CABV8kRwvex1VvQ0eGwUQmJL_vA7AP2h64VpHqtXvfOXMvvJQZA@mail.gmail.com>
-    <87bjc0led9.ffs@fw13>    <CABV8kRwDhwa_OoQ9zx4sv3tDATZc0Yy-mYGObRXw59DO0cDfLw@mail.gmail.com>
-    <87v7a7jeav.ffs@fw13>
-From: Keno Fischer <keno@juliahub.com>
-Date: Thu, 23 Jul 2026 12:44:20 -0700
-X-Gm-Features: AUfX_mxsP8I2az4lSi31OtYK2DKYHyE5efsIPKg0iLaqBiW_NNViEkar6NeE-k0
-Message-ID: <CABV8kRz5c4opGVA3CPdALWxjUH_DkLf_tBLdefajsSevfHFYpQ@mail.gmail.com>
-Subject: Re: [PATCH] futex: Prevent robust futex exit race more
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Keno Fischer <keno@juliahub.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
-	Yang Tao <yang.tao172@zte.com.cn>, Yi Wang <wang.yi59@zte.com.cn>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
-	Florian Weimer <fweimer@redhat.com>, Oleg Nesterov <oleg@redhat.com>, 
-	Christian Brauner <brauner@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|PH7PR11MB6332:EE_
+X-MS-Office365-Filtering-Correlation-Id: b667d247-48cd-4640-9639-08dee8f2d52f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|6133799003|18002099003|22082099003|3023799007|11063799006|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: uLPJppjqtIHAE+uzsdSeEGpgJF7gmyUk8BKUMz0d6JflBy4q3JL9ZyDTGYPVmT2lq1t5RWCsT0MrjzIsemU90t3OL0ieL2IzSEeGAnxZJz30nbXeEOcucCLEpmSDnM5T5492PfpiD2pBgZIgUteZtYtBtnpIBgYHuG3YsTsEXmnMmTKLRbeaAKYEhnApKyj34g5jnNs7nUqLwBFOLwUk3luN4q8h9r8wDbqsTvemCn+T+PPkcKIDcFHnJKl/sQagi/Ut1n5p3iolYr2Tinozpq7RGJE45LVM6ODQIHJl+jr/Vktivl8WZ69jbrRSB5Ey+9DMcC7LyBitbXDmdKyZCLdvSqJJvBqBxuynNy3ip+fpzAiHQBQ9PzIZAyZEUqES7JCCme3WrubfwZpoU5+5voI9VFrw10xxF+tzIHbBMMe8U4rM5GETcZgYjk8GEf/ECVgzUN8TIX2Qu24jkTcbMwXWQ/bt0Yj5Iw26LF+9YbRAZAKbKE4OckTNsETwIGrrk3G+L5b6xb7tcclDJOCZInwcsKLAfptJVbp+oTuuC9xSZYUshHZIyXS6v702flYfg4GpZrxf6YF1OrAd9kkFLdAbRqnk6esyK0vB0qgM4VGaSdfGqm5wMzUtEvnP14b4BeyRvUkBp2lbQGyp9XIXwU0GUmNaNF/g3rWvEjKhU7U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWpKekR2NTFGYzFnU21sL2JrM3NWMkJKTzJUOWVWdzlqblYxanRMOGhHdGJX?=
+ =?utf-8?B?d0tsUi9qR1RoeWFLamNnaVVqRnU3NFZiVzd2L3piK2VyRVhhbm4rdXg5UGdt?=
+ =?utf-8?B?VHY5UitOU1d6c3R6STVuZytUQlJ3YXhmNzF2NEFUY2tnQS9yYjRWT3A3djJU?=
+ =?utf-8?B?QzNVUWFFUFpDRllua3pETnFvdEhkVkZ3bzBtL3VlR1ByZHI0cmpjOGY1U2Vv?=
+ =?utf-8?B?cmlLSUN1M1daclRObFREQ2hrM2l6TkRCUkc2NkpDWm9velRQWTUya3ZJbzRi?=
+ =?utf-8?B?STRQVThtZ2RsWS9xaUVqZURWTzNGc3lUNDc4QzFNWDFHNzd3KzA5blJxRVM0?=
+ =?utf-8?B?ZkxpTEJkcVc1ZE9QYVB5SU15Q2VHNVNVY1FjK0FMbTZnU1JETDAzREFqeWlU?=
+ =?utf-8?B?Q2QzMTNFMGt4OHBmUzVkQncxYTR3cVY1cUN0ZVdwcGNJcjR3UllnY2VxV2Fo?=
+ =?utf-8?B?cTFvbXdZczNiaE5hZ0pVenBmeWwwZ0x4bUJvYTltZlZiZ1p4RFhQRU9vTWl4?=
+ =?utf-8?B?K2xwVmxiajRKeDdkY2RzRTVhTVd6VllJcmJyNjRtemVjdnpUVGV2cXp1Q0g0?=
+ =?utf-8?B?NlMwK1NHcHF3bE1nOTEvZjNZZkFnZm12K1RCTmx0VURydmNWVTd4R212NzJW?=
+ =?utf-8?B?M3dDZ1QzY2UvYkhwSlhOY0c3TzIxQmFrWElQeDJxZ3Y3L05ISENMYjdmdE5k?=
+ =?utf-8?B?S0RuQTh6Z2VGc25HZzNINm42YUdwcW5KOEsvS01DVkJJaUVFVWJLbHloRXFh?=
+ =?utf-8?B?MGZFL3ZXaXpQdVEwbSs5b3VCTkxXQ3J2ejRkRUtqU1h5Z1Q1RW5VUlVhRDAv?=
+ =?utf-8?B?Y1pHbkNjQTdvSmxyVk16dmliMFJWZmJoc0ZwdzFnTjRRZDJNamNDajFjKzQ2?=
+ =?utf-8?B?d3N4aWh2Skk3RlluaUxRcnViMGlwOVBUa3N2QTJMd2Y1Qkg1UjhvNURlMlFq?=
+ =?utf-8?B?ZnVUdmRiVTFCVXZxRVl2WHoydWhJdEp1RGlvUFdMWDRNckpoSkdvdUN1dUc4?=
+ =?utf-8?B?ZFVNS2pPV3BnTWxRaXoybWtlVTloTWs3eFZuVW9LSlZQbDFFcVE0VkJXd0M5?=
+ =?utf-8?B?ZjRPM0JLbTBwbUtHMkxzZnA1WUQzTitsbW8rTEFaYmZDYnRYMldTclRtMXlF?=
+ =?utf-8?B?TEtYUzk1MGZmVnBmQlpWVXhHVHpmVzEwYS9oN0R4NWp3d2E1SURGWno0ZUhT?=
+ =?utf-8?B?dnpoOCsvMUx6bXVCY1prZ28xbTB4M0E5RDN3VW9FZmRWVVB5OE0zRkt1dlFt?=
+ =?utf-8?B?eFVGSFBoZG94QVFrQkwzeFJXTnROM1YvTm91T1NyZVNjQnZ5RUlJTkdOMWZW?=
+ =?utf-8?B?VTR1UVVTbklzenJ4SjJMbVQ1cERFWUNNb2NJbW9JNndyVzVLQnBDZ0lQZVNN?=
+ =?utf-8?B?akhLMVRsSmI1TUNQcWhlMnlhcElTWjVLRmxxeDhxMDloejlJQUl5Sk5ocStr?=
+ =?utf-8?B?bkZ3RThmQlVydzdsbEx6UlJ0S3NXTTcwSVZZQ2xPM3lUcEMvMjJOeUNxL1pK?=
+ =?utf-8?B?Qk5Tc1hMVGFJTjNqVm1rVFdkQitWcVVET2xyQ3BRRmM4ZXZNTGxtUDFTWks5?=
+ =?utf-8?B?bkZkdmsxU2pvb1JRZzU3VUNmL0djN3huWnR5RUhicGFlRjY0UFZ1SGt4UmZx?=
+ =?utf-8?B?bDU5OWdHYTgyRzEwZThXbDdsak10RGVSM1VoV3BmOXo4Yk1Gam1GUVd6RkJm?=
+ =?utf-8?B?ZTBuSmhKVjRCRlUrckwwcXJ1MUc4Y0h0YWpKb2NLY0dEaVdMTjRuZG5tVk96?=
+ =?utf-8?B?bXdwK1BIeWM1SlJlc2xPUU1YVWRjVVYwOGR2bkpiMnMzYUJaKzltR0l2MUgr?=
+ =?utf-8?B?RnZWbnpzcG8waTY1ekVVZFl5U3pxOC8zZ2pHWURNQkd4RGZpQlluWGR1WlF3?=
+ =?utf-8?B?aDdWdHBFbE1SbGJJM1k2Zm5JYmlndGNHVlJkbms3T3AyOWdMSzRScnBuYk0y?=
+ =?utf-8?B?RWNoM1VvTFQ2UWFWbmdaMU90VG9qNlVPNE1zc3VEM2dkdHp2MWNlZ1c0Z1ZN?=
+ =?utf-8?B?SmpWeUYrcEdnZmxoLzNnTGtDTXRkaUNUTFdBaG4xNmtPbEdQbDlreVZoU2Q5?=
+ =?utf-8?B?ZTE1dUtqN1RPMTh0K1o4VTFmT1FiNEpVWTd1d09aVTNzWU55U2E4U094Vmw5?=
+ =?utf-8?B?VHdYNDJzQlRuTi8yS3hZYjBZTWJjRHUwaHgxNEZ0Vit0MDRCdXlQa2NkVzNn?=
+ =?utf-8?B?SjkyUEwzUThkTFZnWGJpYm91eCtXRmcwd0J6OVRBcGNydWM0ZGZ0M1lHbldj?=
+ =?utf-8?B?R1A5bndyR20wTm53SnlqeExBWTQxWC9rS2J2dVVGYVBsZGs0MDhOWUlSY3N2?=
+ =?utf-8?B?TmhSME1HQWVqam0xelVtYXRRTEdoYUdzb0MxU3A2MmU3NFVuY3NYeHJiVFVJ?=
+ =?utf-8?Q?hUiJZv51VY2Zt1XY=3D?=
+X-Exchange-RoutingPolicyChecked: ZBcrwj/3qyNLZ+FYtefUdQT2wrDTaOs2cyxF4fecmDuV8DAaJRTYD/82easFjYV9iarmxWV1AnAo8aS6GWCeAXu5+9eAdqSXYYB2V6TQAQqvEeWAFGp9ndufl/XzeZcJbIZg1BYSZC1kOH2jc4RxfYgFyYe3d8g5aWPZ2g4hwTj78ri7fTjxKX9L09W+8Hy88pRZDnpfszx3S+A+7OOCpdD66eOCUU8nVysQ06QTOZCek3ZXqUtEzibby21k/EJQFcFvlKx4Q/nOxPQ/jma7hy6Qr5V0P+XPd7kJRk+giyEGrUlQQrlIYgtMKAMjX+VB+l/uRkJZkE0wr1cH11Ai1A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b667d247-48cd-4640-9639-08dee8f2d52f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 19:44:39.2936
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1LZR5/SuPBrbp2+xF0djNiy7qyO4TL2tOb8r4mUXEt/T9xsbI8KtQoWurijRZjIJBMYDG1q9F7NCa6USRJsENLyB8224R/+EDOR3L9xe/tI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6332
+X-OriginatorOrg: intel.com
 
-On Wed, 22 Jul 2026 16:21:12 +0200, Thomas Gleixner <tglx@kernel.org> wrote:
-> We should rather fix that than hacking around it in the exit handling
-> code.
+On 7/23/2026 11:04 AM, Sean Christopherson wrote:
+> 
+> I'm not convinced that yanking out support is the right move.  By publishing the
+> feature, for several years, Intel pretty much burned that CPUID bit.  E.g. it's
+> not impossible that someone other than Intel has implemented TF32 instructions.
+> 
+> The opcodes are fair game in the future, because their use can be qualified and
+> guarded, but the same doesn't hold true for enumeration.  E.g. similar to how
+> MPX got ripped out and its XSTATE assets got reused for APX, but the CPUID feature
+> enumeration is forever reserved for MPX (I hope).
+> 
+> If the argument is that "Intel Architecture Instruction Set Extensions and Future
+> Features" isn't binding documentation, i.e. that Intel can do take backs until a
+> feature is documented in the SDM, then I honestly don't see any option but to
+> refuse to accept new features until they land in the SDM.  Which I don't think
+> any of us want.
+One distinction I could think of is whether a feature ever ships in 
+implementations. If a feature is actually implemented and is later 
+deprecated or removed, then I agree the bit should remain reserved. That 
+appears quite clear.
 
-Ok, I do think that would be better. If we changed the FUTEX_ROBUST_UNLOCK
-semantics to set FUTEX_WAITERS if and only if there are any remaining waiters
-(being careful to synchronize this with the addition of new waiters in
-FUTEX_WAIT),
-then we don't need this code in the exit processing. It is also better because
-it avoids the extra wakeup just to re-set FUTEX_WAITERS and it
-solves the related (minor) annoyance that userspace currently cannot know
-whether there are remaining waiters and has to conservatively go through
-the contended unlock path after any wait. I've tried the quick-and-dirty
-candidate patch below and it fixes the issue. See if you like that approach
-better.
+My understanding is that the revert was considered because TF32 never 
+reached any implementation. If that's incorrect, I'd certainly welcome a 
+correction. But if it holds true, then I also want to clarify the case 
+is different from retiring a feature that was already in products.
 
-The main downside I think is that this would be a userspace-visible change
-to the futex ABI protocol. Of course, it is opt-in using FUTEX_ROBUST_UNLOCK,
-so there's no problem from the kernel perspective, but for cross-process mutexes
-userspace will have to coordinate to make sure that all processes in question
-(including statically linked ones, etc.) upgrade simultaneously.
-glibc could potentially use a free kind bit to coordinate and make an
-ABI mismatch loud,
-but I don't see a good way for musl to do this.
-That said, both libcs have made these kinds of breaking ABI changes
-before (although
-rarely), so perhaps that's not a real concern.
+That said though, I think you made a point. If new features are 
+published there, we add support based on that, and are later asked to 
+remove the support, it becomes harder to convince what level of 
+stability the ISE doc can provide.
 
-> Unsurprisingly a robust futex depends on unique PIDs, which are not
-> obviously not guaranteed accross multiple PID namespaces.
+I don't think these decisions are made lightly. We humans may sometimes 
+reconsider features before they ever ship. But cases like this 
+inevitably damage the credibility. If this happens repeatedly, it 
+becomes increasingly reasonable to take a more conservative approach -- 
+perhaps even until there is hardware implementation at hand.
 
-Well, non-PI robust futexes depend on each thread in the synchronization
-domain having a unique token for their process lifetimes, but it doesn't
-necessarily have to be a PID - anything that can be robustly released
-would do (obviously the situation is different for PI futexes since
-the kernel needs to be able to find the owner). The proposal here would
-be to let userspace decide what that token is (either in the robust list
-head or in each entry). Some applications already have suitable tokens
-(e.g. LMDB assigns a reader index for each reader, although its protocol
-for doing so would need adjustment since it assumes mutexes work), but
-there are several options - I don't think the kernel has to care.
+I'd relay this feedback to the relevant folks, as I do think this is an 
+important point to consider. I'll cc you.
 
--- >8 --
-Subject: [PATCH] futex: Retain FUTEX_WAITERS across a contended robust unlock
+Thanks,
+Chang
 
-In the contended unlock path of a futex (using FUTEX_ROBUST_UNLOCK
-for the sake of the present discussion - the legacy path has
-additional races anyway), the kernel will store 0 to release the
-futex word, clean up the robust list pending entry and wake the
-appropriate number of waiting tasks (if any).
 
-However, because userspace does not know if there were any remaining
-waiters on the futex, this opens up a race: After the futex word
-is released, an unrelated thread can perform an uncontended acquire
-without setting FUTEX_WAITERS. If the woken-up thread dies before
-it has a chance to set FUTEX_WAITERS, there is no indication to
-userspace that the next release needs the contended-unlock path and
-thus any remaining waiters will never be woken. An example sequence
-is the following:
 
-  A owns the futex, B and C sleep in FUTEX_WAIT
-                                        uval == A | FUTEX_WAITERS
-  A FUTEX_ROBUST_UNLOCK: store 0, wakes B
-                                        uval == 0
-  D fast path acquire: cmpxchg(0 -> D)
-                                        uval == D, no FUTEX_WAITERS
-  B killed before acting on the wakeup
-  B exit walk, pending op: owner D != B -> no action
-  D unlock: no FUTEX_WAITERS -> no wake
-                                        C sleeps forever
-
-This closes that race by instead having the kernel retain the
-FUTEX_WAITERS bit to indicate whether any waiters remain. Another
-thread is only permitted to perform an uncontended lock if there are
-no remaining waiters. The release store is performed under the futex
-spinlock, and thus synchronizes with the check of the futex word
-in FUTEX_WAIT.
-
-This is a change in the futex protocol. 0|FUTEX_WAITERS was previously
-not a state that was used in the futex state machine (although
-very old glibc versions have a bug that produces it). Userspace
-implementations will need to be adapted to handle this state when
-switching to FUTEX_ROBUST_UNLOCK.
-
-Fixes: 3ca9595d9fb6 ("futex: Add support for unlocking robust futexes")
-Signed-off-by: Keno Fischer <keno@juliahub.com>
-Assisted-by: ClaudeCode:claude-fable-5 tla+
----
- Documentation/locking/robust-futex-ABI.rst |  17 ++-
- kernel/futex/futex.h                       |  12 ++
- kernel/futex/waitwake.c                    | 123 ++++++++++++++-------
- 3 files changed, 113 insertions(+), 39 deletions(-)
-
-diff --git a/Documentation/locking/robust-futex-ABI.rst
-b/Documentation/locking/robust-futex-ABI.rst
-index 5e6a0665b8ba..7e83b3d6f4f0 100644
---- a/Documentation/locking/robust-futex-ABI.rst
-+++ b/Documentation/locking/robust-futex-ABI.rst
-@@ -215,8 +215,21 @@ For the contended unlock case, where other
-threads are waiting for the lock
- release, there's the ``FUTEX_ROBUST_UNLOCK`` operation feature flag for the
- ``futex()`` system call, which must be used with one of the following
- operations: ``FUTEX_WAKE``, ``FUTEX_WAKE_BITSET`` or ``FUTEX_UNLOCK_PI``.
--The kernel will release the lock (set the futex word to zero), clean the
--``list_op_pending`` field. Then, it will proceed with the normal wake path.
-+The kernel will release the lock, clean the ``list_op_pending`` field and
-+wake the requested number of waiters. The value stored into the futex word
-+by the release reflects the remaining contention: if waiters remain queued
-+in the kernel after the wakeup, the futex word is set to ``FUTEX_WAITERS``,
-+otherwise to zero. This keeps subsequent lock acquisitions on the contended
-+path so that every unlock wakes the next waiter, even if a woken waiter is
-+killed before it can take over the lock in user space (the released,
-+ownerless futex word also lets the robust list exit handling of such a
-+waiter wake its successor).
-+
-+Lock implementations using ``FUTEX_ROBUST_UNLOCK`` must therefore treat a
-+futex word whose TID portion is zero as free regardless of the
-+``FUTEX_WAITERS`` bit: it is acquired with an atomic compare-and-exchange
-+which preserves ``FUTEX_WAITERS``, and a thread must never wait on a futex
-+word with a zero TID portion.
-
- For the non-contended path, there's still a race between checking the
-futex word
- and clearing the ``list_op_pending`` field. To solve this without the need of a
-diff --git a/kernel/futex/futex.h b/kernel/futex/futex.h
-index f00f0863ed44..367a8eaa650d 100644
---- a/kernel/futex/futex.h
-+++ b/kernel/futex/futex.h
-@@ -305,6 +305,18 @@ static inline int futex_get_value_locked(u32
-*dest, u32 __user *from)
- 	return get_user_inline(*dest, from);
- }
-
-+/* Store to user memory with release ordering and pagefaults disabled */
-+static inline int futex_put_value_locked(u32 val, u32 __user *to)
-+{
-+	guard(pagefault)();
-+
-+	scoped_user_write_access(to, efault)
-+		unsafe_atomic_store_release_user(val, to, efault);
-+	return 0;
-+efault:
-+	return -EFAULT;
-+}
-+
- extern void __futex_unqueue(struct futex_q *q);
- extern void __futex_queue(struct futex_q *q, struct futex_hash_bucket *hb,
- 				struct task_struct *task);
-diff --git a/kernel/futex/waitwake.c b/kernel/futex/waitwake.c
-index d4483d15d30a..2983d6d257b2 100644
---- a/kernel/futex/waitwake.c
-+++ b/kernel/futex/waitwake.c
-@@ -150,26 +150,69 @@ void futex_wake_mark(struct wake_q_head *wake_q,
-struct futex_q *q)
- }
-
- /*
-- * If requested, clear the robust list pending op and unlock the futex
-+ * Mark up to @nr_wake waiters for wake up. Must be called with @hb->lock held.
-+ * Returns the number of marked waiters (or -EINVAL).
-  */
--static bool futex_robust_unlock(u32 __user *uaddr, unsigned int
-flags, void __user *pop)
-+static int futex_wake_locked(struct futex_hash_bucket *hb, union
-futex_key *key,
-+			     struct wake_q_head *wake_q, int nr_wake, u32 bitset)
- {
--	if (!(flags & FLAGS_ROBUST_UNLOCK))
--		return true;
-+	struct futex_q *this, *next;
-+	int ret = 0;
-
--	/* First unlock the futex, which requires release semantics. */
--	scoped_user_write_access(uaddr, efault)
--		unsafe_atomic_store_release_user(0, uaddr, efault);
-+	plist_for_each_entry_safe(this, next, &hb->chain, list) {
-+		if (futex_match(&this->key, key)) {
-+			if (this->pi_state || this->rt_waiter)
-+				return -EINVAL;
-
--	/*
--	 * Clear the pending list op now. If that fails, then the task is in
--	 * deeper trouble as the robust list head is usually part of the TLS.
--	 * The chance of survival is close to zero.
--	 */
--	return futex_robust_list_clear_pending(pop, flags);
-+			/* Check if one of the bits is set in both bitsets */
-+			if (!(this->bitset & bitset))
-+				continue;
-+
-+			this->wake(wake_q, this);
-+			if (++ret >= nr_wake)
-+				break;
-+		}
-+	}
-+	return ret;
-+}
-+
-+/*
-+ * Release the futex word of a robust futex (FUTEX_ROBUST_UNLOCK) by storing
-+ * either 0 or (0)|FUTEX_WAITERS depending on the presence of
-remaining waiters.
-+ * Must be called with @hb->lock held. The lock may be dropped and reacquired
-+ * to fault in the futex word.
-+ */
-+static int futex_robust_release(struct futex_hash_bucket *hb, union
-futex_key *key,
-+				u32 __user *uaddr)
-+{
-+	struct futex_q *this;
-+	int ret;
-+
-+	for (;;) {
-+		u32 mval = 0;
-+
-+		/*
-+		 * Check for remaining waiters on this futex. Error
-+		 * conditions from futex_wake_locked() are ignored here to
-+		 * ensure that the next wake takes the contended path and
-+		 * observes those errors.
-+		 */
-+		plist_for_each_entry(this, &hb->chain, list) {
-+			if (futex_match(&this->key, key)) {
-+				mval = FUTEX_WAITERS;
-+				break;
-+			}
-+		}
-+
-+		if (!futex_put_value_locked(mval, uaddr))
-+			return 0;
-
--efault:
--	return false;
-+		spin_unlock(&hb->lock);
-+		ret = fault_in_user_writeable(uaddr) ? -EFAULT : 0;
-+		spin_lock(&hb->lock);
-+		if (ret)
-+			return ret;
-+	}
- }
-
- /*
-@@ -177,8 +220,9 @@ static bool futex_robust_unlock(u32 __user *uaddr,
-unsigned int flags, void __us
-  */
- int futex_wake(u32 __user *uaddr, unsigned int flags, void __user
-*pop, int nr_wake, u32 bitset)
- {
-+	bool robust = flags & FLAGS_ROBUST_UNLOCK;
-+	bool wake = !((flags & FLAGS_STRICT) && !nr_wake);
- 	union futex_key key = FUTEX_KEY_INIT;
--	struct futex_q *this, *next;
- 	DEFINE_WAKE_Q(wake_q);
- 	int ret;
-
-@@ -189,39 +233,44 @@ int futex_wake(u32 __user *uaddr, unsigned int
-flags, void __user *pop, int nr_w
- 	if (unlikely(ret != 0))
- 		return ret;
-
--	if (!futex_robust_unlock(uaddr, flags, pop))
--		return -EFAULT;
--
--	if ((flags & FLAGS_STRICT) && !nr_wake)
-+	if (!robust && !wake)
- 		return 0;
-
- 	CLASS(hbr, hbr)(&key);
- 	auto hb = hbr.hb;
-
--	/* Make sure we really have tasks to wakeup */
--	if (!futex_hb_waiters_pending(hb))
--		return ret;
-+	/*
-+	 * Make sure we really have tasks to wakeup. No fast path for @robust,
-+	 * the unlock needs to happen regardless.
-+	 */
-+	if (!robust && !futex_hb_waiters_pending(hb))
-+		return 0;
-
- 	spin_lock(&hb->lock);
-
--	plist_for_each_entry_safe(this, next, &hb->chain, list) {
--		if (futex_match (&this->key, &key)) {
--			if (this->pi_state || this->rt_waiter) {
--				ret = -EINVAL;
--				break;
--			}
-+	if (wake)
-+		ret = futex_wake_locked(hb, &key, &wake_q, nr_wake, bitset);
-
--			/* Check if one of the bits is set in both bitsets */
--			if (!(this->bitset & bitset))
--				continue;
--
--			this->wake(&wake_q, this);
--			if (++ret >= nr_wake)
--				break;
--		}
-+	if (robust && futex_robust_release(hb, &key, uaddr)) {
-+		spin_unlock(&hb->lock);
-+		/*
-+		 * The futex word could not be released. Keep the pending list armed.
-+		 */
-+		ret = -EFAULT;
-+		goto out;
- 	}
-
- 	spin_unlock(&hb->lock);
-+
-+	/*
-+	 * With the futex word released, clear the pending list op now. If
-+	 * that fails, then the task is in deeper trouble as the robust list
-+	 * head is usually part of the TLS. The chance of survival is close
-+	 * to zero.
-+	 */
-+	if (robust && !futex_robust_list_clear_pending(pop, flags))
-+		ret = -EFAULT;
-+out:
- 	wake_up_q(&wake_q);
- 	return ret;
- }
--- 
-2.54.0
