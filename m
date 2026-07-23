@@ -1,120 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94362C11E2;
-	Thu, 23 Jul 2026 22:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3A6D3E6DDD;
+	Thu, 23 Jul 2026 22:56:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784847397; cv=none; b=iCMtQtTIPOwugpQHsBDXI90rvpWHksDTH1oSWmMnBD+3G09grkJFkFcbwECcwch+jfRJL2PnfFhWLg8NP8vpqP8Te/rRmRRyOT3EDKGEK85azR71smIiTaT9pRmBOcDDNriAV/uIkUHZR4kUY5KPukeGyRSq//vmm+n57KzYygI=
+	t=1784847417; cv=none; b=LXY/1M3DEj9HlOXbahj00WPPz0b7ZIX0ZgSwolYi0evGHqr4krCOnTQt/B6nzvmThLM4oRqq8+7Rthy9TbF0gQ+3Mpf/4wwIUK35ZWcnPh8YIKgLZjtfIvUOwGGeiKVK5iHiUH3r5mRugn2zQ44k+TY8cB93zQcUGZkfZvbqFxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784847397; c=relaxed/simple;
-	bh=LL0cZbUOCMPlgQr9fIP1NYVFCodvw/DKepAQBmi5m/A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eU6+xmGslfrBxJkRZy2wql9mcf0D8pEvxk89NeeohF9oBVYMr8r4TMeIkc6xHGOPi3R6gARwdQ1n3g05EJK5GFfAvElNVZztxqHio4bLGSKNrCw/LXFe0xbn5XHVoW07kBDdB5gt2YtT3Aqd4Oq2OGVyEASUdBrZhPKhrtX4He8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQPYk+bO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784847417; c=relaxed/simple;
+	bh=IN2A5qS9NUOHev9Q1On4wNr1UQD2oYoCJwKIpU2+EfA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=He0qzTr41bW6Ry50cc1e4fgGl2WhbxsVX/DeWfzXD0gWpORJ8L3bsKp+RvFJITWMAw+Zj9zYcTGCb7BTkDFxIjDaKDKdPUi7TxRWnRyNyKEOe8bQ7kswZTICLHb2wlxj5CoggatDTn0rdIbMrfkpXHuxdagD+MVIhpdoA49//Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=HMjxTY/p; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQPYk+bO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2DAB6C2BCB8;
-	Thu, 23 Jul 2026 22:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784847397;
-	bh=LL0cZbUOCMPlgQr9fIP1NYVFCodvw/DKepAQBmi5m/A=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=RQPYk+bO3KAd6Mky0pYxLNHvkhl6bDRu3133FqK9hpNPz4+/bvtC+JckWYVKWIIw4
-	 Vcbm8gCW7t7dOr7FO54H/9KGHodlkrHvHsPlS1PzyXuvgQtmSGeEXfc3h+1YTHkEfx
-	 0PGhtMXbh2LzP/mw3jcoKnJj8yS8b1eoYeji9IGNIK3OP/7G/LPfXfSxHnYMx5r3Gr
-	 RI6pCAcctcUCH/AGog0Yck8XYsncqHEV+t2cFO8OoYkJ5i1N7uYEnL/slKIa6sOxRX
-	 P9/glg+xpC9vx5MlS36ZMY1HURQfXy+pk7U1fPv0Eq4B/Uqg1d+61ZlUtcC+ps7hHz
-	 ArwHaWGdWXZkw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A507C531D1;
-	Thu, 23 Jul 2026 22:56:37 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Fri, 24 Jul 2026 00:56:33 +0200
-Subject: [PATCH] bus: fsl-mc: set dma_mask for the root DPRC device
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="HMjxTY/p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-Id:MIME-Version:Content-Transfer-Encoding; bh=A3cyf
+	QGF7kX31PLY9aN/o8U/KPQJ1RsdZmlw6hHHiwc=; b=HMjxTY/pD1UKnrnI44j2q
+	/3wmS731Bb2yTc9vp2clFYENG5vNF1+4MRQAClEg/pk5Saoq95Ou9y2SbxLFj12W
+	LRy4aTiYK1b8ByvSEicKoG7uXpxczXtLxw+OPxZQu9mDDWQ4ALg6+74JjTzUy5D6
+	U6MsISoQ8Mlrdrq7yCr7FY=
+Received: from node118.platform-default.svc.cluster.local (unknown [36.102.215.18])
+	by web2 (Coremail) with SMTP id yQQGZQBXVbcenGJqP3A8AA--.25496S2;
+	Fri, 24 Jul 2026 06:56:39 +0800 (CST)
+From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+To: linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: marcelo.leitner@gmail.com,
+	lucien.xin@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	stable@vger.kernel.org,
+	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>,
+	yyxroy22@gmail.com
+Subject: [PATCH net] sctp: reject stale cookies with mismatched verification tags
+Date: Thu, 23 Jul 2026 22:56:23 +0000
+Message-Id: <20260723225623.2658868-1-yangyx22@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-for-upstream-fsl-mc-dprc-dma-mask-v1-1-6f08af883195@free.fr>
-X-B4-Tracking: v=1; b=H4sIACCcYmoC/x2NQQqDMBAAvyJ77oIJaqVfKT0scaNLjYZdLQXx7
- wYvA3OZOcBYhQ1e1QHKPzFZlyLuUUGYaBkZZSgOvvZd/fQNxlVxz7YpU8JoM6aAQ9aCRJjIvkj
- OcRNa6tvQQelk5Sj/+/H+nOcFc1VD13MAAAA=
-To: Ioana Ciornei <ioana.ciornei@nxp.com>, 
- Laurentiu Tudor <laurentiu.tudor@nxp.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Bogdan Purcareata <bogdan.purcareata@nxp.com>, 
- Stuart Yoder <stuyoder@gmail.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784847396; l=1926;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=50GoUATjGzTOE04DbAm6nufTMWrQbESmgDWMsefMpuA=;
- b=G/rIzE9Z00+txF2HsSaVork5JjXa/HUmU6sdGAwS5CqDVJ6ty4/eAcaTlKHYt1XIHo88cbx2+
- Nuyh+327K58ARkUaktB2yx8+DxrMdXge7fCpWfQhMqc+N9kvE0hHKP+
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yQQGZQBXVbcenGJqP3A8AA--.25496S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar48WFyxuw18KrW3Gr4UJwb_yoW8Kr15pF
+	sxJrWSqwnxJF13u3W8CF4kG3W5GrWkK3y7Jw4rZ3WFyw4DJFyFg3yIgFy7K3W0yr4kAa4U
+	ZrW5tF9xK3s8CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUm0b7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
+	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
+	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
+	M4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7
+	AKxVW8ZVWrXwCY02Avz4vE14v_ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
+	vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
+	vjDU0xZFpf9x0pE-Vy5UUUUU=
+X-CM-SenderInfo: 51dqw5r0ssqzpdlo2hxwvl0wxkxdhvlgxou0/
 
-From: Vincent Jardin <vjardin@free.fr>
+sctp_unpack_cookie() skips cookie expiration checks whenever an
+association already exists.  This is broader than the exception in
+RFC 9260 Section 5.2.4.
 
-On Layerscape platforms, when SMMU is disabled,
-fsl_mc_device_add() leads to the DPRC device with a NULL dma_mask.
+For an existing association, Section 5.2.4 permits an expired State
+Cookie only when both Verification Tags in the cookie match the current
+association.  Otherwise, the packet SHOULD be discarded and a Stale
+Cookie ERROR MUST be sent.
 
-It has been tested on LX2160A, no SMMU on the MC
-domain: the root DPRC can probe cleanly and fsl_mc children
-enumerate.
+The broad check lets an expired Action A restart cookie reach
+sctp_sf_do_dupcook_a().  In a runtime test with the default 60 second
+cookie lifetime, replaying such a cookie after 65 seconds returned a
+COOKIE-ACK and restarted the association.
 
-Fixes: a259ed1618d2 ("bus/fsl-mc: support dma configure for devices on fsl-mc bus")
+Check cookie expiration unless both Verification Tags match.  This
+preserves the Action D exception for a lost COOKIE ACK while rejecting
+expired cookies in all other cases.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
+Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
 ---
-fsl_mc_device_add() already seeds a default dma_mask for non-DPRC
-objects, but never for the DPRC devices themselves. When the MC I/O
-domain is not behind an SMMU, the root DPRC reaches
-fsl_mc_dma_configure() -> of_dma_configure_id() with a NULL dma_mask
-and the probe warns "DMA mask not set". This mirrors the existing
-non-DPRC seeding into the DPRC branch.
+ net/sctp/sm_make_chunk.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Tested on LX2160A with no SMMU on the MC domain: the root DPRC probes
-cleanly and its fsl_mc children enumerate.
----
- drivers/bus/fsl-mc/fsl-mc-bus.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
-index 64d75eed0d34..585345ac0179 100644
---- a/drivers/bus/fsl-mc/fsl-mc-bus.c
-+++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
-@@ -832,6 +832,14 @@ int fsl_mc_device_add(struct fsl_mc_obj_desc *obj_desc,
- 		error = get_dprc_icid(mc_io2, obj_desc->id, &mc_dev->icid);
- 		if (error < 0)
- 			goto error_cleanup_dev;
-+
-+		/*
-+		 * Seed dma_mask so platforms without an SMMU don't complain
-+		 * with "DMA mask not set" in of_dma_configure_id().
-+		 */
-+		mc_dev->dma_mask = FSL_MC_DEFAULT_DMA_MASK;
-+		mc_dev->dev.dma_mask = &mc_dev->dma_mask;
-+		mc_dev->dev.coherent_dma_mask = mc_dev->dma_mask;
- 	} else {
- 		/*
- 		 * A non-DPRC object has to be a child of a DPRC, use the
-
----
-base-commit: 248951ddc14de84de3910f9b13f51491a8cd91df
-change-id: 20260724-for-upstream-fsl-mc-dprc-dma-mask-a11e4c5a85c6
-
-Best regards,
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index c02809264..a1c0334a1 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -1802,9 +1802,9 @@ struct sctp_association *sctp_unpack_cookie(
+ 		goto fail;
+ 	}
+ 
+-	/* Check to see if the cookie is stale.  If there is already
+-	 * an association, there is no need to check cookie's expiration
+-	 * for init collision case of lost COOKIE ACK.
++	/* Check to see if the cookie is stale.  RFC 9260 Section 5.2.4
++	 * exempts an expired cookie only when both Verification Tags match
++	 * the current association.
+ 	 * If skb has been timestamped, then use the stamp, otherwise
+ 	 * use current time.  This introduces a small possibility that
+ 	 * a cookie may be considered expired, but this would only slow
+@@ -1815,7 +1815,10 @@ struct sctp_association *sctp_unpack_cookie(
+ 	else
+ 		kt = ktime_get_real();
+ 
+-	if (!asoc && ktime_before(bear_cookie->expiration, kt)) {
++	if ((!asoc ||
++	     asoc->c.my_vtag != bear_cookie->my_vtag ||
++	     asoc->c.peer_vtag != bear_cookie->peer_vtag) &&
++	    ktime_before(bear_cookie->expiration, kt)) {
+ 		suseconds_t usecs = ktime_to_us(ktime_sub(kt, bear_cookie->expiration));
+ 		__be32 n = htonl(usecs);
+ 
 -- 
-Vincent Jardin <vjardin@free.fr>
-
+2.34.1
 
