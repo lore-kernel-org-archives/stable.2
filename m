@@ -1,33 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C06471269
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9701D8E01
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784806600; cv=none; b=Onr+AAkNmh21FnuXa9KhPB+czwtJoOd23Ec4fH/P6pdffjDMwAmY0A5+w5jZUZUCFD9iWQRjd6Sfhifjo6BENCVVUyrxlCq5NEHq6MJWK365Ajjk96Dw3SaFxtHJYwc9dSHaiF7goHE7VvXxUhy7KDDx2GjcqSvaraAzgovroOk=
+	t=1784806621; cv=none; b=KSDq4g8RTjmuKcnnBTptUjeW9v/sOlXYSY28+k7X5AAlnw8avegzZqBaNXunLw0413imCuWzHZ8WpUkNqiXZHA8ZuVt1t4G9inigwG19F/iLCunVjeyw8dXp4Tk9DeLMwutWvgdEzeVE2wuvSULg1OkonbXFn1qjbUKf3LswKxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784806600; c=relaxed/simple;
-	bh=FXtFI5n6dYYLZ31NoRyJ8HFLNdWp2jt6X9S0ChpCHYI=;
+	s=arc-20240116; t=1784806621; c=relaxed/simple;
+	bh=Ri1SubZl2r84GqRR/zmi17BxPZYIzaK1NpznMleIBso=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oQglWWD2FfoR47oLt5F+k2qLdQizYCo/+Fz0OUXzh5LpLXAPqsh5VJcIRtL2fl2Jb3DCKNIgdrON1Aop50USEMl3N6RBpO/D2JGvkpgRJ2PL87llvvkqal2MaykKf+PJ73/nJjx6cLWSIb3KInit9Zb8ZkemBgtivw6I7i/xDGM=
+	 MIME-Version; b=t9dWXxG7Z2fzk7HzhVVbKyw6SOKwz+z6vOdcOOD6mkcRTyc7RPWGbWADaw9MKZO2Ly26yDewkZv1wNtGAaaR0pLlchEbGwZBwDIa4sNptByVqkCG01xLoSBMdsQkp8YUDyjHfSr7jIfzxkstGuy3YbSj00BLktFjcLlKLYzLKRo=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183881F00A3A;
-	Thu, 23 Jul 2026 11:36:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467881F000E9;
+	Thu, 23 Jul 2026 11:36:59 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Simon Horman <horms@kernel.org>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] octeontx2-pf: clear stale mailbox IRQ state before request_irq()
-Date: Thu, 23 Jul 2026 07:36:35 -0400
-Message-ID: <20260723113635.3034593-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ASoC: SOF: ipc3-control: Fix heap overflow in bytes_ext put/get
+Date: Thu, 23 Jul 2026 07:36:47 -0400
+Message-ID: <20260723113647.3034771-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723113635.3034593-1-sashal@kernel.org>
-References: <2026072014-quake-amber-fee6@gregkh>
- <20260723113635.3034593-1-sashal@kernel.org>
+In-Reply-To: <2026072001-unvocal-backtrack-aa11@gregkh>
+References: <2026072001-unvocal-backtrack-aa11@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,66 +35,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit f918554fb7246e89b98ef90abe80801f038258b3 ]
+[ Upstream commit fd46668d538993218eea19c6925c868ac0f2630c ]
 
-otx2_register_mbox_intr() currently installs the PF mailbox IRQ handler
-before clearing stale mailbox interrupt state. The function itself then
-comments that the local interrupt bits must be cleared first to avoid
-spurious interrupts, but that clear happens only after request_irq() has
-already exposed the handler to irq delivery.
+The ipc_control_data buffer is allocated as kzalloc(max_size), where
+max_size covers the entire struct sof_ipc_ctrl_data including its
+flexible array payload. However, the bounds checks in bytes_ext_put
+and _bytes_ext_get compared user data lengths against max_size
+directly, ignoring that cdata->data sits at an offset of
+sizeof(struct sof_ipc_ctrl_data) bytes into the allocation.
 
-A running system can reach this during PF mailbox interrupt registration
-while stale or latched RVU_PF_INT state is still present. If delivery
-happens in the request_irq()-to-clear window,
-otx2_pfaf_mbox_intr_handler() can run before local quiesce and touch
-the same pf->mbox and pf->mbox_wq carrier that probe and teardown later
-reuse or destroy.
+This allowed writing up to sizeof(struct sof_ipc_ctrl_data) bytes past
+the end of the heap buffer from unprivileged userspace via the ALSA TLV
+kcontrol interface, and similarly allowed over-reading adjacent heap
+data on the get path.
 
-Move the stale mailbox interrupt clear ahead of request_irq(), but keep
-interrupt enabling after the handler is installed. This closes the
-pre-clear early-IRQ window without creating a new enable-before-handler
-window.
+Fix all bounds checks to subtract sizeof(*cdata) from max_size so they
+reflect the actual space available at the cdata->data offset. Also fix
+the error-path restore in bytes_ext_put which wrote to cdata->data
+instead of cdata, causing the same overflow.
 
-Fixes: 5a6d7c9daef3 ("octeontx2-pf: Mailbox communication with AF")
+Fixes: 67ec2a091630 ("ASoC: SOF: Add bytes_ext control IPC ops for IPC3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
-Link: https://patch.msgid.link/20260611160014.3202224-2-runyu.xiao@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://patch.msgid.link/20260609083458.31193-7-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ replicated the single shared-helper bounds-check fix into the two standalone get functions and dropped the err_restore memcpy hunk absent in 6.1 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/sof/ipc3-control.c | 34 ++++++++++++++++++++++++----------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-index 747dfa4ee68748..4b23947d000289 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-@@ -979,6 +979,9 @@ static int otx2_register_mbox_intr(struct otx2_nic *pf, bool probe_af)
- 	char *irq_name;
- 	int err;
+diff --git a/sound/soc/sof/ipc3-control.c b/sound/soc/sof/ipc3-control.c
+index 3fdc0d854e65d1..f204f91bcbc273 100644
+--- a/sound/soc/sof/ipc3-control.c
++++ b/sound/soc/sof/ipc3-control.c
+@@ -354,10 +354,13 @@ static int sof_ipc3_bytes_ext_get(struct snd_sof_control *scontrol,
+ 	cdata->data->abi = SOF_ABI_VERSION;
  
-+	/* Clear stale mailbox interrupt state before installing the handler. */
-+	otx2_write64(pf, RVU_PF_INT, BIT_ULL(0));
-+
- 	/* Register mailbox interrupt handler */
- 	irq_name = &hw->irq_name[RVU_PF_INT_VEC_AFPF_MBOX * NAME_SIZE];
- 	snprintf(irq_name, NAME_SIZE, "RVUPFAF Mbox");
-@@ -990,10 +993,7 @@ static int otx2_register_mbox_intr(struct otx2_nic *pf, bool probe_af)
- 		return err;
+ 	/* check data size doesn't exceed max coming from topology */
+-	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
+-		dev_err_ratelimited(scomp->dev, "User data size %d exceeds max size %zu\n",
++	if (cdata->data->size > scontrol->max_size - sizeof(*cdata) -
++				sizeof(struct sof_abi_hdr)) {
++		dev_err_ratelimited(scomp->dev,
++				    "User data size %u exceeds max size %zu\n",
+ 				    cdata->data->size,
+-				    scontrol->max_size - sizeof(struct sof_abi_hdr));
++				    scontrol->max_size - sizeof(*cdata) -
++				    sizeof(struct sof_abi_hdr));
+ 		return -EINVAL;
  	}
  
--	/* Enable mailbox interrupt for msgs coming from AF.
--	 * First clear to avoid spurious interrupts, if any.
--	 */
--	otx2_write64(pf, RVU_PF_INT, BIT_ULL(0));
-+	/* Enable mailbox interrupt for msgs coming from AF. */
- 	otx2_write64(pf, RVU_PF_INT_ENA_W1S, BIT_ULL(0));
+@@ -403,9 +406,17 @@ static int sof_ipc3_bytes_ext_put(struct snd_sof_control *scontrol,
+ 	}
  
- 	if (!probe_af)
+ 	/* be->max is coming from topology */
+-	if (header.length > scontrol->max_size) {
+-		dev_err_ratelimited(scomp->dev, "Bytes data size %d exceeds max %zu\n",
+-				    header.length, scontrol->max_size);
++	if (header.length > scontrol->max_size - sizeof(*cdata)) {
++		dev_err_ratelimited(scomp->dev, "Bytes data size %u exceeds max %zu\n",
++				    header.length, scontrol->max_size - sizeof(*cdata));
++		return -EINVAL;
++	}
++
++	/* Ensure the data is large enough to contain the ABI header */
++	if (header.length < sizeof(struct sof_abi_hdr)) {
++		dev_err_ratelimited(scomp->dev,
++				    "Bytes data size %u less than ABI header %zu\n",
++				    header.length, sizeof(struct sof_abi_hdr));
+ 		return -EINVAL;
+ 	}
+ 
+@@ -431,7 +442,7 @@ static int sof_ipc3_bytes_ext_put(struct snd_sof_control *scontrol,
+ 	}
+ 
+ 	/* be->max has been verified to be >= sizeof(struct sof_abi_hdr) */
+-	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
++	if (cdata->data->size > scontrol->max_size - sizeof(*cdata) - sizeof(struct sof_abi_hdr)) {
+ 		dev_err_ratelimited(scomp->dev, "Mismatch in ABI data size (truncated?)\n");
+ 		return -EINVAL;
+ 	}
+@@ -473,10 +484,13 @@ static int sof_ipc3_bytes_ext_volatile_get(struct snd_sof_control *scontrol,
+ 		return ret;
+ 
+ 	/* check data size doesn't exceed max coming from topology */
+-	if (cdata->data->size > scontrol->max_size - sizeof(struct sof_abi_hdr)) {
+-		dev_err_ratelimited(scomp->dev, "User data size %d exceeds max size %zu\n",
++	if (cdata->data->size > scontrol->max_size - sizeof(*cdata) -
++				sizeof(struct sof_abi_hdr)) {
++		dev_err_ratelimited(scomp->dev,
++				    "User data size %u exceeds max size %zu\n",
+ 				    cdata->data->size,
+-				    scontrol->max_size - sizeof(struct sof_abi_hdr));
++				    scontrol->max_size - sizeof(*cdata) -
++				    sizeof(struct sof_abi_hdr));
+ 		return -EINVAL;
+ 	}
+ 
 -- 
 2.53.0
 
