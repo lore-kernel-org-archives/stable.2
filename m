@@ -1,32 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FC73BB675
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E616C476078
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:28:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784830772; cv=none; b=d2QIm6ONJbvdyMQ6jIcw5q2j4vxLCXjxSmSdAsRlnhfJ+xySQtTe7FbBxl2cAgKwvwog5SgVWgv0ZqZUyoc8PV8bH+OwO0tKIorPx5x90JbWKDOVHwXQF4af30v5Ck+VyL0B2V//MJj1fLyVaE1DvBuDObFiLcH3gj2L3j8a1Zw=
+	t=1784831304; cv=none; b=tam1xHT+i9QEL7ckih/fjHJ2jd+kW2foWRsNqxasv9lZ0o7dLRGxFnj1iaYN9y0SgjRxTOS9FCYt/E+bMcvbU4krLYTRjI+raNsqoRSDgkvmixVpSFcHd8uNv/3s8Q9vbKJcuv2NJUrOjvecIwzZzTzi/kbQ4nMHoAkT+/pTyGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784830772; c=relaxed/simple;
-	bh=6ea/zhRse0NfEggJJQKqp0MhVOesaxV63j6BHefNsRc=;
+	s=arc-20240116; t=1784831304; c=relaxed/simple;
+	bh=HqdwGbXU+HeYdA4Q5p3Ws5nk0VB+gySDoBnHKESVONM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bz+7iv1xlbe3TxHJTMgK7jAPSXaL0pB93cqxHxwQZczkorP0F+JCusPk19TAgbzJISKI6JOc0k199BgLAY4mqsJFlNTInZ2tWcBIUOdk6Wkc+wB5oFkgOFD58pdGg9XCjeSNZMmF5t56gmnzgQOwz9iWrY/VgznVuQAG7/dzAIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D0F1F00AC4;
-	Thu, 23 Jul 2026 18:19:16 +0000 (UTC)
+	 MIME-Version; b=KM/kOd2kKHGTSHxNf3YHrCbnLjCQfs91HAsLQrQi2aC52x/KBEpxpPF3IwCmb2GZAI7Av4YCIwfkSBRpwa9DoE0UZHolBsK6A6i9RAqYOJvpsSczFZvo6MNjO8I7VKJwd5qlUSi7sOJCr/hPb4aS2rOYn/tjyWxO2BHZmMmutts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=myuO3Ue7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="myuO3Ue7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0EF91F00A3D;
+	Thu, 23 Jul 2026 18:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784831289;
+	bh=be3afmclR8VWZRuVeJ4nJN3zBU2NrHh5+J1EyfHAt2g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=myuO3Ue78bB7byvueCH7xJbpSsjwLjWJ/aWirwIs7sK1vBbbLcRijMJfkUChUuU0n
+	 qUFI7Fom9uBdzfRa68aAhU8WyPERwyNpqS1m/+z9euvgj+AmOuP+STjLe/1s8BhCNP
+	 tHCBQ+O7j8Pg72OWcWnM3as94nPpxa1OuUKCE8J7B0VxbaPuyHX+s3dFKu9lCPr4QB
+	 SXOj7i8CgzqSu0OWW5GWnF0N3IWOvsfEhgPOTq8G4yDufeDYdDLMyUQ4noPhlnMs/H
+	 AfbASZ2vGQvx8X8NV2qGUXuFWEqVz7JFQdof83DLQZAxWydC2rjiq7+7B4e7ThKtUA
+	 socWklgKKOkRQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Chris Mason <clm@meta.com>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: Terry Bowman <terry.bowman@amd.com>,
+	Alejandro Lucero <alucerop@amd.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Jonathan Cameron <jonathan.cameron@huawei.com>,
+	Dan Williams <dan.j.williams@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/5] SUNRPC: Return an error from xdr_buf_to_bvec() on overflow
-Date: Thu, 23 Jul 2026 14:19:10 -0400
-Message-ID: <20260723181911.3438372-5-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/4] cxl/pci: Remove unnecessary CXL RCH handling helper functions
+Date: Thu, 23 Jul 2026 14:28:04 -0400
+Message-ID: <20260723182806.3493205-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723181911.3438372-1-sashal@kernel.org>
-References: <2026072057-lapped-rebate-93bd@gregkh>
- <20260723181911.3438372-1-sashal@kernel.org>
+In-Reply-To: <20260723182806.3493205-1-sashal@kernel.org>
+References: <2026072028-shaky-author-b5df@gregkh>
+ <20260723182806.3493205-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,173 +49,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Terry Bowman <terry.bowman@amd.com>
 
-[ Upstream commit 18c1cc69886192e33536498289d26dba6894e3d5 ]
+[ Upstream commit eb78ef4d6f0e51243c1ee117f801dbc503e886ab ]
 
-xdr_buf_to_bvec() returns a slot count even when the caller's bvec
-budget is exhausted partway through the xdr_buf. Callers feed that
-count into iov_iter_bvec() and continue as if the conversion had
-succeeded, silently sending or writing fewer bytes than the data
-length declares. For an NFS WRITE the server reports the truncated
-transfer to the client as full success.
+cxl_handle_rdport_cor_ras() and cxl_handle_rdport_ras() are specific
+to Restricted CXL Host (RCH) handling. Improve readability and
+maintainability by replacing these and instead using the common
+cxl_handle_cor_ras() and cxl_handle_ras() functions.
 
-The overflow represents an internal invariant violation: a higher
-layer reserved a bvec budget too small for the xdr_buf it then
-asked the encoder to convert. That is a server-side fault, not a
-media I/O failure and not a malformed client argument.
-
-Change xdr_buf_to_bvec() to return a signed int and have the
-overflow label return -ESERVERFAULT. Update the three callers to
-detect the negative return and fail the request: nfsd_vfs_write()
-folds the error into host_err, which nfserrno() translates to
-nfserr_serverfault for the WRITE reply; svc_udp_sendto() and
-svc_tcp_sendmsg() propagate the error out of the send path.
-
-Reported-by: Chris Mason <clm@meta.com>
-Fixes: 2eb2b9358181 ("SUNRPC: Convert svc_tcp_sendmsg to use bio_vecs directly")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Terry Bowman <terry.bowman@amd.com>
+Reviewed-by: Alejandro Lucero <alucerop@amd.com>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Link: https://patch.msgid.link/20260114182055.46029-6-terry.bowman@amd.com
+Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Stable-dep-of: c268f949e219 ("cxl: Fix CXL_HEADERLOG_SIZE to match RAS Capability size")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/vfs.c              |  8 +++++++-
- include/linux/sunrpc/xdr.h |  4 ++--
- net/sunrpc/svcsock.c       | 14 ++++++++++++--
- net/sunrpc/xdr.c           | 11 ++++++-----
- 4 files changed, 27 insertions(+), 10 deletions(-)
+ drivers/cxl/core/pci.c | 16 ++--------------
+ 1 file changed, 2 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index 4874446c2468d8..ba882a4ea9cb9d 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -1203,7 +1203,7 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	unsigned long		exp_op_flags = 0;
- 	unsigned int		pflags = current->flags;
- 	bool			restore_flags = false;
--	unsigned int		nvecs;
-+	int			nvecs;
- 
- 	trace_nfsd_write_opened(rqstp, fhp, offset, *cnt);
- 
-@@ -1243,7 +1243,13 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	}
- 
- 	nvecs = xdr_buf_to_bvec(rqstp->rq_bvec, rqstp->rq_maxpages, payload);
-+	if (nvecs < 0) {
-+		host_err = nvecs;
-+		goto out_nfserr;
-+	}
-+
- 	iov_iter_bvec(&iter, ITER_SOURCE, rqstp->rq_bvec, nvecs, *cnt);
-+
- 	since = READ_ONCE(file->f_wb_err);
- 	if (verf)
- 		nfsd_copy_write_verifier(verf, nn);
-diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
-index 4b4e767e2ab5bd..656e0ad323af1b 100644
---- a/include/linux/sunrpc/xdr.h
-+++ b/include/linux/sunrpc/xdr.h
-@@ -138,8 +138,8 @@ void	xdr_terminate_string(const struct xdr_buf *, const u32);
- size_t	xdr_buf_pagecount(const struct xdr_buf *buf);
- int	xdr_alloc_bvec(struct xdr_buf *buf, gfp_t gfp);
- void	xdr_free_bvec(struct xdr_buf *buf);
--unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
--			     const struct xdr_buf *xdr);
-+int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
-+		    const struct xdr_buf *xdr);
- int xdr_buf_to_sg(const struct xdr_buf *buf, unsigned int offset,
- 		  unsigned int len, struct scatterlist *sg, unsigned int nsg);
- int xdr_buf_to_sg_alloc(const struct xdr_buf *buf, unsigned int offset,
-diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
-index 48700b99909fac..038294fa3942a5 100644
---- a/net/sunrpc/svcsock.c
-+++ b/net/sunrpc/svcsock.c
-@@ -738,7 +738,7 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
- 		.msg_flags	= MSG_SPLICE_PAGES,
- 		.msg_controllen	= sizeof(buffer),
- 	};
--	unsigned int count;
-+	int count;
- 	int err;
- 
- 	svc_udp_release_ctxt(xprt, rqstp->rq_xprt_ctxt);
-@@ -752,6 +752,10 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
- 		goto out_notconn;
- 
- 	count = xdr_buf_to_bvec(svsk->sk_bvec, SUNRPC_MAX_UDP_SENDPAGES, xdr);
-+	if (count < 0) {
-+		err = count;
-+		goto out_trace;
-+	}
- 
- 	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
- 		      count, rqstp->rq_res.len);
-@@ -763,6 +767,7 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
- 		err = sock_sendmsg(svsk->sk_sock, &msg);
- 	}
- 
-+out_trace:
- 	trace_svcsock_udp_send(xprt, err);
- 
- 	mutex_unlock(&xprt->xpt_mutex);
-@@ -1241,7 +1246,7 @@ static int svc_tcp_sendmsg(struct svc_sock *svsk, struct svc_rqst *rqstp,
- 	struct msghdr msg = {
- 		.msg_flags	= MSG_SPLICE_PAGES,
- 	};
--	unsigned int count;
-+	int count;
- 	void *buf;
- 	int ret;
- 
-@@ -1257,10 +1262,15 @@ static int svc_tcp_sendmsg(struct svc_sock *svsk, struct svc_rqst *rqstp,
- 
- 	count = xdr_buf_to_bvec(svsk->sk_bvec + 1, rqstp->rq_maxpages,
- 				&rqstp->rq_res);
-+	if (count < 0) {
-+		ret = count;
-+		goto out;
-+	}
- 
- 	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
- 		      1 + count, sizeof(marker) + rqstp->rq_res.len);
- 	ret = sock_sendmsg(svsk->sk_sock, &msg);
-+out:
- 	page_frag_free(buf);
- 	return ret;
+diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+index 078e9e5651e1bc..3fb9462954da20 100644
+--- a/drivers/cxl/core/pci.c
++++ b/drivers/cxl/core/pci.c
+@@ -858,18 +858,6 @@ void cxl_dport_init_ras_reporting(struct cxl_dport *dport, struct device *host)
  }
-diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
-index 82d3e8f65e486a..fb4dab2070007f 100644
---- a/net/sunrpc/xdr.c
-+++ b/net/sunrpc/xdr.c
-@@ -139,13 +139,14 @@ xdr_free_bvec(struct xdr_buf *buf)
- /**
-  * xdr_buf_to_bvec - Copy components of an xdr_buf into a bio_vec array
-  * @bvec: bio_vec array to populate
-- * @bvec_size: element count of @bio_vec
-+ * @bvec_size: element count of @bvec
-  * @xdr: xdr_buf to be copied
-  *
-- * Returns the number of entries consumed in @bvec.
-+ * Returns the number of entries consumed in @bvec on success, or
-+ * -ESERVERFAULT when @xdr does not fit within @bvec_size entries.
-  */
--unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
--			     const struct xdr_buf *xdr)
-+int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
-+		    const struct xdr_buf *xdr)
- {
- 	const struct kvec *head = xdr->head;
- 	const struct kvec *tail = xdr->tail;
-@@ -187,7 +188,7 @@ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+ EXPORT_SYMBOL_NS_GPL(cxl_dport_init_ras_reporting, "CXL");
  
- bvec_overflow:
- 	pr_warn_once("%s: bio_vec array overflow\n", __func__);
--	return count;
-+	return -ESERVERFAULT;
+-static void cxl_handle_rdport_cor_ras(struct cxl_dev_state *cxlds,
+-					  struct cxl_dport *dport)
+-{
+-	return cxl_handle_cor_ras(cxlds, dport->regs.ras);
+-}
+-
+-static bool cxl_handle_rdport_ras(struct cxl_dev_state *cxlds,
+-				       struct cxl_dport *dport)
+-{
+-	return cxl_handle_ras(cxlds, dport->regs.ras);
+-}
+-
+ /*
+  * Copy the AER capability registers using 32 bit read accesses.
+  * This is necessary because RCRB AER capability is MMIO mapped. Clear the
+@@ -939,9 +927,9 @@ static void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds)
+ 	pci_print_aer(pdev, severity, &aer_regs);
+ 
+ 	if (severity == AER_CORRECTABLE)
+-		cxl_handle_rdport_cor_ras(cxlds, dport);
++		cxl_handle_cor_ras(cxlds, dport->regs.ras);
+ 	else
+-		cxl_handle_rdport_ras(cxlds, dport);
++		cxl_handle_ras(cxlds, dport->regs.ras);
  }
- EXPORT_SYMBOL_GPL(xdr_buf_to_bvec);
  
+ #else
 -- 
 2.53.0
 
