@@ -1,123 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C51314A9E;
-	Thu, 23 Jul 2026 06:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624F33CAA57
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 06:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784788384; cv=none; b=FWORtfiQ/7M+bzdrhZuFAifbxslRU3DQnQMXbd/QqQjAxGVYYkO6qGIIsDQZAL9UIMVFzqAbapi4EQv/AQKydaQ3CKq5pDvCr476rbsDpBEFysYgQYtL0g0Qa69WsWGjsjH3N64h9BFTLvxZKoDb3RFAIJTaEISAmavBZwlF4JI=
+	t=1784788598; cv=none; b=OyitB1xcx9ERjSPuY0W2e8rEmJZBDkJllMeFerI0S5w5r6joWcZwYhLHCMgHK08qRir+c5gh7FMDHagNHYoz4tgipvVSzHGQB9DzxUVmcG6fgeyr2B58JJ7mhq+CPDZCJx9ZL4XE2ZaoZJXTt/3TaUmdUf2gO5QsFNI8I5XRqYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784788384; c=relaxed/simple;
-	bh=tzBPm0P8FtJhS6bipwEKUyI5d3W0ud1o43rAY1ZBYFU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=O9POl5TDwhQD/KNalGs3h6FV9tq+WHAqL8vwH3gWevVgHnK2kvRu8deN+DJXHTB8rIdBIH7s6O8+SUerKhC9DfViZ5RiZCCEUOfMHUjvVVIRIShOXBtM6So6SQck2wpJpnEQZmiw9/b0U1jMpuhTAYDChCw1t6/xLVfQUvfFQcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTXYXJJv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784788598; c=relaxed/simple;
+	bh=HncrykrRemgI5fAPmsexCTMiB2KmCqX9lrGam/r48AI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=rcB3cntkBBefIyJTRIAqS3WXKBJhi85dco4o8RqFgfk7ZoAf1hq6EmIm6ZbavCC8vJavdkQ+Go+vU6YliD2OCrsEFyx21tMXIfTpDTLtHlgnzOHChJqhqcJ6XBed+2nfe6Rygum1MUyokL5mUijj+64ZGaOvarBvawrS2FXEZSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=L/FlX3PA; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTXYXJJv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69EF1F00A3E;
-	Thu, 23 Jul 2026 06:33:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784788383;
-	bh=LOUI7zOM4fXhet323bIMOQ5HL7eLMArXAK7yAqcwUlA=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=kTXYXJJvtx3a0qaOQNy0xiKIPrOFxn04+oKqEM7b7j/bKBJTvRmCJWg0W3U+0iHjO
-	 KdcIZ/mzhtg+J4aazVBlwb9WmyCntal7SAJOPe6r5SDzeA6fZcKzoy9CPhgQv6Zf2N
-	 WuQJE/iXXTnTIE8QJ1rru1LgsgGLq0LRGDPCzPv4y65av9ni0w4v7aRtElZ1v2E8q2
-	 X5mF+AI4Om5qWXLUUTg+vNdFmsDOmnh1g96CI4WiHin1xw6jUg4M2vkF4UHNS1vVCw
-	 nhTnBZ+/pcHqvOJkLzBj4pzpIBLDBJEtMUcMBfDk3amV//PoXRpXS0Qy5+ItxlCuaK
-	 2K0euiCu5fczQ==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.phl.internal (Postfix) with ESMTP id BADC8F4006D;
-	Thu, 23 Jul 2026 02:33:01 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-01.internal (MEProxy); Thu, 23 Jul 2026 02:33:01 -0400
-X-ME-Sender: <xms:nbVhagMJMfLmQK-SPKIZkvqTfRUo__yZB_bzbvi1DluuN2pzEcytTg>
-    <xme:nbVhahxcTPFXx21orpCSapWe-FlrrYBvU0CdN1fQfhfgWSUL-tQtfM8909PzyloMA
-    WdZMZxOyY333qgEHHX_6Tb9XxDRgD0Du-JTZHb3JiBvPkLlM-f_Yo8>
-X-ME-Proxy-Cause: dmFkZTGzxgQsIghbX4M2UiidHY+72dk/CGh0YVHz53jt4+zt1NX7kzEUb4Aw5GxxF7/Npk
-    ozbdVedTKeGdpjTBkhQPKwd7ekFbtpY00JA23DBoHvr5PKD0WbqRyX/C70qV9OVfsV8mTn
-    z8zE5mTJKav3Wv/F8aqYAIBeAUXcHKW2qzt0odnva3OMU0ODWvZWJ2iKnjXz0r9nju379x
-    rk2Z8b7xUXfruCPvfDAlqij5Myz97Vk0xvpjp0krgFphl9nQ7XptPla8MBmKx0VL2OPVjM
-    biDuTnJvm3eI8+6yYWDD4WGsnZzNnkhR1OmvZToPa5+JwkPTXDPIh9DejC3OQDaGJWU0IS
-    6iZU6nASxn+JEorLOcwdGi4yld8kQ6t+eQkrfNL5mUO9Ma7+d3j4bL2f29do675L9nSJjw
-    YFbNYclFTlEfWG0HS60z21BU+fP8JSh04ZdI71x7lMIElNI9GLwWJ69ADkbb37vpAyzpXv
-    f0CTyiDZ3S8R8+YocXdqeGpDekzJ7yLQQUBuKkfSGKby1pBRh4S6ls5Go9Iav0zwaVIKZn
-    e4njhoryRAg+i6uAICW1sLAPHq9XLWRscNNDY5cfBaCB3V3qaKDckYHYSiLIRdXzg9Elgo
-    gbvt/ndcsm+ZLE7FoqJy5hrCWoxwReubEtahNQk0xwrCB5+qd7U3r4fsR4zQ
-X-ME-Proxy: <xmx:nbVhas9IrqbHTvoqX7W2gQhaTrfRtU_wkq15wZ_w3pjDdNXdFTp6mg>
-    <xmx:nbVharOZ4JPAgiq3kyu6B9cbVU6ds8pUK0taje4x13tJbNuHNqgYIg>
-    <xmx:nbVhagBOpkQT0TBXjj7zpjKq1zF93XfVaKgB4n-QBdktZLmQ5nXjkA>
-    <xmx:nbVhavOBjZrfdYkLsn3OfnoATsRGtxb983GUykDpelfWNLdhDtpTIg>
-    <xmx:nbVhaneJ8vAIfloQKbdW9GsT9CjTsfHTDV91L_2omw5uM9GULx37Szv1>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 87763182007E; Thu, 23 Jul 2026 02:33:01 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="L/FlX3PA"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-845c92bc464so170860b3a.2
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 23:36:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1784788596; x=1785393396; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AXO1TEMJyOs3biZ4fK22mPvqvMv5jSJi6mC/UFO7sc4=;
+        b=L/FlX3PARni/LiS8zMQgpMJXIyRWuU3TVrn6kio/qBhJo2gc6XLbp2SAwD0oI1c+xA
+         qgcJxB4Ushw0m75gBAQCZmRHXysJKXIofV8S7HWKrxOLrXTVRDPdo8PFJ0AxWikL9FeU
+         dy96KzV93Pdb3gNc9cTofczTW5dLQ9ZF/78fo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784788596; x=1785393396;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AXO1TEMJyOs3biZ4fK22mPvqvMv5jSJi6mC/UFO7sc4=;
+        b=IaWbCT/rTuGkI7q/jBJoRYb+A0zbY5jGrrdiEKHw/s2N14/zNFOOocC5rBnxxz28ER
+         jaWQ4pmWd1xtgXGWi7cwqJnKeddoZqXoj3Cc7psXL5Lcm8dv3Y2QJ0VEKTzYjYlfYQRH
+         5iQ96wQ4S/FWjUd3g2AxNu/9TW0OUKSXunj/04T44xZQCRjJyu05wmGrMcqnJ4Opb06A
+         PU3K4Lj6ZPXAg0JBheF0uMYTDOCvbtAvr4jfhaiRuZ+4indmGpc3qzQrt8HJoocypfa8
+         cPHc0gvEsHzfHXfOwBOp9p30WaH4WGVUe5yS1/SONFK8EO6KZljQwsx3vHO3n0NQjwlr
+         Ynhw==
+X-Forwarded-Encrypted: i=1; AHgh+RpNGHAlg9F4hplR1XcSOhIVeunKqIUV//6LtkiY4IzjYvcUhe7gCVN8TxJ/X8yEbBoP03ivD14=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwfNCLEvYAzIwV0vPk72BJ6lvhuzs6rWe8KHzlrBLtrc4shMl1E
+	Xzgo4IUpJyXCSV5ZcbxLGM9C5KA6eL1IpSHwn5GjkAblG/qC/596iRJlbKXlHayqO8UFPA+56nH
+	DTcI=
+X-Gm-Gg: AR+sD13u7A/pExA2hdxfiaDmuHOurRdoKciHWW2nUPbaByuZonP5z54PHKR3XYy9z1q
+	spHCuInIXcZR26DkVSO4bMFau7Lnhb+Yl9UPg5Tst6CKiBlFNtUUtUFhU0ih+5YyXQrMnBfDDXQ
+	9YDvl9+8xUgGxrHgND7S0g8boH0Jx/FqFmgSyrHa1L+6Rw6JlMwXLvi9rTZzDH7xPm2KLh+NO3j
+	Nh4/ZBkEDkFkjvxnxBt3r3onRifSGXg8oYqTofUfUZPn2YHmauex8KZdVJOMy7RyLylgon2yoxS
+	QGZz8Z3iu/Q4WaiX8HfT9xAo3LBkoKLopd2k0jQI9GnY6pvIMboTZa8mOh1r19fBe3rxnFE92ZI
+	OezkPSgkjnv1qdElLXhHDWA2V84AGBDp7w+GsPUOovGYP2056+mg3whaq/CIgA/zGE5M7GqKqYh
+	NepUE9lVQeodNLZSHBfpJvRK2nCNIEi5MrDFWj2Vs+oFV350pIb/E3
+X-Received: by 2002:a05:6a00:3d0c:b0:847:8b11:596d with SMTP id d2e1a72fcca58-84e2bb1c7efmr2182263b3a.41.1784788596566;
+        Wed, 22 Jul 2026 23:36:36 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:2d0e:cfe6:a39f:d530])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17266107sm2512248b3a.17.2026.07.22.23.36.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 23:36:36 -0700 (PDT)
+Date: Thu, 23 Jul 2026 15:36:31 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: pbonzini@redhat.com
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, senozhatsky@chromium.org
+Subject: Re: [PATCH 5.15.y v2 0/8] KVM: fixes for CVE-2026-46113 and related
+ issues
+Message-ID: <amG2CyrA-yEUmHqV@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 23 Jul 2026 08:32:40 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Nathan Chancellor" <nathan@kernel.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org
-Cc: "Nick Desaulniers" <ndesaulniers@google.com>,
- "Bill Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
-Message-Id: <592164b0-9a0b-40f7-84ed-26705dca8408@app.fastmail.com>
-In-Reply-To: 
- <20260722-x86-boot-compressed-disable-jt-clang-v2-1-7373d38482fb@kernel.org>
-References: 
- <20260722-x86-boot-compressed-disable-jt-clang-v2-1-7373d38482fb@kernel.org>
-Subject: Re: [PATCH v2] x86/boot/compressed: Disable jump tables
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+> Sasha, Greg,
+> 
+> this is the backport to 5.15 for the above CVE.  The fix was relatively
+> simple upstream but only due to years of refactoring and cleaning up
+> of the code; fixing from scratch is not really feasible so start by
+> applying the patches that are needed.
+> 
+> Please apply this instead of v1, due to a missing line in the last
+> patch.  Sorry about that.
 
-
-On Thu, 23 Jul 2026, at 02:09, Nathan Chancellor wrote:
-> After a recent upstream LLVM change to start generating jump and lookup
-> tables in switch statements in more instances [1], linking the
-> compressed x86 boot image when CONFIG_KERNEL_ZSTD is enabled fails with:
->
->   ld.lld: error: Unexpected run-time relocations (.rela) detected!
->
-> Dumping the relocations in misc.o, which is the only file influenced by
-> CONFIG_KERNEL_ZSTD in the decompressor, shows dynamic relocations to
-> some string constants, which correspond to the string literals in the
-> switch statement in handle_zstd_error():
->
->   Relocation section '.rela.data.rel.ro' at offset 0x277b0 contains 31 
-> entries:
->       Offset             Info             Type               Symbol's 
-> Value  Symbol's Name + Addend
->   0000000000000000  0000006600000001 R_X86_64_64            
-> 0000000000000000 .rodata.str1.1 + 73a
->   0000000000000008  0000006600000001 R_X86_64_64            
-> 0000000000000000 .rodata.str1.1 + 78e
->   0000000000000010  0000006600000001 R_X86_64_64            
-> 0000000000000000 .rodata.str1.1 + 78e
->   0000000000000018  0000006600000001 R_X86_64_64            
-> 0000000000000000 .rodata.str1.1 + 78e
->   ...
->
-> This optimization is problematic for the decompressor environment, as it
-> is built as -fPIE without any explicit absolute references (as described
-> at the top of misc.c) while not applying any dynamic relocations, hence
-> the linker assertion. To opt out of this optimization, which is of
-> little value in this special early boot code, and to mirror the other
-> x86 startup code in arch/x86/boot/startup, disable jump tables in the
-> decompressor.
->
-> Cc: stable@vger.kernel.org
-> Closes: https://github.com/ClangBuiltLinux/linux/issues/2165
-> Link: 
-> https://github.com/llvm/llvm-project/commit/fa02a6ed66b1700c996b49c96c6bc0eb014c9518 
-> [1]
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Sorry for the noise, has this series stuck?
