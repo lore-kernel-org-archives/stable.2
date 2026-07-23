@@ -1,216 +1,278 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B3F3B42E0;
-	Thu, 23 Jul 2026 09:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784798680; cv=fail; b=dpi32a1kbZHuYa7SAbN7o1KHRmPeqPbL8qNCcsfFQxPv/F4jyCzDlUt7JHnAXGYeTRqEoDmWt90s5cqc0FrkGMxbf8pK/P1tDv+J7a7J/osDciBNBhdkzqB7GuuGj3p5ozGvpkW/umX7zXD51nyPiEOuZYUk4dp53byQCtmtq7I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784798680; c=relaxed/simple;
-	bh=L5FB+pbaTs+PEAoOHb6rIid3Pl6bts0wBM6HoCatBak=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=cZUgkL/M94GopQa3T2dlRZ0v0sQd13NMhs8JK8Mfp4cWKxwum5Tq8IG7mfCvYGtYBpVFrgeVyG+DSWiupGwCfDDF/k8u+92aJzIriJ6cvS/h1oXZXEIwVDoDJqVZe2I8yTWkoOstb3LJEOG9U1FHqwbFwZjKEId9Z6cpCvRVEBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WMcGlK5K; arc=fail smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBABB3C5DD4;
+	Thu, 23 Jul 2026 09:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784798920; cv=none; b=Ng/9gPDcEZf0nK/wJ9b+Xlu+UWJKPavCRg5TOJUAdStnyp+N13gGG20lJPctGmKyfHBSisBwW05HiNseXu0puchCdmaXC1eUwS8noA7CI1R02UaKmzTrR95YOJh5L4Dpmxg8tin6uOfgoNT9OKS7KULNsji5oBfm79gfUg4wzig=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784798920; c=relaxed/simple;
+	bh=qwlb+IvyEWpjUo1K7CVYOI60Uq7utJOWMfS0YAQ7Vbo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hXbh0D/r03sNWKyXXp2eAC5xvGOzl7tDuAGgR3lrLQMR8yj3z8JJm31WuT/d7su4Znt6UFRras6iA1UQIn1W5n25Hb4e/JTXkMO482d6jnO/FYcow5udGI2MqrBFfMLwknjat6M1O6l3xuS6IeL6A58jFqi3At3T8im3p7oBHkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L6XlVNwg; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WMcGlK5K"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L6XlVNwg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784798679; x=1816334679;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=L5FB+pbaTs+PEAoOHb6rIid3Pl6bts0wBM6HoCatBak=;
-  b=WMcGlK5KGjdh5rcOKwQ5fstqUSenLJlt+oR8Iu258/bXX8bNN8lKsk8q
-   NiDx5mmMbVzGCwm6thePv+VHFfLCGBqRIadqGmmPdJIUKrQl9n1L2G2d2
-   u8ClTXFfc4CoiytsDOUWNdpNE95pZ137HtIiP1ZvZKYsUFxtLYKIeb8Yi
-   hhDHsVHBw1OtGjApX6qw/uYDFw62MXSmcPwU8/uo1RSd66orHFzUERNBn
-   05rW2Y0exbFWz2lhlR54idOmomk9kkJiVtCX4qX1R7U6CuuLZlOK8bpnO
-   a8ymRgUZ6s0J5M2jLFcmEGymvAB/i8z5sjgDYBbDRp9DaEgfZyMtzWFx/
-   g==;
-X-CSE-ConnectionGUID: pYtHykkRR4KLXOuxMgJjgw==
-X-CSE-MsgGUID: jbqIKVDeS76lPHUELQr1eA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="89342608"
+  t=1784798917; x=1816334917;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=qwlb+IvyEWpjUo1K7CVYOI60Uq7utJOWMfS0YAQ7Vbo=;
+  b=L6XlVNwgKuGDVoH8ERto7B5HSF4+nXHNF6jQCdGj1Rqe7PbIN4YHUFlR
+   029bJE2nx42hCeBzHyFXvzxkESP2GOHPUmE6y+2fPZFb/Yz9p7JOIZTW2
+   l9fQz/5+tPeGjqFBkAyzTTKpC2quyf/O8RNxfCARJtqnWHxiajmxUIpFS
+   e5JuRWWDzCkWTUwmGDPXBMn5gYDcJEx0YE806gMmggL+j1dnorwnrHwhR
+   7z/hC/4C1RSKid1iT22THd1xBCj1D3e95mvWqn85le8HW9L73hqTLtzo6
+   bjzQ8BCmaUPY1jQfql0EqTMDa/q4u7ReCRHXgELXrnnoP2/9xZhASI750
+   w==;
+X-CSE-ConnectionGUID: lzInlwE2Qo6mq4yWxGToqg==
+X-CSE-MsgGUID: 5KB9iEuORQylceIPWIvHew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85394820"
 X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; 
-   d="scan'208";a="89342608"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 02:24:38 -0700
-X-CSE-ConnectionGUID: MnS9rHVLRumGa1yAXakZnw==
-X-CSE-MsgGUID: M1GWqXMcS1CO7YmwcsJthA==
+   d="scan'208";a="85394820"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 02:28:36 -0700
+X-CSE-ConnectionGUID: hc3RqUe2TcC1y60p9D0eww==
+X-CSE-MsgGUID: CEzddS6dS0eahVZ2NEGmKQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; 
-   d="scan'208";a="262667037"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 02:24:38 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 02:24:38 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 02:24:38 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.30) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 02:24:35 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nAS23JnIJ7KXeX8eWsS3zJwhm5L8DNXz/viZKrBokj85/VmN8M8AxruRM3yZlgOKAcrGDjitqCdBl1kSa6QEZRe+BIPHVLvIXRnxSRMqslj43EcYkeIZz9lXFpGBbgpX59sSQ9s4Igar8QFyd1pg/ac70d+dA15nnURCsP5QfnYC3O8uCQ8hbQrdAJ7F/CygItyjO5NEcs8DgAQY/WVXnP/5abgYSqyn+4Y42rJZt23dB1KV4wz5Z/L3IABkoLyxSu78Q5ks95FrqnmqZLhHkSE30bS4QfW2DP+ocp6DzxWxVwj3hvt2T5MlokdWsNefurHsd5vzd+/I0GwDyFmBWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uRSy33IhJyOnjXx+VcmTQv7rQyQDjqXm40YXlcwGCLE=;
- b=zFfUAXgKB90LoK8UT1XCl6A4fgFWX2n/XbguYCx5U4DCdham9cKOalHrxCHCedlKdaGJGAMVOitOzkG/64YsJ2yQVQFXpRArTaCXyHeJZzsVCWOO5pekB978pObZcru4nQhY5NFtxmlCZiSFR3+HmiyzdWHY7+0/U3T1L7sRxlPPF0TRGA56IYQYlIdQYCnJAJlSbeHz/c5r6SF5oNRQOThWEeCKOBFL7K2OBuJuiuP8K45fDz0b2UgVtfPQrltVg4N8XOrrx+CgvpZFNtEZJHowWNHNp14eECXFjhuOQ9JRsSo0R7Ps4xZmO5c+7yprYr05IE3b1Flko9d1R+gWvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by SA3PR11MB7628.namprd11.prod.outlook.com (2603:10b6:806:312::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 09:24:27 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0223.017; Thu, 23 Jul 2026
- 09:24:27 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: "xuanqiang.luo@linux.dev" <xuanqiang.luo@linux.dev>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, "Jagielski, Dariusz"
-	<dariusz.jagielski@intel.com>, "Jagielski, Jedrzej"
-	<jedrzej.jagielski@intel.com>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, Mitch Williams
-	<mitch.a.williams@intel.com>, Greg Rose <gregory.v.rose@intel.com>, "Sudheer
- Mogilappagari" <sudheer.mogilappagari@intel.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [Intel-wired-lan] [PATCH iwl-net v2 2/2] iavf: fix QoS
- capabilities memory leak
-Thread-Topic: [Intel-wired-lan] [PATCH iwl-net v2 2/2] iavf: fix QoS
- capabilities memory leak
-Thread-Index: AQHdFDPXNh51Nm7MBEGyOpzxF+dlnLZ64Z8A
-Date: Thu, 23 Jul 2026 09:24:27 +0000
-Message-ID: <IA3PR11MB8986ABFE9F2E962D976A0A8EE5C02@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <20260715082548.56687-1-xuanqiang.luo@linux.dev>
- <20260715082548.56687-3-xuanqiang.luo@linux.dev>
-In-Reply-To: <20260715082548.56687-3-xuanqiang.luo@linux.dev>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|SA3PR11MB7628:EE_
-x-ms-office365-filtering-correlation-id: 8533a52d-7b91-43a1-2be5-08dee89c318b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|921020|38070700021|6133799003|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: XSc2ucca0/DMIYlxdYz08toNQc+7Y+9wMWpY4mqO8pgN5U1mytrDXKXTN0F/bZPAb/iVhcQon0EcXwcSygYlJEsX8mSjglnkEI8QFQbpE5DHZdYewh1dk2k0ZBv48VaaiGdbDqhfkIc/APyW4LTWonxpIl31PL00k+/upRaIOPfBLvHxqGqZWqpQEvmrdBgmCDzSLIbnUV5k3+RjVFROFy0NpavOD+H/Vp0I8KT4ZhzDSWPyHnC+PNGQMqVk0BMzGCxhYvBSXiYpXt3H3kfnfXHAm4gQCkKlIlgd6+0R+KKxhzR9Mb4AoldlekocE5etCcuOidAB3tPqoknzslLYOgHz23La45Ezft0QCR1Wa/881sC/HZ3TM4H01pdsnmSU91J4sDGoZvqVgC0uzeGUM2pI11nmL5ADg5AZIELl3z1hD0ldSm7I4UhlcWQj8gGDLL1xfsL7Cj7Fsnqs2BUhrvvgcaK20/vmvBdLRC2kZdwrOQ3ye2QhnyPRnzMV7ViHlLyO0jJx8Dxae1scUWcMHCZd/rIEwcDWz5zB/DAFQhkqoir9Uh1h/btdD3SB26cxTOB7yE4iDIwOQysBAw+jctfUx6gOCy8SIiIJ2Y2Ya1/Wu0JIU9wBpI09Z346zI6uxjkjoDZlmNxykFWK1NfOCSNbjcK1pwm8dL7clA/0YwtKtONmfAQ+PuxM+MHIk+M+u29E1GidgqCL9mkZCmU1LQK+Z7e59tM4TIOqgcKQV1Tth3OeHp54CsrgyrD+aHW3
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(921020)(38070700021)(6133799003)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Vsu63wSQ5e8qtOiLg/3EX8J2vb2UTTnuJVcLIKaDpC+TxiPwbYQFe3Lkkp28?=
- =?us-ascii?Q?Z3kxFTYU0G8mMSKLINgUUC0pizttuRRUSUJWKboNB2/P0MCSA2yOH1dBbmhz?=
- =?us-ascii?Q?NrjdjFkWVUc5cUw0qJVrhXEZypxAFINzlOPsTR/bhdDpNKH2tOI8Y+KvVKHd?=
- =?us-ascii?Q?bSysyZ4vv8Hqq4deG/6nNBWvm0tlhBEFWFXeM03w4oFja3kKSJbtR/OJAlpY?=
- =?us-ascii?Q?x32vHQ1fgrRORtfpRtz/vknPbiX+FEG4zDTtBvTxRfgUYMe+kwYrydkIkflT?=
- =?us-ascii?Q?oInIY7nMsc7knzIY+KistPdHcZQibn3HmBfmqvwBbJtKcDtDA/q9BitkN2hw?=
- =?us-ascii?Q?pF0NwF220351pJiBQBZLzQli3SmFs0NF699Y02le8bgHkD6pDzm1HmoteF7b?=
- =?us-ascii?Q?XyfYREGzecBApEs7+HW2TG/hOqKN/xDwDruKbu0YtKGYEzgRfz3YeMYQ7MYk?=
- =?us-ascii?Q?+7U3P+uZcBU23Uw6zXMnkMJYnE4dg+tDlcLg5TfJ8/jnRd8Hq4gyrWQQ4s9m?=
- =?us-ascii?Q?6MrjX6NzEHd/Z1k8P2nLwls/OFR/+z7TW+dFY64B0D/BeWZZVrW/AvZ/42eb?=
- =?us-ascii?Q?uHDIwS7GL9Qg0uKTdsD/jGmXgkB8f1VnZA0Ino//aey9uItwPGC2zx3Bte59?=
- =?us-ascii?Q?xMBSwdm+iz4KE3Ven2XAAu9fLSP7v+USVFkpNWtAIkxA8QSy9k6IMBJG1Wlt?=
- =?us-ascii?Q?/HcT7fygiVR/S/6PgyN3+gjRkEcuB/fUB6ENn0w1g1HA5MtAqRMcWkvIGLtR?=
- =?us-ascii?Q?rVTcsovWaSvUCkHtfABIumLY07L2gkunI9Oj7RTZxsTFEH9c98azL/2y1okh?=
- =?us-ascii?Q?QIYsaepctDL613sJYl+mzThjeH4yawg+JT9M/qcz98yM9zVctp5KwL4KoTUS?=
- =?us-ascii?Q?N0JGcgC051Zk3vIpUazzyPSENSja5ISz744i2dpnNf0Y+0pdNVN1fMNB18fZ?=
- =?us-ascii?Q?DB+dmaTzgInbJnb+dtWgcoUzlVJwAVZ3J1e5dh+ivaJExyFWCtq2I6qhiYLB?=
- =?us-ascii?Q?fOHk5D46cGdU+phpgkQs75won3Jkz1ysFwOOZy5v74L+SiV4du+M7L9sxzkt?=
- =?us-ascii?Q?RKnirjDwL6mkCXAwJFvHudZH9NIRYl8d0t0v/AVmWpqxUM3HodyR52UDpJ5L?=
- =?us-ascii?Q?cr174fERTvD8fIix9S1Ifrbczjx6LpLWE8dqN+ORb1Erv3Q0EPnwBXsZ+POf?=
- =?us-ascii?Q?AffV3uCu3sutgMIneNVJjyycFmaSt5vh7jLqS9ZSooWJF7eRYFEA0T2bpqO1?=
- =?us-ascii?Q?DiigA+/EOQFzihilgRonNtoayyim1dj52vO06cXfawzOS1dBK1NR5RH04jcK?=
- =?us-ascii?Q?88kikYR0bUglSAVLb4XQidXvBTnHKOe2RFj3IirSFPvPo16rlXyAeAjeqxrH?=
- =?us-ascii?Q?D+HCCi0y25eiVT8zdcFq1ABdujw2FuMcJWtq0tfIyfp4uH9AeBVnqOar2Ppw?=
- =?us-ascii?Q?rOy4cEd4EyvKfGAAkPpUhylsbdDkI3hLM2KBp6Dh69PtDB4yqunIgfB37kor?=
- =?us-ascii?Q?PompiZzpyQzRuqnSwXHruBQb6SmyuoUce+7lfTOLs86AU2hRn/q90tRyr153?=
- =?us-ascii?Q?GNjO+JtYEcAtXNi8A6KAZGkMTFijrbAgRlOabN2NIWVBB8mQGJtkSltZnynf?=
- =?us-ascii?Q?Wel1wvFTyp3abridrQN66gyamRWWeFLUFsZKQ94B87VvM+Gv7TjqqHR7posE?=
- =?us-ascii?Q?rcgNAgWDDbuauEnvfJwF/CLz/gZmyx0Ei25kZc4rhcWiJThky+3VPfxJPUFk?=
- =?us-ascii?Q?kmTxqr27NKqSt1jTS58NbZOw74HlOVw=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+   d="scan'208";a="262135089"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO [10.245.246.159]) ([10.245.246.159])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 02:28:34 -0700
+Message-ID: <ed393a64-0b24-462e-a59a-b784831ac810@linux.intel.com>
+Date: Thu, 23 Jul 2026 12:28:59 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: TKb+pme5wXpOcnhpi/gNyvSwqe20hjTiJlVNzFg6EkYstx7YyiGUB/AS6EP7P9s8ruRmhRMfeiw6MAlw5AOrmYizOj8oNyKAy0xNbw46cIHav/1kV1t1GBVpmYaTqM3tGbIpmVNrpvv97gqL64D0/C2JyYbd6H8MF2cmwvj2tFXe6wVELw+KYRT7crUsf38m7Ru7TPY3w+Osl3JaNxWkPnEGGoqiF5pF5el/DFKf76QM2dnejvkr8XtepJF5Qj9c+h57SOw0qVJPIfoMUReTV7sJiBJ7UGcEScaV9FD5DVGbJBvlF99b4MyVSie1fnPK4gha1V30E5r19Sxz+U3JMw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8533a52d-7b91-43a1-2be5-08dee89c318b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2026 09:24:27.6563
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7cjGz9lwcmp3AJClTbPp3n/BZeXL1b2F2ywjjGpZM3clkYyYvkmadUj4Aexeb/cvvfEgWJn7KUtHjLFfBBn1tyYJiWjanb2J04P6uM4hl2I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7628
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ALSA: hda/hdmi: stop KAE before multichannel infoframe
+ setup
+To: cluster@cluster.wtf, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ stable@vger.kernel.org
+References: <20260722220309.24432-1-cluster@cluster.wtf>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260722220309.24432-1-cluster@cluster.wtf>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
 
-> -----Original Message-----
-> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf
-> Of xuanqiang.luo@linux.dev
-> Sent: Wednesday, July 15, 2026 10:26 AM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
-> Przemyslaw <przemyslaw.kitszel@intel.com>; Jagielski; Jagielski,
-> Jedrzej <jedrzej.jagielski@intel.com>; intel-wired-
-> lan@lists.osuosl.org
-> Cc: Andrew Lunn <andrew+netdev@lunn.ch>; Mitch Williams
-> <mitch.a.williams@intel.com>; Greg Rose <gregory.v.rose@intel.com>;
-> Sudheer Mogilappagari <sudheer.mogilappagari@intel.com>;
-> netdev@vger.kernel.org; Xuanqiang Luo <luoxuanqiang@kylinos.cn>;
-> stable@vger.kernel.org
-> Subject: [Intel-wired-lan] [PATCH iwl-net v2 2/2] iavf: fix QoS
-> capabilities memory leak
->=20
-> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->=20
-> Commit 4c1a457cb8b0 ("iavf: add support to exchange qos capabilities")
-> allocates adapter->qos_caps during probe, but iavf_remove() does not
-> free it. This leaks the allocation whenever an iavf device is removed.
->=20
-> Free adapter->qos_caps in iavf_remove().
->=20
-> Fixes: 4c1a457cb8b0 ("iavf: add support to exchange qos capabilities")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Jedrzej Jagielski <jedrzej.jagielski@intel.com>
-> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+On 23/07/2026 01:03, cluster@cluster.wtf wrote:
+> On Intel Meteor Lake and other ADLP-class display codecs, HDA Keep-Alive
+> (KAE) silent stream stays active while idle and transmits stereo silence.
+> PCM prepare programmed converter channel count and the DP/HDMI audio
+> infoframe before KAE was stopped, then re-enabled KAE during real
+> playback. Reconfiguring an active keep-alive stream to 5.1/7.1 can hang
+> the display audio codec until reboot. Stereo playback is unaffected.
+> 
+> Stop KAE in a new pre_prepare hook before infoframe/channel-count setup,
+> do not re-enable KAE while real PCM is running, and restore the stereo
+> silent stream from PCM close when the sink is still present.
+
+I think this has been fixed by
+https://lore.kernel.org/linux-sound/20260715180610.1371243-1-kai.vehmanen@linux.intel.com/T/#u
+
+> 
+> Signed-off-by: Alexey Cluster <cluster@cluster.wtf>
 > ---
->  drivers/net/ethernet/intel/iavf/iavf_main.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c
-> b/drivers/net/ethernet/intel/iavf/iavf_main.c
-> index 29b8403a066bc..c7f69a9040588 100644
-> --- a/drivers/net/ethernet/intel/iavf/iavf_main.c
-> +++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
-> @@ -5589,6 +5589,7 @@ static void iavf_remove(struct pci_dev *pdev)
->  	iounmap(hw->hw_addr);
->  	pci_release_regions(pdev);
->  	kfree(adapter->vf_res);
-> +	kfree(adapter->qos_caps);
->  	spin_lock_bh(&adapter->mac_vlan_list_lock);
->  	/* If we got removed before an up/down sequence, we've got a
-> filter
->  	 * hanging out there that we need to get rid of.
-> --
-> 2.43.0
+> 
+> Hardware / test notes:
+> - Laptop: HP OMEN Transcend Gaming Laptop 14-fb0xxx
+>   (marketing: OMEN Transcend Laptop 14-fb0065TX, SKU 9T0M1PA#AB2)
+> - CPU/iGPU: Meteor Lake-P, PCI 8086:7d55 (Arc Graphics)
+> - Audio controller: Meteor Lake-P HD Audio, PCI 8086:7e28
+> - Stack: sof-soundwire + snd-hda-codec-intelhdmi
+> - Display codec: Intel Meteor Lake HDMI, vendor_id 0x8086281d
+> - Path: USB-C DisplayPort -> AVR "CZ350CK" (ELD speakers 0x4f, LPCM up to 8ch)
+> - CONFIG_SND_HDA_INTEL_HDMI_SILENT_STREAM=y / enable_silent_stream=Y
+> 
+> Before this change, switching the sink from 2.0 to 5.1 (UCM "HiFi 5+1" /
+> speaker-test -c6 on hw:sofsoundwire,5) could hang display audio until reboot.
+> Stereo continued to work. After the change, cold 6ch open and 2ch<->6ch
+> transitions complete with ca=0x0b and no hang.
+> 
+>  sound/hda/codecs/hdmi/hdmi.c       | 40 ++++++++++++++++++++++++----
+>  sound/hda/codecs/hdmi/hdmi_local.h |  9 +++++++
+>  sound/hda/codecs/hdmi/intelhdmi.c  | 42 ++++++++++++++++++++++++++----
+>  3 files changed, 81 insertions(+), 10 deletions(-)
+> 
+> diff --git a/sound/hda/codecs/hdmi/hdmi.c b/sound/hda/codecs/hdmi/hdmi.c
+> index 0b6816018a42..e2a77877358a 100644
+> --- a/sound/hda/codecs/hdmi/hdmi.c
+> +++ b/sound/hda/codecs/hdmi/hdmi.c
+> @@ -557,6 +557,11 @@ void snd_hda_hdmi_setup_audio_infoframe(struct hda_codec *codec,
+>  
+>  	active_channels = snd_hdac_get_active_channels(ca);
+>  
+> +	codec_dbg(codec,
+> +		  "HDMI: infoframe pin-NID=0x%x channels=%d active=%d ca=0x%02x conn=%d spk_alloc=0x%x non_pcm=%d\n",
+> +		  pin_nid, channels, active_channels, ca, eld->info.conn_type,
+> +		  eld->info.spk_alloc, non_pcm);
+> +
+>  	chmap->ops.set_channel_count(&codec->core, per_pin->cvt_nid,
+>  						active_channels);
+>  
+> @@ -1683,6 +1688,13 @@ int snd_hda_hdmi_generic_pcm_prepare(struct hda_pcm_stream *hinfo,
+>  		snd_hdac_sync_audio_rate(&codec->core, per_pin->pin_nid,
+>  					 per_pin->dev_id, runtime->rate);
+>  
+> +	/*
+> +	 * Stop Intel KAE (and similar) before channel-count / infoframe are
+> +	 * programmed. Must not sleep under per_pin->lock.
+> +	 */
+> +	if (spec->ops.pre_prepare)
+> +		spec->ops.pre_prepare(codec, per_pin, runtime->channels);
+> +
+>  	non_pcm = check_non_pcm_per_cvt(codec, cvt_nid);
+>  	scoped_guard(mutex, &per_pin->lock) {
+>  		per_pin->channels = substream->runtime->channels;
+> @@ -1732,6 +1744,7 @@ static int hdmi_pcm_close(struct hda_pcm_stream *hinfo,
+>  	struct hdmi_spec_per_cvt *per_cvt;
+>  	struct hdmi_spec_per_pin *per_pin;
+>  	int pinctl;
+> +	bool restore_silent = false;
+>  
+>  	guard(mutex)(&spec->pcm_lock);
+>  	if (hinfo->nid) {
+> @@ -1769,12 +1782,29 @@ static int hdmi_pcm_close(struct hda_pcm_stream *hinfo,
+>  					    pinctl & ~PIN_OUT);
+>  		}
+>  
+> -		guard(mutex)(&per_pin->lock);
+> -		per_pin->chmap_set = false;
+> -		memset(per_pin->chmap, 0, sizeof(per_pin->chmap));
+> +		scoped_guard(mutex, &per_pin->lock) {
+> +			per_pin->chmap_set = false;
+> +			memset(per_pin->chmap, 0, sizeof(per_pin->chmap));
+> +
+> +			per_pin->setup = false;
+> +			per_pin->channels = 0;
+> +			/*
+> +			 * KAE keep-alive is stopped for the duration of real
+> +			 * PCM; restore stereo silent stream after close. The
+> +			 * older I915 silent-stream mode keeps its own power
+> +			 * refs and must not be re-armed here.
+> +			 */
+> +			restore_silent = per_pin->silent_stream &&
+> +					 per_pin->sink_eld.monitor_present &&
+> +					 spec->silent_stream_type == SILENT_STREAM_KAE;
+> +		}
+>  
+> -		per_pin->setup = false;
+> -		per_pin->channels = 0;
+> +		if (restore_silent && spec->ops.silent_stream) {
+> +			codec_dbg(codec,
+> +				  "HDMI: restore silent stream after PCM close pin-NID=0x%x\n",
+> +				  per_pin->pin_nid);
+> +			spec->ops.silent_stream(codec, per_pin, true);
+> +		}
+>  	}
+>  
+>  	return 0;
+> diff --git a/sound/hda/codecs/hdmi/hdmi_local.h b/sound/hda/codecs/hdmi/hdmi_local.h
+> index 548241ad3fa9..20e7536efef0 100644
+> --- a/sound/hda/codecs/hdmi/hdmi_local.h
+> +++ b/sound/hda/codecs/hdmi/hdmi_local.h
+> @@ -74,6 +74,15 @@ struct hdmi_ops {
+>  			    hda_nid_t pin_nid, int dev_id, u32 stream_tag,
+>  			    int format);
+>  
+> +	/*
+> +	 * Optional: called before channel-count / infoframe programming in
+> +	 * PCM prepare. Used by Intel KAE silent-stream to stop keep-alive
+> +	 * before the converter is reconfigured for real playback.
+> +	 */
+> +	void (*pre_prepare)(struct hda_codec *codec,
+> +			    struct hdmi_spec_per_pin *per_pin,
+> +			    unsigned int channels);
+> +
+>  	void (*pin_cvt_fixup)(struct hda_codec *codec,
+>  			      struct hdmi_spec_per_pin *per_pin,
+>  			      hda_nid_t cvt_nid);
+> diff --git a/sound/hda/codecs/hdmi/intelhdmi.c b/sound/hda/codecs/hdmi/intelhdmi.c
+> index 6a7882544ab7..60ed2ffb182d 100644
+> --- a/sound/hda/codecs/hdmi/intelhdmi.c
+> +++ b/sound/hda/codecs/hdmi/intelhdmi.c
+> @@ -418,6 +418,32 @@ static void intel_not_share_assigned_cvt_nid(struct hda_codec *codec,
+>  		intel_not_share_assigned_cvt(codec, pin_nid, dev_id, mux_idx);
+>  }
+>  
+> +/*
+> + * Stop KAE before channel-count / infoframe are programmed. Reconfiguring an
+> + * active keep-alive stream (stereo silence) to multichannel can hang Intel
+> + * display codecs (MTL and earlier ADLP KAE). KAE is restored from PCM close.
+> + */
+> +static void i915_hsw_pre_prepare(struct hda_codec *codec,
+> +				 struct hdmi_spec_per_pin *per_pin,
+> +				 unsigned int channels)
+> +{
+> +	struct hdmi_spec *spec = codec->spec;
+> +
+> +	if (spec->silent_stream_type != SILENT_STREAM_KAE || !per_pin)
+> +		return;
+> +	if (!per_pin->silent_stream)
+> +		return;
+> +
+> +	codec_dbg(codec,
+> +		  "HDMI: KAE stop before prepare pin-NID=0x%x cvt-NID=0x%x channels=%u->%u conn=%d\n",
+> +		  per_pin->pin_nid, per_pin->cvt_nid, per_pin->channels,
+> +		  channels, per_pin->sink_eld.info.conn_type);
+> +
+> +	silent_stream_set_kae(codec, per_pin, false);
+> +	/* wait for pending transfers in codec to clear */
+> +	usleep_range(100, 200);
+> +}
+> +
+>  /* setup_stream ops override for HSW+ */
+>  static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+>  				 hda_nid_t pin_nid, int dev_id, u32 stream_tag,
+> @@ -435,7 +461,13 @@ static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+>  
+>  	haswell_verify_D0(codec, cvt_nid, pin_nid);
+>  
+> -	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+> +	/*
+> +	 * KAE should already be cleared in pre_prepare; keep a safety stop
+> +	 * here for callers that only go through setup_stream. Do not re-enable
+> +	 * KAE while real PCM is active — that races with multichannel formats.
+> +	 */
+> +	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin &&
+> +	    per_pin->silent_stream) {
+>  		silent_stream_set_kae(codec, per_pin, false);
+>  		/* wait for pending transfers in codec to clear */
+>  		usleep_range(100, 200);
+> @@ -444,10 +476,9 @@ static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+>  	res = snd_hda_hdmi_setup_stream(codec, cvt_nid, pin_nid, dev_id,
+>  					stream_tag, format);
+>  
+> -	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+> -		usleep_range(100, 200);
+> -		silent_stream_set_kae(codec, per_pin, true);
+> -	}
+> +	codec_dbg(codec,
+> +		  "HDMI: setup_stream pin-NID=0x%x cvt-NID=0x%x tag=%u fmt=0x%x res=%d\n",
+> +		  pin_nid, cvt_nid, stream_tag, format, res);
+>  
+>  	return res;
+>  }
+> @@ -608,6 +639,7 @@ static int intel_hsw_common_init(struct hda_codec *codec, hda_nid_t vendor_nid,
+>  	codec->auto_runtime_pm = 1;
+>  
+>  	spec->ops.setup_stream = i915_hsw_setup_stream;
+> +	spec->ops.pre_prepare = i915_hsw_pre_prepare;
+>  	spec->ops.pin_cvt_fixup = i915_pin_cvt_fixup;
+>  	spec->ops.silent_stream = i915_set_silent_stream;
+>  
 
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+-- 
+Péter
+
