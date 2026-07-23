@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF67308F32;
-	Thu, 23 Jul 2026 19:41:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD11A37189B;
+	Thu, 23 Jul 2026 19:41:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784835703; cv=none; b=ipY9MjDWP9lF8vQTrMnnMjc9okTtWO9zso6fZq6IUj2HZJjDr73cnx/NKXipktM6D2nzsZbSWMu5i4rJ0Mq7W1XFYesRyXLz/Hhb+1RK0nv/Gnw7hT2knLw6ZSooQqRvurCW2XJkwAlSkQ/swSJUuqPShc2j4pJce5hCyZNpQ0c=
+	t=1784835704; cv=none; b=iu2Jy+yRSbFVB1s9vkPW+h0zFOEQAq6oV0IJcYMC7rfV83jIEOooqnWqeGbVIiPmhW4I5FA2ZeDr4TN0P/m5dH7Aq/1r1sMk6HaKDmy61W/S+RwJdO2xZYhZSxkbpZHz5rqSqGt5UQnjIsDm6N0StrW9AGO+sw3Pf8gaIk9tPM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784835703; c=relaxed/simple;
-	bh=0Mc0Jyr4kRDKrEa7wg+/iQc8UfCNnm1H0tZPb34SeA4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iZE171txItPAfTmMfcToPHg49Xg+cRqtqLx9mX0ifI+WTlCfBOmkMUS1QE1OsnnBKRCotoKpfJZluBAit9W33+0yqFstJJs8trENzlA+mnO9gGoabSaStCr/lwP+wbIiTFVzYgFyNNVFvwEG5kMCxVP8zDZxTSIu2ILZOhiwDGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWFrC2NR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784835704; c=relaxed/simple;
+	bh=QGkr6kMYxTIOGLgPwf9kKss/butys9/PHDAItokYYcM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YH5+WxcCb7rPr2dgksiCc1r7oM6KJ6U2O32Bh4wxUgHbXHEW0VkzeaTQKJYHEPaGLWcVLwgVWo27UJPQ6DPrHG5AsbfUvTVMa0vBOEaAun4qSv1SCeendZ8eeNVWEs4iBVZWhBJcxeTc87siYx4BfUbiwMRleIhKUDarKKrQKE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZpC1tMv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWFrC2NR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668651F000E9;
-	Thu, 23 Jul 2026 19:41:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZpC1tMv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB1C1F00A3A;
+	Thu, 23 Jul 2026 19:41:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784835694;
-	bh=erTKFW7H9+CoRoRVOrZp+ST96EFwosY/MdQIR3lDgkQ=;
-	h=From:Subject:Date:To:Cc;
-	b=bWFrC2NRQlMff/OsgKdNISoXn/VOAJbwNDYXcHBcrHiByQQQOw1U9D2mGs6mKNsuT
-	 zD7YGSt+k6cBLhPV5irhju5HIo6wFv2zUnhP7eUBdpF3jQXPuxTsPKmfANPXkOvKyJ
-	 NEQxn9rN+5M9VC53efcna255KTHrhVSjtavEcp1YpAru63TeSMR4ZLTXzgi6xvNdj4
-	 U0YsKu4Ev2TWKjMYfmcQOCAytExN2gvS7hGa9oQ5gpzmORsQdxk0AH6sQQ3nWTjdNG
-	 7HLExS4PAlkV6+F5qQnBxtReFkrwzHsOmXnjeMBmHZfW8B7qjsDMKMP/Tu8m2aeRLk
-	 SzM3DRjX3Je+A==
+	s=k20260515; t=1784835696;
+	bh=HuPV/HvdnWZhkNJmLIUMIUrFXjwDSzBAyxtVSe9Qpz8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=jZpC1tMvdr5yaSy2s51PhAnH3vNv5O0Z7T7NiBnIg77y0LRrwkJP5FIuoXmp/JOtv
+	 c9GYpA2j4Q6pSA+TNwpHa6ytP0Dg0Y+DZfPfXzDZCopBevbiXbOI3B3c5oNSkDUDwu
+	 fbOxki2+gQPT9t9kzU2e3WFPS6N1FoAHUqRtLt8XMlYz8En3toNr31iLM3ZKqA+JrP
+	 UqJ62gZ01Q6t6ucOU2+pNd09pEBDLGmI6v4V/FDCBQk0PxP7G/acdr3Afcy6kCPI6Z
+	 C6ixtu2qyvbWsyG2ZXmC65KNVy4pMWqgTIUnY2L24baK4GVinsBdrhanODLoe12Wcw
+	 a5IHaVu0WHr+g==
 From: Vincent Mailhol <mailhol@kernel.org>
-Subject: [PATCH v2 0/2] lib/ucs2_string.c: fix out-of-bounds read in
+Date: Thu, 23 Jul 2026 21:40:31 +0200
+Subject: [PATCH v2 1/2] lib/ucs2_string.c: fix out-of-bounds read in
  ucs2_strnlen()
-Date: Thu, 23 Jul 2026 21:40:30 +0200
-Message-Id: <20260723-fix-ucs2_strnlen-v2-0-9ea94e32a358@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,51 +38,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NUQrCMBBEr1L220iyNBX88h5SJGk2bbCksmmDU
- nJ3Yw/g5xtm3uyQiAMluDY7MOWQwhIr4KmBYTJxJBFcZUCJnbwgCh/eYhsSPtLKcaYoVKu9dq1
- VvrNQZy+m2jmU977yFNK68Od4yOqX/pFlJaSwRlvjCG2t3Z7EkebzwiP0pZQv43GbCLEAAAA=
-X-Change-ID: 20260722-fix-ucs2_strnlen-145f5d4b1f6b
+Message-Id: <20260723-fix-ucs2_strnlen-v2-1-9ea94e32a358@kernel.org>
+References: <20260723-fix-ucs2_strnlen-v2-0-9ea94e32a358@kernel.org>
+In-Reply-To: <20260723-fix-ucs2_strnlen-v2-0-9ea94e32a358@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-kernel@vger.kernel.org, Vincent Mailhol <mailhol@kernel.org>, 
  stable@vger.kernel.org, Kees Cook <kees@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=933; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=0Mc0Jyr4kRDKrEa7wg+/iQc8UfCNnm1H0tZPb34SeA4=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDFlJeRkSrCrLHP0fFZ3OkNq7Oyn75CYhcY9FCyv2Zh991
- dF9Zd+MjoksDGJcDJZiiizLyjm5FToKvcMO/bWEmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
- gQwdIwYuTgGY6mVnGBkaBZPWKvCdlmBLOX2j3Oz+4qsXO9r3RtU9m1MZdn+7Ykwiw/9Y8dur+Zg
- 13/A+S90iv2rjqwN8H/Yd2ZW0a/Jfu20P9LoZAQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1592; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=QGkr6kMYxTIOGLgPwf9kKss/butys9/PHDAItokYYcM=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDFlJeTmTa468Trbed/q8jfjGsuJam4iLnTuZAxO+sHz87
+ +sZ+3Z/x0QWBjEuBksxRZZl5ZzcCh2F3mGH/lrCzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
+ QIaOEQMXpwBM9cV+hj88sjzvGr+6VZvtunX2slVLe9RFRZ6NR28vvrPNZqX4wswORobfZ75zMj7
+ vXe8w7a/w1DUeZTtOzOW4emST0Ca7VLe/4jMYAQ==
 X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
  fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-This series fixes an off-by-one out-of-bounds read in ucs2_strnlen().
+ucs2_strnlen() checks the current character before checking whether the
+caller-provided maximum length has been reached. If the input is not
+NUL-terminated within that bound, the loop can read one ucs2_char_t past
+the limit.
 
-The first patch is the real fix, the second patch comes as a bonus and
-fixes the code indentation.
+Test the length before dereferencing to prevent an off-by-one
+out-of-bounds read.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
 ---
-Changes in v2:
+Cc: stable@vger.kernel.org
+Cc: Kees Cook <kees@kernel.org>
 
-  - Toggle the patch order. ucs2_strnlen() is now before the
-    tabulation fix to make it easier to backport.
+Concerning the Fixes: tag, the ucs2_strnlen() function can be traced as
+follow:
 
-  - Add Cc: stable on the ucs2_strnlen().
+  - commit 0635eb8a54cf ("Move utf16 functions to kernel core and
+    rename") renames it from utf16_strnlen() to ucs2_strnlen() as we
+    know it today.
 
-Link to v1: https://lore.kernel.org/r/20260722-fix-ucs2_strnlen-v1-0-ba5bade2b026@kernel.org
+  - commit a2940908391f ("efivars: String functions") renames
+    utf8_strlen() to utf16_strnlen().
 
+  - utf8_strlen() is present since the begining of the git history in
+    commit 1da177e4c3f4 ("Linux-2.6.12-rc2")
+
+And that of-by-one issue was present since the beginning and survived
+all the renamings. This is why I picked 1da177e4c3f4 in the Fixes tag.
 ---
-Vincent Mailhol (2):
-      lib/ucs2_string.c: fix out-of-bounds read in ucs2_strnlen()
-      lib/ucs2_string.c: fix indentation
+ lib/ucs2_string.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- lib/ucs2_string.c | 38 +++++++++++++++++++-------------------
- 1 file changed, 19 insertions(+), 19 deletions(-)
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260722-fix-ucs2_strnlen-145f5d4b1f6b
+diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
+index dfb4f2358cab..ca5c615d5bef 100644
+--- a/lib/ucs2_string.c
++++ b/lib/ucs2_string.c
+@@ -8,7 +8,7 @@ ucs2_strnlen(const ucs2_char_t *s, size_t maxlength)
+ {
+         unsigned long length = 0;
+ 
+-        while (*s++ != 0 && length < maxlength)
++	while (length < maxlength && *s++ != 0)
+                 length++;
+         return length;
+ }
 
-Best regards,
 -- 
-Vincent Mailhol <mailhol@kernel.org>
+2.54.0
 
