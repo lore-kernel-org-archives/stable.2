@@ -1,142 +1,124 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012AC392C29
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 23:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFCA3B95E7;
+	Thu, 23 Jul 2026 23:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784850802; cv=none; b=SJ1s4QHB7OfLcMBEDUzlvBTYUqRo4M4UOvoN5c/IsClBaHTnTZ5CZXDnKByMAFKyxZC3lAkO/Cauoja3x4zc2C7MfBTwRU4OGahBE5vKT82g33A8NIJCNLb8ao8GkwRJXQaDb1Z24LP+OZ5v0d3qfcyyeqmhFIljhElvQ2+AVmA=
+	t=1784850842; cv=none; b=i6UMc98JfIKVd4y+J0WUTnM63MMqUiamt44JYd3vY0hsPRzutqmG61scctyqmAMNtxViwszKkeSIS6tWj57/IVogjefHLJD+1hLXWkb+rxkHVE3uy6lSaCM5cEWUHgEl4NYxq7L++BDZumN5Z+WvjKuACW4wb3EV9rNyVIK21J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784850802; c=relaxed/simple;
-	bh=GfkLUAQFgWKBMYsEyERI8B3AuH0SGgf6Iuj5LqXQ4xM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=H3z+l8vZj6hDzUqFQ0qe3NciM0BaY8tj9lRsVxtvyWAyTHk90mGCIz/R+mIYwGBtvpnyMSzTXeBG0IhqB/TvCgzEQGu/uYElrQig6j4ddYvFwMFtWH7Ne7QJWijxwPmF03p/8ifijsfQPMZPnBnwzwYzFXj+oa1ZKTC/wTwI/pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kQeU5uFY; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784850842; c=relaxed/simple;
+	bh=EERrT+SP5hKNmqW1XX2NCJTV8SM1z4K5SB7+yfuvHbs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X+Um0F/O9UQ3gnO3cc3WbnxoTxlYYkEXh8a7MKZSEthDGuSARW+lALqP+yDrRUL4oLQRVuob2YTwMQMgL9XPTpy15UOe5nqlu76PHMccWJ0spYf9Nb7zOmPW+vKDsckZSq8Zi6p0I0iC8kHGGOZKBAj3Y2l3V5yqtrj00V+AuaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CIdqkzaY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQeU5uFY"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc891373e0so15595825ad.2
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:53:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784850800; x=1785455600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/k9ClJtyvU02TZ9gpxSr39RbShtvirfOkj9FLRc6064=;
-        b=kQeU5uFYmOUNSKGdgk1P0BFHt9DlAMee61wLadctsh1KXllvAtIaqcrNM1CUgp42Df
-         vyUuY8T1dD+UV3+sRHoMtqaVWgTMvj89tIxbGSVqb4LXE6Pu2UGmz3tHMEhOXrmfXjeH
-         WaS6Yy1oX522njZMPEDToICwnULi3SQ+0cQCCMHCBu0v4S95THakC8RXk+f88J3qwz3e
-         xkuN0VRao/VjkT7NKhJ4Z97BU5Af8dx+a+IhhIvECn0Itq/h2TK5qc156M3HXcukIj2Y
-         +a4sxyFqaXDjAzDuaWM8x9nWDYJe4CE0CIUbGzphlo4OIkx1jK2LuoBKGXLv+7DDmJz9
-         GVOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784850800; x=1785455600;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/k9ClJtyvU02TZ9gpxSr39RbShtvirfOkj9FLRc6064=;
-        b=gJP8scpRiiYj90CpxWAiSukXPbs5iRSjko3SsGBfZsJEskzh689y6OAmviK3xzl/wS
-         sZxhuSHeyP0wM4BAm7Pu2KOGzk5t4rb+pN7qVUcQ6sVvTKPXtfumtEt4GOsO4OzimJhd
-         4qGdsu8m4cz7s3pWvNG/LsbSg/ebRtd/rlXqPaqQ6JI5T1L05lTop1IPz0/ZDcJWh3g7
-         d8hsSAOL98dnK6Hv9oMZvJqiy+599zeVNj7z9vF7ar7TxprgOwIkx8gDIRFtv5VokNci
-         bXP4QGtQbR35qx+2xnJtS+XBvMNaiGDyGyXk79UGyK3Fza8lcYc/wsgA81jOdnQFVoGI
-         Ed0Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrdVRfy8YW+IZyAeo4KER/O3V7Z2hrCtudMuVM+mhkg260eRFL19YbpVET9DMYqFymXlgFX7mA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YykAhsFrOrt8X/o+wbw8xBxGHJqxibiYguTkySP4bCKUT7zfBhX
-	jOIH0mck7R5TO2Q38+91oOJ3p7k20EANguN5Lqn9/o701fyiJxq7VJv0
-X-Gm-Gg: AR+sD11Gqj8UmYVsmkvbFrJ+HeyMC629Eaj14YhQ6rjLcyGckG+y40uB/kvm8jtWnOD
-	Z83fuDWNZ782Bnc3nNfjUOogblxnfsbmd/sYXZpYQfGwA3KV2ib2H1j03BJlcTS0/cKZSRVTvpp
-	1u/STzMdkM3ei5noD6RCsTPUXeoPUPFaz/q8AEEFT/b5SF+pZKvUsdPfY97Wm/iU62sv1M/PyYm
-	s384LfqlXCcLG2B5skLJZT4zEAyOuI30w2kZFsq7UR4F6Kh56tlzUW06M6ROkHrLJmnmoXyQc3W
-	5MwpOtzxVcxfJmxS/vWh0MmT8gTSlda7/0wi6Gy2dL5KHsv8pEfk33IgyXE/acSsjmCbECm1ENO
-	m8JR0JNWnOWYioWW/kwS+nIKL2h5+NVbFzPrZX+fFYrBCC0IwbWaLvbVA9hSJ0c20KlvtbQJ8Fz
-	22Wcok+W5H7uyH7TkT+Jkm5nCvy+fNN2jTD0ZfJ5q9niBXmfu7nmW4wVXUG4ez3VXa4/xgQI6fF
-	w==
-X-Received: by 2002:a17:902:e748:b0:2c9:b8b7:5d27 with SMTP id d9443c01a7336-2cfa6a4f988mr63299815ad.1.1784850800151;
-        Thu, 23 Jul 2026 16:53:20 -0700 (PDT)
-Received: from localhost.localdomain ([119.204.109.83])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efde5cfsm41417575ad.31.2026.07.23.16.53.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 16:53:19 -0700 (PDT)
-From: James Kim <james010kim@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: mporter@kernel.crashing.org,
-	alex.bou9@gmail.com,
-	akpm@linux-foundation.org,
-	error27@gmail.com,
-	gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	James Kim <james010kim@gmail.com>
-Subject: [PATCH v3] rapidio: mport_cdev: fix use-after-free in dma_req_free()
-Date: Fri, 24 Jul 2026 08:52:20 +0900
-Message-Id: <20260723235220.588424-1-james010kim@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260615070530.371640-1-james010kim@gmail.com>
-References: <20260615070530.371640-1-james010kim@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CIdqkzaY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6A21F000E9;
+	Thu, 23 Jul 2026 23:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784850840;
+	bh=x9FS/rNlAm0LxtaeyJrU1CFWCKPcNZpOU+MHjW4+2gs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CIdqkzaY3XEtqjE/Yqo+CADO8gmOwubO2uA1I97zyPdyqkoKiWGyM/ubGisXyHJOs
+	 MUYW7qy/kzkZpFg3P3n8X2pkzz7uryr51DPtM0/UO2KEJqPlfOTG6ui0Kx+n9SU/C8
+	 ZTvoisQM08x6WEjTNn48DFbZ40cu4zCYTq4HJRWcMdDTlkqx7sbjKoW4sbn0THD9V4
+	 BEPNxtAlkgc3kFieAQbNVP7wKaGmAN6uLcnjMYku57mfw82jMQRfPN+tCWZ3nDDPB/
+	 7dSEfLrJxTUxD1xTSIpDUnvnrlUsHiktchOHrhRBAz8VHt7nOi9zDpHfodsqtOqkor
+	 b6R2456sR9wwQ==
+Date: Fri, 24 Jul 2026 00:53:56 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Can Peng <pengcan@kylinos.cn>
+Cc: jonathan.cameron@oss.qualcomm.com, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] iio: pressure: mpl115: Fix runtime PM cleanup
+Message-ID: <20260724005356.4505e552@jic23-huawei>
+In-Reply-To: <20260720024312.27037-1-pengcan@kylinos.cn>
+References: <20260720024312.27037-1-pengcan@kylinos.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-dma_req_free() acquires buf_mutex through req->map, drops the mapping
-reference with kref_put(), and then dereferences req->map again to
-unlock the mutex.
+On Mon, 20 Jul 2026 10:43:12 +0800
+Can Peng <pengcan@kylinos.cn> wrote:
 
-If kref_put() drops the last reference, mport_release_mapping() frees
-the mapping, and the subsequent mutex_unlock() dereferences a freed
-object. This is a use-after-free.
+> mpl115_probe() enables runtime PM when a shutdown GPIO is present and
+> then returns the result of devm_iio_device_register(). If registration
+> fails, runtime PM remains enabled and autosuspend remains selected.
+> 
+> The same unmanaged runtime PM state is also left behind on driver
+> unbind, as the IIO device registration is managed but the runtime PM
+> setup is not.
+> 
+> Use devm_pm_runtime_enable() so runtime PM is disabled automatically on
+> probe failure and driver unbind, and check pm_runtime_set_active() so
+> setup errors are reported.
+> 
+> Set the autosuspend parameters before enabling runtime PM. Once probe
+> has completed, the driver core queues an idle request for the device, so
+> an explicit pm_runtime_get_noresume()/pm_runtime_put() pair is not
+> needed to start autosuspend.
+> 
+> Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
+> Cc: stable@vger.kernel.org
+> Suggested-by: jonathan.cameron@oss.qualcomm.com
+> Signed-off-by: Can Peng <pengcan@kylinos.cn>
+Hi,
 
-Fix this by caching map and md before kref_put(), clearing req->map
-while holding buf_mutex, and using the cached md for mutex unlocking.
+Looks good to me. I'm going to take it the slow path via the next
+merge window as it is a fairly low impact bug.
 
-The bug is reachable from userspace via the RapidIO mport character
-device interface.
+Applied to the testing branch of iio.git
 
-Fixes: e8de370188d0 ("rapidio: add mport char device driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dan Carpenter <error27@gmail.com>
-Signed-off-by: James Kim <james010kim@gmail.com>
+Thanks,
 
----
-Changes since v2:
-- Correct the Fixes tag.
-- Clear req->map while holding buf_mutex.
-- Clarify that the bug is reachable from userspace.
-- Update Dan Carpenter's email address and add his Reviewed-by tag.
+Jonathan
 
-Changes since v1:
-- Rebase on v7.1.
-- Add Dan Carpenter to Cc for lifetime and use-after-free review.
-- No functional changes.
----
- drivers/rapidio/devices/rio_mport_cdev.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/rapidio/devices/rio_mport_cdev.c b/drivers/rapidio/devices/rio_mport_cdev.c
-index 009b3b595bbf..ad82c2108a56 100644
---- a/drivers/rapidio/devices/rio_mport_cdev.c
-+++ b/drivers/rapidio/devices/rio_mport_cdev.c
-@@ -564,9 +564,13 @@ static void dma_req_free(struct kref *ref)
- 	}
- 
- 	if (req->map) {
--		mutex_lock(&req->map->md->buf_mutex);
--		kref_put(&req->map->ref, mport_release_mapping);
--		mutex_unlock(&req->map->md->buf_mutex);
-+		struct rio_mport_mapping *map = req->map;
-+		struct mport_dev *md = map->md;
-+
-+		mutex_lock(&md->buf_mutex);
-+		req->map = NULL;
-+		kref_put(&map->ref, mport_release_mapping);
-+		mutex_unlock(&md->buf_mutex);
- 	}
- 
- 	kref_put(&priv->dma_ref, mport_release_dma);
--- 
-2.25.1
+> ---
+> Changes in v2:
+> - Drop the explicit pm_runtime_get_noresume()/pm_runtime_put() pair and
+>   rely on the driver core idle request after probe.
+> - Set autosuspend parameters before enabling runtime PM.
+> - Update the commit message accordingly.
+> - Link to v1: https://lore.kernel.org/all/20260718061909.428476-1-pengcan@kylinos.cn/
+> 
+>  drivers/iio/pressure/mpl115.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
+> index 16e112b796ba..2929ea8e4e01 100644
+> --- a/drivers/iio/pressure/mpl115.c
+> +++ b/drivers/iio/pressure/mpl115.c
+> @@ -203,9 +203,9 @@ int mpl115_probe(struct device *dev, const char *name,
+>  
+>  	if (data->shutdown) {
+>  		/* Enable runtime PM */
+> -		pm_runtime_get_noresume(dev);
+> -		pm_runtime_set_active(dev);
+> -		pm_runtime_enable(dev);
+> +		ret = pm_runtime_set_active(dev);
+> +		if (ret)
+> +			return ret;
+>  
+>  		/*
+>  		 * As the device takes 3 ms to come up with a fresh
+> @@ -215,7 +215,10 @@ int mpl115_probe(struct device *dev, const char *name,
+>  		 */
+>  		pm_runtime_set_autosuspend_delay(dev, 2000);
+>  		pm_runtime_use_autosuspend(dev);
+> -		pm_runtime_put(dev);
+> +
+> +		ret = devm_pm_runtime_enable(dev);
+> +		if (ret)
+> +			return ret;
+>  
+>  		dev_dbg(dev, "low-power mode enabled");
+>  	} else
 
