@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B552D471435
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:45:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C73386423
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:45:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784807111; cv=none; b=UUDRwpZsZrxdMVmkkKzFiUZURRgjHGX3Ok+6vgb5+frIRnP0SH+15NgygPWhpESH0DdcCPoDeWUHTrZMWSKVjHvClizL3B44TVSu1cwLASdOrPuQTUWt2iGhllBzZK6Lgsc6m1WJJpmC4DR5iKH0FXMiH7Q/l9fdj8StDfP9AYg=
+	t=1784807112; cv=none; b=erGxjIwwZUpUH6hzzhP9krDS6FiIaxQGHFZrrRmdXO3h1V+Z2dJZlFQ6uvGIOzqPrBP6cT3tuskH7WXJ2M24CoUdO/XVHwtbIhDMvdXT0aavDQq1OjrsjQMvF9Ay/oUEb56xcApR07jjit2CsJfFBNeBXVlB70gdXllgaGwLzPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784807111; c=relaxed/simple;
-	bh=J/GFYocq/F6751sG1R/dhEAzGIX+REfdDM+5vd0y/rg=;
+	s=arc-20240116; t=1784807112; c=relaxed/simple;
+	bh=LQO5j4g0jjFb5l4k8+pboBCIgqjvO+27RdSUQ7Yq79E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cLoVmlVh4vuFcXsqdPzJfy6PuDAaSN6RmUwJCwVdB9KJoS71hQs5QMVI829RPBFZNLy4yLHQkjjX94ATeBlMyN4qJEsvtOrWy+I8qECfPbgDh2nooxZg06sj82J+Ef+ydwAvYJUscnpJvwA9D+ZB8+xJGqFJO2cRiXUqLOIIZTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oTIt0hqJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IRJDT+piA56Eu36FSNerxWAYESYEz8zjC0mPBw+9FhVqVg0u3mZLwBu3iS5rDAlSHxi42NA6y3SK+5l8KDZW4dzYce+bSr6NYVJzZv0fuldxUUSyYSVO3OEUtXihHNRpzoa4KlMxiyGcNpQugoGK+LxSQHoU/ZmoeJXow+Wx1Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eqUVDWFy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTIt0hqJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35861F00ACA;
-	Thu, 23 Jul 2026 11:45:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eqUVDWFy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9512D1F00A3A;
+	Thu, 23 Jul 2026 11:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784807110;
-	bh=zOz6b/v0DB9MrLDjuXlzPs5DBiCoOyMJgkN2crDq+1c=;
+	s=k20260515; t=1784807111;
+	bh=2EEEMkYKh/gJK1ql6oye9aj6hdXx86cFGnmkOaFY9eI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oTIt0hqJ7tUqK765I6QlDoJbzrA+Kv5VG7sX7r5MLbxKZB/+qt/tWYhXjl31g4dzr
-	 faN8cm21SXbuK8MoEt+tYVQRjKpMapFnUhTEbf/GS1WIN1o08NPGfHadUvC0p7A10t
-	 hhxxcsaZrQCH1qr2Kam78KZkbBrYUupmbhFmQQ4YZ0UhIZxtXXECQq4ahGlFptLEx5
-	 7oLkZU/ubcRg+ZXJ3kzXr36j9laMAQV2ntJuO+s90Zk9A+1V94bflyXZQEDcjGg6qs
-	 Ai1D4ukxLezS4tiHGPOTCRu++PYMMgK3AbIJJ6DhZlCuHf2LLhskjNoSQ2SxghSNw1
-	 l9wRRgIDt6/NQ==
+	b=eqUVDWFy0v6jU7PYDzrYY63jalteMZbX1eKJ2SJIzt1kFC7RFZ/afwfgc0wHqR+cg
+	 MbrIA/CPWKABW4REPalwEPWoyiigNBmnPGu1ysjBQU0bZjELdoKKSarDW+2K9rUgXk
+	 UyCHohtHwIF4enR3egqSeOAlh9Dw6NtCXbVXwg3UP6f7RN79MKP/JXEy6oA7NaSzA9
+	 z+rSfjvocqTv5AHFeFdG94PunLs0iiVS3nz/OpDiY6t5+XxI9Cg2Be32HiA+hfi7tc
+	 58Fv47RGDg2JEcI1LgPea7J9a1SbLjgaLLWSWQbHzPtMFbCwz1K/PCNd0Zpztiu4q7
+	 vV9tQege1d3bA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>,
+Cc: Tang Bin <tangbin@cmss.chinamobile.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/5] ASoC: mediatek: Use common mtk_afe_pcm_platform with common probe cb
-Date: Thu, 23 Jul 2026 07:45:04 -0400
-Message-ID: <20260723114506.3038609-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 4/5] ASoC: mediatek: mt8192-afe-pcm: Simplify probe() with local dev variable
+Date: Thu, 23 Jul 2026 07:45:05 -0400
+Message-ID: <20260723114506.3038609-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723114506.3038609-1-sashal@kernel.org>
 References: <2026072022-fading-available-28ca@gregkh>
@@ -47,49 +46,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Tang Bin <tangbin@cmss.chinamobile.com>
 
-[ Upstream commit 1d2a6b3b5189b6c3e51f29e050aa9b2337b774e8 ]
+[ Upstream commit 01981565c764c554cc96e2d30a71c42975171416 ]
 
-Since the mtk-afe-platform-driver generic mtk_afe_pcm_platform now has
-a common .probe() callback, there is no reason to keep duplicating this
-function over and over in the SoC specific AFE-PCM drivers: switch over
-to register with the common bits instead.
+Simplify the function mt8192_afe_pcm_dev_probe() by
+using local 'dev' instead of '&pdev->dev'.
 
-Note that MT8186 was left out of this because it is registering some
-extra sinegen controls in the AFE-PCM probe callback and needs extra
-cleanups to be able to use the common bits.
-
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Link: https://lore.kernel.org/r/20240416071410.75620-13-angelogioacchino.delregno@collabora.com
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+Link: https://patch.msgid.link/20241025080026.2393-1-tangbin@cmss.chinamobile.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Stable-dep-of: e24d5dde56a5 ("ASoC: mediatek: mt8192: Check runtime resume during probe")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
 diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-index 75ceecad408078..7562bea5b34c05 100644
+index 7562bea5b34c05..0acf4fc8367d61 100644
 --- a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
 +++ b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-@@ -2232,13 +2232,13 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+@@ -2178,27 +2178,26 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ {
+ 	struct mtk_base_afe *afe;
+ 	struct mt8192_afe_private *afe_priv;
+-	struct device *dev;
++	struct device *dev = &pdev->dev;
+ 	struct reset_control *rstc;
+ 	int i, ret, irq_id;
  
- 	/* enable clock for regcache get default value from hw */
- 	afe_priv->pm_runtime_bypass_reg_ctl = true;
--	pm_runtime_get_sync(&pdev->dev);
-+	pm_runtime_get_sync(dev);
- 
- 	ret = regmap_reinit_cache(afe->regmap, &mt8192_afe_regmap_config);
+-	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(34));
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(34));
  	if (ret)
- 		return dev_err_probe(dev, ret, "regmap_reinit_cache fail\n");
+ 		return ret;
  
--	pm_runtime_put_sync(&pdev->dev);
-+	pm_runtime_put_sync(dev);
- 	afe_priv->pm_runtime_bypass_reg_ctl = false;
+-	afe = devm_kzalloc(&pdev->dev, sizeof(*afe), GFP_KERNEL);
++	afe = devm_kzalloc(dev, sizeof(*afe), GFP_KERNEL);
+ 	if (!afe)
+ 		return -ENOMEM;
+ 	platform_set_drvdata(pdev, afe);
  
- 	regcache_cache_only(afe->regmap, true);
+-	afe->platform_priv = devm_kzalloc(&pdev->dev, sizeof(*afe_priv),
++	afe->platform_priv = devm_kzalloc(dev, sizeof(*afe_priv),
+ 					  GFP_KERNEL);
+ 	if (!afe->platform_priv)
+ 		return -ENOMEM;
+ 	afe_priv = afe->platform_priv;
+ 
+-	afe->dev = &pdev->dev;
+-	dev = afe->dev;
++	afe->dev = dev;
+ 
+ 	/* init audio related clock */
+ 	ret = mt8192_init_clock(afe);
+@@ -2216,7 +2215,7 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to trigger audio reset\n");
+ 
+-	ret = devm_pm_runtime_enable(&pdev->dev);
++	ret = devm_pm_runtime_enable(dev);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2305,12 +2304,12 @@ static int mt8192_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	afe->runtime_suspend = mt8192_afe_runtime_suspend;
+ 
+ 	/* register platform */
+-	ret = devm_snd_soc_register_component(&pdev->dev,
++	ret = devm_snd_soc_register_component(dev,
+ 					      &mt8192_afe_component, NULL, 0);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Couldn't register AFE component\n");
+ 
+-	ret = devm_snd_soc_register_component(&pdev->dev,
++	ret = devm_snd_soc_register_component(dev,
+ 					      &mt8192_afe_pcm_component,
+ 					      afe->dai_drivers,
+ 					      afe->num_dai_drivers);
 -- 
 2.53.0
 
