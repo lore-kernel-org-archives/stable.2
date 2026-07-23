@@ -1,168 +1,126 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700714071D9;
-	Thu, 23 Jul 2026 22:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177D33E2752;
+	Thu, 23 Jul 2026 22:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784844859; cv=none; b=KVcdOqVHaJItFIica+zEY5RFOfQCYyZHgnlhj2C1ziuBYAuQD7lLDsDJ5He/eztiYt6iRoNpn4eGEXWLW35Ba/pFAptT77hvcZ2SeVY3EHSWav1d8X/sE/nHgv93ijlUUxN60a/dLAdv0UWoDwtB7PWVFstQc9S4dNkisJ7O7CA=
+	t=1784845149; cv=none; b=RLDasItjVom/FeITQ1QTJc4HErGfIdy59KdgTy+X1vRQInoew2xIA+M4BsAxeWIJ7PtbzbDeFkOUSjo+G0jAaH9AcrA0RhDZetYGa1r+CANOO1d5I8R3ha5crBTXFoeB+LmZ7PqvZWODVb94lGZC4MeDT6AtmbCqyoqtvtF60T8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784844859; c=relaxed/simple;
-	bh=eTUhxLhdcL3m5nLDSBqMtukI3bolpOlUGy7PrCpLP9w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mRj71CNATd+TFzeiuLNVYUNDvoX32//nYEL9jGAYRADFxw05IYTxEIbD/B1NkVMCzc7+TBNre1dt/grmtHNUEi18q3gOukScJ+NDCgED+AC9HCDI7NeW/g+ydeJSIZn4pC6Qmis80BTvhhkBYdK5i5y94qZQAh4aBogNaQKe1rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DSK839Gm; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1784845149; c=relaxed/simple;
+	bh=q4p9PkPJUM7G3ivMzpi65gXPZa/zknRyU+k4/hfNR60=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=sQrt86Vy9hylDs6uTKn0gSjekI9f0mkspt+AoPSLcqiwNYvLZqPdaoo7yzS8vuBs4WHurT3WwVZ6+au2UVQ2XO+a7buqkCojHXIqbvJlpsPWEUQXwFJRwC8PTWVlmZ1PGWg3NnjK3TuHbmgmTw7WQi1tGjzYKoobpTh1X08VGzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5OrMIQo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DSK839Gm"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NLfr3o4190840;
-	Thu, 23 Jul 2026 22:14:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=0ditP3I48O0xc3JbV
-	5y4O1MbTHUZnFmkecjfup2QoGc=; b=DSK839GmKcuXJgoXg3YLuaiCdXrXqsZaM
-	T7zMMY+t7WVEfAWx7gCZSUKK8QBOv1bXhzKqERcOzmmbDiRcaxNKv0mkkjNqQKkb
-	aOTmoM7XgXYMaESvWc1JK0BNGGgMMLrjWgL4NxAzCwLTTJ8tKwrtH/HmoRpNi6Dz
-	1Eys7t8HSsfEQvNXherSyw+kEXAPwJmOJxQ4xXtxVSPdq1qF9E5JsH0tOBkWfEw5
-	1LYx7c+XNq8+qElsBj2sKSl7QhVmba5bPCPjrKs3jZhu2/iN5uOQCOtc5AIBYTT0
-	Eq5OmNitfy3twHZKGAn9KRyb2elAdEBqqdzSW8o24q/H22P81Q+5A==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7ahh8f6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 22:14:15 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66NM4dVt027215;
-	Thu, 23 Jul 2026 22:14:15 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fgmtk69rg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 22:14:15 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66NMEDbB28639894
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 23 Jul 2026 22:14:14 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B86E65805A;
-	Thu, 23 Jul 2026 22:14:13 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2F9EC58056;
-	Thu, 23 Jul 2026 22:14:13 +0000 (GMT)
-Received: from IBM-D32RQW3.ibm.com (unknown [9.61.246.245])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 23 Jul 2026 22:14:13 +0000 (GMT)
-From: Farhan Ali <alifm@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: alifm@linux.ibm.com, mjrosato@linux.ibm.com, borntraeger@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH v6 5/6] KVM: s390: pci: Fix resource leak on IRQ registration failure
-Date: Thu, 23 Jul 2026 15:14:08 -0700
-Message-ID: <20260723221409.5874-6-alifm@linux.ibm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723221409.5874-1-alifm@linux.ibm.com>
-References: <20260723221409.5874-1-alifm@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5OrMIQo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 928EC1F00A3A;
+	Thu, 23 Jul 2026 22:19:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784845147;
+	bh=Tyb77pZl1z2IA8w/fvqrQsZu+VbcGMjE5wRb8nhJ3x8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=K5OrMIQojSESc+vjo+cC6VJOm7/TzAbzUqbzM8hFRQ5B3Ir1DIAniq2Yddz+7FMPz
+	 b+i8RM5l+BOGNF1oURYdzKnclEsNJPMJ9Mx+FQheH6ZHG9Jhjw6CcUkIpgcm9wkuhE
+	 yVwSkBi/enGv1QmotkjstUUn7gyP2rXPL7RvHim7jwEPmkEN5UxUs7P9rS/DMSJgDM
+	 NLkJgiUx0bRmZOAIRMJq9vKpedmg5BRGugAxzQ9aZMR+bjItws4r3ERCNjTPXScDub
+	 mqVnWdZf1+AKncFzFbugb3rg4DWeglGZ/CE1bchJRLT4+x6f4qs+xDXXKh9zGIESgj
+	 TTOx2ktaSG0fw==
+Date: Fri, 24 Jul 2026 07:19:02 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: "Barry K. Nathan" <barryn@pobox.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ patches@lists.linux.dev, Yuan Tan <yuantan098@gmail.com>, Yifan Wu
+ <yifanwucs@gmail.com>, Juefei Pu <tomapufckgml@gmail.com>, Zhengchuan Liang
+ <zcliangcn@gmail.com>, Xin Liu <bird@lzu.edu.cn>, Huihui Huang
+ <hhhuang@smu.edu.sg>, Ren Wei <n05ec@lzu.edu.cn>,
+ "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Subject: Re: [PATCH 5.10 137/699] tracing: Prevent out-of-bounds read in
+ glob matching
+Message-Id: <20260724071902.7469bfe5b1f9bfd3bced2cc0@kernel.org>
+In-Reply-To: <3308ea85-4ae5-4c5d-bfba-67bf7164a5d9@pobox.com>
+References: <20260721152355.667394603@linuxfoundation.org>
+	<20260721152358.800887633@linuxfoundation.org>
+	<1d60d21d-ea26-4502-afee-c49c750df1e9@pobox.com>
+	<2026072339-reshuffle-blizzard-42e9@gregkh>
+	<759ee068-9519-4cfa-9be5-1deb0d9fc877@pobox.com>
+	<20260723114247.00a3f66d@gandalf.local.home>
+	<3308ea85-4ae5-4c5d-bfba-67bf7164a5d9@pobox.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 5ICDvvMv6NZToYVo987AmCR4xxlKUphG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDIxNSBTYWx0ZWRfX306TGzgr+g3D
- GDAxD4TR7gtM06JNEiGG/7neFH08LHni68kvC9iEH5zmp7329I3cZ9S/SYKblgNczDGJqfbJCC+
- AG88XOB0k2M/Gh3H1gQo0NauTcP2ybgnqGfmi7hIV2j3UxYizZ8W0jWsoBXmXCfNYNnNrX/Ml7j
- xqZTN3OyRp7tWsjY+gAEMR5Io/bIwLdGahoSBGPxxxw9t0WW+XLmCGT4S5u7KHWlok3BR06GF7V
- AZ5EDKKGkbQchsFHIiuZ/gtcijHGEcM9jto6SZKNjcpuZudnwocZiY1tvkAaO8qyVUoLLmdFxAN
- ABEKoKIpKjM4PJ5WdDhTwxWCFSaU8RSUe4mJmTABchFu2BMOsokf1mcS0Ql4cCwHClnptIxZDc5
- TwO7/vOrwcuQ79+HIr0EoiKDoreHdysj7kvD3UAnGGo6vWOnG8w9aKOdCQd/K1CSAhj+m3KVlnB
- uApP8xfMPhygA9FOEPA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDIxNSBTYWx0ZWRfX/KFIsQ9fEFOe
- j72cV6SpjK5kPDcDARt7nMXIwoO/vq+8NUYpcatrO38rw0JyLc9g0+SOKlHs6KVzkBUse/Zidw4
- RPHv54F93wiUi39X/Xk3ziRI+6IX/to=
-X-Proofpoint-GUID: 5ICDvvMv6NZToYVo987AmCR4xxlKUphG
-X-Authority-Analysis: v=2.4 cv=SM5ykuvH c=1 sm=1 tr=0 ts=6a629237 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=oLYdd9eN5-LzSxCheKcA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_07,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
- spamscore=0 malwarescore=0 priorityscore=1501 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230215
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Currently if kvm_zpci_set_airq() fails, kvm_s390_pci_aif_enable() returns
-the error code but doesn't do any resource cleanup thus leaking resources.
-Fix this by cleaning up all the resources such as the GAITE, AIBV, AISB and
-unpinning any pinned pages. While at it, remove dead code that stored FIB
-values that were never referenced.
+On Thu, 23 Jul 2026 09:57:56 -0700
+"Barry K. Nathan" <barryn@pobox.com> wrote:
 
-As part of the cleanup, we are also holding the aift_lock a bit longer, as
-we hold the lock while executing the MPCIFC instruction. Though this is not
-strictly necessary, it means we don't have to drop and re-acquire in the
-error case.
+> On 7/23/26 8:42 AM, Steven Rostedt wrote:
+> > On Thu, 23 Jul 2026 08:32:23 -0700
+> > "Barry K. Nathan" <barryn@pobox.com> wrote:
+> > 
+> >> In the process of testing, troubleshooting, and eventually bisecting this,
+> >> I've tried rebuilding the kernel from scratch maybe 6 or 7 times now. I've
+> >> tried on two different build systems so far, and it seems deterministic
+> >> that the build succeeds without this patch and fails with it.
+> > 
+> > When you say "from scatch", do you create a new directory and build there?
+> > 
+> > Is it reproducible with a "make mrproper"? (Need to copy the .config
+> > elsewhere to not lose it)
+> > 
+> > As I don't see anything in this patch that would cause filp_close to be
+> > unresolved. Sounds like a bad object was added somewhere.
 
-Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
----
- arch/s390/kvm/pci.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+Yeah, or BTFIDS command (tools/bpf/resolve_btfids/resolve_btfids) may
+be broken?
 
-diff --git a/arch/s390/kvm/pci.c b/arch/s390/kvm/pci.c
-index 602534e3cc10..ca8ef76bcf6b 100644
---- a/arch/s390/kvm/pci.c
-+++ b/arch/s390/kvm/pci.c
-@@ -344,19 +344,32 @@ static int kvm_s390_pci_aif_enable(struct zpci_dev *zdev, struct zpci_fib *fib,
- 	aift->kzdev[zdev->aisb] = zdev->kzdev;
- 	spin_unlock_irq(&aift->gait_lock);
- 
--	/* Update guest FIB for re-issue */
--	fib->fmt0.aisbo = zdev->aisb & 63;
--	fib->fmt0.aisb = virt_to_phys(aift->sbv->vector) + (zdev->aisb / 64) * 8;
--	fib->fmt0.isc = gisc;
--
- 	/* Save some guest fib values in the host for later use */
--	zdev->kzdev->fib.fmt0.isc = fib->fmt0.isc;
-+	zdev->kzdev->fib.fmt0.isc = gisc;
- 	zdev->kzdev->fib.fmt0.aibv = fib->fmt0.aibv;
--	mutex_unlock(&aift->aift_lock);
- 
- 	/* Issue the clp to setup the irq now */
- 	rc = kvm_zpci_set_airq(zdev);
--	return rc;
-+	if (!rc) {
-+		mutex_unlock(&aift->aift_lock);
-+		return rc;
-+	}
-+
-+	/* Start cleanup */
-+	zdev->kzdev->fib.fmt0.isc = 0;
-+	zdev->kzdev->fib.fmt0.aibv = 0;
-+
-+	spin_lock_irq(&aift->gait_lock);
-+	gaite->count--;
-+	gaite->aisb = 0;
-+	gaite->gisc = 0;
-+	gaite->aisbo = 0;
-+	gaite->gisa = 0;
-+	aift->kzdev[zdev->aisb] = NULL;
-+	spin_unlock_irq(&aift->gait_lock);
-+
-+	airq_iv_release(zdev->aibv);
-+	zdev->aibv = NULL;
- 
- free_aisb:
- 	airq_iv_free_bit(aift->sbv, zdev->aisb);
+> 
+> When I say "from scratch" I mean something like:
+> 
+> rm -rf build/linux-5.10.261-rc2
+> cp -al linux-5.10.261-rc2 build/
+
+I recommend you to use "O=" option or use git shallow checkout instead of
+copying all files.
+
+git init
+git remote add origin <url>
+git fetch --depth 1 origin <sha1>
+git checkout FETCH_HEAD
+
+This ensures you have completely same source tree which is managed by git.
+
+Thank you,
+
+> cd build/linux-5.10.261-rc2
+> cp ../../configs/config-5.10.257 .config
+> make oldconfig
+> make -j#
+> 
+> (where # is dependent on the hardware of the build system in question)
+> 
+> I just tried again, doing a "make mrproper" after
+> "cd build/linux-5.10.261-rc2", but it didn't make a difference,
+> the build still fails.
+> 
+> (By the way, I tried downloading a fresh 5.10.260 tarball off kernel.org,
+> extracting it, and running "diff -ruN" between the new extraction and my
+> existing copy of 5.10.260. The diff output was empty.)
+> 
+> Oh, also, this might be useless information, but if I disable
+> CONFIG_64BIT then the build succeeds.
+> 
+> Anyway, there are several different things I'm going to try. Perhaps in a
+> few hours I'll have a somewhat better idea of what's happening, hopefully.
+> -- 
+> -Barry K. Nathan  <barryn@pobox.com>
+
+
 -- 
-2.43.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
