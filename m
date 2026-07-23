@@ -1,95 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E4338E100
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 23:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012AC392C29
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 23:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784850645; cv=none; b=JYblgz/bc4IhU+NRgGs9eWVoKgLkVGknwqyp2h9bB7w/KtlPSTpRzyxnGBsSlPE/Y5m9w1nis3X2GplCF18+xjldnqrJo+6+dsper6bPJjoB0e57iCSYc5PsBJ7cx9TSDiAvsQo5McOZUq91nCLJkdJ/HL4aGnlpTYey/AsxzXA=
+	t=1784850802; cv=none; b=SJ1s4QHB7OfLcMBEDUzlvBTYUqRo4M4UOvoN5c/IsClBaHTnTZ5CZXDnKByMAFKyxZC3lAkO/Cauoja3x4zc2C7MfBTwRU4OGahBE5vKT82g33A8NIJCNLb8ao8GkwRJXQaDb1Z24LP+OZ5v0d3qfcyyeqmhFIljhElvQ2+AVmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784850645; c=relaxed/simple;
-	bh=pv0TSuxWUbLfyWJcf83pbitWWIKSiZQYxEH4kwn1yUY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OXGL2fgWF0kdcVGkMax7+lXsOnM87f5zob59fYSDOfgJc64jgUwpifVr6UD/8SQnW27YENW01CfCbcKjFqso5XaYQyJ5UMLJw0WjWEyxK4b/vyCDjdfnIQZonPEjQX4jmfllTyM4U5N9Ejh4YF0VmsUpLc8f+A1dgFf8e9MBX3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Okfo0qq3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784850802; c=relaxed/simple;
+	bh=GfkLUAQFgWKBMYsEyERI8B3AuH0SGgf6Iuj5LqXQ4xM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=H3z+l8vZj6hDzUqFQ0qe3NciM0BaY8tj9lRsVxtvyWAyTHk90mGCIz/R+mIYwGBtvpnyMSzTXeBG0IhqB/TvCgzEQGu/uYElrQig6j4ddYvFwMFtWH7Ne7QJWijxwPmF03p/8ifijsfQPMZPnBnwzwYzFXj+oa1ZKTC/wTwI/pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kQeU5uFY; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Okfo0qq3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E050B1F00ACA
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 23:50:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784850643;
-	bh=pv0TSuxWUbLfyWJcf83pbitWWIKSiZQYxEH4kwn1yUY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Okfo0qq3m8kzsZzDo8mhCyIRDPwuiRx0k67hExUg3z+Vk5ahGoJ/aQo0Hfpe1rR7/
-	 I/6QTSefV0G7BW5pu7rp5haw5jLE6fCxpDTzY2tPv3Nk7uZiWNJfp2UqFelYvjfG5w
-	 L9RRfmLAzeGEP1tRW2G+6C0o1mAUKfSClAAGDSRDoav+CbllZEFW93PYIpUDl4NaTv
-	 8gUMQ4I+aPqDEikE8yB8ulC3VkjtiFZvtcgILB0fUo6NHtp5GXTHpZDNA2QPR0MVbB
-	 scsZ0PUTepYp8agKpugpEoSX1Te92BFhLTYK5StR064BEDJPM+0HbNDsJ2tYuJOS7v
-	 /Wrt5a8HKwmqA==
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c96c92c0980so797917a12.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:50:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Roa9hW120ppC9TPp8xL1SbAfiqPi+fvj+XQc3h9ABTSFiTUV3Ee93wo9v6FeylfnnS1yTNz6vo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyT89+STtesaAmH8JuWTWm070LYSMVpwfL5CcGNGgID5RC9Zbkb
-	ABGW7BZNTyBYMXDOEpoY7sNCniGJlrQbKOGo1iTTBjam96O3q+qNVc95CM4ARq4IJOdKj2oCo34
-	QTvA70Z7fo4oQWwxYfoZxawoFQeTcZg==
-X-Received: by 2002:a05:6a20:6a06:b0:3c3:a17c:1f77 with SMTP id
- adf61e73a8af0-3c44b245a28mr5768508637.51.1784850643482; Thu, 23 Jul 2026
- 16:50:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQeU5uFY"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc891373e0so15595825ad.2
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:53:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784850800; x=1785455600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/k9ClJtyvU02TZ9gpxSr39RbShtvirfOkj9FLRc6064=;
+        b=kQeU5uFYmOUNSKGdgk1P0BFHt9DlAMee61wLadctsh1KXllvAtIaqcrNM1CUgp42Df
+         vyUuY8T1dD+UV3+sRHoMtqaVWgTMvj89tIxbGSVqb4LXE6Pu2UGmz3tHMEhOXrmfXjeH
+         WaS6Yy1oX522njZMPEDToICwnULi3SQ+0cQCCMHCBu0v4S95THakC8RXk+f88J3qwz3e
+         xkuN0VRao/VjkT7NKhJ4Z97BU5Af8dx+a+IhhIvECn0Itq/h2TK5qc156M3HXcukIj2Y
+         +a4sxyFqaXDjAzDuaWM8x9nWDYJe4CE0CIUbGzphlo4OIkx1jK2LuoBKGXLv+7DDmJz9
+         GVOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784850800; x=1785455600;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/k9ClJtyvU02TZ9gpxSr39RbShtvirfOkj9FLRc6064=;
+        b=gJP8scpRiiYj90CpxWAiSukXPbs5iRSjko3SsGBfZsJEskzh689y6OAmviK3xzl/wS
+         sZxhuSHeyP0wM4BAm7Pu2KOGzk5t4rb+pN7qVUcQ6sVvTKPXtfumtEt4GOsO4OzimJhd
+         4qGdsu8m4cz7s3pWvNG/LsbSg/ebRtd/rlXqPaqQ6JI5T1L05lTop1IPz0/ZDcJWh3g7
+         d8hsSAOL98dnK6Hv9oMZvJqiy+599zeVNj7z9vF7ar7TxprgOwIkx8gDIRFtv5VokNci
+         bXP4QGtQbR35qx+2xnJtS+XBvMNaiGDyGyXk79UGyK3Fza8lcYc/wsgA81jOdnQFVoGI
+         Ed0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrdVRfy8YW+IZyAeo4KER/O3V7Z2hrCtudMuVM+mhkg260eRFL19YbpVET9DMYqFymXlgFX7mA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YykAhsFrOrt8X/o+wbw8xBxGHJqxibiYguTkySP4bCKUT7zfBhX
+	jOIH0mck7R5TO2Q38+91oOJ3p7k20EANguN5Lqn9/o701fyiJxq7VJv0
+X-Gm-Gg: AR+sD11Gqj8UmYVsmkvbFrJ+HeyMC629Eaj14YhQ6rjLcyGckG+y40uB/kvm8jtWnOD
+	Z83fuDWNZ782Bnc3nNfjUOogblxnfsbmd/sYXZpYQfGwA3KV2ib2H1j03BJlcTS0/cKZSRVTvpp
+	1u/STzMdkM3ei5noD6RCsTPUXeoPUPFaz/q8AEEFT/b5SF+pZKvUsdPfY97Wm/iU62sv1M/PyYm
+	s384LfqlXCcLG2B5skLJZT4zEAyOuI30w2kZFsq7UR4F6Kh56tlzUW06M6ROkHrLJmnmoXyQc3W
+	5MwpOtzxVcxfJmxS/vWh0MmT8gTSlda7/0wi6Gy2dL5KHsv8pEfk33IgyXE/acSsjmCbECm1ENO
+	m8JR0JNWnOWYioWW/kwS+nIKL2h5+NVbFzPrZX+fFYrBCC0IwbWaLvbVA9hSJ0c20KlvtbQJ8Fz
+	22Wcok+W5H7uyH7TkT+Jkm5nCvy+fNN2jTD0ZfJ5q9niBXmfu7nmW4wVXUG4ez3VXa4/xgQI6fF
+	w==
+X-Received: by 2002:a17:902:e748:b0:2c9:b8b7:5d27 with SMTP id d9443c01a7336-2cfa6a4f988mr63299815ad.1.1784850800151;
+        Thu, 23 Jul 2026 16:53:20 -0700 (PDT)
+Received: from localhost.localdomain ([119.204.109.83])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efde5cfsm41417575ad.31.2026.07.23.16.53.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 16:53:19 -0700 (PDT)
+From: James Kim <james010kim@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: mporter@kernel.crashing.org,
+	alex.bou9@gmail.com,
+	akpm@linux-foundation.org,
+	error27@gmail.com,
+	gregkh@linuxfoundation.org,
+	stable@vger.kernel.org,
+	James Kim <james010kim@gmail.com>
+Subject: [PATCH v3] rapidio: mport_cdev: fix use-after-free in dma_req_free()
+Date: Fri, 24 Jul 2026 08:52:20 +0900
+Message-Id: <20260723235220.588424-1-james010kim@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260615070530.371640-1-james010kim@gmail.com>
+References: <20260615070530.371640-1-james010kim@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260713112957.884640-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260713112957.884640-1-lgs201920130244@gmail.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Thu, 23 Jul 2026 23:00:25 +0000
-X-Gmail-Original-Message-ID: <CAAOTY_8nSZeVSyD9axg+7=j22408Qo6ECUiLVeLSPMnG2vvixQ@mail.gmail.com>
-X-Gm-Features: AUfX_mzN_szIsR4Zx-5H9Zr7vUoQGqqfgU7Xy3zndft3JHX6RptvrPoQs8U9ltY
-Message-ID: <CAAOTY_8nSZeVSyD9axg+7=j22408Qo6ECUiLVeLSPMnG2vvixQ@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/mediatek: mtk_hdmi: Fix DDC adapter double put in v2
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, CK Hu <ck.hu@mediatek.com>, 
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, dri-devel@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Johan Hovold <johan@kernel.org>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Guangshuo Li <lgs201920130244@gmail.com> =E6=96=BC 2026=E5=B9=B47=E6=9C=881=
-3=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8A=E5=8D=8811:32=E5=AF=AB=E9=81=93=EF=
-=BC=9A
->
-> mtk_hdmi_common_probe() gets the DDC adapter with
-> of_find_i2c_adapter_by_node() and registers a devm action to release the
-> adapter device reference with put_device().
->
-> The HDMI v2 remove callback also calls i2c_put_adapter() on the same DDC
-> adapter. This is not paired with of_find_i2c_adapter_by_node(): it drops
-> the adapter device reference before the devm action drops it again, and
-> it also puts a module reference that was never taken.
->
-> Remove the extra i2c_put_adapter() call and drop the now-empty HDMI v2
-> remove callback. The common devm action releases the adapter device
-> reference.
+dma_req_free() acquires buf_mutex through req->map, drops the mapping
+reference with kref_put(), and then dereferences req->map again to
+unlock the mutex.
 
-Applied to mediatek-drm-fixes [1], thanks.
+If kref_put() drops the last reference, mport_release_mapping() frees
+the mapping, and the subsequent mutex_unlock() dereferences a freed
+object. This is a use-after-free.
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
-log/?h=3Dmediatek-drm-fixes
+Fix this by caching map and md before kref_put(), clearing req->map
+while holding buf_mutex, and using the cached md for mutex unlocking.
 
-Regards,
-Chun-Kuang.
+The bug is reachable from userspace via the RapidIO mport character
+device interface.
 
->
-> Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT81=
-88")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Johan Hovold <johan@kernel.org>
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
+Fixes: e8de370188d0 ("rapidio: add mport char device driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: James Kim <james010kim@gmail.com>
+
+---
+Changes since v2:
+- Correct the Fixes tag.
+- Clear req->map while holding buf_mutex.
+- Clarify that the bug is reachable from userspace.
+- Update Dan Carpenter's email address and add his Reviewed-by tag.
+
+Changes since v1:
+- Rebase on v7.1.
+- Add Dan Carpenter to Cc for lifetime and use-after-free review.
+- No functional changes.
+---
+ drivers/rapidio/devices/rio_mport_cdev.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/rapidio/devices/rio_mport_cdev.c b/drivers/rapidio/devices/rio_mport_cdev.c
+index 009b3b595bbf..ad82c2108a56 100644
+--- a/drivers/rapidio/devices/rio_mport_cdev.c
++++ b/drivers/rapidio/devices/rio_mport_cdev.c
+@@ -564,9 +564,13 @@ static void dma_req_free(struct kref *ref)
+ 	}
+ 
+ 	if (req->map) {
+-		mutex_lock(&req->map->md->buf_mutex);
+-		kref_put(&req->map->ref, mport_release_mapping);
+-		mutex_unlock(&req->map->md->buf_mutex);
++		struct rio_mport_mapping *map = req->map;
++		struct mport_dev *md = map->md;
++
++		mutex_lock(&md->buf_mutex);
++		req->map = NULL;
++		kref_put(&map->ref, mport_release_mapping);
++		mutex_unlock(&md->buf_mutex);
+ 	}
+ 
+ 	kref_put(&priv->dma_ref, mport_release_dma);
+-- 
+2.25.1
+
