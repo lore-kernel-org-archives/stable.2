@@ -1,229 +1,184 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010043.outbound.protection.outlook.com [52.101.69.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F143909AE
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784790871; cv=none; b=JUexNcdZR/J8fxLFgdvkhHso2RVRQW7u11m9nq0JnXFVaKAXE28VzS5MHEKoNlZa6KeXNO+ty/fM7I7j6TI2MRGHln7+3uRAqjaSFlIOWtu4jvUz6iupBFaABRG6ef/ihc8ZaZGEx7yixcZJdsntchCjKjryjOo5resh0GLGSIE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784790871; c=relaxed/simple;
-	bh=Ss7JoXFHGRd2zbqTCRzWmOflLq0kyEcVLwZZBHbcE04=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pY+rSGhgI0v+KtZAYFXVz6aoRRoY9f6yX7mBQIuISxX/gLrYBXZDJF9yh0FTl/pj2aalM22xl5TOruEyNbxvIayCOqHBQBCTeW6eR38y20PT9H78czxwWT+7cb9DAJxGv0WD9rIthVnwsKMi/i/L3n6rB45KuP1CBzIjFK+4HjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hpWkWFMM; arc=none smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAA73D890D
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784790907; cv=fail; b=bDzBXLmx95f2Ya6QNUHYt1SKMqYsvKZvxLthhwlmKfRLr7pNQ0P5t45uDsaSeCpN3DeN0l7H7PUQ7ZHGmlOjQpNr0uNMHcDSCzyXHMg/jtGyk7hX3LBEutlCCbsH8Ox16EQraIOHXtF6R7IppPaYIZh6/xq5PffofEYt2jF72jE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784790907; c=relaxed/simple;
+	bh=TamsMNEfbhOmiM8e1izNj6+08AGp9KxrlQXAGCLGRH4=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=moe0TeO6M9q35TNtTdlwxli5lGyiQBWEh11oRVTDKl/fUv+UYH7A/G6HC+4q2hwMuSPg9fgNKWpd+vmJs5nyT79UvWBEzHeAVa+x/1rDt0M+VZ4IIiBBtZ7rCpJWlF/sQF+1Uxy4Sd7IjMccDA6cnG3Qlw2iMQ749Uu2heBMmL4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com; spf=fail smtp.mailfrom=nokia.com; dkim=pass (2048-bit key) header.d=nokia.com header.i=@nokia.com header.b=qOqNV0my; arc=fail smtp.client-ip=52.101.69.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hpWkWFMM"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c9452243cso2215581fa.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 00:14:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784790866; x=1785395666; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bFo0mK2Twky9T7qEB2bTUDQtTh7rdNsTlOuaha0+uKE=;
-        b=hpWkWFMM/RrXnyTNlWu3JEQEbAwEhEIcwxHYDhlRVFQGRFhv+jWUcJtPyEQS6BH8/C
-         qI1sNvjBLKU3cg5NGQ+At9fRexRADWbReXDCXBBI58f1oo9s8VE6vCUCCozt1na17pz/
-         mTuGW9Q+W4fitEi7qgDUcbynbtitzuu4WyZYEj3fbpG+AtmaPn6Z8XkLvbtVgxSsOFx/
-         u8ZaVKbtxCPtkQCdDJdZilc8u/9YSTs6peL9HcPEa2g1tI+BUfA8KY5Osy5ujo+sDII5
-         W+OwJ5gmlqC9m6Wnd/nT0wofL3aaYn+hx8X0iFZ7/Id81eNvSOwhlRikUEHJpuqmt1nk
-         MIXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784790866; x=1785395666;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bFo0mK2Twky9T7qEB2bTUDQtTh7rdNsTlOuaha0+uKE=;
-        b=U32k97/1mr7RkCmRPZaf9RzottwBWQgIADkAky7XJz1PugMq6kxdUTZHriu8icpGdV
-         +Y34pPEDg+ZKc9VlSAQlyydZLrdJDygIHqfh0G9fbyNVnUFKFV+LWbqTzR8ScEGf6wvX
-         cyEG0PnMJbTBQd9kfABYCUupaqCKE32WkkhQu84890k8SCRP+g+ysm4aLuXhCBYkDB7/
-         cC4BmxJrCt3Ig/oUFPhVyB5Gc1Ar+1d76zOgKX1lxbhG2TAWBBSYQ90fE4Lp9kcjtUUu
-         RSuPk8mFbcbNqm5mF3RBwXFx8RPJYKX/NClO6m3DoaqROwO4dp+gpvK9i4L57BESwBOv
-         bn1Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpS1s2AWRSm7NEgPK9qGo+3wmxAXW+haZvTB5bht0dhDs8XRoSNloenb+JOV0uj9MTysv8B09Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7hsHULLuDmkwkoSSnGiomz6icJOPqDFn/btNMj6+hP6nhdLeZ
-	BWvUqP3eiQtwDjn7aWAu4NJPV65kFKVwfh9QPGAHNH8CgKyoI7caAPatl8dPvKw8kks=
-X-Gm-Gg: AR+sD11FxiiPxVhoNMvpp89SuPoVxH/iK3s2+/dBfrMT1bX2zCEWgRPEh/RELekSHd4
-	2s8MHi3EYhXKt1HIIUEsEtP9QSqZ46KhIQu0OZkaJ7Nd5oenIEyiF8CxHRQx6XM0bajsJ40P5P5
-	x/N2mzqCAIKooZi/UL6VkMG/5T37trHTWpSzUDlFGi8VYTbAafnrzwO6eRLi2WN3xYmNEkJI9fJ
-	LRE4Ib0mLQjtDTvQd04BJITXX/vRZSgYg7TNNnW9W6fvtPrE1AgfSv5+ClCqc9YD8rx3N3fDEvN
-	CZGMWTVE6xYTIuntryRF/hOIYe8n73SlHvkACN8qiD1cxZ6ASSGJISHfceDN8dIOgNhWVoHzdjw
-	yqaTCdVJwUAoEjlD89crJRcHCqGhgUwBXAJDI/xZaaUejlPBtSR2mSV9xw/h9oVagcyYDyis3Sv
-	CNEkywB2b5A0T1L0MIdVcrgkOogf1h4g==
-X-Received: by 2002:a05:6512:3e2a:b0:5ae:af98:497f with SMTP id 2adb3069b0e04-5b2b2e4995cmr317702e87.7.1784790865836;
-        Thu, 23 Jul 2026 00:14:25 -0700 (PDT)
-Received: from nuoska (78-27-71-225.bb.dnainternet.fi. [78.27.71.225])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9f4d42esm844102e87.79.2026.07.23.00.14.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 00:14:25 -0700 (PDT)
-Date: Thu, 23 Jul 2026 10:14:23 +0300
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, stable@vger.kernel.org
-Cc: Ryosuke Yasuoka <ryasuoka@redhat.com>,
-	David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/virtio: fix deadlock in display_info_cb by
- removing hotplug from dequeue worker
-Message-ID: <amG_T7Kb7DW3VTxm@nuoska>
-References: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
- <ba8a2de8-8ac7-490d-b48e-767d1e7893a9@collabora.com>
+	dkim=pass (2048-bit key) header.d=nokia.com header.i=@nokia.com header.b="qOqNV0my"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R2YCj5yCmmJ3qB6TJsOZnerdP8Q1/OAJuRlto7hS7n7LD1vg7ax3IpNZXCDLEPkMduJLCBLdLXk1r71h03TIfi27CnfnaSgvogaze05jw1f1XI2EBWqXIAceyzB42U/ERYce7CWE9s9dcsaZchkeP3b9/Y6ZleKrp4ylI1x6IYx1+1zMjcS7pWIa7UOHzUvu4FcO18UWRGZjJksgBetMbTcvUqZCmzFA4hQ6NXuHnhPczB2JlINg8oIQdC0+eq/LnOxgJfDBwIDPvFaRKQ5iCRt6WwFnAb9T7wLTwFiGD73vjAJAV4B+Y0RsfKx6ewwSBbv2C06QuD61hg51YJ1zzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g+Mu3l1zNuZOgqUvJ2+yDyg5FnBL50f85GUIaAAwBmk=;
+ b=C4Qy9ofIWW7RfR/dCzIYegMHzICEvmiWDUlr0kR7XwmI3czy5jnCFY4ZXWTe2Ofkpes4h8EF9UmAyvQh14dKSZN5dKtxgVuesrQGp1ew9cxpiFFCOVv4NKGCjtL+OeX45rID8Azut4G8TPJD8cYRgz4j4pMbfXbEkYsi9Va5BWTqoR7hXddZUYpFXWfL+SmkEvR9+6v6DO7UqQoeZFe3E6bgltaSQ0PD3u6z0jZK2iR6pGazlMGfxKNi69KPejU1/Htf46byOIr0n1gqz02K4zCau5UX1vxwmCvgLlG1OnBJnMFLcpZQN594pdP6VqIscsic7p5DXBO9lav/Jzotuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nokia.com; dmarc=pass action=none header.from=nokia.com;
+ dkim=pass header.d=nokia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=g+Mu3l1zNuZOgqUvJ2+yDyg5FnBL50f85GUIaAAwBmk=;
+ b=qOqNV0my8LmYBSXbxhNODcgCe2WBUL6F5iP9/GV4ZlZoyHKkZPawIM4jAgUT/z/meowr3/qcLnYRx3cDHdpbdR7+lqbsDS2B+SAtzXgOqCSbsspLAq1oxvoFZz/GJNM5SLU1gMBFxsUWTfrMcFSU7WdzKS4WloWsb3MYePpxgQzFJsegoRf//wbhW+sLAWD5Lr2maCzsXKwVFSspJ6nNRpqkus04VXYSLU+lbLL3Y/lCpOOXKU/yPSkRcCWU2cZzepS0iI0FnLUSHBsAh+/rgPvlczM36dybikBCgaF5PbLTBu6LTAcM3e5yMrci1olYj8iEQxvGSlycrsx5u36QGw==
+Received: from PAWPR07MB10071.eurprd07.prod.outlook.com
+ (2603:10a6:102:382::17) by GVXPR07MB11660.eurprd07.prod.outlook.com
+ (2603:10a6:150:316::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.5; Thu, 23 Jul
+ 2026 07:14:59 +0000
+Received: from PAWPR07MB10071.eurprd07.prod.outlook.com
+ ([fe80::1dcd:8631:dd7c:f813]) by PAWPR07MB10071.eurprd07.prod.outlook.com
+ ([fe80::1dcd:8631:dd7c:f813%6]) with mapi id 15.21.0270.004; Thu, 23 Jul 2026
+ 07:14:59 +0000
+From: "Janne Huttunen (Nokia)" <janne.huttunen@nokia.com>
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
+CC: Peter Zijlstra <peterz@infradead.org>
+Subject: Please backport 101f3498b4bd to 6.18.y
+Thread-Topic: Please backport 101f3498b4bd to 6.18.y
+Thread-Index: AQHdGnEWTqj4qCpD9kasF8HeqNc6+Q==
+Date: Thu, 23 Jul 2026 07:14:59 +0000
+Message-ID:
+ <PAWPR07MB100715EA5D8FCEB34B9987DF69AC02@PAWPR07MB10071.eurprd07.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nokia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAWPR07MB10071:EE_|GVXPR07MB11660:EE_
+x-ms-office365-filtering-correlation-id: 525e9010-d79e-4d5e-c40c-08dee88a1b88
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|18002099003|38070700021|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ 8+KcLISn70XEH5jk0zHQ07/r0Ri1Qj+jUBCuCRJu5SS3/yJEIkPJHPn12CWHPgrffoVzvxk5aeKqF5FqW/ahK8ceSMSlnp5ItYTmxXIW5/o0ZGwbmuBupWacXX4CA/GSxv16sL3OfDiFbkxG8xqaixdH02dUAYG/X1ONVvtIaRrKNeJfzBUA5kZ9Er7JBDfWVgztATHVbV0+1S6ryxPWkOnfoCNiXMb8rR4yHm3BZjQG/kAEi2QY5VVp4oDT3uKvoVIdnodtMlabxl3gFkGXz8ynySaIcddR1IZmn3twVx42Nd5qyizjXNwC30jS8vDS5r4olN4LKyThqy6eCjm0Nb9FbikVI2TiKg8HKl+0q0whgFkJARhrmxiGzBvA8l4nBv3T35+Zm9kSR2vsO4gWqKteBT6pAm5hS5Bj5FkBrraKHaJnpoywtPMo8suWEukWGEINS+Ul7xDXuokKxQfqs31Vp0ZYcmNb8k3NUD4Dx1XmM72f2DRHAZgagXjl7zoJUs1M2yJ+GUIuVxYzA5hC1a1tUYRAFo7uiBIFGjsWbEWdkiXc8MXrAUETEHsr436tSZHkl9/DRaHk002Ip9Gusut4x31+OLWeq+q88ihm9oJwLbQhkzXw/+GLK9XTlVLXNm1aJ/Y6ORdlX1wQm9dsoGpCERhwGitH8n7ooHpRLkllccj7wp5fy2YmQAKGMY+X+l6zQ15d16KQ+h3azpWLVLZa0stRfXU+xCi1meun/20=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR07MB10071.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(18002099003)(38070700021)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?r+m3seFdCyJQARpma99ZS55IC+X2joXfb1tD1zOVxxEA4Udj1q158oWhDp?=
+ =?iso-8859-1?Q?0uLtCmvv+gAb4wGcLViKDrpNJF4CgFu2ynIBqnHMRZT5K6tNm7mwx63Sgs?=
+ =?iso-8859-1?Q?llqF2D0IG5BAIQ7595TSD8vPPdAd4URH7eg5ruZLk7ZS03CTFoWaPf+JBv?=
+ =?iso-8859-1?Q?V+enj659ViUWTjeA3wIJ9nm8Ol4u7GTstDjtMo2ikm1RurAbStUkpG9qzh?=
+ =?iso-8859-1?Q?imWDfPbdvzHKKNt1tUUwU+l/XjSrFtoLi02Nu4ttJ9n1Z6w0NEeOD2AYrw?=
+ =?iso-8859-1?Q?yh8faD8O+Z78QoSzMrXtlhO8vGtb3LqXCswFL4n/cC6eEosXq5YFz0hyNa?=
+ =?iso-8859-1?Q?Icy3LeTwqu4OK/ytIF/BH/Y6rlXbdUJW+DgXgyAlLIAclDIvHpq25qHV8V?=
+ =?iso-8859-1?Q?qvYOjASPoUBm+CzvvxH0c8Q2g6YZiSLk1rpQM8itgG+s8OvhOTa2j76z0q?=
+ =?iso-8859-1?Q?BTqaTFYtSokLjlUGvqgFUSRuDhTsCm4rzRCvjKrSX6Sip9oiCV9VfZSApY?=
+ =?iso-8859-1?Q?GtOyHMfZ/zcfNArsaSDUwdXLBAmr84sa3MzLn0rb+MESkHWaivXuu3i8Mq?=
+ =?iso-8859-1?Q?xcYOwHoBhnONF85PKXt21/gRDce0s+9x2xViWMmqv2LMhJnHM5P/D2fEYz?=
+ =?iso-8859-1?Q?5IYW9dg6wjfEA3wZmT2kqHKC4cUMDs/sMZs5FNxsV4BcfpFAS69Uf8JahZ?=
+ =?iso-8859-1?Q?qv1wtj3nB5zWgPtrd7YI2g9qTgRHAIYuT586jP69hbIBcfoQFqwEJk1ydZ?=
+ =?iso-8859-1?Q?KNPMuklY+SeZ0rbbZl+lg/iPkEl+KbUsbBD654F+3ccB3k0DTwfAcIle4u?=
+ =?iso-8859-1?Q?VSFrpTHUYqf6pzIB4ylFJJxN4PUqxVNN524J5upwtJ32HoDepVPE2B4znD?=
+ =?iso-8859-1?Q?/hO7Bxgztmo3+O18dHxEv55y0q+lGEO/N3oDV45eIJwj5gP1IP3cI6g/B6?=
+ =?iso-8859-1?Q?D4UqfTFHwkORwS7gQzBqUB2g/EpIzvSnsRmk5nNb6l+ynwqZx15IIlak2f?=
+ =?iso-8859-1?Q?ybKKCQbcuRSxSryWOJHqbORtw59CLYkSgmBwTmRm8qx6OPCMUezUwnd3ZV?=
+ =?iso-8859-1?Q?VhSG9vlrQJMO/GjXsD0+V9QqVMDABsRc8oaiOGCwoKCMAJPA6R/XH0t+ae?=
+ =?iso-8859-1?Q?VbNLaQorVYKw8+c7z3yGgkykaX0TcDgAsltkkgPewnl+Ng1khn61gxRWFw?=
+ =?iso-8859-1?Q?Odf5mOGCPVrkNBC+xy/k3FKqinQuj85y51V2hgUC8HMMsMDVFKhtKIoj4Q?=
+ =?iso-8859-1?Q?s6LLTqHJayykR1+S7X9fhzq2GWhtlrHOxyXk9M9JzIKfVYgsQTPrRRt36t?=
+ =?iso-8859-1?Q?+pPIEv4gOsXxh6epn2NTjVfdiPiudYSdoEZ4f8AcdGiFxqUbeUAyIeN5ts?=
+ =?iso-8859-1?Q?hXn5SHXMWRNUWASk9ITciACu32XDYD82/D55m23CBLScN/dRbamkaASxM/?=
+ =?iso-8859-1?Q?9gNHqlS8uc1Ay81ZxVmYi9xmRV42hFIDgV+NaVR4Sl/ehG3Z65iBItBkFs?=
+ =?iso-8859-1?Q?9sDJOpseFoP7UV37/graTcuTTUhxXgMRhk2HF/6unOqPGDyxZcc6wzAmws?=
+ =?iso-8859-1?Q?JrBY4hGG0NQI7A4Mzoq7wZ/CftFle/tVJxH5GW2H76+b86nx43EPXbDyus?=
+ =?iso-8859-1?Q?HXL2U43HPnmTq1D1JVhIRRWATWdAS5hwQtPk7Q7oOYks4clrBQf4nqxIz4?=
+ =?iso-8859-1?Q?LTn+1uCa8gau8sEAlalhgiLbj78mVgIyAnIkSg8ICJTpVLs9UeyXx1xXrE?=
+ =?iso-8859-1?Q?5gSKTqHIAxu34kfFAWB23C1DAOaAJiRqUVxtq0TeG84eIas8IUX90eVbQv?=
+ =?iso-8859-1?Q?omalbsRavw=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ba8a2de8-8ac7-490d-b48e-767d1e7893a9@collabora.com>
+X-OriginatorOrg: nokia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAWPR07MB10071.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 525e9010-d79e-4d5e-c40c-08dee88a1b88
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2026 07:14:59.7837
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nBl9Ol8RXzdeplZvMSZ6HzPYuIOyfXyEfuPwWVMXTa+Oo8g0xENR1Rbl0cU3qhYPjiv+QVM5/Y9jbqtpV3RzxbQI05cEcaJkuguoOeboeL4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR07MB11660
 
-Hi, adding stable@vger.kernel.org
-
-In Yocto distro, this change released in v7.2-rc4 seems to fix quite severe qemu
-boot hangs seen with 6.18 stable kernels. Details in
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=16217
-
-Please apply this to to 6.18 and other stable trees.
-
-Cheers,
-
--Mikko
-
-On Mon, Jul 13, 2026 at 07:31:14PM +0300, Dmitry Osipenko wrote:
-> On 7/13/26 16:01, Ryosuke Yasuoka wrote:
-> > A probe-time deadlock can occur between the dequeue worker and
-> > drm_client_register(). During probe, drm_client_register() holds
-> > clientlist_mutex and calls the fbdev hotplug callback, which triggers an
-> > atomic commit that ends up sleeping in virtio_gpu_queue_ctrl_sgs()
-> > waiting for virtqueue space. The dequeue worker that would free that
-> > space calls virtio_gpu_cmd_get_display_info_cb(), which invokes
-> > drm_kms_helper_hotplug_event() -> drm_client_dev_hotplug(), attempting
-> > to acquire the same clientlist_mutex. Since wake_up() is only called
-> > after the resp_cb loop, the probe thread is never woken and both threads
-> > deadlock.
-> > 
-> > Fix this by removing the hotplug notification from
-> > virtio_gpu_cmd_get_display_info_cb(). The display data (outputs[i].info)
-> > is still updated synchronously in the callback.
-> > 
-> > For the init path, drm_client_register() already fires an initial
-> > hotplug when the client is registered, which picks up the connector
-> > state updated by display_info_cb.
-> > 
-> > For the runtime config_changed path, add a wait_event_timeout() in
-> > config_changed_work_func() so that display_info_cb updates the connector
-> > data before the hotplug notification is sent. Also replace
-> > drm_helper_hpd_irq_event() with drm_kms_helper_hotplug_event() since
-> > virtio-gpu never calls drm_kms_helper_poll_init() and thus
-> > drm_helper_hpd_irq_event() always returns false without doing anything.
-> > 
-> > Fixes: 27655b9bb9f0 ("drm/client: Send hotplug event after registering a client")
-> > Closes: https://syzkaller.appspot.com/bug?id=d6dd6f86d3aaf7eebe7406e45c1c6e549453f224
-> > Closes: https://syzkaller.appspot.com/bug?id=908bd910da5dd79b88de4cf7baf376cc873a922e
-> > Suggested-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> > Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
-> > ---
-> > I checked whether drm_helper_hpd_irq_event() is needed in
-> > virtio_gpu_init(), as Dmitry suggested. AFAIS, it is not needed because:
-> > 
-> > 1. drm_helper_hpd_irq_event() is always a no-op in virtio-gpu.
-> >    It returns false immediately probe_helper.c:1088 because
-> >    dev->mode_config.poll_enabled is false — virtio-gpu never calls
-> >    drm_kms_helper_poll_init(). Even if it passed that gate, no
-> >    virtio-gpu connectors set DRM_CONNECTOR_POLL_HPD.
-> > 
-> > 1082 bool drm_helper_hpd_irq_event(struct drm_device *dev)
-> > 1083 {
-> > ...
-> > 1088         if (!dev->mode_config.poll_enabled)
-> > 1089                 return false;
-> > 
-> > 2. virtio_gpu_init() runs before drm_dev_register() and
-> >    drm_client_setup(), so no DRM clients are registered yet.
-> >    drm_kms_helper_hotplug_event() would iterate an empty client list.
-> >    The initial hotplug is handled by drm_client_register(), which fires
-> >    a hotplug callback to the newly registered client. By that time,
-> >    display_info_cb has already updated the connector data.
-> > 
-> > For the same reason, drm_helper_hpd_irq_event() in
-> > config_changed_work_func() was also a no-op. The actual runtime hotplug
-> > notification was always delivered by display_info_cb's call to
-> > drm_kms_helper_hotplug_event(). This patch replaces it with a direct
-> > drm_kms_helper_hotplug_event() call after waiting for the display info
-> > response.
-> > ---
-> > Changes in v2:
-> > - Dropped the work_struct approach from v1.
-> > - Instead, removed the hotplug calls from display_info_cb entirely, as
-> > suggested by Dmitry.
-> > - Added wait_event_timeout() in config_changed_work_func() so that the
-> > display info response is received before sending the hotplug
-> > notification.
-> > - Replaced drm_helper_hpd_irq_event() with drm_kms_helper_hotplug_event()
-> > in config_changed_work_func() since drm_helper_hpd_irq_event() is
-> > always a no-op in virtio-gpu (poll_enabled is never set).
-> > - No changes to virtio_gpu_init() — drm_client_register() already
-> > handles the initial hotplug and hotplug event does nothing before DRM
-> > device/client has been registered.
-> > - Link to v1: https://lore.kernel.org/r/20260630-virtiogpu_syzbot-v1-1-0aa06630750e@redhat.com
-> > ---
-> >  drivers/gpu/drm/virtio/virtgpu_kms.c | 5 ++++-
-> >  drivers/gpu/drm/virtio/virtgpu_vq.c  | 3 ---
-> >  2 files changed, 4 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> > index cfde9f573df6..b4329f28e976 100644
-> > --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> > +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> > @@ -49,7 +49,10 @@ static void virtio_gpu_config_changed_work_func(struct work_struct *work)
-> >  				virtio_gpu_cmd_get_edids(vgdev);
-> >  			virtio_gpu_cmd_get_display_info(vgdev);
-> >  			virtio_gpu_notify(vgdev);
-> > -			drm_helper_hpd_irq_event(vgdev->ddev);
-> > +			wait_event_timeout(vgdev->resp_wq,
-> > +					   !vgdev->display_info_pending,
-> > +					   5 * HZ);
-> > +			drm_kms_helper_hotplug_event(vgdev->ddev);
-> >  		}
-> >  		events_clear |= VIRTIO_GPU_EVENT_DISPLAY;
-> >  	}
-> > diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> > index c8b9475a7472..e5e1af8b8e8a 100644
-> > --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> > +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> > @@ -840,9 +840,6 @@ static void virtio_gpu_cmd_get_display_info_cb(struct virtio_gpu_device *vgdev,
-> >  	vgdev->display_info_pending = false;
-> >  	spin_unlock(&vgdev->display_info_lock);
-> >  	wake_up(&vgdev->resp_wq);
-> > -
-> > -	if (!drm_helper_hpd_irq_event(vgdev->ddev))
-> > -		drm_kms_helper_hotplug_event(vgdev->ddev);
-> >  }
-> >  
-> >  static void virtio_gpu_cmd_get_capset_info_cb(struct virtio_gpu_device *vgdev,
-> > 
-> > ---
-> > base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-> > change-id: 20260619-virtiogpu_syzbot-bdab508ffcd5
-> > 
-> > Best regards,
-> 
-> Appled to misc-fixes, thanks!
-> 
-> -- 
-> Best regards,
-> Dmitry
+Please consider backporting this patch to 6.18.y:=0A=
+=0A=
+101f3498b4bd sched/fair: Revert 6d71a9c61604 ("sched/fair: Fix EEVDF entity=
+ placement bug causing scheduling lag")=0A=
+=0A=
+=0A=
+Rationale:=0A=
+=0A=
+After updating a bunch of servers to 6.18.y, we started experiencing=0A=
+some scheduler related starvations. The servers each have a group of=0A=
+very dedicated and isolated CPU cores, meaning that they normally=0A=
+only run a single user space thread (in "system.slice"), they don't=0A=
+process any interrupts and nohz_full is in effect. The thread is=0A=
+SCHED_OTHER (nice -10) and it is almost always runnable consuming=0A=
+all the available CPU time.=0A=
+=0A=
+In some rare situations, for e.g. debugging or metrics collecting,=0A=
+there might be also some other thread for a brief period of time on=0A=
+such a core. This other thread is also SCHED_OTHER, but it is in=0A=
+"user.slice". The affinity mask allows that thread to only run on=0A=
+that specific core. Now whether this CPU sharing is intentional or=0A=
+not is debatable, but I don't think it should cause the kind of=0A=
+problem we have observed. What sometimes happens is that the thread=0A=
+in "user.slice" gets starved for seconds, minutes, hours (seen),=0A=
+maybe even days (I don't think we have seen that). During that=0A=
+starvation even SIGKILL won't release the thread because it gets=0A=
+no runtime and cannot complete processing the signal.=0A=
+=0A=
+After staring at this way too long, I came up with these observations=0A=
+and (not 100% proven) theory:=0A=
+=0A=
+1. The vruntime of "user.slice" advances forward quite a bit and=0A=
+   the corresponding thread gets pre-empted. The slice is now ready=0A=
+   to run but ineligible due to its large vruntime compared to the=0A=
+   "system.slice".=0A=
+=0A=
+2. The vruntime of "system.slice" starts behaving in a strange=0A=
+   "sawtooth" pattern where apparently update_curr() nudges it=0A=
+   forward a few times (causing the upward slope of the sawtooth)=0A=
+   until a reweight comes. The reweight then calls place_entity()=0A=
+   with 'cfs_rq->curr =3D=3D se =3D=3D "system.slice"', which seems to mess=
+=0A=
+   up the vruntime. I don't claim to understand the math in there,=0A=
+   but to me it looks like when 'cfs_rq->curr =3D=3D se', the math=0A=
+   includes the weight of it twice when calculating the lag=0A=
+   preservation. Apparently this may negate most/all of the upward=0A=
+   slope causing the downward drop of the sawtooth.=0A=
+=0A=
+The overall trend of the vruntime over long period of time seems to=0A=
+still be slightly upward, which means that eventually it does reach=0A=
+a point where "user.slice" becomes eligible again, but due to the=0A=
+vruntime constantly snapping back down, this can take extremely long=0A=
+time. During all that time the "user.slice" is never picked by the=0A=
+scheduler causing the starvation. Introducing even more threads to=0A=
+"user.slice" of the affected core seems to somehow fix the math and=0A=
+release the blockage, but it varies how many such treads are needed=0A=
+(they hang too if they don't manage to fix it).=0A=
+=0A=
+After coming up with this theory, I noticed that the scheduler in=0A=
+7.1 was changed to not call the place_entity() the same way anymore.=0A=
+With a trivial backport (I think there was some difference in the=0A=
+division operation) of the patch mentioned at the beginning of this=0A=
+mail on top of 6.18.y, we could not reproduce the starvation anymore.=0A=
