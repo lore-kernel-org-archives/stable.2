@@ -1,185 +1,133 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED033A71AD;
-	Thu, 23 Jul 2026 17:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F61D36194A
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 17:49:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784828893; cv=none; b=jUCpee4DerR4stn0EimvF9SYEyJIjnDOnMpP424y6wTU0QUCGhdKamz4KUPX9mJKDSzOXCwj7lyUBk+747Jtmhupxpi9oeIe6W8YcX65GcXio55c53CIM5eUXNN0fwpboIt3+wdcSgRHMJc9UEbShc9AMUl48fqY09cIYmm7FAM=
+	t=1784828965; cv=none; b=nLn9/3tKAgsZoE2S9wPmooYnmItPQn76c6X1S/tJpVf6mH5h1dsoLmHZRmkq0pyUIdJMPW6WKUNNBv++ClAPP9WXMNLDlGx2T0xB9+Nr9WhvcLxXIC+PDKV5YIpeWtxCKFfrCcpioB10uC+A6QyRwQ29dzi8pnVrUx5L9rjBETc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784828893; c=relaxed/simple;
-	bh=ec2oww5BN7ivg/qfTAU1hWALj/cNhDxZsl2WqkIg+Nw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NTjxLI4VaZoNYo4ADuyH1RUqSL8E8oi/RYd55bvxNesiFYNcuhbdehuPXCchNKkh08EBwtx0XN88/ayVUtyXQ9EKdBR1rN7nrKuVx9p9kBYWh3UixuWk/TGMTMW+pqLATjCy1Q2+2CvEXxQdN7yF+Za5KSZDLCem3Mmd79xgW4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pOxJ5fCC; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1784828965; c=relaxed/simple;
+	bh=exTnfBbobbuTKp1u2b5AtcOE9fa31gkGpbomdGBMpI4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HknU8n5wNFKIPoOrkUMkqzXi/IV12yoE8ZsXZV0sqAie1oKAuX8ScU3nfD5y2/xUmbV1NVEwc4ErJz41xVJ7maibTFfzGwtUPvoOJKBsKnJc/woXhL3CLK/MN2vlQC5bjQ4jpYhRPyfOuoea4a8yyILfyKobSH/pJuxKHlokPOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PGo0ozm0; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pOxJ5fCC"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NHg4OD1805118;
-	Thu, 23 Jul 2026 17:48:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=lhisNdJOInteX2ba+
-	csgHxKOXloCxio/f8qCLRUnpa8=; b=pOxJ5fCC+PJKnJ1GokWYEsKsE4Dif5cJV
-	dX869evLvuPGnDrrcnzydG21KkLGis+YEpMuoNpg5Jv/sGK3Shq93sfsS+klt830
-	4txLAc5dKMOE0pnfEUcukkT+lhuozGyNi+tvJS+DXyQ0UGhjEs6ba4Klq4Tj+/7c
-	nm0VxD0Sq+/3grMAEmOXyOuOkQMTDJUJINPzDK3qpyZXz1vu2gxKduSVzX4aYdj/
-	XMd3WfEiWf0ZN3mjvJwRXm8EmfviJlOsueodFiFU5Ha6WJ+Yhz3VR78Esp/VG/EK
-	gAqY+4wZ2WudJApJzELICUqkxzU+v+GgDv/Fa0MzBtHMHUoL0z8WA==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg77arw5n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 17:48:10 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66NHZD5I027793;
-	Thu, 23 Jul 2026 17:48:09 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fgmtk5bq8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 17:48:08 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66NHm5qG41484566
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 23 Jul 2026 17:48:05 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E42DD2009B;
-	Thu, 23 Jul 2026 17:47:54 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BC22A20099;
-	Thu, 23 Jul 2026 17:47:54 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Thu, 23 Jul 2026 17:47:54 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 4958)
-	id A115F1627F1; Thu, 23 Jul 2026 19:47:54 +0200 (CEST)
-From: Eric Farman <farman@linux.ibm.com>
-To: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Eric Farman <farman@linux.ibm.com>, stable@vger.kernel.org
-Subject: [PATCH v3 2/8] s390/vfio_ccw: limit the number of channel program segments
-Date: Thu, 23 Jul 2026 19:47:45 +0200
-Message-ID: <20260723174751.1180334-3-farman@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723174751.1180334-1-farman@linux.ibm.com>
-References: <20260723174751.1180334-1-farman@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PGo0ozm0"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84830c774a0so1192011b3a.1
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 10:49:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784828963; x=1785433763; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sIFLg1zYJZMoKAp4r00Jfyq94TfQcukLRikqEzkbTLo=;
+        b=PGo0ozm0KE8bCnNutL05ZjyLNZawPe9eR6TYdDXZf4DHsaYpF4OFvqjucRzmii/W2+
+         +maHJWs+C+RUaqfKfU648Hv2EwPfq1A24nB9mOMgiAZYjvPBZOUHt9+7nIa7Ej/Gp4ME
+         I8c1k51RWQIg+PJq2RRc3NaQzHpomB69rCY67UuZNlPl5tdotqqRdDAcYM09EkeP9tvh
+         6LpVxFv0UdBDYQ4UmJIWpthz1v9i/3wf6duQbVlqLG/2YKbilDuC3RYVbOMYWIx44Q+Q
+         +hkk959jYbOyymaT0bItTeYhWoFGMYnJ3eP9k5eKueToCBVwoLwRiqgs7lycid5YjhRW
+         +iuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784828963; x=1785433763;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=sIFLg1zYJZMoKAp4r00Jfyq94TfQcukLRikqEzkbTLo=;
+        b=nVYYKCKpn2zVanBJqsSNHDb26T9Nce8lsN3O/ikS7W5sSLfR17X+8zhJnnAJ2WlB4d
+         LaARFTUfb1N0L4ad+4MIGt/BvwTNOZHeVwncUF55PIh6nyO3ULaAgYccRCz6qRhHto9e
+         qV+jTtY6ND8xNRcpHdw7IqQOGf6L10n7FdoI06frX1KPaNxkQRv19YfZKpsgfi/FQjHX
+         Kg6ruJGw21WU6hb2jlH6UVV0j9p2wIuZvnOlVeqa+whmiHtBzhax/aD3AJqge5zbCdmQ
+         23GOKLJ1f3lN7U5LKAJj6dhRH1ULnLjDnLckDRtUAYdAQC1qrpHnvjiWhbIGUtGbiaAN
+         6//A==
+X-Forwarded-Encrypted: i=1; AHgh+RpRtE/m0hvLok2x2saWo5ftdyWmV5+Pi9tj4KIIJcCm9iSMeOOWjzDPPOptscuAnSxZFh83fAM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxSSG54dDaNFLhwXQPbHriLuGi7sjVdnGVWruSRIk6ECcoH9BZp
+	75EssBLaKons/Bye3F015jVdXy1+BV7m8+tD2K2xiaiDfW87SSR47qME
+X-Gm-Gg: AR+sD11LEHmOGCrPwbw26GnQz/J45xTMkWk4nZqoN+yXy/fsK8EqQ74MQqn7GN7koj9
+	vzOZtIwJ9/EZSgYnQSeGyFhbqA9bHmJUJClgY31N11qRczxU719dFaPfe0OWjkStOk4aKqX5nCQ
+	LIRfet52p70vlup8Ebrpgho+UcIEt1tavltpqcUDVHbViaO/0TDNDAajVyN9L+BMjFd5rYDBNrt
+	dWY0hUa6PhxvSz8NXW/WGgLnVDAU5dWh95Q1tI5cXKI0rFDj/bFTzyrxhLmBtzwI3OHE5NsAKXg
+	vS2QQl4HNGZ+eEnXv2kJM0R3o16VjYNfo+fPSmlzq6Z9RcRnFQkRnkgRus9YwPaRxyGBD6ayla5
+	q5MyL3LqckAJDgwZ1rjYUdu6BLQj5xGYo3q4rf1mRtC5/ro4ERYKd0pggKhgUYW01sd7GADL7kZ
+	FZ8MUkq4k6ogjD/eiACh9fnxr0G5zFdifnMX7Wv31UC3o7YEvF0B1gZp2sZns=
+X-Received: by 2002:a05:6a00:3d12:b0:845:d6a5:716b with SMTP id d2e1a72fcca58-84e2b8bf867mr4669228b3a.23.1784828963497;
+        Thu, 23 Jul 2026 10:49:23 -0700 (PDT)
+Received: from [192.168.0.160] (c-98-225-44-182.hsd1.wa.comcast.net. [98.225.44.182])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e175f31b3sm3493036b3a.54.2026.07.23.10.49.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 10:49:23 -0700 (PDT)
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+Date: Thu, 23 Jul 2026 10:49:02 -0700
+Subject: [PATCH v3] drm/gpusvm: Zero HMM PFNs before scanning ranges
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 7SYeU6ua9KnjWBWDf7ra16TjX2UnaduK
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDE3MyBTYWx0ZWRfX2Od7T0wA61z5
- fzDxT0U7oNSNHTnpE8qWlqMYSrk0xhxp0euaD6sSms0EqrNEBNszUcm1qvZog+037PmnimWyB1L
- jp+J7IbhCWGY2tkSjeOQOUOnyZGjN4E=
-X-Proofpoint-GUID: 7SYeU6ua9KnjWBWDf7ra16TjX2UnaduK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDE3MyBTYWx0ZWRfX2ufT6oYZcUV3
- JIjXkOGHHY1WaJ5WSsOFrzRhiq+W5odOhFYLROZFLkQZTMUEDfQnF0K1e9Rt8FUo6iMB0Lo7N4D
- kN68hgX810EM1BNfCj2jB1yZWvErQ9E+KK0s+96rDgDr95lQSYvQ6398vrFR+8SoIhxuuGcZi+Q
- h3yA/DEWJXbSESQ86i5CXwG5k8elQxu78HTy327qQxX3HhJb8OTRebYLNizpMrHsTlT6QVs5Rj3
- KGYbKkQNwGyTIV7kEuR/d8OJmXQ77mUeybGsYmcbi8VYCMW9XkY7Wb+2UlnzEM9bSBEnnMhZQrM
- V4ztyUQYigTBVkPoP5P/Rdox8+nS8fM2eVPUGW0b3i4VlglHXgfo2VoPy7MxLUqBv1zBNVaRgQF
- Ly52jsu32OfWdmtYNhTLn2m2XF+jrjnk27yDKQ2L6db1VtmNHcpPA6o4KkjHkt0Fw1OS1WlmjLI
- W343YgRZxPVovJCcFBg==
-X-Authority-Analysis: v=2.4 cv=K7AS2SWI c=1 sm=1 tr=0 ts=6a6253da cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=sBi1HX8ECoo2m5KYV-oA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_05,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 phishscore=0 malwarescore=0 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607230173
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-drm-gpusvm-fixes-v3-1-4346a61d093a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAA1UYmoC/x3LMQqAMAxA0auUzAY0glKvIg5iomawlgZFKN7d4
+ vj4/AwmScVgcBmS3Gp6hoK2crDsc9gElYuBaurqnlrkdOAWL7sPXPURQ/Y9M88dUeOhbDHJH8o
+ 1Tu/7Ab0vemJiAAAA
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>, 
+ skinsburskii@gmail.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784828962; l=1598;
+ i=skinsburskii@gmail.com; s=20260722; h=from:subject:message-id;
+ bh=exTnfBbobbuTKp1u2b5AtcOE9fa31gkGpbomdGBMpI4=;
+ b=ndvajkSdPCoDMCJTXGf2I8MdXQUSYNj4q4sKROa4o5f9YHhrv0ejfGLg9Y1MTB278wnpXqOLY
+ I0x6IvfsVSqCCoDKy59Y5h827Xrt++JRfwDHNHXduAWhf2J16fAQDNa
+X-Developer-Key: i=skinsburskii@gmail.com; a=ed25519;
+ pk=bDpriHBYgeTdkIDweZDCemxsU93neJBOCn3YLIuJpnE=
 
-The processing of channel programs, and the CCWs within them, is done
-recursively. As such, there is an arbitrary (but not architectural)
-limit to the number of CCWs that can exist in a single channel program.
+drm_gpusvm_check_pages() asks HMM to report the current CPU page-table
+state without faulting missing entries by leaving default_flags set to
+zero. The HMM PFN array is still caller-owned input/output state, and the
+framework may preserve input bits while filling entries. It is not safe for
+the caller to hand HMM an uninitialized array and then treat entries
+without HMM_PFN_VALID as an authoritative unpopulated result.
 
-The vfio-ccw logic breaks these channel programs into segments whenever
-it encounters a Transfer-In-Channel (TIC) CCW, and the combined number
-of segments count towards the global limit. Impose an equivalent limit
-to the number of segments until such logic can be made non-recursive.
+Use kvcalloc() for the temporary PFN array so entries that are not reported
+as valid start from the documented zero state. This prevents random stack
+or heap contents from being interpreted as HMM PFN flags or PFN values
+during the scan.
 
-Fixes: 0a19e61e6d4c ("vfio: ccw: introduce channel program interfaces")
+Fixes: f1d08a586482 ("drm/gpusvm: Introduce a function to scan the current migration state")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
+Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
 ---
- drivers/s390/cio/vfio_ccw_cp.c | 6 ++++++
- drivers/s390/cio/vfio_ccw_cp.h | 6 ++++++
- 2 files changed, 12 insertions(+)
+ drivers/gpu/drm/drm_gpusvm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_c=
-p.c
-index 086d1b54bdb0..1c2890d139c6 100644
---- a/drivers/s390/cio/vfio_ccw_cp.c
-+++ b/drivers/s390/cio/vfio_ccw_cp.c
-@@ -332,6 +332,7 @@ static struct ccwchain *ccwchain_alloc(struct channel=
-_program *cp, int len)
- 		goto out_err;
-=20
- 	list_add_tail(&chain->next, &cp->ccwchain_list);
-+	cp->ccwchain_count++;
-=20
- 	return chain;
-=20
-@@ -441,6 +442,10 @@ static int ccwchain_handle_ccw(dma32_t cda, struct c=
-hannel_program *cp)
- 	if (len < 0)
- 		return len;
-=20
-+	/* Limit number of chains in a single channel program */
-+	if (cp->ccwchain_count >=3D CCWCHAIN_COUNT_MAX)
-+		return -EINVAL;
-+
- 	/* Need alloc a new chain for this one. */
- 	chain =3D ccwchain_alloc(cp, len);
- 	if (!chain)
-@@ -745,6 +750,7 @@ int cp_init(struct channel_program *cp, union orb *or=
-b)
- 			vdev->dev,
- 			"Prefetching channel program even though prefetch not specified in OR=
-B");
-=20
-+	cp->ccwchain_count =3D 0;
- 	INIT_LIST_HEAD(&cp->ccwchain_list);
- 	memcpy(&cp->orb, orb, sizeof(*orb));
-=20
-diff --git a/drivers/s390/cio/vfio_ccw_cp.h b/drivers/s390/cio/vfio_ccw_c=
-p.h
-index fc31eb699807..dc91a317ef19 100644
---- a/drivers/s390/cio/vfio_ccw_cp.h
-+++ b/drivers/s390/cio/vfio_ccw_cp.h
-@@ -23,6 +23,11 @@
-  */
- #define CCWCHAIN_LEN_MAX	256
-=20
-+/*
-+ * Maximum number of chains
-+ */
-+#define CCWCHAIN_COUNT_MAX	16
-+
- /**
-  * struct channel_program - manage information for channel program
-  * @ccwchain_list: list head of ccwchains
-@@ -38,6 +43,7 @@ struct channel_program {
- 	union orb orb;
- 	bool initialized;
- 	struct ccw1 *guest_cp;
-+	int ccwchain_count;
- };
-=20
- int cp_init(struct channel_program *cp, union orb *orb);
---=20
-2.53.0
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index b946f920b7a0..52573626387c 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -708,7 +708,7 @@ static bool drm_gpusvm_check_pages(struct drm_gpusvm *gpusvm,
+ 
+ 	mmap_assert_locked(gpusvm->mm);
+ 
+-	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
++	pfns = kvcalloc(npages, sizeof(*pfns), GFP_KERNEL);
+ 	if (!pfns)
+ 		return false;
+ 
+
+---
+base-commit: baa47c6547b94a164b70924e53d2bcf16f483e6c
+change-id: 20260723-drm-gpusvm-fixes-d97ddda62219
+
+Best regards,
+-- 
+Stanislav Kinsburskii <skinsburskii@gmail.com>
 
