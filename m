@@ -1,168 +1,143 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010038.outbound.protection.outlook.com [52.101.193.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994C62475CF
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784829790; cv=fail; b=RygBIWTLsIA8vJRg0ZhNVNNqBP1IMWpH46X8iEK4YX2l2Z21LhJCXRY1MU98FVk+CEXF3RvY0rVu6l3fhl8x4GVC5sbrG1QZMiugSifbPML3lZcg27XJitqwvyki7dC0LU6kvYMXuMGW5aMi+nqOJlcY+fJnSbwwio9JNKRkvns=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784829790; c=relaxed/simple;
-	bh=m/eqMxIxcARz56iz3yjxLjEjESVqFYQbVRxtUczDmsQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PqCh8rYKWs/ob2lJbNdy++RdGJaGwk+1ZESnZbVTpgSg9MNAxJKWH4Q2jcmy14vWcjSyOKGyrb2s21s4YtGSli+kLvkdKkVC4hAR+rE6qoHmb89x0EX/2zder7azuFuGm4UlAwsKAMtPQDxpgt8/x2s7Q7ypGDckJRI6hnZ9Sy4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=qc6JAECo; arc=fail smtp.client-ip=52.101.193.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EE637A84A
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784829876; cv=none; b=QIzoXmtGwF0vp/yTeSVXGQWdTkOfPqmOK+RrVrcAL4a6EgadthY0rA+gDg1YwNwLx72kW1YMcPCwuvncum8Wd0buE/NFZ/CeiPkRBoRW4N8PWbNchFKjUsypOfZ2yHpUdoV52kOrpyy6i3QsDpUWQsRgBtKuuQJckUHjEonckAs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784829876; c=relaxed/simple;
+	bh=FA8+57wcob+MTE9XfqIzqO6YaSWzXTaxb3eQ5Poz4N4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=GbfWxJaOICkHbVtdFPBNjyk1EsLejuDIN3ubid2gAOrsor5eWKLamnbIanRmWi8jq7lSNjjLS2b63p0XwwKbJ1zFuCiDDIDwBr7porEeKl0kOS2gvXBDuNGXtwY5k2rfzoNcQ0opTqoAT7198g2IINEeIP5VOSPW247SERjC/Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qISaaorR; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="qc6JAECo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OR8tLMzWZilBehWds4Shhd0CJKpe8XA1pdDcHQVVWPB+qTdXbfMAU5AACzeKU+w/xT3Zff4nNjowLXDoj1k334lb7OltQ2NZA4BK7pueksDudSYdH0BIqFcIpY3xtmDWOfmDerT+3WhrFxZ1QbQ/7w0QpgwJ5K/pdRLOBBts8XAPHl3kCyAoALCfpCEm+++mQzZ5nlCF83MMR9wvQKsKHUUtZ6ku2UTpv3VJLf1qgQHMQ1zYNqg21gW4AXL1V2SJ1cmINJPfHBUeA50LD3aI40hhwYT54+6F3ZecP8GB3D2r6iETPFBNsxbixK7brEHzfth0gx6VvoOlfFMHsawHfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LJNNTrp7PLNFk5b+Fc1iFQVLGztawxKNILoTSi6XHPo=;
- b=A9hzsCJfT2vi1qK4WQ+4vntJ/IDUS8qYO+DqHithI98IUPX0YAknPbbt3OJgHlvOYdEg0EnEi5FU3pSXFvfavUU5ZT1AHv1Lkgc4tYZCRPq7j8R6aHhTHwYUwU9pOGw4p+VsIWVbkbYCInVxoNELF9FhxT4jxRXneooqG5Hvq2GE0bNktVpUszU5SRstUrHww4wRxOMSemVmleoMFTGLHYs1OnQtbN/pccr7s5xhLNMgV3oecrKDQga2ijiV48AlS3QVDwxxWRRs+TogMf8Pun5j7ULAhlxFHjTZ9Z+9v6l9V5jPIjj7z0foOlJ5yQ+bdaE5B4E9KjujI47pW2/zug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LJNNTrp7PLNFk5b+Fc1iFQVLGztawxKNILoTSi6XHPo=;
- b=qc6JAECo6ynunNP84Iznab7GKOrA0ez9en2REb3UfmpuxfdsD22Yachyg8BnLqogXrUr78jV2JFVm2f9YhQOTeeEOo0NeJyrh11MQyuVqX6vPUnY7g0GZjHSTHQfDLH7eFaFr9jY+GgOIGQnQame5SDRnUxkQTMAnMJBxaHkVOg=
-Received: from BL1PR13CA0445.namprd13.prod.outlook.com (2603:10b6:208:2c3::30)
- by SA1PR12MB8096.namprd12.prod.outlook.com (2603:10b6:806:326::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 18:02:59 +0000
-Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
- (2603:10b6:208:2c3:cafe::a1) by BL1PR13CA0445.outlook.office365.com
- (2603:10b6:208:2c3::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.4 via Frontend Transport; Thu, 23
- Jul 2026 18:02:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 18:02:59 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 13:02:58 -0500
-Received: from flamewok (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
- with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport; Thu, 23
- Jul 2026 13:02:58 -0500
-From: <sunpeng.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
-	<alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] drm/amd/display: Fix flip-done timeouts on mode1 reset
-Date: Thu, 23 Jul 2026 14:01:59 -0400
-Message-ID: <20260723180159.52121-1-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qISaaorR"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38e2f61c09dso1479777a91.2
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:04:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784829875; x=1785434675; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qMh/62kafhHoFqv8DTLKCjWgXtXQT4BcRTSx3NgtOZw=;
+        b=qISaaorRn4x6mALglXYa7lb1udanD9ZaAeYPpaG3uFmc5Emm6AyQQjWFdoHw9K/mkY
+         /68fqaNIfzbcuo5vGTNtWyvDu1f1rSUhUOFg9gVxxvN5wLB3Q6jHaNhln/H06pfyNvkH
+         g3CE0UmK8MMJrlbeS3g8Ub+U19vPDNWi7yO5gyaA3/c2hTW7W3nBrci/lZfKdaC47zTy
+         mFvCh4S9ArPtRrRdHvnNHXd5Stc8kUAUkI0UN17m8Umnx3lZX8eUjrI9okq0SRocSArg
+         s0fiWkhxsXRPcVO4U3iTc5HiAIBp3NVJMhELS7byw+ivE2MTtSUbMdMXsEP5tuc7EXnj
+         6nAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784829875; x=1785434675;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qMh/62kafhHoFqv8DTLKCjWgXtXQT4BcRTSx3NgtOZw=;
+        b=S1NAjFV+8qx7b0Q2DHjOcToexqAmURWwEIKVq2UOmjFnHg+18Pu09IQXAWgqC5wbLw
+         oiLMQTOZQ2L6flxfxX45zXqAY/Gb5R+Kymykiy/wccE7mwnc/uYJSCxW+AwTjGhYgfHJ
+         vr8aXlUB9BRrhB1LqJEesiwRoz3BDtYIbnGq02c6AoZypS/ysDLQg9p6ZCAtmoiJVXq9
+         SXdSD8p3GmZDPiYyFVw/lDtb082vzQh9mjNVY5rw1Z5Ej+AzS5ZQbIQA0Q9GcVjwd9M2
+         63mx3qie65PmtnF8dQnOVnzfonHV0zClY4566Qky4oz0mENuvYBtBZIG8MrzvdliFMTc
+         CU1A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrt3w/NfK+oHfbNmGZAFtJXG8hOkvDWV9GLp4kxlRKGrDk1LVrWgyNIF9CMFPKNnEsIVdjlqQ8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxVbyEayiyGKsKBLBEngAnMM3TpyeRElkS/v0dgguGdi/rt3ci
+	VnA1FUymuMc8j/5NQiO/lx2ol9iLCGirTZGTSLWTBfKAE7wZgNXardilWuKoV46HvKJoujr2Ots
+	YcGQBnQ==
+X-Received: from pjd6.prod.google.com ([2002:a17:90b:54c6:b0:381:224:393a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5146:b0:38e:6f72:9be4
+ with SMTP id 98e67ed59e1d1-38ec6495a15mr4529269a91.3.1784829874614; Thu, 23
+ Jul 2026 11:04:34 -0700 (PDT)
+Date: Thu, 23 Jul 2026 11:04:33 -0700
+In-Reply-To: <20260720205208.519622-1-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|SA1PR12MB8096:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0676365-d0af-4bbb-3d92-08dee8e4a17a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|376014|82310400026|10067099003|11063799006|6133799003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	VuqLeTkE6DQ3g39axAmR4N7JCuod3KrLhWATm8imUguf/09A9XNCX+mCvtCPaqu0jZBEGq6dHB0xxfbPOk8dtjimV8m9QXgzSZ5KtYy0xiqPBrrtH9Zn/erBERKUckwG5YQPuQ031UlP8nLx736yRwLk4fnXUN5alaUPlmWm8Glszvn/ZsWSf+TqNQ+Cvr/n2ygQNAuqdGQ62QxeAINmnmcsjN/K50Tria5iq/EupdcSOWIYc05C9yDHrwi9MhEq+7jBYQfzpz2H+oH6ouNpavjCrWecgS33KHdVoPU+qK70p//zV7ACqO46g4GH4hJTrBZca7HJOhcGwNwhN0/vdMagMERfpzS6lVoyjQwI+k5JmlLTGbKaTNRz4tX9Gm6TlYJ4hmpvnz7UpBvN0Xu5Nthpm+/hbCxP/5ANPm1oQm8gBNnZqa3bMvZkSxlQ1pYKNc2C7X55uqr8ZTcbkCMWRWlfkVCvf/XAKsb9dlAUILCimNZkqPnfuEEZhvgLl4M4wl8vDFHI8Dh01AMWZE9he8rkXHb6ZD2e0ensZkvX8zCQM+TCDKav6lexTsVJkiLb1tno0rLZbBcSUjhMbI62r3X+nbpNCgo6BDXC6Wyw7rhdEd8gu5hAtX/PGv4sOt6wN+A1MDiakoZ32E8tfD3SB7WXPmcyK+exV6IUzYqFWMjA1dwumn1K0ujoyY9lbdI+9ueq9PwyiDsaJeY6Tw81mA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(82310400026)(10067099003)(11063799006)(6133799003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wcE2+tDT7iGIqaI9KGD3g8nUf9j04PWuHV1vKKvtROnZ2KmJ/5mHp0QqsS8bTx8RUpY0Wth3Lz5NRLRVrsXtQt5JRBKUVziNgKyPWt2IiM4jaNlYsak/inAj2SG5DQe3SI9kCxCdUwiDtrIDqt9fvkEmskqXY3T6LJyrjrQaPuFF5kd9ZmZSimNVKFdv0ZeOHoP5rkNxWimlTycg//g8j5ci+rNSj7SsJy+oSX06izxx04vCTqFMnPkzZvEfvFsFLfKCKKSWe4XPakqEO90qdJ0TBEbOyzVXizPGOu6TGuHK3eG67zHMbMNWwz1Nmhikm8dV/k04CNsM1YuvH3QWblFMVZOh3JzVMmtDfMsfrDmBPlDtEErXHzMYnOs1ImoOOWWIU38du5iLBk36OfE+Y4qI32brOt9bnOinz7m1Nm6xx1k9jlR2jJCVZcsD7d6T
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 18:02:59.2090
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0676365-d0af-4bbb-3d92-08dee8e4a17a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8096
+Mime-Version: 1.0
+References: <20260720205208.519622-1-chang.seok.bae@intel.com>
+Message-ID: <amJXsVGv3xe7GKu1@google.com>
+Subject: Re: [PATCH v2] KVM: x86: Remove AMX-TF32 enumeration
+From: Sean Christopherson <seanjc@google.com>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com, 
+	stable@vger.kernel.org, Zhao Liu <zhao1.liu@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-From: Leo Li <sunpeng.li@amd.com>
+On Mon, Jul 20, 2026, Chang S. Bae wrote:
+> AMX-TF32 enumeration was added based on the Intel documentation [1]. The
+> recent update removed the feature, indicating that the feature is no
+> longer planned for hardware implementation.
+> 
+> [1] Intel Architecture Instruction Set Extensions and Future Features
+> 
+> Note: The feature first appeared in the September 2025 revision of the
+> document and was removed in the June 2026 revision.
+> 
+> Cc: stable@vger.kernel.org # v6.20+
 
-The vblank on/off callbacks mixed use of amdgpu_irq_get/put() and
-amdgpu_dm_crtc_set_vupdate_irq() to enable and disable IRQs.
+6.20 isn't a thing.  And given that this is clearly associated with a specific
+commit, just do:
 
-With get/put, base driver will callback into DC to disable IRQs when
-refcount == 0. With set_vupdate_irq(), DC is called directly to disable
-IRQs, bypassing base driver's refcount tracking.
+  Fixes: 58cbaf64e653 ("KVM: x86: Advertise AMX CPUIDs in subleaf 0x1E.0x1 to userspace")
 
-During gpu reset, base driver can restore IRQs via
-amdgpu_irq_gpu_reset_resume_helper() > amdgpu_irq_update(). So if
-get/put() is not used (i.e. refcount == 0), then vupdate_irq will be
-disabled.
+and let script magic sort out the rest.  No need for another version, if we
+agree that ripping out support is the way to go, I'll fixup when applying.
 
-This is problematic if DRM requests vblank on before amdgpu_irq_update()
-is called: drm_vblank_on() > set_vupdate_irq() enables vupdate_irq, but
-the refcount is still 0. gpu_reset_resume_helper() > irq_update() then
-immediately disables it, thus leading to flip done timeouts.
+> Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> ---
+> V1 -> V2: Collect tags (Zhao, Binbin), put note (Binbu), and cc @stable
+> ---
+>  arch/x86/kvm/cpuid.c         | 1 -
+>  arch/x86/kvm/reverse_cpuid.h | 1 -
+>  2 files changed, 2 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+> index 591d2294acd7..759a1c557080 100644
+> --- a/arch/x86/kvm/cpuid.c
+> +++ b/arch/x86/kvm/cpuid.c
+> @@ -1082,7 +1082,6 @@ void kvm_initialize_cpu_caps(void)
+>  		F(AMX_COMPLEX_ALIAS),
+>  		F(AMX_FP16_ALIAS),
+>  		F(AMX_FP8),
+> -		F(AMX_TF32),
+>  		F(AMX_AVX512),
+>  		F(AMX_MOVRS),
+>  	);
+> diff --git a/arch/x86/kvm/reverse_cpuid.h b/arch/x86/kvm/reverse_cpuid.h
+> index 2ad25781cefb..1bb13903c5b2 100644
+> --- a/arch/x86/kvm/reverse_cpuid.h
+> +++ b/arch/x86/kvm/reverse_cpuid.h
+> @@ -56,7 +56,6 @@
+>  #define X86_FEATURE_AMX_COMPLEX_ALIAS	KVM_X86_FEATURE(CPUID_1E_1_EAX, 2)
+>  #define X86_FEATURE_AMX_FP16_ALIAS	KVM_X86_FEATURE(CPUID_1E_1_EAX, 3)
+>  #define X86_FEATURE_AMX_FP8		KVM_X86_FEATURE(CPUID_1E_1_EAX, 4)
+> -#define X86_FEATURE_AMX_TF32		KVM_X86_FEATURE(CPUID_1E_1_EAX, 6)
 
-This is made worse on DCN since VUPDATE_NO_LOCK is the only IRQ enabled.
-Prior to 8382cd234981, a combination of GRPH_FLIP and VSTARTUP IRQs were
-used, and they used get/put(). This explains why 8382cd234981 exposed
-this issue.
+I'm not convinced that yanking out support is the right move.  By publishing the
+feature, for several years, Intel pretty much burned that CPUID bit.  E.g. it's
+not impossible that someone other than Intel has implemented TF32 instructions.
 
-Fix by using get/put() instead of set_vupdate_irq(). DCE is unchanged,
-since it relies on unbalanced enable/disable calls based on VRR status,
-and hence requires direct set_vupdate_irq(). Plus, it also uses
-GRPH_FLIP and VLINE IRQs, which are properly tracked by get/put().
+The opcodes are fair game in the future, because their use can be qualified and
+guarded, but the same doesn't hold true for enumeration.  E.g. similar to how
+MPX got ripped out and its XSTATE assets got reused for APX, but the CPUID feature
+enumeration is forever reserved for MPX (I hope).
 
-Cc: stable@vger.kernel.org
-Fixes: 8382cd234981 ("drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock")
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c  | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+If the argument is that "Intel Architecture Instruction Set Extensions and Future
+Features" isn't binding documentation, i.e. that Intel can do take backs until a
+feature is documented in the SDM, then I honestly don't see any option but to
+refuse to accept new features until they land in the SDM.  Which I don't think
+any of us want.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 05d6915f9a6b0..079d4ccc88da6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -287,10 +287,19 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
- 	 * is enabled. On DCE, vupdate is only needed in VRR mode.
- 	 */
- 	if (amdgpu_ip_version(adev, DCE_HWIP, 0) != 0) {
--		rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, enable);
-+		if (enable) {
-+			rc = amdgpu_irq_get(adev, &adev->vupdate_irq, irq_type);
-+			drm_dbg_vbl(crtc->dev, "Get vupdate_irq ret=%d\n", rc);
-+		} else {
-+			rc = amdgpu_irq_put(adev, &adev->vupdate_irq, irq_type);
-+			drm_dbg_vbl(crtc->dev, "Put vupdate_irq ret=%d\n", rc);
-+		}
- 	} else if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
- 		if (enable) {
--			/* vblank irq on -> Only need vupdate irq in vrr mode */
-+			/* vblank irq on -> Only need vupdate irq in vrr mode
-+			 * Not ref-counted since we need explicit enable/disable
-+			 * for DCE VRR handling
-+			 */
- 			if (amdgpu_dm_crtc_vrr_active(acrtc_state))
- 				rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, true);
- 		} else {
--- 
-2.54.0
-
+>  #define X86_FEATURE_AMX_AVX512		KVM_X86_FEATURE(CPUID_1E_1_EAX, 7)
+>  #define X86_FEATURE_AMX_MOVRS		KVM_X86_FEATURE(CPUID_1E_1_EAX, 8)
+>  
+> -- 
+> 2.53.0
+> 
