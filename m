@@ -1,52 +1,43 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B770645D1AF
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 17:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123004E3778
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 17:03:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784826115; cv=none; b=Y1rw9/byGM8cuKnJIt+4IjCW0Tb+E5Vj/zZz59NN7S/O9Zg4jd448bSAuodXgBPUbi6OlUS/QkdBeJHsQr7EBQnrBeDYMlQoahu9r9w5BDujz+ou3QHl7AIao0qxF5cBig9HWXpXC7lhnJYz0z+wkEZmxkWFUH/QRSweCHSbcWw=
+	t=1784826226; cv=none; b=E/tRv74o+Gcr5HHzN/+YObAQtAajqWTUZt2gHNpcq2S2fZIuVWjyVN2gZmtSH5ysIbLH5nndh4sFK55ypyfCBJfdsMS/xw7h9PeoMbin5mnPYkfoJWk2OcT9eGGmTaGXTLiCqt78eBP08vixWw5d4m3ZJfCrQnLtm6wmb/LH3NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784826115; c=relaxed/simple;
-	bh=9jT1S9ZZvfDJPIeuSvbp+gm7OhP52WNhxFNl9Ixkebw=;
+	s=arc-20240116; t=1784826226; c=relaxed/simple;
+	bh=u1/1doUTAJtAw3WApxgMzOxJNDnBx6/JDvKS1fz2c1c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JuZ0Od3b8sf4jBT/3cbmTYfeT3j1rkTMp1LL2LnsRcLoO3SwrjIkTm8wZSGq7vbR1V+E77sWKH9d3tqpzN2KzusMDCC3sviYO3nl/bxronvWUGmoZzsDJzeyi6wox4Rux7p8qSMOrLS03hemzPVxDX8zY6ZXfoTrAqkr9AGoKvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Mi2jqNqJ; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 MIME-Version; b=syFouAM+DKNTZMuL7ErCZ4ABKFwQ9dkSufSLHMivZYzr2bC80p75MMYDzZGjgMptocSeV2ADNPEzT+RfXIFMZsXZ8Z8Em/n/1RvpT1LOqg3VphHhf/4USZpet4RHcdX2mLbfdZBJ/I/hkdjrl9Cmtm0gqhbXelraX3ie94H4UuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cfAKqLWW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Mi2jqNqJ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8A9D81A11BC;
-	Thu, 23 Jul 2026 17:01:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 587AB6038D;
-	Thu, 23 Jul 2026 17:01:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EB0B711C112B0;
-	Thu, 23 Jul 2026 19:01:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784826104; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VguRiNqXu1+QsTow2bRVobXGe+hrQ+Pa5URmPzQxIqM=;
-	b=Mi2jqNqJtQK78KULNK3EtuZqXJBy77RgVE6p7fcyRTzBc5uJ2cIoz8Cfu2X6YJAIa0l7hu
-	yeEgc4WdU48vynm3UiY8YP1WmwuBfMKcsBiBFpfXUoCDYzrHoqytcfsaK4+l4IOfvvmM1t
-	WvJk39yuvtpAzSvjFYTjEmltM+JDgd06yTxIUDihSkXJbM1A/jObMhuMWWW1OOiBRIUsaS
-	ZgIZIwVE58Y0dWVzFfTZ0tyVPYu2w9ty1z53aNUCSbw3NgKUvP0thDu5iZA1NrT0MOSet5
-	0mO+oTZq8Z3QxmvJwetvsaLrJTyFWwRLwZmPVEIfwe9SWBQHBq6Q9HeX6NC9Xw==
-From: Miguel Gazquez <miguel.gazquez@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cfAKqLWW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88EFB1F00A3A;
+	Thu, 23 Jul 2026 17:03:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784826217;
+	bh=I0WQnV1awbh/vIH0HTlDChCP4D0sgpomcAcAg17kpC0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cfAKqLWW8u8J6Mv68ZIjCYKTWuxreH5S+Sw8cD8mtU/ECubvAutGLzT0PVN6bDdeP
+	 w0jCkvwvF+lgtqL8BDKyHYYf4iPS0zhP/UhqNeXXlud/mwddyaX/oeCF5tMSsIfXzV
+	 DDB9l+mHYkQq+FPJyZvUYU8+veoQPj2WFPqQEwOURzSV96aZumwXoOGc5guS24LlJZ
+	 Y9cz9JgRQtirObGQNCJiMtEB1FEkdgKKDm7mv0HogyDWQkLuisX1QGps3+EY6LRGiI
+	 S++PZQMys71uulgcdjz7AZRrk7eJEXnY2aQPrjmTcww+5+kWPY++/JnLmEeXXe6xfB
+	 ZaChSgFaVu1Kg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: thomas.petazzoni@bootlin.com,
-	Zhenzhong Duan <zhenzhong.duan@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	Miguel Gazquez <miguel.gazquez@bootlin.com>
-Subject: [PATCH 6.12.y] iommu/vt-d: Fix oops due to out of scope access
-Date: Thu, 23 Jul 2026 19:01:33 +0200
-Message-ID: <20260723170133.2299823-1-miguel.gazquez@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026052008-landfall-tighten-9f3b@gregkh>
-References: <2026052008-landfall-tighten-9f3b@gregkh>
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] pinctrl: renesas: rzg2l: Use -ENOTSUPP instead of -EOPNOTSUPP
+Date: Thu, 23 Jul 2026 13:03:25 -0400
+Message-ID: <20260723170325.3399838-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072004-whisking-poncho-be11@gregkh>
+References: <2026072004-whisking-poncho-be11@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,69 +45,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Zhenzhong Duan <zhenzhong.duan@intel.com>
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-commit a6dea58d8625c06b9654c0555f101742481335c3 upstream.
+[ Upstream commit c1492da3939c89372929e062d731f328f7693f1e ]
 
-Below oops triggers when kill QEMU process:
+The pinctrl and GPIO core code make exceptions for the -ENOTSUPP error
+code.  One such example is gpio_set_config_with_argument_optional(),
+which returns success when gpio_set_config_with_argument() returns
+-ENOTSUPP, but reports failure for all other error codes.
 
-  Oops: general protection fault, probably for non-canonical address 0x7fffffff844eaaa7: 0000 [#1] SMP NOPTI
-  Call Trace:
-   <TASK>
-   do_raw_spin_lock+0xaa/0xc0
-   _raw_spin_lock_irqsave+0x21/0x40
-   domain_remove_dev_pasid+0x52/0x160
-   intel_nested_set_dev_pasid+0x1b9/0x1e0
-   __iommu_set_group_pasid+0x56/0x120
-   pci_dev_reset_iommu_done+0xe3/0x180
-   pcie_flr+0x65/0x160
-   __pci_reset_function_locked+0x5b/0x120
-   vfio_pci_core_close_device+0x63/0xe0 [vfio_pci_core]
-   vfio_df_close+0x4f/0xa0
-   vfio_df_unbind_iommufd+0x2d/0x60
-   vfio_device_fops_release+0x3e/0x40
-   __fput+0xe5/0x2c0
-   task_work_run+0x58/0xa0
-   do_exit+0x2c8/0x600
-   do_group_exit+0x2f/0xa0
-   get_signal+0x863/0x8c0
-   arch_do_signal_or_restart+0x24/0x100
-   exit_to_user_mode_loop+0x87/0x380
-   do_syscall_64+0x2ff/0x11e0
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Returning -EOPNOTSUPP from the pinctrl driver on the unsupported pinctrl
+operation may lead to boot failures when pinctrl drivers implements
+struct gpio_chip::set_config, the system uses GPIO hogs, and the
+struct gpio_chip::set_config implementation returns -EOPNOTSUPP for the
+unsupported operations.
 
-The global static blocked domain is a dummy domain without corresponding
-dmar_domain structure, accessing beyond iommu_domain structure triggers
-oops easily. Fix it by return early in domain_remove_dev_pasid() like
-identity domain.
+Return -ENOTSUPP for the unsupported pinctrl operation.
 
-Fixes: 7d0c9da6c150 ("iommu/vt-d: Add set_dev_pasid callback for dma domain")
+Fixes: 560c633d378a ("pinctrl: renesas: rzg2l: Drop oen_read and oen_write callbacks")
+Fixes: c4c4637eb57f ("pinctrl: renesas: Add RZ/G2L pin and gpio controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Link: https://lore.kernel.org/r/20260421031347.1408890-1-zhenzhong.duan@intel.com
-Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
-Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
-Signed-off-by: Miguel Gazquez <miguel.gazquez@bootlin.com>
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Link: https://patch.msgid.link/20260515124008.2947838-2-claudiu.beznea@kernel.org
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iommu/intel/iommu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/renesas/pinctrl-rzg2l.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index cce5a19b5d33..d5a27e516851 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -4310,7 +4310,7 @@ static void intel_iommu_remove_dev_pasid(struct device *dev, ioasid_t pasid,
- 	struct dmar_domain *dmar_domain;
- 	unsigned long flags;
+diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+index aaa783c79e6dd6..e8cc83029db339 100644
+--- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
++++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+@@ -1097,7 +1097,7 @@ static int rzg2l_read_oen(struct rzg2l_pinctrl *pctrl, unsigned int _pin)
+ 	int bit;
  
--	if (domain->type == IOMMU_DOMAIN_IDENTITY) {
-+	if (domain->type == IOMMU_DOMAIN_IDENTITY || domain->type == IOMMU_DOMAIN_BLOCKED) {
- 		intel_pasid_tear_down_entry(iommu, dev, pasid, false);
- 		return;
+ 	if (!pctrl->data->pin_to_oen_bit)
+-		return -EOPNOTSUPP;
++		return -ENOTSUPP;
+ 
+ 	bit = pctrl->data->pin_to_oen_bit(pctrl, _pin);
+ 	if (bit < 0)
+@@ -1115,7 +1115,7 @@ static int rzg2l_write_oen(struct rzg2l_pinctrl *pctrl, unsigned int _pin, u8 oe
+ 	int bit;
+ 
+ 	if (!pctrl->data->pin_to_oen_bit)
+-		return -EOPNOTSUPP;
++		return -ENOTSUPP;
+ 
+ 	bit = pctrl->data->pin_to_oen_bit(pctrl, _pin);
+ 	if (bit < 0)
+@@ -1552,7 +1552,7 @@ static int rzg2l_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
+ 			break;
+ 
+ 		default:
+-			return -EOPNOTSUPP;
++			return -ENOTSUPP;
+ 		}
+ 	}
+ 
+@@ -1634,7 +1634,7 @@ static int rzg2l_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
+ 
+ 		/* Check config matching between to pin  */
+ 		if (i && prev_config != *config)
+-			return -EOPNOTSUPP;
++			return -ENOTSUPP;
+ 
+ 		prev_config = *config;
  	}
 -- 
-2.55.0
+2.53.0
 
