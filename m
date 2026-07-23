@@ -1,85 +1,80 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8840D4BC025
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 13:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A88E4963A5;
+	Thu, 23 Jul 2026 13:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784813114; cv=none; b=SIOtU1qZgAvmrMZ5i/x3hRvhWBgTb7XifDXPEKjebd1FZnh63crlkpfiEOk8CDJTBNQ0LaoLxsntjh+CbCUngMAdaW7kP6D+BUqBiTylfh1EUhA5teGLVfSq6r58LhdYvZVX3JwGm1zRsaVfNHARtoU0Nxs1Qn+3dTxB1RvmkiQ=
+	t=1784813384; cv=none; b=QRVPSLltxygIutB+ViVI14uhjITzrBYOPmmhH+T7XztjppOCt4bXjhFaT7Pvt3/9+98uV/nX2s5Fx3CWfiwqXa23QGFwN+qnsnPwSUuZOEaXwCy0+Sxrjficq7FdTBFF6ZkeVYWZ4cjBzJKUElWQxsVQRfwdd0C4PbLW3LH1ZIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784813114; c=relaxed/simple;
-	bh=NLl8xX64qUysTRlROeOb7n1q7keFDdRwmOKA4zAW6Tw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=pa2Y87DgQdb8U+BW45oGKyRsAH7GY9jB3vCvDeeeys5JQSZQ1GD3KcB0I8rsNLVqvnSPIlfi7WudkYK/jKV3NqfDGoZ6RJ5bso0D3sV2ouGK4oGe8uktYWhxO+0NEruS4fJNndsMb6p4MEv2lXGCfq3zWNoVQ50xfMtlMx/PcoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P/0BOwq1; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784813384; c=relaxed/simple;
+	bh=jlS1CQ2CImc0/y+01v6Hb1rpC0YyyEIywGqsUrLzmb4=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=D5vzvcyu0UN2346gm3DQpGizDBNkOnE/w7xKmWLkuHwT39QuWluSIHoLpfiwC0SGwJpiCkuyjobcIWmThqW1WL1M65pxE68Cohh61g6UPsIyJKuekkiCB1PxJHYorwqI3cJa9bDGVA2BpXxU7utzhxuJR7smdsdCQYd2t+0o1pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O344mY24; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P/0BOwq1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784813109;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NLl8xX64qUysTRlROeOb7n1q7keFDdRwmOKA4zAW6Tw=;
-	b=P/0BOwq1bJDPCqAtSL3UCT6HRB+69j5CfcmiZqhgCOC5f8bR0LF5hzoOuiLzMo8FKXzAj1
-	mWUhsbuqMC46VHwVl1bzk/sZKgpO9bkQM/yDtf9OxW1SEtOKTmOMMLNN0U9bMmUVy7jXwK
-	Y1MFgmlbBYZTY4dSGJRrMhNeGdZoSmI=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-654-zjSYh1KQP7SmczsilVVRIA-1; Thu,
- 23 Jul 2026 09:25:07 -0400
-X-MC-Unique: zjSYh1KQP7SmczsilVVRIA-1
-X-Mimecast-MFC-AGG-ID: zjSYh1KQP7SmczsilVVRIA_1784813105
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9E66A195398C;
-	Thu, 23 Jul 2026 13:25:04 +0000 (UTC)
-Received: from fweimer-oldenburg.csb.redhat.com (unknown [10.47.238.119])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 507563000225;
-	Thu, 23 Jul 2026 13:24:57 +0000 (UTC)
-From: Florian Weimer <fweimer@redhat.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>,  Keno Fischer <keno@juliahub.com>,
-  Ingo Molnar <mingo@redhat.com>,  "Peter Zijlstra <peterz@infradead.org>,
- Darren Hart" <dvhart@infradead.org>,  Davidlohr Bueso <dave@stgolabs.net>,
-  =?utf-8?Q?Andr=C3=A9?= Almeida <andrealmeid@igalia.com>,  Yang Tao
- <yang.tao172@zte.com.cn>,  Yi Wang <wang.yi59@zte.com.cn>,  Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>,  stable@vger.kernel.org,
-  Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH] futex: Prevent robust futex exit race more
-In-Reply-To: <20260723-obgleich-kippt-gegeben-c84192e6d6bb@brauner> (Christian
-	Brauner's message of "Thu, 23 Jul 2026 14:53:13 +0200")
-References: <CABV8kRwvex1VvQ0eGwUQmJL_vA7AP2h64VpHqtXvfOXMvvJQZA@mail.gmail.com>
-	<87bjc0led9.ffs@fw13>
-	<CABV8kRwDhwa_OoQ9zx4sv3tDATZc0Yy-mYGObRXw59DO0cDfLw@mail.gmail.com>
-	<87v7a7jeav.ffs@fw13>
-	<20260723-obgleich-kippt-gegeben-c84192e6d6bb@brauner>
-Date: Thu, 23 Jul 2026 15:24:54 +0200
-Message-ID: <lhua4rh7s9l.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O344mY24"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2981F000E9;
+	Thu, 23 Jul 2026 13:29:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784813382;
+	bh=/eJaksA8cVR2h2DWYNLQWK0/asNQiai/rebHD8qgg1s=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=O344mY24di77hY1DpoQTGBaL/uH0bJpdD7FKCI+mrUNk5Z/tPe856FQFGZv5jHEo2
+	 YZrPy38475ITtvSH9z7qFZHirUWRYzIvK+R1DvxD+ttwMVs7K3jL86l2TMuM+C+/MX
+	 abg/gN9vXhAV03N8eiV3vl9QtPAw57YMniITd1xsqAfSYgqKsNzyUh0BD3eXHF7Cv0
+	 FJz/82jygREDLtA75V1NGDD5GGF6MvxxyZ2jqQmRdyVZFOJUKVrAM6frEHeVf7WQ6f
+	 MsXHyBReFNy8ZaoJ9NwRXYhf0h6C98p1jzLU4gzMA6/2Rh88OiiKS21Gi+i0MxLN3z
+	 v9odJn6VK0Rig==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] binfmt_elf_fdpic: only honour the first PT_INTERP
+From: Christian Brauner <brauner@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
+ Farid Zakaria <farid.m.zakaria@gmail.com>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, bpf@vger.kernel.org, 
+ jannh@google.com, mail@johnericson.me, stable@vger.kernel.org
+In-Reply-To: <202607222110.D5AB43796@keescook>
+References: <20260721-gezittert-medium-kreide-b41fc1f0277e@brauner>
+ <202607222110.D5AB43796@keescook>
+Date: Thu, 23 Jul 2026 15:29:36 +0200
+Message-Id: <20260723-ertrinken-ahnung-pizza-5aac875268d0@brauner>
+X-Mailer: b4 0.16-dev-0e65f
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1076; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=jlS1CQ2CImc0/y+01v6Hb1rpC0YyyEIywGqsUrLzmb4=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQliTtd+ryyUa5mVdSS0JZpdlPsDbN+6byVj5N8uGN2S
+ OGpU7e1O0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACayJpaR4d780AUGn2QcPxed
+ 72IoDGF79Zy7YNGzXpkTtwVzvl23uc/IcCqSU/X6pZ0KN8WTK2Z/Xrf/chb3hknzYi+Y8e7PUkh
+ dyAIA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-* Christian Brauner:
+On 2026-07-22 21:13 -0700, Kees Cook wrote:
+> On Tue, Jul 21, 2026 at 01:20:45PM +0200, Christian Brauner wrote:
+> > The program header scan handles PT_INTERP from a switch nested in the
+> > scan loop, so its break leaves the switch and not the loop. A binary
+> > carrying more than one PT_INTERP runs the case again and overwrites both
+> > interpreter_name and interpreter. The previous name allocation leaks and
+> > so does the previous interpreter reference, along with the write denial
+> > open_exec() took on it. The denial is never released, so the file stays
+> > unwritable for as long as the system runs.
+> > 
+> > An unprivileged caller reaches this with a crafted binary and repeats it
+> > at will. binfmt_elf stops at the first PT_INTERP. Do the same here.
+> 
+> binfmt_elf ignores all the other PT_INTERPs, which is what you've done
+> here too, but I wonder if it might be reasonable to refuse to load such
+> a binary?
 
-> Fwiw, I added unique inode numbers for the lifetime of the system to
-> pidfds some time ago. The inode number is allocated for every struct pid
-> and available via pid->ino. A pidfd can be stat()ed to retrieve it. Just
-> mentioning it in case this may be useful.
-
-Is there an efficient way to get this without allocating a file
-descriptor, and without /proc being mounted?
-
-Thanks,
-Florian
+As a follow-up change I think it might make sense to try to do that for
+both going forward. As an actual fix this seems safer.
 
