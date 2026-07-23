@@ -1,43 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852E0233938;
-	Thu, 23 Jul 2026 07:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A703A3AE184;
+	Thu, 23 Jul 2026 07:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784792832; cv=none; b=oczsPlh7yggrlwUphrMoEuMxpaQfkyA45H5l9ehDnd98i63U89CrXAt2mZ6R+Bk4R+fg8j6kSuwNErqYlv8gk0vn5/4i9gKOO2adcOOJxs6XNu/j8a8OsX4qozgTc62Tc5ddxeB8JIkJyQGTW2HMfdyRXdqB1eZH0WYvuO69+Ec=
+	t=1784793430; cv=none; b=Mmv77+SfQDjAq8+hWKGIFPx/RPYOB9OpxU0Q/Fr4zLTUn5CRg97d+d6/DV7gglahrU0VK72Lz8YngJICjLu6rSO7AE0BzhXl//suqcQW2QwAQrVzzlFXAVCwYTkNiT/W52yd9dhMHC9DkI8TTQMvjILM4wsYd5ubL8hSG8znuy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784792832; c=relaxed/simple;
-	bh=0IA2OnCJsPuAUZGkd4YUpj6amTdERCV8X5reU6js4CQ=;
+	s=arc-20240116; t=1784793430; c=relaxed/simple;
+	bh=c4vhT9kYQoQuOODF3qVRg0f9ZMULx4+stzKFjWkULBc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZYE/ncndsqGAMDfpM9WItn5Sv4AcLNNzLsjsOBt93i6O+5du5KW9oaQVGctPL196pFTzTdzakk6ADTArlIMshAyI/8cgoPGja/DIhl22WlIMD8daZUL8pNpFOkrhXTjSxM/rCrgPFOaC6tV4/2AtCWNZMF7LYrABL8a/KpL/o2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bWyTd9uK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=f+31QdlwwT438JKvEqesLxDGeHyoqp1dJB3tRuAMFSRYIrCOmwOoOv+HFz9Dxvul7G3X187Dq/XJBO8LiSKFk64aG16wIsSkfG9udBvEYnRK8O0AQo8MMNee1tmJMejDTGiACB0nYOzz4qjTAjISSs9H9qRLeCXzR+VfRbE223A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3xmLXvw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bWyTd9uK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64AB71F000E9;
-	Thu, 23 Jul 2026 07:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784792831;
-	bh=qm46VajDgXF0UrTgkkVQDvo0Se81NJWRnQU+deFt2R4=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3xmLXvw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF221F000E9;
+	Thu, 23 Jul 2026 07:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784793429;
+	bh=MV/ddKhkOPrQoZ9vfnIwVbLJK9zML3biWg/uhRgYT0U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bWyTd9uK3Vr2nUv5UMv4bSlVRnR7Cdmt2rUWFY+Kv07MSzjKEpFyESdyfpwmVAlhQ
-	 1RrQB/cuDb54bs1Y2WWysIvRsL0vX76J4c0gXv4ECdA0mNJuBrzlJ+ApXHJrZSlFEy
-	 kIYBhv3MrA4Jvzq8lB66PFRvSqnnQ6d0VrZYQ5o8=
-Date: Thu, 23 Jul 2026 09:46:58 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Frank Scheiner <frank.scheiner@web.de>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com, cc@epic-linux.org
-Subject: Re: [PATCH 6.6 0000/1226] 6.6.145-rc2 review
-Message-ID: <2026072333-creed-overbite-b2a9@gregkh>
-References: <20260722143258.264584003@linuxfoundation.org>
- <88255dcb-acac-4a74-a086-b686aaf15eca@web.de>
+	b=d3xmLXvwi2GMENZnteIxAJT9s/vth/ydaB8jnGiDbnoJQUcvxVpdQ4CJ0u/BR5Y29
+	 qaZW01Tiv8f4zxAh9MGXy85RlTXDqDPcKcAejcfjjHjyYTYGbVh/52WQY1d0+CsjH4
+	 ZXpYH0x/j/a+NIv+xUiENTmrpZC3T7+frmDwNIUG6kyP4miDxfjWLm2Kn7T3DD2S1N
+	 Rr5EEKagMJePKW4DfUuaR2sNSURnR2wMcS+E4LnTti/I86ga4mpseDz/aSW2/dFH2l
+	 lQt2pE4DfhbMPDcGZRVqphfYVCpTaURvHtyxvsl8CTFjve+0WEFD5IouvdUm0NhOK9
+	 QYRocdPIUyYIw==
+Date: Thu, 23 Jul 2026 10:57:04 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev, Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
+Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <20260723075704.GC110966@unreal>
+References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
+ <20260717180442.110954-2-aneesh.kumar@kernel.org>
+ <20260721115456.GI110966@unreal>
+ <yq5atsps77c5.fsf@kernel.org>
+ <20260721142921.GN110966@unreal>
+ <yq5ao6g0750v.fsf@kernel.org>
+ <20260721153321.GO110966@unreal>
+ <amEhEKQW0_HJ9cLN@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,53 +73,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <88255dcb-acac-4a74-a086-b686aaf15eca@web.de>
+In-Reply-To: <amEhEKQW0_HJ9cLN@ziepe.ca>
 
-On Wed, Jul 22, 2026 at 07:25:26PM +0200, Frank Scheiner wrote:
-> On 22.07.26 16:33, Greg Kroah-Hartman wrote:
-> > This is the start of the stable review cycle for the 6.6.145 release.
-> > There are 1226 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
+On Wed, Jul 22, 2026 at 04:59:12PM -0300, Jason Gunthorpe wrote:
+> On Tue, Jul 21, 2026 at 06:33:21PM +0300, Leon Romanovsky wrote:
+> 
+> > Something like, but probably void* needs to be phys_addr_t:
 > > 
-> > Responses should be made by Fri, 24 Jul 2026 14:31:21 +0000.
-> > Anything received after that time might be too late.
-> > 
-> > [...]
+> > static inline struct page *dma_phys_to_page(void *addr)
+> > {
+> > #ifdef CONFIG_DMA_DIRECT_REMAP
+> > 	return vmalloc_to_page(addr);
+> > #else
+> > 	return virt_to_page(addr);
+> > #endif
+> > }
 > 
-> Our autobuilds for ia64 fail for 6.6.145-rc2 (actually already for
-> -rc1 but -rc2 was released before I could respond):
-> 
-> ```
-> drivers/cpufreq/ia64-acpi-cpufreq.c:329:27: error: initialization of 'void (*)(struct cpufreq_policy *)' from incompatible pointer type 'int (*)(struct cpufreq_policy *)' [-Wincompatible-pointer-types]
->   329 |         .exit           = acpi_cpufreq_cpu_exit,
->       |                           ^~~~~~~~~~~~~~~~~~~~~
-> drivers/cpufreq/ia64-acpi-cpufreq.c:329:27: note: (near initialization for 'acpi_cpufreq_driver.exit')
-> ```
-> 
-> See [1].
-> 
-> [1]: https://github.com/linux-ia64/linux-stable-rc/actions/runs/29932232437/job/88968683064#step:8:3100
-> 
-> This is due to the addition of an upstream change to 
-> drivers/cpufreq/[...]` ([2]). As this change was introduced after 
-> v6.6, it didn't change the ia64 specific driver that is still present
-> for linux-6.6.y.
-> 
-> [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b4b1ddc9dfe997a5f492fa3a36487f8e7a5de30d
-> 
-> In our fork of Linux post v6.6 we carry a replay of b4b1ddc that makes
-> the corresponding changes also for ia64. This is available on [3] (and
-> also attached to this message) and fixes the build for me.
-> 
-> [3]: https://github.com/linux-ia64/linux-ia64/commit/a4085ca68e49f49f962ddff46a901ff3468574b8.patch
-> 
-> Can this be included for linux-6.6.y, so it continues to build for
-> ia64 as is?
+> I don't like this, we don't know for sure the addr will be in a vmap
+> and this will fail if it isn't.
 
-Sure, I'll queue it up.  Does anyone still actually use ia64 anymore?  I
-thought those systems were long dead.
+Of course we know. The existing "#ifdef CONFIG_DMA_DIRECT_REMAP" is
+relevant for addresses acquired from pool.
 
-thanks,
+dma_phys_to_page() is a bad name for some low-level conversion function.
+It needs to be internal to DMA logic, in the level when we convert from
+phys to page.
 
-greg k-h
+Thanks
+
+> 
+> Jason
+> 
