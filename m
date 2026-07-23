@@ -1,65 +1,75 @@
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF483515FF;
-	Thu, 23 Jul 2026 03:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251632139C9
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 03:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784777113; cv=none; b=suiwAG5oT/IkZkAMldKGbmgA4TB941LCpq8o0gkCEI8E9dxgIp/Hims+j+X0g3n6bxyp/jxqL9IkIuDaBWrxcSqGtR6jQ8nGwkcgzbb0Yu+c3yLI8okG0yDG9T7NqlhSWDBbHk0/+FCTzCNfEIWDPIJ9+yxjvIfUgB/hGsgUADU=
+	t=1784777295; cv=none; b=ga90ZunDn2iWiiVcYls8YQN/fs7bqjMjqes72//Xvm5fMPPhhOAU8D7lQOyokWvcXpYQhKa28ZH7HPC9SWOSKXRqdy5dj1SN4f7thCoyzgFy+XxHCibOX6wmVXLGyKYSd/3aI8ETxBbJgtcukQhWOfwl/fscmnOWKBMKN3FX5kY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784777113; c=relaxed/simple;
-	bh=GAXZV4f+lt9JBHVsH+ussiP0HD+QVVnHGCtB6CRKt14=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Xq2PEkfwS/kwE7Vv8JeQ604JtORkBuIRteCYsTO9rfeRI3MKBnKE2+M78Fv28oreBxyjLo1jIU0pNz7+6JogTKB1opEzUC6vQsuMMFZzGxkg1W3QxhgJT6/8JfTxvvmsRoxGD3VNqZx9ZejKVOvo0pJjntLQCvizH51DrYGVCa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dWO4NxvV; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784777295; c=relaxed/simple;
+	bh=jQvSLtfuIPDAKmmLDRJEf2naowzs8N4VS6D/XoOOehY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F1fxnU9LZNz7rsn7jeNLtlSLyqSHhx+T6CxGlJJvO1KkKaO8mjvkrqD6BaSl7we/pVX7U/R1OcxkTKhMB/OqOBMYV1iQjQm41/N9nOIiMR6I8LnDQmZ4MxbCs4iFNmRpExsxZhHSl2/UhQudhptH5EPM+A22tfaOvgSvjVzz5cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GSGSyjqI; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dWO4NxvV"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784777108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z8OTpiatQBHFhVb1kcbCtXbO04T0mIjzVEpsj33f5I8=;
-	b=dWO4NxvVnnjKGuqo3qzfxKzhUKo3sdjpaWPlrGNi6aOGIcZXw0WenQYF3Vs1M4OTZnArqC
-	9lcjRkm8zXCLDuvZf21/B6QEXLG3RPuuStjDBl8rvOEnAtYypC/wemgFHFpjWvOOdV8Q2Q
-	nNrovUKOq8dYSrn4gT/RZduAGdwZCZo=
-From: Ridong <ridong.chen@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GSGSyjqI"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cc73e322dbso1911125ad.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 20:28:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784777291; x=1785382091; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tHZVZTCMmEvKPugPr8dJCpxRM4kbAf/u/60KC50+QaY=;
+        b=GSGSyjqIiFq5uydRcWwkYbrXnonABdb9GK8OTHn0Oz2Wv8rqHAmO6u7wA8OFvV6ruR
+         qo2YS8VgkRwCMYZBlG8OsWYyZxP7qqHBkGLHJGYmMZ1tR/dCoEt1rXoAt7nBj6eglRR5
+         FPdHubzrTACYAGtIVgYo29aXEN03St+Tjdpg7Ev9kfcmYH8hzymEJE9P05CLqX4K4ysl
+         U5iWF7ERe9jMaofWMKLxdHClSdk7qbuL84bo+gdKwgEAujl/SkYMEvhAv9VpiDyFuUEH
+         nr8BEFZue5C7edtkNnO2ekgL/CaRdOyt0Qf7GcubhahxQCEetz/14gzdWtyaZ5xhGX3h
+         iNqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784777291; x=1785382091;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tHZVZTCMmEvKPugPr8dJCpxRM4kbAf/u/60KC50+QaY=;
+        b=kW0qZbWTW6/UTIf+cAOKKyx/8KsRGr9fGGTS94zQQJBpbtt3U5NwDousIv1THiNtKM
+         Y77hAra0QlmdO8aYhbHD56+bdSdsuSy0oWBn6MxLkM2v0USQVW8g92hzRnhSn9oWS2mx
+         lpNvOIrmKYxf56TaAsE42/OpUFTgbparGuu2lkwDmOT1W8PCRa2J4Vbn02o+SE8iGv4/
+         EEYNnX50AbNKerLaAm4b0tXR6SNMUAbQ9aV2yKlyoGb+Q9aAXrtYKUYFIKBF9oNjJbdf
+         PoAwDiIiyIhpGvdOnMoZZHHQcDACGNUp9HwPo7pr0CDtdwR7cB5aMm7sYwrfmqu1Qeoz
+         ZekQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoL9B6VkpFiw8jy8yrXi8rcm9LyvjRQgmWKGLH2MYso0aiF8gRhBbQ/Dkw8Eljeee8iGrIp9G4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcmWn1Qmm/hqfUfAxQvRHzltz2zIv5XvLdswBapV9sBMbp7RjC
+	ZPZX/9lcXYHLQcphqYthmN+RJpIip47prieuDXzKcsyUeK+GU9w+J0wX
+X-Gm-Gg: AR+sD13VDfOOlnqC6VQ+qkWnziYn4jpQW/a54FaKhzy3rRK1paGASR8VFGooFy3+teq
+	tV77n09NyG0O5bjiPbj4ucbgKolr/O7y/YIoPmBPJ5z/wbmApF6iiwlHGGhcJhGMKr4TauoNEAS
+	2F8g1mxa/xHpC/eG56lkZAL9I4aCIXQeSEF9TWnVyANrEzMdMkZ+XtiAokuRGL1gS25vgxcLW+c
+	BnMrwcKQQNEqqeG99Vn9iDYzHCVmuxiKdFEPzPq6sqxMlVIrkFfsj61E4AJoJAvVYCEO5OKv2uk
+	Vl7vHokDWK8qXDIJa/EI4e2SUkKlEz7bbHh+BwDHAbawy1E3k4sOZvE/yht4kSmcXE2EBFrdEyU
+	fzUWhn7Iptou86QpgLjIi36XbCZzmTorsjgdkOGVjZ2Myhe+/nQyLSj2P4qb8ZijuHXpTJWg7hv
+	aSGNijBOnxVPzpHuVxNZYTGIkjOZFdlQQsRdPFp4jdtKT8X7BgXkZO
+X-Received: by 2002:a17:903:244a:b0:2cb:ea0b:9164 with SMTP id d9443c01a7336-2cfa6a51b43mr16909445ad.6.1784777291143;
+        Wed, 22 Jul 2026 20:28:11 -0700 (PDT)
+Received: from DESKTOP-L3Q0GIV.localdomain ([203.230.195.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efd7157sm24538485ad.18.2026.07.22.20.28.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 20:28:10 -0700 (PDT)
+From: Sangho Lee <kudo3228@gmail.com>
+To: luiz.dentz@gmail.com,
+	marcel@holtmann.org,
+	linux-bluetooth@vger.kernel.org
+Cc: jikos@kernel.org,
+	alan@signal11.us,
+	padovan@profusion.mobi,
 	linux-kernel@vger.kernel.org,
-	Song Hu <husong@kylinos.cn>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH -v4 2/2] mm: vmscan: fix node reclaim ignoring swappiness parameter
-Date: Thu, 23 Jul 2026 11:24:34 +0800
-Message-Id: <20260723032434.2016749-3-ridong.chen@linux.dev>
-In-Reply-To: <20260723032434.2016749-1-ridong.chen@linux.dev>
-References: <20260723032434.2016749-1-ridong.chen@linux.dev>
+	stable@vger.kernel.org,
+	kudo3228@gmail.com
+Subject: [PATCH 0/2] Bluetooth: HIDP: validate short receive frames
+Date: Thu, 23 Jul 2026 12:28:05 +0900
+Message-ID: <20260723032807.1616487-1-kudo3228@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,116 +77,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-From: Ridong Chen <chenridong@xiaomi.com>
+The HIDP control and interrupt receive paths assume that every L2CAP SDU
+contains a transaction header. The raw-report return path also assumes that
+a numbered DATA response contains a report ID. Both assumptions allow a
+connected peer to make HIDP consume data beyond the logical skb boundary.
 
-sc_swappiness() had two separate definitions depending on
-CONFIG_MEMCG. The !CONFIG_MEMCG variant simply returned
-vm_swappiness, ignoring the proactive_swappiness value passed
-through scan_control. This caused the swappiness parameter
-written to /sys/devices/system/node/nodeX/reclaim to have no
-effect when CONFIG_MEMCG is disabled.
+The tests used two BlueZ 5.87 btvirt BR/EDR controllers, real L2CAP PSM
+0x11/0x13 channels, HIDPCONNADD, and HIDIOCGFEATURE on bluetooth.git at
+df541cd485ff. The series also applies without changes to bluetooth-next at
+6f55ad8fb0ac.
 
-Fix this by consolidating sc_swappiness() into a single definition
-that checks sc->proactive_swappiness first, then falls back to
-mem_cgroup_swappiness() which already handles both CONFIG_MEMCG
-and !CONFIG_MEMCG.
+On the unpatched KMSAN kernel, an empty control SDU produced two
+uninitialized-value reports in hidp_session_run(), an empty interrupt SDU
+produced one, and a DATA | FEATURE header without a report payload produced
+one. Patch 1 removed only the first three reports; applying both patches
+removed all four.
 
-Before fix (swappiness=max ignored, mostly file pages reclaimed):
+The tests also placed a controlled byte after the declared L2CAP PDU. A
+trailing 0x15 after a zero-length control SDU was interpreted as virtual
+cable unplug and terminated the unpatched HIDP session. The patched session
+rejected the frame and completed a later feature report request. A trailing
+report ID after a header-only DATA response made the unpatched raw-report
+request complete with a zero-byte result; the patched kernel rejected it.
 
-    # cat /proc/sys/vm/swappiness
-    60
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 1840
-    pgsteal_anon 25
-    pgsteal_file 1815
-    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 18013
-    pgsteal_anon 337
-    pgsteal_file 17676
+Finally, each path received 10,000 malformed responses on KASAN and UBSAN
+kernels. No KASAN, UBSAN, Oops, or kernel BUG was observed. The KASAN runs
+and all patched UBSAN runs accepted a subsequent valid feature report. The
+unpatched UBSAN numbered-report run instead completed requests from queued
+short responses, which further exposed the missing payload validation. No
+information disclosure or code execution is claimed.
 
-After fix (swappiness=max honored, anon pages reclaimed as expected):
+Sangho Lee (2):
+  Bluetooth: HIDP: reject frames without a transaction header
+  Bluetooth: HIDP: validate numbered report payloads
 
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 0
-    pgsteal_anon 0
-    pgsteal_file 0
-    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 16283
-    pgsteal_anon 16283
-    pgsteal_file 0
+ net/bluetooth/hidp/core.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-Cc: stable@vger.kernel.org # 6.17+
-Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Tested-by: Song Hu <husong@kylinos.cn>
-Reviewed-by: Song Hu <husong@kylinos.cn>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/vmscan.c | 19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 06e103f9781e..155167b3614b 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -199,6 +199,13 @@ struct scan_control {
-  */
- int vm_swappiness = 60;
- 
-+static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
-+{
-+	if (sc->proactive && sc->proactive_swappiness)
-+		return *sc->proactive_swappiness;
-+	return mem_cgroup_swappiness(memcg);
-+}
-+
- #ifdef CONFIG_MEMCG
- 
- /* Returns true for reclaim through cgroup limits or cgroup interfaces. */
-@@ -239,13 +246,6 @@ static bool writeback_throttling_sane(struct scan_control *sc)
- #endif
- 	return false;
- }
--
--static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
--{
--	if (sc->proactive && sc->proactive_swappiness)
--		return *sc->proactive_swappiness;
--	return mem_cgroup_swappiness(memcg);
--}
- #else
- static bool cgroup_reclaim(struct scan_control *sc)
- {
-@@ -261,11 +261,6 @@ static bool writeback_throttling_sane(struct scan_control *sc)
- {
- 	return true;
- }
--
--static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
--{
--	return READ_ONCE(vm_swappiness);
--}
- #endif
- 
- static void set_task_reclaim_state(struct task_struct *task,
 -- 
-2.34.1
-
+2.43.0
