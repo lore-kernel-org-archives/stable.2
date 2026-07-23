@@ -1,143 +1,57 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4CC474269
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D652F8BEE;
+	Thu, 23 Jul 2026 16:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784825883; cv=none; b=OtK4A5nyxP5VImtlbaAvjjxWK6nPDgsmiOHxI3wXrzNL3QQbRLs1LDRscvrq4N9jup+T3JHmGB5njl2GlgnrQgqsSqpxrU9kxlO63Rem7IPdEKiO7Ff0XvGdtTl09Nx8N97e9hqKfDnfMFuqce5Sfj+g0YCt0VU0APkpZ38AFlI=
+	t=1784825932; cv=none; b=FKO74KoEdNn751zV+A0c8CkNOyO9He4WG+DvO54IBk1kFc1sqEiskTkz2m9BBMwWm4tDETdTMKXfNIlwsj4n2LupFjk2noH4KvAPktWHHBZt2TO8QLUIOeusZtPPipN329oP5qS6oIxOm4olO6R/NV1bcjMky/moy80n6Nyin1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784825883; c=relaxed/simple;
-	bh=agnn/vVVbpuTs4r+4QvYib5M9eijg86H2mN+aWjNIgI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t4aoTrOqX7Pv2eiKFj8y/I4wJJxmx8ru2nW2aLx8FN+8VSPzoHjVXxAvvCRGN0qTckS76ZGg2ipmAkdhIDDIEN5qnyilS9wwqBH8J9kOBF9VjS2klWMS/86NCCi3EIJ0eGQRW31mYRs2OdDPYafcw0jOdg8G9+X/FjLZSZJWEDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=l5iEhWuq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VjgPSq6M; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="l5iEhWuq";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VjgPSq6M"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id C078EEC0315;
-	Thu, 23 Jul 2026 12:57:59 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Thu, 23 Jul 2026 12:57:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784825879;
-	 x=1784912279; bh=kg12pdmvq4RbPVfHzm9t6uJlsAgGwMISSFf/J3UeB8w=; b=
-	l5iEhWuqRjSvI1F3j84riiIcHWCC7OKQh+lTDI8se/S5vmww8Ou02oTjiDwIJLhv
-	ksl+ADg2XMvP2AWjIV3Zy6IkDlCn9WVjzzc4bYr0UjuPt4QGfQGPlSAvovHc98JM
-	eK5o+BZy+cM72JEJK4wnZ0L97V0Eg5lS9BopBNANgkTW1Z7OegkvgSiGk86bBCvE
-	9j9S1w8YqUHdTC7Yabm2fTkEQ5QPwTxXjSzxnOvfNZ4nz/6kOdf56woH5wOTPkZD
-	9IXJ9U+vmxRBqJH3MjVSI0w+kEGsgylrXAtdeXfnK93GcQyxDrZcqGXUA0DaRk3Q
-	CE4RorCRPdGJ5ham5TQB9g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784825879; x=
-	1784912279; bh=kg12pdmvq4RbPVfHzm9t6uJlsAgGwMISSFf/J3UeB8w=; b=V
-	jgPSq6Mey2Phw3cAleABx67c3EMiZtdKOnLVsnM4TyyG2oyYUQNKzTbTEOkIXGhK
-	ZPMkn1mz1iSmunFXB3HqT/Zvu/iI1m2Qf7CfEIRCWNhKAWT2IP6rjECIFmYI+Xi6
-	1nIA2Sc5ZYX/dOkRL5mPlHElWRcEuR2oNxBp1ZwSvIiD5S7Pgh9Wu+Q3hs89KX3e
-	okodWzjhQyT+crcVlU6vlUR6tJTDYMi8vY1ATHUCrduTZgy3lwNAuNtd1fzf36E8
-	d7RYGZr4KSy8XxNeykoTUIjYy3MhbNwg+U3HmrOtgRTUw7sqgeaDayrSMruNO2Kn
-	aR2ziPb0FxtoxzHN70Eiw==
-X-ME-Sender: <xms:Fkhiat7iz-bWLu5BJCEp2XTUjX02H-yBGpHzW8416AQhejFcu5Vo9g>
-    <xme:FkhiahasbBqwBS-r5wAR44jQNHqUA-gykxjTCjueXlRfQvJv_3aSDnCZbVKFKkHOD
-    20OdQYEmbuVE9pZEibSO443EgJiDo0YMn_sabGBjJOf4dfqStDX3gw>
-X-ME-Received: <xmr:FkhiaicUEzTWvsQWuReimamB4eiHM8xKlKyIwp2iVVWCn_jtNaPj-plBoP_0wbrKQYGJjawH1jX8FxPMC7Q0R8lBqrZim0KY>
-X-ME-Proxy-Cause: dmFkZTGrHdAdEnK9D8QcBeUJE6Iu8s8ENkYluDvRv9lwJnC9ZCbR4uc9b7r6l2HcPCLbrk
-    bmBZZbxL1s++nDgWs1tWU+dNvaJTUkpy/2SKW1wNuRgN1PGQ3zO66sJ8HkqFz/Uho0aXJw
-    6gT+xrnaEWSZH3VrglNdYQwMQTsY5/92HAFrbGeb8ndg4Szh+71OKWn1+w+BltnT6DS9gi
-    cl2iwUgvH+mGDH5PVUgTbV+Y67Av06FZxi63RYedTOBj8LzKgqZwoRtuCbx3AhoG3de8YH
-    HJlhoYhTgu1xJnP2BkdAoxuyaPFFyB5v2mLpFqGksp/z01b1d5kT57oZzJHwGqPKFS9kBn
-    bBrMHaPEo+7FB/TEMDoyqESgI5ccPtDYIhAUgRiJNrtkg6alnrT/6fGdvEvK6cKHPBjNyY
-    /Xkfsjoif+EUSrmG2zVKe3eGV8I0ySnB3o8v2nHSdOyGvIRQ0bINgb6+k7WE9haYq9le6m
-    qVwlBEa9S0HPe7txKM4rnU8olULDKagnSMtBjjg5W7yb9l5h3mbF0idCaRAp1TUbnOrNFE
-    M7m5NkOlQDUrHzUUDqhTACIGbT/AW479JEc3oe2FO0fKKjYqC9fBxT9SXZVjnrUYO6Xke9
-    /p1Dbh7t2yKCVYrV4ERwlnikyMnF3Q7fKM47OSYGpm22tb7HViafCgu6edEw
-X-ME-Proxy: <xmx:Fkhiao7q2MM8YE2zyqPHf2DBtzmA1VwEFHO3nphALH3duK8dm3RHYg>
-    <xmx:FkhianZV7R6vA3PpD3BFvECCTSIqxrQ3DaXMBfDmC7bfhIfpM3ldRQ>
-    <xmx:FkhiaqFaYyCDqKYrVhm79M19l9AKcnWcHNgnETnt-SHuPpidvBoI7A>
-    <xmx:FkhiaimKnf8v_iNnsO8RsQch87mDnUHZo47hGUgqCUcHd9PwgBaE7Q>
-    <xmx:F0hiaq3PsfaggAw4xeEnMDWTcsG5XChALGGy_U4XsYeLWbPuaGnijpHM>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 Jul 2026 12:57:57 -0400 (EDT)
-Message-ID: <3308ea85-4ae5-4c5d-bfba-67bf7164a5d9@pobox.com>
-Date: Thu, 23 Jul 2026 09:57:56 -0700
+	s=arc-20240116; t=1784825932; c=relaxed/simple;
+	bh=0rosnFueFk5L+rbQoTyhq77sYbaq4m804yU4PWOXAks=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VfwVtD0+Sq0HOBPQBRMd8QfM9T6KwkL6/wWgmrMxvAyaQkoumrbB93046jHRNIH6NCUpK1V5F4uhTmyeurLXunGgfXAZmzhlTLFlpzfTfUczFt/3SFaqsjbpgqYF/QiIWjcJ+Om+MvIs1MfIrVzN1Srg7nxCSvQd1I4ai2FXtBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD0A1F000E9;
+	Thu, 23 Jul 2026 16:58:46 +0000 (UTC)
+Date: Thu, 23 Jul 2026 17:58:31 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Nirmoy Das <nirmoyd@nvidia.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [RFC PATCH] mm: use precise current RSS for high-water accounting
+Message-ID: <amJHS7EV4UJMqFVT@lucifer>
+References: <20260723134158.1473841-1-nirmoyd@nvidia.com>
+ <bd3facf5-cc4e-4fa3-95cf-0f4aa926ae23@efficios.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 137/699] tracing: Prevent out-of-bounds read in glob
- matching
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- patches@lists.linux.dev, Yuan Tan <yuantan098@gmail.com>,
- Yifan Wu <yifanwucs@gmail.com>, Juefei Pu <tomapufckgml@gmail.com>,
- Zhengchuan Liang <zcliangcn@gmail.com>, Xin Liu <bird@lzu.edu.cn>,
- Huihui Huang <hhhuang@smu.edu.sg>, Ren Wei <n05ec@lzu.edu.cn>,
- "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-References: <20260721152355.667394603@linuxfoundation.org>
- <20260721152358.800887633@linuxfoundation.org>
- <1d60d21d-ea26-4502-afee-c49c750df1e9@pobox.com>
- <2026072339-reshuffle-blizzard-42e9@gregkh>
- <759ee068-9519-4cfa-9be5-1deb0d9fc877@pobox.com>
- <20260723114247.00a3f66d@gandalf.local.home>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260723114247.00a3f66d@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bd3facf5-cc4e-4fa3-95cf-0f4aa926ae23@efficios.com>
 
-On 7/23/26 8:42 AM, Steven Rostedt wrote:
-> On Thu, 23 Jul 2026 08:32:23 -0700
-> "Barry K. Nathan" <barryn@pobox.com> wrote:
-> 
->> In the process of testing, troubleshooting, and eventually bisecting this,
->> I've tried rebuilding the kernel from scratch maybe 6 or 7 times now. I've
->> tried on two different build systems so far, and it seems deterministic
->> that the build succeeds without this patch and fails with it.
-> 
-> When you say "from scatch", do you create a new directory and build there?
-> 
-> Is it reproducible with a "make mrproper"? (Need to copy the .config
-> elsewhere to not lose it)
-> 
-> As I don't see anything in this patch that would cause filp_close to be
-> unresolved. Sounds like a bad object was added somewhere.
+On Thu, Jul 23, 2026 at 09:47:13AM -0400, Mathieu Desnoyers wrote:
+> Did you compare this with my hierarchical percpu counters series ?
+>
+> https://lore.kernel.org/lkml/20260707131544.75906-1-mathieu.desnoyers@efficios.com/
+>
+> I've sent it to Andrew two weeks ago but have not heard back from him
 
-When I say "from scratch" I mean something like:
+It'll need sign off from relevant maintainers, I suspect this is simply a
+product of your series being complicated and the incredibly overwhelming
+amount of review load at the moment :)
 
-rm -rf build/linux-5.10.261-rc2
-cp -al linux-5.10.261-rc2 build/
-cd build/linux-5.10.261-rc2
-cp ../../configs/config-5.10.257 .config
-make oldconfig
-make -j#
+Do ping on the thread though if it's not been responded to within a week or
+two, we're usually (much) better than that in mm!
 
-(where # is dependent on the hardware of the build system in question)
+(I'm not sure I personally have the bandwidth to review, but thought I'd
+chime in to maybe help you bump it a bit :)
 
-I just tried again, doing a "make mrproper" after
-"cd build/linux-5.10.261-rc2", but it didn't make a difference,
-the build still fails.
-
-(By the way, I tried downloading a fresh 5.10.260 tarball off kernel.org,
-extracting it, and running "diff -ruN" between the new extraction and my
-existing copy of 5.10.260. The diff output was empty.)
-
-Oh, also, this might be useless information, but if I disable
-CONFIG_64BIT then the build succeeds.
-
-Anyway, there are several different things I'm going to try. Perhaps in a
-few hours I'll have a somewhat better idea of what's happening, hopefully.
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Cheers, Lorenzo
