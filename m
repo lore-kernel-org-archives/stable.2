@@ -1,80 +1,111 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A56E2750FB;
-	Thu, 23 Jul 2026 02:05:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02221F3BA4;
+	Thu, 23 Jul 2026 02:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784772320; cv=none; b=YLSYQK7lGiS+d7M3SySz04xLBJ5TR58nyXecFiTUf/lXgTHd5Y7qhQMkNMbNx+Q9jOnOasan4twbrEc/GkPBDrZ02OOp1FLa29OMqqZgC7O8O9fkU51mzvTJ7wac+cieruRL6487e9v5fR3oIYXuO2BRA+nlnLMacbkuio9w/EY=
+	t=1784772714; cv=none; b=kB9EGQ4vJ0j6zNmSzzgTt5aXLpiV9ERB7BoNxJjvStirld0inkdW7W1C1pPQou+qHGiyNFDwY+zm/U4QkIpKZ2BCskjgn7jClNwn3XhizYiEv89c3rnFCrnH4f518sXgn+5jrW9/MmAF9FKBet0afFL0XXm8eIN/c4eUqr4WBX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784772320; c=relaxed/simple;
-	bh=hzYIGpBXbFZonwDEQCBbDgP46W9DkA6XzZteCy3etkg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=YtKSvUygg+pu0Wvqd3THT+z/9iMu5TI5enlMZvShqvPFB1fdAR84z5n2c2ft+k2KsSBxuPe2hYv225Z+gh6J3AfOCQe8xJ1jH8GKVlNmziuZVNxxoaHLyqc24u8f17ylQ2c3KQdk1dqRlT5KmExUkzdhtxQ0zUoZhRBq6/cudQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=j21Jbnt7; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="j21Jbnt7"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=hzYIGpBXbFZonwDEQCBbDgP46W9DkA6XzZteCy3etkg=;
-	b=j21Jbnt74JDV9NCT72cBGojfiVTFeBkYsniDEPCn/vszEk51Xxy62OO7uzzzjhsOyN0VBrTjE
-	8WcqQwo0IFxJ4fVzYbQHXRU5xLMiXyO2Zu3tLKDghEulrlrN1iV06FDO80v7dkdcDMTNoWTziJL
-	2gvYE0V/Eqdn1V3W7kfskB4=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4h5Djc4m4kz1prlh;
-	Thu, 23 Jul 2026 09:55:48 +0800 (CST)
-Received: from kwepemo200010.china.huawei.com (unknown [7.202.195.178])
-	by mail.maildlp.com (Postfix) with ESMTPS id C98C04057D;
-	Thu, 23 Jul 2026 10:05:13 +0800 (CST)
-Received: from [10.174.178.56] (10.174.178.56) by
- kwepemo200010.china.huawei.com (7.202.195.178) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Thu, 23 Jul 2026 10:05:12 +0800
-Message-ID: <0adae468-745f-4f38-bb1a-151b91bb47dd@huawei.com>
-Date: Thu, 23 Jul 2026 10:05:12 +0800
+	s=arc-20240116; t=1784772714; c=relaxed/simple;
+	bh=ccwqqlobaTAnEiobGrwELO3nNWwQTi3T3ptifJRDGP0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hge16+BaX8SbG7pCkN2DeB6ZTEzgZZJnmQnJfOvnH50DVlNztUadhOMo53PxGNP/JlVp5KaImLHFd3+FuZZRi3R07QmLKZ+qPg4hFFwKaMYbPtPC9xGgS1rCf6nqT8i8Ug5C66RomNuc48nlCQWp/xGZR/kpObfZEZyPWg6JoSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: dc4433e2863b11f1aa26b74ffac11d73-20260723
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:a61bf3b6-0791-4ad3-9013-c35b3a9b4613,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:75bec1811ee3dfd11169296165e90edc,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
+	:0|15|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: dc4433e2863b11f1aa26b74ffac11d73-20260723
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 3070265; Thu, 23 Jul 2026 10:11:48 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Yixun Lan <dlan@kernel.org>,
+	Alex Elder <elder@riscstar.com>,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	Linmao Li <lilinmao@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] i2c: spacemit: request IRQ after controller initialization
+Date: Thu, 23 Jul 2026 10:11:40 +0800
+Message-Id: <20260723021140.2293844-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260722094302.2284191-1-lilinmao@kylinos.cn>
+References: <20260722094302.2284191-1-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6.y] mm/memory-failure: fix missing ->mf_stats count
- when hugetlb folio already poisoned
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: <stable@vger.kernel.org>, Naoya Horiguchi <naoya.horiguchi@nec.com>,
-	Andrew Morton <akpm@linux-foundation.org>, Miaohe Lin <linmiaohe@huawei.com>,
-	Sasha Levin <sashal@kernel.org>, Jane Chu <jane.chu@oracle.com>,
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	<sunnanyong@huawei.com>, <wangkefeng.wang@huawei.com>, <david@kernel.org>
-References: <20260721121956.124887-1-xiqi2@huawei.com>
- <2026072119-facial-encircle-f1c8@gregkh>
-Content-Language: en-GB
-From: Qi Xi <xiqi2@huawei.com>
-In-Reply-To: <2026072119-facial-encircle-f1c8@gregkh>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemo200010.china.huawei.com (7.202.195.178)
 
-You're right, I apologize for the misleading tag. This patch is a
-follow-up fix for the defective backport 252bb328b36f — the bug does
-not exist on mainline, so it's not a direct backport of any upstream
-commit. I'll correct this in the next version.
+spacemit_i2c_probe() requests the IRQ before it enables the clocks, resets
+the controller and runs init_completion(). If an interrupt is already
+pending, the handler runs too early: it reads registers while the clocks
+are still off and calls complete() on an uninitialized completion. Request
+the IRQ after the controller and completion are initialized, but still
+before the adapter is registered.
 
-Also, as in your earlier comment on the v1 thread about needing
-maintainer acks — I'll ask for feedback from maintainers first before
-sending the next revision.
+Fixes: 5ea558473fa3 ("i2c: spacemit: add support for SpacemiT K1 SoC")
+Cc: stable@vger.kernel.org # v6.15+
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Reviewed-by: Alex Elder <elder@riscstar.com>
+---
+v2:
+- add Cc: stable # v6.15+ as requested by Troy Mitchell
+- collect Reviewed-by from Troy Mitchell and Alex Elder
 
-Thanks,
-Qi
+ drivers/i2c/busses/i2c-k1.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-On 21/07/2026 22:11, Greg Kroah-Hartman wrote:
-> On Tue, Jul 21, 2026 at 08:19:56PM +0800, Qi Xi wrote:
->> [ Upstream commit a148a2040191b12b45b82cb29c281cb3036baf90 ]
-> That is not what this commit is :(
->
->
+diff --git a/drivers/i2c/busses/i2c-k1.c b/drivers/i2c/busses/i2c-k1.c
+index 51a0c3d80fc9..3fe716cc153d 100644
+--- a/drivers/i2c/busses/i2c-k1.c
++++ b/drivers/i2c/busses/i2c-k1.c
+@@ -723,11 +723,6 @@ static int spacemit_i2c_probe(struct platform_device *pdev)
+ 	if (i2c->irq < 0)
+ 		return dev_err_probe(dev, i2c->irq, "failed to get irq resource");
+ 
+-	ret = devm_request_irq(i2c->dev, i2c->irq, spacemit_i2c_irq_handler,
+-			       IRQF_NO_SUSPEND, dev_name(i2c->dev), i2c);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "failed to request irq");
+-
+ 	clk = devm_clk_get_enabled(dev, "func");
+ 	if (IS_ERR(clk))
+ 		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable func clock");
+@@ -755,6 +750,11 @@ static int spacemit_i2c_probe(struct platform_device *pdev)
+ 
+ 	init_completion(&i2c->complete);
+ 
++	ret = devm_request_irq(i2c->dev, i2c->irq, spacemit_i2c_irq_handler,
++			       IRQF_NO_SUSPEND, dev_name(i2c->dev), i2c);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to request irq");
++
+ 	platform_set_drvdata(pdev, i2c);
+ 
+ 	ret = i2c_add_numbered_adapter(&i2c->adapt);
+-- 
+2.25.1
+
