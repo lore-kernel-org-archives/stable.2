@@ -1,76 +1,89 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA824C8FEA
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE77E4756B6
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784820900; cv=none; b=l1HIpUaHZdch0/PHCTjxqiDS3tInkJcFw/xwMuGtHJ7p8rUU/0R2xmsI6pyJYQsexXSHE+ykVIK5DqfajcAry/UnIyRUbDV1mj9AM9VXKHzyOZWvQDaM7t5t9DsBeGq2m1CWVPYAbd1YizsKBA7d69G/IRPXcvKqSKq/9yvaPHo=
+	t=1784820911; cv=none; b=kt5CVFv6+ksXUMRotSBvqnTs7u5KDPKRS99ozsEe/41jH/e3RmsyFTV+RbRqJHY7TX82ikwknW130TYFY6911vP6JvfxczT63R2DhCxIJfePMe0Y+wlhwc75EvgdtI7FSKe8zxrHMxzcrvClIgPdjkba8MdOa/JZdHtQhMjz5TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784820900; c=relaxed/simple;
-	bh=GDKEmuXFhac2VKPf9kmHj7KLT8U10QqT1ib08+5c6BE=;
+	s=arc-20240116; t=1784820911; c=relaxed/simple;
+	bh=f/W56l8v8I4Z/bI4TUYNCd7jTn6u4MyWo43wLwwz+O4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bNmRGBAMYmtgXMAaVOe98FnlVejbvhSs1VJRgBYIDP4IkSyriT8n9nWbHpeTFbY9XBftyk638V9rMiOtRmCzs5up2LIrU8/BcGk5KZf+kcuALSSyIFMySjigqx1ML9YVbA7Zr0yfGJq/8JI8XTrk9FQJVPKMRxm3u1qPjOWGOWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+z3Jz3k; arc=none smtp.client-ip=209.85.215.170
+	 MIME-Version; b=Asj3uiB6/fbJ8dIio1+Ts8JxjJg9/qzQgh/zbF7BwQ1fElcJzSwxWe2zyTDIRE/0jCtEQC9qnaL8JGJ85AT5SoSK2IsGCKwFzWBU00IJX7m0i+T83Sh6+sTMTigsLsgy5Db1jCfKcpXCP5O/Jl2mBKK0mWkgUCpBxBP5Z/QPvpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lKNjJ7yz; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+z3Jz3k"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca6d9c91206so81265a12.2
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 08:34:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lKNjJ7yz"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c9b3f380006so102918a12.1
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 08:35:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784820888; x=1785425688; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784820902; x=1785425702; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jMXs52eS7eZ/u/yFLXPygHed7LhVkq5pYs2Qe/C7Pfw=;
-        b=I+z3Jz3kRSjxf5uclJIjrlIGCJ1M5y4B9WVIinN2JYp47BD2JEQUvznqY+VxrcvtII
-         n9efzzJWve7bS0RwBl+EgAnOOgX7xZXJOaBiVqPnzHKhitemSvX5ZmyiffPAjNclqCo8
-         jgEdUVGtBCPrjGK4ephAY8fTagQ1beggwUWPhIdtpQyZQddVnh/P9PSMvY0itaY9Z/IO
-         71nY+h6hV2OsVDF59OG+4SL4tNingfxfxDt7yFpf9ep/qmSS/Vzd9N+3Km7wKu4N3bjA
-         732E29xmpe2M6CQzIa7gLFbq6MQFt2v8l4pBwIV8GT9AXTEk5AZKbFylgXzI3mBo7y9Y
-         ZP5g==
+        bh=YUwFPXE0ARZ2U6TesCDMJktXSbqLTCmlCnjsBK9QtbM=;
+        b=lKNjJ7yzMjwjyP4JKop1k931LjF3By13vj8GM5YnBq5vk4uV0JzuCmSfYUadN3c8c1
+         1D1GguBOWOZeGZIAJg/um7xhS8RRYzIHTlYJgVGfD29MV/ztNJn/i+GgqmCGmayIGOEL
+         YnAxhUj8AvuVLpnBJ3PisxXTB6xwKZY+q8GDK0TPy0tYChfFFn5nv8fQmcK7Y8IdMlBT
+         Mov9ChiuVFVcsnjpTHjrcrg8v9iSCV1wVSQ5LtYYDYh3LU0shvWE5Aajp/vMUwhnQuoj
+         zewHYtInzS6RAmSRC+KRTh9xih7BnE2idfPh3OX+BsvGDDkItWJOVDK+2jZXUPvKgB4M
+         e5jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784820888; x=1785425688;
+        d=1e100.net; s=20251104; t=1784820902; x=1785425702;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jMXs52eS7eZ/u/yFLXPygHed7LhVkq5pYs2Qe/C7Pfw=;
-        b=Yu2C7b31ZlHJiwrQ8cdLXlwLIB++nWTDcHMiMXlkDGEhmEshKALNKfH2rbjgs8eLAY
-         5unsofCH0E0letxGcvYs+9O9OZsucPsuVDVybTFPyiLpYCJRedFklA4mvG7UedVLHucQ
-         p+DUGUT8xhnVPDmj9ZTdXQpJGrHf9Qnefse8SBEm/1tgOeVlMHIkXYUPS4BCrfSbQWuJ
-         l0fuZEOmc2ds1K1Ooo3VhVSVcbt0bXFlUCgx02N/ROxkwm3i31eJbybZkB3tysyk1A2/
-         +sE6Tr4XvPnwTSJEI7GKPicpNsyKr85Qo+mGiycp/0XEB+kcr/uHcRyA3p35Lz/sBV4U
-         r6rQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7v6WVFiLLHd/Tl1rmvjX3gTdi1HGVL9omMO1RG/KSFBC0D9r+ff0z5RMuZx1/5PFnwJ3qV3Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgH9HCOfpaIPuAvwgosCpeqz7iTD2FRyNcJSSxscfSR6bUMOBl
-	01Ldl7gNcWA12u1jVOVyS2ZZYBguQtzsz2DTTuig/C76ZsYlxGZcbSut
-X-Gm-Gg: AR+sD102w/f06F5ZZrPqwsfgezC/+RpyCPv1obxkby2jE6L08APu7oEixBPrClQFlxl
-	GD5qrYyOkCSwKUIzDKbz4z7TuWqcQlYxqiZTqlDz1GI1Fd02QT7riHURud96UETxjQbPZBsqXnY
-	RyLiOc/esbbMiZDXgT8pnJ5Rq/DWrw19WPHektiNG8bJkmNUMSTTrW7HGJcAjP3DanzmCQdvp9F
-	9w+mb62qMfJhS8yydsKbZHUTe5vyRxCderJG2QUa2Q3sc1WL9yeQ6DA3zDp7IBqW6giH7D7Zb3r
-	EcCHljvuNbpMF7mzY3sUSqavvDd4bHp9b21uae82rWSXAQDQ62oy7zcTvxoBVKWMgZco8Cx7WIz
-	WjiHJeyc+QRdGdBmCPRlGIMgMpU03EPaegBeel5GBt7s8PPLmlg/WNIwEtW9c5UYVQI7URnfwBB
-	No3Xy71l9w/SPw0zGXvA9/E4GEPTR5NOmCj/h+SP5q3fveNvr5GgEvq7DBW2a/MzF+WgDZ
-X-Received: by 2002:a17:903:1a84:b0:2cc:d6de:d58e with SMTP id d9443c01a7336-2cfbd0a553amr1160235ad.4.1784820887908;
-        Thu, 23 Jul 2026 08:34:47 -0700 (PDT)
+        bh=YUwFPXE0ARZ2U6TesCDMJktXSbqLTCmlCnjsBK9QtbM=;
+        b=Tqf5PlceRxTfZxM0ehcje9LuxT7ZTUgjr9kUze6b3P2cV3T2WfSL7TW+dtCXQRhztZ
+         PhinfZwQLDTWGyjejwJWTJybXbP7khTGEGTTkpFojaA+Hh5PWB03J2mMxnLu7cDeIZ3U
+         pMnh51kLjqRuqT82rtJs/n0KXaz3p+XyhVSRzYajjP7UOdFxkkeaY3Gpt54gx/ipKzKr
+         Js0NBc5K6NL9WxvhydJ5jYg5PxMntOwysbTm+h5PPlgTsBpnXUo+k7RRbJ0eNVqx7nRS
+         m2ohpvdlLZovG62ASmx4A91ZI7yf6Jv+57aqgVwLxFhDDS9A8jo7MNURVRa5iTbeV/be
+         agCQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0SgHDYBHRE6bTdxoAKXNhw9XRx6pkokSRkcPLFF2dHeEe+AAho8dMXBiVGZMRUZJQ6TvHEEc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsuEhM3XV+gNc2quib9dqwMKE4pblFqOsemZ/uYBCSyZwU1mWm
+	MMBEP58+fdKtZ1nklJzJewgLKNcccxq6HKHwRcTgwIXgguscy+84JgYTw9IFYQ==
+X-Gm-Gg: AR+sD12Bx6W3ldmH8zerAY7rCzf3hKdk3ytqjlOzrh0+yGURoPjAZsssEiayEG5+54d
+	Yg8KYIQop8lPB0NRmZryNn5FCjU78ikxyo7b8XlqmdCGFHypg+2AsHNoNlbw49TNEnEAjcvmYON
+	dYf5CpB69UatleXSHBMlPUlb0xvdbwRGyT1hygeF4jX3ZMBcWJeT6YGBcoWEVz4+fmo3Un5H/N0
+	BYwArmgkdaZIg+psXJj2oa6PZTSlt6k3Qc69cvOhxV75+e6G0cSdgisFkGWV2tKTAm5LkIUHsfN
+	aUcAsoBWZslbJ1ZyA0Sx0DeapmNa5lsYB62EFEdJWUo9YwhpK2tquypFUdc97ADfb3kwLao9L1a
+	+5Hck//alZq7Rx4zWhq0VFWb5TC0/tLZdOLMYCaTypLKzsMoO9tBe3tEUz6m3oG+BWF2TibDDmC
+	IEmKfPjOxx3px63j/ecHID1wsqaOdAjosx0d6VwQi5c+NRxI7VHuROwA+IDfWXldBMY4mKXnkvw
+	H9y+qU=
+X-Received: by 2002:a17:90b:254a:b0:36b:9323:c726 with SMTP id 98e67ed59e1d1-38f02f3b968mr153278a91.4.1784820901333;
+        Thu, 23 Jul 2026 08:35:01 -0700 (PDT)
 Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1bc886sm21031976eec.26.2026.07.23.08.34.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3149a62cf50sm7576718eec.5.2026.07.23.08.34.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 08:34:47 -0700 (PDT)
+        Thu, 23 Jul 2026 08:35:00 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
+To: Eric Dumazet <edumazet@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Sitnicki <jakub@cloudflare.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>
+Cc: netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Bluetooth: hci_sync: Fix advertising data UAFs
-Date: Thu, 23 Jul 2026 23:34:40 +0800
-Message-ID: <20260723153440.3224299-1-nicoyip.dev@gmail.com>
+	stable@vger.kernel.org,
+	Emil Tsalapatis <emil@etsalapatis.com>
+Subject: [PATCH v2] bpf, sockmap: Fix cork ownership in tcp_bpf_sendmsg()
+Date: Thu, 23 Jul 2026 23:34:50 +0800
+Message-ID: <20260723153450.3224353-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
-References: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
+In-Reply-To: <20260719161630.2901208-1-nicoyip.dev@gmail.com>
+References: <20260719161630.2901208-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,347 +92,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hci_find_adv_instance() returns an adv_info pointer that is valid only
-while hdev->lock is held.  The advertising command-sync paths perform
-instance lookups without that lock and, in some cases, retain the pointer
-while waiting for a controller response.
+tcp_bpf_sendmsg() keeps msg_tx across sk_stream_wait_memory(), which drops
+and reacquires the socket lock.  Its error path used the current value of
+psock->cork to decide whether msg_tx named the stack-local temporary
+message.
 
-An advertising termination event can therefore interleave as follows:
+Two senders can therefore interleave as follows:
 
-  hci_cmd_sync_work                 hci_rx_work
-  hci_find_adv_instance()
-  __hci_cmd_sync_status()
-    wait for controller reply       hci_dev_lock()
-                                    hci_remove_adv_instance()
-                                      kfree(adv)
-  adv->scan_rsp_changed = false
+  Thread A                         Thread B
+  msg_tx = psock->cork
+  sk_msg_alloc() fails
+  sk_stream_wait_memory()
+    releases the socket lock      acquires the socket lock
+                                  completes the cork
+                                  psock->cork = NULL
+                                  frees the cork
+    reacquires the socket lock
+  msg_tx != psock->cork
+  sk_msg_free(msg_tx)
 
+The stale cork is mistaken for the local temporary message and freed again.
 KASAN reported:
 
-  BUG: KASAN: slab-use-after-free in hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
-  Write of size 1 at addr ffff88810a45d21d by task kworker/u17:0/88
-  Workqueue: hci0 hci_cmd_sync_work
+  BUG: KASAN: slab-use-after-free in sk_msg_free+0x49/0x50
+  Read of size 4 at addr ffff88810c908800 by task poc/90
   Call Trace:
-   hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
-   hci_schedule_adv_instance_sync+0x390/0x4c0
-   hci_cmd_sync_work+0x173/0x300
-  Allocated by task 87:
-   hci_add_adv_instance+0x538/0xac0
-   add_advertising+0x885/0x1160
-  Freed by task 89:
+   sk_msg_free+0x49/0x50
+   tcp_bpf_sendmsg+0x14f5/0x1cc0
+   __sys_sendto+0x32c/0x3a0
+   __x64_sys_sendto+0xdb/0x1b0
+  Allocated by task 89:
+   __kasan_kmalloc+0x8f/0xa0
+   tcp_bpf_sendmsg+0x16b3/0x1cc0
+  Freed by task 91:
+   __kasan_slab_free+0x43/0x70
    kfree+0x131/0x3c0
-   hci_remove_adv_instance+0x1d8/0x3b0
-   hci_le_ext_adv_term_evt+0x17b/0x730
+   tcp_bpf_sendmsg+0xec3/0x1cc0
 
-Protect the instance lookup and payload construction in the extended
-advertising, scan response, and periodic advertising data paths.  Snapshot
-the advertising parameters under hdev->lock, but release the lock before
-waiting for the controller.
+The same unclear ownership also leaves several error paths inconsistent.
+A failed cork allocation leaves cork_bytes armed, a subsequent temporary
+message can escape without releasing its pages, iterator errors are
+returned as success, and a failed redirect of a corked message discards
+data while reporting it as sent.  Re-evaluating an existing cork can also
+copy the object onto itself.
 
-Clear advertising-data dirty bits before issuing their commands and
-restore them after a failure using a fresh lookup.  Likewise, update the
-reported transmit power through a fresh lookup after the parameter command
-completes.  No adv_info pointer then survives an HCI command wait.
+Make temporary ownership explicit by freeing only &tmp at the common exit.
+Reset cork_bytes when allocating the persistent cork fails, propagate
+iterator errors, preserve redirect failures and clear the copied count
+when corked data is discarded.  Skip the copy when the message is already
+the persistent cork.
 
-Fixes: cba6b758711c ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 2")
+Fixes: 604326b41a6f ("bpf, sockmap: convert to generic sk_msg interface")
 Cc: stable@vger.kernel.org
-Suggested-by: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Suggested-by: Emil Tsalapatis <emil@etsalapatis.com>
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
 
 Changes in v2:
-- Address Sashiko review findings in the extended advertising data,
-  parameter, and periodic advertising data sibling paths.
-- Keep the original scan-response fix unchanged.
+- Address Sashiko review findings for stale cork state, iterator-error
+  propagation, cork self-copy, and masked redirect failures.
+- Keep the original stale-cork use-after-free fix.
 
-Sashiko: https://sashiko.dev/#/patchset/20260720164738.2921802-1-nicoyip.dev%40gmail.com
-Link: https://lore.kernel.org/linux-bluetooth/20260720164738.2921802-1-nicoyip.dev@gmail.com/ [v1]
+Sashiko: https://sashiko.dev/#/patchset/20260719161630.2901208-1-nicoyip.dev%40gmail.com
+Link: https://lore.kernel.org/netdev/20260719161630.2901208-1-nicoyip.dev@gmail.com/ [v1]
 
- net/bluetooth/hci_sync.c | 131 +++++++++++++++++++++++++++++----------
- 1 file changed, 97 insertions(+), 34 deletions(-)
+ net/ipv4/tcp_bpf.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 532534bc601c..24cfad721b2d 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -1224,10 +1224,11 @@ static int hci_set_adv_set_random_addr_sync(struct hci_dev *hdev, u8 instance,
- }
- 
- static int
--hci_set_ext_adv_params_sync(struct hci_dev *hdev, struct adv_info *adv,
-+hci_set_ext_adv_params_sync(struct hci_dev *hdev, u8 instance,
- 			    const struct hci_cp_le_set_ext_adv_params *cp,
- 			    struct hci_rp_le_set_ext_adv_params *rp)
- {
-+	struct adv_info *adv;
- 	struct sk_buff *skb;
- 
- 	skb = __hci_cmd_sync(hdev, HCI_OP_LE_SET_EXT_ADV_PARAMS, sizeof(*cp),
-@@ -1255,11 +1256,15 @@ hci_set_ext_adv_params_sync(struct hci_dev *hdev, struct adv_info *adv,
- 
- 	if (!rp->status) {
- 		hdev->adv_addr_type = cp->own_addr_type;
--		if (!cp->handle) {
-+		if (!instance) {
- 			/* Store in hdev for instance 0 */
- 			hdev->adv_tx_power = rp->tx_power;
--		} else if (adv) {
--			adv->tx_power = rp->tx_power;
-+		} else {
-+			hci_dev_lock(hdev);
-+			adv = hci_find_adv_instance(hdev, instance);
-+			if (adv)
-+				adv->tx_power = rp->tx_power;
-+			hci_dev_unlock(hdev);
+diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
+index 8e905b50dead..0594ee4013b0 100644
+--- a/net/ipv4/tcp_bpf.c
++++ b/net/ipv4/tcp_bpf.c
+@@ -443,12 +443,14 @@ static int tcp_bpf_send_verdict(struct sock *sk, struct sk_psock *psock,
+ 			psock->cork = kzalloc_obj(*psock->cork,
+ 						  GFP_ATOMIC | __GFP_NOWARN);
+ 			if (!psock->cork) {
++				psock->cork_bytes = 0;
+ 				sk_msg_free(sk, msg);
+ 				*copied = 0;
+ 				return -ENOMEM;
+ 			}
  		}
- 	}
- 
-@@ -1275,9 +1280,13 @@ static int hci_set_ext_adv_data_sync(struct hci_dev *hdev, u8 instance)
- 	int err;
- 
- 	if (instance) {
-+		hci_dev_lock(hdev);
-+
- 		adv = hci_find_adv_instance(hdev, instance);
--		if (!adv || !adv->adv_data_changed)
-+		if (!adv || !adv->adv_data_changed) {
-+			hci_dev_unlock(hdev);
- 			return 0;
-+		}
- 	}
- 
- 	len = eir_create_adv_data(hdev, instance, pdu->data,
-@@ -1288,16 +1297,27 @@ static int hci_set_ext_adv_data_sync(struct hci_dev *hdev, u8 instance)
- 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
- 	pdu->frag_pref = LE_SET_ADV_DATA_NO_FRAG;
- 
-+	if (adv) {
-+		adv->adv_data_changed = false;
-+		hci_dev_unlock(hdev);
-+	}
-+
- 	err = __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_ADV_DATA,
- 				    struct_size(pdu, data, len), pdu,
- 				    HCI_CMD_TIMEOUT);
--	if (err)
-+	if (err) {
-+		if (instance) {
-+			hci_dev_lock(hdev);
-+			adv = hci_find_adv_instance(hdev, instance);
-+			if (adv)
-+				adv->adv_data_changed = true;
-+			hci_dev_unlock(hdev);
-+		}
-+
- 		return err;
-+	}
- 
--	/* Update data if the command succeed */
--	if (adv) {
--		adv->adv_data_changed = false;
--	} else {
-+	if (!instance) {
- 		memcpy(hdev->adv_data, pdu->data, len);
- 		hdev->adv_data_len = len;
- 	}
-@@ -1351,22 +1371,22 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
- 	struct adv_info *adv;
- 	bool secondary_adv;
- 
--	if (instance > 0) {
--		adv = hci_find_adv_instance(hdev, instance);
--		if (!adv)
--			return -EINVAL;
--	} else {
--		adv = NULL;
--	}
--
- 	/* Updating parameters of an active instance will return a
--	 * Command Disallowed error, so we must first disable the
--	 * instance if it is active.
-+	 * Command Disallowed error, so disable it before taking a snapshot.
- 	 */
--	if (adv) {
-+	if (instance > 0) {
- 		err = hci_disable_ext_adv_instance_sync(hdev, instance);
- 		if (err)
- 			return err;
-+
-+		hci_dev_lock(hdev);
-+		adv = hci_find_adv_instance(hdev, instance);
-+		if (!adv) {
-+			hci_dev_unlock(hdev);
-+			return -EINVAL;
-+		}
-+	} else {
-+		adv = NULL;
- 	}
- 
- 	flags = hci_adv_instance_flags(hdev, instance);
-@@ -1377,8 +1397,11 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
- 	connectable = (flags & MGMT_ADV_FLAG_CONNECTABLE) ||
- 		      mgmt_get_connectable(hdev);
- 
--	if (!is_advertising_allowed(hdev, connectable))
-+	if (!is_advertising_allowed(hdev, connectable)) {
-+		if (instance)
-+			hci_dev_unlock(hdev);
- 		return -EPERM;
-+	}
- 
- 	/* Set require_privacy to true only when non-connectable
- 	 * advertising is used and it is not periodic.
-@@ -1389,8 +1412,11 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
- 	err = hci_get_random_address(hdev, require_privacy,
- 				     adv_use_rpa(hdev, flags), adv,
- 				     &own_addr_type, &random_addr);
--	if (err < 0)
-+	if (err < 0) {
-+		if (instance)
-+			hci_dev_unlock(hdev);
- 		return err;
-+	}
- 
- 	memset(&cp, 0, sizeof(cp));
- 
-@@ -1441,6 +1467,9 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
- 	cp.channel_map = hdev->le_adv_channel_map;
- 	cp.handle = adv ? adv->handle : instance;
- 
-+	if (instance)
-+		hci_dev_unlock(hdev);
-+
- 	if (flags & MGMT_ADV_FLAG_SEC_2M) {
- 		cp.primary_phy = HCI_ADV_PHY_1M;
- 		cp.secondary_phy = HCI_ADV_PHY_2M;
-@@ -1453,12 +1482,12 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
- 		cp.secondary_phy = HCI_ADV_PHY_1M;
- 	}
- 
--	err = hci_set_ext_adv_params_sync(hdev, adv, &cp, &rp);
-+	err = hci_set_ext_adv_params_sync(hdev, instance, &cp, &rp);
- 	if (err)
- 		return err;
- 
- 	/* Update adv data as tx power is known now */
--	err = hci_set_ext_adv_data_sync(hdev, cp.handle);
-+	err = hci_set_ext_adv_data_sync(hdev, instance);
- 	if (err)
- 		return err;
- 
-@@ -1466,9 +1495,14 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
- 	     own_addr_type == ADDR_LE_DEV_RANDOM_RESOLVED) &&
- 	    bacmp(&random_addr, BDADDR_ANY)) {
- 		/* Check if random address need to be updated */
--		if (adv) {
--			if (!bacmp(&random_addr, &adv->random_addr))
-+		if (instance) {
-+			hci_dev_lock(hdev);
-+			adv = hci_find_adv_instance(hdev, instance);
-+			if (!adv || !bacmp(&random_addr, &adv->random_addr)) {
-+				hci_dev_unlock(hdev);
- 				return 0;
-+			}
-+			hci_dev_unlock(hdev);
- 		} else {
- 			if (!bacmp(&random_addr, &hdev->random_addr))
- 				return 0;
-@@ -1490,9 +1524,13 @@ static int hci_set_ext_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
- 	int err;
- 
- 	if (instance) {
-+		hci_dev_lock(hdev);
-+
- 		adv = hci_find_adv_instance(hdev, instance);
--		if (!adv || !adv->scan_rsp_changed)
-+		if (!adv || !adv->scan_rsp_changed) {
-+			hci_dev_unlock(hdev);
- 			return 0;
-+		}
- 	}
- 
- 	len = eir_create_scan_rsp(hdev, instance, pdu->data);
-@@ -1502,15 +1540,27 @@ static int hci_set_ext_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
- 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
- 	pdu->frag_pref = LE_SET_ADV_DATA_NO_FRAG;
- 
-+	if (adv) {
-+		adv->scan_rsp_changed = false;
-+		hci_dev_unlock(hdev);
-+	}
-+
- 	err = __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_SCAN_RSP_DATA,
- 				    struct_size(pdu, data, len), pdu,
- 				    HCI_CMD_TIMEOUT);
--	if (err)
-+	if (err) {
-+		if (instance) {
-+			hci_dev_lock(hdev);
-+			adv = hci_find_adv_instance(hdev, instance);
-+			if (adv)
-+				adv->scan_rsp_changed = true;
-+			hci_dev_unlock(hdev);
-+		}
-+
- 		return err;
-+	}
- 
--	if (adv) {
--		adv->scan_rsp_changed = false;
--	} else {
-+	if (!instance) {
- 		memcpy(hdev->scan_rsp_data, pdu->data, len);
- 		hdev->scan_rsp_data_len = len;
- 	}
-@@ -1525,8 +1575,14 @@ static int __hci_set_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
- 
- 	memset(&cp, 0, sizeof(cp));
- 
-+	if (instance)
-+		hci_dev_lock(hdev);
-+
- 	len = eir_create_scan_rsp(hdev, instance, cp.data);
- 
-+	if (instance)
-+		hci_dev_unlock(hdev);
-+
- 	if (hdev->scan_rsp_data_len == len &&
- 	    !memcmp(cp.data, hdev->scan_rsp_data, len))
+-		memcpy(psock->cork, msg, sizeof(*msg));
++		if (psock->cork != msg)
++			memcpy(psock->cork, msg, sizeof(*msg));
  		return 0;
-@@ -1661,9 +1717,13 @@ static int hci_set_per_adv_data_sync(struct hci_dev *hdev, u8 instance)
- 	struct adv_info *adv = NULL;
- 
- 	if (instance) {
-+		hci_dev_lock(hdev);
-+
- 		adv = hci_find_adv_instance(hdev, instance);
--		if (!adv || !adv->periodic)
-+		if (!adv || !adv->periodic) {
-+			hci_dev_unlock(hdev);
- 			return 0;
-+		}
  	}
  
- 	len = eir_create_per_adv_data(hdev, instance, pdu->data);
-@@ -1672,6 +1732,9 @@ static int hci_set_per_adv_data_sync(struct hci_dev *hdev, u8 instance)
- 	pdu->handle = adv ? adv->handle : instance;
- 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
+@@ -495,14 +497,15 @@ static int tcp_bpf_send_verdict(struct sock *sk, struct sk_psock *psock,
+ 		if (unlikely(ret < 0)) {
+ 			int free = sk_msg_free(sk, msg);
  
-+	if (adv)
-+		hci_dev_unlock(hdev);
-+
- 	return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_PER_ADV_DATA,
- 				     struct_size(pdu, data, len), pdu,
- 				     HCI_CMD_TIMEOUT);
-@@ -6514,7 +6577,7 @@ static int hci_le_ext_directed_advertising_sync(struct hci_dev *hdev,
- 	if (err)
- 		return err;
+-			if (!cork)
++			if (cork)
++				*copied = 0;
++			else
+ 				*copied -= free;
+ 		}
+ 		if (cork) {
+ 			sk_msg_free(sk, msg);
+ 			kfree(msg);
+ 			msg = NULL;
+-			ret = 0;
+ 		}
+ 		break;
+ 	case __SK_DROP:
+@@ -579,6 +582,7 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 					       copy);
+ 		if (ret < 0) {
+ 			sk_msg_trim(sk, msg_tx, osize);
++			err = ret;
+ 			goto out_err;
+ 		}
  
--	err = hci_set_ext_adv_params_sync(hdev, NULL, &cp, &rp);
-+	err = hci_set_ext_adv_params_sync(hdev, 0, &cp, &rp);
- 	if (err)
- 		return err;
- 
+@@ -603,13 +607,12 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 		set_bit(SOCK_NOSPACE, &sk->sk_socket->flags);
+ wait_for_memory:
+ 		err = sk_stream_wait_memory(sk, &timeo);
+-		if (err) {
+-			if (msg_tx && msg_tx != psock->cork)
+-				sk_msg_free(sk, msg_tx);
++		if (err)
+ 			goto out_err;
+-		}
+ 	}
+ out_err:
++	if (msg_tx == &tmp)
++		sk_msg_free(sk, msg_tx);
+ 	if (err < 0)
+ 		err = sk_stream_error(sk, msg->msg_flags, err);
+ 	release_sock(sk);
 -- 
 2.43.0
 
