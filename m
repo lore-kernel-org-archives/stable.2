@@ -1,116 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E6F33C18B;
-	Thu, 23 Jul 2026 15:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880FB4570F6;
+	Thu, 23 Jul 2026 15:54:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784821502; cv=none; b=FvqyoxCVzK/OSmjCQfTVWUa1oSxN52q5BN7sa01BOJ4B/ll1xW2jnphulc4OvW2Qrv436QD9bLB3E4TT1qDkKds9y1RoWK5nBGFFfGetCEqvcMpBB8fd6WoN47v3+WaXE3Lv4rbRCMnhS/inKReXJLa1Arm+7l2TgMt1DO+DF3Q=
+	t=1784822066; cv=none; b=LD9T487j8Tri2zVzOpvCCKDUMgXEgooQQxhqDp+iExc1w4du1zeikCCmgdWb14Px7bTZBo8vHkm5jl6QedS9QVJuAXR4Cmg5hp0P2lAdSk6O4wH7I81yiHi8zLj6txgiWpbQluEj0lgm2vROvIaOuFvb74Rv+cgo7ZEkPZBajzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784821502; c=relaxed/simple;
-	bh=L5WhXl1coFr5/YzoMg+vNwfNEONEjc1zLYItXp/gY4c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qKrNLmZp7kCwXHFv41SjgcKMKThfPrMzi5gliUeA7prlTNtPOnOKYLtydzfeWoeZiqdEmTeGWA4CJMu4NL/9KhJ7AvbyF3wjfftW2DE9k3qh9AhFY9Jj6o80rCg538gTaAPfXPZ9C3wfR2ma8BZiyavwV6OTQx7qlHqpCbgUXaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GPEGYTxO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784822066; c=relaxed/simple;
+	bh=oAAdQn2lm9BgCv8DHVbBNlDjpSwehQzZAYUZnabeFMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sPYTFDh45YWhmq6RAbtuf4kPyuLzrNv1q2nXWAtKHPVQCqO3blDyxSwb9/cQJ9PEcoCvUJdHfV3DUX1v2PzIxcQjxj2w9la3jKkJyBAjPxMAMBbCsA5qXoQl1yqFytjVlYtDQrSK7u3wvv9octSqkKdJL7K16W4++uGmG+Qd3bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QHLE/c+7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GPEGYTxO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 645A2C2BCB8;
-	Thu, 23 Jul 2026 15:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784821502;
-	bh=L5WhXl1coFr5/YzoMg+vNwfNEONEjc1zLYItXp/gY4c=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=GPEGYTxOldo5VZIx/K83wicVN1rclF8m/kuer8lqo3zvBTE0MXNkT97aozzPMOSTb
-	 bBYO74oWgjzFCreMnAaskbfPKzIckOBntUpDdfNIgpRNFiU9LfNwzRGTw12BW/y4C0
-	 ScmhBOiZivQYk8qbGYWSMIJitDR2Mbk+jsiNuHObc+hf/W08z378IV7vVpR77yrwxI
-	 D60k099m1EWvX3ZLpN/SEUoyWKDWr9L1mEPmt/bWsk7d2Gbz4rGFNEXvVr3maIUP69
-	 cf4HmdHWgzxRW+bXcm4ivewIvPZAq9rtD0pVqfFC9FNHdtxQ7+vOCtC3Kn+ri6IAas
-	 dxPrbNik7koTQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DB45C531F8;
-	Thu, 23 Jul 2026 15:45:02 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Thu, 23 Jul 2026 17:44:56 +0200
-Subject: [PATCH] hwmon: (pmbus/core) notify on the hwmon device, not the
- i2c client
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QHLE/c+7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FBE1F00A3A;
+	Thu, 23 Jul 2026 15:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784822065;
+	bh=XRhnmdoHtmo9NnNAk4JTciukS5h0FMY0NdWsHY1ryZU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QHLE/c+7Lo30apvLlFLHKWtjauPYbbxx4HFUQXtDnGi3mai5ye5UxPWHKZHfMBJw3
+	 VsfUmWJwhYOam4rTVBcJIHBEYdss5JXre3xS1/W5L1G4AFTarvLDXbA0H4WZQBZOAX
+	 C/DhXLHir56VRfN8MuCEVp6JjhaIRnd+N3fSXmy/2L8PyqeW2+jSWKHuatvgDRq5/R
+	 3hie+xWDRLxKs5Pa9xaZW7t9gDbTCGGA7MBkzBCWUKzARXhMhsEDW3cvAPjN73sCLz
+	 FMu/mpldCiwXnuipbWukknDcK+ZwiMcjlpRh/EX4j9nwC2YB9l9/DfSXH8iEO7mFcV
+	 tk7tlYokSpycA==
+Date: Thu, 23 Jul 2026 16:54:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.6 0000/1226] 6.6.145-rc2 review
+Message-ID: <32a043a0-6bdf-48ba-8649-1c5539690905@sirena.org.uk>
+References: <20260722143258.264584003@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-fix_hwmon_notify_v1-v1-1-5a24c528686d@free.fr>
-X-B4-Tracking: v=1; b=H4sIAPc2YmoC/x2MQQqAIBAAvyJ7TlCTpL4SIVFb7iENDSuivycdB
- 2bmgYSRMEHHHoiYKVHwBWTFYHKjX5HTXBiUUI0wquYLXdadW/DWh4OW22bJjUY5trrWzSShlHv
- Eov3XfnjfD7qlFTdlAAAA
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784821501; l=1985;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=mvBVaQ/t9TqovxzoIusrFozS/2VXRXLUOR6BEPoWm7A=;
- b=GOwMDFU2EGh4zEkApIoHvh9my2mZaaEDWVKHquKMgbTaCoC9rXGKANGnvQfBbCdPJ6sM0YrCR
- T6H4mq8FnABD1ab9+ILw0N2+RNSYyO8SORzscKRW7XbcD8AD55Oza5J
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
-
-From: Vincent Jardin <vjardin@free.fr>
-
-pmbus_notify() calls sysfs_notify() and kobject_uevent() on the i2c
-client's kobject, but the alarm attributes live on the hwmon class
-device registered by pmbus_do_probe(). Notifying the parent i2c device
-is a no-op for both poll(POLLPRI) waiters and udev listeners: the named
-attribute does not exist on that kobject.
-
-Notify the hwmon device instead, so poll() wakes up and "change"
-uevents fire on the inX_alarm/tempX_alarm attributes when SMBALERT#
-reports a fault.
-
-Fixes: f469bde9afd1 ("hwmon: (pmbus/core) Notify hwmon events")
-Cc: stable@vger.kernel.org # v6.4+
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
-Found during the review of the MPQ8646 series (v1):
-
-  https://lore.kernel.org/all/20260723131352.182B61F000E9@smtp.kernel.org/
-
-The sysfs_notify() half is a no-op today: the named attribute does not
-exist on the i2c client's kobject. Note the KOBJ_CHANGE uevent source
-moves from the i2c device to the hwmon class device, matching what
-hwmon_notify_event() does.
----
- drivers/hwmon/pmbus/pmbus_core.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-index 3143b9e0316c..0081f16c3a95 100644
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -2985,8 +2985,9 @@ static void pmbus_notify(struct pmbus_data *data, int page, int reg, int flags)
- 
- 		if (reg == sreg && page == spage && (smask & flags)) {
- 			dev_dbg(data->dev, "sysfs notify: %s", da->attr.name);
--			sysfs_notify(&data->dev->kobj, NULL, da->attr.name);
--			kobject_uevent(&data->dev->kobj, KOBJ_CHANGE);
-+			sysfs_notify(&data->hwmon_dev->kobj, NULL,
-+				     da->attr.name);
-+			kobject_uevent(&data->hwmon_dev->kobj, KOBJ_CHANGE);
- 			flags &= ~smask;
- 		}
- 
-
----
-base-commit: 248951ddc14de84de3910f9b13f51491a8cd91df
-change-id: 20260723-fix_hwmon_notify_v1-74e1a94346c1
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ePzcJUAb9mXf34+w"
+Content-Disposition: inline
+In-Reply-To: <20260722143258.264584003@linuxfoundation.org>
+X-Cookie: (null cookie
 
 
+--ePzcJUAb9mXf34+w
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Jul 22, 2026 at 04:33:42PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.145 release.
+> There are 1226 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+Looks like I'm seeing the same proc read kselftest issue as I am on
+v6.12, the bisect is still running though.
+
+--ePzcJUAb9mXf34+w
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpiOSoACgkQJNaLcl1U
+h9BrEQf/fLpmjUxny8Bz65Re5SXBCZ77uqbLRfHJc9Mvj6rUojYYuqqVjBFRwVuX
+ZxshBDKXIJrTeNVdKzMyTz42vR1HsYKOj6iNj5kq/BwinLRmykQqAxFlMiTVRHTy
+2iGmMdmlZ2S3EL63RLByHpnDGsLMFHmgaHG4sP4nPAjX2vyKz+VVc1S02VRZNqiU
+EXDRT8pbfSyJK8th0ZSi8sUpBb3RsdwQTlC3imRFJuufoqtlp0h/Icgxtz26rXo5
+JL2cqJpsdigM3FppJ2khh6JPQ8qieVFQY7iSrSI4Qk8cfJvyrx1AsDZe/hdD8KG0
+ar+NoV8mblddtKpx4iSv5cPAW805Qg==
+=M/cn
+-----END PGP SIGNATURE-----
+
+--ePzcJUAb9mXf34+w--
