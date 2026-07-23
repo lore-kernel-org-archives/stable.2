@@ -1,121 +1,124 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12E97478;
-	Thu, 23 Jul 2026 00:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ED5184;
+	Thu, 23 Jul 2026 00:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784765225; cv=none; b=KGdbDeUOz82ooR8SsohGrMnSpdutfochvXh5GSo4bVKrzvLprR67Gblr1LHsR6d6NMDDmMJP5SFsg+Cc8xlymy+N8yqWE0sMksIFtruZERgpSVrVlR7Pp1CPFKQZCaP7U37xJEZY4FuNKF5xTNFjr/4IWq/JykZW7onTq7N/2u4=
+	t=1784765402; cv=none; b=ZryD2kCxYxOgPt9rNfNj+zb3m51XBLKvc+h0uZda5XpVkr+mlS41xQxBwAakYwCciuzlAX9g9WvF4DzMKKKO7Z77nE5BxlFm457IjyBuDT55C/af6kzPWsgEws/D7W3f5sZfirY5AzuOTOBleZG7xGyi2NXxBjUhCAyXDXs6rNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784765225; c=relaxed/simple;
-	bh=SMXq/c3sQoXOSucyruMi8aULrWNRt3oaGo/8EkRRYk0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uaWhd/bDgOS3ojIzxu6eoEEJICR2n2LvKWSCSGXMCRJiRP0Bm6u5fx1pD4VVEH4u3Su4RCbfqLwBTv13+k+mVDC0pfPzq+ys3vmMea/GCUu/+OBcfOnpqgzvIcPBCggkFCjvlQglofK88D3G7P7KZ9u44Um0X+JZjGJeW4BP4tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=Xhie8Ndt; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BTZmy+6C; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1784765402; c=relaxed/simple;
+	bh=Zu9oImaDwyIfoRz1q2AfzbW8Vir4fl7pMnnm74kpUNM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lh/M897d6NW905TUS3Cubk55NMzViXgod1Oe9CgwqjU0UoWEmQ4PtKtNrzB45ou4fnI6hRK2VL5DSvCRFodUwx8ZQtFZ/p4urxEYKWDsD9Pua/2aft4vlj/0zBAa7JtwH0lbBva0ER89KX8E3VgjdD2kFImMN8vuyDZhB+XfioE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/MErgR3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="Xhie8Ndt";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BTZmy+6C"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.stl.internal (Postfix) with ESMTP id 920001D000B2;
-	Wed, 22 Jul 2026 20:07:01 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-10.internal (MEProxy); Wed, 22 Jul 2026 20:07:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784765221;
-	 x=1784851621; bh=1qNI4f/jFL34X3GOabncYuW//3eyuIlRvWzHyhmEuF0=; b=
-	Xhie8NdtnAFFecpGARFdmWjj2Djaf1pDsHH0FvkH/W7mXix/N8gq1wivvhvMjZN8
-	jeImHTTYKVpMIQ5MjesNnXe87WknDLgZciBAIfe7sdmngldnoHDhVLC5t63ygHMO
-	SJGatbvzrkbDb0tOWxzpRuDA4NQyn8RlOCgwdrTq1UOK2CZHO53erLu+7t3CxBfb
-	9GOKQS/ceTSjYwapRyjVJFn77TtsFoYtnwjmhIGCV/HVKuk8pVCBH9excetrMU41
-	RT2GA4fT6SsWC2IOQzDJ8q1F76AobzOiR9r2fF9YQ60lX5JtZAneojMjsDrq/Nfp
-	wJRPP5b4eKCs0/WpH4Tw7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784765221; x=
-	1784851621; bh=1qNI4f/jFL34X3GOabncYuW//3eyuIlRvWzHyhmEuF0=; b=B
-	TZmy+6C8pkB5oraMz1r8RmLjbRGxoXW1fgYSkxJnWp0kAAYk+glcXSXMdJ8+n2GX
-	G6h3OOXGNsbz/NsK7pXRxsFOFpBDRKvPvvnnlAz+nYEwuMmURy3gsnfbG+yWYtiq
-	DnGO+hq69y4UM2k0PWEKsKcg/W66yZ5leFQhapX5lE+wvZv55OU5aarkN0BDN5w2
-	zT0KCNGuCno+gZkU9aEOORBc/4h0cIUpWW6rNEzMY/t899LYQOLkWdZ/MpniT2dj
-	fKjJM08nUNguLCCNJLEFSQ3bOgLPuZaZJkOGf+jLOBeZgxs2hV3yjiKzg4RE0BDa
-	PIEQ9rLHaTYZYdnfgbiUg==
-X-ME-Sender: <xms:JFthaqGMmRhptOB5ebXJbFkP4kkx0BwzOmz4VRy6dgb1ZdH4wfmTsw>
-    <xme:JFthanPVKIxC7-k8zaBDCEeHtg6NfqFH3ZOLjKAroTUhHSjctCieWl_BrLMm1g3sj
-    MxgfV36vyCUSuJjAhDLffSVcCXDygnEreAL9zc2PNbHkou5z5mI2ySX>
-X-ME-Received: <xmr:JFthavoaQOa0U1WYvDY5BStsY9CjPcDQRMpJ_4eNOfJvdODd8GJNzV5huONT71UQNzzjiWNJbeTAnYv1bDXQ18RlQz8WdRSl>
-X-ME-Proxy-Cause: dmFkZTERyxiSf1xaEmvv5dv9cQXowi5avp5nSBFII9DX9Zc/i1l8pw1afva9MDSwYutlo6
-    zNade6Mx4+aMHfm7W8n8uln+S7eDebDED5igY1J4spGVAOgOKLfsZJwxML6Kyo4KoqPVvy
-    YFdDHtC8pTyqxbk98Gc/CmWqsnZPxnRXkDGekgwSNcPQw9sxkO5JkFCF9AQyTBMataEKno
-    jVTDpk0SbldFy68Gj8Wz7uX5U3wd1X3ZYvfm/f0KnMzmBR+fmWpzNaGDR+Swq5AeT08Z3G
-    drOWcsc0MxI388+atGwTqt/KMIsGzgA0FDi2+dMrx27sr8Ys/YyFfU03zpT1Qkm0pPTIFL
-    a8E7jmUEXp1qI7EsjxObCbwW8eoOCtesG1htCdsNuLhqub+1ewOXTAigHZLQKK67KlUoLx
-    /Zd4t9Qqr+L94xf+oSQZNdSWmIBQJUbWhcMflK8JzCD3prbOuoYT1U9Mpzb3TPnXVeXVpS
-    tyzxIGZwrzThzwtFIB1Rr5kjDYJV/e0iRpuCVblhP4KAxMqbok1TS/Q9uVuD0QeG6NInGZ
-    N/Cu8fNGisCtf3MW4GARtHiy2TuTg7zkRS1ZUUTbfdOJE97vQKDN7X+6MvLX/Bjt4hliEO
-    o2ziWgm+5KWVohVSJ7DAmBe5Tagb4T47grEwSlD33t+XQQv43gaCO7nla79Q
-X-ME-Proxy: <xmx:JFthaoACc5-PBPOFRDfjewYhZiy31xg_Q0go9gdfsz2ivTVy2mdN_g>
-    <xmx:JFthaoPJogFI2HayVnUiIV4-xh_3lkLdT-Xf5V73vHYb1n5FE0YpsQ>
-    <xmx:JFthamAVexLTbOSNQ2k9MZfbgaSSJnfbX75BKa_lD990no-skJv8kw>
-    <xmx:JFtham975nH7rO8wAGBmTl5iu01IRnAc7aVspwbzxulmvK4PGN6exQ>
-    <xmx:JVthaqZZFRJOo6mRiwJOJz4pbztB_E22FqBrP_waP7KBTGX-Aj_-7pJ4>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 22 Jul 2026 20:06:58 -0400 (EDT)
-Message-ID: <81158dae-937d-45a8-b149-40814cc966ae@pobox.com>
-Date: Wed, 22 Jul 2026 17:06:56 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/MErgR3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211C41F000E9;
+	Thu, 23 Jul 2026 00:09:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784765400;
+	bh=RGDKxBCbXr9QOavwty6iyYJZjfOOVij2zQPxRnMUWOA=;
+	h=From:Date:Subject:To:Cc;
+	b=I/MErgR3ZkWUQgplmAG73RA7x8E0Y5es79mUl2qlzf5K3RqHNppc5kPYQ7u+e6RDc
+	 od1g8r1SejPUCEBsCvA0wYycWHI8EqA4sN483Oi9PSuWhuTNOWZzQAN/XfFGUUeQx0
+	 JamwP1uoqJaNlQAgpBdbyWjgMNKCf29sfxweao/zBzO2XwNLRyGyr4J50nNqHIdzQM
+	 HLa5rrmOFYRcDZ0rU6tQ4xgkBKoltWH7/9/rmfENlfRFQtxDV4VnhFbo4XYcJ8IUiq
+	 IYsgUHt6NO8useASROPmFwmlwsiz/OjpOnzctThUg1q6lg9NOaOxg78VoZdyWK6zIf
+	 xrSHw/sBXmpQg==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Wed, 22 Jul 2026 17:09:43 -0700
+Subject: [PATCH v2] x86/boot/compressed: Disable jump tables
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 0000/2079] 7.1.5-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260722142947.085426486@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260722142947.085426486@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260722-x86-boot-compressed-disable-jt-clang-v2-1-7373d38482fb@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6dkxbU0BX3sOwgHYKRWxNBwmGc
+ HcLxr3LP3n/v1kYYXRI7JItLOLkyAWfgjxkTHe1bxGcSZlJLnOeSwlzmUMTwgg6PJ4RidCAcVQ
+ 3A0KfrkMqAVphrK6l4ueSpakEWjfvmlv1zfRqetTjtr0RnaMxxPf+xyQ27qc8/aecBAhQhbJaG
+ 1UKXlzvGD0OxxBbVq3r+gEWItSQ6wAAAA==
+X-Change-ID: 20260622-x86-boot-compressed-disable-jt-clang-ef1dfca25098
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Ard Biesheuvel <ardb@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3006; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=Zu9oImaDwyIfoRz1q2AfzbW8Vir4fl7pMnnm74kpUNM=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFmJ0Vc1H053DmDzfF69e4/OgbVPJmdtuHtwadeSeatne
+ XP/XH10d0cpC4MYF4OsmCJL9WPV44aGc84y3jg1CWYOKxPIEAYuTgGYSOxKRoa3v1fMYX75Tzud
+ KSRR6di2aPn1wVoum2Wvi22qcGN5f8SUkWHC+nsfbrdHdMw1Fqyx4ztqcnleq0eP9ocv0zYJTL0
+ 97xwvAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 7/22/26 7:32 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.5 release.
-> There are 2079 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.5-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+After a recent upstream LLVM change to start generating jump and lookup
+tables in switch statements in more instances [1], linking the
+compressed x86 boot image when CONFIG_KERNEL_ZSTD is enabled fails with:
 
-Tested on 3 amd64 systems and an arm64 virtual machine. Working well,
-no regressions observed.
+  ld.lld: error: Unexpected run-time relocations (.rela) detected!
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Dumping the relocations in misc.o, which is the only file influenced by
+CONFIG_KERNEL_ZSTD in the decompressor, shows dynamic relocations to
+some string constants, which correspond to the string literals in the
+switch statement in handle_zstd_error():
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+  Relocation section '.rela.data.rel.ro' at offset 0x277b0 contains 31 entries:
+      Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+  0000000000000000  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 73a
+  0000000000000008  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+  0000000000000010  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+  0000000000000018  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
+  ...
+
+This optimization is problematic for the decompressor environment, as it
+is built as -fPIE without any explicit absolute references (as described
+at the top of misc.c) while not applying any dynamic relocations, hence
+the linker assertion. To opt out of this optimization, which is of
+little value in this special early boot code, and to mirror the other
+x86 startup code in arch/x86/boot/startup, disable jump tables in the
+decompressor.
+
+Cc: stable@vger.kernel.org
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2165
+Link: https://github.com/llvm/llvm-project/commit/fa02a6ed66b1700c996b49c96c6bc0eb014c9518 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+Changes in v2:
+- Disable jump tables for GCC as well to mirror arch/x86/boot/startup
+  and adjust commit message to match (Ingo). I kept the rest of the
+  message for future 'git log' travelers to see the original issue.
+- Link to v1: https://patch.msgid.link/20260623-x86-boot-compressed-disable-jt-clang-v1-1-575fccd58107@kernel.org
+---
+ arch/x86/boot/compressed/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
+index 07e0e64b9a98..06934f9691d6 100644
+--- a/arch/x86/boot/compressed/Makefile
++++ b/arch/x86/boot/compressed/Makefile
+@@ -27,6 +27,7 @@ targets := vmlinux vmlinux.bin vmlinux.bin.gz vmlinux.bin.bz2 vmlinux.bin.lzma \
+ KBUILD_CFLAGS := -m$(BITS) -O2 $(CLANG_FLAGS)
+ KBUILD_CFLAGS += $(CC_FLAGS_DIALECT)
+ KBUILD_CFLAGS += -fno-strict-aliasing -fPIE
++KBUILD_CFLAGS += -fno-jump-tables
+ KBUILD_CFLAGS += -Wundef
+ KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
+ cflags-$(CONFIG_X86_32) := -march=i386
+
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260622-x86-boot-compressed-disable-jt-clang-ef1dfca25098
+
+Best regards,
+--  
+Cheers,
+Nathan
+
