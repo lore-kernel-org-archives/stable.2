@@ -1,218 +1,232 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FCB2BCF46;
-	Thu, 23 Jul 2026 01:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2592931DE;
+	Thu, 23 Jul 2026 01:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784769704; cv=none; b=KOSIIpQNCwOjOHZ1ZIkn+tUECNmtEo1IcVbyCJQ7FaokqTWSqXS6fHddHzX3EznrYbUKEiVXfI3uuag64q1CFl28aB3j/FpcYlLzzHWjiVXBhOpQmtdbV7LRxQCN5FPvyOTMfl3wbMx/nxKZZCDKX02JDu/JEwEKm39vj/lit3I=
+	t=1784770943; cv=none; b=naB3cNYGpfFfvteQXN7uqHmwmnJdJxHzQpqNgiBb3q45MWZgQwhUH91qVs1+fpt5Mn+qF+gsvHT7wfCvY2UTNOm3ALPqAo632jmZeQFzjQpHEZv24mUtnQuFZwcZRxsgaBGs+hOfBtiqfK0lQJoBL0DiX5oXoofamRxjj8sFsHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784769704; c=relaxed/simple;
-	bh=/4WK5zroedOfaaEfh4bRDb6yVMphiJLBs7FVuWMIXgg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KjgOu5pmBC5x3X4G28GnmUxWscIs5fpzHMdiEqHgEdPquXPDjAAnx0wST+tYhnwieND8zLRMfAV39QJ0UbWOSOMqyiqA0dqnlds/6J2n3mT1PXhbXsoOW44BSxLA1V2oeG9ObcLMZsURgkdzJL7+abv0VS+VKBTNXkndBOUE9aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cg6Ooe6q; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1784770943; c=relaxed/simple;
+	bh=mNQeiHLtOE2eI3Wxy8SjxSE1jvCa/k2zMJRQl+78QXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=myuxomCOpXwXlxdhpOhRJ3dmxO3usPcbnQglrakaa6xcYsdEr2TmonCJcc/tUw/4S1hTnxx02UGyaydoDsq/DS21cEkskYDZEN2KVkGUfUpW8M/cLDKWIXFiDwV10QqckkkLyB6YRlqlaMTUKYtiYgt+MGFTTzuLMZ7yIglEfgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Eotv/Bt7; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cg6Ooe6q"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66N0gLpx1529893;
-	Thu, 23 Jul 2026 01:21:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=LpCzxm
-	6qpwL/i0Oh2ovMitcsykAvLEFh9PXNoNPhDHg=; b=cg6Ooe6qRnrA/T9rNhNKFk
-	/c4b5t2Cl8eu1jKnQq0qy5POQ/yW2poE5XKgV+siX8S00cxwicjG+7Fzw93CzGsy
-	nO3uabFPGev4IN438EvammFyYNOnyELT8wTZH4TjuG/uaOm12IwOpcqehUe/cJ2S
-	TkSd65EZRQrKzGvgx6lwy2suKJczVSh9UulEC5CuSeTLWVsKZwr+sy7gcbQobUK8
-	zLMcaXLsdkGsx8w0yQ09ZZPGDhDZ1Ufu9t+Fb8Uqwjo1Fp7Cadc/UavjL6MyWDAC
-	3yI09X9ahQuyyA/4Fkj9fOxReSWxiEJM/uMjvVT3A2tw73uGCQ9VavHSNuZKKl4A
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7ahcks7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 01:21:38 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66N1JkJU009640;
-	Thu, 23 Jul 2026 01:21:37 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fgpgyhqsk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 01:21:37 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66N1LaNK60293460
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 23 Jul 2026 01:21:36 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 59E2B58067;
-	Thu, 23 Jul 2026 01:21:36 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7E02B58065;
-	Thu, 23 Jul 2026 01:21:35 +0000 (GMT)
-Received: from [9.61.243.141] (unknown [9.61.243.141])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 23 Jul 2026 01:21:35 +0000 (GMT)
-Message-ID: <fd385a3b-7dae-40ec-8b7f-7f981944a0fe@linux.ibm.com>
-Date: Wed, 22 Jul 2026 18:21:33 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Eotv/Bt7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784770942; x=1816306942;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=mNQeiHLtOE2eI3Wxy8SjxSE1jvCa/k2zMJRQl+78QXQ=;
+  b=Eotv/Bt7mya+xOvdKOEEPlsR1gbjaahGWokiu8RSpsRO1oVw7uNNIwGq
+   z3Sl78A4q/797R5r1I+DhyUWx270ypHSXJAos/URoWVKdJUykOWeM4tvG
+   aEIJ6RijwfZeOlvRXLGCbzut4GI3RKEIgRo2y25AJpx/XlSo1dBkS0iW6
+   2mO4il3D504qHMJvfSSNL0y7sv2aTQshoi6GNNwL1tT5ffv8bupKtyPS6
+   CNso+83jv7aGyEl9EHIepGaTLfb9Y4+H4rb8kqo8g479q6M14pPrSTlxN
+   gVf0LtbHn6P8zxSBiBDXyLMi/09B4TLteoOREhp/xOXSt3/dKd9Ltydkz
+   A==;
+X-CSE-ConnectionGUID: 2ycLmh+nQA2wcbFR/OfBBw==
+X-CSE-MsgGUID: j7hnnam1RIyzoNDrEHR65A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96790315"
+X-IronPort-AV: E=Sophos;i="6.25,179,1779174000"; 
+   d="scan'208";a="96790315"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jul 2026 18:42:21 -0700
+X-CSE-ConnectionGUID: J98Z6do+T8SXY+bGVZNySQ==
+X-CSE-MsgGUID: 3WHpnddbSiOHybu9ZDoe0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,179,1779174000"; 
+   d="scan'208";a="257028835"
+Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jul 2026 18:42:18 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] gpio: pch: use raw_spinlock_t for the register lock
+Date: Thu, 23 Jul 2026 09:41:29 +0800
+Message-ID: <20260723014129.1129730-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 1/4] PCI: Allow per function PCI slots to fix slot
- reset on s390
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org, alex@shazbot.org, schnelle@linux.ibm.com,
-        mjrosato@linux.ibm.com, stable@vger.kernel.org
-References: <20260722223231.GA801609@bhelgaas>
-Content-Language: en-US
-From: Farhan Ali <alifm@linux.ibm.com>
-In-Reply-To: <20260722223231.GA801609@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: d5gSVyhkDZEO5Q3lGTohbcwslEGiJ8o0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDAwOSBTYWx0ZWRfX4YtKahbzjsaW
- 8L49t96n6eu8cdE++ZoUs6tAPidrnnHIbtm5Kr1+HnexvcN9V4yW5O+uFfKowIof8dakDz5Z+f6
- o87YFfgvywX1VHGv8T+hUHv8BWJk9FDy8HbaC/12QXVKaYj8SyO8gdla0GLOsjuKeM0gdQl/FTN
- 9jWcjYoY1JmFycvH1GfsSV2FCpjqpM0x+8L4EtSLAtbueHaLHr2uFkJ9UwqO7A4qBYm6f2OslJD
- ZShiuUmLBt9C8YIu4hCHZCzv6ajYYZINe7nOcn+JVgT9XmMh0sSmH5R4/TTUgrE2hCA1z0DjM7l
- y2VgOF+6ua/Xh3w8u0czZLz4Odmh1dzsF9cTXHBXB9+A3Udvu5YAol8dXzO15sJw7jzRaTARolk
- o2c6mIZR8rzS+yxi2SxQkas4X0I3cAvQEdBQRFX3SVsMF5HS2MP7nZXiy9w/cjZfoKlkV4H5Yqh
- rXBIGZb3V0XJgVH9vdw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDAwOSBTYWx0ZWRfX+jH4UVZG6wUG
- 7cdJBP8/yGlOTlafx9Vzir+F1ALMHcVE1IwdpO5tTRZPPEFfNqCWwvqIuzzjrgJ7WJdGptChPmN
- TIU0L/TmTmNyp4hzaif5nV4Eu/WWR28=
-X-Proofpoint-GUID: d5gSVyhkDZEO5Q3lGTohbcwslEGiJ8o0
-X-Authority-Analysis: v=2.4 cv=SM5ykuvH c=1 sm=1 tr=0 ts=6a616ca2 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=fKvCKPnV1Suih4e517sA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_01,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
- spamscore=0 malwarescore=0 priorityscore=1501 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230009
+Content-Transfer-Encoding: 8bit
 
+pch_irq_type() is registered as the irq_chip .irq_set_type callback and
+takes chip->spinlock with spin_lock_irqsave().  This callback is reached
+from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
+the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
+That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
+an rtmutex-backed sleeping lock, so acquiring it there is invalid.
 
-On 7/22/2026 3:32 PM, Bjorn Helgaas wrote:
-> On Thu, Jul 16, 2026 at 11:15:33AM -0700, Farhan Ali wrote:
->> On 7/15/2026 4:34 PM, Bjorn Helgaas wrote:
->>>> On s390 systems, which use a machine level hypervisor, PCI devices are
->>>> always accessed through a form of PCI pass-through which fundamentally
->>>> operates on a per PCI function granularity. This is also reflected in the
->>>> s390 PCI hotplug driver which creates hotplug slots for individual PCI
->>>> functions. Its reset_slot() function, which is a wrapper for
->>>> zpci_hot_reset_device(), thus also resets individual functions.
->>>>
->>>> Currently, the kernel's PCI_SLOT() macro assigns the same pci_slot object
->>>> to multifunction devices.
->>> PCI_SLOT() doesn't assign pci_slot objects; I guess they're assigned
->>> by some code that*uses* PCI_SLOT().  Since this says "currently," I
->>> assume you're changing that code, so we should mention where it is to
->>> help readers out.
->> Thanks for your response! I can re-word the commit message, how about
->> something like this:
->>
->> Currently, the pci_create_slot() assigns the same pci_slot object to
->> multifunction devices.
->>
->>> I see some Sashiko comments; those also need to be addressed or
->>> explained away.
->> Regarding Sashiko's comments for this patch, it mentions 2 issues:
->>
->> New issues: - [High] Unconditional enablement of `per_func_slot` on S390
->> breaks standard PCI hotplug (e.g., pciehp, shpchp) slot matching and resets.
->>
->> I believe this is not applicable as on s390 we don't support any other PCI
->> hotplug drivers given the unique nature of zPCI architecture.
-> Makes sense.
->
->> Pre-existing issues:
->> - [High] Lockless access to `dev->slot` in `pci_dev_reset_slot_function` can
->> lead to Use-After-Free if a hotplug driver is concurrently unbound.
->>
->> Sashiko identified this as a pre-existing issue, so I don't think should be
->> addressed with this patch.
-> Right, we don't need to fix pre-existing issues in this series, but I
-> meant there were Sashiko comments on other patches in this series that
-> look like they *should* be addressed, e.g.,
->
->    [PATCH v21 2/4] PCI: Avoid saving config space state if inaccessible
->
->      - [High] pci_dev_save_and_disable() skips disabling the device if
->        config space is momentarily inaccessible, potentially leaving
->        DMA and interrupts enabled.
+This was confirmed on a PREEMPT_RT kernel with lockdep
+(PROVE_RAW_LOCK_NESTING and DEBUG_ATOMIC_SLEEP).  A grounded PoC mirrored
+pch_irq_type()'s locking and drove it through the real genirq carrier
+irq_set_irq_type() -> __irq_set_trigger() -> chip->irq_set_type(), i.e.
+the same __irq_set_trigger() edge that __setup_irq() takes for a
+requested IRQ.  With the original spin_lock_irqsave() edge lockdep
+reported an invalid wait context, immediately followed by:
 
-I am not sure if this is an issue? If we want to check if the device is 
-momentarily inaccessible, then we would need to poll and do something 
-similar to pci_dev_wait(). Please correct me if I am wrong. FWIW this 
-doesn't even show up as an error anymore in v22 even though its the same 
-code.
+  BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
+  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 95, name: insmod
+  hardirqs last disabled at (3784): _raw_spin_lock_irqsave+0x4f/0x60
+   rt_spin_lock+0x3a/0x1c0
+   repro_irq_set_type+0x64/0xa0 [pch_repro]
+   __irq_set_trigger+0x69/0x140
+   irq_set_irq_type+0x78/0xd0
 
-https://lore.kernel.org/all/20260720194254.E6B811F000E9@smtp.kernel.org/
+Switching the mirrored lock to raw_spinlock_t made both splats go away.
 
->      - [Low] String literal passed to a non-const `char *` pointer in
->        `pci_dev_config_accessible()`.
+Convert the register lock to raw_spinlock_t.  The same lock also
+serializes the GPIO direction/value callbacks and the suspend/resume
+register save/restore, but all of those critical sections only perform
+MMIO register accesses (ioread32()/iowrite32()) and
+irq_set_handler_locked(); none of them contain sleepable operations.
+Keeping this register lock non-sleeping is therefore appropriate for the
+irqchip callbacks and does not change the GPIO-side locking contract.
 
-I wasn't sure if this is something that is strictly enforced. But I can 
-fix this if we want to enforce it.
+This is the same class of issue and fix as recently addressed for other
+GPIO controllers, e.g. commit 286533cb14a3 ("gpio: sch: use raw_spinlock_t
+in the irq startup path") and commit 90f0109019e6 ("gpio: eic-sprd: use
+raw_spinlock_t in the irq startup path").
 
+Fixes: 38eb18a6f92d ("gpio-pch: Support interrupt function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+---
+ drivers/gpio/gpio-pch.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
->      https://lore.kernel.org/all/20260630170754.093021F00A3A@smtp.kernel.org
->
->    [PATCH v21 3/4] PCI: Fail FLR when config space is inaccessible
->
->      - [High] Un-ratelimited pci_warn() in pci_dev_config_accessible()
->        allows an attacker to flood the host kernel log.
-
-Since we bailout early with -ENOTTY, we should at least try the other 
-reset methods such as bus reset. So AFAIU we shouldn't be spamming the logs.
-
->      - [High] Early bailout in pcie_flr() when config space is
->        inaccessible skips the Function Level Reset and the subsequent
->        wait, allowing device assignment to continue without reset,
->        leaking state.
->
->      https://lore.kernel.org/all/20260630171310.F25D41F000E9@smtp.kernel.org
-
-The idea with early bailout was to make sure we can try the other reset 
-methods as currently if FLR is inaccessible/fails we don't try any other 
-reset methods. So we should be trying the other reset methods and it 
-shouldn't leak state. I think we probably are leaking the state today, 
-as we don't try any other reset methods to reset the device.
-
-
->
->    [PATCH v21 4/4] PCI/MSI: Enable memory decoding before restoring MSI-X messages
->
->      - [Medium] Blindly restoring a stale PCI_COMMAND value introduces
->        a TOCTOU race window that can erase concurrent modifications to
->        the register.
->
->      https://lore.kernel.org/all/20260630171255.20BD91F000E9@smtp.kernel.org
-
-I am not sure if this something we should fix?
-
-
->
-> Annoyingly, on v22, Sashiko complained about *different* things and
-> didn't complain about some of these even though the v22 patches are
-> identical to v21.  Sigh.
-
-Yeah, for this series Sashiko has been a little inconsistent in the 
-issues it identifies :)
-
-Thanks
-
-Farhan
-
+diff --git a/drivers/gpio/gpio-pch.c b/drivers/gpio/gpio-pch.c
+index 4ffa0955a9e3..07a5617b314b 100644
+--- a/drivers/gpio/gpio-pch.c
++++ b/drivers/gpio/gpio-pch.c
+@@ -96,7 +96,7 @@ struct pch_gpio {
+ 	struct pch_gpio_reg_data pch_gpio_reg;
+ 	int irq_base;
+ 	enum pch_type_t ioh;
+-	spinlock_t spinlock;
++	raw_spinlock_t spinlock;
+ };
+ 
+ static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
+@@ -105,7 +105,7 @@ static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
+ 	struct pch_gpio *chip =	gpiochip_get_data(gpio);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	reg_val = ioread32(&chip->reg->po);
+ 	if (val)
+ 		reg_val |= BIT(nr);
+@@ -113,7 +113,7 @@ static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
+ 		reg_val &= ~BIT(nr);
+ 
+ 	iowrite32(reg_val, &chip->reg->po);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -133,7 +133,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
+ 	u32 reg_val;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 
+ 	reg_val = ioread32(&chip->reg->po);
+ 	if (val)
+@@ -147,7 +147,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
+ 	pm |= BIT(nr);
+ 	iowrite32(pm, &chip->reg->pm);
+ 
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -158,12 +158,12 @@ static int pch_gpio_direction_input(struct gpio_chip *gpio, unsigned int nr)
+ 	u32 pm;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	pm = ioread32(&chip->reg->pm);
+ 	pm &= BIT(gpio_pins[chip->ioh]) - 1;
+ 	pm &= ~BIT(nr);
+ 	iowrite32(pm, &chip->reg->pm);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -265,7 +265,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
+ 		return 0;
+ 	}
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 
+ 	/* Set interrupt mode */
+ 	im = ioread32(im_reg) & ~(PCH_IM_MASK << (im_pos * 4));
+@@ -277,7 +277,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
+ 	else if (type & IRQ_TYPE_EDGE_BOTH)
+ 		irq_set_handler_locked(d, handle_edge_irq);
+ 
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 	return 0;
+ }
+ 
+@@ -374,7 +374,7 @@ static int pch_gpio_probe(struct pci_dev *pdev,
+ 	chip->ioh = id->driver_data;
+ 	chip->reg = chip->base;
+ 	pci_set_drvdata(pdev, chip);
+-	spin_lock_init(&chip->spinlock);
++	raw_spin_lock_init(&chip->spinlock);
+ 	pch_gpio_setup(chip);
+ 
+ 	ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
+@@ -407,9 +407,9 @@ static int pch_gpio_suspend(struct device *dev)
+ 	struct pch_gpio *chip = dev_get_drvdata(dev);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	pch_gpio_save_reg_conf(chip);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -419,11 +419,11 @@ static int pch_gpio_resume(struct device *dev)
+ 	struct pch_gpio *chip = dev_get_drvdata(dev);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	iowrite32(0x01, &chip->reg->reset);
+ 	iowrite32(0x00, &chip->reg->reset);
+ 	pch_gpio_restore_reg_conf(chip);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+-- 
+2.43.0
 
