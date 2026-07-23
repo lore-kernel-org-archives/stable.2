@@ -1,105 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E8A31326A;
-	Thu, 23 Jul 2026 23:16:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80B61F5834;
+	Thu, 23 Jul 2026 23:17:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784848595; cv=none; b=GFZv6trUSs/p5Wr3nkw4SXenq/JMZzOjzSxo1qeoaYAcnFlJO/fl4kOKdjiTVjoJTUc9591eLu28dxNdOo2opKWOUHqbw7X2dyeIPCQU4ZpKdn1zy/v+m4ZNVlz2z15kH2y/WPrpN4Gh5nBpZm6hzFZC2WZep6kdiYu9SAM6TXA=
+	t=1784848636; cv=none; b=QiLQlUsZ5Tc8pSjrJU6tWOQzgH+KFooy26DKs8SEstw4wMNhkFycI9Q9nuqzDtvEs0vBktR2Fqu0Ae6prTEICGlonQpQcR+JpGJmVMdthcC1uQy7i8ZbOSSy49vKPnxkXFtdVYqGFVKI2ghpCa7O+8GEXTIzqMRQEttJxNopu4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784848595; c=relaxed/simple;
-	bh=l0EOcT3Hj7HEparH1m0NIreWB3lwI6hn15Ukpic1zpI=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=N09HXYrQPjgN/aj0nnCTyvyKjceLLLUq0mjwmIShIMl9ix3UHu8I5c7lmP1LVT7iUQiMfh+JNTUtLTpAarKu4J3h+kn3IvMEl8tAsUUyFbu9SGmAMmB0B8xFBBGM2WqN54AugI3lizWp+H1foqkF1N5sx13uYk1ozu8ODh+yswE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MR5HHJSL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784848636; c=relaxed/simple;
+	bh=YZW43UP0EiUwh6oPs5xCaho2zRoZFQ/uBWG7eK7GUIA=;
+	h=Date:To:From:Subject:Message-Id; b=Yr+zioyOVLDD2vSGncq+IjU2Z5PwmmGwLwy6vGZdGRmni3vyU8JVx+B20ueh4dFDdpOA7uIUF8ev5jIWTvcT7mkIlZyXSi9hxekf6yG4Gq3Ev0HNVvtX/y8f83GVLV2CJU8rSKNtCrEdzzJYpuVuDfCoOTrSET3xwqV5LzTvMgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RaIbKb+Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MR5HHJSL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A8F1F000E9;
-	Thu, 23 Jul 2026 23:16:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784848594;
-	bh=nxvDNRcaEJb/ntcgfZBTPV3yUhwk30rTipu7armknUU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=MR5HHJSL7qYPuAUy3Fed38sunopaq3XOz5pWQh0fruilynxBtCCcFTPHmCjbhDyDE
-	 ceLFD25phB+/QWtIn6Kldjg6ukks/TvBwlr1fG40/0EqRxeczyeR8jYRk8CwMrsbkH
-	 N2WEu3IzMZbcrO+5v3aulL19YbiWAhyAC7OmqcLq4TYelnBQ/0B/8sBMMGhq0073/m
-	 07O5JSiMQBW3WWjGPkL+AE1w7DX/TvAv2uCvF3Waw3qBdyCXowQucYCkHfP0n8YAWW
-	 kC/Vufcb3exeGj2uDvie3K2etmRE3IG3uvsiNMIhkJCtq4VwdzsPwOlWGL/lFDmLfY
-	 nasEqGJsGxnxw==
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RaIbKb+Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5E61F000E9;
+	Thu, 23 Jul 2026 23:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784848635;
+	bh=eG6Oqf0YZcczL6VoG1QnJcwYCNZawvddgyURdelaJE0=;
+	h=Date:To:From:Subject;
+	b=RaIbKb+YUZ/KJyxBWm77uo5D4X+GGXt7hYFbRWasrypFtxp5gvoOdrVe7Q1x2X0Jm
+	 u50uJCxGfttqHxrKGA3zxoYHbXYyuXMPJBhefK/RKXW+F//KYmmWTCgQVjVa1Yy4L+
+	 Z54E2qaNnqWRo5M4EeEDyEW1O9crtjAQMrpKMuH4=
+Date: Thu, 23 Jul 2026 16:17:14 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,oleg.deomi@gmail.com,bsingharora@gmail.com,akpm@linux-foundation.org,include@grrlz.net,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + taskstats-fix-cpumask-parsing-cutting-off-the-last-character.patch added to mm-nonmm-unstable branch
+Message-Id: <20260723231715.3B5E61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH RESEND] kbuild: Stop modifying $(objtree)/Makefile when
- building oot-kmods oos
-From: Nathan Chancellor <nathan@kernel.org>
-To: Nicolas Schier <nsc@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Anish Rashinkar <rashinkar.anish@gmail.com>, stable@vger.kernel.org, 
- Philipp Hahn <p.hahn@avm.de>, Nicolas Schier <n.schier@fritz.com>
-In-Reply-To: <20260723105845.1704689-2-nsc@kernel.org>
-References: <20260723105845.1704689-2-nsc@kernel.org>
-Date: Thu, 23 Jul 2026 16:16:22 -0700
-Message-Id: <178484858201.4095280.2018856728416028444.b4-review@b4>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1904; i=nathan@kernel.org;
- h=from:subject:message-id; bh=l0EOcT3Hj7HEparH1m0NIreWB3lwI6hn15Ukpic1zpI=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFlJC853bl4RsnV/9flHDbwLXLlsjisfsv/+wDVL//rFZ
- 9MPyghVdJSyMIhxMciKKbJUP1Y9bmg45yzjjVOTYOawMoEMYeDiFICJVEUzMny7aMnGrbJPdt7J
- +7N91GdUas9i7r5b2hX/uvCeYh7/okmMDL0rzhjuUi77lRcqfUXYcd7Npb0/dS4kZT22PmHBe6N
- XkREA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-> Update output Makefile in the corresponding tree only: for out-of-source
-> in-tree builds update $(objtree)/Makefile, for out-of-source out-of-tree
-> module builds update $(KBUILD_EXTMOD_OUTPUT)/Makefile instead.
-> 
-> In-source builds are not affected.
-> 
-> Since commit c9bb03ac2c66 ("kbuild: reduce output spam when building out
-> of tree"), building out-of-tree kernel modules out-of-source (make M=...
-> MO=...) causes a rewrite of $(objtree)/Makefile with KBUILD_EXTMOD and
-> KBUILD_EXTMOD_OUTPUT being set.  That is problematic:
-> 
->  * $(objtree)/ must not be changed in any way when building out-of-tree
->    modules as it breaks other uses of $(objtree).
-> 
->  * Setting KBUILD_EXTMOD and KBUILD_EXTMOD_OUTPUT in $(objtree)/Makefile
->    kills the tree for incremental builds that start right there
->    ('make -C $(objtree)'); builds starting in $(srctree) reset
->    $(objtree)/Makefile to its original content.
-> 
-> Further, $(KBUILD_EXTMOD_OUTPUT)/Makefile was not generated any more at
-> all.
-> 
-> This commit restores the previous kbuild behaviour prior to commit
-> c9bb03ac2c66 ("kbuild: reduce output spam when building out of tree")
-> but leaves in-place the use of filechk for output spam reduction.
-> 
-> Fixes: c9bb03ac2c66 ("kbuild: reduce output spam when building out of tree")
-> Reported-by: Anish Rashinkar <rashinkar.anish@gmail.com>
-> Closes: https://lore.kernel.org/r/CAOESE2Q2-0KUDaM0mUo+c_F-tMaUsBZ-gpnhdoe0rmYdgnnuJQ@mail.gmail.com
-> Cc: stable@vger.kernel.org
-> Tested-by: Philipp Hahn <p.hahn@avm.de>
-> Reviewed-by: Philipp Hahn <p.hahn@avm.de>
-> Signed-off-by: Nicolas Schier <n.schier@fritz.com>
-> Signed-off-by: Nicolas Schier <nsc@kernel.org>
 
-Thanks!
+The patch titled
+     Subject: taskstats: fix cpumask parsing cutting off the last character
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     taskstats-fix-cpumask-parsing-cutting-off-the-last-character.patch
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-Tested-by: Nathan Chancellor <nathan@kernel.org>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/taskstats-fix-cpumask-parsing-cutting-off-the-last-character.patch
 
-Do you want me to take this via kbuild-fixes?
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
--- 
-Cheers,
-Nathan
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Bradley Morgan <include@grrlz.net>
+Subject: taskstats: fix cpumask parsing cutting off the last character
+Date: Thu, 23 Jul 2026 21:09:22 +0000
+
+parse() hands nla_strscpy() len as dstsize, and nla_strscpy() copies at
+most dstsize - 1 bytes.  When the attr payload comes in without a trailing
+NUL, srclen == len >= dstsize and the last character of the cpumask string
+gets cut off.  Register "0-15" and you are silently listening on "0-1",
+exit data for the rest never shows up.
+
+The bug only bites when the sender doesnt NUL terminate the payload;
+senders that include the NUL were always fine (srclen gets decremented for
+the trailing NUL, so srclen < dstsize).  Thats probably why this survived
+20 years.  And the policy is NLA_STRING, not NLA_NUL_STRING, so a payload
+without the trailing NUL is legit input here.
+
+Skip the kmalloc/nla_strscpy dance entirely and use nla_strdup(), which
+already allocates srclen + 1 and terminates.  The nla_len() bounds checks
+stay as they were.
+
+Link: https://lore.kernel.org/EC49FE41-7F5F-41E0-A07A-ABEB8ECA514D@grrlz.net
+Fixes: f9fd8914c1ac ("[PATCH] per-task delay accounting taskstats interface: control exit data through cpumasks")
+Signed-off-by: Bradley Morgan <include@grrlz.net>
+Reported-by: Oleg Deomi <oleg.deomi@gmail.com>
+Closes: https://lore.kernel.org/CAByWkfZ6b1=3H9pwkz-dDQOs9cZaF-HYQ6b9Yb0=Hq2r1Vv_Pw@mail.gmail.com
+Reviewed-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Balbir Singh <bsingharora@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ kernel/taskstats.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+--- a/kernel/taskstats.c~taskstats-fix-cpumask-parsing-cutting-off-the-last-character
++++ a/kernel/taskstats.c
+@@ -368,10 +368,9 @@ static int parse(struct nlattr *na, stru
+ 		return -E2BIG;
+ 	if (len < 1)
+ 		return -EINVAL;
+-	data = kmalloc(len, GFP_KERNEL);
++	data = nla_strdup(na, GFP_KERNEL);
+ 	if (!data)
+ 		return -ENOMEM;
+-	nla_strscpy(data, na, len);
+ 	ret = cpulist_parse(data, mask);
+ 	kfree(data);
+ 	return ret;
+_
+
+Patches currently in -mm which might be from include@grrlz.net are
+
+lib-string-fix-memchr_inv-for-large-ranges.patch
+signal-avoid-shared-siginfo-namespace-rewrites.patch
+taskstats-fix-cpumask-parsing-cutting-off-the-last-character.patch
 
