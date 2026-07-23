@@ -1,72 +1,68 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D873CF20A
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 22:10:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADA9339844;
+	Thu, 23 Jul 2026 22:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784844661; cv=none; b=e3Rtb7rvDUSKv8oByBo/ozoL9Meshp4eubzdNdMv/kLXLUFHXIjBC5qophD+hh6OuF7qM1iV2FucsXZqKYTaOw2wF53KOjODMG9AsLJb5P5G9KVosM+kEqG1Fz3gSHwXVUoS+Q0Yu2fBx/4vkpwgLPudMFESKdZz52EObfcPik4=
+	t=1784844854; cv=none; b=FyL5XnQv1RuDkGyXNZWQIukysSD9aYGhNDZnAPWaitbqGFVNAuT7+4z3zlzMSg63b2GUx0UKuvE9JgZUKK68zKNB7ecOfIQLIJa/wdRnyzHUE5QoPHuaRZlsQhIxB6QwtLuUOroXoxa/2B+DN0r6xtAGKiD5QTVc/GkOPlXqgZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784844661; c=relaxed/simple;
-	bh=C2Zn4CbY0hbSGyEmBt2MEmF1iqU58U4gSfRk9aHfces=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y/BHuCxqb44Mho4CeQWb/6djmIUh8dV5KGX9b/r92vEflGzg6va1qXwqV7W9PfHY401fi4FRvVUMOyBGbFv0ysSJaW/3h4KAeTdskujDZq1roOvJDekFziEP1kUvN9gxS2OYyBWMwKrSLsWLIpk42FmGKxM3Nxion2UkY1nPYTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZRsAf77j; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784844854; c=relaxed/simple;
+	bh=J4rj2ZN//xVarZrYZCxN43NnJ0NcRj3mrBSYGw7AmqI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NU5xX+ez8juJxrcIVae5EzVK/1IC4IIFtJNpQwltUpfUE6O+lV1P91X08mFQoTRz44XjW8blRGR6MJdcymPzFIE3L7nhXyxBkPMo/Bpu5cxtEGD+FaLZXT0aTouNZQAJID0uSA9rDZmwo6uF3w/cr8gpIu/gUyYWCEm+Of+kV84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rTSfBIWq; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZRsAf77j"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1c24ec9525so175254966b.1
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:10:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784844658; x=1785449458; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n3sImDHanXm/nP3OwyjC3fU83vihxLVlwyFoNqtWFgU=;
-        b=ZRsAf77jzBdCVplXum1b+cqawbil6autyF44PDzTpfxcIe1nkfTYLz5n/vWqYQt0lF
-         XiMeTdt2C5EXt/bGzvdurxs5MK396TXhMBjB4LcIg0XdIDjyOztUBsJnC6hVJG7AoCIV
-         qFa5jWwcqFCoGu0yMnIX0PFXpXpLrZ9VgpwvuQtiMdnfaIz7Es6OXO2coX52KLlC+JFG
-         425kYAeRgYV54CgCkk0nvEP+IfiHJLsZTqeaahCqHamBkluvzqiBSLZa2JvQuP3uUhhD
-         60WH3/xrnJv5ffELmbtALODgc9eNeA98bu3a6NaF/UZV7p3vfxsJHLzicfKCUPkCmvKK
-         MI7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784844658; x=1785449458;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n3sImDHanXm/nP3OwyjC3fU83vihxLVlwyFoNqtWFgU=;
-        b=pvA8jbD5Pkd1mwnani01QLaoJh999YXK4mSrmSzUs4XC4OkYBxWDKUsaJA28GiEfAp
-         PIVu4oB/kbplSoyoRam7eHFlsA1TMQ3Jl/fU8HLh1iEoldeEdKTe85V0gRrtw7rPS9iY
-         1BLVkNQmUv41QgXi0GF+l0yeAgCKd0DL5dfXTxH9IpT2lAcPGlG5nQZ0zdm2y1FX3bjU
-         kXlp+HzJ5MuZPVCqcI8bXj4iFvbd8eSKZGqNudVLXkMDP+xHcIWzhqX6ZkK1hlmGHEvS
-         s0tPunlPzx3a2kfvP9m3M5N73MsAC0SlSIfNtlck1ZCiM/4iyrtVT2RevGQ4FE3Eg1L0
-         rbGg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+yZetLG596p08gQrDhPuhHKMzCJySPjzVpr1ssOXj5ZRegzh+yiTIdyW0WSVEVe/KyAKzAs0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1tE6HmO4aQah1xXfYom3t/7BlU1EP1Y/tBYdinGh2a9EhPHkx
-	8FfPlehM87fuNj9Y4w5PrkAkZj+PtMbRbbFYBsC1iUNLxQghMQCu5M19uh6oEg8c0eo=
-X-Gm-Gg: AR+sD12em4VGF9R8301f1K+gglE8ugBnxX/YM0CwMpMnZo0I01SLSNrmqUTjOVu0r1I
-	5am9WsCqicCbvY26ssQEhhqEpVqLwTVLEKkJzk5nw8/izi+mDPWiWzacw50/5zPNfTIAp0tQH87
-	SBvR8tTCqro41njL015mzEbc2xK4OTo4rdqPBDJwUlTELLuxETLHYdbdmZvsPGTkb3vPDfMsQ8t
-	060mwR0PTEMbD8zBcM5ElcyhidLWPm4ldQ7SIkbgCN0AIXMO6NzKj2XGePpWV4ddHk53lHl98SU
-	Mfw9qZrPPVmHIfcjRPTxFZqAYpYG/8MvVtNflQdznlstiR4bFXvfWC7dQHp72VZPuikwbq6s1RE
-	E3lAQWucXz54Zx9FGB4PVsCr01ZQW0L6MPqYp4FduRmBMB783+4E5uX5ni0JCC2csLyyQ9z5DfN
-	N7jwAn
-X-Received: by 2002:a17:906:7304:b0:c1c:62b4:1ebf with SMTP id a640c23a62f3a-c1c62b41f9emr108510166b.60.1784844657499;
-        Thu, 23 Jul 2026 15:10:57 -0700 (PDT)
-Received: from beelink.. ([186.247.163.143])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32c90205sm280929566b.33.2026.07.23.15.10.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 15:10:57 -0700 (PDT)
-From: Your Name <qwe.aldo@gmail.com>
-X-Google-Original-From: Your Name <you@example.com>
-To: ntfs3@lists.linux.dev
-Cc: almaz.alexandrovich@paragon-software.com,
-	linux-kernel@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: validate that EA entry size covers its name and value
-Date: Thu, 23 Jul 2026 19:10:45 -0300
-Message-ID: <20260723221045.529665-1-you@example.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rTSfBIWq"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NLgUox4192294;
+	Thu, 23 Jul 2026 22:14:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=s8kEz6tL+IAX1w09s
+	dKggdxzvbkfbK6pwkFuZZg4FFU=; b=rTSfBIWqZUrmRzLpe1TY0KSZ1mt/7Kg8b
+	PxukEyrdTwyl8yOK4ERhl7MKX3lxS62OkQ23uhtTwTycjRFMugOeBUe8+YcB3Bi9
+	PcbHXjI5XsNA1vaUy9tQZHtnBRYOrthbf9fHxrIwa2Frvdg9SvzprVFihuvWhj3N
+	LixWtgt7P/a9iXPs6JPIaIZny9Mhbwk3DpOxTIzfRSKC+FWV1EXxBY0QZMrMP9L7
+	gVhiWl3CiOrAnVxvOwEoIZobB+bX908Aa62E4xpYyoC4BohX1fLHJXvru05rrAn5
+	NJKXzdGUDrHeogOEPMs/u3pQd0oFmBLxhvWD9jRBnJKSDMW/yfeZw==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg7ahh8ex-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 23 Jul 2026 22:14:12 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66NM4cNO031287;
+	Thu, 23 Jul 2026 22:14:11 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fgpgyp0ux-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 23 Jul 2026 22:14:11 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66NMEAK227066988
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 23 Jul 2026 22:14:11 GMT
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DB7885805A;
+	Thu, 23 Jul 2026 22:14:10 +0000 (GMT)
+Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 411D958056;
+	Thu, 23 Jul 2026 22:14:10 +0000 (GMT)
+Received: from IBM-D32RQW3.ibm.com (unknown [9.61.246.245])
+	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 23 Jul 2026 22:14:10 +0000 (GMT)
+From: Farhan Ali <alifm@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: alifm@linux.ibm.com, mjrosato@linux.ibm.com, borntraeger@linux.ibm.com,
+        stable@vger.kernel.org
+Subject: [PATCH v6 1/6] KVM: s390: pci: Reject adapter interrupt forwarding if already enabled
+Date: Thu, 23 Jul 2026 15:14:04 -0700
+Message-ID: <20260723221409.5874-2-alifm@linux.ibm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260723221409.5874-1-alifm@linux.ibm.com>
+References: <20260723221409.5874-1-alifm@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,80 +70,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: HVYBf80CMZCwmu5DhCzfvwqQP0yyc0FH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDIxNSBTYWx0ZWRfX+ygpPwVVR4l7
+ E1euulMoO6LtbnSKvTPUR18TLT2HdV/+sQho2Mv7598pHiv0ccysLlQfuQU/25uPjTfr6L9tFQ4
+ zb5QAQrrTFo/66l8WjNqY2KlGGixE5U+NsUEItVAYiee2RZ/ono1KYHo5nigS2NfZ/iN/8pfsGM
+ HyEL0nVPVIDtv81/dmpVekbjHS0p3svuxvlzNT22PTASH9hZ6LsGaPwtqo6+m6WIQq2FF0VKZuX
+ vWT6TVO/UJvuAOmC1rAubBYubrHNzEGsIA8NSRfLD/7A5Kr4WSQU5bAZ3W9nXFhfoxQ6JeZq8Ar
+ m9YcJ0XZiaT/BSytx6N9gsN+KeaQeCE35wPKNltsmtE88h5IHt960ZgyFlRfqzID8hqOnTOePE4
+ LcaFbzrbl6NvDoYzgu6pV4rXC+73BhFsUYNH+K7c1v/gAt6Fg/59md052gX4vK0Hl/KV5bHhQCi
+ 1tQDTPOYjpZM6vMnE2w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDIxNSBTYWx0ZWRfXxpeBFRWhBgnT
+ i2TRoxZvMOru2MyUQetlVm/MG3/7y90g+y4Z0XjkOKx5dlG4GfSPo6kSURcekKu047/bL/Qii32
+ 2CSlpshYZm+zGZVW96b2DHGGK4e2TrU=
+X-Proofpoint-GUID: HVYBf80CMZCwmu5DhCzfvwqQP0yyc0FH
+X-Authority-Analysis: v=2.4 cv=SM5ykuvH c=1 sm=1 tr=0 ts=6a629234 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=G-uFRffD-WzugI8hyjEA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-23_07,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ spamscore=0 malwarescore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230215
 
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+The MPCIFC instruction doesn't allow registering adapter interrupts without
+first unregistering. So reject any request to enable interrupt forwarding
+if its already enabled for the zPCI device. This also fixes overwriting and
+thus leaking resources when the ioctl is called multiple times for the same
+device.
 
-ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
-entry for consistency.  For an entry with a non-zero ef->size (the
-offset to the next entry) the loop only verifies that this stride fits
-in the remaining buffer, and then continues:
-
-	if (ef->size) {
-		ea_size = le32_to_cpu(ef->size);
-		if (ea_size > bytes)
-			goto out1;
-		continue;
-	}
-
-It never verifies that the entry's own name (ef->name_len) and value
-(ef->elength) actually fit inside ef->size.  A later reader trusts
-ef->elength unconditionally; ntfs_get_ea() does:
-
-	len = le16_to_cpu(ea->elength);		/* up to 0xffff */
-	...
-	if (len > size)				/* size is the user buffer */
-		return -ERANGE;
-	memcpy(buffer, ea->name + ea->name_len + 1, len);
-
-A crafted image with a small but valid ef->size (e.g. 24) and
-ef->elength == 0xffff therefore passes validation, and a getxattr()
-with a large enough user buffer copies up to 64 KiB starting just past
-the short entry -- an out-of-bounds read of the ea_all allocation that
-leaks adjacent kernel heap memory to userspace.
-
-  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
-  Read of size 65535 ...
-   ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
-
-The zero-ef->size branch already computes the same struct_size() to
-derive the stride; mirror that in the non-zero branch and reject the
-entry when its declared size cannot hold the name and value.
-
-Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
+Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
 ---
- fs/ntfs3/xattr.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ arch/s390/kvm/pci.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index 04814dd29375..57114fb726f7 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -155,6 +155,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
- 			ea_size = le32_to_cpu(ef->size);
- 			if (ea_size > bytes)
- 				goto out1;
+diff --git a/arch/s390/kvm/pci.c b/arch/s390/kvm/pci.c
+index 720bb58cabe2..d2a11cdf6941 100644
+--- a/arch/s390/kvm/pci.c
++++ b/arch/s390/kvm/pci.c
+@@ -237,6 +237,10 @@ static int kvm_s390_pci_aif_enable(struct zpci_dev *zdev, struct zpci_fib *fib,
+ 	if (zdev->gisa == 0)
+ 		return -EINVAL;
+ 
++	/* AIF already enabled for the device */
++	if (zdev->kzdev->fib.fmt0.aibv != 0)
++		return -EINVAL;
 +
-+			/* Check if we can use fields ef->name_len and ef->elength. */
-+			if (bytes < offsetof(struct EA_FULL, name))
-+				goto out1;
-+
-+			/*
-+			 * The declared entry size (ef->size) must be large
-+			 * enough to hold the name and value.  Otherwise a later
-+			 * reader such as ntfs_get_ea() copies ef->elength bytes
-+			 * starting past the entry, reading out of bounds of the
-+			 * ea buffer and leaking adjacent heap memory to
-+			 * userspace via getxattr().
-+			 */
-+			if (struct_size(ef, name,
-+					1 + ef->name_len +
-+						le16_to_cpu(ef->elength)) >
-+			    ea_size)
-+				goto out1;
- 			continue;
- 		}
+ 	kvm = zdev->kzdev->kvm;
+ 	msi_vecs = min_t(unsigned int, fib->fmt0.noi, zdev->max_msi);
  
 -- 
 2.43.0
