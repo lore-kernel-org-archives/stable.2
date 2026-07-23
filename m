@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214F941DDE5
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:37:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81F542F718
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784806631; cv=none; b=ssfIAxlaiH+BhR+vwnr3YMqNvnuqT3vgc8q9toC0h+fvIq5jLtzPuf0rPcZjYKEjyKwpYEcOzXK5HarNEp5mplwc46sUEvlbve/DSk/o7cPWZPAfmE60QY2NR32Mn23CVaMn6RbO6TJCs18CaTclFWixHu/Gb1hJs5h9oqYGHjw=
+	t=1784806632; cv=none; b=hYAWLLShj1P4acuuEJkAYHJZ0hz0MiYdDQ2OZwW+R/jNhlRuHBWfKTegwurHTg3ljKd1lPyYw2Dua5tU7ZLBiDakG4CpTVWfcPEzzjelTkpf84jiMrZbjpL5qpjOex6kaZjXbTOhe01ouVoMc8YW6KR3MwcPAHNxfXtW2KCFAlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784806631; c=relaxed/simple;
-	bh=9RGReAND6UEnDdE5f3DaaHq1qlnAxYFppqZkq5VF4k8=;
+	s=arc-20240116; t=1784806632; c=relaxed/simple;
+	bh=RwBKOcqq7KlNhDqSXUwfKLZ4p/ZPhQuzqdxPSGVTUho=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sUkgFN7kBTq1aXJGUjVmKz9lhJVCYFKNHZxE8zBx8G2Cdi63NRdoFlED4OMbww3sqXAEkaKcEC4uORRo1LC89ha4jJkX2/tlXTWpCMxHk0SkXwR/VZJVPFVx+XGlQkSOcwh7mOU0W1OEENyg5mLJLAlOw5xON4B1pI+FwQuKEn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuO2VArC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=M7xCK7zRuViP0+p1NtrQQHDJSTgWI7PGAejzKI9NZl7RNOKR1IAFT7+NkZaYp9UdisJk0Wxr9fM1k+73+MZUP3ebVX/TjARbH/A05hdFaC9qQrDBBTpB+cPmNi3fBPU5Fs5zVGJu2j+7lBqZ2DPPtp8VhfTuy/pT9yTl7CICLok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjjUWLa8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuO2VArC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7B71F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjjUWLa8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D701F00A3E;
 	Thu, 23 Jul 2026 11:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784806629;
-	bh=rynG4CvEG5AvkHH8E69jexEfUb2PeV7Rc++SxiJF4f8=;
+	s=k20260515; t=1784806630;
+	bh=xLndCf/f7hq8H692H9YsVPUB9jJWI2f5CGDeEhSIwRY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DuO2VArC59f+vjUxSILzsqXYAvv4xRZF78rG9fPG9vEBSaQpF6D29hN+z1zKe+7Gr
-	 9RnQ8vNNN3JFTvAMjaiAGKi7f7RSWr0u3nmd212CeUPOlcRXGlzUpw1pKMMqLm6ul4
-	 YUWroe332JFTQq0Ri29MwKFShkBlf2Xy8d8AOsHTaECXVE2qJ062Om69Q/uuLjL/dw
-	 41QvnVEjR8Wx6VsQ4r6rYijTUjL0TBTTJ7VHW4tEVZSfsuSnPFiHWXRNJMJrnvMkUE
-	 zsCDycC+O1R/3fb3ZBWgEuwrJqL2ERX51l4VM6SfATEXhD2mgRg4jISMIcLPuFZOF3
-	 gCCkO/uA5ey4Q==
+	b=JjjUWLa8fnArpfV7rE+u3KudBuctnj5yP+qiMFFA+JYjXs+1bLt0gqtCKWi9ueKzR
+	 acrQohHCqrirScgSH0d+yDPkqgomwfhTRt+BvhwhGz1BIL2hqEJ44I1NVIK6y0K1XF
+	 kRPU8uaLochEAqnow+W7XPIiDWBPcx733DMriAEe7oaF43z+PIeW0j2FjwGnIbMly7
+	 FiQgN/hl6NrdQ7K0cJ47mAOaMVbf0j9pdJhxK1Ni+3WvdIiEP9r7IdPVkLkCOIxkWH
+	 mtfXvm5oK1k0YxBfWo3SEP3FstqhK3eodS2xkcOM/NKOH1SmHPO8sinBaS/biji9dh
+	 G1PIi2G5sYFXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@amazon.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/6] tcp: convert to dev_net_rcu()
-Date: Thu, 23 Jul 2026 07:36:57 -0400
-Message-ID: <20260723113702.3035088-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/6] net: dst: annotate data-races around dst->input
+Date: Thu, 23 Jul 2026 07:36:58 -0400
+Message-ID: <20260723113702.3035088-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072042-collide-upturned-2e18@gregkh>
+In-Reply-To: <20260723113702.3035088-1-sashal@kernel.org>
 References: <2026072042-collide-upturned-2e18@gregkh>
+ <20260723113702.3035088-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,171 +49,84 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit e7b9ecce562ca6a1de32c56c597fa45e08c44ec0 ]
+[ Upstream commit f1c5fd34891a1c242885f48c2e4dc52df180f311 ]
 
-TCP uses of dev_net() are under RCU protection, change them
-to dev_net_rcu() to get LOCKDEP support.
+dst_dev_put() can overwrite dst->input while other
+cpus might read this field (for instance from dst_input())
 
+Add READ_ONCE()/WRITE_ONCE() annotations to suppress
+potential issues.
+
+We will likely need full RCU protection later.
+
+Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
 Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
-Link: https://patch.msgid.link/20250301201424.2046477-4-edumazet@google.com
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20250630121934.3399505-5-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: c9c9b37f8c55 ("netfilter: nf_queue: pin bridge device while NFQUEUE holds fake dst")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/inet6_hashtables.h |  2 +-
- include/net/inet_hashtables.h  |  2 +-
- net/ipv4/tcp_ipv4.c            |  8 ++++----
- net/ipv4/tcp_metrics.c         |  6 +++---
- net/ipv6/tcp_ipv6.c            | 10 +++++-----
- 5 files changed, 14 insertions(+), 14 deletions(-)
+ include/net/dst.h      | 2 +-
+ include/net/lwtunnel.h | 4 ++--
+ net/core/dst.c         | 2 +-
+ net/ipv4/route.c       | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/include/net/inet6_hashtables.h b/include/net/inet6_hashtables.h
-index f89320b6fee315..cd9f071d5658d9 100644
---- a/include/net/inet6_hashtables.h
-+++ b/include/net/inet6_hashtables.h
-@@ -106,7 +106,7 @@ static inline struct sock *__inet6_lookup_skb(struct inet_hashinfo *hashinfo,
- 	if (sk)
- 		return sk;
- 
--	return __inet6_lookup(dev_net(skb_dst(skb)->dev), hashinfo, skb,
-+	return __inet6_lookup(dev_net_rcu(skb_dst(skb)->dev), hashinfo, skb,
- 			      doff, &ipv6_hdr(skb)->saddr, sport,
- 			      &ipv6_hdr(skb)->daddr, ntohs(dport),
- 			      iif, sdif, refcounted);
-diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
-index 5849f816402dc1..03cb18838dcfc6 100644
---- a/include/net/inet_hashtables.h
-+++ b/include/net/inet_hashtables.h
-@@ -356,7 +356,7 @@ static inline struct sock *__inet_lookup_skb(struct inet_hashinfo *hashinfo,
- 	if (sk)
- 		return sk;
- 
--	return __inet_lookup(dev_net(skb_dst(skb)->dev), hashinfo, skb,
-+	return __inet_lookup(dev_net_rcu(skb_dst(skb)->dev), hashinfo, skb,
- 			     doff, iph->saddr, sport,
- 			     iph->daddr, dport, inet_iif(skb), sdif,
- 			     refcounted);
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 7e4a9090abd705..d35003b110e2c5 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -486,7 +486,7 @@ int tcp_v4_err(struct sk_buff *skb, u32 info)
- 	struct request_sock *fastopen;
- 	u32 seq, snd_una;
- 	int err;
--	struct net *net = dev_net(skb->dev);
-+	struct net *net = dev_net_rcu(skb->dev);
- 
- 	sk = __inet_lookup_established(net, &tcp_hashinfo, iph->daddr,
- 				       th->dest, iph->saddr, ntohs(th->source),
-@@ -718,7 +718,7 @@ static void tcp_v4_send_reset(const struct sock *sk, struct sk_buff *skb)
- 	arg.iov[0].iov_base = (unsigned char *)&rep;
- 	arg.iov[0].iov_len  = sizeof(rep.th);
- 
--	net = sk ? sock_net(sk) : dev_net(skb_dst(skb)->dev);
-+	net = sk ? sock_net(sk) : dev_net_rcu(skb_dst(skb)->dev);
- #ifdef CONFIG_TCP_MD5SIG
- 	rcu_read_lock();
- 	hash_location = tcp_parse_md5sig_option(th);
-@@ -1794,7 +1794,7 @@ int tcp_v4_early_demux(struct sk_buff *skb)
- 	if (th->doff < sizeof(struct tcphdr) / 4)
- 		return 0;
- 
--	sk = __inet_lookup_established(dev_net(skb->dev), &tcp_hashinfo,
-+	sk = __inet_lookup_established(dev_net_rcu(skb->dev), &tcp_hashinfo,
- 				       iph->saddr, th->source,
- 				       iph->daddr, ntohs(th->dest),
- 				       skb->skb_iif, inet_sdif(skb));
-@@ -1989,7 +1989,7 @@ static void tcp_v4_fill_cb(struct sk_buff *skb, const struct iphdr *iph,
- 
- int tcp_v4_rcv(struct sk_buff *skb)
+diff --git a/include/net/dst.h b/include/net/dst.h
+index 76a0afabb3c815..efbea74d03d915 100644
+--- a/include/net/dst.h
++++ b/include/net/dst.h
+@@ -459,7 +459,7 @@ INDIRECT_CALLABLE_DECLARE(int ip_local_deliver(struct sk_buff *));
+ /* Input packet from network to transport.  */
+ static inline int dst_input(struct sk_buff *skb)
  {
--	struct net *net = dev_net(skb->dev);
-+	struct net *net = dev_net_rcu(skb->dev);
- 	struct sk_buff *skb_to_free;
- 	int sdif = inet_sdif(skb);
- 	int dif = inet_iif(skb);
-diff --git a/net/ipv4/tcp_metrics.c b/net/ipv4/tcp_metrics.c
-index f17635ac7d829c..882e58d51179b9 100644
---- a/net/ipv4/tcp_metrics.c
-+++ b/net/ipv4/tcp_metrics.c
-@@ -170,7 +170,7 @@ static struct tcp_metrics_block *tcpm_new(struct dst_entry *dst,
- 	bool reclaim = false;
+-	return INDIRECT_CALL_INET(skb_dst(skb)->input,
++	return INDIRECT_CALL_INET(READ_ONCE(skb_dst(skb)->input),
+ 				  ip6_input, ip_local_deliver, skb);
+ }
  
- 	spin_lock_bh(&tcp_metrics_lock);
--	net = dev_net(dst->dev);
-+	net = dev_net_rcu(dst->dev);
- 
- 	/* While waiting for the spin-lock the cache might have been populated
- 	 * with this entry and so we have to check again.
-@@ -273,7 +273,7 @@ static struct tcp_metrics_block *__tcp_get_metrics_req(struct request_sock *req,
- 		return NULL;
+diff --git a/include/net/lwtunnel.h b/include/net/lwtunnel.h
+index 53bd2d02a4f0db..a4632a64daae32 100644
+--- a/include/net/lwtunnel.h
++++ b/include/net/lwtunnel.h
+@@ -142,8 +142,8 @@ static inline void lwtunnel_set_redirect(struct dst_entry *dst)
+ 		dst->output = lwtunnel_output;
  	}
+ 	if (lwtunnel_input_redirect(dst->lwtstate)) {
+-		dst->lwtstate->orig_input = dst->input;
+-		dst->input = lwtunnel_input;
++		dst->lwtstate->orig_input = READ_ONCE(dst->input);
++		WRITE_ONCE(dst->input, lwtunnel_input);
+ 	}
+ }
+ #else
+diff --git a/net/core/dst.c b/net/core/dst.c
+index 6d74b4663085fc..12ab51f87da452 100644
+--- a/net/core/dst.c
++++ b/net/core/dst.c
+@@ -149,7 +149,7 @@ void dst_dev_put(struct dst_entry *dst)
+ 	dst->obsolete = DST_OBSOLETE_DEAD;
+ 	if (dst->ops->ifdown)
+ 		dst->ops->ifdown(dst, dev, true);
+-	dst->input = dst_discard;
++	WRITE_ONCE(dst->input, dst_discard);
+ 	dst->output = dst_discard_out;
+ 	dst->dev = blackhole_netdev;
+ 	dev_hold(dst->dev);
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 4a7789ac0c1015..e5a1006daeefcf 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -1703,7 +1703,7 @@ struct rtable *rt_dst_clone(struct net_device *dev, struct rtable *rt)
+ 			new_rt->rt_gw6 = rt->rt_gw6;
+ 		INIT_LIST_HEAD(&new_rt->rt_uncached);
  
--	net = dev_net(dst->dev);
-+	net = dev_net_rcu(dst->dev);
- 	hash ^= net_hash_mix(net);
- 	hash = hash_32(hash, tcp_metrics_hash_log);
- 
-@@ -318,7 +318,7 @@ static struct tcp_metrics_block *tcp_get_metrics(struct sock *sk,
- 	else
- 		return NULL;
- 
--	net = dev_net(dst->dev);
-+	net = dev_net_rcu(dst->dev);
- 	hash ^= net_hash_mix(net);
- 	hash = hash_32(hash, tcp_metrics_hash_log);
- 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index e972bbb754189a..dea59b123eb759 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -382,7 +382,7 @@ static int tcp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
- {
- 	const struct ipv6hdr *hdr = (const struct ipv6hdr *)skb->data;
- 	const struct tcphdr *th = (struct tcphdr *)(skb->data+offset);
--	struct net *net = dev_net(skb->dev);
-+	struct net *net = dev_net_rcu(skb->dev);
- 	struct request_sock *fastopen;
- 	struct ipv6_pinfo *np;
- 	struct tcp_sock *tp;
-@@ -897,7 +897,7 @@ static void tcp_v6_send_response(const struct sock *sk, struct sk_buff *skb, u32
- 	struct tcphdr *t1;
- 	struct sk_buff *buff;
- 	struct flowi6 fl6;
--	struct net *net = sk ? sock_net(sk) : dev_net(skb_dst(skb)->dev);
-+	struct net *net = sk ? sock_net(sk) : dev_net_rcu(skb_dst(skb)->dev);
- 	struct sock *ctl_sk = net->ipv6.tcp_sk;
- 	unsigned int tot_len = sizeof(struct tcphdr);
- 	__be32 mrst = 0, *topt;
-@@ -1047,7 +1047,7 @@ static void tcp_v6_send_reset(const struct sock *sk, struct sk_buff *skb)
- 	if (!sk && !ipv6_unicast_destination(skb))
- 		return;
- 
--	net = sk ? sock_net(sk) : dev_net(skb_dst(skb)->dev);
-+	net = sk ? sock_net(sk) : dev_net_rcu(skb_dst(skb)->dev);
- #ifdef CONFIG_TCP_MD5SIG
- 	rcu_read_lock();
- 	hash_location = tcp_parse_md5sig_option(th);
-@@ -1633,7 +1633,7 @@ INDIRECT_CALLABLE_SCOPE int tcp_v6_rcv(struct sk_buff *skb)
- 	bool refcounted;
- 	struct sock *sk;
- 	int ret;
--	struct net *net = dev_net(skb->dev);
-+	struct net *net = dev_net_rcu(skb->dev);
- 
- 	if (skb->pkt_type != PACKET_HOST)
- 		goto discard_it;
-@@ -1871,7 +1871,7 @@ void tcp_v6_early_demux(struct sk_buff *skb)
- 		return;
- 
- 	/* Note : We use inet6_iif() here, not tcp_v6_iif() */
--	sk = __inet6_lookup_established(dev_net(skb->dev), &tcp_hashinfo,
-+	sk = __inet6_lookup_established(dev_net_rcu(skb->dev), &tcp_hashinfo,
- 					&hdr->saddr, th->source,
- 					&hdr->daddr, ntohs(th->dest),
- 					inet6_iif(skb), inet6_sdif(skb));
+-		new_rt->dst.input = rt->dst.input;
++		new_rt->dst.input = READ_ONCE(rt->dst.input);
+ 		new_rt->dst.output = rt->dst.output;
+ 		new_rt->dst.error = rt->dst.error;
+ 		new_rt->dst.lastuse = jiffies;
 -- 
 2.53.0
 
