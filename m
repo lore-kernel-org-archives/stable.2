@@ -1,102 +1,103 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3BD946EF86;
-	Thu, 23 Jul 2026 11:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF0B470439
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784806192; cv=none; b=eVm3vWDrH9XjIuMzIXovQeHoc4yzlWfzCSVPX/hOSmlCa2tqkRMn/mTbha6s/kT6e3hcO3Pl31Rvo5MvCwh18XlfM8F5vR5JFz75eRujbJ4nzBTzqwSwOJk01D4uWnyu/c1a9CBhiOyEYMy1hqWN3sHMoIGPczMeQdZjsMoDAgk=
+	t=1784806240; cv=none; b=lLyp1gj5bT3RZxV5kHvyavBMI5PvXoS6IV74LG33XmVCwtTf4m8E3pzrMnZp1TxwYj5yueSHEe6vHoO0RW7XaYgPwTUexX60Amdwk+Xn9UIJzBeJmH062X822p1fOfXqMGWaimvlg40rwnxG7lAGANvshTIoBM5dmw+F8Jk7V6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784806192; c=relaxed/simple;
-	bh=8eqZOBUfkQDlwy8RZHnDajm0pNDJeoHzBlpiFPExPpc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nkYspod/Rst2SDVkgJhYfH1MJFaF7EVjDSoHehTMFpugLc9oci+XrxfhhLpfr46Tbk3o09fB3xu5wM7abnpVwhHmwolAoT/c0/C9vxi7lPc07Kg7kjlOmQtryr46U6zSJm294wzOQe4djN6b/1DrXXgEK6s0eMRBxQLs5Q3EsnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAX8jYh+2FqltUxAA--.58151S3;
-	Thu, 23 Jul 2026 19:29:38 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBn2c4h+2Fq+sAjAw--.62939S3;
-	Thu, 23 Jul 2026 19:29:37 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: ulf.hansson@linaro.org
-Cc: linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH 2/2] mmc: via-sdmmc: cancel card-detect work on remove
-Date: Thu, 23 Jul 2026 11:28:42 +0000
-Message-Id: <20260723112842.3592137-2-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260723112842.3592137-1-fanwu01@zju.edu.cn>
-References: <20260723112842.3592137-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1784806240; c=relaxed/simple;
+	bh=Eb4s4/iQHSUXZ9HuzdIz7QSVMesCI0MvaBjzTEDaKaQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s7mypZk1Z+DKHQmbKzSWztotT0Tv8/G2kZx5PyEq8fYLhT9zu+Rx2auZhttvcK6nCkAGJTTMiQGY8jQLTymsIwHOScJDwjLR27WYhLJ+7nXiUhxcp/vAEZo49j58OzOEE2zDpYlNzUGe/xPdraGfqDU3WWghbi+9IUUOMF4Ltrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IAvG5St3; arc=none smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IAvG5St3"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b2af9beee4so120590e87.3
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 04:30:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784806235; x=1785411035; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=87QtCEbDS1yneeD8KD17fyRLqP9fiy/6kt3pJMDAIBA=;
+        b=IAvG5St3jeYXItKhzczUcDNpVd9GzRRBoVtxAKKOEx0vfwRjOvNjR+Ss9GqNFSG1Ey
+         aqyEEbCeE7tCrZR+kVjScHLdYt4hkhWIMX1IigjKq/lQvlRkL6XbJESSl/0hUk+3bzO8
+         5Bb7gNljRmBIvsNPEkOeAuxcsKiTSL1SLbsjxAo6XGeWAexSQq5Yy8SEmeE1I3e4Cmsr
+         94nKNsdWD3aTgnS0l+KwPaZgap437zfMxjCtKCFXKh0lQau/Q2xLmbF8I0iaO6wKR5IE
+         l8QWWfrlhhBASjL4bTGJCGmyM61Fjn8PwS0PlIepBKOJich4MZZnedviD9sQNsybe/lZ
+         9kkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784806235; x=1785411035;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=87QtCEbDS1yneeD8KD17fyRLqP9fiy/6kt3pJMDAIBA=;
+        b=ZXp0t91zOx/q1qMXbzLp5LyUZ13cPTEXatrfTPLpLVCF33iVLwzFCNX2yCT2qkx2+4
+         o9eNvyvifEspnc9njK8z8v4MNHdCfz+BgPKrRcF+yXHU59NMXTkDgtqpOK8bhjtauLcv
+         +8LlrBDeQ0Ewmzam/NPi/Dp6tvaNkWjl+2V0yN0tgUh+QWOh9SNi6oNhzrE6wPfcVNOC
+         bb5SypgfpeR0pGwwC6a9HieLA1UkwV9EEo8y49qN1x3f1a3Ra9IPddivZrffQR7tosqw
+         rKf80CqcKKjde7vkaaAfg6inclj5hWPpAjl5jSQaoMI5njBbZJ6IBwN2UqbWSiDrY1NV
+         mEfQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqFuNlyCSzdbD65kgffF0JptPO2tdb2pZ/GrKyW7zTgCzwcECIuta0GSeQuH3dsdN5fhkVFU5g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQy9Dfxywya/yV4xd/5WCNKo0FL1x7UqyxSeWKU6DS9UbsqAd4
+	KJ1+ksIzOU/fMt9fGggVBLbnjtOvK01L0cv78DhLS+8NaDYQ4g1VC3JgIGaEUFK+3Ho=
+X-Gm-Gg: AR+sD12HK9bBC0yMmhhHnCJv4vE0xmuIiODI2AVQzmKlG5sq8QHgQd5AHztmxV7ZTI4
+	pn0D44oatygaNaR8wkl5sb2lJbgX7mTZpQLiJ1cbSP9DouXmMsb24A4J4i6BET+0OWd9Iy5Y5kW
+	aGzX+pcp0K+aiWv6Tpbcny35TJRhGd8uQPPYPTyQnJ5QaoZhKsm8bl7NhIkwtyoisLMQNLsXJHc
+	1ydejM9tucu9EbGJjuedvvIr+accKK2lcE/GKmh8fO7A2e0TfGBMcooR7piTaSNbfNy68zvIcbN
+	q6LlUtbLdiyj08IBBrEK8p+Ju5K6qYqPeLGPkAQQWJVuhjBuwTFOO++Up+AdmQ8BulMtOBz3hqi
+	hvgyGJfXGGKI6ip3809F5y831vUQogKozZR6J9RUpdRnEefwktCBZDvJkrCPTeVp0XUBvfonrO7
+	uUJBlK7O2s0yyFx45I8D8r3GYnH3FQWQ1Qt/bjmbhfX7mc6G4PTrkBXWq9fL3mLJvD14U=
+X-Received: by 2002:a05:6512:3e01:b0:5b1:5e89:30f6 with SMTP id 2adb3069b0e04-5b2b2f6efb3mr290535e87.3.1784806234965;
+        Thu, 23 Jul 2026 04:30:34 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2a9b0c511sm985237e87.0.2026.07.23.04.30.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 04:30:33 -0700 (PDT)
+Message-ID: <58bb39e6-d87d-4c47-9d43-aa878199c31e@linaro.org>
+Date: Thu, 23 Jul 2026 14:30:33 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBn2c4h+2Fq+sAjAw--.62939S3
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?xcZE3QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2ttbJyx2JOSL4dsDqYeJ1lPNXtp7qzk+5MaElx+9JEc28B
-	47UJV8JEwKdn63LDaDcnaKepICEmVsObHDpBBsjd
-X-Coremail-Antispam: 1Uk129KBj93XoW7AFyDKryUtF4DuF4fGw45urX_yoW8Wryxpr
-	W5Ga9FkrWDAa1ak3y3Ww17uFyrAw1ftrW3KrW8GwsrXryfZFy5Zrn29a4xtF17JFykXFsx
-	AF47ZF15Za43CabCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU2VWlDUUUU
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] media: qcom: camss: Add "gcc_axi_hf" to 8775p VFE
+ lite clock lists
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, stable@vger.kernel.org
+References: <20260723110952.55597-1-johannes.goede@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260723110952.55597-1-johannes.goede@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Disabling the device interrupt and freeing the IRQ prevents new card-detect
-work from being queued, but carddet_work already queued by the handler can
-still run after via_sd_remove() returns. via_sdc_card_detect() recovers the
-host through container_of() and dereferences its MMIO base; once remove()
-returns the host can be freed, so that work would touch freed memory.
+On 7/23/26 14:09, Hans de Goede wrote:
+> The "gcc_axi_hf" clock is correctly listed in the clock list of the
+> 8775p 2 main VFE-s, but it is missing from all the VFE-lite clock lists,
+> causing these to not work on platforms where the firmware allows turning
+> off "gcc_axi_hf".
+> 
+> Add the missing "gcc_axi_hf" to fix the VFE-lite blocks not working on
+> these platforms.
+> 
+> Fixes: 924f45e58b1fe ("media: qcom: camss: Add missing clocks for VFE lite on sa8775p")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-Cancel carddet_work after freeing the IRQ and before cancelling
-finish_bh_work, which the card-detect handler can also queue. carddet_work
-can re-enable the interrupt through via_reset_pcictrl(); mask it again
-afterwards.
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
-This issue was found by an in-house static analysis tool and confirmed by
-manual code review.
-
-Fixes: f0bf7f61b840 ("mmc: Add new via-sdmmc host controller driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/mmc/host/via-sdmmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/mmc/host/via-sdmmc.c b/drivers/mmc/host/via-sdmmc.c
-index 5228a1fe0495..cf7b74835aa3 100644
---- a/drivers/mmc/host/via-sdmmc.c
-+++ b/drivers/mmc/host/via-sdmmc.c
-@@ -1206,6 +1206,10 @@ static void via_sd_remove(struct pci_dev *pcidev)
- 
- 	free_irq(pcidev->irq, sdhost);
- 
-+	cancel_work_sync(&sdhost->carddet_work);
-+	/* carddet_work may re-enable the interrupt via via_reset_pcictrl(). */
-+	writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
-+
- 	timer_delete_sync(&sdhost->timer);
- 
- 	cancel_work_sync(&sdhost->finish_bh_work);
 -- 
-2.34.1
-
+Best wishes,
+Vladimir
