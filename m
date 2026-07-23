@@ -1,111 +1,115 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02221F3BA4;
-	Thu, 23 Jul 2026 02:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42779342CBA
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 02:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784772714; cv=none; b=kB9EGQ4vJ0j6zNmSzzgTt5aXLpiV9ERB7BoNxJjvStirld0inkdW7W1C1pPQou+qHGiyNFDwY+zm/U4QkIpKZ2BCskjgn7jClNwn3XhizYiEv89c3rnFCrnH4f518sXgn+5jrW9/MmAF9FKBet0afFL0XXm8eIN/c4eUqr4WBX8=
+	t=1784772819; cv=none; b=dJWRB+K5eQ0mczAlMCwt2yB4C/1bEKU1/7pdeycUrpkOvJi0TBtOve6QsvD+qkpENYlM7n2tloMe0X+Bx2gGdxKFopvq14kcEyfw6MCoPsjJPYjdJIg5hx56LVzM6q4/l0UGKfMLEVeBD3h3GE6lCY0AWQVlWvq3xq0AAE9XMnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784772714; c=relaxed/simple;
-	bh=ccwqqlobaTAnEiobGrwELO3nNWwQTi3T3ptifJRDGP0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hge16+BaX8SbG7pCkN2DeB6ZTEzgZZJnmQnJfOvnH50DVlNztUadhOMo53PxGNP/JlVp5KaImLHFd3+FuZZRi3R07QmLKZ+qPg4hFFwKaMYbPtPC9xGgS1rCf6nqT8i8Ug5C66RomNuc48nlCQWp/xGZR/kpObfZEZyPWg6JoSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: dc4433e2863b11f1aa26b74ffac11d73-20260723
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:a61bf3b6-0791-4ad3-9013-c35b3a9b4613,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:75bec1811ee3dfd11169296165e90edc,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
-	:0|15|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: dc4433e2863b11f1aa26b74ffac11d73-20260723
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 3070265; Thu, 23 Jul 2026 10:11:48 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Yixun Lan <dlan@kernel.org>,
-	Alex Elder <elder@riscstar.com>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Linmao Li <lilinmao@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] i2c: spacemit: request IRQ after controller initialization
-Date: Thu, 23 Jul 2026 10:11:40 +0800
-Message-Id: <20260723021140.2293844-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260722094302.2284191-1-lilinmao@kylinos.cn>
-References: <20260722094302.2284191-1-lilinmao@kylinos.cn>
+	s=arc-20240116; t=1784772819; c=relaxed/simple;
+	bh=Pb3YkLqv5VAJEZhN7Iy5XU//vgxrVXvJTwFLEhbQAjA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=unHtS1n3a/L4Wg/UCHA9X7o19bgBlg5gmHGQbeyD5OZX2W4BG5FrBLI77UqGl4ySDm0V4PsygHV/Nzyn5JSCabbfDrMV8HAKQ+l6f3Q9xedpPgDa9Q3avkngq1XlDTXdQAWQHsz4A2s/jIogbcEcsoCkm60v5qPsQvQcR+Hl0lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=LmPFJl85; arc=none smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="LmPFJl85"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-92f0b5ed131so12371785a.3
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 19:13:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1784772814; x=1785377614; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=63wl+OLSuyt8DrGkM/Vj7SgGoUiR2AzArICs+kt8mlg=;
+        b=LmPFJl85NOZyZkDAtdb5wzRXiTTLyaCxPHIbFmu/TeET00oYZ38w11hDRcOyCzsD2e
+         tCF2Dra3xZfV81mdckJa1l7zt5QlYk7/IggxXpeS9CVwiw4SFOkKpm2BxZy8Ngpwpnnw
+         MtB74ja5MZwXIwMdBuBaVBYqHrSmy59qoRUoZE7/TnleNM9qlQry9ulVApCDN+peU5MD
+         TPGoOPiSHnuvkxoLEWN2BwOhLaT0h40EE1T8QH7OE6btach5aMDAPmi2JkyV1E8OxZ4U
+         +4m4gZ2HPsolj4OrAr3VFSUs9SuAZqFotEKdpj4bpTYNTxOdkzu0VmQ2gt7O7mofNyl2
+         qHcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784772814; x=1785377614;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=63wl+OLSuyt8DrGkM/Vj7SgGoUiR2AzArICs+kt8mlg=;
+        b=BxPPNYd57f2loH5Q2IY+CR+nxRcGKwolGE2Qf/wnp0NoXEaSVI9UeO7GJoYuumkCuM
+         IE7+T5tj/Bj9IMmIFWkCtx2BHdKuTTlqb2t40F9OKlBQiPiDIfGXhKpBHvD6VQY9gBci
+         GKeEeo0RQsgI6CkAINmVtT2rmrgXuoXpobA+YlSid2WdPaoZSkXkeNQfCkWhirMc2kPt
+         43ahc4uFfC6FwI5D0q6lK9gtbi/1ir96PrCYHFRDWhc+jsVjyYLmAwk3JJRLXYutRjXa
+         EC7ZbW+S0QhsUtOUjnhhzlPUYbX2Bt+l2FIcqX0qWQ5rKLeRVnukiorSdSltsYHuvxg6
+         UMFQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoWXfvXUH2+N43YaFv4f9oicaQF+xBkMVx01VFX8zGThA4F+/M9/F82shjrr1fkijDdO9Uth8I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbmG0ML0nk120mKWHAmi61CVcazDT/NHKhJew6AVRDTR3knJRx
+	i+s/YlS3Sv0mx/MP+OB3+XIvWclLu5AuVy86ixYAmSJakC8NkTHysHuiOuWfpJltGiM=
+X-Gm-Gg: AR+sD10nktksyPy297g4EOYEDlZr2l1gBc/6efM0s4ShPAFBTayWil2IxFmv+hsOxIf
+	j98DypqGPZysavrxLDHn0jTCaNJchd4mwayNNgpeJt9vfTk+e04/cnnFALPTNZieXE+Y34YlpSl
+	HEPPKMoCdiNTJONPbs+EuN4BHaBpbljqqvflOWNTDZb1fPLdXx0s7Dq4EOwKGrBrh7nHo72JB2i
+	HBEPrW5mfXbZXzZ5XWI2xfDUPDY3p9F7z0mQnRuI5bTueRwXQVWtKs2oW5WCuJYZY5dIJ97VX4i
+	GWY/CwCPp9a6wOWyP3WrdkWsdQdZOKznqKLBKEUSaZ0icAkT5x+PCf02Ty7Rjmxs28yOLL8K1Ky
+	fYCv76AlBBA21UYuneYNmJGam2xVlP7Ul/7w0hlx0FSIT6i/PmsPIXdo5di/viyNap6OFJRNE81
+	Ut
+X-Received: by 2002:a05:620a:1726:b0:930:9a5e:bbc3 with SMTP id af79cd13be357-93103aee31bmr115743585a.49.1784772813954;
+        Wed, 22 Jul 2026 19:13:33 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-931062c4ea8sm22128285a.28.2026.07.22.19.13.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 19:13:33 -0700 (PDT)
+Date: Wed, 22 Jul 2026 22:13:29 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Hao Jia <jiahao.kernel@gmail.com>
+Cc: akpm@linux-foundation.org, tj@kernel.org, shakeel.butt@linux.dev,
+	mhocko@kernel.org, yosry@kernel.org, mkoutny@suse.com,
+	nphamcs@gmail.com, chengming.zhou@linux.dev, muchun.song@linux.dev,
+	roman.gushchin@linux.dev, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	Hao Jia <jiahao1@lixiang.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/zswap: Fix global shrinker when memory cgroup
+ is disabled
+Message-ID: <amF4yRobGT9x67y3@cmpxchg.org>
+References: <20260717085151.22822-1-jiahao.kernel@gmail.com>
+ <20260717085151.22822-2-jiahao.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717085151.22822-2-jiahao.kernel@gmail.com>
 
-spacemit_i2c_probe() requests the IRQ before it enables the clocks, resets
-the controller and runs init_completion(). If an interrupt is already
-pending, the handler runs too early: it reads registers while the clocks
-are still off and calls complete() on an uninitialized completion. Request
-the IRQ after the controller and completion are initialized, but still
-before the adapter is registered.
+On Fri, Jul 17, 2026 at 04:51:50PM +0800, Hao Jia wrote:
+> From: Hao Jia <jiahao1@lixiang.com>
+> 
+> Zswap writeback on hitting the pool limit is broken when memory cgroup
+> is disabled, because mem_cgroup_iter() always returns NULL. Therefore,
+> the global shrinker shrink_worker() always takes the !memcg branch.
+> After MAX_RECLAIM_RETRIES empty walks, the worker simply gives up, so it
+> fails to write back anything.
+> 
+> Therefore, when memory cgroup is disabled, fall through with the !memcg
+> branch and shrink the root memcg directly.
+> 
+> With memcg disabled, shrink_memcg() only returns -ENOENT when the root
+> LRU is empty, which means the total pages are already below thr. In the
+> absence of heavy concurrent zswap stores, the loop then safely bails out
+> via the zswap_total_pages() <= thr check; otherwise, it will resume
+> shrinking the memcg after processing the reschedule check. For any other
+> return value from shrink_memcg(), the loop is guaranteed to terminate,
+> either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
+> 
+> Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Acked-by: Nhat Pham <nphamcs@gmail.com>
+> Acked-by: Yosry Ahmed <yosry@kernel.org>
+> Reported-by: Yosry Ahmed <yosry@kernel.org>
+> Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
+> Signed-off-by: Hao Jia <jiahao1@lixiang.com>
 
-Fixes: 5ea558473fa3 ("i2c: spacemit: add support for SpacemiT K1 SoC")
-Cc: stable@vger.kernel.org # v6.15+
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Reviewed-by: Alex Elder <elder@riscstar.com>
----
-v2:
-- add Cc: stable # v6.15+ as requested by Troy Mitchell
-- collect Reviewed-by from Troy Mitchell and Alex Elder
-
- drivers/i2c/busses/i2c-k1.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-k1.c b/drivers/i2c/busses/i2c-k1.c
-index 51a0c3d80fc9..3fe716cc153d 100644
---- a/drivers/i2c/busses/i2c-k1.c
-+++ b/drivers/i2c/busses/i2c-k1.c
-@@ -723,11 +723,6 @@ static int spacemit_i2c_probe(struct platform_device *pdev)
- 	if (i2c->irq < 0)
- 		return dev_err_probe(dev, i2c->irq, "failed to get irq resource");
- 
--	ret = devm_request_irq(i2c->dev, i2c->irq, spacemit_i2c_irq_handler,
--			       IRQF_NO_SUSPEND, dev_name(i2c->dev), i2c);
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to request irq");
--
- 	clk = devm_clk_get_enabled(dev, "func");
- 	if (IS_ERR(clk))
- 		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable func clock");
-@@ -755,6 +750,11 @@ static int spacemit_i2c_probe(struct platform_device *pdev)
- 
- 	init_completion(&i2c->complete);
- 
-+	ret = devm_request_irq(i2c->dev, i2c->irq, spacemit_i2c_irq_handler,
-+			       IRQF_NO_SUSPEND, dev_name(i2c->dev), i2c);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to request irq");
-+
- 	platform_set_drvdata(pdev, i2c);
- 
- 	ret = i2c_add_numbered_adapter(&i2c->adapt);
--- 
-2.25.1
-
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
