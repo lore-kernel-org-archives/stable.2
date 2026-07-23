@@ -1,63 +1,63 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B9D363C64
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 03:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F41E1F5821
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 03:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784777299; cv=none; b=m+7Pefd49UXU1x41mk3air/2qEunTeRXIFugCvHAF6Zwj27t+mjwpQSeV7PjkkoM+23ojMJLGgFxZFAM7eVTRkyo6sH3Kqd38aD/zcjnnixWbffbLULc83VzbmPJpe54wlPJtxPfk2Skhlj53jBlW4/jolbcoaL/pLfgwkCOnRA=
+	t=1784777301; cv=none; b=kk+VUXXsop1z/GEBjlviimRZVLk8oqp4SWCv+YfO83+CQ6NGBXHvs94wmjJfIdzmWpgC6B0NZhCeAUymrp/yYcZ5atNKkNW0XRv0mhcw2VfqtrImVUknyLPnmX9CjFKv74YuQ2H+Esy+To9Q6+gmdsGxb5WWUfD0PpNm9JCch/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784777299; c=relaxed/simple;
-	bh=sdhxvo7B/ZpOCnMBhGBNFRimfFAigIMZ6Qr2obutEG8=;
+	s=arc-20240116; t=1784777301; c=relaxed/simple;
+	bh=r8iYdQWHa9VJS775/4n6zn3PGSHvLkZImtets05yhb8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XrWEf6q4kwvbjBnWAZqibZfAh7qBWm0nIyLkMM0az+SjHZNuHt+pQJWkl64lRQExzPTbhNU3QQ2R3cv0aCZYIUNwatulnyRoimvWE9nRIT6hHTfOv2QJVYgLDxxnjn+OG1w392ErugxtGLyKjJc9kUQVvh9NfMoMuk2uBu87O0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fknpjgUE; arc=none smtp.client-ip=209.85.214.181
+	 MIME-Version; b=h2v27LVwZkUfE60wz7vKdv9Kuek6QDhGW6THqEAqIhGulLR2gvQUq1TL+sRn4GBS/0leVhidQZmwD1YMWJNVD/HXnISOrZdxm6tuFoRi7iknTC5PgqpuHAchOgaqlgFebeCTQ3EDnJTR+ZWXJLlMDkJzNiQwDTay7cVO9l2uJ48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qF3cM83L; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fknpjgUE"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cedda2ce6fso1548575ad.1
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 20:28:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qF3cM83L"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cee9b74ee1so1425085ad.3
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 20:28:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784777294; x=1785382094; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784777296; x=1785382096; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DHNwKqm3c1H0XvuQxYM3/7tpki/tKxwX9sSDYJq0L48=;
-        b=fknpjgUEPQ1IHhcK5tB3lcQoerHj78uLAK2HOmW4Qry1mi/gt+8alecR3jJ8jJHZ/+
-         qn5fVCGC9arx/btHCx6hjhF2Cd7OLB0ZzZYsqdCsYOgvy+3iyj11YCz+/eXyroGDutub
-         EzALZXQKLs/ny0WOarEIeKvUqvoUzUT0QE6an4l7Fs1+DgG3pYTL7rKfwTD6AXCfBkLj
-         kXd//G/N05T8QNex/egtmuD5f6qoNE8Ey7Rpe87tiTdYvNjrnUx5YLK7hxt6pdsAz5ah
-         SUVFl+G3e5z6r7tnEf5H6exX7R1bP7heWrpoC3QvJNUHNW5OtOg9qfKH96/dI5Ta+3ME
-         VedQ==
+        bh=t/Igs/v4fkYLbH3ZnRzuIP4kc2pMGS9giRIUagxHqkY=;
+        b=qF3cM83L8CqP/yOI7qRqfqmo6O0zVq2lGzy7tOur1sARKXfJ8yMq7pjepgir8OpGvR
+         YvPDg+kdLnOAcFK+LpJ1woxDcbRB2jNdCTEs6N0mfJYf4coPIfqOo1GJbAYqQ+08i45V
+         dvuXohs7IxLXgkrnhEvwAuieUc3yAf4qECUuXgBDNXkiZ2YbAawWCfbk9aTXLMTbMHGr
+         zDrL092p0SI4UdJONd8sXaB38XBEcNuYG6QGfC9aFpydXmC1hFt/Ec521C0Z1HWSWAnK
+         k/KkpXBn2VPDUfaxymXJmWP4IgTAUumbVLsAaOH5Y6IV6kLhB13BQtfZSoETVkaGH6/o
+         UR3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784777294; x=1785382094;
+        d=1e100.net; s=20251104; t=1784777296; x=1785382096;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DHNwKqm3c1H0XvuQxYM3/7tpki/tKxwX9sSDYJq0L48=;
-        b=Byg8gvWOc7zUPP1LS7Ofm7nCgRlpRusuo9gooEdGayM527p5ZpV5cHrZJhpw1C1F+U
-         fmnTB5PY0newfc1o2WVAuyUe8hYQwUS92rva6FCgxgGGtG0010WXQWTEUV5fzOFd/Kmy
-         0HPTXuqWuf5L23LbxVRB3vuy2+AFZa3Ehbf8VSt1yvCG3RE2Cr8D7EmbQTPur0pF89FS
-         zhltQo79kr2R2ZR3IGunHE52QWnYmy3JeRv5bmtdnwoBDrazIHxbDDan9tfdnbsKglWB
-         ZSxNHsYqsKIazoxudcH3vRAX5gtw2Hd3SnV9vq8u9irv6BLa3zhDhq4/LA9RUAo8xWM1
-         m9Dg==
-X-Forwarded-Encrypted: i=1; AHgh+RoHTX4oJ7kxNIFwxrPs0PWgvHzeMiu7o4qI0rVnjsU+c+Zbee3yscPXjcvjbfaeHaviC3LgZq4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmZdJtMIlVGeox6OV+I9JGtRSA9wLIuC5QM/HhXPaGvFfY8s8E
-	VR5lfHFGzJQWHEtxzRuobloSwS4qJwW4Asih7OOSgQIcK/MTtBsxyqXq
-X-Gm-Gg: AR+sD10rhB4HLAYOc1geuN+w6TIREFaV0gY52wrz/3jMYBC6dip/mKGDc4CxeUgR0Q+
-	wRadVpeR7ucZw6YGx2B8qU/i3I6kuGf8bZgCEC7ia9ftLRzeO+s5ZTn3rjT4u0VGM3yzNfRQZgG
-	nR2oaejeybnEedovxJr0oIbJZwEH9aUcOO8jfoWcjA7AlGwg2y8t/1VE20zpPP7WDVrhvqP54YO
-	dCt7pF8F/rLlbKJxThaXiAB3tiidZ3gCZshePdbdeb/dRXBox8M+kChpNX8/RyggNAr0ysyRQS0
-	oWUX6+B0eZt1IJg/P9ciLoiOnAT4CYxFEKAkhcrxspjIJLRIlQfuzTAVWz5Q3e4giycbhNP7BLh
-	cHwLWoI7iPVGtvugHCtC9LLuHToFPN0k+TaktQWJpVJnI+2ctdspusZvfgV0N02YVdS7eYG+tvm
-	ja6bwqYXgL1zzkZMYZVPn4VGFUiPNi6OGB5M3Z1/bqSQDyuuljecc1n1mbQfDaGks=
-X-Received: by 2002:a17:902:f605:b0:2cc:864b:539 with SMTP id d9443c01a7336-2cfa6a4395amr16049325ad.6.1784777293692;
-        Wed, 22 Jul 2026 20:28:13 -0700 (PDT)
+        bh=t/Igs/v4fkYLbH3ZnRzuIP4kc2pMGS9giRIUagxHqkY=;
+        b=ErBIG7IRirsDzpriyQyx9ZfWSqg2TZKNKG4eimsdzoajhi78IlRHnmjtsK6OArBfdS
+         gvQFQybG1jZfMjDlKQoRXEn6gEFnUWLvsMEO8JfslHMS0p6J/TT1dZWy8q9m3w4m1bKL
+         o5JC6oFTEevk+ASEsFBpQg/LCbddIWDqjYSB6ikrFrtQJCk8OQlaYEiyXGFafLLaFwfG
+         CIIQ0HSpbGyZr9H62tab6mmUJqLAa3E2jm9WGYfGi0OrJ39geafI2lfYP2aDCE//2Ug8
+         bzypD4eogu+e6VOdiiWSly4qedU2+6fH6C/Dr/wGKlBY5JRMqsNFWxbPmI3vSrO+dbPw
+         UZyg==
+X-Forwarded-Encrypted: i=1; AHgh+Rofd3qnYLTKF+sjwzy6Td34YSp3Hw2+9750derfSMTlwMbXAMqqpl7hZOXkVQ406gGlfHBKRgY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBJx1zQcVIpSzN14ed5J9qkNg8nk6LfXmE1OfwkjpQOdrKYXDR
+	2zAKVUNXiZtWCl2NYNiIwxkF0OEMdJmqTaa9SHjoKLPZXXrBVXpjPEv9
+X-Gm-Gg: AR+sD12ITqryTmdz8NtgmVOxOhkLp4PqjoDX8/LOJ0Cit/btH4ysL9CxPCzgIYqgzR4
+	63Es658FYg68fsQ55ScamhKMSow+IRFhIEMhXoojwVLCrYrplUVaGYma7oWRIteOqu1YIoS8wvB
+	PN3Li4u2NK6CJgUJkVKK8gGXbfD6ih1Yp/0ouXNKzfaSOJ3+5FdHf34PJlm5l4N0P8FL2k6iJKr
+	AerW3TCIjPFXx25A4g5sirT0ELj1vbYl53VkbPGgQlPpo8mtPxlzD9PASRkyL9klfWlpKAg8DGS
+	J37Fo1XKQ5NGjs73tgj2pvm1NpJUm0aj0zKyAhTSQA9rgk6fWlTlTh5w1yXkCB0W7P1zNIjend0
+	PAmLTqJu7qD090dUDcccscrgz6UGnQDdcMwL2qEuVSBF2s/zPtJCUKhZaxJOoWYS1yqdq5V5BnM
+	z5iZF8tLKKu9HfdigJpTrlXtCgyRkgaQpXA+ncH5GRs/wnfEfeInIr
+X-Received: by 2002:a17:903:3c70:b0:2cc:fe03:dc75 with SMTP id d9443c01a7336-2cfa748cd86mr17871995ad.27.1784777295936;
+        Wed, 22 Jul 2026 20:28:15 -0700 (PDT)
 Received: from DESKTOP-L3Q0GIV.localdomain ([203.230.195.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efd7157sm24538485ad.18.2026.07.22.20.28.11
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efd7157sm24538485ad.18.2026.07.22.20.28.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 20:28:13 -0700 (PDT)
+        Wed, 22 Jul 2026 20:28:15 -0700 (PDT)
 From: Sangho Lee <kudo3228@gmail.com>
 To: luiz.dentz@gmail.com,
 	marcel@holtmann.org,
@@ -68,9 +68,9 @@ Cc: jikos@kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	kudo3228@gmail.com
-Subject: [PATCH 1/2] Bluetooth: HIDP: reject frames without a transaction header
-Date: Thu, 23 Jul 2026 12:28:06 +0900
-Message-ID: <20260723032807.1616487-2-kudo3228@gmail.com>
+Subject: [PATCH 2/2] Bluetooth: HIDP: validate numbered report payloads
+Date: Thu, 23 Jul 2026 12:28:07 +0900
+Message-ID: <20260723032807.1616487-3-kudo3228@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260723032807.1616487-1-kudo3228@gmail.com>
 References: <20260723032807.1616487-1-kudo3228@gmail.com>
@@ -82,102 +82,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hidp_recv_ctrl_frame() and hidp_recv_intr_frame() read skb->data[0]
-before checking that the L2CAP SDU contains a transaction header. A
-connected HIDP peer can send an empty basic-mode SDU and make both paths
-use an uninitialized byte from skb tailroom.
+When hidp_get_raw_report() waits for a numbered report,
+hidp_process_data() compares the expected report number with skb->data[0].
+A connected HIDP peer can reply with only a DATA transaction header,
+leaving the skb empty after the header is removed.
 
-KMSAN reports the use in hidp_session_run(), with the uninitialized value
-originating in __alloc_skb() through vhci_write(). The control path
-produces two reports and the interrupt path produces one.
+KMSAN reports an uninitialized-value use in hidp_session_run(), with the
+value originating in __alloc_skb() through vhci_write(). The transaction
+header checks remove the empty-frame reports, but this report remains until
+the payload check is added.
 
-The byte can also be controlled by a malformed lower-layer packet. If an
-HCI ACL packet contains an L2CAP PDU with a declared zero-length payload
-followed by an extra 0x15 byte, l2cap_recv_acldata() reduces skb->len to
-the declared PDU length before dispatch. The current HIDP path nevertheless
-consumes the extra byte as HIDP_TRANS_HID_CONTROL |
-HIDP_CTRL_VIRTUAL_CABLE_UNPLUG and terminates the HIDP session. With this
-change, the same packet is discarded and a subsequent feature report
-request succeeds.
+The comparison can also consume a peer-controlled byte beyond the declared
+L2CAP PDU. A DATA | FEATURE response followed by an extra 0x01 byte made
+the current code accept that byte as report ID 1 and complete
+HIDIOCGFEATURE with a zero-byte result. With this change the malformed
+response is rejected with -EIO, while a subsequent valid response still
+succeeds.
 
-Pull the transaction header with skb_pull_data() and discard frames that
-do not contain it.
+Require a payload byte before comparing a numbered report ID. Unnumbered
+reports continue to accept an empty payload.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 0ff1731a1ae5 ("HID: bt: Add support for hidraw HIDIOCGFEATURE and HIDIOCSFEATURE")
 Cc: stable@vger.kernel.org
 Signed-off-by: Sangho Lee <kudo3228@gmail.com>
 ---
- net/bluetooth/hidp/core.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ net/bluetooth/hidp/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/net/bluetooth/hidp/core.c b/net/bluetooth/hidp/core.c
-index 0e24c5e2955e..194208d03d18 100644
+index 194208d03d18..f5bdf9f1ca63 100644
 --- a/net/bluetooth/hidp/core.c
 +++ b/net/bluetooth/hidp/core.c
-@@ -560,16 +560,18 @@ static int hidp_process_data(struct hidp_session *session, struct sk_buff *skb,
- static void hidp_recv_ctrl_frame(struct hidp_session *session,
- 					struct sk_buff *skb)
- {
--	unsigned char hdr, type, param;
-+	unsigned char type, param;
-+	u8 *hdr;
- 	int free_skb = 1;
- 
- 	BT_DBG("session %p skb %p len %u", session, skb, skb->len);
- 
--	hdr = skb->data[0];
--	skb_pull(skb, 1);
-+	hdr = skb_pull_data(skb, 1);
-+	if (!hdr)
-+		goto free;
- 
--	type = hdr & HIDP_HEADER_TRANS_MASK;
--	param = hdr & HIDP_HEADER_PARAM_MASK;
-+	type = *hdr & HIDP_HEADER_TRANS_MASK;
-+	param = *hdr & HIDP_HEADER_PARAM_MASK;
- 
- 	switch (type) {
- 	case HIDP_TRANS_HANDSHAKE:
-@@ -590,6 +592,7 @@ static void hidp_recv_ctrl_frame(struct hidp_session *session,
- 		break;
+@@ -543,9 +543,10 @@ static int hidp_process_data(struct hidp_session *session, struct sk_buff *skb,
  	}
  
-+free:
- 	if (free_skb)
- 		kfree_skb(skb);
- }
-@@ -597,14 +600,15 @@ static void hidp_recv_ctrl_frame(struct hidp_session *session,
- static void hidp_recv_intr_frame(struct hidp_session *session,
- 				struct sk_buff *skb)
- {
--	unsigned char hdr;
-+	u8 *hdr;
- 
- 	BT_DBG("session %p skb %p len %u", session, skb, skb->len);
- 
--	hdr = skb->data[0];
--	skb_pull(skb, 1);
-+	hdr = skb_pull_data(skb, 1);
-+	if (!hdr)
-+		goto free;
- 
--	if (hdr == (HIDP_TRANS_DATA | HIDP_DATA_RTYPE_INPUT)) {
-+	if (*hdr == (HIDP_TRANS_DATA | HIDP_DATA_RTYPE_INPUT)) {
- 		hidp_set_timer(session);
- 
- 		if (session->input)
-@@ -616,9 +620,10 @@ static void hidp_recv_intr_frame(struct hidp_session *session,
- 			BT_DBG("report len %d", skb->len);
- 		}
- 	} else {
--		BT_DBG("Unsupported protocol header 0x%02x", hdr);
-+		BT_DBG("Unsupported protocol header 0x%02x", *hdr);
- 	}
- 
-+free:
- 	kfree_skb(skb);
- }
- 
+ 	if (test_bit(HIDP_WAITING_FOR_RETURN, &session->flags) &&
+-				param == session->waiting_report_type) {
++	    param == session->waiting_report_type) {
+ 		if (session->waiting_report_number < 0 ||
+-		    session->waiting_report_number == skb->data[0]) {
++		    (skb->len &&
++		     session->waiting_report_number == skb->data[0])) {
+ 			/* hidp_get_raw_report() is waiting on this report. */
+ 			session->report_return = skb;
+ 			done_with_skb = 0;
 -- 
 2.43.0
 
