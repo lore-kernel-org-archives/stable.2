@@ -1,100 +1,172 @@
-Received: from xry111.site (xry111.site [89.208.246.23])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D814A33F2;
-	Thu, 23 Jul 2026 12:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.208.246.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28B248C40A;
+	Thu, 23 Jul 2026 12:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784811471; cv=none; b=iFJerDon62oujAjMaoYRALXrtvpShcbujGljTmQZwoOioUK7XSxpTaBTm2mtOdea0mI6FMQctQwm8oAtyW94m1nqIJZgudJ3vBS6tNa5vjiqN9FlbF3O6DGPXoDI3+Okva4HzRmdk4yWp0nlO9DVViRSM+3419MQJLfo7PDHmRw=
+	t=1784811551; cv=none; b=LRqdbPNsz+7xEx/VS3RENYP5WLcyQhI9gNlELiRzjxFYvsbo3DBxkhRzrViod+AxAsvSOH/VbSXNAgqbAWRst/ExQ6nJvzZrqWSW51uC9Eeua66c86y8RCwdVKLhaW9SG9qOZt/Nvyb6OYxUyhIz66mGOzIZcJI3b+Nd7QWDzt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784811471; c=relaxed/simple;
-	bh=on69y1pq3HqrvgWQSXR3gDq7XMkOITqWGUmC2INhzkA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I+dSQKFPeSXxazWeRLPNM0LDASL7CKuQo8BmX1+jxjQ703iNl51HDAypnx1SfdDbdKY7ywZmvFP3/TPa4dpEp9ZOyDs9XjhPmvh6nprZQN4hAmY33jjVzOIkrKqLspEyjSR2zwrsBjwifVjAO/hfdgrZOC8oi9jsSh6SvSYj0ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=KBLdrqfN; arc=none smtp.client-ip=89.208.246.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xry111.site
+	s=arc-20240116; t=1784811551; c=relaxed/simple;
+	bh=j01DrBsAX10eFCSQ+gf/S33kQdp9Zx7o/BHKU6AtZc0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gTKgURBSsQr3s5ePgB5ZebOy0n+vBOto0J2k2LipKQvDs9Fqrgfk0+Ozg3BQu/cJE4b4tYtj280cRibi0Z0g5tJv7HXfKHO8WF44Eeg+vk/Om2v3JETeyzVwPnQaVhq8IbWIw3g1HML6CFTx60EjczaV0Jg8oFQiVfUaBgexytE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=Eo84dFXy; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="KBLdrqfN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
-	s=default; t=1784811463;
-	bh=xjAz6KIgciXGp2zeH8i+bSFJy02BM165LiSaYH8hdcQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=KBLdrqfNHXQrgIKdlub4TWHwWqh+9VDFJPRRD+DLlIABnZvcckcXuXCM/G90StRDR
-	 /PCSs2PQzJMDuWsPNuL4DUn/w1gVQcHc4O38APdZsWz4ip07adhpbn/X0QFli2Kdlo
-	 C77qHxcvIcN0XxBpwFxLppsMLAFM4nQwL8tWtAL4=
-Received: from [127.0.0.1] (2607-8700-5500-e873-0000-0000-0000-1001.16clouds.com [IPv6:2607:8700:5500:e873::1001])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
-	(Client did not present a certificate)
-	(Authenticated sender: xry111@xry111.site)
-	by xry111.site (Postfix) with ESMTPSA id 4486B65982;
-	Thu, 23 Jul 2026 08:57:37 -0400 (EDT)
-Message-ID: <f1011fde1f3998021dbc2946f7456269d41a98a9.camel@xry111.site>
-Subject: Re: [PATCH v2] platform/loongarch: laptop: explicitly reset the
- bl_powered state when resuming
-From: Xi Ruoyao <xry111@xry111.site>
-To: Zixing Liu <liushuyu@aosc.io>, linux-kernel@vger.kernel.org, Yao Zi
-	 <ziyao@disroot.org>, Jianmin Lv <lvjianmin@loongson.cn>, WANG Xuerui
-	 <kernel@xen0n.name>, Huacai Chen <chenhuacai@kernel.org>
-Cc: Kexy Biscuit <kexybiscuit@aosc.io>, Mingcong Bai <jeffbai@aosc.io>, 
-	loongarch@lists.linux.dev, stable@vger.kernel.org
-Date: Thu, 23 Jul 2026 20:57:35 +0800
-In-Reply-To: <20260723121840.1120953-2-liushuyu@aosc.io>
-References: <20260723121840.1120953-2-liushuyu@aosc.io>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="Eo84dFXy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=LeplYwxZd6Lx+LNQMxScZLM52gIevsKFUjQL25XWSIg=; b=Eo84dFXyNbwU8rAVEb+pVoHRJq
+	VtGqxNnXelwlHWqIruJjq96+oevTQCLdVRwWPHOJcaUIrff37cf8h//VWwg2VJNPPib7BuNfX4Aqo
+	teqAtQMmzthFsT8y2lt7b+g3kSrVcE8eSc6PH6LMJkNJk6VivZm0vxAzOftpZHHfQj+/2amItWcaY
+	/NnADHK5WA7k9Gp/0aYpgC37NJY84WQei35XKFGljfZmSYLzaoHyfZ2wfciNZd86dvgimybC8U5/b
+	/Ak2x8/ppm/tQykI9yZT1gOQS+LqSAKD2LzdeeTFpctq8Rv8i7BrnS7A8SIIBypYKb04lrRp7w3iQ
+	frjiAFDw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wmt0h-003nL8-1N;
+	Thu, 23 Jul 2026 12:58:47 +0000
+Date: Thu, 23 Jul 2026 05:58:41 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sarah Sharp <sarah.a.sharp@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: xhci: bail out of setup if the controller is
+ inaccessible
+Message-ID: <amHasIXXBtxwD4jX@gmail.com>
+References: <20260722-xhci_dead_hc-v1-1-78f55597524b@debian.org>
+ <20260722230430.2256c8a4.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722230430.2256c8a4.michal.pecio@gmail.com>
+X-Debian-User: leitao
 
-On Thu, 2026-07-23 at 20:18 +0800, Zixing Liu wrote:
-> On EAECIS NL60R with EC firmware version 1.11, resuming from S3 has a ver=
-y
-> high chance (>=3D 90%) of causing the EC to lose the previous backlight
-> power state. When this happens, the laptop resumes normally from S3, but
-> the backlight remains off (when shining on the screen with a flash light,
-> we can see the screen contents are updating normally).
->=20
-> Since there is no generic way to query the EC's backlight state on
-> Loongson laptop platforms, assume the worst-case scenario and restart the
-> backlight power inside the kernel each time the system resumes.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 53c762b47f72 ("platform/loongarch: laptop: Add backlight power con=
-trol support")
-> Signed-off-by: Zixing Liu <liushuyu@aosc.io>
+On Wed, Jul 22, 2026 at 11:04:30PM +0200, Michal Pecio wrote:
+> On Wed, 22 Jul 2026 04:27:36 -0700, Breno Leitao wrote:
+> > xhci_gen_setup() locates the operational registers using the capability
+> > length read from the very first register:
+> > 
+> > 	xhci->op_regs = hcd->regs +
+> > 		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
+> > 
+> > If the controller is dead or has dropped off the bus, that read returns
+> > ~0, as I saw in practice.
+> > 
+> > The first access through it, xhci_halt() -> xhci_handshake() reading
+> > op_regs->status,  unaligned readl() on device memory. arm64
+> > faults on unaligned device accesses, so instead of xhci_handshake()
+> > catching the all-ones value and returning -ENODEV, setup oopses:
+> 
+> And if it didn't oops then it would read some other register, and later
+> write it, and maybe do stupid things. At least HC_LENGTH macro
+> truncates ~0 to 255, so the other register would most likely still
+> belong to this xHCI.
 
-Tested-by: Xi Ruoyao <xry111@xry111.site>
+Right. On x86 it doesn't fault, it just pokes the wrong offsets within
+the same BAR; only a few arches/arm64 turns the unaligned access into
+a fatal fault. Either way the value is garbage, so bailing out early is
+the right thing to do.
 
-> ---
-> Changes in v2:
-> - Move bl_powered reset logic to loongson_hotkey_suspend.
-> - Link to v1: https://lore.kernel.org/loongarch/20260722044457.1333404-1-=
-liushuyu@aosc.io/
->=20
-> ---
-> =C2=A0drivers/platform/loongarch/loongson-laptop.c | 1 +
-> =C2=A01 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/platform/loongarch/loongson-laptop.c b/drivers/platf=
-orm/loongarch/loongson-laptop.c
-> index 61b18ac206c9..dc8142f4fa95 100644
-> --- a/drivers/platform/loongarch/loongson-laptop.c
-> +++ b/drivers/platform/loongarch/loongson-laptop.c
-> @@ -189,6 +189,7 @@ static int __init setup_acpi_notify(struct generic_su=
-b_driver *sub_driver)
-> =C2=A0
-> =C2=A0static int loongson_hotkey_suspend(struct device *dev)
-> =C2=A0{
-> +	bl_powered =3D false;
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
+> >   xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+> >   xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+> >   xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+> >   Unable to handle kernel paging request at virtual address ffff80030a770103
+> >     ESR = 0x0000000096000021
+> >     FSC = 0x21: alignment fault
+> >   Internal error: Oops: 0000000096000021 [#1]  SMP
+> >   pc : xhci_halt [xhci_hcd]
+> >   Call trace:
+> >    xhci_halt
+> >    xhci_gen_setup
+> >    xhci_pci_setup
+> >    usb_add_hcd
+> >    usb_hcd_pci_probe
+> >    xhci_pci_common_prob
+> >    xhci_pci_renesas_probe
+> > 
+> > This was hit with a Renesas uPD720201 that failed to power up ("Unable
+> > to change power state from D3cold to D0, device inaccessible") yet still
+> > reached the HCD probe path.
+> 
+> Seems unproductive, I wonder if it's somehow intentional or a PCI bug.
+> You would need to ask linux-pci about it.
 
---=20
-Xi Ruoyao <xry111@xry111.site>
+Agreed, that's a separate question - arguably the device should not
+reach probe at all once it is inaccessible. I'll follow up with
+linux-pci.
+
+This patch just keeps a broken/removed controller from taking the box
+down regardless of how it got there.
+
+
+> 
+> > Detect the removed controller the way xhci_handshake() and xhci_reset()
+> > already do, by testing the register for the all-ones value, and abort
+> > setup with -ENODEV before op_regs is derived from it.
+> > 
+> > Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Breno Leitao <leitao@debian.org>
+> > ---
+> >  drivers/usb/host/xhci.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> > 
+> > diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+> > index 091c82ca8ee29..4e8a87df91d9d 100644
+> > --- a/drivers/usb/host/xhci.c
+> > +++ b/drivers/usb/host/xhci.c
+> > @@ -5453,6 +5453,10 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+> >  	mutex_init(&xhci->mutex);
+> >  	xhci->main_hcd = hcd;
+> >  	xhci->cap_regs = hcd->regs;
+> > +	if (readl(&xhci->cap_regs->hc_capbase) == U32_MAX) {
+> > +		xhci_warn(xhci, "Host controller not accessible, removed?\n");
+> > +		return -ENODEV;
+> > +	}
+> 
+> Good idea, but there is one more case to potentially worry about: hot
+> removal. In theory, you could read a valid value here and then U32_MAX
+> below and crash the same as before.
+> 
+> It would be more robust (and efficient) to read the register once to
+> some tmp variable, validate it and then use that to set xhci->op_regs.
+
+Good point, thanks.  I will update it to reads hc_capbase once into
+a local, validates it, and uses that for both op_regs and hci_version,
+so the check and the use can no longer disagree (and it drops the
+redundant reads).
+
+> >  	xhci->op_regs = hcd->regs +
+> >  		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
+> >  	xhci->run_regs = hcd->regs +
+> >  		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+> 
+> One may wonder if run_regs shouldn't have similar check. However, if
+> the chip is hot removed here after successfully reading hc_capbase,
+> xhci_halt() will not crash and return -ENODEV before anyone uses the
+> bogus run_regs pointer. So there is no urgent problem here, I think.
+
+Agreed. Computing run_regs is harmless on its own (run_regs_off lives in
+cap_regs, so that read is aligned, and it's only stored as a pointer), and
+the first dereference happens in xhci_mem_init(), well after xhci_halt() has
+already returned -ENODEV in the hot-removal case. So no check needed there.
+
+I'll send v2 with the read-once change shortly.
+
+Thanks for the review,
+--breno
+
