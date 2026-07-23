@@ -1,177 +1,146 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B61D831A555;
-	Thu, 23 Jul 2026 03:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784778231; cv=none; b=iQhXeW2OhVb84vDVw5OlkgkRynFxqceaoYAVTCyFSO9ADO7Lg4FHtcXmrZJmxjBOgcwAi642nf/M/PqzW5m/kJwmfyhNO/wpF+zT1np1d1X+2ppB3lkpEQGxvMlUK9UqxnuNeQ2A5joziS4a799BR8QsSKFMlp1vtKdGaOuRim4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784778231; c=relaxed/simple;
-	bh=tT/bg259Pi9m3cgjy7ZCkj3qpCLMJawwz6v9HhYs4lg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YVKXCuRUutUa8WGBlmw8P1J36qEhzVdA3gAeCm9V5TL/r6qdmIsdQ1SuzPDKk403rGInelhB0TcedPllVFWMDfqO65DVXIMXDhv49baIWXJ4KuyKd8sL5HO55NFFpdCr5yjVzkglV+3SPPWG35flygpxYm3c66lEaxaDaETnNGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=Ur+pOIi1 reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D065B372EC0
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 04:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784779644; cv=pass; b=RUfryga8/+wRt8mAQg7pTf3ym1nIqkgzw2KFYaDCOo+yObJsf7z1qByCqjDW9KXvePn4I1c5s/H0lF1dVQG3nVBuE46vkTJFepJXft3Ey94J+UOlNMkrwcWhnbJ8qY1Ey/XW5VgUeImC6xGqUDP7inllVlavHyzA6O8qa4Zg8No=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784779644; c=relaxed/simple;
+	bh=8K+zEl28QTXFlBY2G5c0iSNTDb1DkSYdmQKQjZLUJmE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d/vQnNFP+Zjvz94jTYk5qcAOUrFRBHc7QF4mzofarcZ45Wmj7vz/MSZb2BsotWfX0m452lbFuVKZKswlWHRytSQ2XK8sPw18TspxIHFdDfyC/Q2Zf30dDEY6jJdLE78FmVfYCl3auOsP+Y/Ecwgq8Hz3QNRHxtARwtTPBiJlB6E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MGfYmYqK; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="Ur+pOIi1"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MGfYmYqK"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-51c10e86e52so70511cf.1
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 21:07:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784779637; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Fx5oYonsl4KRLO/HZzXVzss7Oeq1AmgcGIGKQq2SNbXbQ0Ixc4xYyw+XvMuIA4zsur
+         W9NQ7pG2QgywGfMk+eXJEI58NanA1Z+6BfGYHR1rqvH0M1hx5jE0kjGvgDF4Mtj7c1V/
+         EmNWM2YDpizMIMY8AuL2mLQYaROam8AIV+SpscZ7gZh4xSmsZq5mykHcFSSeX+R/6Qh0
+         rrU4DJy+uTD9z2IysD72f1WJX3Wa0S0GYWOQKZJd/HCtEFmJinw1jPzDPFoWGFkNvo/9
+         d01nyYUOvpN+P3DzjwpstqVtYrna1ciqvCW9yPeMa7A9WyFtXAwf6ikyee44LLUYnBNo
+         VNSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8K+zEl28QTXFlBY2G5c0iSNTDb1DkSYdmQKQjZLUJmE=;
+        fh=1SRwH2fhTFsP43Un/Zi1P+Pg7l7iC61VUDBQdVi4/uI=;
+        b=HrqtSdfbn6XR2t24jEOutgoNamU+9qZgjSVqJwQAd0hJuTGZYIdbUGnUWGMxEjFHhK
+         ipxMsbhcDa0Lqmm7HNZLp1irZH1PRlASLk4t9XTuXx/73fKR3f4DU5BtY18zOB9gDE3o
+         +9Uzqtg9DV2JOHfsJiPHmxzIRo1dy5P5t33KoT6G/2ddLStO2FzPU5w4tHrucnhwuzt2
+         upxzd8VzoMVnYj/SNvEJA6cpCC/KNkevUkKtGveebu8ucRQkzf6+Ec3wrFjE8oFSiPm+
+         H0jxwKUiAHFaGCuaCTpmlHNuIGR0qS4rWJYJrPh3a7kwrYLAkZtWXCOkAv4ZiQ1HlPll
+         Fkdg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=SAWLPvqPc/
-	fT14wBaGjv0qhETCc7VLisGwmGxOUeQOg=; b=Ur+pOIi10hWnHFRoAB5DlUYMae
-	nVK6bOrY/Ch1BHUxQ9JGhv37ebgfu08dbdGBpSM50d3HamtRGsiqfjVRcllasCO2
-	n3tvFUkjW78/cU2nnygQ2t6isHBD/RdLZL90lmpesiGAXQRrftOZyaZdcTsCNR78
-	9muVIdmtozIANkR9M=
-Received: from wmy.localdomain (unknown [115.53.185.16])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkB2vDHkjWFq_6BaAQ--.34775S2;
-	Thu, 23 Jul 2026 11:43:35 +0800 (CST)
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-To: jdelvare@suse.com,
-	andi.shyti@kernel.org
-Cc: djkurtz@chromium.org,
-	hkallweit1@gmail.com,
-	wsa@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH v2] i2c: i801: Clamp adapter timeout to prevent system lockup
-Date: Thu, 23 Jul 2026 11:43:31 +0800
-Message-Id: <20260723034331.116690-1-25181214217@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=google.com; s=20251104; t=1784779637; x=1785384437; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8K+zEl28QTXFlBY2G5c0iSNTDb1DkSYdmQKQjZLUJmE=;
+        b=MGfYmYqKGG+L7OG2JAQ436UcSXS/ESuBqhia7qHaOnVF9nOFoP4ypahkZm+RDlgOcE
+         bAclx9Myef9Q3FRZOKsAod6rY4qDpPM7mkz8C47wmmzkyGLuLaJfmkuXmb+TfSLd4zbs
+         gsIaaI77wlLiK36R6vlnFCdN9/UgaKvWHd2ndDmGT/bXqw5JEcbODgBM26m2EFCT8Khr
+         hSJZJphzGTu6Il6q+JYy0CspawUBcbZQDFudX9Y7qHlF2RwiiS61F47uHIrOWjoncsJb
+         IC67AemWqSw1UFzdY8xx3c2xOOgTfmvgXd2OoC9CpMdzl2veSUJuuV2aAkncj7qtvPVN
+         WGkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784779637; x=1785384437;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8K+zEl28QTXFlBY2G5c0iSNTDb1DkSYdmQKQjZLUJmE=;
+        b=i4TGwJuMxGd6DBVSTWuif62KvrUPpkqQE+wsBb/jKFRNBjV1tGy0Jj8tUbfnMD3mXW
+         RFO5QVAIJQ0gGnHQTORwcy+/7OoLSqBzaCzHZZ248nO6Zc1LXkeFRs+YKPUgpItkhSS2
+         P0Hto9nJ0cpgoHfZhsoKgV2kTt1b4lqoz0+6lz4E6pToHU1OE+m8f3QXRq326VW7VvhQ
+         vaACCip151BuVmBcsGOjqpA0yvi36l0q2k+RFM3dTw9/XmRI8Y8ufdIGkyNVAIqe6xse
+         IpNiwzVnBhnuObtEmEUop/y+cGGa1vGK+m4PVxgSIbSnlvGYP2t2pBGDHHA8n4Q0X5FM
+         xksQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpDhE8qf5r6pREo83FYib13nLnJJRMFCq/VRU1lcJh72kFstdyuANhXa6iLBzevOd+oVYEHTEI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpI8BnEpI8dkpAiHSelfNGUxHQlMchMlvb5YrewXL3+XqFCIFi
+	hmgG43tvW9qoVeN/BgHY7YdxZCGfHSLtdgpjZMmjJ4UCZtX+lGM/xRUEp2DnAUh19lXkyxciicN
+	Jhs/rUv6TnwMxHG/8K2nm0CnCL4cMwUAVFUnr47Df
+X-Gm-Gg: AR+sD10zTYBAoGcfQx9fmI5B50v2HIYWqN0y6x+UvQ+dS26gi5my2pUP2hUXx/6cZTO
+	w/VOoCBII+mvOzJwLYM3Q4fo549iFAghyrm5XtQg/jPwQIPcbap1QKqmJOkFWalGzzXasScOMVe
+	+nM/k7pVvmKx08np+ahiE4SIQxsV+17N8hqjTZnPmn0RQH1HRETfT7mKdw7/U8yWCNKkNtX/63x
+	NfHOYM8+v+XwhKhQaTrcJr0rZlBPFwfSuYZkAUVQOqJWxlkj+cQWUDY8Rh3+PWfl3/AIrTU/Oy7
+	taedNfa1DXQbFRj8Dg==
+X-Received: by 2002:ac8:5a45:0:b0:4ff:c0e7:be9c with SMTP id
+ d75a77b69052e-5283b8f3543mr6081881cf.0.1784779636303; Wed, 22 Jul 2026
+ 21:07:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkB2vDHkjWFq_6BaAQ--.34775S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCFWDXrW8XFW5Ar4xuF13CFg_yoW7Jw4fpF
-	4Ykws8t3Wqqr4YgF97Aw4DX39Igw4rJFW7KFn7t3sYk3ZIyF1kAa4Fk34qvFW8Zr95XF43
-	Xayvqr1UCr4UZ37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
-	0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
-	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
-	0VAGYxC7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8GwCF04k20xvY0x0EwIxGrw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU3kucUUUUU=
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUDEWpg3utk2AAAsV
+References: <20260721005603.1710551-1-linkl@google.com> <20260722173639.34d3f58413354218b24a5b0d@linux-foundation.org>
+In-Reply-To: <20260722173639.34d3f58413354218b24a5b0d@linux-foundation.org>
+From: Link Lin <linkl@google.com>
+Date: Wed, 22 Jul 2026 21:07:04 -0700
+X-Gm-Features: AUfX_mx3uQZpyv5zi_Q9zPvKus9UiXbRlkAo3cxV-vdSjkfxBWwgopwFhNLbarQ
+Message-ID: <CALUx4KSfUUud86k4SLwETJAciRc8kZ9QocvBj39KmzXDiQ7J1g@mail.gmail.com>
+Subject: Re: [PATCH v3] mm/page_reporting: use system_freezable_wq to fix UAF
+ during suspend
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, "Michael S . Tsirkin" <mst@redhat.com>, 
+	David Hildenbrand <david@kernel.org>, virtualization@lists.linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com, 
+	duenwen@google.com, jasowang@redhat.com, xuanzhuo@linux.alibaba.com, 
+	Ammar Faizi <ammarfaizi2@openresty.com>, jiaqiyan@google.com, ahwilkins@google.com, 
+	Greg Thelen <gthelen@google.com>, Alexander Duyck <alexander.duyck@gmail.com>, jthoughton@google.com, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Userspace applications with access to /dev/i2c-* can use the I2C_TIMEOUT
-ioctl to manipulate the adap->timeout value. In the i2c-i801 driver,
-this user-controlled timeout is used directly in both the interrupt
-waiting paths (wait_for_completion_timeout) and the polling loops
-(time_after(jiffies, timeout)).
+On Tue, Jul 21, 2026 at 5:36 PM Andrew Morton <akpm@linux-foundation.org> w=
+rote:
+> hm, now where did that come from. I can find no such commit and that's
+> the second time this very unusual thing has happened in 30 minutes! I
+> wonder what's going on.
+>
+> I'll use
+> 36e66c554b5c ("mm: introduce Reported pages")
+> OK?
 
-If a malicious or arbitrarily large timeout value is injected from
-userspace, and the hardware (or an emulated device in a fuzzing/VM
-environment) fails to respond, the driver will block for the entirety
-of that requested timeout while holding the i2c adapter's rt_mutex.
+Yes, that Fixes tag is perfectly OK. I pulled the previous hash from
+an internal downstream tree by mistake. Thank you for catching that
+and correcting it!
 
-In IRQ mode, the task sleeps in wait_for_completion_timeout() in the
-TASK_UNINTERRUPTIBLE (D) state for the entire duration, directly triggering
-the khungtaskd watchdog if the timeout exceeds 120 seconds. In polling
-mode, the endless usleep_range() loop keeps the rt_mutex locked permanently.
-Consequently, any other processes attempting to acquire the i2c adapter
-lock will be starved in TASK_UNINTERRUPTIBLE, which inevitably triggers
-Hung Task panics as well.
+> The bug is very old so I won't fast-track this fix into 7.2-rcX.
 
-Fix this by introducing i801_get_timeout(), which clamps the timeout
-to a maximum of HZ (1 second). This is safe and strictly necessary:
-1. Normal operations complete in milliseconds and are unaffected by
-   this ceiling. The timeout is only consumed during hardware failures.
-2. Per the SMBus 2.0 specification, the maximum clock low timeout
-   (tTIMEOUT) is 25-35 ms. A 1-second clamp provides immense headroom
-   (orders of magnitude) for legitimate transactions while decisively
-   preventing prolonged rt_mutex lock contention and D-state lockups.
+Completely understood and agreed.
 
-Fixes: 1de93d5d5217 ("i2c: i801: Replace waitqueue with completion API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
----
-Changes in v2:
- - Kept the 1-second (HZ) clamp but completely rewrote the commit message 
-   to provide a bulletproof justification based on the SMBus 2.0 hardware 
-   specification. This addresses the automated review concerns about 
-   potentially breaking legitimate slow devices, proving that HZ is actually 
-   orders of magnitude larger than the strictly required 35ms tTIMEOUT.
- - Removed the unused 'adap' variable to prevent [-Wunused-variable] warnings.
+> AI review pointed at a possible pre-existing use-after-free issue,
+> related to virtio-balloon. But I think this is a rephrasing of the
+> issue it flagged against your v2 patch.
 
- drivers/i2c/busses/i2c-i801.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+I actually looked closely at Sashiko's flag, and to my surprise, it is not =
+a
+rephrasing=E2=80=94it caught a completely separate, valid edge case.
 
-diff --git a/drivers/i2c/busses/i2c-i801.c b/drivers/i2c/busses/i2c-i801.c
-index b29c99ed3883..f60ecf1071ff 100644
---- a/drivers/i2c/busses/i2c-i801.c
-+++ b/drivers/i2c/busses/i2c-i801.c
-@@ -345,10 +345,19 @@ MODULE_PARM_DESC(disable_features, "Disable selected driver features:\n"
- 	"\t\t  0x10  don't use interrupts\n"
- 	"\t\t  0x20  disable SMBus Host Notify ");
- 
-+/*
-+ * Bound the maximum wait time to prevent system lockup if the
-+ * userspace passes an arbitrarily large timeout via ioctl.
-+ */
-+static inline unsigned long i801_get_timeout(struct i801_priv *priv)
-+{
-+	return min_t(unsigned long, priv->adapter.timeout, HZ);
-+}
-+
- /* Wait for BUSY being cleared and either INTR or an error flag being set */
- static int i801_wait_intr(struct i801_priv *priv)
- {
--	unsigned long timeout = jiffies + priv->adapter.timeout;
-+	unsigned long timeout = jiffies + i801_get_timeout(priv);
- 	int status, busy;
- 
- 	do {
-@@ -366,7 +375,7 @@ static int i801_wait_intr(struct i801_priv *priv)
- /* Wait for either BYTE_DONE or an error flag being set */
- static int i801_wait_byte_done(struct i801_priv *priv)
- {
--	unsigned long timeout = jiffies + priv->adapter.timeout;
-+	unsigned long timeout = jiffies + i801_get_timeout(priv);
- 	int status;
- 
- 	do {
-@@ -497,13 +506,12 @@ static int i801_check_post(struct i801_priv *priv, int status)
- static int i801_transaction(struct i801_priv *priv, int xact)
- {
- 	unsigned long result;
--	const struct i2c_adapter *adap = &priv->adapter;
- 
- 	if (priv->features & FEATURE_IRQ) {
- 		reinit_completion(&priv->done);
- 		iowrite8(xact | SMBHSTCNT_INTREN | SMBHSTCNT_START,
- 		       SMBHSTCNT(priv));
--		result = wait_for_completion_timeout(&priv->done, adap->timeout);
-+		result = wait_for_completion_timeout(&priv->done, i801_get_timeout(priv));
- 		return result ? priv->status : -ETIMEDOUT;
- 	}
- 
-@@ -677,7 +685,6 @@ static int i801_block_transaction_byte_by_byte(struct i801_priv *priv,
- 	int smbcmd;
- 	int status;
- 	unsigned long result;
--	const struct i2c_adapter *adap = &priv->adapter;
- 
- 	if (command == I2C_SMBUS_BLOCK_PROC_CALL)
- 		return -EOPNOTSUPP;
-@@ -706,7 +713,7 @@ static int i801_block_transaction_byte_by_byte(struct i801_priv *priv,
- 
- 		reinit_completion(&priv->done);
- 		iowrite8(priv->cmd | SMBHSTCNT_START, SMBHSTCNT(priv));
--		result = wait_for_completion_timeout(&priv->done, adap->timeout);
-+		result = wait_for_completion_timeout(&priv->done, i801_get_timeout(priv));
- 		return result ? priv->status : -ETIMEDOUT;
- 	}
- 
--- 
-2.34.1
+My patch fixes the UAF on the PM suspend/teardown path. However, Sashiko no=
+ticed
+a UAF on the PM *restore* error path. If virtballoon_restore() fails during
+init_vqs(), it aborts without unregistering the page reporting worker. When
+system_freezable_wq thaws, the reporting worker wakes up and dereferences t=
+he
+now-dangling vb->reporting_vq pointer.
 
+Since it's a driver-specific lifecycle bug rather than a core MM workqueue
+issue, I will write up a separate follow-up patch to address it in
+virtio_balloon.c
+shortly.
+
+Thank you again for shepherding this fix into -mm!
+
+Best,
+Link
