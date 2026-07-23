@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DECD3B1025
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA08474257
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784831304; cv=none; b=fSqbke8BoWQ/I9YBc3xRtdBoZ5CaQyBbNLj1wpj4J2GMQR9bRYcFQA5ivWNquRYQQtjHaq6Ek/DkXL3umbzOBKf85mHvKXfT8UUdIyuenrovbr4TvOn1NCszJo6pdblWKM0rmcGet1rpbPlMMGyhMGsFcwgDfQ+XEYCl7brd6Es=
+	t=1784831314; cv=none; b=o2Ut+Wncc1BPP1D9wrJCGLEvr0RNjhCbcPbO1uqkuRg7/SvByhCSp21a9Qe6GNA3MQHshriWRLAVWSiKq9tnR2Nu/emDxltbDPo05DcnP3irs+6trkScPcGugNVVjZJvj2gJ13i9vt2FYmP7WI+9SEnsJtl+Odi5UlbSAFYV0Js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784831304; c=relaxed/simple;
-	bh=mrPM2XMvCM0B3qQsw82Vk+QbV9RQripy/rGVgy48Tgo=;
+	s=arc-20240116; t=1784831314; c=relaxed/simple;
+	bh=17OuSO1C9H6nB/SUq3rVFy9lgWVqV9sXIcU43DP0NrI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nDpct4/o9aZ/fEnaYtUr0cRbHAq3DLJdt0a10wHZUjnJ7sgFIAsmyTON/uPKZYgzJegE50WHPd67eQgxKn1kuLe3THEDmAQw5kpWofcl/K79Q/Lr6QvFeNHiMyqZQ9zT6GMxmylzGvc5vbQVI9ZI5MWtleokU4lUyeY/wa0LmYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHtMlU2g; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fC2sffOLQunjXPcEvbaXtCcDescDreGzm+WyCRoo/OGQj9FqM+RlC6PX0WKs2rt2CMViDfHrzTlnWfW1OYFT8o0Pi8MegqjB/BSV2IFDJAGNo6YRRyky5cdpY7/ES7r9ttORqJblnxyRdLCq8pKs6yE2gS+/hD1hKt8vhIjRsu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMEFBPap; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHtMlU2g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF73D1F000E9;
-	Thu, 23 Jul 2026 18:28:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMEFBPap"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90631F00A3E;
+	Thu, 23 Jul 2026 18:28:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784831288;
-	bh=buosKtuEn/+iYCZPcNVQ6G/jAvCzmHU5p+GtXUQ/HMA=;
+	s=k20260515; t=1784831290;
+	bh=3BYZWyd1pGX0uAE226/2b9ohdzR2NQZCU39zIMO6lmA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nHtMlU2g6s9KRNuR5WefOjVd0OaISjWjH1njHj9OdC2vG87Ou5gVgXbSChg+eu95t
-	 U6BTwfpDl47vnN0FQ+jFemUk4MQ5mHd9vE1R1pvVQ5pEfcfa9LAVSew69zRQR8v5En
-	 OdMKU/szh+57GowcGiNc8IqZhvJAB4L/fJkcXOViReVxlyoG2XxP0PrHryJT8CTgpV
-	 vojd8zjDAjsm2uG7dyw+FdxFZEqV9WEPx2YInCqCF8g1xo3+yuIOCpY4yJtHUgGDyb
-	 XK95c/tkCPlUnXxFDzpsVfTqYyoOVS2odjRf/v0MsAxTb4xZq/I4uBBqV+++tzZFDw
-	 ZOCrBB/r7FvBw==
+	b=NMEFBPapb3R0xR1JAc+t/fOS074BvdBAOTbS1f55gXM8g9UN71ZlIEGx0DHDZing/
+	 jRxmpcM+RmA+4dSH88x3rZakI+TsZKm86sSUhP0c9qGuOijbmixgx//pI86QgRQNi7
+	 +Tnn0CeTbySXzN7eYT1bqBR4R2oN6Dtwk/dPfroojFcEWi+jlBgKQpsoeZWTwBSKOA
+	 1wEge9UH13Xi1YotCz2p+MeraQT741T0wRVPUPnSiTHB8qzagw0sH/tNLm9CMwzoJB
+	 4hoFHgxrEBhsKHkto8QnaRQMlZHZYaKOJHet9Mfzge7D7tQ+vJiJHulW25PNjbE37W
+	 J+JLW46+kkvBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Terry Bowman <terry.bowman@amd.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Dave Jiang <dave.jiang@intel.com>,
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	Robert Richter <rrichter@amd.com>,
 	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Jonathan Cameron <jonathan.cameron@huawei.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Terry Bowman <terry.bowman@amd.com>,
 	Dan Williams <dan.j.williams@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/4] cxl/pci: Remove unnecessary CXL Endpoint handling helper functions
-Date: Thu, 23 Jul 2026 14:28:03 -0400
-Message-ID: <20260723182806.3493205-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/4] cxl/pci: Remove CXL VH handling in CONFIG_PCIEAER_CXL conditional blocks from core/pci.c
+Date: Thu, 23 Jul 2026 14:28:05 -0400
+Message-ID: <20260723182806.3493205-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072028-shaky-author-b5df@gregkh>
+In-Reply-To: <20260723182806.3493205-1-sashal@kernel.org>
 References: <2026072028-shaky-author-b5df@gregkh>
+ <20260723182806.3493205-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,117 +51,598 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Terry Bowman <terry.bowman@amd.com>
+From: Dave Jiang <dave.jiang@intel.com>
 
-[ Upstream commit ca3d1a53e62093d17436abd447463da9c0f4e56b ]
+[ Upstream commit 7ff8b1d60881c5f97b5ae426e14d2822917d3b69 ]
 
-The CXL driver's cxl_handle_endpoint_cor_ras()/cxl_handle_endpoint_ras()
-are unnecessary helper functions used only for Endpoints. Remove these
-functions as they are not common for all CXL devices and do not provide
-value for EP handling.
+Create new config CONFIG_CXL_RAS and put all CXL RAS items behind the
+config. The config will depend on CPER and PCIE AER to build. Move the
+related VH RAS code from core/pci.c to core/ras.c.
 
-Rename __cxl_handle_ras to cxl_handle_ras() and __cxl_handle_cor_ras()
-to cxl_handle_cor_ras().
+Restricted CXL host (RCH) RAS functions will be moved in a future patch.
 
-Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Robert Richter <rrichter@amd.com>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+Co-developed-by: Terry Bowman <terry.bowman@amd.com>
+Signed-off-by: Terry Bowman <terry.bowman@amd.com>
 Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-Link: https://patch.msgid.link/20260114182055.46029-5-terry.bowman@amd.com
+Link: https://patch.msgid.link/20260114182055.46029-8-terry.bowman@amd.com
 Signed-off-by: Dan Williams <dan.j.williams@intel.com>
 Signed-off-by: Dave Jiang <dave.jiang@intel.com>
 Stable-dep-of: c268f949e219 ("cxl: Fix CXL_HEADERLOG_SIZE to match RAS Capability size")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cxl/core/pci.c | 26 ++++++++------------------
- 1 file changed, 8 insertions(+), 18 deletions(-)
+ drivers/cxl/Kconfig       |   4 +
+ drivers/cxl/core/Makefile |   2 +-
+ drivers/cxl/core/core.h   |  31 +++++++
+ drivers/cxl/core/pci.c    | 189 +-------------------------------------
+ drivers/cxl/core/ras.c    | 176 +++++++++++++++++++++++++++++++++++
+ drivers/cxl/cxl.h         |   8 --
+ drivers/cxl/cxlpci.h      |  16 ++++
+ tools/testing/cxl/Kbuild  |   2 +-
+ 8 files changed, 233 insertions(+), 195 deletions(-)
 
+diff --git a/drivers/cxl/Kconfig b/drivers/cxl/Kconfig
+index 599e126a18eb72..4bdec46b2a6bbe 100644
+--- a/drivers/cxl/Kconfig
++++ b/drivers/cxl/Kconfig
+@@ -234,4 +234,8 @@ config CXL_MCE
+ 	def_bool y
+ 	depends on X86_MCE && MEMORY_FAILURE
+ 
++config CXL_RAS
++	def_bool y
++	depends on ACPI_APEI_GHES && PCIEAER && CXL_PCI
++
+ endif
+diff --git a/drivers/cxl/core/Makefile b/drivers/cxl/core/Makefile
+index 5ad8fef210b5c8..b2930cc54f8ba2 100644
+--- a/drivers/cxl/core/Makefile
++++ b/drivers/cxl/core/Makefile
+@@ -14,9 +14,9 @@ cxl_core-y += pci.o
+ cxl_core-y += hdm.o
+ cxl_core-y += pmu.o
+ cxl_core-y += cdat.o
+-cxl_core-y += ras.o
+ cxl_core-$(CONFIG_TRACING) += trace.o
+ cxl_core-$(CONFIG_CXL_REGION) += region.o
+ cxl_core-$(CONFIG_CXL_MCE) += mce.o
+ cxl_core-$(CONFIG_CXL_FEATURES) += features.o
+ cxl_core-$(CONFIG_CXL_EDAC_MEM_FEATURES) += edac.o
++cxl_core-$(CONFIG_CXL_RAS) += ras.o
+diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
+index 1fb66132b77771..bc818de87ccccf 100644
+--- a/drivers/cxl/core/core.h
++++ b/drivers/cxl/core/core.h
+@@ -144,8 +144,39 @@ int cxl_pci_get_bandwidth(struct pci_dev *pdev, struct access_coordinate *c);
+ int cxl_port_get_switch_dport_bandwidth(struct cxl_port *port,
+ 					struct access_coordinate *c);
+ 
++#ifdef CONFIG_CXL_RAS
+ int cxl_ras_init(void);
+ void cxl_ras_exit(void);
++bool cxl_handle_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base);
++void cxl_handle_cor_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base);
++#else
++static inline int cxl_ras_init(void)
++{
++	return 0;
++}
++
++static inline void cxl_ras_exit(void)
++{
++}
++
++static inline bool cxl_handle_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base)
++{
++	return false;
++}
++static inline void cxl_handle_cor_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base) { }
++#endif /* CONFIG_CXL_RAS */
++
++/* Restricted CXL Host specific RAS functions */
++#ifdef CONFIG_CXL_RAS
++void cxl_dport_map_rch_aer(struct cxl_dport *dport);
++void cxl_disable_rch_root_ints(struct cxl_dport *dport);
++void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds);
++#else
++static inline void cxl_dport_map_rch_aer(struct cxl_dport *dport) { }
++static inline void cxl_disable_rch_root_ints(struct cxl_dport *dport) { }
++static inline void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds) { }
++#endif /* CONFIG_CXL_RAS */
++
+ int cxl_gpf_port_setup(struct cxl_dport *dport);
+ 
+ struct cxl_hdm;
 diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-index 18825e1505d6ad..078e9e5651e1bc 100644
+index 3fb9462954da20..bd7d7e382d041b 100644
 --- a/drivers/cxl/core/pci.c
 +++ b/drivers/cxl/core/pci.c
-@@ -711,8 +711,8 @@ void read_cdat_data(struct cxl_port *port)
+@@ -711,81 +711,8 @@ void read_cdat_data(struct cxl_port *port)
  }
  EXPORT_SYMBOL_NS_GPL(read_cdat_data, "CXL");
  
--static void __cxl_handle_cor_ras(struct cxl_dev_state *cxlds,
--				 void __iomem *ras_base)
-+static void cxl_handle_cor_ras(struct cxl_dev_state *cxlds,
-+			       void __iomem *ras_base)
+-static void cxl_handle_cor_ras(struct cxl_dev_state *cxlds,
+-			       void __iomem *ras_base)
+-{
+-	void __iomem *addr;
+-	u32 status;
+-
+-	if (!ras_base)
+-		return;
+-
+-	addr = ras_base + CXL_RAS_CORRECTABLE_STATUS_OFFSET;
+-	status = readl(addr);
+-	if (status & CXL_RAS_CORRECTABLE_STATUS_MASK) {
+-		writel(status & CXL_RAS_CORRECTABLE_STATUS_MASK, addr);
+-		trace_cxl_aer_correctable_error(cxlds->cxlmd, status);
+-	}
+-}
+-
+-/* CXL spec rev3.0 8.2.4.16.1 */
+-static void header_log_copy(void __iomem *ras_base, u32 *log)
+-{
+-	void __iomem *addr;
+-	u32 *log_addr;
+-	int i, log_u32_size = CXL_HEADERLOG_SIZE / sizeof(u32);
+-
+-	addr = ras_base + CXL_RAS_HEADER_LOG_OFFSET;
+-	log_addr = log;
+-
+-	for (i = 0; i < log_u32_size; i++) {
+-		*log_addr = readl(addr);
+-		log_addr++;
+-		addr += sizeof(u32);
+-	}
+-}
+-
+-/*
+- * Log the state of the RAS status registers and prepare them to log the
+- * next error status. Return 1 if reset needed.
+- */
+-static bool cxl_handle_ras(struct cxl_dev_state *cxlds,
+-			   void __iomem *ras_base)
+-{
+-	u32 hl[CXL_HEADERLOG_SIZE_U32];
+-	void __iomem *addr;
+-	u32 status;
+-	u32 fe;
+-
+-	if (!ras_base)
+-		return false;
+-
+-	addr = ras_base + CXL_RAS_UNCORRECTABLE_STATUS_OFFSET;
+-	status = readl(addr);
+-	if (!(status & CXL_RAS_UNCORRECTABLE_STATUS_MASK))
+-		return false;
+-
+-	/* If multiple errors, log header points to first error from ctrl reg */
+-	if (hweight32(status) > 1) {
+-		void __iomem *rcc_addr =
+-			ras_base + CXL_RAS_CAP_CONTROL_OFFSET;
+-
+-		fe = BIT(FIELD_GET(CXL_RAS_CAP_CONTROL_FE_MASK,
+-				   readl(rcc_addr)));
+-	} else {
+-		fe = status;
+-	}
+-
+-	header_log_copy(ras_base, hl);
+-	trace_cxl_aer_uncorrectable_error(cxlds->cxlmd, status, fe, hl);
+-	writel(status & CXL_RAS_UNCORRECTABLE_STATUS_MASK, addr);
+-
+-	return true;
+-}
+-
+-#ifdef CONFIG_PCIEAER_CXL
+-
+-static void cxl_dport_map_rch_aer(struct cxl_dport *dport)
++#ifdef CONFIG_CXL_RAS
++void cxl_dport_map_rch_aer(struct cxl_dport *dport)
  {
- 	void __iomem *addr;
- 	u32 status;
-@@ -728,11 +728,6 @@ static void __cxl_handle_cor_ras(struct cxl_dev_state *cxlds,
+ 	resource_size_t aer_phys;
+ 	struct device *host;
+@@ -800,19 +727,7 @@ static void cxl_dport_map_rch_aer(struct cxl_dport *dport)
  	}
  }
  
--static void cxl_handle_endpoint_cor_ras(struct cxl_dev_state *cxlds)
+-static void cxl_dport_map_ras(struct cxl_dport *dport)
 -{
--	return __cxl_handle_cor_ras(cxlds, cxlds->regs.ras);
+-	struct cxl_register_map *map = &dport->reg_map;
+-	struct device *dev = dport->dport_dev;
+-
+-	if (!map->component_map.ras.valid)
+-		dev_dbg(dev, "RAS registers not found\n");
+-	else if (cxl_map_component_regs(map, &dport->regs.component,
+-					BIT(CXL_CM_CAP_CAP_ID_RAS)))
+-		dev_dbg(dev, "Failed to map RAS capability.\n");
 -}
 -
- /* CXL spec rev3.0 8.2.4.16.1 */
- static void header_log_copy(void __iomem *ras_base, u32 *log)
+-static void cxl_disable_rch_root_ints(struct cxl_dport *dport)
++void cxl_disable_rch_root_ints(struct cxl_dport *dport)
  {
-@@ -754,8 +749,8 @@ static void header_log_copy(void __iomem *ras_base, u32 *log)
-  * Log the state of the RAS status registers and prepare them to log the
-  * next error status. Return 1 if reset needed.
-  */
--static bool __cxl_handle_ras(struct cxl_dev_state *cxlds,
--				  void __iomem *ras_base)
-+static bool cxl_handle_ras(struct cxl_dev_state *cxlds,
-+			   void __iomem *ras_base)
- {
- 	u32 hl[CXL_HEADERLOG_SIZE_U32];
- 	void __iomem *addr;
-@@ -788,11 +783,6 @@ static bool __cxl_handle_ras(struct cxl_dev_state *cxlds,
- 	return true;
+ 	void __iomem *aer_base = dport->regs.dport_aer;
+ 	u32 aer_cmd_mask, aer_cmd;
+@@ -836,28 +751,6 @@ static void cxl_disable_rch_root_ints(struct cxl_dport *dport)
+ 	writel(aer_cmd, aer_base + PCI_ERR_ROOT_COMMAND);
  }
  
--static bool cxl_handle_endpoint_ras(struct cxl_dev_state *cxlds)
+-/**
+- * cxl_dport_init_ras_reporting - Setup CXL RAS report on this dport
+- * @dport: the cxl_dport that needs to be initialized
+- * @host: host device for devm operations
+- */
+-void cxl_dport_init_ras_reporting(struct cxl_dport *dport, struct device *host)
 -{
--	return __cxl_handle_ras(cxlds, cxlds->regs.ras);
--}
+-	dport->reg_map.host = host;
+-	cxl_dport_map_ras(dport);
 -
- #ifdef CONFIG_PCIEAER_CXL
- 
- static void cxl_dport_map_rch_aer(struct cxl_dport *dport)
-@@ -871,13 +861,13 @@ EXPORT_SYMBOL_NS_GPL(cxl_dport_init_ras_reporting, "CXL");
- static void cxl_handle_rdport_cor_ras(struct cxl_dev_state *cxlds,
- 					  struct cxl_dport *dport)
- {
--	return __cxl_handle_cor_ras(cxlds, dport->regs.ras);
-+	return cxl_handle_cor_ras(cxlds, dport->regs.ras);
- }
- 
- static bool cxl_handle_rdport_ras(struct cxl_dev_state *cxlds,
- 				       struct cxl_dport *dport)
- {
--	return __cxl_handle_ras(cxlds, dport->regs.ras);
-+	return cxl_handle_ras(cxlds, dport->regs.ras);
- }
- 
+-	if (dport->rch) {
+-		struct pci_host_bridge *host_bridge = to_pci_host_bridge(dport->dport_dev);
+-
+-		if (!host_bridge->native_aer)
+-			return;
+-
+-		cxl_dport_map_rch_aer(dport);
+-		cxl_disable_rch_root_ints(dport);
+-	}
+-}
+-EXPORT_SYMBOL_NS_GPL(cxl_dport_init_ras_reporting, "CXL");
+-
  /*
-@@ -974,7 +964,7 @@ void cxl_cor_error_detected(struct pci_dev *pdev)
- 		if (cxlds->rcd)
- 			cxl_handle_rdport_errors(cxlds);
- 
--		cxl_handle_endpoint_cor_ras(cxlds);
-+		cxl_handle_cor_ras(cxlds, cxlds->regs.ras);
- 	}
+  * Copy the AER capability registers using 32 bit read accesses.
+  * This is necessary because RCRB AER capability is MMIO mapped. Clear the
+@@ -906,7 +799,7 @@ static bool cxl_rch_get_aer_severity(struct aer_capability_regs *aer_regs,
+ 	return false;
  }
- EXPORT_SYMBOL_NS_GPL(cxl_cor_error_detected, "CXL");
-@@ -1003,7 +993,7 @@ pci_ers_result_t cxl_error_detected(struct pci_dev *pdev,
- 		 * chance the situation is recoverable dump the status of the RAS
- 		 * capability registers and bounce the active state of the memdev.
- 		 */
--		ue = cxl_handle_endpoint_ras(cxlds);
+ 
+-static void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds)
++void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(cxlds->dev);
+ 	struct aer_capability_regs aer_regs;
+@@ -931,82 +824,8 @@ static void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds)
+ 	else
+ 		cxl_handle_ras(cxlds, dport->regs.ras);
+ }
+-
+-#else
+-static void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds) { }
+ #endif
+ 
+-void cxl_cor_error_detected(struct pci_dev *pdev)
+-{
+-	struct cxl_dev_state *cxlds = pci_get_drvdata(pdev);
+-	struct device *dev = &cxlds->cxlmd->dev;
+-
+-	scoped_guard(device, dev) {
+-		if (!dev->driver) {
+-			dev_warn(&pdev->dev,
+-				 "%s: memdev disabled, abort error handling\n",
+-				 dev_name(dev));
+-			return;
+-		}
+-
+-		if (cxlds->rcd)
+-			cxl_handle_rdport_errors(cxlds);
+-
+-		cxl_handle_cor_ras(cxlds, cxlds->regs.ras);
+-	}
+-}
+-EXPORT_SYMBOL_NS_GPL(cxl_cor_error_detected, "CXL");
+-
+-pci_ers_result_t cxl_error_detected(struct pci_dev *pdev,
+-				    pci_channel_state_t state)
+-{
+-	struct cxl_dev_state *cxlds = pci_get_drvdata(pdev);
+-	struct cxl_memdev *cxlmd = cxlds->cxlmd;
+-	struct device *dev = &cxlmd->dev;
+-	bool ue;
+-
+-	scoped_guard(device, dev) {
+-		if (!dev->driver) {
+-			dev_warn(&pdev->dev,
+-				 "%s: memdev disabled, abort error handling\n",
+-				 dev_name(dev));
+-			return PCI_ERS_RESULT_DISCONNECT;
+-		}
+-
+-		if (cxlds->rcd)
+-			cxl_handle_rdport_errors(cxlds);
+-		/*
+-		 * A frozen channel indicates an impending reset which is fatal to
+-		 * CXL.mem operation, and will likely crash the system. On the off
+-		 * chance the situation is recoverable dump the status of the RAS
+-		 * capability registers and bounce the active state of the memdev.
+-		 */
+-		ue = cxl_handle_ras(cxlds, cxlds->regs.ras);
+-	}
+-
+-
+-	switch (state) {
+-	case pci_channel_io_normal:
+-		if (ue) {
+-			device_release_driver(dev);
+-			return PCI_ERS_RESULT_NEED_RESET;
+-		}
+-		return PCI_ERS_RESULT_CAN_RECOVER;
+-	case pci_channel_io_frozen:
+-		dev_warn(&pdev->dev,
+-			 "%s: frozen state error detected, disable CXL.mem\n",
+-			 dev_name(dev));
+-		device_release_driver(dev);
+-		return PCI_ERS_RESULT_NEED_RESET;
+-	case pci_channel_io_perm_failure:
+-		dev_warn(&pdev->dev,
+-			 "failure state error detected, request disconnect\n");
+-		return PCI_ERS_RESULT_DISCONNECT;
+-	}
+-	return PCI_ERS_RESULT_NEED_RESET;
+-}
+-EXPORT_SYMBOL_NS_GPL(cxl_error_detected, "CXL");
+-
+ static int cxl_flit_size(struct pci_dev *pdev)
+ {
+ 	if (cxl_pci_flit_256(pdev))
+diff --git a/drivers/cxl/core/ras.c b/drivers/cxl/core/ras.c
+index 2731ba3a07993c..b933030b8e1e77 100644
+--- a/drivers/cxl/core/ras.c
++++ b/drivers/cxl/core/ras.c
+@@ -5,6 +5,7 @@
+ #include <linux/aer.h>
+ #include <cxl/event.h>
+ #include <cxlmem.h>
++#include <cxlpci.h>
+ #include "trace.h"
+ 
+ static void cxl_cper_trace_corr_port_prot_err(struct pci_dev *pdev,
+@@ -124,3 +125,178 @@ void cxl_ras_exit(void)
+ 	cxl_cper_unregister_prot_err_work(&cxl_cper_prot_err_work);
+ 	cancel_work_sync(&cxl_cper_prot_err_work);
+ }
++
++static void cxl_dport_map_ras(struct cxl_dport *dport)
++{
++	struct cxl_register_map *map = &dport->reg_map;
++	struct device *dev = dport->dport_dev;
++
++	if (!map->component_map.ras.valid)
++		dev_dbg(dev, "RAS registers not found\n");
++	else if (cxl_map_component_regs(map, &dport->regs.component,
++					BIT(CXL_CM_CAP_CAP_ID_RAS)))
++		dev_dbg(dev, "Failed to map RAS capability.\n");
++}
++
++/**
++ * cxl_dport_init_ras_reporting - Setup CXL RAS report on this dport
++ * @dport: the cxl_dport that needs to be initialized
++ * @host: host device for devm operations
++ */
++void cxl_dport_init_ras_reporting(struct cxl_dport *dport, struct device *host)
++{
++	dport->reg_map.host = host;
++	cxl_dport_map_ras(dport);
++
++	if (dport->rch) {
++		struct pci_host_bridge *host_bridge = to_pci_host_bridge(dport->dport_dev);
++
++		if (!host_bridge->native_aer)
++			return;
++
++		cxl_dport_map_rch_aer(dport);
++		cxl_disable_rch_root_ints(dport);
++	}
++}
++EXPORT_SYMBOL_NS_GPL(cxl_dport_init_ras_reporting, "CXL");
++
++void cxl_handle_cor_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base)
++{
++	void __iomem *addr;
++	u32 status;
++
++	if (!ras_base)
++		return;
++
++	addr = ras_base + CXL_RAS_CORRECTABLE_STATUS_OFFSET;
++	status = readl(addr);
++	if (status & CXL_RAS_CORRECTABLE_STATUS_MASK) {
++		writel(status & CXL_RAS_CORRECTABLE_STATUS_MASK, addr);
++		trace_cxl_aer_correctable_error(cxlds->cxlmd, status);
++	}
++}
++
++/* CXL spec rev3.0 8.2.4.16.1 */
++static void header_log_copy(void __iomem *ras_base, u32 *log)
++{
++	void __iomem *addr;
++	u32 *log_addr;
++	int i, log_u32_size = CXL_HEADERLOG_SIZE / sizeof(u32);
++
++	addr = ras_base + CXL_RAS_HEADER_LOG_OFFSET;
++	log_addr = log;
++
++	for (i = 0; i < log_u32_size; i++) {
++		*log_addr = readl(addr);
++		log_addr++;
++		addr += sizeof(u32);
++	}
++}
++
++/*
++ * Log the state of the RAS status registers and prepare them to log the
++ * next error status. Return 1 if reset needed.
++ */
++bool cxl_handle_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base)
++{
++	u32 hl[CXL_HEADERLOG_SIZE_U32];
++	void __iomem *addr;
++	u32 status;
++	u32 fe;
++
++	if (!ras_base)
++		return false;
++
++	addr = ras_base + CXL_RAS_UNCORRECTABLE_STATUS_OFFSET;
++	status = readl(addr);
++	if (!(status & CXL_RAS_UNCORRECTABLE_STATUS_MASK))
++		return false;
++
++	/* If multiple errors, log header points to first error from ctrl reg */
++	if (hweight32(status) > 1) {
++		void __iomem *rcc_addr =
++			ras_base + CXL_RAS_CAP_CONTROL_OFFSET;
++
++		fe = BIT(FIELD_GET(CXL_RAS_CAP_CONTROL_FE_MASK,
++				   readl(rcc_addr)));
++	} else {
++		fe = status;
++	}
++
++	header_log_copy(ras_base, hl);
++	trace_cxl_aer_uncorrectable_error(cxlds->cxlmd, status, fe, hl);
++	writel(status & CXL_RAS_UNCORRECTABLE_STATUS_MASK, addr);
++
++	return true;
++}
++
++void cxl_cor_error_detected(struct pci_dev *pdev)
++{
++	struct cxl_dev_state *cxlds = pci_get_drvdata(pdev);
++	struct device *dev = &cxlds->cxlmd->dev;
++
++	scoped_guard(device, dev) {
++		if (!dev->driver) {
++			dev_warn(&pdev->dev,
++				 "%s: memdev disabled, abort error handling\n",
++				 dev_name(dev));
++			return;
++		}
++
++		if (cxlds->rcd)
++			cxl_handle_rdport_errors(cxlds);
++
++		cxl_handle_cor_ras(cxlds, cxlds->regs.ras);
++	}
++}
++EXPORT_SYMBOL_NS_GPL(cxl_cor_error_detected, "CXL");
++
++pci_ers_result_t cxl_error_detected(struct pci_dev *pdev,
++				    pci_channel_state_t state)
++{
++	struct cxl_dev_state *cxlds = pci_get_drvdata(pdev);
++	struct cxl_memdev *cxlmd = cxlds->cxlmd;
++	struct device *dev = &cxlmd->dev;
++	bool ue;
++
++	scoped_guard(device, dev) {
++		if (!dev->driver) {
++			dev_warn(&pdev->dev,
++				 "%s: memdev disabled, abort error handling\n",
++				 dev_name(dev));
++			return PCI_ERS_RESULT_DISCONNECT;
++		}
++
++		if (cxlds->rcd)
++			cxl_handle_rdport_errors(cxlds);
++		/*
++		 * A frozen channel indicates an impending reset which is fatal to
++		 * CXL.mem operation, and will likely crash the system. On the off
++		 * chance the situation is recoverable dump the status of the RAS
++		 * capability registers and bounce the active state of the memdev.
++		 */
 +		ue = cxl_handle_ras(cxlds, cxlds->regs.ras);
- 	}
++	}
++
++
++	switch (state) {
++	case pci_channel_io_normal:
++		if (ue) {
++			device_release_driver(dev);
++			return PCI_ERS_RESULT_NEED_RESET;
++		}
++		return PCI_ERS_RESULT_CAN_RECOVER;
++	case pci_channel_io_frozen:
++		dev_warn(&pdev->dev,
++			 "%s: frozen state error detected, disable CXL.mem\n",
++			 dev_name(dev));
++		device_release_driver(dev);
++		return PCI_ERS_RESULT_NEED_RESET;
++	case pci_channel_io_perm_failure:
++		dev_warn(&pdev->dev,
++			 "failure state error detected, request disconnect\n");
++		return PCI_ERS_RESULT_DISCONNECT;
++	}
++	return PCI_ERS_RESULT_NEED_RESET;
++}
++EXPORT_SYMBOL_NS_GPL(cxl_error_detected, "CXL");
+diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
+index 3a794278cc7fef..05c49133e9e035 100644
+--- a/drivers/cxl/cxl.h
++++ b/drivers/cxl/cxl.h
+@@ -781,14 +781,6 @@ struct cxl_dport *devm_cxl_add_rch_dport(struct cxl_port *port,
+ 					 struct device *dport_dev, int port_id,
+ 					 resource_size_t rcrb);
  
- 
+-#ifdef CONFIG_PCIEAER_CXL
+-void cxl_setup_parent_dport(struct device *host, struct cxl_dport *dport);
+-void cxl_dport_init_ras_reporting(struct cxl_dport *dport, struct device *host);
+-#else
+-static inline void cxl_dport_init_ras_reporting(struct cxl_dport *dport,
+-						struct device *host) { }
+-#endif
+-
+ struct cxl_decoder *to_cxl_decoder(struct device *dev);
+ struct cxl_root_decoder *to_cxl_root_decoder(struct device *dev);
+ struct cxl_switch_decoder *to_cxl_switch_decoder(struct device *dev);
+diff --git a/drivers/cxl/cxlpci.h b/drivers/cxl/cxlpci.h
+index 7ae621e618e79a..970e84cf49e9ac 100644
+--- a/drivers/cxl/cxlpci.h
++++ b/drivers/cxl/cxlpci.h
+@@ -130,7 +130,23 @@ static inline bool cxl_pci_flit_256(struct pci_dev *pdev)
+ int devm_cxl_port_enumerate_dports(struct cxl_port *port);
+ struct cxl_dev_state;
+ void read_cdat_data(struct cxl_port *port);
++
++#ifdef CONFIG_CXL_RAS
+ void cxl_cor_error_detected(struct pci_dev *pdev);
+ pci_ers_result_t cxl_error_detected(struct pci_dev *pdev,
+ 				    pci_channel_state_t state);
++void cxl_dport_init_ras_reporting(struct cxl_dport *dport, struct device *host);
++#else
++static inline void cxl_cor_error_detected(struct pci_dev *pdev) { }
++
++static inline pci_ers_result_t cxl_error_detected(struct pci_dev *pdev,
++						  pci_channel_state_t state)
++{
++	return PCI_ERS_RESULT_NONE;
++}
++
++static inline void cxl_dport_init_ras_reporting(struct cxl_dport *dport,
++						struct device *host) { }
++#endif
++
+ #endif /* __CXL_PCI_H__ */
+diff --git a/tools/testing/cxl/Kbuild b/tools/testing/cxl/Kbuild
+index 0d5ce4b74b9f7d..927fbb6c061f3a 100644
+--- a/tools/testing/cxl/Kbuild
++++ b/tools/testing/cxl/Kbuild
+@@ -58,12 +58,12 @@ cxl_core-y += $(CXL_CORE_SRC)/pci.o
+ cxl_core-y += $(CXL_CORE_SRC)/hdm.o
+ cxl_core-y += $(CXL_CORE_SRC)/pmu.o
+ cxl_core-y += $(CXL_CORE_SRC)/cdat.o
+-cxl_core-y += $(CXL_CORE_SRC)/ras.o
+ cxl_core-$(CONFIG_TRACING) += $(CXL_CORE_SRC)/trace.o
+ cxl_core-$(CONFIG_CXL_REGION) += $(CXL_CORE_SRC)/region.o
+ cxl_core-$(CONFIG_CXL_MCE) += $(CXL_CORE_SRC)/mce.o
+ cxl_core-$(CONFIG_CXL_FEATURES) += $(CXL_CORE_SRC)/features.o
+ cxl_core-$(CONFIG_CXL_EDAC_MEM_FEATURES) += $(CXL_CORE_SRC)/edac.o
++cxl_core-$(CONFIG_CXL_RAS) += $(CXL_CORE_SRC)/ras.o
+ cxl_core-y += config_check.o
+ cxl_core-y += cxl_core_test.o
+ cxl_core-y += cxl_core_exports.o
 -- 
 2.53.0
 
