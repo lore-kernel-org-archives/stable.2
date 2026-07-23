@@ -1,139 +1,152 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09667429CD1
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 09:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376053C9EE7;
+	Thu, 23 Jul 2026 09:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784800694; cv=none; b=jCV13SJHrGSdCLOxk2R29qP5H/lPeATQEeMk0UEAVnn+0jHJ4DqpUab9smi6ilrpna32fJRZ7U4y0VvUaJaXgjKSpDhxi+/PCIvuYh/p6WI91GIVHDXRSSk/+b2PflqXgR3GNcrbUo4g1Zg6sMPYjV+sWsb2Q66IGMTORBJBSk4=
+	t=1784800761; cv=none; b=cqKq6882Ux+pl3j7M6iCi5Osaak9GkjuvYfMAt2zVMJ3hafcU07cgwac6JOQdSHGah+6kT746/jIEa2QKVJCIB9wO7QSTvoVxm1v3hswAjk1w45MxaDE94VJI5ELGyVK6KqL9N3Qvlk6csqhv6h3aboiaNdIeRvL8PJu1rhmAuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784800694; c=relaxed/simple;
-	bh=JyQ0i5MWICcwd6Ew8dcNJE1TVRfcbZFrQF41FwWqY7w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P9/xeS8ykW5ytgMjtOW0txbYxwUcV6mKpJ59Z5T6KGBRLjhay6RAEq4BZ1uwTGmKqafZSNwAk6mQ7vH3i2MqQ4bDmIvLC3Dcv7b5bUjrOCelSqSJv5SGts+e/stAPf31rD3vw4ROkqO8DhudqWQVEf6bcAjdkWGr3wJW6yi4avQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RTX21+ZJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tFuCYt42; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RTX21+ZJ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tFuCYt42"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784800690;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vzmqMYz+xqlvZxZzHgPFLcjsI6LqkVkgU9V+iNhdTHw=;
-	b=RTX21+ZJgzX4T+zquTAYoJ6tq3vimeVxmmv+/Gq03cSe/HoIEdsswkYQxGn26HnhcTNGpb
-	rENMWTzt9LNWlNrXQ4A3R3QqnyHB5oIfxKVkDgtroVcyElwMZz2v2mAT/K1C9Rwci2igIm
-	ot5AoTGRzVGRmbQqNfXkvPfrK1/iAk4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-26-xNeuNY33MoiZVzaoLmM5eQ-1; Thu, 23 Jul 2026 05:58:08 -0400
-X-MC-Unique: xNeuNY33MoiZVzaoLmM5eQ-1
-X-Mimecast-MFC-AGG-ID: xNeuNY33MoiZVzaoLmM5eQ_1784800688
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4955ecd8a10so4108195e9.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 02:58:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784800688; x=1785405488; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vzmqMYz+xqlvZxZzHgPFLcjsI6LqkVkgU9V+iNhdTHw=;
-        b=tFuCYt42JvZIkLIMeRpoNFG/m+2/Yy337SFd/cralS3Lvj81CgwA+T0Gm2MAvoB6Rb
-         JC6FnnhCGTDolLwh3kVDDaEu0oZhGbneCLWwF9uGKk85Vse5Qun34kgwskLtOplg8nzt
-         wdRXTRZIpyXTdw+Dq/NbN1JhasLPO/xqbe2SrPTw5HWmd3d4K8fGIhpvy+CiH3iRmdyd
-         bKekihkgcQGxez5mqIGlhrLFcmNGpwaDRbCM7TBR09o5bBjrF/oUh41r+2SEiuMNf6m2
-         470GTbsVljkZKh4ALPeAnUIPbZX0bDlUlAvN3sSp3SvO8L9njUCiAcBXNtj5HXaXOs1j
-         kHWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784800688; x=1785405488;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vzmqMYz+xqlvZxZzHgPFLcjsI6LqkVkgU9V+iNhdTHw=;
-        b=fqmX3po6EeX9sbw4gIgj4kMJikbDaDDxIV2LzNLNsO5JoCfYC7XaHgyuglNoNIhT8a
-         ZXzr+2UOlhKh6bdRlYXPl6rTqx9DooRXGPZSkaxXDh8Xo+DyX/UVcCj+UHBd+oBi/e+7
-         9e2yHzjLC59LilmIja8J+/hXLTA+Kh6FPAnPYtZ9VuXx3USfXVToSbpNhnr69k3Tam53
-         NfeNA0/m+O26LKJM/P70C0+QHJy9cFCm/+lzWZ3ESYK21IoSnnk+1V/J1yCtr16McvJ2
-         wXAQmROB6ChxLtBx4yqhZAY73E5QKTOexeihRUc63bC7hQydILm1ulClzQHaIjZJbeQp
-         4D0A==
-X-Forwarded-Encrypted: i=1; AHgh+RqYNcrNYeKuSQZPc8QfbWMQOvHovn61J2K1QBNbPiRGhecHLxCkc1cJ4nt8SuTeBa83JZOdnbk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxauVK1AgsoHieielhWhMEsCvDGPpC2eANuAHfoyDIyuUMSH2fk
-	gSBcUMe32yrkfiT8o3sc21qHdrkU45qW7sajXLzOJwicUYytSC2oSD2YVoYPwVN/PImg7CBKqQm
-	94LG+TClj57gMDiabKFznG2rKRFqA2K5qquAX8Nk+Frec+JCRvKRObh5sOQ==
-X-Gm-Gg: AR+sD12ND+hkdR4P14El+UZXtbHgReSersoLMZB5pj2GATqQvQ2K3Ek+nd62/HohiqG
-	c5/7xBUYf8cd8N3/FPsmsiGNP6jQVO/B5dt21UFWW+cHMcRdDMpKYkDQt21OGzUQ6HbZcWJoJFk
-	Ux+G36QYKtMBWH4BeQEhdnxsoqNGmkqyX175RjpwUIjPV4jc+iujgP7/vdTrpbJp6rnEj8oNw99
-	OxK5OWW+jdwpCWPh7GAaJ+Ht/pKmba0fQKg22rh8TUuOCbylUmzr+cTOsn/rr69VDjTWtCZdSjp
-	wkdZNMkN3KHVSxhRjf17l7E6SbDx07U+cuO+gQe/0BLiq4Pp6JDrdlejpLzqL+j12IXMHHJRDev
-	tFwJ4w9dR+ty1TwpcO5uajUA22H2Gnex6BfKsRXoIoMCU0LRvlSooJ4HLOtgU0V2RLFRG6CNjod
-	pokw==
-X-Received: by 2002:a7b:ce0b:0:b0:495:6396:8b67 with SMTP id 5b1f17b1804b1-49573cc1a71mr16360075e9.4.1784800687615;
-        Thu, 23 Jul 2026 02:58:07 -0700 (PDT)
-X-Received: by 2002:a7b:ce0b:0:b0:495:6396:8b67 with SMTP id 5b1f17b1804b1-49573cc1a71mr16359805e9.4.1784800687105;
-        Thu, 23 Jul 2026 02:58:07 -0700 (PDT)
-Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495653c8760sm194729325e9.14.2026.07.23.02.58.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 02:58:06 -0700 (PDT)
-Message-ID: <265fc46b-1e33-4283-b94b-7c591a9cf3ba@redhat.com>
-Date: Thu, 23 Jul 2026 11:58:04 +0200
+	s=arc-20240116; t=1784800761; c=relaxed/simple;
+	bh=yKhjLW1ejSTaVutm2g54PYrE8nQpzfdPQX3BYTBR54M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V7PVFLl5lowi8mCMKZ4tXheShkaz74uHAy1gb6OP9REGLNMvCzDODsEXXeli8qPViWL533rWq0dWzcw9LkyCNRSE48dsmcpIBPP4q4h1WVDHRN5f8x5xMWCcv4kdWlQUkHiXDVDRoxVcLYZq2FqjYMOPoaZLNyXjCeow78fJqdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; arc=none smtp.client-ip=212.42.244.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6a61e5f2-0463-7f0000032729-7f000001d7d6-1
+	for <multiple-recipients>; Thu, 23 Jul 2026 11:59:14 +0200
+Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Thu, 23 Jul 2026 11:59:14 +0200 (CEST)
+From: Nicolas Schier <n.schier@fritz.com>
+Date: Thu, 23 Jul 2026 11:59:04 +0200
+Subject: [PATCH] kbuild: Stop modifying $(objtree)/Makefile when building
+ oot-kmods oos
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/x25: fix use-after-free in x25_kill_by_neigh()
-To: David Lee <david.lee@trailofbits.com>, Martin Schiller <ms@dev.tdt.de>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>,
- Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
- linux-x25@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260713104752.241175-1-david.lee@trailofbits.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260713104752.241175-1-david.lee@trailofbits.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-kbuild-do-not-modify-build-tree-makefile-with-mo-v1-1-ea6d386c5057@fritz.com>
+X-B4-Tracking: v=1; b=H4sIAOflYWoC/y2OwQ6CMBBEf4Xs2TWloER+xXCAdpEVSrEtqCH8u
+ 1U8vpnJzKzgyTF5KJMVHC3s2Y4R0kMCqqvHGyHryCCFPItCZtg3Mw8atcXRBjRWc/vGXQuOCE3
+ dU8sD4ZNDF33M20yIy4lSSRnE2slF//WbvFY7+7m5kwrfnX/C0WOOX8Ieg6b2hMoaw6FMluIo0
+ akcqm37AFCXLRzAAAAA
+X-Change-ID: 20260723-kbuild-do-not-modify-build-tree-makefile-with-mo-4f30095e12e3
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Anish Rashinkar <rashinkar.anish@gmail.com>, stable@vger.kernel.org, 
+ Philipp Hahn <p.hahn@avm.de>, Nicolas Schier <n.schier@fritz.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3076; i=n.schier@fritz.com;
+ h=from:subject:message-id; bh=yKhjLW1ejSTaVutm2g54PYrE8nQpzfdPQX3BYTBR54M=;
+ b=owEBbQKS/ZANAwAIAYjGvJyImm24AcsmYgBqYeXxIHK8NqwQpBEfVk2qJ9kDLNaA9KtfSwy/j
+ ZWxJlHiqdiJAjMEAAEIAB0WIQQO/4WJ63TpgecLpGmIxryciJptuAUCamHl8QAKCRCIxryciJpt
+ uLxsEACJ1S18xX5tdHTrBD04fwZ6/6robfgZNo6hDCUfu7g4Cm8g6TKpYmJbFwOyNyHyWK7xmIg
+ diBFpyfKtfIOFExpvDT+510t9gdolrw6k1Mq0nVeo/lV3Atqn1WiuWnUHtGACOVCclZHs8Z7Kr0
+ xkOCOqZ+nxTiBFyM/bPmXu0LDihVnjrMq2SHeXzwlvpN6C/4HDnV/CIyv7E9nn4kD/uwsdHQPO6
+ dvk7FXfq8pUTNyfEXzYpgrnUojwigKi2IXl8R3nqhsoR6yuAEUOw+5ikkQreRdUNR2yKDjBVMQy
+ taXtNmIbwH0f/pCO/Z+Sng4KNieAnQKoM3zn60MZjlXoCeTMKegInUq8bK7bOw9LlPTYbNYiWJQ
+ N3YiCQB/u69zfXY/oDjeFNDTVlaEjvAH8HDAnIucHW+ZfSSo4vmeuJdHTtWOS89pPydXD4UeemY
+ wUPKDh5oPxYFnQAFoiE6GRIlcPp+j0iD4EbF1egz/rFXXzV5Jb0g8vOal5j38QdgnlWtugDNZLw
+ FY9OCMtkfSYc+YJDUT6BOYQRknsT83YO1HAPq8MAtJS1Ewzt4R90CeAzFNBgEiQ0CvfUNY33MXs
+ Cy9WIj+5Yd4I+PlCF38u45H0Vjmnx22WmE3VqkUH+O62kCSaPQ7SS3z5kfJ/V0ctHLGcQ9vrg5a
+ uWWaR/WnAoJhg6A==
+X-Developer-Key: i=n.schier@fritz.com; a=openpgp;
+ fpr=7CF67EF8868721AFE53D73FDBDE3A6CC4E333CC8
+X-purgate-ID: 149429::1784800754-F17F894F-86AD06CF/0/0
+X-purgate-type: clean
+X-purgate-size: 3078
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: queueID: 3332EA04FA
 
-On 7/13/26 12:47 PM, David Lee wrote:
-> diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
-> index c31d2af5dd22..8aae9273b7c1 100644
-> --- a/net/x25/af_x25.c
-> +++ b/net/x25/af_x25.c
-> @@ -1768,15 +1768,19 @@ void x25_kill_by_neigh(struct x25_neigh *nb)
->  {
->  	struct sock *s;
->  
-> +again:
->  	write_lock_bh(&x25_list_lock);
->  
->  	sk_for_each(s, &x25_list) {
->  		if (x25_sk(s)->neighbour == nb) {
-> +			sock_hold(s);
->  			write_unlock_bh(&x25_list_lock);
->  			lock_sock(s);
-> -			x25_disconnect(s, ENETUNREACH, 0, 0);
-> +			if (x25_sk(s)->neighbour == nb)
-> +				x25_disconnect(s, ENETUNREACH, 0, 0);
->  			release_sock(s);
-> -			write_lock_bh(&x25_list_lock);
-> +			sock_put(s);
-> +			goto again;
->  		}
->  	}
->  	write_unlock_bh(&x25_list_lock);
+Update output Makefile in the corresponding tree only: for out-of-source
+in-tree builds update $(objtree)/Makefile, for out-of-source out-of-tree
+module builds update $(KBUILD_EXTMOD_OUTPUT)/Makefile instead.
 
-Note that sk will stay on list (with NULL neigh) even after disconnect
-and the above introduces a quadratic behavior, but I can't find an easy
-way to avoid it.
+In-source builds are not affected.
 
-/P
+Since commit c9bb03ac2c66 ("kbuild: reduce output spam when building out
+of tree"), building out-of-tree kernel modules out-of-source (make M=...
+MO=...) causes a rewrite of $(objtree)/Makefile with KBUILD_EXTMOD and
+KBUILD_EXTMOD_OUTPUT being set.  That is problematic:
+
+ * $(objtree)/ must not be changed in any way when building out-of-tree
+   modules as it breaks other uses of $(objtree).
+
+ * Setting KBUILD_EXTMOD and KBUILD_EXTMOD_OUTPUT in $(objtree)/Makefile
+   kills the tree for incremental builds that start right there
+   ('make -C $(objtree)'); builds starting in $(srctree) reset
+   $(objtree)/Makefile to its original content.
+
+Further, $(KBUILD_EXTMOD_OUTPUT)/Makefile was not generated any more at
+all.
+
+This commit restores the previous kbuild behaviour prior to commit
+c9bb03ac2c66 ("kbuild: reduce output spam when building out of tree")
+but leaves in-place the use of filechk for output spam reduction.
+
+Fixes: c9bb03ac2c66 ("kbuild: reduce output spam when building out of tree")
+Reported-by: Anish Rashinkar <rashinkar.anish@gmail.com>
+Closes: https://lore.kernel.org/r/CAOESE2Q2-0KUDaM0mUo+c_F-tMaUsBZ-gpnhdoe0rmYdgnnuJQ@mail.gmail.com
+Cc: stable@vger.kernel.org
+Tested-by: Philipp Hahn <p.hahn@avm.de>
+Reviewed-by: Philipp Hahn <p.hahn@avm.de>
+Signed-off-by: Nicolas Schier <n.schier@fritz.com>
+---
+Anish Rashinkar reported that building external kmods out-of-source
+caused modifications of the build tree's Makefile (cp. Closes-link).
+
+Anish, thanks for the well-detailed report!
+---
+A simple reproducer:
+
+make O="${buildtree}" allnoconfig
+scripts/config --file "${buildtree}"/.config --enable modules
+make -C "${buildtree}" olddefconfig all
+chmod u-w "${buildtree}"/Makefile "${buildtree}"
+tempdir=$(mktemp -d -t kmod-oos-build.XXXX)
+make O="${buildtree}" M=samples/kobject CONFIG_SAMPLE_KOBJECT=m MO="${tempdir}"
+make -C "${tempdir}/" clean
+make -C "${tempdir}/" CONFIG_SAMPLE_KOBJECT=m
+---
+ Makefile | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index a8d8ed711f9b..b2ad52f6719d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -681,13 +681,11 @@ filechk_makefile = { \
+ 	echo "include $(abs_srctree)/Makefile"; \
+ 	}
+ 
+-$(objtree)/Makefile: FORCE
++PHONY += $(CURDIR)/Makefile
++$(CURDIR)/Makefile: FORCE
+ 	$(call filechk,makefile)
+ 
+-# Prevent $(srcroot)/Makefile from inhibiting the rule to run.
+-PHONY += $(objtree)/Makefile
+-
+-outputmakefile: $(objtree)/Makefile
++outputmakefile: $(CURDIR)/Makefile
+ ifeq ($(KBUILD_EXTMOD),)
+ 	@if [ -f $(srctree)/.config -o \
+ 		 -d $(srctree)/include/config -o \
+
+---
+base-commit: 6946cd5d0aa4dd10a414ddcb7a10844fdb0ad345
+change-id: 20260723-kbuild-do-not-modify-build-tree-makefile-with-mo-4f30095e12e3
+
+Best regards,
+--  
+Nicolas Schier
 
