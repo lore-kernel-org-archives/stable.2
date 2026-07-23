@@ -1,110 +1,82 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C433E37F323
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822156; cv=pass; b=syGaRzs4Le2yj8gBGJNkgEYGGtT46mbGJ6eiSWqGHIez4xtJ7JkB/Fk1HOCuY1RqX+O2hO52hYoRckZe70YakY9C/uE4vDLIxaLm69f8SVHkP61JHXcsiCPWauT8I/OK1x7747XwWGY+UmiDIJ+XNimGchqPnSt8D2g7aJR/ePI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822156; c=relaxed/simple;
-	bh=TviD2TfpUyvALHM/EIRjWbCupkH+Sjjc0vKErzmfC5w=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=M5dd430hLQi3WiOFroR5mqhtOGqD5HVLwxIKXVZgbZ0UrbFUjQXahUZwoOoZv2M8Cei6y7ycEj8K0Yc/rR2v6mFgiy/Gftb4vz3FqValpDtBwDn6Gz/HdGKmKyLp0bLAoDB7ntVczn3qtvr8Qqz3sf9OJ3hL+HkG6/SFQx24Hsw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y5lHJXin; arc=pass smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AB337F312;
+	Thu, 23 Jul 2026 15:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784822231; cv=none; b=pTvAL0seZuYmX92f0f2LEHzn3Z3bWaF9hG4hZD9w2Tpe/3AHkm/pcFEeWffiSNizH9dfeqMyDMxCoUceWj77ejC3bQePjjAm7xdQMS/24HXgwibszGBuYCBo0RK/Y6C8DHP98MAC73KeUyG1WXRTaIYPhQjxlaAahgqxbu5B9Dk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784822231; c=relaxed/simple;
+	bh=er4vKP3QkiN1KwXETf+jBliHTm0dc+FhSX6zmHm5qpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CcXNqfoAQwbHlz4aHVwX/pJDJLppd90FC5VT2CI3wp7CuKnuf3ir5y2j7gJLdKrP8785IxU2dDbAPECknbSP7j40E9ciPM7V0pHxQIjDizO6ionAQ6DcvPPRTKsBZKHWitLBzSErggXZEt+G6XhpXnzd2I5oEoJiALLaQiv+INA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kN/z+bso; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y5lHJXin"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-81e83f1f15aso5812617b3.1
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 08:55:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784822152; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UZhhOUwaq0Fs6DdzSrDvo+Ohf3tF5x23peEkFAqzlsRvbUbHo+qSEJG5BE3gp/NwwH
-         RwoNbI7KJwmgPJIj0WMrsqWrPC3EA3v+JPvekqzwfsKaG0Wd7Y9a8lrQP+WNmqtfCEfO
-         7Q2IQDmENMrsVoZ4nBBxhjB3ZCUDHCMKek2GGLT5FQuajcjB+arYzJsqthVv0nacM5hD
-         bBzvkHkit29tRkVzovmM3OsEjLBIwvHO/E+s/BS8OwgNbSzGhih1t8/98x7p7qo7R+hR
-         KMVU5E/yFWP0SQcRfTgG9wBM9G/t/31cyoKOtvqxwnCMGNLiU0vZgSq319T36L88ful8
-         JUjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=TviD2TfpUyvALHM/EIRjWbCupkH+Sjjc0vKErzmfC5w=;
-        fh=wpfBrz8Oq4YQpFssWRRbOw4H2KWsXiYNZP1MuaR6qmU=;
-        b=bjY8VMhXzfYWG1j4kZxt6WyavuzcfDkO+/j5MzAAOTR2vibQhSJYI0Qj36Wr1+HZjE
-         aPvxRCPV9M4X09/+v+ZiB7N2M70TDpbhQo6htEMW6osIrTjJGpBSC40ZNh9+kYqmDj57
-         IznC7qI1xjX2nE9VFQmJxE6e0B4w5/zabkECj8ALfkWSgxKh904deCtbdFKuS52JKKMs
-         Ti52Wtvqm0fgqCG+bZvW4dWuDg0PEx/QygEz6ShBtpKDNq40HZCFZKEO2w7IT2i+BpLD
-         emWqW3Dqn42K4ptCCPNFTBPXDAlm7SAIjhHLZxTnZHIj/a+CyIoBpeZywVGswJHdUK6g
-         RrYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784822152; x=1785426952; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TviD2TfpUyvALHM/EIRjWbCupkH+Sjjc0vKErzmfC5w=;
-        b=Y5lHJXin2EGQPz+h5dgA3pvL/9tBC+1wDi/YVS64qlutHNtI38OD2eu4+5lLSQq/4D
-         SZDk7WOQ9Zlg20lYXzgYfrNszua2SRWAXJ4P1iv+ezHAWlw1OQXxxHSDRY26gE9aKKv2
-         GHRxkrq2rrDbk0vxa33otFLug3Hzjy88R1ClLD56I+yUVTvCOKrhHTZXhgnqxM3SI3jG
-         zzwv4KjCly4Sj9vWXwWPZEvyPtL4GSR3hLuZlvKuirnWftc3E4uipOtUAFnBslXHT8x8
-         w93EonOLA/t+yl5RnInp/dQ/ogI5uq0erS97Z5j2EQz+dWmlWQ0HhsoFpG1eH65nCUx6
-         4Ugg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784822152; x=1785426952;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TviD2TfpUyvALHM/EIRjWbCupkH+Sjjc0vKErzmfC5w=;
-        b=UUREkqG3w3Mhq6hmMU+nFqSUpgWY6ICuLZ4e4HT/d3MQRkNVmqdCalw8RsApROsm11
-         cJWoLV2Ms36xv/LzQJdYtU+S5w9/efD7iWbIqYtsIFi6fvmuaisRLM8D9WweXrIthKKB
-         mLc5c0pCAU1ybxBAPhecWnjEdJCtAhpt5Ch+8D68S7Vh8ayRpm6kDvAQY5jRzvOrYF53
-         JUW6Pd32qRhAdCC9XGWcGIzACvuQxWs7BTkM5Kn8BYCVi7efzF/rbkGCAZfv3sRASA0Y
-         ZxfFg0eGSBu/5YAtKR1+oTWcFyOGHkb+vvZ3aIPFYOgb75mQcgd8EDFoczY6Agq/KePb
-         bquw==
-X-Gm-Message-State: AOJu0YzKO75aZujtPiGV570Jz7nwsNAHbRyEuHzIfb1N93Kzqn2P8UyS
-	86cXP1PikpqsZXYh7zl1BCBcM/6B54PGPpCx3la0l0oBGxDl1dUvPMATb2qZjqtEA4MISJdFLGv
-	N4wVaDZc8ILIFVMZrGIgroo4SduX79TKteNDx
-X-Gm-Gg: AR+sD11BOvbv45IHLpTs3t9gtmdgjs+Q/pi3FQPMgi/fUQ4smEUTQAYogix3KYGcaKg
-	o14BWOwlXQ0fUSkF/cbGF49OtPvvrfaQTrQgCYBp0+W2nD+P2+6QBuoEL+Xme7MYUYbRr8hVzcA
-	03mtDaxvy7elJ9eSosSZKM6d/bSQHP6nzHndX3oLwQdu0uI1cVF09QGVbz81YGzuJ9z9fdbUecN
-	+cWN/YbQFdiOocTSM8p0Ic8zme4RqnLTH1qvKZa5uHFp+UOgH5yv4uGv3ln47ZHfjaTCX0ulXrC
-	yShOWZY4tyBXbo6Jn6bB
-X-Received: by 2002:a05:690c:9988:b0:81e:a56f:844d with SMTP id
- 00721157ae682-81f4d674777mr8493697b3.34.1784822152252; Thu, 23 Jul 2026
- 08:55:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kN/z+bso"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ABAE1F000E9;
+	Thu, 23 Jul 2026 15:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784822229;
+	bh=lFGiaDWAlL3ACzz2oTL2Fn8GC+ZUhW0ViX4n4LCIlBQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kN/z+bsocu/jxiNnNdAQjJ2EyReildK/tiO5aMFBYey2/2uu1VPL47fR+rSJxZVPy
+	 fuw8W//u/+N2pUZviOf/4mXbRzMAWvhUdixC/CqPRhhIMRNz8xoquvaac/D0eF5RuP
+	 8Iqoevbheu2J8IsnRpwBQwzfDe9XWrUpFcVbQ6OVbTbfjr5/312z0LVlWhUsd/G4Ua
+	 Mx9+KfMZ57MHShanIZ3t128Jc2VIDRBuo4pY12KKvRkgmuqtFskguFtMesErX4IMbp
+	 5RZF+V0jfFvIgzHstPDF8Zdovanh28RLQW2RCz8YSiN2OmWT/1LJmj65MpukBW/BWv
+	 yJL3B/PHlu0sA==
+Date: Thu, 23 Jul 2026 16:57:03 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 6.1 0000/1029] 6.1.178-rc2 review
+Message-ID: <2e96896b-92a7-4acb-a256-75fa99d02412@sirena.org.uk>
+References: <20260722143218.909123637@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Seungjin Bae <eeodqql09@gmail.com>
-Date: Thu, 23 Jul 2026 11:55:15 -0400
-X-Gm-Features: AUfX_myfn2FaMlmkA2LiuJzSjqX_ZEXsJgUtW-kCkzcBZ33Swfp-26sycjak0aI
-Message-ID: <CAAsoPpV1WtUsPRtuRHQb8VuCvMHYHG2K-NU-LKGhFL6rWBdZHA@mail.gmail.com>
-Subject: [PATCH] Input: ims-pcu - fix heap-buffer-overflow in ims_pcu_process_data()
-To: stable@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="quwIsLqtF9LuTHw8"
+Content-Disposition: inline
+In-Reply-To: <20260722143218.909123637@linuxfoundation.org>
+X-Cookie: (null cookie
 
-Hi,
 
-Could you please pick up the following mainline commit for all
-applicable stable trees?
+--quwIsLqtF9LuTHw8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-commit 875115b82c295277b81b6dfee7debc725f44e854
-Input: ims-pcu - fix heap-buffer-overflow in ims_pcu_process_data()
+On Wed, Jul 22, 2026 at 04:32:58PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.178 release.
+> There are 1029 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-This fixes a heap-buffer-overflow in the ims-pcu driver that can be
-triggered by a malicious USB device. The missing bounds check on
-read_pos lets an attacker overwrite the index and corrupt heap memory,
-which can lead to a control-flow hijack.
+Tested-by: Mark Brown <broonie@kernel.org>
 
-The commit was merged to mainline without a Cc: stable tag, so it was
-not picked up automatically. The bug has been present since the driver
-was first introduced, so all stable trees containing the ims-pcu driver
-are affected.
+--quwIsLqtF9LuTHw8
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Fixes: 628329d52474 ("Input: add IMS Passenger Control Unit driver")
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Seungjin Bae
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpiOc4ACgkQJNaLcl1U
+h9Du3wf/WaT4EQBkMiRMLKqNmt/seWCCjNq7HwkCYB3K6OO/x0wyIRunirO0YK2W
+ilgE+3QyeORbEcvChl9RcSpNMdsezFkQnVbNiMmWu9Wu+PrsdJDa4sXjdSVY+7De
+/pGrGpnioJ7Lct53vNgP+p+jHIsvvrBgsIQxhA3tnB5nTV+otRvk9dvCrxuLeHo3
+OUpbWwB8iK6s/oed4NEok/TVafyieOi9Bp6jWrdO5zchbLPU6GrBELmpFNLmgot4
+eHC7ivrrPfifx01JuiorH3qmxTZPKjgz3GQBttk1u/IuJOjRjQH/02gBLk1nHEuP
+/fr8UorPi6BeV2HDvOGYsmGo79shRw==
+=aPJU
+-----END PGP SIGNATURE-----
+
+--quwIsLqtF9LuTHw8--
