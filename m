@@ -1,71 +1,79 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED36301004;
-	Thu, 23 Jul 2026 14:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28BD3B83EF
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784815272; cv=none; b=qlThRwa+/5r2PEwY32oqnLSbp8dSdaCfjl0jyNWpmzU1IgsyW0O4NsfBxmyyyob0OyGONdQQ8L3wGlmT8szsq5FAB3kt+ql9m0ldYsaYiuoCmGZVh34OJzodve035ibgOBpyL9PVcvfVOb3cDVQ0t4WD9gxVPJWjCcloVG1tXs8=
+	t=1784815505; cv=none; b=ijyrJstC0aIxdgjZDA3kB3w2LXv0S8IWbshU1ueBKwFwbvLY1/7+MiDKxEDquap+TsGZiUDYhvyqAQ/3EKCAjYWg0Dls4/s4knBk8ZICj08fPS4KYQuitnmDOfMvWyEhsIi2S1lix/ZnYU0AT10cjF4R+fhag5YZB/efAgQJaXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784815272; c=relaxed/simple;
-	bh=svkWmH082FIs+NYzd9fVTUvrFOKjJq1MAswMvtlUvs4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qS/jfvKrF1RYHVELrzP0O5rZviNt4cGIA9AmylOdO43xuhP0Kv+3gimYclII8Duo4tTVru4cSn8n/KitPa1LTpC25F0MnNk0OrJjQ8Q6dmxUj8ihAiz2aeYYtgHODwJe37VcCSzIfpr+3zA+ltlYQMCrBBzlV2wm3CWSLjZt5/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AwdCoBAH; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1784815505; c=relaxed/simple;
+	bh=lIVSpYNXYggwgLGuyXWDQmUidMbwlvbUwtc0BioajXM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n7jHhAs/bFvYPhAv32lPTNIGETPSQFN5xQ8lf5d13PfbDzXUNxroWGmHwHe1Ms0A55wCctE2HeJLAaR53XptSSGa4y7hupH3Fvfnb830fYgpbJoFHzGVZYRCfKBIl52F9niaRUiWNYWbA+fCvOhdyaqmA3BF72zjOEuZUh7+JKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nokfAtYr; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AwdCoBAH"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NDBkXg1210645;
-	Thu, 23 Jul 2026 14:01:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=NUNFmQwVphrr+G5AC5Kp//AQwE7U/ugq8ao7jLrQH
-	c0=; b=AwdCoBAHY+FEbzw3kHm2abJfXYVk3UWYEBl3/6+uRVrZM1dPIKc09QmSU
-	qyrrqn8cfJAPMnMsOJz3bi2jUyxg5E5bFRbWIa4jEMgEaPBrWpFWhmaP9YqH459e
-	Jv4NDJ5tPA4HMmF5II0Bz+4O1hZg60PcBDqIxSDz0KWlGhzVsYFMPf9lA7kpJ4NC
-	NWNFb7g8Za3hzHxWSialx6eb3SOQuLIfMZnhIazmUrwWyjznnrbl8ftT/HyOiA0Q
-	px/d50l0EhhsRjeb+GQWd6Jk7X4CCuDpcrSZ0kIMbZE6YRXWol0DPdg5pk3nAoj7
-	lYzMJCe491el/EO4Oyy7LGFaYMMuw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fg77aqv4d-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 14:00:56 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66NDnjKI006571;
-	Thu, 23 Jul 2026 14:00:55 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fgnahcdcm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 23 Jul 2026 14:00:54 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66NE0oIi30409394
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 23 Jul 2026 14:00:50 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BA224200E2;
-	Thu, 23 Jul 2026 14:00:50 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 68336200E1;
-	Thu, 23 Jul 2026 14:00:50 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 23 Jul 2026 14:00:50 +0000 (GMT)
-From: Aswin Karuvally <aswin@linux.ibm.com>
-To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: netdev@vger.kernel.org, linux-s390@vger.kernel.org,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Alexandra Winter <wintera@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
-        arnd@arndb.de, stable@vger.kernel.org
-Subject: [PATCH net] s390/qeth: Check CAP_NET_ADMIN for private ioctls
-Date: Thu, 23 Jul 2026 16:00:50 +0200
-Message-ID: <20260723140050.762991-1-aswin@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nokfAtYr"
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-38111ea8a88so458038a91.1
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:05:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784815503; x=1785420303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fEvTy714BzLXGkO9IMhH+5Gou32h276dSsrXDfWR0to=;
+        b=nokfAtYr4DwzKbzWuwdmVnHUP5pUz8JzXi8u4LlAMo2Cml48lhNNk9go1cHPN5fyBH
+         yF90lbj5GFS7O1UPMAKjtWfFmVGPlxIiXA+QBz3ErYv2umCCagKrrgP5Ed8MVZ08Lztp
+         GyYQhV4V0U/p63qZxPoww7cF93bHwLLZrD5hRocdPl3AKJ1r8hdC+Hy1rjNd/HNPJyII
+         hNjKALAt4Fibrdt3HSRJFzx+/WqhTUmjLIC84u8V0FRyNtPCeI5w40x3+wuMpwDNnnp9
+         ipMFJr3T3RJtridtUfy5v+CXmGEtRMVBok+hRTTTTOS4+qaXlakihnEsz4ktt/7FOG7o
+         GXcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784815503; x=1785420303;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fEvTy714BzLXGkO9IMhH+5Gou32h276dSsrXDfWR0to=;
+        b=icNMmc5LKtaSMcwz7gu8d0QiFCO0KHaWQlHTusArzmIJZafN+aknbKlCcjNbsnqQ4U
+         2Z5Z4s0hwEHPfAmrsKWPZn7dBe63smQeCWgafICqkcRMO1+0MXH1jzNfL6BeVwC+UMjx
+         /605Q4ehUbw1+hzxJtyg6mSc1CSX3ws7xdHiGlLjizOQUEnXtjJTaeWOUnklisR49Ymp
+         /ztQn2G8dCz3VR16P6hJFkNraL+kVtf/FNK1X60jKpw6u+E08bn7+zWYOqJflii1H6Iw
+         q8peSiSc4tu9RY/4ke6gb6PNUEyhTRwfP9jLc9mvm0cv+m98yMb4Yn6xw+raNm6ET5+P
+         Fm9A==
+X-Forwarded-Encrypted: i=1; AHgh+RrbBa7NHMA+UorpKNFjSnU3+jHgb7Bfybp/gyViNBVB/M1Kz+vi0gbY3QXXgb6tpbMlvxTuhrA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZGa8cGCTvYxDNmi0EHpNlD32QuFzmSRvAAUWP+ne4LHMewAsc
+	eSR8RFCtIUioj01u95ho9zYCjw7dEglIhJ6dc5FOcp/Wnl6oTIvbjvtu
+X-Gm-Gg: AR+sD10WrgG5p+8/SJuSpmR+wdXcLs0fxjCN51nmhOS0lmuXTofBf3ZuokRR2At8TmP
+	jd36rd4ok/aUwETXx9p9lToah3s7i9Q8PctpNYHcNa+B148B77X/tlG6K/JqHbwibAHhLJ9tlKz
+	izIvXNQyhXoQ0Qu+vxIYHNu3CTWKi/CFOjJeYSKI5TQBLDuhoJaHCH7STrK3B6OD2n1tN5//57F
+	uBpXjCpJZG9+DVIgeNEXNNyBTAGysfFRpIrKUZHJ+AtI3IFoR2dnjQQDQKWULfOfm79VKMtHH3c
+	j7CWkjmLQsgwBytmXjhou77Wxhw1rfnkxLqVadD+RSAnDWL4j88WfTQefZ4vMWqMtAVFhgqbDwM
+	Uh1MhIzupEiz6MkFUfe84ofgO/8xpWUpyxRP3UbmKpNY+CJUXz6lxm8xp6+s4zR82jOFeUuSY5E
+	sHZPvpF1Hk
+X-Received: by 2002:a17:90b:3d43:b0:38e:1497:af5b with SMTP id 98e67ed59e1d1-38ec648a194mr3330767a91.1.1784815502657;
+        Thu, 23 Jul 2026 07:05:02 -0700 (PDT)
+Received: from workstation.. ([182.180.105.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d130f42bbsm17870433c88.14.2026.07.23.07.04.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 07:05:02 -0700 (PDT)
+From: Ali Tariq <alitariq45892@gmail.com>
+To: daire.mcnamara@microchip.com
+Cc: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	minda.chen@starfivetech.com,
+	conor.dooley@microchip.com,
+	mason.huo@starfivetech.com,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	alitariq45892@gmail.com
+Subject: [PATCH v3 0/2] PCI: plda: Fix IRQ teardown and error-path resource leaks
+Date: Thu, 23 Jul 2026 19:04:32 +0500
+Message-Id: <20260723140434.675512-1-alitariq45892@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,62 +81,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDEzNSBTYWx0ZWRfX6JSyPB09lWt+
- IrQMkj2Vap9skgl2xnlOljTLjPIWgw3QKOTGIOQZRVLP/6ZWhUxmrSTk0YguOV4jF2LKrvoBm1O
- 3B4gLuX0++gT8g+jB+f4aae7SAsUGrseeCUuF/bRTHSJfTphCanx0nEr27+ototDPGrKgzKygse
- UCBfgrC0ZOHz9da0+5HSe8+NldDDz81BZWntCvj3IeklOo2ByWFJavn3RdDq0rDTC5/bVfSn8zT
- +aiiuQ1Mpk5homtW1lp4ByAw4wngDIotuwFUDA2fdQqsbSPk9hr/HTdekuBtOH7tgnEHQGAcVtd
- qMboO+w7NxKeg29FgHHJjklMifn/wcn/n/Yfek08CmvJYuSU01OTbpsIZ01tbRhJUMcJYALw39j
- Pytxxhqq1tSDPbAHhUXxsdmvoCE1OQ==
-X-Authority-Analysis: v=2.4 cv=K7AS2SWI c=1 sm=1 tr=0 ts=6a621e98 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=_kRH_JVfn-j37NcTvyMA:9
-X-Proofpoint-ORIG-GUID: IE4Kdwab4VNdqIlyZF6k-76rXg56jAKc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDEzNSBTYWx0ZWRfXwUUlnx3VuZV6
- wLPuX59shn3E5x19LWWOAHrFX9nyoCRUBf3HSEdH7dQZdozfyNkuwYJVwsC39cmUnUSvRNw0T5B
- lQFc8EQ4UkZwmSBDuVUgFtKFTpTnNo8=
-X-Proofpoint-GUID: jBqmKAVul1GehM0HkNAeNtAap1TJKi14
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_04,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
- malwarescore=0 adultscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2606150000 definitions=main-2607230135
 
-Gate the SIOCDEVPRIVATE ioctl commands SIOC_QETH_ADP_SET_SNMP_CONTROL,
-SIOC_QETH_GET_CARD_TYPE and SIOC_QETH_QUERY_OAT with CAP_NET_ADMIN
-capable check to ensure unprivileged users cannot invoke them.
+This series fixes two related IRQ-handling bugs in the PLDA PCIe
+driver, both originally found by automated review from sashiko-bot
+during work on an earlier, unrelated patch.
 
-Fixes: 18787eeebd71 ("qeth: use ndo_siocdevprivate")
-Cc: stable@vger.kernel.org
-Suggested-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
-Signed-off-by: Aswin Karuvally <aswin@linux.ibm.com>
----
- drivers/s390/net/qeth_core_main.c | 3 +++
- 1 file changed, 3 insertions(+)
+Patch 1 fixes a use-after-free: plda_pcie_irq_domain_deinit() removed
+pcie->event_domain while devm-managed event IRQs requested from that
+domain still had their free_irq() deferred by devres, so the deferred
+cleanup could dereference an already-freed domain. It also hardens
+the function so it is safe to call from partially-initialized state
+(guards IRQ fields against being 0, and disposes of IRQ mappings
+before their domains are torn down).
 
-diff --git a/drivers/s390/net/qeth_core_main.c b/drivers/s390/net/qeth_core_main.c
-index 20fb0d2e02a9..f18eed9df3c7 100644
---- a/drivers/s390/net/qeth_core_main.c
-+++ b/drivers/s390/net/qeth_core_main.c
-@@ -6525,6 +6525,9 @@ int qeth_siocdevprivate(struct net_device *dev, struct ifreq *rq, void __user *d
- 	struct qeth_card *card = dev->ml_priv;
- 	int rc = 0;
- 
-+	if (!capable(CAP_NET_ADMIN))
-+		return -EPERM;
-+
- 	switch (cmd) {
- 	case SIOC_QETH_ADP_SET_SNMP_CONTROL:
- 		rc = qeth_snmp_command(card, data);
+Patch 2 fixes resource leaks in plda_init_interrupts(): several error
+paths returned directly without unwinding IRQ mappings or domains
+already created earlier in the function. It adds shared error-handling
+labels that call plda_pcie_irq_domain_deinit(), relying on the mapping
+disposal added in patch 1.
+
+Patch 2 depends on patch 1 and should not be applied on its own.
+
+Both patches were build-tested and boot-tested on a StarFive
+VisionFive v1.2A board.
+
+Changes in v3:
+- See individual patches for per-patch changes.
+
+Ali Tariq (2):
+  PCI: plda: Fix use-after-free of event IRQs during teardown
+  PCI: plda: Fix resource leaks on error paths in plda_init_interrupts()
+
+ drivers/pci/controller/plda/pcie-plda-host.c | 52 ++++++++++++++++----
+ 1 file changed, 42 insertions(+), 10 deletions(-)
+
 -- 
-2.53.0
+2.34.1
 
