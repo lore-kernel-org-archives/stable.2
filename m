@@ -1,135 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556D33446C7;
-	Thu, 23 Jul 2026 10:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784802186; cv=none; b=q3j3J/gm0RalanuGPuKYMx6JS7zniBgGww6o4BLJfhDP7sGRvarHdLEcAkpSq8iQHDu5+382v+ii0NYPlKHrVqUWX2NUR9WEpWn1BTedBCA9KcKsi8NwXiBoWwuQ93ZkZ/svqwaylLMzj3/c+jPPf4GqTXNV2BrkucK4XsFhPNs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784802186; c=relaxed/simple;
-	bh=f0CAk3+3gg8VDdWCWyve26MrnID1wdXz3t/Oj0vbbbk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qxMwNnCErh+NxU7/8xhkI12RT5Vsr0weKCbfvxoqaxV4p7sE70OC2Ju4yPpsDd5ctaSWfiEsh7GEoh+56CiwXPcHst1djd/ZB6xlZP7IHQVT/UICmBDg1FNChkFwxiKA8eA4HVe1RduPBR7KxsHd+YXRkQc4JNygzA5du8iDREI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EwNYbYnp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47878411F88
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 10:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784802372; cv=pass; b=EhOB3uPdnaSCHct/mxLMJesZsmTwyVNNobR9KuWqt55RltrV+zRr42zWb8AI51Ae2ILdZyCspLNPMn79V1YNR3IBSX9CGf507Z0kqp9vJhU1xgOY2ni8QnwoDayhhn40qxoFzQ9x95irpTakQRK9XWubdumnPOUXmexMUWYknKQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784802372; c=relaxed/simple;
+	bh=5x06QjkKCMWyqn14GmrGgv/C9qLWa5XhHu055fE6FZk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Wlrmvt7KzvsEAmgx9P92F5S7XFOGNvVSCFlnGGkjNHA9icvPQusZs0RCuLrxQRLOael2vH6hJutZWSCHTllh41rlxaM8mLRHI29wp2Pps0so/Kht/ytDRLpYRNhRBTevOdrr7lDsu58IvbOXv4Fju0EdE+VzGY/xrIQMBESjCak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=bOJL27gq; arc=pass smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EwNYbYnp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C841F00A3A;
-	Thu, 23 Jul 2026 10:23:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784802185;
-	bh=go7Y++9i2ovOLRuatKWJusZrB2J2y0mZiW0U9qh+nWA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EwNYbYnpJeqhXkEBVp4z5DHKL2WlH3S3PqlMxBJ77F4koUqIBvAMjS3lSxJT/oMbf
-	 v5a1dHjfgX71d/JwY4TJbluGAXLVVFyKmZ2oLaRQpFlO2Gt+ABzPpjZkM/Ctnc/8mN
-	 +CZ4lYoYf7qgaSVt7LSVyt8TdUAHoB8sS4TRwZ4U4WIpOrO0po4GONGt7tlCBb3kDm
-	 IDzPjsvcpeaz1ADvFW7uEFdg/oWxlSJVvmV+7sHYFBeOxzrxA6GM5aKouZaVZ3pH+H
-	 tlnT0YsNiM/lr9JdMptl51uMiLPZbaV5fs6je+9bcfmpVfznMWszRR7KcjAH+HOW/u
-	 +cnbHEC3Oee0Q==
-Message-ID: <67e1219e-9d47-4a30-a8dd-fdcf03229f58@kernel.org>
-Date: Thu, 23 Jul 2026 12:22:58 +0200
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="bOJL27gq"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so335945a91.0
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 03:26:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784802370; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r1zWqcoi78bCr27xpjSqhC+SprlBImhk3X03r7nnfRuuXQ9fTc3kiXwbmeJxTQDHPN
+         TNiRKVMU1tGCWEBMbRg5vXxhkQJiLoopb0V5vVDXw0UGU0iRlCo687z6W2dYwy0hbd2r
+         yD1R8RcOgQ0VjwIS0W2Z8KKEd7ue/H+aCIDF6+xeFSq2Wo+24Qq73HqzGb7APAehWuFB
+         qBIN/QSZ/NTgvMfNI3bdh1rziXQmlrQ5dy5MNhiqd4tS8J0dV7Jfr/R8L5F+x+vKjTl1
+         TVJPJeiep+bGxEdWO49eYqHgNL/dMRnRbdU3/gAV10lseao3ZOzYRMH3URS9V6+F0Iqj
+         +pCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9u1UX/uIA4BS7bXZAkDJRBnwoEvuvzO/4om9dF/YP4Y=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=KO6lhN0NbKVVYG/dD4zPskY5Uh2BGs1VcmGng1BzN4Wa894bAaIxfafjdzgBPbDuWr
+         4uql4Qe+iDvT/s9YKGco9U7ZNJi1AF0Kbw9QdM1WlLKq/eoVjlS1T6f+5lR5/t4bs3C2
+         A5SZCsM5it/bdvKmCkEu/TrIJSDPvqQOs8tEWsslcUVpLLzP3ePWOsyKogQgsQ7EL42W
+         ph9trwJKGYC/gxx2UloarLEkQQT5K35Wl8Mi5nWEy6MnAAdtws2+ehZHXzDUtDFNUZ7a
+         el1xoBd900pMc+7OmVpVmjzqcyV1DxBkzo6izxwCCyPKvvO4/GR1EMFoUdNa8N4/rG5M
+         O38A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1784802370; x=1785407170; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9u1UX/uIA4BS7bXZAkDJRBnwoEvuvzO/4om9dF/YP4Y=;
+        b=bOJL27gqHH3NPwtsrKM0pie0RKXyKeWgjJEj6uwGgWjS81c7uqlKc0xkHE9k7/j8/4
+         P+npl9d1CuVaft8vGsiD9oWIJQy/UNI0m7dvV450y2YRD1sZtVDooEtESkmXWX/d4TN6
+         u6VEG7YJOP5Wk0vEcjOdaLGiffLHvrwyVJgb5nWAijwyrnyy4zX56N//XT7AeLuTWyA3
+         8VaUmVUV5iwdYpbO7ohbEN9UvKMumeZ4wJGcGy4xmAkIIwAb21zZ5tQdZaLYnx2WRsyp
+         VuNVv2OTNnKZX1LOasaxbkaAWZ+RRmMkTbZDQSm4SP45+lwp5VdiUxCopKSTEQyFbixk
+         m7YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784802370; x=1785407170;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9u1UX/uIA4BS7bXZAkDJRBnwoEvuvzO/4om9dF/YP4Y=;
+        b=onwy2khO4Y2EmzQHMOUzb52M33PytpFfdUSM6wBBITGw5QVSEZmYwAeZI04qiXv7IO
+         6KlfV03IRMDTAkP02eA/8lBHIaESbC6NUFj1L92jqI1Qoi9ikFbg81kOSEaKG9LTxnGZ
+         FBDrz/TAcTTSSI0ibRcU8sg5wd+CRt8zaIWKpLIFsdaH6JJR+0hNotgoGdUZWN0TVfE2
+         cfNF2rvp6K6yc2zffs4ZZT1nf3q+oOAYIdh8JOhO08oE16aA/WfQz2a7D/iEFbIXj6Pg
+         3vc2Ng+bBKWU/QLyYKcDz5+7GPbgWVgM6bwO8dnApQnZTlkJxnT0ZW50kVe70sB4r5ut
+         jaDQ==
+X-Gm-Message-State: AOJu0YzWjISgOYuiKnlkKwWTVmjEbMuH3BCCwWqwV181XlihV81KJV4c
+	n/jFaxR4nGMPexzdpr4mz7SjBPE4qPJxEsHdyMTEqYGixlB1cMsuW84EMVCWSvc2MUXnD2xtniG
+	CkvOefAeQ8CdrT9rBIcWYqnqV2cY269Zl+8c5HTh+CiHNEcV6l0HgZs0=
+X-Gm-Gg: AR+sD11AXXnTOSdrSA0Kp1i08/28Smdd2ACn3UYnQtG1B47dUIBvvsiAGnTRAdoX25f
+	i2qFUsH0HElb+S4lub7Hmfyhv2c/Pekir7rgqRZTknoxKckyJG9IDJL+ZiHsuELayHyXOwig+rC
+	LJVkY80yTFd47MfuOZ8NkjjOSrSEPMEfxPCWkhAFh6ke0A2d/+uL4mTgv52rzdw6VXHEwWlChbE
+	Fl//2491YThvXJ6y90ARW4vYxgrAesNkVWAEWdc1P/fVKOc1NM+SBZFskFh3og=
+X-Received: by 2002:a17:90b:388e:b0:38e:bfe:81e3 with SMTP id
+ 98e67ed59e1d1-38ec6495a20mr2393539a91.8.1784802370460; Thu, 23 Jul 2026
+ 03:26:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
- defrag_mode
-Content-Language: en-US
-To: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260722150006.3848560-1-hannes@cmpxchg.org>
- <20260722150006.3848560-5-hannes@cmpxchg.org>
- <20260722162207.31a2c491ffaf36d1e8948c14@linux-foundation.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260722162207.31a2c491ffaf36d1e8948c14@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260722142947.085426486@linuxfoundation.org>
+In-Reply-To: <20260722142947.085426486@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Thu, 23 Jul 2026 19:25:54 +0900
+X-Gm-Features: AUfX_mw8I0K_aqqKAJQwrewfO2rICwEhVFJVh1-cM4VOtjfc5UtvvOgf3K66Wvs
+Message-ID: <CAKL4bV4iTOXyeUddEpsgBgE40Ma__oCFXp8H4LxPiDdathdevA@mail.gmail.com>
+Subject: Re: [PATCH 7.1 0000/2079] 7.1.5-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-+ Greg and Sasha
+Hi Greg
 
-On 7/23/26 01:22, Andrew Morton wrote:
-> On Wed, 22 Jul 2026 10:56:47 -0400 Johannes Weiner <hannes@cmpxchg.org> wrote:
-> 
->> 
->> Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-> 
-> This cc:stable fix doesn't apply to current mainline because the
-> preceding non-cc:stable patches get in the way.
-> 
-> This means that the -stable maintainers will have to ask you to redo
-> the fix to make it backportable.  And you'll then be preparing a patch
-> which hasn't had standalone testing in mainline.  All very cumbersome.
+On Wed, Jul 22, 2026 at 11:58=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.5 release.
+> There are 2079 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.1.5-rc2.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Or they backport the whole series, even if only 4/4 has a Fixes: tag.
+Linux version 7.1.5-rc2 tested.
 
-> So is it practical to make the fix come first, as a cc:stable hotfix so
-> we can upstream the other patches in the next merge window?
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-I think it can't come first, it's simply a complex fix that can't be done in
-a single patch that would be reviewable. 3/4 is certainly a strict
-dependency. I'm not sure if 2/4 as well. Perhaps 2/4 does deserve a Fixes:
-tag and Cc: stable on its own, as it also fixes a defrag_mode deficiency.
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
-> (An alternative would be to put cc:stable on all four patches.  That's
-> a bit abusive but we do it rarely).
+[    0.000000] Linux version 7.1.5-rc2rv-gad98fbfe8a23
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260625, GNU ld (GNU
+Binutils) 2.46.1) #1 SMP PREEMPT_DYNAMIC Thu Jul 23 18:26:54 JST 2026
 
-I don't think it's necessary, the stable team are quite capable of figuring
-out the deps and backporting them with a Stable-dep-off: tag. IIRC the
-"fake" tagging is discouraged? Maybe they can clarify.
+Thanks
 
-> Either way, I'll get these into mm.git for testing while we await
-> review on [4/4], thanks.
-> 
-
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
