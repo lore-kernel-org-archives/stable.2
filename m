@@ -1,114 +1,67 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC16D485CFD
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 17:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D544570F0;
+	Thu, 23 Jul 2026 17:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784828632; cv=none; b=lFTvI0C1YXj7tlqxQYqcLKn+iJP4HPNncvMDnoxHOcmlg9UDH/ws1qWn0gon+yFoqZE3vbeLG0crDYIevq4TORTdn4liSFLc1E1OEQ1YX6Pw9rfSCbzgdaNaHjGq3MmR/TeIfJGRE+Qx87XU1j22F/7S+akSu+6hBsVaZKeC3i8=
+	t=1784828698; cv=none; b=pPUwMgun+FgB0m1lcblu/YPcwn7IwoxQjavfuE0S8VE7bjCq2j85qzUvgCkGMdBYbwdXjw5WMcSIjlVTclJp+GXF03ACpUeYtSeVab8hq2/lt+RmU3O81kTrfqoEtNLPwFQ4aTaRq6QOx1tQGWUE/sdkwGu5YgxkuSeSxWwsMFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784828632; c=relaxed/simple;
-	bh=7CfLiwE5M0TCOSUKAJEyT22HQx9DD5s4V+fJwhTJWV8=;
-	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
-	 References:In-Reply-To; b=mZWJbSAzd9VCxPyFSmwYI/jWGwQm7UIrW5o/zL01D6/MzpA+LaXpenBUG0/Q1rBhV8cTFoU/zFPVP4WGQNIEwK8tw6EwwhV8X2RJP99Kr4KpnO8jgn16xjKLhPY3ktB+GV5Iqkm5TLx8Tx7BOjWUOTcpbJ+qMT798UqLBMxhd20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=Vr71dgUz; arc=none smtp.client-ip=209.85.219.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	s=arc-20240116; t=1784828698; c=relaxed/simple;
+	bh=Mc0ikpVE4D8T2nhcDILSX5EXSuUsW38c1YxRpHZKpHI=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=EoQl1rRYgBMbZuTOMP8qiLS8Yye0V9UMS1m1q8P613Bp/qfceKDU6B7V+kLjotvMtL8LmWirQWAhbvj3Jo9NqgpzNfIM4dBiw70KarYWhiWbes2IYOOgjQfGG261coThf/6CV675I/6TpReOAb4jR73iGEHSSnLqSc7R3RJlxrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jkmFPgxm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="Vr71dgUz"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90327237340so6995156d6.1
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 10:43:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1784828621; x=1785433421; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=brmtQMY+PCLY5SqHqKFMvLTgXx8Pdh/IhOMrgYqDWxI=;
-        b=Vr71dgUzOAqYSVvjqBnD6ZQCE3SPE5Mmk4qfCKiMbM9zK5Zr4I8p928xXutV5b6dN+
-         qgIWEu4UiU7JjrDa4b/fmYS/1mGAkKcs8vnDR9BihkanA6IU4TSVc0gY7gO4hTu2D3z2
-         iMkBy1bOnr6rYTzrO+OgDRZuRPEedoExVPsjfD2V8miArtLe+od5z8UwDMSxPFDM791O
-         HSySg46wlvWky8fNj4rDm7MS/iWMRHLeKpMjF6GEjdk5jCudU61Zv1QSKC5OcyzE4miH
-         QRWLNdXpD5oyRK8mRueLgoJ59UDZJQLfMqeafDuPdrCKWKSvHT7uYiA9DzJqSKPJkgEi
-         nfXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784828621; x=1785433421;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=brmtQMY+PCLY5SqHqKFMvLTgXx8Pdh/IhOMrgYqDWxI=;
-        b=H1rarnYe15gduMIruOog6FfNtw5VR21sPgij+iuPrqVwo58VJW7EswkmhB07iWFLUY
-         kDr4jfwBXac2zFfZtJXlAgyzrEDor3m720HYmBdadsmuf12ZmLY2ao5pgpLoTCee5fng
-         iBerEUU9GG5TmItYL9Rh/OQ/Li8loIPm0B15drFZTmpJhrNwNT9/ty+iRgkoq54mVjYu
-         L0jbCKCO5tjT/psiblxI7ciOObGYFaGd15+BDhzERwMGj6txrCqrCuSVqzQQl33kZzqP
-         ATU4Z/bpwgNktM2dPsWgr+iMKamxMj1EBCHsUssUMDj/IWYTmVl+duNtlaRD9bo8rLHu
-         Ycjw==
-X-Forwarded-Encrypted: i=1; AHgh+RpT0v5SOMXCN/TZiWuP7U+lnU4oeL4Sinsvr4suQO39Bts01TOPDRs5zbIFOt5IL3/wb9zolkU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyW7h+NVqiWrNoXnXdfFKnaiAkipybRv7SWkt7pCLsTRsiw/Gcs
-	vHlHiZMls1P3iXDt1Kpvunw5qVnucYBEWmBFdM/u9SlP0nfXU6g0xpXb+69GY3CvUA==
-X-Gm-Gg: AR+sD13SeQeBHi8MaCKti4PlO8Y1DWcb3vos9zS0EzPvFwgxTO/s3tkaSVCt+q0Rhor
-	sWSuCy5rjun4kVnNwnFeFML90XMMO5yDdHFMpaaNlAApSTfLP2aevLb04bUcZk4MHqESQEjsqyK
-	eBAZqKCxVQPDO41VF5Z6w442Qj/iSpAsP0BgEK6EwZ77E6nueLSpQ0Hyz68xpJIdMPKIdL/3pCR
-	t4f6Vq104X3uk8KZe+4amWnlHb1Hasjx1oV88JH4lkTn8U8sTh6e6nu9bcdkr2rs5ny7FJQtOzv
-	CYjUJ2CtDZSauuOH5Nb7N6prqG+V2EXwKxz30ayKUScHfsiRgmQK4SpOMQogmo0Ijmw1lVDIDWc
-	EYoDbskfOetZ9nm76epU3qSHtkVlNEjSnscpaklDP8UDDc4INCo79VziSkw5Io26IYDHorrODu1
-	pSQDUefGPjcvrHtnNzv0g9thj6N69UV5u08z4iHzbgxCTUzaYzLT8cFR/joA==
-X-Received: by 2002:a05:6214:508d:b0:907:6fce:b82a with SMTP id 6a1803df08f44-907cd19b0a6mr33743506d6.23.1784828620932;
-        Thu, 23 Jul 2026 10:43:40 -0700 (PDT)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba901c24sm49954856d6.21.2026.07.23.10.43.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 10:43:39 -0700 (PDT)
-Date: Thu, 23 Jul 2026 13:43:39 -0400
-Message-ID: <d79fe8753ff88268bbd9bcd601cc4aa1@paul-moore.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jkmFPgxm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FAF1F000E9;
+	Thu, 23 Jul 2026 17:44:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784828691;
+	bh=c+Bq8pXLI9TzksCSFH5Ox+fpIA7C1MgV7GUSoySUM8o=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=jkmFPgxmmPV1KVNkY/96Zp4o1QfAReJhEntneNojUfGgPpizTUqrxUD3HHR0UedVj
+	 eJ226wArYC/RG+9wEa1B8g0YA7iRqmXcyPa7Blljnmj+Fg1r2pBiZuEU8i4SoevJ2n
+	 4Vz2Omr/ppOvZ9K16t5LfeRK8UO0cuQCTeoBkfKDD6BXqWzWKE60gBN3wibWSbM9Iy
+	 zThCE9RPkGu+4hzSf6Gu9d5hICpgEIYuReUBbtL/u1TrAuJpJEm3BvlPmV84EEV00h
+	 uxpAimeaewWOKnQSilyDz1rCbmgxVP0unKTtr5I48pflKOqsOSogBsRu336tl+DJcE
+	 05nsQVMVxW0ZQ==
+Content-Type: multipart/mixed; boundary="===============3424481302002438739=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20260723_1338/pstg-lib:20260722_1430/pstg-pwork:20260723_1338
-From: Paul Moore <paul@paul-moore.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: Eric Paris <eparis@redhat.com>, Ricardo Robaina <rrobaina@redhat.com>, Richard Guy Briggs <rgb@redhat.com>, audit@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: Re: [PATCH v2] audit: fix potential integer overflow in  audit_log_n_string()
-References: <20260718050922.1980425-1-zhanxusheng@xiaomi.com>
-In-Reply-To: <20260718050922.1980425-1-zhanxusheng@xiaomi.com>
+MIME-Version: 1.0
+Message-Id: <f8b1d0e654a631e4c2b2cad033ac2a33f82bab2e13b0b415a17cec2970543813@mail.kernel.org>
+In-Reply-To: <20260723162602.3275661-1-nicoyip.dev@gmail.com>
+References: <20260723162602.3275661-1-nicoyip.dev@gmail.com>
+Subject: Re: [PATCH v3] bpf, sockmap: Fix cork ownership in tcp_bpf_sendmsg()
+From: bot+bpf-ci@kernel.org
+To: nicoyip.dev@gmail.com,emil@etsalapatis.com,edumazet@google.com,ncardwell@google.com,kuniyu@google.com,john.fastabend@gmail.com,jakub@cloudflare.com,jiayuan.chen@linux.dev,davem@davemloft.net,kuba@kernel.org,pabeni@redhat.com,horms@kernel.org,ast@kernel.org,daniel@iogearbox.net
+Cc: netdev@vger.kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,nicoyip.dev@gmail.com,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Thu, 23 Jul 2026 17:44:49 +0000 (UTC)
 
-On Jul 18, 2026 Zhan Xusheng <zhanxusheng1024@gmail.com> wrote:
-> 
-> audit_log_n_string() computes new_len as "slen + 3" (enclosing quotes
-> plus the NUL terminator) and stores it into an int, while slen is a
-> size_t.  For a sufficiently large slen the addition can overflow and/or
-> the result be truncated when assigned to the int new_len, so the
-> "new_len > avail" check can be bypassed and the subsequent
-> memcpy(ptr, string, slen) can write past the skb tail.
-> 
-> This is the same class of bug that was fixed for the hex sibling in
-> commit 65dfde57d1e2 ("audit: fix potential integer overflow in
-> audit_log_n_hex()"); both helpers are reached through
-> audit_log_n_untrustedstring() with the same length source.
-> 
-> Make new_len a size_t and use check_add_overflow() to catch the
-> overflow, mirroring the audit_log_n_hex() fix.  No functional change for
-> the in-tree callers, which all pass bounded lengths.
-> 
-> Fixes: 168b7173959f ("AUDIT: Clean up logging of untrusted strings")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
-> v2:
->  - drop the unnecessary (size_t) cast on the constant (Paul Moore)
->  - emit "?" instead of "\"?\"" on overflow, matching
->    audit_log_n_hex() (Paul Moore)
-> 
->  kernel/audit.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
+--===============3424481302002438739==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Merged into audit/stable-7.2 with the intent of sending this up to Linus
-once it has gone through some testing.  Thanks!
+> bpf, sockmap: Fix cork ownership in tcp_bpf_sendmsg()
 
---
-paul-moore.com
+The subject line is missing the [PATCH bpf] prefix. This helps netdev
+CI correctly categorize the patch and prevents CI confusion when multiple
+versions are posted in quick succession. Could the subject be updated to:
+
+  [PATCH bpf] bpf, sockmap: Fix cork ownership in tcp_bpf_sendmsg()
+
+(This issue was raised by Jakub Kicinski at
+https://lore.kernel.org/bpf/20260723100030.3eee6d51@kernel.org/)
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/30028532303
+--===============3424481302002438739==--
