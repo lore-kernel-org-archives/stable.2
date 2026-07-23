@@ -1,37 +1,58 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9878745A2BA
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 11:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A26B3DAAB2;
+	Thu, 23 Jul 2026 11:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784805121; cv=none; b=Milifg/bYdNLqrnG0vMUIfnHP2NVgVp7nMTdlIxMRfOjo6/QVC8lbmjHtQIOcDtmi70Mm47V9soK6W3YQKDwIvu46Uqgb0ju7NEms96FCva/4XjCir+Ce+7sAJL2X8ki7Cp98ivky3m8VDYt7N2c05fTuGIQhhoIXuEM0Dp+FJE=
+	t=1784805392; cv=none; b=fk9SiGLLMpNdjhkgPmcQrDD3yn5J8/cX9D2qzLPhhPxgznSymUXtMxoAZ2yddktJiohQZduaBn/HHjpYnvVM1SudzhVia/GZ0hGMIM6eoHWWJq+xJKkfSXW0oiw/PXLOh+8tJrgWDEroqKmp9I1ZxEyYHu98xL0Rvd+L3NoDFsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784805121; c=relaxed/simple;
-	bh=0EyhSGBvNaXr+JT9oRD69WjNww+zIMrRyj9AzRk+k/w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WpNdfBrNTus74lmsTRFzUlxqTFK0UzYi871p3pVPc6QlGRpIItYVDuXK9jFMviRWox9Qb5iGU9/9mDYDvUxdOr0BN67V7BVvLK+QoTdXsYEXDbv18z2xfpn2kmSmCyOIagoWzqQqU9klpZoXu5gS62wSQ+yNfkZKi3kcfMDNPHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CV9rfFnA; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1784805392; c=relaxed/simple;
+	bh=peG1DTVoRHlD3mHyt9M44Gu6hIAbk2upL5OJizxfmVE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c22f0QSeiWL7C0rPaUDOYiDOFHMko8gNXK+xZV2PLjmZP0VnR8fpgFWO5bbA9SeSh3t3yQzb0Kd+zlSp0OSocq1tr09cjAh8YtbizjwNEfn4BslIgT1kyQsYHT4XSayInzuRot/d19W0GEui2ZYkQvmDDZvrHn8SP1gEzm9V7ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mrfD/as9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CV9rfFnA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y2
-	YSnZ99ZPUSqV4dxs313N5avYciHXzKZ131X0NdH0k=; b=CV9rfFnAG6Y0WSj3GD
-	CVIGbX4Xndv42TG0m0i259gUShWZMAcOfjlsKHq9l1jscGd64PUgSslK376guQMT
-	B46MAAtjn8q3XSJ7+YijDwIvQBR/xKYmxn4lhqExqZTVtPk+iUATofZ3NxH/yPDy
-	6tdYZJ607C6zVMzmjwd+oSV/g=
-Received: from zengchi (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCXZgDk9mFq7jiNIg--.60137S2;
-	Thu, 23 Jul 2026 19:11:32 +0800 (CST)
-From: Zeng Chi <zeng_chi911@163.com>
-To: pulseaudio-discuss@lists.freedesktop.org
-Cc: zengchi@kylinos.cn,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] LoongArch: KVM: Fix PC double advance in kernel MMIO read fast path
-Date: Thu, 23 Jul 2026 19:11:29 +0800
-Message-Id: <20260723111129.1518921-1-zeng_chi911@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mrfD/as9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA931F000E9;
+	Thu, 23 Jul 2026 11:16:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784805391;
+	bh=Rpb6kOIX8Dtut15utDNvfMakMe6SrQVfoBeLQ85ORH8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mrfD/as9/E1TJ9WXHYDsI4wAkN5FhQsl6+ZwkgdFyuwBdnC4Le1cIfJp26cHHZ6KV
+	 9134oEX8eDxr5AJ3pDGfapt+kKSLrcGNuKuVZgiL3ZnNVXHxHDrSRMtIuhcKFddXEu
+	 LulOEwAO0rRiNSKCx6ymaQlvmTDqjwI5ElwTaFdEirWeMUf8E9szQ4s72PCDrckotz
+	 sl8Zk4NFMzH/gvtMaS+/F6LJwCDrPdjeSEHJvU2Q3UG354OJNUUyjc7IK2be3UtxY7
+	 5M11oOfZ0XFet2pz3s9XrCb2saomKJVz3/yWzvmj49xUaFYwicI3+IsVO2INt3cWRl
+	 1dh+wXoYlcFKw==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 7.1 0000/2079] 7.1.5-rc2 review
+Date: Thu, 23 Jul 2026 13:16:12 +0200
+Message-ID: <20260723111612.27075-1-ojeda@kernel.org>
+In-Reply-To: <20260722142947.085426486@linuxfoundation.org>
+References: <20260722142947.085426486@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,51 +60,25 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgCXZgDk9mFq7jiNIg--.60137S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww1fWrWUuw45ZryUAFy5Jwb_yoW8GFWUpr
-	y3u34rCF4rJr4fZasrJ393Aw47CayrKF17XF12qFsaqr4UZFn5ZFyFkFWDuFy3KwsYyw1I
-	q3Wkta45t3W8Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07USeHgUUUUU=
-X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwATppWph9uS9PAAA3Q
 
-From: Zeng Chi <zengchi@kylinos.cn>
+On Wed, 22 Jul 2026 16:32:05 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.1.5 release.
+> There are 2079 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
+> Anything received after that time might be too late.
 
-In the in-kernel MMIO read fast path of kvm_emu_mmio_read(),
-kvm_complete_mmio_read() already advances the guest PC via update_pc().
-The explicit update_pc() call right after it advances the PC a second
-time, so PC moves forward by 8 instead of 4 and the instruction
-following the MMIO read is silently skipped.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-The user space MMIO read completion path in kvm_arch_vcpu_ioctl_run()
-calls kvm_complete_mmio_read() only once, and the MMIO write fast path
-advances the PC exactly once as well.
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-Remove the redundant update_pc() so the kernel MMIO read fast path
-advances the PC by a single instruction.
+Same applies for -rc1.
 
-Fixes: 80edf90831a2 ("LoongArch: KVM: Add sign extension with kernel MMIO read emulation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
----
- arch/loongarch/kvm/exit.c | 1 -
- 1 file changed, 1 deletion(-)
+Thanks!
 
-diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
-index 8572b63478bb..482ba17bcd3d 100644
---- a/arch/loongarch/kvm/exit.c
-+++ b/arch/loongarch/kvm/exit.c
-@@ -481,7 +481,6 @@ int kvm_emu_mmio_read(struct kvm_vcpu *vcpu, larch_inst inst)
- 		srcu_read_unlock(&vcpu->kvm->srcu, idx);
- 		if (!ret) {
- 			kvm_complete_mmio_read(vcpu, run);
--			update_pc(&vcpu->arch);
- 			vcpu->mmio_needed = 0;
- 			return EMULATE_DONE;
- 		}
--- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+Cheers,
+Miguel
