@@ -1,81 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E6E2931C1;
-	Fri, 24 Jul 2026 00:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EBD2F619D;
+	Fri, 24 Jul 2026 00:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784854263; cv=none; b=eZhiNcKoASGGaw/n8P+lMN9ieXDC5n2DkmFp0xQm3yfyl6LL6P1ZbQI+pFgw8dY02VgeopA0nigBoYT2n17A1Ld6XasIUfhdscp3ruBZZrMx3s3NBD7uXw/jT30SI2727bDMRwILObz5S1fr/CyeUYsLnet19aStBmhCtqIEHeo=
+	t=1784854750; cv=none; b=OPN3oGSeRxYp2MgGkQJhBmlp1Na1hU5XTeGGk1Eti5yHXyPi32I0A6mzgqk1DL6nFhv66vEBWhNB/MiVloihneB4Lz63qSeSdj9pmk911m6aiZXuIX32LaAC7V0v9AgH1K7+vsCPTOYLDjN1MunSFjDvGoex0vKB0xcc7HH5yzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784854263; c=relaxed/simple;
-	bh=lMByLnd/nJjAlNjTHVRp8sZ9sr1cj8yRGnTJU2SomW8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=J7ZXg4d4m8/0om0oWcfY9pf1Jwt52sdFOXhbXmW8SLUeA6BZrj1hzdUokSwWNVlRHRlOIPmGsQwpYRC8Vgge2rpAIpsdG8S8s4do93YAj+KYJueMl+EZWFXQhTIH8sVrIFmcczFVAcUtcRFXbA2Uuc6jDYBeSobZlKRVjNud2po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kqrwcGNf; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1784854750; c=relaxed/simple;
+	bh=te6kRqkLmO1krs0PSiQDjUfDFEbV9v++PLkeJvIjwSQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=TL1k3BMuzMih9TgxhpKd+TOezs5HakqMc8Z6eKB4uQ1fX1IF1ivdOaWMYRczkD6qkFHJhp6BSej7hSEZlfYKlkJ28g3yU0cTSKWeKjczi6Z+GJiJ1el/hBJ0UgVwSbrqiIbwlkBug2WhuV4k7eBkrLjLZJn3qo5DuIGn6QFHFg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJyJPYoz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kqrwcGNf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=RY
-	LVKbRdDI9zaPvhqlqlCNMCmXZFALvjMsBxM4+Kvu0=; b=kqrwcGNfd8EvH417CQ
-	6gOhHCg3eRbLX7lwlZs7HX3Co0Z8AucCgjo7bRYn8e/ZZmNfDnpV+J1Ax1IjWsNW
-	Fb/KzplUEwv3ykF+m8foXaVVKrmuzlxDWBGASOpk4SWiZCQaW0VpzM482da+GZn3
-	YSs74W/DjjgiK8q1OrctAHIwQ=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3n0CEtmJqcWWgLA--.22864S2;
-	Fri, 24 Jul 2026 08:49:09 +0800 (CST)
-From: Yang Xiuwei <yangxiuwei@kylinos.cn>
-To: csander@purestorage.com
-Cc: James.Bottomley@hansenpartnership.com,
-	martin.petersen@oracle.com,
-	rc@rexion.ai,
-	axboe@kernel.dk,
-	fujita.tomonori@lab.ntt.co.jp,
-	bvanassche@acm.org,
-	linux-scsi@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] scsi: bsg: fix TOCTOU in io_uring passthrough command setup
-Date: Fri, 24 Jul 2026 08:49:07 +0800
-Message-Id: <20260724004907.2742329-1-yangxiuwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <CADUfDZpAW261MhFJg434=4nZFMD7mV=LL7F-ZiAWPa7dYvGpcQ@mail.gmail.com>
-References: <20260720032338.461681-1-yangxiuwei@kylinos.cn> <20260720032338.461681-2-yangxiuwei@kylinos.cn> <CADUfDZpAW261MhFJg434=4nZFMD7mV=LL7F-ZiAWPa7dYvGpcQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJyJPYoz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30981F000E9;
+	Fri, 24 Jul 2026 00:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784854749;
+	bh=iyw4jjWpPNdvDo9cinrLl296ZjpnyaO9BrHyNRq15M8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=aJyJPYoz6Gd7gkzAcgDHEkL4vBL+x7Dfcuuv/Owvobr3sWQg7XwgUN4rNvsnyy1Xr
+	 IZu0LO1ZiWZolUSpOdROzhteQ5xZPCOYFGavcCLviRygmi5F9h/S9pP2UhYO4iNkYJ
+	 bIj1Qm5kU8XskUnQDW1DP8X2vbO3hUXN13B/9ew3zb+VyY09x/cES3Ign1ZY51MkXU
+	 O1MERQRGov23T/VNCPWdZgZ04sfjc5y8Elb9X1oMO5lbdecfWvSanMjWZQPk3GNgrq
+	 6/mZbHe323pMToNg7nsM+PIWvNBnfE5gOEv0uqq9V2Hf8LlBm2sJVo2Ph77zO+dldT
+	 Il6r1TzCg40BA==
+From: Mark Brown <broonie@kernel.org>
+To: dianders@chromium.org, linux-arm-msm@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vijaya Krishna Nivarthi <vnivarth@qti.qualcomm.com>
+Cc: konrad.dybcio@oss.qualcomm.com, damiendejean@google.com, 
+ Vijaya Krishna Nivarthi <vijaya.nivarthi@oss.qualcomm.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260722092358.459943-1-vnivarth@qti.qualcomm.com>
+References: <20260722092358.459943-1-vnivarth@qti.qualcomm.com>
+Subject: Re: [PATCH v1] spi: qcom-qspi: Correct max DMA length to avoid 64K
+ boundary failure
+Message-Id: <178482982951.53486.6775425961212426017.b4-ty@b4>
+Date: Thu, 23 Jul 2026 19:03:49 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n0CEtmJqcWWgLA--.22864S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7XF17AF1fZw45uF1fWw4kZwb_yoWxKFXE9r
-	9xtrZ5Xan5GF129a1xKFnIyFZ7tryYvF18Jw1rur97Zry7Ja4fGws3Xrs5Cr47CwsYvrsx
-	Ary8Z3ykt390qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xREo7KPUUUUU==
-Sender: yangxiuwei2025@163.com
-X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbC6QgDk2pitohWrAAA39
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1161; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=te6kRqkLmO1krs0PSiQDjUfDFEbV9v++PLkeJvIjwSQ=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqYrjaNu9CHzBo9p26+cGi4onkU5kZomGDMRTUC
+ uK4RW0uq/iJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamK42gAKCRAk1otyXVSH
+ 0NEhB/4lrwB6XnLvSEJb8F8L8cPB5gX9f33JkVF7QnGc4J5E0ddcg118rb2PGr/3R6pd8YX48Bx
+ 4fEEdppDArclN9SPPFtkqnMkPPibfreNAuYRepwxqUhIo2ujpwo/auxwznoiKvTMDuiqS0WycID
+ cekdEShI0LNkOpch5kvzazZNcWC/Q4/2b87RcXqPzTtMZjJw5wcidM80RKm5E4vC7UFPZuMPMvn
+ 5gG6jWM/sQoCatNal+iOTsvO13AhtGwwtanNUz3dfXGQ7WgphIbcDE4nlNWlQNAiHwS/roLffVP
+ DoJbAyUXZ/oyJPN0KclcNcrd5wtUSBYV/DmDhuS40c2+Mh7R
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Caleb,
+On Wed, 22 Jul 2026 14:53:58 +0530, Vijaya Krishna Nivarthi wrote:
+> spi: qcom-qspi: Correct max DMA length to avoid 64K boundary failure
 
-On Thu, Jul 23, 2026 at 09:56:08AM -0700, Caleb Sander Mateos wrote:
-> cmd->max_response_len is passed through here, shouldn't it be accessed
-> using READ_ONCE() too? Omitting READ_ONCE() only seems safe for values
-> that are ignored (except for a possible check that they match a fixed
-> value).
->
-> Ditto for cmd->timeout_ms later in this function.
+Applied to
 
-timeout_ms is the example Jens already called out as not mattering if
-userspace rewrites the SQE:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.2
 
-  https://lore.kernel.org/r/55f36cc5-a013-4960-8787-fbdf4b4d0c20@kernel.dk
+Thanks!
 
-max_response_len is similar here: we clamp with
-min(..., SCSI_SENSE_BUFFERSIZE), so it cannot overflow the sense
-buffer. Same idea for response.
+[1/1] spi: qcom-qspi: Correct max DMA length to avoid 64K boundary failure
+      https://git.kernel.org/broonie/spi/c/90ef2f2961c2
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Yang Xiuwei
+Mark
 
