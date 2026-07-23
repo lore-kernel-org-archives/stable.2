@@ -1,57 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D652F8BEE;
-	Thu, 23 Jul 2026 16:58:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E03D313547;
+	Thu, 23 Jul 2026 17:00:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784825932; cv=none; b=FKO74KoEdNn751zV+A0c8CkNOyO9He4WG+DvO54IBk1kFc1sqEiskTkz2m9BBMwWm4tDETdTMKXfNIlwsj4n2LupFjk2noH4KvAPktWHHBZt2TO8QLUIOeusZtPPipN329oP5qS6oIxOm4olO6R/NV1bcjMky/moy80n6Nyin1o=
+	t=1784826036; cv=none; b=PL6f8gtin6QXspEBuVryqn6A4aaiF6M3xA8XtyzIdE+658nQQhiJBmKyjDmcDmWmw0BRBP1dsMviZcKQefL+x+TKkhmlWijekrRepDyZunbBZjEL2rQdE8n5TDzW8ocxcEFlB2DD6Sk1q07LL322y2XE86YsyE/pv5Y9o+kuAKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784825932; c=relaxed/simple;
-	bh=0rosnFueFk5L+rbQoTyhq77sYbaq4m804yU4PWOXAks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VfwVtD0+Sq0HOBPQBRMd8QfM9T6KwkL6/wWgmrMxvAyaQkoumrbB93046jHRNIH6NCUpK1V5F4uhTmyeurLXunGgfXAZmzhlTLFlpzfTfUczFt/3SFaqsjbpgqYF/QiIWjcJ+Om+MvIs1MfIrVzN1Srg7nxCSvQd1I4ai2FXtBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD0A1F000E9;
-	Thu, 23 Jul 2026 16:58:46 +0000 (UTC)
-Date: Thu, 23 Jul 2026 17:58:31 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Nirmoy Das <nirmoyd@nvidia.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [RFC PATCH] mm: use precise current RSS for high-water accounting
-Message-ID: <amJHS7EV4UJMqFVT@lucifer>
-References: <20260723134158.1473841-1-nirmoyd@nvidia.com>
- <bd3facf5-cc4e-4fa3-95cf-0f4aa926ae23@efficios.com>
+	s=arc-20240116; t=1784826036; c=relaxed/simple;
+	bh=4/WPPcLtQaNmiBTxz0XiP9q/NGGJRPYQovCMyuAy5hc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OizZtBQLWWFBQgc9/z/sGHgHAqZgeXLm82ZcmryvQ34auonGXXAwVx4WVbnjleV95A8dGWCn0x/h+RtstaZ06jHoBYJXlDh7jTO3DQtjDhlnSnre5x9O0Vh5ODEO2gJH9upU/m8p1ouo3gT1jiWxyN9zM5ufcO1ILiSz4r9Px3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jLXWgp7C; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jLXWgp7C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0B61F000E9;
+	Thu, 23 Jul 2026 17:00:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784826034;
+	bh=4/WPPcLtQaNmiBTxz0XiP9q/NGGJRPYQovCMyuAy5hc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jLXWgp7CPhrNf7fjr7I7seEEtw/vOn3szHTchl+R68NrNyh5ZTr3OppyswBHRCxBz
+	 fHuN6scPYa55z+RrfZDIOCSQ/D1umU/S0lYmqBML06pvzhfxBbkQvsKphhMtxQuUSB
+	 5o7WVU2N37T78FD8rMBszxcj2IekngeyZ+Qh3PId3hQCsmc5Sfir/h0vZDAz0i3fen
+	 7/XGGTpQ7XpmbCC9MWtmmolShtQIpw+GeY/SYWwYLsejL5qvTubIPWYqDZcHl5vxSZ
+	 g9EGye4MUVKXpfCn18e+nPcnRabCnIUX6rg3p9qPkKEvjsjC5ii3pzeno2HjPNJ+nn
+	 nUFvGwRjCH/yA==
+Date: Thu, 23 Jul 2026 10:00:30 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet
+ <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, Kuniyuki
+ Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>,
+ Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen
+ <jiayuan.chen@linux.dev>, "David S. Miller" <davem@davemloft.net>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Alexei
+ Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3] bpf, sockmap: Fix cork ownership in
+ tcp_bpf_sendmsg()
+Message-ID: <20260723100030.3eee6d51@kernel.org>
+In-Reply-To: <20260723162602.3275661-1-nicoyip.dev@gmail.com>
+References: <20260719161630.2901208-1-nicoyip.dev@gmail.com>
+	<20260723162602.3275661-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bd3facf5-cc4e-4fa3-95cf-0f4aa926ae23@efficios.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 23, 2026 at 09:47:13AM -0400, Mathieu Desnoyers wrote:
-> Did you compare this with my hierarchical percpu counters series ?
->
-> https://lore.kernel.org/lkml/20260707131544.75906-1-mathieu.desnoyers@efficios.com/
->
-> I've sent it to Andrew two weeks ago but have not heard back from him
+On Fri, 24 Jul 2026 00:26:02 +0800 Chengfeng Ye wrote:
+> Subject: [PATCH v3] bpf, sockmap: Fix cork ownership in tcp_bpf_sendmsg()
 
-It'll need sign off from relevant maintainers, I suspect this is simply a
-product of your series being complicated and the incredibly overwhelming
-amount of review load at the moment :)
-
-Do ping on the thread though if it's not been responded to within a week or
-two, we're usually (much) better than that in mm!
-
-(I'm not sure I personally have the bandwidth to review, but thought I'd
-chime in to maybe help you bump it a bit :)
-
-Cheers, Lorenzo
+Since you are spamming the list with the reposts of this could you
+please add [PATCH bpf] to the subject so that netdev CI is not confused
+into caring?
