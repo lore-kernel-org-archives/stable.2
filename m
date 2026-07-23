@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979F3346AFD
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 02:29:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8E43537F7
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 02:29:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784773755; cv=none; b=SDiz16+0WhcnMdWkmz5JrbZtLUgJxvBWKanG6VEPGaiYKaVuxJaFk99JdWRklCyRbxSXzm8eLw46giXVTrArkTHkV8EFdsZwN5EpEWwAc6oFT8hgoWvWzBmya9mKGh3sqZ+WAVgFh47ZCXnAsviRvcv922zp+aTgZpd7nADJsQ4=
+	t=1784773755; cv=none; b=IJ2347kRx04PpkIm96FIGUeFPTBFgUcXAq9rA/lfB2XPH4qp+KMBymyoL0JllMZ0Wh12/toXAlvZF7OswhhJDrXBMVHbP+Gre+WNchowftF8BQuL4kNMDN30rhCj3o/Pl+hmhNXj+zQlTBTB2P7B5kwixGk4CJ6Ans21VTyh9vI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784773755; c=relaxed/simple;
-	bh=TAwoUrjaJ4A7/sQ2hr1vuPJG5AmcJ90kxf+zhugQpU0=;
+	bh=o/7LX+E+R8GwIqs8MPaAZMihTQvAN2S1dSGDckWsS9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uUKd3FaHhz6IK/x47A/YiNeQRilyUHdPqSFBBhxqief1cTPyoT6bPVtKmjiIT7EU8FBO5t5I4PmYtXlo4PaKObx/w1jwHJhywQBIrIvKl44OAvki9JDYjGZAUc3u64TUHgJF1tSMeoORvuFiSc0GdSQx4B6mMw6xJZiXEhymI6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aSh6VFPs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=rTXH1tugdfeYf1ntbSvZYDNbYi8TIr1dtkYAOv8MoMvXRnolKvK5NbQkl4SWTNhSmdYnWRo7are7A0GQ53SkKzcqOkXbkUry24HyXpckGgsC90MurCwk2ojUqYYfTO0kr/w1Uy0NmdGSBa6Fgr39oszz6lUhzspB/O+Z93enNF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGiyjGKD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aSh6VFPs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA74F1F00A3A;
-	Thu, 23 Jul 2026 02:29:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGiyjGKD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76E591F00A3E;
+	Thu, 23 Jul 2026 02:29:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784773753;
-	bh=CUWq/7Ms07IWxkRb+jyLmzQ4jKspeWiHlNYUS767S0s=;
+	s=k20260515; t=1784773754;
+	bh=NIcC5VztLdQpxI6nIOl7y2qwGpZglbMjFz4/OodLC7g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aSh6VFPs4ETqfzpziNeznr1IMJsVaIOFcOhVzCm5VTXvDHln1dcFGB/ZrgOp+h+mD
-	 CN3+dlMHdiNG/6rIu8u8+5G2BvIGVtqtjMHIfV7EgATPYBPSWibW4qYjhuBAhgRjZx
-	 uMKEV3MwxHAzOku1PFHuCXVZSU38CHdELweb2WI2OftJOIOegM6fucZ8QQA30wTXo4
-	 rFoixozFXaRbm1RBpxOnroJo5KpUVZwqWh3CiqEMquqIybkd+ppCAxl9t6SmX5BAad
-	 s66/DferoyUtg2yxu3jKXRqpLENdY5nM3VIZwD1CADnFkdA3MyaY5YQ1eZRAmmFBTV
-	 3Kl7mgkvofmBw==
+	b=lGiyjGKDpoeNXdSbrRL2rVdf/1yXybQMOFzR8Y37dQxCXSKl3SLKHpsReNxyfivAm
+	 8Ldb+GYuff5cfsKSCGwOQcisv95DW/o92yj4zXt1pxoZrfcNblB/iv+aC5iCb+9Dym
+	 WVzYM3pf9DlkPsPrez3vfPM/PENjofpFgjv9h+9SZ3FAa755+9S+oEzFuWsr4VleMz
+	 ruJAs2rh6xQ753DyXXRTcm5ZzlDj+kuOlDGzfzr2hzkKe9y9AjSC9G9ofCKElmaN3j
+	 PMeUqy+nH+NYI6Eg/jRM9ZRGVUXRj+l5788eUrhl2K/Nx/SCHrkwX3QY8+1UCBG/08
+	 J+CfsX0vynraw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/4] ASoC: mediatek: mt8183-afe-pcm: use local `dev` pointer in driver callbacks
-Date: Wed, 22 Jul 2026 22:29:08 -0400
-Message-ID: <20260723022909.2845199-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/4] ASoC: mediatek: mt8183: Check runtime resume during probe
+Date: Wed, 22 Jul 2026 22:29:09 -0400
+Message-ID: <20260723022909.2845199-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723022909.2845199-1-sashal@kernel.org>
 References: <2026072039-ladies-ducking-f84d@gregkh>
@@ -45,145 +44,62 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chen-Yu Tsai <wenst@chromium.org>
+From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
 
-[ Upstream commit bb8d8ba4715cb8f997d63d90ba935f6073595df5 ]
+[ Upstream commit f0334fbfd107682d0c95f3f71e25f6127038e2b9 ]
 
-The probe and remove functions in the mt8183-afe-pcm driver repeatedly uses
-`&pdev->dev` for |struct device *|, but then assigns this value to
-`afe->dev` and uses that in other places in the same function.
+The MT8183 AFE probe uses pm_runtime_get_sync() before reading hardware
+defaults into the regmap cache, but does not check whether runtime resume
+failed. If regmap_reinit_cache() then fails, the temporary runtime PM
+usage count is also not released.
 
-Store `&pdev->dev` in a local pointer and use that exclusively to avoid
-the numerous dereferences and to make the code more consistent. Lines
-are reflowed where it makes sense.
+Use pm_runtime_resume_and_get() so resume failures abort probe without
+leaking a usage count, and release the temporary reference before
+handling the regmap cache result.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-Link: https://patch.msgid.link/20250612074901.4023253-10-wenst@chromium.org
+Fixes: a94aec035a12 ("ASoC: mediatek: mt8183: add platform driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+Link: https://patch.msgid.link/20260527-asoc-mt8183-probe-cleanup-v1-2-4f4f5593c8d1@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
-Stable-dep-of: f0334fbfd107 ("ASoC: mediatek: mt8183: Check runtime resume during probe")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 37 ++++++++++------------
- 1 file changed, 17 insertions(+), 20 deletions(-)
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index 5858ba274c2bc2..7f644c8249630e 100644
+index 7f644c8249630e..9d68d56d47cc77 100644
 --- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
 +++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -952,27 +952,25 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- {
- 	struct mtk_base_afe *afe;
- 	struct mt8183_afe_private *afe_priv;
--	struct device *dev;
-+	struct device *dev = &pdev->dev;
- 	struct reset_control *rstc;
- 	int i, irq_id, ret;
- 
--	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(34));
-+	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(34));
- 	if (ret)
- 		return ret;
- 
--	afe = devm_kzalloc(&pdev->dev, sizeof(*afe), GFP_KERNEL);
-+	afe = devm_kzalloc(dev, sizeof(*afe), GFP_KERNEL);
- 	if (!afe)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, afe);
- 
--	afe->platform_priv = devm_kzalloc(&pdev->dev, sizeof(*afe_priv),
--					  GFP_KERNEL);
-+	afe->platform_priv = devm_kzalloc(dev, sizeof(*afe_priv), GFP_KERNEL);
- 	if (!afe->platform_priv)
- 		return -ENOMEM;
- 
- 	afe_priv = afe->platform_priv;
--	afe->dev = &pdev->dev;
--	dev = afe->dev;
-+	afe->dev = dev;
- 
- 	ret = of_reserved_mem_device_init(dev);
- 	if (ret) {
-@@ -1017,7 +1015,7 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
+@@ -1015,17 +1015,21 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
  
  	/* enable clock for regcache get default value from hw */
  	afe_priv->pm_runtime_bypass_reg_ctl = true;
--	pm_runtime_get_sync(&pdev->dev);
-+	pm_runtime_get_sync(dev);
- 
- 	ret = regmap_reinit_cache(afe->regmap, &mt8183_afe_regmap_config);
+-	pm_runtime_get_sync(dev);
+-
+-	ret = regmap_reinit_cache(afe->regmap, &mt8183_afe_regmap_config);
++	ret = pm_runtime_resume_and_get(dev);
  	if (ret) {
-@@ -1025,7 +1023,7 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
+-		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
++		afe_priv->pm_runtime_bypass_reg_ctl = false;
  		goto err_pm_disable;
  	}
  
--	pm_runtime_put_sync(&pdev->dev);
-+	pm_runtime_put_sync(dev);
++	ret = regmap_reinit_cache(afe->regmap, &mt8183_afe_regmap_config);
+ 	pm_runtime_put_sync(dev);
  	afe_priv->pm_runtime_bypass_reg_ctl = false;
  
- 	regcache_cache_only(afe->regmap, true);
-@@ -1083,7 +1081,7 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 	for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
- 		ret = dai_register_cbs[i](afe);
- 		if (ret) {
--			dev_warn(afe->dev, "dai register i %d fail, ret %d\n",
-+			dev_warn(dev, "dai register i %d fail, ret %d\n",
- 				 i, ret);
- 			goto err_pm_disable;
- 		}
-@@ -1092,8 +1090,7 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 	/* init dai_driver and component_driver */
- 	ret = mtk_afe_combine_sub_dai(afe);
- 	if (ret) {
--		dev_warn(afe->dev, "mtk_afe_combine_sub_dai fail, ret %d\n",
--			 ret);
-+		dev_warn(dev, "mtk_afe_combine_sub_dai fail, ret %d\n", ret);
- 		goto err_pm_disable;
- 	}
- 
-@@ -1105,16 +1102,14 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 	afe->runtime_suspend = mt8183_afe_runtime_suspend;
- 
- 	/* register component */
--	ret = devm_snd_soc_register_component(&pdev->dev,
--					      &mtk_afe_pcm_platform,
-+	ret = devm_snd_soc_register_component(dev, &mtk_afe_pcm_platform,
- 					      NULL, 0);
- 	if (ret) {
- 		dev_warn(dev, "err_platform\n");
- 		goto err_pm_disable;
- 	}
- 
--	ret = devm_snd_soc_register_component(afe->dev,
--					      &mt8183_afe_pcm_dai_component,
-+	ret = devm_snd_soc_register_component(dev, &mt8183_afe_pcm_dai_component,
- 					      afe->dai_drivers,
- 					      afe->num_dai_drivers);
- 	if (ret) {
-@@ -1125,15 +1120,17 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 	return ret;
- 
- err_pm_disable:
--	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_disable(dev);
- 	return ret;
- }
- 
- static void mt8183_afe_pcm_dev_remove(struct platform_device *pdev)
- {
--	pm_runtime_disable(&pdev->dev);
--	if (!pm_runtime_status_suspended(&pdev->dev))
--		mt8183_afe_runtime_suspend(&pdev->dev);
-+	struct device *dev = &pdev->dev;
++	if (ret) {
++		dev_err(dev, "regmap_reinit_cache fail, ret %d\n", ret);
++		goto err_pm_disable;
++	}
 +
-+	pm_runtime_disable(dev);
-+	if (!pm_runtime_status_suspended(dev))
-+		mt8183_afe_runtime_suspend(dev);
- }
+ 	regcache_cache_only(afe->regmap, true);
+ 	regcache_mark_dirty(afe->regmap);
  
- static const struct of_device_id mt8183_afe_pcm_dt_match[] = {
 -- 
 2.53.0
 
