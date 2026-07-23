@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFB14756AE;
-	Thu, 23 Jul 2026 15:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54E84570C3;
+	Thu, 23 Jul 2026 15:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784819835; cv=none; b=jwsRapNOcDhryIChg7bb9ClSkT2liF6NG7qBOEMF/iMePtxMyAbonClYYSlBzF02in6DpYezM096gTmK/s7i6ibyZwaGFG7V1+pYKi3/ZI43gBlEUM7sMDrC5HhOvkBy8RtLGhSKpNMbOTANErGZzbHnyn3yGgOgk2AiTyv4IoA=
+	t=1784819845; cv=none; b=XV/zFo3e3qdDgMMYam3Mw4vWLoFCIJhkAdTcdBrGc5Ri3obpzZDJi4uSVCTcSUZ6pjHYARzlCq3ODZANf4BlI+5Ao90jv0InGqBvPr0fIBVLpbIen4Ev5gsZq+V4MOM2KUck+zhyZxtdm1JM0pOmxzCL1Eub3BIXNXw+pjPVbMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784819835; c=relaxed/simple;
-	bh=y0jFTQOJ+Dq2wgdO+3QOYkjdotoBMq7hRls4SEbmZAo=;
+	s=arc-20240116; t=1784819845; c=relaxed/simple;
+	bh=3isjtK28wb1BiLlMBIpy71VvY1jYYrdz7YUUYuIwCk8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nxz7RmvOTClSy31+OwF81VoN0hhjH48RJROYs+sFWjJIuuGKUufbkS7VzoIGkOh58UjIVvWWbHi1NCrHM150m+LASefhEUBcVbGyDt0YsFpoqiB1YRDWKuTO/LIC51DJ1DHjwDjyvY67XChsfKT3pHYAX5mWbXKwv0VKIRkr8jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQWOUjeW; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=S1mjxFrf2boq70rFjiCtNis4vXvYGGaImiIUXmhEoP3J7cwaxqRtJUbDTDaK4W11m+ujGEMUrkqVdUFZw6i1aBiPhohmHJIwvtnQky6tUS2uxb+UfNom68dVxdzMVe6bk6J14PhbaP93imn7jUaI3IBle702k0dalDBAoio5VNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEW0t8w/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQWOUjeW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413C71F00A3A;
-	Thu, 23 Jul 2026 15:17:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEW0t8w/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448C61F000E9;
+	Thu, 23 Jul 2026 15:17:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784819831;
-	bh=VUDPRdQphPMrECclGKpOqw0nMGRICTbCUk3WOCCAA1A=;
+	s=k20260515; t=1784819838;
+	bh=jGfvVz5phYfszb4vs/wrQwKbo5YfQ9htQgjlD4h0uzo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SQWOUjeW2dB3kjlC4odUADa9Jp2xJqiFX/7ZcgihbP0S64TwuIV2ks6zIvSWFIvvF
-	 xxWvfA7I3/PG5inDeTcHwTDlr544Hm1wv2BR1pIiiYuPWWIVEsqSozelC4GqGacO9e
-	 yKiakA8eLI22ykmTv99SLVJho+mtp4JueZhUd16wxuYhrkYyU5SVQPHcoQznNe9v6U
-	 hrreponpC2Elqr0MF5CfVPAHgv8m5DnGG72PqHDND+yjA1nZpPAz/3OEwAptnZZNVW
-	 VqrVj3BAopHlyQ242U24ibg6z6JBRmMpiVCELJPJ2mXRESt8wgun67jUQ5sDtxxmE9
-	 hPvZvyFUhbZDQ==
+	b=OEW0t8w/ZdlXeERCjc75StArDzDUqbCfBmj/Evab41GuYCBr4ySbLeSLVRFCMGDv+
+	 l/ctMnIh60mbWkTdAktAFmL9qN05WJa8i0aOq5ilbl+d8NsWSz3RRjVbBSouVtRrVM
+	 iIkARpos/gy9E6Y6xap1sb5R8kGxxStmgv2YxQD92ZPMdQzDm71GyCKg7SOaoHWpSk
+	 msBqA3iq8JznuaUxh2t5IkX+7Si6Kyh0nWI4L6NqqzbExl7eiMUQCzwJtzlqMH+b9D
+	 MSEzlmyzhr+pkSk+W/MEA/VPlHCL+klN7I9sn8F3dEM8FlMuu2UxEFYJRfR5FBnSQn
+	 jDYMIua2YFiTA==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 23 Jul 2026 16:16:31 +0100
-Subject: [PATCH mm-hotfixes v6 1/5] mm/vmalloc: acquire init_mm lock on
- huge vmap to avoid ptdump UAF
+Date: Thu, 23 Jul 2026 16:16:32 +0100
+Subject: [PATCH mm-hotfixes v6 2/5] x86/mm/pat: acquire init_mm write lock
+ on collapse to avoid UAF
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-series-vmap-race-fix-v6-1-8cc77dcc0018@kernel.org>
+Message-Id: <20260723-series-vmap-race-fix-v6-2-8cc77dcc0018@kernel.org>
 References: <20260723-series-vmap-race-fix-v6-0-8cc77dcc0018@kernel.org>
 In-Reply-To: <20260723-series-vmap-race-fix-v6-0-8cc77dcc0018@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -58,249 +58,124 @@ Cc: David Carlier <devnexen@gmail.com>, ljs@kernel.org, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, "Denis V. Lunev" <den@virtuozzo.com>, 
  "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
- stable@vger.kernel.org, 
- syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+ stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8900; i=ljs@kernel.org;
- h=from:subject:message-id; bh=y0jFTQOJ+Dq2wgdO+3QOYkjdotoBMq7hRls4SEbmZAo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKSDGItizZ7PHgwo3lue/LTT5IeaudLdv1gqsg49sz98
- fonJkXfOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRu46MDFdNRW6+X9lYLxpT
- /yeWiUNNKezc08qJL9z74tg1/+5nWMnw3//inBM9L7/uyhQ9Ztr2pJF7w5/s+1v2ee+c7ZmQJbN
- nOS8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4047; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=3isjtK28wb1BiLlMBIpy71VvY1jYYrdz7YUUYuIwCk8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKSDGJ/vL0Rc3P9G8usFe9mixwynvfEO80n4NQqqbCXw
+ cfUbMpaO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRG7sY/ufu5Fgs37pTbkL8
+ 3TldD9vP771waZK/w1Pec69qPkXfyX3LyLB0xzdr+6U3D30QfFtaOetH0DOr+mDn5iN5szhtf4p
+ uecAAAA==
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Currently there is a nasty race between ptdump and vmap when attempting to
-map a huge P4D, PUD or PMD entry:
+x86 implements page attribute modification using its Change Page
+Attributes (CPA) mechanism.
 
-* ptdump walks kernel page table ranges it doesn't own.
+This tracks properties of ranges such as cache mode through x86 page
+attributes, and as part of that logic manipulates kernel page tables.
 
-* When vmap maps ranges it tries to promotes existing ones to huge page
-  tables in vmap_try_huge_[p4d,pud,pmd]() at P4D, PUD and PMD level,
-  freeing the lower page table in [p4d,pud,pmd]_free_[pud,pmd,pte]_page()
-  when it succeeds.
+Since commit 41d88484c71c ("x86/mm/pat: restore large ROX pages after
+fragmentation") ranges of kernel page table entries can be collapsed into
+huge page table entries as part of this logic.
 
-Both of these things can happen at the same time and as a result ptdump can
-access a freed page table, resulting in a use-after-free and memory
-corruption.
+As part of this collapse, it frees the page tables which the collapsed
+entries previously pointed to, and it does so without any relevant locks
+being held to preclude concurrent kernel page table walkers.
 
-This is possible because while ptdump_walk_pgd() holds both the mem hotplug
-lock and the mmap write lock before invoking walk_page_range_debug(), vmap
-takes no relevant locks at all.
+The only way this code can be reached is if CPA_COLLAPSE is specified, and
+this is only set in set_memory_rox() via:
 
-Fix this by holding the mmap read lock in vmap_try_huge_*() when freeing
-page tables.
+set_memory_rox()
+-> change_page_attr_set_clr()
+-> cpa_flush()
+-> cpa_collapse_large_pages()
 
-The read lock is sufficient: ptdump is the only walker that must be
-excluded and it holds the mmap write lock.  Other holders of the read lock
-may run concurrently, but each exclusively owns the range it operates on
-and cannot reach the page tables freed here.
+Notable users of this are execmem and bpf when manipulating executable
+mappings.
 
-We also hold the lock while assigning the huge page table entry, which
-means page table walkers observe only the huge or non-huge page table
-entry.
+However, this is problematic for ptdump as it walks ranges it does not own
+and thus runs the risk of a use-after-free on page tables freed underneath
+it.
 
-We use a trylock to prevent ptdump from blocking vmap making forward
-progress. This is fine because it's an optimisation in any case, and thus
-the vmap can safely proceed regardless.
+In addition, concurrent CPA collapse operations are possible which can also
+cause races.
 
-All other kernel page table walkers that touch vmalloc ranges either
-exclusively own the memory walked or acquire the mmap lock, so this
-correctly excludes those walkers.
+Resolve the issue by acquiring the mmap write lock on init_mm across the
+whole operation.
 
-One wrinkle here is commit fa93b45fd397 ("arm64: Enable vmalloc-huge with
-ptdump"), which addresses the issue for arm64 only by explicitly acquiring
-the mmap read lock on kernel page table freeing should a concurrent ptdump
-be in progress.
+It is safe to acquire a sleeping lock as all the callers invoke
+set_memory_rox() from process context and in any case,
+change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+mutex, disallowing atomic context here.
 
-This is problematic as vmap may acquire the mmap read lock prior to ptdump
-attempting to acquire an mmap write lock, leading to a deadlock when the
-mmap read lock is slept upon on page table freeing due to rwsem
-anti-starvation.
-
-We work around this by predicating the mmap lock being taken on
-!CONFIG_ARM64 for the time being.
-
-With this patch applied, a follow up will partially revert commit
-fa93b45fd397 ("arm64: Enable vmalloc-huge with ptdump") and at that stage
-remove the arm64 ifdeffery.
-
-We also update walk_page_range_debug() to assert the mmap write lock
-unconditionally and update the comment here to reflect this change.
-
-The issue has existed as long as ptdump was available and vmap freed page
-tables when promoting to a huge leaf entry, that is, since commit
-b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table") for
-huge ioremap, and commit 121e6f3258fe ("mm/vmalloc: hugepage vmalloc
-mappings") for huge vmalloc.
-
-Since the former is the earlier of the two we choose that for our Fixes
-tag.
-
-We also define a guard class for mmap_read_trylock() so we can use
-cleanup.h to make the scope handling cleaner in the implementation.
-
-This patch is based on work by David Carlier (linked), with gratitude!
-
-Fixes: b6bdb7517c3d ("mm/vmalloc: add interfaces to free unmapped page table")
+Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
 Cc: stable@vger.kernel.org
-Reported-by: syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a287988.39669fcc.33b062.00a0.GAE@google.com/T/
-Link: https://lore.kernel.org/linux-mm/20260706203128.162335-1-devnexen@gmail.com/
 Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+Reviewed-by: Will Deacon <will@kernel.org>
+Reviewed-by: David Carlier <devnexen@gmail.com>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/mmap_lock.h |  1 +
- mm/pagewalk.c             | 22 +++++++++++----------
- mm/vmalloc.c              | 49 ++++++++++++++++++++++++++++++++++++++---------
- 3 files changed, 53 insertions(+), 19 deletions(-)
+ arch/x86/mm/pat/set_memory.c | 15 ++++++++++++++-
+ include/linux/mmap_lock.h    |  2 ++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index d023a40a1e03..d1e63f7d267f 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -22,6 +22,7 @@
+ #include <linux/cc_platform.h>
+ #include <linux/set_memory.h>
+ #include <linux/memregion.h>
++#include <linux/cleanup.h>
+ 
+ #include <asm/e820/api.h>
+ #include <asm/processor.h>
+@@ -410,7 +411,7 @@ static void __cpa_flush_tlb(void *data)
+ 
+ static int collapse_large_pages(unsigned long addr, struct list_head *pgtables);
+ 
+-static void cpa_collapse_large_pages(struct cpa_data *cpa)
++static void __cpa_collapse_large_pages(struct cpa_data *cpa)
+ {
+ 	unsigned long start, addr, end;
+ 	struct ptdesc *ptdesc, *tmp;
+@@ -442,6 +443,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+ 	}
+ }
+ 
++static void cpa_collapse_large_pages(struct cpa_data *cpa)
++{
++	/*
++	 * Take the mmap write lock on init_mm to:
++	 * - Avoid a use-after-free if raced by ptdump (which takes its own
++	 *   write lock on init_mm).
++	 * - Serialise concurrent CPA walkers.
++	 */
++	scoped_guard(mmap_write_lock, &init_mm)
++		__cpa_collapse_large_pages(cpa);
++}
++
+ static void cpa_flush(struct cpa_data *cpa, int cache)
+ {
+ 	unsigned int i;
 diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index 04b8f61ece5d..6b5c2390cc30 100644
+index 6b5c2390cc30..047f5f5e2c34 100644
 --- a/include/linux/mmap_lock.h
 +++ b/include/linux/mmap_lock.h
-@@ -621,6 +621,7 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
+@@ -621,6 +621,8 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
  
  DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
  	     mmap_read_lock(_T), mmap_read_unlock(_T))
-+DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
++DEFINE_GUARD(mmap_write_lock, struct mm_struct *,
++	     mmap_write_lock(_T), mmap_write_unlock(_T))
+ DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
  
  static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
- {
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index 3ae2586ff45b..bbcfd68d0907 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -678,6 +678,8 @@ int walk_kernel_page_table_range_lockless(unsigned long start, unsigned long end
-  * will also not lock the PTEs for the pte_entry() callback.
-  *
-  * This is for debugging purposes ONLY.
-+ *
-+ * The mmap write lock must be held.
-  */
- int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 			  unsigned long end, const struct mm_walk_ops *ops,
-@@ -691,6 +693,16 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 		.no_vma		= true
- 	};
- 
-+	/*
-+	 * When walking userland page tables, an mmap write lock must be held to
-+	 * account for munmap() downgrading to an mmap read lock when tearing
-+	 * down page tables.
-+	 *
-+	 * When walking kernel page tables, an mmap write lock must also be held
-+	 * to account for page table freeing on vmap huge page mapping.
-+	 */
-+	mmap_assert_write_locked(mm);
-+
- 	/* For convenience, we allow traversal of kernel mappings. */
- 	if (mm == &init_mm)
- 		return walk_kernel_page_table_range(start, end, ops,
-@@ -700,16 +712,6 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
- 	if (!check_ops_safe(ops))
- 		return -EINVAL;
- 
--	/*
--	 * The mmap lock protects the page walker from changes to the page
--	 * tables during the walk.  However a read lock is insufficient to
--	 * protect those areas which don't have a VMA as munmap() detaches
--	 * the VMAs before downgrading to a read lock and actually tearing
--	 * down PTEs/page tables. In which case, the mmap write lock should
--	 * be held.
--	 */
--	mmap_assert_write_locked(mm);
--
- 	return walk_pgd_range(start, end, &walk);
- }
- 
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 1afca3568b9b..d5c4d2bb770b 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -43,6 +43,7 @@
- #include <asm/tlbflush.h>
- #include <asm/shmparam.h>
- #include <linux/page_owner.h>
-+#include <linux/cleanup.h>
- 
- #define CREATE_TRACE_POINTS
- #include <trace/events/vmalloc.h>
-@@ -158,10 +159,24 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
- 	if (!IS_ALIGNED(phys_addr, PMD_SIZE))
- 		return 0;
- 
--	if (pmd_present(*pmd) && !pmd_free_pte_page(pmd, addr))
--		return 0;
-+	if (!pmd_present(*pmd))
-+		return pmd_set_huge(pmd, phys_addr, prot);
- 
--	return pmd_set_huge(pmd, phys_addr, prot);
-+	/*
-+	 * Acquire the mmap read lock to exclude ptdump, which walks
-+	 * kernel page tables it does not own under the mmap write lock.
-+	 *
-+	 * Concurrent read lock holders are safe: each exclusively owns
-+	 * the range it operates on and cannot reach this page table.
-+	 */
-+#ifndef CONFIG_ARM64
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-+#endif
-+	{
-+		if (!pmd_free_pte_page(pmd, addr))
-+			return 0;
-+		return pmd_set_huge(pmd, phys_addr, prot);
-+	}
- }
- 
- static int vmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
-@@ -210,10 +225,18 @@ static int vmap_try_huge_pud(pud_t *pud, unsigned long addr, unsigned long end,
- 	if (!IS_ALIGNED(phys_addr, PUD_SIZE))
- 		return 0;
- 
--	if (pud_present(*pud) && !pud_free_pmd_page(pud, addr))
--		return 0;
-+	if (!pud_present(*pud))
-+		return pud_set_huge(pud, phys_addr, prot);
- 
--	return pud_set_huge(pud, phys_addr, prot);
-+	/* See comment in vmap_try_huge_pmd(). */
-+#ifndef CONFIG_ARM64
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-+#endif
-+	{
-+		if (!pud_free_pmd_page(pud, addr))
-+			return 0;
-+		return pud_set_huge(pud, phys_addr, prot);
-+	}
- }
- 
- static int vmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
-@@ -262,10 +285,18 @@ static int vmap_try_huge_p4d(p4d_t *p4d, unsigned long addr, unsigned long end,
- 	if (!IS_ALIGNED(phys_addr, P4D_SIZE))
- 		return 0;
- 
--	if (p4d_present(*p4d) && !p4d_free_pud_page(p4d, addr))
--		return 0;
-+	if (!p4d_present(*p4d))
-+		return p4d_set_huge(p4d, phys_addr, prot);
- 
--	return p4d_set_huge(p4d, phys_addr, prot);
-+	/* See comment in vmap_try_huge_pmd(). */
-+#ifndef CONFIG_ARM64
-+	scoped_cond_guard(mmap_read_lock_try, return 0, &init_mm)
-+#endif
-+	{
-+		if (!p4d_free_pud_page(p4d, addr))
-+			return 0;
-+		return p4d_set_huge(p4d, phys_addr, prot);
-+	}
- }
- 
- static int vmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
 
 -- 
 2.55.0
