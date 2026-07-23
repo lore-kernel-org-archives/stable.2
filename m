@@ -1,56 +1,65 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA3748B37A;
-	Thu, 23 Jul 2026 14:31:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A932DB79C;
+	Thu, 23 Jul 2026 14:32:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784817080; cv=none; b=m6V6nELUXRglkQR/LakLt4mNVOQmxgfJEgPZcbIXPNh0wtUS6LQA2zwsLZWEL2fy/N6XIhLgQNZHo+eybC6OIQylej7OulckHQR6t/W/Xxbcn6Cl6Szin/QbOW5i17PBWuhI1pbXQTZXes3Ce8G7ls3UIfVsMX7kxf/LKeAUAzc=
+	t=1784817136; cv=none; b=sbgFGxSxmJg6R2sjZ/tqu74VBpG4FWBJVJEkzB/opgLW/whZ42aAlM3o9My1AoLA+HLT9N6hndVD/ZZ27S0n4pyWZ0arlga7J/jTw4DzZiArDH+qX8O9Yw16CtGDmME5X8C3fgUlLRMa2SWih0fanc9e/85+AuYHEPQdrBftlQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784817080; c=relaxed/simple;
-	bh=M2KSLYYNbLF9loGD0Sq3/5LKFq762/1KseQ7d6xoicU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Twfb6lT8fyjIchAqJidJSvZPCEMSrQzTNf4EaIeCkdeyx4d1T1P3PffqDHonu0dSlXbqPzB0SfdZzRgvEmNRtz53R7MXu0zsXsIZ6vGLVgz8Yh+Sn/kJ+++u/1blyZebZeLtfMR/k1+lTO/2WXMfUHdGIE5SLJR7l5lL2pDTE78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=FWIGKo9+; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1784817136; c=relaxed/simple;
+	bh=f2pNBP4nnaOpQpRbTjHsJJFRMexLp+DflSyo4oNeqAM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=j6xbbRt/LdDrmP0WD1F/cEFc7UGtvqg7UN1O2yl1Dujs7xwP2lNmBLrzuvFvxGq+7wVqD5nyyXI+kRtlX0Ga7bOfId3chkQ2vkcS91IcLb1CyiwUzX1YwGBqeYjeSfLqvXhlE1brHqdLwa5KisN7KzKMcxYvKQXk2EmKFlpMN8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=lKG4CVZ2; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="FWIGKo9+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description;
-	bh=vE4+w4YDu9n7GIhNK4fpCQW3h/DoqyUfQ4ETqQ3wP4Q=; b=FWIGKo9+zfnBtutgnryH3E5NSn
-	RqNQ4rozFGMzQZf7dewKfC/HQk6yYfj6KNChiak1ZVnYyvrELs0jnIcxy2JEc4caqHRNT+ofRwEQM
-	VAU2TLl2FHOP1kXkATIes6CJB4Wjc8VCI88lrMzWKj3bFrV+UJIZwMtP3itCwJfXdxCZxbGlH8jE+
-	LbCb8f/ESXIRUTTxZLYCp8lL+aLU5YJSDi+w7c8Ig0/hBzVcXwJyHZbNcpP2AfdBOCotfAJ8wZPaA
-	XEkvv5dZH6va+Xt0LzfcAGgdpYzzA+VMtIFMvoAnfg6PH/75Gqzd6GUbfR0+eML8e54xXTeMbeTM2
-	lQ+PhiKg==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wmuRY-00000000jhp-1k2i;
-	Thu, 23 Jul 2026 14:30:36 +0000
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Jane Chu <jane.chu@oracle.com>,
-	linux-mm@kvack.org
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Christian Brauner <christian@brauner.io>,
-	Jiaqi Yan <jiaqiyan@google.com>,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="lKG4CVZ2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1784817051;
+	bh=//JNm23KlmgYWU9537Xrywm4JHT+Euz7wvylKoSzJdM=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=lKG4CVZ2p6PVsi58xtSYnOAEh+RjaNQg7reezj3dqwR++V/VraGz2TH/N26hyWO4h
+	 7AGwB5b0GrEZh5nKuDpvHZ8DEqrJTlqBtWSkSX5o4ffp2THf/p2PSfspyvI4JNZtUX
+	 B/ZCDIbucQw72Au78Ite1BdWbcR+fkBwUbz097hY=
+X-QQ-mid: zesmtpgz3t1784817044teb6e5ff2
+X-QQ-Originating-IP: LVH2R1vgdpWN6QN8DvTEdIuXfo23sFgYWBc+V2CelFM=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 23 Jul 2026 22:30:42 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2420314321759530120
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
 	stable@vger.kernel.org,
-	Naoya Horiguchi <naoya.horiguchi@nec.com>
-Subject: [PATCH v4 01/14] memory-failure: Fix hardware poison check in unpoison_memory() again
-Date: Thu, 23 Jul 2026 15:30:18 +0100
-Message-ID: <20260723143034.175661-2-willy@infradead.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260723143034.175661-1-willy@infradead.org>
-References: <20260723143034.175661-1-willy@infradead.org>
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.6 0000/1226] 6.6.145-rc2 review
+Date: Thu, 23 Jul 2026 22:30:40 +0800
+Message-Id: <20260723143040.1106118-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260722143258.264584003@linuxfoundation.org>
+References: <20260722143258.264584003@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,54 +67,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MWdgP8+gtiFR4W5pNBAXBIGke9uwj5wXkW5vkgUqOX1OE6ty6zwC6tJ9
+	y3z/WB3tkzPcHiIS63UOUauBSIrZmtl08H5yQjY+HA63TRKqNFDkaeRIbb7jWTFITK5Adxf
+	cIfBH8T4miFpokad6eWgpZRfoTmJZNan+pMWjCH74NRjB2Q/YGnrhBiq1fkH0J1NP9P82BC
+	oii7+yiKh8Hq6shUjq8Ld4chkhrr1d/8bftGg0Iyw5KFtksJqUNpVgV+RAdlRl9NpbfzJEt
+	6ZAHNaATD92kSazJ6+MNNjMZT3ycl15rHRkcPB7TZqgJQxMiollM7hKXb9ThipC39xN6s2K
+	LoAk+jAgVOlWUOtPF2cNujTpZDDlc8Yg8mE95VJ3pUln80WX69+0vSAJteRhxuUWKPlzT11
+	Ii04FxeiWgCa5pFlAUOKctLo6jT+uMxUvg8vFd7saHqXOTmenFF2B5IEfWuQTkRqgf7V+EH
+	jb6h2B0VR3Wi9dPTws2rtfIxWavONc0II4sRM6tAhx+Qhnhiir/24mxLXMrvjd1R0cT+xh/
+	tnbDsy/amEAndNpjmIbJq3NSJTdxZHoBxGE7A7+RSc+2UYHi3VXkP2yDsS3UhfcjRylRoCE
+	QISsZ5iQ4/Or3MUbdo/v7FMU8GpQ9tjdgJ2MEtFuNdDTCTfyAfLw1Yc0a0FuCNJkNichNnO
+	H1E4VGIf7pDebBlH2HoyMu4IZ2yPdOhHHDcaMUnzQWdkoPwN8iRsv+avOKBMzl//YDgZVti
+	+HWEJA2tUizryHHsNZkeCFzal9fd2MChCZNWxOThM4cGww+uofaBQ8mknvv61yMZB0t+GKu
+	0jiexiOyPv05pZSY1AudU9AS2uucmWYgdeG9Se/ac90oZ4QyA+hiKrDe/UKU5lADVh/xQVq
+	kNVs8Bs5i8yO1ZhjW9M40uafMXi6KTyDHqZwlZ+Q50pPBIFkqzo2fzO1rZF1vX5iFxPfDN/
+	7/MuCg/TSEUvfwllvO373BdKw2f5GENjIf6jHw3zX2Jdc46icvpY/7rk/JVDGVEd35JkCha
+	bIgwxPLu6Yq3VYpzO/X8x1o0sELp+93yHS5faoXQDC9yjQv5fcU7ib88dEkxO9N1eRthkth
+	g==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-The earlier patch (6c54312f9689) that attempted to fix unpoison_memory()
-was incorrect for hugetlb folios.  Before a6fddef49eef, we checked
-the head page for poison (which was correct for hugetlb and incorrect
-for THP).  We are currently incapable of unpoisoning pages (other than
-the first page) in a hugetlb folio.
+Hello,
 
-Use is_page_hwpoison() which handles hugetlb pages sufficiently well for
-this purpose.  This is racy as we don't have a reference on the folio at
-this point, but fixing that properly requires deeper surgery and this
-is a CAP_SYS_ADMIN path only so this will do for the moment and can be
-easily backported.  It's no worse than the situation before a6fddef49eef.
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-The other bug in a6fddef49eef is that we currently clear the HWPoison
-flag on the precise page, which is wrong for hugetlb.  Fix that too.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-Fixes: a6fddef49eef ("mm/memory-failure: convert unpoison_memory() to folios")
-Cc: stable@vger.kernel.org
-Cc: Naoya Horiguchi <naoya.horiguchi@nec.com>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
----
- mm/memory-failure.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+BRs
+Wentao Guan
 
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 51508a55c405..944e6e1d4971 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -2695,8 +2695,8 @@ int unpoison_memory(unsigned long pfn)
- 		goto unlock_mutex;
- 	}
- 
--	if (!PageHWPoison(p)) {
--		unpoison_pr_info("%#lx: page was already unpoisoned\n",
-+	if (!is_page_hwpoison(p)) {
-+		unpoison_pr_info("%#lx: page is not poisoned\n",
- 				 pfn, &unpoison_rs);
- 		goto unlock_mutex;
- 	}
-@@ -2748,6 +2748,7 @@ int unpoison_memory(unsigned long pfn)
- 				folio_put(folio);
- 				goto unlock_mutex;
- 			}
-+			p = &folio->page;
- 		}
- 
- 		folio_put(folio);
--- 
-2.47.3
+Log:
+Linux version 6.6.145-rc2-arm64-desktop-hwe-g1700dc538781 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.6.145-rc2-arm64-desktop-hwe-g1700dc538781 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Thu Jul 23 17:17:24 CST 2026
+Linux version 6.6.145-rc2-loong64-desktop-hwe-g1700dc538781 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.6.145-rc2-loong64-desktop-hwe-g1700dc538781 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Thu Jul 23 17:34:21 CST 2026
+Linux version 6.6.145-rc2-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP 
+Linux version 6.6.145-rc2-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Thu Jul 23 17:52:06 CST 2026
+Linux version 6.6.145-rc2-amd64-desktop-hwe-g1700dc538781 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.6.145-rc2-amd64-desktop-hwe-g1700dc538781 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Thu Jul 23 16:58:43 CST 2026
 
