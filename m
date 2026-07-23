@@ -1,82 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916A24477E1;
-	Thu, 23 Jul 2026 20:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727C141B355;
+	Thu, 23 Jul 2026 20:33:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784838434; cv=none; b=Z9oJMidJGBqj5px2PtatP9Xy7XgLahxiWoGQO1rPTL6sKdPg6RVCkRIW6VH02GDQRWBU53QOyhbuVIlCqYDpifgYFG/ta19l+WY9tlHT9a0vaw4nNPoLA75cOeleT14da6iF1fcGvUYdViO3m7lo9Jl+WQXvbbkvyLYB0ICCCmQ=
+	t=1784838815; cv=none; b=G0oUKYCsPFuknqLH9DWf1lYUPHLbbhU0BfHXIZvMXh7eH7fECWmuSdKc6CMTvHExS3e4lh5vYa4w+DKHQi2g7dMsmCeRimo1V32XU3vTr+tIR5n/OCf1MmxWqUwGJe3kaFmStLcXA1+qm1XF8Fj6he8fHqF5EaG3AA3hqehlIes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784838434; c=relaxed/simple;
-	bh=F812CFouPZkH/vlk4R2JvEprY/HILGKHvr9tNzb6BuA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IUhTHhm1aD5uqBbrICHohGgtntNSDk7UmLZd7PI5gwUyZZkLmHrBBuZn+MsybWl6Z6bGXwxxwlr79IiHeY74v8YXS63WC5+1jbGzlaDYe5pEUosRRS+/3OjBHqZ3s0JhPJHku/5gWVIP2WxvQR+bjQc0a2g9DZSt1X/ae403aH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SErWW7wP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784838815; c=relaxed/simple;
+	bh=DO/gJqdawW9CmZ4EJe+UiBo1+9edT2zPkjP1BwpP49o=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Bi2nlTGEuVDOOjTKXl1Z/ZASLex342/8knfiOESV3xiKggjVeKvzRb1nE8ajK2BzsEeouOOTJ2qes2uZfyhK3uQmiAOY05mcN/Vh09v4oHsujnpX+YCqz5RdbYaDgIck1kyGY7KXoDtykAjrcbpPB+YouRlwwtzxI5451mc7EPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyQO0eHk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SErWW7wP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25ED91F000E9;
-	Thu, 23 Jul 2026 20:27:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyQO0eHk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6450D1F000E9;
+	Thu, 23 Jul 2026 20:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784838426;
-	bh=0eEGwBWQ37AzG7D2H2CJsEQb6LH6p+JctMynLuf8Ufk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SErWW7wPHEWHiniBYGv2BbQNthExI5xvwAqaRbtRBAjedHxKfZwqI+LWB+pYKE6dC
-	 NFIqBJVPbNKj5r6mRlD8fKEKi8xb5xfaNX8PUKcgTbs459zUW2y4BQbrBIJMZBYWQY
-	 YK58/islK1P/S4/h42HgCMupOLqTbHg8uEWPdp5FbUHyv8SpQXd6Q/1k48SInyRVBF
-	 STa7jANGStIfhWopHhzTGFyG9UqwIggxGZP52IDZHtc7Ixs1TM5kd5dehWOGDFpOV+
-	 HBp62tCgeLImgID8UWnu8Q3VhVfFVzPNswT1vb+SAey5SEoEtKvlcyb9lAX4Pd9a60
-	 QfOS+SeUvFo2Q==
-Date: Thu, 23 Jul 2026 13:27:04 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Stanimir Varbanov <svarbanov@mm-sol.com>,
-	Eneas U de Queiroz <cotequeiroz@gmail.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, brgl@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v6 0/8] crypto: qce - Fix crypto self-test failures
-Message-ID: <20260723202704.GB110634@quark>
-References: <20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com>
+	s=k20260515; t=1784838803;
+	bh=qKMBkfA4Fscc9gb2Mwxxm/SG+O1Cf4fPyQiewhN8Y88=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=WyQO0eHk6YYNhnOQuGfvCK+4OXDBlKSRtLW2n42OKeh+sdzsP4j+ATDn/yv3MXCuc
+	 qIbtqjSeZ2bzRTL1G5pBiJsfWbK5TsR1OI8I38sJ08+0OkaU/yv0f7RFokmF4EAr9y
+	 7vkku2frWqcCajVSImHbP0ptjJWOM1pu9W9R/IMe3l++jearHhB72v82hRjCRVs48e
+	 mF4N9QL5vHzIRBMktag3UFz1fQGdrRmPzI7k9DbnWEhiDY0uR/vQ+b9Rj/oWngAKb/
+	 zPpYmJNQqM5axXZFgefC3lN2fzg/EuCGmG1mMoDaewVP3BstCva8lQfn29BHlo0i+p
+	 bqYwfHljPIJog==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 23 Jul 2026 22:33:16 +0200
+Message-Id: <DK68JRVCSLFU.3MCXVFEF3EE5T@kernel.org>
+Subject: Re: [PATCH 6.18 0000/1624] 6.18.40-rc2 review
+Cc: <gregkh@linuxfoundation.org>, <achill@achill.org>,
+ <akpm@linux-foundation.org>, <broonie@kernel.org>, <conor@kernel.org>,
+ <f.fainelli@gmail.com>, <hargar@microsoft.com>, <jonathanh@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <linux@roeck-us.net>,
+ <lkft-triage@lists.linaro.org>, <patches@kernelci.org>,
+ <patches@lists.linux.dev>, <pavel@nabladev.com>, <rwarsow@gmx.de>,
+ <shuah@kernel.org>, <sr@sladewatkins.com>, <stable@vger.kernel.org>,
+ <sudipm.mukherjee@gmail.com>, <torvalds@linux-foundation.org>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, <nova-gpu@lists.linux.dev>
+To: "Miguel Ojeda" <ojeda@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260722142910.893804136@linuxfoundation.org>
+ <20260723154303.11008-1-ojeda@kernel.org>
+In-Reply-To: <20260723154303.11008-1-ojeda@kernel.org>
 
-On Fri, Jul 17, 2026 at 05:53:29PM +0200, Bartosz Golaszewski wrote:
-> This extends the initial submission from Kuldeep.
-> 
-> The QCE hardware crypto engine has several limitations that cause it to
-> produce incorrect results or stall on certain inputs. This series fixes
-> several bugs and adds workaround allowing the deiver to pass crypto
-> self-tests.
-> 
-> The failures addressed are:
+On Thu Jul 23, 2026 at 5:43 PM CEST, Miguel Ojeda wrote:
+> I suggest dropping commit
+>
+>   d8fa174e21c8 ("gpu: nova-core: vbios: read BitToken using FromBytes")
+>
+> for now -- it was not marked for stable, and as far as I know, there are
+> no production users of Nova, especially in stable kernels.
 
-I was also looking at how the request queueing works in this driver.
-qce_handle_queue() gets invoked synchronously from almost all the
-ahash/skcipher/aead API entry points.
+Yes, we can just drop the commit. In general, for now we should only backpo=
+rt
+nova patches that could get into the way of testing stable releases in one =
+or
+the other way.
 
-However, it takes a mutex, which can sleep.
+> If we want to fix the bug, then we may want a custom minimal patch.
 
-Not a great choice when these APIs can be called in softirq context.
+Yeah, I don't think there's much value; in the best case it fixes something=
+ that
+isn't used in production anyways, and in the worst case it causes noise if =
+it
+breaks the build.
 
-I strongly suspect this would crash if anyone actually tried to use this
-with IPsec, for example.
+> I hope that helps!
 
-This is interesting when we consider that the driver implements the
-"rfc4309(ccm(aes))" algorithm, whose exclusive purpose is IPsec.
-
-I'm not sure if there are some out of tree patches going on, or if this
-was just never actually tested with what it was theoretically supposed
-to have been useful for.  But I'd guess the latter.
-
-- Eric
+Thanks!
