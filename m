@@ -1,102 +1,133 @@
-Received: from mail-ed2-f1.google.com (mail-ed2-f1.google.com [74.125.228.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14CB40B0F5
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 08:41:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49E219049B;
+	Thu, 23 Jul 2026 08:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784796079; cv=none; b=iOuG3i5Zfo9H8K9FuSMvQH9ICHXROdu+5ABsnkz8pPS2xOLqwwDcHBIydlR6cE1J4KDY3vJ+p+/C6DK83frqXtHTWc6XF0RhkPUHUD0UgfTgNd205VNqxRXeqi/mbntb5+OObPpn/AD0WhVS8fuu0UZrqTxw0yLSEa8ImHIOOkw=
+	t=1784797086; cv=none; b=GLVGvKwDSPvyUzFdaF5PnER9dUDgHW4g3kGiSVdCINgu3Y4NjD6y4nvVGjqwHTFHPrFWTftDnyGrslBmdIcwTGxLh7QX4y4Fx93ClF8SQULCsxru0FyqM9XE8chpTVoButxjJnLpRjKr7RuxnwO0enA2h5h0KW1spQxP2Wrksns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784796079; c=relaxed/simple;
-	bh=whGXzWRNyGUg9lALJflckiWEWTI5YxH/v3DKwvNZY+g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SL/YBvsWBdPR+QG4Q4ISjwQe+CRi++ikGlT+Gqclr/z7QmDDP0ozJXFMPgBxNF41t8gkQJxYJdzAg7SmtgM4pp6ml901u5hBKWJhABsHw4+JZZgm0xDEy/hVKwxuYm1gTB/BJdjDiKsMgpx2NKNSYz3qbAnkXdwxq8PHhY5b+YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PKYXcORw; arc=none smtp.client-ip=74.125.228.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1784797086; c=relaxed/simple;
+	bh=y/PJ1R5oznmnskhWGSo1h4XlEa1yKwHjG/YAGbzOJG4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QIExds24ogxLNSn4hdCzh+6Yt1AB78HBmoZvypV0YBWWocGsxUjCOj+A60jjt3Zq00NGA/kRYkfTlCwRFB3XcVeqo+STBEY825k1VqntIB+k+CjKbiePfZixEhww/wi1qZ8gVAUkA8FRWqRJrtd8uXH/e5xLK656+WrNC8zq+m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=JtuK1gws; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PKYXcORw"
-Received: by mail-ed2-f1.google.com with SMTP id 4fb4d7f45d1cf-69850336c9cso214838a12.1
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 01:41:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784796076; x=1785400876; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9fU44YJ6f6IUeZhmcIZ8UM5Hqjq3iEIvk9gqEu2Ui2A=;
-        b=PKYXcORwEwhHEDNoHmzszRbjfv9JfIBN2cMwlxOAO97dO2G1+5k7+F8ib22hFFii8s
-         5lpD7wnoa6GmHXxh+cUDdefNkr85rLXa/gR+ikduz68zrc6nyzDi1tDb6GiQKG9TT1/D
-         4V3oOabh1Bf1hjrGNFCVFa2QIaGEXOsQzEN2r7Vnil2FyigYqOJSN6hj45udL0oIqjlW
-         D49FSKLsYvkBeDyIJsru1ZytkGxP+CZNVF3hOQvg8u4CY/ZRPdQFLfPQf/STo1XD0uBe
-         21uFeuNVaJWLxkm1qQN05bI5E5bI0bKTkuwyZueHUevJ1bhI17mn0bxA5mrbMINwmmFs
-         OE3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784796076; x=1785400876;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9fU44YJ6f6IUeZhmcIZ8UM5Hqjq3iEIvk9gqEu2Ui2A=;
-        b=QOdEwiA+aBUyeO5ETyrLz5u4zseQ9mjIdIc/c6GsS5F8QaWQLBlpq8B5nYE33+aqcr
-         b1/onJ3ehXZABKfxrOoXrhtZwp4QN6yL4Bklk/q56rtffkrQQxxEjsUAngOa0MyhPKyr
-         OoMS1D2U5iks8hnn0n7t5XRTjPAfr8BXnUAZr9H3QDH4nZQWNIYJ3+nr5nrgO9/OnDIo
-         WeLPa+FfxRIEkuLO/XFWc8ULPOMscSsjt8sxDXMgFigAf0ZGPAIgMwSDGvALG5SEuSXo
-         pnjpJ6/Sdx52+7y2UX8UR7CM5mEUoYLrzY2CDdh6yBaAZpjPv7N6SZN8m47O/flE+Xzy
-         oIcQ==
-X-Gm-Message-State: AOJu0Yx2Ncf0gmH7Uq5u7TIzl6Tlyooqcb29NCTG6czbG4jXQKDTMKIM
-	9Hu/UX2yjCkvrWPYM80cJ5+I2W1tI4S0MOtYdN1FQrlrHZbZ+5Jtda3mG8y/vrVZveg=
-X-Gm-Gg: AR+sD11W4ejsEXbzYuvk1Drkvl4QHHlFKvOJPBPW14uRivuq466XtQmYMU4O9vCTl1+
-	Ak1ecPE4+21jLb+RshCZDHPHz1lehIlfCtMhDagGzKdsDKhhgUqeyQhSl+WYcvTUWMLycsGmYSo
-	YyMR/7KBeBvlBeYuFi0flg/jck9GzDk43q2dLpE02ky4qajXpsasDsrPqFI5cyt98lH08plx93W
-	c+fQtI25BRLFBPJ0kY0PDrOcXTg1CLuQIl9ZcI7lJNiywXkmxg64xfMkfmzjFkbWTMuYbACMKkH
-	PdHfPvcGzo8VTR+r2KQgGCrrWYRY0rN4Z3sseLXkGOePVJ8rrpXgcbMY+sWTzac0mLsCZuQC8oW
-	gSC3AKLhEjaYkSIjc2+zPbTiYnDvV8xc1jlpLfBFEAAR3j1QJAxhjbOQoBMKKYh38QmIvnZl8/5
-	8DDiIQrB6og2ZzPL1yKXaub6BAgT8XfQ==
-X-Received: by 2002:a17:907:7b97:b0:c19:8408:5b54 with SMTP id a640c23a62f3a-c1c509e2830mr99412466b.60.1784796074695;
-        Thu, 23 Jul 2026 01:41:14 -0700 (PDT)
-Received: from u94a (27-53-97-40.adsl.fetnet.net. [27.53.97.40])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8f2e6203sm30558485ad.44.2026.07.23.01.41.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 01:41:13 -0700 (PDT)
-Date: Thu, 23 Jul 2026 16:41:05 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
-	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
-	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
-Message-ID: <amHTSIFxcb48ADsa@u94a>
-References: <20260722142834.868902312@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="JtuK1gws"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1784797050;
+	bh=4E8jyp7xaBeSrb6i9ABxyDkz6Z3sx2wdtDMfzuD9q9w=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=JtuK1gwsfSZiGXFNm7OyKzaQgP9kHzHAptHfGZbaCaFbbiy0AtvIdt4zd/nV8uRA1
+	 IKqHedJS8KU9L6mg5hhnqz2htl7BoLyppSi5CE2Up9M8rfj+pXklTkXfUsLqCUsZVB
+	 PJfaNrv84TrXv5dUpqtFbzd/XZ6UDo7FUmyIZP14=
+X-QQ-mid: esmtpsz21t1784797034t8cc23156
+X-QQ-Originating-IP: O+Ij3hZPgPkLWEG2ml/9XtXvylZYdjV2+cq9/X1eB50=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 23 Jul 2026 16:57:12 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8717825214625693770
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: perex@perex.cz
+Cc: tiwai@suse.com,
+	rongqianfeng@vivo.com,
+	raoxu@uniontech.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: lx6464es: fix period byte count for 16-bit streams
+Date: Thu, 23 Jul 2026 16:57:10 +0800
+Message-ID: <8BB12E8D92A7CDBA+20260723085710.2567463-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722142834.868902312@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OSjTqsWSa+11ZaxGrL3RDhJxlnyirjzIAIFwUlL2uKcHrN5aFfEORdb1
+	T6t8uqm4YYEcOWBzB969PQFVJfaopGDlQKV+S4hh8rXm8+GPK3JkgP1d1oAoI5PlgzY1oSC
+	l3yiL6lHI/RGyAcMf26tF+Ee9WTwOatKSMKM+K8sL4dbmlA6PAEr8fvFAVcuLCUF7a7MrKw
+	1mOa/MeTEpi0S2ck49wxkhXbqnNXdKh0tz7lIYAXxEXzQ87Atq8DVfMyHTP6i30isTXteP2
+	9kVnwtku9APuqJJo9C0Ip/oAY8thFn7uPEvkM3rQq/4xw8PH/DJ5EBgpYlYGt/Hp19N9XrD
+	h9Ehy1o18LC7KzWFSWbkfXElqSZNZiyweC5NHDK3H/s2IhkPVvo/0UIyOXxfsMeEj/Md0Ey
+	b+LuiTH/5hhUz4jf4ZMiXAheN9cEzh8vcGmsHDZ6Q0tRc2IYo6BcCulWYdy6y5nHtxRDn14
+	0zcXk7cbQTbVDPX0PofTKCMNOtO+alYcYyzXhz/BT48nQBS6aJwfrJPY82vqS3TNe6ZgN0p
+	9kbTbkZXTZ96A4RRhD7z8IU87MPMTlHdaSA0F3GCcd12v/5+Vv67WLBd3do5+m5Ky3GjB3u
+	RIYz5AZx2U90b9PEg9XMob9OGRMulSo+woJm6iSVArau36R0kwdC2cYpAMFJUG9kKlPxSLO
+	39hiIYyYQ7dThVCIvNo2OBMJeD3kR3vrbEGngI7Qw9g4EPg02Ppnwb03iDjNawv+QD3OhuZ
+	K9EN8DjdqlXdKa9FbRe9OnQfikWBa9ByYSANh879lVZEHJB8lzdQzQN8od6DxJ6gXUzLQKX
+	UvHp/PXW+wmp0QfMuGYWQo2qadjboVYjo4OPvTFw0H9OPti8gMa7FQAqFPcq4f9qLVOLlyn
+	tXqhEK9pc/k+mtNOu/WX2YKusZrTAtf6IeOhhVwPDz0ZgvWq7gU6zUmGrke77lZLzMKbDvt
+	90RGkXrO32nA/BnA1wDNJW6+1TrM0akxFRD9fxAPKTisqpi8mlTQlB1vXw9T4gnwzf2Ka+i
+	jl8/TgbVeIt0+EfkUPrhrjh9eop5Ncm5D+GkAkSliSWo1p8tWfzNbITrmX7eU=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Jul 22, 2026 at 04:31:38PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.97 release.
-> There are 1202 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
-> Anything received after that time might be too late.
+From: Xu Rao <raoxu@uniontech.com>
 
-BPF selftests compilation is currently broken. But with [1] applied it
-will build, with test_progs, test_progs-no_alu32, test_progs-cpuv4,
-test_maps, test_verifier in BPF selftests all passes[2] on x86_64 and
-aarch64.
+The lx6464es driver advertises both 16-bit and packed 24-bit PCM formats,
+but lx_trigger_start() and lx_interrupt_request_new_buffer() calculate the
+DMA period size as runtime->period_size * runtime->channels * 3.  That is
+only correct for the packed 24-bit formats.
 
-Tested-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+For 16-bit streams the driver submits buffers that are 50% larger than the
+actual ALSA period and advances the DMA address by the same wrong amount.
+For example, with 2 channels, 256 frames and 4 periods, the third buffer
+already extends beyond the ALSA buffer and the fourth buffer starts outside
+it.
 
-1: https://lore.kernel.org/stable/20260723071334.39630-1-shung-hsi.yu@suse.com/
-2: https://github.com/kernel-patches/linux-stable/actions/runs/29986297264
+Use snd_pcm_lib_period_bytes() so the byte count matches the runtime
+format, channel count and period size.
 
-[...]
+Fixes: 02bec4904508 ("ALSA: lx6464es - driver for the digigram lx6464es interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ sound/pci/lx6464es/lx6464es.c | 5 +----
+ sound/pci/lx6464es/lx_core.c  | 5 +----
+ 2 files changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/sound/pci/lx6464es/lx6464es.c b/sound/pci/lx6464es/lx6464es.c
+index 96df00db51d5..3b40ec071379 100644
+--- a/sound/pci/lx6464es/lx6464es.c
++++ b/sound/pci/lx6464es/lx6464es.c
+@@ -402,11 +402,8 @@ static void lx_trigger_start(struct lx6464es *chip, struct lx_stream *lx_stream)
+
+ 	int err;
+
+-	const u32 channels = substream->runtime->channels;
+-	const u32 bytes_per_frame = channels * 3;
+-	const u32 period_size = substream->runtime->period_size;
+ 	const u32 periods = substream->runtime->periods;
+-	const u32 period_bytes = period_size * bytes_per_frame;
++	const u32 period_bytes = snd_pcm_lib_period_bytes(substream);
+
+ 	dma_addr_t buf = substream->dma_buffer.addr;
+ 	int i;
+diff --git a/sound/pci/lx6464es/lx_core.c b/sound/pci/lx6464es/lx_core.c
+index 6f0843cfb3be..9909f1067871 100644
+--- a/sound/pci/lx6464es/lx_core.c
++++ b/sound/pci/lx6464es/lx_core.c
+@@ -969,10 +969,7 @@ static int lx_interrupt_request_new_buffer(struct lx6464es *chip,
+ 	const unsigned int is_capture = lx_stream->is_capture;
+ 	int err;
+
+-	const u32 channels = substream->runtime->channels;
+-	const u32 bytes_per_frame = channels * 3;
+-	const u32 period_size = substream->runtime->period_size;
+-	const u32 period_bytes = period_size * bytes_per_frame;
++	const u32 period_bytes = snd_pcm_lib_period_bytes(substream);
+ 	const u32 pos = lx_stream->frame_pos;
+ 	const u32 next_pos = ((pos+1) == substream->runtime->periods) ?
+ 		0 : pos + 1;
+--
+2.50.1
+
