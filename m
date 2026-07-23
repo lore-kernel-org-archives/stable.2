@@ -1,56 +1,56 @@
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313BF4477FD
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9384243CE79
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784817780; cv=none; b=lI+h71WU3Y57u7NIOdb0XM0uPVKLKriv+whvv+05QNbTJ6L3MK7Ah2F0e9NXJmR8NA10r68qHf+3RaUTHm/JeLu3VrCzloQyi6xSqkURu7Ocw7qX+LlVI+QDUFcaMPJdU76rBRLXX0IffdE78pPrqef+EvQ9/8C4fqb1Y7klzyQ=
+	t=1784817784; cv=none; b=EsoW6cWfcATQPWQDQzOQLdkqHgKJqcsKBWbs/wxwFhFMoToFdxsYw8Un+KvtXqnpgUgZLILVu0ZxtqB5taVX+plWz/qhCj1F4eSjlEWZNvkCOHy+yzSGjVsyfczIcJWDZUBH6vlcIkpKIsMa7SQX5B7r3cJpTWNhzd+yR4G/0UM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784817780; c=relaxed/simple;
-	bh=YzXfGSA4v8iBluAtw049vOGF3tTA+JQy0e4hNtNAP1U=;
+	s=arc-20240116; t=1784817784; c=relaxed/simple;
+	bh=SaGT5/k0Hq7us1Xh96BcYHTQxGZSs402OfH8hNSQErY=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YDirj7MpgkeoYMtAYLcB8Gr/PArgv52yoVjXDSHm61q+h0EOBfjG2M9Zy2Enc8ec6lM4xRAfELbnTUTBoshJRl/t1+mw4qKxnHWSzOihBKBGDxZsnSnFVVRAhREwMGrds+orYZtm5vb3tr1W+m20KwfC/Pdas5TMipM7gTahLw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KpYjhdM+; arc=none smtp.client-ip=209.85.222.199
+	 To:Cc:Content-Type; b=b9lTY0NF2W+7iL5BtVexfn/ERUHC+bYIyMZFpRMbLjLkD6jlOenksTeYWClhWKY/yo4edSa4opY0g0PRkgEC7RL5QZlR1aFPytzy5djSEVtTubbWGHKLHsH0phsTbtOFCa7TCkXnS8m3FQY7yemuNoj2kapcsvPyk7UqvZ8RCUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GjkyRkmd; arc=none smtp.client-ip=209.85.222.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KpYjhdM+"
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e606e8f3eso110234485a.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:42:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GjkyRkmd"
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-91931144870so138025585a.1
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:42:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784817774; x=1785422574; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1784817776; x=1785422576; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Rzs1C1Mae38rnEv/GWTjDvVyUY1VhGDhiiw8EJ99y3E=;
-        b=KpYjhdM+FqgI+ILTodBQgrh0SN0qExWW6WyMwkm4IUAb2s0w92GoIHx1kmcTMqqqeE
-         9ZJORQ95dnAdNI8XgZK0rwv/L3SlTsCee0lPeWfQjL5Q6O0HXxayyjy1cn23E59N4MQ3
-         Yg/jZPLgPBHGuUJqAAMjm/tPtLJsSEsmZjBmxBwCZgTCp1+F5OKFAoHCeH8ZBKxlmwql
-         +cahrkA33C0MKmSCiEEij72ktgDSB9WwjdfHAuBHTquBlbJdbseCnAJ+qE+mz7dU5VbM
-         M0iPQPkaUfy9cf/mtL6snSDTkaudJJ4hSWcpAvqiJ4+RWsCmi975nKRPAS0mBoEwtktS
-         44YQ==
+        bh=7G6+WmalGeshMr5rrbPWKhucx6Kb/G0FkKHu8ELLz48=;
+        b=GjkyRkmdjlx0WuRJ2NpsCYJypkU2QOcewKBHWz+aVDgWwHBDc8G0WeQP+SW9NOUVvH
+         cx+0hlT788gmTvuGLgxRhMHekJjEH9/qL8sx/1JJsT1DOsoH7Sp5lQtrOZD3c0mBzvk0
+         3iL5xnStIVLUTQRRb+TEIeISfNXUKZw4td1a5Tbj5hdJqO/iuJ17946sdv5OPiFxmM2c
+         HXGk1mJin1J0Vktxk+kOZ8iJSalWrTGaffpuwEb8fTYKNaagcU7mh0q63zeQqz0YyL5q
+         oUg4i1n74/+NEG15gzbX9gLaRhziqFBjJpQSCJozdXxsQZDWBakbjvNULLDBFBHdsSwt
+         wI+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784817774; x=1785422574;
+        d=1e100.net; s=20251104; t=1784817776; x=1785422576;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rzs1C1Mae38rnEv/GWTjDvVyUY1VhGDhiiw8EJ99y3E=;
-        b=X5O9zQu6yN4olXj512QYq4+WPJ2KVvqUVBdCEBzszS8JepXuq/skCrQA7rzJR+Zxiq
-         q4pF6v2mWuWiW5/dgdnu09UY6TtOU8vASZBgVq2vM/dxOy2JuDcYDyq8UkqFM4RYB1i1
-         +cWRQgCgKgfTJetcgH5Nwsq1Be/BEGOkvXbOZCh6fHBMS2Iyie2gAIX8Dq/ACoSK7I7k
-         gJFodDndQKkfjSdr3bMsNqLvhbzcTjLsJp7Z/6WY9B+wON5wAUuzculEBkGQFclWb3o0
-         Y3+sEcJfYxQeVgH27vI4FDB0CKcrjfv9zpfcBGket2w4DrrUl9+mpGa2FP/jQCaQ8m3Z
-         pnhA==
-X-Forwarded-Encrypted: i=1; AHgh+Roth950ja11DpaMkKZNOzqnowr9ZfhyVqcae1vZmsgCf1Y+mPcQNq2ImKYpP58od7CDxrNWF5Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfI9TQWMJTw4B5shI6uAw8EB0Wyf0nWSwKi4U63mihdvKf3yyA
-	8e+cJE8HniDMGvcU1BE/A/U9iWMre1wVSyvGz9ELJ3VJObCdpb3SeJPFjS1NoyGYXvuRIf9kAqI
-	ET+q03B/AlmcB5Q==
-X-Received: from qkoy14.prod.google.com ([2002:a05:620a:25ce:b0:92f:e7b:c025])
+        bh=7G6+WmalGeshMr5rrbPWKhucx6Kb/G0FkKHu8ELLz48=;
+        b=MVrZ+/zOG9Sg3Yr9KmWqtV/S8TApfkz8Obqe+YydJHAlbYWjStMIAg/tr/K2xZDNVn
+         KILnwHtqX72IXwE7a9z33x0ZYRGHv7XEAiVXyGkZOglX5h+vlddZco8IyDd5/TK/CWgN
+         oAok4CIcZBkt2NupIswGm+dETHm4aYt7dYABES6skIDjgX50k7+AOm8f/fSLQkK7yTBx
+         4WXwy/oxPbH921lMaVRkleII5089S52/KgCYcBob5N0AvrItT3X7yiiwzvGiBC8Yudeo
+         2aGpBSV1c7M78ekc7vIlLxHHcmpHdSuzTL9/vtfman1eypc4crGqRXrNwjdsOuOt9RLr
+         kWUA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro2MW6umkp7dFK0ymfPsmuSlySEj/nrLu8F06IXOziyyKQFZamPZxOBGekSYNSseA3GCXLxp4M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHWIWz72VK2ReieLdiZ6T5L9RM1ZRGw9USK+TvCz/ezWWBG+PI
+	pP7O10jfLzBafRxuESINixivok/eqefeDM48wY1m4wRLD7tV1gnjZNZzuIMp0tMd480IKK2CYOa
+	nJgFTDn9tVdaByQ==
+X-Received: from qkww19.prod.google.com ([2002:a05:620a:953:b0:92e:e46b:a01b])
  (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:620a:a0d2:20b0:92b:1233:9a2 with SMTP id af79cd13be357-931035ce713mr250335085a.17.1784817773770;
- Thu, 23 Jul 2026 07:42:53 -0700 (PDT)
-Date: Thu, 23 Jul 2026 14:42:46 +0000
+ 2002:a05:620a:480b:b0:930:f9a6:11ac with SMTP id af79cd13be357-93103a59d1dmr315209785a.71.1784817775196;
+ Thu, 23 Jul 2026 07:42:55 -0700 (PDT)
+Date: Thu, 23 Jul 2026 14:42:47 +0000
 In-Reply-To: <20260723144249.759100-1-edumazet@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260723144249.759100-1-edumazet@google.com>
 X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-Message-ID: <20260723144249.759100-3-edumazet@google.com>
-Subject: [PATCH net 2/5] vxlan: unclone skb head before modifying eth header
- in route_shortcircuit()
+Message-ID: <20260723144249.759100-4-edumazet@google.com>
+Subject: [PATCH net 3/5] vxlan: use neigh_ha_snapshot() in route_shortcircuit()
 From: Eric Dumazet <edumazet@google.com>
 To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
 	Paolo Abeni <pabeni@redhat.com>
@@ -71,41 +70,50 @@ Cc: Simon Horman <horms@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
 	Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-When route_shortcircuit() performs L3 short-circuit routing, it modifies
-the Ethernet header of the skb in-place:
-    memcpy(eth_hdr(skb)->h_source, eth_hdr(skb)->h_dest, dev->addr_len);
-    memcpy(eth_hdr(skb)->h_dest, n->ha, dev->addr_len);
+The neighbour hardware address n->ha can be updated asynchronously by the
+neighbour subsystem, protected by n->ha_lock seqlock. Reading n->ha without
+holding the seqlock loop can lead to torn reads or reading a partially updated
+MAC address.
 
-If the incoming skb is cloned (for example by packet sockets, tcpdump, or
-dev_queue_xmit), modifying the Ethernet header without uncloning can corrupt
-the packet header for other readers holding a reference to the cloned skb.
+Use neigh_ha_snapshot() in route_shortcircuit() to safely copy n->ha under
+read_seqbegin()/read_seqretry() lock protection before using it.
 
-Ensure the skb header is writable and unshared by calling skb_cow_head(skb, 0)
-prior to updating the Ethernet header. If skb_cow_head() fails, abort short-circuiting
-and return false to allow standard packet processing fallback.
+Note that arp_reduce() and neigh_reduce() seem to have the same issue
+left for future patches.
 
 Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
 Cc: stable@vger.kernel.org
 Signed-off-by: Eric Dumazet <edumazet@google.com>
 ---
- drivers/net/vxlan/vxlan_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/vxlan/vxlan_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 9060a1259ac283d4db4b7a854ce74203496e9313..fb4a706cd5786d1937b1922acced31ffdb187c2f 100644
+index fb4a706cd5786d1937b1922acced31ffdb187c2f..10dd19eec09e266197ee51330a652f4e76c9643a 100644
 --- a/drivers/net/vxlan/vxlan_core.c
 +++ b/drivers/net/vxlan/vxlan_core.c
-@@ -2163,6 +2163,10 @@ static bool route_shortcircuit(struct net_device *dev, struct sk_buff *skb)
+@@ -2159,9 +2159,11 @@ static bool route_shortcircuit(struct net_device *dev, struct sk_buff *skb)
+ 	}
  
- 		diff = !ether_addr_equal(eth_hdr(skb)->h_dest, n->ha);
+ 	if (n) {
++		u8 haddr[ETH_ALEN];
+ 		bool diff;
+ 
+-		diff = !ether_addr_equal(eth_hdr(skb)->h_dest, n->ha);
++		neigh_ha_snapshot(haddr, n, dev);
++		diff = !ether_addr_equal_unaligned(eth_hdr(skb)->h_dest, haddr);
  		if (diff) {
-+			if (skb_cow_head(skb, 0)) {
-+				neigh_release(n);
-+				return false;
-+			}
+ 			if (skb_cow_head(skb, 0)) {
+ 				neigh_release(n);
+@@ -2169,7 +2171,7 @@ static bool route_shortcircuit(struct net_device *dev, struct sk_buff *skb)
+ 			}
  			memcpy(eth_hdr(skb)->h_source, eth_hdr(skb)->h_dest,
  				dev->addr_len);
- 			memcpy(eth_hdr(skb)->h_dest, n->ha, dev->addr_len);
+-			memcpy(eth_hdr(skb)->h_dest, n->ha, dev->addr_len);
++			memcpy(eth_hdr(skb)->h_dest, haddr, dev->addr_len);
+ 		}
+ 		neigh_release(n);
+ 		return diff;
 -- 
 2.55.0.229.g6434b31f56-goog
 
