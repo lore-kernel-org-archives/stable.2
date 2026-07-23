@@ -1,158 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF8021883E;
-	Thu, 23 Jul 2026 00:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA8E2857EA;
+	Thu, 23 Jul 2026 00:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784767012; cv=none; b=qen4I3gkVtrIWZ6c8kRzmMcHL+MzPSE0NLK5t1TjaoKXNQcGCvAfuYbLV8iLqwRedTcY1giO9XXD/u0S+RcvdAN4mXU6Gs7+Zz6Cup5397NXLIcyTu8/xb6TyXtu/MpUhCO3G5vuB93K645zOuglqwdB2jS4dGYWVH1ihSsx/bo=
+	t=1784767447; cv=none; b=fJCQBhtS6aXLm0yhhrua91IQ5/+FhPgGcmlw1HulX/0aZjBI1z+M0/oFDo9yFbayfPmqiUR38a8Oc98RGBIJwVVJv65QbVww+sYkgRZJCiSxckLsU5m2V56JqBylOw0i4lhRLWkUt6xDGJYshr4kHK5p87Sut+apflKG6VXGmvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784767012; c=relaxed/simple;
-	bh=NxGEVJ0NCZ5+vonqmz7xjJhfAOCPAEgbmocu1jfWM+w=;
-	h=Date:To:From:Subject:Message-Id; b=sufD+YMaHXB/SAxSS4KoFJ4FAloNDO8CU60gDmEDARu+t+OV5nYX7+5IZPC78Bp+PIcmNnvo+lN7HlYnORdDECD+NOWwu8GYWN4vL26lWSJWlaX0rQXFmZoNBPifTTGgHwIJ9GmGQlBXktgZhAdhMhl5bTS1OlnTeSjROttXmCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GNlZFilL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784767447; c=relaxed/simple;
+	bh=GIWJct6xVNWZss/hTycbbpJK97a7jEM/TeTuuBb0l3A=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=EippFPxsW9DccUadypsMbuTsW3jYFwBLqj6GUVJ9Y9D1uH5ABfmB7N0z5vKraBPFmTVfW9950F6T0eoEbh0kSZcvX8pwlvzlC4ja4y2LFWhlpAztuxMGgWhTZ8Jp3QWbydrQKj92ZcXEpKtAHpZcxz0J5ja+rWi1x5+t12p6+Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=nscYdGrT; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GNlZFilL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAAF01F000E9;
-	Thu, 23 Jul 2026 00:36:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784767010;
-	bh=a9ECb29CnjSMhP5w1GLVIgpuQrZBCZs6k8kdHYM/ySg=;
-	h=Date:To:From:Subject;
-	b=GNlZFilLfLBUyGNehshKO2MJf7705P2sGQ2xukmIHNICYAJ4hLa4fCf7t1Jf7vRJO
-	 HjAqzCMeO/ToT2fi3GFVNPOjljWKWqfIsu3jEt6iTXNFUie8z/6NbgEx7+SUok3LDv
-	 2yGjLdZEmIOuCU9G7W1k6rpgbsBKAHKkAWVsTBZM=
-Date: Wed, 22 Jul 2026 17:36:50 -0700
-To: mm-commits@vger.kernel.org,xuanzhuo@linux.alibaba.com,vbabka@kernel.org,stable@vger.kernel.org,rientjes@google.com,mst@redhat.com,jthoughton@google.com,jiaqiyan@google.com,jasowang@redhat.com,gthelen@google.com,david@kernel.org,alexander.duyck@gmail.com,linkl@google.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-page_reporting-use-system_freezable_wq-to-fix-uaf-during-suspend.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260723003650.CAAF01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="nscYdGrT"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66N0i1W91064054, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1784767441; bh=Xz90xggreQtVt6hU5KolcDFevxlahnR5y1xWP/553fs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=nscYdGrTVErBP0+DH2WeHGilg+ZzKWl+krnm5nCNnhSQpGQ9vVVeBvImPVaNHV7Ld
+	 PiDxrxwB6tWs7hzOEtwYkAZfsnxo5f1cvxg6u5/ulLP2mliMzFo76n5SMl0Zk5kdrz
+	 CyTnFP+fxr/etlx78mD+/rV+JVJK5MBch806uySinxjT+TthQP71SB2byrjI+Lzf58
+	 EQEQ8WS5pvOgmplpLvTOyzsZfqaKrtkjujL8ZlZPnTV+usAz0uR211jNAFOZEA0/78
+	 Ba1q1Et0MvEOYhHbFeZei+aQu7XFUpfhCIdtyTrenyYTbXLIK79IhCZFx+Aexi0oa5
+	 fi2Vk0g1BbExg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66N0i1W91064054
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 23 Jul 2026 08:44:01 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 23 Jul 2026 08:44:01 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 23 Jul 2026 08:44:01 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Thu, 23 Jul 2026 08:44:01 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] wifi: rtlwifi: rtl8192du: Fix possible memory leak in
+ rtl92du_init_sw_vars()
+Thread-Topic: [PATCH] wifi: rtlwifi: rtl8192du: Fix possible memory leak in
+ rtl92du_init_sw_vars()
+Thread-Index: AQHdGdNxG39Zy+m01ka8NKFSiqmt0rZ6RD1g
+Date: Thu, 23 Jul 2026 00:44:01 +0000
+Message-ID: <8e45358b6fd74839a827c25193697ea5@realtek.com>
+References: <20260722121236.136754-1-nihaal@cse.iitm.ac.in>
+In-Reply-To: <20260722121236.136754-1-nihaal@cse.iitm.ac.in>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
+Abdun Nihaal <nihaal@cse.iitm.ac.in> wrote:
+> Sent: Wednesday, July 22, 2026 8:13 PM
+> The memory allocated inside rtl92du_init_shared_data() is not freed in
+> any of the subsequent error paths in rtl92du_init_sw_vars().
+> Fix that by adding a call to rtl92du_deinit_shared_data() in the error
+> path.
+>=20
+> Fixes: b5dc8873b6ff ("wifi: rtlwifi: Add rtl8192du/sw.c")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+> ---
+> Compile tested only. Issue found with static analysis.
+>=20
+>  .../net/wireless/realtek/rtlwifi/rtl8192du/sw.c    | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192du/sw.c
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8192du/sw.c
+> index 7bafb051d5ec..c7eab3382b73 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8192du/sw.c
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192du/sw.c
+> @@ -118,7 +118,7 @@ static int rtl92du_init_sw_vars(struct ieee80211_hw *=
+hw)
+>=20
+>         err =3D rtl92du_init_shared_data(hw);
+>         if (err)
+> -               return err;
+> +               goto error;
 
-The patch titled
-     Subject: mm/page_reporting: use system_freezable_wq to fix UAF during suspend
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-page_reporting-use-system_freezable_wq-to-fix-uaf-during-suspend.patch
+I think here is not necessary to do rtl92du_deinit_shared_data().
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_reporting-use-system_freezable_wq-to-fix-uaf-during-suspend.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Link Lin <linkl@google.com>
-Subject: mm/page_reporting: use system_freezable_wq to fix UAF during suspend
-Date: Tue, 21 Jul 2026 00:55:33 +0000
-
-During PM freeze (e.g. S3 suspend or S4 hibernation), device drivers like
-virtio_balloon reset their underlying virtio devices and delete their
-virtqueues via vdev->config->del_vqs().
-
-However, page reporting work (page_reporting_process) was scheduled on
-the global system_wq. Because system_wq lacks the WQ_FREEZABLE flag, the
-PM freezer skips it, leaving page_reporting_process active during suspend.
-
-If pages are freed into the buddy allocator while suspending (for example,
-when core MM invokes the balloon shrinker during S4 hibernation image
-saving), page reporting triggers virtballoon_free_page_report() on deleted
-virtqueues, resulting in a Use-After-Free / General Protection Fault:
-
-    [  196.795226] general protection fault, probably for non-canonical add=
-ress 0xaa1436fe70dae6df: 0000 [#1] SMP NOPTI
-    [  196.825967] Workqueue: events page_reporting_process
-    [  196.831038] RIP: 0010:virtqueue_add_split+0x233/0x4c0 [virtio_ring]
-    [  196.927073] virtballoon_free_page_report+0x3a/0xe0 [virtio_balloon]
-    [  196.946943] page_reporting_process+0x370/0x4f0
-
-Fix this by switching page reporting work to system_freezable_wq. This
-ensures that the PM freezer pauses page_reporting_process before device
-drivers destroy their reporting virtqueues. Because the reporting worker
-is frozen, memory reclamation/freeing (e.g. via shrinker execution) can
-safely return pages to MM during freeze without triggering unfrozen
-reporting work on deleted virtqueues.
-
-This aligns with the driver's existing design. The comment in
-virtballoon_freeze() states:
-    /*
-     * The workqueue is already frozen by the PM core before this
-     * function is called.
-     */
-
-Testing:
-I have verified these fixes using Google=E2=80=99s virtualization infrastru=
-cture by
-running continuous suspend/resume iterations (40+ cycles) while churning
-memory using stress-ng (`stress-ng --vm 4 --vm-bytes 60% --timeout 1`) to
-constantly create free pages for the buddy allocator. We also set the
-`page_reporting_order` parameter to 0 to make the page reporting worker
-highly sensitive, forcing it to pick up any 4K free pages. This confirmed
-that the UAF crashes are no longer reproducible.
-
-Link: https://lore.kernel.org/20260721005603.1710551-1-linkl@google.com
-Fixes: 36e66c554b5c ("mm: introduce Reported pages")
-Signed-off-by: Link Lin <linkl@google.com>
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
-Acked-by: David Rientjes <rientjes@google.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Cc: Alexander Duyck <alexander.duyck@gmail.com>
-Cc: Greg Thelen <gthelen@google.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Jason Wang <jasowang@redhat.com>
-Cc: Jiaqi Yan <jiaqiyan@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/page_reporting.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
---- a/mm/page_reporting.c~mm-page_reporting-use-system_freezable_wq-to-fix-uaf-during-suspend
-+++ a/mm/page_reporting.c
-@@ -80,7 +80,8 @@ __page_reporting_request(struct page_rep
- 	 * now we are limiting this to running no more than once every
- 	 * couple of seconds.
- 	 */
--	schedule_delayed_work(&prdev->work, PAGE_REPORTING_DELAY);
-+	queue_delayed_work(system_freezable_wq, &prdev->work,
-+			   PAGE_REPORTING_DELAY);
- }
- 
- /* notify prdev of free page reporting request */
-@@ -340,7 +341,8 @@ err_out:
- 	 */
- 	state = atomic_cmpxchg(&prdev->state, state, PAGE_REPORTING_IDLE);
- 	if (state == PAGE_REPORTING_REQUESTED)
--		schedule_delayed_work(&prdev->work, PAGE_REPORTING_DELAY);
-+		queue_delayed_work(system_freezable_wq, &prdev->work,
-+				   PAGE_REPORTING_DELAY);
- }
- 
- static DEFINE_MUTEX(page_reporting_mutex);
-_
-
-Patches currently in -mm which might be from linkl@google.com are
-
-mm-page_reporting-use-system_freezable_wq-to-fix-uaf-during-suspend.patch
+>=20
+>         rtlpriv->dm.dm_initialgain_enable =3D true;
+>         rtlpriv->dm.dm_flag =3D 0;
+> @@ -145,8 +145,10 @@ static int rtl92du_init_sw_vars(struct ieee80211_hw =
+*hw)
+>=20
+>         /* for firmware buf */
+>         rtlpriv->rtlhal.pfirmware =3D kmalloc(0x8000, GFP_KERNEL);
+> -       if (!rtlpriv->rtlhal.pfirmware)
+> -               return -ENOMEM;
+> +       if (!rtlpriv->rtlhal.pfirmware) {
+> +               err =3D -ENOMEM;
+> +               goto error;
+> +       }
+>=20
+>         rtlpriv->max_fw_size =3D 0x8000;
+>         pr_info("Driver for Realtek RTL8192DU WLAN interface\n");
+> @@ -160,10 +162,14 @@ static int rtl92du_init_sw_vars(struct ieee80211_hw=
+ *hw)
+>                 pr_err("Failed to request firmware!\n");
+>                 kfree(rtlpriv->rtlhal.pfirmware);
+>                 rtlpriv->rtlhal.pfirmware =3D NULL;
+> -               return err;
+> +               goto error;
+>         }
+>=20
+>         return 0;
+> +
+> +error:
+> +       rtl92du_deinit_shared_data(hw);
+> +       return err;
+>  }
+>=20
+>  static void rtl92du_deinit_sw_vars(struct ieee80211_hw *hw)
+> --
+> 2.43.0
 
