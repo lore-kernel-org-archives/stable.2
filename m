@@ -1,56 +1,56 @@
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89178471CE9
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460CD41D230
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784817786; cv=none; b=DYDZxrRftOywxV4oCURldmZwGAbezncuULYIkAr8b5S9FNXfDmzrTXPMjA9fqJoyiz8tyUh7pih2hknKgV44UAMOmbJOyFhvK0A0JnM9a3Hn09wusJSzamLNZyuIflXQvjruYpulbGVlpFdwnGslFUOM/7jXC3QPYgfobdmnqyk=
+	t=1784817789; cv=none; b=A5kR2Pp/4OxDr2l8rrjkfl5l1ayZKYURp8aEZ3XGJpxQaJtiaLRnzWGn+HWr/qzzXcmldyBgodO0sjbH7zF3EaQ2KCcivKvC7bCPeOaKo61FvEtWMa873t9d5cTLknyYLtuXQKLrUANljT6yBbiwsQU8FLFJ+6IqHdk1ega9pjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784817786; c=relaxed/simple;
-	bh=urv3PH0Hu+r4wddZceePn0aPegfOTttLbRnkIj/1jIg=;
+	s=arc-20240116; t=1784817789; c=relaxed/simple;
+	bh=id0x1+vqYq0JfWCsEJkuN9CBDGj5grW0GZvAlSld8+w=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BxRUHJ24geyQzI7xE03GErVNu8rWwJIc3BqMQaqXwaovZ0HA/UmyHO2EYcnmVg30niAv1u4+1Tbs78qTSzzeqz4JVXeQUyPLPoTcmhvz5Rqd2at8JbpqUrM4SMXtPMPz1Uz02QYbrCW84Dg8EDgiTBm+nwzZPQpGI3FaIuDmzlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D9P72l1W; arc=none smtp.client-ip=209.85.222.200
+	 To:Cc:Content-Type; b=mTCd8viKx1V7Fk+vA1xcHsVIH55k9mUkV51bsPkrIWJMS37bdVg6Xp2ECYifhMyokrMFrRx5dnWqA4DMHCttON8wScGi5abJHm0NeIFWe3I+1QaNV1ZFJiOcfJL9wVmJp+3YHW5iaMCZJso9NjoRn8MhFsTkLYJ0pVnm3bA/4dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=k5ozZF6+; arc=none smtp.client-ip=209.85.222.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D9P72l1W"
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ac0a54110so154688485a.2
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:42:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="k5ozZF6+"
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-930f5da3467so121923785a.2
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:43:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784817777; x=1785422577; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1784817779; x=1785422579; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=869dHuv35+0J2haNhjZ8z+zDAHoxp/wCA2AeLSdJygs=;
-        b=D9P72l1WB8Ha8oJ6Z0SzDlpNJ9HwUYHWqspm/DnAU4hCRl8C9YG4JdGjHW5GMa6BOI
-         bXZt2tqvEnbjxIfOYiPe9OE9uF8SfVTooW4ZuOEgPG8fsKKUQcy+bop3cWvrDD77T87w
-         GZrLnMHmwRdnnehtQrU2NhP2YugE62FJITo6dzTW1TYsTBgM9Wf5nZp3Q8bb/gLhFAn3
-         fFj6NlXpq3zqRpEw41LXKIowrMa6MpIO7c7bXx+/+wP6aFKBjyTJYTUbSv26n6wD8V8k
-         tXzUs/polDJaXVnJKOkDuZyxNfvJMNDewsZySNNcFj+qrND7396rBR/4l2Y1TcHDfAj2
-         71ew==
+        bh=DhLyU+MmRgEs+mxbSRCBMIMJkBf7ZfuAhsP2vrhwsSA=;
+        b=k5ozZF6+03+HnLLVk5+t2YYFq03j+UqHuMfjslc1EjyER8/HzMZrpSldC0C2m/NVgb
+         95eK4y2fYGim7TKejo6eg29qYaei4zsDTKj0PPjWRInCEkXj2iHQrz58U1tDCXLAa2JI
+         vUfe/gX46acD5wVFZfsN9GIUis9cw2iyWv/LuAZdb+wnqNnhrjGIosU1GtcjNU12PY9e
+         VmvXqCbiVRDS2WGip5qq6FhZPX2OlNdVqzHgTPZ9+UQ2Qa9/EBq+y29UZ0pJYfvhxh3S
+         IyRJ31P1fm2vAuxQfMiGfyACmxpWzTPqb54KJsifDhAhHIUHXFaEmk+VERgudNN0xS3v
+         oDmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784817777; x=1785422577;
+        d=1e100.net; s=20251104; t=1784817779; x=1785422579;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=869dHuv35+0J2haNhjZ8z+zDAHoxp/wCA2AeLSdJygs=;
-        b=l4KpHYqgapxNQxJLtaP2GIk51y7/SihdbwqFMEhTUyYSCU9m8NZOii+25u51inKiWG
-         T/d/0IdthxKvWXpfnt0ZcP9z4J2Jh3dBjUAIgJEtSi0V56bcuhyj0nfbG7K5+VHyf/dW
-         XA9lKGQVCmafWaU1AzITlXcDn+04Xkt587N4pzFwnAiduVzJQ6x8bBmdNeVhwIgyXlyx
-         Y2Se3MzcMF8wweUsFi0tpTJZKFi2kRLmltrUq99ZQTLSL2+F6JMnIyXayg3OXBqiP6P/
-         Br5o7/KC6BR31L6yhbLuoBQJW4ITVPsF+umRIhn+81tw5VcFSPwnY9M96HKIMIx85QEz
-         R6Lw==
-X-Forwarded-Encrypted: i=1; AHgh+RrqS+ionPY8u66v28NDBULP7Ehyjq/p1traLFnip6uy/YCzFTE9BO5AphdYB2887pl9urTmFuA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXZcPHSqaY+FaQt2WlZwfyYUncoGOBJJlUfMkiCxYNbz3Z1bu5
-	Al+vmflRgNgAxUtUnmpSRxBQreKCUeetooyABK5E/ru1KxmHIlUmlYFj1x55YRTUGKB8aQMTLMp
-	2Vq5y+XCQU4BMvw==
-X-Received: from qkbdp3.prod.google.com ([2002:a05:620a:2b43:b0:921:5ef5:dcd4])
+        bh=DhLyU+MmRgEs+mxbSRCBMIMJkBf7ZfuAhsP2vrhwsSA=;
+        b=PXs1aiEeHxUzmDIgjlbZ1en0h30T1DAEB1gQBWcQJnPVjTXGyQWhrOePWH184kBrri
+         OVouQYqLigMNKwMEPQgc0rv8NAsGCgMaoSoSbHcwU8Gg0LhYbWNFsCVzdU6bbtrmSImv
+         ElXmfta54ao49awhQKm2KGA6+waX+5eE8jKV9nYesCyXa80UpiuxUFTo1Q9F1siUU2c6
+         1474ynkNsJC3WO756H7xigeaYX+RmPXnxNttE1xN+tc0zKFgvcZSgc+h8ArsAhfqQT37
+         8MCuY/zjmSOygQLHR7lGiOCJMh8sZaUdS/IWB4igfGFPN6tUJbvo2kzHYLy0IXBqkauO
+         A1KQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqcX/X0vtluNbFy6BaQV9zHJCOis6SyuPHSZz0KWkwiXfPWb5DZgA9XjGesjs7jpeucJwVyxSc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1z7bb/zKU4IPnPOhHmAoGeC0mPkG2eYfJuNZXJnM9HTEBrhKl
+	GC0yZDbeaDi0tG3Y+cYw+0ufZhSWfR5bzCESCf0af2M7tbfqeEk+foUUyMU2tSoI5Uo+CFvLw/J
+	qS4COniza2fDa9Q==
+X-Received: from qkbe19-n1.prod.google.com ([2002:a05:620a:a413:10b0:92e:555e:f52e])
  (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:620a:459f:b0:92b:980b:e0a9 with SMTP id af79cd13be357-931036cf744mr365190285a.0.1784817776693;
- Thu, 23 Jul 2026 07:42:56 -0700 (PDT)
-Date: Thu, 23 Jul 2026 14:42:48 +0000
+ 2002:a05:620a:2951:b0:92e:de68:a288 with SMTP id af79cd13be357-931038eda19mr326623285a.48.1784817778355;
+ Thu, 23 Jul 2026 07:42:58 -0700 (PDT)
+Date: Thu, 23 Jul 2026 14:42:49 +0000
 In-Reply-To: <20260723144249.759100-1-edumazet@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260723144249.759100-1-edumazet@google.com>
 X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-Message-ID: <20260723144249.759100-5-edumazet@google.com>
-Subject: [PATCH net 4/5] vxlan: use pskb_network_may_pull() in route_shortcircuit()
+Message-ID: <20260723144249.759100-6-edumazet@google.com>
+Subject: [PATCH net 5/5] vxlan: use pskb_network_may_pull() for transmit path
+ header pulls
 From: Eric Dumazet <edumazet@google.com>
 To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
 	Paolo Abeni <pabeni@redhat.com>
@@ -70,48 +71,74 @@ Cc: Simon Horman <horms@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
 	Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-route_shortcircuit() currently calls pskb_may_pull(skb, sizeof(struct iphdr))
-(or ipv6hdr), which checks if bytes are available starting from skb->data.
+In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
+being called to verify the availability of network layer headers (ARP, IPv6/ND,
+IP/IPv6 MDB keys).
 
-However, in vxlan_xmit(), skb->data points to the MAC header, so
-skb_network_offset(skb) is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, 20)
-only checks 20 bytes from skb->data (which is 14 bytes MAC header + 6 bytes of
-IP header), leaving the rest of the IP header potentially un-pulled in non-linear
-frags. Subsequent dereferences of ip_hdr(skb)->daddr can read beyond the pulled
-linear buffer length.
+However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
+is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
+rather than skb_network_offset(skb) + len, which can leave part of the network header
+in non-linear frags.
 
-Fix this by using pskb_network_may_pull(), which adds skb_network_offset(skb) to
-the length check to ensure the full network header is present in the linear buffer.
+Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
+account for the MAC header offset.
 
-Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
-Cc: stable@vger.kernel.org
+Fixes: 465016142711 ("vxlan: Add ARP reduction support")
+Fixes: 9e061a50a116 ("vxlan: Add IPv6 Neighbor Discovery reduction support")
+Fixes: 4e94f09d84bf ("vxlan: add MDB support")
 Signed-off-by: Eric Dumazet <edumazet@google.com>
+Cc: stable@vger.kernel.org
 ---
- drivers/net/vxlan/vxlan_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/vxlan/vxlan_core.c | 6 +++---
+ drivers/net/vxlan/vxlan_mdb.c  | 4 ++--
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 10dd19eec09e266197ee51330a652f4e76c9643a..9ccbebda860480f8378918ff360deee1c46f3f7d 100644
+index 9ccbebda860480f8378918ff360deee1c46f3f7d..eff17987c5b531ecb1e2943b6274d20c1827d299 100644
 --- a/drivers/net/vxlan/vxlan_core.c
 +++ b/drivers/net/vxlan/vxlan_core.c
-@@ -2111,7 +2111,7 @@ static bool route_shortcircuit(struct net_device *dev, struct sk_buff *skb)
- 	{
- 		struct iphdr *pip;
+@@ -1850,7 +1850,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
+ 	if (dev->flags & IFF_NOARP)
+ 		goto out;
  
+-	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
++	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
+ 		dev_dstats_tx_dropped(dev);
+ 		vxlan_vnifilter_count(vxlan, vni, NULL,
+ 				      VXLAN_VNI_STATS_TX_DROPS, 0);
+@@ -2763,8 +2763,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			return arp_reduce(dev, skb, vni);
+ #if IS_ENABLED(CONFIG_IPV6)
+ 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
+-			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
+-					    sizeof(struct nd_msg)) &&
++			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
++						    sizeof(struct nd_msg)) &&
+ 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
+ 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
+ 
+diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
+index af7a0d7f95a57a17486a8ecc277b7bb9d921a061..9a9038ae90c18c5f0e4362b2b254b0c48dfdad0e 100644
+--- a/drivers/net/vxlan/vxlan_mdb.c
++++ b/drivers/net/vxlan/vxlan_mdb.c
+@@ -1631,7 +1631,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
+ 
+ 	switch (skb->protocol) {
+ 	case htons(ETH_P_IP):
 -		if (!pskb_may_pull(skb, sizeof(struct iphdr)))
 +		if (!pskb_network_may_pull(skb, sizeof(struct iphdr)))
- 			return false;
- 		pip = ip_hdr(skb);
- 		n = neigh_lookup(&arp_tbl, &pip->daddr, dev);
-@@ -2137,7 +2137,7 @@ static bool route_shortcircuit(struct net_device *dev, struct sk_buff *skb)
- 		 */
- 		if (!ipv6_mod_enabled())
- 			return false;
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET;
+ 		group.dst.sin.sin_addr.s_addr = ip_hdr(skb)->daddr;
+@@ -1640,7 +1640,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	case htons(ETH_P_IPV6):
 -		if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
 +		if (!pskb_network_may_pull(skb, sizeof(struct ipv6hdr)))
- 			return false;
- 		pip6 = ipv6_hdr(skb);
- 		n = neigh_lookup(&nd_tbl, &pip6->daddr, dev);
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET6;
+ 		group.dst.sin6.sin6_addr = ipv6_hdr(skb)->daddr;
 -- 
 2.55.0.229.g6434b31f56-goog
 
