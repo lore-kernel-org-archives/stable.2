@@ -1,75 +1,40 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB2A1E9919;
-	Thu, 23 Jul 2026 02:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A56E2750FB;
+	Thu, 23 Jul 2026 02:05:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784772267; cv=none; b=e9DGIyDeVpS8y5Q7fgtHcan8HJueD0HdaXdrF6WNB4OBFiSby1uoHssOGpiP7D+B51gsd1xSXbVGylpVvGO3yITTo26v7LEoj/+3K5I9HN37bFRWXIJhlKTgWx2hcYGwdH6N/1+9yM1G0ftQRK1d9Q91voSGr+2RaVXtkZX/Z4Y=
+	t=1784772320; cv=none; b=YLSYQK7lGiS+d7M3SySz04xLBJ5TR58nyXecFiTUf/lXgTHd5Y7qhQMkNMbNx+Q9jOnOasan4twbrEc/GkPBDrZ02OOp1FLa29OMqqZgC7O8O9fkU51mzvTJ7wac+cieruRL6487e9v5fR3oIYXuO2BRA+nlnLMacbkuio9w/EY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784772267; c=relaxed/simple;
-	bh=lm7pqDpzvFfyg1s7YLBbVdnbQsuoo47AEMv/t04zjFE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AbYLCZGpsMyEUGkvEqaDZb+o0BaxFYi1BOTmqvAOdzwAG91zLqKtf/PJeQlNXfnBWMY+i5Nzx68/1NhhRTI7aIMMD9ThW7vwuQ60cU+xXvIWABsJnFkIc+uQLvOz0g337xCU6mdQa41nuOdhHERzfUBvpXJa9FeyC8PUnAKCMUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=VrBudizQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JsnAHB1K; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1784772320; c=relaxed/simple;
+	bh=hzYIGpBXbFZonwDEQCBbDgP46W9DkA6XzZteCy3etkg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=YtKSvUygg+pu0Wvqd3THT+z/9iMu5TI5enlMZvShqvPFB1fdAR84z5n2c2ft+k2KsSBxuPe2hYv225Z+gh6J3AfOCQe8xJ1jH8GKVlNmziuZVNxxoaHLyqc24u8f17ylQ2c3KQdk1dqRlT5KmExUkzdhtxQ0zUoZhRBq6/cudQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=j21Jbnt7; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="VrBudizQ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JsnAHB1K"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id CE4437A0090;
-	Wed, 22 Jul 2026 22:04:24 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-01.internal (MEProxy); Wed, 22 Jul 2026 22:04:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784772264;
-	 x=1784858664; bh=KUsfHdOnHHU+g7Qcb8Daqto0SnCgo0E1b9OWMr2dmlc=; b=
-	VrBudizQzVdPvaJQYCYq5w03XFBYUz7uyYUanAzC5yT0XFh2QKtM9Rcd/C3ON3m9
-	g77ed1H1rapRle+VEXnfc65S1bko9DkDRIdU9R+bCVCbp9t92GekPQV5BIipUIxu
-	3TLlTskqT9IJwXPtjwNUGO1lYCyiJTt0rzjipkB5SCfrCv3XiJQ/wqiBq0dA11gg
-	5KEXEJTnbYoP80L+uGJ0i2HJ8JHYgCBlwIOPsiZWLLnGtFfCc5gMCxH53JH3j+DC
-	zkpc5zD5J2tUxns/EZRJaJi4WA8BT6UkEkBmRndTs/wbgeXQx6BI0bSb6ICTB8ja
-	iEtgnBt5tHa2OVGQpo+fHg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784772264; x=
-	1784858664; bh=KUsfHdOnHHU+g7Qcb8Daqto0SnCgo0E1b9OWMr2dmlc=; b=J
-	snAHB1Khm2yuLB8yWQoIK4zefMgoxAl9XQvF9qY3arypAYOw5Ga9rdilrbNAsNxj
-	5wAZepbmZ4G226u0XzDhqK6e8NFoXbi7/e3mjsqC4x0IizSjZWMx7uw39Pv9Pa9T
-	c9GWNPbeDfSkEdJq3FMoclZQ2Z6FBkCz2QFOOxY0Nohub5TnAI+3Veeq2tbBipbm
-	d7xIXADZOhB+qCb0S/RxeCMCoLEU35e9g36ihVoT6EIJ5FA0x3xfUC2gl7BdYlZ8
-	bwvCVR4lJLmQREBYfCLaiAk/xQOG5iPLEe1UQChzZRVm/bh1IQQsdUhzZytkOg5n
-	RtUExesKbmu02W6BlWgaA==
-X-ME-Sender: <xms:p3ZhaoBA8ov05KkJlE3fcuICbVc1cPCy388ipm3QMFazVUn_u9wurw>
-    <xme:p3ZhambFG44YxmJkAN9MkUK5A5qwVfNtAtQLr77Y7uPFzeMkWo5z50y1pRvNFmJuR
-    cUGx6Li5gjXrHnfBaEV2P8oiJLflTr6iLzNuyooxfwTzt6AyZn-1vA>
-X-ME-Received: <xmr:p3ZhanGXSOz_tjh0cA9nZ--rK-k1-qiqzw-Zsi03_qs9PWmHIFgYCCb45E-blQRztzUXIUtex5oGG8w0A5K4tr1OkvoN-4rx>
-X-ME-Proxy-Cause: dmFkZTFNYo0cc0wbd60k3E0GhGdpjEoEBkThJ+GzyaI+89TdiLMWUaHrBaVvXdvl2CYAmb
-    g4vJ2gCtvGfygUW1zrIDTz9oA7MBjhUPYEVq1S8FA5uzFFX8jAiVHSumDeG0KLOZgERwOw
-    NpturrlWdTIjA3gPCVLLbOpslZt50jrMhXCnqmXU1wT6MbPCnAciWfbvB5r+LzgMLDimsT
-    Wtb8VdiJBQ2aaX+mhN+N7Iy2Vq+PpVZB7xZete5xmdd1PtJihDrTrkoGrNf0HCFkajuevK
-    P1bsPr5wZ8tAwMJgIH46UbZHdY90aUmb3XX/oUwALl5XaQZxHLFySMXCMS7BTo6b+fxgJu
-    HqOqj9NvYcA4edn4XfIe5xBFtgt5dW6Awe2Cyiisbc8G0P1r5RMyAvMaholLGmIF3x5V/n
-    hg31MQQ5ehUHWK9OTRJOuh4zUR49QZSiJcUiJrTeXCO4MmyQyrm7xkN1h3h07VmnsA4CUa
-    7z6FMjdnnYQuTigzB1RCjLXVvaHRJ4lGLhvd1qzrNxMWX3WWutbWy8Xx0atuY4Bl0jZoY8
-    7AsLcV1HfhWFCqHAfdmxChpVkfRZEdM327C9eD/PmIcBHaVt6YRZxamyHM1wjBfBKJKz5v
-    AoejQIVe8HdFppnsLrL+5jN1DFT90JBNfT/jzU1xcW88ICfLNRs0xdb1MQyA
-X-ME-Proxy: <xmx:p3ZhaivrlsDwB42qJo3nkQfkho1j8s-qZ5yoAQnyN-aahzDH08bGTg>
-    <xmx:p3ZhalJ8mijk4m1d-0FGmWhc1sRQxGxmcBB4eN8RRfDfFT6rklNZqw>
-    <xmx:p3ZhaoMxbI185JZBhUTA-vi32U9SdUE_OaZSkvWRFFtpnG1wTLKmhQ>
-    <xmx:p3ZhalboGrQoN9gtBJc2vDWyU5QHhVQnx2elovUaQ0JxylzdjZDy5g>
-    <xmx:qHZhaj3LsGFDwx7G3lRPIYRpzRoKVRoIxfjCP-faZipXRqrWqlo21ekt>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 22 Jul 2026 22:04:21 -0400 (EDT)
-Message-ID: <9a9c873f-a4d0-4ed5-894f-296de134e9ad@pobox.com>
-Date: Wed, 22 Jul 2026 19:04:19 -0700
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="j21Jbnt7"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=hzYIGpBXbFZonwDEQCBbDgP46W9DkA6XzZteCy3etkg=;
+	b=j21Jbnt74JDV9NCT72cBGojfiVTFeBkYsniDEPCn/vszEk51Xxy62OO7uzzzjhsOyN0VBrTjE
+	8WcqQwo0IFxJ4fVzYbQHXRU5xLMiXyO2Zu3tLKDghEulrlrN1iV06FDO80v7dkdcDMTNoWTziJL
+	2gvYE0V/Eqdn1V3W7kfskB4=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4h5Djc4m4kz1prlh;
+	Thu, 23 Jul 2026 09:55:48 +0800 (CST)
+Received: from kwepemo200010.china.huawei.com (unknown [7.202.195.178])
+	by mail.maildlp.com (Postfix) with ESMTPS id C98C04057D;
+	Thu, 23 Jul 2026 10:05:13 +0800 (CST)
+Received: from [10.174.178.56] (10.174.178.56) by
+ kwepemo200010.china.huawei.com (7.202.195.178) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Thu, 23 Jul 2026 10:05:12 +0800
+Message-ID: <0adae468-745f-4f38-bb1a-151b91bb47dd@huawei.com>
+Date: Thu, 23 Jul 2026 10:05:12 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,45 +42,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/812] 5.15.212-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260722142759.100285390@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260722142759.100285390@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 6.6.y] mm/memory-failure: fix missing ->mf_stats count
+ when hugetlb folio already poisoned
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: <stable@vger.kernel.org>, Naoya Horiguchi <naoya.horiguchi@nec.com>,
+	Andrew Morton <akpm@linux-foundation.org>, Miaohe Lin <linmiaohe@huawei.com>,
+	Sasha Levin <sashal@kernel.org>, Jane Chu <jane.chu@oracle.com>,
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	<sunnanyong@huawei.com>, <wangkefeng.wang@huawei.com>, <david@kernel.org>
+References: <20260721121956.124887-1-xiqi2@huawei.com>
+ <2026072119-facial-encircle-f1c8@gregkh>
+Content-Language: en-GB
+From: Qi Xi <xiqi2@huawei.com>
+In-Reply-To: <2026072119-facial-encircle-f1c8@gregkh>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemo200010.china.huawei.com (7.202.195.178)
 
-On 7/22/26 7:30 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.212 release.
-> There are 812 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.212-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+You're right, I apologize for the misleading tag. This patch is a
+follow-up fix for the defective backport 252bb328b36f — the bug does
+not exist on mainline, so it's not a direct backport of any upstream
+commit. I'll correct this in the next version.
 
-Tested on 2 amd64 laptops, an Apple MacBook Air 13" 2017 and a Lenovo
-ThinkPad T14 Gen 1. Working well, no regressions observed.
+Also, as in your earlier comment on the v1 thread about needing
+maintainer acks — I'll ask for feedback from maintainers first before
+sending the next revision.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Thanks,
+Qi
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+On 21/07/2026 22:11, Greg Kroah-Hartman wrote:
+> On Tue, Jul 21, 2026 at 08:19:56PM +0800, Qi Xi wrote:
+>> [ Upstream commit a148a2040191b12b45b82cb29c281cb3036baf90 ]
+> That is not what this commit is :(
+>
+>
