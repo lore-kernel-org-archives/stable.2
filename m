@@ -1,97 +1,104 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0A54968FA;
-	Thu, 23 Jul 2026 14:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F367C31E84F
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 14:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784817700; cv=none; b=WrhW7xadrVlDW4N51Wh6tZGkQLKd+92/WgCMWsr66TnmZHJSnPuxbqePnidvuoo8GSV3O3EwsigLn7VQ3I+RUTRsvKC9gL9qE3W4Fi/RvQ5G8zVZCmHIF7qDel/Gxj4arg4BthZ9npRaDqGGB0VacVhcvq8f5CfhmqawrmGTeRw=
+	t=1784817777; cv=none; b=MQqIWOhELFGR4GpfmPmi1kFN4mkaPX4RsPKCD3aJqQSolNOy3lrAvvaA+eEu6vnoeFLPl0B9kupAks3t0ciVJviouyZe8/O6Y9YegKT9yct7Fv22UQZCwiUFz/FLBvPDmiKwSvi02eOEp7eZWqfrQ0SNpZzo+zr5Yu+y0Xu6+T4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784817700; c=relaxed/simple;
-	bh=j+QEq85409rQ7lRDnWtihP/gGjaWsHj7KWMflwYdQy4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pLtVMNTutD6XMj4X1ysdcr3XzNHK4ULMS9NjtfsOu3WLuU2EGmmSawF8tQrD/IrPPDxkCgAye54ZdBj0rj84E81y6sVPe59mVqUiWkGdCKQEpWdAt87MaZt37Lvj/sgO9DDzG3Trmcw7WfYoe7CMCyJDROMdUh7SB18YDd2H9wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=RYCtU8h9; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784817777; c=relaxed/simple;
+	bh=r33b6RIqiOlwBawGevUKHiUVS5mqB/L2gwdOO1KkkbE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=X5u9b7c9zgrHEgXIDv6YwHFIGzWf+0TYGtaoHXCUA7WwjMv8YocG/OZHbj53Kf7YXRG5DnpaWgVXOXi661AVVA3BIZkDoufDqzjMUkRkeEao2XJx4RhILgGL8zq11qs+TwIFpSqSrm4c6ANSbc67yjS9pMe3LRt2z3SI7r1AAtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QeEScb38; arc=none smtp.client-ip=209.85.222.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="RYCtU8h9"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 7B8781FD1F;
-	Thu, 23 Jul 2026 16:41:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784817691;
-	bh=KVj2va0chTwCQK/dZKOWdBgIGzwY05yBpepNzo5yI0I=; h=From:To:Subject;
-	b=RYCtU8h9Vm4M2Qk0/YthSppOO+nP8DfuJl24V6p+U5Ue7Ik3DodAbAVrXqjKHwaWM
-	 zwztND2JrA0feK7XLO1haVT1AfvbKRBw5oAf2R7cs/I/RJWsUI7+zFz5G9L07mkFmt
-	 lSZS1WVbptC8qVmZoS51oiURc74pia9FhDHBDDJtsyZM68yvjNEVfaoRVOD40rTYHq
-	 uU6LjGPSROEf4VbDX0jm2O9icOVhIPrVfgUCsBBXUyDCqJOBeank7ipX3i82ISTHSs
-	 hecSgWFR+X6cDZOVOgDevfMr3Zrjhj4WzR8uepGZJ7sXDJXHLMSCcl9b4UnQmaFMfB
-	 CA8IMxzghJpaw==
-Date: Thu, 23 Jul 2026 16:41:27 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	johannes@sipsolutions.net, briannorris@chromium.org,
-	francesco@dolcini.it, stable@vger.kernel.org
-Subject: Re: [PATCH v2] wifi: mwifiex: validate action frame fixed fields
-Message-ID: <20260723144127.GA234631@francesco-nb>
-References: <20260723011013.76968-1-enderaoelyther@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QeEScb38"
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93106d8af18so105291185a.0
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:42:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784817773; x=1785422573; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FKJOCAs/lYJxJhjEEgOD4qlXSETQjOLKZsuJcDjdOdY=;
+        b=QeEScb38jU+4R2lXz6AUNnuWEWnjEjWJHTtppTbu+2pzb/zYAV3vi36H8q/pw1Ihj1
+         yJOQYCp/xblX7SfAarpblmkbCM6hw94siPfNpXE7NG0eRdKiB502LfYpx9UStycacfBB
+         wx1d+FeEDvbM+/7HfakaxXRMp9GBAHaQ1fbo/qCxZwfR86f7GnpXIBbJSCQgwINKVMyy
+         eKAIpLkCQQDtF0cTVLOI7IkJy4wHb+m61Y6XNNQJzvEvFxiGHwBwZTPL2eKBiuRswxpM
+         w9Gq2ZDvnEONoJCbc9B/cN7V2z9R7zDxF8RZVXZUZVkDjjb/ARjdU+fgzRHYtjPTnUFS
+         sdRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784817773; x=1785422573;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FKJOCAs/lYJxJhjEEgOD4qlXSETQjOLKZsuJcDjdOdY=;
+        b=ZLUhglwWYBTruQACFJWdC3Zu4uL0WNLoUE6W5xN/v7uesTPFf9MhZ6PwhXwy8kZNKm
+         mI73xU2YOPu4XF8AN9V9hizuVt5UiCfpAVhoyJJcTlf/jJvuzYJSg6Z7oF6dEVKFbriA
+         BmO9DjPXf1J8C5WFnnRqKPkKjj2uwQPFUYXluQ8XYK/BiZ4ZhvzyXQ83Yg3ugbLrFhZ2
+         776VoB0K0qrLXtDYe8WePEv8JmJHMyHK9TDMp8DWVRvm5RRvkGrtV+naVs7S4cTuMS7P
+         vvg1gjyAV5RLkvMU626tO7R9ie7AkeHI++T+Hqyw1XtvhxG2FcxRSIdxexrl9eszdwK9
+         9rRg==
+X-Forwarded-Encrypted: i=1; AHgh+RqcnOgb5hDb7VGz1IYMEMt9kA/QOoGAnYPEPulmpmpj4cnP02Uh3ChUI8kZ8ffO/4TNM4Regus=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJg0Fx2fQvAdgwE9TtQMqAjg7gugksMRTh2hYWikmv0XG0au4/
+	ok5P2PgFTJ1+XT8K+jsFlPOsO+oTkVcomRS7gjGIKmUjiYIew9ggoRKarJAXrsOxY4yHvCySm3c
+	xp1S8CfpevAlF9w==
+X-Received: from qknpy20.prod.google.com ([2002:a05:620a:8794:b0:92e:e424:6d38])
+ (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:620a:7106:b0:930:f306:8275 with SMTP id af79cd13be357-9310384e7d9mr335259585a.9.1784817772312;
+ Thu, 23 Jul 2026 07:42:52 -0700 (PDT)
+Date: Thu, 23 Jul 2026 14:42:45 +0000
+In-Reply-To: <20260723144249.759100-1-edumazet@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723011013.76968-1-enderaoelyther@gmail.com>
+Mime-Version: 1.0
+References: <20260723144249.759100-1-edumazet@google.com>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+Message-ID: <20260723144249.759100-2-edumazet@google.com>
+Subject: [PATCH net 1/5] vxlan: re-fetch eth header after route_shortcircuit()
+From: Eric Dumazet <edumazet@google.com>
+To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org, eric.dumazet@gmail.com, 
+	Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jul 23, 2026 at 09:10:13AM +0800, Zhao Li wrote:
-> mwifiex_process_mgmt_packet() accepts an rx_pkt_length as small as a
-> four-address struct ieee80211_hdr plus the two-byte firmware length prefix.
-> After stripping the prefix, mwifiex_parse_mgmt_packet() can receive a
-> buffer equal to sizeof(struct ieee80211_hdr).
-> 
-> For action frames, the parser reads the category immediately after that
-> header and, for a public action frame, reads the following action code
-> without verifying that either field is present. A minimal frame therefore
-> reads one or two bytes beyond the RX buffer.
-> 
-> Validate the header and require the category and public action-code fields
-> before reading them. mwifiex parses the firmware four-address layout before
-> removing addr4, so add ETH_ALEN to the standard
-> IEEE80211_MIN_ACTION_SIZE() offsets.
-> 
-> Suggested-by: Johannes Berg <johannes@sipsolutions.net>
-> Fixes: 72e5aa8d2a6d ("mwifiex: support for parsing TDLS discovery frames")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/66f148d83eb9f0970b9abbccc85d1b61244e54ad.camel@sipsolutions.net/
-> Link: https://lore.kernel.org/all/20260708195911.84365-8-enderaoelyther@gmail.com/
-> Assisted-by: Codex:gpt-5
-> Assisted-by: Claude:opus-4.8
-> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-> ---
-> Changes in v2:
->   - Add a local header check and express the action field sizes with
->     IEEE80211_MIN_ACTION_SIZE(), accounting for the firmware layout.
-> 
->  drivers/net/wireless/marvell/mwifiex/util.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/net/wireless/marvell/mwifiex/util.c b/drivers/net/wireless/marvell/mwifiex/util.c
-> index 7d3631d212236..4043590137391 100644
-> --- a/drivers/net/wireless/marvell/mwifiex/util.c
-> +++ b/drivers/net/wireless/marvell/mwifiex/util.c
-> @@ -313,13 +313,22 @@ mwifiex_parse_mgmt_packet(struct mwifiex_private *priv, u8 *payload, u16 len,
->  	u8 category, action_code, *addr2;
->  	struct ieee80211_hdr *ieee_hdr = (void *)payload;
->  
-> +	if (len < sizeof(*ieee_hdr))
-> +		return -1;
-> +
+Before route_shortcircuit(), the eth header pointer is cached from eth_hdr(skb).
 
-I am confused, why is this check needed here, and not done in
-mwifiex_process_mgmt_packet()? 
+Inside route_shortcircuit(), pskb_may_pull() can be called, which may
+reallocate skb->head.
 
+In this case, returning to vxlan_xmit() leaves the cached eth pointer pointing to
+freed memory, leading to a use-after-free when dereferencing eth->h_dest.
+
+Fix this by updating eth = eth_hdr(skb) after calling route_shortcircuit().
+
+Fixes: ae8840825605 ("VXLAN: Allow L2 redirection with L3 switching")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+---
+ drivers/net/vxlan/vxlan_core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 67c367cc566233e809b0f70e0d939dd1c1ac0d9f..9060a1259ac283d4db4b7a854ce74203496e9313 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -2796,6 +2796,7 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	    (ntohs(eth->h_proto) == ETH_P_IP ||
+ 	     ntohs(eth->h_proto) == ETH_P_IPV6)) {
+ 		did_rsc = route_shortcircuit(dev, skb);
++		eth = eth_hdr(skb);
+ 		if (did_rsc)
+ 			f = vxlan_find_mac_tx(vxlan, eth->h_dest, vni);
+ 	}
+-- 
+2.55.0.229.g6434b31f56-goog
 
