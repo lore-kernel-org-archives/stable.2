@@ -1,143 +1,103 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47878411F88
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 10:26:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784802372; cv=pass; b=EhOB3uPdnaSCHct/mxLMJesZsmTwyVNNobR9KuWqt55RltrV+zRr42zWb8AI51Ae2ILdZyCspLNPMn79V1YNR3IBSX9CGf507Z0kqp9vJhU1xgOY2ni8QnwoDayhhn40qxoFzQ9x95irpTakQRK9XWubdumnPOUXmexMUWYknKQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784802372; c=relaxed/simple;
-	bh=5x06QjkKCMWyqn14GmrGgv/C9qLWa5XhHu055fE6FZk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wlrmvt7KzvsEAmgx9P92F5S7XFOGNvVSCFlnGGkjNHA9icvPQusZs0RCuLrxQRLOael2vH6hJutZWSCHTllh41rlxaM8mLRHI29wp2Pps0so/Kht/ytDRLpYRNhRBTevOdrr7lDsu58IvbOXv4Fju0EdE+VzGY/xrIQMBESjCak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=bOJL27gq; arc=pass smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F89B37DEBA;
+	Thu, 23 Jul 2026 10:45:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784803549; cv=none; b=blNIpRnBNJ7pm6SkXrBdc0ZpBnt9yaio7mJctnAokLO1MaAzng1rwUNHQ39xYRKi+7NizHuMXfubjhj2qfRMZKlt+ltO0OAxgRTlSTDHENSXI+r5Vc6/s1xEeSuJszgnpEZmpBiz30AOpsq4j/Lj9vBk9+CY1DPnyEKT57nY1Sc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784803549; c=relaxed/simple;
+	bh=Gz005ieLvK9dObluVsyW2SqrwIOHR5jl7iq/dbnRCqI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rHipdevxqCr1l8KZVCc9LsKH9usZSiveHCIQSKL5UfxwxiGRTSodNZzITxgkmRiy9uVHHcqSKZxSusYByMBSSqAT1FO6X6obTHP0wCAblc2clNzgMASupr8r9UK/ZXxHXWcEbt4/o2yW3GWTeiyhGGAH43tKW7JaQBBOOjlk1S8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=kRWahvqe reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="bOJL27gq"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so335945a91.0
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 03:26:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784802370; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r1zWqcoi78bCr27xpjSqhC+SprlBImhk3X03r7nnfRuuXQ9fTc3kiXwbmeJxTQDHPN
-         TNiRKVMU1tGCWEBMbRg5vXxhkQJiLoopb0V5vVDXw0UGU0iRlCo687z6W2dYwy0hbd2r
-         yD1R8RcOgQ0VjwIS0W2Z8KKEd7ue/H+aCIDF6+xeFSq2Wo+24Qq73HqzGb7APAehWuFB
-         qBIN/QSZ/NTgvMfNI3bdh1rziXQmlrQ5dy5MNhiqd4tS8J0dV7Jfr/R8L5F+x+vKjTl1
-         TVJPJeiep+bGxEdWO49eYqHgNL/dMRnRbdU3/gAV10lseao3ZOzYRMH3URS9V6+F0Iqj
-         +pCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9u1UX/uIA4BS7bXZAkDJRBnwoEvuvzO/4om9dF/YP4Y=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=KO6lhN0NbKVVYG/dD4zPskY5Uh2BGs1VcmGng1BzN4Wa894bAaIxfafjdzgBPbDuWr
-         4uql4Qe+iDvT/s9YKGco9U7ZNJi1AF0Kbw9QdM1WlLKq/eoVjlS1T6f+5lR5/t4bs3C2
-         A5SZCsM5it/bdvKmCkEu/TrIJSDPvqQOs8tEWsslcUVpLLzP3ePWOsyKogQgsQ7EL42W
-         ph9trwJKGYC/gxx2UloarLEkQQT5K35Wl8Mi5nWEy6MnAAdtws2+ehZHXzDUtDFNUZ7a
-         el1xoBd900pMc+7OmVpVmjzqcyV1DxBkzo6izxwCCyPKvvO4/GR1EMFoUdNa8N4/rG5M
-         O38A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="kRWahvqe"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1784802370; x=1785407170; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9u1UX/uIA4BS7bXZAkDJRBnwoEvuvzO/4om9dF/YP4Y=;
-        b=bOJL27gqHH3NPwtsrKM0pie0RKXyKeWgjJEj6uwGgWjS81c7uqlKc0xkHE9k7/j8/4
-         P+npl9d1CuVaft8vGsiD9oWIJQy/UNI0m7dvV450y2YRD1sZtVDooEtESkmXWX/d4TN6
-         u6VEG7YJOP5Wk0vEcjOdaLGiffLHvrwyVJgb5nWAijwyrnyy4zX56N//XT7AeLuTWyA3
-         8VaUmVUV5iwdYpbO7ohbEN9UvKMumeZ4wJGcGy4xmAkIIwAb21zZ5tQdZaLYnx2WRsyp
-         VuNVv2OTNnKZX1LOasaxbkaAWZ+RRmMkTbZDQSm4SP45+lwp5VdiUxCopKSTEQyFbixk
-         m7YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784802370; x=1785407170;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9u1UX/uIA4BS7bXZAkDJRBnwoEvuvzO/4om9dF/YP4Y=;
-        b=onwy2khO4Y2EmzQHMOUzb52M33PytpFfdUSM6wBBITGw5QVSEZmYwAeZI04qiXv7IO
-         6KlfV03IRMDTAkP02eA/8lBHIaESbC6NUFj1L92jqI1Qoi9ikFbg81kOSEaKG9LTxnGZ
-         FBDrz/TAcTTSSI0ibRcU8sg5wd+CRt8zaIWKpLIFsdaH6JJR+0hNotgoGdUZWN0TVfE2
-         cfNF2rvp6K6yc2zffs4ZZT1nf3q+oOAYIdh8JOhO08oE16aA/WfQz2a7D/iEFbIXj6Pg
-         3vc2Ng+bBKWU/QLyYKcDz5+7GPbgWVgM6bwO8dnApQnZTlkJxnT0ZW50kVe70sB4r5ut
-         jaDQ==
-X-Gm-Message-State: AOJu0YzWjISgOYuiKnlkKwWTVmjEbMuH3BCCwWqwV181XlihV81KJV4c
-	n/jFaxR4nGMPexzdpr4mz7SjBPE4qPJxEsHdyMTEqYGixlB1cMsuW84EMVCWSvc2MUXnD2xtniG
-	CkvOefAeQ8CdrT9rBIcWYqnqV2cY269Zl+8c5HTh+CiHNEcV6l0HgZs0=
-X-Gm-Gg: AR+sD11AXXnTOSdrSA0Kp1i08/28Smdd2ACn3UYnQtG1B47dUIBvvsiAGnTRAdoX25f
-	i2qFUsH0HElb+S4lub7Hmfyhv2c/Pekir7rgqRZTknoxKckyJG9IDJL+ZiHsuELayHyXOwig+rC
-	LJVkY80yTFd47MfuOZ8NkjjOSrSEPMEfxPCWkhAFh6ke0A2d/+uL4mTgv52rzdw6VXHEwWlChbE
-	Fl//2491YThvXJ6y90ARW4vYxgrAesNkVWAEWdc1P/fVKOc1NM+SBZFskFh3og=
-X-Received: by 2002:a17:90b:388e:b0:38e:bfe:81e3 with SMTP id
- 98e67ed59e1d1-38ec6495a20mr2393539a91.8.1784802370460; Thu, 23 Jul 2026
- 03:26:10 -0700 (PDT)
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=EZip6LaA/
+	xvT1L5mojIJnKqvQ/N/D0K7lb/jwkol7Eo=; b=kRWahvqeMxDx1EuS48NEh/zNQ
+	BfefCeOGMEXEm/C2DBy39v3GEgyFck9uS5v8qtLTAW+bbIGh4eKCSeB0+qjIgkq6
+	Lvr1EGksOfzdmw7nI0oHJqhM+gZGbBZYn0lOnRw6pVLrfLQnDQzJ0m+si1PU2g4H
+	9D8p2sMa46zHPlezZw=
+Received: from [192.168.1.109] (unknown [115.53.190.49])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkAGadLF8GFqtfpdAQ--.36551S3;
+	Thu, 23 Jul 2026 18:45:26 +0800 (CST)
+Message-ID: <88f9ac58-8079-415d-902c-3b9455a9d17c@stu.xidian.edu.cn>
+Date: Thu, 23 Jul 2026 18:45:23 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722142947.085426486@linuxfoundation.org>
-In-Reply-To: <20260722142947.085426486@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Thu, 23 Jul 2026 19:25:54 +0900
-X-Gm-Features: AUfX_mw8I0K_aqqKAJQwrewfO2rICwEhVFJVh1-cM4VOtjfc5UtvvOgf3K66Wvs
-Message-ID: <CAKL4bV4iTOXyeUddEpsgBgE40Ma__oCFXp8H4LxPiDdathdevA@mail.gmail.com>
-Subject: Re: [PATCH 7.1 0000/2079] 7.1.5-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tty: vt: fix memory leak in vc_allocate()
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: jirislaby@kernel.org, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, stable@vger.kernel.org
+References: <20260723070530.117552-1-25181214217@stu.xidian.edu.cn>
+ <2026072345-copartner-shrink-9596@gregkh>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <2026072345-copartner-shrink-9596@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BbQMCkAGadLF8GFqtfpdAQ--.36551S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw13Zw1kXr4rAFW8XF1kKrg_yoW8XF1rpr
+	Z5K347tFZ5K34Ika4kZwn5XFy8Ka1kXFWUGF1DGrnrZ3y5ur92kF4S9FWDWa48Krs5uw1Y
+	yrWY9as3C3WDCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU5J5rDUUUUU==
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUDEWpg3uulyAAAsE
 
-Hi Greg
 
-On Wed, Jul 22, 2026 at 11:58=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.1.5 release.
-> There are 2079 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.1.5-rc2.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+> How was this tested?  And how can this ever fail given this happens at
+> early boot time, right?
 >
 
-Linux version 7.1.5-rc2 tested.
+Hi Greg,
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
+Thank you for the review.
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+Regarding how it can fail:
+While vc_allocate() is indeed heavily used during early boot, it is also 
+reachable at runtime when dynamically allocating new virtual consoles 
+(e.g., via the VT_ACTIVATE ioctl). The failure we observed happened at 
+runtime because our fuzzing environment enables kernel fault injection 
+(failslab). The fuzzer intentionally forced the kzalloc() for the screen 
+buffer to fail, which exposed this specific error-handling path.
 
-[    0.000000] Linux version 7.1.5-rc2rv-gad98fbfe8a23
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260625, GNU ld (GNU
-Binutils) 2.46.1) #1 SMP PREEMPT_DYNAMIC Thu Jul 23 18:26:54 JST 2026
+Regarding testing:
+This issue was discovered using DevGen (our automated virtual device 
+modeling fuzzer on QEMU). While we do not have a standalone C reproducer 
+to run a dynamic runtime test, the fix was derived directly from dynamic 
+execution evidence: we cross-analyzed the precise kmemleak backtraces 
+and the fuzzer's execution logs.
 
-Thanks
+The kmemleak traces clearly showed that when fault injection intercepted 
+the screen buffer allocation, the execution jumped to `err_free`, 
+permanently bypassing the cleanup of the unicode screen map (which had 
+its refcount incremented earlier).
 
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+The patch has been compile-tested. Since con_free_unimap() safely checks 
+for a NULL pointer internally, adding it to the err_free path ensures 
+the elevated refcount is safely dropped without introducing regressions.
+
+I hope this clarifies the context of the bug and the fix.
+
+Best regards,
+Mingyu Wang
+
