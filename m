@@ -1,232 +1,206 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2592931DE;
-	Thu, 23 Jul 2026 01:42:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E766D283FDD;
+	Thu, 23 Jul 2026 01:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784770943; cv=none; b=naB3cNYGpfFfvteQXN7uqHmwmnJdJxHzQpqNgiBb3q45MWZgQwhUH91qVs1+fpt5Mn+qF+gsvHT7wfCvY2UTNOm3ALPqAo632jmZeQFzjQpHEZv24mUtnQuFZwcZRxsgaBGs+hOfBtiqfK0lQJoBL0DiX5oXoofamRxjj8sFsHY=
+	t=1784771605; cv=none; b=igKFdHtAcHGSX7cVCr87KXDVIbhSqwRBOa7vZnIdL4Pg9cChKgkTAYTKsLiZDYciHeLzDiS0BTRCLsMkLT6WFqqN0PFYKRlP4hVZBtoUZSuf0XoEYNqNBuMXOH1Bmf/OpXd3xHCNZgpWuweHAaCgT/U0Ip8xHuy6a1qzfQHctxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784770943; c=relaxed/simple;
-	bh=mNQeiHLtOE2eI3Wxy8SjxSE1jvCa/k2zMJRQl+78QXQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=myuxomCOpXwXlxdhpOhRJ3dmxO3usPcbnQglrakaa6xcYsdEr2TmonCJcc/tUw/4S1hTnxx02UGyaydoDsq/DS21cEkskYDZEN2KVkGUfUpW8M/cLDKWIXFiDwV10QqckkkLyB6YRlqlaMTUKYtiYgt+MGFTTzuLMZ7yIglEfgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Eotv/Bt7; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784771605; c=relaxed/simple;
+	bh=pY/RVr0PnYY5OgV1xRqFeKPdZ2xbKk7oq2sT/zledM0=;
+	h=Date:To:From:Subject:Message-Id; b=JaLgAvsO8vE8SW0a869IC7mJCi9UtnGl6fzKg9Um7fAeHMyJxpl8yOWFCjmhHyG5T6Dhk1zrRXWCkTC9eZgkAWFyk9HQKJggmcP1BPsgNUPB9NjJN1g6At3BOXTheabtgzVWp+1Rm3uvezFGvVwxRAof43epRgQCvE2LGsbMzfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=PaUMvGhn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Eotv/Bt7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784770942; x=1816306942;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=mNQeiHLtOE2eI3Wxy8SjxSE1jvCa/k2zMJRQl+78QXQ=;
-  b=Eotv/Bt7mya+xOvdKOEEPlsR1gbjaahGWokiu8RSpsRO1oVw7uNNIwGq
-   z3Sl78A4q/797R5r1I+DhyUWx270ypHSXJAos/URoWVKdJUykOWeM4tvG
-   aEIJ6RijwfZeOlvRXLGCbzut4GI3RKEIgRo2y25AJpx/XlSo1dBkS0iW6
-   2mO4il3D504qHMJvfSSNL0y7sv2aTQshoi6GNNwL1tT5ffv8bupKtyPS6
-   CNso+83jv7aGyEl9EHIepGaTLfb9Y4+H4rb8kqo8g479q6M14pPrSTlxN
-   gVf0LtbHn6P8zxSBiBDXyLMi/09B4TLteoOREhp/xOXSt3/dKd9Ltydkz
-   A==;
-X-CSE-ConnectionGUID: 2ycLmh+nQA2wcbFR/OfBBw==
-X-CSE-MsgGUID: j7hnnam1RIyzoNDrEHR65A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96790315"
-X-IronPort-AV: E=Sophos;i="6.25,179,1779174000"; 
-   d="scan'208";a="96790315"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jul 2026 18:42:21 -0700
-X-CSE-ConnectionGUID: J98Z6do+T8SXY+bGVZNySQ==
-X-CSE-MsgGUID: 3WHpnddbSiOHybu9ZDoe0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,179,1779174000"; 
-   d="scan'208";a="257028835"
-Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jul 2026 18:42:18 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH] gpio: pch: use raw_spinlock_t for the register lock
-Date: Thu, 23 Jul 2026 09:41:29 +0800
-Message-ID: <20260723014129.1129730-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="PaUMvGhn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6EB1F00A3A;
+	Thu, 23 Jul 2026 01:53:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784771603;
+	bh=AYrEkZ8t5GlH9evv2cCN0y7a2PX3PUgjBDuWR9y+pR8=;
+	h=Date:To:From:Subject;
+	b=PaUMvGhnwUCZk9mWg3P1Pf4eFVGWv0qA/rTSOF2bdC3byGZ20pjRf3soZNFM9QZkn
+	 445nb10w/4IyiRZp0WTH5KgEUVtqLgNxMnPItfqIPDtpRxloYEoVI7kWMC+wU/+aPy
+	 Js+DJH0uE5NZ6aGzA720+4p+9rCRse6xyBPScYe4=
+Date: Wed, 22 Jul 2026 18:53:23 -0700
+To: mm-commits@vger.kernel.org,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shikemeng@huaweicloud.com,shakeel.butt@linux.dev,roman.gushchin@linux.dev,qi.zheng@linux.dev,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,husong@kylinos.cn,hannes@cmpxchg.org,david@kernel.org,dave@stgolabs.net,chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,axelrasmussen@google.com,chenridong@xiaomi.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch added to mm-new branch
+Message-Id: <20260723015323.9B6EB1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-pch_irq_type() is registered as the irq_chip .irq_set_type callback and
-takes chip->spinlock with spin_lock_irqsave().  This callback is reached
-from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
-the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
-That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
-an rtmutex-backed sleeping lock, so acquiring it there is invalid.
 
-This was confirmed on a PREEMPT_RT kernel with lockdep
-(PROVE_RAW_LOCK_NESTING and DEBUG_ATOMIC_SLEEP).  A grounded PoC mirrored
-pch_irq_type()'s locking and drove it through the real genirq carrier
-irq_set_irq_type() -> __irq_set_trigger() -> chip->irq_set_type(), i.e.
-the same __irq_set_trigger() edge that __setup_irq() takes for a
-requested IRQ.  With the original spin_lock_irqsave() edge lockdep
-reported an invalid wait context, immediately followed by:
+The patch titled
+     Subject: mm: vmscan: fix node reclaim ignoring swappiness parameter
+has been added to the -mm mm-new branch.  Its filename is
+     mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch
 
-  BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 95, name: insmod
-  hardirqs last disabled at (3784): _raw_spin_lock_irqsave+0x4f/0x60
-   rt_spin_lock+0x3a/0x1c0
-   repro_irq_set_type+0x64/0xa0 [pch_repro]
-   __irq_set_trigger+0x69/0x140
-   irq_set_irq_type+0x78/0xd0
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch
 
-Switching the mirrored lock to raw_spinlock_t made both splats go away.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Convert the register lock to raw_spinlock_t.  The same lock also
-serializes the GPIO direction/value callbacks and the suspend/resume
-register save/restore, but all of those critical sections only perform
-MMIO register accesses (ioread32()/iowrite32()) and
-irq_set_handler_locked(); none of them contain sleepable operations.
-Keeping this register lock non-sleeping is therefore appropriate for the
-irqchip callbacks and does not change the GPIO-side locking contract.
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-This is the same class of issue and fix as recently addressed for other
-GPIO controllers, e.g. commit 286533cb14a3 ("gpio: sch: use raw_spinlock_t
-in the irq startup path") and commit 90f0109019e6 ("gpio: eic-sprd: use
-raw_spinlock_t in the irq startup path").
+The mm-new branch of mm.git is not included in linux-next
 
-Fixes: 38eb18a6f92d ("gpio-pch: Support interrupt function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Ridong Chen <chenridong@xiaomi.com>
+Subject: mm: vmscan: fix node reclaim ignoring swappiness parameter
+Date: Thu, 16 Jul 2026 11:17:29 +0800
+
+sc_swappiness() had two separate definitions depending on CONFIG_MEMCG. 
+The !CONFIG_MEMCG variant simply returned vm_swappiness, ignoring the
+proactive_swappiness value passed through scan_control.  This caused the
+swappiness parameter written to /sys/devices/system/node/nodeX/reclaim to
+have no effect when CONFIG_MEMCG is disabled.
+
+Fix this by consolidating sc_swappiness() into a single definition that
+checks sc->proactive_swappiness first, then falls back to
+mem_cgroup_swappiness() which already handles both CONFIG_MEMCG and
+!CONFIG_MEMCG.
+
+Before fix (swappiness=max ignored, mostly file pages reclaimed):
+
+    # cat /proc/sys/vm/swappiness
+    60
+    # cat /proc/vmstat | grep pgsteal
+    pgsteal_kswapd 0
+    pgsteal_direct 0
+    pgsteal_khugepaged 0
+    pgsteal_proactive 1840
+    pgsteal_anon 25
+    pgsteal_file 1815
+    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
+    # cat /proc/vmstat | grep pgsteal
+    pgsteal_kswapd 0
+    pgsteal_direct 0
+    pgsteal_khugepaged 0
+    pgsteal_proactive 18013
+    pgsteal_anon 337
+    pgsteal_file 17676
+
+After fix (swappiness=max honored, anon pages reclaimed as expected):
+
+    # cat /proc/vmstat | grep pgsteal
+    pgsteal_kswapd 0
+    pgsteal_direct 0
+    pgsteal_khugepaged 0
+    pgsteal_proactive 0
+    pgsteal_anon 0
+    pgsteal_file 0
+    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
+    # cat /proc/vmstat | grep pgsteal
+    pgsteal_kswapd 0
+    pgsteal_direct 0
+    pgsteal_khugepaged 0
+    pgsteal_proactive 16283
+    pgsteal_anon 16283
+    pgsteal_file 0
+
+Link: https://lore.kernel.org/20260716031729.1064007-3-ridong.chen@linux.dev
+Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Tested-by: Song Hu <husong@kylinos.cn>
+Reviewed-by: Song Hu <husong@kylinos.cn>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: <stable@vger.kernel.org>	[6.17+]
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/gpio/gpio-pch.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpio/gpio-pch.c b/drivers/gpio/gpio-pch.c
-index 4ffa0955a9e3..07a5617b314b 100644
---- a/drivers/gpio/gpio-pch.c
-+++ b/drivers/gpio/gpio-pch.c
-@@ -96,7 +96,7 @@ struct pch_gpio {
- 	struct pch_gpio_reg_data pch_gpio_reg;
- 	int irq_base;
- 	enum pch_type_t ioh;
--	spinlock_t spinlock;
-+	raw_spinlock_t spinlock;
- };
+ mm/vmscan.c |   19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
+
+--- a/mm/vmscan.c~mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter
++++ a/mm/vmscan.c
+@@ -199,6 +199,13 @@ struct scan_control {
+  */
+ int vm_swappiness = 60;
  
- static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
-@@ -105,7 +105,7 @@ static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 	struct pch_gpio *chip =	gpiochip_get_data(gpio);
- 	unsigned long flags;
++static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
++{
++	if (sc->proactive && sc->proactive_swappiness)
++		return *sc->proactive_swappiness;
++	return mem_cgroup_swappiness(memcg);
++}
++
+ #ifdef CONFIG_MEMCG
  
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
- 		reg_val |= BIT(nr);
-@@ -113,7 +113,7 @@ static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 		reg_val &= ~BIT(nr);
- 
- 	iowrite32(reg_val, &chip->reg->po);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
+ /* Returns true for reclaim through cgroup limits or cgroup interfaces. */
+@@ -239,13 +246,6 @@ static bool writeback_throttling_sane(st
+ #endif
+ 	return false;
  }
-@@ -133,7 +133,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
- 	u32 reg_val;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
-@@ -147,7 +147,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
- 	pm |= BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
+-
+-static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
+-{
+-	if (sc->proactive && sc->proactive_swappiness)
+-		return *sc->proactive_swappiness;
+-	return mem_cgroup_swappiness(memcg);
+-}
+ #else
+ static bool cgroup_reclaim(struct scan_control *sc)
+ {
+@@ -261,11 +261,6 @@ static bool writeback_throttling_sane(st
+ {
+ 	return true;
  }
-@@ -158,12 +158,12 @@ static int pch_gpio_direction_input(struct gpio_chip *gpio, unsigned int nr)
- 	u32 pm;
- 	unsigned long flags;
+-
+-static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
+-{
+-	return READ_ONCE(vm_swappiness);
+-}
+ #endif
  
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->pm);
- 	pm &= BIT(gpio_pins[chip->ioh]) - 1;
- 	pm &= ~BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -265,7 +265,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
- 		return 0;
- 	}
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 
- 	/* Set interrupt mode */
- 	im = ioread32(im_reg) & ~(PCH_IM_MASK << (im_pos * 4));
-@@ -277,7 +277,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
- 	else if (type & IRQ_TYPE_EDGE_BOTH)
- 		irq_set_handler_locked(d, handle_edge_irq);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 	return 0;
- }
- 
-@@ -374,7 +374,7 @@ static int pch_gpio_probe(struct pci_dev *pdev,
- 	chip->ioh = id->driver_data;
- 	chip->reg = chip->base;
- 	pci_set_drvdata(pdev, chip);
--	spin_lock_init(&chip->spinlock);
-+	raw_spin_lock_init(&chip->spinlock);
- 	pch_gpio_setup(chip);
- 
- 	ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
-@@ -407,9 +407,9 @@ static int pch_gpio_suspend(struct device *dev)
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pch_gpio_save_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -419,11 +419,11 @@ static int pch_gpio_resume(struct device *dev)
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	iowrite32(0x01, &chip->reg->reset);
- 	iowrite32(0x00, &chip->reg->reset);
- 	pch_gpio_restore_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
--- 
-2.43.0
+ static inline bool is_exec_file_folio(const struct folio *folio,
+_
+
+Patches currently in -mm which might be from chenridong@xiaomi.com are
+
+mm-vmscan-fix-anon-only-reclaim-evicting-file-pages-when-swappiness=max.patch
+mm-vmscan-propagate-real-error-code-from-per-node-proactive-reclaim.patch
+mm-vmscan-drop-unused-gfp_mask-parameter-from-__node_reclaim.patch
+memcg-move-mem_cgroup_swappiness-and-vm_swappiness-to-mm-swaph.patch
+mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch
 
