@@ -1,66 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF33486E71;
-	Thu, 23 Jul 2026 18:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784832169; cv=none; b=Ev8COYjukfdenLFjNBL0nURrWCnQ17Vq7QJo56lnLi3aHQKU8GjntmHgfR0kV2rWy2kmMOXCAvGRwLJbu/y0Bo+hyrKHsNvlBeWfrZVSlExNvd6t/Z4DARDTncacnxPgBh+jV8+wPnqfmnOaWF82fTWkPpYq57O84GyttDy6sxk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784832169; c=relaxed/simple;
-	bh=ardEq7yeuDVzjAWmhKvljSKRY5cuItCxKLd2Lrcc7PI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d5rbw5mLwiNGQCIrC+LLVDzuEuhUTArmwQFepWlcqIvXu5GzcYIgV72O+SSmBRtwAzmuyzIHSk/j1rfkYR/CwfStLOCWaqiGTT6/2Kqyk/8WNHNPLOswJ5e8V7uRzB12Lo07zAcxynIHWBOPhsdFk/jYlO5kRg5t8j5vyws8RPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nG6UZfKe; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6953BFE59;
+	Thu, 23 Jul 2026 18:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784833065; cv=pass; b=uSRHmaaGelCcpKRZsnFkdsbAOUSyxm0/t8mYPXdbbdjtRz2d4pPAMX06ya+u6M8teJOcvwgc3bxzltFtdDn7RmxAveqHVP7X+ORdxZ+lm1V0P+GZ6cDeI3btkBZVx8aJuWeDIZLzRFuM5jnWZJatN1LiNlKCfmdTw/eEY5hDKV8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784833065; c=relaxed/simple;
+	bh=o/TIRscDRaEiq+bOuIRUS6DVeAf9lC+wxgeWY1wsJUE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T0TWfzzdxWhO+w8a0TFgp0xsZq8hgIiaGWzaBcNqAgKvM11ow2kwKLCiCslgs2TZv7AubVTIDz+jHJPOWGJAS/oVt3Wo4KrpAX7/hu4MHlPCcuolpgSRYhmj+Q84SQEw20kzkEzcwVyz623UA8EGWjA+81QUAQLZ9zPqV4+sIzw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=YamoZPMd; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nG6UZfKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78591F00A3A;
-	Thu, 23 Jul 2026 18:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784832160;
-	bh=6OrJ4LQv/v/rwfPFYr9xGGbCbOXjpbIbPh1WaZGU/mU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nG6UZfKey64+plhmre2Deoah5H6u1LVm/R6xWw45qqTdNMVWlOfRxr5Zn3apLOtvt
-	 Hs0L++wdaKAiSn8ZT0Cr22vgn1n2ACN629CeAjOWqBhIVHaNo741R6yheTy7SqfmLA
-	 pi0rw/7zk1dOabRqvCGCFa0HkSRE4Pb7STbkrZPtyk/7TSGhV1jgwCxz3cCa2NzZvM
-	 W9R6NQpjMwjKFW9nc7fXwSMTknBM2PXCT0bDMMZFaCiEKdjLSOJLH8/M/U/P/RExKd
-	 7G8CvVw4dzl+cQq0sswH7PP2YPTZ4k+ZDYQTo/y80hrXs5EirhWHCSDC9kQFaEk64y
-	 5vF8LsWf/byZA==
-Date: Thu, 23 Jul 2026 11:42:39 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Laurent Vivier <lvivier@redhat.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, Stefano Brivio <sbrivio@redhat.com>, Oliver
- Neukum <oneukum@suse.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net] usbnet: cap max_mtu for drivers without bind
- callback
-Message-ID: <20260723114239.709d2477@kernel.org>
-In-Reply-To: <ce31de54-d46c-4738-909c-91ef229b7d9e@redhat.com>
-References: <20260717151626.2913171-1-lvivier@redhat.com>
-	<20260723084319.40fee97f@kernel.org>
-	<ce31de54-d46c-4738-909c-91ef229b7d9e@redhat.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="YamoZPMd"
+ARC-Seal: i=1; a=rsa-sha256; t=1784833018; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CJIbD8yOleAUy9bEhZcO/zZqgSaP61T7VfkuW6rIX0kUCfWqAwzWRaEnqd499o8QExH1n9C+OLF/ZXHQBCg/GsLhjatkcIkkpKOj9llQiOjk2jrHEqGyBcDAVC4SU+p69oYhc32E2hdJvlgQumxbnDtwKCEruTNKK6tp6Klk+dg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784833018; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=3iaYVEsIVCyK0ND5jM1y+PZ+xDP3CS2E9BUMZ4Up2Oo=; 
+	b=HXviSh6rM0PX/IgdSe7SqmrRqy2MY/G1i8UoHtCvRBAg1oeltqGu6XDIYB3l0a86tMwgCbV6zNMzT9nAmCdj8JjGt1QEbvYg8E0zYl1VF5Ts6DIzMYSiyHqHABOwy0XIGCtRQJ6Sk8ijF0DCdSW/l4jGnvSephUoZLiWYU+2OfI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784833018;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=3iaYVEsIVCyK0ND5jM1y+PZ+xDP3CS2E9BUMZ4Up2Oo=;
+	b=YamoZPMdaXhYXYKEpapZW9MZ51OlN7/5lzOhIWIGJ8h5vL8d8itbArwecTr5VIOf
+	2at1Mifxi1JOv0cws94u7QMcQTrKrfX4zh3Z/11cKr+fxjNboP3RBcaPj3JcM+K5pRA
+	4n0YBtmne91ZEZqpULB/77poNQuzEgNQFD9GZYWg=
+Received: by mx.zohomail.com with SMTPS id 1784833016441800.3413712097565;
+	Thu, 23 Jul 2026 11:56:56 -0700 (PDT)
+Message-ID: <d425f956-ab89-4381-a655-176bd6d7e8da@collabora.com>
+Date: Thu, 23 Jul 2026 21:56:50 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/virtio: fix deadlock in display_info_cb by
+ removing hotplug from dequeue worker
+To: Mikko Rapeli <mikko.rapeli@linaro.org>, stable@vger.kernel.org
+Cc: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260713-virtiogpu_syzbot-v2-1-2958fa37d46d@redhat.com>
+ <ba8a2de8-8ac7-490d-b48e-767d1e7893a9@collabora.com>
+ <amG_T7Kb7DW3VTxm@nuoska>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <amG_T7Kb7DW3VTxm@nuoska>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Thu, 23 Jul 2026 19:20:30 +0200 Laurent Vivier wrote:
->   	dev->hard_mtu = net->mtu + net->hard_header_len;
->   	net->min_mtu = 0;
-> -	net->max_mtu = ETH_MAX_MTU;
-> +	net->max_mtu = dev->hard_mtu - net->hard_header_len;
+On 7/23/26 10:14, Mikko Rapeli wrote:
+> Hi, adding stable@vger.kernel.org
+> 
+> In Yocto distro, this change released in v7.2-rc4 seems to fix quite severe qemu
+> boot hangs seen with 6.18 stable kernels. Details in
+> https://bugzilla.yoctoproject.org/show_bug.cgi?id=16217
+> 
+> Please apply this to to 6.18 and other stable trees.
 
-But we assigned 
+The patch will be auto-applied to all stable kernel versions covered by
+the `fixes` tag in the commit message, including 6.18. Thanks for
+letting know that it fixes a practical problem.
 
-	dev->hard_mtu = net->mtu + net->hard_header_len;
-
-two lines earlier, so this is just:
-
-	net->max_mtu = net->mtu;
-
-is this the expected max_mtu for most USB adapters?
-I suppose so given the patch under discussion?
+-- 
+Best regards,
+Dmitry
