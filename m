@@ -1,156 +1,277 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6A643C078;
-	Thu, 23 Jul 2026 10:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932FE23393C;
+	Thu, 23 Jul 2026 10:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784801065; cv=none; b=nWSuPD62OWhuXbnipRl9iuUlVYeZsuTMfppbcwAtOoLsOXEZNo5WAImDe/Qbg5qh6ACSsxou8KGFuImm0809Xt9Y9VWvQsSY8Y5il0omPg4nLAdRg0vsUBb/gNQO/N+4v5qmZVyBK4uZx8SgYVin5ZH3OhfEE3qqHaOfFDvXdxs=
+	t=1784801146; cv=none; b=fxD8r6LHKVFHhjo1RayWe6OvEWnGUkosXydO0D33o4MDTRo7g/woke5uxKEBtv/GWJwzgPbwq5ucx679HAevBBEo3CQMVTSrOX8LXgVGlwthIt4he/Xhwd+PPtHxV6/9PRDj8WL/k2bSee92XWNPAShD5MJCSSpFBVlkzXoacfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784801065; c=relaxed/simple;
-	bh=Zp2zjRlEvckKg9VI/3+sNo4w7X6/TyKXFfHRa8YX7aE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ahQynUZfrZ5ncniGMkog6rWIf6X9fORWgN2lxqnjQSArVk+FWJ+p4SYLvVpvCUkbCrVaYHbJfxUaLRWAzZCOo3NGILSVc7ca/Goqo0AorSChoz+E8TtvurHiTxlik9NLSdr31Tk88fgLPeHXaIrA+TKQCeddD4K4ZZ94OEmlwMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KC7bkzr3; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784801146; c=relaxed/simple;
+	bh=cGglKTVxub8fpqSlz6JJI47B+oqgmdmim1g0fVnb5Dg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BPHfdY5F5o0x6JUj7BQedJ7CNdC/lpAzy1aONAId6SK5gRRB/kJi+6El30q7vW5kYYRLsryH1C4WaotsDo7AKPZVnMcS7iMymZkc2+aIRbOL7wIenmia+nskyJ/c0glGar28UilDev+CppgyPrAcUJI5hdlj8lu9caM0LDtpFBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qfYfG9cO; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KC7bkzr3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784801063; x=1816337063;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Zp2zjRlEvckKg9VI/3+sNo4w7X6/TyKXFfHRa8YX7aE=;
-  b=KC7bkzr3RUah5C0/v3qRgXT9RwzGToEPb+q6IXAXxgCMkrTsglYihSfE
-   7tYu9kRkEveiwMweryrK+zytetp53ytK9rCVVqUBZeQVpz74xBZHPdoHI
-   UeSXibuiXzqmFKqjSbdQytF3jT9t+t8Rb41UEG5Sz/Pax0rpdkc0eRhDn
-   HvCKAqSbf9xQ4ZeBAPV17M26881kouJVQigGfdxj5uwoV90XtbzGxEAau
-   HObJeGuur4rxKsBw5UHjI/oEMLjQETagXJzUzKK/ZgVR8X+/TS4K8aRX/
-   Eo17k4PpG/ToQ/bxYTODdqwmhm8M0oyDdUAlU7qFR0Qjz/8FZouoSCFhh
-   A==;
-X-CSE-ConnectionGUID: ae5LP0JKTuGIgjeMbmGMVg==
-X-CSE-MsgGUID: HTmWIPGDT9WpHIUmp16DPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991851"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; 
-   d="scan'208";a="87991851"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 03:04:23 -0700
-X-CSE-ConnectionGUID: JZsi+HLORwG6+nPXFDCYfw==
-X-CSE-MsgGUID: +cmy2FnKSv6Z/BCEEXNptg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; 
-   d="scan'208";a="254984853"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora) ([10.245.244.122])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 03:04:17 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Sashiko-bot <sashiko-bot@kernel.org>,
-	Friedrich Vock <friedrich.vock@gmx.de>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Tejun Heo <tj@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
-	Natalie Vock <natalie.vock@gmx.de>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	cgroups@vger.kernel.org,
-	Huang Rui <ray.huang@amd.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	David Airlie <airlied@gmail.com>,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 1/6] drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-Date: Thu, 23 Jul 2026 12:03:45 +0200
-Message-ID: <20260723100350.16895-2-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
-References: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qfYfG9cO"
+Message-ID: <7ced0697-e968-4e4f-b529-e333eae764f9@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784801142;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/ADYPGwARCkWXKejUcBpoZqxXd5DnABnAkLDFbqIshw=;
+	b=qfYfG9cOu4lz4rB96rwO9oBKCsH/GEfSQCUeXHNEKWBy5s/OaU5pwdjGFZZ2xHzzXdNX2C
+	uyBNJ+n6bO/XO+3HioRyX6EIe8gwcQWTYGpg9dIT4UQtHWvsYiH3qWjTIKN2z8F3T9Tagw
+	izWgLDuBuJ1qPKIdjyaIpLcMEIAT7/I=
+Date: Thu, 23 Jul 2026 11:05:38 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH can v3] can: gs_usb: fix hardware timestamp state for
+ mixed channels
+To: Shuangpeng <shuangpeng.kernel@gmail.com>
+Cc: mkl@pengutronix.de, mailhol@kernel.org, uwu@coelacanthus.name,
+ kees@kernel.org, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260720184042.1712217-1-shuangpeng.kernel@gmail.com>
+ <da89a51e-3e42-4bcb-8e80-c992b1887ac8@linux.dev>
+ <97232020-922B-42BE-B050-A42B6FF40B85@gmail.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <97232020-922B-42BE-B050-A42B6FF40B85@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
-returns early and bypasses those initializations.
+On 23/07/2026 06:17, Shuangpeng wrote:
+> 
+> 
+>> On Jul 20, 2026, at 18:35, Vadim Fedorenko <vadim.fedorenko@linux.dev> wrote:
+>>
+>> On 20.07.2026 19:40, Shuangpeng Bai wrote:
+>>> The hardware timestamp state is shared by struct gs_usb, but
+>>> gs_can_open() and gs_can_close() tie its initialization and teardown to
+>>> active_channels and to the feature bits of the channel being opened or
+>>> closed.
+>>> This is wrong for mixed-channel devices in both directions. If a
+>>> non-timestamp channel opens first, a later timestamp-capable channel does
+>>> not initialize the shared cyclecounter/timecounter because active_channels
+>>> is already non-zero. Timestamp RX then calls timecounter_cyc2time() with
+>>> parent->tc.cc unset.
+>>> Conversely, if a timestamp-capable channel opens first and starts the
+>>> shared delayed work, then closes while a non-timestamp channel remains
+>>> active, disconnect may close the non-timestamp channel last. The old
+>>> teardown check skips gs_usb_timestamp_stop() in that case and frees
+>>> struct gs_usb while the delayed work timer is still queued.
+>>> Count the number of active timestamp-capable channels instead. Start the
+>>> shared timestamp state when the first such channel opens, stop it when the
+>>> last such channel closes, and unwind the count if open fails.
+>>> Initialize the shared timestamp lock and delayed work once during probe.
+>>> The first timestamp-capable channel may be opened while RX URBs are
+>>> already active, so guard the count and timecounter access with the same
+>>> lock. Keep the count zero until timecounter_init() completes, and make RX
+>>> and delayed work skip the timecounter while the count is zero.
+>>> Fixes: 45dfa45f52e6 ("can: gs_usb: add RX and TX hardware timestamp support")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+>>> ---
+>>> Changes in v3:
+>>> - Drop Suggested-by tag.
+>>> - Move active_timestamp_channels management into the timestamp init/stop
+>>>    helpers.
+>>> - Protect active_timestamp_channels with tc_lock, and keep it zero until
+>>>    timecounter_init() has completed.
+>>> - Make RX timestamp conversion and the delayed work skip the timecounter
+>>>    while no timestamp-capable channel is active.
+>>> - Initialize the shared timestamp lock and delayed work once during probe.
+>>> Changes in v2:
+>>> - Count active timestamp-capable channels instead of tracking only whether
+>>>    the shared timestamp worker has been started.
+>>> - Stop the shared timestamp worker when the last timestamp-capable channel
+>>>    closes, even if non-timestamp channels remain open.
+>>> - Unwind the timestamp-capable channel count on gs_can_open() failures.
+>>>   drivers/net/can/usb/gs_usb.c | 81 ++++++++++++++++++++++++------------
+>>>   1 file changed, 54 insertions(+), 27 deletions(-)
+>>> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+>>> index ec9a7cbbbc69..be25d82cedcb 100644
+>>> --- a/drivers/net/can/usb/gs_usb.c
+>>> +++ b/drivers/net/can/usb/gs_usb.c
+>>> @@ -337,6 +337,7 @@ struct gs_usb {
+>>>      unsigned int hf_size_rx;
+>>>    u8 active_channels;
+>>> + u8 active_timestamp_channels;
+>>>    u8 channel_cnt;
+>>>      unsigned int pipe_in;
+>>> @@ -447,14 +448,20 @@ static void gs_usb_timestamp_work(struct work_struct *work)
+>>>   {
+>>>    struct delayed_work *delayed_work = to_delayed_work(work);
+>>>    struct gs_usb *parent;
+>>> + bool active;
+>>>      parent = container_of(delayed_work, struct gs_usb, timestamp);
+>>>    spin_lock_bh(&parent->tc_lock);
+>>> - timecounter_read(&parent->tc);
+>>> + active = parent->active_timestamp_channels;
+>>> + if (active) {
+>>> + timecounter_read(&parent->tc);
+>>> + active = parent->active_timestamp_channels;
+>>> + }
+>>>    spin_unlock_bh(&parent->tc_lock);
+>>>   - schedule_delayed_work(&parent->timestamp,
+>>> -       GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+>>> + if (active)
+>>> + schedule_delayed_work(&parent->timestamp,
+>>> +       GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+>>>   }
+>>>     static void gs_usb_skb_set_timestamp(struct gs_can *dev,
+>>> @@ -465,6 +472,11 @@ static void gs_usb_skb_set_timestamp(struct gs_can *dev,
+>>>    u64 ns;
+>>>      spin_lock_bh(&parent->tc_lock);
+>>> + if (!parent->active_timestamp_channels) {
+>>> + spin_unlock_bh(&parent->tc_lock);
+>>> + return;
+>>> + }
+>>> +
+>>>    ns = timecounter_cyc2time(&parent->tc, timestamp);
+>>>    spin_unlock_bh(&parent->tc_lock);
+>>>   @@ -474,25 +486,40 @@ static void gs_usb_skb_set_timestamp(struct gs_can *dev,
+>>>   static void gs_usb_timestamp_init(struct gs_usb *parent)
+>>>   {
+>>>    struct cyclecounter *cc = &parent->cc;
+>>> + bool first = false;
+>>>   - cc->read = gs_usb_timestamp_read;
+>>> - cc->mask = CYCLECOUNTER_MASK(32);
+>>> - cc->shift = 32 - bits_per(NSEC_PER_SEC / GS_USB_TIMESTAMP_TIMER_HZ);
+>>> - cc->mult = clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ, cc->shift);
+>>> -
+>>> - spin_lock_init(&parent->tc_lock);
+>>>    spin_lock_bh(&parent->tc_lock);
+>>> - timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
+>>> + if (!parent->active_timestamp_channels) {
+>>> + cc->read = gs_usb_timestamp_read;
+>>> + cc->mask = CYCLECOUNTER_MASK(32);
+>>> + cc->shift = 32 - bits_per(NSEC_PER_SEC /
+>>> +       GS_USB_TIMESTAMP_TIMER_HZ);
+>>> + cc->mult = clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ,
+>>> +        cc->shift);
+>>> +
+>>> + timecounter_init(&parent->tc, &parent->cc,
+>>> +  ktime_get_real_ns());
+>>> + first = true;
+>>> + }
+>>> + parent->active_timestamp_channels++;
+>>>    spin_unlock_bh(&parent->tc_lock);
+>>>   - INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
+>>> - schedule_delayed_work(&parent->timestamp,
+>>> -       GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+>>> + if (first)
+>>> + schedule_delayed_work(&parent->timestamp,
+>>> +       GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+>>>   }
+>>>     static void gs_usb_timestamp_stop(struct gs_usb *parent)
+>>>   {
+>>> - cancel_delayed_work_sync(&parent->timestamp);
+>>> + bool last;
+>>> +
+>>> + spin_lock_bh(&parent->tc_lock);
+>>> + parent->active_timestamp_channels--;
+>>> + last = !parent->active_timestamp_channels;
+>>> + spin_unlock_bh(&parent->tc_lock);
+>>> +
+>>> + if (last)
+>>> + cancel_delayed_work_sync(&parent->timestamp);
+>>>   }
+>>>   
+>>
+>> tc_lock serializes active_timestamp_channels updates, but this work manipulation
+>> is not protected. Imagine CPU0 doing gs_usb_timestamp_stop while CPU1 is doing
+>> gs_can_open:
+>>
+>>     CPU0     CPU1
+>>
+>> gs_usb_timestamp_stop() gs_usb_timestamp_init()
+>>   spin_lock_bh(&tc_lock);
+>>   active_timestamp_channels--
+>>   last = true
+>>   spin_unlock_bh(&tc_lock);
+>> ... spin_lock_bh(&tc_lock)
+>> ...   timecounter_init()
+>> ...   first = true;
+>> ... spin_unlock_bh(&tc_lock)
+>> ... schedule_delayed_work()
+>>   cancel_delayed_work_sync()
+>>
+>> And the device will have no worker while active_timestamp_channels is not 0.
+>>
+>> I think we have to find another way of synchronization here.
+>>
+> 
+> Thanks for your check.
+> 
+> I thought these paths were already serialized by RTNL through
+> ndo_open/ndo_stop. If additional synchronization is needed,
+> do you have any suggestions?
 
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
-is called, a failure triggers amdgpu_ttm_fini(), which calls
-amdgpu_vram_mgr_fini(), which then:
+Ok, fair, but we are slowly moving towards per-device locks. May need to
+revisit this part later.
 
- - Calls list_for_each_entry_safe() on reservations_pending and
-   reserved_pages, whose list_head::next pointers are zero-initialized
-   (NULL). The loop does not recognize them as empty and dereferences NULL.
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
 
- - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
-   via for_each_free_tree(). Since mm->free_trees is NULL
-   (never allocated), this dereferences NULL.
-
-Both result in a kernel panic on the module load error path.
-
-Fix by moving drmm_cgroup_register_region() to after the list and buddy
-allocator are fully initialized, so the teardown path is safe to run.
-
-Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.14+
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 2a241a5b12c4..ac3f71d77140 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	struct ttm_resource_manager *man = &mgr->manager;
- 	int err;
- 
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
- 				  adev->gmc.real_vram_size);
- 
-@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	if (IS_ERR(man->cg))
-+		return PTR_ERR(man->cg);
-+
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
- 	return 0;
--- 
-2.55.0
-
+> 
+>>
+>>>   static void gs_update_state(struct gs_can *dev, struct can_frame *cf)
+>>> @@ -980,10 +1007,10 @@ static int gs_can_open(struct net_device *netdev)
+>>>      can_rx_offload_enable(&dev->offload);
+>>>   - if (!parent->active_channels) {
+>>> - if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+>>> - gs_usb_timestamp_init(parent);
+>>> + if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+>>> + gs_usb_timestamp_init(parent);
+>>>   + if (!parent->active_channels) {
+>>>    for (i = 0; i < GS_MAX_RX_URBS; i++) {
+>>>    u8 *buf;
+>>>   @@ -1094,12 +1121,11 @@ static int gs_can_open(struct net_device *netdev)
+>>>   out_usb_free_urb:
+>>>    usb_free_urb(urb);
+>>>   out_usb_kill_anchored_urbs:
+>>> - if (!parent->active_channels) {
+>>> - usb_kill_anchored_urbs(&parent->rx_submitted);
+>>> + if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+>>> + gs_usb_timestamp_stop(parent);
+>>>   - if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+>>> - gs_usb_timestamp_stop(parent);
+>>> - }
+>>> + if (!parent->active_channels)
+>>> + usb_kill_anchored_urbs(&parent->rx_submitted);
+>>>      can_rx_offload_disable(&dev->offload);
+>>>    close_candev(netdev);
+>>> @@ -1152,12 +1178,11 @@ static int gs_can_close(struct net_device *netdev)
+>>>      /* Stop polling */
+>>>    parent->active_channels--;
+>>> - if (!parent->active_channels) {
+>>> - usb_kill_anchored_urbs(&parent->rx_submitted);
+>>> + if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+>>> + gs_usb_timestamp_stop(parent);
+>>>   - if (dev->feature & GS_CAN_FEATURE_HW_TIMESTAMP)
+>>> - gs_usb_timestamp_stop(parent);
+>>> - }
+>>> + if (!parent->active_channels)
+>>> + usb_kill_anchored_urbs(&parent->rx_submitted);
+>>>      /* Stop sending URBs */
+>>>    usb_kill_anchored_urbs(&dev->tx_submitted);
+>>> @@ -1577,6 +1602,8 @@ static int gs_usb_probe(struct usb_interface *intf,
+>>>    parent->channel_cnt = icount;
+>>>      init_usb_anchor(&parent->rx_submitted);
+>>> + spin_lock_init(&parent->tc_lock);
+>>> + INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
+>>>      usb_set_intfdata(intf, parent);
+>>>    parent->udev = udev;
+> 
+> 
