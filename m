@@ -1,98 +1,116 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6623403FA
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784821424; cv=pass; b=bhZZtqHBRW5vd7CSzer9Tgb2a1p6ESXnVrdHBgfWv0iSb0Ysb62xPn1u/dur4Pg4QOUWTkAAfRgnuI1fwmEOcB6gqZycVwL8T6C+0epj/9XKnEtbL2y9dnmXcV9y1AB4sbGG0dYhbTEvHDQUlCNc46BBJrGPJKg3sRojTGbvR98=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784821424; c=relaxed/simple;
-	bh=y3yJdLF4p5kROIsqaE7iia3mpx0KwmfIDoZ137chD/c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fkjkZXI60yPXk74pBQxvnCU9ldj6DQLAoMPxBh1lecf5i4n48QxRszKC0AJu6mnkV9x9eQZeiIqnMFVzzSCLm7xw3bteZIIilTZT4Jf2XybKE3Kg3m9L7I94L5qSeoG7S3r2cnjwV0z1Z/lF+bTmq9wtB3QjeuiepwERP6JoR+E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o1uxibIf; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E6F33C18B;
+	Thu, 23 Jul 2026 15:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784821502; cv=none; b=FvqyoxCVzK/OSmjCQfTVWUa1oSxN52q5BN7sa01BOJ4B/ll1xW2jnphulc4OvW2Qrv436QD9bLB3E4TT1qDkKds9y1RoWK5nBGFFfGetCEqvcMpBB8fd6WoN47v3+WaXE3Lv4rbRCMnhS/inKReXJLa1Arm+7l2TgMt1DO+DF3Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784821502; c=relaxed/simple;
+	bh=L5WhXl1coFr5/YzoMg+vNwfNEONEjc1zLYItXp/gY4c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qKrNLmZp7kCwXHFv41SjgcKMKThfPrMzi5gliUeA7prlTNtPOnOKYLtydzfeWoeZiqdEmTeGWA4CJMu4NL/9KhJ7AvbyF3wjfftW2DE9k3qh9AhFY9Jj6o80rCg538gTaAPfXPZ9C3wfR2ma8BZiyavwV6OTQx7qlHqpCbgUXaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GPEGYTxO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o1uxibIf"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-69f4acf7047so201173a12.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 08:43:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784821414; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EtD44vW9MhOo14bIQ52TXzz+3JWg99W6ZL0UxuHoCz9O1UCNjbkZO9DfEAL4pKG586
-         XVpiSmtA3+owdKdH2PR1k78Jge1CJtjjRm09gxeKWYdxiNrwqDpFNiAnDeJhly2F84UG
-         Lb48GfXdpf600+Ss1quGLlP3lSoW7g7PoDqU2hQAT8pxiQlEiQYgyUq7vPP5Cv1zF24X
-         CC6OOTW7xyMT+UG44eWzNY9r6k5HYw7Te7RLZXoVgCfCfBzhenTdPjBFaseeq5Dl/5qd
-         jaBWIJuybNDTVHLn2FlyM3b8jfjnhJ52/zOa0bDIsp5rAvNp8eOmi9DWwlhy/zynco/1
-         uMNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=y3yJdLF4p5kROIsqaE7iia3mpx0KwmfIDoZ137chD/c=;
-        fh=UDtof/A8UjAEaulMfQ6KiYZA+SjlarBCowtAGR5RfJ0=;
-        b=CCfXqbGM7Kdl3JqByui+bmEXp59zqpakFD742Aak08jHKHSzmlC/XHbTBnXrC2SpoK
-         nl5yPKd00Mt5FdfFRY0BVYMyBfLXunnuIYmdMSZpzvF9KrT2Y3O0XakieIYp6KFwcHkQ
-         yb6qhK1ZdzKQvXKBxq2srAb//HPnNYlcQVN4PsNtpTgzu3wZoncmPomebEJeXWfmm4EP
-         L1aBSnhY/LIQyycrL2VxIwbo52Axp95P/owL9XM4MeBGMoE/3BlVgtUVfX8ksGCjYNCK
-         0MI/685GmgaSj5t22LkGQSUB/PEqGBuer9KHZSh6B8J0xquci/1kiJYinSep6zwCxa4H
-         iPPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784821414; x=1785426214; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y3yJdLF4p5kROIsqaE7iia3mpx0KwmfIDoZ137chD/c=;
-        b=o1uxibIfx7Xnt457MQzE8/zjN7I4enQ0vBFMSVS4sEQhfX+zBa1d8ux8WUaOBl+axI
-         IJw8gTXzW1HBy7sSYFo7hYLIvFSX+ZcoHk9AVU5J+yFkEKlOIiGUa2/es0j335LH8/b7
-         fxljIyjSXoABUvPypa+DO86FvoOdKOry8/wXlmrYNr4wq98wS2keB4uym/bKTW286eTQ
-         YkfyiXtdFcbxqXwvyBbir/njLYuljlec1CXfs3w5cbuWYpSvQRn9gHiTeNx01yW6y9L4
-         hilzRMFSfDZne4uNuE1odotcMzaBQFp+RY/LJPuxyrsUJOgNCnvWYuewc9J9Fk3zVLsM
-         1ORA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784821414; x=1785426214;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y3yJdLF4p5kROIsqaE7iia3mpx0KwmfIDoZ137chD/c=;
-        b=jVe0hP5oN3fi/dfyMD4qOUn/Zzz5vwpqbxspLJZYGnT6RbFABC/9fC91I8yriFebyB
-         zsCa6egAeHdSp9UYrIAR62grZlkkqcF/YZl2H75IN28s773qhzfmoFK4i52O/evcDpce
-         R2QLDTc+eOL8SlmNCiRkk8aDHI26a4ttm1pTJBmTeUkVCeE2irkjPGgbwHL/7IOocDc4
-         Qq8AfN51NoWxy6tqge3kqg3FoWc075JMAKSrJSJe1rVwG9+ic9omsCSLLsN8lJQFVFS7
-         9McG1v1gKKX52jgQ+oxE2wDBlzNbF+kmMkkDcUQY0q3LVkE8YdsBq+G4U7NImfFSX7IC
-         ZiZQ==
-X-Forwarded-Encrypted: i=1; AHgh+RobLneXioWP3oYf4Py1Q8akpw7PGzG3gGw3sG2uOxkpAaw7pIqYxu26ynlo+oT/qmv79h4cNRo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmwsmpBjVHCZqRgERW3jMFPe0mWA62TU9IN6RjJ8vrZANKHrhE
-	ioZuEQSglvdx3WS0Z6WFt5clbt2LRQwyszxmFBaKg56YdnC+CiLrKMvZOQSaEa0wNioNdcyRywG
-	FOz/OdXXfpdgzGUb335/I7uClmbtxzvI=
-X-Gm-Gg: AR+sD13rly6JWO96VU9E7Gysqkh2mRO/v4CTaNe2gfyeVmUWOJvWCwOAY8IRxHvieDv
-	jHnr4DI1gdIdrQeHwqIlinEUgYrzmTkL/lD0q+agMOsTk7vpq5CPBgtUcA8zlFLMzWorFUewKUu
-	ACFUetR07WnKM6wJ2j9zYEbxAS7+VzvTZrbNj6H/opq5ldHKX0iKOlcCyhjBJFX59qlT8TskI62
-	/FhZRrzZBhGfesQn2KxC+QEupEHONXu0xxHsoyJxVjbMg5ZOedg2/AM2D00z1z9q/PMyWcqILcl
-	FWJ7Mh1OPsq1BLs=
-X-Received: by 2002:a05:6402:5290:b0:697:f633:47ca with SMTP id
- 4fb4d7f45d1cf-69f6ab45963mr905098a12.6.1784821413483; Thu, 23 Jul 2026
- 08:43:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GPEGYTxO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 645A2C2BCB8;
+	Thu, 23 Jul 2026 15:45:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784821502;
+	bh=L5WhXl1coFr5/YzoMg+vNwfNEONEjc1zLYItXp/gY4c=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=GPEGYTxOldo5VZIx/K83wicVN1rclF8m/kuer8lqo3zvBTE0MXNkT97aozzPMOSTb
+	 bBYO74oWgjzFCreMnAaskbfPKzIckOBntUpDdfNIgpRNFiU9LfNwzRGTw12BW/y4C0
+	 ScmhBOiZivQYk8qbGYWSMIJitDR2Mbk+jsiNuHObc+hf/W08z378IV7vVpR77yrwxI
+	 D60k099m1EWvX3ZLpN/SEUoyWKDWr9L1mEPmt/bWsk7d2Gbz4rGFNEXvVr3maIUP69
+	 cf4HmdHWgzxRW+bXcm4ivewIvPZAq9rtD0pVqfFC9FNHdtxQ7+vOCtC3Kn+ri6IAas
+	 dxPrbNik7koTQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DB45C531F8;
+	Thu, 23 Jul 2026 15:45:02 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Thu, 23 Jul 2026 17:44:56 +0200
+Subject: [PATCH] hwmon: (pmbus/core) notify on the hwmon device, not the
+ i2c client
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720164738.2921802-1-nicoyip.dev@gmail.com> <CABBYNZ+G3jD3A6-k1fEm2sSRa27o8s0PNN_arzVa8de-eJK8oQ@mail.gmail.com>
-In-Reply-To: <CABBYNZ+G3jD3A6-k1fEm2sSRa27o8s0PNN_arzVa8de-eJK8oQ@mail.gmail.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Thu, 23 Jul 2026 23:43:21 +0800
-X-Gm-Features: AUfX_mwwyaNw9z-1nV9cpcV4k46oEw0QUp3y91y5WUTGsxw741-07Wj9uXIfycM
-Message-ID: <CAAo+4rWXA=zojvcZPM-WN2L1rPWNNYZRhnj70AgJ4mRvd=o9cw@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: hci_sync: Fix scan response data UAF
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-fix_hwmon_notify_v1-v1-1-5a24c528686d@free.fr>
+X-B4-Tracking: v=1; b=H4sIAPc2YmoC/x2MQQqAIBAAvyJ7TlCTpL4SIVFb7iENDSuivycdB
+ 2bmgYSRMEHHHoiYKVHwBWTFYHKjX5HTXBiUUI0wquYLXdadW/DWh4OW22bJjUY5trrWzSShlHv
+ Eov3XfnjfD7qlFTdlAAAA
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784821501; l=1985;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=mvBVaQ/t9TqovxzoIusrFozS/2VXRXLUOR6BEPoWm7A=;
+ b=GOwMDFU2EGh4zEkApIoHvh9my2mZaaEDWVKHquKMgbTaCoC9rXGKANGnvQfBbCdPJ6sM0YrCR
+ T6H4mq8FnABD1ab9+ILw0N2+RNSYyO8SORzscKRW7XbcD8AD55Oza5J
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-No problem at all, a v2 patch has just been sent to address the
-similar problem in
-other functions.
+From: Vincent Jardin <vjardin@free.fr>
+
+pmbus_notify() calls sysfs_notify() and kobject_uevent() on the i2c
+client's kobject, but the alarm attributes live on the hwmon class
+device registered by pmbus_do_probe(). Notifying the parent i2c device
+is a no-op for both poll(POLLPRI) waiters and udev listeners: the named
+attribute does not exist on that kobject.
+
+Notify the hwmon device instead, so poll() wakes up and "change"
+uevents fire on the inX_alarm/tempX_alarm attributes when SMBALERT#
+reports a fault.
+
+Fixes: f469bde9afd1 ("hwmon: (pmbus/core) Notify hwmon events")
+Cc: stable@vger.kernel.org # v6.4+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Found during the review of the MPQ8646 series (v1):
+
+  https://lore.kernel.org/all/20260723131352.182B61F000E9@smtp.kernel.org/
+
+The sysfs_notify() half is a no-op today: the named attribute does not
+exist on the i2c client's kobject. Note the KOBJ_CHANGE uevent source
+moves from the i2c device to the hwmon class device, matching what
+hwmon_notify_event() does.
+---
+ drivers/hwmon/pmbus/pmbus_core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index 3143b9e0316c..0081f16c3a95 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -2985,8 +2985,9 @@ static void pmbus_notify(struct pmbus_data *data, int page, int reg, int flags)
+ 
+ 		if (reg == sreg && page == spage && (smask & flags)) {
+ 			dev_dbg(data->dev, "sysfs notify: %s", da->attr.name);
+-			sysfs_notify(&data->dev->kobj, NULL, da->attr.name);
+-			kobject_uevent(&data->dev->kobj, KOBJ_CHANGE);
++			sysfs_notify(&data->hwmon_dev->kobj, NULL,
++				     da->attr.name);
++			kobject_uevent(&data->hwmon_dev->kobj, KOBJ_CHANGE);
+ 			flags &= ~smask;
+ 		}
+ 
+
+---
+base-commit: 248951ddc14de84de3910f9b13f51491a8cd91df
+change-id: 20260723-fix_hwmon_notify_v1-74e1a94346c1
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
