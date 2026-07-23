@@ -1,73 +1,43 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D11215075
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 01:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAF51E9919
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 01:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784769022; cv=none; b=lLjGSfPONKuC246DgTxboWPvqunr8V2Z6jRiTjRqcnxm2/3YExMdIG2XtqMPVfKHixzow1CwmS8nfX6KHmTSiwTROSzB0n52a8qLEwqMqxffUfxwx+qjQyh46ePQqPTAG0BhipewNuAOasP2mgOGOKjo3HsRxRCvGhsWfj+mIFE=
+	t=1784769407; cv=none; b=lkIRQHXC9unK9ANhue2z+PC8fKYsBxPHeZbAMTdRADCSUmzcOo2h7hsyabsPX4VIjTPMa+5G06FIC0DTQLjksTA2v08kv2jxlfEYiyu3elFtlEw9svO3s9ABp+/8+cw4OsNwfPB0C23YE/HY5+u4S0+dHkosUbsAm8pWvh/Qm1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784769022; c=relaxed/simple;
-	bh=SHYCWBQRYcbeMUNkhNZcYPbpD/drfADhAkDqNrEPbEo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OxU77dOall9gtyh9g1uRScrrE4xd+ayJaa/Dxc5yI7D1n8cRW0Ag1XYHTc8fm61AQLd+X9jriqmzMl7x09e/W5yeUvzvy6DtS29pnwRysUQFlucqbKUqBpmUVnUTyRI1MB07NtozLaAdUeKn1hV9Vkw5EqDrLDlYXeqLOtc+euo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kMucKhLN; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784769407; c=relaxed/simple;
+	bh=kN0s+Nmrw4CAr3zo6cyQWxPDtvRrgBevoqLCQZjcI30=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PSBU+m5++nHtArgmolrPmZbuylVbP9KoPz9iGgqFOTlt5rKZal0ywegDCUaHaVXII6jhh7m3XI+eMvyvadt1xBVB4vPiCgDhj9N1Wqeu/07jMuNFZkX5G6wdRV2uqgYa3v2Receg7dtV+/CporLVhTB9XGeUOUGlUECLDOroajM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aCX/LIwb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kMucKhLN"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ce7d2adef4so1451065ad.3
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 18:10:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784769021; x=1785373821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7X81Rbyibvh6xqN/yaT9IUi74PeKJQjUFG+D5wQw2cc=;
-        b=kMucKhLN8ovOfgt9ctkB/RtC9+bsZFd6T4hGXfcWml1GFhql+crjEOA9zWOdgZvmP2
-         +lgd9MYLkcja7/0TYJyjc/4atolEPAZozJ7LwQfCvI7K+xuqii98BRRiYOwN/i4nAy+W
-         9RpN+W7Xsd0uknMbVs/hCwGAnskCWDGNCcDGjLJBJMsaNAU9pAcdmHo2aGxPUfNugZ6G
-         YZBUjPL4NWF9TXy4TKZmus1GorBkd3Ny/cuwOghJncKKErBekOBvoZCdvU19Iv7+U7DC
-         eUcsi0MQJ5vC+lgRDrB1WtPEFQflYYgc0VFEVNHIHKE7mJJlXthYNXhOOo4ImS+ZEwAE
-         lFTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784769021; x=1785373821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7X81Rbyibvh6xqN/yaT9IUi74PeKJQjUFG+D5wQw2cc=;
-        b=CxaqBBFgSX79gJ27aV8du3mXsIuWO8SaJvXhHJSrJZaN0fsWSctCSbLoaBqgoGeuwL
-         HuMbrThlh9Z2DSLZbqFHU9foMpPdos/Z3adxZxzPNKDdPuk5/LzT7tFdGWoBEiKx3CTd
-         mUWiTOp/QXJaSDXePVDNY4svXPdG4bHRPLZqGaKDENurtGyiiaSHkd03Pzrx9VIdUhZS
-         d0gZuzLgsw8o0Uo6iZgUJ2s8nOKzLMj2AB1sGqf4P+EkuM3iL1/RSd8FIiQWz3H5eux6
-         /KrTyv89CETa6Ap5jytwgXIFlIG3hErCLRuZTK/FVdwWueOmuvQGAiOT+SZvQEvYIhoR
-         vN+g==
-X-Forwarded-Encrypted: i=1; AHgh+RrosFJnLAD0+C7lRa4vBKLVoAKUDhrc2jRSD58IUJYoRgk0QxG2gV55isF66ZtCHsoN7ZpI0nk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzn1y7hVFmCE/sjNG5+r4zmmoj/KVsp3QhtHN9/tKM8efWgmjdy
-	PaaXVIpJRkL+HnFdS1o3YbxFSExpFw7B3MgA4TXHy6gA/j4R24RHDxmb
-X-Gm-Gg: AR+sD13nrSQp7qNVU1jLpYaLjHYCVVbBc9CNE2/uEAYRHY9ivPlsl/NlF+XmikGLmf9
-	EpU1kD20KVtgN6sdS+tN2gvT7/1Sf1G2sL8TdCFR3ab5TiffVO2zizNLa2OYfWpAskZ4Ooep4/s
-	PhYRVvBA2msozndG8yJBp072bA9DMxyTkCnaS+VFYQE++ysqoh9saNM1cDpc9xpPq+EFyt1lKHD
-	72ceglcX6KU27UHaU/YdUD2YN2yTKrNodSUGme2R7t5tK1NZ3Y62x2wKVM6QHwWaAK9F88pIHLR
-	+JZp9ie4U0TG+DM1LPB7NRrawyPG5eSb0jxMFBDF6heEsyQn9LjMjrCJJzz3fvavX5IE1I2oRqR
-	91BO17nOQfDVAgHHOktJPj0BIhF8J0TteBnBHL6T5v+0PKOgRlrfQVkyCZLLUi8Elbt9lsFrFF8
-	Ecv6AN5QWygpMY68bFQA63PaaUlg1MaBszywitE81E0lEENEd5tYs=
-X-Received: by 2002:a17:903:2c08:b0:2ca:d31e:ac50 with SMTP id d9443c01a7336-2cfa71d95c0mr14363935ad.17.1784769020838;
-        Wed, 22 Jul 2026 18:10:20 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([203.208.189.11])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efd828asm23053005ad.19.2026.07.22.18.10.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 22 Jul 2026 18:10:20 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	johannes@sipsolutions.net,
-	briannorris@chromium.org,
-	francesco@dolcini.it,
-	Zhao Li <enderaoelyther@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] wifi: mwifiex: validate action frame fixed fields
-Date: Thu, 23 Jul 2026 09:10:13 +0800
-Message-ID: <20260723011013.76968-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aCX/LIwb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A30D1F000E9;
+	Thu, 23 Jul 2026 01:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784769406;
+	bh=A7/dkpuMLV6UmhW0R2brKifHZEpNsgygcJYyw9KC+TQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aCX/LIwbdoToS7nfgwZ+9iRSUG8ZYsQ0+K03D8SWxjeaPLd49vxOMn2X1T16kZaAx
+	 DdNWbC5wohd2KdDoDksbDLEtmJTEPX9nwA6eZe6JEtsO2CJdUBG7vfHEGxiRUM9I8c
+	 GTC84dCkOjBhWO/1+Yiu89IRczwHVbyF/ETIuoGg/uAOz2kLsnHRcL3xjPAE00UjUF
+	 n/x9SXNomNbbzOcN9xTBH9Pdlvm56+N+BVmaiVqZtdTT8HvhuyA3nLik8fKFiwbu3s
+	 3XmIDON1xVNlG2rOBeY4Ome9otFjri4LIPcUfAjmwLthJkKXyr+wnkPWM3GKxGVoZf
+	 BCloQsqf7yStg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Petr Machata <petrm@nvidia.com>,
+	Danielle Ratson <danieller@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] mlxsw: spectrum: On port enslavement to a LAG, join upper's bridges
+Date: Wed, 22 Jul 2026 21:16:42 -0400
+Message-ID: <20260723011643.2779021-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072025-extended-consumer-8888@gregkh>
+References: <2026072025-extended-consumer-8888@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,63 +46,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mwifiex_process_mgmt_packet() accepts an rx_pkt_length as small as a
-four-address struct ieee80211_hdr plus the two-byte firmware length prefix.
-After stripping the prefix, mwifiex_parse_mgmt_packet() can receive a
-buffer equal to sizeof(struct ieee80211_hdr).
+From: Petr Machata <petrm@nvidia.com>
 
-For action frames, the parser reads the category immediately after that
-header and, for a public action frame, reads the following action code
-without verifying that either field is present. A minimal frame therefore
-reads one or two bytes beyond the RX buffer.
+[ Upstream commit 987c7782f0627e1c87617458806a7e6c1995678a ]
 
-Validate the header and require the category and public action-code fields
-before reading them. mwifiex parses the firmware four-address layout before
-removing addr4, so add ETH_ALEN to the standard
-IEEE80211_MIN_ACTION_SIZE() offsets.
+Currently it never happens that a netdevice that is already a bridge slave
+would suddenly become mlxsw upper. The only case where this might be
+possible as far as mlxsw is concerned, is with LAG netdevices. But if a LAG
+already has an upper, enslaving mlxsw port to that LAG is forbidden. Thus
+the only way to install a LAG between a bridge and a mlxsw port is by first
+enslaving the port to the LAG, and then enslaving that LAG to a bridge.
 
-Suggested-by: Johannes Berg <johannes@sipsolutions.net>
-Fixes: 72e5aa8d2a6d ("mwifiex: support for parsing TDLS discovery frames")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/66f148d83eb9f0970b9abbccc85d1b61244e54ad.camel@sipsolutions.net/
-Link: https://lore.kernel.org/all/20260708195911.84365-8-enderaoelyther@gmail.com/
-Assisted-by: Codex:gpt-5
-Assisted-by: Claude:opus-4.8
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+However in the following patches, the requirement that ports be only
+enslaved to masters without uppers, is going to be relaxed. It will
+therefore be necessary to join bridges of LAG uppers. Without this replay,
+the mlxsw bridge_port objects are not instantiated, which causes issues
+later, as a lot of code relies on their presence.
+
+Therefore in this patch, when the first mlxsw physical netdevice is
+enslaved to a LAG, consider bridges upper to the LAG (both the direct
+master, if any, and any bridge masters of VLAN uppers), and have the
+relevant netdevices join their bridges.
+
+Signed-off-by: Petr Machata <petrm@nvidia.com>
+Reviewed-by: Danielle Ratson <danieller@nvidia.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: 41c8c1d65b32 ("mlxsw: fix refcount leak in mlxsw_sp_port_lag_join()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-  - Add a local header check and express the action field sizes with
-    IEEE80211_MIN_ACTION_SIZE(), accounting for the firmware layout.
+ .../net/ethernet/mellanox/mlxsw/spectrum.c    | 90 +++++++++++++++++++
+ 1 file changed, 90 insertions(+)
 
- drivers/net/wireless/marvell/mwifiex/util.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/net/wireless/marvell/mwifiex/util.c b/drivers/net/wireless/marvell/mwifiex/util.c
-index 7d3631d212236..4043590137391 100644
---- a/drivers/net/wireless/marvell/mwifiex/util.c
-+++ b/drivers/net/wireless/marvell/mwifiex/util.c
-@@ -313,13 +313,22 @@ mwifiex_parse_mgmt_packet(struct mwifiex_private *priv, u8 *payload, u16 len,
- 	u8 category, action_code, *addr2;
- 	struct ieee80211_hdr *ieee_hdr = (void *)payload;
+diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum.c
+index 85353042a790cb..8d1e7b018e9ac5 100644
+--- a/drivers/net/ethernet/mellanox/mlxsw/spectrum.c
++++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum.c
+@@ -3837,6 +3837,88 @@ static int mlxsw_sp_port_lag_index_get(struct mlxsw_sp *mlxsw_sp,
+ 	return -EBUSY;
+ }
  
-+	if (len < sizeof(*ieee_hdr))
-+		return -1;
++static int mlxsw_sp_lag_uppers_bridge_join(struct mlxsw_sp_port *mlxsw_sp_port,
++					   struct net_device *lag_dev,
++					   struct netlink_ext_ack *extack)
++{
++	struct net_device *upper_dev;
++	struct net_device *master;
++	struct list_head *iter;
++	int done = 0;
++	int err;
 +
- 	stype = (le16_to_cpu(ieee_hdr->frame_control) & IEEE80211_FCTL_STYPE);
- 
- 	switch (stype) {
- 	case IEEE80211_STYPE_ACTION:
-+		if (len < IEEE80211_MIN_ACTION_SIZE(category) + ETH_ALEN)
-+			return -1;
++	master = netdev_master_upper_dev_get(lag_dev);
++	if (master && netif_is_bridge_master(master)) {
++		err = mlxsw_sp_port_bridge_join(mlxsw_sp_port, lag_dev, master,
++						extack);
++		if (err)
++			return err;
++	}
 +
- 		category = *(payload + sizeof(struct ieee80211_hdr));
- 		switch (category) {
- 		case WLAN_CATEGORY_PUBLIC:
-+			if (len < IEEE80211_MIN_ACTION_SIZE(action_code) + ETH_ALEN)
-+				return -1;
++	netdev_for_each_upper_dev_rcu(lag_dev, upper_dev, iter) {
++		if (!is_vlan_dev(upper_dev))
++			continue;
 +
- 			action_code = *(payload + sizeof(struct ieee80211_hdr)
- 					+ 1);
- 			if (action_code == WLAN_PUB_ACTION_TDLS_DISCOVER_RES) {
++		master = netdev_master_upper_dev_get(upper_dev);
++		if (master && netif_is_bridge_master(master)) {
++			err = mlxsw_sp_port_bridge_join(mlxsw_sp_port,
++							upper_dev, master,
++							extack);
++			if (err)
++				goto err_port_bridge_join;
++		}
++
++		++done;
++	}
++
++	return 0;
++
++err_port_bridge_join:
++	netdev_for_each_upper_dev_rcu(lag_dev, upper_dev, iter) {
++		if (!is_vlan_dev(upper_dev))
++			continue;
++
++		master = netdev_master_upper_dev_get(upper_dev);
++		if (!master || !netif_is_bridge_master(master))
++			continue;
++
++		if (!done--)
++			break;
++
++		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, upper_dev, master);
++	}
++
++	master = netdev_master_upper_dev_get(lag_dev);
++	if (master && netif_is_bridge_master(master))
++		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, lag_dev, master);
++
++	return err;
++}
++
++static void
++mlxsw_sp_lag_uppers_bridge_leave(struct mlxsw_sp_port *mlxsw_sp_port,
++				 struct net_device *lag_dev)
++{
++	struct net_device *upper_dev;
++	struct net_device *master;
++	struct list_head *iter;
++
++	netdev_for_each_upper_dev_rcu(lag_dev, upper_dev, iter) {
++		if (!is_vlan_dev(upper_dev))
++			continue;
++
++		master = netdev_master_upper_dev_get(upper_dev);
++		if (!master)
++			continue;
++
++		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, upper_dev, master);
++	}
++
++	master = netdev_master_upper_dev_get(lag_dev);
++	if (master)
++		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, lag_dev, master);
++}
++
+ static int mlxsw_sp_port_lag_join(struct mlxsw_sp_port *mlxsw_sp_port,
+ 				  struct net_device *lag_dev,
+ 				  struct netlink_ext_ack *extack)
+@@ -3861,6 +3943,12 @@ static int mlxsw_sp_port_lag_join(struct mlxsw_sp_port *mlxsw_sp_port,
+ 	err = mlxsw_sp_port_lag_index_get(mlxsw_sp, lag_id, &port_index);
+ 	if (err)
+ 		return err;
++
++	err = mlxsw_sp_lag_uppers_bridge_join(mlxsw_sp_port, lag_dev,
++					      extack);
++	if (err)
++		goto err_lag_uppers_bridge_join;
++
+ 	err = mlxsw_sp_lag_col_port_add(mlxsw_sp_port, lag_id, port_index);
+ 	if (err)
+ 		goto err_col_port_add;
+@@ -3890,6 +3978,8 @@ static int mlxsw_sp_port_lag_join(struct mlxsw_sp_port *mlxsw_sp_port,
+ 				     mlxsw_sp_port->local_port);
+ 	mlxsw_sp_lag_col_port_remove(mlxsw_sp_port, lag_id);
+ err_col_port_add:
++	mlxsw_sp_lag_uppers_bridge_leave(mlxsw_sp_port, lag_dev);
++err_lag_uppers_bridge_join:
+ 	if (!lag->ref_count)
+ 		mlxsw_sp_lag_destroy(mlxsw_sp, lag_id);
+ 	return err;
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
+
