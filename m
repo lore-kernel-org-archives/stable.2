@@ -1,83 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915AD479862;
-	Thu, 23 Jul 2026 13:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2324A4D98FF
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 13:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784814066; cv=none; b=khKVlSFcM+Y98uUQUbEP5ehnz4uRzPWnT1i9nQ3VtUvNiWMSqBhCUbIo08kKjdaCHMkkRwKjpt2bKe3JJ+qCna3pawHWXltNo2v/1lxFAMdZk3lvTfDX76tje2jpkdLAw180SOv/aRawioxGTsMbhg5AQlnRrLimmLYbBI/uD/A=
+	t=1784814073; cv=none; b=EuJ+V9RgnrxfRSJggbH9LBwYWTjY79RDofMpuhyMpRQ8gyS8vWRt/whlVMpMOCDmXnFXLp2YPFHJ5PrY7GswnHxqubHEKKE4C/+lL6uPU8lNgcSmGttp04mznGqjjKtT1Vm/bMBRjYsnFnUTwLXBkbLykTvQgduhoK4wcS5x8N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784814066; c=relaxed/simple;
-	bh=BhkFA9vODK9gMT/BoA7IcFaEHu3GJOoVXWbMd6wpTSM=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=SahfGNN8F8jeSabzep7AhuSruiATO/A12kCnBfHQaE4vBiiB6sfqUxql03ccBJnHPLktVkhgjus7IOavSeO8tLFCnhmsrCUHw3iCqTWfnBERESr1AHZ+4qMFomuwocWyijAKf+XY/peAommp+NkKpW2Zz0bIhetOXLZOrkx3PbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GduH0QgE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784814073; c=relaxed/simple;
+	bh=hQphTun0YKe7wD1TxM+XfRHZxJ9Emr5qD5+3FpGqSfM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WFHpy9xN3db7pFmj1GCoL8oKa+i2oinzW61FEFI5YSzMEM+U7FP+oJhpe/thjRFGfdiz14uqSY8Z/HnK8yEBznZFPXMePm9sUTm+HGnK2yc2n2Cw5a7fSWmGdpMIw2XWT/C+MWDw38xrcUHbJuCz4JtFhnhw/Ypu4TVhbp+GLfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ajaOA+Tp; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GduH0QgE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CE0D1F000E9;
-	Thu, 23 Jul 2026 13:41:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784814062;
-	bh=eD3DjLDQXjRxJpwrn8QeuqMDI+RJmkeG6b0AN+bz9ZM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=GduH0QgE+dAvzWa3pYMSUQKj+gddyuEp6oOBnUbVF+nLU6TUx6uXfmItVcit4A+Vf
-	 g/ggzVE6ekYwhrCWJAqH9exhmT6O8WpgK3dOPRcEKp0i5UoY+lV7krZtCPq6eATfcq
-	 Pq9+Bxj6BZBmPSW/exLw19c8HHp11gMrx0+ZETG8wh7G+RybiYOaXQkidfBGP7bcLc
-	 vd1DAewqRYUWwxdoiJS4hSBeoJcZKIqsS8YYKkK1mfwHpVWIGeevX9UYAsyJhfaLWn
-	 Q7RuJtL5H5G8ijVtNuBdBZRVBu2mjiq/miU0EpUmFascnelpkdmYTDMNHyj6ElcaTF
-	 EnLvOKpls/Xtg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0C403810902;
-	Thu, 23 Jul 2026 13:40:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ajaOA+Tp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 1FC721A11AB;
+	Thu, 23 Jul 2026 13:41:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E7FF4602B8;
+	Thu, 23 Jul 2026 13:41:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8450011C10CEE;
+	Thu, 23 Jul 2026 15:41:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1784814065; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=9Q185pF0DA/CFN6GHNn6AhfxIhuntfnhwSs6ZtpfhwU=;
+	b=ajaOA+TpwOeT+/XVAyCAoZx5FLcgWMgaRocWAZKT/k2mFm6Q7CBoeMbon6X6oh+yoFE/zH
+	g2n5avmiYgHPHvzVCwMK8UtQgNoov4EJVMJoo+yhSmJg1WaG1junlh7tveQ+rMQM0RK5YC
+	419rvydyNrzvgbyT+SviqfuXEbAGuuoqfYA3z7rDpl8iawpqRSqpr/OLR6k58Be3KnqxUI
+	m9xbN9P0PT8xi5wFr0NiPwbhFvQ4oMDOZOaQxQOUWN9I12gSBNRe9UDNb0eRyykkovR2aV
+	buawn7YmpzX61CeoOzwTE01w9N24RKP0Qr/1QmMA0dGEmntyWP9Rk9b/4SqD8Q==
+From: Bastien Curutchet <bastien.curutchet@bootlin.com>
+Subject: [PATCH 0/4] rawnand: pl35x: Implement mixed ECC
+Date: Thu, 23 Jul 2026 15:41:00 +0200
+Message-Id: <20260723-mix-ecc-v1-0-7361c3baeb07@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] mctp: serial: handle zero-length frames to prevent
- rx
- buffer overflow
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178481400840.2245010.10190562168875371704.git-patchwork-notify@kernel.org>
-Date: Thu, 23 Jul 2026 13:40:08 +0000
-References: <20260715082021.46315-1-doruk@0sec.ai>
-In-Reply-To: <20260715082021.46315-1-doruk@0sec.ai>
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vdp9uwm0CBSXsVwKNtB91DQFg0J4
+ d1t5PhNJv9OGUmRqTc7JXw16zIX1BdD8vTzA6yhmGxl2+pqHUfdGCLctOhEQgPnQeX9Sph0+5f
+ uw+mE96cE13Ok0WewLDHq2pvJ3cYgHaQOQsNx/ADtSlmQiQAAAA==
+X-Change-ID: 20260529-mix-ecc-46e8ccd4e9ae
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Michal Simek <michal.simek@amd.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Bastien Curutchet <bastien.curutchet@bootlin.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hello:
+Hi all,
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+This series addresses the PL353 errata "SLC ECC misses single error to
+bit0 byte0 and fails to detect some double error cases" (see 721059 in
+[1]).
 
-On Wed, 15 Jul 2026 10:20:21 +0200 you wrote:
-> The MCTP serial receive state machine reads a frame length byte in
-> mctp_serial_push_header() case 2 and validates it upper-bound-only:
-> 
-> 	if (c > MCTP_SERIAL_FRAME_MTU) {
-> 		dev->rxstate = STATE_ERR;
-> 	} else {
-> 		dev->rxlen = c;
-> 		dev->rxpos = 0;
-> 		dev->rxstate = STATE_DATA;
-> 		...
-> 	}
-> 
-> [...]
+The ECC HW engine is known to be broken on this chip, it fails to detect
+some bitflips on reads.
 
-Here is the summary with links:
-  - [net,v2] mctp: serial: handle zero-length frames to prevent rx buffer overflow
-    https://git.kernel.org/netdev/net/c/793b9b729f1e
+This series implements a mixed-ECC where the HW engine is used on writes
+and reads are done by software. To make it work, the software ECC has to
+use the same layout for the ECC bits than the HW engine. Patches 1 & 2
+add the PL35x ordering to the available orderings for soft ECC. Patches
+3 & 4 make use of this ordering to implement the mixed-ECC for the PL353
+controller.
 
-You are awesome, thank you!
+Note that this series is based on top of nand/next.
+
+[1]: https://developer.arm.com/documentation/rlnc000227/a
+
+Signed-off-by: Bastien Curutchet <bastien.curutchet@bootlin.com>
+---
+Bastien Curutchet (4):
+      nand: hamming: Replace sm_order boolean with enum
+      nand: hamming: Add support for the PL35x ECC bit ordering
+      rawnand: base: Export nand_read_page_swecc
+      rawnand: pl35x: Implement mixed ECC computing
+
+ drivers/mtd/nand/ecc-sw-hamming.c            | 179 ++++++++++++++++++---------
+ drivers/mtd/nand/raw/nand_base.c             |  11 +-
+ drivers/mtd/nand/raw/pl35x-nand-controller.c | 173 ++------------------------
+ include/linux/mtd/nand-ecc-sw-hamming.h      |  20 ++-
+ include/linux/mtd/rawnand.h                  |   7 +-
+ 5 files changed, 161 insertions(+), 229 deletions(-)
+---
+base-commit: f97bdc8ec1dc7b33781a702eeba55326c206be56
+change-id: 20260529-mix-ecc-46e8ccd4e9ae
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Bastien Curutchet <bastien.curutchet@bootlin.com>
 
