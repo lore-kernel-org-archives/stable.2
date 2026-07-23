@@ -1,222 +1,293 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6DD38B7D4
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 04:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784781333; cv=pass; b=IgHsBuWAxVXE5fgtQAkUwitaMcZQKt0RTPa9Mie2lNysuM31fR8xZfsuiTHs4o5dphU2rWEulNpSyokfS2IQOyFVHt/C6DJiFN+ftvFojocsLtgjXpAj321QrgezaeyocC9pEk3hEomkhHpNqqKXjlLGwSvc9gEZbAonddUL4VU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784781333; c=relaxed/simple;
-	bh=3tIRl6n9ScEPVyFCPZX1mfWqRv1lJpXYKq2yg2toHMA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ddzherq9vFfQBh08fn+uoMdRCUaxvWetXLYc3hmbJdftjeJMJo1B5EsgiNxglv2Nb04sxXsRrh9A4hkiaR1NNjZHHRK/tYRc9Fg8wrQ4Fy5gfdxPbrjEZStFR+fFGkKhs3iAV/WlYfZvyCHMKJlq1VNLHMlWYrFs4GwKVtqXnfY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=MJjlqI3X; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC4D383338
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 04:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784781950; cv=none; b=YW+nEA8eXBqSU0z7H+hfMK8pBM5wk5H617lriSHJgIZDOB0CjWS3nHR7DkC2QzTy64V+OZe81Z26jpm9AH+122JRP18Gvw3OJE1s4g77TNqShjut0X9PIL3wpd5neLxs1TAY7UYfmcjJMoLwKJ/AXHfn8VaEWil+OY/1fol8MUc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784781950; c=relaxed/simple;
+	bh=HU7rck2hLWu20Ofuaaz0t+kQ4YJHcWo9r8w19P/YwqQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VCZBMJZxJLmLoj53cWhmscD343i/csqaBi1HZ/h0VPoLM0FZ2ylGiwwGJEgIL0hfvCcMi6ZWJNy/fa104YwxTxcI++XF92nxKGzqV0e8S+nKcw7qQNIYW1/lzBXbySEd1yhB0JcomG9TK9Y5pST1KgDpRBmXrU8CJLJXqDsBSB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=TJmJcQFz; arc=none smtp.client-ip=185.70.43.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="MJjlqI3X"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69f2c67650aso367912a12.2
-        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 21:35:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784781299; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GwGXtpqD4WbDDFtSiO448/YrqXKaf39Js0vKXVi6l9/AR+jq3K7+0aK6fVMvhzXQOK
-         yAA/jA60TQhkkjLr6WT8yi8LAYA+79nVEuxjV++YnbxVV+TYJbwh5mxzj/BcFRMezG2v
-         Pjqu9v7kDnYRyPBvHTPrhhNGVX8vg+051cgO9Okwme2dJKGmQZ66AE0C2H2rlivVSLmd
-         Lz8tuDiHBjmgXMtT8gmQvSL3IpCsdh9lQRsja5QnEBl8TfmV3m1FNht3l6oRXLO/8oT7
-         QsURV68OlA+sH50HDH7weVSby9izB1PB5SyVOu0c01WUNnJCRC7veb78dl4J67WHybo3
-         M9xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YVvRt3Do4BL7YwpYfYdAkO7uZ2P2iMzXV9MzEDFPk3Y=;
-        fh=Yqiwi0pHFBLpNwXzhcrW6N1cxdLnkV06pFOjM4r8TtY=;
-        b=FufGM8EIiWDDV03L0DphKKAfr6fqLgqsIXH+h9T0ch7SE/Gsln4gnXB+tpN3lvWJkU
-         sWZbLMSl2k2a1gk8Pqpz/K/NV23+QUMv8kTpV61L0vIvhZ/NM5uMJF2x0hGu0lFLIOkl
-         gVWID0X3nB7e1lXAUfy/F8SvWt2/uRRCk26HY3VEb0bt+EuBHoh38YmIuRsszbrk3pkJ
-         GD/xoLDxiNnHdVjJB31iMyadH2UvPGCTp4kCKZlVYA9S8RnegptFqV129bon4sRdZ4d3
-         3Q3I20LzCSOIV6j5ML/Q689Rvjb9i2L1scO6ydceTnHgGWUvfGNoGw8N8lfQ86qL6f6p
-         Lwqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1784781299; x=1785386099; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YVvRt3Do4BL7YwpYfYdAkO7uZ2P2iMzXV9MzEDFPk3Y=;
-        b=MJjlqI3XhKBBAQbLhAQzd+aBLi7LyjPnQYCsyCWYFnI6V+iGeiSIPNvy5oT5ezWbAb
-         4DF0bi9l1//Qw6p3yFJDZKKwqSzaTwJXLZZSDwxyWtOYF6ZhDFFNekrhIMD6gVJGeIDW
-         vz+QgXw/1LwUsaiYxgOt5liuIiZGqpxNXEAEDAjECgy/0oExjwQO8KpAYxJ6gbfhNFdv
-         zUKutCvsvvEOgRbC7kGHoco2Aq3QJA3lVDS8qovBBY6v6kIEC/9wak58iJGbqmE3xbNw
-         1OmOLiAFamrj1SW4WTmkR868J2Hijvjiy/lGXl7cqPmYC94cDo1nZCmzrnDT0EnqaIKv
-         ln6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784781299; x=1785386099;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YVvRt3Do4BL7YwpYfYdAkO7uZ2P2iMzXV9MzEDFPk3Y=;
-        b=rJEsIs2ikSvs2Pj7sT/7RWGcBWCswIA5gw+UdIdM8ilc9afgk/TEtWSEhF5iA4o1cO
-         Ux+SfLPyhzUADaovYO/M4snxqmWBe3iWFpyERmNAlOp+fNDVaLs0N47TsxNxjaPcMroT
-         6krlbN4A2mZgSiITePwd6lqQiI8eFqz2tG+PesZIzXYzyqSfdb5aGyEkuD7n+0IvTBLs
-         AjnTQdAIin6ouKwEdpLAlzm2cP4O2om06ZQf8/mbMi41PMYUN6DZcQ8x/eadBx7zu7GV
-         oRchhyHuH7vNl8Jgg7wtwHOTv5JOnTLd4WUPRxVcOWXqofPu3Nq1XxAmrRnQPlYe/SVC
-         wo/g==
-X-Forwarded-Encrypted: i=1; AHgh+RpWa6sErHTH1OabMDGf8TJWPoB2awTX1bTPdV2Nt+a0N0tu6xwIioxo+Xij4Y1wEnaHVYrWTg4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtBiVl9gHeRT3QJAlrv59gbaM1r3AvaBoEtjUTbfOSjNw+86nc
-	eQ4V+GV6+uU2hK8ZtlAog0d3SUULvZ/Q0OmiHH3fgSWSZQBubuXPsOFvUOxwASfD4qQYnM0BG+o
-	yDEmEY/a01hatz2CAbHWSXGmpPDqpv+JeDHa9tf66Gw==
-X-Gm-Gg: AR+sD137akUeG0no40RLedNdj8bqEpU4dZXcY5CuePTvNhUB+aa1ZRHLjXggfzBfgWV
-	Hv8rzvGh4Cvy36HrZFF3euN+HqVArEDCyRy1H2MfrQh1VXfDXfRkEXVGlDWfRoAEg/9NOpUowJy
-	tSFvb1CqkneAT3udc93PHwSIj0QI/tydiHEJ93TvDL9t+AlgBvojYIKJTGOcBbuFPp4fnPCyTQZ
-	gTZ6Mgl3boPN40ZQrTdNFnmThNXoXll4hPTsxbkrDBgC2f4KvTXwnOwoi11BoN9
-X-Received: by 2002:a17:907:7ba9:b0:c15:d0ef:a0c3 with SMTP id
- a640c23a62f3a-c1c5093591bmr74498466b.32.1784781298809; Wed, 22 Jul 2026
- 21:34:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="TJmJcQFz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1784781914; x=1785041114;
+	bh=wW/CKYwNeSuhKW06GZTjMezL5yo1gpQGxj+dlS5GDO4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=TJmJcQFzfig88fQdwdXhrD2pWD5RTQe/PystMHu0gbgv5QqStm81WNo43i606ISod
+	 RkCdxWY/DPLkbTE19tNcmEjMxP8qLUt+rpef/TwR3XGXrvXE0MkNrPRrHQoJpMYj1D
+	 hzeZKpVRfEiu6cOceVBbnWUH93pSKLqr7Vsdd917vWKvxwejxosFKVxZ+XjMuff9ZV
+	 5IRe1or+xlP8e3a30gCs/1bT3Np22wUxwNF8frKWeXC38Trvxp+3jZxnHHuEwaKTN1
+	 TuPFy4i0XJgUZ2OEshG8OIThQLjaYt1tR+9mJFMHJaRexoUNFbdbwOypWgMtUOw9pq
+	 F1K69BGbpEjJQ==
+Date: Thu, 23 Jul 2026 04:45:09 +0000
+To: Nick Desaulniers <ndesaulniers@google.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Akari Tsuyukusa <akkun11.open@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Yingjoe Chen <yingjoe.chen@mediatek.com>, "moderated list:ARM SUB-ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, "open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>, "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b" <llvm@lists.linux.dev>, stable@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>, Ard Biesheuvel <ardb@google.com>
+Subject: Re: [PATCH] arm: mediatek: fix secondary CPU boot on Thumb-2 kernels with Clang
+Message-ID: <zo4Pc8hOijXVSfn0yb52lWWjOU22jy29zRsEh6SBnxdXnpeGNep29fgUzygelrmDDRCioUAggBOSG1qy_38Ex_Lmb08n7eGCyucd3j_VIbU=@protonmail.com>
+In-Reply-To: <CAKwvOdnbPKoTy72EvfpKtT9Ne-r+O0j99KFX8OvjGk8ZxsuEGw@mail.gmail.com>
+References: <20260722172443.534251-1-akkun11.open@gmail.com> <CAKwvOdnbPKoTy72EvfpKtT9Ne-r+O0j99KFX8OvjGk8ZxsuEGw@mail.gmail.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: c09dfc0e9422886d7f682f6a654403b5b201dbbd
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722114931.3557110-1-max.kellermann@ionos.com> <afb662b8da9c1365546f658d75f27c88903f8a9f.camel@dubeyko.com>
-In-Reply-To: <afb662b8da9c1365546f658d75f27c88903f8a9f.camel@dubeyko.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Thu, 23 Jul 2026 12:34:48 +0800
-X-Gm-Features: AUfX_mwzMooYN3DkxYc_rUC_sxcwF_f4yADvVoWtrRdjn1aDa8hLR5SIjeKRzUI
-Message-ID: <CAOJNxRKyeBw1cxtXwQXoUnGrguGhcYMDpf2Dujhp=jHofSDvNw@mail.gmail.com>
-Subject: Re: [PATCH] ceph: avoid fs reclaim while using `current->journal_info`
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Max Kellermann <max.kellermann@ionos.com>, idryomov@gmail.com, amarkuze@redhat.com, 
-	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-LGTM.
+Hi Nick,
 
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+On Thursday, July 23rd, 2026 at 12:03 AM, Nick Desaulniers <ndesaulniers@go=
+ogle.com> wrote:
 
-Thanks & Regards
-Xiubo
+> On Wed, Jul 22, 2026 at 10:25=E2=80=AFAM Akari Tsuyukusa <akkun11.open@gm=
+ail.com> wrote:
 
-On Thu, 23 Jul 2026 at 01:20, Viacheslav Dubeyko <slava@dubeyko.com> wrote:
+...
+
+> There's definitely some difference between clang and GAS here.
+> https://github.com/llvm/llvm-project/issues/211376
 >
-> On Wed, 2026-07-22 at 13:49 +0200, Max Kellermann wrote:
-> > handle_reply() stores a `ceph_mds_request` pointer in
-> > `current->journal_info` while filling the inode and dentry cache from
-> > an MDS reply.
-> >
-> > An allocation in this section can enter direct reclaim and prune
-> > dentries from another filesystem.  If this dirties an ext4 inode,
-> > ext4
-> > starts a JBD2 transaction.  JBD2 interprets the Ceph request in
-> > `current->journal_info` as a journal handle and dereferences the
-> > request's `r_tid` as `h_transaction`, causing a kernel crash, e.g.:
-> >
-> >  Unable to handle kernel paging request at virtual address
-> > 00000000077b4818
-> >  [...]
-> >  Internal error: Oops: 0000000096000004 [#1]  SMP
-> >  Modules linked in:
-> >  CPU: 6 UID: 0 PID: 2699135 Comm: kworker/6:3 Tainted: G
-> > W           6.18.38-i3 #1113 NONE
-> >  [...]
-> >  Workqueue: ceph-msgr ceph_con_workfn
-> >  pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> >  pc : jbd2__journal_start+0x2c/0x208
-> >  lr : __ext4_journal_start_sb+0x100/0x178
-> >  [...]
-> >  Call trace:
-> >   jbd2__journal_start+0x2c/0x208 (P)
-> >   __ext4_journal_start_sb+0x100/0x178
-> >   ext4_dirty_inode+0x3c/0x90
-> >   __mark_inode_dirty+0x58/0x400
-> >   iput.part.0+0x2b0/0x370
-> >   iput+0x18/0x30
-> >   dentry_unlink_inode+0xc0/0x158
-> >   __dentry_kill+0x80/0x250
-> >   shrink_dentry_list+0x90/0x130
-> >   prune_dcache_sb+0x60/0x98
-> >   super_cache_scan+0xe8/0x190
-> >   do_shrink_slab+0x174/0x388
-> >   shrink_slab+0xd8/0x4c0
-> >   shrink_node+0x31c/0x908
-> >   do_try_to_free_pages+0xd0/0x508
-> >   try_to_free_pages+0x11c/0x238
-> >   __alloc_frozen_pages_noprof+0x4d0/0xdd0
-> >   __folio_alloc_noprof+0x18/0x70
-> >   __filemap_get_folio+0x248/0x440
-> >   ceph_readdir_prepopulate+0x570/0x9e8
-> >   mds_dispatch+0x1424/0x1ba0
-> >   ceph_con_process_message+0x74/0xa0
-> >   ceph_con_v1_try_read+0x3a0/0x1510
-> >   ceph_con_workfn+0x260/0x460
-> >
-> > Enter a scoped NOFS allocation context and leave it after clearing
-> > `journal_info`.  This prevents filesystem reclaim from recursing into
-> > another filesystem while the field contains Ceph-private data.
-> >
-> > Fixes: 315f24088048 ("ceph: fix security xattr deadlock")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> > ---
-> >  fs/ceph/mds_client.c | 11 +++++++++++
-> >  1 file changed, 11 insertions(+)
-> >
-> > diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-> > index 853bf698b356..3c692ad02c85 100644
-> > --- a/fs/ceph/mds_client.c
-> > +++ b/fs/ceph/mds_client.c
-> > @@ -6,6 +6,7 @@
-> >  #include <linux/slab.h>
-> >  #include <linux/gfp.h>
-> >  #include <linux/sched.h>
-> > +#include <linux/sched/mm.h>
-> >  #include <linux/delay.h>
-> >  #include <linux/debugfs.h>
-> >  #include <linux/seq_file.h>
-> > @@ -4015,6 +4016,7 @@ static void handle_reply(struct
-> > ceph_mds_session *session, struct ceph_msg *msg)
-> >       struct ceph_mds_reply_head *head = msg->front.iov_base;
-> >       struct ceph_mds_reply_info_parsed *rinfo;  /* parsed reply
-> > info */
-> >       struct ceph_snap_realm *realm;
-> > +     unsigned int nofs_flags;
-> >       u64 tid;
-> >       int err, result;
-> >       int mds = session->s_mds;
-> > @@ -4158,6 +4160,14 @@ static void handle_reply(struct
-> > ceph_mds_session *session, struct ceph_msg *msg)
-> >
-> >       /* insert trace into our cache */
-> >       mutex_lock(&req->r_fill_mutex);
-> > +
-> > +     /* disable fs reclaim while we are using current-
-> > >journal_info
-> > +      * for our own purposes, or else shrinkers of other
-> > +      * filesystems might dereference this pointer as a different
-> > +      * type
-> > +      */
-> > +     nofs_flags = memalloc_nofs_save();
-> > +
-> >       current->journal_info = req;
-> >       err = ceph_fill_trace(mdsc->fsc->sb, req);
-> >       if (err == 0) {
-> > @@ -4166,6 +4176,7 @@ static void handle_reply(struct
-> > ceph_mds_session *session, struct ceph_msg *msg)
-> >                       err = ceph_readdir_prepopulate(req, req-
-> > >r_session);
-> >       }
-> >       current->journal_info = NULL;
-> > +     memalloc_nofs_restore(nofs_flags);
-> >       mutex_unlock(&req->r_fill_mutex);
-> >
-> >       up_read(&mdsc->snap_rwsem);
+> I wonder if perhaps a better machine-agnostic assembler-agnostic
+> assembler-version-agnostic patch would be something like:
 >
-> Makes sense.
+> ```
+> diff --git a/arch/arm/kernel/head.S b/arch/arm/kernel/head.S
+> index f22c50d4bd41..687ee7063a73 100644
+> --- a/arch/arm/kernel/head.S
+> +++ b/arch/arm/kernel/head.S
+> @@ -383,6 +383,7 @@ ENDPROC(__create_page_tables)
+>  ENTRY(secondary_startup_arm)
+>   THUMB(        badr    r9, 1f          )       @ Kernel is entered in AR=
+M.
+>   THUMB(        bx      r9              )       @ If this is a Thumb-2 ke=
+rnel,
+> +ENDPROC(secondary_startup_arm)
+>   THUMB(        .thumb                  )       @ switch to Thumb now.
+>   THUMB(1:                      )
+>  ENTRY(secondary_startup)
+> @@ -429,7 +430,6 @@ ARM_BE8(eor r4, r4, r5)                     @
+> without using a temp reg.
+>                                                 @ (return control reg)
+>         ret     r12
+>  ENDPROC(secondary_startup)
+> -ENDPROC(secondary_startup_arm)
 >
-> Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+>  ENTRY(__secondary_switched)
+>  #if defined(CONFIG_VMAP_STACK) && !defined(CONFIG_ARM_LPAE)
 >
-> Thanks,
-> Slava.
+> ```
+
+I'd like to join conversation because Thumb2 kernel with LLVM seems to
+be quite buggy.
+
+I can confirm the proposed fix works for clang, if you're going to send
+this patch, feel free to add
+
+Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6572
+
+Leftover from IOMMU debugging shows there's another bug with ftrace.
+This probably needs separate thread though...
+
+[    0.193285] Starting tracer 'function_graph'
+[    0.210474] ------------[ cut here ]------------
+[    0.211120] WARNING: kernel/trace/fgraph.c:761 at ftrace_return_to_handl=
+er+0x1c5/0x228, CPU#0: swapper/0/1
+[    0.212437] Bad frame pointer: expected c6229ee0, received c132b33b
+[    0.212437]   from func iommu_init return to c13011cd
+[    0.213962] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Tainted: G     U       =
+       7.2.0-rc4-next-20260721-00134-g49e0d56c7cde-dirty #939 VOLUNTARY
+[    0.213980] Tainted: [U]=3DUSER
+[    0.213984] Hardware name: Mediatek Cortex-A7 (Device Tree)
+[    0.213991] Call trace:
+[    0.214000]  unwind_backtrace from show_stack+0x19/0x1a
+[    0.214024]  show_stack from dump_stack_lvl+0x37/0x40
+[    0.214044]  dump_stack_lvl from __warn+0xbb/0x1f0
+[    0.214061]  __warn from warn_slowpath_fmt+0xd1/0x11e
+[    0.214078]  warn_slowpath_fmt from ftrace_return_to_handler+0x1c5/0x228
+[    0.214099]  ftrace_return_to_handler from return_to_handler+0x17/0x24
+[    0.214121] ---[ end trace 0000000000000000 ]---
+[    0.222449] ------------[ cut here ]------------
+[    0.223075] WARNING: kernel/trace/fgraph.c:826 at ftrace_return_to_handl=
+er+0x1e5/0x228, CPU#0: swapper/0/1
+[    0.224385] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Tainted: G     U  W    =
+       7.2.0-rc4-next-20260721-00134-g49e0d56c7cde-dirty #939 VOLUNTARY
+[    0.224401] Tainted: [U]=3DUSER, [W]=3DWARN
+[    0.224405] Hardware name: Mediatek Cortex-A7 (Device Tree)
+[    0.224411] Call trace:
+[    0.224417]  unwind_backtrace from show_stack+0x19/0x1a
+[    0.224435]  show_stack from dump_stack_lvl+0x37/0x40
+[    0.224452]  dump_stack_lvl from __warn+0xbb/0x1f0
+[    0.224469]  __warn from warn_slowpath_fmt+0x83/0x11e
+[    0.224485]  warn_slowpath_fmt from ftrace_return_to_handler+0x1e5/0x228
+[    0.224505]  ftrace_return_to_handler from return_to_handler+0x17/0x24
+[    0.224526] ---[ end trace 0000000000000000 ]---
+[    0.232957] 8<--- cut here ---
+[    0.233378] Unable to handle kernel NULL pointer dereference at virtual =
+address 00000000 when read
+[    0.234580] [00000000] *pgd=3D00000000
+[    0.235082] Internal error: Oops: 5 [#1] SMP THUMB2
+[    0.235748] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Tainted: G     U  W    =
+       7.2.0-rc4-next-20260721-00134-g49e0d56c7cde-dirty #939 VOLUNTARY
+[    0.237485] Tainted: [U]=3DUSER, [W]=3DWARN
+[    0.238006] Hardware name: Mediatek Cortex-A7 (Device Tree)
+[    0.238756] PC is at vsnprintf+0x32/0x34e
+[    0.239309] LR is at vscnprintf+0x11/0x18
+[    0.239859] pc : [<c0bedbe6>]    lr : [<c0beec7f>]    psr: 800000b3
+[    0.240703] sp : c6229e48  ip : 00000000  fp : 00000000
+[    0.241409] r10: c6229ed4  r9 : 00000000  r8 : c30ecc24
+[    0.242116] r7 : c6229eb8  r6 : c30ed024  r5 : c6250000  r4 : 00000400
+[    0.242995] r3 : c6229ed4  r2 : 00000000  r1 : 00000400  r0 : c30ecc24
+[    0.243875] Flags: Nzcv  IRQs off  FIQs on  Mode SVC_32  ISA Thumb  Segm=
+ent none
+[    0.244874] Control: 50c5387d  Table: 8000406a  DAC: 00000051
+[    0.245649] Register r0 information: non-slab/vmalloc memory
+[    0.246422] Register r1 information: non-paged memory
+[    0.247111] Register r2 information: NULL pointer
+[    0.247753] Register r3 information: non-slab/vmalloc memory
+[    0.248522] Register r4 information: non-paged memory
+[    0.249210] Register r5 information: slab task_struct start c6250000 poi=
+nter offset 0 size 2432
+[    0.250412] Register r6 information: non-slab/vmalloc memory
+[    0.251181] Register r7 information: non-slab/vmalloc memory
+[    0.251949] Register r8 information: non-slab/vmalloc memory
+[    0.252717] Register r9 information: NULL pointer
+[    0.253360] Register r10 information: non-slab/vmalloc memory
+[    0.254140] Register r11 information: NULL pointer
+[    0.254794] Register r12 information: NULL pointer
+[    0.255447] Process swapper/0 (pid: 1, stack limit =3D 0x(ptrval))
+[    0.256259] Stack: (0xc6229e48 to 0xc622a000)
+[    0.256857] 9e40:                   c132b340 c13011cd 00000400 00000008 =
+c938c2cc 00000000
+[    0.257961] 9e60: 00000000 00000000 429c4c89 00000400 c6250000 c30ecc24 =
+c6229eb8 c2f0c8a4
+[    0.259065] 9e80: 00000000 c6229ed4 c2f0c8a0 c0beec7f 00000000 c0101f63 =
+00000000 c6250000
+[    0.260168] 9ea0: 00000000 c132b33b 00000000 00000000 c1390844 c61d6800 =
+c6229ecc c0101e45
+[    0.261271] 9ec0: c6229ed4 c6229ee8 c61d6800 c6229f48 c0101e23 c3128eec =
+00000000 00000000
+[    0.262374] 9ee0: 00000000 00000000 00000000 00000000 00000000 00000000 =
+00000000 00000000
+[    0.263476] 9f00: 00000000 00000000 00000000 00000000 00000000 00000000 =
+00000000 00000000
+[    0.264579] 9f20: 00000000 00000000 429c4c89 00000000 00000000 00000000 =
+00000000 c139088c
+[    0.265683] 9f40: c1390844 c61d6800 c6229f70 c1301953 00000001 00000001 =
+00000000 c13019e1
+[    0.266786] 9f60: 00000000 c61d6800 00000001 c11e8fd0 c6229f88 c13018a1 =
+00000000 c618cc00
+[    0.267890] 9f80: c0bf5ee9 00000000 c6229f98 c1301725 00000000 00000000 =
+c6229fa8 c0bf5f07
+[    0.268993] 9fa0: 00000000 00000000 00000000 c0100151 00000000 00000000 =
+00000000 00000000
+[    0.270096] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 =
+00000000 00000000
+[    0.271198] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000 =
+00000000 00000000
+[    0.272296] Call trace:
+[    0.272306]  vsnprintf from vscnprintf+0x11/0x18
+[    0.273284]  vscnprintf from vpanic+0x11f/0x442
+[    0.273911]  vpanic from vpanic+0x1/0x442
+[    0.274472] Code: f04f 36ff 43c1 9102 (f89b) 1000
+[    0.275129] ---[ end trace 0000000000000000 ]---
+[    0.275755] note: swapper/0[1] exited with irqs disabled
+[    0.276557] Kernel panic - not syncing: Attempted to kill init! exitcode=
+=3D0x0000000b
+[    0.277644] ---[ end Kernel panic - not syncing: Attempted to kill init!=
+ exitcode=3D0x0000000b ]---
+
+Command line: ftrace=3Dfunction_graph ftrace_filter=3D*iommu* trace_buf_siz=
+e=3D40M trace_options=3Dfuncgraph-retval
+
+Config:
+$ grep -E "trac|thumb" .config -i
+CONFIG_CONTEXT_TRACKING=3Dy
+CONFIG_CONTEXT_TRACKING_IDLE=3Dy
+CONFIG_TASKS_TRACE_RCU=3Dy
+CONFIG_TRACEPOINTS=3Dy
+CONFIG_STACKTRACE_SUPPORT=3Dy
+CONFIG_CPU_THUMB_CAPABLE=3Dy
+CONFIG_ARM_THUMB=3Dy
+CONFIG_ARM_THUMBEE=3Dy
+CONFIG_THUMB2_KERNEL=3Dy
+CONFIG_CMDLINE=3D"..."
+CONFIG_TRACE_IRQFLAGS_SUPPORT=3Dy
+CONFIG_HAVE_ARCH_TRACEHOOK=3Dy
+CONFIG_HAVE_CONTEXT_TRACKING_USER=3Dy
+# CONFIG_IDLE_PAGE_TRACKING is not set
+# CONFIG_DMA_FENCE_TRACE is not set
+CONFIG_MOUSE_PS2_TRACKPOINT=3Dy
+CONFIG_TRACE_GPU_MEM=3Dy
+# HW tracing support
+# end of HW tracing support
+CONFIG_PSTORE_FTRACE=3Dy
+# CONFIG_PROC_MEM_FORCE_PTRACE is not set
+CONFIG_XZ_DEC_ARMTHUMB=3Dy
+# CONFIG_STACKTRACE_BUILD_ID is not set
+# CONFIG_NET_DEV_REFCNT_TRACKER is not set
+# CONFIG_NET_NS_REFCNT_TRACKER is not set
+CONFIG_STACKTRACE=3Dy
+CONFIG_RCU_TRACE=3Dy
+CONFIG_NOP_TRACER=3Dy
+CONFIG_HAVE_FUNCTION_TRACER=3Dy
+CONFIG_HAVE_FUNCTION_GRAPH_TRACER=3Dy
+CONFIG_HAVE_DYNAMIC_FTRACE=3Dy
+CONFIG_HAVE_DYNAMIC_FTRACE_WITH_REGS=3Dy
+CONFIG_HAVE_EXTRA_IPI_TRACEPOINTS=3Dy
+CONFIG_HAVE_SYSCALL_TRACEPOINTS=3Dy
+CONFIG_TRACE_CLOCK=3Dy
+CONFIG_EVENT_TRACING=3Dy
+CONFIG_CONTEXT_SWITCH_TRACER=3Dy
+CONFIG_TRACING=3Dy
+CONFIG_GENERIC_TRACER=3Dy
+CONFIG_TRACING_SUPPORT=3Dy
+CONFIG_FTRACE=3Dy
+CONFIG_TRACEFS_AUTOMOUNT_DEPRECATED=3Dy
+CONFIG_BOOTTIME_TRACING=3Dy
+CONFIG_FUNCTION_TRACER=3Dy
+CONFIG_FUNCTION_GRAPH_TRACER=3Dy
+CONFIG_DYNAMIC_FTRACE=3Dy
+CONFIG_DYNAMIC_FTRACE_WITH_REGS=3Dy
+CONFIG_FUNCTION_SELF_TRACING=3Dy
+# CONFIG_STACK_TRACER is not set
+# CONFIG_IRQSOFF_TRACER is not set
+# CONFIG_SCHED_TRACER is not set
+# CONFIG_HWLAT_TRACER is not set
+# CONFIG_OSNOISE_TRACER is not set
+# CONFIG_TIMERLAT_TRACER is not set
+# CONFIG_FTRACE_SYSCALLS is not set
+# CONFIG_TRACER_SNAPSHOT is not set
+# CONFIG_BLK_DEV_IO_TRACE is not set
+# CONFIG_KPROBE_EVENTS_ON_NOTRACE is not set
+CONFIG_FTRACE_MCOUNT_USE_RECORDMCOUNT=3Dy
+# CONFIG_TRACE_EVENT_INJECT is not set
+# CONFIG_TRACEPOINT_BENCHMARK is not set
+# CONFIG_TRACE_EVAL_MAP_FILE is not set
+CONFIG_FTRACE_RECORD_RECURSION=3Dy
+CONFIG_FTRACE_RECORD_RECURSION_SIZE=3D128
+# CONFIG_FTRACE_STARTUP_TEST is not set
+# CONFIG_FTRACE_SORT_STARTUP_TEST is not set
+# CONFIG_TRACE_REMOTE_TEST is not set
+# CONFIG_BACKTRACE_VERBOSE is not set
+# CONFIG_BACKTRACE_SELF_TEST is not set
+# CONFIG_TEST_REF_TRACKER is not set
+
+Clang:
+ClangBuiltLinux clang version 22.1.5 (https://github.com/llvm/llvm-project.=
+git 5ea218a153f4d2f815b8244eab3e4b4ba5e00e6c)
+
+Best regards,
+Roman
