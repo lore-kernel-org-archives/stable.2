@@ -1,158 +1,120 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B6CF3B47D0;
-	Thu, 23 Jul 2026 22:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94362C11E2;
+	Thu, 23 Jul 2026 22:56:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784847263; cv=none; b=SgOtWeli/citqcyTyqHbGWU4HWixaAfTjkibuBfDR66C/yugXFXhPdDryOZF1mGvmxLuwBr0eytmJW8bKgbm6U1/PBOS0m+SsVCZs+aPgqL/bGkoPiV49vauajpuNq57LQdATV7R/AOc6KU+XYWCCC3+ORNjMuUBSKdRWwf4dtE=
+	t=1784847397; cv=none; b=iCMtQtTIPOwugpQHsBDXI90rvpWHksDTH1oSWmMnBD+3G09grkJFkFcbwECcwch+jfRJL2PnfFhWLg8NP8vpqP8Te/rRmRRyOT3EDKGEK85azR71smIiTaT9pRmBOcDDNriAV/uIkUHZR4kUY5KPukeGyRSq//vmm+n57KzYygI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784847263; c=relaxed/simple;
-	bh=MEUuRcZ4mUiK8VtKxrV3RNaV9RoAw2LgifYbpD2CHD0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=t3qFERpjc9NsybpDl9gCkfnopoBNb9yVGwtQd1eiRRTjPOBA/GPRPXAJX7wWtJuq1nj9Fb+lk1U2pJypbxlzrenUyy8KYKq1fmOylugM5PtidYqP0/mukrq4I4Rc5nnQmJIGU4L+BGkDBjMMSu5bbYDnBUhG14BC7HK6jJrhI3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDnpDyOm2JqUBs0AA--.21688S3;
-	Fri, 24 Jul 2026 06:54:07 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgBHS6WOm2JqEqYdAw--.26398S2;
-	Fri, 24 Jul 2026 06:54:06 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Anda-Maria Nicolae <anda-maria.nicolae@intel.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] power: supply: rt9455: quiesce delayed work before teardown
-Date: Thu, 23 Jul 2026 22:53:10 +0000
-Message-Id: <20260723225310.12663-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260723145352.8865-1-fanwu01@zju.edu.cn>
-References: <20260723145352.8865-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1784847397; c=relaxed/simple;
+	bh=LL0cZbUOCMPlgQr9fIP1NYVFCodvw/DKepAQBmi5m/A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eU6+xmGslfrBxJkRZy2wql9mcf0D8pEvxk89NeeohF9oBVYMr8r4TMeIkc6xHGOPi3R6gARwdQ1n3g05EJK5GFfAvElNVZztxqHio4bLGSKNrCw/LXFe0xbn5XHVoW07kBDdB5gt2YtT3Aqd4Oq2OGVyEASUdBrZhPKhrtX4He8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQPYk+bO; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQPYk+bO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2DAB6C2BCB8;
+	Thu, 23 Jul 2026 22:56:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1784847397;
+	bh=LL0cZbUOCMPlgQr9fIP1NYVFCodvw/DKepAQBmi5m/A=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=RQPYk+bO3KAd6Mky0pYxLNHvkhl6bDRu3133FqK9hpNPz4+/bvtC+JckWYVKWIIw4
+	 Vcbm8gCW7t7dOr7FO54H/9KGHodlkrHvHsPlS1PzyXuvgQtmSGeEXfc3h+1YTHkEfx
+	 0PGhtMXbh2LzP/mw3jcoKnJj8yS8b1eoYeji9IGNIK3OP/7G/LPfXfSxHnYMx5r3Gr
+	 RI6pCAcctcUCH/AGog0Yck8XYsncqHEV+t2cFO8OoYkJ5i1N7uYEnL/slKIa6sOxRX
+	 P9/glg+xpC9vx5MlS36ZMY1HURQfXy+pk7U1fPv0Eq4B/Uqg1d+61ZlUtcC+ps7hHz
+	 ArwHaWGdWXZkw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A507C531D1;
+	Thu, 23 Jul 2026 22:56:37 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Fri, 24 Jul 2026 00:56:33 +0200
+Subject: [PATCH] bus: fsl-mc: set dma_mask for the root DPRC device
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgBHS6WOm2JqEqYdAw--.26398S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?CjHzhgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBEbLzu5fnh7UX1DksTcquukvhHLb5/wOHnScSIykgk6416T
-	FXYiWPWnm3hkIf8Mt+qp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxurW3AF45Cw47try7GFWUJrc_yoW5KrWfpF
-	ZYkFZ3WF4UGF4IqrZIvF47uF1rCrs8tryUCr4xX3y7Zwn5Xr9Fq348GFy09F1rXF95Aw42
-	vr4Yqay7ZFyYkrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9vb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Jr0_Gr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wCF04k20xvY0x0EwIxGrwCFx2IqxVCF
-	s4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r
-	1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWU
-	JVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r
-	1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUv
-	cSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260724-for-upstream-fsl-mc-dprc-dma-mask-v1-1-6f08af883195@free.fr>
+X-B4-Tracking: v=1; b=H4sIACCcYmoC/x2NQQqDMBAAvyJ77oIJaqVfKT0scaNLjYZdLQXx7
+ wYvA3OZOcBYhQ1e1QHKPzFZlyLuUUGYaBkZZSgOvvZd/fQNxlVxz7YpU8JoM6aAQ9aCRJjIvkj
+ OcRNa6tvQQelk5Sj/+/H+nOcFc1VD13MAAAA=
+To: Ioana Ciornei <ioana.ciornei@nxp.com>, 
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Bogdan Purcareata <bogdan.purcareata@nxp.com>, 
+ Stuart Yoder <stuyoder@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784847396; l=1926;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=50GoUATjGzTOE04DbAm6nufTMWrQbESmgDWMsefMpuA=;
+ b=G/rIzE9Z00+txF2HsSaVork5JjXa/HUmU6sdGAwS5CqDVJ6ty4/eAcaTlKHYt1XIHo88cbx2+
+ Nuyh+327K58ARkUaktB2yx8+DxrMdXge7fCpWfQhMqc+N9kvE0hHKP+
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-The threaded IRQ handler can queue pwr_rdy_work,
-max_charging_time_work and batt_presence_work.  pwr_rdy_work and
-batt_presence_work can also queue max_charging_time_work, while
-batt_presence_work can requeue itself.
+From: Vincent Jardin <vjardin@free.fr>
 
-rt9455_remove() cancels max_charging_time_work before
-batt_presence_work.  The latter can therefore queue
-max_charging_time_work after it has already been cancelled:
+On Layerscape platforms, when SMMU is disabled,
+fsl_mc_device_add() leads to the DPRC device with a NULL dma_mask.
 
-  rt9455_remove()                   workqueue
-    cancel pwr_rdy_work
-    cancel max_charging_time_work
-                                      batt_presence_work queues
-                                        max_charging_time_work
-    cancel batt_presence_work
-    return
-    devres frees rt9455_info
-                                      max_charging_time_work dereferences
-                                        rt9455_info
+It has been tested on LX2160A, no SMMU on the MC
+domain: the root DPRC can probe cleanly and fsl_mc children
+enumerate.
 
-The IRQ also remains registered until devres cleanup and can queue more
-work after any of the cancellation calls.  If rt9455_hw_init() fails
-after the IRQ has been requested, probe returns without cancelling work
-that may already have been queued.  A pending callback can then access
-rt9455_info after it has been freed.
-
-Register rt9455_cancel_all_delayed_works() through
-devm_add_action_or_reset() right after devm_power_supply_register().
-devres invokes the action in reverse registration order, after the
-managed IRQ has been freed and before rt9455_info is released, so the
-delayed works are drained in both rt9455_remove() and the probe error
-path.  Cancel pwr_rdy_work and batt_presence_work before
-max_charging_time_work because both can queue the latter.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: e86d69dd786e ("power_supply: Add support for Richtek RT9455 battery charger")
+Fixes: a259ed1618d2 ("bus/fsl-mc: support dma configure for devices on fsl-mc bus")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
- drivers/power/supply/rt9455_charger.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+fsl_mc_device_add() already seeds a default dma_mask for non-DPRC
+objects, but never for the DPRC devices themselves. When the MC I/O
+domain is not behind an SMMU, the root DPRC reaches
+fsl_mc_dma_configure() -> of_dma_configure_id() with a NULL dma_mask
+and the probe warns "DMA mask not set". This mirrors the existing
+non-DPRC seeding into the DPRC branch.
 
-diff --git a/drivers/power/supply/rt9455_charger.c b/drivers/power/supply/rt9455_charger.c
-index 7045d2908..9fa343e1e 100644
---- a/drivers/power/supply/rt9455_charger.c
-+++ b/drivers/power/supply/rt9455_charger.c
-@@ -1582,6 +1582,19 @@ static const struct regmap_config rt9455_regmap_config = {
- 	.cache_type	= REGCACHE_MAPLE,
- };
- 
-+static void rt9455_cancel_all_delayed_works(void *data)
-+{
-+	struct rt9455_info *info = data;
+Tested on LX2160A with no SMMU on the MC domain: the root DPRC probes
+cleanly and its fsl_mc children enumerate.
+---
+ drivers/bus/fsl-mc/fsl-mc-bus.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
+index 64d75eed0d34..585345ac0179 100644
+--- a/drivers/bus/fsl-mc/fsl-mc-bus.c
++++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
+@@ -832,6 +832,14 @@ int fsl_mc_device_add(struct fsl_mc_obj_desc *obj_desc,
+ 		error = get_dprc_icid(mc_io2, obj_desc->id, &mc_dev->icid);
+ 		if (error < 0)
+ 			goto error_cleanup_dev;
 +
-+	/*
-+	 * Both pwr_rdy_work and batt_presence_work can queue
-+	 * max_charging_time_work, so cancel them first.
-+	 */
-+	cancel_delayed_work_sync(&info->pwr_rdy_work);
-+	cancel_delayed_work_sync(&info->batt_presence_work);
-+	cancel_delayed_work_sync(&info->max_charging_time_work);
-+}
-+
- static int rt9455_probe(struct i2c_client *client)
- {
- 	struct i2c_adapter *adapter = client->adapter;
-@@ -1672,6 +1685,11 @@ static int rt9455_probe(struct i2c_client *client)
- 		goto put_usb_notifier;
- 	}
- 
-+	ret = devm_add_action_or_reset(dev, rt9455_cancel_all_delayed_works,
-+				       info);
-+	if (ret)
-+		goto put_usb_notifier;
-+
- 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 					rt9455_irq_handler_thread,
- 					IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-@@ -1712,10 +1730,6 @@ static void rt9455_remove(struct i2c_client *client)
- 	if (info->nb.notifier_call)
- 		usb_unregister_notifier(info->usb_phy, &info->nb);
- #endif
--
--	cancel_delayed_work_sync(&info->pwr_rdy_work);
--	cancel_delayed_work_sync(&info->max_charging_time_work);
--	cancel_delayed_work_sync(&info->batt_presence_work);
- }
- 
- static const struct i2c_device_id rt9455_i2c_id_table[] = {
++		/*
++		 * Seed dma_mask so platforms without an SMMU don't complain
++		 * with "DMA mask not set" in of_dma_configure_id().
++		 */
++		mc_dev->dma_mask = FSL_MC_DEFAULT_DMA_MASK;
++		mc_dev->dev.dma_mask = &mc_dev->dma_mask;
++		mc_dev->dev.coherent_dma_mask = mc_dev->dma_mask;
+ 	} else {
+ 		/*
+ 		 * A non-DPRC object has to be a child of a DPRC, use the
+
+---
+base-commit: 248951ddc14de84de3910f9b13f51491a8cd91df
+change-id: 20260724-for-upstream-fsl-mc-dprc-dma-mask-a11e4c5a85c6
+
+Best regards,
 -- 
-2.34.1
+Vincent Jardin <vjardin@free.fr>
+
 
