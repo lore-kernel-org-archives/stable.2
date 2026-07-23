@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B263C1F
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 02:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672AB23E320
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 02:58:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784775186; cv=none; b=Kgi/W41+PxdId/dRpCYETEwRkC6y2z2ccm55tbJZf+Og4SduALJ/6Uw6a+VUjOmlwvqaPgscljvh1D9xJPm4VGxqpzdgbjyg7PVajpe9wJUVxwzWvi1P2H0I4Qj9QX+qYUX8K0lW0NJibUPsu0EDWqoOpXcKDYr7volyWbn+XZ0=
+	t=1784775504; cv=none; b=lkQq9sJ6jHpbUqzJEJYiQCyJJcXdrPL0aZL4O6ubjk8BtgETJfQFrKVac39WrfgeL+9/O/d5dueye4LGN4dlURtDhBvXKSu7mpFuybwYUouk1bM8Gq7S6ggeOxtLBVBx+cRggQixp6OY06oukRmtFY832Xipy2bFyUtygP9RGes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784775186; c=relaxed/simple;
-	bh=Al4JrWy5LJZoTcV08JuH5h8XiNK0za2tHvH3h8OoR70=;
+	s=arc-20240116; t=1784775504; c=relaxed/simple;
+	bh=ANT9lD5Z9Ux/D8a31U+ja8pR8oXEcgwhSR5gp+eUfjw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XHn1Lkk9fTVQzHkCTsSUA4CnPJWNYVJ93XBnT2Tafw3QxM8JmRFTN/l7NvdXsfUxTsV5ZhjqlaYJmPWIiqsNJ0JsFXnGYaNQMSGIRQQl+fbtfJt74PGz2P3dxxSfP5dSINQcjsND/OVBWH8b8SrvepZjjyC6WRM7zajEwmf1xxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AiyJn59q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=K2bYxPzGMJ/GixJB1YfoMxaxc5CyQ1Qrwd1A+XviCyd+UTOH3EIW79DZucn5tiSgSoI4tNcPR5jEwOieRMfh28Z28IPzM66ipuaEO5UyOHQqFVOf+fQ8rAQWzAnD/4OGkmjv6zFKb803pZE5NDyaFaCOGW7XboE4NWgm1bAaFf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=htGrmWlG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AiyJn59q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F39B1F000E9;
-	Thu, 23 Jul 2026 02:53:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="htGrmWlG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C391F000E9;
+	Thu, 23 Jul 2026 02:58:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784775184;
-	bh=7C3UCcFrEG4UbkMhRUZgPLXMhktQYF+ObDLJDOM7IqM=;
+	s=k20260515; t=1784775503;
+	bh=NXH1PYPmRQBXgOGLghuwu0WU8atzjVHdE/+F1JWr3Hs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AiyJn59qanordMRpquDxhWWIsaq0XCzX4tYHTiVQWr2Ety/BrPB0Bhw2QBWzre6uf
-	 WyG0eCMVlEWzTO3ljfzyOy3K+eaE+JMov/+MnkoeVKVOwZol6CwEmlHNpwthzwIu/S
-	 7Fbo2NYSHYrY5E4VOfq0r9qyqrcKt1R2qxkUXe9d2MaL3AtSrln9D80h6K+9EBjYP/
-	 CFjZdXpjidQBqIeGim/ok44czQ3CiiTDFzQaQOn0A7x/VlYQkKduiLiILdeWIluA35
-	 eNSsBBYy2DMWDJzdcvfD5/ueRRJ/XpCpfw1XV30USRNL7luTTSNkyIcYjUtdh+qaw/
-	 FFBflwpMYxMCQ==
+	b=htGrmWlGcVk44OZJYbJc29AObsTjOTBQ8pu+SeeJ836H+4B5pxVB01CRw2u7Q6aYI
+	 dfBFdMHDACcw9I0bNd6gW1B2FpFb1kXIDblt5dXXUJuGhuRx5YC0laKAJ6yXHdvwE2
+	 rEOMA8mSO9jCetYYt/6DkMKmZvWvcWTaV+LQ2jL5sOBpLt9CDmHtqTScr75TsM2hk2
+	 2FEMpVdCH28peNQotqdXwgdkSOMGCmmkJAvkHBMHLxyx60DU5kpdt5Dp2H4vYn1t4o
+	 bz8B+QO1QAXlTh+V9KWZh57/g2DMwut7tsK79Y0LoW9waWcSUqzc754baeVVh+qAE0
+	 f6QqdCneMlYkw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ASoC: mediatek: mt8183: Check runtime resume during probe
-Date: Wed, 22 Jul 2026 22:53:02 -0400
-Message-ID: <20260723025302.2872512-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ASoC: mediatek: mt8183: Check runtime resume during probe
+Date: Wed, 22 Jul 2026 22:58:19 -0400
+Message-ID: <20260723025819.2878065-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072039-snuff-nuptials-7e1d@gregkh>
-References: <2026072039-snuff-nuptials-7e1d@gregkh>
+In-Reply-To: <2026072040-onward-copious-5c04@gregkh>
+References: <2026072040-onward-copious-5c04@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,10 +70,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index cbee5a8764c37f..0aab664cc28139 100644
+index 86c8a523fe9e37..abbda87c29a248 100644
 --- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
 +++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -1150,17 +1150,21 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
+@@ -1143,17 +1143,21 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
  
  	/* enable clock for regcache get default value from hw */
  	afe_priv->pm_runtime_bypass_reg_ctl = true;
