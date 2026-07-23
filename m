@@ -1,102 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25F242669A
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 09:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09667429CD1
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 09:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784800417; cv=none; b=taLaH/FVkawAa1rSMPHCNMmnSt621NdP4hwSwE0Sa7VxKfnajwE5GrSZ2mA9s1sPxPQ9PYEwGmA8MeJODLFkRFrY9IN4NRl5aakDtXGkhynilFU2X7UrGSh9l4nmcQNv6IihWgbrnEg8DuhNwE4RWV1yOc8wBHlOgsr7ViGsFJA=
+	t=1784800694; cv=none; b=jCV13SJHrGSdCLOxk2R29qP5H/lPeATQEeMk0UEAVnn+0jHJ4DqpUab9smi6ilrpna32fJRZ7U4y0VvUaJaXgjKSpDhxi+/PCIvuYh/p6WI91GIVHDXRSSk/+b2PflqXgR3GNcrbUo4g1Zg6sMPYjV+sWsb2Q66IGMTORBJBSk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784800417; c=relaxed/simple;
-	bh=S5NqPnzf9E34AKXV08SNWUM/EqZ02c1hhZmCkSzJqcQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=iz1AniiGp/ZwB99prEv2z3QcxmfKh/3Sd59sd7i9AwiJNZOWYMdPdrFtQz7lfZozcFlUfeXzpUOFf56EReQH83p6nTKSWACGSIDk8eyOQMNi3X0JeqGofhWZaNya1J7Hmgk7KS4RxhozeVxjVRfY5vAWBWUTADa7OYV7T+FvnGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFDC61F000E9;
-	Thu, 23 Jul 2026 09:53:35 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 7DD64F40078;
-	Thu, 23 Jul 2026 05:53:34 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Thu, 23 Jul 2026 05:53:34 -0400
-X-ME-Sender: <xms:nuRhal_UUsYSu4hxoIcW5tkU-5QAVkwhKGmuPhrqXHUqHqd3MPAc3w>
-    <xme:nuRhakiaNOH2-kPOG7c1H2gGgQNNQE97r4PO8ILsr6FZbWMN-UTb8yV3V8gn-P-vp
-    c1wzifr_EvqlYL63cZkSgQcI1RA-UDaRrBK9XdLeLELBHP6v-UVFQ>
-X-ME-Proxy-Cause: dmFkZTFHZDEhc6/KMefjmMp4uMeeE3Zcb9mfs+V06mdxw3F5PEChH3KemwCyws3jce4Mqz
-    r9y+127SMPJFdIWF1YwFK9JBClNfqxmhNrJQ3CTMT06b4ew2B6pnn1U7m2heye/pLt0t33
-    yIacOoENbTlAHndzSlpi6MA6leuJWy0j4LK2nHoja1f+q81tI8AzboB88nxK/WQLxrC6II
-    wdKaz7tgJFFljSrLD8ubTOg9ZnJu+g/yY7wxQzbg3uTDao4HSUgCTrKn6rM9DHR9mOFcXu
-    9oB0yPjJUSpsqYCYYpyoxeyeJgzFa8aH18z40rAf2NyB80rrQzkBKeftHAn0RRwmQzYiUp
-    nSsATbUjtnrbeX0DKpAklEn+h8bq5gK81uRfyV2eG7TgOHlvvj8nciPN9J8hQNFWPSqW+m
-    F3ac8sjnNFwFwgu65VWvkX0UXJ32WuN5dY4Mwm8Nfk4HHHapIRnpX5ZbFHiTEr3c0NsYER
-    38ffc/JDfh6MpEmr8ErH03NX+zrTWRKc3vIYZFiKwQCIknFJJd8bnV08Upe7NSZERj3G3p
-    f4pBuNI/Xyjz04xloT4DpUf5IjYgnua5CY6zHjzCdcdRHBh0Zo+H4aciIU9j5cFve8MqLO
-    vjmcxg5CpjW5NfFt3SQ8vyh+xCSkBzgbhDOPT7WrrpIg1zBA1o+tm0rgzVfw
-X-ME-Proxy: <xmx:nuRhappbi0LEylwvyeq7Fkf4xAQ2NmUUkiC-dXydIGLJAgko6bvC-Q>
-    <xmx:nuRhaqKaIGcfq-QXhiZ5ZrzcnzkDtJdUsBACQPgT0KeLVLAwAuUmrA>
-    <xmx:nuRhatB-I7MJ0d0hafgvQ8lqdp_DVCZMdEDBYalBDjwFkbihmG63MQ>
-    <xmx:nuRhak4qMkNrazX96NHh14lR3Nklsy3n_xbXQxTLI1j-ZwJ3-nkl_g>
-    <xmx:nuRhahFVRSK-nkqJFeDnSEuTyJjTntoREXzbHJk_FIdsarhAhew9yYMX>
-Feedback-ID: i36794607:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 610A3182007E; Thu, 23 Jul 2026 05:53:34 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1784800694; c=relaxed/simple;
+	bh=JyQ0i5MWICcwd6Ew8dcNJE1TVRfcbZFrQF41FwWqY7w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P9/xeS8ykW5ytgMjtOW0txbYxwUcV6mKpJ59Z5T6KGBRLjhay6RAEq4BZ1uwTGmKqafZSNwAk6mQ7vH3i2MqQ4bDmIvLC3Dcv7b5bUjrOCelSqSJv5SGts+e/stAPf31rD3vw4ROkqO8DhudqWQVEf6bcAjdkWGr3wJW6yi4avQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RTX21+ZJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tFuCYt42; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RTX21+ZJ";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tFuCYt42"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1784800690;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vzmqMYz+xqlvZxZzHgPFLcjsI6LqkVkgU9V+iNhdTHw=;
+	b=RTX21+ZJgzX4T+zquTAYoJ6tq3vimeVxmmv+/Gq03cSe/HoIEdsswkYQxGn26HnhcTNGpb
+	rENMWTzt9LNWlNrXQ4A3R3QqnyHB5oIfxKVkDgtroVcyElwMZz2v2mAT/K1C9Rwci2igIm
+	ot5AoTGRzVGRmbQqNfXkvPfrK1/iAk4=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-26-xNeuNY33MoiZVzaoLmM5eQ-1; Thu, 23 Jul 2026 05:58:08 -0400
+X-MC-Unique: xNeuNY33MoiZVzaoLmM5eQ-1
+X-Mimecast-MFC-AGG-ID: xNeuNY33MoiZVzaoLmM5eQ_1784800688
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4955ecd8a10so4108195e9.3
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 02:58:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1784800688; x=1785405488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vzmqMYz+xqlvZxZzHgPFLcjsI6LqkVkgU9V+iNhdTHw=;
+        b=tFuCYt42JvZIkLIMeRpoNFG/m+2/Yy337SFd/cralS3Lvj81CgwA+T0Gm2MAvoB6Rb
+         JC6FnnhCGTDolLwh3kVDDaEu0oZhGbneCLWwF9uGKk85Vse5Qun34kgwskLtOplg8nzt
+         wdRXTRZIpyXTdw+Dq/NbN1JhasLPO/xqbe2SrPTw5HWmd3d4K8fGIhpvy+CiH3iRmdyd
+         bKekihkgcQGxez5mqIGlhrLFcmNGpwaDRbCM7TBR09o5bBjrF/oUh41r+2SEiuMNf6m2
+         470GTbsVljkZKh4ALPeAnUIPbZX0bDlUlAvN3sSp3SvO8L9njUCiAcBXNtj5HXaXOs1j
+         kHWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784800688; x=1785405488;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vzmqMYz+xqlvZxZzHgPFLcjsI6LqkVkgU9V+iNhdTHw=;
+        b=fqmX3po6EeX9sbw4gIgj4kMJikbDaDDxIV2LzNLNsO5JoCfYC7XaHgyuglNoNIhT8a
+         ZXzr+2UOlhKh6bdRlYXPl6rTqx9DooRXGPZSkaxXDh8Xo+DyX/UVcCj+UHBd+oBi/e+7
+         9e2yHzjLC59LilmIja8J+/hXLTA+Kh6FPAnPYtZ9VuXx3USfXVToSbpNhnr69k3Tam53
+         NfeNA0/m+O26LKJM/P70C0+QHJy9cFCm/+lzWZ3ESYK21IoSnnk+1V/J1yCtr16McvJ2
+         wXAQmROB6ChxLtBx4yqhZAY73E5QKTOexeihRUc63bC7hQydILm1ulClzQHaIjZJbeQp
+         4D0A==
+X-Forwarded-Encrypted: i=1; AHgh+RqYNcrNYeKuSQZPc8QfbWMQOvHovn61J2K1QBNbPiRGhecHLxCkc1cJ4nt8SuTeBa83JZOdnbk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxauVK1AgsoHieielhWhMEsCvDGPpC2eANuAHfoyDIyuUMSH2fk
+	gSBcUMe32yrkfiT8o3sc21qHdrkU45qW7sajXLzOJwicUYytSC2oSD2YVoYPwVN/PImg7CBKqQm
+	94LG+TClj57gMDiabKFznG2rKRFqA2K5qquAX8Nk+Frec+JCRvKRObh5sOQ==
+X-Gm-Gg: AR+sD12ND+hkdR4P14El+UZXtbHgReSersoLMZB5pj2GATqQvQ2K3Ek+nd62/HohiqG
+	c5/7xBUYf8cd8N3/FPsmsiGNP6jQVO/B5dt21UFWW+cHMcRdDMpKYkDQt21OGzUQ6HbZcWJoJFk
+	Ux+G36QYKtMBWH4BeQEhdnxsoqNGmkqyX175RjpwUIjPV4jc+iujgP7/vdTrpbJp6rnEj8oNw99
+	OxK5OWW+jdwpCWPh7GAaJ+Ht/pKmba0fQKg22rh8TUuOCbylUmzr+cTOsn/rr69VDjTWtCZdSjp
+	wkdZNMkN3KHVSxhRjf17l7E6SbDx07U+cuO+gQe/0BLiq4Pp6JDrdlejpLzqL+j12IXMHHJRDev
+	tFwJ4w9dR+ty1TwpcO5uajUA22H2Gnex6BfKsRXoIoMCU0LRvlSooJ4HLOtgU0V2RLFRG6CNjod
+	pokw==
+X-Received: by 2002:a7b:ce0b:0:b0:495:6396:8b67 with SMTP id 5b1f17b1804b1-49573cc1a71mr16360075e9.4.1784800687615;
+        Thu, 23 Jul 2026 02:58:07 -0700 (PDT)
+X-Received: by 2002:a7b:ce0b:0:b0:495:6396:8b67 with SMTP id 5b1f17b1804b1-49573cc1a71mr16359805e9.4.1784800687105;
+        Thu, 23 Jul 2026 02:58:07 -0700 (PDT)
+Received: from ?IPV6:2a0d:3344:5521:6b10:58fd:68f:7756:389d? ([2a0d:3344:5521:6b10:58fd:68f:7756:389d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-495653c8760sm194729325e9.14.2026.07.23.02.58.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Jul 2026 02:58:06 -0700 (PDT)
+Message-ID: <265fc46b-1e33-4283-b94b-7c591a9cf3ba@redhat.com>
+Date: Thu, 23 Jul 2026 11:58:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ADJgN6ak6HcB
-Date: Thu, 23 Jul 2026 11:53:14 +0200
-From: "Arnd Bergmann" <arnd@kernel.org>
-To: "Akari Tsuyukusa" <akkun11.open@gmail.com>,
- "Nick Desaulniers" <ndesaulniers@google.com>
-Cc: "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Russell King" <linux@armlinux.org.uk>,
- "Nathan Chancellor" <nathan@kernel.org>, "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>,
- "Yingjoe Chen" <yingjoe.chen@mediatek.com>,
- "moderated list:ARM SUB-ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>,
- "open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b" <llvm@lists.linux.dev>,
- stable@vger.kernel.org, "Ard Biesheuvel" <ardb@google.com>
-Message-Id: <ef007a23-46bd-41d6-83ff-264831341093@app.fastmail.com>
-In-Reply-To: <amHYO1c-5vzqSekt@buffalo-ssd>
-References: <20260722172443.534251-1-akkun11.open@gmail.com>
- <CAKwvOdnbPKoTy72EvfpKtT9Ne-r+O0j99KFX8OvjGk8ZxsuEGw@mail.gmail.com>
- <amHYO1c-5vzqSekt@buffalo-ssd>
-Subject: Re: [PATCH] arm: mediatek: fix secondary CPU boot on Thumb-2 kernels with
- Clang
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/x25: fix use-after-free in x25_kill_by_neigh()
+To: David Lee <david.lee@trailofbits.com>, Martin Schiller <ms@dev.tdt.de>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>,
+ Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+ linux-x25@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260713104752.241175-1-david.lee@trailofbits.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260713104752.241175-1-david.lee@trailofbits.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 23, 2026, at 11:15, Akari Tsuyukusa wrote:
-> On Wed, Jul 22, 2026 at 02:03:31PM -0700, Nick Desaulniers wrote:
->> On Wed, Jul 22, 2026 at 10:25=E2=80=AFAM Akari Tsuyukusa <akkun11.ope=
-n@gmail.com> wrote:
+On 7/13/26 12:47 PM, David Lee wrote:
+> diff --git a/net/x25/af_x25.c b/net/x25/af_x25.c
+> index c31d2af5dd22..8aae9273b7c1 100644
+> --- a/net/x25/af_x25.c
+> +++ b/net/x25/af_x25.c
+> @@ -1768,15 +1768,19 @@ void x25_kill_by_neigh(struct x25_neigh *nb)
+>  {
+>  	struct sock *s;
+>  
+> +again:
+>  	write_lock_bh(&x25_list_lock);
+>  
+>  	sk_for_each(s, &x25_list) {
+>  		if (x25_sk(s)->neighbour == nb) {
+> +			sock_hold(s);
+>  			write_unlock_bh(&x25_list_lock);
+>  			lock_sock(s);
+> -			x25_disconnect(s, ENETUNREACH, 0, 0);
+> +			if (x25_sk(s)->neighbour == nb)
+> +				x25_disconnect(s, ENETUNREACH, 0, 0);
+>  			release_sock(s);
+> -			write_lock_bh(&x25_list_lock);
+> +			sock_put(s);
+> +			goto again;
+>  		}
+>  	}
+>  	write_unlock_bh(&x25_list_lock);
 
->> Can you perhaps help test/verify that Akari?
->
-> I tested your suggested patch and confirmed that it fixes the issue.
->
-> Device: Lenovo YOGA Tablet 10 (Wi-Fi) (MT8125)
-> Toolchain: Clang/LLVM 22.1.8-2 (cachyos-v3)
->
-> Tested-by: Akari Tsuyukusa <akkun11.open@gmail.com>
->
-> Can you send your fix as PATCH?
-> I think your approach is better than mine.
+Note that sk will stay on list (with NULL neigh) even after disconnect
+and the above introduces a quadratic behavior, but I can't find an easy
+way to avoid it.
 
-I think we should wait for the llvm issue to be resolved first, to
-document whether this is considered a bug in the kernel or the
-assembler, and to see if any other kernel code may be affected
-by the same thing.
+/P
 
-Looking around other .S files, I see the same
-pattern in stext(), cpu_resume_arm(), mcpm_entry_point(),
-all of which start in arm mode but end in thumb.
-
-     Arnd=20
