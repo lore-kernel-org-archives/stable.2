@@ -1,71 +1,71 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FABA318ED2
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 22:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D873CF20A
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 22:10:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784844635; cv=none; b=ej3Y0+6vW6MtdeCp0iWntxo+Ks2QGkek6yRv7P+X749qBjtOT6XpXzzs+d8gnG4tBJeQ6dG1V1e1BDS2ePIN65T6Q9zVxWhT62ngriQB+zhWicWFEB8PEcCeb3kU00AcnNgSqAbBMb7VIGr5eR5bMzNosz3nik1B6SveKt1uehQ=
+	t=1784844661; cv=none; b=e3Rtb7rvDUSKv8oByBo/ozoL9Meshp4eubzdNdMv/kLXLUFHXIjBC5qophD+hh6OuF7qM1iV2FucsXZqKYTaOw2wF53KOjODMG9AsLJb5P5G9KVosM+kEqG1Fz3gSHwXVUoS+Q0Yu2fBx/4vkpwgLPudMFESKdZz52EObfcPik4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784844635; c=relaxed/simple;
-	bh=G78kO2YlKw6hofYEZWpDwDqcj/rtK+Y1UaM1JNwvwnM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TinEsbfIX7wFa0iv/7S4r0C2zxnqNJhKS3MmnLyryh8ukBSiagylVlCKGUO0/gqGSbC+uqZkQGVM6mdqdesmfeaG8TAcxelK4sfAg5MYZ8+sSBGk7f6jfvnf2C7ybfXdQ57F5fqF8i92RU0QSHnvjWrH5nBL06sD0ObQ4CUT25M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bKr+Lakg; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1784844661; c=relaxed/simple;
+	bh=C2Zn4CbY0hbSGyEmBt2MEmF1iqU58U4gSfRk9aHfces=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y/BHuCxqb44Mho4CeQWb/6djmIUh8dV5KGX9b/r92vEflGzg6va1qXwqV7W9PfHY401fi4FRvVUMOyBGbFv0ysSJaW/3h4KAeTdskujDZq1roOvJDekFziEP1kUvN9gxS2OYyBWMwKrSLsWLIpk42FmGKxM3Nxion2UkY1nPYTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZRsAf77j; arc=none smtp.client-ip=209.85.218.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bKr+Lakg"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49571fea44eso6651055e9.2
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:10:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZRsAf77j"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1c24ec9525so175254966b.1
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:10:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784844632; x=1785449432; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784844658; x=1785449458; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OjfP9ikHyH3mQBp/myz2Nssbup3gp74NNkUjx/E2Hv0=;
-        b=bKr+LakgdN/lJL9f4HiouE7tkJVkyZt/I5T5ooJwpHeryavL5AiwzekuruEN6TTtIl
-         3Nq2oHqKeM+0eSeDVOh3MHZPxqWUJQ0KUzv4bz3Q4SDEPO7ibmPMg4QPasf2neMVmyRP
-         9mi26XQV8MNLqAbKcn8YW98ZLR/2LvbELS/ck5trbbQ4kBC5MREaQ1EpJhHsqoI/IKWT
-         guekvzVJ+zFFtlf9+dUmFoApQpEPHVl8+jNZo3kFyN5ZbEQTwr0kv797mCl3SwXVbfSE
-         dhmNwl+KsTiFmhauEscSUyMwPeN/N5b+W59vAzh25diuKwGycvFWN1TDD8bqdBHED8Ow
-         C3bw==
+        bh=n3sImDHanXm/nP3OwyjC3fU83vihxLVlwyFoNqtWFgU=;
+        b=ZRsAf77jzBdCVplXum1b+cqawbil6autyF44PDzTpfxcIe1nkfTYLz5n/vWqYQt0lF
+         XiMeTdt2C5EXt/bGzvdurxs5MK396TXhMBjB4LcIg0XdIDjyOztUBsJnC6hVJG7AoCIV
+         qFa5jWwcqFCoGu0yMnIX0PFXpXpLrZ9VgpwvuQtiMdnfaIz7Es6OXO2coX52KLlC+JFG
+         425kYAeRgYV54CgCkk0nvEP+IfiHJLsZTqeaahCqHamBkluvzqiBSLZa2JvQuP3uUhhD
+         60WH3/xrnJv5ffELmbtALODgc9eNeA98bu3a6NaF/UZV7p3vfxsJHLzicfKCUPkCmvKK
+         MI7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784844632; x=1785449432;
+        d=1e100.net; s=20251104; t=1784844658; x=1785449458;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OjfP9ikHyH3mQBp/myz2Nssbup3gp74NNkUjx/E2Hv0=;
-        b=dB2XHAqjekvh2uI/UbKljuyiM9KR4y17e+qcXXexcVYrn8a7SKa23ZFjzk5J2h6QAM
-         PRJehDwOk3bwQogflKIfl99oV7r3og3DJeif6R2UyEpROqB4xDgi02nk6OXb2XXIBPb7
-         k3XEJl84BjjeExPDR7T3ftxRgJzQu7SJxkUjDdqMv0Sm7kG9VE1KniHHeQBmWAmK05BL
-         E2TYU8mpbMHcg1OlOWQH3WNPqEi7g3n3dhAaaAhb8aQzSGMk+IdP/Cw2Ys4VhrVCnTh2
-         QYJcJwyb4qC2a9DFx7nMLxzteTsSqms2/kGWP2cRPD2Hj3vjETUphg0cRmbuoFj95UPy
-         UJWg==
-X-Forwarded-Encrypted: i=1; AHgh+RpsMQBpw1EhOI8XwWquTwByDKbJ8uFqnnniD3eQVmLObimArbfa4Oxd0VTIKeTDeWD4lcYku2k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGJYW/3En8XthcdDEGkKa3NAuMVQrrcfJGbCcFb9kWyta+i32U
-	h6CnXrNEEpDXGinddztudLFmm1sS0jHX/0eLLJ22N9LK76wbzpUcBwJE
-X-Gm-Gg: AR+sD13AdAut9avcHJqtDlZeThCqk8VPnB71Z7d4KfultaCQOUImY0psuEZn5eYCjMi
-	DSsjmIfvM2VuzBASjW0Y8bopLzyV9NlKRuUELQLeDWuUQ7tPmug37SwwtFiOYdsgZVFKdH8/mPY
-	kit/Rv4U74GQCz7jow+Yx8NUCqMto6qprzoZ8zZ2Adu5sXIlwpTfS39N96LqNK/evEq5ttc+lCJ
-	SI6qOdLn5Dmin/ztxOcpJ2MrAcgoTDzv6YbbeZsnFJNz3hoYCTyBLCSCGBBfUnOvbEYLnaIfier
-	y/+T2BkFa7amJ9Wtbavr5LLTT+pRjCQFi1aqTPPdBq2II9WXYsws/If1k+a2RxcdtjmuDDx7uOt
-	9L1YqfRzqlBOvUmRokBCvLLWJy5GQVY6hbcY3RT75YTFmkaWLMKH1XtRhMyqyZObD7Ds9rw==
-X-Received: by 2002:a05:600c:1546:b0:495:5205:86c with SMTP id 5b1f17b1804b1-49573cfa349mr51851885e9.22.1784844632101;
-        Thu, 23 Jul 2026 15:10:32 -0700 (PDT)
+        bh=n3sImDHanXm/nP3OwyjC3fU83vihxLVlwyFoNqtWFgU=;
+        b=pvA8jbD5Pkd1mwnani01QLaoJh999YXK4mSrmSzUs4XC4OkYBxWDKUsaJA28GiEfAp
+         PIVu4oB/kbplSoyoRam7eHFlsA1TMQ3Jl/fU8HLh1iEoldeEdKTe85V0gRrtw7rPS9iY
+         1BLVkNQmUv41QgXi0GF+l0yeAgCKd0DL5dfXTxH9IpT2lAcPGlG5nQZ0zdm2y1FX3bjU
+         kXlp+HzJ5MuZPVCqcI8bXj4iFvbd8eSKZGqNudVLXkMDP+xHcIWzhqX6ZkK1hlmGHEvS
+         s0tPunlPzx3a2kfvP9m3M5N73MsAC0SlSIfNtlck1ZCiM/4iyrtVT2RevGQ4FE3Eg1L0
+         rbGg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+yZetLG596p08gQrDhPuhHKMzCJySPjzVpr1ssOXj5ZRegzh+yiTIdyW0WSVEVe/KyAKzAs0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1tE6HmO4aQah1xXfYom3t/7BlU1EP1Y/tBYdinGh2a9EhPHkx
+	8FfPlehM87fuNj9Y4w5PrkAkZj+PtMbRbbFYBsC1iUNLxQghMQCu5M19uh6oEg8c0eo=
+X-Gm-Gg: AR+sD12em4VGF9R8301f1K+gglE8ugBnxX/YM0CwMpMnZo0I01SLSNrmqUTjOVu0r1I
+	5am9WsCqicCbvY26ssQEhhqEpVqLwTVLEKkJzk5nw8/izi+mDPWiWzacw50/5zPNfTIAp0tQH87
+	SBvR8tTCqro41njL015mzEbc2xK4OTo4rdqPBDJwUlTELLuxETLHYdbdmZvsPGTkb3vPDfMsQ8t
+	060mwR0PTEMbD8zBcM5ElcyhidLWPm4ldQ7SIkbgCN0AIXMO6NzKj2XGePpWV4ddHk53lHl98SU
+	Mfw9qZrPPVmHIfcjRPTxFZqAYpYG/8MvVtNflQdznlstiR4bFXvfWC7dQHp72VZPuikwbq6s1RE
+	E3lAQWucXz54Zx9FGB4PVsCr01ZQW0L6MPqYp4FduRmBMB783+4E5uX5ni0JCC2csLyyQ9z5DfN
+	N7jwAn
+X-Received: by 2002:a17:906:7304:b0:c1c:62b4:1ebf with SMTP id a640c23a62f3a-c1c62b41f9emr108510166b.60.1784844657499;
+        Thu, 23 Jul 2026 15:10:57 -0700 (PDT)
 Received: from beelink.. ([186.247.163.143])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957afb4e48sm22256635e9.13.2026.07.23.15.10.29
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32c90205sm280929566b.33.2026.07.23.15.10.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 15:10:31 -0700 (PDT)
+        Thu, 23 Jul 2026 15:10:57 -0700 (PDT)
 From: Your Name <qwe.aldo@gmail.com>
 X-Google-Original-From: Your Name <you@example.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
+To: ntfs3@lists.linux.dev
+Cc: almaz.alexandrovich@paragon-software.com,
 	linux-kernel@vger.kernel.org,
 	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: SCO: fix refcount over-put in sco_conn_del()
-Date: Thu, 23 Jul 2026 19:10:13 -0300
-Message-ID: <20260723221014.527674-1-you@example.com>
+Subject: [PATCH] fs/ntfs3: validate that EA entry size covers its name and value
+Date: Thu, 23 Jul 2026 19:10:45 -0300
+Message-ID: <20260723221045.529665-1-you@example.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,88 +77,78 @@ Content-Transfer-Encoding: 8bit
 
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-sco_conn_del() takes exactly one transient reference to the sco_conn via
-sco_conn_hold_unless_zero() and drops it with the sco_conn_put() that
-follows sco_sock_hold().  The additional sco_conn_put() in the !sk branch
-drops a reference the function never acquired:
+ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
+entry for consistency.  For an entry with a non-zero ef->size (the
+offset to the next entry) the loop only verifies that this stride fits
+in the remaining buffer, and then continues:
 
-	conn = sco_conn_hold_unless_zero(conn);
-	if (!conn)
-		return;
-	...
-	sco_conn_lock(conn);
-	sk = sco_sock_hold(conn);
-	sco_conn_unlock(conn);
-	sco_conn_put(conn);
-
-	if (!sk) {
-		sco_conn_put(conn);	/* drops a reference we do not own */
-		return;
+	if (ef->size) {
+		ea_size = le32_to_cpu(ef->size);
+		if (ea_size > bytes)
+			goto out1;
+		continue;
 	}
 
-sco_sock_timeout() has the same entry semantics -- one
-sco_conn_hold_unless_zero(), no incoming reference owned -- and simply
-returns from its !sk branch with no second put.
+It never verifies that the entry's own name (ef->name_len) and value
+(ef->elength) actually fit inside ef->size.  A later reader trusts
+ef->elength unconditionally; ntfs_get_ea() does:
 
-In steady state the only counted reference to a struct sco_conn is the
-one held by the socket.  When close() races the controller's Disconnection
-Complete, sco_chan_del() clears conn->sk and drops the socket reference
-while sco_conn_del() is running.  sco_conn_del() then observes sk == NULL,
-its own put drops the count to zero and frees the conn, and the second put
-writes to the freed kref:
+	len = le16_to_cpu(ea->elength);		/* up to 0xffff */
+	...
+	if (len > size)				/* size is the user buffer */
+		return -ERANGE;
+	memcpy(buffer, ea->name + ea->name_len + 1, len);
 
-  BUG: KASAN: slab-use-after-free in sco_conn_put.part.0+0x1a/0x190
-  Write of size 4 at addr ffff8881099dec74 by task kworker/u17:3/413
-  Workqueue: hci1 hci_rx_work
-  Call Trace:
-   sco_conn_put.part.0+0x1a/0x190
-   hci_disconn_complete_evt+0x1ee/0x3e0
-   hci_event_packet+0x54a/0x650
-   hci_rx_work+0x321/0x3d0
-  Allocated by task 413:
-   sco_conn_add+0x72/0x1a0
-   sco_connect_cfm+0x88/0x670
-   hci_conn_complete_evt+0x4c5/0x890
-  Freed by task 413:
-   sco_conn_del.isra.0+0x3f/0xf0
-   hci_disconn_complete_evt+0x1ee/0x3e0
-  refcount_t: underflow; use-after-free.
+A crafted image with a small but valid ef->size (e.g. 24) and
+ef->elength == 0xffff therefore passes validation, and a getxattr()
+with a large enough user buffer copies up to 64 KiB starting just past
+the short entry -- an out-of-bounds read of the ea_all allocation that
+leaks adjacent kernel heap memory to userspace.
 
-The freed object is a kmalloc-128 allocation, so this is an out-of-bounds
-write into a reclaimed slab object rather than a plain crash.  Opening an
-SCO socket requires no capability, and the race is reached whenever the
-controller delivers a Disconnection Complete concurrently with the socket
-being closed.
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
+  Read of size 65535 ...
+   ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
 
-A related refcount imbalance introduced by the same commit was already
-fixed in commit ed9588554943 ("Bluetooth: SCO: remove the redundant
-sco_conn_put").
+The zero-ef->size branch already computes the same struct_size() to
+derive the stride; mirror that in the non-zero branch and reject the
+entry when its declared size cannot hold the name and value.
 
-Drop the extra put so the !sk branch simply returns.
-
-Fixes: e6720779ae61 ("Bluetooth: SCO: Use kref to track lifetime of sco_conn")
+Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
 Cc: stable@vger.kernel.org
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- net/bluetooth/sco.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ fs/ntfs3/xattr.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/net/bluetooth/sco.c b/net/bluetooth/sco.c
-index fcc597be5bbd..6502fcdfc0f0 100644
---- a/net/bluetooth/sco.c
-+++ b/net/bluetooth/sco.c
-@@ -265,10 +265,8 @@ static void sco_conn_del(struct hci_conn *hcon, int err)
- 	sco_conn_unlock(conn);
- 	sco_conn_put(conn);
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index 04814dd29375..57114fb726f7 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -155,6 +155,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 			ea_size = le32_to_cpu(ef->size);
+ 			if (ea_size > bytes)
+ 				goto out1;
++
++			/* Check if we can use fields ef->name_len and ef->elength. */
++			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
++
++			/*
++			 * The declared entry size (ef->size) must be large
++			 * enough to hold the name and value.  Otherwise a later
++			 * reader such as ntfs_get_ea() copies ef->elength bytes
++			 * starting past the entry, reading out of bounds of the
++			 * ea buffer and leaking adjacent heap memory to
++			 * userspace via getxattr().
++			 */
++			if (struct_size(ef, name,
++					1 + ef->name_len +
++						le16_to_cpu(ef->elength)) >
++			    ea_size)
++				goto out1;
+ 			continue;
+ 		}
  
--	if (!sk) {
--		sco_conn_put(conn);
-+	if (!sk)
- 		return;
--	}
- 
- 	/* Kill socket */
- 	lock_sock(sk);
 -- 
 2.43.0
 
