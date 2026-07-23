@@ -1,124 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ED5184;
-	Thu, 23 Jul 2026 00:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B3C1E5207
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 00:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784765402; cv=none; b=ZryD2kCxYxOgPt9rNfNj+zb3m51XBLKvc+h0uZda5XpVkr+mlS41xQxBwAakYwCciuzlAX9g9WvF4DzMKKKO7Z77nE5BxlFm457IjyBuDT55C/af6kzPWsgEws/D7W3f5sZfirY5AzuOTOBleZG7xGyi2NXxBjUhCAyXDXs6rNg=
+	t=1784765712; cv=none; b=WNJL37aAAo5C9ys+nDnEDXkJZe2vciv5pICrU4BwDjYLpZ/5lLMHGsaWCoP2THBL4G3ui5SOY8+U+sKI1agwSBV8EqahrTy8DwvZ4Dx7bgyd9fx/q5wH9SvjJyzsygw8aRaMGueY+GRJbp9uUOxTM/LiN5MTgClS2dwNHyBgfnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784765402; c=relaxed/simple;
-	bh=Zu9oImaDwyIfoRz1q2AfzbW8Vir4fl7pMnnm74kpUNM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lh/M897d6NW905TUS3Cubk55NMzViXgod1Oe9CgwqjU0UoWEmQ4PtKtNrzB45ou4fnI6hRK2VL5DSvCRFodUwx8ZQtFZ/p4urxEYKWDsD9Pua/2aft4vlj/0zBAa7JtwH0lbBva0ER89KX8E3VgjdD2kFImMN8vuyDZhB+XfioE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/MErgR3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784765712; c=relaxed/simple;
+	bh=TLQfSVdlMTqTPTmDzRSTa3i03iriBuDGFkfWKfK6fyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NKAmm7GUT2qnOSi30nFdRJif0HYu2Sp6XiVLzeO6inR5Num0yzALqBmlNBrBW/PMQtnYBi9K403q8cNgeJorTLTAUsz19Vk9WBwJVs9JDWpWSIpjEI6yrqe0AypOn84bUg7TIhy0mEu61kwx5m0WCOOZ9I/6dUmu4f8uhuIFTO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJpItQGi; arc=none smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/MErgR3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211C41F000E9;
-	Thu, 23 Jul 2026 00:09:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784765400;
-	bh=RGDKxBCbXr9QOavwty6iyYJZjfOOVij2zQPxRnMUWOA=;
-	h=From:Date:Subject:To:Cc;
-	b=I/MErgR3ZkWUQgplmAG73RA7x8E0Y5es79mUl2qlzf5K3RqHNppc5kPYQ7u+e6RDc
-	 od1g8r1SejPUCEBsCvA0wYycWHI8EqA4sN483Oi9PSuWhuTNOWZzQAN/XfFGUUeQx0
-	 JamwP1uoqJaNlQAgpBdbyWjgMNKCf29sfxweao/zBzO2XwNLRyGyr4J50nNqHIdzQM
-	 HLa5rrmOFYRcDZ0rU6tQ4xgkBKoltWH7/9/rmfENlfRFQtxDV4VnhFbo4XYcJ8IUiq
-	 IYsgUHt6NO8useASROPmFwmlwsiz/OjpOnzctThUg1q6lg9NOaOxg78VoZdyWK6zIf
-	 xrSHw/sBXmpQg==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Wed, 22 Jul 2026 17:09:43 -0700
-Subject: [PATCH v2] x86/boot/compressed: Disable jump tables
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJpItQGi"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-667b0ced2d3so24574d50.2
+        for <stable@vger.kernel.org>; Wed, 22 Jul 2026 17:15:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784765710; x=1785370510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qp9RLqBI1+mbcSRTjHjiXFbp1lu8yHG6RRkL9RL0Njc=;
+        b=rJpItQGifPt0Iw0d1A2ErjLDdK7kFYV/xRigglNk+yuXLotftw/i17UiEHk3xnm5oc
+         /1eTNum7M+etTKjv2mObifD7mB7h3q5siTPmLpdnR79X5YEUa5xbuYAnzc4zwCsPm9eK
+         YW5nOgJgCvP/MM5F/pcOOcmo108vuDzICFzgHVFiOWcMvLTR7cQ0QRqN/EZ5MeTA18Qr
+         AJHBd0oYuYOfpTshECOcssZxWH8IvQr2JXSSaBcxYntjpilun0Pq+17nrE2YYNUyAQBh
+         W3rE6WfRuEWoR2/vFpmd8SrC7RLjWoJmfmVyxH88oPvJoUWKsayIVUA9IFA6UNq5Qmcl
+         E4LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784765710; x=1785370510;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qp9RLqBI1+mbcSRTjHjiXFbp1lu8yHG6RRkL9RL0Njc=;
+        b=PA+Uh5ffC8mdty+DvV3U6x5mkQt9lSDP76OcjG3gcxitVmaXaiGj6vY7xso21R6T6+
+         sghc9PUORvDbmrNi1Mf7ZSjfJNmGDMSlpJDWYtDbRzPYxEMB/dyGv5porWVNJ6Ed0Zc8
+         cJg6ZSzI6N0q9O/avD0ddaHquFQsEeHeIkgXEgHNtp2vV2MMQE21denVUanBPEa9U4YF
+         hEU1pNv8doeNuKDMJLCG6wGnWPonMIo4/MxYopyuJPyXktnpMeHHJ+0RJdYaUquVuB63
+         UJs/og3Q8LbBgqq95a8A8DsBHHfbGL3/4Tt6MTZB5qGA5lNqeeGIRvygJCILDBqwoEwT
+         rS4g==
+X-Forwarded-Encrypted: i=1; AHgh+Roo9jzQNjERVnH5jDNzBt5pSWvg3qx+2fDRPAgyG3V8bJmjsAYJ+k24a7bQ+7IK/XSweWc+Qns=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXYYtWTN2oaBPASWaPyiMaGG9DlpCP/n8VZ8Geo8GHBtapR5ow
+	ErWW/nAdy60vR52TDvPwjFIqGFeBzqUT/0gKFG9ILLOunP+57ueT1YLg
+X-Gm-Gg: AR+sD12R2RE+B13RWHigDQTwwp7zcUVww3RJXliveU2MWuWoPnzKMhwIr4muO8rQvBg
+	tRWqt87kvunp5ETbrp1GkSYFjzsA88QC0FadyKCMbMXftoGh5eoMZNCGkYCm8A425ztDCEnuOy3
+	7sdDPkJvG1/jHDHhVZfVRHsFDpdrKothqnPgUtCmPYwIhKNEyKUj0GCnpzkNVhEJ2hg8RjuuWxf
+	PxrWGwrk3neFzWryhVOLmgO6lNfJxs/guBlfHutgglZnMkqwUt5Q0N4nt6PH2Mf54eI2AAnSn/R
+	LbNwVDev6NPwe5rYgfF1ZJeGuqev20k6W5NMt6+kPZ8bQhQPt8PDFbjkcKVC2Ph8ZTgQZ/EEywz
+	AOKbgdlJJjrqizOPM7w5x0x/kQCtGi8GZjkUrUonVeQhkroxBcNhJQCpu50oPA2TfT28k8H5+pL
+	hDMMe2ek5pdtWinauQnDLQJJYzZWDFiQeN7DHuyAHKkz+AsVh9i9Lj0Z9pIsRc1fgJ8pFbqn9Ow
+	gygO6+S41QlSPA+tY3e+CEEfa9lLlsh5cbWdtPHJPpPIuM2joD0iH7Qzo2lLXIBtII=
+X-Received: by 2002:a05:690c:4b86:b0:81e:8985:e0e with SMTP id 00721157ae682-81f4c30bdbfmr2886347b3.37.1784765709572;
+        Wed, 22 Jul 2026 17:15:09 -0700 (PDT)
+Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local (76-204-101-112.lightspeed.tukrga.sbcglobal.net. [76.204.101.112])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c397c9sm21446967b3.14.2026.07.22.17.15.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 17:15:08 -0700 (PDT)
+From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+To: mchehab@kernel.org,
+	hverkuil@kernel.org
+Cc: kees@kernel.org,
+	rongqianfeng@vivo.com,
+	axboe@kernel.dk,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	blbllhy@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: dvb-core: add upper bound check in DMX_SET_BUFFER_SIZE  ioctl
+Date: Wed, 22 Jul 2026 20:13:06 -0400
+Message-ID: <20260723001306.84709-1-blbllhy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260722-x86-boot-compressed-disable-jt-clang-v2-1-7373d38482fb@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6dkxbU0BX3sOwgHYKRWxNBwmGc
- HcLxr3LP3n/v1kYYXRI7JItLOLkyAWfgjxkTHe1bxGcSZlJLnOeSwlzmUMTwgg6PJ4RidCAcVQ
- 3A0KfrkMqAVphrK6l4ueSpakEWjfvmlv1zfRqetTjtr0RnaMxxPf+xyQ27qc8/aecBAhQhbJaG
- 1UKXlzvGD0OxxBbVq3r+gEWItSQ6wAAAA==
-X-Change-ID: 20260622-x86-boot-compressed-disable-jt-clang-ef1dfca25098
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Ard Biesheuvel <ardb@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3006; i=nathan@kernel.org;
- h=from:subject:message-id; bh=Zu9oImaDwyIfoRz1q2AfzbW8Vir4fl7pMnnm74kpUNM=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFmJ0Vc1H053DmDzfF69e4/OgbVPJmdtuHtwadeSeatne
- XP/XH10d0cpC4MYF4OsmCJL9WPV44aGc84y3jg1CWYOKxPIEAYuTgGYSOxKRoa3v1fMYX75Tzud
- KSRR6di2aPn1wVoum2Wvi22qcGN5f8SUkWHC+nsfbrdHdMw1Fqyx4ztqcnleq0eP9ocv0zYJTL0
- 97xwvAA==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-After a recent upstream LLVM change to start generating jump and lookup
-tables in switch statements in more instances [1], linking the
-compressed x86 boot image when CONFIG_KERNEL_ZSTD is enabled fails with:
+dvb_dvr_set_buffer_size() and dvb_dmxdev_set_buffer_size() pass the
+user-supplied size argument directly to vmalloc() without any upper
+bound check. This allows excessive kernel memory allocation via the
+DMX_SET_BUFFER_SIZE ioctl, which can lead to system-wide OOM conditions.
 
-  ld.lld: error: Unexpected run-time relocations (.rela) detected!
+  Kernel panic - not syncing: System is deadlocked on memory
 
-Dumping the relocations in misc.o, which is the only file influenced by
-CONFIG_KERNEL_ZSTD in the decompressor, shows dynamic relocations to
-some string constants, which correspond to the string literals in the
-switch statement in handle_zstd_error():
+  Call Trace:
+   out_of_memory+0x12fd/0x1370
+   __alloc_frozen_pages_noprof+0x2620/0x2fa0
+   __vmalloc_node_range_noprof+0x7fa/0x1490
+   dvb_dvr_do_ioctl+0x11e/0x260 (drivers/media/dvb-core/dmxdev.c:296)
+   dvb_usercopy+0x15b/0x360
 
-  Relocation section '.rela.data.rel.ro' at offset 0x277b0 contains 31 entries:
-      Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
-  0000000000000000  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 73a
-  0000000000000008  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
-  0000000000000010  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
-  0000000000000018  0000006600000001 R_X86_64_64            0000000000000000 .rodata.str1.1 + 78e
-  ...
+Fix by cap both functions at 64 MB and return -EINVAL for oversized
+requests.
 
-This optimization is problematic for the decompressor environment, as it
-is built as -fPIE without any explicit absolute references (as described
-at the top of misc.c) while not applying any dynamic relocations, hence
-the linker assertion. To opt out of this optimization, which is of
-little value in this special early boot code, and to mirror the other
-x86 startup code in arch/x86/boot/startup, disable jump tables in the
-decompressor.
-
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: a095be4b030c ("V4L/DVB (7659): dvb-core: Implement DMX_SET_BUFFER_SIZE for dvr")
 Cc: stable@vger.kernel.org
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2165
-Link: https://github.com/llvm/llvm-project/commit/fa02a6ed66b1700c996b49c96c6bc0eb014c9518 [1]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Link: https://lore.kernel.org/all/20260722193719.81157-1-blbllhy@gmail.com/
+Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
 ---
-Changes in v2:
-- Disable jump tables for GCC as well to mirror arch/x86/boot/startup
-  and adjust commit message to match (Ingo). I kept the rest of the
-  message for future 'git log' travelers to see the original issue.
-- Link to v1: https://patch.msgid.link/20260623-x86-boot-compressed-disable-jt-clang-v1-1-575fccd58107@kernel.org
----
- arch/x86/boot/compressed/Makefile | 1 +
- 1 file changed, 1 insertion(+)
+V2:
+ - Add Cc: stable and Link: tag
 
-diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
-index 07e0e64b9a98..06934f9691d6 100644
---- a/arch/x86/boot/compressed/Makefile
-+++ b/arch/x86/boot/compressed/Makefile
-@@ -27,6 +27,7 @@ targets := vmlinux vmlinux.bin vmlinux.bin.gz vmlinux.bin.bz2 vmlinux.bin.lzma \
- KBUILD_CFLAGS := -m$(BITS) -O2 $(CLANG_FLAGS)
- KBUILD_CFLAGS += $(CC_FLAGS_DIALECT)
- KBUILD_CFLAGS += -fno-strict-aliasing -fPIE
-+KBUILD_CFLAGS += -fno-jump-tables
- KBUILD_CFLAGS += -Wundef
- KBUILD_CFLAGS += -DDISABLE_BRANCH_PROFILING
- cflags-$(CONFIG_X86_32) := -march=i386
+ drivers/media/dvb-core/dmxdev.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260622-x86-boot-compressed-disable-jt-clang-ef1dfca25098
-
-Best regards,
---  
-Cheers,
-Nathan
+diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
+index 3c8bc75e4d6c..b4dc87945be1 100644
+--- a/drivers/media/dvb-core/dmxdev.c
++++ b/drivers/media/dvb-core/dmxdev.c
+@@ -20,6 +20,9 @@
+ #include <media/dmxdev.h>
+ #include <media/dvb_vb2.h>
+ 
++/* 64 MB upper bound for DVB ring buffer allocations */
++#define DVB_BUFFER_SIZE_MAX (64 * 1024 * 1024)
++
+ static int debug;
+ 
+ module_param(debug, int, 0644);
+@@ -292,6 +295,8 @@ static int dvb_dvr_set_buffer_size(struct dmxdev *dmxdev,
+ 		return 0;
+ 	if (!size)
+ 		return -EINVAL;
++	if (size > DVB_BUFFER_SIZE_MAX)
++		return -EINVAL;
+ 
+ 	newmem = vmalloc(size);
+ 	if (!newmem)
+@@ -333,6 +338,8 @@ static int dvb_dmxdev_set_buffer_size(struct dmxdev_filter *dmxdevfilter,
+ 		return -EINVAL;
+ 	if (dmxdevfilter->state >= DMXDEV_STATE_GO)
+ 		return -EBUSY;
++	if (size > DVB_BUFFER_SIZE_MAX)
++		return -EINVAL;
+ 
+ 	newmem = vmalloc(size);
+ 	if (!newmem)
+-- 
+2.53.0
 
