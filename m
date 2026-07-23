@@ -1,111 +1,141 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CF934040D
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 07:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CE82D0603;
+	Thu, 23 Jul 2026 07:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784791248; cv=none; b=IG5al68pi15FlVkHNm6R6XsVYk4++AgvNhRevlUx/jcEvz8/Tx+gySpiOqUX2rVwM0sI2tuLAvzAi5OSNm2Hq/Bj7RlZxOBlVciK087fRzEYVfQc4R8e+BTLEBRDVpJC5d4OGdQ2dXlNfZN12BbjLNMFFBWzlarTchXPrZmgBEk=
+	t=1784792157; cv=none; b=G+/8Efm2y4Id6pQI2adp9QE4iILj12FXmyg1mc/qlkADjnRkYEYGC8XktV4E6KTTzquLbRb5SlZhIFUweFos+Cod1OzkdPxRStc/7OBUGuYmkSR/BEMU37f2EV+c857u1IMM1FAE6ZQdV+U9AOBvSQfEFesJkyjEKfLRbikG61A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784791248; c=relaxed/simple;
-	bh=iWoSzUYJLnENnLJ+6d2f18+YRDfc0wb5KlE4uEi2kZk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GGHYe82hXDd+UgOOnCdqd56tlDhnrPBjs7Q7b+/Nr0f+ReVxIU97+IHgLbSWqKwAyusX5e9gajZWRnSqnZOAPMvNFYXk0AHq7I9nGKaqJ/ejv0VtKUwv+HQEYUYLinwVWiiWm7jWXIe0ZfLbS6xqAu8p2yE6KFgW80OWmT3zx9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=GMhxFbP6; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1784792157; c=relaxed/simple;
+	bh=3wPAAutF3Hw6eNyZ5EmlalQDwA71nl5RAl6j6uUF53s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PwK/i3O20Fuvz6gQWZrWPCm/gse1KJujZt8tGld0ziWVkkJaC3stdQBYcBgDzV91QgtzKgjlnwTk/7lW/JE4Av2YGGrSYSbqTqPYwSm3D1Cl/CdWT/wLb/2jwpDzYtltZTNd1i+HxDj68OpkYdtPf5vVPdXgHswecN31F0lysOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CVq7CwiS; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="GMhxFbP6"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-471eeac43bfso257991f8f.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 00:20:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1784791245; x=1785396045; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nth5iIvPYHQYLZs/eqFWoZtm0g6LK9jEijFjgKUtDEA=;
-        b=GMhxFbP6lP8XLwE0dptxvNlEWtz4nqbYJj4v+ms/dVWM64LxG281KlQC/ypGiFGeft
-         gUetUhpYTPfOM3WWwsf7+LGOeT0p8laErWicCowapVP14LY/mN9zvfBh96oaDCNxmCyn
-         ciXbBsltL0TBjsj99EH1j9g/MwLXJOXCMFoitghl+SDTcF/CLMeN52ME7SfmCnRLBkpz
-         fz6Hwou31FJNXFeaeHTjmM53c8ztvlRMYVpzDC5n/i3liXB5Jj9T+APsluPw/qYq5j1C
-         A2Eq/rBqMrA1nA4Epr908z7/9iZ+m6D6T+TC5Mh6T82hIlU+v+PMFV6tbACphL5jLvkx
-         TTHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784791245; x=1785396045;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nth5iIvPYHQYLZs/eqFWoZtm0g6LK9jEijFjgKUtDEA=;
-        b=ftzn8b8Wk/+dN2JDHMYxLl5VNBP3jbiynv4XUn6DDH4DQaiLVTfxfLwEvBtYklz4gG
-         AhATyPK7a3gaaQuk2lX5omI7EjEJ3KpqLOzuNB4GwoEYzdB4sqow/bGF8/5nTIkp7ZsO
-         qywS8mLAXxWBD7A1KFSKpKF9S70JGZWgtTuQNENLw1+M/GcnFJJeGfa4qUSUx+FBsx4A
-         AQ0YltYbKOxgL0vqHH4uWSGgOOLO3CEoteyGTP6FIDoz4f/E7Zi3HP/QI5Ve9923QSov
-         VnbLdANxAR4OkJIT9HTrmUlA9w7enN8tvmDjFGjjIRvrxf+0yyeat16QGqTixC7O7A36
-         hHBQ==
-X-Forwarded-Encrypted: i=1; AHgh+Roe7hW2ApElF0UV1W7psB/ybMpXckFjpUpJLFALQp2AtqIT4G/HPfsLYVPZ8jrCKJjVOSMd374=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFhYEVa9pA+CwDxbgymkdm2r/1Ir4/4X+M9OC+ovO6mJVfgkDM
-	T+HzW+Qlmg3jy4N3msUjHPzDdSgR2siaFTQcfGQGaWxrhg0Ro13sWFg=
-X-Gm-Gg: AR+sD13G3JharZ86hed3tJx/69FC17HWHiTa0tguitAyb+5KrfAcyEqjW/joUV0ynBg
-	i01sLo3zbxOWQXP+J49CNNyj+VoZFSLeXZqGbjAvOBwyI29pRtZU2fDDO+8Xe0sBcrpJdd3gaCj
-	ciK+7PepPKpXtNv4Qs2DtMTEH1e6Shj1DTid35rmhb4C3KtqEM15a016KDvYPWbxwCLXdXR1qUW
-	Wiha2q+L3cTQws/QfDyjWJI4R0IcHz2Vr71+PwplF8lmDlvmR/uKzwecF5x5K14CFtvxSH9Nfm/
-	ZSE6RtyMgrR+ib0lNQSdTGAWEYLyrXbMB/h+z+cU6U43YoU8kMjqXJ3L04TPWPOfT2Ay3fTSRbH
-	6mq0znJ6ygUydMkSfwtweG+2KGpgVeWBo0Yc5RmsyJZFWUkXLnjubXBhCpGplkhG2qh0awbt6S3
-	nGAWOswVemov6mb/RC6SVpV/dVI1m7jLhvCLCp81xMUwk75HeI2EiK8gI=
-X-Received: by 2002:a05:6000:3105:b0:47f:83b3:2cb2 with SMTP id ffacd0b85a97d-47f8d770508mr2274615f8f.57.1784791245138;
-        Thu, 23 Jul 2026 00:20:45 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2acb97.dip0.t-ipconnect.de. [91.42.203.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a5a2sm13809444f8f.7.2026.07.23.00.20.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Jul 2026 00:20:44 -0700 (PDT)
-Message-ID: <a01ad02b-0b9f-4af6-b3c9-748814f3e3b2@googlemail.com>
-Date: Thu, 23 Jul 2026 09:20:43 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CVq7CwiS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784792155; x=1816328155;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=3wPAAutF3Hw6eNyZ5EmlalQDwA71nl5RAl6j6uUF53s=;
+  b=CVq7CwiSgSERJu4hqQ2mf2nYdkrxbQsJKYYawhk/4mcy7BqHrkDODp3M
+   okl3LlIvmbCBGsCs6bCJj0WbcGcVut4nAMTPtghXTkBW/j6y8Xp6jrBm1
+   Crgr41A5jElk78F9ShCg8/b8LaxUVBCk5WgTzpM8uPeuASXTAokQC3Ows
+   lNghGdQlB1MJKgyqd3uX4/XSs5Di1qkLP0ZXeK+qdhkFQXuUgV2ezuqVk
+   BcAXONjDxf/C/tYeF6p0bHV2NyJDWRKOLJGi/GFjo56iMQlLuK/sV4GAH
+   SKLBVW69X3y5MQ0k/UgSlDyoahhhwuDI4FvOBGcFIrJqwNjm0EJuhQeV5
+   Q==;
+X-CSE-ConnectionGUID: Qwl4FZl7ScKAsQ8qRz/STA==
+X-CSE-MsgGUID: EXYgLpYjR4ybDSRbnUYQ5A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85559436"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; 
+   d="scan'208";a="85559436"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 00:35:55 -0700
+X-CSE-ConnectionGUID: /OHx6hZiQKK80jgwiSZhiw==
+X-CSE-MsgGUID: ckzIFuurSTuj+Ga/zfh7mg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; 
+   d="scan'208";a="282840065"
+Received: from serinyeh-ms-7d25.itwn.intel.com ([10.225.65.16])
+  by fmviesa001.fm.intel.com with ESMTP; 23 Jul 2026 00:35:53 -0700
+From: Serin Yeh <serin.yeh@intel.com>
+To: linux-media@vger.kernel.org
+Cc: serin.yeh@intel.com,
+	sakari.ailus@linux.intel.com,
+	jimmy.su@intel.com,
+	sarang.sapre@intel.com,
+	bod@kernel.org,
+	kieran.bingham@ideasonboard.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] media: i2c: ov8856 : remove ACPI node bypass mechanism
+Date: Thu, 23 Jul 2026 15:40:36 +0800
+Message-Id: <20260723074036.369363-1-serin.yeh@intel.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.1 0000/1029] 6.1.178-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260722143218.909123637@linuxfoundation.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260722143218.909123637@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 22.07.2026 um 16:32 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.1.178 release.
-> There are 1029 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+The driver currently skips power-on and power-off sequences when
+running with ACPI devices by checking is_acpi_node(). This results in
+all power configuration steps (GPIO, and regulators) being bypassed.
 
-Just like rc1, rc2 builds, boots and works fine on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or 
-regressions found.
+Remove the is_acpi_node() checks to ensure that the full power
+sequence is always executed regardless of the firmware interface.
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+With these changes, the driver behaves consistently across DT and ACPI
+platforms and ensures correct hardware initialization.
 
+Fixes: d2fa1134a48b ("media: i2c: ov8856: Use V4L2 legacy sensor clock helper")
+Cc: stable@vger.kernel.org
+Signed-off-by: Serin Yeh <serin.yeh@intel.com>
+---
+ drivers/media/i2c/ov8856.c | 29 ++++++++++-------------------
+ 1 file changed, 10 insertions(+), 19 deletions(-)
 
-Beste Grüße,
-Peter Schneider
-
+diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+index 8bedb47cd7cf..9d2b0469a576 100644
+--- a/drivers/media/i2c/ov8856.c
++++ b/drivers/media/i2c/ov8856.c
+@@ -2082,9 +2082,6 @@ static int ov8856_power_on(struct device *dev)
+ 	struct ov8856 *ov8856 = to_ov8856(sd);
+ 	int ret;
+ 
+-	if (is_acpi_node(dev_fwnode(dev)))
+-		return 0;
+-
+ 	ret = clk_prepare_enable(ov8856->xvclk);
+ 	if (ret < 0) {
+ 		dev_err(dev, "failed to enable xvclk\n");
+@@ -2120,9 +2117,6 @@ static int ov8856_power_off(struct device *dev)
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+ 	struct ov8856 *ov8856 = to_ov8856(sd);
+ 
+-	if (is_acpi_node(dev_fwnode(dev)))
+-		return 0;
+-
+ 	gpiod_set_value_cansleep(ov8856->reset_gpio, 1);
+ 	regulator_bulk_disable(ARRAY_SIZE(ov8856_supply_names),
+ 			       ov8856->supplies);
+@@ -2293,21 +2287,18 @@ static int ov8856_get_hwcfg(struct ov8856 *ov8856)
+ 		dev_warn(dev, "external clock rate %u is unsupported",
+ 			 xvclk_rate);
+ 
+-	if (!is_acpi_node(fwnode)) {
+-		ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+-							     GPIOD_OUT_LOW);
+-		if (IS_ERR(ov8856->reset_gpio))
+-			return PTR_ERR(ov8856->reset_gpio);
++	ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						     GPIOD_OUT_LOW);
++	if (IS_ERR(ov8856->reset_gpio))
++		return PTR_ERR(ov8856->reset_gpio);
+ 
+-		for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
+-			ov8856->supplies[i].supply = ov8856_supply_names[i];
++	for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
++		ov8856->supplies[i].supply = ov8856_supply_names[i];
+ 
+-		ret = devm_regulator_bulk_get(dev,
+-					      ARRAY_SIZE(ov8856_supply_names),
+-					      ov8856->supplies);
+-		if (ret)
+-			return ret;
+-	}
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ov8856_supply_names),
++				      ov8856->supplies);
++	if (ret)
++		return ret;
+ 
+ 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+ 	if (!ep)
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.25.1
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
