@@ -1,190 +1,425 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8B14477F1
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA824C8FEA
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 15:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784820751; cv=none; b=fnofIuur6ul3fMR8/DF5jdy5xYuLR/8jkhW3CWPTfRO+LEOgDZE9quKRtKPZzVESLFZ2/HOsWwR4WwhBD7ZMiMeUZ0iHTnw9st3BuD1WXQt5xYRiczlxGYD1mz0XV2ZTrztCHpJN6CeS0Bc/MyZTVcpkSB/lU0n6udKwYXoifek=
+	t=1784820900; cv=none; b=l1HIpUaHZdch0/PHCTjxqiDS3tInkJcFw/xwMuGtHJ7p8rUU/0R2xmsI6pyJYQsexXSHE+ykVIK5DqfajcAry/UnIyRUbDV1mj9AM9VXKHzyOZWvQDaM7t5t9DsBeGq2m1CWVPYAbd1YizsKBA7d69G/IRPXcvKqSKq/9yvaPHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784820751; c=relaxed/simple;
-	bh=seaYDwI+nOspPsam8nAG0QjOMH1JMpbMu7zdWL49U/w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HHn5zZoxiO/5dStb5pWrRBqc4hENSB9dX+rZRYGRBmZ/dnf3bjYM3V/KcODER4UUQEt3bRzgnDnnDq6kJzpDOAlzy3915zzMpgEj1XbTWmwJ0yfDrBI11CODWaywVUV2eaT7k3DGlugXdNbyMZwZ2Nn5L8h2DPvmMCTfSVdVybw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=agJVx3Y8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=V2U2pGJI; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1784820900; c=relaxed/simple;
+	bh=GDKEmuXFhac2VKPf9kmHj7KLT8U10QqT1ib08+5c6BE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bNmRGBAMYmtgXMAaVOe98FnlVejbvhSs1VJRgBYIDP4IkSyriT8n9nWbHpeTFbY9XBftyk638V9rMiOtRmCzs5up2LIrU8/BcGk5KZf+kcuALSSyIFMySjigqx1ML9YVbA7Zr0yfGJq/8JI8XTrk9FQJVPKMRxm3u1qPjOWGOWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+z3Jz3k; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="agJVx3Y8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="V2U2pGJI"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 187A5EC02B7;
-	Thu, 23 Jul 2026 11:32:28 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-05.internal (MEProxy); Thu, 23 Jul 2026 11:32:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784820748;
-	 x=1784907148; bh=uC8O9Vyu/QrSbOX3b8tQmIgdm0AzPdgb0nkxuwubWPM=; b=
-	agJVx3Y8kslvZuAu+VhczzMJ49A2rRBl2mTYw79bwBfPPw/vqlvReS2rCidZ5sim
-	DLmlxGHbmpFHc80pdURtcVwVI0vJI8Ed8l62+eIyB8jBvjrcb/rWeJ+jQ+Oyktjj
-	6TOCtPblnwC2j8Rsp/Qd2ZBXPql2Dz9rDmyjdztRi1YFvNS/fuWusWQcS6qN45Je
-	yXVMhALyQTuDDKMMVoDEJQFPhkVZOxODL0j/k6GwNKFQWCR6y+jhzzQ5YdSnwQHR
-	WNS78jUEwvyPYiMmx2l1heAv+Oq1sXQ9WdrU79L2yHXrcKcjcSIAzNfV+O2m1T/S
-	ci8bJnd9HT3XEXkKMaJ0rA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784820748; x=
-	1784907148; bh=uC8O9Vyu/QrSbOX3b8tQmIgdm0AzPdgb0nkxuwubWPM=; b=V
-	2U2pGJI11I1+XtinyGw449vKlgchUYRkj4apXGRuRkZA7bHjwdwlIDPeivmMBL4D
-	UUCPB5NpizCgh/f8DsTS0j1sWo56xGsVfukWC8NglpNO69mp+992Kh96MgQ39iY9
-	2C6G5N2xzz4y+a9rSOc/fONjhdjhTXKot40YCqm0IzC+VQYSUHkPIXe2zIOXA7F5
-	BOP8GXkbmKjalSd7sjN1SHm3IreR0uMO1ZJuD+cZnrhI1EFxveuz8A/oAZYcHWmf
-	51UDZy7VFCdhPM3PlFzl58INNGz8DnW42mXr0ARvsvxaA3hrn9neTNc1+zn05qTw
-	KF1syhyuGBOJsji+5UiWA==
-X-ME-Sender: <xms:CjRiatQ0UIg0iHMzR1Wuzq0HHEPEYJYG3mS3weQF5hfFAgoUfapHEQ>
-    <xme:CjRiatSVegr9ihLvDHZVmkn6mFAi_6cH1Xhl8aGdwXk_CYzpzSZwEGOoOO8oBD5tB
-    VlYoUIujMVH7QQ0WWNk-XNCkdrKv_PrhG9_srHQSLP8YDodwQKxAKc>
-X-ME-Received: <xmr:CjRiag1OKCkO8RGsWFeELfGdCtVs4uxPneHX3h-3kBZcNKSaCPfaXzbyTnwu6W6gSM5XpRXDmfnR4cYw5u2pmXY-21-yZ4Kk>
-X-ME-Proxy-Cause: dmFkZTGLzDJ6eA1f46/pGTTCNa9RQ903DHco+Bmz4K6MxvF5YldMvu//KTv+xII7QcGw3J
-    xdytwGZQ0qdzuGyHtSRKYhEXUoH2Ui3UhQednuWCJB+IOnALpIro+FDEeHG3r8Mt8Piyyk
-    NB+GQYZ7yeSlleCUVnshrqwPmueoc1EZ4AIlKekndhEM4zJDnhf6pcIVx+SsQr+Vwtg+9F
-    HTAY1QlbjlKmHpfiNwFu5ZPzyW6BHXh+/1MUAh2OkjV1v2z5SuPnIY/3Spa3LqlOX39VZZ
-    In0s4lvobVuZsnczUQ60JT7Bnd0Ez82Dy3oQrYzLriug3T0Q9Atf4piy+HUB/bBjqNJNMw
-    ecqdCg2LegFWdBHbXpgnLgXn/cC0qCaGZZ1QIpnMV7qg/aCRuNAgwaH7hjcxts1gCgkb+k
-    SzsUACEuDz6YeurmoPneImdEOr9aOl2noMvmAsSfBWZmX8F4ikOR9cD7CU++TGVUETGmdF
-    qyrB+Q9H/pcVxoeT63KVxpoaBma3zOmPy3hIBVcuvyEsVln1PR0xgzyr/kOl9YY52ozn5A
-    KADk9Cb+cn9H9xa3YyWs9/CPLio1w1RT+mx6Ruo7LgqU67P8SDu4BxXYObJPypFQGXfpJz
-    rnjhD5OLtVRxYmoFCf4hpHBAu8ukX93BxMrAiuc89WtVYJKgUaDWzUBit3sg
-X-ME-Proxy: <xmx:CjRianw17wNDqa2wMeEPcMoaYYC6mBvwx3tcpl-z7vRA5Y37FTnKlw>
-    <xmx:CjRiaswQJefk5GoFQJedxD9ftOUUrho8-4INeQRY8Mdak8S-OFEc1w>
-    <xmx:CjRiaj9itblK3k51fqbyt3RmmY8-pxnHCLJnTPxVcbpjAWhHu0CTrA>
-    <xmx:CjRiam-8CgSZEWe_WQZlLQYR1dY3dlToVcqco5gU57eyj9bpVXDaXw>
-    <xmx:DDRialhXTy7YJVOl7hOlnyGbc9dbJJyxqrHgP-QNMEVXay6i2_34HF8E>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 Jul 2026 11:32:25 -0400 (EDT)
-Message-ID: <759ee068-9519-4cfa-9be5-1deb0d9fc877@pobox.com>
-Date: Thu, 23 Jul 2026 08:32:23 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+z3Jz3k"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-ca6d9c91206so81265a12.2
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 08:34:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784820888; x=1785425688; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jMXs52eS7eZ/u/yFLXPygHed7LhVkq5pYs2Qe/C7Pfw=;
+        b=I+z3Jz3kRSjxf5uclJIjrlIGCJ1M5y4B9WVIinN2JYp47BD2JEQUvznqY+VxrcvtII
+         n9efzzJWve7bS0RwBl+EgAnOOgX7xZXJOaBiVqPnzHKhitemSvX5ZmyiffPAjNclqCo8
+         jgEdUVGtBCPrjGK4ephAY8fTagQ1beggwUWPhIdtpQyZQddVnh/P9PSMvY0itaY9Z/IO
+         71nY+h6hV2OsVDF59OG+4SL4tNingfxfxDt7yFpf9ep/qmSS/Vzd9N+3Km7wKu4N3bjA
+         732E29xmpe2M6CQzIa7gLFbq6MQFt2v8l4pBwIV8GT9AXTEk5AZKbFylgXzI3mBo7y9Y
+         ZP5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784820888; x=1785425688;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jMXs52eS7eZ/u/yFLXPygHed7LhVkq5pYs2Qe/C7Pfw=;
+        b=Yu2C7b31ZlHJiwrQ8cdLXlwLIB++nWTDcHMiMXlkDGEhmEshKALNKfH2rbjgs8eLAY
+         5unsofCH0E0letxGcvYs+9O9OZsucPsuVDVybTFPyiLpYCJRedFklA4mvG7UedVLHucQ
+         p+DUGUT8xhnVPDmj9ZTdXQpJGrHf9Qnefse8SBEm/1tgOeVlMHIkXYUPS4BCrfSbQWuJ
+         l0fuZEOmc2ds1K1Ooo3VhVSVcbt0bXFlUCgx02N/ROxkwm3i31eJbybZkB3tysyk1A2/
+         +sE6Tr4XvPnwTSJEI7GKPicpNsyKr85Qo+mGiycp/0XEB+kcr/uHcRyA3p35Lz/sBV4U
+         r6rQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq7v6WVFiLLHd/Tl1rmvjX3gTdi1HGVL9omMO1RG/KSFBC0D9r+ff0z5RMuZx1/5PFnwJ3qV3Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgH9HCOfpaIPuAvwgosCpeqz7iTD2FRyNcJSSxscfSR6bUMOBl
+	01Ldl7gNcWA12u1jVOVyS2ZZYBguQtzsz2DTTuig/C76ZsYlxGZcbSut
+X-Gm-Gg: AR+sD102w/f06F5ZZrPqwsfgezC/+RpyCPv1obxkby2jE6L08APu7oEixBPrClQFlxl
+	GD5qrYyOkCSwKUIzDKbz4z7TuWqcQlYxqiZTqlDz1GI1Fd02QT7riHURud96UETxjQbPZBsqXnY
+	RyLiOc/esbbMiZDXgT8pnJ5Rq/DWrw19WPHektiNG8bJkmNUMSTTrW7HGJcAjP3DanzmCQdvp9F
+	9w+mb62qMfJhS8yydsKbZHUTe5vyRxCderJG2QUa2Q3sc1WL9yeQ6DA3zDp7IBqW6giH7D7Zb3r
+	EcCHljvuNbpMF7mzY3sUSqavvDd4bHp9b21uae82rWSXAQDQ62oy7zcTvxoBVKWMgZco8Cx7WIz
+	WjiHJeyc+QRdGdBmCPRlGIMgMpU03EPaegBeel5GBt7s8PPLmlg/WNIwEtW9c5UYVQI7URnfwBB
+	No3Xy71l9w/SPw0zGXvA9/E4GEPTR5NOmCj/h+SP5q3fveNvr5GgEvq7DBW2a/MzF+WgDZ
+X-Received: by 2002:a17:903:1a84:b0:2cc:d6de:d58e with SMTP id d9443c01a7336-2cfbd0a553amr1160235ad.4.1784820887908;
+        Thu, 23 Jul 2026 08:34:47 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3147e1bc886sm21031976eec.26.2026.07.23.08.34.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 08:34:47 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Bluetooth: hci_sync: Fix advertising data UAFs
+Date: Thu, 23 Jul 2026 23:34:40 +0800
+Message-ID: <20260723153440.3224299-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
+References: <20260720164738.2921802-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 137/699] tracing: Prevent out-of-bounds read in glob
- matching
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- Yuan Tan <yuantan098@gmail.com>, Yifan Wu <yifanwucs@gmail.com>,
- Juefei Pu <tomapufckgml@gmail.com>, Zhengchuan Liang <zcliangcn@gmail.com>,
- Xin Liu <bird@lzu.edu.cn>, Huihui Huang <hhhuang@smu.edu.sg>,
- Ren Wei <n05ec@lzu.edu.cn>, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-References: <20260721152355.667394603@linuxfoundation.org>
- <20260721152358.800887633@linuxfoundation.org>
- <1d60d21d-ea26-4502-afee-c49c750df1e9@pobox.com>
- <2026072339-reshuffle-blizzard-42e9@gregkh>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <2026072339-reshuffle-blizzard-42e9@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/23/26 12:44 AM, Greg Kroah-Hartman wrote:
-> On Wed, Jul 22, 2026 at 07:42:14PM -0700, Barry K. Nathan wrote:
->> On 7/21/26 8:18 AM, Greg Kroah-Hartman wrote:
->>> 5.10-stable review patch.  If anyone has any objections, please let me know.
->>>
->>> ------------------
->>>
->>> From: Huihui Huang<hhhuang@smu.edu.sg>
->>>
->>> commit 0a6070839b1ef276d5b05bedfb787743e140fb17 upstream.
->>>
->>> String event fields are not necessarily NUL-terminated, so the filter
->>> predicate functions (filter_pred_string(), filter_pred_strloc() and
->>> filter_pred_strrelloc()) pass the field length to the regex match
->>> callbacks, and the length-aware matchers honour it.
->>>
->>> regex_match_glob() was the exception: it ignored the length and called
->>> glob_match(), which scans the string until it hits a NUL byte. Some
->>> string fields are not NUL-terminated. One example is the dynamic char
->>> array of the xfs_* namespace tracepoints, which is copied without a
->>> trailing NUL. For such a field, glob matching reads past the end of
->>> the event field, causing a KASAN slab-out-of-bounds read in
->>> glob_match(), reached via regex_match_glob() and filter_match_preds()
->>> from the xfs_lookup tracepoint.
->>>
->>> Add a length-bounded glob_match_len() and use it from regex_match_glob()
->>> so glob matching always stops at the field boundary. The matching loop
->>> is factored into a shared helper so glob_match() keeps its behaviour.
->>>
->>> Fixes: 60f1d5e3bac4 ("ftrace: Support full glob matching")
->>> Cc:stable@vger.kernel.org
->>> Link:https://patch.msgid.link/da1aaf125fc3b63320b0c540fd6afa7c3d5b4f1a.1782836943.git.hhhuang@smu.edu.sg
->>> Reported-by: Yuan Tan<yuantan098@gmail.com>
->>> Reported-by: Yifan Wu<yifanwucs@gmail.com>
->>> Reported-by: Juefei Pu<tomapufckgml@gmail.com>
->>> Reported-by: Zhengchuan Liang<zcliangcn@gmail.com>
->>> Reported-by: Xin Liu<bird@lzu.edu.cn>
->>> Assisted-by: Codex:GPT-5.4
->>> Signed-off-by: Huihui Huang<hhhuang@smu.edu.sg>
->>> Signed-off-by: Ren Wei<n05ec@lzu.edu.cn>
->>> Acked-by: Masami Hiramatsu (Google)<mhiramat@kernel.org>
->>> Signed-off-by: Steven Rostedt<rostedt@goodmis.org>
->>> Signed-off-by: Greg Kroah-Hartman<gregkh@linuxfoundation.org>
->>
->> 5.10.261-rc2 does not build for me (nor does -rc1):
->>
->> ...
->>    LD      vmlinux.o
->>    MODPOST vmlinux.symvers
->>    MODINFO modules.builtin.modinfo
->>    GEN     modules.builtin
->>    LD      .tmp_vmlinux.btf
->>    BTF     .btf.vmlinux.bin.o
->>    LD      .tmp_vmlinux.kallsyms1
->>    KSYMS   .tmp_vmlinux.kallsyms1.S
->>    AS      .tmp_vmlinux.kallsyms1.o
->>    LD      .tmp_vmlinux.kallsyms2
->>    KSYMS   .tmp_vmlinux.kallsyms2.S
->>    AS      .tmp_vmlinux.kallsyms2.o
->>    LD      vmlinux
->>    BTFIDS  vmlinux
->> FAILED unresolved symbol filp_close
->> make: *** [Makefile:1228: vmlinux] Error 255
->>
->> I bisected it, and this patch is the culprit. Reverting it fixes the
->> build for me.
->>
->> This is happening on fully updated Debian 13 trixie, compiling with
->> gcc 14.2.0-19. The kernel is being built for an amd64 target. This
->> failure happens whether building natively on amd64 or doing a
->> cross-compile on an arm64 build system.
->>
->> For what it's worth, 5.15.212-rc2, 7.1.4, 7.1.5-rc2, 7.2-rc3, and
->> 7.2-rc4 are all unaffected.
-> 
-> This is a much-reported issue that seems very flaky and can not be
-> reliably triggered.  Try rebuilding from scratch and see if it goes
-> away.  The archives of the list has more details, it's been showing up
-> for a while now.
-> 
-> thanks,
-> greg k-h
+hci_find_adv_instance() returns an adv_info pointer that is valid only
+while hdev->lock is held.  The advertising command-sync paths perform
+instance lookups without that lock and, in some cases, retain the pointer
+while waiting for a controller response.
 
-In the process of testing, troubleshooting, and eventually bisecting this,
-I've tried rebuilding the kernel from scratch maybe 6 or 7 times now. I've
-tried on two different build systems so far, and it seems deterministic
-that the build succeeds without this patch and fails with it.
+An advertising termination event can therefore interleave as follows:
 
-However, I'll keep digging and see if I can figure out more about what's
-going on.
+  hci_cmd_sync_work                 hci_rx_work
+  hci_find_adv_instance()
+  __hci_cmd_sync_status()
+    wait for controller reply       hci_dev_lock()
+                                    hci_remove_adv_instance()
+                                      kfree(adv)
+  adv->scan_rsp_changed = false
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
+  Write of size 1 at addr ffff88810a45d21d by task kworker/u17:0/88
+  Workqueue: hci0 hci_cmd_sync_work
+  Call Trace:
+   hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
+   hci_schedule_adv_instance_sync+0x390/0x4c0
+   hci_cmd_sync_work+0x173/0x300
+  Allocated by task 87:
+   hci_add_adv_instance+0x538/0xac0
+   add_advertising+0x885/0x1160
+  Freed by task 89:
+   kfree+0x131/0x3c0
+   hci_remove_adv_instance+0x1d8/0x3b0
+   hci_le_ext_adv_term_evt+0x17b/0x730
+
+Protect the instance lookup and payload construction in the extended
+advertising, scan response, and periodic advertising data paths.  Snapshot
+the advertising parameters under hdev->lock, but release the lock before
+waiting for the controller.
+
+Clear advertising-data dirty bits before issuing their commands and
+restore them after a failure using a fresh lookup.  Likewise, update the
+reported transmit power through a fresh lookup after the parameter command
+completes.  No adv_info pointer then survives an HCI command wait.
+
+Fixes: cba6b758711c ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 2")
+Cc: stable@vger.kernel.org
+Suggested-by: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+
+Changes in v2:
+- Address Sashiko review findings in the extended advertising data,
+  parameter, and periodic advertising data sibling paths.
+- Keep the original scan-response fix unchanged.
+
+Sashiko: https://sashiko.dev/#/patchset/20260720164738.2921802-1-nicoyip.dev%40gmail.com
+Link: https://lore.kernel.org/linux-bluetooth/20260720164738.2921802-1-nicoyip.dev@gmail.com/ [v1]
+
+ net/bluetooth/hci_sync.c | 131 +++++++++++++++++++++++++++++----------
+ 1 file changed, 97 insertions(+), 34 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 532534bc601c..24cfad721b2d 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -1224,10 +1224,11 @@ static int hci_set_adv_set_random_addr_sync(struct hci_dev *hdev, u8 instance,
+ }
+ 
+ static int
+-hci_set_ext_adv_params_sync(struct hci_dev *hdev, struct adv_info *adv,
++hci_set_ext_adv_params_sync(struct hci_dev *hdev, u8 instance,
+ 			    const struct hci_cp_le_set_ext_adv_params *cp,
+ 			    struct hci_rp_le_set_ext_adv_params *rp)
+ {
++	struct adv_info *adv;
+ 	struct sk_buff *skb;
+ 
+ 	skb = __hci_cmd_sync(hdev, HCI_OP_LE_SET_EXT_ADV_PARAMS, sizeof(*cp),
+@@ -1255,11 +1256,15 @@ hci_set_ext_adv_params_sync(struct hci_dev *hdev, struct adv_info *adv,
+ 
+ 	if (!rp->status) {
+ 		hdev->adv_addr_type = cp->own_addr_type;
+-		if (!cp->handle) {
++		if (!instance) {
+ 			/* Store in hdev for instance 0 */
+ 			hdev->adv_tx_power = rp->tx_power;
+-		} else if (adv) {
+-			adv->tx_power = rp->tx_power;
++		} else {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (adv)
++				adv->tx_power = rp->tx_power;
++			hci_dev_unlock(hdev);
+ 		}
+ 	}
+ 
+@@ -1275,9 +1280,13 @@ static int hci_set_ext_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	int err;
+ 
+ 	if (instance) {
++		hci_dev_lock(hdev);
++
+ 		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv || !adv->adv_data_changed)
++		if (!adv || !adv->adv_data_changed) {
++			hci_dev_unlock(hdev);
+ 			return 0;
++		}
+ 	}
+ 
+ 	len = eir_create_adv_data(hdev, instance, pdu->data,
+@@ -1288,16 +1297,27 @@ static int hci_set_ext_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
+ 	pdu->frag_pref = LE_SET_ADV_DATA_NO_FRAG;
+ 
++	if (adv) {
++		adv->adv_data_changed = false;
++		hci_dev_unlock(hdev);
++	}
++
+ 	err = __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_ADV_DATA,
+ 				    struct_size(pdu, data, len), pdu,
+ 				    HCI_CMD_TIMEOUT);
+-	if (err)
++	if (err) {
++		if (instance) {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (adv)
++				adv->adv_data_changed = true;
++			hci_dev_unlock(hdev);
++		}
++
+ 		return err;
++	}
+ 
+-	/* Update data if the command succeed */
+-	if (adv) {
+-		adv->adv_data_changed = false;
+-	} else {
++	if (!instance) {
+ 		memcpy(hdev->adv_data, pdu->data, len);
+ 		hdev->adv_data_len = len;
+ 	}
+@@ -1351,22 +1371,22 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	struct adv_info *adv;
+ 	bool secondary_adv;
+ 
+-	if (instance > 0) {
+-		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv)
+-			return -EINVAL;
+-	} else {
+-		adv = NULL;
+-	}
+-
+ 	/* Updating parameters of an active instance will return a
+-	 * Command Disallowed error, so we must first disable the
+-	 * instance if it is active.
++	 * Command Disallowed error, so disable it before taking a snapshot.
+ 	 */
+-	if (adv) {
++	if (instance > 0) {
+ 		err = hci_disable_ext_adv_instance_sync(hdev, instance);
+ 		if (err)
+ 			return err;
++
++		hci_dev_lock(hdev);
++		adv = hci_find_adv_instance(hdev, instance);
++		if (!adv) {
++			hci_dev_unlock(hdev);
++			return -EINVAL;
++		}
++	} else {
++		adv = NULL;
+ 	}
+ 
+ 	flags = hci_adv_instance_flags(hdev, instance);
+@@ -1377,8 +1397,11 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	connectable = (flags & MGMT_ADV_FLAG_CONNECTABLE) ||
+ 		      mgmt_get_connectable(hdev);
+ 
+-	if (!is_advertising_allowed(hdev, connectable))
++	if (!is_advertising_allowed(hdev, connectable)) {
++		if (instance)
++			hci_dev_unlock(hdev);
+ 		return -EPERM;
++	}
+ 
+ 	/* Set require_privacy to true only when non-connectable
+ 	 * advertising is used and it is not periodic.
+@@ -1389,8 +1412,11 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	err = hci_get_random_address(hdev, require_privacy,
+ 				     adv_use_rpa(hdev, flags), adv,
+ 				     &own_addr_type, &random_addr);
+-	if (err < 0)
++	if (err < 0) {
++		if (instance)
++			hci_dev_unlock(hdev);
+ 		return err;
++	}
+ 
+ 	memset(&cp, 0, sizeof(cp));
+ 
+@@ -1441,6 +1467,9 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	cp.channel_map = hdev->le_adv_channel_map;
+ 	cp.handle = adv ? adv->handle : instance;
+ 
++	if (instance)
++		hci_dev_unlock(hdev);
++
+ 	if (flags & MGMT_ADV_FLAG_SEC_2M) {
+ 		cp.primary_phy = HCI_ADV_PHY_1M;
+ 		cp.secondary_phy = HCI_ADV_PHY_2M;
+@@ -1453,12 +1482,12 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 		cp.secondary_phy = HCI_ADV_PHY_1M;
+ 	}
+ 
+-	err = hci_set_ext_adv_params_sync(hdev, adv, &cp, &rp);
++	err = hci_set_ext_adv_params_sync(hdev, instance, &cp, &rp);
+ 	if (err)
+ 		return err;
+ 
+ 	/* Update adv data as tx power is known now */
+-	err = hci_set_ext_adv_data_sync(hdev, cp.handle);
++	err = hci_set_ext_adv_data_sync(hdev, instance);
+ 	if (err)
+ 		return err;
+ 
+@@ -1466,9 +1495,14 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	     own_addr_type == ADDR_LE_DEV_RANDOM_RESOLVED) &&
+ 	    bacmp(&random_addr, BDADDR_ANY)) {
+ 		/* Check if random address need to be updated */
+-		if (adv) {
+-			if (!bacmp(&random_addr, &adv->random_addr))
++		if (instance) {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (!adv || !bacmp(&random_addr, &adv->random_addr)) {
++				hci_dev_unlock(hdev);
+ 				return 0;
++			}
++			hci_dev_unlock(hdev);
+ 		} else {
+ 			if (!bacmp(&random_addr, &hdev->random_addr))
+ 				return 0;
+@@ -1490,9 +1524,13 @@ static int hci_set_ext_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
+ 	int err;
+ 
+ 	if (instance) {
++		hci_dev_lock(hdev);
++
+ 		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv || !adv->scan_rsp_changed)
++		if (!adv || !adv->scan_rsp_changed) {
++			hci_dev_unlock(hdev);
+ 			return 0;
++		}
+ 	}
+ 
+ 	len = eir_create_scan_rsp(hdev, instance, pdu->data);
+@@ -1502,15 +1540,27 @@ static int hci_set_ext_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
+ 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
+ 	pdu->frag_pref = LE_SET_ADV_DATA_NO_FRAG;
+ 
++	if (adv) {
++		adv->scan_rsp_changed = false;
++		hci_dev_unlock(hdev);
++	}
++
+ 	err = __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_SCAN_RSP_DATA,
+ 				    struct_size(pdu, data, len), pdu,
+ 				    HCI_CMD_TIMEOUT);
+-	if (err)
++	if (err) {
++		if (instance) {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (adv)
++				adv->scan_rsp_changed = true;
++			hci_dev_unlock(hdev);
++		}
++
+ 		return err;
++	}
+ 
+-	if (adv) {
+-		adv->scan_rsp_changed = false;
+-	} else {
++	if (!instance) {
+ 		memcpy(hdev->scan_rsp_data, pdu->data, len);
+ 		hdev->scan_rsp_data_len = len;
+ 	}
+@@ -1525,8 +1575,14 @@ static int __hci_set_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
+ 
+ 	memset(&cp, 0, sizeof(cp));
+ 
++	if (instance)
++		hci_dev_lock(hdev);
++
+ 	len = eir_create_scan_rsp(hdev, instance, cp.data);
+ 
++	if (instance)
++		hci_dev_unlock(hdev);
++
+ 	if (hdev->scan_rsp_data_len == len &&
+ 	    !memcmp(cp.data, hdev->scan_rsp_data, len))
+ 		return 0;
+@@ -1661,9 +1717,13 @@ static int hci_set_per_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	struct adv_info *adv = NULL;
+ 
+ 	if (instance) {
++		hci_dev_lock(hdev);
++
+ 		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv || !adv->periodic)
++		if (!adv || !adv->periodic) {
++			hci_dev_unlock(hdev);
+ 			return 0;
++		}
+ 	}
+ 
+ 	len = eir_create_per_adv_data(hdev, instance, pdu->data);
+@@ -1672,6 +1732,9 @@ static int hci_set_per_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	pdu->handle = adv ? adv->handle : instance;
+ 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
+ 
++	if (adv)
++		hci_dev_unlock(hdev);
++
+ 	return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_PER_ADV_DATA,
+ 				     struct_size(pdu, data, len), pdu,
+ 				     HCI_CMD_TIMEOUT);
+@@ -6514,7 +6577,7 @@ static int hci_le_ext_directed_advertising_sync(struct hci_dev *hdev,
+ 	if (err)
+ 		return err;
+ 
+-	err = hci_set_ext_adv_params_sync(hdev, NULL, &cp, &rp);
++	err = hci_set_ext_adv_params_sync(hdev, 0, &cp, &rp);
+ 	if (err)
+ 		return err;
+ 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.43.0
+
