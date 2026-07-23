@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAF51E9919
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E167E21FF30
 	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 01:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784769407; cv=none; b=lkIRQHXC9unK9ANhue2z+PC8fKYsBxPHeZbAMTdRADCSUmzcOo2h7hsyabsPX4VIjTPMa+5G06FIC0DTQLjksTA2v08kv2jxlfEYiyu3elFtlEw9svO3s9ABp+/8+cw4OsNwfPB0C23YE/HY5+u4S0+dHkosUbsAm8pWvh/Qm1M=
+	t=1784769408; cv=none; b=lPQT3ZpBME5dx3nnfKq4r/ogc8D+rPCf9x48XfV091NLu+6NyOLV8MNcLieKpVnCo6QDD3dBf7Pe8+NkjW+xLFEnusyOWDmtoAHXAnwyel7YLKwt5BKjUWBW6xZQmJSE54j90Vv9cUwi/9AutF6FrJhZBVJCHCgFNzzo/22WFvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784769407; c=relaxed/simple;
-	bh=kN0s+Nmrw4CAr3zo6cyQWxPDtvRrgBevoqLCQZjcI30=;
+	s=arc-20240116; t=1784769408; c=relaxed/simple;
+	bh=22ZPFWEHv88L9cCQ16Qfx9qSBGnCHWSOzr8VdLPd8DU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PSBU+m5++nHtArgmolrPmZbuylVbP9KoPz9iGgqFOTlt5rKZal0ywegDCUaHaVXII6jhh7m3XI+eMvyvadt1xBVB4vPiCgDhj9N1Wqeu/07jMuNFZkX5G6wdRV2uqgYa3v2Receg7dtV+/CporLVhTB9XGeUOUGlUECLDOroajM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aCX/LIwb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LCzbqVgzfZK8/K167tA2HChxB6OMrl9wzwX/dPYJ7z3lnLxkm4GOwUERZHgywuAZWMImH+YBYr+YN8Q0SjpQiHrVcGBLwyARZKYMiQn1K5DX3Aux59pi30Dq5uXI3iUYs19iFVwE2JH4l9Ki8HlduOOPHcoI4KFnIGmXYXQg8Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AU+MMt06; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aCX/LIwb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A30D1F000E9;
-	Thu, 23 Jul 2026 01:16:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AU+MMt06"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB881F00A3D;
+	Thu, 23 Jul 2026 01:16:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784769406;
-	bh=A7/dkpuMLV6UmhW0R2brKifHZEpNsgygcJYyw9KC+TQ=;
+	bh=/GtqrXNjsWhwfxvdwN2FCqMxZco97e9g35nsSQNQ5Yo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aCX/LIwbdoToS7nfgwZ+9iRSUG8ZYsQ0+K03D8SWxjeaPLd49vxOMn2X1T16kZaAx
-	 DdNWbC5wohd2KdDoDksbDLEtmJTEPX9nwA6eZe6JEtsO2CJdUBG7vfHEGxiRUM9I8c
-	 GTC84dCkOjBhWO/1+Yiu89IRczwHVbyF/ETIuoGg/uAOz2kLsnHRcL3xjPAE00UjUF
-	 n/x9SXNomNbbzOcN9xTBH9Pdlvm56+N+BVmaiVqZtdTT8HvhuyA3nLik8fKFiwbu3s
-	 3XmIDON1xVNlG2rOBeY4Ome9otFjri4LIPcUfAjmwLthJkKXyr+wnkPWM3GKxGVoZf
-	 BCloQsqf7yStg==
+	b=AU+MMt06LjiRFB5pjxoUAY6ev8jibsS3OMWsw7rV4dr9/b57/ZyzfpBCa70Gpa5vY
+	 GfHHUtvw8IBeyWBpgGULuJ6mw4RtflZ9o17ClhLcfZLn9vGgA8JReji8AjHl0MBmU+
+	 YkDkU6mrfuIgahvUjK5oEIcRNVP4P3p1NqgzLGIOUKQCqIsE582YyFGWuK59/y8Xl7
+	 w4cZ3hrZRN1KMUgfJnQZn6w9ssYUMhOPi2UaBlLntn7HOb77CUT5w4Z6xiKXp7YeeG
+	 PBjsHtjInnx4+iJ9Rvix77R74Q/RCrkKzBOlfQPKMdATfproWnF0qdibfe8AAFVeiK
+	 yeFy2igsbUGOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Petr Machata <petrm@nvidia.com>,
-	Danielle Ratson <danieller@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] mlxsw: spectrum: On port enslavement to a LAG, join upper's bridges
-Date: Wed, 22 Jul 2026 21:16:42 -0400
-Message-ID: <20260723011643.2779021-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] mlxsw: fix refcount leak in mlxsw_sp_port_lag_join()
+Date: Wed, 22 Jul 2026 21:16:43 -0400
+Message-ID: <20260723011643.2779021-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072025-extended-consumer-8888@gregkh>
+In-Reply-To: <20260723011643.2779021-1-sashal@kernel.org>
 References: <2026072025-extended-consumer-8888@gregkh>
+ <20260723011643.2779021-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,152 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Petr Machata <petrm@nvidia.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 987c7782f0627e1c87617458806a7e6c1995678a ]
+[ Upstream commit 41c8c1d65b32beacd8d916a22457b4f6e47f45af ]
 
-Currently it never happens that a netdevice that is already a bridge slave
-would suddenly become mlxsw upper. The only case where this might be
-possible as far as mlxsw is concerned, is with LAG netdevices. But if a LAG
-already has an upper, enslaving mlxsw port to that LAG is forbidden. Thus
-the only way to install a LAG between a bridge and a mlxsw port is by first
-enslaving the port to the LAG, and then enslaving that LAG to a bridge.
+When mlxsw_sp_port_lag_index_get() fails, mlxsw_sp_port_lag_join()
+returns an error without releasing the lag reference obtained by
+the earlier mlxsw_sp_lag_get().  All other error paths in the
+function jump to the cleanup label that ends with
+mlxsw_sp_lag_put(), so this is a single missed release.
 
-However in the following patches, the requirement that ports be only
-enslaved to masters without uppers, is going to be relaxed. It will
-therefore be necessary to join bridges of LAG uppers. Without this replay,
-the mlxsw bridge_port objects are not instantiated, which causes issues
-later, as a lot of code relies on their presence.
+Fix the leak by replacing the bare 'return err' with a goto to the
+existing error cleanup label, which will drop the reference safely.
 
-Therefore in this patch, when the first mlxsw physical netdevice is
-enslaved to a LAG, consider bridges upper to the LAG (both the direct
-master, if any, and any bridge masters of VLAN uppers), and have the
-relevant netdevices join their bridges.
-
-Signed-off-by: Petr Machata <petrm@nvidia.com>
-Reviewed-by: Danielle Ratson <danieller@nvidia.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Stable-dep-of: 41c8c1d65b32 ("mlxsw: fix refcount leak in mlxsw_sp_port_lag_join()")
+Cc: stable@vger.kernel.org
+Fixes: 0d65fc13042f ("mlxsw: spectrum: Implement LAG port join/leave")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260609083709.209743-1-vulab@iscas.ac.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net/ethernet/mellanox/mlxsw/spectrum.c    | 90 +++++++++++++++++++
- 1 file changed, 90 insertions(+)
+ drivers/net/ethernet/mellanox/mlxsw/spectrum.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum.c
-index 85353042a790cb..8d1e7b018e9ac5 100644
+index 8d1e7b018e9ac5..6fd3fdab1c2855 100644
 --- a/drivers/net/ethernet/mellanox/mlxsw/spectrum.c
 +++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum.c
-@@ -3837,6 +3837,88 @@ static int mlxsw_sp_port_lag_index_get(struct mlxsw_sp *mlxsw_sp,
- 	return -EBUSY;
- }
+@@ -3942,7 +3942,7 @@ static int mlxsw_sp_port_lag_join(struct mlxsw_sp_port *mlxsw_sp_port,
  
-+static int mlxsw_sp_lag_uppers_bridge_join(struct mlxsw_sp_port *mlxsw_sp_port,
-+					   struct net_device *lag_dev,
-+					   struct netlink_ext_ack *extack)
-+{
-+	struct net_device *upper_dev;
-+	struct net_device *master;
-+	struct list_head *iter;
-+	int done = 0;
-+	int err;
-+
-+	master = netdev_master_upper_dev_get(lag_dev);
-+	if (master && netif_is_bridge_master(master)) {
-+		err = mlxsw_sp_port_bridge_join(mlxsw_sp_port, lag_dev, master,
-+						extack);
-+		if (err)
-+			return err;
-+	}
-+
-+	netdev_for_each_upper_dev_rcu(lag_dev, upper_dev, iter) {
-+		if (!is_vlan_dev(upper_dev))
-+			continue;
-+
-+		master = netdev_master_upper_dev_get(upper_dev);
-+		if (master && netif_is_bridge_master(master)) {
-+			err = mlxsw_sp_port_bridge_join(mlxsw_sp_port,
-+							upper_dev, master,
-+							extack);
-+			if (err)
-+				goto err_port_bridge_join;
-+		}
-+
-+		++done;
-+	}
-+
-+	return 0;
-+
-+err_port_bridge_join:
-+	netdev_for_each_upper_dev_rcu(lag_dev, upper_dev, iter) {
-+		if (!is_vlan_dev(upper_dev))
-+			continue;
-+
-+		master = netdev_master_upper_dev_get(upper_dev);
-+		if (!master || !netif_is_bridge_master(master))
-+			continue;
-+
-+		if (!done--)
-+			break;
-+
-+		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, upper_dev, master);
-+	}
-+
-+	master = netdev_master_upper_dev_get(lag_dev);
-+	if (master && netif_is_bridge_master(master))
-+		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, lag_dev, master);
-+
-+	return err;
-+}
-+
-+static void
-+mlxsw_sp_lag_uppers_bridge_leave(struct mlxsw_sp_port *mlxsw_sp_port,
-+				 struct net_device *lag_dev)
-+{
-+	struct net_device *upper_dev;
-+	struct net_device *master;
-+	struct list_head *iter;
-+
-+	netdev_for_each_upper_dev_rcu(lag_dev, upper_dev, iter) {
-+		if (!is_vlan_dev(upper_dev))
-+			continue;
-+
-+		master = netdev_master_upper_dev_get(upper_dev);
-+		if (!master)
-+			continue;
-+
-+		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, upper_dev, master);
-+	}
-+
-+	master = netdev_master_upper_dev_get(lag_dev);
-+	if (master)
-+		mlxsw_sp_port_bridge_leave(mlxsw_sp_port, lag_dev, master);
-+}
-+
- static int mlxsw_sp_port_lag_join(struct mlxsw_sp_port *mlxsw_sp_port,
- 				  struct net_device *lag_dev,
- 				  struct netlink_ext_ack *extack)
-@@ -3861,6 +3943,12 @@ static int mlxsw_sp_port_lag_join(struct mlxsw_sp_port *mlxsw_sp_port,
  	err = mlxsw_sp_port_lag_index_get(mlxsw_sp, lag_id, &port_index);
  	if (err)
- 		return err;
-+
-+	err = mlxsw_sp_lag_uppers_bridge_join(mlxsw_sp_port, lag_dev,
-+					      extack);
-+	if (err)
+-		return err;
 +		goto err_lag_uppers_bridge_join;
-+
- 	err = mlxsw_sp_lag_col_port_add(mlxsw_sp_port, lag_id, port_index);
- 	if (err)
- 		goto err_col_port_add;
-@@ -3890,6 +3978,8 @@ static int mlxsw_sp_port_lag_join(struct mlxsw_sp_port *mlxsw_sp_port,
- 				     mlxsw_sp_port->local_port);
- 	mlxsw_sp_lag_col_port_remove(mlxsw_sp_port, lag_id);
- err_col_port_add:
-+	mlxsw_sp_lag_uppers_bridge_leave(mlxsw_sp_port, lag_dev);
-+err_lag_uppers_bridge_join:
- 	if (!lag->ref_count)
- 		mlxsw_sp_lag_destroy(mlxsw_sp, lag_id);
- 	return err;
+ 
+ 	err = mlxsw_sp_lag_uppers_bridge_join(mlxsw_sp_port, lag_dev,
+ 					      extack);
 -- 
 2.53.0
 
