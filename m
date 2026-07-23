@@ -1,154 +1,206 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605F538B147
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628F538E11C
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:54:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784825395; cv=none; b=sMA5K3EhB+Z3224GeX40jzxRXU5NJOyIaTNQlpypUYUFStXg0SIbG0LjidI5mnPejlJHL5+qtRhM/KI8ahqx4oJKYu2/F+uzPcpswtz5ItuTJUzV/iXaEgZyKZV87SRqYJ02KOQWhvTwziIkqnPYfxsbnUGKXwYlyQkVLBPOZOI=
+	t=1784825664; cv=none; b=mCn59i386iNv6ouv1NQezWOAalgXEaLRpuKRtDUnjOD6e9CdNS1glhBwSQKvvIAirWcP1bTsKBi1IAbpo1ZBaN1We6MsyoFc9+Wn7wXm5FF/MIw/TWiyoQH5yQtj4NTe4kpXSf4u3IdyoSjAUu352YZDSympcZpu0h5cYD1YHT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784825395; c=relaxed/simple;
-	bh=dm3dowMCjPuMdklAeyOb8nCLf360PgurVePeLF/upSE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qgyl5MDCb/fbXLsLvhwYvxvhZEZmvqfqiYIrX/6g4nhf0bfsoxCPT+2IEIfuxDLjKnGvR1OmR5O1xCx4bQdf2CuVL8eGYhM/QmnDUM6uxVt1pT8YPa2zzNg1rMSQcMe6AXlfSSohvijT/vslGzOPQ88ZuIS2BD9Dt+x2k+7LmyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JCY6Gehn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GMy0FFuJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784825664; c=relaxed/simple;
+	bh=D1wcaJOHgV/f6LXT5I9bcEJawjMMEiTGzZWBBI4ud4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eWBmZHZUv5rthO5p8GsrnQ517wNpruJ4v8axR45AJbADljb5xnXqdRKR9uvhu4BUV7Ktc7VHz+ehaMvOjQIoQbvvO7p+We+3nYx5QChEPFpJ6weNng91eRl6EXlThYDzPfis5ewf5m5EZ26qU7cfjKFWwyxyuT7RHVqLm6gMB2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nic5BK5v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JCY6Gehn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GMy0FFuJ"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66NCvVfX3819818
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:49:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=dPfm6ZP6GvJfr7jNxJpE88Hh
-	K0+SBhZcSJwa9rTdVGA=; b=JCY6Gehn1s6VDwQyUPrbRQjtVt+HPz6AMqOs1jVf
-	2imCrGJu0j6aqVwdNoJdNU0ZM9PPTtSpTCWHTp4hFj6HXXZ7h4wwwSJBejp2T94r
-	zC4YWCFfEgOevCrbbtk0wKQGMi2evvv+gySqiZUr85/la+lU8SwzSbyJbCmfnZZg
-	29rmCQgaFyFXSaP2k3ZT1+AUzdfqHNiFcumDZ9qTiqdB71rbSljhjqjSgNIFq12h
-	w/PNg4NxO3yNAZoEtHEWW8FDW6svpWeM7XvXYi2y47qhBOjLzNSc9ostIUJvtEn0
-	uKVBsH88XrKFZbh39okAy+NdnBB12Qz9uNXu5gU9uzg6Ww==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fkafw3eec-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 16:49:53 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb7d6ba548eso1266245a12.1
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 09:49:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784825393; x=1785430193; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dPfm6ZP6GvJfr7jNxJpE88HhK0+SBhZcSJwa9rTdVGA=;
-        b=GMy0FFuJAAwTVwYreRHUFRCTt3akvGQK5TAQL9XqARRQnP+Nd+jcxgxEhSdGW7zdBq
-         Cqb8EcMOVBAn4ORdBJfdyVbj5xBDpuO3R9X47FJDHrMmhtIsuPiGB96U4OmG+/4jlJgD
-         sU97CmVKSEAmNomMH/oywAsBKT7xQ1SHsD953r4lqMykcm019nxF2RvTsxgBcYuTP3au
-         yrKxLGQRgKsaOBTIpxu7OGBKNMzV23FhdIa6ImqfeJ+9ZzAeJ4GzLcN/LMWwMoMob38M
-         Rd3Fgu/VKxA1f9yprZWjkO6zkuXLpsHKunZeDO/PQ4LGF+vdaMWH21JPRvGI7/+pu39u
-         1ziw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784825393; x=1785430193;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dPfm6ZP6GvJfr7jNxJpE88HhK0+SBhZcSJwa9rTdVGA=;
-        b=QbIQVggf5i59/x+0rOYB3LCPycgONJNfkcjDGdgzC2o+EZhs7zWVQrkZxaDuiFfcZX
-         7V/DcU6n1Iho64iw86R4Z0hr9+wj6wC1DUajl+mlD/Kt5npv4X/id2Mlw0eNhm3LtZ/E
-         ZhSk4gEO2D4LKRvseGWgMeoGQosn4HuJAncRe9r9Y8BoVRQoPVOG+XL/9OueU+iW1X4M
-         TdrZNesHfVYv/TbwlamlFU+Pj3rUcHaOWgDTztLLr9DsbRM0kHoo2AeZPhyCmXs9Kkda
-         lhBVLSMNoPTX/+nr9t7zDdFbs1N3twcfGHfnpxyOUr1YuwLxUg/0cr+kTjVF9F0KyVkN
-         pPtw==
-X-Forwarded-Encrypted: i=1; AHgh+RrCbxcXjuQvWR0bmI8I2nG2+FslCl9LLQkUd8ZWKb7BaiuiNtFYwXmMalRU8eMbfT1EbaBVCz0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7da3L8okS73Lcm0l1wQkTxnsNWDUjlW6+JMWWazLeo+5VK/av
-	J/D/e0y0ZlMvu9VzBnsMeLogomT3RTYA1eCGrJM+EyQeGSZl/3EbmZoCt6KDe0OJcEIO7Vf1ig5
-	9qGWbzz00n97RLLgI0qLmgWSY4/2Rgg6wTTVTWidY7F3ic+EzcEpN60wVEJw=
-X-Gm-Gg: AR+sD12IyyIaXu2aG+4cjaCe0O8ILg9AtMWao+ljoXcx/i+hLYgjPOKbxVBVf+f1/64
-	bAa9EldHVsTIFhPNnufN5xvG+YYT3lxO/+ol3LB2xRbHiQI5vlUHaRcfToW+BzWwjfKhulVU/5i
-	jc9LnNE+sz2F6a4Katy1MUTBAvCn8SJovRuUOtBJOW+5ueWToSSgnDCXI6js4aiaD2y2zA9Sf/B
-	dPklbJj4kRf8X+sfnXfIc+DJcujFd+EZ0H5+qJscso6EiIf5Iql26LktjUbXgiYX60DfJ4RvjB3
-	40GaRWjrF8flUpG71jmOKFr46ebVL1irP6orxexnfm7VFogafwzVL1sT8BwOMMnoaQ4OJQZnFAe
-	OBTFYlHPZngK0ViYOARRth+eOLaM=
-X-Received: by 2002:a05:6a21:1fc5:b0:3c3:8222:b8c9 with SMTP id adf61e73a8af0-3c44b2740b9mr4729553637.67.1784825392836;
-        Thu, 23 Jul 2026 09:49:52 -0700 (PDT)
-X-Received: by 2002:a05:6a21:1fc5:b0:3c3:8222:b8c9 with SMTP id adf61e73a8af0-3c44b2740b9mr4729510637.67.1784825392260;
-        Thu, 23 Jul 2026 09:49:52 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d130a87e9sm16413540c88.11.2026.07.23.09.49.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 09:49:51 -0700 (PDT)
-Date: Thu, 23 Jul 2026 22:19:44 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Will Deacon <will@kernel.org>
-Cc: Weimin Xiong <xiongwm2026@163.com>, catalin.marinas@arm.com,
-        kernel-team@android.com, robin.clark@oss.qualcomm.com, joro@8bytes.org,
-        robin.murphy@arm.com, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v3] iommu/msm: Fix dangling list entry on probe failure
-Message-ID: <20260723164944.hglmw7kgbikfgtcx@hu-mojha-hyd.qualcomm.com>
-References: <20260716013229.91014-1-xiongwm2026@163.com>
- <20260716085313.207069-1-xiongwm2026@163.com>
- <178472575580.2876636.12194314237571577379.b4-ty@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nic5BK5v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79F2B1F000E9;
+	Thu, 23 Jul 2026 16:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784825662;
+	bh=oRr2cRnRdAS2t0L+Nq3YPNASUa30hsj4mOKh4VIhWac=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nic5BK5vySHB6Ex7WWtZIr+BgdzIa0IWi2nad1fmQN3RHw5FuH7c6+jp5SdAYPxpd
+	 PY8QL+Ygm9YhI2as+bzwkKNul/fHqx6oLLFY7RpokJXY0wNB/LxdlOfAZiB/2b8geq
+	 iTdhQjQEClvxJna5SJgqw65r/q2/N8bLd1eGOfp09zwU++SSCKctZMb4OVr/tTDznJ
+	 3pfoDSd2gfGGVmDP3RIHaXdLBRLdJ/2xH4Eym6Wk4tOxeCy3eluMxi7ItxnCdt5Hdt
+	 dynFpIJmeyD+/yljF5Z2dWgymp8g/hyrpWZjN1vRlA1gxD+v612sYv7QilsJ80uiKI
+	 autxZ7ygbEujQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jeremy Sowden <jeremy@azazel.net>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] netfilter: bitwise: rename some boolean operation functions
+Date: Thu, 23 Jul 2026 12:54:16 -0400
+Message-ID: <20260723165419.3390514-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072054-unseemly-confident-8b8e@gregkh>
+References: <2026072054-unseemly-confident-8b8e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178472575580.2876636.12194314237571577379.b4-ty@kernel.org>
-X-Authority-Analysis: v=2.4 cv=XNkAjwhE c=1 sm=1 tr=0 ts=6a624631 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=mXi61DHN7hnhVxcJtqAA:9 a=CjuIK1q_8ugA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: 8ACXX0OfG_hB_dXs5iwLTL5W4ZbT5VLR
-X-Proofpoint-GUID: 8ACXX0OfG_hB_dXs5iwLTL5W4ZbT5VLR
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDE2NSBTYWx0ZWRfX1J4LBxV/QpRu
- NF7rP0cRAEIsBJuX2zWUwc9m4RHDcQr2g4FXpLqwS5DU/9b3qs0i5yWXDG4h9GVV0+09fBtlVRh
- skI5xAbt3RjxmtmHEd/IyhDrJmwbkwA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDE2NSBTYWx0ZWRfX2+8mx0fsV1NO
- +5bwUTIBKJ/bW07iGpnNTcanOZmOTpooXQP9U9FTd3F6kKNY+FBozBG9kAyBs1MvyxPrn+qM5y3
- SVCJhOHFAZUj+mfwClY3qvHBuq+UsqHUGAepKdKQXJDd033qhm2XmsmbdusT3r9wJW6SGqSp2dX
- ulChTwGae/cV8W/rlqavaOB/3CajlKD2NNoeD2r21vfv7o8cii9bu+LvYukj1vmPwFxRFbMvZT5
- fFOf9YHK72gOlu6ynwpMmwoEmfEHX6MNrowTWO3FkZYOUrQ5u1v/OkMzaT9o8Uq9X7RPk0BA7SZ
- eBJw50efTjFXnCn/Dt4vQcegA7E6fLnfjPVG91lljhjejXB/RYB2KBQptvGMdCvlfx5fPEKwsdF
- SPlQ84BkONf2PVNnq6vJH5CsT0nwewAtHwotxFnfXeISwy1225ivc9zSez5x8XOujeYBTqEZDuB
- DnHslEUyRK/gOiY0D7Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_04,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 suspectscore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607230165
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 10:39:34PM +0100, Will Deacon wrote:
-> On Thu, 16 Jul 2026 16:53:12 +0800, Weimin Xiong wrote:
-> > Move the list_add() call to the end of msm_iommu_probe() instead of
-> > adding cleanup paths, which avoids the dangling list entry problem
-> > entirely (suggested by Mukesh Ojha).
-> > 
-> > This approach simplifies the code by ensuring the iommu device is
-> > never added to the global list until after all potential failure
-> > points have passed.
-> > 
-> > [...]
-> 
-> Applied to iommu (qualcomm/msm), thanks!
-> 
-> [1/1] iommu/msm: Fix dangling list entry on probe failure
->       https://git.kernel.org/iommu/c/6bea37b176b8
+From: Jeremy Sowden <jeremy@azazel.net>
 
-Will,
+[ Upstream commit a12143e6084c502fc3cfaa8b717bffc8c14cf806 ]
 
-By mistake you have taken the wrong one; it should be v2, not v3 that
-should be picked. Sorry for the confusion.
+In the next patch we add support for doing AND, OR and XOR operations
+directly in the kernel, so rename some functions and an enum constant
+related to mask-and-xor boolean operations.
 
+Signed-off-by: Jeremy Sowden <jeremy@azazel.net>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Stable-dep-of: d07955dd34ec ("netfilter: nft_fib: reject fib expression on the netdev egress hook")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/uapi/linux/netfilter/nf_tables.h | 10 ++++---
+ net/netfilter/nft_bitwise.c              | 34 ++++++++++++------------
+ 2 files changed, 24 insertions(+), 20 deletions(-)
+
+diff --git a/include/uapi/linux/netfilter/nf_tables.h b/include/uapi/linux/netfilter/nf_tables.h
+index 9e9079321380ab..487542234ccdd0 100644
+--- a/include/uapi/linux/netfilter/nf_tables.h
++++ b/include/uapi/linux/netfilter/nf_tables.h
+@@ -564,16 +564,20 @@ enum nft_immediate_attributes {
+ /**
+  * enum nft_bitwise_ops - nf_tables bitwise operations
+  *
+- * @NFT_BITWISE_BOOL: mask-and-xor operation used to implement NOT, AND, OR and
+- *                    XOR boolean operations
++ * @NFT_BITWISE_MASK_XOR: mask-and-xor operation used to implement NOT, AND, OR
++ *                        and XOR boolean operations
+  * @NFT_BITWISE_LSHIFT: left-shift operation
+  * @NFT_BITWISE_RSHIFT: right-shift operation
+  */
+ enum nft_bitwise_ops {
+-	NFT_BITWISE_BOOL,
++	NFT_BITWISE_MASK_XOR,
+ 	NFT_BITWISE_LSHIFT,
+ 	NFT_BITWISE_RSHIFT,
+ };
++/*
++ * Old name for NFT_BITWISE_MASK_XOR.  Retained for backwards-compatibility.
++ */
++#define NFT_BITWISE_BOOL NFT_BITWISE_MASK_XOR
+ 
+ /**
+  * enum nft_bitwise_attributes - nf_tables bitwise expression netlink attributes
+diff --git a/net/netfilter/nft_bitwise.c b/net/netfilter/nft_bitwise.c
+index 2cfb0104680c62..86abbe4c1308b3 100644
+--- a/net/netfilter/nft_bitwise.c
++++ b/net/netfilter/nft_bitwise.c
+@@ -25,8 +25,8 @@ struct nft_bitwise {
+ 	struct nft_data		data;
+ };
+ 
+-static void nft_bitwise_eval_bool(u32 *dst, const u32 *src,
+-				  const struct nft_bitwise *priv)
++static void nft_bitwise_eval_mask_xor(u32 *dst, const u32 *src,
++				      const struct nft_bitwise *priv)
+ {
+ 	unsigned int i;
+ 
+@@ -68,8 +68,8 @@ void nft_bitwise_eval(const struct nft_expr *expr,
+ 	u32 *dst = &regs->data[priv->dreg];
+ 
+ 	switch (priv->op) {
+-	case NFT_BITWISE_BOOL:
+-		nft_bitwise_eval_bool(dst, src, priv);
++	case NFT_BITWISE_MASK_XOR:
++		nft_bitwise_eval_mask_xor(dst, src, priv);
+ 		break;
+ 	case NFT_BITWISE_LSHIFT:
+ 		nft_bitwise_eval_lshift(dst, src, priv);
+@@ -90,8 +90,8 @@ static const struct nla_policy nft_bitwise_policy[NFTA_BITWISE_MAX + 1] = {
+ 	[NFTA_BITWISE_DATA]	= { .type = NLA_NESTED },
+ };
+ 
+-static int nft_bitwise_init_bool(struct nft_bitwise *priv,
+-				 const struct nlattr *const tb[])
++static int nft_bitwise_init_mask_xor(struct nft_bitwise *priv,
++				     const struct nlattr *const tb[])
+ {
+ 	struct nft_data_desc mask = {
+ 		.type	= NFT_DATA_VALUE,
+@@ -186,7 +186,7 @@ static int nft_bitwise_init(const struct nft_ctx *ctx,
+ 	if (tb[NFTA_BITWISE_OP]) {
+ 		priv->op = ntohl(nla_get_be32(tb[NFTA_BITWISE_OP]));
+ 		switch (priv->op) {
+-		case NFT_BITWISE_BOOL:
++		case NFT_BITWISE_MASK_XOR:
+ 		case NFT_BITWISE_LSHIFT:
+ 		case NFT_BITWISE_RSHIFT:
+ 			break;
+@@ -194,12 +194,12 @@ static int nft_bitwise_init(const struct nft_ctx *ctx,
+ 			return -EOPNOTSUPP;
+ 		}
+ 	} else {
+-		priv->op = NFT_BITWISE_BOOL;
++		priv->op = NFT_BITWISE_MASK_XOR;
+ 	}
+ 
+ 	switch(priv->op) {
+-	case NFT_BITWISE_BOOL:
+-		err = nft_bitwise_init_bool(priv, tb);
++	case NFT_BITWISE_MASK_XOR:
++		err = nft_bitwise_init_mask_xor(priv, tb);
+ 		break;
+ 	case NFT_BITWISE_LSHIFT:
+ 	case NFT_BITWISE_RSHIFT:
+@@ -210,8 +210,8 @@ static int nft_bitwise_init(const struct nft_ctx *ctx,
+ 	return err;
+ }
+ 
+-static int nft_bitwise_dump_bool(struct sk_buff *skb,
+-				 const struct nft_bitwise *priv)
++static int nft_bitwise_dump_mask_xor(struct sk_buff *skb,
++				     const struct nft_bitwise *priv)
+ {
+ 	if (nft_data_dump(skb, NFTA_BITWISE_MASK, &priv->mask,
+ 			  NFT_DATA_VALUE, priv->len) < 0)
+@@ -249,8 +249,8 @@ static int nft_bitwise_dump(struct sk_buff *skb,
+ 		return -1;
+ 
+ 	switch (priv->op) {
+-	case NFT_BITWISE_BOOL:
+-		err = nft_bitwise_dump_bool(skb, priv);
++	case NFT_BITWISE_MASK_XOR:
++		err = nft_bitwise_dump_mask_xor(skb, priv);
+ 		break;
+ 	case NFT_BITWISE_LSHIFT:
+ 	case NFT_BITWISE_RSHIFT:
+@@ -270,7 +270,7 @@ static int nft_bitwise_offload(struct nft_offload_ctx *ctx,
+ 	const struct nft_bitwise *priv = nft_expr_priv(expr);
+ 	struct nft_offload_reg *reg = &ctx->regs[priv->dreg];
+ 
+-	if (priv->op != NFT_BITWISE_BOOL)
++	if (priv->op != NFT_BITWISE_MASK_XOR)
+ 		return -EOPNOTSUPP;
+ 
+ 	if (memcmp(&priv->xor, &zero, sizeof(priv->xor)) ||
+@@ -407,7 +407,7 @@ nft_bitwise_fast_dump(struct sk_buff *skb,
+ 		return -1;
+ 	if (nla_put_be32(skb, NFTA_BITWISE_LEN, htonl(sizeof(u32))))
+ 		return -1;
+-	if (nla_put_be32(skb, NFTA_BITWISE_OP, htonl(NFT_BITWISE_BOOL)))
++	if (nla_put_be32(skb, NFTA_BITWISE_OP, htonl(NFT_BITWISE_MASK_XOR)))
+ 		return -1;
+ 
+ 	data.data[0] = priv->mask;
+@@ -502,7 +502,7 @@ nft_bitwise_select_ops(const struct nft_ctx *ctx,
+ 		return &nft_bitwise_ops;
+ 
+ 	if (tb[NFTA_BITWISE_OP] &&
+-	    ntohl(nla_get_be32(tb[NFTA_BITWISE_OP])) != NFT_BITWISE_BOOL)
++	    ntohl(nla_get_be32(tb[NFTA_BITWISE_OP])) != NFT_BITWISE_MASK_XOR)
+ 		return &nft_bitwise_ops;
+ 
+ 	return &nft_bitwise_fast_ops;
 -- 
--Mukesh Ojha
+2.53.0
+
