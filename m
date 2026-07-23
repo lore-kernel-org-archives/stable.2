@@ -1,200 +1,199 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1971C3E3C53;
-	Thu, 23 Jul 2026 20:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784839251; cv=fail; b=pqGZyGMQHlEOHTj9MDwR9bL8N7yfhzbJCHnbMcy6X3gambxiY5Ml/b8c802FbWCsFBGw9zzWci8JAYNor0Zfj7U9bq9KbOtfrnQD+iIIrIrKDha4QI4Ebf6If0/nGFFSXjQqweIhop8K6zx8WP7b0yhf9kuaFGXGC8AM1TpIRDU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784839251; c=relaxed/simple;
-	bh=rJdZ5ebLtA+nNyC1+0LGOY+fondjXr8zYxI52LZIFpQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=WMo1G3xYbqyz6+ldCgyB0f8aqhktDDX3C5VrlCkb+slfr/PSIuTnP0DLGPhB2QO0yeY2CMT1aynWeTnoCqjOiynZaK432EAWsU0lR3jY05tZm2pL4ezi9U015vsg0ceiP1vUlr2bTL/xnhTws2lvlCnHGMjxregxljNlHSU2Mxs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TxNdCbZR; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6F8381EA1
+	for <stable@vger.kernel.org>; Thu, 23 Jul 2026 20:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784839380; cv=none; b=ZIlqpPvz9CpIpRtEJ+P+54qwE9DJUmWdak0R1S7YyYdTnYC/R6bNCOHHNujSoI8vl5ip6IgbOqg9UjdINOrp73Mp2ggW0jKnShYviu7JQad1FGQyvO0q4sNWuB+V8KsGAufZccHtcRrcKBfgDtJHpNFnLALBfNrn6gO+M8itRn8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784839380; c=relaxed/simple;
+	bh=duiRRHdzIykrisUAseIhJOxQn/X2Aiz678fZQ0WGdro=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=piRvoCBG6jQ9v3dppR3VyDSf5HE7SfHCP4ROQOeKEebMOjls3tHvI9ARWvziTdM0wXrYvvQ31aALujAgZG88C+8SXKJoMpp3QZnuY+iX77ydxN+8MXE0sjxbJhUIZY5e+XlG5GzRdrzKsW5D3bzAj8ne6Xza/tJ7+iiy7Pey9oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io; spf=pass smtp.mailfrom=meshstor.io; dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b=GRRp3Z9O; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meshstor.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TxNdCbZR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784839247; x=1816375247;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=rJdZ5ebLtA+nNyC1+0LGOY+fondjXr8zYxI52LZIFpQ=;
-  b=TxNdCbZRmPKxoszuYrmzjOR+tR6WfKPSc1nB0jiMHVsBIX+xUiznuiWi
-   Ox2i8r5EP2qKIVIj8ViBqswkjrcuNsxhtdrqkcMZ4xHzkgZWjn1ym2DYU
-   mGfHsTLV+Wm/YG8qETPq9E+EuMR13AtWVIUECy/0Wbs3gzDHYpwgVzbca
-   V3EJy1lYCqsnouLk8bWOgdObYpQrZ/ZhGvyCGeD99Lxf80Iz/C+rd3yUJ
-   dQbB6FW1eM5rfOrNVeSiyNhp0niQvziyf8avCbgOrhFQ0qNMTtUqa1lYm
-   IHAAlno4jgP+nU/Idxo09piN2s5Fh0cRcDEzZkBUEAB4Uuce18KvIh7OX
-   A==;
-X-CSE-ConnectionGUID: l3NGxhTcTvOXXDzi+05VbQ==
-X-CSE-MsgGUID: n27sWIHYS2SoXrgyVYIDBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="89329961"
-X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; 
-   d="scan'208";a="89329961"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 13:40:43 -0700
-X-CSE-ConnectionGUID: b6UYeug6TXi3wAJnCJW10w==
-X-CSE-MsgGUID: 0YE6OU+rSuOD1BQRQHzi1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; 
-   d="scan'208";a="257985528"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 13:40:42 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 13:40:42 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 13:40:42 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.50) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 13:40:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CLTHKr65vJhnXM6wCYRsVd+IrrqydTvXd8fDipX5aJKg+9GWj6zgP8qxs8AoSWgevGbIsqwJXFj8pqJlK4RRva4M+5V+syt7h4AqQMv/mPPCR+gUJl46F69dQmOfHNiuEKeGxFa8vcTzMEQc+YXKQR7eoroBiYI6R7fBx586M6I5NB6w8GItrobRiDYE1ZPl4jbEhxBMCpGgV4zGlqMskE0uJUs46jcbFmi1hQKTnefgLtK6e1Ca9i7tVTcTCezvHH84DbOWLe05GvI6DMJRh4URmFOW2rvSxhA/RN//bCGB4nzB/YeFWvz/AJk2i4GE0rjf+LcUBLcczv8QKGCvlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yChXVcmbNQ3deMNQqgb6C/ktDbspjih6/nwoDC7ThXw=;
- b=DTJlo+5nX4W67lFKn0a/zUy4E/K5kwQPpDZ83jnh1GfB/jYcQXgc38l754vW1iAA3PMlUDg948DgmRdwvX8SePqE2Xf2NAfVvrGFXxHTMFnOC3cRbBnTGOvSBb7UYj7enYz5qkEri6sjImhH4kH7MCmR9Gc9mVc3v+EwTJvc+au+nGxCCiKBFmUEPWGnWaPzo5jC/GWruWCW9f5lOx44nEF04I677oWB+o68AiJdtbkkWshnUnO+pEw4IZJ5mZmMUaZ6Pbx8YeQpPJSofhKaaS8F0EeQToTzBcC7NHG0BldOvw58bQusVjvreKVhnzqgH6ZkF529+NenmsDmvOTInA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by IA0PR11MB7258.namprd11.prod.outlook.com (2603:10b6:208:43d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 20:40:38 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
- 20:40:37 +0000
-Date: Thu, 23 Jul 2026 13:40:34 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Stanislav Kinsburskii <skinsburskii@gmail.com>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Himal
- Prasad Ghimiray" <himal.prasad.ghimiray@intel.com>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH v3] drm/gpusvm: Zero HMM PFNs before scanning ranges
-Message-ID: <amJ8QrI2/W+WP1P/@gsse-cloud1.jf.intel.com>
-References: <20260723-drm-gpusvm-fixes-v3-1-4346a61d093a@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260723-drm-gpusvm-fixes-v3-1-4346a61d093a@gmail.com>
-X-ClientProxiedBy: MW4PR04CA0241.namprd04.prod.outlook.com
- (2603:10b6:303:88::6) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+	dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b="GRRp3Z9O"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4799b3f7c83so785041f8f.2
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 13:42:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=meshstor.io; s=google; t=1784839373; x=1785444173; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E5idRe2CDp786J3ag0YcRdkJhpW3jRwxGiXDWMRNXt4=;
+        b=GRRp3Z9OchYW9aYVO2Z5s4bG+ngjTlLw9V/1GOLi/ER7ZRSMR1kDntz2NBmZW6UdsX
+         A423uxBjPyl5vs8fDoa3yGtnSmrTO2LPBDV3GYHtDwOzSowGDBbMl56bY+yLeuc3L4+a
+         N83TaUE92jVEeDeHQE2vmzszgdY2pXLvM81SCH0KqhE5QdnLZmlMcxugU/96mFYgcuKE
+         k3E5ZeBQltBrS0HVv0Q299axZhbfr21TF8stCmc7a1n2e2CtRK5dUDAP2+tidTk0iDgJ
+         SQBkUEjHEwSuWPr/lrAcbCRy/8LSHn4Leya87/Ayt/4ZnVEECxuu/wkzsRy6FyF6kCbR
+         D2nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784839373; x=1785444173;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E5idRe2CDp786J3ag0YcRdkJhpW3jRwxGiXDWMRNXt4=;
+        b=qtmQg6eTGwCXeGNDoGD6SOanBIWZs9jutJTgbqpkWnGWOnfwa4bwXlfOILkRelKs0Z
+         3MMokg+iw2uQT45d5OQkHGgPJEdXeYN0QjwZ/R3rITV5qkFN69Wm9Itk72O+1NNmduZ4
+         5N44cCR/3uZbUEPIkGMR2MUHKSFHpZPJleOsXpQUPEM9qK/owiMpd9XUdGAt7DzD3LtN
+         4wqupOQlsNl8zZgPeFVAlYRr7BkNQodYUy93AvucWkijvfIHdlwjyzEm69Wo+YTFrTZi
+         ORvDwTUIZiX9zXUMwXeqaJQBRCzMgI7zdYx6TiOmy8FfsfkLk9DhaFsoDZKMdmp/MK0L
+         7jow==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0SuPF+E8cAkQRiVp+zQUcOf9VZ7mfSS9gbPXJyhmn1z0RqinlaSiMf0e6YtDUenx3gHNeyvQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YykwLe+qlWEBpfuwO7i1Vp7xyjtfxqeTjLDryKDCZzC26JyYVcD
+	UAoGFIWGudW2qmY8dG63dg/xoBJzOOYwpZ69vXblps3LomS4xYvlh+C1ocpekx5jRA==
+X-Gm-Gg: AR+sD13ukAsSWy8thApRWrIeHIwqcOy/cc1dOZZaOBOZrcfXS7ALKN+eT91YhGFGVip
+	Skbi94ADhmYbpPbTBOTThEjLPZNPHJtIEoZyMSjfdUosBpIUfb8cWclatE5pwaycF2EHkZnKOLn
+	WVMJ5BZnEESh3bEnko6Bn+YeFo3mD6AUAEMvj+pHWnIPpi/spZLxFzrps7z64mLr0tqUqgl/M7U
+	GgH7bXyCNWvH8YGz+3EZxtENvm/rFWmRyoqK5zBT8xl0F84+wLbzonirUz8af1QzrT/jDYjv0+Z
+	JqQEfnXmcgFDmUW3q6PbS/+tQMmjE6fD8WEwAMO+Aq+MrFdGnRNydXJnX/9yZ/tMAQyIGAq42uK
+	Sy2LoawxILD5megPKUC7/tjh3AHRN5cEi9hh5/2gRXsRF1EV9w0PO2LLWYE10NJ3qIF6BYuM+L9
+	gcDsH3ky2sPngtoxyrErfIeIoV22uKJ9V2gy4d5t66N75SUsQZeZIOr3Eo7c72NMuQ33vKwjv1u
+	g1K0PwhrX08DpGWaGV1H/9hdYPj5LsyleYoVbcClA==
+X-Received: by 2002:a05:6000:46d4:b0:47f:93b9:b76c with SMTP id ffacd0b85a97d-47f93b9b770mr1881409f8f.56.1784839373145;
+        Thu, 23 Jul 2026 13:42:53 -0700 (PDT)
+Received: from meshstor-pc ([185.87.42.56])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c52fc0sm18268192f8f.23.2026.07.23.13.42.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 13:42:52 -0700 (PDT)
+From: Mykola Marzhan <mykola@meshstor.io>
+To: Jens Axboe <axboe@kernel.dk>,
+	Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	linux-block@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-nvme@lists.infradead.org
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	Guoqing Jiang <guoqing.jiang@linux.dev>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kiran Kumar Modukuri <kmodukuri@nvidia.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Shivaji Kant <shivajikant@google.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Henrique Carvalho <henrique.carvalho@suse.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v5 00/10] block,md,nvme: correct handling of unsupported P2PDMA transfers
+Date: Thu, 23 Jul 2026 22:41:56 +0200
+Message-ID: <20260723204206.76930-1-mykola@meshstor.io>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|IA0PR11MB7258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56033756-40c0-411b-5c5e-08dee8faa70b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|56012099006|10067099003|11063799006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: a8JYSH5xGzeY4/jMk+4Du/s7Vj4LWnO82MHRkxvd6lTCvgOUTu10k3ddP3Vj6RCLDUKUEdgHtd8TC7rQDmh99IRfOBI2HOb1RsNUik707j+NiX7z1T+zwzw52arwjxqayUYTYedoF5mSym76oH3gq6fO9cMcsVJmGDOP1y70LzQgmBmmn5yaYAhjIxHwy7NarVq6/wt6YukoNVEkEPZyem1LsOdFjvFTKwzZWFQlKhIyzkGrwrQbkpVX7uhDfP7UWSY49HtdRNrnjxctFdD3OwkFAJCvWe87hrhyljkQUOmeWz8NXKfbB5Cxx1+lhs9iDcOgOPS153JqvwT9Pk7kac1Kov8OBontDpNJZ+b16jxVID+0amOCMjqx3mzmvUabZHOetZMTPb/+FPGYn43cnaYqkfPaLaEL+s4hv+apuISfnG25MO6Vu3K3MgUAd388MrONxVF2syyqwjQhT5FDIwFq6Jgq3m2SVutFg2vsp5jCSLT8Eeo5qg/v9gX5eaI2+NOW7ETfIf4VlJEOj9m7sEJfnwRVGjmzusqk3TvE2wwVQXCICmA1J6GND9GxqNressQCb5AYUAnce+r1IAsHXTOY5eLl/UenzLh30RQ91ZigOGiuI4a+VjpdXb8bNMMIlwWZv/pufrMEz4u2wb/wa29Zl02DR4K6FSL/9g+bbEc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6522.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VS6WzdKdce3u1c8aA63fdk/H7rV7+E/tHorxFjwvVL1Js2nexcOoERECzzlj?=
- =?us-ascii?Q?k8VY/A2rWjAPZwYB47IwlUTHyLgyUkqZB6fy8nPUgfzzNbYiEJkBCqwLugzn?=
- =?us-ascii?Q?5Q4CUMmZKteJfLtaijVPytZqmuK7RkS28u2s6As7PnY6YfcjLQ1fBciGjJP6?=
- =?us-ascii?Q?D3n6J6X+I8tyrPWW5jsMkykVQKWPpkS2FRuRAuPm1gUEG10w8SUyeAUdAjdh?=
- =?us-ascii?Q?Kos1rzpGtWHG3CcEK1xYZqFUoO73dth9IHUzcbfXeU1jon9gjfdG8F9O2+d7?=
- =?us-ascii?Q?Ml+pR3myujR6j4/6EXCZUS6ik4ckuVFUxfmK8m3sstQ0BTJOA/v6oeH/ws/D?=
- =?us-ascii?Q?mnfPnqCz9UL9h7CxS3VL2ixuWcq+PASqB2bQgWzwtX3t1vZ6r8WzVf1e3Stf?=
- =?us-ascii?Q?gThXrnMI9udb/6ESpLMu/eT21kO2r9DEOmVK2P1tYDuB1AO/AAHc7/ThvLUQ?=
- =?us-ascii?Q?BN15wwWtWjRwM2ruVBVLC09EB2LoRCUDXSJ0hrfSRHfNQm1QOXCKwHaCuwiU?=
- =?us-ascii?Q?oKwGyPh3BodHQK3+RaBLfp7VLPWn1Dd0q75CCJem+IIc2qUe3OW5SNvxrqaU?=
- =?us-ascii?Q?fbpKnLj5nNBEHI/z5sl5Tlf1yhvZEKmLWtu+0Hf6PaxbO430hxabl1aBcmn3?=
- =?us-ascii?Q?YJ0MqtWQal4lwXywpl+582ky6iMCGgyUfiGwDPyD98YexlbDB2lr8tYcd2t2?=
- =?us-ascii?Q?5GyME1jSA/YaGIwAt9uCeZLof/nl0KWu51LP4VmUT0OOwidk9ee56T4/vD+R?=
- =?us-ascii?Q?sJxJQEhHe1INAW8FpITYzrrXhE1XifNDcx86JEzE6mT7TTTo146lAre8voZt?=
- =?us-ascii?Q?4ShFIxK/JUaB4YvxzL9+nyA/uB6GDcm+LRj9Hp21q/usLIaxIsLmYXZIZaqj?=
- =?us-ascii?Q?ZtkGnWY9wPRNzSzIpLMAVmlHjx1c1R1RW0pIjy5J5SPyHb2gBtcnNgBfQcI1?=
- =?us-ascii?Q?iYYdbe3gNnefSPo7CbfoMEWqt5PkWiPlPuC1mMaZoN6CHTLY2qmmBMf2sjzt?=
- =?us-ascii?Q?kgD85nsOVglsj8FTxtlLhDz/84O6EGi2WOnwPu8QIFDhlbRzWQLWt03hVHpa?=
- =?us-ascii?Q?xATkVIQW0urtEOwZl4ajkoDXQkOWQTl0y0xv2CiIyf2D84bz1Mf12Sx0RuOO?=
- =?us-ascii?Q?PRK7vElzd3rKpeW1jflBX1CL5hOP9Ae3BUQIVrlNaOJr6vx8dJYB5uKcKzgX?=
- =?us-ascii?Q?Mlox1aeMfdVg1semSt9u1Uhb6cR75yY11D5cXhH+81sSBUkKCVmSWVm9yqKb?=
- =?us-ascii?Q?n34PB+TVH79jDbNJ6y0KufKnmGjA2iXS0S0k83v+oWCFyCACKE6PhSnn45q1?=
- =?us-ascii?Q?Rw4otpkZ7+FJjay+zfvJEdL/VnBD2j2k9br0wrlNQHz2eAIjB2JoepQooqp/?=
- =?us-ascii?Q?dMSzzNKJYcJbpKj2sn2L2OXPHseoEFGA6fSEs7pyv4kkh7V/QcrAgRzD1FUH?=
- =?us-ascii?Q?RoJYf3BSeZqZe+HhQTnTsTw1bpd1LTVa/qMXvJaD6nSdiYcPjBcpBIrDsQMG?=
- =?us-ascii?Q?e2CftDiNKP/y0eKOzGmGBjjS7152k8DH/rcg0oU/cioz99S/Zts2a/4Jo2fg?=
- =?us-ascii?Q?7fAXP8SyEeM8lL8ubqAo6dCO/rNc/7ZUsyAQPcG0wq1d4jBnFaZ5+CSOYEHZ?=
- =?us-ascii?Q?Rj/AB5JzRUl8GvgRPJO2PjwFnlzWroSf7STPAXobDTk3LEVbpHjTDlhpD958?=
- =?us-ascii?Q?l+7y07fDcUd7mBcyg/zWHKpJnyPCXGtQ+TDtcvN4FyZU/VXE5un2IajzZV1I?=
- =?us-ascii?Q?Aie1kJSX7Q=3D=3D?=
-X-Exchange-RoutingPolicyChecked: oxbTGAh4SgboLmp+ngoYXeQ7qETwg3ADBveE+pWXB5556/gBLtqSMHXOo3OqgqzXv1406iU9yQwtUMoubHtP8Nd/e+pmWZvpx7EGLK5+hhgXolruqnG9kIfJ361+W0WemfsDwhUJxmVwSdlmtGt0acXqvXuUKNLxWU55eLKD2UxD695rqh2vrisghFfoojFnWRbEjZd/4awunY1KS6tzUCgjFtyje0DIqWtIm5RJMiBk5cLufsiUB2e9du6irYYBDGTGpjF9md1rRBsptbRw9j6MHzQA/fiDfQkKa/6LYJBPetJJ38mqdN80+Nf+mw1ZjfVDarNlezZm8bwerqVl6w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56033756-40c0-411b-5c5e-08dee8faa70b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:40:37.8952
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gMAWPI7f+pytnZ0Rqer395Ui0iFUsBpR7c124Rp2BDpiCXGBVE2w8BUcXel4ecang8mlKW7NJXenRgRIWxcldg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7258
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 23, 2026 at 10:49:02AM -0700, Stanislav Kinsburskii wrote:
-> drm_gpusvm_check_pages() asks HMM to report the current CPU page-table
-> state without faulting missing entries by leaving default_flags set to
-> zero. The HMM PFN array is still caller-owned input/output state, and the
-> framework may preserve input bits while filling entries. It is not safe for
-> the caller to hand HMM an uninitialized array and then treat entries
-> without HMM_PFN_VALID as an authoritative unpopulated result.
-> 
-> Use kvcalloc() for the temporary PFN array so entries that are not reported
-> as valid start from the documented zero state. This prevents random stack
-> or heap contents from being interpreted as HMM PFN flags or PFN values
-> during the scan.
-> 
-> Fixes: f1d08a586482 ("drm/gpusvm: Introduce a function to scan the current migration state")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+md treats an unsupported P2PDMA transfer to a member as success, and
+nvme-rdma retries one forever.  Whether peer memory can be DMA-mapped
+depends on the PCIe topology between the two devices, and since v6.17
+the failure completes as BLK_STS_INVAL: retryable for multipath and
+deliberately ignored by md for member failures, so mirrors silently
+diverge.
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+v1-v3 restored BLK_STS_TARGET for these failures and tagged P2PDMA
+bios in md.  Logan Gunthorpe proposed a dedicated BLK_STS_P2PDMA
+instead, so no consumer needs to know whether an I/O was P2P, and
+wrote the core patches; v5 is built on them.  Patches 1 and 5 are
+his and keep his authorship.
 
-> ---
->  drivers/gpu/drm/drm_gpusvm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index b946f920b7a0..52573626387c 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -708,7 +708,7 @@ static bool drm_gpusvm_check_pages(struct drm_gpusvm *gpusvm,
->  
->  	mmap_assert_locked(gpusvm->mm);
->  
-> -	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
-> +	pfns = kvcalloc(npages, sizeof(*pfns), GFP_KERNEL);
->  	if (!pfns)
->  		return false;
->  
-> 
-> ---
-> base-commit: baa47c6547b94a164b70924e53d2bcf16f483e6c
-> change-id: 20260723-drm-gpusvm-fixes-d97ddda62219
-> 
-> Best regards,
-> -- 
-> Stanislav Kinsburskii <skinsburskii@gmail.com>
-> 
+  1  block: add BLK_STS_P2PDMA (stable, v6.17)
+  2  md: ensure REQ_NOMERGE is set on P2PDMA bios
+  3  md/raid1: serialize non-write-behind writes on CollisionCheck
+     rdevs (pre-existing bug patch 4 would widen; stable)
+  4  md/raid1: no write-behind for P2PDMA bios
+  5  md/raid1,raid10: factor out raid1_write_error() helper
+  6  md/raid1,raid10: keep REQ_NOMERGE on narrow_write_error()
+     retry clones
+  7  md/raid1,raid10: skip futile retries on P2PDMA mapping
+     failures
+  8  md/raid1,raid10: set IO_BLOCKED in case of BLK_STS_P2PDMA
+  9  nvme-rdma: use ib_dma_map_sgtable_attrs() (stable, v7.1;
+     dependency of patch 10)
+ 10  nvme-rdma: return BLK_STS_P2PDMA (stable, v7.1; needs patches
+     1 and 9)
+
+Routing: patch 1 block, 2-8 md, 9-10 nvme; 7, 8 and 10 use the new
+status.  Patch 1 alone stops the divergence and the dm-multipath
+requeue loop; the nvme-rdma loop also needs 9-10; everything else
+refines the fallout, so the series bisects safely.  The md patches
+fix a v7.2-rc1 regression (02666132403a), except 3 (older bug,
+stable) and 5 (refactor).
+
+Tested with the QEMU raid1/raid10 error matrix and a ConnectX-4 Lx.
+After patch 1, block-layer error injection accepts status=P2PDMA, so
+the md completion paths can be exercised on any member with no P2P
+hardware.  The patches were developed with AI assistance (see the
+Assisted-by trailers); all code was human-reviewed and tested.
+
+Against v7.2-rc4 (Logan's base).
+
+Changes in v5:
+ - patches 7, 8: From: is now Mykola (Logan's request)
+   Logan keeps Signed-off-by on both, Co-developed-by on 8
+ - patch 8: raid10 declares bio up front and bi_status sits in a
+   blk_status_t local in both files.
+ - old patch 9 split: 9 is the mechanical sgtable conversion,
+   10 the -EREMOTEIO -> BLK_STS_P2PDMA translation; both stable
+   since 10 needs 9
+
+Changes in v4:
+ - new BLK_STS_P2PDMA (Logan) replaces restoring BLK_STS_TARGET; the
+   R1BIO_P2PDMA/R10BIO_P2PDMA state bits are gone and the md changes
+   shrink to completion-time status tests
+ - blk_dma_map_iter_start() gets the explicit
+   PCI_P2PDMA_MAP_NOT_SUPPORTED case (Logan's patch; v3 kept
+   default: only)
+ - write completions record the whole failed range as bad blocks
+   instead of narrow_write_error()'s per-block retries; v3's coarse
+   retry is gone -- the new status is deterministic, nothing to
+   re-attempt
+ - read path: bi_status is evaluated before bio_put()
+
+Link: https://lore.kernel.org/linux-raid/20260718162547.448892-1-mykola@meshstor.io/ [v1]
+Link: https://lore.kernel.org/linux-raid/20260719105327.864949-1-mykola@meshstor.io/ [v2]
+Link: https://lore.kernel.org/linux-raid/20260721174502.111503-1-mykola@meshstor.io/ [v3]
+Link: https://lore.kernel.org/linux-raid/20260722185841.449934-1-mykola@meshstor.io/ [v4]
+Link: https://lore.kernel.org/linux-raid/9f846c85-f427-433a-b87d-8e9e3a4406e7@deltatee.com/ [Logan's proposal]
+
+Logan Gunthorpe (2):
+  block: add BLK_STS_P2PDMA for unsupported peer-to-peer transfers
+  md/raid1,raid10: factor out raid1_write_error() helper
+
+Mykola Marzhan (8):
+  md: ensure REQ_NOMERGE is set on P2PDMA bios
+  md/raid1: serialize non-write-behind writes on CollisionCheck rdevs
+  md/raid1: don't use write-behind for P2PDMA bios
+  md/raid1,raid10: keep REQ_NOMERGE on narrow_write_error() retry clones
+  md/raid1,raid10: skip futile retries on P2PDMA mapping failures
+  md/raid1,raid10: set IO_BLOCKED in case of BLK_STS_P2PDMA
+  nvme-rdma: use ib_dma_map_sgtable_attrs()
+  nvme-rdma: return BLK_STS_P2PDMA for unsupported P2P transfers
+
+ block/blk-core.c          |  3 +++
+ block/blk-mq-dma.c        |  3 ++-
+ drivers/md/md.c           | 10 +++++++--
+ drivers/md/md.h           | 15 +++++++++++++
+ drivers/md/raid1-10.c     | 16 +++++++++++++
+ drivers/md/raid1.c        | 47 +++++++++++++++++++++++----------------
+ drivers/md/raid10.c       | 27 +++++++++++-----------
+ drivers/nvme/host/rdma.c  | 38 ++++++++++++++++++-------------
+ include/linux/blk_types.h | 10 +++++++++
+ 9 files changed, 118 insertions(+), 51 deletions(-)
+
+
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+-- 
+2.52.0
+
