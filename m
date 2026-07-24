@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E6E1419A4
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:25:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17A72F7F1B
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:25:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784856320; cv=none; b=XCvoS54BJ3baAEL8wlRynNoy9rwLBjWZDth0tqRI7BbwjVSGWZ6J/Cv9zrCj8Rnm6jGEaypcIxR7ha1EHfrB9L+3dn2GooEY7NaVmZ821LpzCoKIyAXiSzi/eXrd5dVtJWhQhCrKfPgLqa50cSI8HKtaWpXeRcyao0jO2iRsn1Y=
+	t=1784856321; cv=none; b=WzYb8QqaOkdhBUQUCdBhNdqPfi7buO8/xIdbTEkyqKGWDsKF2i3HpqL4mVXlfzF9R5WpmgxYbMKq/xum+v0eMgDrNtuC7ybM8sL+KLAMXzG5ehzv7CqMIECGOOT+NWSz936a2pEdm+QgkpuT/1Rxl0wGXCufM+wWfiC+RKp0kP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784856320; c=relaxed/simple;
-	bh=lv+qGz/2pjz6X2enJNZQ1AyioCzoLsA0aetbD/mnPr8=;
+	s=arc-20240116; t=1784856321; c=relaxed/simple;
+	bh=kAbFIvBkxWqHcNVnb/VtZ2y8reetsJrZXlgpcTvS2EI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HeHnHQ2jEoM4ie5CwKtRSJP9QEeRW4g78cc4P3VCFSQtJ6/T1J1VJ6Z8rBLuLgWt2rzC2NhlIAcbdLYWqehb2SqXLvnZrkwxfESxqgycDo9YZZdK6Is8pUymxfjXcJs1Ov1Tl0mxWMaBqkDLQarRK7edep4e6o5L8MiollMX1dQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ej1De/bQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YrcjVDiorGUUSnfcdh8MLNHoSs2P2dmOUkPI6JFcW8LOYX0BPFufaRz6FUVveJhfsmbyZ20TuhHftl+uVwATrX3tVBje5Qlq+tQ/QxfelgC9I0vrKpDQ83cQCqPyRUEM8Zo+1WRB+YYqCCz4KXe/RC968QtGypif17EY72w1d9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIS6Qzrf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ej1De/bQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243B91F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIS6Qzrf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033B81F00A3E;
 	Fri, 24 Jul 2026 01:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784856318;
-	bh=b5R1H6Mz89FX5vBiKPuu8rHc5qdRxYkiazfxvvRsMkY=;
+	s=k20260515; t=1784856319;
+	bh=5S+xTUiCzZt1KV5joQHwRdEo8YJWFPnnV3qwn7fMUnc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ej1De/bQXRx0ZZWKxKQ47B9s9/4TvWLk59LqXswnmWQCp9n6c9/OHTaA3+cCfJz1z
-	 6tAHw4oyjb+6YUYBcg05BCzUrpIZ4eCQ7vxPpMMkjLVSGMg4xHXqpTTn2EAIWifWEa
-	 np3DswRivC+WNzrdj50DTZuLVNhrBWNytt07l4jNmDoHiWv/vsSfxr9sZt8KjhEbpa
-	 W21eY00szDc4LBZCV+AKZiiqPiMj4w3EeZMGJ4KhZRwxd15m49gDbVIEGC6EWDq1F6
-	 YOY/xn746LNMTB/K4I5cecJUNmmKlP/OPAI3ASV9LYq7FXoho6eFXR4w23zXZvn6Yl
-	 drP+6MQQJwR0A==
+	b=oIS6QzrfkMjQRt1Hr+sReNEwjC1PxTJQNDuzQvrN27dGlHML1oHyUWDRBgTd4Gjp2
+	 UnCgExSPSrx1xfHq8yOH31Q9JKc+QQwlMD2ceyAl3mZoCJwqU5KdheIRs1Vw8cKddt
+	 /7WG3BwFF3nv+4+5WhJO6nZilJUPt0j0a3FvmxH5ronm3otIoKbAv4XvSvOkX+B8dw
+	 SZtl29/+8Sik2SDa1/psaFXeQSOZXva5q/tkJXDDqaC5s+iz8s9IWxDYyy62IUrZ6J
+	 rUW4I9vLqZRMONaoogy3eHervIi9YY18KqgwcAfCaPguvzIE4H540wlirjVPizXBzy
+	 K/BTBLAqSZ1qQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/5] sunrpc: allocate a separate bvec array for socket sends
-Date: Thu, 23 Jul 2026 21:25:12 -0400
-Message-ID: <20260724012515.3833219-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/5] SUNRPC: Add helpers to convert xdr_buf byte ranges to scatterlists
+Date: Thu, 23 Jul 2026 21:25:13 -0400
+Message-ID: <20260724012515.3833219-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260724012515.3833219-1-sashal@kernel.org>
 References: <2026072058-disparate-ventricle-c83c@gregkh>
@@ -47,141 +47,280 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 6b3b697d65d46a0f640216a3f6c72856c159c567 ]
+[ Upstream commit e9be933959b581effd426f93b86654f5fbf0c574 ]
 
-svc_tcp_sendmsg() calls xdr_buf_to_bvec() with the second slot of
-rq_bvec as the start, but doesn't reduce the array length by one, which
-could lead to an array overrun. Also, rq_bvec is always rq_maxpages in
-length, which can be too short in some cases, since the TCP record
-marker consumes a slot.
+The crypto/krb5 library accepts data in scatterlist form, but
+the GSS-API layer presents RPC payloads as struct xdr_buf.
+Bridge that gap with a pair of helper functions:
 
-Fix both problems by adding a separate bvec array to the svc_sock that
-is specifically for sending. For TCP, make this array one slot longer
-than rq_maxpages, to account for the record marker. For UDP, only
-allocate as large an array as we need since it's limited to 64k of
-payload.
+  xdr_buf_to_sg()        - populate a caller-supplied scatterlist
+                           array from a byte range
+  xdr_buf_to_sg_alloc()  - populate a caller-supplied inline
+                           scatterlist, chaining to a heap-
+                           allocated overflow for large payloads
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Reviewed-by: NeilBrown <neil@brown.name>
+The inline array (typically stack-allocated at eight entries)
+covers the common case of small RPCs with no heap allocation
+on the encrypt/decrypt path. Only buffers spanning many pages
+incur a kmalloc for the chained extension.
+
+The segment-walking logic follows the same head, page array,
+tail traversal as xdr_process_buf(), but populates a
+scatterlist directly rather than invoking a per-segment
+callback. sg_next() traversal makes the walker safe for
+chained scatterlists. Once subsequent patches reroute all
+per-message crypto operations through crypto/krb5,
+xdr_process_buf() loses its last callers and is removed.
+
+Assisted-by: Claude:claude-opus-4-6
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Acked-by: Anna Schumaker <anna.schumaker@hammerspace.com>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Stable-dep-of: 18c1cc698861 ("SUNRPC: Return an error from xdr_buf_to_bvec() on overflow")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/svcsock.h |  3 +++
- net/sunrpc/svcsock.c           | 37 +++++++++++++++++++++++++---------
- 2 files changed, 31 insertions(+), 9 deletions(-)
+ include/linux/sunrpc/xdr.h |  15 +++
+ net/sunrpc/xdr.c           | 199 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 214 insertions(+)
 
-diff --git a/include/linux/sunrpc/svcsock.h b/include/linux/sunrpc/svcsock.h
-index 7c78ec6356b928..9e6ecc3526e774 100644
---- a/include/linux/sunrpc/svcsock.h
-+++ b/include/linux/sunrpc/svcsock.h
-@@ -26,6 +26,9 @@ struct svc_sock {
- 	void			(*sk_odata)(struct sock *);
- 	void			(*sk_owspace)(struct sock *);
- 
-+	/* For sends (protected by xpt_mutex) */
-+	struct bio_vec		*sk_bvec;
+diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
+index 2f8dc47f1eb075..c8bf221b30adc8 100644
+--- a/include/linux/sunrpc/xdr.h
++++ b/include/linux/sunrpc/xdr.h
+@@ -141,6 +141,21 @@ int	xdr_alloc_bvec(struct xdr_buf *buf, gfp_t gfp);
+ void	xdr_free_bvec(struct xdr_buf *buf);
+ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+ 			     const struct xdr_buf *xdr);
++int xdr_buf_to_sg(const struct xdr_buf *buf, unsigned int offset,
++		  unsigned int len, struct scatterlist *sg, unsigned int nsg);
++int xdr_buf_to_sg_alloc(const struct xdr_buf *buf, unsigned int offset,
++			unsigned int len, struct scatterlist *sg_head,
++			unsigned int sg_head_nents,
++			struct scatterlist **sg_overflow, gfp_t gfp);
 +
- 	/* private TCP part */
- 	/* On-the-wire fragment header: */
- 	__be32			sk_marker;
-diff --git a/net/sunrpc/svcsock.c b/net/sunrpc/svcsock.c
-index 78b139d8c1f3b9..5a90e3564ebdf1 100644
---- a/net/sunrpc/svcsock.c
-+++ b/net/sunrpc/svcsock.c
-@@ -68,6 +68,17 @@
- 
- #define RPCDBG_FACILITY	RPCDBG_SVCXPRT
- 
 +/*
-+ * For UDP:
-+ * 1 for header page
-+ * enough pages for RPCSVC_MAXPAYLOAD_UDP
-+ * 1 in case payload is not aligned
-+ * 1 for tail page
++ * Inline scatterlist entries for xdr_buf_to_sg_alloc().  Sized to cover the
++ * head kvec, tail kvec, and a few page fragments without any heap allocation.
 + */
 +enum {
-+	SUNRPC_MAX_UDP_SENDPAGES = 1 + RPCSVC_MAXPAYLOAD_UDP / PAGE_SIZE + 1 + 1
++	XDR_BUF_TO_SG_NENTS	= 8,
 +};
 +
- /* To-do: to avoid tying up an nfsd thread while waiting for a
-  * handshake request, the request could instead be deferred.
-  */
-@@ -740,15 +751,14 @@ static int svc_udp_sendto(struct svc_rqst *rqstp)
- 	if (svc_xprt_is_dead(xprt))
- 		goto out_notconn;
  
--	count = xdr_buf_to_bvec(rqstp->rq_bvec,
--				ARRAY_SIZE(rqstp->rq_bvec), xdr);
-+	count = xdr_buf_to_bvec(svsk->sk_bvec, SUNRPC_MAX_UDP_SENDPAGES, xdr);
+ static inline __be32 *xdr_encode_array(__be32 *p, const void *s, unsigned int len)
+ {
+diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
+index 62e07c330a66ff..4d8287337e69da 100644
+--- a/net/sunrpc/xdr.c
++++ b/net/sunrpc/xdr.c
+@@ -214,6 +214,205 @@ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+ 	return count - 1;
+ }
  
--	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, rqstp->rq_bvec,
-+	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
- 		      count, rqstp->rq_res.len);
- 	err = sock_sendmsg(svsk->sk_sock, &msg);
- 	if (err == -ECONNREFUSED) {
- 		/* ICMP error on earlier request. */
--		iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, rqstp->rq_bvec,
-+		iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
- 			      count, rqstp->rq_res.len);
- 		err = sock_sendmsg(svsk->sk_sock, &msg);
- 	}
-@@ -1247,19 +1257,19 @@ static int svc_tcp_sendmsg(struct svc_sock *svsk, struct svc_rqst *rqstp,
- 	*sentp = 0;
- 
- 	/* The stream record marker is copied into a temporary page
--	 * fragment buffer so that it can be included in rq_bvec.
-+	 * fragment buffer so that it can be included in sk_bvec.
- 	 */
- 	buf = page_frag_alloc(&svsk->sk_frag_cache, sizeof(marker),
- 			      GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
- 	memcpy(buf, &marker, sizeof(marker));
--	bvec_set_virt(rqstp->rq_bvec, buf, sizeof(marker));
-+	bvec_set_virt(svsk->sk_bvec, buf, sizeof(marker));
- 
--	count = xdr_buf_to_bvec(rqstp->rq_bvec + 1,
--				ARRAY_SIZE(rqstp->rq_bvec) - 1, &rqstp->rq_res);
-+	count = xdr_buf_to_bvec(svsk->sk_bvec + 1, RPCSVC_MAXPAGES,
-+				&rqstp->rq_res);
- 
--	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, rqstp->rq_bvec,
-+	iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, svsk->sk_bvec,
- 		      1 + count, sizeof(marker) + rqstp->rq_res.len);
- 	ret = sock_sendmsg(svsk->sk_sock, &msg);
- 	page_frag_free(buf);
-@@ -1422,6 +1432,13 @@ static struct svc_sock *svc_setup_socket(struct svc_serv *serv,
- 	if (!svsk)
- 		return ERR_PTR(-ENOMEM);
- 
-+	svsk->sk_bvec = kcalloc(RPCSVC_MAXPAGES + 1, sizeof(*svsk->sk_bvec),
-+				GFP_KERNEL);
-+	if (!svsk->sk_bvec) {
-+		kfree(svsk);
-+		return ERR_PTR(-ENOMEM);
++/**
++ * xdr_buf_to_sg - Populate a scatterlist from an xdr_buf range
++ * @buf: xdr_buf to map
++ * @offset: starting byte offset within @buf
++ * @len: number of bytes to cover
++ * @sg: scatterlist array initialized with sg_init_table()
++ * @nsg: number of entries available in @sg
++ *
++ * @sg is traversed with sg_next(), so callers may pass a list
++ * assembled with sg_chain().
++ *
++ * Return: on success, the number of scatterlist entries used; the
++ * last used entry is marked with sg_mark_end().  On failure, a
++ * negative errno.
++ */
++int xdr_buf_to_sg(const struct xdr_buf *buf, unsigned int offset,
++		  unsigned int len, struct scatterlist *sg, unsigned int nsg)
++{
++	unsigned int page_len, thislen, page_offset;
++	struct scatterlist *cur = sg, *prev = NULL;
++	int nents = 0;
++	int i;
++
++	if (len == 0)
++		return 0;
++
++	if (offset >= buf->head[0].iov_len) {
++		offset -= buf->head[0].iov_len;
++	} else {
++		thislen = min_t(unsigned int,
++				buf->head[0].iov_len - offset, len);
++		if (nents >= nsg)
++			return -ENOSPC;
++		sg_set_buf(cur, buf->head[0].iov_base + offset,
++			   thislen);
++		prev = cur;
++		cur = sg_next(cur);
++		nents++;
++		len -= thislen;
++		offset = 0;
++	}
++	if (len == 0)
++		goto done;
++
++	if (offset >= buf->page_len) {
++		offset -= buf->page_len;
++	} else {
++		page_len = min(buf->page_len - offset, len);
++		len -= page_len;
++		page_offset = (offset + buf->page_base) & (PAGE_SIZE - 1);
++		i = (offset + buf->page_base) >> PAGE_SHIFT;
++		thislen = PAGE_SIZE - page_offset;
++		do {
++			if (thislen > page_len)
++				thislen = page_len;
++			if (nents >= nsg)
++				return -ENOSPC;
++			sg_set_page(cur, buf->pages[i],
++				    thislen, page_offset);
++			prev = cur;
++			cur = sg_next(cur);
++			nents++;
++			page_len -= thislen;
++			i++;
++			page_offset = 0;
++			thislen = PAGE_SIZE;
++		} while (page_len != 0);
++		offset = 0;
++	}
++	if (len == 0)
++		goto done;
++
++	if (offset < buf->tail[0].iov_len) {
++		thislen = min_t(unsigned int,
++				buf->tail[0].iov_len - offset, len);
++		if (nents >= nsg)
++			return -ENOSPC;
++		sg_set_buf(cur, buf->tail[0].iov_base + offset,
++			   thislen);
++		prev = cur;
++		nents++;
++		len -= thislen;
++	}
++	if (len != 0)
++		return -EINVAL;
++
++done:
++	if (prev)
++		sg_mark_end(prev);
++	return nents;
++}
++EXPORT_SYMBOL_GPL(xdr_buf_to_sg);
++
++/*
++ * Count the scatterlist entries needed to cover [offset, offset + len)
++ * within @buf.  Mirrors the walk in xdr_buf_to_sg() so the caller can
++ * size an allocation that matches the requested sub-range rather than
++ * the full xdr_buf.
++ */
++static unsigned int xdr_buf_sg_nents(const struct xdr_buf *buf,
++				     unsigned int offset, unsigned int len)
++{
++	unsigned int nsg = 0, thislen, page_offset;
++
++	if (len == 0)
++		return 0;
++
++	if (offset < buf->head[0].iov_len) {
++		thislen = min_t(unsigned int,
++				buf->head[0].iov_len - offset, len);
++		nsg++;
++		len -= thislen;
++		offset = 0;
++	} else {
++		offset -= buf->head[0].iov_len;
++	}
++	if (len == 0)
++		return nsg;
++
++	if (offset < buf->page_len) {
++		thislen = min(buf->page_len - offset, len);
++		page_offset = (offset + buf->page_base) & (PAGE_SIZE - 1);
++		nsg += DIV_ROUND_UP(page_offset + thislen, PAGE_SIZE);
++		len -= thislen;
++		offset = 0;
++	} else {
++		offset -= buf->page_len;
++	}
++	if (len == 0)
++		return nsg;
++
++	if (offset < buf->tail[0].iov_len)
++		nsg++;
++	return nsg;
++}
++
++/**
++ * xdr_buf_to_sg_alloc - Populate a scatterlist for an xdr_buf range
++ * @buf: xdr_buf to map
++ * @offset: starting byte offset within @buf
++ * @len: number of bytes to cover
++ * @sg_head: caller-provided scatterlist array (typically stack-allocated)
++ * @sg_head_nents: number of entries in @sg_head
++ * @sg_overflow: OUT: chained extension, or NULL when @sg_head sufficed
++ * @gfp: memory allocation flags for overflow
++ *
++ * Populates @sg_head directly when the xdr_buf fits.  When more
++ * entries are needed, an overflow scatterlist is allocated and
++ * chained from @sg_head so that the result is traversable with
++ * sg_next().
++ *
++ * Return: on success, the number of populated scatterlist entries
++ * (counting only data entries, not chain entries).  @sg_head is
++ * the head of the resulting list.  Caller must kfree @sg_overflow
++ * when done.  On failure, a negative errno.
++ */
++int xdr_buf_to_sg_alloc(const struct xdr_buf *buf, unsigned int offset,
++			unsigned int len, struct scatterlist *sg_head,
++			unsigned int sg_head_nents,
++			struct scatterlist **sg_overflow, gfp_t gfp)
++{
++	unsigned int nsg;
++	int ret;
++
++	*sg_overflow = NULL;
++	if (len == 0)
++		return 0;
++
++	nsg = xdr_buf_sg_nents(buf, offset, len);
++	if (nsg == 0)
++		return -EINVAL;
++
++	if (nsg <= sg_head_nents) {
++		sg_init_table(sg_head, nsg);
++	} else {
++		/* +1 replaces the slot sg_chain() consumes as the link. */
++		unsigned int overflow_nents = nsg - sg_head_nents + 1;
++		struct scatterlist *overflow;
++
++		overflow = kmalloc_array(overflow_nents, sizeof(*overflow),
++					 gfp);
++		if (!overflow)
++			return -ENOMEM;
++
++		sg_init_table(sg_head, sg_head_nents);
++		sg_init_table(overflow, overflow_nents);
++		sg_chain(sg_head, sg_head_nents, overflow);
++		*sg_overflow = overflow;
 +	}
 +
- 	inet = sock->sk;
- 
- 	if (pmap_register) {
-@@ -1431,6 +1448,7 @@ static struct svc_sock *svc_setup_socket(struct svc_serv *serv,
- 				     inet->sk_protocol,
- 				     ntohs(inet_sk(inet)->inet_sport));
- 		if (err < 0) {
-+			kfree(svsk->sk_bvec);
- 			kfree(svsk);
- 			return ERR_PTR(err);
- 		}
-@@ -1650,5 +1668,6 @@ static void svc_sock_free(struct svc_xprt *xprt)
- 	if (pfc->va)
- 		__page_frag_cache_drain(virt_to_head_page(pfc->va),
- 					pfc->pagecnt_bias);
-+	kfree(svsk->sk_bvec);
- 	kfree(svsk);
- }
++	ret = xdr_buf_to_sg(buf, offset, len, sg_head, nsg);
++	if (ret < 0) {
++		kfree(*sg_overflow);
++		*sg_overflow = NULL;
++	}
++	return ret;
++}
++EXPORT_SYMBOL_GPL(xdr_buf_to_sg_alloc);
++
+ /**
+  * xdr_inline_pages - Prepare receive buffer for a large reply
+  * @xdr: xdr_buf into which reply will be placed
 -- 
 2.53.0
 
