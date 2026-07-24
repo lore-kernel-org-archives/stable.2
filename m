@@ -1,283 +1,132 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2A63515F5;
-	Fri, 24 Jul 2026 19:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463AF456DFF
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 19:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784922708; cv=none; b=M5Cn3Drg/KlzWTFGjblE+bXO/b4s6nCbXp7vIeWMa6C9hCmq0/9HV3xwK+yICmTT5oaK5RxINsSqOXwZMPGlUS5HoO5qPTwv8reDT1sV+q2z71FUAoAIHYFJGV0B7MI6Vry0ujbc01U+Se263EAx6uYTu4WiLEglfe8bA2c4I6M=
+	t=1784922775; cv=none; b=dFcHp9j0NGRD8o1vgRvwFrEtXsJhB8JtxkT82zX1h/gLXgmTV6U+m/fg8nlYEpiAPCKJP/vI9tPUc3QSOl7w8kBcoaoY810L53jBComsLAM700G22SitMepqkrwWh1rhNlbyng2/Hs5VNgB4ek+pwc9WohTN22ClBvQXX8hgOgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784922708; c=relaxed/simple;
-	bh=1FnwVaLGPw/Oyeeyw6xvcos/JyAwaP2mHVlSXzMCC9U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oKF4FI1I7QlOIuTE03ybyyeRu9Awo5PUqdC8WsRJRKkvDUV44NVUHDDZ4K4nrOBcuPuzHdIghlg8S+dJf8iV4Pb4Tkrgybywn4iGP0Ekl0M8xkLFfFyj1wNS1suTrfHftDNbbBzcgIT6Y4fOA5Tk36p0FkkFcDgEQMO6WpYCMU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=IMyhKpVU; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1784922775; c=relaxed/simple;
+	bh=YUytcI+m4jOaLSW6byh3vqrNZyJkPkPMPzL2oPZDyG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=agZr5VOyZAUsUI/OcHvxM6gU29Y7K7jUphUKdITYFd3X0/VWEqygpHhYvEkKfzmLmkocgj8TA0JqOX/LiJzMBc53fv5Sif9Pm31B8eIOxDCYgYJjuk8UKjZ8G1nUc07dLfZwLbeDGmtes6J7vlWkGo8YZYPrAfgh5gDaa+yVseA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=i/s5DoQk; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IMyhKpVU"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66OHBg2j2429268;
-	Fri, 24 Jul 2026 19:51:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Ge9PfB
-	yjoN1nt4ECoCyIIp+S1bPfve12dbQmbA/t1kY=; b=IMyhKpVU4j03rLI93SbMP7
-	xixkQ/t33XQ3tsBKB7uglrgYghraw/gvKLHkIj59+PuEX/9hGHhHw6ylYry8HaS7
-	76QVRl3wtm8VSJ8SHMCrLQMoe+Dl1VOIxMmInLd6BTj2Q8oxGqDVIPCQzyubs8IR
-	rVbcPrv9/lx4uZ+H9tJKmGgn5KmLn3KB+JTCYKJhQC3RvfqRmkja65ImKb0BGnxc
-	hJhzloYn/J6DZa9bPwrhUsck0QEWxIEOCMKtVAB2b3h/rNB/ccH5Tovan0k6oGID
-	xt6WkZ7u9pt2G1W4eBtKliZVrCKh6C/m+HeJBSnW7oLxLRILdaz3RBWzPQuSYURA
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fm8h51pt7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 24 Jul 2026 19:51:44 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66OJnhqp005926;
-	Fri, 24 Jul 2026 19:51:43 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fgm6wjgsm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 24 Jul 2026 19:51:43 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66OJpgOu26673902
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 24 Jul 2026 19:51:42 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 32F0058058;
-	Fri, 24 Jul 2026 19:51:42 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 32B775805B;
-	Fri, 24 Jul 2026 19:51:40 +0000 (GMT)
-Received: from [9.61.19.212] (unknown [9.61.19.212])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 24 Jul 2026 19:51:39 +0000 (GMT)
-Message-ID: <8e4083fe-8c3f-430b-8688-965a3e1cce17@linux.ibm.com>
-Date: Fri, 24 Jul 2026 15:51:38 -0400
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="i/s5DoQk"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47362928f65so768724f8f.2
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 12:52:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1784922771; x=1785527571; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NC+t0PVzM1V3bCRy8dl7R5jb/yivKWdDFY9rHZ/PNfY=;
+        b=i/s5DoQkz2nvj42iNsKDSouT6CHxJU75FI4V7MTG+qguTV4iZ5YiAEcJmeo4zjsGbZ
+         yMytC0TsJDoT4K/hci0unVU305ryMDAgqaEYvAZlveeF2a5ALF+IFbeV1+E9FUSX9IQw
+         u+N/YdisuT/+E+wwG0aIOfslMk/Q8coDC70er405R2oAz++IFece+7iw2SjCp4nguwe9
+         eeSjbKHsHQNr9o8EW0SJ9qPjw9WUemP34owhlS3tcsRF9pz1urBJRQ1alh28G7S1GFin
+         b4DnTVHMRZFGvj+IXUOvk9EBHsO69p0iXOd3F22P8hWcizbdKHJcL6wDuhT7Rh7H4CPg
+         EpiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784922771; x=1785527571;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NC+t0PVzM1V3bCRy8dl7R5jb/yivKWdDFY9rHZ/PNfY=;
+        b=MbtF92l+ziBZMF/TwC5fKRvHKG8ZJBGQGBKSvl+W3SxaOzkagDfByVx3S3PiT0/vVZ
+         yaj3cYiy9/iQDmdpG5LhPsYFpG/N730zvWGRLl9Kqu1HKW2trgDjK8+nGawfZS0ginTl
+         9TyjNP+FTi3h45gNKN0sEtBDjN+dNtQByf7aHdazVq+sjE2SjJVgagEfDGsJWmyzgg53
+         6zmiHriqiXl8V5mJGV0gOLxw2xoOaOkCE51/VrizqMtnUakyaClUgGbOlmHDQ46EGOT3
+         Le7Xv0f0vVLwCH7JKbjg/yxaGCqSp8RnltW0wogzHQfEKuJO2fR3fK1KV+AC0cL7GLqa
+         JnQA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/KHYosP/s9He1nEwYUq5IRaqcayoe4f2AiiLiurpm0I1lNesnj2EYSozFZYyF8DHtNZS1eGo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHKJEf4IKcz0TNdx9WtZKizht7p8eqWzn2tSaddlSpH6IQXzUN
+	JX29zye58Cy1n9+eGUWuMu2TOOolmuO6Grtn/umwU5R0npmzutP06T1ejsd1I16Z18Q=
+X-Gm-Gg: AR+sD13sQ1vhh6f6Tqjg1ocgufmlpU++JtSo4hDd2NyvfH0D0NKKwXkQO1NNJ/y20k/
+	Bcbpf1jIZmCQQq0/SM3tK3w0fBXQ6x/q4kDKRDTRTvh6H8GBeX8fXe9P2aUfZnJ1QUQXyvaCjjk
+	m7GOCLDgxDXlXXaMlR1dooZolyqMQYvPo8YZ/o9ApX35Y5nHy8Ite9skP2V3+V8XopaOxlEBuqB
+	Hz9oWq0z0ku+byi/EUtO8XithZJPtvsLfrG2LMkhunl3pYN+JkoiOk8oU7gP2UilJ/0UyUY/9Ck
+	Vo4NEaBol8bsEcDCmT1LGe5jByVXjsSOPo6YTb1XbFC182jIW+ZAn+XXeziHE6YE8IwjSnzrCrw
+	62zs8AzlkgL5INXwrTdD3r0JwJdOHDksiahqOggF5j+XBtSh77oGIbQVbEKBN2XMg5xRkbbGwrh
+	SRj5iM
+X-Received: by 2002:a05:6000:25c3:b0:47f:6fd1:d399 with SMTP id ffacd0b85a97d-47f8d76ebd3mr11047801f8f.51.1784922771364;
+        Fri, 24 Jul 2026 12:52:51 -0700 (PDT)
+Received: from matt-Precision-5490.. ([2a09:bac6:37a8:294b::41d:2d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c6287csm26605268f8f.25.2026.07.24.12.52.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 12:52:50 -0700 (PDT)
+From: Matt Fleming <matt@readmodwrite.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <Liam.Howlett@oracle.com>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Dave Chinner <david@fromorbit.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <ryncsn@gmail.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Matthew Wilcox <willy@infradead.org>,
+	syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com,
+	stable@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@cloudflare.com,
+	Matt Fleming <mfleming@cloudflare.com>
+Subject: [PATCH] mm/huge_memory: Initialise workingset state before folio split
+Date: Fri, 24 Jul 2026 20:52:44 +0100
+Message-ID: <20260724195244.3715130-1-matt@readmodwrite.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/8] s390/vfio_ccw: ensure index for read/write regions
- are within range
-To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Halil Pasic <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        stable@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>
-References: <20260723174751.1180334-1-farman@linux.ibm.com>
- <20260723174751.1180334-7-farman@linux.ibm.com>
- <1fc1a866-74d5-49a8-9ea9-f2554589548e@linux.ibm.com>
-Content-Language: en-US
-From: Eric Farman <farman@linux.ibm.com>
-Autocrypt: addr=farman@linux.ibm.com; keydata=
- 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
- y8m0x6unNti2MZIUMy0m2gcE
-In-Reply-To: <1fc1a866-74d5-49a8-9ea9-f2554589548e@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDE3NyBTYWx0ZWRfX/VIkZWkgbWfG
- Br4cC7uZkaQJpFU3xy9KZeM+fCAtgISlG8A7ycvyWCb5dkoamJNP+QevLa0+OZDEwmSkgWIbcXb
- dxYm5J3DCtWnTH3khPvMyg0Zn99JeTc=
-X-Proofpoint-ORIG-GUID: XsEnrcYv9IirEnZFVwWZm-EZI2pcycif
-X-Proofpoint-GUID: XsEnrcYv9IirEnZFVwWZm-EZI2pcycif
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDE3NyBTYWx0ZWRfX82JMVLEUKPEW
- luKkgMx2vAWnRSqDhC/HQydL8hJIqj1sh3xaNfF+6t7On5IpuaHPnzoDdzelq+Srpx5BdMUnELw
- SyIHZnMxYdvEarbrKwHi1RQH2SpIaSvtg5P7ghBvhAOUmKjupk0PSKykixRtqqyutYLmOHZpBpQ
- r+WZvsV4Xz4RkosrXJ6pAxawB9eTJL7COL1RYKqvtJqn9fx4Y06IX3K0eJYhc4IjfexJQ1UxI9C
- mHny3peO+lhWBWPll0DhviT2T+/QwjuuXLP4OtPzQz3m3b2OaEPO1X0Q48BRcVUuAJwbGmuCZ3T
- gUr8otVcQL4Npf0m/6rpRuqZhcvMd3FXBDDAeeuWPafJ/fuwpJdYd4JoUaSLSEyF47GKWttoIXx
- fvqviIvcex753hlXEVuVm7sGZirHcddLkVLoJc1NUbWeWGuJHhC38JKwzNicieXw6YSUYwrzJF+
- JS50B0suj1Q6xsRLWhQ==
-X-Authority-Analysis: v=2.4 cv=du3rzVg4 c=1 sm=1 tr=0 ts=6a63c250 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=s7n_ci8m_2MWQJal8bwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-24_04,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 malwarescore=0 spamscore=0 impostorscore=0
- phishscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240177
+Content-Transfer-Encoding: 8bit
 
+From: Matt Fleming <mfleming@cloudflare.com>
 
+xas_try_split() adds __GFP_ACCOUNT for page-cache xa_nodes, but
+__folio_split() leaves the xa_state's xa_lru unset. That lets a live,
+memcg-charged xa_node exist without being linked into the mapping's
+shadow_nodes list_lru; when reclaim later walks the list_lru it trips
+VM_WARN_ON(!css_is_dying()).
 
-On 7/24/26 3:01 PM, Matthew Rosato wrote:
-> On 7/23/26 1:47 PM, Eric Farman wrote:
->> The introduction of the capability chain rightly clamped the
->> region indexes to the range of the capabilities itself, but
->> neglected to do so for the existing read/write regions which
->> should also be enforced.
->>
->> Fixes: db8e5d17ac03 ("vfio-ccw: add capabilities chain")
->> Cc: stable@vger.kernel.org
->> Cc: Cornelia Huck <cohuck@redhat.com>
->> Signed-off-by: Eric Farman <farman@linux.ibm.com>
->> ---
->>   drivers/s390/cio/vfio_ccw_async.c | 4 ++++
->>   drivers/s390/cio/vfio_ccw_chp.c   | 4 ++++
->>   drivers/s390/cio/vfio_ccw_ops.c   | 7 +++----
->>   3 files changed, 11 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/s390/cio/vfio_ccw_async.c b/drivers/s390/cio/vfio_ccw_async.c
->> index 420d89ba7f83..f213f62f6641 100644
->> --- a/drivers/s390/cio/vfio_ccw_async.c
->> +++ b/drivers/s390/cio/vfio_ccw_async.c
->> @@ -8,6 +8,7 @@
->>    */
->>   
->>   #include <linux/vfio.h>
->> +#include <linux/nospec.h>
->>   
->>   #include "vfio_ccw_private.h"
->>   
->> @@ -24,6 +25,8 @@ static ssize_t vfio_ccw_async_region_read(struct vfio_ccw_private *private,
->>   		return -EINVAL;
->>   
->>   	mutex_lock(&private->io_mutex);
->> +
->> +	i = array_index_nospec(i, private->num_regions);
->>   	region = private->region[i].data;
->>   	if (copy_to_user(buf, (void *)region + pos, count))
-> 
-> Couldn't using array_index_nospec cause us to accidentally operate on
-> region[0] if ppos were ever out of range?
+Use mapping_set_update() to install both the workingset update callback
+and the shadow_nodes list_lru on the xa_state.
 
-Hrm, yeah as I keep pondering this I think you're right. The parent 
-routines (vfio_ccw_mdev_read(), for example) checks that it's not above 
-num_regions + NUM_REGIONS, but there's no check against the subset in 
-any of these. I'll add them; thanks.
+Reported-by: syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c5b060ce82921a2fd500
+Fixes: 58729c04cf10 ("mm/huge_memory: add buddy allocator like (non-uniform) folio_split()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+---
+ mm/huge_memory.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> 
-> By comparison, vfio_pci_ioctl_get_region_info() does an explicit check
-> first, so to do something similar here and elsewhere in this patch:
-> 
-> if (i >= private->num_regions)
->     return -EINVAL;
-> i = array_index_nospec(i, private->num_regions);
-> 
-> (Note that for this case and vfio_ccw_async_region_write my pseudocode
-> doesn't account for io_mutex)
-> 
->>   		ret = -EFAULT;
->> @@ -48,6 +51,7 @@ static ssize_t vfio_ccw_async_region_write(struct vfio_ccw_private *private,
->>   	if (!mutex_trylock(&private->io_mutex))
->>   		return -EAGAIN;
->>   
->> +	i = array_index_nospec(i, private->num_regions);
->>   	region = private->region[i].data;
->>   	if (copy_from_user((void *)region + pos, buf, count)) {
->>   		ret = -EFAULT;
->> diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_chp.c
->> index 38c176cf6295..bf678270c457 100644
->> --- a/drivers/s390/cio/vfio_ccw_chp.c
->> +++ b/drivers/s390/cio/vfio_ccw_chp.c
->> @@ -9,6 +9,7 @@
->>    */
->>   
->>   #include <linux/slab.h>
->> +#include <linux/nospec.h>
->>   #include <linux/vfio.h>
->>   #include "vfio_ccw_private.h"
->>   
->> @@ -26,6 +27,8 @@ static ssize_t vfio_ccw_schib_region_read(struct vfio_ccw_private *private,
->>   		return -EINVAL;
->>   
->>   	mutex_lock(&private->io_mutex);
->> +
->> +	i = array_index_nospec(i, private->num_regions);
->>   	region = private->region[i].data;
->>   
->>   	if (cio_update_schib(sch)) {
->> @@ -97,6 +100,7 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
->>   		list_del(&crw->next);
->>   
->>   	mutex_lock(&private->io_mutex);
->> +	i = array_index_nospec(i, private->num_regions);
->>   	region = private->region[i].data;
->>   
->>   	if (crw)
->> diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
->> index 45ec722d25ea..032a1cdf4df7 100644
->> --- a/drivers/s390/cio/vfio_ccw_ops.c
->> +++ b/drivers/s390/cio/vfio_ccw_ops.c
->> @@ -243,6 +243,7 @@ static ssize_t vfio_ccw_mdev_read(struct vfio_device *vdev,
->>   		return vfio_ccw_mdev_read_io_region(private, buf, count, ppos);
->>   	default:
->>   		index -= VFIO_CCW_NUM_REGIONS;
->> +		index = array_index_nospec(index, private->num_regions);
->>   		return private->region[index].ops->read(private, buf, count,
->>   							ppos);
->>   	}
->> @@ -295,6 +296,7 @@ static ssize_t vfio_ccw_mdev_write(struct vfio_device *vdev,
->>   		return vfio_ccw_mdev_write_io_region(private, buf, count, ppos);
->>   	default:
->>   		index -= VFIO_CCW_NUM_REGIONS;
->> +		index = array_index_nospec(index, private->num_regions);
->>   		return private->region[index].ops->write(private, buf, count,
->>   							 ppos);
->>   	}
->> @@ -338,11 +340,8 @@ static int vfio_ccw_mdev_ioctl_get_region_info(struct vfio_device *vdev,
->>   		    VFIO_CCW_NUM_REGIONS + private->num_regions)
->>   			return -EINVAL;
->>   
->> -		info->index = array_index_nospec(info->index,
->> -						 VFIO_CCW_NUM_REGIONS +
->> -						 private->num_regions);
->> -
->>   		i = info->index - VFIO_CCW_NUM_REGIONS;
->> +		i = array_index_nospec(i, private->num_regions);
->>   
->>   		info->offset = VFIO_CCW_INDEX_TO_OFFSET(info->index);
->>   		info->size = private->region[i].size;
-> 
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index b5d1e9d4463d..12d0e0b14e83 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4033,7 +4033,8 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		gfp_t gfp;
+ 
+ 		mapping = folio->mapping;
+-		min_order = mapping_min_folio_order(folio->mapping);
++		mapping_set_update(&xas, mapping);
++		min_order = mapping_min_folio_order(mapping);
+ 		if (new_order < min_order) {
+ 			ret = -EINVAL;
+ 			goto out;
+-- 
+2.43.0
 
