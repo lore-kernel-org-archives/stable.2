@@ -1,87 +1,80 @@
-Received: from bjy-spam.kuaishou.com (bjy-spam.kuaishou.com [162.219.34.252])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4BD7D3F5BE5;
-	Fri, 24 Jul 2026 11:40:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.219.34.252
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F38B353EDF
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 11:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784893247; cv=none; b=QdKxIIGoT4GOXf/8C7tOWzICUekhQOiCAAowigWXvCbZqqL6cz5teUf+Bnq/LdvCc17GD14K9bt1sO5mTyhDGdpxMCy4m+7GIh5kgx6J1yZAoQCu/0KO5vaiR66YXcZkWBngaYRr1eSzfHE2nn2OvbQT+Isi274QbXZloFvfmVg=
+	t=1784894023; cv=none; b=Dt8DCTYxp29a43MSex55qQRV66DMY40m2Isalcr9n4ZpHEr41T+nR6gkN8ZEqHzAiMZKQj+W0pScut1ybJMRCwUV3n4HZakS/ueJON3wkRYH72VLuoMaPVmM/au0IP5WNJfg1RdKuG1W2wYcTmo8ecXRpBAe4EouDuprYvJGK8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784893247; c=relaxed/simple;
-	bh=jeWutDJGohW7+SSBhts5Gq1bVhTx1OxmWUd8QfvRlug=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=BDiiudOxpYJLNwsI1UWu0uG+HwKz6rwp88oMA2Qp3kA2/v+ByWvxRPA4f08OfPSOf/ka7CK+6MSVICxR08Serq8drdUswiaF1Xh3Nlr8OKDYrCtiWc0yR/ee8xaoMUN50Qq0XuR1C/JQ6wJ0ZwNgb5i5MZRcRtBhYwWbOZZ0NXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kuaishou.com; spf=pass smtp.mailfrom=kuaishou.com; dkim=pass (1024-bit key) header.d=kuaishou.com header.i=@kuaishou.com header.b=SdFugssZ; arc=none smtp.client-ip=162.219.34.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kuaishou.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kuaishou.com
+	s=arc-20240116; t=1784894023; c=relaxed/simple;
+	bh=oX6JHShf+A4wt5UT1G/S4uiehydQF5BapdOdffR4Lok=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YvJJTT3LQAh4XiCzG9Bdn5Z3X10fvDJhd8b1tUmpbM4jGzctwpRKhpBypexC2oI7lOuMVQv/bfiSf2zhW9T4XqRC0+jZMV3GVFLsP4JkkfJeELwNc3D3hJpl06K7uthIHuKS7fl+Lst57iYo/bd4/X4SIkYFHbuAEFydvPYlZEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Kq8AMZU3; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=kuaishou.com header.i=@kuaishou.com header.b="SdFugssZ"
-Received: from xm-spam02.kuaishou.com (unknown [172.28.128.162])
-	by bjy-spam.kuaishou.com (Postfix) with ESMTP id 96FBA5C753;
-	Fri, 24 Jul 2026 19:40:38 +0800 (CST)
-Received: from bjm7-pm-mail09.kuaishou.com (unknown [172.28.1.91])
-	by xm-spam02.kuaishou.com (Postfix) with ESMTPS id 4h65dt3Kx1zB3yy2;
-	Fri, 24 Jul 2026 19:40:34 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; d=kuaishou.com; s=dkim; c=relaxed/relaxed;
-	t=1784893234; h=from:subject:to:date:message-id;
-	bh=jeWutDJGohW7+SSBhts5Gq1bVhTx1OxmWUd8QfvRlug=;
-	b=SdFugssZCfDwC5ul7dV5iX8QeObb+L1kV+tQLpsRN9+Lc7eyvSu4ZMMy4km7Vv/LUSZJAOH8ci0
-	QFoTNIGmnaIpcCzZs/UAFecqhaffx4BlWkOpy0+nd5bnw4XvrC5B+PgMPVv2RNGv+lgZdhQd7YGfp
-	NSHzmb3c3bMe5QXnFdw=
-Received: from bjm7-pm-mail11.kuaishou.com (172.28.1.93) by
- bjm7-pm-mail09.kuaishou.com (172.28.1.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.20; Fri, 24 Jul 2026 19:40:34 +0800
-Received: from bjm7-pm-mail11.kuaishou.com ([fe80::ec41:ec1f:4b29:4543]) by
- bjm7-pm-mail11.kuaishou.com ([fe80::ec41:ec1f:4b29:4543%15]) with mapi id
- 15.02.1118.020; Fri, 24 Jul 2026 19:40:28 +0800
-From: =?utf-8?B?5pyx5LiA6bij?= <zhuyiming@kuaishou.com>
-To: "xiubli@redhat.com" <xiubli@redhat.com>, "idryomov@gmail.com"
-	<idryomov@gmail.com>, "amarkuze@redhat.com" <amarkuze@redhat.com>,
-	"slava@dubeyko.com" <slava@dubeyko.com>
-CC: "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, "jlayton@kernel.org"
-	<jlayton@kernel.org>
-Subject: Re: [PATCH] ceph: fix mds random selection readiness predicate
-Thread-Topic: [PATCH] ceph: fix mds random selection readiness predicate
-Thread-Index: AQHdG1oZnuQ5ElazK0qzhOIKzASQErZ8BZWA
-Date: Fri, 24 Jul 2026 11:40:28 +0000
-Message-ID: <F5EF2BE9-F97C-4E06-806C-E0EB694F162A@kuaishou.com>
-References: <20260724104920.6493-1-zhuyiming@kuaishou.com>
-In-Reply-To: <20260724104920.6493-1-zhuyiming@kuaishou.com>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C3E3BBB9C6EF7C4FB2D2E2690046CBDD@kuaishou.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Kq8AMZU3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784894022; x=1816430022;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=oX6JHShf+A4wt5UT1G/S4uiehydQF5BapdOdffR4Lok=;
+  b=Kq8AMZU3IWZYxy0R10uXaROLrF15EQ75XlSkr1Ijh7bY60VXTc3I+oNt
+   X0tFkPWOSa5ZZ/M0GPd7v5EVeP6BjYZFtNn9tOSOROmmQJ4IgeLM7MNOc
+   HUIcU3BuCM3Ed3Flxu+re2tNC8cFLcAETo3j6njCEmZOMiGyuLATjk9ds
+   Ub4xG5YqkK8JGyFIhUyM7M6HRMjNkTf1FVEzPyshqDcn+khr45x9fQy2N
+   nzamE3dfE5pmkGfXj6Ao+owknjMSDwp0/ZVQ5LYRUm1zTYvT8Ngg+6Lyt
+   +PeLJVtyDNRXj1bWKNXo5qGKiOQHu1fejlXX1uk3h0oc/X931SibiH5iF
+   Q==;
+X-CSE-ConnectionGUID: pXUL6ftnRsST/YtF2Ei24A==
+X-CSE-MsgGUID: TtzAiHnLR2CoCD9AvHbPqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85574327"
+X-IronPort-AV: E=Sophos;i="6.25,182,1779174000"; 
+   d="scan'208";a="85574327"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jul 2026 04:53:41 -0700
+X-CSE-ConnectionGUID: IQFYNb41RSOkT3mZR6t4hg==
+X-CSE-MsgGUID: SP9cpHtLSNKXXBtv7tTp7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,182,1779174000"; 
+   d="scan'208";a="259351205"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.7]) ([10.245.245.7])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jul 2026 04:53:39 -0700
+Message-ID: <b877896a-188d-4183-8543-5460cf9290f0@intel.com>
+Date: Fri, 24 Jul 2026 12:53:37 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe: Add memory barrier before H2G tail write on wrap
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20260724003108.1561414-1-matthew.brost@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260724003108.1561414-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-QWRkaW5nIHRoZSBjdXJyZW50IENlcGggY2xpZW50IG1haW50YWluZXIgbGlzdA0KDQo+IE9uIEp1
-bCAyNCwgMjAyNiwgYXQgMTg6NDksIOacseS4gOm4oyA8emh1eWltaW5nQGt1YWlzaG91LmNvbT4g
-d3JvdGU6DQo+IA0KPiBDRVBIX01EU19JU19SRUFEWSgpIGlzIHBhcnNlZCBzbyB0aGF0IHRoZSB0
-ZXJuYXJ5IGV4cHJlc3Npb24gY2FuDQo+IHJldHVybiB0cnVlIGZvciBhbiBNRFMgZW50cnkgd2l0
-aCBzdGF0ZSAwIHdoZW4gaXQgaXMgbm90IGxhZ2d5LiBUaGlzDQo+IGFsbG93cyB0aGUgcmFuZG9t
-IHNlbGVjdG9yIHRvIGNob29zZSBhIGRvd24vRE5FIHJhbmsuDQo+IA0KPiBHcm91cCB0aGUgdGVy
-bmFyeSBleHByZXNzaW9uIHVuZGVyIHRoZSBzdGF0ZSBjaGVjayBzbyB6ZXJvLXN0YXRlIHJhbmtz
-DQo+IGFyZSBub3QgdHJlYXRlZCBhcyByZWFkeS4NCj4gDQo+IEZpeGVzOiBiMzhjOWViNDc1N2Qg
-KCJjZXBoOiBhbGxvdyBjaG9vc2UgcmFuZG9tIG1kcyIpDQo+IENjOiBzdGFibGVAdmdlci5rZXJu
-ZWwub3JnDQo+IExpbms6IGh0dHBzOi8vdHJhY2tlci5jZXBoLmNvbS9pc3N1ZXMvNzg2NDgNCj4g
-U2lnbmVkLW9mZi1ieTogWWltaW5nIFpodSA8emh1eWltaW5nQGt1YWlzaG91LmNvbT4NCj4gLS0t
-DQo+IGZzL2NlcGgvbWRzbWFwLmMgfCAyICstDQo+IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlv
-bigrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2ZzL2NlcGgvbWRzbWFwLmMg
-Yi9mcy9jZXBoL21kc21hcC5jDQo+IGluZGV4IGQ4ZTQ2ZWI3ZTVlYi4uNDUwYTRkYzk2NjJlIDEw
-MDY0NA0KPiAtLS0gYS9mcy9jZXBoL21kc21hcC5jDQo+ICsrKyBiL2ZzL2NlcGgvbWRzbWFwLmMN
-Cj4gQEAgLTE1LDcgKzE1LDcgQEANCj4gI2luY2x1ZGUgInN1cGVyLmgiDQo+IA0KPiAjZGVmaW5l
-IENFUEhfTURTX0lTX1JFQURZKGksIGlnbm9yZV9sYWdneSkgXA0KPiAtCShtLT5tX2luZm9baV0u
-c3RhdGUgPiAwICYmIGlnbm9yZV9sYWdneSA/IHRydWUgOiAhbS0+bV9pbmZvW2ldLmxhZ2d5KQ0K
-PiArCShtLT5tX2luZm9baV0uc3RhdGUgPiAwICYmIChpZ25vcmVfbGFnZ3kgPyB0cnVlIDogIW0t
-Pm1faW5mb1tpXS5sYWdneSkpDQo+IA0KPiBzdGF0aWMgaW50IF9fbWRzbWFwX2dldF9yYW5kb21f
-bWRzKHN0cnVjdCBjZXBoX21kc21hcCAqbSwgYm9vbCBpZ25vcmVfbGFnZ3kpDQo+IHsNCj4gDQo+
-IGJhc2UtY29tbWl0OiA0OGE1YTdhYjhkNmFiNzA5MDU2NDMzOWUwMzljNDIxZjMxNWRlOTEyDQo+
-IC0tIA0KPiAyLjU1LjANCj4gDQoNCg==
+On 24/07/2026 01:31, Matthew Brost wrote:
+> When the H2G buffer wraps, it is padded with NOPs before updating the
+> H2G descriptor tail. However, the tail update is performed without a
+> memory barrier, allowing the GuC to observe the new tail value before
+> the NOP writes become visible.
+>   
+> This can result in the GuC reading stale H2G commands, potentially
+> causing a variety of failures. Fix this by inserting a memory barrier
+> before updating the H2G descriptor tail.
+> 
+> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
