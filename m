@@ -1,52 +1,37 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF347768EA;
-	Fri, 24 Jul 2026 05:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9E336B917;
+	Fri, 24 Jul 2026 05:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784869840; cv=none; b=H5bjt6UYFMQMJSgElMwZHEpmWizjBPq0wcByAtorBq82qYcjLOy0xluDAHN81piK0Eedl5MuoVkLPYAyfscSBTGweeEO71OvAWQ5qfcs3CeZvAEEuECJHRGIpF+lEIkr1iwYyN7jTlHXT8B1HL06gHFylk/PRHw/b5X41VPGyHA=
+	t=1784870846; cv=none; b=CIiI8GyqJNs+aavnOTMzYqarv0UIFDDmynNEVtnrD4wPoYgzRsaU5X+YRdlY0P6Wc62jgZaL6bXsHhKP2JCt8vUdR+Jv9doGXU63K/3gzzKRICLlX4d4sa5TKnrZa1ku3GpTCzfMDOVtettJ3cHusXu0qe3Hn9Eqvz4HIqbZq1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784869840; c=relaxed/simple;
-	bh=yLMu/G7IzCBHNZj3i5Opf11wfHEt2l0Lvo50YEfW0ng=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sHSPTFOkkJSjw+bCq3WGbaT/M5fFLbEeLfS/dx223Xkol+Zm38WB9LRx7grxZc3V7KrbkBRJgSsDfBRUoQlxQ5MKM4bnM8TQhoOm6xMRzQN1nxneYBLB9Ht0QQBAKbhauvlhsxbWlXhDMiqcJ4lzLepFd/yPWBMzFuMwig+FDhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Xa+EbNWS; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1784870846; c=relaxed/simple;
+	bh=LiVNmeQsY8IEYZ/VnaLr3j82YaeAMosyppkOqeNoxSE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XJVnh+qgUDwe5pijid+gycZ6ZBVAi+KyPw3jrtLu3j2BmdTrDhGwD3xIO6kzgvbryCjR40nuUkgOAZxGIz9+3qLCe2chOZbpeXQGr6HTCgj1oT7yzTTih9jFFmlZr/PdQ0qLfc1naU8NOop0Oxe9sHT/nhDLSlljLd1t78XJrtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=BwKYMlCF; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Xa+EbNWS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=rfJRwkV2JMtJVFc0pQ6fvMr4zYx8IxO5mPeNFriCcbA=; b=Xa+EbNWS5xtBmuBxVou59qFnq6
-	rk37rF6VQH+IisOAVMQaks5hTltri3AOVqUWHuqxItYTiNMLjybVuYjbQDgEFIi93bUKsjhae1Elk
-	59LgbX44Cfm1nLBIV/3caoRK5sh0+oldzIBXevkJbKBB+TIeqSjD5cVf5OAGpdoxKLWI2jPu2S0KA
-	GY+5tgsJhq+JIs2EA5JGkqbzzMFZvZiha3F4UeQRa7PSeeQi6x3sSk/t2H9lfaMR2mwFHjuCycLW4
-	g+GQ0oe7FGKVx4W7mCKTxkIvzDRZ71LIajSh9avmXXZtRvt11KCfTAGZ49uoIj9Pk4TrzZ2q0utaN
-	V78nCtsw==;
-Received: from [2001:4bb8:2d1:bd34:bc05:3da8:f7ec:c468] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wn8B0-0000000FUN5-1e98;
-	Fri, 24 Jul 2026 05:10:26 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	linux-block@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] iomap: don't free integrity payload that doesn't exist
-Date: Fri, 24 Jul 2026 07:09:44 +0200
-Message-ID: <20260724051001.202741-5-hch@lst.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260724051001.202741-1-hch@lst.de>
-References: <20260724051001.202741-1-hch@lst.de>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="BwKYMlCF"
+Received: from LAPTOP-99KJFSET (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 47691a19d;
+	Fri, 24 Jul 2026 13:27:13 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: gregkh@linuxfoundation.org,
+	sashal@kernel.org
+Cc: 3chas3@gmail.com,
+	stable@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jianhao.xu@seu.edu.cn,
+	getshell@seu.edu.cn
+Subject: [RFC PATCH 6.6.y] atm: he: kill tasklet before releasing queues
+Date: Fri, 24 Jul 2026 13:27:10 +0800
+Message-ID: <20260724052710.1126-1-getshell@seu.edu.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,38 +39,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-HM-Tid: 0a9f92978a2b03a1kunmb4995d0624371
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSRpKVk5PS0sdHkgfTk1PHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	hOQ0NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=BwKYMlCFyapMBd/y/zMpf+VVAatWbBOar7c3ddvTp17++dRXO/2Bkr206+cz/ONYURDAvZG80/g0h2aZeYcgZh2hSrTAZ8gmYCkvTnJvuGpKx04qTyLNdQXps6hUVX5RhFhrr/lbqBWPpAlY+AiH7LlKpc40YE6lmqL45ZFfvAk=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=5Mfo47OpTKg7riRmU9vv2cyhM4lOeEgh7UycReXtxWc=;
+	h=date:mime-version:subject:message-id:from;
 
-fs_bio_integrity_alloc might not allocate a bio integrity payload if PI
-verification is disabled on the block device.  Check for that case before
-calling fs_bio_integirty_free in iomap_bio_read_folio_range_sync to
-avoid a NULL pointer dereferences.
+The interrupt handler schedules a tasklet which accesses the device queues.
+tasklet_disable() waits for a running instance, but leaves a scheduled
+instance pending while he_stop() releases those queues and the device.
 
-Make the branch cover the PI verification as well - while
-fs_bio_integrity_verify works without an integrity payload, it requires
-one to actually do useful work.
+After masking device interrupts, unregister the IRQ so the handler can no
+longer schedule the tasklet, then kill the tasklet before releasing any of
+its data.
 
-Fixes: 0b10a370529c ("iomap: support T10 protection information")
-Cc: <stable@vger.kernel.org> # v7.1
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+The affected driver was removed upstream by commit 6deb53595092 ("net:
+remove unused ATM protocols and legacy ATM device drivers").  This change
+is intended for maintained stable kernels which still carry the driver.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 ---
- fs/iomap/bio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/atm/he.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
-index dc8ac7e370a5..30ef78a66b4f 100644
---- a/fs/iomap/bio.c
-+++ b/fs/iomap/bio.c
-@@ -179,7 +179,7 @@ int iomap_bio_read_folio_range_sync(const struct iomap_iter *iter,
- 	if (srcmap->flags & IOMAP_F_INTEGRITY)
- 		fs_bio_integrity_alloc(&bio);
- 	error = submit_bio_wait(&bio);
--	if (srcmap->flags & IOMAP_F_INTEGRITY) {
-+	if (bio_integrity(&bio)) {
- 		if (!error)
- 			error = fs_bio_integrity_verify(&bio, sector, len);
- 		fs_bio_integrity_free(&bio);
+diff --git a/drivers/atm/he.c b/drivers/atm/he.c
+index 92a041d..6b2c795 100644
+--- a/drivers/atm/he.c
++++ b/drivers/atm/he.c
+@@ -1536,9 +1536,13 @@ he_stop(struct he_dev *he_dev)
+ 		pci_read_config_dword(pci_dev, GEN_CNTL_0, &gen_cntl_0);
+ 		gen_cntl_0 &= ~(INT_PROC_ENBL | INIT_ENB);
+ 		pci_write_config_dword(pci_dev, GEN_CNTL_0, gen_cntl_0);
++	}
+ 
+-		tasklet_disable(&he_dev->tasklet);
++	if (he_dev->irq)
++		free_irq(he_dev->irq, he_dev);
++	tasklet_kill(&he_dev->tasklet);
+ 
++	if (he_dev->membase) {
+ 		/* disable recv and transmit */
+ 
+ 		reg = he_readl_mbox(he_dev, CS_ERCTL0);
+@@ -1555,9 +1559,6 @@ he_stop(struct he_dev *he_dev)
+ 		he_dev->atm_dev->phy->stop(he_dev->atm_dev);
+ #endif /* CONFIG_ATM_HE_USE_SUNI */
+ 
+-	if (he_dev->irq)
+-		free_irq(he_dev->irq, he_dev);
+-
+ 	if (he_dev->irq_base)
+ 		dma_free_coherent(&he_dev->pci_dev->dev, (CONFIG_IRQ_SIZE + 1)
+ 				  * sizeof(struct he_irq), he_dev->irq_base, he_dev->irq_phys);
 -- 
-2.53.0
+2.50.1.windows.1
 
