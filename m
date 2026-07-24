@@ -1,198 +1,283 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013039.outbound.protection.outlook.com [40.107.162.39])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535A2397689;
-	Fri, 24 Jul 2026 19:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784921676; cv=fail; b=LBUkxCaEMnig7hiJYl4uLVQHzRDjW0LnIqsS0dgTu5D2sUQ8NsXjL0RKJ1Qv1M94OsTG3KgLNn5GU57F0yrOHnDifkAIlYa8aldxQyrnmUzfAdEnLGs8ccz3pIi2ixDgNN6n8WScG4dGkVevNPPgBs0zcrlXVAea5mlbgbFe3HM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784921676; c=relaxed/simple;
-	bh=QLaNneOEO6gBxBXjatqGLwh9MLT3EOb/5/ggaCD5vMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PSokUWOdKQPvC5gQFg+IPNyzrlf0cuVBl5xUw2azggAYs4BfF8f1UBNJDPrS8lcgJZIYB++z+mOnirO++8Jb1yk7klOR7Y46iWVR0w798Y3iNmPRhWrSUzVlMHLNYz0qF2no9V7bEF2FH+nO+c+3X10SVu8zTuWEUof6VyRknK0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=AkIyDxBA; arc=fail smtp.client-ip=40.107.162.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2A63515F5;
+	Fri, 24 Jul 2026 19:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784922708; cv=none; b=M5Cn3Drg/KlzWTFGjblE+bXO/b4s6nCbXp7vIeWMa6C9hCmq0/9HV3xwK+yICmTT5oaK5RxINsSqOXwZMPGlUS5HoO5qPTwv8reDT1sV+q2z71FUAoAIHYFJGV0B7MI6Vry0ujbc01U+Se263EAx6uYTu4WiLEglfe8bA2c4I6M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784922708; c=relaxed/simple;
+	bh=1FnwVaLGPw/Oyeeyw6xvcos/JyAwaP2mHVlSXzMCC9U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oKF4FI1I7QlOIuTE03ybyyeRu9Awo5PUqdC8WsRJRKkvDUV44NVUHDDZ4K4nrOBcuPuzHdIghlg8S+dJf8iV4Pb4Tkrgybywn4iGP0Ekl0M8xkLFfFyj1wNS1suTrfHftDNbbBzcgIT6Y4fOA5Tk36p0FkkFcDgEQMO6WpYCMU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=IMyhKpVU; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="AkIyDxBA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NJA4bSv9kOi0c43NG+fUAAzYtK2EZ5bMOtJofzRTjc5KvUJwyHfMx/in24H9hr2py9FdwT8sXICW4ND+RuojdtSx4+DCt0GXk6pU31n6owbW2l8Xrm80c9RZEqnFoMb4HkjT2TlwjOsp1hECAb7si3XhVZsdtCJPjGP8n4N4eSKkW7hk7WZsx2KRKC7EWMF89rYJYwRvL6i7D9ZtUxqH7aXfwO5gkUQ5YdzC2Y9HA/cXSFwtEwdvyisb7+x08v2lOrGsFW2Hd5zytD1kksvpWvTcdGk3hOr/SJ4IrsZLDVA27J2JeSDwfjgfwO1jpILh91pL2dEzErj3PVEBsDPq8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dCJLOkFLN9iT3e7ZnhWjbWqgIHQpj0wJNykCy7gTpeI=;
- b=dW9g/SiM3mOOTnwQ7DQqAY535E3A/8v+tZngEnXGwHtvDoUkxNVv9Rn8eB9ixyRsDtk/E3uYjBDeEB0682r7noYG3ubzD0zOW4EpDNzQab5Mh1l0jaQHUEZDPTXLe9eiSJA4SHGTutnkumrYoH+6XQ1jtu8NQGKfl36b7JM3BQuPRB+/0nAyaTWHf3ezegQgaeqzS1+ii1orZNQFpEmzKmM48feV4vl1lC3Hb0zzhCDyZ5agdpUAEDXRNu5CGWO6mCIhlZYa9QRnHwMJZhb4W0468CCuYtZwUYJiaOsM6LPxciz6316ImHKmzf5oLhhS8K4ZOf8TW0hu+kPiFelv0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dCJLOkFLN9iT3e7ZnhWjbWqgIHQpj0wJNykCy7gTpeI=;
- b=AkIyDxBAbwWAwdJ8/2Bru4LMnNUkSpJ7i4wjKEP6LTL7wuZ4OjGfhDeVKOnHY675qjBJ0x36QoIPUDdrM34zt3QPihmQPAFwr0Fn0d3Nu33jZLpSXpFOcj8WwKzjnegli48UUC9jSSSCW8/DoeiC22He9mWO4bsdvxkFbWUokSWPjLjDNXut/TFgobsRO16ZUjLaYUOW++ZjVr1tl3qxq10ef/8pw6+hgq2JET8BOzL/klv5SJLogj4GAOXQwV241Ho5GI57pnN+/Fc9XGVQkZS6Luona9E5XOHqjennuYBwmHtb3Dqw/g9QsyifDbJxhuiaYTcw3pzTB9f6Qi0QqQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB11547.eurprd04.prod.outlook.com (2603:10a6:800:2ff::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
- 2026 19:34:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 19:34:31 +0000
-Date: Fri, 24 Jul 2026 15:34:23 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Carlos Song (OSS)" <carlos.song@oss.nxp.com>
-Cc: Frank.Li@nxp.com, broonie@kernel.org, xiaoning.wang@nxp.com,
-	linux-spi@vger.kernel.org, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Carlos Song <carlos.song@nxp.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] spi: fsl-lpspi: replace dmaengine_terminate_all with
- dmaengine_terminate_sync
-Message-ID: <amO-PzRgr1WMWrDA@lizhi-Precision-Tower-5810>
-References: <20260519104517.2794390-1-carlos.song@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260519104517.2794390-1-carlos.song@oss.nxp.com>
-X-ClientProxiedBy: SA0PR11CA0146.namprd11.prod.outlook.com
- (2603:10b6:806:131::31) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IMyhKpVU"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66OHBg2j2429268;
+	Fri, 24 Jul 2026 19:51:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Ge9PfB
+	yjoN1nt4ECoCyIIp+S1bPfve12dbQmbA/t1kY=; b=IMyhKpVU4j03rLI93SbMP7
+	xixkQ/t33XQ3tsBKB7uglrgYghraw/gvKLHkIj59+PuEX/9hGHhHw6ylYry8HaS7
+	76QVRl3wtm8VSJ8SHMCrLQMoe+Dl1VOIxMmInLd6BTj2Q8oxGqDVIPCQzyubs8IR
+	rVbcPrv9/lx4uZ+H9tJKmGgn5KmLn3KB+JTCYKJhQC3RvfqRmkja65ImKb0BGnxc
+	hJhzloYn/J6DZa9bPwrhUsck0QEWxIEOCMKtVAB2b3h/rNB/ccH5Tovan0k6oGID
+	xt6WkZ7u9pt2G1W4eBtKliZVrCKh6C/m+HeJBSnW7oLxLRILdaz3RBWzPQuSYURA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fm8h51pt7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 24 Jul 2026 19:51:44 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66OJnhqp005926;
+	Fri, 24 Jul 2026 19:51:43 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fgm6wjgsm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 24 Jul 2026 19:51:43 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66OJpgOu26673902
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 24 Jul 2026 19:51:42 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 32F0058058;
+	Fri, 24 Jul 2026 19:51:42 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 32B775805B;
+	Fri, 24 Jul 2026 19:51:40 +0000 (GMT)
+Received: from [9.61.19.212] (unknown [9.61.19.212])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 24 Jul 2026 19:51:39 +0000 (GMT)
+Message-ID: <8e4083fe-8c3f-430b-8688-965a3e1cce17@linux.ibm.com>
+Date: Fri, 24 Jul 2026 15:51:38 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB11547:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5e1c339-977a-42ca-c276-08dee9ba952b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|19092799006|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	+Fl6l0khtPo1BfgL9WyYqKFSIF+2vd4v91F9/dzZ1K0H4d23rHSesdiKEDjQrXT8lxdCZOOgNfsBXOpSrUnzasqQ0YcXGi8bbhjq7rm1zlRhkYVKZaEhLqB6fRgguw0faE/OIbhAiXhBMqlGxZTrEIld1MMPWhQdt9/cfD21Y8/RHQ3xGv+KDuyRtV4nx0XqHhNFhwxqR5xFteZ8/P5trxDQrs/t9Z9i+gtEafUMCzIaKE53ztqILhN+9/3x63HWrcUaheHRa9Djf/mB2IQz+t/XRsKnd/wv/wJxPa1C/tNkYYcVxxHoSmlldOm3NyE/2RsRZUY5/UjIpUWEqF4Ii3vZBt42RHoT8W2eRViThv4yPlGFIgClS2RQWfMzj6TXnRH/N2i4JcAaRXom29gv2ap1bWxalf4Ua0Cwqt+YoeEQEisLUtB4Ij9ZDdmFx8QijdSm2JssZH+BK2VKbE+5dQO7kl4E3jCPA2uQX2HcjPZwVqEWu89qyOhBOJv6IX7FUcGoh8Hv4WNhC6ysQcwRFEGoiKxezp2rJNXXD1GwCTxSkHzTli0PRjpycUh6B0Y9RHtFVJUFhGTOOQa5hpP5qSpu47JEoNWrxbs8TT7EZhW49trXk50lf2uYEgPyf+5Ws4C7sFAIg/YsCwGXs46A5QBcu3UG8Xc5EtS677glQP8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(19092799006)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?abAEl+N9Q608Ree9mnnAaMFqNMvQNaC5AbLB+kifsnNtXR5xwUOpzdSYBd48?=
- =?us-ascii?Q?KkW59bNdqE/jhMjJzRDKwXec+WBkMUPbXp1UVBWmiDZB2QpqVlCbrRfnBakP?=
- =?us-ascii?Q?9AdzgA6IZEgV0t/9GGIuqwoJ0VIUOhkqIWxXWp5mV1b/tr64KzrHXRcNDP6f?=
- =?us-ascii?Q?wFUR2JPXWsmg4/xg+f/vgTcA3swRgdLMQOYh2uAirhLPGuVsAhlf1jTb0ddq?=
- =?us-ascii?Q?kJwjo7EOs52/5JXXma8f1uexNTQHZcGiAIm3ONY6QYDq0uf2pvgCcqK22Zie?=
- =?us-ascii?Q?CmR+WXgujKtCTx1nfvMY62uLNSQdC/OCssYJX18tOyfzhEF7RQ1JP6a4Q3Gj?=
- =?us-ascii?Q?GSjTRVXAc7CPk8tgHgoVzdE1YEQ/Ry8ujfQbYna+sUMWnIHJTIfFgsiyFrdX?=
- =?us-ascii?Q?wYArK4Zt1dp6LvzSlCg+qx2Oa2sa3A57icVYhTS1qvAdnOc+xkd7HiKkh727?=
- =?us-ascii?Q?ESTzTpcU6+0glfVjvTHxIWxYM67EX2x/fqognGOl8/Lw1jCSd2F8d4xy0dWl?=
- =?us-ascii?Q?kNONuoG/WY38xMJeQ9MpLS7V0dCOd5YjwGF9pPN4Rljrh0/cXhNeaXB5nBXY?=
- =?us-ascii?Q?eHIWYBZNi/UNsPojRIOhf9eM84hxiUkXlyu4RfeVHloDlUEc60+1dGW0ERTn?=
- =?us-ascii?Q?SlXHsYPHl1J9Us0SkhPlKexQ1RD93RlUpgfXxC3uesGR7eiRo4GfX/VULwto?=
- =?us-ascii?Q?MEwz+B0TaRfYBEsTAev91h3etjQoNg5bpiFwcqfGg/DEhffp/BrqCKdWzsxD?=
- =?us-ascii?Q?zieBX3q5IVvP4qx5BSM0rHbFpF8g5XMjc87QvMhb8ZYkJSY7pjcAMkxoy9lo?=
- =?us-ascii?Q?DaLHOWZd2smsoHmwCaI8qqxl1XZVxGQx/h6/R5N0FTAB3/zMoGViXpiFWlTg?=
- =?us-ascii?Q?EHpE72x90gDs3WckzxtLKEVNNUtErpweRtCtpIFc2tnuh3Q98nappuFNs1Jz?=
- =?us-ascii?Q?IS1bfcUlLoe5XMSy7YxkljWPoJqKAePKXx0GHyUhcsBFSYTbhxlEIgXCTtsu?=
- =?us-ascii?Q?5GHr+lH1n9o4VQiyfcSouFrX7V+ilkes4N/DF4NyvpoZYbpHPR2H2lrzyuY6?=
- =?us-ascii?Q?/2hHjiOwxMP1orwPAgOSFQRFFi9lg0Yp/UP1EadrVX6+j6svu1OU4MkpPl9K?=
- =?us-ascii?Q?I40DYIExoYPifYwR9WcrtMYzox3mjOGbzyz0KQHyfC6N6q9Hm7dOhFRiYwC4?=
- =?us-ascii?Q?sg2rLLyu1QsR+JUvcRSEC9XsXyheYXEKcPPoi7vT23lXkH0R8b4eTGUAOiB7?=
- =?us-ascii?Q?mRP7uq0UpLgLVuQKcPAlzlQ7WiM2mV6ntJgei/Rcjaq04xgliKa8QIrNVDRV?=
- =?us-ascii?Q?rhaP2FpH+I5XNtkken+pDte24MfkEId0lE2j3k56woY8FBCoNZL15qeY2WZ7?=
- =?us-ascii?Q?SA917T6zoWuD7gDya/cljaS6ZqEGbAtGVTKVPx8im6ldzFgTKVoZoVJaN/uJ?=
- =?us-ascii?Q?HF/ufXCWI3hpBFX31JR5aPHQ8AMFkPvCaneWfBrSkq4ZTrANpTqBem6xiidC?=
- =?us-ascii?Q?VSTvI7sxXRKqxf2KWbug1MDn8M+DvMeYfLFjHFLRBUQ9sGJnpOdrTiGLky89?=
- =?us-ascii?Q?7cC23u+yJbr6juYhTPgWnJuNXFmCLx7S76slRX//IbVJ2KdF8R+TuKS8Yb/s?=
- =?us-ascii?Q?qIqM/P3gTqnJFS71Krt1OD4PNKEnSYiMUbX2aB9dSv10/HWdb/LdhU8U2pJE?=
- =?us-ascii?Q?VdifOsq8bFLC1GtTr+apQx0hmf138pjHkVmI27XxJRDlqjbSnJddLXUgSvpQ?=
- =?us-ascii?Q?Yy0zjJO4zjTVozKwis22hsKYWV/htjJzNuu00sgCE/jAQwUmvy27?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5e1c339-977a-42ca-c276-08dee9ba952b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 19:34:31.1270
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oUQcYnDknrb5Wzum7deMK2Ud0U5qXho4LlV0Ry4AuH6mx768kkYB2B3r8uxMXRRtRY3CVboMYT16U7X5Qvi+M7Ok8RG3rJttxIM1Xll6lWP5UL12hdhiaZFQyP0TgwvY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11547
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/8] s390/vfio_ccw: ensure index for read/write regions
+ are within range
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Halil Pasic <pasic@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        stable@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>
+References: <20260723174751.1180334-1-farman@linux.ibm.com>
+ <20260723174751.1180334-7-farman@linux.ibm.com>
+ <1fc1a866-74d5-49a8-9ea9-f2554589548e@linux.ibm.com>
+Content-Language: en-US
+From: Eric Farman <farman@linux.ibm.com>
+Autocrypt: addr=farman@linux.ibm.com; keydata=
+ xsFNBF7EiEwBEADGG0EtNKnjp+kQfEVqlqxXoBHjnaQptFpMgxNlz2GtqOujY6nzEWnybIXY
+ 63XUTmMS/tWUf2DTbNCNoWwumGM/I2Gj1uGyMnc4Q477BQlL/e2/9MRaut11rwHsi4zmWylc
+ jO0eFTSLFA8yFBj9osT3uZzk5TwWkD8sf+rD916fFVk0G39uYEd5sjEzjeOf9/dwXyZpjJY6
+ api1pUHEw7weRvOnllJAfIKFz+KoR6d7ezvMF9zOYHF73FGeSVIYoIEUhA5Cdg60rSlTtHb2
+ cftex3/cEapvY5bK3CKJ33BVVK10Bht9XfVaA/AOcg/3o5ZbhSIwz4xScGsEVf/Yr368YMdr
+ 3VkCZrmN2ppmVRz/RvAmCyItnmzoVDlSREA6Faw6S0x8Oi7lN0cKh2hy9VPcVupraXJZrdAh
+ GtdU+jrJvSbpdsrX8F7K3RwynbiqGrqC0izGla04hhtei/uwthatglukuxep4PknDGbzijg8
+ Ef7A8t3qEVklUDrsnNPN5HbR9QQdeF0HuWsDTfILbZv1MICfOK3BCDeT5mJWaJCoQ2rbuljM
+ e1hFSt+mr7GV4h6NcBE+uGIqDSzQORtyTo0uBV4et3cSE84JxOfXBMrj0TlL1855JaIoPWEN
+ uhDRB/dHW8+Fumq2du5hLcaXPka+MO26cNVKVLF0/JjwMTZ9bQARAQABzSJFcmljIEZhcm1h
+ biA8ZmFybWFuQGxpbnV4LmlibS5jb20+wsGuBBMBCABYAhsDBwsJCAcDAgEGFQgCCQoLBBYC
+ AwECHgECF4AdGGh0dHBzOi8va2V5c2VydmVyLnVidW50dS5jb20WIQTSxgUEyej1aM/lh7U4
+ J7IScb+VYgUCYel8TgAKCRA4J7IScb+VYsHAD/9BSQj7HeJf90PttOmVh35Bb4QyHLZ4g+9x
+ waM59JCKGbiURuNRIGnoRarYXHk6vfy19v8v56Dy1IOlKWaRnizp5Mw9zXBBTCs4fgNbOzY/
+ SggFY2UzcziXDG29X9zznq5LgY1Jf/cwm1O+rn89GKCZWZhLEB2wKzBj7hum7NBdW+lxfVwp
+ 2qONGDerttWDwAHxJ995k9aDJahq9kIKEMEZbrTQ8JI8KZGoox6+HA04EhoNzxvbV0J+/gLJ
+ 2DkvxN5/xmcD3z+s8B5ev3NarOF17AIA9oCdfu8CPAupcNqJW86m19P5q6AyRB2ZLyAIAAhr
+ HCXrnlh/8HJW1yCOVXxprFdpg1SX1fuArjbFAh53vVVDfkZlwHeTeE7+3y1rtDLfy830pqdD
+ ymv94yey2y1+iZBdbaW0fSC/JkjkOCy8oZawkH3geM4MXV4ze4gbBH6BhxW/0gbEYjnLm3FA
+ 53JcXwhHQFPWIYEYYPvATJi0JUiMY1Znkm3QBWDOCXSrG0tHpAclBa9L40zLRwA1h9YOMFEs
+ qvKijUdvcDf4sTdJ+A6YL66grzul5vNt06NlqsI8HUDHE6vghqyWxupCav2+9b1BuLie++er
+ b8OCo5n3TUHsVMjYJEePU1EkcCa84dCm+CXqPthgRv0sbe4UQEd/qUoVMdWj7Q7FL96mBn0G
+ zM7BTQRexIhMARAAp+k1sC4y7Wtwjqtfu9wIihvY/Vot0v/sKg8CRGRIIRGLiCeA9o+2ZlxC
+ jYztT3Leri5Vo5z09OmRMvoFLJjcHMCG5sYeZwOWNAbeuAxGkIMDSB4pLl3t2c+1PQuMBCd7
+ +mRZFaMEJfT3nhdUKxy2rp1+YucnA67xGXUJCiD5l9UmhPqa7SAYlpMAqDz7cmBo25c/UNm1
+ Tpwjrh70jq/4guV5gnprawH8nkRjdKH1JvKWvkuaB7FNZ9IuSHlWclcQX4IQMsaxsU2emAbP
+ VYv7l4YNlKfdlJd8tuEodjuMLOBnr7e9H0hVNUWGFN9bkBNRu3zi/jvhyu15Iu4euR/WdVNu
+ 2K2iYxIfiGMnv0F/a6R1bm10lCJrjyf23J8DYIeH4YmHvOOqYFkq3DWOctlXbb3+aABqjYt3
+ mkiOLXeplqbo/m3rWcGNd8Q/d1aVA0wm5+Nt3RdSuXG2FHOFdVUQKPLpf1NUH/LInBhS/9Ys
+ ajm6tWXKv7hxwWmyz0u/th6gUra3KpARB1ypebWHULLNzKGwVS81XNs76QhXwX04cyiwLqKb
+ WqLqJKThz+rLa09Ap+eO/UzPfFXvWYWfTeFRIQ/tKF332ZzRR8Xrh/fk//YXyRfpoE/7i5uz
+ ve0HZWp5jXg9Yb+S6g0+XUKznnN9B8WLLCcuRIuSa722070v7KsAEQEAAcLBdgQYAQgAIAIb
+ DBYhBNLGBQTJ6PVoz+WHtTgnshJxv5ViBQJh6XwwAAoJEDgnshJxv5Vib28P/1BYT5gvjuEB
+ A80AXo/IqycicXxDJtrfmyw4COP7bi7AuiDcKyA1wRzC51paKwPFB8Unk2GvG4DV6aDmGTJY
+ +GeCYgthQ+znW461S8B6GqDCAQt2VDNNFVU+gTuh7vYQOgt/OjtiiAvMIJBVRbXoNSRokKOF
+ tpTiXf3ZOsAkot5ZmxE0TV94v18sp/bC84YvFyaxpw5bilT7bmpcq8B8/3yb0kmy6gXLcQAp
+ OnomV3sQBmm050amiO3tvxMNv8J71AvNdTG/rojTDKUl2Nw4f+aw4nVw874m2XpEe9JGRw54
+ 5d2dN8k3GpzcTBe9fCQPOFHOGkQ1CgptDkQuQVD3DIeNzQjXf6xehEymIKnLOkukT2smV0zh
+ fj08z7eiv+dsmnBsbhdM6DKU8qIgkTu77TfHUKjjOY/Mj0YHPuH/J4b1AZFxBhGP0BTKiB2W
+ CR6/49XVKvY1jHxgadSSNCD+f7tEqUNBlVl+P0emMJaYpK1+gy88ma4g3nvyOVe/VzDPjGDC
+ 4HX/6RAR4Dbzry6/epWTTji+7ApzePzmJzPcuzD31ICsgT2dJ6ydxyxxXikBFJqx6BPOF+u+
+ 1BtKcTz1ek3I2sWvBM1V5CKaFw7iNXxS6HgS2scuAT2awKq+BQlt778/GfBWpXonfqixMvit
+ y8m0x6unNti2MZIUMy0m2gcE
+In-Reply-To: <1fc1a866-74d5-49a8-9ea9-f2554589548e@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDE3NyBTYWx0ZWRfX/VIkZWkgbWfG
+ Br4cC7uZkaQJpFU3xy9KZeM+fCAtgISlG8A7ycvyWCb5dkoamJNP+QevLa0+OZDEwmSkgWIbcXb
+ dxYm5J3DCtWnTH3khPvMyg0Zn99JeTc=
+X-Proofpoint-ORIG-GUID: XsEnrcYv9IirEnZFVwWZm-EZI2pcycif
+X-Proofpoint-GUID: XsEnrcYv9IirEnZFVwWZm-EZI2pcycif
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDE3NyBTYWx0ZWRfX82JMVLEUKPEW
+ luKkgMx2vAWnRSqDhC/HQydL8hJIqj1sh3xaNfF+6t7On5IpuaHPnzoDdzelq+Srpx5BdMUnELw
+ SyIHZnMxYdvEarbrKwHi1RQH2SpIaSvtg5P7ghBvhAOUmKjupk0PSKykixRtqqyutYLmOHZpBpQ
+ r+WZvsV4Xz4RkosrXJ6pAxawB9eTJL7COL1RYKqvtJqn9fx4Y06IX3K0eJYhc4IjfexJQ1UxI9C
+ mHny3peO+lhWBWPll0DhviT2T+/QwjuuXLP4OtPzQz3m3b2OaEPO1X0Q48BRcVUuAJwbGmuCZ3T
+ gUr8otVcQL4Npf0m/6rpRuqZhcvMd3FXBDDAeeuWPafJ/fuwpJdYd4JoUaSLSEyF47GKWttoIXx
+ fvqviIvcex753hlXEVuVm7sGZirHcddLkVLoJc1NUbWeWGuJHhC38JKwzNicieXw6YSUYwrzJF+
+ JS50B0suj1Q6xsRLWhQ==
+X-Authority-Analysis: v=2.4 cv=du3rzVg4 c=1 sm=1 tr=0 ts=6a63c250 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=20KFwNOVAAAA:8 a=VnNF1IyMAAAA:8 a=s7n_ci8m_2MWQJal8bwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 malwarescore=0 spamscore=0 impostorscore=0
+ phishscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240177
 
-On Tue, May 19, 2026 at 06:45:17PM +0800, Carlos Song (OSS) wrote:
-> From: Carlos Song <carlos.song@nxp.com>
->
-> The terminate API dmaengine_terminate_all() has been deprecated, improve
-> driver with dmaengine_terminate_sync().
->
-> Fixes: 09c04466ce7e ("spi: lpspi: add dma mode support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Carlos Song <carlos.song@nxp.com>
-> ---
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
->  drivers/spi/spi-fsl-lpspi.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/spi/spi-fsl-lpspi.c b/drivers/spi/spi-fsl-lpspi.c
-> index e201309f8aae..1a94a42fac31 100644
-> --- a/drivers/spi/spi-fsl-lpspi.c
-> +++ b/drivers/spi/spi-fsl-lpspi.c
-> @@ -647,7 +647,7 @@ static int fsl_lpspi_dma_transfer(struct spi_controller *controller,
->  				tx->sgl, tx->nents, DMA_MEM_TO_DEV,
->  				DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
->  	if (!desc_tx) {
-> -		dmaengine_terminate_all(controller->dma_tx);
-> +		dmaengine_terminate_sync(controller->dma_tx);
->  		return -EINVAL;
->  	}
->
-> @@ -668,8 +668,8 @@ static int fsl_lpspi_dma_transfer(struct spi_controller *controller,
->  							transfer_timeout);
->  		if (!time_left) {
->  			dev_err(fsl_lpspi->dev, "I/O Error in DMA TX\n");
-> -			dmaengine_terminate_all(controller->dma_tx);
-> -			dmaengine_terminate_all(controller->dma_rx);
-> +			dmaengine_terminate_sync(controller->dma_tx);
-> +			dmaengine_terminate_sync(controller->dma_rx);
->  			fsl_lpspi_reset(fsl_lpspi);
->  			return -ETIMEDOUT;
->  		}
-> @@ -678,8 +678,8 @@ static int fsl_lpspi_dma_transfer(struct spi_controller *controller,
->  							transfer_timeout);
->  		if (!time_left) {
->  			dev_err(fsl_lpspi->dev, "I/O Error in DMA RX\n");
-> -			dmaengine_terminate_all(controller->dma_tx);
-> -			dmaengine_terminate_all(controller->dma_rx);
-> +			dmaengine_terminate_sync(controller->dma_tx);
-> +			dmaengine_terminate_sync(controller->dma_rx);
->  			fsl_lpspi_reset(fsl_lpspi);
->  			return -ETIMEDOUT;
->  		}
-> @@ -688,8 +688,8 @@ static int fsl_lpspi_dma_transfer(struct spi_controller *controller,
->  			fsl_lpspi->target_aborted) {
->  			dev_dbg(fsl_lpspi->dev,
->  				"I/O Error in DMA TX interrupted\n");
-> -			dmaengine_terminate_all(controller->dma_tx);
-> -			dmaengine_terminate_all(controller->dma_rx);
-> +			dmaengine_terminate_sync(controller->dma_tx);
-> +			dmaengine_terminate_sync(controller->dma_rx);
->  			fsl_lpspi_reset(fsl_lpspi);
->  			return -EINTR;
->  		}
-> @@ -698,8 +698,8 @@ static int fsl_lpspi_dma_transfer(struct spi_controller *controller,
->  			fsl_lpspi->target_aborted) {
->  			dev_dbg(fsl_lpspi->dev,
->  				"I/O Error in DMA RX interrupted\n");
-> -			dmaengine_terminate_all(controller->dma_tx);
-> -			dmaengine_terminate_all(controller->dma_rx);
-> +			dmaengine_terminate_sync(controller->dma_tx);
-> +			dmaengine_terminate_sync(controller->dma_rx);
->  			fsl_lpspi_reset(fsl_lpspi);
->  			return -EINTR;
->  		}
-> --
-> 2.43.0
->
+On 7/24/26 3:01 PM, Matthew Rosato wrote:
+> On 7/23/26 1:47 PM, Eric Farman wrote:
+>> The introduction of the capability chain rightly clamped the
+>> region indexes to the range of the capabilities itself, but
+>> neglected to do so for the existing read/write regions which
+>> should also be enforced.
+>>
+>> Fixes: db8e5d17ac03 ("vfio-ccw: add capabilities chain")
+>> Cc: stable@vger.kernel.org
+>> Cc: Cornelia Huck <cohuck@redhat.com>
+>> Signed-off-by: Eric Farman <farman@linux.ibm.com>
+>> ---
+>>   drivers/s390/cio/vfio_ccw_async.c | 4 ++++
+>>   drivers/s390/cio/vfio_ccw_chp.c   | 4 ++++
+>>   drivers/s390/cio/vfio_ccw_ops.c   | 7 +++----
+>>   3 files changed, 11 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/s390/cio/vfio_ccw_async.c b/drivers/s390/cio/vfio_ccw_async.c
+>> index 420d89ba7f83..f213f62f6641 100644
+>> --- a/drivers/s390/cio/vfio_ccw_async.c
+>> +++ b/drivers/s390/cio/vfio_ccw_async.c
+>> @@ -8,6 +8,7 @@
+>>    */
+>>   
+>>   #include <linux/vfio.h>
+>> +#include <linux/nospec.h>
+>>   
+>>   #include "vfio_ccw_private.h"
+>>   
+>> @@ -24,6 +25,8 @@ static ssize_t vfio_ccw_async_region_read(struct vfio_ccw_private *private,
+>>   		return -EINVAL;
+>>   
+>>   	mutex_lock(&private->io_mutex);
+>> +
+>> +	i = array_index_nospec(i, private->num_regions);
+>>   	region = private->region[i].data;
+>>   	if (copy_to_user(buf, (void *)region + pos, count))
+> 
+> Couldn't using array_index_nospec cause us to accidentally operate on
+> region[0] if ppos were ever out of range?
+
+Hrm, yeah as I keep pondering this I think you're right. The parent 
+routines (vfio_ccw_mdev_read(), for example) checks that it's not above 
+num_regions + NUM_REGIONS, but there's no check against the subset in 
+any of these. I'll add them; thanks.
+
+> 
+> By comparison, vfio_pci_ioctl_get_region_info() does an explicit check
+> first, so to do something similar here and elsewhere in this patch:
+> 
+> if (i >= private->num_regions)
+>     return -EINVAL;
+> i = array_index_nospec(i, private->num_regions);
+> 
+> (Note that for this case and vfio_ccw_async_region_write my pseudocode
+> doesn't account for io_mutex)
+> 
+>>   		ret = -EFAULT;
+>> @@ -48,6 +51,7 @@ static ssize_t vfio_ccw_async_region_write(struct vfio_ccw_private *private,
+>>   	if (!mutex_trylock(&private->io_mutex))
+>>   		return -EAGAIN;
+>>   
+>> +	i = array_index_nospec(i, private->num_regions);
+>>   	region = private->region[i].data;
+>>   	if (copy_from_user((void *)region + pos, buf, count)) {
+>>   		ret = -EFAULT;
+>> diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_chp.c
+>> index 38c176cf6295..bf678270c457 100644
+>> --- a/drivers/s390/cio/vfio_ccw_chp.c
+>> +++ b/drivers/s390/cio/vfio_ccw_chp.c
+>> @@ -9,6 +9,7 @@
+>>    */
+>>   
+>>   #include <linux/slab.h>
+>> +#include <linux/nospec.h>
+>>   #include <linux/vfio.h>
+>>   #include "vfio_ccw_private.h"
+>>   
+>> @@ -26,6 +27,8 @@ static ssize_t vfio_ccw_schib_region_read(struct vfio_ccw_private *private,
+>>   		return -EINVAL;
+>>   
+>>   	mutex_lock(&private->io_mutex);
+>> +
+>> +	i = array_index_nospec(i, private->num_regions);
+>>   	region = private->region[i].data;
+>>   
+>>   	if (cio_update_schib(sch)) {
+>> @@ -97,6 +100,7 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_ccw_private *private,
+>>   		list_del(&crw->next);
+>>   
+>>   	mutex_lock(&private->io_mutex);
+>> +	i = array_index_nospec(i, private->num_regions);
+>>   	region = private->region[i].data;
+>>   
+>>   	if (crw)
+>> diff --git a/drivers/s390/cio/vfio_ccw_ops.c b/drivers/s390/cio/vfio_ccw_ops.c
+>> index 45ec722d25ea..032a1cdf4df7 100644
+>> --- a/drivers/s390/cio/vfio_ccw_ops.c
+>> +++ b/drivers/s390/cio/vfio_ccw_ops.c
+>> @@ -243,6 +243,7 @@ static ssize_t vfio_ccw_mdev_read(struct vfio_device *vdev,
+>>   		return vfio_ccw_mdev_read_io_region(private, buf, count, ppos);
+>>   	default:
+>>   		index -= VFIO_CCW_NUM_REGIONS;
+>> +		index = array_index_nospec(index, private->num_regions);
+>>   		return private->region[index].ops->read(private, buf, count,
+>>   							ppos);
+>>   	}
+>> @@ -295,6 +296,7 @@ static ssize_t vfio_ccw_mdev_write(struct vfio_device *vdev,
+>>   		return vfio_ccw_mdev_write_io_region(private, buf, count, ppos);
+>>   	default:
+>>   		index -= VFIO_CCW_NUM_REGIONS;
+>> +		index = array_index_nospec(index, private->num_regions);
+>>   		return private->region[index].ops->write(private, buf, count,
+>>   							 ppos);
+>>   	}
+>> @@ -338,11 +340,8 @@ static int vfio_ccw_mdev_ioctl_get_region_info(struct vfio_device *vdev,
+>>   		    VFIO_CCW_NUM_REGIONS + private->num_regions)
+>>   			return -EINVAL;
+>>   
+>> -		info->index = array_index_nospec(info->index,
+>> -						 VFIO_CCW_NUM_REGIONS +
+>> -						 private->num_regions);
+>> -
+>>   		i = info->index - VFIO_CCW_NUM_REGIONS;
+>> +		i = array_index_nospec(i, private->num_regions);
+>>   
+>>   		info->offset = VFIO_CCW_INDEX_TO_OFFSET(info->index);
+>>   		info->size = private->region[i].size;
+> 
+
