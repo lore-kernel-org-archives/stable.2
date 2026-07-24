@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B25B3CF04C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EC44749CE;
 	Fri, 24 Jul 2026 23:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784935111; cv=none; b=N5sOOX0Uiil7zaVsNKR+tfd6B6KdzE1aXNCIWtcEbTCMlFNXHlkUxPMAmGWFp+/K0KedUyQM62LhGrlXL7t7gsW9BpA66l1PvrZmrTzS7myPFl29Dw74czgXoBCUyvjw6L2wpqvYDyMPheKnkRECAGUODx20aiOypFuS1oEMbWI=
+	t=1784935111; cv=none; b=ZeBxNpnuVLGzumiaanDcatdini1IKhFxV6vMEW4/dd9/FB1PIaltaN5dCZ/d3H1JCNAu6oBbUuyi/+nvQ84wrlUFXhu6MGq96JypSLabSSN9Rr99imvN91CekwbrbIKLMszhMnNIAlH97i4X82n2AiiEXS1eMMCb035lDBbEWfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784935111; c=relaxed/simple;
-	bh=uFJSMA3qYpVAa+oE3Lj/zsz7CTGbfvJkRkMRMP4ZcFQ=;
+	bh=hiZniiTI5V3U8iIvSaUz+PUtQvP0z5PC+u3kETLwZfQ=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=Gd8J+OVt0RlmN+MWWFFpbq5sGZ3pBBD3OJSR7EXO87KXJEetFKRxNrbTqc8Vr2JXbFbsPx6wzD/qgDOPDJiAsJpqxLMpNYhvay9fVQyLI5/3kgbcymY9xg9ocg1gsDXFlyJYn4HZXS1rk1XR87zT0DU27dOM06yOWCcTXEbygAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epxZKD7f; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=BsnHhzxwuw7YuOAJHbYbMNWWK83SN+J8c+HzILHOtNJkNsKGUE1FF2leUcc+C9telEcocmpt5Zul3946cCa4qsTVzaOobMU5yXLFMz91g1+2B+22RP9sdsKzEwiZpBM5BaA4+poF/q/LVGqxHj1RyQocT/Qf4dw2wv2Ss95p+cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AZzD8+cG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epxZKD7f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84661F00A3A;
-	Fri, 24 Jul 2026 23:18:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AZzD8+cG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4F11F00A3D;
+	Fri, 24 Jul 2026 23:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784935109;
-	bh=1zOLheDNrEZSKVgM7iDuqJEupl58RtK41Jq8kQb0uG0=;
+	s=k20260515; t=1784935110;
+	bh=OEJYOBTIQEkX1Alk5aUjmgd0ffsn8eNnc8yZtywg2LA=;
 	h=Date:From:To:Cc:Subject:References;
-	b=epxZKD7fmDPNf9UHAvHoVCeg7LtocVOqHH4r8eN9E4IvE0VbxeoE10avIVCRdVsht
-	 M/AMuT/4JyCUnqInICV2ZK2qcGTCgw/IYlOMFyo/dO11bMxoRi2X1a6097tJd4H/s8
-	 gSLWTr7nWQO8u8ofrcHiMrZNezbcWjmWKulRTxoKYExYbwZ+xtFzp7LGXyJ+sulbVL
-	 d6YNSG1eoFHhP8q/8wDki0t0j28MePJX/uHcgNULehecKNuQKmZY1ti02Dxe+X0ThV
-	 pIKXoSR+3czbZzcKUcYQtrObnwTJLTOCm7CgcGGntFsd+NLkbIQDBK733pZOCIDj5G
-	 vxB3g66NY3zfA==
+	b=AZzD8+cGIVVbR7otrsGxIcfkwncjfGa2C0Vue3G4HUZmnL9bgYwJzutPLe0DVorPd
+	 sqbHL4bE3PCkwdhwSn7dB6C0Bknopil22racBIxNMgXL3fwzc91ltsHIAfNd8aPFSO
+	 jNQ/JUgSL4TtIyQTzPnt66rPmRwJ0L0l015fr/u97qjD9wnjnBOkiSXF/6cwUW5IM3
+	 TG2HzbPrd/mGAm5m3XiHfWaYn+c3AkqNVjSlOBtN4akaUC5ilEqvF8DMLmC2lm4DK8
+	 xgFJNNBj0CZtHknr6KQMA/9IjzLQsRJi9RXWO42KxYC00Upq74ZChLL2YqQGIzE8Lv
+	 8rzqeWDvlKa3g==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wnPAN-000000046rW-36Kw;
-	Fri, 24 Jul 2026 19:18:55 -0400
-Message-ID: <20260724231855.591578614@kernel.org>
+	id 1wnPAO-000000046sU-0JMd;
+	Fri, 24 Jul 2026 19:18:56 -0400
+Message-ID: <20260724231855.925138691@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 24 Jul 2026 19:18:41 -0400
+Date: Fri, 24 Jul 2026 19:18:43 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,10 +40,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Fuad Tabba <fuad.tabba@linux.dev>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 1/9] tracing/remotes: Fix page_va[] access before counter update in
- trace_remote_alloc_buffer()
+ deepakraog <gaikwad.dcg@gmail.com>
+Subject: [for-linus][PATCH 3/9] tracing: Fix resource leak on mmiotrace trace_pipe close
 References: <20260724231840.483353969@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -53,49 +51,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+From: deepakraog <gaikwad.dcg@gmail.com>
 
-page_va[] is annotated __counted_by(nr_page_va), so nr_page_va must
-cover an index before that element is accessed. The allocation loop
-writes page_va[id] while nr_page_va is still id and increments it only
-afterwards, so every write is one element past the declared count.
+The mmiotrace tracer was added May 12th 2008. At that time, resources
+created in pipe_open() could not be freed because there was not
+pipe_close function pointer of the tracer. The pipe_close function pointer
+was added in December 7th, 2009, but the mmiotrace tracer was not updated.
 
-The store is out of bounds with respect to the annotation: a build with
-CONFIG_UBSAN_BOUNDS on a toolchain that honours __counted_by
-(clang >= 20.1, gcc >= 15.1) flags it as an array-index overflow.
+mmio_pipe_open() allocates a header_iter and takes a pci_dev reference
+when trace_pipe is opened. mmio_close() frees them, but it was only
+wired to the tracer's .close callback.
 
-Increment nr_page_va before writing the element it now covers. A failed
-allocation then leaves the slot counted but NULL; the error path frees
-it with free_page(0), which is a no-op.
+tracing_release_pipe() invokes .pipe_close, not .close, when the
+trace_pipe file is released. As a result, closing trace_pipe with the
+mmiotrace tracer active leaked the header_iter allocation and left a
+stale pci_dev reference.
+
+Set .pipe_close to mmio_close, matching how function_graph wires both
+callbacks to the same handler.
+
+Note, if the trace_pipe is read to completion, it will clean up the
+resources, but if one were to run:
+
+  # head -n 1 /sys/kernel/tracing/trace_pipe
+ VERSION 20070824
+
+Over and over again, it would trigger a massive leak.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260713072823.2668323-1-fuad.tabba@linux.dev
-Fixes: 96e43537af546 ("tracing: Introduce trace remotes")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Vincent Donnefort <vdonnefort@google.com>
+Fixes: c521efd1700a8 ("tracing: Add pipe_close interface)
+Link: https://patch.msgid.link/20260715143604.14481-1-gaikwad.dcg@gmail.com
+Signed-off-by: deepakraog <gaikwad.dcg@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_remote.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ kernel/trace/trace_mmiotrace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
-index 0f6ef5c36d84..ef42d9c38b37 100644
---- a/kernel/trace/trace_remote.c
-+++ b/kernel/trace/trace_remote.c
-@@ -1004,11 +1004,10 @@ int trace_remote_alloc_buffer(struct trace_buffer_desc *desc, size_t desc_size,
- 		desc->nr_cpus++;
+diff --git a/kernel/trace/trace_mmiotrace.c b/kernel/trace/trace_mmiotrace.c
+index 226cf66e0d68..20812e7f911f 100644
+--- a/kernel/trace/trace_mmiotrace.c
++++ b/kernel/trace/trace_mmiotrace.c
+@@ -109,7 +109,6 @@ static void mmio_pipe_open(struct trace_iterator *iter)
+ 	iter->private = hiter;
+ }
  
- 		for (id = 0; id < nr_pages; id++) {
-+			rb_desc->nr_page_va++;
- 			rb_desc->page_va[id] = (unsigned long)__get_free_page(GFP_KERNEL);
- 			if (!rb_desc->page_va[id])
- 				goto err;
--
--			rb_desc->nr_page_va++;
- 		}
- 		rb_desc = __next_ring_buffer_desc(rb_desc);
- 	}
+-/* XXX: This is not called when the pipe is closed! */
+ static void mmio_close(struct trace_iterator *iter)
+ {
+ 	struct header_iter *hiter = iter->private;
+@@ -279,6 +278,7 @@ static struct tracer mmio_tracer __read_mostly =
+ 	.start		= mmio_trace_start,
+ 	.pipe_open	= mmio_pipe_open,
+ 	.close		= mmio_close,
++	.pipe_close	= mmio_close,
+ 	.read		= mmio_read,
+ 	.print_line	= mmio_print_line,
+ 	.noboot		= true,
 -- 
 2.53.0
 
