@@ -1,136 +1,150 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8EC3890E0
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 18:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2BB388361;
+	Fri, 24 Jul 2026 18:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784918884; cv=none; b=W1FDKBIqfjO4GDqVBxt3ikOX7d/NUdYAZW4yvouTDsPE1rU9ddRl+mx9UaEINMFM9sK+0EOKgIFGrfiqO/wpfS3WR989cCKNj57KMTROEzaEzzyU9YcC4t0dhzhUTiaXxOl3u/qc75X7wlqbg7Us/4ZoUkwEBDDl6dAqr/nsf9w=
+	t=1784918927; cv=none; b=hTjIDk6Hgu/ElL5uacmimaNVxyFaxy4a6ADU2RAF4nTj5CswQkU2ME5PeCD+aSaBC5x9G+yozA+4IBnKbHOOchWzBNyawBRdHXi/Np74EvDfPwN3vzFuHCg06rV1Fmad8V/s5qsyN/cLOopr02/jB20gG0StPZ7SfIv7+JpRv1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784918884; c=relaxed/simple;
-	bh=MB1ARuhcLDoc0HU7f9faKdME0mb9QLxkn3iQ00IjaLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dw2tlq/K3Cogo5q0og098MtmZVALvObEUzp6OpzLPn9RIsesTFZD6UvnsXBET5dYNmNUEwzKXdyw2WNM3j8jurwG4RC434xLBe1l/5/w1PfsctC43JTJ4p3Hbs1PBXF62pEJ06pwu4jPhHRpDtkTdAIuOPj/4+ZuUOqQ6R1AJAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RB9Izh/F; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GJtGQkNE; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784918927; c=relaxed/simple;
+	bh=JbTo4I+DRipFpniSL/Ai8DAUcMBQ+o1TOG0vVUaHUR8=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=QQAMQjTdIOT61U7dyMA0vsDSUmF49N0Yd+iHmGQrZ+Jt8c7RFoLjt1XLKOJKv6aMpoLO16VaUYjadymHdlpWzxK7uQL3fevV+PtokN3CitLplb5hGAFOgbHM4VRxfp9Yo4DJMXyH7GOVs1322vhxLXGcPTtD299GwZtLnSfHiN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=CrMKD2tf; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RB9Izh/F";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GJtGQkNE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784918879;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=N406NhHNRarOiCpmNzhvLrYTVW7/Nzu87dD/ueM2CnA=;
-	b=RB9Izh/FtxLBCoGQxnURmk2uDeQD4jyhhN0OjZIAFtj4WpWpBl8rqb56aJksiKEtfDNLm5
-	l/OkEb8ywZbvpixcXoQ3r9YjiBqSEbsRz5DJGbCz5bxbZq50xFEd5aDZnKMBnOdocNcZ23
-	6juKRxLKbZJZO8UfOfKL5Ktnpz79BF0=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-490-VdUchDdrPNagC-KkWlEboA-1; Fri, 24 Jul 2026 14:47:58 -0400
-X-MC-Unique: VdUchDdrPNagC-KkWlEboA-1
-X-Mimecast-MFC-AGG-ID: VdUchDdrPNagC-KkWlEboA_1784918878
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e6b5976d74so706578a34.3
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 11:47:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784918878; x=1785523678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N406NhHNRarOiCpmNzhvLrYTVW7/Nzu87dD/ueM2CnA=;
-        b=GJtGQkNEa4foKT5lv+ulJ9PfjWCAd99qQxjT5ANl2rI1dacAQnBd0Ne5KoUoJyGGjw
-         lZsjpLlG7zhGTSllVAbOmUVd+RmclGMLiFustzyjvRKG10k9Olg+eUaST7joHFyQB6Dz
-         oz4RYTyk/kljYIl9J1c0wnZhlkONaPgGKleLz9UeTHMM1RPAkcABukNbHtcQZkRRHObB
-         cDbkn0Rp0b3mCYu35U/Gze1zXnZf8LSo0GZPr0dpYiqEN/VRQODbbZSF2rBEQL9WqjPB
-         5tcr7wCR33r96uYWHeyZhv8fYU4kuy70ZUjxk4eRcxco3UjeO8ce5pYGLVdCX9WRI/kV
-         sULQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784918878; x=1785523678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N406NhHNRarOiCpmNzhvLrYTVW7/Nzu87dD/ueM2CnA=;
-        b=n177Z8hKgbLc9bWj1C6YatCNROdXAgoxEVYf3PKt/BaCaHBisd8J0WvQr4vqseGsdD
-         dyttlbnbpTN4f7i1Wm73IpAaTn12xZDLytg0Z8w39ldQP0QtN5hkOeITxd+9hfedaM9v
-         0dphqmIeeE65B72uk9r1L5BWuVVTElwiVcplnD5h/flo4qCCkvPLDFUnZMfAo2DRPkaz
-         xNMRuO1VWxPMIu6PD4mvmQpVVQvM5Yp3BDKQs6hTCsJqabOiP0wFRZ//mwUrhdDunBTt
-         IUhkNy29vuK5g576mCJmlRJC/l5V5jisOFJJjVz69ZnE5SbfrmBxxVpWibrVtYS5LefW
-         OuRA==
-X-Gm-Message-State: AOJu0Yye79WqjZNiEPzE7keE/7o6tiHNKi9Vmj12R4USVe5A1mI+IePi
-	ZSFsJSQqN4xzJI48oKzZ7NX0a21AQ5gzzHfBFIRZoStNrwm4yjgMFOxQD08V99SBmt4dlAHc5YH
-	2KUG3f+q28bWCRGcDZOOH2OKZHOovkGRN4cxe0yVjgR470onWeQcneOGljA==
-X-Gm-Gg: AR+sD13EPa8Zckdy0MVmmu5aULf6AzCeOv3SMH8Zur/IFJmq9j9rhbZIB/ZPPiJKObD
-	/zC303c8WNXUcXBvAE1ZSA5w0S1ttSWn4LgFCegQwAzvetlr0lzMeRYP1o5/Qtk/oxR0PbYoTVN
-	yVfh7dkeEBhS57GeP7q3HJ3PvRoozfjfV14yJliR0+3u1xniz95rDxmhFAsNRdX3pI6y20hckTR
-	ziZZ6QjNntilB8rZgaD5kF7Vy03oYqsHyXUXGkunvaxzlgANUpg1DgwcOxAR+bQW9lCaO7Ol3Cq
-	wsMyBtxhgI0ChNn9r4G8ymrkejtP9xNSh/+JlebZlbivhG4eYCwytX43CM1uAkxi3CB8khHfLsd
-	SDybxGNmcSUWOL8gUsWYu6hSF0U/YjykeAJtsbVzzJmqSGdThAPRutWGPyn82
-X-Received: by 2002:a05:6808:3506:b0:496:2b3:ae70 with SMTP id 5614622812f47-4ab35466e19mr5221903b6e.25.1784918877733;
-        Fri, 24 Jul 2026 11:47:57 -0700 (PDT)
-X-Received: by 2002:a05:6808:3506:b0:496:2b3:ae70 with SMTP id 5614622812f47-4ab35466e19mr5221878b6e.25.1784918877274;
-        Fri, 24 Jul 2026 11:47:57 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ab3cc35415sm3580396b6e.6.2026.07.24.11.47.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 11:47:56 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org,
-	pc@manguebit.org,
-	stfrench@microsoft.com
-Cc: stable@vger.kernel.org,
-	David Howells <dhowells@redhat.com>
-Subject: [PATCH] cifs: fix missing fscache_resize_cookie() call on truncate
-Date: Fri, 24 Jul 2026 13:47:55 -0500
-Message-ID: <20260724184755.2708212-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="CrMKD2tf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=lyf4LTVkA3IdyxZk0dAuQutxNJYdqXOmUsPg3x/bmR8=; b=CrMKD2tfE0Krvs8mmKJfzJXDz0
+	LF0h/ra2V9nlz87cZyJ86J3H6ImabZnYnPsYqIiEpBXoO9RUv/7g5Dq9VijqQDiKbGYhGn8g+ZhJt
+	S4khpU6MaDXMK0mQFi2TPFxSYU/MgpoDxf7ijmhAmiC19FBztWb3kr8mV+7F/MDKiDNXvZ9+xEPp8
+	jlFGycdN2IBoBaAq+xYUvS5zjX1ceFxqI075ggPHxB+oTofG2w1BvSeVI0o8Z+Cc+EeBhC312JzBD
+	gP5CAE3fmuPoZAI2ruN94yLDmTtp80pO81vOECjgJvynWK3MfrFy1XhpHc5RFpKvGakw1pbEvQwzP
+	oBIqCHaw==;
+Received: from s0106ac1f6bb1ecac.cg.shawcable.net ([96.51.150.74] helo=[10.0.33.8])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1wnKwj-0000000E1PL-2AOY;
+	Fri, 24 Jul 2026 12:48:34 -0600
+Message-ID: <23b0a3ae-7f11-4ae9-8c1b-0401db0fd299@deltatee.com>
+Date: Fri, 24 Jul 2026 12:47:16 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Mykola Marzhan <mykola@meshstor.io>, Jens Axboe <axboe@kernel.dk>,
+ Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
+ Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org
+Cc: Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
+ Guoqing Jiang <guoqing.jiang@linux.dev>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kiran Kumar Modukuri <kmodukuri@nvidia.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Shivaji Kant <shivajikant@google.com>, Pranjal Shrivastava
+ <praan@google.com>, Henrique Carvalho <henrique.carvalho@suse.com>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260723204206.76930-1-mykola@meshstor.io>
+ <20260723204206.76930-10-mykola@meshstor.io>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260723204206.76930-10-mykola@meshstor.io>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 96.51.150.74
+X-SA-Exim-Rcpt-To: mykola@meshstor.io, axboe@kernel.dk, song@kernel.org, yukuai@fygo.io, kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, linux-block@vger.kernel.org, linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org, magiclinan@didiglobal.com, xiao@kernel.org, guoqing.jiang@linux.dev, leon@kernel.org, jgg@ziepe.ca, kmodukuri@nvidia.com, kch@nvidia.com, bhelgaas@google.com, shivajikant@google.com, praan@google.com, henrique.carvalho@suse.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v5 09/10] nvme-rdma: use ib_dma_map_sgtable_attrs()
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Commit 70431bfd825d ("cifs: Support fscache indexing rewrite") intended
-to resize the fscache cookie when file size changes via truncate, adding
-fscache_resize_cookie() calls in cifs_setattr_unix() and
-cifs_setattr_nounix().  However, both calls were placed in the dead
-block guarded by:
 
-    if ((attrs->ia_valid & ATTR_SIZE) &&
-        attrs->ia_size != i_size_read(inode))
 
-This guard is never true on the success path: the truncation function
-already calls cifs_setsize() at its set_size_out label, which calls
-i_size_write(), so attrs->ia_size == i_size_read(inode) always holds by
-the time this guard is evaluated.  On the failure path, execution jumps
-to out/cifs_setattr_exit before reaching the block.
-fscache_resize_cookie() has therefore never been called on successful
-truncation.
+On 2026-07-23 2:42 p.m., Mykola Marzhan wrote:
+> ib_dma_map_sg() folds every mapping error into a zero return, losing
+> the DMA layer's error code.  Switch both scatterlist mappings to
+> ib_dma_map_sgtable_attrs(), which preserves it for the next patch to
+> act on.  No behavior change: failures are still reported as -EIO.
+> 
+> A local sg_table is needed: dma_map_sgtable() maps orig_nents
+> entries, and the embedded table's orig_nents is the allocated count,
+> not the count blk_rq_map_sg() produced.  rdma_rw_ctx_init() does the
+> same.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Cc: stable@vger.kernel.org # v7.1
+> Signed-off-by: Mykola Marzhan <mykola@meshstor.io>
 
-Fix this by adding the call to cifs_file_set_size() at set_size_out,
-where the size change is committed to the VFS inode and page cache.
+I don't know. I think this could still use a bit more cleanup (see
+thoughts below). But the cleanup is probably too much to ask for this
+series. See my thoughts below.
 
-Fixes: 70431bfd825d ("cifs: Support fscache indexing rewrite")
-Cc: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
----
- fs/smb/client/inode.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewd-by: Logan Gunthorpe <logang@deltatee.com>
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 808085eb0cdc..e4ca82c52e7b 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3127,6 +3127,7 @@ int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
- 	if (rc == 0) {
- 		netfs_resize_file(&cifsInode->netfs, size, true);
- 		cifs_setsize(inode, size);
-+		fscache_resize_cookie(cifs_inode_cookie(inode), size);
- 	}
- 
- 	return rc;
--- 
-2.55.0
+> ---
+>  drivers/nvme/host/rdma.c | 23 +++++++++++++++--------
+>  1 file changed, 15 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
+> index 6909e3542794..63830334c73e 100644
+> --- a/drivers/nvme/host/rdma.c
+> +++ b/drivers/nvme/host/rdma.c
+> @@ -1469,6 +1469,7 @@ static int nvme_rdma_dma_map_req(struct ib_device *ibdev, struct request *rq,
+>  		int *count, int *pi_count)
+>  {
+>  	struct nvme_rdma_request *req = blk_mq_rq_to_pdu(rq);
+> +	struct sg_table sgt;
+>  	int ret;
+>  
+>  	req->data_sgl.sg_table.sgl = (struct scatterlist *)(req + 1);
+> @@ -1480,12 +1481,16 @@ static int nvme_rdma_dma_map_req(struct ib_device *ibdev, struct request *rq,
+>  
+>  	req->data_sgl.nents = blk_rq_map_sg(rq, req->data_sgl.sg_table.sgl);
+>  
+> -	*count = ib_dma_map_sg(ibdev, req->data_sgl.sg_table.sgl,
+> -			       req->data_sgl.nents, rq_dma_dir(rq));
+> -	if (unlikely(*count <= 0)) {
+> +	sgt = (struct sg_table) {
+> +		.sgl		= req->data_sgl.sg_table.sgl,
+> +		.orig_nents	= req->data_sgl.nents,
+> +	};
+> +	ret = ib_dma_map_sgtable_attrs(ibdev, &sgt, rq_dma_dir(rq), 0);
+> +	if (unlikely(ret)) {
+>  		ret = -EIO;
+>  		goto out_free_table;
+>  	}
+> +	*count = sgt.nents;
+
+This really makes these calls really complicated and harder to reason
+about just to get an appropriate return code in the next patch. Though I
+see the complexity here and I feel like I'm confused by the semantics of
+nents and orig_nents all the time. It seems like some cases really need
+to track three counts: the number of valid DMA addresses (nents), the
+number of valid segments and the number actually allocated. sg_table
+only has two fields, and orig_nents ends up doing double duty — the DMA
+API reads it as the valid-segment count, while
+sg_alloc/free_table_chained() treat it as the allocation size. When
+those two differ, as they do here, it creates this complexity.
+
+One cheap thought that might clean up this patch series is to create a
+helper that can be used for both the data and the metadata, but that's
+only slightly better and I don't know if it is worth the effort.
+
+A better long term option might be to introduce a dma_map_sgtable like
+helper that also takes the number of valid segments which would clean
+this up pretty nicley. But that would be much more work.
+
+Thanks,
+
+Logan
 
