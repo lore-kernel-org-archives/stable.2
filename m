@@ -1,80 +1,74 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CD3279DAF
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 08:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D147431AF24
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 08:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.163
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784882333; cv=pass; b=ZsQbjEnpsw9Ua4MdmaKqMOvCqXu/4Zg4d1NxYhqEp6A70Mr5Y1dPPu/fk81NI0yU0Zyqibjwv7749lbX5duCGbjq0mkppxaVU2gS5OxlK5Kbe/2nbJryy9E/kb9o5DPRAkCqCdSMLNz78+TRF5lcv/vDKFZJwU1zPrwZalEM/Wg=
+	t=1784882339; cv=pass; b=s0Yh+npkJv5G0+5Ldg9/hPWIpeQzduyMJFIHIGpSc2DGwoksDsbrDFehOg3bmgN9KZwNTJNfVqJmYOZcxs/VW9snGYqTzT35F+qrLzvZu/oOaE6s/XVySUH+UPrMIxAlLVrXLfdTDVl4fO+cDR1mN5OzUAXDvZ8YcJ/beBxMjc0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784882333; c=relaxed/simple;
-	bh=WRJw7eVuEJKKNzMjFcz5LEUNkJ9hyOZg3lxqXbIkY0I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pw8GyBsYMKF8VIf1y0g+1KqBXVTDg7KXjGD1pzwOeeLpjd1UPHK4/Z/rMj5A/OXSHXtM0iynJJBCrHbZFmz6HiLiSqArPpwPO6SXvmz89RwRz4V2YjggRU9825wONV1rMkSIww893JY+kq9H0784Ywhw9CpVpBG5ZYCmcZKrnR8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Bgjuf/A6; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=i/mgmwpu; arc=pass smtp.client-ip=85.215.255.52
+	s=arc-20240116; t=1784882339; c=relaxed/simple;
+	bh=uprKPwayNY2EIZ/5zvmt9unxPELrtNyCIe6ylsl6YJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bIqEV3YB4oMFjZVD7p4T15mKzko6X8gj85g5UMHtO3XnASjpQl8awEJmo4F45EhgxuP4BWXmWjzwOeTp9khAg677GjOcBrC71iZ134MTLeSJo3wUcVmikxXrkMOpj3hTDlB7hyFPseZTA5/mZEoKveAu296rxyrHQtrdHx9aD/4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=gWAztwO9; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Rqp/n34S; arc=pass smtp.client-ip=81.169.146.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Bgjuf/A6";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="i/mgmwpu"
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="gWAztwO9";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Rqp/n34S"
 ARC-Seal: i=1; a=rsa-sha256; t=1784882146; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=jxdr/Eo8lZwEp9vZksEvTGoB89QeqHW61ekTshwsjcZycYDAtXkemLhYulggI1npeI
-    s6EekIQspBnNPt8iB3xrIJ3QNnlevuI1/qkE/vr/2Xdb6Ne2zXShjFit0EHrN9fO61kf
-    lhnLeMCNb/nOrgYipj8W6jCXbP4+hgvai5jaDx6+EaAyryK6Q7ZW6By3Iy1YaY7NfW/f
-    qNsky/wHRvAtwmH2Lgqmo9Wivgm+P0O65gmPaHpL2mcXFYQuJB7/5Zyae53s3tgInSS8
-    ++99ZSF1LONa46miTNRzdbmT8p4WQ/p4AMkNagyTVCjTQUvk2996WOlssfzxjHanm8q/
-    0I3g==
+    b=IXbP14+hQx3UYwd3E0pBFOXZTe8Xi8ggDfArvMneShW34VrSoMsA4r31qOMUI8DM2t
+    mn78E9pLGmv/8JWxgpyAZHkRICHowyKkXbTnZLNbZjBv1Q+QICvzStlsXJ1AgJ/UYXcd
+    FJM7lptUWHd5rJgkUHdm5oyrpJc6JPMbPgyd2GsQcGJkDHPIDO0oV8KjNNlzaW/yeQPX
+    zdmxc6hnsscnDTpiUhkdI1ldgDmmxnpb3abNvxVI1Bh+PJWmcrK7l/+gnw1vKggrg6Fb
+    QdXIGvDNz8WNTlzTYsSumZlgK3jLgTupGtnIevXHYhuYAM+EuTVbze/sC7wpvw/TeFsg
+    KG+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
     s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=MMoEhD3T4Mmk/TVg1+CJoWpYJEJXteu3zhjGp+ZqWxs=;
-    b=opSIkEpzMAllS1huKwnww+6bB3CH+tixIoO0ffZxnWqzKus2DOM4MwbLX8aBdjXbEU
-    CPe9xybMGwDZCRB4cXiM+xsQurLTQvpGLK+h6xMpB1rr6GBaR2th8W2e73BqKXLdKM3X
-    na7bhf+sxshFeS97BZFRkctVu/HBMP40uEx6oI0JATkAKQJmIaxz8y96+4/XodEFWRnD
-    UJVbQVB8H7iO+nc04i19gCmYEed3d9IuyCW0JWV3TeVWDxxP0VwLeH0G7xb19ihb3N2G
-    R8VGsAvbviDrPglqAa3sRcRM0/Wl9EkxFlxfANIdI6CYZCTPaacJwTJl7XqcgOCVBZ4e
-    h98Q==
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=WOmy23c3+2wxuOdJFQr3E67x/d/YwmNMe3IgqwYs54Q=;
+    b=rPp4k6o/ajwPxzUvO9KRVAX1ku1xJoD5zM20NtldQ/D9ax36HvWEJqEuPrcqIRuUKe
+    QUIpRMAgF4PEV5r+zo+jEHPUKQP6He1DWmbONQ4A43sgRCoyI5erk8N9sUnl4T471MW4
+    dIsxBqYZZZBF/3XqIv3iVtEAiBVYBDdq594zRZd0NiocV0p8PfVJbDuIwMXXU+pZlvk7
+    zgh0W32B98pd+maQdygs/l7pfcx/O58n+wGgdGgZDJUsjWklaZbzTzOUGwTn0fFaIWuC
+    DJd83erbUV3ovdBTdXiZZumOidvRvsZZQ/iBgm6JSAgdo/MNl+69xj3OA02vyKbWS42R
+    hatA==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo01
+X-RZG-CLASS-ID: mo00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
     s=strato-dkim-0002; d=hartkopp.net;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=MMoEhD3T4Mmk/TVg1+CJoWpYJEJXteu3zhjGp+ZqWxs=;
-    b=Bgjuf/A6/2M1M4/l7Dh4QBfNr7q0fjIoWRYWwQQRtCusSnaUMH3gpGIMzropYGD9tg
-    PWMDRHxt4Bt+R+Io12OHJoWHyxZGvHo5OKMccr6WJ3Rf9ughaEmQ6OhM23ZZ+noFE7/A
-    fpCiTi8THCugkRZTBLWOM3wgM6SQLIwUSoQTIKL9ud9+RySYqto0ikwOJz1mO7nPgW5z
-    84Qr+d0vZPM6QStbM5qTyCHb/ebnyYGxJwCGyAIr31HifrHGgbVZKL0/4kP/U6F+KhWI
-    Yul9Mfo5YVmEzeAyez5Og5f1aRrwqOTo5VqRlZrCgwLgRQUBrzuXtwG57SRETvgCdC6l
-    hV2A==
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=WOmy23c3+2wxuOdJFQr3E67x/d/YwmNMe3IgqwYs54Q=;
+    b=gWAztwO9JCu5ACf1IfdpgpHHR3P1uQSOuwI+tpiLzsSHuiVxoHly5aeJ4ljZt3HJLg
+    ORI6m4X4L1eBpYHgAFagXX0qXVLxdAwgeMh0bQitZdx4cMUIdkyA2g+VsAF0vKoUBy4f
+    G4vHlCWyMF+79jsi0dGIZToMgVlWai3wWMZBmFQJzA3N9RNcjOAE+kRArapR98owpROt
+    67GqfowWc03GA28XXp4G7izCOpHeCoicsSslAU4TI4xQ72gkTnsMVbbt7Z1VynXQUfAs
+    HQqZ3SjoEB7TIv1hzYvBZzXiT1LyDFFSuUBjSoTy9t+hVRgPFfe6q/rP/36wB0Ti9gPz
+    kkJw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784882146;
     s=strato-dkim-0003; d=hartkopp.net;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=MMoEhD3T4Mmk/TVg1+CJoWpYJEJXteu3zhjGp+ZqWxs=;
-    b=i/mgmwpunCquVA+7Vq3tD2mwgT6mM6KqZMV83nZqGUGMCTC17vgS9n4T9vKcrhgbc3
-    FQL7B6Uq/5Pnw65za3Dw==
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=WOmy23c3+2wxuOdJFQr3E67x/d/YwmNMe3IgqwYs54Q=;
+    b=Rqp/n34SQM7TERlslwueePaJOEYE0OigiqkJndXXSow8Jvoedfdmp7j5YLDe+sHazY
+    x2Khed97skwVkgkWkgCA==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926O8ZkrM3
+    with ESMTPSA id K5281926O8ZjrLw
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Fri, 24 Jul 2026 10:35:46 +0200 (CEST)
+    Fri, 24 Jul 2026 10:35:45 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH 5/9] can: bcm: validate frame length in bcm_rx_setup() for RTR replies
-Date: Fri, 24 Jul 2026 10:35:30 +0200
-Message-ID: <20260724083534.12119-6-socketcan@hartkopp.net>
+Subject: [PATCH 5.10.y 0/9] can: bcm: backport of 9 patches that failed to apply to 5.10-stable
+Date: Fri, 24 Jul 2026 10:35:25 +0200
+Message-ID: <20260724083534.12119-1-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072029-swimmable-robust-7e81@gregkh>
-References: <2026072029-swimmable-robust-7e81@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,123 +78,37 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-commit 62ec41f364648be79d54d94d0d240ee326948afd upstream.
+This resubmits "can: bcm: add locking when updating filter and timer
+values" (commit 749179c2e25b95d22499ed29096b3e02d6dfd2b4 upstream),
+which failed to apply to the 5.10-stable tree, together with 8
+further bcm.c patches from the same upstream series that build on it
+and would otherwise fail for the same reason. This is the full set
+of 11 upstream bcm.c patches from 7.2-rc3 minus the 2 already queued
+by the normal stable process for 5.10 ("can: bcm: fix lockless
+bound/ifindex race and silent RX_SETUP failure", "can: bcm: add
+missing rcu list annotations and operations").
 
-bcm_tx_setup() validates cf->len against the CAN/CAN FD DLC limits
-before installing frames for TX_SETUP, but bcm_rx_setup() never did
-the same for the RTR-reply frame configured via RX_SETUP with
-RX_RTR_FRAME.
+This assumes the 2 already-queued bcm.c patches for 5.10-stable have
+landed by the time this is applied. If not, please let me know and I
+will rebase.
 
-Fixes: ffd980f976e7 ("[CAN]: Add broadcast manager (bcm) protocol")
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20260714-bcm_fixes-v15-7-562f7e3e42da@hartkopp.net
-Cc: stable@kernel.org
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
----
- net/can/bcm.c | 59 +++++++++++++++++++++++++++++++++++++++++------------------
- 1 file changed, 41 insertions(+), 18 deletions(-)
+Lee Jones (1):
+  can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
 
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 8397fc2..09a6bd5 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -1194,22 +1194,37 @@ free_op:
- 	return err;
- }
- 
--static void bcm_rx_setup_rtr_check(struct bcm_msg_head *msg_head,
--				   struct bcm_op *op, void *new_frames)
-+static int bcm_rx_setup_rtr_check(struct bcm_msg_head *msg_head,
-+				  struct bcm_op *op, void *new_frames)
- {
-+	struct canfd_frame *frame0 = new_frames;
-+
-+	if (!(msg_head->flags & RX_RTR_FRAME))
-+		return 0;
-+
-+	/* this frame is sent out as-is by bcm_can_tx() whenever a matching
-+	 * remote request is received, so validate its length the same way
-+	 * bcm_tx_setup() validates TX_SETUP frames before installing it
-+	 */
-+	if (msg_head->flags & CAN_FD_FRAME) {
-+		if (frame0->len > 64)
-+			return -EINVAL;
-+	} else {
-+		if (frame0->len > 8)
-+			return -EINVAL;
-+	}
-+
- 	/* funny feature in RX(!)_SETUP only for RTR-mode:
- 	 * copy can_id into frame BUT without RTR-flag to
- 	 * prevent a full-load-loopback-test ... ;-]
- 	 * normalize this on the staged buffer, before it is
- 	 * ever installed into op->frames.
- 	 */
--	if (msg_head->flags & RX_RTR_FRAME) {
--		struct canfd_frame *frame0 = new_frames;
-+	if ((msg_head->flags & TX_CP_CAN_ID) ||
-+	    frame0->can_id == op->can_id)
-+		frame0->can_id = op->can_id & ~CAN_RTR_FLAG;
- 
--		if ((msg_head->flags & TX_CP_CAN_ID) ||
--		    frame0->can_id == op->can_id)
--			frame0->can_id = op->can_id & ~CAN_RTR_FLAG;
--	}
-+	return 0;
- }
- 
- /*
-@@ -1272,7 +1287,11 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 				return err;
- 			}
- 
--			bcm_rx_setup_rtr_check(msg_head, op, new_frames);
-+			err = bcm_rx_setup_rtr_check(msg_head, op, new_frames);
-+			if (err < 0) {
-+				kfree(new_frames);
-+				return err;
-+			}
- 		}
- 
- 		spin_lock_bh(&op->bcm_rx_update_lock);
-@@ -1345,16 +1364,12 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		if (msg_head->nframes) {
- 			err = memcpy_from_msg(op->frames, msg,
- 					      msg_head->nframes * op->cfsiz);
--			if (err < 0) {
--				if (op->frames != &op->sframe)
--					kfree(op->frames);
--				if (op->last_frames != &op->last_sframe)
--					kfree(op->last_frames);
--				kfree(op);
--				return err;
--			}
-+			if (err < 0)
-+				goto free_op;
- 
--			bcm_rx_setup_rtr_check(msg_head, op, op->frames);
-+			err = bcm_rx_setup_rtr_check(msg_head, op, op->frames);
-+			if (err < 0)
-+				goto free_op;
- 		}
- 
- 		/* bcm_can_tx / bcm_tx_timeout_handler needs this */
-@@ -1456,6 +1471,14 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 	}
- 
- 	return msg_head->nframes * op->cfsiz + MHSIZ;
-+
-+free_op:
-+	if (op->frames != &op->sframe)
-+		kfree(op->frames);
-+	if (op->last_frames != &op->last_sframe)
-+		kfree(op->last_frames);
-+	kfree(op);
-+	return err;
- }
- 
- /*
+Oliver Hartkopp (8):
+  can: bcm: add locking when updating filter and timer values
+  can: bcm: fix CAN frame rx/tx statistics
+  can: bcm: extend bcm_tx_lock usage for data and timer updates
+  can: bcm: validate frame length in bcm_rx_setup() for RTR replies
+  can: bcm: add missing device refcount for CAN filter removal
+  can: bcm: fix stale rx/tx ops after device removal
+  can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
+  can: bcm: track a single source interface for ANYDEV timeout/throttle
+    ops
+
+ net/can/bcm.c | 558 ++++++++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 425 insertions(+), 133 deletions(-)
+
 -- 
 2.43.0
 
