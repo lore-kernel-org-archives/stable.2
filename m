@@ -1,81 +1,64 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.smtp-ext.broadcom.com (lpdvsmtp09.broadcom.com [192.19.166.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C38D37C908
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 21:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E91384CF5;
+	Fri, 24 Jul 2026 21:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.166.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784929628; cv=none; b=SGW9VD+/Srmw0K9EvCRDdSUKnjtDcVJfE+I3xcogojkdQWNk9WRlvMa6RpiA1YPlhYOcCYlJGb8nnD5F12uuNpjoYpNltXURtN2hILmT2GtHMNtSTToP1QZWnBypnY17BDn0gatVNRgKSRV3zJy1wg4gFeovTRlJKjBP87aV4v0=
+	t=1784929678; cv=none; b=j7sTT53oLWaAXxfGiRgYUKfWh4wgFAFSrrkz1auzoZQ3Myu7yu9mjQU1tEdMpz9Fxvi53pRSsMX+nCJcBr76t/BtGZkEBuczCQepp8t8IP9Rih4WetZ0jD+joRQubaw82Ro1Bi7SvQfCEe4XmkZCA+sz8gC5ycu/B+ke/DFbGOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784929628; c=relaxed/simple;
-	bh=JOTMTHvNXNnDMv8cbytpWkBwOfL6IylIUcituYRfXKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oq2TYTmvecpaYiNC8VwmoA9btUotK/wVyGZ6GQNsVUCsfBfjLABsylbmnkPDbjWmbpR5wIsWTq5zzWaPvb/eYyds3OZCDcBVco7zOi6nOkQ5J1pwcpkImEvrRGbUkcRmKSrLfn5SBwrhvbnuQzX8wMu/s0Y/9DyBuhxXcf8ria4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FhG50KbA; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784929678; c=relaxed/simple;
+	bh=wMjqlEZYnVh14Bap38tP88tLAFmuKutSDKQ4369eTWE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=tfgAAFISlerDYH4OV4Troo6Yd+Zi7rO8U6ZZrVaudykSHasxUg0kaLEEXyBU+/tWLo3Wt1eCL4CHjWj0AYSouqEuD0vs8AwOn3r5PuW3pmNxg3m6skjE5zy8sCdYPOit6pbWTnXq84eJUYMSd7cNfrS1dYYOQ7uY6zI+h5uj878=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=eZlKS5H9; arc=none smtp.client-ip=192.19.166.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FhG50KbA"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c2cce930cso8495381cf.0
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 14:47:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784929624; x=1785534424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P1VNwYcQpb9WDj6KVSyLpNd/oPBMCMFNw+HEtq66+P0=;
-        b=FhG50KbAES9Xcz+clA+Gb9RhVhvutwyqW+sG20+rANtAZHRZ21l37d4BPqx4BYMd9p
-         77RGJ112PgEFIhUV9jqB3JtfTBgNH4QAXGkTIAcY0312ualNEcPsI1KxYD6QNX9i+0D+
-         moLDoCB8Gu4r6qHDGX7d/7HAkuubeHSjD+VwnZI6ihr3ebjcZu2+05LVZ9e4kSGxDKRH
-         MwK1JkcYU0hTDx0pWWR0B6JVTKzFmM3g/uLrr1+O0WNaN0na0zju/p1c1gaaVppgCBii
-         zt7+/lBBKxkzyljSFeHFlFiathPwxVdFtAE/MIsMa8XP5bKYj9ufHHM8LkdwcW28NBBy
-         O9rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784929624; x=1785534424;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P1VNwYcQpb9WDj6KVSyLpNd/oPBMCMFNw+HEtq66+P0=;
-        b=BQlANECMQagvRVKwYOrI2eAghvosOd7Qyrag8bX2pmv6bjnJ+zfALPzYeigdwCdZ9U
-         yjdSNiR1+TUx5Km9xGeEL9FORl/lHchRgROp6gh7pzPQ1RDlephDBPwnppRxss432IVR
-         0rpbGwQPl6st/V5YkI4o/cUKI9fcYvNX+oN4T0go3awWnTCQ4HqmWpggQCePI+dpA7M9
-         hT9QVXysdV8DjhVkS0tT8KPKmjmWGmeuKxS1Og2zwUr+eDluDOvSzdVlpUKXiKrJALLs
-         MPkuzPtE7SIQRtuBsHUMmdA2q8Tw0KfFU5avQ0aFUNf9s03t0WCOsP4NAPoMJQbLbYif
-         Ht8w==
-X-Forwarded-Encrypted: i=1; AHgh+RosHbDV6WoGwBXpI3DH3HwpmLY3/VEzg+4FEAnZi7Xgp5Fl3Txy51os/+awacmnpv3ylbr4hD8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzz3Stq/Qd9KKd3vD3FSX+lf4NN+tOXOk06FnYaOQ/KcN4UwoWq
-	idcRHAzPD6qzW8TbxopETeU0TMQqMPESX/ngXhjltYYzvU9yT2nyY+VC
-X-Gm-Gg: AR+sD11LYkpbHylJrxLcqDXsI3Rff2W2L9vO3mhlM13LOo667RTtLO3bj37YwnGVVwt
-	6T1Orcev0vQrTiOVi7emDPDxDkpS2pQNj3eFstolI2MyKQLCm2QFb5SB+s5qj5VQKzh09AFKU3Z
-	3VEHakNRxinw36PN4dNfxLupurYpxYooMFrzk1PJWUCfFAVu6bR5JoA5TJyGjTI+3hzZRKXXTzM
-	w2pjTEx3THfc9XeLHSd3RL08iVJJU8Uua0JQW7mx1i1qmPfryJOmVLt+Dk2fWA0hpxXBdIFR8Ie
-	KaJt+Kwzi6wsBNAz+Gjd0WpXbE/oP6lyfxFbrPQdKiGWouy2J8r/HaOmx7qE4XGv+xPVlwjmeIF
-	Eqx8gh18HxrQCf0Ui5zQQpbmVB5M3RWV6oevglLkw58DYEeelrlYQsAS89aCODRE/N+OTmSp7Qq
-	7heQ20JSQ7jKMwSJ9GTKxAOaI2lQ==
-X-Received: by 2002:ac8:5e51:0:b0:51c:1568:3a53 with SMTP id d75a77b69052e-529a8337825mr1442741cf.16.1784929624076;
-        Fri, 24 Jul 2026 14:47:04 -0700 (PDT)
-Received: from FredPC.lan ([2600:382:311b:26:c204:8bd0:9563:8b5f])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529a29cf785sm7916771cf.21.2026.07.24.14.47.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 14:47:03 -0700 (PDT)
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
-To: sfrench@samba.org
-Cc: pc@manguebit.org,
-	ronniesahlberg@gmail.com,
-	sprasad@microsoft.com,
-	tom@talpey.com,
-	bharathsm@microsoft.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fredric Cover <fredric.cover.lkernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] smb: client: clear ce->tgthint in free_tgts()
-Date: Fri, 24 Jul 2026 14:44:35 -0700
-Message-ID: <20260724214435.1850384-3-fredric.cover.lkernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260724214435.1850384-1-fredric.cover.lkernel@gmail.com>
-References: <20260724023539.1596955-1-fredric.cover.lkernel@gmail.com>
- <20260724214435.1850384-1-fredric.cover.lkernel@gmail.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="eZlKS5H9"
+Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 9033FC0000FE;
+	Fri, 24 Jul 2026 14:41:22 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 9033FC0000FE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+	s=dkimrelay; t=1784929282;
+	bh=wMjqlEZYnVh14Bap38tP88tLAFmuKutSDKQ4369eTWE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=eZlKS5H9n0k9CSn7Quj4PBlP2j95+hScWQv203eAYsU9oldUR6byVp29DgK5cFezk
+	 /b39+PjoHkoICuemlbQ8VdskYxiGL/elw4rucRNvgIQoDWoPU0W8QsKManTe46DEkA
+	 E2MynffKOmid2RHm34nfBWuEgzWzaU/JVkYDXDRM=
+Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 5FDE5ACE;
+	Fri, 24 Jul 2026 14:41:22 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: stable@vger.kernel.org
+Cc: Benjamin Berg <benjamin.berg@intel.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>,
+	Rae Moar <raemoar63@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Tiwei Bie <tiwei.btw@antgroup.com>,
+	linux-um@lists.infradead.org (open list:USER-MODE LINUX (UML)),
+	linux-kernel@vger.kernel.org (open list),
+	linux-kselftest@vger.kernel.org (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
+	kunit-dev@googlegroups.com (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
+	bcm-kernel-feedback-list@broadcom.com
+Subject: [PATCH stable 6.12 6/9] um: Set parent death signal for userspace process
+Date: Fri, 24 Jul 2026 14:41:16 -0700
+Message-Id: <20260724214119.1066665-7-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
+References: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,35 +67,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When free_tgts() frees all structures in ce->tlist, ce->tgthint
-is left pointing to one of the freed cache_dfs_tgt structures.
+From: Benjamin Berg <benjamin.berg@intel.com>
 
-If ce->tgthint is not reset before it is used later, it results
-in a use-after-free.
+commit 801e00d3a1b78b7f71675fae79946ff4aa3ee070 upstream
 
-Set ce->tgthint to NULL in free_tgts() after the elements are
-freed to reflect that no elements remain.
+Enable PR_SET_PDEATHSIG so that the UML userspace process will be killed
+when the kernel exits unexpectedly.
 
-Fixes: 54be1f6c1c37 ("cifs: Add DFS cache routines")
-Cc: stable@vger.kernel.org # depends on: smb: client: harden DFS cache against invalid target hints
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Signed-off-by: Benjamin Berg <benjamin.berg@intel.com>
+Link: https://patch.msgid.link/20240919124511.282088-4-benjamin@sipsolutions.net
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[florian: upstream applies os_set_pdeathsig() in stub_exe.c, a file
+introduced in v6.13 that does not exist in 6.12; applied instead to
+userspace_tramp() in arch/um/os-Linux/skas/process.c, which is the
+equivalent entry-point for the userspace process in 6.12]
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- fs/smb/client/dfs_cache.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/um/os-Linux/skas/process.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
-index c9ace4326a35..86dba25b7a5a 100644
---- a/fs/smb/client/dfs_cache.c
-+++ b/fs/smb/client/dfs_cache.c
-@@ -122,6 +122,8 @@ static inline void free_tgts(struct cache_entry *ce)
- 		kfree(t->name);
- 		kfree(t);
- 	}
-+
-+	WRITE_ONCE(ce->tgthint, NULL);
- }
+diff --git a/arch/um/os-Linux/skas/process.c b/arch/um/os-Linux/skas/process.c
+index b6f656bcffb1..cca016b0b29b 100644
+--- a/arch/um/os-Linux/skas/process.c
++++ b/arch/um/os-Linux/skas/process.c
+@@ -214,6 +214,9 @@ static int userspace_tramp(void *stack)
+ 				     (unsigned long) stub_segv_handler -
+ 				     (unsigned long) __syscall_stub_start;
  
- static inline void flush_cache_ent(struct cache_entry *ce)
++	/* Make sure this process dies if the kernel dies */
++	os_set_pdeathsig();
++
+ 	ptrace(PTRACE_TRACEME, 0, 0, 0);
+ 
+ 	signal(SIGTERM, SIG_DFL);
 -- 
-2.53.0
+2.34.1
 
