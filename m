@@ -1,128 +1,125 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CE6483835
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 23:48:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31FAE483BFE
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 23:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784936933; cv=none; b=llEchZqD7jnyW6glpHc9XBNBVz5vtMSD0ntcT1M17q9u0dUHD8r5KPQe30+c3CVIPomHfzzEB9UBlBO8c5iRWHM1miacJc9iGs1+WaU62ZPAMNqiFzbAsqPcJAnkwAUlwiNMJeDRoLFd/S9e0XQfWpy3A2jzFHseNythpnC0Ylk=
+	t=1784937069; cv=none; b=iDXvrYYisVi7eBqhCLIvEpqO+Pws8gnw+kjDPStn1cv62WPlbOXktCAuCQcNWGwoKv73GxkFiVgoOXR3XMLbomz+Vo9lslLKlkgwjFJM01gP9psF2bZ2lD6qnhZ/7cOtXUw0NDqhdHjEJa+8Z0YaMD1MfqPR2Xa9MQaBu/MfPl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784936933; c=relaxed/simple;
-	bh=5gdN6MbyupG4up2v3CNyc/2HhdKCpR12n0Nqn1/8SxM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TUDs8VRJKZckxcRVAkkTGzUZkaABUWrAblDud0yO9ExQnCLAPspojugb4e+Ew3pH9tOY1ExHg3CtcR0mvAPkWBTBHkLiRTLlF1hFq07NA0HNNaidqDgboh8/w6OA5QSZkJl+84qc9dVlDa+iJxQeOKhjivuEn/QstCrJYBpaExQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iycXByNc; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784937069; c=relaxed/simple;
+	bh=jlsa4KOozpF8lkrLjI7QECxAXU6Mr2HPk7AjzRmvTT0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=hICsmm8/CSOzesjFjzEWqtU6bvzDNyCfNNJXm/Po+pMPEaVE+I/AmVsDVwvEnrOSoX0oHbFK0kh4j5/Qln4qaon7klPFzzJkk9Yfi7sSWdeXciE5AHxjXDTRRuGTJ9T/3M1HtQYqRatn3yNRlZPa9IwwTQy/M6qYZuVfDxs7QTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KrWKA/l/; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iycXByNc"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so11612545ad.1
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:48:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KrWKA/l/"
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-43b6de00772so478690fac.2
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:51:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784936924; x=1785541724; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=isHJkq5dJt9QVOk/Tc0QQ/ea7BPXsGmxmAavDSM2GtA=;
-        b=iycXByNcCkV+Lca+jVCFyK2Rxx9DID1p4PNmB35s0uSRQswHqN6XbbKeN0hETemWf0
-         wSFQ6NFYiande5nAMPgz8W1bf75o+NmWKSWhGxFNVo4lUqI53qzZWpXC49ERee+/IJis
-         8LMdg0c0ZgTdLBn6xt/mG4MOZXqXpwSIeDje73Hybvpa+KG63IOWwrpUYHVdiGRTpAes
-         ag/KoCW0DGdzsg/CDE5GSmgl0a35wvAlN8JLRCgsasiMHlmQyBPlxS1xPX1dwPtOlvCY
-         1BsU2TGhjEY7tJZVvVC/I1SlGRUnkkG68o3vX/aTFoDRxTSh7GQBty9k9Lsy+dBa4V4V
-         9s/A==
+        d=google.com; s=20251104; t=1784937065; x=1785541865; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=inDwNhTjfAEReKAs3ZD3SpJEd1qaXM6z94+m+5MyCOI=;
+        b=KrWKA/l/K3yEmPVhNxPShdtdmnW2KhIyx5L5cnbi6UqpAyMIKZlGDb+Ij+Ux1h+QtY
+         lw/5mqB+bfEzMDok2cpBHdNWC5aWHc2P85hMCD6gCoafp1wFCThuVqr9+wNk5pd4gOoU
+         rvwj1rmaMtWxfYK94uM9JFRlXstpybvu1bAddjMbOAQeNKkPiTSXie6YwWrqCZgtboj9
+         7oIAWYiwpF6gyoWta1hwNdsFyDVJeRSztGfnKWLnViSYnotvJOiaUrtZ8mMFCuARTSJw
+         GYaEoaPp5zl/x3ngNtMqaIbYO1mnYoJYesEbwbFjUcfQRo549sST0b7zRYc58n7+d5N7
+         LxsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784936924; x=1785541724;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1784937065; x=1785541865;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=isHJkq5dJt9QVOk/Tc0QQ/ea7BPXsGmxmAavDSM2GtA=;
-        b=FsU4iKYlj7+C4YkzT//WxRq/fM2ZTqrrcT5jg7ATLaRwD3apy635C0rqYxEAKawNgP
-         Iuec0pCv/AMFeS4lDFj1Sehs4DqQdJJvuB2ARvC5M62ILcMsRwJ9yIa4cylJ9nJO6Wo5
-         I6EXh7lFU9z6yAfgFuI7F41w1TtMnNtl4EUGCE78FozQR9vWCdcJcn9qMSJLxTvSH4Al
-         FnmEj+ly9Q+JEL+Dbk9CfIA2vl5FrYqAuCLe33tqYu/4qcZLd1Fq4yneOY+T9RwtEKLj
-         2ENi8BWdG2YzfwafzvucFp2EpKHvogqHJDUXDdZfY0/Lt9rUO9MoxPvRbcl4Ml9oCOHq
-         w5Sw==
-X-Forwarded-Encrypted: i=1; AHgh+RpPRFlYFyduQYz1mlKeTULf9Cwr3vC1S/UnmmPUIIcadEl9Wy40t0Uf3lJDFOUO16hKLqISX5A=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz8xX0Ps+nGCod0lqqvvjcyg/kbe0qDVzw4i3q3xOJacizB5/Vy
-	URgw6HT91gyDAnsWuws3qaoKdN9dmjWyqFg/gPsgxQto8Yx3hqHPgcqi
-X-Gm-Gg: AR+sD12vKM4u7U1X6eTOn+VhWzoVEITDutThUV1+pmGkoZSDa3RZLO7U9AcBHxEcgET
-	IHzGnTo05sS84Elbv8k6TtXQERsSBcSRI/uIkeVMvoPZO5/R9y2f+/z7DHI3QF3aoTKrOMROq4V
-	8Mp/aPMfUL0YqKlN61mFEJneroklCe92wOaFJOuLwKK0+58sKju8ABW1VnM6UzJ1zWVxnkIfg9w
-	Y2sJ8ZwlNyBw750HQyxMx6d0E84RCpqC0mxvOqSYL4uqDEyGqIKK4lfHYwVmahvEhQUnwpCHjOP
-	Rw4aqTiwfM5zi1mMCp/wxBHvEw/ZQbVXj77MSu6RrxDyF9/LXzsBKvjk9NwxiQiHVfqiV5ykhD8
-	sc3ir6qkSq1GtPw0okdyT4Ho+1Et+8oCtJAM3BcApX6SgzUQGYb3yrMvha+ipNESoNHr3Pj4RPR
-	AZiFoGsQJvd/RKE1XT6xI9zIklLQyiW6r72zXO7teMMnF5RR5+mXJyNA==
-X-Received: by 2002:a17:903:46cc:b0:2c6:9f66:d573 with SMTP id d9443c01a7336-2cfde67beebmr4779085ad.2.1784936924553;
-        Fri, 24 Jul 2026 16:48:44 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:40e1:40e4:dabe:543e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548f5dsm3900707eec.17.2026.07.24.16.48.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 16:48:43 -0700 (PDT)
-Date: Fri, 24 Jul 2026 16:48:40 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: James Ogletree <jogletre@opensource.cirrus.com>, 
-	Fred Treven <fred.treven@cirrus.com>, Ben Bright <ben.bright@cirrus.com>, 
-	patches@opensource.cirrus.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] Input: cs40l50-vibra - validate custom data from user
- space
-Message-ID: <amP5s-Dzp9_qWxAd@google.com>
-References: <20260718074032.1864861-1-sammiee5311@gmail.com>
+        bh=inDwNhTjfAEReKAs3ZD3SpJEd1qaXM6z94+m+5MyCOI=;
+        b=NOVhLeYWeUBZMg0DS0B4oPzXfCCcerYi7UAtg/GfW5stIS7o51KthWfpqm1pn38zZE
+         gjrakNhP+SNHwJQFVdLY1jkOOncpcZaSX9T60Hu/DBrnWzOgeaiFmHsT6ktDaFNTtuRX
+         15/uqxYRujM7gkqTCzzS3uJ3FbcNVhTMjvjNopOAeNw20B8ZCoaB+p+sOEoUOIHLXJoM
+         CyfJ+4hi6FMN+k75AL4o8Oa2BRDDCi62UA/MJA7lcZPqJKlBD0VUK565MOMmuxoXYWxh
+         ohZe4w8snbKluf7yh5lGMFxJWyaIWtjlFNNU1GAXzeL77UesMDNHCYC9iw5LRCmF2nuG
+         858Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpsiwSZZeq0ggesurJLt0QAodRvMZIZDz1luk1/2EvdxJ8hqR9eGrvDXtvhJ53UvZ9aWRosRAc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzU2PurJ1mAesN5ZOm8/Ib9YENn6K4KOuf9YztfF9VRpvNAsvu1
+	58qkv3optX0Aul9Smcf3V6/ORWAIvb3mRojAoL07FCvFwG/B/7b4gVPxvucO7ZVovvo4vNW81fd
+	tdgP2IJNZQQ==
+X-Received: from ilnz9.prod.google.com ([2002:a92:cd09:0:b0:505:f2f1:cf8f])
+ (user=nkapron job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:23c2:b0:4a4:a693:9d87
+ with SMTP id 5614622812f47-4ab69f5951fmr680108b6e.5.1784937065410; Fri, 24
+ Jul 2026 16:51:05 -0700 (PDT)
+Date: Fri, 24 Jul 2026 23:51:00 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260718074032.1864861-1-sammiee5311@gmail.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+Message-ID: <20260724235100.106011-1-nkapron@google.com>
+Subject: [PATCH] usb: gadget: f_fs: Fix Use-After-Free in AIO error path
+From: Neill Kapron <nkapron@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Al Viro <viro@zeniv.linux.org.uk>
+Cc: nkapron@google.com, kernel-team@android.com, stable@vger.kernel.org, 
+	Xingyu Jin <xingyuj@google.com>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Jul 18, 2026 at 04:40:32PM +0900, HyeongJun An wrote:
-> cs40l50_add() copies the custom data of an FF_PERIODIC/FF_CUSTOM effect
-> straight from the ff_effect the user passed to EVIOCSFF, without
-> requiring it to hold anything:
-> 
->     work_data.custom_data = memdup_array_user(periodic->custom_data,
->                                               periodic->custom_len,
->                                               sizeof(s16));
->     work_data.custom_len = periodic->custom_len;
-> 
-> The driver then reads two words out of that buffer: custom_data[0] as the
-> waveform bank in cs40l50_effect_bank_set(), and custom_data[1] as the
-> index within the bank in cs40l50_effect_index_set().  Neither read is
-> covered by a length check, and custom_len is fully user controlled:
-> 
->   - custom_len == 0 makes memdup_array_user() call memdup_user() with a
->     length of zero, which returns ZERO_SIZE_PTR rather than an error, so
->     custom_data[0] dereferences it.
-> 
->   - custom_len == 1 allocates two bytes.  A bank of ROM or RAM keeps
->     effect->type out of the OWT case, and custom_data[1] is then read one
->     word past the allocation.
-> 
-> The bank value itself is also mishandled.  It is masked with
-> CS40L50_CUSTOM_DATA_MASK (0xffff) but stored in an s16, so a
-> custom_data[0] of 0x8000 or above wraps to a negative value that passes
-> the "bank_type >= CS40L50_WVFRM_BANK_NUM" test.
-> cs40l50_effect_index_set() indexes vib->dsp.banks[] with it before the
-> switch statement's default case gets a chance to reject it:
-> 
->     base_index = vib->dsp.banks[effect->type].base_index;
->     max_index = vib->dsp.banks[effect->type].max_index;
-> 
-> Require the two words the driver reads to be present, and hold the masked
-> bank in a u32 so the existing upper-bound test covers the whole range.
-> The da7280 haptic driver already range checks custom_len this way.
-> 
-> Fixes: c38fe1bb5d21 ("Input: cs40l50 - Add support for the CS40L50 haptic driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+In ffs_epfile_write_iter() and ffs_epfile_read_iter(), when ffs_epfile_io()
+fails with an error other than -EIOCBQUEUED, the io_data structure (`p`) is
+freed. However, for AIO operations, the kiocb cancel function was already
+armed and kiocb->private was set to `p`.
 
-Applied, thank you.
+If a concurrent cancel operation (such as sys_io_cancel()) executes after
+ffs_epfile_io() fails but before the function frees `p`, a Use-After-Free
+can occur when the cancellation handler accesses the freed pointer.
 
+To securely fix this race condition, we must properly un-arm the
+cancellation. Invoking `kiocb->ki_complete()` does exactly this by
+acquiring `ctx->ctx_lock` and safely removing the kiocb from the active
+sequence. In doing so, it ensures that a parallel io_cancel can no longer
+discover the kiocb, effectively closing the race window.
+
+We then return -EIOCBQUEUED to notify the VFS layer that the kiocb has been
+consumed and it should avoid attempting to complete the request again or
+triggering subsequent completion handlers.
+
+Fixes: de2080d41b5d ("gadget/function/f_fs.c: close leaks")
+Cc: stable@vger.kernel.org
+Reported-by: Xingyu Jin <xingyuj@google.com>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Neill Kapron <nkapron@google.com>
+---
+ drivers/usb/gadget/function/f_fs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 073c4cbd90fb..8e9bf0bdbcdb 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -1290,8 +1290,10 @@ static ssize_t ffs_epfile_write_iter(struct kiocb *kiocb, struct iov_iter *from)
+ 	if (res == -EIOCBQUEUED)
+ 		return res;
+ 	if (p->aio) {
++		kiocb->ki_complete(kiocb, res);
+ 		mmdrop(p->mm);
+ 		kfree(p);
++		return -EIOCBQUEUED;
+ 	} else {
+ 		*from = p->data;
+ 	}
+@@ -1339,9 +1341,11 @@ static ssize_t ffs_epfile_read_iter(struct kiocb *kiocb, struct iov_iter *to)
+ 		return res;
+ 
+ 	if (p->aio) {
++		kiocb->ki_complete(kiocb, res);
+ 		mmdrop(p->mm);
+ 		kfree(p->to_free);
+ 		kfree(p);
++		return -EIOCBQUEUED;
+ 	} else {
+ 		*to = p->data;
+ 	}
 -- 
-Dmitry
+2.55.0.229.g6434b31f56-goog
+
