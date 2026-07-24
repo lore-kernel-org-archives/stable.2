@@ -1,116 +1,88 @@
-Received: from mail-ej2-f1.google.com (mail-ej2-f1.google.com [74.125.228.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF04639B489
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 06:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73625364EA4;
+	Fri, 24 Jul 2026 06:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784875985; cv=none; b=igvlzc4qar78zycODccisNwCUu+lU2XvqSagMtRBco3RjdgrZNyK2YKxe8sqLFzBTcIHiLgttvxcpVh6kmAg70mnYUA5LybF/p3Z/CAtvMuCaFGUyTGMCf6wu2XX4yo9B91KvbBmVyVoKF+ypsNyhZPIKGMqDzXi4x1ULCBVCc4=
+	t=1784876347; cv=none; b=lp0/X9SoAyqYnfr8aLzv9F5Hj9zuXMmlIm4q12TbYZPWqy44Ed2fGO/WjGy8Kge9lF2uGT3TSM+Tq+OIaWV5CSNCF/PmdeERt3Fjk2Gfez1k0DgGGD1o5iv6cGPYo0oSqnl2kjS8VgRYN/1LbGe1oWk6isXBx4DNIOSqXpDLTN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784875985; c=relaxed/simple;
-	bh=C6g4IJ7nkIuLRBYnGLfnGuivsqdEPRmNM7+k8tmIPGE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=icr68jciWvszJO0GIqhp0/MjtGz+UmUX8MIxBKdA2H1KN+fWjnDWb/Ym83svHRjJovQ5m0lwXQp2ggweQVdDo4qx4i0nJxGoLZ4Fzit/HKN/HUIgi7zOLPXxT5xapFi16xRlJuZLJWEJhPJqO+zUCQ0Z0ybceDQlEllDP8pZpUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EgHRNfcV; arc=none smtp.client-ip=74.125.228.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1784876347; c=relaxed/simple;
+	bh=8cCYuV4DbfXkYj3PXfKCrn+j7b2Q7tOwHxIUQtUYcj0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qxmSMN0gw7WJsGKRlLWnuhpNCfX+VKExNxBl+Wh06vNAD0fh68/zoVUArpYuTH2gvOt9MJEDjfDFVmbHsYwjmrMVNvbVUH39wqqlnA34LN9hE9RUhlKCGydpumB0iFNo+HPcawo4eJQrrF74z6WHRqvLdatDjAABN7bxUqy9z4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hp34s3NV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EgHRNfcV"
-Received: by mail-ej2-f1.google.com with SMTP id a640c23a62f3a-c1971f5efc3so9383966b.0
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 23:53:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784875979; x=1785480779; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WY7CdMG8toSwubevIKGiHcYEpkYHz2KmtfuPZHWqhkg=;
-        b=EgHRNfcVzCUNbMbONBBHLiQGbTrXedCgX8uAfEG+Ygpk4rhFzgk3DmzMZ/x+pZeY1U
-         WhQ4SpvnQ+WPvx9ksx10dIP1mpB7Bx+NZSvFcIn5wQOkWe1QKeCgZc96fEDIl54yyOrN
-         WfJgjb6NVcfRs1bWrRj8WSdE6KUow79Uzq6DOyWTpFG9b3n53LXUNsa3fC4YmO417FNm
-         kRPn3D0WUYpA40gcr/HfSQbOGZTTY2VwOdELDdnBxx93jEfnF/YVuq3SLY6AS5zVCGBL
-         dhemDSC4J3UzC28Zr7E2xmgPDQ5F1DmPwv4JP8wc37AcJ9yWyZRsxYssl+C9zvSHXVsM
-         zKdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784875979; x=1785480779;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WY7CdMG8toSwubevIKGiHcYEpkYHz2KmtfuPZHWqhkg=;
-        b=W6iZbd0/8g3IU9lblIp9UDFbeUU2br5T7Ax/W77Nwnhlw33DZ7UHpbUmvBgSB7gkid
-         alV4Q7luFZ473eAs+W6eFT1vNL43n2qadxi0M3WKN+4FlV95SDW0u3VA2CTAvsf6evqB
-         OxjYXruysSRaYONTJ4x+Aup7dA4I7d9gSRftocTcYAKz8G44DKCKp4g1V8h510kdx0P9
-         H6ZM9uErVH8J8774oMy6ilk5/yrAbGdvGcTWUKgxsYMH1FC7BoOea+u6FXaUnYYlE3fP
-         hqwrwHTsH6SevRI82NttD570Fiy9lOm6OefcZL0DgMwl1As7ogDVA2BKs1mQUu2bXZdW
-         /8xQ==
-X-Gm-Message-State: AOJu0Yw8rXgqvLA6Qz+LUeaU9UNoid3c9h7l0iw4VnwOlNj0ZVJv2+pU
-	jT5jpLGAdpIgJ9DXXyguLPBWi+Om54pbcPY/9H8z+TxnQyHL/+0yFxLl5dcgTiBE+DE=
-X-Gm-Gg: AR+sD11njlnetDkV6npR2k8i41yM5YOsJNuq9u2eNbG9cG5TK9+C9lhexJkCRivvDxR
-	+GWbwFr81AvloOpLCwFy41IujV2FbAuRIEnflM3k/k5VCftgk3WUhGu6ibyd4w17zumtUXZgddO
-	IRxBT5SOR2s6phuKojS3Ho6w+8Y4z60vVDKkthUoXGAJX547QeamAakfS2dj9FlHeK5DgIBSupd
-	PDjJ8hL5bri7kvO2NnxklcQ3MoS1KVWvVnFvoLlRmyuSafdW0Rn4vul4No/ejIAcNdofYrjisx6
-	y47idLcy1v/a0dXr3zM/dfSWtMRZmvqiKt15DXN8n08tm7Cltp2k56ikL86I5p5smCjTz3Cg8m6
-	GkibaG7lbV/2PXTJjaoAMboWp5w130O4UC3X8XhZLsDDqoRiyHfvnqjybai5SvoSUXipxqI+CtT
-	ZFQPnT9s0MPnWOsm5ZRQN6JNhWe+c4
-X-Received: by 2002:a17:907:1c02:b0:c15:b332:260f with SMTP id a640c23a62f3a-c1c5089e82fmr290349466b.30.1784875978862;
-        Thu, 23 Jul 2026 23:52:58 -0700 (PDT)
-Received: from u94a (61-227-70-26.dynamic-ip.hinet.net. [61.227.70.26])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f03b0eaa8sm1009011a91.8.2026.07.23.23.52.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 23:52:57 -0700 (PDT)
-Date: Fri, 24 Jul 2026 14:52:50 +0800
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
-	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
-	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 6.6 0000/1226] 6.6.145-rc2 review
-Message-ID: <amMLUyAZFJJY73JI@u94a>
-References: <20260722143258.264584003@linuxfoundation.org>
- <amHSEwZcutUhO5tL@u94a>
- <2026072304-dentist-repayment-4761@gregkh>
- <2026072416-chunk-curtain-332d@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hp34s3NV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CA51F000E9;
+	Fri, 24 Jul 2026 06:59:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784876346;
+	bh=34W2CxNb0au0JerO6fdh6L8z/2HIrfq4Md0cDdHE9iQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Hp34s3NVUDrcNbtQ3Wnm7+hmu6KzrtE6LI+1U404vlLV99F7l5BFzc2AN+CbtD3Jz
+	 PSpBT32hcQp7D0VXRv++BhvsB32HBZhcfS7lHAKwEdr2/m3JOi2/U2IvZ4mLSWUsCv
+	 jjann1p05IrnIDT4xPcgLVzt1oMlHzsJ2NaI74rqlO7CQ8i0hCn4AtyJvE52tq+Fz6
+	 S1FMUe15cAijX4qrFqq3U77PEU/UGHKV/MBF7C2iVmAwSgB2AuGQw1nOu7aZK1BO4z
+	 SKS8tGKLJtvBh4jJo7ndSceucKD3McDEUBKUOTpzgv4N0fMCd8nXRnrYbcXdiwwYrQ
+	 5+u5zb4po7BBA==
+Message-ID: <e7327736-219c-4475-84db-a25a25d1ec1d@kernel.org>
+Date: Fri, 24 Jul 2026 08:59:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026072416-chunk-curtain-332d@gregkh>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] lib/ucs2_string.c: fix out-of-bounds read in
+ ucs2_strnlen()
+To: Greg KH <gregkh@linuxfoundation.org>, Vincent Mailhol <mailhol@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Kees Cook <kees@kernel.org>
+References: <20260723-fix-ucs2_strnlen-v2-0-9ea94e32a358@kernel.org>
+ <20260723-fix-ucs2_strnlen-v2-1-9ea94e32a358@kernel.org>
+ <2026072454-riverside-nuzzle-39e2@gregkh>
+From: Vincent Mailhol <mailhol@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <2026072454-riverside-nuzzle-39e2@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 24, 2026 at 08:18:39AM +0200, Greg Kroah-Hartman wrote:
-> On Thu, Jul 23, 2026 at 12:17:23PM +0200, Greg Kroah-Hartman wrote:
-> > On Thu, Jul 23, 2026 at 04:37:07PM +0800, Shung-Hsi Yu wrote:
-> > > On Wed, Jul 22, 2026 at 04:33:42PM +0200, Greg Kroah-Hartman wrote:
-> > > > This is the start of the stable review cycle for the 6.6.145 release.
-> > > > There are 1226 patches in this series, all will be posted as a response
-> > > > to this one.  If anyone has any issues with these being applied, please
-> > > > let me know.
-> > > > 
-> > > > Responses should be made by Fri, 24 Jul 2026 14:31:21 +0000.
-> > > > Anything received after that time might be too late.
-> > > 
-> > > BPF selftests compilation is currently broken. But with [1] applied it
-> > > will build, with test_progs, test_progs-no_alu32, test_progs-cpuv4,
-> > > test_maps, test_verifier in BPF selftests all passes[2] on x86_64 and
-> > > aarch64.
-> > > 
-> > > Tested-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-> > > 
-> > > 1: https://lore.kernel.org/stable/20260723071334.39630-1-shung-hsi.yu@suse.com/
-> > > 2: https://github.com/kernel-patches/linux-stable/actions/runs/29987147891
-> > 
-> > Ok, I'll go queue those up for 6.12.y and 6.6.y now, thanks!
+On 24/07/2026 at 07:54, Greg KH wrote:
+> On Thu, Jul 23, 2026 at 09:40:31PM +0200, Vincent Mailhol wrote:
+>> ucs2_strnlen() checks the current character before checking whether the
+>> caller-provided maximum length has been reached. If the input is not
+>> NUL-terminated within that bound, the loop can read one ucs2_char_t past
+>> the limit.
+>>
+>> Test the length before dereferencing to prevent an off-by-one
+>> out-of-bounds read.
 > 
-> As I said on the thread for those patches, they only applied to 6.12.y,
-> so 6.6 will remain as-is for now :(
+> That's fine, but doing that read doesn't actually "hurt" anything,
+> right?  So this shouldn't be needed in stable kernels.  Or am I missing
+> something?
 
-Hmm, I would swear that `git cherry-pick $6-12-commit` in 6.6 worked
-when I tried. Maybe I got the wrong tree.
+I had a similar feeling and didn't CC stable on the v1. But following
+my exchange with Andrew here:
 
-Will resend one specifically for 6.6.y, sorry for the hassle.
+  https://lore.kernel.org/all/CAMZ6Rq+Ax5MTs0Ke=XAB2JFX1KXuFas3B2eEMv+nQ4x7up2BLA@mail.gmail.com/
+
+I think there *might* be some risk and finally CCed stable in v2. If
+you prefer to not backport, that's OK for me. As you can see in my
+above message, even if the risk exists, it is more theoretical and I
+don't think it would provide much leverage to turn it into a real
+exploit.
+
+
+Yours sincerely,
+Vincent Mailhol
