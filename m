@@ -1,96 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E19AD1DA57;
-	Fri, 24 Jul 2026 00:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5484908A8
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 00:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784851372; cv=none; b=S2YDg2O7Julc4EZ9qnuEIOaLxbT5QGRcixFKgqZHb02Ais7QbcZ8FpUwa7afcWBPFOksUz9ZWg/d873JRuOoYu2rhJCTx8qLodixNThYOmOuyXwGIb5jrCcGrc2WSNmx1k/ofWSvnj7RzJ3aB4kXwJaS5TyjmAuKgJvEAHdosvA=
+	t=1784851697; cv=none; b=D2EfdU3/NBTyYgDXQPVuFOeVMZXFFm8c5WWgzvfJxpYiRJg1wTBKTDc3PG7MONrzUYT8M3GnopIOe15d1txWnKuX0uLw5n4QD/92Eip2YDRoUDSwhx1mUaXDmKYbLkW0rdkO4ieKdYogL0kKkw70AhNpIdJgBdPssjCaTvXak3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784851372; c=relaxed/simple;
-	bh=+jeKp8UReakMpv5M7ur1K2WG96E+Z+HftIGiPY2KAJ0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=fWgw76IrCBufoQ3/k2YSXLyv0UihEaSOc8ChZBMJNDL/UDFUHJKSNiKIbFNy43NjYz6VKaRUNCTARljZdKB9TEiEIhfFnU6BGPYcNoaL+zuKyFReUXedaDaM1G389NjQouPoGDnMi+9FU0Nmg8ZVd+FeJEw8NGua+D02IZe7h84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=LBcwVAU0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784851697; c=relaxed/simple;
+	bh=WV1BFZoMbBDuca8HRMrHvbdBx3KitPKT9mp9mbazXbs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=CQaCwX/nu+Lfj7571lsYeBj154uc80Gx7A4VjCgWxUS4zMhjB+JGyTKb5KO62JPZC9Kn23qSE9EYdU2Y2EGP5F4vJ2SdYKf7osUrH52Y26LkcuvWVRuuZAxctzB6zXmTxJTk++3tOK/Uza5u8izExjiNyNBQk7Owm+ezWljd4OY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=u83jtXSI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IZmafu6z; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="LBcwVAU0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB1A1F000E9;
-	Fri, 24 Jul 2026 00:02:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784851370;
-	bh=c9E04AFsCJ/VZ9edKXAtGVUUjcTIxBBUMYLvzGUzl5U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LBcwVAU0Maz8s9W9L1HgHkU9+APYMXK0mWzYaa/ZRGIlgln0kLS27D8ggbEblmF0J
-	 0QQWnHVI50v4BzgZvGwtfJYCc5Uucl1Dvq2uYu1l7uZZHkYOGJ0psgix6YPjCd+FQR
-	 zOxtuggw3kInBwUd7ZsZ5A6Eo9N68yK2Xhp92CqQ=
-Date: Thu, 23 Jul 2026 17:02:49 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan
- Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>, David Hildenbrand
- <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, Shakeel Butt
- <shakeel.butt@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
- defrag_mode
-Message-Id: <20260723170249.98d83bd68698fff2629391c4@linux-foundation.org>
-In-Reply-To: <00bb7fd0-998b-49f0-9941-cc4d796a8751@kernel.org>
-References: <20260722150006.3848560-1-hannes@cmpxchg.org>
-	<20260722150006.3848560-5-hannes@cmpxchg.org>
-	<20260722162207.31a2c491ffaf36d1e8948c14@linux-foundation.org>
-	<67e1219e-9d47-4a30-a8dd-fdcf03229f58@kernel.org>
-	<amIgT-l7PExKVJlW@cmpxchg.org>
-	<00bb7fd0-998b-49f0-9941-cc4d796a8751@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="u83jtXSI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IZmafu6z"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0EAE67A025F;
+	Thu, 23 Jul 2026 20:08:15 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-11.internal (MEProxy); Thu, 23 Jul 2026 20:08:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1784851694;
+	 x=1784938094; bh=yMkEJxJUEaLkgjRC9mha8OzPgcwPJNm8em+Q0MzLgCs=; b=
+	u83jtXSI6CJ7clyExGjd47+y+guxAtA/iL7pRpdU3/3mQgm5hkbDa0YUAX+fh8yS
+	0N2QatFkB9y45J88xfFzyWIfNggAIAsVzxq4AnZ9Nb7G5u+N0KMXSQU11gk4Kcg1
+	j5N+o3gPn5mhOhB+ovQsPv0a5YOw0cNjtMUVIOtSaqG+g4tVCmxkOE0NII9N5vvr
+	MOvCcr8B4aeSZydY253eIiEJ9mOsP6CXk6dXn0DeDoqNeO5dIbwH1KkBf9fUkR9/
+	bVCUlG9ZJKEy9I0i5fwjOQXfFX9YrJL1MPKZKYF1AMIVkTWIl6w7klevEtvwnDtZ
+	x6xnFAQZPWimk7vNKdd7jg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784851694; x=
+	1784938094; bh=yMkEJxJUEaLkgjRC9mha8OzPgcwPJNm8em+Q0MzLgCs=; b=I
+	Zmafu6z2YLe2dkDPcMEyDky+8V3PrxAoDHT/heR01fVUbbsyGa2i9hDysEMKsmte
+	x223XaEWh5YZy8KFGr/2dgIVfxN9biJokCNvCbEzHpAlNX2xHSNqQotg3fFIV60u
+	mKzVzbmLBNu3iqBjKSl2TR3lbk3VRdBpM5nKyluCHpEvX0O9fp75xQqs+t4EZ72R
+	MTSETcq9R5iR+maF44Is7PUS3CuFRggrBAckvMLlXkQyp5lzGqFjP0hILHR7YQdu
+	afQ/QwOoVd6B2fHl9mQTk2xPEJ4SMOsX9rsUJocyiEuEX2OwDDz5rT5zMCJs/3Rr
+	Hq2YMhacLzEXjqyJQciMg==
+X-ME-Sender: <xms:7qxiag6izquJHjo_ec1yXj6X_lfZhvw0oGEFeQDPqtUBEnxKFK1rhg>
+    <xme:7qxiaoYz6bomcNtyICF3fW7mpVdpdRQAsPoHeZhP5FzgWImAvC46aPOX7AQksep7W
+    bEivLjy6IDQPleoJTPCndZHBFFYqV3WMSzyYS6PhgX-VCMCR7hJEYdp>
+X-ME-Received: <xmr:7qxiatdeB2Zem0ouYIwNeDorcX002vR8K9mieFzrBUycXekFHmX6s2KewuMzivat6Dw-OXW41Ft-hOKxe9Mb9R9N6hMILmd9>
+X-ME-Proxy-Cause: dmFkZTEqRHXHG93drmyH5H+eNofBn2R06g6ZKOBz8Fg2N4IfU56l1O9M7cXJXFw68YpXLx
+    e64aeKuKtm3YEOdOz+UzwIRfO80LOQuJu0udnMc65+0foFWxWR28j6HIZXEaCwHNlIYGPD
+    cnxFNIx0kjkGWeiOTMwqnZim65asotqW3tSpIVgO5dm7HxXwhd2VnhzWp+2yxJofuMlHhA
+    I2wcXqIUbd9uHuHDL5ZyrKV1e42RDdcVv6v/ltSZ6OcH/5Zn4WYiCIsVJymj9/V4GWofHB
+    G5keLC13TvDqgqsW7A7y7myGbI415VdM8UOHS1eWIMYN0a2BBFFMFoQsLgy6C+9PrcS7jc
+    A0329lo6Go9r3ZutQrR6LMIstu2k+aSjbmqCNo74B550gFJqF+47m5GlRYxt5Yxsy9bwuI
+    ErPHL/eXB9ltD0mTGd6ODZEXdtFnfV5pD79LZHy5BiLPxULc5RoMAZlNWSIUPEOKdBjluY
+    7QXpO8tsxGGghNBubDdE+k40twkqE6COa38rvWYBww7aks5RL9nS1oZcLO6C0ilDqQhvo8
+    BnRrkMWRSFrwEORweEu7rI/NgJSTIwRpA38WsrC10yuFiAC029o5b+cirV/tXNpyw9x7e9
+    O1P/fkIbOQ7+2u0tm/qMmPG38JASMesZccuR3lVLKcvqjQaycvz/CuDF2YtQ
+X-ME-Proxy: <xmx:7qxian7XNv49ERsoVw4liCfjz81jyVxIZ7knd4qEACIw2KIvFkIcKQ>
+    <xmx:7qxiaqbXCukSupTngH023PMNEEvMrOehABpefiO9SVSa4SVZ1rMuJQ>
+    <xmx:7qxiahHpKlaIn5ZCnXhzb-fSFkPmvBivyV61WVXuGMVL7mLwlr_oVg>
+    <xmx:7qxiatnPzZ71ukp4_9ndNCu1gl0TpzGyfFBnGQXVU7IEiOyQonzSPw>
+    <xmx:7qxiat0a_OSS0b5vE2UrQqLHzjAxAswBT5wftgRUC1VuVwdeBcGbtyzp>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 23 Jul 2026 20:08:13 -0400 (EDT)
+Message-ID: <f27a8c9a-6538-4d24-9e80-c98c94431e3f@pobox.com>
+Date: Thu, 23 Jul 2026 17:08:11 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10 137/699] tracing: Prevent out-of-bounds read in glob
+ matching
+From: "Barry K. Nathan" <barryn@pobox.com>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ patches@lists.linux.dev, Yuan Tan <yuantan098@gmail.com>,
+ Yifan Wu <yifanwucs@gmail.com>, Juefei Pu <tomapufckgml@gmail.com>,
+ Zhengchuan Liang <zcliangcn@gmail.com>, Xin Liu <bird@lzu.edu.cn>,
+ Huihui Huang <hhhuang@smu.edu.sg>, Ren Wei <n05ec@lzu.edu.cn>
+References: <20260721152355.667394603@linuxfoundation.org>
+ <20260721152358.800887633@linuxfoundation.org>
+ <1d60d21d-ea26-4502-afee-c49c750df1e9@pobox.com>
+ <2026072339-reshuffle-blizzard-42e9@gregkh>
+ <759ee068-9519-4cfa-9be5-1deb0d9fc877@pobox.com>
+ <20260723114247.00a3f66d@gandalf.local.home>
+ <3308ea85-4ae5-4c5d-bfba-67bf7164a5d9@pobox.com>
+ <20260724071902.7469bfe5b1f9bfd3bced2cc0@kernel.org>
+ <ae1aec5a-9142-4f81-b03b-dc8d8f4018a2@pobox.com>
+Content-Language: en-US
+In-Reply-To: <ae1aec5a-9142-4f81-b03b-dc8d8f4018a2@pobox.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 23 Jul 2026 16:17:51 +0200 "Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
+On 7/23/26 4:43 PM, Barry K. Nathan wrote:
+> On 7/23/26 3:19 PM, Masami Hiramatsu (Google) wrote:
+>> On Thu, 23 Jul 2026 09:57:56 -0700
+>> "Barry K. Nathan"<barryn@pobox.com> wrote:
+>>
+>>> On 7/23/26 8:42 AM, Steven Rostedt wrote:
+>>>> On Thu, 23 Jul 2026 08:32:23 -0700
+>>>> "Barry K. Nathan"<barryn@pobox.com> wrote:
+>>>>
+>>>>> In the process of testing, troubleshooting, and eventually bisecting this,
+>>>>> I've tried rebuilding the kernel from scratch maybe 6 or 7 times now. I've
+>>>>> tried on two different build systems so far, and it seems deterministic
+>>>>> that the build succeeds without this patch and fails with it.
+>>>> When you say "from scatch", do you create a new directory and build there?
+>>>>
+>>>> Is it reproducible with a "make mrproper"? (Need to copy the .config
+>>>> elsewhere to not lose it)
+>>>>
+>>>> As I don't see anything in this patch that would cause filp_close to be
+>>>> unresolved. Sounds like a bad object was added somewhere.
+>> Yeah, or BTFIDS command (tools/bpf/resolve_btfids/resolve_btfids) may
+>> be broken?
+> 
+> This turned out to be the answer. 5.10.y needs these two commits to fix
+> resolve_btfids:
+> 
+> 22e8ebe35a2e: tools/resolve_btfids: Fix some error messages
+> 5aad03685185: tools/resolve_btfids: Emit warnings and patch zero id for missing symbols
+> 
+> (Alternately, 5aad03685185 could be fixed up by hand and applied alone,
+> instead of applying 22e8ebe35a2e as a prerequisite. Probably cleaner to
+> just apply both commits though.)
+> 
+> Applying both of these on top of 5.10.261-rc2 fixes the build for me
+> and results in a working kernel, which I am now using to send this email.
 
-> > 2/4 actually came after 4/4 during development. Without it, compaction
-> > cannot make sufficient forward progress on the promoted non-movable
-> > requests. So it is a hard functional requirement.
-> 
-> So that's the tricky part then. If it's a hard functional requirement for
-> 4/4 and yet leaving it out results in no conflicts when applying 3/4 and 4/4
-> (as it indeed seems so, based on my local test), then it's quite possible
-> stable folks will figure out themselves they need 3/4 as a stable-dep-off:
-> 4/4 but won't backport 2/4, unless you act quickly enough on their mails.
-> 
-> > Whether it deserves an independent Fixes: depends on how many
-> > GFP_KERNEL pageblock_order requests we have :-) I'm guessing not many.
-> 
-> I don't know how else to indicate it though. It's kind of a co-fix with 4/4?
-> 
-> >> > (An alternative would be to put cc:stable on all four patches.  That's
-> >> > a bit abusive but we do it rarely).
-> >> 
-> >> I don't think it's necessary, the stable team are quite capable of figuring
-> >> out the deps and backporting them with a Stable-dep-off: tag. IIRC the
-> >> "fake" tagging is discouraged? Maybe they can clarify.
-> > 
-> > Yes, I *think* it should work with tagging just 4/4.
-> > 
-> > It won't apply cleanly or build without 3/4. So I'd assume if that
-> > dependency is lost, the automated backport will bounce and I can send
-> > a backport series by hand.
-> 
-> The way I see if often happen is that Greg sends a mail that it bounced and
-> soon after Sasha replies with fixed up version/series. Which could very
-> easily be 3/4 + 4/4 without 2/4.
+I forgot to mention, 5.15 and later already have these two patches
+(I think they were merged into mainline in 5.15-rc1), so it's only
+5.10 that needs them.
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
 
-My brain hurts.  I'll include
-
-Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
-Cc: <stable@vger.kernel.org>
-
-in all four patches.
