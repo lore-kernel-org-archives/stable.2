@@ -1,100 +1,108 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E1E440A3A;
-	Fri, 24 Jul 2026 15:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5F14457DE;
+	Fri, 24 Jul 2026 15:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784905799; cv=none; b=d91rZHJrdB2ExAlplM20JBP23Bm2PIaIwKQHY81vnE+XJD63RU+2KMlwYxgwHAxx9hNuRc/kV5Rg+rIutzOQez+bXH9Wl24qclHNOw8kFX2MsXMHBh3GbT8uHafREq65keT05Q8eTRvYVIJrrI5vULTUOea7qLUEe/A9tBLYH98=
+	t=1784905821; cv=none; b=WfH3f5+HkSoh8D4u2iwOWHC9gkmwshK0mDsbxBfeG3IVP/XGxc5b5d4Zf5ZQ52KP2GNoBeOEq0TJ/JNOMMdSaDJmhQ+346KkglDZM86d7prAKQff2MS8RHotvu0x4irzyUqZLMuYcVTz9SQlVJoHHBNfStyYm8G6aHf42O6741I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784905799; c=relaxed/simple;
-	bh=LrK6XCzPn9w/pAkja+a0sS+++36AUS3xetGkCJHXVDU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=i3nJStOMIRhydh21kUhq/h47cyxe8cXL1vVPKvbDKNtizJr3gInTeAN52HjBBj7IxfrtCQ6PupiX146t+2ZCWha496ITqDhHfM2a/HmmTKK02l3uC7nMkeOBK2j6kveLeZ/D2aaPe5gRAYLgRHl9XfZKCcC5xoB+Z4fJi0O2AIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QRhPdMVj; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1784905821; c=relaxed/simple;
+	bh=7E4f6w0jZa+tVfpcCgxEjRABmM9E3juEN7YJhMNR+58=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KkQF17oQU5Y9HsjmV/3/9JbQEN7nqe78tI2Qf1vc/TX7lFSvhVzVQwG9lJhThBLd42OEdAOD6cUK82ry/hqZBXVx6yK+RZT/bIpA5pFsSLa66J08wD9sZV6rM6xaE6uKs7tGH9K3zWi9COG9tlI0nlr2i898ihuMZgbeI9sSGjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clXeYOxQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QRhPdMVj"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clXeYOxQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AADC81F000E9;
+	Fri, 24 Jul 2026 15:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784905814;
+	bh=tb5O8wjKcs1Pw/yvf0gMKaayemz7IuqUU9nVaaWlvg8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=clXeYOxQXDLXpoAFDrENkwTGS7dui0fvsU/h7Ajf1ew3+S1zHO/VInmDubBEe3KWJ
+	 JX6jw8hkeIkNGGu6MY3CNkRCy3HysYs8Nb1uimnA1D4lSbUVRwffoZHRkJC3MpQAuL
+	 Z2MKlVbWshUBo2CLTVtcgzh9vLEcvQCh1dCSo2VQvftbC9Fv41taVeNEu9puIqTQQT
+	 fx5k1OoQV4j+3oVp7dQXtTWzQb0HpQWJfKB/UC0e9LAAJYVebm2TTU0e49BOMnI8WG
+	 BNvgUvp4of6vGbUSykKTAFl/EXryoPxo8uD4ojxLNdMP6+36VCT5lSZ1apZFEeCgdU
+	 Dvo0Dg6q+d4IA==
+Date: Fri, 24 Jul 2026 16:09:53 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, Toshi Kani <toshi.kani@hpe.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Dev Jain <dev.jain@arm.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, David Carlier <devnexen@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	"Denis V. Lunev" <den@virtuozzo.com>, "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+	stable@vger.kernel.org, syzbot+fd95a72470f5a44e464c@syzkaller.appspotmail.com
+Subject: Re: [PATCH mm-hotfixes v6 0/5] mm: fix UAF caused by race between
+ ptdump and vmap pgtable freeing
+Message-ID: <amOANEMRAsJsTBR3@lucifer>
+References: <20260723-series-vmap-race-fix-v6-0-8cc77dcc0018@kernel.org>
+ <20260723162646.350cf3bf415a0855140d139b@linux-foundation.org>
+ <20260723163233.54b38cfc682a25eb6edf7cc7@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784905792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LrK6XCzPn9w/pAkja+a0sS+++36AUS3xetGkCJHXVDU=;
-	b=QRhPdMVjufPUbcboXkrdt8XctcYEM20T/lv8n4fB4pJg/op1fAff/SrlEj5S5EJHIa/Urh
-	71XhM44Xfy0b64c4KZt9KBbhXtd6Ytu1QVagsDFKPz3bIHbLROc6drVAaS+ZkwVC5fsI42
-	MBkWvQuxE/buLUIjLWWP5itdXz1HQxM=
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 24 Jul 2026 15:09:49 +0000
-Message-Id: <DK6WANTYCK4H.CRSXHW3ST1Q5@linux.dev>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Brendan Jackman" <brendan.jackman@linux.dev>
-To: "Johannes Weiner" <hannes@cmpxchg.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Vlastimil Babka" <vbabka@kernel.org>
-Cc: "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko"
- <mhocko@suse.com>, "Brendan Jackman" <jackmanb@google.com>, "Zi Yan"
- <ziy@nvidia.com>, "David Hildenbrand" <david@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, "Mike Rapoport"
- <rppt@kernel.org>, "Shakeel Butt" <shakeel.butt@linux.dev>,
- <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
- defrag_mode
-References: <20260722150006.3848560-1-hannes@cmpxchg.org>
- <20260722150006.3848560-5-hannes@cmpxchg.org>
-In-Reply-To: <20260722150006.3848560-5-hannes@cmpxchg.org>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723163233.54b38cfc682a25eb6edf7cc7@linux-foundation.org>
 
-On Wed Jul 22, 2026 at 2:56 PM UTC, Johannes Weiner wrote:
-> As we deployed defrag_mode into Meta production, pressure spikes and
-> excessive swapping were observed on some workloads. Tracing confirmed
-> that this is unmovable/reclaimable requests spinning in the allocator
-> and direct reclaim, causing excessive amounts of swap.
+On Thu, Jul 23, 2026 at 04:32:33PM -0700, Andrew Morton wrote:
+> On Thu, 23 Jul 2026 16:26:46 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 >
-> The initial plan for defrag_mode was to rely on kswapd/kcompactd to
-> produce blocks, and if those are overwhelmed under high pressure, let
-> the allocator fall back (__rmqueue_steal()) after its retry loops.
-> However, that retrying results in more reclaim on some of these
-> workloads than we'd hoped, sometimes excessively so, spurred on by the
-> !costly order conditions in should_reclaim_retry().
+> > @@ -1250,7 +1251,11 @@ static int split_large_page(struct cpa_d
+> >
+> >  	if (!debug_pagealloc_enabled())
+> >  		spin_unlock(&cpa_lock);
+> > +	if (cpa->init_mm_read_locked)
+> > +		mmap_read_unlock(&init_mm);
+> >  	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
+> > +	if (cpa->init_mm_read_locked)
+> > +		mmap_read_lock(&init_mm);
+> >  	if (!debug_pagealloc_enabled())
+> >  		spin_lock(&cpa_lock);
+> >  	if (!ptdesc)
 >
-> The storms are dependent on the request type. Reclaim will inevitably
-> make room in existing movable blocks, since that's where the LRU pages
-> live. So if movable requests retry on reclaim, they make progress.
+> btw, this affects your later "x86/mm/pat: allocate split page tables as
+> kernel page tables".  Which I resolved thusly:
 >
-> When non-movable requests spin in reclaim that isn't productive. They
-> cannot use the individually freed pages, and the process is unlikely
-> to accidentally free whole blocks to meet the ALLOC_NOFRAGMENT bar.
-> They spin and overreclaim excessively, which tanks performance and
-> triggers userspace guards like swap exhaustion or pressure based OOM.
+> static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
+> 			    unsigned long address)
+> {
+> 	pte_t *pte;
 >
-> To fix this, send non-movable requests, regardless of order, into
-> pageblock reclaim/compaction. This way, they help move things along to
-> meet the ALLOC_NOFRAGMENT bar. After this patch, the reclaim storms
-> and excess OOM rates are no longer observed in production.
+> 	if (!debug_pagealloc_enabled())
+> 		spin_unlock(&cpa_lock);
+> 	if (cpa->init_mm_read_locked)
+> 		mmap_read_unlock(&init_mm);
+> 	pte = pte_alloc_one_kernel(&init_mm);
+> 	if (cpa->init_mm_read_locked)
+> 		mmap_read_lock(&init_mm);
+> 	if (!debug_pagealloc_enabled())
+> 		spin_lock(&cpa_lock);
+> 	if (!pte)
+> 		return -ENOMEM;
 >
-> The longer-term plan is still to have all requests, including the
-> movable ones, help make blocks to spread the cost of defragmenting
-> more evenly and fairly; combined with proper watermarking to reduce
-> allocation latencies in the common case. However, doing this naively
-> unearths scaling and concurrency limitations in compaction that need
-> to be addressed first. Promoting just non-movables for now is the
-> minimally viable bug fix for the above issue.
+> 	if (__split_large_page(cpa, kpte, address, pte))
+> 		pte_free_kernel(&init_mm, pte);
+>
+> 	return 0;
+> }
+>
+>
 
-Please forgive the noob question, I'm still struggling to get a really
-good mental handle on this stuff. But what about compact_first here?
-When we're promoting the order for compaction does it also make sense to
-promote compaction itself?
+Thanks that's correct!
 
-I'm aware you said "minimally viable bug fix" so it's fine if this falls
-outside of that, I'm just trying to poke around to improve my
-understanding.
+Cheers, Lorenzo
