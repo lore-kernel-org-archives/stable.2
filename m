@@ -1,72 +1,37 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7B83546ED
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 02:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7EE4827B340;
+	Fri, 24 Jul 2026 03:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784861624; cv=none; b=XiJfTBf4ISLMcL0FMG2cSXTNaPF2qX9WQHKbdwqouAgOn6Q1WJ6n66sniBNL674zvPL9ziW8H/eWLPqLSsQELUVlhPQb5zYJsucUFlij5lbxWY3700+hnojdLeYjtgNaWeDZmRgR+eLNzsnLvfX8dV/4pBg8FlL5vhjZ6dcYIKA=
+	t=1784862161; cv=none; b=TjKjy6hrUbFrAOT9RxKlpG3d3Rzjy1m94ghHdLjBgMaWiv0Wa/azd7f+ta2/EFeq869F7RqGD76AQPRip7QLOtye2bnqlD8RQlhKz5PQ8t0gdpKe3dVMQAhtV2qpuoMdZOqGEA8czIUPmd+yFUYMNnZd+ZLzxJ1/+BKE0MxSo78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784861624; c=relaxed/simple;
-	bh=DGOO1mcvNX0DhX+uMlETQcvcFQk+ownCZdf4bRPZ0hc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KQIOU05TflLPHB1x9cEJD3rnc4sAJhHZZUKGGPPDc8AAgauwSCcMFr6qhBNMj3GP/Fe7lNU80bQymDkd0yDaAodMpQf5gHf2voRWGW5Vds/y1V6qOriW9CuAhxvxT/1LqTzTuLBv7JuATN/tF9CLsYksgIaGgCGRy+LncryjhI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SoVzfG6C; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SoVzfG6C"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so14562565ad.1
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 19:53:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784861620; x=1785466420; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u5g65N8OjtzmKwoPoPbEZAl8O7MsJ2czZFXaJNHfPiY=;
-        b=SoVzfG6CZCTvGU6m3GScPch0etDo3sztCdog0JHccW9CWfVkWz1Jv4SfnfXDQQgwAE
-         EXoWMLk3kE5bgr9dWd/MTw82uA/XSGfDlT3Z2+7GUMvHjCkZxgsZq7Zy2l8coQtxg/PR
-         N1f2Gk6gIroCMFPPjZ2sULjJ6lUHlJMnxlMggH9537Fe5G/ORfOqpPpJin3ukj868Bqz
-         a2Df5KdaslniwzAsm+SOobmo0bjnlm9jMFG8ZKT1RNLnMRPqKLmRlYwQKgLSyMaWmV1R
-         7xmNfNFbcUWZHRYeuQ21KA0hMdcrutOSmNAozrux1zPT5q9+VTkLzFnKzx2pEgPYJiAB
-         0uZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784861620; x=1785466420;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u5g65N8OjtzmKwoPoPbEZAl8O7MsJ2czZFXaJNHfPiY=;
-        b=eJA9RMW4eL7QSrH9GwLaB0xtWfPllsSTxe5gyGnRhTta5iC/k4glPpyigjZALgHuHL
-         yr+quA4e3hjoBi3My/UNs2egP+GHVN2xDVTxLLpnEubQRjWGflbkVa6h7p2rSX0ppwUR
-         O6wQK1iEeOpMaAhu4TMDfdoRQPNQaDnr4RqhcUqfPsw5f5AiHJffTSLCJB3rbdhB417u
-         v1taRhV6Ls4VRl+1BkS1gSh317XGATwHI1CYdDIFXZz25d97XDID3dbQqz1D0Mj4rbCV
-         +r/JsGBP1SRZQzWM9Fk5RfwvcrqCncky8Fsrdy0tpCeA93MkVolvEG5oVCcBOia1PKJK
-         0yiA==
-X-Forwarded-Encrypted: i=1; AHgh+RoMuz+/g4wbJje42AK2uZNK5zKXB579rh3BPb2MCJamgeL42zlPHqCwJBAvdZ80BzsP/yUEozc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJK3Q0x9Pb0847YMh7WKgAy+gtlEUrwkFIcJoNRaylUJBUzmJ0
-	QsQKldZvRB84rGB+avmAVmipgPTKWwlCGFRd+5v/A9B+66la2sQXsOUB
-X-Gm-Gg: AR+sD13jZegZ92hkiBsrqxT3Pe5g5vJgj9rsZiJBdiGaS3+o2FF4IAWPipY0nN/blMG
-	Y0bk+M01mdBhIojKTNUyjDCFRyFToRbwDRIfY5xOCxZoxCPHJg2CkjrnyXmnASmqOSclvTZoyL2
-	KNwikBj3reNqcgnezXKWu6MkB890Cto/zli0TJ+PGeJ6wC1xbfNXOgg9aHI1osewSSlIlNhG8mg
-	D03gVlTdE/xXfTPOnHkmipFgGfWRr3isus9prOwWzAFLmSzSbdHR820+QHekk6gMqEVvNOjh/2s
-	poxAsZTk4QIqUje5SaAnUzs2lNNNhU7FCdT/8t71NQkDhIcyRDnS/m+aHWUGKa/KsZv8FcypOME
-	Cq2zBy0Jo5ED4jgs4OksnxKQOVimeyxtksBGbN1H3kfP8piZKjBa2C6fzCl6t55hdjYQU76yDzq
-	nVJspULuZNmVcRudtqPiYHQrBnyjt+EsSs2EZXqYtTxNM8sSkUfyM2JjY+SGpEzAkY8AQ=
-X-Received: by 2002:a17:903:3847:b0:2cf:b68a:2050 with SMTP id d9443c01a7336-2cfb68a395bmr38478795ad.15.1784861619575;
-        Thu, 23 Jul 2026 19:53:39 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cf8efae5aesm42664585ad.15.2026.07.23.19.53.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 19:53:39 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: andersson@kernel.org,
-	mathieu.poirier@linaro.org
-Cc: linux-remoteproc@vger.kernel.org,
+	s=arc-20240116; t=1784862161; c=relaxed/simple;
+	bh=iUGrkeEnU0zFKwmzl9YF9vPhtUddhfLS8bGTVEEShG0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Dg/j9kpXEWWxCqzo7x2TTqQmhTdr+xrzFi3O6GsRmm6i1sya8SaI34BjfpPTa+xUKsRsqtmOQrtxrBQnTQwEOS9dZCRz8mrGbdBf9Wgjs6TFxSYPv/N366RegL9gl/w/dhJXbLNyVmLJJYpKrN7M3LSFL5De/bRPW6xq+NxBF2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBnUffG1WJqmxo1AA--.54595S3;
+	Fri, 24 Jul 2026 11:02:31 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgDHFMnF1WJqiAspAw--.55174S2;
+	Fri, 24 Jul 2026 11:02:30 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Don Brace <don.brace@microchip.com>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Kevin Barnett <Kevin.Barnett@pmcs.com>,
+	Webb Scales <webbnh@hp.com>,
+	storagedev@microchip.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH] remoteproc: elf_loader: bound the section header table
-Date: Fri, 24 Jul 2026 11:53:22 +0900
-Message-ID: <20260724025322.2341205-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] scsi: hpsa: destroy resubmit workqueue after unregistering IRQs
+Date: Fri, 24 Jul 2026 03:01:34 +0000
+Message-Id: <20260724030134.16434-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,75 +39,95 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgDHFMnF1WJqiAspAw--.55174S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?VESbfQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI0cbbfRGw8Fl34gGnb4IuD14LrozZrarVxuP5mZ1TiHqNH4
+	UJ3JeypcXgUz+YkVvlCp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxWw45GrWDAryrKFyrXF1kZwc_yoW5tFy8pr
+	Z8Aw15Cay0qF4UK39rZw1UXFy3uFs5JrWUCayxW3srAr98AryUua40kFWjqFyrWrWvyrWa
+	yFWDJas8XFWUAFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-The rproc_elf_sanity_check() only checks the image is big enough to hold
-one section header. But find_table() walks e_shnum of them, and first
-dereferences the header at e_shstrndx to locate the section name table.
-Both fields are u16 and both come from the image, so an e_shstrndx of
-65535 reads about 4 MB past the buffer.
+An IOACCEL command that completes with a retryable error is retried from
+hard-IRQ context through hpsa_retry_cmd(), which calls INIT_WORK() on the
+command and queue_work_on(h->resubmit_wq).  Unlike the rescan, monitor and
+event delayed workers, which are cancelled and self-guarded by
+remove_in_progress before their workqueues are destroyed, resubmit_wq is
+armed from the interrupt completion path and has no such guard.
 
-The commit 9f9967fed9d0 ("soc: qcom: mdt_loader: Ensure we don't read
-past the ELF header") added the same check to the MDT loader, and says
-the header "is sanitized beforehand" under remoteproc. That is what this
-patch makes true.
+hpsa_remove_one() destroys resubmit_wq, together with rescan_ctlr_wq and
+monitor_ctlr_wq, before calling __hpsa_shutdown(), where hpsa_free_irqs()
+unregisters the interrupt handler.  Between the workqueue destruction and
+hpsa_free_irqs() the handler can still fire and call queue_work_on() on
+resubmit_wq.  queue_work_on() refuses new work on a workqueue being torn
+down, dropping the retry with a WARN_ONCE; and once the structure has been
+freed through call_rcu(), a later queue_work_on() may dereference freed
+memory, a potential use-after-free.  The window is reachable because
+scsi_remove_host(), which runs between the two points, can itself generate
+I/O (SYNCHRONIZE CACHE, per the existing comment).
 
-Check e_shoff against the image size first, so the two bounds can use
-size_add() without an e_shoff above SIZE_MAX wrapping on 32-bit. The
-bounds are separate because e_shnum may be zero while find_table() still
-reads the e_shstrndx header.
+Destroy resubmit_wq after __hpsa_shutdown() instead.  This restores the
+ordering from before commit 6636e7f455b3 ("hpsa: Use local workqueues
+instead of system workqueues"), which moved the
+destroy_workqueue(h->resubmit_wq) call in hpsa_remove_one() ahead of the
+controller shutdown; resubmit_wq was originally torn down after
+hpsa_shutdown(), as introduced by commit 080ef1cc7fdf ("hpsa: use
+workqueue to resubmit failed ioaccel commands").
 
-Fixes: 400e64df6b23 ("remoteproc: add framework for controlling remote processors")
+Keeping resubmit_wq alive until after __hpsa_shutdown() is safe.
+Each retry stays associated with its SCSI request until the command is
+completed with scsi_done(); hpsa_remove_one() runs scsi_remove_host()
+first, which tears down each request queue and waits for outstanding
+requests, so it cannot return while retry work (including work that a
+later IOACCEL completion requeues) remains outstanding.  __hpsa_shutdown()
+then masks and frees the interrupts, and free_irq() waits for any handler
+still running on another CPU, so by the time destroy_workqueue() runs on
+resubmit_wq the completion path can no longer queue new work.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 6636e7f455b3 ("hpsa: Use local workqueues instead of system workqueues")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/remoteproc/remoteproc_elf_loader.c | 23 ++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ drivers/scsi/hpsa.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/remoteproc/remoteproc_elf_loader.c b/drivers/remoteproc/remoteproc_elf_loader.c
-index 94177e416047..da3cddbe7d4c 100644
---- a/drivers/remoteproc/remoteproc_elf_loader.c
-+++ b/drivers/remoteproc/remoteproc_elf_loader.c
-@@ -46,8 +46,9 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
- 	struct elf32_hdr *ehdr;
- 	u32 elf_shdr_get_size;
- 	u64 phoff, shoff;
-+	size_t shend;
- 	char class;
--	u16 phnum;
-+	u16 phnum, shnum, shstrndx;
+diff --git a/drivers/scsi/hpsa.c b/drivers/scsi/hpsa.c
+index 3654b12c5d5a..8e039011aeaf 100644
+--- a/drivers/scsi/hpsa.c
++++ b/drivers/scsi/hpsa.c
+@@ -9057,7 +9057,6 @@ static void hpsa_remove_one(struct pci_dev *pdev)
+ 	cancel_delayed_work_sync(&h->rescan_ctlr_work);
+ 	cancel_delayed_work_sync(&h->event_monitor_work);
+ 	destroy_workqueue(h->rescan_ctlr_wq);
+-	destroy_workqueue(h->resubmit_wq);
+ 	destroy_workqueue(h->monitor_ctlr_wq);
  
- 	if (!fw) {
- 		dev_err(dev, "failed to load %s\n", name);
-@@ -90,9 +91,27 @@ int rproc_elf_sanity_check(struct rproc *rproc, const struct firmware *fw)
- 	phoff = elf_hdr_get_e_phoff(class, fw->data);
- 	shoff = elf_hdr_get_e_shoff(class, fw->data);
- 	phnum =  elf_hdr_get_e_phnum(class, fw->data);
-+	shnum = elf_hdr_get_e_shnum(class, fw->data);
-+	shstrndx = elf_hdr_get_e_shstrndx(class, fw->data);
- 	elf_shdr_get_size = elf_size_of_shdr(class);
+ 	hpsa_delete_sas_host(h);
+@@ -9073,6 +9072,7 @@ static void hpsa_remove_one(struct pci_dev *pdev)
+ 	/* includes hpsa_free_irqs - init_one 4 */
+ 	/* includes hpsa_disable_interrupt_mode - pci_init 2 */
+ 	__hpsa_shutdown(pdev);
++	destroy_workqueue(h->resubmit_wq);
  
--	if (fw->size < shoff + elf_shdr_get_size) {
-+	/* keeps shoff in size_t range for the two bounds below */
-+	if (shoff > fw->size) {
-+		dev_err(dev, "Section header table is out of bounds\n");
-+		return -EINVAL;
-+	}
-+
-+	if (shnum) {
-+		shend = size_add(size_mul(elf_shdr_get_size, shnum), shoff);
-+		if (shend > fw->size) {
-+			dev_err(dev, "Section headers are out of bounds\n");
-+			return -EINVAL;
-+		}
-+	}
-+
-+	/* find_table() reads the header at shstrndx even with no sections */
-+	shend = size_add(size_mul(elf_shdr_get_size, (size_t)shstrndx + 1), shoff);
-+	if (shend > fw->size) {
- 		dev_err(dev, "Image is too small\n");
- 		return -EINVAL;
- 	}
+ 	hpsa_free_device_info(h);		/* scan */
+ 
 -- 
-2.43.0
+2.34.1
 
