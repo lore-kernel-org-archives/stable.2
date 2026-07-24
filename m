@@ -1,62 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C5D3B3BF3;
-	Fri, 24 Jul 2026 11:22:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAC842EEB3
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 11:22:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784892170; cv=none; b=pgqLB+CsCGVWM9NkY/3NMbjY6j6/HwjIYzeQN7R0YsNhB7dhWq3/0reUCzem3webal7AEDoVOjTYa2Zy+PB2KGH4U0OW3FwaYlI9fDfGZCE6QlapLzfY2Seq2iaZnW7by4Kr0mT+Q40nj2TSLMTL/C4N4b5VCXEIjr0l73a7JMs=
+	t=1784892172; cv=none; b=RE9OZk8m/v6K9qlER4QkHB9jCs1Yl3l2Ejlnhzr8eZsliGnI1xseb40je+FrjquqKpiOPsAhVk50TVuUfl7eCpFcL47EBsWDiWUCy9z4PQQNtY3FH2jRPjjwJpi5A37YANn09jORIVKCQ2ojmdkhlDDIPcKoJwPfWn/CQJkRX2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784892170; c=relaxed/simple;
-	bh=Pjurzdn5JH+7BE0Xbiwda5DMuAy2DZXw1MsLoiY3Xv0=;
+	s=arc-20240116; t=1784892172; c=relaxed/simple;
+	bh=4ggn0cRWz5TQbffankiQ/K36b51BwmmPt5qrhZvrpB0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FSlQ1rEUrlMkk5YriwzrUjo2m4X5VqbZ43Z9xdOUNp4gtu8XoXrHweedVJDhp3Ls8pL5tP0RMBBdRIi9Szb4SemYFN5TBPEzpNxoAvVgi8+N3ODTu8Glh6EBkj5/h8/T8B4JWvPpwM88C8NcZK8lUbXOjNmcbpGoa9x4EHQIC/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SplOHt4L; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NDVLDaVhwKym9/PUxF+m962RiAiAw5r6mkzHQOPovWnKv8pT7ImegJVA8EkgmdXILcRPi7v0MhQQvKf2nrmQ78yLEpotTX5M0MkmFWAlJAzmwY74Mxi/k6Bq6dDeH3Xr7PGogsTlOjJZutDWKwv1dYke52+L82mWNO5ttaskTw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FsghI99s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SplOHt4L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA57B1F01558;
-	Fri, 24 Jul 2026 11:22:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FsghI99s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21FB1F00A3E;
+	Fri, 24 Jul 2026 11:22:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784892169;
-	bh=a6hXrve42aU+M9zjCTfhBkfLMhDJ3e6a0jynuAyz5GE=;
+	s=k20260515; t=1784892170;
+	bh=XXhBl9ATWh5fA7UYnQivRzspZXHDJjdE4XYaM0h8stA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SplOHt4L55vaYRB3Aue2vh7TLFX238e7IaJTpuQjm73rsLYl1IrxcTG6i+SJbXhGZ
-	 E7TX5YP3YvQgqP/Q+Ftk7Qyr1qVr9IbSjVQeC/XZWtX/EL1AnN1IG5gkXdFU6g21wa
-	 UUL+fGWw46jNQOlcXmXk9+l5vI1H5PD428E2oW3Vfiq7YM27t2Q8H0C/CGYe4wtxSI
-	 g2JCmjWTx8DVrouUYl2kBNOKlRYiBgs+o6YvFuXr6s9W9ln5GL6GtwVXSNf9qOGrWj
-	 VIlCJLDaL0P6CEzMTORVrvV3B/JKoUkHCCGS9mhdJR8pouZa+2SxAQ7tAeM/EA6fHW
-	 ThQYdnpVqbtNw==
+	b=FsghI99ssUd27dEYgG0SowCfpeDbpHge/4YNPTZSD2oBGxDUG2f7pftMBUySf0r70
+	 pPVBVH4Bv4kET9UHHLRMZyMg1Bj0ORn6kSjnh+hLFPh0CfwxmG4Zn1HDtBNLQdBSN/
+	 5EWxvdjsO1lb/hsESqAt9Bk7WtKLy6xRrPx5GdXGhLiASQo+5tTbQZBqvDcykV1/TQ
+	 3m96RG7vuUK75wvSJyhi8D4QLPpiLmZUDJnAkfsNjWzJ48sfMNbpaSSBareJ5HkwxP
+	 fwkeWeWcqqKXeoGWqjCqC3YET99/qKDNF+vZYbzHz0m9wq5vWZvur30YmXtM+6RWSI
+	 dctbJdQ7Pb0+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	netdev@vger.kernel.org,
-	Brian Witte <brianwitte@mailfence.com>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Konstantin Andreev <andreev@swemel.ru>
-Subject: =?UTF-8?q?Re=3A=20=5Bbackport=20request=5D=20=E2=80=9Cnetfilter=3A=20nf=5Ftables=3A=20fix=20reset=20request=20deadlock=E2=80=9D=20to=20LTS=206=2E18=2C=206=2E12?=
-Date: Fri, 24 Jul 2026 07:22:34 -0400
-Message-ID: <20260724105500.stable-0002@kernel.org>
+	kernel-team@android.com,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Moritz Klammler <Moritz.Klammler@ferchau.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Carlos Llamas <cmllamas@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>
+Subject: Re: [PATCH 5.15.y] futex: Prevent lockup in requeue-PI during signal/ timeout wakeup
+Date: Fri, 24 Jul 2026 07:22:35 -0400
+Message-ID: <20260724105500.stable-0003@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <07b303cd-03f1-4d0c-ae58-7439503247a5@swemel.ru>
-References: <07b303cd-03f1-4d0c-ae58-7439503247a5@swemel.ru>
+In-Reply-To: <20260722204748.104836-1-cmllamas@google.com>
+References: <20260722204748.104836-1-cmllamas@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Please consider backporting the following series to LTS 6.18, 6.12
-> (listed in the order of appearance in mainline)
->
-> 779c60a5190c ("netfilter: nft_counter: serialize reset with spinlock")
-> 30c4d7fb59ac ("netfilter: nft_quota: use atomic64_xchg for reset")
-> 7f261bb906bf ("netfilter: nf_tables: revert commit_mutex usage in reset path")
+> During wait-requeue-pi (task A) and requeue-PI (task B) the following
+> race can happen:
+[...]
+> requeue_state = Q_REQUEUE_PI_IGNORE
 
-Queued for 6.12 and 6.18, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
