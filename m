@@ -1,121 +1,123 @@
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3041F435539;
-	Fri, 24 Jul 2026 15:53:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784908400; cv=none; b=NVfVNj/T4mWHwzdECG/v+jqRpGO49sGvvLixzQIhKpKWmFlwQh3Mqu2lneV3biKiS/J6pg+13+oMdnTyOBAE2JpKGe5NHJnUinBrC/eGmXPvYWLw+Trf2FKqw9bDCD1ldMIN6BSDsr8C7ceuDLgPpm682Ss6dWyl389jm9woT/0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784908400; c=relaxed/simple;
-	bh=pvCEZGYyl+wMPhmvDrOLi6RgpLytfqvsOIkCMq+82+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zpu7Ycu49EYK4vHl42Ua5Sb6O0BrH9df3+kdGg+QVpO+CUwLXCS+lmeZW7eFThVMHtWLxgurMILTfABV+dr0VSX3Se+eOYeAAs/Ewi89GoFZLxU5WbhyaMUJ9hsMPMya/E3zOczJEPDuYcOvaqXB27+cjJEZHITvAlUDl7HODgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PCpg4SE7; arc=none smtp.client-ip=91.218.175.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF57643CE44
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 15:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784908453; cv=pass; b=PknaJJMhGq+F8xtK9QfDASJXYrG/iR5XKliRSAiYoSCn+tNigZVVLK+QEF78399wV+9O20uMnMeXZ3qZ46vrvffi+1zM4D5KdkcFz6jHr+jFph4FUvt4M4YbgMFgWNM7a6kD+0srrMuJcNALuJ+u6hZKbHe9nmVYg0HfF44qS1c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784908453; c=relaxed/simple;
+	bh=ENUPkRl79pEx0BA0+dcKj8PnBBniGh5LL6VfEya2P3s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mGl5Zjs+1zA2xHAzZZmfrVC2OBrI/TicMum6Rsn1VgcfVbk/3XJzivFEHLh3gAKKsUsPydLKKcl7NC53tex+cTOfdafkfRpHeWUOCtq69Acug6q2ztCMuRKjABANRpf4cCsqeJ9ZGf1p23SUKTVgn/GC8twH1feFXnKe/fyBZkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=srbVl4Zz; arc=pass smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PCpg4SE7"
-Date: Fri, 24 Jul 2026 08:53:09 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784908396;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=06uCIXsveTpkvDVkD9nXslULujIABwBfAiluqsvUQbg=;
-	b=PCpg4SE7KPs5gD4m8VAbzQQyvn+j9kFS8RF04pCPP14S8Aj6j8jhN19WHt+nEZqTgsK93m
-	bkVm9wC9xdo4U4FGGGLIJ0THEQZSQYbg+2yoZOKvwJPg6c50FzmXsqhkoc9Wszyl+qZNtS
-	kicIpxgWjnJm4AElvDP1xik7717SOyY=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Ridong <ridong.chen@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Davidlohr Bueso <dave@stgolabs.net>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Song Hu <husong@kylinos.cn>, Ridong Chen <chenridong@xiaomi.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH -v4 2/2] mm: vmscan: fix node reclaim ignoring swappiness
- parameter
-Message-ID: <amOKS3Ze3SgmgWMY@linux.dev>
-References: <20260723032434.2016749-1-ridong.chen@linux.dev>
- <20260723032434.2016749-3-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="srbVl4Zz"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-51c01c79467so229321cf.0
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 08:54:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784908449; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HQg0BHtnO/u9h+KrgETUtHMAL+lVn2VntFaugF4yufEmwgGUdEaoY/YtYWW3TFKvkF
+         0K0WfuLBJvWbppw0/BAnpKga2jRzhEdHriokv++SkfK6WX62nZHibyUfKAl0ygv0gGUO
+         o2GhyB1n9ZKHd+HIp+CQVy40mRh+ahMTa4kxoJJETyWa3Q3/DW+iyDrqF3Xt/jM8Ku+0
+         35jximkdCPYBa9ntMuC0iAYxfTVQOm5HvZKiVvnn3GlxehytE8FEzRuoh6+7XCChVBds
+         63jSHz0yP6tMoKceupX04FDZ4FKPOWXQSBpBg4xv8rUctYT/g+3cfaeiKptwo38PWgT5
+         Y/eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RK+0ydkVq3QkQA31vNi6A6UpE/xnLiLeTaBJXi8dr9A=;
+        fh=Q6aQDwJPpjFrW0mGgfiRcLpfKkBcoTlyU3BtJ01kVJ4=;
+        b=fo8tN1jbx+/vLXl71KDdw0A3YSumWDvNzKS/fn8VxL7eTYGcWw36bWg46F954T1GoT
+         urKlv85MuoeeRcJjKfijfUQl+vhrJ61I5Fer6YwHEPa0wxh3f49UpDVtl0yXT+ntSOa2
+         QrTFkDgBrX4wK8VuWnZB7z9BUao1Dr17+nPrszFSblajDU313yf9hHHjCvJyYMNE2P/7
+         mY0vyzu1JC0pKo8+5wBEwUjtl2eGajB5Z9BE3U53z2h5eJBFlO90hx74j4Hzucdc/Zfw
+         25ITg93xMoYsieX+kd2lGMPuiun1x9vjtPD80QbfqULhgC9Q6nu5/tvV2CAbqOiZouDE
+         0eXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784908449; x=1785513249; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RK+0ydkVq3QkQA31vNi6A6UpE/xnLiLeTaBJXi8dr9A=;
+        b=srbVl4ZzU/E1nxYtGqj+bGExVkKlixZCtzb41xrxpsG92JY7Do2LGeKQMMXYnt+vC+
+         e+/7IwPzzpwcUKBZhA6ElBLuyYIMtpqlhxUtQ2c8qQ1AB+WcuJK+nSzV8VFos7mTPlIG
+         TeDQ1LyDK9v5yOsIJnnk4t/aXjUGLU0w9kgVScYYKhtzQ0hBlV6PKVf1m7S9GNr/TwMh
+         zsroybScP03w3WB1tccOcWAxB+kSfsIDVWGOsZi94CccY+bX97zWVXFGHpez1phGyUWS
+         t/FPjrUdrnl/Oxk4Sojjv2XI+GsOD5BQuVJSj2ZndKfXnZcrqdPADnSFUPviUWpjLb1b
+         zLfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784908449; x=1785513249;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RK+0ydkVq3QkQA31vNi6A6UpE/xnLiLeTaBJXi8dr9A=;
+        b=dDFjL5xi+R7IRXHgs0Ad0o5SNgYpZBElbIYewVbyD9NL2d7cuVOorzygtsGrxoqgw9
+         0wS7N1dmBWt3VYYp5QP9P+Yt99VykAHG13WyHTmSC81y7/KVORb/xoQFDGN98YAJ38WN
+         hxR45FajmUnrzaz07Y0UrNK36vij+gLCr7hlUFOER9u0ZujRkzsKFHfQP+af0auatf1R
+         ASvq8QIKz/+wn9vRmoyq9WXIXX2ED/7llQz6gqgym5SkuxBihYtoG+1fNLVL9lpvvJTI
+         NRADybMiHWNUs1GewOlTnQGRXj+i4r4lK2CwXhdzFHsV4U9qOj3dWjphD7Okdk9V/HqS
+         /mKQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrnI0Cdi+W2L16eyEJud2CSI6r7qSu8Y6lJthmfpReSyemvPprgF8EkKZkMp2a8hTLzU4OaZHc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YymKzdUL3uBi3eV3Pjm2dFomPDk059ihjb68ZjSWXdr1GanYxcE
+	6vy9zj+HX+MeF35PRHy7aHh7Gt31loxFkxYPvGzZotXTotx7txiHOs7HduxZ5fd6N2YEmppYjws
+	wUZae8fqQxWh1JmS17u9UY+xsLuYZWPoe7Y8dOlc8
+X-Gm-Gg: AR+sD10liHO78xlXExR9i6/6t7BB8HtkOCDQhCgFhyobz/k0PzplpFqOzZmDHbUSxOZ
+	2n4BG37ZR9IfECFQ3SdzyWjvtLirxssF/gcQOwAeR2bVVxtuO5uqacwuaAHEch2M8hDLsy4896M
+	Z7pdQBhMHksMgDqth+Yegeasum+LPREbmymGUC3rKxXcBR9yv1dDMnfiDDxsk3QovK7QGUp3FQj
+	LPF4FWfxV8Qps/a0UDz8TjdSyRaYu8UUoitOzPAF0QYqLh8Y0bcL+yUUZ4=
+X-Received: by 2002:ac8:7d47:0:b0:51b:ff0a:2048 with SMTP id
+ d75a77b69052e-5285229262bmr9058571cf.3.1784908448716; Fri, 24 Jul 2026
+ 08:54:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723032434.2016749-3-ridong.chen@linux.dev>
-X-Migadu-Flow: FLOW_OUT
+References: <20260718111340.159896-1-linux@yoavmoshe.com> <CABCJKudqGL+BFFcz3qsuoJB6S_OAt-vs2yqePC_=oy+JzmPpVw@mail.gmail.com>
+ <3046e60d-509f-471f-bd15-3ce78c87500b@yoavmoshe.com> <20260721180950.GA3684684@ax162>
+ <180001f5-bddd-4e58-8442-f7ef3c979500@yoavmoshe.com> <CABCJKufhvTxmVm8y7xr4RWWKsoZk0h8UGBnem+F5fknnimaqPA@mail.gmail.com>
+ <7f273a08-b29c-4e15-b340-898b251efe57@yoavmoshe.com> <CABCJKud+GsBVv+XMTsi_4QAaTHo7jXD2Hyvi9wqKd7x3i2xyAg@mail.gmail.com>
+ <415ffa24-a30b-43b2-aa6a-a1cde3bd4ef0@yoavmoshe.com> <CABCJKud9B8vB-J8f0HLHw6EgEKVWzy+Q1PrNxpO_6yCGtEyi8A@mail.gmail.com>
+ <12a46993-82a5-4109-87fa-61b8fcf764aa@yoavmoshe.com>
+In-Reply-To: <12a46993-82a5-4109-87fa-61b8fcf764aa@yoavmoshe.com>
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Fri, 24 Jul 2026 08:53:31 -0700
+X-Gm-Features: AUfX_mwjkzQa0aKFOYVTkcojOnlyLhgENNWtHi2USSUpXbUHkHbBUjoNeksPsS8
+Message-ID: <CABCJKufoQ0fX797M01t7CkTgMEwNCELY1=ptZsxr=jWOR-KAyA@mail.gmail.com>
+Subject: Re: [PATCH v3] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: "Yo'av Moshe" <linux@yoavmoshe.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 23, 2026 at 11:24:34AM +0800, Ridong wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> sc_swappiness() had two separate definitions depending on
-> CONFIG_MEMCG. The !CONFIG_MEMCG variant simply returned
-> vm_swappiness, ignoring the proactive_swappiness value passed
-> through scan_control. This caused the swappiness parameter
-> written to /sys/devices/system/node/nodeX/reclaim to have no
-> effect when CONFIG_MEMCG is disabled.
-> 
-> Fix this by consolidating sc_swappiness() into a single definition
-> that checks sc->proactive_swappiness first, then falls back to
-> mem_cgroup_swappiness() which already handles both CONFIG_MEMCG
-> and !CONFIG_MEMCG.
-> 
-> Before fix (swappiness=max ignored, mostly file pages reclaimed):
-> 
->     # cat /proc/sys/vm/swappiness
->     60
->     # cat /proc/vmstat | grep pgsteal
->     pgsteal_kswapd 0
->     pgsteal_direct 0
->     pgsteal_khugepaged 0
->     pgsteal_proactive 1840
->     pgsteal_anon 25
->     pgsteal_file 1815
->     # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
->     # cat /proc/vmstat | grep pgsteal
->     pgsteal_kswapd 0
->     pgsteal_direct 0
->     pgsteal_khugepaged 0
->     pgsteal_proactive 18013
->     pgsteal_anon 337
->     pgsteal_file 17676
-> 
-> After fix (swappiness=max honored, anon pages reclaimed as expected):
-> 
->     # cat /proc/vmstat | grep pgsteal
->     pgsteal_kswapd 0
->     pgsteal_direct 0
->     pgsteal_khugepaged 0
->     pgsteal_proactive 0
->     pgsteal_anon 0
->     pgsteal_file 0
->     # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
->     # cat /proc/vmstat | grep pgsteal
->     pgsteal_kswapd 0
->     pgsteal_direct 0
->     pgsteal_khugepaged 0
->     pgsteal_proactive 16283
->     pgsteal_anon 16283
->     pgsteal_file 0
-> 
-> Cc: stable@vger.kernel.org # 6.17+
-> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
-> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Acked-by: Qi Zheng <qi.zheng@linux.dev>
-> Tested-by: Song Hu <husong@kylinos.cn>
-> Reviewed-by: Song Hu <husong@kylinos.cn>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+On Thu, Jul 23, 2026 at 12:56=E2=80=AFPM Yo'av Moshe <linux@yoavmoshe.com> =
+wrote:
+>
+> On 2026-07-23 9:21 PM, Sami Tolvanen wrote:
+> > What's the value for the __kcfi_typeid_imx6_suspend symbol in
+> > vmlinux.o? I would expect the hash value to look a bit more random.
+> Checking vmlinux.o with `llvm-readelf -s vmlinux.o` indeed shows:
+>
+>   a488ebfc  0 NOTYPE  WEAK  DEFAULT  ABS __kcfi_typeid_imx6_suspend
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+OK, so the hashes should match. I can only assume that the hash prefix
+doesn't end up getting copied to OCRAM for some reason then, or
+perhaps the source of the copy operation doesn't have relocations
+applied? Either way, if this turns out to be infeasible, I think the
+__nocfi approach is reasonable in this case too.
+
+Sami
