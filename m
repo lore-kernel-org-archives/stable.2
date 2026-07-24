@@ -1,49 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE215446855
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:44:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF43E31ED68
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:44:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784911489; cv=none; b=CI2qu+p5odPFZlI3AlfrSkv4VJLHr+nIlKAo+Gbo1xVzgOHzqKWRGIzUPUNYM6alp8UoQ7ilgselLEuboZtRsOTDYtGve+owmyZbG15cqsc3gaQiH0lmWZzyWnVMZQZQJjBa0IIoGeUWHWJ0C8b0ZAKfj9r52adChU93ZZZQGbc=
+	t=1784911492; cv=none; b=hWExGZV0RMOp4TaGHu1+gDcUVUMQuM1om29LZTlhSy+/O/pxdvA0VFHwe2VwmnM2Ondi0NIlB/nxCh4bbO3qZlD2gC/nKplAjbpsf6ny6lLqIU2Yx5aPeQawoggvm06R5O4pjqQibbOw+4uyIcdZJQFUMJB4je5J32J6wkxiuw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784911489; c=relaxed/simple;
-	bh=ZLuLQm5glBxFk/RBa5Swa5Gxh1Lg38tFukU9qCS80zQ=;
+	s=arc-20240116; t=1784911492; c=relaxed/simple;
+	bh=1lxt3/4gkNYjKWQISxKYTXs+XOJmAZZayoG4QmkmMAA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZMUBvhidqzLkSpyioDfsAKAYMrFewwBZaVMu09ceXg8zLGYJDV+vD5/91C5+Xhu6GiVKhp3r6Cl5ojYgp7GQiRq8Sg8ZQoq94O9jV4ktk1wS5CLRbBlmQvre7JoXn4100InCeZ6R2zLqwBVFu/2WTt7YfvLwO07YKulgQVnAkZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXlG1Iq+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U0r04PAAFTodhfT3Ho8jlG+GIUPGGwS4d8jg9C415RSW6fthSvmrk29yNOzmy/WXjF4tkftPUrh2FxFfhiebgPbVck+AXQXXVPph9lvZUyjT7R9H4criG4o4+cFe8Mp4naFvZB9w9nhNu6KGdaA5g86JUKQyr0N8XKZh3H+Xkio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJAOoB5x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXlG1Iq+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A2A1F000E9;
-	Fri, 24 Jul 2026 16:44:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJAOoB5x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDDF41F00A3D;
+	Fri, 24 Jul 2026 16:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784911486;
-	bh=kax8GwzIcqsHxGZ6s1z1i8z1tk7jrLMi33SMwBIOyFI=;
+	s=k20260515; t=1784911487;
+	bh=IO9A1jSiupPvZ/WdGV4QhFd90+Z0IW0t+B28/gbQ7gs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FXlG1Iq+IA95ozO/g7pCVEcMdruqLv7PChACeOVHEIPX1YezfRrdK95P1r8c/x9zP
-	 18WICmOEf+W2dzbU0gzgnECnC0fFgpWpxBY+0sDdKPf97zdO7zJxOKkTNqMXMV8kNf
-	 LeXxmQyQKmTQYqCIzB2qnm3VLZ5yB8muhlC9rTsDcbwUGRND47tGT0rmKw2t+sokaT
-	 EYCauWUGppOCKHdeJKAqHY9WCUl3PCE8XvfDCJfhh8DPZzixB+DdkkngrC/6qWOipo
-	 TqzvPFShX50sRli6UnZ2qtE5n+gCDagCw3FsLP3Zf6cCBoiOJdjiiQDwNhTHOUW0Mc
-	 c5M8o/gFmfVmA==
+	b=PJAOoB5xFN6TUOtKVq31g8dnZu9BMF8wJXoKtCvAJNv+K0ZFlLX8g/aeI6IQBvT5f
+	 xwG4lUFLCj2GaJf2R1k4RpZDIMfVlQwlbCSILH5gW2Bec5YPFpDiqXSS8/fwCAMfV+
+	 rsi+3gt+qY27tFojaSfHUv9K6aCOy9FuYJN9gAC55UAxFK0U9Mj6oGzcHqofZYR4pj
+	 ITa/WG6Ep7sPT3XPXG8r8hNm1fmog8XAa47zcH6BfopH0A7VZWbgEb59kLP+yDk/Uw
+	 Gf+Rq/wYLWG4dZUrc15SUlN1L1K3qvf68VNN7q573HJy5Ziod/cB+E+sbJl66fEgSU
+	 qF9qOy+BOKzcQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Mike Rapoport (IBM)" <rppt@kernel.org>,
-	David Hildenbrand <david@redhat.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Doug Berger <opendmb@gmail.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Mel Gorman <mgorman@suse.de>,
-	Michal Hocko <mhocko@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
+	Tarun Sahu <tsahu@linux.ibm.com>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Muchun Song <songmuchun@bytedance.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Mike Kravetz <mike.kravetz@oracle.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/3] mm: move most of core MM initialization to mm/mm_init.c
-Date: Fri, 24 Jul 2026 12:44:41 -0400
-Message-ID: <20260724164443.469191-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] mm/vmemmap/devdax: fix kernel crash when probing devdax devices
+Date: Fri, 24 Jul 2026 12:44:42 -0400
+Message-ID: <20260724164443.469191-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072046-viewable-richness-35ef@gregkh>
+In-Reply-To: <20260724164443.469191-1-sashal@kernel.org>
 References: <2026072046-viewable-richness-35ef@gregkh>
+ <20260724164443.469191-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,109 +51,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Mike Rapoport (IBM)" <rppt@kernel.org>
+From: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
 
-[ Upstream commit 9420f89db2dd611c5b436a13e13f74d65ecc3a6a ]
+[ Upstream commit 87a7ae75d7383afa998f57656d1d14e2a730cc47 ]
 
-The bulk of memory management initialization code is spread all over
-mm/page_alloc.c and makes navigating through page allocator functionality
-difficult.
+commit 4917f55b4ef9 ("mm/sparse-vmemmap: improve memory savings for
+compound devmaps") added support for using optimized vmmemap for devdax
+devices.  But how vmemmap mappings are created are architecture specific.
+For example, powerpc with hash translation doesn't have vmemmap mappings
+in init_mm page table instead they are bolted table entries in the
+hardware page table
 
-Move most of the functions marked __init and __meminit to mm/mm_init.c to
-make it better localized and allow some more spare room before
-mm/page_alloc.c reaches 10k lines.
+vmemmap_populate_compound_pages() used by vmemmap optimization code is not
+aware of these architecture-specific mapping.  Hence allow architecture to
+opt for this feature.  I selected architectures supporting
+HUGETLB_PAGE_OPTIMIZE_VMEMMAP option as also supporting this feature.
 
-No functional changes.
+This patch fixes the below crash on ppc64.
 
-Link: https://lkml.kernel.org/r/20230321170513.2401534-4-rppt@kernel.org
-Signed-off-by: Mike Rapoport (IBM) <rppt@kernel.org>
-Acked-by: David Hildenbrand <david@redhat.com>
-Acked-by: Vlastimil Babka <vbabka@suse.cz>
-Cc: Doug Berger <opendmb@gmail.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Mel Gorman <mgorman@suse.de>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+BUG: Unable to handle kernel data access on write at 0xc00c000100400038
+Faulting instruction address: 0xc000000001269d90
+Oops: Kernel access of bad area, sig: 11 [#1]
+LE PAGE_SIZE=64K MMU=Hash SMP NR_CPUS=2048 NUMA pSeries
+Modules linked in:
+CPU: 7 PID: 1 Comm: swapper/0 Not tainted 6.3.0-rc5-150500.34-default+ #2 5c90a668b6bbd142599890245c2fb5de19d7d28a
+Hardware name: IBM,9009-42G POWER9 (raw) 0x4e0202 0xf000005 of:IBM,FW950.40 (VL950_099) hv:phyp pSeries
+NIP:  c000000001269d90 LR: c0000000004c57d4 CTR: 0000000000000000
+REGS: c000000003632c30 TRAP: 0300   Not tainted  (6.3.0-rc5-150500.34-default+)
+MSR:  8000000000009033 <SF,EE,ME,IR,DR,RI,LE>  CR: 24842228  XER: 00000000
+CFAR: c0000000004c57d0 DAR: c00c000100400038 DSISR: 42000000 IRQMASK: 0
+....
+NIP [c000000001269d90] __init_single_page.isra.74+0x14/0x4c
+LR [c0000000004c57d4] __init_zone_device_page+0x44/0xd0
+Call Trace:
+[c000000003632ed0] [c000000003632f60] 0xc000000003632f60 (unreliable)
+[c000000003632f10] [c0000000004c5ca0] memmap_init_zone_device+0x170/0x250
+[c000000003632fe0] [c0000000005575f8] memremap_pages+0x2c8/0x7f0
+[c0000000036330c0] [c000000000557b5c] devm_memremap_pages+0x3c/0xa0
+[c000000003633100] [c000000000d458a8] dev_dax_probe+0x108/0x3e0
+[c0000000036331a0] [c000000000d41430] dax_bus_probe+0xb0/0x140
+[c0000000036331d0] [c000000000cef27c] really_probe+0x19c/0x520
+[c000000003633260] [c000000000cef6b4] __driver_probe_device+0xb4/0x230
+[c0000000036332e0] [c000000000cef888] driver_probe_device+0x58/0x120
+[c000000003633320] [c000000000cefa6c] __device_attach_driver+0x11c/0x1e0
+[c0000000036333a0] [c000000000cebc58] bus_for_each_drv+0xa8/0x130
+[c000000003633400] [c000000000ceefcc] __device_attach+0x15c/0x250
+[c0000000036334a0] [c000000000ced458] bus_probe_device+0x108/0x110
+[c0000000036334f0] [c000000000ce92dc] device_add+0x7fc/0xa10
+[c0000000036335b0] [c000000000d447c8] devm_create_dev_dax+0x1d8/0x530
+[c000000003633640] [c000000000d46b60] __dax_pmem_probe+0x200/0x270
+[c0000000036337b0] [c000000000d46bf0] dax_pmem_probe+0x20/0x70
+[c0000000036337d0] [c000000000d2279c] nvdimm_bus_probe+0xac/0x2b0
+[c000000003633860] [c000000000cef27c] really_probe+0x19c/0x520
+[c0000000036338f0] [c000000000cef6b4] __driver_probe_device+0xb4/0x230
+[c000000003633970] [c000000000cef888] driver_probe_device+0x58/0x120
+[c0000000036339b0] [c000000000cefd08] __driver_attach+0x1d8/0x240
+[c000000003633a30] [c000000000cebb04] bus_for_each_dev+0xb4/0x130
+[c000000003633a90] [c000000000cee564] driver_attach+0x34/0x50
+[c000000003633ab0] [c000000000ced878] bus_add_driver+0x218/0x300
+[c000000003633b40] [c000000000cf1144] driver_register+0xa4/0x1b0
+[c000000003633bb0] [c000000000d21a0c] __nd_driver_register+0x5c/0x100
+[c000000003633c10] [c00000000206a2e8] dax_pmem_init+0x34/0x48
+[c000000003633c30] [c0000000000132d0] do_one_initcall+0x60/0x320
+[c000000003633d00] [c0000000020051b0] kernel_init_freeable+0x360/0x400
+[c000000003633de0] [c000000000013764] kernel_init+0x34/0x1d0
+[c000000003633e50] [c00000000000de14] ret_from_kernel_thread+0x5c/0x64
+
+Link: https://lkml.kernel.org/r/20230411142214.64464-1-aneesh.kumar@linux.ibm.com
+Fixes: 4917f55b4ef9 ("mm/sparse-vmemmap: improve memory savings for compound devmaps")
+Signed-off-by: Aneesh Kumar K.V <aneesh.kumar@linux.ibm.com>
+Reported-by: Tarun Sahu <tsahu@linux.ibm.com>
+Reviewed-by: Joao Martins <joao.m.martins@oracle.com>
+Cc: Muchun Song <songmuchun@bytedance.com>
+Cc: Dan Williams <dan.j.williams@intel.com>
+Cc: Mike Kravetz <mike.kravetz@oracle.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: cd681403a870 ("mm/mm_init: fix uninitialized struct pages for ZONE_DEVICE")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/internal.h   |   4 ++
- mm/mm_init.c    | 154 ++++++++++++++++++++++++++++++++++++++++++++++++
- mm/page_alloc.c | 144 ++------------------------------------------
- 3 files changed, 162 insertions(+), 140 deletions(-)
+ include/linux/mm.h  | 12 ++++++++++++
+ mm/mm_init.c        | 11 -----------
+ mm/sparse-vmemmap.c |  3 +--
+ 3 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 16a4a9aece3043..3e3dfc8e0bc6ab 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -389,6 +389,10 @@ extern void __putback_isolated_page(struct page *page, unsigned int order,
- extern void memblock_free_pages(struct page *page, unsigned long pfn,
- 					unsigned int order);
- extern void __free_pages_core(struct page *page, unsigned int order);
-+void __init_single_page(struct page *page, unsigned long pfn,
-+			unsigned long zone, int nid);
-+void prep_compound_head(struct page *page, unsigned int order);
-+void prep_compound_tail(struct page *head, int tail_idx);
- extern void prep_compound_page(struct page *page, unsigned int order);
- extern void post_alloc_hook(struct page *page, unsigned int order,
- 					gfp_t gfp_flags);
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 0d7b2bd2454a1f..ccfccb45808ab1 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -14,6 +14,9 @@
- #include <linux/notifier.h>
- #include <linux/sched.h>
- #include <linux/mman.h>
-+#include <linux/jiffies.h>
-+#include <linux/memremap.h>
-+#include <linux/page-isolation.h>
- #include "internal.h"
- 
- #ifdef CONFIG_DEBUG_MEMORY_INIT
-@@ -204,3 +207,154 @@ static int __init mm_sysfs_init(void)
- 	return 0;
- }
- postcore_initcall(mm_sysfs_init);
-+
-+#ifdef CONFIG_ZONE_DEVICE
-+static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
-+					  unsigned long zone_idx, int nid,
-+					  struct dev_pagemap *pgmap)
-+{
-+	__init_single_page(page, pfn, zone_idx, nid);
-+
-+	/*
-+	 * Mark page reserved as it will need to wait for onlining
-+	 * phase for it to be fully associated with a zone.
-+	 *
-+	 * We can use the non-atomic __set_bit operation for setting
-+	 * the flag as we are still initializing the pages.
-+	 */
-+	__SetPageReserved(page);
-+
-+	/*
-+	 * ZONE_DEVICE pages union ->lru with a ->pgmap back pointer
-+	 * and zone_device_data.  It is a bug if a ZONE_DEVICE page is
-+	 * ever freed or placed on a driver-private list.
-+	 */
-+	page->pgmap = pgmap;
-+	page->zone_device_data = NULL;
-+
-+	/*
-+	 * ZONE_DEVICE pages are released directly to the driver page allocator
-+	 * which will set the page count to 1 when allocating the page.
-+	 */
-+	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
-+	    pgmap->type == MEMORY_DEVICE_COHERENT)
-+		set_page_count(page, 0);
-+}
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index ac0638a8c38dba..4f0aa81257c585 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3405,6 +3405,18 @@ void vmemmap_populate_print_last(void);
+ void vmemmap_free(unsigned long start, unsigned long end,
+ 		struct vmem_altmap *altmap);
+ #endif
 +
 +#define VMEMMAP_RESERVE_NR	2
 +#ifdef CONFIG_ARCH_WANT_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
 +#define vmemmap_can_optimize(altmap, pgmap)				\
-+	(is_power_of_2(sizeof(struct page)) && !(altmap) &&		\
++	(is_power_of_2(sizeof(struct page)) && (pgmap) && !(altmap) &&	\
 +	 (((pgmap_vmemmap_nr(pgmap) * sizeof(struct page)) >> PAGE_SHIFT) > \
 +	  VMEMMAP_RESERVE_NR))
 +#else
@@ -162,288 +155,45 @@ index 0d7b2bd2454a1f..ccfccb45808ab1 100644
 +	((void)(altmap), (void)(pgmap), false)
 +#endif
 +
-+#define pageblock_migratetype_init_range(start_pfn, nr_pages, migratetype) \
-+do {									\
-+	unsigned long __start = (start_pfn);				\
-+	unsigned long __pfn = pageblock_align(__start);			\
-+	unsigned long __end = __start + (nr_pages);			\
-+									\
-+	for (; __pfn < __end; __pfn += pageblock_nr_pages) {		\
-+		set_pageblock_migratetype(pfn_to_page(__pfn), migratetype); \
-+		if (IS_ALIGNED(__pfn, PAGES_PER_SECTION))			\
-+			cond_resched();					\
-+	}								\
-+} while (0)
-+
-+/*
-+ * With compound page geometry and when struct pages are stored in ram most
-+ * tail pages are reused. Consequently, the amount of unique struct pages to
-+ * initialize is a lot smaller that the total amount of struct pages being
-+ * mapped. This is a paired / mild layering violation with explicit knowledge
-+ * of how the sparse_vmemmap internals handle compound pages in the lack
-+ * of an altmap. See vmemmap_populate_compound_pages().
-+ */
-+static inline unsigned long compound_nr_pages(struct vmem_altmap *altmap,
-+					      struct dev_pagemap *pgmap)
-+{
-+	if (!vmemmap_can_optimize(altmap, pgmap))
-+		return pgmap_vmemmap_nr(pgmap);
-+
-+	return VMEMMAP_RESERVE_NR * (PAGE_SIZE / sizeof(struct page));
-+}
-+
-+static void __ref memmap_init_compound(struct page *head,
-+				       unsigned long head_pfn,
-+				       unsigned long zone_idx, int nid,
-+				       struct dev_pagemap *pgmap,
-+				       unsigned long nr_pages)
-+{
-+	unsigned long pfn, end_pfn = head_pfn + nr_pages;
-+	unsigned int order = pgmap->vmemmap_shift;
-+
-+	__SetPageHead(head);
-+	for (pfn = head_pfn + 1; pfn < end_pfn; pfn++) {
-+		struct page *page = pfn_to_page(pfn);
-+
-+		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
-+		prep_compound_tail(head, pfn - head_pfn);
-+		set_page_count(page, 0);
-+
-+		/*
-+		 * The first tail page stores compound_mapcount_ptr() and
-+		 * compound_order() and the second tail page stores
-+		 * compound_pincount_ptr(). Call prep_compound_head() after
-+		 * the first and second tail pages have been initialized to
-+		 * not have the data overwritten.
-+		 */
-+		if (pfn == head_pfn + 2)
-+			prep_compound_head(head, order);
-+	}
-+}
-+
-+void __ref memmap_init_zone_device(struct zone *zone,
-+				   unsigned long start_pfn,
-+				   unsigned long nr_pages,
-+				   struct dev_pagemap *pgmap)
-+{
-+	unsigned long pfn, end_pfn = start_pfn + nr_pages;
-+	struct pglist_data *pgdat = zone->zone_pgdat;
-+	struct vmem_altmap *altmap = pgmap_altmap(pgmap);
-+	unsigned int pfns_per_compound = pgmap_vmemmap_nr(pgmap);
-+	unsigned long zone_idx = zone_idx(zone);
-+	unsigned long start = jiffies;
-+	int nid = pgdat->node_id;
-+
-+	if (WARN_ON_ONCE(!pgmap || zone_idx != ZONE_DEVICE))
-+		return;
-+
-+	/*
-+	 * The call to memmap_init should have already taken care
-+	 * of the pages reserved for the memmap, so we can just jump to
-+	 * the end of that region and start processing the device pages.
-+	 */
-+	if (altmap) {
-+		start_pfn = altmap->base_pfn + vmem_altmap_offset(altmap);
-+		nr_pages = end_pfn - start_pfn;
-+	}
-+
-+	for (pfn = start_pfn; pfn < end_pfn; pfn += pfns_per_compound) {
-+		struct page *page = pfn_to_page(pfn);
-+
-+		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
-+
-+		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
-+			cond_resched();
-+
-+		if (pfns_per_compound == 1)
-+			continue;
-+
-+		memmap_init_compound(page, pfn, zone_idx, nid, pgmap,
-+				     compound_nr_pages(altmap, pgmap));
-+	}
-+
-+	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE);
-+
-+	pr_debug("%s initialised %lu pages in %ums\n", __func__,
-+		 nr_pages, jiffies_to_msecs(jiffies - start));
-+}
-+#endif
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 93c63b5fad2889..6293719263352e 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -804,7 +804,7 @@ void free_compound_page(struct page *page)
- 	free_the_page(page, compound_order(page));
+ void register_page_bootmem_memmap(unsigned long section_nr, struct page *map,
+ 				  unsigned long nr_pages);
+ 
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index ccfccb45808ab1..5aab6903bddcbe 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -241,17 +241,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
+ 		set_page_count(page, 0);
  }
  
--static void prep_compound_head(struct page *page, unsigned int order)
-+void prep_compound_head(struct page *page, unsigned int order)
- {
- 	set_compound_page_dtor(page, COMPOUND_PAGE_DTOR);
- 	set_compound_order(page, order);
-@@ -812,7 +812,7 @@ static void prep_compound_head(struct page *page, unsigned int order)
- 	atomic_set(compound_pincount_ptr(page), 0);
- }
- 
--static void prep_compound_tail(struct page *head, int tail_idx)
-+void prep_compound_tail(struct page *head, int tail_idx)
- {
- 	struct page *p = head + tail_idx;
- 
-@@ -1658,8 +1658,8 @@ static void free_one_page(struct zone *zone,
- 	spin_unlock_irqrestore(&zone->lock, flags);
- }
- 
--static void __meminit __init_single_page(struct page *page, unsigned long pfn,
--				unsigned long zone, int nid)
-+void __meminit __init_single_page(struct page *page, unsigned long pfn,
-+				  unsigned long zone, int nid)
- {
- 	mm_zero_struct_page(page);
- 	set_page_links(page, zone, nid, pfn);
-@@ -6911,142 +6911,6 @@ void __meminit memmap_init_range(unsigned long size, int nid, unsigned long zone
- 	}
- }
- 
--#ifdef CONFIG_ZONE_DEVICE
--static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
--					  unsigned long zone_idx, int nid,
--					  struct dev_pagemap *pgmap)
--{
--
--	__init_single_page(page, pfn, zone_idx, nid);
--
--	/*
--	 * Mark page reserved as it will need to wait for onlining
--	 * phase for it to be fully associated with a zone.
--	 *
--	 * We can use the non-atomic __set_bit operation for setting
--	 * the flag as we are still initializing the pages.
--	 */
--	__SetPageReserved(page);
--
--	/*
--	 * ZONE_DEVICE pages union ->lru with a ->pgmap back pointer
--	 * and zone_device_data.  It is a bug if a ZONE_DEVICE page is
--	 * ever freed or placed on a driver-private list.
--	 */
--	page->pgmap = pgmap;
--	page->zone_device_data = NULL;
--
--	/*
--	 * Mark the block movable so that blocks are reserved for
--	 * movable at startup. This will force kernel allocations
--	 * to reserve their blocks rather than leaking throughout
--	 * the address space during boot when many long-lived
--	 * kernel allocations are made.
--	 *
--	 * Please note that MEMINIT_HOTPLUG path doesn't clear memmap
--	 * because this is done early in section_activate()
--	 */
--	if (pageblock_aligned(pfn)) {
--		set_pageblock_migratetype(page, MIGRATE_MOVABLE);
--		cond_resched();
--	}
--
--	/*
--	 * ZONE_DEVICE pages are released directly to the driver page allocator
--	 * which will set the page count to 1 when allocating the page.
--	 */
--	if (pgmap->type == MEMORY_DEVICE_PRIVATE ||
--	    pgmap->type == MEMORY_DEVICE_COHERENT)
--		set_page_count(page, 0);
--}
--
--/*
-- * With compound page geometry and when struct pages are stored in ram most
-- * tail pages are reused. Consequently, the amount of unique struct pages to
-- * initialize is a lot smaller that the total amount of struct pages being
-- * mapped. This is a paired / mild layering violation with explicit knowledge
-- * of how the sparse_vmemmap internals handle compound pages in the lack
-- * of an altmap. See vmemmap_populate_compound_pages().
-- */
--static inline unsigned long compound_nr_pages(struct vmem_altmap *altmap,
--					      unsigned long nr_pages)
--{
--	return is_power_of_2(sizeof(struct page)) &&
--		!altmap ? 2 * (PAGE_SIZE / sizeof(struct page)) : nr_pages;
--}
--
--static void __ref memmap_init_compound(struct page *head,
--				       unsigned long head_pfn,
--				       unsigned long zone_idx, int nid,
--				       struct dev_pagemap *pgmap,
--				       unsigned long nr_pages)
--{
--	unsigned long pfn, end_pfn = head_pfn + nr_pages;
--	unsigned int order = pgmap->vmemmap_shift;
--
--	__SetPageHead(head);
--	for (pfn = head_pfn + 1; pfn < end_pfn; pfn++) {
--		struct page *page = pfn_to_page(pfn);
--
--		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
--		prep_compound_tail(head, pfn - head_pfn);
--		set_page_count(page, 0);
--
--		/*
--		 * The first tail page stores compound_mapcount_ptr() and
--		 * compound_order() and the second tail page stores
--		 * compound_pincount_ptr(). Call prep_compound_head() after
--		 * the first and second tail pages have been initialized to
--		 * not have the data overwritten.
--		 */
--		if (pfn == head_pfn + 2)
--			prep_compound_head(head, order);
--	}
--}
--
--void __ref memmap_init_zone_device(struct zone *zone,
--				   unsigned long start_pfn,
--				   unsigned long nr_pages,
--				   struct dev_pagemap *pgmap)
--{
--	unsigned long pfn, end_pfn = start_pfn + nr_pages;
--	struct pglist_data *pgdat = zone->zone_pgdat;
--	struct vmem_altmap *altmap = pgmap_altmap(pgmap);
--	unsigned int pfns_per_compound = pgmap_vmemmap_nr(pgmap);
--	unsigned long zone_idx = zone_idx(zone);
--	unsigned long start = jiffies;
--	int nid = pgdat->node_id;
--
--	if (WARN_ON_ONCE(!pgmap || zone_idx != ZONE_DEVICE))
--		return;
--
--	/*
--	 * The call to memmap_init should have already taken care
--	 * of the pages reserved for the memmap, so we can just jump to
--	 * the end of that region and start processing the device pages.
--	 */
--	if (altmap) {
--		start_pfn = altmap->base_pfn + vmem_altmap_offset(altmap);
--		nr_pages = end_pfn - start_pfn;
--	}
--
--	for (pfn = start_pfn; pfn < end_pfn; pfn += pfns_per_compound) {
--		struct page *page = pfn_to_page(pfn);
--
--		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
--
--		if (pfns_per_compound == 1)
--			continue;
--
--		memmap_init_compound(page, pfn, zone_idx, nid, pgmap,
--				     compound_nr_pages(altmap, pfns_per_compound));
--	}
--
--	pr_info("%s initialised %lu pages in %ums\n", __func__,
--		nr_pages, jiffies_to_msecs(jiffies - start));
--}
--
+-#define VMEMMAP_RESERVE_NR	2
+-#ifdef CONFIG_ARCH_WANT_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+-#define vmemmap_can_optimize(altmap, pgmap)				\
+-	(is_power_of_2(sizeof(struct page)) && !(altmap) &&		\
+-	 (((pgmap_vmemmap_nr(pgmap) * sizeof(struct page)) >> PAGE_SHIFT) > \
+-	  VMEMMAP_RESERVE_NR))
+-#else
+-#define vmemmap_can_optimize(altmap, pgmap)	\
+-	((void)(altmap), (void)(pgmap), false)
 -#endif
- static void __meminit zone_init_free_lists(struct zone *zone)
- {
- 	unsigned int order, t;
+-
+ #define pageblock_migratetype_init_range(start_pfn, nr_pages, migratetype) \
+ do {									\
+ 	unsigned long __start = (start_pfn);				\
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index f89dbaa05eef3e..28929fdf5d3bca 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -385,8 +385,7 @@ struct page * __meminit __populate_section_memmap(unsigned long pfn,
+ 		!IS_ALIGNED(nr_pages, PAGES_PER_SUBSECTION)))
+ 		return NULL;
+ 
+-	if (is_power_of_2(sizeof(struct page)) &&
+-	    pgmap && pgmap_vmemmap_nr(pgmap) > 1 && !altmap)
++	if (vmemmap_can_optimize(altmap, pgmap))
+ 		r = vmemmap_populate_compound_pages(pfn, start, end, nid, pgmap);
+ 	else
+ 		r = vmemmap_populate(start, end, nid, altmap);
 -- 
 2.53.0
 
