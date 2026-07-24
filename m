@@ -1,195 +1,230 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC370417D64;
-	Fri, 24 Jul 2026 13:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784900941; cv=fail; b=ZenVEsS3Vso4ASrgHwk+Yr4ZZDnjqd3FjyfkKND+P+J4rt0jNh4IBVszU7moAJJbdLNBQ0fV+DIPqa+GQgHT9iyyWb0RCzV0LdcHCWyhgiklQ4/A7pgK+XxZS05Om/Nke4hNyZ12aS06qP1O1XI8QbrHQFGU31gz3tflZ8gam8E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784900941; c=relaxed/simple;
-	bh=o+4SjmQCZXr7jX3/ywiHiHAnX53CIPL7CCe/5UgC6PA=;
-	h=To:Cc:Subject:From:In-Reply-To:Message-ID:References:Date:
-	 Content-Type:MIME-Version; b=U+kv9JRBf5DnzICHxqwQGxBJS5O3b9QujtGZqeTPAVS0czlhkbqs5g4nTRFm0Wt76eWKltr3tJ1g9edNEn6xhKPy3hoZfS2IodX1UdYMt9NmBtVBITO7J/RsMVp/ehc6nglGQpdrRSktEdijmXRhmUNuDWGl6HiSUZ8J5M4hKNw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=FuGROH65; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=ei/NNcUH; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CDD2931CF
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 14:00:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784901659; cv=none; b=BieOnPWQqIEpQk6wa++KP2WAf/euzSwPiLMuMz49Jz7Y2ca5laFyNm90W+kHirkOyI3BlL1snXsYvcOOCV+V5G3tqU7eceWClqfk3YDt1y3aaIyUbQFrZ1T7CrHL9FZ9ldmcadu1DMU7mi80WyzsrY7KHB6jM3c9Uhi8Yp18arI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784901659; c=relaxed/simple;
+	bh=ae02kDJUi5X34KIYSffR579iWjBAySTALBq6UhL00Sw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C8zr+H0j6s3Zp95F7eoDRoPiNeWFIdl9txHSxoHy3z0D1rsEvqzq9JjRRdNo7PyFz5T9r1f20MVeWWevz1r2KBxWRyXt8S7XeyCF53G0a6vpVUb6OSwsXC5p/X0AFod5MkdDbiAZ/mNyUiseIdMO5UX/PZDFMH9EXejXdXN9OQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5OzzveE; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="FuGROH65";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="ei/NNcUH"
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66OCu0KE3393464;
-	Fri, 24 Jul 2026 13:48:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=corp-2025-04-25; bh=V49tfHkllca/6trNDF
-	Ho6U/Dnij+wqFBejZkWlrX54Q=; b=FuGROH65QzWkm/ehQ5NaJV/RiM4l7qB47b
-	GUz0fIBu9REObtI6V7iTu1sgv0S6PEJfHxz+LHBhtS1yFIYvFe6j/NjA2TKamoeT
-	WyjkPoteO8NWSl4dzaco/clgsAgKUnTd4WCrdg3nzEzoV+LwMeVOv62OfcyZHqn3
-	CJw+ezfFWB7NBaEyZafjCCacnFLg9WkUSll4kFwt7vLokLxgjmSLpfdp/Jthdq4E
-	/mfqzkb3jUI/qv9RYwk2h9tAaIu/BQay0QCRuZDie+b+dRMaDDNrKiXpg365F2rs
-	iy77BtjarGjxersJwD2+uhUIUFCDutmcGrI0ipfF23DmGHSnZI3A==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fg1n3rhuk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 24 Jul 2026 13:48:51 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 66ODmcWu003321;
-	Fri, 24 Jul 2026 13:48:50 GMT
-Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012047.outbound.protection.outlook.com [52.101.43.47])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4ffyxt8mc4-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 24 Jul 2026 13:48:50 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WvrfnImgXRSFj85F5sVCP5CJAeuf5knKIgebtLlWL15Ej+j72Z/sU/iMcQp7+rnV90vONzNiCtVxxegbIzbr6KMZr4+8XcHyZGYNPTwOaD9l4zNFRq89tclj3DbxbX52CKrn/UuU9SWUzV0cf7VCV44yGTUY6/RsQRka8iOuedgCLwNjiRKpVeUuqcHF382ezhPSM84OD1AC/8u0XXpPB3ais8Y0eBuoCv47GcxymBOus7CiiOZ+DqhADmBc9uAfIOB5oiuwbugrzH83ao6/5oAV5C38rfgagvH5lF4OCjg8LlHkqNmQEX1Z61dSwHKelxHVRv3rUMCQ+RDc1lUeTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V49tfHkllca/6trNDFHo6U/Dnij+wqFBejZkWlrX54Q=;
- b=YMNK7exOodjOB2CwnJsF3w75cBKiJMxeLPBldGWgOqLvbq3u0h0oeLhCWuEsKbSbe/F3dw1oAOATbq0F4FkCgBDK2SBhiNX6IQMX4S2vrmz8Lr1fUkAzTry8GDxqhaeiWQy2QG5OnB0EJXr9C6hIcT7kXrBSY3VTQceVQIlKZEImklFSbDjI+g4kCMHyyIgKxAu9JBXjmdehfB0cIbfDET4Czqcjtl3IxcKrpCZuGTHw8gD9wf7H/BPJzZMIixv9i5FfXhOgC7YJRehN/lebkJ9r2Ljkqpblc76UGtCgzZgbnCD9PwI+GPRBg5ctS9XZQs7Lm8F03yc6SG35Pe9p5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5OzzveE"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84830c774a0so402513b3a.1
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 07:00:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V49tfHkllca/6trNDFHo6U/Dnij+wqFBejZkWlrX54Q=;
- b=ei/NNcUHWRKZLtAI1sk0MX7j75IE+h1yRIqLSE7UuuHGyAEombXMGdNddvBMMAkyrt5UWCaNwoXZEIKSyN8hV3lZWfyRDCUR1KN12XLupB6EZ5OGtsUi9Ot6auek6AN/6HEkHokRQjKiOA65oi4/pHYTvDbRSwY7TcAD9pUyAz4=
-Received: from CH0PR10MB5338.namprd10.prod.outlook.com (2603:10b6:610:cb::8)
- by MN6PR10MB7421.namprd10.prod.outlook.com (2603:10b6:208:46e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 13:48:26 +0000
-Received: from CH0PR10MB5338.namprd10.prod.outlook.com
- ([fe80::e525:dd71:b002:6ad5]) by CH0PR10MB5338.namprd10.prod.outlook.com
- ([fe80::e525:dd71:b002:6ad5%6]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 13:48:26 +0000
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>,
-        "Martin K. Petersen"
- <martin.petersen@oracle.com>,
-        Kanchan Joshi <joshi.k@samsung.com>,
-        Anuj
- Gupta <anuj20.g@samsung.com>,
-        Christian Brauner <brauner@kernel.org>,
-        "Darrick J. Wong" <djwong@kernel.org>, linux-block@vger.kernel.org,
-        linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH 4/4] iomap: don't free integrity payload that doesn't exist
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-In-Reply-To: <20260724051001.202741-5-hch@lst.de> (Christoph Hellwig's message
-	of "Fri, 24 Jul 2026 07:09:44 +0200")
-Organization: Oracle Corporation
-Message-ID: <yq1a4rg33eu.fsf@ca-mkp.ca.oracle.com>
-References: <20260724051001.202741-1-hch@lst.de>
-	<20260724051001.202741-5-hch@lst.de>
-Date: Fri, 24 Jul 2026 09:48:24 -0400
-Content-Type: text/plain
-X-ClientProxiedBy: YQBPR0101CA0185.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:f::28) To CH0PR10MB5338.namprd10.prod.outlook.com
- (2603:10b6:610:cb::8)
+        d=gmail.com; s=20251104; t=1784901654; x=1785506454; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7ODrAnyB1NwavZ7GNr/hLSAQWJ7QusMhucYn8aavlns=;
+        b=n5OzzveEifSSRfZAJ4LYeROOYZ1/ADNswpVx/blRBUOtma2rwHvKP8TuBGGkU629gQ
+         dWaRGAJgjHU5ER/vcz9Yz7QtW4nLaL0bau4iZkKxFC4GoTWXZO57p1btL2JszpoNoFWc
+         t1E5d2e6pRbGcKoPIPV1lWlpN42n/1Lus9gohHsogy1z66uKns/SeIYNZostHejME4gi
+         79nlkEpWvDD5vsuVQ7dngeKlCMv3MtBz1SfSlE7qU4jUOP0aqzHSL5uqxJlUjwwMvJcj
+         92JwIVyaLak8khFYJ7GNhHvaQ4l56sHgcp927gHBrlNZk82kRFiRSJE0joz22a2ST/Et
+         yi7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784901654; x=1785506454;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7ODrAnyB1NwavZ7GNr/hLSAQWJ7QusMhucYn8aavlns=;
+        b=gtXfC/Ql8EFHk2rWiTigEifEeDKHzVg55+HYh1IJBUNyYCt/OxHISlv/dLFMzlYA/2
+         t3CVzo4jIFNaoyUfvWgtycyzsG41d+mahcbwSquI5GMGt5l5ARxDvpkBbofWJVOql1z8
+         pouJvDMIs5abJcT5yAuWERhYHM9QP0vTL1UOIyBglqvj+PfUN2eUa3nBsXQDCh84WOFy
+         yJp9FY/zmMqQHYzOVo9oxtKo2yc51HGmn5CZlxSRehsGrd5MpiX1HL/uZKFTseBB08zu
+         eYVWCoOAG7nHW/ebGIhwVli5s1QWyrmHUnECCCxJ/O63YzsM5zOqkdNtjASEHND7eu0F
+         a9EA==
+X-Forwarded-Encrypted: i=1; AHgh+RpKtrNZ0gHwjihw+8sYLOcFh9wQJZRpeZSrl3tZdmI1oVS7sPvAodrLOVsHScu9bR0UCQWwBq0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw26V1D/4O5WTNQuukyxIPEULouVep/o2bhk2UxD29vm3JBtEae
+	v1tLuJMk1THY3aIzP7QLkvkNRD4+uvs7cGbPOi/VvjRBFgWVSY3RbcE0
+X-Gm-Gg: AR+sD11SUlW0X2LTHUpl/M0V9iYHLprrRlSSaodwrpSNU3OopN72TZVECiy5Z1T6KYO
+	fKRQfAPHvIxi8ShxsoLlBuPpea0WhkwPA0AFSgs9rdSFaNxGf1x6aRJbuSxZ1z66Bbb6iqAgr/m
+	J63lneTZjjizXCj9brswl/sSffynmvBneSAfy2LJitayCamvg49Di5+W4UqreXOLXM/oop5CMa4
+	LFhF/PlHXPiRJ7AjmYZGMzHNjClLQycXeIdD0KzwiEZ+YaXZbOFlopntXAjj7A+RC0iLcLytMOP
+	LoQVaRId+sWWPSfNCUL7rA/GqoTTeGk762MS2D8PRHZM1qZItBuAiBiTMY1SDn2MOSArIWNx4T9
+	xDZ/ak1Y+Ad8YMxuGNiyjWjRdXEmwgqFHklAZnF6okfRQP8O/PpFaq9Wz7qVwUpQh9CvQejjRZ+
+	d62Xpdgj3N
+X-Received: by 2002:a05:6a00:140e:b0:84e:24f:2667 with SMTP id d2e1a72fcca58-84e2b7fda3cmr8601199b3a.8.1784901653562;
+        Fri, 24 Jul 2026 07:00:53 -0700 (PDT)
+Received: from localhost ([2402:e280:3e0d:544:91b3:77c4:f31d:d706])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17237721sm4861336b3a.10.2026.07.24.07.00.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 07:00:52 -0700 (PDT)
+From: Vaibhav Nagare <nagarevaibhav@gmail.com>
+X-Google-Original-From: Vaibhav Nagare <vnagare@redhat.com>
+To: horms@kernel.org,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com
+Cc: andrew+netdev@lunn.ch,
+	matvey.kovalev@ispras.ru,
+	Pavel.Zhigulin@kaspersky.com,
+	aelior@marvell.com,
+	manishc@marvell.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vaibhav Nagare <vnagare@redhat.com>
+Subject: [PATCH net v2] qede: Fix NULL pointer dereference in TPA fragment processing
+Date: Fri, 24 Jul 2026 19:30:44 +0530
+Message-ID: <20260724140044.1055918-1-vnagare@redhat.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260716084746.212045-1-horms@kernel.org>
+References: <20260716084746.212045-1-horms@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR10MB5338:EE_|MN6PR10MB7421:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86f91660-210e-4a37-f118-08dee98a3c85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	lsTaGrP9Jx1EY7qRBGly/RaTyVEgy+D/VPYUQg8q9hivO8+8H1bY3U75PV1AVoubGiTg5llxGUQELEBXccY4am3ytuSEI7862NI+x/mKILl3/P+seupmk4t1o8jeS6pJtksP017JIXyn1b0mNZfVly/NHEMAKggko2BKjg4Ui+CeqKHUjcqoqFfmp9KKHYZhJ9U5xDic20GK/SIFcF3xAmjU5kn818MKDtdzvR5+M4Y25RzRen1yuPJcaQHNqctFAuC5wzG+pgyTJAQ3PDzFNy75cnB0Qq/ZpH2B9mYYMFoQfs1EtWsORi1AGUfP3p6GvLVJ2+MsBNNa1CoFrotltvS5ibpFLabX6Obddz6PIsSpkNrplB7O1Tm9vhRzLT649VZ7bpDZs1tkr2pNphkRCyQUcBDAOAFz2f7IP5wVrRGUt0xRs5H1ZJxQk9CeOk/iuKEZ9Pa0B64BMNTSFlbGNGYDF6agyHO/deFqLcFLMQsC/WwoDCHCBZhwqejt7dMCurFehnhW4jTOHVG072aKy39d4UOQhi5Owf8IsCvtxL07LLd+R75RFaB5O2XKAv/Y9Ahe6+xZm/pu7t0KH5Rtljw8s1dH0v13+00eVGL1Ik/eXmrVKbbJxtZPaZLNNeCeg33AXbE4uzkK9JA2gBHHAJq4UMfWrB1W7iBJKoglTBQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR10MB5338.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?92AWOMVKnMNS3Y8VRipejvrE0dhDP47hCReqX48DliBvMGRUI7lkAMUg8i3N?=
- =?us-ascii?Q?vO8gup/QvN2JNv3U36AJuNyU0wJNwON+Bl9alcr6UjInIhaXwxXFFD+0NPU7?=
- =?us-ascii?Q?/ydp7mGkS0LZ5yiFZprHrFpI1/llFglkQWAdbQ3YSK75PI4xFQzD+YEnbmE8?=
- =?us-ascii?Q?undryPDaEDmU2VpRO6QbGIhb5p89JLreRNbHeL2/r/337aZtgi6g2KZ38TUa?=
- =?us-ascii?Q?iyGQWDPjYxBiA2iRWnAEI6i/+YwgpX73Qb/62dSwAa7yrRo8gbyjeEhO3WwP?=
- =?us-ascii?Q?9kgk51pTwjaskAUpHC79kZ1IIYhk7LY+gZcjL1uDeVJRU24Xc8Z2qTHN6cP/?=
- =?us-ascii?Q?+pQwGugEWY7Z0c8kSpfl1rNA0q+jIulzEMnfTXgd2bsrB8vA0PdASSq4Ht1D?=
- =?us-ascii?Q?/fXxRDMo87sDwzg8vBfiCqkGa6djif7fvhQS74ebDeAnjyIaXBZlncKNfeYl?=
- =?us-ascii?Q?ewRSxHyHUT7Umf9msMjCCC/seUTyxM2DwCcutgmVoL9g3Pe8lkyBDHgZTlOt?=
- =?us-ascii?Q?Kaj8C/WLCDIxqnQw2yM5HqsSuNHJ8e9drr6qJOqKZt4B9JFyLBASrwnxI+VR?=
- =?us-ascii?Q?7Ri3STJkc4C8yFsqYVW2e1ylqwVtZusB2Lk5CQig7shk6UUutc/tPsYrEHt8?=
- =?us-ascii?Q?VJXCshIUYzTmpu9+CLXWw+TmNFSnA10sbINSbIZ+55Q8vIzVYRjkK9c4ia5E?=
- =?us-ascii?Q?TQC3pzUg3p9NcbgPt37oc/TON6ogqGPivovH115Z0YpLsSyeTEXrr+kjvn81?=
- =?us-ascii?Q?zC3bRlC6U/nWJVyy1Y8uNaN4O7HubSOF0CCgnqFsRpEQ7wddtj4bb+rO6mef?=
- =?us-ascii?Q?V0hgt+O5QFI0fvhAOGkEu1oUNTIlq91Yt2IXrsUmSGF8+rFILhrL0nL3k7UB?=
- =?us-ascii?Q?4upgeje4nqUSfAJO4ZJrxs3JWc7Nfl7r5hWzuNCk4p4V/Z2n1Hke8NEvTP+N?=
- =?us-ascii?Q?7685yTRV1y+ZZU2CyvuRjiAbWhwKVA/k2rRp6I/IerCGGHAyvMuO6o4HWCkq?=
- =?us-ascii?Q?/1C2elrsaxtxMW56/kfHfV4YadfW8GtQFlv1cwOXu4n3WuwMvIcEOYCAulRA?=
- =?us-ascii?Q?01ND9qHU2t6ZVSBYo+1H1aRTIFl3DnkYHH06GUR7qYlIUJ8lA3QIFbZMAeQ5?=
- =?us-ascii?Q?nlvdYxxP9VR5xViVbzKD71mvBs4HMxgxnev2b5q6QKxTxFdWnbS4XkAvcm+G?=
- =?us-ascii?Q?v5pwLy3X9NLqZKx+2IgtJcngBErLvsJjst1z3NVRnYKcpxssaGsbLDrz76vf?=
- =?us-ascii?Q?QEDlTSV0V842ZvsVnk29hH2JxZt7UkOPx7t5l0YE5BjLxE09mVXSTlshgtJ+?=
- =?us-ascii?Q?IMFRpB2MQu3KQr5W+2YzUsCjj0Of/g7oLrmQCFYxUEAhxBFzmUzwrbIE8yHV?=
- =?us-ascii?Q?hBpITYeOudaa6OUtsm65WuKXT2zGkruy4DrwpdeA0l7XlsGPXlMgrhyBU9JV?=
- =?us-ascii?Q?UoZNeYhFc769OqFXIR7mwboFCoRezk5nH68HR5w6hNQKn1hF6uPRwP4VdFHV?=
- =?us-ascii?Q?3bF6EyOK6naSuZK0Tp0D8QoME7nQCCRpHWVvHRSn520hH1JPRpmvx6hDfOQD?=
- =?us-ascii?Q?vufWgpcrok8UsCQ9qFbaEqJuBQmRutuyTbGFdp2IYMFYfuo7vLSBXHilQHO0?=
- =?us-ascii?Q?8F16wFa3JQVu0v2A1B8AmKZkxix/XK0cdn+qeHRI5bQ27ii2OaRhJo/YbuGy?=
- =?us-ascii?Q?ecZWALu0CpXhXt0Y8jwG9pGFxZpwe3jJYph0o2N1tA2yWC6le6SkX4KiIHgA?=
- =?us-ascii?Q?iyHqzDxto/r3MAkfgdy0iEA3SenL25o=3D?=
-X-Exchange-RoutingPolicyChecked:
-	aOHVFsvy4Zxqo8UpiHgvpKxfpxjZncN6KztfYBAEMgwNs7mHJofGnCxM/72BE/AE5DuUidrZjYKovaEbfAWk9ycnn1iTPNbvL04T0p3jMdYZlPGx2/MqoLrHTcUen01fyd0HxQT5Xb058IB6zMvVQe/n+VLJO6xP5iK37CuyM14gHtUfufTXuburtdBPa/uP11ijTnbU/femzu6KvRrm25167/ZfGz/0ZJvj9/81cy6v3pcnOGYuoMccZobtQKHVxAJh6QcccKr4f1DhlHRBbx/vMW94yREGxp9EiPtZLIjiCt+SUFBsjr3u/D3OIi6vifcwKBTifHwC3Ld5uEy6RQ==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	69nrLPZqhELC6lj+I/YMcsj7vUA/rYva35aBJkrlNSxo2a1J8ueuOpM2Eugl8PqXn7X1hCz+0Qsf5PQ63iLzqLvBOVxEEZNO+hHdUiTPOz6m9xDV1GYnxxZW4RHxXy/jDIaEu9mCnBKbB7CrXh2aLDr2Hhi/Eog30HYVLOL/ZRd1PDScqYTp4Ao46sTaIfna/vXuJLaN395bwOCVh6BMQ18IXAQ6hnrDPIkeVTp22TRcyecie1MfC61LlgylMrK+yjnv8oYwbG2z04azDI4++HLqFQ7/672xAA9DdtnaXffl2Kgn1UIRQ+uTdWVxubrCYUfJuK0Z037Sij/G+lH1sGtOTxb0+dZkSD1TpYEVfZP3KRVyClj4AYqXfs+2zTDRubryAYWqLkcCMVla0ymGrVI0tjURtcrrsUywobz9QI9err4jGyLJuXj6QhBQnYsnQ8NkYriIfANQWektc2+KysoFvrDsoiEXg827FcaVngT7pJhxffSttxsNeU/6sjvInhUcULuYfdpNC+qSROAZR6lBuzXgYtncEEGxrrkmSFn/HlTqpB5yHDzNXbIsfY18N10b4+MiFuQ5i5a+5uTZs1BrDDguTFsi8dNeE9H9vS0=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86f91660-210e-4a37-f118-08dee98a3c85
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR10MB5338.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 13:48:26.4406
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o0gNE8HYj92CmsYNRZVLTJlTy4DATA3MnsENT9xt1V1xxq0udiwhX8RurKSW6udEvaFfntp1o1MGQMW8tfubUz9DYeUuAtlK2OM0LQYofCY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR10MB7421
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-24_03,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 mlxscore=0 malwarescore=0
- adultscore=0 bulkscore=0 mlxlogscore=587 phishscore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.19.0-2606160000
- definitions=main-2607240125
-X-Proofpoint-GUID: QWE1uJYAg4wyHVAkE0WaSnaqq7W5X0sl
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDEyNSBTYWx0ZWRfX0NcYi1wlX+HV
- S1GMsiPaNg3lNwwHedpNbKtDxZ4hE3ckgR6MPzIE2MznxCzl3o4QzhgPiL+8tOxPQ9xzpODUzew
- QT3uETil9wwcewGK5WPxHTjUs7DDvjkGRMlsk/I50RsrWlbjEl/x
-X-Proofpoint-ORIG-GUID: QWE1uJYAg4wyHVAkE0WaSnaqq7W5X0sl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDEyNSBTYWx0ZWRfX8U6z6W5gBenl
- ORjxxo0nmldC5cuVy3Isth5BAWbEt17vQF9gODQnVh3CvzWWOA+FKcuByvAb1nNPZIg2orMqsb6
- Va6RTFZUSnOM93vU79Ie1CHIxYrrnWmOzTRIZBszgL1I7PtQW3jqGrdlWeNbJ8n1xB5bk35ZHqY
- euzRK7MWMOA5B4DbudYu6GxdxtDA51K5kwiFOPyD3CZnhhDKd/4QfqVK84+PZu+xglOomwo8YQy
- RTJOCcl6lT5CBzpqS/Oi8vhw5IEF5UyT5QVFdvIPAR768q2YNltjvGmHaZ7n/EekVZIc6cLRB7b
- dAwPobn5ebw6h5MCqdRc9apt/Fx5ebguambD56FtT7DvoFOkoevHm8ZsxMire1e6VKL2xtgt7U9
- KuRI6XLnrxuHaXsVxDazD5eVx9Luy6mV9a171Nw0DF8j98K0wJN8bP6rmWi/aKrDidDnKx6n38P
- Qek4PpQb41iKFkpHWOFJVDFGZDLLkOXYfn7GnALI=
-X-Authority-Analysis: v=2.4 cv=PryjqQM3 c=1 sm=1 tr=0 ts=6a636d43 b=1 cx=c_pps
- a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=RAioF0-LDSMA:10
- a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=o5oIOnhZENCTenyL_yNV:22 a=DZ7bR52ir9F2bcCfmk4A:9 a=zZCYzV9kfG8A:10
- a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12114
+Content-Transfer-Encoding: 8bit
 
+  Under memory pressure, the qede driver encounters NULL pointer
+  dereferences when processing TPA continuation fragments because:
+  1. qede_fill_frag_skb() does not validate the page pointer before use
+  2. qede_tpa_end() checks error state AFTER calling qede_fill_frag_skb()
 
-Christoph,
+  The crash occurs when:
+  1. System experiences memory pressure (GFP_ATOMIC allocations fail)
+  2. qede_alloc_rx_buffer() returns -ENOMEM, leaving sw_rx_data->data NULL
+  3. qede_tpa_start() sets QEDE_AGG_STATE_ERROR on SKB allocation failure
+  4. Hardware delivers TPA_CONT and TPA_END events for this aggregation
+  5. qede_tpa_end() calls qede_fill_frag_skb() before checking error state
+  6. qede_fill_frag_skb() accesses NULL pointer in skb_fill_page_desc()
+  7. Kernel panics with NULL pointer dereference
 
-> fs_bio_integrity_alloc might not allocate a bio integrity payload if PI
-> verification is disabled on the block device.  Check for that case before
-> calling fs_bio_integirty_free in iomap_bio_read_folio_range_sync to
-                 ^^^^^^^^^
-Nit: Typo.
+Example crash from production system:
+  BUG: unable to handle kernel NULL pointer dereference at 0x8
+  RIP: qede_fill_frag_skb+0x96/0x430 [qede]
+  Call Trace:
+    qede_rx_int+0xb06/0x1de0
+    qede_poll+0x2f4/0x6c0
+    __napi_poll+0x2d/0x130
 
+Observed on HPE Synergy 480 Gen11 running RHEL 8.10
+(4.18.0-553.134.1.el8_10.x86_64), but the vulnerable code path
+exists in mainline.
+
+Fix by:
+1. Adding NULL page validation in qede_fill_frag_skb() before dereferencing
+2. Checking error state EARLY in qede_tpa_end() before processing fragments
+3. Checking error state in qede_tpa_cont() to skip fragment processing
+
+This allows the system to survive memory pressure by dropping packets
+instead of crashing.
+
+Fixes: 55482edc25f0 ("qede: Add slowpath/fastpath support and enable hardware GRO")
+Cc: stable@vger.kernel.org
+
+Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+
+  v2: Addressed AI review feedback from Simon Horman:
+    - Added net_ratelimit() to prevent printk storm in NAPI fast path
+    - Fixed NULL buffer recycling: check if page is valid before recycling,
+      otherwise just consume the BD to prevent NULL from re-entering the ring
+    - Added proper cleanup in qede_tpa_end() before early exit to prevent
+      memory leaks and ring desynchronization (DMA unmap + BD recycling)
+
+  v1: https://lore.kernel.org/netdev/20260709044704.141507-1-vnagare@redhat.com/
+---
+ drivers/net/ethernet/qlogic/qede/qede_fp.c | 39 ++++++++++++++++++++--
+ 1 file changed, 36 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/qlogic/qede/qede_fp.c b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+index 33e18bb69774..748b988cbf5d 100644
+--- a/drivers/net/ethernet/qlogic/qede/qede_fp.c
++++ b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+@@ -670,13 +670,23 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
+ 							 NUM_RX_BDS_MAX];
+ 	struct qede_agg_info *tpa_info = &rxq->tpa_info[tpa_agg_index];
+ 	struct sk_buff *skb = tpa_info->skb;
++	struct page *page = current_bd->data;
+ 
+ 	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START))
+ 		goto out;
+ 
++	/* Avoid NULL pointer dereference when under severe memory pressure */
++	if (unlikely(!page)) {
++		if (net_ratelimit())
++			DP_NOTICE(edev,
++				  "Failed to allocate RX buffer for TPA agg %u\n",
++				  tpa_agg_index);
++		goto out;
++	}
++
+ 	/* Add one frag and update the appropriate fields in the skb */
+ 	skb_fill_page_desc(skb, tpa_info->frag_id++,
+-			   current_bd->data,
++			   page,
+ 			   current_bd->page_offset + rxq->rx_headroom,
+ 			   len_on_bd);
+ 
+@@ -684,7 +694,7 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
+ 		/* Incr page ref count to reuse on allocation failure
+ 		 * so that it doesn't get freed while freeing SKB.
+ 		 */
+-		page_ref_inc(current_bd->data);
++		page_ref_inc(page);
+ 		goto out;
+ 	}
+ 
+@@ -698,7 +708,10 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
+ 
+ out:
+ 	tpa_info->state = QEDE_AGG_STATE_ERROR;
+-	qede_recycle_rx_bd_ring(rxq, 1);
++	if (current_bd->data)
++		qede_recycle_rx_bd_ring(rxq, 1);
++	else
++		qede_rx_bd_ring_consume(rxq);
+ 
+ 	return -ENOMEM;
+ }
+@@ -959,8 +972,16 @@ static inline void qede_tpa_cont(struct qede_dev *edev,
+ 				 struct qede_rx_queue *rxq,
+ 				 struct eth_fast_path_rx_tpa_cont_cqe *cqe)
+ {
++	struct qede_agg_info *tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
+ 	int i;
+ 
++	/* Don't process fragments if TPA start failed */
++	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START)) {
++		for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
++			qede_recycle_rx_bd_ring(rxq, 1);
++		return;
++	}
++
+ 	for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
+ 		qede_fill_frag_skb(edev, rxq, cqe->tpa_agg_index,
+ 				   le16_to_cpu(cqe->len_list[i]));
+@@ -982,6 +1003,18 @@ static int qede_tpa_end(struct qede_dev *edev,
+ 	tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
+ 	skb = tpa_info->skb;
+ 
++	/* Drop the packet if TPA start failed */
++	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START || !skb)) {
++		/* Clean up: unmap DMA if needed */
++		if (tpa_info->buffer.page_offset == PAGE_SIZE)
++			dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
++				       PAGE_SIZE, rxq->data_direction);
++		/* Recycle BDs from cqe->len_list to keep ring synchronized */
++		for (i = 0; cqe->len_list[i] && i < ARRAY_SIZE(cqe->len_list); i++)
++			qede_recycle_rx_bd_ring(rxq, 1);
++		goto err;
++	}
++
+ 	if (tpa_info->buffer.page_offset == PAGE_SIZE)
+ 		dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
+ 			       PAGE_SIZE, rxq->data_direction);
 -- 
-Martin K. Petersen
+2.54.0
+
