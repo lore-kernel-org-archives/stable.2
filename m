@@ -1,50 +1,59 @@
-Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA823C4168;
-	Fri, 24 Jul 2026 11:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784892022; cv=pass; b=Df8lUPK09Z/NTGqJFoCT98biln1rq1O5w/z1w5jx774Vh1VbB6ZsYcXeX8itql+uLDc3qEe93VnWxiE5oxlfCj2tvA3AmYOyP/iVIPqqEXXd8RRxCyJWF0YLr+n9rx2Y+uRD1fNt+nUVnfCD/s6URlZAfK+iE7fEvBkyEBu0V4E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784892022; c=relaxed/simple;
-	bh=XavdgeStjkSn+NtOzy1VzvhIdvnRqKWIpiZg7PYiBkw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uFeKyAyNGaQbJe6gOe0kzPeQcuc3E0P2O/3onOe4IalMKWO1viUdt9h7Cr8igUNKVaLL7l52eIIOYQ1oYWb9LPxfo40iqE+S0NZf0rTYfDA5MPtcTwKxScLlTFTBLKF2poDvoM/nsoKa/vZiLEtm22dNJWRnQcMlfIVEnkcXsZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=L+H3VNeT; arc=pass smtp.client-ip=136.143.169.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2837F3AC0EB;
+	Fri, 24 Jul 2026 11:22:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784892170; cv=none; b=HvgXDnChSS6sKZlWQJ1mcfAC2Fs+bketZjOnw1GQ/P0+sL+pzCRbIStPn6hm8uEMmObq8LGNuNe4H4CLn4Uu6ybfJLsqxGdbCwt8d3AZDgknt07HTVhnPTZqmGU1HxcolMNjjCnBmtyoU73CCqHYo+obKT1B5XuMfBsK/tv9KkY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784892170; c=relaxed/simple;
+	bh=Qoi1ARtmFfgZWsGx8eRx48vOJTkhtLJb1+GuuvirLGw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XzYOzqE1r2s64f4mATEhMjOie1WvgtNIG9kJ1J+52/L4Jin05TNmaXTz4kq4YDbXb74wJfnxftIHXKwghOT7EYpzHPz4SCTsF+tU+HNu8FYE2mS5kr8v7wr8c5dKBXukNCprtYpL2+OAP6xPxPE+xAlJD4gCfpzAE556SzaeB3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNb51Hlg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="L+H3VNeT"
-ARC-Seal: i=1; a=rsa-sha256; t=1784891977; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=WxPVJoFjx9aPW0sEzulSo/o2iOUo/SPFHf9JRpn/CHRkN0l3GYmIHS+sd4A0UcMu9WEeOmpq5zGkWZhySwFC6cDFDF6eWwxGV12xSmto09M8zBRn658LfmUHAqoG6+snlTRZa/ftTM+gTtTw3wq0FU7kaSPDWPS66EVWW3iILsY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1784891977; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=W6Px5a6vVEkCpmv2n7tsMwFBT/kgVpoaE4enTXtDgmU=; 
-	b=ROZMjYeye3qoGAdquDGV0hBL3cuwH+p0z/xvd+cd/GNOi1T7lG0E/B9J2JG/wAqaekE9Gtz8VJrCqrQkMva/OAQuoQl0R4hq4AJt/R+zt2kLchTiCP40AKA8ORlECm3dDgdXHz3hCjFZ/kAWGQzI3YBczvW9YWzJN06ZWioq2eU=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=auditcode.ai;
-	spf=pass  smtp.mailfrom=security@auditcode.ai;
-	dmarc=pass header.from=<security@auditcode.ai>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784891977;
-	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=W6Px5a6vVEkCpmv2n7tsMwFBT/kgVpoaE4enTXtDgmU=;
-	b=L+H3VNeT16t3mLP4ZJdp264ECdGPd8iZPOZhxJua5dkDZyOReolTcgF/sVstQcyO
-	QcXUtBewO8CQBoqUWuKUJSPwxBJS8vTYt9Wx4DLrSik1xy47PHpeeIHaSjNM6+W3hrp
-	kCjTX5JjpAqmrasoB0J8Poh/zHH6nH5Gtc9RZ3tM=
-Received: by mx.zoho.eu with SMTPS id 1784891974746726.9116488134342;
-	Fri, 24 Jul 2026 13:19:34 +0200 (CEST)
-From: Ibrahim Hashimov <security@auditcode.ai>
-To: guoren@kernel.org
-Cc: arnd@arndb.de,
-	linux-csky@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNb51Hlg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4DE21F000E9;
+	Fri, 24 Jul 2026 11:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784892168;
+	bh=n2HpMIjNvLrRh9jT9V5Jw1GfuA0FNPTbW6GXsK7+KXM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XNb51Hlg05loYe5tcl/uoReqSoRtdLAGuCdZWDUz1mZI6PV5JWRnTcnrdpCWm7plb
+	 j+/LsYIpKd5gDXTmivDpBvKG86rCi+CIcDk/EnxYPUoP6e7gXM1STfj/X8qTuHL7mE
+	 NBWpbLryKXKRS+BmjPHv5rOOGddguuwc+hoFsxLh3rxyL/vyvBu4JSEvQzrIA3/J6E
+	 CIbg5p6cUQ3wwsT92MJz8hy/3kybSn4HWarepvHD0Lg723dElTDEmcq3VU5Eh5NbVI
+	 8NU3aC+EqmmDO0p3f5u4nHPPwS2GLOF0GBATziLHPrUaAlJmvaevLYdIHjktwalYKO
+	 5zUZS3PcE/YeQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	daniel@iogearbox.net,
+	info@starlabs.sg,
+	ast@kernel.org,
+	lulie@linux.alibaba.com,
+	john.fastabend@gmail.com,
+	andrii@kernel.org,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	kpsingh@kernel.org,
+	sdf@google.com,
+	haoluo@google.com,
+	jolsa@kernel.org,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] csky: alignment: validate address before emulated load/store
-Date: Fri, 24 Jul 2026 13:19:31 +0200
-Message-ID: <20260724111931.76451-1-security@auditcode.ai>
-X-Mailer: git-send-email 2.50.1
+	mykolal@fb.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	dust.li@linux.alibaba.com
+Subject: Re: [PATCH 6.6.y/6.12.y/6.18.y 0/2] bpf: Fix ld_{abs,ind} failure path analysis in subprogs
+Date: Fri, 24 Jul 2026 07:22:33 -0400
+Message-ID: <20260724105500.stable-0001@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260722073908.72382-1-lulie@linux.alibaba.com>
+References: <20260722073908.72382-1-lulie@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,72 +61,20 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-The abiv1 misalignment fixup csky_alignment() re-executes a trapped
-unaligned load/store from kernel context. It computes the target address
-entirely from user-controlled state -- the base register read from the
-saved user regs via get_ptreg() plus an immediate decoded from the
-faulting instruction -- and then performs the access with raw supervisor
-ldb/stb instructions in ldb_asm()/stb_asm(), without checking that the
-address points into user space.
+> Backport of the CVE-2026-53090 fix.
+>
+>   1/2 ee861486e377, the CVE fix.
+>   2/2 e0fcb42bc6f4, selftests for the fix.
 
-A local unprivileged process can therefore execute a crafted unaligned
-STW/STH whose base register holds a kernel address: the fixup emulates it
-and stores an attacker-controlled value to an attacker-chosen kernel
-address -- an arbitrary kernel write, i.e. a privilege-escalation
-primitive. The symmetric load path is an arbitrary kernel read. The
-__ex_table entry on the asm only recovers from an unmapped fault; a store
-to a mapped, writable kernel page completes. The existing rx/rz != {0,1}
-test is a register-index filter, not an address bound.
+Queued the series for 6.6, 6.12, and 6.18, thanks.
 
-Reject the emulated access when the fault came from user mode and the
-target is not a valid user address, using access_ok(). Rejected accesses
-fall through to the existing bad_area path, which delivers
-SIGBUS/BUS_ADRALN like every other rejected case. Kernel-mode faults
-legitimately touch kernel memory and are deliberately left unchecked.
+One follow-up: the Fixes commit 09b28d76eac4 ("bpf: Add abnormal return
+checks.") is also present in 6.1, 5.15 and 5.10, and the fix is absent there,
+so those trees are affected as well but were not covered by this submission.
+They likely need a further adaptation. Could you extend coverage with adapted
+backports for 6.1/5.15/5.10?
 
-Found by inspection; CK610 (CONFIG_CPU_CK610) abiv1 silicon has no
-upstream emulation target, so this is not runtime-reproduced.
-
-Fixes: 081860b970ad ("csky: Exception handling and mm-fault")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-Assisted-by: AuditCode-AI:2026.07
----
- arch/csky/abiv1/alignment.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/csky/abiv1/alignment.c b/arch/csky/abiv1/alignment.c
-index aee904833dec..19337946e0d5 100644
---- a/arch/csky/abiv1/alignment.c
-+++ b/arch/csky/abiv1/alignment.c
-@@ -261,18 +261,26 @@ void csky_alignment(struct pt_regs *regs)
- 	switch (opcode) {
- 	case OP_LDH:
- 		addr = get_ptreg(regs, rx) + (imm << 1);
-+		if (user_mode(regs) && !access_ok((void __user *)addr, 2))
-+			goto bad_area;
- 		ret = ldh_c(regs, rz, addr);
- 		break;
- 	case OP_LDW:
- 		addr = get_ptreg(regs, rx) + (imm << 2);
-+		if (user_mode(regs) && !access_ok((void __user *)addr, 4))
-+			goto bad_area;
- 		ret = ldw_c(regs, rz, addr);
- 		break;
- 	case OP_STH:
- 		addr = get_ptreg(regs, rx) + (imm << 1);
-+		if (user_mode(regs) && !access_ok((void __user *)addr, 2))
-+			goto bad_area;
- 		ret = sth_c(regs, rz, addr);
- 		break;
- 	case OP_STW:
- 		addr = get_ptreg(regs, rx) + (imm << 2);
-+		if (user_mode(regs) && !access_ok((void __user *)addr, 4))
-+			goto bad_area;
- 		ret = stw_c(regs, rz, addr);
- 		break;
- 	}
---
-2.50.1 (Apple Git-155)
+-- 
+Thanks,
+Sasha
