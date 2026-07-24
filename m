@@ -1,77 +1,77 @@
 Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C164842882B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27A9429014
 	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 10:24:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.84
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784888667; cv=pass; b=rx7t7UwIt1w3S6J5BRSuUMs97O5p/1TsdSycpSf7b/XFaA4J+pbm4cRtvuJTpL/BGZ4DRNwjMHrKQtHxofzHwrBDkOUIzRcJrTLoTR9T+aPM6OI1sMxrziBUh/30hYEIdHSeIJ+lYJBdnCTgYtGXR+mSz657EOWR89AehejXkjQ=
+	t=1784888667; cv=pass; b=inIaNbgvfJZeHCiFnNv5ceA0Rq8qz94PnKnurUJ2Ul8KpuOz1LtVqpgyfPvIiEsnTLB27J+anHTBL77KH0LSARSMRKRX7bZzLrYIg81An8WsvK8KBpwIp0OhvwyPU0cxPNo5I9MG4SfoTx5s1QmS592cQpoDSpU/E7G/IY0I96M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784888667; c=relaxed/simple;
-	bh=DBfu49NF4sLsfK/PSt1Ua/yVe0eJoMmhNnaDD5ehC8Y=;
+	bh=q2xzxUGh0+Y23WVnwmkYiM1oZ9u4WfOjbldMB8j+ERU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l3Vyiq8/UqDYUk3MSfaPYwu/fWlBnTG5X6smKjz0PO974wlgfWPaOpof+DIZkn6RMMvNxZUIQXn56oCgeOe3jNJwEGFU6+2cB8f3RfMwPJiyNQe7vOqvy9rPtRs70Hs157bRFx0wt1ZGBQbX/STMwhIw+b6aml65kHb6/8Yjmqo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=WUZGwJ4N; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=NKLE9f1j; arc=pass smtp.client-ip=85.215.255.84
+	 MIME-Version:Content-Type; b=qYHwenCZ3jRm28MZRH4afuDaviBNDNfmVBWpERE9+5f2EDdUyrGeGt4lq0zV+x5Z8OcvHW9bd1ZBFe72YrmThEHV+GJgwK0sVJvaWjnMk2Z0QunPJQSamkSyCFp/JSXfLBsAn2jQlLzM8pCyhtwl6Hout6XYFt7AnuPPnPdKoaU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=jZn2asa6; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=1DFmMZ9o; arc=pass smtp.client-ip=85.215.255.84
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="WUZGwJ4N";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="NKLE9f1j"
-ARC-Seal: i=1; a=rsa-sha256; t=1784888660; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="jZn2asa6";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="1DFmMZ9o"
+ARC-Seal: i=1; a=rsa-sha256; t=1784888661; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=c2G/a+a4KRHagjQaiLVle84mzUR9Z+R55d0970tr5xsIk28H5YAyFRALjIZUZLDR06
-    K/mmaN6SwcI1YzHlQjcg0NPmS6PSfLA2ELr1Ogg6shd8WB5uSDgzfb1p6SJSLvrzF0Fj
-    mc/yaoNCe66gh8pq04oaeGpmMoxVrfPhcZnCyS4YSbPB5DnvnTIKunfORVOmfTQkZDJd
-    C9w2dMgUvozdN5NhMCF3jNtzkH6Kbcnmtqi0kZq8MKgXsHsD6kMooo3WM3OqvGU4qixp
-    rE0lZW1X6KFS0DPeAYgQVd8W/yWfv9ddEtzBt7RX/OVQcNtdaYNWV+eDAUQ0ld5uZJTZ
-    NkhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888660;
+    b=gk0kbA66T5DY07mBVEursMAIb73WGwR05erpd+cGwik7nRURfuow+a5lXW98kHADgv
+    PupGPsyeRYlr/mcDMDsQ/Rg/W2M9zyuYBWsBX31fvlGW6nKoXiScghgxzO5grAIQSm20
+    joOtq9SAoAdHd65/rqiMTyM+WSC7iDvH//ypezlBBfBAKVZzgBXgIU9AYIenT3zHRCbQ
+    ksJXZO3QX3s7CEdWUnKNrTjpGAJ2IO2ONBEazAQ6fUSn+wo7eN339vDnH/rZJOXrhamP
+    YSXFqaM/QVDm0liwqBebYSdz7Rq+BiwAt/Drr12rT2Ql/hw28LeDu2FD1pY0jRwu7bvs
+    pTCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888661;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=XPMdLfKpt4tvZuM0mnIk6MzLclmOGk8ieT+fodWQ1I0=;
-    b=ZHaBFZtu51yjDzdsCesrN5QA9rrslEJve9uXhBG1VNKH0g7Zm/i37N3kep3fgzTxN9
-    71fCd/hZCYX8owuctDmMEhkQGxXClWNIz9Cdn17K7mFREf6d725iKTbGMmzxuOV1ZDn3
-    vY3+Arg1JH+O24fZTAGgRHTsYS7D3GCmp66JbTd+iZSglSPBhU5WVIqe4t36uQM+1OE4
-    GlJGApZRCBpvpceZJqYm2+rxvNAB9e/2c3OJRr2qwpG9lCa8+z0QSP+gVHk29Umt4PT6
-    1KPlsRYQVAKGsImyDGuvnvRsFYujD5I2uR5jNgXPEBlYrSsNqlkXxSsD+fOCYEszHflk
-    ly9g==
+    bh=vBReU3ShT/ZCzKy27sfwRtNF8oxxicSuRCLFyVOwTtg=;
+    b=cs+et+Peeyb65PpH7XBmXkHg1FO9S7gpGYpJI2tf7b0CiEyZQgiBY+B6K4e7KZdRBG
+    bgcvaMzcO8IJ18OTbhK5txcCI4RE9iwWjGqJQU7Olag04llB41Sfh58bSRApFnRHoYWu
+    WveSt4N1YOrJKj6uyQWo4phBldLstonjUTq6+pJZLBIxkNvg2HL3uUCaikoeKVqSt2t4
+    G1QX2ndfvhEU/pgWy+P2r+0s8lN2BOEVL9ZLwMb9FiKTeoo9spb0yUU6Xs7KNr0inRXa
+    Bv2qMWCGDhpFMSVpp63t/cmvR+IYvX1ZhEeNv+UyInMpIqMjaMc8ApHO5Y36Vfu5/7FC
+    DJuw==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888660;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888661;
     s=strato-dkim-0002; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=XPMdLfKpt4tvZuM0mnIk6MzLclmOGk8ieT+fodWQ1I0=;
-    b=WUZGwJ4N4+LlWRDCEznmCVXrtegGBDIyJsMdW+i52UGtJ9EVermIY91UHgZO+grwoy
-    7jktbTalHvgRWv8CHCoETQzcXqM/GDpZrz1yuDLkodleQ78PjykSK+BU/ODafc2/2UTJ
-    rz3LO+kaRDlaRJQ2pORcM7Ohw5nLc/1JfYxTDrdrkofLJgEcSmme1+x2RNVQByDhwKLu
-    vMfEHku/HBSy5YM3x/0byLaapsnfPWDr2N/u6bZko7KRbwH0Klp7MExKlaEr7i2ZJQLl
-    eOjzKXswmGRNUbAfCFwIZtehMf3e6vK/u96CAOmfcIZJ2bJFKBh33W9gsw8gFA4scgvX
-    BQlg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784888660;
+    bh=vBReU3ShT/ZCzKy27sfwRtNF8oxxicSuRCLFyVOwTtg=;
+    b=jZn2asa6Ck2dNhZTVE27fW8rWw2JqGJc25w7zMHR8CYraykqu6vWc79Q0V7uQGxObQ
+    3u0R72uLNERaXEyheWXANxB8+PBnpFTn0NYvvcQ42itxus3e5RjnQC+fujkEdXzoJ+Hm
+    5CF4seMJMiz3fd7sjR4jZcuuWbsbt22+nlORfzEnX13H9nmK2Lsir5yzaCfQHOZ/3Lh7
+    r2KS8OyOkrnnkvGfU1vAFC//ezMfhirk0Oowu80at38F83Dd1MHo0e33+KtHaqtbgpAi
+    UifcW6Ia+JG9dunxrW+xqgaNiX4Nr1ku1wK3Hrm+QcNdvrZUUGwnXDMCdA06xybzU4So
+    vEag==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784888661;
     s=strato-dkim-0003; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=XPMdLfKpt4tvZuM0mnIk6MzLclmOGk8ieT+fodWQ1I0=;
-    b=NKLE9f1jtmD9EEmq+YJ7FgKNJ2eou8jx/txhLqpKWXwOyYjVZKPRcvsTs9y/+j7Jxx
-    bM3XfDJLF5XsTZa8oFAg==
+    bh=vBReU3ShT/ZCzKy27sfwRtNF8oxxicSuRCLFyVOwTtg=;
+    b=1DFmMZ9oLrBVafwD06NakIm1X67C5MnikGRM2sN4a/OAkdAzYwL2U2CBEfIt1nrhD4
+    +uLKm96vmV4WwbvTeeAA==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926OAOKtIZ
+    with ESMTPSA id K5281926OAOLtIc
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Fri, 24 Jul 2026 12:24:20 +0200 (CEST)
+    Fri, 24 Jul 2026 12:24:21 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH 6.6.y 3/8] can: bcm: extend bcm_tx_lock usage for data and timer updates
-Date: Fri, 24 Jul 2026 12:24:05 +0200
-Message-ID: <20260724102410.16731-3-socketcan@hartkopp.net>
+Subject: [PATCH 6.6.y 5/8] can: bcm: add missing device refcount for CAN filter removal
+Date: Fri, 24 Jul 2026 12:24:07 +0200
+Message-ID: <20260724102410.16731-5-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260724102410.16731-1-socketcan@hartkopp.net>
 References: <2026072011-untruth-wrongly-ed18@gregkh>
@@ -85,225 +85,116 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-commit 12ce799f7ab1e05bd8fbf79e46f403bfe5597ebc upstream.
+commit d59948293ea34b6337ce2b5febab8510de70048c upstream.
 
-Stage new CAN frame content for an existing tx op into a kmalloc()'d
-buffer and validate it there, mirroring the approach already used in
-bcm_rx_setup(). Only copy the validated data into op->frames while
-holding op->bcm_tx_lock, so bcm_can_tx() and bcm_tx_timeout_handler()
-can no longer observe a partially updated or unvalidated frame.
+sashiko-bot remarked a problem with a concurrent device unregistration
+in isotp.c which also is present in the bcm.c code. A former fix for raw.c
+commit c275a176e4b6 ("can: raw: add missing refcount for memory leak fix")
+introduced a netdevice_tracker which solves the issue for bcm.c too.
 
-Add a missing error path for memcpy_from_msg() when copying CAN frame
-data from userspace.
+bcm_release(), bcm_delete_rx_op() and bcm_notifier() relied on
+dev_get_by_index(ifindex) to re-find the device for an rx_op before
+unregistering its filter. If a concurrent NETDEV_UNREGISTER has already
+unlisted the device from the ifindex table, that lookup fails and
+can_rx_unregister() is silently skipped, leaving a stale CAN filter
+pointing at the soon-to-be-freed bcm_op/socket.
 
-Also move the kt_ival1/kt_ival2/ival1/ival2 updates in bcm_tx_setup()
-under op->bcm_tx_lock, and read kt_ival1/kt_ival2/count under the same
-lock in bcm_tx_set_expiry() and bcm_tx_timeout_handler(), closing the
-torn 64-bit ktime_t read on 32-bit platforms.
+Hold a netdev_hold()/netdev_put() tracked reference on op->rx_reg_dev
+from the moment the rx filter is registered in bcm_rx_setup() until it
+is unregistered in bcm_rx_unreg(), and use that reference directly in
+bcm_release() and bcm_delete_rx_op() instead of re-looking the device
+up by ifindex.
 
-Fixes: c2aba69d0c36 ("can: bcm: add locking for bcm_op runtime updates")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260707094716.63578-1-socketcan@hartkopp.net
+Fixes: ffd980f976e7 ("[CAN]: Add broadcast manager (bcm) protocol")
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20260714-bcm_fixes-v15-6-562f7e3e42da@hartkopp.net
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-8-562f7e3e42da@hartkopp.net
 Cc: stable@kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
 ---
- net/can/bcm.c | 104 ++++++++++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 75 insertions(+), 29 deletions(-)
+ net/can/bcm.c | 44 ++++++++++++++++++++++++--------------------
+ 1 file changed, 24 insertions(+), 20 deletions(-)
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 762db0b..8529061 100644
+index 01773cb..4b6accb 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -125,7 +125,7 @@ struct bcm_op {
- 	struct canfd_frame last_sframe;
- 	struct sock *sk;
- 	struct net_device *rx_reg_dev;
--	spinlock_t bcm_tx_lock; /* protect currframe/count in runtime updates */
-+	spinlock_t bcm_tx_lock; /* protect tx data and timer updates */
- 	spinlock_t bcm_rx_update_lock; /* protect filter/timer data updates */
- };
+@@ -889,6 +889,7 @@ static void bcm_rx_unreg(struct net_device *dev, struct bcm_op *op)
  
-@@ -440,12 +440,18 @@ static bool bcm_tx_set_expiry(struct bcm_op *op, struct hrtimer *hrt)
- {
- 	ktime_t ival;
- 
-+	spin_lock_bh(&op->bcm_tx_lock);
-+
- 	if (op->kt_ival1 && op->count)
- 		ival = op->kt_ival1;
--	else if (op->kt_ival2)
-+	else if (op->kt_ival2) {
- 		ival = op->kt_ival2;
--	else
-+	} else {
-+		spin_unlock_bh(&op->bcm_tx_lock);
- 		return false;
-+	}
-+
-+	spin_unlock_bh(&op->bcm_tx_lock);
- 
- 	hrtimer_set_expires(hrt, ktime_add(ktime_get(), ival));
- 	return true;
-@@ -462,25 +468,47 @@ static enum hrtimer_restart bcm_tx_timeout_handler(struct hrtimer *hrtimer)
- {
- 	struct bcm_op *op = container_of(hrtimer, struct bcm_op, timer);
- 	struct bcm_msg_head msg_head;
-+	bool tx_ival1, tx_ival2;
-+
-+	/* snapshot kt_ival1/kt_ival2/count under lock to avoid torn
-+	 * ktime_t reads racing with concurrent bcm_tx_setup() updates
-+	 */
-+	spin_lock_bh(&op->bcm_tx_lock);
-+	tx_ival1 = op->kt_ival1 && (op->count > 0);
-+	tx_ival2 = !!op->kt_ival2;
-+	spin_unlock_bh(&op->bcm_tx_lock);
-+
-+	if (tx_ival1) {
-+		u32 flags, count;
-+		struct bcm_timeval ival1, ival2;
- 
--	if (op->kt_ival1 && (op->count > 0)) {
- 		bcm_can_tx(op, NULL);
--		if (!op->count && (op->flags & TX_COUNTEVT)) {
- 
-+		/* snapshot variables under lock to avoid torn reads racing
-+		 * with concurrent bcm_tx_setup() updates
-+		 */
-+		spin_lock_bh(&op->bcm_tx_lock);
-+		flags = op->flags;
-+		count = op->count;
-+		ival1 = op->ival1;
-+		ival2 = op->ival2;
-+		spin_unlock_bh(&op->bcm_tx_lock);
-+
-+		if (!count && (flags & TX_COUNTEVT)) {
- 			/* create notification to user */
- 			memset(&msg_head, 0, sizeof(msg_head));
- 			msg_head.opcode  = TX_EXPIRED;
--			msg_head.flags   = op->flags;
--			msg_head.count   = op->count;
--			msg_head.ival1   = op->ival1;
--			msg_head.ival2   = op->ival2;
-+			msg_head.flags   = flags;
-+			msg_head.count   = count;
-+			msg_head.ival1   = ival1;
-+			msg_head.ival2   = ival2;
- 			msg_head.can_id  = op->can_id;
- 			msg_head.nframes = 0;
- 
- 			bcm_send_to_user(op, &msg_head, NULL, 0);
- 		}
- 
--	} else if (op->kt_ival2) {
-+	} else if (tx_ival2) {
- 		bcm_can_tx(op, NULL);
- 	}
- 
-@@ -988,6 +1016,8 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 	/* check the given can_id */
- 	op = bcm_find_op(&bo->tx_ops, msg_head, ifindex);
- 	if (op) {
-+		void *new_frames;
-+
- 		/* update existing BCM operation */
- 
- 		/*
-@@ -998,11 +1028,23 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 		if (msg_head->nframes > op->nframes)
- 			return -E2BIG;
- 
--		/* update CAN frames content */
-+		/* get new CAN frames content into a staging buffer before
-+		 * locking: validate and normalize the frames there so that
-+		 * bcm_can_tx() / bcm_tx_timeout_handler() never observe a
-+		 * partially updated or unvalidated frame in op->frames
-+		 */
-+		new_frames = kmalloc(msg_head->nframes * op->cfsiz, GFP_KERNEL);
-+		if (!new_frames)
-+			return -ENOMEM;
-+
- 		for (i = 0; i < msg_head->nframes; i++) {
- 
--			cf = op->frames + op->cfsiz * i;
-+			cf = new_frames + op->cfsiz * i;
- 			err = memcpy_from_msg((u8 *)cf, msg, op->cfsiz);
-+			if (err < 0) {
-+				kfree(new_frames);
-+				return err;
-+			}
- 
- 			if (op->flags & CAN_FD_FRAME) {
- 				if (cf->len > 64)
-@@ -1012,36 +1054,38 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 					err = -EINVAL;
- 			}
- 
--			if (err < 0)
-+			if (err < 0) {
-+				kfree(new_frames);
- 				return err;
-+			}
- 
- 			if (msg_head->flags & TX_CP_CAN_ID) {
- 				/* copy can_id into frame */
- 				cf->can_id = msg_head->can_id;
- 			}
- 		}
-+
-+		spin_lock_bh(&op->bcm_tx_lock);
-+
-+		/* update CAN frames content */
-+		memcpy(op->frames, new_frames, msg_head->nframes * op->cfsiz);
-+
- 		op->flags = msg_head->flags;
- 
--		/* only lock for unlikely count/nframes/currframe changes */
- 		if (op->nframes != msg_head->nframes ||
--		    op->flags & TX_RESET_MULTI_IDX ||
--		    op->flags & SETTIMER) {
+ 		/* mark as removed subscription */
+ 		op->rx_reg_dev = NULL;
++		dev_put(dev);
+ 	} else
+ 		printk(KERN_ERR "can-bcm: bcm_rx_unreg: registered device "
+ 		       "mismatch %p %p\n", op->rx_reg_dev, dev);
+@@ -919,17 +920,14 @@ static int bcm_delete_rx_op(struct list_head *ops, struct bcm_msg_head *mh,
+ 				 * Only remove subscriptions that had not
+ 				 * been removed due to NETDEV_UNREGISTER
+ 				 * in bcm_notifier()
++				 *
++				 * op->rx_reg_dev is a tracked reference taken
++				 * when the subscription was registered, so it
++				 * stays valid here even if a concurrent
++				 * NETDEV_UNREGISTER already unlisted the dev.
+ 				 */
+-				if (op->rx_reg_dev) {
+-					struct net_device *dev;
 -
--			spin_lock_bh(&op->bcm_tx_lock);
-+		    op->flags & TX_RESET_MULTI_IDX) {
-+			/* potentially update changed nframes */
-+			op->nframes = msg_head->nframes;
-+			/* restart multiple frame transmission */
-+			op->currframe = 0;
-+		}
+-					dev = dev_get_by_index(sock_net(op->sk),
+-							       op->ifindex);
+-					if (dev) {
+-						bcm_rx_unreg(dev, op);
+-						dev_put(dev);
+-					}
+-				}
++				if (op->rx_reg_dev)
++					bcm_rx_unreg(op->rx_reg_dev, op);
+ 			} else
+ 				can_rx_unregister(sock_net(op->sk), NULL,
+ 						  op->can_id,
+@@ -1452,7 +1450,15 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 						      bcm_rx_handler, op,
+ 						      "bcm", sk);
  
--			if (op->nframes != msg_head->nframes ||
--			    op->flags & TX_RESET_MULTI_IDX) {
--				/* potentially update changed nframes */
--				op->nframes = msg_head->nframes;
--				/* restart multiple frame transmission */
--				op->currframe = 0;
+-				op->rx_reg_dev = dev;
++				/* keep a reference so that a later
++				 * unregister can safely reach the device even
++				 * if a concurrent NETDEV_UNREGISTER has
++				 * already unlisted it by ifindex
++				 */
++				if (!err) {
++					op->rx_reg_dev = dev;
++					dev_hold(dev);
++				}
+ 				dev_put(dev);
+ 			} else {
+ 				/* the requested device is gone - do not
+@@ -1825,16 +1831,14 @@ static int bcm_release(struct socket *sock)
+ 			 * Only remove subscriptions that had not
+ 			 * been removed due to NETDEV_UNREGISTER
+ 			 * in bcm_notifier()
++			 *
++			 * op->rx_reg_dev is a tracked reference taken
++			 * when the subscription was registered, so it
++			 * stays valid here even if a concurrent
++			 * NETDEV_UNREGISTER already unlisted the device.
+ 			 */
+-			if (op->rx_reg_dev) {
+-				struct net_device *dev;
+-
+-				dev = dev_get_by_index(net, op->ifindex);
+-				if (dev) {
+-					bcm_rx_unreg(dev, op);
+-					dev_put(dev);
+-				}
 -			}
-+		if (op->flags & SETTIMER)
-+			op->count = msg_head->count;
- 
--			if (op->flags & SETTIMER)
--				op->count = msg_head->count;
-+		spin_unlock_bh(&op->bcm_tx_lock);
- 
--			spin_unlock_bh(&op->bcm_tx_lock);
--		}
-+		kfree(new_frames);
- 
- 	} else {
- 		/* insert new BCM operation for the given can_id */
-@@ -1118,10 +1162,12 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
- 
- 	if (op->flags & SETTIMER) {
- 		/* set timer values */
-+		spin_lock_bh(&op->bcm_tx_lock);
- 		op->ival1 = msg_head->ival1;
- 		op->ival2 = msg_head->ival2;
- 		op->kt_ival1 = bcm_timeval_to_ktime(msg_head->ival1);
- 		op->kt_ival2 = bcm_timeval_to_ktime(msg_head->ival2);
-+		spin_unlock_bh(&op->bcm_tx_lock);
- 
- 		/* disable an active timer due to zero values? */
- 		if (!op->kt_ival1 && !op->kt_ival2)
++			if (op->rx_reg_dev)
++				bcm_rx_unreg(op->rx_reg_dev, op);
+ 		} else
+ 			can_rx_unregister(net, NULL, op->can_id,
+ 					  REGMASK(op->can_id),
 -- 
 2.43.0
 
