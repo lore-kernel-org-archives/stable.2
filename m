@@ -1,33 +1,51 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73625364EA4;
-	Fri, 24 Jul 2026 06:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A613AD50D;
+	Fri, 24 Jul 2026 07:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784876347; cv=none; b=lp0/X9SoAyqYnfr8aLzv9F5Hj9zuXMmlIm4q12TbYZPWqy44Ed2fGO/WjGy8Kge9lF2uGT3TSM+Tq+OIaWV5CSNCF/PmdeERt3Fjk2Gfez1k0DgGGD1o5iv6cGPYo0oSqnl2kjS8VgRYN/1LbGe1oWk6isXBx4DNIOSqXpDLTN8=
+	t=1784878775; cv=none; b=dDmE2W8C3Hspxd/lNlf5uR8u01PEyux3QxuJjH93X/P9X/HO9I4FBvP8K/HWW2SxZclE0O13jLgetVp/KGDeb3nzv5VbeKnKSAcqK6W+yDqq39NxjxiZE66CwtUA0MObhY0k24h7PV2/gL288UMjNNPl5+64ACcjjBg6fNy/8LE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784876347; c=relaxed/simple;
-	bh=8cCYuV4DbfXkYj3PXfKCrn+j7b2Q7tOwHxIUQtUYcj0=;
+	s=arc-20240116; t=1784878775; c=relaxed/simple;
+	bh=AuTLKQZDF53bKT7svIbTzPrwxpFu2eFJIzYJEFGNPR4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qxmSMN0gw7WJsGKRlLWnuhpNCfX+VKExNxBl+Wh06vNAD0fh68/zoVUArpYuTH2gvOt9MJEDjfDFVmbHsYwjmrMVNvbVUH39wqqlnA34LN9hE9RUhlKCGydpumB0iFNo+HPcawo4eJQrrF74z6WHRqvLdatDjAABN7bxUqy9z4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hp34s3NV; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=vAoDvcxuUQKTtThwtBFWU0v8Osd7pYjIznNCJnjSQl8gw10r59EfLqhoucJCcbLyTYXu85VfiULXotjk9Iy/CLOEte0s/U8Y3/vC8wzZ2otA6+69NI9GvK+gdnhtkuEkGrw7YW+6YifuOU5itm9y26u4D7mYCa4SgcdRkpuumnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=V8F+4dl6; arc=none smtp.client-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hp34s3NV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CA51F000E9;
-	Fri, 24 Jul 2026 06:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784876346;
-	bh=34W2CxNb0au0JerO6fdh6L8z/2HIrfq4Md0cDdHE9iQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Hp34s3NVUDrcNbtQ3Wnm7+hmu6KzrtE6LI+1U404vlLV99F7l5BFzc2AN+CbtD3Jz
-	 PSpBT32hcQp7D0VXRv++BhvsB32HBZhcfS7lHAKwEdr2/m3JOi2/U2IvZ4mLSWUsCv
-	 jjann1p05IrnIDT4xPcgLVzt1oMlHzsJ2NaI74rqlO7CQ8i0hCn4AtyJvE52tq+Fz6
-	 S1FMUe15cAijX4qrFqq3U77PEU/UGHKV/MBF7C2iVmAwSgB2AuGQw1nOu7aZK1BO4z
-	 SKS8tGKLJtvBh4jJo7ndSceucKD3McDEUBKUOTpzgv4N0fMCd8nXRnrYbcXdiwwYrQ
-	 5+u5zb4po7BBA==
-Message-ID: <e7327736-219c-4475-84db-a25a25d1ec1d@kernel.org>
-Date: Fri, 24 Jul 2026 08:59:02 +0200
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="V8F+4dl6"
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4h60H51BDBz4D3Z;
+	Fri, 24 Jul 2026 09:38:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1784878737;
+	bh=AuTLKQZDF53bKT7svIbTzPrwxpFu2eFJIzYJEFGNPR4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=V8F+4dl6wiCVWwmOVnw+2CVDsoNYXzL1u0LInUvOm9nBnnlyBI1lV2u/4j0vY/tcY
+	 J/fvKDlhpX/NyapqgYbK/v/tweIOugAllmtwFFd6c9G0gMchBihMlcxc/bM6cuV0Bc
+	 7Om+x55BOvaPbfd7DyxR1faPG4UgYU8l7hSnLZynCEG/8rIEtVBX/oy7Nw+601xNGV
+	 ilICJFUHmbZhPof1ivl6hE/P2BYwZPsBII2zXkqjj2VG/MrkoUfUn2LPTfRIhO4PHE
+	 h5/wwT+6f/FKLdHQ+2gzLTIYCycFNq6rRTF21SnC12hSndVcoYtGy1E8QAB2anjDic
+	 AeCFU7d9VAr/A==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4h60H50Qxwz7xQ9;
+	Fri, 24 Jul 2026 09:38:57 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4h60H36vDzz8tH7;
+	Fri, 24 Jul 2026 09:38:55 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id DD24D5F9DB;
+	Fri, 24 Jul 2026 09:38:54 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <42ca3723-9222-4e67-a1ca-6eb8883bc596@leemhuis.info>
+Date: Fri, 24 Jul 2026 09:38:54 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,54 +53,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] lib/ucs2_string.c: fix out-of-bounds read in
- ucs2_strnlen()
-To: Greg KH <gregkh@linuxfoundation.org>, Vincent Mailhol <mailhol@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Kees Cook <kees@kernel.org>
-References: <20260723-fix-ucs2_strnlen-v2-0-9ea94e32a358@kernel.org>
- <20260723-fix-ucs2_strnlen-v2-1-9ea94e32a358@kernel.org>
- <2026072454-riverside-nuzzle-39e2@gregkh>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <2026072454-riverside-nuzzle-39e2@gregkh>
+Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+ akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+ patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
+ jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
+ rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, achill@achill.org,
+ sr@sladewatkins.com,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20260722142834.868902312@linuxfoundation.org>
+ <16237d02-bc2c-4401-a1e5-1d81961a65c9@sirena.org.uk>
+ <2026072454-vividly-suitor-3eb5@gregkh>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <2026072454-vividly-suitor-3eb5@gregkh>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178487873560.2746002.9665850735566545600@mxe9fb.netcup.net>
+X-NC-CID: G8Tby6SRnrWHwKxfF9+78E8zsecPV9+0yj4vPGg7PHCI4MRsq6Q=
 
-On 24/07/2026 at 07:54, Greg KH wrote:
-> On Thu, Jul 23, 2026 at 09:40:31PM +0200, Vincent Mailhol wrote:
->> ucs2_strnlen() checks the current character before checking whether the
->> caller-provided maximum length has been reached. If the input is not
->> NUL-terminated within that bound, the loop can read one ucs2_char_t past
->> the limit.
+On 7/24/26 08:19, Greg Kroah-Hartman wrote:
+> On Thu, Jul 23, 2026 at 04:17:55PM +0100, Mark Brown wrote:
+>> On Wed, Jul 22, 2026 at 04:31:38PM +0200, Greg Kroah-Hartman wrote:
+>>> This is the start of the stable review cycle for the 6.12.97 release.
+>>> There are 1202 patches in this series, all will be posted as a response
+>>> to this one.  If anyone has any issues with these being applied, please
+>>> let me know.
 >>
->> Test the length before dereferencing to prevent an off-by-one
->> out-of-bounds read.
+>> I'm seeing a regression in the proc read kselftest which bisects to
+>> "proc: protect ptrace_may_access() with exec_update_lock (part 1)":
+> # selftests: proc: read
+> [  167.845745] ICMPv6: process `read' is using deprecated sysctl (syscall) net.ipv6.neigh.default.base_reachable_time - use net.ipv6.neigh.default.base_reachable_time_ms instead
+> [...]>> Full log:
+>>
+>>    https://lava.sirena.org.uk/scheduler/job/3014030#L10663
 > 
-> That's fine, but doing that read doesn't actually "hurt" anything,
-> right?  So this shouldn't be needed in stable kernels.  Or am I missing
-> something?
+> Odd, and this is not regressing in Linus's tree as well?  Did we miss
+> something that is needed here that mainline has?
+Mark, is this maybe the same as:
+https://lore.kernel.org/all/20260706170735.2941493-1-linmag7@gmail.com/
 
-I had a similar feeling and didn't CC stable on the v1. But following
-my exchange with Andrew here:
+A fix for it is here:
+https://lore.kernel.org/all/20260706-procfs-ns-eacces-fix-v1-1-a69ab14c02e6@google.com/
 
-  https://lore.kernel.org/all/CAMZ6Rq+Ax5MTs0Ke=XAB2JFX1KXuFas3B2eEMv+nQ4x7up2BLA@mail.gmail.com/
+It looks like it fell through the cracks for 2 weeks, but I prodded
+there two days ago and Christian since then picked the fix up (and I
+guess will send it to Linus soon).
 
-I think there *might* be some risk and finally CCed stable in v2. If
-you prefer to not backport, that's OK for me. As you can see in my
-above message, even if the risk exists, it is more theoretical and I
-don't think it would provide much leverage to turn it into a real
-exploit.
-
-
-Yours sincerely,
-Vincent Mailhol
+Ciao, Thorsten
