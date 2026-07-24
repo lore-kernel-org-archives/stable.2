@@ -1,48 +1,48 @@
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp12.broadcom.com [192.19.144.207])
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC946327C09;
-	Fri, 24 Jul 2026 21:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB633C3BF1;
+	Fri, 24 Jul 2026 21:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784929291; cv=none; b=Kr9IZH3KL0XbE5IKWxgm9Xz1FsWZX7OQDdSTqwHl4B4gtY6MpjmV+3Ww88vObJEEH5YOmflzFOtgq+LoA3O03a9Gvz+fjtFtc1cxLHgcQheZuJ6m4lBVR1jYgpIVBqx9WKSrO3DHQxTpr5lvNX6HD6VrKCATU8GUVfUUzEMgD3I=
+	t=1784929291; cv=none; b=d5oX91ukr/hNijT6DsTwSnzd8pd2jpptVeh4hTMnTl0FBE2kMxacm53rvqZKT5KW3518S/cX73BA4Ks96aQdociwwoed/ZUJFjHnaHoSNRuC2B99saOxbeh4Rchk+Wg2x/G3vEtIAMnqfKpQeR68oKzf4d0u2s6NJvarLm1Ne/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784929291; c=relaxed/simple;
-	bh=X6hKdn2YSvvafi2mgHuWo3wbqEvQXzvfO9b69Ah5G9c=;
+	bh=B/FVPqJ84r1NeF4yRoSJgPJFblvoill5bI2J/4InfJc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=q73pmu3mZu5PISiLKFAlQhTD5rsyzadsDWeHzc6HoofHz5SeHiRmMjPNs2qr/AZsctF4GrttWch7J76ATRgbFhhqJobtldjDFgagk5JY3ur8a236e73tSjxM02F0KFIbIcbgxvHIPFWrJlJkk9SsvNYMGKFLqAF3ABta6naxc2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=DxCwqt8v; arc=none smtp.client-ip=192.19.144.207
+	 MIME-Version; b=Sd1/Pufacn5Mwjm0O/ajv8WM207iGWBtj/AnvaWuwHJaT9IEe/aAgjNWAMhM8byM3HsjsmSULHKkN2o6bwrEI5CiSq7WXNqAJGSd6+ucgY7D8dq8oqRL6c/RTf1uOnu0oWd1cgl9vb2BLtKnh8DxNLxufwgmVjC3e5EuctsR+7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=FA4JeYel; arc=none smtp.client-ip=192.19.144.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="DxCwqt8v"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="FA4JeYel"
 Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id DE90DC0003EC;
-	Fri, 24 Jul 2026 14:41:21 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com DE90DC0003EC
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 1983AC0000F8;
+	Fri, 24 Jul 2026 14:41:23 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 1983AC0000F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1784929281;
-	bh=X6hKdn2YSvvafi2mgHuWo3wbqEvQXzvfO9b69Ah5G9c=;
+	s=dkimrelay; t=1784929283;
+	bh=B/FVPqJ84r1NeF4yRoSJgPJFblvoill5bI2J/4InfJc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DxCwqt8vSB7LG+I6lGoGHH4diBONgRG14vAGZqmLx/sDE2y/bzZpJZuJQXPl92jia
-	 btTEYJTDmKtEnmEfVE6FW6jI/EaMJA3o9YKu+yUrE2ydL4qO/9eYWzqPKImBoiuq2t
-	 +mtQSbMwsHkgxKnp4A+nP9nM/T/cwbRlc5Hbe+Ew=
+	b=FA4JeYelE+tG7xu1u12xUIQEaqHuPcleuj+ctJVm80+XGX0ttBNcSMVRiiOXCl7IY
+	 P4KFOUoJevMxf4QX6klfqWuyxDOI7NPT4YBZSAj92vJo4nASkQmN8yNojLEDdOvyI7
+	 4hXx+aqDbMjYTJGAeGM5CQWUNEtRZklX3nh/pd3k=
 Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 7A579AD0;
-	Fri, 24 Jul 2026 14:41:21 -0700 (PDT)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 988A2AD0;
+	Fri, 24 Jul 2026 14:41:22 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: stable@vger.kernel.org
-Cc: Benjamin Berg <benjamin.berg@intel.com>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: David Gow <david@davidgow.net>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
 	Richard Weinberger <richard@nod.at>,
 	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
 	Johannes Berg <johannes@sipsolutions.net>,
 	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
 	Rae Moar <raemoar63@gmail.com>,
 	Kees Cook <kees@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
@@ -53,9 +53,9 @@ Cc: Benjamin Berg <benjamin.berg@intel.com>,
 	linux-kselftest@vger.kernel.org (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
 	kunit-dev@googlegroups.com (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
 	bcm-kernel-feedback-list@broadcom.com
-Subject: [PATCH stable 6.12 2/9] um: Set parent death signal for winch thread/process
-Date: Fri, 24 Jul 2026 14:41:12 -0700
-Message-Id: <20260724214119.1066665-3-florian.fainelli@broadcom.com>
+Subject: [PATCH stable 6.12 7/9] kunit: tool: Terminate kernel under test on SIGINT
+Date: Fri, 24 Jul 2026 14:41:17 -0700
+Message-Id: <20260724214119.1066665-8-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
 References: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
@@ -67,43 +67,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Benjamin Berg <benjamin.berg@intel.com>
+From: David Gow <david@davidgow.net>
 
-commit fdb2ecd35d327a1fc6bba69b97f85b494e1f4b6b upstream
+commit 8f260b02eeeffbf2263c2b82b6e3e32fd73cde2b upstream
 
-The winch "thread" is really a separate process. Using prctl to set
-PR_SET_PDEATHSIG ensures that this separate thread will be killed if the
-UML kernel itself dies unexpectedly and does not perform proper cleanup.
+kunit.py will attempt to catch SIGINT / ^C in order to ensure the TTY isn't
+messed up, but never actually attempts to terminate the running kernel (be
+it UML or QEMU). This can lead to a bit of frustration if the kernel has
+crashed or hung.
 
-Signed-off-by: Benjamin Berg <benjamin.berg@intel.com>
-Link: https://patch.msgid.link/20240919124511.282088-5-benjamin@sipsolutions.net
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Terminate the kernel process in the signal handler, if it's running. This
+requires plumbing through the process handle in a few more places (and
+having some checks to see if the kernel is still running in places where it
+may have already been killed).
+
+Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Closes: https://lore.kernel.org/all/aaFmiAmg9S18EANA@smile.fi.intel.com/
+Signed-off-by: David Gow <david@davidgow.net>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Tested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Shuah Khan <skhan@linuxfoundation.org>
+[florian: resolved conflict in signal_handler(): upstream references
+_restore_terminal_if_tty() which is introduced by the following commit;
+retained subprocess.call(['stty', 'sane']) until that helper is available]
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- arch/um/drivers/chan_user.c | 3 +++
- 1 file changed, 3 insertions(+)
+ tools/testing/kunit/kunit_kernel.py | 28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/arch/um/drivers/chan_user.c b/arch/um/drivers/chan_user.c
-index a66e556012c4..1434114b2f34 100644
---- a/arch/um/drivers/chan_user.c
-+++ b/arch/um/drivers/chan_user.c
-@@ -10,6 +10,7 @@
- #include <signal.h>
- #include <termios.h>
- #include <sys/ioctl.h>
-+#include <sys/prctl.h>
- #include "chan_user.h"
- #include <os.h>
- #include <um_malloc.h>
-@@ -161,6 +162,8 @@ static __noreturn int winch_thread(void *arg)
- 	int count;
- 	char c = 1;
+diff --git a/tools/testing/kunit/kunit_kernel.py b/tools/testing/kunit/kunit_kernel.py
+index 12b0f2ee5665..3f2979f2f6ea 100644
+--- a/tools/testing/kunit/kunit_kernel.py
++++ b/tools/testing/kunit/kunit_kernel.py
+@@ -15,7 +15,7 @@ import shlex
+ import shutil
+ import signal
+ import threading
+-from typing import Iterator, List, Optional, Tuple
++from typing import Iterator, List, Optional, Tuple, Any
+ from types import FrameType
  
-+	prctl(PR_SET_PDEATHSIG, SIGKILL);
-+
- 	pty_fd = data->pty_fd;
- 	pipe_fd = data->pipe_fd;
- 	count = write(pipe_fd, &c, sizeof(c));
+ import kunit_config
+@@ -252,6 +252,7 @@ class LinuxSourceTree:
+ 		if kconfig_add:
+ 			kconfig = kunit_config.parse_from_string('\n'.join(kconfig_add))
+ 			self._kconfig.merge_in_entries(kconfig)
++		self._process : Optional[subprocess.Popen[Any]] = None
+ 
+ 	def arch(self) -> str:
+ 		return self._arch
+@@ -345,36 +346,45 @@ class LinuxSourceTree:
+ 			args.append('kunit.filter_action=' + filter_action)
+ 		args.append('kunit.enable=1')
+ 
+-		process = self._ops.start(args, build_dir)
+-		assert process.stdout is not None  # tell mypy it's set
++		self._process = self._ops.start(args, build_dir)
++		assert self._process is not None # tell mypy it's set
++		assert self._process.stdout is not None  # tell mypy it's set
+ 
+ 		# Enforce the timeout in a background thread.
+ 		def _wait_proc() -> None:
+ 			try:
+-				process.wait(timeout=timeout)
++				if self._process:
++					self._process.wait(timeout=timeout)
+ 			except Exception as e:
+ 				print(e)
+-				process.terminate()
+-				process.wait()
++				if self._process:
++					self._process.terminate()
++					self._process.wait()
+ 		waiter = threading.Thread(target=_wait_proc)
+ 		waiter.start()
+ 
+ 		output = open(get_outfile_path(build_dir), 'w')
+ 		try:
+ 			# Tee the output to the file and to our caller in real time.
+-			for line in process.stdout:
++			for line in self._process.stdout:
+ 				output.write(line)
+ 				yield line
+ 		# This runs even if our caller doesn't consume every line.
+ 		finally:
+ 			# Flush any leftover output to the file
+-			output.write(process.stdout.read())
++			if self._process:
++				if self._process.stdout:
++					output.write(self._process.stdout.read())
++					self._process.stdout.close()
++				self._process = None
+ 			output.close()
+-			process.stdout.close()
+ 
+ 			waiter.join()
+ 			subprocess.call(['stty', 'sane'])
+ 
+ 	def signal_handler(self, unused_sig: int, unused_frame: Optional[FrameType]) -> None:
+ 		logging.error('Build interruption occurred. Cleaning console.')
++		if self._process:
++				self._process.terminate()
++				self._process.wait()
+ 		subprocess.call(['stty', 'sane'])
 -- 
 2.34.1
 
