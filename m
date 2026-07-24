@@ -1,320 +1,277 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010029.outbound.protection.outlook.com [52.101.229.29])
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EC02C0F7F
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 13:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94789249EB;
+	Fri, 24 Jul 2026 13:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.148.174
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784898032; cv=fail; b=kSodk5TLqMFUusClGVIvvVGu+jbQ6z/8VUaNiFyWCIFiXLqTmUo87f0FgWlYoSI2xdaYOCbj7pxxCol8DsgbI26NazOCDCMNThqabB4jUjAxzJKJ32kxScHqP64LDLWVkxbH8XGQsTxvHHcAU4Z2D2B+I151BouhJWGVFAYHdI4=
+	t=1784898094; cv=fail; b=hHKt2azEx+3ba/Z+cP7M/7Y06LA0jRWJachP71/7asPNfXar9ZuHbyrn2BQVjs0vCZE1mCVtkgmMHQBmLy57j9wSZDdQtc42yP07WQTEfwWOmQLOx46EWJKv5TNdfLiSZDVnL9/DJn4g+VZy6Qyqmm3fHNx4USHNEf8b0c9ChZM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784898032; c=relaxed/simple;
-	bh=s/XGfeRKjfVyobaWgBRkJP2jCyAAIGgbq81gkuFZY/A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sLYvrVjXWptrDoHIPRDkuHdOp0+kt+AbnLY1RPsrBV0OEiRa50G+ZjQgpAP8/2YFp5MeeWh4Wn3Oe6DRrZCkRPtNVgAE4hJX8jnSy0z18ebK1rFajmf1KCYC5xxe7FNXl8em647/t85+lqoaw+ejbk/h/l6XHMxpZnsSIJFHaQw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=ff1R2XEc; arc=fail smtp.client-ip=52.101.229.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	s=arc-20240116; t=1784898094; c=relaxed/simple;
+	bh=WUWg24Ue02BHbMXVvePBHRUfu9HcBg7ikrYxd5FdCsY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=OWiBL/r2zqzBLpSd+KOtx+tQ4pkbAB9LZCIHJzUIXukK+WVkPxvZpxTYQIgsdGbcaG397qgVFjEokkQrGIuI54WqJ9NZZZ3hsVqaKh9dfY8B4wpa0Zll4QC/VapgoVNwuHj8/aHcaruSILQwB17YTUJXBBJ9hktzt78eDOyPKrw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=FX8lIk0v; arc=fail smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="ff1R2XEc"
+	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="FX8lIk0v"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66OCnZMp1813309;
+	Fri, 24 Jul 2026 06:01:17 -0700
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11020098.outbound.protection.outlook.com [40.93.198.98])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4fm66g8afg-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 24 Jul 2026 06:01:17 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LMe/gXxMbEMt4KbU1JX2zRk8RAwszf426AB23A2Mx5PCos4W7iCHD1Z12QHBjR8DFb8nmjPepXc2xEIvwlQ8vs5OjNgqIH6mgLsZ0ZuTIyZFI/IfoGKanOSiwj0VKU7OAnXZCBPYu69tbloFyWYaXaLvD5taknCGEt+2M2iXghMO5R5kKhMoUC3qlarMoNncEpqgKkgC8GmckgA8TPiv/ghX68WNTfoUwUMeTxuYTLzLGoxRrV8m2Hm0bXv9O7RMrN+0XBSAOcmi9+7Vjkx7t3oIzFaSuqTYF4yuofpwLo0B3PgYRslEPg+stBO+ZKAVzfi5tBCxGYmNIga3e2yFMg==
+ b=Bqykne57vEmN0xhVnfyShqCT6hiFIpVl2/1zUdukzlkmLYqTbM57L/37TYKnEC72L3kJwIfL/LfBOqz5M0CbmhS9CVWCvO1q/Vj/iwuKGeWrCmhcjhc1pqy4Ayu6w71LwYSN3GpfOjPOhMLu6SpHy4t2011Znlw8Pm1y5ynEjtFmKi9FR9X19/Rz/YernTKuog1nKrF0FjbOtcjVLAJsX3zm4fEdZAaiFjEHhcCyHeUl7IJ5/ZGWzcFBXigKIAmuzce6CbDL22+NIjQin0ngwC3goH52G4kZh19dwZwhtTZvP2pNhjCci9OCGzkqLDZ+SS13PxoIHMAsR3Zy8Lt+4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eUkHwZICM4Psi7f7UqpoSj7/U8NUOGHcYUDFvtj4UK8=;
- b=HKF1iWTTIesAgUj67JW/l7K65jjDzDTFMr5RiyYG24avZ2IAJ+jYCn6EzlXOEgwL5udl67uY55i8uHwVDNnOKUaCTk1NQoebz58+sWl8Z6toWb+7a1FPfaQzzkh8nIb1+F/VRtBq3wXf0/2uPHhoPlUUDU+bMh9ek6dD0t9nvfNMwcNVLjXo9pCwZLElwLUw/EbNJoBCj0BXg5iejwdjiB9ycJ+d2I9A3G0q07hIJsYTACyiqHX54Hvvs3nVAw/4AMCPwrssKHK1wOnh7pHPEFNYDXWflRaDper6PO4IOvco6lNE/H8RJZ7e9t6tGzP7m6wfmCFVdF9EJ3pnujevAQ==
+ bh=kK61bp5NK2IkKI+FshQP7g0p845tMs7A4GG7YQiciE0=;
+ b=MuISyKwuEuSjsL32sPhq2wcrvQLIT5BkA7F1bartJiAJrOmexkmlW2Q5tHVb/Ihkj6//qFqL8Vd/gF+BalWGIiW/v54HsGksx/rwp27Kj4SXZbwnGDEliZHpjGeS9F9vwtOd9iKq7Wt11ntM5zvwTFQzWMvLgPSyv3xLrZK6m/KT6Qrr1Cq0Km5x50D/vd/8iSMR67z8varazWfMQ+4D8clBP26itf33uAh/TsNYju4JSDP9GthSLRL9OxC2TgFzgm3DRv2KUbX3A0Qgs9XaGdLNoWxu0YTUUAyNtFzpIUy2NDhpxD32IwDxmGcp/WgG8Ws6qSQg+QgtvC4pIqEECQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
+ dkim=pass header.d=marvell.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eUkHwZICM4Psi7f7UqpoSj7/U8NUOGHcYUDFvtj4UK8=;
- b=ff1R2XEcRTlxLHtx0QUw5KAksmGDEu39YIg9YNcnWfytiwR5bPqsWkDaisfRNDKm0wG2CrCAvta4EIaUTV9Q/rzNfC8hwEHUb52u35YTZZZN0FgWqiFaXyCHYzDbLijANOrafON/7JQBQCvwKuZQBSEGGmDPwxAm2nwb/e9Zf3c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OS7PR01MB14318.jpnprd01.prod.outlook.com (2603:1096:604:386::6) with
+ bh=kK61bp5NK2IkKI+FshQP7g0p845tMs7A4GG7YQiciE0=;
+ b=FX8lIk0vd4hjrzzgYOtpYM67aDWkpYiYPoedBg7zJunFWyfcRB0+3p1+6RbSpxux3x6M7bezVeLC8myXDhcuTGo97/QmuAjggl3hP0xYOVI6PiJNDKPnKu2itPaEQAbNqQHGb2DxHKV1Yh2Pa4uesZtKFRnXe/JbSkl1nso9MEA=
+Received: from SA1PR18MB4600.namprd18.prod.outlook.com (2603:10b6:806:1d3::7)
+ by DS0PR18MB5271.namprd18.prod.outlook.com (2603:10b6:8:124::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 13:00:28 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 13:00:28 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: stable@vger.kernel.org
-Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	John Madieu <john.madieu.xa@bp.renesas.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Vinod Koul <vkoul@kernel.org>
-Subject: [PATCH 6.12.y] dmaengine: sh: rz-dmac: Move interrupt request after everything is set up
-Date: Fri, 24 Jul 2026 15:00:06 +0200
-Message-ID: <20260724130006.2967163-1-tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026072020-preheated-papyrus-50fd@gregkh>
-References: <2026072020-preheated-papyrus-50fd@gregkh>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR3P281CA0143.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::6) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Fri, 24 Jul
+ 2026 13:01:10 +0000
+Received: from SA1PR18MB4600.namprd18.prod.outlook.com
+ ([fe80::a9ff:1d54:811d:cff9]) by SA1PR18MB4600.namprd18.prod.outlook.com
+ ([fe80::a9ff:1d54:811d:cff9%5]) with mapi id 15.21.0245.012; Fri, 24 Jul 2026
+ 13:01:08 +0000
+From: "Sukhdeep Soni [C]" <sukhdeeps@marvell.com>
+To: Yangyu Chen <cyy@cyyself.name>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>
+CC: Mina Almasry <almasrymina@google.com>,
+        Jesper Dangaard Brouer
+	<hawk@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Lino
+ Sanfilippo <LinoSanfilippo@gmx.de>,
+        Igor Russkikh <irusskikh@marvell.com>, Simon Horman <horms@kernel.org>,
+        "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>,
+        "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [EXTERNAL] [PATCH net-next v2 2/3] net: atlantic: free RX pages
+ of consumed but not refilled buffers
+Thread-Topic: [EXTERNAL] [PATCH net-next v2 2/3] net: atlantic: free RX pages
+ of consumed but not refilled buffers
+Thread-Index: AQHdG0sjRp4Ub7f21U61wm/DNO6JELZ8oWAA
+Date: Fri, 24 Jul 2026 13:01:08 +0000
+Message-ID:
+ <SA1PR18MB4600B1FA7D0A1B0F9B701B86BACF2@SA1PR18MB4600.namprd18.prod.outlook.com>
+References: <tencent_1F173E0FC1606D2AC704DC9C98AF10984607@qq.com>
+ <tencent_F0FD0A4E6AFB381AE042C7AC87583506F10A@qq.com>
+In-Reply-To: <tencent_F0FD0A4E6AFB381AE042C7AC87583506F10A@qq.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR18MB4600:EE_|DS0PR18MB5271:EE_
+x-ms-office365-filtering-correlation-id: 7f46736b-921b-4d4c-fa46-08dee983a134
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|22082099003|18002099003|38070700021|56012099006|11063799006|4143699003|10067099003;
+x-microsoft-antispam-message-info:
+ F7r3HfD9Xu7UfmE/BajwSJg6yzP4f+9Eg6/YCl358NRxsGYFWM3/B7Ff3KSJxrlH0wpol0gocPUjSYuFT45vhx+n+lRFCt8r9OhtLVcLalUAkupJnynoh1PElV1z1R5pTojkYeYSu19KqYiFq/3EDjGMgZ83Je78S2Eg2b3YxrJwicwxy/yCE0ijkVLkkPBSD/Vq78yBgyJJlHI4tm18TxP6Qzk4MAdGKwSE6oHaPiyuTMGzhDZS1r84d1bwcXpKMxQA5PyYxdk3086hSD0IoLV1FYmbHiqI6UcaC6fzergwI2GWH4H9//6AuyXQfJo5sfK0wGOcwnSSl3de7DcjDC6PKeymwzwIoKlf48uAF00JNjLAKJuqKq2jbevtY03vwjB9pRnD9d8sCIKMhHbcMOBs8v2pUCVUO3Okt7In04BjmQ/WzcBfenJ1y3bhdksY7pN22VPQ3JSVpYYYYujnCF6Xg7jRHPbSsDiN0q7GVK1yrTLxj/cHESQ+paC1onjEeNPeyeT47jGOgxOeefdHZwjzbnjCi1xr3koRfvgL9cWPQOfuYIh4P6mbNeyqnRRYUiT7HHLDBRB/YskkreoWhKdLVxvNyoLfbzxeSUcv/urKtHda0hV0JjFG8Ib8SDB5JfTaG6FN8YamTkAYyig8lVq4qh7PUG4uxaIjbSioh0grSmydA/p7l2v5gpdQTCyw/7i3kIr0s6nU8cH7KNIBnum1gMNW7Y8F+Pl6JYIuLAc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR18MB4600.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?gr1U0D+tTX9SIzjUWfSg+gaAxUJf+3NqdUPmgcUOMhM5Gjh8uT1RiROLa0Wh?=
+ =?us-ascii?Q?RYEB2zmfDypJfYU6YL5zVpAy8tH8m7v9MRuCQbrxUPdTmUQCKjz1zFPsMzhg?=
+ =?us-ascii?Q?TT5b2TDa2/BRf6hO6JEDd6bqBYENnzpRbrJmfmvnuAz6lZWgYhcVweCEQW7F?=
+ =?us-ascii?Q?z/UjMx4YlaDB0NR94fKy/yR8KFyq1EZNLDBbTG97INi8y6+shloP51FoIweG?=
+ =?us-ascii?Q?4Vp78HZ9w1fDX3sohpw2+2vww9CaTP8eak5cyEl9gS770clSsMUQv8R/PCDu?=
+ =?us-ascii?Q?ueb/u3N5Yzyyj8Gv6nrjjep/DDXOxavi5vylbVNVPJDVW1MEkhJuqxLdFKgv?=
+ =?us-ascii?Q?VsBWrjTiXxlvj4bKyPXZtveYLtQocyT1t/bdo9e/awOXuQ9k2DGGvhl4+O58?=
+ =?us-ascii?Q?gcmw8b/oR+5ELUIYtsltN7GpbUV+55jWZUmiVJuJlDquNII+50F5pFHhbuuU?=
+ =?us-ascii?Q?ceN9Va77AkpLfxFyd0i0NNJp1+2S91HPgPYWxaHz3i7qadAkq5ht5ZkliHXG?=
+ =?us-ascii?Q?gqG4p2cZiKD6vEduIfHUR/2OBKsDVQCh2l3ILB7Ud8iZ0XAEp1wMsbBBrEWU?=
+ =?us-ascii?Q?xL5CGuu+WAmTesnyLQzip86hvMUPWibhDo56AgVqt1ZrsT4wg4kn+yewA14I?=
+ =?us-ascii?Q?sYyrusknLLjWYEPeEnfnFloBdgjeG3QPhX6dJZnpD2hDzNrX7DzQA7nykO2a?=
+ =?us-ascii?Q?3rbu55/5SpukcRk8cMBfZeWGI7fiMH39EqJV3ZLrf/keGCliquHpqU9Oy6Cx?=
+ =?us-ascii?Q?ZbSp2jt8CyJ1XEoSR+nyUIJuR4ym3yak6u4e2FpV9d/+jZ8sRyOXqrzDmF91?=
+ =?us-ascii?Q?HjTB1AqoAIIwBxpFKyFh7XH7X7+YIVsWa4D3Zb0pixdDwbSQkMgzwsKKaFLe?=
+ =?us-ascii?Q?FiEf4Wnkk/utu9jd/PF4EWyn2xW/xWWDNhJmSKCgGChgCfMHax/V1SL0ufSk?=
+ =?us-ascii?Q?xgdm6KMm5QTGdgoQ0q6obJaeiHp+IA7IiQ5Iv2X9aQsCSK9nmTaRvPccSuAU?=
+ =?us-ascii?Q?8fpopOErC6ksIoqyeympYAQ8RIozlGj+yeZQyumIDDVob0F02DAnGxKTnilP?=
+ =?us-ascii?Q?oRqKAKNiXOA9ZZtibTp4rM2y4GC8QWEE/E90fBjNb6qPi7/D+AtATlvZfb9v?=
+ =?us-ascii?Q?PlLkmdedAdE5X10yxxHoqT2S+obVvfoMII660TemrVdIlhEn8ZxKr9Kfqg//?=
+ =?us-ascii?Q?KSAgyJKMFjcJCWnyfI3X4rSW4jfHwFRN+GPxYrThZK2tgv1OA4SiefCY/pgX?=
+ =?us-ascii?Q?yDazFdotzsjvNfD4Hb1tG8usM2+AK/EEeG7B7WgbUQGPPMBLy74AMWCpkei3?=
+ =?us-ascii?Q?bS7n5Rjd5DH1z7R4dA6VAgCinLpIRLrQFEhTcxOZF9UM8tN/A6ehOrQy7mvA?=
+ =?us-ascii?Q?HPvXyRyI8GusvzCNaFHeETRzP0dLajf0e5eYEWtF26Me1y9CfZA88R1COOth?=
+ =?us-ascii?Q?DZRr5sT6UqdX19li/mBGzRItH+2IS8e+/uSTbnBqxePDdtRMgj4lmONEZn85?=
+ =?us-ascii?Q?6LCjciFn2NOUApH+J7g8paOqkFdiyfTEb3DF+LSngzrZ5bAHqQphawLI1oGj?=
+ =?us-ascii?Q?NkCPOZvGuSon/llL8+4ApHfbR2cp515SypyXDngDelVDCjU+Lu6Y3K0fNGn+?=
+ =?us-ascii?Q?6lrdPwH2TSDuaPA2eozjjRlQhMYbldBBq9V1sOuKsj+o0u9O0ypTZX1nrYUb?=
+ =?us-ascii?Q?ibWt3wzsmPIlOXnTzbAzS3zYY0KpOuNMYazkZfOSWiSLrlmG?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS7PR01MB14318:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac5b62e0-0bc1-46a8-ecd3-08dee98388c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|23010399003|1800799024|366016|38350700014|18002099003|22082099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	2CvAzW1mJLcbS3F9u1R+AtIx7WpHSWrPNWnBTNb/ipOuT9idUjEXJ4CrihUrRxix6PqjBCRenV5mPZq55lkxbF41xdxTJhFCIrFPV0Z+QTKUHV54YmkK6CrULlED2ExTsY5/mhMfRYCY9mMyOdxko1nh5ZOiAnfhF4xSF+a+2N8ovZEQdUvtca704eLlyy7FXLvhrwh/D6hHvcPw40nU3enLS9lDcu5VwRV1pFZvLOKho89Do2+Iw4WvyXED4cVeOFRaCCFAZLcBS+rxnqKVAit/+xlYoyBB1OAhOCCCIwtPmLeptAOFuufpKPxkJzxECDeCxGjTMFurTzVo5ptDYJY74zwNkQtFmUQvseTvpbFYh0cEnsdQIVnjoj+7+4t+QByxy6Ya4R8h2l/s4oLytRUU76f0cz321LLc5yuAEPsED6ugj/zurCObopA5cc6npYz/hIXHYvN3OBtO18A+07cyC293gz8PT5Tl27MEgH1WBjJ16gPnkD46O8mGt8UGtACMHfrBeZHx+pdKzvi/6UVHflc1gNmXl9iK6A96NXrd0zEusZncDlV4Or1gGH8pCmITFAIfB7u4U/mRIzEoH869I7hAfnJzBN8vpLiXQuhs6Djla4yPzVRu0HQUJxt8pMRYgbrx6V8kb9H1sm/NScBaKYtGj3sFfJ3l2/02jFk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(23010399003)(1800799024)(366016)(38350700014)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CGTxFt504dW58cb6D74JoF1knB5IC/d2BqPAX9imCdwT8mJtv9Di3bsT7Iqa?=
- =?us-ascii?Q?9q7akrVkOSEuWTcp8yosoUv3ryHFAuZ+HXUhkc6CB8TwxibjtX7b3YAXSUNA?=
- =?us-ascii?Q?8JNBNlCEb6m4KJEchnnMRF/p3CyQYfk0OKZeNL58y9NOOvBrT4JaBfDEM+M4?=
- =?us-ascii?Q?ioSS5lOTFJCTFBq/9q/MamllhysuTF1Prnr2zm+Hxun8eDEYVGnA3daxSjTo?=
- =?us-ascii?Q?AJUn53HUSJ0Q6pesVBwI9G31ClXad9CYX/QQXRzPbtEyTxEn4RqtF+gOeAXX?=
- =?us-ascii?Q?kUJMhQTD1WvwVNnKdQHuvMNXlVowpWawKMOsxIa8mZtQvCvlG39sXBz8MDng?=
- =?us-ascii?Q?DxlCq+4ptsrTx34oRTXp7UPvjWeLCQHsiueKi5R8G0us1CPh2GYezG0DhSYT?=
- =?us-ascii?Q?/QY7TPNO9jksXLpLzlizAYaSPi69dQwaa7a7ghON8+k74tvVUnX9TT6MYJQD?=
- =?us-ascii?Q?aYA3O0nDxnlF5gZCDtJwaqWhqj+rdtkExyCVTG3rUc2TLyD3Y2HKsTy3le6Q?=
- =?us-ascii?Q?cw07lrQo/jdZej502eH1iXDNX5ntV/sV1k7lporTGCdi6ZaC5MDnt0CU1fMv?=
- =?us-ascii?Q?V4U7uNNOcUf0JXok/XKIrvURTy4prXWYz4yY9DDs+PIjxuGKeDHtDxpIjsY5?=
- =?us-ascii?Q?lXI3VbyMOp87c9voFGtEj5bcqqh5yId5MnBG7AaFpz2HrGyw7/t926U8ft+v?=
- =?us-ascii?Q?zJKm8LkWLHNLzu/1hSBSDyaNk9KBWBcx8my7gKnwpeeJySt1iPLzQOTtF/1g?=
- =?us-ascii?Q?Ay9ooLKrda+xNgCRntxi3sqLQAmDpsIoNeXnBLDFAyrjS48Bh2VYhF+/OyhP?=
- =?us-ascii?Q?2K+frq477qk1vnNUqJl1g/sEYR6E/W4iceXFTeOJ07DPY6axr7F+D8xLv9hb?=
- =?us-ascii?Q?JC7JBkFU/J4pxZ9Cz8nygvLpTKdVlqCZVAgXjja44P2A81HLmj65NeZlZ4k+?=
- =?us-ascii?Q?l44NbslhbKvlzHpWrVK4utdlWCIpfUoC7/Qs+B+goInAFw10YthdV8AOAXO8?=
- =?us-ascii?Q?eLYkabvNNI+nf1agVok0DCJbIrCfHaL/3mJRMO/oK9lBacPsIz65TknRE2Sh?=
- =?us-ascii?Q?31ts8K4KIwJKLY2Nr4rUH3ptn0lSpU0hIJd2XWHY+0M7+u8QG19cLtV58Ksf?=
- =?us-ascii?Q?bw1UfBc1KatLfO5yQ/J6nQjYx3CEl2rO6IzIQPf6xADVe+Awynm9u/vv5t8S?=
- =?us-ascii?Q?9Y5nwR5rPEcqSZgYlxKXDmqC9OfPkqqMLyB9zL/+21brnIxXnWyfPEB7WX+c?=
- =?us-ascii?Q?TuYLxdaRLWzHhAUvXwdmjJy/6FUQrEuC9Id6mintxO0UU8tbJ2KeqXe5VzeN?=
- =?us-ascii?Q?JUWF/Gq/DcMydEenK9LxaMBMEQ/EbD0LgzZ8wF/LizGKBxEhBg9RsX8EBMRS?=
- =?us-ascii?Q?uKl9KiInQ6+puvzRrWDcz2hBCekLzwQIJ1ebouTYY2pcU6kJbUg97g3XvVnL?=
- =?us-ascii?Q?x4y77Q0W//noWGQvbcfE6ylC7OtnhkAvHT5V1gqE9O6QuuG390TsSSnDsatu?=
- =?us-ascii?Q?FgzRAkIffVEqf01aW3QaT8f4Ttc3nuBDv3ZbnlDRiki5TR68Fv7ct1t7h8C3?=
- =?us-ascii?Q?kBiG6fDk7WAon0NQEOsqaIPoKrzFE3P+Y4oYunA85+9/xvElt0CeoDEn025f?=
- =?us-ascii?Q?8HqlFu+LDlTi0XaJwEMTNOhWcwDCpnZpnvoHGhf9mLAzzejq6DEmGGaE3YE2?=
- =?us-ascii?Q?BE1igxodtRXEcGt8Rh41i6/6xGviX86hIru6aw1tuThjiQ5dZu/zYptUHHkH?=
- =?us-ascii?Q?jboLpnE6co97CGNZjuaYVbnqipxcZV+4nMyCCmZ3A16lb+vl1Ghi?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac5b62e0-0bc1-46a8-ecd3-08dee98388c6
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-Exchange-RoutingPolicyChecked:
+	Ie3F5j7BE8+gYLroCDjfnoRvaEumB9WczPGb7XyuVR2u7WVMHSbpUqEYCiDsTFfhpUHwCe0rO7+pyCusbnHY6LXwTvFHVG4xx4Gm9d1NDkIRjtSqmMETmUPlXQy+/tL3QciyMENJVxOAt9OqyYjMAOKZqN2p9SYyccMjoId0ECmJeepGi7TprUj687y/4liaSYBFT/YYVJiEp2GGj613Hict6TAVp52cdwEWZdRlYnNbzRpxJ3PXLuvWVXZULIgcEsUKjTyAQcTPB5N5cDB+u+ZBvGgCETtqcnThY+9z4ZD28BzWHMuNZhmVz7YC2eSiP+U1XOB0E4B5cxc8VG0/OQ==
+X-OriginatorOrg: marvell.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 13:00:28.1291
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR18MB4600.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f46736b-921b-4d4c-fa46-08dee983a134
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2026 13:01:08.7753
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5PjYcXUJ8qXPlKCoY7Vn5qbVx3Fhj1LfhMqbmgsLH2/gAR6Qyq5eAsX0gZgvXkHJvD8PQGEZV9iWiuH1hjj0WvNVJazKd2ruhU8V0IlUq/p8i2cqH+6Ndrc8JGqjq07a
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB14318
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LcoyR4cmqF7xJQzwxunGZPR8ZZvF/Mu0CekfyQ9K/7v8CDxaP4lAlqreR/NpZqie3XOTtyMSrSccMfqu8/LKwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR18MB5271
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDExOCBTYWx0ZWRfX8j/5c8t/HfiZ
+ +AgHwD8YyLNOscVGSJrLj2ecz7tPPNFQCvyd+j5y/tnt1B+QQ5bN/rV1aJe4nDKjDKSCNy0Apba
+ s3SUbsCPlTFVXYotCoxIGw+8f6+ZeKJ+2W+2IEzenfqNkKtEBk9LE3XnUh4TkBCV8MDFgYt7mZ9
+ O/zVarToDJ7Wx3f2xCl88b3beVqV2R+a+l7xtGRZz1w9P9pK8vdGoZLZB2+kETQ7M2MZbZ0w7F/
+ CpHNORtvIaSDfLBLUMIc4lpZe6jP2h70gHs8xvUasFrPlpqEW1B1pvq+aV/OA9JZgDNujtwX5Sg
+ o07BRzxqWUMv6AyAwk9u4+VfCEFVWHfUzdOj+8adesxh8cveRXkZwyC1c2N9Td3JZKE9ur0whau
+ OCyBea0083PMAyq2AyVuDE3MwweDUq1ZD2pfa2llQh9BET8rAq9lg+I4jUgSCSiS0vgOuPyhxZU
+ 2muqtENfogQeIbfxueA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDExOCBTYWx0ZWRfXyBUPq8glFPU0
+ D4mJs2fjZVqSrV/4SG8lYCl1b3tW8gSzgNdUPvApxxivG8T/QwjkZ7aDDy8/+jnGQ88Mb9OKZco
+ fZ4bA8foonpvFy9buhKCXThZl/FKNSo=
+X-Proofpoint-GUID: oMxIxcjUMoWX8aCniMQKkBPGsDKIlpu6
+X-Proofpoint-ORIG-GUID: oMxIxcjUMoWX8aCniMQKkBPGsDKIlpu6
+X-Authority-Analysis: v=2.4 cv=SrqgLvO0 c=1 sm=1 tr=0 ts=6a63621d cx=c_pps
+ a=5WG37Iiv9zZuKkK3l3Cj4Q==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=1NV-BSczsOLvH7eC:21 a=xqWC_Br6kY4A:10
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=-AAbraWEqlQA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22 a=EAYMVhzMl8SCOHhVQcBL:22
+ a=VwQbUJbxAAAA:8 a=M5GUcnROAAAA:8 a=UQ3F7XsocM0Iduz3li4A:9 a=lqcHg5cX4UMA:10
+ a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_03,2026-07-24_01,2025-10-01_01
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-commit 731712403ddb39d1a76a11abf339a0615bc85de7 upstream.
+On 24 july 2026, Yangyu Chen wrote:
 
-Once the interrupt is requested, the interrupt handler may run immediately.
-Since the IRQ handler can access channel->ch_base, which is initialized
-only after requesting the IRQ, this may lead to invalid memory access.
-Likewise, the IRQ thread may access uninitialized data (the ld_free,
-ld_queue, and ld_active lists), which may also lead to issues.
+> aq_ring_rx_deinit() only walks [sw_head, sw_tail), the region posted to
+> hardware. Since the page reuse strategy was added, a cleaned RX buffer
+> keeps its page (and its DMA mapping) in the ring for reuse, and refill
+> is batched: aq_ring_rx_fill() returns early until AQ_CFG_RX_REFILL_THRES
+> slots are free. Slots that were consumed but not yet reposted therefore
+> sit in the complementary [sw_tail, sw_head) gap with a live page, and
+> the deinit walk never visits them: up to a refill batch worth of pages
+> and DMA mappings leak on every interface down.
+>=20
+> Walk the whole ring instead and release whatever is still there. Also
+> bail out if the buffer ring is already gone: a partial
+> aq_ptp_ring_alloc() failure frees the ring but leaves aq_nic set, so
+> aq_ptp_ring_deinit() still gets here on the unwind path.
+>=20
+> Fixes: 46f4c29d9de6 ("net: aquantia: optimize rx performance by page reus=
+e strategy")
+> Cc: mailto:stable@vger.kernel.org # v5.2+
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Yangyu Chen <mailto:cyy@cyyself.name>
+> ---
+>
+> Notes:
+>    Without this fix, the following page_pool conversion turns the missed
+>    pages into fragments that page_pool_destroy() waits for forever.
+>    Reproduced on an AQC100 with the conversion applied and this fix
+>    reverted -- ordinary small received frames (<=3D 256 byte header-only
+>    packets, e.g. ping replies or pure TCP ACKs) are enough to populate
+>    the [sw_tail, sw_head) gap:
+>   =20
+>      ping -c 200 -i 0.005 <peer>%enp99s0
+>      ip link set enp99s0 down
+>   =20
+>    One short ping flow left three of the eight RX rings' pools with
+>    stranded fragments, and page_pool_release_retry() warns for each of
+>    them every 60 seconds, indefinitely:
+>   =20
+>      [278084.929092] page_pool_release_retry() stalled pool shutdown: id =
+123, 1 inflight 60 sec
+>      [278084.961064] page_pool_release_retry() stalled pool shutdown: id =
+126, 1 inflight 60 sec
+>      [278084.961087] page_pool_release_retry() stalled pool shutdown: id =
+125, 6 inflight 60 sec
+>      [278145.346737] page_pool_release_retry() stalled pool shutdown: id =
+123, 1 inflight 120 sec
+>      [278145.378745] page_pool_release_retry() stalled pool shutdown: id =
+125, 6 inflight 120 sec
+>      [278145.378759] page_pool_release_retry() stalled pool shutdown: id =
+126, 1 inflight 120 sec
+>   =20
+>    With this patch the whole ring is walked at deinit, the pages are
+>    released, and the pools drain immediately. On the current code the
+>    same gap leaks the pages and their DMA mappings silently.
+>   =20
+>    Applies and was build- and runtime-tested independently of the rest
+>    of this series, against the current page scheme.
+>   =20
+>    New in v2: split out of the page_pool conversion and made a
+>    standalone fix for the existing page reuse scheme (Mina); Cc stable
+>    with the affected range.
+>
+> .../net/ethernet/aquantia/atlantic/aq_ring.c  | 22 +++++++++++++++----
+> 1 file changed, 18 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c b/drivers/n=
+et/ethernet/aquantia/atlantic/aq_ring.c
+> index 81685a4dc5a6..e1193c6719d9 100644
+> --- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
+> +++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
+> @@ -950,15 +950,29 @@ int aq_ring_rx_fill(struct aq_ring_s *self)
+>=20
+> void aq_ring_rx_deinit(struct aq_ring_s *self)
+> {
+> -	if (!self)
+> +	unsigned int i;
+> +
+> +	if (!self || !self->buff_ring)
+> 		return;
+>=20
+> -	for (; self->sw_head !=3D self->sw_tail;
+> -		self->sw_head =3D aq_ring_next_dx(self, self->sw_head)) {
+> -		struct aq_ring_buff_s *buff =3D &self->buff_ring[self->sw_head];
+> +	/* Release every page still owned by the ring.
+> +	 *
+> +	 * Walking [sw_head, sw_tail) is not enough: refill is batched
+> +	 * (aq_ring_rx_fill() waits for AQ_CFG_RX_REFILL_THRES free slots),
+> +	 * so slots that were cleaned but not yet reposted accumulate in the
+> +	 * [sw_tail, sw_head) gap, and they keep their page for reuse. Walk
+> +	 * the whole ring and release whatever is left.
+> +	 */
+> +	for (i =3D 0; i < self->size; i++) {
+> +		struct aq_ring_buff_s *buff =3D &self->buff_ring[i];
+> +
+> +		if (!buff->rxdata.page)
+> +			continue;
+>=20
+> 		aq_free_rxpage(&buff->rxdata, aq_nic_get_dev(self->aq_nic));
+> 	}
+> +
+> +	self->sw_head =3D self->sw_tail;
+> }
+>=20
+> void aq_ring_free(struct aq_ring_s *self)
+> --=20
+> 2.47.3
 
-Request the interrupts only after everything is set up. To keep the error
-path simpler, use dmam_alloc_coherent() instead of dma_alloc_coherent().
-
-Fixes: 5000d37042a6 ("dmaengine: sh: Add DMAC driver for RZ/G2L SoC")
-Cc: stable@vger.kernel.org
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Tested-by: John Madieu <john.madieu.xa@bp.renesas.com>
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Link: https://patch.msgid.link/20260526084710.3491480-2-claudiu.beznea@kernel.org
-[tm: Kept the channel->irq field in rz_dmac_chan_probe() instead of
- upstream's local `irq` variable, as commit 04e227718ab8
- ("dmaengine: sh: rz-dmac: Make channel irq local") is not present
- in this tree. Likewise kept platform_get_irq_byname() (mandatory)
- instead of platform_get_irq_byname_optional() for the error IRQ in
- rz_dmac_probe(), as commit 6b3a6b6dc074 ("dmaengine: sh: rz_dmac:
- make error interrupt optional") is not present in this tree either;
- its early return on failure becomes a goto err jump to match the
- new call order.]
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
----
- drivers/dma/sh/rz-dmac.c | 96 ++++++++++++++++------------------------
- 1 file changed, 38 insertions(+), 58 deletions(-)
-
-diff --git a/drivers/dma/sh/rz-dmac.c b/drivers/dma/sh/rz-dmac.c
-index 06952519f509..fece2cfec1cc 100644
---- a/drivers/dma/sh/rz-dmac.c
-+++ b/drivers/dma/sh/rz-dmac.c
-@@ -780,27 +780,6 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
- 	channel->index = index;
- 	channel->mid_rid = -EINVAL;
- 
--	/* Request the channel interrupt. */
--	scnprintf(pdev_irqname, sizeof(pdev_irqname), "ch%u", index);
--	channel->irq = platform_get_irq_byname(pdev, pdev_irqname);
--	if (channel->irq < 0)
--		return channel->irq;
--
--	irqname = devm_kasprintf(dmac->dev, GFP_KERNEL, "%s:%u",
--				 dev_name(dmac->dev), index);
--	if (!irqname)
--		return -ENOMEM;
--
--	ret = devm_request_threaded_irq(dmac->dev, channel->irq,
--					rz_dmac_irq_handler,
--					rz_dmac_irq_handler_thread, 0,
--					irqname, channel);
--	if (ret) {
--		dev_err(dmac->dev, "failed to request IRQ %u (%d)\n",
--			channel->irq, ret);
--		return ret;
--	}
--
- 	/* Set io base address for each channel */
- 	if (index < 8) {
- 		channel->ch_base = dmac->base + CHANNEL_0_7_OFFSET +
-@@ -813,9 +792,9 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
- 	}
- 
- 	/* Allocate descriptors */
--	lmdesc = dma_alloc_coherent(&pdev->dev,
--				    sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
--				    &channel->lmdesc.base_dma, GFP_KERNEL);
-+	lmdesc = dmam_alloc_coherent(&pdev->dev,
-+				     sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
-+				     &channel->lmdesc.base_dma, GFP_KERNEL);
- 	if (!lmdesc) {
- 		dev_err(&pdev->dev, "Can't allocate memory (lmdesc)\n");
- 		return -ENOMEM;
-@@ -831,7 +810,26 @@ static int rz_dmac_chan_probe(struct rz_dmac *dmac,
- 	INIT_LIST_HEAD(&channel->ld_free);
- 	INIT_LIST_HEAD(&channel->ld_active);
- 
--	return 0;
-+	/* Request the channel interrupt. */
-+	scnprintf(pdev_irqname, sizeof(pdev_irqname), "ch%u", index);
-+	channel->irq = platform_get_irq_byname(pdev, pdev_irqname);
-+	if (channel->irq < 0)
-+		return channel->irq;
-+
-+	irqname = devm_kasprintf(dmac->dev, GFP_KERNEL, "%s:%u",
-+				 dev_name(dmac->dev), index);
-+	if (!irqname)
-+		return -ENOMEM;
-+
-+	ret = devm_request_threaded_irq(dmac->dev, channel->irq,
-+					rz_dmac_irq_handler,
-+					rz_dmac_irq_handler_thread, 0,
-+					irqname, channel);
-+	if (ret)
-+		dev_err(dmac->dev, "failed to request IRQ %u (%d)\n",
-+			channel->irq, ret);
-+
-+	return ret;
- }
- 
- static int rz_dmac_parse_of(struct device *dev, struct rz_dmac *dmac)
-@@ -858,7 +856,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
- 	const char *irqname = "error";
- 	struct dma_device *engine;
- 	struct rz_dmac *dmac;
--	int channel_num;
- 	int ret;
- 	int irq;
- 	u8 i;
-@@ -888,19 +885,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
- 	if (IS_ERR(dmac->ext_base))
- 		return PTR_ERR(dmac->ext_base);
- 
--	/* Register interrupt handler for error */
--	irq = platform_get_irq_byname(pdev, irqname);
--	if (irq < 0)
--		return irq;
--
--	ret = devm_request_irq(&pdev->dev, irq, rz_dmac_irq_handler, 0,
--			       irqname, NULL);
--	if (ret) {
--		dev_err(&pdev->dev, "failed to request IRQ %u (%d)\n",
--			irq, ret);
--		return ret;
--	}
--
- 	/* Initialize the channels. */
- 	INIT_LIST_HEAD(&dmac->engine.channels);
- 
-@@ -926,6 +910,21 @@ static int rz_dmac_probe(struct platform_device *pdev)
- 			goto err;
- 	}
- 
-+	/* Register interrupt handler for error */
-+	irq = platform_get_irq_byname(pdev, irqname);
-+	if (irq < 0) {
-+		ret = irq;
-+		goto err;
-+	}
-+
-+	ret = devm_request_irq(&pdev->dev, irq, rz_dmac_irq_handler, 0,
-+			       irqname, NULL);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to request IRQ %u (%d)\n",
-+			irq, ret);
-+		goto err;
-+	}
-+
- 	/* Register the DMAC as a DMA provider for DT. */
- 	ret = of_dma_controller_register(pdev->dev.of_node, rz_dmac_of_xlate,
- 					 NULL);
-@@ -964,16 +963,6 @@ static int rz_dmac_probe(struct platform_device *pdev)
- dma_register_err:
- 	of_dma_controller_free(pdev->dev.of_node);
- err:
--	channel_num = i ? i - 1 : 0;
--	for (i = 0; i < channel_num; i++) {
--		struct rz_dmac_chan *channel = &dmac->channels[i];
--
--		dma_free_coherent(&pdev->dev,
--				  sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
--				  channel->lmdesc.base,
--				  channel->lmdesc.base_dma);
--	}
--
- 	reset_control_assert(dmac->rstc);
- err_pm_runtime_put:
- 	pm_runtime_put(&pdev->dev);
-@@ -986,18 +975,9 @@ static int rz_dmac_probe(struct platform_device *pdev)
- static void rz_dmac_remove(struct platform_device *pdev)
- {
- 	struct rz_dmac *dmac = platform_get_drvdata(pdev);
--	unsigned int i;
- 
- 	dma_async_device_unregister(&dmac->engine);
- 	of_dma_controller_free(pdev->dev.of_node);
--	for (i = 0; i < dmac->n_channels; i++) {
--		struct rz_dmac_chan *channel = &dmac->channels[i];
--
--		dma_free_coherent(&pdev->dev,
--				  sizeof(struct rz_lmdesc) * DMAC_NR_LMDESC,
--				  channel->lmdesc.base,
--				  channel->lmdesc.base_dma);
--	}
- 	reset_control_assert(dmac->rstc);
- 	pm_runtime_put(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
--- 
-2.54.0
-
+Reviewed-by: Sukhdeep Singh <sukhdeeps@marvell.com>
