@@ -1,80 +1,80 @@
 Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D7A363C50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668393D7D77
 	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 08:35:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784882164; cv=pass; b=N1bv7FfxuLzquSrplPjgeuXyJo/fIwkJWviDKPJhmmfnb1kZmifSaApNGDSrOR5P8iZmJfMm6hbc1jtsNmBKK7XLqBkgFntxZ0pYNg01swE99KzTusam4zd50Ra/ufGQ3o1rtiWT1M17dqQsUz7FRp5pLvZ+nIrHZaOlRtzxTBc=
+	t=1784882164; cv=pass; b=YtYp/2vRmcy/FnOalPkrHxX8HCPSriwlq8DbzIWghmKhgXocQiu3IE6roP9EN9WlDncUS7AHnsOcAp07MFozJ2GhFwlqWy4ltgt9adNs+AeEC6q6DuBb/OKPVRHy0VQZfx0xra8hs3xI0ByF4HGQEOGtcGKUDlNG/VuODiEI97M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784882164; c=relaxed/simple;
-	bh=v2jp7AXtDa6VU1cP9KrBfSscEB1UfiwBQh9OUbehQkU=;
+	bh=BefUt36UzTX1Xz3PFofRiRYuWY7dvmH68A+YS1dG6Dc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A+iv/Qa1TmIhcdm4Ht/XJDUGA7i5pUQPDn4gNK783uxi/+wmnh5OSpRtG9k08ybZItrArT7HIwFazpPusvhTwvkiC1nkH5zSFc4Kr/ErZ3k5peReru4CuKvSUs/EqImy6RVYxvAou9tJ9YsdJRQNBn16CYdrZ/Lj4gXb/EmEL/E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=cm653R86; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Fi/JFRqP; arc=pass smtp.client-ip=85.215.255.53
+	 MIME-Version:Content-Type; b=BVL38wEyjbOR7A9WFiZswgh5yiRBYuxYkgCTobeVvoCRCJHkLDxr4NeckMWOEPdPf280YR/JXeXaPipqm7J6gcpLoJFUD3Di6j+Htx5ozOxQd0t4jYDqic3/IU4Q5C7TmaJ3OiP3wIoka54DJd2CbiCHEYH7D0qMPObhRb1E2uQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=GiPIm43G; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=30w17XYm; arc=pass smtp.client-ip=85.215.255.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="cm653R86";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Fi/JFRqP"
-ARC-Seal: i=1; a=rsa-sha256; t=1784882147; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="GiPIm43G";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="30w17XYm"
+ARC-Seal: i=1; a=rsa-sha256; t=1784882146; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=tbdSsZyS9Szw3r9Ru9aWV35Y/yy6LXgvEN7gO8UwNZLtUhvKRZ4p5MYptsfQPa8b3A
-    TdVDMYeDxwLZFZkPKedibWT2mYq0IrRmilxMSN8WATgusmoJ17RST/HGqYF2ABNd0h2l
-    B5aGN0+8/3EhoIydpP/MkQvsZngI+/JTom00KHvfnhC9fkllb71HWPAvDjL3VADIyy0r
-    /h7+p0Vm0kun2Ck1HGuL0yrp1/w2nHYJBd4aTZoY4vMwaU3ADuNSRyUANVXf2z0eXNBu
-    mG5fF73YatubdrEbN0GgLyYl9cGEiFzO3V7aYH4fH31tRq2oBq36EPhnVk5bcqjwWvUb
-    F7qQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882147;
+    b=kNv1aB1jTg2Tv77y89+nh5vnGxkrR/amyGnmpeHdSsIeuswT3XzjBn5j5fvO44zGSb
+    awNnlFp8xin6Pz1bBo8Wr5z5796oWR2/Zs9IVftHjWKpYrAB8m0mh5srlWDCLaXo3tSW
+    8sKkCSw72pyJoeOIc98HbOxHCOcbZFBCwEI0trFoMmbOR2i5VOAaygIWjb+uMmyna6ol
+    eE2sEJX3EVhRYn1aZcNVi5ahkHCR4bIb70TubDYLaq4xN/0BnTL3uFUdNWeZBAThUheD
+    1z6Pe8m/kc5pdk7PdrVRtD5Wm1TVaTPoFDTw0NyZhUz3Aw70gEEi0swuXpS1qilf+Fte
+    3/yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=eiL/Og5AVfnNdySZXC53uQLfrHKrauHVEQve/4SaWAY=;
-    b=i7fFKG5+b+hbxZv1vq08ePSnIu3Uesuz/JrcHgzNN8q7eVCEV9XfmIeo4924AMNkJ2
-    XLJ5VKBBj3C1qN4Cr2U3cgcnQjTzZ7JjHRUOKuD9SNXqQG44JeicyN39kxp8TD9B+xgS
-    XvNK5H5Nodge5QS6rQJ/FaYSjXl7aRVSx2PfOj+Y8QV/bvv1S5hldQgM9G7th8alOqVR
-    0sA8AON4IYM4asuZyXJHObsc7k+U/7nzV8dhN3RvmJlirnKk20/c4gD720zR4n7FZSfj
-    /2XUeAH3wbQUu/Qehp/k4QTKE/M+kYI8vXatCkti9rpk2CilGIkzeqtNLCg1948nX8WO
-    0YSA==
+    bh=0cfVLfI8ZcYjh44KKEIrbkJYAgs6V65Tuq1l7zIu5Kk=;
+    b=GBRe2aLeHQILUwBBrye5xi1/A9NGHUDMFc77oVCrKxc4AeEmyd4Npe/fNb8I1muJKW
+    UnGdIzcvXpzlhyT8BDrnsyv7E5AyodX8HexmiuH7rNwshRfraqZA/XYbE3UUMRmj2fjk
+    xfHZkDyWTZ9C6HJIxr7TtucR0CNpDBmoXRiyUrFSBQOyE2iet03YAs23vGzeHmljRNyE
+    exYboLbYw2l8XTzb5C/628rC+txuQlqymkM2s4DbSZQQEuANY1dEZ3YvJS9uN8W2bSKK
+    MPUzneE3ehv8WBoN+61qQaEZmaP/V1kHRzWbNHdCOy0cX5btpYX5vmem4LrP87yknbh3
+    XJhQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882147;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
     s=strato-dkim-0002; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=eiL/Og5AVfnNdySZXC53uQLfrHKrauHVEQve/4SaWAY=;
-    b=cm653R86g6rg6VlwNL9qrOS4GzACYWOMV6DG82cWkgAJ7avSWxQF/n/Imyqk5c2YWa
-    MBQATphUefV0rJnbs0h9cwm/jaKXuqhy8JVJRCz2oVu251eSIuK160X6n9HZSurEpACI
-    GLVDqOcmJyKzOlhr379r4lYHE88x9oRSjhFPe9uXPeo7tSa7I0xQPW9COpf/cybBoFoR
-    Xy+hWDJN/FoQvVYThyYe7C/3oj0evIg01VPq2dKHN0ydL6UxzLTuSk9WsHjQ5nMlqYkE
-    MenmFM0Ij3a7NKwI5y8pbpADR2/d7wQ6qHltZ6XF8fwx7dV9Mw0kd1Q6IQB97SM41UUe
-    zi1w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784882147;
+    bh=0cfVLfI8ZcYjh44KKEIrbkJYAgs6V65Tuq1l7zIu5Kk=;
+    b=GiPIm43GwoRM3RI1SsYQ0PcDB9ak+9tW1gKbbyTF3GiVQG44Gq/H1umE+R2zjEe+GV
+    x7NIcxXwc3Qi8MtOHEdj5wWKRuI4kBTB8IZMpNHIS5+rss7k9xZPmn3qHrvL9PKKXV7M
+    ++Q81NZpaWOaw+tiILRteiAahCokXiC/wuMiERvHMr2kTp3/SLAmDFU8njLR3lr+C6FX
+    HRzR1hxUvjPzmlFPWdiMOHukFDeC/dLWhkL0Xhx6vDZDZtjFDtUYNBd3mcIjmawSdJcq
+    HNrWGMybT7DsZctISNdiAVuMqjNoY5zagBZ+NFr6nrBSsULWQuAp46tHQAQ9bLT40JiJ
+    xlkw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784882146;
     s=strato-dkim-0003; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=eiL/Og5AVfnNdySZXC53uQLfrHKrauHVEQve/4SaWAY=;
-    b=Fi/JFRqP/h9oHuLCrMt8FiJ3ltsPcAbXbQFz0zDrRKBIneTP3qwM9rVDSosltaX89d
-    hW26ZyeLQrQL/NkogIAw==
+    bh=0cfVLfI8ZcYjh44KKEIrbkJYAgs6V65Tuq1l7zIu5Kk=;
+    b=30w17XYmhtwMfffTLR3MNB9N++vuVucACI/EtzrhIsnP0+iejexhMP4MYLE1uE7tGI
+    Wi2nH5nYG9sR5XwRUxBQ==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926O8ZlrM8
+    with ESMTPSA id K5281926O8ZkrM0
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Fri, 24 Jul 2026 10:35:47 +0200 (CEST)
+    Fri, 24 Jul 2026 10:35:46 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH 8/9] can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
-Date: Fri, 24 Jul 2026 10:35:33 +0200
-Message-ID: <20260724083534.12119-9-socketcan@hartkopp.net>
+Subject: [PATCH 3/9] can: bcm: fix CAN frame rx/tx statistics
+Date: Fri, 24 Jul 2026 10:35:28 +0200
+Message-ID: <20260724083534.12119-4-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072058-proxy-lubricant-2d2b@gregkh>
-References: <2026072058-proxy-lubricant-2d2b@gregkh>
+In-Reply-To: <2026072047-expanse-drool-9060@gregkh>
+References: <2026072047-expanse-drool-9060@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,69 +84,186 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-commit 58fd6cbc8541216af1d7ed272ea7ac2b66d50fd8 upstream.
+commit e6c24ba95fc3f1b5e1dcd28b1c6e59ef61a9daa5 upstream.
 
-For an rx op subscribed on all interfaces (ifindex == 0), the same op
-is registered once in the shared per-netns wildcard filter list, so
-bcm_rx_handler() can run concurrently on different CPUs for frames
-arriving on different net devices.
+KCSAN detected a data race within the bcm_rx_handler() when two CAN frames
+have been simultaneously received and processed in a single rx op by two
+different CPUs.
 
-op->rx_stamp and op->rx_ifindex were written before bcm_rx_update_lock was
-taken, allowing concurrent writers to race each other - including a torn
-store of the 64-bit rx_stamp on 32-bit platforms.
+Use atomic operations with (signed) long data types to access the
+statistics in the hot path to fix the KCSAN complaint.
 
-Beyond a torn store bcm_send_to_user() must report the timestamp/ifindex
-of the very same frame whose content it is delivering. So the assignment
-is placed in the same unbroken bcm_rx_update_lock section as the content
-comparison.
+Additionally simplify the update and check of statistics overflow by
+using the atomic operations in separate bcm_update_[rx|tx]_stats()
+functions. The rx variant runs under bcm_rx_update_lock to prevent
+races when resetting the two rx counters; the tx variant runs under
+bcm_tx_lock and only needs to guard its own counter's overflow.
 
-As a side effect, the RTR-request frame feature (which never reach
-bcm_send_to_user()) no longer updates rx_stamp/rx_ifindex, since only
-the notification path needs them.
+As the rx path resets its values already at LONG_MAX / 100, there is
+no conflict between the two locking domains (bcm_rx_update_lock vs.
+bcm_tx_lock) even for ops that use both paths.
+
+The rx statistics update and the frames_filtered update in
+bcm_rx_changed() were previously performed in two separate
+bcm_rx_update_lock sections. For an rx op subscribed on all interfaces
+(ifindex == 0), bcm_rx_handler() can run concurrently on different
+CPUs, so a counter reset by one CPU between these two sections could
+leave frames_filtered larger than frames_abs on another CPU, producing
+a bogus (even negative) reduction percentage in procfs. Update the
+statistics in the same critical section as bcm_rx_changed() to close
+this gap, which also removes the now unneeded extra lock/unlock pair
+around the traffic_flags calculation.
 
 Fixes: ffd980f976e7 ("[CAN]: Add broadcast manager (bcm) protocol")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-can/20260707145135.5BC831F00A3A@smtp.kernel.org/
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20260714-bcm_fixes-v15-10-562f7e3e42da@hartkopp.net
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-4-562f7e3e42da@hartkopp.net
 Cc: stable@kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
 ---
- net/can/bcm.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ net/can/bcm.c | 67 +++++++++++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 45 insertions(+), 22 deletions(-)
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index c28256c..95eb791 100644
+index ffd492a..cca495c 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -756,11 +756,6 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
- 	/* disable timeout */
- 	hrtimer_cancel(&op->timer);
+@@ -109,7 +109,7 @@ struct bcm_op {
+ 	int ifindex;
+ 	canid_t can_id;
+ 	u32 flags;
+-	unsigned long frames_abs, frames_filtered;
++	atomic_long_t frames_abs, frames_filtered;
+ 	struct bcm_timeval ival1, ival2;
+ 	struct hrtimer timer, thrtimer;
+ 	ktime_t rx_stamp, kt_ival1, kt_ival2, kt_lastmsg;
+@@ -216,10 +216,13 @@ static int bcm_proc_show(struct seq_file *m, void *v)
  
--	/* save rx timestamp */
--	op->rx_stamp = skb->tstamp;
--	/* save originator for recvfrom() */
--	op->rx_ifindex = skb->dev->ifindex;
--
- 	/* op->flags/op->frames may be updated concurrently by bcm_rx_setup() */
- 	spin_lock_bh(&op->bcm_rx_update_lock);
+ 	list_for_each_entry_rcu(op, &bo->rx_ops, list) {
  
-@@ -784,6 +779,14 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
- 	 */
- 	bcm_update_rx_stats(op);
- 
-+	/* save rx timestamp and originator for recvfrom() under lock.
-+	 * For an op subscribed on all interfaces (ifindex == 0)
-+	 * bcm_rx_handler() can run concurrently on different CPUs so
-+	 * the CAN content and the meta data must be bundled correctly.
-+	 */
-+	op->rx_stamp = skb->tstamp;
-+	op->rx_ifindex = skb->dev->ifindex;
+-		unsigned long reduction;
++		long reduction, frames_filtered, frames_abs;
 +
++		frames_filtered = atomic_long_read(&op->frames_filtered);
++		frames_abs = atomic_long_read(&op->frames_abs);
+ 
+ 		/* print only active entries & prevent division by zero */
+-		if (!op->frames_abs)
++		if (!frames_abs)
+ 			continue;
+ 
+ 		seq_printf(m, "rx_op: %03X %-5s ", op->can_id,
+@@ -241,9 +244,9 @@ static int bcm_proc_show(struct seq_file *m, void *v)
+ 				   (long long)ktime_to_us(op->kt_ival2));
+ 
+ 		seq_printf(m, "# recv %ld (%ld) => reduction: ",
+-			   op->frames_filtered, op->frames_abs);
++			   frames_filtered, frames_abs);
+ 
+-		reduction = 100 - (op->frames_filtered * 100) / op->frames_abs;
++		reduction = 100 - (frames_filtered * 100) / frames_abs;
+ 
+ 		seq_printf(m, "%s%ld%%\n",
+ 			   (reduction == 100) ? "near " : "", reduction);
+@@ -267,7 +270,8 @@ static int bcm_proc_show(struct seq_file *m, void *v)
+ 			seq_printf(m, "t2=%lld ",
+ 				   (long long)ktime_to_us(op->kt_ival2));
+ 
+-		seq_printf(m, "# sent %ld\n", op->frames_abs);
++		seq_printf(m, "# sent %ld\n",
++			   atomic_long_read(&op->frames_abs));
+ 	}
+ 	seq_putc(m, '\n');
+ 
+@@ -277,6 +281,24 @@ static int bcm_proc_show(struct seq_file *m, void *v)
+ }
+ #endif /* CONFIG_PROC_FS */
+ 
++static void bcm_update_rx_stats(struct bcm_op *op)
++{
++	/* prevent overflow of the reduction% calculation in bcm_proc_show() */
++	if (atomic_long_inc_return(&op->frames_abs) > LONG_MAX / 100) {
++		atomic_long_set(&op->frames_filtered, 0);
++		atomic_long_set(&op->frames_abs, 0);
++	}
++}
++
++static void bcm_update_tx_stats(struct bcm_op *op)
++{
++	/* tx_op has no reduction% calculation - use the full range and
++	 * just keep the displayed counter non-negative on overflow
++	 */
++	if (atomic_long_inc_return(&op->frames_abs) == LONG_MAX)
++		atomic_long_set(&op->frames_abs, 0);
++}
++
+ /*
+  * bcm_can_tx - send the (next) CAN frame to the appropriate CAN interface
+  *              of the given bcm tx op
+@@ -328,7 +350,7 @@ static void bcm_can_tx(struct bcm_op *op, struct canfd_frame *cf)
+ 	spin_lock_bh(&op->bcm_tx_lock);
+ 
+ 	if (!err)
+-		op->frames_abs++;
++		bcm_update_tx_stats(op);
+ 
+ 	/* only advance the cyclic sequence if nothing reset currframe while
+ 	 * we were sending - a concurrent TX_RESET_MULTI_IDX means this
+@@ -473,12 +495,9 @@ static void bcm_rx_changed(struct bcm_op *op, struct canfd_frame *data)
+ {
+ 	struct bcm_msg_head head;
+ 
+-	/* update statistics */
+-	op->frames_filtered++;
+-
+-	/* prevent statistics overflow */
+-	if (op->frames_filtered > ULONG_MAX/100)
+-		op->frames_filtered = op->frames_abs = 0;
++	/* update statistics (frames_filtered <= frames_abs) */
++	if (atomic_long_read(&op->frames_abs))
++		atomic_long_inc(&op->frames_filtered);
+ 
+ 	/* this element is not throttled anymore */
+ 	data->flags &= (BCM_CAN_FLAGS_MASK|RX_RECV);
+@@ -713,25 +732,29 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 	op->rx_stamp = skb->tstamp;
+ 	/* save originator for recvfrom() */
+ 	op->rx_ifindex = skb->dev->ifindex;
+-	/* update statistics */
+-	op->frames_abs++;
+ 
+-	/* snapshot the flag under lock: op->flags/op->frames may be updated
+-	 * concurrently by bcm_rx_setup().
+-	 */
++	/* op->flags/op->frames may be updated concurrently by bcm_rx_setup() */
+ 	spin_lock_bh(&op->bcm_rx_update_lock);
++
+ 	rtr_frame = op->flags & RX_RTR_FRAME;
+-	if (rtr_frame)
++	if (rtr_frame) {
++		bcm_update_rx_stats(op);
++		/* snapshot RTR content under lock */
+ 		memcpy(&rtrframe, op->frames, op->cfsiz);
+-	spin_unlock_bh(&op->bcm_rx_update_lock);
++		spin_unlock_bh(&op->bcm_rx_update_lock);
+ 
+-	if (rtr_frame) {
+ 		/* send reply for RTR-request (placed in op->frames[0]) */
+ 		bcm_can_tx(op, &rtrframe);
+ 		return;
+ 	}
+ 
+-	spin_lock_bh(&op->bcm_rx_update_lock);
++	/* update statistics in the same critical section as bcm_rx_changed()
++	 * below: frames_filtered must never be checked/incremented against a
++	 * frames_abs snapshot from a concurrent bcm_rx_handler() call on
++	 * another CPU for the same (wildcard) op, or frames_filtered can end
++	 * up larger than frames_abs.
++	 */
++	bcm_update_rx_stats(op);
+ 
  	if (op->flags & RX_FILTER_ID) {
  		/* the easiest case */
- 		bcm_rx_update_and_send(op, op->last_frames, rxframe);
 -- 
 2.43.0
 
