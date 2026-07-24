@@ -1,206 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110431C5799;
-	Fri, 24 Jul 2026 00:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E6E2931C1;
+	Fri, 24 Jul 2026 00:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784853291; cv=none; b=Z7gje7fEkQ1xQXFtWqUxoYQuzuThN6G9lHIQ5BcYUEJIrBEpoI02gA1LvAwEYnzY6atqmlcN0K/QICpQFwER6pTo6Oy4oRIBT3Qr8xm+9KSCbdxP1SDNwPDlLEja2vIuzM/i8BZ1YEyy4pmcB3DX7TW+FEmDI42C2YqsB9upoh0=
+	t=1784854263; cv=none; b=eZhiNcKoASGGaw/n8P+lMN9ieXDC5n2DkmFp0xQm3yfyl6LL6P1ZbQI+pFgw8dY02VgeopA0nigBoYT2n17A1Ld6XasIUfhdscp3ruBZZrMx3s3NBD7uXw/jT30SI2727bDMRwILObz5S1fr/CyeUYsLnet19aStBmhCtqIEHeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784853291; c=relaxed/simple;
-	bh=1GupVAdgnh0lmxgtsjqTB23AkfNFdoNx+w0EIZ6NTz8=;
-	h=Date:To:From:Subject:Message-Id; b=Go6DO/fehyGUpMWqL4OIRtcM/UxHAmWM7aRGJIN7lmrVU7vX8+uflet2LpLrPxKSZhmA2rQVVWNfb4M/sC/TPVsUXGP7rrldD4DcUYHgBNIfqRUROlsNY4EodmVe7kNF8oI9ZvtM3hEVOqOT9gbGtntiLLQdnGzTE8v2VyejmuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=TzdgeIPr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784854263; c=relaxed/simple;
+	bh=lMByLnd/nJjAlNjTHVRp8sZ9sr1cj8yRGnTJU2SomW8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=J7ZXg4d4m8/0om0oWcfY9pf1Jwt52sdFOXhbXmW8SLUeA6BZrj1hzdUokSwWNVlRHRlOIPmGsQwpYRC8Vgge2rpAIpsdG8S8s4do93YAj+KYJueMl+EZWFXQhTIH8sVrIFmcczFVAcUtcRFXbA2Uuc6jDYBeSobZlKRVjNud2po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kqrwcGNf; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="TzdgeIPr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98ACE1F000E9;
-	Fri, 24 Jul 2026 00:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1784853289;
-	bh=OwSEswP+0sWy9CAHXh9BNNaCZVj9Bpimr3yevuXjqcQ=;
-	h=Date:To:From:Subject;
-	b=TzdgeIPrrpQrKraKXg1gLf0mBhb+QtLgwf2GiEush0ShtvXS0U3tthVSpUApBG/K4
-	 1dDHAPkAiXI7gIPwpW/OB+dm59Hk5SB9AnteNWoo6o7LfOLs4OOxpsBoIJRHg6N4YW
-	 piF0WeyepYYguN4RffQwHvWzU2AlvQlhswpKavuM=
-Date: Thu, 23 Jul 2026 17:34:49 -0700
-To: mm-commits@vger.kernel.org,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shikemeng@huaweicloud.com,shakeel.butt@linux.dev,roman.gushchin@linux.dev,qi.zheng@linux.dev,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,husong@kylinos.cn,hannes@cmpxchg.org,david@kernel.org,dave@stgolabs.net,chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,axelrasmussen@google.com,chenridong@xiaomi.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch added to mm-new branch
-Message-Id: <20260724003449.98ACE1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kqrwcGNf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=RY
+	LVKbRdDI9zaPvhqlqlCNMCmXZFALvjMsBxM4+Kvu0=; b=kqrwcGNfd8EvH417CQ
+	6gOhHCg3eRbLX7lwlZs7HX3Co0Z8AucCgjo7bRYn8e/ZZmNfDnpV+J1Ax1IjWsNW
+	Fb/KzplUEwv3ykF+m8foXaVVKrmuzlxDWBGASOpk4SWiZCQaW0VpzM482da+GZn3
+	YSs74W/DjjgiK8q1OrctAHIwQ=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3n0CEtmJqcWWgLA--.22864S2;
+	Fri, 24 Jul 2026 08:49:09 +0800 (CST)
+From: Yang Xiuwei <yangxiuwei@kylinos.cn>
+To: csander@purestorage.com
+Cc: James.Bottomley@hansenpartnership.com,
+	martin.petersen@oracle.com,
+	rc@rexion.ai,
+	axboe@kernel.dk,
+	fujita.tomonori@lab.ntt.co.jp,
+	bvanassche@acm.org,
+	linux-scsi@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] scsi: bsg: fix TOCTOU in io_uring passthrough command setup
+Date: Fri, 24 Jul 2026 08:49:07 +0800
+Message-Id: <20260724004907.2742329-1-yangxiuwei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <CADUfDZpAW261MhFJg434=4nZFMD7mV=LL7F-ZiAWPa7dYvGpcQ@mail.gmail.com>
+References: <20260720032338.461681-1-yangxiuwei@kylinos.cn> <20260720032338.461681-2-yangxiuwei@kylinos.cn> <CADUfDZpAW261MhFJg434=4nZFMD7mV=LL7F-ZiAWPa7dYvGpcQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n0CEtmJqcWWgLA--.22864S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7XF17AF1fZw45uF1fWw4kZwb_yoWxKFXE9r
+	9xtrZ5Xan5GF129a1xKFnIyFZ7tryYvF18Jw1rur97Zry7Ja4fGws3Xrs5Cr47CwsYvrsx
+	Ary8Z3ykt390qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xREo7KPUUUUU==
+Sender: yangxiuwei2025@163.com
+X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbC6QgDk2pitohWrAAA39
 
+Hi Caleb,
 
-The patch titled
-     Subject: mm: vmscan: fix node reclaim ignoring swappiness parameter
-has been added to the -mm mm-new branch.  Its filename is
-     mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch
+On Thu, Jul 23, 2026 at 09:56:08AM -0700, Caleb Sander Mateos wrote:
+> cmd->max_response_len is passed through here, shouldn't it be accessed
+> using READ_ONCE() too? Omitting READ_ONCE() only seems safe for values
+> that are ignored (except for a possible check that they match a fixed
+> value).
+>
+> Ditto for cmd->timeout_ms later in this function.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch
+timeout_ms is the example Jens already called out as not mattering if
+userspace rewrites the SQE:
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+  https://lore.kernel.org/r/55f36cc5-a013-4960-8787-fbdf4b4d0c20@kernel.dk
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+max_response_len is similar here: we clamp with
+min(..., SCSI_SENSE_BUFFERSIZE), so it cannot overflow the sense
+buffer. Same idea for response.
 
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Ridong Chen <chenridong@xiaomi.com>
-Subject: mm: vmscan: fix node reclaim ignoring swappiness parameter
-Date: Thu, 23 Jul 2026 11:24:34 +0800
-
-sc_swappiness() had two separate definitions depending on CONFIG_MEMCG. 
-The !CONFIG_MEMCG variant simply returned vm_swappiness, ignoring the
-proactive_swappiness value passed through scan_control.  This caused the
-swappiness parameter written to /sys/devices/system/node/nodeX/reclaim to
-have no effect when CONFIG_MEMCG is disabled.
-
-Fix this by consolidating sc_swappiness() into a single definition that
-checks sc->proactive_swappiness first, then falls back to
-mem_cgroup_swappiness() which already handles both CONFIG_MEMCG and
-!CONFIG_MEMCG.
-
-Before fix (swappiness=max ignored, mostly file pages reclaimed):
-
-    # cat /proc/sys/vm/swappiness
-    60
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 1840
-    pgsteal_anon 25
-    pgsteal_file 1815
-    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 18013
-    pgsteal_anon 337
-    pgsteal_file 17676
-
-After fix (swappiness=max honored, anon pages reclaimed as expected):
-
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 0
-    pgsteal_anon 0
-    pgsteal_file 0
-    # echo "64M swappiness=max" > /sys/devices/system/node/node0/reclaim
-    # cat /proc/vmstat | grep pgsteal
-    pgsteal_kswapd 0
-    pgsteal_direct 0
-    pgsteal_khugepaged 0
-    pgsteal_proactive 16283
-    pgsteal_anon 16283
-    pgsteal_file 0
-
-Link: https://lore.kernel.org/20260723032434.2016749-3-ridong.chen@linux.dev
-Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Tested-by: Song Hu <husong@kylinos.cn>
-Reviewed-by: Song Hu <husong@kylinos.cn>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: <stable@vger.kernel.org>	[6.17+]
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/vmscan.c |   19 +++++++------------
- 1 file changed, 7 insertions(+), 12 deletions(-)
-
---- a/mm/vmscan.c~mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter
-+++ a/mm/vmscan.c
-@@ -199,6 +199,13 @@ struct scan_control {
-  */
- int vm_swappiness = 60;
- 
-+static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
-+{
-+	if (sc->proactive && sc->proactive_swappiness)
-+		return *sc->proactive_swappiness;
-+	return mem_cgroup_swappiness(memcg);
-+}
-+
- #ifdef CONFIG_MEMCG
- 
- /* Returns true for reclaim through cgroup limits or cgroup interfaces. */
-@@ -239,13 +246,6 @@ static bool writeback_throttling_sane(st
- #endif
- 	return false;
- }
--
--static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
--{
--	if (sc->proactive && sc->proactive_swappiness)
--		return *sc->proactive_swappiness;
--	return mem_cgroup_swappiness(memcg);
--}
- #else
- static bool cgroup_reclaim(struct scan_control *sc)
- {
-@@ -261,11 +261,6 @@ static bool writeback_throttling_sane(st
- {
- 	return true;
- }
--
--static int sc_swappiness(struct scan_control *sc, struct mem_cgroup *memcg)
--{
--	return READ_ONCE(vm_swappiness);
--}
- #endif
- 
- static inline bool is_exec_file_folio(const struct folio *folio,
-_
-
-Patches currently in -mm which might be from chenridong@xiaomi.com are
-
-mm-vmscan-fix-anon-only-reclaim-evicting-file-pages-when-swappiness=max.patch
-mm-vmscan-propagate-real-error-code-from-per-node-proactive-reclaim.patch
-mm-vmscan-drop-unused-gfp_mask-parameter-from-__node_reclaim.patch
-memcg-move-mem_cgroup_swappiness-and-vm_swappiness-to-mm-swaph.patch
-mm-vmscan-fix-node-reclaim-ignoring-swappiness-parameter.patch
+Thanks,
+Yang Xiuwei
 
