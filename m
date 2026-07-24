@@ -1,230 +1,235 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CDD2931CF
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 14:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784901659; cv=none; b=BieOnPWQqIEpQk6wa++KP2WAf/euzSwPiLMuMz49Jz7Y2ca5laFyNm90W+kHirkOyI3BlL1snXsYvcOOCV+V5G3tqU7eceWClqfk3YDt1y3aaIyUbQFrZ1T7CrHL9FZ9ldmcadu1DMU7mi80WyzsrY7KHB6jM3c9Uhi8Yp18arI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784901659; c=relaxed/simple;
-	bh=ae02kDJUi5X34KIYSffR579iWjBAySTALBq6UhL00Sw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C8zr+H0j6s3Zp95F7eoDRoPiNeWFIdl9txHSxoHy3z0D1rsEvqzq9JjRRdNo7PyFz5T9r1f20MVeWWevz1r2KBxWRyXt8S7XeyCF53G0a6vpVUb6OSwsXC5p/X0AFod5MkdDbiAZ/mNyUiseIdMO5UX/PZDFMH9EXejXdXN9OQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5OzzveE; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DE53101D0
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 14:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784902045; cv=fail; b=izV+vkJ+Uq3dJe77D/IpQTK/LM+0H3sv70Jd6OTFDl0nxOwPdnL2TMwXBDakvuFHYFVjoKKL4wd92KQ2/+ZuYlpR6EGM/R0F7xyQP2R4HeILOZabPfG2fIFnudblYw0tbMV+yPh1PLw7mvNXBI6vWUxmXTKOXvMrxtyHzBh/oR0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784902045; c=relaxed/simple;
+	bh=icSdT/jAB7cIDxMYyOWqslKoi5Tc2hrr0w5o1lQ1GSQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=j0Yj0DDylvT3OEcKbraijTXgcJG5ztL5vq6elx6VM3gFEkPlqEz1HCMQGCayfxVVKMMjGOVHpbfJxM8Wn3CTvtl7zlkiqFfzgntLRUkro1dO5MHwTMZNB4WBJ4FXANZw/rkWI4S7n2cIUPhYiV+AW0YvCKXSkgylK5yVkxU7/9I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=mkrtNsZI; arc=fail smtp.client-ip=205.220.166.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5OzzveE"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84830c774a0so402513b3a.1
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 07:00:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784901654; x=1785506454; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ODrAnyB1NwavZ7GNr/hLSAQWJ7QusMhucYn8aavlns=;
-        b=n5OzzveEifSSRfZAJ4LYeROOYZ1/ADNswpVx/blRBUOtma2rwHvKP8TuBGGkU629gQ
-         dWaRGAJgjHU5ER/vcz9Yz7QtW4nLaL0bau4iZkKxFC4GoTWXZO57p1btL2JszpoNoFWc
-         t1E5d2e6pRbGcKoPIPV1lWlpN42n/1Lus9gohHsogy1z66uKns/SeIYNZostHejME4gi
-         79nlkEpWvDD5vsuVQ7dngeKlCMv3MtBz1SfSlE7qU4jUOP0aqzHSL5uqxJlUjwwMvJcj
-         92JwIVyaLak8khFYJ7GNhHvaQ4l56sHgcp927gHBrlNZk82kRFiRSJE0joz22a2ST/Et
-         yi7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784901654; x=1785506454;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ODrAnyB1NwavZ7GNr/hLSAQWJ7QusMhucYn8aavlns=;
-        b=gtXfC/Ql8EFHk2rWiTigEifEeDKHzVg55+HYh1IJBUNyYCt/OxHISlv/dLFMzlYA/2
-         t3CVzo4jIFNaoyUfvWgtycyzsG41d+mahcbwSquI5GMGt5l5ARxDvpkBbofWJVOql1z8
-         pouJvDMIs5abJcT5yAuWERhYHM9QP0vTL1UOIyBglqvj+PfUN2eUa3nBsXQDCh84WOFy
-         yJp9FY/zmMqQHYzOVo9oxtKo2yc51HGmn5CZlxSRehsGrd5MpiX1HL/uZKFTseBB08zu
-         eYVWCoOAG7nHW/ebGIhwVli5s1QWyrmHUnECCCxJ/O63YzsM5zOqkdNtjASEHND7eu0F
-         a9EA==
-X-Forwarded-Encrypted: i=1; AHgh+RpKtrNZ0gHwjihw+8sYLOcFh9wQJZRpeZSrl3tZdmI1oVS7sPvAodrLOVsHScu9bR0UCQWwBq0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw26V1D/4O5WTNQuukyxIPEULouVep/o2bhk2UxD29vm3JBtEae
-	v1tLuJMk1THY3aIzP7QLkvkNRD4+uvs7cGbPOi/VvjRBFgWVSY3RbcE0
-X-Gm-Gg: AR+sD11SUlW0X2LTHUpl/M0V9iYHLprrRlSSaodwrpSNU3OopN72TZVECiy5Z1T6KYO
-	fKRQfAPHvIxi8ShxsoLlBuPpea0WhkwPA0AFSgs9rdSFaNxGf1x6aRJbuSxZ1z66Bbb6iqAgr/m
-	J63lneTZjjizXCj9brswl/sSffynmvBneSAfy2LJitayCamvg49Di5+W4UqreXOLXM/oop5CMa4
-	LFhF/PlHXPiRJ7AjmYZGMzHNjClLQycXeIdD0KzwiEZ+YaXZbOFlopntXAjj7A+RC0iLcLytMOP
-	LoQVaRId+sWWPSfNCUL7rA/GqoTTeGk762MS2D8PRHZM1qZItBuAiBiTMY1SDn2MOSArIWNx4T9
-	xDZ/ak1Y+Ad8YMxuGNiyjWjRdXEmwgqFHklAZnF6okfRQP8O/PpFaq9Wz7qVwUpQh9CvQejjRZ+
-	d62Xpdgj3N
-X-Received: by 2002:a05:6a00:140e:b0:84e:24f:2667 with SMTP id d2e1a72fcca58-84e2b7fda3cmr8601199b3a.8.1784901653562;
-        Fri, 24 Jul 2026 07:00:53 -0700 (PDT)
-Received: from localhost ([2402:e280:3e0d:544:91b3:77c4:f31d:d706])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e17237721sm4861336b3a.10.2026.07.24.07.00.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 07:00:52 -0700 (PDT)
-From: Vaibhav Nagare <nagarevaibhav@gmail.com>
-X-Google-Original-From: Vaibhav Nagare <vnagare@redhat.com>
-To: horms@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com
-Cc: andrew+netdev@lunn.ch,
-	matvey.kovalev@ispras.ru,
-	Pavel.Zhigulin@kaspersky.com,
-	aelior@marvell.com,
-	manishc@marvell.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vaibhav Nagare <vnagare@redhat.com>
-Subject: [PATCH net v2] qede: Fix NULL pointer dereference in TPA fragment processing
-Date: Fri, 24 Jul 2026 19:30:44 +0530
-Message-ID: <20260724140044.1055918-1-vnagare@redhat.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260716084746.212045-1-horms@kernel.org>
-References: <20260716084746.212045-1-horms@kernel.org>
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="mkrtNsZI"
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66ODdeUd1820497;
+	Fri, 24 Jul 2026 07:06:52 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	PPS06212021; bh=FMLCSNBjWUF9E59AhzzgtdB92G/cr536oi/nJEXMNuQ=; b=
+	mkrtNsZI9ipM8OfdDQ8tc3hex8R5Ehd4aOY2JhOHoI0MtaFO6YPJDz64L5nyGfvh
+	8K1Q4BbMo/W04fr8loZ00zDr0ZcfQM4VZZYhI5AxsZuIpcsNb7czct8GWufPRt2N
+	PjGzrjSHUahdq+gb4g6yb7lEzIcKkAYox1PEdnEmVYK5m9wlTJv8KXS07tPDYKYZ
+	5wvEbWROxGZZaWrRkqHldv6Old/Xu2nLXIPsm0ypk2bcF8faFcsKWrwgG92dQ/YG
+	IHOETnGK36HBf6Q5YzUKF8DqggIyEURbt8gnVoLG2vj3ALXYtiYuXTzv/Bi3AJah
+	klaszxh+3ZeIRPhkH34x4w==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010049.outbound.protection.outlook.com [52.101.46.49])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4fjt3u4wxf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 24 Jul 2026 07:06:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sXQzzNTzTpvHU2O+onZ3fmn5brTemGVLmkKZQpm+yM0Zzlzty2tXn+CW3k8n97+4oT397p47PXNLI1W2U2whf8VbnIM3fvCqnpZayjmuBix6KCjIYw9QY9td+E1szTfWu2LZyQxen4wmmtvVeyp8XoeuCkwZZIKMHZZXJgAu3YngUBCZ+yNtf4lIh5Cxb0r001poQDM2ZR88DOzW6ylkC134IOPhRI+ZnADSigjZPw6IMNhijm6pMmdmAQSB74kr8ikHwhZvYEGyFRiJD2QliSYilr2EVudjogpS1HjmIFOBGnhnUP/LRTbENhYSLdnju0iM4bKug5tP5GFxPWMF4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FMLCSNBjWUF9E59AhzzgtdB92G/cr536oi/nJEXMNuQ=;
+ b=ysiQdKbS6Cy9XNC2lnwxTm0wsOFP33QDYY6q9Xhad859zgckIPV7iOy2EEuzNKP2/4NkTKED3BAPONPNQGLAS5kkdzB6FwtabO75bQ02OAN7L6XjJjAnxxapVjAVcNeyK86glyARJptGj2pX61sLRdi1tETAFWRyWw+QD+Ggu4+0rsfdmkASSvulSENolCiDvNO+ayj95QLOLcvgrXUjj8kgDqrTCyC9K/MFj29cQ7TH3iIwb6FvRQBlX7XVD03Ldx1SNi7AwySD8tbes/NdgmcZCq8WAqJpWEAtS+oZdvDhZrZoCLCU4U//gJHlh1+ip9bwVbAX8KoCbA+BhvLbEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from CH0PR11MB5332.namprd11.prod.outlook.com (2603:10b6:610:bf::17)
+ by MN0PR11MB6036.namprd11.prod.outlook.com (2603:10b6:208:377::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Fri, 24 Jul
+ 2026 14:06:49 +0000
+Received: from CH0PR11MB5332.namprd11.prod.outlook.com
+ ([fe80::8f86:8d08:45bf:ec13]) by CH0PR11MB5332.namprd11.prod.outlook.com
+ ([fe80::8f86:8d08:45bf:ec13%6]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 14:06:49 +0000
+Message-ID: <59dae82b-5307-4018-8e17-8bd447b7271e@windriver.com>
+Date: Fri, 24 Jul 2026 22:06:39 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0309/1276] ext4: validate donor file superblock early
+ in EXT4_IOC_MOVE_EXT
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        stable@vger.kernel.org
+Cc: patches@lists.linux.dev,
+        syzbot+ad6118a7584b607c67f2@syzkaller.appspotmail.com,
+        Jan Kara <jack@suse.cz>, Andreas Dilger <adilger@dilger.ca>,
+        Theodore Tso <tytso@mit.edu>, Sasha Levin <sashal@kernel.org>,
+        vegard.nossum@oracle.com
+References: <20260721152446.065700225@linuxfoundation.org>
+ <20260721152453.007613078@linuxfoundation.org>
+ <79f8b3b5-bbdb-415c-9211-ae1858cb5dd5@oracle.com>
+Content-Language: en-US
+From: "Zhou, Yun" <yun.zhou@windriver.com>
+In-Reply-To: <79f8b3b5-bbdb-415c-9211-ae1858cb5dd5@oracle.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SE2P216CA0197.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c3::10) To CH0PR11MB5332.namprd11.prod.outlook.com
+ (2603:10b6:610:bf::17)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR11MB5332:EE_|MN0PR11MB6036:EE_
+X-MS-Office365-Filtering-Correlation-Id: cef3c67f-2eb8-49f9-afc3-08dee98ccdee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|18002099003|22082099003|5023799004|11063799006|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	PFi/MaQirG4aDepx1ZO4TwQU9Tc6WBOTDOscPWiQPvDIDu6ioXAz+u2RaR23C7dZ5HF024IwLKAg7OslZjiBogRlLzpKA/Wb+XMV0pc/2eOcDE6jo/Pc8gRGAKFpw6JLnzfGCSxHKzYPY/OPFyQBko0gtb+tPkf4rNmJsLJLXI4unlSTb/93xO7j3PCxdHEEg+O2ubq0fTOOA1U9wofA2iqPsCeBQzLJvssgGmYZv7W3cJnKUd+YEEe6CPR4UXFMkLgMHjrgYmzNQKrcx4JVybi822moobJ/R6KFYAozdugPHLDaHjrewsuZfV/fZZ8CwXWmf31xHDxlK+qlWvANTg9Swk0CU3tEyOwTvniW0GBPMmRer1Gy5zZpvknmk+90JhEexQiNArxqf32l/n3UAGd0q0wIiNAzfVSS399MFfUo4tIIHFs/idk00SwScBypxpMEflls+pfF5/QoCBfbEXLIdHCFxWs2BaTteoVQ95GM+XO6JRr3ecFbNxs2GBA9jRiq0O+G3C5qKNmj917CHr5f75Hq/7R1dsgf/n0iH8EC9Ksyxolk+KmpN+VpGx9/Vr5mtyqa3ZryzdSMh41CHJPHzkq9+nNdvPC9XpPWHg02bW69swn9PjWWkW7bNotSlMhS4WzAjNfFK08Dw7hqaT8VRJByG339yUUOBIRKYOw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR11MB5332.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(5023799004)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Rjk2cXJlVzR0aGZqREQxUkhoUmtKa0ZTUkd4TS93R3gzYXZ2RFJZdGo1eUJp?=
+ =?utf-8?B?N0E4RVJVQVcxMWtaakdPTnJLbXRXbUpHR2xzTUJBRFdUVkRSQ3NsanhmaWV4?=
+ =?utf-8?B?MVZMdThudml3REtVcWxydnpObEZENm9wRWZKeHdzQ1ZUTFluNXorQjZsOEJG?=
+ =?utf-8?B?RzVwS0Nqc3d3UVVGRFRVSmRBSzQ0ODNzOU5pRk1EakQwSDZrY3RodmRVaktY?=
+ =?utf-8?B?R1ZiT3p0K0JycUZvU3dTVi9ydFErV3lZSDJwTXNNaG91U29xeUdjclpidTlq?=
+ =?utf-8?B?L29KS25iTTJxK3VmbmoyZFh4eEM1bTExbUpycFZYM1RtOC9uM05nSk1PdEw1?=
+ =?utf-8?B?YUVMMzdRemVvNlJPeCtWNG1OWisyNlFvcHJVZ204emJMdUJ1N1MxQVpVdjQ3?=
+ =?utf-8?B?eUhGQ0s1T0RWTkg1bXo0Rkcxby9HVFZTTEt0aS9MdWc5VUNwQThyZHArQW5j?=
+ =?utf-8?B?WVNyOFFHODM4S0FKb1cwTG1JSTJhb2pGSDFRdTl2NjE0bllIZGNaOUlBL3c4?=
+ =?utf-8?B?SFE4d2hpbWJBYUJtVHhBY242eHVSeG1sY2l1dXM5Z2hBY282MkxGbXB1R2lz?=
+ =?utf-8?B?YUEwQmllckM0SVVCdWxKSTVPYXdrZW8yMy9NT1l2WkFJOGJVWHc2WjJhNEFq?=
+ =?utf-8?B?VVp6bWNrMGZCakpBMWJhanlpMDA4YkNqLzArR2hjd1lrMmhOZ2ZZdzJlS3pz?=
+ =?utf-8?B?MjdOL2lOSkFUSDdBSUFyYUNGdCtHdVZyc0EvLzdwOU0xeDF2TlJvSjErTzBK?=
+ =?utf-8?B?YUcwckViZUl5OXpXMURvWlVaZlJ4b3lIZDRuRVFHMy81K2FPSitBSkV2Rloy?=
+ =?utf-8?B?dG9OUUVDSDdCaGxZNTcwT1M1Y1lwK0ZVNXY2SXo1WlBIamhFeTIvUkxRK1p0?=
+ =?utf-8?B?N3Ztby9tS2Y1SzVzR0RLYVZ3aHBIYlVsNnB4WUNrMmpJSzB4QVdMVUVWamVZ?=
+ =?utf-8?B?UlhQemNxczVvMVhDS1RKZ1IvMmN1UEFIOWZzcWdVUTlKNk9NZ01PdUNiTWVq?=
+ =?utf-8?B?OGdWM1VSZUNFS3V3ZytDZTE5ck9yK2N3ZmVHWDN0ejhPMnhWVDBWeW9DU1FW?=
+ =?utf-8?B?U2dWTWRmMXNlN1A0ZEI1ZEJzc3lMRms2ZXp4T05jTko2RHN0Um9XMUxVaVhx?=
+ =?utf-8?B?S2JjN05MSjlGeFZFV21TUFlnaUNhVHBJWWtac3JSN2RvZjhtc3FZYXduWjVq?=
+ =?utf-8?B?djM4SGF2Y0NZR3YzRnR6L0d0cXprNDdQQW5xeEpMbU54amNGdFJPdmVxMFJM?=
+ =?utf-8?B?clJiL1JRc3Q4cy9wWmxDRDZXaE9idEZGRjlrV2FvbXJtd3U1ZGxzaDdHMFZM?=
+ =?utf-8?B?akdvVE1vbWdrTjZPUjBwTXhFK1lscXF6OFdvS1kxMFZKVm1IYU9ESUhUa2Vw?=
+ =?utf-8?B?Wm9WVm9NbXlmTWZ0ajUrd28vV29rUDZhZFMvWFdQSlNPU25Pb1Yra2o1V3lt?=
+ =?utf-8?B?dnRjd2VWdllEYk5VRkN3bElWbGx6WGllRzdPelhpUmNHR0pkVXd6YWtQbUlL?=
+ =?utf-8?B?ZFUweGJtSFdzZW1aVEo2RFp1N0R0UlNuS1JHZnc5SzY2TEFYMllSL1NlTmZK?=
+ =?utf-8?B?S0x6TW9ITUdoWFR5UnNVY2pLUHNJSE1tZWM4UWhvTGt6ZVA4cldtWFVhb2NR?=
+ =?utf-8?B?am9CT1FxcDZuK1pFNStFbTdPWmQ5UFVmZTlTUVdmb3orRDVFamxRYmdJRUlE?=
+ =?utf-8?B?YzM3YStyZXV6bXNLN1A3ZXh2Qi9NK0RXdEJNb0IzcDFma2xSYXJ2SnVkaFQ3?=
+ =?utf-8?B?N2xWcEFzdnJGeUwzVGY1a1VtU1doRms3V3pQdjduUCs5dmM3UXJ0WFBZOWJm?=
+ =?utf-8?B?SU5qNHVkOFZXMlR4NWtWeng1ekt3VTRkbThDNkFEUFZKYXQ4TXY0K2ZBYm1v?=
+ =?utf-8?B?SkhCU1ppZlRrVDVSQ05RdWQ1QmlpY1k5eGtNS2ZhbmN4cExGQ3FlbXpNOHF1?=
+ =?utf-8?B?WlBoTFhlWFZZSW5EZVV4ZUMxM29lL0M3eWcyYVhZcVFQdlpzSDQ4cnlRWVI0?=
+ =?utf-8?B?NWhFVEs5dlVRR0IvcDM4c1pWRGlUblJEL3JSYnRleU4vL1psbVl1ZTRYNnNk?=
+ =?utf-8?B?SDUwVXExUUFMYmdTVDF2aGlwcW1LbnZpb3hhMjlwWm02QzBCZlh6bXRobWZJ?=
+ =?utf-8?B?TmdZeldHN2QrcXpnL1BkM2RuMnBXbzFCWTFaRjNXSEJDb0s5YXdEaXMxMU5w?=
+ =?utf-8?B?bG40bmdnRWpQQTFEZ2YrelQzTmF2Mkp3ZEUzMVpMV3lRZE5CM0pYVk9TU1o1?=
+ =?utf-8?B?dlBTaE1OWjVERlBUSUliRlBlQWQ2S2Y1czBQZ28zelRVOW9JY1lBalpMREUz?=
+ =?utf-8?B?cGw2TXpOV2FxTU5iaUZPNmV2cm94MXljSTMyVllZSmhMSVB3SE5ZQT09?=
+X-Exchange-RoutingPolicyChecked:
+	pFKDVROpQACkbPcRafePUnB8E2VEqYyQitcoRQnWAroMChebxpfS1TjkLzgCfjRicvpA38WDEXaKsGatSoI0AH6jNE0+TOKkx/E/1W8Rt9ItVlc4UesuY+qGQtIJlUeBUnjOIfgo11JIvAnSmf1FGZnb6WPdPOI7P2iXB+Ci1jQt2U/IQpOQe7bcoyCzfOfnfl98wztqvTlEChtsB43VrgDZvtV0S2K+CBOynyHwhCWd85YBfTUWn+oDB5BoYVefkVKwjEik1pvcW3SU02IVhgEue5FG9g0FYv3vsOzLyw2Iick7e1FzfvJ5PKd3Yatt4x3M3ckVxZepvpae80f8gQ==
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cef3c67f-2eb8-49f9-afc3-08dee98ccdee
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5332.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 14:06:49.4062
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RRk8bOIeqcCvI21M04CPnU634ayIWtROSmlPeO1T3VbzrGDjMjHhmY0WHErpIppbFT0tFAMXuSZRfTb4Id5h+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6036
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDEyNyBTYWx0ZWRfX/0GX7DmbKHZw
+ 6akUzNqSYYTwG+5kBfH04J1oWMdnatihXpcyfIcluh4WTWEKhPDxLqdz5F6ORoDV/djF+Ldex4Z
+ ATTYfFnIeyCQgAMDA/YyIr+rIPyiGFuyrPAhhs1NE9eE8PrzTd1EPvSgu/hN54FlDvMxvxPK0Z8
+ k+8jxm9CKHGEeM/aHhouyvhswC0NHBRgdfurEkN7YeowNfxzJhuwy4yIkbZACdSL49xF7BO8Vb7
+ y/WOF0HiiovO0qIt5BUWUOQeaGl2nnQUDqIoSomFYwlq0ijqS9EvehiLmEPyowHWJhxaJePf53X
+ YgGeDEqGc9Ix+1Jo5VvCTnGqGqQODoa7IUa/IRl2orcTy8RA+ME5GNGukS7sqtr9JYScpYYtUok
+ Mvsg1doZ/ejie/rM6hRO4NiQcdARmn9ZiW8OrmETUqYKAQgozLMQjz1aAWpJK/zCA3cvZGa/3g4
+ pIrrvgOxuDBvqYmrLpQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDEyNyBTYWx0ZWRfXxW/Qkr2ZXseQ
+ +0nMQ61/jVrUweurXJKmhpUvv0ieQhe5p4Am+6BpxIc4ddvT4PMhKp1pSQCTLBK6CohsuO89vod
+ 41J0Ish1v3vpelGnu9mSu4us4BXScR53eb0ryJ1U3fUf8ws1GTOy
+X-Proofpoint-GUID: HJhBjNuR82JrFD5I1h55jgaaOTzoGmGX
+X-Authority-Analysis: v=2.4 cv=U9yiy+ru c=1 sm=1 tr=0 ts=6a63717c cx=c_pps
+ a=+5nsKerQHvRPAoQt0ERV+A==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22 a=iKiJcTA2PjBS6x5JeXcw:22
+ a=ikGTjp6yX_QUaokfwyEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: HJhBjNuR82JrFD5I1h55jgaaOTzoGmGX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_03,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 malwarescore=0 bulkscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 impostorscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240127
 
-  Under memory pressure, the qede driver encounters NULL pointer
-  dereferences when processing TPA continuation fragments because:
-  1. qede_fill_frag_skb() does not validate the page pointer before use
-  2. qede_tpa_end() checks error state AFTER calling qede_fill_frag_skb()
+On 7/24/2026 9:02 PM, Harshit Mogalapalli wrote:
+> On 21/07/26 8:42 pm, Greg Kroah-Hartman wrote:
+>> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+>> index c3758c64fc4e03..a8a024bb62b4f7 100644
+>> --- a/fs/ext4/ioctl.c
+>> +++ b/fs/ext4/ioctl.c
+>> @@ -1372,6 +1372,9 @@ static long __ext4_ioctl(struct file *filp, 
+>> unsigned int cmd, unsigned long arg)
+>>                       goto mext_out;
+>>               }
+>>
+>> +             if (file_inode(filp)->i_sb != 
+>> file_inode(fd_file(donor))->i_sb)
+>> +                     return -EXDEV;
+>> +
+>>               err = mnt_want_write_file(filp);
+>>               if (err)
+>>                       goto mext_out;
+> 
+> I have run an AI-assisted backport review and took a look at
+> d9db3e516000 ("ext4: validate donor file superblock early in
+> EXT4_IOC_MOVE_EXT").
+> 
+> Upstream c143957520c6 uses CLASS(fd, donor), so its new direct
+> return -EXDEV is safe: leaving the scope performs fdput(). The 6.12
+> backport instead uses an explicit fdget() and releases the donor only
+> via mext_out:
+> 
+>         + if (file_inode(filp)->i_sb != file_inode(fd_file(donor))->i_sb)
+>         +        return -EXDEV; <---
+> 
+>           err = mnt_want_write_file(filp);
+>           if (err)
+>                  goto mext_out;
+> 
+> ...
+> mext_out:
+>          fdput(donor);
+> 
+> Thus the new cross-superblock return bypasses fdput(). In particular,
+> when the caller has a shared files_struct, fdget() obtains a counted
+> file reference, which is then leaked on this path.
+> 
+> I think the stable patch needs a small branch-specific adjustment:
+> set err = -EXDEV and goto mext_out instead of returning directly.
+> Thoughts? or we need to drop this and redo this again. I think impact is
+> mostly a leak/DoS risk but I still think we need to get this fixed.
+> 
 
-  The crash occurs when:
-  1. System experiences memory pressure (GFP_ATOMIC allocations fail)
-  2. qede_alloc_rx_buffer() returns -ENOMEM, leaving sw_rx_data->data NULL
-  3. qede_tpa_start() sets QEDE_AGG_STATE_ERROR on SKB allocation failure
-  4. Hardware delivers TPA_CONT and TPA_END events for this aggregation
-  5. qede_tpa_end() calls qede_fill_frag_skb() before checking error state
-  6. qede_fill_frag_skb() accesses NULL pointer in skb_fill_page_desc()
-  7. Kernel panics with NULL pointer dereference
+You're right. The fix is simply:
 
-Example crash from production system:
-  BUG: unable to handle kernel NULL pointer dereference at 0x8
-  RIP: qede_fill_frag_skb+0x96/0x430 [qede]
-  Call Trace:
-    qede_rx_int+0xb06/0x1de0
-    qede_poll+0x2f4/0x6c0
-    __napi_poll+0x2d/0x130
+    if (file_inode(filp)->i_sb != file_inode(fd_file(donor))->i_sb) {
+       err = -EXDEV;
+       goto mext_out;
+    }
 
-Observed on HPE Synergy 480 Gen11 running RHEL 8.10
-(4.18.0-553.134.1.el8_10.x86_64), but the vulnerable code path
-exists in mainline.
-
-Fix by:
-1. Adding NULL page validation in qede_fill_frag_skb() before dereferencing
-2. Checking error state EARLY in qede_tpa_end() before processing fragments
-3. Checking error state in qede_tpa_cont() to skip fragment processing
-
-This allows the system to survive memory pressure by dropping packets
-instead of crashing.
-
-Fixes: 55482edc25f0 ("qede: Add slowpath/fastpath support and enable hardware GRO")
-Cc: stable@vger.kernel.org
-
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
-
-  v2: Addressed AI review feedback from Simon Horman:
-    - Added net_ratelimit() to prevent printk storm in NAPI fast path
-    - Fixed NULL buffer recycling: check if page is valid before recycling,
-      otherwise just consume the BD to prevent NULL from re-entering the ring
-    - Added proper cleanup in qede_tpa_end() before early exit to prevent
-      memory leaks and ring desynchronization (DMA unmap + BD recycling)
-
-  v1: https://lore.kernel.org/netdev/20260709044704.141507-1-vnagare@redhat.com/
----
- drivers/net/ethernet/qlogic/qede/qede_fp.c | 39 ++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/qlogic/qede/qede_fp.c b/drivers/net/ethernet/qlogic/qede/qede_fp.c
-index 33e18bb69774..748b988cbf5d 100644
---- a/drivers/net/ethernet/qlogic/qede/qede_fp.c
-+++ b/drivers/net/ethernet/qlogic/qede/qede_fp.c
-@@ -670,13 +670,23 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
- 							 NUM_RX_BDS_MAX];
- 	struct qede_agg_info *tpa_info = &rxq->tpa_info[tpa_agg_index];
- 	struct sk_buff *skb = tpa_info->skb;
-+	struct page *page = current_bd->data;
- 
- 	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START))
- 		goto out;
- 
-+	/* Avoid NULL pointer dereference when under severe memory pressure */
-+	if (unlikely(!page)) {
-+		if (net_ratelimit())
-+			DP_NOTICE(edev,
-+				  "Failed to allocate RX buffer for TPA agg %u\n",
-+				  tpa_agg_index);
-+		goto out;
-+	}
-+
- 	/* Add one frag and update the appropriate fields in the skb */
- 	skb_fill_page_desc(skb, tpa_info->frag_id++,
--			   current_bd->data,
-+			   page,
- 			   current_bd->page_offset + rxq->rx_headroom,
- 			   len_on_bd);
- 
-@@ -684,7 +694,7 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
- 		/* Incr page ref count to reuse on allocation failure
- 		 * so that it doesn't get freed while freeing SKB.
- 		 */
--		page_ref_inc(current_bd->data);
-+		page_ref_inc(page);
- 		goto out;
- 	}
- 
-@@ -698,7 +708,10 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
- 
- out:
- 	tpa_info->state = QEDE_AGG_STATE_ERROR;
--	qede_recycle_rx_bd_ring(rxq, 1);
-+	if (current_bd->data)
-+		qede_recycle_rx_bd_ring(rxq, 1);
-+	else
-+		qede_rx_bd_ring_consume(rxq);
- 
- 	return -ENOMEM;
- }
-@@ -959,8 +972,16 @@ static inline void qede_tpa_cont(struct qede_dev *edev,
- 				 struct qede_rx_queue *rxq,
- 				 struct eth_fast_path_rx_tpa_cont_cqe *cqe)
- {
-+	struct qede_agg_info *tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
- 	int i;
- 
-+	/* Don't process fragments if TPA start failed */
-+	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START)) {
-+		for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
-+			qede_recycle_rx_bd_ring(rxq, 1);
-+		return;
-+	}
-+
- 	for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
- 		qede_fill_frag_skb(edev, rxq, cqe->tpa_agg_index,
- 				   le16_to_cpu(cqe->len_list[i]));
-@@ -982,6 +1003,18 @@ static int qede_tpa_end(struct qede_dev *edev,
- 	tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
- 	skb = tpa_info->skb;
- 
-+	/* Drop the packet if TPA start failed */
-+	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START || !skb)) {
-+		/* Clean up: unmap DMA if needed */
-+		if (tpa_info->buffer.page_offset == PAGE_SIZE)
-+			dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
-+				       PAGE_SIZE, rxq->data_direction);
-+		/* Recycle BDs from cqe->len_list to keep ring synchronized */
-+		for (i = 0; cqe->len_list[i] && i < ARRAY_SIZE(cqe->len_list); i++)
-+			qede_recycle_rx_bd_ring(rxq, 1);
-+		goto err;
-+	}
-+
- 	if (tpa_info->buffer.page_offset == PAGE_SIZE)
- 		dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
- 			       PAGE_SIZE, rxq->data_direction);
--- 
-2.54.0
-
+BR,
+Yun
