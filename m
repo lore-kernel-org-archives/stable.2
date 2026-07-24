@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F28D4746C6;
-	Fri, 24 Jul 2026 22:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF904756D2;
+	Fri, 24 Jul 2026 22:52:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784933078; cv=none; b=LfwrV2lYoDm5x+0bPgIjxZIO7c5cjsTW+gKm+mDBXVm265ZSJX0wcXuXV/5YuArtbRo/jm5ruixPDy5WvfSibtgyjqj1MoLxl+1bEMzKJ3SVsq+uGFVK+pCyky+wOpQAzb1u7LsoDHxK0f0GC7UGmTVrYPB+cJ6QXaXBBMAvkR0=
+	t=1784933538; cv=none; b=sim3E3NiiyalG9enPwDmes51X6t+ht7MhKz+NDgMVAt/dAz1RSMs05QZvKwMoYNZ3k/66H2K3b5vUN3NvfKAF0JGg0WG+cZIjZ94MVsMxkN45mudtBaIf1mwr+KCtpPgs0sgrd8qfhizSzld77CbKr16AkXk1jjEpuCSlSzMh4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784933078; c=relaxed/simple;
-	bh=QqIaBCRieId5IemtvcpKahPh19xZYLf1hGy70SKg0PQ=;
+	s=arc-20240116; t=1784933538; c=relaxed/simple;
+	bh=WdvIp/kHz6bdqgK6nK7yN6X0JJaQRVefDEDBBWP4sGQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sG7X8k1XRzI8QjeeHrXZ2h3HFiM34CB3HD+rOP7ebYPV0OAcpvWjHMCtDo187eqH1h3O3ehbB3/rFLnp09FYXD8GtnySrgdS66jk7E7imGL9Kg05gustOxGsMYgvW5d6T9Gb8kJsrP4wEynm35+xGflH/yilYGFJB8YspvjpQJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i4rBpEhf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CkqlByCHDQ+MGaousALLcbLFtbfvvB0yBpluuhZQ3PJrY2yn9q+Uo8VbPa1VJZVqjdj27+2owoFh25AONNaZZvdsNCLQ47/f+gxWLBRBscFTvJ8YVns6HgAHmwQwd4dOJPwNH5I6hSh89mWk6AuNeUXcwvM8nz7HvGX79GT/aNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vx2PrZUN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i4rBpEhf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6331F000E9;
-	Fri, 24 Jul 2026 22:44:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vx2PrZUN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C821F000E9;
+	Fri, 24 Jul 2026 22:52:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784933065;
-	bh=WtuhOUxYiTRsl5zK5BpJ83EHAdKYT9hBTgyqeW8tiGU=;
+	s=k20260515; t=1784933529;
+	bh=j7VH+I1lcj9KOCqFU/y/KDTXauZwmnuiNnkt0ffMsyQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i4rBpEhfhegDJ8TnMvpAXKQi/Ojo4RmSa/KXofg+CF4tn12KC+kqaOGsaMY2m+cfy
-	 Ea2jV+6FPwoWpZ0elNj1jcNdIlqDQtJE6FGMzLRqXU5wWjaXvMuOSoPJ/xICgP12ob
-	 tTfYBvWvrR0mp2WTqL5M7BMCIF64pZbZPPGST8P4cQC14s50zibwsC+FvjSa827u0e
-	 TDl8qXpxwxMb+ByiZGwlLn/3kEZJZ5rQFEDWELIVENkd1hWMOrL4iFn+xD/MJ54sUi
-	 WqIMfw2jOW0t/TAJOnnvmJ2WubbgrquuKaXO5yII4yOLAyAuhURIMkWh/Dvp3ugCLL
-	 TZifoJMdjx2fg==
-Date: Sat, 25 Jul 2026 00:44:21 +0200
+	b=Vx2PrZUNdbhNA5e32im1FcrlqlzID9yIgWaOccGgWy7tnwVk696zvUlJSPHsKYlGi
+	 gKzSo5R5i92N7fE27fNPAnKJWCvj/pKBWM9eX44lq+/LkGJ4v44Gzsc0YBaBiWIvpo
+	 ffI8bb44JNyeAGjZudK3SM3U2o96mFxxyubGxfJNlTgYEsHiQ2UDq0dBD1GzwgZhm7
+	 4abwKjyOoolzDVXVsPUsfSzF+8M2w5ngb67UfNJ7kwAvpVt+v9YJO3XBBIVzXn1EyX
+	 qZKmxhumcavIvL+zLez0aTYn76FQlNqsqt7iS6zP1SSeOFk+VKFegE3oApyhwtJ02p
+	 2j3efIWm/xDHg==
+Date: Sat, 25 Jul 2026 00:52:05 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Cc: jdelvare@suse.com, djkurtz@chromium.org, hkallweit1@gmail.com, 
-	wsa@kernel.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+	Yixun Lan <dlan@kernel.org>, Alex Elder <elder@riscstar.com>, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] i2c: i801: Clamp adapter timeout to prevent system
- lockup
-Message-ID: <amPinh8c7GwQx4Le@zenone.zhora.eu>
-References: <20260723034331.116690-1-25181214217@stu.xidian.edu.cn>
+Subject: Re: [PATCH v2] i2c: spacemit: request IRQ after controller
+ initialization
+Message-ID: <amPsP5o2wWqszbfU@zenone.zhora.eu>
+References: <20260722094302.2284191-1-lilinmao@kylinos.cn>
+ <20260723021140.2293844-1-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,77 +46,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260723034331.116690-1-25181214217@stu.xidian.edu.cn>
+In-Reply-To: <20260723021140.2293844-1-lilinmao@kylinos.cn>
 
-Hi Mingyu,
+Hi Linmao,
 
-On Thu, Jul 23, 2026 at 11:43:31AM +0800, Mingyu Wang wrote:
-> Userspace applications with access to /dev/i2c-* can use the I2C_TIMEOUT
-> ioctl to manipulate the adap->timeout value. In the i2c-i801 driver,
-> this user-controlled timeout is used directly in both the interrupt
-> waiting paths (wait_for_completion_timeout) and the polling loops
-> (time_after(jiffies, timeout)).
+Please, next time don't send the v2 as a reply to v1, it makes
+things confusing.
+
+On Thu, Jul 23, 2026 at 10:11:40AM +0800, Linmao Li wrote:
+> spacemit_i2c_probe() requests the IRQ before it enables the clocks, resets
+> the controller and runs init_completion(). If an interrupt is already
+> pending, the handler runs too early: it reads registers while the clocks
+> are still off and calls complete() on an uninitialized completion. Request
+> the IRQ after the controller and completion are initialized, but still
+> before the adapter is registered.
 > 
-> If a malicious or arbitrarily large timeout value is injected from
-> userspace, and the hardware (or an emulated device in a fuzzing/VM
-> environment) fails to respond, the driver will block for the entirety
-> of that requested timeout while holding the i2c adapter's rt_mutex.
+> Fixes: 5ea558473fa3 ("i2c: spacemit: add support for SpacemiT K1 SoC")
+> Cc: stable@vger.kernel.org # v6.15+
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> Reviewed-by: Alex Elder <elder@riscstar.com>
+> ---
+> v2:
+> - add Cc: stable # v6.15+ as requested by Troy Mitchell
+> - collect Reviewed-by from Troy Mitchell and Alex Elder
 
-I am not convinced that we should fix this in the i801 driver.
+No need to send a v2 just to update the tag section.
 
-Access to /dev/i2c-* is normally restricted to the administrator.
-We cannot protect the kernel from every unreasonable value chosen
-by a privileged user.
-
-...
-
-> Fix this by introducing i801_get_timeout(), which clamps the timeout
-> to a maximum of HZ (1 second). This is safe and strictly necessary:
-> 1. Normal operations complete in milliseconds and are unaffected by
->    this ceiling. The timeout is only consumed during hardware failures.
-> 2. Per the SMBus 2.0 specification, the maximum clock low timeout
->    (tTIMEOUT) is 25-35 ms. A 1-second clamp provides immense headroom
-
-The SMBus clock low timeout is not the maximum duration of a
-complete transaction. It does not prove that one second is a
-safe limit for every user.
-
-The one second limit still looks arbitrary to me.
-
->    (orders of magnitude) for legitimate transactions while decisively
->    preventing prolonged rt_mutex lock contention and D-state lockups.
-> 
-> Fixes: 1de93d5d5217 ("i2c: i801: Replace waitqueue with completion API")
-
-This commit did not introduce the problem. It only replaced the
-waitqueue with a completion. It looks like a convenient point in
-the history rather than the actual commit that introduced the
-"issue".
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-
-...
-
-> +/*
-> + * Bound the maximum wait time to prevent system lockup if the
-> + * userspace passes an arbitrarily large timeout via ioctl.
-> + */
-> +static inline unsigned long i801_get_timeout(struct i801_priv *priv)
-> +{
-> +	return min_t(unsigned long, priv->adapter.timeout, HZ);
-
-This also silently ignores the timeout requested by userspace. A
-user may request ten seconds and the ioctl will succeed, but the
-driver will use only one second. There is no warning or other
-indication that the value was clamped.
-
-More generally, once a user has privileged access to a device
-node, there are many ways to misuse the hardware. I do not think
-adding arbitrary limits to individual drivers is the right way to
-address that.
+Merged to i2c/i2c-fixes.
 
 Thanks,
 Andi
 
-> +}
+>  drivers/i2c/busses/i2c-k1.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
