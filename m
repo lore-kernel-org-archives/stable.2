@@ -1,133 +1,146 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7EE4827B340;
-	Fri, 24 Jul 2026 03:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784862161; cv=none; b=TjKjy6hrUbFrAOT9RxKlpG3d3Rzjy1m94ghHdLjBgMaWiv0Wa/azd7f+ta2/EFeq869F7RqGD76AQPRip7QLOtye2bnqlD8RQlhKz5PQ8t0gdpKe3dVMQAhtV2qpuoMdZOqGEA8czIUPmd+yFUYMNnZd+ZLzxJ1/+BKE0MxSo78=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784862161; c=relaxed/simple;
-	bh=iUGrkeEnU0zFKwmzl9YF9vPhtUddhfLS8bGTVEEShG0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Dg/j9kpXEWWxCqzo7x2TTqQmhTdr+xrzFi3O6GsRmm6i1sya8SaI34BjfpPTa+xUKsRsqtmOQrtxrBQnTQwEOS9dZCRz8mrGbdBf9Wgjs6TFxSYPv/N366RegL9gl/w/dhJXbLNyVmLJJYpKrN7M3LSFL5De/bRPW6xq+NxBF2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBnUffG1WJqmxo1AA--.54595S3;
-	Fri, 24 Jul 2026 11:02:31 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgDHFMnF1WJqiAspAw--.55174S2;
-	Fri, 24 Jul 2026 11:02:30 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Don Brace <don.brace@microchip.com>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Kevin Barnett <Kevin.Barnett@pmcs.com>,
-	Webb Scales <webbnh@hp.com>,
-	storagedev@microchip.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] scsi: hpsa: destroy resubmit workqueue after unregistering IRQs
-Date: Fri, 24 Jul 2026 03:01:34 +0000
-Message-Id: <20260724030134.16434-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A44E3603D9
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 03:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784864194; cv=pass; b=M1QNURkXqM7ohXBAiOqgDX4piZlpN8L4k73vUp3XuCjHhQqaTZWJPCad52f0wWZmu6yB8sa1ygC6rE1EMiaFP9Gngyl0NqNaOPGL5e58dkoueFHn1s50RxMEyuFc0gd2vMPNtKZ+zg0lnROWT/KF93aUgT3MB2NPCfFwC8+cuoc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784864194; c=relaxed/simple;
+	bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pwf2igPHAsSGj4nI/ErGOSTjXYOgFKFIkPY8iE256SdMOiicR5io3ChasutCxXC/e2kHMOXdEkFixRDwfQsuOdo7KEz//AJ1BSNGGMs6kuVfMbQmskW3VbFBDyFCHCOQMHB9gkirE5AbGkqGBJ6241dukTawU4CiGuSGfaKt/9c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lm803m7M; arc=pass smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lm803m7M"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8423f52cd57so206878b3a.2
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 20:36:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784864193; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QmsFYUHwW22OlWsvm92SVpUOPLhMetb4MVr95V7U+W1cLRv+isScOa661uDMNP7T/q
+         0Up8hJpcOpMBJ3qbiYjflhSceO1bY6XrIgw5oCveKXJaoq29BY8n8uub5/95OlJlZonw
+         VaJy/y3KzKpdo+ugWq8AwJ3tKR2IGvy2k02dKsHp/MeDX26rg1GK3gwu/1Y/ixMSusCz
+         Nn9zHVeDEoTJXYuLrfBiF0lhRXqlw/8FzsSOHz2CgoqUDn+ilSwqjvCgT+Wj6f2/j/gF
+         RKA/QV798VmeK6XruhRx4WZI5IvweEXCUP+wiuZmfKsrTjxPzGFsnsrCCQ97jrPNgaC+
+         tsXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
+        fh=Xar1aTkFX9gi/ZdCfgrQYX4CEkEQVbEl/Dp+hRhjIbE=;
+        b=afhteWjjyHxy1c656tDtlyZPHzuKSScJE/8NgvYI0Cur8ptkPvl023jWyozn2kINCV
+         2yUXhvUKqmDkMiVxtl5YuhcvwfdD55tVTnvYAttflbee57jULlScbDS3nk2NiumNJ2Ws
+         sWTL8XcpMI9PrQgCb/GfaGfOCvDVph5Fe+BoZ12zKm8+5Ld85p7aSmJGO4VymzmNaHse
+         VCiXtBk6WZxBIiwjEEGFmThqsnfmkO0limP99wX/jYVV8s766I+xU3GTuO2zzAJGnmBT
+         nN0V0ZSAIvn6mG9CH5igIs+w/UsBDvG/PPz+drS2qQI3oxRT9oIyDE0ewbIV1YojPOch
+         2baQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784864193; x=1785468993; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
+        b=Lm803m7MRz8oCrZj/ij+be88C9vmMlFFXVR1GnW6kMgHROfMHJXdB+hHTgay+Ay7rv
+         tiIvSYjPDLD3f0RCEmYyO5B/7G72RQ19t5PKY+Cn5Tn3FOD82VbjaVZcVDXBvnTAR1Ho
+         KTry4nZM04Se05ltRrKQENmbrXBbPsxiLD4XbUPa9ERL+8XmyQzsLlSjl7Fdrh4ohGgN
+         eCARNJysLfZQEj6Wj12WUIk47qFZQlaLKg/Xll6pbKo8yxIfaicqLt9ynNGu42B2oXHY
+         yifoGJTarjv9tMUCEOXBQT+mhHJP3t0KNKncTuubFGLBD19rEZS1FGHhc7k24bqnIH1a
+         6BpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784864193; x=1785468993;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
+        b=JnXFnOOjmJZpyt949FhJzZ26xKB/aMIihPgVx7kSPNREuW6JeCAm/7yWVE2ey6RtD+
+         p5G6HHhOj0exTQRIAZTw4pRL+n63jzzC+9gcdpEFNiyNSJ32WdPKdwvZHstyAYtEZHg/
+         HgQgf+fi4kzi0T/QrR2Xr62OzpwE2XIa3FO88246YLuiHhXaEYhexk40c5R9vy7lD+dl
+         Z+VzV6P9ofqQHkA4aEtDLwPKgk+7MKDpuJCPAJNEHLVdmtsRCzmSfuWd1RRt/8A3JIpS
+         3AessIfk869aT0gR9i+1ZGOrX4OqWa8k22UusvNM0+uNHrl6ZU+o5iuhORoSq6pkphkS
+         nKcQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp52JNV+g+IvpLYlpAfXNlopT1TriG1Zr74WZjVktvGRJJvTLXMLVMxqGThWhuf6zZ+C8zMJX0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFL+yk6nT8EtextMUKLL5DqxgcjC/S3SdoWUmR9F4mSCqFEdHv
+	fvGzvI4brHg2eSBNSCvs56YExm0+ViG+AylSsGLI5uOULmlI5zk2CcaddWJG15XyjYp6XaYTvJD
+	c7IFyEJhlbmAY+iP0V7W7PgBJ2a5KjN8=
+X-Gm-Gg: AR+sD13HTDvjXS3xuW5DonlvYk66ZKtR92iprA7Dvs/zcP7KAOwd3r6/a7rLvJM/aB9
+	hkTu6Cc+14q+Ult934j+ydA3AUEHJRBRCiAZl3wfaH2MtftNEebhPmAqJpVvTpf3tnBMPxWJo13
+	61uBCvfhWtRtoeneOjPKnxatYSz5eIxxQtWEsFYzRU9r5V1r3QLSJhH0v2Rzph+4OfnXwUxoXFV
+	WDt/Pu/9zKa4mECybUsMQWFWmrlRsrSmqL1xNlq9w3tZ7A6g+usxp15nxngSiWwHD2vtM0bJ5eg
+	k41VsUMkRkCWMMXNpQ==
+X-Received: by 2002:a05:6a00:a90e:b0:842:5a18:9af0 with SMTP id
+ d2e1a72fcca58-84e3ddebe70mr2100467b3a.0.1784864192764; Thu, 23 Jul 2026
+ 20:36:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgDHFMnF1WJqiAspAw--.55174S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?VESbfQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0cbbfRGw8Fl34gGnb4IuD14LrozZrarVxuP5mZ1TiHqNH4
-	UJ3JeypcXgUz+YkVvlCp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxWw45GrWDAryrKFyrXF1kZwc_yoW5tFy8pr
-	Z8Aw15Cay0qF4UK39rZw1UXFy3uFs5JrWUCayxW3srAr98AryUua40kFWjqFyrWrWvyrWa
-	yFWDJas8XFWUAFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+References: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
+ <3e4b1552-57d4-42ad-a244-a91b74b8dae1@gmail.com> <willemdebruijn.kernel.3e74e4fda69b@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.3e74e4fda69b@gmail.com>
+From: Qihang <q.h.hack.winter@gmail.com>
+Date: Fri, 24 Jul 2026 11:36:21 +0800
+X-Gm-Features: AUfX_myMQCLMi8B49UslUypNDm75uADo-4b77-P1llJQTPfcQ7oEOs46vfJYVgE
+Message-ID: <CAH78Gvuoqf89L8dm-FwRBzCGm9LaB7H_vt3MsOY5QPd0o_zhrw@mail.gmail.com>
+Subject: Re: [PATCH net] packet: use a consistent hard_header_len in send paths
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Daniel Zahka <daniel.zahka@gmail.com>, netdev@vger.kernel.org, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An IOACCEL command that completes with a retryable error is retried from
-hard-IRQ context through hpsa_retry_cmd(), which calls INIT_WORK() on the
-command and queue_work_on(h->resubmit_wq).  Unlike the rescan, monitor and
-event delayed workers, which are cancelled and self-guarded by
-remove_in_progress before their workqueues are destroyed, resubmit_wq is
-armed from the interrupt completion path and has no such guard.
+Agreed. Caching hard_header_len fixes the RAW paths' inconsistent skb
+arithmetic, but not the SOCK_DGRAM race between headroom allocation and
+header_ops->create().
 
-hpsa_remove_one() destroys resubmit_wq, together with rescan_ctlr_wq and
-monitor_ctlr_wq, before calling __hpsa_shutdown(), where hpsa_free_irqs()
-unregisters the interrupt handler.  Between the workqueue destruction and
-hpsa_free_irqs() the handler can still fire and call queue_work_on() on
-resubmit_wq.  queue_work_on() refuses new work on a workqueue being torn
-down, dropping the retry with a WARN_ONCE; and once the structure has been
-freed through call_rcu(), a later queue_work_on() may dereference freed
-memory, a potential use-after-free.  The window is reachable because
-scsi_remove_host(), which runs between the two points, can itself generate
-I/O (SYNCHRONIZE CACHE, per the existing comment).
+I also missed packet_sendmsg_spkt(), which needs the same RAW-path fix.
 
-Destroy resubmit_wq after __hpsa_shutdown() instead.  This restores the
-ordering from before commit 6636e7f455b3 ("hpsa: Use local workqueues
-instead of system workqueues"), which moved the
-destroy_workqueue(h->resubmit_wq) call in hpsa_remove_one() ahead of the
-controller shutdown; resubmit_wq was originally torn down after
-hpsa_shutdown(), as introduced by commit 080ef1cc7fdf ("hpsa: use
-workqueue to resubmit failed ioaccel commands").
+Would you prefer a v2 covering the three RAW paths, with the DGRAM
+callback headroom issue handled separately, or both issues in one
+series?
 
-Keeping resubmit_wq alive until after __hpsa_shutdown() is safe.
-Each retry stays associated with its SCSI request until the command is
-completed with scsi_done(); hpsa_remove_one() runs scsi_remove_host()
-first, which tears down each request queue and waits for outstanding
-requests, so it cannot return while retry work (including work that a
-later IOACCEL completion requeues) remains outstanding.  __hpsa_shutdown()
-then masks and frees the interrupts, and free_irq() waits for any handler
-still running on another CPU, so by the time destroy_workqueue() runs on
-resubmit_wq the completion path can no longer queue new work.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 6636e7f455b3 ("hpsa: Use local workqueues instead of system workqueues")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/scsi/hpsa.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/hpsa.c b/drivers/scsi/hpsa.c
-index 3654b12c5d5a..8e039011aeaf 100644
---- a/drivers/scsi/hpsa.c
-+++ b/drivers/scsi/hpsa.c
-@@ -9057,7 +9057,6 @@ static void hpsa_remove_one(struct pci_dev *pdev)
- 	cancel_delayed_work_sync(&h->rescan_ctlr_work);
- 	cancel_delayed_work_sync(&h->event_monitor_work);
- 	destroy_workqueue(h->rescan_ctlr_wq);
--	destroy_workqueue(h->resubmit_wq);
- 	destroy_workqueue(h->monitor_ctlr_wq);
- 
- 	hpsa_delete_sas_host(h);
-@@ -9073,6 +9072,7 @@ static void hpsa_remove_one(struct pci_dev *pdev)
- 	/* includes hpsa_free_irqs - init_one 4 */
- 	/* includes hpsa_disable_interrupt_mode - pci_init 2 */
- 	__hpsa_shutdown(pdev);
-+	destroy_workqueue(h->resubmit_wq);
- 
- 	hpsa_free_device_info(h);		/* scan */
- 
--- 
-2.34.1
-
+On Wed, Jul 22, 2026 at 10:26=E2=80=AFPM Willem de Bruijn
+<willemdebruijn.kernel@gmail.com> wrote:
+>
+> Daniel Zahka wrote:
+> >
+> >
+> > On 7/21/26 4:49 AM, Qihang wrote:
+> > > packet_snd() and tpacket_snd() read dev->hard_header_len multiple tim=
+es
+> > > while building an skb. Device reconfiguration can change this value
+> > > concurrently, for example through bonding device type changes.
+> > >
+> > > For SOCK_RAW, packet_snd() stores the first value in reserve, later
+> > > allocates headroom using LL_RESERVED_SPACE(dev), and then subtracts
+> > > reserve from the skb headroom. If hard_header_len decreases between t=
+he
+> > > reads, the skb can be allocated with less headroom than reserve, movi=
+ng
+> > > skb->data before skb->head. The subsequent skb_copy_datagram_from_ite=
+r()
+> > > can then attempt an out-of-bounds copy. Hardened usercopy catches thi=
+s as
+> > > a kernel memory overwrite attempt.
+> > >
+> >
+> > Wouldn't there be a similar issue in the SOCK_DGRAM path with
+> > dev_hard_header() calling skb_push() after packet_alloc_skb()?
+>
+> Good point. this does not use hard_header_len directly, but e.g.,
+> eth_header() assumes ETH_HLEN is available to push.
+>
+> Simply caching hard_header_len won't resolve this. dev->hard_header_len
+> and dev->header_ops (incl .create) are not updated atomically.
+>
+> I missed this earlier, but besides packet_snd and tpacket_snd, the fix
+> is also needed by packet_sendmsg_spkt.
+>
