@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB61449EB2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6594756C9;
 	Fri, 24 Jul 2026 23:18:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784935112; cv=none; b=d1VB5UsRPK7Z2mVffw45ll5rMaMYjZIidHmP6zrLMFd2WxR0xnc6lJ6SgtWYm/xTewteUhP0Mf2sMI8wSS8B3mJC6QYe5zxFdABtXeV0AdRhclXcYYTE3MwcTkxszZbFwZm6z+QJ6eb72tqbjsE7mhOhENDtmqXzYwV6dG5f/po=
+	t=1784935112; cv=none; b=iD4LtPw1qSloUqyvj7wq7RrEgwaFmClY/RQU4UZbJ1pzvrWAPkE5xyvKt2vlVMzmvOXrfH3aq4Ea1CCYhq2ymnVFT7hsW1agsqAEa5G+r3Np6FxWsxmc3PuZWtoA2iDRzYUE5XQNHV8eCAW2BSjYkt69xXbFa0uURucn9au7cdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784935112; c=relaxed/simple;
-	bh=EwOc+Z/ERUb+ga5bspF4l2UOMQNyOPNtuMixc2nPWhc=;
+	bh=NmptBfjJ5/i16Abhx8EVMEBRg//W5xU3cpfWiq649iI=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=KDNwCPt18EYzE8ap+E6AsATtQMVIyJcKuHmmp4S2Des6GjS1mXIp79wcuRHIVkuUQH/oVf4qoHvzS9vA3Cdp7r5fQ3yHo0NErwi8ZwRPUwmfKuwf4hm5h7ex0MA7f1r+Zfh4jFoOEppq25Wsg7m5xdu13Ps0kwjGJKY3pYgBt+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRY3nsdv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=t9YRpuytlqH2SlmxBJCq0KGUbcyuobCAgm+xVPwOcGCJsb394pByMGq9pSmMYtQE8ISGkDX6304t5+D/cl7JK+xggm/aTIprjxNMQxWasCfOtqpnYaF1Oy+MnmeKn0MfClY4pgIVtOzwtsinNW1lrgU2LLm2RzJ3HMGkQgiftwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KV6puP4C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRY3nsdv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BBA41F00AC4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KV6puP4C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D0C1F00ACF;
 	Fri, 24 Jul 2026 23:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1784935110;
-	bh=k/baGZCUSKTzBza5ql3ErF5JEkelRWpPcwn6SCdc9YA=;
+	bh=cyB4fSlwRh7NlIQlttoqX2onDg019zsiXwHC97/VDfc=;
 	h=Date:From:To:Cc:Subject:References;
-	b=jRY3nsdv8UPHHRVBCZrIwv+Qofujgmxzypzm5cJqwjKh/BScUnzlEIkID3pytee+/
-	 wPEkqf7L3LVpngS1pD9RuO/uio8bLst+IqGw9RdkE6uo66nBkY9/XkS5JuwI+FR+Wi
-	 YuZX6kWlWn5mvX6fe7vXpZY3tZN6WsRrX5XOptFJ4Xn4DCkdPxqNofu7BiY6c+2jJG
-	 6ipF/D9TpDGvJUqMBiEbXY1GQblIiyrm9vuijYPtOKY6zXpPbSE3TXuBXc1LA/J7yE
-	 a1EcjPqU1bLRxtk32FKDxyaNeXqtoVYpfPwbZwGkvJjW0mdQtgABYX+3ho9vH2I7WN
-	 xo1l+1ZPdYpKw==
+	b=KV6puP4CbQLNEHJI8+H9unHOm7nQKiJH1oDRhNDk7sI8smF+C5jBYcaANxYXUJuyh
+	 nOH2Xz1eSscKik+KoM2+lzbzDIsIkGLC6hw7x2yJRG1cbTwv0vfni1dJXiVfaodNxZ
+	 k8gD8OmLpGghJ9VKQFwaln+RCo/jeFxb55tFEoxMfZ59ULvV4weUinhAMLIMJKjvO4
+	 f1a32LgVnZkxbBjxFJS3z7SGQYlyIjQ0Bk6ry6elFmDG5MGTRxRGvzs+o+NGFXNFRv
+	 JKhs/8fno0EfiMYxUmDblxhsZqXrlKPFIMnsMONk4eYm40ODvFHmYKxAa712HPL8DE
+	 TuVoMe8Wjy3aA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wnPAO-000000046tS-1fpe;
+	id 1wnPAO-000000046tw-2JVF;
 	Fri, 24 Jul 2026 19:18:56 -0400
-Message-ID: <20260724231856.251436050@kernel.org>
+Message-ID: <20260724231856.417111063@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 24 Jul 2026 19:18:45 -0400
+Date: Fri, 24 Jul 2026 19:18:46 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,7 +40,7 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org
-Subject: [for-linus][PATCH 5/9] tracing: Fix union collision of module and refcnt for dynamic events
+Subject: [for-linus][PATCH 6/9] selftests/ftrace: Reset triggers at top level before instance loop
 References: <20260724231840.483353969@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -52,52 +52,43 @@ Content-Type: text/plain; charset=UTF-8
 
 From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-In 'struct trace_event_call', the 'module' pointer and the 'refcnt'
-atomic variable share the same memory space in a union. For dynamic
-events, the union member is 'refcnt', which acts as an active
-reference counter.
+When running instance tests, 'ftracetest' creates a new ftrace instance
+and runs the tests inside it. Before starting each test, it executes
+'initialize_system()' to reset the ftrace state to initial-state.
 
-When a dynamic event (such as kprobe, uprobe, fprobe, eprobe, or
-wprobe) has a non-zero reference count (e.g. due to active event
-triggers or perf attachments), its 'call->module' evaluates to a
-small non-zero integer instead of NULL.
+However, since 'initialize_system()' is executed in the context of the
+instance directory, it only cleans up triggers and filters of that
+instance.
+Any triggers or dynamic events left behind in the top-level instance by
+previous failed top-level tests, are left completely untouched. These
+top-level leftovers can cause subsequent instance-based tests to fail
+or even crash the kernel.
 
-When filtering or setting events for a specific module (e.g., writing
-':mod:<module>' to 'set_event'), the code in
-'__ftrace_set_clr_event_nolock()' and 'update_event_fields()' reads
-'call->module' directly without checking whether the event is dynamic.
-This causes the kernel to treat the small integer (refcnt) as a
-'struct module' pointer, leading to a NULL/invalid pointer dereference
-(Oops) when dereferencing the module name.
-
-Fix this by ensuring that the 'TRACE_EVENT_FL_DYNAMIC' flag is checked
-before treating 'call->module' as a valid pointer in these code paths.
+Fix this by executing 'initialize_system()' in the top-level tracing
+directory once before entering the instance loop.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/178425670947.84440.11344393611899824907.stgit@devnote2
-Fixes: 4c86bc531e60 ("tracing: Add :mod: command to enabled module events")
+Link: https://patch.msgid.link/178425671889.84440.9477850701738666404.stgit@devnote2
+Fixes: b5b77be812de ("selftests: ftrace: Allow some tests to be run in a tracing instance")
 Assisted-by: Antigravity:gemini-3.5-flash
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ tools/testing/selftests/ftrace/ftracetest | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index c46e623e7e0d..956692856fa8 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -1350,7 +1350,9 @@ __ftrace_set_clr_event_nolock(struct trace_array *tr, const char *match,
- 		call = file->event_call;
+diff --git a/tools/testing/selftests/ftrace/ftracetest b/tools/testing/selftests/ftrace/ftracetest
+index 0a56bf209f6c..8ad2c385407e 100755
+--- a/tools/testing/selftests/ftrace/ftracetest
++++ b/tools/testing/selftests/ftrace/ftracetest
+@@ -503,6 +503,7 @@ for t in $TEST_CASES; do
+ done
  
- 		/* If a module is specified, skip events that are not that module */
--		if (module && (!call->module || strcmp(module_name(call->module), module)))
-+		if (module &&
-+		    ((call->flags & TRACE_EVENT_FL_DYNAMIC) ||
-+		     !call->module || strcmp(module_name(call->module), module)))
- 			continue;
- 
- 		name = trace_event_name(call);
+ # Test on instance loop
++(cd $TRACING_DIR; initialize_system)
+ INSTANCE=" (instance) "
+ for t in $TEST_CASES; do
+   test_on_instance $t || continue
 -- 
 2.53.0
 
