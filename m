@@ -1,124 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFCA3B95E7;
-	Thu, 23 Jul 2026 23:54:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D34757EA;
+	Fri, 24 Jul 2026 00:00:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784850842; cv=none; b=i6UMc98JfIKVd4y+J0WUTnM63MMqUiamt44JYd3vY0hsPRzutqmG61scctyqmAMNtxViwszKkeSIS6tWj57/IVogjefHLJD+1hLXWkb+rxkHVE3uy6lSaCM5cEWUHgEl4NYxq7L++BDZumN5Z+WvjKuACW4wb3EV9rNyVIK21J0=
+	t=1784851231; cv=none; b=uTfBy/QEqvg8Cfm3k3N7he9ykZTO97/usHrUuVK7N4x3PZKuOn8+mVd7ctBxJxTCMx8jm5bMRF83Wd0tNsCSZ5BTvv9gbZSzqVhYRU9e825OrKe1OJbWXyxiCAzCamMd8zbsfsPCjcXfujtAe4n4rFr3bPyCn8ZLfLDbS8kRw4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784850842; c=relaxed/simple;
-	bh=EERrT+SP5hKNmqW1XX2NCJTV8SM1z4K5SB7+yfuvHbs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X+Um0F/O9UQ3gnO3cc3WbnxoTxlYYkEXh8a7MKZSEthDGuSARW+lALqP+yDrRUL4oLQRVuob2YTwMQMgL9XPTpy15UOe5nqlu76PHMccWJ0spYf9Nb7zOmPW+vKDsckZSq8Zi6p0I0iC8kHGGOZKBAj3Y2l3V5yqtrj00V+AuaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CIdqkzaY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784851231; c=relaxed/simple;
+	bh=q1ziygtQt1VC4PUTg2ZCZRUNM1rLW4faZSZQIPXRlSM=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=qAaQUXGxpIvmN4uxu/mTDXYwISjRmmlsVgIpnCEvlUn1bhsuYGYOE5RvOE5MZVq2XnKb42uVvHJ5cF3VwsRa/TFlXgfm3hEiD4ltG45tgXDzpDFrgaT/lSfFIdHrWEIfqRHUgAkhWXvO74qFYJqTo8R5nRLBDlvOQYVU1y2zxUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=VInGeHuM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CIdqkzaY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6A21F000E9;
-	Thu, 23 Jul 2026 23:54:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784850840;
-	bh=x9FS/rNlAm0LxtaeyJrU1CFWCKPcNZpOU+MHjW4+2gs=;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="VInGeHuM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF01F1F000E9;
+	Fri, 24 Jul 2026 00:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1784851230;
+	bh=1882OtUsatNzO6ECKrSoNPT3ltj2l2kRQNMq1cLxwrA=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CIdqkzaY3XEtqjE/Yqo+CADO8gmOwubO2uA1I97zyPdyqkoKiWGyM/ubGisXyHJOs
-	 MUYW7qy/kzkZpFg3P3n8X2pkzz7uryr51DPtM0/UO2KEJqPlfOTG6ui0Kx+n9SU/C8
-	 ZTvoisQM08x6WEjTNn48DFbZ40cu4zCYTq4HJRWcMdDTlkqx7sbjKoW4sbn0THD9V4
-	 BEPNxtAlkgc3kFieAQbNVP7wKaGmAN6uLcnjMYku57mfw82jMQRfPN+tCWZ3nDDPB/
-	 7dSEfLrJxTUxD1xTSIpDUnvnrlUsHiktchOHrhRBAz8VHt7nOi9zDpHfodsqtOqkor
-	 b6R2456sR9wwQ==
-Date: Fri, 24 Jul 2026 00:53:56 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Can Peng <pengcan@kylinos.cn>
-Cc: jonathan.cameron@oss.qualcomm.com, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: pressure: mpl115: Fix runtime PM cleanup
-Message-ID: <20260724005356.4505e552@jic23-huawei>
-In-Reply-To: <20260720024312.27037-1-pengcan@kylinos.cn>
-References: <20260720024312.27037-1-pengcan@kylinos.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=VInGeHuMf+dOL9WihIj2ynvAIWAvGRxj4xf1cpO87KGCv62xbra4Xz7hmdH1oNx1d
+	 RCpaVX8mlvhbEYwBhYJCbURGchpSzpoANkU97W4dHmxaIlSibYuOlI2pVYeP4h3Fwm
+	 Qlv2LGUIiQN6mXwbsw6LPs2oOQTieBF4ClS9h8QU=
+Date: Thu, 23 Jul 2026 17:00:29 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>, Suren
+ Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan
+ Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>, David Hildenbrand
+ <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, Shakeel Butt
+ <shakeel.butt@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
+ defrag_mode
+Message-Id: <20260723170029.0c076f1fca7677fbf156eaa4@linux-foundation.org>
+In-Reply-To: <67e1219e-9d47-4a30-a8dd-fdcf03229f58@kernel.org>
+References: <20260722150006.3848560-1-hannes@cmpxchg.org>
+	<20260722150006.3848560-5-hannes@cmpxchg.org>
+	<20260722162207.31a2c491ffaf36d1e8948c14@linux-foundation.org>
+	<67e1219e-9d47-4a30-a8dd-fdcf03229f58@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 20 Jul 2026 10:43:12 +0800
-Can Peng <pengcan@kylinos.cn> wrote:
+On Thu, 23 Jul 2026 12:22:58 +0200 "Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
 
-> mpl115_probe() enables runtime PM when a shutdown GPIO is present and
-> then returns the result of devm_iio_device_register(). If registration
-> fails, runtime PM remains enabled and autosuspend remains selected.
+> + Greg and Sasha
 > 
-> The same unmanaged runtime PM state is also left behind on driver
-> unbind, as the IIO device registration is managed but the runtime PM
-> setup is not.
+> On 7/23/26 01:22, Andrew Morton wrote:
+> > On Wed, 22 Jul 2026 10:56:47 -0400 Johannes Weiner <hannes@cmpxchg.org> wrote:
+> > 
+> >> 
+> >> Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
+> >> Cc: <stable@vger.kernel.org>
+> >> Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+> > 
+> > This cc:stable fix doesn't apply to current mainline because the
+> > preceding non-cc:stable patches get in the way.
+> > 
+> > This means that the -stable maintainers will have to ask you to redo
+> > the fix to make it backportable.  And you'll then be preparing a patch
+> > which hasn't had standalone testing in mainline.  All very cumbersome.
 > 
-> Use devm_pm_runtime_enable() so runtime PM is disabled automatically on
-> probe failure and driver unbind, and check pm_runtime_set_active() so
-> setup errors are reported.
-> 
-> Set the autosuspend parameters before enabling runtime PM. Once probe
-> has completed, the driver core queues an idle request for the device, so
-> an explicit pm_runtime_get_noresume()/pm_runtime_put() pair is not
-> needed to start autosuspend.
-> 
-> Fixes: 0c3a333524a3 ("iio: pressure: mpl115: Implementing low power mode by shutdown gpio")
-> Cc: stable@vger.kernel.org
-> Suggested-by: jonathan.cameron@oss.qualcomm.com
-> Signed-off-by: Can Peng <pengcan@kylinos.cn>
-Hi,
+> Or they backport the whole series, even if only 4/4 has a Fixes: tag.
 
-Looks good to me. I'm going to take it the slow path via the next
-merge window as it is a fairly low impact bug.
+Sure.
 
-Applied to the testing branch of iio.git
+> I don't think it's necessary, the stable team are quite capable of figuring
+> out the deps and backporting them with a Stable-dep-off: tag.
 
-Thanks,
+What's that.
 
-Jonathan
+hp2:/usr/src/25> grep -ri stable-dep ../gitlog Documentation  
+hp2:/usr/src/25> 
 
-> ---
-> Changes in v2:
-> - Drop the explicit pm_runtime_get_noresume()/pm_runtime_put() pair and
->   rely on the driver core idle request after probe.
-> - Set autosuspend parameters before enabling runtime PM.
-> - Update the commit message accordingly.
-> - Link to v1: https://lore.kernel.org/all/20260718061909.428476-1-pengcan@kylinos.cn/
-> 
->  drivers/iio/pressure/mpl115.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/iio/pressure/mpl115.c b/drivers/iio/pressure/mpl115.c
-> index 16e112b796ba..2929ea8e4e01 100644
-> --- a/drivers/iio/pressure/mpl115.c
-> +++ b/drivers/iio/pressure/mpl115.c
-> @@ -203,9 +203,9 @@ int mpl115_probe(struct device *dev, const char *name,
->  
->  	if (data->shutdown) {
->  		/* Enable runtime PM */
-> -		pm_runtime_get_noresume(dev);
-> -		pm_runtime_set_active(dev);
-> -		pm_runtime_enable(dev);
-> +		ret = pm_runtime_set_active(dev);
-> +		if (ret)
-> +			return ret;
->  
->  		/*
->  		 * As the device takes 3 ms to come up with a fresh
-> @@ -215,7 +215,10 @@ int mpl115_probe(struct device *dev, const char *name,
->  		 */
->  		pm_runtime_set_autosuspend_delay(dev, 2000);
->  		pm_runtime_use_autosuspend(dev);
-> -		pm_runtime_put(dev);
-> +
-> +		ret = devm_pm_runtime_enable(dev);
-> +		if (ret)
-> +			return ret;
->  
->  		dev_dbg(dev, "low-power mode enabled");
->  	} else
+> IIRC the
+> "fake" tagging is discouraged? Maybe they can clarify.
 
