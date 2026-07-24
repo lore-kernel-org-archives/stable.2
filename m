@@ -1,50 +1,42 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67AAA34D4D6;
-	Fri, 24 Jul 2026 10:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC1F3859E0
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 10:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784889961; cv=none; b=LkazECV00jIcHmpF2qZbRCoVSriOS+D+SqUgSUmOLqiJG6pycDHKQTwhvyW6k1x/Bn8FAcSLNF7IFrFo0Kq/27Ndkz2hbdDpV7h10xcWOTH+oijtwneSn7xYK7Sa6S2b42H2d6+eTrLphuZ2VmMSC+ECBhH8fcHcLj390TzTAes=
+	t=1784890144; cv=none; b=CR03xE/1FJdmGJ+dk5jS+POG56Oto0Ac98MtypKFJBw8NVAK89u9QBoWt1wi8OG/4lyyCCUnvuBEBq35IggMPh6m1N8gOp6JGXA4qQlHrYzU3L9yaE3PsrPAKz4yJEGGbOVxJBNB06sPhg33lFQ7t8SVXuQwDWTbVFzgoksOAhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784889961; c=relaxed/simple;
-	bh=BbKN3enijpNiJb9yqeYzVqq4d9JeKrBN7pN6+ZiWxnY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sHfHuaKlNYP9Q5v9+QeYP1zjVOXHNA8fYqU3g5o1XvITxFyu27lKGa+Mx/1Iogo44MxjxYMSqA65P2JbJ5EZkvmhgWIMzXDbo6cR1b7aYYTuYD62/sfuBfieuEt2Pl++9kmJco1Cl0JA7mzg7iZYxEIyP0JSGTsh5YdYoytH0ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=o0E66/MF; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1784890144; c=relaxed/simple;
+	bh=ZcTmnWZkjzouPPUmxIzVqA6DvR0+PhOIIi+dulFgcos=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ulJ1+Dn1Nk8t6YYANptvDlx9iCq6zS2XhYF3b5clLytV6JsTQzYRVLOYraJ8Et+UQBeIg1HO9rMiCz3zE74lHf4jPKxAlugZHdaB2qr6DP3yrU92PlDa6DEazp5Rfcq2cu0LelT1gZCfkc8K9wuXqJust98fFxXPPeBHdAEoPDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xco/fiGH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="o0E66/MF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-Id:MIME-Version:Content-Transfer-Encoding; bh=ZBI3x
-	x/Xe3ZLrj5cJS0aDdCNt7VpxAvOVeXpnhz2+jc=; b=o0E66/MFE5sR9++ikxC9W
-	+LsZj/TniaCaVPX4mDWIhT7XCslR46HbZyROcWQF+jaBT+Dsr2XuVzCdcRmkduU7
-	g5mpfm3Efb0QbGTl7ZhVBV3zng9IjWEo/80Sx3ZcxADJ8F2MyqGja39XJwTfjfUv
-	SBZA/eeVai5FXyBBjLH5Mg=
-Received: from node118.platform-default.svc.cluster.local (unknown [36.102.215.18])
-	by web3 (Coremail) with SMTP id ygQGZQCHVxY8QmNq0b8wAA--.4625S2;
-	Fri, 24 Jul 2026 18:45:28 +0800 (CST)
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-To: netdev@vger.kernel.org
-Cc: steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	stable@vger.kernel.org,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	yyxroy22@gmail.com
-Subject: [PATCH net] xfrm: enforce hard byte lifetime in xfrm_input()
-Date: Fri, 24 Jul 2026 10:45:17 +0000
-Message-Id: <20260724104517.3852159-1-yangyx22@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xco/fiGH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFE011F000E9;
+	Fri, 24 Jul 2026 10:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784890143;
+	bh=RGFXvO7PQw4N19YRWZNKw3+uuVueOBO+R3IiFQTBb+U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xco/fiGHH0Qs/5b6Rv5I9qRmniX7NhwQu59AZ0dR13o/Sppm021yORe/CUq2mAffV
+	 rpeWGnd27GWuuFkf/w39DsXNbAEHDC2tdNTAX+IAiR4hrNP3q38h7wCnKRgw81DsSx
+	 ZRI0USUFX9w4rwbZYy6l81Cd7/33+sA0oriQ6cPfljYum0eNJzDkHZ/IfHBzRz4bn9
+	 /fpnOmuL+/bs7SV4RS4NgRybE70QnYzodfdvnZ+39fzHvGZ8WzValrv70gb1F3Xf5r
+	 8qB5AZrxQmOK3fvkY5UGBbJMfiLB0ACNfoiAHNo2AgdJ5VdVS7jl6OGdnzVXAcURiI
+	 E+KoNKMFp0/KQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Pavel Skripkin <paskripkin@gmail.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] fs/ntfs3: Make ntfs_update_mftmirr return void
+Date: Fri, 24 Jul 2026 06:48:57 -0400
+Message-ID: <20260724104900.3973962-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072042-litter-retold-6915@gregkh>
+References: <2026072042-litter-retold-6915@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,121 +44,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ygQGZQCHVxY8QmNq0b8wAA--.4625S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXr4ftr1UAw1fuFyDKw1xZrb_yoWrGF4rpF
-	WakF98Kr4ku3W7CFn7tw1xZ3WrJ395Ary3CFy0kryjy3Z8ur1FgryfKa1YqF97GFZ3Za1Y
-	q34SgFZ7KF4DZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBE14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAG
-	YxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxkIecxEwVAFwV
-	W8twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
-	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
-	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRN4SrUUUUU
-	=
-X-CM-SenderInfo: 51dqw5r0ssqzpdlo2hxwvl0wxkxdhvlgxou0/
 
-xfrm_input() checks an inbound state's hard lifetime before processing
-the current packet, but accounts the packet only after the transform
-succeeds. The check therefore sees only the previous byte count.
+From: Pavel Skripkin <paskripkin@gmail.com>
 
-If the current packet makes the new count exceed the hard byte limit,
-that packet is still delivered. The state is not expired until the next
-matching packet arrives. The effect is limited to the packet that crosses
-the configured limit.
+[ Upstream commit e66af07ca2b57e01dbf6001ae565ab40037b2df3 ]
 
-This affects only states configured with a finite hard byte limit. The
-default XFRM_INF lifetime is unaffected. IPComp makes the issue especially
-visible because decompression can increase skb->len before it is accounted.
+None of callers check the return value of ntfs_update_mftmirr(), so make
+it return void to make code simpler.
 
-Account the actual post-transform length, then enforce the finite hard byte
-limit before delivering the packet. Use a strict comparison so a packet
-that brings the count exactly to the limit remains accepted.
-
-Saturate the byte counter at XFRM_INF - 1 because XFRM_INF is also the
-unlimited-lifetime sentinel. Carry a separate saturation flag so a finite
-lifetime still expires if the addition overflows or reaches the sentinel.
-
-The transform and replay update have already completed when an overshooting
-packet is dropped. Checking the compressed length before the transform
-would not enforce the correct limit because IPComp can increase skb->len
-during decompression.
-
-With this change applied to net at 78f75d632f74, a local QEMU/TCG test
-dropped a 136-byte packet at a hard limit of 135 and accepted the same
-packet at limits of 136 and 100000. XfrmInStateExpired increased by 1, 0,
-and 0, respectively. A characterization-only kprobe module seeded
-curlft.bytes at U64_MAX - 100 for an unlimited lifetime; two packets were
-delivered, the counter saturated at U64_MAX - 1, and XfrmInStateExpired
-did not change.
-
-This change is limited to hard byte lifetime handling in xfrm_input().
-xfrm6_input_addr() and the output path use separate byte accounting and
-are not changed here.
-
-The faulty ordering predates the available Git development history, so
-there is no accurate introducing commit to reference with a Fixes tag.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Signed-off-by: Pavel Skripkin <paskripkin@gmail.com>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: 5e7b598660cf ("fs/ntfs3: bound copy_lcns dp->page_lcns[] index in analysis pass")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_input.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ fs/ntfs3/fsntfs.c  | 20 +++++++-------------
+ fs/ntfs3/ntfs_fs.h |  2 +-
+ 2 files changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
-index eecab337b..6846ccb39 100644
---- a/net/xfrm/xfrm_input.c
-+++ b/net/xfrm/xfrm_input.c
-@@ -14,6 +14,7 @@
- #include <linux/slab.h>
- #include <linux/module.h>
- #include <linux/netdevice.h>
-+#include <linux/overflow.h>
- #include <linux/percpu.h>
- #include <net/dst.h>
- #include <net/ip.h>
-@@ -582,6 +583,9 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
- 	daddr = (xfrm_address_t *)(skb_network_header(skb) +
- 				   XFRM_SPI_SKB_CB(skb)->daddroff);
- 	do {
-+		bool saturated;
-+		u64 bytes, len;
-+
- 		sp = skb_sec_path(skb);
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index 566dd9083b8ff4..ab9c75e092c299 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -830,7 +830,7 @@ int ntfs_refresh_zone(struct ntfs_sb_info *sbi)
+ /*
+  * ntfs_update_mftmirr - Update $MFTMirr data.
+  */
+-int ntfs_update_mftmirr(struct ntfs_sb_info *sbi, int wait)
++void ntfs_update_mftmirr(struct ntfs_sb_info *sbi, int wait)
+ {
+ 	int err;
+ 	struct super_block *sb = sbi->sb;
+@@ -839,12 +839,12 @@ int ntfs_update_mftmirr(struct ntfs_sb_info *sbi, int wait)
+ 	u32 bytes;
  
- 		if (sp->len == XFRM_MAX_DEPTH) {
-@@ -689,10 +693,24 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+ 	if (!sb)
+-		return -EINVAL;
++		return;
  
- 		xfrm_replay_advance(x, seq);
+ 	blocksize = sb->s_blocksize;
  
--		x->curlft.bytes += skb->len;
-+		len = skb->len;
-+		saturated = check_add_overflow(x->curlft.bytes, len, &bytes);
-+		if (saturated || bytes == XFRM_INF) {
-+			bytes = XFRM_INF - 1;
-+			saturated = true;
-+		}
-+		x->curlft.bytes = bytes;
- 		x->curlft.packets++;
- 		x->lastused = ktime_get_real_seconds();
+ 	if (!(sbi->flags & NTFS_FLAGS_MFTMIRR))
+-		return 0;
++		return;
  
-+		/* IPComp may expand skb->len during the input transform. */
-+		if (x->lft.hard_byte_limit != XFRM_INF &&
-+		    (saturated || bytes > x->lft.hard_byte_limit)) {
-+			xfrm_state_check_expire(x);
-+			XFRM_INC_STATS(net, LINUX_MIB_XFRMINSTATEEXPIRED);
-+			goto drop_unlock;
-+		}
-+
- 		spin_unlock(&x->lock);
+ 	err = 0;
+ 	bytes = sbi->mft.recs_mirr << sbi->record_bits;
+@@ -855,16 +855,13 @@ int ntfs_update_mftmirr(struct ntfs_sb_info *sbi, int wait)
+ 		struct buffer_head *bh1, *bh2;
  
- 		XFRM_MODE_SKB_CB(skb)->protocol = nexthdr;
+ 		bh1 = sb_bread(sb, block1++);
+-		if (!bh1) {
+-			err = -EIO;
+-			goto out;
+-		}
++		if (!bh1)
++			return;
+ 
+ 		bh2 = sb_getblk(sb, block2++);
+ 		if (!bh2) {
+ 			put_bh(bh1);
+-			err = -EIO;
+-			goto out;
++			return;
+ 		}
+ 
+ 		if (buffer_locked(bh2))
+@@ -884,13 +881,10 @@ int ntfs_update_mftmirr(struct ntfs_sb_info *sbi, int wait)
+ 
+ 		put_bh(bh2);
+ 		if (err)
+-			goto out;
++			return;
+ 	}
+ 
+ 	sbi->flags &= ~NTFS_FLAGS_MFTMIRR;
+-
+-out:
+-	return err;
+ }
+ 
+ /*
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index d93cba03a65aae..a03dce278221e8 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -599,7 +599,7 @@ int ntfs_look_free_mft(struct ntfs_sb_info *sbi, CLST *rno, bool mft,
+ void ntfs_mark_rec_free(struct ntfs_sb_info *sbi, CLST rno, bool is_mft);
+ int ntfs_clear_mft_tail(struct ntfs_sb_info *sbi, size_t from, size_t to);
+ int ntfs_refresh_zone(struct ntfs_sb_info *sbi);
+-int ntfs_update_mftmirr(struct ntfs_sb_info *sbi, int wait);
++void ntfs_update_mftmirr(struct ntfs_sb_info *sbi, int wait);
+ enum NTFS_DIRTY_FLAGS {
+ 	NTFS_DIRTY_CLEAR = 0,
+ 	NTFS_DIRTY_DIRTY = 1,
 -- 
-2.34.1
+2.53.0
 
