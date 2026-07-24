@@ -1,79 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2837F3AC0EB;
-	Fri, 24 Jul 2026 11:22:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C5D3B3BF3;
+	Fri, 24 Jul 2026 11:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784892170; cv=none; b=HvgXDnChSS6sKZlWQJ1mcfAC2Fs+bketZjOnw1GQ/P0+sL+pzCRbIStPn6hm8uEMmObq8LGNuNe4H4CLn4Uu6ybfJLsqxGdbCwt8d3AZDgknt07HTVhnPTZqmGU1HxcolMNjjCnBmtyoU73CCqHYo+obKT1B5XuMfBsK/tv9KkY=
+	t=1784892170; cv=none; b=pgqLB+CsCGVWM9NkY/3NMbjY6j6/HwjIYzeQN7R0YsNhB7dhWq3/0reUCzem3webal7AEDoVOjTYa2Zy+PB2KGH4U0OW3FwaYlI9fDfGZCE6QlapLzfY2Seq2iaZnW7by4Kr0mT+Q40nj2TSLMTL/C4N4b5VCXEIjr0l73a7JMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784892170; c=relaxed/simple;
-	bh=Qoi1ARtmFfgZWsGx8eRx48vOJTkhtLJb1+GuuvirLGw=;
+	bh=Pjurzdn5JH+7BE0Xbiwda5DMuAy2DZXw1MsLoiY3Xv0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XzYOzqE1r2s64f4mATEhMjOie1WvgtNIG9kJ1J+52/L4Jin05TNmaXTz4kq4YDbXb74wJfnxftIHXKwghOT7EYpzHPz4SCTsF+tU+HNu8FYE2mS5kr8v7wr8c5dKBXukNCprtYpL2+OAP6xPxPE+xAlJD4gCfpzAE556SzaeB3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNb51Hlg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=FSlQ1rEUrlMkk5YriwzrUjo2m4X5VqbZ43Z9xdOUNp4gtu8XoXrHweedVJDhp3Ls8pL5tP0RMBBdRIi9Szb4SemYFN5TBPEzpNxoAvVgi8+N3ODTu8Glh6EBkj5/h8/T8B4JWvPpwM88C8NcZK8lUbXOjNmcbpGoa9x4EHQIC/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SplOHt4L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNb51Hlg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4DE21F000E9;
-	Fri, 24 Jul 2026 11:22:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SplOHt4L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA57B1F01558;
+	Fri, 24 Jul 2026 11:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784892168;
-	bh=n2HpMIjNvLrRh9jT9V5Jw1GfuA0FNPTbW6GXsK7+KXM=;
+	s=k20260515; t=1784892169;
+	bh=a6hXrve42aU+M9zjCTfhBkfLMhDJ3e6a0jynuAyz5GE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XNb51Hlg05loYe5tcl/uoReqSoRtdLAGuCdZWDUz1mZI6PV5JWRnTcnrdpCWm7plb
-	 j+/LsYIpKd5gDXTmivDpBvKG86rCi+CIcDk/EnxYPUoP6e7gXM1STfj/X8qTuHL7mE
-	 NBWpbLryKXKRS+BmjPHv5rOOGddguuwc+hoFsxLh3rxyL/vyvBu4JSEvQzrIA3/J6E
-	 CIbg5p6cUQ3wwsT92MJz8hy/3kybSn4HWarepvHD0Lg723dElTDEmcq3VU5Eh5NbVI
-	 8NU3aC+EqmmDO0p3f5u4nHPPwS2GLOF0GBATziLHPrUaAlJmvaevLYdIHjktwalYKO
-	 5zUZS3PcE/YeQ==
+	b=SplOHt4L55vaYRB3Aue2vh7TLFX238e7IaJTpuQjm73rsLYl1IrxcTG6i+SJbXhGZ
+	 E7TX5YP3YvQgqP/Q+Ftk7Qyr1qVr9IbSjVQeC/XZWtX/EL1AnN1IG5gkXdFU6g21wa
+	 UUL+fGWw46jNQOlcXmXk9+l5vI1H5PD428E2oW3Vfiq7YM27t2Q8H0C/CGYe4wtxSI
+	 g2JCmjWTx8DVrouUYl2kBNOKlRYiBgs+o6YvFuXr6s9W9ln5GL6GtwVXSNf9qOGrWj
+	 VIlCJLDaL0P6CEzMTORVrvV3B/JKoUkHCCGS9mhdJR8pouZa+2SxAQ7tAeM/EA6fHW
+	 ThQYdnpVqbtNw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	daniel@iogearbox.net,
-	info@starlabs.sg,
-	ast@kernel.org,
-	lulie@linux.alibaba.com,
-	john.fastabend@gmail.com,
-	andrii@kernel.org,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	kpsingh@kernel.org,
-	sdf@google.com,
-	haoluo@google.com,
-	jolsa@kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mykolal@fb.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	dust.li@linux.alibaba.com
-Subject: Re: [PATCH 6.6.y/6.12.y/6.18.y 0/2] bpf: Fix ld_{abs,ind} failure path analysis in subprogs
-Date: Fri, 24 Jul 2026 07:22:33 -0400
-Message-ID: <20260724105500.stable-0001@kernel.org>
+	netdev@vger.kernel.org,
+	Brian Witte <brianwitte@mailfence.com>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Konstantin Andreev <andreev@swemel.ru>
+Subject: =?UTF-8?q?Re=3A=20=5Bbackport=20request=5D=20=E2=80=9Cnetfilter=3A=20nf=5Ftables=3A=20fix=20reset=20request=20deadlock=E2=80=9D=20to=20LTS=206=2E18=2C=206=2E12?=
+Date: Fri, 24 Jul 2026 07:22:34 -0400
+Message-ID: <20260724105500.stable-0002@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722073908.72382-1-lulie@linux.alibaba.com>
-References: <20260722073908.72382-1-lulie@linux.alibaba.com>
+In-Reply-To: <07b303cd-03f1-4d0c-ae58-7439503247a5@swemel.ru>
+References: <07b303cd-03f1-4d0c-ae58-7439503247a5@swemel.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Backport of the CVE-2026-53090 fix.
+> Please consider backporting the following series to LTS 6.18, 6.12
+> (listed in the order of appearance in mainline)
 >
->   1/2 ee861486e377, the CVE fix.
->   2/2 e0fcb42bc6f4, selftests for the fix.
+> 779c60a5190c ("netfilter: nft_counter: serialize reset with spinlock")
+> 30c4d7fb59ac ("netfilter: nft_quota: use atomic64_xchg for reset")
+> 7f261bb906bf ("netfilter: nf_tables: revert commit_mutex usage in reset path")
 
-Queued the series for 6.6, 6.12, and 6.18, thanks.
-
-One follow-up: the Fixes commit 09b28d76eac4 ("bpf: Add abnormal return
-checks.") is also present in 6.1, 5.15 and 5.10, and the fix is absent there,
-so those trees are affected as well but were not covered by this submission.
-They likely need a further adaptation. Could you extend coverage with adapted
-backports for 6.1/5.15/5.10?
+Queued for 6.12 and 6.18, thanks.
 
 -- 
 Thanks,
