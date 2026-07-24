@@ -1,51 +1,78 @@
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3850D43FD1F
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 14:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.166.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F419043901F
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 14:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784903929; cv=none; b=nQrktvc67XXkHUdDly0UxyyB73Vvi4qDiaR9xLu5GEgiDMkGfXScPsNWaNKZCnGxHU4MpXN9NnVqNHm6Hc/O8qpD/GKk6clYfCBd2uPa+XFxTshvO9FQ2MNowgIuVbxh8f7JE6Kt9gI0jypRjPQbi78X36zH3cGOQl2BupnrxJU=
+	t=1784904025; cv=none; b=g2xMeFDQpFW/6fNsll1poDb2kbYgPwx/yjEVm9joDuXp/PBhiLcqsQk3JCuknniYffVoKUidffUxqnkUvpD41v1hZl1/JhGyjjXDuPidVlP9csKdWhnyoSX27NGyu2273kjnmNBxg+1Z/PGf9Z31LxOQaiQFqhCFPKuJDj7y4tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784903929; c=relaxed/simple;
-	bh=lm/3m0E+OR99XdNQuNBm4hQ6PIK+sOHQwDCjieaOlU0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NH/YCo/xLgAVwteKQTFWX97FQ0ApMafxo9lHOw5YOQiu7a0y99jjwWxdEew6Lgiz79iRjx0qbfZOjlTQTuMUlSRlQUlkuXaz2Fkt0MT1kC5QAipwPs42HgMShXeKSUvCchoG7m9+yx0L9ywyZ7EWRl91a4UR76SjQkMEvyP88yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=nTb5XZi4; arc=none smtp.client-ip=205.220.166.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
+	s=arc-20240116; t=1784904025; c=relaxed/simple;
+	bh=mzAPWt8soLl40BP3UVn1bPfxB2aX0IzIYgTnaePaoH4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LwV4quTW2X+cXbK1lFUDbp+KmV0u0j6Mi/PeVXSVQ+PQ9ryVodDh+2owQXVMgfr0ViJCNXOvJVs4tRtGnUGPZ2uOrLsUPUKQR0bw13s2w9to4+ZUIlFcAuUJPoRtTUDf9zWrpo5SyGZA0ikVIPMNKEZFXgx0AfDvTlpphZkYd6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=UyW9P6QD; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="nTb5XZi4"
-Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
-	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66ODchks1881496;
-	Fri, 24 Jul 2026 07:38:31 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=PPS06212021; bh=sDmEokgDd
-	jmyDfRpWHJETOGYoVzHVfTmv9wN91e9cR8=; b=nTb5XZi4q6BPunUE6wkV6hbBQ
-	/lz1WQm+/SZARHooAsmMvuy64VQppVYkbCEbyhgGIee+HxHUPb61t+h7asDO04tw
-	oNCSW5ZX0SGsGqmyJTfs6CmXPusv1++QPh8ThUw2I2z6JbK9WTpa9DrgZWecEUbj
-	nIZ8I+vNVBcttbM/py+CdX18wMP68qj/FexjS2ZCDQC7NY7k6on3kBNOjs4iCrLF
-	DEJl4PJ/iSw7ipX0RxRmemJKzGrJfBtRVay3voqKz+uzPlxOZo3CDM9ZgzTnX4mf
-	oZbq2KVrT6poJBKmB/YER4Yj1BwYlv8XLE5pPtDKYR0SWjsEFzx1wLqLnhd6g==
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com [128.224.246.36])
-	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4fm8ay06g3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Fri, 24 Jul 2026 07:38:31 -0700 (PDT)
-Received: from ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) by
- ala-exchng01.corp.ad.wrs.com (10.11.224.121) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Fri, 24 Jul 2026 07:38:30 -0700
-Received: from pek-yzhou-d3.wrs.com (10.11.232.110) by
- ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) with Microsoft SMTP Server id
- 15.1.2507.61 via Frontend Transport; Fri, 24 Jul 2026 07:38:29 -0700
-From: Yun Zhou <yun.zhou@windriver.com>
-To: <gregkh@linuxfoundation.org>
-CC: <harshit.m.mogalapalli@oracle.com>, <stable@vger.kernel.org>,
-        <patches@lists.linux.dev>
-Subject: [PATCH 6.12.y] ext4: validate donor file superblock early in EXT4_IOC_MOVE_EXT
-Date: Fri, 24 Jul 2026 22:38:28 +0800
-Message-ID: <20260724143828.1668805-1-yun.zhou@windriver.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="UyW9P6QD"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4728c12ba97so384408f8f.0
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 07:40:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1784904018; x=1785508818; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UbbC2Y6GHLQJ7n62pK5uoFXAcOP/lzhNIQdsV3PuKPU=;
+        b=UyW9P6QDnw+zUsVZiSoACZqHeyoVPUqW6o0nNoKkoG29Ps9mygtRcmR3b6sa5ul1Xd
+         yC/kelHbWXO/2+SvKXPLXcgxYQCun+W2q72WpTsP45CQpsvSdEtuOfSF1XFxSho31scn
+         qltrS3vI28A8wnAif9NR5ktJkuueET5BIpioHsNSPMwvoipXzaZh5TeI5xUDAEfQE16U
+         XmTkDEw3/VuaKck0/Ki4t/zZ8XF+T+3ySG6qhwO8jo/+1EtcCNdR3jkonKTfVEMHBO2Q
+         UX2XEysWlGOuizrmrfvYfj6u48k9jyFZl7QrQmB8doEB5J5XkVGRKXo6ayP9ZmFbGDdb
+         fIEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784904018; x=1785508818;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UbbC2Y6GHLQJ7n62pK5uoFXAcOP/lzhNIQdsV3PuKPU=;
+        b=Ak5gZMnEN1E58VBPQ4kOM+qJDMXz85P0X3B4RKXvzAquak8WpM7+zA9F5E4EB8gImk
+         w5NYZtKsA9xRpC1mjptrIAqib9kETAz8opt8YmucKKBRqXSvpyWCvo9M+jivx2mDUq09
+         Qdw+ILTYFHyXKZXS8xvBQQdbiYsg5g5N7jOpa0FsLBgUS2j4a6py2fQ7xZPuZWhjhegH
+         H0uBEbcJPkEacJJxjmpqta0Lbw1oSQ4IoNQ0PVYl0MH2f4yBF6bNeS/44itZKlEHEu9l
+         bgUS47WLn3QNax/AoerwMz4fbXPLP1AYBYEheYPGQ0sitVhrkUBUoCM1r/6/ZkNgXQXf
+         BAwg==
+X-Forwarded-Encrypted: i=1; AHgh+RrBXUYbN+amg1gVCR0NAh4fzO+hZJT81tKTSNblkWQO1Xz2jdaT9wCew6EYd7wUtALXEi0/3N4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBmO2bTNjUUdoglj/xCJCQOkYdC9VMko4IBFYLUKvXEa61iaED
+	O6NYcwVTG+VUdyqtat3O5j1/NJ4wWIXi5trqtBVo/1Tm5ZWf0Op9dmF7TWBsrNRNi7V1
+X-Gm-Gg: AR+sD13dPK7Bm3akJ+8TW+pmPcPr6wpWJXL1ezv9AU7ihGgIrmD97cDIU0u352GM8tO
+	l1fyczDthGpW7Y1kdOp6xQcFrLqdM3ueKEcbWFLZY2CqJY2IX5vNFdaPhNzq5apc38vyaFV9QUs
+	xMiiW2Qz2CpNM3dQJciH5UVchEqSMHivjVuqd6MmU19OgtqG+o4wgOsN3q4zUznKNfc2XIOZ3U+
+	TPXKKQnDNfRzdvt9IgSCXiNafHA/g9nMRJJYE1aUNwmCjA/1BaRB3QGZkF4R6KWQUurDpO3QBBk
+	9CnFvd4b0ezJGdlCtDKlkaPB2+gIdm2wmeV1m5MNwNeUSlhQCEekH7R0e/C/l2jZbUtnEyqMBtH
+	BxsQ/b9XpR4WSto5ahp0rzJ1TwIykEAhkVPLAb+6vlYUBYUapLEmYsHheJQEqMj28QQw/7vlUsB
+	2uykH9oEI3nP6zbBE8qGu4Oqocl9dimKb5I5DTjQwrywZSsYpbnI+uEMLDn05KGWOLGpePsDDgs
+	JFXf1Q7r2Q3nJNMhFuBU3k33QEaeDpHebBc
+X-Received: by 2002:a5d:64c8:0:b0:47f:91f0:983 with SMTP id ffacd0b85a97d-47f91f00a4emr8582170f8f.41.1784904017859;
+        Fri, 24 Jul 2026 07:40:17 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.219.241])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c6f076sm25276279f8f.34.2026.07.24.07.40.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 24 Jul 2026 07:40:17 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	sd@queasysnail.net,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net/packet: reset the MAC header on the packet-socket transmit path
+Date: Fri, 24 Jul 2026 16:40:15 +0200
+Message-ID: <20260724144015.63219-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,98 +80,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: e0-tUkH4gBO1u0rnWU0ZEHdiGzKiCzX9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDEzMiBTYWx0ZWRfX/zv5Pa+hb1E0
- TOiYPdzz0Cum1SEl0vpuhw+OQlFKV0zrICyXjcLxG56IWqeP5HMkCWI04E4QSY++M+YHShK5umM
- d0nQKQmdZNbL5JVQGx4+T4Z3oO0mtRa/iQsGRZMx68Xdb6BW63vkQzlBhyUx/PTq8TEtz5P8Gxo
- dIM5gmQd6NRJPBSwE03bf8YBJoa3prUYQqAMehWgQrKRdx5ZJLq96xM2jTRQ80HFNFnAjffOZFX
- NMySbalI61ZXWBySLqqMxl0EL/JWCnI4igTJu/Jf+LEeP4a+wvnh88ke0QOlqTwTb3zsRR5FfOE
- D8eecp66bgkZrmOvCXNK0C/8Zj+lDop7j91X5SOj0kFDzAw9aE+lZgTlF1LSm1jTrFOR2FaV2pf
- wiEEkLTfeQrSQG97/BXe7j8Tgh0LGApRvnEnK+vKvGnw4XdoiFq3x0DsLazyKpkykfR/XDx3uo/
- OSEfzLZZCpNkInvOR5Q==
-X-Authority-Analysis: v=2.4 cv=LOFWhpW9 c=1 sm=1 tr=0 ts=6a6378e7 cx=c_pps
- a=AbJuCvi4Y3V6hpbCNWx0WA==:117 a=AbJuCvi4Y3V6hpbCNWx0WA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22
- a=HK-ge7EqtdluswH-FwHe:22 a=edf1wS77AAAA:8 a=bC-a23v3AAAA:8 a=t7CeM3EgAAAA:8
- a=hSkVLCK3AAAA:8 a=RPJ6JBhKAAAA:8 a=sbZrjurcE57j4PJPAZIA:9
- a=DcSpbTIhAlouE1Uv7lRv:22 a=FO4_E8m0qiDe52t0p3_H:22 a=FdTzh2GWekK77mhwV6Dw:22
- a=cQPPKAXgyycSBL8etih5:22 a=fa_un-3J20JGBB2Tu-mn:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDEzMiBTYWx0ZWRfXxKfjRoFQw7p9
- LKQJvm3jSU4iT2qjsbcuTj1EJV886Sf/Ol1bdu13RhBrx0hnrTQTEPG0MlyIjzA/TYH3etpt9qM
- AvkUwYTi1QkJROFBgCwjkySvgIUkNBc7+K6U9fkIInMEf2aYI6gC
-X-Proofpoint-GUID: e0-tUkH4gBO1u0rnWU0ZEHdiGzKiCzX9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-24_03,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607240132
 
-commit c143957520c6c9b5cd72e0de8b52b814f0c576fe upstream.
+packet_parse_headers() resets the MAC header only for a SOCK_RAW frame
+whose socket did not bind a protocol. A protocol-bound SOCK_RAW socket,
+any SOCK_DGRAM frame, and the legacy SOCK_PACKET path therefore leave
+skb->mac_header unset here.
 
-Reject the EXT4_IOC_MOVE_EXT ioctl early if the donor file does not
-belong to the same superblock as the original file.  Currently, this
-validation is performed inside ext4_move_extents() by
-mext_check_validity(), but only after lock_two_nondirectories() has
-already acquired the inode locks.  When the donor fd refers to a file
-on a different filesystem (e.g., overlayfs), this late validation
-creates a circular lock dependency:
+For frames sent via __dev_queue_xmit() this is harmless: it resets the
+MAC header unconditionally. But the packet-socket PACKET_QDISC_BYPASS
+path uses dev_direct_xmit(), which does not, so the frame reaches
+ndo_start_xmit() with the MAC header unset. A driver that reads
+eth_hdr(skb) on transmit then dereferences skb->head + (u16)~0, an
+out-of-bounds access ~64 KiB past the head -- the same class fixed for
+one consumer in commit f5089008f90c ("macsec: do not read an unset MAC
+header in macsec_encrypt()").
 
-  CPU0 (overlayfs write)            CPU1 (ext4 ioctl)
-  ----                              ----
-  inode_lock(ovl_inode)
-                                    mnt_want_write_file(filp)
-                                      sb_start_write(ext4_sb)   [sb_writers]
-    backing_file_write_iter()
-      vfs_iter_write(real_file)
-        file_start_write(real_file)
-          sb_start_write(ext4_sb)   [blocked by freeze]
-                                    lock_two_nondirectories()
-                                      inode_lock(ovl_inode)     [blocked]
+packet_parse_headers() runs only on the transmit path, where skb->data
+points at the start of the L2 header for every packet-socket type
+regardless of its length: SOCK_RAW and SOCK_PACKET carry a user-supplied
+header and SOCK_DGRAM has one built by dev_hard_header(). Reset the MAC
+header unconditionally, mirroring __dev_queue_xmit(), so the frame is
+anchored on the bypass path too.
 
-With a concurrent freeze operation holding sb_writers write side, this
-forms a deadlock cycle: CPU0 waits for freeze to complete, freeze waits
-for CPU1's sb_writers reader to exit, CPU1 waits for CPU0's inode lock.
+Found by 0sec (https://0sec.ai) using automated source analysis;
+verified against source and matched to the macsec KASAN report in
+f5089008f90c. Compile-tested.
 
-Since EXT4_IOC_MOVE_EXT exchanges physical extents between two files,
-it fundamentally requires both files to reside on the same ext4
-filesystem.  Moving the superblock check before any lock acquisition
-is both semantically correct and eliminates the circular dependency
-by ensuring that cross-filesystem donor fds are rejected before
-sb_writers or inode locks are taken.
-
-Fixes: fcf6b1b729bc ("ext4: refactor ext4_move_extents code base")
-Reported-by: syzbot+ad6118a7584b607c67f2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ad6118a7584b607c67f2
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Andreas Dilger <adilger@dilger.ca>
-Link: https://patch.msgid.link/20260608152521.1292656-1-yun.zhou@windriver.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Fixes: 75c65772c3d1 ("net/packet: Ask driver for protocol if not provided by user")
+Cc: stable@vger.kernel.org
+Assisted-by: 0sec:multi-model
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- fs/ext4/ioctl.c | 5 +++++
- 1 file changed, 5 insertions(+)
+v2: address Willem de Bruijn's review -- clarify that __dev_queue_xmit()
+    already resets so only the dev_direct_xmit()/PACKET_QDISC_BYPASS path
+    is affected; note skb->data is the L2 start for all packet-socket TX
+    types regardless of L2 length; move the explanatory comment out of the
+    code into the commit log (kept one terse line).
+ net/packet/af_packet.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-index 99d185d00f37..e437cf1a84e5 100644
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -1366,6 +1366,11 @@ static long __ext4_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
- 			goto mext_out;
- 		}
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index e75d2932475a..5ae0511e89e3 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1924,11 +1924,12 @@ static void packet_parse_headers(struct sk_buff *skb, struct socket *sock)
+ {
+ 	int depth;
  
-+		if (file_inode(filp)->i_sb != file_inode(fd_file(donor))->i_sb) {
-+			err = -EXDEV;
-+			goto mext_out;
-+		}
++	/* On TX skb->data is the L2 header; anchor it for all socket types. */
++	skb_reset_mac_header(skb);
 +
- 		err = mnt_want_write_file(filp);
- 		if (err)
- 			goto mext_out;
+ 	if ((!skb->protocol || skb->protocol == htons(ETH_P_ALL)) &&
+-	    sock->type == SOCK_RAW) {
+-		skb_reset_mac_header(skb);
++	    sock->type == SOCK_RAW)
+ 		skb->protocol = dev_parse_header_protocol(skb);
+-	}
+ 
+ 	/* Move network header to the right position for VLAN tagged packets */
+ 	if (likely(skb->dev->type == ARPHRD_ETHER) &&
 -- 
 2.43.0
 
