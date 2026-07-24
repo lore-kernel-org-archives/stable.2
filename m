@@ -1,116 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59F934041D;
-	Fri, 24 Jul 2026 15:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 690EC2F7EF9;
+	Fri, 24 Jul 2026 15:33:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784906792; cv=none; b=g/OiYWMCjiVVjmeGECbADAc/eGL7FqHxcYxA6JWeohLtWOBshBBXtoEEZPl1Rf1LXVOyFwP/dn13NOV736LLq/nbziZpEESuqxuBAjkX5PXzxY8NIFQNVyFW1n8+Lob3InFiK286LHoPWTDYrGmHzPLePRszx5FEpyj4f4KnrJ0=
+	t=1784907207; cv=none; b=tN491EF6H8YHfsIXrHffsmc2mwpLI5QsFoGdRjPNdZy6fil8WSChUKVwyRV3iv1bb/xqfjlapZK2KoN9eoEf2SD1I8964SkqRKt8wmj3m3QQJqkLoR25L0r8QgzGNEIf0dBXNZCgpu5gqdpul2ircY2Kil5bD0Q3f8VgGuQJ2MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784906792; c=relaxed/simple;
-	bh=EG+ZVbL9Hf1dXUQVN6okne54iHKkSHQWgrmhbM/cDp8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JWzjzeDzxhINLtlRSt0/0kMt5z5sV1/pikeUj5TR+2Aj6+qJx/dzINqNpWqTG9ylgNF0wnJ8CiBwtmkWSM8Dkap6omfX0r6EWE/buH0NwnZUruONFjEUbc5x6XOrX7QmyeshWgKqMcFcFNSVkw9sclqUOBnrS2fUjGLnq9hYCPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E231ctce; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784907207; c=relaxed/simple;
+	bh=+o0beotL8y7MpoUYTdG8kGqiQRANLNh8KSu6dK3sUD4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sE/w1+UOrAiykCozNUdUZRHdGwteqz6rn5MyqbfCSkHjh6uswrwwOfP8+5aZo0eoH3x/9HCdgoC+9FQq6ZcHoMYRXPoX+1/ffKwBkxL9+OcACuvuGm/l65VVH5hp8h+Lz7/fTgwXRGJ8xy36oLCqU2CDXJI/RqOBBOwEznNdx1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gbdxT7RS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E231ctce"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2999E1F00A3D;
-	Fri, 24 Jul 2026 15:26:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784906791;
-	bh=bq/ZdJaOkGffsFXDh2JMtmlkUGLQcge7+7ciz2qz/9Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E231ctce7rvnJRo/JEYng8O73cn5/1b/7DUlXMFpzeke5gkmCcuWszLp5w1XH/yoJ
-	 9WYb5N0DUmuTYXdPvklD/qeqNmVZjmdHU1xlpSCtz/sueeKHAauMV9tsebottf/iTl
-	 qwISj9kXnbXJORjuOkBLsJ6mefy/jpfFfiT5sDaA=
-Date: Fri, 24 Jul 2026 17:26:20 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Yun Zhou <yun.zhou@windriver.com>
-Cc: harshit.m.mogalapalli@oracle.com, stable@vger.kernel.org,
-	patches@lists.linux.dev
-Subject: Re: [PATCH 6.12.y] ext4: validate donor file superblock early in
- EXT4_IOC_MOVE_EXT
-Message-ID: <2026072404-cultivate-cohesive-9fc6@gregkh>
-References: <20260724143828.1668805-1-yun.zhou@windriver.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gbdxT7RS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 390781684;
+	Fri, 24 Jul 2026 08:33:20 -0700 (PDT)
+Received: from [10.1.25.28] (e122027.cambridge.arm.com [10.1.25.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFB333F59E;
+	Fri, 24 Jul 2026 08:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1784907204; bh=+o0beotL8y7MpoUYTdG8kGqiQRANLNh8KSu6dK3sUD4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gbdxT7RSlMondLOm+8arR7st4y0YBRCP46a33GUv92ekwRouGDhF/xa1SRfsTU602
+	 gXlwr8clgVpRAQTbVHZyoyPkg3Ukwp0K1G1mWr3obY/yI3wwhgrkf619misqa/qSqg
+	 CRdRPlqJtjKfvf4WpXRznw7wVeAixSOR/yeen1/4=
+Message-ID: <2c8bd414-097b-41a9-95e0-87b146ef3f26@arm.com>
+Date: Fri, 24 Jul 2026 16:33:19 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260724143828.1668805-1-yun.zhou@windriver.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/panthor: reject firmware sections with oversized data
+To: Osama Abdelkader <osama.abdelkader@gmail.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260716143939.21903-1-osama.abdelkader@gmail.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260716143939.21903-1-osama.abdelkader@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 24, 2026 at 10:38:28PM +0800, Yun Zhou wrote:
-> commit c143957520c6c9b5cd72e0de8b52b814f0c576fe upstream.
+On 16/07/2026 15:39, Osama Abdelkader wrote:
+> In panthor_fw_load_section_entry(), the data size to copy is calculated
+> without validating it against the allocated section_size:
 > 
-> Reject the EXT4_IOC_MOVE_EXT ioctl early if the donor file does not
-> belong to the same superblock as the original file.  Currently, this
-> validation is performed inside ext4_move_extents() by
-> mext_check_validity(), but only after lock_two_nondirectories() has
-> already acquired the inode locks.  When the donor fd refers to a file
-> on a different filesystem (e.g., overlayfs), this late validation
-> creates a circular lock dependency:
+>     section->data.size = hdr.data.end - hdr.data.start;
 > 
->   CPU0 (overlayfs write)            CPU1 (ext4 ioctl)
->   ----                              ----
->   inode_lock(ovl_inode)
->                                     mnt_want_write_file(filp)
->                                       sb_start_write(ext4_sb)   [sb_writers]
->     backing_file_write_iter()
->       vfs_iter_write(real_file)
->         file_start_write(real_file)
->           sb_start_write(ext4_sb)   [blocked by freeze]
->                                     lock_two_nondirectories()
->                                       inode_lock(ovl_inode)     [blocked]
+> If a crafted firmware sets data.size larger than the allocated memory,
+> this could cause a heap buffer overflow in panthor_fw_init_section_mem()
 > 
-> With a concurrent freeze operation holding sb_writers write side, this
-> forms a deadlock cycle: CPU0 waits for freeze to complete, freeze waits
-> for CPU1's sb_writers reader to exit, CPU1 waits for CPU0's inode lock.
+>     memcpy(section->mem->kmap, section->data.buf, section->data.size);
 > 
-> Since EXT4_IOC_MOVE_EXT exchanges physical extents between two files,
-> it fundamentally requires both files to reside on the same ext4
-> filesystem.  Moving the superblock check before any lock acquisition
-> is both semantically correct and eliminates the circular dependency
-> by ensuring that cross-filesystem donor fds are rejected before
-> sb_writers or inode locks are taken.
+> Additionally, if the section->data.size exceeds the BO size, could this
+> memset underflow the size calculation, leading to a massive out-of-bounds
+> zeroing of kernel memory?
 > 
-> Fixes: fcf6b1b729bc ("ext4: refactor ext4_move_extents code base")
-> Reported-by: syzbot+ad6118a7584b607c67f2@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=ad6118a7584b607c67f2
-> Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Reviewed-by: Andreas Dilger <adilger@dilger.ca>
-> Link: https://patch.msgid.link/20260608152521.1292656-1-yun.zhou@windriver.com
-> Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+>     memset(section->mem->kmap + section->data.size, 0,
+>            panthor_kernel_bo_size(section->mem) - section->data.size);
+> 
+> Reject section entries whose initial data is larger than the section size.
+> 
+> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+
+Reviewed-by: Steven Price <steven.price@arm.com>
+
+I'll apply this to drm-misc-fixes.
+
+Thanks,
+Steve
+
 > ---
->  fs/ext4/ioctl.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 > 
-> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-> index 99d185d00f37..e437cf1a84e5 100644
-> --- a/fs/ext4/ioctl.c
-> +++ b/fs/ext4/ioctl.c
-> @@ -1366,6 +1366,11 @@ static long __ext4_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
->  			goto mext_out;
->  		}
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 986151681b24..a338c4f0a7f5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -545,6 +545,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  	struct panthor_fw_binary_section_entry_hdr hdr;
+>  	struct panthor_fw_section *section;
+>  	u32 section_size;
+> +	u32 data_size;
+>  	u32 name_len;
+>  	int ret;
 >  
-> +		if (file_inode(filp)->i_sb != file_inode(fd_file(donor))->i_sb) {
-> +			err = -EXDEV;
-> +			goto mext_out;
-> +		}
+> @@ -595,6 +596,13 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		return -EINVAL;
+>  	}
+>  
+> +	section_size = hdr.va.end - hdr.va.start;
+> +	data_size = hdr.data.end - hdr.data.start;
+> +	if (data_size > section_size) {
+> +		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
+> +		return -EINVAL;
+> +	}
 > +
->  		err = mnt_want_write_file(filp);
->  		if (err)
->  			goto mext_out;
-> -- 
-> 2.43.0
-> 
+>  	name_len = iter->size - iter->offset;
+>  
+>  	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
+> @@ -603,7 +611,7 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  
+>  	list_add_tail(&section->node, &ptdev->fw->sections);
+>  	section->flags = hdr.flags;
+> -	section->data.size = hdr.data.end - hdr.data.start;
+> +	section->data.size = data_size;
+>  
+>  	if (section->data.size > 0) {
+>  		void *data = drmm_kmalloc(&ptdev->base, section->data.size, GFP_KERNEL);
+> @@ -626,7 +634,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  		section->name = name;
+>  	}
+>  
+> -	section_size = hdr.va.end - hdr.va.start;
+>  	if (section_size) {
+>  		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
+>  		struct panthor_gem_object *bo;
 
-I already merged the original, can you send a fix-up patch that I can
-just apply instead?
-
-thanks,
-
-greg k-h
