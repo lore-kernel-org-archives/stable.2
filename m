@@ -1,116 +1,99 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B2633D4E8;
-	Fri, 24 Jul 2026 13:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.73
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784899792; cv=none; b=BDKnRM5IlALjvbAVCFWWfyQgqqPKGVt2zYqMWvg6P1cazPjWc1otPLda5DiCet83g/HzuiUvcAYFx5JjXWe1wVqEjcN9c58qxfXiukksw8/umvoPEQ9I50KrLepl62STsZgWjOfNwbEDXs3nUOc8YAxAlAjDYRYo/C9/S6zzWb0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784899792; c=relaxed/simple;
-	bh=OCJ5QJpFX+/c47h/UFE3+oYD1nX5lByuRL1l3DGr4ck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q5DY7ZuvCIAIIRNUmv5v83SKhNxWEwvBEzZ4WhQThOPU5joI1+EotI0e3H7wBWeUx2Zm5TBaMI9d9bvJN+mCdAa7qyjWQjdBN+LWiViLBVoZOGWDA9HYPY6ym/TZux4rjHywPPQB6bBFyncp4JK6e07nQfL3JYd3etKwoC+z3B4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=dOHC6zQS; arc=none smtp.client-ip=217.72.192.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B503BED66
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 13:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784900078; cv=pass; b=qJZqY2bcOKCxy82JRsCjW0I131BDQLK2CyeomKDY8PjHzHtLF1lTOdeVVQdNSxYH3adaJbkFIWTF3rUR5tc3ZcOpQjfILpRgmOrpmJHrXrU9QpW+6TMnWVBmmcANd0eszGmjddpBtNlJDoBRcKOw5soHpjziodlMHZZ9XYT1XKI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784900078; c=relaxed/simple;
+	bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Rosc3uxKF06nN+R/8outsXL4C6Ux4KYk/f0s2r4L0UGXMs2U5n7xv13ooTQD8bJ3gK4J/OUGsfivtwFCBqtQx15JpIuI2ViU8k5HbRzKgep0m8erIWktCq6pch7Plk2DR7rr0jF7qvu/nMVIgtmG1rwhh+tVxNg365wx02w/cSQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VpUbj/gx; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="dOHC6zQS"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VpUbj/gx"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c197f968b3cso67559766b.2
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 06:34:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784900075; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NLI+aCEQsYt0i+VMs9dxc8YRjLiIiZLgDijJf6G/h0GvivdebMzmklCtmw9cNJirQ2
+         i4FYImgsTx3aMJYFWhZ9rSKBIP+p31L9p5wJ8AAsulY8ljnSbQJlGciyILP+7aoXx49G
+         0bGGMI2tcWkqjcAIzf9WRChF0BhIw1ns85aIYjvy47WaozWao+GUHV8xu0LKqswuVwA5
+         gyiYfymIn0xc8SQz9EZvKiewvkK8I6SirsUG2bVJnifVmai5O82Ann81C4nNx67qBV5t
+         iTOc4DED8zuIuhT95hO0vBqvnbdf46bpmzws8/MOcRSvQvOMyaM4Wgf/2E73NAeEu5Es
+         ZptQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        fh=iNl+nq16OXPxYZDIHbqSvzzb8Hcg1OdlulNd+4Nuxjg=;
+        b=nrAy5p8UWG0SIPf8edGoTqbFZqsp3i+tjKCO7jax/pla1990C1JRYCKdFf78UiwZYw
+         W41vVd6D0OzR1PV6bUjS1EtadLRIohcCkMf0+3kXWjxqzaMtPoqecLLCMN82XyHnU41B
+         lwHYgAGxJy6gsLgoVB+Hfoa3kUehRpP21Wr7TRf3mocJbsr8DP5jtFQR/E9bLIMPIESY
+         dwrxDiEgELXutGlDZcDqvQgPcf9q1JeSdbPJv1tjNwhQQCHrEPWRBwDpnRePJwHt+VQL
+         nIlyb24eQ2lYyAYYY7YPHHtGKlGNoSRV2PW0148mT0IuY6v9gY5t+jfn+zFSZNPjBsDk
+         XxWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=oldschoolsolutions.biz; s=s1-ionos; t=1784899761; x=1785504561;
-	i=jens.glathe@oldschoolsolutions.biz;
-	bh=OCJ5QJpFX+/c47h/UFE3+oYD1nX5lByuRL1l3DGr4ck=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=dOHC6zQSkeuAOPK2kByHb+WIyTkf5mVh82MCV6tPEi11OQDB30qfkzmXHV14XC5r
-	 TBhgjpvJPDf7PKvtEQKUa7QDT7diXDglTG7+Z2m3fUNb6UKFBa3S7/ulBVg31uOhI
-	 YQIbuvXa3PSDaevw/yoSn97YEWIxrNnOvW4EHceARGA2EGmP2XObtIx9NgVf47YTF
-	 Id9nRFn/8oD1zmGemt93Uq1ds7aSej6W5EAKU2e6jREnz6Ve//N72lAon12cOCEc0
-	 aascGryUVEa7vCQRip0clAWVmb8gw60VI4aGz1FqAambQjjQziuSXCMQFNIXGjAMc
-	 Sb2niX7K7v2d/bQo6Q==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue106
- [212.227.15.183]) with ESMTPSA (Nemesis) id 1M3lLh-1wmR180QEt-007yID; Fri, 24
- Jul 2026 15:29:21 +0200
-Message-ID: <1dbfb670-202b-48e9-8bad-185bf2c395b8@oldschoolsolutions.biz>
-Date: Fri, 24 Jul 2026 15:29:18 +0200
+        d=gmail.com; s=20251104; t=1784900075; x=1785504875; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        b=VpUbj/gxPfu2RJKKVmjsZsjVpFXa4JvxOTc/1TcRNMnnNVefaCvfqx2/odkO9g0NTh
+         CnsiBs4DgQ48FWOpJDSSiPo0E6xIq/kxYpQsS4Dbv3aZurShT/W+A9qHMjEDVCTojNe5
+         5zf79qnNQjhwS1zaVKbawSHze1NF4okyEJHHH4ArW6N3YMjavlI7eyMl+xOpiqmxLb2E
+         NKJ06T7BITwLjVRs4DNk4bAi3fEzM1kirP5LYLY2pSojTlhlTzeIY2DM5oDjrSJ0zXy8
+         zsPTuXchjV6bQkcVQAf1IJmIjWs6rbLpwnX15kRDf5kjA369ONxgdH7bmD2X4GrAZEig
+         ECZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784900075; x=1785504875;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        b=IAR3EQQJMhZ3IiIzI0sGnDK+9+cZCCIpffftb78gnp/4xDyZh6XrN4O5kmqZXwwDz+
+         HgZB/6ida3wpxs3gVhIw+J7R80d0vEmhnxzhHnJwvWne+NIM5lKyu2iGXbxQ+zX/jLJc
+         xfBCzlI9WdbwURmA+nyrb6ehqTzlMZxJbZtK6UHZuPa+OJ+eTbkVOBKaFitrgW2sO3Eo
+         MIhzdOy7OrWKCz4OoCc13pJqqx5fSiEx2dCAySCmGtw57Xv7CLBcsLjxg7h+pfuQkz7P
+         eNRVnkhccK3V7afO/ujr3dibDXPfB94RdnJ3i8cBm1KewEDGQsA/PXfN+i6k/Mm1VTzP
+         gzwA==
+X-Forwarded-Encrypted: i=1; AHgh+RqixK1L8yW+qO5KtRTPBaexHQY/js7ZyTYFZ64eoL4vcUok0oVsTzcRqa1NFdDB7GJxOYrd6hc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyf4bJNXI+yQ32MwtzLMn3Gj6QIcp70A2rxFXMuQfH9g6AS3+XQ
+	UO8ibw4cyV+lm8WyC3SS2XIzhrMxX9OODetRzvyS0fRWOsgdJPUaDpJVO/LIXc/tGtI1fb9XYa0
+	QHEYGbAXDFoSpB4uPph4MzOAwcbBBmg==
+X-Gm-Gg: AR+sD12PuacxIUtHWVgvomduXsz+AJvMcy6RXtH/oqWqdxcv4akAmiuzNjR0GP2Y0sD
+	lhMHjkZDpGj8W916xchGiykfsH3kVV+ykPldNAc0t4Gk/L8XI0hSlY4HpRmSA79YbewIffhmpZS
+	xcW5gkmLfuEC1GLI2McYbmoXe72lnjfV2WWpDFTOJl9mDGap9zCkcDN06CRR7ThwtpN1QgmzJ3y
+	XtS7D6+mvrom5/yVXjiSFwRNEbQhxVVQscdI4ApFPk+3E20gay0AUsOovbblCOnwjqoLifsF+BE
+	rV83Rhk8Q8Sb9w10X3aQ9K/qCzSdFXEzY9g=
+X-Received: by 2002:a17:907:1c13:b0:c12:34ed:da14 with SMTP id
+ a640c23a62f3a-c1c50b6671cmr294192966b.64.1784900075121; Fri, 24 Jul 2026
+ 06:34:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 0/5] usb: typec: ps883x: fixes for older Thunderbolt 4 /
- USB4 docks
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
- "Dr. David Alan Gilbert" <dave@treblig.org>
-References: <20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz>
- <rmckncb6oimniwd6venptbzaidxh4v6ffhbkebztqcuxg67ixy@u3bi5tclfon7>
-Content-Language: en-US
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-In-Reply-To: <rmckncb6oimniwd6venptbzaidxh4v6ffhbkebztqcuxg67ixy@u3bi5tclfon7>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:9ybLy0eRt+/YFF09Ll6hqlkouUS7uVkT7sQ4hQ59ukuEGO1WLX9
- BkLryKfezYSFxPZSTPu2t1/ehHET4bskv7Fv1VAYkDKe9RER/hRcLlBiA7plnrkoRsV76Hd
- jhkF/WMr7+vbnrk/q7uTDbJ9841YSJZPjv3zLQBO6U+kJhVkWz2A5uH+06P+yGEtcMHpnS3
- 6XKlysaVEPMwqreuWP5WA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:7WiYxy4H1SM=;B2pfNGTc2Ac8YWHNdjhjM7d5Phv
- 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
- =
+References: <20260724051001.202741-1-hch@lst.de> <20260724051001.202741-5-hch@lst.de>
+In-Reply-To: <20260724051001.202741-5-hch@lst.de>
+From: Anuj gupta <anuj1072538@gmail.com>
+Date: Fri, 24 Jul 2026 19:03:56 +0530
+X-Gm-Features: AUfX_mwWTg42HDw4aWDghBP51qdfXyDKkMoJixeJkgq6b4QcQa_tMbSOXy-DN0w
+Message-ID: <CACzX3AvJUPUhxCPgqOW6zSF2exawYG_okkL3xAEd=s2g=EDd3A@mail.gmail.com>
+Subject: Re: [PATCH 4/4] iomap: don't free integrity payload that doesn't exist
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, "Martin K. Petersen" <martin.petersen@oracle.com>, 
+	Kanchan Joshi <joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>, 
+	Christian Brauner <brauner@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>, linux-block@vger.kernel.org, 
+	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
-
-On 7/21/26 19:56, Dmitry Baryshkov wrote:
-> Just for my understanding, here you mean a Type-C cable with all 4 lanes
-> and the SBU lines?
-
-Yes. I used the type-c cables from my portable USB-C display, which does=
-=20
-4k@60.
-
-with best regards
-
-Jens
-
-
+Reviewed-by: Anuj Gupta <anuj20.g@samsung.com>
