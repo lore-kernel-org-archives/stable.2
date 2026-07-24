@@ -1,89 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f3.google.com (mail-yx2-f3.google.com [74.125.224.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B783E3D89
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 22:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3C244B69C
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 22:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784930959; cv=none; b=efLsJrQoQMs35tYoOsrIVABBJHVnVfSDNjpinT/FFKqzGWfT36aSc0QaYsiXSjOuf2RIM+STobmupGrB9NOZbiMDfWVsvzKu7bvmn8mMni7pn4GGqTDuZcLZekpTSGPM3NfQEVd0RkWebdI78qQ30nkpzgAAgS6LyjJcniHLxYc=
+	t=1784931714; cv=none; b=RVCN1DItgP+qvmS1ORqC3E2JLGnzBN4HRlcbt4+mZUYl+RkBaM2MD7sSXNqiUZLUETexCLMsR0+F+xs1VuFrqnXEUxtJurQCdm25qjAaXlQ25slp8kkpKtAicLpiz9gvGnqBt5PmQJPVVy4eWCWm+IzlsyisGM7wA/dljXu25yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784930959; c=relaxed/simple;
-	bh=8WvLjYpM6TPNS4CR3uFnJDjx3DY2gUkTQcAv0tECm4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UtqM/7VefJlZ3Ui/65AhnkT7bjm7181ngG2Tl+0XTmlAdm7inRaQoPDC+Cjzs4VruvOPTNJ3AJvvKkemeF5lc+aq3DGdvREBeR/I4SUUEqSGMVvqYfiTSY2HNA8itdmfcEkahLnnL+1XL2AWoMvCfzatYP/PpJiocypT0Fg5eW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KsJqvX/p; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UZNDMC22; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1784931714; c=relaxed/simple;
+	bh=kC6t5VnMcunsvNpGeClO0y7pMHlBn0Dn5Nsyh1hjN7o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nMJE/Vtc06OC6NajSrdzmygO+NEWx3tmMDqM5LgJXm66XOmIjOjr1XbRz3d8HVatFhCSctyONm1iSfIMVi2bX5n2PI+NOfMSgMcXv7nI+ddmpxSYcabkWELQ40/5fo3MPKPm9ReZs3Pb9fwJ+rc83uNy4iNBdtavJzAM+qenHYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=s1C4ZwLs; arc=none smtp.client-ip=74.125.224.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KsJqvX/p";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UZNDMC22"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1784930956;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Izpr9B1qppiKBJVcAyeQ89xsJQDGwcYRScqxrkF+iXg=;
-	b=KsJqvX/pmo6+ZdspCeSbLwhNRIWM3/Us62GqzL5fWUaRl8oZQU5CyqrI+BmE8QWmwzjmTT
-	qo4DeR+s5yf/RbLfB9up1OGROSL8pyVyFD6kKpu4mCfe8oDmotgYnyuSTQTkzo5TUWsHZV
-	56PBMjGxSn7qDlOWNCMu+oP/sGNH9tg=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-693-gV8CRTc4MSuuvhTfs0zeDA-1; Fri, 24 Jul 2026 18:09:13 -0400
-X-MC-Unique: gV8CRTc4MSuuvhTfs0zeDA-1
-X-Mimecast-MFC-AGG-ID: gV8CRTc4MSuuvhTfs0zeDA_1784930952
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7ebeeb51976so1178015a34.1
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 15:09:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="s1C4ZwLs"
+Received: by mail-yx2-f3.google.com with SMTP id 00721157ae682-81bedd55c10so194307b3.0
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 15:21:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1784930952; x=1785535752; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Izpr9B1qppiKBJVcAyeQ89xsJQDGwcYRScqxrkF+iXg=;
-        b=UZNDMC22D2Eq+t7wwtUypCmoIN5cn2qHgKNhAML0axAYAfP11J/mXLPUxgWt/wTgN6
-         tTpZMNqycEiDfo1yk3nsadPawFd4xuHAuh6jl+7jh7dLTJckgpycsY9fUS0vHO5cE+a8
-         M9A6cSekMbehOMoWf1uPcPEp5KVMYLzsXRHd7CaO+vd+Q1b/qOdxT+1TFsPYC9/A+kir
-         yODt1JXjhfF9A+eKrmn5Fkw5DLFMTYs1LENmfIQ8QL3rYU2/AGMVBn0DeoJMU/Th/yXV
-         hTwPAl8IDCf27AEtFhQXU3wDVJFN9zSuf0lsHg/hSCzgUV8XLyYXxzRPjcHHc+sRGaqY
-         B02Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784930952; x=1785535752;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1784931708; x=1785536508; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Izpr9B1qppiKBJVcAyeQ89xsJQDGwcYRScqxrkF+iXg=;
-        b=mtrBbXPGhaUSRppjnS4zCQ+WK83L5RR5EsckMEy5iGdIol9PHiNgxdvmpHxlBokWci
-         CSwqc4ZBUFOjd7sJeNkH7JI7Fq4+9sxtimWnl76S+s4XUdbzamducySXZEilnmWOIKZP
-         fFBlrjVp3Kp4fIqg7SEt3SSLLY7rEWytCZTJ9Ut/HiHgSvLAMUGm45i9G28MhFglgv1O
-         orf8I1Wd8cfbsvQSsS1gpTMgI/eo1P4bS1aHa90wnKjIahQTSsywMnX0/ZtSCIb+0qCu
-         uyuQQkFUmDq8+4+v4ght74YiQ9WZR+HNSVdotrDuIvsb00XqgfJulNSwhXtD2AyOQSii
-         DLfA==
-X-Gm-Message-State: AOJu0YxB1AmmqHwOhT/2MtiAaXGgm6mZcTobO+V+j62aeSlQsv0tBFdq
-	ujVY8Xx4L4uSeHYhuLNxdyorKfKn3Q+V3TSVLQjnuBaJrGWGyCCBeMFj5RDnSdYW17OWkvBDyFn
-	KOUc2bEtMzPbp1o/u6nFE1eh5AlpiSIuc/mkd3cSgfzTtDXSHijkwfpw/5g==
-X-Gm-Gg: AR+sD11cNKkv5JPB6Px36bflPIpsP3vmOvsj5eNtLxju3quMzytjyEq62Zcw+isN5hd
-	Quv9ThHUTQpgWorSAYhcYgHB09Osfh/PwXRjSrS3Vow7Tkkyp+xRYN8VIbSz4lmKyJe76TD73Yy
-	4f4f45LCEwpZ3PfIAN1cTvxgDr4VzXsQl+cti6O756ErvAtcXiCrdC7nYotKnVknydlTFxQ/vxI
-	giVLy2pf0d/X5nXwPOt4kL0BjMKG8boVuVG4kFriaXxw3i3Oi4IkYY7kTBBNis8TE9SoNdCgurH
-	aOuG1imzC+RXm515weJOMONOBhvoHyjP1JyUSKH3fDKM7L2kUrFFcLboLSpAmDtrXz6gij8odSI
-	0mULCMpJXrHOtwWQg4HsZj3ZqoQgHriELD68gaQZZcMh6qxYvMEJj3HkKN9kp
-X-Received: by 2002:a05:6830:1183:b0:7e9:b2cb:26f9 with SMTP id 46e09a7af769-7ee6bf0df39mr1936895a34.3.1784930952283;
-        Fri, 24 Jul 2026 15:09:12 -0700 (PDT)
-X-Received: by 2002:a05:6830:1183:b0:7e9:b2cb:26f9 with SMTP id 46e09a7af769-7ee6bf0df39mr1936876a34.3.1784930951883;
-        Fri, 24 Jul 2026 15:09:11 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ee29e0ec5bsm6926859a34.10.2026.07.24.15.09.10
+        bh=ewz9X+tvTo9tg+O07861T4ZUwv6Fnxp75VK26mEaZHA=;
+        b=s1C4ZwLsG2PXJ5AaWknYtJ1w4LTfJgsJNlHhaV9FIAD4zbH7psRJFFInAeX9AN5QkR
+         VVRXbRqEVmXVsUWUnrvKeSpnHS2W2z0t6crFV190kYbCB9oM5InJ/vK1HBkTkYTqSSBW
+         e+7G0K6zXdJU1i+dKRhSDvEK/QC8i73lc+ZFQbiiQCz7mr9XcCubVNp8NV+diHcDgLYp
+         xDLrUZgplPQYdOCFdVzyy721IQrqQfwXsFY+1byOwY37s7IeeLrHYvfsa/DMU6oGx14F
+         7PZXpzDdiv7LcnPCnOyXW7zr+DEuRs7ielJX21lQa7gAbkQOQiz+puMqngGV8fGbGj8z
+         s1Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784931708; x=1785536508;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ewz9X+tvTo9tg+O07861T4ZUwv6Fnxp75VK26mEaZHA=;
+        b=evoEOcdVsAuJFJ6Hj1vQsjjwoCprHT3D+G09fyaqEvh0gQvLMGOwmK500BxvzHUWdy
+         bRccxoyn8oaBXJDQhSrmSkT0kBsE3P8o+ar4pd5x3LJ47zhzNT7uiJSnvpfz87/bv5Ef
+         spCE2l7S4WYryxU4Tr57YpMY9DNc/HW+Vi7xrCVlWFMXQBgjIdW/koTsKxnl2gfpN20M
+         mxMQDgJX94BlrL0jAfcUJ01qRgg4jVOFTbW1d3G3gHMsOK8j0elMCOihyN7ySJH1qfAC
+         ye5EnG1ZMfTGWS2AHGcS8GZguB2TkUoOovtJ9gxM4a+URnRZ81loo/1ZyWL2ISo+s4v8
+         UKaw==
+X-Forwarded-Encrypted: i=1; AHgh+RpeKJ/yvhEN5GsRnOlD+BFmDvZO4txlkLQaTsV3+1/OMU0LVLldRnZ1Mky2uU2bOTB9T6XJ+5c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUk/hAk6vJD64PR8r8oZLs04ugkJtQScxFGeX+3PQXB+vSKSBT
+	72BCH+ZwB0KcFj4o5mBTGN1gthqwuPJjxnnkYwMfbso/8XC6GNKlEVy9XRBZB8vrG+Pr
+X-Gm-Gg: AR+sD12NEloJB3S6JcKsAgWlBW19AEudJlAAFFtuWRDYLE4IZZmE7/shii0ndA519r5
+	lUxvVivjSW7OCsUidl0EW56wgMRdvTi4PNUVhc8hcGF5ixrSQBmks3grP7kBpGDt27vK+6Su3Z9
+	MGXa5cEpbzcURuVGEemTuqxs55U9BlGrxC8CYLkH+qaQbPIzetZvWTDlRdSKEY2QJcf7hloOztF
+	tUXlybj7dDIhBD4a/kliBSbsx3dYDpnOESvQEzVzVZsbLhWK4dKlaNt7VyPKhh6kNZyBpoPPW7M
+	wV9Aa8ZLoq5XpU46LOqt0C+us/AxmoIPhDW6WteCY96wlKEXbx4yClpzkpq84YxTcirdtUiwKpT
+	LdyI9TLOhOmrtnX/drVo3gCCna+w/4N6HjVDOeAA7K9wjg9mgwMhExd360qenIgmgVZn0RGBAih
+	JVCgAtezBIy9JlMEbG03ZVXAsos+RrzsGedx4i48lXxz1uTSa2Q7YfHssf0rCwyHWrsA==
+X-Received: by 2002:a05:690c:c509:b0:7ec:58dc:f23 with SMTP id 00721157ae682-81f69e5d6bfmr1122677b3.5.1784931708226;
+        Fri, 24 Jul 2026 15:21:48 -0700 (PDT)
+Received: from kelso.tail8e61da.ts.net (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f657c727asm6088597b3.19.2026.07.24.15.21.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 15:09:11 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org,
-	pc@manguebit.org,
-	stfrench@microsoft.com
-Cc: stable@vger.kernel.org,
-	David Howells <dhowells@redhat.com>,
-	Huiwen He <hehuiwen@kylinos.cn>
-Subject: [PATCH] cifs: fix missing fscache_resize_cookie() calls in size-changing paths
-Date: Fri, 24 Jul 2026 17:09:09 -0500
-Message-ID: <20260724220909.2755102-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 24 Jul 2026 15:21:47 -0700 (PDT)
+From: Christopher Lusk <clusk@northecho.dev>
+To: l.stach@pengutronix.de,
+	linux+etnaviv@armlinux.org.uk,
+	christian.gmeiner@gmail.com,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: etnaviv@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	guoziyi114@gmail.com,
+	n7l8m4@u.northwestern.edu,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/etnaviv: honor read-only userptr flag in GPU MMU mapping
+Date: Fri, 24 Jul 2026 18:21:24 -0400
+Message-ID: <20260724222124.537101-1-clusk@northecho.dev>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260514131401.2660079-1-clusk@northecho.dev>
+References: <20260514131401.2660079-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,73 +84,156 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several code paths that update the VFS inode size via netfs_resize_file()
-and cifs_setsize() omit the corresponding fscache_resize_cookie() call,
-leaving the fscache cookie out of sync with the actual file size:
+The userptr interface records the requested access mode in
+etnaviv_obj->userptr.ro (set when ETNA_USERPTR_WRITE is absent), but
+etnaviv_iommu_map_gem() ignores it and maps every buffer with
+ETNAVIV_PROT_READ | ETNAVIV_PROT_WRITE.  A buffer pinned without
+write permission is therefore writable by the GPU, which can mutate
+page-cache data visible to other processes.
 
-  - cifs_do_truncate() in file.c: truncates to zero on O_TRUNC open
-  - smb2_duplicate_extents() in smb2ops.c: file clone extending EOF
-  - smb3_simple_falloc() in smb2ops.c: two branches that extend EOF
-    via write-range and SMB2_set_eof respectively
+Build the protection mask from userptr.ro instead.
 
-Add the missing fscache_resize_cookie() calls immediately after
-cifs_setsize() in each of these paths, consistent with the pattern
-used in the existing smb3_zero_range() and smb3_collapse_range() paths.
+On MMUv2 this is a real enforcement change: etnaviv_iommuv2_map()
+encodes the writeable bit per entry, so omitting ETNAVIV_PROT_WRITE
+clears MMUv2_PTE_WRITEABLE and the hardware refuses GPU writes.
 
-Fixes: 70431bfd825d ("cifs: Support fscache indexing rewrite")
-Fixes: 93a43155127f ("cifs: Fix missing set of remote_i_size")
-Fixes: 110fee6b9bb5 ("smb: client: fix missing timestamp updates with O_TRUNC")
-Fixes: 7a06d3b816d7 ("smb/client: emulate small EOF-extending mode 0 fallocate ranges")
+MMUv1 cannot enforce read-only at all.  Its page table entries are
+bare physical addresses -- etnaviv_iommuv1_map() accepts a prot
+argument and discards it -- so passing ETNAVIV_PROT_READ has no
+effect on v1 hardware.  What can be improved there is the mapping
+path taken: a single-entry contiguous userptr BO currently takes the
+MMUv1 linear-window shortcut in etnaviv_iommu_map_gem(), which hands
+the GPU an offset into a window of up to 2 GiB rather than a
+page-table mapping of just the pinned pages.  Setting
+ETNA_BO_FORCE_MMU on read-only userptr BOs at creation time
+suppresses that shortcut and confines the GPU to the mapped pages.
+
+To be explicit, because the two halves differ: this makes read-only
+userptr genuinely read-only on MMUv2, and on MMUv1 it only narrows
+what the GPU can reach.  A read-only userptr BO on v1 hardware
+remains GPU-writable.  Rejecting such mappings outright was
+considered and dropped.
+
+Fixes: a8c21a5451d8 ("drm/etnaviv: add initial etnaviv DRM driver")
+Link: https://lore.kernel.org/all/20260508180518.1417371-1-n7l8m4@u.northwestern.edu/
+Suggested-by: Lucas Stach <l.stach@pengutronix.de>
 Cc: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.org>
-Cc: Huiwen He <hehuiwen@kylinos.cn>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Assisted-by: Codex:gpt-5.5
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
 ---
- fs/smb/client/file.c    | 1 +
- fs/smb/client/smb2ops.c | 3 +++
- 2 files changed, 4 insertions(+)
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index ac89c1ba56b1..e329d1d87ec6 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -1016,6 +1016,7 @@ static int cifs_do_truncate(const unsigned int xid, struct dentry *dentry)
- 		if (!rc) {
- 			netfs_resize_file(&cinode->netfs, 0, true);
- 			cifs_setsize(inode, 0);
-+			fscache_resize_cookie(cifs_inode_cookie(inode), 0);
- 		}
- 	}
- 	if (cfile)
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index cbd51a08e97e..bee51f776cd8 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -2224,6 +2224,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 			goto duplicate_extents_out;
- 		netfs_resize_file(netfs_inode(inode), dest_off + len, true);
- 		cifs_setsize(inode, dest_off + len);
-+		fscache_resize_cookie(cifs_inode_cookie(inode), dest_off + len);
- 	}
- 	rc = SMB2_ioctl(xid, tcon, trgtfile->fid.persistent_fid,
- 			trgtfile->fid.volatile_fid,
-@@ -3778,6 +3779,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 			new_eof = off + len;
- 			netfs_resize_file(&cifsi->netfs, new_eof, true);
- 			cifs_setsize(inode, new_eof);
-+			fscache_resize_cookie(cifs_inode_cookie(inode), new_eof);
+Changes since RFC v1 [1]:
+- Per Lucas Stachs feedback on Ziyi Guos parallel patch [2][3]:
+  set ETNA_BO_FORCE_MMU on read-only userptr BOs at creation time
+  rather than rejecting read-only mappings on MMUv1 with -ENODEV.
+- Commit message now states the MMUv1 limitation explicitly:
+  forcing the page-table path is containment, not write protection,
+  because MMUv1 PTEs have no writeable bit.
+- Two-file change (etnaviv_gem.c + etnaviv_mmu.c) instead of the
+  single-file etnaviv_mmu.c change in the RFC.
+
+The same bug was independently found by Ziyi Guo, who posted a fix [2]
+six days before my RFC.  Neither patch was merged.  This v2 takes the
+approach Lucas preferred in reply to his [3], and keeps his
+prot-in-a-local shape rather than inlining the condition at the call
+site.
+
+Open question for Lucas: on MMUv1 a caller asking for a read-only
+userptr BO now gets a mapping that is not read-only, silently.  I
+have left it silent to keep the diff small for stable, but a
+drm_warn_once() in etnaviv_gem_new_userptr() would make the
+limitation visible to userspace developers.  Happy to add one if you
+prefer.
+
+Tooling and testing, per Documentation/process/generated-content.rst:
+
+- The bug was found by static analysis rather than by hand: a
+  mechanism-first variant-analysis pass over page-backed buffer
+  sinks, looking for sites where a recorded access-mode flag is not
+  carried into the mapping that would enforce it.  The same pass
+  flagged an equivalent shape in drivers/accel/ivpu, which turned out
+  to duplicate commit 7dd57d7a6350.
+- The patch, the changelog and this text were drafted with LLM
+  assistance (see the Assisted-by tags) and reviewed line by line by
+  me; I take responsibility for all of it.
+- The MMUv1/MMUv2 asymmetry above was established by reading
+  etnaviv_iommuv1_map() and etnaviv_iommuv2_map() directly, not by
+  trusting the tool: an earlier draft of this patch claimed MMUv1
+  enforcement and was wrong.
+- Testing: compile-tested only.  Built on x86_64 with COMPILE_TEST=y,
+  CONFIG_DRM_ETNAVIV=m, gcc 15.2.1, W=1 -- clean, no new warnings.
+  Base: drm-misc-next abc1e559f8e5.  No Vivante hardware is available
+  to me, so neither the MMUv2 enforcement path nor the MMUv1
+  containment change is verified at runtime.  A test from anyone with
+  GC hardware would be very welcome, and I am happy to arrange
+  hardware validation before merge if you would rather have it first.
+
+[1] https://lore.kernel.org/all/20260514131401.2660079-1-clusk@northecho.dev/
+[2] https://lore.kernel.org/all/20260508180518.1417371-1-n7l8m4@u.northwestern.edu/
+[3] https://lore.kernel.org/all/3e298ed6a361a0aa5526d859b0f3a98c0cd47090.camel@pengutronix.de/
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c | 13 ++++++++++++-
+ drivers/gpu/drm/etnaviv/etnaviv_mmu.c | 10 +++++++++-
+ 2 files changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+index b0436a1e10..b043a56e3e 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+@@ -735,9 +735,20 @@ int etnaviv_gem_new_userptr(struct drm_device *dev, struct drm_file *file,
+ 	uintptr_t ptr, u32 size, u32 flags, u32 *handle)
+ {
+ 	struct etnaviv_gem_object *etnaviv_obj;
++	u32 bo_flags = ETNA_BO_CACHED;
+ 	int ret;
  
- 			qrc = SMB2_query_info(xid, tcon,
- 					      cfile->fid.persistent_fid,
-@@ -3827,6 +3829,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+-	ret = etnaviv_gem_new_private(dev, size, ETNA_BO_CACHED,
++	/*
++	 * Keep read-only userptr BOs out of the MMUv1 linear window, which
++	 * would expose far more than the pinned pages to the GPU.  MMUv1
++	 * PTEs have no writeable bit, so this confines the GPU rather than
++	 * making the BO read-only; MMUv2 enforces read-only per PTE in
++	 * etnaviv_iommu_map_gem().
++	 */
++	if (!(flags & ETNA_USERPTR_WRITE))
++		bo_flags |= ETNA_BO_FORCE_MMU;
++
++	ret = etnaviv_gem_new_private(dev, size, bo_flags,
+ 				      &etnaviv_gem_userptr_ops, &etnaviv_obj);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+index e3572461b5..569f729681 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+@@ -269,10 +269,18 @@ int etnaviv_iommu_map_gem(struct etnaviv_iommu_context *context,
+ {
+ 	struct sg_table *sgt = etnaviv_obj->sgt;
+ 	struct drm_mm_node *node;
++	int prot = ETNAVIV_PROT_READ;
+ 	int ret;
  
- 		netfs_resize_file(&cifsi->netfs, new_eof, true);
- 		cifs_setsize(inode, new_eof);
-+		fscache_resize_cookie(cifs_inode_cookie(inode), new_eof);
+ 	lockdep_assert_held(&etnaviv_obj->lock);
  
- 		qrc = SMB2_query_info(xid, tcon,
- 				      cfile->fid.persistent_fid,
++	/*
++	 * Read-only userptr BOs drop ETNAVIV_PROT_WRITE.  MMUv2 honors this
++	 * via MMUv2_PTE_WRITEABLE; MMUv1 ignores prot entirely.
++	 */
++	if (!etnaviv_obj->userptr.mm || !etnaviv_obj->userptr.ro)
++		prot |= ETNAVIV_PROT_WRITE;
++
+ 	mutex_lock(&context->lock);
+ 
+ 	/* v1 MMU can optimize single entry (contiguous) scatterlists */
+@@ -301,7 +309,7 @@ int etnaviv_iommu_map_gem(struct etnaviv_iommu_context *context,
+ 
+ 	mapping->iova = node->start;
+ 	ret = etnaviv_iommu_map(context, node->start, etnaviv_obj->size, sgt,
+-				ETNAVIV_PROT_READ | ETNAVIV_PROT_WRITE);
++				prot);
+ 
+ 	if (ret < 0) {
+ 		drm_mm_remove_node(node);
 -- 
-2.55.0
+2.54.0
 
