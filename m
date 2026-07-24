@@ -1,101 +1,181 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E142E41A909
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 09:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A9A420460;
+	Fri, 24 Jul 2026 09:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784886026; cv=none; b=c8DSWbatd+ZyMzvqjKqnknxn6PnHuAiz3JLVBQQuaaUkLGcYmddps9OKo7eolDwShDx3603PxPN8FMRu/ezf+CdQGBsTowqX6WCySUTTDboveWxryRWOYp5G950IF81BcCNS8OnRzxxXWcJz15d9FzP+gnXH4VZ0u/isC+edwjw=
+	t=1784886068; cv=none; b=airdTFkkCgsHCz621fsmLz2d0IU2iS+X+hJYRO92TNWw8XZbmH0Aqio3h/CgefDVV/hpUkwux/cfBrjCAiNGIQyLfEy1f+eQfBOpxA+ciqw5bF32+phWUHqAqqhOCI5TaDbYDmmaHLTzaD/BmL/xT8BaNt2XQQ/b5A0P21nppPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784886026; c=relaxed/simple;
-	bh=8nXfIk5k6dh+bgwKm/+Wl0vJSnaFBQYASdSW7R0dNV8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=H1NLEL9ph+D88/RSdUA/ng2HG9IaqxEp8vDOXcWEInxEv9Fa5nlrwrqb50QH6x9hxLCHghMMl1ayW6FnI/MrFHmXXowF1cWaLd7BHikLfRaE7kB4bP/2eHKQ+Y2T4yT+6OfU3ZDaUIwHIp46SoGC7Wyh0ORFEqtlZuo3OpQyYjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=KV8889/J; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1784886068; c=relaxed/simple;
+	bh=235G7a9BBCD3MJGRC1VvERvc3pDPEgvmtKrQXMGiiYs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mqn+eLayyMg5K5eh3dHTyQwx9uolvQ7vlW+BVz1+Vgx/9uSCRYSERWZgW59aUhsL7uFC3c5SJnQHZw9wt+4URGG8CsGrYki3siwggJi2JInneNlB+wPqjvV+ppYdMDcA2Y6Yw8VxhJqYB+iCTs4v9y4xsr/+Mw8ji72ia1UyLEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=NI4Xgf2z; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="KV8889/J"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1600d040e4so32417366b.1
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 02:40:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1784886020; x=1785490820; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8nXfIk5k6dh+bgwKm/+Wl0vJSnaFBQYASdSW7R0dNV8=;
-        b=KV8889/JB4eIpH97s8HguSvE/ERktzfHkYFlN3U3LmmJOkf9Mc/9+X7Z9wxhGnbarZ
-         nPQYu0n0oXTNNPG8IOrsrzW6Imq16rzEQnnRataBZLkjhGPv7SSzJFc6xv1gNAn+XhbY
-         uyQwiVy0ywFe5vY59oE/bjQs9BUqE3e29TeNMmr+PbDibF7OtrO37wpXZ1DoVMj2hmNg
-         fe5Va/zkRPZdLsoRMSmb5NOgrZuPy2VUWLJASeQPadiJ1dPIqRl75SWbg0Hezab/iM1p
-         jmAYmEImmZkP9Cdxm5WBH9XDOrMcQnSpUwPh6P/E9zdJLMVJVlFmdHUpSNXKf+ug8XhN
-         eklA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784886020; x=1785490820;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8nXfIk5k6dh+bgwKm/+Wl0vJSnaFBQYASdSW7R0dNV8=;
-        b=OCac/+bXv0jZWrsi1x9DpzR9DnmKXhcNB6Y27ZFkJCJkLbF5xa2lBovoSX/+xgTFYq
-         lNOzOSJpBoNZA9Xn4f1J4GOfhisN7FiccuXSLCXHy/5skhoCfQYymMYvQPZEI4kZYj7F
-         oXTyrZ1GNMpezWLJBRuROzrVGRShs+oPnzsSKqhnlLhbXRZF310wcMdN8juCDEMp9feB
-         IO1fasz23P6Tiuvm+98cT8xJMZCFHGdMs99MjOsEIaq50BNvHdjXzVdk633GtvTAkgQQ
-         YfT/98wwTWzbnek8NPrc0qm9bawI/7hDys7cUm76IDOPyozB1fUo9bOvo7EQimqeBL6t
-         0ZeQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrN1OpG4zE7iEx6xj8g0Lvx+IDxPww7sQ+xRkOhnbUKdUfr16Vx/0Q+/v4U9/8qPpo6r3cm8nQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7YXSCWXhOeiUbORJwMVLlLioRY3tddMmYq8pn6C09CjG33UO4
-	YW1XdJzigCiFSifWhWHAwv8wJRWpl7y5oyiqYRZRljDpqfzCQVXOMqwN1jxBqjGb6tg=
-X-Gm-Gg: AR+sD1223Gd0AUI3tVBHvzfjNDcRMAbGEqxOjqacmHT1BbI+5SzXemyxSOQ3eM1NBjh
-	Jf9xqs2D86mqxZe01LPTpgfUT8VxR7OtErrE6ks+np+dULBnjsnkC92BUfD0Oe8EKK9DgKtS1wa
-	xQ8gIIBajIN92Qp7H3nA/eFdGKk4QjKNFdN8aDIhFWmxRmCPIgj1eGDq26CuI7OkuE4t0TfyrY+
-	HtAyY2MffWX+PCdBQCjFQMdTFhQYbbW9UxXYTYHLFs9vQwp1ZU6CsxXy13HGJPK+fF8A7gPPG/3
-	A+ETlgbMb/chB8B/OvoZyM3LhtFS7RAl/1Ntkfjw/Z6YA438J9oFEAPig1XBoWyUrcX53gDvemt
-	o3yr6S2ntTdi8lDprGNHwReCnANXE5ZtAMYSbic1nMOFSvECWJfcmI0Bs7KKoMr/QIfj2ZHCJJR
-	XO4FSzn8oQkZNvRjo=
-X-Received: by 2002:a17:907:3e0b:b0:c15:dd1f:f2d with SMTP id a640c23a62f3a-c1c53813397mr256387466b.25.1784886020370;
-        Fri, 24 Jul 2026 02:40:20 -0700 (PDT)
-Received: from cloudflare.com ([104.28.21.182])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32a7861esm334032966b.10.2026.07.24.02.40.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 02:40:19 -0700 (PDT)
-From: Jakub Sitnicki <jakub@cloudflare.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>,  Emil Tsalapatis
- <emil@etsalapatis.com>,  Eric Dumazet <edumazet@google.com>,  Neal
- Cardwell <ncardwell@google.com>,  Kuniyuki Iwashima <kuniyu@google.com>,
-  John Fastabend <john.fastabend@gmail.com>,  Jiayuan Chen
- <jiayuan.chen@linux.dev>,  "David S. Miller" <davem@davemloft.net>,  Paolo
- Abeni <pabeni@redhat.com>,  Simon Horman <horms@kernel.org>,  Alexei
- Starovoitov <ast@kernel.org>,  Daniel Borkmann <daniel@iogearbox.net>,
-  netdev@vger.kernel.org,  bpf@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v3] bpf, sockmap: Fix cork ownership in tcp_bpf_sendmsg()
-In-Reply-To: <20260723100030.3eee6d51@kernel.org> (Jakub Kicinski's message of
-	"Thu, 23 Jul 2026 10:00:30 -0700")
-References: <20260719161630.2901208-1-nicoyip.dev@gmail.com>
-	<20260723162602.3275661-1-nicoyip.dev@gmail.com>
-	<20260723100030.3eee6d51@kernel.org>
-User-Agent: mu4e 1.14.1; emacs 30.2
-Date: Fri, 24 Jul 2026 11:40:18 +0200
-Message-ID: <87ldb0lo8t.fsf@cloudflare.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="NI4Xgf2z"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=EElDP5q53G0lEtpIs+Ip+naIxZAG4WadSe4WlXIHZZo=; b=NI4Xgf2zS6VO2QQ/itiqTY46wO
+	ZRp7stbSN4hzR0WKfghWrBt1t/0Ij8tAlhH5Gq3PArY0ohcn6QbkEcb8G3R3wzf8Yu2Mpycjfr/hW
+	1r67iX6WHLACqtQhuawL3ehQo1W/D9wZzLNYeeRLXZ+lbe1OEa42LiH5dD/Eqyzn8W041PAjrG8Cb
+	cszjU855QuC4aXJmbyu6JtEMS0hhIOEWjVY9LMUkaYv4JbTTBGZtwcBa5p9Z46XnS3ETg0FPdy0Le
+	B/JERm3G/lqRpGL7wF4hA5oIwucJbhHxJ96uJ0dlws1ngbPyKJsr6NTBCE++Y+6mLLtYShtG3UUWs
+	Szg5TUCA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wnCOn-004Syv-2C;
+	Fri, 24 Jul 2026 09:40:58 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 24 Jul 2026 02:38:13 -0700
+Subject: [PATCH v2] usb: xhci: bail out of setup if the controller is
+ inaccessible
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260724-xhci_dead_hc-v2-1-1f8dee685ef1@debian.org>
+X-B4-Tracking: v=1; b=H4sIAIQyY2oC/3XMsQ6DIBAA0F8hN0Ojp4g69T8aY1AOuQUNNMbG+
+ O9N3bu+4Z2QKTFl6MUJiXbOvEboBUoBc7BxIcUOegFYYFMYRHWEmUdH1o1hVpX2tq2bDqsJQQr
+ YEnk+7u41SAGB83tNn3vfy5/+ifZSlcq0XmvdGY319HQ0sY2PNS0wXNf1Bccv2LWpAAAA
+X-Change-ID: 20260722-xhci_dead_hc-35fa846923b2
+To: Mathias Nyman <mathias.nyman@intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sarah Sharp <sarah.a.sharp@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@suse.de>, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4324; i=leitao@debian.org;
+ h=from:subject:message-id; bh=235G7a9BBCD3MJGRC1VvERvc3pDPEgvmtKrQXMGiiYs=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqYzMlWHyddJlMJjfIW+vEIMCaO6yOxdOE3/hIz
+ 4laURCSaeCJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCamMzJQAKCRA1o5Of/Hh3
+ bQJuD/9t0ls8AqHmSmUGappLD7czPIxK6o0UZFyEwPMvJTiQOKO0WPjVtgFo+EhHKvicLeUQJ5f
+ JlRoQwlcClX2c80yKA8pqF7EDUcPp4yb73TXiR6KWxBStzBbWVzCMxgrQkiC8amlf2owTpC4Lcl
+ 1VinO5Wr1E1V2s7KaFxzn2OzF4+EpgXDXdLSV+0h/ur9X/mYANbxXrHFrMhX1xsnFo6INMGoXna
+ 5d2Fok7xsOx1xGzVEdaHM8WaR6g7Np4gZ2qZQr0E7eQR6aP3afK2YbHDZR0GV/ZCfYjXCT5IMIM
+ v8Cy35rxoO5hxcPGwhEs5ECpDdW/bewLsD5jSwRnM+xVaOvqH6T4OOeS+YkZl0g4SUcptN5hler
+ yklQJ/SzHAx/jGkPwrT59wb2kobpTh9dZ2ngsk+0HP/1itdOJv3jwM1hDysHLkqoXwMGVAqYwc5
+ XAG9H7Cf9/AtD2u0Ucg+0ICDAyM5CvExTLWQLWJb3t/UyNzkY0ef+o6exFmkNFaPXoa50+WlYFy
+ ctFmz6o+u6U8zsA16kg7qJdKaRbVZF/AAKQ1IW/npJd8kENRnsnai48K2REffm2qIHEapbXqd1q
+ YmonXro7V31BwDHMirauFSC17pJBxutXu7o56A50y2KkP/Hbnqd884UnunNCWWWSbGNK/O9LHYg
+ UMG4DlYxfe+zoAQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Thu, Jul 23, 2026 at 10:00 AM -07, Jakub Kicinski wrote:
-> On Fri, 24 Jul 2026 00:26:02 +0800 Chengfeng Ye wrote:
->> Subject: [PATCH v3] bpf, sockmap: Fix cork ownership in tcp_bpf_sendmsg()
->
-> Since you are spamming the list with the reposts of this could you
-> please add [PATCH bpf] to the subject so that netdev CI is not confused
-> into caring?
+xhci_gen_setup() locates the operational registers using the capability
+length read from the very first register:
 
-+1 because we need bpf CI to run sockmap selftests on this patch.
-Please point your agent at Documentation/bpf/bpf_devel_QA.rst.
+	xhci->op_regs = hcd->regs +
+		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
 
-Contrary to Emil's ask, I'd recommend fixing one issue at a time.
-Reviewing multiple fixes crammed into one patch is harder, IMO.
+If the controller is dead or has dropped off the bus, that read returns
+~0, HC_LENGTH() truncates it to 0xff, and op_regs ends up 0xff bytes
+past the page-aligned MMIO base, i.e. unaligned. The first access
+through it, xhci_halt() -> xhci_handshake() reading op_regs->status, is
+then an unaligned readl() on device memory. arm64 faults on unaligned
+device accesses, so instead of xhci_handshake() catching the all-ones
+value and returning -ENODEV, setup oopses:
+
+  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+  Unable to handle kernel paging request at virtual address ffff80030a770103
+    ESR = 0x0000000096000021
+    FSC = 0x21: alignment fault
+  Internal error: Oops: 0000000096000021 [#1]  SMP
+  pc : xhci_halt [xhci_hcd]
+  Call trace:
+   xhci_halt
+   xhci_gen_setup
+   xhci_pci_setup
+   usb_add_hcd
+   usb_hcd_pci_probe
+   xhci_pci_common_probe
+   xhci_pci_renesas_probe
+
+This was hit with a Renesas uPD720201 that failed to power up ("Unable
+to change power state from D3cold to D0, device inaccessible") yet still
+reached the HCD probe path.
+
+Read the capability register once, and if it reads back the all-ones
+value (as xhci_handshake() and xhci_reset() already test for), abort
+setup with -ENODEV before op_regs is derived from it. Reading it once
+also avoids re-reading a register that may change under a concurrent
+hot-removal.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v2:
+- Read hc_capbase once into a local and validate that value, then use it
+  for op_regs and hci_version, so a concurrent hot-removal can no longer
+  slip a U32_MAX in between the check and its use (Michal Pecio).
+- Fix typos in the commit message.
+- Link to v1: https://patch.msgid.link/20260722-xhci_dead_hc-v1-1-78f55597524b@debian.org
+
+To: Mathias Nyman <mathias.nyman@intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Sarah Sharp <sarah.a.sharp@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@suse.de>
+Cc: linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/usb/host/xhci.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 091c82ca8ee29..5c759ad28199f 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -5433,6 +5433,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	struct device		*dev = hcd->self.sysdev;
+ 	int			retval;
+ 	u32			hcs_params1;
++	u32			hc_capbase;
+ 
+ 	/* Accept arbitrarily long scatter-gather lists */
+ 	hcd->self.sg_tablesize = ~0;
+@@ -5453,15 +5454,19 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	mutex_init(&xhci->mutex);
+ 	xhci->main_hcd = hcd;
+ 	xhci->cap_regs = hcd->regs;
+-	xhci->op_regs = hcd->regs +
+-		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
++	hc_capbase = readl(&xhci->cap_regs->hc_capbase);
++	if (hc_capbase == U32_MAX) {
++		xhci_warn(xhci, "Host controller not accessible, removed?\n");
++		return -ENODEV;
++	}
++	xhci->op_regs = hcd->regs + HC_LENGTH(hc_capbase);
+ 	xhci->run_regs = hcd->regs +
+ 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+ 	/* Cache read-only capability registers */
+ 	hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
+ 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
+ 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
+-	xhci->hci_version = HC_VERSION(readl(&xhci->cap_regs->hc_capbase));
++	xhci->hci_version = HC_VERSION(hc_capbase);
+ 	xhci->hcc_params = readl(&xhci->cap_regs->hcc_params);
+ 	if (xhci->hci_version > 0x100)
+ 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
+
+---
+base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
+change-id: 20260722-xhci_dead_hc-35fa846923b2
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
