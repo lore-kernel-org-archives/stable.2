@@ -1,55 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE96353A79
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 11:04:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D2E3B42C1
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 11:05:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784891101; cv=none; b=oCq7/e1vQybirIoCqGrEBkzpcKvXn7VWWmvL/Q583Wi7doC56cn4WniNXQLbuXbAOb9kYcosv2iubLqVPB8D/hVYEn8lzlak6GL9N7KybO0Yz5bkqwGtC0/QmXxnK6F4da9yrwg2EdfnScjt7Qox8mu1eeRYI+0euTFoynNRur4=
+	t=1784891106; cv=none; b=GfBoQN52y9YDesVfwHPb5QWAwAGfD91Lf3gV0sL7p5V0FzQYGbWj7yqlDpHiJZkkDpJOxy2A3gAHU+xzVve8fCpxRtm09PXzc8awGlWG5EuqV/c4OfxgI3YlxErD/xI/sf6uFdnX1mr3F5XjXidUmQt4r4yCLeRTh3L//RJvwBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784891101; c=relaxed/simple;
-	bh=hKbqkjbgY2scni5aigyo3fOOvtQExCGdJiqQ2jGdT+M=;
+	s=arc-20240116; t=1784891106; c=relaxed/simple;
+	bh=k9Aja8B3EF6r2nbE8S0nkwVk7JFxiOQgAXeyHRa7FJ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KMm0B+oJuGVdkrZiaCZKfX0hhkXW9sfv6tGDeWcVuZ0wRPwoMn06pTsJSbblsx0/18r41gnfTlgR1X/a8eMn3GKl9ol3v1ywLLthtiu5gD7zULru4sFrx+ZhjEoPHWo80ujRQJ2r/pXqJd4eMAB0nL2I6FFa4qkShyssyauNiVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oafshLZB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Dtbxhjza/U4MLbdsBc+vtNGdAllyoqFlCt/f8ssLEsGxcOVU51F5qVelcVfHYQGH3aAJDqKibI+EALX4HUCZfIGluJTVRoVyngrX5kNnTFapXG6aiALEBYeKC568JkIE0Xst7LKpHuj8qgdfrooEyB4XZ66TXYlDCjzM6eXttWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i76mDywO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oafshLZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B0A1F031C6;
-	Fri, 24 Jul 2026 11:04:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i76mDywO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BAD1F031CC;
+	Fri, 24 Jul 2026 11:05:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784891099;
-	bh=Xic4KNClsV5YeZasTDkwm5J9fSOanPcLJj7zso06ef8=;
+	s=k20260515; t=1784891103;
+	bh=cNJH54wzmBcFeKjuY5sFnI1j3oMPETX4+cATFmO6lg8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oafshLZBqRg7hUOVNAyzKSr5NHA6qaTGUu9n9tU0JfJFh/makzGD8bzm3q/GMeSc5
-	 +39BakYTQ+nMMxM0h+OPN9ka7CuIhLstW2mbe25J5bwME8O4caTQWBoV/pxBjTHUQ/
-	 xb3/nftKVPl/e2My7LT3JaqeQ/Aug8gKptvSAGwv/xjuugGiRZ+nvGiDmJy/Gd43sw
-	 +z2WSe06RVGpEccQ0UTzTMoFvxfFB/zz4NFYI8tG7k7Kzqiu9wLwqDlkkKcEcObRR2
-	 r/mst0R85PydbLEeA43aOXYmHualTjRpV91km6Fk8+hyXnLaOmf80eY1pmmtRACaPg
-	 O9ZDJjc8FNMgQ==
+	b=i76mDywOlWDnECvGyOl5vRFEC23BSkS2ROGnKlouJJm69QnT314xfqKSh88qBMklE
+	 Y0Fa4/mF4vojSWMfqCBUahaGfo/c8VAUj/pecGP0A1WMi/B46cezswmcVqXt1+AFKs
+	 5iDoPbCgTc2vKZDhifFP1KaE3UXH0g/OdSQEL+gZSMand7nlLGmH05VWPOHhWA/7/x
+	 tXNxuNJtfv9CQ0MZgPk4vQZGlFMAPDqtgoxMjurdIYqKAY7HS7kEjI3ZEDgxpDcney
+	 rqvofEes0qW14s0ZLLkm4WWhHaTk4C2GO7A6gC00zti8Asb9Yi/RWR+vfT8Mz/cnic
+	 /us+7PuLmqKlw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Hocko <mhocko@suse.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/sparse-vmemmap: fix vmemmap accounting underflow
-Date: Fri, 24 Jul 2026 07:00:55 -0400
-Message-ID: <20260724110055.3984461-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] fs/ntfs3: Undo critial modificatins to keep directory consistency
+Date: Fri, 24 Jul 2026 07:00:57 -0400
+Message-ID: <20260724110058.3984551-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072025-sponge-disaster-ef73@gregkh>
-References: <2026072025-sponge-disaster-ef73@gregkh>
+In-Reply-To: <2026072049-legroom-strode-957e@gregkh>
+References: <2026072049-legroom-strode-957e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,170 +44,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Muchun Song <songmuchun@bytedance.com>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit c373f7f98e6ad591c85d40548cf8b6443be69311 ]
+[ Upstream commit 63e92a0c5a0d5816803907a3e30a91ef72c903a5 ]
 
-Patch series "mm: Fix vmemmap optimization accounting and initialization",
-v8.
+Affect xfstest 320.
 
-The series fixes several bugs in vmemmap optimization, mainly around
-incorrect page accounting and memmap initialization in DAX and memory
-hotplug paths.  It also fixes pageblock migratetype initialization and
-struct page initialization for ZONE_DEVICE compound pages.
-
-Patches 1-4 fix vmemmap accounting issues.  Patch 1 fixes an accounting
-underflow in the section activation failure path by moving vmemmap page
-accounting into the lower-level allocation and freeing helpers.  Patch 2
-fixes incorrect altmap passing in the memory hotplug error path.  Patch 3
-passes pgmap through memory deactivation paths so the teardown side can
-determine whether vmemmap optimization was in effect.  Patch 4 uses that
-information to account the optimized DAX vmemmap size correctly.
-
-Patches 5-6 fix initialization issues in mm/mm_init.  One makes sure all
-pageblocks in ZONE_DEVICE compound pages get their migratetype
-initialized.  The other fixes a case where DAX memory hotplug reuses an
-unoptimized early-section memmap while compound_nr_pages() still assumes
-vmemmap optimization, leaving tail struct pages uninitialized.
-
-This patch (of 6):
-
-In section_activate(), if populate_section_memmap() fails, the error
-handling path calls section_deactivate() to roll back the state.  This
-causes a vmemmap accounting imbalance.
-
-Since commit c3576889d87b ("mm: fix accounting of memmap pages"), memmap
-pages are accounted for only after populate_section_memmap() succeeds.
-However, the failure path unconditionally calls section_deactivate(),
-which decreases the vmemmap count.  Consequently, a failure in
-populate_section_memmap() leads to an accounting underflow, incorrectly
-reducing the system's tracked vmemmap usage.
-
-Fix this more thoroughly by moving all accounting calls into the lower
-level functions that actually perform the vmemmap allocation and freeing:
-
-  - populate_section_memmap() accounts for newly allocated vmemmap pages -
-depopulate_section_memmap() unaccounts when vmemmap is freed
-
-This ensures proper accounting in all code paths, including error handling
-and early section cases.
-
-Link: https://lore.kernel.org/20260428081855.1249045-1-songmuchun@bytedance.com
-Link: https://lore.kernel.org/20260428081855.1249045-2-songmuchun@bytedance.com
-Fixes: c3576889d87b ("mm: fix accounting of memmap pages")
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Oscar Salvador <osalvador@suse.de>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Liam R. Howlett <liam@infradead.org>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
-Cc: Joao Martins <joao.m.martins@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Stable-dep-of: f1df9d771df4 ("ntfs3: validate split-point offset in indx_insert_into_buffer")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/sparse.c | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+ fs/ntfs3/index.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
-diff --git a/mm/sparse.c b/mm/sparse.c
-index eb6c5cb27ed1ec..4f18b213c24ae4 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -633,7 +633,12 @@ static struct page * __meminit populate_section_memmap(unsigned long pfn,
- 		unsigned long nr_pages, int nid, struct vmem_altmap *altmap,
- 		struct dev_pagemap *pgmap)
- {
--	return __populate_section_memmap(pfn, nr_pages, nid, altmap, pgmap);
-+	struct page *page = __populate_section_memmap(pfn, nr_pages, nid, altmap,
-+						      pgmap);
+diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
+index b0aa5cc63b5079..80fc3f61f81484 100644
+--- a/fs/ntfs3/index.c
++++ b/fs/ntfs3/index.c
+@@ -1803,10 +1803,11 @@ indx_insert_into_buffer(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 	struct indx_node *n1 = fnd->nodes[level];
+ 	struct INDEX_HDR *hdr1 = &n1->index->ihdr;
+ 	struct INDEX_HDR *hdr2;
+-	u32 to_copy, used;
++	u32 to_copy, used, used1;
+ 	CLST new_vbn;
+ 	__le64 t_vbn, *sub_vbn;
+ 	u16 sp_size;
++	void *hdr1_saved = NULL;
+ 
+ 	/* Try the most easy case. */
+ 	e = fnd->level - 1 == level ? fnd->de[level] : NULL;
+@@ -1839,6 +1840,13 @@ indx_insert_into_buffer(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 		return -ENOMEM;
+ 	memcpy(up_e, sp, sp_size);
+ 
++	used1 = le32_to_cpu(hdr1->used);
++	hdr1_saved = kmemdup(hdr1, used1, GFP_NOFS);
++	if (!hdr1_saved) {
++		err = -ENOMEM;
++		goto out;
++	}
 +
-+	memmap_pages_add(DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE));
+ 	if (!hdr1->flags) {
+ 		up_e->flags |= NTFS_IE_HAS_SUBNODES;
+ 		up_e->size = cpu_to_le16(sp_size + sizeof(u64));
+@@ -1871,7 +1879,7 @@ indx_insert_into_buffer(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 	hdr_insert_head(hdr2, de_t, to_copy);
+ 
+ 	/* Remove all entries (sp including) from hdr1. */
+-	used = le32_to_cpu(hdr1->used) - to_copy - sp_size;
++	used = used1 - to_copy - sp_size;
+ 	memmove(de_t, Add2Ptr(sp, sp_size), used - le32_to_cpu(hdr1->de_off));
+ 	hdr1->used = cpu_to_le32(used);
+ 
+@@ -1901,8 +1909,6 @@ indx_insert_into_buffer(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 	if (!level) {
+ 		/* Insert in root. */
+ 		err = indx_insert_into_root(indx, ni, up_e, NULL, ctx, fnd, 0);
+-		if (err)
+-			goto out;
+ 	} else {
+ 		/*
+ 		 * The target buffer's parent is another index buffer.
+@@ -1910,12 +1916,20 @@ indx_insert_into_buffer(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 		 */
+ 		err = indx_insert_into_buffer(indx, ni, root, up_e, ctx,
+ 					      level - 1, fnd);
+-		if (err)
+-			goto out;
++	}
 +
-+	return page;
- }
- 
- static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
-@@ -642,13 +647,17 @@ static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
- 	unsigned long start = (unsigned long) pfn_to_page(pfn);
- 	unsigned long end = start + nr_pages * sizeof(struct page);
- 
-+	memmap_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE)));
- 	vmemmap_free(start, end, altmap);
- }
-+
- static void free_map_bootmem(struct page *memmap)
- {
- 	unsigned long start = (unsigned long)memmap;
- 	unsigned long end = (unsigned long)(memmap + PAGES_PER_SECTION);
- 
-+	memmap_boot_pages_add(-1L * (DIV_ROUND_UP(PAGES_PER_SECTION * sizeof(struct page),
-+						  PAGE_SIZE)));
- 	vmemmap_free(start, end, NULL);
- }
- 
-@@ -705,13 +714,18 @@ static struct page * __meminit populate_section_memmap(unsigned long pfn,
- 		unsigned long nr_pages, int nid, struct vmem_altmap *altmap,
- 		struct dev_pagemap *pgmap)
- {
--	return kvmalloc_node(array_size(sizeof(struct page),
--					PAGES_PER_SECTION), GFP_KERNEL, nid);
-+	struct page *page = kvmalloc_node(array_size(sizeof(struct page),
-+						PAGES_PER_SECTION), GFP_KERNEL, nid);
-+
-+	memmap_pages_add(DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE));
-+
-+	return page;
- }
- 
- static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
- 		struct vmem_altmap *altmap)
- {
-+	memmap_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE)));
- 	kvfree(pfn_to_page(pfn));
- }
- 
-@@ -724,6 +738,9 @@ static void free_map_bootmem(struct page *memmap)
- 	nr_pages = PAGE_ALIGN(PAGES_PER_SECTION * sizeof(struct page))
- 		>> PAGE_SHIFT;
- 
-+	memmap_boot_pages_add(-1L * (DIV_ROUND_UP(PAGES_PER_SECTION * sizeof(struct page),
-+						  PAGE_SIZE)));
-+
- 	for (i = 0; i < nr_pages; i++, page++) {
- 		magic = page->index;
- 
-@@ -817,14 +834,10 @@ static void section_deactivate(unsigned long pfn, unsigned long nr_pages,
- 	 * The memmap of early sections is always fully populated. See
- 	 * section_activate() and pfn_valid() .
- 	 */
--	if (!section_is_early) {
--		memmap_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE)));
-+	if (!section_is_early)
- 		depopulate_section_memmap(pfn, nr_pages, altmap);
--	} else if (memmap) {
--		memmap_boot_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page),
--							  PAGE_SIZE)));
-+	else if (memmap)
- 		free_map_bootmem(memmap);
--	}
- 
- 	if (empty)
- 		ms->section_mem_map = (unsigned long)NULL;
-@@ -869,7 +882,6 @@ static struct page * __meminit section_activate(int nid, unsigned long pfn,
- 		section_deactivate(pfn, nr_pages, altmap);
- 		return ERR_PTR(-ENOMEM);
++	if (err) {
++		/*
++		 * Undo critical operations.
++		 */
++		indx_mark_free(indx, ni, new_vbn >> indx->idx2vbn_bits);
++		memcpy(hdr1, hdr1_saved, used1);
++		indx_write(indx, ni, n1, 0);
  	}
--	memmap_pages_add(DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE));
  
- 	return memmap;
+ out:
+ 	kfree(up_e);
++	kfree(hdr1_saved);
+ 
+ 	return err;
  }
+@@ -1974,16 +1988,12 @@ int indx_insert_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 		 */
+ 		err = indx_insert_into_root(indx, ni, new_de, fnd->root_de, ctx,
+ 					    fnd, undo);
+-		if (err)
+-			goto out;
+ 	} else {
+ 		/*
+ 		 * Found a leaf buffer, so we'll insert the new entry into it.
+ 		 */
+ 		err = indx_insert_into_buffer(indx, ni, root, new_de, ctx,
+ 					      fnd->level - 1, fnd);
+-		if (err)
+-			goto out;
+ 	}
+ 
+ out:
 -- 
 2.53.0
 
