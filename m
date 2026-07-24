@@ -1,80 +1,80 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.80])
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E648437457
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 10:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73817423774
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 10:24:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.81
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784888626; cv=pass; b=t6pFtbD7ThSi3mKEW2CvRJZyia7C1M11Cabe88vytTeLa2f4IauJkPHWIXQwSDpE2D+uDHp73tbwxLy2cttWxtGli8TKEcA3oNLP9Bgj45Xy4/HFtq1WMp+a7VAlb+LbkU4Y2BS0vzQj8efe4hbvQhwrnyf5IY3Rel0wr/sK5T4=
+	t=1784888667; cv=pass; b=oBosRfSasbjfz1TOGKW++MfWBWoawcWdfVUZE1rtPU7OMPLxzWQ3YF/GZE5prpy1/iVt9FHA6Ku76PK82ETrMeBphRoUgjhe36f0H+/5aT2QGhI3WjZ5K2qczP/MhoxjFkIHwSTmT4u00ZA/eiGLXa2pV0oBP3aW7rSxZtO6+/o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784888626; c=relaxed/simple;
-	bh=MLdIkaAFb6JYIYR/vdJHwYQ7PQIr9YsI432DQUtYsoU=;
+	s=arc-20240116; t=1784888667; c=relaxed/simple;
+	bh=qKnuHJ9N9XP6ruk4Pc+LX8GmRpvv5jz+OOq8rnvMzig=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QAwzYe1O78eyqAhYM9GoN7bZuxt/rY7iJiDU+sdC69ZBwuL/OEV6wGUEk3hE+pWI/ObObBRwwmSj9397VNbzW+fPmn1D2x4sRmZ58APwFDUa5AcP8exLgMuKiFq6+A8fHUg2Qqly2RkCsU/uJNmOdgo8r3bWUVMdL/mvANRXPAE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=LqHREuS2; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=lnbOa3uh; arc=pass smtp.client-ip=85.215.255.80
+	 MIME-Version:Content-Type; b=Cp+pFHu14r+MDEHlKr8sju6y923VZVUaQhOXw3TWj9iSYZ/uUzahL7YiUh/YXp3jsSvm/VDhUogriJ8UoLIiRRPO0CErbTCxnwQ6hF8ddMWSK73m7Nbtmf22xSdYRerIJhQqW0MdeUOMkK6D9Xtk9FfmSbyTUD0kfpEdLx4L1BI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=QZQWvXlx; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=hWXLgzJ2; arc=pass smtp.client-ip=85.215.255.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="LqHREuS2";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="lnbOa3uh"
-ARC-Seal: i=1; a=rsa-sha256; t=1784888615; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="QZQWvXlx";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="hWXLgzJ2"
+ARC-Seal: i=1; a=rsa-sha256; t=1784888660; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=Z18KBWjDzPDi/Qo9AIdXswcrRMMyWuJZZQqV8Ioe76EPluAC7CpLEAzPxcfv/9SZMz
-    b5FnxxMQT9m2VWhC17W7Opg6QjZ5WZm2x+P3FZf/VWD7Arjcmuhi4RALbO5IgKm3X6tj
-    sI3irFOp4c5DGAomatkB7lGpW9XcFIBZmb9xgp7Nb7N/ZfPYEG/IS5cGNh5Y+6wtUNWT
-    2UIjXoYEvyCr97hMW04RaqpT6VfOC5e1nB2X5yQw3dGy3TMlGU5oNPUrIgqHr8EIrVfo
-    mEA4HA60tIC6vUSmKbvaI1FeY69Dsk1jLfRh+YXAAmLuOcP0ptdJ9Okrt9rzSgAQ9PQG
-    Jfzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888615;
+    b=LVikVaYcxISyI0Y7vYt0tEir1nrL6lhH+T5Lyx7KzGnrMAnSAyihO5PGInFSdmSY94
+    aqetulm8CQc8+wGsSwjUzRBQcK568SHOONe28yDRZzJPgMQLDMdzIlYHXNo77sgJvH6g
+    KmFzZT+Z95HYWo66mCbYKDal7La87Evv2164qKhEhI7EYn4xKaVAuT2GJTdcorSQBSTj
+    UmVR6HWYZL/LfGz/2TvkTQ8qlNnluc8NcvG1cALi+g85Olvz3h7HxKtPTdWAC4pJZ0yo
+    AlvAZjPg22a+7bdO3A9iNGOzVdat7DqduFr1KiandEEIj9p0s0XmBQT7dPkGwydDzO5Z
+    pXoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888660;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=6SwPw5K0RU2upRtjvHVuMjwzbbulVj9ldVEXwKQ1d/Y=;
-    b=aS01B3DQjtUx75PiLJNxWSRTNDour9to8lHOkM9nrRxISuqI6cQwwC4/EhwHH1m3oP
-    R7WqZTsgRiWlXVfG/QkOaab/QEgC5s39Gb15Iautho2F7EFpOSGQ0AGwHOD1OnzOwy8X
-    wKCvEGuSRWL5VrfeXufuDZiEQbjL6pFKRUu7ZXp/S9OtyqBZ4DScu7GBsYXROPmViTwU
-    5JxRBPyD4RUZqe1FqbDVgsF4ZzgXQB5RtVQnG2jhE4cWpxmsWaRcVRaUZgvzjTpGqw9f
-    XP/kcmJvnfKkuehYbhff4a2ynvaNeBROdA6vX7TyVRWovqmqUzqysWQvWkO+cKUWwzUr
-    n17A==
+    bh=k3UnHQJY7ZRNZXFQN8zLJ1nntREfjcvrw2kq9RiYXeY=;
+    b=aUto8kwi7ub6F5gcw2RTzUh6BcsKvobf8R6a4yQQtt4jrrzVtL6hylDkL0NeDmzP0J
+    4zImiMKqRwBynqADt6J1Z1fYcOpZ0Oemgy8D4IyihnlmMKx1QX6oOcI71u4dbyPsPMUT
+    xYzx+RZfKw4wYxvZlKnlbnVmsldQO99A3DbxI0ciwY9og8Lq3ENG3eBu45Y5ZSJKMZqi
+    XMXr7z+lObcM5yseEc+f9XRw4zW8THdvUVaAQzD7sursQOhwpc+USC8If6+dgjQn3+EK
+    7eo64xLR07o8p4pNVxKuRKU3antScYevXtz576YRnN7cRrTP4Ts9+2Mj1C8d2qTwTlP1
+    /0IQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888615;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784888660;
     s=strato-dkim-0002; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=6SwPw5K0RU2upRtjvHVuMjwzbbulVj9ldVEXwKQ1d/Y=;
-    b=LqHREuS2G3hprQ81dM/G15jMG4PeI+ad78TQzu7/3OeHKvEiXWKic+LUjtZQETfMkW
-    VVrZ2js9bRmhVnAfqvGqwtHEt2rkcUXRiRdtbs930L1hEoAxd/2U+D09EtiJ6dfrLoQF
-    iFH/RfwanGLDoNHGQuV1zF02gIKalC8vG+hJlW0GMf6cGqsl/c5xqJEMWz3QSTUafxE4
-    R7pNV5Qypzw4YNeJak7bDh+No5s44B6tTcKoLes/P5EAvY9t+9/DHxWiaU7jWHdJRcEJ
-    QJ617bDvjGH816wk+LHGrCkzaHQmhR55EWsUimhYVlGt6EnjYN8mNkj4KR9CmeVxcdsK
-    CQDA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784888615;
+    bh=k3UnHQJY7ZRNZXFQN8zLJ1nntREfjcvrw2kq9RiYXeY=;
+    b=QZQWvXlx603umtD4ApHelXGHxuBRRFKOX+kNYpo9DMS+O98pVRXPW10IhPVk6Bn5Ln
+    A9OZXj3YoOFvcI/tKJsV2Wt7zhFQE4/EXz5QoWk4Gsk/KowGxM7qUhrKe/KXpQKE8cbd
+    cuGg4+wOd4gtZBo2jLrYDWekUyXTeFvC8z91ocs4brqNVmt6+VUPAZJkDTq1H/kCk7qQ
+    NYwzsr5NGQ3y1FUqU98mQ68Bb1mBUqZGPOg7cHXa5PBo/x0xG1apYGNYHkMYqG6Gt2BR
+    6aOd+2Ynfn5gQ+hOrz40ANg9MNPRQDrOEbCA4OrGmUM2SVHPtltIKl3wT80KATawO7nt
+    r87Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784888660;
     s=strato-dkim-0003; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=6SwPw5K0RU2upRtjvHVuMjwzbbulVj9ldVEXwKQ1d/Y=;
-    b=lnbOa3uhguZ4mI8JYKKGTIyx7Xhy5reP2fAWncZJS5hOsW64IfrPplhjnJPMED9oKs
-    FjJrXqr9/IQI7Aic6qDQ==
+    bh=k3UnHQJY7ZRNZXFQN8zLJ1nntREfjcvrw2kq9RiYXeY=;
+    b=hWXLgzJ2uaG9NQBtWDkMJBWHxa+0kBFqn6+oofudFGz1tZRj7dCRj8iVCBwHFiydbB
+    zgQt7WGI8CEYN8/4D/Cw==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926OANZtIE
+    with ESMTPSA id K5281926OAOKtIW
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Fri, 24 Jul 2026 12:23:35 +0200 (CEST)
+    Fri, 24 Jul 2026 12:24:20 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH 6.1.y 1/8] can: bcm: add locking when updating filter and timer values
-Date: Fri, 24 Jul 2026 12:23:22 +0200
-Message-ID: <20260724102329.16572-1-socketcan@hartkopp.net>
+Subject: [PATCH 6.6.y 1/8] can: bcm: add locking when updating filter and timer values
+Date: Fri, 24 Jul 2026 12:24:03 +0200
+Message-ID: <20260724102410.16731-1-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072012-repair-flip-109e@gregkh>
-References: <2026072012-repair-flip-109e@gregkh>
+In-Reply-To: <2026072011-untruth-wrongly-ed18@gregkh>
+References: <2026072011-untruth-wrongly-ed18@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -135,7 +135,7 @@ Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
  1 file changed, 133 insertions(+), 43 deletions(-)
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 1ded907..fccb573 100644
+index 6bc9fb3..210ce99 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
 @@ -126,6 +126,7 @@ struct bcm_op {
