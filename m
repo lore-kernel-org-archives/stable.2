@@ -1,209 +1,156 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012004.outbound.protection.outlook.com [40.107.209.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7553002D8;
-	Fri, 24 Jul 2026 20:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784924811; cv=fail; b=YeC+yHIUYyAjavKB0boqppTiltoHhR4Mjb9atDROkyyjGu13Ja7l6YD2KND+YZMNVvVxTLd90xTpH+qsHgj2xgEEcAuNwYWNdrkWgRQbLZV8CbYOYbIeLvDEtydg4BxUNJYJSeFycDCNLnsbpOgJVuuTbzQ1cT9ps7AsjI9YJ7o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784924811; c=relaxed/simple;
-	bh=Ray+qa0UH9OAlodsdxU6Uv/T1ZrfOK5joJN0dvvx9WI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lTltmIsdPM5hmEORUl8ma6npCaQArFdx6tuu+FBDv9Os5Ovbb0sM+4aNE4m/dN8xHP20zuKbOYxbOyGp/mSwRcNc/nLnntpbpemFxmtyYLakYRlcQRQY4OhIi+zGyDgT1x3ePeF6jhxhQ3ME2dHjXNnvmn2+Ktjcn7NuRM93uzg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AZFFVPqq; arc=fail smtp.client-ip=40.107.209.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DBD3B3BF1
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 20:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784925216; cv=none; b=qmyZ0rF702YoX/XPSr75LSrrUSPwj0/Qkam9mvWH4DoWAM6aFMIxxaN0IZ0Ep4nqwflpT8F3N+MxGJX6azNRNLZR2iH7+QkaWiJTf/ZoXFpusINbAG7ozvU7zbJbl5cAD3x4ntrZ9ijbYqFO18GQ+SB1+q8AsZ7zY0hUt0wluHw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784925216; c=relaxed/simple;
+	bh=Zk/sFfO0P3Zc5xIDecphI5VF2UB8/fuN2Q0noue8ons=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=inYcVIhi77JZb0rg+ahfoX/V9y1krLASa7XJrkvZcMg/hRgf/hBuE6Q5xKjf2Uhgug/HeTeyVmKab93TTqd0KVLWP95l618VswoYi2SNwKtBC+ft2Ga20sXgVvv8tI4AG/h15/1lQnqmrf8UMpyG2LIoTXifvowgKO4jklrMRBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhvCEONQ; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AZFFVPqq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rzf7wHY9BYOEYNLkAyGxYYPVDwetiX9z5FcqW8RatwsLvsO6Cd1bgpUqnCLHo40hYnk6cdZ7Wk1uoYa+FgsNH8tuApp5dzHbceylR4YoopzoJoMtKXt1wMYvl+mIsN5vECei8mow89djDDs+nCgsTfCjcBjZUeXBmlKYZtY5uEWKMXliuUyMJ+TuKTff37SWwu4obgPzgf8uJ8HTxmT5bNMUk3b3p4x9p6tWyiHxxTgeOJ4lDa8lEAIBu78Y+BY+pTsW07+8esn9lgozwPNHQOEb027JztI2D1akeszts04GpbAcysdtqMBs8SVignFh5rVppQR6HbEdtwL0r0vbaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lHiGWRtMEM112LYsHZm7yHmQQ08qlE1Iko9BhrHmTHg=;
- b=EXYI1nvPC2hqM3nQqMEdLTpkuB89XK3y0szQKOqtzDef9cdOQotKwWqpw5d6pEgD8NJncBhLMd0FIu/qS1N7TfT7SesumuzPdFrQwybcYAgyxUj/QYdSQX+ssUeS26ygaMd4JqMO8QCf5sjJPX1FI2uKrGYg7fSsQPsY6txBX9u+dxkusCCMW/2UoI/QPEbAB5nPvaeNNR4U5MM5G+iUsMVW9eO9lrtwLN+s5q8FR7IphgO2UrY/jaGx78uVf4/1LMtbLqlriwV9uEO5Jdx8t6GxZK6o74acQgRzOuSqEHjqxJLHaPdePGttoGTvJ2tPdHU8A4sF5ciuEWlxZ1qJ8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lHiGWRtMEM112LYsHZm7yHmQQ08qlE1Iko9BhrHmTHg=;
- b=AZFFVPqqLnK1PXIBZpeZxLG2Ip7b45b+yMpHWq1ah0H9WUHs73wZ9yxywCnNJ4Eh/hl+WTQqGXvTHE6nU/jYoTuCef07ThaQVdDHESOPJQqmF8oiLFlK3LcaX3aHSgGz/6NQWxkTibhkZNuqC0cy3ok7MwfWeROsWlWddJjXXax4eGBdOMNDIejNBVQxvkC/wCJZyr87Ln8zp476Sb4uVuBlAX53AC4crNaSxVYLRYVBvjbgilHgwEHMaYa+60gsSzH5U454oGcHe44YsP68YWAFWZIGmhPP05MJDx2YF9mbfcAB+X+i4ZFqKignyEZ25LZlpsFQgdobO75S1+5nag==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA1PR12MB6531.namprd12.prod.outlook.com (2603:10b6:208:3a4::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 20:26:45 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 20:26:45 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Matt Fleming <matt@readmodwrite.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Kairui Song <ryncsn@gmail.com>,
- Shakeel Butt <shakeel.butt@linux.dev>, Matthew Wilcox <willy@infradead.org>,
- syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com,
- stable@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH] mm/huge_memory: Initialise workingset state before folio
- split
-Date: Fri, 24 Jul 2026 16:26:44 -0400
-X-Mailer: MailMate (3.0r7024)
-Message-ID: <CAFF6190-1325-49BE-825D-FDD9DA91CF03@nvidia.com>
-In-Reply-To: <6449A238-AA0D-4EB0-8B78-2A669532AEE8@nvidia.com>
-References: <20260724195244.3715130-1-matt@readmodwrite.com>
- <6449A238-AA0D-4EB0-8B78-2A669532AEE8@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: MN2PR18CA0004.namprd18.prod.outlook.com
- (2603:10b6:208:23c::9) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhvCEONQ"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-385ea3ce80dso902637a91.2
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 13:33:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784925214; x=1785530014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PqO55og8W7BHslOf6Z0mSPTkO0lYXWtdruA0wlaytcE=;
+        b=HhvCEONQHnbIk9gAobdXUbHrILlYRqwWyrmFpksA4NKb2I2Ypq+I3tLjDNNoTmMKTR
+         zDqfbde5wRJYLSzH24C5kf1ehUGdPWFgDmDgYG/zx5f8o4IQIVXFevQ0zVePJERJDF4e
+         DsMr+w9PoldTPeSjU2T3TekW6O8634sDOGHxbimEioNJvYufFK0yEDPy8vpYHwXCSPsR
+         W4xLpD11E1rN0lXc6khhL5rYIG7ihddup/eSAC6lQ/iCGyx5jjii35WjKYNk6tISl53Q
+         2kVCPpahTCFFEO/JAbZo25wQHFlXvNvg+BOML3MYprNjlzEr3O1KShEOET/oM6zPR7i9
+         h1Ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784925214; x=1785530014;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PqO55og8W7BHslOf6Z0mSPTkO0lYXWtdruA0wlaytcE=;
+        b=Fg11slX6kcvS327jQNTNOdECfQ0CeX/0/WG/mKPB6u3fSJqBs4Xt0UmCEmYxRWg0px
+         HPK642eYABsMW95gdWSlYGyJFggq/f3DTDH3jtkbk72iUc21oBiZNLk7XVkFPjUcYN14
+         jyHDSC847yK0a0ZrDg2RJRsthvI+WrytbaX66/ZlmJZ3QgS8sFvszUABeLPUkMzOTTPH
+         ZWK9FEeqABxoheJANfvoOBKnHs07nLieu+nT+7RSXfD7zdTfSjJ30bukROVQz3+6UWoA
+         Y8+AXjvja+3PiDsDB8xkEiTyzmlzv5+ZFMYJMhhsXMP4Gpz/A5NQX6cjGBph6e1SGJmu
+         D4aQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqtO2G6Z7uTwqDLknyFl2gwnPZ/cc4SPFpkOmWs5Ms2WvAKtK2DKLCY4t3ZZo08QcuWuz0f5N8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlUG7OoOts1hEj7PF84qYdjMUfDzDRK4H7c2XzSW1SSGnOFzP7
+	SmdIIsC/xFaqnBVXgkF8I01iAx3Iq8c6SkDqlm7Z91MZU33R8/vji2U0
+X-Gm-Gg: AR+sD12BtKkRbhfaW/9R9tvb7bXUAh0LBVDbLdlCHQsCwKJ7b315nPSsQWEJI/ZcMDn
+	+gJc8cB0mfYfz2uRZsFb9Rcq7VqiZFz/IUDtLezoqG8euPdQ7rAndvpBENqxS66z+Brz7i8/K/H
+	q3nUc31wsKYGy6Dxcut4/llexDUduvECBJ1b12+eKUQaczmCH26ZTWGqupWWJqoqnml4gd1qqsv
+	SxozHRIt3Ru/YR3HJN88UL5y8PnOzXCscDRrPvLbQqLKTC2qIN0ZwSudpp/8giOQ1jkGpJnKTkb
+	gO1YxwCPHqBMNiQNzCKcTM9xXlYI7bGNl0ZdTVSU8lce2NmjuONkpcZHSImpW7BJR7Nt3TdP/YH
+	kQAow+3uUlA5WeDBiqtCajPKGEd1DnXOiRrjsRNlQ+WlOv27AS7x4hl1NXWSPUPeAErNd8V/Zw6
+	syO8GclhBilEFZIZQxJ3rxBipn2YdPOz+ogkG9fh2Ku2jTToVwkgg=
+X-Received: by 2002:a17:90a:c890:b0:38e:dc4:3fbb with SMTP id 98e67ed59e1d1-38ec68982femr8118870a91.43.1784925213668;
+        Fri, 24 Jul 2026 13:33:33 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a801:60b4:ddf8:a4ba:150b:5c93])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d13003f12sm48918684c88.2.2026.07.24.13.33.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 13:33:32 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: johannes.berg@intel.com
+Cc: briannorris@chromium.org,
+	francesco@dolcini.it,
+	linux-wireless@vger.kernel.org,
+	Fabio Estevam <festevam@nabladev.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] wifi: mwifiex: Detach sync cmd buffer on interrupted wait
+Date: Fri, 24 Jul 2026 17:33:19 -0300
+Message-ID: <20260724203320.78793-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA1PR12MB6531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 096513d2-02a2-4ef7-fd18-08dee9c1e1a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|366016|23010399003|376014|11063799006|10067099003|5023799004|56012099006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	lno6V6ELK+mXSnz5ZxbhZpgkxN/wXM17ej5PUe+NpnVxv6MEAWitbaIZRTCnUCWSko3y+3cmkPk9GU4RWfDG2bGMblunCfd362RB43ZZ/Y6yjnqUYEQntc1glZTG6SRWBloGtrnDFCkODbbqdK90FzkKtl6Zm1ESMgYr5Vt6/rCFAvqPbKO3TTHdwdXJ3Q8nhGkti886G5aX+GNNR4PZcuWo+HGbBv7RVL9XlEvnNoP6TFduaTs9bpt8i/kCEERhaF2BGqHU63L/6p6l2MgNjnAX1rM8OHEpVVsI1acuLKeF1m7SmbPqcEvYlr9xdQ+AphMJIDpPww3zlqHRQ9b3awD1NkTs74WSEDFHi4U7GhPU97q4+zJoz6K6/aYdqBMzrgiieGQEr/XHHiaXh8UE0UNPVplBiioaTmKZriUpgm1yc1ibY0DERA5nfO5DpjuN2L4ROXPQni5N6VoN8MJmrQRm/qv/HKStLXH3A0+pI6gyFe6FTf/wnCm6z7e57q4SFKLoePaADQMBo7UG7HYNpjxidJJuaA6ii1wValwPjgxIuouSTmOdXYioGpvM6yAzkyk67XuDNi/Glfe4cdpwKYQmcVyseofEDaLo9W1GZhH0JTXCZieaeopv1j2qm49E9KdAu3yQuqAqEte3LrtRNqwO/H/XPv5ktBkYmwWuSVg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(23010399003)(376014)(11063799006)(10067099003)(5023799004)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RnBOTEVsTktVWFUrM2I4R1BNLzIyLzRqdzhrbUJjejMyZmdWVmNWMXBHclN5?=
- =?utf-8?B?aTNrZjE2Z21ZK1N6MGZ6LzMxV1dHeTY3M1JZRDBvWVYvTWpZbUZZUDFoRFZC?=
- =?utf-8?B?WXhFTC9MbDJJakdVc3YxSDVGYjY1ZlJocC9VL1o0R3dRajNaWVkrVVNwWWtB?=
- =?utf-8?B?TUQwbUJJQnA2bTNwNE42c3JVYW1oZHBkWHFSTHFpRE94aHR2WWlOdForOGZE?=
- =?utf-8?B?MFQrZjhJQ1FKaEt5U240eUEzcitRSlBjckdGdERoWHdqNk1WRXRmV014N2No?=
- =?utf-8?B?UmRyNmYwbHEvQ3ZPOGJqKzFnTFlBWUtFVVorbWxzbVZCcDh5YVRiUXI3WGFp?=
- =?utf-8?B?eXZOU1lhUVY1WWNFWkMvTjM4NW9ENnA1MHBuV3JoMUx0N05hR2RsRDFQaG1L?=
- =?utf-8?B?MitkeFNoUG5qSkhNTG9GM2dWL0hmT0IxeDVjQVBiMHFXTHBlTVNCMUhQNW5a?=
- =?utf-8?B?NForcHVVT0JaZnNkREQzQ0o4NTE5cy8yUkJDcDBwalRGWFRMZCt5SXB5L2lp?=
- =?utf-8?B?L0IwaWdqRnBoWXZxaXZqUm10WjByL1BxUDFnci9ZMzZmZVY0NW81SWg1UTRw?=
- =?utf-8?B?QjJQbHQ0NTFNL1Q3RzdnUzFqYTZGcmJ2d1MzQ0JFS28zVW5pZjZxME4ram9R?=
- =?utf-8?B?YnQ1bDM5eVlJSXcrTVprZ0lVUHFwc3RTcTZxaUxOMHJKemcrM3BRdkpXQm9C?=
- =?utf-8?B?WFQySi94eHpsTE0xamlTaFZqM3VXQzVpNll3dnZwSW4yTHkvdlNvbVNldkQr?=
- =?utf-8?B?VHdxWmNka1JkdlVBU29qaUJrdnJmeC9aTHk0VUhDbTV2ZExnZk5UWnk1dHhQ?=
- =?utf-8?B?N2RzRFZ3dE1KdHU3TEVLMU4rSHhsd2c5eVhMeURMbVlhOHpSK2lOWDRIQXJ3?=
- =?utf-8?B?bzBlSE9TN2JwOXBnT2hmMDJkbEJKUTlQcTB1Y0dxYmhVZDZYYVM0TDY4dXZj?=
- =?utf-8?B?azBtRjAzM1BxbHBVQ3ZiQ1EvbitpZ1RMaDRieGNqRmkzZXNrTWx5SndNTjJZ?=
- =?utf-8?B?VXZwMGsxenlFWGI0eHV0K2NwWTZJWnZmc3Jrc0RDbkRNNVJkYk5uT2F3Rm5X?=
- =?utf-8?B?OVdhY2wra1FpMFQxZHpEcDd6THBrcHdpZktSZzhoejE0bzNPUmx5Y1gvVzRS?=
- =?utf-8?B?QlVxUC9CMzRJMWtmamFWMzFRZlc5VjdXbnFnOFRaSzJmcEpBM2o5QXB2VjUw?=
- =?utf-8?B?eFpDRUwxZHdrbHVkRlQzYWJ3VlNVdG5HKzdxVGU2dzc3YXVnRGFyWEZrWk00?=
- =?utf-8?B?V2gycXBkTW9wZW9YSzV3Y3NUTW5NdGx4R2F3c0NteHBYNE9nTXRxRytYSW1j?=
- =?utf-8?B?am5vSEYyYUdnOExkQThGVG9mMFNrWVVqTENmcVFpdVd4WGZIWXVlMnlaMXRR?=
- =?utf-8?B?S0hma0d5dlQ2Ylo3N095aFhDWTFYNUpaaHduaE9hZmRiR3NlTjVCNzJWR1E1?=
- =?utf-8?B?dlFJMkc4anhyQm5rM2RvSy9VbU1VSm56ekJ1NjY3UFdkVTFrUXBSaHFjRms0?=
- =?utf-8?B?Q0hUT2g2TFRFZzFTNm44a0hyL3JFOVBIWmpJaUVjUkZ0ZGRnc1RySnQ4S0Np?=
- =?utf-8?B?MDhJQlBUUmJVQkhtZUhrckc1RmhMc3Fqdmh1R3NEM2d4MnhmZUhZSzFmbVNF?=
- =?utf-8?B?WWJES1hRdXJXOWdwSENZMEFsbXRyUDFaZEFkOS9ubmNuQUk4NXovSTJNS04r?=
- =?utf-8?B?eGtGVzhXa3NXQWVJTFhzZUIrWTN3anhmb0lhRmpYUEYzOW14RWNlaU1PL2dl?=
- =?utf-8?B?VFZwVEFNb2FUSWs1UFpDN01ZdTVKSWRoOXJ4NjBjcFVnVzVQSnp0ZnBrcHkz?=
- =?utf-8?B?a1ZJNFYrR3BvbEMyS0ZHcGgvOVBFVW5pclBrWWlKNVNtNm1raWR1dkY3TEF5?=
- =?utf-8?B?WGE5VXV4RG9NUFVQZUFvK0U4cVBsM05Mbi9PZWJOcU9nZGZPSEVXWGN4MzVp?=
- =?utf-8?B?ci9iY3dBZnBGYWIwWnNnOTdvOTc4Uk8rUFU2UTZkUUtWYlZ1SVNOQldVUXgv?=
- =?utf-8?B?OXNheXJJNm5vcTZlUmxoOEFTd3NYQlR2ZUVOV2dUUnZKc1VHdjdiNTFFclM5?=
- =?utf-8?B?aGk0ZmNjTlJobW1ZWUEvaStNQ2cxWkV2MWhmdkJ2TFVnRUFiOCtOaGpoNzBQ?=
- =?utf-8?B?M0FVY0RXSm90ZUxvYThSanN2Qmd5OWE1U3RVbDZoYVA5Q3VhWFZFVnk0Tnda?=
- =?utf-8?B?MHFNWnB5clN0VFhFdXA1aEdRSGI3N1VYTWlXNHh6MlFpMTUyY29IajZLZzNI?=
- =?utf-8?B?TGxESUVQek1aaExYWnpiRHdMTnRvS3k1dkt3aHBGRVFDS0JXMnZBMmFWQkpS?=
- =?utf-8?Q?VdGHI1vnJHq2niLnzP?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 096513d2-02a2-4ef7-fd18-08dee9c1e1a3
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 20:26:45.8194
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TLia5VcVImX3GP9KvjJUaGIq1aCHThrppJ06HK/R2fZgWe4MHFxVJDEtQevX6hp0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6531
+Content-Transfer-Encoding: 8bit
 
-Use Lorenzo=E2=80=99s current email.
+From: Fabio Estevam <festevam@nabladev.com>
 
-On 24 Jul 2026, at 16:18, Zi Yan wrote:
+mwifiex synchronous commands keep the caller-provided data buffer in
+cmd_node->data_buf. Several callers pass stack-allocated objects there.
 
-> On 24 Jul 2026, at 15:52, Matt Fleming wrote:
->
->> From: Matt Fleming <mfleming@cloudflare.com>
->>
->> xas_try_split() adds __GFP_ACCOUNT for page-cache xa_nodes, but
->> __folio_split() leaves the xa_state's xa_lru unset. That lets a live,
->
-> But mapping_set_update() is not required for xas_split_alloc() and xas_sp=
-lit(),
-> or at least nothing triggered for uniform split path. Why?
->
-> xas_split_alloc() uses
-> gfp =3D current_gfp_context(mapping_gfp_mask(mapping) & GFP_RECLAIM_MASK)=
-,
-> whereas xas_try_split() starts with GFP_NOWAIT and follows xas_nomem()
-> by adding __GFP_ACCOUNT if XA_FLAGS_ACCOUNT is set.
->
-> Should xas_split_alloc() also take a gfp input and the caller gets
-> gfp the same way as xas_split_alloc()?
->
->> memcg-charged xa_node exist without being linked into the mapping's
->> shadow_nodes list_lru; when reclaim later walks the list_lru it trips
->> VM_WARN_ON(!css_is_dying()).
->>
->> Use mapping_set_update() to install both the workingset update callback
->> and the shadow_nodes list_lru on the xa_state.
->>
->> Reported-by: syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=3Dc5b060ce82921a2fd500
->> Fixes: 58729c04cf10 ("mm/huge_memory: add buddy allocator like (non-unif=
-orm) folio_split()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
->> ---
->>  mm/huge_memory.c | 3 ++-
->>  1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index b5d1e9d4463d..12d0e0b14e83 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -4033,7 +4033,8 @@ static int __folio_split(struct folio *folio, unsi=
-gned int new_order,
->>  		gfp_t gfp;
->>
->>  		mapping =3D folio->mapping;
->> -		min_order =3D mapping_min_folio_order(folio->mapping);
->> +		mapping_set_update(&xas, mapping);
->> +		min_order =3D mapping_min_folio_order(mapping);
->>  		if (new_order < min_order) {
->>  			ret =3D -EINVAL;
->>  			goto out;
->> --=20
->> 2.43.0
->
->
-> Best Regards,
-> Yan, Zi
+If wait_event_interruptible_timeout() is interrupted, the caller can
+return and release that stack object while the firmware command is still
+the current command. A late firmware response then reaches the normal
+response handler, which can copy data through cmd_node->data_buf into the
+stale stack address.
 
+This fixes a stack corruption observed during repeated association and
+disassociation cycles. The panic trace showed the command wait being
+interrupted immediately before a bad pointer dereference:
 
-Best Regards,
-Yan, Zi
+  cmd_wait_q terminated: -512
+  Unable to handle kernel paging request at virtual address 002c583837384662
+  Kernel panic - not syncing: stack-protector: Kernel stack is corrupted
+  ...
+  Tainted: [M]=MACHINE_CHECK
+
+The fault address decodes as little-endian ASCII:
+
+  0x002c583837384662 -> "bF878X,\0"
+
+which is a fragment of the VERSION_EXT firmware string exposed as
+debugfs "verext":
+
+  w8997o-V4, RF878X, FP92, 16.92.21.p153.7
+
+The same runs also showed corrupted control data containing:
+
+  0x2400372e333531 -> "153.7\0$"
+
+which is the tail of the same VERSION_EXT string. This points at a late
+VERSION_EXT response writing through a stale stack-backed data_buf after
+the interrupted wait returned.
+
+After cancelling pending commands on an interrupted or timed-out wait,
+detach the caller-owned data buffer from the still-current command. This
+preserves the existing command cancellation behaviour while preventing a
+late response from writing through a pointer whose lifetime ended with the
+waiting caller.
+
+Tested on an i.MX8MP board using an 88W8997.
+
+Cc: stable@vger.kernel.org
+Fixes: 3d026d09b28d ("mwifiex: cancel pending commands for signal")
+Signed-off-by: Fabio Estevam <festevam@nabladev.com>
+---
+ drivers/net/wireless/marvell/mwifiex/sta_ioctl.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/net/wireless/marvell/mwifiex/sta_ioctl.c b/drivers/net/wireless/marvell/mwifiex/sta_ioctl.c
+index 9460d5352b23..19196848778c 100644
+--- a/drivers/net/wireless/marvell/mwifiex/sta_ioctl.c
++++ b/drivers/net/wireless/marvell/mwifiex/sta_ioctl.c
+@@ -57,6 +57,18 @@ int mwifiex_wait_queue_complete(struct mwifiex_adapter *adapter,
+ 		mwifiex_dbg(adapter, ERROR, "cmd_wait_q terminated: %d\n",
+ 			    status);
+ 		mwifiex_cancel_all_pending_cmd(adapter);
++
++		/* The command response path writes through cmd_node->data_buf.
++		 * On an interrupted wait, the caller can return and release a
++		 * stack-allocated data_buf before a late firmware response is
++		 * processed. Detach the caller-owned buffer from the current
++		 * command so a late response cannot corrupt freed stack memory.
++		 */
++		spin_lock_bh(&adapter->mwifiex_cmd_lock);
++		if (adapter->curr_cmd == cmd_queued)
++			adapter->curr_cmd->data_buf = NULL;
++		spin_unlock_bh(&adapter->mwifiex_cmd_lock);
++
+ 		return status;
+ 	}
+ 
+-- 
+2.43.0
+
