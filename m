@@ -1,101 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-op-o14.zoho.eu (sender-op-o14.zoho.eu [136.143.169.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A252437466;
-	Fri, 24 Jul 2026 11:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784891866; cv=none; b=L1CinjtvBYaQcXY1S/+M/ZWOft2jFcPMfKky9CEMDcw5zPNCmF10VhuNy8sgPX8mhVsHuwKjAudwZxXe0Z0EP8Fg2pJ6Iz1OgO2ptXBvJ9ZZ+jy/VF63NuLXCafVQq65ON+kh/wotcy3dXQL40m7bvdsJ+RPF4HbmI2J3HcILuY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784891866; c=relaxed/simple;
-	bh=XMCBwN4tia+NmUVzMFnMOIF4mYL0kCd/2HrBQpNdnv0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=opifAcnBZzaB5ULk/5cEJ36ehH8kLtf0HYEJ7H1ZtzThO0bj2iDel93VWOMk/Dtjs2eGQhonyT5PR4QHofPqOM4e0FapBol6AhUrrt5uVzWlQsf6BTiFWBwvMglYyB7lVHuCUdyPtNTylFJakASq07ULssKEEzJvqKKKhnvJeE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cZLH5HOm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA823C4168;
+	Fri, 24 Jul 2026 11:20:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784892022; cv=pass; b=Df8lUPK09Z/NTGqJFoCT98biln1rq1O5w/z1w5jx774Vh1VbB6ZsYcXeX8itql+uLDc3qEe93VnWxiE5oxlfCj2tvA3AmYOyP/iVIPqqEXXd8RRxCyJWF0YLr+n9rx2Y+uRD1fNt+nUVnfCD/s6URlZAfK+iE7fEvBkyEBu0V4E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784892022; c=relaxed/simple;
+	bh=XavdgeStjkSn+NtOzy1VzvhIdvnRqKWIpiZg7PYiBkw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uFeKyAyNGaQbJe6gOe0kzPeQcuc3E0P2O/3onOe4IalMKWO1viUdt9h7Cr8igUNKVaLL7l52eIIOYQ1oYWb9LPxfo40iqE+S0NZf0rTYfDA5MPtcTwKxScLlTFTBLKF2poDvoM/nsoKa/vZiLEtm22dNJWRnQcMlfIVEnkcXsZ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai; spf=pass smtp.mailfrom=auditcode.ai; dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b=L+H3VNeT; arc=pass smtp.client-ip=136.143.169.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=auditcode.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auditcode.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cZLH5HOm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31081F01833;
-	Fri, 24 Jul 2026 11:17:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784891863;
-	bh=uaIIae6LTUEISFa7Af1EjvWvdFoEvFR+bAmr/z1eo2Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cZLH5HOmfARoYbSWcOJG9BOa7U70I55RWMIFVgQPOmjs6VpniKuU+SfH005DENh7s
-	 ZHgRpuXaOObVV+r72ZA6ICzByK/oOqEXPtoTM3od3pOj3U3514ymQsT2rVeTmR1Q2U
-	 2dI/Mv3uDv71OfoZuFQWG8BleEGsXRABM+XwoRIk=
-Date: Fri, 24 Jul 2026 13:17:26 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "Barry K. Nathan" <barryn@pobox.com>
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, Yuan Tan <yuantan098@gmail.com>,
-	Yifan Wu <yifanwucs@gmail.com>, Juefei Pu <tomapufckgml@gmail.com>,
-	Zhengchuan Liang <zcliangcn@gmail.com>, Xin Liu <bird@lzu.edu.cn>,
-	Huihui Huang <hhhuang@smu.edu.sg>, Ren Wei <n05ec@lzu.edu.cn>
-Subject: Re: [PATCH 5.10 137/699] tracing: Prevent out-of-bounds read in glob
- matching
-Message-ID: <2026072416-pluck-oppressed-c051@gregkh>
-References: <20260721152355.667394603@linuxfoundation.org>
- <20260721152358.800887633@linuxfoundation.org>
- <1d60d21d-ea26-4502-afee-c49c750df1e9@pobox.com>
- <2026072339-reshuffle-blizzard-42e9@gregkh>
- <759ee068-9519-4cfa-9be5-1deb0d9fc877@pobox.com>
- <20260723114247.00a3f66d@gandalf.local.home>
- <3308ea85-4ae5-4c5d-bfba-67bf7164a5d9@pobox.com>
- <20260724071902.7469bfe5b1f9bfd3bced2cc0@kernel.org>
- <ae1aec5a-9142-4f81-b03b-dc8d8f4018a2@pobox.com>
- <f27a8c9a-6538-4d24-9e80-c98c94431e3f@pobox.com>
+	dkim=pass (1024-bit key) header.d=auditcode.ai header.i=security@auditcode.ai header.b="L+H3VNeT"
+ARC-Seal: i=1; a=rsa-sha256; t=1784891977; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=WxPVJoFjx9aPW0sEzulSo/o2iOUo/SPFHf9JRpn/CHRkN0l3GYmIHS+sd4A0UcMu9WEeOmpq5zGkWZhySwFC6cDFDF6eWwxGV12xSmto09M8zBRn658LfmUHAqoG6+snlTRZa/ftTM+gTtTw3wq0FU7kaSPDWPS66EVWW3iILsY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1784891977; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=W6Px5a6vVEkCpmv2n7tsMwFBT/kgVpoaE4enTXtDgmU=; 
+	b=ROZMjYeye3qoGAdquDGV0hBL3cuwH+p0z/xvd+cd/GNOi1T7lG0E/B9J2JG/wAqaekE9Gtz8VJrCqrQkMva/OAQuoQl0R4hq4AJt/R+zt2kLchTiCP40AKA8ORlECm3dDgdXHz3hCjFZ/kAWGQzI3YBczvW9YWzJN06ZWioq2eU=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=auditcode.ai;
+	spf=pass  smtp.mailfrom=security@auditcode.ai;
+	dmarc=pass header.from=<security@auditcode.ai>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784891977;
+	s=zmail; d=auditcode.ai; i=security@auditcode.ai;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=W6Px5a6vVEkCpmv2n7tsMwFBT/kgVpoaE4enTXtDgmU=;
+	b=L+H3VNeT16t3mLP4ZJdp264ECdGPd8iZPOZhxJua5dkDZyOReolTcgF/sVstQcyO
+	QcXUtBewO8CQBoqUWuKUJSPwxBJS8vTYt9Wx4DLrSik1xy47PHpeeIHaSjNM6+W3hrp
+	kCjTX5JjpAqmrasoB0J8Poh/zHH6nH5Gtc9RZ3tM=
+Received: by mx.zoho.eu with SMTPS id 1784891974746726.9116488134342;
+	Fri, 24 Jul 2026 13:19:34 +0200 (CEST)
+From: Ibrahim Hashimov <security@auditcode.ai>
+To: guoren@kernel.org
+Cc: arnd@arndb.de,
+	linux-csky@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] csky: alignment: validate address before emulated load/store
+Date: Fri, 24 Jul 2026 13:19:31 +0200
+Message-ID: <20260724111931.76451-1-security@auditcode.ai>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f27a8c9a-6538-4d24-9e80-c98c94431e3f@pobox.com>
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Thu, Jul 23, 2026 at 05:08:11PM -0700, Barry K. Nathan wrote:
-> On 7/23/26 4:43 PM, Barry K. Nathan wrote:
-> > On 7/23/26 3:19 PM, Masami Hiramatsu (Google) wrote:
-> > > On Thu, 23 Jul 2026 09:57:56 -0700
-> > > "Barry K. Nathan"<barryn@pobox.com> wrote:
-> > > 
-> > > > On 7/23/26 8:42 AM, Steven Rostedt wrote:
-> > > > > On Thu, 23 Jul 2026 08:32:23 -0700
-> > > > > "Barry K. Nathan"<barryn@pobox.com> wrote:
-> > > > > 
-> > > > > > In the process of testing, troubleshooting, and eventually bisecting this,
-> > > > > > I've tried rebuilding the kernel from scratch maybe 6 or 7 times now. I've
-> > > > > > tried on two different build systems so far, and it seems deterministic
-> > > > > > that the build succeeds without this patch and fails with it.
-> > > > > When you say "from scatch", do you create a new directory and build there?
-> > > > > 
-> > > > > Is it reproducible with a "make mrproper"? (Need to copy the .config
-> > > > > elsewhere to not lose it)
-> > > > > 
-> > > > > As I don't see anything in this patch that would cause filp_close to be
-> > > > > unresolved. Sounds like a bad object was added somewhere.
-> > > Yeah, or BTFIDS command (tools/bpf/resolve_btfids/resolve_btfids) may
-> > > be broken?
-> > 
-> > This turned out to be the answer. 5.10.y needs these two commits to fix
-> > resolve_btfids:
-> > 
-> > 22e8ebe35a2e: tools/resolve_btfids: Fix some error messages
-> > 5aad03685185: tools/resolve_btfids: Emit warnings and patch zero id for missing symbols
-> > 
-> > (Alternately, 5aad03685185 could be fixed up by hand and applied alone,
-> > instead of applying 22e8ebe35a2e as a prerequisite. Probably cleaner to
-> > just apply both commits though.)
-> > 
-> > Applying both of these on top of 5.10.261-rc2 fixes the build for me
-> > and results in a working kernel, which I am now using to send this email.
-> 
-> I forgot to mention, 5.15 and later already have these two patches
-> (I think they were merged into mainline in 5.15-rc1), so it's only
-> 5.10 that needs them.
+The abiv1 misalignment fixup csky_alignment() re-executes a trapped
+unaligned load/store from kernel context. It computes the target address
+entirely from user-controlled state -- the base register read from the
+saved user regs via get_ptreg() plus an immediate decoded from the
+faulting instruction -- and then performs the access with raw supervisor
+ldb/stb instructions in ldb_asm()/stb_asm(), without checking that the
+address points into user space.
 
-Ok, both now added to the 5.10.y queue, thanks!
+A local unprivileged process can therefore execute a crafted unaligned
+STW/STH whose base register holds a kernel address: the fixup emulates it
+and stores an attacker-controlled value to an attacker-chosen kernel
+address -- an arbitrary kernel write, i.e. a privilege-escalation
+primitive. The symmetric load path is an arbitrary kernel read. The
+__ex_table entry on the asm only recovers from an unmapped fault; a store
+to a mapped, writable kernel page completes. The existing rx/rz != {0,1}
+test is a register-index filter, not an address bound.
 
-greg k-h
+Reject the emulated access when the fault came from user mode and the
+target is not a valid user address, using access_ok(). Rejected accesses
+fall through to the existing bad_area path, which delivers
+SIGBUS/BUS_ADRALN like every other rejected case. Kernel-mode faults
+legitimately touch kernel memory and are deliberately left unchecked.
+
+Found by inspection; CK610 (CONFIG_CPU_CK610) abiv1 silicon has no
+upstream emulation target, so this is not runtime-reproduced.
+
+Fixes: 081860b970ad ("csky: Exception handling and mm-fault")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
+Assisted-by: AuditCode-AI:2026.07
+---
+ arch/csky/abiv1/alignment.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/csky/abiv1/alignment.c b/arch/csky/abiv1/alignment.c
+index aee904833dec..19337946e0d5 100644
+--- a/arch/csky/abiv1/alignment.c
++++ b/arch/csky/abiv1/alignment.c
+@@ -261,18 +261,26 @@ void csky_alignment(struct pt_regs *regs)
+ 	switch (opcode) {
+ 	case OP_LDH:
+ 		addr = get_ptreg(regs, rx) + (imm << 1);
++		if (user_mode(regs) && !access_ok((void __user *)addr, 2))
++			goto bad_area;
+ 		ret = ldh_c(regs, rz, addr);
+ 		break;
+ 	case OP_LDW:
+ 		addr = get_ptreg(regs, rx) + (imm << 2);
++		if (user_mode(regs) && !access_ok((void __user *)addr, 4))
++			goto bad_area;
+ 		ret = ldw_c(regs, rz, addr);
+ 		break;
+ 	case OP_STH:
+ 		addr = get_ptreg(regs, rx) + (imm << 1);
++		if (user_mode(regs) && !access_ok((void __user *)addr, 2))
++			goto bad_area;
+ 		ret = sth_c(regs, rz, addr);
+ 		break;
+ 	case OP_STW:
+ 		addr = get_ptreg(regs, rx) + (imm << 2);
++		if (user_mode(regs) && !access_ok((void __user *)addr, 4))
++			goto bad_area;
+ 		ret = stw_c(regs, rz, addr);
+ 		break;
+ 	}
+--
+2.50.1 (Apple Git-155)
