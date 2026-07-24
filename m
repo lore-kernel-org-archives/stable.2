@@ -1,47 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80F142A160
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 11:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE96353A79
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 11:04:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784891098; cv=none; b=t4p9Xg3Mkzf99/ZkwUi6qyPHpEseQHH/PQ3RK7smTYOSxv7lCmRkrfOdmoZWGhy9odnqR9Drazm8RjMy5012gQFdYgLUgHjXX4LDTTGW+G9IvANFB73usj0nxa2wTCkW6mO+yB569jgBmZ/CBiAvRXIFt1/fdGqd7aeFZnNyhuU=
+	t=1784891101; cv=none; b=oCq7/e1vQybirIoCqGrEBkzpcKvXn7VWWmvL/Q583Wi7doC56cn4WniNXQLbuXbAOb9kYcosv2iubLqVPB8D/hVYEn8lzlak6GL9N7KybO0Yz5bkqwGtC0/QmXxnK6F4da9yrwg2EdfnScjt7Qox8mu1eeRYI+0euTFoynNRur4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784891098; c=relaxed/simple;
-	bh=IAVJz/a6UQd25KugYecHQ4fiJPFojDokUXY41K+jlVc=;
+	s=arc-20240116; t=1784891101; c=relaxed/simple;
+	bh=hKbqkjbgY2scni5aigyo3fOOvtQExCGdJiqQ2jGdT+M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G7Sxz4IrGGaMv8TBkoBvbCR9aoRqB48jEQmENl4o/L9t6ArnCe3fmUIdVxgNA4JE0OCcatZwez0PtCSyoMMTDs+RCHNb6g1X4QXKdmJ0UftEYKYwUBzlB6zhWjX9L9Qp3xk9Vg/npMjKNtkGPIB/AmJIjun4gJ0Pcrfg2QLU4IY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/LVJQhM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KMm0B+oJuGVdkrZiaCZKfX0hhkXW9sfv6tGDeWcVuZ0wRPwoMn06pTsJSbblsx0/18r41gnfTlgR1X/a8eMn3GKl9ol3v1ywLLthtiu5gD7zULru4sFrx+ZhjEoPHWo80ujRQJ2r/pXqJd4eMAB0nL2I6FFa4qkShyssyauNiVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oafshLZB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/LVJQhM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0401F02828;
-	Fri, 24 Jul 2026 11:04:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oafshLZB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B0A1F031C6;
+	Fri, 24 Jul 2026 11:04:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784891095;
-	bh=3UJNZSYLIJQcwSEZ85YSFQafxQcItdIpWYqrUxCMKlc=;
+	s=k20260515; t=1784891099;
+	bh=Xic4KNClsV5YeZasTDkwm5J9fSOanPcLJj7zso06ef8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I/LVJQhMkyDUvfnjfKelfZFmNQ1/NhNPV+uexuCzI6g80JkaoVeLcOxEn7C0Z88hd
-	 +Xjxlz2O9Wynk43By25A0amGJuTlu7GjggF63+9NbXOGIksz2orVum6q7TAezKifZy
-	 e7pJ5QFLoFeiP2x+CWCh7GAdj5F99lO10OVZIEMb2MSr1QfzZmWuuzrZnldK3+/BOz
-	 1MO17kuhA77BXXqFmPQR25R5D36M9oZNDguo3iZS+3igcG8+ZyT3PDAnbM+fiOVWYx
-	 3mLL97qBEKzsVzsAV1b6oLnxDRXDBuL+sVHZjZgDv4ZxyNKpqdcSnajmqCKAsjUmzC
-	 GiJRChEfxIgrw==
+	b=oafshLZBqRg7hUOVNAyzKSr5NHA6qaTGUu9n9tU0JfJFh/makzGD8bzm3q/GMeSc5
+	 +39BakYTQ+nMMxM0h+OPN9ka7CuIhLstW2mbe25J5bwME8O4caTQWBoV/pxBjTHUQ/
+	 xb3/nftKVPl/e2My7LT3JaqeQ/Aug8gKptvSAGwv/xjuugGiRZ+nvGiDmJy/Gd43sw
+	 +z2WSe06RVGpEccQ0UTzTMoFvxfFB/zz4NFYI8tG7k7Kzqiu9wLwqDlkkKcEcObRR2
+	 r/mst0R85PydbLEeA43aOXYmHualTjRpV91km6Fk8+hyXnLaOmf80eY1pmmtRACaPg
+	 O9ZDJjc8FNMgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+226c1f947186f8fef796@syzkaller.appspotmail.com,
-	Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
+Cc: Muchun Song <songmuchun@bytedance.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
 	Oscar Salvador <osalvador@suse.de>,
-	Mina Almasry <almasrymina@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Hocko <mhocko@suse.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/hugetlb: fix hugetlb cgroup rsvd charge/uncharge mismatch
-Date: Fri, 24 Jul 2026 07:00:52 -0400
-Message-ID: <20260724110052.3984407-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/sparse-vmemmap: fix vmemmap accounting underflow
+Date: Fri, 24 Jul 2026 07:00:55 -0400
+Message-ID: <20260724110055.3984461-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072039-endowment-unfazed-086d@gregkh>
-References: <2026072039-endowment-unfazed-086d@gregkh>
+In-Reply-To: <2026072025-sponge-disaster-ef73@gregkh>
+References: <2026072025-sponge-disaster-ef73@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,87 +58,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Deepanshu Kartikey <kartikey406@gmail.com>
+From: Muchun Song <songmuchun@bytedance.com>
 
-[ Upstream commit 15807d0ddde37407af72859426b654f3d1972b00 ]
+[ Upstream commit c373f7f98e6ad591c85d40548cf8b6443be69311 ]
 
-In alloc_hugetlb_folio(), a single h_cg pointer is used for both the rsvd
-and non-rsvd hugetlb cgroup charges.  When map_chg is set,
-hugetlb_cgroup_charge_cgroup_rsvd() stores the charged cgroup in h_cg, but
-the immediately following hugetlb_cgroup_charge_cgroup() overwrites h_cg
-with the non-rsvd cgroup pointer.
+Patch series "mm: Fix vmemmap optimization accounting and initialization",
+v8.
 
-As a result, hugetlb_cgroup_commit_charge_rsvd() stores the wrong
-(non-rsvd) cgroup pointer into the folio's rsvd slot.
+The series fixes several bugs in vmemmap optimization, mainly around
+incorrect page accounting and memmap initialization in DAX and memory
+hotplug paths.  It also fixes pageblock migratetype initialization and
+struct page initialization for ZONE_DEVICE compound pages.
 
-When the folio is later freed, free_huge_folio() unconditionally calls
-both hugetlb_cgroup_uncharge_folio() and
-hugetlb_cgroup_uncharge_folio_rsvd().  The rsvd uncharge reads back the
-wrong cgroup from the folio and decrements a counter that was never
-charged for that cgroup, causing a page_counter underflow:
+Patches 1-4 fix vmemmap accounting issues.  Patch 1 fixes an accounting
+underflow in the section activation failure path by moving vmemmap page
+accounting into the lower-level allocation and freeing helpers.  Patch 2
+fixes incorrect altmap passing in the memory hotplug error path.  Patch 3
+passes pgmap through memory deactivation paths so the teardown side can
+determine whether vmemmap optimization was in effect.  Patch 4 uses that
+information to account the optimized DAX vmemmap size correctly.
 
-  page_counter underflow: -512 nr_pages=512
-  WARNING: mm/page_counter.c:61 at page_counter_cancel
+Patches 5-6 fix initialization issues in mm/mm_init.  One makes sure all
+pageblocks in ZONE_DEVICE compound pages get their migratetype
+initialized.  The other fixes a case where DAX memory hotplug reuses an
+unoptimized early-section memmap while compound_nr_pages() still assumes
+vmemmap optimization, leaving tail struct pages uninitialized.
 
-Fix this by introducing a separate h_cg_rsvd pointer exclusively for the
-rsvd charge path, keeping the rsvd and non-rsvd charges fully independent
-through their charge, commit, and error uncharge paths.
+This patch (of 6):
 
-Link: https://lore.kernel.org/20260328065534.346053-1-kartikey406@gmail.com
-Fixes: 08cf9faf7558 ("hugetlb_cgroup: support noreserve mappings")
-Reported-by: syzbot+226c1f947186f8fef796@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=226c1f947186f8fef796
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Mina Almasry <almasrymina@google.com>
+In section_activate(), if populate_section_memmap() fails, the error
+handling path calls section_deactivate() to roll back the state.  This
+causes a vmemmap accounting imbalance.
+
+Since commit c3576889d87b ("mm: fix accounting of memmap pages"), memmap
+pages are accounted for only after populate_section_memmap() succeeds.
+However, the failure path unconditionally calls section_deactivate(),
+which decreases the vmemmap count.  Consequently, a failure in
+populate_section_memmap() leads to an accounting underflow, incorrectly
+reducing the system's tracked vmemmap usage.
+
+Fix this more thoroughly by moving all accounting calls into the lower
+level functions that actually perform the vmemmap allocation and freeing:
+
+  - populate_section_memmap() accounts for newly allocated vmemmap pages -
+depopulate_section_memmap() unaccounts when vmemmap is freed
+
+This ensures proper accounting in all code paths, including error handling
+and early section cases.
+
+Link: https://lore.kernel.org/20260428081855.1249045-1-songmuchun@bytedance.com
+Link: https://lore.kernel.org/20260428081855.1249045-2-songmuchun@bytedance.com
+Fixes: c3576889d87b ("mm: fix accounting of memmap pages")
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Liam R. Howlett <liam@infradead.org>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
+Cc: Joao Martins <joao.m.martins@oracle.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ mm/sparse.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 17865215fda795..90faa4fd2ca272 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2976,6 +2976,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	long gbl_chg;
- 	int memcg_charge_ret, ret, idx;
- 	struct hugetlb_cgroup *h_cg = NULL;
-+	struct hugetlb_cgroup *h_cg_rsvd = NULL;
- 	struct mem_cgroup *memcg;
- 	bool deferred_reserve;
- 	gfp_t gfp = htlb_alloc_mask(h) | __GFP_RETRY_MAYFAIL;
-@@ -3019,7 +3020,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	deferred_reserve = map_chg || avoid_reserve;
- 	if (deferred_reserve) {
- 		ret = hugetlb_cgroup_charge_cgroup_rsvd(
--			idx, pages_per_huge_page(h), &h_cg);
-+			idx, pages_per_huge_page(h), &h_cg_rsvd);
- 		if (ret)
- 			goto out_subpool_put;
- 	}
-@@ -3056,7 +3057,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	 */
- 	if (deferred_reserve) {
- 		hugetlb_cgroup_commit_charge_rsvd(idx, pages_per_huge_page(h),
--						  h_cg, folio);
-+						  h_cg_rsvd, folio);
- 	}
+diff --git a/mm/sparse.c b/mm/sparse.c
+index eb6c5cb27ed1ec..4f18b213c24ae4 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -633,7 +633,12 @@ static struct page * __meminit populate_section_memmap(unsigned long pfn,
+ 		unsigned long nr_pages, int nid, struct vmem_altmap *altmap,
+ 		struct dev_pagemap *pgmap)
+ {
+-	return __populate_section_memmap(pfn, nr_pages, nid, altmap, pgmap);
++	struct page *page = __populate_section_memmap(pfn, nr_pages, nid, altmap,
++						      pgmap);
++
++	memmap_pages_add(DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE));
++
++	return page;
+ }
  
- 	spin_unlock_irq(&hugetlb_lock);
-@@ -3097,7 +3098,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- out_uncharge_cgroup_reservation:
- 	if (deferred_reserve)
- 		hugetlb_cgroup_uncharge_cgroup_rsvd(idx, pages_per_huge_page(h),
--						    h_cg);
-+						    h_cg_rsvd);
- out_subpool_put:
- 	if (map_chg || avoid_reserve)
- 		hugepage_subpool_put_pages(spool, 1);
+ static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
+@@ -642,13 +647,17 @@ static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
+ 	unsigned long start = (unsigned long) pfn_to_page(pfn);
+ 	unsigned long end = start + nr_pages * sizeof(struct page);
+ 
++	memmap_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE)));
+ 	vmemmap_free(start, end, altmap);
+ }
++
+ static void free_map_bootmem(struct page *memmap)
+ {
+ 	unsigned long start = (unsigned long)memmap;
+ 	unsigned long end = (unsigned long)(memmap + PAGES_PER_SECTION);
+ 
++	memmap_boot_pages_add(-1L * (DIV_ROUND_UP(PAGES_PER_SECTION * sizeof(struct page),
++						  PAGE_SIZE)));
+ 	vmemmap_free(start, end, NULL);
+ }
+ 
+@@ -705,13 +714,18 @@ static struct page * __meminit populate_section_memmap(unsigned long pfn,
+ 		unsigned long nr_pages, int nid, struct vmem_altmap *altmap,
+ 		struct dev_pagemap *pgmap)
+ {
+-	return kvmalloc_node(array_size(sizeof(struct page),
+-					PAGES_PER_SECTION), GFP_KERNEL, nid);
++	struct page *page = kvmalloc_node(array_size(sizeof(struct page),
++						PAGES_PER_SECTION), GFP_KERNEL, nid);
++
++	memmap_pages_add(DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE));
++
++	return page;
+ }
+ 
+ static void depopulate_section_memmap(unsigned long pfn, unsigned long nr_pages,
+ 		struct vmem_altmap *altmap)
+ {
++	memmap_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE)));
+ 	kvfree(pfn_to_page(pfn));
+ }
+ 
+@@ -724,6 +738,9 @@ static void free_map_bootmem(struct page *memmap)
+ 	nr_pages = PAGE_ALIGN(PAGES_PER_SECTION * sizeof(struct page))
+ 		>> PAGE_SHIFT;
+ 
++	memmap_boot_pages_add(-1L * (DIV_ROUND_UP(PAGES_PER_SECTION * sizeof(struct page),
++						  PAGE_SIZE)));
++
+ 	for (i = 0; i < nr_pages; i++, page++) {
+ 		magic = page->index;
+ 
+@@ -817,14 +834,10 @@ static void section_deactivate(unsigned long pfn, unsigned long nr_pages,
+ 	 * The memmap of early sections is always fully populated. See
+ 	 * section_activate() and pfn_valid() .
+ 	 */
+-	if (!section_is_early) {
+-		memmap_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE)));
++	if (!section_is_early)
+ 		depopulate_section_memmap(pfn, nr_pages, altmap);
+-	} else if (memmap) {
+-		memmap_boot_pages_add(-1L * (DIV_ROUND_UP(nr_pages * sizeof(struct page),
+-							  PAGE_SIZE)));
++	else if (memmap)
+ 		free_map_bootmem(memmap);
+-	}
+ 
+ 	if (empty)
+ 		ms->section_mem_map = (unsigned long)NULL;
+@@ -869,7 +882,6 @@ static struct page * __meminit section_activate(int nid, unsigned long pfn,
+ 		section_deactivate(pfn, nr_pages, altmap);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+-	memmap_pages_add(DIV_ROUND_UP(nr_pages * sizeof(struct page), PAGE_SIZE));
+ 
+ 	return memmap;
+ }
 -- 
 2.53.0
 
