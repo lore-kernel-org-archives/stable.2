@@ -1,146 +1,102 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B00C388891
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 23:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B25B3CF04C;
+	Fri, 24 Jul 2026 23:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784934368; cv=none; b=FS/WZlkMx+VnPl3gN0llBR/QpyzPsdFt39qpx5RtUWUqEWrBQIMqXuzNG7nD0+4A/v3hqAGMtsthZg6E4c84C7bsR/5eSG1YgYjcVPTtrDvDOoU9SzDbSXiHSpHn/MlaWK54nGyyxujs67p5OXOP9bLxik84ZhN6DvWTjEXCh7E=
+	t=1784935111; cv=none; b=N5sOOX0Uiil7zaVsNKR+tfd6B6KdzE1aXNCIWtcEbTCMlFNXHlkUxPMAmGWFp+/K0KedUyQM62LhGrlXL7t7gsW9BpA66l1PvrZmrTzS7myPFl29Dw74czgXoBCUyvjw6L2wpqvYDyMPheKnkRECAGUODx20aiOypFuS1oEMbWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784934368; c=relaxed/simple;
-	bh=Sk2J6KuMqrEC54wXJzOQQo5vuletwOAu0o8nL5wSogc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IV/6nwfIThnoWWpdfRlBG1WD+JjDT9z9pAC9tujRk1OPknssmF8Zuvu14YJ6Zzl89C0Ej3hud5KPM7qRA6roHaJ5LV70u4i1xwVPQyXv5zdRZuFxzwn0yqmVEPV0cmDk3OrplFKNHbv5ZQvg5qkT9SOyIXmWjuduqnk377b+dTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VTDmOuy6; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784935111; c=relaxed/simple;
+	bh=uFJSMA3qYpVAa+oE3Lj/zsz7CTGbfvJkRkMRMP4ZcFQ=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=Gd8J+OVt0RlmN+MWWFFpbq5sGZ3pBBD3OJSR7EXO87KXJEetFKRxNrbTqc8Vr2JXbFbsPx6wzD/qgDOPDJiAsJpqxLMpNYhvay9fVQyLI5/3kgbcymY9xg9ocg1gsDXFlyJYn4HZXS1rk1XR87zT0DU27dOM06yOWCcTXEbygAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epxZKD7f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VTDmOuy6"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso1250172a91.1
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:06:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784934366; x=1785539166; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m4HzP5T/bb9vCcchtoI3sk5UhcPvmVAetGanQAVZDHE=;
-        b=VTDmOuy67MofZF/2hrkpsyKz+lc+Suj/njuv+GUCKuE5PEOwW0HE9dIvBcNEM4WGJz
-         TzvUCUPj9z35w410HyjrR7EGbtl2bnQxmk6/se8kVd4eAzRqZLN05vyFE3jVN8sBdlCg
-         dBecPsQAzxXWkyfvFg1eB6YMW2WijWMCgb3lt6r7k2wE4ALPqopHl0GdO1lpj/oOL92t
-         3z0JwR+1iFeaqusyNOhfr1s/5FOycgHMJR8rLH9wWTKw+/DgiAWUkA+bp7lFkkBiQe8P
-         cmj97UZPnHH+pY3DDJO+7TjR+y+fGVaE3U+0Q0bw+9a7r1uzSQrgZMCimRUm66qPlTu7
-         e4TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784934366; x=1785539166;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m4HzP5T/bb9vCcchtoI3sk5UhcPvmVAetGanQAVZDHE=;
-        b=TdStczRlvNRt8OBGvfWDI1Ayw/UdaQkQs06hUUjvsfPFrRb5gRCYHnLAppXVQ2Ctnj
-         pBz79Qh6J5qvSHCNdnDsICojUynr4IiqQfl4sBu1NrDDgkOsYAC1pU1qAUhVqmrHRZBF
-         OJIT3sN9LX7zi19pGosRy69IM7leMwyMVNwl7PHm3qHnRHdonMaasKu6LnGx8yDUBzyi
-         RDb0Ey+NATdIch0kIfZr2HjhYSndo2WBF7SS758OTAcI/AdPz+tvENkTsT6l91fs2fW3
-         9+36q/+ZGnAny3dHsFO+o/ZGgXucaGs4na/DRLcjDVTVcevMpghNf2Gl4oOo10xdcc1/
-         fKUQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpAKW9yDuNFs8sPXGvXKw+GTe4VtITwiWx3Hso4cm0qAsmp5JxFJfqMOjRs6A8PmkIE+nydI4w=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrJL7MRnExT1JwHrlpkGTjo7R2j+cbLdIGPU3jZc3TNxaN3dSO
-	DICPQw47bCEGoccJTxkWLlwAayyiJpuUIizVKvHA4FPu5Wl4HLU8dfYz
-X-Gm-Gg: AR+sD1114720YuRl7u4UXCFnKbB7YFHWn9V9Nt7qH8dK3XdjN0IpAXHAG3w+PdS+EAn
-	VPhDykDJqZTAhaUdThMRCClk3ybSmCezw6o8EKSeTGVH2CnJviUuUUNK0ZPnxpDir5eKdLlmNh6
-	JEZvPztk3AKO9jc+6U8nKCIGM5s8Cez0+KecY+4/+1NMi3jTJoc7gVheiLHqAhIHHKOMTDi8dNb
-	Fef73dlYjrmxJxTfX4UpNsMrWARB8zkI3x3oO0O1OIneoEEfhdZ22pAVjKcgXCPZPI7U1ebc2ho
-	qyfg5Rw+RC7W79HkJWTg0BX4ZH1PkbwOXHk6fW47vTKXRWWxt9nR0YYUBsRre6cz4y5GgyNAGxI
-	9JxL+ZAkO8F34trhjPlm2HgIcfzOivuUBmBzASoT+zR+tBVmbNx+7CGXa3Wqx6mhAOR/xogf3Nq
-	z2
-X-Received: by 2002:a17:90b:2604:b0:37f:9ce1:cda8 with SMTP id 98e67ed59e1d1-38f297802c7mr303421a91.30.1784934366563;
-        Fri, 24 Jul 2026 16:06:06 -0700 (PDT)
-Received: from john-p8 ([98.97.42.174])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f2951e62fsm121717a91.14.2026.07.24.16.06.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 16:06:05 -0700 (PDT)
-Date: Fri, 24 Jul 2026 16:06:03 -0700
-From: John Fastabend <john.fastabend@gmail.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Eric Dumazet <edumazet@google.com>, 
-	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, 
-	"open list:BPF [L7 FRAMEWORK] (sockmap)" <bpf@vger.kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] bpf, sockmap: Fix sk_redir use-after-free in send verdict
-Message-ID: <amPvZHwUL5HlY0t0@john-p8>
-References: <20260719152207.2892156-1-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epxZKD7f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84661F00A3A;
+	Fri, 24 Jul 2026 23:18:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784935109;
+	bh=1zOLheDNrEZSKVgM7iDuqJEupl58RtK41Jq8kQb0uG0=;
+	h=Date:From:To:Cc:Subject:References;
+	b=epxZKD7fmDPNf9UHAvHoVCeg7LtocVOqHH4r8eN9E4IvE0VbxeoE10avIVCRdVsht
+	 M/AMuT/4JyCUnqInICV2ZK2qcGTCgw/IYlOMFyo/dO11bMxoRi2X1a6097tJd4H/s8
+	 gSLWTr7nWQO8u8ofrcHiMrZNezbcWjmWKulRTxoKYExYbwZ+xtFzp7LGXyJ+sulbVL
+	 d6YNSG1eoFHhP8q/8wDki0t0j28MePJX/uHcgNULehecKNuQKmZY1ti02Dxe+X0ThV
+	 pIKXoSR+3czbZzcKUcYQtrObnwTJLTOCm7CgcGGntFsd+NLkbIQDBK733pZOCIDj5G
+	 vxB3g66NY3zfA==
+Received: from rostedt by gandalf with local (Exim 4.99.4)
+	(envelope-from <rostedt@kernel.org>)
+	id 1wnPAN-000000046rW-36Kw;
+	Fri, 24 Jul 2026 19:18:55 -0400
+Message-ID: <20260724231855.591578614@kernel.org>
+User-Agent: quilt/0.69
+Date: Fri, 24 Jul 2026 19:18:41 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ Fuad Tabba <fuad.tabba@linux.dev>,
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-linus][PATCH 1/9] tracing/remotes: Fix page_va[] access before counter update in
+ trace_remote_alloc_buffer()
+References: <20260724231840.483353969@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260719152207.2892156-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 
-On Sun, Jul 19, 2026 at 11:22:07PM +0800, Chengfeng Ye wrote:
->sk_psock_msg_verdict() takes a socket reference for psock->sk_redir.
->tcp_bpf_send_verdict() copies that pointer while holding the source socket
->lock, but does not take a reference for the local copy before dropping the
->lock around tcp_bpf_sendmsg_redir().
->
->When apply_bytes keeps the cached verdict active, another sendmsg() on the
->same source socket can consume the remaining bytes and release the cached
->reference while the first thread still holds only the raw local pointer:
->
->  CPU 0                                  CPU 1
->  sk_redir = psock->sk_redir
->  apply_bytes remains nonzero
->  release_sock(sk)
->                                         lock_sock(sk)
->                                         apply_bytes reaches zero
->                                         psock->sk_redir = NULL
->                                         release_sock(sk)
->                                         tcp_bpf_sendmsg_redir(sk_redir)
->                                         sock_put(sk_redir)
->  tcp_bpf_sendmsg_redir(sk_redir)
->
->The final sock_put() can free sk_redir before CPU 0 dereferences it.
->
->KASAN reported:
->
->  BUG: KASAN: slab-use-after-free in tcp_bpf_sendmsg_redir+0xf39/0x1020
->  Read of size 8 at addr ffff888108537090 by task poc/87
->  Call Trace:
->   tcp_bpf_sendmsg_redir+0xf39/0x1020
->   tcp_bpf_sendmsg+0x977/0x1a50
->   __sys_sendto+0x32c/0x3a0
->   __x64_sys_sendto+0xdb/0x1b0
->  Allocated by task 85:
->   sk_prot_alloc+0x56/0x210
->   sk_clone+0x6f/0x14b0
->   inet_csk_clone_lock+0x24/0x740
->   tcp_create_openreq_child+0x25/0x2710
->   tcp_v4_syn_recv_sock+0x10a/0xe00
->  Freed by task 0:
->   __kasan_slab_free+0x43/0x70
->   slab_free_after_rcu_debug+0xa6/0x1e0
->   rcu_core+0x50a/0x1850
->  Last potentially related work creation:
->   __sk_destruct+0x3da/0x540
->   sk_psock_destroy+0x81e/0xab0
->   process_one_work+0x63a/0x1070
->
->Take a temporary socket reference while the source socket lock still
->protects psock->sk_redir, and drop it after tcp_bpf_sendmsg_redir()
->returns.  This keeps each unlocked use independent of cached-verdict
->ownership.
->
->Fixes: 604326b41a6f ("bpf, sockmap: convert to generic sk_msg interface")
->Cc: stable@vger.kernel.org
->Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
->---
+From: Fuad Tabba <fuad.tabba@linux.dev>
 
-Nice catch.
+page_va[] is annotated __counted_by(nr_page_va), so nr_page_va must
+cover an index before that element is accessed. The allocation loop
+writes page_va[id] while nr_page_va is still id and increments it only
+afterwards, so every write is one element past the declared count.
 
-Reviewed-by: John Fastabend <john.fastabend@gmail.com>
+The store is out of bounds with respect to the annotation: a build with
+CONFIG_UBSAN_BOUNDS on a toolchain that honours __counted_by
+(clang >= 20.1, gcc >= 15.1) flags it as an array-index overflow.
+
+Increment nr_page_va before writing the element it now covers. A failed
+allocation then leaves the slot counted but NULL; the error path frees
+it with free_page(0), which is a no-op.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260713072823.2668323-1-fuad.tabba@linux.dev
+Fixes: 96e43537af546 ("tracing: Introduce trace remotes")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Tested-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/trace_remote.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
+index 0f6ef5c36d84..ef42d9c38b37 100644
+--- a/kernel/trace/trace_remote.c
++++ b/kernel/trace/trace_remote.c
+@@ -1004,11 +1004,10 @@ int trace_remote_alloc_buffer(struct trace_buffer_desc *desc, size_t desc_size,
+ 		desc->nr_cpus++;
+ 
+ 		for (id = 0; id < nr_pages; id++) {
++			rb_desc->nr_page_va++;
+ 			rb_desc->page_va[id] = (unsigned long)__get_free_page(GFP_KERNEL);
+ 			if (!rb_desc->page_va[id])
+ 				goto err;
+-
+-			rb_desc->nr_page_va++;
+ 		}
+ 		rb_desc = __next_ring_buffer_desc(rb_desc);
+ 	}
+-- 
+2.53.0
+
+
