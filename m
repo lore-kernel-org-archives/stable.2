@@ -1,156 +1,212 @@
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [81.169.146.172])
+Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com [203.205.221.191])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A7F3BFE5B
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 09:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784883613; cv=pass; b=h4nKImk2tjWNvN0WHyQZ4Qw/lyTsFVSUVVWjNAA/jWhvM1z0pmYSxRcmYTc/Agbxlm0riw1o6t5ivwbxNbn9Bx/SWpx+vUlmaN4qtUKCHv40CtKG4JRuL8HhD8IPIG678IVM0POMMKS1n9RhJApLjE7OgR6yEEqR+uXPdnKkdYk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784883613; c=relaxed/simple;
-	bh=ARQRp7pH3u4DFYDItDTvnKhND5H4ZUTsFFTrNrRL1s4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mOFMUo/gvnxtZhWfabekQ1qwSGiywsUMu5udyYC3Ao6H5uYFZwbSvUczCYP5tFPr2/O6o0K+LQ9nhaETV8IwTaJ5sKriC7uA/yXpVXSUg9MxecqPUHx7uLtlKJWLglYibEEMiglPg4wJ6/WqDnCwpRKslfOKEPYy/MargFro7Fk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=k72VNKaT; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=MJztTUbN; arc=pass smtp.client-ip=81.169.146.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF0F36EAB2;
+	Fri, 24 Jul 2026 09:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.191
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784883730; cv=none; b=qaL6pFV6OPR8xllyd7nZU7LHT5j5/K5vJsK1tuxas/2T26HkhXUpfsfsxpmKW9584Y3YAVnjTMIhdl7dwt5STI7+mfnX5y0J0cHkfi3Rw5p4J+AlzRS627PrmLCkwyFmxg8RRngyf++7DeoI+gEocelp33WGikgtdGogHVjzThk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784883730; c=relaxed/simple;
+	bh=FxCLtBwiJVVCdNZejj8faQeOyMki65SyMA0mwYfgPkQ=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=KZrgP74oIAMgQmdQGioUEWfhOrHb3yHC3ERNA/o80q5qEHBmWm1cHoUBVDcuPVRkhZG16XB/XXNHU1/X84gRhFDT1DeeE9iehPjSiBJqp48Xh7LLa9NlhWRvc+qCqJlOUowoKXD9+bosjUJ6FU5vzaDqvLLy5mamVG/+9cHuQpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyyself.name; spf=pass smtp.mailfrom=cyyself.name; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Kx3D2E/B; arc=none smtp.client-ip=203.205.221.191
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyyself.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyyself.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="k72VNKaT";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="MJztTUbN"
-ARC-Seal: i=1; a=rsa-sha256; t=1784883607; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=dPsEOOulLn7Y9c4B/LcG0dYTsGZq98joFph31cGNhvj92iHyfb2Ctfvv4eFY2ayTjy
-    HOtSeDwviJlLreXpE4gO7v2ge8TYPT5ZB4eGovfCuivLaofk35V3wP+9nQDiZbwgOJCt
-    nAZu7r1bpLGhMjYFCdWEgDS+ljZQAFJg4XoBqaYGSfSJoTWn+hKo/CBKpW3t7BL3VJYd
-    Kpw0ibUuTFdI8UO+2DoEJ1zqM2ilb8p0khg7o3cCOnltlY+HrND7Ul+RJQusJnkfQtHA
-    dm0MX88f2cInKi6MVf7YQpWkr7akTkrN2mWcqOwmgWS23NimD/v85yY8N0kgJ3EHkO2D
-    Kslg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784883607;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=AOACn52VQ1sXCTRPVgalbbbjZlghjYYDiSke2LDThas=;
-    b=hHqhC3g2ZVjP4y28XnP0iikYALgy4V4cY4cMni9Sh2EPfn8lySAavQ3LnWt0VNBrFd
-    yfR7jRY4lCi/uvbPzD8LOGWOIdpDmWr7irc02XIe1pKAKlVqoLsEfW+YmiDBsrdp5K9f
-    Lu/FmLs6RT5YmSfE1sYlCtvX1laPV2WxhvEqntPLWUiopUd7R3c/wCW3PB2K150QcpLB
-    MM2XG4gwVEzmge63tU1e2+vDlaL1usNEoC4PTYtbcIOAxWDea8LtBmA74m+VPkQ95Aoe
-    LU1TqLM2/r91RwQ8OwlPYEJTZpFDqkra+3j12dDKI/f79pbEU3t5ZMSZMLG/2+qe66zE
-    1dHg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784883607;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=AOACn52VQ1sXCTRPVgalbbbjZlghjYYDiSke2LDThas=;
-    b=k72VNKaTL+VoRY3GyMh5w/pLa9zT4dGNcrQbMF4dWwQKOJ9GUDTVJMaOiC6546B7Dt
-    fKyS5Xlxtb00sbsm8PLO4dH2OVGsw5iZmkdNaci6gm5wdjl/mTNVQcTYsbLgFM9tSjTg
-    1fOljWEtuFlsx3g5PKo0Zz0JOne5rG80/7GMCh+zi2+ljJ01IT/3fH/pJNyb++4Ll4mm
-    zBTMTHCLLPFmH9n7QaFOEvpNsIg+VhSRD2Szje2CHbhd7o13AEGPT66fR42DmEDqlJe3
-    R+vwEa4naUd2DV6FjbrhqJHtTKZ2O3fOirItLoIZ49Gj6AVg+RluXGokIILSffSfiI7/
-    TRfw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784883607;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=AOACn52VQ1sXCTRPVgalbbbjZlghjYYDiSke2LDThas=;
-    b=MJztTUbN6giW91YKH9nLa13hWW7SVO7iATufoApbxHiiSaCqRdZXXeesjswgq9YsTS
-    9xadevH5KmMF/Q0QgXAQ==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
-Received: from [192.168.20.219]
-    by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926O907rtZ
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 24 Jul 2026 11:00:07 +0200 (CEST)
-Message-ID: <82d7e31c-ecc7-4fd7-a710-32f39832e8f1@hartkopp.net>
-Date: Fri, 24 Jul 2026 11:00:02 +0200
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Kx3D2E/B"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1784883715; bh=QlOJ6gN12LoffzLDHiimPrvvRRM4vY38LnNZ+7hdgQE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Kx3D2E/Bc/Fke/dqNfW7rH0zBq811CaC+mowLqPpcMXEP6JD6tI8WcAxfBBKBD4F7
+	 6qo58MbPplFymH8pyatlMx1/HvzhxI8WhwNQi0xwHrLErLLzST3X9YzoJb2JTMJvpE
+	 DZw4BwbkI/8uZ+ImvNTULAt8iwn1MO75/DNqORvQ=
+Received: from localhost.localdomain ([240e:37c:2242:cf00:265e:beff:fe6a:4da1])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 73252E3; Fri, 24 Jul 2026 17:01:51 +0800
+X-QQ-mid: xmsmtpt1784883711toansbuh3
+Message-ID: <tencent_E5DA048E95B86B31EB21258D8E7CE1825308@qq.com>
+X-QQ-XMAILINFO: NDkKyiSMIrpLusbFu0mBP53bBayE3A8GXSvR2M83GLMlGkNntW9D3Fm7pko9r0
+	 hKzFz/xhEoRDDhLW0JGTClcK8gRvLQEQqTU8WcPGtZ5GyYZHynQHutJyV0rtF8b7naRLyCa3XfOo
+	 azWa2wQ0SqTjyaqufI9KllwOVWBH6igIrRhsE5LiCeIFpaxwXPWwyJERhiV8SSXCJuyhs7Kj83yJ
+	 4JYZKUySWI/g13Ls23pL9+aJ8xLPh8GOM6LQXW1qFp55eUv+pQ2LfnX1+vkv1JjkeKvY/1ZySu+C
+	 WzHspGZnqms9wK8WBW9467j3Jcpx43a3ldfvlA1RgSmPwQjC1rr+EhkdDJws5qB/IAcWZxLNfY5h
+	 kwl4Z5JrUt1ixfBfZmK0hwhgEpXJ2j5+h85nf7wtKEQ+2nqDDoPNr9EBz9xqPZIl9JWP5EmpUVtN
+	 NzyFWkEAbF6rQI6brLlurCVvuGL+oR9y/pr5GLotUfakbBsRx52rDsI0FZaI/lgk6IOWd1ZCwP/4
+	 FwRucXfodOKzKWkv0nc7FrFsPG9os0UVBgh2Tixv1HOJr5hunfbwHwUCVmzjtABfQPvfEGj8aBMp
+	 GnScdS4ll3OOwq7O63Axu66fUX9Mxt6DUl/lfqS7DmycbFQqeJKKVbfc+JfNZa2NuzLzDzWzlTbP
+	 RlI7OurOz92rElClSI/stzmVLTByiMxLU2h6P+dR6284Y5mtxISCBc4+dnAcmNUnD0kXnfhKXB4H
+	 8Dej+mVdWxK+2+TJ4Yzwx8oAj+1lzttLNL4xIDYHYJkf0HLO2+/SrLx54qTnjU0xMYRyIXhtc39E
+	 zcXFWYjQjLRfUrNhkJ5Ckb4AAaAGYIsG3f0llimyEoakd9eYKo67vg+uU7GxtrVpZpdIKNFTOUzi
+	 hBpIYKpxWEgeCbAuFlhDUliSRWaEW8BKlizYpgodIjOKOtOGm/m+4g+mraZ6DqIe34zy7dGtgXKH
+	 5wuXwwnzSgs7+dQlHHbxEApWIQvuFXZ3I5ow7wNQnrrDD5YezJkX/laiBFsRjsToBm6OX9TALPzt
+	 RYf9WYvV432MBltn2C3LbkpanE1v65l1plR78ZElg4YkV5iPQ7pAyx2rSwzfelTpJn6uvPQljkeN
+	 ZyxFF2wFa4q2K25B6Shlv7JTZq+9hgne7Q7ssu8gYsJihwELur54bTyePqjhf2gntLVKav
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Yangyu Chen <cyy@cyyself.name>
+To: Sukhdeep Singh <sukhdeeps@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Mina Almasry <almasrymina@google.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Lino Sanfilippo <LinoSanfilippo@gmx.de>,
+	Igor Russkikh <irusskikh@marvell.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yangyu Chen <cyy@cyyself.name>
+Subject: [PATCH net-next v2 1/3] net: atlantic: free stranded TX buffers on ring deinit
+Date: Fri, 24 Jul 2026 17:01:50 +0800
+X-OQ-MSGID: <20260724090150.10505-1-cyy@cyyself.name>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <tencent_1F173E0FC1606D2AC704DC9C98AF10984607@qq.com>
+References: <tencent_1F173E0FC1606D2AC704DC9C98AF10984607@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15.y 0/9] can: bcm: backport of 9 patches that failed to
- apply to 5.15-stable
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>
-References: <20260724083756.12430-1-socketcan@hartkopp.net>
- <2026072409-schilling-scheming-5aa9@gregkh>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <2026072409-schilling-scheming-5aa9@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+aq_vec_deinit() drains the TX rings with a single aq_ring_tx_clean()
+call, which frees at most AQ_CFG_TX_CLEAN_BUDGET (256) descriptors and
+stops at hw_head, which no longer moves once aq_vec_stop() has stopped
+the hardware and NAPI. Completed descriptors beyond the budget and
+everything still posted in [hw_head, sw_tail) keep their skb or
+xdp_frame when the interface goes down: aq_vec_ring_free() then frees
+the buffer ring and the references are lost for good.
 
+Today this is a silent memory leak on every interface down under
+TX/XDP_TX load. With the following conversion of the RX path to
+page_pool it becomes much more visible: XDP_TX frames carry fragment
+references on the RX ring's page_pool, so a single stranded frame
+keeps the pool's inflight count above zero forever. page_pool_destroy()
+then never completes, the pool is leaked together with its pages, and
+"page_pool_release_retry() stalled pool shutdown" is warned every 60
+seconds from that point on, on every ifdown, XDP detach or ring resize
+under XDP_TX load.
 
-On 24.07.26 10:52, Greg KH wrote:
-> On Fri, Jul 24, 2026 at 10:37:47AM +0200, Oliver Hartkopp wrote:
->> This resubmits "can: bcm: add locking when updating filter and timer
->> values" (commit 749179c2e25b95d22499ed29096b3e02d6dfd2b4 upstream),
->> which failed to apply to the 5.15-stable tree, together with 8
->> further bcm.c patches from the same upstream series that build on it
->> and would otherwise fail for the same reason. This is the full set
->> of 11 upstream bcm.c patches from 7.2-rc3 minus the 2 already queued
->> by the normal stable process for 5.15 ("can: bcm: fix lockless
->> bound/ifindex race and silent RX_SETUP failure", "can: bcm: add
->> missing rcu list annotations and operations").
->>
->> This assumes the 2 already-queued bcm.c patches for 5.15-stable have
->> landed by the time this is applied. If not, please let me know and I
->> will rebase.
-> 
-> This is a mess, it showed up like this in our inboxes, with no threading
-> or information about which patch was for what tree at all:
-> 
->     1 N   Jul 24 Oliver Hartkopp (2.5K) [PATCH 8/9] can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
->     2 N   Jul 24 Oliver Hartkopp (5.9K) [PATCH 7/9] can: bcm: fix stale rx/tx ops after device removal
->     3 N   Jul 24 Oliver Hartkopp (1.4K) [PATCH 6.12.y 0/8] can: bcm: backport of 8 patches that failed to apply to 6.12-stable
->     4 N   Jul 24 Oliver Hartkopp (1.5K) [PATCH 5.15.y 0/9] can: bcm: backport of 9 patches that failed to apply to 5.15-stable
->     8 N   Jul 24 Oliver Hartkopp ( 13K) [PATCH 1/8] can: bcm: add locking when updating filter and timer values
->     9     Jul 24 Oliver Hartkopp (2.5K) [PATCH 7/8] can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
->    10 N   Jul 24 Oliver Hartkopp (3.5K) [PATCH 4/8] can: bcm: validate frame length in bcm_rx_setup() for RTR replies
->    11 N   Jul 24 Oliver Hartkopp (1.4K) [PATCH 6.1.y 0/8] can: bcm: backport of 8 patches that failed to apply to 6.1-stable
->    12 N   Jul 24 Oliver Hartkopp (6.7K) [PATCH 3/8] can: bcm: extend bcm_tx_lock usage for data and timer updates
->    13 N   Jul 24 Oliver Hartkopp ( 13K) [PATCH 1/8] can: bcm: add locking when updating filter and timer values
->    14 N   Jul 24 Oliver Hartkopp (5.2K) [PATCH 8/8] can: bcm: track a single source interface for ANYDEV timeout/throttle ops
->    15 N   Jul 24 Oliver Hartkopp (4.0K) [PATCH 5/8] can: bcm: add missing device refcount for CAN filter removal
->    16 N   Jul 24 Oliver Hartkopp (1.5K) [PATCH 5.10.y 0/9] can: bcm: backport of 9 patches that failed to apply to 5.10-stable
->    18 N   Jul 24 Oliver Hartkopp (5.9K) [PATCH 6/8] can: bcm: fix stale rx/tx ops after device removal
->    19 N   Jul 24 Oliver Hartkopp (5.2K) [PATCH 9/9] can: bcm: track a single source interface for ANYDEV timeout/throttle ops
->    20 N   Jul 24 Oliver Hartkopp (2.5K) [PATCH 7/8] can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
->    21 N   Jul 24 Oliver Hartkopp (6.5K) [PATCH 2/8] can: bcm: fix CAN frame rx/tx statistics
->    22 N   Jul 24 Oliver Hartkopp (3.5K) [PATCH 4/8] can: bcm: validate frame length in bcm_rx_setup() for RTR replies
->    23 N   Jul 24 Oliver Hartkopp ( 13K) [PATCH 2/9] can: bcm: add locking when updating filter and timer values
->    24 N   Jul 24 Oliver Hartkopp (5.9K) [PATCH 1/9] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
->    25 N   Jul 24 Oliver Hartkopp (5.9K) [PATCH 7/9] can: bcm: fix stale rx/tx ops after device removal
->    26 N   Jul 24 Oliver Hartkopp (2.5K) [PATCH 8/9] can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
->    27 N   Jul 24 Oliver Hartkopp (5.9K) [PATCH 1/9] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
->    28 N   Jul 24 Oliver Hartkopp (4.0K) [PATCH 6/9] can: bcm: add missing device refcount for CAN filter removal
->    29 N   Jul 24 Oliver Hartkopp (6.5K) [PATCH 3/9] can: bcm: fix CAN frame rx/tx statistics
-> 
-> 
-> I'll delete all of these now, and can you use 'git send-email' or some
-> such tool that properly links emails together so that we have a chance
-> to be able to apply them?
+Bring back aq_ring_tx_deinit() as it was before the removal and use it
+for teardown again, with one extension: TX rings can hold xdp_frames
+nowadays, so release those too. They are returned with
+xdp_return_frame() since this runs in process context.
 
-The mails all contain the in-reply-to tag, so that they can be assigned.
+Fixes: eb36bedf28be ("net: aquantia: remove function aq_ring_tx_deinit")
+Cc: stable@vger.kernel.org # v4.11+
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Yangyu Chen <cyy@cyyself.name>
+---
 
-What would help you best?
+Notes:
+    Without this fix, converting the RX path to page_pool (last patch of
+    this series) turns the stranded XDP_TX frames into leaked page_pool
+    fragments, so page_pool_destroy() can never drain and the shutdown
+    stalls forever.
+    
+    Reproduced on an AQC100 with this patch dropped from the series (i.e.
+    page_pool applied without the tx-deinit fix):
+    
+      # reflect received frames back out through XDP_TX
+      xdp-bench tx enp99s0                    # or any trivial XDP_TX prog
+      # from a peer on the same link, flood RX so frames are in flight, then
+      ip link set enp99s0 down
+    
+    The pool is destroyed with frames still stranded on the TX ring, and
+    page_pool_release_retry() warns every 60s with the same id and inflight
+    count and a growing age, indefinitely:
+    
+      [161110.753385] page_pool_release_retry() stalled pool shutdown: id 361, 12 inflight 60 sec
+      [161171.170756] page_pool_release_retry() stalled pool shutdown: id 361, 12 inflight 120 sec
+      [161231.588685] page_pool_release_retry() stalled pool shutdown: id 361, 12 inflight 181 sec
+      [161292.005886] page_pool_release_retry() stalled pool shutdown: id 361, 12 inflight 241 sec
+    
+    With this patch the stranded buffers are freed at deinit, inflight
+    drops to zero and the pool drains cleanly.
+    
+    v1 -> v2:
+     - return early instead of goto to an end-of-function label (Mina)
+     - drop the likely()/unlikely() annotations, this is a reconfig
+       path (Mina)
+     - add Cc: stable with the affected range
 
-E.g. having the stable trees inside the msg description, like
+ .../net/ethernet/aquantia/atlantic/aq_ring.c  | 29 +++++++++++++++++++
+ .../net/ethernet/aquantia/atlantic/aq_ring.h  |  1 +
+ .../net/ethernet/aquantia/atlantic/aq_vec.c   |  2 +-
+ 3 files changed, 31 insertions(+), 1 deletion(-)
 
- >    16 N   Jul 24 Oliver Hartkopp (1.5K) [PATCH 5.10.y 0/9] can: bcm: 
-backport of 9 patches that failed to apply to 5.10-stable
- >    18 N   Jul 24 Oliver Hartkopp (5.9K) [PATCH 5.10.y 6/8] can: bcm: 
-fix stale rx/tx ops after device removal
-
-?
-
-Best regards,
-Oliver
+diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
+index 8ff07de2bd52..81685a4dc5a6 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
+@@ -360,6 +360,35 @@ bool aq_ring_tx_clean(struct aq_ring_s *self)
+ 	return !!budget;
+ }
+ 
++void aq_ring_tx_deinit(struct aq_ring_s *self)
++{
++	if (!self)
++		return;
++
++	for (; self->sw_head != self->sw_tail;
++		self->sw_head = aq_ring_next_dx(self, self->sw_head)) {
++		struct aq_ring_buff_s *buff = &self->buff_ring[self->sw_head];
++		struct device *ndev = aq_nic_get_dev(self->aq_nic);
++
++		if (buff->is_mapped) {
++			if (buff->is_sop) {
++				dma_unmap_single(ndev, buff->pa, buff->len,
++						 DMA_TO_DEVICE);
++			} else {
++				dma_unmap_page(ndev, buff->pa, buff->len,
++					       DMA_TO_DEVICE);
++			}
++		}
++
++		if (buff->is_eop) {
++			if (buff->skb)
++				dev_kfree_skb_any(buff->skb);
++			else if (buff->xdpf)
++				xdp_return_frame(buff->xdpf);
++		}
++	}
++}
++
+ static void aq_rx_checksum(struct aq_ring_s *self,
+ 			   struct aq_ring_buff_s *buff,
+ 			   struct sk_buff *skb)
+diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.h b/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
+index a70b880ada67..6431cc62962f 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.h
+@@ -202,6 +202,7 @@ void aq_ring_update_queue_state(struct aq_ring_s *ring);
+ void aq_ring_queue_wake(struct aq_ring_s *ring);
+ void aq_ring_queue_stop(struct aq_ring_s *ring);
+ bool aq_ring_tx_clean(struct aq_ring_s *self);
++void aq_ring_tx_deinit(struct aq_ring_s *self);
+ int aq_xdp_xmit(struct net_device *dev, int num_frames,
+ 		struct xdp_frame **frames, u32 flags);
+ int aq_ring_rx_clean(struct aq_ring_s *self,
+diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_vec.c b/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
+index 2f9033ceed8c..05814fea0f5f 100644
+--- a/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
++++ b/drivers/net/ethernet/aquantia/atlantic/aq_vec.c
+@@ -275,7 +275,7 @@ void aq_vec_deinit(struct aq_vec_s *self)
+ 
+ 	for (i = 0U; self->tx_rings > i; ++i) {
+ 		ring = self->ring[i];
+-		aq_ring_tx_clean(&ring[AQ_VEC_TX_ID]);
++		aq_ring_tx_deinit(&ring[AQ_VEC_TX_ID]);
+ 		aq_ring_rx_deinit(&ring[AQ_VEC_RX_ID]);
+ 	}
+ 
+-- 
+2.47.3
 
