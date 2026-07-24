@@ -1,80 +1,80 @@
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [85.215.255.101])
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [85.215.255.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52803B4EBF
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 10:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D42421257
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 10:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.100
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784889229; cv=pass; b=fd/DO2INg884hA7OX23NIHGS/0U9YXB1fmk17mfHo5s/FDUWiTxNiNgbotUlwc8nlhnjqmanArJzsUz4FBzdNDSCPJQgDkn3gQYW/7af38EZhUhY6uhvjZ0m57lffRJl/M8WAB9VDGU1Y9lziXrF7bFvOXdhOouVP2ndZAVtGH0=
+	t=1784889260; cv=pass; b=B8kfmKTO8jOIktkjQPPHo6Va7q8mccsbx3Ax7TF6lDrARcu/4KK+jSRLXmBAY2qDSSrpX7F+AU7xvIIQIH7dHF4S6vk2OtKQ6BsLZNn7XYwbMUN0GrJwpyjHCbG9dhzF/H92ERg6qpmNYkA/tlg6kTHHWeclkl5ObYxVbc2WoUM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784889229; c=relaxed/simple;
-	bh=8hLcXX36PneCsCV4+swRcQf2KWia8SxvL98zRzO+3gY=;
+	s=arc-20240116; t=1784889260; c=relaxed/simple;
+	bh=riqxxivKLR65Xo/gveudAXezS1T1DHMu3Ki19smyWxc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OM8k1o2UHlZ2vYlkuZ3pT0wdB5Kh9+Cems5FO9kttmo4FPAnZbDGYxvcgQq8u6MJYN49xCvEHL778VWy6E0nxQxQ50PPfHrqtQO7cLwhRtecaZOEK+gqXOCVSEVKV8CFge3FXvmKvUOMcFbTXVwgZwG/OWXgJvbLo0o41PBT5Jg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=lK9BK+eU; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=/luCneso; arc=pass smtp.client-ip=85.215.255.101
+	 MIME-Version:Content-Type; b=t3GjySQqI/8ZDSk4nWc8I7X1AoQt0EafqIQrPHZ5k8V71xaEOjhR4+mExCRi9zlQNA4Bzuk7yX+YAU/ainfy64qXKXT9psQgy7bC3lFHcIRoo8VdcxdCgoxxCGetFyZ+d5+tzoe4AbEMXtGe2IoUBOBlv3jhpsWKGFtEBoemtj4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=OVVQd06S; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=bvQ/9IS0; arc=pass smtp.client-ip=85.215.255.100
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="lK9BK+eU";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="/luCneso"
-ARC-Seal: i=1; a=rsa-sha256; t=1784889224; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="OVVQd06S";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="bvQ/9IS0"
+ARC-Seal: i=1; a=rsa-sha256; t=1784889255; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=oKcZ88I4tG0QGDZrmZ5Irf3C64IqAXEnRB0JKGUjlpDVjEdhEnU5IGJ+W88xOSfKV5
-    SSdR4qX5yIxOBK4s+B0LK7zaXu79yLHq9+aiVJo/zOGUq/Gtd64E0MR85oitmRnVfY70
-    BxNrKthiX1PMRB+lg9p1aehMiQRvyZKy3Wn3bN6s33ElWUmVPxZHoyuI7RIVoSGOhLVb
-    CXWhFJNQ77rm71JCkKBqw9pweQbL+mVENmImfQ0gMXmt+un5BYGI/IkrVzwCmYHDooB+
-    JrqFp8MRBkjXsUeTy94rNe906sZ3h1ZeH/CUSZI2tHb15kOyyI/As5pzif5Mje2HCtji
-    YRpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784889224;
+    b=Hz4ZdJDrxRXe8FRVtEXVFM7ySbalEZddmlHNDkUATpldFDISednNppb7QvJZyvxfyl
+    lgfHHWezIcM8iTjrzV2Vqk2ZDfGRbRGiaTJbcn7hkvS2sHP6GenSn/BWtD5t7N7DcCTp
+    gG5VgSR3AA6OtKfSt7CHUy0Iwj8Hfu3SFystpVh6fxqZOyIoA6YI4UrWFMbIpbXUY3dy
+    96rBfAgeCzkAlMAmJyIF1srHOz4GPVo1hWnASWVZ4x0lrIJInOT81kL2cOKfqrA5JngG
+    E7hYAwCw34Z/eGPlPNdmmjPZVKK1IXlrNOlhlYMOZCmH1mIYdG5ki0bzUkxqqkthaBgd
+    6dtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784889255;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=kAFlgNsbsCrt0MMSnftbgKJNVOG4ZtqHsj6JqwVS1Os=;
-    b=C8HcYfLuhEasLe+R0FlCmFnxeTDhA5FaUgKKZpI40PYchBRVkFopBbx9zHeJFH9FPa
-    SsVkZPvDRsDH66rTK/8EpyNNBxynMfLU/Rc7uW8JCm0NoWSJbqCWACgEa1okDF1/wJWg
-    64KFkXg6y9v2x4gGfRgXoTFB/8HEYEz20bur9uBHyjWhZQ4g41CgX3e2xcYPmb6Szado
-    yWhR8+BIYmIILNyh9HB59Pxual6Tjm8dcoCCBYAFWP1wXA+/ku0Ms1hI7H7zGpirsUun
-    0jxMRR1Q99oAx2nt8ZOeBPuXHxuT3FugifkO4wgGOKHZgVKRVmiAnXNjHUqPAJtUzeOe
-    Ozaw==
+    bh=5ERx3PJQ3f7TyBRDNsOywdWQR3zqTTDkSccBfQekVDM=;
+    b=MCj/xAM6F4JDiwZwM4BZ/d9sK7U4H5ytR6YKbNK6E+YL/up2oyI6MSjPbr12Ls+6h+
+    hkyygb/Q3fa4ekG1MYCoNX0jMcwieOgc38rjj5UVw5INHA62yjmU3ILMkhTO6v494ARM
+    mcgjCJ4KSji4qY6P4H8RMTvGbXq7tHGpKhNaMqk2r6Tae+7LbmNuJIvihq5kXVjAW91G
+    XKIsz77QQDgXjMPh9/1XVy6Iq8DmC2jd4lI+otoLMWUMCspagr3k6ekqW9GAc+Ay1Mzt
+    fMCy3Vvwu6BGWlDdTviDgLS3baE9iOzmamNgqvYN12hDEwvHE2pLKGnuhZ5mPKh0QCdN
+    hoiQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784889224;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784889255;
     s=strato-dkim-0002; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=kAFlgNsbsCrt0MMSnftbgKJNVOG4ZtqHsj6JqwVS1Os=;
-    b=lK9BK+eU5UWoWXZSeq5/oEy8pCrM8J3ZvPF2aiNRY6oYKT6uGWb2+CXOPo4kGTm+fm
-    mX0dkpQfW5LFkAUYz+JmDV9g9zwDJ+3Xtgzz00m1vK/br0G6aYpTxyvIIceU5+yzU5D5
-    S0FRkDadZSuuNwmLJEidn4WfI5kiJIphCt/x3HmkUtlvl9Ly79rLRzb/bUY4Nx7ZD5zt
-    Txleo3icoJjz+S5F4fBgQ0uA+xPskYLlNTsBeI6LG7mHZzTdKsENkbA4oPosAW5+2K+H
-    tkB8uLC0aI0OOIFu3peTDBYnGEWtxE0t1Tr3oedVL83Ryf5RTfkxIRZM9+sv13oyyShc
-    O0MA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784889224;
+    bh=5ERx3PJQ3f7TyBRDNsOywdWQR3zqTTDkSccBfQekVDM=;
+    b=OVVQd06S7EEzdJWr+js1DRYLLGGu7JSaZ/ujEt4DI7zziLGpxPNiT9E/CHrhp0ewbV
+    Ei42ooKwMhhboTny6ekR91/Trk2H0OurDs4ERqBJGXIlBZP3UNdUExA45QVGa4jU4Ln/
+    S87tOBCg9zBKLylXNRS9yVd3VkUJHJ/yIMjf/ZG0OB7JljITYCQXhAxrjTe7ztaSkbeM
+    DfFUuTMu7TCTX1/MjFi5tYoa13mU4NoGWaweJTmGPo7TLjQVDRNfQy7RMPePv47Rb8F5
+    zT4G020csDroRqp/k5DpFM/Whc52pZ8B112H1m0uCtojggpQpb5I7tzh5wskpPKkCXs4
+    OBkA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784889255;
     s=strato-dkim-0003; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=kAFlgNsbsCrt0MMSnftbgKJNVOG4ZtqHsj6JqwVS1Os=;
-    b=/luCnesoYw51gorFk2esq4+R3MYgk760+lvQNXPq1EETKNliSC59PWG5tbohTLW+nD
-    MZUEYqUSIRqG/5NvPVBQ==
+    bh=5ERx3PJQ3f7TyBRDNsOywdWQR3zqTTDkSccBfQekVDM=;
+    b=bvQ/9IS0S0zQoSJPPhGpoiBWAm2l1F2DwgdgqKOujeXDULIARH2B+1TMzJU5NYO9Mr
+    T4z2MSQcTTAA9RFGFpBg==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926OAXitM3
+    with ESMTPSA id K5281926OAYFtMK
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Fri, 24 Jul 2026 12:33:44 +0200 (CEST)
+    Fri, 24 Jul 2026 12:34:15 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH 6.1.y 1/2] can: isotp: fix use-after-free race with concurrent NETDEV_UNREGISTER
-Date: Fri, 24 Jul 2026 12:33:36 +0200
-Message-ID: <20260724103337.17723-1-socketcan@hartkopp.net>
+Subject: [PATCH 6.6.y 1/2] can: isotp: fix use-after-free race with concurrent NETDEV_UNREGISTER
+Date: Fri, 24 Jul 2026 12:34:08 +0200
+Message-ID: <20260724103409.17867-1-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072054-stingy-versus-73a8@gregkh>
-References: <2026072054-stingy-versus-73a8@gregkh>
+In-Reply-To: <2026072053-spoils-overlying-285a@gregkh>
+References: <2026072053-spoils-overlying-285a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -124,10 +124,10 @@ Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
  1 file changed, 59 insertions(+), 29 deletions(-)
 
 diff --git a/net/can/isotp.c b/net/can/isotp.c
-index 7d9327b..23affae 100644
+index 80adf73..b906fcd 100644
 --- a/net/can/isotp.c
 +++ b/net/can/isotp.c
-@@ -137,6 +137,7 @@ struct isotp_sock {
+@@ -150,6 +150,7 @@ struct isotp_sock {
  	struct sock sk;
  	int bound;
  	int ifindex;
@@ -135,7 +135,7 @@ index 7d9327b..23affae 100644
  	canid_t txid;
  	canid_t rxid;
  	ktime_t tx_gap;
-@@ -939,6 +940,14 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+@@ -962,6 +963,14 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
  			goto err_event_drop;
  	}
  
@@ -147,10 +147,10 @@ index 7d9327b..23affae 100644
 +		goto err_out_drop;
 +	}
 +
- 	if (!size || size > MAX_MSG_LENGTH) {
- 		err = -EINVAL;
- 		goto err_out_drop;
-@@ -1164,28 +1173,30 @@ static int isotp_release(struct socket *sock)
+ 	/* PDU size > default => try max_pdu_size */
+ 	if (size > so->tx.buflen && so->tx.buflen < max_pdu_size) {
+ 		u8 *newbuf = kmalloc(max_pdu_size, GFP_KERNEL);
+@@ -1197,28 +1206,30 @@ static int isotp_release(struct socket *sock)
  	list_del(&so->notifier);
  	spin_unlock(&isotp_notifier_lock);
  
@@ -199,7 +199,7 @@ index 7d9327b..23affae 100644
  	/* Always wait for a grace period before touching the timers below.
  	 * A concurrent NETDEV_UNREGISTER may have already unregistered our
  	 * filters and cleared so->bound in isotp_notify() without waiting
-@@ -1198,9 +1209,6 @@ static int isotp_release(struct socket *sock)
+@@ -1231,9 +1242,6 @@ static int isotp_release(struct socket *sock)
  	hrtimer_cancel(&so->txtimer);
  	hrtimer_cancel(&so->rxtimer);
  
@@ -209,7 +209,7 @@ index 7d9327b..23affae 100644
  	sock_orphan(sk);
  	sock->sk = NULL;
  
-@@ -1254,6 +1262,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
+@@ -1287,6 +1295,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
  	if (!addr->can_ifindex)
  		return -ENODEV;
  
@@ -217,7 +217,7 @@ index 7d9327b..23affae 100644
  	lock_sock(sk);
  
  	if (so->bound) {
-@@ -1261,6 +1270,17 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
+@@ -1294,6 +1303,17 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
  		goto out;
  	}
  
@@ -235,7 +235,7 @@ index 7d9327b..23affae 100644
  	/* ensure different CAN IDs when the rx_id is to be registered */
  	if (isotp_register_rxid(so) && rx_id == tx_id) {
  		err = -EADDRNOTAVAIL;
-@@ -1273,14 +1293,12 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
+@@ -1306,14 +1326,12 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
  		goto out;
  	}
  	if (dev->type != ARPHRD_CAN) {
@@ -253,7 +253,7 @@ index 7d9327b..23affae 100644
  	}
  	if (!(dev->flags & IFF_UP))
  		notify_enetdown = 1;
-@@ -1298,16 +1316,25 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
+@@ -1331,16 +1349,25 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
  	can_rx_register(net, dev, tx_id, SINGLE_MASK(tx_id),
  			isotp_rcv_echo, sk, "isotpe", sk);
  
@@ -281,7 +281,7 @@ index 7d9327b..23affae 100644
  
  	if (notify_enetdown) {
  		sk->sk_err = ENETDOWN;
-@@ -1510,7 +1537,7 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
+@@ -1543,7 +1570,7 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
  	if (!net_eq(dev_net(dev), sock_net(sk)))
  		return;
  
@@ -290,7 +290,7 @@ index 7d9327b..23affae 100644
  		return;
  
  	switch (msg) {
-@@ -1526,10 +1553,12 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
+@@ -1559,10 +1586,12 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
  			can_rx_unregister(dev_net(dev), dev, so->txid,
  					  SINGLE_MASK(so->txid),
  					  isotp_rcv_echo, sk);
@@ -303,7 +303,7 @@ index 7d9327b..23affae 100644
  		release_sock(sk);
  
  		sk->sk_err = ENODEV;
-@@ -1574,6 +1603,7 @@ static int isotp_init(struct sock *sk)
+@@ -1622,6 +1651,7 @@ static int isotp_init(struct sock *sk)
  
  	so->ifindex = 0;
  	so->bound = 0;
