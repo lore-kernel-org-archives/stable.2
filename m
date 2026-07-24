@@ -1,149 +1,93 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965DA1B808
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 00:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51F81E9906
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 00:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784851817; cv=none; b=lL/K6mDkxfA3vpA1Mz6nSH7ChaS3NSNQzkKCr8+JjU/fpw7NuzU6b4eNrdUVZ+ECHpJAgJwAKckcZikwB0IRi5uVPAEv4uzR4J0j6bf+8xsJLT65uTDiYWBVEs3a8uC2einf3q3XvRiwU6cdvyDxXOe4gcqLpSnXSYssQjfneGQ=
+	t=1784853076; cv=none; b=BxqanZdHcKPIJpUZ0Pil7g4AXREfXUtH6I5wnTWs28JsJbrvE9U/AWGZxls6pu52POtj15DPV+CrCJgnuUH6zI8NfKKLq8gmY/IBFI/wgmRoH7/Jr11l+epv1cNh9w6fBCr6tytuPXOJ3gRrRUyugpmkhgWsJV5DbCJ9r+NhER8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784851817; c=relaxed/simple;
-	bh=vh/JKGt51BiPqho1O21KWsVulMR0eJ/JWLjQkb/m7SM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mGqHx08oA40K3U2/1qpy19whzLC1tq6tDpZWZ8rvSQqdmn4HCIJpEf5bSdWUXXdzGHR1w5ZCVJZKW9CVm/u1U7rXtXtExYFdhE6S4vrvrQjcR0VufoyL3HsraWQLVJg6bsZKJsofHxbO92KVTOH1dK0JP/Z9YsAZelCewvfbVfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a9URDAgn; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784853076; c=relaxed/simple;
+	bh=g9LP+t4XwgQl5Om+c0o2lrUYGXTjzKeRqRFcNRzjYV8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ChqBcD5miTJjJAgYF+9nnBTyZn39J6TGdrus+kAEAkBj1GxWxruQYSANuS/dN30UtP3WwucbM6uQeWNTuR4TwDVC9tQUremEfplHMp/gU2zO55T1tQTAcjKA6Tj7qUByfC6zWoDm58ENjEQvY1OLxZu5T5HfBoZ5a2dT9xjeMkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PrnxBzIF; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a9URDAgn"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f7027ca11so732109f8f.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 17:10:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784851813; x=1785456613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nU+jXdKU/lc4CNz9IWGgShjsy/wZZQkGpDW5ftzUhAM=;
-        b=a9URDAgngnRpEDGJdqif6nD1hzcEkF41T02GtG6/TOexUsW3g/Alh7Y3z7RDBiufsd
-         DqTjudzd4GmrHlRi2ueKFqlyplbPzv6uIjYkv/qrBx/PIF2Pn6yDHf/8e3zIFmHSI0oZ
-         VKv4tCjEn5IzJBR4dJlaz+6V8o/O8lZVo/koQm0/D00tnihNcnc/RlfDbxDTRRkXUfQc
-         dYnYBwHKZiuhDG4gM5GkV3zkg5Dd2bbsdHPi2ma9CAN63+aK0YD/H4mlxsM+Y/kWPNwV
-         nRTcJ/DQZh3dXEWPr104h7/slypwlUzNT5pb+WPDmD2EY1Awq4xNlB8HtCvFklORLF8F
-         q6XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784851813; x=1785456613;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nU+jXdKU/lc4CNz9IWGgShjsy/wZZQkGpDW5ftzUhAM=;
-        b=Buq/lrwVjaoSiG+wNAXFcKTc7a3aqNoDy6SMoQSCzGOrq7jxBUqByB4e8j+74qPaNX
-         hB7MQNrnurBNtD35WBy5MAan9diYFfSk3UAOlxDHZgc+RpWrwndAYxNq4A7pS8pSgZmT
-         6y9smwh3VWTvijiw+T0bOzrQfsziF4zR+TdeHZ4q3qtVG5Z/htnzojAsLzoGhWXhmBWJ
-         pkXZiq5uveoY1KRzdnmQwmF8wzRu76LDLGdLhvjiYA6VpWa/SVSjgKe7gHCEFssbzy3Q
-         U4sGRqyJ5CeCvnpB6bBnK/RHLVWTRVPjeCSfIUzZMRnqhsA7o1b178WgCc+xny1HlVQ4
-         sDfw==
-X-Forwarded-Encrypted: i=1; AHgh+RrNbT46BdUasXxOGOlHeVSIEDsTjYVTBW3oC4/PTxLD7Widv7xC0kCAOAwdcCOgrI54MtSWXqM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAC2zdkjj8UoIfwX3NKJH9NnzPGTOBuXUQy3ftcyfkHp7FzSbQ
-	dteDRI2Q/wPuRaAe5bflT2E0uEOFMJ9Dyz5LlIFenO4IcDprbaJd5VaL
-X-Gm-Gg: AR+sD12qGR1chM+F1Iz0cOUmO0PppY86WXsJu7EaG3dJQTn6xUwhS5ykPY7g9YbYryb
-	lNaHiYmZc2v4X6NFwP1EDoGtmTSAqEIPgRKalTRqQ4BvN7tkBq+Uu5/5exNoRjagXXaxvoSqpHH
-	OPmsDbnVdt90gayZ/eotmlP5JBWdrvDDQ9zwH5pojCmvHUa9kgA0Cv5T15lVjnITlaqGLLFjaKM
-	goOLqX28inhnio99r2OBoyT5I/+sXrOY6IdqjC9uutAbye3+FAtWDMuZQAwWycx44TLxZCjteaW
-	YqaZLXE/7PnM4sKRSzotJ9zKlq1R9TCzyNBkhVHY7pLv2Yt0lIBuUn3YvQ6pJn36hRbtmuxK0YH
-	I42wL0vqlUz+pWEsmnKDBukndkmy3z0X7aBPBK+NXnnM0kqmfhFFJQmVOnlPbNLv3BWGuWdIwIg
-	==
-X-Received: by 2002:a05:6000:310e:b0:47f:8b94:19d5 with SMTP id ffacd0b85a97d-47f8dcc4039mr6598984f8f.57.1784851813343;
-        Thu, 23 Jul 2026 17:10:13 -0700 (PDT)
-Received: from beelink.. ([186.247.163.143])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a5a2sm21104488f8f.7.2026.07.23.17.10.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 17:10:12 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	stable@vger.kernel.org,
-	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: [PATCH] HID: multitouch: stop the release timer from being rearmed on remove
-Date: Thu, 23 Jul 2026 21:09:58 -0300
-Message-ID: <20260724000958.938675-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PrnxBzIF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784853074; x=1816389074;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=g9LP+t4XwgQl5Om+c0o2lrUYGXTjzKeRqRFcNRzjYV8=;
+  b=PrnxBzIFyUhANwFWjh2Hv8Ri2tSGgF8Ma+g5bB0rdYSZdYPkq2YEr22A
+   ZuEdz59jPsgMq/sLCG29qmmx34/vDkQ8agS7nosywM5enngTSAdHmcI20
+   azJspEzt60umSCxa5qpfiXxZBKqz1KZs2CoYv3mWLPBaGcRekBbDaVTyB
+   s0BCGpB7dOeBMvYwgsZQS5wKMi20GdvJRIJ/t1IoCP/bq0iwV49zb7edI
+   TO6EAOvqEJjC0upDzBmv1ZrURkiQie0pHtKKccM63wL1r82jiOfE1n/Is
+   k7mA+kGApUyq0kuNM+5TIUkOLcr50jMF7v7TAHMeXR0RKOokH+QyNYnXO
+   w==;
+X-CSE-ConnectionGUID: Sxoor541Qrqeaqmqjz60eA==
+X-CSE-MsgGUID: s2BgYpKTTzGUjYzLGwvi2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96891692"
+X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; 
+   d="scan'208";a="96891692"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 17:31:12 -0700
+X-CSE-ConnectionGUID: VPAh/0aDSWyW9nsHgbkzww==
+X-CSE-MsgGUID: R3Rjy0RaRA2kuTB6pFD4bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; 
+   d="scan'208";a="259238750"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jul 2026 17:31:13 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/xe: Add memory barrier before H2G tail write on wrap
+Date: Thu, 23 Jul 2026 17:31:08 -0700
+Message-Id: <20260724003108.1561414-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-mt_remove() quiesces the sticky-finger timer before stopping the
-hardware:
+When the H2G buffer wraps, it is padded with NOPs before updating the
+H2G descriptor tail. However, the tail update is performed without a
+memory barrier, allowing the GuC to observe the new tail value before
+the NOP writes become visible.
+ 
+This can result in the GuC reading stale H2G commands, potentially
+causing a variety of failures. Fix this by inserting a memory barrier
+before updating the H2G descriptor tail.
 
-    timer_delete_sync(&td->release_timer);
-
-    sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
-    hid_hw_stop(hdev);
-
-timer_delete_sync() waits for a running callback and dequeues the timer,
-but it does not stop the timer from being armed again. The transport is
-still delivering reports at that point, and the report path rearms it:
-
-    if (app->quirks & MT_QUIRK_STICKY_FINGERS) {
-        if (td->mt_io_flags & MT_IO_SLOTS_MASK)
-            mod_timer(&td->release_timer,
-                      jiffies + msecs_to_jiffies(100));
-
-A report that arrives after timer_delete_sync() has returned therefore
-leaves the timer queued. td is allocated with devm_kzalloc() against
-hdev->dev, so it is freed when the driver is unbound, after mt_remove()
-returns. When the timer fires afterwards, mt_expired_timeout()
-dereferences the freed td:
-
-    struct mt_device *td = timer_container_of(td, t, release_timer);
-    struct hid_device *hdev = td->hdev;
-
-    if (test_and_set_bit_lock(MT_IO_FLAGS_RUNNING, &td->mt_io_flags))
-
-Simply moving the teardown after hid_hw_stop() does not fix this on its
-own, because mt_expired_timeout() calls mt_release_contacts(), which
-walks hdev->inputs; the timer still has to be quiesced before
-hid_hw_stop() tears the input devices down.
-
-Use timer_shutdown_sync() instead, which additionally makes any later
-mod_timer() a no-op, so neither ordering constraint has to be traded off
-against the other. This is the final-teardown pattern the function was
-introduced for, and hid-wiimote already uses it for the same reason.
-
-Fixes: 4f4001bc76fd ("HID: multitouch: fix rare Win 8 cases when the touch up event gets missing")
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260723224211.613112-1-you@example.com?part=1
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
-Found by code inspection after Sashiko AI review flagged the teardown
-ordering while reviewing an unrelated patch of mine. I have not
-reproduced the use-after-free at runtime: it needs a report to land in
-the window between timer_delete_sync() returning and the device being
-unbound, which I have no way to drive reliably on the hardware I have.
-The window and the rearm path are visible in the code, and the fix does
-not depend on the race being hit.
+ drivers/gpu/drm/xe/xe_guc_ct.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/hid/hid-multitouch.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 0495152091e3..f25065b9ec66 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -2233,7 +2233,7 @@ static void mt_remove(struct hid_device *hdev)
- {
- 	struct mt_device *td = hid_get_drvdata(hdev);
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+index fe70c0fd85c5..49031497e9dd 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.c
++++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+@@ -993,6 +993,7 @@ static int h2g_write(struct xe_guc_ct *ct, const u32 *action, u32 len,
+ 			      (h2g->info.size - tail) * sizeof(u32));
+ 		h2g_reserve_space(ct, (h2g->info.size - tail));
+ 		h2g->info.tail = 0;
++		xe_device_wmb(xe);
+ 		desc_write(xe, h2g, tail, h2g->info.tail);
  
--	timer_delete_sync(&td->release_timer);
-+	timer_shutdown_sync(&td->release_timer);
- 
- 	sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
- 	hid_hw_stop(hdev);
+ 		return -EAGAIN;
 -- 
-2.43.0
+2.34.1
 
