@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5A93C2BBA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4D947604A;
 	Fri, 24 Jul 2026 23:18:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784935113; cv=none; b=aF8MYuWRIbPsrMAdbs/o78YMonlRrE24eKu7VHYRU7J49R1zz9+r4bNWbUdhExT6kJGNN1vYMUMWhQsCso830FixHJhv/gYRJ396IhofZUx9wlC9dZJmoKdw6xdYEIGwebmh8Txyo4eE+ElgpNGA38YUB0rU+tLfEqI1DgYhRlE=
+	t=1784935113; cv=none; b=WdOoN8yyyVkqsswS7lFl+q4n3qGk41iqAwOon860QbmldJqyHhqPDsg1y0qh3bRCruPE5s+uOXQFgqMyDNUFNaTsbA0WyRL1AP8AnCoXnbPxPGlqv3E471chUUX4Dl+I7JxxP9Ay9s3hdbD/nV/GQQSvjaWwCePU1Jk+aCaJUjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784935113; c=relaxed/simple;
-	bh=81EnjqOBGcZ0Bs8bYt5pmiKrJQ91CTx/v1DYPo9Zmao=;
+	bh=Qll+//jgXXadWYprn+QPuI4SCLrd+jSg8/sUJmq5GuQ=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=Zf83M5nW30Za5ejsXR25BXZxL0wleF6E4qWAPGizzcUQ3nFNaH8HSLeqFsLITwRPdJ3yK8k9YpgBUrlZsSad0cVGurfIYtvm4vKOr40gCjdoLz3cXCbHCNQMyYDBgxLNorPKvDJVr/d/qYejbpdgcDfVveISag2ksGlm3AjcW5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H47wRvWO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=jmmoR/HwF+Eq7k6dNKwC6RsiTu0CFz4WlbTE1aoP85dILmJJylkZ4UrqmjE3FN1P2Qd4m0UWypXzgDYBYDt7KrRVp9z4uInJo7Z+YKPRUu5nDWLrOuC/hnEDEyTEVVoTHEhE0bSJLCVxsXTGpdULNGYLGAgFAg0ZiDCkYNsp/1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AX8SfgNG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H47wRvWO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30FD1F00ACA;
-	Fri, 24 Jul 2026 23:18:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AX8SfgNG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2865D1F00ADF;
+	Fri, 24 Jul 2026 23:18:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784935110;
-	bh=CDst2w1T+OL9OaGT2HgGNFKnrThWQX6AMrH4F2eOtzI=;
+	s=k20260515; t=1784935111;
+	bh=OJWcsF5hPHMB0NRQDfte1CFKDsA//x9f6tzD+Q9jzVI=;
 	h=Date:From:To:Cc:Subject:References;
-	b=H47wRvWOlRfChkZPYkuLGdjNiei8nzfZl/EF3sxefteYulKJHxbTa53JwoT3tsOnl
-	 LquzKG4s0akEzddFc1FfaxTJczmgSYEgpf03cB5cofJLx1z18inJglCpdVjD+js1Me
-	 HswOYOik/CcyDWQoqoRYic5wqb+iEojEWMzlLRKhzLcQAs7SEtVk3RfDn9bKCR6WWf
-	 baGZ+1PIt4TCml2kNOByQpiaQZYOlm1mm9kio0iPzdXnAAkG2nlvfXBgbL8bHySvSO
-	 bnXX2wPuOIDvkIzRcPF/tp6DU8I2DkxkrrvfRV8uopExdFHy0hb+LT4vggoCAHhvzy
-	 KWDHp+Pi2izDQ==
+	b=AX8SfgNG1rrAaMIETZANRwsr079nYaAPaJrbO5Ak6h3NETRENU/oD01qL2uCnvcvm
+	 Bi+u35zZMSbbe+2Am3z8ajqiq60N6FZaJWU2iQFtGYRwb5nCi656mmdEVhRuQ8QnnW
+	 OOo3qI81NNO5vpQLRLRoyjbjzxE46cEOmOXPp24Mgn0y7bOYL7U51EgNw4LBEbDf8r
+	 RD2aDuonIa+y0Q9cC+hYU+CrbCzDDMyVUsCfDnc6JkuAQsz/hi7rX98nEUPllycgJp
+	 RGn6zNQVUTLx0lWvDeKspc50LEZ3e4SXA0Zbig5wijPaBBQx4aSEJovqjKVoOjnf4l
+	 /WexXL9zMhXEg==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wnPAO-000000046uS-30Ls;
-	Fri, 24 Jul 2026 19:18:56 -0400
-Message-ID: <20260724231856.572531317@kernel.org>
+	id 1wnPAP-000000046vS-06K9;
+	Fri, 24 Jul 2026 19:18:57 -0400
+Message-ID: <20260724231856.879374418@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 24 Jul 2026 19:18:47 -0400
+Date: Fri, 24 Jul 2026 19:18:49 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,9 +40,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Breno Leitao <leitao@debian.org>,
- Usama Arif <usama.arif@linux.dev>
-Subject: [for-linus][PATCH 7/9] tracing: Fix context switch counter truncation
+ Sashiko <sashiko-bot@kernel.org>
+Subject: [for-linus][PATCH 9/9] tracing: Delay module ref count for "enable_event" trigger
 References: <20260724231840.483353969@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -52,50 +51,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Usama Arif <usama.arif@linux.dev>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-trace_user_fault_read() samples nr_context_switches_cpu() before enabling
-preemption and retries the user copy if the counter changes. The helper
-returns unsigned long long because rq->nr_switches is u64, but the saved
-value is unsigned int.
+Triggers are now delayed from freeing, but can still be triggered until
+after the RCU grace period has ended. The freeing of the enable_event data
+is put into the private_data_free() callback, but the put of the module
+refcount is done immediately.
 
-Once a CPU has performed 2^32 context switches, assigning the counter to
-cnt discards its upper bits. The comparison after the copy promotes cnt
-back to unsigned long long, but the lost bits remain zero, so it reports a
-change even when the task was never scheduled out. Every retry then fails
-the same way until the 100-try guard warns and the user copy is abandoned.
+It is possible that if a module is removed that has an event that would
+enable (or disable) it is still active, it can read the data of the module
+after it is removed causing a use-after-free bug.
 
-This affects long-running systems and workloads with high context-switch
-rates. A CPU switching 1,000 times per second takes about 50 days.
-
-Store the sampled count in unsigned long long so the full value is
-preserved.
+Move the trace_event_put_ref() that releases the module into the delayed
+callback so that the module can not be removed until any reference to its
+events are finished.
 
 Cc: stable@vger.kernel.org
-Fixes: 64cf7d058a00 ("tracing: Have trace_marker use per-cpu data to read user space")
-Link: https://patch.msgid.link/20260717173252.3431565-1-usama.arif@linux.dev
-Reported-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260724132415.1b5005db@gandalf.local.home
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260724030523.19081-1-devnexen%40gmail.com
+Fixes: 61d445af0a7c ("tracing: Add bulk garbage collection of freeing event_trigger_data")
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/trace/trace_events_trigger.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 18710c190c92..01a5e87af299 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -6187,7 +6187,7 @@ char *trace_user_fault_read(struct trace_user_buf_info *tinfo,
- {
- 	int cpu = smp_processor_id();
- 	char *buffer = per_cpu_ptr(tinfo->tbuf, cpu)->buf;
--	unsigned int cnt;
-+	unsigned long long cnt;
- 	int trys = 0;
- 	int ret;
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 46e60b70a4bb..ad83419cb420 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -1726,7 +1726,10 @@ int event_enable_trigger_print(struct seq_file *m,
  
+ static void enable_trigger_private_data_free(struct event_trigger_data *data)
+ {
+-	kfree(data->private_data);
++	struct enable_trigger_data *enable_data = data->private_data;
++
++	trace_event_put_ref(enable_data->file->event_call);
++	kfree(enable_data);
+ }
+ 
+ void event_enable_trigger_free(struct event_trigger_data *data)
+@@ -1741,7 +1744,6 @@ void event_enable_trigger_free(struct event_trigger_data *data)
+ 		/* Remove the SOFT_MODE flag */
+ 		trace_event_enable_disable(enable_data->file, 0, 1);
+ 		data->private_data_free = enable_trigger_private_data_free;
+-		trace_event_put_ref(enable_data->file->event_call);
+ 		trigger_data_free(data);
+ 	}
+ }
 -- 
 2.53.0
 
