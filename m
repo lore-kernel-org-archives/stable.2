@@ -1,146 +1,139 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com [95.215.58.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A44E3603D9
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 03:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784864194; cv=pass; b=M1QNURkXqM7ohXBAiOqgDX4piZlpN8L4k73vUp3XuCjHhQqaTZWJPCad52f0wWZmu6yB8sa1ygC6rE1EMiaFP9Gngyl0NqNaOPGL5e58dkoueFHn1s50RxMEyuFc0gd2vMPNtKZ+zg0lnROWT/KF93aUgT3MB2NPCfFwC8+cuoc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784864194; c=relaxed/simple;
-	bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pwf2igPHAsSGj4nI/ErGOSTjXYOgFKFIkPY8iE256SdMOiicR5io3ChasutCxXC/e2kHMOXdEkFixRDwfQsuOdo7KEz//AJ1BSNGGMs6kuVfMbQmskW3VbFBDyFCHCOQMHB9gkirE5AbGkqGBJ6241dukTawU4CiGuSGfaKt/9c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lm803m7M; arc=pass smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827B730E831
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 04:51:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784868707; cv=none; b=vA3j2N0VJa6RHEToOgjq/WlYs/vDhf6X+gVHjwC1rO1HZ9Yeg6GdVlLpU4YrGxS218Fjo7wWmQsiqjEdKWj7fRuv+OlhtExB9FIjhZ22VeWyIz5m5PZDt7HCuMVTB+CDhPpVyLPuL70FZ4ZfEW6zI7asoNHURzcLLmCvgj3cdwU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784868707; c=relaxed/simple;
+	bh=l3uotQg+BF6am/nT/S2L1dXBa9p5sUXNXnqDlwrBIQ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iU/lbV9DMby/T7pAd4iggAik/b6tXsBceBpOGE3p0jE+8aNtPmTXVxX/jjy6Ig396buy1y2gpCeRiH8KL+QBDCO8vr8OQ1vK7EXFuGJensbnA6kFKwymyaEsIHeX62TnrC2EgEJ49audJc07hOJyrC+7ZQHqe6GyDbTBGy8iLmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chenxiaosong.com; spf=pass smtp.mailfrom=chenxiaosong.com; dkim=pass (2048-bit key) header.d=chenxiaosong.com header.i=@chenxiaosong.com header.b=q8MlsSKf; arc=none smtp.client-ip=95.215.58.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chenxiaosong.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chenxiaosong.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lm803m7M"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8423f52cd57so206878b3a.2
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 20:36:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784864193; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QmsFYUHwW22OlWsvm92SVpUOPLhMetb4MVr95V7U+W1cLRv+isScOa661uDMNP7T/q
-         0Up8hJpcOpMBJ3qbiYjflhSceO1bY6XrIgw5oCveKXJaoq29BY8n8uub5/95OlJlZonw
-         VaJy/y3KzKpdo+ugWq8AwJ3tKR2IGvy2k02dKsHp/MeDX26rg1GK3gwu/1Y/ixMSusCz
-         Nn9zHVeDEoTJXYuLrfBiF0lhRXqlw/8FzsSOHz2CgoqUDn+ilSwqjvCgT+Wj6f2/j/gF
-         RKA/QV798VmeK6XruhRx4WZI5IvweEXCUP+wiuZmfKsrTjxPzGFsnsrCCQ97jrPNgaC+
-         tsXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
-        fh=Xar1aTkFX9gi/ZdCfgrQYX4CEkEQVbEl/Dp+hRhjIbE=;
-        b=afhteWjjyHxy1c656tDtlyZPHzuKSScJE/8NgvYI0Cur8ptkPvl023jWyozn2kINCV
-         2yUXhvUKqmDkMiVxtl5YuhcvwfdD55tVTnvYAttflbee57jULlScbDS3nk2NiumNJ2Ws
-         sWTL8XcpMI9PrQgCb/GfaGfOCvDVph5Fe+BoZ12zKm8+5Ld85p7aSmJGO4VymzmNaHse
-         VCiXtBk6WZxBIiwjEEGFmThqsnfmkO0limP99wX/jYVV8s766I+xU3GTuO2zzAJGnmBT
-         nN0V0ZSAIvn6mG9CH5igIs+w/UsBDvG/PPz+drS2qQI3oxRT9oIyDE0ewbIV1YojPOch
-         2baQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784864193; x=1785468993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
-        b=Lm803m7MRz8oCrZj/ij+be88C9vmMlFFXVR1GnW6kMgHROfMHJXdB+hHTgay+Ay7rv
-         tiIvSYjPDLD3f0RCEmYyO5B/7G72RQ19t5PKY+Cn5Tn3FOD82VbjaVZcVDXBvnTAR1Ho
-         KTry4nZM04Se05ltRrKQENmbrXBbPsxiLD4XbUPa9ERL+8XmyQzsLlSjl7Fdrh4ohGgN
-         eCARNJysLfZQEj6Wj12WUIk47qFZQlaLKg/Xll6pbKo8yxIfaicqLt9ynNGu42B2oXHY
-         yifoGJTarjv9tMUCEOXBQT+mhHJP3t0KNKncTuubFGLBD19rEZS1FGHhc7k24bqnIH1a
-         6BpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784864193; x=1785468993;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8HcC/oA7PCfFjJtXkAhXIBjiaFdK3uVq2t3mipV6lmc=;
-        b=JnXFnOOjmJZpyt949FhJzZ26xKB/aMIihPgVx7kSPNREuW6JeCAm/7yWVE2ey6RtD+
-         p5G6HHhOj0exTQRIAZTw4pRL+n63jzzC+9gcdpEFNiyNSJ32WdPKdwvZHstyAYtEZHg/
-         HgQgf+fi4kzi0T/QrR2Xr62OzpwE2XIa3FO88246YLuiHhXaEYhexk40c5R9vy7lD+dl
-         Z+VzV6P9ofqQHkA4aEtDLwPKgk+7MKDpuJCPAJNEHLVdmtsRCzmSfuWd1RRt/8A3JIpS
-         3AessIfk869aT0gR9i+1ZGOrX4OqWa8k22UusvNM0+uNHrl6ZU+o5iuhORoSq6pkphkS
-         nKcQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp52JNV+g+IvpLYlpAfXNlopT1TriG1Zr74WZjVktvGRJJvTLXMLVMxqGThWhuf6zZ+C8zMJX0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFL+yk6nT8EtextMUKLL5DqxgcjC/S3SdoWUmR9F4mSCqFEdHv
-	fvGzvI4brHg2eSBNSCvs56YExm0+ViG+AylSsGLI5uOULmlI5zk2CcaddWJG15XyjYp6XaYTvJD
-	c7IFyEJhlbmAY+iP0V7W7PgBJ2a5KjN8=
-X-Gm-Gg: AR+sD13HTDvjXS3xuW5DonlvYk66ZKtR92iprA7Dvs/zcP7KAOwd3r6/a7rLvJM/aB9
-	hkTu6Cc+14q+Ult934j+ydA3AUEHJRBRCiAZl3wfaH2MtftNEebhPmAqJpVvTpf3tnBMPxWJo13
-	61uBCvfhWtRtoeneOjPKnxatYSz5eIxxQtWEsFYzRU9r5V1r3QLSJhH0v2Rzph+4OfnXwUxoXFV
-	WDt/Pu/9zKa4mECybUsMQWFWmrlRsrSmqL1xNlq9w3tZ7A6g+usxp15nxngSiWwHD2vtM0bJ5eg
-	k41VsUMkRkCWMMXNpQ==
-X-Received: by 2002:a05:6a00:a90e:b0:842:5a18:9af0 with SMTP id
- d2e1a72fcca58-84e3ddebe70mr2100467b3a.0.1784864192764; Thu, 23 Jul 2026
- 20:36:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=chenxiaosong.com header.i=@chenxiaosong.com header.b="q8MlsSKf"
+Message-ID: <09e27951-06a6-4dc7-bc44-cf9eff87d271@chenxiaosong.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chenxiaosong.com;
+	s=key1; t=1784868701;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4Iva+/lDdfBysQhNAXJZV/BkE1gNWZl/90SRLyCVwoc=;
+	b=q8MlsSKf5ocbletV1lNR2YQL8PnpQze/urm5UudY7cehS0fvu+/D7i4bbkpZ3mKQI5txEc
+	W9FJmEtueJTznsVAT46fsbRgidKyI0vrNI3z1U1BRN2/IVxx1WHa1txUxziHI23ki6VuXe
+	PZia5COGCBkZS8JENxq5+dpJwHG5xrpIaImrUUs/O6vGmrm/k/6nRofAW7Ssw/Vps3mayi
+	P/7nbkulUXEnZ8lzvi1w8fw6zvdrRp1kkQIVuuZD4E9wFLNbvS4a/XEimdFJ9Bg681IWyp
+	q4mBZFHuV1HGDVgzgtNg4dzlIez0pxuU/sY2DyZsxvBR3FFJ1zh22Vb9/h/Q2g==
+Date: Fri, 24 Jul 2026 12:51:14 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
- <3e4b1552-57d4-42ad-a244-a91b74b8dae1@gmail.com> <willemdebruijn.kernel.3e74e4fda69b@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.3e74e4fda69b@gmail.com>
-From: Qihang <q.h.hack.winter@gmail.com>
-Date: Fri, 24 Jul 2026 11:36:21 +0800
-X-Gm-Features: AUfX_myMQCLMi8B49UslUypNDm75uADo-4b77-P1llJQTPfcQ7oEOs46vfJYVgE
-Message-ID: <CAH78Gvuoqf89L8dm-FwRBzCGm9LaB7H_vt3MsOY5QPd0o_zhrw@mail.gmail.com>
-Subject: Re: [PATCH net] packet: use a consistent hard_header_len in send paths
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Daniel Zahka <daniel.zahka@gmail.com>, netdev@vger.kernel.org, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] ksmbd: only rebind the reopened file's own oplock on
+ durable reconnect
+To: Your Name <qwe.aldo@gmail.com>, linux-cifs@vger.kernel.org
+Cc: linkinjeon@kernel.org, smfrench@gmail.com, senozhatsky@chromium.org,
+ tom@talpey.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260723230053.684176-1-you@example.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: ChenXiaoSong <chenxiaosong@chenxiaosong.com>
+In-Reply-To: <20260723230053.684176-1-you@example.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Agreed. Caching hard_header_len fixes the RAW paths' inconsistent skb
-arithmetic, but not the SOCK_DGRAM race between headroom allocation and
-header_ops->create().
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
 
-I also missed packet_sendmsg_spkt(), which needs the same RAW-path fix.
+By the way, your email signature is "Your Name". Did you forget to set 
+your name in .gitconfig?
 
-Would you prefer a v2 covering the three RAW paths, with the DGRAM
-callback headroom issue handled separately, or both issues in one
-series?
+On 7/24/26 07:00, Your Name wrote:
+> From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> 
+> ksmbd_reopen_durable_fd() walks the inode's m_op_list and rebinds every
+> detached oplock to the reconnecting session:
+> 
+> 	list_for_each_entry_rcu(op, &ci->m_op_list, op_entry,
+> 				lockdep_is_held(&ci->m_lock)) {
+> 		if (op->conn)
+> 			continue;
+> 		op->conn = ksmbd_conn_get(fp->conn);
+> 		op->sess = work->sess;
+> 	}
+> 
+> The only key is op->conn == NULL, which every detached durable handle on
+> that inode matches, not just the one owned by fp.  When two sessions hold
+> durable handles on the same file and both disconnect, reconnecting one of
+> them adopts the other session's oplock: op->sess is overwritten with the
+> reconnecting session without taking a reference on it, while op->conn
+> pins the connection.
+> 
+> The sibling teardown path, session_fd_check(), keys on the identity of
+> the connection being torn down (op->conn == conn) rather than on shared
+> state, and so does not have this problem.
+> 
+> Once the adopting session is destroyed, ksmbd_session_destroy() frees it
+> while the foreign oplock still points at it.  The reader in
+> ksmbd_close_fd_app_instance_id() validates only opinfo->conn, which is
+> still live thanks to the reference taken above, and then dereferences the
+> stale session:
+> 
+> 	if (!opinfo->conn) {
+> 		up_read(&fp->f_ci->m_lock);
+> 		goto out;
+> 	}
+> 
+> 	ft = &opinfo->sess->file_table;
+> 	write_lock(&ft->lock);
+> 
+>    BUG: KASAN: slab-use-after-free in _raw_write_lock+0x74/0xd0
+>    Write of size 4 at addr ffff88810a970528 by task kworker/0:0/9
+>    Workqueue: ksmbd-io handle_ksmbd_work
+>    Call Trace:
+>     _raw_write_lock+0x74/0xd0
+>     ksmbd_close_fd_app_instance_id+0x183/0x410
+>     smb2_open+0x1346/0x4430
+>     handle_ksmbd_work+0x2bb/0x7b0
+> 
+> Reached from an authenticated session against a share with the default
+> durable-handle and oplock configuration: two sessions open the same file
+> with a durable-v2 handle and an RH lease under distinct AppInstanceIds,
+> both log off, one reconnects with DH2C, and a later durable-v2 create
+> carrying the other AppInstanceId walks into the freed session.
+> 
+> Constrain the loop to the oplock owned by the file being reopened.
+> 
+> Fixes: f363a0fb134a ("ksmbd: fix app-instance durable supersede session UAF")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>   fs/smb/server/vfs_cache.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
+> index d95c405eab11..1e9d13344825 100644
+> --- a/fs/smb/server/vfs_cache.c
+> +++ b/fs/smb/server/vfs_cache.c
+> @@ -1720,7 +1720,7 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
+>   	down_write(&ci->m_lock);
+>   	list_for_each_entry_rcu(op, &ci->m_op_list, op_entry,
+>   				lockdep_is_held(&ci->m_lock)) {
+> -		if (op->conn)
+> +		if (op->conn || op->o_fp != fp)
+>   			continue;
+>   		op->conn = ksmbd_conn_get(fp->conn);
+>   		op->sess = work->sess;
 
-On Wed, Jul 22, 2026 at 10:26=E2=80=AFPM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
->
-> Daniel Zahka wrote:
-> >
-> >
-> > On 7/21/26 4:49 AM, Qihang wrote:
-> > > packet_snd() and tpacket_snd() read dev->hard_header_len multiple tim=
-es
-> > > while building an skb. Device reconfiguration can change this value
-> > > concurrently, for example through bonding device type changes.
-> > >
-> > > For SOCK_RAW, packet_snd() stores the first value in reserve, later
-> > > allocates headroom using LL_RESERVED_SPACE(dev), and then subtracts
-> > > reserve from the skb headroom. If hard_header_len decreases between t=
-he
-> > > reads, the skb can be allocated with less headroom than reserve, movi=
-ng
-> > > skb->data before skb->head. The subsequent skb_copy_datagram_from_ite=
-r()
-> > > can then attempt an out-of-bounds copy. Hardened usercopy catches thi=
-s as
-> > > a kernel memory overwrite attempt.
-> > >
-> >
-> > Wouldn't there be a similar issue in the SOCK_DGRAM path with
-> > dev_hard_header() calling skb_push() after packet_alloc_skb()?
->
-> Good point. this does not use hard_header_len directly, but e.g.,
-> eth_header() assumes ETH_HLEN is available to push.
->
-> Simply caching hard_header_len won't resolve this. dev->hard_header_len
-> and dev->header_ops (incl .create) are not updated atomically.
->
-> I missed this earlier, but besides packet_snd and tpacket_snd, the fix
-> is also needed by packet_sendmsg_spkt.
->
+-- 
+ChenXiaoSong <chenxiaosong@chenxiaosong.com>
+Chinese Homepage: https://chenxiaosong.com
+English Homepage: https://chenxiaosong.com/en
+
