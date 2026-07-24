@@ -1,134 +1,236 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C94447808
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:44:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C04446BF5
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:44:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784911493; cv=none; b=gLG1GzNAuJMucFivaWXMcVqccuKkV5RLemwPhSRQZ5NeLdgCx+RFV+aDw7O9wWzPCO5pB//DGp7zOq7G7+DN9mAvzgFNM8EZavmmCpz+ch1IKo/kKyqUc2SKoElyhCm+FRcGZNhMJl/8915vNap7rzvBFc9Yu12bElXKWSDN8E0=
+	t=1784911503; cv=none; b=YtpnqAq0+fmznHvql2rVM06cs3MUBG40MnsTOJ/mdZs904w0QD8Ehf8jTjF8uQL7SycgC4Jx7tg+wrIsedTYItnz3EfmIL/DooFNshloKEipPJytcG7Ou0ADUTqJ3jde4yf4HuA35ihu0IMifNCR59dZZmv/c+i3i63zzCIJHpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784911493; c=relaxed/simple;
-	bh=gZuzOG2QbhJq0sK0oEQEJ1v5lESfJErdJlloF/b+dkg=;
+	s=arc-20240116; t=1784911503; c=relaxed/simple;
+	bh=KST5KL9LVEWVQ2lPkrI402d5dio5tqg53anQQe17sbU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SeDpWmF0I33uTEsVihJCCcKagQtF/f81St1/I+1RLVJqSTYH/svmEPXqRG8QVkyTo5hohChoktijMMm5Kvwn6CWZZy1sYVNnjC5gVJ3FqLueBjp1oKCzAiaC+Fkr/DJjWtl3cKYeTohImLGHYB8cIgsSNkWVi6IXEln9eljwJIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMcEABXj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ud3R7gPZ5jeng3GgjsB/mCf7CUpf2dqyZ+/sgcbrFbUuLPblQju2K7aTVKFH3CnY+ZfYY9xZoPC2qmUow317EvrIlulsNOv8TKZCAq6yNVCRUa/sqeB2YHzhTu1t5etOnay3cfrqn6oHfHsYztnmSyD52WjtmQgMQgEHMrmfPLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/zUk+03; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMcEABXj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BF51F00A3A;
-	Fri, 24 Jul 2026 16:44:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/zUk+03"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5AAF1F00A3A;
+	Fri, 24 Jul 2026 16:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784911489;
-	bh=wy5QET89/ac48xyNNLMlM7xEVpNfcasJiUOdUBwjxkY=;
+	s=k20260515; t=1784911499;
+	bh=P4W2IlF8cB8fZkO7t1hZkBntMCIos+AYbwTAKP3JxGo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hMcEABXjJxawv4xNCGvnoGJGqWEnIL3M103xTNGV81xH7MhyRmMtZiCfvRBsku7FD
-	 hySujmPHrjCdwbhmN1tcX38CjAqh7RCuC3s2EqrvE1CQ9iFkvuPzfWbPFlBoVHwBds
-	 ek83RG5TO3umRgYMN5PQVFE6onJFbSjhr9QH/UdflNCCgtTDJy5Ez98oeP094VIMIO
-	 bv82NPiHyY0akQy1Yjs7Ax8RF8TdjWyC+WzWNxcJrEXFodOQlJw0NRvDfvabrlvJIZ
-	 Ox/RJbjIeowrkjsp3hm2QA6Vfb75UvROr0FqqILGmRuB4OJyeJaYo7ckRrqyBQgpgR
-	 5FlaW/6g1DfNQ==
+	b=b/zUk+03nlDqrU9Gf+LRBtDW+TNPwL9150tMSVOMnGe3bRSfInv57bOx8tW/P4R+u
+	 AKwjwlbomgs2/sH77ZR8BAVAnFAMY3acO4T03746LdHOcV2dHO8jGtIDkowu7DXKPf
+	 qOUK/9gEzU2qJaJhasSArDQJ3Dya+4DNKmg7nqgFnwqss3CEq/EFCzVv0CwMO9j0Nm
+	 isjM9J5tJduhaH/VPgdJfOP0+waID5b/fEp2HISfVY15rbFAzKWtSoIIv6W4eBQ5I1
+	 5cWmcR7S1A524EMMfm6CjAXZTwWy76O7193iIh07e00UkiRhPIB3BIR2J4KknRpv0l
+	 O23N9wmVx4AUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Hocko <mhocko@suse.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] mm/mm_init: fix uninitialized struct pages for ZONE_DEVICE
-Date: Fri, 24 Jul 2026 12:44:43 -0400
-Message-ID: <20260724164443.469191-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] landlock: Prepare to use credential instead of domain for fowner
+Date: Fri, 24 Jul 2026 12:44:55 -0400
+Message-ID: <20260724164456.469658-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260724164443.469191-1-sashal@kernel.org>
-References: <2026072046-viewable-richness-35ef@gregkh>
- <20260724164443.469191-1-sashal@kernel.org>
+In-Reply-To: <2026072036-petticoat-useable-12b3@gregkh>
+References: <2026072036-petticoat-useable-12b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Muchun Song <songmuchun@bytedance.com>
+From: Mickaël Salaün <mic@digikod.net>
 
-[ Upstream commit cd681403a87085562499d60325b7b45d3be11217 ]
+[ Upstream commit 79625f1b3a3df63d3289a0781fdf121bc42966f7 ]
 
-If DAX memory is hotplugged into an unoccupied subsection of an early
-section, section_activate() reuses the unoptimized boot memmap.  However,
-compound_nr_pages() still assumes that vmemmap optimization is in effect
-and initializes only the reduced number of struct pages.  As a result, the
-remaining tail struct pages are left uninitialized, which can later lead
-to unexpected behavior or crashes.
+This cosmetic change is needed for audit support, specifically to be
+able to filter according to cross-execution boundaries.
 
-Fix this by treating early sections as unoptimized when calculating how
-many struct pages to initialize.
+struct landlock_file_security's size stay the same for now but it will
+increase with struct landlock_cred_security's size.
 
-Link: https://lore.kernel.org/20260428081855.1249045-7-songmuchun@bytedance.com
-Fixes: 6fd3620b3428 ("mm/page_alloc: reuse tail struct pages for compound devmaps")
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Liam R. Howlett <liam@infradead.org>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
-Cc: Joao Martins <joao.m.martins@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Only save Landlock domain in hook_file_set_fowner() if the current
+domain has LANDLOCK_SCOPE_SIGNAL, which was previously done for each
+hook_file_send_sigiotask() calls.  This should improve a bit
+performance.
+
+Replace hardcoded LANDLOCK_SCOPE_SIGNAL with the signal_scope.scope
+variable.
+
+Use scoped guards for RCU read-side critical sections.
+
+Cc: Günther Noack <gnoack@google.com>
+Link: https://lore.kernel.org/r/20250320190717.2287696-8-mic@digikod.net
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Stable-dep-of: 4b80320ca7ed ("landlock: Fix LANDLOCK_SCOPE_SIGNAL bypass on the SIGIO path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mm_init.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ security/landlock/fs.c   | 37 +++++++++++++++++++++++++++++++------
+ security/landlock/fs.h   | 23 +++++++++++++++++------
+ security/landlock/task.c | 25 ++++++++++++++++---------
+ 3 files changed, 64 insertions(+), 21 deletions(-)
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 5aab6903bddcbe..a3acd113e7d0a4 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -262,10 +262,17 @@ do {									\
-  * of how the sparse_vmemmap internals handle compound pages in the lack
-  * of an altmap. See vmemmap_populate_compound_pages().
-  */
--static inline unsigned long compound_nr_pages(struct vmem_altmap *altmap,
-+static inline unsigned long compound_nr_pages(unsigned long pfn,
-+					      struct vmem_altmap *altmap,
- 					      struct dev_pagemap *pgmap)
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index a26199568db267..da7089f6ad39e5 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -1680,15 +1680,40 @@ static bool control_current_fowner(struct fown_struct *const fown)
+ static void hook_file_set_fowner(struct file *file)
  {
--	if (!vmemmap_can_optimize(altmap, pgmap))
+ 	struct landlock_ruleset *prev_dom;
+-	struct landlock_ruleset *new_dom = NULL;
++	struct landlock_cred_security fown_subject = {};
++	size_t fown_layer = 0;
++
 +	/*
-+	 * If DAX memory is hot-plugged into an unoccupied subsection
-+	 * of an early section, the unoptimized boot memmap is reused.
-+	 * See section_activate().
++	 * Keep this local to match the layout expected by follow-up changes
++	 * shared with audit-enabled kernels.
 +	 */
-+	if (early_section(__pfn_to_section(pfn)) ||
-+	    !vmemmap_can_optimize(altmap, pgmap))
- 		return pgmap_vmemmap_nr(pgmap);
++	(void)fown_layer;
  
- 	return VMEMMAP_RESERVE_NR * (PAGE_SIZE / sizeof(struct page));
-@@ -338,7 +345,7 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 			continue;
- 
- 		memmap_init_compound(page, pfn, zone_idx, nid, pgmap,
--				     compound_nr_pages(altmap, pgmap));
-+				     compound_nr_pages(pfn, altmap, pgmap));
+ 	if (control_current_fowner(file_f_owner(file))) {
+-		new_dom = landlock_get_current_domain();
+-		landlock_get_ruleset(new_dom);
++		static const struct access_masks signal_scope = {
++			.scope = LANDLOCK_SCOPE_SIGNAL,
++		};
++		struct landlock_ruleset *const current_domain =
++			landlock_get_current_domain();
++		const struct landlock_cred_security applicable_subject = {
++			.domain = current_domain,
++		};
++		const struct landlock_cred_security *new_subject = NULL;
++
++		if (landlock_get_applicable_domain(current_domain, signal_scope))
++			new_subject = &applicable_subject;
++
++		if (new_subject) {
++			landlock_get_ruleset(new_subject->domain);
++			fown_subject = *new_subject;
++		}
  	}
  
- 	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE);
+-	prev_dom = landlock_file(file)->fown_domain;
+-	landlock_file(file)->fown_domain = new_dom;
++	prev_dom = landlock_file(file)->fown_subject.domain;
++	landlock_file(file)->fown_subject = fown_subject;
++#ifdef CONFIG_AUDIT
++	landlock_file(file)->fown_layer = fown_layer;
++#endif /* CONFIG_AUDIT*/
+ 
+ 	/* May be called in an RCU read-side critical section. */
+ 	landlock_put_ruleset_deferred(prev_dom);
+@@ -1696,7 +1721,7 @@ static void hook_file_set_fowner(struct file *file)
+ 
+ static void hook_file_free_security(struct file *file)
+ {
+-	landlock_put_ruleset_deferred(landlock_file(file)->fown_domain);
++	landlock_put_ruleset_deferred(landlock_file(file)->fown_subject.domain);
+ }
+ 
+ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+diff --git a/security/landlock/fs.h b/security/landlock/fs.h
+index 1487e1f023a192..9a37b63a3b9abf 100644
+--- a/security/landlock/fs.h
++++ b/security/landlock/fs.h
+@@ -1,9 +1,10 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ /*
+- * Landlock LSM - Filesystem management and hooks
++ * Landlock - Filesystem management and hooks
+  *
+  * Copyright © 2017-2020 Mickaël Salaün <mic@digikod.net>
+  * Copyright © 2018-2020 ANSSI
++ * Copyright © 2024-2025 Microsoft Corporation
+  */
+ 
+ #ifndef _SECURITY_LANDLOCK_FS_H
+@@ -13,6 +14,7 @@
+ #include <linux/init.h>
+ #include <linux/rcupdate.h>
+ 
++#include "cred.h"
+ #include "ruleset.h"
+ #include "setup.h"
+ 
+@@ -52,13 +54,22 @@ struct landlock_file_security {
+ 	 * needed to authorize later operations on the open file.
+ 	 */
+ 	access_mask_t allowed_access;
++
++#ifdef CONFIG_AUDIT
++	/**
++	 * @fown_layer: Compatibility storage for follow-up fowner changes.
++	 */
++	u8 fown_layer;
++#endif /* CONFIG_AUDIT */
++
+ 	/**
+-	 * @fown_domain: Domain of the task that set the PID that may receive a
+-	 * signal e.g., SIGURG when writing MSG_OOB to the related socket.
+-	 * This pointer is protected by the related file->f_owner->lock, as for
+-	 * fown_struct's members: pid, uid, and euid.
++	 * @fown_subject: Landlock credential of the task that set the PID that
++	 * may receive a signal e.g., SIGURG when writing MSG_OOB to the
++	 * related socket.  This pointer is protected by the related
++	 * file->f_owner->lock, as for fown_struct's members: pid, uid, and
++	 * euid.
+ 	 */
+-	struct landlock_ruleset *fown_domain;
++	struct landlock_cred_security fown_subject;
+ };
+ 
+ /**
+diff --git a/security/landlock/task.c b/security/landlock/task.c
+index 4578ce6e319d83..21e34deb09511c 100644
+--- a/security/landlock/task.c
++++ b/security/landlock/task.c
+@@ -297,22 +297,29 @@ static int hook_task_kill(struct task_struct *const p,
+ static int hook_file_send_sigiotask(struct task_struct *tsk,
+ 				    struct fown_struct *fown, int signum)
+ {
+-	const struct landlock_ruleset *dom;
++	const struct landlock_cred_security *subject;
+ 	bool is_scoped = false;
+ 
+ 	/* Lock already held by send_sigio() and send_sigurg(). */
+ 	lockdep_assert_held(&fown->lock);
+-	dom = landlock_get_applicable_domain(
+-		landlock_file(fown->file)->fown_domain, signal_scope);
++	subject = &landlock_file(fown->file)->fown_subject;
+ 
+-	/* Quick return for unowned socket. */
+-	if (!dom)
++	/*
++	 * Quick return for unowned socket.
++	 *
++	 * subject->domain has already been filtered when saved by
++	 * hook_file_set_fowner(), so there is no need to call
++	 * landlock_get_applicable_subject() here.
++	 */
++	if (!subject->domain)
+ 		return 0;
+ 
+-	rcu_read_lock();
+-	is_scoped = domain_is_scoped(dom, landlock_get_task_domain(tsk),
+-				     LANDLOCK_SCOPE_SIGNAL);
+-	rcu_read_unlock();
++	scoped_guard(rcu)
++	{
++		is_scoped = domain_is_scoped(subject->domain,
++					     landlock_get_task_domain(tsk),
++					     signal_scope.scope);
++	}
+ 	if (is_scoped)
+ 		return -EPERM;
+ 
 -- 
 2.53.0
 
