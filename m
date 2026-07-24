@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17A72F7F1B
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:25:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748161419A4
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784856321; cv=none; b=WzYb8QqaOkdhBUQUCdBhNdqPfi7buO8/xIdbTEkyqKGWDsKF2i3HpqL4mVXlfzF9R5WpmgxYbMKq/xum+v0eMgDrNtuC7ybM8sL+KLAMXzG5ehzv7CqMIECGOOT+NWSz936a2pEdm+QgkpuT/1Rxl0wGXCufM+wWfiC+RKp0kP0=
+	t=1784856322; cv=none; b=nmPU54yHlt0Jp1UC8qPTW0Qcq4qt463BQM556MygZmHLbuK/8kGcptG56LJpuoqXAbPWxYcPTroB2BLlfejD9mzn+Mj2FyBL+Yph5bLNOFKySJG096m48xC2iuOMyi394rUp52Od4sZ/ncN2YPGWKfYahTeGdqXbDlo42aWM4pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784856321; c=relaxed/simple;
-	bh=kAbFIvBkxWqHcNVnb/VtZ2y8reetsJrZXlgpcTvS2EI=;
+	s=arc-20240116; t=1784856322; c=relaxed/simple;
+	bh=e4SAkjXOT+31fiezqGGMWlUOMQAVVKnIv/psxHSaAVA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YrcjVDiorGUUSnfcdh8MLNHoSs2P2dmOUkPI6JFcW8LOYX0BPFufaRz6FUVveJhfsmbyZ20TuhHftl+uVwATrX3tVBje5Qlq+tQ/QxfelgC9I0vrKpDQ83cQCqPyRUEM8Zo+1WRB+YYqCCz4KXe/RC968QtGypif17EY72w1d9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIS6Qzrf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FcbXdn58nh5GTDzx8SuDsSolTfv5dQo080Hv/DTTA3IOkD7hhObE9fc5uFOCqDXWhuz9kYTWSANfz6rb4JmBigGaGvqm+haB04OSfbqUdxjd5dzXDTN508ZVsmYahOtrXhaMVuWxqHRfrydhom8/Jy+kF4X7aBuEDvXWjBS8r5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W5cVbYp8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIS6Qzrf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033B81F00A3E;
-	Fri, 24 Jul 2026 01:25:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W5cVbYp8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2741F000E9;
+	Fri, 24 Jul 2026 01:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784856319;
-	bh=5S+xTUiCzZt1KV5joQHwRdEo8YJWFPnnV3qwn7fMUnc=;
+	s=k20260515; t=1784856320;
+	bh=fFJys4IqGvkj5cTHvJg9IB73rXw9akIqXBPRX34dXhc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oIS6QzrfkMjQRt1Hr+sReNEwjC1PxTJQNDuzQvrN27dGlHML1oHyUWDRBgTd4Gjp2
-	 UnCgExSPSrx1xfHq8yOH31Q9JKc+QQwlMD2ceyAl3mZoCJwqU5KdheIRs1Vw8cKddt
-	 /7WG3BwFF3nv+4+5WhJO6nZilJUPt0j0a3FvmxH5ronm3otIoKbAv4XvSvOkX+B8dw
-	 SZtl29/+8Sik2SDa1/psaFXeQSOZXva5q/tkJXDDqaC5s+iz8s9IWxDYyy62IUrZ6J
-	 rUW4I9vLqZRMONaoogy3eHervIi9YY18KqgwcAfCaPguvzIE4H540wlirjVPizXBzy
-	 K/BTBLAqSZ1qQ==
+	b=W5cVbYp8/PC/cmS8JY5/UWoiiKNmTca+gk3iHnLz6d0ytR25+U87sUiVUEbhJLKWL
+	 3xpDorf9eRfVwT/Hqmp8jDnwkkzGEWDW3MX9drqsak0E9NeeExuA9GmoTZLgTWIE7K
+	 wP/OMvYLcQ7dQAUp8GaQ0tRzaTrsUMRz/Ha2nxx19H5wV6g7gWSNC6gHpxRgqbAuIx
+	 8tVMTUgV0gg+0ZCGov0JT+WDs7OyvQjAMzdpsKBLY7h4s++qjmwjZSLMo18OM7oVoU
+	 t0fbecktqDDZFwY0CSW8uMwrG4DEoSh/EuVxlsNhlQVNLGa7hMNyQGZd9oebYoVUYf
+	 PsX4DYIYFXvSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Chris Mason <clm@meta.com>,
 	Jeff Layton <jlayton@kernel.org>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/5] SUNRPC: Add helpers to convert xdr_buf byte ranges to scatterlists
-Date: Thu, 23 Jul 2026 21:25:13 -0400
-Message-ID: <20260724012515.3833219-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/5] SUNRPC: Bound-check xdr_buf_to_bvec() stores before writing
+Date: Thu, 23 Jul 2026 21:25:14 -0400
+Message-ID: <20260724012515.3833219-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260724012515.3833219-1-sashal@kernel.org>
 References: <2026072058-disparate-ventricle-c83c@gregkh>
@@ -49,278 +49,82 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit e9be933959b581effd426f93b86654f5fbf0c574 ]
+[ Upstream commit 42f5b80dda6b86e424054baf1475df686c403d5c ]
 
-The crypto/krb5 library accepts data in scatterlist form, but
-the GSS-API layer presents RPC payloads as struct xdr_buf.
-Bridge that gap with a pair of helper functions:
+xdr_buf_to_bvec() writes a bio_vec into the caller's array before
+testing whether that slot is in range, and the head branch performs
+the store with no check at all. When the caller's budget is exactly
+used up, the next store lands one element past the end of the array.
+The overflow label returns count - 1, which masks the surplus store
+but cannot undo it.
 
-  xdr_buf_to_sg()        - populate a caller-supplied scatterlist
-                           array from a byte range
-  xdr_buf_to_sg_alloc()  - populate a caller-supplied inline
-                           scatterlist, chaining to a heap-
-                           allocated overflow for large payloads
+rq_bvec, the array passed by nfsd_vfs_write(), is allocated to
+exactly rq_maxpages entries with no slack. The OOB store can land in
+adjacent slab memory; the bv_len and bv_offset fields written there
+are derived from client-supplied RPC payload sizes.
 
-The inline array (typically stack-allocated at eight entries)
-covers the common case of small RPCs with no heap allocation
-on the encrypt/decrypt path. Only buffers spanning many pages
-incur a kmalloc for the chained extension.
+Move the in-range check ahead of the store in the head, page-loop,
+and tail branches. With the check at the top of each sequence, count
+is incremented only after a successful store, so the overflow label
+can return count directly.
 
-The segment-walking logic follows the same head, page array,
-tail traversal as xdr_process_buf(), but populates a
-scatterlist directly rather than invoking a per-segment
-callback. sg_next() traversal makes the walker safe for
-chained scatterlists. Once subsequent patches reroute all
-per-message crypto operations through crypto/krb5,
-xdr_process_buf() loses its last callers and is removed.
-
-Assisted-by: Claude:claude-opus-4-6
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: 2eb2b9358181 ("SUNRPC: Convert svc_tcp_sendmsg to use bio_vecs directly")
+Cc: stable@vger.kernel.org
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Acked-by: Anna Schumaker <anna.schumaker@hammerspace.com>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Stable-dep-of: 18c1cc698861 ("SUNRPC: Return an error from xdr_buf_to_bvec() on overflow")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/xdr.h |  15 +++
- net/sunrpc/xdr.c           | 199 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 214 insertions(+)
+ net/sunrpc/xdr.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
-index 2f8dc47f1eb075..c8bf221b30adc8 100644
---- a/include/linux/sunrpc/xdr.h
-+++ b/include/linux/sunrpc/xdr.h
-@@ -141,6 +141,21 @@ int	xdr_alloc_bvec(struct xdr_buf *buf, gfp_t gfp);
- void	xdr_free_bvec(struct xdr_buf *buf);
- unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
- 			     const struct xdr_buf *xdr);
-+int xdr_buf_to_sg(const struct xdr_buf *buf, unsigned int offset,
-+		  unsigned int len, struct scatterlist *sg, unsigned int nsg);
-+int xdr_buf_to_sg_alloc(const struct xdr_buf *buf, unsigned int offset,
-+			unsigned int len, struct scatterlist *sg_head,
-+			unsigned int sg_head_nents,
-+			struct scatterlist **sg_overflow, gfp_t gfp);
-+
-+/*
-+ * Inline scatterlist entries for xdr_buf_to_sg_alloc().  Sized to cover the
-+ * head kvec, tail kvec, and a few page fragments without any heap allocation.
-+ */
-+enum {
-+	XDR_BUF_TO_SG_NENTS	= 8,
-+};
-+
- 
- static inline __be32 *xdr_encode_array(__be32 *p, const void *s, unsigned int len)
- {
 diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
-index 62e07c330a66ff..4d8287337e69da 100644
+index 4d8287337e69da..43101b82cc5243 100644
 --- a/net/sunrpc/xdr.c
 +++ b/net/sunrpc/xdr.c
-@@ -214,6 +214,205 @@ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
- 	return count - 1;
+@@ -180,6 +180,8 @@ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+ 	unsigned int count = 0;
+ 
+ 	if (head->iov_len) {
++		if (unlikely(count >= bvec_size))
++			goto bvec_overflow;
+ 		bvec_set_virt(bvec++, head->iov_base, head->iov_len);
+ 		++count;
+ 	}
+@@ -193,25 +195,27 @@ unsigned int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
+ 		while (remaining > 0) {
+ 			len = min_t(unsigned int, remaining,
+ 				    PAGE_SIZE - offset);
++			if (unlikely(count >= bvec_size))
++				goto bvec_overflow;
+ 			bvec_set_page(bvec++, *pages++, len, offset);
+ 			remaining -= len;
+ 			offset = 0;
+-			if (unlikely(++count > bvec_size))
+-				goto bvec_overflow;
++			++count;
+ 		}
+ 	}
+ 
+ 	if (tail->iov_len) {
+-		bvec_set_virt(bvec, tail->iov_base, tail->iov_len);
+-		if (unlikely(++count > bvec_size))
++		if (unlikely(count >= bvec_size))
+ 			goto bvec_overflow;
++		bvec_set_virt(bvec, tail->iov_base, tail->iov_len);
++		++count;
+ 	}
+ 
+ 	return count;
+ 
+ bvec_overflow:
+ 	pr_warn_once("%s: bio_vec array overflow\n", __func__);
+-	return count - 1;
++	return count;
  }
  
-+/**
-+ * xdr_buf_to_sg - Populate a scatterlist from an xdr_buf range
-+ * @buf: xdr_buf to map
-+ * @offset: starting byte offset within @buf
-+ * @len: number of bytes to cover
-+ * @sg: scatterlist array initialized with sg_init_table()
-+ * @nsg: number of entries available in @sg
-+ *
-+ * @sg is traversed with sg_next(), so callers may pass a list
-+ * assembled with sg_chain().
-+ *
-+ * Return: on success, the number of scatterlist entries used; the
-+ * last used entry is marked with sg_mark_end().  On failure, a
-+ * negative errno.
-+ */
-+int xdr_buf_to_sg(const struct xdr_buf *buf, unsigned int offset,
-+		  unsigned int len, struct scatterlist *sg, unsigned int nsg)
-+{
-+	unsigned int page_len, thislen, page_offset;
-+	struct scatterlist *cur = sg, *prev = NULL;
-+	int nents = 0;
-+	int i;
-+
-+	if (len == 0)
-+		return 0;
-+
-+	if (offset >= buf->head[0].iov_len) {
-+		offset -= buf->head[0].iov_len;
-+	} else {
-+		thislen = min_t(unsigned int,
-+				buf->head[0].iov_len - offset, len);
-+		if (nents >= nsg)
-+			return -ENOSPC;
-+		sg_set_buf(cur, buf->head[0].iov_base + offset,
-+			   thislen);
-+		prev = cur;
-+		cur = sg_next(cur);
-+		nents++;
-+		len -= thislen;
-+		offset = 0;
-+	}
-+	if (len == 0)
-+		goto done;
-+
-+	if (offset >= buf->page_len) {
-+		offset -= buf->page_len;
-+	} else {
-+		page_len = min(buf->page_len - offset, len);
-+		len -= page_len;
-+		page_offset = (offset + buf->page_base) & (PAGE_SIZE - 1);
-+		i = (offset + buf->page_base) >> PAGE_SHIFT;
-+		thislen = PAGE_SIZE - page_offset;
-+		do {
-+			if (thislen > page_len)
-+				thislen = page_len;
-+			if (nents >= nsg)
-+				return -ENOSPC;
-+			sg_set_page(cur, buf->pages[i],
-+				    thislen, page_offset);
-+			prev = cur;
-+			cur = sg_next(cur);
-+			nents++;
-+			page_len -= thislen;
-+			i++;
-+			page_offset = 0;
-+			thislen = PAGE_SIZE;
-+		} while (page_len != 0);
-+		offset = 0;
-+	}
-+	if (len == 0)
-+		goto done;
-+
-+	if (offset < buf->tail[0].iov_len) {
-+		thislen = min_t(unsigned int,
-+				buf->tail[0].iov_len - offset, len);
-+		if (nents >= nsg)
-+			return -ENOSPC;
-+		sg_set_buf(cur, buf->tail[0].iov_base + offset,
-+			   thislen);
-+		prev = cur;
-+		nents++;
-+		len -= thislen;
-+	}
-+	if (len != 0)
-+		return -EINVAL;
-+
-+done:
-+	if (prev)
-+		sg_mark_end(prev);
-+	return nents;
-+}
-+EXPORT_SYMBOL_GPL(xdr_buf_to_sg);
-+
-+/*
-+ * Count the scatterlist entries needed to cover [offset, offset + len)
-+ * within @buf.  Mirrors the walk in xdr_buf_to_sg() so the caller can
-+ * size an allocation that matches the requested sub-range rather than
-+ * the full xdr_buf.
-+ */
-+static unsigned int xdr_buf_sg_nents(const struct xdr_buf *buf,
-+				     unsigned int offset, unsigned int len)
-+{
-+	unsigned int nsg = 0, thislen, page_offset;
-+
-+	if (len == 0)
-+		return 0;
-+
-+	if (offset < buf->head[0].iov_len) {
-+		thislen = min_t(unsigned int,
-+				buf->head[0].iov_len - offset, len);
-+		nsg++;
-+		len -= thislen;
-+		offset = 0;
-+	} else {
-+		offset -= buf->head[0].iov_len;
-+	}
-+	if (len == 0)
-+		return nsg;
-+
-+	if (offset < buf->page_len) {
-+		thislen = min(buf->page_len - offset, len);
-+		page_offset = (offset + buf->page_base) & (PAGE_SIZE - 1);
-+		nsg += DIV_ROUND_UP(page_offset + thislen, PAGE_SIZE);
-+		len -= thislen;
-+		offset = 0;
-+	} else {
-+		offset -= buf->page_len;
-+	}
-+	if (len == 0)
-+		return nsg;
-+
-+	if (offset < buf->tail[0].iov_len)
-+		nsg++;
-+	return nsg;
-+}
-+
-+/**
-+ * xdr_buf_to_sg_alloc - Populate a scatterlist for an xdr_buf range
-+ * @buf: xdr_buf to map
-+ * @offset: starting byte offset within @buf
-+ * @len: number of bytes to cover
-+ * @sg_head: caller-provided scatterlist array (typically stack-allocated)
-+ * @sg_head_nents: number of entries in @sg_head
-+ * @sg_overflow: OUT: chained extension, or NULL when @sg_head sufficed
-+ * @gfp: memory allocation flags for overflow
-+ *
-+ * Populates @sg_head directly when the xdr_buf fits.  When more
-+ * entries are needed, an overflow scatterlist is allocated and
-+ * chained from @sg_head so that the result is traversable with
-+ * sg_next().
-+ *
-+ * Return: on success, the number of populated scatterlist entries
-+ * (counting only data entries, not chain entries).  @sg_head is
-+ * the head of the resulting list.  Caller must kfree @sg_overflow
-+ * when done.  On failure, a negative errno.
-+ */
-+int xdr_buf_to_sg_alloc(const struct xdr_buf *buf, unsigned int offset,
-+			unsigned int len, struct scatterlist *sg_head,
-+			unsigned int sg_head_nents,
-+			struct scatterlist **sg_overflow, gfp_t gfp)
-+{
-+	unsigned int nsg;
-+	int ret;
-+
-+	*sg_overflow = NULL;
-+	if (len == 0)
-+		return 0;
-+
-+	nsg = xdr_buf_sg_nents(buf, offset, len);
-+	if (nsg == 0)
-+		return -EINVAL;
-+
-+	if (nsg <= sg_head_nents) {
-+		sg_init_table(sg_head, nsg);
-+	} else {
-+		/* +1 replaces the slot sg_chain() consumes as the link. */
-+		unsigned int overflow_nents = nsg - sg_head_nents + 1;
-+		struct scatterlist *overflow;
-+
-+		overflow = kmalloc_array(overflow_nents, sizeof(*overflow),
-+					 gfp);
-+		if (!overflow)
-+			return -ENOMEM;
-+
-+		sg_init_table(sg_head, sg_head_nents);
-+		sg_init_table(overflow, overflow_nents);
-+		sg_chain(sg_head, sg_head_nents, overflow);
-+		*sg_overflow = overflow;
-+	}
-+
-+	ret = xdr_buf_to_sg(buf, offset, len, sg_head, nsg);
-+	if (ret < 0) {
-+		kfree(*sg_overflow);
-+		*sg_overflow = NULL;
-+	}
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(xdr_buf_to_sg_alloc);
-+
  /**
-  * xdr_inline_pages - Prepare receive buffer for a large reply
-  * @xdr: xdr_buf into which reply will be placed
 -- 
 2.53.0
 
