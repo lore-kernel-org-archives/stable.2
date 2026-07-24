@@ -1,221 +1,155 @@
-Received: from mail-ej2-f2.google.com (mail-ej2-f2.google.com [74.125.228.130])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F123B3AF668
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 07:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784879332; cv=none; b=IB3PCDM/9q7vQyyGqmg5sznJY3g6MSTqCa0jvHbCouGkwupychmx00SXsyGybg5onKSi6jiOccyNi3WYgLaV1rQ7CgYnJPYBT/p+lZiVWib/juXNr5vv++x3RCk8KFsdPh+thHqDPWX/7PY1W08QGROPiLHaC58C/Z6rUpn3JrA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784879332; c=relaxed/simple;
-	bh=fFk1U+4j9KhN+dnO3/fwlmEsn30+4NJ1B4HjaXJTksk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mHHQdZD9paEINZM8IADDJeQ4hZ7VG27wlS9AacH+mCXuEihb33K9rVp94Mm94gZmYcLDSgyIQcUAUaOM0GJaxEEmohxlv4SRkzAERyGejmrQwv13S1sOms7DrkW2WxL5Zo6AhauFomB9AwdOfoo6j9JijMAgX1Og9v8CfO4Ebn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=RyDUOn19; arc=none smtp.client-ip=74.125.228.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C32F3B7B7A
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 07:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784879957; cv=pass; b=n1ojJ0dcS8X7eovdf/38UPPUckjyTH2r+k/8b07UmPmimGBxyPgA99tSuNe91jeBdl1Khjw0EFDKPMSdSYysqUMTKjeJ7JUbR7sq330bSWyuSp9DQlDDuS9UAW6DvrB7i5GU6HRr89DdHi/w8p51y/4k9rOIYVuv+A2tEySkh7o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784879957; c=relaxed/simple;
+	bh=ILlD11q5P/icymMeNwcr6XkCRGdz3IA7THBE4JdvrCQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oBPmCxanrk1gStU4xr2qvQXOqrAoI4F1elYiQhhy9L1I1V19Z/h07lh4ANYXalZ1L25V69cjsSu90aiqJib1jf83lAiucGtjgdA0VZi8zegD1Bs96B0vPTvb/M+/JesluUQIRoIrZJ6dR935nVeluAghiOiPtSuvYN5XozRsVis=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=VuYjq2qi; arc=pass smtp.client-ip=209.85.218.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="RyDUOn19"
-Received: by mail-ej2-f2.google.com with SMTP id a640c23a62f3a-c159467cca6so7326466b.0
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 00:48:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="VuYjq2qi"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1c52d920b8so22532866b.2
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 00:59:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784879954; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oDpGSSz/lBgrGX+x1QQ4500Zllay09FDISAchuUzT82DHzbbmhH2lkZJfooJxHNyyN
+         qiOtHnNg8NoXfbi1/ID/RYlYxt2DmuNUnHJC7JrTOobsAC4IHZb+zpN4K5pQc0vFfVhY
+         m+RGu7hPObGG3twqI9WTg8ArJFZdFROXZCVOhM4rYpla9hYKmXbrrHuKSm2CPzgVBW88
+         CaegUMwyruKYzR+m5ca8zFrntHKZKnQcNyHdZOpVbUhevu7z2Uc1/KdYaTjAbKWmwa0h
+         RO9xa/aDjDXdVhcWwuL6rvxRDMBd4a029+EYWL+HTOWUqArpYvGfewxkmBT6+oEwK4wi
+         d1cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NqV3fbHAN7NZPWrpuhuPLnTSOaBXRquD+39euEZsbvo=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=kX31rWfRseYSzjwE01vIRb2H3H3zKZU8QdooMN0lNEqJ1gYHQm2OsN/OtZWDXrnB+d
+         02lFVwRKYXa+n6WAPBUznnTPpJaMhHKAmpnp8raY5Tt0BJhFptk2DP///MUGcUaMLzhh
+         UVWvngjg+VDGrltxLIyD+SRqmZyQZabKttTgoNIayubwtHX5i5Ea0B9hQwBiOkQF6uCc
+         9Sm4PxoPrWdfGKIVpUXcGx59ksNlPWlKZsl8dRz/kN22SN63mpdXwjqujnVPdkvf87aU
+         7BdSWb2AyF4QqcNwGAKAtiJFjKu4F9nykPT4XziAsMsPmXsyzsk5cCiodD/oLRNicmAo
+         Er7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784879326; x=1785484126; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+YCGrgBq88X6Ao02KH7mHgHqmuufOTy26hoLBxdlAOc=;
-        b=RyDUOn19O5awY7a8ogBt/iOeIhQgtfXplm6UXtGl3/ZCgING/2WDtyb4/A2db9EST9
-         cWDgSXDrMhqvZZDnhV+OCVY192n+6PQdsoGqa3YwJiy82Xum9fD3B4n6EiswFaDe88Qp
-         s9hY+NlpgYdbThp9VFYbUkZ0hugAfh3coIjOZmNi3tDeOgLyjFhNkOoLA6E+7k/Gx8AC
-         r221f6DgXunlsm6mpU5jwZrZCJQoY9FYRBeKDrnLhSRhZFh9AAAj3+nTvvu/OPvhrGJw
-         fYnix1qDlV99rWC80pTNo1wIQHyZSYPUZiq8gM7pKF/mgWaAjT1EgtliuGV2lT16oVCC
-         dI3Q==
+        d=suse.com; s=google; t=1784879954; x=1785484754; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NqV3fbHAN7NZPWrpuhuPLnTSOaBXRquD+39euEZsbvo=;
+        b=VuYjq2qifDT74ECTGr7NUJTvWvW4sv54T2us8dvAl/leQLXQz0Z52JJfgdDDitRh9R
+         0B5+y+xovh3xjXXVeUFKJ+7UU5dQz2IWcpHW3sRpDvY5U6Wi1StUSGbpQ7nfx27dkPcO
+         2wEMUaxb2HR3cVehtsMn3DCWujs7Fym6aHSvwyqTw60Df2f9gLmw+DU0yinDWndMej0+
+         OzyVhnItcQaPbdJxdqbmjPVnqvzaNPFXxhAOPEElROfXQZZAw2JUd6MKhtbTBhnJkD0O
+         iq+LzvTE8UcfsqgdnjjjAlPd0YACk6JytsYxkQ/jVsoLA/D48xPKFcr0lKWmY9sllvsL
+         fxNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784879326; x=1785484126;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+YCGrgBq88X6Ao02KH7mHgHqmuufOTy26hoLBxdlAOc=;
-        b=gSdVVzfR2Qrpz1JUsd9rNDt3MWejQl15Fn8om4l1EkGemmwbH2ijiZr4Esftwnm8/f
-         Xw67/PPVaKaTwou7vCq7pn4xQRb3wWrMovW4VUVdM0Dx0BYSUj+I4RAdCyEZaftgXYRb
-         PdEPrqpCC6Ea7NX6XmSX5tcO70Dz9/x7B6KwzMqVyMDe5Xjpgv2AXqA/SKvrb+yP1Cbx
-         DCz1TRAlj2IrJ5RTumsmUd0ek7Hn/P+WjnzMTaubNz6Eka3Ov3yVyUQfxUDqyju9x9x4
-         2WDgfNJAuOGVTOZGd9htIPtutminZBMZ1Mm6fp5lZguFTkLZMVj1gXZLSaoWI3yrY9Df
-         F9Ng==
-X-Gm-Message-State: AOJu0YwHOf4k4dFEgJRYdSLLJ748opVjApv2NoekVYskxpjbeJ92Fl/t
-	NdOcMkvSwLbYYeA7VwB8KOIZ4/9fxFSjSC46+K8Op70MHpf+iidtLxe5XpDV8gBAewC7UcWcw0V
-	INXWO81ll8SxRTSc=
-X-Gm-Gg: AR+sD124FleVpzbVdWrWhpLAcCnRkIZLKzI41rirfZPzLKZWrkZY1MEWNfO7PA30gzL
-	30gvmovb/hYqNMH2gdilrnlCGPFv2dEzrdYB1mT2w4EoS7RK8gEZeXHQ7qg2trf1RnqRknTc8+P
-	65RP7DDVnBewGQzPA3isIU+QMSDWqsN5j562IgIY81pobYVXczWnCMR5wJJYOlcQV10RQ0eJHs2
-	pw2TkvQFwPZ0/DH/+YEVZdPMM1c2TtXEvl9JMGLPkQChbDRVtLsn7bnXvB8PiQpGig+3OHNtZpn
-	qW2OvSijnsHXWpV4Zg3uTXesnlYukZow6NZ5VErUlYuDocTcOku7T0kC4Awxeb5mP3h+L2bpFZM
-	qXlO4G81UoYJN77qWaVjM9TB4timb2hWEGMZk9yGbXr68gSzk6YdEEeV4c6p0xX3XBBEPPTL+TB
-	JovgAzjtEs2ydg+FFbnArDelyHrgAvejMsG5g=
-X-Received: by 2002:a05:6938:a012:10b0:c12:67d2:3d67 with SMTP id a640c23a62f3a-c1c50965422mr201892866b.45.1784879326255;
-        Fri, 24 Jul 2026 00:48:46 -0700 (PDT)
-Received: from localhost (61-227-70-26.dynamic-ip.hinet.net. [61.227.70.26])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e2c36b12dsm2524243b3a.45.2026.07.24.00.48.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 00:48:44 -0700 (PDT)
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: stable@vger.kernel.org
-Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Jann Horn <jannh@google.com>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	Sidhartha Kumar <sidhartha.kumar@oracle.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 6.6 2/2] selftests/bpf: Add simple strscpy() implementation
-Date: Fri, 24 Jul 2026 15:48:34 +0800
-Message-ID: <20260724074835.47479-2-shung-hsi.yu@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260724074835.47479-1-shung-hsi.yu@suse.com>
-References: <20260724074835.47479-1-shung-hsi.yu@suse.com>
+        d=1e100.net; s=20251104; t=1784879954; x=1785484754;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NqV3fbHAN7NZPWrpuhuPLnTSOaBXRquD+39euEZsbvo=;
+        b=ClbwZ/cipi30HlCOzfGYWoWZwjzCO5cW/JWxFon+csWW5c/G1yMFNi08M+6J77gW/H
+         I8+1L+FY7ctwuQ01ppnw3kSxmn6jmSyXfnJX658YQ7Ao2XxFWgKKx8z84PiOfRXF5WUn
+         8rT51k2kNy0kJtpkjbdFz3V1fk0hyGqg50vLqT4aoMSggqI+MuXR1CTJVVPSy4a3HdXm
+         3r40m7VJpIt2SUasGIjP4eqhk3pMywsIGiHSA81GKCQX2wqeyvdltNSl+fc7igOCcdbN
+         EFIC1CiDdSxrlgI7D6MmjZaUSPOtBxoX8P1rmtnV+xQU6FOUSPURjJkTahcfLQRRZimu
+         k8uw==
+X-Gm-Message-State: AOJu0YxrjECwwfNU3NrEYCJh0CDOUTXmkEWo3tbOier121xwqpLBRKFn
+	xJOaioeur4PPW5Y4IrrN5a8vTY6s4K4Dsv+Fo/yCzDF3gqc0WakKvbJ2jydvEEVpAwVfwceqqiF
+	vyJ6VMW8WxLvODr0yxDtn8Zb+p23EHIrWIL5eQFrniQ==
+X-Gm-Gg: AR+sD12yxiaCwDTXe4ztwk0ZE2BB1Xj/jfn72NAerZ53aY85GCtyQ8DmiEbiArx9pVC
+	kzjDPzMcyBMNv+FiDZaXeRGaNoggdCebCry5xc6xGZX80L0R/iKN7uLtS5Efw9kjfc/TUcIkW/z
+	jZ+Zw5QmuM4lBjHrXv/wpN5nXMw3Ou0iqJYZANjR5yWkb9QnZGAgeZnuuwBtYFHCWlvGH+xU5N8
+	MWkDYM5I2cnx2lieZzRjWsa2SyA1aab2u5v8TKzb5Ac2HZ7J571eAH7c1yV
+X-Received: by 2002:a17:907:8b85:b0:c1c:5c90:1bad with SMTP id
+ a640c23a62f3a-c1c5c9029e3mr207519566b.14.1784879953664; Fri, 24 Jul 2026
+ 00:59:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260722143258.264584003@linuxfoundation.org> <amHSEwZcutUhO5tL@u94a>
+ <2026072304-dentist-repayment-4761@gregkh> <2026072416-chunk-curtain-332d@gregkh>
+ <amMLUyAZFJJY73JI@u94a>
+In-Reply-To: <amMLUyAZFJJY73JI@u94a>
+From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Date: Fri, 24 Jul 2026 15:58:52 +0800
+X-Gm-Features: AUfX_mxKhDR4Agh76fRXUCbOPz0JjCsCynyjqK0u9bSjgroBq7IqryokpL2Rbkk
+Message-ID: <CAJFoxQOHyAdy65-Ew9G0GY-HDa3x7iC31J1sBzVYOGBuEy8RVg@mail.gmail.com>
+Subject: Re: [PATCH 6.6 0000/1226] 6.6.145-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
+On Fri, Jul 24, 2026 at 2:52=E2=80=AFPM Shung-Hsi Yu <shung-hsi.yu@suse.com=
+> wrote:
+> On Fri, Jul 24, 2026 at 08:18:39AM +0200, Greg Kroah-Hartman wrote:
+> > On Thu, Jul 23, 2026 at 12:17:23PM +0200, Greg Kroah-Hartman wrote:
+> > > On Thu, Jul 23, 2026 at 04:37:07PM +0800, Shung-Hsi Yu wrote:
+> > > > On Wed, Jul 22, 2026 at 04:33:42PM +0200, Greg Kroah-Hartman wrote:
+> > > > > This is the start of the stable review cycle for the 6.6.145 rele=
+ase.
+> > > > > There are 1226 patches in this series, all will be posted as a re=
+sponse
+> > > > > to this one.  If anyone has any issues with these being applied, =
+please
+> > > > > let me know.
+> > > > >
+> > > > > Responses should be made by Fri, 24 Jul 2026 14:31:21 +0000.
+> > > > > Anything received after that time might be too late.
+> > > >
+> > > > BPF selftests compilation is currently broken. But with [1] applied=
+ it
+> > > > will build, with test_progs, test_progs-no_alu32, test_progs-cpuv4,
+> > > > test_maps, test_verifier in BPF selftests all passes[2] on x86_64 a=
+nd
+> > > > aarch64.
+> > > >
+> > > > Tested-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+> > > >
+> > > > 1: https://lore.kernel.org/stable/20260723071334.39630-1-shung-hsi.=
+yu@suse.com/
+> > > > 2: https://github.com/kernel-patches/linux-stable/actions/runs/2998=
+7147891
+> > >
+> > > Ok, I'll go queue those up for 6.12.y and 6.6.y now, thanks!
+> >
+> > As I said on the thread for those patches, they only applied to 6.12.y,
+> > so 6.6 will remain as-is for now :(
+>
+> Hmm, I would swear that `git cherry-pick $6-12-commit` in 6.6 worked
+> when I tried. Maybe I got the wrong tree.
 
-commit 63c49efc987afefc6b9bb7de083eb8748e0b1789 upstream.
+Seem like git figured out tools/testing/shared/linux/idr.h used to be calle=
+d
+tools/testing/radix-tree/linux/idr.h during cherry pick and handled the cha=
+nge
+itself. I didn't realize it does that.
 
-Replace bpf_strlcpy() in bpf_util.h with a sized_strscpy(), which is a
-simplified sized_strscpy() from the kernel (lib/string.c [1]). It:
-  * takes a count (destination size) parameter
-  * guarantees NULL-termination
-  * returns the number of characters copied or -E2BIG
+Lesson learned, I'll test with 'git am' in the future.
 
-Re-define strscpy macro similar to in-kernel implementation [2]: allow
-the count parameter to be optional.
+> Will resend one specifically for 6.6.y, sorry for the hassle.
 
-Add #ifdef-s to tools/include/linux/args.h, as they may be defined in
-other system headers (for example, __CONCAT in sys/cdefs.h).
+6.6-specfic patchset sent as
 
-Fixup the single existing bpf_strlcpy() call in cgroup_helpers.c
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/string.c?h=v6.19#n113
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/string.h?h=v6.19#n91
-
-Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-Link: https://lore.kernel.org/r/20260223190736.649171-2-ihor.solodrai@linux.dev
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Stable-dep-of: 55ffbe8a15b1 ("selftests/bpf: Initialize operation name before use")
-Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
----
- tools/include/linux/args.h                   |  4 ++
- tools/testing/selftests/bpf/bpf_util.h       | 45 ++++++++++++++------
- tools/testing/selftests/bpf/cgroup_helpers.c |  2 +-
- 3 files changed, 37 insertions(+), 14 deletions(-)
-
-diff --git a/tools/include/linux/args.h b/tools/include/linux/args.h
-index 2e8e65d975c7..14b268f2389a 100644
---- a/tools/include/linux/args.h
-+++ b/tools/include/linux/args.h
-@@ -22,7 +22,11 @@
- #define COUNT_ARGS(X...) __COUNT_ARGS(, ##X, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
- 
- /* Concatenate two parameters, but allow them to be expanded beforehand. */
-+#ifndef __CONCAT
- #define __CONCAT(a, b) a ## b
-+#endif
-+#ifndef CONCATENATE
- #define CONCATENATE(a, b) __CONCAT(a, b)
-+#endif
- 
- #endif	/* _LINUX_ARGS_H */
-diff --git a/tools/testing/selftests/bpf/bpf_util.h b/tools/testing/selftests/bpf/bpf_util.h
-index 10587a29b967..1e329f29f696 100644
---- a/tools/testing/selftests/bpf/bpf_util.h
-+++ b/tools/testing/selftests/bpf/bpf_util.h
-@@ -7,6 +7,7 @@
- #include <string.h>
- #include <errno.h>
- #include <bpf/libbpf.h> /* libbpf_num_possible_cpus */
-+#include <linux/args.h>
- 
- static inline unsigned int bpf_num_possible_cpus(void)
- {
-@@ -20,25 +21,43 @@ static inline unsigned int bpf_num_possible_cpus(void)
- 	return possible_cpus;
- }
- 
--/* Copy up to sz - 1 bytes from zero-terminated src string and ensure that dst
-- * is zero-terminated string no matter what (unless sz == 0, in which case
-- * it's a no-op). It's conceptually close to FreeBSD's strlcpy(), but differs
-- * in what is returned. Given this is internal helper, it's trivial to extend
-- * this, when necessary. Use this instead of strncpy inside libbpf source code.
-+/*
-+ * Simplified strscpy() implementation. The kernel one is in lib/string.c
-  */
--static inline void bpf_strlcpy(char *dst, const char *src, size_t sz)
-+static inline ssize_t sized_strscpy(char *dest, const char *src, size_t count)
- {
--	size_t i;
-+	long res = 0;
- 
--	if (sz == 0)
--		return;
-+	if (count == 0)
-+		return -E2BIG;
- 
--	sz--;
--	for (i = 0; i < sz && src[i]; i++)
--		dst[i] = src[i];
--	dst[i] = '\0';
-+	while (count > 1) {
-+		char c;
-+
-+		c = src[res];
-+		dest[res] = c;
-+		if (!c)
-+			return res;
-+		res++;
-+		count--;
-+	}
-+
-+	/* Force NUL-termination. */
-+	dest[res] = '\0';
-+
-+	/* Return E2BIG if the source didn't stop */
-+	return src[res] ? -E2BIG : res;
- }
- 
-+#define __strscpy0(dst, src, ...)	\
-+	sized_strscpy(dst, src, sizeof(dst))
-+#define __strscpy1(dst, src, size)	\
-+	sized_strscpy(dst, src, size)
-+
-+#undef strscpy /* Redefine the placeholder from tools/include/linux/string.h */
-+#define strscpy(dst, src, ...)	\
-+	CONCATENATE(__strscpy, COUNT_ARGS(__VA_ARGS__))(dst, src, __VA_ARGS__)
-+
- #define __bpf_percpu_val_align	__attribute__((__aligned__(8)))
- 
- #define BPF_DECLARE_PERCPU(type, name)				\
-diff --git a/tools/testing/selftests/bpf/cgroup_helpers.c b/tools/testing/selftests/bpf/cgroup_helpers.c
-index f68fbc6c3f52..aaae3452f7dd 100644
---- a/tools/testing/selftests/bpf/cgroup_helpers.c
-+++ b/tools/testing/selftests/bpf/cgroup_helpers.c
-@@ -78,7 +78,7 @@ static int __enable_controllers(const char *cgroup_path, const char *controllers
- 		enable[len] = 0;
- 		close(fd);
- 	} else {
--		bpf_strlcpy(enable, controllers, sizeof(enable));
-+		strscpy(enable, controllers);
- 	}
- 
- 	snprintf(path, sizeof(path), "%s/cgroup.subtree_control", cgroup_path);
--- 
-2.55.0
-
+  https://lore.kernel.org/stable/20260724074835.47479-1-shung-hsi.yu@suse.c=
+om/
