@@ -1,348 +1,491 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31D33DB32D;
-	Fri, 24 Jul 2026 08:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A2F35F189
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 08:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.220
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784881806; cv=fail; b=ItivjSJk3/bESqLlUmBRLc4UjNleykDaF4gcVRvvEyl5xHyCeiUzQpSeoosLYTQkufLRL9tKzE5Bmj4vDZF4HqEkUXa5LswS6cuczOqKf4c+q1sG8QkyI3TYWDE5MOiuD106Q2Vk4VUPxrHfZyzH0iTpDxB5lo42CW1llPNrAQ0=
+	t=1784882160; cv=pass; b=RzO4g8hzeAuvIqigRyqHPHmxJkoPk2+61o5HrlJsJZJPSFUw9abvJOFfpr9iGewGW5DLbB2/wQehq1PH67dA5l7ICJCmVAaSiHIZB5rEl18xj5lmHguvpz+dem8KCdLsADq/ACQ4ZbSkSP1wCsNNFsbLq9puffuBgYx1c+6uptc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784881806; c=relaxed/simple;
-	bh=yPVq6aDzDv5kVPRDuK/aibmKigEl+rM9/tyCx3whcuM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=NLuwh4EclS1y8LBqA3Pa1SEssVnddVjmnXJCApSGEQDTdDKuuGEf8Mp+Tv9vQuPcZvPCddDVDd9YwgYWKL8ZrbFeL5YIAoEr+Ta/z2EljrDuGmsRbXMX9hU0AAtHVyy5JDa06ECB0uZIHQkZLcw2UNESzFRK/4QvDbnSo+4NuG8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=We2PoItw; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=BesxNFRm; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1784882160; c=relaxed/simple;
+	bh=CvZihJaqpGA9AnU8CYeuvWU/U/3R4Mn7OmmLUqdDsyM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AcniCm1VRO8a0ZN7pNs7cgYORGbZfd5tfYKQk4Nbq18xh5YPx4q3tzaTtYviOn/3D1j1bfDRlboWXXG/5lVgQ40LMMxtWsyi5fEKmbcrd77ppj8bWNP2HjvI7HPXp6n902aQWPdn0nPrNvJ52zo2/a/wMpRgJ0LwALWLeVcvR0Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=dOyWrQ9b; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=C7pZ3rFL; arc=pass smtp.client-ip=81.169.146.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="We2PoItw";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="BesxNFRm"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66O4l1TX140245;
-	Fri, 24 Jul 2026 03:29:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=MtFlfdrg+zlwtezojI54Fb1RobNIfmGu7iQEqYDiu
-	jE=; b=We2PoItwWXK52SeeFyDpULuTomXNXXisCYI+BHTmR+IrdMeCs6Wh85vXd
-	QgGBWPlbvYxDEi7W4EHfWc/573omRCJ0y7jZOxkTMdTpQkSAFN5rmsjikmWuYXzB
-	BQJ8+5H7PIsP3kArFHJkFt4Cp6ArsDphghJZfZKZtTKAhN8J7VFEILTmezX0bJOc
-	2F0gII7A9t2dqWNgMDgKSBy8LgUSlSEkqpsVt8Y38K9zTrrntNIt+qfFK5c/bNAZ
-	vFDJK9S5JvYlj8nrWIWWzkqRT7XAqSbQgqU9knh6ve/wDvy4iyPZ3fLFtjOqyKOa
-	mTy7+1yEFdbOT5ws82ViMJZCjqVcQ==
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010022.outbound.protection.outlook.com [52.101.56.22])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4fkjawe9u6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 24 Jul 2026 03:29:53 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V1yfE9y49HSHWqThkqrdxFlaf9eBM873TbjF0itOBympXcrMDYz3weJ0TRaMi+/+oGNQ2Gy07zT5XvBzyLDGuY0UaNO5D2ukyRYT9AzmrwTagyKfUrTEd+cdklBd1P4ZQEt4XePjZs2hwszQxuQKhWeCK5tu8vjVEdmLfv6OfE0jw15ALkcCPTmpu0qtfcGktWXv/Lozrx5NygVs5/0HcNnu8fO5jl3RDp4tft602fad3LrNipZO1KOTfz4oIFE39QfYDGAoZJHf3Qg23GzKE5noJpFZsXOQ6gwN2QTkbE2vrH+ESwQSHNWx/6UhLFb3ZV+7HOLM7QT4EwYyQJGISw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MtFlfdrg+zlwtezojI54Fb1RobNIfmGu7iQEqYDiujE=;
- b=eUH/647Cnm+pm5UxC8mmbMlYzCKtkO39wABipEy5073KzMOK6RuQQDvsSkONZIcoZZl0i/X70JwPLjE3VSnGCVOb4HUTM67bkcE8Uo82sLp5h9plbgaCPT8ewVWnkcpI/pErbBxrsI95mKzyFciJtBPIt6eHtESmGi9HEw74JdLrrr1S0hAKaaSCp/ZcN1eGZXCjkoHLlI6E7kHplugxROivA2vCIfqsfQtXzpAiiVeAJ++kBdNOWS5p5m6DhOU/zoiD7LFsuclxv7pYal3xuQ3b00y7U9eqYXfKDh+mr+kSUyYfHDw5B23C8seLYCF37ohMPo8mHEkKg9MJtZlWGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MtFlfdrg+zlwtezojI54Fb1RobNIfmGu7iQEqYDiujE=;
- b=BesxNFRmIgF8nOWrmXcV8s8OAvZjHrvvukc2oXEfyaIhC6HcwcsJveJBJCqSZ3MjbBsMzylOPmh4612NurkWgN1Pu9RyRE5Giq14HqbNe8zPtiI3oMkQljxkrvuguu1iYtbLKXhV1fNxuQJqvw/H24l1UrjqATq3hhfWIygWieg=
-Received: from CH5PR04CA0006.namprd04.prod.outlook.com (2603:10b6:610:1f4::11)
- by PH8PR10MB6289.namprd10.prod.outlook.com (2603:10b6:510:1bd::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Fri, 24 Jul
- 2026 08:29:47 +0000
-Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
- (2603:10b6:610:1f4:cafe::6b) by CH5PR04CA0006.outlook.office365.com
- (2603:10b6:610:1f4::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.12 via Frontend Transport; Fri,
- 24 Jul 2026 08:29:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 08:29:47 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 24 Jul
- 2026 03:29:46 -0500
-Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 24 Jul
- 2026 03:29:46 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 24 Jul 2026 03:29:46 -0500
-Received: from [10.24.51.219] (abhilash-hp.dhcp.ti.com [10.24.51.219])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66O8TgPZ2852774;
-	Fri, 24 Jul 2026 03:29:43 -0500
-Message-ID: <4adc8ad4-e2c2-424b-951b-f83a41684d0a@ti.com>
-Date: Fri, 24 Jul 2026 13:59:41 +0530
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="dOyWrQ9b";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="C7pZ3rFL"
+ARC-Seal: i=1; a=rsa-sha256; t=1784882146; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=RepAgDUhr1wv5hveq3BxtcTnpANfiXmgeyxpjVChGoy9ZdaEFNc5Nr+M3eWG9dfbmX
+    2KO4t+vs3KxzjQ6uat7oLG+2MgWf1QZX+TV671MaWZV2Ne3Hvut8Ucc58Pe6uy07adbN
+    2Y2RjExN1eXf4Sh+nuss0KNS3lcIs4MOkXHs5e7JYLQH6/DvbL0LFKHMoQXvXrwzYplf
+    J7Ltbkg3kDz/lnfXNkhEsE9xVJR/PJ1A2c1KOzHx9g8q9Vh9ijFV9lCLz0ArHxfaBSnA
+    vA3bqF7wJciN/NdybUk8V7jRyOZpNkjidGOaBAowk4pba4fb4CJuJyqwRCRT71rFbvgQ
+    /YuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=hKbgyQ/aS1VTU4J40zWeKRlFjTUdAq44B0yrpP6jjm0=;
+    b=Jchy7vDCH21t+1TcCLzGvbqQlx5L3iZTjW4XGRgXJLx0PVAbDJOQ54Eq/a63gMLD1E
+    YUlHBFgySHfEBc3SzX6G0WBEJxmRgyKGxZTPeHVbZ46XTjS4P4A5FNU8i5f98ePMa5h8
+    wl5zN9p/08HEmhrGIq5YJ+DEs1Ecjh5a6F04oOAj0abgZ9OVFES84yBnenTx0z3BjhmS
+    D0f0azs1R+ZnkW+OtMJD3atGasg7wD+mizQb7ho8eX9umE1en80y7dDZqRKCslW4a56Q
+    xsaruJL77dgquiVlmBLu7mcLosgSDh1pDKoRPFvImOwElvvbDN6XpCixzFGm0R4Xy6S+
+    SqBQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=hKbgyQ/aS1VTU4J40zWeKRlFjTUdAq44B0yrpP6jjm0=;
+    b=dOyWrQ9bHEh4q1c7mUw/gVbUSeXVEQCN/b7v2912LOgs50KCOcpwYXcip8vsefCvUV
+    rtH50CiQ3V0HRtSf2ZJqlLR4bd6j4QGrDJd/relA9sRXtgRZYdaEr/J9PPGQC2aOsFAA
+    N9xZzKX8L7dD8gDPSBNbPLZBFI33kM3YFfHMqEK+yc0nLlL5BFDo3hUTlKxGwqGVKnTN
+    pwmH3JSSUM9IPm6NtkO92Syma/4M2aY8+utQErSb7r3VJZ80cXEPq6PcTlprmjcbestR
+    +KOhQS0Rq2q35VhWgab9wRq9eMsbt+74FFS5xiOwASmB5+a/Yz9vsbOkLK9PivLMDgEs
+    4gjQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784882146;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=hKbgyQ/aS1VTU4J40zWeKRlFjTUdAq44B0yrpP6jjm0=;
+    b=C7pZ3rFLj/xoGDX9dVd+Ioh2MkmXNJVwqZgkF9Py56yosxziVMeWNUAodoon9UfHZS
+    IwN6wI7fM9IQRM2fZPDA==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
+    with ESMTPSA id K5281926O8ZkrLz
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 24 Jul 2026 10:35:46 +0200 (CEST)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+To: stable@vger.kernel.org
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH 2/9] can: bcm: add locking when updating filter and timer values
+Date: Fri, 24 Jul 2026 10:35:27 +0200
+Message-ID: <20260724083534.12119-3-socketcan@hartkopp.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072013-angled-grafted-e9e4@gregkh>
+References: <2026072013-angled-grafted-e9e4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] media: ti: vpe: quiesce overflow recovery before
- freeing streams
-To: Fan Wu <fanwu01@zju.edu.cn>, <mchehab@kernel.org>,
-        <hverkuil+cisco@kernel.org>
-CC: <bparrot@ti.com>, <dale@farnsworth.org>, <dagriego@biglakesoftware.com>,
-        <sbellary@baylibre.com>, <linux-media@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <801025b7-a3b8-4655-af49-f9bb65254170@kernel.org>
- <20260716113230.3131086-1-fanwu01@zju.edu.cn>
-Content-Language: en-US
-From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-In-Reply-To: <20260716113230.3131086-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|PH8PR10MB6289:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f3a6927-28b7-4092-9b9a-08dee95db89b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|56012099006|4143699003|10067099003|13003099007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	87TPGrUmTml/VSULQUqSuv+2ltTtH649UgYO2g6FLAYQPw4pL+q+NahprXdsMHoeIBxeQjwFMNzv2tXsu2mfB+siK74rCgzXqfpschPV+Tbp1vmifg+tQrOsd85koAWhzeB70t7zFAM67Cj1M7n/FBe+T9Rea+J32kWAGFygwQJn4ZPsDHP/52t40mZ5orrg+Pbk+R4bvfGdIooPqxpDFBGGG+mrPeYCVqkVX83lQ9T0uz4C49CVum4UvWEzWTFCGXe85g5BWKE3MhCYB6f5zyn+y3yTzu3xrFi04qD+71wFvZgotr69kkv2jk/CcNhB6fCCf4zrR7923G0jzlwzWBMozy35uguQ1ZIXl+IRu+Im9tWqYruEWKEK2XAPz+XDPsBzIvbV9Cg3Del6uqHJlUmZXtucB6/qd1CjQX+UC4ZBvfnBfeq72xBn77/ODgOySG5QJ330y/MAKgyRf8rPAx5AiFd7kEa6RyTlBhw6O+s3nfuAspH2rmcwA2lJ2GAkKIT5N/kJs0qlf7+1TOviucqVNuq2zqU4fJc1CeXuMXeSXmU7APquNdjjVsICdbD0DkQjSQXhiYFyaPmxrpSurz2FGJLo3vz2fRbq1YC4B86N2kzSrcPdNvtKMuyCh0IQKx97urUwuKl67N0BwzKAbw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(56012099006)(4143699003)(10067099003)(13003099007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	r2jJk/BJpWhwcUDyyFrYf7SI0CIaTtKDQDBkq2bUmd7B6jB2nsQKdgDFBfNtwQFTRVgw7NVSKkX/KHHj63rvpKeXt/OUIMAMWwKpZlQ7SD24CVNSns4P6ElwiZZE2VxQGH6+DYRgZzi8Ggd0YDic2MKqLtx+L2suXWHIO1A3HGk4ikITJkqinRim4duhsns5k86T7OTGhK4gvfdZ9+CQhZ+S8EKmjw30L5W/8LMoXqOrMUQBtyeK0riLLnQgM/RkcYari91qmOPYezDY8Y+yV3L530nS53DuZeVzy5Xt1xtjs4XVvwYPgx8EjevO1uV7ZnJt5HLmJakh2oRitRevMzfYbJHbhFx6vQzcMgYeQHKnXd67us8r2Tm2dHJHhARruIrxJ8kVPWjt4mP4wre9Oel0mA+hLep29N2Q96dwO27N4VcVyIIIRaOD3T6L0yxm
-X-Exchange-RoutingPolicyChecked:
-	c/qdrClEyDRYDBv1liNuumcTVkTPCc7cDLvqcHUTpqG5xwKHQynLbR96927frged3ff7zqoSopy2jByiBns+oTzhxWV11BdwxRsuUjqPBwnEFfCSBu1fza4PVxm/hJOG14LdTcDZxCDmc7Pe/9JLVi8OWem92TciAELWDqvp+K7lHE2QxmlivMXkhyVoVcd5rmR72vKvAjxCC6ShRjcsXgeYZaoeXkT2iu5rWBIceip+wdIJfQLJVDpJVseu1bIsJ3LQPCMOjUw4P0unz+R0pEYAJtxNTlJEVsDWLqvr4r5k0jNceD/i4Q2IlU8EVClT4x5nEVYDqKXzR99k48+kxg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 08:29:47.0666
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f3a6927-28b7-4092-9b9a-08dee95db89b
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A34A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR10MB6289
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA3NiBTYWx0ZWRfX43M9/tlwL/S9
- OZsffiOVyqUjdDpF0B79hv/1UqfxR1/69uh5+fLfEd7kyceM30V70/cmOgQYD7Rbbij7kyyYip1
- EcN3Mm+SWfgTA/JsxLDHYQcZbpTprKQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA3NiBTYWx0ZWRfXwVG2ZBUy2rtP
- mGlq/B9S0zdxx8LN2cg+u++Gv0S5mabgDBw5yp2G4s58Xk8oQpy/cabeMf9Mj4K8ryEBtZ5B0L/
- IeqIbyjR0dZS3EPuXGKFlZusngrtUdygZZIbXht8ZQYC6xRzfcDc0CqyORWh1RPdiM26vCyTF1x
- ZuKTXvFA8BVfCQrMk91qJ1DjS0fkxGhGbOhoTnXEmfR7FXCKQYu6m0WIsly6+ojn0pD8WV6Igd8
- zzWJkdIVj/JH6pnobDE9qoHd/QSlLVs4QweYBBcpCWseGv/v3iVin+Vk7vqIgvVoPG58eY/ATJc
- Y8d3WzIMNMaHvMzJhlR184ti6MIiG2NI+PdSU8jxgda8YavKyRQ+6HXRhY7/qBwzAL8fy442CCI
- /JM6iYtEyzGQ1iXb7YH6pjCY5h3EwQHGtM3ihoi2HrimBV2THN0cvdxNyip9s9KDvHTiDWkRA5a
- aKJ7OULiyLFOS3w9Qmw==
-X-Authority-Analysis: v=2.4 cv=GPE41ONK c=1 sm=1 tr=0 ts=6a632281 cx=c_pps
- a=wVrytDogCwW2gNy9sPioUw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=NEAV23lmAAAA:8
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=0qC2fOzHzQn5ViRwkBAA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: AkqSgpGq3WLMdkrBzZvJg44_hbwgdfAm
-X-Proofpoint-ORIG-GUID: AkqSgpGq3WLMdkrBzZvJg44_hbwgdfAm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-24_01,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240076
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-Hi,
+commit 749179c2e25b95d22499ed29096b3e02d6dfd2b4 upstream.
 
-Fan, Thanks for the v4.
+KCSAN detected a simultaneous access to timer values that can be
+overwritten in bcm_rx_setup() when updating timer and filter content
+while bcm_rx_handler(), bcm_rx_timeout_handler() or bcm_rx_thr_handler()
+run concurrently on incoming CAN traffic.
 
-Hans, Apologies for the delay in testing this.
+Protect the timer (ival1/ival2/kt_ival1/kt_ival2/kt_lastmsg) and filter
+(nframes/flags/frames/last_frames) updates in bcm_rx_setup() with a new
+per-op bcm_rx_update_lock, taken with the matching scope in the RX
+handlers. memcpy_from_msg() is staged into a temporary buffer before the
+lock is taken, since it can sleep and must not run under a spinlock.
 
-On 16/07/26 17:02, Fan Wu wrote:
-> The VIP overflow recovery worker is armed from the hardirq handler when a
-> FIFO overflow is detected, and the list-complete path looks the stream up
-> through the VPDMA list private pointer. Both keep touching stream, port
-> and device state; the recovery worker also resets the parser and VPDMA,
-> repopulates the descriptor list, and re-enables the per-list IRQs.
-> 
-> vip_stop_streaming() masks and clears the per-list IRQs, but it neither
-> synchronizes the hardirq handler nor disables recovery_work. An overflow
-> IRQ that has already queued recovery_work, or a list-complete IRQ in
-> flight when the stream is torn down, can therefore still dereference the
-> stream after its resources are released: the descriptor list is freed by
-> vip_release_stream() on file release, and the stream itself by
-> free_stream() on unbind/remove.
-> 
-> Drain the recovery worker and the IRQ handler at both teardown points
-> through a shared vip_quiesce_stream() helper, before any stream-owned
-> resource is released. disable_work_sync() cancels pending recovery_work,
-> drains a running instance, and raises its disable depth, so a subsequent
-> schedule_work() issued by a racing IRQ handler is rejected at the
-> workqueue scheduler: recovery_work cannot be requeued after
-> disable_work_sync() takes effect. The worker may still re-enable the
-> per-list IRQs before disable_work_sync() returns; disable_irqs() then
-> masks those sources and synchronize_irq() waits for any in-flight handler
-> that still dereferences stream state. In vip_stop_streaming() the helper
-> runs before the parser is stopped, since a worker drained by
-> disable_work_sync() may re-enable the parser before exiting and would
-> otherwise undo the stop. recovery_work is created disabled and enabled in
-> vip_start_streaming() before IRQs, pairing the enable with the teardown
-> disable across the streaming lifecycle.
-> 
-> This issue was found by an in-house static analysis tool and confirmed
-> by manual code review.
-> 
-> Fixes: fc2873aa4a21 ("media: ti: vpe: Add the VIP driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+hrtimer_cancel() is always called without bcm_rx_update_lock held, since
+bcm_rx_timeout_handler()/bcm_rx_thr_handler() take the same lock and a
+running callback would otherwise deadlock against the canceller.
 
-The changes looks good to me. Hence
+Also close a related race: bcm_rx_setup() cleared the RTR flag in the
+stored reply frame's can_id as a separate, unprotected step after the
+frame content was already installed, so a concurrent bcm_rx_handler()
+could transmit a stale reply with CAN_RTR_FLAG still set. Fold that
+normalization into the initial frame preparation instead (on the staged
+buffer for updates, directly on op->frames pre-registration for new
+ops), so the installed frame is always atomically self-consistent.
 
-Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-Tested-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com> (on 
-AM572X-EVM)
+bcm_rx_handler()'s RX_RTR_FRAME check now takes a lock-protected
+snapshot of op->flags before deciding whether to call bcm_can_tx(),
+but does not hold the lock across that call.
 
-Test logs: 
-https://gist.github.com/Yemike-Abhilash-Chandra/76ff7b621001187283f28fcba15a23e4
-Branch: 
-https://github.com/Yemike-Abhilash-Chandra/linux/commits/VIP_testing/
+Also take a lock-protected snapshot of the currframe in bcm_can_tx()
+to avoid partly overwrites by content updates in bcm_tx_setup().
+Finally check if a TX_RESET_MULTI_IDX/SETTIMER might have reset
+op->currframe between the two locked sections in bcm_can_tx().
 
-Thanks and Regards,
-Yemike Abhilash Chandra
+Omit calling hrtimer_forward() with zero interval in bcm_rx_thr_handler().
+kt_ival2 may have been concurrently cleared by bcm_rx_setup() before it
+cancels this timer, so check kt_ival2 inside the bcm_rx_update_lock.
 
-> ---
-> Changes in v4:
-> - Drop the unrelated vpdma_hwlist_release() cleanup from this fix (Hans
->    Verkuil).
-> - In free_stream(), call vip_quiesce_stream() before clearing
->    cap_streams[], so the stream remains published while in-flight IRQ
->    handling is drained (Hans Verkuil).
-> 
-> Changes in v3:
-> - Replace the per-stream irq_rearm_allowed flag and the repeated IRQ
->    disable/synchronize_irq() in vip_quiesce_stream() with the workqueue
->    disable-depth API (disable_work_sync/enable_work/disable_work), as
->    suggested by Yemike Abhilash Chandra. This also closes a window the v2
->    double-drain left open, where its second synchronize_irq() waited for
->    the in-flight handler but did not cancel the recovery_work it had
->    requeued, so that work could run after free.
-> - Create recovery_work disabled and enable it in vip_start_streaming()
->    before IRQs.
-> - In vip_stop_streaming(), quiesce before stopping the parser: a worker
->    drained by disable_work_sync() may re-enable the parser before exiting,
->    so stopping the parser first would be undone.
-> 
-> Changes in v2:
-> - Drain the overflow recovery worker at both teardown points through a
->    shared vip_quiesce_stream() helper: vip_stop_streaming() (file release
->    path) and free_stream() (unbind/remove). v1 drained only in
->    free_stream().
-> - Document how the issue was found and that the patch was prepared with
->    LLM assistance (Assisted-by trailer and body note).
-> 
-> Link: https://lore.kernel.org/r/20260708013738.110752-1-fanwu01@zju.edu.cn/
-> ---
->   drivers/media/platform/ti/vpe/vip.c | 37 +++++++++++++++++++++++++----
->   1 file changed, 33 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
-> index cb0a5a07a3d4..673f9addfade 100644
-> --- a/drivers/media/platform/ti/vpe/vip.c
-> +++ b/drivers/media/platform/ti/vpe/vip.c
-> @@ -814,6 +814,22 @@ static void clear_irqs(struct vip_dev *dev, int irq_num, int list_num)
->   	vpdma_clear_list_stat(dev->shared->vpdma, irq_num, dev->slice_id);
->   }
->   
-> +/*
-> + * Quiesce recovery work and per-list IRQs before releasing stream resources.
-> + * disable_work_sync() prevents the overflow handler from requeueing recovery
-> + * work. Mask and synchronize IRQs afterwards because a running worker may
-> + * have re-enabled them before exiting.
-> + */
-> +static void vip_quiesce_stream(struct vip_stream *stream)
-> +{
-> +	struct vip_dev *dev = stream->port->dev;
-> +
-> +	disable_work_sync(&stream->recovery_work);
-> +	disable_irqs(dev, dev->slice_id, stream->list_num);
-> +	clear_irqs(dev, dev->slice_id, stream->list_num);
-> +	synchronize_irq(dev->irq);
-> +}
-> +
->   static void populate_desc_list(struct vip_stream *stream)
->   {
->   	struct vip_port *port = stream->port;
-> @@ -2428,6 +2444,7 @@ static int vip_start_streaming(struct vb2_queue *vq, unsigned int count)
->   		goto err;
->   
->   	stream->num_recovery = 0;
-> +	enable_work(&stream->recovery_work);
->   
->   	clear_irqs(dev, dev->slice_id, stream->list_num);
->   	enable_irqs(dev, dev->slice_id, stream->list_num);
-> @@ -2452,13 +2469,17 @@ static void vip_stop_streaming(struct vb2_queue *vq)
->   	struct vip_dev *dev = port->dev;
->   	int ret;
->   
-> +	/*
-> +	 * A running recovery worker may re-enable the parser, so quiesce it
-> +	 * and its IRQ handler before stopping the parser or releasing the
-> +	 * descriptor list.
-> +	 */
-> +	vip_quiesce_stream(stream);
-> +
->   	vip_parser_stop_imm(port, true);
->   	vip_enable_parser(port, false);
->   	unset_fmt_params(stream);
->   
-> -	disable_irqs(dev, dev->slice_id, stream->list_num);
-> -	clear_irqs(dev, dev->slice_id, stream->list_num);
-> -
->   	if (port->subdev) {
->   		ret = v4l2_subdev_call(port->subdev, video, s_stream, 0);
->   		if (ret)
-> @@ -3074,6 +3095,8 @@ static int alloc_stream(struct vip_port *port, int stream_id, int vfl_type)
->   		goto do_free_hwlist;
->   
->   	INIT_WORK(&stream->recovery_work, vip_overflow_recovery_work);
-> +	/* Start disabled; vip_start_streaming() enables it before IRQs. */
-> +	disable_work(&stream->recovery_work);
->   
->   	INIT_LIST_HEAD(&stream->vidq);
->   
-> @@ -3139,6 +3162,13 @@ static void free_stream(struct vip_stream *stream)
->   		return;
->   
->   	dev = stream->port->dev;
-> +	/*
-> +	 * Quiesce the IRQ handler and recovery worker, then drop the stream
-> +	 * from cap_streams[], before releasing stream-owned resources.
-> +	 */
-> +	vip_quiesce_stream(stream);
-> +	stream->port->cap_streams[stream->stream_id] = NULL;
-> +
->   	/* Free up the Drop queue */
->   	list_for_each_safe(pos, q, &stream->dropq) {
->   		buf = list_entry(pos,
-> @@ -3150,7 +3180,6 @@ static void free_stream(struct vip_stream *stream)
->   
->   	video_unregister_device(stream->vfd);
->   	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
-> -	stream->port->cap_streams[stream->stream_id] = NULL;
->   	kfree(stream);
->   }
->   
+Fixes: c2aba69d0c36 ("can: bcm: add locking for bcm_op runtime updates")
+Reported-by: syzbot+75e5e4ae00c3b4bb544e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-can/6975d5cf.a00a0220.33ccc7.0022.GAE@google.com/
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-3-562f7e3e42da@hartkopp.net
+Cc: stable@kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+---
+ net/can/bcm.c | 178 +++++++++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 134 insertions(+), 44 deletions(-)
+
+diff --git a/net/can/bcm.c b/net/can/bcm.c
+index 859816d..ffd492a 100644
+--- a/net/can/bcm.c
++++ b/net/can/bcm.c
+@@ -126,6 +126,7 @@ struct bcm_op {
+ 	struct sock *sk;
+ 	struct net_device *rx_reg_dev;
+ 	spinlock_t bcm_tx_lock; /* protect currframe/count in runtime updates */
++	spinlock_t bcm_rx_update_lock; /* protect filter/timer data updates */
+ };
+ 
+ struct bcm_sock {
+@@ -280,21 +281,27 @@ static int bcm_proc_show(struct seq_file *m, void *v)
+  * bcm_can_tx - send the (next) CAN frame to the appropriate CAN interface
+  *              of the given bcm tx op
+  */
+-static void bcm_can_tx(struct bcm_op *op)
++static void bcm_can_tx(struct bcm_op *op, struct canfd_frame *cf)
+ {
+ 	struct sk_buff *skb;
+ 	struct net_device *dev;
+-	struct canfd_frame *cf;
++	struct canfd_frame cframe;
++	bool cyclic = !cf;
++	unsigned int idx = 0;
+ 	int err;
+ 
+ 	/* no target device? => exit */
+ 	if (!op->ifindex)
+ 		return;
+ 
+-	/* read currframe under lock protection */
+-	spin_lock_bh(&op->bcm_tx_lock);
+-	cf = op->frames + op->cfsiz * op->currframe;
+-	spin_unlock_bh(&op->bcm_tx_lock);
++	if (cyclic) {
++		/* read currframe under lock protection */
++		spin_lock_bh(&op->bcm_tx_lock);
++		idx = op->currframe;
++		memcpy(&cframe, op->frames + op->cfsiz * idx, op->cfsiz);
++		cf = &cframe;
++		spin_unlock_bh(&op->bcm_tx_lock);
++	}
+ 
+ 	dev = dev_get_by_index(sock_net(op->sk), op->ifindex);
+ 	if (!dev) {
+@@ -323,14 +330,20 @@ static void bcm_can_tx(struct bcm_op *op)
+ 	if (!err)
+ 		op->frames_abs++;
+ 
+-	op->currframe++;
++	/* only advance the cyclic sequence if nothing reset currframe while
++	 * we were sending - a concurrent TX_RESET_MULTI_IDX means this
++	 * frame's bookkeeping belongs to a sequence that no longer exists
++	 */
++	if (!cyclic || op->currframe == idx) {
++		op->currframe++;
+ 
+-	/* reached last frame? */
+-	if (op->currframe >= op->nframes)
+-		op->currframe = 0;
++		/* reached last frame? */
++		if (op->currframe >= op->nframes)
++			op->currframe = 0;
+ 
+-	if (op->count > 0)
+-		op->count--;
++		if (op->count > 0)
++			op->count--;
++	}
+ 
+ 	spin_unlock_bh(&op->bcm_tx_lock);
+ out:
+@@ -429,7 +442,7 @@ static enum hrtimer_restart bcm_tx_timeout_handler(struct hrtimer *hrtimer)
+ 	struct bcm_msg_head msg_head;
+ 
+ 	if (op->kt_ival1 && (op->count > 0)) {
+-		bcm_can_tx(op);
++		bcm_can_tx(op, NULL);
+ 		if (!op->count && (op->flags & TX_COUNTEVT)) {
+ 
+ 			/* create notification to user */
+@@ -446,7 +459,7 @@ static enum hrtimer_restart bcm_tx_timeout_handler(struct hrtimer *hrtimer)
+ 		}
+ 
+ 	} else if (op->kt_ival2) {
+-		bcm_can_tx(op);
++		bcm_can_tx(op, NULL);
+ 	}
+ 
+ 	return bcm_tx_set_expiry(op, &op->timer) ?
+@@ -585,6 +598,8 @@ static enum hrtimer_restart bcm_rx_timeout_handler(struct hrtimer *hrtimer)
+ 	struct bcm_op *op = container_of(hrtimer, struct bcm_op, timer);
+ 	struct bcm_msg_head msg_head;
+ 
++	spin_lock_bh(&op->bcm_rx_update_lock);
++
+ 	/* if user wants to be informed, when cyclic CAN-Messages come back */
+ 	if ((op->flags & RX_ANNOUNCE_RESUME) && op->last_frames) {
+ 		/* clear received CAN frames to indicate 'nothing received' */
+@@ -601,6 +616,8 @@ static enum hrtimer_restart bcm_rx_timeout_handler(struct hrtimer *hrtimer)
+ 	msg_head.can_id  = op->can_id;
+ 	msg_head.nframes = 0;
+ 
++	spin_unlock_bh(&op->bcm_rx_update_lock);
++
+ 	bcm_send_to_user(op, &msg_head, NULL, 0);
+ 
+ 	return HRTIMER_NORESTART;
+@@ -649,15 +666,26 @@ static int bcm_rx_thr_flush(struct bcm_op *op)
+ static enum hrtimer_restart bcm_rx_thr_handler(struct hrtimer *hrtimer)
+ {
+ 	struct bcm_op *op = container_of(hrtimer, struct bcm_op, thrtimer);
++	enum hrtimer_restart ret;
+ 
+-	if (bcm_rx_thr_flush(op)) {
+-		hrtimer_forward(hrtimer, ktime_get(), op->kt_ival2);
+-		return HRTIMER_RESTART;
++	spin_lock_bh(&op->bcm_rx_update_lock);
++
++	/* kt_ival2 may have been concurrently cleared by bcm_rx_setup()
++	 * before it cancels this timer - never forward with a zero
++	 * interval in that case.
++	 */
++	if (bcm_rx_thr_flush(op) && op->kt_ival2) {
++		hrtimer_forward_now(hrtimer, op->kt_ival2);
++		ret = HRTIMER_RESTART;
+ 	} else {
+ 		/* rearm throttle handling */
+ 		op->kt_lastmsg = 0;
+-		return HRTIMER_NORESTART;
++		ret = HRTIMER_NORESTART;
+ 	}
++
++	spin_unlock_bh(&op->bcm_rx_update_lock);
++
++	return ret;
+ }
+ 
+ /*
+@@ -667,7 +695,9 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ {
+ 	struct bcm_op *op = (struct bcm_op *)data;
+ 	const struct canfd_frame *rxframe = (struct canfd_frame *)skb->data;
++	struct canfd_frame rtrframe;
+ 	unsigned int i;
++	bool rtr_frame;
+ 
+ 	if (op->can_id != rxframe->can_id)
+ 		return;
+@@ -686,12 +716,23 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 	/* update statistics */
+ 	op->frames_abs++;
+ 
+-	if (op->flags & RX_RTR_FRAME) {
++	/* snapshot the flag under lock: op->flags/op->frames may be updated
++	 * concurrently by bcm_rx_setup().
++	 */
++	spin_lock_bh(&op->bcm_rx_update_lock);
++	rtr_frame = op->flags & RX_RTR_FRAME;
++	if (rtr_frame)
++		memcpy(&rtrframe, op->frames, op->cfsiz);
++	spin_unlock_bh(&op->bcm_rx_update_lock);
++
++	if (rtr_frame) {
+ 		/* send reply for RTR-request (placed in op->frames[0]) */
+-		bcm_can_tx(op);
++		bcm_can_tx(op, &rtrframe);
+ 		return;
+ 	}
+ 
++	spin_lock_bh(&op->bcm_rx_update_lock);
++
+ 	if (op->flags & RX_FILTER_ID) {
+ 		/* the easiest case */
+ 		bcm_rx_update_and_send(op, op->last_frames, rxframe);
+@@ -725,6 +766,8 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 
+ rx_starttimer:
+ 	bcm_rx_starttimer(op);
++
++	spin_unlock_bh(&op->bcm_rx_update_lock);
+ }
+ 
+ /*
+@@ -1068,7 +1111,7 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 		list_add_rcu(&op->list, &bo->tx_ops);
+ 
+ 	if (op->flags & TX_ANNOUNCE)
+-		bcm_can_tx(op);
++		bcm_can_tx(op, NULL);
+ 
+ 	if (op->flags & STARTTIMER)
+ 		bcm_tx_start_timer(op);
+@@ -1082,6 +1125,24 @@ free_op:
+ 	return err;
+ }
+ 
++static void bcm_rx_setup_rtr_check(struct bcm_msg_head *msg_head,
++				   struct bcm_op *op, void *new_frames)
++{
++	/* funny feature in RX(!)_SETUP only for RTR-mode:
++	 * copy can_id into frame BUT without RTR-flag to
++	 * prevent a full-load-loopback-test ... ;-]
++	 * normalize this on the staged buffer, before it is
++	 * ever installed into op->frames.
++	 */
++	if (msg_head->flags & RX_RTR_FRAME) {
++		struct canfd_frame *frame0 = new_frames;
++
++		if ((msg_head->flags & TX_CP_CAN_ID) ||
++		    frame0->can_id == op->can_id)
++			frame0->can_id = op->can_id & ~CAN_RTR_FLAG;
++	}
++}
++
+ /*
+  * bcm_rx_setup - create or update a bcm rx op (for bcm_sendmsg)
+  */
+@@ -1116,6 +1177,8 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 	/* check the given can_id */
+ 	op = bcm_find_op(&bo->rx_ops, msg_head, ifindex);
+ 	if (op) {
++		void *new_frames = NULL;
++
+ 		/* update existing BCM operation */
+ 
+ 		/*
+@@ -1127,19 +1190,48 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 			return -E2BIG;
+ 
+ 		if (msg_head->nframes) {
+-			/* update CAN frames content */
+-			err = memcpy_from_msg(op->frames, msg,
++			/* get new CAN frames content before locking */
++			new_frames = kmalloc(msg_head->nframes * op->cfsiz,
++					     GFP_KERNEL);
++			if (!new_frames)
++				return -ENOMEM;
++
++			err = memcpy_from_msg(new_frames, msg,
+ 					      msg_head->nframes * op->cfsiz);
+-			if (err < 0)
++			if (err < 0) {
++				kfree(new_frames);
+ 				return err;
++			}
+ 
+-			/* clear last_frames to indicate 'nothing received' */
+-			memset(op->last_frames, 0, msg_head->nframes * op->cfsiz);
++			bcm_rx_setup_rtr_check(msg_head, op, new_frames);
+ 		}
+ 
++		spin_lock_bh(&op->bcm_rx_update_lock);
+ 		op->nframes = msg_head->nframes;
+ 		op->flags = msg_head->flags;
+ 
++		if (msg_head->nframes) {
++			/* update CAN frames content */
++			memcpy(op->frames, new_frames,
++			       msg_head->nframes * op->cfsiz);
++
++			/* clear last_frames to indicate 'nothing received' */
++			memset(op->last_frames, 0,
++			       msg_head->nframes * op->cfsiz);
++		}
++
++		if (msg_head->flags & SETTIMER) {
++			op->ival1 = msg_head->ival1;
++			op->ival2 = msg_head->ival2;
++			op->kt_ival1 = bcm_timeval_to_ktime(msg_head->ival1);
++			op->kt_ival2 = bcm_timeval_to_ktime(msg_head->ival2);
++			op->kt_lastmsg = 0;
++		}
++		spin_unlock_bh(&op->bcm_rx_update_lock);
++
++		/* free temporary frames / kfree(NULL) is safe */
++		kfree(new_frames);
++
+ 		/* Only an update -> do not call can_rx_register() */
+ 		do_rx_register = 0;
+ 
+@@ -1150,6 +1242,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 			return -ENOMEM;
+ 
+ 		spin_lock_init(&op->bcm_tx_lock);
++		spin_lock_init(&op->bcm_rx_update_lock);
+ 		op->can_id = msg_head->can_id;
+ 		op->nframes = msg_head->nframes;
+ 		op->cfsiz = CFSIZ(msg_head->flags);
+@@ -1191,6 +1284,8 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 				kfree(op);
+ 				return err;
+ 			}
++
++			bcm_rx_setup_rtr_check(msg_head, op, op->frames);
+ 		}
+ 
+ 		/* bcm_can_tx / bcm_tx_timeout_handler needs this */
+@@ -1218,29 +1313,22 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 	/* check flags */
+ 
+ 	if (op->flags & RX_RTR_FRAME) {
+-		struct canfd_frame *frame0 = op->frames;
+-
+ 		/* no timers in RTR-mode */
+ 		hrtimer_cancel(&op->thrtimer);
+ 		hrtimer_cancel(&op->timer);
+-
+-		/*
+-		 * funny feature in RX(!)_SETUP only for RTR-mode:
+-		 * copy can_id into frame BUT without RTR-flag to
+-		 * prevent a full-load-loopback-test ... ;-]
+-		 */
+-		if ((op->flags & TX_CP_CAN_ID) ||
+-		    (frame0->can_id == op->can_id))
+-			frame0->can_id = op->can_id & ~CAN_RTR_FLAG;
+-
+ 	} else {
+ 		if (op->flags & SETTIMER) {
+ 
+-			/* set timer value */
+-			op->ival1 = msg_head->ival1;
+-			op->ival2 = msg_head->ival2;
+-			op->kt_ival1 = bcm_timeval_to_ktime(msg_head->ival1);
+-			op->kt_ival2 = bcm_timeval_to_ktime(msg_head->ival2);
++			/* set timers (locked) for newly created op */
++			if (do_rx_register) {
++				spin_lock_bh(&op->bcm_rx_update_lock);
++				op->ival1 = msg_head->ival1;
++				op->ival2 = msg_head->ival2;
++				op->kt_ival1 = bcm_timeval_to_ktime(msg_head->ival1);
++				op->kt_ival2 = bcm_timeval_to_ktime(msg_head->ival2);
++				op->kt_lastmsg = 0;
++				spin_unlock_bh(&op->bcm_rx_update_lock);
++			}
+ 
+ 			/* disable an active timer due to zero value? */
+ 			if (!op->kt_ival1)
+@@ -1250,9 +1338,11 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 			 * In any case cancel the throttle timer, flush
+ 			 * potentially blocked msgs and reset throttle handling
+ 			 */
+-			op->kt_lastmsg = 0;
+ 			hrtimer_cancel(&op->thrtimer);
++
++			spin_lock_bh(&op->bcm_rx_update_lock);
+ 			bcm_rx_thr_flush(op);
++			spin_unlock_bh(&op->bcm_rx_update_lock);
+ 		}
+ 
+ 		if ((op->flags & STARTTIMER) && op->kt_ival1)
+-- 
+2.43.0
 
