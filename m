@@ -1,80 +1,80 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.221])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657793BCD0B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D7A363C50
 	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 08:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.221
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784882163; cv=pass; b=DtmEb/niLrN9CB0qGYf58sZmjMI1oKnNNenFp30NVgPdgnNT5pQCXvzoLjEaaMay790oEzTV5uGFoA7RT4KP41khflOyuPhUQAnJGb+qZl8E/nhpL3H2RwuYIUFmeXtZjMsCOS+SQe6/tVFrqo4UM5Yo5wJax3l7drT1tGCjEBY=
+	t=1784882164; cv=pass; b=N1bv7FfxuLzquSrplPjgeuXyJo/fIwkJWviDKPJhmmfnb1kZmifSaApNGDSrOR5P8iZmJfMm6hbc1jtsNmBKK7XLqBkgFntxZ0pYNg01swE99KzTusam4zd50Ra/ufGQ3o1rtiWT1M17dqQsUz7FRp5pLvZ+nIrHZaOlRtzxTBc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784882163; c=relaxed/simple;
-	bh=44PX0YRp+RbvY59/QbmDeA34raxv1RZbSZuZIoXabjw=;
+	s=arc-20240116; t=1784882164; c=relaxed/simple;
+	bh=v2jp7AXtDa6VU1cP9KrBfSscEB1UfiwBQh9OUbehQkU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T3NzvpCtB3fhEvcjwZc1LkjocuxbWKtKGB0gx77ga7soG0do+i/AXR+j2x9dRlD1VmuO/9WQPn7vTjU2CADkEMUD+kq7KLmVhOIXnuOoxR4nBhDzvSGYeUPD0nuR6PiiQ1GHdl2zozQz8WoHXnbIq3pqi7q5QCPXd0VLvwFeFZw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=t0kVS9Ds; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=pcL7p3sj; arc=pass smtp.client-ip=81.169.146.221
+	 MIME-Version:Content-Type; b=A+iv/Qa1TmIhcdm4Ht/XJDUGA7i5pUQPDn4gNK783uxi/+wmnh5OSpRtG9k08ybZItrArT7HIwFazpPusvhTwvkiC1nkH5zSFc4Kr/ErZ3k5peReru4CuKvSUs/EqImy6RVYxvAou9tJ9YsdJRQNBn16CYdrZ/Lj4gXb/EmEL/E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=cm653R86; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Fi/JFRqP; arc=pass smtp.client-ip=85.215.255.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="t0kVS9Ds";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="pcL7p3sj"
-ARC-Seal: i=1; a=rsa-sha256; t=1784882146; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="cm653R86";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Fi/JFRqP"
+ARC-Seal: i=1; a=rsa-sha256; t=1784882147; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=lxpEGTLMwlki8ZnORV3rmbBIl1FaZMPQw7sSnRUFLD0dBlC2qM5PtKJ4j69O5C8fn+
-    U7ojJJHI5pUjNSE0T/c6aaAeJZoeYBUCDUT2wDS6l32hjzq8o1AbmrwuGS1s6f753lFe
-    YlrSwbtpSBVIjnTrebbpYqFRgEt6sz6ukaMkQBctDVdSaiEoFMj9oDWXIKT4YN1ivXNi
-    kVArYqjRdywEKNRZKzVxsZXENkaQ+MguGQO7cH8hqZtI400C3cAShYc5192EbuysMbC4
-    N3fNMpgWdNoxobaQUTUQhYl0tzejMcwCmijs+OG8svozItF9MgDyt0zD6bEes3pkkgRk
-    uFjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
+    b=tbdSsZyS9Szw3r9Ru9aWV35Y/yy6LXgvEN7gO8UwNZLtUhvKRZ4p5MYptsfQPa8b3A
+    TdVDMYeDxwLZFZkPKedibWT2mYq0IrRmilxMSN8WATgusmoJ17RST/HGqYF2ABNd0h2l
+    B5aGN0+8/3EhoIydpP/MkQvsZngI+/JTom00KHvfnhC9fkllb71HWPAvDjL3VADIyy0r
+    /h7+p0Vm0kun2Ck1HGuL0yrp1/w2nHYJBd4aTZoY4vMwaU3ADuNSRyUANVXf2z0eXNBu
+    mG5fF73YatubdrEbN0GgLyYl9cGEiFzO3V7aYH4fH31tRq2oBq36EPhnVk5bcqjwWvUb
+    F7qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882147;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=wmRsTejdUQt1tchcFSNc+Z/TMRxlJQrvo9dGKm1IXxQ=;
-    b=ZnfCNgHI3XSyCUtIm2F1GN8WDfTKdBJD9tvmnWEtnfa48XfUSXSPXhfUjn9BRWaERP
-    2EuFwYT05O7lLQbQjXua22vxqAG4yEsJGEtUcP4r+1cHxzIDupD3K8Cg2uY8kB60CsYW
-    JvZY+kcvokqVoDcjqpZ/NFg7iODxVTFv8bBkQNcoc4Sv/5t03g6pZbp+JNKYMssEtCh4
-    wlyyBclD+5Y/rxySLeCCW3QLZlyWrAP7q8DwJvpFseFnuc17coaKF93ywBFmgAA7aTVj
-    fTw6ln24GVTww5XmS00/dkS0upvL3sHW8g38yNFWjbObg6nirnp10ZNEkDhO7U3CJrE6
-    QVMQ==
+    bh=eiL/Og5AVfnNdySZXC53uQLfrHKrauHVEQve/4SaWAY=;
+    b=i7fFKG5+b+hbxZv1vq08ePSnIu3Uesuz/JrcHgzNN8q7eVCEV9XfmIeo4924AMNkJ2
+    XLJ5VKBBj3C1qN4Cr2U3cgcnQjTzZ7JjHRUOKuD9SNXqQG44JeicyN39kxp8TD9B+xgS
+    XvNK5H5Nodge5QS6rQJ/FaYSjXl7aRVSx2PfOj+Y8QV/bvv1S5hldQgM9G7th8alOqVR
+    0sA8AON4IYM4asuZyXJHObsc7k+U/7nzV8dhN3RvmJlirnKk20/c4gD720zR4n7FZSfj
+    /2XUeAH3wbQUu/Qehp/k4QTKE/M+kYI8vXatCkti9rpk2CilGIkzeqtNLCg1948nX8WO
+    0YSA==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882146;
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882147;
     s=strato-dkim-0002; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=wmRsTejdUQt1tchcFSNc+Z/TMRxlJQrvo9dGKm1IXxQ=;
-    b=t0kVS9DsUii9LASKs8vTs7JAYLKx+uc+5Z6EKl75qy78k6AXM/FbiFLqeedIXJpxbo
-    Qe2+k35TCtxEPs70CvEtQrfB5I0pOcvryvr0adefKgBoApCxeQksHdE32criw8HM2/0Y
-    6zRA6DUR9WqHHApVJAvAxZ8yYSPx8duP6MohD/OozBiiSIfQsrTP6+XCmWZGOz8UBypx
-    YPbqmOjRH6q5Dp5EcxIaF70pgsKK8Rbn5Z6an3SXBVG+LyFgLVGFzMFJsmhW4uwyJEjD
-    kZx9/wQ+fGksxGKbOGVTuuaAvI201VqdwiKXcbeuELKnndtnrZCBzvM8M8donCZ3j4UN
-    rodA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784882146;
+    bh=eiL/Og5AVfnNdySZXC53uQLfrHKrauHVEQve/4SaWAY=;
+    b=cm653R86g6rg6VlwNL9qrOS4GzACYWOMV6DG82cWkgAJ7avSWxQF/n/Imyqk5c2YWa
+    MBQATphUefV0rJnbs0h9cwm/jaKXuqhy8JVJRCz2oVu251eSIuK160X6n9HZSurEpACI
+    GLVDqOcmJyKzOlhr379r4lYHE88x9oRSjhFPe9uXPeo7tSa7I0xQPW9COpf/cybBoFoR
+    Xy+hWDJN/FoQvVYThyYe7C/3oj0evIg01VPq2dKHN0ydL6UxzLTuSk9WsHjQ5nMlqYkE
+    MenmFM0Ij3a7NKwI5y8pbpADR2/d7wQ6qHltZ6XF8fwx7dV9Mw0kd1Q6IQB97SM41UUe
+    zi1w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784882147;
     s=strato-dkim-0003; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=wmRsTejdUQt1tchcFSNc+Z/TMRxlJQrvo9dGKm1IXxQ=;
-    b=pcL7p3sje7PvZfY5O+ZaXjZYN1OHaSEq5efAtWZF12jH1J+0dM9J7ZgXc2kWS8BMWz
-    U5F4eF3N6k4W1a3sX0CQ==
+    bh=eiL/Og5AVfnNdySZXC53uQLfrHKrauHVEQve/4SaWAY=;
+    b=Fi/JFRqP/h9oHuLCrMt8FiJ3ltsPcAbXbQFz0zDrRKBIneTP3qwM9rVDSosltaX89d
+    hW26ZyeLQrQL/NkogIAw==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926O8ZkrLx
+    with ESMTPSA id K5281926O8ZlrM8
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Fri, 24 Jul 2026 10:35:46 +0200 (CEST)
+    Fri, 24 Jul 2026 10:35:47 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH 1/9] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
-Date: Fri, 24 Jul 2026 10:35:26 +0200
-Message-ID: <20260724083534.12119-2-socketcan@hartkopp.net>
+Subject: [PATCH 8/9] can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
+Date: Fri, 24 Jul 2026 10:35:33 +0200
+Message-ID: <20260724083534.12119-9-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072037-bagginess-bluish-c081@gregkh>
-References: <2026072037-bagginess-bluish-c081@gregkh>
+In-Reply-To: <2026072058-proxy-lubricant-2d2b@gregkh>
+References: <2026072058-proxy-lubricant-2d2b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,172 +84,69 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-From: Lee Jones <lee@kernel.org>
+commit 58fd6cbc8541216af1d7ed272ea7ac2b66d50fd8 upstream.
 
-commit 68973f9db76144825e4f35dfdc80fb8279eb2d57 upstream.
+For an rx op subscribed on all interfaces (ifindex == 0), the same op
+is registered once in the shared per-netns wildcard filter list, so
+bcm_rx_handler() can run concurrently on different CPUs for frames
+arriving on different net devices.
 
-Commit f1b4e32aca08 ("can: bcm: use call_rcu() instead of costly
-synchronize_rcu()") replaced synchronize_rcu() in bcm_delete_rx_op()
-with call_rcu() and introduced the RX_NO_AUTOTIMER flag.
+op->rx_stamp and op->rx_ifindex were written before bcm_rx_update_lock was
+taken, allowing concurrent writers to race each other - including a torn
+store of the 64-bit rx_stamp on 32-bit platforms.
 
-However, this flag check was omitted for thrtimer in the packet rx
-fast-path. During BCM RX operation teardown, a concurrent RCU reader
-(bcm_rx_handler) can race and re-arm thrtimer via
-bcm_rx_update_and_send() after call_rcu() has been scheduled.  Once
-the RCU grace period elapses, bcm_op is freed.  The subsequently
-firing thrtimer then dereferences the deallocated op, causing a UAF.
+Beyond a torn store bcm_send_to_user() must report the timestamp/ifindex
+of the very same frame whose content it is delivering. So the assignment
+is placed in the same unbroken bcm_rx_update_lock section as the content
+comparison.
 
-Adding flag checks to the rx fast-path (bcm_rx_update_and_send) does not
-fully close the TOCTOU race and introduces latency for every CAN frame.
-Conversely, calling hrtimer_cancel() directly inside the RCU callback
-(softirq context) is fatal as hrtimer_cancel() can sleep, triggering
-a "scheduling while atomic" panic.
+As a side effect, the RTR-request frame feature (which never reach
+bcm_send_to_user()) no longer updates rx_stamp/rx_ifindex, since only
+the notification path needs them.
 
-Resolve this by deferring the timer cancellation and memory free to a
-dedicated unbound workqueue (bcm_wq).  The RCU callback now queues a
-work item to bcm_wq, which safely cancels both timers and deallocates
-memory in sleepable process context.  A dedicated workqueue is used to
-prevent system-wide WQ saturation and is cleanly flushed/destroyed
-on module unload to avoid rmmod page faults.
-
-Since the deferred work can now outlive the calling context by an
-unbounded amount, also take a reference on op->sk when it is assigned
-and drop it only once the deferred work has cancelled both timers, so a
-socket can no longer be freed out from under a still-armed timer whose
-callback (bcm_send_to_user()) dereferences op->sk.
-
-Fixes: f1b4e32aca08 ("can: bcm: use call_rcu() instead of costly synchronize_rcu()")
-Tested-by: Feng Xue <feng.xue@outlook.com>
-Tested-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Signed-off-by: Lee Jones <lee@kernel.org>
+Fixes: ffd980f976e7 ("[CAN]: Add broadcast manager (bcm) protocol")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-can/20260707145135.5BC831F00A3A@smtp.kernel.org/
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20260714-bcm_fixes-v15-1-562f7e3e42da@hartkopp.net
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-10-562f7e3e42da@hartkopp.net
 Cc: stable@kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
 ---
- net/can/bcm.c | 36 +++++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
+ net/can/bcm.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 06ee3bf..859816d 100644
+index c28256c..95eb791 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -58,6 +58,7 @@
- #include <linux/can/skb.h>
- #include <linux/can/bcm.h>
- #include <linux/slab.h>
-+#include <linux/workqueue.h>
- #include <linux/spinlock.h>
- #include <net/sock.h>
- #include <net/net_namespace.h>
-@@ -89,6 +90,8 @@ MODULE_ALIAS("can-proto-2");
- 
- #define BCM_MIN_NAMELEN CAN_REQUIRED_SIZE(struct sockaddr_can, can_ifindex)
- 
-+static struct workqueue_struct *bcm_wq;
-+
- /*
-  * easy access to the first 64 bit of can(fd)_frame payload. cp->data is
-  * 64 bit aligned so the offset has to be multiples of 8 which is ensured
-@@ -102,6 +105,7 @@ static inline u64 get_u64(const struct canfd_frame *cp, int offset)
- struct bcm_op {
- 	struct list_head list;
- 	struct rcu_head rcu;
-+	struct work_struct work;
- 	int ifindex;
- 	canid_t can_id;
- 	u32 flags;
-@@ -740,9 +744,12 @@ static struct bcm_op *bcm_find_op(struct list_head *ops,
- 	return NULL;
- }
- 
--static void bcm_free_op_rcu(struct rcu_head *rcu_head)
-+static void bcm_free_op_work(struct work_struct *work)
- {
--	struct bcm_op *op = container_of(rcu_head, struct bcm_op, rcu);
-+	struct bcm_op *op = container_of(work, struct bcm_op, work);
-+
-+	hrtimer_cancel(&op->timer);
-+	hrtimer_cancel(&op->thrtimer);
- 
- 	if ((op->frames) && (op->frames != &op->sframe))
- 		kfree(op->frames);
-@@ -750,9 +757,23 @@ static void bcm_free_op_rcu(struct rcu_head *rcu_head)
- 	if ((op->last_frames) && (op->last_frames != &op->last_sframe))
- 		kfree(op->last_frames);
- 
-+	/* the last possible access to op->timer/op->thrtimer has now
-+	 * happened above via hrtimer_cancel() - op->sk is no longer
-+	 * needed by any pending timer callback, so drop our reference
-+	 */
-+	sock_put(op->sk);
-+
- 	kfree(op);
- }
- 
-+static void bcm_free_op_rcu(struct rcu_head *rcu_head)
-+{
-+	struct bcm_op *op = container_of(rcu_head, struct bcm_op, rcu);
-+
-+	INIT_WORK(&op->work, bcm_free_op_work);
-+	queue_work(bcm_wq, &op->work);
-+}
-+
- static void bcm_remove_op(struct bcm_op *op)
- {
+@@ -756,11 +756,6 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 	/* disable timeout */
  	hrtimer_cancel(&op->timer);
-@@ -1008,6 +1029,7 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
  
- 		/* bcm_can_tx / bcm_tx_timeout_handler needs this */
- 		op->sk = sk;
-+		sock_hold(sk);
- 		op->ifindex = ifindex;
+-	/* save rx timestamp */
+-	op->rx_stamp = skb->tstamp;
+-	/* save originator for recvfrom() */
+-	op->rx_ifindex = skb->dev->ifindex;
+-
+ 	/* op->flags/op->frames may be updated concurrently by bcm_rx_setup() */
+ 	spin_lock_bh(&op->bcm_rx_update_lock);
  
- 		/* initialize uninitialized (kzalloc) structure */
-@@ -1173,6 +1195,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+@@ -784,6 +779,14 @@ static void bcm_rx_handler(struct sk_buff *skb, void *data)
+ 	 */
+ 	bcm_update_rx_stats(op);
  
- 		/* bcm_can_tx / bcm_tx_timeout_handler needs this */
- 		op->sk = sk;
-+		sock_hold(sk);
- 		op->ifindex = ifindex;
- 
- 		/* ifindex for timeout events w/o previous frame reception */
-@@ -1699,7 +1722,7 @@ static int bcm_connect(struct socket *sock, struct sockaddr *uaddr, int len,
- #if IS_ENABLED(CONFIG_PROC_FS)
- 	if (net->can.bcmproc_dir) {
- 		/* unique socket address as filename */
--		sprintf(bo->procname, "%lu", sock_i_ino(sk));
-+		sprintf(bo->procname, "%llu", sock_i_ino(sk));
- 		bo->bcm_proc_read = proc_create_net_single(bo->procname, 0644,
- 						     net->can.bcmproc_dir,
- 						     bcm_proc_show, sk);
-@@ -1830,11 +1853,16 @@ static int __init bcm_module_init(void)
- {
- 	int err;
- 
-+	bcm_wq = alloc_workqueue("can-bcm-wq", WQ_UNBOUND, 0);
-+	if (!bcm_wq)
-+		return -ENOMEM;
++	/* save rx timestamp and originator for recvfrom() under lock.
++	 * For an op subscribed on all interfaces (ifindex == 0)
++	 * bcm_rx_handler() can run concurrently on different CPUs so
++	 * the CAN content and the meta data must be bundled correctly.
++	 */
++	op->rx_stamp = skb->tstamp;
++	op->rx_ifindex = skb->dev->ifindex;
 +
- 	pr_info("can: broadcast manager protocol\n");
- 
- 	err = can_proto_register(&bcm_can_proto);
- 	if (err < 0) {
- 		printk(KERN_ERR "can: registration of bcm protocol failed\n");
-+		destroy_workqueue(bcm_wq);
- 		return err;
- 	}
- 
-@@ -1848,6 +1876,8 @@ static void __exit bcm_module_exit(void)
- 	can_proto_unregister(&bcm_can_proto);
- 	unregister_netdevice_notifier(&canbcm_notifier);
- 	unregister_pernet_subsys(&canbcm_pernet_ops);
-+	rcu_barrier();
-+	destroy_workqueue(bcm_wq);
- }
- 
- module_init(bcm_module_init);
+ 	if (op->flags & RX_FILTER_ID) {
+ 		/* the easiest case */
+ 		bcm_rx_update_and_send(op, op->last_frames, rxframe);
 -- 
 2.43.0
 
