@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD082F7F1B
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:25:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB074908C5
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:25:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784856308; cv=none; b=dS5Fr7CRbVCxCvDGO/t3BCrDP274IQtXMDSkXp7ezSKxCEk/RFbH0jUMWcgJLHDgnQodhPZ7a2SIoWQ9m43FIBKh7e37e1GG95UWY0scoA0PD+y85TK7iDyy3UCghy70rPwC9FjGLc76O8BBACp+iNvA8n0W/oobMZVWgZQGNr8=
+	t=1784856319; cv=none; b=VKE4jamVH6F1GI6mVoqCsZ79zDNN/g3rWDeSznL6mwbBBDaNKtcze0RsnelrvHE81z0wXcsLNTF5mNdSDbDvgKduoSqhu8I4DMmhQQHHXleyqy5WzQhm+T+zXxNGMiUieXZxz5kom0dO+iyIF4yFWiOALTHzC0mdjYaC7AB7Xd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784856308; c=relaxed/simple;
-	bh=dMc9CdSarGCjQ8RaufMtUUoeChWS8Qe5ZtQinbuBpk4=;
+	s=arc-20240116; t=1784856319; c=relaxed/simple;
+	bh=kGI4qjJp55c14E6tqruS0mnu2fs1HrkzVqBFQ3LSpgk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IuxKAw7kJ1I8saNuFj0ExUMv3QsdkpJprUdjh/WcIvMwon2k1Jtaxj55CL4SSNBcLCr3K47ymDxWPKMty4gzZ5qI362OFpTbxSMop0uiW5AzDPSwYsg1PDkvdufzAZh061pnTrBkIT6yxFmq4ngaG6yAp9kowBTaCvB3iTv9iKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJwGJtPk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rCB5y3Yty+OA/o51o9JJ5yh04wxyEVnEFqU7wh2dPQzmOflb64iqtomZvrM3DRZSiK0SeI1fauyuXk7aAiqYV4g2GZPzhj+ankKqF+C47PAr1SvNG9GYHeUgyD7Y940dZOx6OLoIEqw+pt2YyAsTpWyZl9dIKgUOyjOfnefwa3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JLSw0DKq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJwGJtPk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FC331F000E9;
-	Fri, 24 Jul 2026 01:25:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JLSw0DKq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B01D1F000E9;
+	Fri, 24 Jul 2026 01:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784856307;
-	bh=3dZYfPRgR7AbpKRBAbI3zXGS08Qbif00gzRJZXjNZ30=;
+	s=k20260515; t=1784856317;
+	bh=7FKxOowgMytisF1st/1OXFO/nLm3LKXIQ7LEF4yz64g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nJwGJtPkVz1SRuZP7kKyOLvcAfCIMvf0O0eHi4YdyPeirZ9bFriPeDG+0cMIhh0w9
-	 NMFAoE9Cj6oCHS4Ks6DABmzjr9CJoyOP0n+jK765sO38TyfV//AUyz86nf46OJXYmy
-	 xpMalu7/aZIW4BjP62i4OEICUfssuZSAC5TmqjcH7oA6zxWALgKhKI11y4aJCAE+ER
-	 bVnp5hI8T4Pgj+v4lJOOJ+UYVzPg/j+txf83Zkf+98LALtqF9H7RIuOz25GsDM32V8
-	 CeAJ8OfKoIKycm0N9IYBfrZZFOlqAKpZDdOWNAztzWlDAkXh1mj/s/BOgA3eAQPefG
-	 rjlRFLsjjgoRg==
+	b=JLSw0DKqPLouxK1p8MYNRSfdJ0Hha0PYplXtf1PqL8fz4/vAkfDLok16EgrRuTN0U
+	 JBPXlg0x/bSeBY1PYre5yQu0P0NmMgN7Xdp0CTvXhJpvywV15/9O4NWp+2WQl73SZ6
+	 2ZMebQwviv3JzxOzSppUj3Xn7/HtuLWX573rnajiTDri+XE+hT9frctyR6YLv8nW2u
+	 cFygNP6OcYdeczp5EyxjGXezVPJDRN2Nj5PQOWzuzdLAQTaQFc0VpwIpTSX+3iY+TG
+	 IYI398Cink7Lez2uMMFEBph0w2Mo+BGapSXMs8ald5u3snyIHEEWexgaPF7Aq0mmyE
+	 z9f0Z7eEVLwCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Florian Westphal <fw@strlen.de>,
-	Seesee <cjc000013@gmail.com>,
-	Stefano Brivio <sbrivio@redhat.com>,
+Cc: Mike Snitzer <snitzer@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Christoph Hellwig <hch@lst.de>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 7/7] netfilter: nft_set_pipapo: don't leak bad clone into future transaction
-Date: Thu, 23 Jul 2026 21:25:00 -0400
-Message-ID: <20260724012500.3832837-7-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] NFSD: pass nfsd_file to nfsd_iter_read()
+Date: Thu, 23 Jul 2026 21:25:11 -0400
+Message-ID: <20260724012515.3833219-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260724012500.3832837-1-sashal@kernel.org>
-References: <2026072016-unplowed-brush-0ff9@gregkh>
- <20260724012500.3832837-1-sashal@kernel.org>
+In-Reply-To: <2026072058-disparate-ventricle-c83c@gregkh>
+References: <2026072058-disparate-ventricle-c83c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,165 +48,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Florian Westphal <fw@strlen.de>
+From: Mike Snitzer <snitzer@kernel.org>
 
-[ Upstream commit 47e65eff50691f0a5b79d325e28d83ec1da43bcf ]
+[ Upstream commit 803bc849f0039291f546ba0e2237faebeb5c073e ]
 
-On memory allocation failure the cloned nft_pipapo_match can enter a bad
-state:
- - some fields can have their lookup tables resized while others did
-   not
- - bits might have been toggled
- - scratch map can be undersized which also means m->bsize_max can be
-   lower than what is required
+Prepare for nfsd_iter_read() to use the DIO alignment stored in
+nfsd_file by passing the nfsd_file to nfsd_iter_read() rather than
+just the file which is associaed with the nfsd_file.
 
-This means that the next insertion in the same batch can trigger
-out-of-bounds writes.
+This means nfsd4_encode_readv() now also needs the nfsd_file rather
+than the file.  Instead of changing the file arg to be the nfsd_file,
+we discard the file arg as the nfsd_file (and indeed the file) is
+already available via the "read" argument.
 
-Furthermore, a failure in the first can result in the bad clone to
-leak into the next transaction because the abort callback is never
-executed in this case (the upper layer saw an error and no attempt to
-allocate a transactional request was made).
-
-Record a state for the nft_pipapo_match structure:
-- NEW (pristine clone)
-- MOD (modified clone with good state)
-- ERR (potentially bogus content)
-
-Then make it so that deletes and insertions fail when the clone
-entered ERR state.
-
-In case the very first insert attempt results in an error, free the
-clone right away.
-
-Fixes: 3c4287f62044 ("nf_tables: Add set type for arbitrary concatenation of ranges")
-Cc: stable@vger.kernel.org
-Reported-and-tested-by: Seesee <cjc000013@gmail.com>
-Reviewed-by: Stefano Brivio <sbrivio@redhat.com>
-Signed-off-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Reviewed-by: NeilBrown <neil@brown.name>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: 18c1cc698861 ("SUNRPC: Return an error from xdr_buf_to_bvec() on overflow")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nft_set_pipapo.c | 34 +++++++++++++++++++++++++++++-----
- net/netfilter/nft_set_pipapo.h |  8 ++++++++
- 2 files changed, 37 insertions(+), 5 deletions(-)
+ fs/nfsd/nfs4xdr.c | 8 ++++----
+ fs/nfsd/vfs.c     | 7 ++++---
+ fs/nfsd/vfs.h     | 2 +-
+ 3 files changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index 5b985ce8065f6c..d1303fae3c59d5 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -342,6 +342,8 @@
- #include "nft_set_pipapo_avx2.h"
- #include "nft_set_pipapo.h"
+diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+index e3b128cc24138a..52fe95d02fc47a 100644
+--- a/fs/nfsd/nfs4xdr.c
++++ b/fs/nfsd/nfs4xdr.c
+@@ -4096,7 +4096,7 @@ static __be32 nfsd4_encode_splice_read(
  
-+static void nft_pipapo_abort(const struct nft_set *set);
-+
- /**
-  * pipapo_refill() - For each set bit, set bits from selected mapping table item
-  * @map:	Bitmap to be scanned for set bits
-@@ -1251,7 +1253,7 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 	const u8 *start_p, *end_p;
- 	int i, bsize_max, err = 0;
+ static __be32 nfsd4_encode_readv(struct nfsd4_compoundres *resp,
+ 				 struct nfsd4_read *read,
+-				 struct file *file, unsigned long maxcount)
++				 unsigned long maxcount)
+ {
+ 	struct xdr_stream *xdr = resp->xdr;
+ 	unsigned int base = xdr->buf->page_len & ~PAGE_MASK;
+@@ -4107,7 +4107,7 @@ static __be32 nfsd4_encode_readv(struct nfsd4_compoundres *resp,
+ 	if (xdr_reserve_space_vec(xdr, maxcount) < 0)
+ 		return nfserr_resource;
  
--	if (!m)
-+	if (!m || m->state == NFT_PIPAPO_CLONE_ERR)
- 		return -ENOMEM;
+-	nfserr = nfsd_iter_read(resp->rqstp, read->rd_fhp, file,
++	nfserr = nfsd_iter_read(resp->rqstp, read->rd_fhp, read->rd_nf,
+ 				read->rd_offset, &maxcount, base,
+ 				&read->rd_eof);
+ 	read->rd_length = maxcount;
+@@ -4155,7 +4155,7 @@ nfsd4_encode_read(struct nfsd4_compoundres *resp, __be32 nfserr,
+ 	if (file->f_op->splice_read && splice_ok)
+ 		nfserr = nfsd4_encode_splice_read(resp, read, file, maxcount);
+ 	else
+-		nfserr = nfsd4_encode_readv(resp, read, file, maxcount);
++		nfserr = nfsd4_encode_readv(resp, read, maxcount);
+ 	if (nfserr) {
+ 		xdr_truncate_encode(xdr, starting_len);
+ 		return nfserr;
+@@ -4906,7 +4906,7 @@ nfsd4_encode_read_plus_data(struct nfsd4_compoundres *resp,
+ 	if (file->f_op->splice_read && splice_ok)
+ 		nfserr = nfsd4_encode_splice_read(resp, read, file, maxcount);
+ 	else
+-		nfserr = nfsd4_encode_readv(resp, read, file, maxcount);
++		nfserr = nfsd4_encode_readv(resp, read, maxcount);
+ 	if (nfserr)
+ 		return nfserr;
  
- 	if (nft_set_ext_exists(ext, NFT_SET_EXT_KEY_END))
-@@ -1324,8 +1326,10 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 		else
- 			ret = pipapo_expand(f, start, end, f->groups * f->bb);
- 
--		if (ret < 0)
--			return ret;
-+		if (ret < 0) {
-+			err = ret;
-+			goto abort;
-+		}
- 
- 		if (f->bsize > bsize_max)
- 			bsize_max = f->bsize;
-@@ -1341,7 +1345,7 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 
- 		err = pipapo_realloc_scratch(m, bsize_max);
- 		if (err)
--			return err;
-+			goto abort;
- 
- 		m->bsize_max = bsize_max;
- 	} else {
-@@ -1352,7 +1356,26 @@ static int nft_pipapo_insert(const struct net *net, const struct nft_set *set,
- 
- 	pipapo_map(m, rulemap, e);
- 
-+	m->state = NFT_PIPAPO_CLONE_MOD;
- 	return 0;
-+abort:
-+	WARN_ON_ONCE(m->state == NFT_PIPAPO_CLONE_ERR);
-+
-+	/* Two rollback cases:
-+	 * 1) no previous changes.  nft_pipapo_abort is not
-+	 * guaranteed to be invoked (there might be no further
-+	 * add/delete requests coming after this).
-+	 *
-+	 * 2) we had previous changes: there are transaction
-+	 * records pointing to this set.  Leave the rollback to
-+	 * the transaction handling.
-+	 */
-+	if (m->state == NFT_PIPAPO_CLONE_NEW)
-+		nft_pipapo_abort(set); /* releases m */
-+	else
-+		m->state = NFT_PIPAPO_CLONE_ERR;
-+
-+	return err;
- }
- 
- /**
-@@ -1427,6 +1450,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
- 		dst++;
- 	}
- 
-+	new->state = NFT_PIPAPO_CLONE_NEW;
- 	return new;
- 
- out_mt:
-@@ -1849,7 +1873,7 @@ static void *nft_pipapo_deactivate(const struct net *net,
- 	/* removal must occur on priv->clone, if we are low on memory
- 	 * we have no choice and must fail the removal request.
- 	 */
--	if (!m)
-+	if (!m || m->state == NFT_PIPAPO_CLONE_ERR)
- 		return NULL;
- 
- 	e = pipapo_get(net, set, m, (const u8 *)elem->key.val.data,
-diff --git a/net/netfilter/nft_set_pipapo.h b/net/netfilter/nft_set_pipapo.h
-index ca90be37bc714b..8d71db17695f00 100644
---- a/net/netfilter/nft_set_pipapo.h
-+++ b/net/netfilter/nft_set_pipapo.h
-@@ -142,9 +142,16 @@ struct nft_pipapo_scratch {
- 	unsigned long map[];
- };
- 
-+enum nft_pipapo_clone_state {
-+	NFT_PIPAPO_CLONE_NEW,
-+	NFT_PIPAPO_CLONE_MOD,
-+	NFT_PIPAPO_CLONE_ERR,
-+};
-+
- /**
-  * struct nft_pipapo_match - Data used for lookup and matching
-  * @field_count		Amount of fields in set
-+ * @state:		add/delete state; used from control plane
-  * @scratch:		Preallocated per-CPU maps for partial matching results
-  * @bsize_max:		Maximum lookup table bucket size of all fields, in longs
-  * @rcu			Matching data is swapped on commits
-@@ -152,6 +159,7 @@ struct nft_pipapo_scratch {
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index ae1f43eb515a81..cb380402631fd7 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -1044,7 +1044,7 @@ __be32 nfsd_splice_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+  * nfsd_iter_read - Perform a VFS read using an iterator
+  * @rqstp: RPC transaction context
+  * @fhp: file handle of file to be read
+- * @file: opened struct file of file to be read
++ * @nf: opened struct nfsd_file of file to be read
+  * @offset: starting byte offset
+  * @count: IN: requested number of bytes; OUT: number of bytes read
+  * @base: offset in first page of read buffer
+@@ -1057,9 +1057,10 @@ __be32 nfsd_splice_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+  * returned.
   */
- struct nft_pipapo_match {
- 	int field_count;
-+	enum nft_pipapo_clone_state state:8;
- 	struct nft_pipapo_scratch * __percpu *scratch;
- 	size_t bsize_max;
- 	struct rcu_head rcu;
+ __be32 nfsd_iter_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+-		      struct file *file, loff_t offset, unsigned long *count,
++		      struct nfsd_file *nf, loff_t offset, unsigned long *count,
+ 		      unsigned int base, u32 *eof)
+ {
++	struct file *file = nf->nf_file;
+ 	unsigned long v, total;
+ 	struct iov_iter iter;
+ 	loff_t ppos = offset;
+@@ -1241,7 +1242,7 @@ __be32 nfsd_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	if (file->f_op->splice_read && test_bit(RQ_SPLICE_OK, &rqstp->rq_flags))
+ 		err = nfsd_splice_read(rqstp, fhp, file, offset, count, eof);
+ 	else
+-		err = nfsd_iter_read(rqstp, fhp, file, offset, count, 0, eof);
++		err = nfsd_iter_read(rqstp, fhp, nf, offset, count, 0, eof);
+ 
+ 	nfsd_file_put(nf);
+ 	trace_nfsd_read_done(rqstp, fhp, offset, *count);
+diff --git a/fs/nfsd/vfs.h b/fs/nfsd/vfs.h
+index 6f059c5ac22b78..bf695d5cc04e45 100644
+--- a/fs/nfsd/vfs.h
++++ b/fs/nfsd/vfs.h
+@@ -120,7 +120,7 @@ __be32		nfsd_splice_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 				unsigned long *count,
+ 				u32 *eof);
+ __be32		nfsd_iter_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+-				struct file *file, loff_t offset,
++				struct nfsd_file *nf, loff_t offset,
+ 				unsigned long *count, unsigned int base,
+ 				u32 *eof);
+ __be32		nfsd_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
 -- 
 2.53.0
 
