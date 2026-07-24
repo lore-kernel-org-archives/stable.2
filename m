@@ -1,104 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F5019C54E;
-	Fri, 24 Jul 2026 05:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF347768EA;
+	Fri, 24 Jul 2026 05:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784869212; cv=none; b=eHK7J7QNWsVlgMZ80iwd3fseuenrNKXOZ7OfX5azttVyGOtyGrYKBslb+ZfPdjxW8upi4gw7uOJN6JakAcMBtFHPo9yfXSkhAGu91whqe/9PyLbiBOkEAWygMjvZaXugbFtseEDdOTanNByQ3tL/gYoyhPTY75wH7xPfW90Up54=
+	t=1784869840; cv=none; b=H5bjt6UYFMQMJSgElMwZHEpmWizjBPq0wcByAtorBq82qYcjLOy0xluDAHN81piK0Eedl5MuoVkLPYAyfscSBTGweeEO71OvAWQ5qfcs3CeZvAEEuECJHRGIpF+lEIkr1iwYyN7jTlHXT8B1HL06gHFylk/PRHw/b5X41VPGyHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784869212; c=relaxed/simple;
-	bh=FKoklqZ/F4qlcNQwi4NG2VG2qgjj6czo5jSltulEqdw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kEtj+cSO6RHfhb/17trPsqe0EgX8BbLOdM1kk8xEcBdbltlL3+ebXz2SYAp5/348BOf64lNCyXMbSKGiIv6uo+5k3sf9xJVZryG78oLB48K5LSymCoPgXmMGjReS5hdFZoFHf5DCJ/XuJDkjnfDhGdI3pkRtK+JuEsouR+FlEJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7jQZqL5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784869840; c=relaxed/simple;
+	bh=yLMu/G7IzCBHNZj3i5Opf11wfHEt2l0Lvo50YEfW0ng=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sHSPTFOkkJSjw+bCq3WGbaT/M5fFLbEeLfS/dx223Xkol+Zm38WB9LRx7grxZc3V7KrbkBRJgSsDfBRUoQlxQ5MKM4bnM8TQhoOm6xMRzQN1nxneYBLB9Ht0QQBAKbhauvlhsxbWlXhDMiqcJ4lzLepFd/yPWBMzFuMwig+FDhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Xa+EbNWS; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7jQZqL5"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C51F81F000E9;
-	Fri, 24 Jul 2026 05:00:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784869211;
-	bh=8aN/tFTmYjh7e7BXhnjg9shBkB4zPYrFR+2K22VPt7A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q7jQZqL5zPAnUEuDlRMBVshTPiBEUjbRRzF2pfdNNi5pr4nz1n7VjCV5DFvCQPfYs
-	 XVOuMgzaksClCK9hTOo6AEhgaZGtOqQJsLcHatDU6oZaC4HxNWkg36iaCMQMNbBovz
-	 NRGhHlp9QJh1y8bSe9h7kH4m6Q4RixxeyQBwJGdgy23m7RKAKTu1VD+Y1LpXBtkjw3
-	 VDjCklUxV0sxEXI/hlmdmp8ZrE0Y7OAXWtL52r/dK4R+0nqkBxeylxXd6zRrTMQQ6h
-	 HnNXiZ+jksd72AwP/wa0onSfwx6tvi57AZ7Y7bK3IKmP9pN7adGkAMs9R4FTlQuX/8
-	 PhRYtw3SMP31A==
-Date: Fri, 24 Jul 2026 06:57:53 +0200
-From: Nicolas Schier <nsc@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Anish Rashinkar <rashinkar.anish@gmail.com>, stable@vger.kernel.org,
-	Philipp Hahn <p.hahn@avm.de>
-Subject: Re: [PATCH RESEND] kbuild: Stop modifying $(objtree)/Makefile when
- building oot-kmods oos
-Message-ID: <amLw0RbalfDGzyJl@levanger>
-Mail-Followup-To: Nathan Chancellor <nathan@kernel.org>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Anish Rashinkar <rashinkar.anish@gmail.com>, stable@vger.kernel.org,
-	Philipp Hahn <p.hahn@avm.de>
-References: <20260723105845.1704689-2-nsc@kernel.org>
- <178484858201.4095280.2018856728416028444.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Xa+EbNWS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=rfJRwkV2JMtJVFc0pQ6fvMr4zYx8IxO5mPeNFriCcbA=; b=Xa+EbNWS5xtBmuBxVou59qFnq6
+	rk37rF6VQH+IisOAVMQaks5hTltri3AOVqUWHuqxItYTiNMLjybVuYjbQDgEFIi93bUKsjhae1Elk
+	59LgbX44Cfm1nLBIV/3caoRK5sh0+oldzIBXevkJbKBB+TIeqSjD5cVf5OAGpdoxKLWI2jPu2S0KA
+	GY+5tgsJhq+JIs2EA5JGkqbzzMFZvZiha3F4UeQRa7PSeeQi6x3sSk/t2H9lfaMR2mwFHjuCycLW4
+	g+GQ0oe7FGKVx4W7mCKTxkIvzDRZ71LIajSh9avmXXZtRvt11KCfTAGZ49uoIj9Pk4TrzZ2q0utaN
+	V78nCtsw==;
+Received: from [2001:4bb8:2d1:bd34:bc05:3da8:f7ec:c468] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wn8B0-0000000FUN5-1e98;
+	Fri, 24 Jul 2026 05:10:26 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Christian Brauner <brauner@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	linux-block@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 4/4] iomap: don't free integrity payload that doesn't exist
+Date: Fri, 24 Jul 2026 07:09:44 +0200
+Message-ID: <20260724051001.202741-5-hch@lst.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260724051001.202741-1-hch@lst.de>
+References: <20260724051001.202741-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178484858201.4095280.2018856728416028444.b4-review@b4>
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Thu, Jul 23, 2026 at 04:16:22PM -0700, Nathan Chancellor wrote:
-> > Update output Makefile in the corresponding tree only: for out-of-source
-> > in-tree builds update $(objtree)/Makefile, for out-of-source out-of-tree
-> > module builds update $(KBUILD_EXTMOD_OUTPUT)/Makefile instead.
-> > 
-> > In-source builds are not affected.
-> > 
-> > Since commit c9bb03ac2c66 ("kbuild: reduce output spam when building out
-> > of tree"), building out-of-tree kernel modules out-of-source (make M=...
-> > MO=...) causes a rewrite of $(objtree)/Makefile with KBUILD_EXTMOD and
-> > KBUILD_EXTMOD_OUTPUT being set.  That is problematic:
-> > 
-> >  * $(objtree)/ must not be changed in any way when building out-of-tree
-> >    modules as it breaks other uses of $(objtree).
-> > 
-> >  * Setting KBUILD_EXTMOD and KBUILD_EXTMOD_OUTPUT in $(objtree)/Makefile
-> >    kills the tree for incremental builds that start right there
-> >    ('make -C $(objtree)'); builds starting in $(srctree) reset
-> >    $(objtree)/Makefile to its original content.
-> > 
-> > Further, $(KBUILD_EXTMOD_OUTPUT)/Makefile was not generated any more at
-> > all.
-> > 
-> > This commit restores the previous kbuild behaviour prior to commit
-> > c9bb03ac2c66 ("kbuild: reduce output spam when building out of tree")
-> > but leaves in-place the use of filechk for output spam reduction.
-> > 
-> > Fixes: c9bb03ac2c66 ("kbuild: reduce output spam when building out of tree")
-> > Reported-by: Anish Rashinkar <rashinkar.anish@gmail.com>
-> > Closes: https://lore.kernel.org/r/CAOESE2Q2-0KUDaM0mUo+c_F-tMaUsBZ-gpnhdoe0rmYdgnnuJQ@mail.gmail.com
-> > Cc: stable@vger.kernel.org
-> > Tested-by: Philipp Hahn <p.hahn@avm.de>
-> > Reviewed-by: Philipp Hahn <p.hahn@avm.de>
-> > Signed-off-by: Nicolas Schier <n.schier@fritz.com>
-> > Signed-off-by: Nicolas Schier <nsc@kernel.org>
-> 
-> Thanks!
-> 
-> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-> Tested-by: Nathan Chancellor <nathan@kernel.org>
-> 
-> Do you want me to take this via kbuild-fixes?
+fs_bio_integrity_alloc might not allocate a bio integrity payload if PI
+verification is disabled on the block device.  Check for that case before
+calling fs_bio_integirty_free in iomap_bio_read_folio_range_sync to
+avoid a NULL pointer dereferences.
 
-Yes, please take it via kbuild-fixes, as it actually breaks build trees.
+Make the branch cover the PI verification as well - while
+fs_bio_integrity_verify works without an integrity payload, it requires
+one to actually do useful work.
 
-Thanks!
+Fixes: 0b10a370529c ("iomap: support T10 protection information")
+Cc: <stable@vger.kernel.org> # v7.1
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+---
+ fs/iomap/bio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
+index dc8ac7e370a5..30ef78a66b4f 100644
+--- a/fs/iomap/bio.c
++++ b/fs/iomap/bio.c
+@@ -179,7 +179,7 @@ int iomap_bio_read_folio_range_sync(const struct iomap_iter *iter,
+ 	if (srcmap->flags & IOMAP_F_INTEGRITY)
+ 		fs_bio_integrity_alloc(&bio);
+ 	error = submit_bio_wait(&bio);
+-	if (srcmap->flags & IOMAP_F_INTEGRITY) {
++	if (bio_integrity(&bio)) {
+ 		if (!error)
+ 			error = fs_bio_integrity_verify(&bio, sector, len);
+ 		fs_bio_integrity_free(&bio);
 -- 
-Nicolas
+2.53.0
+
