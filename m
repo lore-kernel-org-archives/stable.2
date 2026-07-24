@@ -1,36 +1,37 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDFF377A96;
-	Fri, 24 Jul 2026 05:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DCF3783AF;
+	Fri, 24 Jul 2026 05:28:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784870880; cv=none; b=iTPQ1wpG+2ZDEE2GcpeD7S08grRFEgGGIpVw1GAJmPLNtTq+KJz8QzpmVYVr1Tf2hiTUoRA8DDv2GZWBitVkTYgOz2JiygKsHX5kSk2AjCHHekMg9XHvKVTskOovithiJNUF+viZMpf5827hgp6cptPCcLJOzqfLbLd/eLygtas=
+	t=1784870934; cv=none; b=e4AImxJd2jSAaZw6H4Q70b+mfeaTTP01swSTHYpL1RayZyZkO6018pwY1Tmvc61TeGj2WnQP2DvyrSSzW5vql8tcxnRFd0tlxEQf0/gnxS/2mQeXqnaP5ahe8JN73g4pQs+PS/nfYqIj1bF1t12p00cskeirCS366SZGXf7Fy5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784870880; c=relaxed/simple;
-	bh=NkRAAqtSSXmk+tg5AqNmfpD3Cy5a0Kmfx7t9yag9+vA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K7pCiTkhHW8cXb1r14Wb0EGWLzwDSb5RRCzpgGOfkV12NDJyUIVoEaJ1XsnvziDKXS8aTdlcRC8WJsvkRIeC3anF5rfaU1Du3GDZZDiKyVCys2ZfLG0alxwofs/vJ4FozqrbtpT/b1YrStyFRiSVLITYsX2FinUIhEt3nx/aSiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=TH+lIse+; arc=none smtp.client-ip=101.71.155.101
+	s=arc-20240116; t=1784870934; c=relaxed/simple;
+	bh=8O+mme2012dg9H1JvTX2lXWHFcoSArNE2pDsocvPocE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fs9pbxlYypXDsMYFxvgNOQhHofpueft3qe07ax5mTerj7q4cqUyPXtWGyOie6dc1mqk+AqdLKXyw5m6CsEJmDXUn8tjlQdpD7qFHCDAW9lEPGlqEFswQxweSLZwkn+oKElpMltWkzF/PceBqvIeVIFEnx9e/VlBgzh1ixsSSOP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=f7O5B+SY; arc=none smtp.client-ip=45.254.49.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="TH+lIse+"
-Received: from LAPTOP-99KJFSET (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 47691a1a2;
-	Fri, 24 Jul 2026 13:27:49 +0800 (GMT+08:00)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="f7O5B+SY"
+Received: from LAPTOP-99KJFSET (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 47691a1b2;
+	Fri, 24 Jul 2026 13:28:44 +0800 (GMT+08:00)
 From: Hongyan Xu <getshell@seu.edu.cn>
 To: gregkh@linuxfoundation.org,
-	sashal@kernel.org
-Cc: 3chas3@gmail.com,
+	sashal@kernel.org,
+	arnd@arndb.de
+Cc: linusw@kernel.org,
+	brgl@kernel.org,
 	stable@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	jianhao.xu@seu.edu.cn,
 	getshell@seu.edu.cn
-Subject: [RFC PATCH 6.6.y] atm: suni: synchronize poll timer with device removal
-Date: Fri, 24 Jul 2026 13:27:47 +0800
-Message-ID: <20260724052747.1976-1-getshell@seu.edu.cn>
+Subject: [RFC PATCH 6.6.y 0/4] misc: ti-st: close transport removal races
+Date: Fri, 24 Jul 2026 13:28:38 +0800
+Message-ID: <20260724052842.1052-1-getshell@seu.edu.cn>
 X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -39,139 +40,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f9298174003a1kunm7304a06f243c1
+X-HM-Tid: 0a9f9298ed9b03a1kunm7e8f9dea24454
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTUkYVk1JSh9KHUoaH0MeQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGk1OVkJIQkxPSkgaTU5CHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
+	NVSktLVUtZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=TH+lIse+Qz9XQBmvyVfVqo9agrbO/WM58EGksak400CU0dgQM8qG6QSwsy9wTHaBQ5w3/rqxhF90A5IeqcQHbw6iYUD31bBpR0fA95x3G2qtzKpi4179gIpmV+hX0OW7EilXtmZgcS4TplbWLFBIEI4JudcBB61ZuIWY2XO+vD0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=c5Ugs+CkrYnw+UEStcu+8FqtB1MdwrqYS033j1CAzng=;
+	b=f7O5B+SYUIc9n3sL0Chq4Vm+mT1Y0gsy5ogElmYN3SeWvrY8HkSk6l0S2ZMQbP34oaDScHlUahaWCz0TUZ2v6xXCucjpNeQPUqS85zMRZzJK9hdlfTc5TT1PiViHoYVNdP1HeZqL2UvuPeuQlFO53z89QeClWc81FyoIuaFOrIo=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=hrwS7FgHLT1mN3bobYbs6uCZsVFY8jzLQo6DL7YVfbc=;
 	h=date:mime-version:subject:message-id:from;
 
-suni_hz() walks the global device list and dereferences each private
-structure without taking sunis_lock. suni_stop() can therefore unlink and
-free a device while the timer callback is still using it. The existing
-timer synchronization only runs for the last device and is performed while
-holding sunis_lock.
+The TI shared transport is published before probe completes and remains
+published while remove tears its core down.  The exported protocol entry
+points can retain the raw core pointer across that teardown.  An attached
+N_TI_WL line discipline and its write-wakeup work provide another path to
+the same freed core.
 
-Protect the callback traversal with sunis_lock. Serialize the first/last
-timer transitions with a mutex, unlink under the spinlock, then shut the
-timer down outside the spinlock before freeing the last device.
-timer_shutdown_sync() also prevents the running callback from rearming
-itself; a later first start reinitializes the timer with timer_setup().
-Move device initialization before list publication so an existing timer
-cannot observe a partially initialized entry.
+This series publishes only fully initialized transports, accounts users of
+the published pointer, withdraws and drains that pointer on remove, and
+synchronously closes an attached TTY before freeing the core.
 
-This driver was removed from mainline by commit 6deb53595092 ("net: remove
-unused ATM protocols and legacy ATM device drivers"), but is still present
-in the 6.6 LTS series.
+This is an RFC for the 6.6 stable tree because the driver is still present
+there but was removed from mainline by commit 78fe66360ed6 ("misc: ti-st:
+st_kim: remove the driver").  There is consequently no current mainline
+code location through which these fixes can first be merged.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
----
- drivers/atm/suni.c | 29 +++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 10 deletions(-)
+The patches are based on linux-6.6.y commit da47cbc25466.
 
-diff --git a/drivers/atm/suni.c b/drivers/atm/suni.c
-index 21e5acc..5fa939b 100644
---- a/drivers/atm/suni.c
-+++ b/drivers/atm/suni.c
-@@ -14,6 +14,7 @@
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/mm.h>
-+#include <linux/mutex.h>
- #include <linux/errno.h>
- #include <linux/atmdev.h>
- #include <linux/sonet.h>
-@@ -46,6 +47,7 @@
- static struct timer_list poll_timer;
- static struct suni_priv *sunis = NULL;
- static DEFINE_SPINLOCK(sunis_lock);
-+static DEFINE_MUTEX(sunis_mutex);
- 
- 
- #define ADD_LIMITED(s,v) \
-@@ -59,6 +61,7 @@ static void suni_hz(struct timer_list *timer)
- 	struct atm_dev *dev;
- 	struct k_sonet_stats *stats;
- 
-+	spin_lock_bh(&sunis_lock);
- 	for (walk = sunis; walk; walk = walk->next) {
- 		dev = walk->dev;
- 		stats = &walk->sonet_stats;
-@@ -85,6 +88,7 @@ static void suni_hz(struct timer_list *timer)
- 		    ((GET(TACP_TCC) & 0xff) << 8) |
- 		    ((GET(TACP_TCCM) & 7) << 16));
- 	}
-+	spin_unlock_bh(&sunis_lock);
- 	if (timer) mod_timer(&poll_timer,jiffies+HZ);
- }
- 
-@@ -306,14 +310,9 @@ static void suni_int(struct atm_dev *dev)
- 
- static int suni_start(struct atm_dev *dev)
- {
--	unsigned long flags;
- 	int first;
- 
--	spin_lock_irqsave(&sunis_lock,flags);
--	first = !sunis;
--	PRIV(dev)->next = sunis;
--	sunis = PRIV(dev);
--	spin_unlock_irqrestore(&sunis_lock,flags);
-+	mutex_lock(&sunis_mutex);
- 	memset(&PRIV(dev)->sonet_stats,0,sizeof(struct k_sonet_stats));
- 	PUT(GET(RSOP_CIE) | SUNI_RSOP_CIE_LOSE,RSOP_CIE);
- 		/* interrupt on loss of signal */
-@@ -322,6 +321,11 @@ static int suni_start(struct atm_dev *dev)
- 		printk(KERN_WARNING "%s(itf %d): no signal\n",dev->type,
- 		    dev->number);
- 	PRIV(dev)->loop_mode = ATM_LM_NONE;
-+	spin_lock_bh(&sunis_lock);
-+	first = !sunis;
-+	PRIV(dev)->next = sunis;
-+	sunis = PRIV(dev);
-+	spin_unlock_bh(&sunis_lock);
- 	suni_hz(NULL); /* clear SUNI counters */
- 	(void) fetch_stats(dev,NULL,1); /* clear kernel counters */
- 	if (first) {
-@@ -333,6 +337,7 @@ printk(KERN_DEBUG "[u] p=0x%lx,n=0x%lx\n",(unsigned long) poll_timer.list.prev,
- #endif
- 		add_timer(&poll_timer);
- 	}
-+	mutex_unlock(&sunis_mutex);
- 	return 0;
- }
- 
-@@ -340,16 +345,20 @@ printk(KERN_DEBUG "[u] p=0x%lx,n=0x%lx\n",(unsigned long) poll_timer.list.prev,
- static int suni_stop(struct atm_dev *dev)
- {
- 	struct suni_priv **walk;
--	unsigned long flags;
-+	bool last;
- 
- 	/* let SAR driver worry about stopping interrupts */
--	spin_lock_irqsave(&sunis_lock,flags);
-+	mutex_lock(&sunis_mutex);
-+	spin_lock_bh(&sunis_lock);
- 	for (walk = &sunis; *walk != PRIV(dev);
- 	    walk = &PRIV((*walk)->dev)->next);
- 	*walk = PRIV((*walk)->dev)->next;
--	if (!sunis) del_timer_sync(&poll_timer);
--	spin_unlock_irqrestore(&sunis_lock,flags);
-+	last = !sunis;
-+	spin_unlock_bh(&sunis_lock);
-+	if (last)
-+		timer_shutdown_sync(&poll_timer);
- 	kfree(PRIV(dev));
-+	mutex_unlock(&sunis_mutex);
- 
- 	return 0;
- }
+Hongyan Xu (4):
+  misc: ti-st: publish the transport only after probe succeeds
+  misc: ti-st: account published transport users
+  misc: ti-st: drain published users before transport removal
+  misc: ti-st: synchronize TTY teardown with transport removal
+
+ drivers/misc/ti-st/st_core.c | 59 +++++++++++++++++++++++---------
+ drivers/misc/ti-st/st_kim.c  | 65 ++++++++++++++++++++++--------------
+ include/linux/ti_wilink_st.h |  8 +++++
+ 3 files changed, 91 insertions(+), 41 deletions(-)
+
 -- 
 2.50.1.windows.1
-
