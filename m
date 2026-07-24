@@ -1,44 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF43E31ED68
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:44:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C94447808
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 16:44:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784911492; cv=none; b=hWExGZV0RMOp4TaGHu1+gDcUVUMQuM1om29LZTlhSy+/O/pxdvA0VFHwe2VwmnM2Ondi0NIlB/nxCh4bbO3qZlD2gC/nKplAjbpsf6ny6lLqIU2Yx5aPeQawoggvm06R5O4pjqQibbOw+4uyIcdZJQFUMJB4je5J32J6wkxiuw0=
+	t=1784911493; cv=none; b=gLG1GzNAuJMucFivaWXMcVqccuKkV5RLemwPhSRQZ5NeLdgCx+RFV+aDw7O9wWzPCO5pB//DGp7zOq7G7+DN9mAvzgFNM8EZavmmCpz+ch1IKo/kKyqUc2SKoElyhCm+FRcGZNhMJl/8915vNap7rzvBFc9Yu12bElXKWSDN8E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784911492; c=relaxed/simple;
-	bh=1lxt3/4gkNYjKWQISxKYTXs+XOJmAZZayoG4QmkmMAA=;
+	s=arc-20240116; t=1784911493; c=relaxed/simple;
+	bh=gZuzOG2QbhJq0sK0oEQEJ1v5lESfJErdJlloF/b+dkg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U0r04PAAFTodhfT3Ho8jlG+GIUPGGwS4d8jg9C415RSW6fthSvmrk29yNOzmy/WXjF4tkftPUrh2FxFfhiebgPbVck+AXQXXVPph9lvZUyjT7R9H4criG4o4+cFe8Mp4naFvZB9w9nhNu6KGdaA5g86JUKQyr0N8XKZh3H+Xkio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJAOoB5x; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SeDpWmF0I33uTEsVihJCCcKagQtF/f81St1/I+1RLVJqSTYH/svmEPXqRG8QVkyTo5hohChoktijMMm5Kvwn6CWZZy1sYVNnjC5gVJ3FqLueBjp1oKCzAiaC+Fkr/DJjWtl3cKYeTohImLGHYB8cIgsSNkWVi6IXEln9eljwJIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMcEABXj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJAOoB5x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDDF41F00A3D;
-	Fri, 24 Jul 2026 16:44:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMcEABXj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BF51F00A3A;
+	Fri, 24 Jul 2026 16:44:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784911487;
-	bh=IO9A1jSiupPvZ/WdGV4QhFd90+Z0IW0t+B28/gbQ7gs=;
+	s=k20260515; t=1784911489;
+	bh=wy5QET89/ac48xyNNLMlM7xEVpNfcasJiUOdUBwjxkY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PJAOoB5xFN6TUOtKVq31g8dnZu9BMF8wJXoKtCvAJNv+K0ZFlLX8g/aeI6IQBvT5f
-	 xwG4lUFLCj2GaJf2R1k4RpZDIMfVlQwlbCSILH5gW2Bec5YPFpDiqXSS8/fwCAMfV+
-	 rsi+3gt+qY27tFojaSfHUv9K6aCOy9FuYJN9gAC55UAxFK0U9Mj6oGzcHqofZYR4pj
-	 ITa/WG6Ep7sPT3XPXG8r8hNm1fmog8XAa47zcH6BfopH0A7VZWbgEb59kLP+yDk/Uw
-	 Gf+Rq/wYLWG4dZUrc15SUlN1L1K3qvf68VNN7q573HJy5Ziod/cB+E+sbJl66fEgSU
-	 qF9qOy+BOKzcQ==
+	b=hMcEABXjJxawv4xNCGvnoGJGqWEnIL3M103xTNGV81xH7MhyRmMtZiCfvRBsku7FD
+	 hySujmPHrjCdwbhmN1tcX38CjAqh7RCuC3s2EqrvE1CQ9iFkvuPzfWbPFlBoVHwBds
+	 ek83RG5TO3umRgYMN5PQVFE6onJFbSjhr9QH/UdflNCCgtTDJy5Ez98oeP094VIMIO
+	 bv82NPiHyY0akQy1Yjs7Ax8RF8TdjWyC+WzWNxcJrEXFodOQlJw0NRvDfvabrlvJIZ
+	 Ox/RJbjIeowrkjsp3hm2QA6Vfb75UvROr0FqqILGmRuB4OJyeJaYo7ckRrqyBQgpgR
+	 5FlaW/6g1DfNQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
-	Tarun Sahu <tsahu@linux.ibm.com>,
+Cc: Muchun Song <songmuchun@bytedance.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
 	Joao Martins <joao.m.martins@oracle.com>,
-	Muchun Song <songmuchun@bytedance.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Mike Kravetz <mike.kravetz@oracle.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Hocko <mhocko@suse.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] mm/vmemmap/devdax: fix kernel crash when probing devdax devices
-Date: Fri, 24 Jul 2026 12:44:42 -0400
-Message-ID: <20260724164443.469191-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] mm/mm_init: fix uninitialized struct pages for ZONE_DEVICE
+Date: Fri, 24 Jul 2026 12:44:43 -0400
+Message-ID: <20260724164443.469191-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260724164443.469191-1-sashal@kernel.org>
 References: <2026072046-viewable-richness-35ef@gregkh>
@@ -51,149 +59,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
+From: Muchun Song <songmuchun@bytedance.com>
 
-[ Upstream commit 87a7ae75d7383afa998f57656d1d14e2a730cc47 ]
+[ Upstream commit cd681403a87085562499d60325b7b45d3be11217 ]
 
-commit 4917f55b4ef9 ("mm/sparse-vmemmap: improve memory savings for
-compound devmaps") added support for using optimized vmmemap for devdax
-devices.  But how vmemmap mappings are created are architecture specific.
-For example, powerpc with hash translation doesn't have vmemmap mappings
-in init_mm page table instead they are bolted table entries in the
-hardware page table
+If DAX memory is hotplugged into an unoccupied subsection of an early
+section, section_activate() reuses the unoptimized boot memmap.  However,
+compound_nr_pages() still assumes that vmemmap optimization is in effect
+and initializes only the reduced number of struct pages.  As a result, the
+remaining tail struct pages are left uninitialized, which can later lead
+to unexpected behavior or crashes.
 
-vmemmap_populate_compound_pages() used by vmemmap optimization code is not
-aware of these architecture-specific mapping.  Hence allow architecture to
-opt for this feature.  I selected architectures supporting
-HUGETLB_PAGE_OPTIMIZE_VMEMMAP option as also supporting this feature.
+Fix this by treating early sections as unoptimized when calculating how
+many struct pages to initialize.
 
-This patch fixes the below crash on ppc64.
-
-BUG: Unable to handle kernel data access on write at 0xc00c000100400038
-Faulting instruction address: 0xc000000001269d90
-Oops: Kernel access of bad area, sig: 11 [#1]
-LE PAGE_SIZE=64K MMU=Hash SMP NR_CPUS=2048 NUMA pSeries
-Modules linked in:
-CPU: 7 PID: 1 Comm: swapper/0 Not tainted 6.3.0-rc5-150500.34-default+ #2 5c90a668b6bbd142599890245c2fb5de19d7d28a
-Hardware name: IBM,9009-42G POWER9 (raw) 0x4e0202 0xf000005 of:IBM,FW950.40 (VL950_099) hv:phyp pSeries
-NIP:  c000000001269d90 LR: c0000000004c57d4 CTR: 0000000000000000
-REGS: c000000003632c30 TRAP: 0300   Not tainted  (6.3.0-rc5-150500.34-default+)
-MSR:  8000000000009033 <SF,EE,ME,IR,DR,RI,LE>  CR: 24842228  XER: 00000000
-CFAR: c0000000004c57d0 DAR: c00c000100400038 DSISR: 42000000 IRQMASK: 0
-....
-NIP [c000000001269d90] __init_single_page.isra.74+0x14/0x4c
-LR [c0000000004c57d4] __init_zone_device_page+0x44/0xd0
-Call Trace:
-[c000000003632ed0] [c000000003632f60] 0xc000000003632f60 (unreliable)
-[c000000003632f10] [c0000000004c5ca0] memmap_init_zone_device+0x170/0x250
-[c000000003632fe0] [c0000000005575f8] memremap_pages+0x2c8/0x7f0
-[c0000000036330c0] [c000000000557b5c] devm_memremap_pages+0x3c/0xa0
-[c000000003633100] [c000000000d458a8] dev_dax_probe+0x108/0x3e0
-[c0000000036331a0] [c000000000d41430] dax_bus_probe+0xb0/0x140
-[c0000000036331d0] [c000000000cef27c] really_probe+0x19c/0x520
-[c000000003633260] [c000000000cef6b4] __driver_probe_device+0xb4/0x230
-[c0000000036332e0] [c000000000cef888] driver_probe_device+0x58/0x120
-[c000000003633320] [c000000000cefa6c] __device_attach_driver+0x11c/0x1e0
-[c0000000036333a0] [c000000000cebc58] bus_for_each_drv+0xa8/0x130
-[c000000003633400] [c000000000ceefcc] __device_attach+0x15c/0x250
-[c0000000036334a0] [c000000000ced458] bus_probe_device+0x108/0x110
-[c0000000036334f0] [c000000000ce92dc] device_add+0x7fc/0xa10
-[c0000000036335b0] [c000000000d447c8] devm_create_dev_dax+0x1d8/0x530
-[c000000003633640] [c000000000d46b60] __dax_pmem_probe+0x200/0x270
-[c0000000036337b0] [c000000000d46bf0] dax_pmem_probe+0x20/0x70
-[c0000000036337d0] [c000000000d2279c] nvdimm_bus_probe+0xac/0x2b0
-[c000000003633860] [c000000000cef27c] really_probe+0x19c/0x520
-[c0000000036338f0] [c000000000cef6b4] __driver_probe_device+0xb4/0x230
-[c000000003633970] [c000000000cef888] driver_probe_device+0x58/0x120
-[c0000000036339b0] [c000000000cefd08] __driver_attach+0x1d8/0x240
-[c000000003633a30] [c000000000cebb04] bus_for_each_dev+0xb4/0x130
-[c000000003633a90] [c000000000cee564] driver_attach+0x34/0x50
-[c000000003633ab0] [c000000000ced878] bus_add_driver+0x218/0x300
-[c000000003633b40] [c000000000cf1144] driver_register+0xa4/0x1b0
-[c000000003633bb0] [c000000000d21a0c] __nd_driver_register+0x5c/0x100
-[c000000003633c10] [c00000000206a2e8] dax_pmem_init+0x34/0x48
-[c000000003633c30] [c0000000000132d0] do_one_initcall+0x60/0x320
-[c000000003633d00] [c0000000020051b0] kernel_init_freeable+0x360/0x400
-[c000000003633de0] [c000000000013764] kernel_init+0x34/0x1d0
-[c000000003633e50] [c00000000000de14] ret_from_kernel_thread+0x5c/0x64
-
-Link: https://lkml.kernel.org/r/20230411142214.64464-1-aneesh.kumar@linux.ibm.com
-Fixes: 4917f55b4ef9 ("mm/sparse-vmemmap: improve memory savings for compound devmaps")
-Signed-off-by: Aneesh Kumar K.V <aneesh.kumar@linux.ibm.com>
-Reported-by: Tarun Sahu <tsahu@linux.ibm.com>
-Reviewed-by: Joao Martins <joao.m.martins@oracle.com>
-Cc: Muchun Song <songmuchun@bytedance.com>
-Cc: Dan Williams <dan.j.williams@intel.com>
-Cc: Mike Kravetz <mike.kravetz@oracle.com>
+Link: https://lore.kernel.org/20260428081855.1249045-7-songmuchun@bytedance.com
+Fixes: 6fd3620b3428 ("mm/page_alloc: reuse tail struct pages for compound devmaps")
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: Liam R. Howlett <liam@infradead.org>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
+Cc: Joao Martins <joao.m.martins@oracle.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: cd681403a870 ("mm/mm_init: fix uninitialized struct pages for ZONE_DEVICE")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mm.h  | 12 ++++++++++++
- mm/mm_init.c        | 11 -----------
- mm/sparse-vmemmap.c |  3 +--
- 3 files changed, 13 insertions(+), 13 deletions(-)
+ mm/mm_init.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index ac0638a8c38dba..4f0aa81257c585 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3405,6 +3405,18 @@ void vmemmap_populate_print_last(void);
- void vmemmap_free(unsigned long start, unsigned long end,
- 		struct vmem_altmap *altmap);
- #endif
-+
-+#define VMEMMAP_RESERVE_NR	2
-+#ifdef CONFIG_ARCH_WANT_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
-+#define vmemmap_can_optimize(altmap, pgmap)				\
-+	(is_power_of_2(sizeof(struct page)) && (pgmap) && !(altmap) &&	\
-+	 (((pgmap_vmemmap_nr(pgmap) * sizeof(struct page)) >> PAGE_SHIFT) > \
-+	  VMEMMAP_RESERVE_NR))
-+#else
-+#define vmemmap_can_optimize(altmap, pgmap)	\
-+	((void)(altmap), (void)(pgmap), false)
-+#endif
-+
- void register_page_bootmem_memmap(unsigned long section_nr, struct page *map,
- 				  unsigned long nr_pages);
- 
 diff --git a/mm/mm_init.c b/mm/mm_init.c
-index ccfccb45808ab1..5aab6903bddcbe 100644
+index 5aab6903bddcbe..a3acd113e7d0a4 100644
 --- a/mm/mm_init.c
 +++ b/mm/mm_init.c
-@@ -241,17 +241,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
- 		set_page_count(page, 0);
- }
+@@ -262,10 +262,17 @@ do {									\
+  * of how the sparse_vmemmap internals handle compound pages in the lack
+  * of an altmap. See vmemmap_populate_compound_pages().
+  */
+-static inline unsigned long compound_nr_pages(struct vmem_altmap *altmap,
++static inline unsigned long compound_nr_pages(unsigned long pfn,
++					      struct vmem_altmap *altmap,
+ 					      struct dev_pagemap *pgmap)
+ {
+-	if (!vmemmap_can_optimize(altmap, pgmap))
++	/*
++	 * If DAX memory is hot-plugged into an unoccupied subsection
++	 * of an early section, the unoptimized boot memmap is reused.
++	 * See section_activate().
++	 */
++	if (early_section(__pfn_to_section(pfn)) ||
++	    !vmemmap_can_optimize(altmap, pgmap))
+ 		return pgmap_vmemmap_nr(pgmap);
  
--#define VMEMMAP_RESERVE_NR	2
--#ifdef CONFIG_ARCH_WANT_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
--#define vmemmap_can_optimize(altmap, pgmap)				\
--	(is_power_of_2(sizeof(struct page)) && !(altmap) &&		\
--	 (((pgmap_vmemmap_nr(pgmap) * sizeof(struct page)) >> PAGE_SHIFT) > \
--	  VMEMMAP_RESERVE_NR))
--#else
--#define vmemmap_can_optimize(altmap, pgmap)	\
--	((void)(altmap), (void)(pgmap), false)
--#endif
--
- #define pageblock_migratetype_init_range(start_pfn, nr_pages, migratetype) \
- do {									\
- 	unsigned long __start = (start_pfn);				\
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index f89dbaa05eef3e..28929fdf5d3bca 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -385,8 +385,7 @@ struct page * __meminit __populate_section_memmap(unsigned long pfn,
- 		!IS_ALIGNED(nr_pages, PAGES_PER_SUBSECTION)))
- 		return NULL;
+ 	return VMEMMAP_RESERVE_NR * (PAGE_SIZE / sizeof(struct page));
+@@ -338,7 +345,7 @@ void __ref memmap_init_zone_device(struct zone *zone,
+ 			continue;
  
--	if (is_power_of_2(sizeof(struct page)) &&
--	    pgmap && pgmap_vmemmap_nr(pgmap) > 1 && !altmap)
-+	if (vmemmap_can_optimize(altmap, pgmap))
- 		r = vmemmap_populate_compound_pages(pfn, start, end, nid, pgmap);
- 	else
- 		r = vmemmap_populate(start, end, nid, altmap);
+ 		memmap_init_compound(page, pfn, zone_idx, nid, pgmap,
+-				     compound_nr_pages(altmap, pgmap));
++				     compound_nr_pages(pfn, altmap, pgmap));
+ 	}
+ 
+ 	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE);
 -- 
 2.53.0
 
