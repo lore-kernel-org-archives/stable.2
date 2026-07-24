@@ -1,174 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A361FBE90;
-	Fri, 24 Jul 2026 20:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE7E364EA4
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 20:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784925447; cv=none; b=gqxdeLu+Vsd7tUtmKK090Q6LZtkHFZ9QFjslbiuSERjXDqhLIOh7q8b66SY1dE78a4o05vftOysNDJpj7OL3D24jDiLHclp20XCDVLI97tqyzhmJ+ygWpBkqemp4jNPK0qm6Gb5RFMar4Z5UXsb5KvZuLEZlGjn5Gat0QydS2+k=
+	t=1784925698; cv=none; b=gPlQ8PKM8asO/md/T30QxQo5XbCMC0lpqObunXDicRPuuSSJkmi0wegO4Reyg7VDa3jntzchlgwsgvAUnd5RlfokhhmBf/lZsVVbcdeodxWcf/xAbMOZ3np1OXjUqpr20D30lYbM6EPFStqy2+iLQNNAaHuu5z0KXhFL44MTnQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784925447; c=relaxed/simple;
-	bh=3dNeVbOoObT0F2jKa2/XLl7OoZvfQY9f+dMe0NNObR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EEMTLv7f7+GPecdxaA5z79wWHZZLr21LXk6j8jMRRh00mQXnaa88oicIr+YW+15tzADRBI8uTHq2yNhXG3zDR4ZUEblIR3HOfELIi3tbtRNZhThiZfzsOArszF1E2I3sLxSCKQAMj3bay8P9oMvrpJyLTS93tiR+K4Qk20SZ54o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GpN0Nsup; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1784925698; c=relaxed/simple;
+	bh=PzbXWJQs72R9iV99XX9jksyQUQ+nRv5EhQapM0F3FKw=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=QsTJ+0LddROTOKFcyh29I9KCuk4rZhJSbno9xzZZeDTXegCsTTcCwgQcj5RNihxBJePIQXGpkVUiNx1qtYF6YVpVSJ12+KU/PgE5+3Mklh4HoiaaXwvWq8qdoTw0lTG3uqItsUR+pW+peBJrnTviH0N11NwyQDBUCSZGXQX3HCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TV3dIdxy; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GpN0Nsup"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784925445; x=1816461445;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=3dNeVbOoObT0F2jKa2/XLl7OoZvfQY9f+dMe0NNObR0=;
-  b=GpN0Nsup8EZ+NGeRZ3QaPwnYjQMtNnY4qqD18hugZuE5BWphbBJw1m1g
-   eo+2IYrn7/hpKtCE1yRko1V0Wf9NKqh7p+aEMnUOwGrkjX7GhlKmki3yf
-   lSc3tFV4ON7QQiGJjiRuwWt5tCJDvDnc+1DfVGgLlAdQfjJmdsxIGd3Ff
-   yhb11CEV4DL2Dk5mZJb/WBnhhOf4kYOHoIBFP5zihjKHCXJMOvRyQs9zz
-   eRN1NHk4hRJBgmVLMB053VtxyUpwzofHJlGgrrtqViYq0uHeYbE0CD1lj
-   hhKppfKvzCh6/ziG4Vo7qxq/aCVXC4rv5iNO/YwV3Sbxiw09C4TA080Wq
-   g==;
-X-CSE-ConnectionGUID: 40gnMQusQsmt0asvpqKaVw==
-X-CSE-MsgGUID: g0jeKDCfQBqOPD4dstb3Vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11855"; a="103008231"
-X-IronPort-AV: E=Sophos;i="6.25,183,1779174000"; 
-   d="scan'208";a="103008231"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jul 2026 13:37:25 -0700
-X-CSE-ConnectionGUID: X1pKU5n9Steq+W9yob/Mlw==
-X-CSE-MsgGUID: 2kF403ExTF+b84kiHmPH2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,183,1779174000"; 
-   d="scan'208";a="258872380"
-Received: from aschofie-mobl2.amr.corp.intel.com (HELO localhost) ([10.124.222.232])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jul 2026 13:37:24 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>
-Cc: linux-cxl@vger.kernel.org,
-	stable@vger.kernel.org,
-	Dan Williams <djbw@kernel.org>
-Subject: [PATCH v3 1/3] cxl/pmem: Format the nvdimm serial number as unsigned decimal
-Date: Fri, 24 Jul 2026 13:37:17 -0700
-Message-ID: <2c673a5ba0a8fa93ad160578e193bd556091fa95.1784924949.git.alison.schofield@intel.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <cover.1784924949.git.alison.schofield@intel.com>
-References: <cover.1784924949.git.alison.schofield@intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TV3dIdxy"
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab4af22d09so895468b6e.0
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 13:41:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1784925695; x=1785530495; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iajl6b3K8rXMmm9gJwdCmJTZEBGl8q0xqBBTV9E/nkk=;
+        b=TV3dIdxyMzImq0rmOMOVfzx7v095aWPcmXdttXdbYawpoHLU1JpU7c0MWRAqQGNkFj
+         83yKEbnKgJAW8D7MajYhV/hXqAkQm3QtkMEC8E+hn8Z0Ie6vUYQjpY9RdrBvuEX+Ujav
+         BCplSPd7eL1DDSWxdUUoBMA+D++DaYYqVVMnRi0BSBmVEnTRMPiwSaiUKhdDLztnxnDj
+         apvHnN9oByb3ZVJohnjZ0UfgHgKaKYU6u/GfPCSyHCDsWlbFo3B9dk305hPqQhDN7F9W
+         559F5qJb8PLA4fpUxBaJItvpdQZwrJwRboS/2d1C3gYr4LQdVsZ4tyMkonsJxdyXcc6B
+         Gliw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784925695; x=1785530495;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Iajl6b3K8rXMmm9gJwdCmJTZEBGl8q0xqBBTV9E/nkk=;
+        b=LpZdvrZhOSoRCR8sUqt6GerDyMYbTcCbwFPvkyJTqKdWnqrETsTINwpSJEQGc5x9lx
+         A15MMgbYdNwhJu3mJpoVP4fNutRJO2iLBT2jnPC/5dC8X9ZtjTVPcISGNX3brpr4kQ47
+         GTlNptAfd809pVRvzEpI+6o/h6LxJXHDSFwXcezNusc4DQryfVaKirdC9T/3ngnisZW9
+         MwDDolpTB082UYWTe1MGcoXNXgvNMedIuNap4gF2sJhrrI6A2oaFM87FzSFTEfWcGsLY
+         uKul6hMgjAlc9rWJg5lMZoWXeWJA7zT0o7lNWqkz1AqxIcCbRitz+JFCIhuLdtuPflvA
+         bmwg==
+X-Forwarded-Encrypted: i=1; AHgh+RrjZoxCyAcSnahzhDixBSMIJitPVoyouIIYvGJdwUAUAmNWcfzVFnu1KHReEtk82KryE1OEIqc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTBwo6igtmaaZ8bdzw4y0xmbC7usQbSeK/2eEAwYO1uGOQkmyw
+	xIhxxokskJwOVQDT/w52OS0tAC2e+Bz2bUbH2zl9IstL01ibbhgna8w6Aaw1KoxRb+EafLBA4bd
+	2GlK+Ak+Rfg==
+X-Received: from jaqt21.prod.google.com ([2002:a05:6638:1f5:b0:5e8:f77c:fa88])
+ (user=nkapron job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:180a:b0:497:cd5c:7f0b
+ with SMTP id 5614622812f47-4ab6a1bbb09mr2339b6e.30.1784925694976; Fri, 24 Jul
+ 2026 13:41:34 -0700 (PDT)
+Date: Fri, 24 Jul 2026 20:41:16 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+Message-ID: <20260724204117.4036015-1-nkapron@google.com>
+Subject: [PATCH] usb: gadget: f_fs: Prevent deadlock during ep0 read loop
+From: Neill Kapron <nkapron@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Michal Nazarewicz <m.nazarewicz@samsung.com>
+Cc: nkapron@google.com, kernel-team@android.com, stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@suse.de>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The CXL NVDIMM security passphrase key description and the nvdimm 'id'
-sysfs attribute are both derived from the CXL device serial number,
-but the serial number is not formatted consistently.
+Currently, ffs_ep0_read() holds ffs->mutex when it prepares to go to
+sleep waiting for an event. When no setup events are pending, it calls
+wait_event_interruptible_exclusive_locked_irq() with the mutex still
+held. The wait macro deliberately drops the waitqueue spinlock before
+sleeping but does not drop the mutex.
 
-The key description is formatted in hexadecimal while the 'id'
-attribute is formatted in decimal. As a result, ndctl stores the key
-using a decimal description while the kernel later looks it up using
-a hexadecimal description. For serial numbers of 10 and above, the
-descriptions no longer match, preventing automatic unlock after
-reboot.
+If a userspace daemon is polling ep0 via read() and the gadget is
+asynchronously torn down via configfs (e.g., echo "" > UDC), a
+deadlock can occur:
 
-The decimal formatting has a second problem: both the key description
-and the 'id' attribute use the signed %lld format for a u64 PCIe
-Device Serial Number. Devices whose vendor OUI sets bit 63, such as
-Montage CXL devices, appear with negative decimal serial numbers.
+1. The configfs teardown calls functionfs_unbind(), which queues a
+   FUNCTIONFS_UNBIND event.
+2. The daemon wakes up, consumes the event, and drops the mutex.
+3. However, if the daemon loops and immediately issues another read()
+   before exiting, it reacquires ffs->mutex and again goes into an
+   interruptible sleep.
+4. Meanwhile, functionfs_unbind() continues execution and attempts to
+   acquire ffs->mutex to tear down ep0req.
+5. The kernel deadlocks because the configfs thread is stuck in an
+   uninterruptible sleep waiting for the mutex, while the userspace
+   daemon is in an interruptible sleep holding the mutex forever
+   because no more events will arrive.
 
-Format the security key description and 'id' attribute as unsigned
-decimal, %llu, and document that the 'id' attribute is an unsigned
-decimal value.
+To fix this, we drop both the waitqueue spinlock and ffs->mutex before
+going to sleep, and use wait_event_interruptible_exclusive() instead.
+Upon waking up, we jump back to the `retry` label to safely reacquire
+the mutex and re-evaluate the state machine. By not sleeping with
+ffs->mutex held, we natively decouple gadget teardowns (which require
+the mutex) from userspace polling.
 
-The key lookup mismatch was exposed by CXL unit test cxl-security.sh
-when cxl_test mock serial numbers were extended to 10 and above.
-
-A work around is described for ndctl load-key users here:
-https://github.com/pmem/ndctl/issues/299
-
-Cc: <stable@vger.kernel.org>
-Fixes: b5807c80b5bc ("cxl: add dimm_id support for __nvdimm_create()")
-Acked-by: Dan Williams <djbw@kernel.org>
-Signed-off-by: Alison Schofield <alison.schofield@intel.com>
+Fixes: ddf8abd25994 ("USB: f_fs: the FunctionFS driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Neill Kapron <nkapron@google.com>
 ---
- Documentation/ABI/testing/sysfs-bus-nvdimm |  3 ++-
- drivers/cxl/core/pmem.c                    | 10 ++++++----
- drivers/cxl/cxl.h                          |  3 ++-
- drivers/cxl/pmem.c                         |  2 +-
- 4 files changed, 11 insertions(+), 7 deletions(-)
+ drivers/usb/gadget/function/f_fs.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-nvdimm b/Documentation/ABI/testing/sysfs-bus-nvdimm
-index 64eb8f4c6a41..46dafd8482b9 100644
---- a/Documentation/ABI/testing/sysfs-bus-nvdimm
-+++ b/Documentation/ABI/testing/sysfs-bus-nvdimm
-@@ -48,7 +48,8 @@ What:		/sys/bus/nd/devices/nmemX/cxl/id
- Date:		November 2022
- KernelVersion:	6.2
- Contact:	Dave Jiang <dave.jiang@intel.com>
--Description:	(RO) Show the id (serial) of the device. This is CXL specific.
-+Description:	(RO) Show the id (serial) of the device, formatted as an
-+		unsigned 64-bit decimal value. This is CXL specific.
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 073c4cbd90fb..cfa05266e551 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -551,6 +551,7 @@ static ssize_t ffs_ep0_read(struct file *file, char __user *buf,
+ 	if (ffs_setup_state_clear_cancelled(ffs) == FFS_SETUP_CANCELLED)
+ 		return -EIDRM;
  
- What:		/sys/bus/nd/devices/nmemX/cxl/provider
- Date:		November 2022
-diff --git a/drivers/cxl/core/pmem.c b/drivers/cxl/core/pmem.c
-index 68462e38a977..5a3bb7e8a1f1 100644
---- a/drivers/cxl/core/pmem.c
-+++ b/drivers/cxl/core/pmem.c
-@@ -219,12 +219,14 @@ static struct cxl_nvdimm *cxl_nvdimm_alloc(struct cxl_nvdimm_bridge *cxl_nvb,
- 	dev->bus = &cxl_bus_type;
- 	dev->type = &cxl_nvdimm_type;
- 	/*
--	 * A "%llx" string is 17-bytes vs dimm_id that is max
--	 * NVDIMM_KEY_DESC_LEN
-+	 * dev_id is the nvdimm dimm_id used for security key lookup.
-+	 * It must match id_show(), which emits the CXL serial as an
-+	 * unsigned decimal. A u64 decimal string is at most 20 digits
-+	 * plus NUL.
- 	 */
--	BUILD_BUG_ON(sizeof(cxl_nvd->dev_id) < 17 ||
-+	BUILD_BUG_ON(sizeof(cxl_nvd->dev_id) < 21 ||
- 		     sizeof(cxl_nvd->dev_id) > NVDIMM_KEY_DESC_LEN);
--	sprintf(cxl_nvd->dev_id, "%llx", cxlmd->cxlds->serial);
-+	sprintf(cxl_nvd->dev_id, "%llu", cxlmd->cxlds->serial);
++retry:
+ 	/* Acquire mutex */
+ 	ret = ffs_mutex_lock(&ffs->mutex, file->f_flags & O_NONBLOCK);
+ 	if (ret < 0)
+@@ -585,10 +586,15 @@ static ssize_t ffs_ep0_read(struct file *file, char __user *buf,
+ 			break;
+ 		}
  
- 	return cxl_nvd;
- }
-diff --git a/drivers/cxl/cxl.h b/drivers/cxl/cxl.h
-index c0e5308e4d1b..d683ae5e0f7d 100644
---- a/drivers/cxl/cxl.h
-+++ b/drivers/cxl/cxl.h
-@@ -503,7 +503,8 @@ struct cxl_nvdimm_bridge {
- 	struct nvdimm_bus_descriptor nd_desc;
- };
+-		if (wait_event_interruptible_exclusive_locked_irq(ffs->ev.waitq,
+-							ffs->ev.count)) {
+-			ret = -EINTR;
+-			break;
++		if (!ffs->ev.count) {
++			spin_unlock_irq(&ffs->ev.waitq.lock);
++			mutex_unlock(&ffs->mutex);
++
++			if (wait_event_interruptible_exclusive(ffs->ev.waitq,
++							       ffs->ev.count))
++				return -EINTR;
++
++			goto retry;
+ 		}
  
--#define CXL_DEV_ID_LEN 19
-+/* Holds a u64 serial as a decimal string: up to 20 digits + NUL */
-+#define CXL_DEV_ID_LEN 21
- 
- enum {
- 	CXL_NVD_F_INVALIDATED = 0,
-diff --git a/drivers/cxl/pmem.c b/drivers/cxl/pmem.c
-index 261dff7ced9f..a9f50281875d 100644
---- a/drivers/cxl/pmem.c
-+++ b/drivers/cxl/pmem.c
-@@ -52,7 +52,7 @@ static ssize_t id_show(struct device *dev, struct device_attribute *attr, char *
- 	struct cxl_nvdimm *cxl_nvd = nvdimm_provider_data(nvdimm);
- 	struct cxl_dev_state *cxlds = cxl_nvd->cxlmd->cxlds;
- 
--	return sysfs_emit(buf, "%lld\n", cxlds->serial);
-+	return sysfs_emit(buf, "%llu\n", cxlds->serial);
- }
- static DEVICE_ATTR_RO(id);
- 
+ 		/* unlocks spinlock */
 -- 
-2.37.3
+2.55.0.229.g6434b31f56-goog
 
