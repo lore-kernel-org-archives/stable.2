@@ -1,297 +1,209 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012004.outbound.protection.outlook.com [40.107.209.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925413AE71C
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 20:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784924612; cv=none; b=C2E+YMhDCVgcb+aUimpbxx9X/vKwYJreoEpuNgdmL8ECefQ0T1OyW5cRTaujzq2JR23KIwlzC+AAQYeYMN+gW2XGuOzDH1i68ViWjeQfpC1Kk+g7uplLUIpqKwkcuqiEBYnbpvMIro9FSusfOfa/sZKb0mdxnjErosPYNjPVWdE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784924612; c=relaxed/simple;
-	bh=TfKhnpfoZGid4lUQS3hdMUvrMV4BeOLirnVzOmlaZGk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oTHK/SA37E+5d7xc5hjOcCafo4T9ucoIIhgKv7b34BbQZaIQTTpn4w0Z3I6mEb+hNrmWxzP1pkC8YXdIRu9xDlcR1UO7DbrYLzD/4JzAIBAiPiS7uY/YJaS+VK336vvvbVFz/3mk0XR0cqh1axtKkAjDUSwGEk+UGfXJVpltdAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=l3wHa/h6; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7553002D8;
+	Fri, 24 Jul 2026 20:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784924811; cv=fail; b=YeC+yHIUYyAjavKB0boqppTiltoHhR4Mjb9atDROkyyjGu13Ja7l6YD2KND+YZMNVvVxTLd90xTpH+qsHgj2xgEEcAuNwYWNdrkWgRQbLZV8CbYOYbIeLvDEtydg4BxUNJYJSeFycDCNLnsbpOgJVuuTbzQ1cT9ps7AsjI9YJ7o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784924811; c=relaxed/simple;
+	bh=Ray+qa0UH9OAlodsdxU6Uv/T1ZrfOK5joJN0dvvx9WI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lTltmIsdPM5hmEORUl8ma6npCaQArFdx6tuu+FBDv9Os5Ovbb0sM+4aNE4m/dN8xHP20zuKbOYxbOyGp/mSwRcNc/nLnntpbpemFxmtyYLakYRlcQRQY4OhIi+zGyDgT1x3ePeF6jhxhQ3ME2dHjXNnvmn2+Ktjcn7NuRM93uzg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AZFFVPqq; arc=fail smtp.client-ip=40.107.209.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="l3wHa/h6"
-Message-ID: <4aa21cf3-0ed6-424c-9c96-425e2e5ed586@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1784924607;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u9/FnaqJCQNFnMxcYpixMPndBjkyhNtP1Lu7zU8vlWM=;
-	b=l3wHa/h66fAXY4/nX37qOASuW6ga50HSR8bLkkzGOI4kahMhBYSVudfuCsYZeMGOrL1w9e
-	p8cXFYmLA78R7EM33KkZSRcYsYPZb/3TutbJNQRtV7f/JuEtx4zElrU3Ez0a9lO50M9Pp8
-	k2Sr8Q8Yv1ywdRMgg90rKTXPWl8b7JE=
-Date: Fri, 24 Jul 2026 13:23:21 -0700
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AZFFVPqq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rzf7wHY9BYOEYNLkAyGxYYPVDwetiX9z5FcqW8RatwsLvsO6Cd1bgpUqnCLHo40hYnk6cdZ7Wk1uoYa+FgsNH8tuApp5dzHbceylR4YoopzoJoMtKXt1wMYvl+mIsN5vECei8mow89djDDs+nCgsTfCjcBjZUeXBmlKYZtY5uEWKMXliuUyMJ+TuKTff37SWwu4obgPzgf8uJ8HTxmT5bNMUk3b3p4x9p6tWyiHxxTgeOJ4lDa8lEAIBu78Y+BY+pTsW07+8esn9lgozwPNHQOEb027JztI2D1akeszts04GpbAcysdtqMBs8SVignFh5rVppQR6HbEdtwL0r0vbaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lHiGWRtMEM112LYsHZm7yHmQQ08qlE1Iko9BhrHmTHg=;
+ b=EXYI1nvPC2hqM3nQqMEdLTpkuB89XK3y0szQKOqtzDef9cdOQotKwWqpw5d6pEgD8NJncBhLMd0FIu/qS1N7TfT7SesumuzPdFrQwybcYAgyxUj/QYdSQX+ssUeS26ygaMd4JqMO8QCf5sjJPX1FI2uKrGYg7fSsQPsY6txBX9u+dxkusCCMW/2UoI/QPEbAB5nPvaeNNR4U5MM5G+iUsMVW9eO9lrtwLN+s5q8FR7IphgO2UrY/jaGx78uVf4/1LMtbLqlriwV9uEO5Jdx8t6GxZK6o74acQgRzOuSqEHjqxJLHaPdePGttoGTvJ2tPdHU8A4sF5ciuEWlxZ1qJ8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lHiGWRtMEM112LYsHZm7yHmQQ08qlE1Iko9BhrHmTHg=;
+ b=AZFFVPqqLnK1PXIBZpeZxLG2Ip7b45b+yMpHWq1ah0H9WUHs73wZ9yxywCnNJ4Eh/hl+WTQqGXvTHE6nU/jYoTuCef07ThaQVdDHESOPJQqmF8oiLFlK3LcaX3aHSgGz/6NQWxkTibhkZNuqC0cy3ok7MwfWeROsWlWddJjXXax4eGBdOMNDIejNBVQxvkC/wCJZyr87Ln8zp476Sb4uVuBlAX53AC4crNaSxVYLRYVBvjbgilHgwEHMaYa+60gsSzH5U454oGcHe44YsP68YWAFWZIGmhPP05MJDx2YF9mbfcAB+X+i4ZFqKignyEZ25LZlpsFQgdobO75S1+5nag==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by IA1PR12MB6531.namprd12.prod.outlook.com (2603:10b6:208:3a4::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
+ 2026 20:26:45 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 20:26:45 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Matt Fleming <matt@readmodwrite.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Kairui Song <ryncsn@gmail.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Matthew Wilcox <willy@infradead.org>,
+ syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com,
+ stable@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
+Subject: Re: [PATCH] mm/huge_memory: Initialise workingset state before folio
+ split
+Date: Fri, 24 Jul 2026 16:26:44 -0400
+X-Mailer: MailMate (3.0r7024)
+Message-ID: <CAFF6190-1325-49BE-825D-FDD9DA91CF03@nvidia.com>
+In-Reply-To: <6449A238-AA0D-4EB0-8B78-2A669532AEE8@nvidia.com>
+References: <20260724195244.3715130-1-matt@readmodwrite.com>
+ <6449A238-AA0D-4EB0-8B78-2A669532AEE8@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: MN2PR18CA0004.namprd18.prod.outlook.com
+ (2603:10b6:208:23c::9) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH bpf-next 9/9] bpf: Disable preemption in __bpf_get_stack
-To: Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>
-Cc: stable@vger.kernel.org, Tao Chen <chen.dylane@linux.dev>,
- STAR Labs SG <info@starlabs.sg>, bpf@vger.kernel.org,
- Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman
- <eddyz87@gmail.com>, Song Liu <songliubraving@fb.com>,
- Yonghong Song <yhs@fb.com>, Quentin Monnet <qmo@kernel.org>
-References: <20260720085351.655075-1-jolsa@kernel.org>
- <20260720085351.655075-10-jolsa@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20260720085351.655075-10-jolsa@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA1PR12MB6531:EE_
+X-MS-Office365-Filtering-Correlation-Id: 096513d2-02a2-4ef7-fd18-08dee9c1e1a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|366016|23010399003|376014|11063799006|10067099003|5023799004|56012099006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	lno6V6ELK+mXSnz5ZxbhZpgkxN/wXM17ej5PUe+NpnVxv6MEAWitbaIZRTCnUCWSko3y+3cmkPk9GU4RWfDG2bGMblunCfd362RB43ZZ/Y6yjnqUYEQntc1glZTG6SRWBloGtrnDFCkODbbqdK90FzkKtl6Zm1ESMgYr5Vt6/rCFAvqPbKO3TTHdwdXJ3Q8nhGkti886G5aX+GNNR4PZcuWo+HGbBv7RVL9XlEvnNoP6TFduaTs9bpt8i/kCEERhaF2BGqHU63L/6p6l2MgNjnAX1rM8OHEpVVsI1acuLKeF1m7SmbPqcEvYlr9xdQ+AphMJIDpPww3zlqHRQ9b3awD1NkTs74WSEDFHi4U7GhPU97q4+zJoz6K6/aYdqBMzrgiieGQEr/XHHiaXh8UE0UNPVplBiioaTmKZriUpgm1yc1ibY0DERA5nfO5DpjuN2L4ROXPQni5N6VoN8MJmrQRm/qv/HKStLXH3A0+pI6gyFe6FTf/wnCm6z7e57q4SFKLoePaADQMBo7UG7HYNpjxidJJuaA6ii1wValwPjgxIuouSTmOdXYioGpvM6yAzkyk67XuDNi/Glfe4cdpwKYQmcVyseofEDaLo9W1GZhH0JTXCZieaeopv1j2qm49E9KdAu3yQuqAqEte3LrtRNqwO/H/XPv5ktBkYmwWuSVg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(23010399003)(376014)(11063799006)(10067099003)(5023799004)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RnBOTEVsTktVWFUrM2I4R1BNLzIyLzRqdzhrbUJjejMyZmdWVmNWMXBHclN5?=
+ =?utf-8?B?aTNrZjE2Z21ZK1N6MGZ6LzMxV1dHeTY3M1JZRDBvWVYvTWpZbUZZUDFoRFZC?=
+ =?utf-8?B?WXhFTC9MbDJJakdVc3YxSDVGYjY1ZlJocC9VL1o0R3dRajNaWVkrVVNwWWtB?=
+ =?utf-8?B?TUQwbUJJQnA2bTNwNE42c3JVYW1oZHBkWHFSTHFpRE94aHR2WWlOdForOGZE?=
+ =?utf-8?B?MFQrZjhJQ1FKaEt5U240eUEzcitRSlBjckdGdERoWHdqNk1WRXRmV014N2No?=
+ =?utf-8?B?UmRyNmYwbHEvQ3ZPOGJqKzFnTFlBWUtFVVorbWxzbVZCcDh5YVRiUXI3WGFp?=
+ =?utf-8?B?eXZOU1lhUVY1WWNFWkMvTjM4NW9ENnA1MHBuV3JoMUx0N05hR2RsRDFQaG1L?=
+ =?utf-8?B?MitkeFNoUG5qSkhNTG9GM2dWL0hmT0IxeDVjQVBiMHFXTHBlTVNCMUhQNW5a?=
+ =?utf-8?B?NForcHVVT0JaZnNkREQzQ0o4NTE5cy8yUkJDcDBwalRGWFRMZCt5SXB5L2lp?=
+ =?utf-8?B?L0IwaWdqRnBoWXZxaXZqUm10WjByL1BxUDFnci9ZMzZmZVY0NW81SWg1UTRw?=
+ =?utf-8?B?QjJQbHQ0NTFNL1Q3RzdnUzFqYTZGcmJ2d1MzQ0JFS28zVW5pZjZxME4ram9R?=
+ =?utf-8?B?YnQ1bDM5eVlJSXcrTVprZ0lVUHFwc3RTcTZxaUxOMHJKemcrM3BRdkpXQm9C?=
+ =?utf-8?B?WFQySi94eHpsTE0xamlTaFZqM3VXQzVpNll3dnZwSW4yTHkvdlNvbVNldkQr?=
+ =?utf-8?B?VHdxWmNka1JkdlVBU29qaUJrdnJmeC9aTHk0VUhDbTV2ZExnZk5UWnk1dHhQ?=
+ =?utf-8?B?N2RzRFZ3dE1KdHU3TEVLMU4rSHhsd2c5eVhMeURMbVlhOHpSK2lOWDRIQXJ3?=
+ =?utf-8?B?bzBlSE9TN2JwOXBnT2hmMDJkbEJKUTlQcTB1Y0dxYmhVZDZYYVM0TDY4dXZj?=
+ =?utf-8?B?azBtRjAzM1BxbHBVQ3ZiQ1EvbitpZ1RMaDRieGNqRmkzZXNrTWx5SndNTjJZ?=
+ =?utf-8?B?VXZwMGsxenlFWGI0eHV0K2NwWTZJWnZmc3Jrc0RDbkRNNVJkYk5uT2F3Rm5X?=
+ =?utf-8?B?OVdhY2wra1FpMFQxZHpEcDd6THBrcHdpZktSZzhoejE0bzNPUmx5Y1gvVzRS?=
+ =?utf-8?B?QlVxUC9CMzRJMWtmamFWMzFRZlc5VjdXbnFnOFRaSzJmcEpBM2o5QXB2VjUw?=
+ =?utf-8?B?eFpDRUwxZHdrbHVkRlQzYWJ3VlNVdG5HKzdxVGU2dzc3YXVnRGFyWEZrWk00?=
+ =?utf-8?B?V2gycXBkTW9wZW9YSzV3Y3NUTW5NdGx4R2F3c0NteHBYNE9nTXRxRytYSW1j?=
+ =?utf-8?B?am5vSEYyYUdnOExkQThGVG9mMFNrWVVqTENmcVFpdVd4WGZIWXVlMnlaMXRR?=
+ =?utf-8?B?S0hma0d5dlQ2Ylo3N095aFhDWTFYNUpaaHduaE9hZmRiR3NlTjVCNzJWR1E1?=
+ =?utf-8?B?dlFJMkc4anhyQm5rM2RvSy9VbU1VSm56ekJ1NjY3UFdkVTFrUXBSaHFjRms0?=
+ =?utf-8?B?Q0hUT2g2TFRFZzFTNm44a0hyL3JFOVBIWmpJaUVjUkZ0ZGRnc1RySnQ4S0Np?=
+ =?utf-8?B?MDhJQlBUUmJVQkhtZUhrckc1RmhMc3Fqdmh1R3NEM2d4MnhmZUhZSzFmbVNF?=
+ =?utf-8?B?WWJES1hRdXJXOWdwSENZMEFsbXRyUDFaZEFkOS9ubmNuQUk4NXovSTJNS04r?=
+ =?utf-8?B?eGtGVzhXa3NXQWVJTFhzZUIrWTN3anhmb0lhRmpYUEYzOW14RWNlaU1PL2dl?=
+ =?utf-8?B?VFZwVEFNb2FUSWs1UFpDN01ZdTVKSWRoOXJ4NjBjcFVnVzVQSnp0ZnBrcHkz?=
+ =?utf-8?B?a1ZJNFYrR3BvbEMyS0ZHcGgvOVBFVW5pclBrWWlKNVNtNm1raWR1dkY3TEF5?=
+ =?utf-8?B?WGE5VXV4RG9NUFVQZUFvK0U4cVBsM05Mbi9PZWJOcU9nZGZPSEVXWGN4MzVp?=
+ =?utf-8?B?ci9iY3dBZnBGYWIwWnNnOTdvOTc4Uk8rUFU2UTZkUUtWYlZ1SVNOQldVUXgv?=
+ =?utf-8?B?OXNheXJJNm5vcTZlUmxoOEFTd3NYQlR2ZUVOV2dUUnZKc1VHdjdiNTFFclM5?=
+ =?utf-8?B?aGk0ZmNjTlJobW1ZWUEvaStNQ2cxWkV2MWhmdkJ2TFVnRUFiOCtOaGpoNzBQ?=
+ =?utf-8?B?M0FVY0RXSm90ZUxvYThSanN2Qmd5OWE1U3RVbDZoYVA5Q3VhWFZFVnk0Tnda?=
+ =?utf-8?B?MHFNWnB5clN0VFhFdXA1aEdRSGI3N1VYTWlXNHh6MlFpMTUyY29IajZLZzNI?=
+ =?utf-8?B?TGxESUVQek1aaExYWnpiRHdMTnRvS3k1dkt3aHBGRVFDS0JXMnZBMmFWQkpS?=
+ =?utf-8?Q?VdGHI1vnJHq2niLnzP?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 096513d2-02a2-4ef7-fd18-08dee9c1e1a3
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 20:26:45.8194
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TLia5VcVImX3GP9KvjJUaGIq1aCHThrppJ06HK/R2fZgWe4MHFxVJDEtQevX6hp0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6531
 
-On 2026-07-20 1:53 a.m., Jiri Olsa wrote:
-> From: Daniel Borkmann <borkmann@iogearbox.net>
-> 
-> get_perf_callchain() returns a per-CPU perf_callchain_entry buffer and
-> releases its recursion slot via put_callchain_entry() before returning,
-> so nothing keeps the entry reserved while __bpf_get_stack() consumes
-> it below.
-> 
-> A preemptible BPF program (e.g. a non-sleepable raw tracepoint program
-> on a PREEMPT kernel, which runs under migrate_disable() but not
-> preempt_disable()) can be scheduled out between obtaining the entry
-> and the copy. Another task scheduled on the same CPU then reuses the
-> same per-CPU buffer and overwrites trace->nr with a larger value.
-> copy_len is then computed from the inflated trace->nr and can exceed
-> the caller's buffer, causing an out-of-bounds write in the memcpy()
-> and in the build_id path.
-> 
-> The rcu_read_lock() previously taken here does not prevent this. It is
-> only taken on the may_fault path, and under CONFIG_PREEMPT_RCU it does
-> not disable preemption; it merely keeps perf's callchain buffer array
-> alive (freed via call_rcu()) and does nothing to stop another task
-> from reusing the entry.
-> 
-> Disable preemption around obtaining the callchain entry and copying
-> it into the caller's buffer, so the entry cannot be reused underneath
-> us and trace->nr stays bounded by max_depth. Build ID resolution may
-> fault and is therefore deferred until after preemption is re-enabled;
-> by then the instruction pointers have already been copied into buf,
-> so it operates only on that private copy. Note, preempt_disable() also
-> subsumes the buffer-lifetime guarantee the rcu_read_lock() provided,
-> since a preempt-disabled section is an RCU read-side critical section
-> for the callchain buffers' call_rcu() reclaim.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: c195651e565a ("bpf: add bpf_get_stack helper")
-> Reported-by: Tao Chen <chen.dylane@linux.dev>
-> Closes: https://lore.kernel.org/bpf/20260206090653.1336687-1-chen.dylane@linux.dev/
-> Reported-by: STAR Labs SG <info@starlabs.sg>
-> Signed-off-by: Daniel Borkmann <borkmann@iogearbox.net>
-> [ changed Fixes: commit ]
-> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-> ---
->   kernel/bpf/stackmap.c | 9 +++------
->   1 file changed, 3 insertions(+), 6 deletions(-)
-> 
-> diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-> index 57cd4c33403b..37f8e46319b3 100644
-> --- a/kernel/bpf/stackmap.c
-> +++ b/kernel/bpf/stackmap.c
-> @@ -819,8 +819,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
->   
->   	max_depth = stack_map_calculate_max_depth(size, elem_size, flags);
->   
-> -	if (may_fault)
-> -		rcu_read_lock(); /* need RCU for perf's callchain below */
-> +	preempt_disable();
+Use Lorenzo=E2=80=99s current email.
 
-With the series applied on bpf-ci-like kconfig I get a "suspicious RCU
-usage" splat on BPF selftests, pasted at the bottom.
+On 24 Jul 2026, at 16:18, Zi Yan wrote:
 
-AFAIU, the rcu_read_lock() that's removed here was not only
-controlling the lifetime (which is now covered by preempt_disable),
-but also putting the RCU read-side annotation for the
-
-	entries = rcu_dereference(callchain_cpus_entries);
-
-in get_callchain_entry() (callchain.c:163).
-
-preempt_disable() never takes rcu_lock_map, and a sleepable program
-holds only rcu_read_lock_trace() (rcu_tasks_trace_srcu_struct), which
-is a different lockmap. So on PREEMPT_RCU + PROVE_RCU the
-rcu_dereference_check() there now fails (see the splat).
-
-The non-sleepable path is fine because it enters with rcu_read_lock()
-held via rcu_read_lock_dont_migrate().
-
-I think to fix this we have to keep if (may_fault) rcu_read_lock();
-alongside preempt_disable(). Something like this:
-
-diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index 37f8e46319b3..6be413072ef6 100644
---- a/kernel/bpf/stackmap.c
-+++ b/kernel/bpf/stackmap.c
-@@ -820,6 +820,8 @@ static long __bpf_get_stack(struct pt_regs *regs, 
-struct task_struct *task,
-         max_depth = stack_map_calculate_max_depth(size, elem_size, flags);
-
-         preempt_disable();
-+       if (may_fault)
-+               rcu_read_lock();
-
-         if (kernel && task) {
-                 trace = get_callchain_entry_for_task(task, max_depth);
-@@ -829,6 +831,8 @@ static long __bpf_get_stack(struct pt_regs *regs, 
-struct task_struct *task,
-         }
-
-         if (unlikely(!trace) || trace->nr < skip) {
-+               if (may_fault)
-+                       rcu_read_unlock();
-                 preempt_enable();
-                 goto err_fault;
-         }
-@@ -836,6 +840,8 @@ static long __bpf_get_stack(struct pt_regs *regs, 
-struct task_struct *task,
-         trace_nr = callchain_store(trace, buf, size, elem_size, flags);
-
-         /* trace should not be dereferenced after this point */
-+       if (may_fault)
-+               rcu_read_unlock();
-         preempt_enable();
-
-         return callchain_finalize(buf, size, trace_nr, elem_size, 
-user_build_id, user, may_fault);
+> On 24 Jul 2026, at 15:52, Matt Fleming wrote:
+>
+>> From: Matt Fleming <mfleming@cloudflare.com>
+>>
+>> xas_try_split() adds __GFP_ACCOUNT for page-cache xa_nodes, but
+>> __folio_split() leaves the xa_state's xa_lru unset. That lets a live,
+>
+> But mapping_set_update() is not required for xas_split_alloc() and xas_sp=
+lit(),
+> or at least nothing triggered for uniform split path. Why?
+>
+> xas_split_alloc() uses
+> gfp =3D current_gfp_context(mapping_gfp_mask(mapping) & GFP_RECLAIM_MASK)=
+,
+> whereas xas_try_split() starts with GFP_NOWAIT and follows xas_nomem()
+> by adding __GFP_ACCOUNT if XA_FLAGS_ACCOUNT is set.
+>
+> Should xas_split_alloc() also take a gfp input and the caller gets
+> gfp the same way as xas_split_alloc()?
+>
+>> memcg-charged xa_node exist without being linked into the mapping's
+>> shadow_nodes list_lru; when reclaim later walks the list_lru it trips
+>> VM_WARN_ON(!css_is_dying()).
+>>
+>> Use mapping_set_update() to install both the workingset update callback
+>> and the shadow_nodes list_lru on the xa_state.
+>>
+>> Reported-by: syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=3Dc5b060ce82921a2fd500
+>> Fixes: 58729c04cf10 ("mm/huge_memory: add buddy allocator like (non-unif=
+orm) folio_split()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+>> ---
+>>  mm/huge_memory.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index b5d1e9d4463d..12d0e0b14e83 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -4033,7 +4033,8 @@ static int __folio_split(struct folio *folio, unsi=
+gned int new_order,
+>>  		gfp_t gfp;
+>>
+>>  		mapping =3D folio->mapping;
+>> -		min_order =3D mapping_min_folio_order(folio->mapping);
+>> +		mapping_set_update(&xas, mapping);
+>> +		min_order =3D mapping_min_folio_order(mapping);
+>>  		if (new_order < min_order) {
+>>  			ret =3D -EINVAL;
+>>  			goto out;
+>> --=20
+>> 2.43.0
+>
+>
+> Best Regards,
+> Yan, Zi
 
 
-I confirmed this diff fixes the splat below.
-
-I guess teaching the perf side to accept rcu_read_lock_sched_held()
-would also work, but that's out of scope for a bpf fix and may be no
-less tricky.
-
-
-[    9.083612] =============================
-[    9.083795] WARNING: suspicious RCU usage
-[    9.085691] 7.2.0-rc3-gd7530927491c #2 Tainted: G           OE
-[    9.086212] -----------------------------
-[    9.086394] kernel/events/callchain.c:163 suspicious 
-rcu_dereference_check() usage!
-[    9.086736]
-[    9.086736] other info that might help us debug this:
-[    9.086736]
-[    9.087108]
-[    9.087108] rcu_scheduler_active = 2, debug_locks = 1
-[    9.087394] 2 locks held by uprobe_multi/237:
-[    9.087612]  #0: ffffffff85479e38 
-(rcu_tasks_trace_srcu_struct){....}-{0:0}, at: 
-uprobe_notify_resume+0x2af/0xe40
-[    9.088091]  #1: ffffffff85479e38 
-(rcu_tasks_trace_srcu_struct){....}-{0:0}, at: uprobe_prog_run+0x5e3/0xb20
-[    9.088553]
-[    9.088553] stack backtrace:
-[    9.088752] CPU: 0 UID: 0 PID: 237 Comm: uprobe_multi Tainted: G 
-      OE       7.2.0-rc3-gd7530927491c #2 PREEMPT(full)
-[    9.088760] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-[    9.088762] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), 
-BIOS 1.16.3-5.el9 11/05/2023
-[    9.088766] Call Trace:
-[    9.088769]  <TASK>
-[    9.088773]  dump_stack_lvl+0x83/0xa0
-[    9.088783]  lockdep_rcu_suspicious+0x151/0x1c0
-[    9.088798]  get_callchain_entry+0x19b/0x260
-[    9.088808]  get_perf_callchain+0x352/0x7f0
-[    9.088818]  ? __pfx_get_perf_callchain+0x10/0x10
-[    9.088822]  ? unwind_get_return_address+0x5e/0xa0
-[    9.088829]  ? __pfx_stack_trace_consume_entry+0x10/0x10
-[    9.088835]  ? srso_return_thunk+0x5/0x5f
-[    9.088851]  ? srso_return_thunk+0x5/0x5f
-[    9.088855]  ? __lock_acquire+0x41f/0x2520
-[    9.088870]  __bpf_get_stack+0x2f1/0x420
-[    9.088886]  ? __pfx___bpf_get_stack+0x10/0x10
-[    9.088900]  ? srso_return_thunk+0x5/0x5f
-[    9.088913]  bpf_prog_51bb4c0f31ae471b_uprobe_sleepable+0x2d/0x42
-[    9.088921]  uprobe_prog_run+0x405/0xb20
-[    9.088929]  ? srso_return_thunk+0x5/0x5f
-[    9.088937]  ? __pfx_uprobe_prog_run+0x10/0x10
-[    9.088947]  ? lock_acquire+0x176/0x2e0
-[    9.088953]  ? srso_return_thunk+0x5/0x5f
-[    9.088971]  ? uprobe_multi_link_handler+0x4c/0xb0
-[    9.088977]  uprobe_multi_link_handler+0x4c/0xb0
-[    9.088987]  handler_chain+0x1bb/0x1530
-[    9.089002]  ? lock_acquire+0x176/0x2e0
-[    9.089007]  ? __kmalloc_cache_noprof+0xd4/0x610
-[    9.089016]  ? __pfx_handler_chain+0x10/0x10
-[    9.089023]  ? srso_return_thunk+0x5/0x5f
-[    9.089030]  ? srso_return_thunk+0x5/0x5f
-[    9.089034]  ? kasan_save_track+0x14/0x30
-[    9.089040]  ? srso_return_thunk+0x5/0x5f
-[    9.089045]  ? __kasan_kmalloc+0x7f/0x90
-[    9.089053]  ? srso_return_thunk+0x5/0x5f
-[    9.089057]  ? srso_return_thunk+0x5/0x5f
-[    9.089062]  ? lockdep_init_map_type+0x4b/0x220
-[    9.089069]  ? srso_return_thunk+0x5/0x5f
-[    9.089073]  ? timer_init_key+0xfc/0x240
-[    9.089081]  ? srso_return_thunk+0x5/0x5f
-[    9.089085]  ? lockdep_init_map_type+0x4b/0x220
-[    9.089098]  uprobe_notify_resume+0x53d/0xe40
-[    9.089102]  ? srso_return_thunk+0x5/0x5f
-[    9.089107]  ? srso_return_thunk+0x5/0x5f
-[    9.089111]  ? find_held_lock+0x2b/0x80
-[    9.089118]  ? atomic_notifier_call_chain+0x7a/0x110
-[    9.089127]  ? __pfx_uprobe_notify_resume+0x10/0x10
-[    9.089139]  ? srso_return_thunk+0x5/0x5f
-[    9.089143]  ? atomic_notifier_call_chain+0x84/0x110
-[    9.089150]  ? srso_return_thunk+0x5/0x5f
-[    9.089158]  ? notify_die+0x8b/0x110
-[    9.089174]  exit_to_user_mode_loop+0x9a/0x430
-[    9.089192]  exc_int3+0x295/0x2c0
-[    9.089204]  asm_exc_int3+0x39/0x40
-[    9.089210] RIP: 0033:0x6c4176
-[    9.089216] Code: 13 55 48 89 e5 e8 7a ff ff ff c6 05 0b 6f 2d 00 01 
-5d c3 90 c3 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 f3 0f 1e fa eb 
-8a <cc> 48 89 e5 b8 00 00 00 00 5d c3 55 48 89 e5 b8 00 00 00 00 5d c3
-[    9.089219] RSP: 002b:00007fff8e88c458 EFLAGS: 00000246
-[    9.089223] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 
-00007f4babb9404b
-[    9.089226] RDX: 00007fff8e88c47f RSI: 0000000000001000 RDI: 
-00000000007a0000
-[    9.089229] RBP: 00007fff8e88c490 R08: 00007f4babc88330 R09: 
-00007f4babce40c0
-[    9.089231] R10: 00007f4baba90d98 R11: 0000000000000202 R12: 
-00007fff8e88c5c8
-[    9.089233] R13: 0000000000793ac1 R14: 000000000099ade8 R15: 
-00007f4babd17000
-[    9.089259]  </TASK>
-
-
-pw-bot: cr
-
-
->   
->   	if (kernel && task) {
->   		trace = get_callchain_entry_for_task(task, max_depth);
-> @@ -830,16 +829,14 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
->   	}
->   
->   	if (unlikely(!trace) || trace->nr < skip) {
-> -		if (may_fault)
-> -			rcu_read_unlock();
-> +		preempt_enable();
->   		goto err_fault;
->   	}
->   
->   	trace_nr = callchain_store(trace, buf, size, elem_size, flags);
->   
->   	/* trace should not be dereferenced after this point */
-> -	if (may_fault)
-> -		rcu_read_unlock();
-> +	preempt_enable();
->   
->   	return callchain_finalize(buf, size, trace_nr, elem_size, user_build_id, user, may_fault);
->   
-
+Best Regards,
+Yan, Zi
