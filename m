@@ -1,113 +1,103 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C8F312815
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 02:36:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53B4363C51
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 02:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784860574; cv=none; b=lfTIpIkM4ID+jVy8MKIPZlEKMocZB2NYh+jRlRH9aACbVA0vkq+6uzEwACW2a63yxYY5bQghFYpeNG2DA/dfz+JuI+dxasGSYAstAg8n69BOvcFsRCsR8wlHAHkbWdT7F4QYpQns5o+eqoYZyM9EYN9sTyQsAGhG8GfRF8EPblM=
+	t=1784861615; cv=none; b=s3Xf2TvQ9qrjjI2s8HCzeBkxCK6yViVqNiqCnTi1UGWv6Sh6oT+fieCnTvW/iFGLpPYRGATRb7Ub7Rp9HFtUpMwZ3fXqrmljJO7Hli0qIlVl/9e7Lna4LnjTLtD3EbmA5VAHm32k9y2x1Ugd5brmDGsrVrQ7bdd6GDASzw5RqWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784860574; c=relaxed/simple;
-	bh=olPxujuYkEW8ok539c4p0l5U2j8JwhQTnj/MAOjfLW0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RpogmQs4Wp8/IbCJOjqpFZdSxi/hduKo0DBQoiCAPIqREtD0r2q+LKEUQ8Gv+WnHYzejDAjg1BUz6ZaQl5lVMO3vFHjN7A8sIluADYFo9a7gQm1SjztVO2anG67uUJQ7bzJhJ8UVRODRc42jr8/WdZJsuLsl6W+nl+701B5MzR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pyhQA/ZD; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784861615; c=relaxed/simple;
+	bh=JY1OIkGk8Yi9oDgZ1f0ilcLme849K7C//r+Lciqa1RQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DHAEtOtnXKoPMqlQEpU2D1ESTUbKyPvr8ykbsQmVif/ebEB+FJrR38qMtbAqG9Z9YQ0BL2h9N6yvCsIDPc9qbUn4jP9aMtSlrLtofW29ALe/dE6Scd13EQ04rj77YAipGs6M4ZSXrMDPwnOx4oHxpnh6dk1gdU4sTrbyippkSQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=U3aQmLnL; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pyhQA/ZD"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c928bf172so12581021cf.3
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 19:36:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="U3aQmLnL"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2caed617615so15315125ad.3
+        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 19:53:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784860572; x=1785465372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jPRPDODK54d+U5KjdC02Y68fkYSuUcD8QWj3Elue670=;
-        b=pyhQA/ZDzdoxCfvrMcYmbptJ53ypOoJ7yuUC0kWaNdWyLZTHlxzZ4JKEC6Sb97F/ho
-         ysmqMaPSf3P8NgconY7RyLRdNKSu+XJBkaBuw0vrZDWCJ5GmfYzooUdcNRkzDn/x0DQp
-         1j1cwJYkMnFu4buNc0FCXlbF8ox6CsD+aPobxfOebjqnA8SZLTXQHwWdKdS7no/Vfl7Q
-         zDTDBFszf3tZg/sAU9rPtgOxAjivb282cZSai9XNkBR0ueZVbGTC49zeB865eoVStTJs
-         vnm6WLue8mDYkPwJ3UJL0F4SwXWHT56hpyrQRT0RXXjjhB7tvCgTTypnrMaWvjUwp3SQ
-         tNqg==
+        d=chromium.org; s=google; t=1784861608; x=1785466408; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wH+cMQQWqrOS/PY9xKNIJ0VT0As7nJ3tkEO/JFQ2Nco=;
+        b=U3aQmLnLiWB9FGwoXOlMUHcALqH965jB7QEfYJoDwd4O97UrvjivmBWmhjRG41Rwdf
+         o25HTUi1wtkOhQHgtsgzicVsUXC0L0mImo3J2iTjsHT1kYqbhpB1U6Lxzua0696CpU6/
+         QD1uLPqrhfr3nyyie6PSZWm4oiqiNlAG0pDZQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784860572; x=1785465372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jPRPDODK54d+U5KjdC02Y68fkYSuUcD8QWj3Elue670=;
-        b=m9FT0iyYqTxQPqpch4SWWzxK6DqvU4H0pezydaoPC05HTNuRDZ9ArH2BXEZZDsbSmw
-         VO1w+yK9YXtTnXQUyQiRYbFul0vVxyE/2PbXe1GWDE24fvLemkJzNNpIKY8W1psW/0kO
-         /nBTCiyUOKKLAm40YPgAT4bzSJvl2M/YF0+3LFDluJD3S0HNk+HM1Xwg8lEamLji7Mhg
-         6t2wDr00KXKr7Ea0ElRYfhJwMhIVXkeG2Lb17eFiuW71yJMnDtPXQhFuDMROe94UDT5u
-         6hI5W17Dbm8LwT7YpJmXaOCPiOVt6c59wa5+BFYkZaSEUow5PTgtiar/i3t99i7iGDY3
-         G7WA==
-X-Forwarded-Encrypted: i=1; AHgh+RoA6e+lfEafjywWS5OmXuAzUFBqQy6wwQ7UgyTgZ8eDVwxQcgWJxpxfdwmZ8+CJAh9BH2DGP2s=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyyInzLRdydvSes0nFGC2hsmIl5kori0u9pfzTVPpn4bEDicYMu
-	nNdckA3MCFYEy4KeJNhJ8ytj9f1Gw3NYXTkhNCbRNOfdxKejvLcIdZio
-X-Gm-Gg: AR+sD12V/a+lWjN0iqChojGdkvd/1jRlm71niyiMEXALqJA+fp//gojwnzpD4AUUwsk
-	XeyEllkvL5qqqJqTnuk40D98jm6pTYiKLBUnwhCCMRGrG2DqOo9BFdNB35VDWGIvvxkDCiTSEMg
-	/gpWziwOIfSleKkFFcbpo3fsfNsajzs+MoHAwzlsLZbiYfMckvidEe7rOOm+A1fuqcnlld4TyTh
-	4oUyVup2tsXvYQjRtirSahZqm5BQKtbZTYr+IJunvaTozZRiHNaWYMPIMjw8yewvrGqoWNrIS9o
-	oM3Lw6AIjIhCGBThdvWISMlJgNW9zENATCUkB2U0nNLcPHVPyGjwlo8kQhMcMyQvaGzIOVJ7tzg
-	e/zr/064IwIC5pywi97CnLW7/ugunBVib1ET2XeilsP+zVQfEQqfF9Tg6GuBbxlYMV9xbYbZPcA
-	HaQ7crS3T0GIoy2ms=
-X-Received: by 2002:a05:622a:106:b0:51c:1fa1:80d3 with SMTP id d75a77b69052e-5283df10f33mr58127371cf.49.1784860571755;
-        Thu, 23 Jul 2026 19:36:11 -0700 (PDT)
-Received: from FredPC.lan ([2600:382:311b:26:fed0:9b59:babb:80f6])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907baa0f4dasm58223986d6.41.2026.07.23.19.36.09
+        d=1e100.net; s=20251104; t=1784861608; x=1785466408;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wH+cMQQWqrOS/PY9xKNIJ0VT0As7nJ3tkEO/JFQ2Nco=;
+        b=m/5wFIDNq/UuqyViV5CSd+Gfy7dtYR1lw0ILmTLeINM86/r1CEOpEYLEjlpqFqkb12
+         dAp9SlyJ6HXvJg76jmBcXHU8JllWUw8+mgdKvmepPfKowmMHihsSlvmtXFGz6YMTF1A6
+         LhAyFlKlsCJyE4dH3UpN+GujoNYs63ASON89M0e4GbZPPaot+pzCZXgAuHLQ4Di2wqrY
+         2a9Q+88AZN72/42UmT9VoVM1GldIp69VeemUPGnm+p7LpjJpli1yvu2O3LCT6UyRYmZy
+         okPcIYSKfyVP4fZaW+CrJNgeg3Lpam2PVavQxmEllzZ2ftSkbvLWVRDvjK3Cb3IoXNou
+         udyQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpo+0ISIFimjFkczyo4g1Vc1BCVYKBanM0RDEUYOvAwOzwdqxod8mFjeTdVF5U6OEU0ndki6pw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzObJg+v/RnYttidMmB4fXi0OXlzRfi6xVt0QZuWEpV+epE/CL6
+	4uneP8jyA00bs2ivTI3RfTQGZk4EDuM54gLgVtLGSC4eaXomCxCY6aSIGAHx8hFQcg==
+X-Gm-Gg: AR+sD12PJZFr22SVwkMWMgmng8X/f723GYzWcNRPxF8v6a6/zAGemGEFi59GiX5LoD0
+	sVe/mmNzsH226PtHP0kUkXdHHZWr7H116yrUYBRKm827GVCFJk0Gt7mOz6Rgs3bL90SpdUCEaq7
+	0egVjo/dH5buDqTxxycX74J5+/8Go6RVy/2PrluPxbwnzdih/vAey9I9CDdP1E74vq4rNhYWC3O
+	o2Vj3X7JpzxoUFqdzmFg5p1ny63X0ZsDemJYZiiPKAaQD0g2TVDwUyPBAgrILYLAjKiGVyYgkOo
+	RerbSQHmJHhln1hQvPni0TtDpGbXcVlSIqiNZrNr886wTQcB7zJqWrJf3qxcwNZKjFPQZm0WRxr
+	st0XWJe1jxB0wgX/J/m/DHo6klWL5fQtjQfhEluhrvKyPN4bbzuvfzW1QsEidQ9RtMxVdyM2X0s
+	35VxgI74baXidRN/lpVvL7p1lY0q4YEP5IJ6iDprMjqg==
+X-Received: by 2002:a05:6a21:3489:b0:3c3:2e2b:29ee with SMTP id adf61e73a8af0-3c44b204eddmr6323311637.55.1784861607702;
+        Thu, 23 Jul 2026 19:53:27 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:c102:f12d:5168:6be5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbb8f18ae0esm3618236a12.16.2026.07.23.19.53.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2026 19:36:11 -0700 (PDT)
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
-To: sfrench@samba.org
-Cc: pc@manguebit.org,
-	ronniesahlberg@gmail.com,
-	sprasad@microsoft.com,
-	tom@talpey.com,
-	bharathsm@microsoft.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fredric Cover <fredric.cover.lkernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] smb: client: clear ce->tgthint in free_tgts()
-Date: Thu, 23 Jul 2026 19:35:39 -0700
-Message-ID: <20260724023539.1596955-1-fredric.cover.lkernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Thu, 23 Jul 2026 19:53:27 -0700 (PDT)
+Date: Fri, 24 Jul 2026 11:53:24 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	kvm <kvm@vger.kernel.org>, "Kernel Mailing List, Linux" <linux-kernel@vger.kernel.org>, 
+	stable <stable@vger.kernel.org>
+Subject: Re: [PATCH 5.15.y v2 0/8] KVM: fixes for CVE-2026-46113 and related
+ issues
+Message-ID: <amLPUt59eFu1n25z@google.com>
+References: <amG2CyrA-yEUmHqV@google.com>
+ <CABgObfaKqT0gMUB_XRP5DW5HmpgaoTgmD-A8_zQVG2Vp5xZE4g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABgObfaKqT0gMUB_XRP5DW5HmpgaoTgmD-A8_zQVG2Vp5xZE4g@mail.gmail.com>
 
-When free_tgts() frees all structures in ce->tlist, ce->tgthint
-is left pointing to one of the freed cache_dfs_tgt structures.
+Hello,
 
-If ce->tgthint is not reset before it is used later, it results
-in a use-after-free.
+On (26/07/23 11:36), Paolo Bonzini wrote:
+> Il gio 23 lug 2026, 08:36 Sergey Senozhatsky
+> <senozhatsky@chromium.org> ha scritto:
+> >
+> > > Sasha, Greg,
+> > >
+> > > this is the backport to 5.15 for the above CVE.  The fix was relatively
+> > > simple upstream but only due to years of refactoring and cleaning up
+> > > of the code; fixing from scratch is not really feasible so start by
+> > > applying the patches that are needed.
+> > >
+> > > Please apply this instead of v1, due to a missing line in the last
+> > > patch.  Sorry about that.
+> >
+> > Sorry for the noise, has this series stuck?
+> 
+> It had a regression and while there was a suggestion about how to fix
+> it, nobody had time to verify it.
+> (https://lore.kernel.org/kvm/20260630223723.83727-1-zcgao@amazon.com/)
 
-Set ce->tgthint to NULL in free_tgts() after the elements are
-freed to reflect that no elements remain.
-
-Fixes: 54be1f6c1c37 ("cifs: Add DFS cache routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
----
- fs/smb/client/dfs_cache.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
-index 8cd93cd2f00f..451550eb4023 100644
---- a/fs/smb/client/dfs_cache.c
-+++ b/fs/smb/client/dfs_cache.c
-@@ -122,6 +122,8 @@ static inline void free_tgts(struct cache_entry *ce)
- 		kfree(t->name);
- 		kfree(t);
- 	}
-+
-+	WRITE_ONCE(ce->tgthint, NULL);
- }
- 
- static inline void flush_cache_ent(struct cache_entry *ce)
--- 
-2.53.0
-
+I guess I can try helping with that.  Will require some time and
+help tho.
