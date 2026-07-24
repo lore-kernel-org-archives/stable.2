@@ -1,42 +1,42 @@
 Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB633C3BF1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48413C1097;
 	Fri, 24 Jul 2026 21:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784929291; cv=none; b=d5oX91ukr/hNijT6DsTwSnzd8pd2jpptVeh4hTMnTl0FBE2kMxacm53rvqZKT5KW3518S/cX73BA4Ks96aQdociwwoed/ZUJFjHnaHoSNRuC2B99saOxbeh4Rchk+Wg2x/G3vEtIAMnqfKpQeR68oKzf4d0u2s6NJvarLm1Ne/A=
+	t=1784929291; cv=none; b=cJbmUXjUvONj8G+Xr9ZTOPmB0Zsh2G0AKA1c480pvHpaFqTTc42l4N4KSn2p/hNjdGvQP4/RoaRsc0VeAvr39SyLPs3Ojk6ZH0jzoOi48qOAz6xjv0WoSpj4qdeuWrOT8MtmBD3h4b+aX+E1TAFE5fwEDDkQVpBTw5ITB2RyOEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784929291; c=relaxed/simple;
-	bh=B/FVPqJ84r1NeF4yRoSJgPJFblvoill5bI2J/4InfJc=;
+	bh=6bIR/igc8vtJnwe2y1aD78jUwOu4p7lxaqy0G9VYVCo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Sd1/Pufacn5Mwjm0O/ajv8WM207iGWBtj/AnvaWuwHJaT9IEe/aAgjNWAMhM8byM3HsjsmSULHKkN2o6bwrEI5CiSq7WXNqAJGSd6+ucgY7D8dq8oqRL6c/RTf1uOnu0oWd1cgl9vb2BLtKnh8DxNLxufwgmVjC3e5EuctsR+7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=FA4JeYel; arc=none smtp.client-ip=192.19.144.205
+	 MIME-Version; b=Ndx0YT8qfBRUrzPmnTS8jsDYBojGxLQPUr6BX44pL+cNtKB02xOpzgfClkHqF+tsUtNRF2ZHteMF+WNoTnUJl9+BTrFot0AWeEM2HN7LUdwJhhGCtwNAv4fWKSYwcYOmX138Svcx8bea6yOayOErcMca6URMa5sGSTpGmggueM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=CJYyCdcU; arc=none smtp.client-ip=192.19.144.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="FA4JeYel"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="CJYyCdcU"
 Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 1983AC0000F8;
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 551F3C0000F9;
 	Fri, 24 Jul 2026 14:41:23 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 1983AC0000F8
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 551F3C0000F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
 	s=dkimrelay; t=1784929283;
-	bh=B/FVPqJ84r1NeF4yRoSJgPJFblvoill5bI2J/4InfJc=;
+	bh=6bIR/igc8vtJnwe2y1aD78jUwOu4p7lxaqy0G9VYVCo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FA4JeYelE+tG7xu1u12xUIQEaqHuPcleuj+ctJVm80+XGX0ttBNcSMVRiiOXCl7IY
-	 P4KFOUoJevMxf4QX6klfqWuyxDOI7NPT4YBZSAj92vJo4nASkQmN8yNojLEDdOvyI7
-	 4hXx+aqDbMjYTJGAeGM5CQWUNEtRZklX3nh/pd3k=
+	b=CJYyCdcUFWFjlHqsjLXkitcJEJLrYg5So/9dA5K9khMILJItPWq+fSa7EpoblrrC1
+	 Q6RVdH6yrSkXeo8KTkmSgb+yNXfkVpJmcZEG6h5oLZLPzAucn/HaObTiCeWgaf7fHl
+	 OYit4J/S9heBFS62V4P24EEYQCSr0lV77OXgeaCo=
 Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 988A2AD0;
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id D0CF5ACD;
 	Fri, 24 Jul 2026 14:41:22 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: stable@vger.kernel.org
-Cc: David Gow <david@davidgow.net>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
+Cc: Shuvam Pandey <shuvampandey1@gmail.com>,
+	David Gow <david@davidgow.net>,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -53,9 +53,9 @@ Cc: David Gow <david@davidgow.net>,
 	linux-kselftest@vger.kernel.org (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
 	kunit-dev@googlegroups.com (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
 	bcm-kernel-feedback-list@broadcom.com
-Subject: [PATCH stable 6.12 7/9] kunit: tool: Terminate kernel under test on SIGINT
-Date: Fri, 24 Jul 2026 14:41:17 -0700
-Message-Id: <20260724214119.1066665-8-florian.fainelli@broadcom.com>
+Subject: [PATCH stable 6.12 8/9] kunit: tool: skip stty when stdin is not a tty
+Date: Fri, 24 Jul 2026 14:41:18 -0700
+Message-Id: <20260724214119.1066665-9-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
 References: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
@@ -67,109 +67,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Gow <david@davidgow.net>
+From: Shuvam Pandey <shuvampandey1@gmail.com>
 
-commit 8f260b02eeeffbf2263c2b82b6e3e32fd73cde2b upstream
+commit e42c349f4cdfa43cb39a68c8f764f8cafc23a9a9 upstream
 
-kunit.py will attempt to catch SIGINT / ^C in order to ensure the TTY isn't
-messed up, but never actually attempts to terminate the running kernel (be
-it UML or QEMU). This can lead to a bit of frustration if the kernel has
-crashed or hung.
+run_kernel() cleanup and signal_handler() invoke stty unconditionally.
+When stdin is not a tty (for example in CI or unit tests), this writes
+noise to stderr.
 
-Terminate the kernel process in the signal handler, if it's running. This
-requires plumbing through the process handle in a few more places (and
-having some checks to see if the kernel is still running in places where it
-may have already been killed).
+Call stty only when stdin is a tty.
 
-Reported-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Closes: https://lore.kernel.org/all/aaFmiAmg9S18EANA@smile.fi.intel.com/
-Signed-off-by: David Gow <david@davidgow.net>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Tested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Add regression tests for these paths:
+- run_kernel() with non-tty stdin
+- signal_handler() with non-tty stdin
+- signal_handler() with tty stdin
+
+Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+Reviewed-by: David Gow <david@davidgow.net>
 Signed-off-by: Shuah Khan <skhan@linuxfoundation.org>
-[florian: resolved conflict in signal_handler(): upstream references
-_restore_terminal_if_tty() which is introduced by the following commit;
-retained subprocess.call(['stty', 'sane']) until that helper is available]
+[florian: add missing 'import sys' required by sys.stdin.isatty(); the
+module was already present in the mainline tree before this commit but
+was absent from the 6.12 base of kunit_kernel.py]
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- tools/testing/kunit/kunit_kernel.py | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
+ tools/testing/kunit/kunit_kernel.py    | 11 +++++--
+ tools/testing/kunit/kunit_tool_test.py | 42 ++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+), 2 deletions(-)
 
 diff --git a/tools/testing/kunit/kunit_kernel.py b/tools/testing/kunit/kunit_kernel.py
-index 12b0f2ee5665..3f2979f2f6ea 100644
+index 3f2979f2f6ea..c09b66ba734b 100644
 --- a/tools/testing/kunit/kunit_kernel.py
 +++ b/tools/testing/kunit/kunit_kernel.py
-@@ -15,7 +15,7 @@ import shlex
+@@ -14,6 +14,7 @@ import os
+ import shlex
  import shutil
  import signal
++import sys
  import threading
--from typing import Iterator, List, Optional, Tuple
-+from typing import Iterator, List, Optional, Tuple, Any
+ from typing import Iterator, List, Optional, Tuple, Any
  from types import FrameType
+@@ -333,6 +334,12 @@ class LinuxSourceTree:
+ 			return False
+ 		return self.validate_config(build_dir)
  
- import kunit_config
-@@ -252,6 +252,7 @@ class LinuxSourceTree:
- 		if kconfig_add:
- 			kconfig = kunit_config.parse_from_string('\n'.join(kconfig_add))
- 			self._kconfig.merge_in_entries(kconfig)
-+		self._process : Optional[subprocess.Popen[Any]] = None
- 
- 	def arch(self) -> str:
- 		return self._arch
-@@ -345,36 +346,45 @@ class LinuxSourceTree:
- 			args.append('kunit.filter_action=' + filter_action)
- 		args.append('kunit.enable=1')
- 
--		process = self._ops.start(args, build_dir)
--		assert process.stdout is not None  # tell mypy it's set
-+		self._process = self._ops.start(args, build_dir)
-+		assert self._process is not None # tell mypy it's set
-+		assert self._process.stdout is not None  # tell mypy it's set
- 
- 		# Enforce the timeout in a background thread.
- 		def _wait_proc() -> None:
- 			try:
--				process.wait(timeout=timeout)
-+				if self._process:
-+					self._process.wait(timeout=timeout)
- 			except Exception as e:
- 				print(e)
--				process.terminate()
--				process.wait()
-+				if self._process:
-+					self._process.terminate()
-+					self._process.wait()
- 		waiter = threading.Thread(target=_wait_proc)
- 		waiter.start()
- 
- 		output = open(get_outfile_path(build_dir), 'w')
- 		try:
- 			# Tee the output to the file and to our caller in real time.
--			for line in process.stdout:
-+			for line in self._process.stdout:
- 				output.write(line)
- 				yield line
- 		# This runs even if our caller doesn't consume every line.
- 		finally:
- 			# Flush any leftover output to the file
--			output.write(process.stdout.read())
-+			if self._process:
-+				if self._process.stdout:
-+					output.write(self._process.stdout.read())
-+					self._process.stdout.close()
-+				self._process = None
++	def _restore_terminal_if_tty(self) -> None:
++		# stty requires a controlling terminal; skip headless runs.
++		if sys.stdin is None or not sys.stdin.isatty():
++			return
++		subprocess.call(['stty', 'sane'])
++
+ 	def run_kernel(self, args: Optional[List[str]]=None, build_dir: str='', filter_glob: str='', filter: str='', filter_action: Optional[str]=None, timeout: Optional[int]=None) -> Iterator[str]:
+ 		# Copy to avoid mutating the caller-supplied list. exec_tests() reuses
+ 		# the same args across repeated run_kernel() calls (e.g. --run_isolated),
+@@ -380,11 +387,11 @@ class LinuxSourceTree:
  			output.close()
--			process.stdout.close()
  
  			waiter.join()
- 			subprocess.call(['stty', 'sane'])
+-			subprocess.call(['stty', 'sane'])
++			self._restore_terminal_if_tty()
  
  	def signal_handler(self, unused_sig: int, unused_frame: Optional[FrameType]) -> None:
  		logging.error('Build interruption occurred. Cleaning console.')
-+		if self._process:
-+				self._process.terminate()
-+				self._process.wait()
- 		subprocess.call(['stty', 'sane'])
+ 		if self._process:
+ 				self._process.terminate()
+ 				self._process.wait()
+-		subprocess.call(['stty', 'sane'])
++		self._restore_terminal_if_tty()
+diff --git a/tools/testing/kunit/kunit_tool_test.py b/tools/testing/kunit/kunit_tool_test.py
+index 70e5d0abe87f..6e6200d52540 100755
+--- a/tools/testing/kunit/kunit_tool_test.py
++++ b/tools/testing/kunit/kunit_tool_test.py
+@@ -503,6 +503,48 @@ class LinuxSourceTreeTest(unittest.TestCase):
+ 				self.assertIn('kunit.filter_glob=suite.test1', start_calls[0])
+ 				self.assertIn('kunit.filter_glob=suite.test2', start_calls[1])
+ 
++	def test_run_kernel_skips_terminal_reset_without_tty(self):
++		def fake_start(unused_args, unused_build_dir):
++			return subprocess.Popen(['printf', 'KTAP version 1\n'],
++						text=True, stdout=subprocess.PIPE)
++
++		non_tty_stdin = mock.Mock()
++		non_tty_stdin.isatty.return_value = False
++
++		with tempfile.TemporaryDirectory('') as build_dir:
++			tree = kunit_kernel.LinuxSourceTree(build_dir, kunitconfig_paths=[os.devnull])
++			with mock.patch.object(tree._ops, 'start', side_effect=fake_start), \
++			     mock.patch.object(kunit_kernel.sys, 'stdin', non_tty_stdin), \
++			     mock.patch.object(kunit_kernel.subprocess, 'call') as mock_call:
++				for _ in tree.run_kernel(build_dir=build_dir):
++					pass
++
++				mock_call.assert_not_called()
++
++	def test_signal_handler_skips_terminal_reset_without_tty(self):
++		non_tty_stdin = mock.Mock()
++		non_tty_stdin.isatty.return_value = False
++		tree = kunit_kernel.LinuxSourceTree('', kunitconfig_paths=[os.devnull])
++
++		with mock.patch.object(kunit_kernel.sys, 'stdin', non_tty_stdin), \
++		     mock.patch.object(kunit_kernel.subprocess, 'call') as mock_call, \
++		     mock.patch.object(kunit_kernel.logging, 'error') as mock_error:
++			tree.signal_handler(signal.SIGINT, None)
++			mock_error.assert_called_once()
++			mock_call.assert_not_called()
++
++	def test_signal_handler_resets_terminal_with_tty(self):
++		tty_stdin = mock.Mock()
++		tty_stdin.isatty.return_value = True
++		tree = kunit_kernel.LinuxSourceTree('', kunitconfig_paths=[os.devnull])
++
++		with mock.patch.object(kunit_kernel.sys, 'stdin', tty_stdin), \
++		     mock.patch.object(kunit_kernel.subprocess, 'call') as mock_call, \
++		     mock.patch.object(kunit_kernel.logging, 'error') as mock_error:
++			tree.signal_handler(signal.SIGINT, None)
++			mock_error.assert_called_once()
++			mock_call.assert_called_once_with(['stty', 'sane'])
++
+ 	def test_build_reconfig_no_config(self):
+ 		with tempfile.TemporaryDirectory('') as build_dir:
+ 			with open(kunit_kernel.get_kunitconfig_path(build_dir), 'w') as f:
 -- 
 2.34.1
 
