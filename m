@@ -1,41 +1,41 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.205])
+Received: from relay.smtp-ext.broadcom.com (lpdvsmtp12.broadcom.com [192.19.144.207])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48D73C1400;
-	Fri, 24 Jul 2026 21:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC946327C09;
+	Fri, 24 Jul 2026 21:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784929291; cv=none; b=WwLcwKkWFDPM3pOw6j2Gfj9C1jzpM2OKIIKnaIWssaANzu0o/46bFWzVd2p4idzkaZIpOvm+s1FMKCMaVH0q5Je9PmvJd3nloFjpA7AGip7Io3rFASckgZNaEmtJSVDfi5oQcW7iuAmxldRBmoRiuryaw+Q5oYst/tkwyeZqjNM=
+	t=1784929291; cv=none; b=Kr9IZH3KL0XbE5IKWxgm9Xz1FsWZX7OQDdSTqwHl4B4gtY6MpjmV+3Ww88vObJEEH5YOmflzFOtgq+LoA3O03a9Gvz+fjtFtc1cxLHgcQheZuJ6m4lBVR1jYgpIVBqx9WKSrO3DHQxTpr5lvNX6HD6VrKCATU8GUVfUUzEMgD3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784929291; c=relaxed/simple;
-	bh=a0Cfg7X+g3S2j3WgmrnppIxwpz2k3rDILWehus98x28=;
+	bh=X6hKdn2YSvvafi2mgHuWo3wbqEvQXzvfO9b69Ah5G9c=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ujlQKVu6xvQ8BBGDtHBb8KWUmgfu5cTjk+IvyfQZYH+cQGhbhTtsdOfdbfRMgXE/rk3IGNAUt/B8ks2C2QpIJHEpeRy51KHCe3rEIJaCbK+3yZ7tZ7re+qgHdtxEpr95hYIy0Sq+wDvbu8ANJ/HvsAo3PBzNir/djvJDimPD6Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=RF0dO4fx; arc=none smtp.client-ip=192.19.144.205
+	 MIME-Version; b=q73pmu3mZu5PISiLKFAlQhTD5rsyzadsDWeHzc6HoofHz5SeHiRmMjPNs2qr/AZsctF4GrttWch7J76ATRgbFhhqJobtldjDFgagk5JY3ur8a236e73tSjxM02F0KFIbIcbgxvHIPFWrJlJkk9SsvNYMGKFLqAF3ABta6naxc2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=DxCwqt8v; arc=none smtp.client-ip=192.19.144.207
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="RF0dO4fx"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="DxCwqt8v"
 Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 8403DC0000FC;
-	Fri, 24 Jul 2026 14:41:23 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 8403DC0000FC
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id DE90DC0003EC;
+	Fri, 24 Jul 2026 14:41:21 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com DE90DC0003EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1784929283;
-	bh=a0Cfg7X+g3S2j3WgmrnppIxwpz2k3rDILWehus98x28=;
+	s=dkimrelay; t=1784929281;
+	bh=X6hKdn2YSvvafi2mgHuWo3wbqEvQXzvfO9b69Ah5G9c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RF0dO4fxr+fXUcerTBF4BDXI8aar+8stV5nFdcqIKg5cJqwA3wvps+YdMx+XQv74x
-	 Z1JTdJw2EXCfq7Sp20J8hQlWwLzttFUpiPsFcp+BfGhXnD007X+1FiCI4SazOx6an/
-	 tcaFJRy70sO2JuWSkcM0aU1kPKWdSg7c2EiILzTs=
+	b=DxCwqt8vSB7LG+I6lGoGHH4diBONgRG14vAGZqmLx/sDE2y/bzZpJZuJQXPl92jia
+	 btTEYJTDmKtEnmEfVE6FW6jI/EaMJA3o9YKu+yUrE2ydL4qO/9eYWzqPKImBoiuq2t
+	 +mtQSbMwsHkgxKnp4A+nP9nM/T/cwbRlc5Hbe+Ew=
 Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 14C66ACE;
-	Fri, 24 Jul 2026 14:41:23 -0700 (PDT)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 7A579AD0;
+	Fri, 24 Jul 2026 14:41:21 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: stable@vger.kernel.org
-Cc: Tiwei Bie <tiwei.btw@antgroup.com>,
+Cc: Benjamin Berg <benjamin.berg@intel.com>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
 	Richard Weinberger <richard@nod.at>,
@@ -47,14 +47,15 @@ Cc: Tiwei Bie <tiwei.btw@antgroup.com>,
 	Kees Cook <kees@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Al Viro <viro@zeniv.linux.org.uk>,
+	Tiwei Bie <tiwei.btw@antgroup.com>,
 	linux-um@lists.infradead.org (open list:USER-MODE LINUX (UML)),
 	linux-kernel@vger.kernel.org (open list),
 	linux-kselftest@vger.kernel.org (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
 	kunit-dev@googlegroups.com (open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)),
 	bcm-kernel-feedback-list@broadcom.com
-Subject: [PATCH stable 6.12 9/9] um: Preserve errno within signal handler
-Date: Fri, 24 Jul 2026 14:41:19 -0700
-Message-Id: <20260724214119.1066665-10-florian.fainelli@broadcom.com>
+Subject: [PATCH stable 6.12 2/9] um: Set parent death signal for winch thread/process
+Date: Fri, 24 Jul 2026 14:41:12 -0700
+Message-Id: <20260724214119.1066665-3-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
 References: <20260724214119.1066665-1-florian.fainelli@broadcom.com>
@@ -66,48 +67,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tiwei Bie <tiwei.btw@antgroup.com>
+From: Benjamin Berg <benjamin.berg@intel.com>
 
-commit f68b2d5a907b53eed99cf2efcaaae116df73c298 upstream
+commit fdb2ecd35d327a1fc6bba69b97f85b494e1f4b6b upstream
 
-We rely on errno to determine whether a syscall has failed, so we
-need to ensure that accessing errno is async-signal-safe. Currently,
-we preserve the errno in sig_handler_common(), but it doesn't cover
-every possible case. Let's do it in hard_handler() instead, which
-is the signal handler we actually register.
+The winch "thread" is really a separate process. Using prctl to set
+PR_SET_PDEATHSIG ensures that this separate thread will be killed if the
+UML kernel itself dies unexpectedly and does not perform proper cleanup.
 
-Signed-off-by: Tiwei Bie <tiwei.btw@antgroup.com>
-Link: https://patch.msgid.link/20260106001228.1531146-2-tiwei.btw@antgroup.com
+Signed-off-by: Benjamin Berg <benjamin.berg@intel.com>
+Link: https://patch.msgid.link/20240919124511.282088-5-benjamin@sipsolutions.net
 Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[florian: hard_handler() in 6.12 retains the to_irq_stack/from_irq_stack
-loop from before the upstream SMP refactoring; errno save/restore is wrapped
-around that loop rather than replacing sig_handler_common's existing save/restore]
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- arch/um/os-Linux/signal.c | 3 +++
+ arch/um/drivers/chan_user.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/arch/um/os-Linux/signal.c b/arch/um/os-Linux/signal.c
-index b11ed66c8bb0..94abc9e3ec7e 100644
---- a/arch/um/os-Linux/signal.c
-+++ b/arch/um/os-Linux/signal.c
-@@ -190,6 +190,7 @@ static void hard_handler(int sig, siginfo_t *si, void *p)
- {
- 	ucontext_t *uc = p;
- 	mcontext_t *mc = &uc->uc_mcontext;
-+	int save_errno = errno;
- 	unsigned long pending = 1UL << sig;
+diff --git a/arch/um/drivers/chan_user.c b/arch/um/drivers/chan_user.c
+index a66e556012c4..1434114b2f34 100644
+--- a/arch/um/drivers/chan_user.c
++++ b/arch/um/drivers/chan_user.c
+@@ -10,6 +10,7 @@
+ #include <signal.h>
+ #include <termios.h>
+ #include <sys/ioctl.h>
++#include <sys/prctl.h>
+ #include "chan_user.h"
+ #include <os.h>
+ #include <um_malloc.h>
+@@ -161,6 +162,8 @@ static __noreturn int winch_thread(void *arg)
+ 	int count;
+ 	char c = 1;
  
- 	do {
-@@ -227,6 +228,8 @@ static void hard_handler(int sig, siginfo_t *si, void *p)
- 		if (!nested)
- 			pending = from_irq_stack(nested);
- 	} while (pending);
++	prctl(PR_SET_PDEATHSIG, SIGKILL);
 +
-+	errno = save_errno;
- }
- 
- void set_handler(int sig)
+ 	pty_fd = data->pty_fd;
+ 	pipe_fd = data->pipe_fd;
+ 	count = write(pipe_fd, &c, sizeof(c));
 -- 
 2.34.1
 
