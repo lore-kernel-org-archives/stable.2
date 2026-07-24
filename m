@@ -1,94 +1,112 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F79E6BB5B;
-	Fri, 24 Jul 2026 02:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D38B175A93;
+	Fri, 24 Jul 2026 02:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784858623; cv=none; b=inwpUuXCW+IM9ZlLf4TQwcphcii3mUentDPmd00tWTqRJJGb3KLawj2qFxPIniUM3Mf/UrrKxt+v+YCU0j1wh/usIU2TQcDQlsQgJGY51hTk/FK8hNzKdU8FU7ha9vQQK7WZIGqRRuRj2Va7YwVcHB/Nd4zWOarTZtDbP/uSBhk=
+	t=1784858881; cv=none; b=cpbnQo5Ze8Mfko5Jx1zJBBhIixR2uvKvInYUWUBiPuaqItRR7KueZ+3D4yX3MTf62Du3/OMnTMf3zItogMYIocF7ds89+qoiwK+sIYLiEcT/FSYKz0tPbj4Cv8SoOvsH21VliHb39oS/gGaiHwu8AImgs5KBq89lAcLnro00k6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784858623; c=relaxed/simple;
-	bh=jdWqFwfSOPXfLcOiX7Epjzyk3iiJwSWPzkW6gg+Myc8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UAw8mUBwcN2yZQKnpg9ZKvPLSciSpAf8iq3z/OC91hQFukiVHV+cHq34PLPEL03UyPl7ua3lgz9BtuLM9J093iUO9PcMCedkcrp1E/Oh9aiPs4EUdG99n3cXiFIwBBk38pWkwP6w1da22pZPPGZqveHKClB5OJEaBRScZ0dc1XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=O/SHLqjO; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1784858881; c=relaxed/simple;
+	bh=dUhsDLAFYAeMwMx4wlNvoKLroE4q+nOngdVRAM7lO3Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KFXujFSI7ktH6+0SLvVaZWVODZjDzGHR1PkygMegpKa+uOsfNoxtkxB0EJmXCntNieg5tnW5Zob/jzZqrSKrVPyU+zZIu7PebAR8qHo+Niu7qECdnp4UpIKeSIR5fUsYovfmniqqw0s7eXAfEwwZvWe6Np8bvfo7CTBmotxHevc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHsqjK46; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="O/SHLqjO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
-	Content-Type; bh=VPRMTKwe/wO2jvaTw6rpDeo3SwkBRfJm/PnHUEnX6YI=;
-	b=O/SHLqjOuLUxBdqQWGSJBB/1iDp7FufeWmIgNBgBd8CT8hQ+GtFYIHjHWTLSOP
-	alJx7tYvo41jlMG3beamaQQuPQvl4WHsdv42FghloQrGmsrgM/ZL77Up9o/6oCfg
-	OXz7Eza/PhEdkOmJwLGVLryLSAHFDl0qqSiQmq9Bv5Z80=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDXnznAx2Jqz24sIw--.40933S2;
-	Fri, 24 Jul 2026 10:02:42 +0800 (CST)
-From: Yang Xiuwei <yangxiuwei@kylinos.cn>
-To: csander@purestorage.com
-Cc: James.Bottomley@hansenpartnership.com,
-	martin.petersen@oracle.com,
-	rc@rexion.ai,
-	axboe@kernel.dk,
-	fujita.tomonori@lab.ntt.co.jp,
-	bvanassche@acm.org,
-	linux-scsi@vger.kernel.org,
-	io-uring@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHsqjK46"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5544B1F000E9;
+	Fri, 24 Jul 2026 02:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784858879;
+	bh=ZMGoKaVGT/WLPvCUKFso57b/S1XOxk0a0r7fmr8dVTw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aHsqjK466GviO+4M28gRYI4WYgJxsCNCumllgwy29OJfBV8rWpwribREA5zqpnpCD
+	 znlz95zxNhPtzmomcgD/S5bD00fiCeY11ELwJqXZmAcIf995BGNtIIQsFY6Ml4x7dM
+	 +i67kc9tHHH/CAVuiAwsVNgkNDCk0I7DXjc5h3sV4CmRNQfLPjp0afYb7nbtW5hUOB
+	 MX5mwLCaK71IW3iUP6thSA2cMYMNcogHo0ZfGM56T7aBWgNfiCl91GjunRA0UPCrGM
+	 1wd7jyvplc1gP79pYM8/W8QVrApDZx3sJMtUO8T4jXSWr0v0eL2MeNkGK22D1u4t1z
+	 bzhQOmd6o87+Q==
+Date: Thu, 23 Jul 2026 19:06:08 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Demi Marie Obenour <demiobenour@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] scsi: bsg: fix TOCTOU in io_uring passthrough command setup
-Date: Fri, 24 Jul 2026 10:02:40 +0800
-Message-Id: <20260724020240.2938587-1-yangxiuwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <CADUfDZpsTH7zU4gyVE11R9GxdadjbcrcGVX+btoEjRYS-tBiGQ@mail.gmail.com>
-References: <20260720032338.461681-1-yangxiuwei@kylinos.cn> <20260720032338.461681-2-yangxiuwei@kylinos.cn> <CADUfDZpAW261MhFJg434=4nZFMD7mV=LL7F-ZiAWPa7dYvGpcQ@mail.gmail.com> <20260724004907.2742329-1-yangxiuwei@kylinos.cn> <CADUfDZpsTH7zU4gyVE11R9GxdadjbcrcGVX+btoEjRYS-tBiGQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drivers/crypto: Mark QCE as BROKEN
+Message-ID: <20260724020608.GA51735@sol>
+References: <20260712-qce-broken-v2-1-b2dfff47f7f5@gmail.com>
+ <alnlaCXmoLRAlr96@gondor.apana.org.au>
+ <20260721082501.6128-1-bartosz.golaszewski@oss.qualcomm.com>
+ <c826b73d-6307-4237-a065-b7a8487350ce@gmail.com>
+ <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDXnznAx2Jqz24sIw--.40933S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFyUKFykXF45uF13Xry5Jwb_yoW8Jw4fpF
-	Wjqw1rX34kuF47JrsrAFy8Zr4FyF1aq343Wrn8XF1xArWUZr1fuw1v93W0vFWxWr4xX34r
-	Zw4Uuw1UA3WxX37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRcdb5UUUUU=
-Sender: yangxiuwei2025@163.com
-X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbCwgJV5Wpix8LcIQAA3A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=Me55rUmjjR+ZzdWd2ss9JJMZzJch0zKd4GqONBjCzFMYQ@mail.gmail.com>
 
-Hi Caleb,
+On Wed, Jul 22, 2026 at 01:33:51AM -0700, Bartosz Golaszewski wrote:
+> We can offload crypto operations to the QCE saving CPU cycles
 
-On Thu, Jul 23, 2026 at 06:10:27PM -0700, Caleb Sander Mateos wrote:
-> On Thu, Jul 23, 2026 at 5:50 PM Yang Xiuwei <yangxiuwei@kylinos.cn> wrote:
-> >
-> > max_response_len is similar here: we clamp with
-> > min(..., SCSI_SENSE_BUFFERSIZE), so it cannot overflow the sense
-> > buffer. Same idea for response.
->
-> I don't think that's true. Without READ_ONCE(), the compiler can
-> assume no other thread will concurrently write cmd->max_response_len
-> (else it would be UB). So it's allowed to load it multiple times:
-> cmd->max_response_len ? min(cmd->max_response_len, SCSI_SENSE_BUFFERSIZE)
->                       : SCSI_SENSE_BUFFERSIZE
-> becomes
-> cmd->max_response_len ? (cmd->max_response_len < SCSI_SENSE_BUFFERSIZE ?
->                          cmd->max_response_len : SCSI_SENSE_BUFFERSIZE)
->                       : SCSI_SENSE_BUFFERSIZE
-> And if cmd->max_response_len changes between the second and third
-> loads, this could definitely evaluate to a value greater than
-> SCSI_SENSE_BUFFERSIZE.
+Here are benchmark results for SHA-256 on the SM8650 HDK, hashing 50000
+4096-byte messages (matching dm-verity's and fsverity's workloads), with
+all your pending patches applied:
 
-IIUC Kernel min() is __careful_cmp() -> __careful_cmp_once(), which does:
+sha256-lib (i.e. ARMv8 CE):
 
-  auto ux = (x); auto uy = (y);
-  (ux < uy) ? ux : uy;
+    Wall-clock elapsed time: 0.10s
+    CPU time used: 0.10s
+    CPU time spent in hardirq context: 0.00s
+    CPU time spent in softirq context: 0.00s
 
-so cmd->max_response_len is only loaded once inside min(). The outer
-?: may load it again for the condition, but the value coming out of
-min() should still be <= SCSI_SENSE_BUFFERSIZE. Did I get that right?
+sha256-qce:
 
-Thanks,
-Yang Xiuwei
+    Wall-clock elapsed time: 10.76s
+    CPU time used: 5.14s
+    CPU time spent in hardirq context: 0.77s
+    CPU time spent in softirq context: 2.31s
 
+So sha256-qce is over 100 times slower and uses over 50 times more CPU
+than ARMv8 CE, over half of that in hardirq or softirq context.
+
+This was even worse than what I got last time I tried this!  So I tried
+rolling back your BAM locking patches:
+
+    Wall-clock elapsed time: 4.85s
+    CPU time used: 2.78s
+    CPU time spent in hardirq context: 0.55s
+    CPU time spent in softirq context: 0.94s
+
+That's more in line with what I measured last time I tried this, but
+still atrocious.  It's still far more CPU time used than just doing the
+hashing on the CPU, and much of it spent in hardirq and softirq
+contexts.  The BAM locking just makes it even worse.
+
+With that, plus the security claims not panning out either when
+considering the actual code and usage in Linux, and also all the bugs
+(both historical and current unfixed ones), I don't think there's any
+credibility left.  This legacy driver should just be deleted.
+
+To be clear: completely separate from QCE, Qualcomm SoCs have good
+support for crypto acceleration in ICE and the ARMv8 CE.  That's great!
+And that is, of course, what is *actually* being used in Linux.  That's
+what we'll support.  Let's stop wasting time on a dead-end approach.
+
+I understand there may be a desire to keep this driver around so that
+support for restricted media content can be added to it.  However, that
+would be new functionality that has nothing to do with what the driver
+currently does and doesn't use the kernel's crypto API.  There's no need
+to keep the driver around for this.  Just put together a clean proposal
+to add a new version of the driver with just the needed functionality
+(note that drivers/crypto/ probably won't be the right place for it).
+
+- Eric
