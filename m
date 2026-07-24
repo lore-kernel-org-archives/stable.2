@@ -1,87 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F0F339364;
-	Fri, 24 Jul 2026 08:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784882184; cv=none; b=SUYxSXNlXou1Rj8hEc5agHEgmJnQ9bN5mDoZw42NN9OhfXDzOjWwa2CC/CnCOK9/VlrCPR1ff/IN8QRIi6ET7haUCENFdxKG0c7vAY9W6xg3R48qP1PPJIOIjF0YJLqai2SgnPKTGlu8jDHwsz57H6QUbwGcG4XWhQh85UY5kSo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784882184; c=relaxed/simple;
-	bh=Md7cixl4RBTovBkhjC4bZiiVq4vrW0xK8I9PT2eDgBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vBn8TYxe82eVoOKBR12QtiocQlIJ1O2uAnQy6qiyqZYKC5upsL9i5yNY662woH54Q4iLaldcCc7SOmxo156gG98K8HzcNUQJKMIR+EotEgAnk7cui1VpFtWk2L279ZLDns43JTxavtDJieRjjsGA3aDC7g48aN78Z7VK8yen7oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EB5ivsV2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1163331AF24
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 08:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.81
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784882297; cv=pass; b=pTb4hcE9sBmA5zZ2CO7kDvC49EUSiW+8S1L/pd6FU/R+h3l+d8nV4386m6ZN7PzzK/2sPABLIYoDr8fKpc8oVSxSW/MZ86H9VmneshPmP54VsZGCKIlOK4lWHYSgkt0ayPLAZGZpUg6XRwgqezoN2W4G2X3q4xOizTtzCpSJzaw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784882297; c=relaxed/simple;
+	bh=D/vkFyAP8TmGv5/zUWGv8J6jF+RCDjQhMqeJEWi8wsk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JWjZ9SN9p/j+5SCVfS7bCi74M9jZD68LNf12Nm4bqaxprabMHcnIjCY/xj9aaZr+enhC4uWsmbYWqrVgG5G9Bt/fT3dA4yRIZK/lEewtOJOFCjwiSbjrwB793QiK4Yyi+qbH2ZY1fd0H4t0RZy+e+hlBTpIMhAlZxRl9O4iiGHY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Qzz2S4PI; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=GaNUgb/6; arc=pass smtp.client-ip=85.215.255.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EB5ivsV2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65FDD1F000E9;
-	Fri, 24 Jul 2026 08:36:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784882171;
-	bh=isYTbbCDqqs7rgcDcmNpXwH7cjXQjptNsocP9lUq12A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EB5ivsV2VucohyzHgG6aVFIYunGmbZAq6K4bNRefJ/s31wfk8SsWa8/juoLFIz8eA
-	 ZC39gAbg+eMjkgJmFvmhymaT93LTaowF2ur2CjKZi+MXmcvpZ9HeyltSa4ogWCSlhQ
-	 2/5SmSUzJhgAQJXkKM3Pbf5K4KgqAZlU0z/NjaYc=
-Date: Fri, 24 Jul 2026 10:34:48 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Vincent Mailhol <mailhol@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH v2 1/2] lib/ucs2_string.c: fix out-of-bounds read in
- ucs2_strnlen()
-Message-ID: <2026072427-sushi-grief-29ee@gregkh>
-References: <20260723-fix-ucs2_strnlen-v2-0-9ea94e32a358@kernel.org>
- <20260723-fix-ucs2_strnlen-v2-1-9ea94e32a358@kernel.org>
- <2026072454-riverside-nuzzle-39e2@gregkh>
- <e7327736-219c-4475-84db-a25a25d1ec1d@kernel.org>
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Qzz2S4PI";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="GaNUgb/6"
+ARC-Seal: i=1; a=rsa-sha256; t=1784882286; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=hy10G9Cz2OEGG3gfSTyGAodAk611S/fpd6epHd7/TbXuzYE0Y63hr+6O3trfNhM0qS
+    x7ziakxOlYCoEbPlX/IPB2aijnUzlo58V/eNWyeo9Hk5+gF6qknUMT/V4fGuCzGKkCEP
+    HW9amHV4wP/X76U0lzt3ZBi0s8oYw0CYTXrN0FPXtyK3z9qZt+hpErjnhwztUfAXTEGM
+    SVCNcuS1UPPgRAlopTo/Kmu7rLemZaJL4mJiZXe1LS6Cc0cTkg+vNte2kk/PYOW5j5DL
+    uVN5a/VYbIkNgxO0w9elGZQaibEZr5J7oa5v5vSpLmBKa+ivNRerWx99M7pr6tIIqixf
+    C5Jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882286;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=6M0fP1wmT+Dyq1BT3vwUGyCvJP+Pj0ZxzQxZBc7Djrw=;
+    b=i+mhcJVw5wEuJ+x3KK5FVpzxr1rP6bY1gWym1ASW7LdO8MXjYcwLXQY9rfZFXbYQui
+    qxkRj1Ek8Fn7SO+a/HRm3Z1O/PJa7hEBBrHzBZcXudyqOqbqsjgWnTknHdArcyapV90Z
+    5o662/UyffwmAgqt7YOIfDl8SqpD1eHyEPINW8mQ4qu6C8mmXTh6GJLzrxLJHkEjIDJk
+    X2DzeSD7Jda69IzewabLnEpVES9PwU38TMHg99mK9HD1Mx9+fIazniSgeIu6VC1NOOV7
+    KOF3+/8WQ5gwDCeG0pYIKsiFKiMqYdr4TbgjYTqtPYSDBdgGPEkRPbcAP9ragKz0oaw1
+    7FkA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1784882286;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=6M0fP1wmT+Dyq1BT3vwUGyCvJP+Pj0ZxzQxZBc7Djrw=;
+    b=Qzz2S4PI3/oGNkRugYjln1FvVFzUUAbwTKe+wBEOfEt7lv7kjjgn/o7KUtvbaep9fr
+    xGJYvYjKPIt5UElohtXudYphn9Q+JMn5ugJuHSrWu+1nA8l6nnw6PDNl06LMUFBtdhYA
+    IyGGJemvu2zZUk6PT5NuaVrgXCxykg+NUAxpVdn/dovLeBKIfwetq50qjBHVi4zIQjgF
+    P4FoTdMvCCU23CgGr1PM+rWHvNyUBQgMBLxUldyhOQWVrRaeiLVkR9dfMSEdhu3kuiF3
+    +B1Y9JZHV2lwNWvq3nIBfpDlJ7vQQ7dSmYDe1DXJb84JaylgCxtl6U1AvDtzDmyih7yl
+    YDxg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1784882286;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=6M0fP1wmT+Dyq1BT3vwUGyCvJP+Pj0ZxzQxZBc7Djrw=;
+    b=GaNUgb/6uzQQQi7GXZZ2UbsFVFwvtr1WmBPm9wP0lGOgM3aCaz1olTFuOzxQ890qHS
+    xFq8yzp2yPmt0Jt6N+BA==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
+    with ESMTPSA id K5281926O8c6rPz
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 24 Jul 2026 10:38:06 +0200 (CEST)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+To: stable@vger.kernel.org
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH 5.15.y 0/9] can: bcm: backport of 9 patches that failed to apply to 5.15-stable
+Date: Fri, 24 Jul 2026 10:37:47 +0200
+Message-ID: <20260724083756.12430-1-socketcan@hartkopp.net>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e7327736-219c-4475-84db-a25a25d1ec1d@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Jul 24, 2026 at 08:59:02AM +0200, Vincent Mailhol wrote:
-> On 24/07/2026 at 07:54, Greg KH wrote:
-> > On Thu, Jul 23, 2026 at 09:40:31PM +0200, Vincent Mailhol wrote:
-> >> ucs2_strnlen() checks the current character before checking whether the
-> >> caller-provided maximum length has been reached. If the input is not
-> >> NUL-terminated within that bound, the loop can read one ucs2_char_t past
-> >> the limit.
-> >>
-> >> Test the length before dereferencing to prevent an off-by-one
-> >> out-of-bounds read.
-> > 
-> > That's fine, but doing that read doesn't actually "hurt" anything,
-> > right?  So this shouldn't be needed in stable kernels.  Or am I missing
-> > something?
-> 
-> I had a similar feeling and didn't CC stable on the v1. But following
-> my exchange with Andrew here:
-> 
->   https://lore.kernel.org/all/CAMZ6Rq+Ax5MTs0Ke=XAB2JFX1KXuFas3B2eEMv+nQ4x7up2BLA@mail.gmail.com/
-> 
-> I think there *might* be some risk and finally CCed stable in v2. If
-> you prefer to not backport, that's OK for me. As you can see in my
-> above message, even if the risk exists, it is more theoretical and I
-> don't think it would provide much leverage to turn it into a real
-> exploit.
+This resubmits "can: bcm: add locking when updating filter and timer
+values" (commit 749179c2e25b95d22499ed29096b3e02d6dfd2b4 upstream),
+which failed to apply to the 5.15-stable tree, together with 8
+further bcm.c patches from the same upstream series that build on it
+and would otherwise fail for the same reason. This is the full set
+of 11 upstream bcm.c patches from 7.2-rc3 minus the 2 already queued
+by the normal stable process for 5.15 ("can: bcm: fix lockless
+bound/ifindex race and silent RX_SETUP failure", "can: bcm: add
+missing rcu list annotations and operations").
 
-"turning into a real exploit" is not a requirement for stable backports
-at all.  I was just thinking "is this even a real bug that needs to be
-changed at all" given the lifetime of this issue, and the location from
-where these strings come from (i.e. firmware images).
+This assumes the 2 already-queued bcm.c patches for 5.15-stable have
+landed by the time this is applied. If not, please let me know and I
+will rebase.
 
-But yes, from a logical "this code should not be doing this" it does
-seem correct to make.  Maybe someday we'll even be able to drop these
-extra string functions entirely as we already have ways to convert from
-utf16 to utf8 in the kernel already, so maybe we should just "normalize"
-them all to start with after read from the firmware?
+Lee Jones (1):
+  can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
 
-thanks,
+Oliver Hartkopp (8):
+  can: bcm: add locking when updating filter and timer values
+  can: bcm: fix CAN frame rx/tx statistics
+  can: bcm: extend bcm_tx_lock usage for data and timer updates
+  can: bcm: validate frame length in bcm_rx_setup() for RTR replies
+  can: bcm: add missing device refcount for CAN filter removal
+  can: bcm: fix stale rx/tx ops after device removal
+  can: bcm: fix data race on rx_stamp/rx_ifindex in bcm_rx_handler()
+  can: bcm: track a single source interface for ANYDEV timeout/throttle
+    ops
 
-greg k-h
+ net/can/bcm.c | 558 ++++++++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 425 insertions(+), 133 deletions(-)
+
+-- 
+2.43.0
+
