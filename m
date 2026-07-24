@@ -1,138 +1,106 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556F124A06D
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784855441; cv=pass; b=Fxgkjof63ZTCaVXAHNxn9kYYrr6EUk0r5jhABJSsSwi+aKR5KnZQ/yA1AR4BDwn00pEX/avaDVAKdwtSFzaDbsl16QWGyDw04WsgZ/Rhz5VyJ3MRkTwA1DyBEG56WAaODcfdOcBPBKz5AyRrhmLMCdqOqOz1sEjE6h8HGO/aVkc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784855441; c=relaxed/simple;
-	bh=cBMihjtfnzn8xCdItbkni5HmOZKExq/gd6xSmOtgIxU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HV1+SXQxIPtCLklZvKv7zlgyq7+s9vYC2vpNzGQWVTvyg/3/qT1kmwy+MGlymIKfxYxF/T0lkEAvDHI1X4uWAQhaObZMDt7r/6/yONP0Eygp6Xj+sZSvSftryMVYAfX2Ihz4zdhvTCsNh6/oxa8meutkK2IqVjQOAEx+Eu4HqbQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=PcOXBiIV; arc=pass smtp.client-ip=209.85.210.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="PcOXBiIV"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7ee4f586632so99011a34.0
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:10:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784855438; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pi39di2n/fh3gdRJ7p0upNjbg+ypxNvJ3xqnnIwXQ1SRQFihfBWEww6DFP196KCkpT
-         XLHJY6O3ifzZFykAOm9m3FFfOpomMi2N6qLp1xHTl78JPEibeOyndPc5A/QeEIFu91WE
-         dvvqzICBKsW1InfDzgLr6szoBK1NN4T8EGlmXUjZgdZlRqyWaE58NpD7RAvLfaUWpAv1
-         jhEJSviwF4md0xNtwB9FNa5E7V3W3/HKVMjvASdxZetWBlvyXC+B8hQMC+6G1BPaZBxs
-         wNjDTZPB7qLFrWHufnY0cvrrOPR9EwjMbqDBnBfJaqdqnZ9nTQK5O2PtyHUdKoXzf8Rr
-         4p7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YjEvrw98k2bIS+MXJKjl1OOCntzqCiFfo9x9NFJokR8=;
-        fh=xIobi1TCnKMXZgcqk4+9oc33Ss3eXcBMdr5Pa/ZpFJ0=;
-        b=Xp02e4Sk+mMjov61RFD5IqPe5yucDcTF4fEwPh9iSs7PrUOhhA3BvfwJEBONcdqfi6
-         xLhtsuKLgTNRBXsmo2p+3cwv77eAiUFN1C5pHu3O4MRG2Kg7slo7AfDMf6o647WueLPN
-         1nwfL+h+ylh3g/2MhJH+CTL+v6bRS0iRQEHvm1I9t1KXGJ2buZ/KRmCdbQPpouNub1ba
-         gsVdAsjuQTCFdooquv7xrfzEhPJGHRwyrwk8LDWbKRIQ4fBqeQ4Wb/Ok/HOSon7AUE3P
-         lR/eDGTjTBVl0xKYWUnwp85/NRscfrL4rGqZQBtoyT32L1jDm/eAo/RKOiFTl3uVCQO3
-         /sbQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1784855438; x=1785460238; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YjEvrw98k2bIS+MXJKjl1OOCntzqCiFfo9x9NFJokR8=;
-        b=PcOXBiIVNanJ2SeRbAJAvB2WeJSTfNHdJfeocsPPmkH0hCwgEY5acewlbR+rMhBsd2
-         vWAS6HR/H1wQNJCAZqUBC/OOBKCqGIuOvbXmiVdDVkoPkSuLq+8PzpqHqTu/L+uj4y+R
-         lFpXz0YJG5hLU5OMOoZ+VPZIA2FkOQazlKsLpqBSavMeCWUyTrT29fbtCoUNVKJ9AAdW
-         pbulT0pW70tSvWSze1kt+7aaVX792sh1PcZXR119t3sSyGSQz1aXbhBXiGH+apf+ivJo
-         k8fBgFEep0NRb32kqXrpV1xsKk0FSsd9YyF8EEjq8+DvQm7p/Z27jXse1/wH3JmA2v5H
-         fTNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784855438; x=1785460238;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YjEvrw98k2bIS+MXJKjl1OOCntzqCiFfo9x9NFJokR8=;
-        b=N5spebSwRlYaHl1K9DqDLBxQ/gc97kMgC0ZgZ3ZsH9GAq8R0gYb+Z7AnpjrQzrCHvl
-         yj5oyBVbYMHXxYU0N4GQ7rrBVhYUl5+rgckOcwT1SPxjMgDoB1EikGOogsEJkOYFuDks
-         /3cjTPA2ZKF+sX0k9xoTZ2I+JHyf1ZAQbqV1D4HaBoXxAa7WOuzUdJSs7TuV0F6VsO5X
-         Oqqk6Gi7rM6Nh4+YFwg38+dkb9AlNeH8PLtuElc0FOsRR4ACLyjyETAptGHNo+BoUhG8
-         SUnUjTbrbbwvHQVSCbXzoox3IkwisAD+KBrniD470+I/VSp1zCRvgj+KXa9tG6a230YF
-         OtyA==
-X-Forwarded-Encrypted: i=1; AHgh+RqNLUh9LLLIYZ2xOo8Rt5MFnqkBf6h80pdUUWKz3xzI1yFr6CsrsoWGHIMA/BZVg6BRrDdPTas=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfNbBwV43VfvKBDfYdNfYkeLNh0s/UUeBf2qE+mM/Aiy/dkzOI
-	kqhrFkkkcrCv3oD4ld4zfTTLN8F9TTRRk+lD9YZp29XpnJDroKsyBlWsN2Zh4CDMQwIcpauulHe
-	EZuAyo+xP75trXbtTfwiqZaOSvCQnmyQqgdhJYaOHGA==
-X-Gm-Gg: AR+sD13gybTwseWAEZCq3dNQ0IbIhqMFbm/gL7MgoJFAls/SQw0i0CkSEYOloaolQ62
-	/UIM4f3ia1eU3PGUXE6HIcwlcJna61KdR+ZjllEcasfDWQhLxDafqBOzQZnzO6fUSyX9CJXztw0
-	07/ZPKoWlhauqpUfB7HPk5Iu+NcmDjlMKEIFJe75vkowCoJ6bI81V9grthOObidXYtuSe9ZPYH4
-	h+Kp3l3MyKUUHQQs5jQ4Fo+U1zjyTeLePsAVjcLnQ/VHf528WzPgXU7KDbCvAo=
-X-Received: by 2002:a05:6808:120c:b0:4a4:866:c1c5 with SMTP id
- 5614622812f47-4ab487a32e4mr763595b6e.2.1784855438121; Thu, 23 Jul 2026
- 18:10:38 -0700 (PDT)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C58DE4908C9;
+	Fri, 24 Jul 2026 01:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784856241; cv=none; b=pjcvgnR+5VvXaRl+Onnp/5aegTmrQoCqeeSYZSlf0x+2AJ9Du58VC4psQqIAbVklJBbfQTA33CsQJ4YeLAPEQ+fPyJVVXjd0dx8KPeiGKWmFlo2933gwlTVJ0K64iuSySmu9UaB3fKwl17Fte3Se1aUugACntXwGasMr8NJOzaM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784856241; c=relaxed/simple;
+	bh=taN91dFcLCpwpbFxf+d9rzxKsaivBEyRJUX8U5ebtpc=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=RBlKOQlYjgxExIvifI4dpHzfa2TaRbz7zodGeTNCvZ4t+a8LC6C0ge8cVdvwIQ3FgH9vsmJ+LSlNzXsZLKkDF1gK86xUidMfXbqdujKgHykmLNDTikFmp5w78fA163C6WacVeJNY83hcuR2Y47c3ZomteJLwGagUwWBnOIZ0G9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.62])
+	by gateway (Coremail) with SMTP id _____8CxKfCpvmJqycQGAA--.25239S3;
+	Fri, 24 Jul 2026 09:23:53 +0800 (CST)
+Received: from [10.20.42.62] (unknown [10.20.42.62])
+	by front1 (Coremail) with SMTP id qMiowJCxq8ShvmJq__MWAA--.3360S2;
+	Fri, 24 Jul 2026 09:23:47 +0800 (CST)
+Subject: Re: [PATCH 1/2] LoongArch: KVM: Fix PC double advance in kernel MMIO
+ read fast path
+To: Zeng Chi <zeng_chi911@163.com>, zhaotianrui@loongson.cn,
+ chenhuacai@kernel.org, kernel@xen0n.name
+Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, zengchi@kylinos.cn, stable@vger.kernel.org
+References: <20260723111552.1623996-1-zeng_chi911@163.com>
+From: Bibo Mao <maobibo@loongson.cn>
+Message-ID: <c7d6c9ab-9df2-89fc-0a2e-1389b6f5d3ed@loongson.cn>
+Date: Fri, 24 Jul 2026 09:23:33 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720032338.461681-1-yangxiuwei@kylinos.cn>
- <20260720032338.461681-2-yangxiuwei@kylinos.cn> <CADUfDZpAW261MhFJg434=4nZFMD7mV=LL7F-ZiAWPa7dYvGpcQ@mail.gmail.com>
- <20260724004907.2742329-1-yangxiuwei@kylinos.cn>
-In-Reply-To: <20260724004907.2742329-1-yangxiuwei@kylinos.cn>
-From: Caleb Sander Mateos <csander@purestorage.com>
-Date: Thu, 23 Jul 2026 18:10:27 -0700
-X-Gm-Features: AUfX_mzxjwAB-owwzf9zzBMmhMb1g2JJjyr46qdZmeRBMmcP4vb96w1zCZX3oAo
-Message-ID: <CADUfDZpsTH7zU4gyVE11R9GxdadjbcrcGVX+btoEjRYS-tBiGQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] scsi: bsg: fix TOCTOU in io_uring passthrough command setup
-To: Yang Xiuwei <yangxiuwei@kylinos.cn>
-Cc: James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com, 
-	rc@rexion.ai, axboe@kernel.dk, fujita.tomonori@lab.ntt.co.jp, 
-	bvanassche@acm.org, linux-scsi@vger.kernel.org, io-uring@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260723111552.1623996-1-zeng_chi911@163.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxq8ShvmJq__MWAA--.3360S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7Kry7GF4kAFW7tFy5XFyfKrX_yoW8Wr15p3
+	45Z34rCF48Jr47ZwnrJ393Aw42v3yrKr17WF13tFsaqr4qqFn5WFyFkF4DuFy3KwsYkw1I
+	q3Wktas0ka1UAacCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
+	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
+	Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+	cVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI
+	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
+	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4AhLUUUUU
 
-On Thu, Jul 23, 2026 at 5:50=E2=80=AFPM Yang Xiuwei <yangxiuwei@kylinos.cn>=
- wrote:
->
-> Hi Caleb,
->
-> On Thu, Jul 23, 2026 at 09:56:08AM -0700, Caleb Sander Mateos wrote:
-> > cmd->max_response_len is passed through here, shouldn't it be accessed
-> > using READ_ONCE() too? Omitting READ_ONCE() only seems safe for values
-> > that are ignored (except for a possible check that they match a fixed
-> > value).
-> >
-> > Ditto for cmd->timeout_ms later in this function.
->
-> timeout_ms is the example Jens already called out as not mattering if
-> userspace rewrites the SQE:
->
->   https://lore.kernel.org/r/55f36cc5-a013-4960-8787-fbdf4b4d0c20@kernel.d=
-k
->
-> max_response_len is similar here: we clamp with
-> min(..., SCSI_SENSE_BUFFERSIZE), so it cannot overflow the sense
-> buffer. Same idea for response.
 
-I don't think that's true. Without READ_ONCE(), the compiler can
-assume no other thread will concurrently write cmd->max_response_len
-(else it would be UB). So it's allowed to load it multiple times:
-cmd->max_response_len ? min(cmd->max_response_len, SCSI_SENSE_BUFFERSIZE)
-                      : SCSI_SENSE_BUFFERSIZE
-becomes
-cmd->max_response_len ? (cmd->max_response_len < SCSI_SENSE_BUFFERSIZE ?
-                         cmd->max_response_len : SCSI_SENSE_BUFFERSIZE)
-                      : SCSI_SENSE_BUFFERSIZE
-And if cmd->max_response_len changes between the second and third
-loads, this could definitely evaluate to a value greater than
-SCSI_SENSE_BUFFERSIZE.
 
-Best,
-Caleb
+On 2026/7/23 下午7:15, Zeng Chi wrote:
+> From: Zeng Chi <zengchi@kylinos.cn>
+> 
+> In the in-kernel MMIO read fast path of kvm_emu_mmio_read(),
+> kvm_complete_mmio_read() already advances the guest PC via update_pc().
+> The explicit update_pc() call right after it advances the PC a second
+> time, so PC moves forward by 8 instead of 4 and the instruction
+> following the MMIO read is silently skipped.
+> 
+> The user space MMIO read completion path in kvm_arch_vcpu_ioctl_run()
+> calls kvm_complete_mmio_read() only once, and the MMIO write fast path
+> advances the PC exactly once as well.
+> 
+> Remove the redundant update_pc() so the kernel MMIO read fast path
+> advances the PC by a single instruction.
+> 
+> Fixes: 80edf90831a2 ("LoongArch: KVM: Add sign extension with kernel MMIO read emulation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
+> ---
+>   arch/loongarch/kvm/exit.c | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/arch/loongarch/kvm/exit.c b/arch/loongarch/kvm/exit.c
+> index 8572b63478bb..482ba17bcd3d 100644
+> --- a/arch/loongarch/kvm/exit.c
+> +++ b/arch/loongarch/kvm/exit.c
+> @@ -481,7 +481,6 @@ int kvm_emu_mmio_read(struct kvm_vcpu *vcpu, larch_inst inst)
+>   		srcu_read_unlock(&vcpu->kvm->srcu, idx);
+>   		if (!ret) {
+>   			kvm_complete_mmio_read(vcpu, run);
+> -			update_pc(&vcpu->arch);
+>   			vcpu->mmio_needed = 0;
+>   			return EMULATE_DONE;
+>   		}
+> 
+Hi Zeng,
+
+Thanks for finding this problem, it is a big critical potential issue :(
+
+Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+
