@@ -1,217 +1,174 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022142.outbound.protection.outlook.com [52.101.126.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1F431960B
-	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784857582; cv=none; b=UJ41SuQta1O/N+33lPBzh5me6lLUSIjDJBcmfcp1hIrdwcaUntBXPOTgre+jH1M6tbxpGYP4AHbPreNX6rGBX8Nw/33nwLHPqlshDW+iO8xufpCWBMm8QtLKjf7/UH38T734b94OshiEqLM4muwv9RW4IMYOr6Ya+a05X206XzM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784857582; c=relaxed/simple;
-	bh=ISGoxkb0uMTtloHIIQl13lAb+eAHI6nVD1FKbzcjAZo=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=TbYHV4ZfCSC5HJLIardbdKSM4u6+Jc+e4cnJCoq2wgs1p19cgdMQHAug1F+oHkQvWeN1UeMkbS7vqabYWRtPLXsT2FOM6cup7EWmPCiTaGNQxyOItL45reMB7tQdbCf0TPElR77TXqckGvBBQ0KznBwdzqfwkgigdWVysDclJ28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--linkl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JN96ldF/; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--linkl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095492BB13
+	for <stable@vger.kernel.org>; Fri, 24 Jul 2026 01:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.142
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784857607; cv=fail; b=Hl+O9imVGqHVZ8b6mdBxOML6p0OKSofukzlEyZv3+ThwiMKAjMOBND1RgM3vxWfGCCqkCEZk4oSMpO3uBv7V0+ENnI5Jxk+M5vXByNQwf/dp8GOGZmul/ety+oPuUwT18CIclVwHvilTIqSvFI+WFypQ8k3b1WRUeg6BOTShNoI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784857607; c=relaxed/simple;
+	bh=R777v149e5zH1YY08FjtwDBL/A0q1KbYt6lLp5T9R9Q=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=e2UZmNt3n2I/yIKWCvm61pw0uv04FB2FpoPs1kbG+G/3yh4AuicXA5K4gJ9Dats0+yM5irk72C1PfpT+dAyKC3/FjJ8kEiggG0nGHRXivrsauoWPBLQH1LZLo/HqQLcwPdivxDOBrBID3cRBh3klb53RPsHX92HQydAyItPOOwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=ma+0h3xj; arc=fail smtp.client-ip=52.101.126.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JN96ldF/"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dd87656d3so1339342a91.2
-        for <stable@vger.kernel.org>; Thu, 23 Jul 2026 18:46:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784857578; x=1785462378; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G+1WbU2W0Xow25CzRoAw91vdRYKBdi1C3Nbcp/adKJ8=;
-        b=JN96ldF/mqGFVokc/tdJ/CU65UjMaTQtc46FhYxy2n15+9kltNcLKRlTbJw9S3mkC1
-         FthayFp0jd1y1M+LzuDYU0WmCWBFUygRi28Vj/1ZQHYhFmmmUTxy4z2hAUGfBL6ZpYmO
-         hd19ECZiGA7bl6bg+oB042u+d9un65KoBbjXbY5J0cX3c8ZCcgTyOhf0NUQqt9svb+vp
-         9rc/8VvP2oSHCi80ZpvR3iSCsrsgloMpZGpmKycLBdZzrNGl4fV+RLVCdAe8zBYCfzzp
-         625lGQ4dtaEZJJdA8ZF3I78Cz1I8Q0OvHjhbCYcp9Ci6fO9nST3cz9A1cN4BZijwTCRM
-         zqdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784857578; x=1785462378;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G+1WbU2W0Xow25CzRoAw91vdRYKBdi1C3Nbcp/adKJ8=;
-        b=i6pNtqNNjvaVCYjiyEQXkY+2OpahOrHpPOOOKHeBMJnFItXe430WrB5dRgHTJ9wPyl
-         MR2SLV9duvW0LJ9oxv1dgdjHiUUz6QutWF0QmwWEcibAI0s8JlBrzSKGkKTC4jj1PqDU
-         0UjXK75u5Awnfva3AarppyWU03q30Qv33ZeAiT3pV8L326zYQ15cRsOcarsyKd0B9gRv
-         TMPm72AMz1Y60OlAJiiH9pFec6+OecWqHBCMEFXmRffa6LN9oODUoJv/YxtL2qjXvdvT
-         nDJvx5ytopYVBf973/Kmex9r5d4YAnKxv1RXjkzUD81PYnetG6JGMvwv0RvcN/2Vzj4A
-         BVJg==
-X-Forwarded-Encrypted: i=1; AHgh+RrMgHQFiHvfC7vcQ2jZWE/4JVP/oBPPQEBYT8w2rUn608WRJN6dbvp+e1TATMXhc1TXpo8vyyg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzn4/Mu6/Dg0k4poWV4ha4CdFKdJjNSMqBPT2WZWW7jAsd/NPMl
-	6mf8rvNG4f0z6hHXf9SnJbLl/WPpxZf2TMTHHTiP9VV0KRlgdpdGstJc0/29yqHniOmcG/qumaz
-	ORA==
-X-Received: from pjbbo4.prod.google.com ([2002:a17:90b:904:b0:381:1d7f:b8db])
- (user=linkl job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:35cb:b0:38e:69f8:cc49
- with SMTP id 98e67ed59e1d1-38ec65e374fmr5127138a91.40.1784857577957; Thu, 23
- Jul 2026 18:46:17 -0700 (PDT)
-Date: Fri, 24 Jul 2026 01:46:05 +0000
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="ma+0h3xj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wTgzli+X/x8vq8uMQ1RE+2BOvGTvT2hX+rJEUDoPoYO6y1/wRkMgS6rqGavuBq5foppM18g/GwB9DSMMkm1vtshTIZsfIkt52dY7FTOx5ymuAsE/4J+okBGYzfy81mj2Bv3jCWRRroLkhbbTIaK+wiMFUwkRVwRpOlkhd7anvoE7eSSohxOE6xuR4Qf3UsXvSkGqwxICq84ENHl/j4krGfg9sG9ojJ54yLVOJqjiniy0MVMtQOMEgDyS66pSb+6B1IDIp1JHppKbEGPPb8ZQXUqBOKfa6C2pPcAc6ILFqm66diIzyXd3LvrjMehbiKC2110a6xE5tF+DVTG0hvy/Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rPG5yyza7HNRpyShHoCgD/I3GGtpC6uNlZLu2pymNFE=;
+ b=uq5l/SbdnEhjUuuHwNuxdF1icNLGJ/2Mg8vj1k1TdSND8/k4mUlKYSs4/MsXAWAv+Xbu5jkmADpyzpLryf9kzGhTVUfLnfMMPWHFiJ/5y2R90KyvKJ0DV2nS2p3iO9fugpoGQ7SF+qA0c6n3qV77eybGs37jW0XoIwzETUaclgahGPISAM3wXIj2Yh0JfRH3iyPvKpPMJgAiMMPK25yoV/eDBsbP9F89JUKHeFTch9/Ph66eFODNrCx1urFoDXHHtQXmz0rFg6rOoAy0jfKJuSVuRtQGYt6lgxWwv1YIhFflrgMYUYerEJWyEC09dRf/KrOAxQSntkretIxTxtrV8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rPG5yyza7HNRpyShHoCgD/I3GGtpC6uNlZLu2pymNFE=;
+ b=ma+0h3xjVURlB7zjz79m4Gggnrx/pYiYfpr90XF2sWsm1LSLmH4z42gf2emMhJFbM1YyReQm85JjMYqyl/UiFVEkxNZ12Ix/mFrLH993s2pyoCAl49Ty7wsDARWCroohy/cuEQustl9be43Qudep6WIHRzJ9sjk0faTbyIyJK+hiHWaRAuC6KlphMpV2KhpmvK4w+DkSxMCFJi17vdi6IRztDFrsjmCbqCvaz8v+J3444cTmNWHr99j2BaC/hJ7xNPISmEAlJyxiPwDXAAgpA7/uHonSUrt1r0KCgefCvkyBzBqxtIp1Y3Ri2mvvr7BtxE1EEsgSd4e8s8+yNI3pJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYUPR03MB7232.apcprd03.prod.outlook.com (2603:1096:400:354::5)
+ by SEZPR03MB7629.apcprd03.prod.outlook.com (2603:1096:101:12e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
+ 2026 01:46:42 +0000
+Received: from TYUPR03MB7232.apcprd03.prod.outlook.com
+ ([fe80::525d:fa76:296a:a64f]) by TYUPR03MB7232.apcprd03.prod.outlook.com
+ ([fe80::525d:fa76:296a:a64f%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 01:46:42 +0000
+Message-ID: <aff1295a-6de5-4276-826b-f447a44cad0a@amlogic.com>
+Date: Fri, 24 Jul 2026 09:46:39 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] f2fs: fix UAF issue in f2fs_merge_page_bio()
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, jianxin.pan@amlogic.com, tuan.zhang@amlogic.com,
+ JY <JY.Ho@mediatek.com>, Chao Yu <chao@kernel.org>,
+ Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260709-origin-5-15-y-v1-1-5ac64636d2e8@amlogic.com>
+ <2026070937-unveiling-atlantic-b798@gregkh>
+ <21c69c82-f947-49b6-a046-cd0cd3037dce@amlogic.com>
+ <2026072110-tweet-comment-9180@gregkh>
+Content-Language: en-US
+From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+In-Reply-To: <2026072110-tweet-comment-9180@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SE2P216CA0093.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c2::14) To TYUPR03MB7232.apcprd03.prod.outlook.com
+ (2603:1096:400:354::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-Message-ID: <20260724014605.3377283-1-linkl@google.com>
-Subject: [RFC PATCH] virtio_balloon: add VIRTIO_BALLOON_F_REPORTING_PM_SAFE
- feature bit
-From: Link Lin <linkl@google.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, virtualization@lists.linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com, 
-	duenwen@google.com, jiaqiyan@google.com, ahwilkins@google.com, 
-	Greg Thelen <gthelen@google.com>, Alexander Duyck <alexander.duyck@gmail.com>, jthoughton@google.com, 
-	stable@vger.kernel.org, Cory Maccarrone <maccarro@google.com>, 
-	Taylor Scanlon <tayy@google.com>, Link Lin <linkl@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYUPR03MB7232:EE_|SEZPR03MB7629:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73a3dc5f-055e-4d59-a074-08dee9256948
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|56012099006|4143699003|11063799006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	YGOuwyNk0LbQG1gGKwZW5sp3EGyHepCr3x34k9T5zMY0309IgEyaS6gdSxYqK4bTjxxdrCh17fFfCM+1suCalgMdHwT8vR/w7L4ZZZi9GayfGJwOY5ItXYLvPqkmH4ohTuM5vx6Dhcv2EGDqLuuRIblKAyFxqaKrYzOw1PE5UDdsqeYIiTuwnxxcOvNUaZwUsJTiNck5tcTPUj/EuCFYJQkwg7t/gAPuDESZlEKqh9u9l8y8M0KW9IVaNUrRNi5B9p/HBQoap34E/3kLvYCU8L1fPzJjplYTrn5T2mezsBLDHxd6Jw2Qe9fpBetl04vjAH1OtuwCzZqNo2nHW7FVswaQfGvA2OXiMqvXLo9oIsQOV/y0qFjSqHXfU9oTrqrEkktVQPiM+5O1phjw6QyNWrKIK7s17iEj7nhYMc787UxhD9LtHT5f2JZUm5pCvKwFfJ3RY6zCetc81S7lHnlTX2Uh1joLZCGqTUX/1NaWTLKJKqXMMt14WRy9AqUHQyQ45DZS1eQlnrThc7uYWJafcBsCpkGzceF8c2L+Isuwm5kb0haeFx1m/lWoXudRQJtexo9y9uko/qBDMf9BYxMy1mCtdb+A7iXuRBMJOc+VuAvIH5XiJJFG44c5ebonuYNSLQ6mLRsk3s0kn80XvBtjxpE9jGh+OokiVSj0FVmx9CY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYUPR03MB7232.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(6133799003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?alRzQzNsR0UydHhrK2RuRW9BNFVCQmI0b2VNUnlYQ1hNcmxBWFptQ0dIbGRn?=
+ =?utf-8?B?V0tkdUJZb1ZQV2pXRHovYVJXZjNJUlQxRDY1d2NEUWNiWTU4dWdaQnVXQk91?=
+ =?utf-8?B?NmtDUHRUaE93R0tQS1RtTG05YnJTWGpaK1JmUkZ2RktIVWRCdlRtcjFtNlVH?=
+ =?utf-8?B?cFV6K1puRkMrbUtMRjM2TEZEMFVTSCtSWFgwbDNKenhZYlhVMmczaStlbVFo?=
+ =?utf-8?B?MGJBWVloUTV6U2d6TTJTRmRYbCszU0tyUE4zZTZ0Q3R3OHFpN3ZLUHYxY0Uv?=
+ =?utf-8?B?SXI1TlpKcVlUamtVbXhxb1UrcW5NbzNoeEVkeVdhRm5pRSsraTVhWkdLV0Fq?=
+ =?utf-8?B?SlpsVjFWNWFGMXdzZkxGWlVUSG9QZHhFUnpHbnhENHl3TjRtam5NMzJ2cXls?=
+ =?utf-8?B?amhnY1NpankvTVpmWnA2cjVocTBGRVpDZGZlQUtBNG96NlF5VVQxdk1VNTlM?=
+ =?utf-8?B?QUNUV09tRnpud2ZKKzBJWGNxeU15R3BsVnN1dlRLTmQ2N2p5VmtIM0xKdVFH?=
+ =?utf-8?B?MlRlKzVTN3BoNmxqTWR1RWF0Z2pJRkEyVmxiSWZmVmY4dE5QY0NpYjI3OCtW?=
+ =?utf-8?B?czZkSGo1bnhSODF1Q1hNQ04ydEhZWWZKV2l1SWtSRXAzQzJaRC9WV2NQS2Fn?=
+ =?utf-8?B?QWRjWC9PNWx4bytrQVN1dy9tR3E2TWYvQXNPeUFxWVBRNEtheDVNUXQzWWhs?=
+ =?utf-8?B?OXZ6STVWWi9QQ0JTZlhpVzkvaGFEVGZ5WDBXdjJoZURVNHNmNjFLK1ZoZjJx?=
+ =?utf-8?B?Z25IckxMV3E3TGJNYkJuazdSVUtFSnpGZjU0aUJkd05XVEFaVVd0SmhxZEF2?=
+ =?utf-8?B?ZnM1YVl0WFg1U3h2N3EvRi85QVBjV1BWZFR5TjdDc2dDb0lWaHNkTy9xd3Bt?=
+ =?utf-8?B?b2Y1R0cvNEJZV0hERHYySjRialVoZS9teDloNXpRQVNuYnRFRnczOStlenJk?=
+ =?utf-8?B?Skw4YXd6V2QvNW0rNkwrRmFIaXpBeFNDUWVDbzRBK3lxa0t4aS9tcTV6bFVo?=
+ =?utf-8?B?OEdmYXl0bVpyMDhOMVBhRWhXSk1zb0ZCVGhUc2RTeGVqNWZYNTU4bFR2djZW?=
+ =?utf-8?B?VUZuVFk0c0lZbk1JdHVxbHVRS2V6QW9nc2NEUUF1Tm9kK1dZcld6S1JnaUYv?=
+ =?utf-8?B?Nk5FRnNqN2FpREF1anpwT29rUTBURE5ER3drNkluSjJ3TE9xeTA1aE9MZkxZ?=
+ =?utf-8?B?b05KWXpOV09KRUNmNFF2UU1TSGdKdlJ1UExLOERJQlFhOWd2c0pjLzJYY28r?=
+ =?utf-8?B?R29rMWNCZDIxRk1QY1ZMaWRkTE0xSkNyMWJneTJkcDZETVhEazRybWZQS3Aw?=
+ =?utf-8?B?OVdCbDJQWG5JZHlEUDdzQjBibEdqbmRIMktUMFBObDl2RjlvSExGRXhDeGc3?=
+ =?utf-8?B?Z2JuOFNsQWxWRjIxWk5qd1FYOWJueTI5eUU0Ni9NRjVnS29kQWlUcndZMzFW?=
+ =?utf-8?B?RzVVZ3Y1NjgxSGl5bUNrb0V3OTdwV21hMU9Ud1hGK1pBVlBXY0VxTTNNSGU5?=
+ =?utf-8?B?OU9NRG45Ti9IU00rRU12ZllDNHBCV2tWVVBTVzh4eEluVUE0bFRGcXhqTTY0?=
+ =?utf-8?B?ODYzS210QnFBVzI1M2d1clNvSzZETU52b0JLM3A2d0dPSFdaVVVueVYvUTlB?=
+ =?utf-8?B?azYzaStmNTRnNFh0YWNsYnErdmNIMlIrbzdXL01ZQ2dBRTk4bU04Sm93cEUx?=
+ =?utf-8?B?VFRjbGFHSXBsRHZtR0RlQ0hxazNFaTdlaHNVYTRieXFtbmk3a3dPTGlhTUJo?=
+ =?utf-8?B?K0dPc2J0d1FYNENkYjE3a1oxZ0FlU2w0OXlTQ2JyM2VoRWptcGJRRk41M3lo?=
+ =?utf-8?B?QXQwY1d0c0NaK3NGaXRpckNISXhTQ2JCWmhNMzE0REJPRE1qS3hXbzdsZVpy?=
+ =?utf-8?B?L2IrOHlXb0NiNkRWVlR5NVhRWDdGRVdBZk9ObzMvRjlzeXFWa3hyRnpqSHB0?=
+ =?utf-8?B?WFU3Z1ltR3dIZW5UVTFrb2J2UG5ueG9JRjUraFRWRlNqUlkzbDJBaGgyM1A4?=
+ =?utf-8?B?dldxbkRTUDdBLzhKb1p4MzVGMEpvQTM1RjJoTjBwSno4dTQ3M21qYmt2dGRk?=
+ =?utf-8?B?VjN5MDg1SmlxVk1KdEZWdU5Id0pIOXpCeVRtME15b1EwN0x5TjIyY2lYU3J5?=
+ =?utf-8?B?MnU1eVFST1NOaGxoNG9FeE5vWUJEOEJIZHArSGZlVGgva2dtRFU3K2xSOENO?=
+ =?utf-8?B?aVFHWnVGZGJnNlFQKzBKdVl4OWgzbWo4VU5aZXRlZ0JINHRTZ2ZPNlpmeGFV?=
+ =?utf-8?B?cUVZUjhPeU5KZUcrcHVNaDc3Q1lwZFJsV1FoWDlaTFAxbVJhN0h3TEV4aCtD?=
+ =?utf-8?B?c1JHbFd6YUU4eUFEaGNRbTJ2c3NBQjRNbTYzOGdSWHJ3Z1lrM2t0QT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73a3dc5f-055e-4d59-a074-08dee9256948
+X-MS-Exchange-CrossTenant-AuthSource: TYUPR03MB7232.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 01:46:42.5416
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9HK81rlWqP8x0SQcb5BmlxDAt/Zs+rc1eKHqzlxuLFjErxT+aXHrLSnu/1BlNmH6VjMfceRRn+WJNCf8SYSusg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB7629
 
-Following up on the fix for the PM suspend Use-After-Free race condition in
-mm/page_reporting (merged in mm-hotfixes-unstable: 
-https://lore.kernel.org/all/20260723003650.CAAF01F000E9@smtp.kernel.org/), 
-we face a hypervisor-side deployment dilemma.
 
-Cloud hypervisors want to safely enable the Free Page Reporting (FPR) 
-virtqueue across their fleets, but enabling it indiscriminately on guests 
-without the recent suspend fix exposes them to UAF crashes. Relying on 
-out-of-band metadata (e.g., OS image tags) to selectively enable the 
-feature is fragile for custom user images or live-patched kernels.
 
-To address this at the protocol level, we propose adding a new feature bit 
-to the Virtio Specification: 
-VIRTIO_BALLOON_F_REPORTING_PM_SAFE (Bit 6)
+On 7/21/2026 9:04 PM, Greg KH wrote:
+> [ EXTERNAL EMAIL ]
+> 
+> On Fri, Jul 10, 2026 at 11:17:19AM +0800, Jiucheng Xu wrote:
+>>
+>> On 7/9/2026 7:04 PM, Greg KH wrote:
+>>> [ EXTERNAL EMAIL ]
+>>>
+>>> On Thu, Jul 09, 2026 at 05:35:40PM +0800, Jiucheng Xu via B4 Relay wrote:
+>>>> From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+>>>>
+>>>> commit edf7e9040fc52c922db947f9c6c36f07377c52ea upstream.
+>>>>
+>>>> As JY reported in bugzilla [1],
+>>>
+>>> What kernel(s) is this for?
+>>
+>> I'm really sorry, Greg.
+>>
+>> This is my first time submitting code to the stable git tree, and I'm not
+>> quite familiar with the process and rules yet. Please forgive me.
+>>
+>> I hope this patch can be applied to the v5.15.y branch. I referred to other
+>> patches and added a "[Mark: backport to v5.15.y]" in the commit message. I'm
+>> not sure if this is correct.
+> 
+> It needs to go to the newer kernels first, so that you do not have a
+> regression when moving to a newer release.  So can you submit backports
+> for all of the relevant stable kernel trees, including 5.15.y, and we
+> will be glad to queue them all up then.
+> Hi Greg,
 
-This establishes a formal device lifecycle contract for power management:
-If negotiated, the driver MUST guarantee that all page reporting operations
-are halted and pending requests are flushed before the device/system
-transitions into a suspended state (e.g., ACPI S3/S4).
+Could I ask for your advice? When submitting patches to different 
+branches, how do I mark each commit to specify the target branch it 
+applies to?
 
-Deployment semantics:
-- Hypervisors operating in a strict "safe mode" can offer Bit 6 exclusively 
-  (suppressing Bit 5 / VIRTIO_BALLOON_F_REPORTING).
-- Older, unpatched Linux guests will see Bit 5 is absent, ignore Bit 6, and 
-  safely skip FPR initialization, preventing the suspend crash. Standard
-  ballooning remains 100% functional.
-- Patched Linux guests will recognize Bit 6 and safely initialize FPR.
-- Note for fleet deployments: Non-Linux guests (e.g., Windows, FreeBSD) 
-  that rely on Bit 5 will temporarily lose FPR if the hypervisor exclusively 
-  offers Bit 6. This is considered an acceptable trade-off to globally 
-  protect unpatched guests without relying on OS image tags, until those 
-  respective virtio drivers adopt Bit 6.
-
-Implementation Note on Upstream/Downstream Dependencies:
---------------------------------------------------------
-Because it is critical that downstream Linux distros do not accidentally 
-backport Bit 6 without the core MM UAF fix, the final upstream 
-implementation of this patch will enforce a strict compile-time dependency. 
-We plan to export a macro (e.g., PAGE_REPORTING_HAS_FREEZABLE_WQ) from the 
-core MM fix, and wrap Bit 6 behind an #ifdef of that macro in 
-virtio_balloon.c. This guarantees that compiler backports must consume the 
-entire dependency chain to advertise the feature.
-
-Below is the proposed Linux proof-of-concept based on upstream master. We 
-introduce a helper virtio_balloon_has_reporting() to ensure virtqueues are 
-properly allocated, torn down, and validated if either bit is negotiated.
-
-If this architectural approach is acceptable for cloud deployments, we will 
-formally submit this patch and open a corresponding issue for the OASIS 
-Virtio specification.
-
-Depends-on: <Message-ID: 20260723003650.CAAF01F000E9@smtp.kernel.org>
-Signed-off-by: Link Lin <linkl@google.com>
----
- drivers/virtio/virtio_balloon.c     | 15 +++++++++++----
- include/uapi/linux/virtio_balloon.h |  1 +
- 2 files changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index 581ac799d9..00e8273dc3 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -39,6 +39,12 @@
- 	(1 << (VIRTIO_BALLOON_HINT_BLOCK_ORDER + PAGE_SHIFT))
- #define VIRTIO_BALLOON_HINT_BLOCK_PAGES (1 << VIRTIO_BALLOON_HINT_BLOCK_ORDER)
- 
-+static inline bool virtio_balloon_has_reporting(struct virtio_device *vdev)
-+{
-+	return virtio_has_feature(vdev, VIRTIO_BALLOON_F_REPORTING) ||
-+	       virtio_has_feature(vdev, VIRTIO_BALLOON_F_REPORTING_PM_SAFE);
-+}
-+
- enum virtio_balloon_vq {
- 	VIRTIO_BALLOON_VQ_INFLATE,
- 	VIRTIO_BALLOON_VQ_DEFLATE,
-@@ -598,7 +604,7 @@ static int init_vqs(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		vqs_info[VIRTIO_BALLOON_VQ_FREE_PAGE].name = "free_page_vq";
- 
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING)) {
-+	if (virtio_balloon_has_reporting(vb->vdev)) {
- 		vqs_info[VIRTIO_BALLOON_VQ_REPORTING].name = "reporting_vq";
- 		vqs_info[VIRTIO_BALLOON_VQ_REPORTING].callback = balloon_ack;
- 	}
-@@ -635,7 +641,7 @@ static int init_vqs(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		vb->free_page_vq = vqs[VIRTIO_BALLOON_VQ_FREE_PAGE];
- 
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
-+	if (virtio_balloon_has_reporting(vb->vdev))
- 		vb->reporting_vq = vqs[VIRTIO_BALLOON_VQ_REPORTING];
- 
- 	return 0;
-@@ -1013,7 +1019,7 @@ static int virtballoon_probe(struct virtio_device *vdev)
- 	}
- 
- 	vb->pr_dev_info.report = virtballoon_free_page_report;
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING)) {
-+	if (virtio_balloon_has_reporting(vb->vdev)) {
- 		unsigned int capacity;
- 
- 		capacity = virtqueue_get_vring_size(vb->reporting_vq);
-@@ -1099,7 +1105,7 @@ static void virtballoon_remove(struct virtio_device *vdev)
- {
- 	struct virtio_balloon *vb = vdev->priv;
- 
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
-+	if (virtio_balloon_has_reporting(vb->vdev))
- 		page_reporting_unregister(&vb->pr_dev_info);
- 	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_DEFLATE_ON_OOM))
- 		unregister_oom_notifier(&vb->oom_nb);
-@@ -1162,8 +1168,10 @@ static int virtballoon_validate(struct virtio_device *vdev)
- 	 */
- 	if (!want_init_on_free() && !page_poisoning_enabled_static())
- 		__virtio_clear_bit(vdev, VIRTIO_BALLOON_F_PAGE_POISON);
--	else if (!virtio_has_feature(vdev, VIRTIO_BALLOON_F_PAGE_POISON))
-+	else if (!virtio_has_feature(vdev, VIRTIO_BALLOON_F_PAGE_POISON)) {
- 		__virtio_clear_bit(vdev, VIRTIO_BALLOON_F_REPORTING);
-+		__virtio_clear_bit(vdev, VIRTIO_BALLOON_F_REPORTING_PM_SAFE);
-+	}
- 
- 	__virtio_clear_bit(vdev, VIRTIO_F_ACCESS_PLATFORM);
- 	return 0;
-@@ -1176,6 +1184,7 @@ static unsigned int features[] = {
- 	VIRTIO_BALLOON_F_FREE_PAGE_HINT,
- 	VIRTIO_BALLOON_F_PAGE_POISON,
- 	VIRTIO_BALLOON_F_REPORTING,
-+	VIRTIO_BALLOON_F_REPORTING_PM_SAFE,
- };
- 
- static struct virtio_driver virtio_balloon_driver = {
-diff --git a/include/uapi/linux/virtio_balloon.h b/include/uapi/linux/virtio_balloon.h
-index ee35a37280..d206f156d6 100644
---- a/include/uapi/linux/virtio_balloon.h
-+++ b/include/uapi/linux/virtio_balloon.h
-@@ -37,6 +37,7 @@
- #define VIRTIO_BALLOON_F_FREE_PAGE_HINT	3 /* VQ to report free pages */
- #define VIRTIO_BALLOON_F_PAGE_POISON	4 /* Guest is using page poisoning */
- #define VIRTIO_BALLOON_F_REPORTING	5 /* Page reporting virtqueue */
-+#define VIRTIO_BALLOON_F_REPORTING_PM_SAFE	6 /* PM-safe page reporting */
- 
- /* Size of a PFN in the balloon interface. */
- #define VIRTIO_BALLOON_PFN_SHIFT 12
---
+Thanks,
+Jiucheng
