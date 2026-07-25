@@ -1,55 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81744908B1
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF82A4908B1
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:55:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784976926; cv=none; b=I92FWZ3KOqWUTla1KIvmUmQSPS0xu7l7JycaAfwUz10cjItaerxnXf6M7Zqxg7B1qoiK3PcJ8n6sIsstuy9S/XB6KR9u88J9Q1pUH6Peh7EEkgrBYjGjTPHKbchtE1AFVXbxA2vC3sGbmFKL2k736PZXwfAhS4f4INqtDu5Ltt8=
+	t=1784976931; cv=none; b=Q8EgslN3udnZLd2eSMO4HkYhxh+NFrfaBqyLvni2qUH67/n5wDPVAYf2c8+Nsq7VkxpiETGs5OwNcplgmSUi152azf4MXcyb9weP9kTfKgKwIjsjLCrUUhf9e8w8wgu4/cEMY6Uh3Y12BiX1iySexnEX6XSKq4MqvpXj0z8gLdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784976926; c=relaxed/simple;
-	bh=4EeqEQOykpJNe1LTU97tvQaxh+JhsJ8JpNrWNUCCS2I=;
+	s=arc-20240116; t=1784976931; c=relaxed/simple;
+	bh=SS8TobXjvFMVJkXagYHE2e5tGwAHWWtGIjrSz2HmSrk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BTWquj4777aruF78afHHH9kyTv4X+bNdCeTyDzG3X9whUt7r7Ebhzh2t6fEB1ltCmfLux/9YfWWRMRiwf0kIzYSHkjh47kcyv7op/dDn8mElHOmGtP1T1mjxdn3pAYROH9W4resetRhum1BTWtCb5uAudWo422xpX1oyEEXI1BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SdjAewvJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LGPNReNP8oDBvzebethtOcYlziFVkW5WPVyAmUqn6WijlMzekh9Bllv1ihCHPgar/NhBg0SiBbmEzfbeAIpr7CrfHut3KGWyvqLh61MiqxLWHMmiirpEVg1+4bmfKNi5KIGGTtOf+RKl695+TMOTDrK+aYuY3tQuYR9uvr8i08Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OacspPls; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SdjAewvJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5AF61F000E9;
-	Sat, 25 Jul 2026 10:55:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OacspPls"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6F71F000E9;
+	Sat, 25 Jul 2026 10:55:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784976924;
-	bh=YMcAOe/N73umWy5xnHgjzZGG+NT1kDq4hNLk8MHDC84=;
+	s=k20260515; t=1784976929;
+	bh=//oh0qIlHkc70zGVKIzVXlxHx66NpHubwDQNWNCAK6k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SdjAewvJ4rggTmBn/J6761tz8l0ewc1uSFtuYGqbXooptUkg5EG/J9gLcDZppJcvd
-	 9l7oJyXpJym8e9dzXlqmjYTkPFIuh37oo/IJe9KAQUBsa+dJnz0K7LAyzXEGYZPVL2
-	 ojcrdhvexqe/mx5OEikBNXfhGBvr5PDYnWozZ6py2Hb9Eq3PMO0HM4POjWWfVkEWWz
-	 hGeYk5722Z30k/BuTkpblUj85EMZf7fLcjCQZjyvU3LQJDQZxiiHStcIwMbTJcL1Th
-	 K+VTdtcy/1buBNeXbNqAbMqRmqzTaPagoXEOv0niduECDnGV2owRLnqeaV+IVcYehQ
-	 mWn/lR++aROeA==
+	b=OacspPlsojCvaGYg6pRSPWWikmkxjjmZVPhprBmTrGbgCSTS3jwFoB4xHanSoeoQc
+	 3E/Xg6qysp5z7BcrVpCksa+ux85MF08ZtRwDf+djr2REzkXEsGp1+0AYFT6pCi13Kq
+	 SIT7TkCOfu94y10XixMU5fr7G/KMBTTJO+hRTT8hVm8RxUaYgFXrMKcU2GDP2N690C
+	 47L8lGfdq/qj9VKI08KzEDvtN0kKGRN5NyH+tJmol6Z2A/ccrpn2JguxrHg9aFp9fZ
+	 4IPzPNdTRc2EgNk+BWNiNb+hrJo2Blw6m/1bHsXVfIzqEu7G7kRqwSvcJ0lzOiSqAL
+	 6qO0cAhFgZR5w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Hocko <mhocko@suse.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Vasiliy Kovalev <kovalev@altlinux.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/mm_init: fix pageblock migratetype for ZONE_DEVICE compound pages
-Date: Sat, 25 Jul 2026 06:55:21 -0400
-Message-ID: <20260725105521.1855856-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] net/9p: fix infinite loop in p9_client_rpc on fatal signal
+Date: Sat, 25 Jul 2026 06:55:26 -0400
+Message-ID: <20260725105527.1856073-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072014-sincere-blooper-afaf@gregkh>
-References: <2026072014-sincere-blooper-afaf@gregkh>
+In-Reply-To: <2026072024-extending-list-343c@gregkh>
+References: <2026072024-extending-list-343c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,114 +45,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Muchun Song <songmuchun@bytedance.com>
+From: Vasiliy Kovalev <kovalev@altlinux.org>
 
-[ Upstream commit 94405c6136839f7c462249c8b4b957bcb9527a9d ]
+[ Upstream commit 6b4f48728faa8bb514368f7eacda05565dea8696 ]
 
-The memmap_init_zone_device() function only initializes the migratetype of
-the first pageblock of a compound page.  If the compound page size exceeds
-pageblock_nr_pages (e.g., 1GB hugepages with 2MB pageblocks), subsequent
-pageblocks in the compound page remain uninitialized.
+When p9_client_rpc() is called with type P9_TFLUSH and the transport
+has no peer (e.g. fd transport backed by pipes with no 9p server),
+a fatal signal causes an infinite loop:
 
-Move the migratetype initialization out of __init_zone_device_page() and
-into a separate pageblock_migratetype_init_range() function.  This
-iterates over the entire PFN range of the memory, ensuring that all
-pageblocks are correctly initialized.
+  again:
+	err = io_wait_event_killable(req->wq, ...)
+	/* SIGKILL wakes the task, returns -ERESTARTSYS */
 
-Also remove the stale confusing comment about MEMINIT_HOTPLUG above the
-migratetype setting since it is an obsolete relic from commit 966cf44f637e
-("mm: defer ZONE_DEVICE page initialization to the point where we init
-pgmap") and no longer makes sense here.
+	if (err == -ERESTARTSYS && c->status == Connected &&
+		type == P9_TFLUSH) {
+		sigpending = 1;
+		clear_thread_flag(TIF_SIGPENDING);
+		goto again;
+	}
 
-Link: https://lore.kernel.org/20260428081855.1249045-6-songmuchun@bytedance.com
-Fixes: c4386bd8ee3a ("mm/memremap: add ZONE_DEVICE support for compound pages")
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Liam R. Howlett <liam@infradead.org>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
-Cc: Joao Martins <joao.m.martins@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+clear_thread_flag() clears TIF_SIGPENDING before jumping back to
+io_wait_event_killable(). signal_pending_state() checks TIF_SIGPENDING,
+finds it zero, and the task goes to sleep again. The task can only wake
+on the next signal delivery that calls signal_wake_up() and sets
+TIF_SIGPENDING again. When that happens the loop repeats, clears
+TIF_SIGPENDING, and sleeps again indefinitely.
+
+This is triggered in practice by coredump_wait(): when a thread in a
+multi-threaded process causes a coredump (e.g. via SIGSYS from Syscall
+User Dispatch), coredump_wait() sends SIGKILL to all other threads and
+waits for them to call mm_release(). If one of those threads is blocked
+in p9_client_rpc() over an fd transport with no peer, it enters the
+P9_TFLUSH loop and never calls mm_release(), so coredump_wait() stalls
+forever:
+
+INFO: task syz.0.18:676 blocked for more than 143 seconds.
+      Not tainted 6.12.77+ #1
+task:syz.0.18 state:D stack:27600 pid:676 tgid:673 ppid:630 flags:0x00000004
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5344 [inline]
+ __schedule+0xcb4/0x5d50 kernel/sched/core.c:6724
+ __schedule_loop kernel/sched/core.c:6801 [inline]
+ schedule+0xe5/0x350 kernel/sched/core.c:6816
+ schedule_timeout+0x253/0x290 kernel/time/timer.c:2593
+ do_wait_for_common kernel/sched/completion.c:95 [inline]
+ __wait_for_common+0x409/0x600 kernel/sched/completion.c:116
+ wait_for_common kernel/sched/completion.c:127 [inline]
+ wait_for_completion_state+0x1d/0x40 kernel/sched/completion.c:264
+ coredump_wait fs/coredump.c:448 [inline]
+ do_coredump+0x854/0x4350 fs/coredump.c:629
+ get_signal+0x1425/0x2730 kernel/signal.c:2903
+ arch_do_signal_or_restart+0x81/0x880 arch/x86/kernel/signal.c:337
+ exit_to_user_mode_loop kernel/entry/common.c:111 [inline]
+ exit_to_user_mode_prepare include/linux/entry-common.h:328 [inline]
+ __syscall_exit_to_user_mode_work kernel/entry/common.c:207 [inline]
+ syscall_exit_to_user_mode+0xf9/0x160 kernel/entry/common.c:218
+ do_syscall_64+0x102/0x220 arch/x86/entry/common.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
+
+Fix: check fatal_signal_pending() before clearing TIF_SIGPENDING in the
+P9_TFLUSH retry loop. At that point TIF_SIGPENDING is still set, so
+fatal_signal_pending() works correctly. If a fatal signal is pending,
+jump to recalc_sigpending to restore TIF_SIGPENDING and return
+-ERESTARTSYS to the caller.
+
+The same defect is present in stable kernels back to 5.4. On those
+kernels the infinite loop is broken earlier by a second SIGKILL from
+the parent process (e.g. kill_and_wait() retrying after a timeout),
+resulting in a zombie process and a shutdown delay rather than a
+permanent D-state hang, but the underlying flaw is the same.
+
+Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+
+Fixes: 91b8534fa8f5 ("9p: make rpc code common and rework flush code")
+Closes: https://syzkaller.appspot.com/bug?extid=3ce7863f8fc836a427e7
+Cc: stable@vger.kernel.org
+Signed-off-by: Vasiliy Kovalev <kovalev@altlinux.org>
+Message-ID: <20260415155237.182891-1-kovalev@altlinux.org>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+[ adjusted context to match the older parenthesized `if ((err == -ERESTARTSYS) && ...)` condition style ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mm_init.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+ net/9p/client.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index f9f87e2299b8f1..a71fbb3cec3870 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -649,6 +649,20 @@ static inline void fixup_hashdist(void)
- static inline void fixup_hashdist(void) {}
- #endif /* CONFIG_NUMA */
+diff --git a/net/9p/client.c b/net/9p/client.c
+index f49f5fd98ad820..1bcab7176e5f89 100644
+--- a/net/9p/client.c
++++ b/net/9p/client.c
+@@ -771,6 +771,8 @@ p9_client_rpc(struct p9_client *c, int8_t type, const char *fmt, ...)
  
-+#ifdef CONFIG_ZONE_DEVICE
-+static __meminit void pageblock_migratetype_init_range(unsigned long pfn,
-+		unsigned long nr_pages, int migratetype)
-+{
-+	const unsigned long end = pfn + nr_pages;
-+
-+	for (pfn = pageblock_align(pfn); pfn < end; pfn += pageblock_nr_pages) {
-+		set_pageblock_migratetype(pfn_to_page(pfn), migratetype);
-+		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
-+			cond_resched();
-+	}
-+}
-+#endif
-+
- #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT
- static inline void pgdat_set_deferred_range(pg_data_t *pgdat)
- {
-@@ -992,21 +1006,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
- 	page->pgmap = pgmap;
- 	page->zone_device_data = NULL;
- 
--	/*
--	 * Mark the block movable so that blocks are reserved for
--	 * movable at startup. This will force kernel allocations
--	 * to reserve their blocks rather than leaking throughout
--	 * the address space during boot when many long-lived
--	 * kernel allocations are made.
--	 *
--	 * Please note that MEMINIT_HOTPLUG path doesn't clear memmap
--	 * because this is done early in section_activate()
--	 */
--	if (pageblock_aligned(pfn)) {
--		set_pageblock_migratetype(page, MIGRATE_MOVABLE);
--		cond_resched();
--	}
--
- 	/*
- 	 * ZONE_DEVICE pages are released directly to the driver page allocator
- 	 * which will set the page count to 1 when allocating the page.
-@@ -1098,6 +1097,9 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 
- 		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
- 
-+		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
-+			cond_resched();
-+
- 		if (pfns_per_compound == 1)
- 			continue;
- 
-@@ -1105,6 +1107,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 				     compound_nr_pages(pfn, altmap, pgmap));
- 	}
- 
-+	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE);
-+
- 	pr_debug("%s initialised %lu pages in %ums\n", __func__,
- 		nr_pages, jiffies_to_msecs(jiffies - start));
- }
+ 	if ((err == -ERESTARTSYS) && (c->status == Connected)
+ 				  && (type == P9_TFLUSH)) {
++		if (fatal_signal_pending(current))
++			goto recalc_sigpending;
+ 		sigpending = 1;
+ 		clear_thread_flag(TIF_SIGPENDING);
+ 		goto again;
 -- 
 2.53.0
 
