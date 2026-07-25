@@ -1,56 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2633859E2
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:54:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3E239EB7C
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784976878; cv=none; b=nclyedym9KQF4LAL/k8siP7dAj1oMV/nvwUv/Cvlp5LqslmYXv1rLCVNb4/4N53cUQFcgPT+1d3yM4b44EW9odxebq0VT93FcwEeODstMZJ5IGA6iX3TGS5NyU7vDYmth0fEWWDogP6jPtuLBoBohKwUjFBit2gknX7EyukCxvE=
+	t=1784976879; cv=none; b=SHTVO0PRz9JFekleHuF7KCJD+jm6GND0NJrrApPKrb92lcFoVev5r8Da3ZN93t5calExNKN6+sivBAt3Qensg8yW165/ausfGShyv6MKNzXK9wQX4AY1bQlPK5y/l5JogEVgSA552x77yH9bR8CRLtKLtGniSnB2V7uCEIg9Pec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784976878; c=relaxed/simple;
-	bh=ydxbDh3ZGMLYWiZRKl11xIOQmwqwsGKggfGdRXnarFY=;
+	s=arc-20240116; t=1784976879; c=relaxed/simple;
+	bh=zB3EDSUc6qCPYJDn5dRT0oUaV787FdKXoEM+tqEEDEM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TGS0m/6wPrtsbmYrPhqIJQ7r+t/o1KpGUfcKOQn9SR8bbZyAseMPRLZvXN8JzaXKS3Q5avfSOhIvu65iZjj6bfonvlzK/JpeMBbyPSyNRNxWu3NCjVdCV3WkatinDJLb6lvHF3vPesofI7j5dRRnv/eljjf99m2FJryOe2My4CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=odMQVU/t; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RD5aAl2OPx5blLSjsFdoBPSE1E66XxCm2bQ3/p1xcWej1PVpDq6eu1s0lZLD9dFrGl/dIyIzwsgun8oY3uo1Xi2FA3ntoh90Fp03UDS7JTxjB4Zc/opjPoc2ZtE+PbknxUxAUbha3mS4sIt0ndtvePcFNsKNrTH0Lz+iwdclxoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OI5+oOdY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="odMQVU/t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623C01F000E9;
-	Sat, 25 Jul 2026 10:54:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OI5+oOdY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540381F00A3D;
+	Sat, 25 Jul 2026 10:54:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784976877;
-	bh=bRVKPqZCBSzepK906iK2ogclbBAUlOY4UmQb37FxGgc=;
+	s=k20260515; t=1784976878;
+	bh=7GAyvD2ZZx8m1ITsxqJkVSvKkCz7XJcsX/oJrou1Qyw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=odMQVU/tvNPRv6tkHkaRTYeDMwEkMo9nQ0p25xSl6A5yaY271Tsd2zGlfNLrkYmqw
-	 7FG77OQT1oUkzo7gv+UyEAQ4x2JW0qes0cia3ubnKPFZPWwmzwZw088mYuGdeG+G9u
-	 eMHMnlPsx2D4L085MuhhVejURwtdUAfkYdvDbMZMFpeWDG22z6yXNtWvyW9Raqe7vO
-	 Y/w9NoZ+gILqlcRwnIp2UksWnCOxPefxUF2t6XokRC27z3XdlLUZm4veq3BVGjzk3Y
-	 9IK9thDevPNVUjFGzCGNPeeZI0J7znTOqXXTp76PNtZcoXGZ6JFFqJA0UhLA2RN9Vb
-	 bkyRND2Bb3Zeg==
+	b=OI5+oOdYuT4L3I5SfLeIbxKWOEfsma8HAeohtURugmQB1gNZFl0dGD23seVoA7Mv0
+	 r6eOmFda3cUQjxU2OFJolw57Axj1N2MIWbcODwl1Weg1nFpcfqRAC0AhF9PJAn4A1t
+	 r/Ft0tnytwCYb0U2V7h6V9zWpLL73nz7K1oWSfIC2003PUAM6HrAgQobb/Fmnq0Vr2
+	 jb2GqbTtwIMgRwvZmTdgdJeM0NJdE3BY5CZCBikgLNtMftCalWscgfyfyVOqxXDq9c
+	 shcdKp3heNLAoByHoHe5MclINYBaKfK5/lOBT+quLBHcJQ1ZcfXShHxpQ4aBYp67d1
+	 chQBw3ZZogegQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
+Cc: "Pratyush Yadav (Google)" <pratyush@kernel.org>,
+	stable@kernel.org,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
 	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Changyuan Lyu <changyuanl@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Simon Horman <horms@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Zhu Yanjun <yanjun.zhu@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] kho: add interfaces to unpreserve folios, page ranges, and vmalloc
-Date: Sat, 25 Jul 2026 06:54:32 -0400
-Message-ID: <20260725105433.1853930-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] kho: make sure scratch size is always aligned by CMA_MIN_ALIGNMENT_BYTES
+Date: Sat, 25 Jul 2026 06:54:33 -0400
+Message-ID: <20260725105433.1853930-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072031-lapping-tubby-5b19@gregkh>
+In-Reply-To: <20260725105433.1853930-1-sashal@kernel.org>
 References: <2026072031-lapping-tubby-5b19@gregkh>
+ <20260725105433.1853930-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,229 +48,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-[ Upstream commit 36f8f7ef7fd2f238922e9d217e86c69838319d8c ]
+[ Upstream commit 0e39380a7316122e1b00012b3f3cd3e318b3e7d3 ]
 
-Allow users of KHO to cancel the previous preservation by adding the
-necessary interfaces to unpreserve folio, pages, and vmallocs.
+When using scratch_scale, the scratch sizes are rounded up to
+CMA_MIN_ALIGNMENT_BYTES since they will be released as MIGRATE_CMA. This
+is not done when using fixed scratch sizes via command line. This can
+result in user specifying a size which is not aligned, and thus kernel
+releasing a pageblock that is only partially scratch.
 
-Link: https://lkml.kernel.org/r/20251101142325.1326536-4-pasha.tatashin@soleen.com
+Do the rounding up for both cases in scratch_size_update().
+
+Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+Cc: stable@kernel.org
+Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Link: https://patch.msgid.link/20260519160554.2713361-1-pratyush@kernel.org
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>
-Cc: Changyuan Lyu <changyuanl@google.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Masahiro Yamada <masahiroy@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 0e39380a7316 ("kho: make sure scratch size is always aligned by CMA_MIN_ALIGNMENT_BYTES")
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/kexec_handover.h |  18 ++++++
- kernel/kexec_handover.c        | 104 ++++++++++++++++++++++++++++-----
- 2 files changed, 109 insertions(+), 13 deletions(-)
+ kernel/kexec_handover.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
-diff --git a/include/linux/kexec_handover.h b/include/linux/kexec_handover.h
-index 25042c1d8d54af..e1af332a262fba 100644
---- a/include/linux/kexec_handover.h
-+++ b/include/linux/kexec_handover.h
-@@ -52,8 +52,11 @@ bool kho_is_enabled(void);
- bool is_kho_boot(void);
- 
- int kho_preserve_folio(struct folio *folio);
-+int kho_unpreserve_folio(struct folio *folio);
- int kho_preserve_pages(struct page *page, unsigned int nr_pages);
-+int kho_unpreserve_pages(struct page *page, unsigned int nr_pages);
- int kho_preserve_vmalloc(void *ptr, struct kho_vmalloc *preservation);
-+int kho_unpreserve_vmalloc(struct kho_vmalloc *preservation);
- struct folio *kho_restore_folio(phys_addr_t phys);
- struct page *kho_restore_pages(phys_addr_t phys, unsigned int nr_pages);
- void *kho_restore_vmalloc(const struct kho_vmalloc *preservation);
-@@ -83,17 +86,32 @@ static inline int kho_preserve_folio(struct folio *folio)
- 	return -EOPNOTSUPP;
- }
- 
-+static inline int kho_unpreserve_folio(struct folio *folio)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline int kho_preserve_pages(struct page *page, unsigned int nr_pages)
- {
- 	return -EOPNOTSUPP;
- }
- 
-+static inline int kho_unpreserve_pages(struct page *page, unsigned int nr_pages)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline int kho_preserve_vmalloc(void *ptr,
- 				       struct kho_vmalloc *preservation)
- {
- 	return -EOPNOTSUPP;
- }
- 
-+static inline int kho_unpreserve_vmalloc(struct kho_vmalloc *preservation)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline struct folio *kho_restore_folio(phys_addr_t phys)
- {
- 	return NULL;
 diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
-index c13b99f7c9891e..37e6048118e8b7 100644
+index 37e6048118e8b7..bd10660db469a2 100644
 --- a/kernel/kexec_handover.c
 +++ b/kernel/kexec_handover.c
-@@ -153,26 +153,33 @@ static void *xa_load_or_alloc(struct xarray *xa, unsigned long index)
- 	return no_free_ptr(elm);
- }
+@@ -569,20 +569,30 @@ early_param("kho_scratch", kho_parse_scratch_size);
  
--static void __kho_unpreserve(struct kho_mem_track *track, unsigned long pfn,
--			     unsigned long end_pfn)
-+static void __kho_unpreserve_order(struct kho_mem_track *track, unsigned long pfn,
-+				   unsigned int order)
+ static void __init scratch_size_update(void)
  {
- 	struct kho_mem_phys_bits *bits;
- 	struct kho_mem_phys *physxa;
-+	const unsigned long pfn_high = pfn >> order;
+-	phys_addr_t size;
++	/*
++	 * If fixed sizes are not provided via command line, calculate them
++	 * now.
++	 */
++	if (scratch_scale) {
++		phys_addr_t size;
  
--	while (pfn < end_pfn) {
--		const unsigned int order =
--			min(count_trailing_zeros(pfn), ilog2(end_pfn - pfn));
--		const unsigned long pfn_high = pfn >> order;
-+	physxa = xa_load(&track->orders, order);
-+	if (WARN_ON_ONCE(!physxa))
-+		return;
+-	if (!scratch_scale)
+-		return;
++		size = memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
++						   NUMA_NO_NODE);
++		size = size * scratch_scale / 100;
++		scratch_size_lowmem = size;
  
--		physxa = xa_load(&track->orders, order);
--		if (WARN_ON_ONCE(!physxa))
--			return;
-+	bits = xa_load(&physxa->phys_bits, pfn_high / PRESERVE_BITS);
-+	if (WARN_ON_ONCE(!bits))
-+		return;
-+
-+	clear_bit(pfn_high % PRESERVE_BITS, bits->preserve);
-+}
-+
-+static void __kho_unpreserve(struct kho_mem_track *track, unsigned long pfn,
-+			     unsigned long end_pfn)
-+{
-+	unsigned int order;
+-	size = memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
+-					   NUMA_NO_NODE);
+-	size = size * scratch_scale / 100;
+-	scratch_size_lowmem = round_up(size, CMA_MIN_ALIGNMENT_BYTES);
++		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
++						   NUMA_NO_NODE);
++		size = size * scratch_scale / 100 - scratch_size_lowmem;
++		scratch_size_global = size;
++	}
  
--		bits = xa_load(&physxa->phys_bits, pfn_high / PRESERVE_BITS);
--		if (WARN_ON_ONCE(!bits))
--			return;
-+	while (pfn < end_pfn) {
-+		order = min(count_trailing_zeros(pfn), ilog2(end_pfn - pfn));
- 
--		clear_bit(pfn_high % PRESERVE_BITS, bits->preserve);
-+		__kho_unpreserve_order(track, pfn, order);
- 
- 		pfn += 1 << order;
- 	}
-@@ -739,6 +746,30 @@ int kho_preserve_folio(struct folio *folio)
+-	size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
+-					   NUMA_NO_NODE);
+-	size = size * scratch_scale / 100 - scratch_size_lowmem;
+-	scratch_size_global = round_up(size, CMA_MIN_ALIGNMENT_BYTES);
++	/*
++	 * Scratch areas are released as MIGRATE_CMA. Round them up to the right
++	 * size.
++	 */
++	scratch_size_lowmem = round_up(scratch_size_lowmem, CMA_MIN_ALIGNMENT_BYTES);
++	scratch_size_global = round_up(scratch_size_global, CMA_MIN_ALIGNMENT_BYTES);
  }
- EXPORT_SYMBOL_GPL(kho_preserve_folio);
  
-+/**
-+ * kho_unpreserve_folio - unpreserve a folio.
-+ * @folio: folio to unpreserve.
-+ *
-+ * Instructs KHO to unpreserve a folio that was preserved by
-+ * kho_preserve_folio() before. The provided @folio (pfn and order)
-+ * must exactly match a previously preserved folio.
-+ *
-+ * Return: 0 on success, error code on failure
-+ */
-+int kho_unpreserve_folio(struct folio *folio)
-+{
-+	const unsigned long pfn = folio_pfn(folio);
-+	const unsigned int order = folio_order(folio);
-+	struct kho_mem_track *track = &kho_out.track;
-+
-+	if (kho_out.finalized)
-+		return -EBUSY;
-+
-+	__kho_unpreserve_order(track, pfn, order);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(kho_unpreserve_folio);
-+
- /**
-  * kho_preserve_pages - preserve contiguous pages across kexec
-  * @page: first page in the list.
-@@ -783,6 +814,33 @@ int kho_preserve_pages(struct page *page, unsigned int nr_pages)
- }
- EXPORT_SYMBOL_GPL(kho_preserve_pages);
- 
-+/**
-+ * kho_unpreserve_pages - unpreserve contiguous pages.
-+ * @page: first page in the list.
-+ * @nr_pages: number of pages.
-+ *
-+ * Instructs KHO to unpreserve @nr_pages contiguous pages starting from @page.
-+ * This must be called with the same @page and @nr_pages as the corresponding
-+ * kho_preserve_pages() call. Unpreserving arbitrary sub-ranges of larger
-+ * preserved blocks is not supported.
-+ *
-+ * Return: 0 on success, error code on failure
-+ */
-+int kho_unpreserve_pages(struct page *page, unsigned int nr_pages)
-+{
-+	struct kho_mem_track *track = &kho_out.track;
-+	const unsigned long start_pfn = page_to_pfn(page);
-+	const unsigned long end_pfn = start_pfn + nr_pages;
-+
-+	if (kho_out.finalized)
-+		return -EBUSY;
-+
-+	__kho_unpreserve(track, start_pfn, end_pfn);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(kho_unpreserve_pages);
-+
- struct kho_vmalloc_hdr {
- 	DECLARE_KHOSER_PTR(next, struct kho_vmalloc_chunk *);
- };
-@@ -944,6 +1002,26 @@ int kho_preserve_vmalloc(void *ptr, struct kho_vmalloc *preservation)
- }
- EXPORT_SYMBOL_GPL(kho_preserve_vmalloc);
- 
-+/**
-+ * kho_unpreserve_vmalloc - unpreserve memory allocated with vmalloc()
-+ * @preservation: preservation metadata returned by kho_preserve_vmalloc()
-+ *
-+ * Instructs KHO to unpreserve the area in vmalloc address space that was
-+ * previously preserved with kho_preserve_vmalloc().
-+ *
-+ * Return: 0 on success, error code on failure
-+ */
-+int kho_unpreserve_vmalloc(struct kho_vmalloc *preservation)
-+{
-+	if (kho_out.finalized)
-+		return -EBUSY;
-+
-+	kho_vmalloc_free_chunks(preservation);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(kho_unpreserve_vmalloc);
-+
- /**
-  * kho_restore_vmalloc - recreates and populates an area in vmalloc address
-  * space from the preserved memory.
+ static phys_addr_t __init scratch_size_node(int nid)
 -- 
 2.53.0
 
