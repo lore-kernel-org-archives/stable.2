@@ -1,90 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6200C371D15
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:10:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5917039A80E
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:19:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784970636; cv=none; b=cC2gbAgmbnks3hxCdxBsHvzg3OUoxGzP7TO7McBcA70Ttymq4qALmSM6+hodnpmS5kfUbJ4LSwUdfLCkR6sUisuHCeAaRClDbWL33Kv8YGv/FGFIZysvLr/fDJ+2LTRAPYxYEL8GbXK/wpoHP2Xau7Wdv0XdWpa9EYNMOnRcwVs=
+	t=1784971190; cv=none; b=pih1olyiZVm/D0fp/gQ5DP6NKO7pjGNRLHqh3DzMMOZUox8XbKK/Ccx6jGS3jvML1IEtJDGza4PwAYAXOup7lYaUfEm8VboP4hF8a2lWc7oX0COyCVb1LfR4/xX4HF7MvutkN1A5vmdzWqz7ebHNsZh+BJJqwec0ETHbCNFjU7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784970636; c=relaxed/simple;
-	bh=AhCPhNc9a/U5wLKgysHB0Kn2KnDD7w6pjrLvtRC4YoE=;
+	s=arc-20240116; t=1784971190; c=relaxed/simple;
+	bh=gT1CKO4EK7/3bWac08s2YQxQzdQzTQ0qmITNcMrkTwA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MnPPb/6Rb87FnazEFHo9SNuOx2Y71whg1C56D34lUETyzEUAIfnrolxzPVGSru28m9kEwsSb7Vkff0vPfwP+zbSxv6NU2xNGkqRVMANCyGm+Wcv1kZXJFsc8hxtH4XI8tseWsH8Q3MN9UVDLPik7MuvqWmaXYsEKBdn9A91P48U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O448WL0T; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=t+PxaPjV0fMITOXDEN/jeGsyiqLGHDG2rAErnJj5Q4pzJERAPMfXCTnV7JLeegv6OWVcOj4MfptuH9WTjkL03AKfg6kwUmcVOCbNPqV3T/MhePsdYQtHA4QXWC50sDa7M4MKcviGeEfWBusc/yDJj4qu1zXDLL0ru3rvAQb7OIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ppu9UWTa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O448WL0T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509E31F00A3D
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:10:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ppu9UWTa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BBE51F00A3A
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784970634;
-	bh=AhCPhNc9a/U5wLKgysHB0Kn2KnDD7w6pjrLvtRC4YoE=;
+	s=k20260515; t=1784971189;
+	bh=NGubqI94Ei6nqDONetK9C5AMVRp/MQujLv0n88M/a/Q=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=O448WL0T5x1Zh0OMQi9iRlZwPh0fZiFxzhjRWWu0EW57dDBI9RV4q27LHGrs5BL+6
-	 H4GKRULAAaYMpIJejW/rGtFEl5mo6XXITHZ+asMxRsT02OBBedoicBciWZaAJbo1HN
-	 UvT4cMd8aX8qGOU9zFZXTWVYqzbabCA6tugKr1n2op26vf7O3ZOkp1/X2l6dJqT0OH
-	 hI6Qod10W3XtE+UxUhd1RZfRtpaWw7TYSLmsSJw9CuHDKsd5EwItmbZ4mZEZwtX6NA
-	 08vyeguxIywjiFYLqL+6haWSRSguNLRuQ5yyCj9ftCFBGZ1ojqabazhd66+FXf7IGz
-	 uCq68P+VZILJg==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-39c62764c7cso19227971fa.0
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:10:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpXMhQ4taBxWpKonXizTOmQraXm7AKWolu5L+/64Ucs7dpUUyaNU4r7G7UTM97AK4wewthK2V4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyMrfWQVbTi/0EJR0MRYZqZNxWgww1Nfl3FmnEGXq4gaZgfmEP
-	OWyw6d4n9KrWEyHrA4HnjrapTV+YDc3DQI1LBoVe2mysvn1NqcErvp7ueoask59XZUJfutPWd/Z
-	MYQgoXPk+a+Cl/UUc/q1Nd8sUffajxPc=
-X-Received: by 2002:a05:6512:3d07:b0:5ae:b6cf:c745 with SMTP id
- 2adb3069b0e04-5b2c1a3c746mr282806e87.17.1784970633111; Sat, 25 Jul 2026
- 02:10:33 -0700 (PDT)
+	b=Ppu9UWTawyDY8JAhaTiq+UNZ0TGAedPl05g6TLBTY7WY8L5xR+SDWQrSvBoOw0XrS
+	 KEfWNQR3L//7JewG1tgKWS/a5t+QDi+EPRSSDZxjZd5ppz94CUWkoFvftK8YxMHpYP
+	 l5heK7gazYYo+dalXjPktla9SNcBxN9sX9tjMQArsUH0c1jefbxHLCMTk2SKa6xVnr
+	 u3OeZDgbp6vllOK74eivPIM8oKoGjBoUSV/V6u9Y1ry/ilGVnYuVovTsMMtsZVZ1IP
+	 oqcoIM+rX47NO273j+cFD4ddKX0lDaycCsowCBW5JbL+OPzsUa5Aq6UebfizzVziL5
+	 9wH85UcGx8fWw==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39f00ce92d5so7311081fa.2
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:19:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrM+0jUL8lv5buDuCroQjk7x3ub3EfJh7oHq6DkfTR3pQ9GRx6t6nTN7EsAK+eZkITbYkhmAi4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwPReiaNlCpcao9ZbnnbaPpp5rtfNARtneeUX5dDoZIY32ILK7s
+	2uiy015GGk/8WESQZcpf5q8PRkLh+eqjTyDj5JaFRQvo+0ieAR3+kc5BcTmqK9SlC0v5xh6j+Ef
+	rYL+kwzkpSN4GLdJ9uVFkPOqCXLFW2Zs=
+X-Received: by 2002:a05:6512:33d1:b0:5b0:1ace:3bec with SMTP id
+ 2adb3069b0e04-5b2c1af52f0mr268182e87.10.1784971187926; Sat, 25 Jul 2026
+ 02:19:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260718032937.420561-1-pengcan@kylinos.cn>
-In-Reply-To: <20260718032937.420561-1-pengcan@kylinos.cn>
+References: <20260719121140.28730-1-kmehltretter@gmail.com>
+In-Reply-To: <20260719121140.28730-1-kmehltretter@gmail.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 25 Jul 2026 11:10:20 +0200
-X-Gmail-Original-Message-ID: <CAD++jLke1q2DX1EQTHysPKrvy8mtnFtbnLwfQ-wEvRE2MNsECA@mail.gmail.com>
-X-Gm-Features: AUfX_mwx6iFHSQ9ss2kJ9CSpvbTA4MTcHZwsUdEhUsOwa3V2e4PZJUoBdtU7nvw
-Message-ID: <CAD++jLke1q2DX1EQTHysPKrvy8mtnFtbnLwfQ-wEvRE2MNsECA@mail.gmail.com>
-Subject: Re: [PATCH] hwrng: stm32 - Fix runtime PM cleanup on registration failure
-To: Can Peng <pengcan@kylinos.cn>
-Cc: olivia@selenic.com, herbert@gondor.apana.org.au, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, danielt@kernel.org, 
-	linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+Date: Sat, 25 Jul 2026 11:19:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnCSVfJy7hgPr2qAwYeJy2wVNMfHoi7aCdJsupEBXaxDQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxBmD26epbQyyenypkfzJ30-O3BLttZrbPM42ge6269rEY64-rgYQRYkA4
+Message-ID: <CAD++jLnCSVfJy7hgPr2qAwYeJy2wVNMfHoi7aCdJsupEBXaxDQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: devicetree: don't free uninitialized dev_name on
+ error path
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Will Deacon <will@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Can,
+On Sun, Jul 19, 2026 at 2:11=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
+l.com> wrote:
 
-thanks for your patch!
-
-On Sat, Jul 18, 2026 at 5:30=E2=80=AFAM Can Peng <pengcan@kylinos.cn> wrote=
-:
-
-> stm32_rng_probe() enables autosuspend and runtime PM before registering t=
-he
-> hwrng. If devm_hwrng_register() fails, probe returns with runtime PM left
-> enabled and autosuspend still selected.
+> dt_remember_or_free_map() duplicates dev_name for each map entry. If
+> kstrdup_const() fails, dt_free_map() frees dev_name in all num_maps
+> entries, including entries that have not been initialized.
 >
-> The remove callback also only disables runtime PM and does not undo
-> pm_runtime_use_autosuspend().
+> Some pinctrl drivers, including pinctrl-imx, allocate the map with
+> kmalloc() and leave dev_name for the core to initialize. The untouched
+> entries therefore contain uninitialized data which is passed to
+> kfree_const().
 >
-> Use devm_pm_runtime_enable() so runtime PM is unwound automatically on
-> probe failure and driver detach. Since the managed cleanup also disables
-> runtime PM,drop the remove callback.
+> Reproduced on qemu's mcimx6ul-evk (pinctrl-imx) with failslab injection
+> while binding the pinctrl-consuming device, under KASAN:
 >
-> Fixes: c6a97c42e399 ("hwrng: stm32 - add support for STM32 HW RNG")
+>   BUG: KASAN: double-free in dt_free_map+0x34/0xa4
+>   Free of addr c425a900 by task init/1
+>    kfree from dt_free_map+0x34/0xa4
+>    dt_free_map from dt_remember_or_free_map+0x184/0x198
+>    dt_remember_or_free_map from pinctrl_dt_to_map+0x33c/0x4c8
+>    pinctrl_dt_to_map from create_pinctrl+0x9c/0x5c0
+>
+> Initialize all dev_name fields to NULL before duplicating the device
+> name, making the full-map cleanup safe after a partial failure.
+>
+> Fixes: be4c60b563ed ("pinctrl: devicetree: Avoid taking direct reference =
+to device name string")
 > Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Ah come on, it's not that serious.
-
-> Signed-off-by: Can Peng <pengcan@kylinos.cn>
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+What a good find, patch applied!
 
 Yours,
 Linus Walleij
