@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C0D40BCC9
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 19:59:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722BB29AAEA
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 20:06:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785009556; cv=none; b=iq1qNW6ql4LuRTiRzYSRHLkmHgeIB0/80YKWgv/6jI18SfQUjRvdVEaKZDNX8Pwl2ogNqevOUTd+R4TmBHuWCW0v3LggazxwglNy0aUxZUrG+lYCXWyIWXemgUX7U8MbuJniOEhZlGbmtX55veeh9MPt1hLG3ukEReDbflPyv0k=
+	t=1785010013; cv=none; b=b1UKnM4pCOjLxP31iqpxSKYb9HHs0BfvkpR3yh8WncJUviWGKvSQniWu4pSFYgDH23wKBmsj3NVZOrO9XOeVczaYLFOjWpRQ5tzqoy6iKFjRVTnSSmQjWMBkmxAn+xofSxrKdIAE8AWQnuP3xiCbQANRpsB/4eU0xXBM5i1Nthc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785009556; c=relaxed/simple;
-	bh=Lz2O5WpWQq6vf0Bbe5Z0CLiql7ANGnDBpL2YZUuoOso=;
+	s=arc-20240116; t=1785010013; c=relaxed/simple;
+	bh=Az8xpabCYbSSaHXiJOso5FxZmju8U/SqzkqgTXDDi0o=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UvfB3m06biiiTy8C4PSBlbvueOlXa4G28pXXUjCtNlYD45j7g+NEDmkzVse0VzM5JXKCxLtiYAavQ0PCq1dVFVDVSSv0rGS2AQvHSby4k51WkWRkwCG2qoSQlvUy4LC2UFzhINhd7BAfv9XTXNPdVRuulMaddFGYZRHfNn22/Ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBjnOFsr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=fWBkH9WmmQhV7EHLI2uPAv/9BDpmgowwL+KiX8fgi0gjfc3z/YVue0Uxn1gXjoSu1dHz+nZIvQY1GvcF5Hc+ESqtn/TM9V3j1XybUWNFQVwMdy00vGpTikft2mDONeAzkHz0UZ4WCcc8GfJrQ0s8P2k8WdtRFLUrsMaXGFs0CUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jL0ddAEC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBjnOFsr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9272B1F000E9;
-	Sat, 25 Jul 2026 19:59:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jL0ddAEC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D7C71F000E9;
+	Sat, 25 Jul 2026 20:06:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785009551;
-	bh=P2B025aEdm6d7zuVG+Pu0rSZ4P1dN95LO3B90rYmRDo=;
+	s=k20260515; t=1785010010;
+	bh=WIUN+iEi7286sQWRk8gQU0Iq5NdLKo2Hxl5JhsdiWns=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=UBjnOFsrsRBhMWFs0YY4MBEIUkoSpq4/hnuF6+YJrTA/m1ILvoHrCcNR5gHeKbJ0L
-	 mpYs0/2Xbaypy/W9lXd+k1XzSQbgTz8HrGH9uzofNHXJwUQB6bbiix9qJhdk3YKpEy
-	 HRj6XsYPWeCUEpLXSST300ePLtks9PyQzMgs1ZHToO4SAfzUdMWA8HJmsKJyUsd8e2
-	 PtcNW/q1A+l672P4ZqyVS03GGEu7Zz3g0uRWKkoNPbDH+Mns5cf0atRN+HfB2Wdy6I
-	 b4L2r6ovib0/CNU4wNoqB8iSsp2HfnU+ZerhLELOHgBz1BgfNaNRS+QtHLr5edH404
-	 Y2jbVQF3vwSHQ==
+	b=jL0ddAECIpD8toaG2nRTf3Z6SQkaAsdLf63CNdgYp5utntqlExbadKiKme3QAzrAx
+	 HqwDwhpGYSODDukzZKQdePq6Ksrg0WbyHThA3QeB49dc7dq14K3n+pA2aRV1hYA569
+	 MH2f7RpZNyn6ofXzIFBTeA2OvchlSGHxTEBmziLJVGUAdwRXW4kcC8DQSlB+nKtNoV
+	 GkZA/NlcQwOiF2gXL8M8m4ikwB/pZq+pMAgQnIjAWwrCdhsQpb/Hhxs6oRTcVucq1I
+	 27gIc0+nrWq/l29q0xbWIfrerG5qucDCXe9omZYA4m3rsIFM6A/uEO6VB5fT2VjD6Y
+	 d9vfmrbnUhklw==
 From: Thomas Gleixner <tglx@kernel.org>
 To: gregkh@linuxfoundation.org, jwlee2217@gmail.com, oleg@redhat.com,
  qw3rtyp0@gmail.com
 Cc: stable@vger.kernel.org
-Subject: [PATCH 5.10.y] posix-cpu-timers: Prevent UAF caused by non-leader
- exec()
-In-Reply-To: <2026072123-studied-colossal-c293@gregkh>
-References: <2026072123-studied-colossal-c293@gregkh>
-Date: Sat, 25 Jul 2026 21:59:08 +0200
-Message-ID: <87h5lmkfhv.ffs@fw13>
+Subject: [PATCH 5.15.y, 6.1.y, 6.6.y] posix-cpu-timers: Prevent UAF caused
+ by non-leader exec()
+In-Reply-To: <2026072122-pulp-rejoin-81db@gregkh>
+References: <2026072122-pulp-rejoin-81db@gregkh>
+Date: Sat, 25 Jul 2026 22:06:47 +0200
+Message-ID: <87ecgqkf54.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -162,9 +162,9 @@ Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 Cc: stable@vger.kernel.org
 ---
  kernel/exit.c                  |    8 +
- kernel/signal.c                |   10 +-
- kernel/time/posix-cpu-timers.c |  186 ++++++++++++++++++++++++++---------------
- 3 files changed, 138 insertions(+), 66 deletions(-)
+ kernel/signal.c                |   10 +
+ kernel/time/posix-cpu-timers.c |  214 ++++++++++++++++++++++++-----------------
+ 3 files changed, 145 insertions(+), 87 deletions(-)
 ---
 --- a/kernel/exit.c
 +++ b/kernel/exit.c
@@ -185,7 +185,7 @@ Cc: stable@vger.kernel.org
  	__cleanup_sighand(sighand);
 --- a/kernel/signal.c
 +++ b/kernel/signal.c
-@@ -1375,8 +1375,16 @@ struct sighand_struct *__lock_task_sigha
+@@ -1388,8 +1388,16 @@ struct sighand_struct *__lock_task_sigha
  	rcu_read_lock();
  	for (;;) {
  		sighand = rcu_dereference(tsk->sighand);
@@ -205,10 +205,11 @@ Cc: stable@vger.kernel.org
  		 * This sighand can be already freed and even reused, but
 --- a/kernel/time/posix-cpu-timers.c
 +++ b/kernel/time/posix-cpu-timers.c
-@@ -406,6 +406,110 @@ static int posix_cpu_timer_create(struct
+@@ -455,6 +455,109 @@ static void disarm_timer(struct k_itimer
+ 		trigger_base_recalc_expires(timer, p);
  }
  
- /*
++/*
 + * Lookup the task via timer->it.cpu.pid and attempt to lock the task's sighand.
 + *
 + * This can race with the reaping of the task:
@@ -311,15 +312,14 @@ Cc: stable@vger.kernel.org
 +	WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
 +	return NULL;
 +}
-+
-+/*
+ 
+ /*
   * Clean up a CPU-clock timer that is about to be destroyed.
-  * This is called from timer deletion with the timer already locked.
-  * If we return TIMER_RETRY, it's necessary to release the timer's lock
-@@ -414,28 +518,13 @@ static int posix_cpu_timer_create(struct
+@@ -464,29 +567,13 @@ static void disarm_timer(struct k_itimer
+  */
  static int posix_cpu_timer_del(struct k_itimer *timer)
  {
- 	struct cpu_timer *ctmr = &timer->it.cpu;
+-	struct cpu_timer *ctmr = &timer->it.cpu;
 -	struct sighand_struct *sighand;
  	struct task_struct *p;
  	unsigned long flags;
@@ -347,16 +347,19 @@ Cc: stable@vger.kernel.org
  		if (timer->it.cpu.firing)
  			ret = TIMER_RETRY;
  		else
-@@ -444,8 +533,6 @@ static int posix_cpu_timer_del(struct k_
+@@ -495,10 +582,8 @@ static int posix_cpu_timer_del(struct k_
  		unlock_task_sighand(p, &flags);
  	}
  
 -out:
 -	rcu_read_unlock();
  	if (!ret)
- 		put_pid(ctmr->pid);
+-		put_pid(ctmr->pid);
++		put_pid(timer->it.cpu.pid);
  
-@@ -575,21 +662,17 @@ static int posix_cpu_timer_set(struct k_
+ 	return ret;
+ }
+@@ -620,21 +705,17 @@ static int posix_cpu_timer_set(struct k_
  	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
  	u64 old_expires, new_expires, old_incr, val;
  	struct cpu_timer *ctmr = &timer->it.cpu;
@@ -384,7 +387,7 @@ Cc: stable@vger.kernel.org
  
  	/*
  	 * Use the to_ktime conversion because that clamps the maximum
-@@ -598,20 +681,6 @@ static int posix_cpu_timer_set(struct k_
+@@ -643,20 +724,6 @@ static int posix_cpu_timer_set(struct k_
  	new_expires = ktime_to_ns(timespec64_to_ktime(new->it_value));
  
  	/*
@@ -405,7 +408,7 @@ Cc: stable@vger.kernel.org
  	 * Disarm any old timer after extracting its expiry time.
  	 */
  	old_incr = timer->it_interval;
-@@ -669,7 +738,7 @@ static int posix_cpu_timer_set(struct k_
+@@ -714,7 +781,7 @@ static int posix_cpu_timer_set(struct k_
  		 * it as an overrun (thanks to bump_cpu_timer above).
  		 */
  		unlock_task_sighand(p, &flags);
@@ -414,42 +417,68 @@ Cc: stable@vger.kernel.org
  	}
  
  	if (new_expires != 0 && !(timer_flags & TIMER_ABSTIME)) {
-@@ -686,7 +755,6 @@ static int posix_cpu_timer_set(struct k_
+@@ -727,11 +794,11 @@ static int posix_cpu_timer_set(struct k_
+ 	 * arm the timer (we'll just fake it for timer_gettime).
+ 	 */
+ 	cpu_timer_setexpires(ctmr, new_expires);
+-	if (new_expires != 0 && val < new_expires) {
++	if (new_expires != 0 && val < new_expires)
  		arm_timer(timer, p);
- 	}
+-	}
++	else
++		trigger_base_recalc_expires(timer, p);
  
 -	unlock_task_sighand(p, &flags);
  	/*
  	 * Install the new reload setting, and
  	 * set up the signal and overrun bookkeeping.
-@@ -703,6 +771,11 @@ static int posix_cpu_timer_set(struct k_
+@@ -748,35 +815,21 @@ static int posix_cpu_timer_set(struct k_
  	timer->it_overrun_last = 0;
  	timer->it_overrun = -1;
  
+-	if (val >= new_expires) {
+-		if (new_expires != 0) {
+-			/*
+-			 * The designated time already passed, so we notify
+-			 * immediately, even if the thread never runs to
+-			 * accumulate more time on this clock.
+-			 */
+-			cpu_timer_fire(timer);
+-		}
 +	if (old)
 +		old->it_interval = ns_to_timespec64(old_incr);
-+
+ 
 +	unlock_task_sighand(p, &flags);
 +
- 	if (new_expires != 0 && !(val < new_expires)) {
++	if (new_expires && val >= new_expires) {
  		/*
- 		 * The designated time already passed, so we notify
-@@ -712,13 +785,7 @@ static int posix_cpu_timer_set(struct k_
- 		cpu_timer_fire(timer);
+-		 * Make sure we don't keep around the process wide cputime
+-		 * counter or the tick dependency if they are not necessary.
++		 * The designated time already passed, so we notify immediately,
++		 * even if the thread never runs to accumulate more time on this
++		 * clock.
+ 		 */
+-		sighand = lock_task_sighand(p, &flags);
+-		if (!sighand)
+-			goto out;
+-
+-		if (!cpu_timer_queued(ctmr))
+-			trigger_base_recalc_expires(timer, p);
+-
+-		unlock_task_sighand(p, &flags);
++		cpu_timer_fire(timer);
  	}
- 
--	ret = 0;
 - out:
 -	rcu_read_unlock();
 -	if (old)
 -		old->it_interval = ns_to_timespec64(old_incr);
--
+ 
 -	return ret;
 +	return 0;
  }
  
  static void posix_cpu_timer_get(struct k_itimer *timer, struct itimerspec64 *itp)
-@@ -984,19 +1051,12 @@ static void posix_cpu_timer_rearm(struct
+@@ -1042,19 +1095,12 @@ static void posix_cpu_timer_rearm(struct
  {
  	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
  	struct task_struct *p;
@@ -472,7 +501,7 @@ Cc: stable@vger.kernel.org
  
  	/*
  	 * Fetch the current sample and update the timer's expiry time.
-@@ -1013,8 +1073,6 @@ static void posix_cpu_timer_rearm(struct
+@@ -1071,8 +1117,6 @@ static void posix_cpu_timer_rearm(struct
  	 */
  	arm_timer(timer, p);
  	unlock_task_sighand(p, &flags);
