@@ -1,133 +1,155 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC33B331203
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 07:25:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A82B314A95
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 07:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784964348; cv=none; b=NmC05Ok844w+OErOwgQnot/PcZ/esZT672zsiv1nFf7gnwy7Zb+SjDtslrllHswLsfTi1AuuoZB5nsOFbzlzgzQozlus0Il6Po2Wa+PjLlNmTjkUquYLHPXsTazAy5C+MkI+4ZmJTsFMq/GtLaPax7UeXPaa2iM8JFcg2Da4Q9s=
+	t=1784965193; cv=none; b=GxqVZZ7F5s9R2gorqYFz3gEZQZY0kAcAmFBHW1LD4WOYw09Ccxdi28VOp7Wi8ifG4XVSBMBO2G5tpvipKHSgsg8LRmH1UzNmIGiZ+JIKuRyuUKmmktwiy0JRSL2qWyaSIsmRd69XaxrWxx8DiBfqGNfMB8xQF1NW+iyUdaw2QUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784964348; c=relaxed/simple;
-	bh=DCI7rjRmM93lutxj7+bxqQZ86jwK5qGWszKWi9ztQ4A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tQPI+xoYJAlTF0oDb5PJ2UAGTfwdnU1pkqK7tq6o2QjZapq7ECBxiBbLyGU3YQgtgEowZXXHw2f1FnSmiX5LOnVQFgXc5Dmtnst+CHTjh3oi9ovpwDDBZCln52JnyqX/RsG8WNptXwdfIkIzBH2nzTPWolydNoAWbQsgLiS6m+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TWqDM5mQ; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1784965193; c=relaxed/simple;
+	bh=k/KUxMM9Py7HCnvVEMRVoQcgtuSIjjJo87FOXQLaZjk=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=TQFrBdYJ+Wy5Fa1eIWiGtyaULBdldJazu0zd2WQTN4VKqTrsJ7s82eNrLFVOCnV56tNU2QJDNDRZYOcIlEJjPw/TgrQsgxc5I9SoaqRZM59AlnyAABvH8Bodh95Tv35AkHvEoZWeAoTVNEQJ87nkIjfXB02IcvKOwN0OCPOQTvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUKXGokL; arc=none smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TWqDM5mQ"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e58034d05so1278443a91.2
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 00:25:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUKXGokL"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6681e7911b0so1365336d50.0
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 00:39:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784964346; x=1785569146; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IxN16LlGLH2WwnDJmdIskymBeU5WPj7iW8e+rfqR+5c=;
-        b=TWqDM5mQ0LvbGO3xv90snOwBtokbv7LCbbDftiCg3HVPneK7e/7MuYwuqEiv4nLr8y
-         FFIPec+LxtPLG+0JlJ8CqAfkQ4GdIky2EsW1WHsCsja1XJgCQ5n/clfJw542JfarLKsc
-         2JVNh1/X83sOBWllROG0a1dggH+TraGt0H9Zp5D34SVLIUQSS4hnCSRpzcXt4AHy4XMS
-         2LXYloOjGXl1v2Rk5qC0qc2j7u2XDtPlL44k8r0rZzdRnPDTvJfe0EGMIo6Kw8DT+dmC
-         2A/+qfVO16dOxgpbRwTc31NwPv3Wys5UUSNWT/nWPsiLz8cugpLWoo9FazMuc5nX1pt3
-         ubCg==
+        d=gmail.com; s=20251104; t=1784965191; x=1785569991; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=k/KUxMM9Py7HCnvVEMRVoQcgtuSIjjJo87FOXQLaZjk=;
+        b=rUKXGokLrTNmWa0a04KYKnIokAVenKPIEJXGfNLbbeIj0nmoWtl8OSGPHqlh0+hNWY
+         JczXSOLEmUHNP4JA5l/HnpL6hFaTsFxYqlkBLYqJSLrrmdh+pqRHawiuA8yOuJlHdMmi
+         FlCBXskcf9wyv8LtKegbl6m8AXRd9FeVEvmyRj8t5gBcqgpq2Or7NGdEf9kGhyJquZqX
+         cnGQaTKa7Ub2q4+AsJpY2P25o3JK4DuF3IAgl6Xt/9JBwKzyCmBn7wQYJ5YWBWZrIBFn
+         QuNbiiTDo74p7Iz8V+m8+ptRZig7BwK0o8wrWy80veZGPGAd7ANZufW88t/KJEffaodf
+         T7ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784964346; x=1785569146;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IxN16LlGLH2WwnDJmdIskymBeU5WPj7iW8e+rfqR+5c=;
-        b=YkbxYvx2wgEbM5vMBGKpd6MG2eLkRFArLxRidCyoWA9mUlVzaMHgoAx8p5yYot1y44
-         q9Mp+u5hVDrHZ5uP1oVnhOLgF/RIYDGoVQB4dMS6VBRvFlaXqG8UG9fyI2XJ6xTnzfzS
-         L3xKuerYdFNz6covzJXQ5XOyJ+rKecRk/m/ukPYGo8ib23esQS5WDvor0A1iH3S6q4Z8
-         SVYaZIXXXivw6+EsVH2L7XfXbGje/+GkIwiWe642rOz63+tFVM7gNx6pZomnLtMXYsMf
-         RzC6eU8bEcOwK/jBGjg8I8oxhXB6fJcA4TyNtf9wFHbY2ihFX0mN0w5qBkF/HhHXzLl0
-         h0HQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqdbFt3dwOowoGRo0w535BsSyhiSrZOYDaYxpLY7vVYULDHvqTVkVhGdBtYzW8LAdt9ASQ/3lE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2yKyIcvea/0R4TwHs2ZSRXf/wEK0L28dFcuPHRvAFLbI45M6T
-	JROtHpvn/5bVaV6SwXRHyuN5YLSFVeYSL3kiSUxktzqwAnC1jF+/2fCB
-X-Gm-Gg: AR+sD109re9SoKOFT2OSqVuzuSTOkoQozURbkH6h9U3strzirQbKAYrS8mk/PnT64n9
-	k4W68hu5e4cCRwBTvEJ1kVMvyS5MbGNEPTQWpTsnBGwZSbgNGbsUDcPAGXhYAb/bLp2/gJSnuwp
-	1V4Myz/LMZY0XtiTioESIy43mfOGZauAKJvIG5bAm5lk2YnUwq9U6kBTqU9GK0NIvffvwPoD4kW
-	huieb6FaXKkiYL2u0yBILCMxJkLysLxUmSNmA70AbGv7rJscWI+WAzYe+I70oKaqfKftei6vBAB
-	w6gEFGC6/NuNWWEennCudyTkhUTkJXXKiD1/8dA10JMjBC8n6LEpkBbVCKz8Op8LNAPtas7bSxI
-	ZuBxUpcoESQgU3JFZ2DUsfOBNS9AusrkqZQl69Gotx7+ZU2Uqh6swYq1HxMdk313iNcGFvTCV0X
-	XdqDrlK5s0moph6L05Zcv7VZ/P3AuDFoJkLbANqg==
-X-Received: by 2002:a17:90b:3f0c:b0:387:e0bb:57f1 with SMTP id 98e67ed59e1d1-38f2975d581mr1657727a91.34.1784964346221;
-        Sat, 25 Jul 2026 00:25:46 -0700 (PDT)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13d13014d27sm33921944c88.4.2026.07.25.00.25.43
+        d=1e100.net; s=20251104; t=1784965191; x=1785569991;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k/KUxMM9Py7HCnvVEMRVoQcgtuSIjjJo87FOXQLaZjk=;
+        b=dFbQF+1MYgZgWQcVn7cvRsGx9/3jwq5TiX5oxiu7abuoFLlhNf85a/5PG2+H2Iog4b
+         lJKQI5sd5dFIQzAt9MF7qx0HxcDTsfF1G7g/JwFN0vaJg1X2vlBjfoGIRRkm9K0ylHlQ
+         x97VszDadN3AoSGYMd3wvWZPoHVuy6ckMQ2d4SrhjAmNHcOFuJk0klRVl8rqzlqZ64dg
+         ajLpIIdMs5YE9RkWtf/86Ey50TeY0ObI+Wz/viKxk5pFoT/hbxClOUEbScKG3DvXiFlW
+         4d/ezYrPnw+mXi0TvXXsG6yAU6t4R17GoUR+9dhghAU1mSv0NMz1kDsR7lzcwiaHlCjf
+         f7sw==
+X-Forwarded-Encrypted: i=1; AHgh+RopNG7iOUFDnUFr6T4bEzsNMhLBr0Q5m2IRZfjVb4qBW1c8jcUWIiQnsNUXgVHAU1xTyZBUr2k=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHp8R7wk4M9kgg50BRKjwSwYnY3jtC4ShG1sYz6s3FG2ENHm/W
+	07643ABpiglCh4m+4lqi1OuYHBDfhJDoyLbA9IJYfhOQFKAtTVLok+3K
+X-Gm-Gg: AR+sD106Hec9ZHOyYaiH4QdCX+JsCB+DkUt36E5DbLZPzstR8Uv+JV/74ld0Ni369HW
+	8W51P6ox5Fwc3nnkMd/qssp8IpA0rM9AQDsLgFY/82qMB5bnX2RF0o1X2ru6aDltna6dQO+V3RO
+	buGM0W1Hh+/t25HIztu8rmlADmUM3YsEJTU51d8VG77MMKFR+v798Vb0kaQVdEoY9/fVKSzA5eL
+	EW+sDrzt56wl0Mg2QUbYLNQ3b9iohtEYIfTpA5rysYFazom34utUcMe6TB9mnq01GjR1PHdBcPJ
+	1pTWvrojppkzOPjfS/U4qrsE8p/POVOLrNq3xQxWUxELVzSfjgpLjsMfdwbQeZvM6xMmmDGq9Ji
+	hM7eMxedfazHGhVQFawwb2qL8Y8fW6yumPVcGX8BoS4GJDw9reAt023ahxLOB5ZogpB8gX9w9U1
+	kzEZpB5WEjtpbKgpyy+LlIZgMiG74X3Sl5zro1QpVOVlTZs1mmvTrs7xk=
+X-Received: by 2002:a05:690e:43c5:b0:668:96a9:e57 with SMTP id 956f58d0204a3-668c7afe620mr245052d50.56.1784965191387;
+        Sat, 25 Jul 2026 00:39:51 -0700 (PDT)
+Received: from gmail.com (172.235.85.34.bc.googleusercontent.com. [34.85.235.172])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-668c7041256sm527879d50.19.2026.07.25.00.39.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 00:25:45 -0700 (PDT)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"H . Nikolaus Schaller" <hns@goldelico.com>,
-	Anton Vorontsov <cbouatmailru@gmail.com>
-Subject: [PATCH] power: supply: twl4030_charger: cancel workers via devm
-Date: Sat, 25 Jul 2026 15:25:40 +0800
-Message-Id: <20260725072540.3092504-1-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Sat, 25 Jul 2026 00:39:50 -0700 (PDT)
+Date: Sat, 25 Jul 2026 03:39:50 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Qihang <q.h.hack.winter@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Daniel Zahka <daniel.zahka@gmail.com>, 
+ netdev@vger.kernel.org, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ stable@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.18684a639029c@gmail.com>
+In-Reply-To: <CAH78Gvuoqf89L8dm-FwRBzCGm9LaB7H_vt3MsOY5QPd0o_zhrw@mail.gmail.com>
+References: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
+ <3e4b1552-57d4-42ad-a244-a91b74b8dae1@gmail.com>
+ <willemdebruijn.kernel.3e74e4fda69b@gmail.com>
+ <CAH78Gvuoqf89L8dm-FwRBzCGm9LaB7H_vt3MsOY5QPd0o_zhrw@mail.gmail.com>
+Subject: Re: [PATCH net] packet: use a consistent hard_header_len in send
+ paths
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-bci is devm-allocated. Two workers (bci->work and bci->current_worker)
-dereference it. twl4030_bci_remove() disables charging and masks
-interrupts. It cancels neither worker. A worker pending at remove() can
-run after devm frees bci.
+Qihang wrote:
+> Agreed. Caching hard_header_len fixes the RAW paths' inconsistent skb
+> arithmetic, but not the SOCK_DGRAM race between headroom allocation and=
 
-The USB transceiver comes from devm_usb_get_phy_by_node(). devm
-unregisters its notifier only after remove() returns. A cancel_work_sync()
-in remove() can then race a notifier reschedule. devm_work_autocancel()
-and devm_delayed_work_autocancel() avoid that. They cancel the workers
-during devm release, before bci is freed.
+> header_ops->create().
+> =
 
-Suggested-by: Sebastian Reichel <sre@kernel.org>
-Fixes: d6ccc442b1210 ("twl4030_charger: Make the driver atomic notifier safe")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20260702172128.2001753-1-maoyixie.tju@gmail.com
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
- drivers/power/supply/twl4030_charger.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+> I also missed packet_sendmsg_spkt(), which needs the same RAW-path fix.=
 
-diff --git a/drivers/power/supply/twl4030_charger.c b/drivers/power/supply/twl4030_charger.c
-index 04216b2bfb6c3..d8bae2daac23d 100644
---- a/drivers/power/supply/twl4030_charger.c
-+++ b/drivers/power/supply/twl4030_charger.c
-@@ -14,6 +14,7 @@
- #include <linux/err.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/devm-helpers.h>
- #include <linux/interrupt.h>
- #include <linux/mfd/twl.h>
- #include <linux/power_supply.h>
-@@ -1002,8 +1003,18 @@ static int twl4030_bci_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, bci);
- 
--	INIT_WORK(&bci->work, twl4030_bci_usb_work);
--	INIT_DELAYED_WORK(&bci->current_worker, twl4030_current_worker);
-+	/* Register current_worker first: devm cancels in reverse order, and
-+	 * bci->work can reschedule current_worker.
-+	 */
-+	ret = devm_delayed_work_autocancel(&pdev->dev, &bci->current_worker,
-+					   twl4030_current_worker);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_work_autocancel(&pdev->dev, &bci->work,
-+				   twl4030_bci_usb_work);
-+	if (ret)
-+		return ret;
- 
- 	bci->channel_vac = devm_iio_channel_get(&pdev->dev, "vac");
- 	if (IS_ERR(bci->channel_vac)) {
--- 
-2.34.1
+> =
+
+> Would you prefer a v2 covering the three RAW paths, with the DGRAM
+> callback headroom issue handled separately, or both issues in one
+> series?
+
+Since the DGRAM path is non-trivial, better to fix that in a separate
+patch. Can be same series, but no need to delay the RAW patch for
+that. Thanks.
+ =
+
+> On Wed, Jul 22, 2026 at 10:26=E2=80=AFPM Willem de Bruijn
+> <willemdebruijn.kernel@gmail.com> wrote:
+> >
+> > Daniel Zahka wrote:
+> > >
+> > >
+> > > On 7/21/26 4:49 AM, Qihang wrote:
+> > > > packet_snd() and tpacket_snd() read dev->hard_header_len multiple=
+ times
+> > > > while building an skb. Device reconfiguration can change this val=
+ue
+> > > > concurrently, for example through bonding device type changes.
+> > > >
+> > > > For SOCK_RAW, packet_snd() stores the first value in reserve, lat=
+er
+> > > > allocates headroom using LL_RESERVED_SPACE(dev), and then subtrac=
+ts
+> > > > reserve from the skb headroom. If hard_header_len decreases betwe=
+en the
+> > > > reads, the skb can be allocated with less headroom than reserve, =
+moving
+> > > > skb->data before skb->head. The subsequent skb_copy_datagram_from=
+_iter()
+> > > > can then attempt an out-of-bounds copy. Hardened usercopy catches=
+ this as
+> > > > a kernel memory overwrite attempt.
+> > > >
+> > >
+> > > Wouldn't there be a similar issue in the SOCK_DGRAM path with
+> > > dev_hard_header() calling skb_push() after packet_alloc_skb()?
+> >
+> > Good point. this does not use hard_header_len directly, but e.g.,
+> > eth_header() assumes ETH_HLEN is available to push.
+> >
+> > Simply caching hard_header_len won't resolve this. dev->hard_header_l=
+en
+> > and dev->header_ops (incl .create) are not updated atomically.
+> >
+> > I missed this earlier, but besides packet_snd and tpacket_snd, the fi=
+x
+> > is also needed by packet_sendmsg_spkt.
+> >
+
 
