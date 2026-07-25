@@ -1,106 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2BC32E72F
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 15:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2DBED2E414;
+	Sat, 25 Jul 2026 15:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784992963; cv=none; b=H0aNTswWhX00xVOZaC3q7e8W6O7YdvsAiD4uiiSq2wKJ2KL9PvEfw7j+jL/4GsbHDCuHKrlTO6KtTXSmb7MAz24RshPCTh8PN5t6dbTYtW0NT9OP9K6Xg225Q+7JlWD/MtYSn5i+VmAw9glnq6U0Itx9vR7TAWY5EFCyjpiM2bY=
+	t=1784993046; cv=none; b=NNh5nrKGssUYwOFyA3Cf5tsEEUb4X9y1DlIgsNfWx5jm6+Ghh9+IPZCPR/3TSN/q8fJNIe9cgY7Y+pRCteP5X6WyDr3PtAov1Z3zxCcLXfbI7zyffiFLJpyllLfEE4zF+1IcMcHT7hLI3VZvpWkHze3KjlXHPhktI8L4UTTIlgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784992963; c=relaxed/simple;
-	bh=rnIkIXShOOPtoTNnZWCwHm5mYVgvh1+zT22xFBgJoyY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pAVtF7wwbF0uJfnVGEeR6UFKDo9hNvz++CVoS/N/DSe7JU8/cCIRVhmHc44/6wKYFXXfNz52KOJLjZc0Iyb7MeGBpCPwVrR5z7m4i86iWsNlfv2ttSiIWrHomRWhk3S6qNYeJHSqRndoAcZuniior0AlfemdHTpXA36LGZkRN/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HtuFvAJA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784993046; c=relaxed/simple;
+	bh=BnZzoWN2mJ37wDH5vXCtYWMrjPsWh+wDtKl76/2rYFc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cBz+QBybRaH/ivp0/5YGkTPDq8iMkFvK073JfZ/mj6IfSaTd66+O+t5Vs8OaqQR8gZwhqkZaj60UA23aOLfNcKXlTJPIgZ6pvTQCAiiGpJCQH6vWJyM3oAAQ3jLuormv54KL9o1tY4qBxENjAPQ1bfGvNtGxYTUAjDY8UjD4Ko4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=oPrIcmaH reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HtuFvAJA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24CC11F000E9;
-	Sat, 25 Jul 2026 15:22:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784992954;
-	bh=tnCIGRidywhKVV2Vw/UCpeoIVO0Pj7ycRIfB9pNrrfs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HtuFvAJASBA7Ou6ifC2vydWixeHP1osB6PvvqGqGYQ5tRHJiHC3d7KSqR1lqieWpi
-	 HZyL8QYNhMCKf4YYp3NIbN+Ctr56DURIB1uELOCn8ctS5LCW6nCn/YygyPJJCFTZUq
-	 Isal9VTKuL3lSIe91gmsFlyiyXR7Et3gFJI96QjtETe5BkfCQ5TLhzvQAIqdSCnJbN
-	 61zTqgQD8KH2nmNQOXxuVYmMDSB8O4zKetlTdt9j/jk5CQFn1vbwgHN/j7aC+bONnd
-	 byEqhFL7NyQf/i8jDp4FCjCrMratJnZatuJ4fcATpedZsGWSUbhBC2A56nTI76A121
-	 do9M8QRyKuFDQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net: thunderbolt: Fix frags[] overflow by bounding frame_count
-Date: Sat, 25 Jul 2026 11:22:31 -0400
-Message-ID: <20260725152231.3857257-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072027-siding-engraving-011b@gregkh>
-References: <2026072027-siding-engraving-011b@gregkh>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="oPrIcmaH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=jWYYLigkY
+	acoL3r+VozmhhqscJLLFMITzsgSs3ZOLZo=; b=oPrIcmaHsSkTjeqkfE4O5mwB2
+	uB+dp02RwY9+5NVsf6OxrkTBTRdOJOv/NMeWV7tuFrSbMQ6xEQKLwTdy7kOedqBf
+	yJEMac7Y4hDhPvKQbGRWd+vC5HLdWci6CWchD+lcnCBj0EPzjeAdUMzMcnm/1OUL
+	vBsc0pxYJPVMfgfCoY=
+Received: from [192.168.1.110] (unknown [115.53.190.134])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkD2PTP41GRqe3x3AQ--.21553S3;
+	Sat, 25 Jul 2026 23:23:38 +0800 (CST)
+Message-ID: <8b900197-f633-4917-b1f4-5c8cd46f025f@stu.xidian.edu.cn>
+Date: Sat, 25 Jul 2026 23:23:35 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: core: Fix pointer desynchronization in
+ fb_io_read()
+To: Helge Deller <deller@gmx.de>, simona@ffwll.ch
+Cc: tzimmermann@suse.de, sam@ravnborg.org, javierm@redhat.com,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260721081942.107024-1-25181214217@stu.xidian.edu.cn>
+ <86a0387c-b704-4ea5-8117-02b30c4faeb3@gmx.de>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <86a0387c-b704-4ea5-8117-02b30c4faeb3@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BLQMCkD2PTP41GRqe3x3AQ--.21553S3
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFW7AF47KFWUJw4Dtr4rAFb_yoW3Jrb_Ka
+	nYvr4xC34DGrn7CFna9F47GrWqyF4kur4vvw1xWrsIga47Aan3ZFZ8CF10vrWft348JF15
+	Jr1qgw4S9w1S9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbsxYjsxI4VWkCwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
+	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
+	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07jnsqXUUUUU=
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUFEWpk02wAiAAAsp
 
-From: Maoyi Xie <maoyixie.tju@gmail.com>
 
-[ Upstream commit 55d9895f89970501fe126d1026b586b04a224c27 ]
+> Thanks for the patch!
+> It seems correct, and I've added it to the fbdev git tree.
+>
+> Did you actually ran into a problem, or how did you find this 
+> optimization?
+>
+>
+Hi Helge,
 
-tbnet_poll() assembles a multi-frame ThunderboltIP packet into one skb. The
-first frame goes into the skb linear area and every further frame is added as
-a page fragment.
+Thanks for reviewing and applying the patch!
 
-	skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
-			page, hdr_size, frame_size,
-			TBNET_RX_PAGE_SIZE - hdr_size);
+To answer your question: this wasn't triggered on production hardware.
+It was found while using our DevGen virtual device framework together
+with syzkaller to fuzz legacy fbdev drivers.
 
-A packet of frame_count frames therefore ends up with frame_count - 1
-fragments. tbnet_check_frame() only bounds the peer supplied frame_count to
-TBNET_RING_SIZE / 4 (64), which is far above MAX_SKB_FRAGS (17 by default). A
-peer that sends a packet of 19 or more small frames pushes nr_frags past
-MAX_SKB_FRAGS, so skb_add_rx_frag() writes past skb_shinfo()->frags[] and
-corrupts memory after the shared info.
+DevGen triggered several OOB crashes in fbdev, and during the manual
+code audit to root-cause them, I noticed the src pointer desynchronization
+in fb_io_read(). It was a clear logic bug, so I extracted it as a
+standalone fix.
 
-Tighten the start of packet bound to MAX_SKB_FRAGS + 1 so a packet can never
-produce more fragments than frags[] can hold. This matches the recent skb
-frags overflow fixes in other receive paths, for example f0813bcd2d9d ("net:
-wwan: t7xx: fix potential skb->frags overflow in RX path") and 600dc40554dc
-("net: usb: cdc-phonet: fix skb frags[] overflow in rx_complete()").
+Thanks again for your time and for maintaining the subsystem!
 
-Fixes: e69b6c02b4c3 ("net: Add support for networking over Thunderbolt cable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-Link: https://patch.msgid.link/178163152194.2486768.14724194232649760778@maoyixie.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/thunderbolt.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/thunderbolt.c b/drivers/net/thunderbolt.c
-index ba9f7062f5a7d4..649477b97b0584 100644
---- a/drivers/net/thunderbolt.c
-+++ b/drivers/net/thunderbolt.c
-@@ -746,8 +746,12 @@ static bool tbnet_check_frame(struct tbnet *net, const struct tbnet_frame *tf,
- 		return true;
- 	}
- 
--	/* Start of packet, validate the frame header */
--	if (frame_count == 0 || frame_count > TBNET_RING_SIZE / 4) {
-+	/* Start of packet, validate the frame header. tbnet_poll() puts the
-+	 * first frame in the skb linear area and every further frame in a page
-+	 * fragment, so a packet may not span more than MAX_SKB_FRAGS + 1 frames
-+	 * without overflowing skb_shinfo()->frags[].
-+	 */
-+	if (frame_count == 0 || frame_count > MAX_SKB_FRAGS + 1) {
- 		net->stats.rx_length_errors++;
- 		return false;
- 	}
--- 
-2.53.0
+Best regards,
+Mingyu Wang
 
