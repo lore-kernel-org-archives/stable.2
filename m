@@ -1,118 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E1130D3E7;
-	Sat, 25 Jul 2026 17:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784999471; cv=none; b=tZrIzJACSzVdBjRBz0ZKJFBWRiJs9RqHMrkJ+r5bgKSyOskVzmJFjBwDQVBZf+ZStXl6Pvos9yCkvWQUG1cEDGfLxneq0Bj0iujHzXzYqCjHa4LKiwcJokuXvWYcBqPxO57RVbAqbvwe1LZYw3EaHhMk46nFhqxAnd/c0jJzkGU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784999471; c=relaxed/simple;
-	bh=lZpwIbBqLQCXfAzIy7Uj+PgklczwULQKP+kt74QNgvE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p6eQdh85E1Of2dYKKg4+Ngnvt16Y3+1LVuIXRf/ELcu+mSYXWRpkNgDuIXPmmqXSTfv4VtRNxPYP0RxT3ibCcr8JQbwbT1KXQc1WSo/Hg18rTzMag1PdXpX0PVIxdLGHcmO/CRWOQRkOedhHr7wVHDyTYqG0zdpCWTnkaCJlPtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=naU1+Wy7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FEF288C2D;
+	Sat, 25 Jul 2026 17:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785000997; cv=pass; b=VxySH7POgZaIiOIUXGb2qivfw9TdfEMLenZPFN3OX0r+wJ6QIXDS78eNPGbJlvbBC/nBiopTl+vdR+gtc6B39VtpjyGZUIHmKkKPoT2kVpYP0j7KYtpXCVy5q/6Sf947GTKiwEIVzi7UgXUsReKJoDrrkbByA+q+HupGIdR3HTg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785000997; c=relaxed/simple;
+	bh=aaT4bSz5HqqnTrLzg36MqwkeRkeee05kQBWMOuFMa9A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P2ZQm99Si8SiDgaa8x2OzjX8uFU0TbWbXn52Vc5L4QdSL+vattXdlB88PxZfOIbE6cu+xauvnicUH65Qlwj7F8dTKPXbPJIvnZLahzObAkU16df7c9OQfxSeRfdg4RDIdS9HJLHIygtivZYZ6DVmwVPpozI3cxRAN2WmI0uOoyM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=czLI0mj3; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="naU1+Wy7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012C61F000E9;
-	Sat, 25 Jul 2026 17:11:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784999470;
-	bh=qCTMtTlGf8TX43MgfeK58BQDi0wVFj04WmzNNjZ51iQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=naU1+Wy7eleqJSfuA4Rog6PKICrFmxIas+IssKpPIQrkuBQpt2jxrLJDHX8gdGtrJ
-	 pjTPQyWk4hkvpVFNd0Z6SPusN596kaIckWxU3tZJFPlVZ0Zlmoc7OnCY1AjyAkZvBY
-	 e7nQp0vvNnSqNea9AKdb+LHSjaj0H4/ClWUmHS2gvco/f2EG3KIntTHNyRGKh9CPM6
-	 wd8gkbUigOvA/fYWwxcSaa5YDl6anzNU8bwmo4nyxU/Rm4A2UqeJvwl+JaxfgPYCx7
-	 ZILAzmX+3Bf7rnDb+ufosyuppRygiPxKNGrS7qoEhngKLPbUiXf3/Ja8BuOGMmeHrj
-	 qz9+2HGSydH8Q==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wnfu0-00000008nz7-0LzH;
-	Sat, 25 Jul 2026 17:11:08 +0000
-Date: Sat, 25 Jul 2026 18:12:31 +0100
-Message-ID: <87wlujouww.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: GICv2: Bound the INTID in vgic_v2_deactivate()
-In-Reply-To: <20260725154020.37305-1-kmehltretter@gmail.com>
-References: <20260725154020.37305-1-kmehltretter@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="czLI0mj3"
+ARC-Seal: i=1; a=rsa-sha256; t=1785000972; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=RYuLiCNK/wLM+A1AL+pi7reeRfYUqTvJfzNwaUYFST6oGvWU0r/XmZYJ/AtLCufWD6zOqco+OFwVexiNNKiyMNzMFgDeBMEwOCBMXk+KBjfM98jtxol281qb2kUzhPB/xFTwIi+h+B8NMMyUPokv4m68Gj14JnfE032O2Xpnky0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785000972; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=WKq3a9nQc3N0aKZSTpXVKdyLOSqPpQF428qAw79wyQs=; 
+	b=OiaSQ4bVUWFXJWQ32dSTu6iCPU20ymm1qO3bfgbiP9u6Bi8KI0imxjdqCz+Hk8fiByK2lNEpucjp1o3obfikW4XaMcqcF6Ln5hFd9kUdJR51XAQ2IXAtOafnhc9geB5wNwFkd1YCV4jIfDWQmZrL1ZwW6f2fCx0UF4cqsDMmjVE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785000972;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=WKq3a9nQc3N0aKZSTpXVKdyLOSqPpQF428qAw79wyQs=;
+	b=czLI0mj30hc4LWFO1Tueq8WRo+KJA6tmUGbitGWug78ATEAVdjpHjgTshFYnnnL9
+	GffR3iyKrM9FoDvcOWcWJG0r2mI3vU3ty77K1tdQXpFVb0AcB7HIMqFqfQwjkjk//mX
+	sv18y8/olrNMmEFss6B0Go/gNmPlPX0cdjmvv8ao=
+Received: by mx.zohomail.com with SMTPS id 1785000966591653.2956125819782;
+	Sat, 25 Jul 2026 10:36:06 -0700 (PDT)
+Date: Sat, 25 Jul 2026 17:35:57 +0000
+From: Yao Zi <me@ziyao.cc>
+To: Zixing Liu <liushuyu@aosc.io>, linux-kernel@vger.kernel.org,
+	Yao Zi <ziyao@disroot.org>, Jianmin Lv <lvjianmin@loongson.cn>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: Kexy Biscuit <kexybiscuit@aosc.io>, Mingcong Bai <jeffbai@aosc.io>,
+	loongarch@lists.linux.dev, stable@vger.kernel.org,
+	Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH v2] platform/loongarch: laptop: explicitly reset the
+ bl_powered state when resuming
+Message-ID: <amTz4qZ6CE7fn7QS@pie>
+References: <20260723121840.1120953-2-liushuyu@aosc.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723121840.1120953-2-liushuyu@aosc.io>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.966.17
+X-ZohoMailClient: External
 
-On Sat, 25 Jul 2026 16:40:20 +0100,
-Karl Mehltretter <kmehltretter@gmail.com> wrote:
+On Thu, Jul 23, 2026 at 08:18:39PM +0800, Zixing Liu wrote:
+> On EAECIS NL60R with EC firmware version 1.11, resuming from S3 has a very
+> high chance (>= 90%) of causing the EC to lose the previous backlight
+> power state. When this happens, the laptop resumes normally from S3, but
+> the backlight remains off (when shining on the screen with a flash light,
+> we can see the screen contents are updating normally).
 > 
-> vgic_v2_deactivate() passes the INTID from a trapped GICV_DIR write to
-> vgic_get_vcpu_irq() without checking it against the number of
-> implemented interrupts. An out-of-range INTID makes the lookup return
-> NULL and triggers WARN_ON_ONCE(!irq).
+> Since there is no generic way to query the EC's backlight state on
+> Loongson laptop platforms, assume the worst-case scenario and restart the
+> backlight power inside the kernel each time the system resumes.
 > 
-> A guest using EOImode=1 can therefore raise a host warning, or panic a
-> host with panic_on_warn=1.
-> 
-> The GICv3 counterpart rejects INTIDs outside the configured SGI, PPI and
-> SPI range before performing the lookup. Add the same check to the GICv2
-> path.
->
-> Fixes: 255de897e7fb ("KVM: arm64: GICv2: Handle deactivation via GICV_DIR traps")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Fixes: 53c762b47f72 ("platform/loongarch: laptop: Add backlight power control support")
+> Signed-off-by: Zixing Liu <liushuyu@aosc.io>
 > ---
->  arch/arm64/kvm/vgic/vgic-v2.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/vgic/vgic-v2.c b/arch/arm64/kvm/vgic/vgic-v2.c
-> index cafa3cb32bda..42430c0fee07 100644
-> --- a/arch/arm64/kvm/vgic/vgic-v2.c
-> +++ b/arch/arm64/kvm/vgic/vgic-v2.c
-> @@ -163,8 +163,12 @@ void vgic_v2_deactivate(struct kvm_vcpu *vcpu, u32 val)
->  	cpuid = FIELD_GET(GENMASK_ULL(12, 10), val);
->  	val &= ~GENMASK_ULL(12, 10);
->  
-> -	/* We only deal with DIR when EOIMode==1 */
-> -	if (!(cpuif->vgic_vmcr & GICH_VMCR_EOI_MODE_MASK))
-> +	/*
-> +	 * We only deal with DIR when EOIMode==1, and only for SGI,
-> +	 * PPI or SPI.
-> +	 */
-> +	if (!(cpuif->vgic_vmcr & GICH_VMCR_EOI_MODE_MASK) ||
-> +	    val >= vcpu->kvm->arch.vgic.nr_spis + VGIC_NR_PRIVATE_IRQS)
->  		return;
+> Changes in v2:
+> - Move bl_powered reset logic to loongson_hotkey_suspend.
+> - Link to v1: https://lore.kernel.org/loongarch/20260722044457.1333404-1-liushuyu@aosc.io/
 
-This duplicates the existing check, as GICv2 has no LPIs. I'd rather
-drop the WARN_ON() altogether.
+Again on my TongFang L860-T2 3A5000 laptop, no regression is observed.
 
-Thanks,
+Tested-by: Yao Zi <me@ziyao.cc>
 
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+Best regards.
+Yao Zi
