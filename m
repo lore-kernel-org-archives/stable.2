@@ -1,171 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3A8BE63
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35E72BF3F4
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784943466; cv=none; b=SxtTfq5uXvY2NzEJ4LPb9m7FHo8D9y/rGBG5MfHtkQvI08gKj9YJXMduKlMXW637EbyJShnLKP7eMssEJcK7QJZf5bev9xyHif4OWa21FSxrQ9cQIfPUHw2J/6UIOhsGKw9cpoBF9W6ztUrtRKohgIo8O1YDi1dZ2+QjIvN+Svw=
+	t=1784944001; cv=none; b=QNg8W9S6BRJDaRuZYuiXOjcnK6/Vvn5yQ306gattVmLwvEcfGHlC/OisPGuvRSAnp0DH7GYyRW3z8/IrGGlqXPrzS9ls6LjlblRmD5kQZDu3+/mUfN5nl6Nz4gP8qbO96SoIxCMdb9DpBK+tiBtZXx6OdWxJO1zeWEVLFn4HvPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784943466; c=relaxed/simple;
-	bh=VSQhrBMLwtw4iGVGoaTvsQtoK8FUTibMQ9/kh+BUjwA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aIJCp1P9Lnb6rWH3Kod5NCoEpA9/6c5i8/20MAAxOzo4sXB/3AkzroHgNH+S/LcewSIX4+RDUlQ8e/9fJ5O0vYolbZ3Y/X2nNCU2qLlaBk5mBeik3S1fdzSwNo6hCwwU7zJKweq+ME7Dl1LQl5WFc/f5q1v3syaCxj2RzSyOoBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kpg6oNsb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784944001; c=relaxed/simple;
+	bh=ToVhc3AhBahetbU3qnqMMwbQ2+rzSYcR6RO/UlkrYnM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kFMXVOPpDQrRQCZLQGErGoY6Q2JFGKCLrqNeowbM4FocW+iCS/f+prEelVkREua4CJBQdkGEXLz4BPTBSXN8J07doieRI0xZgul9lo8LBhDJch6O5Xz2oiFqtH4iXQD+jGGVhFGs0J6QbCmuaii5r/RgYHJOVHVLNOZENMiqpcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evetzjdL; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kpg6oNsb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8EB1F000E9;
-	Sat, 25 Jul 2026 01:37:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784943464;
-	bh=DDQw0pWhH/nwKSNR13SEjoy+2ZZPvbAnDACCQkTXkYE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kpg6oNsb1rnEq8rEoQBs4x0TAa2BkCpvRm8pr6FQGNRJVR2gBTFg/vt6q64ZBesxf
-	 xCYYvdXlct7sSly8NSGvAs/M5qqOvfCdoOZDVS+uVIyHzzwXyIY7+ZaWbbmvD5Ftas
-	 Z2aylp4QhdWdW3iOn4mVsbowBUTFydCjHzxeHhMfuRCLE4aTn+IB4HrvN/pXW91hHk
-	 9exK3bHZEKnOIcduunkXp1SJyHyka8sarSSVVz6dcjY53y3LD9mtBWISA439l6Pc2L
-	 TSjO7WvEdDDWze79I/1CjMOYHqFuefXd1DutoR9NDrm5Un6ZAsixz0HBfnv3uqYmqH
-	 ra/VEmMOxqSiQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Hocko <mhocko@suse.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/mm_init: fix pageblock migratetype for ZONE_DEVICE compound pages
-Date: Fri, 24 Jul 2026 21:37:41 -0400
-Message-ID: <20260725013741.1892750-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072014-stowaway-nebulizer-98db@gregkh>
-References: <2026072014-stowaway-nebulizer-98db@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evetzjdL"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3810c5d691bso807749a91.1
+        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 18:46:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784943999; x=1785548799; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eV48ZQHtSwmQ+39i7v6iCNrnUnn9zhxOQgslZYAxE2c=;
+        b=evetzjdLLFT6PmhCTwkph0bX/kgsxSIURBk6XIh3EKuv8dtCAybtdGxmaYWz3Cv7UO
+         fi/49nLPWPM0peEyKHtTeJncwc28GjMapzgXAO3Ira9yFxPiwXxt303xXC+9p+GFQX/c
+         JTUog4ZavQaY1NCHpmIrjYQURXjCxCMniFDYbY+6R4pl5w7A65q3gZzTG+lLVehTrmEx
+         G/65opCJ5qCWP7g0HXhhWfswkHbz61N2bzYWh/Lod02yaq6JKt8VjttLuiPzbaNNGzLF
+         IWFtw1NDqKVc4gV5P3WSK/QBcFnzsNxtDwtDeoZs/CIIKz3ni2UQ+0LleFFfB7ZJq/Ew
+         zOBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784943999; x=1785548799;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eV48ZQHtSwmQ+39i7v6iCNrnUnn9zhxOQgslZYAxE2c=;
+        b=UYFHW3eu40ogleuQWsS1IH7qIcqfWYTjkEUhPy4tLuiNzALRGIKOBkK3pEnTkrP66L
+         DackqUrxUNk+Bw0EXu9sTXChrJvpHoCqOz8WPU2rYdlCGhGuKH0Nn0P6nIy4r83HT8Qt
+         vy7U8Ya5KQrgsrI9M2lvImP+W0DE/VTKXK2ndU2hfKD4JFSqP25vw5xG5vGxtzYZVWbs
+         FtIVGKTUTraWVFnbXb4Aeap9cCZ82IUt4ei1mHPxhrEDaW1Qo/MqBfp9VI6vk76FSZtT
+         9BNRboUZMFzKzD4SE/3GpPp2cV05Tdx3tSsxlVyM1L+nhVrILLlxBSF7OrxAFLAvvROB
+         yWrw==
+X-Forwarded-Encrypted: i=1; AHgh+RrsLCvW28tNhoF96mM1uOcddvOMLOmM/oLtQ2rZAvGeK5wAPs/zKh4KL/JQ7ZGjly8BWOLvC/k=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzItNmqlWxovFnYLJzitHwFvbQtibdCZoq7r8csfYpsbbhXCtYR
+	dUWX6xIrWDPv97ZULWV4mlx4+aTeHClqrNj9g+YkoMTqoH0HC9vwrvPDokP1sQ==
+X-Gm-Gg: AR+sD12CSM/pysPjuOfHx1vASHBQPP50Ebx+ll9Mru4NJG1aiZwqRrgL7+/X7JcIFWh
+	D7a8MMQNRQZY6fvdSA8kZymi8OfaCA3q5Rn8d+LQk4BRwn5cBHTf0Sg2KfOlgsSL3ODnCTT0o9y
+	LjV/eTbzQvyQvOi7XaWDxClZ205ppBQZxvx+nvP8v0VG/Q4DmFCGGYIO0g8DaL8LypFIj2x57m2
+	y5BnvKQzm5xSIxdcC6qOd0gOm0tjLi01hOOuGGv+kY/5/4y3kzoXoEUPw5vG7B/aF+N4Ts5/ynf
+	1rZauGlsx99Hf5mjMXwY3z9E4S1lERJH51nlZKKj55KaPxXx6I2gsuVmOIqZVHQcRXK7KvFaTlv
+	O7XIET7v+wOyDdYQL+kiKLELV2bi0D4/VN1BTWy6GF0BMIDHwOyOn9khjLkwfhJR1GEbC44XzT4
+	mWLW9QR9fMMEHFJKv/lZD+0/8MX43GkfEyp4nQppPz9qs5REBFjc4FPg==
+X-Received: by 2002:a17:90b:5443:b0:37f:9ce1:7364 with SMTP id 98e67ed59e1d1-38f2961e0e6mr756142a91.26.1784943999088;
+        Fri, 24 Jul 2026 18:46:39 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:40e1:40e4:dabe:543e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548f5dsm4637809eec.17.2026.07.24.18.46.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 18:46:38 -0700 (PDT)
+Date: Fri, 24 Jul 2026 18:46:35 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Haotian Zhang <vulab@iscas.ac.cn>, 
+	Tomohiro Yoshidomi <sylph23k@gmail.com>, David Rheinsberg <david@readahead.eu>, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] Input: psxpad-spi - set driver data before use
+Message-ID: <amQVSXuehlUKEeCy@google.com>
+References: <20260721055551.1714965-1-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721055551.1714965-1-lilinmao@kylinos.cn>
 
-From: Muchun Song <songmuchun@bytedance.com>
+Hi Linmao,
 
-[ Upstream commit 94405c6136839f7c462249c8b4b957bcb9527a9d ]
+On Tue, Jul 21, 2026 at 01:55:51PM +0800, Linmao Li wrote:
+> psxpad_spi_suspend() retrieves the controller state with
+> spi_get_drvdata(), but probe never stores it, so suspend dereferences a
+> NULL pointer. Store it during probe.
+> 
+> Fixes: 8be193c7b1f4 ("Input: add support for PlayStation 1/2 joypads connected via SPI")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
+>  drivers/input/joystick/psxpad-spi.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/input/joystick/psxpad-spi.c b/drivers/input/joystick/psxpad-spi.c
+> index f902a56d011f..b1ab2486bb0d 100644
+> --- a/drivers/input/joystick/psxpad-spi.c
+> +++ b/drivers/input/joystick/psxpad-spi.c
+> @@ -301,6 +301,7 @@ static int psxpad_spi_probe(struct spi_device *spi)
+>  	/* input poll device settings */
+>  	pad->idev = idev;
+>  	pad->spi = spi;
+> +	spi_set_drvdata(spi, pad);
 
-The memmap_init_zone_device() function only initializes the migratetype of
-the first pageblock of a compound page.  If the compound page size exceeds
-pageblock_nr_pages (e.g., 1GB hugepages with 2MB pageblocks), subsequent
-pageblocks in the compound page remain uninitialized.
+I moved the assignment to the end of probe and applied, thank you.
 
-Move the migratetype initialization out of __init_zone_device_page() and
-into a separate pageblock_migratetype_init_range() function.  This
-iterates over the entire PFN range of the memory, ensuring that all
-pageblocks are correctly initialized.
-
-Also remove the stale confusing comment about MEMINIT_HOTPLUG above the
-migratetype setting since it is an obsolete relic from commit 966cf44f637e
-("mm: defer ZONE_DEVICE page initialization to the point where we init
-pgmap") and no longer makes sense here.
-
-Link: https://lore.kernel.org/20260428081855.1249045-6-songmuchun@bytedance.com
-Fixes: c4386bd8ee3a ("mm/memremap: add ZONE_DEVICE support for compound pages")
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Liam R. Howlett <liam@infradead.org>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
-Cc: Joao Martins <joao.m.martins@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mm_init.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
-
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 1450b2bb98ee32..2b8b57af2bc57f 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -650,6 +650,20 @@ static inline void fixup_hashdist(void)
- static inline void fixup_hashdist(void) {}
- #endif /* CONFIG_NUMA */
- 
-+#ifdef CONFIG_ZONE_DEVICE
-+static __meminit void pageblock_migratetype_init_range(unsigned long pfn,
-+		unsigned long nr_pages, int migratetype)
-+{
-+	const unsigned long end = pfn + nr_pages;
-+
-+	for (pfn = pageblock_align(pfn); pfn < end; pfn += pageblock_nr_pages) {
-+		set_pageblock_migratetype(pfn_to_page(pfn), migratetype);
-+		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
-+			cond_resched();
-+	}
-+}
-+#endif
-+
- #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT
- static inline void pgdat_set_deferred_range(pg_data_t *pgdat)
- {
-@@ -999,21 +1013,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
- 	page->pgmap = pgmap;
- 	page->zone_device_data = NULL;
- 
--	/*
--	 * Mark the block movable so that blocks are reserved for
--	 * movable at startup. This will force kernel allocations
--	 * to reserve their blocks rather than leaking throughout
--	 * the address space during boot when many long-lived
--	 * kernel allocations are made.
--	 *
--	 * Please note that MEMINIT_HOTPLUG path doesn't clear memmap
--	 * because this is done early in section_activate()
--	 */
--	if (pageblock_aligned(pfn)) {
--		set_pageblock_migratetype(page, MIGRATE_MOVABLE);
--		cond_resched();
--	}
--
- 	/*
- 	 * ZONE_DEVICE pages are released directly to the driver page allocator
- 	 * which will set the page count to 1 when allocating the page.
-@@ -1105,6 +1104,9 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 
- 		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
- 
-+		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
-+			cond_resched();
-+
- 		if (pfns_per_compound == 1)
- 			continue;
- 
-@@ -1112,6 +1114,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
- 				     compound_nr_pages(pfn, altmap, pgmap));
- 	}
- 
-+	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE);
-+
- 	pr_debug("%s initialised %lu pages in %ums\n", __func__,
- 		nr_pages, jiffies_to_msecs(jiffies - start));
- }
 -- 
-2.53.0
-
+Dmitry
