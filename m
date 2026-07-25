@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5ED2690F9
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:12:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B942F9D85
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:12:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784988740; cv=none; b=TcGdktmxCdfU2PCGunvYjgeoxlKLslvlTc82skNREKzZwkkTviazJdIF6gu6aXe6VxlxRYiev93UUVR7h6qxGRnAjVzeRBoAOMuyLkDjjQ+xYvMMpYJwnXM2I6u1qkRLzyKxfVcGu/nkaGpeZQrdtOX71ehhRX9fUSiaHjPMQkc=
+	t=1784988746; cv=none; b=jyo3+H7L5j4O/CfTy9lBA3AKt7X3I1C9lTAjGrsZthGV+bn+diYmx0cRZWDZ/wfsQluhsTOYWwtOwUq3oTU+GfR1JFTGHUudr8VCMEd0mddqNiYt6BlpVSz7kYWx4G4Da/TmDCw0vjDO2G8pU+hyxLswKk9AuSNPBfAoA1yC0I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784988740; c=relaxed/simple;
-	bh=I1pMA+lSZiNLTUfmhzN2RvxECOPm/lHJqszx/d4er4A=;
+	s=arc-20240116; t=1784988746; c=relaxed/simple;
+	bh=ASo9k/M9b2yDXlCQS2QvLk0q8Ht2nkzkKhTOWIfwuc8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BILm9gTR+IbCVs6HQQqA/c/j637QiYBP9tiK2/p8igqJcR1tsFfftAgHlFWZub8TDF70Ja0bX0moZNad9RaPMR6Y4Gtkhc7Zn/m5X3VlSOTmjNekksISwLP+xPgJxFzAxJeF9WJN3h8oYT/rg0i/LMdGj0jBTWW5Wb7M+TVEnlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQNCzVsl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LJUPZQo7X+iwO/fxd+qEi/gqZ/q/oOXSDOoKu//OlJ7Os9FhUuLGSfgJ7HpriUmhYcaMnLpKe0Pac4yVOTvFD55cU+ODDmqz7Ih0S1fUHTF3IyrGrRBySE6nq3zVSCrat+HzwE2f3WqjFHgTpMFFwm6Og05wNPQW2GhRnCES/QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5AJnR/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQNCzVsl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6203E1F00A3A;
-	Sat, 25 Jul 2026 14:12:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5AJnR/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9F31F000E9;
+	Sat, 25 Jul 2026 14:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784988738;
-	bh=AzXQSKoEM5O9g7keCCkgQnaNzlu2cb00dAIgQkmVwd4=;
+	s=k20260515; t=1784988744;
+	bh=hiOYstl7HxPGLG9bfUa3+5DZ2L84+rFTe8FaNC2kQSU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NQNCzVslQgIqF111j+kZcrtsQUxHpbv7R42E6A1Fgjy6Vh3sAapH+JgJH82r48iXd
-	 x+UDWlxBkawGAgK6RgA5a7IDxtTCrByZbua0e3lyu8yVmnTRru+/D9/opOYp9bSBd5
-	 Zq66FXnau3yyAFtEUOopmCI34w6dhA4yhxEZAhyZNAJCDL0XbAZ1SENdG1UF0bATWo
-	 2Jgum8aW2EzfujVxH1BOfO5HoLo4jFYvV7qAwSvjVHLkLbRCV4FwW+NUjVwgMj960V
-	 m5dDw2JNKspfCGNYkjc7VJy4XxGtcIv/X2VmCIg8EIlIj6sqLSlArb2J2JDQsjiBFv
-	 5VVDg7HNIGaIg==
+	b=l5AJnR/aw2OZ60IftjcvHyKWI/ROZkAfk3lu8eb1PdPn4Bicg61605To20Uh4Vaty
+	 JfM3Nayw8n5UCWUFNb4ahcsq2FjbCWdt3N4GAThUtDqbRaVtcVmoygMEU+f4ihY+uE
+	 Qew3UpV+a4p38KDrjDfWVWLyfGRtm3Pzov6f7BThSf3gYvDtR+5WE9od6KKp35aC7e
+	 mxa07hGcYXUHWtfqBC2VfOcrbQIMx+73eYssx73wVEHqhdqoP+YZI7i5m3BXUwxavd
+	 g8TN3b14dhSEziebwhEEkmpcimHdRd6bjqjdPYFpOitt0nicUav0QGy5idFFI0G7+4
+	 wNQ+qbS2UNidw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Florian Fuchs <fuchsfl@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mtd: maps: vmu-flash: fix fault in unaligned fixup
-Date: Sat, 25 Jul 2026 10:12:16 -0400
-Message-ID: <20260725141216.3814247-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/4] thunderbolt: Keep XDomain reference during the lifetime of a service
+Date: Sat, 25 Jul 2026 10:12:19 -0400
+Message-ID: <20260725141222.3814514-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072055-uncurled-goal-4367@gregkh>
-References: <2026072055-uncurled-goal-4367@gregkh>
+In-Reply-To: <2026072059-tumbling-reflux-fc14@gregkh>
+References: <2026072059-tumbling-reflux-fc14@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,57 +44,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Florian Fuchs <fuchsfl@gmail.com>
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-[ Upstream commit 79d1661502c6e4b6f626185cef72cf2fa78116e1 ]
+[ Upstream commit 8b4060998637f06975fceee9b73845d8672d411e ]
 
-Use kzalloc_obj() / kzalloc_objs() to allocate the memcard structs,
-instead of kmalloc_obj() / kmalloc_objs() to prevent access to
-uninitialized data.
+This is needed because we release the service ID in tb_service_release()
+and the ID array is owned by the parent XDomain.
 
-Fixes runtime error: Fault in unaligned fixup: 0000 [#1] at
-mtd_get_fact_prot_info.
-
-Fixes: 47a72688fae7 ("mtd: flash mapping support for Dreamcast VMU.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Stable-dep-of: 2c5d2d3c3f70 ("thunderbolt: Prevent XDomain delayed work use-after-free on disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mtd/maps/vmu-flash.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/thunderbolt/xdomain.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/maps/vmu-flash.c b/drivers/mtd/maps/vmu-flash.c
-index f96a165fccc7cb..ad10f7887dfa0c 100644
---- a/drivers/mtd/maps/vmu-flash.c
-+++ b/drivers/mtd/maps/vmu-flash.c
-@@ -610,7 +610,7 @@ static int vmu_connect(struct maple_device *mdev)
+diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
+index 1fd1cf4295a2a5..1276581ef02938 100644
+--- a/drivers/thunderbolt/xdomain.c
++++ b/drivers/thunderbolt/xdomain.c
+@@ -1012,6 +1012,7 @@ static void tb_service_release(struct device *dev)
+ 	ida_free(&xd->service_ids, svc->id);
+ 	kfree(svc->key);
+ 	kfree(svc);
++	tb_xdomain_put(xd);
+ }
  
- 	basic_flash_data = be32_to_cpu(mdev->devinfo.function_data[c - 1]);
+ const struct device_type tb_service_type = {
+@@ -1120,7 +1121,7 @@ static void enumerate_services(struct tb_xdomain *xd)
+ 		svc->id = id;
+ 		svc->dev.bus = &tb_bus_type;
+ 		svc->dev.type = &tb_service_type;
+-		svc->dev.parent = &xd->dev;
++		svc->dev.parent = get_device(&xd->dev);
+ 		dev_set_name(&svc->dev, "%s.%d", dev_name(&xd->dev), svc->id);
  
--	card = kmalloc(sizeof(struct memcard), GFP_KERNEL);
-+	card = kzalloc_obj(struct memcard);
- 	if (!card) {
- 		error = -ENOMEM;
- 		goto fail_nomem;
-@@ -628,15 +628,13 @@ static int vmu_connect(struct maple_device *mdev)
- 	* Not sure there are actually any multi-partition devices in the
- 	* real world, but the hardware supports them, so, so will we
- 	*/
--	card->parts = kmalloc_array(card->partitions, sizeof(struct vmupart),
--				    GFP_KERNEL);
-+	card->parts = kzalloc_objs(struct vmupart, card->partitions);
- 	if (!card->parts) {
- 		error = -ENOMEM;
- 		goto fail_partitions;
- 	}
- 
--	card->mtd = kmalloc_array(card->partitions, sizeof(struct mtd_info),
--				  GFP_KERNEL);
-+	card->mtd = kzalloc_objs(struct mtd_info, card->partitions);
- 	if (!card->mtd) {
- 		error = -ENOMEM;
- 		goto fail_mtd_info;
+ 		tb_service_debugfs_init(svc);
 -- 
 2.53.0
 
