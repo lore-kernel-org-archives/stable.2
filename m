@@ -1,119 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6292EF66B
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:50:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518A135C181
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784973020; cv=none; b=RGGT6Wnb6IY1qYGjGEeEs+0SdT8wtmqKfiTFkCCtBMPnu2s4pt9sUdcpAlch9/4UvuiAnxt/uuvNU5erT510mksi0qxeFFv8XnnUyAqc3qD+owgDLFaE41cfHyVwIU4Lnu95CRwJlXyIHb3lqkEzDgI7LwCfrE1fFKSTDnalZFk=
+	t=1784973523; cv=none; b=NS6yz6GtWGgLRx3ayMIwtGRbr5sysFVyQ/Ub8OylHhIcYOy7cK1gBpU/qxQm9Ti4xY5OotFuPL1TxrSdaFsjAWRoa5pgNTQVO4Z0KGOVhhuMK9oL5wRnEaDbHOjB7pQp8ZVGebAeHClUY+ZiS4F6fU3j31ayDgh9u/iRVaCP4gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784973020; c=relaxed/simple;
-	bh=ZOkMouzKTc6pwJSkP/6wV962hrK3jc/I5BHEdbYv3SE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r5Cgdy3Rk4FJSaNRMAmfKWADfvBkzfD6TGnrx1Qerrcw3AeF67snbqLf6xSbSazlLYnPZXDgGb8oxgghH4WwBrzTqIYgifaopjYdYsVTA6JDigDHuu5sLC0wDJDDfmkxzKMfIwcPBe97tfq7DFetoiMvDbgNrdMfFJSPXt2pUbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Htcz8lcY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784973523; c=relaxed/simple;
+	bh=u7XQd2TfJpmUZ4/0INvX1YpM88/6PuaaQnnv2Z3v1+k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QlYWPYfqqbJKPJlsR5dYCB5WSFaKHC1FbG0MJitczU/BtQORp2GYjdJcR2gS1IQfUUvfn/5TlxW4/60sHER2AuScZt1spUyMkPORsuhX06yfeLFNV9RalatiDVKN98vJa3zC886iOKQ3oK3s7J7uuXlO8YHNn+LE8CQSqj1hbHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0AFxKqv; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Htcz8lcY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDB2E1F00AC4
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:50:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784973018;
-	bh=CBulOiBGfBvTnAmiriXvYuXX2dx8xklmA/TrVRfbsP4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Htcz8lcY817CkpGrZHc53Sl5c9ZJmWQyD+uN7Q0Y0udjZREnyHYbbqIoI6ONoY3mY
-	 NvEXE2KAmNykCl3GpLNm7iw/n9WA3G6J3fyhV+g3CZgs9zPu0MVvGJweEAaT9UiRHD
-	 8zFy6xHekGGroHNxC5hhd7mQz7klcphI3QlT+u0rkg5ESKH7O7AcJzafe5B+0WCEug
-	 8f98Wxxy65ECHQ+GysO2BXmD8ghfx7Sa+e6OrsyUqd0VWh5lZgQiMGrIRPedwhTJO2
-	 QYuAc9XW7l4YOoO3HJUMaqe04lk+Pygqy7jt5G8IGh3OkASclevUb4+V82XFdAmoyC
-	 obBUMzHU9W1zA==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39c9bb9d2fbso10490321fa.2
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:50:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpTXw5FBl6Ig35K+/KySp3G12UfyDh7UtuCZmfBT7jt7IYBTA1Nu2/ZTsAC42uxUlnMIr0z0XA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+g/5rZ74ba5Kb4ArGUwdJLw4jmi9ctTZZxHoKckj9McRjBe+H
-	dxFvQW2y+Ri0Idqk4xrrcFf0Msp8pVc1QeeyQ7bRJc/m74XDy92UbcQFgOOM6b5BhuicJTnxrvZ
-	e7qD8SfV6o8uus/ZpaP3S0hihzwVpnA4=
-X-Received: by 2002:a05:6512:32c6:b0:5b1:54a3:d133 with SMTP id
- 2adb3069b0e04-5b2c1b422f3mr287463e87.44.1784973017667; Sat, 25 Jul 2026
- 02:50:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0AFxKqv"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ccf2360620so11905815ad.3
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:58:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784973520; x=1785578320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=10/FtAKu/P+lQSPQnjuP1JGyinhYTQiEXMNlosaGt6Y=;
+        b=K0AFxKqvSpwT3mCcclPMgCtPrIj9Z6c6bFTv5j4TCVNWh+8uh26He+oGwXfy0yNXNi
+         oHlQIZdHp2AuisWWpkzClE4Ny7jeMeG6sKzpM0uHBlNb1oN8nKhcv8Sx1wtIXm/AMuoL
+         SKA/a/iNZkQ8MzDuK1gSJuo71bwHKF5WmNJxPUUxb29iWvxb7cqLAN/49gk/olA7ADrU
+         JaviUtgrYqXD3LyqIIkNVP26NQuF7Y8v23JSO92UDA32S3LaL4wmbRxkN22DAKRAUWjD
+         MrL/atqlZvD9GvN7vHouRE+zQJg0YjUmWaj68aMNr1RCfgkk/AOXOniMsWTAvcxAenJO
+         kfTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784973520; x=1785578320;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=10/FtAKu/P+lQSPQnjuP1JGyinhYTQiEXMNlosaGt6Y=;
+        b=RMb13y4zyORlQmr0HM0kDuqA4XNc2Gm/o1D1+Jn8OrkAvhLmvTZIT9AC9xx3Ykvasb
+         5hiSkxrHrcMqgBh93BQ2RAp3SI2L2sAnRPXI7ffFeHkLfJ+/RRcNXRyZ05n0Pf/4NCJA
+         bFBX4M60w8Lbrohw2ggcLdda3HkuXWektqSAY0ygdbcT2rfdPYfgoTDxCoIk7VEtBOIx
+         YPraGMRr4OMoRjpJvpxBVfA7pZBC3o5oxiEc6exWQCokMZTYA0tK+ECUvGI00BBqsfY3
+         DpmDqfMsDereGwMWGnbqseJX1UTx788kntDIF3lRA1ar2tvumedZ2omBty7OqYaososr
+         NMiw==
+X-Gm-Message-State: AOJu0YwyUryjvcwt48TVmNWWIgNqsleQgmPtMpQgTaH8dMpGl1j7c3Xa
+	zLPbNPhJRe5WcIU8E/+pXptXyj20+3dKiTHSV0STDjp/FJVBxo0ocPOYMsHj6r8U
+X-Gm-Gg: AR+sD10kNm5igiNlXmBPGpiYHbiT0W044kp3bzNYkps3LvjI/3EPW1Q3zKraIxKXFdD
+	sDyTEY4NosfYvgzcV8nbEIiumgQoJ43oo8uPkxGWB8hCdA6LcAMa0dt58xhhpG0NIDOaXFPyXmi
+	EXDqHlXDTtQitXf86e/0v9wj7Ssw+xromLJHHrX3jJT30A4v7vuHsmbQXHmE5HCewUeZY6MwYnW
+	d5Pe31s94d/YpAzzCOx6J82s7yP3mEY7fiTbBKGSDgChFWUnb1kHLniQWf7zWgJsJtVUbHb3+Y9
+	mVTTV3m2aAmNvOe6gozrEoBihKg3o7wZCnv8BYe+Zzk/7P+3r8fl1kSoFrQIHtBhOqEb9zpbguw
+	EjWyNB4LvdYkkzGaq5rY08OxTzgEEyLVMim0eeSh5kl7uSFYmmlkqM4x/R9aG5GEx7PqgE1KnG6
+	QmbWuCghPuK9BzauED4wybZN5K8DTl
+X-Received: by 2002:a17:903:384d:b0:2c9:97a7:f548 with SMTP id d9443c01a7336-2cfde8a42d7mr15862485ad.46.1784973520074;
+        Sat, 25 Jul 2026 02:58:40 -0700 (PDT)
+Received: from localhost.localdomain ([14.218.53.74])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde7d978esm7851925ad.59.2026.07.25.02.58.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 02:58:39 -0700 (PDT)
+From: Junxi Qian <qjx1298677004@gmail.com>
+To: stable@vger.kernel.org
+Cc: brauner@kernel.org,
+	joannelkoong@gmail.com,
+	mszeredi@redhat.com
+Subject: [PATCH 7.0.y] fuse: fix writeback array overflow when max_pages is one
+Date: Sat, 25 Jul 2026 17:58:35 +0800
+Message-Id: <20260725095835.62290-1-qjx1298677004@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026052020-doing-champion-3502@gregkh>
+References: <2026052020-doing-champion-3502@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260723014129.1129730-1-junjie.cao@intel.com>
-In-Reply-To: <20260723014129.1129730-1-junjie.cao@intel.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 25 Jul 2026 11:50:05 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=EJyWpqjwCdfosdanjS9GUAwMEJjHFrcvMyBV3iKHZZw@mail.gmail.com>
-X-Gm-Features: AUfX_mznnK_vQ59WsYiY7CKXNdlpyrZq5O3JkxdlH-E4-8Q6XPCmriF1pwb-x04
-Message-ID: <CAD++jL=EJyWpqjwCdfosdanjS9GUAwMEJjHFrcvMyBV3iKHZZw@mail.gmail.com>
-Subject: Re: [PATCH] gpio: pch: use raw_spinlock_t for the register lock
-To: Junjie Cao <junjie.cao@intel.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Junjie,
+fuse_iomap_writeback_range() appends one folio pointer and one
+fuse_folio_desc for every dirty range that is merged into the current
+writeback request.  The merge decision checks the byte budget against
+fc->max_pages and fc->max_write, but it does not check whether the folio
+and descriptor arrays still have another free slot.
 
-thanks for your patch!
+This is not sufficient for fuseblk, where the filesystem block size can
+be smaller than PAGE_SIZE.  With writeback cache enabled and max_pages
+negotiated as one, contiguous sub-page dirty ranges can fit within the
+byte budget while spanning more than one folio.  The next append can then
+write past the one-slot folios and descs arrays.
 
-On Thu, Jul 23, 2026 at 3:42=E2=80=AFAM Junjie Cao <junjie.cao@intel.com> w=
-rote:
+Split the request when the number of already attached folios has reached
+fc->max_pages.  This keeps the folio/descriptor slot accounting in sync
+with the send decision.
 
-> pch_irq_type() is registered as the irq_chip .irq_set_type callback and
-> takes chip->spinlock with spin_lock_irqsave().  This callback is reached
-> from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
-> the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
-> That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
-> an rtmutex-backed sleeping lock, so acquiring it there is invalid.
->
-> This was confirmed on a PREEMPT_RT kernel with lockdep
-> (PROVE_RAW_LOCK_NESTING and DEBUG_ATOMIC_SLEEP).  A grounded PoC mirrored
-> pch_irq_type()'s locking and drove it through the real genirq carrier
-> irq_set_irq_type() -> __irq_set_trigger() -> chip->irq_set_type(), i.e.
-> the same __irq_set_trigger() edge that __setup_irq() takes for a
-> requested IRQ.  With the original spin_lock_irqsave() edge lockdep
-> reported an invalid wait context, immediately followed by:
->
->   BUG: sleeping function called from invalid context at kernel/locking/sp=
-inlock_rt.c:48
->   in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 95, name: insmod
->   hardirqs last disabled at (3784): _raw_spin_lock_irqsave+0x4f/0x60
->    rt_spin_lock+0x3a/0x1c0
->    repro_irq_set_type+0x64/0xa0 [pch_repro]
->    __irq_set_trigger+0x69/0x140
->    irq_set_irq_type+0x78/0xd0
->
-> Switching the mirrored lock to raw_spinlock_t made both splats go away.
->
-> Convert the register lock to raw_spinlock_t.  The same lock also
-> serializes the GPIO direction/value callbacks and the suspend/resume
-> register save/restore, but all of those critical sections only perform
-> MMIO register accesses (ioread32()/iowrite32()) and
-> irq_set_handler_locked(); none of them contain sleepable operations.
-> Keeping this register lock non-sleeping is therefore appropriate for the
-> irqchip callbacks and does not change the GPIO-side locking contract.
->
-> This is the same class of issue and fix as recently addressed for other
-> GPIO controllers, e.g. commit 286533cb14a3 ("gpio: sch: use raw_spinlock_=
-t
-> in the irq startup path") and commit 90f0109019e6 ("gpio: eic-sprd: use
-> raw_spinlock_t in the irq startup path").
->
-> Fixes: 38eb18a6f92d ("gpio-pch: Support interrupt function")
-> Cc: stable@vger.kernel.org
+Fixes: ef7e7cbb323f ("fuse: use iomap for writeback")
+Cc: stable@vger.kernel.org
+Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+Signed-off-by: Junxi Qian <qjx1298677004@gmail.com>
+Link: https://patch.msgid.link/20260506122415.205340-1-qjx1298677004@gmail.com
+Acked-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+(cherry picked from commit c3880a7b10e487e033dc6f388bda118436566f7a)
+---
+ fs/fuse/file.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Really? Why to stable? Is this a regression of something that used
-to work before? Using RT is fringe IMO.
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index acd2667f30..e94cce2915 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -2177,7 +2177,10 @@ static bool fuse_folios_need_send(struct fuse_conn *fc, loff_t pos,
+ 
+ 	WARN_ON(!ap->num_folios);
+ 
+-	/* Reached max pages */
++	/* Reached max pages or max folio slots */
++	if (ap->num_folios >= fc->max_pages)
++		return true;
++
+ 	if ((bytes + PAGE_SIZE - 1) >> PAGE_SHIFT > fc->max_pages)
+ 		return true;
+ 
+-- 
+2.34.1
 
-> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
