@@ -1,147 +1,66 @@
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD8A23AE62
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0DC1F4C96
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784990058; cv=none; b=FuR7K9mi+NKS9YURDeetrFdxUVzi8Qxuw6ePfoL6tWDZ4gWjMJWMfpmwbrRDazOv3QJZ1UmsnD56Hd1PsbTb/t3VVcKyMVc34kbprnC9qgbFsnWUHRAfwA3Hx2Y+FhL7PCFSg+zbcNAV/h+mCSO9rd4nk10ecTkdESaGLJc141A=
+	t=1784991278; cv=none; b=pPVlpVXzBtfdSJbAFSLNeketNVww52ZjKUKe/LNeLONi1CZ2UukFAGv73RWVG+zUr+1IwM3/HdgA85fh2bPaH0oWeq9as9I2WfJC7OFuj8HMairq56CJ48k1Fe6xZ+uZimJDhZ2Yd8Dni7qsLa3f5SFWvOpZNF/3vEdExh5cPug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784990058; c=relaxed/simple;
-	bh=YvPY+TLfnAZJLuA11fwmu2rvBC8Nt5tUSqw5kT8WiQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rAzWMN77WtpuQMkJSIqPVo9L1Dq31jraV2s0XprxQrDz8kjR3qfRRperWtZEG5D4TAb12Sl7S3mPFeu1G4l8qioGeMAuWWAy055+bLtvPM7kBxyU0jsaeDuADahdUX8Y3sPkV5rKgTvH4IjLtmZ7vIOQ/Jgfio4o7KR+ujEyaV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=XUMaulVM; arc=none smtp.client-ip=209.85.222.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1784991278; c=relaxed/simple;
+	bh=qhdz2d29ZCzKc1L7vfhoe86N9GWBB/y9R8IouJ0S0og=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ALPFgZPvY5KpYlwm/12K9F02lt4JtI1PAu58N0WOz/jIKgIPRcbU1mUF0wklJvr/Ky7zBFVIhEbTjzP7pLcRuExvNTIJrG7lsamX+9B3W1/mxLnqI81BMRvuuNkCGs4MEjFpFmMv10WW4bwJuQ+UU1e5TxGKo0o1nMllDpQgn04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh; spf=pass smtp.mailfrom=gibson.sh; dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b=i5q+8n1Q; arc=none smtp.client-ip=83.166.143.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gibson.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="XUMaulVM"
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9674d727c0aso1316276241.1
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 07:34:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1784990056; x=1785594856; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vD91S1DbebApVBCN527t7AaQw07MlhokwGC+vI5FhsI=;
-        b=XUMaulVMriK2c49kk4iystDShc7ivllItiMlNvFoalQdNBdfzKDkDGPCnY6EeP7xpI
-         XmqYz8snPcYjC4JiXgSohd3oF09yMaWPyJkBLCkOWOIxemVv2Pzx3MCa2mUnHu+8G99j
-         fr2GPkbN7fsdj99DAoVvfCnRtaHMhrD9IHciay+cqpzLH1BV4FJKXdrfeoT1SAh43hZY
-         YyB0RnMxkMTXSsCsTOHtwTCjaYNAKljLz4YCN+Su9JqL6Nb21FyJYIeR74Q2i7I53C04
-         v++1ASZmuN0o4TMyX9sPhUo1o/tD1gPp+RWA8NtJ1nHZP5krs0DelwvFgEG6Ql1NYsD0
-         g6Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784990056; x=1785594856;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vD91S1DbebApVBCN527t7AaQw07MlhokwGC+vI5FhsI=;
-        b=jcZBdd87lzUXdpHeyOCpRAyipgOMil5yrb+kR0Yus0u1wTO53LrOQjvaGg/e+qCd8r
-         gH6fNeLbw/hnLDgs3L8Hf6aQBO6ktrcju+qoIiZW+fEGTSq45wSCzpLlQkA4pMYDhD+1
-         7hbzKkfrSfLyghfqdGAA3sbe5KvXLYA0NHtus3M8Pn0JCJibGHUjmGPk6bsY8EzW7jTX
-         YmCWjsSDdatbCaKL3Hvw6UyoAwyISK8nKtc0xsbohjXpynvZ3xjN5Hla6PYPlq2M7stV
-         iUjDSy3mILx1ucONonqgETkeEVKCyUJNvAQltrKKsaOWfBQ+uKfy4H92ROBTKRbw3DqZ
-         1Eug==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2weW6oyT8x3HN4ivsUq84kDgrl3zI9iDfjHEcGvDziUXIR3bKz1ju3zcYJQ1ilztjrl0PNw4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmuqeOmY6lMd1KZ6hR6spEsmeGSoMZYnEFVy0TIfQeI8u22Y1M
-	i+YygzojHQQwU7DVfBIPp4oTcWy6fljgEa+onSpRpRTHPlyfQXOfOG2r2WH/ieQrj/I=
-X-Gm-Gg: AR+sD13nFNw5xRsygTof88PKsO7tbG/0tSoad29BR2jD5U3MRcfmGeflQFKotbFOaxO
-	kxPbpK0/N2SvM62Es3VvGIJintrXMcX1lLXJJsyN7Wr3DwRNjpVcYUiqx+YXmogDMesoWwjRsbw
-	x3duqk1VsB4+eH67xtUxSgVuN7EpXHYqTRPjhfr0tAQYhvan3lhP/yPE4qwo0fzXwIuWh6tc/Bw
-	tqLBKvf0PfL2LzLodsfvixtNSk7D6qw/ouSCLbbo9K4M0uh1uWs/f/1r2zIG5kvOf9I+UukSGvV
-	4BdDskHk/JCa/fgXm5HEyQ9cMwxeDQmEbzI6pVzqI10FZ5Yj2Rmio7jhKpRxoWCz9OCrb1O6GUa
-	3lpXZJHyMEqwWgdMZiqM2SIsdjkjJKKD/AGKGoH+872wQ6OpnD4tM
-X-Received: by 2002:a67:fd76:0:b0:744:d517:b0b0 with SMTP id ada2fe7eead31-74f9f02b7f2mr2159251137.10.1784990055747;
-        Sat, 25 Jul 2026 07:34:15 -0700 (PDT)
-Received: from ziepe.ca ([12.18.163.234])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97774f12690sm1878229241.12.2026.07.25.07.34.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 07:34:15 -0700 (PDT)
-Received: from jgg by NV-9X0Z6D3.localdomain with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wndS7-000000000hU-1YTd;
-	Sat, 25 Jul 2026 11:34:11 -0300
-Date: Sat, 25 Jul 2026 11:34:11 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-coco@lists.linux.dev, Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>, Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
-	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
-Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
- dma_direct_alloc_from_pool()
-Message-ID: <amTJY_CdE-uDgoGG@ziepe.ca>
-References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
- <20260717180442.110954-2-aneesh.kumar@kernel.org>
- <20260721115456.GI110966@unreal>
- <yq5atsps77c5.fsf@kernel.org>
- <20260721142921.GN110966@unreal>
- <yq5ao6g0750v.fsf@kernel.org>
- <20260721153321.GO110966@unreal>
- <amEhEKQW0_HJ9cLN@ziepe.ca>
- <20260723075704.GC110966@unreal>
+	dkim=pass (2048-bit key) header.d=gibson.sh header.i=@gibson.sh header.b="i5q+8n1Q"
+Received: from smtp-4-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4h6nv72r4CztGd
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 16:54:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gibson.sh;
+	s=20260228; t=1784991267;
+	bh=G+X3gJfLzwpJLA0G0Ugf9Wbj+jHXFkOO/gbfBZokizI=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=i5q+8n1Q5OTro0gEWOl2BtRo7MPtwTK81lVYo5hKbj6Sw5jz5xZkwF0wrPUk3tkTm
+	 jpwFD63TpmocSGYSi0TM4Ak/lJQIWBjpuPErUQnAiUhZ4SUVYbNUECWc1+whHl6551
+	 s0TIVT5EwEnoY50avodjm8dLQlcui6vUEMM8gzpasFosaIykt+F6zvqTo3kWqEcEcA
+	 KMj+tOhiYCscFWrS1C+UR2HXCmkPIZoJOFqQjZvcAH0LFSxhlBlOeKrG8Lwe5/JUb0
+	 7At0T54a9gWNNo48C0C0DR0XBO20w/74AqTEXV3pZXClbccp7xu5UbUgWu/Y7gbqKt
+	 VNNvLv7R5CYZw==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4h6nv660Kzz929;
+	Sat, 25 Jul 2026 16:54:26 +0200 (CEST)
+Message-ID: <33bdf705-1044-49ba-a641-ac9f285a611a@gibson.sh>
+Date: Sat, 25 Jul 2026 16:54:26 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723075704.GC110966@unreal>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] amd_pmc: Backport additional delay_suspend patches
+ for linux-6.6.y
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+References: <20260722165402.3199573-1-daniel@gibson.sh>
+ <20260724105500.stable-0009@kernel.org>
+Content-Language: de-DE, en-GB
+From: Daniel Gibson <daniel@gibson.sh>
+In-Reply-To: <20260724105500.stable-0009@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Infomaniak-Routing: alpha
 
-On Thu, Jul 23, 2026 at 10:57:04AM +0300, Leon Romanovsky wrote:
-> On Wed, Jul 22, 2026 at 04:59:12PM -0300, Jason Gunthorpe wrote:
-> > On Tue, Jul 21, 2026 at 06:33:21PM +0300, Leon Romanovsky wrote:
-> > 
-> > > Something like, but probably void* needs to be phys_addr_t:
-> > > 
-> > > static inline struct page *dma_phys_to_page(void *addr)
-> > > {
-> > > #ifdef CONFIG_DMA_DIRECT_REMAP
-> > > 	return vmalloc_to_page(addr);
-> > > #else
-> > > 	return virt_to_page(addr);
-> > > #endif
-> > > }
-> > 
-> > I don't like this, we don't know for sure the addr will be in a vmap
-> > and this will fail if it isn't.
+On 24.07.26 13:22, Sasha Levin wrote:
+>> Daniel Gibson (2):
+>>   platform/x86/amd/pmc: Don't log during intermediate wakeups
+>>   platform/x86/amd/pmc: Avoid logging "(null)" for DMI values
 > 
-> Of course we know. The existing "#ifdef CONFIG_DMA_DIRECT_REMAP" is
-> relevant for addresses acquired from pool.
+> Queued the series for 6.6, thanks.
+> 
 
-Yeah, but I still don't like it :) It is hard to follow if you make
-those kinds of leaps, someone will call this new helper on something
-they shouldn't
+Thank you very much! :)
 
-> dma_phys_to_page() is a bad name for some low-level conversion function.
-> It needs to be internal to DMA logic, in the level when we convert from
-> phys to page.
-
-I think we should not convert from phys to page, that's also easy to
-do wrong
-
-Jason
+Cheers,
+Daniel
