@@ -1,93 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5917039A80E
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760D239C62F
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:22:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784971190; cv=none; b=pih1olyiZVm/D0fp/gQ5DP6NKO7pjGNRLHqh3DzMMOZUox8XbKK/Ccx6jGS3jvML1IEtJDGza4PwAYAXOup7lYaUfEm8VboP4hF8a2lWc7oX0COyCVb1LfR4/xX4HF7MvutkN1A5vmdzWqz7ebHNsZh+BJJqwec0ETHbCNFjU7Y=
+	t=1784971334; cv=none; b=tlHc8rvUPs3UIpmAlysjcL/kpFGoBGpTPhOiQ6wzB30dpYprLR/T+8H4gUegZ8NWFw94oFPAJ8Q3HIFaXCMmqPQrZiAqBwbDwErJPXq/s5uzpdsModetr/y6YOnse/UN1R7mt8JIlo50yo8i5tjuscEwYWff69brAOiagHj0QKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784971190; c=relaxed/simple;
-	bh=gT1CKO4EK7/3bWac08s2YQxQzdQzTQ0qmITNcMrkTwA=;
+	s=arc-20240116; t=1784971334; c=relaxed/simple;
+	bh=RPDFRdWxVIW9S40pzEN5XZuqdsGYTf0D2/HjPnJLjSA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t+PxaPjV0fMITOXDEN/jeGsyiqLGHDG2rAErnJj5Q4pzJERAPMfXCTnV7JLeegv6OWVcOj4MfptuH9WTjkL03AKfg6kwUmcVOCbNPqV3T/MhePsdYQtHA4QXWC50sDa7M4MKcviGeEfWBusc/yDJj4qu1zXDLL0ru3rvAQb7OIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ppu9UWTa; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=smzO5WRTlCHtxh/p7nz3OBcf+0uLLhT99sGE3owBU+4RoW8xPxhFzA+6z5TvZrU4bMTRQ/KFWKIE8SEpxRm5xuffvW3ABryRMyt2/QkBV9dOAnklRLHosfekWgC/7jDhWLRBEofJo8DiO7rn1EUWpB/y1qc0A3ZbQorz9xH9KZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=evfVgZ+N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ppu9UWTa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BBE51F00A3A
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:19:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="evfVgZ+N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341E11F00ACF
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 09:22:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784971189;
-	bh=NGubqI94Ei6nqDONetK9C5AMVRp/MQujLv0n88M/a/Q=;
+	s=k20260515; t=1784971332;
+	bh=yeffZJ5O7jKGs/TLFEJVw8uSr4ijtSiArzHMzMUH3yo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ppu9UWTawyDY8JAhaTiq+UNZ0TGAedPl05g6TLBTY7WY8L5xR+SDWQrSvBoOw0XrS
-	 KEfWNQR3L//7JewG1tgKWS/a5t+QDi+EPRSSDZxjZd5ppz94CUWkoFvftK8YxMHpYP
-	 l5heK7gazYYo+dalXjPktla9SNcBxN9sX9tjMQArsUH0c1jefbxHLCMTk2SKa6xVnr
-	 u3OeZDgbp6vllOK74eivPIM8oKoGjBoUSV/V6u9Y1ry/ilGVnYuVovTsMMtsZVZ1IP
-	 oqcoIM+rX47NO273j+cFD4ddKX0lDaycCsowCBW5JbL+OPzsUa5Aq6UebfizzVziL5
-	 9wH85UcGx8fWw==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39f00ce92d5so7311081fa.2
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:19:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrM+0jUL8lv5buDuCroQjk7x3ub3EfJh7oHq6DkfTR3pQ9GRx6t6nTN7EsAK+eZkITbYkhmAi4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPReiaNlCpcao9ZbnnbaPpp5rtfNARtneeUX5dDoZIY32ILK7s
-	2uiy015GGk/8WESQZcpf5q8PRkLh+eqjTyDj5JaFRQvo+0ieAR3+kc5BcTmqK9SlC0v5xh6j+Ef
-	rYL+kwzkpSN4GLdJ9uVFkPOqCXLFW2Zs=
-X-Received: by 2002:a05:6512:33d1:b0:5b0:1ace:3bec with SMTP id
- 2adb3069b0e04-5b2c1af52f0mr268182e87.10.1784971187926; Sat, 25 Jul 2026
- 02:19:47 -0700 (PDT)
+	b=evfVgZ+NvqPhkm2zem17DUpcWqWTEJbj0XeW6AMsN8v/mE9jnDRne8gb+1WYKr/Hr
+	 57a/YGXe9CuB9WdTAkN1WDuE+CghA6EV1yKa+Yz4IScB3QvqnKh9tgpdhmUzx/0bQU
+	 938lV+nLrTaEm7uTpZNikS+TvPjIVK9UMuY1QouI8tHC3a0gUvO6Nzgfery7VOVWkl
+	 ANZOb4jt7h5xHts6Tcniyuu5JZCQQN1aMhg/fhuhv1nr56pkPKbBNRObL9BQAb1UdU
+	 y6zNtKzR2qjru7XO8jpoQqEd6fXqLf7/keOGdlrtw4Jmw9mfCe37S0CeDUrXoS1IEa
+	 knrobmKtS1kDw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b2a4359d16so1426539e87.3
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:22:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rp5I/eKyhqWMRlYJr8+jU4U3Y1MgsUlgdFArUkjXpn8tsqtwKly3YQH/OupxOGLsmk+Gtegmuc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEoPOMpxFD9X6ot5rtoIV7m0O9emKItS4tvQXYceuMO6ZYjrHl
+	qXIC7RvWCjPZwcv8nTmfzVMvOPn5jrWgspbpeYbiSpLkD4jJmBSQEHkTGDu3DsRWT2ckyv9FUI+
+	9XHpPPaDmbBnTrnAzvO7IKyRdgI6aepQ=
+X-Received: by 2002:a05:6512:15a1:b0:5ae:b2b0:4c15 with SMTP id
+ 2adb3069b0e04-5b2c1b20907mr265837e87.11.1784971330951; Sat, 25 Jul 2026
+ 02:22:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260719121140.28730-1-kmehltretter@gmail.com>
-In-Reply-To: <20260719121140.28730-1-kmehltretter@gmail.com>
+References: <20260719094427.1328725-1-bennib@mailbox.org>
+In-Reply-To: <20260719094427.1328725-1-bennib@mailbox.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 25 Jul 2026 11:19:36 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnCSVfJy7hgPr2qAwYeJy2wVNMfHoi7aCdJsupEBXaxDQ@mail.gmail.com>
-X-Gm-Features: AUfX_mxBmD26epbQyyenypkfzJ30-O3BLttZrbPM42ge6269rEY64-rgYQRYkA4
-Message-ID: <CAD++jLnCSVfJy7hgPr2qAwYeJy2wVNMfHoi7aCdJsupEBXaxDQ@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: devicetree: don't free uninitialized dev_name on
- error path
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Will Deacon <will@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 25 Jul 2026 11:21:58 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm8cqC2Y6nJLy4KULSbq8+p=+eTDH9Kz2dDSpfZH0Eb0w@mail.gmail.com>
+X-Gm-Features: AUfX_mz1K-DO6jIR7qrurrfXV_-LnGCnet5e8Rx3EcWtnOYCGFlm6uPvx3txgt8
+Message-ID: <CAD++jLm8cqC2Y6nJLy4KULSbq8+p=+eTDH9Kz2dDSpfZH0Eb0w@mail.gmail.com>
+Subject: Re: [PATCH v2] pinctrl: microchip-sgpio: add missing select REGMAP_MMIO
+To: Benjamin Boortz <bennib@mailbox.org>
+Cc: andy.shevchenko@gmail.com, lee@kernel.org, vladimir.oltean@nxp.com, 
+	colin.foster@in-advantage.com, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jul 19, 2026 at 2:11=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
-l.com> wrote:
+On Sun, Jul 19, 2026 at 11:45=E2=80=AFAM Benjamin Boortz <bennib@mailbox.or=
+g> wrote:
 
-> dt_remember_or_free_map() duplicates dev_name for each map entry. If
-> kstrdup_const() fails, dt_free_map() frees dev_name in all num_maps
-> entries, including entries that have not been initialized.
+> The driver calls ocelot_regmap_from_resource() via <linux/mfd/ocelot.h>,
+> which internally uses devm_regmap_init_mmio() and requires REGMAP_MMIO.
+> The Kconfig entry does not select REGMAP_MMIO, causing a build failure
+> when no other driver in the config happens to pull in REGMAP_MMIO:
 >
-> Some pinctrl drivers, including pinctrl-imx, allocate the map with
-> kmalloc() and leave dev_name for the core to initialize. The untouched
-> entries therefore contain uninitialized data which is passed to
-> kfree_const().
+>   include/linux/mfd/ocelot.h:34:24: error: implicit declaration of functi=
+on 'devm_regmap_init_mmio'
 >
-> Reproduced on qemu's mcimx6ul-evk (pinctrl-imx) with failslab injection
-> while binding the pinctrl-consuming device, under KASAN:
+> Found by randconfig testing on arm64; tinyconfig reproducer below.
 >
->   BUG: KASAN: double-free in dt_free_map+0x34/0xa4
->   Free of addr c425a900 by task init/1
->    kfree from dt_free_map+0x34/0xa4
->    dt_free_map from dt_remember_or_free_map+0x184/0x198
->    dt_remember_or_free_map from pinctrl_dt_to_map+0x33c/0x4c8
->    pinctrl_dt_to_map from create_pinctrl+0x9c/0x5c0
->
-> Initialize all dev_name fields to NULL before duplicating the device
-> name, making the full-map cleanup safe after a partial failure.
->
-> Fixes: be4c60b563ed ("pinctrl: devicetree: Avoid taking direct reference =
-to device name string")
+> Fixes: 2afbbab45c26 ("pinctrl: microchip-sgpio: update to support regmap"=
+)
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Signed-off-by: Benjamin Boortz <bennib@mailbox.org>
+> Reviewed-by: Andy Shevchenko <andy@kernel.org>
 
-What a good find, patch applied!
+Patch applied for fixes.
 
 Yours,
 Linus Walleij
