@@ -1,62 +1,51 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A4A386C22
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BB52BEC23
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 02:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.178.238
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784946632; cv=none; b=AAmc7xDCXpHihvi+z4EfuzxO+qJIOhHXC0Rko/HtimWFSLa0CWK95MVYjmGQ2XExIEs9r9o8/zv44LpJisLgNe/BvppOk1bkDIGXS9PWufu6gT9+3dZhslNVODZ2W0eqOUah2U18bI5KSb/eE6bo7Y2zF3MdVNelZfQJN4VXOLY=
+	t=1784947257; cv=none; b=ePnB3St/32/4TTJRKeBI7FQNiaAtfOYnBzfcjAPuqbd/tNBi0tdubnSAWQoS3ayLYIDTyo8I+9Z+CkcBrNue2bmRq0i7VWCVMScCpMaxxOPaqSjEyaSRyldKLC9zAEKHEwQZNGF/OsbdCWbWgY+FaFNthtiug8TboxqgY5Wl0o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784946632; c=relaxed/simple;
-	bh=P5Cu2ixwuCh5Bkpq5o7mlJq0hYjWtK6FseCDTs1JQ9Q=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=cpqYtV9UQ5BSt11dKKbTNyCt9n4izIcHITsWwV0qBiDe+UC5jg8yf8ksT3AWvJQy0VUZDGeoYwSXJEz0Ai+nRWS+XQmkyJaYgn7fsQs06mRbPSjaVcLSvlCFjumJFsSM/8lCkkgWlyMbQeYuJDSlISsuJeX+33WIbU7dp4yQQ1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=jnWL8vyc; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1784947257; c=relaxed/simple;
+	bh=s7DABp79lmouaegyvbRepnivXsOGFVUNS8Nw/huquY4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bkX8vkeXi2bYP+W7nzUf/aUokel/df8i4yYN0Mfvx9lpNgZtgUr/Fc1lZL9JnPDxi5xQL9EgORr+m7NQwgRr8JghKLQdOiHzXP8RNAR2JiHeLckshv7bAai4yg+kEJMcmyo7inJM+/WJUr7Bk9ktLb+PSzhMgIPvs7uFE/D4C9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=CLSUtuhJ; arc=none smtp.client-ip=205.220.178.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="jnWL8vyc"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so13884125ad.1
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 19:30:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1784946629; x=1785551429; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RBcugPYe5X/eXm5HhhLIzL3GpygWKGrb/P24qeqW4L8=;
-        b=jnWL8vycVkYRMCuqfNGdN9ca+iQW+giaqllzziBYmoya6vaJ8zDqsRtF5pfasaFmVd
-         KXPbML8xrIHvf9QvkUzYV4sFRYAR6gV7w8SbFbTpM9IUSoxxDkvGy79tBrjEFG7QggT1
-         x0/l2lg+3mwMy4nYHoVS5+/7kmLp26GEZNEZTSJntqVPZNA4LefrdlueHrYF6zG54eGq
-         rveWWo/rHw/16/PFvTwuE7VuGm7JSf8kbNF7SZS4+9xMf/9w4PipmZtZxVz6dQlBJJW3
-         4AYsxAq9dufHeuc/5AhP1u8BTIJ8sKIJFYF+tnDNTw/y40TqoCTp2lUUcid+lfsUPEyW
-         UZuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784946629; x=1785551429;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RBcugPYe5X/eXm5HhhLIzL3GpygWKGrb/P24qeqW4L8=;
-        b=XeO6r0pee8qvdJAKWnX0NGCP4tpLM6zhxXYbWOVer4W2uOBCs+KgQKEtk3jOsOxe2Z
-         HzuS2svALpXNIx1y+PtaO7e1b0qSrVfS6zTed5vqrGwNyW2lwZon5MzVdFpNhUoLHdVU
-         hmgctgiCrViEsG8Ybiu4miv/cVKxniPRn/krMb+pfTuJth22odmVMHu23bGLJ86Ua+Ql
-         m9BqpCx7+J2WA1nU0w3s8azjhZfO8GN9P85uHEXhp/IeGZCVtzs1SfcqXjuWr4TKV5NW
-         ruUtHQeqOMIrB3G53FBcFdKn/z1uRxkam4ZMOxWBHg08lW11PM+vT0F7GJCvaqrljMTp
-         7iqw==
-X-Gm-Message-State: AOJu0YwwsZNrk83WIYp69PDB6lLXh+al9ffTBJG/qqwxue9RAhInbV1h
-	pu4+iKUism9apwMvJKhs4wM8ZURGijtW4DXz4xTMhyMBsYG4LgCrFdVklsKe5QXKIFY=
-X-Gm-Gg: AR+sD13upi5g3x5nfFSXbrnsXdaekfL0AQ9qjPWPj/BZkQvSPVV5gwKLjYwzmZ/S/Is
-	oagoaILuspfNgKbmjklwfBCgOFN32KnEjpzsLDbUBQNMXUvRvu0kKvW4KfUHJgLVUiI81NYftbQ
-	xP8QmFmCAMgqGNAWO5D60anhtcehDIwuUTZ/6RZhWqzD0Dfp4p3Q51iPn8+slHRZeoJhOhT85rd
-	qMTkYoFtoLDtu3a2BCFoyIWOKyiVwgySb+XJ3CnG7olLOTOA1fi9qWBsoaEuTcKwgZFxgMhJrmn
-	VQfyzPDF5tK9rirgN/r9oBT9W2HLdBrx8fCEVeE3+ecT/0dVbtO8bS1J3M/3tTeKQN/IMbAsfnd
-	3lF6oEiVTFxwx3/QP1WKIW0ZWBkoTOjm/IJE9x0yVuG7N640ezzL6+b4a7tuxXQMMsxUFcNM=
-X-Received: by 2002:a17:903:2ec4:b0:2cc:f4d4:299f with SMTP id d9443c01a7336-2cfde85fe0bmr8726105ad.27.1784946629359;
-        Fri, 24 Jul 2026 19:30:29 -0700 (PDT)
-Received: from 92650adf53de ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc3e127asm6907389eec.2.2026.07.24.19.30.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 19:30:28 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="CLSUtuhJ"
+Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66P1ZihS3271387;
+	Sat, 25 Jul 2026 02:40:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=PPS06212021; bh=zz3k5ldBc
+	pYxIRhJPIqsKQfWpJ/un6hhprO2MvNgYeM=; b=CLSUtuhJpPHgJRj2EeMWjQ3Gs
+	o+Z7LVwSZ3ENJrSUfYPuEvkWH76DMzn1Vlb9ly+kJbm1Kw3Lz/5yqj78vsydsH+a
+	fXz7/LVWJ3J1LygD2SETa0zD/LilDYUiCB3owVDIy1hncv0p3RI676c9fg7u2Ywl
+	l5nEfVNfFZG53rx61lntoAJeFxaDYUqYwiBv7U2JH20sjWVyaqsIJVxIMUmjbbHe
+	JUI5+BIS0r/Vt++9mbq1AoA+j3SnpBkqE15D4ggBXdj1VKrrsBBpe4RxyW853nLL
+	DKSdqTNpDNAkC/8vcChzJs2BiVe9iRT1aSm6JlcWxRCYmbTgjY4s/xFuRXtUg==
+Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com [128.224.246.37])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4fmjnfr2dx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Sat, 25 Jul 2026 02:40:32 +0000 (GMT)
+Received: from ala-exchng01.corp.ad.wrs.com (10.11.224.121) by
+ ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Fri, 24 Jul 2026 19:40:31 -0700
+Received: from pek-yzhou-d3.wrs.com (10.11.232.110) by
+ ala-exchng01.corp.ad.wrs.com (10.11.224.121) with Microsoft SMTP Server id
+ 15.1.2507.61 via Frontend Transport; Fri, 24 Jul 2026 19:40:30 -0700
+From: Yun Zhou <yun.zhou@windriver.com>
+To: <gregkh@linuxfoundation.org>
+CC: <harshit.m.mogalapalli@oracle.com>, <stable@vger.kernel.org>,
+        <patches@lists.linux.dev>
+Subject: [PATCH 6.12.y] ext4: fix fd leak in EXT4_IOC_MOVE_EXT cross-sb validation
+Date: Sat, 25 Jul 2026 10:40:29 +0800
+Message-ID: <20260725024029.1217577-1-yun.zhou@windriver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,102 +53,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.12.y -
- 0fdd40630ea1ca5eb0bb70113cdac90d5788511a
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Sat, 25 Jul 2026 02:30:28 -0000
-Message-ID: <178494662803.1348.11623299012805090598@92650adf53de>
+Content-Type: text/plain
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI1MDAyMiBTYWx0ZWRfXztvKE/f9+bHc
+ 4JlG45Ev3ijoHphAbR8hyadJtwlB79hTVHU5mzggmXoCOEQL2MXGMUOyLpHRGM4l34WMBPcqVBg
+ qVVphmbKJecIGAFyyUHW6LmXn8jAUyMG+tYXQoaTrEEI4R68WHPe
+X-Proofpoint-ORIG-GUID: -8idVCaP8B7AXZCBnubRoz7D_pjucxBA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI1MDAyMiBTYWx0ZWRfX+Cm7sUP0Fj5+
+ 9Uh1eNQsqLQq3k+LxOj+OT5jF8JQbEP03rEvCz4Hp4nxlz83UeB99TT2vK2KRW1gDWChFkBgiiy
+ aeFr9aai8aJgTfrc1lyl8O0Y8tpQUul3N1PUqXeQJFeN5DyHAEd49RxYc7j/1aBBhnbc7UzOIxG
+ z+D4duAJg0s0KiWhEb04D7i449xbrUIROZZhCeu6eY+AO1nmOXakH1uuIShQ5dvSwyMer5rpG6K
+ 9rr5ToNUkcwTEaiOF2JrRGyEpkj4bry3fQSAhUSdAHRN4WE0ZdQCAVz9eHLFNjj1D4owruKXcpg
+ Ce3bNRyQOqYXW384Z8Fk/xbRuXczHAV9ThJwQFPm65z+nzBcxS872vNwOl3EqDcbEQpb5rVUKgk
+ ConFhluZ39wx0F5Vf+ykdwEyqzxlxQ/Ips/ZXNE/0dmaijbCLEfp1pAgoGryRkj3xnm9nCQ6o/l
+ djaBlwinuxUz3jqdqUA==
+X-Authority-Analysis: v=2.4 cv=MuRiLWae c=1 sm=1 tr=0 ts=6a642220 cx=c_pps
+ a=Lg6ja3A245NiLSnFpY5YKQ==:117 a=Lg6ja3A245NiLSnFpY5YKQ==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22
+ a=klDOsUkWDRETUCZYPvoE:22 a=yPCof4ZbAAAA:8 a=t7CeM3EgAAAA:8
+ a=wjBiMjVWcXLmg7aGH80A:9 a=FdTzh2GWekK77mhwV6Dw:22
+X-Proofpoint-GUID: -8idVCaP8B7AXZCBnubRoz7D_pjucxBA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-25_01,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 malwarescore=0 phishscore=0 suspectscore=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607250022
 
+The backport of upstream commit c143957520c6 ("ext4: validate donor
+file superblock early in EXT4_IOC_MOVE_EXT") uses a bare 'return -EXDEV'
+which is safe upstream because the fd is managed via CLASS(fd) with
+automatic cleanup (commit 8152f8201088 ("fdget(), more trivial
+conversions")).
 
+However, on 6.12.y the ioctl still uses the traditional fdget/fdput
+pattern, so the bare return bypasses fdput(donor) at the mext_out label,
+leaking the file reference.
 
-Hello,
+Fix by setting err and using goto mext_out.
 
-Status summary for stable/linux-6.12.y
+Fixes: 74796e886ca3 ("ext4: validate donor file superblock early in EXT4_IOC_MOVE_EXT")
+Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
+---
+ fs/ext4/ioctl.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Dashboard:
-https://d.kernelci.org/c/stable/linux-6.12.y/0fdd40630ea1ca5eb0bb70113cdac90d5788511a/
+diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+index a8a024bb62b4..e726f9dbc146 100644
+--- a/fs/ext4/ioctl.c
++++ b/fs/ext4/ioctl.c
+@@ -1372,8 +1372,10 @@ static long __ext4_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ 			goto mext_out;
+ 		}
+ 
+-		if (file_inode(filp)->i_sb != file_inode(fd_file(donor))->i_sb)
+-			return -EXDEV;
++		if (file_inode(filp)->i_sb != file_inode(fd_file(donor))->i_sb) {
++			err = -EXDEV;
++			goto mext_out;
++		}
+ 
+ 		err = mnt_want_write_file(filp);
+ 		if (err)
+-- 
+2.43.0
 
-giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.12.y
-commit hash: 0fdd40630ea1ca5eb0bb70113cdac90d5788511a
-origin: maestro
-test start time: 2026-07-24 15:33:27.174000+00:00
-
-Builds:	   56 ✅    0 ❌    0 ⚠️
-Boots: 	   96 ✅    0 ❌    0 ⚠️
-Tests: 	13255 ✅ 1148 ❌ 2609 ⚠️
-
-### POSSIBLE REGRESSIONS
-    
-Hardware: bcm2837-rpi-3-b-plus
-  > Config: defconfig+lab-setup+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.proc
-      last run: https://d.kernelci.org/test/maestro:6a63bc22798ea6c1ef697298
-      history:  > ✅  > ❌  
-            
-      - kselftest.proc.proc_read
-      last run: https://d.kernelci.org/test/maestro:6a63deba798ea6c1ef6b7a13
-      history:  > ✅  > ❌  
-            
-Hardware: k3-am625-verdin-wifi-mallow
-  > Config: defconfig+arm64-chromebook+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.kvm.kvm_memslot_perf_test
-      last run: https://d.kernelci.org/test/maestro:6a63951f798ea6c1ef67c917
-      history:  > ✅  > ❌  
-            
-Hardware: qcs6490-rb3gen2
-  > Config: defconfig+lab-setup+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.proc
-      last run: https://d.kernelci.org/test/maestro:6a63bbfb798ea6c1ef6970b4
-      history:  > ✅  > ❌  
-            
-      - kselftest.proc.proc_read
-      last run: https://d.kernelci.org/test/maestro:6a63c355798ea6c1ef69d643
-      history:  > ✅  > ❌  
-            
-Hardware: mt8195-cherry-tomato-r2
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-get-timeout
-      last run: https://d.kernelci.org/test/maestro:6a6390d0798ea6c1ef67970c
-      history:  > ✅  > ❌  
-            
-
-
-### FIXED REGRESSIONS
-    
-Hardware: mt8183-kukui-jacuzzi-juniper-sku16
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-trigger-reset
-      last run: https://d.kernelci.org/test/maestro:6a6390b8798ea6c1ef6796e8
-      history:  > ❌  > ✅  
-            
-Hardware: qcs6490-rb3gen2
-  > Config: defconfig+lab-setup+kselftest
-    - Architecture/compiler: arm64/gcc-14
-      - kselftest.dt.dt_test_unprobed_devices_sh_soc_0_iommu_3da0000
-      last run: https://d.kernelci.org/test/maestro:6a63c20d798ea6c1ef69a8a2
-      history:  > ❌  > ✅  
-            
-
-
-### UNSTABLE TESTS
-
-  No unstable tests observed.
-
-
-Sent every day if there were changes in the past 24 hours.
-Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
