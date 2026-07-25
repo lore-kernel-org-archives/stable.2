@@ -1,113 +1,164 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1A43655ED
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 08:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD5F35F193
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 08:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784966416; cv=none; b=S4ug8Iu7cbbVm6Yoz4S3nn9oiJMH2f7fiPT6JIAnPATcc9PK0Vc+URrWB4TCtWvnxR4KXA4QP4dYORfa5u7NdHORcJ0KivVTGMzIqsxN+yRA7FtpLdjCN9c/cd7SnZta7bSTd83WhNnjFjGaPf6UG3w0421C6Yd6N6bknU0G0tU=
+	t=1784967004; cv=none; b=th8FwGXPPtJLT2PkhfgfIoLbcbwetPLmQPWBQ9y3IeXg9qJxs43uIQdegfpNsgYB4ivJaojksyIH4lyD4BdDw67NUJ26UKAqiEgb1pO0Oyadn5LGN4o9LoOKx5y4wiKhk48I9HmBgoY7614+Q5yFPOuPDvTTJuPS9ouEychN3/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784966416; c=relaxed/simple;
-	bh=x0azAcsCMMPMXxXDdBsJkovGUPenS+iAVlLZJGdkobQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VA6u8WByYzlIyXgLpQXUkoiNI97ljsvx+UwOBkO3+B1U4ie39ksm9S/VmhVj/7zi5Xm6hEGti+VkeV/3qlxV7F7D0XXa4VRVtICA0mQAVzyJVFAbTrneerFp+jcK38oVtokBVPlriuUfg56EvWl7tPopd3PxvBKREm3idw4iutA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IzO9y6IM; arc=none smtp.client-ip=209.85.160.169
+	s=arc-20240116; t=1784967004; c=relaxed/simple;
+	bh=J4ubHfAG14RsKXJlUSfmRcTuEjOmQ/zOrQeO3Pc5iUs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=TYVQli/fiT73L3a70owkokvfp2FV5kg4wG5oCYHJvMHDOArwi+50c7Sj+QZGnrUBjYAW2NvHvu4dVpcl0FeHnpZW4h3xJ3klZPWzIUtHku2llmoNHIyVMqhF242/gpqoQDD0GBBIS0zGRI857ao62yDf4nYpltmmFLuEJHoQXU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MVEmJ22o; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IzO9y6IM"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5283e3eff60so9592561cf.2
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:00:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MVEmJ22o"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84847482584so871262b3a.0
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:10:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784966413; x=1785571213; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aN3F1x7OR5ZXu0ndJb6FFcDobq/hnEMNM/moElJMtpE=;
-        b=IzO9y6IMto5SfJXpoelyqw0Erf1g+5Pb0+cqmCD2rRcQPIVTzVDbvMDo4OwjB2XFPO
-         N93eHsLSFAKgKGUab/FT+H54BkPXbMx/RUScRi1YoTxj6Yrcuwe+2czW8Xv0Cr0s9McG
-         tBpmDMrtl1RnQGKy1rQIdh436Lq9H/VMo81OyzA14+P9GrwVG4akFvvm40e+mILimufZ
-         lEjVwBN63xnKqk+kUhu/PC0jHGkf1wLoWDy3ygSQV0mYkUufFKJt5ZfhNZwhBhZCcd/n
-         QeC5RtHuHcuR9K8836570hdYFrbXqJorqns4EL6lFp0K1VPqPYwAJI2NyYyLXpCDLaDq
-         1xMw==
+        d=gmail.com; s=20251104; t=1784967001; x=1785571801; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4J2s2FhuNzF6m2XUI8QthmE7XnJnr0cmxqqYW9+XQCk=;
+        b=MVEmJ22o7MyrMX1GywGlwJ5XAB4vLJFIm1IWgh8JkYuXfGfoq0aW79iOg2U4ozLM5i
+         ztYEz9t0Ddg5YTsqWFX17dS81GTA3Qwy6bvHZxCh7TvWfGqaeK4j0PYplFVMcs9wFCpg
+         PKTr+tOqHlQ67K7PK7FYqMFgx0mkvg1DaBG/1vrZBZ2qkxtsxBRihQGicKRHK41c0M41
+         wt6TrC7INAASKN9Nj0//EVAzQUaLRsBmFqOHqHwztq6iXz9XoJ9UuqXy5qjNAcxGf40h
+         HhIsF594VFn2GAuoyJGM54KdMDqONVFpfw6MhnNR62LPKZQh/KFwx4/+2T82DMREGe6L
+         cdng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784966413; x=1785571213;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aN3F1x7OR5ZXu0ndJb6FFcDobq/hnEMNM/moElJMtpE=;
-        b=eFLpkw8qHAzcA1p4C7UbSRxvec9ISLKc7+iF3iA5fXqxz8w9Y1HmX99hGDhPV4LEm8
-         tSobkL6ab0Fd9JSTfvbUK/eCpCOlQS56jsuRe+UHzg0mQz93HESLjnG/0haG5c9irauO
-         agFgTOntJx33oFrkfWsL2B9sCC5dabuj+r3MaolPY5auHhFRxSPta+rA0qC/stQwSW9o
-         wmxKTVMrxaKPl5jOcB7IyvAhwVKrKwG7790P/hV6ZY780LVZ8qApT2QHuQgbJOrnSmc0
-         1ZY0fm4yT+m0SQ/DVq1cFjF0ayUinjCB0sf67qcJ3or76vT+kcaBEFkyZsEDCiRfvY82
-         rMzw==
-X-Forwarded-Encrypted: i=1; AHgh+RoFrgy1UWghFUtuAa4q7j0w6+IDIvGkDLq8jDZIbSiWYNOMm59pQ5oc66LtHKVlMh7TjT9a/gM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNWmso5tofxsnq3PausgjfIObbOjjPCgYnVsYX3N1K++v+4tgF
-	KVzamqkRDGOHynDlWc5u1Vo5FdgHxvYev9Ba/4LTjtcdFrT3WMnMLeZY
-X-Gm-Gg: AR+sD13Ioc6yGytYBftf8iRr8N7F2sxFUA6iKONHTb/TM3GtTPNvX9mJVPrQyAR4czy
-	H+kJS1mY6oHZ9XMCfSGq6lQ4rR88dVyyUMZOttlp9bL8E1hkAKbR6QkvEV/ucMnxUjTb06uqP8d
-	s6A+8jQP/m2oolfQVIT4gymL0CA8TDRaZrhLc3YH9UOrz8cf9AW1C7xT5NRUyerGp+2TmS9mTna
-	BdFUvRmi8k5TAkzRPVmzi1otC6NF7zu2bqGkrZSCNlaHObzBQEq55SUHgJt1B38wLR83Cg2D78j
-	ic5gsToD7icVAViSj8zZp0URfrNE0Frp7GOoj9QspH3YBBqDu6N3nfplwfi/jLvk0x4i/J+pYtc
-	ZrRn2TEsjk6UOxdL/xRAA5w0n7xsht7qnk1ocVTiu1BLmtp+66Irl8TVderwaxRym9r+pqSXrxp
-	+3CkDGjPziz0B6A1M/Xw==
-X-Received: by 2002:ac8:5a47:0:b0:528:325c:2905 with SMTP id d75a77b69052e-529a8721edamr12780321cf.63.1784966412617;
-        Sat, 25 Jul 2026 01:00:12 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907e86a1b73sm15788896d6.32.2026.07.25.01.00.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 01:00:11 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: "Theodore Y. Ts'o" <tytso@mit.edu>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-fscrypt@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fscrypt: use the mount idmap for the owner check in fscrypt_ioctl_set_policy()
-Date: Sat, 25 Jul 2026 16:00:04 +0800
-Message-ID: <20260725080004.929328-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1784967001; x=1785571801;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4J2s2FhuNzF6m2XUI8QthmE7XnJnr0cmxqqYW9+XQCk=;
+        b=osPg5mOjmqWMI/FagyuGinAcVptyNgJT8//8mQj4ay881ixjx+kPOsMNif3Tu5qk+j
+         6Qtu/y43M8cctF18Yt9H226DccRz/n8vFrOn40OxnghlU0GDCgeWzSXGGqrvtndBamEZ
+         bYDlskYwZa95TRyLGboqCn30LOisOb77BJzTAfO/rZhBH3daPelSHXudtTeNzfJzqc9M
+         2FUjl54pcklw0F4xEbcRxfLVm15oIiW3VfyxHAYR2v4ZxqiHfFbMAImaaAh6JAyqZPza
+         m2b+ZL4eSsKtH2WAxccqfWSkrH9H1movoYKOsp5JiFYzLQRsb7dEvAnO33suZZgp8zI3
+         /i8w==
+X-Forwarded-Encrypted: i=1; AHgh+Rq41Kpw2Knm62puqvW261ZGKrJ90foyQlHBlSZVFT7aNTH88Y6329pU6RuYZsY0Ntw2PHEuqqk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMVMtXHBP7Ez8Q0mBsbHLFsGveiT1jprlG3ZPECpGRGOaGuspd
+	WFM0BRBS+7hpcgopBnqHXcyWjPVY4nbY6b7cl5idPUH7jB5SmOU7N0sgp8uf3NjW6l1jDw==
+X-Gm-Gg: AR+sD13XdWKEQtnzXK7ck8tkl+pb6fk5JSt6/sxMKi9QgCFpuC3ImDzW8V6zfzyCjps
+	dxMQBygAjyvIVLk5Ncx7+PRTTaBjegrBo5bw47abhR2S9gH16qIzWk3j0AWmF6tO4S8G1j0pfg5
+	pN+HnnFb4BOw4shvvaXlV7W5QruGV7zkdC0XQP5cHAjJBK2hOpf21z+oSohKxqdPUQILLH8xeZM
+	EI+mIJDAyzGXV+L25xSdri8WC4TH5BJvPmYu2SeiISBsfov1ITQdJQhm3SZJiEl98oB6I8oCxj7
+	QDygP/e6+m9M9ILyqHyURjUuwgUmpiju3RQYzzwXerKO1ZbOSfKRzlZEj8uEYAwpQ719sAiGO6D
+	r66oPRDWn5TSis484d858YJptVCXCyLUYL/ovEHVo1wPsTu2LP+QVMXjtG0aaO90pAqfTkgQIJu
+	GPsnt2nTXaGHgs1wyNnFUtQMc9lPAtgFhFNbzcd1if
+X-Received: by 2002:a05:6a00:f96:b0:84c:2d22:7307 with SMTP id d2e1a72fcca58-84e5945035cmr1043472b3a.13.1784967000762;
+        Sat, 25 Jul 2026 01:10:00 -0700 (PDT)
+Received: from [192.168.216.190] ([120.236.174.211])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e533ce1f7sm863654b3a.34.2026.07.25.01.09.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 25 Jul 2026 01:10:00 -0700 (PDT)
+Message-ID: <93177ed2-10ca-40a0-9efc-95d83913e59b@gmail.com>
+Date: Sat, 25 Jul 2026 16:09:47 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v2] Input: tca8418_keypad - fix potential infinite loop and
+ OOB access on invalid keycodes
+From: Liang Zhan <liangzhan5dev@gmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <f03a892c-0961-4e07-a6e1-dbc3ff2064db@gmail.com>
+In-Reply-To: <f03a892c-0961-4e07-a6e1-dbc3ff2064db@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+The current code checks the raw register value against zero to detect an 
+empty FIFO. However, the TCA8418 datasheet defines key code 0 as the 
+empty-FIFO condition. If the hardware returns garbage data, the loop may 
+never terminate and the extracted keycode can cause an out-of-bounds 
+access on keymap[].
 
-fscrypt_ioctl_set_policy() calls inode_owner_or_capable() with
-&nop_mnt_idmap before allowing an encryption policy to be set, instead of
-the idmap of the mount the ioctl was issued on.
+Move the empty-FIFO check to operate on the extracted key code so that
+the loop terminates correctly. Additionally, validate row/column indices
+against the configured matrix dimensions before indexing into the
+keymap array, skipping invalid events.
 
-fscrypt is used by filesystems that support idmapped mounts (e.g. ext4,
-f2fs), so on such a mount this compares the caller's fsuid against the
-unmapped on-disk owner rather than the mapped owner: the actual owner can
-be wrongly denied with -EACCES and an unrelated caller wrongly allowed.
-Use file_mnt_idmap(filp) instead.
-
-Fixes: 01beba7957a2 ("fs: port inode_owner_or_capable() to mnt_idmap")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Signed-off-by: Zhian Liang <liangzhan5dev@gmail.com>
 ---
- fs/crypto/policy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+changes in v2:
+- Moved empty-FIFO check to operate on extracted key code instead of
+   raw register value.
+- Added row/col validation against configured matrix dimensions.
+- Dropped explicit 0xFF check as requested.
+---
+  drivers/input/keyboard/tca8418_keypad.c | 19 ++++++++++++++++---
+  1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/fs/crypto/policy.c b/fs/crypto/policy.c
-index 9915e39362db..c80b24a941ad 100644
---- a/fs/crypto/policy.c
-+++ b/fs/crypto/policy.c
-@@ -534,7 +534,7 @@ int fscrypt_ioctl_set_policy(struct file *filp, const void __user *arg)
- 		return -EFAULT;
- 	policy.version = version;
- 
--	if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
-+	if (!inode_owner_or_capable(file_mnt_idmap(filp), inode))
- 		return -EACCES;
- 
- 	ret = mnt_want_write_file(filp);
+diff --git a/drivers/input/keyboard/tca8418_keypad.c 
+b/drivers/input/keyboard/tca8418_keypad.c
+index b124e576feca..36d4a7c38bb1 100644
+--- a/drivers/input/keyboard/tca8418_keypad.c
++++ b/drivers/input/keyboard/tca8418_keypad.c
+@@ -114,6 +114,8 @@ struct tca8418_keypad {
+  	struct input_dev *input;
+
+  	unsigned int row_shift;
++	unsigned int rows;
++	unsigned int cols;
+  };
+
+  /*
+@@ -171,19 +173,28 @@ static void tca8418_read_keypad(struct 
+tca8418_keypad *keypad_data)
+  			break;
+  		}
+
+-		/* Assume that key code 0 signifies empty FIFO */
+-		if (reg <= 0)
+-			break;
+
+  		state = reg & KEY_EVENT_VALUE;
+  		code  = reg & KEY_EVENT_CODE;
+
++		/* Key code 0 signifies empty FIFO */
++		if (!code)
++			break;
++
+  		row = code / TCA8418_MAX_COLS;
+  		col = code % TCA8418_MAX_COLS;
+
+  		row = (col) ? row : row - 1;
+  		col = (col) ? col - 1 : TCA8418_MAX_COLS - 1;
+
++		/* Validate against configured matrix size */
++		if (row >= keypad_data->rows || col >= keypad_data->cols) {
++			dev_err(&keypad_data->client->dev,
++				"invalid key code %d (row %d, col %d)\n",
++				code, row, col);
++			continue;
++		}
++
+  		code = MATRIX_SCAN_CODE(row, col, keypad_data->row_shift);
+  		input_event(input, EV_MSC, MSC_SCAN, code);
+  		input_report_key(input, keymap[code], state);
+@@ -298,6 +309,8 @@ static int tca8418_keypad_probe(struct i2c_client 
+*client)
+
+  	keypad_data->client = client;
+  	keypad_data->row_shift = row_shift;
++	keypad_data->rows = rows;
++	keypad_data->cols = cols;
+
+  	/* Read key lock register, if this fails assume device not present */
+  	error = tca8418_read_byte(keypad_data, REG_KEY_LCK_EC, &reg);
 -- 
-2.43.0
+2.34.1
 
