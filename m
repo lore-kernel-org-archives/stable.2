@@ -1,82 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82750EAC7;
-	Sat, 25 Jul 2026 00:49:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDA01A3029
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:13:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784940565; cv=none; b=HXxwaqpWieA/fsTP+zjthBrJuL1ffxQM4yX6Ris5Fz8f9/7RlbAubWe9ELJznipwIz+roEFY4slKihZI/mihXs8Dtv3op+1pye0Zz2PoDFkDiPW1DqbDpWG8dQLK8w8eVItXlOMH5KwPcSDk9dE2OHqZF1tzktouSycOaOwSY30=
+	t=1784942027; cv=none; b=cfq6aiaBnrv6hWb0A5ngiXqx6YgOcdoihFv2gNH5/0U5biQcatl23pVTNnuuXUvbQ8sqlTjBsibsOUO8ToGtOtXOCBZkh/ck6xud54jwc3a3nfNOVQtgn3ArRX2kuLTHwBQJg/Tr2nYmllDwc334uX2yfnTaPxlq8Ns8aZ3hmVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784940565; c=relaxed/simple;
-	bh=3A+zQSBEdZ32Y61uoOfrcZrwNjTrw0AXt/s5Z4tAuZc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tOvA2IEb/MG2I5emZ6ijvxhtqDUf94kZszdWe7k3pziWgPkiyyp19Ztm7TovQaABJG/Ko8Yiwy6WbKamsb15ExuwCOjnpShfy8dcM1NbfOrgC0HEpRCcQZ88qcdrVy40DA1+VwdRfrw9B3RHAUQlJolNFuVYVbpPDx92pcMY41Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oxIJLeR8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784942027; c=relaxed/simple;
+	bh=pNiW3WBCzJLx3UPL3XoTNpv9DHkcvgdWFYbzKEOL1OU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=hl1FEBnqDpz3KqjIvJeRY/jyJK5BOaGsMvfprggQRL8t2k0GCBxtx+mpXq9gJbAd53FYDbMzMG8+eFCk9gW9KMEL9NO72BkV5BfRVTj4XDxxVcvrtDE28PaFWDEKAdo4WM7eKGSCGAlFJuLI3S7qLRIFw+G5hFUxAlr0zS73X84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzF2W+zS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oxIJLeR8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4BB1F000E9;
-	Sat, 25 Jul 2026 00:49:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzF2W+zS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174401F000E9;
+	Sat, 25 Jul 2026 01:13:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784940564;
-	bh=Ho6TtOrPZyNBP3E/KYY18YTZwyThWZiPvdkdX0l7kyA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=oxIJLeR8EukAtnEI5RS/OqkTdffuyy2mmzjXF9muNIGEfg6+0ciZkWe9nWRmjiBt8
-	 eulcQMX9OFA7L7NCILf1on74ZE7QodiV62UFUUHAAiTsWRdZ5FFH64efzX36pbEJu+
-	 fnk7UDYEktsJtNQxNhAa0jEZZu+U5g4dTfw0J+enrb4dTMYz49VICvtVqg4Q0Nurhz
-	 +YftOVEAPYpzMv4EMGOi+R+EuLVkONoMJcDkQpoDYgygeXnYGYtZSURPiz0G0X0qCs
-	 UogS3SNPTEtKTSCQguiV2Is6YwX1eLR3FcjAbKFCTfIeqxCGurKvzMippsau2Q7aAt
-	 dpRCq0OkNoSRA==
+	s=k20260515; t=1784942026;
+	bh=9m+6qBm5wzCc2o5QDMPRAgTsAOzpMpXRy/ic4yJR2i8=;
+	h=Date:From:To:Cc:Subject;
+	b=JzF2W+zSGPLP/pyX9YA5QX7f+ct7vSdTE4kZUIb42For1kM0/7fGDGXBmu+CcZ8F8
+	 nugJ0m05gWmRHGR72uOlVASKx8VUTnb3NWIiT/3Sx7WaMfakes/qziFufG/Po3lkK4
+	 hRmwvRDllPUG5ASzNABb19gTbYN72JJVW5WCzsHwp/U0nXlhEwi7t/pppe3re/yeAM
+	 cZsIrQG9g13ju9jEcmyM/7fC6yXlMXrxmW7V8fa69Aw/q1I/R5nBfuLCSoypOtN/pb
+	 Dfo4gEQDhn9sawdiHgyOrMPD2r1/dHxhtprNAE+dYufj1Ypu2u+28i1vb8NNhcby8M
+	 yrZ+61vyY9Nvw==
+Date: Fri, 24 Jul 2026 18:13:42 -0700
 From: Nathan Chancellor <nathan@kernel.org>
-To: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- Nicolas Schier <nsc@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Anish Rashinkar <rashinkar.anish@gmail.com>, stable@vger.kernel.org, 
- Philipp Hahn <p.hahn@avm.de>, Nicolas Schier <n.schier@fritz.com>
-In-Reply-To: <20260723105845.1704689-2-nsc@kernel.org>
-References: <20260723105845.1704689-2-nsc@kernel.org>
-Subject: Re: [PATCH RESEND] kbuild: Stop modifying $(objtree)/Makefile when
- building oot-kmods oos
-Message-Id: <178494055091.1465780.2245176294213657802.b4-ty@b4>
-Date: Fri, 24 Jul 2026 17:49:10 -0700
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+	Marcus Seyfarth <m.seyfarth@gmail.com>
+Subject: Please apply 90dfeef1cd38 to 6.1 through 6.18
+Message-ID: <20260725011342.GA2792705@ax162>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=768; i=nathan@kernel.org;
- h=from:subject:message-id; bh=3A+zQSBEdZ32Y61uoOfrcZrwNjTrw0AXt/s5Z4tAuZc=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFkpHEKHelsjlDcJ3i55c4tVr4+z7E37v/Mrt+3fIv009
- VEU0/IJHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiZ5cx/FN5EZln8eiflnH0
- wuPGjFpHrh9dr3Fn8tmLgstmButOOr6SkeG7dovQ2iXOkpbH/qce7opf0PN+7QqnhQ4Loj9ypey
- 2KWYCAA==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Thu, 23 Jul 2026 12:58:45 +0200, Nicolas Schier wrote:
-> kbuild: Stop modifying $(objtree)/Makefile when building oot-kmods oos
+Hi stable folks,
 
-Applied to
+Upstream commit cc39f3872c08 ("seqlock: Introduce
+scoped_seqlock_read()") was backported in several stable branches (6.18
+through 6.1) recently without a necessary fix, commit 90dfeef1cd38
+("seqlock: Cure some more scoped_seqlock() optimization fails"),
+breaking the build for certain configurations
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-fixes-unstable
+  https://github.com/ClangBuiltLinux/linux/issues/2178
 
-Thanks!
+Please consider applying 90dfeef1cd38 to 6.18 through 6.1 to avoid this,
+it applies cleanly to all those trees for me. You may also want to
+consider taking
 
-[1/1] kbuild: Stop modifying $(objtree)/Makefile when building oot-kmods oos
-      https://git.kernel.org/kbuild/c/39d6e68f50f4a
+  b94d45b6bbb4 ("seqlock: Allow KASAN to fail optimizing")
+  88331c4ec23a ("seqlock: Allow UBSAN_ALIGNMENT to fail optimizing")
 
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped or
-reverted. Patches applied to an "unstable" branch are accepted pending
-wider testing in -next and any post-commit review; they will generally
-be moved to the main branch in a week if no issues are found.
+but I did not test if they were clean cherry picks.
 
-Best regards,
 -- 
 Cheers,
 Nathan
-
-
