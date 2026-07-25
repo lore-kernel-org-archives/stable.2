@@ -1,112 +1,115 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AB32D23A6
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 19:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9D93F788F
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 19:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785006257; cv=pass; b=oftF9F0Pzi1scDJWIu6kOCKX9zy0yRJ7IPXXk0iWS4HmJrJiqZq2i6kP0BOYmuhTuTDtG/jrFQ0JMqXbmut9LTfc8M4D1fWh7iS4lfhtZU0+zNvO3KaSFLkxzF/v0NO6JoEe4FRxG/VjMFAh3KBPYZNhZhEJRNF6G3ffIP4+T4E=
+	t=1785006260; cv=pass; b=URnF2Rw1kPUHPNIvqY5F4bcOQqn/1WxFA951Y0FyZ/QO/Q6oS8XSjfwiP8X6bcvHdz5NyjvvHW42xo85wun26KViJt47z3Ls3TA0IHgnsAR4L/h9q5Zhb1BDQuSeMip3rXUpLFlnhZKPyQU2TTJM0EqhTFzqkGBemFMJNE2OExo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785006257; c=relaxed/simple;
-	bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
+	s=arc-20240116; t=1785006260; c=relaxed/simple;
+	bh=qwQwbP341/2bZNekgfUgSX9yOTMMPEMUIow+WHBmQIo=;
 	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KlpwfDD/qaZt0gPlaXXX30N3nktLhvi38SZE6M3t4ZLbc0liEAMz3FZIekGzlLT/F+9AbPbeBMmcv9Yw17fm6/vCVf/rnrk7JLKJIS1GHSZ3vQpAuTAqPz3+D6xl2WilYXljaNcgx7yD86EpPAzcKeNAlrrdlXZ1UCM/XGzuyQw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=Q8gjHBks; arc=pass smtp.client-ip=209.85.214.171
+	 To:Cc:Content-Type; b=izO2EuYVaDelyETfssgQJUn/nY5nejbZWruyhVORIjrpS884khOOrQNfYwUCVTLPnBx5Ng9520rwakPHeIuDRt4ns2FVkxodse6iw5hmpaFj1IcpRvs3xTCyrMA4EEs58KVICqDKkU/IbkLkMW7o0Fje2CEWum3hV15Em4Du3Vw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=PDOy5Pvf; arc=pass smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="Q8gjHBks"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ce87c7e3bbso16613135ad.1
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 12:04:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785006255; cv=none;
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="PDOy5Pvf"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ceab75934dso18741525ad.2
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 12:04:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785006258; cv=none;
         d=google.com; s=arc-20260327;
-        b=VudgN6byzYvTVI20tgNYt3Ml3v6qT1mCkJUgMjprgYm5RBFtY4/iCAuJid/STVwXpZ
-         P5qK2AeWtCOpR+5aszRFWHzAIuDv5iWrkCde270BuUZbDot/FXHI5EWV5BRDdPINMMPZ
-         L5yJY95xGZMj+DzZ6xcPPGBDcJU+cy9Th4tWqbPe3809EVvQQJc0xC3IGOFpTB4jvgCu
-         yNqCI9Tw3eMAgLIofN3zAkUKK6N7+kvIPxlNU9tfa4mWtH8JmZxfQDs9OoYKBF6iigHi
-         FL60nX0ScYVotOFc8loIGNJsFzGNwk4fFdhlm2JAcB9ERhdFUyVal2F0XJETWR7sSpW1
-         fKmg==
+        b=hpvEr5+Q54hb2SyUbVMHco5NlR7bxZIxa7gg/AyTok0WNPxQ/qFy6ecRpF/yxmTYqv
+         fyVntdPGIV63pU4YaZ25teez3irXiVVZp93sWy/Fw/XZjiqjc/ANeLH7mOaxs6itadFv
+         P+Ecv8zFdeB42tMxCln5XR244SsXh+IzlDE+tsBr8t4NbCj9Q/7pJ48CTb7f0G2cHDMM
+         Z26eyRm0grAZL0GxzKC0yCLHzZ0TuYnsqtJQsgoTR1D8r4x9XRCR6/JpT1m4A4/7cWSn
+         1PBs+cXvXhtaBrL8t8cWzacx0THw6Uld7iNZ0+XoZTAUmftmyAyEXnc4YKyd99sheyZc
+         eg2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :references:in-reply-to:mime-version:dkim-signature;
-        bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
-        fh=KkIbniaelheAF8D7TCIrjml959qDFyfsChiZQdZiIoQ=;
-        b=dJONSXDnsxKSZgkqBUDHxowpC7hXJjspcdQQz0bVzg3XChpMONwqYagfJvvOQslJE5
-         MFyIeg3Tt0WcXQzUgqSvbEo4SpJnN7SmZtWv5IvmoTsT4+bOUvVjooHHdoeKZG4raIQg
-         /JTma3yJd9Juf0GUqksZFLv7LN2MEqCy0sXql8hF1o7hlLOWgDSx/zR+5UlFe5vn6zCJ
-         sGv/rxay6jXhBngu9xvUxbaEpf07MF+pF+86WBfC9GpKcaGrRZwTsqjqTdYXQi5ObS6Y
-         kpC5eWf8jm0XR1SIc6CLzObUt/uoDHa9J2+iu0ks1Y8xUn5noLB/7gr/76n/AyEdL09W
-         J6iw==;
+        bh=qwQwbP341/2bZNekgfUgSX9yOTMMPEMUIow+WHBmQIo=;
+        fh=Q+ea4brjpO9JEpvPrplFO6hUCTa8d8dFqQorJuDtz38=;
+        b=ntKEUrJPTH/xA/6M1aqj5Jr3WEHzVyYRO7HnDtPTanFfe7evIC+dGovbXgNsW3GKwT
+         JDuAlYdGLBONORToTVuROrbkfO2g+0SjqkYUdsGcO1jaEKkAufRogpapZYFJOO37Wqn+
+         m6QkOJbNkEi0ZhQin7A1y50y8ndIU3pUyJ0HTsdaJLk525X3aj5RfIlqbbjdwoeD+scy
+         fZPzhBZRCjnU2d0LsUYIFdNDUQ2tFf9/v1nPjuOuSm0CUQI0E37tTzFjKmqWBhaeqOmC
+         VO7BhQ5YYfDqURsTJIyeQX0LT5EGpX228xA9xqfYoyhc2558k/EkHqyEmbR+I1iaN/WT
+         de3Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1785006255; x=1785611055; darn=vger.kernel.org;
+        d=0sec.ai; s=google; t=1785006258; x=1785611058; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:references:in-reply-to:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
-        b=Q8gjHBksorpKiaN7Zd13V0//oyFYmYMiW2PmrC/pWW6GLnr0iwb8FxjkIMqyTL0r07
-         pjGB0EieUSeTwVz4TD7QnR7+vk9LGlzwHDUaQ6nOwVWU1El9CO//uf61Ke4JbBLf4ikX
-         CorNCtkbqKKRa7VDIpIDGdAteZ3rXfhAwGydVK9k6SoEw4JRd570LnjGZVe5H3f5N7pb
-         JwNwHG3OBP2uerIE/8WgNKKDkfzdQEIAwl/lpn+Ualq1CWAIuOkBTLjNxBVDTIWwNp3x
-         d1dxcLOSthmpnvNgPijmzdWKA1sD7oOVTD8tdUu2rn7qds47dcwJ8xH93315Q18WLBaX
-         UxuQ==
+        bh=qwQwbP341/2bZNekgfUgSX9yOTMMPEMUIow+WHBmQIo=;
+        b=PDOy5PvfPgwtXK9SdVB7wcrhuN77jTm9+SL7vJ3S3ueWHCLimJ8yW3K7H92qTtKWwJ
+         44cBspyExjobDUbQrb5b9B9qOqPKX9z06AdM8lkHKSVXF5GlF8hZ1gGjUs1CkA6WyK1H
+         QjIRSIYnyTDIpElm4/I1xr0sxzMhSLqTXezhHsvTzH95qUzWZqNYo+X9YvB0KmqH+REe
+         9sxozs26V3i8NwvkZyLzbqOoEJFiQwPbag5J/zcUCi3a8ZUSd36Cb4TM2zNtrmU/1MlH
+         pILStcpFHX5pOnIsEESR1lOtUbiZGfonIcXSbqPsyMziR5lyMR6oE9wBsv+aTXCBZ7LW
+         xujg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785006255; x=1785611055;
+        d=1e100.net; s=20251104; t=1785006258; x=1785611058;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:references:in-reply-to:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
-        b=dHvv1QU0nrL/BG8uRaaNWuwfZxfu1EqeRaUJ24ifA6gC6IuWKk3IxZWUQQZbWKl/0D
-         fN3Fuda+8StW3mt6yQLXgFUPnUPc6Zy2gnsQvKBhwdt3h4HlvzOfBpQF4OWEIEagWKhr
-         cqKvyO+8z/CoIsVkfKGKXlK6k/onaYkCC2zLHogHA8K8h7KzH4Upe/9j3Z1GfAg8ZjNN
-         dzxaT6wEVrJnoJ9Fsk87eNvAOdhlK67DYAqjoOeP2KD8wgKmCVhgy0odBzMoH6Zf9GZu
-         WBT+9aAEl8QObmm64ewac3PgdwA8WLq3k7o+d/lRDIWXEdBREVqInFOVgns54Q9QNMGS
-         vm7Q==
-X-Gm-Message-State: AOJu0YwPkoYpIIjvTJ/e6SeydZYQgi49jVlg62pJ50UGJa2fk01xbgKI
-	ZdHUKZ87PRYipx3HtEt1Ay2s83Q/fR8QvJdyosdK8pmRgaN7vfyumfNxzYdyb7iTlUKcY7LXxC2
-	vBf/2UigiSMgqBbLF4PA66zM6lyn/nvemP2jvI7TfYrYX1EZwas2APw==
-X-Gm-Gg: AR+sD102kerla8Pz7A2dY/1FNMR6CbNQBY7iqy2SGEzRpdxM/cFq7BSpS3syB4M23KN
-	1aeCI0YyQt1JlNNGUz97XFCOb5MjJdIr7//hSaOH6r89OznHP3G63prcBRVxxrlA6GSKrRCWEbV
-	8z6QfGrQVy8sPACuavjHh5bOChlWkQmZCtAwBzEh+sBW2psfIG7mhy/caDR2+ovc4eLFMq0NMwL
-	l6gCowsqJ/UvPHtIHOv4AUyckONlOWqjNaPohbeT0G/7T5uDQ8yjdxmywOiAG/pdnly8m3IoYP0
-	I5vfzcidLr6kJMKra7lEvnrKuDmkt4bg2FV0PlcKTF0YkQa02jh1BgrBHw==
-X-Received: by 2002:a17:902:c40a:b0:2cc:61e8:5fba with SMTP id
- d9443c01a7336-2cfde866e46mr31930735ad.32.1785006255341; Sat, 25 Jul 2026
- 12:04:15 -0700 (PDT)
+        bh=qwQwbP341/2bZNekgfUgSX9yOTMMPEMUIow+WHBmQIo=;
+        b=grmJRfeEvWG13fLJc8YhQZFVf8opoWuEXrhzcTAFuR9nFleNDcFPhQI7wIk36+E4cw
+         bzzajiDyRBNztNRWUPGF5CI3CkhUt39LMdPmxCSAVisGVB7ez03n2fkE3oZRQC+bMBYM
+         ROAJrWwWxV6abT8xLtn0UgigCYgxydMjiNVcEKRKpuFGPgb4bwpxitzt+4QwgQG7ORz6
+         IiigL2ja/0LIqy5Dq1gQVIYrkXznCJSMtMhyi5j1QoHLBTusqC3+t9dUIoqHanOtYWMA
+         krOF1yijkz6Meqnz1ymAyLmnyOh470/ivHMN+X8raeEZWejggYRFXF1PmgosccWPK/Ac
+         1Y8A==
+X-Forwarded-Encrypted: i=1; AHgh+RpIW2OhUUuBlsYBQj9nbYkCiFkRs8NDUQH6qfaJMBo7DWN3qQnGSJjpXa6awnURUXEvk11Qzac=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxMQbpI1EU89Av3Wp9SHuQQVbG8N/1sVMWhp3RezYJQKZKfp3Am
+	6Tz6z+rKLKpIklzgZl+Yz6MAPQyQPPdqJuBY87he5NNFAUmU5b8IRElPpJB607RicGUsxhD7Aid
+	JfxCm2fkHD2iJqrK9BMGBeC8pXSY0KRl2Krb+ybczvS4=
+X-Gm-Gg: AR+sD11aDApty4sTgW0NR/9BMm5PteXGXe9dVbtW2oNZaVv0Hyr/UScGgBpu/sdCfgE
+	MMPxGuCEkEGkqrpwfPI1HppkLvx8xDYALKtBZ9O9WDmTYbE03D6jFxxyVMXjId3T2rdRmjfx8jL
+	vCI8wbzpVy+sNX6qZWqXm3ZLN+GbHd9uplz+K5kquwBozWZVycvPiIgLFSkgifxJK1S7mB5j9VW
+	KbVWbBKBYOy7FFd7cAW91qR0q6C+n2HCF6X+BTjS6CcfaedVH7wDgmbXBLQsnAhcQjvtuvG2Z5g
+	YUme2Jw5pqcJ44EKPj1w307M5hJT9enjpfFb3pqxPtO4EAuCcJi+CcOQcA==
+X-Received: by 2002:a17:902:ce84:b0:2cf:7d44:e14f with SMTP id
+ d9443c01a7336-2cfde8669b2mr32553095ad.26.1785006258440; Sat, 25 Jul 2026
+ 12:04:18 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 25 Jul 2026 14:04:14 -0500
+ Sat, 25 Jul 2026 12:04:18 -0700
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 25 Jul 2026 13:39:24 -0500
+ Sat, 25 Jul 2026 13:38:36 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260721201114.0012-stable-reply@kernel.org>
-References: <20260720191525.15450-1-doruk@0sec.ai> <20260721201114.0012-stable-reply@kernel.org>
+In-Reply-To: <20260723145111.GA236955@francesco-nb>
+References: <20260709100800.7026-1-doruk@0sec.ai> <20260715185543.14478-1-doruk@0sec.ai>
+ <20260723145111.GA236955@francesco-nb>
 From: "Doruk (0sec)" <doruk@0sec.ai>
-Date: Sat, 25 Jul 2026 14:04:14 -0500
-X-Gm-Features: AUfX_mwhjhnX5X-sZz0Adtxt7J16oeGm0EsNu5BzNSH9sAPFEWmfSUa4z711gRU
-Message-ID: <CAPdMp1rzVAk-bq8wU6wTozXz=2oe1yW2muvoE5EwCa50gsx+3w@mail.gmail.com>
-Subject: Re: [PATCH 6.1/6.6/6.12.y] crypto: rsa-pkcs1pad: Don't WARN on an
- empty digest
-To: stable@vger.kernel.org
-Cc: herbert@gondor.apana.org.au, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sashal@kernel.org
+Date: Sat, 25 Jul 2026 12:04:18 -0700
+X-Gm-Features: AUfX_mxks0bVv51B7wFCAaXX5vk8iDj3Pumnc3-ZbqlNRSLgRAT5gQP9nhcLjR4
+Message-ID: <CAPdMp1rFFgKdq+PQiAwVga6bbCsuzmR_eGM9+LjKhDr3cnQ9Sg@mail.gmail.com>
+Subject: Re: [PATCH v2] wifi: mwifiex: validate HT/VHT capability and
+ operation IE lengths
+To: francesco@dolcini.it
+Cc: briannorris@chromium.org, kees@kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Herbert,
+Yes, for bounds. cfg80211_find_ie() parses the IE stream and returns
+NULL if an IE header plus its declared length does not fit in ies_len.
+The len field is still on-air, attacker-controlled input, but it is
+bounded by that parser.
 
-Sasha reviewed this as matching mainline=E2=80=99s no-WARN/-EINVAL behavior
-and asked for a crypto-maintainer Ack before queueing it. The patch
-only removes WARN_ON() for the user-controlled empty digest; invalid
-input remains rejected.
-
-Would you be comfortable Acking the attached stable variants?
+The check is therefore only a minimum-size test before the fixed
+cap_info read; it is not relying on len as a trustworthy value beyond
+the parsed IE bounds. I=E2=80=99ll make that explicit in the v3 commit
+message.
 
 Thanks,
 Doruk
