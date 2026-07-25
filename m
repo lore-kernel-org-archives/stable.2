@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB20628541A
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 05:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51169353A67;
+	Sat, 25 Jul 2026 05:19:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784956681; cv=none; b=YgCCIQCsZP90cghjUloF4xN07PQwuLb4TsJf7a5YJSqZBp4xw95v5kashxoZS9XK+ZDtEgpdsQJsoMOnSVyAD9/6rc14qrMszjKIrsFGfaKx8pjYCWA4VAUNrR8xAoiPoSLHDnLOWAUY4nBQ4AiH6c0yQG0mVz74YL8xsxXnLwE=
+	t=1784956758; cv=none; b=eZuLWKL6LfUhlPX0Qkit8LWr72I/ZH65x7iwV/z8Mzjjs0A6kXU6/C/2TfaMnU5MadQ5/Aw1/U+UclWGXKsWGVS0H5KJfzgRwx8f9KiFOcUcuvVFn0ZC4gARwxJ4mz529USuKK6nzyXD8SfdvRH/JVDpwcG6kmGrZ4SWE+mlm18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784956681; c=relaxed/simple;
-	bh=Wn9TOkwl29wsIFWlXliymy6w9sEt3MiXC27VH8gNQmA=;
+	s=arc-20240116; t=1784956758; c=relaxed/simple;
+	bh=x1KL3Cz0kG86RSr+lMvZgsStKND3GPa4u+QS1Z/J64M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FEMvVkHs82xBQBppIbU5AsS3RXiGYQsVWm09yOjNgXQWroJ+hrveD932kwYZHCKMmmwMTbg0NBgRw/r01BoBVHdpb80aiUalskDyjW1TYShYzZD3mZ82r4SpdYcVz/dDqQjzKhyldDIa50e6kUeN0S+B11BFc3P4ND7EXJ7tSVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iKf5xPnl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BGRae04f2IpNQ410GeZB/I5e20G3gkrFUdfkse8irVTsLb4hDGZdR0j9WXm06fcqMBh+M5dnIPbtm0Sa5ATFs4r8oE+EQepe44U0ATfLgag1B5RdO4ZOv27VOBbfX7MV/wJGpa8zlLwt1vBNvv/6g/3JruRcWRc+XKSBIJAeg0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CMDeqD9w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iKf5xPnl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C25571F000E9;
-	Sat, 25 Jul 2026 05:17:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CMDeqD9w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61AF1F000E9;
+	Sat, 25 Jul 2026 05:19:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784956680;
-	bh=FfR347+TtVoQk0O66DHUGY+AmifaT6czud4rAUP4VZ0=;
+	s=korg; t=1784956757;
+	bh=x0uXdWTbkAjcFG3ULzfaFFsBVMG9D6OLfaLsSzM8sV8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iKf5xPnlVL922r6YGCpKpmTzouGs4LUGbzpah3Q8wxMWiRN4pwubttXdvHwtH75GQ
-	 5rJWond3Ou+BBWOKEO0PffGZNgc47ghitImkF2Iuf4LKa37DfUM0SSDwVoa53SYxI5
-	 /+q6SOZA8pkS5uDpI5A4/qdYSJSxVreqlvG81/e8=
-Date: Sat, 25 Jul 2026 07:17:49 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Marcus Seyfarth <m.seyfarth@gmail.com>
-Subject: Re: Please apply 90dfeef1cd38 to 6.1 through 6.18
-Message-ID: <2026072534-strife-astronomy-3122@gregkh>
-References: <20260725011342.GA2792705@ax162>
+	b=CMDeqD9w9ydo5zjObva4g61ufvD8ZYONEG7DPNeH8v9uEslFLcwtXJ5vzwv/KmznW
+	 AE8y52CLOBs9vAPdVk1VHLmGfsRgysFI4xwLVhp6EBtXsPWV0os5ABwEiPJ4KGJ5rY
+	 pssLuU4RuO6zPbFb20E/220g9lOxSc7z0TM/2VgA=
+Date: Sat, 25 Jul 2026 07:18:58 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Zhou, Yun" <yun.zhou@windriver.com>
+Cc: harshit.m.mogalapalli@oracle.com, stable@vger.kernel.org,
+	patches@lists.linux.dev
+Subject: Re: [PATCH 6.12.y] ext4: validate donor file superblock early in
+ EXT4_IOC_MOVE_EXT
+Message-ID: <2026072543-overdrive-celery-11ec@gregkh>
+References: <20260724143828.1668805-1-yun.zhou@windriver.com>
+ <2026072404-cultivate-cohesive-9fc6@gregkh>
+ <26bb37e4-e696-471b-b313-8c4e24c4884d@windriver.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,28 +42,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260725011342.GA2792705@ax162>
+In-Reply-To: <26bb37e4-e696-471b-b313-8c4e24c4884d@windriver.com>
 
-On Fri, Jul 24, 2026 at 06:13:42PM -0700, Nathan Chancellor wrote:
-> Hi stable folks,
+On Sat, Jul 25, 2026 at 10:43:18AM +0800, Zhou, Yun wrote:
+> On 7/24/2026 11:26 PM, Greg KH wrote:
+> > 
+> > I already merged the original, can you send a fix-up patch that I can
+> > just apply instead?
+> > 
 > 
-> Upstream commit cc39f3872c08 ("seqlock: Introduce
-> scoped_seqlock_read()") was backported in several stable branches (6.18
-> through 6.1) recently without a necessary fix, commit 90dfeef1cd38
-> ("seqlock: Cure some more scoped_seqlock() optimization fails"),
-> breaking the build for certain configurations
-> 
->   https://github.com/ClangBuiltLinux/linux/issues/2178
-> 
-> Please consider applying 90dfeef1cd38 to 6.18 through 6.1 to avoid this,
-> it applies cleanly to all those trees for me. You may also want to
-> consider taking
-> 
->   b94d45b6bbb4 ("seqlock: Allow KASAN to fail optimizing")
->   88331c4ec23a ("seqlock: Allow UBSAN_ALIGNMENT to fail optimizing")
-> 
-> but I did not test if they were clean cherry picks.
+> Sure, I've already sent it out. My previous understanding was incorrect.
 
-they do seem clean, so I've taken them all now, thanks!
+Not your fault, thanks for the fix, I'll go queue it up later today!
 
 greg k-h
