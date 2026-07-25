@@ -1,262 +1,483 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11D9394788
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 19:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C0D40BCC9
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 19:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785009163; cv=none; b=VXY8Y/a8vGpI0t6T6LUUcl6CIYWyXShR+f/C33lZ1xYjhmrHKwp5prmJy+6NOsG/4XGNpof+keCrROdrs//mAk2ALCl0uyFbxVVD14cAU8bye/DZqBwn+ncd7fvFdP+GSldyVgBNox/by1lSPGqIEDHajyED9mc2jl623CrLfrM=
+	t=1785009556; cv=none; b=iq1qNW6ql4LuRTiRzYSRHLkmHgeIB0/80YKWgv/6jI18SfQUjRvdVEaKZDNX8Pwl2ogNqevOUTd+R4TmBHuWCW0v3LggazxwglNy0aUxZUrG+lYCXWyIWXemgUX7U8MbuJniOEhZlGbmtX55veeh9MPt1hLG3ukEReDbflPyv0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785009163; c=relaxed/simple;
-	bh=sQUfWYbBbGAFGnb9f4oxJ1jqLUWP/syj4X/dNhx4/rE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JUtfegdtmtiNX5sfSq+o/E5nu0BarPJ5AmckpBB5YvPYijGQ7M+kuX4TMnmudsc7NiMaTWMqkOlCdlB4314OS5tdlZhLTBpxmOtEWZmCuXZ65gJNBoF8lt4yUXEvXak+vI9JAq8ocrV0ra9K8bM10i0cvRkqui8H0RWdyt8aCjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pw5bWoRN; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785009556; c=relaxed/simple;
+	bh=Lz2O5WpWQq6vf0Bbe5Z0CLiql7ANGnDBpL2YZUuoOso=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=UvfB3m06biiiTy8C4PSBlbvueOlXa4G28pXXUjCtNlYD45j7g+NEDmkzVse0VzM5JXKCxLtiYAavQ0PCq1dVFVDVSSv0rGS2AQvHSby4k51WkWRkwCG2qoSQlvUy4LC2UFzhINhd7BAfv9XTXNPdVRuulMaddFGYZRHfNn22/Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBjnOFsr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pw5bWoRN"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7eb29ed2bbdso480911a34.2
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 12:52:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785009161; x=1785613961; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oPEwWoUe7xfClrZacEsfK1+k1qltAEaeL9m2pmWgCQ0=;
-        b=Pw5bWoRNv/lKoBRTxOA4e63rbToJ44cYju8RzfV+guIY5V+NBDOMx+ZoJlWJDXAcbZ
-         YRbbCJ0ESe5yINkmV1C+lDIHZbPhi6i0Q/94I7i7fkX/KYqZcfmFpg4luvE1y23iwINE
-         1hM5VRNMMxHEo94b7AluKBV4Wzxoe7s+0lNi4fHT0EY2oNfdFjZPuUJj1GmLKMrOa3DP
-         JCT2qZTNxfMGdCVKGsjjVPRFAz04F61owMpkKaMcqtQVgkL65qWazV33uVbLb8iIghHO
-         9/THNylmLd9bU3rdTVaNQTt1eMhirLf+tIOrimSGedm+XL36uigntDtCcAb7B2K3YVyD
-         pxIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785009161; x=1785613961;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oPEwWoUe7xfClrZacEsfK1+k1qltAEaeL9m2pmWgCQ0=;
-        b=m9oplrbdOlC67Ke+yYSuXCb1a+c+5K1MRgL+1163nMMmJlzMvWq0iCbvz//GqIIKf8
-         h/0bpSY9QxbvMwoZrfyZ3IT+BOaGSkO1aWI/FET/NBT8+jIsXVflRnZ1pSp+m0rW1cZD
-         97QGKOw6CrGRGfFhZBnksdJWCWufwd1O7znkGvo0Rx9TJ5jZRr2xjIgQsG7zH7lKqce5
-         EUDfMaydgS8Mic00h/HZ8sAfyenm/phwZf/wus6Wbekj+nlKpX0hKkbQpTosH9k6kX6K
-         his64WU99fCWwnndMsMteM8cPEpzKA+GFwA6Pb9iHo0ZirOTV1iC1hvU3r7FkLzPsSzn
-         h0hg==
-X-Forwarded-Encrypted: i=1; AHgh+RrmMWkpDQNrG2OARM3GjhERDzzgADrbm9mbyn7A5vIBpsg+XDxv0XwB69Yq3T8y152eoroKbFw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfH9UXufDBQPpVp9R+aRZcLNo9JciKVrZpaZPiUtaDC8uVfG2l
-	8awzhEj0FjQ+TiGTDdDb2BNG9e5fja1G95guYA8vo6c5dAeICwKslOwj
-X-Gm-Gg: AR+sD12VUaEq7p3gR4sEH2BFlEMi4CqRcN6NMI87SGBLwM3KvcA0DIXcvBBrpOywSt5
-	afQAdINw9JsxoUpH70YOPoFcFOXZVJfwxUH5Gjmt4lNnfRspZG0HcgR7aRIYBsJpvL3DMsnvk5x
-	iCMR6bQ9OhUYKJtGGvYjKMqW/C7pDdGKQvH/1RHWAzy1b/3EY5FmaoRX9DpXHtwKUCe5c6Men7n
-	G/icfug52u7I+7qLKydYbL9yFpurOBIOWeKlePkRAH8lEKsu1OcO3e/ONjtvldq655KyysyqTV/
-	W0US/Hxhe70w7XVmq5r+P2tqstBOvVmYn2HX29yIug6DJTudSTto0niTkz5rRim0yd/h8kVS34/
-	1BNK0KNimn7MZDrRNgciimsnzXsFR88OT8rVcHLzdrP4MPRYJJB+isldc7fdaPODYkikHSvQz
-X-Received: by 2002:a05:6830:4181:b0:7e7:76f:3ec0 with SMTP id 46e09a7af769-7ee78c77bc8mr2670398a34.15.1785009160499;
-        Sat, 25 Jul 2026 12:52:40 -0700 (PDT)
-Received: from beelink.. ([155.133.15.206])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ee29e0ec5bsm8837163a34.10.2026.07.25.12.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 12:52:40 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Pauli Virtanen <pav@iki.fi>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: marcel@holtmann.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v3] Bluetooth: SCO: give the socket its own sco_conn reference
-Date: Sat, 25 Jul 2026 16:52:30 -0300
-Message-ID: <20260725195230.967546-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <c6e534e497ee771ca80e5f3c6223eaf305bca48c.camel@iki.fi>
-References: <c6e534e497ee771ca80e5f3c6223eaf305bca48c.camel@iki.fi>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBjnOFsr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9272B1F000E9;
+	Sat, 25 Jul 2026 19:59:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785009551;
+	bh=P2B025aEdm6d7zuVG+Pu0rSZ4P1dN95LO3B90rYmRDo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=UBjnOFsrsRBhMWFs0YY4MBEIUkoSpq4/hnuF6+YJrTA/m1ILvoHrCcNR5gHeKbJ0L
+	 mpYs0/2Xbaypy/W9lXd+k1XzSQbgTz8HrGH9uzofNHXJwUQB6bbiix9qJhdk3YKpEy
+	 HRj6XsYPWeCUEpLXSST300ePLtks9PyQzMgs1ZHToO4SAfzUdMWA8HJmsKJyUsd8e2
+	 PtcNW/q1A+l672P4ZqyVS03GGEu7Zz3g0uRWKkoNPbDH+Mns5cf0atRN+HfB2Wdy6I
+	 b4L2r6ovib0/CNU4wNoqB8iSsp2HfnU+ZerhLELOHgBz1BgfNaNRS+QtHLr5edH404
+	 Y2jbVQF3vwSHQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: gregkh@linuxfoundation.org, jwlee2217@gmail.com, oleg@redhat.com,
+ qw3rtyp0@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH 5.10.y] posix-cpu-timers: Prevent UAF caused by non-leader
+ exec()
+In-Reply-To: <2026072123-studied-colossal-c293@gregkh>
+References: <2026072123-studied-colossal-c293@gregkh>
+Date: Sat, 25 Jul 2026 21:59:08 +0200
+Message-ID: <87h5lmkfhv.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-sco_conn_del() drops a reference it does not own. It takes one transient
-reference via sco_conn_hold_unless_zero() and releases it with the
-sco_conn_put() that follows sco_sock_hold(); the additional put in the
-!sk branch releases a second one:
+From: Thomas Gleixner <tglx@kernel.org>
 
-    conn = sco_conn_hold_unless_zero(conn);
-    ...
-    sk = sco_sock_hold(conn);
-    sco_conn_unlock(conn);
-    sco_conn_put(conn);
+commit 920f893f735e92ba3a1cd9256899a186b161928d upstream.
 
-    if (!sk) {
-            sco_conn_put(conn);
-            return;
-    }
+Wongi and Jungwoo decoded and reported a non-leader exec() related race
+which can result in an UAF:
 
-When close() races the controller's Disconnection Complete, sco_chan_del()
-clears conn->sk and drops the socket's reference while sco_conn_del() is
-running. sco_conn_del() then sees sk == NULL, its own put drops the count
-to zero and frees the conn, and the second put writes to the freed kref:
+ sys_timer_delete()			exec()
+   posix_cpu_timer_del()
+   // Observes old leader
+   p = pid_task(pid, pid_type);		de_thread()
+   					  switch_leader();
+					  release_task(old_leader)
+					    __exit_signal(old_leader)
+					      sighand = lock(old_leader, sighand);
+					      posix_cpu_timers*_exit();
+   sighand = lock_task_sighand(p)	      unhash_task(old_leader);
+     sh = lock(p, sighand)	    	      old_leader->sighand = NULL;
+					      unlock(sighand);
+     (p->sighand == NULL)
+	unlock(sh)
+	return NULL;
 
-    BUG: KASAN: slab-use-after-free in sco_conn_put.part.0+0x1a/0x190
-    Write of size 4 at addr ffff8881099dec74 by task kworker/u17:3/413
-    Workqueue: hci1 hci_rx_work
-    Call Trace:
-     sco_conn_put.part.0+0x1a/0x190
-     hci_disconn_complete_evt+0x1ee/0x3e0
-     hci_event_packet+0x54a/0x650
-     hci_rx_work+0x321/0x3d0
-    Allocated by task 413:
-     sco_conn_add+0x72/0x1a0
-     sco_connect_cfm+0x88/0x670
-    Freed by task 413:
-     sco_conn_del.isra.0+0x3f/0xf0
-     hci_disconn_complete_evt+0x1ee/0x3e0
-    refcount_t: underflow; use-after-free.
+   // Returns without action
+   if(!sighand)
+      return 0;
+   free_posix_timer();
 
-The root cause is that the socket stores the connection without holding a
-reference of its own. __sco_chan_add() does:
+This is "harmless" unless the deleted timer was armed and enqueued in
+p->signal because on exec() a TGID targeted timer is inherited.
 
-    sco_pi(sk)->conn = conn;
+As sys_timer_delete() freed the underlying posix timer object
+run_posix_cpu_timers() or any timerqueue related add/delete operations on
+other timers will access the freed object's timerqueue node, which results
+in an UAF.
 
-so the socket borrows whatever reference its caller happened to hold, and
-the callers paper over that with ad-hoc holds and puts. Give the socket a
-counted reference instead: __sco_chan_add() takes one and it is released
-together with the channel (sco_chan_del()) and in sco_sock_destruct().
-With the socket holding its own reference, sco_conn_del() no longer needs
-the extra put and the redundant hold in sco_conn_ready() goes away.
+There is a similar problem vs. posix_cpu_timer_set(). For regular posix
+timers it just transiently returns -ESRCH to user space, but for the use
+case in do_cpu_nanosleep() it's the same UAF just that the k_itimer is
+allocated on the stack.
 
-Making the socket own its reference means the connection is now actually
-freed on the error paths of sco_connect() where it used to leak, which in
-turn runs sco_conn_free() and its hci_conn_drop(conn->hcon). To keep the
-hci_conn accounting balanced, make that ownership explicit as well:
-sco_conn_add() consumes one hci_conn reference and the sco_conn owns it for
-its lifetime. sco_connect() hands over the reference returned by
-hci_connect_sco() and no longer drops it on the error paths;
-sco_connect_cfm(), which is not given a reference, takes one with
-hci_conn_hold() before handing it to sco_conn_add() (and drops it again if
-the allocation fails); and the explicit hci_conn_hold() in sco_conn_ready()
-is removed. Every reference then has a single, clear owner.
+Also posix_cpu_timer_rearm() fails to rearm the timer, which means it stops
+to expire.
 
-Fixes: e6720779ae61 ("Bluetooth: SCO: Use kref to track lifetime of sco_conn")
+While debating solutions Frederic pointed out another problem:
+
+   posix_cpu_timer_del(tmr)
+					__exit_signal(p)
+					  posix_cpu_timers*_exit(p);
+					  unhash_task(p);
+					  p->sighand = NULL;
+     sh = lock_task_sighand(p)
+        sighand = p->sighand;
+	if (!sighand)
+	    return NULL;
+	lock(sighand);
+
+     if (!sh)
+	WARN_ON_ONCE(timer_queued(tmr));
+
+On weakly ordered architectures it is not guaranteed that
+posix_cpu_timer_del() will observe the stores in posix_cpu_timers*_exit()
+when p->sighand is observed as NULL, which means the WARN() can be a false
+positive.
+
+Solve these issues by:
+
+  1) Changing the store in __exit_signal() to smp_store_release().
+
+  2) Adding a smp_acquire__after_ctrl_dep() into the !sighand path
+     of lock_task_sighand().
+
+  3) Creating a helper function for looking up the task and locking sighand
+     which does not return when sighand == NULL. Instead it retries the
+     task lookup and only if that fails it gives up.
+
+  4) Using that helper in the three affected functions.
+
+#1/#2 ensures that the reader side which observes sighand == NULL also
+observes all preceeding stores, i.e. the stores in posix_cpu_timers*_exit()
+and the ones in unhash_task().
+
+#3 ensures that the above described non-leader exec() situation is handled
+gracefully. When the task lookup returns the old leader, but sighand ==
+NULL then it retries. In the non-leader exec() case the subsequent task
+lookup will observe the new leader due to #1/#2. In normal exit() scenarios
+the subsequent lookup fails.
+
+When the task lookup fails, the function also checks whether the timer is
+still enqueued and issues a warning if that's the case. Unfortunately there
+is nothing which can be done about it, but as the task is already not
+longer visible the timer should not be accessed anymore. This check also
+requires memory ordering, which is not provided when the first lookup
+fails. To achieve that the check is preceeded by a smp_rmb() which pairs
+with the smp_wmb() in write_seqlock() in __exit_signal(). That ensures that
+the stores in posix_cpu_timers*_exit() are visible.
+
+The history of the non-leader exec() issue goes back to the early days of
+posix CPU timers, which stored a pointer to the group leader task in the
+timer. That obviously fails when a non-leader exec() switches the leader.
+commit e0a70217107e ("posix-cpu-timers: workaround to suppress the problems
+with mt exec") added a temporary workaround for that in 2010 which survived
+about 10 years. The fix for the workaround changed the task pointer to a
+pid pointer, but failed to see the subtle race described above. So the
+Fixes tag picks that commit, which seems to be halfways accurate.
+
+Thanks to Frederic Weissbecker, Oleg Nesterov and Peter Zijlstra for
+review, feedback and suggestions and to Wongi and Jungwoo for the excellent
+bug report and analysis!
+
+Fixes: 55e8c8eb2c7b ("posix-cpu-timers: Store a reference to a pid not a task")
+Reported-by: Wongi Lee <qw3rtyp0@gmail.com>
+Reported-by: Jungwoo Lee <jwlee2217@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 Cc: stable@vger.kernel.org
-Suggested-by: Pauli Virtanen <pav@iki.fi>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
-v3:
- - Incorporate Pauli Virtanen's review: make sco_conn own one hci_conn
-   reference for its whole lifetime -- sco_conn_add() consumes an hci_conn
-   reference, sco_connect() no longer drops hcon on its error paths,
-   sco_connect_cfm() holds one before sco_conn_add(), and the hci_conn_hold()
-   in sco_conn_ready() is removed. This avoids the double hci_conn_drop() on
-   sco_connect()'s error paths that v2 would otherwise introduce.
- - Keep the sco_pi(conn->sk)->conn = NULL clearing in sco_conn_free(). v2
-   removed it as unreachable, but KASAN testing of close() racing the
-   Disconnection Complete showed that dropping it reintroduces a
-   use-after-free on the sco_sock_release() path, so it is retained.
- - Drop the hcon reference in sco_connect_cfm() when sco_conn_add() fails,
-   so the allocation-failure path does not leak it.
-v2:
- - Make the socket own its sco_conn reference rather than only deleting the
-   extra put, per Pauli Virtanen's review.
-
-Testing: on v7.2-rc4 with KASAN and a /dev/vhci reproducer that races
-close() of an SCO socket against an injected Disconnection Complete, the
-unpatched kernel hits the refcount_t underflow / use-after-free above
-within a few thousand iterations; with this patch the sco_conn_del()
-over-put on the Disconnection Complete path no longer reproduces.
-
- net/bluetooth/sco.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
-
-diff --git a/net/bluetooth/sco.c b/net/bluetooth/sco.c
-index fcc597be5bbd..aa9f61a748ab 100644
---- a/net/bluetooth/sco.c
-+++ b/net/bluetooth/sco.c
-@@ -188,6 +188,9 @@ static void sco_sock_clear_timer(struct sock *sk)
+ kernel/exit.c                  |    8 +
+ kernel/signal.c                |   10 +-
+ kernel/time/posix-cpu-timers.c |  186 ++++++++++++++++++++++++++---------------
+ 3 files changed, 138 insertions(+), 66 deletions(-)
+---
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -200,7 +200,13 @@ static void __exit_signal(struct task_st
+ 	 * doing sigqueue_free() if we have SIGQUEUE_PREALLOC signals.
+ 	 */
+ 	flush_sigqueue(&tsk->pending);
+-	tsk->sighand = NULL;
++
++	/*
++	 * Ensure that all preceeding state is visible. Pairs with
++	 * the smp_acquire__after_ctrl_dep() in the sighand == NULL
++	 * path of lock_task_sighand().
++	 */
++	smp_store_release(&tsk->sighand, NULL);
+ 	spin_unlock(&sighand->siglock);
+ 
+ 	__cleanup_sighand(sighand);
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -1375,8 +1375,16 @@ struct sighand_struct *__lock_task_sigha
+ 	rcu_read_lock();
+ 	for (;;) {
+ 		sighand = rcu_dereference(tsk->sighand);
+-		if (unlikely(sighand == NULL))
++		if (unlikely(sighand == NULL)) {
++			/*
++			 * Pairs with the smp_store_release() in
++			 * __exit_signal().  It ensures that all state
++			 * modifications to the task preceeding the store are
++			 * visible to the callers of lock_task_sighand().
++			 */
++			smp_acquire__after_ctrl_dep();
+ 			break;
++		}
+ 
+ 		/*
+ 		 * This sighand can be already freed and even reused, but
+--- a/kernel/time/posix-cpu-timers.c
++++ b/kernel/time/posix-cpu-timers.c
+@@ -406,6 +406,110 @@ static int posix_cpu_timer_create(struct
  }
  
- /* ---- SCO connections ---- */
-+/* Consumes a reference on @hcon, which the returned sco_conn owns until it is
-+ * freed. On failure (NULL return) the reference is left for the caller to drop.
+ /*
++ * Lookup the task via timer->it.cpu.pid and attempt to lock the task's sighand.
++ *
++ * This can race with the reaping of the task:
++ *
++ * CPU0					CPU1
++ *
++ * // Finds task
++ * p = pid_task(pid, pid_type);		__exit_signal(p)
++ *					  lock(p, sighand);
++ *					  posix_cpu_timers*_exit();
++ * sighand = lock_task_sighand(p);	  unhash_task(p);
++ *					  p->sighand = NULL;
++ *					  unlock(sighand);
++ *
++ * In this case sighand is NULL, which means the task and the associated timer
++ * queue cannot be longer accessed safely.
++ *
++ * __exit_signal() invokes posix_cpu_timers_exit() and if the thread group is
++ * dead it also invokes posix_cpu_timers_group_exit(). These functions delete
++ * all pending timers from the related timer queues. The POSIX timers (k_itimer)
++ * themself are still accessible, but not longer connected to the task.
++ *
++ * exec() works slightly differently. The task which exec()'s terminates all
++ * other threads in the thread group and runs __exit_signal() on them. As the
++ * thread group is not dead they only clean up the per task timers via
++ * posix_cpu_timers_exit().
++ *
++ * As the TGID on exec() stays the same per process timers stay queued, if they
++ * are armed. This works without a problem when exec() is done by the thread
++ * group leader. If a non-leader thread exec()'s this can end up in the
++ * following scenario:
++ *
++ * CPU0					CPU1
++ * // Returns old leader
++ * p = pid_task(pid, pid_type);		de_thread()
++ *					switch_leader()
++ *					release_task(old leader)
++ *					  __exit_signal()
++ *					  old_leader->sighand = NULL;
++ * // Returns NULL
++ * sighand = lock_task_sighand(p)
++ *
++ * That's problematic for several functions:
++ *
++ *  - posix_cpu_timer_del(): If the timer is still enqueued on the task the
++ *    underlying k_itimer will be freed which results in a UAF in
++ *    run_posix_cpu_timers() or on timerqueue related add/delete operations.
++ *    If the timer is not enqueued, the failure is harmless
++ *
++ *  - posix_cpu_timer_set(): Independent of the enqueued state that results in a
++ *    transient failure which is user space visible (-ESRCH) for regular posix
++ *    timers. But for the use case in do_cpu_nanosleep() it's the same UAF
++ *    problem just that the timer is allocated on the stack.
++ *
++ *  - posix_cpu_timer_rearm(): Timer is not enqueued at that point, but this
++ *    silently ignores the rearm request, which is a functional problem as the
++ *    timer wont expire anymore.
 + */
- static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
++static struct task_struct *timer_lock_sighand(struct k_itimer *timer, unsigned long *flags)
++{
++	enum pid_type type = clock_pid_type(timer->it_clock);
++	struct cpu_timer *ctmr = &timer->it.cpu;
++
++	guard(rcu)();
++
++	for (;;) {
++		struct task_struct *t = pid_task(timer->it.cpu.pid, type);
++
++		/* Fail if the task cannot be found. */
++		if (!t)
++			break;
++
++		/* Try to lock the task's sighand */
++		if (lock_task_sighand(t, flags))
++			return t;
++
++		/*
++		 * The next PID lookup might either fail or return the new
++		 * leader. This is correct for both exit() and exec().
++		 */
++	}
++
++	/*
++	 * If the timer is still enqueued, warn. There is nothing safe to do
++	 * here as there might be two timers in there which are removed in
++	 * parallel and that will cause more damage than good. This should never
++	 * happen!
++	 *
++	 * Ensure that the stores to the timer and timerqueue are visible:
++	 *
++	 * __exit_signal()
++	 *   posix_cpu_timers*_exit()
++	 *   write_seqlock(seqlock)
++	 *	smp_wmb(); <-------
++	 *   __unhash_process()	  |	!pid_task()
++	 *			  ---->	smp_rmb();
++	 *				WARN_ON_ONCE(...)
++	 */
++	smp_rmb();
++	WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
++	return NULL;
++}
++
++/*
+  * Clean up a CPU-clock timer that is about to be destroyed.
+  * This is called from timer deletion with the timer already locked.
+  * If we return TIMER_RETRY, it's necessary to release the timer's lock
+@@ -414,28 +518,13 @@ static int posix_cpu_timer_create(struct
+ static int posix_cpu_timer_del(struct k_itimer *timer)
  {
- 	struct sco_conn *conn = hcon->sco_data;
-@@ -198,6 +201,9 @@ static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
- 			sco_conn_lock(conn);
- 			conn->hcon = hcon;
- 			sco_conn_unlock(conn);
-+		} else {
-+			/* conn already owns a reference on hcon */
-+			hci_conn_drop(hcon);
- 		}
- 		return conn;
- 	}
-@@ -265,10 +271,8 @@ static void sco_conn_del(struct hci_conn *hcon, int err)
- 	sco_conn_unlock(conn);
- 	sco_conn_put(conn);
+ 	struct cpu_timer *ctmr = &timer->it.cpu;
+-	struct sighand_struct *sighand;
+ 	struct task_struct *p;
+ 	unsigned long flags;
+ 	int ret = 0;
  
--	if (!sk) {
--		sco_conn_put(conn);
-+	if (!sk)
- 		return;
+-	rcu_read_lock();
+-	p = cpu_timer_task_rcu(timer);
+-	if (!p)
+-		goto out;
++	p = timer_lock_sighand(timer, &flags);
+ 
+-	/*
+-	 * Protect against sighand release/switch in exit/exec and process/
+-	 * thread timer list entry concurrent read/writes.
+-	 */
+-	sighand = lock_task_sighand(p, &flags);
+-	if (unlikely(sighand == NULL)) {
+-		/*
+-		 * This raced with the reaping of the task. The exit cleanup
+-		 * should have removed this timer from the timer queue.
+-		 */
+-		WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
+-	} else {
++	if (likely(p)) {
+ 		if (timer->it.cpu.firing)
+ 			ret = TIMER_RETRY;
+ 		else
+@@ -444,8 +533,6 @@ static int posix_cpu_timer_del(struct k_
+ 		unlock_task_sighand(p, &flags);
+ 	}
+ 
+-out:
+-	rcu_read_unlock();
+ 	if (!ret)
+ 		put_pid(ctmr->pid);
+ 
+@@ -575,21 +662,17 @@ static int posix_cpu_timer_set(struct k_
+ 	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
+ 	u64 old_expires, new_expires, old_incr, val;
+ 	struct cpu_timer *ctmr = &timer->it.cpu;
+-	struct sighand_struct *sighand;
+ 	struct task_struct *p;
+ 	unsigned long flags;
+ 	int ret = 0;
+ 
+-	rcu_read_lock();
+-	p = cpu_timer_task_rcu(timer);
+-	if (!p) {
+-		/*
+-		 * If p has just been reaped, we can no
+-		 * longer get any information about it at all.
+-		 */
+-		rcu_read_unlock();
++	p = timer_lock_sighand(timer, &flags);
++	/*
++	 * If p has just been reaped, we can no longer get any information about
++	 * it at all.
++	 */
++	if (!p)
+ 		return -ESRCH;
 -	}
  
- 	/* Kill socket */
- 	lock_sock(sk);
-@@ -283,7 +287,7 @@ static void __sco_chan_add(struct sco_conn *conn, struct sock *sk,
- {
- 	BT_DBG("conn %p", conn);
+ 	/*
+ 	 * Use the to_ktime conversion because that clamps the maximum
+@@ -598,20 +681,6 @@ static int posix_cpu_timer_set(struct k_
+ 	new_expires = ktime_to_ns(timespec64_to_ktime(new->it_value));
  
--	sco_pi(sk)->conn = conn;
-+	sco_pi(sk)->conn = sco_conn_hold(conn);
- 	conn->sk = sk;
- 
- 	if (parent)
-@@ -366,15 +370,15 @@ static int sco_connect(struct sock *sk)
+ 	/*
+-	 * Protect against sighand release/switch in exit/exec and p->cpu_timers
+-	 * and p->signal->cpu_timers read/write in arm_timer()
+-	 */
+-	sighand = lock_task_sighand(p, &flags);
+-	/*
+-	 * If p has just been reaped, we can no
+-	 * longer get any information about it at all.
+-	 */
+-	if (unlikely(sighand == NULL)) {
+-		rcu_read_unlock();
+-		return -ESRCH;
+-	}
+-
+-	/*
+ 	 * Disarm any old timer after extracting its expiry time.
  	 */
- 	if (sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND) {
- 		release_sock(sk);
--		hci_conn_drop(hcon);
-+		sco_conn_put(conn);
- 		err = -EBADFD;
- 		goto unlock;
+ 	old_incr = timer->it_interval;
+@@ -669,7 +738,7 @@ static int posix_cpu_timer_set(struct k_
+ 		 * it as an overrun (thanks to bump_cpu_timer above).
+ 		 */
+ 		unlock_task_sighand(p, &flags);
+-		goto out;
++		return ret;
  	}
  
- 	err = sco_chan_add(conn, sk, NULL);
-+	sco_conn_put(conn);
- 	if (err) {
- 		release_sock(sk);
--		hci_conn_drop(hcon);
- 		goto unlock;
+ 	if (new_expires != 0 && !(timer_flags & TIMER_ABSTIME)) {
+@@ -686,7 +755,6 @@ static int posix_cpu_timer_set(struct k_
+ 		arm_timer(timer, p);
  	}
  
-@@ -1439,8 +1443,6 @@ static void sco_conn_ready(struct sco_conn *conn)
- 		bacpy(&sco_pi(sk)->src, &conn->hcon->src);
- 		bacpy(&sco_pi(sk)->dst, &conn->hcon->dst);
+-	unlock_task_sighand(p, &flags);
+ 	/*
+ 	 * Install the new reload setting, and
+ 	 * set up the signal and overrun bookkeeping.
+@@ -703,6 +771,11 @@ static int posix_cpu_timer_set(struct k_
+ 	timer->it_overrun_last = 0;
+ 	timer->it_overrun = -1;
  
--		sco_conn_hold(conn);
--		hci_conn_hold(conn->hcon);
- 		__sco_chan_add(conn, sk, parent);
++	if (old)
++		old->it_interval = ns_to_timespec64(old_incr);
++
++	unlock_task_sighand(p, &flags);
++
+ 	if (new_expires != 0 && !(val < new_expires)) {
+ 		/*
+ 		 * The designated time already passed, so we notify
+@@ -712,13 +785,7 @@ static int posix_cpu_timer_set(struct k_
+ 		cpu_timer_fire(timer);
+ 	}
  
- 		if (test_bit(BT_SK_DEFER_SETUP, &bt_sk(parent)->flags))
-@@ -1496,10 +1498,12 @@ static void sco_connect_cfm(struct hci_conn *hcon, __u8 status)
- 	if (!status) {
- 		struct sco_conn *conn;
+-	ret = 0;
+- out:
+-	rcu_read_unlock();
+-	if (old)
+-		old->it_interval = ns_to_timespec64(old_incr);
+-
+-	return ret;
++	return 0;
+ }
  
--		conn = sco_conn_add(hcon);
-+		conn = sco_conn_add(hci_conn_hold(hcon));
- 		if (conn) {
- 			sco_conn_ready(conn);
- 			sco_conn_put(conn);
-+		} else {
-+			hci_conn_drop(hcon);
- 		}
- 	} else
- 		sco_conn_del(hcon, bt_to_errno(status));
--- 
-2.43.0
-
+ static void posix_cpu_timer_get(struct k_itimer *timer, struct itimerspec64 *itp)
+@@ -984,19 +1051,12 @@ static void posix_cpu_timer_rearm(struct
+ {
+ 	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
+ 	struct task_struct *p;
+-	struct sighand_struct *sighand;
+ 	unsigned long flags;
+ 	u64 now;
+ 
+-	rcu_read_lock();
+-	p = cpu_timer_task_rcu(timer);
+-	if (!p)
+-		goto out;
+-
+-	/* Protect timer list r/w in arm_timer() */
+-	sighand = lock_task_sighand(p, &flags);
+-	if (unlikely(sighand == NULL))
+-		goto out;
++	p = timer_lock_sighand(timer, &flags);
++	if (unlikely(!p))
++		return;
+ 
+ 	/*
+ 	 * Fetch the current sample and update the timer's expiry time.
+@@ -1013,8 +1073,6 @@ static void posix_cpu_timer_rearm(struct
+ 	 */
+ 	arm_timer(timer, p);
+ 	unlock_task_sighand(p, &flags);
+-out:
+-	rcu_read_unlock();
+ }
+ 
+ /**
