@@ -1,91 +1,56 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E38175A95
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:14:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2633859E2
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784974467; cv=none; b=UhcyiRmIbJfn25btuyVQ47bvS/4n1sRIO+7co1Mnmkwt3Ci+1U7+mVqy5byRllRryK+2C/6iqocTX+DVZuOXeKlbqIFBDptmegb+Fhgx1RkORI4v+Z+HuuES3e3QUqvQmT9Ws3D6TPQyITF6JH9uLqyut8CkhYdXmY1T22BeJhM=
+	t=1784976878; cv=none; b=nclyedym9KQF4LAL/k8siP7dAj1oMV/nvwUv/Cvlp5LqslmYXv1rLCVNb4/4N53cUQFcgPT+1d3yM4b44EW9odxebq0VT93FcwEeODstMZJ5IGA6iX3TGS5NyU7vDYmth0fEWWDogP6jPtuLBoBohKwUjFBit2gknX7EyukCxvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784974467; c=relaxed/simple;
-	bh=ZoevCOB3AVJOLQNo3puwsZK3nyVscupnbFcL/mWh9HA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WOFtO4RbPLcu08L01pN27tZdMcPG+/mnb2j0PeoNYrnYl54K8iPcD57btjJSbYcZKk1d4iall64jL87nHPGEDQN3E/VnG5TGsLQhjt8YJLv9wZ4mL/jdfGmX5yK7q6EzAxMsdYE9EgAOUeZOYld5YRGuHng0lH7bLzffLrDvVs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=MU3KKvFC; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
+	s=arc-20240116; t=1784976878; c=relaxed/simple;
+	bh=ydxbDh3ZGMLYWiZRKl11xIOQmwqwsGKggfGdRXnarFY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TGS0m/6wPrtsbmYrPhqIJQ7r+t/o1KpGUfcKOQn9SR8bbZyAseMPRLZvXN8JzaXKS3Q5avfSOhIvu65iZjj6bfonvlzK/JpeMBbyPSyNRNxWu3NCjVdCV3WkatinDJLb6lvHF3vPesofI7j5dRRnv/eljjf99m2FJryOe2My4CA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=odMQVU/t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="MU3KKvFC"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f703a9d05so750265f8f.0
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 03:14:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1784974463; x=1785579263; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mKnbPcWgHhMyrO4V7xcbU637Ba8Qy4Y9EblUr4Mkk8k=;
-        b=MU3KKvFCf3tUK7vMQS1gB9d2oVTNHotkBEClBkOg3l/CQiuQ4DpRpovQla3YrT5OP7
-         VipdqqIeWb4hamcaXrCu7bSugbv60qhfmlJjeXeLve76OEUj9hgt1ChtxO8HCRtkIME+
-         tp9L0d0zs7kpEcryjyYj1bVaemxyg0mnMINZ0NgJNUtz8yRLuz3Yg7/0ivMvwyAMHyxU
-         d9fh/xP9tgmMU+heDOIyn3IynjQHeMtmZwlm+CJrpTLFZtYz5LeCMq1cYBe3U86GpqoF
-         0p3wriiN7o3nwnjVSaVjVgRbEr0i2URMLyVXpKRhCH9B1vifQjV5lwwcRywIlkT6srfv
-         F2fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784974463; x=1785579263;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mKnbPcWgHhMyrO4V7xcbU637Ba8Qy4Y9EblUr4Mkk8k=;
-        b=ACp6la1BcLltmvbY5NDNAOkhelLZyigrRyESn75PIoRKYpeThnYfAMb/myAfPzZ9hP
-         79UaY4+4gTI98t9SIGJ9wekjsfkWEKsXH2CdUH4R5Vxe5S4o9a8f2MOyEPMgmqHHAeFr
-         7i+zpCx427ZHbXUeUaFqwmjI44Sqj+G9YjK1I9pNJpUEoB16/UAf85k+W8zfcOJOTxyV
-         rA5KqorYNqVGz4UhrCG7uRhYrx6owHJt4Dn6LrG8jIWVQbuRU5PBQSnc/D4CodoKDhGT
-         ZjrnTaPEk5AVvoa6DkmRxojzsNdQ5PtwSOZ9TVOVIIchz70K4ifgbtZ8YZrHTfCbPdZp
-         a6Kw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr84io38cotWDAmBUJhro0WtfDdTAymMhFtoD5NN+JA7yB/F/o827WOk+pZodwmihatY4nVxXU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwR83rg0tpu9w+475Qw1fyi8hzddMjKuZEDK0Eq/aXWJqBxIQ+k
-	CFrZWCOt7efMVvmlCYtnNOeUCRG517RCjk31WSlbcc2BVqRtzXSVdyVg3kwSlsaxpo0=
-X-Gm-Gg: AR+sD11HNH8DOY35eMBt8DkWfMKalG1ItHiCs3xSGesGdJ4fc5SekbsEyu/XBh0ByBz
-	oRI07ZrTTkLJHG6picjF9ciEJ3ovcaclpRZ9BkynaJc1n2rFlFTkzjWSET4S/uASTTuAR3UIYKB
-	daCakyDXVn2edOMrwyLC71il+K4w2exhvmUwQqukzO5jCXHm6YWYmmqy71fIaG2wCgoMX3zKPgC
-	l03/OkTcsXcYz1AV/wi8m0iAx2PXqy9/fOQM2WLLzJGv4JhsRzRhBbwQL6Al/5K6YFk6/GSntQA
-	hPauzc59t2tlAqDr2E+byX+F+OoxzDzMGc09Wg6k++YmTOxQrFtNaOeF6XBYmvMz2LIz35hyOyy
-	026OB7qRbh/RNW61/ZlpCks4rcqFYOocLSVfIsDZaXAdyO5AU6UDAp9j8IXFVMWWTexFLK989Jc
-	e879y8oA==
-X-Received: by 2002:adf:e190:0:b0:47f:52e9:3716 with SMTP id ffacd0b85a97d-47f9fea1ed7mr1967871f8f.44.1784974463387;
-        Sat, 25 Jul 2026 03:14:23 -0700 (PDT)
-Received: from matt-Precision-5490.. ([2a09:bac6:37a8:1f19::319:116])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f864305f5sm30334154f8f.17.2026.07.25.03.14.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 03:14:22 -0700 (PDT)
-From: Matt Fleming <matt@readmodwrite.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <Liam.Howlett@oracle.com>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Dave Chinner <david@fromorbit.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kairui Song <ryncsn@gmail.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Matthew Wilcox <willy@infradead.org>,
-	syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: [PATCH v2] mm/huge_memory: Initialise workingset state before folio split
-Date: Sat, 25 Jul 2026 11:14:19 +0100
-Message-ID: <20260725101419.3938406-1-matt@readmodwrite.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="odMQVU/t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623C01F000E9;
+	Sat, 25 Jul 2026 10:54:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784976877;
+	bh=bRVKPqZCBSzepK906iK2ogclbBAUlOY4UmQb37FxGgc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=odMQVU/tvNPRv6tkHkaRTYeDMwEkMo9nQ0p25xSl6A5yaY271Tsd2zGlfNLrkYmqw
+	 7FG77OQT1oUkzo7gv+UyEAQ4x2JW0qes0cia3ubnKPFZPWwmzwZw088mYuGdeG+G9u
+	 eMHMnlPsx2D4L085MuhhVejURwtdUAfkYdvDbMZMFpeWDG22z6yXNtWvyW9Raqe7vO
+	 Y/w9NoZ+gILqlcRwnIp2UksWnCOxPefxUF2t6XokRC27z3XdlLUZm4veq3BVGjzk3Y
+	 9IK9thDevPNVUjFGzCGNPeeZI0J7znTOqXXTp76PNtZcoXGZ6JFFqJA0UhLA2RN9Vb
+	 bkyRND2Bb3Zeg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Changyuan Lyu <changyuanl@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Simon Horman <horms@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] kho: add interfaces to unpreserve folios, page ranges, and vmalloc
+Date: Sat, 25 Jul 2026 06:54:32 -0400
+Message-ID: <20260725105433.1853930-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072031-lapping-tubby-5b19@gregkh>
+References: <2026072031-lapping-tubby-5b19@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -94,55 +59,229 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matt Fleming <mfleming@cloudflare.com>
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
 
-xas_try_split() adds __GFP_ACCOUNT for page-cache xa_nodes, but
-__folio_split() leaves the xa_state's xa_lru unset. That lets a live,
-memcg-charged xa_node exist without being linked into the mapping's
-shadow_nodes list_lru; when reclaim later walks the list_lru it trips
-VM_WARN_ON(!css_is_dying()).
+[ Upstream commit 36f8f7ef7fd2f238922e9d217e86c69838319d8c ]
 
-Use mapping_set_update() to install both the workingset update callback
-and the shadow_nodes list_lru on the xa_state.
+Allow users of KHO to cancel the previous preservation by adding the
+necessary interfaces to unpreserve folio, pages, and vmallocs.
 
-Reported-by: syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c5b060ce82921a2fd500
-Fixes: 58729c04cf10 ("mm/huge_memory: add buddy allocator like (non-uniform) folio_split()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+Link: https://lkml.kernel.org/r/20251101142325.1326536-4-pasha.tatashin@soleen.com
+Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>
+Cc: Changyuan Lyu <changyuanl@google.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Masahiro Yamada <masahiroy@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Zhu Yanjun <yanjun.zhu@linux.dev>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 0e39380a7316 ("kho: make sure scratch size is always aligned by CMA_MIN_ALIGNMENT_BYTES")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Move mapping_set_update() after filemap_release_folio() succeeds.
-- Add Zi Yan's Reviewed-by.
+ include/linux/kexec_handover.h |  18 ++++++
+ kernel/kexec_handover.c        | 104 ++++++++++++++++++++++++++++-----
+ 2 files changed, 109 insertions(+), 13 deletions(-)
 
-Link: https://lore.kernel.org/linux-mm/20260724195244.3715130-1-matt@readmodwrite.com/
----
- mm/huge_memory.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index b5d1e9d4463d..4ddbc72e92fd 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4033,7 +4033,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		gfp_t gfp;
+diff --git a/include/linux/kexec_handover.h b/include/linux/kexec_handover.h
+index 25042c1d8d54af..e1af332a262fba 100644
+--- a/include/linux/kexec_handover.h
++++ b/include/linux/kexec_handover.h
+@@ -52,8 +52,11 @@ bool kho_is_enabled(void);
+ bool is_kho_boot(void);
  
- 		mapping = folio->mapping;
--		min_order = mapping_min_folio_order(folio->mapping);
-+		min_order = mapping_min_folio_order(mapping);
- 		if (new_order < min_order) {
- 			ret = -EINVAL;
- 			goto out;
-@@ -4047,6 +4047,8 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 			goto out;
- 		}
+ int kho_preserve_folio(struct folio *folio);
++int kho_unpreserve_folio(struct folio *folio);
+ int kho_preserve_pages(struct page *page, unsigned int nr_pages);
++int kho_unpreserve_pages(struct page *page, unsigned int nr_pages);
+ int kho_preserve_vmalloc(void *ptr, struct kho_vmalloc *preservation);
++int kho_unpreserve_vmalloc(struct kho_vmalloc *preservation);
+ struct folio *kho_restore_folio(phys_addr_t phys);
+ struct page *kho_restore_pages(phys_addr_t phys, unsigned int nr_pages);
+ void *kho_restore_vmalloc(const struct kho_vmalloc *preservation);
+@@ -83,17 +86,32 @@ static inline int kho_preserve_folio(struct folio *folio)
+ 	return -EOPNOTSUPP;
+ }
  
-+		mapping_set_update(&xas, mapping);
++static inline int kho_unpreserve_folio(struct folio *folio)
++{
++	return -EOPNOTSUPP;
++}
 +
- 		if (split_type == SPLIT_TYPE_UNIFORM) {
- 			xas_set_order(&xas, folio->index, new_order);
- 			xas_split_alloc(&xas, folio, old_order, gfp);
+ static inline int kho_preserve_pages(struct page *page, unsigned int nr_pages)
+ {
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline int kho_unpreserve_pages(struct page *page, unsigned int nr_pages)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline int kho_preserve_vmalloc(void *ptr,
+ 				       struct kho_vmalloc *preservation)
+ {
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline int kho_unpreserve_vmalloc(struct kho_vmalloc *preservation)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline struct folio *kho_restore_folio(phys_addr_t phys)
+ {
+ 	return NULL;
+diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
+index c13b99f7c9891e..37e6048118e8b7 100644
+--- a/kernel/kexec_handover.c
++++ b/kernel/kexec_handover.c
+@@ -153,26 +153,33 @@ static void *xa_load_or_alloc(struct xarray *xa, unsigned long index)
+ 	return no_free_ptr(elm);
+ }
+ 
+-static void __kho_unpreserve(struct kho_mem_track *track, unsigned long pfn,
+-			     unsigned long end_pfn)
++static void __kho_unpreserve_order(struct kho_mem_track *track, unsigned long pfn,
++				   unsigned int order)
+ {
+ 	struct kho_mem_phys_bits *bits;
+ 	struct kho_mem_phys *physxa;
++	const unsigned long pfn_high = pfn >> order;
+ 
+-	while (pfn < end_pfn) {
+-		const unsigned int order =
+-			min(count_trailing_zeros(pfn), ilog2(end_pfn - pfn));
+-		const unsigned long pfn_high = pfn >> order;
++	physxa = xa_load(&track->orders, order);
++	if (WARN_ON_ONCE(!physxa))
++		return;
+ 
+-		physxa = xa_load(&track->orders, order);
+-		if (WARN_ON_ONCE(!physxa))
+-			return;
++	bits = xa_load(&physxa->phys_bits, pfn_high / PRESERVE_BITS);
++	if (WARN_ON_ONCE(!bits))
++		return;
++
++	clear_bit(pfn_high % PRESERVE_BITS, bits->preserve);
++}
++
++static void __kho_unpreserve(struct kho_mem_track *track, unsigned long pfn,
++			     unsigned long end_pfn)
++{
++	unsigned int order;
+ 
+-		bits = xa_load(&physxa->phys_bits, pfn_high / PRESERVE_BITS);
+-		if (WARN_ON_ONCE(!bits))
+-			return;
++	while (pfn < end_pfn) {
++		order = min(count_trailing_zeros(pfn), ilog2(end_pfn - pfn));
+ 
+-		clear_bit(pfn_high % PRESERVE_BITS, bits->preserve);
++		__kho_unpreserve_order(track, pfn, order);
+ 
+ 		pfn += 1 << order;
+ 	}
+@@ -739,6 +746,30 @@ int kho_preserve_folio(struct folio *folio)
+ }
+ EXPORT_SYMBOL_GPL(kho_preserve_folio);
+ 
++/**
++ * kho_unpreserve_folio - unpreserve a folio.
++ * @folio: folio to unpreserve.
++ *
++ * Instructs KHO to unpreserve a folio that was preserved by
++ * kho_preserve_folio() before. The provided @folio (pfn and order)
++ * must exactly match a previously preserved folio.
++ *
++ * Return: 0 on success, error code on failure
++ */
++int kho_unpreserve_folio(struct folio *folio)
++{
++	const unsigned long pfn = folio_pfn(folio);
++	const unsigned int order = folio_order(folio);
++	struct kho_mem_track *track = &kho_out.track;
++
++	if (kho_out.finalized)
++		return -EBUSY;
++
++	__kho_unpreserve_order(track, pfn, order);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(kho_unpreserve_folio);
++
+ /**
+  * kho_preserve_pages - preserve contiguous pages across kexec
+  * @page: first page in the list.
+@@ -783,6 +814,33 @@ int kho_preserve_pages(struct page *page, unsigned int nr_pages)
+ }
+ EXPORT_SYMBOL_GPL(kho_preserve_pages);
+ 
++/**
++ * kho_unpreserve_pages - unpreserve contiguous pages.
++ * @page: first page in the list.
++ * @nr_pages: number of pages.
++ *
++ * Instructs KHO to unpreserve @nr_pages contiguous pages starting from @page.
++ * This must be called with the same @page and @nr_pages as the corresponding
++ * kho_preserve_pages() call. Unpreserving arbitrary sub-ranges of larger
++ * preserved blocks is not supported.
++ *
++ * Return: 0 on success, error code on failure
++ */
++int kho_unpreserve_pages(struct page *page, unsigned int nr_pages)
++{
++	struct kho_mem_track *track = &kho_out.track;
++	const unsigned long start_pfn = page_to_pfn(page);
++	const unsigned long end_pfn = start_pfn + nr_pages;
++
++	if (kho_out.finalized)
++		return -EBUSY;
++
++	__kho_unpreserve(track, start_pfn, end_pfn);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(kho_unpreserve_pages);
++
+ struct kho_vmalloc_hdr {
+ 	DECLARE_KHOSER_PTR(next, struct kho_vmalloc_chunk *);
+ };
+@@ -944,6 +1002,26 @@ int kho_preserve_vmalloc(void *ptr, struct kho_vmalloc *preservation)
+ }
+ EXPORT_SYMBOL_GPL(kho_preserve_vmalloc);
+ 
++/**
++ * kho_unpreserve_vmalloc - unpreserve memory allocated with vmalloc()
++ * @preservation: preservation metadata returned by kho_preserve_vmalloc()
++ *
++ * Instructs KHO to unpreserve the area in vmalloc address space that was
++ * previously preserved with kho_preserve_vmalloc().
++ *
++ * Return: 0 on success, error code on failure
++ */
++int kho_unpreserve_vmalloc(struct kho_vmalloc *preservation)
++{
++	if (kho_out.finalized)
++		return -EBUSY;
++
++	kho_vmalloc_free_chunks(preservation);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(kho_unpreserve_vmalloc);
++
+ /**
+  * kho_restore_vmalloc - recreates and populates an area in vmalloc address
+  * space from the preserved memory.
 -- 
-2.43.0
+2.53.0
 
