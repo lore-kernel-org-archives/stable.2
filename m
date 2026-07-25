@@ -1,460 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA6735675E
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 20:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B9145039
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 20:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785011258; cv=none; b=CaFZK9BkXipHeeqZDotcP8p66dbB6N0c3Zc9hF0Qe06YYFInGgMSKGbzVZrfBXdxeSFMyoZx1Yf9LsKoEI2LrylY2+FHas16kX76ehGYjD2vDpJs2pDUVuaq4m+KNNVxxP4z62V+OQ30XXcSidFZ4bQi/AoIdYeG/u2NCPkzsqo=
+	t=1785011744; cv=none; b=OCp/ZXCauofVAqMT/SuRtTbFt7tMEEUzQzWqfH42wenOSPF/b8CsHp1FlEs2WenIJzXvJfsxGeUGdvEsLM9RjJI+u39kCKNXYNelrHQrPe0IrMqsFFQrzGopPWv+YI76Zee2m8MHfrBfRG+JS4+XnCm3npHTWJZsUsIr7Plbfqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785011258; c=relaxed/simple;
-	bh=SnKsjd9tOnnL2Qj1v/zW0lunpguy50u1CVZ/XdNFTx8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KU63Zya632jtgDmlO8YaRsLgtHu3QGQPiPorHJSjf9SQhQ1FdG40kGt8X+sLETF2S5Pbgjy6vkZOGQAPaODc1CBOI6Sh8dh8eUKzu7qYywecADVKZP3XVe8bSlbkRPUH1KRBATLb1fspPQoMftXdolKbSW4pKW1go6fEuCmo7a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PHyZIyVj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785011744; c=relaxed/simple;
+	bh=JI/1p4HiUb1gV1m1gIBwh7JAsAjpmArIYKEU5U/bgvg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fuegvihn2CKV3WcVPOKZOPAjHYuugjh/NafWLDiXgbL9Jecu2a3kkcyQ9DQL59IbF/+2BknxDgsfSf5aPsRJgDmPxYtvRH5oa12vybAhn36sd/n1PkMeiZT9rfzdQXPRdFSyFS6vE2zqUk85JRPFtkJF/BcfEmtmDEG19W0uVtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oGcN6Oiu; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PHyZIyVj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD051F000E9;
-	Sat, 25 Jul 2026 20:27:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785011256;
-	bh=8fkXl+mFO/HN6plEuhFEig4ILXaeTA/xL9iOSkIQH+Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=PHyZIyVj5Em+1/PgPquDd8C82bjduuoVfo9q7yLKsNKDVCoW+6cu8+a25tOnZjlbj
-	 njyXTnUR2O1/hcwW2YBveVOjM1Ov4bZ3dG4+ccoVKmV8MwpHaeeP3zzDABZDbzg/+G
-	 Rrpb4TXQUKcxrHZ32kem/Mm3O1XSmY0rUzRA6WnGq4oJxbKek9/lbitMNp16l4CWuw
-	 Ag5zagsGJ4ii/oSWaCwJe8HT3T6N61/+T2qtiLQq04Zhe8NqVpjpydoWq91joO0QmG
-	 gIaXCWi2EpK0ZS5/dkb5vQGSFGDPCSUDNNKzsWZ9FVz8XSO0K+BJ31+DAuvOJtV4YM
-	 Q9g98kHAC8H6w==
-From: Thomas Gleixner <tglx@kernel.org>
-To: gregkh@linuxfoundation.org, jwlee2217@gmail.com, oleg@redhat.com,
- qw3rtyp0@gmail.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH 6.18.y, 7.1.y] posix-cpu-timers: Prevent UAF caused by
- non-leader exec()
-In-Reply-To: <2026072118-smudgy-haunt-4730@gregkh>
-References: <2026072118-smudgy-haunt-4730@gregkh>
-Date: Sat, 25 Jul 2026 22:27:33 +0200
-Message-ID: <877bmike6i.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oGcN6Oiu"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e7632b193so125771385a.2
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 13:35:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785011740; x=1785616540; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c2iGM0CeFJssdANSG6zo2+MACo+ipwveei6/ZK3TugU=;
+        b=oGcN6OiuHYRMKiFYCc3AhzSNDUb1p8NAS3j+3gwNo0QX0Dk/VRhfIr3B/xbvZHWn/G
+         GgSCQTf+vyRvDCXAuQK0HyH4gHgFu+Rz4KVzERspAtDct9bV1SUi2DaqaQY/lMlRJ6Mv
+         d2MkIi+pB5lPMZDguJVu5gydCm5a5WtRTmjeeVJyAfiYstpGdvwLeWqtoBa0ApzAmSpG
+         rs63Vy/x6cUyvYBejzMa54TdXhZqrJRYCzr+bA7vIUsVz3t2OjvzIXZ/+319mCmYCGtA
+         X1EoRiCWnHakrhu2jZagk0SFung9PUKMmze27bwDJFsMfz0W565yhxsMd5bQoeufZVkc
+         +0AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785011740; x=1785616540;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c2iGM0CeFJssdANSG6zo2+MACo+ipwveei6/ZK3TugU=;
+        b=XN4u5m+/gNDq6tU1RWS5dk4dOw3VHPzUu/en02BSKom2hwu66aPiVaYo1K95P8bPKr
+         Ax4XxRa/oX5y9lNL10o/NzTIuZcBL3nL4RyLfUI+b86NpJtB0WFz+zqvSSOu7OXudLWQ
+         VUtGUbNYyfCmoOdTnP5elkvJSzpFRYNQqWdArqJTFLvH4I/pG2COk/EktrAyzRLZ/2+O
+         9Iiyl/2cwVIMkD59VfUBQyR5HgzVW0JlrKmpdjuK5liExHceCThqPF1j2Qzv5A60dpCG
+         VU86hncCEigbzElCMNpt1DkKjHHDcr6xMIg4K1ibgB4oCYcITWmRM5GVU1LZNLsdeF17
+         345w==
+X-Forwarded-Encrypted: i=1; AHgh+RqV8Cj7IM4blR9JQFhHx8K2H4oQ5pKONAd8hSysgZ/+zO+8SUyQKf7P/rOD8jT/2Z/6Kx12tLQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxPuHkb2NxBhYfZ6JiWUFaljDxdnNKTgqtKHPCjVrAnTDuqmfk
+	QK3M8tGH9jNdtPo7DcYWFDu8tLEiTeQD6t7XbaR98SZ6YfV8D1PZaOkw
+X-Gm-Gg: AR+sD11h8Ly+buuM+YnSyzBDUn+G23bzte0SqCxVtjmrMDpNqK1YQAVQyf87Aefkl3H
+	vJPvAjRdnvM8X2VZFmyO/VE3eVncDAUPJh4vIqdpervITqvPk1A4mhOWTrH67Ox+R2cKHBZOjGZ
+	r8LcNWpwij5FUhMfNKcOY/BQk3lJBvaBZBkMgyp+amC8ZST5/XbuTQH/620WvUDfoLj+dJ/MlOb
+	H5aQIyEhQ2LWDQLB0NFk3M9j5kItv48hZDWyUjhebxr416LzRBHXZ+ZNVZZH/H5zIsYykLk+HQo
+	n0uIuyqG302n1mnYSSrH75jIzvYUn68v8RBshP3Fy/IBcFHurlIE5ZxmO8/XA3A/wVtA5HvZ495
+	tvVMrzRWYpd3h83UPH014//hJk9KZ6lrZtEk6BejNuFoHXIZKwsl9bxgKvNMLDeb0F7GEjFfCoM
+	ywXI/4C7Sby20ugPY2HA==
+X-Received: by 2002:a05:620a:25d0:b0:932:dff0:93a8 with SMTP id af79cd13be357-932dff094b6mr311021385a.5.1785011740248;
+        Sat, 25 Jul 2026 13:35:40 -0700 (PDT)
+Received: from karch-btw.home.kod ([2600:4040:55d9:6c00:2cdb:f30a:f539:7b03])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de636183sm214403985a.27.2026.07.25.13.35.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 13:35:39 -0700 (PDT)
+From: Christopher Kodama <ckhordiasma@gmail.com>
+To: bentiss@kernel.org,
+	jikos@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christopher Kodama <ckhordiasma@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: magicmouse: re-enable multitouch after reset-resume
+Date: Sat, 25 Jul 2026 16:34:46 -0400
+Message-ID: <20260725203446.35001-1-ckhordiasma@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-From: Thomas Gleixner <tglx@kernel.org>
+When the Apple Magic Trackpad 2 (USB) is reset across a power transition
+(e.g. resume from hibernation) it drops out of multitouch mode: it keeps
+sending report ID 0x02 on its HID_TYPE_USBMOUSE interface, but the packet
+shrinks from 21 to 8 bytes and the trackpad2 handler drops it (size < 12).
+Clicks still work but pointer motion is lost until the device is re-plugged
+or the driver reloaded.
 
-commit 920f893f735e92ba3a1cd9256899a186b161928d upstream.
+Re-enable multitouch from .reset_resume via the workqueue.  Only
+.reset_resume is needed; suspend-to-idle keeps the device powered and
+retains multitouch.
 
-Wongi and Jungwoo decoded and reported a non-leader exec() related race
-which can result in an UAF:
-
- sys_timer_delete()			exec()
-   posix_cpu_timer_del()
-   // Observes old leader
-   p = pid_task(pid, pid_type);		de_thread()
-   					  switch_leader();
-					  release_task(old_leader)
-					    __exit_signal(old_leader)
-					      sighand = lock(old_leader, sighand);
-					      posix_cpu_timers*_exit();
-   sighand = lock_task_sighand(p)	      unhash_task(old_leader);
-     sh = lock(p, sighand)	    	      old_leader->sighand = NULL;
-					      unlock(sighand);
-     (p->sighand == NULL)
-	unlock(sh)
-	return NULL;
-
-   // Returns without action
-   if(!sighand)
-      return 0;
-   free_posix_timer();
-
-This is "harmless" unless the deleted timer was armed and enqueued in
-p->signal because on exec() a TGID targeted timer is inherited.
-
-As sys_timer_delete() freed the underlying posix timer object
-run_posix_cpu_timers() or any timerqueue related add/delete operations on
-other timers will access the freed object's timerqueue node, which results
-in an UAF.
-
-There is a similar problem vs. posix_cpu_timer_set(). For regular posix
-timers it just transiently returns -ESRCH to user space, but for the use
-case in do_cpu_nanosleep() it's the same UAF just that the k_itimer is
-allocated on the stack.
-
-Also posix_cpu_timer_rearm() fails to rearm the timer, which means it stops
-to expire.
-
-While debating solutions Frederic pointed out another problem:
-
-   posix_cpu_timer_del(tmr)
-					__exit_signal(p)
-					  posix_cpu_timers*_exit(p);
-					  unhash_task(p);
-					  p->sighand = NULL;
-     sh = lock_task_sighand(p)
-        sighand = p->sighand;
-	if (!sighand)
-	    return NULL;
-	lock(sighand);
-
-     if (!sh)
-	WARN_ON_ONCE(timer_queued(tmr));
-
-On weakly ordered architectures it is not guaranteed that
-posix_cpu_timer_del() will observe the stores in posix_cpu_timers*_exit()
-when p->sighand is observed as NULL, which means the WARN() can be a false
-positive.
-
-Solve these issues by:
-
-  1) Changing the store in __exit_signal() to smp_store_release().
-
-  2) Adding a smp_acquire__after_ctrl_dep() into the !sighand path
-     of lock_task_sighand().
-
-  3) Creating a helper function for looking up the task and locking sighand
-     which does not return when sighand == NULL. Instead it retries the
-     task lookup and only if that fails it gives up.
-
-  4) Using that helper in the three affected functions.
-
-#1/#2 ensures that the reader side which observes sighand == NULL also
-observes all preceeding stores, i.e. the stores in posix_cpu_timers*_exit()
-and the ones in unhash_task().
-
-#3 ensures that the above described non-leader exec() situation is handled
-gracefully. When the task lookup returns the old leader, but sighand ==
-NULL then it retries. In the non-leader exec() case the subsequent task
-lookup will observe the new leader due to #1/#2. In normal exit() scenarios
-the subsequent lookup fails.
-
-When the task lookup fails, the function also checks whether the timer is
-still enqueued and issues a warning if that's the case. Unfortunately there
-is nothing which can be done about it, but as the task is already not
-longer visible the timer should not be accessed anymore. This check also
-requires memory ordering, which is not provided when the first lookup
-fails. To achieve that the check is preceeded by a smp_rmb() which pairs
-with the smp_wmb() in write_seqlock() in __exit_signal(). That ensures that
-the stores in posix_cpu_timers*_exit() are visible.
-
-The history of the non-leader exec() issue goes back to the early days of
-posix CPU timers, which stored a pointer to the group leader task in the
-timer. That obviously fails when a non-leader exec() switches the leader.
-commit e0a70217107e ("posix-cpu-timers: workaround to suppress the problems
-with mt exec") added a temporary workaround for that in 2010 which survived
-about 10 years. The fix for the workaround changed the task pointer to a
-pid pointer, but failed to see the subtle race described above. So the
-Fixes tag picks that commit, which seems to be halfways accurate.
-
-Thanks to Frederic Weissbecker, Oleg Nesterov and Peter Zijlstra for
-review, feedback and suggestions and to Wongi and Jungwoo for the excellent
-bug report and analysis!
-
-Fixes: 55e8c8eb2c7b ("posix-cpu-timers: Store a reference to a pid not a task")
-Reported-by: Wongi Lee <qw3rtyp0@gmail.com>
-Reported-by: Jungwoo Lee <jwlee2217@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Fixes: 87a2f10395c8 ("HID: magicmouse: Apple Magic Trackpad 2 USB-C driver support")
 Cc: stable@vger.kernel.org
+Assisted-by: Claude-Code:claude-opus-4-8
+Signed-off-by: Christopher Kodama <ckhordiasma@gmail.com>
 ---
- kernel/exit.c                  |    7 +
- kernel/signal.c                |   10 ++
- kernel/time/posix-cpu-timers.c |  177 ++++++++++++++++++++++++++---------------
- 3 files changed, 131 insertions(+), 63 deletions(-)
----
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -212,7 +212,12 @@ static void __exit_signal(struct release
- 	__unhash_process(post, tsk, group_dead);
- 	write_sequnlock(&sig->stats_lock);
- 
--	tsk->sighand = NULL;
-+	/*
-+	 * Ensure that all preceeding state is visible. Pairs with
-+	 * the smp_acquire__after_ctrl_dep() in the sighand == NULL
-+	 * path of lock_task_sighand().
-+	 */
-+	smp_store_release(&tsk->sighand, NULL);
- 	spin_unlock(&sighand->siglock);
- 
- 	__cleanup_sighand(sighand);
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -1362,8 +1362,16 @@ struct sighand_struct *lock_task_sighand
- 	rcu_read_lock();
- 	for (;;) {
- 		sighand = rcu_dereference(tsk->sighand);
--		if (unlikely(sighand == NULL))
-+		if (unlikely(sighand == NULL)) {
-+			/*
-+			 * Pairs with the smp_store_release() in
-+			 * __exit_signal().  It ensures that all state
-+			 * modifications to the task preceeding the store are
-+			 * visible to the callers of lock_task_sighand().
-+			 */
-+			smp_acquire__after_ctrl_dep();
- 			break;
-+		}
- 
- 		/*
- 		 * This sighand can be already freed and even reused, but
---- a/kernel/time/posix-cpu-timers.c
-+++ b/kernel/time/posix-cpu-timers.c
-@@ -461,6 +461,109 @@ static void disarm_timer(struct k_itimer
- 		trigger_base_recalc_expires(timer, p);
+ drivers/hid/hid-magicmouse.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
+index 802a3479e..2bd1303e6 100644
+--- a/drivers/hid/hid-magicmouse.c
++++ b/drivers/hid/hid-magicmouse.c
+@@ -995,6 +995,22 @@ static void magicmouse_remove(struct hid_device *hdev)
+ 	hid_hw_stop(hdev);
  }
  
-+/*
-+ * Lookup the task via timer->it.cpu.pid and attempt to lock the task's sighand.
-+ *
-+ * This can race with the reaping of the task:
-+ *
-+ * CPU0					CPU1
-+ *
-+ * // Finds task
-+ * p = pid_task(pid, pid_type);		__exit_signal(p)
-+ *					  lock(p, sighand);
-+ *					  posix_cpu_timers*_exit();
-+ * sighand = lock_task_sighand(p);	  unhash_task(p);
-+ *					  p->sighand = NULL;
-+ *					  unlock(sighand);
-+ *
-+ * In this case sighand is NULL, which means the task and the associated timer
-+ * queue cannot be longer accessed safely.
-+ *
-+ * __exit_signal() invokes posix_cpu_timers_exit() and if the thread group is
-+ * dead it also invokes posix_cpu_timers_group_exit(). These functions delete
-+ * all pending timers from the related timer queues. The POSIX timers (k_itimer)
-+ * themself are still accessible, but not longer connected to the task.
-+ *
-+ * exec() works slightly differently. The task which exec()'s terminates all
-+ * other threads in the thread group and runs __exit_signal() on them. As the
-+ * thread group is not dead they only clean up the per task timers via
-+ * posix_cpu_timers_exit().
-+ *
-+ * As the TGID on exec() stays the same per process timers stay queued, if they
-+ * are armed. This works without a problem when exec() is done by the thread
-+ * group leader. If a non-leader thread exec()'s this can end up in the
-+ * following scenario:
-+ *
-+ * CPU0					CPU1
-+ * // Returns old leader
-+ * p = pid_task(pid, pid_type);		de_thread()
-+ *					switch_leader()
-+ *					release_task(old leader)
-+ *					  __exit_signal()
-+ *					  old_leader->sighand = NULL;
-+ * // Returns NULL
-+ * sighand = lock_task_sighand(p)
-+ *
-+ * That's problematic for several functions:
-+ *
-+ *  - posix_cpu_timer_del(): If the timer is still enqueued on the task the
-+ *    underlying k_itimer will be freed which results in a UAF in
-+ *    run_posix_cpu_timers() or on timerqueue related add/delete operations.
-+ *    If the timer is not enqueued, the failure is harmless
-+ *
-+ *  - posix_cpu_timer_set(): Independent of the enqueued state that results in a
-+ *    transient failure which is user space visible (-ESRCH) for regular posix
-+ *    timers. But for the use case in do_cpu_nanosleep() it's the same UAF
-+ *    problem just that the timer is allocated on the stack.
-+ *
-+ *  - posix_cpu_timer_rearm(): Timer is not enqueued at that point, but this
-+ *    silently ignores the rearm request, which is a functional problem as the
-+ *    timer wont expire anymore.
-+ */
-+static struct task_struct *timer_lock_sighand(struct k_itimer *timer, unsigned long *flags)
++#ifdef CONFIG_PM
++static int magicmouse_reset_resume(struct hid_device *hdev)
 +{
-+	enum pid_type type = clock_pid_type(timer->it_clock);
-+	struct cpu_timer *ctmr = &timer->it.cpu;
++	struct magicmouse_sc *msc = hid_get_drvdata(hdev);
 +
-+	guard(rcu)();
-+
-+	for (;;) {
-+		struct task_struct *t = pid_task(timer->it.cpu.pid, type);
-+
-+		/* Fail if the task cannot be found. */
-+		if (!t)
-+			break;
-+
-+		/* Try to lock the task's sighand */
-+		if (lock_task_sighand(t, flags))
-+			return t;
-+
-+		/*
-+		 * The next PID lookup might either fail or return the new
-+		 * leader. This is correct for both exit() and exec().
-+		 */
-+	}
-+
-+	/*
-+	 * If the timer is still enqueued, warn. There is nothing safe to do
-+	 * here as there might be two timers in there which are removed in
-+	 * parallel and that will cause more damage than good. This should never
-+	 * happen!
-+	 *
-+	 * Ensure that the stores to the timer and timerqueue are visible:
-+	 *
-+	 * __exit_signal()
-+	 *   posix_cpu_timers*_exit()
-+	 *   write_seqlock(seqlock)
-+	 *	smp_wmb(); <-------
-+	 *   __unhash_process()	  |	!pid_task()
-+	 *			  ---->	smp_rmb();
-+	 *				WARN_ON_ONCE(...)
++	/* The device drops out of multitouch mode on resume; re-send the
++	 * enable report.  Only the HID_TYPE_USBMOUSE interface accepts it, and
++	 * it must be deferred. Sending it inline here is too early.
 +	 */
-+	smp_rmb();
-+	WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
-+	return NULL;
++	if (msc && hdev->type == HID_TYPE_USBMOUSE)
++		schedule_delayed_work(&msc->work, msecs_to_jiffies(500));
++
++	return 0;
 +}
- 
- /*
-  * Clean up a CPU-clock timer that is about to be destroyed.
-@@ -470,29 +573,13 @@ static void disarm_timer(struct k_itimer
-  */
- static int posix_cpu_timer_del(struct k_itimer *timer)
++#endif
++
+ static const __u8 *magicmouse_report_fixup(struct hid_device *hdev, __u8 *rdesc,
+ 					   unsigned int *rsize)
  {
--	struct cpu_timer *ctmr = &timer->it.cpu;
--	struct sighand_struct *sighand;
- 	struct task_struct *p;
- 	unsigned long flags;
- 	int ret = 0;
+@@ -1058,6 +1074,9 @@ static struct hid_driver magicmouse_driver = {
+ 	.event = magicmouse_event,
+ 	.input_mapping = magicmouse_input_mapping,
+ 	.input_configured = magicmouse_input_configured,
++#ifdef CONFIG_PM
++	.reset_resume = magicmouse_reset_resume,
++#endif
+ };
+ module_hid_driver(magicmouse_driver);
  
--	rcu_read_lock();
--	p = cpu_timer_task_rcu(timer);
--	if (!p)
--		goto out;
-+	p = timer_lock_sighand(timer, &flags);
- 
--	/*
--	 * Protect against sighand release/switch in exit/exec and process/
--	 * thread timer list entry concurrent read/writes.
--	 */
--	sighand = lock_task_sighand(p, &flags);
--	if (unlikely(sighand == NULL)) {
--		/*
--		 * This raced with the reaping of the task. The exit cleanup
--		 * should have removed this timer from the timer queue.
--		 */
--		WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
--	} else {
-+	if (likely(p)) {
- 		if (timer->it.cpu.firing) {
- 			/*
- 			 * Prevent signal delivery. The timer cannot be dequeued
-@@ -508,11 +595,8 @@ static int posix_cpu_timer_del(struct k_
- 		unlock_task_sighand(p, &flags);
- 	}
- 
--out:
--	rcu_read_unlock();
--
- 	if (!ret) {
--		put_pid(ctmr->pid);
-+		put_pid(timer->it.cpu.pid);
- 		timer->it_status = POSIX_TIMER_DISARMED;
- 	}
- 	return ret;
-@@ -626,21 +710,17 @@ static int posix_cpu_timer_set(struct k_
- 	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
- 	struct cpu_timer *ctmr = &timer->it.cpu;
- 	u64 old_expires, new_expires, now;
--	struct sighand_struct *sighand;
- 	struct task_struct *p;
- 	unsigned long flags;
- 	int ret = 0;
- 
--	rcu_read_lock();
--	p = cpu_timer_task_rcu(timer);
--	if (!p) {
--		/*
--		 * If p has just been reaped, we can no
--		 * longer get any information about it at all.
--		 */
--		rcu_read_unlock();
-+	p = timer_lock_sighand(timer, &flags);
-+	/*
-+	 * If p has just been reaped, we can no longer get any information about
-+	 * it at all.
-+	 */
-+	if (!p)
- 		return -ESRCH;
--	}
- 
- 	/*
- 	 * Use the to_ktime conversion because that clamps the maximum
-@@ -648,20 +728,6 @@ static int posix_cpu_timer_set(struct k_
- 	 */
- 	new_expires = ktime_to_ns(timespec64_to_ktime(new->it_value));
- 
--	/*
--	 * Protect against sighand release/switch in exit/exec and p->cpu_timers
--	 * and p->signal->cpu_timers read/write in arm_timer()
--	 */
--	sighand = lock_task_sighand(p, &flags);
--	/*
--	 * If p has just been reaped, we can no
--	 * longer get any information about it at all.
--	 */
--	if (unlikely(sighand == NULL)) {
--		rcu_read_unlock();
--		return -ESRCH;
--	}
--
- 	/* Retrieve the current expiry time before disarming the timer */
- 	old_expires = cpu_timer_getexpires(ctmr);
- 
-@@ -698,7 +764,7 @@ static int posix_cpu_timer_set(struct k_
- 	/* Retry if the timer expiry is running concurrently */
- 	if (unlikely(ret)) {
- 		unlock_task_sighand(p, &flags);
--		goto out;
-+		return ret;
- 	}
- 
- 	/* Convert relative expiry time to absolute */
-@@ -733,8 +799,6 @@ static int posix_cpu_timer_set(struct k_
- 	 */
- 	if (!sigev_none && new_expires && now >= new_expires)
- 		cpu_timer_fire(timer);
--out:
--	rcu_read_unlock();
- 	return ret;
- }
- 
-@@ -1016,19 +1080,12 @@ static void posix_cpu_timer_rearm(struct
- {
- 	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
- 	struct task_struct *p;
--	struct sighand_struct *sighand;
- 	unsigned long flags;
- 	u64 now;
- 
--	rcu_read_lock();
--	p = cpu_timer_task_rcu(timer);
--	if (!p)
--		goto out;
--
--	/* Protect timer list r/w in arm_timer() */
--	sighand = lock_task_sighand(p, &flags);
--	if (unlikely(sighand == NULL))
--		goto out;
-+	p = timer_lock_sighand(timer, &flags);
-+	if (unlikely(!p))
-+		return;
- 
- 	/*
- 	 * Fetch the current sample and update the timer's expiry time.
-@@ -1045,8 +1102,6 @@ static void posix_cpu_timer_rearm(struct
- 	 */
- 	arm_timer(timer, p);
- 	unlock_task_sighand(p, &flags);
--out:
--	rcu_read_unlock();
- }
- 
- /**
+-- 
+2.55.0
+
