@@ -1,106 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F082F9D85
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD8A23AE62
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784988751; cv=none; b=mQAUaOx2h0guzw8SrdbKtwolvaomsksO2WPdmZ/X/g/xc5RaWP4Vqw1Xl2E52XasG8Myns4AlrDMSnENXtesfa0KWjGNNg7llyZEy3KjIRykLH1KqMWHE3ugkILvEMGu0ieHsJvaTb2qy2iBQbaeYzk9lZenmnJjpa5GQjoMpuE=
+	t=1784990058; cv=none; b=FuR7K9mi+NKS9YURDeetrFdxUVzi8Qxuw6ePfoL6tWDZ4gWjMJWMfpmwbrRDazOv3QJZ1UmsnD56Hd1PsbTb/t3VVcKyMVc34kbprnC9qgbFsnWUHRAfwA3Hx2Y+FhL7PCFSg+zbcNAV/h+mCSO9rd4nk10ecTkdESaGLJc141A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784988751; c=relaxed/simple;
-	bh=Uu8ZhWkql1E7KIV8WcKB4/qcF1Z4veDGhP7GVB65vsA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dIpUp6bg+QtC1RVYlxWzkzIRl5v7jMY9vjoMWekmNP/Vz4h4MrzpB/ah0EukreFIyXmuVqUWdhfIonqm7+aH65mbOjYgj0O6/q4iP/j+pn/bLRFGP3IjBceUa3SMI6dXzxOfZ6MMTUkXE750kOXOuGQw1lEuP9U22x0/cxeLZVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWzKvwhV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784990058; c=relaxed/simple;
+	bh=YvPY+TLfnAZJLuA11fwmu2rvBC8Nt5tUSqw5kT8WiQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rAzWMN77WtpuQMkJSIqPVo9L1Dq31jraV2s0XprxQrDz8kjR3qfRRperWtZEG5D4TAb12Sl7S3mPFeu1G4l8qioGeMAuWWAy055+bLtvPM7kBxyU0jsaeDuADahdUX8Y3sPkV5rKgTvH4IjLtmZ7vIOQ/Jgfio4o7KR+ujEyaV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=XUMaulVM; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWzKvwhV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB571F000E9;
-	Sat, 25 Jul 2026 14:12:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784988749;
-	bh=pboQenDQ2Kak8lB0Yccbzlq9T+XBFuNDC2o2oS348os=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XWzKvwhV1NPrcHGwkd2VOeXIs52tT5w5SXVC58hNiisORKppfuotgBD9on6D6W7Ky
-	 F1PmAr4xisScqMSFwlUkkqN2mGCx1Cm80znOhH9BJ8BglfrGZwueGF3B1p8pdjVXqO
-	 nvQ5AH1k9+XfwPGiuxhN9k/1jCHoTXe5exYKth4Ftkt3+2LbsbJ3dmh2Jry4ENhTEy
-	 p2JkQGV7d5oi4IRH9rufQIvv1Xx1MC9fzq5QzlWNgZMwwkqL/CcL/zbDOnDAgXou8W
-	 BLvQuVJLyRnggOIaJkY1eRwyNwlCePXF8jvRgabrppSxRZq7Yvju3ASQZd6nSetItI
-	 PT812f+S/N9iA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] net: thunderbolt: Fix frags[] overflow by bounding frame_count
-Date: Sat, 25 Jul 2026 10:12:26 -0400
-Message-ID: <20260725141226.3814823-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072026-jab-puzzling-567e@gregkh>
-References: <2026072026-jab-puzzling-567e@gregkh>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="XUMaulVM"
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9674d727c0aso1316276241.1
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 07:34:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1784990056; x=1785594856; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vD91S1DbebApVBCN527t7AaQw07MlhokwGC+vI5FhsI=;
+        b=XUMaulVMriK2c49kk4iystDShc7ivllItiMlNvFoalQdNBdfzKDkDGPCnY6EeP7xpI
+         XmqYz8snPcYjC4JiXgSohd3oF09yMaWPyJkBLCkOWOIxemVv2Pzx3MCa2mUnHu+8G99j
+         fr2GPkbN7fsdj99DAoVvfCnRtaHMhrD9IHciay+cqpzLH1BV4FJKXdrfeoT1SAh43hZY
+         YyB0RnMxkMTXSsCsTOHtwTCjaYNAKljLz4YCN+Su9JqL6Nb21FyJYIeR74Q2i7I53C04
+         v++1ASZmuN0o4TMyX9sPhUo1o/tD1gPp+RWA8NtJ1nHZP5krs0DelwvFgEG6Ql1NYsD0
+         g6Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784990056; x=1785594856;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vD91S1DbebApVBCN527t7AaQw07MlhokwGC+vI5FhsI=;
+        b=jcZBdd87lzUXdpHeyOCpRAyipgOMil5yrb+kR0Yus0u1wTO53LrOQjvaGg/e+qCd8r
+         gH6fNeLbw/hnLDgs3L8Hf6aQBO6ktrcju+qoIiZW+fEGTSq45wSCzpLlQkA4pMYDhD+1
+         7hbzKkfrSfLyghfqdGAA3sbe5KvXLYA0NHtus3M8Pn0JCJibGHUjmGPk6bsY8EzW7jTX
+         YmCWjsSDdatbCaKL3Hvw6UyoAwyISK8nKtc0xsbohjXpynvZ3xjN5Hla6PYPlq2M7stV
+         iUjDSy3mILx1ucONonqgETkeEVKCyUJNvAQltrKKsaOWfBQ+uKfy4H92ROBTKRbw3DqZ
+         1Eug==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2weW6oyT8x3HN4ivsUq84kDgrl3zI9iDfjHEcGvDziUXIR3bKz1ju3zcYJQ1ilztjrl0PNw4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmuqeOmY6lMd1KZ6hR6spEsmeGSoMZYnEFVy0TIfQeI8u22Y1M
+	i+YygzojHQQwU7DVfBIPp4oTcWy6fljgEa+onSpRpRTHPlyfQXOfOG2r2WH/ieQrj/I=
+X-Gm-Gg: AR+sD13nFNw5xRsygTof88PKsO7tbG/0tSoad29BR2jD5U3MRcfmGeflQFKotbFOaxO
+	kxPbpK0/N2SvM62Es3VvGIJintrXMcX1lLXJJsyN7Wr3DwRNjpVcYUiqx+YXmogDMesoWwjRsbw
+	x3duqk1VsB4+eH67xtUxSgVuN7EpXHYqTRPjhfr0tAQYhvan3lhP/yPE4qwo0fzXwIuWh6tc/Bw
+	tqLBKvf0PfL2LzLodsfvixtNSk7D6qw/ouSCLbbo9K4M0uh1uWs/f/1r2zIG5kvOf9I+UukSGvV
+	4BdDskHk/JCa/fgXm5HEyQ9cMwxeDQmEbzI6pVzqI10FZ5Yj2Rmio7jhKpRxoWCz9OCrb1O6GUa
+	3lpXZJHyMEqwWgdMZiqM2SIsdjkjJKKD/AGKGoH+872wQ6OpnD4tM
+X-Received: by 2002:a67:fd76:0:b0:744:d517:b0b0 with SMTP id ada2fe7eead31-74f9f02b7f2mr2159251137.10.1784990055747;
+        Sat, 25 Jul 2026 07:34:15 -0700 (PDT)
+Received: from ziepe.ca ([12.18.163.234])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97774f12690sm1878229241.12.2026.07.25.07.34.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 07:34:15 -0700 (PDT)
+Received: from jgg by NV-9X0Z6D3.localdomain with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wndS7-000000000hU-1YTd;
+	Sat, 25 Jul 2026 11:34:11 -0300
+Date: Sat, 25 Jul 2026 11:34:11 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev, Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
+Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <amTJY_CdE-uDgoGG@ziepe.ca>
+References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
+ <20260717180442.110954-2-aneesh.kumar@kernel.org>
+ <20260721115456.GI110966@unreal>
+ <yq5atsps77c5.fsf@kernel.org>
+ <20260721142921.GN110966@unreal>
+ <yq5ao6g0750v.fsf@kernel.org>
+ <20260721153321.GO110966@unreal>
+ <amEhEKQW0_HJ9cLN@ziepe.ca>
+ <20260723075704.GC110966@unreal>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723075704.GC110966@unreal>
 
-From: Maoyi Xie <maoyixie.tju@gmail.com>
+On Thu, Jul 23, 2026 at 10:57:04AM +0300, Leon Romanovsky wrote:
+> On Wed, Jul 22, 2026 at 04:59:12PM -0300, Jason Gunthorpe wrote:
+> > On Tue, Jul 21, 2026 at 06:33:21PM +0300, Leon Romanovsky wrote:
+> > 
+> > > Something like, but probably void* needs to be phys_addr_t:
+> > > 
+> > > static inline struct page *dma_phys_to_page(void *addr)
+> > > {
+> > > #ifdef CONFIG_DMA_DIRECT_REMAP
+> > > 	return vmalloc_to_page(addr);
+> > > #else
+> > > 	return virt_to_page(addr);
+> > > #endif
+> > > }
+> > 
+> > I don't like this, we don't know for sure the addr will be in a vmap
+> > and this will fail if it isn't.
+> 
+> Of course we know. The existing "#ifdef CONFIG_DMA_DIRECT_REMAP" is
+> relevant for addresses acquired from pool.
 
-[ Upstream commit 55d9895f89970501fe126d1026b586b04a224c27 ]
+Yeah, but I still don't like it :) It is hard to follow if you make
+those kinds of leaps, someone will call this new helper on something
+they shouldn't
 
-tbnet_poll() assembles a multi-frame ThunderboltIP packet into one skb. The
-first frame goes into the skb linear area and every further frame is added as
-a page fragment.
+> dma_phys_to_page() is a bad name for some low-level conversion function.
+> It needs to be internal to DMA logic, in the level when we convert from
+> phys to page.
 
-	skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
-			page, hdr_size, frame_size,
-			TBNET_RX_PAGE_SIZE - hdr_size);
+I think we should not convert from phys to page, that's also easy to
+do wrong
 
-A packet of frame_count frames therefore ends up with frame_count - 1
-fragments. tbnet_check_frame() only bounds the peer supplied frame_count to
-TBNET_RING_SIZE / 4 (64), which is far above MAX_SKB_FRAGS (17 by default). A
-peer that sends a packet of 19 or more small frames pushes nr_frags past
-MAX_SKB_FRAGS, so skb_add_rx_frag() writes past skb_shinfo()->frags[] and
-corrupts memory after the shared info.
-
-Tighten the start of packet bound to MAX_SKB_FRAGS + 1 so a packet can never
-produce more fragments than frags[] can hold. This matches the recent skb
-frags overflow fixes in other receive paths, for example f0813bcd2d9d ("net:
-wwan: t7xx: fix potential skb->frags overflow in RX path") and 600dc40554dc
-("net: usb: cdc-phonet: fix skb frags[] overflow in rx_complete()").
-
-Fixes: e69b6c02b4c3 ("net: Add support for networking over Thunderbolt cable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-Link: https://patch.msgid.link/178163152194.2486768.14724194232649760778@maoyixie.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/thunderbolt.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/thunderbolt.c b/drivers/net/thunderbolt.c
-index ef13aa36e55e8d..50ac4bdb10adce 100644
---- a/drivers/net/thunderbolt.c
-+++ b/drivers/net/thunderbolt.c
-@@ -752,8 +752,12 @@ static bool tbnet_check_frame(struct tbnet *net, const struct tbnet_frame *tf,
- 		return true;
- 	}
- 
--	/* Start of packet, validate the frame header */
--	if (frame_count == 0 || frame_count > TBNET_RING_SIZE / 4) {
-+	/* Start of packet, validate the frame header. tbnet_poll() puts the
-+	 * first frame in the skb linear area and every further frame in a page
-+	 * fragment, so a packet may not span more than MAX_SKB_FRAGS + 1 frames
-+	 * without overflowing skb_shinfo()->frags[].
-+	 */
-+	if (frame_count == 0 || frame_count > MAX_SKB_FRAGS + 1) {
- 		net->stats.rx_length_errors++;
- 		return false;
- 	}
--- 
-2.53.0
-
+Jason
