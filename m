@@ -1,101 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3593546FD
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 12:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F921F2B88
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 12:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784981692; cv=none; b=XZ6EHAms5k6ct7lKt8F5Ui0XHLEDuqyMdLcPsjHAFqfDobXQS1RkJdwoGvu4ghnKCaqbJHsTda7LH3ezZIJftuq8pyFvrZIjZyA25Ae2brsQFnoau4MrkdwjSnGCaio0Wri4vtjMHkbDUaiaXp3Gp/Rz43+2BqEYz6McMb0fKW4=
+	t=1784982894; cv=none; b=Pw2zk0vOOkF/I5sMAPgq7ggJ5D3CkrXMIAV5yokNtw+kPKKlGZ5PN8Ztczu90Rn8MDiYXkqNmV/pIZbMkVa9oqDAd1l6nxNQrs2nBzkuCtUOEBpHf0OXUtRw8LXpfoteaIrTcUnufdIKFDt9cI/7UttwNuQIfz7/W8A5jj+2jcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784981692; c=relaxed/simple;
-	bh=A0Tw8YiL9rzaH188xvNmuhgB7L7DOcmR8p8bSR/4tBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mp8vpQZI1LDlWWrKvSo2a2RXcowyEELNEUMBHomLcNin93JS5by9XLYImZ0Vg+ti5NPF+S+mluLReurJLFb+u5KGlJOW0BQfWq+6ZEGBy6MVq35GHvz+U86F/pqYK/rw6hQvkZ7ebsOZY9LZbEXLbREuVT/Zoe4EixZ9hDILCc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PnVHgNsQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784982894; c=relaxed/simple;
+	bh=vS0pGql9awyRGT95IiRORcsJ5LmaVC4RuVzluPKLk9s=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=XnGy0+xRHJ2t2bBBxY9wfAK3jYhheYpey1IpZPDhdQ1xAVX6iCsYYeHnZlVZY8QpUuyqHs9zHRwNQKIfN28LrPhICsC/DbPvfuMxlVMX/hpfAZTCu2ktLUeobJ/PwlE10uQfC9uxFXIbj8yX2wMdNQ3raKhjlxtnvr1WbqGOPl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ALV/u6lo; arc=none smtp.client-ip=91.218.175.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PnVHgNsQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDAAC1F000E9;
-	Sat, 25 Jul 2026 12:14:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784981690;
-	bh=rNbhF75m4pf/5S6nu5OduzV+JiNHl5Xx4K64ECoI4Rg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PnVHgNsQBhFxioagX3O2ujwmAr+fXP7Ha1gBhVTXvTh1CAwUsuhCHzcUQZUoZbRmP
-	 dfjqh5cb7af8yvdY92CVD5kR39clTEP0J8MogsUNsExal6V6ubMY/Yqec4CgOZtcmR
-	 NPN2QkhYxsKL4hVXtKb3h1WZ8a6RrnoQinDZ47cc3bkGI5E2YpQfl5vWZy4QKD4tm4
-	 4fl1ezA6RnikMjB/XayxbUoAjpECA3RtcCD++lfZUKih6QugS1loPKpUMzNJKkc74S
-	 7VL0n9muiQWUhpmxR1NIqKFfao1L9wky4vONZSZIm+cTypt5opYkfm4yt/AFHrnzrH
-	 8tU8cs+tcZ0Mw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Florian Fuchs <fuchsfl@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mtd: maps: vmu-flash: fix fault in unaligned fixup
-Date: Sat, 25 Jul 2026 08:14:47 -0400
-Message-ID: <20260725121447.2570457-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072054-bronze-override-3d76@gregkh>
-References: <2026072054-bronze-override-3d76@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ALV/u6lo"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1784982877;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m4DKSBe6gBg9NpOljhRHmSDeJ/S4jLtsYwVLPovDP8M=;
+	b=ALV/u6loawzgaAOeUKoTBEZiF0fdJTuauRBaojnTcEvDW19TwfPHaQ0ng0Pv/5U1ImHfZ7
+	KrvaY9pYQ2kWkc9/6+g6kDUIMCB/jsDQ1P3L5HMinU1M5CkX//40NgJNYSo2ovGqty3Hoa
+	am7oY+SAh7d2fNfyg4queB/HMVNGUyE=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 25 Jul 2026 12:34:29 +0000
+Message-Id: <DK7NM9RPUJOD.11PNJJ5N2OBED@linux.dev>
+Cc: "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko"
+ <mhocko@suse.com>, "Brendan Jackman" <jackmanb@google.com>, "Zi Yan"
+ <ziy@nvidia.com>, "David Hildenbrand" <david@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, "Mike Rapoport"
+ <rppt@kernel.org>, "Shakeel Butt" <shakeel.butt@linux.dev>,
+ <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
+ defrag_mode
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Brendan Jackman" <brendan.jackman@linux.dev>
+To: "Johannes Weiner" <hannes@cmpxchg.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Vlastimil Babka" <vbabka@kernel.org>
+References: <20260722150006.3848560-1-hannes@cmpxchg.org>
+ <20260722150006.3848560-5-hannes@cmpxchg.org>
+In-Reply-To: <20260722150006.3848560-5-hannes@cmpxchg.org>
+X-Migadu-Flow: FLOW_OUT
 
-From: Florian Fuchs <fuchsfl@gmail.com>
+On Wed Jul 22, 2026 at 2:56 PM UTC, Johannes Weiner wrote:
+> @@ -4169,8 +4185,8 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsign=
+ed int order,
+>  	barrier();
+>  	WRITE_ONCE(current->capture_control, &capc);
+> =20
+> -	*compact_result =3D try_to_compact_pages(gfp_mask, order, alloc_flags, =
+ac,
+> -							       prio, &capc);
+> +	*compact_result =3D try_to_compact_pages(gfp_mask, compact_order,
+> +					       alloc_flags, ac, prio, &capc);
+> =20
 
-[ Upstream commit 79d1661502c6e4b6f626185cef72cf2fa78116e1 ]
+Nit: the comment for try_to_compact_pages() is falsified by this,
+we need something like:
 
-Use kzalloc_obj() / kzalloc_objs() to allocate the memcard structs,
-instead of kmalloc_obj() / kmalloc_objs() to prevent access to
-uninitialized data.
+diff --git i/mm/compaction.c w/mm/compaction.c
+index 0568623d9384d..ca57403dc1522 100644
+--- i/mm/compaction.c
++++ w/mm/compaction.c
+@@ -2823,7 +2823,7 @@ static enum compact_result compact_zone_order(struct =
+zone *zone, int order,
+ /**
+  * try_to_compact_pages - Direct compact to satisfy a high-order allocatio=
+n
+  * @gfp_mask: The GFP mask of the current allocation
+- * @order: The order of the current allocation
++ * @order: The order to try and make available
+  * @alloc_flags: The allocation flags of the current allocation
+  * @ac: The context of current allocation
+  * @prio: Determines how hard direct compaction should try to succeed
 
-Fixes runtime error: Fault in unaligned fixup: 0000 [#1] at
-mtd_get_fact_prot_info.
-
-Fixes: 47a72688fae7 ("mtd: flash mapping support for Dreamcast VMU.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mtd/maps/vmu-flash.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/mtd/maps/vmu-flash.c b/drivers/mtd/maps/vmu-flash.c
-index 3667faefe6c58f..e992f4d1417e6f 100644
---- a/drivers/mtd/maps/vmu-flash.c
-+++ b/drivers/mtd/maps/vmu-flash.c
-@@ -610,7 +610,7 @@ static int vmu_connect(struct maple_device *mdev)
- 
- 	basic_flash_data = be32_to_cpu(mdev->devinfo.function_data[c - 1]);
- 
--	card = kmalloc(sizeof(struct memcard), GFP_KERNEL);
-+	card = kzalloc_obj(struct memcard);
- 	if (!card) {
- 		error = -ENOMEM;
- 		goto fail_nomem;
-@@ -628,15 +628,13 @@ static int vmu_connect(struct maple_device *mdev)
- 	* Not sure there are actually any multi-partition devices in the
- 	* real world, but the hardware supports them, so, so will we
- 	*/
--	card->parts = kmalloc_array(card->partitions, sizeof(struct vmupart),
--				    GFP_KERNEL);
-+	card->parts = kzalloc_objs(struct vmupart, card->partitions);
- 	if (!card->parts) {
- 		error = -ENOMEM;
- 		goto fail_partitions;
- 	}
- 
--	card->mtd = kmalloc_array(card->partitions, sizeof(struct mtd_info),
--				  GFP_KERNEL);
-+	card->mtd = kzalloc_objs(struct mtd_info, card->partitions);
- 	if (!card->mtd) {
- 		error = -ENOMEM;
- 		goto fail_mtd_info;
--- 
-2.53.0
 
