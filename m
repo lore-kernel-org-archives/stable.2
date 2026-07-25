@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B942F9D85
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:12:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CFE3002A9
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784988746; cv=none; b=jyo3+H7L5j4O/CfTy9lBA3AKt7X3I1C9lTAjGrsZthGV+bn+diYmx0cRZWDZ/wfsQluhsTOYWwtOwUq3oTU+GfR1JFTGHUudr8VCMEd0mddqNiYt6BlpVSz7kYWx4G4Da/TmDCw0vjDO2G8pU+hyxLswKk9AuSNPBfAoA1yC0I0=
+	t=1784988746; cv=none; b=oc6s6mNKdLh4LCgfcBl7208Z9huAt1FGHmdYGdE3XVHIeC94sWoxwH5WxnQstGVJP1hMriCF8dne4FeojFgAEIUAEbSvzHNN9XWGq0EN3mADL4SQp6wb2d95gKGz/qCESnf8alopleLCFHBh28oQuB1luKEbavxqduza/U0L4iQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784988746; c=relaxed/simple;
-	bh=ASo9k/M9b2yDXlCQS2QvLk0q8Ht2nkzkKhTOWIfwuc8=;
+	bh=yW7afsh+djjFij+pngRaIfLzXpsiTWNCmjDukybf3NA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LJUPZQo7X+iwO/fxd+qEi/gqZ/q/oOXSDOoKu//OlJ7Os9FhUuLGSfgJ7HpriUmhYcaMnLpKe0Pac4yVOTvFD55cU+ODDmqz7Ih0S1fUHTF3IyrGrRBySE6nq3zVSCrat+HzwE2f3WqjFHgTpMFFwm6Og05wNPQW2GhRnCES/QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5AJnR/a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U/QlGGPd30HDF3/bJjm/+MTmUpIoAeY8uT1UVkIw0Tsn3wl/gklI4CvHi/W0GUzmWeuuIZSQBMuhqJZkRsFOJcWxf2Zy/j/M3CGNj0Mf8AVuJd48up3Vy7aFESu6uyjaCBp6RcculjuaA1Pdq03+Zz330BXmM/PXmdReYliSjPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqhBUBZt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5AJnR/a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9F31F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqhBUBZt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070541F00A3A;
 	Sat, 25 Jul 2026 14:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784988744;
-	bh=hiOYstl7HxPGLG9bfUa3+5DZ2L84+rFTe8FaNC2kQSU=;
+	s=k20260515; t=1784988745;
+	bh=xBdDyW+hkolvusxDoVH9pqGYrhp3WkXD4cTF8tG9xVc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l5AJnR/aw2OZ60IftjcvHyKWI/ROZkAfk3lu8eb1PdPn4Bicg61605To20Uh4Vaty
-	 JfM3Nayw8n5UCWUFNb4ahcsq2FjbCWdt3N4GAThUtDqbRaVtcVmoygMEU+f4ihY+uE
-	 Qew3UpV+a4p38KDrjDfWVWLyfGRtm3Pzov6f7BThSf3gYvDtR+5WE9od6KKp35aC7e
-	 mxa07hGcYXUHWtfqBC2VfOcrbQIMx+73eYssx73wVEHqhdqoP+YZI7i5m3BXUwxavd
-	 g8TN3b14dhSEziebwhEEkmpcimHdRd6bjqjdPYFpOitt0nicUav0QGy5idFFI0G7+4
-	 wNQ+qbS2UNidw==
+	b=mqhBUBZthFZJ7dU3bKBPIAFPVOqTuNsfFnZC1WXmuFSCGmnjuGwMvD3d4EBLEH7G6
+	 u1m6+M4VyPdwj5ahulDejAbQwMq1OCJHU67zlOXB6ltJsmBjYDbWXUUaRuqhqGslsc
+	 IkJc8ugULIF/rzYJpuQHV9YSU9MNkJLRj+k/mYgYcc9niYED9D4IWAFc+Gx2rhFxRh
+	 /7MgtlNW0zF3/e+CcUkrv2ih8jpeTmhV9sE3uEUjfP8zU2eAaqotL/qVts3MNUIf8h
+	 V7RL1RsP88aDF08vRMOm5MsabFKlx79Tks5+7HVtwB9/zmEZ+D73Xa83V9wfJW4KGE
+	 q01rCc2zq6AAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 1/4] thunderbolt: Keep XDomain reference during the lifetime of a service
-Date: Sat, 25 Jul 2026 10:12:19 -0400
-Message-ID: <20260725141222.3814514-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/4] thunderbolt: Remove service debugfs entries during unregister
+Date: Sat, 25 Jul 2026 10:12:20 -0400
+Message-ID: <20260725141222.3814514-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072059-tumbling-reflux-fc14@gregkh>
+In-Reply-To: <20260725141222.3814514-1-sashal@kernel.org>
 References: <2026072059-tumbling-reflux-fc14@gregkh>
+ <20260725141222.3814514-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,39 +47,73 @@ Content-Transfer-Encoding: 8bit
 
 From: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-[ Upstream commit 8b4060998637f06975fceee9b73845d8672d411e ]
+[ Upstream commit 4d5fc3f4068568dfcb8cbe2852b4adc56394aa26 ]
 
-This is needed because we release the service ID in tb_service_release()
-and the ID array is owned by the parent XDomain.
+We add them as part of the register path so to keep it symmetric remove
+them as part of the unregister path. This also removes them even if the
+service itself is not yet released (but is unregistered), thus allowing
+new register with the same service name to happen.
 
 Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 Stable-dep-of: 2c5d2d3c3f70 ("thunderbolt: Prevent XDomain delayed work use-after-free on disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thunderbolt/xdomain.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/thunderbolt/xdomain.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
-index 1fd1cf4295a2a5..1276581ef02938 100644
+index 1276581ef02938..477db46dd88720 100644
 --- a/drivers/thunderbolt/xdomain.c
 +++ b/drivers/thunderbolt/xdomain.c
-@@ -1012,6 +1012,7 @@ static void tb_service_release(struct device *dev)
+@@ -1008,7 +1008,6 @@ static void tb_service_release(struct device *dev)
+ 	struct tb_service *svc = container_of(dev, struct tb_service, dev);
+ 	struct tb_xdomain *xd = tb_service_parent(svc);
+ 
+-	tb_service_debugfs_remove(svc);
  	ida_free(&xd->service_ids, svc->id);
  	kfree(svc->key);
  	kfree(svc);
-+	tb_xdomain_put(xd);
+@@ -1023,6 +1022,14 @@ const struct device_type tb_service_type = {
+ };
+ EXPORT_SYMBOL_GPL(tb_service_type);
+ 
++static void __unregister_service(struct device *dev)
++{
++	struct tb_service *svc = tb_to_service(dev);
++
++	tb_service_debugfs_remove(svc);
++	device_unregister(&svc->dev);
++}
++
+ static int remove_missing_service(struct device *dev, void *data)
+ {
+ 	struct tb_xdomain *xd = data;
+@@ -1034,7 +1041,7 @@ static int remove_missing_service(struct device *dev, void *data)
+ 
+ 	if (!tb_property_find(xd->remote_properties, svc->key,
+ 			      TB_PROPERTY_TYPE_DIRECTORY))
+-		device_unregister(dev);
++		__unregister_service(dev);
+ 
+ 	return 0;
+ }
+@@ -1127,6 +1134,7 @@ static void enumerate_services(struct tb_xdomain *xd)
+ 		tb_service_debugfs_init(svc);
+ 
+ 		if (device_register(&svc->dev)) {
++			tb_service_debugfs_remove(svc);
+ 			put_device(&svc->dev);
+ 			break;
+ 		}
+@@ -2059,7 +2067,7 @@ void tb_xdomain_add(struct tb_xdomain *xd)
+ 
+ static int unregister_service(struct device *dev, void *data)
+ {
+-	device_unregister(dev);
++	__unregister_service(dev);
+ 	return 0;
  }
  
- const struct device_type tb_service_type = {
-@@ -1120,7 +1121,7 @@ static void enumerate_services(struct tb_xdomain *xd)
- 		svc->id = id;
- 		svc->dev.bus = &tb_bus_type;
- 		svc->dev.type = &tb_service_type;
--		svc->dev.parent = &xd->dev;
-+		svc->dev.parent = get_device(&xd->dev);
- 		dev_set_name(&svc->dev, "%s.%d", dev_name(&xd->dev), svc->id);
- 
- 		tb_service_debugfs_init(svc);
 -- 
 2.53.0
 
