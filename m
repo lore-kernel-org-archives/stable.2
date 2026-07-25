@@ -1,146 +1,171 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA8030B51E
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784942662; cv=pass; b=ZQDR9Xyp8MoL0fI3+w+MoYJqXwfudKaCKyvZS8k4gwHBWCo4RPdKVo6h+G+heM04pJlwQAdaReKUWmWHpCDPSPO7ggY7aa0RoRDIPW2Up+ClK+fwAfU4qFV5EJ+TaqyQFkhjkihbbFOSW1aJteyKwCjrFO/Jk716e08Cif2+GDk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784942662; c=relaxed/simple;
-	bh=RR/N+7U6HxpMfVUnwIY2W1vRNETeHCqGINXb3mjcJBs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s3xgG+fAqrml3raUKbdpd960vOL3QFAqR07x5VEQjCUSsAolMKNdmWsSTuDX2HLRhcmLxNwwU6kYz0oXdNekMozm/ea/JqNPDNQjJuVWiTzaFwfdrY5GbvJEECuVXIi3AuVs1Xtusb59XdcDmbP6+nimE2BjJtuYVLGnjV+Malg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ILzkNQco; arc=pass smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3A8BE63
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:37:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784943466; cv=none; b=SxtTfq5uXvY2NzEJ4LPb9m7FHo8D9y/rGBG5MfHtkQvI08gKj9YJXMduKlMXW637EbyJShnLKP7eMssEJcK7QJZf5bev9xyHif4OWa21FSxrQ9cQIfPUHw2J/6UIOhsGKw9cpoBF9W6ztUrtRKohgIo8O1YDi1dZ2+QjIvN+Svw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784943466; c=relaxed/simple;
+	bh=VSQhrBMLwtw4iGVGoaTvsQtoK8FUTibMQ9/kh+BUjwA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aIJCp1P9Lnb6rWH3Kod5NCoEpA9/6c5i8/20MAAxOzo4sXB/3AkzroHgNH+S/LcewSIX4+RDUlQ8e/9fJ5O0vYolbZ3Y/X2nNCU2qLlaBk5mBeik3S1fdzSwNo6hCwwU7zJKweq+ME7Dl1LQl5WFc/f5q1v3syaCxj2RzSyOoBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kpg6oNsb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ILzkNQco"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39c9452243cso8754161fa.3
-        for <stable@vger.kernel.org>; Fri, 24 Jul 2026 18:24:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784942659; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YEw6+sFuRa8qxbGn7JWTYMI1bpZ4wNweraj0UfF8XcBjy7juW9UtCZF+7lflbr0sjO
-         dtd3cqTUbakFd9iCz6BXEMdaBDL8T360AHTCEnEZGv2PAb9CVUyL+nClcDTb9xUYbAf+
-         4J3qwa0wgW6rLQe4735XoK+T05D6vYo5lJZhqaHb29wgx4wYdzIN46Nsyga6VDiv6vj8
-         HJYMKqBDZb++1w32CtqRyizHQWsdWLGn55vkmCuYIGkIXIHU71ecRQkgM45xezZhF1Jy
-         YpqKsGApnLkl8DfUgrslN5a+uyy+rhKENDhWbqbwXXvVUG0eKfrS46me20q3AUf5Rq5H
-         teWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N/CJCfH0/SDNKO9hky1DdcwmPfaS2frL/4dsCfTjLhg=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=cAi0CvEzRTtyFmEGmAAWcu9qhCqRxKYFCzRUHUfRUxIXw/pj6fq7vGD0uEhmIxpzUy
-         eCb+ZNkt0n/B4KlY5H8uQa2O+0iiAvAR4C/PZACqsRHFoUuFDmxGW2z+aCLNL/tAdxOZ
-         GHvbPxRA/bHc6u6jGNDZ+VH4OJx/CMhXaN5ZsT9o7DVEFtQTNAB/oqztUVIFP2wVEkfI
-         qd9q2sX0OKgotAoTs1PzFDfnjpnNWBIMRCRcnAQ0kIGp4A73UbIVKDjJxAvJ1jN+Aez/
-         sfV2++bapyQaVUvVZVq9DoorGb9KGthHJSMWkdqFhRv+SWGnUvfOPxKUTiyls7KVvTjH
-         vDoA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784942659; x=1785547459; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N/CJCfH0/SDNKO9hky1DdcwmPfaS2frL/4dsCfTjLhg=;
-        b=ILzkNQco3I0bPegXLmY3HBUgX8Sp60dhXvAgn+kQJDgglaTjOO4CN75s140YOifxPF
-         3y0bB0ddBXXnA+PIyGNbJKqy4eVF71gAGOBzgIIfmv6tGgxJ0VPDi2vh5xbnwJBQIOui
-         XRPItXBpMvO/baLNXkbuNOdBtDfvA0WLV/iHjS7zNLBTA2vFvHxN21xosIOR/N1aEihY
-         0SLwoROjlL+IwWuUa4IHd1dvp3mWha2CLddA4qDc4QDhkkMNpUVpP6LGjrUY/6aql9mB
-         RvhnUj8YCKcQetYohk69CJlnlJNkM3zk2sQUGVbKRCjv6fh+zJsAjvIzrYsD8EWjuueo
-         V81w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784942659; x=1785547459;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N/CJCfH0/SDNKO9hky1DdcwmPfaS2frL/4dsCfTjLhg=;
-        b=NA5bkdWbaAQ1+mJAbG2C2uqdi8J0NJP1Na2smwgD8laMzWplqmxKw4qcA4x2iOMdre
-         fF4bqn9f7Wh1ILZFbbgrQEoXt3LggYP/QqQI+XFw4e1MzWXwnj4rpBdh1XBBsW9Rrybq
-         pu8ba/fR3rqnUTa7BoRCPzziJc9dmmSweR7aaYf3YoFW31VQaMwDrtrgSYppjJfVzBlW
-         gMFIcXEJFeYdJ5cfV/23IfP+MEWgVDndplD9CV0DnX7VqFx/2JfURLbvdp/35F9ZPd6Y
-         ONSKbaT98Z8X4VmxKaiSy3Weenx/d7P8famcsUNxFcdgPQ1HtkQ2RFIXwsGCPSo4mxdb
-         3zNA==
-X-Gm-Message-State: AOJu0YyiR4zzGJnBTvhIYLr9GGhcKCyzjafxOxn3YpZPPRWpwv/u4jIF
-	8hFC+a5qTl0DLesOdq2NU4CtvZxqiSCpPWcr8Ag08TLM51+wFcfWift/Uh0EET16IHqpNWsM454
-	9NEF/bI7JM5gnxdIbfTwLOfLDaf5V7TE=
-X-Gm-Gg: AR+sD12J/LTRwVdW9mQveaHfyd6RRGoT+LNwTRUPEwjCwMINzgCMdNbkEFxBAMPx4QF
-	ZJ9SHDoN8TIbTlFb9irI3bd69XHaKWK5A7s03dnjDVZ1TvvdbYjAnRr2xzA1Az+VQ3OJvYJAVRq
-	iSaVh9VFf5vYW9J3J35GaLzvR2LT8F3hnRjRcbToEzspHVHm8NWTZimwPUEd5456srlwBUdfPi/
-	VbxhaHLG0xKdtMVh9EyV9o6ehRtjTTHDqxnPSUCN/WdkKqpZ3YemYxXSZMgIDe1FRQglYdrGlEW
-	YHw9HJKdrG6XFMh5EnM=
-X-Received: by 2002:a05:6512:3d21:b0:5ae:b75d:8c0d with SMTP id
- 2adb3069b0e04-5b2c1afecd8mr59784e87.12.1784942659075; Fri, 24 Jul 2026
- 18:24:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kpg6oNsb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8EB1F000E9;
+	Sat, 25 Jul 2026 01:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784943464;
+	bh=DDQw0pWhH/nwKSNR13SEjoy+2ZZPvbAnDACCQkTXkYE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Kpg6oNsb1rnEq8rEoQBs4x0TAa2BkCpvRm8pr6FQGNRJVR2gBTFg/vt6q64ZBesxf
+	 xCYYvdXlct7sSly8NSGvAs/M5qqOvfCdoOZDVS+uVIyHzzwXyIY7+ZaWbbmvD5Ftas
+	 Z2aylp4QhdWdW3iOn4mVsbowBUTFydCjHzxeHhMfuRCLE4aTn+IB4HrvN/pXW91hHk
+	 9exK3bHZEKnOIcduunkXp1SJyHyka8sarSSVVz6dcjY53y3LD9mtBWISA439l6Pc2L
+	 TSjO7WvEdDDWze79I/1CjMOYHqFuefXd1DutoR9NDrm5Un6ZAsixz0HBfnv3uqYmqH
+	 ra/VEmMOxqSiQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Muchun Song <songmuchun@bytedance.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Michal Hocko <mhocko@suse.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/mm_init: fix pageblock migratetype for ZONE_DEVICE compound pages
+Date: Fri, 24 Jul 2026 21:37:41 -0400
+Message-ID: <20260725013741.1892750-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072014-stowaway-nebulizer-98db@gregkh>
+References: <2026072014-stowaway-nebulizer-98db@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260722142947.085426486@linuxfoundation.org>
-In-Reply-To: <20260722142947.085426486@linuxfoundation.org>
-From: Dileep malepu <dileep.debian@gmail.com>
-Date: Sat, 25 Jul 2026 06:54:06 +0530
-X-Gm-Features: AUfX_mzIyZ3MrkOex7XlD4dMeTTVkltiwhpKNUAGs3b5-mmzTOIMJycxWGA2hag
-Message-ID: <CAC-m1rryTBYDDfroX1kuLa262NaMh4ppoFr=m7RaNpoUYVxMoA@mail.gmail.com>
-Subject: Re: [PATCH 7.1 0000/2079] 7.1.5-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 8:09=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.1.5 release.
-> There are 2079 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.1.5-rc2.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
-> -------------
-Build and Boot Report  7.1.5-rc2
+From: Muchun Song <songmuchun@bytedance.com>
 
-I built and tested Linux kernel version 7.1.5-rc2 using the default
-configurations
-on both x86_64 and arm64 architectures in a virtualized environment.
+[ Upstream commit 94405c6136839f7c462249c8b4b957bcb9527a9d ]
 
-The kernel compiled successfully on both architectures and booted
-without issues.
-I did not observe any regressions or new warnings in dmesg during boot.
+The memmap_init_zone_device() function only initializes the migratetype of
+the first pageblock of a compound page.  If the compound page size exceeds
+pageblock_nr_pages (e.g., 1GB hugepages with 2MB pageblocks), subsequent
+pageblocks in the compound page remain uninitialized.
 
-Kernel version: 7.1.5-rc2
-Configurations tested: x86_64_defconfig, defconfig
-Architectures tested: x86_64, arm64
-Kernel source: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux=
--stable-rc.git
-Commit: ad98fbfe8a23687c534125422868b050b67eb6ad
+Move the migratetype initialization out of __init_zone_device_page() and
+into a separate pageblock_migratetype_init_range() function.  This
+iterates over the entire PFN range of the memory, ensuring that all
+pageblocks are correctly initialized.
 
-Tested-by: Dileep Malepu <dileep.debian@gmail.com>
+Also remove the stale confusing comment about MEMINIT_HOTPLUG above the
+migratetype setting since it is an obsolete relic from commit 966cf44f637e
+("mm: defer ZONE_DEVICE page initialization to the point where we init
+pgmap") and no longer makes sense here.
 
-Best regards,
-Dileep Malepu.
+Link: https://lore.kernel.org/20260428081855.1249045-6-songmuchun@bytedance.com
+Fixes: c4386bd8ee3a ("mm/memremap: add ZONE_DEVICE support for compound pages")
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Liam R. Howlett <liam@infradead.org>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
+Cc: Joao Martins <joao.m.martins@oracle.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/mm_init.c | 34 +++++++++++++++++++---------------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
+
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 1450b2bb98ee32..2b8b57af2bc57f 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -650,6 +650,20 @@ static inline void fixup_hashdist(void)
+ static inline void fixup_hashdist(void) {}
+ #endif /* CONFIG_NUMA */
+ 
++#ifdef CONFIG_ZONE_DEVICE
++static __meminit void pageblock_migratetype_init_range(unsigned long pfn,
++		unsigned long nr_pages, int migratetype)
++{
++	const unsigned long end = pfn + nr_pages;
++
++	for (pfn = pageblock_align(pfn); pfn < end; pfn += pageblock_nr_pages) {
++		set_pageblock_migratetype(pfn_to_page(pfn), migratetype);
++		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
++			cond_resched();
++	}
++}
++#endif
++
+ #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT
+ static inline void pgdat_set_deferred_range(pg_data_t *pgdat)
+ {
+@@ -999,21 +1013,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
+ 	page->pgmap = pgmap;
+ 	page->zone_device_data = NULL;
+ 
+-	/*
+-	 * Mark the block movable so that blocks are reserved for
+-	 * movable at startup. This will force kernel allocations
+-	 * to reserve their blocks rather than leaking throughout
+-	 * the address space during boot when many long-lived
+-	 * kernel allocations are made.
+-	 *
+-	 * Please note that MEMINIT_HOTPLUG path doesn't clear memmap
+-	 * because this is done early in section_activate()
+-	 */
+-	if (pageblock_aligned(pfn)) {
+-		set_pageblock_migratetype(page, MIGRATE_MOVABLE);
+-		cond_resched();
+-	}
+-
+ 	/*
+ 	 * ZONE_DEVICE pages are released directly to the driver page allocator
+ 	 * which will set the page count to 1 when allocating the page.
+@@ -1105,6 +1104,9 @@ void __ref memmap_init_zone_device(struct zone *zone,
+ 
+ 		__init_zone_device_page(page, pfn, zone_idx, nid, pgmap);
+ 
++		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
++			cond_resched();
++
+ 		if (pfns_per_compound == 1)
+ 			continue;
+ 
+@@ -1112,6 +1114,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
+ 				     compound_nr_pages(pfn, altmap, pgmap));
+ 	}
+ 
++	pageblock_migratetype_init_range(start_pfn, nr_pages, MIGRATE_MOVABLE);
++
+ 	pr_debug("%s initialised %lu pages in %ums\n", __func__,
+ 		nr_pages, jiffies_to_msecs(jiffies - start));
+ }
+-- 
+2.53.0
+
