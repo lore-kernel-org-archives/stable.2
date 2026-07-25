@@ -1,89 +1,112 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FEF288C2D;
-	Sat, 25 Jul 2026 17:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AB32D23A6
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 19:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785000997; cv=pass; b=VxySH7POgZaIiOIUXGb2qivfw9TdfEMLenZPFN3OX0r+wJ6QIXDS78eNPGbJlvbBC/nBiopTl+vdR+gtc6B39VtpjyGZUIHmKkKPoT2kVpYP0j7KYtpXCVy5q/6Sf947GTKiwEIVzi7UgXUsReKJoDrrkbByA+q+HupGIdR3HTg=
+	t=1785006257; cv=pass; b=oftF9F0Pzi1scDJWIu6kOCKX9zy0yRJ7IPXXk0iWS4HmJrJiqZq2i6kP0BOYmuhTuTDtG/jrFQ0JMqXbmut9LTfc8M4D1fWh7iS4lfhtZU0+zNvO3KaSFLkxzF/v0NO6JoEe4FRxG/VjMFAh3KBPYZNhZhEJRNF6G3ffIP4+T4E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785000997; c=relaxed/simple;
-	bh=aaT4bSz5HqqnTrLzg36MqwkeRkeee05kQBWMOuFMa9A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P2ZQm99Si8SiDgaa8x2OzjX8uFU0TbWbXn52Vc5L4QdSL+vattXdlB88PxZfOIbE6cu+xauvnicUH65Qlwj7F8dTKPXbPJIvnZLahzObAkU16df7c9OQfxSeRfdg4RDIdS9HJLHIygtivZYZ6DVmwVPpozI3cxRAN2WmI0uOoyM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=czLI0mj3; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	s=arc-20240116; t=1785006257; c=relaxed/simple;
+	bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
+	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KlpwfDD/qaZt0gPlaXXX30N3nktLhvi38SZE6M3t4ZLbc0liEAMz3FZIekGzlLT/F+9AbPbeBMmcv9Yw17fm6/vCVf/rnrk7JLKJIS1GHSZ3vQpAuTAqPz3+D6xl2WilYXljaNcgx7yD86EpPAzcKeNAlrrdlXZ1UCM/XGzuyQw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=Q8gjHBks; arc=pass smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="czLI0mj3"
-ARC-Seal: i=1; a=rsa-sha256; t=1785000972; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RYuLiCNK/wLM+A1AL+pi7reeRfYUqTvJfzNwaUYFST6oGvWU0r/XmZYJ/AtLCufWD6zOqco+OFwVexiNNKiyMNzMFgDeBMEwOCBMXk+KBjfM98jtxol281qb2kUzhPB/xFTwIi+h+B8NMMyUPokv4m68Gj14JnfE032O2Xpnky0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1785000972; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=WKq3a9nQc3N0aKZSTpXVKdyLOSqPpQF428qAw79wyQs=; 
-	b=OiaSQ4bVUWFXJWQ32dSTu6iCPU20ymm1qO3bfgbiP9u6Bi8KI0imxjdqCz+Hk8fiByK2lNEpucjp1o3obfikW4XaMcqcF6Ln5hFd9kUdJR51XAQ2IXAtOafnhc9geB5wNwFkd1YCV4jIfDWQmZrL1ZwW6f2fCx0UF4cqsDMmjVE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785000972;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=WKq3a9nQc3N0aKZSTpXVKdyLOSqPpQF428qAw79wyQs=;
-	b=czLI0mj30hc4LWFO1Tueq8WRo+KJA6tmUGbitGWug78ATEAVdjpHjgTshFYnnnL9
-	GffR3iyKrM9FoDvcOWcWJG0r2mI3vU3ty77K1tdQXpFVb0AcB7HIMqFqfQwjkjk//mX
-	sv18y8/olrNMmEFss6B0Go/gNmPlPX0cdjmvv8ao=
-Received: by mx.zohomail.com with SMTPS id 1785000966591653.2956125819782;
-	Sat, 25 Jul 2026 10:36:06 -0700 (PDT)
-Date: Sat, 25 Jul 2026 17:35:57 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Zixing Liu <liushuyu@aosc.io>, linux-kernel@vger.kernel.org,
-	Yao Zi <ziyao@disroot.org>, Jianmin Lv <lvjianmin@loongson.cn>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: Kexy Biscuit <kexybiscuit@aosc.io>, Mingcong Bai <jeffbai@aosc.io>,
-	loongarch@lists.linux.dev, stable@vger.kernel.org,
-	Yao Zi <me@ziyao.cc>
-Subject: Re: [PATCH v2] platform/loongarch: laptop: explicitly reset the
- bl_powered state when resuming
-Message-ID: <amTz4qZ6CE7fn7QS@pie>
-References: <20260723121840.1120953-2-liushuyu@aosc.io>
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="Q8gjHBks"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ce87c7e3bbso16613135ad.1
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 12:04:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785006255; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VudgN6byzYvTVI20tgNYt3Ml3v6qT1mCkJUgMjprgYm5RBFtY4/iCAuJid/STVwXpZ
+         P5qK2AeWtCOpR+5aszRFWHzAIuDv5iWrkCde270BuUZbDot/FXHI5EWV5BRDdPINMMPZ
+         L5yJY95xGZMj+DzZ6xcPPGBDcJU+cy9Th4tWqbPe3809EVvQQJc0xC3IGOFpTB4jvgCu
+         yNqCI9Tw3eMAgLIofN3zAkUKK6N7+kvIPxlNU9tfa4mWtH8JmZxfQDs9OoYKBF6iigHi
+         FL60nX0ScYVotOFc8loIGNJsFzGNwk4fFdhlm2JAcB9ERhdFUyVal2F0XJETWR7sSpW1
+         fKmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :references:in-reply-to:mime-version:dkim-signature;
+        bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
+        fh=KkIbniaelheAF8D7TCIrjml959qDFyfsChiZQdZiIoQ=;
+        b=dJONSXDnsxKSZgkqBUDHxowpC7hXJjspcdQQz0bVzg3XChpMONwqYagfJvvOQslJE5
+         MFyIeg3Tt0WcXQzUgqSvbEo4SpJnN7SmZtWv5IvmoTsT4+bOUvVjooHHdoeKZG4raIQg
+         /JTma3yJd9Juf0GUqksZFLv7LN2MEqCy0sXql8hF1o7hlLOWgDSx/zR+5UlFe5vn6zCJ
+         sGv/rxay6jXhBngu9xvUxbaEpf07MF+pF+86WBfC9GpKcaGrRZwTsqjqTdYXQi5ObS6Y
+         kpC5eWf8jm0XR1SIc6CLzObUt/uoDHa9J2+iu0ks1Y8xUn5noLB/7gr/76n/AyEdL09W
+         J6iw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1785006255; x=1785611055; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:references:in-reply-to:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
+        b=Q8gjHBksorpKiaN7Zd13V0//oyFYmYMiW2PmrC/pWW6GLnr0iwb8FxjkIMqyTL0r07
+         pjGB0EieUSeTwVz4TD7QnR7+vk9LGlzwHDUaQ6nOwVWU1El9CO//uf61Ke4JbBLf4ikX
+         CorNCtkbqKKRa7VDIpIDGdAteZ3rXfhAwGydVK9k6SoEw4JRd570LnjGZVe5H3f5N7pb
+         JwNwHG3OBP2uerIE/8WgNKKDkfzdQEIAwl/lpn+Ualq1CWAIuOkBTLjNxBVDTIWwNp3x
+         d1dxcLOSthmpnvNgPijmzdWKA1sD7oOVTD8tdUu2rn7qds47dcwJ8xH93315Q18WLBaX
+         UxuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785006255; x=1785611055;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:references:in-reply-to:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0QbV69kmg9DsMNMBVld/5Gpugq8FwkJ+JSjN3cbkwy8=;
+        b=dHvv1QU0nrL/BG8uRaaNWuwfZxfu1EqeRaUJ24ifA6gC6IuWKk3IxZWUQQZbWKl/0D
+         fN3Fuda+8StW3mt6yQLXgFUPnUPc6Zy2gnsQvKBhwdt3h4HlvzOfBpQF4OWEIEagWKhr
+         cqKvyO+8z/CoIsVkfKGKXlK6k/onaYkCC2zLHogHA8K8h7KzH4Upe/9j3Z1GfAg8ZjNN
+         dzxaT6wEVrJnoJ9Fsk87eNvAOdhlK67DYAqjoOeP2KD8wgKmCVhgy0odBzMoH6Zf9GZu
+         WBT+9aAEl8QObmm64ewac3PgdwA8WLq3k7o+d/lRDIWXEdBREVqInFOVgns54Q9QNMGS
+         vm7Q==
+X-Gm-Message-State: AOJu0YwPkoYpIIjvTJ/e6SeydZYQgi49jVlg62pJ50UGJa2fk01xbgKI
+	ZdHUKZ87PRYipx3HtEt1Ay2s83Q/fR8QvJdyosdK8pmRgaN7vfyumfNxzYdyb7iTlUKcY7LXxC2
+	vBf/2UigiSMgqBbLF4PA66zM6lyn/nvemP2jvI7TfYrYX1EZwas2APw==
+X-Gm-Gg: AR+sD102kerla8Pz7A2dY/1FNMR6CbNQBY7iqy2SGEzRpdxM/cFq7BSpS3syB4M23KN
+	1aeCI0YyQt1JlNNGUz97XFCOb5MjJdIr7//hSaOH6r89OznHP3G63prcBRVxxrlA6GSKrRCWEbV
+	8z6QfGrQVy8sPACuavjHh5bOChlWkQmZCtAwBzEh+sBW2psfIG7mhy/caDR2+ovc4eLFMq0NMwL
+	l6gCowsqJ/UvPHtIHOv4AUyckONlOWqjNaPohbeT0G/7T5uDQ8yjdxmywOiAG/pdnly8m3IoYP0
+	I5vfzcidLr6kJMKra7lEvnrKuDmkt4bg2FV0PlcKTF0YkQa02jh1BgrBHw==
+X-Received: by 2002:a17:902:c40a:b0:2cc:61e8:5fba with SMTP id
+ d9443c01a7336-2cfde866e46mr31930735ad.32.1785006255341; Sat, 25 Jul 2026
+ 12:04:15 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 25 Jul 2026 14:04:14 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 25 Jul 2026 13:39:24 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723121840.1120953-2-liushuyu@aosc.io>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/284.966.17
-X-ZohoMailClient: External
+In-Reply-To: <20260721201114.0012-stable-reply@kernel.org>
+References: <20260720191525.15450-1-doruk@0sec.ai> <20260721201114.0012-stable-reply@kernel.org>
+From: "Doruk (0sec)" <doruk@0sec.ai>
+Date: Sat, 25 Jul 2026 14:04:14 -0500
+X-Gm-Features: AUfX_mwhjhnX5X-sZz0Adtxt7J16oeGm0EsNu5BzNSH9sAPFEWmfSUa4z711gRU
+Message-ID: <CAPdMp1rzVAk-bq8wU6wTozXz=2oe1yW2muvoE5EwCa50gsx+3w@mail.gmail.com>
+Subject: Re: [PATCH 6.1/6.6/6.12.y] crypto: rsa-pkcs1pad: Don't WARN on an
+ empty digest
+To: stable@vger.kernel.org
+Cc: herbert@gondor.apana.org.au, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 23, 2026 at 08:18:39PM +0800, Zixing Liu wrote:
-> On EAECIS NL60R with EC firmware version 1.11, resuming from S3 has a very
-> high chance (>= 90%) of causing the EC to lose the previous backlight
-> power state. When this happens, the laptop resumes normally from S3, but
-> the backlight remains off (when shining on the screen with a flash light,
-> we can see the screen contents are updating normally).
-> 
-> Since there is no generic way to query the EC's backlight state on
-> Loongson laptop platforms, assume the worst-case scenario and restart the
-> backlight power inside the kernel each time the system resumes.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 53c762b47f72 ("platform/loongarch: laptop: Add backlight power control support")
-> Signed-off-by: Zixing Liu <liushuyu@aosc.io>
-> ---
-> Changes in v2:
-> - Move bl_powered reset logic to loongson_hotkey_suspend.
-> - Link to v1: https://lore.kernel.org/loongarch/20260722044457.1333404-1-liushuyu@aosc.io/
+Hi Herbert,
 
-Again on my TongFang L860-T2 3A5000 laptop, no regression is observed.
+Sasha reviewed this as matching mainline=E2=80=99s no-WARN/-EINVAL behavior
+and asked for a crypto-maintainer Ack before queueing it. The patch
+only removes WARN_ON() for the user-controlled empty digest; invalid
+input remains rejected.
 
-Tested-by: Yao Zi <me@ziyao.cc>
+Would you be comfortable Acking the attached stable variants?
 
-Best regards.
-Yao Zi
+Thanks,
+Doruk
