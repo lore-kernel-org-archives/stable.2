@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B212D3739
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 06:53:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD0B30CD92
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 06:53:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784962400; cv=none; b=jG2U+sH56WA1wjylBZoBX8Sp5kPQsVwJGxDHjz+UCOIxxgriCQ/AwZASUOBx7lsRe7hcejUSjhwkTTOgRehdEiIjltZrMvPcgfKMBQhy+IYzVJpK+AzbY6EYdcWLZ3ijKqyDW7NoI552ZY/G1lWa5aDygH87HuEdRBnF6+PjnQU=
+	t=1784962404; cv=none; b=i8DosDKnh7qhYD+kuESyZBoxp6SB+VFAwhv+ixd9DynbEx6IesNYdBr6jZeqWcyItD0d6FYaNlvQBW5M+jql6ilfiK37IUp/G1ciMDehy/js693is0KyWDeijo4wayuy5geMQVswRg+25mA5rUYqePoVq7VrgCEMNpQdXhHaUOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784962400; c=relaxed/simple;
-	bh=h0wiIVSdbAwNm20hmsvktOsqDJT0HKwgpmIq3TasNPg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=F/J8/AcOXSpvWe+z85kr3YPqFdlVMun14Hw9r0O943uQx2BNoaNyoPwbhqmKkLeV1q765DiJQJsK4Uq3F0176zl7rIlKFOhfkK6Kc/gTilXMTAFMu6sXmk2z9iz27XauSWcf95zfNgtLvqQk9wvHDvg4byBNr8FHtTUP3u2UdAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MSRdoeOp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784962404; c=relaxed/simple;
+	bh=g6u01xDhmAILZ17rXKZ9i/HQQKyTxW7HJlH/xSOqN4g=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=o3ByngojP6rVku85IhdTCVKRoz+jwtZppvH0lQUFbKKapT9LxL50m68vq+lsO7TFLkd+5Dpnmrs+eatzrGPRn5wKmW2+IKG8htZAyTZNoIbdT+5IoyVpq0DBLaE9jWLEwLn6zdD2kOOzgNcqBzsh38F07r08/zuR0jZzc0fdtYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SK9ELa0V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MSRdoeOp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9E11F000E9;
-	Sat, 25 Jul 2026 06:53:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SK9ELa0V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 198181F000E9;
+	Sat, 25 Jul 2026 06:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1784962399;
-	bh=+QFRMLHbTFa919UsGvVO8sHgGjySmTdR/Hx/63BXPQg=;
+	s=korg; t=1784962403;
+	bh=GCAfWNOvhl8Fpygi12GxBI3SI3018nYcioheuXocXO8=;
 	h=Subject:To:Cc:From:Date;
-	b=MSRdoeOpByssKH02M409GUql4MF1LS56k+fAbXiUDZaM2TZ34EhxPr0nBQTPva8U0
-	 HTiiA24Rp/+l8CQ8GSlQmozgVn0n2zWCrhZwTQt3KiPE79LJJLkktqr/Q3xGc5SrdB
-	 np4ssFybzPAdIWCBd4JtPBVkEgwcZXTNbelGV5PU=
-Subject: FAILED: patch "[PATCH] KVM: x86: Check for invalid/obsolete root *after* making MMU" failed to apply to 5.15-stable tree
-To: seanjc@google.com,imv4bel@gmail.com,pbonzini@redhat.com
+	b=SK9ELa0V1b5imh6U6XvdqQO9KmXhpAa/TA7ZUG6PyY6hRLLBeJWm+LS3veSmj2wCw
+	 xh0KL1xES9cRxip6FxZFxn3eE/3O90eO/wK5dXCqHEhcrFDdsBO+fdyFJzYYbJbw2h
+	 X/+uV05VnmEGfYETiNAfdxl1KILrztUbDF5S9dFo=
+Subject: FAILED: patch "[PATCH] KVM: x86: Only reset TSC Deadline Timer in apic_timer_expired" failed to apply to 5.15-stable tree
+To: venkateshs@chromium.org,chao.gao@intel.com,dmatlack@google.com,jmattson@google.com,jthoughton@google.com,pbonzini@redhat.com,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 25 Jul 2026 08:52:57 +0200
-Message-ID: <2026072557-gem-defensive-a757@gregkh>
+Date: Sat, 25 Jul 2026 08:53:12 +0200
+Message-ID: <2026072512-regular-reference-8cac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2abd5287f08319fa35764566b15c6e22cb1068db
+git cherry-pick -x e800decd9c0ac4349bcd8f8f9b29fd21fe93165e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072557-gem-defensive-a757@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072512-regular-reference-8cac@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,86 +62,63 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2abd5287f08319fa35764566b15c6e22cb1068db Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 13 Jul 2026 08:15:33 -0700
-Subject: [PATCH] KVM: x86: Check for invalid/obsolete root *after* making MMU
- pages available
+From e800decd9c0ac4349bcd8f8f9b29fd21fe93165e Mon Sep 17 00:00:00 2001
+From: Venkatesh Srinivas <venkateshs@chromium.org>
+Date: Wed, 15 Jul 2026 23:42:35 +0000
+Subject: [PATCH] KVM: x86: Only reset TSC Deadline Timer in apic_timer_expired
+ on KVM_RUN
 
-Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
-after making MMU pages available for the shadow MMU.  If reclaiming shadow
-pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
-map memory into an invalid root.  On its own, populating an invalid root is
-"fine", but because child shadow pages inherit their parent's role, any
-children created during the map/fetch will be created as invalid pages,
-thus violating KVM's invariant that invalid pages are never on the list of
-active MMU pages.
+On Intel platforms with a VMX preemption timer and APICv, if a VMM
+calls KVM_GET_LAPIC before KVM_GET_MSRS to save the vCPU state, it is
+possible to lose a pending timer interrupt.
 
-Note, the underlying flaw has existed since KVM first started tracking
-invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
-pagetables"), but the true badness only came along in 2020 (Linux 5.9)
-with the invariant that invalid shadow pages can't be on the list of
-active pages.
+If the thread running these ioctls is migrated to another core after
+calling KVM_GET_LAPIC but before KVM_GET_MSRS and the guest is using
+their LAPIC timer in TSC-deadline mode, not only does the save LAPIC
+state not carry the pending interrupt, the TSCDEADLINE MSR will be
+zeroed.
 
-Note #2, inheriting role.invalid when creating child shadow pages is also
-far from ideal; that flaw will be addressed separately.
+After migration across CPUs, KVM_GET_MSRS calls vcpu_load, posting the
+interrupt and clearing the MSR:
+vcpu_load() ->
+  kvm_arch_vcpu_load() ->
+    kvm_lapic_restart_hv_timer() ->
+      start_hv_timer() ->
+        apic_timer_expired() ->
+          kvm_apic_inject_pending_timer_irqs()
+            . post interrupt into the LAPIC state
+            . clear IA32_TSCDEADLINE
 
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Fixes: f95eec9bed76 ("KVM: x86/mmu: Don't put invalid SPs back on the list of active pages")
+The saved LAPIC state will be missing the pending interrupt and the saved
+MSR will be zero. Oops.
+
+Fix by only posting an interrupt when we're attempting to enter the guest
+(vcpu->wants_to_run == true), not for vcpu_load from other paths.
+
+Assisted-by: gemini:gemini-3.1-pro-preview
+Debugged-by: David Matlack <dmatlack@google.com>
+Debugged-by: Sean Christopherson <seanjc@google.com>
+Debugged-by: Jim Mattson <jmattson@google.com>
+Debugged-by: James Houghton <jthoughton@google.com>
+Signed-off-by: Venkatesh Srinivas <venkateshs@chromium.org>
+Message-ID: <20260715234234.15382-2-venkateshs@chromium.org>
+Reviewed-by: James Houghton <jthoughton@google.com>
+Reviewed-by: Chao Gao <chao.gao@intel.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Fixes: ae95f566b3d2 ("KVM: X86: TSCDEADLINE MSR emulation fastpath", 2020-05-15)
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 234d0a95abf5..41f92ed1ca37 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4852,16 +4852,17 @@ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 	if (r != RET_PF_CONTINUE)
- 		return r;
+diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
+index 38bba9a1114c..48b019114c19 100644
+--- a/arch/x86/kvm/lapic.c
++++ b/arch/x86/kvm/lapic.c
+@@ -2052,7 +2052,7 @@ static void apic_timer_expired(struct kvm_lapic *apic, bool from_timer_fn)
+ 	if (apic_lvtt_tscdeadline(apic) || ktimer->hv_timer_in_use)
+ 		ktimer->expired_tscdeadline = ktimer->tscdeadline;
  
--	r = RET_PF_RETRY;
- 	write_lock(&vcpu->kvm->mmu_lock);
- 
--	if (is_page_fault_stale(vcpu, fault))
--		goto out_unlock;
--
- 	r = make_mmu_pages_available(vcpu);
- 	if (r)
- 		goto out_unlock;
- 
-+	if (is_page_fault_stale(vcpu, fault)) {
-+		r = RET_PF_RETRY;
-+		goto out_unlock;
-+	}
-+
- 	r = direct_map(vcpu, fault);
- 
- out_unlock:
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index df3ae0c7ec2c..1ba840a73b7a 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -864,15 +864,17 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 	}
- #endif
- 
--	r = RET_PF_RETRY;
- 	write_lock(&vcpu->kvm->mmu_lock);
- 
--	if (is_page_fault_stale(vcpu, fault))
--		goto out_unlock;
--
- 	r = make_mmu_pages_available(vcpu);
- 	if (r)
- 		goto out_unlock;
-+
-+	if (is_page_fault_stale(vcpu, fault)) {
-+		r = RET_PF_RETRY;
-+		goto out_unlock;
-+	}
-+
- 	r = FNAME(fetch)(vcpu, fault, &walker);
- 
- out_unlock:
+-	if (!from_timer_fn && apic->apicv_active) {
++	if (!from_timer_fn && apic->apicv_active && vcpu->wants_to_run) {
+ 		WARN_ON(kvm_get_running_vcpu() != vcpu);
+ 		kvm_apic_inject_pending_timer_irqs(apic);
+ 		return;
 
