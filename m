@@ -1,156 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3251399D02;
-	Sat, 25 Jul 2026 10:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E38175A95
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784973675; cv=none; b=Q6DDy1mAvXOJ7N4YGyNRRMcE+A4tuhy7y6tE8I4rbdS+QGkDvrfJJjV+OznS6MYN79YB/DPKGqm2QO3OJnjE0LM0CAk4KzdA72tLg1Q1WDZj2ESwpG2WzmTskkcp2UgI25ppst987Ri0AUvstxbRdX9wPv1XtRO2E5k5DRyg4kc=
+	t=1784974467; cv=none; b=UhcyiRmIbJfn25btuyVQ47bvS/4n1sRIO+7co1Mnmkwt3Ci+1U7+mVqy5byRllRryK+2C/6iqocTX+DVZuOXeKlbqIFBDptmegb+Fhgx1RkORI4v+Z+HuuES3e3QUqvQmT9Ws3D6TPQyITF6JH9uLqyut8CkhYdXmY1T22BeJhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784973675; c=relaxed/simple;
-	bh=Zp2zjRlEvckKg9VI/3+sNo4w7X6/TyKXFfHRa8YX7aE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O8fpSLV6smGtSzLIlPoCnneyvRCissm8A9C3TyK/hZUQvo3NLD8LeQFGzWkecoDXn0JdUpLl1UKL0pKcyU8YxWO9Olu9NefQsxCJ6IzTWgnaA+vt3jHkUi3xNBBsEmNWQa2fTlxW807WzjP+o3iGCjW9DgYAw2R/8Zs6An+et2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BbWmvJeX; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1784974467; c=relaxed/simple;
+	bh=ZoevCOB3AVJOLQNo3puwsZK3nyVscupnbFcL/mWh9HA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WOFtO4RbPLcu08L01pN27tZdMcPG+/mnb2j0PeoNYrnYl54K8iPcD57btjJSbYcZKk1d4iall64jL87nHPGEDQN3E/VnG5TGsLQhjt8YJLv9wZ4mL/jdfGmX5yK7q6EzAxMsdYE9EgAOUeZOYld5YRGuHng0lH7bLzffLrDvVs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=MU3KKvFC; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BbWmvJeX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1784973673; x=1816509673;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Zp2zjRlEvckKg9VI/3+sNo4w7X6/TyKXFfHRa8YX7aE=;
-  b=BbWmvJeX+rSXc2z2zrLRkBEE7pUXMt577juwYmC/N2sIEcIOtbTYWIQ1
-   wdmn2Tuj2rF1QBe8ruBNhFqdXq5P6wPDioEXNp/8A0rOOn+8WTVAcyeFv
-   1dBKcB/t/gPeaUxJcGPaC29DxulKWrwmmD+vKpn0qfT8gl+SiPDX//mZy
-   LiYwdH7rNZ179SEcboY5ryPX7fPPiQCdzKlVR0SDvnlWFg8bAH3hXmwU8
-   oG6GAvEEeTcM5Thiu7mjK7bz2iE8c27AKSrB5UrwBYBXFPq8a6y1pCJjO
-   TXG06lRab4IJA3tF1y6vRYjHtDp4hgnv6YU1gHSZLc2ykU8d053HyiVeF
-   g==;
-X-CSE-ConnectionGUID: rt+d+hjlROqs4fHBmS12GQ==
-X-CSE-MsgGUID: Fo817zegRp2YnBsHFckdOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11855"; a="85565916"
-X-IronPort-AV: E=Sophos;i="6.25,184,1779174000"; 
-   d="scan'208";a="85565916"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jul 2026 03:01:13 -0700
-X-CSE-ConnectionGUID: ctg5heolRUi92iBakY5E+w==
-X-CSE-MsgGUID: Wy5qaZXrRKac5Aqj+aeanQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,184,1779174000"; 
-   d="scan'208";a="255013974"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO fedora) ([10.245.245.106])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jul 2026 03:01:06 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Sashiko-bot <sashiko-bot@kernel.org>,
-	Friedrich Vock <friedrich.vock@gmx.de>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Tejun Heo <tj@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="MU3KKvFC"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f703a9d05so750265f8f.0
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 03:14:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1784974463; x=1785579263; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mKnbPcWgHhMyrO4V7xcbU637Ba8Qy4Y9EblUr4Mkk8k=;
+        b=MU3KKvFCf3tUK7vMQS1gB9d2oVTNHotkBEClBkOg3l/CQiuQ4DpRpovQla3YrT5OP7
+         VipdqqIeWb4hamcaXrCu7bSugbv60qhfmlJjeXeLve76OEUj9hgt1ChtxO8HCRtkIME+
+         tp9L0d0zs7kpEcryjyYj1bVaemxyg0mnMINZ0NgJNUtz8yRLuz3Yg7/0ivMvwyAMHyxU
+         d9fh/xP9tgmMU+heDOIyn3IynjQHeMtmZwlm+CJrpTLFZtYz5LeCMq1cYBe3U86GpqoF
+         0p3wriiN7o3nwnjVSaVjVgRbEr0i2URMLyVXpKRhCH9B1vifQjV5lwwcRywIlkT6srfv
+         F2fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784974463; x=1785579263;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mKnbPcWgHhMyrO4V7xcbU637Ba8Qy4Y9EblUr4Mkk8k=;
+        b=ACp6la1BcLltmvbY5NDNAOkhelLZyigrRyESn75PIoRKYpeThnYfAMb/myAfPzZ9hP
+         79UaY4+4gTI98t9SIGJ9wekjsfkWEKsXH2CdUH4R5Vxe5S4o9a8f2MOyEPMgmqHHAeFr
+         7i+zpCx427ZHbXUeUaFqwmjI44Sqj+G9YjK1I9pNJpUEoB16/UAf85k+W8zfcOJOTxyV
+         rA5KqorYNqVGz4UhrCG7uRhYrx6owHJt4Dn6LrG8jIWVQbuRU5PBQSnc/D4CodoKDhGT
+         ZjrnTaPEk5AVvoa6DkmRxojzsNdQ5PtwSOZ9TVOVIIchz70K4ifgbtZ8YZrHTfCbPdZp
+         a6Kw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr84io38cotWDAmBUJhro0WtfDdTAymMhFtoD5NN+JA7yB/F/o827WOk+pZodwmihatY4nVxXU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwR83rg0tpu9w+475Qw1fyi8hzddMjKuZEDK0Eq/aXWJqBxIQ+k
+	CFrZWCOt7efMVvmlCYtnNOeUCRG517RCjk31WSlbcc2BVqRtzXSVdyVg3kwSlsaxpo0=
+X-Gm-Gg: AR+sD11HNH8DOY35eMBt8DkWfMKalG1ItHiCs3xSGesGdJ4fc5SekbsEyu/XBh0ByBz
+	oRI07ZrTTkLJHG6picjF9ciEJ3ovcaclpRZ9BkynaJc1n2rFlFTkzjWSET4S/uASTTuAR3UIYKB
+	daCakyDXVn2edOMrwyLC71il+K4w2exhvmUwQqukzO5jCXHm6YWYmmqy71fIaG2wCgoMX3zKPgC
+	l03/OkTcsXcYz1AV/wi8m0iAx2PXqy9/fOQM2WLLzJGv4JhsRzRhBbwQL6Al/5K6YFk6/GSntQA
+	hPauzc59t2tlAqDr2E+byX+F+OoxzDzMGc09Wg6k++YmTOxQrFtNaOeF6XBYmvMz2LIz35hyOyy
+	026OB7qRbh/RNW61/ZlpCks4rcqFYOocLSVfIsDZaXAdyO5AU6UDAp9j8IXFVMWWTexFLK989Jc
+	e879y8oA==
+X-Received: by 2002:adf:e190:0:b0:47f:52e9:3716 with SMTP id ffacd0b85a97d-47f9fea1ed7mr1967871f8f.44.1784974463387;
+        Sat, 25 Jul 2026 03:14:23 -0700 (PDT)
+Received: from matt-Precision-5490.. ([2a09:bac6:37a8:1f19::319:116])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f864305f5sm30334154f8f.17.2026.07.25.03.14.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 03:14:22 -0700 (PDT)
+From: Matt Fleming <matt@readmodwrite.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <Liam.Howlett@oracle.com>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Dave Chinner <david@fromorbit.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <ryncsn@gmail.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Matthew Wilcox <willy@infradead.org>,
+	syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com,
 	stable@vger.kernel.org,
-	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
-	Natalie Vock <natalie.vock@gmx.de>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	cgroups@vger.kernel.org,
-	Huang Rui <ray.huang@amd.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	David Airlie <airlied@gmail.com>,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v9 1/6] drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
-Date: Sat, 25 Jul 2026 12:00:31 +0200
-Message-ID: <20260725100036.2372-2-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260725100036.2372-1-thomas.hellstrom@linux.intel.com>
-References: <20260725100036.2372-1-thomas.hellstrom@linux.intel.com>
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@cloudflare.com,
+	Matt Fleming <mfleming@cloudflare.com>
+Subject: [PATCH v2] mm/huge_memory: Initialise workingset state before folio split
+Date: Sat, 25 Jul 2026 11:14:19 +0100
+Message-ID: <20260725101419.3938406-1-matt@readmodwrite.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
-gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
-returns early and bypasses those initializations.
+From: Matt Fleming <mfleming@cloudflare.com>
 
-Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
-is called, a failure triggers amdgpu_ttm_fini(), which calls
-amdgpu_vram_mgr_fini(), which then:
+xas_try_split() adds __GFP_ACCOUNT for page-cache xa_nodes, but
+__folio_split() leaves the xa_state's xa_lru unset. That lets a live,
+memcg-charged xa_node exist without being linked into the mapping's
+shadow_nodes list_lru; when reclaim later walks the list_lru it trips
+VM_WARN_ON(!css_is_dying()).
 
- - Calls list_for_each_entry_safe() on reservations_pending and
-   reserved_pages, whose list_head::next pointers are zero-initialized
-   (NULL). The loop does not recognize them as empty and dereferences NULL.
+Use mapping_set_update() to install both the workingset update callback
+and the shadow_nodes list_lru on the xa_state.
 
- - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
-   via for_each_free_tree(). Since mm->free_trees is NULL
-   (never allocated), this dereferences NULL.
-
-Both result in a kernel panic on the module load error path.
-
-Fix by moving drmm_cgroup_register_region() to after the list and buddy
-allocator are fully initialized, so the teardown path is safe to run.
-
-Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
-Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-Cc: Friedrich Vock <friedrich.vock@gmx.de>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.14+
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Reported-by: syzbot+c5b060ce82921a2fd500@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c5b060ce82921a2fd500
+Fixes: 58729c04cf10 ("mm/huge_memory: add buddy allocator like (non-uniform) folio_split()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Changes in v2:
+- Move mapping_set_update() after filemap_release_folio() succeeds.
+- Add Zi Yan's Reviewed-by.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 2a241a5b12c4..ac3f71d77140 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	struct ttm_resource_manager *man = &mgr->manager;
- 	int err;
+Link: https://lore.kernel.org/linux-mm/20260724195244.3715130-1-matt@readmodwrite.com/
+---
+ mm/huge_memory.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index b5d1e9d4463d..4ddbc72e92fd 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4033,7 +4033,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		gfp_t gfp;
  
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
- 				  adev->gmc.real_vram_size);
+ 		mapping = folio->mapping;
+-		min_order = mapping_min_folio_order(folio->mapping);
++		min_order = mapping_min_folio_order(mapping);
+ 		if (new_order < min_order) {
+ 			ret = -EINVAL;
+ 			goto out;
+@@ -4047,6 +4047,8 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 			goto out;
+ 		}
  
-@@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
-+	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
-+	if (IS_ERR(man->cg))
-+		return PTR_ERR(man->cg);
++		mapping_set_update(&xas, mapping);
 +
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
- 	return 0;
+ 		if (split_type == SPLIT_TYPE_UNIFORM) {
+ 			xas_set_order(&xas, folio->index, new_order);
+ 			xas_split_alloc(&xas, folio, old_order, gfp);
 -- 
-2.55.0
+2.43.0
 
