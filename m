@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3E239EB7C
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:54:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6199331EAF
+	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 10:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784976879; cv=none; b=SHTVO0PRz9JFekleHuF7KCJD+jm6GND0NJrrApPKrb92lcFoVev5r8Da3ZN93t5calExNKN6+sivBAt3Qensg8yW165/ausfGShyv6MKNzXK9wQX4AY1bQlPK5y/l5JogEVgSA552x77yH9bR8CRLtKLtGniSnB2V7uCEIg9Pec=
+	t=1784976883; cv=none; b=TSjuLo/tZL0GFem9HNKxvgIO81Tjmlij20upupzeQIFwSmDd2qDA6EYKKw6llQYoqfm3Fqii/jFqQZJnuhtxUxUd/UkFkQpGQWqdnp6iZxVocWGqzbRxmbfIB0w7LkHN6PrDitTSCnaiR3WdfSDN3u1kTZUQHJDfleVTkGJFzAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784976879; c=relaxed/simple;
-	bh=zB3EDSUc6qCPYJDn5dRT0oUaV787FdKXoEM+tqEEDEM=;
+	s=arc-20240116; t=1784976883; c=relaxed/simple;
+	bh=A0Tw8YiL9rzaH188xvNmuhgB7L7DOcmR8p8bSR/4tBA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RD5aAl2OPx5blLSjsFdoBPSE1E66XxCm2bQ3/p1xcWej1PVpDq6eu1s0lZLD9dFrGl/dIyIzwsgun8oY3uo1Xi2FA3ntoh90Fp03UDS7JTxjB4Zc/opjPoc2ZtE+PbknxUxAUbha3mS4sIt0ndtvePcFNsKNrTH0Lz+iwdclxoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OI5+oOdY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=REJUKgJsHC+qlHRH35JpOcKDZR16beXoYp5KCBTZcmQhnQGtIa5Pr8fK9Gg7QlHl7DcHjMcsB0JOPKny/VGWhDSWCOgtTtDv6dog4z1SlhyFQDVlX9xQUI9t80i6fyMeXNPkvac6uK+GJoe3TOgWCSr9tpnBqd3/WSiT9WgxrEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eC88unGu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OI5+oOdY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540381F00A3D;
-	Sat, 25 Jul 2026 10:54:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eC88unGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383031F000E9;
+	Sat, 25 Jul 2026 10:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784976878;
-	bh=7GAyvD2ZZx8m1ITsxqJkVSvKkCz7XJcsX/oJrou1Qyw=;
+	s=k20260515; t=1784976882;
+	bh=rNbhF75m4pf/5S6nu5OduzV+JiNHl5Xx4K64ECoI4Rg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OI5+oOdYuT4L3I5SfLeIbxKWOEfsma8HAeohtURugmQB1gNZFl0dGD23seVoA7Mv0
-	 r6eOmFda3cUQjxU2OFJolw57Axj1N2MIWbcODwl1Weg1nFpcfqRAC0AhF9PJAn4A1t
-	 r/Ft0tnytwCYb0U2V7h6V9zWpLL73nz7K1oWSfIC2003PUAM6HrAgQobb/Fmnq0Vr2
-	 jb2GqbTtwIMgRwvZmTdgdJeM0NJdE3BY5CZCBikgLNtMftCalWscgfyfyVOqxXDq9c
-	 shcdKp3heNLAoByHoHe5MclINYBaKfK5/lOBT+quLBHcJQ1ZcfXShHxpQ4aBYp67d1
-	 chQBw3ZZogegQ==
+	b=eC88unGukiBe84feXGhyZgccgQ7jYnufDImPZe1hxbEIzMrovdRhq2CsddGo6BDi9
+	 OTAoxp5hs7Bq3YeqnmZv3MGg6VBlnZXjsA7PzedUDVdoHsa/1MYiJkbvoB+cH7G+Qw
+	 5tzntPAIvq1u81LVttu60wGC3i1q+Dd6J28aPwkMxreYfShOXnMe5MEyfimvnslB0L
+	 +ITxDsblKkxQ7NjBKKt4wHKs3v4GEwBAPhn9QqTGKquCcsVj57SRSD+hqf/3HRFuXd
+	 QHLZURIo54XfoJJGW6IJeML2ov6VMRReECzeFBXhSSs9sw1MmqFRUf3C8UUi8471jo
+	 aY+QWKCoiG7jA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	stable@kernel.org,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+Cc: Florian Fuchs <fuchsfl@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] kho: make sure scratch size is always aligned by CMA_MIN_ALIGNMENT_BYTES
-Date: Sat, 25 Jul 2026 06:54:33 -0400
-Message-ID: <20260725105433.1853930-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mtd: maps: vmu-flash: fix fault in unaligned fixup
+Date: Sat, 25 Jul 2026 06:54:40 -0400
+Message-ID: <20260725105440.1854110-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260725105433.1853930-1-sashal@kernel.org>
-References: <2026072031-lapping-tubby-5b19@gregkh>
- <20260725105433.1853930-1-sashal@kernel.org>
+In-Reply-To: <2026072054-king-ranking-9254@gregkh>
+References: <2026072054-king-ranking-9254@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,75 +45,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+From: Florian Fuchs <fuchsfl@gmail.com>
 
-[ Upstream commit 0e39380a7316122e1b00012b3f3cd3e318b3e7d3 ]
+[ Upstream commit 79d1661502c6e4b6f626185cef72cf2fa78116e1 ]
 
-When using scratch_scale, the scratch sizes are rounded up to
-CMA_MIN_ALIGNMENT_BYTES since they will be released as MIGRATE_CMA. This
-is not done when using fixed scratch sizes via command line. This can
-result in user specifying a size which is not aligned, and thus kernel
-releasing a pageblock that is only partially scratch.
+Use kzalloc_obj() / kzalloc_objs() to allocate the memcard structs,
+instead of kmalloc_obj() / kmalloc_objs() to prevent access to
+uninitialized data.
 
-Do the rounding up for both cases in scratch_size_update().
+Fixes runtime error: Fault in unaligned fixup: 0000 [#1] at
+mtd_get_fact_prot_info.
 
-Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
-Cc: stable@kernel.org
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20260519160554.2713361-1-pratyush@kernel.org
-Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Fixes: 47a72688fae7 ("mtd: flash mapping support for Dreamcast VMU.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/kexec_handover.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
+ drivers/mtd/maps/vmu-flash.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
-index 37e6048118e8b7..bd10660db469a2 100644
---- a/kernel/kexec_handover.c
-+++ b/kernel/kexec_handover.c
-@@ -569,20 +569,30 @@ early_param("kho_scratch", kho_parse_scratch_size);
+diff --git a/drivers/mtd/maps/vmu-flash.c b/drivers/mtd/maps/vmu-flash.c
+index 3667faefe6c58f..e992f4d1417e6f 100644
+--- a/drivers/mtd/maps/vmu-flash.c
++++ b/drivers/mtd/maps/vmu-flash.c
+@@ -610,7 +610,7 @@ static int vmu_connect(struct maple_device *mdev)
  
- static void __init scratch_size_update(void)
- {
--	phys_addr_t size;
-+	/*
-+	 * If fixed sizes are not provided via command line, calculate them
-+	 * now.
-+	 */
-+	if (scratch_scale) {
-+		phys_addr_t size;
+ 	basic_flash_data = be32_to_cpu(mdev->devinfo.function_data[c - 1]);
  
--	if (!scratch_scale)
--		return;
-+		size = memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
-+						   NUMA_NO_NODE);
-+		size = size * scratch_scale / 100;
-+		scratch_size_lowmem = size;
+-	card = kmalloc(sizeof(struct memcard), GFP_KERNEL);
++	card = kzalloc_obj(struct memcard);
+ 	if (!card) {
+ 		error = -ENOMEM;
+ 		goto fail_nomem;
+@@ -628,15 +628,13 @@ static int vmu_connect(struct maple_device *mdev)
+ 	* Not sure there are actually any multi-partition devices in the
+ 	* real world, but the hardware supports them, so, so will we
+ 	*/
+-	card->parts = kmalloc_array(card->partitions, sizeof(struct vmupart),
+-				    GFP_KERNEL);
++	card->parts = kzalloc_objs(struct vmupart, card->partitions);
+ 	if (!card->parts) {
+ 		error = -ENOMEM;
+ 		goto fail_partitions;
+ 	}
  
--	size = memblock_reserved_kern_size(ARCH_LOW_ADDRESS_LIMIT,
--					   NUMA_NO_NODE);
--	size = size * scratch_scale / 100;
--	scratch_size_lowmem = round_up(size, CMA_MIN_ALIGNMENT_BYTES);
-+		size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
-+						   NUMA_NO_NODE);
-+		size = size * scratch_scale / 100 - scratch_size_lowmem;
-+		scratch_size_global = size;
-+	}
- 
--	size = memblock_reserved_kern_size(MEMBLOCK_ALLOC_ANYWHERE,
--					   NUMA_NO_NODE);
--	size = size * scratch_scale / 100 - scratch_size_lowmem;
--	scratch_size_global = round_up(size, CMA_MIN_ALIGNMENT_BYTES);
-+	/*
-+	 * Scratch areas are released as MIGRATE_CMA. Round them up to the right
-+	 * size.
-+	 */
-+	scratch_size_lowmem = round_up(scratch_size_lowmem, CMA_MIN_ALIGNMENT_BYTES);
-+	scratch_size_global = round_up(scratch_size_global, CMA_MIN_ALIGNMENT_BYTES);
- }
- 
- static phys_addr_t __init scratch_size_node(int nid)
+-	card->mtd = kmalloc_array(card->partitions, sizeof(struct mtd_info),
+-				  GFP_KERNEL);
++	card->mtd = kzalloc_objs(struct mtd_info, card->partitions);
+ 	if (!card->mtd) {
+ 		error = -ENOMEM;
+ 		goto fail_mtd_info;
 -- 
 2.53.0
 
