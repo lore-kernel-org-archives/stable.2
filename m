@@ -1,67 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDA01A3029
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 01:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B17B19D07A;
+	Sat, 25 Jul 2026 01:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784942027; cv=none; b=cfq6aiaBnrv6hWb0A5ngiXqx6YgOcdoihFv2gNH5/0U5biQcatl23pVTNnuuXUvbQ8sqlTjBsibsOUO8ToGtOtXOCBZkh/ck6xud54jwc3a3nfNOVQtgn3ArRX2kuLTHwBQJg/Tr2nYmllDwc334uX2yfnTaPxlq8Ns8aZ3hmVg=
+	t=1784942190; cv=none; b=Ca3uvZ6VYd9MKyJxhS83UNISPaXOHQtMpTFZMJaN4wb3+ni9gzUfrCHmvBLl0J4ADcJ6eP7bs/lYXuZweIhYbyvjrHfzlPSOlTGFvHYtbuqJBIInPygQr2MGRdHXvySveaWJTaMIDJENbpERvTq/ENzufDZczEJpVQk0l6nwdBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784942027; c=relaxed/simple;
-	bh=pNiW3WBCzJLx3UPL3XoTNpv9DHkcvgdWFYbzKEOL1OU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=hl1FEBnqDpz3KqjIvJeRY/jyJK5BOaGsMvfprggQRL8t2k0GCBxtx+mpXq9gJbAd53FYDbMzMG8+eFCk9gW9KMEL9NO72BkV5BfRVTj4XDxxVcvrtDE28PaFWDEKAdo4WM7eKGSCGAlFJuLI3S7qLRIFw+G5hFUxAlr0zS73X84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzF2W+zS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784942190; c=relaxed/simple;
+	bh=iwEk3kkgTGHHJCCelUOaKx7UpanA3TG91XR6QN9yAxQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LeAOsxveb+kHz5GBwl5nlvJ9xaKzxTmZPIsrMQmHc+CaGLjVOt1JuYxbOc3gKxmFmbkWqSCvEwuoSWAGY+f3ARn/Pp97j4AiHZhFBckb1eHqyTUXkvzAigjP1VE+pQuAfSlH19CG9bOCjCyQLTaRLq5oCtV1aw10xNAGX5XvBsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=F/XwVEk+ reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzF2W+zS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174401F000E9;
-	Sat, 25 Jul 2026 01:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784942026;
-	bh=9m+6qBm5wzCc2o5QDMPRAgTsAOzpMpXRy/ic4yJR2i8=;
-	h=Date:From:To:Cc:Subject;
-	b=JzF2W+zSGPLP/pyX9YA5QX7f+ct7vSdTE4kZUIb42For1kM0/7fGDGXBmu+CcZ8F8
-	 nugJ0m05gWmRHGR72uOlVASKx8VUTnb3NWIiT/3Sx7WaMfakes/qziFufG/Po3lkK4
-	 hRmwvRDllPUG5ASzNABb19gTbYN72JJVW5WCzsHwp/U0nXlhEwi7t/pppe3re/yeAM
-	 cZsIrQG9g13ju9jEcmyM/7fC6yXlMXrxmW7V8fa69Aw/q1I/R5nBfuLCSoypOtN/pb
-	 Dfo4gEQDhn9sawdiHgyOrMPD2r1/dHxhtprNAE+dYufj1Ypu2u+28i1vb8NNhcby8M
-	 yrZ+61vyY9Nvw==
-Date: Fri, 24 Jul 2026 18:13:42 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
-	Marcus Seyfarth <m.seyfarth@gmail.com>
-Subject: Please apply 90dfeef1cd38 to 6.1 through 6.18
-Message-ID: <20260725011342.GA2792705@ax162>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="F/XwVEk+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=xmUYPvi32
+	T1uurAIi9LSAnx0uzTTiR/ExGW/8cnA/Rw=; b=F/XwVEk+QoKnxtublNoptqCy3
+	lONlM4ULNsgHYbO2Dzv+2UIcV16VSvmkfe6ugxvPDduKjuNy8FDOZrI/Y7QYPDFx
+	tLaBaNAvAYghRKvsCQWk+v6F9cD92vuW28fxxwTBZS0P7ekWq7sKcvzdQyh3xaMc
+	zjfod2CikSmI4gZtLE=
+Received: from [192.168.1.110] (unknown [115.53.186.114])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkC2+S5eDmRqwM5wAQ--.14099S3;
+	Sat, 25 Jul 2026 09:16:15 +0800 (CST)
+Message-ID: <0fbbc160-a599-4384-b78a-bf8e6afd963e@stu.xidian.edu.cn>
+Date: Sat, 25 Jul 2026 09:16:13 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i2c: i801: Clamp adapter timeout to prevent system
+ lockup
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: jdelvare@suse.com, djkurtz@chromium.org, hkallweit1@gmail.com,
+ wsa@kernel.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260723034331.116690-1-25181214217@stu.xidian.edu.cn>
+ <amPinh8c7GwQx4Le@zenone.zhora.eu>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <amPinh8c7GwQx4Le@zenone.zhora.eu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BLQMCkC2+S5eDmRqwM5wAQ--.14099S3
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYT7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j
+	6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
+	0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcVAKI48JMxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r126r1DMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJV
+	W8JbIYCTnIWIevJa73UjIFyTuYvjxU7RpBDUUUU
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUFEWpjgew1bQAAss
 
-Hi stable folks,
+Hi Andi,
 
-Upstream commit cc39f3872c08 ("seqlock: Introduce
-scoped_seqlock_read()") was backported in several stable branches (6.18
-through 6.1) recently without a necessary fix, commit 90dfeef1cd38
-("seqlock: Cure some more scoped_seqlock() optimization fails"),
-breaking the build for certain configurations
+Thanks for the review.
 
-  https://github.com/ClangBuiltLinux/linux/issues/2178
+I agree with your points. Silently clamping the timeout violates the 
+userspace API expectations, and adding arbitrary limits to restrict a 
+privileged user is indeed not the right approach.
 
-Please consider applying 90dfeef1cd38 to 6.18 through 6.1 to avoid this,
-it applies cleanly to all those trees for me. You may also want to
-consider taking
+I will drop this patch and handle the timeout constraints locally in my 
+testing environment.
 
-  b94d45b6bbb4 ("seqlock: Allow KASAN to fail optimizing")
-  88331c4ec23a ("seqlock: Allow UBSAN_ALIGNMENT to fail optimizing")
+Thanks for your time.
 
-but I did not test if they were clean cherry picks.
+Best regards,
+Mingyu Wang
 
--- 
-Cheers,
-Nathan
