@@ -1,120 +1,133 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660BA2DB7AE
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 19:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785095133; cv=pass; b=Rcb7AwvrgKt1j7ONd1Z1On62fyNwSSZtTuWavEQJJlBEwKzP6stt2Ycl5TFzKE2qobT6nuBkYuzA30ACz9+G1DK91ms/qu1NH8sxtCNub1y0N+9CmGtoW7kLxZxtdLpXfP+hTQ8DRuhP7VgulWqjGCUc53S2NKwSMY+RV2Y6+Rk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785095133; c=relaxed/simple;
-	bh=t37LLRxVmxoTXXp/ZXoIiRtHquDeIr5GCoq2k8yksBY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hxTvh0uPKLQrKN+S271t8w7sw4RHp6dXJ9ct2ZNPF0VCwYQ6WW5sqqhbYarYJAcVIerObHqDARxYYG+ssFj4jV0hwr0VCNRqy6zpLDoiOaOG8/Bl5xQ7hniz0GD1NMtzlgQh2MjWfJy0yuXgTlFUgsoKJLLoivWHoIN16gdVI6Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=DVBLuJeo; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Xc56SN4a; arc=pass smtp.client-ip=85.215.255.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4B529A309;
+	Sun, 26 Jul 2026 20:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785096058; cv=none; b=JBTbaBe58QG9jZMynWDV0Jo2sLe6BCL2dL172N0rEwLy1gdGrxu+DQ7Sc3TbWzqSU5R4+sDgiEu+LEkva0zq63YFWTpSNM+J1kMLyNlAmE8xzb5eMdWho5vMSJXCzw3rHDvRTDTwFAc01p+MjmYrcj/uWFnw13+1h1FAA4qYgnI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785096058; c=relaxed/simple;
+	bh=pvsuW9UGnk3bIDwvUlgwG1ivG0b2KWk5y5of08ImEeQ=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=DCKzATZIVOAbBJsxVstvhU1OuYaG0/qBZIXErxAdOGGlxctuWIAS+dE8l2wc5YsSTg0rpiRjTreMoKiFDlS86atdxHK7OJwynaAvT4PDBUaw2yhyMc8SpZemq5cSnSj5NvdsilFiJORUj2nG8f1Zz3tyg3QzVWlEBckPXGglTk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkWUvRGo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="DVBLuJeo";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Xc56SN4a"
-ARC-Seal: i=1; a=rsa-sha256; t=1785095116; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=nITydkzRLA4Akn3E1Y4MiO8RlHNRaFi38BO9LaobmNWJH9+6bTq1M8X5tbcsDFEha3
-    9tg1wD/61tOfCjNQjJbPfulQuzFl3xPpdlcbG56BkOfSJpNLRxeZnrXj1BbACUg6AOMo
-    95RU1L1k0r7jMVsno2SkkP+X5F13dzjtIh0nViMTiOqLr+91oshiYvM3fO6zGSxMHmpZ
-    QV9c519RLpt2S97jgtYgDRDdcHTBqg1DrlLnZeekvxp+Qi/+2Fjftr1axvdigmxagu49
-    DomvjzpESNncY/iigj83IB6G0D7V4jIymctXKnIQCry8kpNDEiN04CeObUliGjGxFdwI
-    QB5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1785095116;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=v4Hm41xLHH/6KQ5QkL+8Q6xHqskD+n6OFKelYxp62mI=;
-    b=qlNNTYVnRVrMIxlDBIqULUSbnIMstoPhoT96aIlNVTGAUq56E8tGA+vvKsypBQVS75
-    nMbIUX4clvFiz6PUYbWjXZlYck7nkhzbXqxcSS2ouENnWm2Y1SwJ2KyilFM7LWgb3UzF
-    HAKnAtijW++5/IcnERQtcBS42h05WQsB3LBVqcVk5mXumPFgdvdyvVZmB/c8h8gzHy4N
-    7kS5GhBxY/WqcqHNH+6KQpibhjKmXXq0ib/wRguRMX2FJVqsDy019m6YHuberXor4k9b
-    8VuNpaaQwbcNobGWW9kjLNZu6OPfYAcCC6tC0USVIJy81vx6cPmQnI3q4wFXjSCXIRDe
-    gxgA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1785095116;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=v4Hm41xLHH/6KQ5QkL+8Q6xHqskD+n6OFKelYxp62mI=;
-    b=DVBLuJeoCsbrx9geIJlCkGCs07GumtrjbmKzIMtk73VCQicrbQ1Ru+wV1SU2GaiGC9
-    BUhqKTRVQ1ZqZiKgIOCynh+uG/qH1Vlo4OIOiO/YpibPI+XLSv3EA2S6PF1sDbwjYUBi
-    co2eQH3kvgi8wXhRcrk85TUT6niQKhevgLerMV1CGYb7MV4ugXQItfPzagmLQjmVAbjf
-    LTRUBErXkWPCB5xuKums+VJGCKgASlhV19IzpGghyn1mXSqef6JYGrgOsIXr5TWGoLfx
-    daEnFG+u4AmpNDd5X9N0WZWwoLa/1cYgSk/LljfGjfXvkNp9KviTqctOsdk7/l4R/RPh
-    JE8g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1785095116;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=v4Hm41xLHH/6KQ5QkL+8Q6xHqskD+n6OFKelYxp62mI=;
-    b=Xc56SN4aweqhLrw/5r4FzJjlc/WsbkKlSQ6//J7ySEagUcGinEyp0fM1a+JwjHr9ah
-    TYUGim6aOdg4vmR2QlAw==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
-Received: from [192.168.20.231]
-    by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926QJjG67G
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 26 Jul 2026 21:45:16 +0200 (CEST)
-Message-ID: <918a5842-9649-4c13-9291-f06fb3fa2910@hartkopp.net>
-Date: Sun, 26 Jul 2026 21:45:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkWUvRGo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DF71F00A3D;
+	Sun, 26 Jul 2026 20:00:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785096057;
+	bh=ZhU5LhsQyPPZGLL4rtP6/8OqWdSe9f1g8Crcp+PS65g=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=ZkWUvRGosUpD/IiRFm7qc0N+ifou+D7n628ywaY8n17rOZ/PQt9X7pTQQ0KIdLKkc
+	 pEt2jUcyhbrvDQpzsrZ0Rx8RbysQ0+CdnUqxlMCHuNscWokeJ26T13BNcea6o83Yqb
+	 S0wV/JY2rRZjWL/jpA1x2bHAtM9FYu7nkQtP1ZSuNVqI5+qLqPAnmLFn2alYhG+JHr
+	 itsTh1sxdci+ZLDqGnxRvmal/xVkOV3lU7o/32SkRYRfh5LEH16eXV+3zMolubzvD0
+	 rTcVxHL+CJZXSD2h4H+GwXrXb1DHdWFt1jjir08C6iZSsGd32cXWKqwG8XY1DKYEYy
+	 CAflD8feFS3oQ==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.phl.internal (Postfix) with ESMTP id D213DF40082;
+	Sun, 26 Jul 2026 16:00:55 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+  by phl-compute-04.internal (MEProxy); Sun, 26 Jul 2026 16:00:55 -0400
+X-ME-Sender: <xms:d2dmanXPdI9zhY23afN9Rn4pnKlxQKa6UaolKPi64OkTq9LkZSccRg>
+    <xme:d2dmaqZGiphn19mozko14PthN0MZ0H0BK0k_MQZWTQh6j5_HyGH4-RdJ_DrsmVe8V
+    6oI_SocVdWOxpx0iFPXII7LicdSloEP69mW0MUaey9HqC5fg3en>
+X-ME-Proxy-Cause: dmFkZTGmWM6ALLnlTX1Q1PGekbnoph5wMRNOmmGhRsFggSn5B+bf/oWRqAufJRRDqDmn6U
+    Be/QhTIEV57ukRepm13foV0d6fVVzQobWovrd86DnO4tMvNwSLQYVGFLqALr57Rd2VUAGo
+    RCjFa8MSyI1yBgofFdVVlYqoNx5ohdUr0zGDrm9Ge/knhvVav2z/UCoJPD02WAjgyBz54I
+    subE6dumhvfh32uKxNPiElx6PhkKWyBShqAPhQLVFSzRG5yDpT91gY/bpV6P3CkJ42SBc9
+    GbwhTD+i8LMQ+b/UU4Rc6u9vjWiZ18cqjgZwrlM4YZq35vYJxD6znncJ3HWA33wrzzyfVk
+    ua+sLHlK7e9/YLET54H6MRxSNJSRTVldhBYyehBRJuH5ndqmxHgRSEUtn22V5r1Z35vuCl
+    XG281KqljLSWANwKUB6oSJd8k/dm/7nMDKkDPRzTyeDkAM8uBqyyxLMouMX/j8qF4/Ddm9
+    W70wfw1qT4fnp9uCV1eQd1S/ikFYmNBYNjZMIHEBruoXVGYPpt2643iupCackIqZEpOrxG
+    mFH3NUpIz+vWXJwFWs6veawthXMj7d2Oh4bRDeICQ6yYabA/JGl8Zsz55eYXCj7KA4gaSO
+    s8ebca9mlQqrEpZ2nltP7ZTXZRFsineAXFiG+/1EOmlLQigRJNgYWG2DWqmA
+X-ME-Proxy: <xmx:d2dmasDppv7i_bnXzRWlKRmcjagYE9bjRgzFK6jc0467jGsA4-KVmQ>
+    <xmx:d2dmapYiENZrvPaBQiQ0RhECeecdKZXsRtIc5VmqRZADYNZwnqqTJw>
+    <xmx:d2dmapzJn2t9PCwybvY7MIWvJaedRxsBrzAcj1o6tNLO8OCMKmfeOQ>
+    <xmx:d2dmakc9-lUgxSeRlHvfk9KPSE0xin9hb0g2WjwDtRVJnJnztdPw4A>
+    <xmx:d2dmanJfRrrwEe0kzmbNv7g9539qKN6fbzffPDkfYCWp7YkTtoKUdyxd>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id B22E1182007E; Sun, 26 Jul 2026 16:00:55 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 03/19] can: raw: add locking for raw flags bitfield
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Vincent Mailhol <mailhol@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>
-References: <20260716155528.809908-1-mkl@pengutronix.de>
- <20260716155528.809908-4-mkl@pengutronix.de>
- <0f3b44bc-41bd-446a-bceb-bb2c9581ee6b@hartkopp.net>
- <2026072653-handheld-reliable-4a78@gregkh>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <2026072653-handheld-reliable-4a78@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ThreadId: ADJgN6ak6HcB
+Date: Sun, 26 Jul 2026 22:00:35 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: "Akari Tsuyukusa" <akkun11.open@gmail.com>
+Cc: "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Matthias Brugger" <matthias.bgg@gmail.com>,
+ "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
+ "Russell King" <linux@armlinux.org.uk>,
+ "Nathan Chancellor" <nathan@kernel.org>, "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>,
+ "Yingjoe Chen" <yingjoe.chen@mediatek.com>,
+ "moderated list:ARM SUB-ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>,
+ "open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b" <llvm@lists.linux.dev>,
+ stable@vger.kernel.org, "Ard Biesheuvel" <ardb@google.com>
+Message-Id: <c4e9a566-baf7-4df6-b874-30c68a5c67f6@app.fastmail.com>
+In-Reply-To: <amWfjDyn0jrnIf63@buffalo-ssd>
+References: <20260722172443.534251-1-akkun11.open@gmail.com>
+ <CAKwvOdnbPKoTy72EvfpKtT9Ne-r+O0j99KFX8OvjGk8ZxsuEGw@mail.gmail.com>
+ <amHYO1c-5vzqSekt@buffalo-ssd>
+ <ef007a23-46bd-41d6-83ff-264831341093@app.fastmail.com>
+ <amWfjDyn0jrnIf63@buffalo-ssd>
+Subject: Re: [PATCH] arm: mediatek: fix secondary CPU boot on Thumb-2 kernels with
+ Clang
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
+On Sun, Jul 26, 2026, at 08:08, Akari Tsuyukusa wrote:
+> On Thu, Jul 23, 2026 at 11:53:14AM +0200, Arnd Bergmann wrote:
+>> On Thu, Jul 23, 2026, at 11:15, Akari Tsuyukusa wrote:
+>> > Can you send your fix as PATCH?
+>> > I think your approach is better than mine.
+>> 
+>> I think we should wait for the llvm issue to be resolved first, to
+>> document whether this is considered a bug in the kernel or the
+>> assembler, and to see if any other kernel code may be affected
+>> by the same thing.
+>> 
+>> Looking around other .S files, I see the same
+>> pattern in stext(), cpu_resume_arm(), mcpm_entry_point(),
+>> all of which start in arm mode but end in thumb.
+>
+> It's a LLVM bug.
+> The LLVM assembler source code explicitly mentions this limitation:
+>
+>   ///
+>   /// FIXME: there is a corner case where the state is changed in between the
+>   /// label definition and the .type directive. This is not expected to occur
+>   /// in practice, and handling it would require the backend to track IsThumb
+>   /// for every label.
+>   ///
+>
+> https://github.com/llvm/llvm-project/pull/211641/changes
+>
+> However, it will take some time for an LLVM release with this fix to
+> become available. Since LLVM (>=15.0.0) is an officially supported
+> toolchain, leaving the kernel with bug(s?) on supported LLVM versions
+> isn't ideal.
+> I think we should apply a workaround in the kernel for now.
 
+Working around it in the kernel is fine, but I'd prefer to wait for
+the fix to first get merged into llvm so we can reference the
+bugfix in the kernel commit.
 
-On 26.07.26 13:17, Greg KH wrote:
-> On Sun, Jul 26, 2026 at 10:08:52AM +0200, Oliver Hartkopp wrote:
->> Upstream commit 1e5185c090589f4146d728ab36417d8a5419f127
->>
->> is missing in stable.
-> 
-> Which stable?  And why wasn't this tagged for stable inclusion to start
-> with?
+A trivial workaround would be to have a dependency in
+CONFIG_THUMB2_KERNEL for !AS_IS_LLVM||CLANG_VERSION>=24
+(or whatever version), though fixing the .S code in all known
+instances is probably better if we want to ever have a chance
+to require IAS on all architectures.
 
-This patch fixes commit 890e5198a6e5b238627c245fafea1a92670a86cd ("can: 
-raw: use bitfields to store flags in struct raw_sock") introduced in 6.18:
-
-$ git tag --contains 890e5198a6e5b238627c245fafea1a92670a86cd | head -1
-v6.18
-
-So it would be needed for 6.18 and never.
-
-I thought the tag
-
-Fixes: 890e5198a6e5 ("can: raw: use bitfields to store flags in struct 
-raw_sock")
-
-would automatically tag this patch for stable with AUTOSEL.
-
-Unfortunately there was no Cc: stable in the commit message. No idea why.
-
-Best regards,
-Oliver
+     Arnd
