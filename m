@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0821F419A
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 14:36:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55D23BB9F1
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 14:39:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785076583; cv=none; b=i1r2DGCG1gFgsuwWWwXWspr0AafrDjDBZgX96RT8UPs2cOGZK+sAhXTYIHnohdwQoro3wGjLwMaRRghiMFGxQe5FNPL8DfUaB1tEc1aO2WHcCSGCTBXahrhJ319ptekt6uM9Mp0wx2s7xmZWe7yZVod+B5miNaJTx3Sk1W34nGs=
+	t=1785076786; cv=none; b=nZ2PzQBZCXoQp+C6azs3ie3mXAL+M1lxZcgTd7QCUuDL73Ab6Gjpp3+wjgwSxnR9l9FDNhB62lcaC91uIJztJayIqUKmkS04KA/gJOf5SpsA6nsGxffg2E675jMNfrO05DvtATXHfaZOanV90YKDbOM6MIckMkpxmdB4t6EfyX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785076583; c=relaxed/simple;
-	bh=9DwOpU8JXSr2mJOXnVgzYO7zGv1+1NQMZj1fNf6G0gk=;
+	s=arc-20240116; t=1785076786; c=relaxed/simple;
+	bh=d5G61n9DCzJoG1XlOEr5f4M+FNe1kTeCxwulfyig4F0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BeoNvi/x1+Z7Cq0Xg+mN6AvJJUHebrtXYZoyOUDSqsAN7b613+BxCs5o4+PmLAl7Jn+rl0QAi56hBcc3km1X7vPWWQTamrH1fTnOLzkCLQwY5PQ2G+Ow6iul/nWHurfh242MJaOCO9u3b0OhAKkG7jyuXZaJOZzT2jv5GijXWUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JpGtbDap; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jDsfJ8DYWX/P7NMdfsdmtKd3Ii64EFu8h82noCn7E22WBgvsxCOqJk/o9yJ5sgHmt+TDAhBmG1Il1hXfahBQQ4mi81UsivET0yp23jAJOWnnFpnDWEWU+G3ZwqrJjBu7RdCItZayU6zdXvHVVHIGS9+DIYGlQh5244EOsf27myA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oTx4BP3o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JpGtbDap"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEF861F000E9;
-	Sun, 26 Jul 2026 14:36:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTx4BP3o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F081F000E9;
+	Sun, 26 Jul 2026 14:39:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785076582;
-	bh=OLdKgpx+ZgXyOJp5iE11NVGp7d4otw0sMl2AOb9249A=;
+	s=k20260515; t=1785076784;
+	bh=BGUKuvrecusY5Fj/XRT2hHuXbxehdd7K6sOES19ki6Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JpGtbDapv3cW3wCagLm43QNPfKWiyFklE/EeQ3harkYhY/WEi+R9r6ihrDfIj4vPC
-	 oWPiNxV8OSLKOf2yfindf9ZV729COT/YFwKv89SD7KFx3fRXPlWsnE90TydvO6kZC7
-	 jTAe/3EnOUoPGA4VSM27A5OwGqlpieGE26ORt5hGXR42j1Df6sWhUrKIMxbvYsV4G+
-	 u0FqPp/ZN1UJSz91NuiCPsiqfCDx6Sjn9jUkjlhf8hs1KERi/9L3ixN79zO57L5XgP
-	 aWIJpEygDMJ6lrjrwfVfSMbdS20REkFFUzIWcAB4SR46QpN61NGWERcLx1W29VxUyo
-	 PpqWCwRDr2xdw==
+	b=oTx4BP3oNYHJEP8Ga0YFDxentYsl146TGMzFtR31Sr9cQrlr0UzXjgIsZAOclc6vT
+	 SRjSTLGsEVAw6fgeobppl/4fwa+7OHXtlFmxGlth0GJ2GZzLwo7uOaCHnO3AG5etPB
+	 toqkR6sKDJUpagJjr0Ghs+6EUOJ9zd8p1QQxsDhf11VzWZmidHY/OCwPTddf5Uu2B1
+	 iF0fm+rg5u5aJWeQ5a5WZPyNij4kdqjjPgp4EL8T7k+8cELeOh/AUQWDk243BALblj
+	 6qUkNzxC4xREJFa8cS7YsBCBcGrT9PnkRIWri7P0RLwjNkFxUsgo1/GmV+RbFn+/vo
+	 603JXa08gYjrA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Stefan Wahren <wahrenst@gmx.net>,
+Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] tpm: tpm_tis_spi: Use wait_woken() in wait_for_tmp_stat()
-Date: Sun, 26 Jul 2026 10:36:18 -0400
-Message-ID: <20260726143618.1025423-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: use kvzalloc() for megabyte buffer in simple fallocate
+Date: Sun, 26 Jul 2026 10:39:41 -0400
+Message-ID: <20260726143941.1052693-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072015-okay-retake-2a7b@gregkh>
-References: <2026072015-okay-retake-2a7b@gregkh>
+In-Reply-To: <2026072058-blaming-unseated-0a99@gregkh>
+References: <2026072058-blaming-unseated-0a99@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,103 +45,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jarkko Sakkinen <jarkko@kernel.org>
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-[ Upstream commit c0c9cfb3b75def8bf200a2d4db09015806acfeaf ]
+[ Upstream commit 806c00c23e3ce8eae397a40ced536ef88ae4e012 ]
 
-wait_event_interruptible_timeout() evaluates its condition after setting
-the current task state to TASK_INTERRUPTIBLE.
+Currently in smb3_simple_fallocate_range(), a 1 MB buffer is allocated
+using kzalloc(). Under heavy memory fragmentation, a contiguous 1 MB block
+of physical memory (an order-8 allocation) may not be available,
+causing the allocation to fail.
 
-With CONFIG_DEBUG_ATOMIC_SLEEP this triggers a warning when the IRQ wait
-path is used:
+This failure was observed during xfstests generic/013 on a 4GB RAM
+test machine running fsstress:
 
-    tpm_tis_status()
-      tpm_tis_spi_read_bytes()
-        tpm_tis_spi_transfer_full()
-          spi_bus_lock()
-            mutex_lock()
+fsstress: page allocation failure: order:8,
+mode:0x40dc0(GFP_KERNEL|__GFP_ZERO|__GFP_COMP),
+nodemask=(null),cpuset=/,mems_allowed=0
 
-Address this with the following measures:
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x5d/0x80
+ warn_alloc+0x163/0x190
+ __alloc_pages_slowpath.constprop.0+0x71b/0x12f0
+ __alloc_frozen_pages_noprof+0x2f6/0x340
+ alloc_pages_mpol+0xb6/0x170
+ ___kmalloc_large_node+0xb3/0xd0
+ __kmalloc_large_noprof+0x1e/0xc0
+ smb3_simple_falloc.isra.0+0x62b/0x960
+ cifs_fallocate+0xed/0x180
+ vfs_fallocate+0x165/0x3c0
+ __x64_sys_fallocate+0x48/0xa0
+ do_syscall_64+0xe1/0x640
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+ </TASK>
 
-1. Call wait_tpm_stat_cond() only while tasking is running.
-2. Use wait_woken() to wait for changes.
+Node 0 Normal: 3375*4kB ... 7*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4096kB
 
-Cc: stable@vger.kernel.org # v4.19+
-Cc: Linus Walleij <linusw@kernel.org>
-Reported-by: Stefan Wahren <wahrenst@gmx.net>
-Closes: https://lore.kernel.org/linux-integrity/6964bec7-3dbb-453b-89ef-9b990217a8b9@gmx.net/
-Fixes: 1a339b658d9d ("tpm_tis_spi: Pass the SPI IRQ down to the driver")
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Tested-by: Stefan Wahren <wahrenst@gmx.net>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Since this scratch buffer does not require physically contiguous memory,
+switch the allocation to kvzalloc(). This retains the performance
+benefits of kmalloc() under normal conditions, while gracefully falling
+back to virtually contiguous memory when physical allocation fails.
+
+Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Tested-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/tpm/tpm_tis_core.c | 38 +++++++++++++++++++++------------
- 1 file changed, 24 insertions(+), 14 deletions(-)
+ fs/cifs/smb2ops.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm_tis_core.c b/drivers/char/tpm/tpm_tis_core.c
-index 16e486337ecbcd..88f73e1b749d52 100644
---- a/drivers/char/tpm/tpm_tis_core.c
-+++ b/drivers/char/tpm/tpm_tis_core.c
-@@ -49,10 +49,11 @@ static int wait_for_tpm_stat(struct tpm_chip *chip, u8 mask,
- 		bool check_cancel)
- {
- 	struct tpm_tis_data *priv = dev_get_drvdata(&chip->dev);
-+	DEFINE_WAIT_FUNC(wait, woken_wake_function);
- 	unsigned long stop;
--	long rc;
- 	u8 status;
- 	bool canceled = false;
-+	int ret;
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index bd4ea48e057613..0f9b93666df813 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -3567,7 +3567,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 	if (rc)
+ 		goto out;
  
- 	/* check current status */
- 	status = chip->ops->status(chip);
-@@ -62,23 +63,32 @@ static int wait_for_tpm_stat(struct tpm_chip *chip, u8 mask,
- 	stop = jiffies + timeout;
+-	buf = kzalloc(1024 * 1024, GFP_KERNEL);
++	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
+ 	if (buf == NULL) {
+ 		rc = -ENOMEM;
+ 		goto out;
+@@ -3624,7 +3624,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
  
- 	if (chip->flags & TPM_CHIP_FLAG_IRQ) {
-+		ret = -ETIME;
-+		add_wait_queue(queue, &wait);
- again:
-+		if (wait_for_tpm_stat_cond(chip, mask, check_cancel,
-+					   &canceled)) {
-+			ret = canceled ? -ECANCELED : 0;
-+			goto out;
-+		}
-+
- 		timeout = stop - jiffies;
- 		if ((long)timeout <= 0)
--			return -ETIME;
--		rc = wait_event_interruptible_timeout(*queue,
--			wait_for_tpm_stat_cond(chip, mask, check_cancel,
--					       &canceled),
--			timeout);
--		if (rc > 0) {
--			if (canceled)
--				return -ECANCELED;
--			return 0;
--		}
--		if (rc == -ERESTARTSYS && freezing(current)) {
--			clear_thread_flag(TIF_SIGPENDING);
--			goto again;
-+			goto out;
-+
-+		if (signal_pending(current)) {
-+			if (freezing(current)) {
-+				clear_thread_flag(TIF_SIGPENDING);
-+				goto again;
-+			}
-+			goto out;
- 		}
-+
-+		wait_woken(&wait, TASK_INTERRUPTIBLE, timeout);
-+		goto again;
-+out:
-+		remove_wait_queue(queue, &wait);
-+		return ret;
- 	} else {
- 		do {
- 			usleep_range(priv->timeout_min,
+  out:
+ 	kfree(out_data);
+-	kfree(buf);
++	kvfree(buf);
+ 	return rc;
+ }
+ 
 -- 
 2.53.0
 
