@@ -1,224 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24970346FAE;
-	Sun, 26 Jul 2026 11:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785066165; cv=none; b=Tog5s1qJfRxE140owHjK3KtAGxz+iZv/ngU6o5Uea/XKC9VqTSh/qzh6UklKXE3AF2J1Y9gBMDDzKs45PY15maH61bjw1m5c/jfvlUZHRUIN+s12qgC/zoMNzbTseGfcwnBarSxGU+1y4klqdbUWvaKW4NfBVeavcTUHKQ3I3aU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785066165; c=relaxed/simple;
-	bh=OUVzekdFxT1IPkH+ZcuTvGoIhDO2ZyvszxeAKYQuDuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U+FhSG2Nz7tWAIiuGzO1l8kuAlCvhjnS5T0iE5e53j3BRNWDO39Rum4gi26cWRO6JAFbUCjLhesWEIGPWXPgl3B3HBDI9SDKCxgrz6KJ1BMdyhkl4UZvbEArjnEzMTAIdGUJQMbYO9wKKX2qb3xZ8zx3m0hh6oPzq9wOiNkZBZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Zb9zkoNW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4208387359
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 11:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785067060; cv=pass; b=Wuj1DY5ChhwxKhY7dc/ZjhqBUGP3zB3hvrl6//7bAS5eaKQ3VkL2d9vGfA683qAFkRSWGCiWRlFKATIRRSTan0vNxZJCa4XCfD6EkXlwsKwn+uY/InhfL25QESjZ1W3BNtGlXcID1FX0pZ9zDoB5XM+/EQoL2nMtXM4XrcZglkg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785067060; c=relaxed/simple;
+	bh=C48qQbePcuw3sQu6QI1vTw1fXCVHZubspNmxvNeDGDY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dsav3w3c31E5DMk57AubHw1BL0do0d+F7Z7XF/LJSPATTDX110h8ILMcWUuyuqKE539W57JqPQAgrvXpV5cIkRNshuzYbkgEHUy7uyTQT+bv+D6TvaaMjEBOQF0+kwtvc534H5R/D4KKnUZ/cKfaXupHBZUIVrRwDnSvcmA4JL8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rDvSTT2y; arc=pass smtp.client-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Zb9zkoNW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38EF91F000E9;
-	Sun, 26 Jul 2026 11:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785066163;
-	bh=1eZCb+v1pTpRdVk5e/EARgPEZpyxXQSCuvqNGlYNTJI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zb9zkoNWWXVyRaRgBcfrqOc/YrlqV/FusGQNb5a9qKxLgfc9bJjRUAXL7QAFTidmo
-	 vdObG2z3GoHOF5Q0QavGPmgHNSUG2rDuklIoKHQHtFeAvLuVt6vDcJWZdZAcCz9vAd
-	 Ge3Fg8Ij+D3NbxHQk5G9HhsneFOdvAKzWfx7l244=
-Date: Sun, 26 Jul 2026 13:41:18 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: HE WEI =?utf-8?B?KOOCruOCq+OCryk=?= <skyexpoc@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-usb@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] usb: misc: usbio: reject endpoints smaller than
- the packet header
-Message-ID: <2026072625-mooing-stimulus-324b@gregkh>
-References: <20260726113511.57596-1-skyexpoc@gmail.com>
- <20260726113511.57596-2-skyexpoc@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rDvSTT2y"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6aaf2f9ce3dso713479eaf.1
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 04:57:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785067058; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UWF+yyz5mBNpXh0OFcEA+GUowIK1IuzQPZ4dt4ixge5s+gb6MP9l9gdyF2x2953vtu
+         5WbdK0/TGb970SnfTPTlAWefqDjIODGUrUm3WR/kY3EVjFnju2C3cExS87/CdDGUe1RX
+         C5QaUyXUxwRvifndePTWhI/LvC1cPSDAD1ev0m/ZJLKVdeLEi4j6LxotqpCWroKGm+kY
+         mL2aj5LoSTgkOLM0OkGCLnciBuhCUUhojrK/F3dJp2d5MU7TSbIadbW4ut6ppQF1OKhH
+         PdbjO7Sm4116RIaLWmPp4NUD4rsKElr8jDPfz5rHh+/tN2iyzdZFWQzXCzSRqcj63C00
+         7MHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=C48qQbePcuw3sQu6QI1vTw1fXCVHZubspNmxvNeDGDY=;
+        fh=xtj07tUcqchrxeDopQX041T3k38nuX+9lj53XybvSQw=;
+        b=fgcopbnD6qNYdnTxkT+VjE82lOvEb59xLyrtnHjoNxQZOQCl1L7+lgQgWtEoHc5bUv
+         p7W871ovveI29fJcs2/4QlJSnMRvgNW5PnwhMSbMbugiF9sViwPIkrFuQ6MeelhD2pBC
+         bht2pRr41jFb2v+zOimhC5tkFzy+uFE3OWrF8iEptkZioJt+Jd58Nhm9ucWQ9j8O1cRq
+         opfhKgnBBdj62UV+u2J0C/MEXIlJhrreTzY/0ULian9bt2NXV4UQ09ltTO6L2wkG4xS0
+         tS6bhGuD8Sx5djOLnX9G0si+L3iiJeBc8KzQK6WowMMQde/Gi+OEIZoGsx8MSDhHscU+
+         Gvrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785067058; x=1785671858; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C48qQbePcuw3sQu6QI1vTw1fXCVHZubspNmxvNeDGDY=;
+        b=rDvSTT2yeRWqkxBJd0XMH0pm2xv3Jymtayb4IbRvDZMVQjfAICQIn4nSEoPpUv4s31
+         KDDTyJ/e6xKD548Bkmve0adj5BXLnd0G72nLnKZNsUtxrbrOkYZXIqkfNClJ9SVbFNqP
+         3aS928Qi4XqSjHF+F/Xk1yfklidMOHSxsBZLd7NMwDZdRkyh8KCwr3gDbbKti8iVq/MH
+         oKQBCwT+YxYm1NAoZqZND2KS3oJI6ILTGnm4/9Laq0KAVjDf6W44v2+mvS+ua/hZHNnk
+         vk3Vi7BEDI3ffUkvvJFK+CV9ZTKu0TElPFShf6fsD7KY95Ku2iAGPdVbUdnbUTaCdDKg
+         Mz2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785067058; x=1785671858;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C48qQbePcuw3sQu6QI1vTw1fXCVHZubspNmxvNeDGDY=;
+        b=h0QjMfAbwv+oD8YokWA/W0khPlxVnzAj7aJatu1VtMOG/Wuebn7/n/VeEKRni/IO40
+         Y7X+Y9fFabAT0RL/jXF22tspl3B+HPegnWgaGgHSSUFlWL0XSZ/laE+xzJkdcjoo/wI4
+         FEWlGkx2GXxhNRE5Dzjp/VzXuWNjP5GA7jupq3LIlT0FMYSLc1EJkPR+RW+fLGQMZ9FJ
+         nI0ghnxTJw6ixJWw4tlSZGCUBkfk1qB3gbRfZdlvs/QH2qnjUHickYFZvwMfMMD8nLg2
+         +j1E3RMNipTzKD+lgMC8LaqG2nSygw0OzM3NE4dcF0FMvj/4KmtHaf7dtbycjonlpPXS
+         RXhg==
+X-Forwarded-Encrypted: i=1; AHgh+RqJIvtU670pL038mwTlwCobjWwNLNWiUanA32KCbBGyMxNVRR/ZDSW/jvVvXfQrzjWu0R/h8es=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOPIKbLQ1MNfDK9nabZe/3YqMDf/9kKZrkg2aV5dC7Wg3hRfJL
+	SsWEFJiP0oUo+oiT5T2njNzXdKk6dOmHRgiFCn6FY8U6HureM6GrZ8dIl4cM3c1y1OYeOJ8x3xq
+	ecJgZVxxfqhLLw8eLhuRQ0lvpUPdyHZ0=
+X-Gm-Gg: AR+sD10eC2WlycVAzavvbMdw6ZBSGvR8U6KDBk4vPwJJBKBYROXDjXlK9+5oO6te9Ky
+	wf4A+NOP+AiRUqBdPqz3EUQWjU713I7LnFCiZSFwUF2I79Y3C3OExQQ3La837iZKFVmuajmGh+a
+	ZaT68M+xzoqw5bL9rMqyv4b6+Pog/KMyMLsoQc2b+hlhG1KALDlsVAseI/iSY0rrEPutbfbBV4I
+	LRkECJINEQtgelgTcugpwstw2ArW7ns64Kink50Uv0mmcdKT+DR7iyUO8rTiQ==
+X-Received: by 2002:a05:6820:162a:b0:6aa:ed3a:7950 with SMTP id
+ 006d021491bc7-6aaffcd8e59mr3713938eaf.63.1785067057496; Sun, 26 Jul 2026
+ 04:57:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260726113511.57596-2-skyexpoc@gmail.com>
+References: <f03a892c-0961-4e07-a6e1-dbc3ff2064db@gmail.com>
+ <93177ed2-10ca-40a0-9efc-95d83913e59b@gmail.com> <amWPu_sGMCFJLN5E@google.com>
+In-Reply-To: <amWPu_sGMCFJLN5E@google.com>
+From: Zhan Liang <liangzhan5dev@gmail.com>
+Date: Sun, 26 Jul 2026 19:57:27 +0800
+X-Gm-Features: AUfX_mzyJWM2M0GDu15gCmekxQGQK1fXd1riPLyIJEsgr39ZEEJ3Il_NumYdgYo
+Message-ID: <CACyTbM8kU53ZwjAA=2U8oBFd+uX3MGWyr-=cB9sSha521Uq3LA@mail.gmail.com>
+Subject: Re: [PATCH v2] Input: tca8418_keypad - fix potential infinite loop
+ and OOB access on invalid keycodes
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Jul 26, 2026 at 08:35:07PM +0900, HE WEI (ギカク) wrote:
-> usbio_ctrl_msg() and usbio_bulk_msg() bound the caller's transfer sizes
-> against the endpoint packet size minus the fixed protocol header:
-> 
-> 	if ((obuf_len > (usbio->txbuf_len - sizeof(*bpkt))) ||
-> 	    (ibuf_len > (usbio->txbuf_len - sizeof(*bpkt))))
-> 		return -EMSGSIZE;
-> 
-> usbio->txbuf_len is a u16 and sizeof(*bpkt) is a size_t, so the
-> subtraction is done in size_t.  struct usbio_bulk_packet is 5 bytes and
-> struct usbio_ctrl_packet is 4 bytes, so any endpoint smaller than that
-> makes the expression wrap to a value close to ULONG_MAX, both
-> comparisons become false and the check is disabled.
-> 
-> txbuf_len and rxbuf_len come from the bulk endpoint wMaxPacketSize.
-> usb_parse_endpoint() only clamps wMaxPacketSize downwards, it never
-> enforces a lower bound:
-> 
-> 	if (maxp > j) {
-> 		dev_notice(ddev, "... has invalid maxpacket %d, setting to %d\n",
-> 		    ..., maxp, j);
-> 		maxp = j;
-> 		endpoint->desc.wMaxPacketSize = cpu_to_le16(i | maxp);
-> 	}
-> 
-> A wMaxPacketSize of 0 is merely logged with dev_notice(), and a bulk
-> endpoint declaring 1 is accepted verbatim.  usb_submit_urb() rejects
-> maxpacket 0, but nothing rejects 1.
-> 
-> A device claiming one of the ids in usbio_table[] and advertising a bulk
-> out endpoint with wMaxPacketSize 1 therefore ends up with a one byte
-> usbio->txbuf, and the very first I2C transfer reaches usbio_bulk_msg()
-> via usbio_i2c_init() with obuf_len = 7.  The wrapped check passes and the
-> packet header stores overflow the slab object before memcpy() is even
-> reached:
-> 
-> 	bpkt = usbio->txbuf;
-> 	bpkt->header.type = type;	/* txbuf[0] */
-> 	bpkt->header.cmd = cmd;		/* txbuf[1], out of bounds */
-> 	bpkt->header.flags = ...;	/* txbuf[2], out of bounds */
-> 	bpkt->len = cpu_to_le16(obuf_len);	/* txbuf[3..4] */
-> 	memcpy(bpkt->data, obuf, obuf_len);	/* txbuf[5..] */
-> 
-> Note that this is all complete before usb_bulk_msg() is called, so it
-> does not depend on the host controller being willing to run a transfer
-> on such an endpoint.  With KASAN it is a slab-out-of-bounds write.
-> Through usbio_i2c_write() obuf_len becomes sizeof(struct usbio_i2c_rw) +
-> msg->len, so the length and the contents of the overflow are controlled
-> by whoever can issue I2C transfers, up to the 4096 byte adapter limit.
-> 
-> wMaxPacketSize 0 is worse in a different way: devm_kzalloc(dev, 0)
-> returns ZERO_SIZE_PTR rather than NULL, so the existing
-> 
-> 	if (!usbio->txbuf)
-> 		return -ENOMEM;
-> 
-> does not catch it and the same header stores dereference ZERO_SIZE_PTR.
-> usbio_bulk_recv() has the same problem on the receive side: it reads
-> bpkt->header.flags at offset 2 of usbio->rxbuf before any length
-> validation.
-> 
-> The control side is different.  For low, full and high speed hub.c
-> forces ep0 wMaxPacketSize to 8, 16, 32 or 64, all larger than the
-> control header, so usbio_ctrl_msg()'s check cannot wrap there.  For
-> SuperSpeed it accepts any bMaxPacketSize0 that encodes a non-zero value:
-> 
-> 	i = maxp0;
-> 	if (udev->speed >= USB_SPEED_SUPER) {
-> 		if (maxp0 <= 16)
-> 			i = 1 << maxp0;
-> 		else
-> 			i = 0;		/* Invalid */
-> 	}
-> 
-> combined with "(udev->speed >= USB_SPEED_SUPER && i > 0)" below, so
-> bMaxPacketSize0 of 0 or 1 gives a ctrlbuf of 1 or 2 bytes and the same
-> wrap, during the five usbio_ctrl_msg() calls in usbio_probe().  Whether
-> a given host controller will operate such an ep0 has not been
-> established; the control length is checked here regardless so that the
-> invariant is stated once for all three buffers.
-> 
-> Validate the three lengths in usbio_probe(), which is the only place
-> that assigns them, instead of hardening each arithmetic site.  A bridge
-> whose endpoints cannot even carry the protocol header is unusable, so
-> refusing to probe is the correct outcome.  Rejecting the equal case as
-> well is deliberate: it does not wrap, but it leaves no room for a
-> payload, and excluding it makes every "<buf>_len - sizeof(*pkt)" in the
-> driver a valid size of at least one.
-> 
-> No supported bridge is affected.  The low, full and high speed devices
-> this driver binds to have an ep0 packet size of at least 8, and they use
-> bulk endpoints of 64, or 63 via USBIO_QUIRK_BULK_MAXP_63.
-> 
-> Found by code review, doing variant analysis on the code around
-> 8c6314489550.  The overflow was reproduced under AddressSanitizer with a
-> userspace model of usbio_probe() and usbio_bulk_msg() that uses this
-> driver's struct definitions, checks and stores verbatim; it has not been
-> exercised on hardware or on dummy_hcd.
-> 
-> Fixes: 121a0f839dbb ("usb: misc: Add Intel USBIO bridge driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5 asan
-> Signed-off-by: HE WEI (ギカク) <skyexpoc@gmail.com>
-> ---
-> --- a/drivers/usb/misc/usbio.c
-> +++ b/drivers/usb/misc/usbio.c
-> @@ -577,6 +577,24 @@
->  
->  	usbio->ctrl_pipe = usb_endpoint_num(&udev->ep0.desc);
->  	usbio->ctrlbuf_len = usb_maxpacket(udev, usbio->ctrl_pipe);
-> +
-> +	/*
-> +	 * Every transfer starts with a fixed size packet header and the length
-> +	 * checks in usbio_ctrl_msg() and usbio_bulk_msg() are computed as
-> +	 * "<buf>_len - sizeof(*pkt)".  Those lengths are u16 while sizeof() is
-> +	 * size_t, so an endpoint smaller than its header makes the subtraction
-> +	 * wrap to a huge value, disabling the checks and overflowing the
-> +	 * buffers.  An endpoint exactly the size of the header does not wrap
-> +	 * but leaves no room for a payload, so reject that too and every
-> +	 * "<buf>_len - sizeof(*pkt)" below is a valid size of at least one.
-> +	 * usbio_probe() is the only place assigning these lengths, so
-> +	 * validating them once here covers every user.
-> +	 */
-> +	if (usbio->ctrlbuf_len <= sizeof(struct usbio_ctrl_packet))
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Control endpoint maxpacket too small: %u\n",
-> +				     usbio->ctrlbuf_len);
-
-LLMs are so chatty it's not even funny.
-
-Just check the value and return an error, it's obvious what you are
-doing, no need to write a 10 line comment about the thing, or hundred+
-lines of changelog text, right?
-
-Please look at how we normally write kernel changelog texts, the
-documentation for how to do so should be very complete and the way your
-LLM generated this is obviously not in line with that.
-
-
-> +
->  	usbio->ctrlbuf = devm_kzalloc(dev, usbio->ctrlbuf_len, GFP_KERNEL);
->  	if (!usbio->ctrlbuf)
->  		return -ENOMEM;
-> @@ -596,6 +614,11 @@
-
-How did git generate this diff, no function name?
-
-
->  	else
->  		usbio->txbuf_len = usb_endpoint_maxp(ep_out);
->  
-> +	if (usbio->txbuf_len <= sizeof(struct usbio_bulk_packet))
-
-Why not use the proper function to verify endpoint sizes instead of
-manually checking them like this?
-
-
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Bulk out endpoint maxpacket too small: %u\n",
-> +				     usbio->txbuf_len);
-> +
->  	usbio->txbuf = devm_kzalloc(dev, usbio->txbuf_len, GFP_KERNEL);
->  	if (!usbio->txbuf)
->  		return -ENOMEM;
-> @@ -607,6 +630,11 @@
->  	else
->  		usbio->rxbuf_len = usb_endpoint_maxp(ep_in);
->  
-> +	if (usbio->rxbuf_len <= sizeof(struct usbio_bulk_packet))
-
-and this, they both can be checked at the same time, with the same
-function call.
-
-thanks,
-
-greg k-h
+Hi Dmitry,
+v3 was sent here:
+https://lore.kernel.org/linux-input/20260726112658.37D911F00A3A@smtp.kernel.org/T/#t
+It broke the thread because I forgot --in-reply-to. Sorry for the noise.
