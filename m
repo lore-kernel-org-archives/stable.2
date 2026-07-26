@@ -1,138 +1,205 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9843081A2
-	for <stable@vger.kernel.org>; Sat, 25 Jul 2026 21:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BDB4908B7;
+	Sun, 26 Jul 2026 00:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785013492; cv=none; b=fZ5icOgrJNORxpsq6eKdy7VKM3TMHckNfNWmQzZzaJaSWflJaxibzaRJduaI4H3SXHOZnbbHPthQkYUDyrl8vzi4Wop7o6oeYXgj08aktXWDOP+rhMJW2m7JqMpLzdYcWOavgseUhA8yBqzrEKdTNgzkaAMHspxtuPdMnt0+HOw=
+	t=1785024078; cv=none; b=BjeTY6a5FoT8Erx9CH03fU0RBuHzppK1HMYwTqOJfepAy0cZ81a6vEsPrzpBJnRrniPB+L99eyQ2jlp/C6eF9Q++sUqajtVm3OKH1/ycAPrWvHNmqfXNHD6q7S/AGxx5YGuJei/cUez/rm+3PA+U88jbABScb2+MBqt9nJRbaSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785013492; c=relaxed/simple;
-	bh=H5VyCp8iiX4IVq4dhnEZduRcVI6yJ7KxArP9t8h21Lw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VIb2s2wpnogPvk4Xor51NDfrTvYTXBBq6lfbOpHANcmFjaO+hxXaXCKA48Yml5mX+qNB8sczt8TTI6bu5yQBBMesqI6MFh4rqGItJ2//yP1Yn+jWHTkK2Fo5JRa/lYrUmkpJ5yvZuePT93FfNYJAueHTBG+8KJ6hKLij2D/1R3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HKldkizG; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Y7UN7v0p; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785024078; c=relaxed/simple;
+	bh=mO+SDPvKmEt7Bo1fxIdSzqQ4cit6Ue4XBOukZ89y8EM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=svczyLgIie4uvVqHmJIPUtT5xbq6DM3hksLBkJrhaKmygmqH32/HqVwHbp+eZjpePILrJ+c+uN7RN4gCOLoztR/gU/gbMrjcK19IeC3b38rXSpibZ8apYza6OeJ2RJh1MUxw6Z/t2N04X3n72x4vCEg1RaStuc+/4CX2l9oUVEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=WVhQKk6x; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HKldkizG";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Y7UN7v0p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785013489;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=uuZLFCpft3kD1D/f2ZvV2yaA3KOX7XLR88S5PlQHPyk=;
-	b=HKldkizGbg5hqI49rj5xQfTTSJAQVKF1+7NmxQxWvVz2qkfrzALVz7ocDPK+Anc/y8acC8
-	eKaXaCpH+fozq14yuJuEtSsTesEBdDtIjNJUv0vd0oeJRd15WKLGCFnL1g+DI4CNYfCVaV
-	1ce8M3/Lt0UDhpAC0labqp1d1tR3/Us=
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-86-SecvxvZGNUWBnG8_m02TLA-1; Sat, 25 Jul 2026 17:04:48 -0400
-X-MC-Unique: SecvxvZGNUWBnG8_m02TLA-1
-X-Mimecast-MFC-AGG-ID: SecvxvZGNUWBnG8_m02TLA_1785013487
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a49f09233dso1271370b6e.2
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 14:04:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785013487; x=1785618287; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uuZLFCpft3kD1D/f2ZvV2yaA3KOX7XLR88S5PlQHPyk=;
-        b=Y7UN7v0pH+50YXrMeDPmrDnGNN5lweOVw+tp2f55AxfU2t+mpbCmv4adHCM7Sc3ZZ8
-         F4+22O8FIi5Ki7JTQvXHjS+m1FoAGABw0midMsceVE2KuPPnupsaYDVU0RG6JnglpTVF
-         QQ/Wil9NbNYxYJ0gE/k+fv+df/PlkBvauu48JfzBVxf02gKbofMc5qeNuWkRdAa/nWbz
-         P5vUTAHrLfPHqVH8XGnldzy2nDzI/p4Jok8X52XUUNyHDrc/+X+9i0M0Ts/EPOi49Dc+
-         QpECjpuMQq50bxe6Vo9Sap04rdsxmOG7z9BC3BdkqQbCXaXIu+Q0Plt8GItBZ5kaQlsx
-         vUrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785013487; x=1785618287;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uuZLFCpft3kD1D/f2ZvV2yaA3KOX7XLR88S5PlQHPyk=;
-        b=ptJhSyh2+KJP1zhqJEPw1eFQtv4aWtYHqsYXaKm8xGGj57owRJsznBD+MpwMZ30kSn
-         Pp1WvpP/Z/mKS0vhnTFJ131HuNtQDObJNvFbwoP1Ha5nIrQswh0hrIHvN/cYNAGnsIls
-         BdKILTBDm3zEonQsECU00CGw32qIsS4HhyzmDyIYgXB0S2gKdABJ3sTW9YQhN0h9hGHi
-         eQZwNt8nP5DUbr3CbJKSZxiaCscYT3qZifY3A16CNZMJC44LRJe5oNaWGwE7rNb318TP
-         Rzb4/mRoqnbzkjl5Lp1R1DixqQF3ichhIZIwGIcITRWaFafWJswEzQDHgjTSmELwzbcu
-         BC8Q==
-X-Gm-Message-State: AOJu0YyRMOGtGNOXXgzhlpMgUJZXB/xGWCyA0Psbexajcs/8gtUrJY7v
-	CDmJibA2Bleb/f7AIv2FyoitNYsqA4sfvWZfwokzMFo+q8re3Zdj2JcciVA98rnpq5KhE5O9cU4
-	CjETcYFKVN2d1M0DYx03Lmf79xFKkKeYW/dXYx5bVAujQagYtdgzdFE0ecQ==
-X-Gm-Gg: AR+sD11oOPwYIJzUIwtCkxoAQUyFLzn3CjIPNt3nqphWxtnYtTNnpGzI2vLNA4khXF0
-	VWrgOS0bDAtVxy/CZB4hYEhzEpm/CQBVD5XhWBquT0R2O1uYKAZBsG9bDOD8+0+Qc6l0PVpZVud
-	JVZMOY16Gt4t5B7WyEITyd8vVpi0jiZBi9m1PS0GrRWZDH1uE1Sy70uah9jmDWaA+fYUUbEwFV3
-	xtc1qUc1l2TN07PamxkWmt80wEOG0l32t9KnZ5SWVNvakbq0VfNZbm6Jb7xDxHqB3NqcJYYAxY5
-	ffetODyA+XwctMQcOddze8Pl+Npr4tuBkYyJ6sH8AczLpGnvmS9WY3c6ItXMTc5gAGaHEmoocHf
-	cQd5udqILFEWdNekfpkcmTp0rOTtedkHetcOiG4sOPgdyEIIQuzzzkASrmWjk
-X-Received: by 2002:a05:6808:1983:b0:490:b586:1459 with SMTP id 5614622812f47-4ab69eeebddmr3538703b6e.2.1785013487392;
-        Sat, 25 Jul 2026 14:04:47 -0700 (PDT)
-X-Received: by 2002:a05:6808:1983:b0:490:b586:1459 with SMTP id 5614622812f47-4ab69eeebddmr3538666b6e.2.1785013486948;
-        Sat, 25 Jul 2026 14:04:46 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ab5d917dcasm3012306b6e.16.2026.07.25.14.04.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 14:04:46 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org,
-	stfrench@microsoft.com
-Cc: stable@vger.kernel.org,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Huiwen He <hehuiwen@kylinos.cn>
-Subject: [PATCH v2] cifs: add fscache_resize_cookie() to cifs_setsize()
-Date: Sat, 25 Jul 2026 21:04:44 +0000
-Message-ID: <20260725210444.2997236-1-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="WVhQKk6x"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66PNHhn41944632;
+	Sun, 26 Jul 2026 00:01:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=G3Gkf4
+	WxL0VIPL/r0LW/Ui329GKU0CGgRdeXekggkhU=; b=WVhQKk6xVZPFYReuBEqLEW
+	ueRONa7BV68zYt2mj75IxCo6N1XD1GtA80BtHiS8UgGCI3zTKpY4MHL4b8FcCj2y
+	Kmhm34m76iI0TtXpyxg1ZCNjjFNc2eq4Vk4opCuKmVkBs82LgaeE2e7K4oEFCmg4
+	/qmQwkDvkSH6GH5hcp9b81Ff7txceuhKaEQeRRupfGbc/W8OWFNsPeNTagVYawaF
+	soqMUQq3Vbka4rcPffHVloXLfu8HUqLLszJhusHFHzlB9pGKExB1h3Uniw6NJwd5
+	I7Mp9GGH6/Nho4W8YFSqPxU70WalcbLEQvvZRciYOfpohChKKrmVAcu3hVXtyyow
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuwchqy3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 26 Jul 2026 00:01:15 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66PNv0r4030496;
+	Sun, 26 Jul 2026 00:01:14 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fmn59tw7e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 26 Jul 2026 00:01:14 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66Q01DjE40960488
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sun, 26 Jul 2026 00:01:13 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9646858066;
+	Sun, 26 Jul 2026 00:01:13 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3155458059;
+	Sun, 26 Jul 2026 00:01:12 +0000 (GMT)
+Received: from [9.61.125.201] (unknown [9.61.125.201])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Sun, 26 Jul 2026 00:01:11 +0000 (GMT)
+Message-ID: <0fd76431-0ccb-4141-bf80-69afd19cdc62@linux.ibm.com>
+Date: Sat, 25 Jul 2026 20:01:11 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 9/9] s390/vfio_ccw: implement a crw lock
+To: Matthew Rosato <mjrosato@linux.ibm.com>, linux-s390@vger.kernel.org,
+        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Halil Pasic <pasic@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        stable@vger.kernel.org, Farhan Ali <alifm@linux.ibm.com>
+References: <20260725152705.3958100-1-farman@linux.ibm.com>
+ <20260725152705.3958100-10-farman@linux.ibm.com>
+ <7a3da5de-de52-4543-8b42-a3ee344d4d95@linux.ibm.com>
+Content-Language: en-US
+From: Eric Farman <farman@linux.ibm.com>
+Autocrypt: addr=farman@linux.ibm.com; keydata=
+ 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
+ y8m0x6unNti2MZIUMy0m2gcE
+In-Reply-To: <7a3da5de-de52-4543-8b42-a3ee344d4d95@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 36iVbkSlFHpU7jjuuHE7nyXSfmyKXOqG
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI1MDIyNiBTYWx0ZWRfX2RG+W19wtOrq
+ jJtPamSAOp5pwxubDBqtbYNxj7OEh5dtEJuvOsH8PqZ/nikuzjTT0F0uzM6KIdsOMqKJViOWYKv
+ tuK0b/S2zsdBdfPEAvfvgYdggjNBt6s=
+X-Authority-Analysis: v=2.4 cv=E/z9Y6dl c=1 sm=1 tr=0 ts=6a654e4b cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=9LUc9bIMTqo9_Lqi4y0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI1MDIyNiBTYWx0ZWRfX70Iyzb8HIbci
+ +xyGkE2UOMpA/oGnLyFY//vPWvtHANEdD8hiBvIwyKPoC61hrUtXojr8fDkcXbUdKF+1IGS2tdU
+ eEcjrUwBQUBYhdkmaD6cdQT0Agy58p4K47RVdw5ifA7idGUsn2FBa00qEQ8vTOBdEkdJ4/mTG/O
+ 4pUjztqEuwUlIh5DOmHgS3wPwxs3rZeVpKUdR0INcfbSGRKq+GzoPNN13voK9RvsNDMMVYYa5k0
+ U0EG/dZxWB8mkU1eYrK1iF0PNIF7t8lrpRDCnzk8LknjMr51cYN5pEdTSn8zHbOJIgXeeSjTXZh
+ 74yUZJtnAy0r0vPslwzbx6pR+0FGYnzkelrUauTFi+oNrugzy/kzFpl97cp8iV+o0NwePy+ZUew
+ mzEbGqOG5db8lD6bviZPoC6HmCift3mcN9TOgFJ8gRqG/yXKMowCvKfRXT8VcjeGcfmZTkVor9i
+ TV936mDj6XLuGQe7nYg==
+X-Proofpoint-GUID: 36iVbkSlFHpU7jjuuHE7nyXSfmyKXOqG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-25_07,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607250226
 
-Several code paths update the VFS inode size by calling
-netfs_resize_file() and cifs_setsize(), but omit the corresponding
-fscache_resize_cookie() call, leaving the fscache cookie out of sync
-with the actual file size:
 
-  - cifs_file_set_size() in inode.c: server-side truncation via setattr
-  - cifs_do_truncate() in file.c: truncates to zero on O_TRUNC open
-  - smb2_duplicate_extents() in smb2ops.c: file clone extending EOF
-  - smb3_simple_falloc() in smb2ops.c: two branches that extend EOF
-    via write-range and SMB2_set_eof respectively
 
-Since every caller of cifs_setsize() must resize the fscache cookie,
-add the call to cifs_setsize() itself, consistent with how
-truncate_pagecache() is already consolidated there.
+On 7/25/26 1:03 PM, Matthew Rosato wrote:
+> On 7/25/26 11:27 AM, Eric Farman wrote:
+>> Unlike the channel_program struct, which covers synchronous I/O
+>> submissions and asynchronous interrupts, the CRW region relies
+>> exclusively on asynchronous events coming from hardware.
+>>
+>> Implement a lock to manage the list of those payloads, to ensure
+>> they are read cohesively.
+>>
+>> Fixes: 3f02cb2fd9d2 ("vfio-ccw: Wire up the CRW irq and CRW region")
+>> Cc: stable@vger.kernel.org
+>> Cc: Farhan Ali <alifm@linux.ibm.com>
+>> Signed-off-by: Eric Farman <farman@linux.ibm.com>
+> 
+> ...
+> 
+>> --- a/drivers/s390/cio/vfio_ccw_private.h
+>> +++ b/drivers/s390/cio/vfio_ccw_private.h
+>> @@ -98,6 +98,8 @@ struct vfio_ccw_parent {
+>>    * @cp: channel program for the current I/O operation
+>>    * @irb: irb info received from interrupt
+>>    * @scsw: scsw info
+>> + * @crw_lock: serialization of CRW information
+> 
+> I would re-word this to say 'CRW list', to make it a bit more clear that
+> the lock does not protect crw_trigger at this time (as discussed in v3).
 
-Fixes: 70431bfd825d ("cifs: Support fscache indexing rewrite")
-Fixes: 93a43155127f ("cifs: Fix missing set of remote_i_size")
-Fixes: 110fee6b9bb5 ("smb: client: fix missing timestamp updates with O_TRUNC")
-Fixes: 7a06d3b816d7 ("smb/client: emulate small EOF-extending mode 0 fallocate ranges")
-Cc: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.org>
-Cc: Huiwen He <hehuiwen@kylinos.cn>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Reviewed-by: Paulo Alcantara <pc@manguebit.org>
----
- fs/smb/client/inode.c | 1 +
- 1 file changed, 1 insertion(+)
+Yeah, good call.
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 808085eb0cdc..0afff761aab9 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3059,6 +3059,7 @@ void cifs_setsize(struct inode *inode, loff_t offset)
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
- 	truncate_pagecache(inode, offset);
- 	netfs_wait_for_outstanding_io(inode);
-+	fscache_resize_cookie(cifs_inode_cookie(inode), offset);
- }
- 
- int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
--- 
-2.55.0
+> 
+> With that:
+> 
+> Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+
+Thanks,
+
+> 
+> 
+>> + * @crw: list of Channel Report Word elements
+>>    * @io_trigger: eventfd ctx for signaling userspace I/O results
+>>    * @crw_trigger: eventfd ctx for signaling userspace CRW information
+>>    * @req_trigger: eventfd ctx for signaling userspace to return device
+>> @@ -122,6 +124,8 @@ struct vfio_ccw_private {
+>>   
+>>   	struct irb		irb;
+>>   	union scsw		scsw;
+>> +
+>> +	spinlock_t		crw_lock;
+>>   	struct list_head	crw;
+>>   
+>>   	struct eventfd_ctx	*io_trigger;
+> 
 
