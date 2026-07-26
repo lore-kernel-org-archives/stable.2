@@ -1,48 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15A93ACF11
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 12:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A779F4908D5
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 12:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785069732; cv=none; b=YTDon6TyjmevIKnTGTz0nT64sYQboN6gNzNc4TtCmeymZIH1cdE8JiA42Bf1uqi7hVOc/odtXjZB6FypbUPLuUr6Q+UIommwm6EwAjj3T0gnrVoACgiXIlj5kFkhIfQcoXD42BojkicBcbdpOtbwW5f5vxMmmqlBZ6kG/OiCm0w=
+	t=1785069957; cv=none; b=Q3nC2IDSR+PxpxF65B2ZEHU+tPKzJf35IkF0znTzkVomRQ9GtcroXnfwdBeexrpXthED21TFlAARBcpYm7w5nqOLZEa9TLcw2PX19dMtO9qUiDHVO1XWju9zh27OicS3Ijilbl2P5+v8Wj79PNTAR3p0p0gcGwA0SLHzpD4F7RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785069732; c=relaxed/simple;
-	bh=KJb2JEf3lNKqaKNabLYhVR9TGFtU+iO2emKAW+a/mJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZATF/k453niuoPij6FskreNHx6Orhkx3YpOtAJ3s090a/uCslHCX5cdBYjt2wo9JuR6jQ+J/EOI3ANkYpBo9OdXPmWOLItCx79IRlZutlK1Y2hZav6k8qddokMgLKOXvAjJMLvxzwGY05/Ol2VS6MRADVoxMQQPHLPFzVCXf9Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bKaLOfRN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785069957; c=relaxed/simple;
+	bh=+DicZqvoxzRMbNNpDHwbco6MjGZW1B7WV/xUthTtgOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gzj+kBV5OBjovu7/RzV/QepNT11jraOmZmvL1T6uNGGcPkPSlDxe/IppjKX1Ck3yRIuDgV3ZHC4gJkkvQKzyAEC0zmHHlriYEV8Zxr5fIIvczWkmX0vEo5cvTWWJWCTBX0bGiU7R1XXh4ucAjZ5lYqT6ybFipSUTOutpebRsgKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=yXPfpjfq; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bKaLOfRN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A0A1F00A3D;
-	Sun, 26 Jul 2026 12:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785069730;
-	bh=S4gWWGDd/7OEImA2tOYpW3BkWBvJMm/Bp3JwsRRIfV4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bKaLOfRNJutE+emTULXM3TQZvH+3+nzts0FQlBFJzkOgIjzbglz0+hcwJx8MeUfde
-	 sd8xWVveSCOWsFnrjBn2BkimfC5lemtdysREKAz+0ahyAbs5YIq5V3SjImDsCp6mHx
-	 q7vgkcibiLOzSqL6vYN9NGRioj8XaKJTDQLe1maiIjWi12NPks0As6xK+VN/rR8QFw
-	 rz/HxeA0NipBNwLmh5eyyM7ZUYUhf2V/SFOujXAkDqsaG3SyZaadgXzVwWqSzF4507
-	 7InJkCnL3JY9ndCz+2KMEp2QRSs3n3/5ktUI7rypvlCrvrd8bHTw2oySqHpZCpmVYl
-	 5cs3HiJYk5s9w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yiyang Chen <cyyzero16@gmail.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Wang Yaxin <wang.yaxin@zte.com.cn>,
-	Yang Yang <yang.yang29@zte.com.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] taskstats: retain dead thread stats in TGID queries
-Date: Sun, 26 Jul 2026 08:42:07 -0400
-Message-ID: <20260726124207.101107-2-sashal@kernel.org>
+	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="yXPfpjfq"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-471eeac43bfso1577088f8f.3
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 05:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0sec.ai; s=google; t=1785069954; x=1785674754; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zDZR69zxyQUnmAa+1SVSCo3XwuE2Lf+IdHyjHOEBtFQ=;
+        b=yXPfpjfqABX+Uj2KL0kzjUfSGYTv3cWwA4iYRZeNJ14A8EIOjYYVbITjhwTAU6m3do
+         Cbr9hZ+5TzJsV0TyE5SvOVt3qHI4ITiQQ7h41plsJVm+a/N40fA1f/zDGEJ+UJCN59oA
+         v2NGQYptNBJgT01wMb1N8hU8Fj/egApKxZr61peTFv65x7D/Fz8YE4FflRafbyBm93NI
+         Pu//f/Z5sMZ+0prPxHzJxxSk92Q/aUzwurDn3cpwAzOgXmocNAHOSxYCqFdUt2Ddz1EG
+         YCRWIx1Rb8SafzKFpjQSg3Yc/Er+9HdM2LpiJfBr0i0BaP4LHuetAGdCEh47huUfgPlg
+         FwGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785069954; x=1785674754;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zDZR69zxyQUnmAa+1SVSCo3XwuE2Lf+IdHyjHOEBtFQ=;
+        b=gSy5k6MLxfkZ070P05I4DaS5toT92lAnwWfWF5+MguxsjZ8KhMToPNQJaPSCaaqYad
+         CCWmnj9rbFXv279StLz4R+1Q+q3DeQEiuxXuHbzWb/kcHypjY9SInZiXL1wjDdAJ7ou9
+         6l4b5nAOZlCnon3iRRQNjHTJHJHvGPPiDtgLYT7wmSGTKUDzxP7AiukP+u5o1E2NocnN
+         Vz/lwBDB7k0yKW/YJ2mmxYRApUffKzO5FZq+URoR+963ycdFrCXBA/kiv9O99r4EZ7n/
+         PATSZlyfyI9qDW8BT1hc/XnYLipRJHQ3kHJ3q5aINRYk1GZdt02y8XWaEqaBV9jtgIvw
+         WkRg==
+X-Forwarded-Encrypted: i=1; AHgh+RqSURH9jiuNGr6/x16i6cjqFkj1Vp/TEfc0+nCpS9O3q09eEisBlH8O6V9D67SvrOy1afkNTBc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhictqfbioGaXDpxAMYQ5fWkKUJhD23cz7ezX1Eg0TAZSU70HN
+	znXtKVeyPviOVnnhAvErrLXD8Tzulzt6p+IfIQH6QyuInVrrPAlrBEipMxZPi1Bf3Mlj
+X-Gm-Gg: AR+sD12T9P5e+JeJPV8/A3mf28QeSWhpW7yG5crGaGnDWMHZVm2LL4uA/tDZ1sn/z7x
+	BgYUD6lBJr+q9Gy876Yip6dhRWIx07YcuAboAJa2fHFSK3VnzkuTvR2ZFIZuwtDRLB5WGU6MTp8
+	vGL8abtd9eTEd2AcWfklyvm8NbS5RYVzTrzdHMz8RJmjOYtGLS8qmY2j1wv8ZahqkDrKk/XThIt
+	TB543eQlsGuN54+Pm0+V6j5yLbDADbw2Z1OIWv3XKud77CkoEqGBN47djbiYE3LUekB5RDJTKX1
+	Qb2RkXbgEz1hiVO6qsALQiOBNrP3OjmEsg9Pm2IDXX4bMCdm7qhNJXXLed40ATnpU2P/hMiNgmF
+	NHGIQdTruW2tlWRjQHUqv1kX5u1faxIYeBkAr6O0qaPKuNs0+GdI52qDN87jMm5jhdUhy0odIWh
+	++nVH12L4xQJePz0u4sROtD2olXIyzm36/2MMF6mUUO3g3pSOn4c8iMWyk8L+W3bnk43rCanWNm
+	j8zsA0ApqXYSrSBEUICa3yN
+X-Received: by 2002:a5d:5f04:0:b0:47f:7005:285e with SMTP id ffacd0b85a97d-47f9feb6806mr6227705f8f.53.1785069953284;
+        Sun, 26 Jul 2026 05:45:53 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.222.64])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a659sm40939225f8f.6.2026.07.26.05.45.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 26 Jul 2026 05:45:52 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Roderick Colenbrander <roderick.colenbrander@sony.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: sony: clean up device list on probe failure
+Date: Sun, 26 Jul 2026 14:45:51 +0200
+Message-ID: <20260726124551.15323-1-doruk@0sec.ai>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260726124207.101107-1-sashal@kernel.org>
-References: <2026072045-canteen-finisher-8a4e@gregkh>
- <20260726124207.101107-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,169 +76,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yiyang Chen <cyyzero16@gmail.com>
+sony_input_configured() adds some controllers to sony_device_list before
+HID core registers their input devices. input_register_device() can fail
+after the callback returns successfully. sony_probe() then observes that
+HID_CLAIMED_INPUT is clear and unwinds, but only stops the HID hardware.
+The devres-managed sony_sc is freed while its list node remains linked, so
+the next matching controller traverses freed memory.
 
-[ Upstream commit b3e4fbb04220efc3bc022bcf31b5689d39c6b111 ]
+Initialize the list node and device ID to inactive states. Make list
+removal idempotent and run the driver-private cleanup on every probe
+failure path. This also makes a second cleanup safe when
+sony_input_configured() already unwound a partial initialization before
+sony_probe() handles the missing input claim.
 
-Patch series "taskstats: fix TGID dead-thread stat retention", v3.
+Found by 0sec (https://0sec.ai) using automated source analysis;
+verified against the HID input registration and probe unwind paths.
 
-This series fixes a taskstats TGID aggregation bug where fields added in
-the TGID query path were not preserved after thread exit, and adds a
-kselftest covering the regression.
-
-The first patch keeps the cached TGID aggregate used for dead threads in
-step with the fields already accumulated for live threads, and also fixes
-the final TGID exit notification emitted when group_dead is true.
-
-The second patch adds a kselftest that verifies TGID CPU stats do not
-regress after a worker thread exits and has been reaped.
-
-This patch (of 2):
-
-fill_stats_for_tgid() builds TGID stats from two sources: the cached
-aggregate in signal->stats and a scan of the live threads in the group.
-
-However, fill_tgid_exit() only accumulates delay accounting into
-signal->stats.  This means that once a thread exits, TGID queries lose the
-fields that fill_stats_for_tgid() adds for live threads.
-
-This gap was introduced incrementally by two earlier changes that extended
-fill_stats_for_tgid() but did not make the corresponding update to
-fill_tgid_exit():
-
-- commit 8c733420bdd5 ("taskstats: add e/u/stime for TGID command")
-  added ac_etime, ac_utime, and ac_stime to the TGID query path.
-- commit b663a79c1915 ("taskstats: add context-switch counters")
-  added nvcsw and nivcsw to the TGID query path.
-
-As a result, those fields were accounted for live threads in TGID queries,
-but were dropped from the cached TGID aggregate after thread exit.  The
-final TGID exit notification emitted when group_dead is true also copies
-that cached aggregate, so it loses the same fields.
-
-Factor the per-task TGID accumulation into tgid_stats_add_task() and use
-it in both fill_stats_for_tgid() and fill_tgid_exit().  This keeps the
-cached aggregate used for dead threads aligned with the live-thread
-accumulation used by TGID queries.
-
-Link: https://lore.kernel.org/cover.1776094300.git.cyyzero16@gmail.com
-Link: https://lore.kernel.org/abd2a15d33343636ab5ba43d540bcfe508bd66c7.1776094300.git.cyyzero16@gmail.com
-Fixes: 8c733420bdd5 ("taskstats: add e/u/stime for TGID command")
-Fixes: b663a79c1915 ("taskstats: add context-switch counters")
-Signed-off-by: Yiyang Chen <cyyzero16@gmail.com>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Cc: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Wang Yaxin <wang.yaxin@zte.com.cn>
-Cc: Yang Yang <yang.yang29@zte.com.cn>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 4f967f6d7374 ("HID: sony: Fix memory issue when connecting device using both Bluetooth and USB")
+Cc: stable@vger.kernel.org
+Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Link: https://lore.kernel.org/linux-input/20260724143925.007D61F00A3A@smtp.kernel.org/
+Assisted-by: 0sec:multi-model
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 ---
- kernel/taskstats.c | 62 ++++++++++++++++++++++++----------------------
- 1 file changed, 33 insertions(+), 29 deletions(-)
+ drivers/hid/hid-sony.c | 33 +++++++++++++++++----------------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
 
-diff --git a/kernel/taskstats.c b/kernel/taskstats.c
-index 069419c18df0bf..e47e13a5a579bd 100644
---- a/kernel/taskstats.c
-+++ b/kernel/taskstats.c
-@@ -210,13 +210,39 @@ static int fill_stats_for_pid(pid_t pid, struct taskstats *stats)
- 	return 0;
+diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
+index 253fff4066ebd..56471b7b052d1 100644
+--- a/drivers/hid/hid-sony.c
++++ b/drivers/hid/hid-sony.c
+@@ -1982,11 +1982,10 @@ static int sony_check_add_dev_list(struct sony_sc *sc)
+ 
+ static void sony_remove_dev_list(struct sony_sc *sc)
+ {
+-	if (sc->list_node.next) {
+-		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
+-			list_del(&(sc->list_node));
+-		}
+-	}
++	guard(spinlock_irqsave)(&sony_dev_list_lock);
++
++	if (!list_empty(&sc->list_node))
++		list_del_init(&sc->list_node);
  }
  
-+static void tgid_stats_add_task(struct taskstats *stats,
-+				struct task_struct *tsk, u64 now_ns)
+ static int sony_get_bt_devaddr(struct sony_sc *sc)
+@@ -2127,6 +2126,13 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
+ 	}
+ }
+ 
++static void sony_cleanup(struct sony_sc *sc)
 +{
-+	u64 delta, utime, stime;
-+
-+	/*
-+	 * Each accounting subsystem calls its functions here to
-+	 * accumulate its per-task stats for tsk, into the per-tgid structure
-+	 *
-+	 *	per-task-foo(stats, tsk);
-+	 */
-+	delayacct_add_tsk(stats, tsk);
-+
-+	/* calculate task elapsed time in nsec */
-+	delta = now_ns - tsk->start_time;
-+	/* Convert to micro seconds */
-+	do_div(delta, NSEC_PER_USEC);
-+	stats->ac_etime += delta;
-+
-+	task_cputime(tsk, &utime, &stime);
-+	stats->ac_utime += div_u64(utime, NSEC_PER_USEC);
-+	stats->ac_stime += div_u64(stime, NSEC_PER_USEC);
-+
-+	stats->nvcsw += tsk->nvcsw;
-+	stats->nivcsw += tsk->nivcsw;
++	sony_cancel_work_sync(sc);
++	sony_remove_dev_list(sc);
++	sony_release_device_id(sc);
 +}
 +
- static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
+ static int sony_input_configured(struct hid_device *hdev,
+ 					struct hid_input *hidinput)
  {
- 	struct task_struct *tsk, *first;
- 	unsigned long flags;
- 	int rc = -ESRCH;
--	u64 delta, utime, stime;
--	u64 start_time;
-+	u64 now_ns;
+@@ -2313,9 +2319,7 @@ static int sony_input_configured(struct hid_device *hdev,
+ err_close:
+ 	hid_hw_close(hdev);
+ err_stop:
+-	sony_cancel_work_sync(sc);
+-	sony_remove_dev_list(sc);
+-	sony_release_device_id(sc);
++	sony_cleanup(sc);
+ 	return ret;
+ }
  
- 	/*
- 	 * Add additional stats from live tasks except zombie thread group
-@@ -233,30 +259,12 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- 	else
- 		memset(stats, 0, sizeof(*stats));
+@@ -2339,6 +2343,8 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return -ENOMEM;
  
--	start_time = ktime_get_ns();
-+	now_ns = ktime_get_ns();
- 	for_each_thread(first, tsk) {
- 		if (tsk->exit_state)
- 			continue;
--		/*
--		 * Accounting subsystem can call its functions here to
--		 * fill in relevant parts of struct taskstsats as follows
--		 *
--		 *	per-task-foo(stats, tsk);
--		 */
--		delayacct_add_tsk(stats, tsk);
--
--		/* calculate task elapsed time in nsec */
--		delta = start_time - tsk->start_time;
--		/* Convert to micro seconds */
--		do_div(delta, NSEC_PER_USEC);
--		stats->ac_etime += delta;
+ 	spin_lock_init(&sc->lock);
++	INIT_LIST_HEAD(&sc->list_node);
++	sc->device_id = -1;
  
--		task_cputime(tsk, &utime, &stime);
--		stats->ac_utime += div_u64(utime, NSEC_PER_USEC);
--		stats->ac_stime += div_u64(stime, NSEC_PER_USEC);
--
--		stats->nvcsw += tsk->nvcsw;
--		stats->nivcsw += tsk->nivcsw;
-+		tgid_stats_add_task(stats, tsk, now_ns);
+ 	sc->quirks = quirks;
+ 	hid_set_drvdata(hdev, sc);
+@@ -2367,6 +2373,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	ret = hid_hw_start(hdev, connect_mask);
+ 	if (ret) {
+ 		hid_err(hdev, "hw start failed\n");
++		sony_cleanup(sc);
+ 		return ret;
  	}
  
- 	unlock_task_sighand(first, &flags);
-@@ -275,18 +283,14 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- static void fill_tgid_exit(struct task_struct *tsk)
- {
- 	unsigned long flags;
-+	u64 now_ns;
+@@ -2421,7 +2428,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
  
- 	spin_lock_irqsave(&tsk->sighand->siglock, flags);
- 	if (!tsk->signal->stats)
- 		goto ret;
+ err:
+ 	usb_free_urb(sc->ghl_urb);
+-
++	sony_cleanup(sc);
+ 	hid_hw_stop(hdev);
+ 	return ret;
+ }
+@@ -2436,13 +2443,7 @@ static void sony_remove(struct hid_device *hdev)
+ 	}
  
--	/*
--	 * Each accounting subsystem calls its functions here to
--	 * accumalate its per-task stats for tsk, into the per-tgid structure
--	 *
--	 *	per-task-foo(tsk->signal->stats, tsk);
--	 */
--	delayacct_add_tsk(tsk->signal->stats, tsk);
-+	now_ns = ktime_get_ns();
-+	tgid_stats_add_task(tsk->signal->stats, tsk, now_ns);
- ret:
- 	spin_unlock_irqrestore(&tsk->sighand->siglock, flags);
- 	return;
+ 	hid_hw_close(hdev);
+-
+-	sony_cancel_work_sync(sc);
+-
+-	sony_remove_dev_list(sc);
+-
+-	sony_release_device_id(sc);
+-
++	sony_cleanup(sc);
+ 	hid_hw_stop(hdev);
+ }
+ 
 -- 
-2.53.0
+2.43.0
 
