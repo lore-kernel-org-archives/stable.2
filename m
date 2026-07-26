@@ -1,75 +1,71 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5732941A
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 06:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD56F3546FD
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 06:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785047113; cv=none; b=O5NoUATzLYQfs0qKoITCbFIJ7zr5bo2iapH4iZsZjEKoPRKLkXyDXrshzpB0CUNF54tfGcrO5rghIP0a5YteqT8wPpOJcTidXYctbXBzQbIZ+CG9s8tgSQYJ+XTnpDiFZwUWMsjTeORZGIumiyYFiyTyqklACLmJuZ+ijP44hOw=
+	t=1785047118; cv=none; b=Ci5EyBMsyI+ez4rnvgjhRKDZpThzeVadgUvadag9M+Y8Frs66AkO0Vl1XIFPrgH7v7Bqd/DTyoUrFPsaQqWlW+EJkxmBqshc+bpOKICuTfkl3Mj3wMoFogk/H2htnaqy/PCjUZOoBa0biWJrQucLOnewYyUL0bOe0VGT8ywH6SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785047113; c=relaxed/simple;
-	bh=9KIBvI9e9BJH7kOPdDUXmd8ePdl1sXg9lviGVkexrbE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tC1bKL0KOb3iIa0KrPGjWrDS9Pb3pn/5iNa2eX0pYnhmk+KWvmO7SIQzxYT0X7s3cEFxK7dNsDaHqCDkJYwgZqqsT6t5v1EsLGjiNonw/Je/hGwjkSTfNkYz5z4IdvExxlwkXkPMaJs5BL8G9xpvQF8obta+vnAjKd++odlr/xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=NFtZFDVd; arc=none smtp.client-ip=209.85.216.49
+	s=arc-20240116; t=1785047118; c=relaxed/simple;
+	bh=e8mr+b9UCttxj8RlTQotrcq2qgO7pGQftDu5+Avcths=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mDY8iCUx9WxZ3Ilxic0BH7PyOrguJC96K0M+2s0JsllFQLH68qjtv7JiBx7K/d/iA0s4Gw2eoiT3sexIErj8Kx3O5oK8LiODfnbMaXRu/W/Pah3xbhnJyFFhBhRZZnqlb8K6oZEJ6kCUsji6VEb0eZlbUeAi71Fe17iNb8nZsjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=UiAqw8wo; arc=none smtp.client-ip=209.85.210.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="NFtZFDVd"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1200405a91.1
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 23:25:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="UiAqw8wo"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-848d21bbaffso1786517b3a.0
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 23:25:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xbow.com; s=google; t=1785047111; x=1785651911; darn=vger.kernel.org;
+        d=xbow.com; s=google; t=1785047116; x=1785651916; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mCbkuQVGzcCFhRBKkTVpatHenyH8ahAXgWyxZhPWtms=;
-        b=NFtZFDVd9n9v8PL95VIkH0nlvuNp61j/Gf6QMeO+bC2q28gMvqDncD2gy3isfPFLIh
-         4XkBhJMpT0AAj5dPKADMdBcwG03w4jkDLMWsLqfjaDWgMmPAGRel5365vxNhNyWBCa/M
-         7VJF5LsL51lb2EQOJiIjVF+j2+ESWk5WV9ElQMz/wZv1IpmTte+Z4VNKtANCdwEf5DJF
-         L8Oxn5KvtGaVmC4CW0+ZFgk0RDNlkAa1o7mZZ5OPRANjwJ4jInxOj9rpPCSTqTkl13rH
-         LuOmCh1WZJAwWDccMvj0186cufbrzSIvybaqKwwNt/VAp7tmI+YFNxkXmKl5XMbiiLxC
-         nuKA==
+        bh=tIHL9LfqgPlg0723np5xF3/v3AzqALnVrCAzcfCqCNU=;
+        b=UiAqw8woPubp0TggGEHWMjK9gESI2qNeIeCceiqgI4tv3LJOC2FhlRZU15zbAHI/FL
+         5zyljdMEHCFjG6kpcINWZ79POoAIhLF5iB9MRJow0QsIiuh3NQiuwoU/NfLx+YRFid8B
+         CspZtWOMZAsgHu0ELgPAUC45KsyiUqFa81rlDtaX+GYOaaUXv58YqJJWZDwqSfS1pFwD
+         D6+3+KskoESOXgEcLOw/BOjzXcTNbGfuCW9SnUwI2jsaKcsAlZ5Buz83t+FMBNjlnYAC
+         3kfNEfvnUqL2KKKbhCSnsTdcMf0XljcRRk4IPV/9Q8U7xCWghq34ycf2Yyo5uQIny8Vu
+         OTzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785047111; x=1785651911;
+        d=1e100.net; s=20251104; t=1785047116; x=1785651916;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mCbkuQVGzcCFhRBKkTVpatHenyH8ahAXgWyxZhPWtms=;
-        b=QhiAhOkp6714FnuvRdSOVnBpE7KfXk5oYQ9emJYAN/UwZig8bMy92LV/Q73IrFr8bx
-         AOMHViQq+uswthKfwo8Z7+cGnnOpeQqISprtBsb6RdTgRhYEGt/GsoQ03PoSDrqg2R4j
-         6q8KSnh5hhG+IZ/YHsSHfn0vZbNCojsHjzvpsGBZnhLJagAwHWYQyzfmhdaIVA8SbEHD
-         zp9UabeDZvMioU8ff3O2LXjqf1kBchTVC0GAaeoPNLo9sE5onch1kUbvuSPTXHF37xb7
-         MgZgw2L1SlBSNMvfH6m0hbOMDf3sd2blvVE7q2TXo2uXImB5Kb8lcEUeb4gIe7JUU87C
-         mPEA==
-X-Forwarded-Encrypted: i=1; AHgh+RogPDnugz6b3LVXXWcP93nYe3KnVppOPOpbDmSwoh0ji+41e2UOvG2ccybI6Wjld78F5OBAgIs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yymqr01SXdkaIsQOTA8yxnqaIwStDml/0eyyZEfb8Xhl+bYmrTK
-	OoX6JMZeWHBOBqPypQC3zs7AwlPcowiq0soNMAjd/TOEVf7axs3SqYgd3CGD1oiBAVQ=
-X-Gm-Gg: AR+sD11rdciYc9DpNj0Vx789SeOZXTwOVSYiXW+pyx4eTNRcM3b2rll1QdO+KgYPqzN
-	Sz4A9HpOlgW0TKZXezbfzkJluS1KUbLyOV2AvWWdk5ATvAgmm4KnZXqHl9HaOzqbnmM6HbOhIJE
-	8g/QKsSCyP9g/bqutemjvmYfZ/8HgKhOzzY6rfZzw4jqQb7f03ARu2AsEwbRxpc1ITfYcXAnvmN
-	11aBQGvTzQ0HrMmldFOQ1wOA9bgwKb65Y5B1r6tGhOScImastHpoCBOVU2N8SePbjK+yXQ+ek8E
-	bvFR0i1ZyCpgK/Ee+X3bVTzdDWNtbjdZI3MOsm/rW5TpM86ArasQ18+pr20y6+YipifvmNXD2ej
-	W5HGLw2SpSI8dJa6ZWAEN97DHtCtv6Gc47zCUYJcp1p8zagZoO9h0cB6MlBbBwgOjKgdPc3r/iT
-	BveAe7dAE7IoCIjBJMc+WCWV9tQHfk1dVdkay1o1ioUlB7wUSpDnvcC+nl4Cvk
-X-Received: by 2002:a17:90b:1a8b:b0:380:21b7:e727 with SMTP id 98e67ed59e1d1-38f294e9658mr4439487a91.14.1785047111496;
-        Sat, 25 Jul 2026 23:25:11 -0700 (PDT)
+        bh=tIHL9LfqgPlg0723np5xF3/v3AzqALnVrCAzcfCqCNU=;
+        b=pzNioiI9zI0onIgid8BX1OQpnSDxUukDvyDWUjGzDAmJNJeXEk/b1/jATH5uEIDv7R
+         4BLmAmw0NhO7r1INcCPXjsd/RbgYzAaboYl8MWHxh1pvehV6l+SwMReQ9dorVqBwzvrr
+         YbzeFX4Ngcz8Tga8mlYGr2SA3JV454MH4hUqq4KJO4GytfaAWWJXyPYPKfkGEuwh1tfy
+         VLIPMjpCnPv6IzZDOV/cchagSvreyH/kPVOy5CExP8TPB+XX8Z4M2Bgb/bMH9GRPCaHg
+         z0jVzOhsirt/HKJfoKRZ2La59jw6SOOjFwK9Eu6MXanG9HzumIIHCUjT+rxui4COcLkr
+         Yd9w==
+X-Forwarded-Encrypted: i=1; AHgh+RriWYc+4XFnhZ4nrfM/CXEfg43PPAYfl0m5eMEjuq4PXYyW2/Z1KrMNIHsY6peLCiaF0ey3k3I=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/qO6jDm8gXoMOjug5Z69MxyT4A+1qOz/1yxr2lS6Vkjsv3vNS
+	RdWHvNIDHqUzXJWz26MarhEBIVepTMSIaj8IX9x7NKHJx9a3DwJZdRnw7mjOiZlYavg=
+X-Gm-Gg: AR+sD12m0Vl96735hoZMArIn5MFiFaQek6WsEmRFAO+/CaWxL+AqDK6Im2fDSax3c5q
+	9/OPwfPS/o7O2CWhMEh9v+KhnRRPfJ9h4Rbr3iJwEhJVT9GHv8rVrZDDrulQEZhljo2zXoEmiBH
+	/34hCYvuAD93P2nbDpcR/v4fNDyO/HvSvl4PFth3dc3GJNluwYhSkJuC07fO9CVPdiZTSsQ2dw8
+	you8DWiMPPEzgTigwBNN/vHyPiQFBZucNLsDVNobEShTuYobLnuhHGZlOBecUl73abQxV1Gdpud
+	rk09+8oHoSdNSxLqig5/dVI8tSk5QvEW4SfRGSmu5GEbzLlFAJu8Y10RiibL5tfshBCFMguHBzh
+	etUmsnBHzkoOWMVm5KKyIazX6KFXfNYW3InCVn8kGQoM98m9Tk2ZZKDVgpSxTp10z8Plbe1Bna8
+	xCQuJEEGat6T1OcJuYSWwdXDsVfyjFo688rQY5f4F1PscTiF6J3eMzgTeyx84fx4PV0BtbYwY=
+X-Received: by 2002:a05:6a00:a207:b0:845:3fea:96c with SMTP id d2e1a72fcca58-84e59435c72mr3295803b3a.21.1785047115931;
+        Sat, 25 Jul 2026 23:25:15 -0700 (PDT)
 Received: from localhost.localdomain ([125.128.148.126])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f03adb20esm3467229a91.3.2026.07.25.23.25.07
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e53253d7dsm1611692b3a.5.2026.07.25.23.25.13
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 25 Jul 2026 23:25:10 -0700 (PDT)
+        Sat, 25 Jul 2026 23:25:14 -0700 (PDT)
 From: Baul Lee <baul.lee@xbow.com>
-To: linux-input@vger.kernel.org,
-	linux-usb@vger.kernel.org,
+To: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: tomasz.pakula.oficjalny@gmail.com,
-	oleg@makarenk.ooo,
-	jikos@kernel.org,
-	bentiss@kernel.org,
+Cc: jack@suse.com,
 	federico.kirschbaum@xbow.com,
 	Baul Lee <baul.lee@xbow.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] HID: pidff: fix OOB write when hid->inputs is empty
-Date: Sun, 26 Jul 2026 15:25:03 +0900
-Message-ID: <20260726062503.43717-1-baul.lee@xbow.com>
+Subject: [PATCH] udf: fix OOB read for a crafted unallocSpaceEntry
+Date: Sun, 26 Jul 2026 15:25:09 +0900
+Message-ID: <20260726062509.43738-1-baul.lee@xbow.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -79,78 +75,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hid_pidff_init_with_quirks() derives its input_dev from
+udf_read_inode() sanity-checks the on-disk allocation-descriptor length
+before it is used:
 
-	list_entry(hid->inputs.next, struct hid_input, list)
+	if (iinfo->i_lenEAttr > bs || iinfo->i_lenAlloc > bs)
+		goto out;
+	/* Now do exact checks */
+	if (udf_file_entry_alloc_offset(inode) + iinfo->i_lenAlloc > bs)
+		goto out;
 
-without first checking that hid->inputs is non-empty.  The list member
-of struct hid_input is at offset 0, so on an empty list list_entry()
-yields &hid->inputs itself and the following hidinput->input load reads
-an unrelated member of struct hid_device.  dev is then a type-confused
-pointer, and force-feedback init writes through it: each
-set_bit(FF_*, dev->ffbit) stores 8 bytes at dev + 192, past the end of
-the object dev actually aliases, and input_ff_create() adds further
-writes of a heap pointer and two function pointers.
+but the TAG_IDENT_USE branch sets i_lenAlloc from the on-disk
+lengthAllocDescs and returns before ever reaching them.  A USE inode
+therefore keeps a completely unvalidated le32 there, while i_data is
+allocated at only bs - sizeof(struct unallocSpaceEntry) bytes.
 
-Until hid-universal-pidff the only caller was hid_pidff_init() from
-usbhid, which runs under HID_CLAIMED_INPUT and therefore always has at
-least one hid_input.  universal_pidff_probe() starts the device with
-HID_CONNECT_DEFAULT & ~HID_CONNECT_FF and then calls
-hid_pidff_init_with_quirks() directly whenever the descriptor carries a
-PID usage page, bypassing that gate.  A report descriptor whose only
-application collection is on HID_UP_PID leaves hid->inputs empty while
-hid_connect() still succeeds through the hidraw claim, so probe reaches
-the unguarded list_entry().
+udf_current_aext() computes, in its in-ICB branch,
 
-The write happens in the USB probe path, on the hotplug workqueue, so
-plugging in a malicious device is enough to trigger it; no attacker
-software and no logged-in user are required.  KASAN reports an 8-byte
-out-of-bounds write in hid_pidff_init_with_quirks() reached from
-universal_pidff_probe().
+	alen = udf_file_entry_alloc_offset(inode) + iinfo->i_lenAlloc;
 
-Check for an empty list before deriving dev and return -ENODEV, as the
-other HID force-feedback drivers already do.  universal_pidff_probe()
-propagates the error and unwinds.
+with no clamp and passes alen to udf_get_fileshortad() as maxoffset.
+That helper only checks (*offset + sizeof(struct short_ad)) > maxoffset,
+so an inflated i_lenAlloc lets the walk step past the end of i_data and
+dereference sa->extLength in adjacent slab memory.
+
+A Type-1 partition whose unallocSpaceTable extent is non-zero loads the
+USE table inode at mount and sets UDF_PART_FLAG_UNALLOC_TABLE.  An
+unprivileged statfs(2) then reaches udf_count_free_table() ->
+udf_next_aext() -> udf_current_aext(), and KASAN reports a
+slab-out-of-bounds read just past the 472-byte i_data allocation.
+
+Apply the same exact check on the USE path, before i_data is allocated
+and walked.  ret is still -EIO there, so the offending inode fails to
+load.
 
 Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
 
-Fixes: f06bf8d94fff ("HID: Add hid-universal-pidff driver and supported device ids")
+Fixes: 23b133bdc452 ("udf: Check length of extended attributes and allocation descriptors")
 Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
 Reported-by: Baul Lee <baul.lee@xbow.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Baul Lee <baul.lee@xbow.com>
 ---
- drivers/hid/usbhid/hid-pidff.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ fs/udf/inode.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 5f4395f7c645..22951b7ecd17 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -1539,13 +1539,20 @@ static int pidff_check_autocenter(struct pidff_device *pidff,
- int hid_pidff_init_with_quirks(struct hid_device *hid, u32 initial_quirks)
- {
- 	struct pidff_device *pidff;
--	struct hid_input *hidinput =
--		list_entry(hid->inputs.next, struct hid_input, list);
--	struct input_dev *dev = hidinput->input;
-+	struct hid_input *hidinput;
-+	struct input_dev *dev;
- 	struct ff_device *ff;
- 	int max_effects;
- 	int error;
- 
-+	if (list_empty(&hid->inputs)) {
-+		hid_err(hid, "no inputs found\n");
-+		return -ENODEV;
-+	}
-+
-+	hidinput = list_first_entry(&hid->inputs, struct hid_input, list);
-+	dev = hidinput->input;
-+
- 	hid_dbg(hid, "starting pid init\n");
- 
- 	if (list_empty(&hid->report_enum[HID_OUTPUT_REPORT].report_list)) {
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index c97914aa8d8b..8a0c9ea31a11 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -1475,6 +1475,8 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
+ 		iinfo->i_lenAlloc = le32_to_cpu(
+ 				((struct unallocSpaceEntry *)bh->b_data)->
+ 				 lengthAllocDescs);
++		if (udf_file_entry_alloc_offset(inode) + iinfo->i_lenAlloc > bs)
++			goto out;
+ 		ret = udf_alloc_i_data(inode, bs -
+ 					sizeof(struct unallocSpaceEntry));
+ 		if (ret)
 -- 
 2.50.1 (Apple Git-155)
 
