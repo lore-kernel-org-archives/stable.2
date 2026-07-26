@@ -1,87 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DB23002A9;
-	Sun, 26 Jul 2026 16:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5531F3BBFA4;
+	Sun, 26 Jul 2026 17:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785084614; cv=none; b=F6Fcv3I2rkS9kgXAE3g5CEc1ZXW1ZqYk2xE/X0LsEQ3iNb13L8yfyMy5Vgqq5vDM1daLVQT5jUbcfa7klQndmrzQkgjnvqPnYKWu7RCppm1+zs8B8rOAwCavmbu011Amc0UYuf8W62rcdN03+mD7cprQpnK7bLHCJKPS+ItfQLI=
+	t=1785085209; cv=none; b=VwVdrYcH38gURd/mNu8oNBTrZZfNfYzMYt4ypQXwk57ZqorcK12UGVgPFDyjO0db8ous/OdrpyyrXaMnyu3bAroasaaBmJcyBKy/Kb0IaxuNviSZYkYpYVRYqxH+Q2OZdsXRDotFgo+1aH5ekQHx0OIM/79M99MsMpaC8iAH90o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785084614; c=relaxed/simple;
-	bh=vT/5K3Ja1PiO2m6m2XNDX/iK7eMGfT7cHgZOfuxAbSk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tnpfA/C1eMRMDxokMq7AZfDdpl4hNSouLnKYuozf0sk0p3E0DWPaXUiafcb4a3SzLraGDt3zZWAGjlFBUqsR6ZfBD3Era4yU7GBrMp0ib+V9aJyzR2I8Xbt9yrVZmzWuw4EdvzmS61qGoRW9XA9HKe8FTlQuzXhPGuxpr8G/AKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxfOEtrq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785085209; c=relaxed/simple;
+	bh=4wKzb9eNIMFzfWhyqEELIhu1aa528SjvPygoq8qOhrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N/WZ/S2XlVTyHTk4suwdaonqEJDAE6Ce3uVyVgqudapKjWIEPB2h0e2Ru/1eMaXDEyddXFReu/82paVeZ+v753IqjHkmi4xgEVV7A3kmbNAS4r8aIQTLUHkCcTElHPBF9xqUDgoYNqWZtDvBuDt6yjvo2YhfR/m/YTrqLH+ttWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kK2NlxIs; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxfOEtrq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD0A1F000E9;
-	Sun, 26 Jul 2026 16:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785084613;
-	bh=bihQdyqP8nybmk/Z5jPpiccWyJrZK2FXr9JjFx/kKKY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VxfOEtrqIoqIK5xImd1RD9szFaJb+642xnsx+4gFfvd/ngO5LzRGs6cxaJhiSR/7X
-	 Wo2YCskKacWVCI5E/RJVQJmduIxdk46iUaLiDEx5o5fX7ZeD7cS+hgwnRBWZwU9xAi
-	 U6/7XI9b0mH/1TA6xUen/ZnKcDJsthpP175NtyphpPaEBudZf8o49YRdHpS1nziqEq
-	 Phr9xdWYresJUuQRSx9LjCyphG1I+2Om4MMLVv4T0ePuk0Ppc/gFdcXAXjG6iGGXRF
-	 fTHh+zs6HjGwxDNEH6RlnmTF8ohK8LwV+O3JFniT4OgmtQk0+/pnMSP8KtB1az7JXR
-	 q0Y9ArRK2EO0Q==
-From: SJ Park <sj@kernel.org>
-To: dayou5941@163.com
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	joshua.hahnjy@gmail.com,
-	liyouhong <liyouhong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/damon/ops-common: putback folios on invalid migrate nid
-Date: Sun, 26 Jul 2026 09:50:05 -0700
-Message-ID: <20260726165005.88635-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260726014815.1280757-1-dayou5941@163.com>
-References: 
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kK2NlxIs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=kvIDHoh0yY+grrigen//Ucr351ObEoj2MVXgsu02pr8=; b=kK2NlxIs//w+/2oyOufYhoPzT2
+	wHyb5lVG6qgHqoOsZt/xECEpYlRZI0XRHDYogVew/MuxKetCGcgiNBZkhlfriZYXJxxVUDa7O9kSO
+	WYeqUOO3YnCS+HrLIK/ezE6GHuzlD2CTDu0MTj+cl/hRJOAjCyMVZqRIHmDERhL3E65I=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wo2Cp-00EJUk-7s; Sun, 26 Jul 2026 19:00:03 +0200
+Date: Sun, 26 Jul 2026 19:00:03 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Baul Lee <baul.lee@xbow.com>, netdev@vger.kernel.org,
+	bridge@lists.linux.dev, linux-kernel@vger.kernel.org,
+	idosch@nvidia.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	federico.kirschbaum@xbow.com, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: bridge: mrp: fix uninitialised bytes on the wire
+Message-ID: <fd3e617f-670a-4694-b96d-c0c93582489d@lunn.ch>
+References: <20260726062518.43774-1-baul.lee@xbow.com>
+ <amXZWTkZK7EYVwbh@penguin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amXZWTkZK7EYVwbh@penguin>
 
-On Sun, 26 Jul 2026 09:48:15 +0800 dayou5941@163.com wrote:
-
-> From: liyouhong <liyouhong@kylinos.cn>
+On Sun, Jul 26, 2026 at 12:54:33PM +0300, Nikolay Aleksandrov wrote:
+> On Sun, Jul 26, 2026 at 03:25:18PM +0900, Baul Lee wrote:
+> > br_mrp_alloc_test_skb() builds MRP test frames on an skb from
+> > dev_alloc_skb(), which does not zero the linear data area.  On the MRA
+> > ring-role branch the sub-option TLV header is appended with
+> > 
+> > 	sub_tlv = skb_put(skb, sizeof(*sub_tlv));
+> > 	sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
+> > 
+> > leaving sub_tlv->length unwritten, and the two trailing alignment bytes
+> > are appended with a bare skb_put() that neither writes nor clears them.
+> > The surrounding oui and sub_opt regions are explicitly memset(0), which
+> > bounds the exposure to exactly these three bytes.
+> > 
+> > Every MRA MRP_Test frame therefore carries three bytes of stale
+> > page-allocator memory, at frame offsets 65 to 67, to any observer of the
+> > MRP control traffic.  A capture on a kernel without
+> > CONFIG_INIT_ON_ALLOC_DEFAULT_ON shows those bytes varying frame to frame
+> > and, after a page-allocator spray, carrying the sprayed pattern; the
+> > same reproducer on an otherwise identical CONFIG_INIT_ON_ALLOC_DEFAULT_ON
+> > kernel leaks nothing, confirming the source is uninitialised allocation
+> > memory.  Reaching it needs CAP_NET_ADMIN, which is self-satisfiable on a
+> > stock kernel through unprivileged user and network namespaces.
 > 
-> damon_pa_migrate() and damos_va_migrate() isolate folios into a local list
-> and then call damon_migrate_pages().  When target_nid is invalid (including
-> the scheme default NUMA_NO_NODE / -1), damon_migrate_pages() returns early
-> without putting the folios back to the LRU.
+> Drop this entire unnecessary paragraph (slop).
+
+Hi Baul
+
+Please be careful with this. AI slop will quickly damage your
+reputation with Reviewers and Maintainers. If you have a poor
+reputation, your patches are likely to be slower to get reviewed, get
+more examination and more minor problems pointed out. AI is a useful
+tool, but it is just a tool. You personally are responsible for
+everything in the patch, so it is up to you to decided if what the AI
+has generated is correct/useful.
+
+> > Fixes: f7458934b079 ("net: bridge: mrp: Update the Test frames for MRA")
+> > Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+> > Reported-by: Baul Lee <baul.lee@xbow.com>
 > 
-> Callers then discard the list head while those folios remain isolated with
-> an extra reference taken by folio_isolate_lru().  The pages stay off the
-> LRU for as long as the mapping exists (anon active+inactive counts drop
-> while RSS does not), and the leftover references can pin the pages after
-> the mapping is gone.
-> 
-> Put the folios back on the invalid-nid path so ignored migration requests
-> still return them to the LRU.
+> You don't need a reported-by tag since you've already signed off
+> the patch.
 
-Looks good to me, thank you for catching and fixing this, liyouhong!
+Please handle this for all the other patches you have posted to
+netdev.
 
-Andrew, I think this deserves the hotfix fast track.  The bug can cause memory
-pressure, and can be reliably reproduced by the user.  The user should already
-have a sysfs write permission, though.  Let me know if you think differently.
+It is a good idea to only post one patch, get review comments for all
+the errors you make, and learn from them. Only once you are confident
+you are likely to get everything correct can you start posting
+multiple patches in parallel. Posting lots of patches with the same
+error will also quickly damage your reputation.
 
-This patch is applied to damon/next [1] tree.  If this patch is not added to
-mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
-to pick this.  So, no action from your side is needed for now.  If it seems I
-also forgot doing that or you cannot wait for my action, please feel free to
-directly ask that to Andrew.
-
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
-
-
-Thanks,
-SJ
+	Andrew
