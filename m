@@ -1,48 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF79529B799
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 13:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD48632779D
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 13:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785072123; cv=none; b=gQIAG4B3KlfzizmY37TE2syXhL1mPhLOGYq6Pw5tIYX5hZ2Xi3oP6vjRZCD8vIfxsw06TJGxKV3XJo3cV2y4mQA3Q/0B4N1gSVb/fUaMBNz1Wju/7i7ePnttzjT9E6vh61J5kMRtj9vp1nzIyQGdQPJAN7oWhbXxo2k9eT9SrFs=
+	t=1785072216; cv=none; b=b1h+VVhiCRenFcpGkFVdqrSNmHr25K+ckWUkfTQ73cJLDKsoYeV8zs2jim0Sl3fcMtwietbEpw+cywB3Bg0ogQp9ipxxUeVJDxT6VReQRHmtnOtKiv2qxkFH36LOAJcAzqQBy+a62PHeZh2kYCBFbBE4OgXG1tNblu3dslL+xmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785072123; c=relaxed/simple;
-	bh=B2mUYdt64W6km+TeA66kBW2lzyKoxnO5PfKjF1XWPRU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=arcYrRt4aYHCom9XQ89it5oOt2MwPoohjPq6ALgaM1vIaqUkO/7rAO+mT03LP1qiV0eCcbp0PT+zXx0SVXEYImfkfOuDxqLTrfzYmEH5o5xy3ZAxWHhT4eHDwRWHOC+0eSCP6Mp4m2nxf5+sFcjoAXLDNyyDwTje9hX4a14gpYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z6nzDYs7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785072216; c=relaxed/simple;
+	bh=K6apShv7PuQKFOIrpPMfbl4d2lt0kR7K+12Y5UKG6qg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CUtUlKMY130k9wRhaBcamaV1WlTbQ5PYQHmJfDPu/Gmdh3+GVU9dnOOxRJp0ikfPaq28Jzf2NnOxvoa677pzJEHk4qfI1HtweosxV4KCkOwfp0YMzkpA93Ntelw3xCyTmPdHngePo7BPQrL2bxIcfqsP146lspxhH/OdtNSwRbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1FL8saa; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z6nzDYs7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD6F1F00A3F;
-	Sun, 26 Jul 2026 13:21:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785072120;
-	bh=IrYa/TcZcjuCbDzo+WtOKJEeLzZL3zjAzuP1ugGcqJA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z6nzDYs7oXwZ4WP0enRDtsuyihaKQOdLQ/tt6hXoNkVr6/jNiQTmMzvs8uPJPM66B
-	 rUpsZMjs32NgB6Jx1uzLEfrDWaiGzXAyUp1fi7kI291Zvdo/bNAdgE/6MIETUWc//f
-	 eZY+y1+0MmrSy1bqBXqPBRDls0VxSLusp13q8bPnTV/eF/ldhszcx0qw1XbuU79Q3u
-	 VeT0zqM2EHDxUqCuIXBhVswzn6hwJl/f+xMC0inr2lNQwxPrY8fCFhyCsLDMHEZTnd
-	 Q6eK6cv7Ek1xVWxkooCJUDpuNxPstoyTmgLyNOzl1QCVnogq2x2ESkXDISrlTaJMNw
-	 L3I4q+vbYqhWg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yiyang Chen <cyyzero16@gmail.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Wang Yaxin <wang.yaxin@zte.com.cn>,
-	Yang Yang <yang.yang29@zte.com.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] taskstats: retain dead thread stats in TGID queries
-Date: Sun, 26 Jul 2026 09:21:56 -0400
-Message-ID: <20260726132156.327047-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260726132156.327047-1-sashal@kernel.org>
-References: <2026072046-broker-latter-538d@gregkh>
- <20260726132156.327047-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1FL8saa"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38e347638adso1682563a91.0
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 06:23:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785072212; x=1785677012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ub9TpKLVdjjDPLO1Dd4PitaZbC716xWHBJENyYX1p2U=;
+        b=E1FL8saaZDZV3NdoYVxZ7eYjlJJ7tUeu29QMRsWmHmYvqc7zAAZdUfaFxu1Uwd7VHt
+         QtNHpJkpb9Ll5ia8XD64A1qHsuoqTzMTs+s4C/sExL2h2lj6dHtg1JjqXm7BnplCMb52
+         SkYfN4yrYy+7Njoaf8smoCbwGYCio1pEMTyOb1mSpJuyhUrhFEyyIQY/cmmWQtLwJkss
+         ViP1PU38Fu3P5x+1BBvsvGQNnPcZf48fm2S8fdOibnoo0BqVneofHTIjK9Fx+0ayE9Nd
+         AeS0tDSxiauy2VdB52PhYhwRys1gwporDZx4GIBkD//gGhyigyftLkgxmTGRpXkprxuc
+         JXtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785072212; x=1785677012;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ub9TpKLVdjjDPLO1Dd4PitaZbC716xWHBJENyYX1p2U=;
+        b=PuXo5LBwzPyixg8H3+RDlOLGlWdPp42D297IukDJzmwWTWT5wLhTZRDHBNah9lVtPN
+         7L4I5HLm52TFTfG0vssJKIj2y39akWYwo9jCdnPSCYsH9ti1E7Zvl2BF+wCcrEgWbTmY
+         2IPoe8okGoB2ke7JHZeePtS/+DN9omG5oTpdHBkMCV4+9Nrj/Mu3AmZcyEc40d/IAm6M
+         d4Tucit7uPNhlkSBi653UzLdDhFbQKffDKorXGh5ckg/Ejm16FC19nHIj2XpqPCy0/6s
+         8A0Hn7iRfgBkxbc3Tn7qRUwAjGH6bRqS1mIXcLORIUau+rlVwEJXrU3I3Ma2wBdDSnm5
+         KgGw==
+X-Forwarded-Encrypted: i=1; AHgh+RpEt3rd5v1KhJTmbTpYCmdq2qN1HMOC97AXTm2lbZTk7yqIHONwHhmv6cI7J9Zl/Sq/yDQqMrw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxwjw1uG3TuEraHZJ287np75gd5bb1YIEPvGV4hIi6OIJ8IXOlw
+	UbF2o3GlPF9Ci6nBJUKX+JswgmDoOoTxf1ig1t9OgTmRXi7ABiurj2CAH0fWL+8K
+X-Gm-Gg: AR+sD116kdLeFl5OG3BesXA4grC/Q9IKpey8hMGwn+W9VoaaeCIE7PCyrPB+fZXfKkY
+	aPXAtCYtxuCbrngRMMdxUrgX8PRsOHKb/dDwyrCmY1BZeldXJjoewRLPSfd4gBGdFwqgsZuzLf7
+	qYc47u27cbMz8wlUvWVo2IueEHhI2oxhv50hLcOLgYVo2v1BuAYa5+XoaXjyDcCSJoZKEvnz5Xc
+	/M6YSZ8lQ0Md71b2QAwkXhTt5xHVVtnZyRfk9ap+jstVk10SYr0tdRvAB+ZTooe9OPp4L6q40lk
+	dVfeyjOnJyUz6yr1c3VqmuzhFdnowfvaN5goRRV/cSt1T5LqLuCIMysVq3BKZ/Y/Pgb6SVIrQMf
+	Q/SBxkzsZ2v6ialfKDCF1xR8IlcD0ItpJxGurcMdFYePb9X6jxWKvXkHA1q4es5UwNi7hQOw8qG
+	TzPTfyqaThznQzeA==
+X-Received: by 2002:a17:90b:3cc3:b0:38d:b36e:9813 with SMTP id 98e67ed59e1d1-38f2950c7dfmr4915863a91.11.1785072211599;
+        Sun, 26 Jul 2026 06:23:31 -0700 (PDT)
+Received: from Linux.bbrouter ([115.96.217.226])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc419e3asm20784436eec.11.2026.07.26.06.23.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Jul 2026 06:23:30 -0700 (PDT)
+From: Ishaan Dandekar <ishaan.dandekar@gmail.com>
+To: linux-input@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	nikhilsolanke5@gmail.com,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] usbcore: Add quirk for 255-bytes initial config read
+Date: Sun, 26 Jul 2026 18:50:38 +0530
+Message-Id: <20260726132039.28330-2-ishaan.dandekar@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260726132039.28330-1-ishaan.dandekar@gmail.com>
+References: <20260726132039.28330-1-ishaan.dandekar@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,169 +80,182 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yiyang Chen <cyyzero16@gmail.com>
+From: Nikhil Solanke <nikhilsolanke5@gmail.com>
 
-[ Upstream commit b3e4fbb04220efc3bc022bcf31b5689d39c6b111 ]
+Certain third-party USB game controllers exposing (or spoofing) an Xbox
+360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
+The device disconnects from the bus without responding to the initial
+GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
+config index 0 descriptor/start: -71'.
 
-Patch series "taskstats: fix TGID dead-thread stat retention", v3.
+The device then falls back to a secondary Android HID mode (with a
+different VID:PID), losing XInput functionality including rumble support.
+The failure reproduces across multiple machines, host controller types, and
+kernel versions including current mainline and LTS. The device enumerates
+correctly and remains in XInput mode under Windows. Notably, the device
+enumerates correctly in Android mode when the same 9-byte request
+is issued for that mode's configuration descriptor, confirming the firmware
+bug is specific to the XInput mode.
 
-This series fixes a taskstats TGID aggregation bug where fields added in
-the TGID query path were not preserved after thread exit, and adds a
-kselftest covering the regression.
+usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
+identical up to the point of failure, with no visible protocol-level
+difference explaining the divergence. The root cause was identified when
+Michal Pecio discovered via a QEMU bus-level capture that Windows does not
+use wLength=9 for the initial config descriptor request; it uses
+wLength=255. Alan Stern subsequently confirmed this with a bus
+analyzer on a different USB 2.0 device, and Michal verified the behavior
+goes back to Windows 95 OSR2.1.
 
-The first patch keeps the cached TGID aggregate used for dead threads in
-step with the fields already accumulated for live threads, and also fixes
-the final TGID exit notification emitted when group_dead is true.
+So, add a new quirk flag USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE which causes
+usb_get_configuration() to issue a 255 byte sized configuration request
+instead of USB_DT_CONFIG_SIZE (9) for the initial
+GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
+behavior.
 
-The second patch adds a kselftest that verifies TGID CPU stats do not
-regress after a worker thread exits and has been reaped.
-
-This patch (of 2):
-
-fill_stats_for_tgid() builds TGID stats from two sources: the cached
-aggregate in signal->stats and a scan of the live threads in the group.
-
-However, fill_tgid_exit() only accumulates delay accounting into
-signal->stats.  This means that once a thread exits, TGID queries lose the
-fields that fill_stats_for_tgid() adds for live threads.
-
-This gap was introduced incrementally by two earlier changes that extended
-fill_stats_for_tgid() but did not make the corresponding update to
-fill_tgid_exit():
-
-- commit 8c733420bdd5 ("taskstats: add e/u/stime for TGID command")
-  added ac_etime, ac_utime, and ac_stime to the TGID query path.
-- commit b663a79c1915 ("taskstats: add context-switch counters")
-  added nvcsw and nivcsw to the TGID query path.
-
-As a result, those fields were accounted for live threads in TGID queries,
-but were dropped from the cached TGID aggregate after thread exit.  The
-final TGID exit notification emitted when group_dead is true also copies
-that cached aggregate, so it loses the same fields.
-
-Factor the per-task TGID accumulation into tgid_stats_add_task() and use
-it in both fill_stats_for_tgid() and fill_tgid_exit().  This keeps the
-cached aggregate used for dead threads aligned with the live-thread
-accumulation used by TGID queries.
-
-Link: https://lore.kernel.org/cover.1776094300.git.cyyzero16@gmail.com
-Link: https://lore.kernel.org/abd2a15d33343636ab5ba43d540bcfe508bd66c7.1776094300.git.cyyzero16@gmail.com
-Fixes: 8c733420bdd5 ("taskstats: add e/u/stime for TGID command")
-Fixes: b663a79c1915 ("taskstats: add context-switch counters")
-Signed-off-by: Yiyang Chen <cyyzero16@gmail.com>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Cc: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Wang Yaxin <wang.yaxin@zte.com.cn>
-Cc: Yang Yang <yang.yang29@zte.com.cn>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
 ---
- kernel/taskstats.c | 62 ++++++++++++++++++++++++----------------------
- 1 file changed, 33 insertions(+), 29 deletions(-)
+ .../admin-guide/kernel-parameters.txt         | 10 +++++
+ drivers/usb/core/config.c                     | 39 +++++++++++++++----
+ drivers/usb/core/quirks.c                     |  4 ++
+ include/linux/usb/quirks.h                    |  3 ++
+ 4 files changed, 49 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/taskstats.c b/kernel/taskstats.c
-index 6916bc152ce831..fd7dd09e44e9c6 100644
---- a/kernel/taskstats.c
-+++ b/kernel/taskstats.c
-@@ -188,13 +188,39 @@ static int fill_stats_for_pid(pid_t pid, struct taskstats *stats)
- 	return 0;
- }
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index b5493a7f8..14121458a 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -8169,6 +8169,16 @@ Kernel parameters
+ 				q = USB_QUIRK_FORCE_ONE_CONFIG (Device
+ 					claims zero configurations,
+ 					forcing to 1);
++				r = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE (Device
++					fails during initialization when asked for
++					9-bytes configuration descriptor request.
++					Ask for 255-bytes request instead to mirror
++					Windows' behavior. This quirk is originally
++					meant to fix some quirky gamepads that refuse
++					to connect in their XInput mode. But it can
++					also potentially fix issues with other USB
++					devices that work on Windows but not on
++					Linux);
+ 			Example: quirks=0781:5580:bk,0a5c:5834:gij
  
-+static void tgid_stats_add_task(struct taskstats *stats,
-+				struct task_struct *tsk, u64 now_ns)
-+{
-+	u64 delta, utime, stime;
+ 	usbhid.mousepoll=
+diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
+index 45e20c6d7..442c15f92 100644
+--- a/drivers/usb/core/config.c
++++ b/drivers/usb/core/config.c
+@@ -912,6 +912,17 @@ int usb_get_configuration(struct usb_device *dev)
+ 	unsigned char *bigbuffer;
+ 	struct usb_config_descriptor *desc;
+ 	int result;
++	size_t usb_config_req_size;
 +
 +	/*
-+	 * Each accounting subsystem calls its functions here to
-+	 * accumulate its per-task stats for tsk, into the per-tgid structure
-+	 *
-+	 *	per-task-foo(stats, tsk);
++	 * Devices with quirky firmware will stall or reset when the initial
++	 * config descriptor request uses wLength=9. If the quirk is set, use
++	 * 255 instead, mirroring the behavior of Windows.
 +	 */
-+	delayacct_add_tsk(stats, tsk);
++	if (dev->quirks & USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE)
++		usb_config_req_size = 255;
++	else
++		usb_config_req_size = USB_DT_CONFIG_SIZE;
+ 
+ 	if (ncfg > USB_MAXCONFIG) {
+ 		dev_notice(ddev, "too many configurations: %d, "
+@@ -938,15 +949,19 @@ int usb_get_configuration(struct usb_device *dev)
+ 	if (!dev->rawdescriptors)
+ 		return -ENOMEM;
+ 
+-	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
++	desc = kmalloc(usb_config_req_size, GFP_KERNEL);
+ 	if (!desc)
+ 		return -ENOMEM;
+ 
+ 	for (cfgno = 0; cfgno < ncfg; cfgno++) {
+-		/* We grab just the first descriptor so we know how long
+-		 * the whole configuration is */
++		/*
++		 * Normally we request only the configuration descriptor header
++		 * so we can determine the total configuration length. For
++		 * devices with USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE set, try to
++		 * grab the full descriptor set instead.
++		 */
+ 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+-		    desc, USB_DT_CONFIG_SIZE);
++		    desc, usb_config_req_size);
+ 		if (result < 0) {
+ 			dev_err(ddev, "unable to read config index %d "
+ 			    "descriptor/%s: %d\n", cfgno, "start", result);
+@@ -956,9 +971,8 @@ int usb_get_configuration(struct usb_device *dev)
+ 			dev->descriptor.bNumConfigurations = cfgno;
+ 			break;
+ 		} else if (result < 4) {
+-			dev_err(ddev, "config index %d descriptor too short "
+-			    "(expected %i, got %i)\n", cfgno,
+-			    USB_DT_CONFIG_SIZE, result);
++			dev_err(ddev, "config index %d descriptor too short (asked for %zu, got %i, need at least %i)\n",
++			    cfgno, usb_config_req_size, result, 4);
+ 			result = -EINVAL;
+ 			goto err;
+ 		}
+@@ -972,6 +986,16 @@ int usb_get_configuration(struct usb_device *dev)
+ 			goto err;
+ 		}
+ 
++		/*
++		 * If the device returns the full configuration descriptor set,
++		 * skip the second read. Otherwise, send a second request
++		 * asking for the full set.
++		 */
++		if (result >= length) {
++			memcpy(bigbuffer, desc, length);
++			goto store_and_parse;
++		}
 +
-+	/* calculate task elapsed time in nsec */
-+	delta = now_ns - tsk->start_time;
-+	/* Convert to micro seconds */
-+	do_div(delta, NSEC_PER_USEC);
-+	stats->ac_etime += delta;
+ 		if (dev->quirks & USB_QUIRK_DELAY_INIT)
+ 			msleep(200);
+ 
+@@ -989,6 +1013,7 @@ int usb_get_configuration(struct usb_device *dev)
+ 			length = result;
+ 		}
+ 
++store_and_parse:
+ 		dev->rawdescriptors[cfgno] = bigbuffer;
+ 
+ 		result = usb_parse_configuration(dev, cfgno,
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index 87ee2d938..f5a60ccf2 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -142,6 +142,10 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
+ 				break;
+ 			case 'q':
+ 				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
++				break;
++			case 'r':
++				flags |= USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE;
++				break;
+ 			/* Ignore unrecognized flag characters */
+ 			}
+ 		}
+diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
+index b3cc7beab..a4043b33c 100644
+--- a/include/linux/usb/quirks.h
++++ b/include/linux/usb/quirks.h
+@@ -81,4 +81,7 @@
+ /* Device claims zero configurations, forcing to 1 */
+ #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
+ 
++/* Use a 255 bytes config descriptor request mirroring windows behavior */
++#define USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE	BIT(19)
 +
-+	task_cputime(tsk, &utime, &stime);
-+	stats->ac_utime += div_u64(utime, NSEC_PER_USEC);
-+	stats->ac_stime += div_u64(stime, NSEC_PER_USEC);
-+
-+	stats->nvcsw += tsk->nvcsw;
-+	stats->nivcsw += tsk->nivcsw;
-+}
-+
- static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- {
- 	struct task_struct *tsk, *first;
- 	unsigned long flags;
- 	int rc = -ESRCH;
--	u64 delta, utime, stime;
--	u64 start_time;
-+	u64 now_ns;
- 
- 	/*
- 	 * Add additional stats from live tasks except zombie thread group
-@@ -211,30 +237,12 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- 	else
- 		memset(stats, 0, sizeof(*stats));
- 
--	start_time = ktime_get_ns();
-+	now_ns = ktime_get_ns();
- 	for_each_thread(first, tsk) {
- 		if (tsk->exit_state)
- 			continue;
--		/*
--		 * Accounting subsystem can call its functions here to
--		 * fill in relevant parts of struct taskstsats as follows
--		 *
--		 *	per-task-foo(stats, tsk);
--		 */
--		delayacct_add_tsk(stats, tsk);
--
--		/* calculate task elapsed time in nsec */
--		delta = start_time - tsk->start_time;
--		/* Convert to micro seconds */
--		do_div(delta, NSEC_PER_USEC);
--		stats->ac_etime += delta;
- 
--		task_cputime(tsk, &utime, &stime);
--		stats->ac_utime += div_u64(utime, NSEC_PER_USEC);
--		stats->ac_stime += div_u64(stime, NSEC_PER_USEC);
--
--		stats->nvcsw += tsk->nvcsw;
--		stats->nivcsw += tsk->nivcsw;
-+		tgid_stats_add_task(stats, tsk, now_ns);
- 	}
- 
- 	unlock_task_sighand(first, &flags);
-@@ -253,18 +261,14 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
- static void fill_tgid_exit(struct task_struct *tsk)
- {
- 	unsigned long flags;
-+	u64 now_ns;
- 
- 	spin_lock_irqsave(&tsk->sighand->siglock, flags);
- 	if (!tsk->signal->stats)
- 		goto ret;
- 
--	/*
--	 * Each accounting subsystem calls its functions here to
--	 * accumalate its per-task stats for tsk, into the per-tgid structure
--	 *
--	 *	per-task-foo(tsk->signal->stats, tsk);
--	 */
--	delayacct_add_tsk(tsk->signal->stats, tsk);
-+	now_ns = ktime_get_ns();
-+	tgid_stats_add_task(tsk->signal->stats, tsk, now_ns);
- ret:
- 	spin_unlock_irqrestore(&tsk->sighand->siglock, flags);
- 	return;
+ #endif /* __LINUX_USB_QUIRKS_H */
 -- 
-2.53.0
+2.34.1
 
