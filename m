@@ -1,64 +1,64 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898723ACA45
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 11:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E2C3AD529
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 11:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785065579; cv=none; b=hLRlCKNvyxdhHBd8DvXZx5WVyH908tCYndwcRrFx7UoILhjMO44qLtNeG9v02G0QoI9A2kWCdp1AFvgBUOlTObszoc7xbloviMPPmD4e2wS64Z8ukEjjz0+WVnkc49KiUbPRAYEUHNE3chrG/RoyZy2ou6DhJ5tQBatyhIc9WDw=
+	t=1785065580; cv=none; b=nCpjI40htcejVg0ESAcH1RQlN3XHUhJLVAf52BGbDBnHOAITHmG5JskGqYtJ6YRdal1ciFk0cd/dp0mzKoGXQ28EvIwpxqkjWGa0GzRmkB5k/eosRExdvGec4M2SvglMrm6aM0bFIJ9kv+4NO6Ya2qZLL6BlCG9VPwR+PTe+h/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785065579; c=relaxed/simple;
-	bh=k8p26WkV8yppHusL3y+jBuuoZ4KH1m/7UvNpr9ifj8Q=;
+	s=arc-20240116; t=1785065580; c=relaxed/simple;
+	bh=LIKGSwTHk/Z7QGi6uThgc0YT2/Kgyfzgt73cDAjhDoQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gVWt+oWRedvKNmbV6bpvdVZvlHgHNFS4on8V7uqojUkENiOOWVC9cNPEn4kM8+wlKRzBaOCjtknBIE4XGsGdo8kgM8I6IIeafkKhqIK8nW4PgwTacL1i2oDPBD3iKjH03JOrAVMQtX9gscIA+SkHBxs8HonAxvX1gyQHtSxP+6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io; spf=pass smtp.mailfrom=meshstor.io; dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b=k/bYnuPP; arc=none smtp.client-ip=209.85.221.48
+	 MIME-Version; b=HeHD55ZOE9dLdZ9c63KhQJIi17PvDMmLIFudggjs/OVJGkRQ/nvT/hhANHv6fTZurstwMT+z6TRdKmHdwEwclyZcLhctUPwBG+AzRcUUa1XThnXhZC0z7/1ViRk48TXDBh6UD7PrpEFw9risBZ51Bp+wCGnIxuRP/0r5fe822a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io; spf=pass smtp.mailfrom=meshstor.io; dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b=RTFZPFX+; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meshstor.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b="k/bYnuPP"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f64ca1c2dso461632f8f.2
-        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 04:32:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b="RTFZPFX+"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so19407355e9.0
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 04:32:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=meshstor.io; s=google; t=1785065575; x=1785670375; darn=vger.kernel.org;
+        d=meshstor.io; s=google; t=1785065577; x=1785670377; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oTKfzdoHRmbK0b3PUxeuF9crncxafNJvwFc9FNFZP5k=;
-        b=k/bYnuPP48pir7rE37mlrhKAXwf28oqwMSy9lScuF+wAna59o00v29RFx6/4gLo4Pi
-         7lNLPY/wBZQhMAaG9ZlPhayiC69e0EE45qFLmariUiT1N0Y6pmSBYAfi9XPTYQBplO3i
-         CRICOgifSe+V6NWj8uo8yHcND5gRqN1GAzgK3moihv5eVd0NGS9g4p8xjkVjl7ZVWJPM
-         tV0bv9zxEWOXIxzDKnI2hjRH/fBc1dI3Bzd+DW/8bv5Od+2qSTg8kPClpnJAtcQ3TRbI
-         FnYQcSH0QnbyL7KY0tPxMo1DR8TceJrT9QFFmjU5dOp9fYUVE0z5zEoC8Qfv0VWiivBB
-         Wr6A==
+        bh=Mfmb4tl9yoRcxmAXx5l+qVXFh2lTgHh23cZW0hK9N7Y=;
+        b=RTFZPFX+98O4Gcu8hFtTQjxFlyp6RzUmpHF9nglsxWl/xkyzeDTpSTXUdeJpxY94qQ
+         0K8TC2lPejgZSSS8g9/2pwNihcSqOu6nCdcjXeO8CyBDvGDgztGS8F3kItccijxRdkr9
+         Y89m8PQrMjIqPI7fR5dn+x2f647Da5gaUkVliawwlzH5+rLW+lNFKpfvt+dQFITEDEPx
+         mUi9xggUVs0EDcunEYugFCDvquTkZwBRwnxOdWboJmMaqu3QVQpiPOHxwVCP0MFZXNbA
+         f6bZH58P4D6cs/WFaUX/xTb56HkxYQ4Gs/sVWdDjl65iVRZ7eVGtT06pdiI8tY33dpMD
+         imMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785065575; x=1785670375;
+        d=1e100.net; s=20251104; t=1785065577; x=1785670377;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oTKfzdoHRmbK0b3PUxeuF9crncxafNJvwFc9FNFZP5k=;
-        b=m0dxml0VIUiBO/k0hV8kWvYMmGO3Sw9fvvQDaGyKW4N2eHR0t3kmic5eFqmGFNjF6c
-         RMkioV9K+yDD2dWK6+mLMzX8gl45UOIs26fbUMOefuOOukrI8x66LMTTatUWG294XMiR
-         qjFP6LVQx2OziVU3ZaTNZRzHf3ch+OzTStetTxPSTFc32CaRety4MrcBnm41oiK8J4/m
-         X1+0kyr9EvF8Xpvu95tBQGjo2VHPj54ucHyCUeT9vOfvv++4nafAezFSCViK3i7FwmQm
-         J/P/yVhpW2DuAiONicwXbQTeZjAvt/ifvedy+R7GwC/HQLhIfjWMCDdULcYEw2nGxcdi
-         EhIg==
-X-Forwarded-Encrypted: i=1; AHgh+RqepjkZmfLzyvQHAqR9jRYDL72rBpV2zsOd8Ubzj5ht7c6kOaBbfF4iqGid4nzmbVIeti0mgzo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2M3At0TvejcgWfQB38zp7uiSOCf2NHGsRR0YOvvEvEgZ1FU/T
-	gqF/JzxBq+P55BeXMb6zxli3FRNAqKWJgiv1AYqw0YE0o/bcR64hLZzooVJODmTzaQ==
-X-Gm-Gg: AR+sD112dtcrnAGfrJRwJyWa6B8h7I9Q/wuamU83mnjC7OhSNyD5mvtSWKT66KKAB9k
-	Yf1qTy2GdqufSZrA/dYga8KxGZr306GWQOIyCyRqeIMPviQrxsqUUWuebDS5QH0bMk+c5+CLz6d
-	2VXjyovdFOOxgCqm4bBi3l/V6hNRxiCVWauvPac8EzhdnMQu5KUpsEwzBcSlqrOr5esiEABSYKQ
-	VP2dluEpiqxeQ7QniaHS8Mh6FGY/yWE6wCcMeZApVdZRNrHIboXoNXMDHJLBdwiEwSItfHHO1/A
-	Qgku9KFOx8QzHJRrmYbflpp+XWVOUf+8zRj127rzNuTiYJ36/qBfEbToqbr6pi3MymvLgZU5J4U
-	eKi2oJSd/MiRPego8BuQ/GwMD3HzAGZT0jR07QDoUCyZkeCQ3GlGoJP2xhdxcBsTkiL1h/tXGgB
-	UQUX1I8Pys0P5yiDqk5lfiZz1z2gbNDbOfjmbwiODwXFWqY7TUEFWGknWTX3SyBpUKajIetKXAI
-	EXBPuE789UfUnajXx4hLQh2655gmAN35c7/hQPJQg==
-X-Received: by 2002:a05:6000:4b15:b0:47f:81c6:5a38 with SMTP id ffacd0b85a97d-47f9fc995a0mr6140837f8f.18.1785065574895;
-        Sun, 26 Jul 2026 04:32:54 -0700 (PDT)
+        bh=Mfmb4tl9yoRcxmAXx5l+qVXFh2lTgHh23cZW0hK9N7Y=;
+        b=F7/Wrv9BZ9h2eohDBvfIBnDc1E6cyxU+mNulTy5YCLe/xGglw67MbtmyAyK49OSZ4p
+         QHr9nvjNg4+qzgvMkHLY0MNwHX8GVoMMu3Ju7yB0Xg0uQroLEdLHgVO/KtJ8RguaUELs
+         /W6PbX8ouaNDzDUonMp39MuRrXprGIwNeCMfoQrbAB/1DQhbbfjPBU3Rgd6BNtmuc+O1
+         sHWaBYRhTaY1q2j+9pWJ5Mlsgu+688TC+8g7PrJqrfTULsUpzCE7xceDLHOtFR8e3SsJ
+         18O+xYM4x5C5iIeCTOikLJEKFqg3UHs78I5jGf058mUqyWdJGSUbOBpWoK/Ny7T5p8zx
+         g6TA==
+X-Forwarded-Encrypted: i=1; AHgh+RovY6GZ9EMb11Vx4X2RnxQP1jI0eOydVUFImWpigzmjrdiFMYUgoieOuP1yJ9HkeliLhbOlCAA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfZH5Q6wKJ14RpLqu0Up1Bl70wAiSxOZqG3eW0+ZV55TGbYKHt
+	D+D7UW83RdnLOYF/StXfFViAm0F1YoGgBBbvbeyd7nKkrOKaiY5C5PGQXavhry+VLA==
+X-Gm-Gg: AR+sD10j6YPmCzIFjfJrNjyzpcSVG+b+LDogs1UKWERjN+Uf2FftrVGK8+NlTxbcavo
+	RusLBE8QRRoh7JEgL4hId7qDpJOTiTJaRY9/Btcki8P1nnEIkdVXyQ9RJq68GqwijLBYWFM7mFq
+	X4DcSQAYKlLpOuMQFOEYb2R/LRyxUeXrsROh/IPUxSOxVQxkICeTyu8XfYZNo8FPBXGYK/3NNnq
+	GbiNC6XWpWVYhXwydcW6EGGHUuFKeIcyW7uQjK+woCriTtB8vV82seChd/dWEU1wBk58W7Z68Do
+	JAoRfl2SEQDJ68ca+RD2Z0f3F0j6FwgzXDgjn9N1QUMHAbrTDzr9c+fAr1mXsKmgedGkM0GKoGA
+	tGCwDb27FKke2NgjPS2pfAv7GkKCnnHFpNLuHK1gnkyC5dPT04qhR3BliuETG3/TCm59ipq41if
+	tZc8lGMsor0tnQubLBJVYlUp6y52DVRrecPYTgMlgyuAKN4eXIT4sy4mFaKGGL/DM+962tqkPFd
+	ZRARHtaF1zUc2NIES+q1dI2jE6XOKZ7vw+j/RQnig==
+X-Received: by 2002:a05:600c:1906:b0:495:3a52:cd7e with SMTP id 5b1f17b1804b1-496b5700144mr69628875e9.25.1785065577098;
+        Sun, 26 Jul 2026 04:32:57 -0700 (PDT)
 Received: from meshstor-pc ([185.87.42.56])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb57cfsm40533083f8f.11.2026.07.26.04.32.52
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb57cfsm40533083f8f.11.2026.07.26.04.32.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 04:32:54 -0700 (PDT)
+        Sun, 26 Jul 2026 04:32:56 -0700 (PDT)
 From: Mykola Marzhan <mykola@meshstor.io>
 To: Jens Axboe <axboe@kernel.dk>,
 	Song Liu <song@kernel.org>,
@@ -87,9 +87,9 @@ Cc: Li Nan <magiclinan@didiglobal.com>,
 	linux-pci@vger.kernel.org,
 	Thorsten Leemhuis <regressions@leemhuis.info>,
 	Martin Wilck <mwilck@suse.com>
-Subject: [PATCH v6 09/12] nvme-rdma: use ib_dma_map_sgtable_attrs()
-Date: Sun, 26 Jul 2026 13:32:26 +0200
-Message-ID: <20260726113229.2154269-10-mykola@meshstor.io>
+Subject: [PATCH v6 10/12] nvme-rdma: return BLK_STS_P2PDMA for unsupported P2P transfers
+Date: Sun, 26 Jul 2026 13:32:27 +0200
+Message-ID: <20260726113229.2154269-11-mykola@meshstor.io>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260726113229.2154269-1-mykola@meshstor.io>
 References: <20260726113229.2154269-1-mykola@meshstor.io>
@@ -101,78 +101,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ib_dma_map_sg() folds every mapping error into a zero return, losing
-the DMA layer's error code.  Switch both scatterlist mappings to
-ib_dma_map_sgtable_attrs(), which preserves it for the next patch to
-act on.  No behavior change: failures are still reported as -EIO.
+A P2P transfer the PCIe topology cannot route fails DMA mapping
+with -EREMOTEIO.  nvme-rdma folds every mapping error into -EIO, a
+retryable host-path error: multipath requeues the I/O forever, a
+single path burns its whole retry budget.
 
-A local sg_table is needed: dma_map_sgtable() maps orig_nents
-entries, and the embedded table's orig_nents is the allocated count,
-not the count blk_rq_map_sg() produced.  rdma_rw_ctx_init() does the
-same.
+Propagate the real error code and return the unroutable case as the
+non-retryable BLK_STS_P2PDMA.  As in nvme-pci, -ENOMEM now requeues
+(BLK_STS_RESOURCE) and -EINVAL fails (BLK_STS_IOERR); -EIO stays a
+retryable host-path error.
 
+Start the request only after the mapping succeeds, as nvme-pci and
+nvme-tcp do.  A hard status from ->queue_rq is completed by blk-mq
+itself, skipping nvme_mpath_end_request(), so the multipath I/O
+accounting leaks -- today for -EINVAL, and now for BLK_STS_P2PDMA.
+
+Fixes: 23528aa3320a ("nvme: enable PCI P2PDMA support for RDMA transport")
+Cc: stable@vger.kernel.org # v7.1: requires BLK_STS_P2PDMA and the ib_dma_map_sgtable_attrs() conversion
 Assisted-by: Claude:claude-fable-5
-Cc: stable@vger.kernel.org # v7.1
 Signed-off-by: Mykola Marzhan <mykola@meshstor.io>
 Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 ---
- drivers/nvme/host/rdma.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/nvme/host/rdma.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 6909e3542794..63830334c73e 100644
+index 63830334c73e..c38d949502b7 100644
 --- a/drivers/nvme/host/rdma.c
 +++ b/drivers/nvme/host/rdma.c
-@@ -1469,6 +1469,7 @@ static int nvme_rdma_dma_map_req(struct ib_device *ibdev, struct request *rq,
- 		int *count, int *pi_count)
- {
- 	struct nvme_rdma_request *req = blk_mq_rq_to_pdu(rq);
-+	struct sg_table sgt;
- 	int ret;
- 
- 	req->data_sgl.sg_table.sgl = (struct scatterlist *)(req + 1);
-@@ -1480,12 +1481,16 @@ static int nvme_rdma_dma_map_req(struct ib_device *ibdev, struct request *rq,
- 
- 	req->data_sgl.nents = blk_rq_map_sg(rq, req->data_sgl.sg_table.sgl);
- 
--	*count = ib_dma_map_sg(ibdev, req->data_sgl.sg_table.sgl,
--			       req->data_sgl.nents, rq_dma_dir(rq));
--	if (unlikely(*count <= 0)) {
-+	sgt = (struct sg_table) {
-+		.sgl		= req->data_sgl.sg_table.sgl,
-+		.orig_nents	= req->data_sgl.nents,
-+	};
-+	ret = ib_dma_map_sgtable_attrs(ibdev, &sgt, rq_dma_dir(rq), 0);
-+	if (unlikely(ret)) {
- 		ret = -EIO;
+@@ -1486,10 +1486,8 @@ static int nvme_rdma_dma_map_req(struct ib_device *ibdev, struct request *rq,
+ 		.orig_nents	= req->data_sgl.nents,
+ 	};
+ 	ret = ib_dma_map_sgtable_attrs(ibdev, &sgt, rq_dma_dir(rq), 0);
+-	if (unlikely(ret)) {
+-		ret = -EIO;
++	if (unlikely(ret))
  		goto out_free_table;
- 	}
-+	*count = sgt.nents;
+-	}
+ 	*count = sgt.nents;
  
  	if (blk_integrity_rq(rq)) {
- 		req->metadata_sgl->sg_table.sgl =
-@@ -1501,14 +1506,16 @@ static int nvme_rdma_dma_map_req(struct ib_device *ibdev, struct request *rq,
- 
- 		req->metadata_sgl->nents = blk_rq_map_integrity_sg(rq,
- 				req->metadata_sgl->sg_table.sgl);
--		*pi_count = ib_dma_map_sg(ibdev,
--					  req->metadata_sgl->sg_table.sgl,
--					  req->metadata_sgl->nents,
--					  rq_dma_dir(rq));
--		if (unlikely(*pi_count <= 0)) {
-+		sgt = (struct sg_table) {
-+			.sgl		= req->metadata_sgl->sg_table.sgl,
-+			.orig_nents	= req->metadata_sgl->nents,
-+		};
-+		ret = ib_dma_map_sgtable_attrs(ibdev, &sgt, rq_dma_dir(rq), 0);
-+		if (unlikely(ret)) {
- 			ret = -EIO;
+@@ -1511,10 +1509,8 @@ static int nvme_rdma_dma_map_req(struct ib_device *ibdev, struct request *rq,
+ 			.orig_nents	= req->metadata_sgl->nents,
+ 		};
+ 		ret = ib_dma_map_sgtable_attrs(ibdev, &sgt, rq_dma_dir(rq), 0);
+-		if (unlikely(ret)) {
+-			ret = -EIO;
++		if (unlikely(ret))
  			goto out_free_pi_table;
- 		}
-+		*pi_count = sgt.nents;
+-		}
+ 		*pi_count = sgt.nents;
  	}
  
- 	return 0;
+@@ -2033,8 +2029,6 @@ static blk_status_t nvme_rdma_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 	if (ret)
+ 		goto unmap_qe;
+ 
+-	nvme_start_request(rq);
+-
+ 	if (IS_ENABLED(CONFIG_BLK_DEV_INTEGRITY) &&
+ 	    queue->pi_support &&
+ 	    (c->common.opcode == nvme_cmd_write ||
+@@ -2051,6 +2045,8 @@ static blk_status_t nvme_rdma_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 		goto err;
+ 	}
+ 
++	nvme_start_request(rq);
++
+ 	sqe->cqe.done = nvme_rdma_send_done;
+ 
+ 	ib_dma_sync_single_for_device(dev, sqe->dma,
+@@ -2070,6 +2066,9 @@ static blk_status_t nvme_rdma_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 		ret = nvme_host_path_error(rq);
+ 	else if (err == -ENOMEM || err == -EAGAIN)
+ 		ret = BLK_STS_RESOURCE;
++	/* Peer memory unreachable from this device: don't retry. */
++	else if (err == -EREMOTEIO)
++		ret = BLK_STS_P2PDMA;
+ 	else
+ 		ret = BLK_STS_IOERR;
+ 	nvme_cleanup_cmd(rq);
 -- 
 2.52.0
 
