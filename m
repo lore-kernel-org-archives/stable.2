@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A4D38E5E9
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 12:05:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D4F30C14C;
+	Sun, 26 Jul 2026 12:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785067507; cv=none; b=KybBrTNaZM/3KO80gGVLc+Ff16M2wxqH2lC5zcEF9ZFHqP9Y0srC5glel3kJynABsJRxaPq69A2HDYcHOaovzbQv9OVYGKyTv/ism+PeFKOat3gx0tPn55KtCFMSYZz+mMEEifoOm5lLQEEOcVsLjsWm+kuYxs1AoCyFHL9pVQQ=
+	t=1785067508; cv=none; b=bDPR6IV6lkOWWWLENkM17jRIK4hKFC2n+cyZz068rPMoOEH13jsHBENXMRAovzJrPuSX4kBq4dAOQbaV1LNwkglgdqAJvmK3x9tkNgFONJwernFHKDhZDwPpcwGBKCJ4aViImdwwGk6gtZOzQCxBjKTDikPCgQzoJ60C+44ULHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785067507; c=relaxed/simple;
-	bh=jUlqVdAS4RAg758tPM+EVqKsR5WuyOwJXfExecdVS3Y=;
+	s=arc-20240116; t=1785067508; c=relaxed/simple;
+	bh=jOl5qCBbEmwTjvyRcObyp//fIFol1C93Oz2aOofbkUg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DM6v4mUyhuo53t9ex9c5nOGEEQaynODd9X84/oSmcSOI/4tORPbRjcM98pf52dXpF9SGy0/QiphAnJTx1olm+s8rg5ioL5c8CpB9oO2J5X0l5OPel9+au4JcEzZU5zQsh0HqzpPIbniOCKDm3vpE3uO6xloiXuXxnqApBQI4qcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BqANl/A4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tK2EF+Z3TnpAp9IqkcYvOZPQp8LzByyilMDtseOpeu8J0ZM595eLp7eGwCZtBejRAiQl1vIbHSIqudHflGC8w6Dm+URBV21TGLmzmptHNiyQLd4V/9EjRpY8CHDdQF26L46MN/jGagWnxFvU4BBZE8jOFFK11r+ysVX6q0n90T8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fDzzQsaj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BqANl/A4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29C71F00A3D;
-	Sun, 26 Jul 2026 12:05:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fDzzQsaj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007281F000E9;
+	Sun, 26 Jul 2026 12:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785067506;
-	bh=3Kpflck9u12WX+tQQv6Nxi/tvsumbGzNYidSC9+Jdqw=;
+	s=k20260515; t=1785067507;
+	bh=SyLiXb5AbPxxaQCiNJ4rR727zON4isSKjuoFkAK0itc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BqANl/A4AtBi+rUGnAGhUJGF+CG/brCI/nq8/1EcqGANQIZZR9gU8zKXNV4LGWFYq
-	 7/ssAH+rcK09qEK4675v7hSDk/cpYzUJch9dkZaDaeaAYu7ljRau1J9tWqZVuBmrb4
-	 FO1XRMgJ5jjVMG3Zsih5yiXSz6E19oS1zXtchoDffeqj+P+wJUNyXYkXA+L6NmgjUV
-	 ucwlHKn2Db5V121RzKkncDVvDNKnUHcsWSgo57f0Q185W5ZiSezSWtVkxx/XXZivNz
-	 cqwVmAulLOP/5fhhPlN5hzbU/xp0qDiepkPg2m4ZyQWNQ8xGvG71KTA7L1EkWF02xX
-	 L4w1gnoipzt8w==
+	b=fDzzQsaj2nPeBJAlKLpqiZkH5I87M286v1vaookzXWkbMulcz7V2evDeZeigGKiOn
+	 Lv4FSuC8Xnt54JBmu8JbKF1G6MMDEnd80vuXQn17mjJKqnBTowK8PMmpBmgL9lfMRZ
+	 B9DUlBnyRLE+e3+oYsZfucbbu0uMlIXLShC6G+bf4aLqsM4EEjUmndMoQ5VruSp2U7
+	 BnaoT13+dW7iwFbLUgk//dIAcbdRUWlYlWDH2Re9temQYAaSBSwwjKxT+9AQYZ+5eD
+	 UceeEhbVNI7El6df6VSY6oua6mFxtFlgPanr0djT87wqJbU2wVOZTcmeYXu49QozKe
+	 XgXi40Jm1ZiEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	thomas.petazzoni@bootlin.com,
-	Zhenzhong Duan <zhenzhong.duan@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	Miguel Gazquez <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 6.12.y] iommu/vt-d: Fix oops due to out of scope access
-Date: Sun, 26 Jul 2026 08:04:48 -0400
-Message-ID: <20260725192000.stable-0009@kernel.org>
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	Seungjin Bae <eeodqql09@gmail.com>
+Subject: Re: [PATCH] Input: ims-pcu - fix heap-buffer-overflow in ims_pcu_process_data()
+Date: Sun, 26 Jul 2026 08:04:49 -0400
+Message-ID: <20260725192000.stable-0010@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723170133.2299823-1-miguel.gazquez@bootlin.com>
-References: <20260723170133.2299823-1-miguel.gazquez@bootlin.com>
+In-Reply-To: <CAAsoPpV1WtUsPRtuRHQb8VuCvMHYHG2K-NU-LKGhFL6rWBdZHA@mail.gmail.com>
+References: <CAAsoPpV1WtUsPRtuRHQb8VuCvMHYHG2K-NU-LKGhFL6rWBdZHA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,18 +46,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> commit a6dea58d8625c06b9654c0555f101742481335c3 upstream.
+> Could you please pick up the following mainline commit for all
+> applicable stable trees?
 >
-> The global static blocked domain is a dummy domain without corresponding
-> dmar_domain structure, accessing beyond iommu_domain structure triggers
-> oops easily.
+> commit 875115b82c295277b81b6dfee7debc725f44e854
+> Input: ims-pcu - fix heap-buffer-overflow in ims_pcu_process_data()
 
-Thanks for the backport, but I don't think 6.12 needs this one. The oops
-is not reachable on 6.12: the blocked domain has no .set_dev_pasid, there
-is no PASID-level replace path, and the FLR-reset flow that reaches the
-remove-dev-pasid code with a blocked domain landed after 6.12. So the
-added early-return would just be dead code there. The fix is already in
-7.1 and 6.18 where the path does exist, so I'll drop this for 6.12.
+Queued for 6.18, 6.12, 6.6, 6.1, 5.15, and 5.10, along with the
+follow-up logic-error fix that Fixes: it, thanks.
 
 -- 
 Thanks,
