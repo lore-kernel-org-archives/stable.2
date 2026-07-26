@@ -1,62 +1,64 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C452BE65F
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 11:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06FB38BF76
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 11:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785065559; cv=none; b=aCvxNSvTDGVGMBC6f8Q+CjQknp3yCHk/4K1FyuuRZmbtCSHMnxy1rzg7xDR72Zfv2spBqaRCn0hKuHmSjVIIsxnqqUtB9pJ9tO+HzQcAXWwB+DZualO0p7SkEx1eds71UWXyxB5XZuKxul8hJm5weib5Bvoj6yaFsd0hAdVHpF0=
+	t=1785065561; cv=none; b=ZeWM6HScqBaXilelfOtmeITfCee3pAra7IEX5F8gPeLEIlDnXL0Dp84qFql2z/PxpsjNIGW/xkoVIw2EAtawZUIx5H+4OnnolB3cLTlN+gSKneHCAmkgf/wgEL/l9QjG24qGW+wfFXJRv2HMz0O3yY2o2opvGor0oZqXVnn7zb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785065559; c=relaxed/simple;
-	bh=YgfpfgE1On3sKHo6BvwUe+munCme3srUBUyovRvl9UY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dfS8yqnCrHX7R0pmB8Riu9kdPNdn/6P4vr4ewUJDpovcYqQmyZDghqG5pKGSsEInAbUncpa6WclTF5UMIJw6E6jUVnPl0+MnL3Kvfm9YYgKiZWDob+SnS1hitFOwUfxLgOaSpVlK+KT4ofJYS/r/BgdfN7A2Q5AWNj+EbAxINWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io; spf=pass smtp.mailfrom=meshstor.io; dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b=OSGX6LbX; arc=none smtp.client-ip=209.85.221.47
+	s=arc-20240116; t=1785065561; c=relaxed/simple;
+	bh=cRH7W6syefYxFA3VhhN4QvzFBoE55r52A/E6t9wrD1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mni1lB4Md/xLgUMKyS4jCHup3U05iF8ZpTpuW5dpnj1PzNJFLfjR/DdC4QugqJWWIoZdsSDtAqLzNmSNih1JEgTI952/TX5VNjHZGutEiftOg84xAM7ArkoMIgUQFanq/KyhEBQ90VdkEUknnBMo933KGp0yCcv6YVDr4SqGJ5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io; spf=pass smtp.mailfrom=meshstor.io; dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b=iCUrjlGZ; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meshstor.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meshstor.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b="OSGX6LbX"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4758bd3731bso1263152f8f.0
-        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 04:32:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=meshstor.io header.i=@meshstor.io header.b="iCUrjlGZ"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so1532493f8f.2
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 04:32:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=meshstor.io; s=google; t=1785065555; x=1785670355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1Z37TstzxvLPhvEDUnNTL3PywZ4xjkcbPX0WwT+YK50=;
-        b=OSGX6LbX76Zqq2kb96PLZpasCB9IkQdkf/FxFirQzWlppmHzHIkVwIkMSsVhlV6dzp
-         hrTvEif46cVHBUMJUlNw4bqMd6krHBUysk0fV0YAYkMNGSfr8sykr1Z50//XkyfrlKe5
-         jYvEEFYP1PWvArF6+PtPDYki+BXnDE8LmdhKkIdsFQ4aqwRVK38atattfvMqzPb83zT5
-         9SVUbFVu1pJ3JMDvjjuJZMHNvnMbTvPiwJ5y//1+Ye7wUn3g5FTJIdZhxwoYd9Ar9j2O
-         PWx9/bwXI56c0JOWOo/4xQkDTz1yFdB24O493/lMabcWNKT3hJ0vsuBuxRAcLpWXML4o
-         yatA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785065555; x=1785670355;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=meshstor.io; s=google; t=1785065557; x=1785670357; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1Z37TstzxvLPhvEDUnNTL3PywZ4xjkcbPX0WwT+YK50=;
-        b=UQ0wNl9DSiNBxkyxvEgKGfE2ppS8UL0iV0GoWcnLVHpu/0rlz5GOgGd6ycKUPo+ZJM
-         NfXn7LN+oXyvtYEzUPHXWU84MHqUPJSAIun+DJQ8J0clth9FcmxYar1VmhIL14Se4Lir
-         L7j60vomEg1XBQQQTBYlX1NwjEis8soLnmUiIreT1VoA4Wd0HyPQlWl7Y5tioryS+Wru
-         0bN42VF7ksysEdxEmr2CogOjvy0IFJJHieAq3N7P+ffYXWx/6OQJ1jUdQnmfYdV3+gQB
-         ffquvKL2sXotxH/D5ymF+Cz1zs5p+oT1j8WW4DOiZqSYDmFT/xTSPdVeG8C2+RqMttV9
-         ZlBw==
-X-Forwarded-Encrypted: i=1; AHgh+RqvPJJfnK8ZHMOqjaWZYrN6gs7q3+xs6IKMbIH9W7DX+i3129KJpsGRJgGqQDxqyBB+nJ/EMLw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRQOsKrhig/XOzlm5TpBMbIGhVqK+aKhhdw2M5AM7gGoCqKiVm
-	NvvcCeTsDbGgKEWrTy1nw9xVWWBX0yOQhDb3bFrkZXq4fBylQd+na8VDSNpF8z62yw==
-X-Gm-Gg: AR+sD116J0KwKRzZdg+oJRbUagtNCNVo+HRp+uDrbvjAhtmNX65bdCzUhCImLcDiyyy
-	PSxyu6U2ugwJOxmBL1fXcYNNa6EWrkTbnH+fN6aUjG4N9zZ3+rupaF/GYBUrZOkpN4OZj22926j
-	iaJ/rHGr5YV3Dyi9EK20Y018Ihkq1LXUmtPspmevUrTrOmxNMcSdkEAT4j9QvDB+zFoFJb1iFek
-	3NFniWidPdYgiPh7ubNNd/sEvoNYyM9xS+4dZB1htK7D9BHA64ENajcm1iEo/7Rf4/MD5kEsp8O
-	UYBRnyVTAstk04/uIM38FPVhkYaQ0G75GCm/3y8JmeY3dx+ro8eRKqEfGU5IfzDULBfrhZIr76s
-	nDd/a5sMilTNdnU7uyViYa73yLIvnY2cORaCmNrsnrcPV1apE92Z7qY/ZeCdpUXxLrXQT0vz370
-	PDKxuT3Z7XuI1W+DrZsps108d02bPq+IYOafQDHIHF+87pVxEOFOKi/QUa2oEQPUy/ZeV2l1c+b
-	tFduQkRbxqxHDi3NSeohV1sXouEDFW6a8BkvGB+RQ==
-X-Received: by 2002:a05:6000:490b:b0:47f:9158:5924 with SMTP id ffacd0b85a97d-47f9fc9c6c8mr6246245f8f.9.1785065554907;
-        Sun, 26 Jul 2026 04:32:34 -0700 (PDT)
+        bh=LNWXk+rlZiNRYyXRDGVV7qCvY4AZPHPO/XYCzCCpSWs=;
+        b=iCUrjlGZRTnRycnm44bhvE6KESyl6CPlRBFaqy1scd6HtQ3mzTeRQmEcSph/Jwx2jb
+         3Lx2khsCVyQO1x3j1jrd3SU8kGfPXuQIfa8JK1SRDdC5vxhNIV0FXnxksrxuhnq5aaSw
+         VEgxUPzxsAsrZ5Oa/gdaa9zyewbGoh5VsTRdf3OOXpFOZ18Ftv143Z7aA70+ODdBOC42
+         tkNuPZiZDXmzV9jTnoZc99lFxvF+yB6JjYrg7BG+hRpRot6neyOlAh0TaQN9aYVMc2gB
+         vSig2bu8v9Kin9PFG3+hz06JjxjxuUWAfB3AWOn4pibSuUXWVUNPeG8F0iTMjtLW/6Rr
+         DZXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785065557; x=1785670357;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LNWXk+rlZiNRYyXRDGVV7qCvY4AZPHPO/XYCzCCpSWs=;
+        b=gbIU82UTkqQYCbQjfpKAn5/EtH5kca5KSdlnxZDBRzevhM/Za8lIesbVOXB+lYXF5c
+         bCgSDwEOBogQc8EOniSCL11g0Ii42TnOc8/EL0PuKnyXQka4DHSwL/SUMgt4VqPaaRkJ
+         A6BK0zO18sVBA6iU9YLhfUozI6gB5xBz5DX8FgKsuhaxL3PDhgP6ObzzRqUsBesdivm9
+         VEEqikcwZWbb2uLPItI0DzHl4H1BNzkssJ8KYWFbeTC0PvImbv29rvMljfo7u9MSiDwi
+         ieeh2LVmYaeUSGutYcTCx3qgeXrhgxCjVVGZUJlL3MEh6OgxP0u7GjRsf1HtlIwUHHjC
+         asMQ==
+X-Forwarded-Encrypted: i=1; AHgh+RovpR/MzoEIhbVTyDn5BnRQ//H1DsZYiD6esuZfTo1DOBRYO07z+SBEpeNyYKUlmalzpSVy1bE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/lCc5ea7KAKhEN9C02eYK2F8FdtrJGWq6OlORNqYPVGCiGW0J
+	CQslX/7Yp3AYpZ6YHmWiP+6QjNtodyYVWm8mPcd9vUhPU+tpW5simQ/YBsdNsGKWeA==
+X-Gm-Gg: AR+sD13nU5p5qBPHhV8XKrmmdgxJv3EXWiSQvQ1p+9fTxB3+ai4nMJNv/QWne0/yG4p
+	Ag4gsLXP1ODO5wlgql5qDXyyji77S2UGfrx8Seb8eLtmGbcSUT4lPnbBmcBZfHForIr4BT7QQnq
+	fFHfwJWy03ykIWO9NE8AIVCmYAAzLotxnWDXJsVNRUp0wJsfK6LKcTDCrc1KYtzV5T+s+sKEI5T
+	Fb/N6USSWaQojdopnz+GKLga11K0Ej9hAL6+9kwh2s7ifIwDZa2AVpJpYl0vRXvvKmkgdhw1d4j
+	oKlDps+9Whc5DeEaQDqSszKJd3c+OWS6PjGwqx7zsDf/9rDO1D4nC/1tdlsYgMwrgDtgWdgGfZi
+	E2saJCdrZn0iUNObbOdcSKwHKg8BQEbBGwyLsWgm5X/ytlZPEXIIs+Nea2pYaVB7UL1GsJN5cgj
+	yBivmVCYCvftXSEO2Xo3BH5EqJBboCRoDmf5zX/V1nazVR5qgtPPLveYOrONbirsSpLxbaWcMWF
+	yLXhjoSSsQkqFm63ZkgkaYLFd+uMzyZp06GdpAfeNARsQ9YaZke
+X-Received: by 2002:a05:6000:4012:b0:47f:93e1:e7d0 with SMTP id ffacd0b85a97d-47f9fea2d2emr6157677f8f.36.1785065557128;
+        Sun, 26 Jul 2026 04:32:37 -0700 (PDT)
 Received: from meshstor-pc ([185.87.42.56])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb57cfsm40533083f8f.11.2026.07.26.04.32.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85bb57cfsm40533083f8f.11.2026.07.26.04.32.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 04:32:34 -0700 (PDT)
+        Sun, 26 Jul 2026 04:32:36 -0700 (PDT)
 From: Mykola Marzhan <mykola@meshstor.io>
 To: Jens Axboe <axboe@kernel.dk>,
 	Song Liu <song@kernel.org>,
@@ -85,10 +87,12 @@ Cc: Li Nan <magiclinan@didiglobal.com>,
 	linux-pci@vger.kernel.org,
 	Thorsten Leemhuis <regressions@leemhuis.info>,
 	Martin Wilck <mwilck@suse.com>
-Subject: [PATCH v6 00/12] block,md,nvme: correct handling of unsupported P2PDMA transfers
-Date: Sun, 26 Jul 2026 13:32:17 +0200
-Message-ID: <20260726113229.2154269-1-mykola@meshstor.io>
+Subject: [PATCH v6 01/12] block: add BLK_STS_P2PDMA for unsupported peer-to-peer transfers
+Date: Sun, 26 Jul 2026 13:32:18 +0200
+Message-ID: <20260726113229.2154269-2-mykola@meshstor.io>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260726113229.2154269-1-mykola@meshstor.io>
+References: <20260726113229.2154269-1-mykola@meshstor.io>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,121 +101,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-md treats an unsupported P2PDMA transfer to a member as success, and
-nvme-rdma retries one forever.  Whether peer memory can be DMA-mapped
-depends on the PCIe topology between the two devices, and since v6.17
-the failure completes as BLK_STS_INVAL: retryable for multipath and
-deliberately ignored by md for member failures, so mirrors silently
-diverge.
+From: Logan Gunthorpe <logang@deltatee.com>
 
-v1-v3 restored BLK_STS_TARGET for these failures and tagged P2PDMA
-bios in md.  Logan Gunthorpe proposed a dedicated BLK_STS_P2PDMA
-instead, so no consumer needs to know whether an I/O was P2P, and
-wrote the core patches; v4 onward is built on them.  Patches 1 and 5
-are his and keep his authorship.
+blk_dma_map_iter_start() reports BLK_STS_INVAL when a P2PDMA transfer
+is attempted between two devices whose PCIe topology cannot route it.
+blk_path_error() treats INVAL as retryable, so multipath requeues the
+I/O forever, and callers cannot tell it apart from an invalid request.
+md also ignores it for member failures, so a mirror silently diverges.
 
-  1  block: add BLK_STS_P2PDMA (stable, v6.17)
-  2  md: ensure REQ_NOMERGE is set on P2PDMA bios
-  3  md/raid1: serialize non-write-behind writes on CollisionCheck
-     rdevs (pre-existing bug patch 4 would widen; stable)
-  4  md/raid1: no write-behind for P2PDMA bios
-  5  md/raid1,raid10: factor out raid1_write_error() helper
-  6  md/raid1,raid10: keep REQ_NOMERGE on narrow_write_error()
-     retry clones
-  7  md/raid1,raid10: skip futile retries on P2PDMA mapping
-     failures
-  8  md/raid1,raid10: set IO_BLOCKED in case of BLK_STS_P2PDMA
-  9  nvme-rdma: use ib_dma_map_sgtable_attrs() (stable, v7.1;
-     dependency of patch 10)
- 10  nvme-rdma: return BLK_STS_P2PDMA (stable, v7.1; needs patches
-     1 and 9)
- 11  nvme-rdma: ratelimit the map-failure error message (cleanup)
- 12  nvme-rdma: factor out the scatterlist DMA mapping helper
-     (cleanup)
+Restoring the old BLK_STS_TARGET would stay ambiguous -- nvme maps
+NS_NOT_READY, LBA_RANGE and CMD_INTERRUPTED to it too.  Add a dedicated
+BLK_STS_P2PDMA, non-retryable in blk_path_error(), and return it from
+blk_dma_map_iter_start().
 
-Routing: patch 1 block, 2-8 md, 9-12 nvme; 7, 8 and 10 use the new
-status.  Patch 1 alone stops the divergence and the dm-multipath
-requeue loop; the nvme-rdma loop also needs 9-10; everything else
-refines the fallout, so the series bisects safely.  The md patches
-fix a v7.2-rc1 regression (02666132403a), except 3 (older bug,
-stable) and 5 (refactor).  11 and 12 are cleanup only and can be
-deferred if you would rather not carry them at -rc.
-
-Tested with the QEMU raid1/raid10 error matrix and a ConnectX-4 Lx.
-After patch 1, block-layer error injection accepts status=P2PDMA, so
-the md completion paths can be exercised on any member with no P2P
-hardware.  The patches were developed with AI assistance (see the
-Assisted-by trailers); all code was human-reviewed and tested.
-
-Against v7.2-rc4 (Logan's base).
-
-Changes in v6:
- - patches 7, 9, 10: picked up Logan's Reviewed-by; on 7 it replaces
-   his now-stale Signed-off-by, as he asked
- - patch 10: the map-failure ratelimit conversion moves out to its
-   own patch 11 (Logan); the stable note now names both prerequisites
- - new patch 12: the data and the metadata mapping share a helper
-   (Logan's suggestion on patch 9).  Kept out of 9 so the
-   stable-tagged fix stays minimal
-
-Changes in v5:
- - patch 7: From: is now Mykola, at Logan's request; patch 8 follows
-   for consistency.  Logan keeps Signed-off-by on both,
-   Co-developed-by on 8
- - patch 8: raid10 declares bio up front and bi_status sits in a
-   blk_status_t local in both files.
- - old patch 9 split: 9 is the mechanical sgtable conversion,
-   10 the -EREMOTEIO -> BLK_STS_P2PDMA translation; both stable
-   since 10 needs 9
-
-Changes in v4:
- - new BLK_STS_P2PDMA (Logan) replaces restoring BLK_STS_TARGET; the
-   R1BIO_P2PDMA/R10BIO_P2PDMA state bits are gone and the md changes
-   shrink to completion-time status tests
- - blk_dma_map_iter_start() gets the explicit
-   PCI_P2PDMA_MAP_NOT_SUPPORTED case (Logan's patch; v3 kept
-   default: only)
- - write completions record the whole failed range as bad blocks
-   instead of narrow_write_error()'s per-block retries; v3's coarse
-   retry is gone -- the new status is deterministic, nothing to
-   re-attempt
-
-Link: https://lore.kernel.org/linux-raid/20260718162547.448892-1-mykola@meshstor.io/ [v1]
-Link: https://lore.kernel.org/linux-raid/20260719105327.864949-1-mykola@meshstor.io/ [v2]
-Link: https://lore.kernel.org/linux-raid/20260721174502.111503-1-mykola@meshstor.io/ [v3]
-Link: https://lore.kernel.org/linux-raid/20260722185841.449934-1-mykola@meshstor.io/ [v4]
-Link: https://lore.kernel.org/linux-raid/20260723204206.76930-1-mykola@meshstor.io/ [v5]
-Link: https://lore.kernel.org/linux-raid/9f846c85-f427-433a-b87d-8e9e3a4406e7@deltatee.com/ [Logan's proposal]
-
-Logan Gunthorpe (2):
-  block: add BLK_STS_P2PDMA for unsupported peer-to-peer transfers
-  md/raid1,raid10: factor out raid1_write_error() helper
-
-Mykola Marzhan (10):
-  md: ensure REQ_NOMERGE is set on P2PDMA bios
-  md/raid1: serialize non-write-behind writes on CollisionCheck rdevs
-  md/raid1: don't use write-behind for P2PDMA bios
-  md/raid1,raid10: keep REQ_NOMERGE on narrow_write_error() retry clones
-  md/raid1,raid10: skip futile retries on P2PDMA mapping failures
-  md/raid1,raid10: set IO_BLOCKED in case of BLK_STS_P2PDMA
-  nvme-rdma: use ib_dma_map_sgtable_attrs()
-  nvme-rdma: return BLK_STS_P2PDMA for unsupported P2P transfers
-  nvme-rdma: ratelimit the map-failure error message
-  nvme-rdma: factor out the scatterlist DMA mapping helper
-
+Fixes: 858299dc6160 ("block: add scatterlist-less DMA mapping helpers")
+Fixes: 7ce3c1dd78fc ("nvme-pci: convert the data mapping to blk_rq_dma_map")
+Cc: stable@vger.kernel.org # v6.17
+Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
+Signed-off-by: Mykola Marzhan <mykola@meshstor.io>
+---
  block/blk-core.c          |  3 +++
  block/blk-mq-dma.c        |  3 ++-
- drivers/md/md.c           | 10 ++++++--
- drivers/md/md.h           | 15 +++++++++++
- drivers/md/raid1-10.c     | 16 ++++++++++++
- drivers/md/raid1.c        | 47 ++++++++++++++++++++--------------
- drivers/md/raid10.c       | 27 ++++++++++----------
- drivers/nvme/host/rdma.c  | 54 +++++++++++++++++++++++++++------------
- include/linux/blk_types.h | 10 ++++++++
- 9 files changed, 134 insertions(+), 51 deletions(-)
+ include/linux/blk_types.h | 10 ++++++++++
+ 3 files changed, 15 insertions(+), 1 deletion(-)
 
-
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+diff --git a/block/blk-core.c b/block/blk-core.c
+index 365641266c9e..83cb5464265f 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -177,6 +177,9 @@ static const struct {
+ 
+ 	/* Command duration limit device-side timeout */
+ 	ENT(DURATION_LIMIT,	-ETIME,		"duration limit exceeded"),
++
++	/* no PCIe P2PDMA route between initiator and target */
++	ENT(P2PDMA,		-EREMOTEIO,	"peer-to-peer transfer unroutable"),
+ 	ENT(INVAL,		-EINVAL,	"invalid"),
+ 
+ 	/* everything else not covered above: */
+diff --git a/block/blk-mq-dma.c b/block/blk-mq-dma.c
+index bfdb9ed70741..e88d6b3524e6 100644
+--- a/block/blk-mq-dma.c
++++ b/block/blk-mq-dma.c
+@@ -189,8 +189,9 @@ static bool blk_dma_map_iter_start(struct request *req, struct device *dma_dev,
+ 		 */
+ 	case PCI_P2PDMA_MAP_NONE:
+ 		break;
++	case PCI_P2PDMA_MAP_NOT_SUPPORTED:
+ 	default:
+-		iter->status = BLK_STS_INVAL;
++		iter->status = BLK_STS_P2PDMA;
+ 		return false;
+ 	}
+ 
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 8808ee76e73c..c8de7809320a 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -165,6 +165,15 @@ typedef u16 blk_short_t;
+  */
+ #define BLK_STS_DURATION_LIMIT	((__force blk_status_t)17)
+ 
++/*
++ * BLK_STS_P2PDMA is returned when a peer-to-peer DMA transfer cannot be
++ * mapped (typically because there is no route between the initiator and the
++ * target that the platform's PCIe topology and ACS settings allow). This
++ * is a property of the initiator/target pair, not of the target device's
++ * health. This error should never be retried.
++ */
++#define BLK_STS_P2PDMA	((__force blk_status_t)18)
++
+ /*
+  * Invalid size or alignment.
+  */
+@@ -188,6 +197,7 @@ static inline bool blk_path_error(blk_status_t error)
+ 	case BLK_STS_NOTSUPP:
+ 	case BLK_STS_NOSPC:
+ 	case BLK_STS_TARGET:
++	case BLK_STS_P2PDMA:
+ 	case BLK_STS_RESV_CONFLICT:
+ 	case BLK_STS_MEDIUM:
+ 	case BLK_STS_PROTECTION:
 -- 
 2.52.0
 
