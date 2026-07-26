@@ -1,125 +1,91 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234E41A6809
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 02:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C622F1FD7;
+	Sun, 26 Jul 2026 02:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785033028; cv=none; b=dcS4+sEYwISVDJOo5ymU1+C57V+va1LzTp3l3q5rocCTErDkO/kTbygkg2JHakfQJkeqZcxMK1IwKC6M8HKsxH34UM7FGdiWMNFR99NWJTxHNUzedfO251CR4ZXzUBNpZGJ/JIa3bFgSPE84oDJ+WCN+0gr8mBFTxu4Iy4+V7Qw=
+	t=1785033328; cv=none; b=WIKHAnYmGqOzI5Fq1P1z0C+wRiyMv85a5yrhGdT9MIQH+1SQLY3U+dYkO10Gw6xOvD4tt9305pYYblidejL34eHhd55FWjo0VlxstUvjLSFebycG1Tq2Fh4yeanFgk4Tk/oB+Ip/FmQLbDuNRWMTMwTyiUeCQ0K8/A0H2iqpYuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785033028; c=relaxed/simple;
-	bh=QyLMxtkfypfTotWLFYlbEkgz1iQ0zdixNdrfqJpD5Zc=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=fS9HhmwuQjrtXfEky5GQOzuUAemh0I/NMSojRlwe6h5IIkHtIIroisaSmsR+cGfo7TJNrYScK2SjQ/rES4+I0yPtLHytgPgnhT9JROEXLJAwQx1tBy2K9ztUm8y92XjRqXEfY9XmZqJ9YBe3I7/u+KFIoaXGnzsd74e8zon0a/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=fPma47c2; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1785033328; c=relaxed/simple;
+	bh=REb1RYhi+Yn1rmmlumWNaH8hVXTrwZ2Qp35ltHgqeVI=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=WeY284TonMhaB5G8JIrqSCTpnA6ej5GsO/aLtebA60kTIGiqaMHtMZlMLplWBCOUirL+b9iWg025bdtLPlGnbEupSxZHYmz/nwOubgCBvrC8nefO3VcpozDmORbqzSFIhW6cSXg9Aevd3WNjoY9AbWGo735XhjBFAUMJiq/EVPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8O2e710; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="fPma47c2"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cf6d65d8a7so24878195ad.0
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 19:30:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1785033026; x=1785637826; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4uhEkXuPBfb7eHgRjPjeCdS/Nrqf/nP68xih9nV6mXM=;
-        b=fPma47c2M7MKr439on7yazVCjI1LmY8qg15TVCBd/10UHvwxP78/aCB2Vu4+d2YUL0
-         d/JHXUVqAgY+FLzwKOQxbtH/I0Gwvqto2n3RnCEowDGhnhqSdP0R3i0aSCp6aq9N9OYK
-         U/IhS1QVYsVEzWbmElIUdcBNXDYupvLROs5a0UUWxB8C+dFu3AMhnAtVQsjPJ22GLexv
-         vBVe/yMQEy9Tx6OLtgC26yK1a/jjfdLowDkw7J5OblRp1iPRunvD6ccQjaRmixjSovls
-         vLOcOxFILJ0ZOWF8tTvlf79F+G+ktp+D1dj9NsZDUmY7H+ftSgTdrJZMUP8iwVtPkCPW
-         B0Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785033026; x=1785637826;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4uhEkXuPBfb7eHgRjPjeCdS/Nrqf/nP68xih9nV6mXM=;
-        b=gdXUBOUQcdGhyAAOYANzpBFb+crsqlG6pzY3NK4V9//PELdvmaohIQOZmnixyC93Vl
-         KsV9GqiGtPQzzZR/KRf9MxHwijpe0Oud7Nu8sQQkn7ZYow8EyphQbHuSg9ayQPom5DIc
-         ZLjmCgMTitHN3brU4pCOwfcB3UY840XzM4WBzI/m3NL22BzHl6vUcVwKabQoM8S50rat
-         kVfbk09HGwrGkBzflYKYk6ofq0dU7B2fIqx8v946O0j4bFv2LLD3iK/VZsMW6+mUGrBZ
-         gKnkQIF4kvEROjEE/LcXeeO7CEAz5FXJD34NMrkij3pQSc8izcsdlLZLdK/jiJEZOYh0
-         DbEQ==
-X-Gm-Message-State: AOJu0YzvuVooGbXU9W7cFDGSLxYpUIWc+p9lsWxxaq0QZcCMzu9qftMy
-	Mlr2wVerPiSl2pIWTGPfKV8YIHYFLdqNfF5ppeshbuyE1Ukln9rxwObsWX50TNuVRLqmComs5ze
-	Y8SjL
-X-Gm-Gg: AR+sD11t+2ilZQ5ObmVMwwAmbPy2dthvlX/nfwAlZnvI5d8kOHZ+gK/T0bmQmuT8YJL
-	DsMD5+N8PM+HhbSsuc9L5MOS6qGzuwDv8rF4dp0oQqS3ayIsMX9YqiUjWTqeHGw2dx56vCtXXNK
-	uvEqFukVBVmB8kFMa//P/TlunjA849FEesKRNo7qtjJRD6gHz0pt7eDXvYbpBYr7G1DKY8PbUe1
-	1SP1gBfx7Xrfp3kQSzVAg+yIk2kkvIzOlcGgnvoLcwMEZybpfoNo+BfkcodQrf4vNNZhZvD/mG6
-	dDsTLSrwjnVX8PkUQCqzGE4e/JiVbNCltmkCuvOK0D4pDDLHwbUx/4VvPi7cMCKdC00foeiy2jj
-	bCL8kXbbpVXHvoT/0TrwVgkQO7BXBVeTG6aIgky6op4xIJLlrs45XkvTeYqOoRTaJE57AGjK1xa
-	GxnAz5gQ==
-X-Received: by 2002:a17:902:e544:b0:2bd:c925:3a16 with SMTP id d9443c01a7336-2cfde796a32mr39880235ad.2.1785033026401;
-        Sat, 25 Jul 2026 19:30:26 -0700 (PDT)
-Received: from 92650adf53de ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc549cacsm15648886eec.16.2026.07.25.19.30.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 19:30:25 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8O2e710"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6BA71F00A3F;
+	Sun, 26 Jul 2026 02:35:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785033326;
+	bh=47zt0EKTNUZslwP4KjyNWZDPVBSfqLVOwueSHNPSEP8=;
+	h=Date:From:To:Cc:Subject:References;
+	b=D8O2e710zXVeLLbmeWtnoNxAsh89M5z5u8JUgvyR4Xwo+5PbaJ2Xgf8m/aNkWR+Rd
+	 HZalR37ehTZQ0QJ4sCnT4qAIJAEuikdCQP6oshhxCc1g5vUz/W+Xr5uT9w1MaxyY5l
+	 eVPGjgD+0kSc2oUs22BT5pG7h0LlnrE8QKaVpW43H7W1iN2EqpTl8JWh8Yi0/YYA5I
+	 F+QwQ2ykXCov30fWi1aGJQh/3SmPdQPwRTjTKnwgkY75inDNsHE7HL4oY4qQgH7wfE
+	 yZJ19D0Bc4jsoQUs+hibDU7vrYnt+SDc4uWTpCtAm5L4TD/7BrrY+4QAeQjY0KBDY3
+	 ZDHpRZV/cBnoQ==
+Received: from rostedt by gandalf with local (Exim 4.99.4)
+	(envelope-from <rostedt@kernel.org>)
+	id 1wnoiZ-00000004c0N-0hAx;
+	Sat, 25 Jul 2026 22:35:55 -0400
+Message-ID: <20260726023555.021150171@kernel.org>
+User-Agent: quilt/0.69
+Date: Sat, 25 Jul 2026 22:35:44 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org
+Subject: [for-linus][PATCH 2/2] tracing: perf: Fix stale head for perf syscall tracing
+References: <20260726023542.092577615@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [STATUS] stable/linux-6.12.y -
- 588b2d2beb4b3d1878a7fd9cdc876bab53326476
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Type: text/plain; charset=UTF-8
+
+From: Steven Rostedt <rostedt@goodmis.org>
+
+The code that can read the user space parameters of a system call may
+enable preemption and migrate. The head of the per CPU perf events list
+may be pointing to the wrong CPU event if the code migrates the task.
+
+Reassign the head pointer if the system call event called the code that
+may have caused a migration.
+
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Sun, 26 Jul 2026 02:30:25 -0000
-Message-ID: <178503302532.1822.18065822045272102751@92650adf53de>
+Link: https://patch.msgid.link/20260724193210.03fae1d6@gandalf.local.home
+Reported-by: Sashiko <>
+Link: https://sashiko.dev/#/patchset/20260717173252.3431565-1-usama.arif%40linux.dev
+Fixes: edca33a56297d ("tracing: Fix failure to read user space from system call trace events")
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/trace_syscalls.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/kernel/trace/trace_syscalls.c b/kernel/trace/trace_syscalls.c
+index e98ee7e1e66f..8a4f3c75e39f 100644
+--- a/kernel/trace/trace_syscalls.c
++++ b/kernel/trace/trace_syscalls.c
+@@ -1451,6 +1451,11 @@ static void perf_syscall_enter(void *ignore, struct pt_regs *regs, long id)
+ 		if (syscall_get_data(sys_data, args, &user_ptr,
+ 				     &size, user_sizes, &uargs, buf_size) < 0)
+ 			return;
++
++		/* The above may have caused a migration */
++		head = this_cpu_ptr(sys_data->enter_event->perf_events);
++		if (hlist_empty(head))
++			return;
+ 	}
+ 
+ 	/* get the size after alignment with the u32 buffer size field */
+-- 
+2.53.0
 
 
-
-Hello,
-
-Status summary for stable/linux-6.12.y
-
-Dashboard:
-https://d.kernelci.org/c/stable/linux-6.12.y/588b2d2beb4b3d1878a7fd9cdc876bab53326476/
-
-giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-branch: linux-6.12.y
-commit hash: 588b2d2beb4b3d1878a7fd9cdc876bab53326476
-origin: maestro
-test start time: 2026-07-25 06:18:41.304000+00:00
-
-Builds:	   56 ✅    0 ❌    0 ⚠️
-Boots: 	   98 ✅    0 ❌    0 ⚠️
-Tests: 	13590 ✅ 1175 ❌ 2821 ⚠️
-
-### POSSIBLE REGRESSIONS
-
-  No possible regressions observed.
-
-
-### FIXED REGRESSIONS
-    
-Hardware: mt8195-cherry-tomato-r2
-  > Config: defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y
-    - Architecture/compiler: arm64/gcc-14
-      - kernelci_watchdog_reset.wdt-reset.wdt-get-timeout
-      last run: https://d.kernelci.org/test/maestro:6a645d9b798ea6c1ef6ea7a0
-      history:  > ❌  > ✅  
-            
-
-
-### UNSTABLE TESTS
-
-  No unstable tests observed.
-
-
-Sent every day if there were changes in the past 24 hours.
-Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
