@@ -1,45 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A748531AA9B
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 12:05:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C68531AA9B;
+	Sun, 26 Jul 2026 12:05:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785067509; cv=none; b=O2L5bjm+GR+MRLac6IA9/W773s0QAirXwd0QW9IXVsBdG6kYja4Pi5vPkD2sYzqIM9pzhWFRjG/Maws7P5UfnkIjBZjtoox7nrPtHc332m1/95gLIUoLguBwPswweFjCMY7xO9dC7w3V0GTsk7YmqT72fwbWlziLJ/hgpDAI9R0=
+	t=1785067511; cv=none; b=ds1P4Cd/mkxxVaK4FU7S/oLnpRiMwejFcOn8YhOwZMkSXLMSqk5e/P57aap3nTAHCUUz0201sGRUBoTNEi/0cY4mdmz+H/6mxcf/0XzxHofLUwMTIGsNRPtpV8jXg5GEbwFuk7AVi9wxfv9eT1sYIUPomZhQL0GV7KcNj/WNo24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785067509; c=relaxed/simple;
-	bh=6K8D2vopIAB3r8IWN30DgjYRVY80h1yLRAdA8pQnL5g=;
+	s=arc-20240116; t=1785067511; c=relaxed/simple;
+	bh=p0NintpkwuT6uW6wiyrjMufXH/HtS/070ewzaVAZCxA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g5n2rGvIXnMjW2HKcS4dN2mKqleXLGnqd4FG3UVzw/j1ZMuyZJ7O8CJ7qtL7e3aeLOI89Y/1RzgnwS4lI7n1R33H04Eb9e0ug53Ng0cgNTdZ3E/15kARJB+aSOhC9dSgg5PyItLEBZ677z/5ubtZxIrvRC0tjWHrsU1PGf6tBnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ot+pZ0yu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=apgeg34Z8OZ6vKbVfDQToGWGHEso4Mp8ihnjzRsSAHVjXUuPEWRaTAgidb5wJCvlJJGh4RubXmjphgFwShWlI0auvvmAgaunfUsN1AOv2/RAMh04Lr5R6e+WTDGg8GJ2tG0IloNaXo5sGKwvo4LR6BkbDdmy64SFi+AbKlLPR6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQD/0DpT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ot+pZ0yu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1C21F00A3E;
-	Sun, 26 Jul 2026 12:05:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQD/0DpT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB1F1F000E9;
+	Sun, 26 Jul 2026 12:05:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785067508;
-	bh=Iv135MTdSimsQCQJCBvM8SOICHPNETxwT/oGqNxUlqM=;
+	s=k20260515; t=1785067510;
+	bh=o5Ujc7ay7eT7tA1pAnDWUFx8gMbzba78pJTfMPykI7w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ot+pZ0yunbH+y3+7qj4xdFWYx0ncdsMGzUjDYnswMWqc2Zhrp6LXIaIaYN6QFUyQo
-	 T/XhdNuSOAipItWr0lhi5MTZbghzFyPqY+/4UTy9/ErYj2Prd1DTfsjJqYmq0yyx0U
-	 +co/7PMv5BqPX4mBlvuSxiIQ6XVaqXplKJ2t6j6tnaVS3YNDJr2pccHh1/vTJKndJW
-	 T7fARHWt3RqFlj2xbfOexaLX+4A3ucQycndLmjXB7YyU62qC8tL6X12KLPZu+3699h
-	 tnq2M2vlvgu2Ti/AUQspjDHuWCbtVhkVOnmptjLtK53WfQgphmv0dgqZ5eKWIWgAyt
-	 98M5b1Hj6Xegg==
+	b=cQD/0DpTbp5wGaWV0+JOgibGevkY/tCFS+4gS/ZVld0OjpOutUdpAbI+eCv/IRMEM
+	 cfg3Q8fvazOwM+wNsYbH/u3LhIX7mptbMHh5EeN6Lj3AeEmbffSqhQ0kEXRMIUkc2u
+	 hKHiRC+hMH4cUdvKLbiWLIwaKBI7rtNzfdKzTrsggCvi0wQiXaQZ0S8ZXALAGtgo2R
+	 0HNpS6tp1eLEn9UzoLsPNOHevS0qaSHSpUNEdyb/NH1FqouekQqvF5tUD0s1Da38Dv
+	 r7V6dfRF86TUesiYlpBN7LRU6XMGQzOOdHBN9rqz4juwcEWpmc2iMb+AQhqtr/kbST
+	 OHxL6VPiHNJ2g==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	John Madieu <john.madieu.xa@bp.renesas.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH 6.18.y] dmaengine: sh: rz-dmac: Move interrupt request after everything is set up
-Date: Sun, 26 Jul 2026 08:04:50 -0400
-Message-ID: <20260725192000.stable-0011@kernel.org>
+	patches@lists.linux.dev,
+	Roman Li <roman.li@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Tom Chung <chiahsuan.chung@amd.com>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	Wayne Lin <Wayne.Lin@amd.com>,
+	Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+	Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	vegard.nossum@oracle.com,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 6.12 0454/1276] drm/amd/display: Add missing kdoc for ALLM parameters
+Date: Sun, 26 Jul 2026 08:04:51 -0400
+Message-ID: <20260725192000.stable-0012@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260724125909.2967032-1-tommaso.merciai.xr@bp.renesas.com>
-References: <20260724125909.2967032-1-tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <f3983301-c8db-4071-839c-d153b7e0efbc@oracle.com>
+References: <f3983301-c8db-4071-839c-d153b7e0efbc@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,13 +56,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> commit 731712403ddb39d1a76a11abf339a0615bc85de7 upstream.
->
-> Once the interrupt is requested, the interrupt handler may run immediately.
-> Since the IRQ handler can access channel->ch_base, which is initialized
-> only after requesting the IRQ, this may lead to invalid memory access.
+> I would suggest dropping afefa5685cec from 6.12.y. Also this is a
+> documentation patch and not a stable-dep [...] so lets drop this.
 
-Queued for 6.18, 6.12, 6.6, 6.1, and 5.15, thanks.
+You're right that on these trees mod_build_hf_vsif_infopacket() still
+takes only (stream, info_packet), so the added ALLMEnabled/ALLMValue
+kdoc documents two parameters that don't exist and trips W=1. That said,
+it's a documentation-only change with no functional effect, and the same
+backport is queued on 7.1/6.18/6.6/6.1/5.15 too. I'd rather leave it in
+place and accept the cosmetic W=1 note than churn a doc patch across six
+trees. Thanks for flagging it.
 
 -- 
 Thanks,
