@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41F329E117
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 13:21:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7CA2D8DB0
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 13:21:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785072121; cv=none; b=KJ64Zuuta7HdH8BoU7zlaIEaTcdYwJ/z6wxeqZ0MqDYcj8TKgKdOhTxXQiU6pem5Y2HL7MNxoL2po8aoIAI3BXyWgpwek0l89FFhb9vBrBkeCqMWSNayks7AecJCoH8sFDBLs2izGaPZliTXJkC0LM1pOlqtIrmFLluSTGiS13Q=
+	t=1785072121; cv=none; b=ueMSnPxQHeyALrI6l1cewwwunaWBF0FFa2Tg9JW0Xeoo1SU0Haj1JPQipXnOH7S2dqufz5/zPov5TV4XTjOBhQwlrE1EZ98ZrJRkN7GvtFrTZPE/D1IxmCXlVFnzc5en9rLOvvLBWWDy6FqBc41z27ENZJtMTC/ioUz85cC6t+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785072121; c=relaxed/simple;
-	bh=eD8Ybd/YtGFUrss+uhKc/NAW41F0GMMvTHS+jvPJLMg=;
+	bh=N0znt5OzizKjEGzO4JIRxq+UDTEYxEfRZFIU6q5gPrA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dOICkdUzFwj7l8iHot74v5qkevSvAvzmI84lq2aipH4o20Zp7J6GRoVJaJgej0Jxg4bwjoHxKOhpp7OcNHJjQiErG1XgVsy1hypL9RWSV2bWZDyls4vpBtY1SCXiDERDfknFbzYokamUoenmCDkHyE0sF++2xC8N6053LG8dfnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxWqgvki; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Z76kmm2UfG/JfoyDNuPmYSIhBadh4UwXzH3qym8POAP+yI6OhAKPXiRs+dsGvgV/dt+IlbOtrBBMBbQsZjy0kOVHZApjkU1kWtLJ7mtVrarIKocIyxwnRPK8gfFCyziti7zRk6Qnn/HOpH4CoHRvsBgAxCpHZa4rlotYO4idYfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ap3aEc62; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxWqgvki"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A671F000E9;
-	Sun, 26 Jul 2026 13:21:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ap3aEc62"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572821F00A3E;
+	Sun, 26 Jul 2026 13:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785072116;
-	bh=jKnOLLY2+kRfplvXYl4TTBmMUV1U8Z5BWX70g1tHxpo=;
+	s=k20260515; t=1785072118;
+	bh=PyQMlUybW7+Ml96tIPF9A0sS4GA5vtNFlPU43IZtDsE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SxWqgvkizqpwRvF6NLWvTM+0/GkoYd/RFRVHNggO4Wg1cBeSxJldOoLA4XclHDegP
-	 GwyjXzuZyXkzOay2DR85FywhYQxL67eEd2KqsUODpEOJWeku4E7T+jSDgOtqU7n9Q2
-	 r6/kWbCkYsbVTc4a7ckETPZxXepAutKky1hewd+LY/oLs8IxqOiic6ahSysvS4VACW
-	 AkmWoQwxDPhmTlSEw5IrsZZDIQGe/lobGo798zaShl3pCnOhnE9tu1L4l78w41uZYD
-	 qc7OSSLY/xA34hLrHST6yUvnB3IGyg+JdzjhwByr3TXO/SqycdsEJYH8yhu/3B0sev
-	 YxGqh1XJhelDg==
+	b=Ap3aEc62zhPSa9FT7E4ncmeFVSv1KyxINcj7YNyU9YACZOuGwfZE6W/gd7ERhYF5v
+	 y51zOLLMIJMeQ9aJTTo/J5QS9qMOzmbnrjkXcDjnXNn42ce3rf7vzQZ7jhL+VJam+n
+	 YnGxDY4aFD7xphfTxq5CDuPEDRQCFqYJptO0oMKpatUqAdV+y19OAts7EWmW6qCaxz
+	 OE6A2Q3NaSyFOMCHCIp4p5diPZr2ISlztkPAz/sM0se8mcZAcxrdJTRDbAgmrz1bii
+	 R+5ADaUrGY6IaGXrGyN6bp0nW19vww1UZ2XsW4o7Ie2PDANlCUCHyh/imWSiE8PDZP
+	 3cxcyEx2jiO4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Abinash Singh <abinashlalotra@gmail.com>,
-	Abinash Singh <abinashsinghlalotra@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
+Cc: Oleg Nesterov <oleg@redhat.com>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] dma: dw-edma: Fix build warning in dw_edma_pcie_probe()
-Date: Sun, 26 Jul 2026 09:21:52 -0400
-Message-ID: <20260726132154.327006-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] taskstats: fill_stats_for_tgid: use for_each_thread()
+Date: Sun, 26 Jul 2026 09:21:55 -0400
+Message-ID: <20260726132156.327047-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072011-gratified-dealmaker-699d@gregkh>
-References: <2026072011-gratified-dealmaker-699d@gregkh>
+In-Reply-To: <2026072046-broker-latter-538d@gregkh>
+References: <2026072046-broker-latter-538d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,175 +46,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Abinash Singh <abinashlalotra@gmail.com>
+From: Oleg Nesterov <oleg@redhat.com>
 
-[ Upstream commit 3df63fa8f2afd051848e37ef1b8299dee28d4f87 ]
+[ Upstream commit ed5378a387fd7c382497f2abcf4605e030b64044 ]
 
-The function dw_edma_pcie_probe() in dw-edma-pcie.c triggered a
-frame size warning:
-ld.lld:warning:
-  drivers/dma/dw-edma/dw-edma-pcie.c:162:0: stack frame size (1040) exceeds limit (1024) in function 'dw_edma_pcie_probe'
+do/while_each_thread should be avoided when possible.
 
-This patch reduces the stack usage by dynamically allocating the
-`vsec_data` structure using kmalloc(), rather than placing it on
-the stack. This eliminates the overflow warning and improves kernel
-robustness.
+Plus I _think_ this change allows to avoid lock_task_sighand() but I am
+not sure, I forgot everything about taskstats.  In any case, this code
+does not look right in that the same thread can be accounted twice:
+taskstats_exit() can account the exiting thread in signal->stats and drop
+->siglock but this thread is still on the thread-group list, so
+lock_task_sighand() can't help.
 
-Signed-off-by: Abinash Singh <abinashsinghlalotra@gmail.com>
-Acked-by: Manivannan Sadhasivam <mani@kernel.org>
-Link: https://lore.kernel.org/r/20250705160055.808165-1-abinashsinghlalotra@gmail.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Stable-dep-of: 11d7cfe0c119 ("dmaengine: dw-edma-pcie: Reject devices without driver data")
+Link: https://lkml.kernel.org/r/20230909214951.GA24274@redhat.com
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Cc: Eric W. Biederman <ebiederm@xmission.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: b3e4fbb04220 ("taskstats: retain dead thread stats in TGID queries")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma/dw-edma/dw-edma-pcie.c | 60 ++++++++++++++++--------------
- 1 file changed, 32 insertions(+), 28 deletions(-)
+ kernel/taskstats.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
-index 1c6043751dc925..157af858bbab01 100644
---- a/drivers/dma/dw-edma/dw-edma-pcie.c
-+++ b/drivers/dma/dw-edma/dw-edma-pcie.c
-@@ -160,12 +160,16 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 			      const struct pci_device_id *pid)
- {
- 	struct dw_edma_pcie_data *pdata = (void *)pid->driver_data;
--	struct dw_edma_pcie_data vsec_data;
-+	struct dw_edma_pcie_data *vsec_data __free(kfree) = NULL;
- 	struct device *dev = &pdev->dev;
- 	struct dw_edma_chip *chip;
- 	int err, nr_irqs;
- 	int i, mask;
+diff --git a/kernel/taskstats.c b/kernel/taskstats.c
+index e1cc9386e228a2..6916bc152ce831 100644
+--- a/kernel/taskstats.c
++++ b/kernel/taskstats.c
+@@ -211,9 +211,8 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
+ 	else
+ 		memset(stats, 0, sizeof(*stats));
  
-+	vsec_data = kmalloc(sizeof(*vsec_data), GFP_KERNEL);
-+	if (!vsec_data)
-+		return -ENOMEM;
-+
- 	/* Enable PCI device */
- 	err = pcim_enable_device(pdev);
- 	if (err) {
-@@ -173,23 +177,23 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 		return err;
- 	}
+-	tsk = first;
+ 	start_time = ktime_get_ns();
+-	do {
++	for_each_thread(first, tsk) {
+ 		if (tsk->exit_state)
+ 			continue;
+ 		/*
+@@ -236,7 +235,7 @@ static int fill_stats_for_tgid(pid_t tgid, struct taskstats *stats)
  
--	memcpy(&vsec_data, pdata, sizeof(struct dw_edma_pcie_data));
-+	memcpy(vsec_data, pdata, sizeof(struct dw_edma_pcie_data));
+ 		stats->nvcsw += tsk->nvcsw;
+ 		stats->nivcsw += tsk->nivcsw;
+-	} while_each_thread(first, tsk);
++	}
  
- 	/*
- 	 * Tries to find if exists a PCIe Vendor-Specific Extended Capability
- 	 * for the DMA, if one exists, then reconfigures it.
- 	 */
--	dw_edma_pcie_get_vsec_dma_data(pdev, &vsec_data);
-+	dw_edma_pcie_get_vsec_dma_data(pdev, vsec_data);
- 
- 	/* Mapping PCI BAR regions */
--	mask = BIT(vsec_data.rg.bar);
--	for (i = 0; i < vsec_data.wr_ch_cnt; i++) {
--		mask |= BIT(vsec_data.ll_wr[i].bar);
--		mask |= BIT(vsec_data.dt_wr[i].bar);
-+	mask = BIT(vsec_data->rg.bar);
-+	for (i = 0; i < vsec_data->wr_ch_cnt; i++) {
-+		mask |= BIT(vsec_data->ll_wr[i].bar);
-+		mask |= BIT(vsec_data->dt_wr[i].bar);
- 	}
--	for (i = 0; i < vsec_data.rd_ch_cnt; i++) {
--		mask |= BIT(vsec_data.ll_rd[i].bar);
--		mask |= BIT(vsec_data.dt_rd[i].bar);
-+	for (i = 0; i < vsec_data->rd_ch_cnt; i++) {
-+		mask |= BIT(vsec_data->ll_rd[i].bar);
-+		mask |= BIT(vsec_data->dt_rd[i].bar);
- 	}
- 	err = pcim_iomap_regions(pdev, mask, pci_name(pdev));
- 	if (err) {
-@@ -212,7 +216,7 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 		return -ENOMEM;
- 
- 	/* IRQs allocation */
--	nr_irqs = pci_alloc_irq_vectors(pdev, 1, vsec_data.irqs,
-+	nr_irqs = pci_alloc_irq_vectors(pdev, 1, vsec_data->irqs,
- 					PCI_IRQ_MSI | PCI_IRQ_MSIX);
- 	if (nr_irqs < 1) {
- 		pci_err(pdev, "fail to alloc IRQ vector (number of IRQs=%u)\n",
-@@ -223,22 +227,22 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 	/* Data structure initialization */
- 	chip->dev = dev;
- 
--	chip->mf = vsec_data.mf;
-+	chip->mf = vsec_data->mf;
- 	chip->nr_irqs = nr_irqs;
- 	chip->ops = &dw_edma_pcie_plat_ops;
- 
--	chip->ll_wr_cnt = vsec_data.wr_ch_cnt;
--	chip->ll_rd_cnt = vsec_data.rd_ch_cnt;
-+	chip->ll_wr_cnt = vsec_data->wr_ch_cnt;
-+	chip->ll_rd_cnt = vsec_data->rd_ch_cnt;
- 
--	chip->reg_base = pcim_iomap_table(pdev)[vsec_data.rg.bar];
-+	chip->reg_base = pcim_iomap_table(pdev)[vsec_data->rg.bar];
- 	if (!chip->reg_base)
- 		return -ENOMEM;
- 
- 	for (i = 0; i < chip->ll_wr_cnt; i++) {
- 		struct dw_edma_region *ll_region = &chip->ll_region_wr[i];
- 		struct dw_edma_region *dt_region = &chip->dt_region_wr[i];
--		struct dw_edma_block *ll_block = &vsec_data.ll_wr[i];
--		struct dw_edma_block *dt_block = &vsec_data.dt_wr[i];
-+		struct dw_edma_block *ll_block = &vsec_data->ll_wr[i];
-+		struct dw_edma_block *dt_block = &vsec_data->dt_wr[i];
- 
- 		ll_region->vaddr.io = pcim_iomap_table(pdev)[ll_block->bar];
- 		if (!ll_region->vaddr.io)
-@@ -262,8 +266,8 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 	for (i = 0; i < chip->ll_rd_cnt; i++) {
- 		struct dw_edma_region *ll_region = &chip->ll_region_rd[i];
- 		struct dw_edma_region *dt_region = &chip->dt_region_rd[i];
--		struct dw_edma_block *ll_block = &vsec_data.ll_rd[i];
--		struct dw_edma_block *dt_block = &vsec_data.dt_rd[i];
-+		struct dw_edma_block *ll_block = &vsec_data->ll_rd[i];
-+		struct dw_edma_block *dt_block = &vsec_data->dt_rd[i];
- 
- 		ll_region->vaddr.io = pcim_iomap_table(pdev)[ll_block->bar];
- 		if (!ll_region->vaddr.io)
-@@ -295,31 +299,31 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 		pci_dbg(pdev, "Version:\tUnknown (0x%x)\n", chip->mf);
- 
- 	pci_dbg(pdev, "Registers:\tBAR=%u, off=0x%.8lx, sz=0x%zx bytes, addr(v=%p)\n",
--		vsec_data.rg.bar, vsec_data.rg.off, vsec_data.rg.sz,
-+		vsec_data->rg.bar, vsec_data->rg.off, vsec_data->rg.sz,
- 		chip->reg_base);
- 
- 
- 	for (i = 0; i < chip->ll_wr_cnt; i++) {
- 		pci_dbg(pdev, "L. List:\tWRITE CH%.2u, BAR=%u, off=0x%.8lx, sz=0x%zx bytes, addr(v=%p, p=%pa)\n",
--			i, vsec_data.ll_wr[i].bar,
--			vsec_data.ll_wr[i].off, chip->ll_region_wr[i].sz,
-+			i, vsec_data->ll_wr[i].bar,
-+			vsec_data->ll_wr[i].off, chip->ll_region_wr[i].sz,
- 			chip->ll_region_wr[i].vaddr.io, &chip->ll_region_wr[i].paddr);
- 
- 		pci_dbg(pdev, "Data:\tWRITE CH%.2u, BAR=%u, off=0x%.8lx, sz=0x%zx bytes, addr(v=%p, p=%pa)\n",
--			i, vsec_data.dt_wr[i].bar,
--			vsec_data.dt_wr[i].off, chip->dt_region_wr[i].sz,
-+			i, vsec_data->dt_wr[i].bar,
-+			vsec_data->dt_wr[i].off, chip->dt_region_wr[i].sz,
- 			chip->dt_region_wr[i].vaddr.io, &chip->dt_region_wr[i].paddr);
- 	}
- 
- 	for (i = 0; i < chip->ll_rd_cnt; i++) {
- 		pci_dbg(pdev, "L. List:\tREAD CH%.2u, BAR=%u, off=0x%.8lx, sz=0x%zx bytes, addr(v=%p, p=%pa)\n",
--			i, vsec_data.ll_rd[i].bar,
--			vsec_data.ll_rd[i].off, chip->ll_region_rd[i].sz,
-+			i, vsec_data->ll_rd[i].bar,
-+			vsec_data->ll_rd[i].off, chip->ll_region_rd[i].sz,
- 			chip->ll_region_rd[i].vaddr.io, &chip->ll_region_rd[i].paddr);
- 
- 		pci_dbg(pdev, "Data:\tREAD CH%.2u, BAR=%u, off=0x%.8lx, sz=0x%zx bytes, addr(v=%p, p=%pa)\n",
--			i, vsec_data.dt_rd[i].bar,
--			vsec_data.dt_rd[i].off, chip->dt_region_rd[i].sz,
-+			i, vsec_data->dt_rd[i].bar,
-+			vsec_data->dt_rd[i].off, chip->dt_region_rd[i].sz,
- 			chip->dt_region_rd[i].vaddr.io, &chip->dt_region_rd[i].paddr);
- 	}
- 
+ 	unlock_task_sighand(first, &flags);
+ 	rc = 0;
 -- 
 2.53.0
 
