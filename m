@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C40231832
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 13:35:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B3A36894B
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 13:35:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785072922; cv=none; b=E1n9EXKmuTYYYIpHmaYzbn4TBx1haVkkB7sg1wqJ8/978skGEGuq+/LkBhJdyoESD/BMiWzkrfuI5l4pdOLdJVC+eDN8/s+3YzrzdSnoIy25ooBIjkwp/ppvm4vf0ObdY+Q0qyVukwlTxlXmEFH8TfJm6i4m1QSYuvtGCLFuRZQ=
+	t=1785072923; cv=none; b=qxDqpU/mYDF9WVcKbKAq6n/QBF51JX4GtraVMtqgn8l+cx0XAvShQt8EP2vWM/XsVURtEdUMt3VYayzikPMOHai5VhkyfVEDRJgx4m7HCZ/iWVJsWDBHvpBO+PeAJIKdB2eu5jJMWRIZqCuCntm6ahlUUtb5QHJfyahQvnZEseE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785072922; c=relaxed/simple;
-	bh=g5Wk5Gmy3l5P4sAubvf7wPYGTZ4ka5u+XQ/R1fcDXps=;
+	s=arc-20240116; t=1785072923; c=relaxed/simple;
+	bh=JQOQ6yS4xsXFdeuonQs8PhBaWqcfj0FCzAiN2cBAyrk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DCKFnfs3XTvcYCN2L9roAToogB0og82QCxyKYZ8e1JHtLPMObJz7bo+0E8mEajRWgi/eZVjtNVG1XAUKrd6iyNCuUCTtXxa2nbXHJReQGVitivIHQYqlcO40YF9dn4Rq6LqcAWaWEXpfb7Rl2jnxtZpQCxcohV/CeHEVr+mH0O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CoLQQDvi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nSq6SpB1ITLjCc6mY46g+ZKImb1l6uSXFni5yx/b0gLWKTcXKpKh5tdH7/LXoi2vFma/I+MV5PNH3MDtCxKDCpt8YyyLr+ZaN/Y3cTqRS8rK8wap+yGimLriFQ5aMicmrPOmY7r7ydnrI76dtmzhVcFEvgF+DBvKFdAJ1vOWiIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UXyFup8j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CoLQQDvi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34EEB1F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UXyFup8j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0890A1F00A3E;
 	Sun, 26 Jul 2026 13:35:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785072921;
-	bh=8sp5neIjNU+L8ol7VdBJ2jHq6+qSfH6+VojW9Z9j4WY=;
+	s=k20260515; t=1785072922;
+	bh=QpMj4LBu78KFGGAwLfBm6hP1u97bvlT0mRsqGiBnnI8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CoLQQDviwBk12u5qgAd6VGjUEdx1Sm7CWhELy3vFsIFsy8VdGazrZAY7wZ2cdIgbV
-	 vOxAZUhX+9ytsapwckJIbOB5Gm0k5z87Einjkg2LW0jV1/VlHQivIA4fe/6rp84aT9
-	 XNPONPO8m1cdS/ahQaBjx5K59AkmBuugnFGcnmzPZ9Pt5cEFOucOgYYQJT12TAhCBY
-	 YaDfE7t+u8OWc7DUKIlJFUaApK/RBzXzWEFJSdalxzPNSk+WNuxidiISpPjBXYx5se
-	 VKLnC9BhQ8rdQ5xc/JX1yY6iQ6Sa/hQRZLRM9hCKF12T20kcaU7rtuD18jhDBZHp1o
-	 1iKPJcRGMJaPQ==
+	b=UXyFup8jWR20NdXmr2aMOKyeKXC9M2b5cGolLLzU+tYgzTTHTGGYwzQYzsITq/WKx
+	 8iMc5poZLLZb2aEOy0rVEf3l5rf6oVyGgFe8JfHJe+x/puZWqgWw6xgmzteFNn5D2j
+	 3TZKR3tjqrV45QEowo/O72IyDrwBDz7BhUhC0UO0Ode/wu/u8mhVapq6A7Y3YwRES5
+	 A1NJt8mEAumjEtl/bD9fzBgCgiehhD2N21LIbTwlINOigGoZcvCde680dUn20sGNcP
+	 NPEwToanyb2r4Mn6Zw8KmgrFs8/8dhkqVtlZwG48qA9drRyAODwMA7bVN5OpyxqatS
+	 C+Vpy3xXdlEMg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+Cc: Koichiro Den <den@valinux.co.jp>,
+	Frank Li <Frank.Li@nxp.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] dmaengine: dw-edma: Fix confusing cleanup.h syntax
-Date: Sun, 26 Jul 2026 09:35:16 -0400
-Message-ID: <20260726133517.364299-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] dmaengine: dw-edma-pcie: Reject devices without driver data
+Date: Sun, 26 Jul 2026 09:35:17 -0400
+Message-ID: <20260726133517.364299-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260726133517.364299-1-sashal@kernel.org>
 References: <2026072011-company-agreed-60ea@gregkh>
@@ -47,54 +47,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+From: Koichiro Den <den@valinux.co.jp>
 
-[ Upstream commit f9ef8dedee34e2d7828d5a6a0643cd969aaa8437 ]
+[ Upstream commit 11d7cfe0c119691b2dafbb699bbca90258c678aa ]
 
-Initializing automatic __free variables to NULL without need (e.g.
-branches with different allocations), followed by actual allocation is
-in contrary to explicit coding rules guiding cleanup.h:
+dw_edma_pcie_probe() treats the PCI device ID driver_data as the
+template for the controller layout and copies it unconditionally. A
+device bound dynamically via sysfs can match the driver without that
+data, which leads to a NULL pointer dereference.
 
-"Given that the "__free(...) = NULL" pattern for variables defined at
-the top of the function poses this potential interdependency problem the
-recommendation is to always define and assign variables in one statement
-and not group variable definitions at the top of the function when
-__free() is used."
+Reject such matches before enabling the device.
 
-Code does not have a bug, but is less readable and uses discouraged
-coding practice, so fix that by moving declaration to the place of
-assignment.
-
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Link: https://patch.msgid.link/20251208020729.4654-2-krzysztof.kozlowski@oss.qualcomm.com
+Fixes: 41aaff2a2ac0 ("dmaengine: Add Synopsys eDMA IP PCIe glue-logic")
+Cc: stable@vger.kernel.org
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260521142153.2957432-3-den@valinux.co.jp
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Stable-dep-of: 11d7cfe0c119 ("dmaengine: dw-edma-pcie: Reject devices without driver data")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma/dw-edma/dw-edma-pcie.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/dma/dw-edma/dw-edma-pcie.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
-index 157af858bbab01..ae1bbca7da93fe 100644
+index ae1bbca7da93fe..b3f2653862a8a5 100644
 --- a/drivers/dma/dw-edma/dw-edma-pcie.c
 +++ b/drivers/dma/dw-edma/dw-edma-pcie.c
-@@ -160,13 +160,13 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
- 			      const struct pci_device_id *pid)
- {
- 	struct dw_edma_pcie_data *pdata = (void *)pid->driver_data;
--	struct dw_edma_pcie_data *vsec_data __free(kfree) = NULL;
- 	struct device *dev = &pdev->dev;
- 	struct dw_edma_chip *chip;
+@@ -165,6 +165,9 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
  	int err, nr_irqs;
  	int i, mask;
  
--	vsec_data = kmalloc(sizeof(*vsec_data), GFP_KERNEL);
-+	struct dw_edma_pcie_data *vsec_data __free(kfree) =
-+		kmalloc(sizeof(*vsec_data), GFP_KERNEL);
++	if (!pdata)
++		return -ENODEV;
++
+ 	struct dw_edma_pcie_data *vsec_data __free(kfree) =
+ 		kmalloc(sizeof(*vsec_data), GFP_KERNEL);
  	if (!vsec_data)
- 		return -ENOMEM;
- 
 -- 
 2.53.0
 
