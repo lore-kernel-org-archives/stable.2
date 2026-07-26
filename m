@@ -1,122 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk [65.21.191.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55D23BB9F1
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 14:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF0C3BCD0B
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 14:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.191.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785076786; cv=none; b=nZ2PzQBZCXoQp+C6azs3ie3mXAL+M1lxZcgTd7QCUuDL73Ab6Gjpp3+wjgwSxnR9l9FDNhB62lcaC91uIJztJayIqUKmkS04KA/gJOf5SpsA6nsGxffg2E675jMNfrO05DvtATXHfaZOanV90YKDbOM6MIckMkpxmdB4t6EfyX0=
+	t=1785076928; cv=none; b=HfAIT9Ze3JPZeKBhvQBVZhxMPMoL4g0Z07wWs3l3QGFm5F+tpXtPcd2lBdf7wuLkK19DSOf9k3XdvIeasfoxkUAzoZ90rcQBBH203mS0WW6zh/xShyj4glwS/ersEPSK+FB6LkQHwOmHeC02yGwdqU+dD/VjeVuGNLGt7EmvA6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785076786; c=relaxed/simple;
-	bh=d5G61n9DCzJoG1XlOEr5f4M+FNe1kTeCxwulfyig4F0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jDsfJ8DYWX/P7NMdfsdmtKd3Ii64EFu8h82noCn7E22WBgvsxCOqJk/o9yJ5sgHmt+TDAhBmG1Il1hXfahBQQ4mi81UsivET0yp23jAJOWnnFpnDWEWU+G3ZwqrJjBu7RdCItZayU6zdXvHVVHIGS9+DIYGlQh5244EOsf27myA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oTx4BP3o; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oTx4BP3o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F081F000E9;
-	Sun, 26 Jul 2026 14:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785076784;
-	bh=BGUKuvrecusY5Fj/XRT2hHuXbxehdd7K6sOES19ki6Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oTx4BP3oNYHJEP8Ga0YFDxentYsl146TGMzFtR31Sr9cQrlr0UzXjgIsZAOclc6vT
-	 SRjSTLGsEVAw6fgeobppl/4fwa+7OHXtlFmxGlth0GJ2GZzLwo7uOaCHnO3AG5etPB
-	 toqkR6sKDJUpagJjr0Ghs+6EUOJ9zd8p1QQxsDhf11VzWZmidHY/OCwPTddf5Uu2B1
-	 iF0fm+rg5u5aJWeQ5a5WZPyNij4kdqjjPgp4EL8T7k+8cELeOh/AUQWDk243BALblj
-	 6qUkNzxC4xREJFa8cS7YsBCBcGrT9PnkRIWri7P0RLwjNkFxUsgo1/GmV+RbFn+/vo
-	 603JXa08gYjrA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: use kvzalloc() for megabyte buffer in simple fallocate
-Date: Sun, 26 Jul 2026 10:39:41 -0400
-Message-ID: <20260726143941.1052693-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072058-blaming-unseated-0a99@gregkh>
-References: <2026072058-blaming-unseated-0a99@gregkh>
+	s=arc-20240116; t=1785076928; c=relaxed/simple;
+	bh=cG8EGGOj2GgmJnZpYafdve9cO2IlJuD51DcEiz9V5HI=;
+	h=Message-ID:Subject:From:To:Cc:Date:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tee4K+tEFz0r0J/X9hUU4VY2TpPPEmxRAIevMgXwxnUcTRL9YzQHcV0KCBnd3gyyee21VpjoNDvzTMrrMcItXrxiHx/CESnvK+fUBJbpFbZrNMC76OS/grI042UqYHwfe8VPVfUr67l18J79K8i7lN2iKEtcrXyDKnayhCCo8yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk; spf=pass smtp.mailfrom=decadent.org.uk; arc=none smtp.client-ip=65.21.191.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=decadent.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=decadent.org.uk
+Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
+	by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wnzVJ-001VdE-2C;
+	Sun, 26 Jul 2026 14:06:56 +0000
+Received: from ben by deadeye with local (Exim 4.99.3)
+	(envelope-from <ben@decadent.org.uk>)
+	id 1wnzVH-000000024F3-1SBO;
+	Sun, 26 Jul 2026 16:06:55 +0200
+Message-ID: <1bfb3bb0dda1f5cd66ca8a48de2536c026355ded.camel@decadent.org.uk>
+Subject: [7.1] drm/amd/display: Add dp_skip_rbr flag for NUTMEG
+From: Ben Hutchings <ben@decadent.org.uk>
+To: stable <stable@vger.kernel.org>
+Cc: 1141866@bugs.debian.org, Lionso Alejandro Pacheco Vacacela
+	 <lionso@murena.io>
+Date: Sun, 26 Jul 2026 16:06:49 +0200
+References: <178379853043.8422.14248844886244170712@murena.io>
+In-Reply-To: <178379853043.8422.14248844886244170712@murena.io>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-uFNZlqKrHuZ1tmo7NEC8"
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
 
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-[ Upstream commit 806c00c23e3ce8eae397a40ced536ef88ae4e012 ]
+--=-uFNZlqKrHuZ1tmo7NEC8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently in smb3_simple_fallocate_range(), a 1 MB buffer is allocated
-using kzalloc(). Under heavy memory fragmentation, a contiguous 1 MB block
-of physical memory (an order-8 allocation) may not be available,
-causing the allocation to fail.
+On Sat, 11 Jul 2026 14:35:30 -0500 Lionso Alejandro Pacheco Vacacela
+<lionso@murena.io> wrote:
+[...]
+> Since the 7.1.x kernels, systems with AMD CIK/GCN1.1 APUs (Kaveri,
+> Kabini, Mullins) that use the analog VGA output get no display signal
+> at all: the monitor enters power save at KMS takeover and never wakes.
+> The machine is otherwise healthy (reachable over SSH). 7.0.x kernels
+> are fine.
+[...]
+> Root cause (upstream): Linux 7.1 switched CIK APUs to the amdgpu DC
+> display stack by default (c81f35cdbab2 "drm/amdgpu: Use DC by default
+> on CIK APUs"). DC's support for the NUTMEG bridge requires forcing the
+> DP link rate to HBR, but upstream commit
+>=20
+>=C2=A0=C2=A0 a62346043a89 ("drm/amd/display: Fix coding style issue")
+>=20
+> inadvertently broke that quirk (the preferred link rate is no longer
+> applied to the link setting the algorithm iterates from), so DP link
+> training against the bridge fails at RBR and the output stays dark:
+>=20
+>=C2=A0=C2=A0 [drm] enabling link 2 failed: 15=C2=A0=C2=A0 (DC_FAIL_DP_LINK=
+_TRAINING)
+>=20
+> Upstream fix: "drm/amd/display: Fix preferred link rate for NUTMEG" by
+> Timur Krist=C3=B3f,
+>
+https://lore.kernel.org/amd-gfx/20260529090909.13206-1-timur.kristof@gmail.=
+com/
+> Reviewed-by: Fangzhi Zuo, applied to the amdgpu maintainer tree on
+> 2026-07-10; not yet in mainline or 7.1.y at the time of writing. Also
+> tracked as https://gitlab.freedesktop.org/drm/amd/-/issues/5465.
+[...]
 
-This failure was observed during xfstests generic/013 on a 4GB RAM
-test machine running fsstress:
+This ended up as commit 9fb646bc4d87f62bcbf0a7ea326430eb802c475c in
+7.2-rc4.  Please queue it up for 7.1-stable.
 
-fsstress: page allocation failure: order:8,
-mode:0x40dc0(GFP_KERNEL|__GFP_ZERO|__GFP_COMP),
-nodemask=(null),cpuset=/,mems_allowed=0
+Ben.
 
-Call Trace:
- <TASK>
- dump_stack_lvl+0x5d/0x80
- warn_alloc+0x163/0x190
- __alloc_pages_slowpath.constprop.0+0x71b/0x12f0
- __alloc_frozen_pages_noprof+0x2f6/0x340
- alloc_pages_mpol+0xb6/0x170
- ___kmalloc_large_node+0xb3/0xd0
- __kmalloc_large_noprof+0x1e/0xc0
- smb3_simple_falloc.isra.0+0x62b/0x960
- cifs_fallocate+0xed/0x180
- vfs_fallocate+0x165/0x3c0
- __x64_sys_fallocate+0x48/0xa0
- do_syscall_64+0xe1/0x640
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
- </TASK>
+--=20
+Ben Hutchings
+Experience is what causes a person to make new mistakes
+instead of old ones.
 
-Node 0 Normal: 3375*4kB ... 7*128kB 0*256kB 0*512kB 0*1024kB 0*2048kB 0*4096kB
+--=-uFNZlqKrHuZ1tmo7NEC8
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Since this scratch buffer does not require physically contiguous memory,
-switch the allocation to kvzalloc(). This retains the performance
-benefits of kmalloc() under normal conditions, while gracefully falling
-back to virtually contiguous memory when physical allocation fails.
+-----BEGIN PGP SIGNATURE-----
 
-Fixes: 966a3cb7c7db ("cifs: improve fallocate emulation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
-Tested-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/smb2ops.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmpmFHoACgkQ57/I7JWG
+EQlEHw//UnjgIp2J9t0KqaVzw1wRm9P+WfeAMEk5FlE74JpGlmyVjqgxksP65qvM
+rVjzWkeF7NzhOwn0T4jXYewQ1K/A0wPV2RNc9dcEjH9iSO103fRvD/khgr81H5++
+ZP9JjAUgbTlZek8+IhxMR1iUi7WqF9YtCuFqJpurY8YB0v5xSOrpG+0R+/BuT6uu
+WRL4uLyQhfpqxNw2zYzkcGn48YRsOex7zd2dcQoOfvxtcge7rTaUs+H7sM3VpvHp
+CkZQZ3VcfO1WO/uhCeHqjEfWFjTpY16DEjbJE3J2Txshw8XEefjjbKLj+5ehJCT4
+vD+eCwDgmElJVP0Xkm7BuLK7RdEm0GKDrwigr36jNSUGpzGX/9ZR/E4f0gKAdAhP
+R+CbRZ+sVav6437XHQL1sFVDQ6Ftreowne4yjLrgQGR5V9aqZPiRusZRxHvvtku6
+/vXLL1gwqzEg5uvIzZokW8UIWngYSnMr5BJbgpQMKOg4reMYfIWg5DhcpHbJniWC
+GDX/HiBQgr609T7FN41zIdPj4ErVrLSRSI1VyvlswBmFd3Ve+JRmHAy3REWsYne+
+zDPZ9M6wXrSZJsR7dFA24Eb1UFLWipF+CTvoFA3pVXKk3SC0Njc5reWs51zMJxPs
+7bD/wGK484b3fPK5qo7lNbY/Vog2fZbSII98U9DU9c0r7DmLTng=
+=zylM
+-----END PGP SIGNATURE-----
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index bd4ea48e057613..0f9b93666df813 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -3567,7 +3567,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 	if (rc)
- 		goto out;
- 
--	buf = kzalloc(1024 * 1024, GFP_KERNEL);
-+	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
- 	if (buf == NULL) {
- 		rc = -ENOMEM;
- 		goto out;
-@@ -3624,7 +3624,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
- 
-  out:
- 	kfree(out_data);
--	kfree(buf);
-+	kvfree(buf);
- 	return rc;
- }
- 
--- 
-2.53.0
-
+--=-uFNZlqKrHuZ1tmo7NEC8--
