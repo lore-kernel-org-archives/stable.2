@@ -1,171 +1,185 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFE136C0CD
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 18:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FE134EF0D;
+	Sun, 26 Jul 2026 18:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785090254; cv=none; b=CfbgtesjloV2GbGEvGdBy7hoAeEz9Bdou5yjmalD2MiR9KKsL8MuqUnHQkgH8PAERMb9sZpm/Qn6bEgCaVDuo2DnqaDD91FHZBsTKMFWVyxjlplQwNamOYuFNHJimKul4TVCJ67vEDdssnBL2SFh47n8fVTyig4+o9sZ9nJauj8=
+	t=1785091163; cv=none; b=ZUp+vWwZHcCFBjq3TXLgStV+mrBIBHBS3tJSceDf3uSlNhGlUzYVgsiC8EBdWrtGEoi2Ch9YkIYOdrI4jUrUglWY3eZUhfk0AV3uohKbuJp2luhrvj/SiJqdPnBT3PWAqPe66P5u0g03TB+Wzzeog1oEZErAIBBm2/YnOFhiGkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785090254; c=relaxed/simple;
-	bh=PUGRFk3h17WsJHv6gJoHKaaB3MXYO9elmGUfb2D3+yM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZA+kTBE1xDJTZ3BBPJSH/knpIVGhRDuUm5rW6kqbp7tDbe6mHn2wXDlTzw6o+Np99YvUToklyu4NBfxHsJT1mFzqBb3IjrX81YrN0+1O9tOZUz7xwPFL1ji+xeMwVo0N4HbJ/4qNQMiadRv5SS501KprR/JNsZUY2PQLoovKuGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/vuzzrD; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785091163; c=relaxed/simple;
+	bh=rkAs+vxc5zkurPkS0xvNVIkcjwtWTeHIyGJnYfnUwuA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=MtU8Pi5/MYdsBfV8wo6/dHrsd998ip8Z0RiAC563nCFcXAr5sl0gP4PZp7sAAIIVPdmdVX5rh4e88hiKUjZSFN3FUdRGKJ+KwyGVYHq9GgMT/jgi+3mrjjCo4N5WlYfLqlAXFqsC6bCRhHEOL28iAMlYu3e6sYLFzh/zkl5rFoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=J0IPjGka; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=J0IPjGka; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=P3AxJJVT; arc=none smtp.client-ip=130.236.254.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/vuzzrD"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso18796345e9.3
-        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 11:24:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785090251; x=1785695051; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QHN7j1c1qpvzCHml0Yb9DW3l1T4sBXf6FrZ7o+K/N9s=;
-        b=E/vuzzrDNSQ30zUOeJFxOjAvUjpE9fQrvFxK6UOOr3N8gdpNVFw4oqPX/8WIY5Nyhw
-         Dpq+aYCpnuSJWOZm8nMFc7ClGRA8deEwGcMl2SLiymlVOTP6UC3d42KB1CncHnTyjWca
-         5vMYCoHNMj1fiZiQ4Aw3C8MibWwXdZCvZFefHL3oAbAAq3NSMwTqAI7ZIyVlLt9YMiUy
-         ao0XHvR644OLjdZ/6yxXkzXKURrD84fMSpAEfIkfkZq0qVtfgjp1JShl3F5d+qIJd7Fu
-         8gLLczIl/IrM4eDEyJCFHrx2jZOY5SYnPmhBqCVedRIfsQaUJX/igAJ9bJSOv8AV4Qs2
-         7PnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785090251; x=1785695051;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QHN7j1c1qpvzCHml0Yb9DW3l1T4sBXf6FrZ7o+K/N9s=;
-        b=fhGrZvyU1FpBs53MbZhUlcCDkWS5Xkm3h0p4fXnae2f2+6uGjYbeqHihrLUbIEJ8eI
-         CFLRZuIpA/KcggrWGf90v6Qya/h8tgbwV1paGS062GVJrorY6TEzFFZlSHxmSjbOwKvX
-         Y6/Zbj9137ZRJdMC+ifkmiJYPNw4xw+poNolX9cdlKtto3lmn3MwRaommfcGPaHJOhWU
-         q+oD4NBICtj8vORYL0UB1m7u/P8+DNi8ajEeEvNFfGniQNKRzNfrEELOS7j0loz4+rrA
-         /7FHqwfQOUKtbNr9brWqcIt7fp5CYf5H2pqJNvq7B+MnZmLcXU00f5LHBIf7INBU0Z2l
-         cp1w==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3VydY2bdb9sjOiRpgD4k+TrBA+ZLcY1sug85v6T+YKZ7/Yp8T68GibJBJh6OQHUNxYWW9WY8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZnni8O/NUrPsHZXE4K+435LRcluunxWhkK7CsSXLggzCxLXm3
-	QZA+cbbAGDmiPmHJRwgNGvTAe/BFxOi7SzPVqwzhHHstFSfgLJet/FBL
-X-Gm-Gg: AR+sD12ReNajeIK4guPh7jiLL8yNzVutA8PQ6QoyMemdyZHDi53EhrsZXvwMBo6nAC3
-	UW+7DuWxUHg0hnzXDWIqA66wTLc05+HXh1zeJdy2dTige9aOBXimJp3K7Jj6Cp+grkQR9J0zjbS
-	c+9zHfqqGScWif5yOd6d45LZu5FOaJSkLJ+dSyeHnHHiaJEGYD4vnbiqT6lzM570QS+ApqW986m
-	KgEy9f9TIUC/12EX3c0Lv4wNNtX7pkHp88Vy9msKSVLH/Uc1ViDpmIpRXpgnZSgd35YdQ698/9U
-	cS327BLyGUKRvLEVI35JFwbQD406qmfCPmxaQ2YcLDDtN9/F03JP4edoGvg2Tw1yz4IlTihVlTW
-	KK7SktKyX1eI+K8QuusG6U6dPi+y8C+Zjhkk3qTFxj0uyjEVV7syQVcV6IO2AXtd+Cp3rVQ/cCL
-	zE9ohgSvnTMdKUGPMD2sLTMP/X3HXD5++svFt9dWjpODsh+2V8TlggUqjAB4U4RZZA0o6HOZj8W
-	EEN56oaWBuQtJ0Hy8ShJ3TvzeQDfah7kuHB1Ohe/eoJHfHvHbY=
-X-Received: by 2002:a05:600c:1d0d:b0:493:f0f5:f2d7 with SMTP id 5b1f17b1804b1-496b56b1b23mr75964785e9.7.1785090251254;
-        Sun, 26 Jul 2026 11:24:11 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-116-215.95.114.pool.telefonica.de. [95.114.116.215])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c6287csm42553563f8f.25.2026.07.26.11.24.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 26 Jul 2026 11:24:10 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Liu Song <liusong@linux.alibaba.com>,
-	shechenglong <shechenglong@xfusion.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] arm64: proton-pack: Restore the nospectre_bhb command-line option
-Date: Sun, 26 Jul 2026 20:22:53 +0200
-Message-Id: <20260726182253.6939-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="J0IPjGka";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="J0IPjGka";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="P3AxJJVT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1785091152;
+	bh=rkAs+vxc5zkurPkS0xvNVIkcjwtWTeHIyGJnYfnUwuA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=J0IPjGka3wFC2j7/WWSM9exvHJ3+NqNGKsytbHRNRsTHpDDebMbGMWdfdPd85EK0U
+	 a++zrbfGYxT222yQTRe3lszmxhDXiGtexC5rk17nwYO01r2sajSxXgYwsrxLAEqt0m
+	 a4R1cyK/MHq7MdeGw2zqvCOcCnJKzpLq+XiNLJ/GsvA81dQIdi+/qeBccOjTz2FCYB
+	 E1JedOsB/RNFfTNPi8sbGhxpOTRHhvfhTIrqlaeO5PAYvvClcC4iNlPEX8hobsVRgU
+	 ZmoZqkvJhzk/IF0sh3CfdoeghJy8zea/XhW7kq3BJda5J02HtkkDrDJ1mHKvX2Ac+3
+	 1gwzlwSeJmNwA==
+Received: from mail.lysator.liu.se (localhost [127.0.0.1])
+	by mail.lysator.liu.se (Postfix) with ESMTP id 6E623BCA;
+	Sun, 26 Jul 2026 20:39:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1785091152;
+	bh=rkAs+vxc5zkurPkS0xvNVIkcjwtWTeHIyGJnYfnUwuA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=J0IPjGka3wFC2j7/WWSM9exvHJ3+NqNGKsytbHRNRsTHpDDebMbGMWdfdPd85EK0U
+	 a++zrbfGYxT222yQTRe3lszmxhDXiGtexC5rk17nwYO01r2sajSxXgYwsrxLAEqt0m
+	 a4R1cyK/MHq7MdeGw2zqvCOcCnJKzpLq+XiNLJ/GsvA81dQIdi+/qeBccOjTz2FCYB
+	 E1JedOsB/RNFfTNPi8sbGhxpOTRHhvfhTIrqlaeO5PAYvvClcC4iNlPEX8hobsVRgU
+	 ZmoZqkvJhzk/IF0sh3CfdoeghJy8zea/XhW7kq3BJda5J02HtkkDrDJ1mHKvX2Ac+3
+	 1gwzlwSeJmNwA==
+Received: by mail.lysator.liu.se (Postfix, from userid 1004)
+	id 54272B7E; Sun, 26 Jul 2026 20:39:12 +0200 (CEST)
+X-Spam-Level: 
+X-Spam-Score: -1.1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1785091147;
+	bh=rkAs+vxc5zkurPkS0xvNVIkcjwtWTeHIyGJnYfnUwuA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=P3AxJJVTebjb1vObmHNPan4wohLsJCg84HKIvrIqw/ldldUuO75gM5v2TWCCMptIj
+	 HpDb8KPhcCxjazMUniyMu0VZoIDhRPgiTAZYP+JVkmN643QfyMOXGUVwm4gY1Zf6Pt
+	 AUQR68JeV2AFHyi+2YTLuLasMfIey6+5YMiSner6eGoc8u3oBxWtvAU212GA5DpStZ
+	 d/zbiCjEArAIJur6XaVf0rF5aWXvDQJTxEdmXajpC9VRPfuq5zW5Qt1LVre3r/r1LX
+	 aOhWjXaMDVKLDYIKBxBGsiSpLQ3qtsH57tPDss/EX1WuSBNQI0eODKEMWWvRHZy3Y2
+	 xjzSPoYTNFPaw==
+Received: from sara (unknown [IPv6:2001:9b1:efc:9600:e20d:7ad8:ae65:24eb])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail.lysator.liu.se (Postfix) with ESMTPSA id 739C0C9B;
+	Sun, 26 Jul 2026 20:39:07 +0200 (CEST)
+Date: Sun, 26 Jul 2026 20:39:06 +0200 (CEST)
+From: Peter Astrand <astrand@lysator.liu.se>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+cc: linux-wireless@vger.kernel.org, 
+    "stable@vger.kernel.org" <stable@vger.kernel.org>, 
+    Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: iw scan hangs in netlink ENOBUFS loop with kernel 6.6.99+
+In-Reply-To: <e12fc0b9-dfd2-ecfc-de54-d5f7d4532044@lysator.liu.se>
+Message-ID: <0ccdd2d2-2325-6ead-bd19-2a4f7916df02@lysator.liu.se>
+References: <19b022d0-76ff-23cc-ba63-f00fedc65ed1@lysator.liu.se> <e2555ce7-0313-4fec-8bc4-739b51a009f3@leemhuis.info> <e12fc0b9-dfd2-ecfc-de54-d5f7d4532044@lysator.liu.se>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-Commit 7f1635737823 ("arm64: proton-pack: Fix hard lockup due to print in
-scheduler context") moved the "mitigation disabled" printks into
-spectre_print_disabled_mitigations(). For spectre-v2 and spectre-v4 only
-the pr_info_once() calls were removed, but for spectre-bhb the whole
-branch went with the print:
 
-  -   } else if (cpu_mitigations_off() || __nospectre_bhb) {
-  -           pr_info_once("spectre-bhb mitigation disabled ...\n");
+On Wed, 22 Jul 2026, Peter Astrand wrote:
+> 
+> On Tue, 21 Jul 2026, Thorsten Leemhuis wrote:
+> 
+> > On 7/14/26 00:37, Peter Astrand wrote:
+> > > 
+> > > kernel 6.6.y
+> > > iw 6.7
+> > > libnl-genl-3-200 3.9.0
+> > > mac80211_hwsim
+> > > 
+> > > With kernel 6.6.99 and later, "iw dev <device> scan" sometimes hangs in 
+> > > busy loop:
+> > 
+> > Thanks for the report. We need to rule out if this is a 6.6.y specific
+> > problem (like a broken or incomplete backport) or something general.
+> > Could you please check if 7.2-rc is affected as well? Testing 6.18.y
+> > might help, too, if it's easy for you to try. Maybe switching to that
+> > might be the easies way to resolve the problem and a good idea in
+> > general, as explained here:
+> > http://www.kroah.com/log/blog/2018/08/24/what-stable-kernel-should-i-use/
+> 
+> Platform is NXP imx6ull. Forgot to mention that we are actually running 
+> https://github.com/Freescale/linux-fslc/tree/6.6-2.2.x-imx rather than 
+> upstream kernel. No changes to net/netlink though.
+> 
+> We cannot easily test with 7.X, but I have tested 
+> https://github.com/Freescale/linux-fslc/tree/6.18-2.0.x-imx and can 
+> reproduce the same problem; this is 6.18.20. strace output is similar:
+> 
+> recvmsg(3, {msg_namelen=12}, 0)         = -1 ENOBUFS (No buffer space available)
+> recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=48, nlmsg_type=NLMSG_ERROR, nlmsg_flags=0, nlmsg_seq=2510255223, nlmsg_pid=1468011032}, {error=-ENOBUFS, msg=[{nlmsg_len=28, nlmsg_type=0x1b /* NLMSG_??? */, nlmsg_flags=NLM_F_REQUEST|NLM_F_ACK|0x300, nlmsg_seq=2510255223, nlmsg_pid=1468011032}, "\x20\x00\x00\x00\x08\x00\x03\x00\x0d\x00\x00\x00"]}], iov_len=16384}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, MSG_PEEK|MSG_TRUNC) = 48
 
-spectre_bhb_enable_mitigation() therefore no longer tests __nospectre_bhb
-or cpu_mitigations_off() and the mitigation is enabled regardless of the
-command line. The parameter is still parsed and its flag is still checked
-by spectre_print_disabled_mitigations(), so the kernel prints "spectre-bhb
-mitigation disabled by command-line option" while
-/sys/devices/system/cpu/vulnerabilities/spectre_v2 reports "Mitigation:
-CSV2, BHB" and the vectors are switched to EL1_VECTOR_BHB_LOOP.
+Claude created a patch (against 6.6.y, but applies to master as well):
 
-The only remaining escape is the SPECTRE_VULNERABLE arm at the top of the
-chain, which a CSV2 core never reaches, so from Cortex-A76 and Neoverse N1
-onwards both nospectre_bhb and mitigations=off are ignored. Both are
-documented in Documentation/admin-guide/kernel-parameters.txt.
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -1219,7 +1219,7 @@ int netlink_attachskb(struct sock *sk, struct 
+sk_buff *skb,
+        nlk = nlk_sk(sk);
+        rmem = atomic_add_return(skb->truesize, &sk->sk_rmem_alloc);
+ 
+-       if ((rmem == skb->truesize || rmem <= READ_ONCE(sk->sk_rcvbuf)) &&
++       if (rmem - skb->truesize <= READ_ONCE(sk->sk_rcvbuf) &&
+            !test_bit(NETLINK_S_CONGESTED, &nlk->state)) {
+                netlink_skb_set_owner_r(skb, sk);
+                return 0;
+@@ -1395,7 +1395,7 @@ static int netlink_broadcast_deliver(struct sock 
+*sk, struct sk_buff *skb)
+        rmem = atomic_add_return(skb->truesize, &sk->sk_rmem_alloc);
+        rcvbuf = READ_ONCE(sk->sk_rcvbuf);
+ 
+-       if ((rmem == skb->truesize || rmem <= rcvbuf) &&
++       if (rmem - skb->truesize <= rcvbuf &&
+            !test_bit(NETLINK_S_CONGESTED, &nlk->state)) {
+                netlink_skb_set_owner_r(skb, sk);
+                __netlink_sendskb(sk, skb);
+@@ -2232,7 +2232,7 @@ static int netlink_dump(struct sock *sk, bool 
+lock_taken)
+ 
+        rcvbuf = READ_ONCE(sk->sk_rcvbuf);
+        rmem = atomic_add_return(skb->truesize, &sk->sk_rmem_alloc);
+-       if (rmem != skb->truesize && rmem >= rcvbuf) {
++       if (rmem - skb->truesize >= rcvbuf) {
+                atomic_sub(skb->truesize, &sk->sk_rmem_alloc);
+                goto errout_skb;
+        }
 
-The identical mistake was made on the neighbouring compile-time-option
-branch immediately before this regression and fixed shortly afterwards;
-this command-line branch was missed.
-build_bhb_mitigation() in arch/arm64/net/bpf_jit_comp.c still tests both
-flags, so nospectre_bhb currently keeps the exception-vector loop while
-dropping the cBPF epilogue mitigation.
 
-Restore the check, folded into a spectre_bhb_mitigations_off() helper
-alongside its spectre_v2/v4 counterparts, and use it for the boot-time
-print in spectre_print_disabled_mitigations() as well. The print itself
-already lives there and does not need restoring.
+It also created this commit message:
 
-Tested under QEMU with -cpu neoverse-n1 (CSV2, no ECBHB, no CLRBHB).
-Before, spectre_v2 read "Mitigation: CSV2, BHB" with and without the
-option; after, nospectre_bhb and mitigations=off both give "Mitigation:
-CSV2, but not BHB" and a boot without either is unchanged.
+    netlink: restore pre-add admission-control boundary
+    
+    Commit 55baecb9eb90 ("netlink: Fix wraparounds of sk->sk_rmem_alloc.")
+    moved the sk_rmem_alloc admission check in netlink_attachskb(),
+    netlink_broadcast_deliver() and netlink_dump() from "queue was already
+    under budget before this skb" (checked BEFORE adding truesize) to
+    "queue is still under budget after this skb" (checked AFTER adding
+    truesize). That's a strictly stricter boundary: a message that would
+    push the queue from just-under to just-over sk_rcvbuf is now rejected
+    outright, where before it was admitted.
+    
+    For slow-draining or MSG_PEEK-based readers (e.g. iw/libnl doing
+    netlink dumps), a message can hit this new, stricter ceiling every
+    time it's retried, turning what used to be a transient ENOBUFS into
+    a permanent one for that message size -- causing indefinite retry
+    loops in userspace (iw scan hanging).
+    
+    Fix by keeping atomic_add_return()-based accounting (needed for the
+    actual wraparound fix), but comparing against the pre-add value:
+    rmem is guaranteed >= skb->truesize since it's the value just
+    returned by adding truesize, so `rmem - skb->truesize` can't
+    underflow and stays unsigned throughout, preserving the wraparound
+    fix while restoring the original admission boundary.
 
-Fixes: 7f1635737823 ("arm64: proton-pack: Fix hard lockup due to print in scheduler context")
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-v2: fold the check into a spectre_bhb_mitigations_off() helper, matching
-    spectre_v2_mitigations_off()/spectre_v4_mitigations_off(), and use it
-    for the boot-time print too, as requested by Will. All three QEMU
-    boots re-run on v2; results unchanged.
-v1: https://lore.kernel.org/r/20260725122959.98361-1-kmehltretter@gmail.com/
 
- arch/arm64/kernel/proton-pack.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+The patch seems to solve my issues. However, since I don't understand this 
+code well, I cannot really say if the patch is correct. 
 
-diff --git a/arch/arm64/kernel/proton-pack.c b/arch/arm64/kernel/proton-pack.c
-index 7bb6553fec08..3bcf86154d95 100644
---- a/arch/arm64/kernel/proton-pack.c
-+++ b/arch/arm64/kernel/proton-pack.c
-@@ -1023,6 +1023,11 @@ static int __init parse_spectre_bhb_param(char *str)
- }
- early_param("nospectre_bhb", parse_spectre_bhb_param);
+Br,
+Peter
 
-+static bool spectre_bhb_mitigations_off(void)
-+{
-+	return __nospectre_bhb || cpu_mitigations_off();
-+}
-+
- void spectre_bhb_enable_mitigation(const struct arm64_cpu_capabilities *entry)
- {
- 	bp_hardening_cb_t cpu_cb;
-@@ -1036,6 +1041,8 @@ void spectre_bhb_enable_mitigation(const struct arm64_cpu_capabilities *entry)
- 		/* No point mitigating Spectre-BHB alone. */
- 	} else if (!IS_ENABLED(CONFIG_MITIGATE_SPECTRE_BRANCH_HISTORY)) {
- 		/* Do nothing */
-+	} else if (spectre_bhb_mitigations_off()) {
-+		/* Mitigation disabled on the command line */
- 	} else if (supports_ecbhb(SCOPE_LOCAL_CPU)) {
- 		state = SPECTRE_MITIGATED;
- 		set_bit(BHB_HW, &system_bhb_mitigations);
-@@ -1201,6 +1208,6 @@ void spectre_print_disabled_mitigations(void)
- 	if (spectre_v4_mitigations_off())
- 		pr_info("spectre-v4 %s", spectre_disabled_suffix);
-
--	if (__nospectre_bhb || cpu_mitigations_off())
-+	if (spectre_bhb_mitigations_off())
- 		pr_info("spectre-bhb %s", spectre_disabled_suffix);
- }
--- 
-2.51.0
