@@ -1,115 +1,497 @@
-Received: from mx1.heh.ee (heh.ee [213.35.143.160])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D33D3C0613;
-	Sun, 26 Jul 2026 20:31:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.35.143.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0F83451CE;
+	Sun, 26 Jul 2026 20:39:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785097883; cv=none; b=Cn+aN3yim+eyhs9Udhom7fJ4IzTPs9Ck+M6S9Iyczh+F0aDzcd5v9LXf/NsYiWC8jKC9swtUUCrmmqczFBNA8zciKCzGvlYK1ITIJ83NzRQAahy7V1/D3dndfKzjLGL8fcE/coB+srM1w7escGidBb7Nh8G0d3jS31G4LqcC4O4=
+	t=1785098381; cv=none; b=JIdGilG/5Ta0vEyYaI+bzX6WqlUadI5bV/yXtt0KBWftPGqnJs87Dmk1TZgs/2MYQgTB2bSGrRpQJVyHIZEG0a/neq4ykHJ0ZAKz6sZ/a1K/kZkdlHhnvSlkfTXRDLyR9Uj4ANVTvum4SEGfMbDTwey025DlFVbPAzSgzGStvQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785097883; c=relaxed/simple;
-	bh=TfWJv0fgE715k2ZENzRy58oVW+9/qdgQZmOc3B+VXec=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zbf5n8YyonNX69ta/Eb6fN2Oe5c3nqx+FswHRmTVqWHXBl7wASJ+jHl225qCCUm5hOIFLBAv/UZTGpRj/vas+Hg1fh40+U88rYzuMjWLgFesu3vJ+MychkJc5HXglJ141TgbHUxywWEfGiyX+HzcJBXd/ArJ2x6DgdYNVdeHplY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ristioja.ee; spf=pass smtp.mailfrom=ristioja.ee; dkim=pass (1024-bit key) header.d=ristioja.ee header.i=@ristioja.ee header.b=NT6X7Pvx; arc=none smtp.client-ip=213.35.143.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ristioja.ee
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ristioja.ee
+	s=arc-20240116; t=1785098381; c=relaxed/simple;
+	bh=r0sl2CxGfJShjsLXI9s3SyQhQwmggUCXMc76FdDLn+M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mYKEOOOWpThHz9bCz7T27sBuOL0H86N30cbAipZzMB8jJ3NZOHd8zp93UvCIVQmj4jR4cZSKKE4wSPwZ+akGeRVEzYvQBkVDSEnpTos5atta0q5rfk6Zhc8K8o/QhALrI01LaJFhm15/JS+t5BoQ1YIS7UxWIcXrLGgiumbJwL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QELJiVZ3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ristioja.ee header.i=@ristioja.ee header.b="NT6X7Pvx"
-Received: by mx1.heh.ee (Hehee) id 31ACD11268D;
-	Sun, 26 Jul 2026 23:21:15 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ristioja.ee; s=mail;
-	t=1785097275; bh=TfWJv0fgE715k2ZENzRy58oVW+9/qdgQZmOc3B+VXec=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NT6X7PvxY7JXG4AXQ9pue9GkhMp6ITjKClApNSIQSFh+wBj3/3nJVjFe7stxhZ8GG
-	 QUo2oSvNsHWsIFVjYMmPIa798NrCnnl/k46LOllEuT6SgpWSUFeDVQHpY3NqJ0W4tJ
-	 YkT1eBlUAe73VEKf/W65LBCXsRJM77RH903drfB8=
-Message-ID: <925d5179-289a-4d1e-85a5-09cf0998bf88@ristioja.ee>
-Date: Sun, 26 Jul 2026 23:22:14 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QELJiVZ3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF4A1F000E9;
+	Sun, 26 Jul 2026 20:39:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785098379;
+	bh=quqRCgIATdgRT0ITsYC6BFXnl0cbTKjHF6pWMEKBzX8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=QELJiVZ3Q33vSea6MxkV3BVjS1puSOG8+X7eiepEz+fDOEBOCJ8SqBazP85ont15w
+	 CbobBh0aeMiS8xql6jnfvKm9Lm9RE3PqIQTuZttvJPlwIm7RCsIyFypJIaH0msqsyi
+	 f7pXUWIHYu8nmAvBSld5z2WXomvAdf34tuhdyqQivQy3dZH1kMITRc+M/oJYHwP7Rp
+	 SWtUPyGskudJKCFZNpyGV/+7toB1XstyI/zGs3YicPrlP4dvG9RmhXrp8yUWjTX5rC
+	 S9EuAUcrs3GIcn/fouLTohfJjZknOddIbLeSiKmJicJIYqAhQKk8kza8WNK0Vr7W0Q
+	 3cT6w5eNkyItw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Keno Fischer <keno@juliahub.com>
+Cc: Keno Fischer <keno@juliahub.com>, Ingo Molnar <mingo@redhat.com>, Peter
+ Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>,
+ Davidlohr Bueso <dave@stgolabs.net>, =?utf-8?Q?Andr=C3=A9?= Almeida
+ <andrealmeid@igalia.com>, Yang Tao <yang.tao172@zte.com.cn>, Yi Wang
+ <wang.yi59@zte.com.cn>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, Florian Weimer
+ <fweimer@redhat.com>, Oleg Nesterov <oleg@redhat.com>, Christian Brauner
+ <brauner@kernel.org>
+Subject: Re: [PATCH] futex: Prevent robust futex exit race more
+In-Reply-To: <CABV8kRz5c4opGVA3CPdALWxjUH_DkLf_tBLdefajsSevfHFYpQ@mail.gmail.com>
+References: <CABV8kRwvex1VvQ0eGwUQmJL_vA7AP2h64VpHqtXvfOXMvvJQZA@mail.gmail.com>
+ <87bjc0led9.ffs@fw13>
+ <CABV8kRwDhwa_OoQ9zx4sv3tDATZc0Yy-mYGObRXw59DO0cDfLw@mail.gmail.com>
+ <87v7a7jeav.ffs@fw13>
+ <CABV8kRz5c4opGVA3CPdALWxjUH_DkLf_tBLdefajsSevfHFYpQ@mail.gmail.com>
+Date: Sun, 26 Jul 2026 22:39:35 +0200
+Message-ID: <87zezdiiyg.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
- modeset
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Chris Park <chris.park@amd.com>,
- Matthew Stewart <matthew.stewart2@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- 1139950@bugs.debian.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Dianne Skoll <dianne@skoll.ca>
-References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
- <178198613176.3658222.16247101620976737948@eldamar.lan>
- <ajcLuO0YZCoPN7Xw@eldamar.lan> <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
- <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
- <6cf6be99-76c3-43b3-854f-96cae180318c@ristioja.ee>
- <20260622153449.453b493e@gato.skoll.ca>
- <ae5c29aa-3790-479a-bdfb-1b571eaab809@leemhuis.info>
-Content-Language: et-EE
-From: Jaak Ristioja <jaak@ristioja.ee>
-Autocrypt: addr=jaak@ristioja.ee; keydata=
- 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
-In-Reply-To: <ae5c29aa-3790-479a-bdfb-1b571eaab809@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-Hi, I don't have any new updates on this yet. As suggested, I've 
-reported the issue to the amdgpu maintainers here:
+On Thu, Jul 23 2026 at 12:44, Keno Fischer wrote:
+>
+> +/* Store to user memory with release ordering and pagefaults disabled */
+> +static inline int futex_put_value_locked(u32 val, u32 __user *to)
 
-   https://gitlab.freedesktop.org/drm/amd/-/work_items/5531
+'put' is a bad name as it does not express the release() semantics.
 
-Cheers,
-Jaak
+> +		/*
+> +		 * Check for remaining waiters on this futex. Error
+> +		 * conditions from futex_wake_locked() are ignored here to
+> +		 * ensure that the next wake takes the contended path and
+> +		 * observes those errors.
+> +		 */
+> +		plist_for_each_entry(this, &hb->chain, list) {
+> +			if (futex_match(&this->key, key)) {
+> +				mval = FUTEX_WAITERS;
+> +				break;
+> +			}
+
+That can be done in the loop which collects waiters for wakeup.
+
+> +		}
+> +
+> +		if (!futex_put_value_locked(mval, uaddr))
+> +			return 0;
+>
+> -efault:
+> -	return false;
+> +		spin_unlock(&hb->lock);
+> +		ret = fault_in_user_writeable(uaddr) ? -EFAULT : 0;
+> +		spin_lock(&hb->lock);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+You _cannot_ loop here without reevaluating the futex key if the futex
+is shared. The key stays only valid for private futexes.
+
+>  }
+>
+>  /*
+> @@ -177,8 +220,9 @@ static bool futex_robust_unlock(u32 __user *uaddr,
+> unsigned int flags, void __us
+>   */
+>  int futex_wake(u32 __user *uaddr, unsigned int flags, void __user
+> *pop, int nr_wake, u32 bitset)
+>  {
+> +	bool robust = flags & FLAGS_ROBUST_UNLOCK;
+> +	bool wake = !((flags & FLAGS_STRICT) && !nr_wake);
+
+Clever, but I had to read this five times to convince myself that it and
+it's usage are correct. :(
+
+>  	union futex_key key = FUTEX_KEY_INIT;
+> -	struct futex_q *this, *next;
+>  	DEFINE_WAKE_Q(wake_q);
+>  	int ret;
+>
+> @@ -189,39 +233,44 @@ int futex_wake(u32 __user *uaddr, unsigned int
+> flags, void __user *pop, int nr_w
+>  	if (unlikely(ret != 0))
+>  		return ret;
+>
+> -	if (!futex_robust_unlock(uaddr, flags, pop))
+> -		return -EFAULT;
+> -
+> -	if ((flags & FLAGS_STRICT) && !nr_wake)
+> +	if (!robust && !wake)
+>  		return 0;
+
+To me a robust unlock operation with zero wakeups does not make any
+sense. The point of FLAGS_ROBUST_UNLOCK is that the user space (VDSO)
+transition from TID to 0 failed due to the waiter bit being set. That
+requires to go into the kernel to handle the unlock, pending op and
+wakeup sequence atomically, which is not possible in user space.
+So I'd rather return -EINVAL for that case.
+
+>  	CLASS(hbr, hbr)(&key);
+>  	auto hb = hbr.hb;
+>
+> -	/* Make sure we really have tasks to wakeup */
+> -	if (!futex_hb_waiters_pending(hb))
+> -		return ret;
+> +	/*
+> +	 * Make sure we really have tasks to wakeup. No fast path for @robust,
+> +	 * the unlock needs to happen regardless.
+
+That's a pretty meager comment. If you look carefully then you'll notice
+that the futex code has a comment to code ratio of 0.75. That's not
+because we love comments so much :)
+
+> +	 */
+> +	if (!robust && !futex_hb_waiters_pending(hb))
+> +		return 0;
+>
+>  	spin_lock(&hb->lock);
+>
+> -	plist_for_each_entry_safe(this, next, &hb->chain, list) {
+> -		if (futex_match (&this->key, &key)) {
+> -			if (this->pi_state || this->rt_waiter) {
+> -				ret = -EINVAL;
+> -				break;
+> -			}
+> +	if (wake)
+> +		ret = futex_wake_locked(hb, &key, &wake_q, nr_wake, bitset);
+>
+> -			/* Check if one of the bits is set in both bitsets */
+> -			if (!(this->bitset & bitset))
+> -				continue;
+> -
+> -			this->wake(&wake_q, this);
+> -			if (++ret >= nr_wake)
+> -				break;
+> -		}
+> +	if (robust && futex_robust_release(hb, &key, uaddr)) {
+> +		spin_unlock(&hb->lock);
+> +		/*
+> +		 * The futex word could not be released. Keep the pending list armed.
+> +		 */
+> +		ret = -EFAULT;
+> +		goto out;
+>  	}
+>
+>  	spin_unlock(&hb->lock);
+> +
+> +	/*
+> +	 * With the futex word released, clear the pending list op now. If
+> +	 * that fails, then the task is in deeper trouble as the robust list
+> +	 * head is usually part of the TLS. The chance of survival is close
+> +	 * to zero.
+> +	 */
+> +	if (robust && !futex_robust_list_clear_pending(pop, flags))
+> +		ret = -EFAULT;
+> +out:
+>  	wake_up_q(&wake_q);
+>  	return ret;
+
+For my taste there are too many if (robust) conditionals in this code. I
+really prefer a clear separation of the regular wake() path and the
+robust_unlock() case.
+
+Something like the compiled but completely untested below.
+
+Thanks,
+
+        tglx
+---
+ kernel/futex/futex.h    |    4 
+ kernel/futex/waitwake.c |  234 +++++++++++++++++++++++++++++++++++++-----------
+ 2 files changed, 187 insertions(+), 51 deletions(-)
+
+--- a/kernel/futex/futex.h
++++ b/kernel/futex/futex.h
+@@ -347,7 +347,7 @@ static inline void futex_hb_waiters_inc(
+ #ifdef CONFIG_SMP
+ 	atomic_inc(&hb->waiters);
+ 	/*
+-	 * Full barrier (A), see the ordering comment above.
++	 * Full barrier (A), see the ordering comment in waitwake.c
+ 	 */
+ 	smp_mb__after_atomic();
+ #endif
+@@ -368,7 +368,7 @@ static inline int futex_hb_waiters_pendi
+ {
+ #ifdef CONFIG_SMP
+ 	/*
+-	 * Full barrier (B), see the ordering comment above.
++	 * Full barrier (B), see the ordering comment in waitwake.c
+ 	 */
+ 	smp_mb();
+ 	return atomic_read(&hb->waiters);
+--- a/kernel/futex/waitwake.c
++++ b/kernel/futex/waitwake.c
+@@ -149,81 +149,217 @@ void futex_wake_mark(struct wake_q_head
+ 	wake_q_add_safe(wake_q, p);
+ }
+ 
++struct futex_wake_q_head {
++	struct wake_q_head	wake_q;
++	unsigned int		wakees;
++	bool			robust_unlock;
++	bool			waiters_left;
++};
++
++#define FUTEX_WAKE_Q(name)					\
++	struct futex_wake_q_head name = {			\
++		.wake_q = WAKE_Q_HEAD_INITIALIZER(name.wake_q),	\
++	}
++
++static int collect_waiters(struct futex_hash_bucket *hb, struct futex_wake_q_head *fwake_q,
++			   union futex_key *key, unsigned int nr_wake, u32 bitset)
++{
++	struct futex_q *this, *next;
++	unsigned int matches = 0;
++
++	plist_for_each_entry_safe(this, next, &hb->chain, list) {
++		if (!futex_match(&this->key, key))
++			continue;
++
++		if (this->pi_state || this->rt_waiter)
++			return -EINVAL;
++
++		/*
++		 * To determine whether there are waiters queued after
++		 * collecting @nr_wake wakees, increment the match count
++		 * independent of the bitset condition.
++		 */
++		matches++;
++
++		/* Check if one of the bits is set in both bitsets */
++		if (!(this->bitset & bitset))
++			continue;
++
++		/*
++		 * Terminates the loop for the robust_unlock case. Regular
++		 * wake() operations already terminated below.
++		 */
++		if (fwake_q->wakees == nr_wake)
++			break;
++
++		this->wake(&fwake_q->wake_q, this);
++		fwake_q->wakees++;
++		/*
++		 * For regular wake() operatins stop when the waiter count is
++		 * reached. For futex_robust_unlock() continue to figure out
++		 * whether there are more waiters queued.
++		 */
++		if (!fwake_q->robust_unlock && fwake_q->wakees == nr_wake)
++			break;
++	}
++
++	fwake_q->waiters_left = matches > fwake_q->wakees;
++	return fwake_q->wakees;
++}
++
++static int __futex_robust_unlock(u32 __user *uaddr, void __user *pop, unsigned int flags,
++				 unsigned int nr_wake, u32 bitset,
++				 struct futex_wake_q_head *fwake_q)
++{
++	union futex_key key = FUTEX_KEY_INIT;
++	int ret;
++
++	/*
++	 * In the case that unlocking the user space lock faulted, this could be
++	 * optimized to not re-evaluate the key for private futexes, but there
++	 * is actually zero benefit to do so. It's very unlikely that the unlock
++	 * faults right after user space attempted a TID -> 0 transition on that
++	 * address, so optimizing for that corner case is pointless.
++	 */
++	ret = get_futex_key(uaddr, flags, &key, FUTEX_WRITE);
++	if (unlikely(ret))
++		return ret;
++
++	CLASS(hbr, hbr)(&key);
++	auto hb = hbr.hb;
++
++	/*
++	 * This has to take the hash bucket lock unconditionally and cannot rely
++	 * on futex_hb_waiters_pending(hb) as that would open a race condition
++	 * between the unlock operation and a concurrent incoming waiter:
++	 *
++	 *						user_lock |= FUTEX_WAITERS;
++	 *   if (futex_hb_waiters_pending(hb))
++	 *	robust_unlock(0)			atomic_inc(hb::waiters);
++	 *						lock(hb)
++	 *						// Succeeds!
++	 *						compare_user_lock()
++	 *
++	 *	    user_lock = 0; // clears the FUTEX_WAITERS bit
++	 *
++	 * Though it's likely that there is at least one waiter queued because
++	 * the userspace TID -> 0 transition failed due to the FUTEX_WAITERS bit
++	 * being set, which means the lock has to be taken in the majority of
++	 * cases anyway.
++	 */
++	scoped_guard(spinlock, &hb->lock) {
++		ret = collect_waiters(hb, fwake_q, &key, nr_wake, bitset);
++		if (ret < 0)
++			return ret;
++
++		/*
++		 * Unlock the futex in user space while holding the hash bucket
++		 * lock to keep the FUTEX_WAITERS bit consistent. Newly incoming
++		 * waiters are serialized on the hash bucket lock and will
++		 * observe that the user space value has changed once they
++		 * acquired it.
++		 */
++		u32 uval = fwake_q->waiters_left ? FUTEX_WAITERS : 0;
++
++		guard(pagefault)();
++		scoped_user_write_access(uaddr, efault_uaddr)
++			unsafe_atomic_store_release_user(uval, uaddr, efault_uaddr);
++	}
++
++	/*
++	 * Clear the pending list op now that the unlock succeeded. If clearing
++	 * the pending op fails, then the task is in deeper trouble as the
++	 * robust list head is usually part of the TLS. The chance of survival
++	 * is close to zero and retry is pointless as the fault is terminal.
++	 */
++	return futex_robust_list_clear_pending(pop, flags) ? fwake_q->wakees : -EFAULT;
++
++efault_uaddr:
++	/* Unlock faulted. Try to fault in @uaddr and repeat if successful */
++	return fault_in_user_writeable(uaddr) ? : -EAGAIN;
++}
++
+ /*
+- * If requested, clear the robust list pending op and unlock the futex
++ * Robust futex unlock procedure:
++ *
++ *	- collect up to @nr_wake waiters and check whether there are more waiters queued
++ *	- unlock the user space lock and keep the FUTEX_WAITER bit consistent
++ *	- clear the user space robust list pending op pointer
++ *	- wake up the collected waiters.
+  */
+-static bool futex_robust_unlock(u32 __user *uaddr, unsigned int flags, void __user *pop)
++static int futex_robust_unlock(u32 __user *uaddr, void __user *pop, unsigned int flags,
++			       unsigned int nr_wake, u32 bitset)
+ {
+-	if (!(flags & FLAGS_ROBUST_UNLOCK))
+-		return true;
+-
+-	/* First unlock the futex, which requires release semantics. */
+-	scoped_user_write_access(uaddr, efault)
+-		unsafe_atomic_store_release_user(0, uaddr, efault);
++	FUTEX_WAKE_Q(fwake_q);
++	int ret = -EAGAIN;
+ 
+ 	/*
+-	 * Clear the pending list op now. If that fails, then the task is in
+-	 * deeper trouble as the robust list head is usually part of the TLS.
+-	 * The chance of survival is close to zero.
++	 * This loops in case that unlocking the user space lock faults and the
++	 * fault resolution is successful. fwake_q.wakees holds the number of
++	 * collected waiters of the first pass so collect_waiters() won't
++	 * collect more than @nr_wake, but it has to be invoked again after a
++	 * fault to keep the FUTEX_WAITER bit consistent for the next unlock
++	 * attempt.
+ 	 */
+-	return futex_robust_list_clear_pending(pop, flags);
++	for (fwake_q.robust_unlock = true; ret == -EAGAIN;)
++		ret = __futex_robust_unlock(uaddr, pop, flags, nr_wake, bitset, &fwake_q);
+ 
+-efault:
+-	return false;
++	wake_up_q(&fwake_q.wake_q);
++	return ret;
+ }
+ 
+ /*
+- * Wake up waiters matching bitset queued on this futex (uaddr).
++ * Plain wake() operation procedure:
++ *	- collect and wake up to @nr_wake waiters
+  */
+-int futex_wake(u32 __user *uaddr, unsigned int flags, void __user *pop, int nr_wake, u32 bitset)
++static int __futex_wake(u32 __user *uaddr, unsigned int flags, unsigned int nr_wake, u32 bitset)
+ {
+ 	union futex_key key = FUTEX_KEY_INIT;
+-	struct futex_q *this, *next;
+-	DEFINE_WAKE_Q(wake_q);
++	FUTEX_WAKE_Q(fwake_q);
+ 	int ret;
+ 
+-	if (!bitset)
+-		return -EINVAL;
+-
+ 	ret = get_futex_key(uaddr, flags, &key, FUTEX_READ);
+-	if (unlikely(ret != 0))
++	if (unlikely(ret))
+ 		return ret;
+ 
+-	if (!futex_robust_unlock(uaddr, flags, pop))
+-		return -EFAULT;
+-
+-	if ((flags & FLAGS_STRICT) && !nr_wake)
+-		return 0;
+-
+ 	CLASS(hbr, hbr)(&key);
+ 	auto hb = hbr.hb;
+ 
+-	/* Make sure we really have tasks to wakeup */
++	/*
++	 * For regular wakeup operations the lockless quick check is
++	 * sufficient. See the ordering guarantees documentation at the top of
++	 * this file.
++	 */
+ 	if (!futex_hb_waiters_pending(hb))
+-		return ret;
++		return 0;
+ 
+-	spin_lock(&hb->lock);
++	scoped_guard(spinlock, &hb->lock)
++		ret = collect_waiters(hb, &fwake_q, &key, nr_wake, bitset);
+ 
+-	plist_for_each_entry_safe(this, next, &hb->chain, list) {
+-		if (futex_match (&this->key, &key)) {
+-			if (this->pi_state || this->rt_waiter) {
+-				ret = -EINVAL;
+-				break;
+-			}
+-
+-			/* Check if one of the bits is set in both bitsets */
+-			if (!(this->bitset & bitset))
+-				continue;
+-
+-			this->wake(&wake_q, this);
+-			if (++ret >= nr_wake)
+-				break;
+-		}
++	wake_up_q(&fwake_q.wake_q);
++	return ret;
++}
++
++/*
++ * Wake up waiters matching bitset queued on this futex (uaddr).
++ */
++int futex_wake(u32 __user *uaddr, unsigned int flags, void __user *pop, int nr_wake, u32 bitset)
++{
++	bool robust_unlock = !!(flags & FUTEX_ROBUST_UNLOCK);
++
++	if (!bitset || nr_wake < 0)
++		return -EINVAL;
++
++	if (unlikely(!nr_wake)) {
++		if (flags & FLAGS_STRICT)
++			return robust_unlock ? -EINVAL : 0;
++		nr_wake = 1;
+ 	}
+ 
+-	spin_unlock(&hb->lock);
+-	wake_up_q(&wake_q);
+-	return ret;
++	if (robust_unlock)
++		return futex_robust_unlock(uaddr, pop, flags, nr_wake, bitset);
++
++	return __futex_wake(uaddr, flags, nr_wake, bitset);
+ }
+ 
+ static int futex_atomic_op_inuser(unsigned int encoded_op, u32 __user *uaddr)
+
+
