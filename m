@@ -1,311 +1,211 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF652374E42
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 16:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F493D3CEB
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 16:39:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785083155; cv=none; b=Nmf5kixj9s6Rc8rcsDiCy79pR+4guMbotpn2/yF7t5zK2YAY72jvCFRqbI6yxJf7Dml60UeauoPxHp6KlTMTE+byTl1nTRrcNS+ctQyTFwnUqV75faaFSNFsjKmPok0Sw6WS/m4+zGizIQrjilnbKvATVqnU19tRTrdH0APNDXg=
+	t=1785083988; cv=none; b=tLWEJkyQ38kO45SeGFUQwf9DHjhmgxNQMlNU0C91Fa12VYrgWV1Iic0Ze9SqJ7QLqbU99q+blsS2MTx0soLOGRRygyugZK5s0lwQcXbB2Prw8p+0ipLHJURQh7SyQo8PgrbOm2q29f8hL1/sif7oPI0r3J6qnoYHjrUxOU3D5Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785083155; c=relaxed/simple;
-	bh=XbhZWawk9uP5w+/hRkyU+8LB6exUbgZNi8v8VnEQEzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=o/QrjQxLV0PpZpQKfeB+ZVRW98zCTFG4XF4E+qIG8ulvIJuTG67wki/s5QZY2Cw3NAsZx1NDMVUzxHi23F89nr6g/vrb7YpUfRKSU95JucjlcTz8YhyV6BiQvYR9lBAk+/PdkCp5OOg0BYYT1lEG9LqrVBFCE+Y0nIZS029UK5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tv6wFtMH; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785083988; c=relaxed/simple;
+	bh=2Ro/9S4BQ5TNB6srO/HHxekj2YW5ya5HGRiHsGeRo74=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sE1MUBuVvFnRu3d8u8ByjU1mRB+NEIFBSxUBj7/l02dtea/GBav+Ht5B2jKjV9f/ZYuKsmSd1zxllAp+IbBGg0lfIBghT33qzWkM2GZ7GXHJQyWRKnPUS1e6qFxhIx0za9ks2PNJo3eKgM2rrX4nYdWe7dRCiRoP3FiIzuH4AqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=RZHoUaA4; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tv6wFtMH"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so18045775e9.2
-        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 09:25:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="RZHoUaA4"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cad8076b01so22394675ad.2
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 09:39:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785083150; x=1785687950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zFLKSj9QjxByZ3M4VcrGfBPwVddmmLi8VlJ0E9sOg4I=;
-        b=Tv6wFtMHsgi8RdI7RvXTvkvNoRut+nhX93vPraQKLt6lXF/OydWq1DonZUWQx1n4/x
-         5E9pVORAUfO74ZrEjkD2Y4JMzifGner2Keo12oS57vcFTWS+pMVACSWsHdxuAeh4mB1W
-         DbLqKg1Ppq8KAvbPvYhSEuHzpkwZa8m/QFspjsFFPNHtHGbXhcmPbiZgOn7gqUp/SG6p
-         GZyEv672LN+rmjVpViVQKqWBkqadG1dLaW7VwKrRtj5X3PuDY9f/O8S06etrosJQh7Nz
-         Vrn855+/DR6dSg3evyITd+hzygE/KO+Dgj5tNriSAsMySta/GVgslK2HGQSKKmOigZjq
-         FGvw==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785083984; x=1785688784; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Gq3vDCA8qyUTutalHgGj6aRcp1kNTbzzKTiRzZxdQZw=;
+        b=RZHoUaA48HwArzJ53Pnh4xTHTAZ+DylaHnf9Cf0GZDDD69oy79HjC7BxxfMU/suVq4
+         l5jhlyOIN+edi33y2+gDMlkdoNUTsS3k7/FtybbnPEE8cBoQFZT4jujcYIrrS5PGX1FY
+         duNosodtuRS4yIcZkciA4RuG2ILgLyqYIhjhzt8EntiTtOpGALqxNchlbMZDmzrz66hy
+         9xg3jkJV9jJYvIz7CshhXE9QTn9ZACASf8TPjMIiHsDiu/PPtAJmM4X5YI6WhMP0m8om
+         ACJSOptlSGeIO+2vpkhFVEPPfdPICGUlf9oCjQgoUOSbAxbe4j0e6JAD7/lk0gLZ0h7l
+         6+qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785083150; x=1785687950;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zFLKSj9QjxByZ3M4VcrGfBPwVddmmLi8VlJ0E9sOg4I=;
-        b=sdzTgSEClLIxnoKGoXdB55+8c9DEGOhLO8tSAIQOWdJKVT4QMhLspFraV40HzlOLci
-         mRQ5AC8tHnd0qVCCt24joGSaxmdp47QhGJtL/bRFmEeuhpaW4LvqcPoJwHS+yYC30K2b
-         MSu2yI1Rrg7gijYP+M4ZuMypiKQyliMHQY9owbGN855s3Zee04cTLIVI5IkUThL5MHgG
-         lIPkUPLbMWCSfoN3jomjhwcGjiGQhytCfrNIvj09QpYzGYibXkdPhs8UJLI98h4HEP1e
-         WyAfrSDgxi5VtuQ9rtfvDXoUit4Ogi3xvVHi+FnVy6t4U6OoZEE+flTy2WWEGM5hcDbX
-         O7Bg==
-X-Forwarded-Encrypted: i=1; AHgh+RorAQMwL5Y7GMGi5/uIbZy+z49yWSFq4yAEapwjHeguc+txtWqZNDUQz6wJCkZ4Utdl8vSyeuU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPoZ6dYI/qhHp/KuZQGOERMipBV1IW/Qr3Fg3v3BP/ThhzMCLh
-	kS90878miTINyw1JLP3sqSMMFb2mQc1Ulr8Jx8K4ImuQ/thjd50JKVyh
-X-Gm-Gg: AR+sD12rwCe79I1ueo+YQRc8hWPnUwf5PDWSpGU1i12TzwjVUDJoV6sjoncJRBa/2zK
-	Ac+7z0dEfKJ6HL2JgmRrGB1CXR4FduqwND5Q/QSCF/GqjMbz6XPjCGUahS355h50r4qQZdbxl86
-	lFCxBaL8Xm95yyBSv9YEFcw4j7fEScvIF07Pe7904lTV3XjZy7TBRQ/3piR5T7af0ahLUmRdx3B
-	6uXG8Mr8op52pIdFd9XikTAyoHNrm0ML3ZVjOYomn8kI6zmWSMXM9CEXMrpGmFFgLyT0PReK9V+
-	MtSEOlWR0qw8tMjnXKjQavEaPgMNfG65A53ZHInb6QcIwO8Mcw6mwFec+gVZ+00hMRDCYIYFK/z
-	Y/hLTnDaLAK/yzT+VPOYrkGuH2VlNp7VxHgKNZNXz3YQ9xU3HjZ9OB/9clYcgAmX2CoCQklJz5i
-	XsQDvz4CNXXUM=
-X-Received: by 2002:a05:600c:6992:b0:495:4811:d71c with SMTP id 5b1f17b1804b1-496b56c6d6dmr72217385e9.13.1785083150064;
-        Sun, 26 Jul 2026 09:25:50 -0700 (PDT)
-Received: from foxbook (bey56.neoplus.adsl.tpnet.pl. [83.28.36.56])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4f302f8sm148698145e9.12.2026.07.26.09.25.48
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 26 Jul 2026 09:25:49 -0700 (PDT)
-Date: Sun, 26 Jul 2026 18:29:46 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, stern@rowland.harvard.edu, corbet@lwn.net,
- skhan@linuxfoundation.org, linux-doc@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] usbcore: Add quirk for 255-bytes initial config
- read
-Message-ID: <20260726182946.79a4ef98.michal.pecio@gmail.com>
-In-Reply-To: <20260717195336.98500-2-nikhilsolanke5@gmail.com>
-References: <20260717195336.98500-1-nikhilsolanke5@gmail.com>
-	<20260717195336.98500-2-nikhilsolanke5@gmail.com>
+        d=1e100.net; s=20251104; t=1785083984; x=1785688784;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Gq3vDCA8qyUTutalHgGj6aRcp1kNTbzzKTiRzZxdQZw=;
+        b=IoO8pmuQg5qaHjW50ujfP+yPY8Nnjb5pTjT1BifafWhslAIiQYw2vS5aQvjGZbwoky
+         jRbR03Jg2sVnkewjCzICHiZ/deUdi0m4d76uAumOghjAkVfENN3j7HT6vs92F4loqC/X
+         jLFdoBs8s4fPJu/jKa9foJbP8oqPXGWBUrTZrU3ZyqrTERTaqelflrWk3fhA5OsQF9BL
+         bua/WXJXFtAzUsTMVj7aJ+OfTbICazIunVP9Q/nLVm/Ylpp12I+vY/DJsJaIynHYv42U
+         KEbWA/HnOMiKooNgHJLDNJDM5NNUFY8Gg4vgizKmnfVq7XPXFV3m7O+1YTLZlf2vgWYl
+         Jsgw==
+X-Forwarded-Encrypted: i=1; AHgh+RqkTSR87uCSo89KJHDnO+EGYI7plUOJobEB8SI/TegB3NoHtzny8JA5TVMjb2bddy6gi8LM0YY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWneQp1OPNQhdMditMVW3OTK6Wio242A4/oW08p0svB3ufR2F4
+	aLx5rZ5vsMeqtNn3l3T2sApWx7amuzS4W8e/qyo1gDC44jFvox8O1pjVq9dUIFflwlHDYs3noW1
+	ui0YJ9JAYqQ==
+X-Gm-Gg: AR+sD114mTNa3eA0Pt/7rLllGMUof1IzKb/e1cTJFUKZ3CgsHO1kJJFr/2X0KWrIwi3
+	X0ROnDCh1Dy/ZL4eQjhpLqfJH5plMT93x2xfVlB60AHpP3yreDqVf6S5iHfZtCOCxAUkqZ9bmJZ
+	a6b5ijIx5KICSvZBSxM2+9DDmWfM389mHtJ0kTX9AidPSoBe1Xn3cFtvq9eqf1yL2PUXRccwC5R
+	jzfDM1b6K4xgvmYxCzNqpsAEVmwm1WhB1nkGJ4ZkXPnbXUGkVekYFx8Zji4ugjcK5F3+9LKuIzx
+	aBQ3THoS5uKjt//qtkmqGJKkPMhhNa91Qu5Duah2pDqNMSgN5/gq2U8FaUYgI7uiO84p34VkDcN
+	Jtpu2hjiPSHIMNnDxaQ2JjFo17tY8vFOynNuRZBVh4P/FHXdCCaoRXeWjXXeYRpp2CbibjCRvKT
+	4Gzu11lvqY8TefXtifK3FOOJOE
+X-Received: by 2002:a17:902:e541:b0:2cf:1536:3d41 with SMTP id d9443c01a7336-2cfde84b893mr53739685ad.28.1785083984191;
+        Sun, 26 Jul 2026 09:39:44 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:be9c:ea6b:29a7:6c78])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde80306esm21514315ad.75.2026.07.26.09.39.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Jul 2026 09:39:43 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: sagi@grimberg.me,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] IB/isert: reject PDUs declaring more data than was received
+Date: Mon, 27 Jul 2026 01:39:30 +0900
+Message-ID: <20260726163931.971063-2-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260726163931.971063-1-yhlee@isslab.korea.ac.kr>
+References: <20260726163931.971063-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat, 18 Jul 2026 01:23:35 +0530, Nikhil Solanke wrote:
-> Certain third-party USB game controllers exposing (or spoofing) an Xbox
-> 360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
-> The device disconnects from the bus without responding to the initial
-> GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
-> config index 0 descriptor/start: -71'.
-> 
-> The device then falls back to a secondary Android HID mode (with a
-> different VID:PID), losing XInput functionality including rumble support.
-> The failure reproduces across multiple machines, host controller types, and
-> kernel versions including current mainline and LTS. The device enumerates
-> correctly and remains in XInput mode under Windows. Notably, the device
-> enumerates correctly in Android mode when the same 9-byte request
-> is issued for that mode's configuration descriptor, confirming the firmware
-> bug is specific to the XInput mode.
-> 
-> usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
-> identical up to the point of failure, with no visible protocol-level
-> difference explaining the divergence. The root cause was identified when
-> Michal Pecio discovered via a QEMU bus-level capture that Windows does not
-> use wLength=9 for the initial config descriptor request; it uses
-> wLength=255. Alan Stern subsequently confirmed this with a bus
-> analyzer on a different USB 2.0 device, and Michal verified the behavior
-> goes back to Windows 95 OSR2.1.
-> 
-> So, add a new quirk flag USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE which causes
-> usb_get_configuration() to issue a 255 byte sized configuration request
-> instead of USB_DT_CONFIG_SIZE (9) for the initial
-> GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
-> behavior.
-> 
-> Suggested-by: Alan Stern <stern@rowland.harvard.edu>
-> Suggested-by: Michal Pecio <michal.pecio@gmail.com>
-> Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
-> ---
+isert_recv_done() hands each received PDU to the opcode handlers without
+ever looking at wc->byte_len, the number of bytes the HCA actually placed
+in the receive descriptor. The handlers then copy that many bytes - the
+data-segment length the initiator declared in the BHS
+(ntoh24(hdr->dlength), via the derived unsol_data_len / imm_data_len) -
+out of the fixed-size descriptor:
 
-The code looks generally correct now. Some small issues noted below.
+  isert_handle_iscsi_dataout():
+        sg_copy_from_buffer(sg_start, sg_nents, isert_get_data(rx_desc),
+                            unsol_data_len);
+  isert_handle_scsi_cmd():
+        sg_copy_from_buffer(cmd->se_cmd.t_data_sg, sg_nents,
+                            isert_get_data(rx_desc), imm_data_len);
 
->  .../admin-guide/kernel-parameters.txt         | 10 +++++
->  drivers/usb/core/config.c                     | 39 +++++++++++++++----
->  drivers/usb/core/quirks.c                     |  4 ++
->  include/linux/usb/quirks.h                    |  3 ++
->  4 files changed, 49 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index b5493a7f8f22..14121458a0c0 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -8169,6 +8169,16 @@ Kernel parameters
->  				q = USB_QUIRK_FORCE_ONE_CONFIG (Device
->  					claims zero configurations,
->  					forcing to 1);
-> +				r = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE (Device
-> +					fails during initialization when asked for
-> +					9-bytes configuration descriptor request.
-> +					Ask for 255-bytes request instead to mirror
-> +					Windows' behavior. This quirk is originally
-> +					meant to fix some quirky gamepads that refuse
-> +					to connect in their XInput mode. But it can
-> +					also potentially fix issues with other USB
-> +					devices that work on Windows but not on
-> +					Linux);
+Because the declared length is never checked against wc->byte_len, an
+initiator can declare a data segment larger than the bytes it actually
+sent (and larger than the descriptor) and cause an out-of-bounds read of
+the receive buffer.
 
-I still think this text is needlessly long. Could be:
+Nothing upstream of isert closes this door:
 
-				r = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE (Device
-					doesn't respond to 9-byte configuration
-					descriptor requests, ask for 255 bytes like
-					Windows does. Required by some gamepads);
+  - __iscsit_check_dataout_hdr() bounds the inbound payload against
+    conn_ops->MaxXmitDataSegmentLength (MXDSL) - a transmit parameter,
+    used here for the inbound check.
+  - iscsi_set_connection_parameters() sets
+    ops->MaxXmitDataSegmentLength = ops->TargetRecvDataSegmentLength;
+    and TARGETRECVDATASEGMENTLENGTH is absent from the min()-clamp list in
+    iscsi_check_acceptor_state(), so the value the initiator declares is
+    adopted verbatim (type range 512..16777215). The initiator effectively
+    raises its own ceiling.
+  - isert never clamps the negotiated value to its own fixed receive
+    descriptor (ISER_RX_SIZE, 9216 bytes), so the target core's bound and
+    the descriptor size are unrelated.
 
->  			Example: quirks=0781:5580:bk,0a5c:5834:gij
->  
->  	usbhid.mousepoll=
-> diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
-> index 45e20c6d76c0..442c15f92ccd 100644
-> --- a/drivers/usb/core/config.c
-> +++ b/drivers/usb/core/config.c
-> @@ -912,6 +912,17 @@ int usb_get_configuration(struct usb_device *dev)
->  	unsigned char *bigbuffer;
->  	struct usb_config_descriptor *desc;
->  	int result;
-> +	size_t usb_config_req_size;
-> +
-> +	/*
-> +	 * Devices with quirky firmware will stall or reset when the initial
+The imm_data_len == data_len path is more than an over-read: it aliases
+the receive descriptor via sg_set_buf() and passes it to the backend as
+the data source for the SCSI WRITE, so an over-declared length causes heap
+contents past the descriptor to be written through the backend to the
+backing store. The backend is the victim of the oversized scatterlist
+isert hands it, not the cause; no read-back of the written bytes was
+demonstrated.
 
-Has anyone actually seen a device that stalls?
+Trigger: after login completes (full feature phase), an initiator that has
+declared a large TargetRecvDataSegmentLength and a FirstBurstLength that
+permits unsolicited/immediate data sends a PDU whose declared data-segment
+length exceeds what was received. With KASAN:
 
-> +	 * config descriptor request uses wLength=9. If the quirk is set, use
-> +	 * 255 instead, mirroring the behavior of Windows.
-> +	 */
+  BUG: KASAN: slab-out-of-bounds in sg_copy_buffer+0x150/0x1c0
+  Read of size 4096 at addr ffff888109720800 by task kworker/1:0H/25
+  Workqueue: ib-comp-wq ib_cq_poll_work
+  Call Trace:
+   sg_copy_buffer+0x150/0x1c0
+   isert_recv_done+0xba6/0x2390
+   __ib_process_cq+0xe1/0x390
+   ib_cq_poll_work+0x46/0x150
 
-If the USB_DT_CONFIG_SIZE constant is moved here then it could make
-sense to also move the related comment and merge with this one. Say,
+isert_recv_done+0xba6 resolves to isert_handle_iscsi_dataout()
+(ib_isert.c:1160), inlined through isert_rx_opcode().
 
-	/*
-	 * We start with grabbing the first descriptor so we know how
-	 * long the whole configuration is. Some devices don't respond,
-	 * request 255 bytes instead, mirroring the behavior of Windows.
-	 */
+Validate wc->byte_len against the framing in isert_recv_done() before the
+PDU reaches any handler, and reinstate the connection if it is short.
+Because the test compares without subtracting the header length, it also
+rejects PDUs shorter than the iSER and iSCSI headers, which would otherwise
+be parsed out of stale descriptor contents. The login handler rejects PDUs
+shorter than ISER_HEADERS_LEN (commit 29e7b925ae6d ("IB/isert: Reject login
+PDUs shorter than ISER_HEADERS_LEN")) but does not bound the declared
+length either; that is fixed in the next patch. The data handlers had no
+length check at all.
 
-> +	if (dev->quirks & USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE)
-> +		usb_config_req_size = 255;
-> +	else
-> +		usb_config_req_size = USB_DT_CONFIG_SIZE;
->  
->  	if (ncfg > USB_MAXCONFIG) {
->  		dev_notice(ddev, "too many configurations: %d, "
-> @@ -938,15 +949,19 @@ int usb_get_configuration(struct usb_device *dev)
->  	if (!dev->rawdescriptors)
->  		return -ENOMEM;
->  
-> -	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
-> +	desc = kmalloc(usb_config_req_size, GFP_KERNEL);
->  	if (!desc)
->  		return -ENOMEM;
->  
->  	for (cfgno = 0; cfgno < ncfg; cfgno++) {
-> -		/* We grab just the first descriptor so we know how long
-> -		 * the whole configuration is */
-> +		/*
-> +		 * Normally we request only the configuration descriptor header
-> +		 * so we can determine the total configuration length. For
-> +		 * devices with USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE set, try to
-> +		 * grab the full descriptor set instead.
-> +		 */
+isert reads the data segment from a fixed offset: isert_get_data()
+returns the iSER header plus ISER_HEADERS_LEN and makes no adjustment for
+an AHS.  The bytes the handlers touch are therefore exactly
+[ISER_HEADERS_LEN, ISER_HEADERS_LEN + dlength), and comparing that sum
+against wc->byte_len bounds precisely the region that is read.  An AHS
+term would only make the test stricter without bounding anything further,
+and cannot cause a false reject: a PDU carrying an AHS is longer, not
+shorter.
 
-... and then this comment wouldn't really be necessary, or it could
-be shorter like
-		/* First request for an initial prefix */
+This is a memory-safety fix that verifies the bytes that were actually
+received; it does not touch RFC 7145 length negotiation and is not the
+MaxXmitDataSegmentLength negotiation redesign raised in the 2017 "[Query]
+iSER-Target: QP errors observed on increasing MaxXmitDataSegmentLength"
+discussion. That redesign is explicitly out of scope here.
 
-Also, the full descriptor set may be up to 65535 bytes long and in
-some classes like UVC it commonly exceeds 255 bytes
+The patched kernel rejects the malformed DataOut PDU and both
+immediate-data variants with "PDU declares ... bytes were received" and
+continues to pass normal traffic with no regression.
 
->  		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
-> -		    desc, USB_DT_CONFIG_SIZE);
-> +		    desc, usb_config_req_size);
->  		if (result < 0) {
->  			dev_err(ddev, "unable to read config index %d "
->  			    "descriptor/%s: %d\n", cfgno, "start", result);
-> @@ -956,9 +971,8 @@ int usb_get_configuration(struct usb_device *dev)
->  			dev->descriptor.bNumConfigurations = cfgno;
->  			break;
->  		} else if (result < 4) {
-> -			dev_err(ddev, "config index %d descriptor too short "
-> -			    "(expected %i, got %i)\n", cfgno,
-> -			    USB_DT_CONFIG_SIZE, result);
-> +			dev_err(ddev, "config index %d descriptor too short (asked for %zu, got %i, need at least %i)\n",
-> +			    cfgno, usb_config_req_size, result, 4);
+Reproduced with soft-RoCE (rdma_rxe) and a raw rdma_cm/ibv initiator; no
+kernel-side test hooks were needed.
 
-There is no need to use %i if you always pass a constant 4.
+Fixes: b8d26b3be8b3 ("iser-target: Add iSCSI Extensions for RDMA (iSER) target driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/infiniband/ulp/isert/ib_isert.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-There is probably no need to print "need at least 4" at all. Users
-don't care that we request 9 or 255 bytes but tolarate just 4.
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index 1015a51f750a..66435a0a5c7a 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -1333,6 +1333,21 @@ isert_recv_done(struct ib_cq *cq, struct ib_wc *wc)
+ 	ib_dma_sync_single_for_cpu(ib_dev, rx_desc->dma_addr,
+ 			ISER_RX_SIZE, DMA_FROM_DEVICE);
+ 
++	/*
++	 * The data segment length declared in the BHS is attacker controlled
++	 * and is used further down to read that many bytes out of the fixed
++	 * size receive descriptor, so it has to be checked against the number
++	 * of bytes that were actually received. Comparing without subtracting
++	 * also rejects PDUs shorter than the iSER and iSCSI headers, which
++	 * would otherwise be parsed out of stale descriptor contents.
++	 */
++	if (unlikely(wc->byte_len < ISER_HEADERS_LEN + ntoh24(hdr->dlength))) {
++		isert_err("PDU declares %u data bytes but only %u bytes were received\n",
++			  ntoh24(hdr->dlength), wc->byte_len);
++		iscsit_cause_connection_reinstatement(isert_conn->conn, 0);
++		return;
++	}
++
+ 	isert_dbg("DMA: 0x%llx, iSCSI opcode: 0x%02x, ITT: 0x%08x, flags: 0x%02x dlen: %d\n",
+ 		 rx_desc->dma_addr, hdr->opcode, hdr->itt, hdr->flags,
+ 		 (int)(wc->byte_len - ISER_HEADERS_LEN));
+-- 
+2.43.0
 
-No compliant device will ever respond with less than 9, so it's not
-clear if accepting 4 is even necessary for some very bad devices, or
-was merely done out of paranoia. It's an irrelevant detail.
-
->  			result = -EINVAL;
->  			goto err;
->  		}
-> @@ -972,6 +986,16 @@ int usb_get_configuration(struct usb_device *dev)
->  			goto err;
->  		}
->  
-> +		/*
-> +		 * If the device returns the full configuration descriptor set,
-> +		 * skip the second read. Otherwise, send a second request
-> +		 * asking for the full set.
-> +		 */
-
-There is already a comment about "getting the whole thing" a few lines
-above, so half of this is redundant.
-
-> +		if (result >= length) {
-> +			memcpy(bigbuffer, desc, length);
-> +			goto store_and_parse;
-> +		}
-> +
-
-Even if no device currently uses both quirks, I think this belongs
-after the msleep() below, to minimize interaction between the quirks.
-
->  		if (dev->quirks & USB_QUIRK_DELAY_INIT)
->  			msleep(200);
->  
-> @@ -989,6 +1013,7 @@ int usb_get_configuration(struct usb_device *dev)
->  			length = result;
->  		}
->  
-> +store_and_parse:
->  		dev->rawdescriptors[cfgno] = bigbuffer;
->  
->  		result = usb_parse_configuration(dev, cfgno,
-> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-> index 87ee2d938bc0..f5a60ccf21d3 100644
-> --- a/drivers/usb/core/quirks.c
-> +++ b/drivers/usb/core/quirks.c
-> @@ -142,6 +142,10 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
->  				break;
->  			case 'q':
->  				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
-> +				break;
-> +			case 'r':
-> +				flags |= USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE;
-> +				break;
->  			/* Ignore unrecognized flag characters */
->  			}
->  		}
-> diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
-> index b3cc7beab4a3..a4043b33c2c2 100644
-> --- a/include/linux/usb/quirks.h
-> +++ b/include/linux/usb/quirks.h
-> @@ -81,4 +81,7 @@
->  /* Device claims zero configurations, forcing to 1 */
->  #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
->  
-> +/* Use a 255 bytes config descriptor request mirroring windows behavior */
-> +#define USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE	BIT(19)
-> +
->  #endif /* __LINUX_USB_QUIRKS_H */
-> -- 
-> 2.55.0
-> 
