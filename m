@@ -1,169 +1,132 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46D3366567;
-	Sun, 26 Jul 2026 17:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627313D9693
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 17:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785086529; cv=none; b=hkVcTsmy9OHwyJL1R48vqtL+9zf/CrxyieGU6lr7WuxiL0ijNyBgWFFdEu89HBohqRVw+2UsFj0P+2qgX6uoDMqXKGjCYtXWWPNQ2WABj8N0Blb++wEXu3WEC6pW6Dc6mxifrMtIT6VkudnKvW8oG3M0tr6n4uNYctah7ZU2QKI=
+	t=1785088168; cv=none; b=fKzAFl1pWSp3F+v8IX/EuTFFRe9beR/q4ATnryl4tdaUskjUP3+eUXW3ANvNGhp8WThP/KTzgWaIGw2FonqDGXfAmkVvs7AgbKxWV8vdPLkuLZHd9KQsVDi2qKVLcVMltP3+gga3xYLQBZnNwkW7n29B8zeMX13e9NhAPaCdDV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785086529; c=relaxed/simple;
-	bh=n+mbvvJEI8CH8TTkOdaxw00F0Fq88vljPQWMjBMIOp4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rYDModa8583nukjUuisx2DXMgHJTJW1lo8pN0URggJuyyVgcR9bKn1IjtVvzMslGWOzmUde97vRST0J3uAlTRvGXE6rOXrCiuCrwfi3R8RIdsLStLf2beTXny/p9Rg6NwJxgfmCJ3RzazIrsJqGo0QGydXLHPvBkRqqj2xYsZgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ha9ll89V; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785088168; c=relaxed/simple;
+	bh=3bvh8ELBkw+UtIqX8TEGE5T9LfzIa8fNtzANvVlDEnw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=atxcpDUh7QzQNbR8J0phAsOomnD39kkPHLG1+bSm2OtX+cPAb6/V86J/XjAvUt7Ie/RpIpSlHNED2Atd5jEk89o5qpFtEu5elNylPQmfYG4/HnQazGRZnjgu8iseeLL/e7uOYzejdme9UFUMPr9v16+0hl8L+FfNjCJytpIQXbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRfMa1Dh; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ha9ll89V"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66QHHhN33953246;
-	Sun, 26 Jul 2026 17:22:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=gW7VP8CspOGU+wF0/
-	N72fT1Tle3KtK4wWLpeUE28hPo=; b=Ha9ll89VrVlpNXMrEGQPomKfcN5zIsmwr
-	AqxZUa2tJ0sVHIvdPSTgsHem+ZniS/odj1wOMJAv3a8KOBYYOAhCOXFybwsWZ9NU
-	+XXMr3pp8IWX9WTncHCt+ffC0K3umsalbJr78sPjshBPGie4jTvVzqX+VJ9FHPlc
-	+SNxCU5v2EhGC2BmdcQ5A7yLL3x7dDXimuwU/aaudD4lc/O6wwtVj1kGjUU6dm/Q
-	R2o4Zai6f9ZdsH3iG5miPYAp53HUPnRtzXZSzyMY5nRsbbTerj0iQUeVz80Cq8sz
-	CT8yKmkOmZwUm/X8GG89UWZojpaVUh0YMhR8qbxG0NL90hbM6fv1w==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmv0nc351-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 26 Jul 2026 17:22:01 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66QHBdgr007555;
-	Sun, 26 Jul 2026 17:22:00 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn7uvtb94-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 26 Jul 2026 17:22:00 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66QHLuWD51446176
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 26 Jul 2026 17:21:56 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B70F2200D5;
-	Sun, 26 Jul 2026 17:21:56 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9962E200D4;
-	Sun, 26 Jul 2026 17:21:56 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Sun, 26 Jul 2026 17:21:56 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 4958)
-	id 83C43160F4E; Sun, 26 Jul 2026 19:21:56 +0200 (CEST)
-From: Eric Farman <farman@linux.ibm.com>
-To: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Eric Farman <farman@linux.ibm.com>, stable@vger.kernel.org
-Subject: [PATCH v6 03/10] s390/vfio_ccw: fix out of bounds check on CCW array
-Date: Sun, 26 Jul 2026 19:21:46 +0200
-Message-ID: <20260726172153.1818056-4-farman@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260726172153.1818056-1-farman@linux.ibm.com>
-References: <20260726172153.1818056-1-farman@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRfMa1Dh"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-495635a85d2so16807205e9.0
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 10:49:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785088164; x=1785692964; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OG3fQOQ/VuZuHcKcajMtkmekIa5X8h+Q4MAhuhrOcMM=;
+        b=KRfMa1Dh7LPKZFIJrvpehQSWAZhRCW65NrqlWlt9z+ONyr6VoJkzUYHJr+BToKiN8T
+         DItrqYR8sg1UClam82AtNYExrNXW7jeLtt7zyxn5YZZDlDqU3E/ZKcgcUCKvExRMbneH
+         153FuId1Gf10MyriF9Ay7yjljlbkFEJeLamL0cY9R1s4C28EmWjWbsgY6ZiEFyWmTR+N
+         XROCk6Ymfl5w8etxlCS6pgAjxH9T9chW0Q22skBTxY7kySgSARdWWyUUqzxT5KD/Vmfk
+         +FNCuPdGmk9MW3NI58YoIkEFnKo9LUvhOHhh/DDsHFf4IErOst3US0lcPC5suJ6MHJr0
+         8Avg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785088164; x=1785692964;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OG3fQOQ/VuZuHcKcajMtkmekIa5X8h+Q4MAhuhrOcMM=;
+        b=EenjjlNb+BXS9Ejx45mfMpZuxTFnOqzDXCXkxV7nI/SqHiP43y+ESLQSR0V8KqCtqJ
+         LOCu4zada03AeZ1nkTa62F4CBEzdD479zQSFMYS1vNOio3CknPlAnlAoT2JADphLvwz7
+         ++08761H7NC4VN29ubTHL/RLUJzOl+fqzePUuvAP95Yv+YYFN9waCeU5PQxoPs14SStM
+         5XOdGyaYyjEFCGUfcX5T6N3YCAgdJZ5x0ARWkFR0IcsECiYmpwlvj488VyLtnYPdCQRN
+         L8UD+Gj4raqsdNSL94LWgxq5d9PXj76Gly7szNuIprghkLJsQQt6AGEWlmcJzNXw177l
+         /OFg==
+X-Forwarded-Encrypted: i=1; AHgh+RqmVc3DaiT4BAZF7HHMPXJIYtUrWkDDoU9im98cD/A7tKzEqOZHQQt0fH6DIE8EFNL7lgOS3q8=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9tRNR2c+f+m3zE2qvlgo3rrolN1MTd0yDYveny337jNKYGZM1
+	q0CSKjkh3SPfsf5P4CsIag+IYV7DiMNvhaYx18dj7mhsanM2gdCpTFrJ
+X-Gm-Gg: AR+sD13mVJm5TXdmQWJflBWNFD0ewNeatCX/yHy4n45mvFYULwVfmJtGPunE7lWVXOA
+	yPHqUq5xOl8R9ZFFbdWDMES7y0PaRb58ZdzrQVRKWIGKornVq245CDCjNc1H0wRDpYesSoLd9D3
+	cISNLqibiGtDIAah8t3+SPIFWz5WX2LnyqJwhyA+fduv+cYFW/IMeQvP5m/O7guqveTixggfhIu
+	60/xWHMFPS8Fbopg3hQz3tg1VHc4ogjnIlhPTmn70BIIc3RHEwiYFB8onK6dD3H3X9r1t4J6m2n
+	qAhrIFUTmVcgSbfztgc3Gqk0+LFpd9b/9cylX5Pode0pt6dP1dnGVjesI0kdfp/CB2nsqyUGQHN
+	Kddj1zs2c20tiOeHGmMipdkxHEvNtheo/F1wig85QirSK07R0dfEXngXhoeNpR0bcEQjDf0cQYN
+	/Vrq2rJIkldnrH5qVaSLhmKfv+dgL6O7xS27flAevS2yrH1oSRz/TIxePIkfyXU3sJ2h1VhiPIf
+	IpZ3KuZ3nmFqObTId02NwZbawnmyPdQxjeEagJv7zqkX9fCL04=
+X-Received: by 2002:a05:600c:3113:b0:495:4fd4:619b with SMTP id 5b1f17b1804b1-496b56bbc22mr70116885e9.1.1785088164322;
+        Sun, 26 Jul 2026 10:49:24 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-114-116-215.95.114.pool.telefonica.de. [95.114.116.215])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a64dsm45288820f8f.1.2026.07.26.10.49.23
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 26 Jul 2026 10:49:23 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: GICv2: Don't WARN on out-of-range GICV_DIR INTID
+Date: Sun, 26 Jul 2026 19:48:03 +0200
+Message-Id: <20260726174803.5880-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI2MDE3NSBTYWx0ZWRfXzo/a1X5KSXyT
- POI2Xgx80Nmn5aAb2wW3I87wlR2v/HCdyanjhNE4PDR5YoDhGhrwSn4M8IV4ZBtHWeDaZq/LSF1
- QCKFmh5iFoCiQzdtbnY//YJy5jdnUkc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI2MDE3NSBTYWx0ZWRfX9vmRXDKBlxLC
- GFfFcuXdY97AThfDocui5TseN6KRj8AVvPtryQ1PWBKQzsZrBuauWM8Sa86d/SKvlKA8LxNg0TD
- wAoqVwKh1U3ai0vj3yW6Niofkc6WWQXz+U+0T8FEEYtgYYj5K1HsHFUDfVCsU+bON90u0vqEklK
- Cpr76KMlLvBEvQvBMt3GWcopRiN6gwsKdUGO+gZFn/359i9ymCUWlzQGNu7jmJKF5ODmuIlaEx0
- opYCMGW+21XyY7h7HBLLtFj0BZbI3q3IaVKGlMI7+BDDbm6dIZyukWoQTmaKlBaq1yBdBLbYkcS
- p4f/hjVTBLykeNX/0wa2Iu8WO33OLZBSjXuB3iV4c2mZ1K2YDTk8kkpYvkYzNzlCePCjAc4L/8p
- aMPvJ/X+YveS5onOTD3fpyrOXNVjWXs4ClYHnr++2myE13s65v7PYCEe/z0fy8dUIFQrR24tbmB
- QQPYyR6hylxGeaBRkvg==
-X-Authority-Analysis: v=2.4 cv=b5WCJNGx c=1 sm=1 tr=0 ts=6a664239 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=A5C3NnK3Tz1osX5E1PIA:9
-X-Proofpoint-GUID: YLj4OSSmTRXcyocft-_xQVAljM72ZGio
-X-Proofpoint-ORIG-GUID: YLj4OSSmTRXcyocft-_xQVAljM72ZGio
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-26_05,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 adultscore=0 malwarescore=0 impostorscore=0
- bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607260175
+Content-Transfer-Encoding: 8bit
 
-The routine ccwchain_calc_length() counts the number of channel
-command words (CCWs) that are chained together in a single channel
-program, and rejects anything larger than CCWCHAIN_LEN_MAX (256) CCWs.
+vgic_v2_deactivate() passes the INTID a guest wrote to GICV_DIR straight
+to vgic_get_vcpu_irq(), and treats a failed lookup as a "can't happen"
+condition with WARN_ON_ONCE().
 
-The loop itself is "do..while (count < 257)", and while the logic in
-is_cpa_within_range() correctly adjusts between the 0-index array of
-CCWs and the count of CCWs starting at 1, this means it would look
-at a possible 257th CCW before ending the loop and (correctly)
-returning an error.
+The guest can make it happen at will, though: for any INTID outside of
+the implemented SGI, PPI and SPI ranges the lookup returns NULL, since
+GICv2 has no LPIs. A guest running with EOImode==1 writing such an INTID
+to GICV_DIR triggers the WARN, and panics hosts running with
+panic_on_warn.
 
-Fix this by restructuring the loop to break as soon as 256 CCWs
-(thus indexes 0-255) are examined, without looking at memory
-outside the range.
+Drop the WARN and ignore failed lookups.
 
-Fixes: 0a19e61e6d4c ("vfio: ccw: introduce channel program interfaces")
+Fixes: 255de897e7fb ("KVM: arm64: GICv2: Handle deactivation via GICV_DIR traps")
 Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/s390/cio/vfio_ccw_cp.c | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
+v2:
+ - Drop the WARN_ON_ONCE() instead of bounding the INTID before the
+   lookup, which duplicated the range check vgic_get_irq() already
+   performs (Marc)
+ - Retitled; was "KVM: arm64: GICv2: Bound the INTID in
+   vgic_v2_deactivate()"
 
-diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_c=
-p.c
-index 1c2890d139c6..af632f9d5453 100644
---- a/drivers/s390/cio/vfio_ccw_cp.c
-+++ b/drivers/s390/cio/vfio_ccw_cp.c
-@@ -377,11 +377,9 @@ static void ccwchain_cda_free(struct ccwchain *chain=
-, int idx)
- static int ccwchain_calc_length(u64 iova, struct channel_program *cp)
- {
- 	struct ccw1 *ccw =3D cp->guest_cp;
--	int cnt =3D 0;
--
--	do {
--		cnt++;
-+	int cnt;
-=20
-+	for (cnt =3D 1; cnt <=3D CCWCHAIN_LEN_MAX; cnt++, ccw++) {
- 		/*
- 		 * We want to keep counting if the current CCW has the
- 		 * command-chaining flag enabled, or if it is a TIC CCW
-@@ -391,15 +389,10 @@ static int ccwchain_calc_length(u64 iova, struct ch=
-annel_program *cp)
- 		 * after the TIC, depending on the results of its operation.
- 		 */
- 		if (!ccw_is_chain(ccw) && !is_tic_within_range(ccw, iova, cnt))
--			break;
--
--		ccw++;
--	} while (cnt < CCWCHAIN_LEN_MAX + 1);
--
--	if (cnt =3D=3D CCWCHAIN_LEN_MAX + 1)
--		cnt =3D -EINVAL;
-+			return cnt;
-+	}
-=20
--	return cnt;
-+	return -EINVAL;
- }
-=20
- static int tic_target_chain_exists(struct ccw1 *tic, struct channel_prog=
-ram *cp)
---=20
-2.53.0
+Link to v1: https://lore.kernel.org/r/20260725154020.37305-1-kmehltretter@gmail.com
 
+ arch/arm64/kvm/vgic/vgic-v2.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kvm/vgic/vgic-v2.c b/arch/arm64/kvm/vgic/vgic-v2.c
+index cafa3cb32bda..7182f63fc938 100644
+--- a/arch/arm64/kvm/vgic/vgic-v2.c
++++ b/arch/arm64/kvm/vgic/vgic-v2.c
+@@ -170,8 +170,9 @@ void vgic_v2_deactivate(struct kvm_vcpu *vcpu, u32 val)
+ 	/* Make sure we're in the same context as LR handling */
+ 	local_irq_save(flags);
+ 
++	/* Guest-supplied INTID: out of range yields no irq, so ignore it */
+ 	irq = vgic_get_vcpu_irq(vcpu, val);
+-	if (WARN_ON_ONCE(!irq))
++	if (!irq)
+ 		goto out;
+ 
+ 	/* See the corresponding v3 code for the rationale */
+-- 
+2.51.0
