@@ -1,123 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811723FFD
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 21:28:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B52A30C150
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 21:28:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785101305; cv=none; b=gVgvWwGOChOlL3Ya3tBXjgKVim0Bd+0833aIR4hE2Sc2cRNgCcpTmQDjx1NHil568IYS4zOiQ4IMj/8PrsxFhGEUObMppXPFOgeepqvoASax3wcuY/nxEreo6thnyvRBGsv0L+j8p+fZyKuAAtThCtn9EKMinzQsMHmu2xP8L3U=
+	t=1785101321; cv=none; b=mgpK0ipQ6UBg0iEAj0MzvgXIXKrffvwFWYxznp7x/03R8/WXNH4fJp/FcjiLmqBAp3EuotQpI6ap4JUAVLe/jfja1F5ie1CzUlY94FDnKAKgQL98vZEfdUOv424Y2FlqkNa6ApLE8+q8dZKR2y3MJvhAbfokR7vDEObsDMhCq8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785101305; c=relaxed/simple;
-	bh=05OUwjzJ8mzxDhAmQClncBs3AKqoWHE60N8VSUfzOfU=;
+	s=arc-20240116; t=1785101321; c=relaxed/simple;
+	bh=7RqM5fKGUvV51abOo60fIRlSPasois5PrXqJcSfuJrM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PGIuYYOovyaThGbq7kEf6Ik5c4TNspjPHEwTRrWc8EgVC3FqM79YzOAPtE1CmcQxSf2nu76KEj1A1zSvBW5qae3eAy2tmvsno1PrqxF2Qo9zdZFvpZ6Zdx9WN74xu6wjkRxrYMTonA6nNFK9cIRtB3slXZA1GMUpp+KAKYtzO2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajIE+x1a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=PhFcbkhe8E3bctMDhCASGViyWKlF6BMtH/ZW/+pFyVU760WYmCmeG5pNfJd2Cs6xvWJZkJZU2IcuWwZTeEtpuDr3rC/ofu9Iz7GDmcbxO+MNiR8RJ7yNH2M1bvnHKyM5ycRu2FWuqqd97eYQkqrGl1Alxy/7fiUPO8ZMDGlveNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTFZNc0X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajIE+x1a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91791F00A3A;
-	Sun, 26 Jul 2026 21:28:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTFZNc0X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC4B1F000E9;
+	Sun, 26 Jul 2026 21:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785101304;
-	bh=GKzbSCsVXer5Gbod8+cjtlO6+j0lFenWrhcQRI4C2Gk=;
+	s=k20260515; t=1785101319;
+	bh=aY6moCBotURQLmNKx8kBEnFCLYu2HOiKU+zypHv4HoM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ajIE+x1athJzbu0A1V+U0ARM4d/F4c19+vKyr6ogQ8cDT1/JHSCPreaB6of4Cz0M+
-	 +kHCswyjNsxXj3f7NAfTv4rHS6+zIjlYY4fxEo6XGFlfpNS9LkQw0n1KXj1tl66BMH
-	 lTJFTdl3EoIAfqrU3BEld0pUvhPtv0KmmrOJL9IRoK3xmffTD2TxAh34xZH4R6VYTZ
-	 bUVWg2TQk3y7IGPtRsCTjQcKvR9Ey1HTJ5TkU+G3OPY6zVBrQpvwK+BRr4PjBGKB+t
-	 JDlKjrWB91UVQX0lduUhmg42iMT8rcdol35N+IpjFZTmoBVKQFWDkVqeaTld/XY1KN
-	 OxEmBnLvgUgKw==
+	b=eTFZNc0XFZSpDezBq4P4lIosTOPGXrFJCV3Gm+9RvtJFj2aQnARa3X4kJPZjBtwW2
+	 jhenc7Bfi0imCkK1jmxK2cZ/DJp+b9jmmrGP4w81a6mcwku18LCZpP/RQ/WZZwfjb5
+	 1jYwidV4GdehjHk0TDi+HF1GdUoardnU0vPeAr8C8PEMBvhFSQLZuxhJIGlF3lBXjl
+	 0wua2MkBDkLNmwgJtuRgmf8FEKEJpHhxI9DTheKr0z5yVtRpXawBD0aFTgCec2RcL3
+	 J9VhYvc+77Xng/LRQnkKk5bnLV5BeVtOfQIY7z4gCrSEvnjuErulCIwKWeed8sS7i3
+	 XE4+BmvhcyNqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Koichiro Den <den@valinux.co.jp>,
-	Vinod Koul <vkoul@kernel.org>,
+Cc: Lyndon Sanche <lsanche@lyndeno.ca>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] dmaengine: dw-edma: Add spinlock to protect DONE_INT_MASK and ABORT_INT_MASK
-Date: Sun, 26 Jul 2026 17:28:19 -0400
-Message-ID: <20260726212819.4022652-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] platform/x86: dell-smbios: Move request functions for reuse
+Date: Sun, 26 Jul 2026 17:27:29 -0400
+Message-ID: <20260726212730.4016280-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260726212819.4022652-1-sashal@kernel.org>
-References: <2026072058-sadly-hatchery-b25e@gregkh>
- <20260726212819.4022652-1-sashal@kernel.org>
+In-Reply-To: <2026072059-eastcoast-eating-4897@gregkh>
+References: <2026072059-eastcoast-eating-4897@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+From: Lyndon Sanche <lsanche@lyndeno.ca>
 
-[ Upstream commit 8ffba0171c6bbce5f093c6dba5a02c0805b31203 ]
+[ Upstream commit 33245680ae565aaa114d726bf407c8ff38e75e71 ]
 
-The DONE_INT_MASK and ABORT_INT_MASK registers are shared by all DMA
-channels, and modifying them requires a read-modify-write sequence.
-Because this operation is not atomic, concurrent calls to
-dw_edma_v0_core_start() can introduce race conditions if two channels
-update these registers simultaneously.
+Move the dell_send_request and dell_fill_request symbols into smbios-base
+so that they can be used in multiple modules.
 
-Add a spinlock to serialize access to these registers and prevent race
-conditions.
-
-Fixes: 7e4b8a4fbe2c ("dmaengine: Add Synopsys eDMA IP version 0 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
-[den: update dw_edma.lock comment]
-Link: https://lore.kernel.org/dmaengine/20260109-edma_ll-v2-1-5c0b27b2c664@nxp.com/
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Link: https://patch.msgid.link/20260521142153.2957432-5-den@valinux.co.jp
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Lyndon Sanche <lsanche@lyndeno.ca>
+Link: https://lore.kernel.org/r/20240529174843.13226-3-lsanche@lyndeno.ca
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Stable-dep-of: 6e9cab2247e5 ("platform/x86: dell-laptop: fix missing cleanups in init error path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/dma/dw-edma/dw-edma-core.h    | 2 +-
- drivers/dma/dw-edma/dw-edma-v0-core.c | 6 ++++++
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ drivers/platform/x86/dell/dell-laptop.c      | 23 ------------------
+ drivers/platform/x86/dell/dell-smbios-base.c | 25 ++++++++++++++++++++
+ drivers/platform/x86/dell/dell-smbios.h      |  5 ++++
+ 3 files changed, 30 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/dma/dw-edma/dw-edma-core.h b/drivers/dma/dw-edma/dw-edma-core.h
-index 29bb885aac6c26..e9d19910766870 100644
---- a/drivers/dma/dw-edma/dw-edma-core.h
-+++ b/drivers/dma/dw-edma/dw-edma-core.h
-@@ -131,7 +131,7 @@ struct dw_edma {
+diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
+index 6586438356de76..eedec47616b481 100644
+--- a/drivers/platform/x86/dell/dell-laptop.c
++++ b/drivers/platform/x86/dell/dell-laptop.c
+@@ -353,29 +353,6 @@ static const struct dmi_system_id dell_quirks[] __initconst = {
+ 	{ }
+ };
  
- 	struct dw_edma_chan		*chan;
+-static void dell_fill_request(struct calling_interface_buffer *buffer,
+-			       u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+-{
+-	memset(buffer, 0, sizeof(struct calling_interface_buffer));
+-	buffer->input[0] = arg0;
+-	buffer->input[1] = arg1;
+-	buffer->input[2] = arg2;
+-	buffer->input[3] = arg3;
+-}
+-
+-static int dell_send_request(struct calling_interface_buffer *buffer,
+-			     u16 class, u16 select)
+-{
+-	int ret;
+-
+-	buffer->cmd_class = class;
+-	buffer->cmd_select = select;
+-	ret = dell_smbios_call(buffer);
+-	if (ret != 0)
+-		return ret;
+-	return dell_smbios_error(buffer->output[0]);
+-}
+-
+ /*
+  * Derived from information in smbios-wireless-ctl:
+  *
+diff --git a/drivers/platform/x86/dell/dell-smbios-base.c b/drivers/platform/x86/dell/dell-smbios-base.c
+index 9a9b9feac41664..636d881c947770 100644
+--- a/drivers/platform/x86/dell/dell-smbios-base.c
++++ b/drivers/platform/x86/dell/dell-smbios-base.c
+@@ -320,6 +320,31 @@ int dell_smbios_call(struct calling_interface_buffer *buffer)
+ }
+ EXPORT_SYMBOL_GPL(dell_smbios_call);
  
--	raw_spinlock_t			lock;		/* Only for legacy */
-+	raw_spinlock_t			lock;		/* Protect v0 shared registers */
- 
- 	struct dw_edma_chip             *chip;
- 
-diff --git a/drivers/dma/dw-edma/dw-edma-v0-core.c b/drivers/dma/dw-edma/dw-edma-v0-core.c
-index 5ab27507bd3ea8..b021f6d96430cd 100644
---- a/drivers/dma/dw-edma/dw-edma-v0-core.c
-+++ b/drivers/dma/dw-edma/dw-edma-v0-core.c
-@@ -237,6 +237,7 @@ void dw_edma_v0_core_start(struct dw_edma_chunk *chunk, bool first)
++void dell_fill_request(struct calling_interface_buffer *buffer,
++			       u32 arg0, u32 arg1, u32 arg2, u32 arg3)
++{
++	memset(buffer, 0, sizeof(struct calling_interface_buffer));
++	buffer->input[0] = arg0;
++	buffer->input[1] = arg1;
++	buffer->input[2] = arg2;
++	buffer->input[3] = arg3;
++}
++EXPORT_SYMBOL_GPL(dell_fill_request);
++
++int dell_send_request(struct calling_interface_buffer *buffer,
++			     u16 class, u16 select)
++{
++	int ret;
++
++	buffer->cmd_class = class;
++	buffer->cmd_select = select;
++	ret = dell_smbios_call(buffer);
++	if (ret != 0)
++		return ret;
++	return dell_smbios_error(buffer->output[0]);
++}
++EXPORT_SYMBOL_GPL(dell_send_request);
++
+ struct calling_interface_token *dell_smbios_find_token(int tokenid)
  {
- 	struct dw_edma_chan *chan = chunk->chan;
- 	struct dw_edma *dw = chan->dw;
-+	unsigned long flags;
- 	u32 tmp;
+ 	int i;
+diff --git a/drivers/platform/x86/dell/dell-smbios.h b/drivers/platform/x86/dell/dell-smbios.h
+index eb341bf000c675..641f18c2f7e6e4 100644
+--- a/drivers/platform/x86/dell/dell-smbios.h
++++ b/drivers/platform/x86/dell/dell-smbios.h
+@@ -64,6 +64,11 @@ int dell_smbios_call_filter(struct device *d,
+ 	struct calling_interface_buffer *buffer);
+ int dell_smbios_call(struct calling_interface_buffer *buffer);
  
- 	dw_edma_v0_core_write_chunk(chunk);
-@@ -245,6 +246,8 @@ void dw_edma_v0_core_start(struct dw_edma_chunk *chunk, bool first)
- 		/* Enable engine */
- 		SET_RW_32(dw, chan->dir, engine_en, BIT(0));
- 		/* Interrupt unmask - done, abort */
-+		raw_spin_lock_irqsave(&dw->lock, flags);
++void dell_fill_request(struct calling_interface_buffer *buffer,
++			       u32 arg0, u32 arg1, u32 arg2, u32 arg3);
++int dell_send_request(struct calling_interface_buffer *buffer,
++			     u16 class, u16 select);
 +
- 		tmp = GET_RW_32(dw, chan->dir, int_mask);
- 		tmp &= ~FIELD_PREP(EDMA_V0_DONE_INT_MASK, BIT(chan->id));
- 		tmp &= ~FIELD_PREP(EDMA_V0_ABORT_INT_MASK, BIT(chan->id));
-@@ -253,6 +256,9 @@ void dw_edma_v0_core_start(struct dw_edma_chunk *chunk, bool first)
- 		tmp = GET_RW_32(dw, chan->dir, linked_list_err_en);
- 		tmp |= FIELD_PREP(EDMA_V0_LINKED_LIST_ERR_MASK, BIT(chan->id));
- 		SET_RW_32(dw, chan->dir, linked_list_err_en, tmp);
-+
-+		raw_spin_unlock_irqrestore(&dw->lock, flags);
-+
- 		/* Channel control */
- 		SET_CH_32(dw, chan->dir, chan->id, ch_control1,
- 			  (DW_EDMA_V0_CCS | DW_EDMA_V0_LLE));
+ struct calling_interface_token *dell_smbios_find_token(int tokenid);
+ 
+ enum dell_laptop_notifier_actions {
 -- 
 2.53.0
 
