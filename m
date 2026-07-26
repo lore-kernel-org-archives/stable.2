@@ -1,80 +1,77 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627313D9693
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 17:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFE136C0CD
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 18:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785088168; cv=none; b=fKzAFl1pWSp3F+v8IX/EuTFFRe9beR/q4ATnryl4tdaUskjUP3+eUXW3ANvNGhp8WThP/KTzgWaIGw2FonqDGXfAmkVvs7AgbKxWV8vdPLkuLZHd9KQsVDi2qKVLcVMltP3+gga3xYLQBZnNwkW7n29B8zeMX13e9NhAPaCdDV4=
+	t=1785090254; cv=none; b=CfbgtesjloV2GbGEvGdBy7hoAeEz9Bdou5yjmalD2MiR9KKsL8MuqUnHQkgH8PAERMb9sZpm/Qn6bEgCaVDuo2DnqaDD91FHZBsTKMFWVyxjlplQwNamOYuFNHJimKul4TVCJ67vEDdssnBL2SFh47n8fVTyig4+o9sZ9nJauj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785088168; c=relaxed/simple;
-	bh=3bvh8ELBkw+UtIqX8TEGE5T9LfzIa8fNtzANvVlDEnw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=atxcpDUh7QzQNbR8J0phAsOomnD39kkPHLG1+bSm2OtX+cPAb6/V86J/XjAvUt7Ie/RpIpSlHNED2Atd5jEk89o5qpFtEu5elNylPQmfYG4/HnQazGRZnjgu8iseeLL/e7uOYzejdme9UFUMPr9v16+0hl8L+FfNjCJytpIQXbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRfMa1Dh; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1785090254; c=relaxed/simple;
+	bh=PUGRFk3h17WsJHv6gJoHKaaB3MXYO9elmGUfb2D3+yM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZA+kTBE1xDJTZ3BBPJSH/knpIVGhRDuUm5rW6kqbp7tDbe6mHn2wXDlTzw6o+Np99YvUToklyu4NBfxHsJT1mFzqBb3IjrX81YrN0+1O9tOZUz7xwPFL1ji+xeMwVo0N4HbJ/4qNQMiadRv5SS501KprR/JNsZUY2PQLoovKuGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/vuzzrD; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRfMa1Dh"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-495635a85d2so16807205e9.0
-        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 10:49:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/vuzzrD"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso18796345e9.3
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 11:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785088164; x=1785692964; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785090251; x=1785695051; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OG3fQOQ/VuZuHcKcajMtkmekIa5X8h+Q4MAhuhrOcMM=;
-        b=KRfMa1Dh7LPKZFIJrvpehQSWAZhRCW65NrqlWlt9z+ONyr6VoJkzUYHJr+BToKiN8T
-         DItrqYR8sg1UClam82AtNYExrNXW7jeLtt7zyxn5YZZDlDqU3E/ZKcgcUCKvExRMbneH
-         153FuId1Gf10MyriF9Ay7yjljlbkFEJeLamL0cY9R1s4C28EmWjWbsgY6ZiEFyWmTR+N
-         XROCk6Ymfl5w8etxlCS6pgAjxH9T9chW0Q22skBTxY7kySgSARdWWyUUqzxT5KD/Vmfk
-         +FNCuPdGmk9MW3NI58YoIkEFnKo9LUvhOHhh/DDsHFf4IErOst3US0lcPC5suJ6MHJr0
-         8Avg==
+        bh=QHN7j1c1qpvzCHml0Yb9DW3l1T4sBXf6FrZ7o+K/N9s=;
+        b=E/vuzzrDNSQ30zUOeJFxOjAvUjpE9fQrvFxK6UOOr3N8gdpNVFw4oqPX/8WIY5Nyhw
+         Dpq+aYCpnuSJWOZm8nMFc7ClGRA8deEwGcMl2SLiymlVOTP6UC3d42KB1CncHnTyjWca
+         5vMYCoHNMj1fiZiQ4Aw3C8MibWwXdZCvZFefHL3oAbAAq3NSMwTqAI7ZIyVlLt9YMiUy
+         ao0XHvR644OLjdZ/6yxXkzXKURrD84fMSpAEfIkfkZq0qVtfgjp1JShl3F5d+qIJd7Fu
+         8gLLczIl/IrM4eDEyJCFHrx2jZOY5SYnPmhBqCVedRIfsQaUJX/igAJ9bJSOv8AV4Qs2
+         7PnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785088164; x=1785692964;
+        d=1e100.net; s=20251104; t=1785090251; x=1785695051;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OG3fQOQ/VuZuHcKcajMtkmekIa5X8h+Q4MAhuhrOcMM=;
-        b=EenjjlNb+BXS9Ejx45mfMpZuxTFnOqzDXCXkxV7nI/SqHiP43y+ESLQSR0V8KqCtqJ
-         LOCu4zada03AeZ1nkTa62F4CBEzdD479zQSFMYS1vNOio3CknPlAnlAoT2JADphLvwz7
-         ++08761H7NC4VN29ubTHL/RLUJzOl+fqzePUuvAP95Yv+YYFN9waCeU5PQxoPs14SStM
-         5XOdGyaYyjEFCGUfcX5T6N3YCAgdJZ5x0ARWkFR0IcsECiYmpwlvj488VyLtnYPdCQRN
-         L8UD+Gj4raqsdNSL94LWgxq5d9PXj76Gly7szNuIprghkLJsQQt6AGEWlmcJzNXw177l
-         /OFg==
-X-Forwarded-Encrypted: i=1; AHgh+RqmVc3DaiT4BAZF7HHMPXJIYtUrWkDDoU9im98cD/A7tKzEqOZHQQt0fH6DIE8EFNL7lgOS3q8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9tRNR2c+f+m3zE2qvlgo3rrolN1MTd0yDYveny337jNKYGZM1
-	q0CSKjkh3SPfsf5P4CsIag+IYV7DiMNvhaYx18dj7mhsanM2gdCpTFrJ
-X-Gm-Gg: AR+sD13mVJm5TXdmQWJflBWNFD0ewNeatCX/yHy4n45mvFYULwVfmJtGPunE7lWVXOA
-	yPHqUq5xOl8R9ZFFbdWDMES7y0PaRb58ZdzrQVRKWIGKornVq245CDCjNc1H0wRDpYesSoLd9D3
-	cISNLqibiGtDIAah8t3+SPIFWz5WX2LnyqJwhyA+fduv+cYFW/IMeQvP5m/O7guqveTixggfhIu
-	60/xWHMFPS8Fbopg3hQz3tg1VHc4ogjnIlhPTmn70BIIc3RHEwiYFB8onK6dD3H3X9r1t4J6m2n
-	qAhrIFUTmVcgSbfztgc3Gqk0+LFpd9b/9cylX5Pode0pt6dP1dnGVjesI0kdfp/CB2nsqyUGQHN
-	Kddj1zs2c20tiOeHGmMipdkxHEvNtheo/F1wig85QirSK07R0dfEXngXhoeNpR0bcEQjDf0cQYN
-	/Vrq2rJIkldnrH5qVaSLhmKfv+dgL6O7xS27flAevS2yrH1oSRz/TIxePIkfyXU3sJ2h1VhiPIf
-	IpZ3KuZ3nmFqObTId02NwZbawnmyPdQxjeEagJv7zqkX9fCL04=
-X-Received: by 2002:a05:600c:3113:b0:495:4fd4:619b with SMTP id 5b1f17b1804b1-496b56bbc22mr70116885e9.1.1785088164322;
-        Sun, 26 Jul 2026 10:49:24 -0700 (PDT)
+        bh=QHN7j1c1qpvzCHml0Yb9DW3l1T4sBXf6FrZ7o+K/N9s=;
+        b=fhGrZvyU1FpBs53MbZhUlcCDkWS5Xkm3h0p4fXnae2f2+6uGjYbeqHihrLUbIEJ8eI
+         CFLRZuIpA/KcggrWGf90v6Qya/h8tgbwV1paGS062GVJrorY6TEzFFZlSHxmSjbOwKvX
+         Y6/Zbj9137ZRJdMC+ifkmiJYPNw4xw+poNolX9cdlKtto3lmn3MwRaommfcGPaHJOhWU
+         q+oD4NBICtj8vORYL0UB1m7u/P8+DNi8ajEeEvNFfGniQNKRzNfrEELOS7j0loz4+rrA
+         /7FHqwfQOUKtbNr9brWqcIt7fp5CYf5H2pqJNvq7B+MnZmLcXU00f5LHBIf7INBU0Z2l
+         cp1w==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3VydY2bdb9sjOiRpgD4k+TrBA+ZLcY1sug85v6T+YKZ7/Yp8T68GibJBJh6OQHUNxYWW9WY8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyZnni8O/NUrPsHZXE4K+435LRcluunxWhkK7CsSXLggzCxLXm3
+	QZA+cbbAGDmiPmHJRwgNGvTAe/BFxOi7SzPVqwzhHHstFSfgLJet/FBL
+X-Gm-Gg: AR+sD12ReNajeIK4guPh7jiLL8yNzVutA8PQ6QoyMemdyZHDi53EhrsZXvwMBo6nAC3
+	UW+7DuWxUHg0hnzXDWIqA66wTLc05+HXh1zeJdy2dTige9aOBXimJp3K7Jj6Cp+grkQR9J0zjbS
+	c+9zHfqqGScWif5yOd6d45LZu5FOaJSkLJ+dSyeHnHHiaJEGYD4vnbiqT6lzM570QS+ApqW986m
+	KgEy9f9TIUC/12EX3c0Lv4wNNtX7pkHp88Vy9msKSVLH/Uc1ViDpmIpRXpgnZSgd35YdQ698/9U
+	cS327BLyGUKRvLEVI35JFwbQD406qmfCPmxaQ2YcLDDtN9/F03JP4edoGvg2Tw1yz4IlTihVlTW
+	KK7SktKyX1eI+K8QuusG6U6dPi+y8C+Zjhkk3qTFxj0uyjEVV7syQVcV6IO2AXtd+Cp3rVQ/cCL
+	zE9ohgSvnTMdKUGPMD2sLTMP/X3HXD5++svFt9dWjpODsh+2V8TlggUqjAB4U4RZZA0o6HOZj8W
+	EEN56oaWBuQtJ0Hy8ShJ3TvzeQDfah7kuHB1Ohe/eoJHfHvHbY=
+X-Received: by 2002:a05:600c:1d0d:b0:493:f0f5:f2d7 with SMTP id 5b1f17b1804b1-496b56b1b23mr75964785e9.7.1785090251254;
+        Sun, 26 Jul 2026 11:24:11 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-095-114-116-215.95.114.pool.telefonica.de. [95.114.116.215])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a64dsm45288820f8f.1.2026.07.26.10.49.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c6287csm42553563f8f.25.2026.07.26.11.24.10
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 26 Jul 2026 10:49:23 -0700 (PDT)
+        Sun, 26 Jul 2026 11:24:10 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Liu Song <liusong@linux.alibaba.com>,
+	shechenglong <shechenglong@xfusion.com>,
+	Jonathan Marek <jonathan@marek.ca>,
 	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: arm64: GICv2: Don't WARN on out-of-range GICV_DIR INTID
-Date: Sun, 26 Jul 2026 19:48:03 +0200
-Message-Id: <20260726174803.5880-1-kmehltretter@gmail.com>
+Subject: [PATCH v2] arm64: proton-pack: Restore the nospectre_bhb command-line option
+Date: Sun, 26 Jul 2026 20:22:53 +0200
+Message-Id: <20260726182253.6939-1-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -84,49 +81,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vgic_v2_deactivate() passes the INTID a guest wrote to GICV_DIR straight
-to vgic_get_vcpu_irq(), and treats a failed lookup as a "can't happen"
-condition with WARN_ON_ONCE().
+Commit 7f1635737823 ("arm64: proton-pack: Fix hard lockup due to print in
+scheduler context") moved the "mitigation disabled" printks into
+spectre_print_disabled_mitigations(). For spectre-v2 and spectre-v4 only
+the pr_info_once() calls were removed, but for spectre-bhb the whole
+branch went with the print:
 
-The guest can make it happen at will, though: for any INTID outside of
-the implemented SGI, PPI and SPI ranges the lookup returns NULL, since
-GICv2 has no LPIs. A guest running with EOImode==1 writing such an INTID
-to GICV_DIR triggers the WARN, and panics hosts running with
-panic_on_warn.
+  -   } else if (cpu_mitigations_off() || __nospectre_bhb) {
+  -           pr_info_once("spectre-bhb mitigation disabled ...\n");
 
-Drop the WARN and ignore failed lookups.
+spectre_bhb_enable_mitigation() therefore no longer tests __nospectre_bhb
+or cpu_mitigations_off() and the mitigation is enabled regardless of the
+command line. The parameter is still parsed and its flag is still checked
+by spectre_print_disabled_mitigations(), so the kernel prints "spectre-bhb
+mitigation disabled by command-line option" while
+/sys/devices/system/cpu/vulnerabilities/spectre_v2 reports "Mitigation:
+CSV2, BHB" and the vectors are switched to EL1_VECTOR_BHB_LOOP.
 
-Fixes: 255de897e7fb ("KVM: arm64: GICv2: Handle deactivation via GICV_DIR traps")
+The only remaining escape is the SPECTRE_VULNERABLE arm at the top of the
+chain, which a CSV2 core never reaches, so from Cortex-A76 and Neoverse N1
+onwards both nospectre_bhb and mitigations=off are ignored. Both are
+documented in Documentation/admin-guide/kernel-parameters.txt.
+
+The identical mistake was made on the neighbouring compile-time-option
+branch immediately before this regression and fixed shortly afterwards;
+this command-line branch was missed.
+build_bhb_mitigation() in arch/arm64/net/bpf_jit_comp.c still tests both
+flags, so nospectre_bhb currently keeps the exception-vector loop while
+dropping the cBPF epilogue mitigation.
+
+Restore the check, folded into a spectre_bhb_mitigations_off() helper
+alongside its spectre_v2/v4 counterparts, and use it for the boot-time
+print in spectre_print_disabled_mitigations() as well. The print itself
+already lives there and does not need restoring.
+
+Tested under QEMU with -cpu neoverse-n1 (CSV2, no ECBHB, no CLRBHB).
+Before, spectre_v2 read "Mitigation: CSV2, BHB" with and without the
+option; after, nospectre_bhb and mitigations=off both give "Mitigation:
+CSV2, but not BHB" and a boot without either is unchanged.
+
+Fixes: 7f1635737823 ("arm64: proton-pack: Fix hard lockup due to print in scheduler context")
+Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
-Suggested-by: Marc Zyngier <maz@kernel.org>
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-v2:
- - Drop the WARN_ON_ONCE() instead of bounding the INTID before the
-   lookup, which duplicated the range check vgic_get_irq() already
-   performs (Marc)
- - Retitled; was "KVM: arm64: GICv2: Bound the INTID in
-   vgic_v2_deactivate()"
+v2: fold the check into a spectre_bhb_mitigations_off() helper, matching
+    spectre_v2_mitigations_off()/spectre_v4_mitigations_off(), and use it
+    for the boot-time print too, as requested by Will. All three QEMU
+    boots re-run on v2; results unchanged.
+v1: https://lore.kernel.org/r/20260725122959.98361-1-kmehltretter@gmail.com/
 
-Link to v1: https://lore.kernel.org/r/20260725154020.37305-1-kmehltretter@gmail.com
+ arch/arm64/kernel/proton-pack.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
- arch/arm64/kvm/vgic/vgic-v2.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+diff --git a/arch/arm64/kernel/proton-pack.c b/arch/arm64/kernel/proton-pack.c
+index 7bb6553fec08..3bcf86154d95 100644
+--- a/arch/arm64/kernel/proton-pack.c
++++ b/arch/arm64/kernel/proton-pack.c
+@@ -1023,6 +1023,11 @@ static int __init parse_spectre_bhb_param(char *str)
+ }
+ early_param("nospectre_bhb", parse_spectre_bhb_param);
 
-diff --git a/arch/arm64/kvm/vgic/vgic-v2.c b/arch/arm64/kvm/vgic/vgic-v2.c
-index cafa3cb32bda..7182f63fc938 100644
---- a/arch/arm64/kvm/vgic/vgic-v2.c
-+++ b/arch/arm64/kvm/vgic/vgic-v2.c
-@@ -170,8 +170,9 @@ void vgic_v2_deactivate(struct kvm_vcpu *vcpu, u32 val)
- 	/* Make sure we're in the same context as LR handling */
- 	local_irq_save(flags);
- 
-+	/* Guest-supplied INTID: out of range yields no irq, so ignore it */
- 	irq = vgic_get_vcpu_irq(vcpu, val);
--	if (WARN_ON_ONCE(!irq))
-+	if (!irq)
- 		goto out;
- 
- 	/* See the corresponding v3 code for the rationale */
++static bool spectre_bhb_mitigations_off(void)
++{
++	return __nospectre_bhb || cpu_mitigations_off();
++}
++
+ void spectre_bhb_enable_mitigation(const struct arm64_cpu_capabilities *entry)
+ {
+ 	bp_hardening_cb_t cpu_cb;
+@@ -1036,6 +1041,8 @@ void spectre_bhb_enable_mitigation(const struct arm64_cpu_capabilities *entry)
+ 		/* No point mitigating Spectre-BHB alone. */
+ 	} else if (!IS_ENABLED(CONFIG_MITIGATE_SPECTRE_BRANCH_HISTORY)) {
+ 		/* Do nothing */
++	} else if (spectre_bhb_mitigations_off()) {
++		/* Mitigation disabled on the command line */
+ 	} else if (supports_ecbhb(SCOPE_LOCAL_CPU)) {
+ 		state = SPECTRE_MITIGATED;
+ 		set_bit(BHB_HW, &system_bhb_mitigations);
+@@ -1201,6 +1208,6 @@ void spectre_print_disabled_mitigations(void)
+ 	if (spectre_v4_mitigations_off())
+ 		pr_info("spectre-v4 %s", spectre_disabled_suffix);
+
+-	if (__nospectre_bhb || cpu_mitigations_off())
++	if (spectre_bhb_mitigations_off())
+ 		pr_info("spectre-bhb %s", spectre_disabled_suffix);
+ }
 -- 
 2.51.0
