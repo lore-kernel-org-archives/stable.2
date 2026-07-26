@@ -1,124 +1,156 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409DE2E6CB3
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 06:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5732941A
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 06:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785046144; cv=none; b=FwF3Ou5hE9iGGgoUGZ/CIGrPVhhTS0sbVrvvTTXuc5o+8oLXZYdKlpHYjc2j4iHrFW3XOQumCNhjpEMKRt27jW4d1d94QOOWNxZ+iEzeD8hiFplsUF0djzJNzAcDGX6Igochw9biEVNfZREprG/+3zfo7/PeILC5MCjzG5IhluE=
+	t=1785047113; cv=none; b=O5NoUATzLYQfs0qKoITCbFIJ7zr5bo2iapH4iZsZjEKoPRKLkXyDXrshzpB0CUNF54tfGcrO5rghIP0a5YteqT8wPpOJcTidXYctbXBzQbIZ+CG9s8tgSQYJ+XTnpDiFZwUWMsjTeORZGIumiyYFiyTyqklACLmJuZ+ijP44hOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785046144; c=relaxed/simple;
-	bh=Z7TFJuHVHJKvY8/Mc6ddE/wit6HJie13aC7mOZ54YNU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZltCVuEtBXVrkFTaYS3yMjr3XkTMmPztNXM3dwUtoA4h8m62B/QHXyYFsr8AxMGJ8bCpOJ3kmPD3KRHKuMGtoXpah4yrYLsw8FKXiXSBrZGcIdwoY3J8sINhKxA80QO7DLI4RZkDsmgxcXCJ7u/aW1n21drAhnk65KC+nCox05k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jz+g9aj6; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785047113; c=relaxed/simple;
+	bh=9KIBvI9e9BJH7kOPdDUXmd8ePdl1sXg9lviGVkexrbE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tC1bKL0KOb3iIa0KrPGjWrDS9Pb3pn/5iNa2eX0pYnhmk+KWvmO7SIQzxYT0X7s3cEFxK7dNsDaHqCDkJYwgZqqsT6t5v1EsLGjiNonw/Je/hGwjkSTfNkYz5z4IdvExxlwkXkPMaJs5BL8G9xpvQF8obta+vnAjKd++odlr/xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=NFtZFDVd; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jz+g9aj6"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84861fc51f5so1230769b3a.1
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 23:09:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="NFtZFDVd"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1200405a91.1
+        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 23:25:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785046142; x=1785650942; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7UFhWQOa/vwyik9QrUHaltpmfCg9gV5b8FYD7Vbdi7U=;
-        b=jz+g9aj6e5FFzOfbp/mpUry7APQ9iM8WH7a9JDUIi/YkYOCootVmeDydu5GrwSEdor
-         8wgw3CAB/aENcUq9ivmkcIBWgwvYoVlKXSMeuzOZd7pfndyi/TsmylME6ts7oOAuUzhX
-         GbPvHqV4KS0WtBQsHNQaOWKxa7sVfSXgOKVEPVQk/utltGACl9xHs+OxfnKSygaxItep
-         DFSKpSDb5OPjhB2FnDraueFjnCk16zhqxnNSQC0CSJuWcFVImOMiQ9NKp2ZRhBtuRlH/
-         B0hlNc6qxoP8djKwyP5Wsa69/W221inGfE9I07t/kMn3B57iBShaX/MpYc85/jWcT1hJ
-         w6Zg==
+        d=xbow.com; s=google; t=1785047111; x=1785651911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mCbkuQVGzcCFhRBKkTVpatHenyH8ahAXgWyxZhPWtms=;
+        b=NFtZFDVd9n9v8PL95VIkH0nlvuNp61j/Gf6QMeO+bC2q28gMvqDncD2gy3isfPFLIh
+         4XkBhJMpT0AAj5dPKADMdBcwG03w4jkDLMWsLqfjaDWgMmPAGRel5365vxNhNyWBCa/M
+         7VJF5LsL51lb2EQOJiIjVF+j2+ESWk5WV9ElQMz/wZv1IpmTte+Z4VNKtANCdwEf5DJF
+         L8Oxn5KvtGaVmC4CW0+ZFgk0RDNlkAa1o7mZZ5OPRANjwJ4jInxOj9rpPCSTqTkl13rH
+         LuOmCh1WZJAwWDccMvj0186cufbrzSIvybaqKwwNt/VAp7tmI+YFNxkXmKl5XMbiiLxC
+         nuKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785046142; x=1785650942;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7UFhWQOa/vwyik9QrUHaltpmfCg9gV5b8FYD7Vbdi7U=;
-        b=X0JY3O96kEhlvUiKvY6u4bjbFJ/LWIEiuxoAotXhTbzmksLAOcNGYvnx0D0DrDcOll
-         ghUf1wvONUU71fUMPzY+stgrHepoHnzxE9d0/3ZXVS0WLDj+rOwM0MN+5T6TDFQkk+ZS
-         xZF/h2q+/CMGAsHEBLDRTC6t4+21pE5VRjpwelYLRHSJ0OzYxeHLqosjlN6I2HcJB1vj
-         zMhgw+UKEPe9GdLthYdc7jVyMCJUvHfBRZaacLoCwRL/eLSWPyEHhuIErQvSoeQn6WMC
-         Wui3XpEsFUwnvY3Jcuv+AGDYh+fKnQmDAMw3TWN5w3jaK141JZlZd8e8GQ28zSKPfph3
-         0nVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqqlIYWkUkNHxJstVORejINxFnBUeeFox/fwhixvD6/0GJo09z3ju35GfzTAPvKCbUvMLqVKvM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyw6IWurY0a9wR+qccsQ5rwTXCzACR9Y4+MCa+pAmOx2iKeWbT/
-	0XC9TJIdOaCQryIQg7EoQMvMKJcVBA7k2/yvelDzb1Amg+d52QtEcCXI
-X-Gm-Gg: AR+sD10h7oyuMR51qXuHe0Pio2NVIQV72bI7WZRQcjyG8qSDl89xW0eSYQGTupScaWF
-	hodWPQQAGMzmXkbswoz9YFKdfZ36iAIhUZrCEaARUg7YVfY6yMmlbAI6QcrVmc8dpoe3KGMF8sw
-	O55DAH3HsaasmtSLQwu1IfZuF/WnSj2mMGkSjT5se1EzI/+UkMJ0m4PnBwNgfEc9q+o6f8AHJr+
-	mWWXUrPjFHmwgxdahJ9AYzZnSMQyCLH3BVEHciLP8LK8OZkplRVgKrKpAFUzm58j3FOcb8OlRrR
-	5wL1aYMvaon9GHurdjXfE3srhodFyYbwSJ2olHJQLw/4XfmYaG8MIL1j9skM9xbsC86Xz4BEMri
-	xFhoBGgRmSrUjPJ1cYlu7Gm2JhxwO2CoU6H+ACDKv8rw3lPB9Fxegc9SeTeqlFqs93Kvy104l9e
-	0LUD2u2c1J5iM5moeTiwVw3tGVGiB5p7bd6A==
-X-Received: by 2002:a05:6a00:390f:b0:847:8d54:f4f9 with SMTP id d2e1a72fcca58-84e595810c1mr3014064b3a.51.1785046142393;
-        Sat, 25 Jul 2026 23:09:02 -0700 (PDT)
-Received: from buffalo-ssd (M014013071096.v4.enabler.ne.jp. [14.13.71.96])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e533d1644sm1609938b3a.37.2026.07.25.23.08.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 23:09:01 -0700 (PDT)
-Date: Sun, 26 Jul 2026 15:08:57 +0900
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, 
-	Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Yingjoe Chen <yingjoe.chen@mediatek.com>, 
-	"moderated list:ARM SUB-ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
-	"open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b" <llvm@lists.linux.dev>, stable@vger.kernel.org, Ard Biesheuvel <ardb@google.com>
-Subject: Re: [PATCH] arm: mediatek: fix secondary CPU boot on Thumb-2 kernels
- with Clang
-Message-ID: <amWfjDyn0jrnIf63@buffalo-ssd>
-References: <20260722172443.534251-1-akkun11.open@gmail.com>
- <CAKwvOdnbPKoTy72EvfpKtT9Ne-r+O0j99KFX8OvjGk8ZxsuEGw@mail.gmail.com>
- <amHYO1c-5vzqSekt@buffalo-ssd>
- <ef007a23-46bd-41d6-83ff-264831341093@app.fastmail.com>
+        d=1e100.net; s=20251104; t=1785047111; x=1785651911;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mCbkuQVGzcCFhRBKkTVpatHenyH8ahAXgWyxZhPWtms=;
+        b=QhiAhOkp6714FnuvRdSOVnBpE7KfXk5oYQ9emJYAN/UwZig8bMy92LV/Q73IrFr8bx
+         AOMHViQq+uswthKfwo8Z7+cGnnOpeQqISprtBsb6RdTgRhYEGt/GsoQ03PoSDrqg2R4j
+         6q8KSnh5hhG+IZ/YHsSHfn0vZbNCojsHjzvpsGBZnhLJagAwHWYQyzfmhdaIVA8SbEHD
+         zp9UabeDZvMioU8ff3O2LXjqf1kBchTVC0GAaeoPNLo9sE5onch1kUbvuSPTXHF37xb7
+         MgZgw2L1SlBSNMvfH6m0hbOMDf3sd2blvVE7q2TXo2uXImB5Kb8lcEUeb4gIe7JUU87C
+         mPEA==
+X-Forwarded-Encrypted: i=1; AHgh+RogPDnugz6b3LVXXWcP93nYe3KnVppOPOpbDmSwoh0ji+41e2UOvG2ccybI6Wjld78F5OBAgIs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yymqr01SXdkaIsQOTA8yxnqaIwStDml/0eyyZEfb8Xhl+bYmrTK
+	OoX6JMZeWHBOBqPypQC3zs7AwlPcowiq0soNMAjd/TOEVf7axs3SqYgd3CGD1oiBAVQ=
+X-Gm-Gg: AR+sD11rdciYc9DpNj0Vx789SeOZXTwOVSYiXW+pyx4eTNRcM3b2rll1QdO+KgYPqzN
+	Sz4A9HpOlgW0TKZXezbfzkJluS1KUbLyOV2AvWWdk5ATvAgmm4KnZXqHl9HaOzqbnmM6HbOhIJE
+	8g/QKsSCyP9g/bqutemjvmYfZ/8HgKhOzzY6rfZzw4jqQb7f03ARu2AsEwbRxpc1ITfYcXAnvmN
+	11aBQGvTzQ0HrMmldFOQ1wOA9bgwKb65Y5B1r6tGhOScImastHpoCBOVU2N8SePbjK+yXQ+ek8E
+	bvFR0i1ZyCpgK/Ee+X3bVTzdDWNtbjdZI3MOsm/rW5TpM86ArasQ18+pr20y6+YipifvmNXD2ej
+	W5HGLw2SpSI8dJa6ZWAEN97DHtCtv6Gc47zCUYJcp1p8zagZoO9h0cB6MlBbBwgOjKgdPc3r/iT
+	BveAe7dAE7IoCIjBJMc+WCWV9tQHfk1dVdkay1o1ioUlB7wUSpDnvcC+nl4Cvk
+X-Received: by 2002:a17:90b:1a8b:b0:380:21b7:e727 with SMTP id 98e67ed59e1d1-38f294e9658mr4439487a91.14.1785047111496;
+        Sat, 25 Jul 2026 23:25:11 -0700 (PDT)
+Received: from localhost.localdomain ([125.128.148.126])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f03adb20esm3467229a91.3.2026.07.25.23.25.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 25 Jul 2026 23:25:10 -0700 (PDT)
+From: Baul Lee <baul.lee@xbow.com>
+To: linux-input@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: tomasz.pakula.oficjalny@gmail.com,
+	oleg@makarenk.ooo,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	federico.kirschbaum@xbow.com,
+	Baul Lee <baul.lee@xbow.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: pidff: fix OOB write when hid->inputs is empty
+Date: Sun, 26 Jul 2026 15:25:03 +0900
+Message-ID: <20260726062503.43717-1-baul.lee@xbow.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ef007a23-46bd-41d6-83ff-264831341093@app.fastmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 23, 2026 at 11:53:14AM +0200, Arnd Bergmann wrote:
-> On Thu, Jul 23, 2026, at 11:15, Akari Tsuyukusa wrote:
-> > Can you send your fix as PATCH?
-> > I think your approach is better than mine.
-> 
-> I think we should wait for the llvm issue to be resolved first, to
-> document whether this is considered a bug in the kernel or the
-> assembler, and to see if any other kernel code may be affected
-> by the same thing.
-> 
-> Looking around other .S files, I see the same
-> pattern in stext(), cpu_resume_arm(), mcpm_entry_point(),
-> all of which start in arm mode but end in thumb.
+hid_pidff_init_with_quirks() derives its input_dev from
 
-It's a LLVM bug.
-The LLVM assembler source code explicitly mentions this limitation:
+	list_entry(hid->inputs.next, struct hid_input, list)
 
-  ///
-  /// FIXME: there is a corner case where the state is changed in between the
-  /// label definition and the .type directive. This is not expected to occur
-  /// in practice, and handling it would require the backend to track IsThumb
-  /// for every label.
-  ///
+without first checking that hid->inputs is non-empty.  The list member
+of struct hid_input is at offset 0, so on an empty list list_entry()
+yields &hid->inputs itself and the following hidinput->input load reads
+an unrelated member of struct hid_device.  dev is then a type-confused
+pointer, and force-feedback init writes through it: each
+set_bit(FF_*, dev->ffbit) stores 8 bytes at dev + 192, past the end of
+the object dev actually aliases, and input_ff_create() adds further
+writes of a heap pointer and two function pointers.
 
-https://github.com/llvm/llvm-project/pull/211641/changes
+Until hid-universal-pidff the only caller was hid_pidff_init() from
+usbhid, which runs under HID_CLAIMED_INPUT and therefore always has at
+least one hid_input.  universal_pidff_probe() starts the device with
+HID_CONNECT_DEFAULT & ~HID_CONNECT_FF and then calls
+hid_pidff_init_with_quirks() directly whenever the descriptor carries a
+PID usage page, bypassing that gate.  A report descriptor whose only
+application collection is on HID_UP_PID leaves hid->inputs empty while
+hid_connect() still succeeds through the hidraw claim, so probe reaches
+the unguarded list_entry().
 
-However, it will take some time for an LLVM release with this fix to
-become available. Since LLVM (>=15.0.0) is an officially supported
-toolchain, leaving the kernel with bug(s?) on supported LLVM versions
-isn't ideal.
-I think we should apply a workaround in the kernel for now.
+The write happens in the USB probe path, on the hotplug workqueue, so
+plugging in a malicious device is enough to trigger it; no attacker
+software and no logged-in user are required.  KASAN reports an 8-byte
+out-of-bounds write in hid_pidff_init_with_quirks() reached from
+universal_pidff_probe().
 
-Best Regards,
-Akari
+Check for an empty list before deriving dev and return -ENODEV, as the
+other HID force-feedback drivers already do.  universal_pidff_probe()
+propagates the error and unwinds.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: f06bf8d94fff ("HID: Add hid-universal-pidff driver and supported device ids")
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Reported-by: Baul Lee <baul.lee@xbow.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+---
+ drivers/hid/usbhid/hid-pidff.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
+index 5f4395f7c645..22951b7ecd17 100644
+--- a/drivers/hid/usbhid/hid-pidff.c
++++ b/drivers/hid/usbhid/hid-pidff.c
+@@ -1539,13 +1539,20 @@ static int pidff_check_autocenter(struct pidff_device *pidff,
+ int hid_pidff_init_with_quirks(struct hid_device *hid, u32 initial_quirks)
+ {
+ 	struct pidff_device *pidff;
+-	struct hid_input *hidinput =
+-		list_entry(hid->inputs.next, struct hid_input, list);
+-	struct input_dev *dev = hidinput->input;
++	struct hid_input *hidinput;
++	struct input_dev *dev;
+ 	struct ff_device *ff;
+ 	int max_effects;
+ 	int error;
+ 
++	if (list_empty(&hid->inputs)) {
++		hid_err(hid, "no inputs found\n");
++		return -ENODEV;
++	}
++
++	hidinput = list_first_entry(&hid->inputs, struct hid_input, list);
++	dev = hidinput->input;
++
+ 	hid_dbg(hid, "starting pid init\n");
+ 
+ 	if (list_empty(&hid->report_enum[HID_OUTPUT_REPORT].report_list)) {
+-- 
+2.50.1 (Apple Git-155)
+
