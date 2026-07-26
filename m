@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB753812EF
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 12:38:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FD6387590
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 12:38:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785069528; cv=none; b=OW6Y7A3RLXpNhTG4+FhYdvXuFBmX0Uq9+iRKve3jGBaf2GJHclSgaT8Jr7lJp6QOXPY24I+D3C+dXXjidLfn2WWppAu0Uz2/ZLHpdzwyA2PLkt4iwr3DloKQyrJuYVRMCcCS2fHtMO/xM6AXyt7eHhG4T5D9D/8+j9AIH9frWpY=
+	t=1785069528; cv=none; b=j9GYR9CUT0XSe6MHcTBb+U0KsSya2aFS5NMQWyakpMjncwdNyrgvp539un3SeYp1vThS4ruZJgkRus0tpoYssa/5fjfoK0ZMpMsZ5qokd1a5moeX93s7EfYLEQtqbrnhzUv4/PPqbPzJVsGnQn2NKkEOXe2WLylz05cKQtjEp+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785069528; c=relaxed/simple;
-	bh=oG+vVHqK9wHIxLgq1aFSiF+VCAnyFGOrWqkh+dwKkrs=;
+	bh=Hv8u88fJtzKApg3H0gBgLy6XjwycI7awiJaOoQl52Jk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dcVSIgBTWsg2Z/zHvTDl+rPeAcDh1soYmZx2JpZW04/oUYckOGt61culqb7n/Lle8QIA7q2qFIgiNOQ9TDM1Z0aQDZt06vlLzTsjADwwjrGZBGZUBeQXLAUy8GfZqJwNFtpMlmb+icH5Kmmwsyt+dqoGlS66YJu7ke4kbEHlx6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=irl9kNyZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Jds84vcF8fpVVgeJa5avtH0YqjjRyhOWdan5CvjmI/zYaekbGywnQjZYh5czXgPHESqvCgl49DH15j/wGlXW6/h6DEad17M+/1p3nl3owv2AhvOJ3i8rEMwaUmMhtZ3q/73Y/yBmDyOKLvtxBNT0OtcaJuSLPa7IZB3XoFrfYp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sq81Yw7a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="irl9kNyZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291EF1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sq81Yw7a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDED1F00A3A;
 	Sun, 26 Jul 2026 12:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785069526;
-	bh=h3kNIMqt5uoauC2zF5KTR6tLzntTPG4YHZwVUwrW+OM=;
+	s=k20260515; t=1785069527;
+	bh=+T1I0yiK6tqQCwx7lPqA6+GVcageDXOOlhg/6Pv/MGc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=irl9kNyZyzPtccOF7+AqJ+y+GlynMOL96cIbO8iVGd9uOfx4bEq5S+aXTpFBjInfo
-	 uQoNRe/TGNYDGSjfYsgv2C7ok6BcgjocYNA4HGybX7NVQacgpfKUEgLthq4ryqlZ+d
-	 q8z0hfkipwdwbsBUzHEo+qf3PRR449loursFp9gjb1ByQrXW/mMep+lnqxeJZfuUMc
-	 b60MBr7DW80JhG7TafxP+EgAHf6a2k8TE+TIqPtv8UETvknobwSv8GhLYmPsSG1S2P
-	 TBzUx7w2Je23RdrA8Xsb8vKXx1+5JL13HogcUmZhRN8VHaCNp5bbsbdWEXOCVRQfRl
-	 PZaTu8oEOkgKA==
+	b=Sq81Yw7aSLELCZY8SJSb4aDYCkj4gyPYtDmDG1AUeEvHsFlVdBVeHcqGsobARLjaB
+	 CecVOwAvnEDv3s4zIO3pBD4HpbZZKzjJoIzgEON/UiJBZ472iEtWebOkMG86hz2rmE
+	 j6pGoHFb1HzTKvbVPLStXcuFmwk/PZpIX75MS/OWH2CeP9lpSASuIaM4B1ezdEXvRY
+	 V+/zkEkJjEK9rZeKmDYLqVWLeOpoYd7Ql4z3idWdXJsehp2rrVbIaoarzPOw/fuIFg
+	 o3ZOp0qQ51ilJ9WgiDrkOf3RTpKYd9e4SKaRkvB8/vmJ5kGXWVPAwjm4GKaGQszZwp
+	 MAwBSvzcDEMHQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] mtd: rawnand: Add a helper for calculating a page index
-Date: Sun, 26 Jul 2026 08:38:42 -0400
-Message-ID: <20260726123844.64620-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] mtd: rawnand: Ensure all continuous terms are always in sync
+Date: Sun, 26 Jul 2026 08:38:43 -0400
+Message-ID: <20260726123844.64620-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072021-compare-playpen-3ff7@gregkh>
+In-Reply-To: <20260726123844.64620-1-sashal@kernel.org>
 References: <2026072021-compare-playpen-3ff7@gregkh>
+ <20260726123844.64620-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,57 +47,74 @@ Content-Transfer-Encoding: 8bit
 
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 
-[ Upstream commit df9803bf5a91e3599f12b53c94722f2c4e144a86 ]
+[ Upstream commit 6fb075fca63c3486612986eeff84ed4179644038 ]
 
-For LUN crossing boundaries, it is handy to know what is the index of
-the last page in a LUN. This helper will soon be reused. At the same
-time I rename page_per_lun to ppl in the calling function to clarify the
-lines.
+While crossing a LUN boundary, it is probably safer (and clearer) to
+keep all members of the continuous read structure aligned, including the
+pause page (which is the last page of the lun or the last page of the
+continuous read). Once these members properly in sync, we can use the
+rawnand_cap_cont_reads() helper everywhere to "prepare" the next
+continuous read if there is one.
 
-Cc: stable@vger.kernel.org # v6.7
+Fixes: bbcd80f53a5e ("mtd: rawnand: Prevent crossing LUN boundaries during sequential reads")
+Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://lore.kernel.org/linux-mtd/20240223115545.354541-3-miquel.raynal@bootlin.com
+Link: https://lore.kernel.org/linux-mtd/20240223115545.354541-4-miquel.raynal@bootlin.com
 Stable-dep-of: 8e4531667d71 ("mtd: rawnand: Pause continuous reads at block boundaries")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mtd/nand/raw/nand_base.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/mtd/nand/raw/nand_base.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
-index e9e4ea87116c74..9c925439696047 100644
+index 9c925439696047..11b0fb4bde96f2 100644
 --- a/drivers/mtd/nand/raw/nand_base.c
 +++ b/drivers/mtd/nand/raw/nand_base.c
-@@ -1212,19 +1212,25 @@ static int nand_lp_exec_read_page_op(struct nand_chip *chip, unsigned int page,
- 	return nand_exec_op(chip, &op);
- }
- 
-+static unsigned int rawnand_last_page_of_lun(unsigned int pages_per_lun, unsigned int lun)
-+{
-+	/* lun is expected to be very small */
-+	return (lun * pages_per_lun) + pages_per_lun - 1;
-+}
-+
- static void rawnand_cap_cont_reads(struct nand_chip *chip)
- {
- 	struct nand_memory_organization *memorg;
--	unsigned int pages_per_lun, first_lun, last_lun;
-+	unsigned int ppl, first_lun, last_lun;
- 
- 	memorg = nanddev_get_memorg(&chip->base);
--	pages_per_lun = memorg->pages_per_eraseblock * memorg->eraseblocks_per_lun;
--	first_lun = chip->cont_read.first_page / pages_per_lun;
--	last_lun = chip->cont_read.last_page / pages_per_lun;
-+	ppl = memorg->pages_per_eraseblock * memorg->eraseblocks_per_lun;
-+	first_lun = chip->cont_read.first_page / ppl;
-+	last_lun = chip->cont_read.last_page / ppl;
- 
- 	/* Prevent sequential cache reads across LUN boundaries */
- 	if (first_lun != last_lun)
--		chip->cont_read.pause_page = first_lun * pages_per_lun + pages_per_lun - 1;
-+		chip->cont_read.pause_page = rawnand_last_page_of_lun(ppl, first_lun);
+@@ -1233,6 +1233,15 @@ static void rawnand_cap_cont_reads(struct nand_chip *chip)
+ 		chip->cont_read.pause_page = rawnand_last_page_of_lun(ppl, first_lun);
  	else
  		chip->cont_read.pause_page = chip->cont_read.last_page;
++
++	if (chip->cont_read.first_page == chip->cont_read.pause_page) {
++		chip->cont_read.first_page++;
++		chip->cont_read.pause_page = min(chip->cont_read.last_page,
++						 rawnand_last_page_of_lun(ppl, first_lun + 1));
++	}
++
++	if (chip->cont_read.first_page >= chip->cont_read.last_page)
++		chip->cont_read.ongoing = false;
  }
+ 
+ static int nand_lp_exec_cont_read_page_op(struct nand_chip *chip, unsigned int page,
+@@ -1299,12 +1308,11 @@ static int nand_lp_exec_cont_read_page_op(struct nand_chip *chip, unsigned int p
+ 	if (!chip->cont_read.ongoing)
+ 		return 0;
+ 
+-	if (page == chip->cont_read.pause_page &&
+-	    page != chip->cont_read.last_page) {
+-		chip->cont_read.first_page = chip->cont_read.pause_page + 1;
+-		rawnand_cap_cont_reads(chip);
+-	} else if (page == chip->cont_read.last_page) {
++	if (page == chip->cont_read.last_page) {
+ 		chip->cont_read.ongoing = false;
++	} else if (page == chip->cont_read.pause_page) {
++		chip->cont_read.first_page++;
++		rawnand_cap_cont_reads(chip);
+ 	}
+ 
+ 	return 0;
+@@ -3512,10 +3520,7 @@ static void rawnand_cont_read_skip_first_page(struct nand_chip *chip, unsigned i
+ 		return;
+ 
+ 	chip->cont_read.first_page++;
+-	if (chip->cont_read.first_page == chip->cont_read.pause_page)
+-		chip->cont_read.first_page++;
+-	if (chip->cont_read.first_page >= chip->cont_read.last_page)
+-		chip->cont_read.ongoing = false;
++	rawnand_cap_cont_reads(chip);
+ }
+ 
+ /**
 -- 
 2.53.0
 
