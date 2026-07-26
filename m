@@ -1,217 +1,303 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAD2372EEC
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 08:27:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785054434; cv=pass; b=R9EEMjTcsbwAFVs4wyrqeju3Mn4SOWzFJNrjYuJ0UfpAkNpCqjJbKtN1C+0qhSQRfJYrOx4X3NspRq2pdVCc8GpWiYFiKvy3RxJTwjBqjRsX6RATO+hrTibDoQn4U0Y0uSw+NFq879YaWVkG16dq1EZFmB28ghM0xGcSbvTddZE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785054434; c=relaxed/simple;
-	bh=8xJpMQdm3mK3+eLmyzRJS2c6sWbRz2JRigIWjuGEeSQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BwgfeLP4GS8KKF0SV4WOQDAK7PIzIXOredHYpYb1W4g1p51XWZ8vynUv0LYJUEMI2k+hXJ1XaT4Ehg9f62GXeGDmLvRFuAukjxyFSLkJHw9FROVeKP+Z9vC1hkbEWX71B8VKRLywzvkgWkd8uHjrZiWcDyxveT5D39lg/w4kT54=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Frg/fICc; arc=pass smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DCF1F0991
+	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 09:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785057692; cv=none; b=gAOz7FXRti9nnXZqpkL9koMoQ31wu9qhmxn8VPyVFI/PECaPB4PX2BmPB7t6ySH0s6jMdEw5oGoztOfpyv9eAAyS7KLHx6iHlQXt4bCxF0bbJvus7toZaANdFZR7ERW7mm0siyXh9omstt1YwN5+D3E+BA2M/b/if2+MSYwaMxU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785057692; c=relaxed/simple;
+	bh=lafd3XEcaNeaMaLenplXzbLxjLUVzRQKpK5icSzVVTg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MJmYqswuTpC4jYNN/mgDB1CepY9qdkthJGF5rqGAaW/AtddN2Np8+ngRP5PfMTHmQRgi03XJjwguNHPEbWSPwRWdd4RlOJJkZf0a436qQ+aglROzNJP9Os7QgnmBAqfxCYnX7uu8G+D2v5ZyEdi7iX9wSdPK6NLhMHcNAwbn5bM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPB07ovy; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Frg/fICc"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15d47266baso211355966b.3
-        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 01:27:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785054431; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cdjtwc8H2xQHDtJjhqhUD0ZKBdneUOYmPy0679AatiVjPpUn14LkGA4TW/V7d8FB2E
-         OcE0B5weyAJ878xK92aWUvXdSMFNk5UgFvanNhSTuU04McyCFAg821PTXb33IICcfLFC
-         h7RnIceBVNBPnHX500RdwSrVUgGAGkW/b0uLycw9KnsPYe1qv5NJUvHBtdDYwAeccrtv
-         aTNjN2i4tPvm8cBWsYK8A3sMlmtXb4lncD4f9FbygaktkdgdymYC3eidEGibnD7pkYam
-         HM7XjlrINBNrCRuFmkF+DcKXvWJNmnp17xtaBsIG7IJwk66n8Y4smfQIaCKpAcC4LE3E
-         PsTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sF4WDvoDIvwYUO+wREyt677f++mr+wkgCWiGvStBw8U=;
-        fh=+Qt68IITUNTAYNADuhTvo+zo/2aF8TD53LqGCrxLvwc=;
-        b=mEoPFj8IATqGHL6eFueVH6YR0jgPtqlOxu1SAKyUYIhENnNos8LG86voDv5g0eAzGT
-         792NTIatP+mvbS6ZZOT4UTyIby3vp8wzFztsdHOjcVXk48LNCJqF8NsG+OYKpkbPyRvQ
-         dTx14FEnniJogn73704h1u5aSXY34JBSM84YiVcMz0ci4dyZQgOrJn1J4sg7Ofyqotrh
-         TtEYlEGMwkRGBc4fpDdUM6m3bQ9lQHshXL0m2qpDFg8HTYGLV0JijKDauJb1tXPr73nc
-         L7CbSML89EtVnrBfuByNRyICNZ0c/YKWBD3RFd14TN/WoemECUpkin8hHATMxbsqx3P4
-         74Iw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPB07ovy"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84a3e5ca66eso246378b3a.3
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 02:21:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785054431; x=1785659231; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sF4WDvoDIvwYUO+wREyt677f++mr+wkgCWiGvStBw8U=;
-        b=Frg/fICcSEPoD7YAXtB8GVutRMJ6prJ2gpuNJ9KRodn+A6ySssjPWhXTZR/3P+qF8L
-         sV6yXCmPasbiF7+Qplpn1EMHBQ6DcBYFUz2pagIe4Nw1X9fhDqEPuIddYPK1OIDMxuor
-         ERP++pA3Q8GN054urkPSZPI1xUreCWXyicNNjJXw6wA4RJBEQCrcwRl2mchi3GLYr/C3
-         IYQ6zVqStWp2zlp8scKfJgBbntF+f4aHKjrggMu0E5wF56A6CiI156t0XypOQykpkaRW
-         0M33vTRjaBJcWjzgAWo8lgUICuAa6lDKMsKiVFRXFkJRXzI4bMu8nXGtvfwnbvW/YZQ2
-         AHdw==
+        d=gmail.com; s=20251104; t=1785057691; x=1785662491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+s/4/9g/DhYkPtUyAU+bTxPmdaVZeyponCpbYYiuK/k=;
+        b=JPB07ovy3Llk7wLaLSLuN+P1Chj4oZVGuc89ECHZKFmLKhKJgFrSQcjOkBmKLyMKOh
+         NeMsdutDG1B1uvZ299xVXfpk98EohPKdohGv7mNyvYD9ibRR64P8pMYzhKBNP4eUrfZB
+         MQ9+9ElJyT41bQQlJG7o9rVtXhwlfmLm4ilUJppw4uULZZ3bIuY1Vk/KYcDChXc8GqIg
+         yvnWXRy16OAeh049iiDqILayCZ3QABMGyv7L4mIKaSOmgaO8i4ZcWVQPYbjUO+QFvFSb
+         EbuKmsNT5qVGeo6i1BoQLYJwZSCyzfqRtEhyoYaJU5mP7r1BenuBAlbrTNDWFZx76Osi
+         cpmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785054431; x=1785659231;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sF4WDvoDIvwYUO+wREyt677f++mr+wkgCWiGvStBw8U=;
-        b=bgW+JJak3t3ZQtTbUL95pzwroqC/Q06UCfe4T7/Dx1ETW6JL0NQbCituZUvSBUkUlD
-         Ehm5fwoUTHgQVB3eDAhnPe6uLy4HzQx15rnvmnRv+qLdk+ycZ21/BP/SqPC6DrHuqmCX
-         EEhtpt+4ckQtxWMsddPVsVDK0DPUoaJZhdNtQ+tD2qPnJHLHVMbMGc31sSc6HsPMUsxk
-         YK7VaP0swX76l60xN14GgSWx9O9DAZE3ncB2oBncRi0xG5JqVquAMkPSq720Ue3r6B6V
-         rtfuSc+KN5wIazDDcQ9nN0y18yZlrTxuBBAtogr+8M2IITlx4mIStH6iDCoUnZqLPm1Q
-         aO8Q==
-X-Forwarded-Encrypted: i=1; AHgh+RprIke0zxW4am7E5B7PtP3jYSe0vDBv38694pOB3ZsXQ4qBFWox45NC1AJejALtN15WkdLb0rM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuyFOlvMpVINbJjC6JtvvpzhbWW1pbWlJ4K69927AgXkkkzFOk
-	cgrIqV6z4MR3204oE31MdECAOt99Jwf8asUJifebG8HaIsAoWfK1Ypujap6I3Iif0f9tixIGOji
-	CO87cs/HGrMLC/PDzxXutcMCVakRQGFQ=
-X-Gm-Gg: AR+sD12jNlSYvJfJ3n+nwryabixsC46WfWhH/Vfxd1tp7a01cDuZc50iCybMZHbDi7Q
-	xdd9OanyT4roPBRkIA4XObHtpZ45xzcxNs4vcsgdm30/meYT8/oyKyJANXq0IVlSLDL3m9DpoH6
-	9ld/87Dg6EhbBJ6FnX8pDcGmyf6DYbG/O2ESyuYq8e+PdVel9TdV3xrj4KsU37zc5vQlJHoN2x8
-	gebRCT5NTWLoBwIXgWs7qIThQef0hjZhenMSfyOfmtG5pDt93IwBA9SJfmMOPVb/jfXjJir1AXU
-	jtza6GJoNbJ5TITiX7I=
-X-Received: by 2002:a17:906:9fca:b0:c16:5dbd:8210 with SMTP id
- a640c23a62f3a-c1f1f044371mr201495166b.44.1785054430944; Sun, 26 Jul 2026
- 01:27:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785057691; x=1785662491;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+s/4/9g/DhYkPtUyAU+bTxPmdaVZeyponCpbYYiuK/k=;
+        b=MjtdeX2leysmdGGFzlR25O4O89k/UJbDn3jLA3pfltWHgpqWPrgBjUwWwrb46685U5
+         yKx7KJKxKwlIrVzxXBxHrIctcpYbL5nkDgXq4odTHOagxxRdn6sfJIhPJhx2GPShYata
+         ucFbsaR6OLyt7WLhYiggrVA4jqrEB/15Pw4T4HyUCuXdxadvcb6XFhEGh2EHDcVhTSDs
+         k1r2UlpuaPgf6b79ghQnWWorkFVN395ah6VpcYbLciDI/j/fHVqD5kUhHsJMor0DyMBa
+         TyaIwpmYDIXghUk3b56hdDzSPwSPIibJm2Tq+WZNZ8U8cwgBFxB0TkMu58cUrVY+0hTH
+         xBzw==
+X-Forwarded-Encrypted: i=1; AHgh+RoEboF5LjECN7jf/JvZik8Zw6oWMPlfFYe3q9pYlPQYGG0LcJXeO6hg6z9jfDswxLrNkP4fTTA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyo36pWAAZNNzOrAIKGqVJVOP/rgusqOlbiiGTFTFs9e/zzmRbJ
+	nLVLZPWO2KuPi2KZEDZ7v5ilLWr8v1NBTMX6o7avamwEBXRiRq0dy04w
+X-Gm-Gg: AR+sD13CYTkyLfnDSA2eXcMpXXnksy2WoGPuNG36RQ6QoCHEJHytMxeMuD4Dx93lK8Z
+	bKs4mmpRbCGs5ZCCgJUHyzp2tSfDhq91K4FWLMQC6E0PA0lYqWCISQnz5JbbbFBZMDtmzEBVlC7
+	f/4eE18aKWnQI3Zlcspoi3FhabbHcf++ElzuhkACbKdJFtepk/col+BUcs3GDfE9qaanl6ozPsr
+	qU4bNRbBwPxz9cH0KG4sV1kmNnnyFcFkXulxJSItIBaUZypv8bBXNWhLjVpd18Z/bivyPktFr/g
+	D1rScPs416LiIEvMirfR3uvkNzi77ZHZ8BKlC2MtB0ahyv6E6DzeZgHX37wwCEneqlEBdASaMKc
+	Ki91V0LMia5KTmV7XUyYOBQDXjDwi4pBWPhXHZDl01W0eiASol+SdD7y8HM/uF8lngzAIAFEVk/
+	JddBoeRRMXZZxo6W4qc3Ul+fH2j9QXlUkMBSpuuYgXU5a2Zs+UzxaCTCGe/NMt5J8K1QNf
+X-Received: by 2002:a17:903:468d:b0:2c9:99be:f011 with SMTP id d9443c01a7336-2cfde8941b5mr36180245ad.6.1785057690388;
+        Sun, 26 Jul 2026 02:21:30 -0700 (PDT)
+Received: from localhost.localdomain ([183.46.220.31])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde5e2b44sm18158465ad.27.2026.07.26.02.21.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 26 Jul 2026 02:21:30 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: willemdebruijn.kernel@gmail.com,
+	daniel.zahka@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>
+Subject: [PATCH net v2] packet: use consistent header lengths in raw send paths
+Date: Sun, 26 Jul 2026 17:21:10 +0800
+Message-ID: <20260726092110.80185-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
+References: <20260721084935.12312-1-q.h.hack.winter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260719175028.988301-2-bestswngs@gmail.com> <20260724142321.GL418547@horms.kernel.org>
-In-Reply-To: <20260724142321.GL418547@horms.kernel.org>
-From: Weiming Shi <bestswngs@gmail.com>
-Date: Sun, 26 Jul 2026 16:26:33 +0800
-X-Gm-Features: AUfX_myLG6i4U1IzbrHsuQ-A43Tundwiu5UTIXpzXAkoffn5gurXuFt2WvlYFmw
-Message-ID: <CANgPUi0sCh6gtBMywQMTnudMLdVXFySp6LD7Vz-1Rh3trSd=eQ@mail.gmail.com>
-Subject: Re: [PATCH net] netdevsim: tc: serialize access to nsim_block_cb_list
-To: Simon Horman <horms@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Pablo Neira Ayuso <pablo@netfilter.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Simon Horman <horms@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=8824=E6=97=A5=
-=E5=91=A8=E4=BA=94 22:23=E5=86=99=E9=81=93=EF=BC=9A
->
->
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://sashiko.dev/#/patchset/20260719175028.988301-2-be=
-stswngs@gmail.com?part=3D1
-> ---
-> --- Patch [1]: [PATCH net] netdevsim: tc: serialize access to nsim_block_=
-cb_list ---
-> commit 27d18d348023b46d852b44b24e6f4ca81ab39bf3
-> Author: Weiming Shi <bestswngs@gmail.com>
->
-> netdevsim: tc: serialize access to nsim_block_cb_list
->
-> This commit attempts to fix a list corruption and slab-use-after-free rac=
-e
-> condition between the nftables hardware offload path and the TC control
-> path. It adds a local mutex to netdevsim to serialize access to the globa=
-l
-> nsim_block_cb_list during flow_block_cb_setup_simple().
->
-> > diff --git a/drivers/net/netdevsim/tc.c b/drivers/net/netdevsim/tc.c
-> > index a415e02a6df1e..30dd7f924b716 100644
-> > --- a/drivers/net/netdevsim/tc.c
-> > +++ b/drivers/net/netdevsim/tc.c
-> > @@ -72,11 +72,13 @@ static int nsim_setup_tc_ets(struct net_device *dev=
-,
-> >  }
-> >
-> >  static LIST_HEAD(nsim_block_cb_list);
-> > +static DEFINE_MUTEX(nsim_block_cb_lock);
-> >
-> >  int
-> >  nsim_setup_tc(struct net_device *dev, enum tc_setup_type type, void *t=
-ype_data)
-> >  {
-> >       struct netdevsim *ns =3D netdev_priv(dev);
-> > +     int err;
-> >
-> >       switch (type) {
-> >       case TC_SETUP_QDISC_TAPRIO:
-> [ ... ]
-> > @@ -84,10 +86,13 @@ nsim_setup_tc(struct net_device *dev, enum tc_setup=
-_type type, void *type_data)
-> >       case TC_SETUP_QDISC_ETS:
-> >               return nsim_setup_tc_ets(dev, type_data);
-> >       case TC_SETUP_BLOCK:
-> > -             return flow_block_cb_setup_simple(type_data,
-> > -                                               &nsim_block_cb_list,
-> > -                                               nsim_setup_tc_block_cb,
-> > -                                               ns, ns, true);
-> > +             mutex_lock(&nsim_block_cb_lock);
->
-> Simon says: I'm wondering if you could take a look at the issue flagged
->             below as it seems to undermine the fix proposed by this
->             patch.
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but will the new nsim_block_cb=
-_lock
-> actually fully serialize access to the list?
->
-> If tcf_block_bind() fails in the core TC stack, its error unroll path
-> directly executes list_del(&block_cb->driver_list) while holding only
-> rtnl_lock.
->
-> If this error unroll happens concurrently with an nftables transaction th=
-at
-> holds the commit_mutex and the newly introduced nsim_block_cb_lock, the c=
-ore
-> TC stack will modify nsim_block_cb_list completely bypassing the driver's
-> local lock.
->
-> Could this still lead to list corruption and slab-use-after-free bugs whe=
-n the
-> concurrent nftables transaction walks the mutating list?
->
-> > +             err =3D flow_block_cb_setup_simple(type_data,
->
-> Simon says: I think the problem flagged below can be considered
->             in the context of possible follow-up.
->
-> [Severity: High]
-> This is a pre-existing issue, but does adding a local lock in netdevsim m=
-ask
-> the underlying systemic race?
->
-> flow_block_cb_setup_simple() modifies driver-provided lists directly with=
-out
-> internal locking. Since the nftables hardware offload path runs without
-> rtnl_lock, unprivileged users can configure nftables concurrently and tri=
-gger
-> list corruption.
->
-> While this patch addresses the issue for netdevsim locally, won't this sa=
-me
-> vulnerability persist across other hardware drivers (e.g., cxgb4, prester=
-a,
-> i40e) that use TC_SETUP_BLOCK with statically allocated global lists?
->
-> > +                                              &nsim_block_cb_list,
-> > +                                              nsim_setup_tc_block_cb,
-> > +                                              ns, ns, true);
-> > +             mutex_unlock(&nsim_block_cb_lock);
-> > +             return err;
-> >       case TC_SETUP_FT:
-> >               return 0;
-> >       default:
+packet_snd(), tpacket_snd(), and packet_sendmsg_spkt() read
+dev->hard_header_len multiple times while allocating and constructing an
+skb. Device reconfiguration can change this value concurrently, for
+example through bonding device type changes.
 
-Hi Simon,
+For SOCK_RAW, packet_snd() can save a larger value in reserve and later
+allocate headroom using a smaller value. Moving skb->data back by reserve
+then places it before skb->head, and the following copy from userspace can
+attempt an out-of-bounds write.
 
-Thanks for the feedback. That makes sense, and I agree with the
-concern. I'll work on a v2 patch to address this.
+tpacket_snd() similarly uses independent values for allocation and for
+the skb_push()/skb_put() operations in tpacket_fill_skb(). The legacy
+packet_sendmsg_spkt() path also calculates its reservation and header
+offset from separate reads before dropping the RCU read lock to allocate
+the skb. A larger offset than reservation can move skb->data before
+skb->head, while mixed TX-ring values can also make
+copylen - hard_header_len negative.
 
-Thanks,
-Weiming
+Read hard_header_len once for each send operation and use that value for
+RAW allocation and construction. The trigger requires racing an
+AF_PACKET sender with privileged netdevice reconfiguration.
+
+The separate SOCK_DGRAM consistency problem between hard_header_len and
+header_ops->create is not addressed here.
+
+Fixes: b84bbaf7a6c8 ("packet: in packet_snd start writing at link layer allocation")
+Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+---
+v2:
+- Cover packet_sendmsg_spkt().
+- Limit snapshot-based calculations to RAW construction; leave DGRAM
+  unchanged for a separate fix.
+
+Link to v1: https://lore.kernel.org/netdev/20260721084935.12312-1-q.h.hack.winter@gmail.com/
+---
+ net/packet/af_packet.c | 64 ++++++++++++++++++++++++++++++------------
+ 1 file changed, 46 insertions(+), 18 deletions(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index e75d2932475a..d23898f24641 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1953,6 +1953,7 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 	struct net_device *dev;
+ 	struct sockcm_cookie sockc;
+ 	__be16 proto = 0;
++	unsigned int hard_header_len = 0;
+ 	int err;
+ 	int extra_len = 0;
+ 
+@@ -1996,15 +1997,21 @@ static int packet_sendmsg_spkt(struct socket *sock, struct msghdr *msg,
+ 		}
+ 		extra_len = 4; /* We're doing our own CRC */
+ 	}
++	if (!skb)
++		hard_header_len = READ_ONCE(dev->hard_header_len);
+ 
+ 	err = -EMSGSIZE;
+-	if (len > dev->mtu + dev->hard_header_len + VLAN_HLEN + extra_len)
++	if (len > dev->mtu + hard_header_len + VLAN_HLEN + extra_len)
+ 		goto out_unlock;
+ 
+ 	if (!skb) {
+-		size_t reserved = LL_RESERVED_SPACE(dev);
++		size_t reserved;
+ 		int tlen = dev->needed_tailroom;
+-		unsigned int hhlen = dev->header_ops ? dev->hard_header_len : 0;
++		unsigned int hhlen = READ_ONCE(dev->header_ops) ?
++				     hard_header_len : 0;
++
++		reserved = ((hard_header_len + READ_ONCE(dev->needed_headroom)) &
++			    ~(HH_DATA_MOD - 1)) + HH_DATA_MOD;
+ 
+ 		rcu_read_unlock();
+ 		skb = sock_wmalloc(sk, len + reserved + tlen, 0, GFP_KERNEL);
+@@ -2569,6 +2576,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
+ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+ 		void *frame, struct net_device *dev, void *data, int tp_len,
+ 		__be16 proto, unsigned char *addr, int hlen, int copylen,
++		int hard_header_len,
+ 		const struct sockcm_cookie *sockc)
+ {
+ 	union tpacket_uhdr ph;
+@@ -2600,8 +2608,8 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+ 	} else if (copylen) {
+ 		int hdrlen = min_t(int, copylen, tp_len);
+ 
+-		skb_push(skb, dev->hard_header_len);
+-		skb_put(skb, copylen - dev->hard_header_len);
++		skb_push(skb, hard_header_len);
++		skb_put(skb, copylen - hard_header_len);
+ 		err = skb_store_bits(skb, 0, data, hdrlen);
+ 		if (unlikely(err))
+ 			return err;
+@@ -2732,7 +2740,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 	void *data;
+ 	int len_sum = 0;
+ 	int status = TP_STATUS_AVAILABLE;
+-	int hlen, tlen, copylen = 0;
++	int hard_header_len = 0, hlen, tlen, copylen = 0;
+ 	long timeo;
+ 
+ 	mutex_lock(&po->pg_vec_lock);
+@@ -2779,8 +2787,10 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 			goto out_put;
+ 	}
+ 
+-	if (po->sk.sk_socket->type == SOCK_RAW)
+-		reserve = dev->hard_header_len;
++	if (po->sk.sk_socket->type == SOCK_RAW) {
++		hard_header_len = READ_ONCE(dev->hard_header_len);
++		reserve = hard_header_len;
++	}
+ 	size_max = po->tx_ring.frame_size
+ 		- (po->tp_hdrlen - sizeof(struct sockaddr_ll));
+ 
+@@ -2817,7 +2827,12 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 			goto tpacket_error;
+ 
+ 		status = TP_STATUS_SEND_REQUEST;
+-		hlen = LL_RESERVED_SPACE(dev);
++		if (po->sk.sk_socket->type == SOCK_RAW)
++			hlen = ((hard_header_len +
++				 READ_ONCE(dev->needed_headroom)) &
++				~(HH_DATA_MOD - 1)) + HH_DATA_MOD;
++		else
++			hlen = LL_RESERVED_SPACE(dev);
+ 		tlen = dev->needed_tailroom;
+ 		if (vnet_hdr_sz) {
+ 			data += vnet_hdr_sz;
+@@ -2835,10 +2850,14 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 						    vnet_hdr.hdr_len);
+ 			has_vnet_hdr = true;
+ 		}
+-		copylen = max_t(int, copylen, dev->hard_header_len);
++		if (po->sk.sk_socket->type == SOCK_RAW)
++			copylen = max_t(int, copylen, hard_header_len);
++		else
++			copylen = max_t(int, copylen, dev->hard_header_len);
+ 		skb = sock_alloc_send_skb(&po->sk,
+ 				hlen + tlen + sizeof(struct sockaddr_ll) +
+-				(copylen - dev->hard_header_len),
++				(copylen - (po->sk.sk_socket->type == SOCK_RAW ?
++				 hard_header_len : dev->hard_header_len)),
+ 				!need_wait, &err);
+ 
+ 		if (unlikely(skb == NULL)) {
+@@ -2848,7 +2867,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ 			goto out_status;
+ 		}
+ 		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
+-					  addr, hlen, copylen, &sockc);
++					  addr, hlen, copylen, hard_header_len,
++					  &sockc);
+ 		if (likely(tp_len >= 0) &&
+ 		    tp_len > dev->mtu + reserve &&
+ 		    !vnet_hdr_sz &&
+@@ -2956,7 +2976,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	int offset = 0;
+ 	struct packet_sock *po = pkt_sk(sk);
+ 	int vnet_hdr_sz = READ_ONCE(po->vnet_hdr_sz);
+-	int hlen, tlen, linear;
++	int hard_header_len = 0, hlen, tlen, linear;
+ 	int extra_len = 0;
+ 
+ 	/*
+@@ -2996,14 +3016,17 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 			goto out_unlock;
+ 	}
+ 
+-	if (sock->type == SOCK_RAW)
+-		reserve = dev->hard_header_len;
+ 	if (vnet_hdr_sz) {
+ 		err = packet_snd_vnet_parse(msg, &len, &vnet_hdr, vnet_hdr_sz);
+ 		if (err)
+ 			goto out_unlock;
+ 	}
+ 
++	if (sock->type == SOCK_RAW) {
++		hard_header_len = READ_ONCE(dev->hard_header_len);
++		reserve = hard_header_len;
++	}
++
+ 	if (unlikely(sock_flag(sk, SOCK_NOFCS))) {
+ 		if (!netif_supports_nofcs(dev)) {
+ 			err = -EPROTONOSUPPORT;
+@@ -3018,10 +3041,15 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 		goto out_unlock;
+ 
+ 	err = -ENOBUFS;
+-	hlen = LL_RESERVED_SPACE(dev);
++	if (sock->type == SOCK_RAW)
++		hlen = ((hard_header_len + READ_ONCE(dev->needed_headroom)) &
++			~(HH_DATA_MOD - 1)) + HH_DATA_MOD;
++	else
++		hlen = LL_RESERVED_SPACE(dev);
+ 	tlen = dev->needed_tailroom;
+ 	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
+-	linear = max(linear, min_t(int, len, dev->hard_header_len));
++	linear = max(linear, min_t(int, len, sock->type == SOCK_RAW ?
++					 hard_header_len : dev->hard_header_len));
+ 	skb = packet_alloc_skb(sk, hlen + tlen, hlen, len, linear,
+ 			       msg->msg_flags & MSG_DONTWAIT, &err);
+ 	if (skb == NULL)
+@@ -3037,7 +3065,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
+ 	} else if (reserve) {
+ 		skb_reserve(skb, -reserve);
+ 		if (len < reserve + sizeof(struct ipv6hdr) &&
+-		    dev->min_header_len != dev->hard_header_len)
++		    dev->min_header_len != hard_header_len)
+ 			skb_reset_network_header(skb);
+ 	}
+ 
+-- 
+2.50.1 (Apple Git-155)
+
