@@ -1,140 +1,262 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998E9481DD
-	for <stable@vger.kernel.org>; Sun, 26 Jul 2026 06:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A4B13777E;
+	Sun, 26 Jul 2026 06:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785047126; cv=none; b=B5/3RQBhGrLS9AcgMaXnOhVpSuQSM7rmFzLuBbG7fsjkv+9Y66uRmNmV77XnJZGfYIsQxXnRmedQ8ADjYY3qRUIKRxGnJrewy7yJ/JzsdtsugndMlMA1EYQB6jiNeIT/3wabpVJtHxjgfWSr4rG120LsmSEf5/OUm27JRcFjRtc=
+	t=1785048396; cv=none; b=G/E7fOJO/I8PeMnmC5r58366t4MW9/54G+sRjuJXiX07VO0nlUD9ENx1jM1nH6yC8uliF6LcTP5zCfW4tjqOcsOaiYuHjaGIGJ/Y/notgfeJ52w0AI62QeeAMij9vMTQw+aDtkCn4clK3XhVok2taoM1tlL6L/JEiYPKh5ugzvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785047126; c=relaxed/simple;
-	bh=dP3h+hLKsGm5KC/K2M0ypRB2Gy3z0jV1Y4qouUEoGl8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g7ss3CcWuEvJ0FT2HS4y6zCxAF7mZdOe5xW/6aewxaVg81Fv1mJ7eCXAC/h67Dq0vJdN9BoxIB4AHkUB/QiVKZbvhc5ux3fe/yLOEWnp8glN3KnR1FFBhOE6pg313pgnA6IrOmi3/wcnFusmel92Xdd4d5OgoTqe9wNIXB1ZjLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=DC8ydt89; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
+	s=arc-20240116; t=1785048396; c=relaxed/simple;
+	bh=puxLkZoXTTJ0sgLsrsrbDATm5AU4tM0BBQlqQ0eJJro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=etzLTO4gf4tFppxB+xk7aSP3cIfsn6vROJ6duRARnHTcuBPhdKA6omyoSxRHBn+u85fVjCd4Rj79WW2Y4vKZ/guCWTeBiTXb6K4/4BleReqUMCR0Z3NDwJgM055TUmHf2zwOnTwAELrGCDUDi8tWZtqM9AZZWFhEy0tkINv+Uso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XCy2ONw2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="DC8ydt89"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cace91f112so18405385ad.0
-        for <stable@vger.kernel.org>; Sat, 25 Jul 2026 23:25:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xbow.com; s=google; t=1785047125; x=1785651925; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P8zGbl4R2Ffos3phLd71l7Q80RIBm+fS5r/cqYD6HXU=;
-        b=DC8ydt89KOZEagcMMu3d4p3qXlpjtNzUqC6SBtDRfRRn6IA4UBcJb4vvxeU1S6ongN
-         1ocJuhDlGZl4swBGSH26xfWmqGaD45xEZBcvgZPD1OJWRF4r5YPHs13IL5unD+NjrQYR
-         6Q3v0SBrClUqt2QfC4jSU3PO/SGza66hq27Z5/1Cpy40Iw4uRBpjpIStNAkju4CHObHN
-         ZiKT3PTpvzSAldfxgb8NH4sXuz9luEvKTMSdZH72vYDkqt5ANkT4FTOjvLwv9U9egwoJ
-         xKxpHO7qWutYuBH5+4C3gqEPFbunnvZ6bg8aqLgWfGfOwanGdlqM6Lu4ac/YH+HnI+gU
-         5JXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785047125; x=1785651925;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P8zGbl4R2Ffos3phLd71l7Q80RIBm+fS5r/cqYD6HXU=;
-        b=jc6O2/nAtQCUggCPCxO/UCFnZY9jz4vVuLb80ap3sql4RIAiSToWredUi9KGtQXWgX
-         i5aWl08dnwREpNGD2Hz9peoIFT9LQTaFuuBnqwfN0yPbdn2n54EaWY8KVI7HLzQ6FeBe
-         8Hqp4/3udrmNIg3GVEPbJKv3rgt23t2kUDggJ4qeKpanvYrqeNhK/kDLrQPse/rwubpp
-         7qe7Qoz3M9T4U9KARdZ2MXb9V0/3T+crryKDAnWcPPG6ap/3u2iTVPaFFFv226TNmV0m
-         zJTWTBd+IbaMI51BjeaOCyPye6SjOKNfKz8UevbzbZo7DYtjL70JHqS1Hamk3a3743jW
-         B2fQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpz3Fe4JrMtwPcm2JMnKKMLNXFEfQGjwgE0Jei/m2fajlYJPpsZohSOIwDitw+KDaY/1wFKt+M=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8cWT95vBH7pf3wrTzgCAoGQHUSA3U7Ux8d1r0rWXAcqvpnp17
-	epRbMHpXZNWUFoNSniNwsttrySO5qa9+wrJkQBWQDKt8aInUybFGRkJt6HANchfpBhw=
-X-Gm-Gg: AR+sD13WcqyCaVIcIlqKqZk7dew/qtVc8C5E2ktKwTevbe0Z1lpUP1ujhEpAE3p/nol
-	4qLzBJNkVsu1yLB13P84uZ7yml4JD7v+3UCsFuq7OqvnDHuqu8KdvMYHjTENZw2KBvbuIavl61a
-	YOFG8F7VoAOzM42GGzXDtmkJoIBrRQkbOINuqr1djcdh1vU85JOZJIQL1yzUQyt9AOcRCVXhuDB
-	xSNphzMSlG87y63QvXJ486NcG0WN2tfagBYv1TSen2frlfZGhys+Z/7Zk6yk3bDglJUieiNT6F9
-	gD54CACGsXKmh6UNRCjBfXcDQ6nRrxcWojs4Bj42/AA9dHactKtdUEuPoDB5CfaRNtg2EflyHCX
-	W3vCmL47S7TlPRA+HiRJaK+7R917Ob2zDqciWHTLzf/pJ8Kq2Nz3t+P9xUX6xq07Y+vevl/FpOW
-	SdSUIClKcX+z7Y3g6jOLZk/W+jySUsGBTWnZdbVrJeGPdkDTXsuZvS5ckJ2Kvj
-X-Received: by 2002:a17:903:2310:b0:2c8:1f56:9fc5 with SMTP id d9443c01a7336-2cfde868609mr35863255ad.35.1785047124945;
-        Sat, 25 Jul 2026 23:25:24 -0700 (PDT)
-Received: from localhost.localdomain ([125.128.148.126])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde7bc413sm16689195ad.44.2026.07.25.23.25.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 25 Jul 2026 23:25:24 -0700 (PDT)
-From: Baul Lee <baul.lee@xbow.com>
-To: netdev@vger.kernel.org,
-	bridge@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: razor@blackwall.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	federico.kirschbaum@xbow.com,
-	Baul Lee <baul.lee@xbow.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: bridge: mrp: fix uninitialised bytes on the wire
-Date: Sun, 26 Jul 2026 15:25:18 +0900
-Message-ID: <20260726062518.43774-1-baul.lee@xbow.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XCy2ONw2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C15D51F000E9;
+	Sun, 26 Jul 2026 06:46:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785048394;
+	bh=uCfLJyTtGwJLCN1z+c86/wI7/uMHdIFVIdP2iElexGE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XCy2ONw2j1/C+dfMjYZOMFgo3vTS+bT1uEEHXXeEEwuJvFsDyFV8qBlrrGuEBf/+C
+	 cjKvX0DYBjA3ruUK2p3EJOMAaYCVoMXkl6RgH9UTn1FAeT5Sk5kemipXBujth1iFYA
+	 IOW17JpkIkdpGBWVEXoBd5dBzE1exleWqlyHi44z79CpuS47KEQd8mjxcCOpB97Q7q
+	 HSMWHG4Bc95thDjueCwcRM3P7bF4yq4VepDclnAk+c1MJq2UDXP/6f2q6NLNE5KAuK
+	 mrSqjuqD1ZBFhtqnSYYzbS0ysoOiH8OZlBXBAHkHKMKNhAcTgPD5M9gJVU+pbGhJ72
+	 3qARJMcFATONQ==
+Date: Sun, 26 Jul 2026 09:46:28 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: sagi@grimberg.me, jgg@ziepe.ca, nab@linux-iscsi.org,
+	linux-rdma@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] IB/isert: reject PDUs declaring more data than was
+ received
+Message-ID: <20260726064628.GA12003@unreal>
+References: <20260725011846.538191-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260725011846.538191-1-yhlee@isslab.korea.ac.kr>
 
-br_mrp_alloc_test_skb() builds MRP test frames on an skb from
-dev_alloc_skb(), which does not zero the linear data area.  On the MRA
-ring-role branch the sub-option TLV header is appended with
+On Sat, Jul 25, 2026 at 10:18:46AM +0900, Yehyeong Lee wrote:
+> isert_recv_done() hands each received PDU to the opcode handlers without
+> ever looking at wc->byte_len, the number of bytes the HCA actually placed
+> in the receive descriptor. The handlers then copy that many bytes - the
+> data-segment length the initiator declared in the BHS
+> (ntoh24(hdr->dlength), via the derived unsol_data_len / imm_data_len) -
+> out of the fixed-size descriptor:
+> 
+>   isert_handle_iscsi_dataout():
+>         sg_copy_from_buffer(sg_start, sg_nents, isert_get_data(rx_desc),
+>                             unsol_data_len);
+>   isert_handle_scsi_cmd():
+>         sg_copy_from_buffer(cmd->se_cmd.t_data_sg, sg_nents,
+>                             isert_get_data(rx_desc), imm_data_len);
+> 
+> Because the declared length is never checked against wc->byte_len, an
+> initiator can declare a data segment larger than the bytes it actually
+> sent (and larger than the descriptor) and cause an out-of-bounds read of
+> the receive buffer.
+> 
+> Nothing upstream of isert closes this door:
+> 
+>   - __iscsit_check_dataout_hdr() bounds the inbound payload against
+>     conn_ops->MaxXmitDataSegmentLength (MXDSL) - a transmit parameter,
+>     used here for the inbound check.
+>   - iscsi_set_connection_parameters() sets
+>     ops->MaxXmitDataSegmentLength = ops->TargetRecvDataSegmentLength;
+>     and TARGETRECVDATASEGMENTLENGTH is absent from the min()-clamp list in
+>     iscsi_check_acceptor_state(), so the value the initiator declares is
+>     adopted verbatim (type range 512..16777215). The initiator effectively
+>     raises its own ceiling.
+>   - isert never clamps the negotiated value to its own fixed receive
+>     descriptor (ISER_RX_SIZE, 9216 bytes), so the target core's bound and
+>     the descriptor size are unrelated.
+> 
+> The imm_data_len == data_len path is more than an over-read: it aliases
+> the receive descriptor via sg_set_buf() and passes it to the backend as
+> the data source for the SCSI WRITE, so an over-declared length causes heap
+> contents past the descriptor to be written through the backend to the
+> backing store. The backend is the victim of the oversized scatterlist
+> isert hands it, not the cause; no read-back of the written bytes was
+> demonstrated.
+> 
+> Trigger: after login completes (full feature phase), an initiator that has
+> declared a large TargetRecvDataSegmentLength and a FirstBurstLength that
+> permits unsolicited/immediate data sends a PDU whose declared data-segment
+> length exceeds what was received. With KASAN:
+> 
+>   BUG: KASAN: slab-out-of-bounds in sg_copy_buffer+0x150/0x1c0
+>   Read of size 4096 at addr ffff888109720800 by task kworker/1:0H/25
+>   Workqueue: ib-comp-wq ib_cq_poll_work
+>   Call Trace:
+>    sg_copy_buffer+0x150/0x1c0
+>    isert_recv_done+0xba6/0x2390
+>    __ib_process_cq+0xe1/0x390
+>    ib_cq_poll_work+0x46/0x150
+> 
+> isert_recv_done+0xba6 resolves to isert_handle_iscsi_dataout()
+> (ib_isert.c:1160), inlined through isert_rx_opcode().
+> 
+> Validate wc->byte_len against the framing in isert_recv_done() before the
+> PDU reaches any handler, and reinstate the connection if it is short.
+> Because the test compares without subtracting the header length, it also
+> rejects PDUs shorter than the iSER and iSCSI headers, which would otherwise
+> be parsed out of stale descriptor contents. The sibling login handler,
+> isert_login_recv_done(), already rejects PDUs shorter than ISER_HEADERS_LEN
+> (commit 29e7b925ae6d ("IB/isert: Reject login PDUs shorter than
+> ISER_HEADERS_LEN")); the data handlers had no length check at all.
+> 
+> isert reads the data segment from a fixed offset: isert_get_data()
+> returns the iSER header plus ISER_HEADERS_LEN and makes no adjustment for
+> an AHS.  The bytes the handlers touch are therefore exactly
+> [ISER_HEADERS_LEN, ISER_HEADERS_LEN + dlength), and comparing that sum
+> against wc->byte_len bounds precisely the region that is read.  An AHS
+> term would only make the test stricter without bounding anything further,
+> and cannot cause a false reject: a PDU carrying an AHS is longer, not
+> shorter.
+> 
+> This is a memory-safety fix that verifies the bytes that were actually
+> received; it does not touch RFC 7145 length negotiation and is not the
+> MaxXmitDataSegmentLength negotiation redesign raised in the 2017 "[Query]
+> iSER-Target: QP errors observed on increasing MaxXmitDataSegmentLength"
+> discussion. That redesign is explicitly out of scope here.
+> 
+> The patched kernel rejects the malformed DataOut PDU and both
+> immediate-data variants with "PDU declares ... bytes were received" and
+> continues to pass normal traffic with no regression.
+> 
+> Reproduced with soft-RoCE (rdma_rxe) and a raw rdma_cm/ibv initiator; no
+> kernel-side test hooks were needed.
+> 
+> Fixes: b8d26b3be8b3 ("iser-target: Add iSCSI Extensions for RDMA (iSER) target driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> ---
+>  drivers/infiniband/ulp/isert/ib_isert.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+> index 1015a51f750a..66435a0a5c7a 100644
+> --- a/drivers/infiniband/ulp/isert/ib_isert.c
+> +++ b/drivers/infiniband/ulp/isert/ib_isert.c
+> @@ -1333,6 +1333,21 @@ isert_recv_done(struct ib_cq *cq, struct ib_wc *wc)
+>  	ib_dma_sync_single_for_cpu(ib_dev, rx_desc->dma_addr,
+>  			ISER_RX_SIZE, DMA_FROM_DEVICE);
+>  
+> +	/*
+> +	 * The data segment length declared in the BHS is attacker controlled
+> +	 * and is used further down to read that many bytes out of the fixed
+> +	 * size receive descriptor, so it has to be checked against the number
+> +	 * of bytes that were actually received. Comparing without subtracting
+> +	 * also rejects PDUs shorter than the iSER and iSCSI headers, which
+> +	 * would otherwise be parsed out of stale descriptor contents.
+> +	 */
+> +	if (unlikely(wc->byte_len < ISER_HEADERS_LEN + ntoh24(hdr->dlength))) {
+> +		isert_err("PDU declares %u data bytes but only %u bytes were received\n",
+> +			  ntoh24(hdr->dlength), wc->byte_len);
+> +		iscsit_cause_connection_reinstatement(isert_conn->conn, 0);
+> +		return;
+> +	}
 
-	sub_tlv = skb_put(skb, sizeof(*sub_tlv));
-	sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
+1. You should review patches generated by AI.
+2. There is a need to add similar check to isert_get_login_rx() too.
 
-leaving sub_tlv->length unwritten, and the two trailing alignment bytes
-are appended with a bare skb_put() that neither writes nor clears them.
-The surrounding oui and sub_opt regions are explicitly memset(0), which
-bounds the exposure to exactly these three bytes.
+Something like this:
 
-Every MRA MRP_Test frame therefore carries three bytes of stale
-page-allocator memory, at frame offsets 65 to 67, to any observer of the
-MRP control traffic.  A capture on a kernel without
-CONFIG_INIT_ON_ALLOC_DEFAULT_ON shows those bytes varying frame to frame
-and, after a page-allocator spray, carrying the sprayed pattern; the
-same reproducer on an otherwise identical CONFIG_INIT_ON_ALLOC_DEFAULT_ON
-kernel leaks nothing, confirming the source is uninitialised allocation
-memory.  Reaching it needs CAP_NET_ADMIN, which is self-satisfiable on a
-stock kernel through unprivileged user and network namespaces.
+Thanks
+commit ffe5e4081fa535412fdd5a685369441076a4d1e1 (HEAD -> b4/the-iser-login-handler-fails-to-vali, origin/the-iser-login-handler-fails-to-vali-v1)
+Author: Leon Romanovsky <leonro@nvidia.com>
+Date:   Sat Jul 25 05:40:22 2026 +0300
 
-Assign the sub-option TLV length explicitly, which is 0 as the AUTO_MGR
-sub-TLV carries no payload, and append the alignment padding with
-skb_put_zero().
+    IB/isert: Reject login PDUs declaring more data than received
 
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+    isert never compares the iSCSI header's 24-bit data length against the
+    bytes actually received for a login PDU. A remote initiator can declare far
+    more data than it sends, and before target lookup or authentication:
 
-Fixes: f7458934b079 ("net: bridge: mrp: Update the Test frames for MRA")
-Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
-Reported-by: Baul Lee <baul.lee@xbow.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
----
- net/bridge/br_mrp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+        isert_rx_login_req()
+        iscsi_target_locate_portal()
+        kmemdup_nul()
 
-diff --git a/net/bridge/br_mrp.c b/net/bridge/br_mrp.c
-index 3f7126a7d720..a5548f475604 100644
---- a/net/bridge/br_mrp.c
-+++ b/net/bridge/br_mrp.c
-@@ -226,9 +226,10 @@ static struct sk_buff *br_mrp_alloc_test_skb(struct br_mrp *mrp,
- 
- 		sub_tlv = skb_put(skb, sizeof(*sub_tlv));
- 		sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
-+		sub_tlv->length = 0x0;
- 
- 		/* 32 bit alligment shall be ensured therefore add 2 bytes */
--		skb_put(skb, MRP_OPT_PADDING);
-+		skb_put_zero(skb, MRP_OPT_PADDING);
- 	}
- 
- 	br_mrp_skb_tlv(skb, BR_MRP_TLV_HEADER_END, 0x0);
--- 
-2.50.1 (Apple Git-155)
+    reads ntoh24(dlength) bytes out of the fixed 8192-byte login buffer,
+    overrunning it.
 
+    Validate the declared length against the received login_req_len in both the
+    initial (isert_get_login_rx()) and subsequent (isert_login_recv_done())
+    login paths before any copy. Allow dlength <= login_req_len, since the
+    received count may include up to three iSCSI padding bytes.
+
+    Fixes: b8d26b3be8b3 ("iser-target: Add iSCSI Extensions for RDMA (iSER) target driver")
+    Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index 4691845bf815..02ce4cbe69a1 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -970,6 +970,19 @@ isert_put_login_tx(struct iscsit_conn *conn, struct iscsi_login *login,
+        return 0;
+ }
+
++static int
++isert_check_login_req(struct isert_conn *isert_conn)
++{
++       struct iscsi_hdr *hdr =
++               (struct iscsi_hdr *)isert_get_iscsi_hdr(isert_conn->login_desc);
++       u32 dlength = ntoh24(hdr->dlength);
++
++       if (dlength > isert_conn->login_req_len)
++               return -EPROTO;
++
++       return 0;
++}
++
+ static void
+ isert_rx_login_req(struct isert_conn *isert_conn)
+ {
+@@ -1393,8 +1406,11 @@ isert_login_recv_done(struct ib_cq *cq, struct ib_wc *wc)
+        if (isert_conn->conn) {
+                struct iscsi_login *login = isert_conn->conn->conn_login;
+
+-               if (login && !login->first_request)
++               if (login && !login->first_request) {
++                       if (isert_check_login_req(isert_conn))
++                               return;
+                        isert_rx_login_req(isert_conn);
++               }
+        }
+
+        mutex_lock(&isert_conn->mutex);
+@@ -2359,6 +2375,10 @@ isert_get_login_rx(struct iscsit_conn *conn, struct iscsi_login *login)
+        if (!login->first_request)
+                return 0;
+
++       ret = isert_check_login_req(isert_conn);
++       if (ret)
++               return ret;
++
+        isert_rx_login_req(isert_conn);
+
+        isert_info("before login_comp conn: %p\n", conn);
+
+Thanks
+
+
+> +
+>  	isert_dbg("DMA: 0x%llx, iSCSI opcode: 0x%02x, ITT: 0x%08x, flags: 0x%02x dlen: %d\n",
+>  		 rx_desc->dma_addr, hdr->opcode, hdr->itt, hdr->flags,
+>  		 (int)(wc->byte_len - ISER_HEADERS_LEN));
+> 
+> base-commit: 248951ddc14de84de3910f9b13f51491a8cd91df
+> -- 
+> 2.43.0
+> 
+> 
