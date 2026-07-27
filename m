@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5A4376492
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:30:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5F2418A5F
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785159050; cv=none; b=hJBne55YRqOigf7sU0u47Wn88tWYb4l+RDxyY0APGzw/AvopWrCGBNb+FDep5NuCvtYB5ryNf+T5VnWs8p5yT9m/d5FkeaPkO4nMKrmhq9cy3Wft5qTk74Qr7UT8G90LUBnP1AcD4I1UkZycfSiFaDqCzJORRzzrEjf0MAQ5WqY=
+	t=1785159075; cv=none; b=CNlJxEtW+nMxyr+gIceEDgg8vPSJk1heh8vTh9nb7Hg5pLbBgc73BvHIfyNu/wm22/VYuTt1qEMT0q3kJazbQYAGrFZWctGjecLgVDV30uahJboHMJu+lY08IyiUC29DPGvMahTuZD+L4LxUZFPbG2zWCCQMd6KecI1HEr6Jkds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785159050; c=relaxed/simple;
-	bh=nP2u/YvyW5yEoV9BKMmL7prJ9sIxi/2tb36KfPckOS8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IC7EHLsW1BB91H9mlWqGkYJjhHys1Nzo9VYlRgGL+2iv66CkLcfdq+c7rQVcAQuDis5fle32TquBm8GqMDMrRrCWHhOW/IHLjtPGhWQAwzYPqQLjeS8dD0Q296ww+hNe67yCvzLHNAPvwU1zspEr0f1gycFgH912RcfoWn+z+ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=a62cHXxb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785159075; c=relaxed/simple;
+	bh=CldWkAz4ZwzA/x6Xnw17rgwPyuvtnLCpdpsFUfXizUw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gaGxcK+n2+0wSN6mXy/R1LD4AbkSQMNy1Ym+VQcffmtYHfn96qwdAb5jfwWHPk4U3x9pAQmvTcD/yywSysPBSXrk5WB6EhbKS9ZMQHCuj56ynK4fTzdDG1V+3kOgP9n/9Rdr2r19VAhnj6BFwBz83GGZ9OLCvGPpP4vUQWGiROE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=caYX2Jia; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="a62cHXxb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DD691F00A3A;
-	Mon, 27 Jul 2026 13:30:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="caYX2Jia"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C501F000E9;
+	Mon, 27 Jul 2026 13:31:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785159048;
-	bh=gq8isIcZWo1YFSHrVO9aZpPX1S3lGiP+4aL10wNs5fo=;
+	s=korg; t=1785159073;
+	bh=Nu+zOotaO1LuNCWEFwdQeNlXrQrv7OT95MwAiytXqnw=;
 	h=Subject:To:Cc:From:Date;
-	b=a62cHXxb+8brT0PrRj90zGcHjq35d3d3Ga2RSWSmroD+1RbLfJvZTKYaGJYpUQ9Wi
-	 GHJz/COBuptFW5AXGGZR7RYlQR7cfG7JXiwiQth3TiHNl/4GG/Kk8/TcPfBCkRjYn8
-	 0ctu/mwG/ceutPBsxbQs8q44xZ8jqAFfIvn21n7o=
-Subject: FAILED: patch "[PATCH] USB: gadget: fsl-udc: fix dev_printk() device" failed to apply to 6.12-stable tree
-To: johan@kernel.org,gregkh@linuxfoundation.org,stable@kernel.org,u.kleine-koenig@baylibre.com
+	b=caYX2JiaLHxmhBjWfUpghpoZE6VAxhO+Srriwm8530YyCaZbFyP64DZdWu6DSkFuU
+	 oOXHPKvAj9Izj6aWs2KBoSbeXvsd3P8YWwgxaY076YMtAZ2w78Jy7HBmIAkwjye8pL
+	 gp2n+9I92blcyvmnTQs1pJLi+FlfJkaXYyXh/jKM=
+Subject: FAILED: patch "[PATCH] usb: gadget: f_tcm: synchronize delayed set_alt with teardown" failed to apply to 6.18-stable tree
+To: zzzccc427@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 27 Jul 2026 15:30:35 +0200
-Message-ID: <2026072735-defiling-verbose-785b@gregkh>
+Date: Mon, 27 Jul 2026 15:31:01 +0200
+Message-ID: <2026072701-nastily-levitator-a210@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c4dd150fceab281496acb3a643ae712aacb74864
+git cherry-pick -x 79e2d75725c85607f8a9d87ae9cace62a19f767d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072735-defiling-verbose-785b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072701-nastily-levitator-a210@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,420 +62,382 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c4dd150fceab281496acb3a643ae712aacb74864 Mon Sep 17 00:00:00 2001
-From: Johan Hovold <johan@kernel.org>
-Date: Thu, 2 Jul 2026 16:15:35 +0200
-Subject: [PATCH] USB: gadget: fsl-udc: fix dev_printk() device
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 79e2d75725c85607f8a9d87ae9cace62a19f767d Mon Sep 17 00:00:00 2001
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Sat, 27 Jun 2026 18:41:53 +0800
+Subject: [PATCH] usb: gadget: f_tcm: synchronize delayed set_alt with teardown
 
-A change replacing custom printk() macros with dev_printk() incorrectly
-used the gadget struct device instead of the controller struct device
-(including for messages printed before the gadget device name has been
-initialised).
+The f_tcm set_alt() path defers endpoint setup to a work item and
+completes the delayed status response from process context. The delayed
+work uses f_tcm private state and may complete the setup request after
+disconnect or function teardown has already moved on.
 
-Switch to using the controller platform device with dev_printk() so that
-the controller device and driver names are included in log messages as
-expected.
+Cancel and drain the delayed set_alt work when the function is unbound or
+freed. For disable paths, which are reached under the composite device
+lock, use a small state machine and a non-sleeping cancellation path
+instead of cancel_work_sync(). If the work is already running, mark it
+cancelled and let the worker own the cleanup; otherwise tcm_disable() can
+cancel the queued work and clean up immediately.
 
-Fixes: 6025f20f16c2 ("usb: gadget: fsl-udc: Replace custom log wrappers by dev_{err,warn,dbg,vdbg}")
+Also serialize the final delayed-status completion with the cancellation
+check while holding the composite device lock. This prevents a disconnect
+from clearing delayed_status while the worker is about to complete the
+control request.
+
+Validation reproduced this kernel report:
+BUG: KASAN: slab-use-after-free in tcm_delayed_set_alt+0x6c/0xef0
+
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x66/0xa0
+ print_report+0xce/0x630
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __virt_addr_valid+0x188/0x320
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ kasan_report+0xe0/0x110
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ tcm_delayed_set_alt+0x6c/0xef0
+ ? __pfx_tcm_delayed_set_alt+0x10/0x10
+ ? process_one_work+0x4cb/0xb90
+ ? rcu_is_watching+0x20/0x50
+ ? tcm_delayed_set_alt+0x9/0xef0
+ process_one_work+0x4d7/0xb90
+ ? __pfx_process_one_work+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __list_add_valid_or_report+0x37/0xf0
+ ? __pfx_tcm_delayed_set_alt+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ worker_thread+0x2d8/0x570
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x1ad/0x1f0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x3c9/0x540
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __switch_to+0x2e9/0x730
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+Allocated by task 544:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ __kasan_kmalloc+0x8f/0xa0
+ tcm_alloc+0x68/0x180
+ usb_get_function+0x36/0x60
+ config_usb_cfg_link+0x125/0x1b0
+ configfs_symlink+0x322/0x890
+ vfs_symlink+0xc2/0x270
+ filename_symlinkat+0x295/0x2f0
+ __x64_sys_symlinkat+0x62/0x90
+ do_syscall_64+0x115/0x6a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 661:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x43/0x70
+ kfree+0x2f9/0x530
+ config_usb_cfg_unlink+0x173/0x1e0
+ configfs_unlink+0x1fa/0x340
+ vfs_unlink+0x15c/0x510
+ filename_unlinkat+0x2ba/0x450
+ __x64_sys_unlinkat+0x63/0x90
+ do_syscall_64+0x115/0x6a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
 Cc: stable <stable@kernel.org>
-Cc: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Acked-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-Link: https://patch.msgid.link/20260702141536.90887-4-johan@kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Link: https://patch.msgid.link/20260627104153.3822495-1-zzzccc427@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/gadget/udc/fsl_udc_core.c b/drivers/usb/gadget/udc/fsl_udc_core.c
-index 8c5b2f42ff44..c4761933ec86 100644
---- a/drivers/usb/gadget/udc/fsl_udc_core.c
-+++ b/drivers/usb/gadget/udc/fsl_udc_core.c
-@@ -184,7 +184,7 @@ __acquires(ep->udc->lock)
- 	usb_gadget_unmap_request(&ep->udc->gadget, &req->req, ep_is_in(ep));
- 
- 	if (status && (status != -ESHUTDOWN))
--		dev_vdbg(&udc->gadget.dev, "complete %s req %p stat %d len %u/%u\n",
-+		dev_vdbg(udc->dev, "complete %s req %p stat %d len %u/%u\n",
- 			 ep->ep.name, &req->req, status,
- 			 req->req.actual, req->req.length);
- 
-@@ -286,7 +286,7 @@ static int dr_controller_setup(struct fsl_udc *udc)
- 	timeout = jiffies + FSL_UDC_RESET_TIMEOUT;
- 	while (fsl_readl(&dr_regs->usbcmd) & USB_CMD_CTRL_RESET) {
- 		if (time_after(jiffies, timeout)) {
--			dev_err(&udc->gadget.dev, "udc reset timeout!\n");
-+			dev_err(udc->dev, "udc reset timeout!\n");
- 			return -ETIMEDOUT;
- 		}
- 		cpu_relax();
-@@ -309,7 +309,7 @@ static int dr_controller_setup(struct fsl_udc *udc)
- 	tmp &= USB_EP_LIST_ADDRESS_MASK;
- 	fsl_writel(tmp, &dr_regs->endpointlistaddr);
- 
--	dev_vdbg(&udc->gadget.dev,
-+	dev_vdbg(udc->dev,
- 		 "vir[qh_base] is %p phy[qh_base] is 0x%8x reg is 0x%8x\n",
- 		 udc->ep_qh, (int)tmp,
- 		 fsl_readl(&dr_regs->endpointlistaddr));
-@@ -500,7 +500,7 @@ static void struct_ep_qh_setup(struct fsl_udc *udc, unsigned char ep_num,
- 		tmp = max_pkt_len << EP_QUEUE_HEAD_MAX_PKT_LEN_POS;
- 		break;
- 	default:
--		dev_vdbg(&udc->gadget.dev, "error ep type is %d\n", ep_type);
-+		dev_vdbg(udc->dev, "error ep type is %d\n", ep_type);
- 		return;
- 	}
- 	if (zlt)
-@@ -613,7 +613,7 @@ static int fsl_ep_enable(struct usb_ep *_ep,
- 	spin_unlock_irqrestore(&udc->lock, flags);
- 	retval = 0;
- 
--	dev_vdbg(&udc->gadget.dev, "enabled %s (ep%d%s) maxpacket %d\n",
-+	dev_vdbg(udc->dev, "enabled %s (ep%d%s) maxpacket %d\n",
- 		 ep->ep.name, ep->ep.desc->bEndpointAddress & 0x0f,
- 		 (desc->bEndpointAddress & USB_DIR_IN) ? "in" : "out",
- 		 max);
-@@ -634,13 +634,8 @@ static int fsl_ep_disable(struct usb_ep *_ep)
- 	int ep_num;
- 
- 	ep = container_of(_ep, struct fsl_ep, ep);
--	if (!_ep || !ep->ep.desc) {
--		/*
--		 * dev_vdbg(&udc->gadget.dev, "%s not enabled\n",
--		 *	 _ep ? ep->ep.name : NULL);
--		 */
-+	if (!_ep || !ep->ep.desc)
- 		return -EINVAL;
--	}
- 
- 	/* disable ep on controller */
- 	ep_num = ep_index(ep);
-@@ -664,7 +659,7 @@ static int fsl_ep_disable(struct usb_ep *_ep)
- 	ep->stopped = 1;
- 	spin_unlock_irqrestore(&udc->lock, flags);
- 
--	dev_vdbg(&udc->gadget.dev, "disabled %s OK\n", _ep->name);
-+	dev_vdbg(udc->dev, "disabled %s OK\n", _ep->name);
- 	return 0;
+diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
+index 34d9f49e9987..b3fa5a17fd2d 100644
+--- a/drivers/usb/gadget/function/f_tcm.c
++++ b/drivers/usb/gadget/function/f_tcm.c
+@@ -2363,31 +2363,158 @@ static int tcm_bind(struct usb_configuration *c, struct usb_function *f)
+ 	return -ENOTSUPP;
  }
  
-@@ -724,9 +719,6 @@ static void fsl_queue_td(struct fsl_ep *ep, struct fsl_req *req)
+-struct guas_setup_wq {
+-	struct work_struct work;
+-	struct f_uas *fu;
+-	unsigned int alt;
+-};
++static void tcm_cleanup_old_alt(struct f_uas *fu)
++{
++	if (fu->flags & USBG_IS_UAS)
++		uasp_cleanup_old_alt(fu);
++	else if (fu->flags & USBG_IS_BOT)
++		bot_cleanup_old_alt(fu);
++	fu->flags = 0;
++}
++
++static void tcm_delayed_set_alt_done(struct f_uas *fu)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++	fu->delayed_set_alt_cancel = false;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++}
++
++static bool tcm_delayed_set_alt_cancelled(struct f_uas *fu)
++{
++	bool cancelled;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	cancelled = fu->delayed_set_alt_cancel;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	return cancelled;
++}
++
++static bool tcm_complete_delayed_status(struct f_uas *fu)
++{
++	struct usb_composite_dev *cdev = fu->function.config->cdev;
++	struct usb_request *req = cdev->req;
++	unsigned long cdev_flags;
++	bool cancelled;
++	int ret;
++
++	spin_lock_irqsave(&cdev->lock, cdev_flags);
++	spin_lock(&fu->delayed_set_alt_lock);
++	cancelled = fu->delayed_set_alt_cancel;
++	if (!cancelled) {
++		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++		fu->delayed_set_alt_cancel = false;
++	}
++	spin_unlock(&fu->delayed_set_alt_lock);
++
++	if (cancelled) {
++		spin_unlock_irqrestore(&cdev->lock, cdev_flags);
++		return false;
++	}
++
++	if (cdev->delayed_status == 0) {
++		WARN(cdev, "%s: Unexpected call\n", __func__);
++	} else if (--cdev->delayed_status == 0) {
++		req->length = 0;
++		req->context = cdev;
++		ret = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
++		if (ret == 0) {
++			cdev->setup_pending = true;
++		} else {
++			req->status = 0;
++			req->complete(cdev->gadget->ep0, req);
++		}
++	}
++
++	spin_unlock_irqrestore(&cdev->lock, cdev_flags);
++
++	return true;
++}
++
++static bool tcm_cancel_delayed_set_alt(struct f_uas *fu)
++{
++	bool cleanup = false;
++	bool cancel = false;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	switch (fu->delayed_set_alt_state) {
++	case USBG_DELAYED_SET_ALT_IDLE:
++		cleanup = true;
++		break;
++	case USBG_DELAYED_SET_ALT_QUEUED:
++	case USBG_DELAYED_SET_ALT_RUNNING:
++		fu->delayed_set_alt_cancel = true;
++		cancel = true;
++		break;
++	}
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	if (cancel && cancel_work(&fu->delayed_set_alt)) {
++		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++		if (fu->delayed_set_alt_state == USBG_DELAYED_SET_ALT_QUEUED) {
++			fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++			fu->delayed_set_alt_cancel = false;
++			cleanup = true;
++		}
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++	}
++
++	return cleanup;
++}
++
++static void tcm_cancel_delayed_set_alt_sync(struct f_uas *fu)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE)
++		fu->delayed_set_alt_cancel = true;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	cancel_work_sync(&fu->delayed_set_alt);
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++	fu->delayed_set_alt_cancel = false;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++}
+ 
+ static void tcm_delayed_set_alt(struct work_struct *wq)
  {
- 	u32 temp, bitmask, tmp_stat;
+-	struct guas_setup_wq *work = container_of(wq, struct guas_setup_wq,
+-			work);
+-	struct f_uas *fu = work->fu;
+-	int alt = work->alt;
++	struct f_uas *fu = container_of(wq, struct f_uas, delayed_set_alt);
++	unsigned long flags;
++	unsigned int alt;
  
--	/* dev_vdbg(&udc->gadget.dev, "QH addr Register 0x%8x\n", dr_regs->endpointlistaddr);
--	dev_vdbg(&udc->gadget.dev, "ep_qh[%d] addr is 0x%8x\n", i, (u32)&(ep->udc->ep_qh[i])); */
--
- 	bitmask = ep_is_in(ep)
- 		? (1 << (ep_index(ep) + 16))
- 		: (1 << (ep_index(ep)));
-@@ -813,7 +805,7 @@ static struct ep_td_struct *fsl_build_dtd(struct fsl_req *req, unsigned *length,
- 		*is_last = 0;
+-	kfree(work);
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_QUEUED) {
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++		return;
++	}
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_RUNNING;
++	alt = fu->delayed_alt;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
  
- 	if ((*is_last) == 0)
--		dev_vdbg(&udc_controller->gadget.dev, "multi-dtd request!\n");
-+		dev_vdbg(udc_controller->dev, "multi-dtd request!\n");
- 	/* Fill in the transfer size; set active bit */
- 	swap_temp = ((*length << DTD_LENGTH_BIT_POS) | DTD_STATUS_ACTIVE);
+-	if (fu->flags & USBG_IS_BOT)
+-		bot_cleanup_old_alt(fu);
+-	if (fu->flags & USBG_IS_UAS)
+-		uasp_cleanup_old_alt(fu);
++	tcm_cleanup_old_alt(fu);
++
++	if (tcm_delayed_set_alt_cancelled(fu))
++		goto out_done;
  
-@@ -825,7 +817,7 @@ static struct ep_td_struct *fsl_build_dtd(struct fsl_req *req, unsigned *length,
- 
- 	mb();
- 
--	dev_vdbg(&udc_controller->gadget.dev, "length = %d address= 0x%x\n", *length, (int)*dma);
-+	dev_vdbg(udc_controller->dev, "length = %d address= 0x%x\n", *length, (int)*dma);
- 
- 	return dtd;
+ 	if (alt == USB_G_ALT_INT_BBB)
+ 		bot_set_alt(fu);
+ 	else if (alt == USB_G_ALT_INT_UAS)
+ 		uasp_set_alt(fu);
+-	usb_composite_setup_continue(fu->function.config->cdev);
++
++	if (tcm_complete_delayed_status(fu))
++		return;
++
++	tcm_cleanup_old_alt(fu);
++out_done:
++	tcm_delayed_set_alt_done(fu);
  }
-@@ -876,11 +868,11 @@ fsl_ep_queue(struct usb_ep *_ep, struct usb_request *_req, gfp_t gfp_flags)
- 	/* catch various bogus parameters */
- 	if (!_req || !req->req.complete || !req->req.buf
- 			|| !list_empty(&req->queue)) {
--		dev_vdbg(&udc->gadget.dev, "%s, bad params\n", __func__);
-+		dev_vdbg(udc->dev, "%s, bad params\n", __func__);
- 		return -EINVAL;
+ 
+ static int tcm_get_alt(struct usb_function *f, unsigned intf)
+@@ -2413,15 +2540,20 @@ static int tcm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
+ 		return -EOPNOTSUPP;
+ 
+ 	if ((alt == USB_G_ALT_INT_BBB) || (alt == USB_G_ALT_INT_UAS)) {
+-		struct guas_setup_wq *work;
++		unsigned long flags;
+ 
+-		work = kmalloc_obj(*work, GFP_ATOMIC);
+-		if (!work)
+-			return -ENOMEM;
+-		INIT_WORK(&work->work, tcm_delayed_set_alt);
+-		work->fu = fu;
+-		work->alt = alt;
+-		schedule_work(&work->work);
++		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++		if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE) {
++			spin_unlock_irqrestore(&fu->delayed_set_alt_lock,
++					       flags);
++			return -EBUSY;
++		}
++		fu->delayed_alt = alt;
++		fu->delayed_set_alt_cancel = false;
++		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_QUEUED;
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++		schedule_work(&fu->delayed_set_alt);
+ 		return USB_GADGET_DELAYED_STATUS;
  	}
- 	if (unlikely(!ep->ep.desc)) {
--		dev_vdbg(&udc->gadget.dev, "%s, bad ep\n", __func__);
-+		dev_vdbg(udc->dev, "%s, bad ep\n", __func__);
- 		return -EINVAL;
- 	}
- 	if (usb_endpoint_xfer_isoc(ep->ep.desc)) {
-@@ -1040,7 +1032,7 @@ static int fsl_ep_set_halt(struct usb_ep *_ep, int value)
- 		udc->ep0_dir = 0;
- 	}
- out:
--	dev_vdbg(&udc->gadget.dev, "%s %s halt stat %d\n", ep->ep.name,
-+	dev_vdbg(udc->dev, "%s %s halt stat %d\n", ep->ep.name,
- 		 value ?  "set" : "clear", status);
+ 	return -EOPNOTSUPP;
+@@ -2431,11 +2563,8 @@ static void tcm_disable(struct usb_function *f)
+ {
+ 	struct f_uas *fu = to_f_uas(f);
  
- 	return status;
-@@ -1109,7 +1101,7 @@ static void fsl_ep_fifo_flush(struct usb_ep *_ep)
- 		/* Wait until flush complete */
- 		while (fsl_readl(&dr_regs->endptflush)) {
- 			if (time_after(jiffies, timeout)) {
--				dev_err(&udc_controller->gadget.dev,
-+				dev_err(udc_controller->dev,
- 					"ep flush timeout\n");
- 				return;
- 			}
-@@ -1182,7 +1174,7 @@ static int fsl_vbus_session(struct usb_gadget *gadget, int is_active)
+-	if (fu->flags & USBG_IS_UAS)
+-		uasp_cleanup_old_alt(fu);
+-	else if (fu->flags & USBG_IS_BOT)
+-		bot_cleanup_old_alt(fu);
+-	fu->flags = 0;
++	if (tcm_cancel_delayed_set_alt(fu))
++		tcm_cleanup_old_alt(fu);
+ }
  
- 	udc = container_of(gadget, struct fsl_udc, gadget);
- 	spin_lock_irqsave(&udc->lock, flags);
--	dev_vdbg(&gadget->dev, "VBUS %s\n", str_on_off(is_active));
-+	dev_vdbg(udc->dev, "VBUS %s\n", str_on_off(is_active));
- 	udc->vbus_active = (is_active != 0);
- 	if (can_pullup(udc))
- 		fsl_writel((fsl_readl(&dr_regs->usbcmd) | USB_CMD_RUN_STOP),
-@@ -1548,7 +1540,7 @@ static void ep0_req_complete(struct fsl_udc *udc, struct fsl_ep *ep0,
- 		udc->ep0_state = WAIT_FOR_SETUP;
- 		break;
- 	case WAIT_FOR_SETUP:
--		dev_err(&udc->gadget.dev, "Unexpected ep0 packets\n");
-+		dev_err(udc->dev, "Unexpected ep0 packets\n");
- 		break;
- 	default:
- 		ep0stall(udc);
-@@ -1617,7 +1609,7 @@ static int process_ep_req(struct fsl_udc *udc, int pipe,
- 		errors = hc32_to_cpu(curr_td->size_ioc_sts);
- 		if (errors & DTD_ERROR_MASK) {
- 			if (errors & DTD_STATUS_HALTED) {
--				dev_err(&udc->gadget.dev, "dTD error %08x QH=%d\n", errors, pipe);
-+				dev_err(udc->dev, "dTD error %08x QH=%d\n", errors, pipe);
- 				/* Clear the errors and Halt condition */
- 				tmp = hc32_to_cpu(curr_qh->size_ioc_int_sts);
- 				tmp &= ~errors;
-@@ -1628,26 +1620,26 @@ static int process_ep_req(struct fsl_udc *udc, int pipe,
- 				break;
- 			}
- 			if (errors & DTD_STATUS_DATA_BUFF_ERR) {
--				dev_vdbg(&udc->gadget.dev, "Transfer overflow\n");
-+				dev_vdbg(udc->dev, "Transfer overflow\n");
- 				status = -EPROTO;
- 				break;
- 			} else if (errors & DTD_STATUS_TRANSACTION_ERR) {
--				dev_vdbg(&udc->gadget.dev, "ISO error\n");
-+				dev_vdbg(udc->dev, "ISO error\n");
- 				status = -EILSEQ;
- 				break;
- 			} else
--				dev_err(&udc->gadget.dev,
-+				dev_err(udc->dev,
- 					"Unknown error has occurred (0x%x)!\n",
- 					errors);
+ static int tcm_setup(struct usb_function *f,
+@@ -2583,11 +2712,16 @@ static void tcm_free(struct usb_function *f)
+ {
+ 	struct f_uas *tcm = to_f_uas(f);
  
- 		} else if (hc32_to_cpu(curr_td->size_ioc_sts)
- 				& DTD_STATUS_ACTIVE) {
--			dev_vdbg(&udc->gadget.dev, "Request not complete\n");
-+			dev_vdbg(udc->dev, "Request not complete\n");
- 			status = REQ_UNCOMPLETE;
- 			return status;
- 		} else if (remaining_length) {
- 			if (direction) {
--				dev_vdbg(&udc->gadget.dev,
-+				dev_vdbg(udc->dev,
- 					 "Transmit dTD remaining length not zero\n");
- 				status = -EPROTO;
- 				break;
-@@ -1655,8 +1647,7 @@ static int process_ep_req(struct fsl_udc *udc, int pipe,
- 				break;
- 			}
- 		} else {
--			dev_vdbg(&udc->gadget.dev,
--				 "dTD transmitted successful\n");
-+			dev_vdbg(udc->dev, "dTD transmitted successful\n");
- 		}
++	tcm_cancel_delayed_set_alt_sync(tcm);
+ 	kfree(tcm);
+ }
  
- 		if (j != curr_req->dtd_count - 1)
-@@ -1699,7 +1690,7 @@ static void dtd_complete_irq(struct fsl_udc *udc)
+ static void tcm_unbind(struct usb_configuration *c, struct usb_function *f)
+ {
++	struct f_uas *fu = to_f_uas(f);
++
++	tcm_cancel_delayed_set_alt_sync(fu);
++	tcm_cleanup_old_alt(fu);
+ 	usb_free_all_descriptors(f);
+ }
  
- 		/* If the ep is configured */
- 		if (!curr_ep->ep.name) {
--			dev_warn(&udc->gadget.dev, "Invalid EP?\n");
-+			dev_warn(udc->dev, "Invalid EP?\n");
- 			continue;
- 		}
+@@ -2620,6 +2754,8 @@ static struct usb_function *tcm_alloc(struct usb_function_instance *fi)
+ 	fu->function.disable = tcm_disable;
+ 	fu->function.free_func = tcm_free;
+ 	fu->tpg = tpg_instances[i].tpg;
++	INIT_WORK(&fu->delayed_set_alt, tcm_delayed_set_alt);
++	spin_lock_init(&fu->delayed_set_alt_lock);
  
-@@ -1708,7 +1699,7 @@ static void dtd_complete_irq(struct fsl_udc *udc)
- 				queue) {
- 			status = process_ep_req(udc, i, curr_req);
+ 	hash_init(fu->stream_hash);
+ 	mutex_unlock(&tpg_instances_lock);
+diff --git a/drivers/usb/gadget/function/tcm.h b/drivers/usb/gadget/function/tcm.h
+index 009974d81d66..e1d5a9391612 100644
+--- a/drivers/usb/gadget/function/tcm.h
++++ b/drivers/usb/gadget/function/tcm.h
+@@ -3,6 +3,7 @@
+ #define __TARGET_USB_GADGET_H__
  
--			dev_vdbg(&udc->gadget.dev,
-+			dev_vdbg(udc->dev,
- 				 "status of process_ep_req= %d, ep = %d\n",
- 				 status, ep_num);
- 			if (status == REQ_UNCOMPLETE)
-@@ -1829,7 +1820,7 @@ static void reset_irq(struct fsl_udc *udc)
- 	while (fsl_readl(&dr_regs->endpointprime)) {
- 		/* Wait until all endptprime bits cleared */
- 		if (time_after(jiffies, timeout)) {
--			dev_err(&udc->gadget.dev, "Timeout for reset\n");
-+			dev_err(udc->dev, "Timeout for reset\n");
- 			break;
- 		}
- 		cpu_relax();
-@@ -1839,7 +1830,7 @@ static void reset_irq(struct fsl_udc *udc)
- 	fsl_writel(0xffffffff, &dr_regs->endptflush);
+ #include <linux/kref.h>
++#include <linux/spinlock.h>
+ /* #include <linux/usb/uas.h> */
+ #include <linux/hashtable.h>
+ #include <linux/usb/composite.h>
+@@ -29,6 +30,12 @@ enum {
  
- 	if (fsl_readl(&dr_regs->portsc1) & PORTSCX_PORT_RESET) {
--		dev_vdbg(&udc->gadget.dev, "Bus reset\n");
-+		dev_vdbg(udc->dev, "Bus reset\n");
- 		/* Bus is reseting */
- 		udc->bus_reset = 1;
- 		/* Reset all the queues, include XD, dTD, EP queue
-@@ -1847,7 +1838,7 @@ static void reset_irq(struct fsl_udc *udc)
- 		reset_queues(udc, true);
- 		udc->usb_state = USB_STATE_DEFAULT;
- 	} else {
--		dev_vdbg(&udc->gadget.dev, "Controller reset\n");
-+		dev_vdbg(udc->dev, "Controller reset\n");
- 		/* initialize usb hw reg except for regs for EP, not
- 		 * touch usbintr reg */
- 		dr_controller_setup(udc);
-@@ -1881,7 +1872,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
- 	/* Clear notification bits */
- 	fsl_writel(irq_src, &dr_regs->usbsts);
+ #define USB_G_DEFAULT_SESSION_TAGS	USBG_NUM_CMDS
  
--	/* dev_vdbg(&udc->gadget.dev, "irq_src [0x%8x]", irq_src); */
-+	/* dev_vdbg(udc->dev, "irq_src [0x%8x]", irq_src); */
++enum {
++	USBG_DELAYED_SET_ALT_IDLE = 0,
++	USBG_DELAYED_SET_ALT_QUEUED,
++	USBG_DELAYED_SET_ALT_RUNNING,
++};
++
+ struct tcm_usbg_nexus {
+ 	struct se_session *tvn_se_sess;
+ };
+@@ -132,6 +139,12 @@ struct f_uas {
+ #define USBG_BOT_CMD_PEND	(1 << 4)
+ #define USBG_BOT_WEDGED		(1 << 5)
  
- 	/* Need to resume? */
- 	if (udc->usb_state == USB_STATE_SUSPENDED)
-@@ -1890,7 +1881,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
- 
- 	/* USB Interrupt */
- 	if (irq_src & USB_STS_INT) {
--		dev_vdbg(&udc->gadget.dev, "Packet int\n");
-+		dev_vdbg(udc->dev, "Packet int\n");
- 		/* Setup package, we only support ep0 as control ep */
- 		if (fsl_readl(&dr_regs->endptsetupstat) & EP_SETUP_STATUS_EP0) {
- 			tripwire_handler(udc, 0,
-@@ -1919,7 +1910,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
- 
- 	/* Reset Received */
- 	if (irq_src & USB_STS_RESET) {
--		dev_vdbg(&udc->gadget.dev, "reset int\n");
-+		dev_vdbg(udc->dev, "reset int\n");
- 		reset_irq(udc);
- 		status = IRQ_HANDLED;
- 	}
-@@ -1931,7 +1922,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
- 	}
- 
- 	if (irq_src & (USB_STS_ERR | USB_STS_SYS_ERR)) {
--		dev_vdbg(&udc->gadget.dev, "Error IRQ %x\n", irq_src);
-+		dev_vdbg(udc->dev, "Error IRQ %x\n", irq_src);
- 	}
- 
- 	spin_unlock_irqrestore(&udc->lock, flags);
-@@ -1967,7 +1958,7 @@ static int fsl_udc_start(struct usb_gadget *g,
- 					udc_controller->transceiver->otg,
- 						    &udc_controller->gadget);
- 			if (retval < 0) {
--				dev_err(&udc_controller->gadget.dev, "can't bind to transceiver\n");
-+				dev_err(udc_controller->dev, "can't bind to transceiver\n");
- 				udc_controller->driver = NULL;
- 				return retval;
- 			}
-@@ -2252,7 +2243,7 @@ static int struct_udc_setup(struct fsl_udc *udc,
- 
- 	udc->eps = kzalloc_objs(struct fsl_ep, udc->max_ep);
- 	if (!udc->eps) {
--		dev_err(&udc->gadget.dev, "kmalloc udc endpoint status failed\n");
-+		dev_err(udc->dev, "kmalloc udc endpoint status failed\n");
- 		goto eps_alloc_failed;
- 	}
- 
-@@ -2267,7 +2258,7 @@ static int struct_udc_setup(struct fsl_udc *udc,
- 	udc->ep_qh = dma_alloc_coherent(&pdev->dev, size,
- 					&udc->ep_qh_dma, GFP_KERNEL);
- 	if (!udc->ep_qh) {
--		dev_err(&udc->gadget.dev, "malloc QHs for udc failed\n");
-+		dev_err(udc->dev, "malloc QHs for udc failed\n");
- 		goto ep_queue_alloc_failed;
- 	}
- 
-@@ -2278,14 +2269,14 @@ static int struct_udc_setup(struct fsl_udc *udc,
- 	udc->status_req = container_of(fsl_alloc_request(NULL, GFP_KERNEL),
- 			struct fsl_req, req);
- 	if (!udc->status_req) {
--		dev_err(&udc->gadget.dev, "kzalloc for udc status request failed\n");
-+		dev_err(udc->dev, "kzalloc for udc status request failed\n");
- 		goto udc_status_alloc_failed;
- 	}
- 
- 	/* allocate a small amount of memory to get valid address */
- 	udc->status_req->req.buf = kmalloc(8, GFP_KERNEL);
- 	if (!udc->status_req->req.buf) {
--		dev_err(&udc->gadget.dev, "kzalloc for udc request buffer failed\n");
-+		dev_err(udc->dev, "kzalloc for udc request buffer failed\n");
- 		goto udc_req_buf_alloc_failed;
- 	}
- 
-@@ -2373,6 +2364,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	if (udc_controller == NULL)
- 		return -ENOMEM;
- 
-+	udc_controller->dev = &pdev->dev;
- 	pdata = dev_get_platdata(&pdev->dev);
- 	udc_controller->pdata = pdata;
- 	spin_lock_init(&udc_controller->lock);
-@@ -2382,7 +2374,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	if (pdata->operating_mode == FSL_USB2_DR_OTG) {
- 		udc_controller->transceiver = usb_get_phy(USB_PHY_TYPE_USB2);
- 		if (IS_ERR_OR_NULL(udc_controller->transceiver)) {
--			dev_err(&udc_controller->gadget.dev, "Can't find OTG driver!\n");
-+			dev_err(&pdev->dev, "Can't find OTG driver!\n");
- 			ret = -ENODEV;
- 			goto err_kfree;
- 		}
-@@ -2398,7 +2390,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	if (pdata->operating_mode == FSL_USB2_DR_DEVICE) {
- 		if (!request_mem_region(res->start, resource_size(res),
- 					driver_name)) {
--			dev_err(&udc_controller->gadget.dev, "request mem region for %s failed\n", pdev->name);
-+			dev_err(&pdev->dev, "failed to request mem region\n");
- 			ret = -EBUSY;
- 			goto err_kfree;
- 		}
-@@ -2429,7 +2421,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	/* Read Device Controller Capability Parameters register */
- 	dccparams = fsl_readl(&dr_regs->dccparams);
- 	if (!(dccparams & DCCPARAMS_DC)) {
--		dev_err(&udc_controller->gadget.dev, "This SOC doesn't support device role\n");
-+		dev_err(&pdev->dev, "This SOC doesn't support device role\n");
- 		ret = -ENODEV;
- 		goto err_exit;
- 	}
-@@ -2447,14 +2439,14 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	ret = request_irq(udc_controller->irq, fsl_udc_irq, IRQF_SHARED,
- 			driver_name, udc_controller);
- 	if (ret != 0) {
--		dev_err(&udc_controller->gadget.dev, "cannot request irq %d err %d\n",
-+		dev_err(&pdev->dev, "cannot request irq %d err %d\n",
- 				udc_controller->irq, ret);
- 		goto err_exit;
- 	}
- 
- 	/* Initialize the udc structure including QH member and other member */
- 	if (struct_udc_setup(udc_controller, pdev)) {
--		dev_err(&udc_controller->gadget.dev, "Can't initialize udc data structure\n");
-+		dev_err(&pdev->dev, "Can't initialize udc data structure\n");
- 		ret = -ENOMEM;
- 		goto err_free_irq;
- 	}
-diff --git a/drivers/usb/gadget/udc/fsl_usb2_udc.h b/drivers/usb/gadget/udc/fsl_usb2_udc.h
-index cc1756f3e89d..53922bc58ca0 100644
---- a/drivers/usb/gadget/udc/fsl_usb2_udc.h
-+++ b/drivers/usb/gadget/udc/fsl_usb2_udc.h
-@@ -470,6 +470,7 @@ struct fsl_ep {
- #define EP_DIR_OUT	0
- 
- struct fsl_udc {
-+	struct device *dev;
- 	struct usb_gadget gadget;
- 	struct usb_gadget_driver *driver;
- 	struct fsl_usb2_platform_data *pdata;
++	struct work_struct	delayed_set_alt;
++	spinlock_t		delayed_set_alt_lock; /* protects delayed_set_alt_* */
++	unsigned int		delayed_alt;
++	unsigned int		delayed_set_alt_state;
++	bool			delayed_set_alt_cancel;
++
+ 	struct usbg_cdb		cmd[USBG_NUM_CMDS];
+ 	struct usb_ep		*ep_in;
+ 	struct usb_ep		*ep_out;
 
