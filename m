@@ -1,83 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26883F0A96;
-	Mon, 27 Jul 2026 22:40:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03EE42BE8F;
+	Mon, 27 Jul 2026 22:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785192058; cv=none; b=olxmwWtMUWxTklatFJXrkdAR7fgvErtRbs4lR8Vsp2rASvhkpTrMmiYxgg6nTKf6J/k6g+q+TUEbZqxqDMOkiuggw3VkiLwhYLyQAkwdBQIOnYd32FT8OGCewjjpmRgGQda+gL1E2JIuJOhcqw3zDqMAqWRs/ObqH0zu3Ej9nuQ=
+	t=1785192911; cv=none; b=pH80hgHncEdh3UgrMvhMaRvBxjLpNH6HoVVh1ZS0hqipHawYycdpWpYNeKYA5ZxoGQCxe0gWRFv7fDt7AoRdoSw47rAORbpOe7Udtkg7FlYCePx0c0Z17kQ38+s6DdyQm3fdnpMppzL6Ct6W8zhebY8xyBpuYZnZeGht5cpXBds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785192058; c=relaxed/simple;
-	bh=frMhtuGAGFz7Jr01EuK3supEewgClBXFQ3kT/DhM3ec=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=QGzJa74tzbORmscnUQi46TwnTB9Jvkd4b7CWKsp1LDiTXwqSCy1OcaS7dLHY1KOvzaV8Arueu2vGyLrGQCULb1v5VbFS72qxKxpCEy3M6lSHDHVNxDEsiJvLWaTzeM8UD69435Uk6otth0rVIQpw9YS7dZku0O4e2sWuszUf1Zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCbuefT8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785192911; c=relaxed/simple;
+	bh=oZc3mbiekSiQQrzXlKaDqNIrvJKT52/osdzDvEbKrbY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Got6LLk+rnmRMAMKlQ2FSJ3pfesFc+teKe8MqFadNl3RGL88mJJY5ikueCvRbhkGYaQdTh1SN7bITJP6KCZabcx0QJQVV/K/uKonu8hSoXdhoqfEal+INNKkPbgZktO8NeTAqWeC/Woepbcp8rj+jFLqjZhf6A20FRZAVKwhlfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkpMFY5J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCbuefT8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97CE41F000E9;
-	Mon, 27 Jul 2026 22:40:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkpMFY5J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4D41F000E9;
+	Mon, 27 Jul 2026 22:55:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785192056;
-	bh=cPVNc368CLdd8nLRfved4tc6G3uNu+AjaBCI6WnD3QU=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=FCbuefT8osJ+JAZwyYwLIB88V7d8BaGH8YPTvQd+yVjChDseCRabd0vGn4ORMtiBa
-	 5hmQ05SfToSOWNAwJZb8fMIeXcGZEv4QsfDAe/ONE+vAio1xu4LDtGAzWkKqwMHPYT
-	 jds5GwbnPt/92yXAn7fFENks2TW6o8mzEF3CcNewso4BRqNyPJknsptItLGCBAZaIl
-	 645Bi+n3/GIhs0gZrV4i1gNyS7QhB0y5PgvDfczX3zR6Ev7zRLXXZsKPBVjUyEc0eF
-	 F6jjMraustrXitsulcsF2+D4Q8ya2SXo0MpYeEulYg9GUDRX0LJJzRWEJuTuIfGLln
-	 pvYIiEXhkKgNg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A4A380CECF;
-	Mon, 27 Jul 2026 22:40:23 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1785192910;
+	bh=swBgvLc8Y1Ves6RR6bfNykw7S5qr+ZXoAhTFMoI1I8c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SkpMFY5JZgjvxcHxrAE4sGqLhlChvkpdDJ6jOjj/Jb/b+ctweACZQ3yUD0HWXnF3S
+	 h7YXrNt9mMI2mNYZp/QNnilyRN8+6Sj5WAKj/napa1lX8yuvmkOjdBQMNdrs3NWwvO
+	 SrTUklfSdKgupGmUgyuRLbS7ZjMGdHhaDRNMsNJg4/8SwppgHHQxHEcG9kQjfUfh4h
+	 7wbCJxudannjGRBuoZ5jXoIeSxTHC4LWAhPC5fG9/b25HcpmV8nwb0DyDNw4/66OHe
+	 MOR4ovNd5po5WmkHq9OsP/EGI/RKFoMYRDCC1ldphM8Wn7s189yR6n4fvxZ1eLQwHq
+	 qIO5tR1Gt39YA==
+Date: Mon, 27 Jul 2026 15:55:09 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Baul Lee <baul.lee@xbow.com>
+Cc: netdev@vger.kernel.org, ms@dev.tdt.de, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ federico.kirschbaum@xbow.com, stable@vger.kernel.org
+Subject: Re: [PATCH net] net/x25: fix use-after-free in x25_kill_by_neigh()
+Message-ID: <20260727155509.1c5235ee@kernel.org>
+In-Reply-To: <20260726053330.41736-1-baul.lee@xbow.com>
+References: <20260726053330.41736-1-baul.lee@xbow.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] sctp: reject stale cookies with mismatched
- verification
- tags
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178519202164.1443317.5985248760486883047.git-patchwork-notify@kernel.org>
-Date: Mon, 27 Jul 2026 22:40:21 +0000
-References: <20260723225623.2658868-1-yangyx22@mails.tsinghua.edu.cn>
-In-Reply-To: <20260723225623.2658868-1-yangyx22@mails.tsinghua.edu.cn>
-To: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Cc: linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
- marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- zhaoyz24@mails.tsinghua.edu.cn, wangao@seu.edu.cn, fengxw06@126.com,
- qli01@tsinghua.edu.cn, xuke@tsinghua.edu.cn, yyxroy22@gmail.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Sun, 26 Jul 2026 14:33:30 +0900 Baul Lee wrote:
+> x25_kill_by_neigh() walks x25_list under x25_list_lock and, for every
+> socket bound to the dying neighbour, drops the lock to call lock_sock() /
+> x25_disconnect() / release_sock() before re-acquiring it and continuing
+> the iteration.  It holds no reference on the socket across this window.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 23 Jul 2026 22:56:23 +0000 you wrote:
-> sctp_unpack_cookie() skips cookie expiration checks whenever an
-> association already exists.  This is broader than the exception in
-> RFC 9260 Section 5.2.4.
-> 
-> For an existing association, Section 5.2.4 permits an expired State
-> Cookie only when both Verification Tags in the cookie match the current
-> association.  Otherwise, the packet SHOULD be discarded and a Stale
-> Cookie ERROR MUST be sent.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net] sctp: reject stale cookies with mismatched verification tags
-    https://git.kernel.org/netdev/net/c/9d8da8e0a9bc
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+already fixed.
