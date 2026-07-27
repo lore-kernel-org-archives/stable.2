@@ -1,156 +1,204 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB894386575
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CB542376C
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785169399; cv=pass; b=lqcdrBohYK8Zzzdribq5GCnUiHkwcCpXuX19Nb8/NrggWKKGUx1GQimhtsqaemJ1Ot2kj58Cu1rzoEbsABSbzki40NVNKaFB+bqEVcZrqgt9fnE4VjovQH8V0tGwdV18YZMZ2ZwH8qQKXlnetXqjjdIfveeKnBbmWwpnJGJ8EoI=
+	t=1785169522; cv=pass; b=VYMXeR3Lrl1hPaoO8gJqT7530aQ5s/RS57Ij7+ecgMH5CC6OSoOtR7GXrxcSky94PmfSXQ9mvjT3GdKWALK3Auzypn+/68NTZWCLWVqYUl3le555mpQDgpXaqtdoy2MXG+m5TFKT7l9QN06lF2H7lv3DZVptV/st2MkVW6wwQ3I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785169399; c=relaxed/simple;
-	bh=yYRASoVkj8hdVAqGUL+43B00+jgnCtRcBZHHxUOgYoo=;
+	s=arc-20240116; t=1785169522; c=relaxed/simple;
+	bh=lIfbp4g5Tlq0Apfu2MZaanv5P3D1QanLfqpB53OYPvo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BnOG/AKhPmX0Cd245BcG2sXIIdUe5U20LjnNirHvGNcKqaAX2lRns5R2A409ZdYquBVwWYtP5UFk79V84Evjl4eETu9lx2hGv30dlee4oHv+8Yv0W7vNH548cqeSpZWvmOywqmTEYH4uv5p08uwS2MUAmYRxzm9iaMcXz9CRMZE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TvHAtR5I; arc=pass smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=Wjw2H5GjSDHHXEjkZrAj4P6uy2ZUByiIfnJHDt+ZZdT+k1hh45FuhcHmRZTh+vxfJdvpLK/3E8Gs22wmnOsH87nR4DY/T9xm/Wzra8xgK4YXdN/vO6CPAANxjeH3j6n25E2AoSiB6ea0h9T+fF6JeM/hqCSJvFtEhO5N7prohsI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dhUSwfLR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xns2RoRL; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TvHAtR5I"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-51c2808dbc3so20732591cf.1
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 09:23:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785169396; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dhUSwfLR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xns2RoRL"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDmApK3823666
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:25:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fujInK91+uJSqFUqng2bHHt2xnpCDiBg4JaBokyWa9Y=; b=dhUSwfLR4Mel9wX1
+	WWcJjpG2CYJe+pOzmZ4Vl8QhCJWJnHOJY78EVI9KUvMRvuEDXpzyLU8xuxqOiiOR
+	xeUbRNpN3I0AjPIZPEJ+cJqmfyjJbqnIQYeGCLwOmb4Avu3dsIhCbuFx0cXOlDjX
+	hK5TncGulxPoYq/sjb4N4BWFMjNeLQQIf4seYsf0ClZQN8dxr/5k2QwhagCUsqSF
+	aYcqiZwVgwo5pg0Pg3qacVt/c3GHlpaMu3AT1Im8GizQZx2/gz2hF9YYpNnDsfmu
+	wL1Ohd6NjGA4xRDywMCDVTM3PS42RX9aUw/1v3ELM5y/KhP4FS3/q7RjPUH9A7uW
+	Gu9epw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4nbsscn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:25:19 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8ef18406878so38374536d6.2
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 09:25:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785169519; cv=none;
         d=google.com; s=arc-20260327;
-        b=dueGA6XjQbhfhVhB4Gp9dELgIafitCHJMGIcAQOo4mTVqu76/22/I/MHmS3JDDOQkV
-         m5Six6l9NjxN4lX/2TpLQ845VC+KfQ6pbA2KkCS5iCHVlxC68vJglPae67OB4uTtA6Lf
-         HpjCaX6hxepGADhkDioepnEwgsDu0KnO1xTrJ6FpXYM0TSOJjbuan/n3deF2VjDs6lo8
-         pRltEK9XxIJCAnd70D9D0oycyM0i+6PMVFamRluDG1n+sOmzzfhqcFPVDpRx8JhNlXrl
-         4fk8gAJZWYN0+eHlqfE0sfOQKZ6+QCPGUxqL4xW46/xdhJZykK6HoTANw/DyqVg/lSvj
-         f17g==
+        b=o3B65SV079s7prqfRHIXK4nZpCRRoKOefkcdVjfQA4k1o9KGr+IrQqviIGjxeo7/kw
+         isrMFuu3kr2gSlKsP+2fkRPIbgJmrS7UqQ4f81ncenW3QYbv5O/fEKZFu7E5yMKliJeX
+         ECBL5ypewc2O7TebbV7FHPlpJSsTIgM7eRTocn/AxwUTo9DBHuLRT4oJEMhVwcf5BzZU
+         h9RGFse9SHTASd4CNzHVw2BhGf0zx3Wb/7b31IQCQlk1SKnopnOOs6i2K3SJE6NN7Ene
+         pVcn33kInmfQNVdGZs25fD24fOsMKc9sMb/cEIUsO3g/BDcBbgQowNrgmITgQp9cbYKD
+         R7Gw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=n+6qpEF7FerlNezj1zDE8a3yg+4UnysbIHm+GwH3GYs=;
-        fh=/S40xmmhbUNPoCok8MdlyyzoeTHc0ugCQLoGK4AMLzw=;
-        b=jvRxLV3vuX2NZuPJC0PZ0FKVOinaCzh9kS7Cph57NgeBkcCoaoBUkiF12ncel9uqb0
-         qw2rBNNCD6zH8Z3+8lNoQfWTTCI8Y+3veB8fWWh6GAiwZmMFOCb+5X3HVilRLZo1dUdk
-         FbR3UsKtV1CZ+1i2/3/tgybF3IAAkUgpkP+dcsF3krDb/Evx3+GBAWPNCcyVf0FTT6Hr
-         KXAEiudUPRHClyB+hggsK7WBP2a7lKuyUeY2nl7w9EHlDsmrbzObEnHw6U6TvZEOFt5d
-         7LehTY2DShjyMacDMxTYLsIkURwK9CYUfkLx7wHiuxxfidNyHNR/NRow6lWMe9VIWPTi
-         rTsQ==;
+        bh=fujInK91+uJSqFUqng2bHHt2xnpCDiBg4JaBokyWa9Y=;
+        fh=qFPX3Ilw8LH4ifI5vBXiuQIo3jxv7slHRD2tdim9cU4=;
+        b=OaARJiHkiADRy96RQNOYoePWtn67DhXtQ1g1GFVK0+fT1aI4p0uLlDVAz/yaEiLFvR
+         c0Ki4KnyOP6fsJb9MqMoixg0Oy21KJ3AR/smzAnBKIpdumuFflOBpDDLq1RKU93aH8Jh
+         JNl1yVrWfUb36HmpJlLP0UlwqLkZ7WZ86pBxaDhMR5r0PyZQI4RjnFnMQUgddHCcXJKR
+         LQBGiEXGQ5sFG9ab4gT0hKER0AoeBq8izIBO8kE/fstGqyZ4/On9ihjBl3whRKrv6WA9
+         bbXqvU93vrvaJyjN8Ys9WbQ61WZvQemsX41u2B1Yh0JWdWr8ARoJWDBh0VzOdElM8imQ
+         MfgA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785169396; x=1785774196; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785169519; x=1785774319; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=n+6qpEF7FerlNezj1zDE8a3yg+4UnysbIHm+GwH3GYs=;
-        b=TvHAtR5IIAhyFI1x7YJCPToCpKGvtKpyMm2ug8hXTC8LlwK0TTV1jNXWc4FV80yE4O
-         jnLGh/rhL6IlCx3yYBdMv4C79nnAaqSL5+OWl6iPnQuzcsAlqRPPdwM60hmh9icRPX0c
-         Ueyx4JSA4HVTHnyE2CojeGuL1gnut70ukzmNZLmkdyVPDbFLVTrgC1jLlkPMKSMpchNK
-         BDqTV5UpNqNEYRzM4dwgeCN+JUML+oMBt7aXt+qoJW5zGk5cicYLz7wjdP3RXZDCKXvo
-         zBfex+ETOebi/9+XdBe5hAfDIBVe0A4Zz/TLor+R5dYLEOGplBn/ygaOI75HX2gfBmDf
-         YdMg==
+        bh=fujInK91+uJSqFUqng2bHHt2xnpCDiBg4JaBokyWa9Y=;
+        b=Xns2RoRLnw8qNQw6pFiwfHomckCgOOEtPMrN9ggBsDXCcH1X/1+Bj//BwWkkCgmWnJ
+         Zxh5omfXW3D4AisFtvO4vsO3U6RCuEtZFhk4yH9ONu60n7/Uyl7tdTQeGyRQ62mVAFPO
+         f6D5DSCL7fPjD1ZT1tQ9LzT3cZzIU60ZaD0VAPTmzdMXsC2uQIEQApO0ES7X4OoI84i2
+         Ue8D5fjoNA1ZarBXZVsMguYLaKA0UF6JxhkyX2IXhkxcE3x7UxCMmtralNQdXIxNuCAF
+         wJqBStG1NAVpckjLwRreStLSQmahmqCWqldoteFLx0/D0Sk1zfkJlW5YynauCnvL6oID
+         mx4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785169396; x=1785774196;
+        d=1e100.net; s=20251104; t=1785169519; x=1785774319;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=n+6qpEF7FerlNezj1zDE8a3yg+4UnysbIHm+GwH3GYs=;
-        b=MvK1RjbbZlendwOGavHd0KISwAseuSs7eqhQyLoNrqbNdGvGzRhTQraLbw8a5nlzDH
-         Pc9OSRpHaTlmzF0BYC0r6h0yYUmJutG+ULUOahVZmfxffiMeRqyUjXs87PLfDnjr6rxN
-         OrnGGHr6QbmkFXXP6rWPzM1gAFuksLuFFaneS/mOiRJbhTJqAtm9wlys6ZXlp9xpFu8J
-         gxmFTo4sYjx128W3TG5l6DT5G0e3V4HfgWMqv8TTNGN9lvixxD5uU1omWgZXkoQpvqn8
-         PP8+MxXO6B2DZLGS4DN26TBz0UuGIt9PI+9kZfixAQ3SEomCX/ETbPt5DdewnUhqM8P+
-         hwQA==
-X-Forwarded-Encrypted: i=1; AHgh+RqJkjgJvxpS95hud8eRbKZAgC2r32EgiV81QF/vPLo9Oex5+8GuV8kt/GdUeZpTd6/zI5cNSL4=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2Yvf8wAEzuxGrKx407njwFI84Mrzh5WuLK3CjIyL0YKDMUJgO
-	JGcJiuVaNoeHoOFgXo6zcBfZ0+StyKub86Cu6Uy/6enfKyhJcXekNX9VI53jKFF+u0r2cb4LOYl
-	v7ptP4z7zFA39wGTXA+F/6B6Uamndhfu9ZDlIqPp/
-X-Gm-Gg: AR+sD12MnkRHCaz1jRAJQOM0IkkH2h5udGdOfSyMJ2mEoCJU1grdWSa4AUYuAhdoeuB
-	D9Na51k1O2hl9SZNpJTvfTKT41i1wKJ331mvrNb17+OeDSCswnrfCeb576n32L2CL0whNfLugi3
-	VOjO1DLlzoihvGtZPVGKTxWEyO+m2zhnep+6Rt1mWb8TsBdSAXhZx9bjMWBnR6W4727eB0NmM2y
-	gi5ySVFX5mNZ5p1GBnEQfJa0auYzpm3uDcD+exGvvLP8QQZWsqf7mdH7gEcD8UJD/YAidfQd4At
-	kXrlHChBMgk8ABIHO1LKkPdBBQ/yy/9uuweLci/QprgLCcsoVlNNPGk87IBtQSRJQM9Snsbh
-X-Received: by 2002:a05:622a:6094:b0:51c:c6c:9d65 with SMTP id
- d75a77b69052e-529d17183a2mr2551161cf.1.1785169395691; Mon, 27 Jul 2026
- 09:23:15 -0700 (PDT)
+        bh=fujInK91+uJSqFUqng2bHHt2xnpCDiBg4JaBokyWa9Y=;
+        b=arDGMX3/Plm6VHFfQg1k0vewUcZUComZ26E4mxk412Gw4WnAfBe8TGCNCzopNk3VvP
+         +Yv+U7DKHE6xpWkQUXWqms5nmcw9pa+ioAfESKQEK6PanIRRcxEX/HVM1AV0SoDLpNzF
+         wx7ypgiZ9KGnw8mtDDZWJUukNJ2UQlCW1mt+DXDsOIkRXasox59Imdu4fc+eduWEvp5E
+         4w6xpDGfja/WPyli+rwYJn7JEgribG7CBypFipnFh26Bxo6rtJ006q/DZRZRBMIpkhTE
+         YebM2INwQCkTtYP9xarA/GwYQj202cdU3NY3Evlyq8ONiSt3Mf95HvCRSySTtDoA+B+D
+         tzlQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rof4kRPglPvH4w94pLYlAxLhHXGLlrhJKCSUL0MqPBMVpLgSj3rJeWJCyclobXuITJN0Aq7OPk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVnnNVkEC8LzWe8LAG3Ae4dwm8HRjhv34mfR1wt3nG6AW1EMIk
+	vRPvlab4HswToNnKDj8APtf6iDrF78mR6PrUMB8Ensh7UvZv2Pw7K0kOjyCfwhVBSMgYBwaEmCi
+	p8n3mnR2JGv4x/dkXsnii6Q+1iuwdWV4q+UEQOj/KzoC7OIusPgNyk829f/+74h86bCnC5gagR1
+	han/slPLDgOKXODnD5vwQCE8kJDObhMfzbRw==
+X-Gm-Gg: AR+sD13RaechWkLryNOmNdl74btFndl6zPWEztPKkwcpdMfAxvysl0/qw4o8UtqUxPB
+	DIhO06IZnubjnzviQIkTvuvt2NftmfMa4FZ0PYE2LOHdh7bkjbB96y2NBfi4AUYg7ovds8AnpSH
+	Y3QO0N1GLnsRKnVGEsx+qhvbfo52eX4Qsxzalz7BbeNWeZTeFJFdRlnFS16g==
+X-Received: by 2002:a05:6214:5f02:b0:907:c056:d648 with SMTP id 6a1803df08f44-90812698557mr2993026d6.2.1785169518613;
+        Mon, 27 Jul 2026 09:25:18 -0700 (PDT)
+X-Received: by 2002:a05:6214:5f02:b0:907:c056:d648 with SMTP id
+ 6a1803df08f44-90812698557mr2992576d6.2.1785169518146; Mon, 27 Jul 2026
+ 09:25:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727153936.28944-1-zhaoyz24@mails.tsinghua.edu.cn>
-In-Reply-To: <20260727153936.28944-1-zhaoyz24@mails.tsinghua.edu.cn>
-From: Eric Dumazet <edumazet@google.com>
-Date: Mon, 27 Jul 2026 18:23:04 +0200
-X-Gm-Features: AUfX_myp0M31i5POJqgwIBmicFeDvDah0ZwNODRaGRtohglf96SONtod1CL6a4Q
-Message-ID: <CANn89i+g1sjqLFCK=Ro3_rGobUAVnzc37JG8_UCLjoW4EOS=cw@mail.gmail.com>
-Subject: Re: [PATCH net] inet_diag: make bytecode audit O(n) to prevent CPU DoS
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Neal Cardwell <ncardwell@google.com>, 
-	David Ahern <dsahern@kernel.org>, Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org, 
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>, Ao Wang <wangao@seu.edu.cn>, 
-	Xuewei Feng <fengxw06@126.com>, Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>, 
-	stable@vger.kernel.org
+References: <20260723112842.3592137-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20260723112842.3592137-1-fanwu01@zju.edu.cn>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 18:25:07 +0200
+X-Gm-Features: AUfX_mzb6CJnSNATmuSVX-ITtBNLIJwIGjfcTpgtCMAwtkjufHh4_V1qYf0WOC8
+Message-ID: <CAPx+jO8kyok_cYyUPFMviOC9KsUbAhT5t4jbTGYqcO1sHZNCag@mail.gmail.com>
+Subject: Re: [PATCH 1/2] mmc: via-sdmmc: stop card-detect handling on probe failure
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: yAKpgK7-gIvkuAhbWPMWGIRxrYwXXyqg
+X-Authority-Analysis: v=2.4 cv=cJjQdFeN c=1 sm=1 tr=0 ts=6a67866f cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=T_pAX8yLOfAJcNyp_v8A:9
+ a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDE1MiBTYWx0ZWRfX/y9OGsqK5wst
+ 4lVeoJy+fmoM2MCtN9xr5TTjg8EgvHoOFs2De6ij6bpV9LDdmB7GNEoGABgP2zZkqBYGaghidyn
+ 5Xl5wPU5yl+hI/LfpTkL9LlIj2pkiEo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDE1MiBTYWx0ZWRfX8FjWMvaeWFn+
+ rkuie7osRZGkY6oLJg3nd45LZXHeJi9Thw0jI62+vWGI1RbEINCS6yqlQ//STho+3measxlrqwh
+ My1G39CJZZgILVdOmkGIVisBajgK9t8fmQNWXMd3Zqyteyi6rRuMbOZUk8Ij15K6lSao1OOy9e6
+ YS7tf/yspQiVDndcZf0pGfvz7ezkzshrJi/Sv+7qIhAvlAvvtrMnRmfn2dkgm9brLI9QjePgCFF
+ 65FTdXg+gwO7T2fLTN/8L2q7CK4RYsTRYtk7HNeLHZg5Ag3PG6Zc6BVSg0yx2+ufZdCoX5AeREd
+ GtCxAlnITVSuumPE2uUUNKEvfiD0DSgpNE21FMxggfXsZoOnUFKVUs+Z1qbJgRmvirkC3lCpmMh
+ wBv8vigFEHlBEqstJ8QBD6mUTnSRnuww8EIiW1q19hRjkNnus4MynOmEI5Q1WoMaRms1lCE2all
+ oyamcipA91U8zDUdaXQ==
+X-Proofpoint-GUID: yAKpgK7-gIvkuAhbWPMWGIRxrYwXXyqg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 spamscore=0 adultscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607270152
 
-On Mon, Jul 27, 2026 at 5:39=E2=80=AFPM Yizhou Zhao
-<zhaoyz24@mails.tsinghua.edu.cn> wrote:
+On Thu, Jul 23, 2026 at 1:28=E2=80=AFPM Fan Wu <fanwu01@zju.edu.cn> wrote:
 >
-> inet_diag: make bytecode audit O(n) to prevent CPU DoS
->
-> inet_diag_bc_audit() validates the user-supplied INET_DIAG_REQ_BYTECODE
-> filter of a SOCK_DIAG dump request.  It runs synchronously in the sender'=
+> request_irq() registers the SD card-detect interrupt and the probe enable=
 s
-> sendmsg() at dump start, before any socket is iterated.
+> it before mmc_add_host() runs. If mmc_add_host() fails, the error path on=
+ly
+> unmaps the registers and returns: the interrupt stays registered, so the
+> handler keeps running against the host once it is freed. via_sdc_isr()
+> dereferences sdhost and its MMIO base and schedules carddet_work, which
+> via_sdc_card_detect() also runs against freed memory through its
+> container_of() dereference.
 >
-> The audit's outer loop walks one opcode per iteration following the
-> yes-chain, and for every non-NOP opcode whose 'no' branch stays inside th=
-e
-> buffer it calls valid_cc(bytecode, bytecode_len, len - op->no).  valid_cc=
-()
-> re-walks the bytecode from offset 0 following yes-jumps until it reaches
-> the target offset.  This is O(n) per opcode, nested inside the O(n) outer
-> loop, making the whole audit O(n^2) in the bytecode length.
+> Add a probe-error path that disables and frees the interrupt and cancels
+> carddet_work before unmapping. carddet_work can re-enable the device
+> interrupt via via_reset_pcictrl(), which restores PCIINTCTRL, so mask it
+> again after cancelling the work.
 >
-> NETLINK_SOCK_DIAG is reachable by unprivileged users (diag_nlsk is create=
-d
-> with NL_CFG_F_NONROOT_RECV, the SOCK_DIAG_BY_FAMILY dump path has no
-> capability gate, and netlink_sendmsg skips the NL_CFG_F_NONROOT_SEND chec=
-k
-> when dst_portid =3D=3D 0 && dst_group =3D=3D 0).  The bytecode length is =
-bounded
-> only by the u16 nla_len cap (~64 KB), so a local unprivileged attacker ca=
-n
-> submit a ~64 KB bytecode of JMP ops {yes=3D4, no=3D4} that passes every
-> validation check, is accepted, and forces ~n^2/2 (~1.3e8) inner iteration=
-s
-> per request, pinning a CPU for hundreds of milliseconds; concurrent
-> requests pin all CPUs.  The burn happens at dump start, so it occurs even
-> when zero sockets match.
+> This issue was found by an in-house static analysis tool and confirmed by
+> manual code review.
 >
-> Replace the repeated from-start re-walk with a single-pass bitmap
-> reachability check that preserves the exact semantics of valid_cc().
-> Allocate one bit per 4-byte slot: when an opcode's 'no' branch targets an
-> offset strictly inside the buffer (op->no < len), set the bit for that
-> target; when the yes-chain later arrives at an offset, clear its bit
-> (proving it is a reachable opcode boundary).  After the walk, any bit sti=
-ll
-> set marks a 'no' target the yes-chain never lands on -- i.e. it points
-> mid-opcode or at an unreachable op -- which is exactly the condition
-> valid_cc() rejected, so the audit returns -EINVAL.  Each opcode now does
-> O(1) bitmap work, making the audit O(n).
+> Fixes: e4e46fb61e3b ("mmc: via-sdmmc: fix return value check of mmc_add_h=
+ost()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-Say no to kernel bloat.
+Applied for next, thanks!
 
-If a use wants to eat cpu cycles, I see no reason to be nice.
+Kind regards
+Uffe
 
-We have generic ways to deal with this nowadays.
 
-grep PREEMPT .config
+> ---
+>  drivers/mmc/host/via-sdmmc.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/mmc/host/via-sdmmc.c b/drivers/mmc/host/via-sdmmc.c
+> index c628b3bbfd7a..5228a1fe0495 100644
+> --- a/drivers/mmc/host/via-sdmmc.c
+> +++ b/drivers/mmc/host/via-sdmmc.c
+> @@ -1154,10 +1154,16 @@ static int via_sd_probe(struct pci_dev *pcidev,
+>
+>         ret =3D mmc_add_host(mmc);
+>         if (ret)
+> -               goto unmap;
+> +               goto free_irq;
+>
+>         return 0;
+>
+> +free_irq:
+> +       writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
+> +       free_irq(pcidev->irq, sdhost);
+> +       cancel_work_sync(&sdhost->carddet_work);
+> +       /* carddet_work may re-enable the interrupt via via_reset_pcictrl=
+(). */
+> +       writeb(0x0, sdhost->pcictrl_mmiobase + VIA_CRDR_PCIINTCTRL);
+>  unmap:
+>         iounmap(sdhost->mmiobase);
+>  release:
+> --
+> 2.34.1
