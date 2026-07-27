@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB5C3FF1B8
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:29:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC6D3F1678
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:29:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158946; cv=none; b=nz/sAr3AcKAIyv0du8JfNJUcf/7m884xZz0YqpAq8bnt70yT5DWWFzk6Ays8fKXsnNFaFyS/afuRs9M5x74WFYj1hTBQvLpLKgEFMEUz8dOpb7JG/x3Qj8ZydSA7L543P8kOCVwZ5X0sFQrjtEQtC0K4TcwNBX9a7ILwhK69kf8=
+	t=1785158954; cv=none; b=Yo6uAABPV9Iflr82q6ZAOQcRWxFKThKdT4hebKbNo9AQGe4nmz7c6l+XjoKqNEgnP8AoxbWvEK+EzD3Jf1d6ZWGp9V41RpEaXXvod5LHR0ecyi05oG8bN1+se2co5q1TCjKNYbk4kD1wvnaM+Ltmaaskk//INIMI8caan2p5MyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158946; c=relaxed/simple;
-	bh=8sQsewt+RHmwxt22/apO6MGUzTxFytRnc9dA2GUzfLE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Uj0ZbTSdPw4VHbubq6BISGbs5F3j8bqWvPs3lKruVQSPXJ97Wkn7/sjemPPfAa8zRw6LumTj/X8+5m3GLwzZ0BrxSQvXJ8/qf6plUP9/wVlawJhWkPhwB+W9IA2+3k1SjYnUAOtJffY39iv/T7NpWYvuF7rqHk5lrM2TROKP7ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j13OPBOi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785158954; c=relaxed/simple;
+	bh=02HgGruZsGhPnTc4gkXENcYoc/HJtbmzbpFHT9nRaPE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QPRP5nQFggm6+GFjvL1tE2okF5qJ6O+/DBkVGsJ2KwNoKRRU86y7tqE1/atiql8bx2QeonoSerdnNvJoB0VoeXlRmhE16cAwlQWrExhT5Pz2RfbdrhUcRxTBgQMmwL0rzC9SUqafLPzCKPYWiYqe8+GPeYdgljIlDkdIOUEX23Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CoM6Qn8R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j13OPBOi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900351F000E9;
-	Mon, 27 Jul 2026 13:29:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CoM6Qn8R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01D71F000E9;
+	Mon, 27 Jul 2026 13:29:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785158945;
-	bh=VqzQDosLLSe0res7YD6Gs6c/DoVMYfHQL1Qc6GALPMk=;
+	s=korg; t=1785158953;
+	bh=5LjWnN8ts5qLnMQ2ReycDf3PpnimfrDzvGr0VCe2Eno=;
 	h=Subject:To:Cc:From:Date;
-	b=j13OPBOibAnSV42JykIISOIUBNXssAV5I9Nd76jfpJKOLdn9YRMrfvFV9mxWQy4c0
-	 92SYjqghz4aHABJzX3In8Rl0cWO1yEfZGERJpSXA84rS1+C7cWtJvdsd7Ey6WcCUcO
-	 1hP6Gm9ZHRAdavNUZdpnGUymDuzgi5pzfXJ4d1rg=
-Subject: FAILED: patch "[PATCH] usb: musb: omap2430: Do not put borrowed of_node in probe" failed to apply to 6.12-stable tree
+	b=CoM6Qn8R6tgfGlI7NhTokbuf225sUwFxWUifsWW/CYatBmVUVR+TeU/3Bpu2Yy6jU
+	 z7zCjXMMCFQalAGg8l/HVeEe74q3ILvwYKGGqYJmNjg0X2h7k8GYk2FBTeonD5Mx1e
+	 Ga/pumY+b+y2rZmDnWO8m45gUu3jQS79kJSSIjHc=
+Subject: FAILED: patch "[PATCH] usb: musb: omap2430: Do not put borrowed of_node in probe" failed to apply to 6.1-stable tree
 To: lgs201920130244@gmail.com,gregkh@linuxfoundation.org,johan@kernel.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 27 Jul 2026 15:28:52 +0200
-Message-ID: <2026072752-stoning-canister-689f@gregkh>
+Date: Mon, 27 Jul 2026 15:28:53 +0200
+Message-ID: <2026072753-efficient-culpable-80d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x c947360ae63eee1c9eacc030dd6f5a53f717addf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072752-stoning-canister-689f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072753-efficient-culpable-80d7@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
