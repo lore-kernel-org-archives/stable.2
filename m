@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B67D248F7C
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 09:10:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F683EAC8F
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 09:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785143420; cv=none; b=aNepOf0cP1k8KALHgoLPlWZM0Xorbqfv6qu53+DdvuDjBg+FYwJp0uLdqfC++0C3Am8rqSStFKQxHixDlW//OCZIDf1E33NZ9swyrpj7LGedYrSwKkRZLNN5UyGXqyGOQjQf7j5cAvO/nSKLVgp3Ie1FMDhKi8k1wJdTtmBm0iQ=
+	t=1785143593; cv=none; b=gj/xeAex4bhhAanyJVaW/Nms9A2p8mrcwzjzDbBxoIRf6MQKlXl/iCfyetDrLw3Ea05MXt7/s1As11taDWVfTNCC6Swab3bWwQrTXrZQ6/TJS1ALeIFA06yD0kGxRMUEsylDBu/D82+wnoGiY4ZEpVGTQBfpmWFOpbeNs43cmGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785143420; c=relaxed/simple;
-	bh=ohBMJFwqwqKObYL1PpoyaztOWJ2rzruHNxjp4rcV8gk=;
+	s=arc-20240116; t=1785143593; c=relaxed/simple;
+	bh=FlxmYyoWrTa+uzdkcWihpiTSY630pPgyFMz2a9oeugY=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lunQxVvHh7KGdFNtw1lk5Wzi+hs+3QQw7K4dtPnVzao/1sj+IKXSfFZ0rJZty6v+0GDGP+43YpTks2tG3ej1PYSegP++xIcmykOqUyj+9z9ZwYdPZITAcLrjAQx/4k2CvpjNT31UqWePrp/EbD6g+3843g18r3uiqkE8TY6IH5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=by62Krt/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=sG3pW5gHYWQA3aLJN2uRxmpd0YgZtksU94i92Pel21m5ZI2mCs8OM4uKrf59CklomJ7LgM34U6gzEmhhXe37Kkm0f2dv32VfrhvkJHze40tm4FLroJs2+jtqA30YKS/ShMrXNT0xGxHeyD8sQ2eU0ucysU9zg7QYsrPiIVCraxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRItjAid; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="by62Krt/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550BE1F000E9;
-	Mon, 27 Jul 2026 09:10:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRItjAid"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD3B1F000E9;
+	Mon, 27 Jul 2026 09:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785143418;
-	bh=NhpgzwKlxgQtSrSgP70n+xJ7hKQ1XIOfgceweqMfKvo=;
+	s=k20260515; t=1785143591;
+	bh=IYuBSCAUjszjTgA0BDqt3GterkzcKzO9SfzZWPJkpDs=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=by62Krt/uFV65f4m1Bu6IBs1E7vLddZlyrkRfEj6CtcMao7Q8KkQk/+IzDrpzfIVp
-	 ua8gwcvP8qNScYooi1GZ8YxD82h5WCs1ChkprvbvDod79dU8zig91x+LxsC5fgkAdO
-	 hIhTdtNEDlbk4ByiA/eSX0z/lVkXgpCTUdyYK51wrCLmnAEdXLWuF8kroFW+kVmBZz
-	 8yYpMgLlN6LRCHQRMqcsUc5/QQP02ionO7/UYSSXYkp9gPw7P2rvaPMstdj04iaZAm
-	 69ba65B53ygjIWrOfT1XVUC+W5hwlhtwma2e7M6DU4JO1bijhtT2l0u0CayEgebPAd
-	 BqNK26N/b8B/Q==
+	b=oRItjAido7wB/l/HSC9XlKz27o1W9yFpR2aS+xnOytefr77bRFHg/7cxntWr4O4TL
+	 wiuIIWeyoBOMRgrj3w/2zFFL5KPZSgFe0Bg+xNps0FGMx81Yn2WA8UwFKMO0j5YTbL
+	 +9aNk5eOW0wRxb7a3Ue2bFY2gKKdvFV5xx8ftsxHCZe1FuDX5AqV6ej4SKkmYGkWDr
+	 T4PdYSQ3w7wbkA99UDp3lM6MK79DRKp4h/qiMjJMz2j7a8NN2sgcNCK1o8rChPWI5F
+	 ilF8pT5jVPf4BeNkszdX5xvrYDXf+YCUfHrfTl3F+qneTS1zKXABynuzeinSr7DnoS
+	 VL0JhSr06dgrw==
 From: Thomas Gleixner <tglx@kernel.org>
-To: Sasha Levin <sashal@kernel.org>, gregkh@linuxfoundation.org,
- jwlee2217@gmail.com, oleg@redhat.com, qw3rtyp0@gmail.com
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH V2 5.15.y, 6.1.y, 6.6.y] posix-cpu-timers: Prevent UAF
- caused by non-leader exec()
-In-Reply-To: <87wluhie86.ffs@fw13>
-References: <87ecgqkf54.ffs@fw13> <20260726195203.stable-0004@kernel.org>
- <87wluhie86.ffs@fw13>
-Date: Mon, 27 Jul 2026 11:10:14 +0200
-Message-ID: <87tspkiyrt.ffs@fw13>
+To: gregkh@linuxfoundation.org, jwlee2217@gmail.com, oleg@redhat.com,
+ qw3rtyp0@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH V2 5.10.y] posix-cpu-timers: Prevent UAF caused by
+ non-leader exec()
+In-Reply-To: <87h5lmkfhv.ffs@fw13>
+References: <2026072123-studied-colossal-c293@gregkh> <87h5lmkfhv.ffs@fw13>
+Date: Mon, 27 Jul 2026 11:13:08 +0200
+Message-ID: <87qzkoiymz.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -165,13 +164,13 @@ Cc: stable@vger.kernel.org
 V2: Fixed the old->interval fallout - Sasha
 ---
  kernel/exit.c                  |    8 +
- kernel/signal.c                |   10 +
- kernel/time/posix-cpu-timers.c |  212 ++++++++++++++++++++++++-----------------
- 3 files changed, 143 insertions(+), 87 deletions(-)
+ kernel/signal.c                |   10 +-
+ kernel/time/posix-cpu-timers.c |  185 ++++++++++++++++++++++++++---------------
+ 3 files changed, 137 insertions(+), 66 deletions(-)
 ---
 --- a/kernel/exit.c
 +++ b/kernel/exit.c
-@@ -204,7 +204,13 @@ static void __exit_signal(struct task_st
+@@ -200,7 +200,13 @@ static void __exit_signal(struct task_st
  	 * doing sigqueue_free() if we have SIGQUEUE_PREALLOC signals.
  	 */
  	flush_sigqueue(&tsk->pending);
@@ -188,7 +187,7 @@ V2: Fixed the old->interval fallout - Sasha
  	__cleanup_sighand(sighand);
 --- a/kernel/signal.c
 +++ b/kernel/signal.c
-@@ -1408,8 +1408,16 @@ struct sighand_struct *__lock_task_sigha
+@@ -1375,8 +1375,16 @@ struct sighand_struct *__lock_task_sigha
  	rcu_read_lock();
  	for (;;) {
  		sighand = rcu_dereference(tsk->sighand);
@@ -208,11 +207,10 @@ V2: Fixed the old->interval fallout - Sasha
  		 * This sighand can be already freed and even reused, but
 --- a/kernel/time/posix-cpu-timers.c
 +++ b/kernel/time/posix-cpu-timers.c
-@@ -461,6 +461,109 @@ static void disarm_timer(struct k_itimer
- 		trigger_base_recalc_expires(timer, p);
+@@ -406,6 +406,110 @@ static int posix_cpu_timer_create(struct
  }
  
-+/*
+ /*
 + * Lookup the task via timer->it.cpu.pid and attempt to lock the task's sighand.
 + *
 + * This can race with the reaping of the task:
@@ -315,14 +313,15 @@ V2: Fixed the old->interval fallout - Sasha
 +	WARN_ON_ONCE(ctmr->head || timerqueue_node_queued(&ctmr->node));
 +	return NULL;
 +}
- 
- /*
++
++/*
   * Clean up a CPU-clock timer that is about to be destroyed.
-@@ -470,29 +573,13 @@ static void disarm_timer(struct k_itimer
-  */
+  * This is called from timer deletion with the timer already locked.
+  * If we return TIMER_RETRY, it's necessary to release the timer's lock
+@@ -414,28 +518,13 @@ static int posix_cpu_timer_create(struct
  static int posix_cpu_timer_del(struct k_itimer *timer)
  {
--	struct cpu_timer *ctmr = &timer->it.cpu;
+ 	struct cpu_timer *ctmr = &timer->it.cpu;
 -	struct sighand_struct *sighand;
  	struct task_struct *p;
  	unsigned long flags;
@@ -350,19 +349,16 @@ V2: Fixed the old->interval fallout - Sasha
  		if (timer->it.cpu.firing)
  			ret = TIMER_RETRY;
  		else
-@@ -501,10 +588,8 @@ static int posix_cpu_timer_del(struct k_
+@@ -444,8 +533,6 @@ static int posix_cpu_timer_del(struct k_
  		unlock_task_sighand(p, &flags);
  	}
  
 -out:
 -	rcu_read_unlock();
  	if (!ret)
--		put_pid(ctmr->pid);
-+		put_pid(timer->it.cpu.pid);
+ 		put_pid(ctmr->pid);
  
- 	return ret;
- }
-@@ -626,21 +711,17 @@ static int posix_cpu_timer_set(struct k_
+@@ -575,21 +662,17 @@ static int posix_cpu_timer_set(struct k_
  	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
  	u64 old_expires, new_expires, old_incr, val;
  	struct cpu_timer *ctmr = &timer->it.cpu;
@@ -390,7 +386,7 @@ V2: Fixed the old->interval fallout - Sasha
  
  	/*
  	 * Use the to_ktime conversion because that clamps the maximum
-@@ -649,20 +730,6 @@ static int posix_cpu_timer_set(struct k_
+@@ -598,20 +681,6 @@ static int posix_cpu_timer_set(struct k_
  	new_expires = ktime_to_ns(timespec64_to_ktime(new->it_value));
  
  	/*
@@ -411,15 +407,16 @@ V2: Fixed the old->interval fallout - Sasha
  	 * Disarm any old timer after extracting its expiry time.
  	 */
  	old_incr = timer->it_interval;
-@@ -710,6 +777,7 @@ static int posix_cpu_timer_set(struct k_
+@@ -659,6 +728,8 @@ static int posix_cpu_timer_set(struct k_
  				old->it_value.tv_sec = 0;
  			}
  		}
++
 +		old->it_interval = ns_to_timespec64(old_incr);
  	}
  
  	if (unlikely(ret)) {
-@@ -720,7 +788,7 @@ static int posix_cpu_timer_set(struct k_
+@@ -669,7 +740,7 @@ static int posix_cpu_timer_set(struct k_
  		 * it as an overrun (thanks to bump_cpu_timer above).
  		 */
  		unlock_task_sighand(p, &flags);
@@ -428,65 +425,39 @@ V2: Fixed the old->interval fallout - Sasha
  	}
  
  	if (new_expires != 0 && !(timer_flags & TIMER_ABSTIME)) {
-@@ -733,11 +801,11 @@ static int posix_cpu_timer_set(struct k_
- 	 * arm the timer (we'll just fake it for timer_gettime).
- 	 */
- 	cpu_timer_setexpires(ctmr, new_expires);
--	if (new_expires != 0 && val < new_expires) {
-+	if (new_expires != 0 && val < new_expires)
+@@ -686,7 +757,6 @@ static int posix_cpu_timer_set(struct k_
  		arm_timer(timer, p);
--	}
-+	else
-+		trigger_base_recalc_expires(timer, p);
+ 	}
  
 -	unlock_task_sighand(p, &flags);
  	/*
  	 * Install the new reload setting, and
  	 * set up the signal and overrun bookkeeping.
-@@ -754,35 +822,18 @@ static int posix_cpu_timer_set(struct k_
+@@ -703,6 +773,8 @@ static int posix_cpu_timer_set(struct k_
  	timer->it_overrun_last = 0;
  	timer->it_overrun = -1;
  
--	if (val >= new_expires) {
--		if (new_expires != 0) {
--			/*
--			 * The designated time already passed, so we notify
--			 * immediately, even if the thread never runs to
--			 * accumulate more time on this clock.
--			 */
--			cpu_timer_fire(timer);
--		}
 +	unlock_task_sighand(p, &flags);
- 
-+	if (new_expires && val >= new_expires) {
++
+ 	if (new_expires != 0 && !(val < new_expires)) {
  		/*
--		 * Make sure we don't keep around the process wide cputime
--		 * counter or the tick dependency if they are not necessary.
-+		 * The designated time already passed, so we notify immediately,
-+		 * even if the thread never runs to accumulate more time on this
-+		 * clock.
- 		 */
--		sighand = lock_task_sighand(p, &flags);
--		if (!sighand)
--			goto out;
--
--		if (!cpu_timer_queued(ctmr))
--			trigger_base_recalc_expires(timer, p);
--
--		unlock_task_sighand(p, &flags);
-+		cpu_timer_fire(timer);
+ 		 * The designated time already passed, so we notify
+@@ -712,13 +784,7 @@ static int posix_cpu_timer_set(struct k_
+ 		cpu_timer_fire(timer);
  	}
+ 
+-	ret = 0;
 - out:
 -	rcu_read_unlock();
 -	if (old)
 -		old->it_interval = ns_to_timespec64(old_incr);
- 
+-
 -	return ret;
 +	return 0;
  }
  
  static void posix_cpu_timer_get(struct k_itimer *timer, struct itimerspec64 *itp)
-@@ -1048,19 +1099,12 @@ static void posix_cpu_timer_rearm(struct
+@@ -984,19 +1050,12 @@ static void posix_cpu_timer_rearm(struct
  {
  	clockid_t clkid = CPUCLOCK_WHICH(timer->it_clock);
  	struct task_struct *p;
@@ -509,7 +480,7 @@ V2: Fixed the old->interval fallout - Sasha
  
  	/*
  	 * Fetch the current sample and update the timer's expiry time.
-@@ -1077,8 +1121,6 @@ static void posix_cpu_timer_rearm(struct
+@@ -1013,8 +1072,6 @@ static void posix_cpu_timer_rearm(struct
  	 */
  	arm_timer(timer, p);
  	unlock_task_sighand(p, &flags);
