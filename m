@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80BA23FC5AA
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 23:34:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36BB345CCE
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 23:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785195290; cv=none; b=J5SD5y2Wkx0ef3Z+ki6sITNEz3i0IBM7zhahnKMvCf/NtwryN90YQzJYmphF1lF9889mITlJdePUkg4IKDTCVG8RF5DD3rn03v5GlcIeuSaRxGmY7R9o9eZmFw4dRyc0SICKL7IHYbVABB4r10s3TYVpsd1QzbCcqMw5e6a+3EQ=
+	t=1785195314; cv=none; b=G+i/IGfyldbmxtoJzw1Yr0nzSXzowBFnAeFSBBc3MuDB+6rJqmVmfb21jUCiTAQS1jY4/LvencCojuY0lxNKvL2ZpSLCqjNdKqJT3RfAawh2TOOeveuCWzyO24TaoWApDTGIK2CULybLn3hHsHTQu+WpN5p4VbfxYzF2U7j5Clk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785195290; c=relaxed/simple;
-	bh=j58ZsVWGfWYB1n8k0Rgv40JnKYRg9i2/WC+9oI9hYPU=;
+	s=arc-20240116; t=1785195314; c=relaxed/simple;
+	bh=sRpSrV+k28s/rrez3d2Ha6/CfWkcCtEp5QGR+k+4Naw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KYWpCXhH4Z0jiFkgR2lO1h5zyt3DOupiug7+JNPkzvDV1uJq6RPzQ92TrCQoOxhprihdQjDjHR4AQ+C5Ga98BoI/cJntGOKfVr9SdM1X36RNxBX4cXxrucs/gbFDaEKbnmmicQPLf14BYwNJXrxA2UKJqSANFH8Uz3yl4I7ThEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAAFlL8m; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fghbQVndoby6g6KhvL7aCC/6R1GR6lABTuWBaJwqXBHmCwnKsNW6jyyUs86CxxjGeQvcy9kFH9t0SgNnJxlA3sZfuX8+3MxlwHSMSljKUz7AZafQPfVB7qzPvdVGFOhc0a5ndgI+ve11TbZGTbiHJubEuFIo0ZdXhfL1+PLQRVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFPOHVPL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAAFlL8m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E92391F00A3F;
-	Mon, 27 Jul 2026 23:34:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFPOHVPL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B2C71F000E9;
+	Mon, 27 Jul 2026 23:35:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785195289;
-	bh=TeZK3TOEP0lAH3z/NhiOR8WaVfkwjEpo6f6SZajqfuo=;
+	s=k20260515; t=1785195312;
+	bh=XIaMF5iiO1IsqWiM/7w70/3ZY9votC/ltdKxF6pRXkc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jAAFlL8mybxHnAtbsWSfvipW3Hpi1ftvb2R42I4oloButPJgjEQXrZbUmrxJQxnS2
-	 EEnY0pTC09S8XIyBrG6divR9SaknptZao9VNTPbBUx4FSkQlLvKf73Ej/Sbb0KNZWV
-	 g/werOoCqexl6A9MqVZtOQf7fnq5bU5mWPR+ep6VrLUV+Re0mXV2x8dgWqkycp2LsX
-	 5KgiedJDr9RRB6MEBc9ZVo+H5dJUfPOFxD/yjJHp/P9Qop3+MDsYMjPtRHMatIXG6U
-	 mk/wzHDiKO7oYU62dLtGDG8LaIXf8F254g5RRz418xHLcGZLjDDmETovl//Yme2uRY
-	 +bGO3g1NNh7cw==
+	b=WFPOHVPLifv3wpfBeVvt1eEsDFPwhrKvibWYFCRIcX5cV4PLV1V9wZLjmgMyo3JZ4
+	 uIjsfDPtXvp801dzh4QR4EPiTSguAm8G9LJwoKNr9gH91wm+ETzorwHSaBq0kWB8fU
+	 XYJ9dl98YxpOi27jrqSan0OaE43KaQrYB5mAZYqBaUnH081rI1+GSsQ9TNv4y7PLxr
+	 ILJJxIpcHYYNqBV5XAvSIN++YT1Is/WglOdLmdXvfvgALE/1bki5MaPtbURjNLrQwb
+	 wV8jMiKjNN2SNbNpuXLzgwqFqMZs5PspVh939rr9Qu3lhb/MY5wzsuw6fCW4EYMNvX
+	 OnT5aceqg4dkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH 6.12.y 3/3] mmc: vub300: fix use-after-free on probe failure
-Date: Mon, 27 Jul 2026 19:34:44 -0400
-Message-ID: <20260727233445.2426041-3-sashal@kernel.org>
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] dm-verity: make error counter atomic
+Date: Mon, 27 Jul 2026 19:35:10 -0400
+Message-ID: <20260727233510.2427591-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727233445.2426041-1-sashal@kernel.org>
-References: <2026072046-octane-riverside-49ce@gregkh>
- <20260727233445.2426041-1-sashal@kernel.org>
+In-Reply-To: <2026072047-quilt-dinner-8214@gregkh>
+References: <2026072047-quilt-dinner-8214@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,86 +44,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-The vub300 driver lifetime-manages its controller state using
-vub300->kref, with vub300_delete() freeing the mmc host when the last
-reference is dropped. The probe error path after the inactivity timer has
-been armed still bypasses that lifetime rule, however, and falls through
-to mmc_free_host() directly if mmc_add_host() fails.
+[ Upstream commit 8ec4d9c5a5cf4b61fc087f871465b1f79b393325 ]
 
-The race window is between arming the inactivity timer and reaching the
-probe error unwind after mmc_add_host() fails:
+The error counter "v->corrupted_errs" was not atomic, thus it could be
+subject to race conditions. The call to
+dm_audit_log_target("max-corrupted-errors") may be skipped due to the
+races.
 
-        probe thread                     timer/workqueue
-        ------------                     ---------------
-        kref_init(&vub300->kref)         ref = 1
-        kref_get(&vub300->kref)          ref = 2, timer ref
-        add_timer(inactivity_timer)      fires after one second
-        |
-        |   race window
-        |<---------------------------------------------------->
-        |
-        mmc_add_host(mmc)
-                                         inactivity timer fires
-                                         vub300_queue_dead_work()
-                                           kref_get()          ref = 3
-                                           queue_work(deadwork)
-        mmc_add_host() fails
-        timer_delete_sync()
-        mmc_free_host(mmc)
-          frees vub300
-                                         deadwork runs
-                                           use-after-free
-
-The inactivity timeout is one second, so this would require
-mmc_add_host() to both fail and take more than one second to do so. This
-is unlikely to happen in practice, but the error path is still wrong.
-
-timer_delete_sync() only waits for the timer callback itself. It does
-not flush deadwork that the callback may already have queued. As a
-result, queued deadwork can still hold a kref while the probe error path
-directly frees the backing mmc host, including the vub300 storage.
-
-Fix this by using the same lifetime mechanism as disconnect. Clear
-vub300->interface so that the timer callback and any queued deadwork
-return early and drop their references, then drop the initial probe
-reference and return without falling through to err_free_host.
-
-Fixes: 0613ad2401f8 ("mmc: vub300: fix return value check of mmc_add_host()")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Assisted-by: Claude:claude-opus-4.6
+Fixes: 65ff5b7ddf05 ("dm verity: add error handling modes for corrupted blocks")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-(cherry picked from commit a3b5f242997a3be7404112fd48784881560aea57)
+[ kept 5.15's braceless single-statement DMERR body instead of upstream's braced block containing the absent dm_audit_log_target() call ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/vub300.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/md/dm-verity-target.c | 12 +++++++-----
+ drivers/md/dm-verity.h        |  2 +-
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index caf19051ebb483..225f2be2a7bca6 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -2343,12 +2343,16 @@ static int vub300_probe(struct usb_interface *interface,
- 			 interface_to_InterfaceNumber(interface));
- 	retval = mmc_add_host(mmc);
- 	if (retval)
--		goto err_delete_timer;
-+		goto err_stop_io;
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index b24a475a660031..d92eae52783090 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -217,14 +217,16 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	char *envp[] = { verity_env, NULL };
+ 	const char *type_str = "";
+ 	struct mapped_device *md = dm_table_get_md(v->ti->table);
++	int ce;
  
- 	return 0;
+ 	/* Corruption should be visible in device status in all modes */
+ 	v->hash_failed = 1;
  
--err_delete_timer:
--	timer_delete_sync(&vub300->inactivity_timer);
-+err_stop_io:
-+	vub300->interface = NULL;
-+	kref_put(&vub300->kref, vub300_delete);
-+
-+	return retval;
-+
- err_free_host:
- 	mmc_free_host(mmc);
- 	/*
+-	if (v->corrupted_errs >= DM_VERITY_MAX_CORRUPTED_ERRS)
+-		goto out;
+-
+-	v->corrupted_errs++;
++	ce = atomic_read(&v->corrupted_errs);
++	do {
++		if (ce >= DM_VERITY_MAX_CORRUPTED_ERRS)
++			goto out;
++	} while (!atomic_try_cmpxchg(&v->corrupted_errs, &ce, ce + 1));
+ 
+ 	switch (type) {
+ 	case DM_VERITY_BLOCK_TYPE_DATA:
+@@ -240,7 +242,7 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	DMERR_LIMIT("%s: %s block %llu is corrupted", v->data_dev->name,
+ 		    type_str, block);
+ 
+-	if (v->corrupted_errs == DM_VERITY_MAX_CORRUPTED_ERRS)
++	if (ce + 1 == DM_VERITY_MAX_CORRUPTED_ERRS)
+ 		DMERR("%s: reached maximum errors", v->data_dev->name);
+ 
+ 	snprintf(verity_env, DM_VERITY_ENV_LENGTH, "%s=%d,%llu",
+diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
+index f61c89c79cf5b9..ad5104daddb54a 100644
+--- a/drivers/md/dm-verity.h
++++ b/drivers/md/dm-verity.h
+@@ -55,7 +55,7 @@ struct dm_verity {
+ 	unsigned int ahash_reqsize;/* the size of temporary space for crypto */
+ 	int hash_failed;	/* set to 1 if hash of any block failed */
+ 	enum verity_mode mode;	/* mode for handling verification errors */
+-	unsigned corrupted_errs;/* Number of errors for corrupted blocks */
++	atomic_t corrupted_errs;/* Number of errors for corrupted blocks */
+ 
+ 	struct workqueue_struct *verify_wq;
+ 
 -- 
 2.53.0
 
