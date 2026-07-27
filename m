@@ -1,159 +1,310 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E8A3D649A;
-	Mon, 27 Jul 2026 19:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8823CB56C
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 19:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785181456; cv=none; b=F+mmS21JXQgAnnu9JSo2bsjznTLL4idIGxcdVT0QBqC78b2opQ5GKnMKjs/KcAs7yXQueA6cS2zx9vtrfrOaCpMuswSR7SYBgWBDJj+udkPHzRy6TcY6rhK2RmUmdVlKFrXBWImSSpMP1zZlQfps+Cd/w0noRP4vTkL3XmtfVsA=
+	t=1785181856; cv=none; b=aOadSFmCvNhblEcfI6gjM3W8CWhD6I9lTv0U6sQaMGs5/QYZfVEarRIhMAGSIoBwZU2PcS/CqBRafVEVeI20cUEk8x2c8pw5diMocPcUI6VP6fSae4lw+MEdfJhVE9R/Pgm0Mtd4AsB2uq5gM0mEGBCRKrN4/nvetveXqk/TYHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785181456; c=relaxed/simple;
-	bh=WfP9KjGiUhNC00atHi0kyLYVsoioA+Sf9b2zatRqvMU=;
+	s=arc-20240116; t=1785181856; c=relaxed/simple;
+	bh=gRf3Ee/BTryAma9f/Fi9VuXlzfibOc7rYX+5McAwmWo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RSHfvzvjl32Fy+BkX6ji0GQeP+oIyNBn6JLhTPnXeCuuo2uSS3YAYvaaNFPUh9QSLy6OWchjYkyDKufItnPJ6aB4VI1QzOZ7H01H0BIGwI1FrurrisRtbbFjqgPSA5IPXIDl5qQkbiEldhc2AUjIxIyfOZt8LyJxWVxdPLcnrZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=S6SEBloS; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 MIME-Version; b=ZhnXn5kH2GgXFDyjuqSPcZQIixlQrFc5+a2woCLUdiB31oxDEca532FqKJ7O7LybIk/Zk2vv2Bdm+xXsxRXpxRr0pGi4zPr7S06ASLJUYentzGZNW+ZcatZEI2bOEh/bYV3f4TXPXGOoE2vaOyQLwBUDPQvhFsrzbbqHSySl8QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nzA4ZnsV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="S6SEBloS"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RIHrJA2991527;
-	Mon, 27 Jul 2026 19:43:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=t1PHiV8rkqviZARZ9
-	5VBMbb5uovzUNwzuKi8hlP295s=; b=S6SEBloSRtmNnQC5V+xvz/AzjqT3zI92G
-	1H7rVF6wHeyQGEcT6EHMFhc4XTkjy+UCiyjDrvYawwhdqQzfFauTErv206H1aa/5
-	myowEEf70pWeLYtwZz3XZx8JIQ8mv1kQZWRUaouXWJ6IkxiQgYtMFMpnlebmkgp6
-	Yi8WvgJI6+1mD81CRAkERznkIaKEdbRSpdB77ldFyE09JWU/J6RMFsY/3rcBtujZ
-	qEQZCnkN7roezS40Eu644ARyBVg4eLaAbHVDtQCTHILE4gC6+a5nCleBpFDSYY/b
-	4jKTyciBqUMv9OmxLX7w+c8wTVbCEWYHnthw78T/YHfuQsyBqjDTw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmv0xhta5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 27 Jul 2026 19:43:58 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66RJfHCr020211;
-	Mon, 27 Jul 2026 19:43:57 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn7uvxwcr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 27 Jul 2026 19:43:57 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66RJhrVT49807638
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 27 Jul 2026 19:43:53 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 286512023E;
-	Mon, 27 Jul 2026 19:22:47 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 082792023B;
-	Mon, 27 Jul 2026 19:22:47 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Mon, 27 Jul 2026 19:22:46 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 4958)
-	id BF0AF162824; Mon, 27 Jul 2026 21:22:36 +0200 (CEST)
-From: Eric Farman <farman@linux.ibm.com>
-To: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Eric Farman <farman@linux.ibm.com>,
-        sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v7 05/10] s390/vfio_ccw: calculate idal length based on idaw type
-Date: Mon, 27 Jul 2026 21:22:25 +0200
-Message-ID: <20260727192230.2715207-6-farman@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nzA4ZnsV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCFBB1F000E9;
+	Mon, 27 Jul 2026 19:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785181854;
+	bh=g6A4aBqUpfioOav2/mrPzSdhGx89zauff6q08WEcTao=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nzA4ZnsVUYnLweASRczuwsWMrZw0FBXYOpOn7AN5PD/ZvNAQ7MPXwbK1Rvss8Xef1
+	 JUBHLStQhGV2GIeupHKXTuvTEECRfmbErug6xoTeu0bVJu1UKOYVWXHP1AMqc8uNEn
+	 Av+3qRiKaFQV+cfsIXQ5yfNrE1YPrv/vIf7S2+mDiu4f8/FZHatwPijkotoQwBoJS+
+	 130HB+fkOKvf67JotfCEw6ORrN/7iounvUNUyXBJQJ/WOwrFSoxYCDX5BVbTHySqRE
+	 aoJTa2fpk9qM0uA080NhUhfSDKkhzbLhluD4ipvUu/hmsARxV3r/JGsP6H+opuKC6u
+	 mAYohTaYxA4cA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Heinz Mauelshagen <heinzm@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/5] dm: fix trailing statements
+Date: Mon, 27 Jul 2026 15:50:47 -0400
+Message-ID: <20260727195052.1774404-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727192230.2715207-1-farman@linux.ibm.com>
-References: <20260727192230.2715207-1-farman@linux.ibm.com>
+In-Reply-To: <2026072050-armless-fidelity-4a3f@gregkh>
+References: <2026072050-armless-fidelity-4a3f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: ELH4skJgiawNxwrjon_R23pPQeGdAWdc
-X-Proofpoint-ORIG-GUID: ELH4skJgiawNxwrjon_R23pPQeGdAWdc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDE3NyBTYWx0ZWRfX+76e6ZlyfA1y
- EQ99QDYXKCngPyAM0WJBbB+41qHtMwfoC0//3QJo+Cp6MwHT4UoAVd+eGbn5RCuu1AbCUAr0+rD
- vPrl6GRBR8/lNH7rAOFFEunJCLJ2ev4=
-X-Authority-Analysis: v=2.4 cv=dYuwG3Xe c=1 sm=1 tr=0 ts=6a67b4fe cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=Qev3T-O1x3Ov5i2I8JAA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDE3NyBTYWx0ZWRfXz/uIVws1iw7S
- wSW4A0UjfCkz9TJ5kgGgRLrM6nmO/vgMSsgYrtw0bPzzKzyDrqrsl0Id0MOfKq4nsajUUOj6LSt
- ysCDs+LZA8+1A09HH97AJJadYRJ5WTtP/LLqmK+WIyNnekbYP3oKoE2IzxtT+n83PvK0eQaIXju
- KPhurAqA/r6MAsTK5Uvl8trOB0D7tlYtQRxL9JAvBCKX5ALfO09zsrrJShZbfm1j802bBseJsCH
- NXuPBKLH6vc0VnJkGgLSJnJBXcp+qoXZrqiFcnqUd5SsA3+A3vAvzgjUOEkDfynew58CwH0Z/Jl
- vgju+BNZmrbsrogiyjmoLAsN77D/zN4ksuH8471nuKV/9L1FIGoOggb6y2LJPZpFuc1ZEWOSka2
- xvjtjjuBhtYGwj/CSqndZKB6ODn3kLLSo3o9+oIcAZIqdnbfTm5cpqfs2xQawAY/CnkclEtFMbK
- +ZmohuqM/st8l29mS6w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-27_05,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 clxscore=1015 phishscore=0 malwarescore=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270177
+Content-Transfer-Encoding: 8bit
 
-Sashiko pointed out that get_guest_idal() unconditionally calculates
-the length of the IDAL presuming everything is a Format-2 IDAW.
+From: Heinz Mauelshagen <heinzm@redhat.com>
 
-The output of vfio-ccw is always Format-2, but the input can be either
-Format-1 (31-bit addresses) or Format-2 (64-bit addresses). As a result,
-the size of the guest IDAL may be incorrect and should be trimmed down.
+[ Upstream commit 03b18887703c5fa342896e52e873812ea33d964b ]
 
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260720203400.7328E1F000E9@smtp.kernel.o=
-rg/
-Fixes: 1b676fe3d9d3 ("vfio/ccw: handle a guest Format-1 IDAL")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
+Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
+Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+Stable-dep-of: edf025f08385 ("dm-integrity: don't increment hash_offset twice")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/cio/vfio_ccw_cp.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/md/dm-flakey.c          |  3 +-
+ drivers/md/dm-integrity.c       | 54 +++++++++++++++++----------------
+ drivers/md/dm-io.c              | 26 ++++++++--------
+ drivers/md/dm-snap-persistent.c | 20 ++++++------
+ drivers/md/dm-snap.c            |  3 +-
+ drivers/md/dm-table.c           |  3 +-
+ drivers/md/dm-verity-target.c   |  6 ++--
+ drivers/md/dm-writecache.c      | 12 +++++---
+ 8 files changed, 66 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_c=
-p.c
-index 6275794751cb..5ef082b8289a 100644
---- a/drivers/s390/cio/vfio_ccw_cp.c
-+++ b/drivers/s390/cio/vfio_ccw_cp.c
-@@ -233,6 +233,7 @@ static void convert_ccw0_to_ccw1(struct ccw1 *source,=
- unsigned long len)
+diff --git a/drivers/md/dm-flakey.c b/drivers/md/dm-flakey.c
+index 3b34270ce607e3..8b48beec9c7d7a 100644
+--- a/drivers/md/dm-flakey.c
++++ b/drivers/md/dm-flakey.c
+@@ -356,8 +356,7 @@ static int flakey_map(struct dm_target *ti, struct bio *bio)
+ 		if (test_bit(DROP_WRITES, &fc->flags)) {
+ 			bio_endio(bio);
+ 			return DM_MAPIO_SUBMITTED;
+-		}
+-		else if (test_bit(ERROR_WRITES, &fc->flags)) {
++		} else if (test_bit(ERROR_WRITES, &fc->flags)) {
+ 			bio_io_error(bio);
+ 			return DM_MAPIO_SUBMITTED;
+ 		}
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index c70dc64200d820..772d8f678b816c 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -680,16 +680,18 @@ static bool block_bitmap_op(struct dm_integrity_c *ic, struct page_list *bitmap,
+ 	} else if (mode == BITMAP_OP_CLEAR) {
+ 		if (!bit && this_end_bit == PAGE_SIZE * 8 - 1)
+ 			clear_page(data);
+-		else while (bit <= this_end_bit) {
+-			if (!(bit % BITS_PER_LONG) && this_end_bit >= bit + BITS_PER_LONG - 1) {
+-				do {
+-					data[bit / BITS_PER_LONG] = 0;
+-					bit += BITS_PER_LONG;
+-				} while (this_end_bit >= bit + BITS_PER_LONG - 1);
+-				continue;
++		else {
++			while (bit <= this_end_bit) {
++				if (!(bit % BITS_PER_LONG) && this_end_bit >= bit + BITS_PER_LONG - 1) {
++					do {
++						data[bit / BITS_PER_LONG] = 0;
++						bit += BITS_PER_LONG;
++					} while (this_end_bit >= bit + BITS_PER_LONG - 1);
++					continue;
++				}
++				__clear_bit(bit, data);
++				bit++;
+ 			}
+-			__clear_bit(bit, data);
+-			bit++;
+ 		}
+ 	} else {
+ 		BUG();
+@@ -2084,23 +2086,23 @@ static bool __journal_read_write(struct dm_integrity_io *dio, struct bio *bio,
+ 				unsigned int tag_todo = ic->tag_size;
+ 				char *tag_ptr = journal_entry_tag(ic, je);
+ 
+-				if (bip) do {
+-					struct bio_vec biv = bvec_iter_bvec(bip->bip_vec, bip->bip_iter);
+-					unsigned int tag_now = min(biv.bv_len, tag_todo);
+-					char *tag_addr;
+-					BUG_ON(PageHighMem(biv.bv_page));
+-					tag_addr = bvec_virt(&biv);
+-					if (likely(dio->op == REQ_OP_WRITE))
+-						memcpy(tag_ptr, tag_addr, tag_now);
+-					else
+-						memcpy(tag_addr, tag_ptr, tag_now);
+-					bvec_iter_advance(bip->bip_vec, &bip->bip_iter, tag_now);
+-					tag_ptr += tag_now;
+-					tag_todo -= tag_now;
+-				} while (unlikely(tag_todo)); else {
+-					if (likely(dio->op == REQ_OP_WRITE))
+-						memset(tag_ptr, 0, tag_todo);
+-				}
++				if (bip) {
++					do {
++						struct bio_vec biv = bvec_iter_bvec(bip->bip_vec, bip->bip_iter);
++						unsigned int tag_now = min(biv.bv_len, tag_todo);
++						char *tag_addr;
++						BUG_ON(PageHighMem(biv.bv_page));
++						tag_addr = bvec_virt(&biv);
++						if (likely(dio->op == REQ_OP_WRITE))
++							memcpy(tag_ptr, tag_addr, tag_now);
++						else
++							memcpy(tag_addr, tag_ptr, tag_now);
++						bvec_iter_advance(bip->bip_vec, &bip->bip_iter, tag_now);
++						tag_ptr += tag_now;
++						tag_todo -= tag_now;
++					} while (unlikely(tag_todo));
++				} else if (likely(dio->op == REQ_OP_WRITE))
++					memset(tag_ptr, 0, tag_todo);
+ 			}
+ 
+ 			if (likely(dio->op == REQ_OP_WRITE)) {
+diff --git a/drivers/md/dm-io.c b/drivers/md/dm-io.c
+index ec97658387c39d..e45587e89ece6a 100644
+--- a/drivers/md/dm-io.c
++++ b/drivers/md/dm-io.c
+@@ -351,18 +351,20 @@ static void do_region(const blk_opf_t opf, unsigned int region,
+ 			num_sectors = min_t(sector_t, special_cmd_max_sectors, remaining);
+ 			bio->bi_iter.bi_size = num_sectors << SECTOR_SHIFT;
+ 			remaining -= num_sectors;
+-		} else while (remaining) {
+-			/*
+-			 * Try and add as many pages as possible.
+-			 */
+-			dp->get_page(dp, &page, &len, &offset);
+-			len = min(len, to_bytes(remaining));
+-			if (!bio_add_page(bio, page, len, offset))
+-				break;
+-
+-			offset = 0;
+-			remaining -= to_sector(len);
+-			dp->next_page(dp);
++		} else {
++			while (remaining) {
++				/*
++				 * Try and add as many pages as possible.
++				 */
++				dp->get_page(dp, &page, &len, &offset);
++				len = min(len, to_bytes(remaining));
++				if (!bio_add_page(bio, page, len, offset))
++					break;
++
++				offset = 0;
++				remaining -= to_sector(len);
++				dp->next_page(dp);
++			}
+ 		}
+ 
+ 		atomic_inc(&io->count);
+diff --git a/drivers/md/dm-snap-persistent.c b/drivers/md/dm-snap-persistent.c
+index eee1cd3aa3fcf2..16d81840df0fbc 100644
+--- a/drivers/md/dm-snap-persistent.c
++++ b/drivers/md/dm-snap-persistent.c
+@@ -514,15 +514,17 @@ static int read_exceptions(struct pstore *ps,
+ 		if (unlikely(prefetch_area < ps->current_area))
+ 			prefetch_area = ps->current_area;
+ 
+-		if (DM_PREFETCH_CHUNKS) do {
+-			chunk_t pf_chunk = area_location(ps, prefetch_area);
+-			if (unlikely(pf_chunk >= dm_bufio_get_device_size(client)))
+-				break;
+-			dm_bufio_prefetch(client, pf_chunk, 1);
+-			prefetch_area++;
+-			if (unlikely(!prefetch_area))
+-				break;
+-		} while (prefetch_area <= ps->current_area + DM_PREFETCH_CHUNKS);
++		if (DM_PREFETCH_CHUNKS) {
++			do {
++				chunk_t pf_chunk = area_location(ps, prefetch_area);
++				if (unlikely(pf_chunk >= dm_bufio_get_device_size(client)))
++					break;
++				dm_bufio_prefetch(client, pf_chunk, 1);
++				prefetch_area++;
++				if (unlikely(!prefetch_area))
++					break;
++			} while (prefetch_area <= ps->current_area + DM_PREFETCH_CHUNKS);
++		}
+ 
+ 		chunk = area_location(ps, ps->current_area);
+ 
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index 1c601508ce0b46..1a8d808292e62c 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -2339,8 +2339,7 @@ static void snapshot_status(struct dm_target *ti, status_type_t type,
+ 				       (unsigned long long)sectors_allocated,
+ 				       (unsigned long long)total_sectors,
+ 				       (unsigned long long)metadata_sectors);
+-			}
+-			else
++			} else
+ 				DMEMIT("Unknown");
+ 		}
+ 
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index f18e47a24454af..8e0b9783f3da30 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -1982,8 +1982,7 @@ int dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+ 		blk_queue_flag_set(QUEUE_FLAG_DAX, q);
+ 		if (dm_table_supports_dax(t, device_not_dax_synchronous_capable))
+ 			set_dax_synchronous(t->md->dax_dev);
+-	}
+-	else
++	} else
+ 		blk_queue_flag_clear(QUEUE_FLAG_DAX, q);
+ 
+ 	if (dm_table_any_dev_attr(t, device_dax_write_cache_enabled, NULL))
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 53150024d2dd4e..4cd2a273c1f955 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -333,10 +333,8 @@ static int verity_verify_level(struct dm_verity *v, struct dm_verity_io *io,
+ 			 */
+ 			r = -EAGAIN;
+ 			goto release_ret_r;
+-		}
+-		else if (verity_fec_decode(v, io,
+-					   DM_VERITY_BLOCK_TYPE_METADATA,
+-					   hash_block, data, NULL) == 0)
++		} else if (verity_fec_decode(v, io, DM_VERITY_BLOCK_TYPE_METADATA,
++					     hash_block, data, NULL) == 0)
+ 			aux->hash_verified = 1;
+ 		else if (verity_handle_err(v,
+ 					   DM_VERITY_BLOCK_TYPE_METADATA,
+diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+index 20fc84b24fc75f..6debfdd3340f19 100644
+--- a/drivers/md/dm-writecache.c
++++ b/drivers/md/dm-writecache.c
+@@ -941,7 +941,8 @@ static void writecache_suspend(struct dm_target *ti)
+ 	wc_lock(wc);
+ 	if (flush_on_suspend)
+ 		wc->writeback_all--;
+-	while (writecache_wait_for_writeback(wc));
++	while (writecache_wait_for_writeback(wc))
++		;
+ 
+ 	if (WC_MODE_PMEM(wc))
+ 		persistent_memory_flush_cache(wc->memory_map, wc->memory_map_size);
+@@ -2087,7 +2088,8 @@ static void writecache_writeback(struct work_struct *work)
+ 
+ 	if (unlikely(wc->writeback_all)) {
+ 		wc_lock(wc);
+-		while (writecache_wait_for_writeback(wc));
++		while (writecache_wait_for_writeback(wc))
++			;
+ 		wc_unlock(wc);
+ 	}
  }
-=20
- #define idal_is_2k(_cp) (!(_cp)->orb.cmd.c64 || (_cp)->orb.cmd.i2k)
-+#define get_idaw_size(_cp) ((_cp)->orb.cmd.c64 ? sizeof(u64) : sizeof(u3=
-2))
-=20
- /*
-  * Helpers to operate ccwchain.
-@@ -524,7 +525,7 @@ static dma64_t *get_guest_idal(struct ccw1 *ccw, stru=
-ct channel_program *cp, int
- 	dma64_t *idaws;
- 	dma32_t *idaws_f1;
- 	u64 first_idaw;
--	int idal_len =3D idaw_nr * sizeof(*idaws);
-+	int idal_len =3D idaw_nr * get_idaw_size(cp);
- 	int idaw_size =3D idal_is_2k(cp) ? PAGE_SIZE / 2 : PAGE_SIZE;
- 	int idaw_mask =3D ~(idaw_size - 1);
- 	int i, ret;
-@@ -593,7 +594,7 @@ static int ccw_count_idaws(struct ccw1 *ccw,
- 	struct vfio_device *vdev =3D
- 		&container_of(cp, struct vfio_ccw_private, cp)->vdev;
- 	u64 iova;
--	int size =3D cp->orb.cmd.c64 ? sizeof(u64) : sizeof(u32);
-+	int size =3D get_idaw_size(cp);
- 	int ret;
- 	int bytes =3D 1;
-=20
---=20
+@@ -2445,12 +2447,14 @@ static int writecache_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 			if (WC_MODE_PMEM(wc)) {
+ 				wc->writeback_fua = true;
+ 				wc->writeback_fua_set = true;
+-			} else goto invalid_optional;
++			} else
++				goto invalid_optional;
+ 		} else if (!strcasecmp(string, "nofua")) {
+ 			if (WC_MODE_PMEM(wc)) {
+ 				wc->writeback_fua = false;
+ 				wc->writeback_fua_set = true;
+-			} else goto invalid_optional;
++			} else
++				goto invalid_optional;
+ 		} else if (!strcasecmp(string, "metadata_only")) {
+ 			wc->metadata_only = true;
+ 		} else if (!strcasecmp(string, "pause_writeback") && opt_params >= 1) {
+-- 
 2.53.0
 
