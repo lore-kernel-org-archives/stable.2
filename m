@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F14425888
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 17:53:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC072430CE2
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 17:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785174829; cv=none; b=V/YVHjs0dmaDfJRmdjQseCxYgOBw778NdSDqLpvjkRy0xWnziFpr2jjzJ03OM1yG3IqIy4dPGb7KeaAWTG+FwMGR4jc3WmFQDcVrh/vXxZBchy5OsmEfYqDAgoD44XhJXaIzcV+y2+TKaTzwTj4suYcCYIbEiiQATk7cHZAK6kM=
+	t=1785174832; cv=none; b=Kekhw5QZnR13qYWZ4W6IOjV7t+euqnGxUU0u6VkUhENdwnyMwMslAVweo7Qk2V4ckXZ9YIYuwymOetYNY7OfAef0dN3aRXT2VvtfPUKiEzrs+5JO048Z+RRvuFRNL25sQ2LMT1Hf+DK2vhflxZPOBKzpugTyDDzY6r0ZWZS1ulA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785174829; c=relaxed/simple;
-	bh=yyM4H8Qo8zg143UrT2joE79qhFNxtcSQFaIdxwm2RZo=;
+	s=arc-20240116; t=1785174832; c=relaxed/simple;
+	bh=KMjiMwJxEcFoImBP2CGGJqvjXnv+idGDvqtvlRLb0GI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V2XDWjtp5By7SCU1tBBdUMUE7nmbTtdzEUkAP3UMco8UqNTkNOnLoj2Ue/BydsmWF6b613F3b3ww8Dzl8EpK+LkW/bUrN+K4TWSBZkPX7ObGsb7W7NoSq/j5pGDbQAHlLrQ4jc/wjIVoXK+3FMycUP0/pCCurzW3k92fkZVIHbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FF/SZ3Wf; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=JJF8KW+1+TvNhp6OonB0a4B4qTKsFujyQHrH5qHoz7Dw1bQmJooYB1GdHnpt4S4+AQpZXJtYrCHgqbx2Ijkyy5eRdZvhBl6Ia3MB50UsqM1kzQeYoGuwXONWsr+rnv4m38H3BnFaPmqrHcIIhmI4VKhN5IbduSzrjKrwrdAWvTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CGCotbax; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FF/SZ3Wf"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CGCotbax"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785174820;
+	s=mimecast20190719; t=1785174824;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2CZ60NVHpqwN9DuqhR09Jg1IdibJV1yJ+DJMquDywq4=;
-	b=FF/SZ3WfMeSblb0uaewOtcXv0FCBQpWLa7dZypUgvvJ/FoUXzbTRHSgKiWoe2mA+33+tzZ
-	Fzq0WQ13rejtJLe/+j1cnFEcoUng4wI2SoGpHT+iy9PACuHSIEXDYzciAdSADc4dUzZsMC
-	QMRKSmBvvxROJxkv0mPxy7PIiM+ja7Y=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+	bh=sXRw5HgFBqtMjibe0Tg/q0W0/UG6cgg62YzMlj2W/cQ=;
+	b=CGCotbaxSi78VttjzHgZIR5vf1ril4cMNk+DKAaHLopRh9EUw9QPrlVyEKPM8dfB0EfC+P
+	qdLBqZbysslHGVOdz+Ek1an9yegsR20Mbf0GPoqro34LrC9UGTEjJL8rVGokQrexbKzhr7
+	v+0bihXDOzgZ2+cc5ZEvqcBhK9MimXs=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-160-zhXTsxi2OZS-dOMaKQijbQ-1; Mon,
- 27 Jul 2026 13:53:33 -0400
-X-MC-Unique: zhXTsxi2OZS-dOMaKQijbQ-1
-X-Mimecast-MFC-AGG-ID: zhXTsxi2OZS-dOMaKQijbQ_1785174811
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-550-s2UMOuCWM-20vr2eNngwmQ-1; Mon,
+ 27 Jul 2026 13:53:42 -0400
+X-MC-Unique: s2UMOuCWM-20vr2eNngwmQ-1
+X-Mimecast-MFC-AGG-ID: s2UMOuCWM-20vr2eNngwmQ_1785174820
 Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 86C771800665;
-	Mon, 27 Jul 2026 17:53:27 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2B8A318001F9;
+	Mon, 27 Jul 2026 17:53:40 +0000 (UTC)
 Received: from GoldenWind.lan (unknown [10.22.65.215])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 15A401955F7B;
-	Mon, 27 Jul 2026 17:53:24 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DE6AA1956041;
+	Mon, 27 Jul 2026 17:53:37 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org,
 	nouveau@lists.freedesktop.org,
@@ -60,9 +60,9 @@ Cc: stable@vger.kernel.org,
 	"Mel Henning" <mhenning@darkrefraction.com>,
 	"Danilo Krummrich" <dakr@kernel.org>,
 	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v4 1/3] Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
-Date: Mon, 27 Jul 2026 13:47:42 -0400
-Message-ID: <20260727175246.642071-2-lyude@redhat.com>
+Subject: [PATCH v4 3/3] drm/nouveau/gsp/r570: Enable S/R Display workaround in GSP
+Date: Mon, 27 Jul 2026 13:47:44 -0400
+Message-ID: <20260727175246.642071-4-lyude@redhat.com>
 In-Reply-To: <20260727175246.642071-1-lyude@redhat.com>
 References: <20260727175246.642071-1-lyude@redhat.com>
 Precedence: bulk
@@ -74,100 +74,63 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18.
+There's two flags that we've never been setting when asking GSP to suspend
+the GPU, which OpenRM does set:
 
-It turns out this looked like the right fix on some systems, but it's not -
-as this causes runtime PM to actually fail on many a laptop.
+  GPU_STATE_FLAGS_PRESERVING
+  GPU_STATE_FLAGS_PM_TRANSITION
 
-Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on r570 firmware")
-Cc: <stable@vger.kernel.org> # v6.19+
+These flags aren't -supposed- to do much in GSP, they're mostly used by
+OpenRM itself for state tracking. The only thing they do from GSP's side is
+control whether or not a single display related workaround is applied
+during suspend.
+
+But as it turns out, that single workaround is actually quite crucial for
+getting runtime PM working with nouveau - and without it set we end up
+seeing a lot more failures with runtime PM resume. So, let's start setting
+it.
+
 Signed-off-by: Lyude Paul <lyude@redhat.com>
+Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
+Cc: <stable@vger.kernel.org> # v6.16+
 ---
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c | 2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  | 2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 8 ++++----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h        | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c     | 3 ++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h    | 8 ++++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
-index f128330f30d7b..40bf83ea33ac0 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
-@@ -208,7 +208,7 @@ r535_fbsr_resume(struct nvkm_gsp *gsp)
- }
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+index 996941c668ba9..3e391646d8f7d 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+@@ -198,7 +198,8 @@ r570_gsp_set_rmargs(struct nvkm_gsp *gsp, bool resume)
+ 		args->srInitArguments.bInPMTransition = 0;
+ 	} else {
+ 		args->srInitArguments.oldLevel = NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3;
+-		args->srInitArguments.flags = 0;
++		args->srInitArguments.flags =
++			GPU_STATE_FLAGS_PRESERVING | GPU_STATE_FLAGS_PM_TRANSITION;
+ 		args->srInitArguments.bInPMTransition = 1;
+ 	}
  
- static int
--r535_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
-+r535_fbsr_suspend(struct nvkm_gsp *gsp)
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+index b6075021e74f5..c458569af9d72 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+@@ -523,6 +523,14 @@ typedef struct
+ 
+ #define NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3            (0x00000003U)
+ 
++#define GPU_STATE_FLAGS_PRESERVING         BIT(0)  // GPU state is preserved
++#define GPU_STATE_FLAGS_VGA_TRANSITION     BIT(1)   // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_PM_TRANSITION      BIT(2)   // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_PM_SUSPEND         BIT(3)
++#define GPU_STATE_FLAGS_PM_HIBERNATE       BIT(4)
++#define GPU_STATE_FLAGS_GC6_TRANSITION     BIT(5)  // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_FAST_UNLOAD        BIT(6)  // Used during windows restart, skips stateDestroy steps
++
+ typedef struct
  {
- 	struct nvkm_subdev *subdev = &gsp->subdev;
- 	struct nvkm_device *device = subdev->device;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index f544afa12b6bb..4a3b771ded255 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1749,7 +1749,7 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- 		sr->sysmemAddrOfSuspendResumeData = gsp->sr.radix3.lvl0.addr;
- 		sr->sizeOfSuspendResumeData = len;
- 
--		ret = rm->api->fbsr->suspend(gsp, suspend == NVKM_RUNTIME_SUSPEND);
-+		ret = rm->api->fbsr->suspend(gsp);
- 		if (ret) {
- 			nvkm_gsp_mem_dtor(&gsp->sr.meta);
- 			nvkm_gsp_radix3_dtor(gsp, &gsp->sr.radix3);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index 8ef8b4f655883..2945d5b4e5707 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -62,7 +62,7 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
- }
- 
- static int
--r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtime)
-+r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- {
- 	NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS *ctrl;
- 	struct nvkm_gsp_object memlist;
-@@ -81,7 +81,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = runtime ? 1 : 0;
-+	ctrl->bEnteringGcoffState = 1;
- 
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- 	if (ret)
-@@ -92,7 +92,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
- }
- 
- static int
--r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
-+r570_fbsr_suspend(struct nvkm_gsp *gsp)
- {
- 	struct nvkm_subdev *subdev = &gsp->subdev;
- 	struct nvkm_device *device = subdev->device;
-@@ -133,7 +133,7 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
- 		return ret;
- 
- 	/* Initialise FBSR on RM. */
--	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size, runtime);
-+	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size);
- 	if (ret) {
- 		nvkm_gsp_sg_free(device, &gsp->sr.fbsr);
- 		return ret;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index a9af94adf9efc..0fb0e67406c67 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -78,7 +78,7 @@ struct nvkm_rm_api {
- 	} *device;
- 
- 	const struct nvkm_rm_api_fbsr {
--		int (*suspend)(struct nvkm_gsp *, bool runtime);
-+		int (*suspend)(struct nvkm_gsp *);
- 		void (*resume)(struct nvkm_gsp *);
- 	} *fbsr;
- 
+     // Magic for verification by secure ucode
 -- 
 2.55.0
 
