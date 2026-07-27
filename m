@@ -1,167 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFD541D11B;
-	Mon, 27 Jul 2026 14:58:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79558CA52;
+	Mon, 27 Jul 2026 15:02:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785164306; cv=none; b=b1r98T3YygW+Tgy7Ysa9pkrvMsxwvKrKlxJW1vVAoU2jgbq/7KTSyG/hmio3+zL/3Y8/Bxl+TNgb8OE3Q2DxfVEoLYnFPCrzVAOemOyCCIDX+B2Vvr6LNptbOJr9mJl5qWSWnlTyS3IHhhwtmYDD3fJYOQxQz0TCL3Ukpkve5Qw=
+	t=1785164572; cv=none; b=E0qUk+7rRwc2t9ahCXp43DhFqJpAfxO4W5VvbsVVrJ/b3Np/Z/XnESHWlxghTIH248ugQ+5iydLwFRpHQ79IFcMkZXbI+KoL5NuDVX+QnOgDNHR4fhtnL9BeYJoNKnYFAGEaKZ2v5x3fDUDAJnbIrxWSp6Cye7vDQiUCdlLudGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785164306; c=relaxed/simple;
-	bh=IfxuBVVWRE8yIrtOZQGOUdAPnGaxZ27jvH2VfPNNmgM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=BCkXnc1dlZNbpZFZemvnGAsKZMj0BGH6DolPUpxWZtTcriLJKexelsk5qoYC9YmbX3mMAqbcJlRgZXUb9aUwkuvlsVxvE2v4pd1MkQRrbzHQIU1fFlGJYZHRG7DVjc+zuZIEEVkK7VxVplUDAyaT6qQw8QXmnCnT91GZPTLRhaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JeUmyYuv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785164572; c=relaxed/simple;
+	bh=gHHdkLvMrlKAf6tMrh3E7+DzjlEHflQFAi2Dm0I1S3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ONrpHHBgAdBfNXYMryEInszBPAf3JRLUdpRjaZ2Vt7yOtSh0hhtRT/YVjYpywmeAEw1lz5mzqu0kpBDBXlaoUotcHbLhQgsLurbR56gUXcB5CArZB3rQlD8TxGY7DLZ4+mCHMwL0OndyQZbdDB3cW6u0LGPqnZ9ScWPwxdh+Uck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmTYl/c+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JeUmyYuv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497AC1F000E9;
-	Mon, 27 Jul 2026 14:58:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmTYl/c+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E271F000E9;
+	Mon, 27 Jul 2026 15:02:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785164304;
-	bh=xJGg9eL+TxDraqM//3gyBgvH0nIQQlKASgr4sKIWhwQ=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=JeUmyYuvMhdP7+tKpHXr2KvBLLIXs+Z36hClVBwFV4I2olBuuTEx0uqOkktCsuKSi
-	 B94XvjaxEqCwgoTjina0K5rQ/W6dsJklB43406futE/fsqZZuvPzEBZaIpmUTRvAc2
-	 pGhgpBpOkVaIYU1CihCb7M7WAWHwPkmYKapPiaW2R/Aq35eh1Do3OhUYV/S1Kg4B5B
-	 nkRBqfhAgRyaKKlXpoE5s03EsSVbLmqgzDNTv6Q4ktB9B2ljLD7L6TZVt1gYaMDoUp
-	 SpmkYxxVVR9x6o7Oal/OUXvDhZ5kNewUKU4QKNUx25L0gTFwIuyBdRZgED7BD7JWeq
-	 YBShtWZ9NOMQQ==
-Message-ID: <e3a1f432-4638-4295-b55d-31e2d121f09f@kernel.org>
-Date: Mon, 27 Jul 2026 16:58:21 +0200
+	s=k20260515; t=1785164571;
+	bh=aFYOBMXp5dKkeO47Qf8glP6qHC1ahmcBq2ODbRBzDG0=;
+	h=From:To:Cc:Subject:Date;
+	b=gmTYl/c+0ipQFd8NpHTkjpGs4Q/3jQRywWu+9wuxAhCoeM3efP0QblqxX3Af9lGHc
+	 Nz2Z0plLNymVkhgTMkuRmp4F2lcLA57ghdR9RPQTw/rI3fEcNsoA3j4Io3hADdCZGL
+	 mmUj2tD9ObqEv1R2brKr49durZgrC8VeKVi5e8kyRCt8TQ5Gjnv7Ug48Vn8CgZfewn
+	 mxXmgO0bwMZ1SBTljY0/b7avVfA7xXqkM87bkOwsT3NoJ5ZsIdhUmDveKwowaC8VX+
+	 NwpmMI6LpHZ+hk2RZgvGv+E4jiZltvM4rqpX1blqfHXzIrkJS4mWWn0H9FXPDSTwvn
+	 uInTh38P1hm6Q==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Changyuan Lyu <changyuanl@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] kho: fix size calculation in kho_preserved_memory_reserve()
+Date: Mon, 27 Jul 2026 17:02:39 +0200
+Message-ID: <20260727150240.889555-1-pratyush@kernel.org>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2] media: v4l2-event: limit number of event subscriptions
- per file handle
-To: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>, mchehab@kernel.org,
- linux-media@vger.kernel.org
-Cc: kees@kernel.org, linux-kernel@vger.kernel.org,
- AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com,
- kys@microsoft.com, stable@vger.kernel.org
-References: <20260722042308.75939-1-blbllhy@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260722042308.75939-1-blbllhy@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/07/2026 06:23, Cen Zhang (Microsoft) wrote:
-> v4l2_event_subscribe() allows an unbounded number of event subscriptions
-> per file handle. Since the subscription id field is fully user-controlled
-> (32-bit), an unprivileged user with access to a V4L2 device node can
-> create up to 2^32 distinct subscriptions, each pinning a kernel
-> allocation (~200 bytes). This can exhaust kernel memory, causing an OOM
-> condition and kernel panic.
-> 
-> An unprivileged local user can trigger this by issuing repeated
-> VIDIOC_SUBSCRIBE_EVENT ioctls with incrementing id values. The allocated
-> objects reside in kernel slab (not accounted to the process cgroup), so
-> existing memory limits (ulimit, memcg) do not prevent this. Most V4L2
-> drivers are affected because the framework function v4l2_event_subscribe()
-> enforces no limit, such as uvcvideo (USB webcams) and the vicodec test
-> driver used to reproduce this issue. This leads to:
-> 
->   Kernel panic - not syncing: Out of memory: compulsory panic_on_oom
->    is enabled
-> 
-> Fix by adding a per-filehandle subscription counter and capping it at 256.
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-Hmm, nice catch.
+kho_preserved_memory_reserve() calculates the size of a preservation by
+doing 1 << (order + PAGE_SHIFT). Since the '1' is a 32-bit integer, it
+can only be shifted by 31. That is, it will only work for preservations
+up to 2 GiB. Larger preservations will trigger undefined behaviour.
 
-But the problem is really at a higher uAPI level: the VIDIOC_SUBSCRIBE_EVENT and
-VIDIOC_SUBDEV_SUBSCRIBE_EVENT ioctls should check the id field before passing
-it to drivers.
+While preservations larger than 2 GiB can't be obtained via folios
+currently, they can be obtained via kho_preserve_pages().
 
-Only two event types use the id field: V4L2_EVENT_CTRL and V4L2_EVENT_SOURCE_CHANGE.
-The first event already checks the id field through helpers, but the second doesn't
-check. And for other event types than these two the id field should just be set to 0.
+For example, memblock reserve_mem uses kho_preserve_pages().
+Reservations larger than 2 GiB are valid and will trigger this bug if
+properly aligned.
 
-Also, v4l2-compliance must check against this.
+Fix it by using 1UL for shifting.
 
-I'll post new patches for this tomorrow.
+Fixes: fc33e4b44b27 ("kexec: enable KHO support for memory preservation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 
-Regards,
+---
+Stable backport note: This patch fixes kho_preserved_memory_reserve(),
+which was added by 3f2ad90060f6 ("kho: adopt radix tree for preserved
+memory tracking") in v7.1. The bug in older kernels was in
+deserialize_bitmap(), which was added by fc33e4b44b27 ("kexec: enable
+KHO support for memory preservation") in v6.16.
+---
+ kernel/liveupdate/kexec_handover.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-	Hans
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 175c08a6e41e..6fad9152387a 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -501,7 +501,7 @@ static int __init kho_preserved_memory_reserve(phys_addr_t phys,
+ 	struct page *page;
+ 	u64 sz;
+ 
+-	sz = 1 << (order + PAGE_SHIFT);
++	sz = 1UL << (order + PAGE_SHIFT);
+ 	page = kho_get_preserved_page(phys, order);
+ 
+ 	/* Reserve the memory preserved in KHO in memblock */
 
-> 
-> Fixes: 6e239399e580 ("[media] v4l2-ctrls: add control events")
-> Cc: stable@vger.kernel.org
-> Reported-by: Autonomous Code Security <AutonomousCodeSecurity@microsoft.com>
-> Link: https://lore.kernel.org/all/20260722004818.72310-1-blbllhy@gmail.com
-> Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
-> ---
-> v2:
->  - Add Cc: stable@vger.kernel.org
->  - Add Link: to v1
->  - Wrap long line in commit message
-> 
->  drivers/media/v4l2-core/v4l2-event.c | 14 +++++++++++++-
->  include/media/v4l2-fh.h              |  2 ++
->  2 files changed, 15 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-core/v4l2-event.c
-> index 9dd2aaa95a67..fcd8ce4addc1 100644
-> --- a/drivers/media/v4l2-core/v4l2-event.c
-> +++ b/drivers/media/v4l2-core/v4l2-event.c
-> @@ -18,6 +18,9 @@
->  #include <linux/slab.h>
->  #include <linux/export.h>
->  
-> +/* Per-filehandle limit on the number of event subscriptions. */
-> +#define V4L2_MAX_EVENT_SUBSCRIPTIONS	256
-> +
->  static unsigned int sev_pos(const struct v4l2_subscribed_event *sev, unsigned int idx)
->  {
->  	idx += sev->first;
-> @@ -218,6 +221,7 @@ static void __v4l2_event_unsubscribe(struct v4l2_subscribed_event *sev)
->  		fh->navailable--;
->  	}
->  	list_del(&sev->list);
-> +	fh->nsubscribed--;
->  }
->  
->  int v4l2_event_subscribe(struct v4l2_fh *fh,
-> @@ -251,8 +255,16 @@ int v4l2_event_subscribe(struct v4l2_fh *fh,
->  
->  	spin_lock_irqsave(&fh->vdev->fh_lock, flags);
->  	found_ev = v4l2_event_subscribed(fh, sub->type, sub->id);
-> -	if (!found_ev)
-> +	if (!found_ev) {
-> +		if (fh->nsubscribed >= V4L2_MAX_EVENT_SUBSCRIPTIONS) {
-> +			spin_unlock_irqrestore(&fh->vdev->fh_lock, flags);
-> +			kvfree(sev);
-> +			mutex_unlock(&fh->subscribe_lock);
-> +			return -ENOSPC;
-> +		}
->  		list_add(&sev->list, &fh->subscribed);
-> +		fh->nsubscribed++;
-> +	}
->  	spin_unlock_irqrestore(&fh->vdev->fh_lock, flags);
->  
->  	if (found_ev) {
-> diff --git a/include/media/v4l2-fh.h b/include/media/v4l2-fh.h
-> index aad4b3689d7e..65a7f31af889 100644
-> --- a/include/media/v4l2-fh.h
-> +++ b/include/media/v4l2-fh.h
-> @@ -33,6 +33,7 @@ struct v4l2_ctrl_handler;
->   * @subscribe_lock: serialise changes to the subscribed list; guarantee that
->   *		    the add and del event callbacks are orderly called
->   * @subscribed: list of subscribed events
-> + * @nsubscribed: number of subscribed events at @subscribed list
->   * @available: list of events waiting to be dequeued
->   * @navailable: number of available events at @available list
->   * @sequence: event sequence number
-> @@ -49,6 +50,7 @@ struct v4l2_fh {
->  	wait_queue_head_t	wait;
->  	struct mutex		subscribe_lock;
->  	struct list_head	subscribed;
-> +	unsigned int		nsubscribed;
->  	struct list_head	available;
->  	unsigned int		navailable;
->  	u32			sequence;
+base-commit: 5c4a03afcb21783987ffc64562b76ddd5a21b12b
+-- 
+2.55.0.229.g6434b31f56-goog
 
