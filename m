@@ -1,150 +1,141 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3027F1624DF
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 04:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B06E3BE17D
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 04:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785125276; cv=none; b=SgayHfciWYjEnme1eZ100fV2GQC2ouLsysSkTKWsePe6493BmYNmwcZ8L1ahj8jnaHIwhXeRaXUhKUZPSQAM8uA1m4kOJw8jOkI71aJuiyLKgUwVkhUfuUJoXIPLJE+mYmXZal5mtEL43SlaOP2Os/QGCMtnip8tjRShCscC6zo=
+	t=1785126250; cv=none; b=sNW3doiEFru/4EsMjz0xYnZFygz+P9qfQlyxkylEsUtBW83zOMMF4TTH9qS5fpQyMbu9axWeJE2GC93w1TGkY/MtEZkc4jsCAh82HMoHuYvuZhV5egYUaCaN5jJdVTMliQmUJODQxPi468BTDSwrXLD37qTcQQZRlxYEmOiSpFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785125276; c=relaxed/simple;
-	bh=Gxp3Un4AZGgro1b7wJhIj9cUYRY3ZZI3yEbM0aXczz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jnVtCdCC5r2n8JyPlRT953dnGN3exzLozvyCzPm7mgVz1x0iVT2kk1R8bDsMjDR3XG/Ao09wPyNT8T+kd08IjjBNezCa4TF1VPsAsvquRtEYbFe9gKzKLldga5ZLcadpWD7BTStSIiGg28S1ETg/TJ9xddCY6HIQwaDsWmRvBvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=En+3+cYH; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785126250; c=relaxed/simple;
+	bh=Yy8IISh+FV9cpGipg7vORYQVek5AJgkZkfEGn4HmLng=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hC354dPbpabuY1KKOZwFSs8U/6NA0RaI69DPZSuS5sldh5srytvjreutfEyg5ZOsFznfYnLsDJ6P8U9DtSSsF42fIF2Lo8SSOfQ1/4I5mID7to3caaj8V7CpcrD14H+O2do6mMgzVegTb7t6aXMEbn9nHwBra4nC4AYJC+OkLfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=SMek3enj; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="En+3+cYH"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ce87c7e3bbso25372895ad.1
-        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 21:07:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="SMek3enj"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-383cb94f742so1831344a91.3
+        for <stable@vger.kernel.org>; Sun, 26 Jul 2026 21:24:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785125273; x=1785730073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=86uk4Z2sGa/3sM3sJKSYmohCJPc9h2SJlL31GgQy+No=;
-        b=En+3+cYHN4RCisczuYSD8uDNcyN6CRfIWxFRSXzGxnQwuIJFcqHjaCxgT6HI8GvkeK
-         xeProrRxw42d/B+pqnBf3um0kd2GPwn7TrflTaiVty5D4B55KwHCbdZiKJcQcsu8L4uC
-         EvsZmL7cHJlrTjrlMt5sD8fyy3u4tlRVRRldUlfxfGjaYmHi0sgJV16himEYyz3QW+VD
-         4U92cgpqJOQgd4Krim85VAWqWL/cTzRFppYhQrKLeCDTHW32vSguylDxOYMLZ9qABoaK
-         nGAOa9p8Dkq9nabU3pm/Z4TqcsGkyZqYNdUvDc8IhBSkpljw+YAaaQopzR9tOslTMrnv
-         42eA==
+        d=ziepe.ca; s=google; t=1785126249; x=1785731049; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Yy8IISh+FV9cpGipg7vORYQVek5AJgkZkfEGn4HmLng=;
+        b=SMek3enjC0QcceEKJ2YigUQLSZxXK7+3z6wbSBE/YJ128mSWeXKUEkGpJll+RTWWtw
+         /vKU0ZiDRC8OHKtfMeT8GTe6dzMdnug7Ok6gdGqtwM+xHmvI+TVxw6Vi9q8q2Kq8thSm
+         859oqd4WyfYkZK3Q5k8HJh10d9doqxgDT7tZvzcsSQGe/vQ+Dp/WbzTbEM5F9xlLtxPK
+         HQokyFrZrWN+X+e0zfTp2B5sRCWfyn7Pg9tGxZBzvbv/1mAidlwP6OvFsaW92kp6X5ug
+         jDwyIupoid8bEpOHpM7LnCe6/bsGE2HvunMDWy8D5teCbmJQ9d6eLfQY2n8QmYQOGi+2
+         n10Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785125273; x=1785730073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=86uk4Z2sGa/3sM3sJKSYmohCJPc9h2SJlL31GgQy+No=;
-        b=Fi/BliWeQlmxI5TCyY7DZS//1Cg+a/RAyxnVwzkzhf6PqQuiTK7kZkV3cRikKytgZV
-         hEOJS78nZ1SIN5p5Jn9VOdTHvrI2ykDPQ5efYbpwy9YxUSwmJ7/YW64s0gN5NskXIDFR
-         Rux9r2B7WFWDs0Wzufxp9ZwyPSR4eyt51UJndmH5/eEPG4Z4dkRAiNvK3PTgzBF6M+zz
-         CaSjllPN+5v7FoTOP0Na4imc4bxUEoHZ0zw7WV8jzGHcrK4D1FWlUR93u5196Uw9NixK
-         1Y3VWNgwRBAeVejGE1WoB7xXm3697YglkfwYP9Ct5VcETxx0eb8w94grEDXGc/X0i/Vi
-         3Fig==
-X-Forwarded-Encrypted: i=1; AHgh+Ro17XIBOp/LJGnsq1SgTJWlu9Ikpda6DwPQm81XXp+21QZUvcMsa78cfmdNtFAMR/C/REqBpUc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUOa2BRw8F1cc7LAD+AoyvSms7Bd+L2B41MPf2QTk/Nmm7xb8a
-	RCbsqxMmFizz8g9VTVQbOSbEmWeu1NCaiQKyvZJ1t/8bEgiqPFdxqj9N+ZC7655S
-X-Gm-Gg: AR+sD12xchy0fj0F2wLNQXkEzggCH6FpolPr9QCLNkdsmyua0n1m2hsYmUiHpFObFHc
-	AMr8a0o6BLgGyl1LnEqXbWp8yZXOpOFWd4AQq53y5fNqdNCkAWq2saMfiafc9Fvo/ACMGO9A6wS
-	TO+bQ3DcERvPfpMoSUIMhVuW2FHLMfcHMh2Dd419KIfi27s1nU8KbklUaRwXKCv2X9TcSjmqONe
-	5xfxONy6T9vla4a6/jWP+ESHbwQfbURV2ugVnb93/L/rqWsYO9Uw4cKI3jlnUzMKWt7w5kr/dUJ
-	AInwHWU33BtbeN8eoxia6oEOn0fCzNz+866AVTUwcICjDLfgzY9pGBmF6FYj25GyJPvJLJ/VP8K
-	dCWmkmumzllzDCrLHXCvnpGxLf1lGBrImUdYH9pKiT9uEY7IOb7yseD8hV8fpwktOUU3N3ctE6c
-	CblYo=
-X-Received: by 2002:a17:902:c40a:b0:2cc:61e8:5fba with SMTP id d9443c01a7336-2cfde866e46mr72199415ad.32.1785125273513;
-        Sun, 26 Jul 2026 21:07:53 -0700 (PDT)
-Received: from kali ([58.187.6.148])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cffa9243fcsm5645825ad.64.2026.07.26.21.07.50
+        d=1e100.net; s=20251104; t=1785126249; x=1785731049;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yy8IISh+FV9cpGipg7vORYQVek5AJgkZkfEGn4HmLng=;
+        b=CAzqUQWg3XKWvoj4guS/JknDnzb+8WpAPkQYK+7c1KEZTQnrTDQvctw5VwKj0kzy/N
+         qLCAwuPoVOSX5+42WH/zO5oDNKvho9VWOSt/YV8fKpozlByEYYBbhQb3Jm4fq7hbTmSj
+         lb9qGRwTErD7YTV+afj1+aTxkNKLtw9/qS7lj8HSvzXhpe4MDQHEPPasU5PR0EBvw+5X
+         qHAWqGdfP6PnanRuUSA9MyvzGmWZoR0ZPdu/+G+Kay2bQshGKIoh3Fzj5GbToPBsI9aJ
+         fxwKAK5gutiIHvlgZSc7viqJqmnN5DokBSASDFNA/RvKgsT14aIrs/SneokoHLZkKIir
+         cLMA==
+X-Forwarded-Encrypted: i=1; AHgh+RonmIs468aVJcIL1qR2HflygELR5DQWdRZYpMkIGtDz+UiVnG7rPXpNmKip6bzGRHfLSfHeMaI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+6aF35yxYo5RZqfA5dR+omkS4SPXDSrMK5HN+ceJlbHoHhcLA
+	cfNN+zbevQJ8NnsCtXYnattY07iHcG7gt7WUFaPAkWEgDO1KtWkHKrjW+U8XkcQu2UM=
+X-Gm-Gg: AR+sD11XzJPOTTj8bXGzsmZohxAHzSeWp3dY3urEdA+O09sS7aMa1ltRH3JEikKL5ux
+	x4kKwPJUBypvTnTMd3EtFt6MXw7DLo651vYQ7gKeBB/mF5sVNZdFM6vqmdC6uGWQ9B1sD+fIJ4e
+	T3HDiN5OJNL9S+L3lQhjH2jhidHtGRcubCUbnf2/werrImuvhIDzshwOgMzJ7LJz0OMowqZOWVB
+	nl3suav5nO5tXBt4XvZTs6fxiTHHquAKsK2k6/MlOr1+/nN0WOm2Im+/FOFMo293nCoiL60Uobk
+	T5IoaYkzCax252Q1429BfMCfzpIGdA26jv5LGlY9dwkICKVYmgrhwbGpiexxxyiZC/acyv/t0l8
+	4eVSkRm8Xwy4M7IJdszYV987Q9Mkdk9ZKjniHTg17KtkYXOvupDTaCWqiQB9Q2A==
+X-Received: by 2002:a17:90b:5350:b0:37f:be6c:f3f2 with SMTP id 98e67ed59e1d1-38f29399845mr6819950a91.2.1785126248497;
+        Sun, 26 Jul 2026 21:24:08 -0700 (PDT)
+Received: from ziepe.ca ([64.114.68.211])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f041b8be9sm4471929a91.14.2026.07.26.21.24.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 21:07:53 -0700 (PDT)
-From: Nguyen Le Thanh Tung <nguyenlethanhtung555@gmail.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: linux-efi@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Le Thanh Tung <nguyenlethanhtung555@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] partitions/efi: reject GPT entries with starting_lba > ending_lba
-Date: Mon, 27 Jul 2026 00:07:27 -0400
-Message-ID: <20260727040727.1910700-1-nguyenlethanhtung555@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sun, 26 Jul 2026 21:24:08 -0700 (PDT)
+Received: from jgg by jggl with local (Exim 4.95)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1woCsf-0002Mt-Ls;
+	Mon, 27 Jul 2026 01:23:57 -0300
+Date: Mon, 27 Jul 2026 01:23:57 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev, Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
+Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <ambdXXcfgK+cxqxa@ziepe.ca>
+References: <20260717180442.110954-2-aneesh.kumar@kernel.org>
+ <20260721115456.GI110966@unreal>
+ <yq5atsps77c5.fsf@kernel.org>
+ <20260721142921.GN110966@unreal>
+ <yq5ao6g0750v.fsf@kernel.org>
+ <20260721153321.GO110966@unreal>
+ <amEhEKQW0_HJ9cLN@ziepe.ca>
+ <20260723075704.GC110966@unreal>
+ <amTJY_CdE-uDgoGG@ziepe.ca>
+ <20260726081753.GD12003@unreal>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260726081753.GD12003@unreal>
 
-is_pte_valid() checks that both LBAs of a GPT partition entry are within
-the device, but never that the entry describes a forward range:
+On Sun, Jul 26, 2026 at 11:17:53AM +0300, Leon Romanovsky wrote:
 
-	if ((!efi_guidcmp(pte->partition_type_guid, NULL_GUID)) ||
-	    le64_to_cpu(pte->starting_lba) > lastlba         ||
-	    le64_to_cpu(pte->ending_lba)   > lastlba)
-		return 0;
+> Currently, the phys type universally describes memory and can be
+> reliably translated into any required representation. It is the most
+> fundamental type we have.
 
-EndingLBA is defined as the last LBA of the partition, so a conforming
-entry always has StartingLBA <= EndingLBA.  A crafted table can invert
-the two while keeping both within the device, and efi_partition() then
-computes the length as
+You cannot go from phys to page reliably unless you make assumptions
+about the phys, that's the whole issue here. If the callchain expects
+and intends to use a page it should really stay in a page and not take
+a side trip to phys.
 
-	u64 size = le64_to_cpu(ptes[i].ending_lba) -
-		   le64_to_cpu(ptes[i].starting_lba) + 1ULL;
+I agree it would help to have some helpers that were more phys based
+for the callchains that want that since we are mixing two fairly
+different activities in these functions..
 
-which underflows to a value close to U64_MAX.
+But making phys the only output out of the pool isn't going to be an
+improvement.
 
-The "extends beyond EOD" clamp in blk_add_partition() does not contain
-this, because it tests
+BTW how does a struct page even work for decrypted memory? You can't
+actually use it that way right? If you try to access it then you'll
+get the wrong IPA and it should explode?
 
-	if (from + size > get_capacity(disk))
+Maybe we should be blocking the struct page path entirely for CC
+shared?
 
-and from + size wraps for a size of that magnitude, so the sum comes out
-small, the clamp is skipped and the partition is registered with the
-underflowed length.  From then on bio_check_eod() is evaluated against
-bdev_nr_sectors() of that partition, i.e. against the bogus length, so
-I/O submitted through the partition device is no longer confined to the
-partition and reaches sectors owned by other partitions of the same
-disk.
-
-This was verified on 6.8.12 with a crafted two partition image: the
-inverted entry is registered as a partition of nearly 2^64 sectors
-with no "extends beyond EOD" warning, and BLKZEROOUT issued on
-that partition overwrote known marker data belonging to the other,
-unrelated partition on the same disk.  No privileged step is
-needed on the victim side beyond getting the table parsed, which happens
-automatically for removable media on a typical desktop.
-
-Reject the inverted range in is_pte_valid(), the single place every GPT
-entry is gated on.  The code has been this way since the beginning of
-git history.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Le Thanh Tung <nguyenlethanhtung555@gmail.com>
----
-Compile tested on 6.8.12: `make W=1 block/partitions/efi.o` produces no
-new warnings.  The behaviour described above was reproduced on that same
-kernel with a crafted image.  is_pte_valid() is byte identical in 6.8,
-current mainline and linux-next.
-
- block/partitions/efi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/block/partitions/efi.c b/block/partitions/efi.c
-index 9865d59..000219a 100644
---- a/block/partitions/efi.c
-+++ b/block/partitions/efi.c
-@@ -461,7 +461,8 @@ is_pte_valid(const gpt_entry *pte, const u64 lastlba)
- {
- 	if ((!efi_guidcmp(pte->partition_type_guid, NULL_GUID)) ||
- 	    le64_to_cpu(pte->starting_lba) > lastlba         ||
--	    le64_to_cpu(pte->ending_lba)   > lastlba)
-+	    le64_to_cpu(pte->ending_lba)   > lastlba         ||
-+	    le64_to_cpu(pte->starting_lba) > le64_to_cpu(pte->ending_lba))
- 		return 0;
- 	return 1;
- }
--- 
-2.53.0
-
+Jason
