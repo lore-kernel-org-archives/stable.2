@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF2741930C
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:39:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B7B41A4EA
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:39:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785159571; cv=none; b=ZoKLF5v8bhwEcDfdTdSW5tuOHvZk/kVcPons9eo4u7yvK9g7U+/mpaKHu1ipCxGl+AWoaMWcwDt0Fjx46PwuCUXy/aedVUWqMEswWDxZRmqqBChlmVN1SCOtdXop2PE632dXj9MWE/M9bH0O/Q6EuYAdzQBMxftvf1Vfa+gU4hM=
+	t=1785159573; cv=none; b=Ce7nsbS5UO9CZ7+kB2SVF8kah/qMYM0PeuBmH60ha/ZYSJGX5m96i5pV3QKHSUsideIgl//wy2AMB5bRd7z40b4LVl7y2/fhsjB+Fd+zALre1nxIGuvDFqcOpyDBTX7foW1BnnVZQ20+7XtIN7I8JvDtzL19TMJPeJ4nmN4BHmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785159571; c=relaxed/simple;
-	bh=ICE+y5LbhhUTte56qMb+Xl9yN7qiUpNeu1BIZG9lyFg=;
+	s=arc-20240116; t=1785159573; c=relaxed/simple;
+	bh=deJ+CL6XSZlVpoXfwS9TnQ5ZRgL/lrZlV+yQFRfIsg8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XF0xfS/17RLzme0fwqFFMyUexk94cxhS8Cn1RXkKbGbjz9rd0NDVEla42ZqYy1/CakXQNeTE5/jZytrKCy46xYmO27fnxZzEKD/FIV+rlqpNhyGT7lFEvFKOVKPR1hidu7Nn7m6aQ2FzsHOew0WWdmNnuvVeR33/eubYFfJ2UxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aDy3felx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VyFteAw0XyzUFSbBiTgiOyCOzFM5ZHkyiG7aTkOJd3zvZkSF33sGxkupv8Cynx6FBH879t6goKhySPz6ZXZvw/25ooSH9nwistfkWRy/nQf0CEUFYidPZoNq3yCEimIOl7H3IWKm378r5ZQu3BN/SEh7MCgjW66+T0cW/2DxMqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVS1dykj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aDy3felx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3F11F00A3A;
-	Mon, 27 Jul 2026 13:39:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVS1dykj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4DF91F00A3E;
+	Mon, 27 Jul 2026 13:39:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785159570;
-	bh=+qaIAjLMrCbycL2Ty/FnBWxMWCGfg/kNcYjpJqqFf40=;
+	s=k20260515; t=1785159571;
+	bh=//dP1qkVjIQNb0QPMTU6JCkOaT5rlmsi2vz0B45qckM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aDy3felxfavsCe7tINNmSwb/bEYffk+iKsw514z2wc5o+6PkU4I5tCrKDxV/vQxYr
-	 zv+Pa3jgvnCaiYBhv9FoWUqa9G8R9pAaUJZlwztUWkyRCllR3lLVZwJpi+0GSkXn5j
-	 LNaKkuxPvwPe9alSDK8oUrZQ/nKx+FtDIeUhV2WLIRZhwdOKWfDy0tkVzjMZcr9IVn
-	 nc0m6RYlgzc17r4tPkTZNr/Ph1KqwY69+3zzFbnTqFbdboHqcTmbKUCQorZk+k6ta+
-	 Zo5mxGZeHeU88F0I10+DLifUzlR7c9+ddRxYLcQX7x/no7UKOSmuX2mOa5yysSzzYN
-	 xj0IP5X5aJyjw==
+	b=DVS1dykje4bXPl1os8twL/mjd38Wo2nsckOOBW1CuNcYQy9S6zDRKgk9JsRWG4U39
+	 PnQF5/14wazGcRARZJ58GMrW44RVfYUbsK6Iu922fwQYf4S+L0BqzYf6P1Dm6U+rlW
+	 hnC288ALNryclOdsnVYZ3Gtuf/ZbsycW8sT3r6ghQ2/37flIyROgYC+J3iqsrS4545
+	 71E/nj+1G0ybkLVpfZpmFqH6F2gheCUh5gnTTgTEm9Abf+5WmiKgmlwJI+mPOWLSEr
+	 PjLAvCAHQP2fLNr2xprvGbhpNX6Yti7fk+T7z1q+jVA20sgJXEjvssSnI+DTpol1lT
+	 dHklmZLUmfPOA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ziyang Xuan <william.xuanziyang@huawei.com>,
+Cc: Lee Jones <lee@kernel.org>,
+	Feng Xue <feng.xue@outlook.com>,
 	Oliver Hartkopp <socketcan@hartkopp.net>,
+	stable@kernel.org,
 	Marc Kleine-Budde <mkl@pengutronix.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] can: bcm: registration process optimization in bcm_module_init()
-Date: Mon, 27 Jul 2026 09:39:27 -0400
-Message-ID: <20260727133928.582256-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
+Date: Mon, 27 Jul 2026 09:39:28 -0400
+Message-ID: <20260727133928.582256-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072027-showroom-maggot-c452@gregkh>
+In-Reply-To: <20260727133928.582256-1-sashal@kernel.org>
 References: <2026072027-showroom-maggot-c452@gregkh>
+ <20260727133928.582256-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,66 +49,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ziyang Xuan <william.xuanziyang@huawei.com>
+From: Lee Jones <lee@kernel.org>
 
-[ Upstream commit edd1a7e42f1d2d09c5f79ecef05ae19dc669bf34 ]
+[ Upstream commit 68973f9db76144825e4f35dfdc80fb8279eb2d57 ]
 
-Now, register_netdevice_notifier() and register_pernet_subsys() are both
-after can_proto_register(). It can create CAN_BCM socket and process socket
-once can_proto_register() successfully, so it is possible missing notifier
-event or proc node creation because notifier or bcm proc directory is not
-registered or created yet. Although this is a low probability scenario, it
-is not impossible.
+Commit f1b4e32aca08 ("can: bcm: use call_rcu() instead of costly
+synchronize_rcu()") replaced synchronize_rcu() in bcm_delete_rx_op()
+with call_rcu() and introduced the RX_NO_AUTOTIMER flag.
 
-Move register_pernet_subsys() and register_netdevice_notifier() to the
-front of can_proto_register(). In addition, register_pernet_subsys() and
-register_netdevice_notifier() may fail, check their results are necessary.
+However, this flag check was omitted for thrtimer in the packet rx
+fast-path. During BCM RX operation teardown, a concurrent RCU reader
+(bcm_rx_handler) can race and re-arm thrtimer via
+bcm_rx_update_and_send() after call_rcu() has been scheduled.  Once
+the RCU grace period elapses, bcm_op is freed.  The subsequently
+firing thrtimer then dereferences the deallocated op, causing a UAF.
 
-Signed-off-by: Ziyang Xuan <william.xuanziyang@huawei.com>
-Link: https://lore.kernel.org/all/823cff0ebec33fa9389eeaf8b8ded3217c32cb38.1663206163.git.william.xuanziyang@huawei.com
-Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Adding flag checks to the rx fast-path (bcm_rx_update_and_send) does not
+fully close the TOCTOU race and introduces latency for every CAN frame.
+Conversely, calling hrtimer_cancel() directly inside the RCU callback
+(softirq context) is fatal as hrtimer_cancel() can sleep, triggering
+a "scheduling while atomic" panic.
+
+Resolve this by deferring the timer cancellation and memory free to a
+dedicated unbound workqueue (bcm_wq).  The RCU callback now queues a
+work item to bcm_wq, which safely cancels both timers and deallocates
+memory in sleepable process context.  A dedicated workqueue is used to
+prevent system-wide WQ saturation and is cleanly flushed/destroyed
+on module unload to avoid rmmod page faults.
+
+Since the deferred work can now outlive the calling context by an
+unbounded amount, also take a reference on op->sk when it is assigned
+and drop it only once the deferred work has cancelled both timers, so a
+socket can no longer be freed out from under a still-armed timer whose
+callback (bcm_send_to_user()) dereferences op->sk.
+
+Fixes: f1b4e32aca08 ("can: bcm: use call_rcu() instead of costly synchronize_rcu()")
+Tested-by: Feng Xue <feng.xue@outlook.com>
+Tested-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20260714-bcm_fixes-v15-1-562f7e3e42da@hartkopp.net
+Cc: stable@kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Stable-dep-of: 68973f9db761 ("can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/can/bcm.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ net/can/bcm.c | 37 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
 
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 06ee3bfe87c99d..334a5105a4532c 100644
+index 334a5105a4532c..473e5715da3407 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -1832,15 +1832,27 @@ static int __init bcm_module_init(void)
+@@ -58,6 +58,7 @@
+ #include <linux/can/skb.h>
+ #include <linux/can/bcm.h>
+ #include <linux/slab.h>
++#include <linux/workqueue.h>
+ #include <linux/spinlock.h>
+ #include <net/sock.h>
+ #include <net/net_namespace.h>
+@@ -89,6 +90,8 @@ MODULE_ALIAS("can-proto-2");
  
- 	pr_info("can: broadcast manager protocol\n");
+ #define BCM_MIN_NAMELEN CAN_REQUIRED_SIZE(struct sockaddr_can, can_ifindex)
  
-+	err = register_pernet_subsys(&canbcm_pernet_ops);
-+	if (err)
-+		return err;
++static struct workqueue_struct *bcm_wq;
 +
-+	err = register_netdevice_notifier(&canbcm_notifier);
-+	if (err)
-+		goto register_notifier_failed;
-+
- 	err = can_proto_register(&bcm_can_proto);
- 	if (err < 0) {
- 		printk(KERN_ERR "can: registration of bcm protocol failed\n");
--		return err;
-+		goto register_proto_failed;
- 	}
- 
--	register_pernet_subsys(&canbcm_pernet_ops);
--	register_netdevice_notifier(&canbcm_notifier);
- 	return 0;
-+
-+register_proto_failed:
-+	unregister_netdevice_notifier(&canbcm_notifier);
-+register_notifier_failed:
-+	unregister_pernet_subsys(&canbcm_pernet_ops);
-+	return err;
+ /*
+  * easy access to the first 64 bit of can(fd)_frame payload. cp->data is
+  * 64 bit aligned so the offset has to be multiples of 8 which is ensured
+@@ -102,6 +105,7 @@ static inline u64 get_u64(const struct canfd_frame *cp, int offset)
+ struct bcm_op {
+ 	struct list_head list;
+ 	struct rcu_head rcu;
++	struct work_struct work;
+ 	int ifindex;
+ 	canid_t can_id;
+ 	u32 flags;
+@@ -740,9 +744,12 @@ static struct bcm_op *bcm_find_op(struct list_head *ops,
+ 	return NULL;
  }
  
- static void __exit bcm_module_exit(void)
+-static void bcm_free_op_rcu(struct rcu_head *rcu_head)
++static void bcm_free_op_work(struct work_struct *work)
+ {
+-	struct bcm_op *op = container_of(rcu_head, struct bcm_op, rcu);
++	struct bcm_op *op = container_of(work, struct bcm_op, work);
++
++	hrtimer_cancel(&op->timer);
++	hrtimer_cancel(&op->thrtimer);
+ 
+ 	if ((op->frames) && (op->frames != &op->sframe))
+ 		kfree(op->frames);
+@@ -750,9 +757,23 @@ static void bcm_free_op_rcu(struct rcu_head *rcu_head)
+ 	if ((op->last_frames) && (op->last_frames != &op->last_sframe))
+ 		kfree(op->last_frames);
+ 
++	/* the last possible access to op->timer/op->thrtimer has now
++	 * happened above via hrtimer_cancel() - op->sk is no longer
++	 * needed by any pending timer callback, so drop our reference
++	 */
++	sock_put(op->sk);
++
+ 	kfree(op);
+ }
+ 
++static void bcm_free_op_rcu(struct rcu_head *rcu_head)
++{
++	struct bcm_op *op = container_of(rcu_head, struct bcm_op, rcu);
++
++	INIT_WORK(&op->work, bcm_free_op_work);
++	queue_work(bcm_wq, &op->work);
++}
++
+ static void bcm_remove_op(struct bcm_op *op)
+ {
+ 	hrtimer_cancel(&op->timer);
+@@ -1008,6 +1029,7 @@ static int bcm_tx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 
+ 		/* bcm_can_tx / bcm_tx_timeout_handler needs this */
+ 		op->sk = sk;
++		sock_hold(sk);
+ 		op->ifindex = ifindex;
+ 
+ 		/* initialize uninitialized (kzalloc) structure */
+@@ -1173,6 +1195,7 @@ static int bcm_rx_setup(struct bcm_msg_head *msg_head, struct msghdr *msg,
+ 
+ 		/* bcm_can_tx / bcm_tx_timeout_handler needs this */
+ 		op->sk = sk;
++		sock_hold(sk);
+ 		op->ifindex = ifindex;
+ 
+ 		/* ifindex for timeout events w/o previous frame reception */
+@@ -1830,11 +1853,15 @@ static int __init bcm_module_init(void)
+ {
+ 	int err;
+ 
++	bcm_wq = alloc_workqueue("can-bcm-wq", WQ_UNBOUND, 0);
++	if (!bcm_wq)
++		return -ENOMEM;
++
+ 	pr_info("can: broadcast manager protocol\n");
+ 
+ 	err = register_pernet_subsys(&canbcm_pernet_ops);
+ 	if (err)
+-		return err;
++		goto register_pernet_failed;
+ 
+ 	err = register_netdevice_notifier(&canbcm_notifier);
+ 	if (err)
+@@ -1852,6 +1879,8 @@ static int __init bcm_module_init(void)
+ 	unregister_netdevice_notifier(&canbcm_notifier);
+ register_notifier_failed:
+ 	unregister_pernet_subsys(&canbcm_pernet_ops);
++register_pernet_failed:
++	destroy_workqueue(bcm_wq);
+ 	return err;
+ }
+ 
+@@ -1860,6 +1889,8 @@ static void __exit bcm_module_exit(void)
+ 	can_proto_unregister(&bcm_can_proto);
+ 	unregister_netdevice_notifier(&canbcm_notifier);
+ 	unregister_pernet_subsys(&canbcm_pernet_ops);
++	rcu_barrier();
++	destroy_workqueue(bcm_wq);
+ }
+ 
+ module_init(bcm_module_init);
 -- 
 2.53.0
 
