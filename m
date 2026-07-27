@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A7B25332E
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 21:00:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B9A3CB54B
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 21:00:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785186002; cv=none; b=dx5z/Ay2bqnQ31VBno3o/u+/SQB7Ok8R+pnakSWqcviIefG9e74x6erCPP92LdTrdCpNVoFykZshMXHEIeqGEvIIUTMa6hNN+hguWOHfllynrDnUmcHamnrayGK3lTixCUAUciHMmd5IVH7wkuuNIyMr4X+ImJpSveNxWYtamNY=
+	t=1785186003; cv=none; b=bQQvaLC3LUTksmEESOb0MQQSVYUB/bOBsogTbzzo3qNlC5OW1sRRKBoRmzHQI2NDvnkQZfvbve4B6yzohohc5DNwdfz1SEbWBdYqWLtrJrMj1fNKXagrqMyj4x/GMrMez83TwW849rh1FUmC1hQFGYiWz1qyjI3eG1wiGi6Qm9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785186002; c=relaxed/simple;
-	bh=NCz039vHs/fl30ezvjW64zEgeIm2ff9iZ+ZGvhfzZqw=;
+	s=arc-20240116; t=1785186003; c=relaxed/simple;
+	bh=XTtvXRZoCRauW0bhN5K0SvRc2QE22phT2f0ANCYT03s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jgJNbE+6R8OnTIquuonL1yIV8fZau1W0ksWE28GDpAO8SCbMSC1iPZsE0VBY5tNizmLHJw7htbCoj1g75VNlw8JKusJ0dOp9zDmfoTDDT8rT4305uCdk69ywErbShqQGVZ8G//eoOsWhAS2bc5YFZo1ZyJCtfRmxKej51YXhU50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfA7S50y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MsUuD6UozcZl7ozDccKn+430SRglIrt0gk4+BRivtffm06Ve/m/qmG7r9oGyv6p2aubWZAHuM3qPQFLxywpIRZOp8vIPBdc0t8u3rMCfa1cFWKWPjyaFov7bLqlneTPhuwDJdvGM9y1OybWl4v1taodq4HXiJ4qi+8EzYRLM7jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWHrhDgx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfA7S50y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FCF41F000E9;
-	Mon, 27 Jul 2026 20:59:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWHrhDgx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062AF1F00A3D;
+	Mon, 27 Jul 2026 21:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785186000;
-	bh=cWxS4jUmG6bG97/23XJHII6atE34B919fhQf4XAyrYU=;
+	s=k20260515; t=1785186001;
+	bh=rvFoiaF078TS24eYawIAhK6ZgK/F7VkJIQupvRoHleY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LfA7S50y/EBN0HyzBNxp/8cD3zIQjI8UoSuhgc0cQJDQNLhYU27GIw2MtKmWwTXru
-	 LSvYaeyvaHF3E3YmMdPLWUuwkEoeXEBaheUSAD4jjmw70hm1WQN9NimZMRRbHMK1DP
-	 81JBWSeAqsXHNLiaHAYVOmWbc7kse1Nqo+lJ56L9rDlSfgf/b9HRX2veDRnhFNvWtl
-	 oIoBxhdRJqefQoadyZk1wHSDLH7IS/OFPRNfBy3uRByYiSDFWmu6G+01KdEitB7yHh
-	 qNRKF3qhF4+IaxGmFyCWUuuOBuLYLKGMumz50SL3R3bpZEYrE5naptHPH1pBWVYWKX
-	 96Z4jUzsnZBFg==
+	b=eWHrhDgxdjea8A62UsCTInn8FskMW4z1HHJILv/RLnqBe0uYtue14eq7mgBHMqXnD
+	 tBkBLZbJ1IKLPynYqZX1DN7lSjL9NA0SbsR3LrRVV5BhBqyvUIeqf9nejjXWIEVIj9
+	 MkPIKtKV+9m916uizAnKdaaezzXPMOXcT+uMw8BrdKRJASMZCy+V0tFG943xB/pE0K
+	 TD04oGSIMHtA3rSXYa6q9A5Fo0j/sWjDHMc0K8owNPIVOG+4psESXaqFvvftcRkAyZ
+	 S0hnSfsbJhRlAbm3OlNK3+T3FYMjFKdHRf8Kqb+Xe5fIkogkTGDnHNCbIH0D4NN2bJ
+	 WRXzMWe+hhdcQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] cred: add kernel_cred() helper
-Date: Mon, 27 Jul 2026 16:59:56 -0400
-Message-ID: <20260727205958.1929027-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] cred: add scoped_with_kernel_creds()
+Date: Mon, 27 Jul 2026 16:59:57 -0400
+Message-ID: <20260727205958.1929027-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072016-oppressed-overstuff-75e8@gregkh>
+In-Reply-To: <20260727205958.1929027-1-sashal@kernel.org>
 References: <2026072016-oppressed-overstuff-75e8@gregkh>
+ <20260727205958.1929027-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,45 +48,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 4c7ceeb62d3330b6fb2b549ae833a92c0f481f3e ]
+[ Upstream commit ae40e6c65791f47c76cc14d0cce2707fe6053f72 ]
 
-Access kernel creds based off of init_task. This will let us avoid any
-direct access to init_cred.
+Add a new cleanup class for override creds. We can make use of this in a
+bunch of places going forward.
 
-Link: https://patch.msgid.link/20251103-work-creds-init_cred-v1-2-cb3ec8711a6a@kernel.org
+Based on this scoped_with_kernel_creds() that can be used to temporarily
+assume kernel credentials for specific tasks such as firmware loading,
+or coredump socket connections. At no point will the caller interact
+with the kernel credentials directly.
+
+Link: https://patch.msgid.link/20251103-work-creds-init_cred-v1-4-cb3ec8711a6a@kernel.org
 Reviewed-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Christian Brauner <brauner@kernel.org>
 Stable-dep-of: 981ccd97f715 ("dm: avoid leaking the caller's thread keyring via the table device file")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/cred.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/cred.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/include/linux/cred.h b/include/linux/cred.h
-index 89ae50ad2acea9..8ab3718184adf8 100644
+index 8ab3718184adf8..be2cd07b174c5e 100644
 --- a/include/linux/cred.h
 +++ b/include/linux/cred.h
-@@ -20,6 +20,8 @@
- struct cred;
- struct inode;
+@@ -187,6 +187,14 @@ static inline const struct cred *revert_creds(const struct cred *revert_cred)
+ 	return rcu_replace_pointer(current->cred, revert_cred, 1);
+ }
  
-+extern struct task_struct init_task;
++DEFINE_CLASS(override_creds,
++	     const struct cred *,
++	     revert_creds(_T),
++	     override_creds(override_cred), const struct cred *override_cred)
 +
- /*
-  * COW Supplementary groups list
-  */
-@@ -156,6 +158,11 @@ extern struct cred *prepare_exec_creds(void);
- extern int commit_creds(struct cred *);
- extern void abort_creds(struct cred *);
- extern struct cred *prepare_kernel_cred(struct task_struct *);
-+static inline const struct cred *kernel_cred(void)
-+{
-+	/* shut up sparse */
-+	return rcu_dereference_raw(init_task.cred);
-+}
- extern int set_security_override(struct cred *, u32);
- extern int set_security_override_from_ctx(struct cred *, const char *);
- extern int set_create_files_as(struct cred *, struct inode *);
++#define scoped_with_kernel_creds() \
++	scoped_class(override_creds, __UNIQUE_ID(cred), kernel_cred())
++
+ /**
+  * get_cred_many - Get references on a set of credentials
+  * @cred: The credentials to reference
 -- 
 2.53.0
 
