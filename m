@@ -1,75 +1,73 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6472017B506
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C8CA3DA7F2
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785136112; cv=none; b=ZiK37Tka4EWK6Ih4I9486dfiwWJ9hKQ/BGt96YPndXnswxSLFYPa82QBkA0MEIsOtRh1kBw/IRFCOaKGlIDwhPUkOLIYFpT4CxQgcNoGm0g1hS9DaMtfuAMoGrmWrIcVj4rDQ47ErS3XAIPaZJXUn9dFwN6fF7rr4qUzsCO862c=
+	t=1785136241; cv=none; b=iyUrF5FmFa2zn7jr1DvJCnqbft5fI8xoLMg4i+hbVHLdJ76F3jyJMrgolSk2xMJNE7j3ZSp71yPpfu7LFZ9X2GExTDtZrCvteG6wKkBcJgAYgeGlgOhYkFkHXNv2oF93ICan1hLHbbNSuQZGgfEmvPKjFJyhzbzaggxX00yJCqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785136112; c=relaxed/simple;
-	bh=EDN6m9UbRexYtEIt+xOtSeMajMXy63+AcyGLlLrE32o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AiDIhvnilC2nlQ7cvNSVAkUii1Rcq4pPDWZuijV8m1p+HWXbiaE4Rry1e7aypVdVq62Im+OT0+9LHXau1ThgDekZ57jwXsEmv/ovaMLPZJAmy31fl2/lmXEQwz9pPN67uRt/4wVq12bIlVqZFK3WQwoKWuQxZGE9y4OaU34Nlr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K7/KhlUF; arc=none smtp.client-ip=209.85.208.180
+	s=arc-20240116; t=1785136241; c=relaxed/simple;
+	bh=0ajQB+hPab2vIWSNK6YjKmU3k2ZE+ruh1odyGqqOzg8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=USFYVRBTeeXB/uBGZ6OEm1Tb+LwM6MO0d8d+jr9+6CNt8+YOx35WEoKhijpKVOiB08PMZof2XA8g54NIprJeRZ78hcZ4sY7Bl0Q1F5OC9zKV5bmI02w79sOgxeiulNva3pr5lDgJZDKPJ10zbEN1BheQXsbQvzPc9UexdpYlt/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0HC5nN0; arc=none smtp.client-ip=209.85.222.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K7/KhlUF"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39c74722e27so24064401fa.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 00:08:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0HC5nN0"
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-92ed3993c1eso129555785a.1
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 00:10:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785136108; x=1785740908; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785136239; x=1785741039; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fzkqreeHngQxOokHF4otaMSkre0ILi8PbO6vbHpwRN8=;
-        b=K7/KhlUFRVBOdU97uqOQHckt/Eu1rhkqMSoSWmQDNUEKFYg93b3wyBc4oR/sKUNA3h
-         leYiOiyHVhp5b/jZrIUr13W+hVycIbZAu8Uz4NcNxSO9nxQSkJoi1fdcf63mCKjXLDW4
-         PanGWLy/uEeGC0XvYkc8jBSHYnkR9b1v6BZVT/ET8q34bno/Ih9WuLizcjeITUolUPnT
-         wAGS/fkYO4dx2TS2djY/3M9yWV2Qej69zR58w9DjlROG24G+fKVjbitu9Ic1mB1Wy0eA
-         CvjWWhxOGmqFVKIfQnnbWlm7NW8geD95EsaKcMS/VscOnZFv/cwdmBRawkDKyPuX9871
-         6eNQ==
+        bh=1OaiGLLoxTsUad13rL5qrpAU9a1lh1UZkttvZnhnlXg=;
+        b=H0HC5nN0Cb//8P5+s9yAaKM5b+hx6wttQWPo4zFfT0WZfS6Eh3CtPI2oOoZwsSjidm
+         KvDNUcUqTihE7Sdwk6RwykZvdSMqAuzSXZo21T4kGJPlG3WjZ4m2A7BahwleIwbxkCbc
+         C6xq+VjBXYDSgB5j3Rhz3PvMYOmWmheFFAuZuMT72jSOhcWwxyBD6s65xMzRcrJC0GGt
+         UggHh4Qc/0fFkCkxFDNM8zcgaR7mCHtH8IMKY0ur/GUxwAWa5fICCUpugAky5R04Y7BR
+         LANNKJ1Wuti/O/u41RuapEQeNiu4AP3KuhiQ2d6D2KBWS/+Bemgt5o/bfjqQqLwQRVB3
+         S0ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785136108; x=1785740908;
+        d=1e100.net; s=20251104; t=1785136239; x=1785741039;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fzkqreeHngQxOokHF4otaMSkre0ILi8PbO6vbHpwRN8=;
-        b=SEUaMafKR7qs8skuX8gHu4I/53xeLesyfSXIeE7mndzGN1n6cCDNkCkayKCAgpihhw
-         GVH5GqnqZBP2pT87XeBr/EYB5Gt2DMHZA344iz+955HGjaxlH7+VbzJmMM0JnSpF4D6C
-         2pcACpR6Qh4XzSsck4gn5GycnaPsH2n9lIGj/aAkQh6E84g1XhG1V1w2dT999028Q59L
-         RthGAzRqi39frpmIko4sITkpanIm21JPrkQnwyLpuoMWMTB0CGxAeHdWYlpS0f3CnXsX
-         9Lzo8uS45bPRkDIVPzY1K8QXUQA4PDWzD0nYC7zXvN+QA4c5qFOJZqVEG1y3Y4BS1rY5
-         oDGg==
-X-Forwarded-Encrypted: i=1; AHgh+RrXP49WZVnTdfVE8gopLY/21HjlbQ+cDu1wKkr5wGDrg1hM7AZpFeDbQbxQ7f8rNf5pFW05dXM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEVwjLgeX7J7fJ1T9kkgeW2qeYWo/fFmuMt1hAOIdD6lEijcc/
-	St0MUSZ29Y6tRYnNmwGmOZ33xz5s7zSkOjRP/Z9UULYcCEmGXmd8pEiiG1OgDbjX
-X-Gm-Gg: AR+sD12CTW9BxuIBBaBDyLZ4JfwMK0/Uo63P5m76F5krffmE6NtwI18yarM9z8DuTuu
-	0kw247Z5fGvIl3fYm8HXYz1blYVBVyg6nf5vUIhkdg2bAJJGWbpmvwgLHX4XkUAPv18aA6T76zm
-	ijfyti8UrnbYhhqcWVA1r1JZC1FBfFZfYOaESHpP6g/7mN3GT6lBklJA7RzK/Dn1mwzJTK5+WSt
-	DtYetI7DJFNPZXe0JgprEQKrQ8d/gbxcgTIBRlPZOusKOcC6Av3jxVEYGyQgmwcCtUzEk4iknT6
-	m5d73GGejLDApLPpBBYRYRNPEnxJ1xtBWHtgJsbAyrNzhwEZv8Mvc2iDKjnxyNAd5W+WwkbzSqA
-	f+J770BZjOmR/MrCVFKTfHxkEngAlaMOQH0I/AhPey1r6R4DxRkCyB35B/dIvMiYO+iqfR3xANr
-	iyc5jDBkZ9XL0xgY5t7qJlidgYhtFkTDg5yM8lgvJsl97O7G29LeS/fI3SFj2x4clwDNjZWoodi
-	Q==
-X-Received: by 2002:a2e:bc84:0:b0:39c:f58e:5c8b with SMTP id 38308e7fff4ca-39f28561e46mr12241151fa.20.1785136108252;
-        Mon, 27 Jul 2026 00:08:28 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f22173825sm13461301fa.1.2026.07.27.00.08.27
+        bh=1OaiGLLoxTsUad13rL5qrpAU9a1lh1UZkttvZnhnlXg=;
+        b=FnIMYHScVjpmQEmuhu2429rD8uKhzIGkqzrcX6v1bBBYaVsRyZjUAyuQHIzNufWXNQ
+         +4Yhzv6m3ohrcOVCbBqylkF+dDL1a4x57JKhu4cWORcBPZyS96lyuW/XRbpfem8nbF/E
+         1K60QYQSLrLPpsfLdS1E+fK9me0dgLX1PFlOzTy04fGthy3aNGHAy47jOENcfGFfua4j
+         oXH+95KcGtHO929kiJ9WhbLsZLydG5O3Myi8guu6PfygboD8pPnk1mKvD6mmWgbRjCVm
+         vJlk/s9IPvDGS9N3csABeLi8712Bv/DPAx7PFjvrH5pYf+S3kJcst0j49Xo152CMCCWm
+         VVkQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqsFhW0qEdfksuxmG06IasvwKF4dga/VWBqmcJfMn5+uUeQ6GLcGexwxVlaDF5aprPNhdrq65Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgwBvzpm7CamibRfoP1Piomk+awM7HW7s8iOqrQhlTHMdD+k33
+	ADE2czR/OleUiBUv3YDKWqtz5zHxoSlNEMCnDFhjlwS/IDFlBTdryv5k
+X-Gm-Gg: AR+sD12O6Ufk73nqq2G+K4kjRfWtSIbkgcrc7N0EgKuCpzh/rgmWeVubIRLvaN3yEZh
+	kRit3ChEn0Vj2r7HZ28fGcgTK7MMSsg/9+8ieM3cLMWo4OgFx+HgWb9ppivOo56wOjNYlbFIKvM
+	WEANIWo+wJ2Q5oSxFCDhyvb4tYwtdDJ6jwasKTl0I4wwZfTqBt/b1j8qNg/nbIDJfZTZOzm5Cww
+	YEbGXAfNwWFSftzgikJU/uiL1kFVK5KOv6kwK9nZL9zh3djwJVwa8Z+9FNLiv7r3T0I4fQeHJuZ
+	AE7UQG02/cwCdFhaeLYj7IYmO5oFTUYh65tuwHdhshkIzRoTotRcHjog//CgsXCcD81WIpW3mV9
+	ciybgbAwC5y4gcSlIDSlTcWtZPV0nBoIquqcuEgUpqbNCrRDg9LJRvdln/7etSDaC18ID4b77CG
+	DEOJWC9FmPm8kv8g==
+X-Received: by 2002:a05:620a:26a5:b0:92d:a06c:de5a with SMTP id af79cd13be357-932df6e9ecamr702151285a.45.1785136238883;
+        Mon, 27 Jul 2026 00:10:38 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de569a84sm557850885a.21.2026.07.27.00.10.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 00:08:27 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
-	stable@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] iio: pressure: dps310: fix pressure result shift bit definition
-Date: Mon, 27 Jul 2026 10:05:46 +0300
-Message-ID: <20260727070547.649074-1-zoone.rupert@gmail.com>
+        Mon, 27 Jul 2026 00:10:38 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Kishon Vijay Abraham I <kishon@kernel.org>,
+	linux-mmc@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mmc: omap_hsmmc: fix busy_timeout overflow in ns conversion on 32-bit
+Date: Mon, 27 Jul 2026 15:10:29 +0800
+Message-ID: <20260727071029.1355476-1-zhanxusheng@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -79,51 +77,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DPS310_PRS_SHIFT_EN is defined as BIT(4), but P_SHIFT is bit 2 of
-CFG_REG. Bit 4 is INT_PRS, which enables the pressure measurement ready
-interrupt on the SDO pin.
+omap_hsmmc_prepare_data() converts the command busy timeout to nanoseconds
+with:
 
-The datasheet requires the pressure result bit-shift to be enabled when
-the oversampling rate is higher than 8 times, so
-dps310_set_pres_precision() sets it for oversampling ratios of 16 and
-above. With the wrong definition it leaves P_SHIFT clear and toggles the
-pressure ready interrupt instead, so the result register is never shifted
-and the pressure values read at those oversampling ratios are wrong.
+	timeout = req->cmd->busy_timeout * NSEC_PER_MSEC;
 
-Define the bit at its documented position. Temperature is not affected,
-T_SHIFT is bit 3 and DPS310_TMP_SHIFT_EN already matches it.
+busy_timeout is an unsigned int (milliseconds) and timeout is a u64, but
+NSEC_PER_MSEC is 1000000L.  On 32-bit builds the multiplication is
+performed in 32-bit arithmetic and wraps for busy_timeout values above
+~4294 ms, before the result is assigned to the u64.
 
-Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+The driver does not set mmc->max_busy_timeout, so the core does not cap the
+busy timeout, and commands such as erase or SANITIZE (MMC_SANITIZE_TIMEOUT_MS
+is 240000 ms) can pass a busy_timeout far larger than 4294 ms.  The wrapped,
+much smaller ns value is then programmed via set_data_timeout(), so the data
+timeout is set too short and the operation can time out prematurely.
+
+Cast busy_timeout to u64 before the multiplication so the conversion is done
+in 64-bit arithmetic.
+
+Fixes: 8cc9a3e73de1 ("mmc: host: omap_hsmmc: use generic_cmd6_time to program timeout value for CMD6")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
-Found by inspection while working on FIFO support, and checked against the
-DPS310 datasheet V1.1 (2019-07-11), section 8.6 "Interrupt and FIFO
-configuration (CFG_REG)", where the bit table reads INT_HL, INT_FIFO,
-INT_TMP, INT_PRS, T_SHIFT, P_SHIFT, FIFO_EN, SPI_MODE for bits 7 down to 0.
-
-Not tested on hardware yet: the driver probes and reads correctly under
-qemu-system-arm -M rainier-bmc, but QEMU's DPS310 model does not implement
-the shift bits, so it cannot show the difference. I have a DPS310 breakout
-on order and can confirm the raw pressure values at oversampling >= 16 once
-it arrives, if you would rather wait for that.
-
- drivers/iio/pressure/dps310.c | 2 +-
+ drivers/mmc/host/omap_hsmmc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index 45bdb8c7670f..473973dd0694 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -50,7 +50,7 @@
- #define DPS310_CFG_REG		0x09
- #define  DPS310_INT_HL		BIT(7)
- #define  DPS310_TMP_SHIFT_EN	BIT(3)
--#define  DPS310_PRS_SHIFT_EN	BIT(4)
-+#define  DPS310_PRS_SHIFT_EN	BIT(2)
- #define  DPS310_FIFO_EN		BIT(5)
- #define  DPS310_SPI_EN		BIT(6)
- #define DPS310_RESET		0x0c
+diff --git a/drivers/mmc/host/omap_hsmmc.c b/drivers/mmc/host/omap_hsmmc.c
+index 58c881f2725b..3356ac5a1fa0 100644
+--- a/drivers/mmc/host/omap_hsmmc.c
++++ b/drivers/mmc/host/omap_hsmmc.c
+@@ -1357,7 +1357,7 @@ omap_hsmmc_prepare_data(struct omap_hsmmc_host *host, struct mmc_request *req)
+ 	if (req->data == NULL) {
+ 		OMAP_HSMMC_WRITE(host->base, BLK, 0);
+ 		if (req->cmd->flags & MMC_RSP_BUSY) {
+-			timeout = req->cmd->busy_timeout * NSEC_PER_MSEC;
++			timeout = (u64)req->cmd->busy_timeout * NSEC_PER_MSEC;
+ 
+ 			/*
+ 			 * Set an arbitrary 100ms data timeout for commands with
 -- 
 2.43.0
 
