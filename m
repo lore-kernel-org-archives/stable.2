@@ -1,110 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85054908BF;
-	Mon, 27 Jul 2026 05:16:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E14331F9BC;
+	Mon, 27 Jul 2026 05:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785129364; cv=none; b=T9oQBtMRvnskb0XXza5JBGQwhmDzEwQkOaM13cuFE2hcjgqzy2HDyGgEkcNfh0NiLsumz3rG0Su5IUI9Fb/UrZ/KzubVaVUywADQ4fXtYnSB4nNQQ8DY+x9Vx+AMUUZ+qv5PKK8WZ7kS0rDBabVzG4B11Gfo/s/77Z+nk3R1cDs=
+	t=1785129770; cv=none; b=ubZ47uN8g2LwPD6Jk6kczQSTnp/LHVNB80qJE90B0mveq142oFwltnkgh8CJft0Rdlh8HfSGUGm5xKWS5bGqC0upCGob9J37xkezLWJt3uKQGrPu53zja4H5c6iB/HLzdaEhpFwOB1Ll01hUorjus+PfeRcq/W6xHkTCPwJEdbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785129364; c=relaxed/simple;
-	bh=xfxiBWkOVfUe75rxDGsQQ2KVkO6TeuT+5fZoWVSj4fY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GX5LLQw7enoukGY8sr/qP7hYPHKsAu93r/Kl7ZxIfivPexayItr5tEh/Dbbu/UsMs+aExN5LvF/PmWzuocurs4wd2HS5xaKGJc4OXH18zIBsY1r+lE4qxiF9SV8wJ0kXABXK78mE3zMUAvHMx10KEqKXPbX5YsRwxlR76I6O++Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EKnC+RQH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785129770; c=relaxed/simple;
+	bh=aCA8lO80bR8RLZFSk9c4orCaRb6bCWflFbTjywLfuUA=;
+	h=Date:Subject:From:To:Cc:Message-ID:MIME-Version:Content-Type; b=pm0Qecd6PXOArdsDpclpO4GQszmLQLjK+HKmcWc0UsloKihlQGb/aB3BsZUqRXO12zjH5+uRb+5jNhj5ozHP23iQt1+KpyF7DR3L9i6s7x21/wgWDZIeHrOGP87lIDCfemOG1J17NQ/ffhXRz74C+roJVoe82+ehsJHNYOcrF8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEUBDs7V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EKnC+RQH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDEC1F000E9;
-	Mon, 27 Jul 2026 05:16:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEUBDs7V"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 12B4C1F000E9;
+	Mon, 27 Jul 2026 05:22:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785129363;
-	bh=QAZiReavJjCsaWbDoCyDa3aXiYKYzoCjl3otzpHyucA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EKnC+RQH6gpoSA5ZUiLuraxM50CRRwXdw32W6SZ31QjWKkgVQHA+d1UGuEOWN0mDR
-	 5lkgFEvPNC9/U8C0ACZgEjI31cBJM+/b3i79akLYftmAIvXixIUx+2naZTRX1fYGw4
-	 HnJZYLdjMBU+kWTV6I+KR6XShg7M3PcfWURS/n+MO1zGcciC6Q/GeY7wTdMEwbidVl
-	 e+D+sLQ/IzI4FVGS4vf+gIjRMdkumy43/cMCjvb0xcP7xvx0jkHa+MiFQMiEVPxEpI
-	 HBdKUc3rWyPIV0Ot5dTcS+cvFwg3R6IRcR+fbMk5is8ZA4Mq7PZTeeTDagSGTB0MZw
-	 CArNXTjWbPxEg==
-Date: Mon, 27 Jul 2026 08:15:57 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: sagi@grimberg.me, jgg@ziepe.ca, linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] IB/isert: reject PDUs declaring more data than was
- received
-Message-ID: <20260727051557.GH12003@unreal>
-References: <20260726064628.GA12003@unreal>
- <20260726153130.934622-1-yhlee@isslab.korea.ac.kr>
+	s=k20260515; t=1785129769;
+	bh=o4OE1uxn76VVrybt60Ig9zNQ65JGIOVmbQg4/ycqz7A=;
+	h=Date:Subject:From:To:Cc;
+	b=BEUBDs7VGFa7ZhpTbowfPrSXVBhIaLmjltedfxnEI377ES3SPmx80gAe1kChIgWZX
+	 0fdLAtfoH5ZwrQuGLz1y6gImhST/y1YtrSMpO76zJB2OWQME64L8asa4rLP2vwEzID
+	 yk9vKVUTnEDY1DNqRi6iE6CmlOs93qvOsjhVnX7uiEyLBk0HU1ms9cB9d/eUzjwWEf
+	 1zYiBAFptPtT5TBvfhGxns0YmKdfPSTBjmUj51w2eEeeoeXUcxnABP0Hv23IAynlXW
+	 GIa8JQKCUJBUzExcl1H5h4oncYrf4kaq5ZQr7lPBgs+kc9j1qw5XFCsrD5sXV2ATIB
+	 ASmQuAzbqHfMQ==
+Date: Sun, 26 Jul 2026 22:22:48 -0700
+Subject: [PATCHSET 1/2] xfs: LLM-inspired bug fixes, part 4
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: djwong@kernel.org, cem@kernel.org, hch@lst.de
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <178512389129.1494795.16117444961252720216.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260726153130.934622-1-yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 27, 2026 at 12:31:30AM +0900, Yehyeong Lee wrote:
-> On Sun, Jul 26, 2026 at 09:46:28AM +0300, Leon Romanovsky wrote:
-> > 1. You should review patches generated by AI.
-> > 2. There is a need to add similar check to isert_get_login_rx() too.
-> 
-> You are right on both counts.  My changelog said the login handler
-> "already rejects PDUs shorter than ISER_HEADERS_LEN"; I confirmed that a
-> length check existed there and did not confirm that it was the same
-> check.  It is not - 29e7b925ae6d bounds login_req_len from below, and
-> nothing bounds the length the BHS declares.
-> 
-> I reproduced it before replying.  An initiator that sends a 105-byte
-> first login PDU while declaring 8193 in the BHS DataSegmentLength, on
-> 7.2.0-rc4 with KASAN over soft-RoCE:
-> 
->   BUG: KASAN: slab-out-of-bounds in kmemdup_nul+0x43/0x80
->   Read of size 8193 at addr ffff8881056a8000 by task iscsi_np/167
->    __asan_memcpy+0x23/0x60
->    kmemdup_nul+0x43/0x80
->    iscsi_target_locate_portal+0x48d/0x1180
->    iscsi_target_login_thread+0x19a9/0x3350
->   Allocated by task 167:
->    __kmalloc_cache_noprof+0x158/0x370
->    iscsi_target_login_thread+0x971/0x3350
->   The buggy address belongs to the object at ffff8881056a8000
->    which belongs to the cache kmalloc-8k of size 8192
->   allocated 8192-byte region
-> 
-> faddr2line puts the allocation at iscsi_login_init_conn(),
-> iscsi_target_login.c:50 - login->req_buf = kzalloc(MAX_KEY_VALUE_PAIRS) -
-> and the read at iscsi_target_nego.c:1136, the kmemdup_nul() in
-> iscsi_target_locate_portal().  The read size tracks the declared value
-> exactly; 16384 gives "Read of size 16384", and a control run with a
-> correct DataSegmentLength produces no report.  It is reached before
-> authentication and the length is attacker-chosen.
-> 
-> On why isert is the one exposed: iscsi_target_check_login_request()
-> already rejects payload_length > MAX_KEY_VALUE_PAIRS, but it is only
-> called from iscsit_get_login_rx() and from cxgbit.  isert does not call
-> it.  iscsit over TCP is safe by construction in any case - it reads
-> exactly payload_length + padding from the socket, so the declared length
-> governs how much arrives rather than how much is copied out of an
-> already-filled buffer.
-> 
-> Your check is sufficient and not merely necessary: the posted login SGE
-> is ISER_RX_PAYLOAD_SIZE, so login_req_len cannot exceed
-> MAX_KEY_VALUE_PAIRS and size = min(login_req_len, MAX_KEY_VALUE_PAIRS)
-> is login_req_len; once dlength <= login_req_len the copy out stays
-> inside what was copied in.
+Hi all,
 
-I have little desire to argue with chatbot, but the second check MUST to
-be added.
+Here's a fourth batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+mwa...
 
-Thanks
+If you're going to start using this code, I strongly recommend pulling
+from my git trees, which are linked below.
 
-> 
-> I will send a v2 two-patch series - the isert_recv_done() check as 1/2
-> and this one as 2/2 with Suggested-by: Leon Romanovsky
-> <leonro@nvidia.com> - once the before/after on the login case is run.
-> 
-> Best regards,
+With a bit of luck, this should all go splendidly.
+Comments and questions are, as always, welcome.
+
+--D
+
+kernel git tree:
+https://git.kernel.org/cgit/linux/kernel/git/djwong/xfs-linux.git/log/?h=llm-fixes-4
+---
+Commits in this patchset:
+ * xfs: only check mergeability of bnobt records
+ * xfs: don't double-lock when deleting a self-referential directory
+ * xfs: don't return EFSCORRUPTED when scrubbing corrupt parent pointers
+ * xfs: don't zap the attr fork on repair when there are queued pptr updates
+ * xfs: nlink scrub must take IOLOCK before determining ILOCK state
+ * xfs: avoid UAF on sc->tempip in xrep_tempfile_create
+---
+ fs/xfs/scrub/alloc.c          |    5 +++--
+ fs/xfs/scrub/attr_repair.c    |    3 ++-
+ fs/xfs/scrub/dirtree_repair.c |   22 ++++++++++++++++++----
+ fs/xfs/scrub/nlinks.c         |   13 +++++++------
+ fs/xfs/scrub/parent.c         |    2 +-
+ fs/xfs/scrub/tempfile.c       |    1 +
+ 6 files changed, 32 insertions(+), 14 deletions(-)
+
