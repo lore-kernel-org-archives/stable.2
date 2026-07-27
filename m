@@ -1,92 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919EA3CB918
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 19:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681BA375ADC
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 19:51:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785181862; cv=none; b=VsOQvjRooRHtCfihbxPCMIdMQ9zg8fE4eqevlaNXANmXRfWnTd8VtzCeT68TW02fIUhta6bnWfwCgfb8jx4rG8afivetP0S30Lqz0ZBSqcR5aXF8rN5iXkMnnQk6A+6BwVzTLwoa5y0tgXgr+pZCr/4LOTJvf5rW/OP9f3F1Pgc=
+	t=1785181866; cv=none; b=ZqNif8FNM0tyz6B1ksXyaDkOKHNQYKe2pqBcpwTPxnisDLiOUqaKVIg9ccOJaAlFrHnW0ifHjB5kjARPeds967mYxCcYAHMYSwmAnSuPbizanUuvX2rLDFlybnj3CKJelzoAfOIJmacJgci+Lg+tD/2NjMTKHup5ET5hOtYm4wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785181862; c=relaxed/simple;
-	bh=oBhqkanPinfUGH4t6TxsuYoZFqcn8tQTcr8RyFsZeII=;
+	s=arc-20240116; t=1785181866; c=relaxed/simple;
+	bh=8yRXHMuyFbbHaO/Qu/mQ4iR+5HeMvWu6QKyM4l/mNRc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qcht5tdMPC8Tz48Z1b1h+EGyOG4mUeLtV7pqc+FBDESO4yj9X5tQdIMneTHVsIUr4hnoz9VqF0FI0WqNn8GGZsG48NahKmIg0eZJ+1GY5s1N3DuJZzRHyLuG+bbaE7uZmoTcUjrYzZ6JFUcgpXr7Fbrzc+VI/gumUhfsmH0wEvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUjWOAoX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XO1HLYamn5uGXryPdA+nTlwmOFsHN6ZgP2MXnj/xLa0ch/9ZvEFmuqbm29XrQ8BLEYdvucN6TSDUqCI9+Y0g73IDjyf8HBAhKcWzNXkusHj17LIWIn2wgjPp+dPOqSLfGmOq3I9N1bpzfHsIeCBT7ALlo3nN5GhMWVZI83OjzRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GqLZBq5e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUjWOAoX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF08D1F000E9;
-	Mon, 27 Jul 2026 19:51:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GqLZBq5e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B731F000E9;
+	Mon, 27 Jul 2026 19:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785181861;
-	bh=DE5uabCF49oVuDLNfPCPZFNpxYeZjcp/NhIjyw5c8E0=;
+	s=k20260515; t=1785181865;
+	bh=Vr4dfKFD+qe/v4Pc5G0PtCTX6gsngLcQb5Cllq4Wwg8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oUjWOAoX5qa65eVLMO75H8ujlpYw8BeTcVk294C6H1w+KdWXWcabu92QlZIaEOlB5
-	 +uzS10cBh5Y6+i/plA+Zv/ix2LpA5xmFWFhrUmDlrKuHe8MtgM1N6qaMVYRNkS5Gnd
-	 sLiygC71yOfF2USjqNi6vRiuqDa7V8pcKqvM0QEB3lSXfzsI71wVpSorHQJoEh5QO0
-	 EvNc5f7NHoyXzl8b4kSqvu/fnbOV6sbTOC9/y9GMzacwrhM6Pg+8csLcZWRUbPE4lR
-	 Pwnc2+okVe5ksYA44mUZwoBMD80MFFDC4BJq9zrWmFNhlZGxYkZGkFkje2b8KcmaIH
-	 6NhiTSxGB2whQ==
+	b=GqLZBq5e5Ab7qs4CKA8s/PE6FcRuPUvRBSGRLsWE9BP30DkVpceRhz8Kv+HcAljZY
+	 s/y3ukv6RasOOMvQGjd/ASSlC3SaoAMqZbF3WaFH1Bq73eh5OPX+bD7sVxXXt3SQTc
+	 sF81vhBFwlsRdtdMGdQz3GQsCJSWLJiYlDCDuN168H3gtI+KU7eKWf7EhmGMgWMQfm
+	 hgB1xP1JSCA4Z/kwVx2Ocn/oJrmMmLSD4+IwUSw9lPj/8UVU+AXWwI/8HL42i+x40h
+	 6hxoz0Mi7p/pmXM5XLWibmSCnEO4TxP1tGJHR7eBCjXox6ZdwAuyzfsI4swFrzn3qI
+	 s0TjkCohU8GAA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Lizhi Hou <lizhi.hou@amd.com>,
+Cc: Souvik Banerjee <souvik@amlalabs.com>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] accel/amdxdna: reject command submission on devices without a submit op
-Date: Mon, 27 Jul 2026 15:50:59 -0400
-Message-ID: <20260727195059.1774971-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ovl: use linked upper dentry in copy-up tmpfile
+Date: Mon, 27 Jul 2026 15:51:02 -0400
+Message-ID: <20260727195102.1775163-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072030-chastity-composed-e7c9@gregkh>
-References: <2026072030-chastity-composed-e7c9@gregkh>
+In-Reply-To: <2026072034-hatchback-unnamable-28b7@gregkh>
+References: <2026072034-hatchback-unnamable-28b7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+From: Souvik Banerjee <souvik@amlalabs.com>
 
-[ Upstream commit 38953513d7313992676d4136cd425cdb70c6278e ]
+[ Upstream commit e348eecd4d8fa8d18a5157ff59f7be1dc59c5928 ]
 
-amdxdna_cmd_submit() calls xdna->dev_info->ops->cmd_submit()
-unconditionally, but only aie2_dev_ops defines that callback.
-aie4_vf_ops (the AIE4 SR-IOV virtual function) does not, so a user
-AMDXDNA_EXEC_CMD ioctl on an AIE4 device reaches a NULL function-pointer
-call and oopses the kernel. AIE4 submits work through a mapped user queue
-and doorbell, not this ioctl path.
+ovl_copy_up_tmpfile() stores the disconnected O_TMPFILE dentry as the
+overlay's upper dentry reference via ovl_inode_update().  vfs_tmpfile()
+allocated this dentry via d_alloc(parentpath->dentry, &slash_name), so
+d_name is "/" and d_parent is c->workdir.  Local upper filesystems
+(ext4, btrfs, xfs, ...) immediately rename it to "#<inum>" via
+d_mark_tmpfile() inside their ->tmpfile() op; FUSE and virtiofs do
+not, so both fields stay that way.  Neither identifies the destination
+directory and filename where ovl_do_link() actually linked the file.
 
-Reject the submission early with -EOPNOTSUPP when the device provides no
-cmd_submit op, so the shared EXEC ioctl is a clean no-op on such devices.
+When the upper filesystem implements ->d_revalidate() (e.g. FUSE or
+virtiofs), ovl_revalidate_real() calls it with the dentry's parent
+inode and a snapshot of d_name.  The server tries to look up "/" inside
+c->workdir, fails, and overlayfs reports -ESTALE.
 
-Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-Cc: stable@vger.kernel.org
-Found by 0sec automated security-research tooling (https://0sec.ai).
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Link: https://patch.msgid.link/20260713173030.87541-3-doruk@0sec.ai
+This causes persistent ESTALE errors for any file that was copied up via
+the tmpfile path, breaking dpkg, apt, and other tools that do
+rename-over-existing on overlayfs with a FUSE/virtiofs upper.
+
+Before commit 6b52243f633e ("ovl: fold copy-up helpers into callers"),
+the tmpfile copy-up path used a dedicated helper ovl_link_tmpfile()
+that captured the linked destination dentry returned by ovl_do_link():
+
+    err = ovl_do_link(temp, udir, upper);
+    ...
+    if (!err)
+        *newdentry = dget(upper);
+
+and published it via ovl_inode_update(d_inode(c->dentry), newdentry).
+The fold inlined ovl_do_link() into ovl_copy_up_tmpfile() but dropped
+the dget(upper) capture, and rewrote the publish line as
+ovl_inode_update(d_inode(c->dentry), dget(temp)) — where temp is the
+disconnected O_TMPFILE dentry.
+
+Fix by keeping a reference to the linked destination dentry after
+ovl_do_link() succeeds, and publishing that dentry at the existing
+ovl_inode_update() call site.  The non-tmpfile/workdir path continues to
+publish the renamed temporary dentry.
+
+Reproducer:
+  - Mount overlayfs with virtiofs (or a FUSE fs whose server advertises
+    FUSE_TMPFILE) as upper
+  - Run: dpkg -i <any .deb>
+  - Observe: "error installing new file '...': Stale file handle"
+
+Fixes: 6b52243f633e ("ovl: fold copy-up helpers into callers")
+Cc: stable@vger.kernel.org # v4.20+
+Signed-off-by: Souvik Banerjee <souvik@amlalabs.com>
+Link: https://patch.msgid.link/20260501232735.2610824-1-souvik@amlalabs.com
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/overlayfs/copy_up.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index cfee89681ff3cf..3f7e53b1b6ee4a 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -405,6 +405,10 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- 	int ret, idx;
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+index a1ec45fc77d8d6..018867303a93a5 100644
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -648,7 +648,7 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
+ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
+ {
+ 	struct inode *udir = d_inode(c->destdir);
+-	struct dentry *temp, *upper;
++	struct dentry *temp, *upper, *newdentry = NULL;
+ 	struct ovl_cu_creds cc;
+ 	int err;
  
- 	XDNA_DBG(xdna, "Command BO hdl %d, Arg BO count %d", cmd_bo_hdl, arg_bo_cnt);
-+
-+	if (!xdna->dev_info->ops->cmd_submit)
-+		return -EOPNOTSUPP;
-+
- 	job = kzalloc(struct_size(job, bos, arg_bo_cnt), GFP_KERNEL);
- 	if (!job)
- 		return -ENOMEM;
+@@ -672,6 +672,14 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
+ 	err = PTR_ERR(upper);
+ 	if (!IS_ERR(upper)) {
+ 		err = ovl_do_link(temp, udir, upper);
++		if (!err) {
++			/*
++			 * Record the linked dentry -- not the disconnected
++			 * O_TMPFILE dentry -- so that ->d_revalidate() on
++			 * the upper fs sees the real parent/name.
++			 */
++			newdentry = dget(upper);
++		}
+ 		dput(upper);
+ 	}
+ 	inode_unlock(udir);
+@@ -681,9 +689,7 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
+ 
+ 	if (!c->metacopy)
+ 		ovl_set_upperdata(d_inode(c->dentry));
+-	ovl_inode_update(d_inode(c->dentry), temp);
+-
+-	return 0;
++	ovl_inode_update(d_inode(c->dentry), newdentry);
+ 
+ out_dput:
+ 	dput(temp);
 -- 
 2.53.0
 
