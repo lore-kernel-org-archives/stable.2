@@ -1,155 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4D732F770
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 14:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DF338656C
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 14:32:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785162538; cv=none; b=LXSCx/DWoj4uP2UGvd1nlksCqW4egL+BW0S/F72Tq34rY7fy92QPMxS0QEwhqrC0scIDgadIWl0PpdT6VUQgIfHEmsOgxDmNE0jO4v0uLY3qOQVxs75CIQu9Ds+ifQ1Fyu0FgLa8gTt0cpnTpEKvk/up3lUw2wJFfgDnd2tIsaE=
+	t=1785162766; cv=none; b=T3wLE4gqbYmg300UhimdUyK5KNgAS3L9wkOoHEme6TK4gH2a66voWZxVKgXll61DKSip8BfTvJE0V6vu2Nc5H4LfCkKFjXaGTJtjjOscX+RRlZyBiY7YC5uCb//zRrMOBOxuMwWCK6DFO/6Ysnzkst8H3eg/Uc18P/RwaAZKH84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785162538; c=relaxed/simple;
-	bh=1F2E0F8oWdzcK8owdnuCkCeBAUkTA6kxmehpUYOfQYI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e46I7V1GDpeFM3rlXzfKyqhq1cmMMO/CwsRU62O/ZcdXrltLS2aHG+WdeXmc27xWeRLJoNOiUsAIVquA5WOR55jYWj4Kn9w0uc153KixH5R3nJyfI3nEjrjPI3Blb8A8S2m4cjbAJGzLA4JbEiYMPUN6PkQqwvwmFUtZj8Mqv2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YTQR4u7z; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LcVPLYe5; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785162766; c=relaxed/simple;
+	bh=YGYthqmSkC8h78b1vWRmPeKQhegvHzR1P6XUSWdp1l8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=p1vCfawQtRqN3dZ+/93C8fTvByB3ppecK30Z5Wm13lwP2Fb8doR5oqTBXChr0qTfVAEbwc3qhfEtLo223nPxTueGsRXdKDnNuBIc0o3jFopMJ6t1ljlvTRRV+hPlKE2oVoPpRW/+Opwc22kPdCV78hgS+bRzHaqdKwd/kbatjag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=qnHlYAYb; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YTQR4u7z";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LcVPLYe5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785162533;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CgFmd6qXGD/1u/B/qklK0gxra4znkvRNbgLq4PG6yjo=;
-	b=YTQR4u7zc0Q9kmugq1mbA2LxjrGmGAF8ok3stZKrLx0WvCONFA/jW15MwNM1j8upsvIX5U
-	37KSfd9CJcWihWlOzh/NF93MycytW2PBTW1oy2ob2mkZMNuYx/GAR9q87Nq0fC9I5/6MIx
-	AiAwTFUBduD2xxNm2t9s8vfq/LBIMwk=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-317-UT6Yg-j-O02SFt7pRMqyCg-1; Mon, 27 Jul 2026 10:28:51 -0400
-X-MC-Unique: UT6Yg-j-O02SFt7pRMqyCg-1
-X-Mimecast-MFC-AGG-ID: UT6Yg-j-O02SFt7pRMqyCg_1785162530
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-69c20d12deaso3563570a12.1
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:28:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785162530; x=1785767330; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CgFmd6qXGD/1u/B/qklK0gxra4znkvRNbgLq4PG6yjo=;
-        b=LcVPLYe5T4gZ+qM03YZPW3uwZu4kay6mOYFhf9mDuUSAwieHUI1vfD6xs97UtxVexB
-         Phtmrt7nltPi14CWKepGdX5YDZPdUWGgMxZleTR1j8hOjnLBf4KTeCG4uhTuFwccSvJj
-         EM0GSIoFG5dyOmMPLaw+Zx7tU+rfHrJnLUgZ9spG43uKCq2mA1zjIU+JlNaSBc4nybdT
-         6yRY2MS4XrzqJ/3IXPQTGd5Jn4RqWjQ4FH2p32lmXNd2Tj6KhEerK41dTTb7Z1k56SUx
-         nAjpypPTejebcaFnyqitJbNi8rLx65WOMoa401bcUZLmdc8tosIcEcMe9lDYA7gyQz3i
-         kciQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785162530; x=1785767330;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CgFmd6qXGD/1u/B/qklK0gxra4znkvRNbgLq4PG6yjo=;
-        b=T5d1Ggft6oZMepP2nEl2EvPC+mfHHLsLXlCzOe4Q/8e8kr7e7IUQcESYpwVgRXrd7D
-         me2fFodVtDCkNbdetXq5Ofuo9wzYl7num9zJcdnqggon/sYufXBQ76xvZs6Bax+8p7s/
-         4KbrtHcFlSM+g4kVBKieQ8V12EaIIWXo2v1YPDdgW6ZiIGu2kTy8WJrjVCfLtlff8Oaa
-         LmEqibYJ2CgS8zJRGkAtMQvAZ6h8jTJLPoqOpkQvwAdMXJ/UKCyTK15MxZsPdBqePuNv
-         aTtduhoUjckNG1+shd3G/apr22EOnOJzdblNYJKCtVWWYbSwnvPXjSWTjhS85J+S1nQT
-         If0g==
-X-Forwarded-Encrypted: i=1; AHgh+Rpa4sp6K6xv1qmJgJ2ZTgTLn2czRAbqHV0tnmYcpGXxpKvGHWfOmcez1luB6jwjpQfrlaRIzwI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBB4/IIwIaivyiteGeVeNl4ChRsyaUClW2VyaLOpfGKotSUw/A
-	L7bFXUr9aSqxPxqZzEMdhT0kwoXXo3bDy7cb67Tt3Iak70l/HBIyaGXOz71AVN/1DMSr8rn3RRJ
-	BdaN1a+KFaTwq393+lynuk/ikXmPYcqxZSChaiHkM93r4ZJxbnPck7Kel8g==
-X-Gm-Gg: AR+sD11cQp6SL4ombzMbir6drOKcMxYj1ZBSX5sf6UxqOmeQPkHq4PQQ+S5czE98f1k
-	LH4hcCvFRWmzszCBz2cSQ4alpNBBwmgH9BOhzlkplvKi+o9D76uHUicvzOrM3fqNJBikzgEStWk
-	MrrQYmWhB+h8MuShS9iER15s3Mt5Q+tB9s4kxfCDRjriTNjUaYcubwF3QmrRoT22vAZ3/CxQXZ9
-	fQGNtoz3cLDwM8zPjwQXzLDeIsHM07ZDOO6/F4WysJiPR+08QL8yX/E4ywf19g9oJMz91zRTAVP
-	GlmqCrFsiOT1hORlXWdlHfUdFZ3EWvuH9zjdMx4s7XyzcCUi4sfrnmOkrq7jvZhVBPYbH1kIQUC
-	bPHUjVZ0IDYufrT2mHeMnNgadwzpa4jDaohpLWtYec0659Erbsw==
-X-Received: by 2002:a05:6402:358b:b0:698:9450:92b0 with SMTP id 4fb4d7f45d1cf-69fc1007196mr3646736a12.1.1785162530102;
-        Mon, 27 Jul 2026 07:28:50 -0700 (PDT)
-X-Received: by 2002:a05:6402:358b:b0:698:9450:92b0 with SMTP id 4fb4d7f45d1cf-69fc1007196mr3646728a12.1.1785162529675;
-        Mon, 27 Jul 2026 07:28:49 -0700 (PDT)
-Received: from [10.44.33.167] (5920ab7b.static.cust.trined.nl. [89.32.171.123])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb50bd183sm2838839a12.4.2026.07.27.07.28.47
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 27 Jul 2026 07:28:48 -0700 (PDT)
-From: Eelco Chaudron <echaudro@redhat.com>
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Tonghao Zhang <xiangxia.m.yue@gmail.com>,
- Aaron Conole <aconole@redhat.com>, dev@openvswitch.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: openvswitch: fix potential UAF on meter attach
- failure
-Date: Mon, 27 Jul 2026 16:28:46 +0200
-X-Mailer: MailMate (2.0r6292)
-Message-ID: <5EB5E9EA-2E4F-4226-993A-142C79A6DF00@redhat.com>
-In-Reply-To: <20260727121022.198461-1-i.maximets@ovn.org>
-References: <20260727121022.198461-1-i.maximets@ovn.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="qnHlYAYb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:From:Reply-To;
+	bh=DiE4IxzE17usoM51qOTZlsKT9PGucUwiHg87MbGicCY=; b=qnHlYAYbKvxNdYuWcrBw61i7EE
+	z2XK0h0R7hLeJD0cpMOAlnEA2x4sJNm8N8LWFFONmS0QFGDyasPNVdDlQmRPSoWq5A0Fi9+0rvuz7
+	foRPtfq5YCeeAVW3zpmwUDh5p4Tmj/NdGbzA114blyLUxoD5SeWHoKoHGBNn7J/mi69wr/7hyn7OU
+	ireXud7usQ5QfeFGDMWYhT7jpkBRDVF13sFuOdtXZcsaXnyB6CqFLkr4VpPUYn4ilgKL8JTXwibrW
+	n/meKG02sBBworD/ym0dAy9qnAF/LkIUKzByHFAqcuuepzHXXO3YYXcTqd4zKWiHJRrT37YL77Xbp
+	36aQ4yiw==;
+Received: from [187.36.208.132] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1woMNh-006B5g-8r; Mon, 27 Jul 2026 16:32:37 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH RESEND v2 0/2] drm/vc4: Fix binner overflow-memory
+ corruption and GPU hangs
+Date: Mon, 27 Jul 2026 11:32:27 -0300
+Message-Id: <20260727-vc4-bin-oom-fixes-v2-0-0d8a5eddc7c9@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+To: Jose Maria Casanova Crespo <jmcasanova@igalia.com>, 
+ Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2373; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=YGYthqmSkC8h78b1vWRmPeKQhegvHzR1P6XUSWdp1l8=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqZ2wBwXggYGVsbJywWmivlGDi8AwVIwNveKVcx
+ 5ACTO6puv6JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCamdsAQAKCRA/8w6Kdoj6
+ qleZB/91AUuq06t34wK9WMCx84IuxJ806HeXrZtP/D0aR6X94Fax2X+3FVfNEfyGGG1Ro3rvb9d
+ cMI2bl9UMX9oTSVqC66pcx4aSpkEOl/RI5A66DDYk3G6H7sdrbudXXuWb7AO+uEhUomKX1K9wNh
+ CIo1sKbvIFjiueQAk2IDQ6YoXsvfOPz+vRg6hEKDBrffREFIsh3+b9GP/9mEs0ddDvorv+GWpjN
+ w3eqLNCv39Plb9Hza1fxgRfMx92FPhKA8RxHayDtcHO2G0bcY+CB0CLnKkvzOKui4tULy0NA8A7
+ HFMI8hXi3OV6FBUi2Gx0XckgFHfLKkDH1qP94RvHhaV6hlmk
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
+This series fixes two long-standing bugs in the VC4 binner's out-of-memory
+(overflow) path. The binner writes each tile's binned command list into a
+per-job binner BO that is carved into fixed slots, and spills into overflow
+memory whenever a tile's list outgrows its initial tile-alloc block. Bugs in
+that path have been reported for years as GPU hangs, userspace heap corruption
+and occasional full system crashes [1][2].
 
+The two patches address distinct problems and can be reviewed independently,
+though they were all found while chasing the same reports.
 
-On 27 Jul 2026, at 14:10, Ilya Maximets wrote:
+Patch 1 addresses an issue in vc4_overflow_mem_work(). The function points
+BPOA at a 512KB slot inside the 16MB binner BO but writes the size of the
+*whole* BO to BPOS, so on every binner OOM event the hardware is authorized
+to DMA tile lists across other in-flight jobs' slots and, for any slot but
+the first, past the end of the BO into unrelated CMA memory.
 
-> While attaching a newly created meter attach_meter() function makes
-> the new meter visible to other CPUs but can still fail afterwards.
-> On failure, it detaches the meter back and returns an error.
->
-> However, this is an unexpected behavior for the ovs_meter_cmd_set()
-> that uses a plain kfree(meter) on attach failure without waiting for
-> RCU readers to stop using it, assuming it was never visible.
->
-> This is never a problem for ovs-vswitchd as it always creates meters
-> before creating any flows that use them.  But the UAF can be triggered
-> with a custom application using uAPI:
->
->  BUG: KASAN: slab-use-after-free in ovs_meter_execute (net/openvswitch/meter.c:653)
->  Read of size 8 at addr ffff88810d152650 by task meter/2508
->
->  Call Trace:
->   ovs_meter_execute (net/openvswitch/meter.c:653)
->   do_execute_actions (net/openvswitch/actions.c:1407)
->   ovs_execute_actions (net/openvswitch/actions.c:1584)
->   ovs_packet_cmd_execute (net/openvswitch/datapath.c:703)
->   ...
->   netlink_sendmsg (af_netlink.c:1900)
->
->  Allocated by task 2519:
->   __kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
->   ovs_meter_cmd_set (net/openvswitch/meter.c:422)
->   ...
->   netlink_sendmsg (af_netlink.c:1900)
->
->  Freed by task 2519:
->   kfree (mm/slub.c:2705 mm/slub.c:6405 mm/slub.c:6720)
->   ovs_meter_cmd_set (net/openvswitch/meter.c:479)
->   ...
->   netlink_sendmsg (af_netlink.c:1900)
->
-> Fix that by making sure attach_meter() doesn't make the meter visible
-> until all the checks are done and the function can't fail anymore.
->
-> This also makes sure the "hash" value is calculated after the potential
-> re-sizing of the table.
->
-> Reported by Trend Micro's Zero Day Initiative as ZDI-CAN-31642.
->
-> Fixes: c7c4c44c9a95 ("net: openvswitch: expand the meters supported number")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Patch 2 zeroes the Tile State Data Array (TSDA) when a job's binning slot
+is configured. Binner slots are recycled between jobs without ever being
+cleared and, although the kernel sets the "Auto-initialise Tile State Data
+Array" flag, the PTB demonstrably still acts on stale tile state left by the
+slot's previous user, generating invalid command streams with invalid primitive
+streams and branches that hang the GPU.
 
-Thanks, Ilya, for looking into this. The patch looks good to me.
+[1] https://github.com/raspberrypi/linux/issues/3221
+[2] https://github.com/raspberrypi/linux/issues/5780
 
-Reviewed-by:  Eelco Chaudron <echaudro@redhat.com>
+Best regards,
+- Maíra
+
+---
+v1 -> v2: https://lore.kernel.org/r/20260718-vc4-bin-oom-fixes-v1-0-8cba09558c33@igalia.com
+
+- Drop the GPU-reset overflow-allocator fix and the dynamic initial tile-alloc
+  block sizing in favor of new patch.
+- [1/2] Add Iago's R-b (Iago Toral)
+- [2/2] NEW PATCH: "drm/vc4: Zero the tile state data array before each BIN job"
+
+---
+Jose Maria Casanova Crespo (1):
+      drm/vc4: Supply the overflow slot size in BPOS, not the whole bin BO size
+
+Maíra Canal (1):
+      drm/vc4: Zero the tile state data array before each BIN job
+
+ drivers/gpu/drm/vc4/vc4_irq.c      |  2 +-
+ drivers/gpu/drm/vc4/vc4_validate.c | 29 +++++++++++++++++++++++------
+ 2 files changed, 24 insertions(+), 7 deletions(-)
+---
+base-commit: a3caaa06809248b996254be5b47e10804a3494e2
+change-id: 20260718-vc4-bin-oom-fixes-29cf2cce2562
+-- 
+Maíra Canal <mcanal@igalia.com>
 
