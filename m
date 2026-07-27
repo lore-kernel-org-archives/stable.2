@@ -1,149 +1,198 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11022082.outbound.protection.outlook.com [52.101.43.82])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2292D175A9F;
-	Mon, 27 Jul 2026 16:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785168168; cv=fail; b=LHKHZ7q3E57WT5xQrkUcg/av12VPh/5FM+XI32z8uAC8JRtIrIgw67rb91vOsMqoW21EVGat7sUPQxZGdDoEGUoGGmB7BKwQ0SdKbZe0I5CFWzyuYRb8to0LB0WHZHOEk0C/c1S2T4erzXnvOFQP8IVZwOcPjMqgSJFFnWotIOw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785168168; c=relaxed/simple;
-	bh=1iK1JGRSqUQAVo8mwaU9qFeYVJFP4fiMeRM1f5o5VS0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=CbSnZKk6i/cOS4A2fOPw2+E58aJxAVOQUlKGeza7s6MXKHd5U3mhgbRBqu4sI7xtnRMDaiknYZHr8eCdGOYDJibpCBed6SNE7Ylbr+WniX0V+ztc9/4uNfp7BRrq5Ki0mLYpXWtBBn7kapgoSdxOEUO0iovuYitp0dBJ0yr3XFo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cornelisnetworks.com; spf=pass smtp.mailfrom=cornelisnetworks.com; dkim=pass (2048-bit key) header.d=cornelisnetworks.com header.i=@cornelisnetworks.com header.b=Xit3OAAt; arc=fail smtp.client-ip=52.101.43.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cornelisnetworks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cornelisnetworks.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012E33B38BF;
+	Mon, 27 Jul 2026 16:08:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785168541; cv=none; b=rhsSTXCsfoIEWD3Zn4NIi9XYY3Hscl6MaX0CgNueYQ9X5iDw56bQPylbJCutyP+MQag0M0K3uI8wYJx6E7C3g3PfjysqD7CQ/5h92P7zSKFdjOyj3sYSQwzGKGc72yFEUnItfBTrkvNgUHYCMwOOINIIODUQ/wwkNoRUj4b0ofY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785168541; c=relaxed/simple;
+	bh=QiCRQ8uy/+rds76IKIMt5bEdNPoYdSWYI7n/H3t7hWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MFlANvbkcVZUzB6znr17rdmve4keGLEWkTgCKP4rkTZ8FWtGdFCg1doVw86SyYFVkcRfSXJr12HeyJIW07LMniA8CX1KPh5rfcMQ1FO1tmCKeikvdw1OJ91Tyrx6p9NJsweQ+EPIkwXgNtLCzTtrQlw35WZC6qv29TtpBl+Q0Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PW8tOqTC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cornelisnetworks.com header.i=@cornelisnetworks.com header.b="Xit3OAAt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Osb331qxXVOy4A7/ySpQMwPx5+/oUT94aRBYirviCaiPdHX0hTahyvTWxvrGCI61UuCBKuPQCp0qdVzMHCCo2qpsRlSOkbKj61xbg71oYHV6Kbj0WTD/5W4gw5yo97+kX0r2pD49TtIntVxdXo60PBUyL3P9CVQlZ8uMki0GdhkSDYCBYJTAuMruGiaiwRdG5OcCzFJOR0fe3eXxcBYhoDhvB72hDfdkw5eUaNFY3MTN+91wB1471Jt8JvZqDkpqC+Qs7E0y2UoxxWJqdYoqNWxEbSD2rwuzmbjOSmi8T2kcQh05rSFZkUjJ+8cUKDiwIbLiV8WjWNemysd4jAUfLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ie3wN7KJ/UZEoDpXTDpLTo8Vg4OxGIAyU6XtwD9w/vo=;
- b=b1Fw+dkrwowaUzR1+YYSYLMV8ZkaghGCTdO765ZAMQuhZwpOan95mnDFp0k6mzQUr0gab87qelx+T1uMAThn8D0H2qf7g7hdP9QICwo9ZXcUsimneYMGIi8xSxuO3xkxLTX0kISEISlsSLrWRDY1AY4JMkwFb3Gz+H1gJejVFGBW6PUDfVV+g6jqfX+h8q9Re1QLea2EtyXC877XHr0Tf94mu0inOLXRCzm3GRaUwkLC+5ZipGpdsPHHqBHVZWJB0VU0c21o2hV8OMNtYxBsR9+uCDGz2qjs/mF1StrXGf1vtGDJNW2Y9iMN+pbwpdu/DdKx3O4e+pWKzMvLKPwahQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cornelisnetworks.com; dmarc=pass action=none
- header.from=cornelisnetworks.com; dkim=pass header.d=cornelisnetworks.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cornelisnetworks.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ie3wN7KJ/UZEoDpXTDpLTo8Vg4OxGIAyU6XtwD9w/vo=;
- b=Xit3OAAtCRXxvwqh2nv9DhEHpG2v0Hh2oFjZ8HZBdQrp85GtM4czHXmIQz1dRKCAGGwnDNNH4RgPb9B4D/2bRpRM+NjxWrkSxegf0nKtNE6mjlbstBrFE7yyeOT9QhMlqn/emNhSGJRCtFKdfpc/bFe6o838TaLClGOMkdbZBxP32EO+wvKif4xSLhjvBRkF4X7tfDxOpMKQK9jUcjGhnkSvjvcOPPtB5SXGmW3EwXwcw8QmZ2Lef2GQSVXblO1BVVC6aX0ZigWxb5p9zZYwwc6ZUuSkG/kzu/JwORM5nw2JCZXA/pSxtzjZ/9AccZfCWAu0N8OW252qpaYtBDbj/A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cornelisnetworks.com;
-Received: from SA1PR01MB7248.prod.exchangelabs.com (2603:10b6:806:1f3::14) by
- PH0PR01MB994238.prod.exchangelabs.com (2603:10b6:510:38e::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.13; Mon, 27 Jul 2026 16:02:42 +0000
-Received: from SA1PR01MB7248.prod.exchangelabs.com
- ([fe80::42ce:7e6d:25b5:95be]) by SA1PR01MB7248.prod.exchangelabs.com
- ([fe80::42ce:7e6d:25b5:95be%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 16:02:42 +0000
-Message-ID: <a139a253-9c20-4d03-a687-3e2672972fd7@cornelisnetworks.com>
-Date: Mon, 27 Jul 2026 12:02:13 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fix: infiniband/hfi1: __sdma_process_event: fix refcount
- underflow on s00_hw_down + e40_sw_cleaned event path
-To: WenTao Liang <vulab@iscas.ac.cn>, linux-rdma@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260626150408.49976-1-vulab@iscas.ac.cn>
- <73DF2AAD-E77F-41BB-9D94-A6A5004420CA@iscas.ac.cn>
-Content-Language: en-US
-From: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
-In-Reply-To: <73DF2AAD-E77F-41BB-9D94-A6A5004420CA@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0280.namprd03.prod.outlook.com
- (2603:10b6:610:e6::15) To SA1PR01MB7248.prod.exchangelabs.com
- (2603:10b6:806:1f3::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PW8tOqTC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5839B1F000E9;
+	Mon, 27 Jul 2026 16:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785168539;
+	bh=Z0LvAO0ah3SsYMLwJ96GBLTr20qyrgX9+ER60RqNQcE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PW8tOqTCRonmn5YwYODzuh7/6xiFucn+teoQBtbAYeXY5H5wOcR0RyQWihpjbgu2X
+	 VWDI4A9oLfUyWlLWgGtLSQ39uZj4pfA8u10n7xpxukiQ2te96QACxV18Mbzse7Q0CI
+	 HAttNqykj4lylZ6tBeoaTs8nr/q7jS1FtBMUO0OiAAXw2GxniwrpLFhZdI++XKXFtC
+	 25Xm1u3f+yu6KJvMQTw6S9/N4oTnO0QeWBCEA83At62zNclFHnMhzfg0nSnf5A8Mrp
+	 SVFWfeRg57CU3vYwBht9DmU2SIvS4zsuFpCMSPTpYN0dTPl+ZEhIKVseuWvEGKNeUO
+	 enSJbfZh3bObg==
+Message-ID: <b915b058-f5b1-423a-a835-5891e7997080@kernel.org>
+Date: Mon, 27 Jul 2026 18:08:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR01MB7248:EE_|PH0PR01MB994238:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a140b42-cb9a-4c46-0a41-08deebf87d28
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|56012099006|4143699003|10067099003|55112099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	XjM60IdmnaMrbz+z4uwK3pOAjdlKMaSDBV4QMwlHkcwSh9bm/fTWP+7mdsp4+XBX+w+1YJ5CcriV0OiTwiPbyBLq3X9aIBMhPQFAbihb+4q90PmmOSIs1aDq3he2Yy4sOY6d1ixR1D7FEQHKg6+2+0iG4UZX1ziJ4lmclku6nIGSAD1HiPR6hz+gWG0snmTS5S0XTJPcC9AFX1gmb3u1shbQMqdvI3Ul/7SI6JiExXwe30HrX1uBuptdLPeVWf8+tGsb/zwxZJE7uBkKU/YNtzAtrzlBWkqC30oJ+X/H6QbiLjv7a8zM7NBS9ZcWPDPcPLe+XuLN7io1VKSNHn8FUaEqNVWKn1eq8WqV1OKMsaOr6+reaojkA2ns8VIpXg8ExzbE4hWxokVab4GSOjMqwBxSGMjAu/dvXdRvTCSESg2eTQvS5FIpXaTAZZ9kFm71YtEJ/6yDaMw71kV4IqAd7bpKHeTdNJeF6wkLISQSy2fJyGOPSvOaot/ANbh5fH/kKEoBDR7n1iZNkpSST4yGY3ldBbOA6BWyJssmO5Qw26FpiKeO8ut1YAAIg285CY9RCQzLSEN3/GHma2g+ILx2hfEW1F6xiqo2vk2IOgdJ9098NKfRUYCpQe1uRsGkh2q6tlYoGlWi7QJdZMf+qKbFWRixwhIokhIYmynqbUde6zo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR01MB7248.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(56012099006)(4143699003)(10067099003)(55112099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YWt6RFpPWnZvQUV2UWFscUExb1dHck9WdG9wYlovRTBpSFFEeWdoZ1FhQkFU?=
- =?utf-8?B?enVBSEh6RmdyeHk3VTZva0N5cEI0dlJTQURxU0VYV1V3WnNOWDBaRDZTcjJX?=
- =?utf-8?B?TE9NZmRTUWxpQjdDTGY1Vkk1NkJ6VTJ1WjVIbHBLV29CSURsSXVxelo0V0pw?=
- =?utf-8?B?TTk3ZEZIS3F6TVliaXQrZFlhK0Y0andKN25wSXVpV0JkdXlKTVh1a1MzeUxW?=
- =?utf-8?B?Z1dhZDlxTk9FY2RmR3R4amd6N21WODdRNlRTWUJYR1BXZURNdDJ4TUlFMk1P?=
- =?utf-8?B?R3Z3M0Vuc20rRWdrYzczRHd0R01ueG0yNUhWRnBDdFV1VkdxTml0TXFSWmds?=
- =?utf-8?B?dTBISHl2czB5N21aZW1kWjRaS0l2RkF0endTZTA3QTBBWTh3YWM4ZFNTdVND?=
- =?utf-8?B?RGNuY1A2T3V2eVVpRnJZdUdZVjNGUStQTlliWDN3b1BYL0NkSHJ1c1Z2RHZ4?=
- =?utf-8?B?Z1VrTGxBT1Z4dSsvaDdiZDBUTllPNEtDdWxPYkEweWRyWEI2WFlscWNtM28v?=
- =?utf-8?B?VXRVb2pIVDMrOTZYaVVIRVJDSkZqZmhqSnd0M2RRTGxZeWppcDR4bXA4WHVQ?=
- =?utf-8?B?MU1xMU1DcHFsMWpMa1p3WDlmMHByNGNSZ3FEZ0lqcUxkRjIrZEhOUkV1RHRo?=
- =?utf-8?B?d0drUTVhUGN6R1l4M3NZZTBnNXBJYWtGL25RVEZGbzhvSTE1SWdKYXdNaTVE?=
- =?utf-8?B?aU1IaTRVUTUrY2MwMjVxMDJEVlgydFd6dXdzcjEzbjAzRTBqTTc2blg0Wlh4?=
- =?utf-8?B?SlgzZHBhRE85Y0NCYm5hU1dCcjNqWTRrbUwzMU5GRTZVUmExVWFNbjlNcTA2?=
- =?utf-8?B?RlpHeTBDMlFnNmNVa3doVHY1MWFHc25EU1BRNWF1Z281SWdVcG1acU9hb0t5?=
- =?utf-8?B?SEhOM0pYMUdzYTVmampqU29reTZTdkNkTGg1eWRVeU53eGRTWEk2bnFRTEJt?=
- =?utf-8?B?NnlWTTVsRFNHL2IzVFBzcGdEVFArdDVRSlBZeTJ3UmM1MTJOYm1FNEhENFd3?=
- =?utf-8?B?dDM3dE9mNStLTFZoSXE3aUdTUVhSL2JaNTZib0FteERBeWpzTEtJUEIwdGtr?=
- =?utf-8?B?c3pVK3gzVjRSdmlTMEpXQTc5MEF0OXhJMzJNVUNiTGpmSHpoaTVlbUdLSXVY?=
- =?utf-8?B?Y0VianhLaXdXRm5QRDFldDVoZS9MakxrZ2U0blNXQlMrdFFJOXoyQ0JxV09R?=
- =?utf-8?B?bDBCRnY3QWJFdW5NTjYyS3FUclhvTFJBYW9VV2R0dnB0TDMxM1h1V2dNOHBq?=
- =?utf-8?B?MTVZSXhlMldBTElTSG9CYUErNEdubDNERDBWZVd5cWNQQ0tyTWMrNk11dTd5?=
- =?utf-8?B?NFk4cHROYWVzeFJNZUJ1MnlGeFBSR3BrL2o4NUsyaUZMOW5lU2twOTZpRTQr?=
- =?utf-8?B?eC8vcU00WFp1TXhMVzZuZm12NXBXU05rYUVmU0laV2hKdlN4SzYvWHJHSlBp?=
- =?utf-8?B?M3ZldGcraDl5bnBTeFoxQnJ5c0hqNjNiZXdiRFlIdlh2ZHZza2I4dFc2VzN4?=
- =?utf-8?B?SVgyQmVyMi9mbGd1aVZnSkNmU2VRaHlsVGhYN3dOZUZFbFl5c3U3VHhUR3c1?=
- =?utf-8?B?NmhQblAvTk9GMkZHOGV0OFN5cDNkejdNaWh5Q2hEajJ3c1M4SENyWEVxeThh?=
- =?utf-8?B?MmM0QzdwcTU2Y2RobkZXUE9Fc2x6d2tQMjZWTnh3YTRrT0d6NmRDM2hsMkJG?=
- =?utf-8?B?TEsyZUJMZENVUzhqNU1UaTFQWkUyMjhJYkd1bjdxY2VJTHBYalA1ZWFFZFBs?=
- =?utf-8?B?NTVoRDF1YmRJcElIbE1zT05YVkwzbURPUzVzaC9IU0tsSjJ2NDdOM25TTm53?=
- =?utf-8?B?bkdmNWpKcXl5VE9LVitBTVArbnpwS1FSUU1KNkV5UGwyczdwQWNtQXRRSThp?=
- =?utf-8?B?RnQrdzBuRENoYzlYeDJvWndCV3VMdkREbk1odXZYdGloK2J0TlYyK2pqeG51?=
- =?utf-8?B?RHFzZUZSVWN5eHB0Z0NaZ045cG0vSFZJYk82VDVESWZKMXRuS2g4NGxXVEc0?=
- =?utf-8?B?Y0psMHEzMkFqT3ZOeHI5aGk0eUQwUjM4TUFwRzhVWVdkTUM1ZlV1d0pVa1lZ?=
- =?utf-8?B?cnduWnA5d0dVM2ZIQzM3czFSbStSRXJYbWJrTWhwT3g3ejFOditaRlp5TTgr?=
- =?utf-8?B?eWRWbHRZdVp0SERkVE5LYjRlVHMrSXdoclpLUkFvbll2OWxJL2ZmbVRHOEZh?=
- =?utf-8?B?bm9EZnBheXY1SkdQNGdINGljTmMxcC9PbHVHblZUa1Q1aG93OUV6YWw4NUI1?=
- =?utf-8?B?eURpOGR4Nm5WS0hWNk45ZGRWdi9uTzJaSEFnNUI1bndNQUhkVzdyUnFZUXVD?=
- =?utf-8?B?YW9Gb0lFbFY3Vi9Nb1pHSHNwR3pmaS9PQlo0ZzNnZzFGWm1TdzdVMEJIaXJp?=
- =?utf-8?Q?wYjgJRDF99alXQHIukdudBA8qgZopIRlqQX+l?=
-X-OriginatorOrg: cornelisnetworks.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a140b42-cb9a-4c46-0a41-08deebf87d28
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR01MB7248.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 16:02:42.4594
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4dbdb7da-74ee-4b45-8747-ef5ce5ebe68a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RkuCJvuCaVzbkyG0chqQvAqe3UAdpMjYDhj3FlPQpaEJ7ax3f6hVfkrSiAIsA7z9c3wrriwVReoiEZbl4hLaf68t5D5ogANe4XWyzW7V0ZpnmRfJ94GW61r5i7sou9H0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR01MB994238
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3] mm/thp: serialize huge-zero folio state
+ transitions
+To: Hengbin Zhang <uqbarz@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>
+References: <4146d4f5-c8fb-42cf-9dc8-a9d4c26055da@kernel.org>
+ <20260727154001.4102341-1-uqbarz@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260727154001.4102341-1-uqbarz@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 6/27/26 11:56 PM, WenTao Liang wrote:
+On 7/27/26 17:40, Hengbin Zhang wrote:
+> The nonpersistent huge-zero shrinker clears huge_zero_folio and then
+> invalidates huge_zero_pfn. A concurrent fault can publish a replacement
+> folio and PFN between those updates, after which the old shrinker
+> invalidates the replacement generation's PFN identity.
 > 
+> A later partial mprotect() can then misidentify the live special PMD and
+> enter the ordinary anonymous THP split path.
 > 
->> 2026年6月26日 23:04，WenTao Liang <vulab@iscas.ac.cn> 写道：
->>
->> eives the
->>  e40_sw_cleaned event, the code directly calls sdma_sw_tea
+> A writer-side spinlock keeps huge_zero_folio and huge_zero_pfn updates
+> from different generations together. Lockless getters still use the
+> refcount fast path. atomic_set_release() publishes an initialized new
+> generation before a successful atomic_inc_not_zero() can admit a getter
+> on weakly ordered architectures.
 > 
-> Please ignore this patch. I will resend a proper version after
-> learning the kernel submission process.
-> 
-By the way the patch is incorrect as well. Removing the call leaks the 
-reference and stalls sdma_exit().
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Link: https://lore.kernel.org/r/20260724100509.2300200-1-uqbarz@gmail.com
 
--Denny
+We want a Fixes: tag + Cc: stable.
+
+Can you dig up the proper Fixes commit? Thanks
+
+> Signed-off-by: Hengbin Zhang <uqbarz@gmail.com>
+> ---
+>  mm/huge_memory.c | 22 +++++++++++++++-------
+>  1 file changed, 15 insertions(+), 7 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index b5d1e9d4463d..79bec4495540 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -78,6 +78,7 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+>  static bool split_underused_thp = true;
+>  
+>  static atomic_t huge_zero_refcount;
+> +static DEFINE_SPINLOCK(huge_zero_lock);
+>  struct folio *huge_zero_folio __read_mostly;
+>  unsigned long huge_zero_pfn __read_mostly = ~0UL;
+>  unsigned long huge_anon_orders_always __read_mostly;
+> @@ -237,17 +238,18 @@ static bool get_huge_zero_folio(void)
+>  	}
+>  	/* Ensure zero folio won't have large_rmappable flag set. */
+>  	folio_clear_large_rmappable(zero_folio);
+> -	preempt_disable();
+> -	if (cmpxchg(&huge_zero_folio, NULL, zero_folio)) {
+> -		preempt_enable();
+> +	spin_lock(&huge_zero_lock);
+> +	if (READ_ONCE(huge_zero_folio)) {
+
+Same comment as below: who could possibly modify this value concurrently? I
+don't think we need the READ_ONCE.
+
+> +		spin_unlock(&huge_zero_lock);
+>  		folio_put(zero_folio);
+>  		goto retry;
+>  	}
+>  	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio));
+> +	WRITE_ONCE(huge_zero_folio, zero_folio);
+> +	spin_unlock(&huge_zero_lock);
+>  
+> -	/* We take additional reference here. It will be put back by shrinker */
+> -	atomic_set(&huge_zero_refcount, 2);
+> -	preempt_enable();
+> +	/* Publish the identity before admitting lockless getters. */
+> +	atomic_set_release(&huge_zero_refcount, 2);
+
+Why do we need the _release semantics here when we just did a spin_unlock()?
+
+>  	count_vm_event(THP_ZERO_PAGE_ALLOC);
+>  	return true;
+>  }
+> @@ -298,9 +300,15 @@ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
+>  						 struct shrink_control *sc)
+>  {
+>  	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
+> -		struct folio *zero_folio = xchg(&huge_zero_folio, NULL);
+> +		struct folio *zero_folio;
+> +
+> +		spin_lock(&huge_zero_lock);
+> +		zero_folio = READ_ONCE(huge_zero_folio);
+
+Why do we need a READ_ONCE? Nobody should be legally be allowed to change this
+variable concurrently, no?
+
+>  		BUG_ON(zero_folio == NULL);
+>  		WRITE_ONCE(huge_zero_pfn, ~0UL);
+> +		WRITE_ONCE(huge_zero_folio, NULL);
+> +		spin_unlock(&huge_zero_lock);
+> +
+>  		folio_put(zero_folio);
+>  		return HPAGE_PMD_NR;
+>  	}
+
+
+-- 
+Cheers,
+
+David
