@@ -1,152 +1,123 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132C7423EA1
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC5042BE82
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785169944; cv=none; b=aCOFHwtFyE99iotr/IQTRc1TzWHJAxfEygDW6LaXDGKWCdp26zdSe60mUAELwmt5eg/lBYXJto5omeuDFDj42d+DSPJid4hWlURl2qbxm3cLfBA0rFUHOtmvO9BR8qLdtakAuqSnVKh5IDW42bl/289kOWmq4dJUK8WjDMXR6Ac=
+	t=1785171023; cv=none; b=DHIKZsNfs0vAwNVky8uvcok0TpFYMO3JpioZGEutewB5Qc/O9cwDzb68aU6TZaKxnQuApdiRG9xYUgJy83EeW/dXEVVG2oNxjL/+EBMqxOL/QpleIcGXgl7HHr+/pfkZ8IqKGeY+fIqHc1V5eVt3Yb9ua4Nd3D7gA5cBYRljAxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785169944; c=relaxed/simple;
-	bh=RGCKEOMha9P/cJMiFFMNuTbLtfsjjddXLsvFvL+tt60=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P24RlGaFliyBHbF0zZsp377Oto/X5FJw4JZaIpc/VAMNDxCCIhT32JTiW1d8/StpFeo7G8v6LdSIZp3NGNBEHqHJQVGR6+1MQB7RtzUV6pY2U+ZAUZblltNPFxCBRif/3lTNvRVBTQgPEl+qN2ptuTaEKUA9eOqTXVzrUfTp4dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kcGoiiRj; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785171023; c=relaxed/simple;
+	bh=5mQRN6h7tTCFnsXFddM0Ko1zLoseWwOecIpZi53zeOc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kvHMHpygfA5ZEQV4YHoRowSKXovMvzA0xXX8Kx+z24PDIcilxCW24AJU+f8Ow7AXt7qOyq+cz3j6YbxP6IxR9dI27D3Gtpnd9kwgdsow7632O81q56NG6vQ/zxPQWQcXZHyUeve5LkZFDKEswA8gByQByhkfmyPZYOzvCwQiJAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=lNYRGiQ7; arc=none smtp.client-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kcGoiiRj"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495635a85d2so24467235e9.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 09:32:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="lNYRGiQ7"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e99ef0902so186620485a.2
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 09:50:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785169940; x=1785774740; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jjStuC+Z5BSoMlb9btbKypwZnxjerVTTywVtGN/OSE0=;
-        b=kcGoiiRjLmw7au3yEla2o5cWEH15nz6h5ymWmcmPQWZ6qYFp4mKTZ64gMF0DR6HQp/
-         FbouctBjmBU79XgT2xCkP1jvn59PrgJlEEawAbB25kDln/yBsJ6g0V4Y7Z94Tz1s3Tdk
-         iLSkZyzYs53ONfqIrbJ4+oiXrMKbAHa+t/r5JogQxdS+niKXCfyj3l3eTausYX7EvD6k
-         4Jqy9dT9X0eoALfY8ac6mFqqF0L8yirHCYSzc7ZSLwo1d4zPqqTeO/BTA1L3sJA2Wlkt
-         FUFmOYmdbJvUlfGIcyUlKm9pziDFkRyDoGHedkLPsBJAGK0ogtCmU6MxClW47ukpM210
-         yRlw==
+        d=cmpxchg.org; s=google; t=1785171019; x=1785775819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TyxgjtQoCDEFZf0QPk0ARVlu8b9GSZjprhFXfcluj1o=;
+        b=lNYRGiQ7/6kmXd2ooGskBxw5HlySPgfWOmd30CJ91vs2RsCs8jXML7QMkkm4pdOsOT
+         +hQUdBMwldz2HPRYGpysVcm0VA7em7ZpP32dmByNpxxJMZsDqxCXxx2JCd33q26IGeTU
+         7s+5RP3hnchkKrfP7Nc7GfJTjyHY9mALbQWoGOJKTRleI7mL+IMQMwFAJZRFQAGK7C+s
+         0nuHhdB1oZP3CX0mmQr50/xb+woRQfNhQE5+UxC8mkJcb30suuvvNuIhECcjBLhvo8mW
+         ZfvyX/v34IJBCL75WRgbgS0Lmili+0bUnSDyMaeKS1Y44WK/rhT+JTPnd+ZqcrZZKfBe
+         KTdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785169940; x=1785774740;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jjStuC+Z5BSoMlb9btbKypwZnxjerVTTywVtGN/OSE0=;
-        b=jhf0lqLGO4Cu0zHb6TYQGccfcTHCBa1jl2hHfjMq7VGuOYAPB8yjrmyNeULJ1qIf/v
-         5qwzasuNjxfLwaOWpLgq5ks8NAt8v1AwJjorwtUgNDf1YxzG18d0DWTZ1sjaJDVUP7q+
-         XgMO+ROvPZwV41fOwVgMEsoMJdEaVMtFol1YIcQKxum8/MSf7C+t/IfvJQu4sWoEq9yx
-         Vg89K67/hXYSrQ9JMeYE/t3/AjMArQR3jzo1yKzA/3NY8oK3H9dFRAF57RFPQAksTzs6
-         y8loXwhI1OZbm5lx77GSWIDHIzLdsZfj9NchSWiMnEXe/c9eu9ADBPRMP1WUzRof8iyF
-         vmDQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqoA3iTQUbIq4k/0OqiwTkTGbXydmhHHpasJ+l5kHzPlfaWsY5tp7FQKsXBTtJAh19OURZl5sM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yza4PLXLJnaxhfCthhH2z/ZdwBgNcsojSiPT6kTcn8Vth2Rexg/
-	89ltSX+opWQrhDRCsjSP4MkzA5mTLE1fc2+bsXhr3NxH0CbdOM3ha5O8
-X-Gm-Gg: AR+sD125Oy5QtOAWGzx6Eh/H6ZspgQS2XcA17IC6/kDeKr6GUYjRTcmaJKSMjue2d6p
-	NgLIo38vt4QNsQD69j/i8O30iBkogFH/jzTX/cN9HpY01jw6qgEPGX1BjDUmhXjM8tC0J/PwNO8
-	BG1e6sr6Ao4tf+LgFTwSehYhqQrOyjEKD9cJAAR1NH8lpYy7TA3B32ezHS2pRazMzt71MB7ky55
-	M+SgoAOu8o8kiqsAtsBfg5QGbDFoawSb2HYEteyK17uaFRrZrZ9Ova3FNM+11CG46In4xTek+cN
-	hS19WtMiQ5kbH4jQgJssGLXb+3mKEN+tNmYi9NHorXYhHKXbVOeBTVNMEtNf0THIsYpz8axBunO
-	fzNt3N2LLDc4G5g/keP5heNzx30cI3j9fPM2wVqzysIDaPdVqorLpXkYXL36K/HbPOVbpE2hM7J
-	J5EGVSxoxI4HAMvKnLn735T1pUiJA72bsjMPOud0NbLdwt9ERil2/UJVR9HHmOGOc7
-X-Received: by 2002:a05:600c:5253:b0:495:636b:e519 with SMTP id 5b1f17b1804b1-496b56ff142mr126651835e9.21.1785169939939;
-        Mon, 27 Jul 2026 09:32:19 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan (public-gprs192625.centertel.pl. [46.134.91.178])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c44a91ebsm4458925e9.3.2026.07.27.09.32.18
+        d=1e100.net; s=20251104; t=1785171019; x=1785775819;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TyxgjtQoCDEFZf0QPk0ARVlu8b9GSZjprhFXfcluj1o=;
+        b=Y2tALs17Hk5GICmikAlh6is29+dtoYiC685DUBMBOJP9KBQFlu42SJWw29lVhdgM0E
+         YMGCWGTnhhH9w1yWThxPn1xeNtYcfMX7nKr3BQDinePOTj+qdGzv/oVth1Nb0hdAOIBm
+         97tYLDw3AgN8HK5slbYwAmOPEC41UTSMTzmwqnSwtp0TDHVdlZrPATr8G0fN8qszS5zp
+         tYR4Yh5zlhq/UWVB/3uOanaaEBzVSEXnpfk98U5tKgKXT4HtV2HPPCur9h3UYX/LmT1j
+         m6vxqRpqlELT3WpiU/PtacrxZEmeQVBUY7lVCnhK3SMLSR09kI1qkpfNGrrgpIs3mYLi
+         ad6g==
+X-Forwarded-Encrypted: i=1; AHgh+Rrmsq7IuDf3REERTt3gIlk7pdHjbF+ld7HdgJ7eNoNOGvEjY0e+z37Tsyma+k2ttNnFNzVGQe4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIdt/c4EQBUHbS34HWzYd49mzJHR5JnLCLEtW404Pz8oVg9I9p
+	mDJgyP4NNkwNgkE9RL4fpIMph0DDdOd5VvMPgTqJ5BHTbO29X1/e4gBgBfbvnQnTeuc=
+X-Gm-Gg: AR+sD11jJ+AX+/C1nY4owCsNCiXPSNwHvbd/CGzEfGo0YFiQnAlIKjXiSO97zrZa/p+
+	0HBcEF0QJ922Ny8yPQX5EvinP5kfy6X65L6vh0i0NTS7K0nYYTGuUP30PPu5mzSO5w3TCDnBiGp
+	P8yScO8ThuR1JdnSioWzIpa2Yi8Bt13MaZA5ZVsz0uGFRaJDt1GVo7A3XT74y4ptlVT+YwdlFSm
+	KjBUm5+EMjt/FWAIi/51jsMscyQ52do/ai2vOWDNVZGIJI7oFHdaJ/hSqYNVM9dfLJMtEQnP+RO
+	MLIjSM4085j919NKgw02f/khz9YoiwzHrO3J0dWMV00cZunK9n5UVMKt9lxnO5LP5mKvKdo7FxT
+	3ysU2xlLwXz25i8MJAgXnwFOJ5NFKKKdhFPSqA+j+D4Z2p3hh44mjE+Fz90vHlHh/fg8Qnd5um9
+	4H
+X-Received: by 2002:a05:620a:2983:b0:92e:a48d:251e with SMTP id af79cd13be357-932fe2b5b4emr1445285a.24.1785171019290;
+        Mon, 27 Jul 2026 09:50:19 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de5150dfsm649312085a.3.2026.07.27.09.50.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 09:32:19 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	Md Sadre Alam <quic_mdalam@quicinc.com>,
-	Stanislaw Pal <kuncy7@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: spi-qpic-snand: write the feature value before executing SET_FEATURE
-Date: Mon, 27 Jul 2026 18:32:16 +0200
-Message-ID: <20260727163216.109938-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 27 Jul 2026 09:50:18 -0700 (PDT)
+Date: Mon, 27 Jul 2026 12:50:17 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] mm: page_alloc: fix non-movable reclaim storm in
+ defrag_mode
+Message-ID: <ameMSbNO49M45Ieo@cmpxchg.org>
+References: <20260722150006.3848560-1-hannes@cmpxchg.org>
+ <20260722150006.3848560-5-hannes@cmpxchg.org>
+ <DK7NM9RPUJOD.11PNJJ5N2OBED@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DK7NM9RPUJOD.11PNJJ5N2OBED@linux.dev>
 
-qcom_spi_send_cmdaddr() programs NAND_FLASH_CMD/NAND_EXEC_CMD and submits
-the descriptors, which makes the controller execute the command
-immediately. For SPINAND_SET_FEATURE the value to be written is only
-placed into NAND_FLASH_FEATURES afterwards, by qcom_spi_io_op(), in a
-second submission - so the chip is programmed with whatever that register
-happened to hold from a previous operation, and the intended value is only
-applied by the *next* SET_FEATURE.
+On Sat, Jul 25, 2026 at 12:34:29PM +0000, Brendan Jackman wrote:
+> On Wed Jul 22, 2026 at 2:56 PM UTC, Johannes Weiner wrote:
+> > @@ -4169,8 +4185,8 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
+> >  	barrier();
+> >  	WRITE_ONCE(current->capture_control, &capc);
+> >  
+> > -	*compact_result = try_to_compact_pages(gfp_mask, order, alloc_flags, ac,
+> > -							       prio, &capc);
+> > +	*compact_result = try_to_compact_pages(gfp_mask, compact_order,
+> > +					       alloc_flags, ac, prio, &capc);
+> >  
+> 
+> Nit: the comment for try_to_compact_pages() is falsified by this,
+> we need something like:
 
-Measured on a TP-Link Archer AX55 v1 (IPQ5018, ESMT F50L1G41LB): writing
-0x40 to the configuration register (0xb0) leaves the chip at 0x00, and the
-subsequent write of 0x00 leaves it at 0x40 - every write lands one
-operation late.
+Yes, good catch. Thanks.
 
-This stayed unnoticed until v6.18 added SPI-NAND OTP support together
-with OTP entries for ESMT chips. spinand_otp_rw() enables OTP mode,
-reads, and disables it again, and mtd_otp_nvmem_add() does this during
-MTD registration. With the off-by-one, the "disable" write actually
-applies the previously requested value, so CFG_OTP_ENABLE ends up set:
-the chip stays in OTP mode, every subsequent array read returns the OTP
-area instead of the array (UBI reports an empty device) and all writes
-fail with -EIO because the OTP area is write protected. On this board
-that makes the whole flash unusable and the device unbootable.
+Andrew, would you mind folding this difflet in place?
 
-Write the feature value into NAND_FLASH_FEATURES as part of the same
-transaction, before NAND_EXEC_CMD. While at it, copy only the bytes the
-operation actually carries - the previous code dereferenced a 4-byte
-pointer on a one-byte buffer (spinand->scratchbuf).
-
-With this patch the flash contents read back bit-identical to a
-known-good dump of the same board taken under the vendor firmware
-(md5-verified across partitions), and writes work.
-
-Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
----
---- a/drivers/spi/spi-qpic-snand.c
-+++ b/drivers/spi/spi-qpic-snand.c
-@@ -1358,6 +1358,22 @@
- 	snandc->regs->addr0 = cpu_to_le32(op->addr.val);
- 	snandc->regs->addr1 = cpu_to_le32(0);
- 
-+	/*
-+	 * The feature value has to reach NAND_FLASH_FEATURES before the
-+	 * command is executed, otherwise the controller programs the chip
-+	 * with whatever the register happened to hold from a previous
-+	 * operation.
-+	 */
-+	if (opcode == SPINAND_SET_FEATURE) {
-+		u32 ftr = 0;
-+
-+		memcpy(&ftr, op->data.buf.out,
-+		       min_t(size_t, op->data.nbytes, sizeof(ftr)));
-+		snandc->regs->flash_feature = cpu_to_le32(ftr);
-+		qcom_write_reg_dma(snandc, &snandc->regs->flash_feature,
-+				   NAND_FLASH_FEATURES, 1, NAND_BAM_NEXT_SGL);
-+	}
-+
- 	qcom_write_reg_dma(snandc, &snandc->regs->cmd, NAND_FLASH_CMD, 3, NAND_BAM_NEXT_SGL);
- 	qcom_write_reg_dma(snandc, &snandc->regs->exec, NAND_EXEC_CMD, 1, NAND_BAM_NEXT_SGL);
- 
-@@ -1395,10 +1411,8 @@
- 		copy_ftr = true;
- 		break;
- 	case SPINAND_SET_FEATURE:
--		snandc->regs->flash_feature = cpu_to_le32(*(u32 *)op->data.buf.out);
--		qcom_write_reg_dma(snandc, &snandc->regs->flash_feature,
--				   NAND_FLASH_FEATURES, 1, NAND_BAM_NEXT_SGL);
--		break;
-+		/* fully handled by qcom_spi_send_cmdaddr() */
-+		return 0;
- 	case SPINAND_PROGRAM_EXECUTE:
- 	case SPINAND_WRITE_EN:
- 	case SPINAND_RESET:
+> diff --git i/mm/compaction.c w/mm/compaction.c
+> index 0568623d9384d..ca57403dc1522 100644
+> --- i/mm/compaction.c
+> +++ w/mm/compaction.c
+> @@ -2823,7 +2823,7 @@ static enum compact_result compact_zone_order(struct zone *zone, int order,
+>  /**
+>   * try_to_compact_pages - Direct compact to satisfy a high-order allocation
+>   * @gfp_mask: The GFP mask of the current allocation
+> - * @order: The order of the current allocation
+> + * @order: The order to try and make available
+>   * @alloc_flags: The allocation flags of the current allocation
+>   * @ac: The context of current allocation
+>   * @prio: Determines how hard direct compaction should try to succeed
