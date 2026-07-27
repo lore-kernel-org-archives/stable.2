@@ -1,40 +1,40 @@
 Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA5DB23394B
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 02:34:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF9931A9FBD
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 02:42:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785119654; cv=none; b=AgybaJMIhzESmmICRb3bXCysmO8Hpaw8c8xIpqHlkoTcrDumFEORn7iWqzJwSvuXVCy00agLvDp/2MkZCOgUnIk920df1UAdkRBoQEZ8Ed52EiMNo4IDsM8aruoofeQBSbI1NuhmlBUUz5AtzIJZrT4SPa2e53dDPBDEK/IlnKU=
+	t=1785120154; cv=none; b=UCG7mevkBNNqpOcbjmYuYN86dpyyiDtPfiEZq53T2kybkmYUo+EN+4hiqiB/N1QOhAJlbdi4G35JKbicTtj45FAgdklDfPEvM54xVUnVdbUQEzx8kAfp2Z9OyLOMN6kIzrUIljKOND+aKbyPcOFKHT46vaVGOBVf+jkY8Z+Ntlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785119654; c=relaxed/simple;
-	bh=eo9nmI1vXKCM1E0zBeoedZD5aD2wKtuHVIXt0pUxkUc=;
+	s=arc-20240116; t=1785120154; c=relaxed/simple;
+	bh=Jg6PQe3OTGdf97d24CxLxGmSE2J4+SMCYiH7S7tfFwQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fAVFJIbKpqtDvxeMNXhjwM1WrBGxid/xy8FaSUnHSGi1OBLOQ59AgrDCdPsa8eRLx5BEbW3x/Tx5c+hAoqAlOk5QTvCBSrw/sbYZ3SHKT8QV8v1wn9bEcN66QnCHTIv8Cb1RjCTSHjCCWvmaHHCNLJ8ZeL2U/zGN+o5bKh0bG3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=FKPeXft5; arc=none smtp.client-ip=218.76.62.146
+	 MIME-Version; b=O2dvaaizVBBKcmPoY3oaHbdwluW+gs88U4zDKd48sTdXJbtHDcdld4AdNld8PoIMehk2e5+OBC9HQgNcbLUojhhzA359EgsdwBlSjtMKz3k13qk/jhvukvRhr/DRbbmv2+XGHwxrx5QvGi4RJfHgbPNpr+srHJE2kl1dZlf8uSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=qsVKjAYP; arc=none smtp.client-ip=218.76.62.146
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="FKPeXft5"
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="qsVKjAYP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=VNacoOpxee/0ot+yKl/5p9mZGgJi3FdHeU
-	sBnnm/7Rc=; b=FKPeXft5vB4XQKQtOIuuN0/Tn9OYo5rNrb9kFertcM+idB3UCc
-	oMqqboQ3yZDE//jgQKsVzcpVOyj9FQkjpV4lmq2tpIyaaN5PG7vFDFHVetIyyf/D
-	IonwnkO181v1PrY380S26s6Ye3UNV2M9AYcjSlTgTXps+wJlg4dpdH9yI=
+	Content-Transfer-Encoding; bh=llTuUILFdYYihkx+G/S0v/7TUthzA4jZFZ
+	5yx4zb7VE=; b=qsVKjAYPYVXv/C18BlT3LxEmI9liDsBcfqZlJQNBgruaPK+Mhn
+	hM58aZ3bMQ3D+tiUUcmarybD7GNY1HohxYpBCKLq02dpCNwtbQJ6HYbkji8NITl6
+	tAxMKCyMSSjtqjxpJqDfrWZ99r18W/wxLHAjPrw3c0KNakzjRwnt7w1XE=
 Received: from ur-dp1000 (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOpw2Zqt4QVAA--.17790S2;
-	Mon, 27 Jul 2026 10:34:20 +0800 (CST)
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOqxWZqzYQVAA--.17791S2;
+	Mon, 27 Jul 2026 10:42:54 +0800 (CST)
 From: Xie Bo <xb@ultrarisc.com>
 To: stable@vger.kernel.org,
 	gregkh@linuxfoundation.org
 Cc: Xie Bo <xb@ultrarisc.com>,
 	Anup Patel <anup@brainfault.org>
-Subject: [PATCH 6.12.y] RISC-V: KVM: Serialize virtual interrupt pending state updates
-Date: Mon, 27 Jul 2026 10:33:48 +0800
-Message-ID: <20260727023348.2173961-1-xb@ultrarisc.com>
+Subject: [PATCH 6.18.y] RISC-V: KVM: Serialize virtual interrupt pending state updates
+Date: Mon, 27 Jul 2026 10:42:22 +0800
+Message-ID: <20260727024222.2180660-1-xb@ultrarisc.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026072501-curled-cloning-57c1@gregkh>
-References: <2026072501-curled-cloning-57c1@gregkh>
+In-Reply-To: <2026072559-overprice-frantic-d5d5@gregkh>
+References: <2026072559-overprice-frantic-d5d5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,24 +42,24 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAfwAnEkOpw2Zqt4QVAA--.17790S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3ZFW5tryrCw4rAFy3JF1DJrb_yoW8GFW5Xo
-	WfGF4DXay8Gr15GrZ8Z3y7Wa48W3sYgw4xXa1FyFWrZF1UX345XFWUKrsxXFy3JF45WasF
-	ya45Xa13Ga9rJFyDn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUYI7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20xva
+X-CM-TRANSID:AQAAfwAnEkOqxWZqzYQVAA--.17791S2
+X-Coremail-Antispam: 1UD129KBjvAXoW3ZFW5tryrCw4rAFy3JF1DJrb_yoW8GFyrXo
+	WfGF4kXay8Gr1rGrZ8Z3y2ga48W34vgw48Xa1FyFWrZF1UX345XFWUKrsxXFy3JF45WasF
+	ya45Xa13Ga9rJFyUn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUYy7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20xva
 	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2
 	x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWU
 	JVW8JwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
-	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
-	uYvjfUYNVyDUUUU
-X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQATB2pkMtIAAQAHs9
+	W8Jr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE
+	6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72
+	CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7
+	MxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
+	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUSNtxUUUUU=
+X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQATB2pkMtIAAQAJsz
 
 KVM RISC-V tracks guest local interrupt state with two bitmaps:
 
@@ -127,20 +127,20 @@ Reviewed-by: Anup Patel <anup@brainfault.org>
 Link: https://lore.kernel.org/r/20260715020359.1521354-2-xb@ultrarisc.com
 Signed-off-by: Anup Patel <anup@brainfault.org>
 
-[ bo: Adapt the reset and CSR helpers to their older signatures. ]
+[ bo: Adapt the AIA and general CSR helpers to their 6.18.y layout. ]
 (cherry picked from commit d024a0a7879e6f37c0152aacf6d8e37b214a1738)
 ---
  arch/riscv/include/asm/kvm_host.h | 10 ++---
- arch/riscv/kvm/aia.c              | 34 +++++++++++----
- arch/riscv/kvm/vcpu.c             | 69 ++++++++++++++++++++++---------
+ arch/riscv/kvm/aia.c              | 35 ++++++++++++----
+ arch/riscv/kvm/vcpu.c             | 68 ++++++++++++++++++++++---------
  arch/riscv/kvm/vcpu_onereg.c      |  8 +++-
  4 files changed, 87 insertions(+), 34 deletions(-)
 
 diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
-index 2e2254f..7beef60 100644
+index 4d79457..fd3ba18 100644
 --- a/arch/riscv/include/asm/kvm_host.h
 +++ b/arch/riscv/include/asm/kvm_host.h
-@@ -232,13 +232,13 @@ struct kvm_vcpu_arch {
+@@ -220,13 +220,13 @@ struct kvm_vcpu_arch {
  	/*
  	 * VCPU interrupts
  	 *
@@ -160,10 +160,10 @@ index 2e2254f..7beef60 100644
  	DECLARE_BITMAP(irqs_pending_mask, KVM_RISCV_VCPU_NR_IRQS);
  
 diff --git a/arch/riscv/kvm/aia.c b/arch/riscv/kvm/aia.c
-index 9f3b527..36ef4f4 100644
+index dad3181..b8b5060 100644
 --- a/arch/riscv/kvm/aia.c
 +++ b/arch/riscv/kvm/aia.c
-@@ -71,12 +71,15 @@ void kvm_riscv_vcpu_aia_flush_interrupts(struct kvm_vcpu *vcpu)
+@@ -50,12 +50,15 @@ void kvm_riscv_vcpu_aia_flush_interrupts(struct kvm_vcpu *vcpu)
  	struct kvm_vcpu_aia_csr *csr = &vcpu->arch.aia_context.guest_csr;
  	unsigned long mask, val;
  
@@ -182,18 +182,18 @@ index 9f3b527..36ef4f4 100644
  
  		csr->hviph &= ~mask;
  		csr->hviph |= val;
-@@ -87,6 +90,8 @@ void kvm_riscv_vcpu_aia_sync_interrupts(struct kvm_vcpu *vcpu)
+@@ -66,6 +69,8 @@ void kvm_riscv_vcpu_aia_sync_interrupts(struct kvm_vcpu *vcpu)
  {
  	struct kvm_vcpu_aia_csr *csr = &vcpu->arch.aia_context.guest_csr;
  
 +	lockdep_assert_held(&vcpu->arch.irqs_pending_lock);
 +
  	if (kvm_riscv_aia_available())
- 		csr->vsieh = csr_read(CSR_VSIEH);
+ 		csr->vsieh = ncsr_read(CSR_VSIEH);
  }
-@@ -96,13 +101,21 @@ bool kvm_riscv_vcpu_aia_has_interrupts(struct kvm_vcpu *vcpu, u64 mask)
+@@ -74,13 +79,22 @@ void kvm_riscv_vcpu_aia_sync_interrupts(struct kvm_vcpu *vcpu)
+ bool kvm_riscv_vcpu_aia_has_interrupts(struct kvm_vcpu *vcpu, u64 mask)
  {
- 	int hgei;
  	unsigned long seip;
 +#ifdef CONFIG_32BIT
 +	unsigned long flags;
@@ -211,12 +211,13 @@ index 9f3b527..36ef4f4 100644
 +		  (vcpu->arch.aia_context.guest_csr.vsieh &
 +		   upper_32_bits(mask));
 +	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
++
 +	if (pending)
  		return true;
  #endif
  
-@@ -174,6 +187,9 @@ int kvm_riscv_vcpu_aia_get_csr(struct kvm_vcpu *vcpu,
- 			       unsigned long *out_val)
+@@ -198,6 +212,9 @@ int kvm_riscv_vcpu_aia_set_csr(struct kvm_vcpu *vcpu,
+ 			       unsigned long val)
  {
  	struct kvm_vcpu_aia_csr *csr = &vcpu->arch.aia_context.guest_csr;
 +#ifdef CONFIG_32BIT
@@ -225,7 +226,7 @@ index 9f3b527..36ef4f4 100644
  
  	if (reg_num >= sizeof(struct kvm_riscv_aia_csr) / sizeof(unsigned long))
  		return -ENOENT;
-@@ -198,8 +214,12 @@ int kvm_riscv_vcpu_aia_set_csr(struct kvm_vcpu *vcpu,
+@@ -206,8 +223,12 @@ int kvm_riscv_vcpu_aia_set_csr(struct kvm_vcpu *vcpu,
  		((unsigned long *)csr)[reg_num] = val;
  
  #ifdef CONFIG_32BIT
@@ -241,18 +242,18 @@ index 9f3b527..36ef4f4 100644
  	}
  
 diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index da01c81..ad519c9 100644
+index d26c496..6f8e9b1 100644
 --- a/arch/riscv/kvm/vcpu.c
 +++ b/arch/riscv/kvm/vcpu.c
-@@ -52,6 +52,7 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu)
- 	struct kvm_vcpu_csr *reset_csr = &vcpu->arch.guest_reset_csr;
- 	struct kvm_cpu_context *cntx = &vcpu->arch.guest_context;
- 	struct kvm_cpu_context *reset_cntx = &vcpu->arch.guest_reset_context;
+@@ -78,6 +78,7 @@ static void kvm_riscv_vcpu_context_reset(struct kvm_vcpu *vcpu,
+ 
+ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu, bool kvm_sbi_reset)
+ {
 +	unsigned long flags;
  	bool loaded;
  
  	/**
-@@ -80,8 +81,10 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu)
+@@ -102,8 +103,10 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu, bool kvm_sbi_reset)
  
  	kvm_riscv_vcpu_aia_reset(vcpu);
  
@@ -263,26 +264,25 @@ index da01c81..ad519c9 100644
  
  	kvm_riscv_vcpu_pmu_reset(vcpu);
  
-@@ -126,6 +129,8 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+@@ -147,6 +150,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+ 
  	/* Setup VCPU hfence queue */
  	spin_lock_init(&vcpu->arch.hfence_lock);
- 
 +	raw_spin_lock_init(&vcpu->arch.irqs_pending_lock);
-+
- 	/* Setup reset state of shadow SSTATUS and HSTATUS CSRs */
- 	spin_lock_init(&vcpu->arch.reset_cntx_lock);
  
-@@ -341,10 +346,14 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
+ 	spin_lock_init(&vcpu->arch.reset_state.lock);
+ 
+@@ -348,10 +352,14 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
  {
  	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
  	unsigned long mask, val;
 +	unsigned long flags;
-+
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
  
 -	if (READ_ONCE(vcpu->arch.irqs_pending_mask[0])) {
 -		mask = xchg_acquire(&vcpu->arch.irqs_pending_mask[0], 0);
 -		val = READ_ONCE(vcpu->arch.irqs_pending[0]) & mask;
++	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++
 +	mask = vcpu->arch.irqs_pending_mask[0];
 +	if (mask) {
 +		vcpu->arch.irqs_pending_mask[0] = 0;
@@ -290,7 +290,7 @@ index da01c81..ad519c9 100644
  
  		csr->hvip &= ~mask;
  		csr->hvip |= val;
-@@ -352,11 +361,14 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
+@@ -359,11 +367,14 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
  
  	/* Flush AIA high interrupts */
  	kvm_riscv_vcpu_aia_flush_interrupts(vcpu);
@@ -305,12 +305,12 @@ index da01c81..ad519c9 100644
  	struct kvm_vcpu_arch *v = &vcpu->arch;
  	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
  
-@@ -365,34 +377,41 @@ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
+@@ -372,34 +383,41 @@ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
  
  	/* Sync-up HVIP.VSSIP bit changes does by Guest */
- 	hvip = csr_read(CSR_HVIP);
+ 	hvip = ncsr_read(CSR_HVIP);
 +
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++	raw_spin_lock_irqsave(&v->irqs_pending_lock, flags);
 +
  	if ((csr->hvip ^ hvip) & (1UL << IRQ_VS_SOFT)) {
  		if (hvip & (1UL << IRQ_VS_SOFT)) {
@@ -342,7 +342,7 @@ index da01c81..ad519c9 100644
  	/* Sync-up AIA high interrupts */
  	kvm_riscv_vcpu_aia_sync_interrupts(vcpu);
  
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
++	raw_spin_unlock_irqrestore(&v->irqs_pending_lock, flags);
 +
  	/* Sync-up timer CSRs */
  	kvm_riscv_vcpu_timer_sync(vcpu);
@@ -355,7 +355,7 @@ index da01c81..ad519c9 100644
  	/*
  	 * We only allow VS-mode software, timer, and external
  	 * interrupts when irq is one of the local interrupts
-@@ -405,9 +424,10 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
+@@ -412,9 +430,10 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
  	    irq != IRQ_PMU_OVF)
  		return -EINVAL;
  
@@ -369,7 +369,7 @@ index da01c81..ad519c9 100644
  
  	kvm_vcpu_kick(vcpu);
  
-@@ -416,6 +436,8 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
+@@ -423,6 +442,8 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
  
  int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
  {
@@ -378,7 +378,7 @@ index da01c81..ad519c9 100644
  	/*
  	 * We only allow VS-mode software, timer, counter overflow and external
  	 * interrupts when irq is one of the local interrupts
-@@ -428,26 +450,33 @@ int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
+@@ -435,26 +456,33 @@ int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
  	    irq != IRQ_PMU_OVF)
  		return -EINVAL;
  
@@ -419,10 +419,10 @@ index da01c81..ad519c9 100644
  
  void __kvm_riscv_vcpu_power_off(struct kvm_vcpu *vcpu)
 diff --git a/arch/riscv/kvm/vcpu_onereg.c b/arch/riscv/kvm/vcpu_onereg.c
-index b319c4c..6223806 100644
+index 865dae9..3e8f9a2 100644
 --- a/arch/riscv/kvm/vcpu_onereg.c
 +++ b/arch/riscv/kvm/vcpu_onereg.c
-@@ -445,6 +445,7 @@ static int kvm_riscv_vcpu_general_set_csr(struct kvm_vcpu *vcpu,
+@@ -522,6 +522,7 @@ static int kvm_riscv_vcpu_general_set_csr(struct kvm_vcpu *vcpu,
  					  unsigned long reg_val)
  {
  	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
@@ -430,7 +430,7 @@ index b319c4c..6223806 100644
  
  	if (reg_num >= sizeof(struct kvm_riscv_csr) / sizeof(unsigned long))
  		return -ENOENT;
-@@ -456,8 +457,11 @@ static int kvm_riscv_vcpu_general_set_csr(struct kvm_vcpu *vcpu,
+@@ -533,8 +534,11 @@ static int kvm_riscv_vcpu_general_set_csr(struct kvm_vcpu *vcpu,
  
  	((unsigned long *)csr)[reg_num] = reg_val;
  
