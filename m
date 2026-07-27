@@ -1,134 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E035B3DAACB;
-	Mon, 27 Jul 2026 06:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980E53DC4B3;
+	Mon, 27 Jul 2026 07:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785135255; cv=none; b=PL+MVHkn6MSW25327IA9+dhQcfyU4MX0oOCN48hUB/++h7u5qZAERtj4WlLslCQce9btCM2fkkTg1J6kDpU8CvGcFKFu4yqV8mpzzu4O/msxymMn0G14hKIb1Yo6FBRKwPJNFO9b7Lifln1fDZy8mu4lLqLY6Yh18dYnQw1JI5o=
+	t=1785135692; cv=none; b=HX2e1LmP1sbTvt4D7WcrlHemB0GaW2/NFZ1hZUhKHIHP5Pebil/jixZ4n6m8XhvpFi8eEBxLrcuuFUwcs0oXc6bU0sFr1wFIe85tTuEmH8JFkbZEkvvqvWFYurGLBWjhCcaA1nfX5bftcBtaTeWnI/8eDteWMb9zjZpHV47wQcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785135255; c=relaxed/simple;
-	bh=mDr9bs2eIz7uHru+obDHb2C3eEpkOkoFNIqSxusjWbM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HWSbF8rqFFfOLUAtnqTzyhO1Hpiz7dN+mytweHUvZrLX1ncgF+P9LOxwAGwlwirC5Q0KUt8EvUYSvK8d0dbVYwOdWZjzxsQ9n5Smm+mjdskG10sTpFw2mVfPJ1/zaigBNShb2LzAp7WhdJRosmwXGuDXFrlYfDmSrOQQbwCSXFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9Mbk2q6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785135692; c=relaxed/simple;
+	bh=hkwOOki2RqLJgHnzvIKyiilqnxhTHu7gUnV6xBVS8d8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=M+douqFdSmVLZaLmTF/EZ8GqmgLx0g8BsUUsB+35CGjjqjzwR2SffDn/Peh+A549jDRTGcvocB9W34uCjqtkdP1+WMAq0Rokj1++UmqZVIkNbIx9hEI4iIAidIsyLkQbrZrTrwO7ndHNhqepHlUpHxcV848d885xqm0UU6C9yPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Ef2NwGKf; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9Mbk2q6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E491F00A3D;
-	Mon, 27 Jul 2026 06:54:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785135253;
-	bh=33hCdmqRfua3pjUoVzVwn55n54oEGNtDSm1cqPH3ftU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y9Mbk2q6d8qa8Tp1YjC+GZZ/sSeY/6Uz8Xg/JYUTAYBB+qaB09uuExJ1OoetJUoUS
-	 Kvd5As2FQCLzr5eOO1CgFFJrbue4TY1i44PtyLDalZOnxEXfPb0y4y76GSwvVCRM3F
-	 ktgv+Erc8DGcHPlUIOcBYoSLGLh5n5xAhkm1xHc+2u9c+PMFPyf0zoJFyv/Qzu1Ivr
-	 O9uNPbv74iE5hNHcgn76jMiouSCjBKL1JjpR+sqQ0lz8EqcPe0HIDAqllgxN9X2J5a
-	 D4+WTeyv4Nej3ryrJv9FvvgcubeL+MaHpd2uA9+DouXqLxvUSNGNs2BsTix5g+EzjD
-	 2d1sGBgGvUw0Q==
-Date: Mon, 27 Jul 2026 08:54:11 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Sun Jian <sun.jian.kdev@gmail.com>
-Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
-	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	john.fastabend@gmail.com, sdf@fomichev.me, toke@redhat.com,
-	maciej.fijalkowski@intel.com, matt@readmodwrite.com
-Subject: Re: [PATCH net 2/2] veth: fix skb length accounting after XDP frag
- adjustment
-Message-ID: <amcAk7W4237XKJl1@lore-desk>
-References: <20260727032535.13469-1-sun.jian.kdev@gmail.com>
- <20260727032535.13469-3-sun.jian.kdev@gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Ef2NwGKf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1785135668;
+	bh=sINvD0bskv+vJHonYANAwnvBnaUdmZEFu+17EC2edy8=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=Ef2NwGKfWfN45RDziYlZx4PElTGlZBW1HKglZM4Cfc1LKef70UNtZ6RqK1JyThfSt
+	 yjzcmgoowwBlgPrr8YO3kBjqcwT4dbHJzjB/p3+7vcFUcqVImCwLoi8RmFYOJpjyhY
+	 u4fkZMfvewWpDjQ8uoPNeIWtIB+HZ/eO0de9nb10=
+X-QQ-mid: esmtpgz10t1785135656te941c837
+X-QQ-Originating-IP: TxbFc6MXXXXNp9OuBI6vjNOikTHCSBWW+JmFAUs28qE=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 27 Jul 2026 15:00:54 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7978217712569346620
+EX-QQ-RecipientCnt: 7
+From: Yang Shao <shaoyang@uniontech.com>
+To: shaoyang@uniontech.com
+Cc: akpm@osdl.org,
+	kernel@uniontech.com,
+	linux-kernel@vger.kernel.org,
+	marko.kohtala@gmail.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com
+Subject: [PATCH] parport: fix inverted daisy selection result check
+Date: Mon, 27 Jul 2026 15:00:47 +0800
+Message-Id: <20260727070047.328913-1-shaoyang@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260624013603.1184198-1-shaoyang@uniontech.com>
+References: <20260624013603.1184198-1-shaoyang@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gIJJ9096ClTqm0ok"
-Content-Disposition: inline
-In-Reply-To: <20260727032535.13469-3-sun.jian.kdev@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MEKKfKJEJa0u1H3f/6QHZABH5BkMaM2lSfIgQBPJsGmlHtJjnveETPZ5
+	/0nn47RkB6VH+GuBM2GZQfU7mDMZ1rU3w/CSVocJuWkLDjltSndNQJi0PBeeqTz9FgfrfVi
+	6mA4StwlV8HdrOHNdAmV92pm/x0kTqvbY+0LaFXSukJAy9RY19eA61svPfDAbN6KLmEks4s
+	K0dyj7ImHeUJeLBKUwsxgG+FTNKK9jSYRnk67rR26J9ykWMudbWA5QF7eTmFm3zm7jkDzXM
+	TaH9Qzo9efjvYG/V9Y8ZN3qp28DcqZnieYrxpniVIeBJrbaX5H/8aU3WF6PB3XouGNTRPt6
+	+FyX4eUy/IgwkkF0et1WXPYOmQQ378WVqA2EdUlDvrzHGqm0p/e94cDYhg+zQ6AcbgyQN5L
+	jvdE9L0drYo9brpSU9lkZETOg94njMLFBAI1VuM9HkBvGCq4b8BJMEp7H8YnEPdtd8d/uC2
+	ATyYjWdJ9DjZny/2lq6DtrEA5NQlQtAr7UPPlBF6HslJVZyt9lubBm3HRe7vNe6E3vYHwWR
+	sQFJJSvhvH3Actyxx0S0kRFNtbWbILlvm1N4DGXNdFrQYUhMsu7BSYmfytprY6YHS1twxFV
+	bS1R5arfPFeCLJCenclypbSvGgV8P7v9pVJX8SQWAkooxCwUMUPi/242vPEhAF4YQfUzI8M
+	zqIUD5gsKLwbUeIwUXmE8BEee0YqWIy2KXpgKhFIKKezum2Ifhi8cxDf1tXIp2Wn3Urudbo
+	kzhhyahQB1TLFGcJf+iRdbiSiXFT5fmERBJEgRhmOyShYcT3Y6Rg6FalGB4BgpLJc3bZCc/
+	hDCsvCLyQ1PCYShOY+uzjNmpOBh9bZPleIpt858bJzxB8TC6Tux0g2Kfc29lChHa1CGyojS
+	ZzAjxqk7Jxq9erjnAQd+VkStSbsg6qLMrJzxbSkQI4vDtkKMYGqdZ3738sKjqH0Mk2+9A1h
+	gaRx1QTuBylJiQM/J2cdFWT7JgfGilyE9pg+0+/FCU7h37gyD/sjZGHHobAX5dCsAuZXmgL
+	mI77Qz00OFU85022OaJ7rargZ6kpLDFir93nj7JTe5uZrrqkoD
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
---gIJJ9096ClTqm0ok
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+parport_daisy_select() returns a boolean success result. It returns 1
+when the requested daisy-chain device acknowledges the CPP selection
+command and 0 otherwise.
 
-On Jul 26, Sun Jian wrote:
-> veth exposes non-linear skb fragments through an xdp_buff. If an XDP
-> program adjusts the fragment area, veth_xdp_rcv_skb() copies
-> xdp_frags_size back to skb->data_len but leaves skb->len containing the
-> old fragment contribution.
->=20
-> After a fragment shrink, this makes skb_headlen() larger than the actual
-> linear area. In the reproduced UDP receive path, __skb_datagram_iter()
-> copied 1024 bytes past the actual linear tail to userspace, starting at
-> struct skb_shared_info. The copied bytes included the affected skb's
-> nr_frags, xdp_frags_size and a kernel pointer from
-> skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
-> amount and truncated at the end.
->=20
-> Subtract the old data_len before replacing it and add the new data_len
-> afterwards, keeping skb->len and skb->data_len synchronized.
->=20
-> A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened by
-> 1024 bytes from its fragment area. Before the fix, all 10 runs produced
-> corrupted payloads. After the fix, all 10 runs matched the expected
-> payload exactly.
->=20
-> Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept no=
-n-linear skb")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/r/20260720141859.19FF41F000E9@smtp.kernel.o=
-rg
-> Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
-> Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
-> ---
->  drivers/net/veth.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 00e34afd858e..a956498a073b 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -871,12 +871,14 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth=
-_rq *rq,
->  		__skb_put(skb, off); /* positive on grow, negative on shrink */
-> =20
->  	/* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
-> -	 * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
-> +	 * (e.g. bpf_xdp_adjust_tail), update skb length fields here.
->  	 */
-> +	skb->len -=3D skb->data_len;
->  	if (xdp_buff_has_frags(xdp))
->  		skb->data_len =3D skb_shinfo(skb)->xdp_frags_size;
->  	else
->  		skb->data_len =3D 0;
-> +	skb->len +=3D skb->data_len;
+Commit 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return
+value fix") changed the helper from returning the raw
+PARPORT_STATUS_ERROR bit to returning its logical negation. Selection
+success therefore changed from a zero return value to a nonzero return
+value, but parport_claim() retained the old zero-is-success test.
 
-nit: I guess you can move this one just in the if () branch.
+As a result, a successful selection does not update port->daisy, while
+an unsuccessful selection can be recorded as the currently selected
+daisy address. parport_open() later checks port->daisy to determine
+whether the requested device was successfully selected, so this can
+reject an existing device or accept a device address that was not
+selected.
 
-Regards,
-Lorenzo
+Test the return value directly and update port->daisy only after a
+successful selection.
 
-> =20
->  	skb->protocol =3D eth_type_trans(skb, rq->dev);
-> =20
-> --=20
-> 2.43.0
->=20
+Fixes: 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return value fix")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yang Shao <shaoyang@uniontech.com>
+---
+ drivers/parport/share.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---gIJJ9096ClTqm0ok
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/drivers/parport/share.c b/drivers/parport/share.c
+index c4c5869..2888005 100644
+--- a/drivers/parport/share.c
++++ b/drivers/parport/share.c
+@@ -1025,8 +1025,8 @@ int parport_claim(struct pardevice *dev)
+ 	/* If it's a daisy chain device, select it. */
+ 	if (dev->daisy >= 0) {
+ 		/* This could be lazier. */
+-		if (!parport_daisy_select(port, dev->daisy,
+-					   IEEE1284_MODE_COMPAT))
++		if (parport_daisy_select(port, dev->daisy,
++					 IEEE1284_MODE_COMPAT))
+ 			port->daisy = dev->daisy;
+ 	}
+ #endif /* IEEE1284.3 support */
+--
+2.47.3
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcAkwAKCRA6cBh0uS2t
-rHeKAP9WM0aDsdQCpR4iXeaiU8QON+HZnBjk1PIiHOzHdwtpNAEAkp988X+xWEwK
-rXOcz3wWG7guotlKNM+aps/holYJvgk=
-=io8E
------END PGP SIGNATURE-----
-
---gIJJ9096ClTqm0ok--
