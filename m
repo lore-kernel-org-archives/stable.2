@@ -1,182 +1,158 @@
-Received: from mail-wm2-f1.google.com (mail-wm2-f1.google.com [74.125.225.129])
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52633B71D9
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 08:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.129
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785141430; cv=none; b=BqHffgph5FK7O260S7hEkn+cN6LsobNM+KDgYXzZLBpT6Jv80I3hmB5qbBJUiBy6v4uPQxgmKR4BWlNiTlOaVQjLaUnR9KQCUrhI9ndagVXe2kr2KzGD0W1upucb5AwQGDm8bXMREQDpZkuEsgTJgdISc1HPRMijlkFucNM/x68=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785141430; c=relaxed/simple;
-	bh=SE4iHUmmygV8d5dAiedzXyPRnoeatyyoF18gCk2cotA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FRM8eVXhb8t6BJz8urSG+oZ8hj/2hGBU1nL0OLOsP56fNLxZknjBesuCghVKQW0WE7V8++uem9BU/zawshQCH0BfeXsbMLIfXpk9HdyOUys7dFzJ2NNoaBTGCD7L7IT+hJqoMeb9O2cSEVfia0/iXYlsdnLPkjXngkO8fZvsZpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Lo0WnNMY; arc=none smtp.client-ip=74.125.225.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2472C3DDDC0
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 08:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785141859; cv=pass; b=EW1t1f/ck+zyZf/v0wgeJHFEuZoLoWWJfHHx57AZQO5cwobiVpbYYqKcVyx5jUJTYwPf7jYChtJaeK7yfcacX6Gdt5S9JcjTbeo4W2wMTCPaHe9opfl+AQ14kl3RV7mN2SYwsgFCcC9QNHXUY7pp5N4nTCSssZsuGb5PFI4F0Bo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785141859; c=relaxed/simple;
+	bh=YFn+SG3jt0W8ClbW1A5ZvhnjFO3y0/T59yYvALkEpOc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nv2OFY4RknlRVs3kw+AuyczXzTRInpn58UVmDRRAR7bzpy4QVRB+YmHR0cFDDc8MVuqlge7zJr17XEEw65xEWjjhn2m12Yp0N3sLjzqSJr0ejDNsrhCbe/pvP4eQtncWLlka0tbZO43rCJaShS/lTKsqPjKdZvq+QdwaQ+UJ6u8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EZI9xoAZ; arc=pass smtp.client-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Lo0WnNMY"
-Received: by mail-wm2-f1.google.com with SMTP id 5b1f17b1804b1-492367f3094so11073155e9.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 01:37:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EZI9xoAZ"
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c106c38e99so1351747e0c.0
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 01:44:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785141856; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cN6ugF/XyyA7D4b+8V1yDlpQ3S5OIPN3O0F8QRWIw4OuU7khCbT0lcG9oCvbRLyXth
+         TpsSByI8hz8DHdM6ZgkvYgep9HCraV1a0ufUQUua2u74Qq/7EpeFD/elPq9aKazRzik6
+         kfkLs2gFFKHFrtJKy5Qp4fDoVzN8eAcbZAsCJ4p3Oo8GKs/aszr06g+tsY++J96tWKEo
+         W2QwoBTivNDM19JCEpzDDibo+UHWcytW0esEmj67tuatHATwBTg4ZwvINxFGfgfw7e8f
+         yc8GTyCmL7K9QYYon7udxOQv0TRVsxvREmtBT/NkJcaVElyw69ll4CYKg0+hPOFJpa3P
+         mzYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=C6ZJtMg2ZwUmSn3lFbPCBamJdEbDXw6UU/0/bZEAB3g=;
+        fh=ajdfwz4qEEtgePxQuv+0tRLpuXDoV1PHXMBie004cXM=;
+        b=GxEORcZNG0YZbtv1nOFPlLCAtdQcStvYIjCK3DqtEXbL+hhKqFnPjggvXPoh/DxVnw
+         QYTY52Rv63qVxqrU3e+wbSJDSiwhBS+Fw3wHsQiFh8bEEzL7mEwuu9zUUc+qxFmGHza3
+         HvGRYrjDxmJudZXVYh5NgN6mLuOm6OesR2I51mVyFcFElRzByfqHer+m4EXo3cYtL2Be
+         ya+IsJGGM7nmbXP62m1EORSK5gk3A9GYEsNZhBM5T/IRhmh/TmYOuHUbKcRomfQ3Mp4I
+         T8Jjnv0Mh4w0NqG8AkZmTH/w2upBz2Felw2cTgclvPUog9GF8NR1KPuG0sRx+Ivm3LT0
+         XLvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785141426; x=1785746226; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Le5LNF3GXnmmSEnZA09V4Sl/KGuJxnaW6brzgtcTzH8=;
-        b=Lo0WnNMYOP3a3TJdCkNhnAK1E/phQpuSwO2AjsmtpUpmbs/W4tsufs0OrehSndr5Kr
-         4ADqolafT/OqdUajR/Ck/p+P/vrAurvzqaDreL9B46RpEgoowCy4xwM4PP1vHl/PhCd8
-         mxLs8dZBOi5W5oM3ZpjVOAaPCb65wqUIrXe0PSjN/QyVTJE4eWKGJb11mTXtwBr8u4Dk
-         PCbP2DQo9zZ/M7KHWz7wjoIpEtsb6NikIgT0nuboe8PjrFigSpiZ1/CqYlQXmC5VQH3f
-         0xoXtoq2kl0rsheSNqEAH9NAcNlLS4BKu9l3kG3r5svgbWJT5g8+lyZZmK33CNtQBIsH
-         O81w==
+        d=gmail.com; s=20251104; t=1785141856; x=1785746656; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C6ZJtMg2ZwUmSn3lFbPCBamJdEbDXw6UU/0/bZEAB3g=;
+        b=EZI9xoAZbvODmBSux/cJ/a+6T1/UIO2yDCT7uFxWhmMDMcnk9XC0F1hGVBlIwVI9Fa
+         JdJxPevAc6CST4aFSSv7r6X7zBkGUzM9Prb5FzWIxFuFKvbdc9bXVkjKljPctxk1kkMY
+         Jz4XMK6/RHaC7f0TRdDVMTPH8m7zNbtfV8LyRXmDWqLvNZqtqc8IMzo12XqNakYwrTAS
+         hG6Q4D9r2gmz2X6N072eP+uBdfaIp03RIDBR6Isg7Y4axnxLjcLVdMscHTuTUDnyPsCb
+         Q4RejeHj6OVkBHshHlIQbpIBeqn025/wqyRfc8sBQWcCzcIa/po0WZvdIC/aBCOVO1Ha
+         Jwug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785141426; x=1785746226;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Le5LNF3GXnmmSEnZA09V4Sl/KGuJxnaW6brzgtcTzH8=;
-        b=CrGITSxIQMKgZY2NP2LYH4O5sxOGiwyVkkqsUFwvMSeMhIfL55O5DSC7XX4S4IhhRn
-         uNpIoeSuniSBbUDJQHDk82OPZHwLuKpCi07QogABY7NhsRI40YT2CFXXJsVOH7ux8O8+
-         0EqICef1zuSg+PBl7OQzj4MzDSeju7a/yCFoZ7BUjuh8iPFM2ahmPGn9i4FYgtbStoCP
-         Fhu/B036a6hhhr8MIH7gGl4zZ47X5FHE5d0CPz2h1C33F3g6dTgwqwohhfZ8J6RsM6Qb
-         pkMQdMiW8DAEi0CC4duJC1JQ5isB6lZdTValPKiiIuqVox6vRtTOlJ5oKl7veP02DPPd
-         pjHw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqu+KPIGN9Gak5Rf5eYq5rvpUL1hGlrpA/vOTX+85C8iRZc6khGCiWIBeVIvRPb1pLAaS3n+9A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEmXAbW1W4aIbYiAg7gCjYfTONMz6xXdYuNALww/dUudg42UBL
-	FZ2xsDIWjbaFFDAytb/o6J+plwaE3W1Djn14Su2z8EZDwpiWqDe22T66EW85/da0Q74=
-X-Gm-Gg: AR+sD11HcnKd3YXezr2TBaGaAafSsz1XWEG8DPHgHlIneZ6wtJOPXkcyq2hwtwJlCuU
-	NviRLyeJYMEC5bMYN6EVzT1aF+xAZzvkauKoZgQE4y9aXcao0YWlEnhJkxDreSlnqLCBEZwdZeG
-	UgEQdgpfIgNW8J1SuavD3J+TY1rBTMSQ2z2LAvor2B7vukdSmaHdfQnL4U4/2HE5Lwc7IQ3mTKL
-	lc5zJAiJIXK7rIOqqWWSN+1Z0O7scUXsectZwRLGoz2PSADAQ6s2z6HkH7A4zjr7UH7jUsQUAx9
-	amyY3P9UiGFSeSAsEdQPAXLKlAzb3RFtsQr7bLSgwjvlDxfX22I7nw3LzUqdDIPTkJX3fOU2Atx
-	E9NbJxTHOIkPXPxp48pNu58kU4T8y6Isif2Gd3NrU76ftefTU0zlhV/zuP14OFqrY/9M91Jo4bZ
-	L8InmMjbeLcnHsYzdHrFso6KpssyQgn6g9ndD/DEEKNqRlhwcsfsYLqkMP1r4=
-X-Received: by 2002:a05:600c:4ed0:b0:495:6713:9a40 with SMTP id 5b1f17b1804b1-496b56f99b4mr91104315e9.18.1785141425917;
-        Mon, 27 Jul 2026 01:37:05 -0700 (PDT)
-Received: from [127.0.0.1] (host-87-0-90-136.retail.telecomitalia.it. [87.0.90.136])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b485ff2csm256820125e9.6.2026.07.27.01.37.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 01:37:05 -0700 (PDT)
-From: Carlo Caione <ccaione@baylibre.com>
-Date: Mon, 27 Jul 2026 10:36:59 +0200
-Subject: [PATCH v3] of/address: Fix NULL bus dereference in
- of_pci_range_parser_one()
+        d=1e100.net; s=20251104; t=1785141856; x=1785746656;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C6ZJtMg2ZwUmSn3lFbPCBamJdEbDXw6UU/0/bZEAB3g=;
+        b=nim48zp/LbdZuR58Vg7+ZDp/ri1YGeruUCWbD7aOjFe0IX8n5lX4PF2hKEw4yYKi/I
+         //fCMYmhnXlVjcAFA2e1flEuGMk7zrEiC5Fb5qHOcUk5zW9UcJR50rbNOTfLbkaj3b15
+         pBnqT48rASTI76f1vsU2FX4kCEvoKrVUEzaJGgZRuieiDiXOjk8qyE1Uo35XNPwMqWJu
+         JVANLu+TJzkgGaSrL3Mn6vIsLOi3A9l+cBcKyCeUnrkS+9sukpfNANUINw8Cse5O09cO
+         70dFw6IGfzKQXWmgAL2zYPxmQnRCX9XOHm61bIhaAkdrWWUiflSqQ/yZUVrb9MAVaVZi
+         vt/A==
+X-Forwarded-Encrypted: i=1; AHgh+RpTQ0tvl5ujhe1b9R0mOJHCJCj/A7pu458JZ94ODmgvIHicyukSapQL+Dwq7+KtrM/8CZAR6Wg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWkxFsujO6wUOY7Dzw0A9oX5nEaqTuwKkVSWTGx6dRzz/Cwewn
+	Knuy3ATYUh9dnh5HpDhNTXD1E3+WkfBuiAVAKSuJAT7TB47bwndtQ0X5OHifxWSqpIOYAAPeWg4
+	Lj2qN6B5kN5fzDspEic7737pdiJ6y9rA=
+X-Gm-Gg: AR+sD10IYBHzF9FkCsHdFIs5GAOPWiQcx+/pfTLBNejgLEkm8t1BUpSWSiGMZlc1059
+	e4GnqhneUrSJcMyDREqneWU6tX/2nFVkmGzs4n8GYK/+n5uZmyRG5uGckt1TOwoutRXz31UCatD
+	qf0nAuUieMis2Bo/gqUApFwT7oX7W5YD1JLRPdG3PsCqNM6BHcpadcUKRw3HOevhC5cb122AbIL
+	+wOn1c5AbKY3VHF7NQr3pDmGOeqd3glEFd3bshrPIAsm9ngK8VRK3Cixorstqftamo0hU/2q21g
+	MNKmSo4tXojtmtk19xI=
+X-Received: by 2002:a05:6102:80aa:b0:736:e4c0:cddf with SMTP id
+ ada2fe7eead31-7503e05c0e3mr4177154137.6.1785141856027; Mon, 27 Jul 2026
+ 01:44:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-of-range-parser-null-bus-v3-1-be01b708a4ce@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBAAvyJ77kJIxahfKT0Y3bQrEmW3KYL4d
- 6MeZ2BmAyVhUmiLDYT+rDzHDM9HAf23ix9CHjKDNbYyzjqcA8rll05yizFNE/qk2ITaeR/K0hB
- BzhehwOu1fr1v1uRH6n/nD/b9AHHaGON8AAAA
-X-Change-ID: 20260727-of-range-parser-null-bus-9f87bbf440ee
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Nicolas Saenz Julienne <nsaenz@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Carlo Caione <ccaione@baylibre.com>
-X-Mailer: b4 0.15.2
+References: <20260724104920.6493-1-zhuyiming@kuaishou.com> <F5EF2BE9-F97C-4E06-806C-E0EB694F162A@kuaishou.com>
+ <103949f23bb3169381422344cd924d6897171e71.camel@dubeyko.com>
+In-Reply-To: <103949f23bb3169381422344cd924d6897171e71.camel@dubeyko.com>
+From: Ilya Dryomov <idryomov@gmail.com>
+Date: Mon, 27 Jul 2026 10:44:04 +0200
+X-Gm-Features: AUfX_mwPft2RaWQR3lusQ0AdXwEBit482lAfq2XN61nxaMw3mFMqLwj4V9u202s
+Message-ID: <CAOi1vP9D1RbVkKLg1P+4ia1T+0QiwXp2hxOgnN6u=S7EVU5J3g@mail.gmail.com>
+Subject: Re: [PATCH] ceph: fix mds random selection readiness predicate
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: =?UTF-8?B?5pyx5LiA6bij?= <zhuyiming@kuaishou.com>, 
+	"xiubli@redhat.com" <xiubli@redhat.com>, "amarkuze@redhat.com" <amarkuze@redhat.com>, 
+	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, "jlayton@kernel.org" <jlayton@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The bus matching rework made of_match_bus() return NULL for nodes with
-ranges/dma-ranges but no local #address-cells. parser_init() stored that
-NULL bus, and the range iterator later dereferenced it.
+On Fri, Jul 24, 2026 at 7:59=E2=80=AFPM Viacheslav Dubeyko <slava@dubeyko.c=
+om> wrote:
+>
+> On Fri, 2026-07-24 at 11:40 +0000, =E6=9C=B1=E4=B8=80=E9=B8=A3 wrote:
+> > Adding the current Ceph client maintainer list
+> >
+> > > On Jul 24, 2026, at 18:49, =E6=9C=B1=E4=B8=80=E9=B8=A3 <zhuyiming@kua=
+ishou.com> wrote:
+> > >
+> > > CEPH_MDS_IS_READY() is parsed so that the ternary expression can
+> > > return true for an MDS entry with state 0 when it is not laggy.
+> > > This
+> > > allows the random selector to choose a down/DNE rank.
+> > >
+> > > Group the ternary expression under the state check so zero-state
+> > > ranks
+> > > are not treated as ready.
+> > >
+> > > Fixes: b38c9eb4757d ("ceph: allow choose random mds")
+> > > Cc: stable@vger.kernel.org
+> > > Link: https://tracker.ceph.com/issues/78648
+> > > Signed-off-by: Yiming Zhu <zhuyiming@kuaishou.com>
+> > > ---
+> > > fs/ceph/mdsmap.c | 2 +-
+> > > 1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/fs/ceph/mdsmap.c b/fs/ceph/mdsmap.c
+> > > index d8e46eb7e5eb..450a4dc9662e 100644
+> > > --- a/fs/ceph/mdsmap.c
+> > > +++ b/fs/ceph/mdsmap.c
+> > > @@ -15,7 +15,7 @@
+> > > #include "super.h"
+> > >
+> > > #define CEPH_MDS_IS_READY(i, ignore_laggy) \
+> > > -   (m->m_info[i].state > 0 && ignore_laggy ? true : !m-
+> > > >m_info[i].laggy)
+> > > +   (m->m_info[i].state > 0 && (ignore_laggy ? true : !m-
+> > > >m_info[i].laggy))
+> > >
+> > > static int __mdsmap_get_random_mds(struct ceph_mdsmap *m, bool
+> > > ignore_laggy)
+> > > {
+> > >
+> > > base-commit: 48a5a7ab8d6ab7090564339e039c421f315de912
+> > > --
+> > > 2.55.0
+> > >
+>
+> Good catch.
+>
+> Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
 
-Reject such nodes in parser_init(), leaving an explicit empty
-iterator for callers that ignore the init return, and make
-of_dma_get_max_cpu_address() honour the init failure so a rejected node
-cannot clamp the DMA limit.
+Applied.
 
-Fixes: 64ee3cf096ac ("of/address: Rework bus matching to avoid warnings")
-Cc: stable@vger.kernel.org
-Signed-off-by: Carlo Caione <ccaione@baylibre.com>
----
-Changes in v3:
-- Drop the of_range_count() hunk in of_dma_get_max_cpu_address(): it
-  guarded a pre-existing corner, not this regression (Rob)
-- Link to v2: https://lore.kernel.org/r/20260706114731.57353-1-ccaione@baylibre.com
+Thanks,
 
-Changes in v2:
-- Validate na/pna/ns in parser_init() with OF_CHECK_COUNTS() /
-  OF_CHECK_ADDR_COUNT()
-- Link to v1: https://lore.kernel.org/r/20260706095651.48839-1-ccaione@baylibre.com
----
- drivers/of/address.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/of/address.c b/drivers/of/address.c
-index cf4aab11e9b1..499d37ceae21 100644
---- a/drivers/of/address.c
-+++ b/drivers/of/address.c
-@@ -753,6 +753,7 @@ EXPORT_SYMBOL(of_property_read_reg);
- static int parser_init(struct of_pci_range_parser *parser,
- 			struct device_node *node, const char *name)
- {
-+	const __be32 *range;
- 	int rlen;
- 
- 	parser->node = node;
-@@ -761,12 +762,20 @@ static int parser_init(struct of_pci_range_parser *parser,
- 	parser->ns = of_bus_n_size_cells(node);
- 	parser->dma = !strcmp(name, "dma-ranges");
- 	parser->bus = of_match_bus(node);
-+	parser->range = NULL;
-+	parser->end = NULL;
- 
--	parser->range = of_get_property(node, name, &rlen);
--	if (parser->range == NULL)
-+	range = of_get_property(node, name, &rlen);
-+	if (!range)
- 		return -ENOENT;
- 
--	parser->end = parser->range + rlen / sizeof(__be32);
-+	if (!parser->bus ||
-+	    !OF_CHECK_COUNTS(parser->na, parser->ns) ||
-+	    !OF_CHECK_ADDR_COUNT(parser->pna))
-+		return -EINVAL;
-+
-+	parser->range = range;
-+	parser->end = range + rlen / sizeof(__be32);
- 
- 	return 0;
- }
-@@ -792,7 +801,7 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
- 	int na = parser->na;
- 	int ns = parser->ns;
- 	int np = parser->pna + na + ns;
--	int busflag_na = parser->bus->flag_cells;
-+	int busflag_na;
- 
- 	if (!range)
- 		return NULL;
-@@ -800,6 +809,8 @@ struct of_pci_range *of_pci_range_parser_one(struct of_pci_range_parser *parser,
- 	if (!parser->range || parser->range + np > parser->end)
- 		return NULL;
- 
-+	busflag_na = parser->bus->flag_cells;
-+
- 	range->flags = parser->bus->get_flags(parser->range);
- 
- 	range->bus_addr = of_read_number(parser->range + busflag_na, na - busflag_na);
-@@ -976,8 +987,7 @@ phys_addr_t __init of_dma_get_max_cpu_address(struct device_node *np)
- 		np = of_root;
- 
- 	ranges = of_get_property(np, "dma-ranges", &len);
--	if (ranges && len) {
--		of_dma_range_parser_init(&parser, np);
-+	if (ranges && len && !of_dma_range_parser_init(&parser, np)) {
- 		for_each_of_range(&parser, &range)
- 			if (range.cpu_addr + range.size > cpu_end)
- 				cpu_end = range.cpu_addr + range.size - 1;
-
----
-base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
-change-id: 20260727-of-range-parser-null-bus-9f87bbf440ee
-
-Best regards,
---  
-Carlo Caione <ccaione@baylibre.com>
-
+                Ilya
