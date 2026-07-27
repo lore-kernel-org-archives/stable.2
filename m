@@ -1,70 +1,44 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB481400996
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307431E8342
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785156742; cv=none; b=ItnhhBrHjIWKqYsOXuqhTRupstDnmQN9UPyUyzXyxvN2Qf5omDnfDKcqhwYzft+rkKQCwXLgMjVY4UkGay4xKojfpoFbzKN9ZBt9ocvMR34LQZbhNdeJcZrUHwYe6ynkQ7ep9pWArOie3HvwjxyRzp994wetRXjVLVoct9R0gc0=
+	t=1785156796; cv=none; b=kllxpmG/iB2d18KWSZtGRy8s4yf+TYGV5TH8ZhqOmVPAI2fYD3Mv3F57R0tXgC6yu6Xhd7DKs+JNdF9XRKhinjVki0KzW3QLvxTaFsOWrbYDOAca178MNdo0lU3H8WjHKS/YJ3TMvD+N5cLEY4PWHWGxLrUR57cpfBP1qhgFjWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785156742; c=relaxed/simple;
-	bh=Mk+aSmRtnc7VXZ1Sj0oftf32acPUng9c8JpD9JPtNbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MejfRgwes4zhiE3LqLDN8izNXCCqQGZyk8vCjl9Ud9ibSzjWxBPSMYxfUQg/LF3pBNGVyxj5+RS/Z6NbhTjjGX/IlvM/aZAn4IB8s3YX5OBijm7AMAvmERJSCmfuhCs3X8LFm9m/MoUrDP6gDSxcjnmmpFVdaHrkuH2dsDSaAEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CqUrykoT; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785156796; c=relaxed/simple;
+	bh=O06MMrN1PjxSIa03XTZt6dOUAxRHIGsiFA6N1GZ0l9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VKHYSaCCCPr5Cl1T6p+AhWBnwU2/ZWV3k9y3/+F3yDE7ixZbjxdgKPXJeXhsIaNIELXmNL/bW3Mc2vpXo1GCkeoFViXRBw7PfN/NFIgBbbJ7q6GjClPBNt39B6926rMBIbVDUrmuIs+3t3WvyogH94VShNmiS67WoPDapjcBHOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j14zJgeG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CqUrykoT"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ceb096e675so31106685ad.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 05:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785156740; x=1785761540; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5rmvb0S4tEI37DfKVdNdDGK3575sQGIUhWUSJ2ESEpw=;
-        b=CqUrykoT3wtf6vyKTG7VZyEo8sE4Y1phu6bO5ERarMvYoQK8rMUQMjcVlRDYH2i7Wh
-         8mZsBtE1QfYSrfFf4V3z5YsW5KIJ+fSeeZ6O7FgpNF+CCKkLZItmRfLBFw9sA8bE10GH
-         mjZeHx23lmAZ4T9gZ7SHXxQGHmifyX2qifgg+TyMDm8U7gvf92X+PWoLc4bhTY3RXAnI
-         qhcRd2jjyZb3jaebyb/y0iDa5NGJPBayEz0sAvFWWs21kjX4aZtanBHy5dVNJwAeKAfp
-         Svbj9PrBVzxNe1n5k2Ub7dkVsy+5WVF8ub7zQBeMcPuRh3b3w5To8zvrfUh+MhkO6GNd
-         K85Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785156740; x=1785761540;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5rmvb0S4tEI37DfKVdNdDGK3575sQGIUhWUSJ2ESEpw=;
-        b=TzSOY2CJpN33KPPTNweYAnCYaen999PJ26ESuQAha5JxgR4SV9KKLW9YnZjF4arp2y
-         TxXdtKHvCoBqp4m2xh4z1mPT5nz//wbfYPBtize53uWI9H6gtn1RnBcohjxkp/nSfxcq
-         CChBHdfNHuUj+zPS01g8jdeORTSWPUtDd2WcjZKeAEFRjVzMFT6lVjvLNWGbStef34Ar
-         1UMO+sUd/uSBEdr9wDkzEVCjBm8eZeQEC0Ch1uK9EhSKqrl0ECxdS2joYQXKHRvs2+Qd
-         l6wimsHaY/SuJLhc1fQxeNqbLZ63ce2BP/gesbiKpja8Sh5SR9RvO8N+Zb7LE3tkr1o+
-         yppw==
-X-Gm-Message-State: AOJu0Yw5gZCIvfMTSvQGTl29XtE1o15VdfVF8KOQnXboiTxChrYR/7n0
-	BsfBcs8b8ua0mr/dxSTVaWR9RohD9humdKt7od+I0jlgTbw0g6gwViG0
-X-Gm-Gg: AR+sD12JX1riwun/6+5j2G59drDoDeEBnx/hyXBgxUrmYExBVO16Fmk1t40o4R4yKmg
-	M9x2aWUydAZM2hwRlJkm3+TOGpn/IyTw6uW6KpMUHPnvddeYL10eMW5IvLaZRCJGoyIqzP16BAN
-	wyWNvZPzkA8BWbdoVArKMaVoEf7spufNjg/kfYaUd3PQ/cLc61+1PYXpZMslq6YWwt/pjJ2Yofk
-	xr5L6PnU+50Go0FCDNFz5XhNuJSX48/TsaUP/nxMkOTitgy0gw4CBxyudPYF74d+My2sAYvLmJ9
-	m9/j7fsevBFf9AD4O9guw+Uv9akrmNjnpGkUCixM5zPDcknbwIgc8douCFZLrOnmpfhgyzYXjNm
-	72cGd1yJxr6kL5BPB5DaF7XzH+gqhDL6ddEi+Di/i1uQPsShGrNPOTSoLks36e4oSFdeHW2U567
-	rNuqKh46gmgcpB5uJ/D2cNhvhxPXxoLn+i1GBJ8C6+R4WY
-X-Received: by 2002:a17:902:ecd0:b0:2ce:e75f:b713 with SMTP id d9443c01a7336-2cfde85f81bmr79315895ad.23.1785156739927;
-        Mon, 27 Jul 2026 05:52:19 -0700 (PDT)
-Received: from JIAPENGLIN-MC0.tencent.com ([43.132.141.24])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81dcc1sm35033385ad.84.2026.07.27.05.52.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 27 Jul 2026 05:52:19 -0700 (PDT)
-From: Lin Jiapeng <ljp1205831794@gmail.com>
-X-Google-Original-From: Lin Jiapeng <jiapenglin@tencent.com>
-To: cem@kernel.org,
-	linux-xfs@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	jiapenglin@tencent.com
-Subject: [PATCH] xfs: fix exchange-range reflink flag clearing issue with  INO1_WRITTEN
-Date: Mon, 27 Jul 2026 20:52:03 +0800
-Message-ID: <20260727125210.28329-1-jiapenglin@tencent.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j14zJgeG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D83C1F00A3D;
+	Mon, 27 Jul 2026 12:53:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785156794;
+	bh=N+7WSf+ESx9ES2Vbfeb207bpvFNaeP4EcSsOl3te1Sw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=j14zJgeGRlLjKhET13Y3gPi0b8QTnZhEgyvLkFQ+u9uyebAY2TtQkS5/QPvKacPvl
+	 5w6RbvcT6uCrLw1gH2wer11FPGts1emjHmUKz7rXF0hFHXq3tKU9W0gjyiCgMZ9gkY
+	 qnBHXmaSzBzIe6Vsujc21wIKejO4z5rGSyIlz4Tkue7uKgEbk8VCNwxtyqDzKb6rTN
+	 uEFscIkXR8ZJ1YA+B/SbYEMwNSDV3Op539b2SiQQX1t8IObr4VktiHA5f+O2U2FlJz
+	 jjU7pqLcTZ/ANPEJdwXEB8JA69zj90+o3Es5BtVFnnlBxm44Tw+1fyZIwljBm29qm6
+	 3FZvckWvrNBPw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] i2c: imx: separate atomic, dma and non-dma use case
+Date: Mon, 27 Jul 2026 08:53:11 -0400
+Message-ID: <20260727125312.224068-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072036-vexingly-staff-77b3@gregkh>
+References: <2026072036-vexingly-staff-77b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,55 +47,193 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When exchanging two full-file ranges, xmi_can_exchange_reflink_flags()
-can move the reflink inode flag from the file that currently has it to
-the other file, as long as exactly one side is marked.  This assumes
-that the file contents, and therefore all shared extents, are exchanged.
+From: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 
-That assumption is not true when XFS_EXCHMAPS_INO1_WRITTEN is set.
-xfs_exchmaps_can_skip_mapping() can skip hole and unwritten mappings
-from file1, so an exchange can complete without moving every mapping
-that the earlier flag-swap decision accounted for.  In that case the
-post-operation cleanup can clear the reflink flag from an inode that
-still owns shared written extents.  Later writes then take the
-non-reflink write path and may update blocks that should still have
-been protected by CoW, which shows up as data corruption between
-reflink-related files.
+[ Upstream commit b460b15b3cc23ef3639cc51043bf8b2a70ca1878 ]
 
-Fix this by disabling the reflink flag exchange whenever
-XFS_EXCHMAPS_INO1_WRITTEN is requested.  The contents exchange can still
-proceed; the conservative outcome is that both inodes keep the reflink
-flag.  The regular reflink flag cleanup path can drop the extra flag
-later once the inode no longer has shared extents.
+Separate the atomic, dma and non-dma use case as a preparation step for
+moving the non-dma use case to the isr to avoid rescheduling while a
+transfer is in progress.
 
-Reported-by: Lin Jiapeng(TencentOS Red Team) <jiapenglin@tencent.com>
-Fixes: 966ceafc7a43 ("xfs: create deferred log items for file mapping exchanges")
-Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
+Signed-off-by: Stefan Eichenberger <stefan.eichenberger@toradex.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Stable-dep-of: cb2fc3785769 ("i2c: imx: fix locked bus on SMBus block-read of 0 (atomic)")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/libxfs/xfs_exchmaps.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/i2c/busses/i2c-imx.c | 107 +++++++++++++++++++++++------------
+ 1 file changed, 70 insertions(+), 37 deletions(-)
 
-diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
-index dcd0bd0b13b4..3efed37cb98a 100644
---- a/fs/xfs/libxfs/xfs_exchmaps.c
-+++ b/fs/xfs/libxfs/xfs_exchmaps.c
-@@ -959,6 +959,16 @@ xmi_can_exchange_reflink_flags(
- {
- 	struct xfs_mount		*mp = req->ip1->i_mount;
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index fae674969628b4..d5009272524041 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -978,6 +978,43 @@ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
+ 	return i2c_imx_acked(i2c_imx);
+ }
  
-+	/*
-+	 * The INO1_WRITTEN optimization can skip exchanging hole and
-+	 * unwritten mappings, which means we cannot guarantee that all
-+	 * shared extents actually moved to the other file.  Clearing the
-+	 * reflink flag of an inode that still holds shared extents breaks
-+	 * the CoW write path, so refuse to exchange the flags in that case.
-+	 */
-+	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
-+		return false;
++static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
++				struct i2c_msg *msgs, bool atomic,
++				bool use_dma)
++{
++	int result;
++	unsigned int temp = 0;
 +
- 	if (hweight32(reflink_state) != 1)
- 		return false;
- 	if (req->startoff1 != 0 || req->startoff2 != 0)
++	/* write slave address */
++	imx_i2c_write_reg(i2c_8bit_addr_from_msg(msgs), i2c_imx, IMX_I2C_I2DR);
++	result = i2c_imx_trx_complete(i2c_imx, atomic);
++	if (result)
++		return result;
++	result = i2c_imx_acked(i2c_imx);
++	if (result)
++		return result;
++
++	dev_dbg(&i2c_imx->adapter.dev, "<%s> setup bus\n", __func__);
++
++	/* setup bus to read data */
++	temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
++	temp &= ~I2CR_MTX;
++
++	/*
++	 * Reset the I2CR_TXAK flag initially for SMBus block read since the
++	 * length is unknown
++	 */
++	if (msgs->len - 1)
++		temp &= ~I2CR_TXAK;
++	if (use_dma)
++		temp |= I2CR_DMAEN;
++
++	imx_i2c_write_reg(temp, i2c_imx, IMX_I2C_I2CR);
++	imx_i2c_read_reg(i2c_imx, IMX_I2C_I2DR); /* dummy read */
++
++	return 0;
++}
++
+ static int i2c_imx_dma_read(struct imx_i2c_struct *i2c_imx,
+ 			struct i2c_msg *msgs, bool is_lastmsg)
+ {
+@@ -988,6 +1025,11 @@ static int i2c_imx_dma_read(struct imx_i2c_struct *i2c_imx,
+ 	struct imx_i2c_dma *dma = i2c_imx->dma;
+ 	struct device *dev = &i2c_imx->adapter.dev;
+ 
++	result = i2c_imx_prepare_read(i2c_imx, msgs, false, true);
++	if (result)
++		return result;
++
++	dev_dbg(&i2c_imx->adapter.dev, "<%s> read data\n", __func__);
+ 
+ 	dma->chan_using = dma->chan_rx;
+ 	dma->dma_transfer_dir = DMA_DEV_TO_MEM;
+@@ -1098,50 +1140,24 @@ static int i2c_imx_write(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+ 	return 0;
+ }
+ 
++static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs)
++{
++	return i2c_imx_write(i2c_imx, msgs, true);
++}
++
+ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+ 			bool is_lastmsg, bool atomic)
+ {
+ 	int i, result;
+ 	unsigned int temp;
+ 	int block_data = msgs->flags & I2C_M_RECV_LEN;
+-	int use_dma = i2c_imx->dma && msgs->flags & I2C_M_DMA_SAFE &&
+-		msgs->len >= DMA_THRESHOLD && !block_data;
+ 
+-	dev_dbg(&i2c_imx->adapter.dev,
+-		"<%s> write slave address: addr=0x%x\n",
+-		__func__, i2c_8bit_addr_from_msg(msgs));
+-
+-	/* write slave address */
+-	imx_i2c_write_reg(i2c_8bit_addr_from_msg(msgs), i2c_imx, IMX_I2C_I2DR);
+-	result = i2c_imx_trx_complete(i2c_imx, atomic);
++	result = i2c_imx_prepare_read(i2c_imx, msgs, atomic, false);
+ 	if (result)
+ 		return result;
+-	result = i2c_imx_acked(i2c_imx);
+-	if (result)
+-		return result;
+-
+-	dev_dbg(&i2c_imx->adapter.dev, "<%s> setup bus\n", __func__);
+-
+-	/* setup bus to read data */
+-	temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
+-	temp &= ~I2CR_MTX;
+-
+-	/*
+-	 * Reset the I2CR_TXAK flag initially for SMBus block read since the
+-	 * length is unknown
+-	 */
+-	if ((msgs->len - 1) || block_data)
+-		temp &= ~I2CR_TXAK;
+-	if (use_dma)
+-		temp |= I2CR_DMAEN;
+-	imx_i2c_write_reg(temp, i2c_imx, IMX_I2C_I2CR);
+-	imx_i2c_read_reg(i2c_imx, IMX_I2C_I2DR); /* dummy read */
+ 
+ 	dev_dbg(&i2c_imx->adapter.dev, "<%s> read data\n", __func__);
+ 
+-	if (use_dma)
+-		return i2c_imx_dma_read(i2c_imx, msgs, is_lastmsg);
+-
+ 	/* read data */
+ 	for (i = 0; i < msgs->len; i++) {
+ 		u8 len = 0;
+@@ -1208,6 +1224,12 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+ 	return 0;
+ }
+ 
++static int i2c_imx_atomic_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
++			       bool is_lastmsg)
++{
++	return i2c_imx_read(i2c_imx, msgs, is_lastmsg, true);
++}
++
+ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 			       struct i2c_msg *msgs, int num, bool atomic)
+ {
+@@ -1215,6 +1237,7 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 	int result;
+ 	bool is_lastmsg = false;
+ 	struct imx_i2c_struct *i2c_imx = i2c_get_adapdata(adapter);
++	int use_dma = 0;
+ 
+ 	/* Start I2C transfer */
+ 	result = i2c_imx_start(i2c_imx, atomic);
+@@ -1267,15 +1290,25 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 			(temp & I2SR_SRW ? 1 : 0), (temp & I2SR_IIF ? 1 : 0),
+ 			(temp & I2SR_RXAK ? 1 : 0));
+ #endif
++
++		use_dma = i2c_imx->dma && msgs[i].len >= DMA_THRESHOLD &&
++			msgs[i].flags & I2C_M_DMA_SAFE;
+ 		if (msgs[i].flags & I2C_M_RD) {
+-			result = i2c_imx_read(i2c_imx, &msgs[i], is_lastmsg, atomic);
++			int block_data = msgs->flags & I2C_M_RECV_LEN;
++
++			if (atomic)
++				result = i2c_imx_atomic_read(i2c_imx, &msgs[i], is_lastmsg);
++			else if (use_dma && !block_data)
++				result = i2c_imx_dma_read(i2c_imx, &msgs[i], is_lastmsg);
++			else
++				result = i2c_imx_read(i2c_imx, &msgs[i], is_lastmsg, false);
+ 		} else {
+-			if (!atomic &&
+-			    i2c_imx->dma && msgs[i].len >= DMA_THRESHOLD &&
+-				msgs[i].flags & I2C_M_DMA_SAFE)
++			if (atomic)
++				result = i2c_imx_atomic_write(i2c_imx, &msgs[i]);
++			else if (use_dma)
+ 				result = i2c_imx_dma_write(i2c_imx, &msgs[i]);
+ 			else
+-				result = i2c_imx_write(i2c_imx, &msgs[i], atomic);
++				result = i2c_imx_write(i2c_imx, &msgs[i], false);
+ 		}
+ 		if (result)
+ 			goto fail0;
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
