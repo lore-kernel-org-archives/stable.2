@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7FA3BF67A
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 22:21:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166453CFF4C
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 22:21:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785190874; cv=none; b=othehoJF4OEddx72mrcWXEH5evRMhIHx3YTzi0JQ4xMdAmxwbRK2UseQd0ldfu4zKAkD5Peapvb7dTM6nMko36nmgLlz4YjnGFy3C5coU9squcD2t9s0VKks2AS3E6XpFbkjtFA8dL4v1y0OI0/7CaZqBPtmVOdBw6AotQSueUU=
+	t=1785190875; cv=none; b=AeQ/YPGzF97gcP3Qlq1HUM8E1O56FUvgxKkYM+tyP68o46/a956eSE6OgUzmsBw7RLvOP23ftZCuH2T/DDPmTHwn6qanLzv/p/GBvPQfqxRzPAm8CQGrVf2WRrVLya3ioq/zyUJ5t9hLv7akn7ks+inRwd9ZEInDNjnkYjrNJt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785190874; c=relaxed/simple;
-	bh=Kg07P+FgDiQSHEZ98cXQVq0tex3XmnfBrd2e8iWzJiY=;
+	s=arc-20240116; t=1785190875; c=relaxed/simple;
+	bh=YFRmZwO7yJY+f54scHyZgRiOnm2gbuapIhdpfWcyJqg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JgezWZQM9IJEn5olkQiy8yQG1NZK/JvXzzGwueMLh65tIylUgnjKLSNbQ4k0ruanOa5U0nlQ/54rNM2WLVF28T1JE17q+XMI792eB9f2LTmJ7b1jpVgf//WN7hTDtwdLY45zgtHTKyEGw6THTuO8aMEiuvXoxMruEOWofaF8ixg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnZAG8WW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W43BuvxAsW4UB9posGdmVXrPTsKgyH3J28r7GXKcpXcQEOW0Y1vgqDZlnBRnue9bJhDLO374WgwSyJud72ZwbNdtbHO0S/koFCBuQqE+kDgUls9IWXXjSoYYoPe1Uib7I/HCWVO4wgmMpOovu9kLFPZi2V6DGmIA3wGFXfAAfdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nn7/Gydz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnZAG8WW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AACC41F00A3E;
-	Mon, 27 Jul 2026 22:21:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nn7/Gydz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA8A1F00A3A;
+	Mon, 27 Jul 2026 22:21:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785190873;
-	bh=2TwWrI5UrIkTCUqjmKLtoctC3hzS98ZuUmbUDjPTDB4=;
+	s=k20260515; t=1785190874;
+	bh=SY12Z3vgV3SZQ2OIqN+wpLel102ZERewAni/TwJPO0M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GnZAG8WWa6qKPRrSYorXrMt5OYTQD7/F0SPYYFSk2ZQNvaBJNmH3vaUOQzR9/BglQ
-	 vqrM64maJI1N8sGYT6xqNE3cX9XfoTUC6p2A7ALfC3D2s1zR9Ug2HEmkBmWHQDj54C
-	 XVRvsQl5SZxgaAy/XnOZSO93/QPT5UdNHiBzi+Eh1MB+9OSEA6kjeaf84LZcIKikCB
-	 45aRLLkbwAtYldZaaYv6KAIacgzAM1U/sBZ7BpAbdrmVUGbsBzJgE4CI9T4VcmUQX/
-	 pTMrqtYXPYiqGFb7usAbp9JdNMk+UQrTm3xQlcI8ctza6RunLtwq643OOlxG9ye5zE
-	 dmME2vjs+mOGw==
+	b=Nn7/GydzPp55tXEFZy0sm8CL2mUMBxBV9IEpP12yBSU+SBat4HFyTb2kcdKybQh24
+	 LqrZwL5/ULOCynW3a/DKkyc0k1vbTIcFQmbgwVLe9JXMgKBnXC6g080eHjWB7Gwa7o
+	 6+UObuRfWGKCpLH5XqNDkXV8f5qFlO7FqDq3BMi87EWDsqcJ0Mx6fMVKjnO7Zoq8Ic
+	 CDR+xfRSm7HC7FvVsliC3Sgj6HVDj5FrVKM/IP8ddFDOi2kciPES9JoL9cUjSG+gqI
+	 5mMVBPN+I5dCJhHBCXvX0DSo6Eu8LsXInYIjKMMkj2TzWLS/wVWOJUEE/mPGlZIjKt
+	 GTrKySi5Xo+cw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Ingo Blechschmidt <iblech@speicherleck.de>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Ondrej Kozina <okozina@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/5] cred: add scoped_with_kernel_creds()
-Date: Mon, 27 Jul 2026 18:21:08 -0400
-Message-ID: <20260727222109.2119761-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 5/5] dm: avoid leaking the caller's thread keyring via the table device file
+Date: Mon, 27 Jul 2026 18:21:09 -0400
+Message-ID: <20260727222109.2119761-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260727222109.2119761-1-sashal@kernel.org>
 References: <2026072043-kennel-tasting-5eb0@gregkh>
@@ -46,46 +47,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Ingo Blechschmidt <iblech@speicherleck.de>
 
-[ Upstream commit ae40e6c65791f47c76cc14d0cce2707fe6053f72 ]
+[ Upstream commit 981ccd97f7153d310dfa92a534525bbaf46752c2 ]
 
-Add a new cleanup class for override creds. We can make use of this in a
-bunch of places going forward.
+The refactoring in commit a28d893eb327 ("md: port block device access to file")
+accidentally causes the caller's thread keyring to be kept alive long
+beyond the caller's lifetime.
 
-Based on this scoped_with_kernel_creds() that can be used to temporarily
-assume kernel credentials for specific tasks such as firmware loading,
-or coredump socket connections. At no point will the caller interact
-with the kernel credentials directly.
+As a result, "cryptsetup luksSuspend" silently fails to wipe the
+LUKS volume key from memory.
 
-Link: https://patch.msgid.link/20251103-work-creds-init_cred-v1-4-cb3ec8711a6a@kernel.org
-Reviewed-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 981ccd97f715 ("dm: avoid leaking the caller's thread keyring via the table device file")
+In detail: "cryptsetup luksOpen" uses its supposedly ephemeral thread
+keyring to pass the volume key to the kernel. dm-crypt's
+crypt_set_keyring_key() copies the key material into its own
+crypt_config structure and then drops its own reference to the key in
+the keyring with key_put().
+
+With this fix, restoring pre-v6.9 behavior, the copy in the thread
+keyring is then promptly garbage collected, such that exactly one copy
+of the volume key remains. This single copy is correctly wiped from
+memory on "cryptsetup luksSuspend".
+
+Without this fix, the thread keyring and the volume key in it remains.
+This second copy is only freed on "luksClose". "luksSuspend" neither
+knows about this copy nor has any way to remove it, so the key remains
+recoverable from RAM after a suspend that is documented to have wiped it.
+
+This fix should not introduce new security problems, as the code is
+anyway gated by CAP_SYS_ADMIN. The device-mapper core, not the calling
+task, is the legitimate owner of this long-lived file.
+
+Fixes: a28d893eb327 ("md: port block device access to file")
+Closes: https://gitlab.com/cryptsetup/cryptsetup/-/work_items/993
+Link: https://www.speicherleck.de/iblech/cryptsetup-luksSuspend-issue-reproduction/
+Signed-off-by: Ingo Blechschmidt <iblech@speicherleck.de>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org
+Tested-by: Ondrej Kozina <okozina@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/cred.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/md/dm.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/cred.h b/include/linux/cred.h
-index 50a41b82f79c70..bc1ee63a572c0d 100644
---- a/include/linux/cred.h
-+++ b/include/linux/cred.h
-@@ -205,6 +205,14 @@ static inline struct cred *get_new_cred(struct cred *cred)
- 	return get_new_cred_many(cred, 1);
- }
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index ec48fcdb19ed83..269959c9204f60 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -737,7 +737,16 @@ static struct table_device *open_table_device(struct mapped_device *md,
+ 		return ERR_PTR(-ENOMEM);
+ 	refcount_set(&td->count, 1);
  
-+DEFINE_CLASS(override_creds,
-+	     const struct cred *,
-+	     revert_creds(_T),
-+	     override_creds(override_cred), const struct cred *override_cred)
-+
-+#define scoped_with_kernel_creds() \
-+	scoped_class(override_creds, __UNIQUE_ID(cred), kernel_cred())
-+
- /**
-  * get_cred_many - Get references on a set of credentials
-  * @cred: The credentials to reference
+-	bdev_file = bdev_file_open_by_dev(dev, mode, _dm_claim_ptr, NULL);
++	/*
++	 * Open the backing device with kernel rather than caller
++	 * credentials. Otherwise the caller's credentials would be
++	 * pinned in bdev_file->f_cred until the table device is closed.
++	 * That would keep the caller's thread keyring alive long beyond the
++	 * lifetime of the caller, breaking userspace expectation (e.g.
++	 * cryptsetup(8) leaking the LUKS volume key).
++	 */
++	scoped_with_kernel_creds()
++		bdev_file = bdev_file_open_by_dev(dev, mode, _dm_claim_ptr, NULL);
+ 	if (IS_ERR(bdev_file)) {
+ 		r = PTR_ERR(bdev_file);
+ 		goto out_free_td;
 -- 
 2.53.0
 
