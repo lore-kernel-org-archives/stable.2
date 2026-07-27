@@ -1,120 +1,130 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326AD3DDDDB
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219933DEFFA
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 08:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139169; cv=none; b=bVig+vJywvLcPjDD/ONIIFKCSspRJiN/533mtx5YJHMkEzI0hFTzFCHdy85uTZeZb0Neglib2zpSaUSN2KgStL/iHwUlkDpD+Dk37Ea38/x8Zr91y157SvZIdbcKq03tqPdmIIwqMe8CuOADGJqzyaUPgNyTfdkofRH9RHbcdKs=
+	t=1785139340; cv=none; b=RYElGHQL1CoEh4NXK1rMhlDvlPhbx3q0LSG+KXuXsxfGeBtX4bNr/U+XyjmjdBcJc6Upz+5m/dSk3erLFF1KH2LZLz24gTiRkwaWhHrrCfpfX3BqAb+qow22lzIwTyqq2XefR6kVhDBNR7o065smvZzajukBDWBwUW527O7cy48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139169; c=relaxed/simple;
-	bh=yTyTGQUZcmxCjb2rA3dC2hsvuA/zoefJKEwfFDiI964=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=alCwLIDtinz8n6ajECrx/gqa9/2jUAHQtyKiZK164VcnsOubE2DfkjjMzSiuYwDWx6+tnBwZg8zzBAoLgh8xYkdWF/zAR81ZyWMOQuhaUnV/CYJEUf9hXpfXprfS/RemBbl6BY64bai93kzBih6kVDedy0JkPKZZ3oY+qaywdwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TKsMVqKM; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785139340; c=relaxed/simple;
+	bh=pGRRkLOovQKXGIVL46U0Bymbr48B32n4icpDQJ4H2Ig=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U4pUNbx9EWnewaNfccC7/YjAsUp5WGSb1c9XxWBvSMOrrmOFAfbVX4lWancj+iVTQlmsYCD7eU5YuyY8LafWt998FfR+WI32MqKPwv6oK0Y5vzhTeZQSkoIvBoQgU3VFVqaWc7GQKdJ/dnZQxyT3NAOop/nJeAJh0cBYhqP3q2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kX2b36h+; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TKsMVqKM"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69ff40d9cbcso989138a12.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 00:59:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kX2b36h+"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so2341463a12.0
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 01:02:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785139166; x=1785743966; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e8T21aJoofkItxRugQyBz5A/faj7Zac2nTUnWe+9Fc4=;
-        b=TKsMVqKMagIKF0wdJ5FULsG8hd00glnhdbeDmAy9QKZGyn/fMZfaSqiccgEQAp5Kde
-         0irMC11d16xt/IRwyA7LXwO4Il99xWoWgXQAamUGzZsl/nEzkFWPHfz8w4EI4wqbX+Fx
-         KbAY+sCUXsOFqjoSCq0mosTUzd8/40W6aYnScFqO6+zIBROx0DkvFlqOc5Y/KuRb/obF
-         CpPz1UiCB9/zmFndW1gc4o8Ma6rZKXGkyNG/6q5c52+BhK5pUFVIlzTtu3/uND3HSAuS
-         qAScKAs/PUBodapWNujKdC2jpmNxV++5JTTLv+r/ICzTrE+VZfJU7pPSY1QSWHa0RAnf
-         aIAw==
+        d=gmail.com; s=20251104; t=1785139338; x=1785744138; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QaLoWGkEcB7GzSZ0TXQ17OSV0J1XYO8dorJLUXwgL5k=;
+        b=kX2b36h+EDxNVOu2jAubOtSeBlpSXMI226b3MRICXr5GlztshI3vwa6ci6I+TdaZ7F
+         Q3Lfi0pklkQePGPnPnK5pv33oK4ZhhAb2UgGrbPBVwqugPiCNj9dtoHVDHBwEC4sufxO
+         Ln/3c0XKXo2elN43qe9ff1vpYvnSkw+uRS07ZokkucH63Gp8+IonYXyICPsBNfSgPGWi
+         CQcjm9oMPEMrp4XoDAX2JOw5jIF4RYpy/fcNntmZVhJHK/Zf+F+DcW1IKoB24zu89PkP
+         31yfn7QlpiCjYiycipzSdnZwdmn+BdMQEz6wnr59eIutIJUFpP64OUXmSAGn4d789oPB
+         kjIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785139166; x=1785743966;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785139338; x=1785744138;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e8T21aJoofkItxRugQyBz5A/faj7Zac2nTUnWe+9Fc4=;
-        b=V71nSxLz665zQdD7WrnXm1hUe1Mjquvy5ejhEiPOsrVyqIayuJCIo32KGaC0cw1Tl8
-         i8khMbQzJw1XTfowSfcm4K2ED/HjaHv92S6ns8bMpOv9e26YANrlvhI5qdIO/iC2Os0T
-         ku9pMR1shWc/9Bpxp89z7pw3/Mh5Gpys3uwfY3nILmkI/d8WerXzS9ThfBVhdgkCGEEl
-         c5F2b/TVHqksv96BKhPd0X/NE+QP3P08JVHRaA1sy4gwlz6X++I0DJjAk6iplqAmaAHQ
-         8FpjHeDFTwQum+tgqPcBLkaJ3I9Aitgoh74Q4aWhEuX2qwvM7a1nW7PRsazhnCGKU1Mx
-         Ms2w==
-X-Forwarded-Encrypted: i=1; AHgh+RqPnvSLWkMLBi9pWwWn8QOh5blo70VRNMgjv9uOKT3eegJEepGD5JZbYrYKfvv3ed+cL9MnMWA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5Ssy2GDQFeQ1+pLqJ5/saLl85L0Lci1FXzI1Re4MekSqMuPJs
-	RwQ4E8/r7m+5dMJGjdtdVASVXm7/9ainXKPyRgwOzdqvBaScjwfcgVZg6bBKeQYup60=
-X-Gm-Gg: AR+sD11V1n71QUuH8DI2jhhPSzdiY9sN59U3KowxVPgODiAxs45ZzbHQuvQeoewuxvu
-	nPFBmRviSzrl38V4ONMvAKTcMEeeilsywNCPvwFQazzbxBfR4VcLXNDvcGvrJAG/JIZtl8jSqGC
-	ZG35FI1RKMRGA8Mp8E2/tDoqhb0nFOTLERfvZEbRLiww4ZMvHDBAEY7t6R/oFTFo5qQDp6/tkTF
-	adBZ0r1wVxTPB803YnRc6wD6WdbKNbvyixwT4QEw+tn8++EncW6PaFzazCeyqF6m6U2Q4J8oLgq
-	JGAST0wcefxtQ2RWiuSlYv6LzvzSY9x+jGMYaKyNl+CbeVpr3S6yChqJcWXI8yPMz/himnCEw1+
-	1h/N8JjVXXfweziBcCtvnLAJsIhr/ks9UhWJrkjJNy9+rn7jb6zFgF573eL+1+W4KBhYlk2BSYF
-	j8Ii/fVmgHF9H8k20=
-X-Received: by 2002:a05:6402:5253:b0:68b:31c5:86f7 with SMTP id 4fb4d7f45d1cf-69fc1005b98mr2845690a12.16.1785139166427;
-        Mon, 27 Jul 2026 00:59:26 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.105.162])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb5543370sm2173807a12.15.2026.07.27.00.59.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 00:59:25 -0700 (PDT)
-Message-ID: <8e61e152-5cb9-4227-ac88-045317cad356@linaro.org>
-Date: Mon, 27 Jul 2026 08:59:25 +0100
+        bh=QaLoWGkEcB7GzSZ0TXQ17OSV0J1XYO8dorJLUXwgL5k=;
+        b=N4e9Iq7/H5ovOPvSPlhsRNG+GThdRN3YovLdNIXIzYQuNbyz7QFBxq6Tes3zAgwIO/
+         Du6dZ+lcHcZ/dObFQWKLy4yYFLFmRUDGFnAuHKKtAOhW7AAXq3AtHP7C8YA7l97IjDha
+         8IxVsDaVp6gsT/QFYQBVxdZAnmInPqUlC8fqEcPq1KY8eSRLxA0/6FsmXXrHNQUweA5f
+         ZWGPVcJVZhWnSdpCRB5FhMxpVtEacSpkfTRbHnJ1p+qYGESJeW8HgO9hxhB47VCYTrFn
+         lO3WfiVIRd21NvxQ7tLeRNPSvKbJZ3ROn8QGJCEjm96XIIDDt6iqdZGES4iAGhFBmCbn
+         ikRg==
+X-Forwarded-Encrypted: i=1; AHgh+Rok43rn+484/HU10Blep0MDJkK1/rAw/ysh52CKGK58dCtIgx8UPXVl3tVWqCWUmjm3CV9pJSw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3yQjrSJFrb0sBPnATB0IdthrfHAKH4EZTZQuGNkDX9ND/9HJG
+	dO/MlE6/I99x7Zp81tfvr0NQdkDXQjO8YCI61IOhuQ2WCLe8rPMxRvOt
+X-Gm-Gg: AR+sD13jI+A5BAKClorcBhAIU16Bq6jhSaz2A1CCaPb7X+aYoMniJszupMaWvfoVaBL
+	lAFO1QVbxRsYZHRKjbx8tra/xl/qIbYvyxX/Jnq16JXV6KTl2PIVNSZQXoQUzp/YvEDX98sZHG3
+	swaddYRPE8H4gjsiQBrupK2DRfYmYeR+Admk8g3SeRxCzkTbz8zCzFTM1eaZie/WZfv7fsyRtHn
+	+x1UG367Z9j/UZAGV2YVMq7zAQXcCsVwGkjPKCavAQiaZTMsEqkY6hWV+HvTgzO6aKlXCuOA84a
+	fWeORKRvgss7OVUkHLfLfxDzT+JMAr/H5LJ3b67Zwie4mUMEoFlVZ3SUYSBRqqeuHBkTFwAtf0p
+	LBT1JyidcNmFaiEpAmHmIgi3x7apjO1J8okZDH9VI364dYOeaWibX1hXdJe8PY2OTDDPLfAQUwj
+	+qk6Zl0F+UMxa0bLKuJXQk6I5JzC1hJCeO7WyFVHzAv4Kxsn9uGhGhzFOBbgJ7YdjNtNJA5v08J
+	pJAjDiXEdYJnNUFPN8fES2cFLLT3QID
+X-Received: by 2002:a05:6a21:139a:b0:3bd:3591:2457 with SMTP id adf61e73a8af0-3c67dab46a2mr7637709637.4.1785139338288;
+        Mon, 27 Jul 2026 01:02:18 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb6623294sm2814443a12.10.2026.07.27.01.02.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 01:02:17 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] gpio: pca953x: fix cache_only and IRQ state on restore_context() failure
+Date: Mon, 27 Jul 2026 15:02:05 +0700
+Message-ID: <20260727080205.16353-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] media: i2c: ov8856 : remove ACPI node bypass
- mechanism
-To: Serin Yeh <serin.yeh@intel.com>, linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com, jimmy.su@intel.com, sarang.sapre@intel.com,
- kieran.bingham@ideasonboard.com, stable@vger.kernel.org
-References: <r5b1FOGJuzth4pPRU-BrT3hB8Ak2yCg8-NXDGrUupUhjpvg5G3x5OZWb4q2K2MtOQykyEnNrIKX3WTIqR6Eiyg==@protonmail.internalid>
- <20260723074036.369363-1-serin.yeh@intel.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260723074036.369363-1-serin.yeh@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/07/2026 08:40, Serin Yeh wrote:
-> The driver currently skips power-on and power-off sequences when
-> running with ACPI devices by checking is_acpi_node(). This results in
-> all power configuration steps (GPIO, and regulators) being bypassed.
-> 
-> Remove the is_acpi_node() checks to ensure that the full power
-> sequence is always executed regardless of the firmware interface.
-> 
-> With these changes, the driver behaves consistently across DT and ACPI
-> platforms and ensures correct hardware initialization.
-I think your description in the cover letter should be incoporated into 
-your commit log
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-"- Background: power resources on Intel ACPI platforms :
-On Intel platforms the sensor is enumerated via ACPI, and an INT3472
-"discrete" companion device (the power-logic-control driver under
-drivers/platform/x86/intel/int3472) registers the sensor's reset/powerdown
-GPIOs and the regulator supply.
-These resources are therefore discoverable and usable through the
-standard gpiod/regulator lookups at probe time.
+When pca953x_restore_context() fails, cache_only is left disabled and
+the IRQ left enabled, even though register synchronization may not have
+completed successfully. Restore cache_only and disable the IRQ again on
+failure, matching the state set by pca953x_save_context().
 
-- Current symptom :
-Previously the driver guarded both the GPIO/regulator acquisition in
-ov8856_get_hwcfg() and the whole power on/off sequence with 
-is_acpi_node() and
-skipped them on ACPI. As a result the sensor was never powered or reset 
-by the
-driver and probe failed when reading the chip ID in 
-ov8856_identify_module().
-Removing those checks makes the ACPI path behave like DT.
+Fixes: ec5bde62019b ("gpio: pca953x: Split pca953x_restore_context() and pca953x_save_context()")
+Fixes: 3e38f946062b ("gpio: pca953x: fix IRQ storm on system wake up")
+Cc: stable@vger.kernel.org
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
 
-- Validation :
-Tested on Intel platforms with kernel 6.17 and 7.0."
+Changes in v2:
+ - Add Fixes tag and Cc: stable (Bart).
+ - Add Reviewed-by tag from Linus Walleij.
+ - Update the patch subject to better reflect the patch content.
 
-Then:
+ drivers/gpio/gpio-pca953x.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index f6b870b7b352..0c94630f3160 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -1369,9 +1369,20 @@ static int pca953x_restore_context(struct pca953x_chip *chip)
+ 	regcache_mark_dirty(chip->regmap);
+ 	ret = pca953x_regcache_sync(chip);
+ 	if (ret)
+-		return ret;
++		goto err;
++
++	ret = regcache_sync(chip->regmap);
++	if (ret)
++		goto err;
++
++	return 0;
+ 
+-	return regcache_sync(chip->regmap);
++err:
++	if (chip->client->irq > 0)
++		disable_irq(chip->client->irq);
++	regcache_cache_only(chip->regmap, true);
++
++	return ret;
+ }
+ 
+ static void pca953x_save_context(struct pca953x_chip *chip)
+-- 
+2.43.0
+
