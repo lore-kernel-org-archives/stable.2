@@ -1,99 +1,108 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939953EC69A
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 10:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882F3363086;
+	Mon, 27 Jul 2026 10:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785147200; cv=none; b=DXZvVGwT52wUOdaoRf0nKgcjxLZHDLnyXp8DpD4KbgYdXxrf4DbEqMDrEo4GtUrDFYb3BPL7vL+yuWuk8RX1hveNKuwFoFq/xZM64g1yh2iphqAtaFM3j95rz+DTYz0cOwwgNrFQ3dmMy8s0aKRd32Qy26ZH+0K3jgMPqZDcvio=
+	t=1785147554; cv=none; b=rZUT6h7T8WzpgT2XDcUMImKvuv63Md5As+zaZRXx+3SJzJo2EeKdiLV2jYioFi6xQa26qKbdVkY9j3Th5rFoYWirautpkNPZJ9Aat/qj07ZDrwA+pFY03NFQNZzCZ8cI6clD+KFhIXWaRqeZz7137ox7NESaGNncaoEO1yXjWRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785147200; c=relaxed/simple;
-	bh=TOdxnhWT+ZLO74zXS8rVU8Ea0zC1JkHe0Dz2LVslEPU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SS6LGHTSEwHHXP7g/1pC5TRYxNUmrDgWCcz94lpxvAQu5tVQ0jJCcNlBogJmCdtLEQyPummryES4inZS9knqZOR6Yh5w5R/xQfrlVJgCqD6iqoyd3B1Vw59NAOX05gd3jRTlpv6P9ElHVPE5YIdjU6YKO+zYczvQ+3rHRXCl6LE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=slh5LoJI; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1785147554; c=relaxed/simple;
+	bh=mvrEQn8i1eu/a5L2ZgTg8WB0Trhw3iUDMHGk8ODs160=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oG+GUZ0eNv8JdMzcJWmY/rhlBSKW/zpE8I64/sM07apIlC0mGO/9R9sx2bhJjjOcz9eswAw9uhUwkdAxKg6rTjFhHSj5kbPdN+a0b9U1HpAsmAWm49pDVj2XUwXQl4LOFdbrYQ0OQC7/QifMPKVdmFlAqBcK8ZT4CAG7A0scgIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A3eMRP9M; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="slh5LoJI"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84830c774a0so2449098b3a.1
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 03:13:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785147199; x=1785751999; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vp/5BcyrePbYZxYkxsuSp08ldVpSPznaXrpWbqGp8q8=;
-        b=slh5LoJIOkO2Mb+XR9wN4TPaDMN43SANhDdp3Cu6yNQIOUPsTDcz6TOTzJZaQzCJar
-         SDvkAYEtpEoey0U7jvF3rUamvLvdA+wdtmsvM9hnuHrwADFyUrdPciDZn95n8Zloy9Lu
-         rpgnCnQx1Q3NSD9DQlwqyBjvCL87aMFZI01iy/toATYny60jGmEtGtbAY5whOcRc6ny1
-         YGWeNwQjRcrpMTRuRE2nd6WebQT9e81kiZgJsTQQ4/aigrK0MHFJ+HMebR9Gt/g6afiQ
-         UAwZ4T3F9EsHi1SneKewxEmEA2F6+o2Kh/8+vrOJszlyFI7aMFPijqAhuVf2vQpm6rNU
-         +wLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785147199; x=1785751999;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vp/5BcyrePbYZxYkxsuSp08ldVpSPznaXrpWbqGp8q8=;
-        b=pugv2T7ufqJDxoZOZHODfOUrlhTYVUiBAkcQWfHTqstcOn6sdhuvZCSQ66+H1Q9st5
-         z4gfv5q2IOOc0dJfc8nwdnjtLVChjIkFoUavgHH3R6pFXqj/41UbWnTojenYCx6oWhnZ
-         1txFrpVXQJ8H6rgStxHyXs6oZ2BvX9kwTZKuM9RTCBfoYkelT/zFPOX3uFB7U7tuiiia
-         ZodEGBPjlhNRlTp8xkM2AR5dv+/lsclWs4TwfI8iXPfDhyz1BBm/wbJxxQnpreD7Kvw2
-         rO8UQmALLHPkvjxZeeebEeptKaDAsmM8Bwf/t3dpSyLWvxoT8GZPAA9uWLsXp60WhNt0
-         twQw==
-X-Forwarded-Encrypted: i=1; AHgh+RrU9kAepbkmDJ37o6GxwWNuFxTxpcI28JgMNq8dbqh1rwAe4EeJpVN3+7dtVZdwPpjJW/SsVeg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPrkWNjeFeX3BVdxE/LdMYPd6uuGIfDh+ZK57Rsfs6MnLsknJO
-	dy5R0rUHMtDUifWP34LOarOFCHQiZykEgSf4CBqs7+LiLUl3H/gcI6oCTroAdfxjJUkbmqoy/Cn
-	UIRy/UOiFNA==
-X-Gm-Gg: AR+sD10iNHiHIM/Zy36zC8LsDGeBLFBrmBjnRdndswFlA8W2lyrb/1z6R9noMWIcgMi
-	f7FFoIDQz3UkgDscqIzLQE3ZCb9rM6izCzem9TlMnzFmuWPmQagrfUjMvJ6xLCNIuoScsTdEUf+
-	1I5JOHUxUxV0Q/t0BJGyFEFkOxqQj58xss3V2rf3BIkKncXvsHlL+JOCu2tllO7l4jwSTjL+2eA
-	XOuXYJ16SvP868aPb7AWpLbh6RnGQJFkbpxBLZLfTv/mM9B3V3qVzmXlQG71sY9AX1KRpI1A2QZ
-	6co98OY9Nk1U191m0RD1wXq6klKtCSSsdvoXrrRDVX+akYHHrk9xNIvdHQwFBo4nqII82JaltPh
-	WwMmcNRfG6Hb8cAn1WQEQA/0O4QUpp91G3SHcHnsNlgDZ4ZmWt3WzJNL/aEiW1i4uWK28blWD2N
-	RD2WwLu5AmGeT4sA5lC5duPurg
-X-Received: by 2002:a05:6a00:e87:b0:848:438d:3665 with SMTP id d2e1a72fcca58-84e595644e0mr6217501b3a.41.1785147198851;
-        Mon, 27 Jul 2026 03:13:18 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:fc36:f2a9:533e:766d])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e53253d7dsm2788211b3a.5.2026.07.27.03.13.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 03:13:18 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: sagi@grimberg.me,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH] IB/isert: reject PDUs declaring more data than was received
-Date: Mon, 27 Jul 2026 19:13:07 +0900
-Message-ID: <20260727101307.1079690-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260727051557.GH12003@unreal>
-References: <20260727051557.GH12003@unreal>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A3eMRP9M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785147552; x=1816683552;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mvrEQn8i1eu/a5L2ZgTg8WB0Trhw3iUDMHGk8ODs160=;
+  b=A3eMRP9MoBfPpV0dEXNXOFavss5stn57R7xapXFgRUe9LAokUsZRf4uu
+   Ut9UMCduR2oKT/PeH4A9mq1/dO5pxvdLeI1Vmnl4+pK/oU64kQIGqe5mW
+   1ckT00ZP4vn3gUPVnYWJhIw/+Y4uAfSBqH6KodF9E/0I6B5ZP6d2w/qGd
+   j/uwNJvdF57h/ZcvcOIq+LKMiI8hxKT/agpalRnBsZHyE3rgGjVcMgvUE
+   wyrrIxkkhs8GMIYKkc+61vMFsQl6sa8h6grcxaq7/xAXdWz/VuzKYKz9Q
+   l9lOMkqnV4cPcCEEnA6GHNeSIINywyGx/VzVdWWDGyT//EtCNn38WByWD
+   Q==;
+X-CSE-ConnectionGUID: Lc1y2KKzTWiIpwgEl4LDCg==
+X-CSE-MsgGUID: XylQlII4QQuuNfmNefYp+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11857"; a="85755485"
+X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
+   d="scan'208";a="85755485"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 03:19:11 -0700
+X-CSE-ConnectionGUID: OJw7Dg/mQQG46WFz2Yizxg==
+X-CSE-MsgGUID: W5dXRSuqTtSoGhnTQFUEmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
+   d="scan'208";a="256014602"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 27 Jul 2026 03:19:10 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 4FA8199; Mon, 27 Jul 2026 12:19:09 +0200 (CEST)
+Date: Mon, 27 Jul 2026 12:19:09 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: WenTao Liang <vulab@iscas.ac.cn>
+Cc: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] fix: drivers/thunderbolt: tb_tunnel_pci: missing
+ tb_tunnel_put on success path
+Message-ID: <20260727101909.GC2365036@black.igk.intel.com>
+References: <20260627024640.57118-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260627024640.57118-1-vulab@iscas.ac.cn>
 
-On Mon, Jul 27, 2026 at 08:15:57AM +0300, Leon Romanovsky wrote:
-> I have little desire to argue with chatbot, but the second check MUST to
-> be added.
+Your $subject is not following the conventions. Look at the existing
+commits in given subsystem to see how they should look like. Here we like
+"thunderbolt: ...".
 
-It is added, with your Suggested-by:
+On Sat, Jun 27, 2026 at 10:46:40AM +0800, WenTao Liang wrote:
+> In tb_tunnel_pci(), tb_tunnel_alloc_pci() allocates a tunnel with kref
+> initialized to 1. On the success path, the tunnel is added to the tunnel
+> list via list_add_tail() but tb_tunnel_put() is never called to release
+> the initial reference. On the error path (tb_tunnel_activate failure),
+> tb_tunnel_put() is correctly called.
+> 
+> Add tb_tunnel_put(tunnel) after list_add_tail() on the success path.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 99cabbb006f1 ("thunderbolt: Add support for full PCIe daisy chains")
 
-  [PATCH v2 2/2] IB/isert: reject login PDUs declaring more data than was received
-  https://lore.kernel.org/all/20260726163931.971063-3-yhlee@isslab.korea.ac.kr/
+This is wrong commit.
 
-The check runs from both isert_get_login_rx() and
-isert_login_recv_done().  I posted the series as a new thread instead of
-in reply to this one, which is why it does not appear here.
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/thunderbolt/tb.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+> index c69c323e6952..57c9839b133f 100644
+> --- a/drivers/thunderbolt/tb.c
+> +++ b/drivers/thunderbolt/tb.c
+> @@ -2313,6 +2313,7 @@ static int tb_tunnel_pci(struct tb *tb, struct tb_switch *sw)
+>  		tb_sw_warn(sw, "failed to connect xHCI\n");
+>  
+>  	list_add_tail(&tunnel->list, &tcm->tunnel_list);
+> +	tb_tunnel_put(tunnel);
 
-Best regards,
-Yehyeong Lee
+This will release the tunnel once it is in the list e.g causing
+use-after-free later.
+
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.39.5 (Apple Git-154)
