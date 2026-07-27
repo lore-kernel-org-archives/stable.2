@@ -1,44 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4091402BB6
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB481400996
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785156244; cv=none; b=pCQ+gFlOwc95I0IbUEpz90fAzx65gx5qFM35uItl8R1J31NoVnIhn8bHLSbXcY6m/W5yc+6bmaRIYUEW8ghLbaGbWtrCFN6iiPOmSRghU4Gski+kH+p5SlwDZ686brwyb4jYaTTauZlfAovfp1V1bmZUFG4c8+3bjAO6d/M6cZM=
+	t=1785156742; cv=none; b=ItnhhBrHjIWKqYsOXuqhTRupstDnmQN9UPyUyzXyxvN2Qf5omDnfDKcqhwYzft+rkKQCwXLgMjVY4UkGay4xKojfpoFbzKN9ZBt9ocvMR34LQZbhNdeJcZrUHwYe6ynkQ7ep9pWArOie3HvwjxyRzp994wetRXjVLVoct9R0gc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785156244; c=relaxed/simple;
-	bh=osiZIaKt/H9KkiKD2Zd349Zodx2nxxdEriMDMsZpQBg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JYnVhTEPQEsOgkKsR6JSZ8YnhJGcGQ2CvH96qLRzGJi2GXS5iB0bGM+FwO1fJ1Gvp8MDBrUTF7NijCHA9yypYpmAVkSEQ378eGmRDkaYb2aeW1ljqsaZA4KXsdi6tUAiPkv8Rdqy53rv+xnP2W2O6nrU5kogmLeQf4cUuN0N74s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d2M4xAly; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785156742; c=relaxed/simple;
+	bh=Mk+aSmRtnc7VXZ1Sj0oftf32acPUng9c8JpD9JPtNbQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MejfRgwes4zhiE3LqLDN8izNXCCqQGZyk8vCjl9Ud9ibSzjWxBPSMYxfUQg/LF3pBNGVyxj5+RS/Z6NbhTjjGX/IlvM/aZAn4IB8s3YX5OBijm7AMAvmERJSCmfuhCs3X8LFm9m/MoUrDP6gDSxcjnmmpFVdaHrkuH2dsDSaAEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CqUrykoT; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d2M4xAly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73C31F00A3D;
-	Mon, 27 Jul 2026 12:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785156242;
-	bh=xrZz6mRIgQbjo++WlbyvkTVin8gsozXdjRXhTe0F2eg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d2M4xAlyqa/x6IzIPH+TxYDP3DeTArSLQwaaMpJHvrRPJWeKmml0z+iL295lmclbB
-	 9dOGEPPCus8XGeY6PoNhakiGWb9G9ojG3zGUcu27/CHF+5NrM/aP7I0PhUC2ix6Guo
-	 HOTzBawbR6A7dAxTIYucXEMSKDmjPXuseTrmkCGqPAhZSLh9EY+Ufraow/HbM7w+rR
-	 8YGPEnThpPq/sNmFm6+D//OascTAx+xBi+5GDUqJ0bdy8Tu8htxzk7lDPCgz4gEczc
-	 9kCrnXyQDvPJd4P2esnBbVQmXC5GotKlmW5ClweQWjfRsiQVbjdnLY6vZrnAPfxr2F
-	 MJ6kT44TR6jMA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] nvmet-auth: reject short AUTH_RECEIVE buffers
-Date: Mon, 27 Jul 2026 08:43:59 -0400
-Message-ID: <20260727124359.172046-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727124359.172046-1-sashal@kernel.org>
-References: <2026072058-flattery-mammogram-5fea@gregkh>
- <20260727124359.172046-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CqUrykoT"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ceb096e675so31106685ad.0
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 05:52:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785156740; x=1785761540; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5rmvb0S4tEI37DfKVdNdDGK3575sQGIUhWUSJ2ESEpw=;
+        b=CqUrykoT3wtf6vyKTG7VZyEo8sE4Y1phu6bO5ERarMvYoQK8rMUQMjcVlRDYH2i7Wh
+         8mZsBtE1QfYSrfFf4V3z5YsW5KIJ+fSeeZ6O7FgpNF+CCKkLZItmRfLBFw9sA8bE10GH
+         mjZeHx23lmAZ4T9gZ7SHXxQGHmifyX2qifgg+TyMDm8U7gvf92X+PWoLc4bhTY3RXAnI
+         qhcRd2jjyZb3jaebyb/y0iDa5NGJPBayEz0sAvFWWs21kjX4aZtanBHy5dVNJwAeKAfp
+         Svbj9PrBVzxNe1n5k2Ub7dkVsy+5WVF8ub7zQBeMcPuRh3b3w5To8zvrfUh+MhkO6GNd
+         K85Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785156740; x=1785761540;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5rmvb0S4tEI37DfKVdNdDGK3575sQGIUhWUSJ2ESEpw=;
+        b=TzSOY2CJpN33KPPTNweYAnCYaen999PJ26ESuQAha5JxgR4SV9KKLW9YnZjF4arp2y
+         TxXdtKHvCoBqp4m2xh4z1mPT5nz//wbfYPBtize53uWI9H6gtn1RnBcohjxkp/nSfxcq
+         CChBHdfNHuUj+zPS01g8jdeORTSWPUtDd2WcjZKeAEFRjVzMFT6lVjvLNWGbStef34Ar
+         1UMO+sUd/uSBEdr9wDkzEVCjBm8eZeQEC0Ch1uK9EhSKqrl0ECxdS2joYQXKHRvs2+Qd
+         l6wimsHaY/SuJLhc1fQxeNqbLZ63ce2BP/gesbiKpja8Sh5SR9RvO8N+Zb7LE3tkr1o+
+         yppw==
+X-Gm-Message-State: AOJu0Yw5gZCIvfMTSvQGTl29XtE1o15VdfVF8KOQnXboiTxChrYR/7n0
+	BsfBcs8b8ua0mr/dxSTVaWR9RohD9humdKt7od+I0jlgTbw0g6gwViG0
+X-Gm-Gg: AR+sD12JX1riwun/6+5j2G59drDoDeEBnx/hyXBgxUrmYExBVO16Fmk1t40o4R4yKmg
+	M9x2aWUydAZM2hwRlJkm3+TOGpn/IyTw6uW6KpMUHPnvddeYL10eMW5IvLaZRCJGoyIqzP16BAN
+	wyWNvZPzkA8BWbdoVArKMaVoEf7spufNjg/kfYaUd3PQ/cLc61+1PYXpZMslq6YWwt/pjJ2Yofk
+	xr5L6PnU+50Go0FCDNFz5XhNuJSX48/TsaUP/nxMkOTitgy0gw4CBxyudPYF74d+My2sAYvLmJ9
+	m9/j7fsevBFf9AD4O9guw+Uv9akrmNjnpGkUCixM5zPDcknbwIgc8douCFZLrOnmpfhgyzYXjNm
+	72cGd1yJxr6kL5BPB5DaF7XzH+gqhDL6ddEi+Di/i1uQPsShGrNPOTSoLks36e4oSFdeHW2U567
+	rNuqKh46gmgcpB5uJ/D2cNhvhxPXxoLn+i1GBJ8C6+R4WY
+X-Received: by 2002:a17:902:ecd0:b0:2ce:e75f:b713 with SMTP id d9443c01a7336-2cfde85f81bmr79315895ad.23.1785156739927;
+        Mon, 27 Jul 2026 05:52:19 -0700 (PDT)
+Received: from JIAPENGLIN-MC0.tencent.com ([43.132.141.24])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81dcc1sm35033385ad.84.2026.07.27.05.52.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 27 Jul 2026 05:52:19 -0700 (PDT)
+From: Lin Jiapeng <ljp1205831794@gmail.com>
+X-Google-Original-From: Lin Jiapeng <jiapenglin@tencent.com>
+To: cem@kernel.org,
+	linux-xfs@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	jiapenglin@tencent.com
+Subject: [PATCH] xfs: fix exchange-range reflink flag clearing issue with  INO1_WRITTEN
+Date: Mon, 27 Jul 2026 20:52:03 +0800
+Message-ID: <20260727125210.28329-1-jiapenglin@tencent.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,84 +73,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+When exchanging two full-file ranges, xmi_can_exchange_reflink_flags()
+can move the reflink inode flag from the file that currently has it to
+the other file, as long as exactly one side is marked.  This assumes
+that the file contents, and therefore all shared extents, are exchanged.
 
-[ Upstream commit 779575bc35c687697ba69e904f2cd22e60112534 ]
+That assumption is not true when XFS_EXCHMAPS_INO1_WRITTEN is set.
+xfs_exchmaps_can_skip_mapping() can skip hole and unwritten mappings
+from file1, so an exchange can complete without moving every mapping
+that the earlier flag-swap decision accounted for.  In that case the
+post-operation cleanup can clear the reflink flag from an inode that
+still owns shared written extents.  Later writes then take the
+non-reflink write path and may update blocks that should still have
+been protected by CoW, which shows up as data corruption between
+reflink-related files.
 
-nvmet_execute_auth_receive() trusts the AUTH_RECEIVE allocation length
-after checking only that it is nonzero and matches the transfer length.
-In the SUCCESS1 and FAILURE1/default states, that lets a remote NVMe-oF
-initiator reach the fixed-size DH-HMAC-CHAP response builders with a
-kmalloc() buffer shorter than the response, so nvmet_auth_success1() and
-nvmet_auth_failure1() write past the allocation; both only WARN_ON the
-short length and then format the message anyway.
+Fix this by disabling the reflink flag exchange whenever
+XFS_EXCHMAPS_INO1_WRITTEN is requested.  The contents exchange can still
+proceed; the conservative outcome is that both inodes keep the reflink
+flag.  The regular reflink flag cleanup path can drop the extra flag
+later once the inode no longer has shared extents.
 
-Impact: A remote NVMe-oF initiator with access to an auth-enabled target
-can trigger a 16-byte heap out-of-bounds write via a one-byte
-AUTH_RECEIVE allocation length.
-
-Compute the minimum response length for the current DH-HMAC-CHAP step in
-nvmet_auth_receive_data_len() and report a zero data length when the
-host-supplied allocation length is shorter, so the existing zero-length
-check in nvmet_execute_auth_receive() rejects the command before any
-builder runs. The SUCCESS1 minimum is sizeof(struct
-nvmf_auth_dhchap_success1_data) plus the HMAC hash length, because the
-response hash is written into the rval[] flexible-array tail, so the
-minimum is state dependent rather than a flat sizeof. CHALLENGE keeps its
-existing variable-length guard in nvmet_auth_challenge().
-
-This is reachable only when in-band DH-HMAC-CHAP authentication is
-configured on the target.
-
-Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5-5-xhigh
-Assisted-by: Claude:claude-opus-4-8
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Lin Jiapeng(TencentOS Red Team) <jiapenglin@tencent.com>
+Fixes: 966ceafc7a43 ("xfs: create deferred log items for file mapping exchanges")
+Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
 ---
- drivers/nvme/target/fabrics-cmd-auth.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ fs/xfs/libxfs/xfs_exchmaps.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-index 74fb7b1b4bd73f..07f2581529d53b 100644
---- a/drivers/nvme/target/fabrics-cmd-auth.c
-+++ b/drivers/nvme/target/fabrics-cmd-auth.c
-@@ -445,7 +445,31 @@ static void nvmet_auth_failure1(struct nvmet_req *req, void *d, int al)
- 
- u32 nvmet_auth_receive_data_len(struct nvmet_req *req)
+diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
+index dcd0bd0b13b4..3efed37cb98a 100644
+--- a/fs/xfs/libxfs/xfs_exchmaps.c
++++ b/fs/xfs/libxfs/xfs_exchmaps.c
+@@ -959,6 +959,16 @@ xmi_can_exchange_reflink_flags(
  {
--	return le32_to_cpu(req->cmd->auth_receive.al);
-+	struct nvmet_ctrl *ctrl = req->sq->ctrl;
-+	u32 al = le32_to_cpu(req->cmd->auth_receive.al);
-+	u32 min_len;
-+
-+	/*
-+	 * Reject too-short al before kmalloc(al), since the SUCCESS1 and
-+	 * FAILURE1/default builders write fixed response headers into it.
-+	 */
-+	switch (req->sq->dhchap_step) {
-+	case NVME_AUTH_DHCHAP_MESSAGE_CHALLENGE:
-+		return al;
-+	case NVME_AUTH_DHCHAP_MESSAGE_SUCCESS1:
-+		min_len = sizeof(struct nvmf_auth_dhchap_success1_data);
-+		if (req->sq->dhchap_c2)
-+			min_len += nvme_auth_hmac_hash_len(ctrl->shash_id);
-+		break;
-+	default:
-+		min_len = sizeof(struct nvmf_auth_dhchap_failure_data);
-+		break;
-+	}
-+
-+	if (al < min_len)
-+		return 0;
-+
-+	return al;
- }
+ 	struct xfs_mount		*mp = req->ip1->i_mount;
  
- void nvmet_execute_auth_receive(struct nvmet_req *req)
++	/*
++	 * The INO1_WRITTEN optimization can skip exchanging hole and
++	 * unwritten mappings, which means we cannot guarantee that all
++	 * shared extents actually moved to the other file.  Clearing the
++	 * reflink flag of an inode that still holds shared extents breaks
++	 * the CoW write path, so refuse to exchange the flags in that case.
++	 */
++	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
++		return false;
++
+ 	if (hweight32(reflink_state) != 1)
+ 		return false;
+ 	if (req->startoff1 != 0 || req->startoff2 != 0)
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
