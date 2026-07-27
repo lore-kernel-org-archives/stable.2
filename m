@@ -1,175 +1,109 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E464137B6
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB5C3FF1B8
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158865; cv=none; b=F2bvxmWchx9mbKavilLa9yp0xc9Co4Z5OawlwL99Fk6ALxLZ2//H0KXkc+qYSMXHfI8bDFVVwg8b3nUUAyYP2imoLOlXogubk43DS0hEudkwqx2X4XNTk1jvN/yRnGca8r55NAjD3eXF7yUnGtJmEkE9u3dknFkuaRpYNnUKu24=
+	t=1785158946; cv=none; b=nz/sAr3AcKAIyv0du8JfNJUcf/7m884xZz0YqpAq8bnt70yT5DWWFzk6Ays8fKXsnNFaFyS/afuRs9M5x74WFYj1hTBQvLpLKgEFMEUz8dOpb7JG/x3Qj8ZydSA7L543P8kOCVwZ5X0sFQrjtEQtC0K4TcwNBX9a7ILwhK69kf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158865; c=relaxed/simple;
-	bh=qMh3iMW7LAK2gw7id80SDhhXwFYFcOQeuiXlRrdCxL8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XYeEpXk3F4jhCV27MXIBYS7YcAGHs2xQYTb2gxLFA7dKa8OvpPyKV1hzuH+3DXUlidn1RiNsqmhlYt0sjED35nsSuZ20BhpdwE5HCQVjiPAi56xJp6N5RxvJmbR56hId1MD+240NLn4PExUC/rWTRijmZp10LtVRGHAcczjExGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=RbQLOnkg; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785158946; c=relaxed/simple;
+	bh=8sQsewt+RHmwxt22/apO6MGUzTxFytRnc9dA2GUzfLE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Uj0ZbTSdPw4VHbubq6BISGbs5F3j8bqWvPs3lKruVQSPXJ97Wkn7/sjemPPfAa8zRw6LumTj/X8+5m3GLwzZ0BrxSQvXJ8/qf6plUP9/wVlawJhWkPhwB+W9IA2+3k1SjYnUAOtJffY39iv/T7NpWYvuF7rqHk5lrM2TROKP7ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j13OPBOi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="RbQLOnkg"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso911330a34.1
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 06:27:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785158857; x=1785763657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=862duEuJG7xgtpJCUOI3pjr65DD4q6n4TnDbBPD48MA=;
-        b=RbQLOnkglwzKzgr0Kjl6K3aMlyy4V7xnvV3gk9yr5ucJNTQl9e2AGSBibuDqt+hrxD
-         6AUTzZEdggf1kbiCjhf01cZAut/+Hp3tBbEVPxWnOwzG16hm9hg70OEAyb9y0H6ILZU4
-         LI8widvgk2gR2xNTNQfpvJ/37qZmm0oDouPiB22rd6A0IpPlirLDOYOiaa+8kL4d1PdI
-         aONa3Kujb0xdgjBs2jFBx7FCR9nopRhCq2UzB40ZVxQ+2jI3aPcJUVEZM0s5LBUO54eT
-         GcRLHKjiKdlLJzXietwpC2WwoQcGnP+5+ze+++20mKnra3hl+g2aZxSkuMwlEqmqWl6j
-         TkVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785158857; x=1785763657;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=862duEuJG7xgtpJCUOI3pjr65DD4q6n4TnDbBPD48MA=;
-        b=LmxPc8mRmidN/soWduzEpm2Hpn/4EFYmy5wtV+Zxft+hPiWx2Hb7gLl0wiUcY+9crj
-         D/siEbpUaAI9P/U1tyBxXWw4VCY5xkFiWFJ02ZNTQA4PaakniRfPINiz9uGVk00dJtdO
-         Ts/hEDwbtu6SA46QV+EEiJ4OosIl0gRtAm/svcf6QetRKof4e+iQW0f1eIvmv9Ps4ZGO
-         OvyshJywRzUjAoWLIDFOtpKJXgC2If1to17M9krgrnIl6O0YXo5oUwTqn7cjmKQAjmR9
-         Hc8vizGH+zn1h52hZyccSGnNQcA7yItejrVtE90u82+5NLv5IQD1/eHcVy2d7xm+gNeC
-         bG1A==
-X-Gm-Message-State: AOJu0YxfOMiPIeyEE4Y3ixFA7DLCNZn7o4+UrPxc4u3gCwu9plsxJm3l
-	KkDeNQnE/cr6aPZ4m4tBdpmuqsUGui5gWV3Y/QGFV2cTGo6PaCxJMiCDm46DmeAn7L4=
-X-Gm-Gg: AR+sD11cufnIqmjAkx2eUYxRkvfAc+nQnXLwN5VPPGn+v+Bjka9eH0Ds1qC/Jlsb2Mi
-	SnIdi5NON1AdTfK+Nmvbx2gRV43KeKzengqXkKGlbDqwrCDotRavu2JWUweNtKG1ofgydx+Wl5k
-	vEaGntp7AvtWDVkVdv+uJLHbNk78MRNn1RTZbvHjjUwSX30LEQg0X1NbPORKUseu156KTb13Qr3
-	24gq/fFZ8vcNOurGISbelMNT30BkTwGgoV2fIhLCBO452IDOjRBcju/a/6xYge1gfr33A0nGOjz
-	E/CgdZgf7lTg4dmuR1lU81vWybeTfaaOMXHHS+wBFgO1ZsMLjxukKebWTddWyWZyPyKaH048SHJ
-	Hh1sPhvl+sRjZUGFw+uhmP9Ap7Emyb7jirTcXjDOmKX8X2m2k8fZISNaxbqFAkBg4r5aTJY+1KC
-	bhivCunacjQUhTjq4ANQgh+UEb+IG0keQ/VaZVg3TzlE01Rban+Fun
-X-Received: by 2002:a05:6830:8385:b0:7e9:c481:ff8a with SMTP id 46e09a7af769-7ee78c25effmr7740900a34.11.1785158857019;
-        Mon, 27 Jul 2026 06:27:37 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:41b4:f2ef:8a0a:2104? ([2600:8803:e7e4:500:41b4:f2ef:8a0a:2104])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ee2a03d30asm12348470a34.18.2026.07.27.06.27.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 06:27:36 -0700 (PDT)
-Message-ID: <bb74b15e-6a95-4eaa-82bf-7c256b554c45@baylibre.com>
-Date: Mon, 27 Jul 2026 08:27:35 -0500
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j13OPBOi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900351F000E9;
+	Mon, 27 Jul 2026 13:29:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785158945;
+	bh=VqzQDosLLSe0res7YD6Gs6c/DoVMYfHQL1Qc6GALPMk=;
+	h=Subject:To:Cc:From:Date;
+	b=j13OPBOibAnSV42JykIISOIUBNXssAV5I9Nd76jfpJKOLdn9YRMrfvFV9mxWQy4c0
+	 92SYjqghz4aHABJzX3In8Rl0cWO1yEfZGERJpSXA84rS1+C7cWtJvdsd7Ey6WcCUcO
+	 1hP6Gm9ZHRAdavNUZdpnGUymDuzgi5pzfXJ4d1rg=
+Subject: FAILED: patch "[PATCH] usb: musb: omap2430: Do not put borrowed of_node in probe" failed to apply to 6.12-stable tree
+To: lgs201920130244@gmail.com,gregkh@linuxfoundation.org,johan@kernel.org,stable@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 27 Jul 2026 15:28:52 +0200
+Message-ID: <2026072752-stoning-canister-689f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: pressure: dps310: fix pressure result shift bit
- definition
-To: Rupesh Majhi <zoone.rupert@gmail.com>, Eddie James
- <eajames@linux.ibm.com>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>
-Cc: stable@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260727070547.649074-1-zoone.rupert@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260727070547.649074-1-zoone.rupert@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On 7/27/26 2:05 AM, Rupesh Majhi wrote:
-> DPS310_PRS_SHIFT_EN is defined as BIT(4), but P_SHIFT is bit 2 of
-> CFG_REG. Bit 4 is INT_PRS, which enables the pressure measurement ready
-> interrupt on the SDO pin.
-> 
-> The datasheet requires the pressure result bit-shift to be enabled when
-> the oversampling rate is higher than 8 times, so
-> dps310_set_pres_precision() sets it for oversampling ratios of 16 and
-> above. With the wrong definition it leaves P_SHIFT clear and toggles the
-> pressure ready interrupt instead, so the result register is never shifted
-> and the pressure values read at those oversampling ratios are wrong.
-> 
-> Define the bit at its documented position. Temperature is not affected,
-> T_SHIFT is bit 3 and DPS310_TMP_SHIFT_EN already matches it.
-> 
-> Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
-> ---
-> Found by inspection while working on FIFO support, and checked against the
-> DPS310 datasheet V1.1 (2019-07-11), section 8.6 "Interrupt and FIFO
-> configuration (CFG_REG)", where the bit table reads INT_HL, INT_FIFO,
-> INT_TMP, INT_PRS, T_SHIFT, P_SHIFT, FIFO_EN, SPI_MODE for bits 7 down to 0.
-> 
-> Not tested on hardware yet: the driver probes and reads correctly under
-> qemu-system-arm -M rainier-bmc, but QEMU's DPS310 model does not implement
-> the shift bits, so it cannot show the difference. I have a DPS310 breakout
-> on order and can confirm the raw pressure values at oversampling >= 16 once
-> it arrives, if you would rather wait for that.
-> 
->  drivers/iio/pressure/dps310.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-> index 45bdb8c7670f..473973dd0694 100644
-> --- a/drivers/iio/pressure/dps310.c
-> +++ b/drivers/iio/pressure/dps310.c
-> @@ -50,7 +50,7 @@
->  #define DPS310_CFG_REG		0x09
->  #define  DPS310_INT_HL		BIT(7)
->  #define  DPS310_TMP_SHIFT_EN	BIT(3)
-> -#define  DPS310_PRS_SHIFT_EN	BIT(4)
-> +#define  DPS310_PRS_SHIFT_EN	BIT(2)
->  #define  DPS310_FIFO_EN		BIT(5)
->  #define  DPS310_SPI_EN		BIT(6)
->  #define DPS310_RESET		0x0c
 
-In your followup work, it would be nice to start with a patch to
-sort these in a logical order.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Right now, there is a mix of GENMASK being sorted from high to low
-while bits are low to high (with DPS310_INT_HL being out of order).
-Normally, we go from low to high on everything because that is how
-datasheets usually list things.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Ideally, would end up something like:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x c947360ae63eee1c9eacc030dd6f5a53f717addf
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072752-stoning-canister-689f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-#define DPS310_PRS_B0		0x00
-#define DPS310_PRS_B1		0x01
-#define DPS310_PRS_B2		0x02
-#define DPS310_TMP_B0		0x03
-#define DPS310_TMP_B1		0x04
-#define DPS310_TMP_B2		0x05
-#define DPS310_PRS_CFG		0x06
-#define  DPS310_PRS_RATE_BITS	GENMASK(6, 4)
-#define  DPS310_PRS_PRC_BITS	GENMASK(3, 0)
-#define DPS310_TMP_CFG		0x07
-#define  DPS310_TMP_EXT		BIT(7)
-#define  DPS310_TMP_RATE_BITS	GENMASK(6, 4)
-#define  DPS310_TMP_PRC_BITS	GENMASK(3, 0)
-#define DPS310_MEAS_CFG		0x08
-#define  DPS310_COEF_RDY	BIT(7)
-#define  DPS310_SENSOR_RDY	BIT(6)
-#define  DPS310_TMP_RDY		BIT(5)
-#define  DPS310_PRS_RDY		BIT(4)
-#define  DPS310_MEAS_CTRL_BITS	GENMASK(2, 0)
-#define   DPS310_BACKGROUND	 BIT(2)
-#define   DPS310_TEMP_EN	 BIT(1)
-#define   DPS310_PRS_EN		 BIT(0)
-#define DPS310_CFG_REG		0x09
-#define  DPS310_INT_HL		BIT(7)
-#define  DPS310_SPI_EN		BIT(6)
-#define  DPS310_FIFO_EN		BIT(5)
-#define  DPS310_TMP_SHIFT_EN	BIT(3)
-#define  DPS310_PRS_SHIFT_EN	BIT(2)
-#define DPS310_RESET		0x0c
-#define  DPS310_RESET_MAGIC	0x09
-#define DPS310_COEF_BASE	0x10
+Possible dependencies:
 
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From c947360ae63eee1c9eacc030dd6f5a53f717addf Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Mon, 13 Jul 2026 19:47:11 +0800
+Subject: [PATCH] usb: musb: omap2430: Do not put borrowed of_node in probe
+
+omap2430_probe() stores pdev->dev.of_node in a local np variable. This is
+a borrowed pointer and the probe function does not take a reference to
+it.
+
+The success and error paths nevertheless call of_node_put(np). This drops
+a reference that is owned by the platform device, and can leave
+pdev->dev.of_node with an unbalanced reference count.
+
+Do not put the borrowed platform device node from omap2430_probe().
+References taken for the child MUSB device are handled by the device core,
+and the ctrl-module phandle reference is still released separately.
+
+Fixes: ffbe2feac59b ("usb: musb: omap2430: Fix probe regression for missing resources")
+Cc: stable <stable@kernel.org>
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Link: https://patch.msgid.link/20260713114711.955253-1-lgs201920130244@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/usb/musb/omap2430.c b/drivers/usb/musb/omap2430.c
+index 333ab79f0ca9..6e749faac33c 100644
+--- a/drivers/usb/musb/omap2430.c
++++ b/drivers/usb/musb/omap2430.c
+@@ -454,7 +454,6 @@ static int omap2430_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "failed to register musb device\n");
+ 		goto err_disable_rpm;
+ 	}
+-	of_node_put(np);
+ 
+ 	return 0;
+ 
+@@ -464,7 +463,6 @@ static int omap2430_probe(struct platform_device *pdev)
+ 	if (!IS_ERR(glue->control_otghs))
+ 		put_device(glue->control_otghs);
+ err_put_musb:
+-	of_node_put(np);
+ 	platform_device_put(musb);
+ 
+ 	return ret;
 
