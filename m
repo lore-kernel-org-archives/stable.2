@@ -1,100 +1,81 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4A7427FAB;
-	Mon, 27 Jul 2026 20:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF84D427FAB;
+	Mon, 27 Jul 2026 20:50:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785185191; cv=none; b=FuIutB3wGL8KM/wEQbccx+ADa/ws8SpLgVbenk6hs+ZNRsDS0T1uvF7FScZBGyzXCF4FuksAAoAKwlvPG2LMm3NzeLG35JezXKI+fTLmJa2IJWJXpSsIWjxhcSdeLMKfb85yzVmN5crgfr/gkYsX7lgtylT9rBhGocCFbr1cj8c=
+	t=1785185446; cv=none; b=IXrKIjbtc1qYEpt8wJ/DgG6nMRgr2qMgIT8XJfUrIa4uLeQb0VFy/y4scET84hBYt1AgiAbFXdTUW8QNiw6N4//zyW7JgCkDzOgsm3fsLomT40WoHMEHmBCF/7pqhY41BHWtDlKmMQQIB6RLXUbzcoQf0q2SykraazMEv6a3SGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785185191; c=relaxed/simple;
-	bh=BGK6zDJOt+Ou+GK6PEY++NZQulWjFBd446vKz/Palf0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gsgrCPlqLa+0evhn2Caa5FTQnaTrIoRtDmFn5yMEcD8yyLucVBzEB07Jah6Td7jgd3sErmS9ftXI0jESXXlUTwNkcH4KlIJsqU6AwIF64kMT6A+cH6DAlc+cR6ye9G3EMM26RoTK9eYCzDbVP/yWXOCumX9hILHIgzzp2QOPzC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=WIosT/Ov; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1785185446; c=relaxed/simple;
+	bh=V+S2Xn4psO8d+BxG9K2+1XitLSF5hl1UxlmPO8jjoKM=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=fXcMjWFINhFhzn82Tx7C8Pw7UyYgpPZ4LFpF0biVB1w3IzZQtnl8HV0024QATGTz9LZUCedWgxdUGYrk6v0W6U06KSmmCPYtSG0u1K0Vk3ooRptMn5sn8E9WxEI0M8wNuRe7VKfL+py/oo04Bn4j3iSNgDlQpasENVB7U07jDbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlPIVM3Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="WIosT/Ov"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=yl0NUMr0TDqZO/IOU8fA9DWQn4BnbIyksUsi7vU4w4g=; b=WIosT/Ov5wZZCiXhk55/xVWVOA
-	eIViSQ8E6CYKWKAtervfugn9S6xah6P4KmyuY3EqecmT+JguEKIyQ59cDgucnC67dQLQOq5aPfjCo
-	/Iw6NBWO2gwJWs5bOlHIJ+5IVeGu3ptYrsZszNkRRLzgPJJfpcnBMVdCLUaafTRGN1XWXJsIWHJa/
-	LSn8tpw9yNo/79/JrTSlBsMHtRxDKY+nv0rEPYUrLj7o4NnNCP+rCSU+n7DsPDgsU2J9w2B3IUgwG
-	aJtRdQ9Oh735pWK2aItdew3e4yJNafzMRhWrwcmhD+3utWBqhWtCJViQ8JtYMDY2DF060wQl8qC0M
-	X3Wgyoxw==;
-Received: from 179-125-64-236-dinamico.pombonet.net.br ([179.125.64.236] helo=[127.0.0.1])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1woSDD-006gjL-44; Mon, 27 Jul 2026 22:46:11 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Mon, 27 Jul 2026 17:45:49 -0300
-Subject: [PATCH] drm: Fix drm_crtc_commit leak if signaled when
- PAGE_FLIP_EVENT is used
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlPIVM3Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C15A1F000E9;
+	Mon, 27 Jul 2026 20:50:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785185445;
+	bh=RS6pYWHXgojoqiODGdTZWB//jMBLHEwugdQdZLoh/Q0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=mlPIVM3Qqk0LIzsBAieYur6Ysgm+Mf66fYejkG1tkLe+jXoPOYUq4qgXOk/TIqVZG
+	 8uqbGwIiUOeTM5gLVpgU9AP0dbJGE/exwS7bOKV20ia9Zr+ltB4ACDMv8lthED6Y96
+	 dpV0efLK+PfT51zDupThj17b9TnwW596rymW0b0rmbfu6S9TORORGQqzATc3YFI52N
+	 HFzJ3axN2yLYI/4lfbJ6XsQMomTG4yGdqIvr4hjZvUfjk5cfCgzER4RvJ5dRMpmNj/
+	 4QVjJ7JLmaOlCctdbVO1aHraLv7HfHIQYU/HWgu1o5976AydmKgji1W6B4BTIKMe4+
+	 HHTTnGbo1/k6w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197AD380664D;
+	Mon, 27 Jul 2026 20:50:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAHzDZ2oC/yXMQQrCMBAAwK+UPTfQxrYBvyIlJJtVV00jmyiF0
- r8b9TiX2SCTMGU4NhsIvTlzWir6tgG8uuVCikM16E5PndFGBYkWpaB1JUVGiylGLvZB7q6GQCO
- ZsZ+0P0AdnkJnXn/7af47v/yNsHxL2PcPyXMzOH8AAAA=
-X-Change-ID: 20260727-drm_crtc_atomic_commit_leak-4de5e75162b3
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel-dev@igalia.com, stable@vger.kernel.org, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3] Bluetooth: SCO: give the socket its own sco_conn
+ reference
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178518541063.1412337.17890508638369383289.git-patchwork-notify@kernel.org>
+Date: Mon, 27 Jul 2026 20:50:10 +0000
+References: <20260725195230.967546-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260725195230.967546-1-qwe.aldo@gmail.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: pav@iki.fi, luiz.dentz@gmail.com, marcel@holtmann.org,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
-Commit 1c6ceeee6ebb ("drm/atomic: Fix memleak on ERESTARTSYS during
-non-blocking commits") fixed a very similar issue when the event was
-allocated by drm_atomic_helper_setup_commit() itself.
+Hello:
 
-However, if the event is allocated in prepare_signaling(), it will also be
-set to NULL in complete_signaling(), which prevents drm_crtc_commit from
-being put in __drm_atomic_helper_crtc_destroy_state().
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-Dropping the reference when the event is set to NULL at
-complete_signaling() fixes the leak.
+On Sat, 25 Jul 2026 16:52:30 -0300 you wrote:
+> sco_conn_del() drops a reference it does not own. It takes one transient
+> reference via sco_conn_hold_unless_zero() and releases it with the
+> sco_conn_put() that follows sco_sock_hold(); the additional put in the
+> !sk branch releases a second one:
+> 
+>     conn = sco_conn_hold_unless_zero(conn);
+>     ...
+>     sk = sco_sock_hold(conn);
+>     sco_conn_unlock(conn);
+>     sco_conn_put(conn);
+> 
+> [...]
 
-The leak can be reproduced by sending a signal to the thread using
-DRM_MODE_PAGE_FLIP_EVENT and using a sw_sync fence to cause the atomic
-ioctl to block at drm_atomic_helper_wait_for_fences(). It happened both
-with amdgpu and vkms.
+Here is the summary with links:
+  - [v3] Bluetooth: SCO: give the socket its own sco_conn reference
+    https://git.kernel.org/bluetooth/bluetooth-next/c/018d1e023ea5
 
-Fixes: 24835e442f28 ("drm: reference count event->completion")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/drm_atomic_uapi.c | 2 ++
- 1 file changed, 2 insertions(+)
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index e997917819e8..7b951af5ab32 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1563,6 +1563,8 @@ static void complete_signaling(struct drm_device *dev,
- 		 * to prevent a double free in drm_atomic_commit_clear.
- 		 */
- 		if (event && (event->base.fence || event->base.file_priv)) {
-+			if (crtc_state->commit && crtc_state->commit->abort_completion)
-+				drm_crtc_commit_put(crtc_state->commit);
- 			drm_event_cancel_free(dev, &event->base);
- 			crtc_state->event = NULL;
- 		}
-
----
-base-commit: d5efb1e1b1d7cd27c642654042f80d19a7ba3caf
-change-id: 20260727-drm_crtc_atomic_commit_leak-4de5e75162b3
-
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
