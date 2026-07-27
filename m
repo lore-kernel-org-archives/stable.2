@@ -1,108 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E2C3546D6;
-	Mon, 27 Jul 2026 07:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35A93CF692
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785137750; cv=none; b=SD8FrUo2F2TifMqvk54UljvRf748EmgFENXJ8m2b31jHTQiDXo00y2t6/pjgkf6FJu9h//kOhyfqLBANi18HdKsHOec+wkwB2WymXwganj1teYhOVZ3r63lSpdE+pP4OyZtB84sL2jWvL6QtquhZBIkGBYC5N7lLohxtSIulYHo=
+	t=1785138087; cv=none; b=aXd/si7KpUZgvG6QrQU0ScD8H2OFveLL8hpVmx+njXkNJlxLeOByyv6g7PrBHubM8RAgKxn28zpsg4uxuAlgqmFdZ/NM1aZvQ6RU01HGoYHqiqpr8MJGDTyeB4yhkKadQS38OqN+UCJkKtCdR0jRZXPhRFYN2tsbQerCcmNzqT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785137750; c=relaxed/simple;
-	bh=/imp7y+7vcd/kYaRoEG5SbixDtIxcsGnlRjvU2AD95Q=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=Th1LHIJmkD3mDt0I2PImVgm73cBXcWlVA2Xu0C73opWNBShkIzxKsfTw2xVIek74eraXoTEA6Tdz6Q6MkB+0sxH6Sh/Te/nfFGDsg8RTtXdnW+RTp20CqWpOS21dTb3jpPGl7On+7nHW41czFlS0yIA4nLVj5RrQw3TWVEbMFHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJZ0SJaw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785138087; c=relaxed/simple;
+	bh=i/FrWikECvCNNUz/Xm4748HjItEyZOmtw+SkQjP+LFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IP0wtjAoabHMaGXxjUIFS3HUeNK4GsQ8VsH7OVsRmigzIDbKEGA5NFfiHKT4dm5zfwAgt2JgtuaDqAzscio7UcHTGotew446OGlapvuUt8m+v0iFsGn5jV3jKarSgjjFSzVgNYHEQzFH7GmbMMlx9llYNJwzdWjUGTJWQmM8Sg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ApB8d0wp; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJZ0SJaw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542191F000E9;
-	Mon, 27 Jul 2026 07:35:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785137749;
-	bh=nXAaHU+bO6CqmNP8GeiPSG4IKFMie3KJhHcvrJtgBf8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=XJZ0SJawpx7JWMu6jmEZyrR6huQ8VXg+Gaf4eQiG6O6mjvZG1+GoTJp2vzvcd8c7L
-	 IO/dD+BEnswYisCreq+7xCU3q4F+QUK3WFao5q19Zl83WOGpMPuPUQpg79ICgW8Oyf
-	 PPg+7FMUKocG51WRn8PJbHn0EpF+pvdYNV7WcQvbkJQA/3xWs0rGAt2DPsalEXHMMk
-	 PhIHFnTQo4lNlEafTWj8SBuRGZp0eWhYolBHK3LZdg9eeIAFikGr6YBBLYloU1DJK0
-	 ZvKOD066ZHxQ+mUEX2sJ5SeSb0VAG7sCQx8z3VHjZPaGdCY/YLdmGxDlUVi8Rsyy1K
-	 mZOtpObISlPvQ==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ApB8d0wp"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ced3386430so24488195ad.1
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 00:41:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785138086; x=1785742886; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lr4IppW37FhX0Qct9muiBTMuyT8/uhGcBpZdV9syIrs=;
+        b=ApB8d0wp/MD31sdVl8OlbRGpPPtgGNoh4VXz5VNO2vU+6U3+SX/HnatNRpyA6VCY9/
+         QsmzL8S9sOvlNiXVlWLRLa1Fk8Iq5ODwVL+pdUP4dLtBBBAMIPQuyBZ6tLWjkyUyp7yf
+         QfVwlk9fn4nggh6y39ld0LCLjbn/njXYZxXEf78+uNgk3Pby011uSbFbySkTVF48lUzW
+         b1KAe2DZQ5fjE9vsL4c0QCu0N7L6T3c2nFzGJ+1RFg98fxRWjbWIzeHPStkHdw+bcRZC
+         BUqHEAOsP9R7ViZvc4vyFMeT9lLQsRESxSdx85lQICF5ZK+kyZWb1m+r1ckKLmO7XGSM
+         FpGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785138086; x=1785742886;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lr4IppW37FhX0Qct9muiBTMuyT8/uhGcBpZdV9syIrs=;
+        b=IXlNQyQNRZDvEHh9KDZfzDJBdcCe2zYmHN1XxIbwUDXF7Mu6CmaRTtDHUc5Sk20f0N
+         OhbSn+9q80l+5ql15/3mNfbpQetwsFbJfWFErxrVE5QIvxGA0R+B7Zl1v0XN8UGOiAN4
+         7rdo/93NdnPUV3BVZxTh4/jxMMN7VWUG81nQsLO7kgJxK7D/wCJvVCo4/hy7lH8IxXqD
+         HoJl0iL2E9x/aI9du/Xn5SzWJ+eQDBaAKs2SE/Y/MeyYYWAv/aduLNH9zOmbvQ1ClWU6
+         TQ1xIYv4F/WJL+ehEXCrI+yB2y4lvnV/FkWRYEH8bdc49KwY+MGTsv0e8f0wSRJLnbSE
+         G53A==
+X-Forwarded-Encrypted: i=1; AHgh+RrS9QNfW9GQE1/HdvEhlrbSm8Ggc4AMoeMdBZRAMmyM+zhIBS4TvJPvrrTXPLh77xzPK6Fl71U=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywu6QFGD6Bv91ve/RaywhJpBG0Zr0NinqDssbEnS2uLaMhjF1KP
+	xZjkg0x9XRegFa1Za30ZUvypcBPs1C9LlU57CvTgy8it2j+OqDFUeATiPx2Fmv1L
+X-Gm-Gg: AR+sD137rGVd7H9HArCgna62vgodGWNCpJCa4CQLq9qakFIDs3djtUWL3AWqqd6eq8t
+	kzESQhRw2eSTPFyPrgc+KgULRM0CEBgUoCloPL/x0IlNCNVzNStQZiHwaHURNwKKBHpzcyGv+lO
+	p4Bu4Ns9OGHU0ks8803ANG1esrh7A9zo81OZxPqqcifIkJsT2MZyLRnlEhpLz7KoE4hPTzbSvCd
+	RuC6RkCdqKbalRpk5pQ2iUFTJEd8FajgqJD4eGQCLkoakhitTvI8VQzMAIKhWarkqrr94HvWRHL
+	FmkrMJVTyt9pav6dIY3SK2DgewTke6KT794lAT1itKPQSm4RdBEE3uUVVMa1Pv/ShIp+zwDWu1X
+	3wEQP42WVAl4dVx/odXDd0Xt6p5f4lioZQYEJasgyenB4e/7+EOBZNFQgmq3bYyRAoCictvy3B9
+	pXSz3EMykqKlTAbP0I4WGdF+8Q9azf7/IyitKmdPO+rplqz7K4hEjbS42mpwAO8ejyPVU=
+X-Received: by 2002:a17:903:191:b0:2c9:fc14:588f with SMTP id d9443c01a7336-2cfde851b92mr73992095ad.29.1785138085897;
+        Mon, 27 Jul 2026 00:41:25 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde5c8337sm31054755ad.20.2026.07.27.00.41.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 00:41:25 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: sre@kernel.org,
+	andersson@kernel.org,
+	neil.armstrong@linaro.org
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH] power: supply: qcom_battmgr: terminate the strings from firmware
+Date: Mon, 27 Jul 2026 16:41:19 +0900
+Message-ID: <20260727074119.2585463-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 03/24] binfmt_misc: reject a flag character as the
- field delimiter
-From: Christian Brauner <brauner@kernel.org>
-To: Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- linux-mm@kvack.org, Farid Zakaria <farid.m.zakaria@gmail.com>, 
- jannh@google.com, stable@vger.kernel.org
-In-Reply-To: <amTXwUK2FXu2sHI2@lt-jori.localdomain>
-References: <20260710-work-binfmt_misc-locking-v3-0-a162f7cb58d6@kernel.org>
- <20260710-work-binfmt_misc-locking-v3-3-a162f7cb58d6@kernel.org>
- <amTXwUK2FXu2sHI2@lt-jori.localdomain>
-Date: Mon, 27 Jul 2026 09:35:45 +0200
-Message-Id: <20260727-lauthals-peitschen-aufopfern-1bfd12376820@brauner>
-X-Mailer: b4 0.16-dev-09492
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2346; i=brauner@kernel.org;
- h=from:subject:message-id; bh=/imp7y+7vcd/kYaRoEG5SbixDtIxcsGnlRjvU2AD95Q=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSlcwXd5Y31n7zpd/dXhb1Xzml89quJ+iNfHhb0XSVbL
- dr8xZTijlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIlEb2D4p5W/Zs00pXf3Y2ds
- fN7veVSRTWgO284/Ey//OqSZVpRpJszw3+/LobkLTh5e7vieJ16fpft1EUtqqMhKwaWLFKzfnHu
- 8nwMA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On 2026-07-25 17:37 +0200, Jori Koolstra wrote:
-> On Fri, Jul 10, 2026 at 11:33:04AM +0200, Christian Brauner wrote:
-> > The registration string starts with a user chosen delimiter that
-> > separates the individual fields. So that the field parsers terminate
-> > even on a truncated string create_entry() pads the buffer with that
-> > same delimiter:
-> > 
-> > 	memset(buf + count, del, 8);
-> > 
-> > Most fields are scanned for the delimiter with strchr()/scanarg() and
-> > happily stop on the padding. The flags field is different: instead of
-> > scanning for the delimiter check_special_flags() consumes the flag
-> > characters 'P', 'O', 'C' and 'F' and stops at the first byte that is
-> > none of them, relying on the trailing delimiter to end the scan.
-> > 
-> > If the delimiter is itself a flag character the padding no longer acts
-> > as a terminator. The scan swallows all eight padding bytes and keeps
-> > reading past the end of the allocation until it hits a byte that is
-> > not a flag character. For example registering
-> > 
-> > 	PaPEPPxPPiP
-> > 
-> > with 'P' as the delimiter (name "a", type extension, magic "x",
-> > interpreter "i", empty flags) leaves the flag scan running off the end
-> > of the buffer. The registration is rejected in the end because the
-> > parser does not stop exactly at buf + count, but only after the out of
-> > bounds read has already happened. With an unlucky allocation layout the
-> > scan can walk into an unmapped page; under KASAN it is reported as a
-> > slab out of bounds read. binfmt_misc mounts are available to
-> > unprivileged users in a user namespace so the read is reachable without
-> > privileges.
-> > 
-> > Reject a delimiter that is one of the flag characters up front. Such a
-> > registration was always rejected anyway, only after the out of bounds
-> > read, so no valid registration string changes meaning.
-> 
-> 
-> Looks good, I see no user visible changes.
-> 
-> Can't we support a less arcane and impenetrable format, like JSON
-> or YAML?
+The qcom_battmgr_sc8280xp_strcpy() takes a Pascal-style string when the
+firmware sends one. Otherwise it copies all BATTMGR_STRING_LEN bytes and
+leaves the destination without a terminator.
 
-Adding a json parser into the kernel is something I had played with but
-that has a bunch of very subtle pitfalls as the spec is underspecified
-in various ways. Also, having the kernel produce json is one thing.
-Having it _consume_ json is a whole other discussion. Ideally it would
-be done in Rust.
+Those destinations are model_number, serial_number and oem_info, each
+BATTMGR_STRING_LEN and declared next to each other. They go out to user
+space as val->strval, which power_supply_format_property() prints with
+"%s", so a firmware string that fills the whole field makes that read run
+into the following members.
+
+Use strscpy() so the copy always terminates, the way the SM8350 path
+already does for the same field.
+
+Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+ drivers/power/supply/qcom_battmgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
+index 490137a23d00..c76389b2f7e8 100644
+--- a/drivers/power/supply/qcom_battmgr.c
++++ b/drivers/power/supply/qcom_battmgr.c
+@@ -1231,7 +1231,7 @@ static void qcom_battmgr_sc8280xp_strcpy(char *dest, const char *src)
+ 		memcpy(dest, src + 1, len);
+ 		dest[len] = '\0';
+ 	} else {
+-		memcpy(dest, src, BATTMGR_STRING_LEN);
++		strscpy(dest, src, BATTMGR_STRING_LEN);
+ 	}
+ }
+ 
+-- 
+2.43.0
 
