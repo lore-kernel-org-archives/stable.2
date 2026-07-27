@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB3A36EA84
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:19:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD513BB4A
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:19:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785154792; cv=none; b=ixofbE2zfNtfIfqfXzwNxNyFm9MVc7nUmT1lD60m+U4zluOggeA8ZZFe8IWhYHgS7yM3n+aypw+XjH27nTnw5tTrpnkcUZWlubwxD30vW+JoHo1fADbFaUuec+FvKO9Rg5vzuZPpTtQW7iv3RIg76tfJDj22wqQCsF5r7fA4E24=
+	t=1785154796; cv=none; b=gQsU2hyXHqJ0qldK1e9/kvyDckPZOIiy25Ra+JrVwV2BgqTym6JZ71SSuX14L2ctbd0VpdSbcoZfRr8zSeOeI2fBXGJ5Xyg2bCRo88QsTqY0Q+157wzByyybHB0QZ9JLH2x0DADIFTuaFfbRiMngoWhq6pMvV/z9LbVpwrGvDiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785154792; c=relaxed/simple;
-	bh=2E+v7gU1HYdJS1RSW8A5uW380nna2K0cxdtOSeTAAMw=;
+	s=arc-20240116; t=1785154796; c=relaxed/simple;
+	bh=Il5H0I5pmnyRYHS5/3AEaxnKnkQDB/GoJoHvuRqJSG8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AACHu1rx7Y/H6oNJCAGG72AZYLL5jKwI7brUL6XrWm+7dx9/ncEza//nnG5PZ+L68/z+X133GAj3C49YAxl9VfOAN1uZVhhcW85rZJxWtiK8Tkq56rGWYn65JtWRcfiY7Kl501F0gkJ4jaKs0XjEtZ/G4giFf07AO9R2VZBy3fY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpCjNDEr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CQdgm6/modaZfWL8rElTdqAeMnGMKpTF/pn2JyR6L+1wi80IDWiEeM479ZGQ8aCN5zTFXyv4jc6ZBiMIbJFXughdK3OVYacNAqr2HJfDV1kG8b9vy2Lpg7pQHALjxpPjEFAVum44Ha3bajf1JAid/ADY+wt47WEs0ocaV4eaG0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fofJlbe9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpCjNDEr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D561F000E9;
-	Mon, 27 Jul 2026 12:19:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fofJlbe9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E0D1F000E9;
+	Mon, 27 Jul 2026 12:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785154790;
-	bh=0N77NBd9I0CJZnn6Kf4DEJpKDe/DLYD+xRyviz8u2e4=;
+	s=k20260515; t=1785154794;
+	bh=S2e46e7dZvDuvX4Na9bQUuFvoSOoMQkHCx8U/In/ymo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fpCjNDErXC4PuJVqwMtzNM5fRDP45Kv2NSrmgvHtMa4KlLPHb5iFXB9KaYM2G32Kd
-	 2VbjUwdXxOKTS2Ukuf2ALigV18+RpR5Oag4Qzm77RtnoVQ/wQWyJ7k/Nlv5unZlnva
-	 UJUHEOWbFU8XO4hMKtPcKP3FZaeSXDdUS9hJ/MVmIbAzFfMcGqF4TOgidmKvdElHYC
-	 8plQ4WNS3+ZvrqNnKV+9YQOdktdwpzZqjZPHHdQlGUkRa1qZHsEdZlPPeQbUH2DRLR
-	 UFZlIKWXRS/Xc9qXGm2c9vyX3uMiOQ7UKaoWqRnDk3z4eX7RuQ0Xq9By1v8JQXHc48
-	 VMRt8z+9a6bSw==
+	b=fofJlbe9McJEJqPJuj44JRnC4RNSq8+te8Vq3kziJ+n+gO44DtBqMRpSg+83r6N6w
+	 usE9fQs7J4zcYAQQZziap3m5pb2guQPT28jdVIAd7mbcif08vFX52Aat3ajtO7gkvC
+	 +4ZaTX4zd68P67w1nN44j+zw/mmdK/zjeHO0EJ1PQIqqRDiRvftclQMrxDf/NuM2nA
+	 iHYhcwuAIHgDpySpIHTLNzXFI64pi+LfuZ/rqqHYULMyJDL8Vi3n5XoxdmBtG/2L8H
+	 Y1IwUB3RSvUgU9T5jvkbcLZ1a5pIrbjoKHAcoWKkE0YnUu0G6yRfmeACnbeQQ3g9Ch
+	 N4jQqzJKZjJfw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] thunderbolt: Prevent XDomain delayed work use-after-free on disconnect
-Date: Mon, 27 Jul 2026 08:19:48 -0400
-Message-ID: <20260727121948.3777971-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] xfrm: Use nested-BH locking for nat_keepalive_sk_ipv[46]
+Date: Mon, 27 Jul 2026 08:19:51 -0400
+Message-ID: <20260727121952.3778327-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072001-pedometer-stifling-5aab@gregkh>
-References: <2026072001-pedometer-stifling-5aab@gregkh>
+In-Reply-To: <2026072015-entail-cartload-088d@gregkh>
+References: <2026072015-entail-cartload-088d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,146 +47,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-[ Upstream commit 2c5d2d3c3f70cde2565d7b279b544893a2035842 ]
+[ Upstream commit 9c607d4b6589d4d380a85784514bcf4cceee1e11 ]
 
-tb_xdp_handle_request() runs on system_wq and queues
-xd->state_work via queue_delayed_work() in three request handlers:
-PROPERTIES_CHANGED_REQUEST, UUID_REQUEST (via start_handshake),
-and LINK_STATE_CHANGE_REQUEST.  Similarly, update_xdomain() queues
-xd->properties_changed_work when local properties change.
+nat_keepalive_sk_ipv[46] is a per-CPU variable and relies on disabled BH
+for its locking. Without per-CPU locking in local_bh_disable() on
+PREEMPT_RT this data structure requires explicit locking.
 
-Concurrently, tb_xdomain_remove() calls stop_handshake() which does
-cancel_delayed_work_sync() on both delayed works.  Later,
-tb_xdomain_unregister() calls device_unregister() which eventually
-frees the xdomain.  Since commit 559c1e1e0134 ("thunderbolt: Run
-tb_xdp_handle_request() in system workqueue") moved the request
-handler off tb->wq, the handler and the remove path are no longer
-serialized.  If queue_delayed_work() executes after
-cancel_delayed_work_sync() but before the xdomain is freed, the
-delayed work fires on a freed object.
+Use sock_bh_locked which has a sock pointer and a local_lock_t. Use
+local_lock_nested_bh() for locking. This change adds only lockdep
+coverage and does not alter the functional behaviour for !PREEMPT_RT.
 
-Add xd->removing that tb_xdomain_remove() sets under xd->lock
-before calling stop_handshake().  Each external queue site holds
-the same lock and checks removing before calling
-queue_delayed_work().  This provides the mutual exclusion needed:
-either the queue site acquires the lock first and queues work that
-the subsequent cancel will see, or the remove path acquires the
-lock first and the queue site observes removing == true and skips
-the queue.
-
-Fixes: 559c1e1e0134 ("thunderbolt: Run tb_xdp_handle_request() in system workqueue")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-7
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Link: https://patch.msgid.link/20250512092736.229935-7-bigeasy@linutronix.de
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: 226f4a490d1a ("xfrm: nat_keepalive: avoid double free on send error")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thunderbolt/xdomain.c | 40 ++++++++++++++++++++++++++---------
- include/linux/thunderbolt.h   |  3 +++
- 2 files changed, 33 insertions(+), 10 deletions(-)
+ net/xfrm/xfrm_nat_keepalive.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
-index 8cfd7f0639e735..371911e2ae4281 100644
---- a/drivers/thunderbolt/xdomain.c
-+++ b/drivers/thunderbolt/xdomain.c
-@@ -784,9 +784,13 @@ static void tb_xdp_handle_request(struct work_struct *work)
- 		 * the xdomain related to this connection as well in
- 		 * case there is a change in services it offers.
- 		 */
--		if (xd && device_is_registered(&xd->dev))
--			queue_delayed_work(tb->wq, &xd->state_work,
--					   msecs_to_jiffies(XDOMAIN_SHORT_TIMEOUT));
-+		if (xd) {
-+			mutex_lock(&xd->lock);
-+			if (!xd->removing && device_is_registered(&xd->dev))
-+				queue_delayed_work(tb->wq, &xd->state_work,
-+						   msecs_to_jiffies(XDOMAIN_SHORT_TIMEOUT));
-+			mutex_unlock(&xd->lock);
-+		}
- 		break;
+diff --git a/net/xfrm/xfrm_nat_keepalive.c b/net/xfrm/xfrm_nat_keepalive.c
+index 8a0379c8c41c8b..1856beee0149bb 100644
+--- a/net/xfrm/xfrm_nat_keepalive.c
++++ b/net/xfrm/xfrm_nat_keepalive.c
+@@ -9,9 +9,13 @@
+ #include <net/ip6_checksum.h>
+ #include <net/xfrm.h>
  
- 	case UUID_REQUEST_OLD:
-@@ -799,8 +803,12 @@ static void tb_xdp_handle_request(struct work_struct *work)
- 		 * received UUID request from the remote host.
- 		 */
- 		if (!ret && xd && xd->state == XDOMAIN_STATE_ERROR) {
--			dev_dbg(&xd->dev, "restarting handshake\n");
--			start_handshake(xd);
-+			mutex_lock(&xd->lock);
-+			if (!xd->removing) {
-+				dev_dbg(&xd->dev, "restarting handshake\n");
-+				start_handshake(xd);
-+			}
-+			mutex_unlock(&xd->lock);
- 		}
- 		break;
+-static DEFINE_PER_CPU(struct sock *, nat_keepalive_sk_ipv4);
++static DEFINE_PER_CPU(struct sock_bh_locked, nat_keepalive_sk_ipv4) = {
++	.bh_lock = INIT_LOCAL_LOCK(bh_lock),
++};
+ #if IS_ENABLED(CONFIG_IPV6)
+-static DEFINE_PER_CPU(struct sock *, nat_keepalive_sk_ipv6);
++static DEFINE_PER_CPU(struct sock_bh_locked, nat_keepalive_sk_ipv6) = {
++	.bh_lock = INIT_LOCAL_LOCK(bh_lock),
++};
+ #endif
  
-@@ -828,9 +836,13 @@ static void tb_xdp_handle_request(struct work_struct *work)
+ struct nat_keepalive {
+@@ -56,10 +60,12 @@ static int nat_keepalive_send_ipv4(struct sk_buff *skb,
  
- 			ret = tb_xdp_link_state_change_response(ctl, route,
- 								sequence, 0);
--			xd->target_link_width = lsc->tlw;
--			queue_delayed_work(tb->wq, &xd->state_work,
--					   msecs_to_jiffies(XDOMAIN_SHORT_TIMEOUT));
-+			mutex_lock(&xd->lock);
-+			if (!xd->removing) {
-+				xd->target_link_width = lsc->tlw;
-+				queue_delayed_work(tb->wq, &xd->state_work,
-+						   msecs_to_jiffies(XDOMAIN_SHORT_TIMEOUT));
-+			}
-+			mutex_unlock(&xd->lock);
- 		} else {
- 			tb_xdp_error_response(ctl, route, sequence,
- 					      ERROR_NOT_READY);
-@@ -1978,6 +1990,10 @@ void tb_xdomain_remove(struct tb_xdomain *xd)
+ 	skb_dst_set(skb, &rt->dst);
+ 
+-	sk = *this_cpu_ptr(&nat_keepalive_sk_ipv4);
++	local_lock_nested_bh(&nat_keepalive_sk_ipv4.bh_lock);
++	sk = this_cpu_read(nat_keepalive_sk_ipv4.sock);
+ 	sock_net_set(sk, net);
+ 	err = ip_build_and_send_pkt(skb, sk, fl4.saddr, fl4.daddr, NULL, tos);
+ 	sock_net_set(sk, &init_net);
++	local_unlock_nested_bh(&nat_keepalive_sk_ipv4.bh_lock);
+ 	return err;
+ }
+ 
+@@ -89,15 +95,19 @@ static int nat_keepalive_send_ipv6(struct sk_buff *skb,
+ 	fl6.fl6_sport = ka->encap_sport;
+ 	fl6.fl6_dport = ka->encap_dport;
+ 
+-	sk = *this_cpu_ptr(&nat_keepalive_sk_ipv6);
++	local_lock_nested_bh(&nat_keepalive_sk_ipv6.bh_lock);
++	sk = this_cpu_read(nat_keepalive_sk_ipv6.sock);
+ 	sock_net_set(sk, net);
+ 	dst = ipv6_stub->ipv6_dst_lookup_flow(net, sk, &fl6, NULL);
+-	if (IS_ERR(dst))
++	if (IS_ERR(dst)) {
++		local_unlock_nested_bh(&nat_keepalive_sk_ipv6.bh_lock);
+ 		return PTR_ERR(dst);
++	}
+ 
+ 	skb_dst_set(skb, dst);
+ 	err = ipv6_stub->ip6_xmit(sk, skb, &fl6, skb->mark, NULL, 0, 0);
+ 	sock_net_set(sk, &init_net);
++	local_unlock_nested_bh(&nat_keepalive_sk_ipv6.bh_lock);
+ 	return err;
+ }
+ #endif
+@@ -202,7 +212,7 @@ static void nat_keepalive_work(struct work_struct *work)
+ 				      (ctx.next_run - ctx.now) * HZ);
+ }
+ 
+-static int nat_keepalive_sk_init(struct sock * __percpu *socks,
++static int nat_keepalive_sk_init(struct sock_bh_locked __percpu *socks,
+ 				 unsigned short family)
  {
- 	tb_xdomain_debugfs_remove(xd);
+ 	struct sock *sk;
+@@ -214,22 +224,22 @@ static int nat_keepalive_sk_init(struct sock * __percpu *socks,
+ 		if (err < 0)
+ 			goto err;
  
-+	mutex_lock(&xd->lock);
-+	xd->removing = true;
-+	mutex_unlock(&xd->lock);
-+
- 	stop_handshake(xd);
- 
- 	device_for_each_child_reverse(&xd->dev, xd, unregister_service);
-@@ -2364,8 +2380,12 @@ static int update_xdomain(struct device *dev, void *data)
- 
- 	xd = tb_to_xdomain(dev);
- 	if (xd) {
--		queue_delayed_work(xd->tb->wq, &xd->properties_changed_work,
--				   msecs_to_jiffies(50));
-+		mutex_lock(&xd->lock);
-+		if (!xd->removing)
-+			queue_delayed_work(xd->tb->wq,
-+					   &xd->properties_changed_work,
-+					   msecs_to_jiffies(50));
-+		mutex_unlock(&xd->lock);
+-		*per_cpu_ptr(socks, i) = sk;
++		per_cpu_ptr(socks, i)->sock = sk;
  	}
  
  	return 0;
-diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
-index 90cd08ab2f5d20..98af9ad04cac1a 100644
---- a/include/linux/thunderbolt.h
-+++ b/include/linux/thunderbolt.h
-@@ -189,6 +189,8 @@ void tb_unregister_property_dir(const char *key, struct tb_property_dir *dir);
-  * @link_width: Width of the link (1 or 2)
-  * @link_usb4: Downstream link is USB4
-  * @is_unplugged: The XDomain is unplugged
-+ * @removing: Set by tb_xdomain_remove() under @lock to prevent
-+ *	      concurrent delayed work queueing
-  * @needs_uuid: If the XDomain does not have @remote_uuid it will be
-  *		queried first
-  * @service_ids: Used to generate IDs for the services
-@@ -237,6 +239,7 @@ struct tb_xdomain {
- 	unsigned int link_width;
- 	bool link_usb4;
- 	bool is_unplugged;
-+	bool removing;
- 	bool needs_uuid;
- 	struct ida service_ids;
- 	struct ida in_hopids;
+ err:
+ 	for_each_possible_cpu(i)
+-		inet_ctl_sock_destroy(*per_cpu_ptr(socks, i));
++		inet_ctl_sock_destroy(per_cpu_ptr(socks, i)->sock);
+ 	return err;
+ }
+ 
+-static void nat_keepalive_sk_fini(struct sock * __percpu *socks)
++static void nat_keepalive_sk_fini(struct sock_bh_locked __percpu *socks)
+ {
+ 	int i;
+ 
+ 	for_each_possible_cpu(i)
+-		inet_ctl_sock_destroy(*per_cpu_ptr(socks, i));
++		inet_ctl_sock_destroy(per_cpu_ptr(socks, i)->sock);
+ }
+ 
+ void xfrm_nat_keepalive_state_updated(struct xfrm_state *x)
 -- 
 2.53.0
 
