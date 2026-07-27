@@ -1,77 +1,40 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA63041F5C8
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800DD4248D2;
+	Mon, 27 Jul 2026 16:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785168837; cv=none; b=gBqoHChwa+Oi5p7aEzOW0YLfjkKuPNwEJmktBLXNwDgSFnIf3y9iXoXCLAnKmUaESytENDdTUFCpC09caOHwLjZCaoxxB8V/MUh5eoVbznJLMFHN+ZThdEoSORODBZOZJn4mS6u38SDXjzqLOGUnJkcQfDFD3rUvmDGGtU4Jdp4=
+	t=1785169293; cv=none; b=FQTAm/c+fPq4I40rj0YvtUbP/1u84ajwqMvmIlkztg71jlI8txin9wbLAk9IsB77I/x7w5vzqlQz+cKEOu9ZNFxHd2HnZI64x/cr7RBxZn2n1v3x9msrd1BB8e3q7BwB7bxGxrlOecbDf7Zip+blbuZVwVB6t+BDPDlDWDq8Zsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785168837; c=relaxed/simple;
-	bh=M6CDqdYKhpv5poRbrKy+OyIHoOpHoVrZYtaje71XpQw=;
+	s=arc-20240116; t=1785169293; c=relaxed/simple;
+	bh=okETTFH1Y9E3loI+xtAY+f5lU0cxrxH1yIePN3OQsGM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SWVGTUEQSQ+klJgiqElbfrex0qFRF74CzYbZnK622fCtKzSYqcujdGvkZuDR/l5axe/2ahKFdYFidiClwMiqzRqDvwyVRK88gFooCGWKxWTIYT5R6itf82DXQwAkLdv+6oPwmHR09rrUWyEEFf0iBlz5FLWn1NfjNgHCd9t3ESw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=AGu70SUe; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=I+awJTotoVMGTtfYIJllQpgvOyEgK04FiGk1HduNO2UZA1LdOt8qGI9XLwLhVDi+crO9DDJg0EyMlchffPYPOgiAIhL9b+vOUohwfvll8MC2gRfFf04VtV58Ss80RXwciFSZRi/UFa8aNIVT4IWzcczpkJjcC6TcHJ+GZvIEd2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ANPhbjcf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="AGu70SUe"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92e5d6f35c1so240659985a.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 09:13:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1785168831; x=1785773631; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TTY+STYwMH0ZtrJAz3SmNmqE1zha3pWeJMVUMgWHQEw=;
-        b=AGu70SUeQ0lJS0cR2s3M5abwIjEHjC5lOAFK2jhHedERfLqr3pF+GoyuexIg9AZnGD
-         6Da7mKO1/nFUvJVyZO5dvKcPYQdmAJo4hJt3PveWjK/W/f1T8akgMa1b2FWBIBq7jv1n
-         Xh7u/fajB00W/5W3VnSTSAzj+J0U4evuyI8ItVB1YuH1a4QWIUj/SNZ9fm3RUGfK0px9
-         ilIYWcmBiptLkQ9vhOluZJCeGIDEnTcH7j20o9qUJBavxC3G6nO+7z3C+k7qKh5FypkJ
-         Y54k0eBMwmmm8PyXmor8fM2rlzSyzK5pxe9K4faQNbh1q1mHpjL9ngv886D7ELuiYP3P
-         mmZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785168831; x=1785773631;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TTY+STYwMH0ZtrJAz3SmNmqE1zha3pWeJMVUMgWHQEw=;
-        b=Vhk6ur336zv5w/e/PNsgZRmBDMYnnynqIZzV16tqVc6ItG4JwzcD0f/6Z6IsW7Vbjs
-         NMctWgn2sYlUksmLgiLKhjyIPnI1ikLAz6VJecRykFDdgDknFAR149M8FooBkg9azc+c
-         OLVDhQ6wmiORAiav4BOrKp+w7ugiCxNDLI/A3c8NiaR2U7LgHD9AHnWdlzfbIlpNIXIw
-         WBq2xCIwlOCWsCsWi9S18iNrMF6V6jvLr28h3zPLwtqIkz7RtATRsDauOn8RwZyOiYH6
-         UhbvCRrcmbJJYTG/f75cypJF6FxGBaYRrGgy4WFc5n0qkeTgfaXG5X3qeElt0xB4Jy3f
-         B2zw==
-X-Forwarded-Encrypted: i=1; AHgh+RoLl6vFufAonc7hpn4KmWjzL/f1+odX243XQoynB4wuUuy0zhwI5ZZLiJyqo699NcGzelQRlWY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZgVUYNp3T/J73VwrSw1pMgCMKhJLQc+YLmEr9P2iGhOT59SFm
-	0GwaFug5O0IvmzHIU2Gg3QzQpHTweerunJMQ0n4ePvwoiWoeI4wACildKbIviCYoXQ==
-X-Gm-Gg: AR+sD12eB8J36eLfkr96BIyIN5Jnul379khcVlWKklDSIwPGpMto9HzOkBHl+KGaCDt
-	u48T/mr0u2QB0ALcHsETJYns/oGx/fiqhw9E3QPdSlHpeyBNFLjx9jAp/OQLVBVqegVYfUmXJnH
-	2yzBlUGBJiW+wK3sIJBspLCLW8hvNG87+M/MS9CG+t0R6xzrMep4kyCnRBg98BF2+IFSWchKhl0
-	kQXkjk9EcQ28oHUK0c6pFQan6t5IwoQUZhaTj8B9oN21Hio4ZPYeU8mXDD4EmIOzAMquuNlWs1z
-	bAUE0l7M5w/4l7gsTOmsXWxJX2g5gsHtOF/L20wdbF6FNGmKxz2AZxNzVmWaEqCagOqFxJBJ5jZ
-	KeavI5BRrCU+op83f/eqUP4D7O6VKSY6j71qgOIyijLliwnsNuVapicdV7sennUDeHVAHgXKdLK
-	PCkWbkSnpWUmtZUwd4Jlt4w7c800T0/0cDulHqGUSXcEl33EAQQi+TEfCP
-X-Received: by 2002:a05:620a:710b:b0:92b:6805:91b5 with SMTP id af79cd13be357-932df6e982emr906710985a.61.1785168830608;
-        Mon, 27 Jul 2026 09:13:50 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de51a7cbsm653190885a.8.2026.07.27.09.13.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 09:13:49 -0700 (PDT)
-Date: Mon, 27 Jul 2026 12:13:47 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Cc: Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] usbcore: Add quirk for 255-bytes initial config read
-Message-ID: <a0db0e6d-ba94-4577-ac11-6f2d26055427@rowland.harvard.edu>
-References: <20260717195336.98500-1-nikhilsolanke5@gmail.com>
- <20260717195336.98500-2-nikhilsolanke5@gmail.com>
- <20260726182946.79a4ef98.michal.pecio@gmail.com>
- <CAFgddh+1Bk=CFkKYNzB=L++UejkhCEcTHp4A2JL2v+P6uBuF2w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ANPhbjcf"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E4CB71F000E9;
+	Mon, 27 Jul 2026 16:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785169291;
+	bh=bG2/T3mc03zzZ7g3YzwI59DLS+QwpeHBdd+G/YNwvGs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ANPhbjcfgS4DU1GwDd4ybGxqxIFjMux3XaUxsciVyWrj1bOP5fgpCnH4aHVntW2Vz
+	 bY0aswmsxlvEeF/LuoaIWmOXxR2ObaZkEz4q6Iu49oYLXeWVqolWGNs4E+y3nyhhXZ
+	 Tda1cNAYNGSw9b3P9aDjOkfqFtfSksQdwgrtqSCaJro3I4SNzr3CX0Qo5p0Sfmf2Fj
+	 SuLT0wg2wg90DBUeBksEvS4olcuTuSTzIT1K1z++208coT77EUAAmRlGQgj2hpNf7N
+	 4gAElfT3OF+WdqcfoB+1OgzUaTmg4F8OdO5gUvCP4taVB0pFHmiyC3UoKwr7MXxavF
+	 jx4G4mWCt5jxg==
+Date: Mon, 27 Jul 2026 09:21:30 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Lin Jiapeng <ljp1205831794@gmail.com>
+Cc: cem@kernel.org, linux-xfs@vger.kernel.org, stable@vger.kernel.org,
+	jiapenglin@tencent.com
+Subject: Re: [PATCH] xfs: fix exchange-range reflink flag clearing issue with
+  INO1_WRITTEN
+Message-ID: <20260727162130.GD2901224@frogsfrogsfrogs>
+References: <20260727125210.28329-1-jiapenglin@tencent.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,19 +43,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAFgddh+1Bk=CFkKYNzB=L++UejkhCEcTHp4A2JL2v+P6uBuF2w@mail.gmail.com>
+In-Reply-To: <20260727125210.28329-1-jiapenglin@tencent.com>
 
-On Mon, Jul 27, 2026 at 08:55:27PM +0530, Nikhil Solanke wrote:
-> For the remaining comment and log message wording, I'd prefer to keep
-> the current version for now unless there's a strong objection. The
-> patch has already gone through several review rounds and I'd like to
-> avoid extending the review cycle further over comment phrasing,
-> especially since the implementation itself now seems to be in good
-> shape.
+On Mon, Jul 27, 2026 at 08:52:03PM +0800, Lin Jiapeng wrote:
+> When exchanging two full-file ranges, xmi_can_exchange_reflink_flags()
+> can move the reflink inode flag from the file that currently has it to
+> the other file, as long as exactly one side is marked.  This assumes
+> that the file contents, and therefore all shared extents, are exchanged.
+> 
+> That assumption is not true when XFS_EXCHMAPS_INO1_WRITTEN is set.
+> xfs_exchmaps_can_skip_mapping() can skip hole and unwritten mappings
+> from file1, so an exchange can complete without moving every mapping
+> that the earlier flag-swap decision accounted for.  In that case the
+> post-operation cleanup can clear the reflink flag from an inode that
+> still owns shared written extents.  Later writes then take the
+> non-reflink write path and may update blocks that should still have
+> been protected by CoW, which shows up as data corruption between
+> reflink-related files.
+> 
+> Fix this by disabling the reflink flag exchange whenever
+> XFS_EXCHMAPS_INO1_WRITTEN is requested.  The contents exchange can still
+> proceed; the conservative outcome is that both inodes keep the reflink
+> flag.  The regular reflink flag cleanup path can drop the extra flag
+> later once the inode no longer has shared extents.
+> 
+> Reported-by: Lin Jiapeng(TencentOS Red Team) <jiapenglin@tencent.com>
+> Fixes: 966ceafc7a43 ("xfs: create deferred log items for file mapping exchanges")
+> Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
 
-I strongly agree with Michal; the comments are overly long and contain 
-information that the reader doesn't need to know.  You don't have to use 
-the exact wording in his suggestions, but something like it would be a 
-big improvement.
+Good catch!  Please add:
 
-Alan Stern
+Cc: <stable@vger.kernel.org> # v6.10
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+
+--D
+
+> ---
+>  fs/xfs/libxfs/xfs_exchmaps.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
+> index dcd0bd0b13b4..3efed37cb98a 100644
+> --- a/fs/xfs/libxfs/xfs_exchmaps.c
+> +++ b/fs/xfs/libxfs/xfs_exchmaps.c
+> @@ -959,6 +959,16 @@ xmi_can_exchange_reflink_flags(
+>  {
+>  	struct xfs_mount		*mp = req->ip1->i_mount;
+>  
+> +	/*
+> +	 * The INO1_WRITTEN optimization can skip exchanging hole and
+> +	 * unwritten mappings, which means we cannot guarantee that all
+> +	 * shared extents actually moved to the other file.  Clearing the
+> +	 * reflink flag of an inode that still holds shared extents breaks
+> +	 * the CoW write path, so refuse to exchange the flags in that case.
+> +	 */
+> +	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
+> +		return false;
+> +
+>  	if (hweight32(reflink_state) != 1)
+>  		return false;
+>  	if (req->startoff1 != 0 || req->startoff2 != 0)
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
+> 
