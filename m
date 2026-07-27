@@ -1,80 +1,77 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F263C3F6E
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 20:04:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E383D8915
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 20:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785182694; cv=none; b=ZahQ0dabhHDme+EeNJAlMpYWM/PnIIpIGA9gltMrw+mfJPo30DTbr/m5vtk4nsJy3R/qFx4pkp8zymkOGWoxHI8HZquq6cINFGh7KQWljuiHY+2bMaqbJJQm3T/eii45CdFnq1cVraNfLrGUEKqH8EGU8SnErnvpBwaMsdno0dQ=
+	t=1785182700; cv=none; b=nB+yDfqeZg+1z/BpnyiEQuvBEzzqTpKVSv3A7/TFO2xlLYgGf5BjKPgBYf0SSN4Jdka8bvmtfhjO0mJUlOxAC4EP+AGfhwBfw19ro/k3/eb4KqOTSIXBFsV3t77vccNc/+ytJ4UAIIkIzDRiTf9J9pKp9FJD0W9v0KL9Crmi2Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785182694; c=relaxed/simple;
-	bh=k5cbXlw9uwy3cQaYVG3iayE5yJ6IcieVYPaWx5q/LTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t4osJRzyGb6UogMPFgTbUewRwhg3f+bqlLqCc9f19s+wQfcVLDFOHeponDSZgnAhHdhXHcRBME19SqCrNbq4AjIAEiZagmnLMuJjZW6hOTY96ycVl43rWbJ2+zgu3khC0WYAQM+3242RUt+KmzWjXzMDyVUpiN7sqK2406t4XQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y8Qtm/sh; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1785182700; c=relaxed/simple;
+	bh=vKQJ7QNJv+uZz9x0zSIk21ClMOvdIiAE3tig64AC2Ms=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CYMRVrsXTJW5px5sHgf0Ff1DXUQVWs9kyW67zuAIRY2V7Jj1t1oOYqqcC2EgplwI5bpPwF1ARHsHeP6FlfCwJFRGOcd7FQ0uPJw/wYPcd5/T89g9K4yqJvmAhqCSPOwI9t2hU51u/W+CmGK+Rc3Oh3Mzb71G+mYehho9+RaZ2I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ca10de42; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y8Qtm/sh"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4957eefd361so23155175e9.1
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:04:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ca10de42"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4954aff6088so26745165e9.3
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:04:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785182690; x=1785787490; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vDIac45RIuvLJRTWSXLnkBc2gzMGU15MkFTMnnrYVY0=;
-        b=Y8Qtm/shVUbkrNkgQxH8Cizp7ELUtfYKSvawx3e4DNALnyiock+ufscrEL+rtaPUrN
-         LKCgFZXacQFwymqldcUdH/X7KWHrdCbfFoIoPrk8OW85PT8BbkN1RcVWRWdRPbKPxznK
-         E4930CWteemYsj6wo0/NjqEbC2U6AGyQ+KxDqbb5vaiydRWaIyDMODhAlyxXMe5Q0D3/
-         cHIIyKc+77iWYqqVMo9O5SAekVXm9KnBxbD2zgXaIqIwuW4cDrE8cmvq3Ta03ssUihlx
-         /1DX5YQfTeGwAuie/SY3RwPZNzMddFzor3sgucguZLBkdRpG9PRghSNpgMTTabDQ2fiP
-         By1g==
+        d=gmail.com; s=20251104; t=1785182697; x=1785787497; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZaCjvFlh04tSbrzp8Qm4VrJ+XEIKD0uan3d5oYYxA9I=;
+        b=ca10de4256robnFq86NIEIxsRDK+qjrxo4Z9mHKXeAfywqIeJVz673aPVdNZUGtT9j
+         0xfFIw+AJcjPi4PNEYJhRPT+om/BnNeTq4NvUJBqg+ywNs7A77kk/owLTu/RubN90DRP
+         AiEdUek5uHJdZxcZwN2mFchKkZyfrtkKdDSBiEVA0EkC81kEoF4zTSMBe0Q43dJRvWHV
+         Q8k0JpnNlrP1Z4OQdN08X5HPqri8qeRUOX34Sn4+fZB4cwyFY1ishYYvqCRQ4hz1y5zj
+         LigGKEFuu64FM/bBEwSiGluYN/Wdz73sZOpcuF9LI3+7OvTBxV53OlwnXzQkYiRMNNW9
+         gEeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785182690; x=1785787490;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vDIac45RIuvLJRTWSXLnkBc2gzMGU15MkFTMnnrYVY0=;
-        b=mk6qcA4V4hPDMFow1sgEOagkGbxD4O+qUIE7tq6oFDRvUKLxWILcofxJqsrtQBnNj+
-         vxhWm6+wtrUpSC6IUeYy/Wdh+VLjLy7lc5I9yIoWbOqgYede8iYvc0abtUoLty4LISiv
-         T2/R7uawBxerySHB7qCGJSOcbI0Bnjcd7vFYFeSzGGhk96oabnA2mEYP8aoXLdkVO0Bt
-         B2Mb/3WUTS2fs9fJDpjAum6Y1RVo0z7J9Lj9SZAghExriwNbGbuqul5lqWpNQEMLimo4
-         vemC7WrTKLm+JViQIrYF/r3jVc+vqX9pSTTwwzEgL5tWgIkbCaBYFIPue8AC9urGXJob
-         ah7g==
-X-Forwarded-Encrypted: i=1; AHgh+Rqg32LWgrTmEOkWQ0ryXy7/vy+i/4Uz2JRYlN46rkW3FXI8ryKuuj2LtiomgjnJkowZ/w4E3+Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrO0qqsj8g5qOGNOGHZ9Za6/EmcildYpHD98bKTBzK9iZImCya
-	gdFHDf0G1m4MmANxAGztuHoo7ZQqYb5koDrITynfjCsJIokO9AHwclI=
-X-Gm-Gg: AR+sD10P2x73lFMJRimRMlgUKlZd7/80DlEzC8BndRuf+EA19QBY77gYT9TblK+U12o
-	wgmEJN+QSqHD99OswPJQgel23rvLZncukEdUYvjvE5mPRIl5saVE5nG8qw1IHOQQ+Xwkcn/sWQh
-	E42gDmDPJquUE7dvYXd73dMwl71Qf/ltmi/dp5LShBdgA117DVT45UTkbaWfzz2pI9wi3pUsQNH
-	dqQSqRynAnpMYuNSBzkgOFOB6m8++WMf8kr/11MeBYXeiyQCNpA+Z9JrAJF9gAGkUhWJOQjl5Q5
-	Otp8VNm8SxMxycT08VGbpHImOh3x8d3U35fGtjHgDv1J/K3y6KJZo8jy99qkyDv9FVYTSW8867Q
-	fWfIoJ4tSNaPoETKRzstv7oPb4eSr+otHvgftpW77KUd3ADrdWun+5Ye3JoeYlJFhP1MJSCo0vM
-	3DOEbVfNvtGJ0PSTf9vAZNM5bJz/j27YHme5rzSDsoISmY1dzYCu9pVv15Y4xf5+2/wvtTDQ5b5
-	cQ46FI2eZZT8mNy8TaQEf2wsuiFitXdg/AT8/EDYrC676Y/gs8+8nukut9N2l0elZm+IMHAFDd8
-	nwYHLboRIEDjw3bIcLU=
-X-Received: by 2002:a05:600c:1d0d:b0:495:3de8:33a6 with SMTP id 5b1f17b1804b1-496b56ffdecmr132086755e9.16.1785182690188;
-        Mon, 27 Jul 2026 13:04:50 -0700 (PDT)
-Received: from dev-debian.lzampier.com (brnt-07-b2-v4wan-169820-cust69.vm7.cable.virginm.net. [81.102.32.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c46160dfsm18400985e9.10.2026.07.27.13.04.49
+        d=1e100.net; s=20251104; t=1785182697; x=1785787497;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZaCjvFlh04tSbrzp8Qm4VrJ+XEIKD0uan3d5oYYxA9I=;
+        b=DQ+5SPFhLwY6hR8ru+lIMwjATTfl3z0koJRjidvhNSAXpsPpYiYFEQX9LbOqjBiMhz
+         ieCXkXjOd7p7vLMksC41dqLDO6DKlxVPYd0XNDFU+/te+E+LSnN/lQulg2xgUfAVBX8b
+         XdxQlpofK+2E8nTwv0GBkdJ2bLKqCqA/fFyUk5FM/+CVIli5SeKY7q8ckf4Vo513nSwr
+         fSLdFi4DO8kZUTdq2alFVsiqJ4c2lrqCTfcb7m5zT3nPxuejURQ0QL25LmxtZtdnA+W/
+         xSdjFdzWf4hxrBVB4bw2MTcYsyDCrlH7xQEBJBN2nUpAV1MTZed3OrLNojucYfHSFgG3
+         D6BA==
+X-Forwarded-Encrypted: i=1; AHgh+RpCpuubbKrBJoDK8ijRRQDEUJ3EUSkBdZdpXhOkWRzEIuP6GP/erJNlIOxbL9oIh0pIwLAXUmE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzogm/Iyn8Iz2DJuIys3RRe1CCjeNwtKAZDIV9BYFn982mRWEOn
+	Yg5jITe3wmmRR5QbiUw2DcGZtpUqQMBtMjpWw5HI8HpeNLYXXMuOS8Y=
+X-Gm-Gg: AR+sD10p3AEsZa0emVM55CAT1oDQzmiHaiigLxBeXAauLtJc1x6BjX6DYfLkUiZoE96
+	8rgVnCta8fcdcYKcg7QUGTSBzWXS4PwVJWa/MfcbEF/JUPnMLDzW0GIfzHrv2LZ6kFsTIWzzeb9
+	oiK7zPM4CziL/txbd8P97LO0zxj527EC85jXSyth10ICQ2zj2+o8XV/U5GgKZ9rtIyeBj5ohwPY
+	EABvL2C1tuRU+4iTeSbF+8Tdy1IuXMsSdgp8jnwQDJDszh857RkPMpQSu1AMyPfzYJnvKpFcKP8
+	OCBkLyvwpMHVADb1RJplbnGio07JStgaCUZNgc2VCf0nwYCHA5G4K6ke3Dmj86RfWFaJXuiKPzb
+	UGGMKO7uSdPLwH4LG1+4B238SeF/UPDMHdUlGP4c+9G5H+TpCeWqgcdh7xZ9UPC/xKpMQAnhQbF
+	osWauxcu2t58lt+x1/2YQacO0R4VNqDaokUe12uztMww==
+X-Received: by 2002:a05:600c:6dd5:b0:493:e583:7053 with SMTP id 5b1f17b1804b1-496c4fe26d3mr3319875e9.35.1785182696309;
+        Mon, 27 Jul 2026 13:04:56 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c46160dfsm18406235e9.10.2026.07.27.13.04.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 13:04:49 -0700 (PDT)
-From: Lucas Zampieri <lcasmz54@gmail.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Cc: Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: mt76: mt7915: keep the tx worker off the txq scheduler during hw restart
-Date: Mon, 27 Jul 2026 17:04:48 -0300
-Message-ID: <20260727200448.978087-1-lcasmz54@gmail.com>
+        Mon, 27 Jul 2026 13:04:55 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org,
+	maheshb@google.com,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH net v3] net: reduce XMIT_RECURSION_LIMIT under KASAN
+Date: Mon, 27 Jul 2026 20:04:54 +0000
+Message-ID: <20260727200454.4048141-1-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <6a67b8bd.4bd67053.2727d8.1806@mx.google.com>
-References: <6a67b8bd.4bd67053.2727d8.1806@mx.google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,103 +80,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mt7915_mac_full_reset() calls ieee80211_restart_hw(), whose asynchronous
-mac80211 reconfiguration tears down and rebuilds every station's TXQs.
-Nothing keeps the mt76 tx worker off the mac80211 txq scheduler in that
-window, so it dereferences freed TXQs and panics in the mt76-tx kthread.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-  mt76_txq_schedule_list <- mt76_tx_worker_run <- mt76_tx_worker
+Virtual network devices (ipvlan, macvlan, bonding) can enter legitimate
+transmit recursion when combined with packet forwarding configurations
+such as IPVS NAT.  The existing XMIT_RECURSION_LIMIT (8) in
+__dev_queue_xmit() detects and breaks these loops, but the allowed
+depth is too high for KASAN-instrumented kernels: each recursion level
+consumes significantly more stack due to KASAN inline instrumentation,
+and the cumulative usage overflows the kernel stack before the limit
+fires.
 
-Gate the worker at its entry point instead. Add a reset_pending counter
-to struct mt76_dev, raised per band in mt7915_mac_full_reset() and
-released as each band's reconfig completes in mt7915_reconfig_complete().
-mt76_tx_worker_run() returns immediately while the counter is nonzero,
-and the worker is kicked once it drops back to zero. A run already in
-flight when the reset starts is serialized by the existing
-mt76_worker_disable() in mt7915_mac_restart().
+On x86_64, CONFIG_KASAN doubles THREAD_SIZE from 16KB to 32KB
+(KASAN_STACK_ORDER=1), but KASAN per-access checks inflate individual
+function frames by roughly 2-3x.  For an ipvlan L3 + IPVS NAT routing
+loop, objdump measurements on a non-KASAN kernel show ~1.4KB of stack
+consumed per recursion level (across 17 functions from __dev_queue_xmit
+through the full IP output path and back).  At KASAN ~2.3x inflation
+factor that becomes ~3.3KB per level.  Nine levels -- reached before the
+current limit fires -- total ~30KB plus the initial call chain, which
+exceeds the 32KB KASAN stack.  The overflow hits the VMAP_STACK guard
+page and causes a non-recoverable kernel panic (BUG: stack guard page
+was hit).
 
-The worker cannot simply be parked across the restart. Driver callbacks
-invoked during the reconfiguration (mt7915_mcu_add_tx_ba(),
-__mt76_set_channel()) pause and unconditionally resume it, and kthread
-parking does not nest.
+On non-KASAN kernels the same loop is safely caught by the existing
+limit: the "Dead loop on virtual device" message fires and the packet
+is dropped without any stack overflow.
 
-On MT7981 the panic reproduces within a few resets under tx load via the
-sys_recovery debugfs knob. With this patch it no longer occurs, across
-forced resets and two weeks of production firmware-triggered resets.
+Reduce XMIT_RECURSION_LIMIT to 3 when CONFIG_KASAN is enabled.  This
+keeps the recursion counter well within the 32KB KASAN stack budget
+while preserving the established limit of 8 for production kernels.
 
-The same restart/reconfig pattern exists in mt7996.
+The recursion path triggering this is:
 
-Fixes: 8a55712d124f ("wifi: mt76: mt7915: enable full system reset support")
+  __dev_queue_xmit -> dev_hard_start_xmit -> ipvlan_start_xmit
+  -> ipvlan_queue_xmit -> ipvlan_process_outbound -> ip_local_out
+  -> nf_hook (IPVS) -> ip_vs_in_hook -> ip_vs_nat_xmit -> ip_output
+  -> ip_finish_output2 -> neigh_resolve_output -> __dev_queue_xmit
+
+Tested:
+  - KASAN kernel (6.8.12 x86_64): panic before fix, "Dead loop"
+    drop after fix.
+  - Non-KASAN kernel (6.8.12 x86_64): "Dead loop" drop both before
+    and after fix (no behavior change for production kernels).
+
+Fixes: 2ad7bf363841 ("ipvlan: Initial check-in of the IPVLAN driver.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lucas Zampieri <lcasmz54@gmail.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
+v3:
+ - no changes, repost per maintainer request
+v2: https://lore.kernel.org/20260711204700.1760374-1-tristmd@gmail.com
+v1: https://lore.kernel.org/20260711134732.1385563-1-tristmd@gmail.com
 
-Resent from my own address; please disregard the earlier copy of this
-patch sent from an unrelated account by mistake.
+ include/linux/netdevice.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- mt76.h        | 2 ++
- mt7915/mac.c  | 3 +++
- mt7915/main.c | 5 +++++
- tx.c          | 3 +++
- 4 files changed, 13 insertions(+)
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 9981d637f8b54..bdcb61d352afb 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3640,7 +3640,11 @@ struct page_pool_bh {
+ };
+ DECLARE_PER_CPU(struct page_pool_bh, system_page_pool);
 
-diff --git a/mt76.h b/mt76.h
-index dda5034b..ed30768f 100644
---- a/mt76.h
-+++ b/mt76.h
-@@ -974,6 +974,8 @@ struct mt76_dev {
- 	enum mt76_hwrro_mode hwrro_mode;
- 
- 	struct mt76_worker tx_worker;
-+	/* nonzero while a hw restart reconfig is rebuilding the TXQs */
-+	atomic_t reset_pending;
- 	struct napi_struct tx_napi;
- 
- 	spinlock_t token_lock;
-diff --git a/mt7915/mac.c b/mt7915/mac.c
-index cd123253..5f459c63 100644
---- a/mt7915/mac.c
-+++ b/mt7915/mac.c
-@@ -1428,6 +1428,9 @@ mt7915_mac_full_reset(struct mt7915_dev *dev)
- 
- 	dev->recovery.hw_full_reset = true;
- 
-+	/* released per band in mt7915_reconfig_complete() */
-+	atomic_add(ext_phy ? 2 : 1, &dev->mt76.reset_pending);
-+
- 	set_bit(MT76_MCU_RESET, &dev->mphy.state);
- 	wake_up(&dev->mt76.mcu.wait);
- 	ieee80211_stop_queues(mt76_hw(dev));
-diff --git a/mt7915/main.c b/mt7915/main.c
-index 42c548a3..73479d6c 100644
---- a/mt7915/main.c
-+++ b/mt7915/main.c
-@@ -1833,6 +1833,11 @@ mt7915_reconfig_complete(struct ieee80211_hw *hw,
- 			 enum ieee80211_reconfig_type reconfig_type)
- {
- 	struct mt7915_phy *phy = mt7915_hw_phy(hw);
-+	struct mt7915_dev *dev = phy->dev;
-+
-+	if (reconfig_type == IEEE80211_RECONFIG_TYPE_RESTART &&
-+	    !atomic_dec_if_positive(&dev->mt76.reset_pending))
-+		mt76_worker_schedule(&dev->mt76.tx_worker);
- 
- 	ieee80211_wake_queues(hw);
- 	ieee80211_queue_delayed_work(hw, &phy->mt76->mac_work,
-diff --git a/tx.c b/tx.c
-index 4507fd15..e8e86e46 100644
---- a/tx.c
-+++ b/tx.c
-@@ -767,6 +767,9 @@ void mt76_tx_worker_run(struct mt76_dev *dev)
- 	struct mt76_phy *phy;
- 	int i;
- 
-+	if (atomic_read(&dev->reset_pending))
-+		return;
-+
- 	mt76_txq_schedule_all(&dev->phy);
- 	for (i = 0; i < ARRAY_SIZE(dev->phys); i++) {
- 		phy = dev->phys[i];
--- 
++#ifdef CONFIG_KASAN
++#define XMIT_RECURSION_LIMIT	3
++#else
+ #define XMIT_RECURSION_LIMIT	8
++#endif
+
+ #ifndef CONFIG_PREEMPT_RT
+ static inline int dev_recursion_level(void)
+--
 2.47.3
-
