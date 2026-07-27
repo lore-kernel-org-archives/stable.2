@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A847C41A79D;
-	Mon, 27 Jul 2026 13:24:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD74D41A938;
+	Mon, 27 Jul 2026 13:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158679; cv=none; b=mPaeVW05lm/njvy5Ru3HR21w3jxzOAnC0wNojS7oXAdb6gP0wdCR+2+QRzybCLEMtq8J6DpFTvK8WJ736MEWA6tEyCL4Q+H1lYYtpLm0XSjdU0dIlaaxUuxRkiuNQ5PJChjONkayQ5N28YQIiVirlyWLmMsnZYsi+up/TBJNYvk=
+	t=1785158680; cv=none; b=YWJHv1XiNgxYgCuK56oBmzEcKfU+oYzb2VWD+p8BOLQ9aezfa8xTlfCNY4ohX1boXLa7pRPsElBftupC7mQGiATyRNO7X/o7aXNTuBRLvisOy9wbZ7BNOn8D5/c9TQ+WTFamDVePBTO3wc2+sC+B8ZjGzaW3xV5WxVfO3QrWIK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158679; c=relaxed/simple;
-	bh=tstkdTqzQ1U1ryk/rWMRalAc6TfPVElTNK+bjK/2WFo=;
+	s=arc-20240116; t=1785158680; c=relaxed/simple;
+	bh=LWLhBZ3YhqHtemmyrVHEDfVV8bZ1ldLrcC31frkNKFo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FVLDUwjY8NR7udLYAPZl7gCHX3r7esc44aaIFjDlKIzxojdqJNE9zZyI+Qmir3fDWTOqr7iTb8MF0IU7MyuLQvNndCwUsLYwybWRf36MlFvror/wprDpRNBLwJjKdG5f1CUvvYj0Wrf6R15zfJdvNd1kh8lyEP29Qo9KSnwQA7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ET5+2F9o; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SqHxBmZ3TY+cNJSEcpBteJFBiHSs/OsWQMtlxCXHwlYCAvL8tLfxUBzwmQCyYpwA23S03ZWEVyVSvIgeTNDNeHXkloDBJl7ulqz79nwKbJJ2IBxOurIqIwCxFYC0E90X7fHSLjsQQ+SDQw4mud23gTg0Qs5xZv+6NtPzRx1LtcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQPiILAW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ET5+2F9o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAD11F00A3F;
-	Mon, 27 Jul 2026 13:24:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQPiILAW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8CC1F00A3A;
+	Mon, 27 Jul 2026 13:24:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785158678;
-	bh=9jHAEifZrj6ftwXkMYiczDvhxJELIXSkIsKCleMkp/o=;
+	s=k20260515; t=1785158679;
+	bh=pxg/kdbMDOI7VbEj1X1BoLxGjHFWNUoLvc3rO1OTTLA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ET5+2F9oaEjAd4fnFIl23g+H73ABrDJKfsTceaKSTn10btVjBbqxw40QlEI03ReJx
-	 lGLXcwY6ak47UFTlzj4WBD0B7gis5mPdk7h8ClkJc2oifO3lNozAo7glvCjMqnWlu6
-	 SEFfwnQh9rQr2vOZl2+eqDLsRwtVy2OxWoaUStaWUPbpoLVKaxA8Ooq/JLndZqiZub
-	 svN2SsWSeQgl32cCBrPt7h4i9UPyJ/Jo9/tZEJdsiPkYR1V3umDpg4tEGmNzeL7kOV
-	 lzF7Fx3TKU+AgV+/IdH/DGmB1UHJlR3FGDLGoPqYiZ9/ZoDEbq3qDOM9o02DFfUobY
-	 kqMxjKP1U2pZQ==
+	b=gQPiILAWpn+/cgJ92+dIOcGwMT6KLTH6+YxvF36cWmAxTtelAxE3XdZ2wmUxjotov
+	 cllWOlIXUkvbOLUHm/Z17UBtfYLxiAR0gWE+g+GVdIpOeih47viTiAcA3O0dw1dEcp
+	 27e02XAffm+sgNaTD/azLfGSZ63ahXNe9hZTk9tg/AdWyrXkaWWmaxBlaoqPBTvVMO
+	 nILzX0clP9EksVjZr51iJf929Shw6C9RAmjtUsT0Hi1aTkQJVGg48obg8MyczTjxkG
+	 gBR9cAN2b7oADlEh409ISDUfBMaAPgiR5orCrc6gyJXqMeU3+KkmHFZQ1gw+Pv2TVH
+	 jTTvC+PIzontA==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -35,9 +35,9 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 08/10] EDAC/altera: Skip ECC memory init if already initialized
-Date: Mon, 27 Jul 2026 08:24:14 -0500
-Message-ID: <20260727132416.807230-9-dinguyen@kernel.org>
+Subject: [PATCH 09/10] EDAC/altera: Detach sb_irq handler when db_irq setup fails
+Date: Mon, 27 Jul 2026 08:24:15 -0500
+Message-ID: <20260727132416.807230-10-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 In-Reply-To: <20260727132416.807230-1-dinguyen@kernel.org>
 References: <20260727132416.807230-1-dinguyen@kernel.org>
@@ -49,44 +49,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-altr_init_memory_port() unconditionally triggered the HW memory-init
-block, which clears the entire memory and ECC data. On a re-probe (e.g.
-a probe deferred via -EPROBE_DEFER that only succeeds after the
-protected peripheral is active, or a rebind) this would wipe live
-peripheral memory. Skip the destructive init when the INITCOMPLETE
-status bit is already set, so it runs only once.
+altr_edac_a10_probe() installs the sb_irq chained handler before fetching
+db_irq. If platform_get_irq() for db_irq fails, the probe returned
+without detaching the sb_irq handler, leaving it pointing at the
+devm-freed edac struct. Unlink the sb_irq chained handler before
+removing the IRQ domain and returning.
 
 Assisted-by: Cursor:claude-4.8-opus
-Fixes: 1166fde93d5b ("EDAC, altera: Add Arria10 ECC memory init functions")
+Fixes: d5fc9125566c ("EDAC, altera: Combine Stratix10 and Arria10 probe functions")
 Cc: stable@vger.kernel.org
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
- drivers/edac/altera_edac.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/edac/altera_edac.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index d8d2adc9c39ac..5087aa5ae5612 100644
+index 5087aa5ae5612..80ca9f511ac98 100644
 --- a/drivers/edac/altera_edac.c
 +++ b/drivers/edac/altera_edac.c
-@@ -930,6 +930,18 @@ static int __maybe_unused altr_init_memory_port(void __iomem *ioaddr, int port)
- 		clear_mask = ALTR_A10_ECC_ERRPENA_MASK;
- 	}
- 
-+	/*
-+	 * The HW init block clears the entire memory and ECC data, so only
-+	 * run it once. If initialization already completed (e.g. on an
-+	 * earlier probe or in the bootloader), skip it so a re-probe caused
-+	 * by deferred probing or a rebind does not wipe an active peripheral.
-+	 */
-+	if (ecc_test_bits(stat_mask, (ioaddr + ALTR_A10_ECC_INITSTAT_OFST))) {
-+		/* Clear any pending ECC interrupts */
-+		writel(clear_mask, (ioaddr + ALTR_A10_ECC_INTSTAT_OFST));
-+		return 0;
-+	}
-+
- 	ecc_set_bits(init_mask, (ioaddr + ALTR_A10_ECC_CTRL_OFST));
- 	while (limit--) {
- 		if (ecc_test_bits(stat_mask,
+@@ -2209,6 +2209,8 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
+ 	} else {
+ 		edac->db_irq = platform_get_irq(pdev, 1);
+ 		if (edac->db_irq < 0) {
++			irq_set_chained_handler_and_data(edac->sb_irq,
++							 NULL, NULL);
+ 			irq_domain_remove(edac->domain);
+ 			return edac->db_irq;
+ 		}
 -- 
 2.42.0.411.g813d9a9188
 
