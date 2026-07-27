@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8E73B47E0
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 15:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69B63B4E98
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 15:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785166880; cv=none; b=W8jAdCNbMSbcxAquAVqvGM5m7WdqznWCabPakiuA72rH2/zOI+MfTBg/jetaWrsfhZF6mkjy66SXxJfZk1E9gKE+IElT2Iewg83z+IDFUu708eOy2r/wV/1uubDmQ3Hqp//OnrtaksxzNnuBtCb2iU5yuVZkgA4XrlpsBX+1txY=
+	t=1785166881; cv=none; b=BbCrrouuc1BbTP4613YBVe5tmPJV+pl75y43AMU9rEfcmXL+SPCyrg1T1rrMw0yk4gwLQX145P8tlhgZqoocDvFiNS5x6zpDzP/PT8ablp/EjPQ4iGDZi5AGWZKyvza0O7h1akTH5YWAx5X7xUAvg39WVencvSu988QBgA85GxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785166880; c=relaxed/simple;
-	bh=KlSTnEQn5Oq7pwTBx9/JUyi7deyLPshFy5+Tx8osfXs=;
+	s=arc-20240116; t=1785166881; c=relaxed/simple;
+	bh=mB9Cuy2v87mnec2B0ncIGX/OioY4Cj9UVIq9RInzi3s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JsyTG3t7Vkr9TSrjjZTuUBMwYPOONcwCs/z5Va9Nd6cWSZI7HX4rIvcUHKGtCWWtyejIbewQJZoXfqca84CV7ICftQS9Rh8Quixa+SB1ADxzcEzR31BLmFqVDkVvXnAPdhNZ9KSGwt1n7lvQUZ1Q/E7o3d7NzVjr4dDFQI3pUiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2JEkfoE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OAlRSb5yZK+NczMjgTFBxH2w/o5yaaX88jyEuobIZ1V6uA66jyfKSeUrcFLsTlYF13Pl9DDK7RwUaz9q8d+OrwCoBE0CN6atfSuMJhEZdHr8gM6mFn5ivmoyNuM5mmMs5iAsJs1D8PjrnIxDG3pZhQNQKLvpcKPPhbWAZC9iTFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iPnnPkwz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2JEkfoE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A9E1F00A3A;
-	Mon, 27 Jul 2026 15:41:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iPnnPkwz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27E5E1F00A3F;
+	Mon, 27 Jul 2026 15:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785166878;
-	bh=WK8FoT6vmPOGqwwA2QLfX7uUQztTNgkCCjYmbU0wboo=;
+	s=k20260515; t=1785166879;
+	bh=eaJhex4uFBLE6NwZJqP50t3GXHDUwT4W455sDtcdr1c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h2JEkfoE4bp3O2bZHrBksE9PL9XBC7biOK0CtZmo9WD0KFzY3tSLzoU0O5vfVVXPy
-	 yc3Exa01yApWoKGdyNWNixvLfpgW3b4mjJTGDbUbLqUcrwty1OSzK3TbBRQxmVvuny
-	 k1DqutCbdsdvIos43cJt5DtVTp75h68q25i2c2QUHtf0eI//kGLofT4khJaYcwHVQM
-	 vmWhOnQc2UXeDogdBVHZEUlOVZI8DFmEtJ/9nZWg4Zrr02dVIzNXfF99YpwyPBNrn8
-	 1imtLjeVgF8sFXN5/p6WQPfDK0OdNu2dY6Op5AsUxBKf8PLfEbMls8PDfE+Fvbhqx4
-	 c20lU+4XWyEEg==
+	b=iPnnPkwzZDxmVc+PZjD8BDcRRfUqrtFqqvoOwkq/WBOG0pHLpq5Oi+2vrECDWG6JD
+	 I+hAFOjYwEbkaVzn5KViMSQ7YNXxTG5cG4EU8M5Iqu/O3tfQ8XXGvQgm+QhVstbdGZ
+	 C1XLANAHTbJnaEszwpjrkMgVZEa+6vWD4jo/Quut41Hjy/FK0Xbt7DA3XvSahnooM5
+	 xtoWfkzwXVrjtF20+7IxmyqEm8HwthjOmTKLPBgD5aWL5cqx6GezIDPA/QDSc6X1JV
+	 HB3nEhPU7g8eK5wPBRzhDF2F7lcdSOv6HgD5gxMdbEGsqnZ+HIxFzgiOEm8nTrzm3A
+	 eWT0IsAnW0/Lg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/6] thunderbolt: Update property.c function documentation
-Date: Mon, 27 Jul 2026 11:41:11 -0400
-Message-ID: <20260727154115.1516559-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 4/6] thunderbolt: Remove service debugfs entries during unregister
+Date: Mon, 27 Jul 2026 11:41:13 -0400
+Message-ID: <20260727154115.1516559-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260727154115.1516559-1-sashal@kernel.org>
 References: <2026072001-numeric-suffice-a245@gregkh>
@@ -46,136 +45,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-[ Upstream commit d015642ad36d78e6eba12d8ab96cea6fd4602b49 ]
+[ Upstream commit 4d5fc3f4068568dfcb8cbe2852b4adc56394aa26 ]
 
-Make property.c function documentation compliant with current kernel-doc
-standards. No functional changes.
+We add them as part of the register path so to keep it symmetric remove
+them as part of the unregister path. This also removes them even if the
+service itself is not yet released (but is unregistered), thus allowing
+new register with the same service name to happen.
 
-Signed-off-by: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>
 Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 Stable-dep-of: 2c5d2d3c3f70 ("thunderbolt: Prevent XDomain delayed work use-after-free on disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thunderbolt/property.c | 38 +++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 10 deletions(-)
+ drivers/thunderbolt/xdomain.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/thunderbolt/property.c b/drivers/thunderbolt/property.c
-index d7598df98b7d0a..dc6fde468722da 100644
---- a/drivers/thunderbolt/property.c
-+++ b/drivers/thunderbolt/property.c
-@@ -231,11 +231,13 @@ static struct tb_property_dir *__tb_property_parse_dir(const u32 *block,
-  *
-  * This function parses the XDomain properties data block into format that
-  * can be traversed using the helper functions provided by this module.
-- * Upon success returns the parsed directory. In case of error returns
-- * %NULL. The resulting &struct tb_property_dir needs to be released by
-+ *
-+ * The resulting &struct tb_property_dir needs to be released by
-  * calling tb_property_free_dir() when not needed anymore.
-  *
-  * The @block is expected to be root directory.
-+ *
-+ * Return: Pointer to &struct tb_property_dir, %NULL in case of failure.
-  */
- struct tb_property_dir *tb_property_parse_dir(const u32 *block,
- 					      size_t block_len)
-@@ -258,6 +260,8 @@ struct tb_property_dir *tb_property_parse_dir(const u32 *block,
-  *
-  * Creates new, empty property directory. If @uuid is %NULL then the
-  * directory is assumed to be root directory.
-+ *
-+ * Return: Pointer to &struct tb_property_dir, %NULL in case of failure.
-  */
- struct tb_property_dir *tb_property_create_dir(const uuid_t *uuid)
+diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
+index b137d69d00b010..78b01d3396a20f 100644
+--- a/drivers/thunderbolt/xdomain.c
++++ b/drivers/thunderbolt/xdomain.c
+@@ -807,7 +807,6 @@ static void tb_service_release(struct device *dev)
+ 	struct tb_service *svc = container_of(dev, struct tb_service, dev);
+ 	struct tb_xdomain *xd = tb_service_parent(svc);
+ 
+-	tb_service_debugfs_remove(svc);
+ 	ida_free(&xd->service_ids, svc->id);
+ 	kfree(svc->key);
+ 	kfree(svc);
+@@ -822,6 +821,14 @@ struct device_type tb_service_type = {
+ };
+ EXPORT_SYMBOL_GPL(tb_service_type);
+ 
++static void __unregister_service(struct device *dev)
++{
++	struct tb_service *svc = tb_to_service(dev);
++
++	tb_service_debugfs_remove(svc);
++	device_unregister(&svc->dev);
++}
++
+ static int remove_missing_service(struct device *dev, void *data)
  {
-@@ -501,9 +505,11 @@ static ssize_t __tb_property_format_dir(const struct tb_property_dir *dir,
-  * @block_len: Length of the property block
-  *
-  * This function formats the directory to the packed format that can be
-- * then send over the thunderbolt fabric to receiving host. Returns %0 in
-- * case of success and negative errno on faulure. Passing %NULL in @block
-- * returns number of entries the block takes.
-+ * then sent over the thunderbolt fabric to receiving host.
-+ *
-+ * Passing %NULL in @block returns number of entries the block takes.
-+ *
-+ * Return: %0 on success, negative errno otherwise.
-  */
- ssize_t tb_property_format_dir(const struct tb_property_dir *dir, u32 *block,
- 			       size_t block_len)
-@@ -525,9 +531,9 @@ ssize_t tb_property_format_dir(const struct tb_property_dir *dir, u32 *block,
-  * tb_property_copy_dir() - Take a deep copy of directory
-  * @dir: Directory to copy
-  *
-- * This function takes a deep copy of @dir and returns back the copy. In
-- * case of error returns %NULL. The resulting directory needs to be
-- * released by calling tb_property_free_dir().
-+ * The resulting directory needs to be released by calling tb_property_free_dir().
-+ *
-+ * Return: Pointer to &struct tb_property_dir, %NULL in case of failure.
-  */
- struct tb_property_dir *tb_property_copy_dir(const struct tb_property_dir *dir)
+ 	struct tb_xdomain *xd = data;
+@@ -833,7 +840,7 @@ static int remove_missing_service(struct device *dev, void *data)
+ 
+ 	if (!tb_property_find(xd->remote_properties, svc->key,
+ 			      TB_PROPERTY_TYPE_DIRECTORY))
+-		device_unregister(dev);
++		__unregister_service(dev);
+ 
+ 	return 0;
+ }
+@@ -926,6 +933,7 @@ static void enumerate_services(struct tb_xdomain *xd)
+ 		tb_service_debugfs_init(svc);
+ 
+ 		if (device_register(&svc->dev)) {
++			tb_service_debugfs_remove(svc);
+ 			put_device(&svc->dev);
+ 			break;
+ 		}
+@@ -1462,7 +1470,7 @@ void tb_xdomain_add(struct tb_xdomain *xd)
+ 
+ static int unregister_service(struct device *dev, void *data)
  {
-@@ -597,6 +603,8 @@ struct tb_property_dir *tb_property_copy_dir(const struct tb_property_dir *dir)
-  * @parent: Directory to add the property
-  * @key: Key for the property
-  * @value: Immediate value to store with the property
-+ *
-+ * Return: %0 on success, negative errno otherwise.
-  */
- int tb_property_add_immediate(struct tb_property_dir *parent, const char *key,
- 			      u32 value)
-@@ -626,6 +634,8 @@ EXPORT_SYMBOL_GPL(tb_property_add_immediate);
-  * @buflen: Number of bytes in the data buffer
-  *
-  * Function takes a copy of @buf and adds it to the directory.
-+ *
-+ * Return: %0 on success, negative errno otherwise.
-  */
- int tb_property_add_data(struct tb_property_dir *parent, const char *key,
- 			 const void *buf, size_t buflen)
-@@ -662,6 +672,8 @@ EXPORT_SYMBOL_GPL(tb_property_add_data);
-  * @text: String to add
-  *
-  * Function takes a copy of @text and adds it to the directory.
-+ *
-+ * Return: %0 on success, negative errno otherwise.
-  */
- int tb_property_add_text(struct tb_property_dir *parent, const char *key,
- 			 const char *text)
-@@ -696,6 +708,8 @@ EXPORT_SYMBOL_GPL(tb_property_add_text);
-  * @parent: Directory to add the property
-  * @key: Key for the property
-  * @dir: Directory to add
-+ *
-+ * Return: %0 on success, negative errno otherwise.
-  */
- int tb_property_add_dir(struct tb_property_dir *parent, const char *key,
- 			struct tb_property_dir *dir)
-@@ -736,8 +750,10 @@ EXPORT_SYMBOL_GPL(tb_property_remove);
-  * @key: Key to look for
-  * @type: Type of the property
-  *
-- * Finds and returns property from the given directory. Does not recurse
-- * into sub-directories. Returns %NULL if the property was not found.
-+ * Finds and returns property from the given directory. Does not
-+ * recurse into sub-directories.
-+ *
-+ * Return: Pointer to &struct tb_property, %NULL if the property was not found.
-  */
- struct tb_property *tb_property_find(struct tb_property_dir *dir,
- 	const char *key, enum tb_property_type type)
-@@ -757,6 +773,8 @@ EXPORT_SYMBOL_GPL(tb_property_find);
-  * tb_property_get_next() - Get next property from directory
-  * @dir: Directory holding properties
-  * @prev: Previous property in the directory (%NULL returns the first)
-+ *
-+ * Return: Pointer to &struct tb_property, %NULL if property was not found.
-  */
- struct tb_property *tb_property_get_next(struct tb_property_dir *dir,
- 					 struct tb_property *prev)
+-	device_unregister(dev);
++	__unregister_service(dev);
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
