@@ -1,91 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23003CBE79
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 19:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CCF3876A1;
+	Mon, 27 Jul 2026 19:40:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785180749; cv=none; b=cmS6abiKySGK9H5H2LooLf/zlunARhn8/tkz5rZMszSHPrTD+BHEgrzn3cX007/Dt1Wqq/mHa5QOCNM4eLvK0gvx8VA1d7wEurPA5AjddiXtEKFZwmuu5A0TMkyGKFDlsoQLfj0JgrmWgbeZUE9cN3xKTDOUIGR6YXkId+Hq9Hk=
+	t=1785181245; cv=none; b=iaidtg/YOPFUHEu9AKV1dxtuRj3SQbNlLHtIkBb83mQm+ENdn1nUu9zxn3lfzQ5/ZhzhVx5WRR97+rQF1vGcw2GUlDKxLEKYmfHsWb5ShVNB5gqnl4TuM0Jca/ZhfOeYdMn5AC2NuUq4SzA9/VQsn1GLiFKIcUyLXe+jYSiNzG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785180749; c=relaxed/simple;
-	bh=SPeEDGetd04izBWSPBSAetV8kqBQi4TxdljZVfBO3XI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CQNc8FXTFFfA5qzoNhYSgwCdnrO350zIOooJaSdsVD0FsgNaSAlZyl+JbgHx7OtWEfgNVPgYaMDMaBpKYhxepwueAxGlao/AO1rBBa8M9hISjXOoHlDjQjiMms/mtxzx7o3T8Kt1c2w0TA5qigTF8hw9OecwEbTfs/bWNiCsHGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/ZTRvKv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785181245; c=relaxed/simple;
+	bh=jDCTDDIYcnoTn7FU5D81QyHJpbSQs+nkENtVu76zIQo=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=MGgEY+b3Erixs+Uey9zly0EKgLlb8sBTGZJL/5tjgAwwtm7NQ8/RhQvHye7MLGerDKvz7/GSWscX1HDJmMgLvaf5bhwUWZqW6T+8cJ7GgG2nDc51Ww81necWMJnCOcfdVvktP256ceDUE1igNbAh6LG91QltvoVmIJRRVBGlcDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=o/mc0v5D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/ZTRvKv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172B11F000E9;
-	Mon, 27 Jul 2026 19:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785180747;
-	bh=OR4m00mVGHfZ4RqVGbLlx1yhZdgZdYaoCnVLtBXO0ec=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q/ZTRvKvJkCoVRTLl/V/MMD/+qarcN1QIueoqooKvmA9gzbFg1Jeisao2uSfL/Zb9
-	 VwIy4ix1jiqcJ8sqLV8C3KWWZNeIjaLhBw2O4JABhuMXbNn1z6qBA/xfIH3CFkkXyV
-	 MJEfsbWlKwZVmqnRC6Utpdm5jqyQa49ZTArb03t/Gn7SpxsSigIKTgfTHKjeE0at7P
-	 sXqr+ZJuhBkWYv4kvAv8gU7V+RBpbRMFyDeQEb41y15ukcCvIYAWhvhbm62vtltXVB
-	 5/yRSIxf0pwNFvhhz4wOy22mIxaqdsHHflW37ik2gOB9hgeVi/TnEvWwHD/34BBICa
-	 Sl5tM86XcxUhA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	Justin Tee <justin.tee@broadcom.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: lpfc: Fix memory leak in lpfc_sli4_driver_resource_setup()
-Date: Mon, 27 Jul 2026 15:32:24 -0400
-Message-ID: <20260727193224.1748882-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072012-drab-ointment-66b4@gregkh>
-References: <2026072012-drab-ointment-66b4@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="o/mc0v5D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E691F000E9;
+	Mon, 27 Jul 2026 19:40:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785181244;
+	bh=Nt6DEP0tju5SaHyQIaUeD0xCAwRQILx3XKs/g5W3uW4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=o/mc0v5DzjKdaELjinsIVbJ1Sw/1+L2RHD7lgy9f5kHNZvXfw2+z8cNiUJIEVoSit
+	 xCeZqJeU/wWmytDmCtU9FN6Du3D4p7kEK14qh+Yy35jWMf2yptyrwhtKDWFgVC1BFp
+	 qbFzvg7WaWACDjTud98doO1WpWjv+/f2fmXkpFn0=
+Date: Mon, 27 Jul 2026 12:40:43 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Jane Chu <jane.chu@oracle.com>, linux-mm@kvack.org, Muchun Song
+ <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, David
+ Hildenbrand <david@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, Naoya
+ Horiguchi <nao.horiguchi@gmail.com>, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, Christian Brauner <christian@brauner.io>,
+ Jiaqi Yan <jiaqiyan@google.com>, stable@vger.kernel.org, Naoya Horiguchi
+ <naoya.horiguchi@nec.com>
+Subject: Re: [PATCH v5 01/12] memory-failure: Fix hardware poison check in
+ unpoison_memory() again
+Message-Id: <20260727124043.f7751d0259e78f15db94d4ba@linux-foundation.org>
+In-Reply-To: <amduqWdnxeYwToax@casper.infradead.org>
+References: <20260725160042.1557264-1-willy@infradead.org>
+	<20260725160042.1557264-2-willy@infradead.org>
+	<amduqWdnxeYwToax@casper.infradead.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+On Mon, 27 Jul 2026 15:43:53 +0100 Matthew Wilcox <willy@infradead.org> wrote:
 
-[ Upstream commit 1bd28625e25be549ee7c47532e7c3ef91c682410 ]
+> > If the THP later reaches a state with a single transient reference
+> > and no mappings, unpoison_memory() acquires a reference (ghp = 1),
+> > calls folio_put(folio) once, and then TestClearPageHWPoison(p) clears
+> > the flag and returns true. This triggers the second folio_put(folio),
+> > dropping a non-existent poison pin.
+> 
+> I don't know, and I'm losing patience with the Sashiko rabbit holes.
+> This is all getting very far afield from the problem I actually want
+> to fix.
 
-The memory allocated for mboxq using mempool_alloc() is not freed in
-some of the early exit error paths. Fix that by moving the
-mempool_free() call to an earlier point after last use.
+That's fair enough - you aren't a memory-failure maintainer.  If you
+want to take a shot at the pre-existing things then great, but
+otherwise then let's ensure that the relevant maintainers were cc'ed
+and move on.
 
-Fixes: d79c9e9d4b3d ("scsi: lpfc: Support dynamic unbounded SGL lists on G7 hardware.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Reviewed-by: Justin Tee <justin.tee@broadcom.com>
-Link: https://patch.msgid.link/20260707065304.949135-1-nihaal@cse.iitm.ac.in
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/scsi/lpfc/lpfc_init.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/lpfc/lpfc_init.c b/drivers/scsi/lpfc/lpfc_init.c
-index d7a3304de305cb..3cf1fccee81275 100644
---- a/drivers/scsi/lpfc/lpfc_init.c
-+++ b/drivers/scsi/lpfc/lpfc_init.c
-@@ -8010,6 +8010,7 @@ lpfc_sli4_driver_resource_setup(struct lpfc_hba *phba)
- 			goto out_free_bsmbx;
- 		}
- 	}
-+	mempool_free(mboxq, phba->mbox_mem_pool);
- 
- 	/*
- 	 * 1 for cmd, 1 for rsp, NVME adds an extra one
-@@ -8131,8 +8132,6 @@ lpfc_sli4_driver_resource_setup(struct lpfc_hba *phba)
- 	if (!phba->lpfc_cmd_rsp_buf_pool)
- 		goto out_free_sg_dma_buf;
- 
--	mempool_free(mboxq, phba->mbox_mem_pool);
--
- 	/* Verify OAS is supported */
- 	lpfc_sli4_oas_verify(phba);
- 
--- 
-2.53.0
+One relatively minor issue here is that if Sashiko's pre-exiting thing
+is serious, we may decide to fix it with a cc:stable and such a fix
+should be staged ahead of your series for backportability reasons.  If
+we end up upstreaming these things in the "wrong" order then the
+backportable-fix developers will be asked to prepare a backportable
+version of their patch, which is a bit cumbersome, but not the end of the
+world.
 
