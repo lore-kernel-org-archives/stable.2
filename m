@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA232DAFBB
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3644841A56F
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:31:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785159084; cv=none; b=IGBZIrvNEI0pHjBIDSQzMQQfdTLLmLBYy0ZaswbA165jlfdUR470AHidmWRD74laioBf2xh4PkmcVpndJDM6Y+dm6sQURgMJWVJMnjqkCiiH1kz9zxNGTwm/kDIvStsdnkEffXLFf9Xq2+3JYWCSWFNTk/pJJMwPdpsOjH5HEbI=
+	t=1785159086; cv=none; b=Sm697yJyaJTtDahCnK4pAMmVmlwzxtiiQF1mtjow4XN4qGWV6bHlvB0s5iI8DMMJyxPPhhLOwRO/VhGQaNS1m5MiaZ8KbDcrxOLawbP6gcSqbaUM1FXHjDF98kcpF+fOOts+P5G26S5NXiFXB2vPOpkc9GjEyZO93ygDbOdoNwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785159084; c=relaxed/simple;
-	bh=P/l5KVp8s6msdVVlNDlm7p5Tt8zUVHRLGWGEj7OU//o=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=L8WQoy6GLGqcwGN6Xd+7FW2Rhl0xUnk/Siz+xsyZkRf33QO89UfgkVA+3t7B16kIj9pSD3tsc+Mr4WKBc1xkl/slKEmqqMkdlD+nTHdLd5vXUiFkzia4QE7Ra3WFha+n9MBhEv9WLgciVHGAUE/vK9G+Anl6R198cGUrgBIwS3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EQolRXFQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785159086; c=relaxed/simple;
+	bh=kq2yeay/2C83CNE6O3MX9ls7uRxlLyP9OwOyU2s+jXM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=E79Ec8rhqBuVycMiFc0/7x08F6CyQMbfttsKiFzGYJ2NDkF2g/TnV3zxilNOKtzyrmjamUxaso73ye6IcFyDOB79drHbZfVMR1X0H5Z/wuOPopkYFEzNrJbpFmmnAdaXZ6Ab1EkuQ5Wp5ht2Wi71CzSfCnHvc9k8IK065LFUvpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=U9BHM/bF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EQolRXFQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FF631F000E9;
-	Mon, 27 Jul 2026 13:31:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="U9BHM/bF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D06E1F000E9;
+	Mon, 27 Jul 2026 13:31:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785159082;
-	bh=Q/v3eZs2S/gTVEqooEEy3+0VUOv3HGSHLgWyjiVRzd0=;
+	s=korg; t=1785159084;
+	bh=QQKlUt2NXXpRw0wWywMyWt/Mh82lAE1zXJ4V/7UgQ1g=;
 	h=Subject:To:Cc:From:Date;
-	b=EQolRXFQmNvMwPjVKxHniPwfze7cv4n6I2SFCCgj8mCO1xXms6upcXFaZ2fkJyRWR
-	 3DGEJs7t52wK3p1oMl50gUFw3RqlA7r2oC6D2T6OHyU9AfqRh53dZVr48mVHAq3Thh
-	 xhxfhbNzalzar2czXuttn5D07RVrLAg4fvnGjLvw=
-Subject: FAILED: patch "[PATCH] usb: gadget: f_tcm: synchronize delayed set_alt with teardown" failed to apply to 5.15-stable tree
+	b=U9BHM/bFbaSyDKat8H2KBiuVE+Hs2dGbRE8BA+B85P9ajsciUoU5GFahCa7vwjnUZ
+	 5MnXFOcghD78P545YqSYgFdd0ScpJXiyXnOWqISdX/XGE/XtejW87DweRd3mvUVVFr
+	 zc9V/kKTaoYWrU9injUpkvwowH8gQq64fUaybZe4=
+Subject: FAILED: patch "[PATCH] usb: gadget: f_tcm: synchronize delayed set_alt with teardown" failed to apply to 6.1-stable tree
 To: zzzccc427@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 27 Jul 2026 15:31:03 +0200
-Message-ID: <2026072703-antirust-refinance-3b32@gregkh>
+Message-ID: <2026072702-cause-hardly-ecf2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 79e2d75725c85607f8a9d87ae9cace62a19f767d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072703-antirust-refinance-3b32@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072702-cause-hardly-ecf2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
