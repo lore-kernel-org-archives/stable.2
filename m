@@ -1,157 +1,332 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC4642901B
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 18:05:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89A742B314;
+	Mon, 27 Jul 2026 18:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785175533; cv=none; b=tqklK7kLXHXveLCVIlcr8lhrII3y2mkYyXY0F7IUzmH/l7nI0Fy48/vwACWnnk7B+o0QdmP7r7XzFWT4696DkU5EXmwJVPwKC5CSFVxNkf8PxOJxMLNA7l2dEr7kuyWC/r0LWaK0jw50wkSe+klApvQuI/YeZryOz2EnBu1daqU=
+	t=1785175764; cv=none; b=cJbYH+0aaZjlK6HsRsqbwQiAeqyNq6EJo/21J9lk6HXiuqJR15cV1rhlfPLsIXXurAf4RICIUJHGFxTfntQFBcyLdR82ieBPN0t64GhFHycaPquRkmOQqKAHy7WGjKKHnBFQjg2b6NK+/cQUAcVCDYnX/DKe9oJe5n7304Y59lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785175533; c=relaxed/simple;
-	bh=UYzUp73Xyxj47+8pad5idVVSoUvmoEdbx7CTa3TIK3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cd35l10USsMH8aw1z8CCOPgFLPkjmBcx3n5kUTKAU7OxUpy8Kt531R3qtcj4TjZaTqF0Oa9ytgCZjCZLoDiKodMM2iXFI/zCXUZhn6y5AcNIZG6rH4557UDGvCWKVGxqFk7q6UDaz0k2DIj4D/ylj9eEo3HRfrL9eSa1bxuaNqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0+3Mvgd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785175764; c=relaxed/simple;
+	bh=7CHmC2resTHfIW+i5+pyTizaOx1+9D0Z88t1xEm75UY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OIPRbfBiOcdtOjlUcBMZURY73saS69A5Lf0q3FdacKhTFviPIWyZnTEFx0WLkBW3pDOCAqulOU++FXSqRJ2ypTJYQh7QZplEMSzl4u05i8z1gUt7E/wU32L/Vc5VJ0vNrxFvionmnteL6Rr9vZcHhauHQhYvxCbRhl06QYbca+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUyBVRvT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0+3Mvgd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306FC1F000E9;
-	Mon, 27 Jul 2026 18:05:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUyBVRvT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056B21F000E9;
+	Mon, 27 Jul 2026 18:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785175531;
-	bh=Yp0STGkFuR0Kx54Tboq3L2nG9Tc1chFxhsKYI5JLuLw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I0+3Mvgdk2HHhL9FQMBj88x/IBn+xDyAQEsnXDajEnbR+QTRy/6/KHDDrrodKI9Fj
-	 53+ezJN/nmkIM43CfLdYDjabQNROpv3NYiNUhfLBnaG32SDN6teO1Mm+sRa3vCHgUp
-	 FDMezBUkFFQlrGwLE5+lcTwN09hSHnDWrbTlqi54mukT6fMW/MDd5GE5hfEzSKKa8O
-	 bBMT8q9T6FkG9LOrJ6vx72TEmTsJNjT7gyURH+IeozWgpTilh7VpN3yrShIgbnQ0tO
-	 +SmqJaSfXJZJTRZBOZI2XDKUgD9neAroU60BgyUaBjl5F1PgC1+9ykF3c790jI1JSQ
-	 ry/xS0xIV3FHw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] thunderbolt: Prevent XDomain delayed work use-after-free on disconnect
-Date: Mon, 27 Jul 2026 14:05:28 -0400
-Message-ID: <20260727180528.1410603-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727180528.1410603-1-sashal@kernel.org>
-References: <2026072002-actress-oxidant-7a4d@gregkh>
- <20260727180528.1410603-1-sashal@kernel.org>
+	s=k20260515; t=1785175762;
+	bh=RcjbXP8Y17nr6eEz7yURI6DNo/+/Q534212DGqxsB6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nUyBVRvTt12wzr30EzC1dj3+o2IHuFUkcbhMVzmIbjhqYCFAJ1y2Wic3eoU2A4prF
+	 OcCVzOpvEWKsSj2N2BdMUFDDTWva8VwCVgYKP0k16+jR3GNUAYB6r2jV9qKkUpWZHQ
+	 XJwNIvqfXpQEpxaEo6cYd1S5dNPYBWB3jaj1Ux5G4+GWTVrZfvHco7h1/AdZI60yRi
+	 BuUEBX1IeQ84jTUsy1WCKkDm0EwGH8kVYbCrK1pBVfjNyOrRgIK9Qre9BPbMq2WBMJ
+	 I3Jpvg1/Y4DEYR3LK08zl660CTNugggLYMmCmOhsdgFTGFTS/Gnk+5hfeoUoJQ+7TI
+	 fnOywseuI+QTw==
+Date: Mon, 27 Jul 2026 19:09:05 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Hengbin Zhang <uqbarz@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>
+Subject: Re: [RFC PATCH v3] mm/thp: serialize huge-zero folio state
+ transitions
+Message-ID: <ameC4IWCOVBGlXZu@lucifer>
+References: <4146d4f5-c8fb-42cf-9dc8-a9d4c26055da@kernel.org>
+ <20260727154001.4102341-1-uqbarz@gmail.com>
+ <b915b058-f5b1-423a-a835-5891e7997080@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b915b058-f5b1-423a-a835-5891e7997080@kernel.org>
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+TL;DR - after spending far too long on this - this is very subtle and I am
+not confident you understand the patch, I wonder if the fix is possibly
+AI-generated also?
 
-[ Upstream commit 2c5d2d3c3f70cde2565d7b279b544893a2035842 ]
+This is really subtle stuff and requires backports, so I think it's better
+if I send a patch myself.
 
-tb_xdp_handle_request() runs on system_wq and queues
-xd->state_work via queue_delayed_work() in three request handlers:
-PROPERTIES_CHANGED_REQUEST, UUID_REQUEST (via start_handshake),
-and LINK_STATE_CHANGE_REQUEST.  Similarly, update_xdomain() queues
-xd->properties_changed_work when local properties change.
+(I think this is less egregious than it might seem in that the lock
+suggestion is ultimately David's in any case.)
 
-Concurrently, tb_xdomain_remove() calls stop_handshake() which does
-cancel_delayed_work_sync() on both delayed works.  Later,
-tb_xdomain_unregister() calls device_unregister() which eventually
-frees the xdomain.  Since commit 559c1e1e0134 ("thunderbolt: Run
-tb_xdp_handle_request() in system workqueue") moved the request
-handler off tb->wq, the handler and the remove path are no longer
-serialized.  If queue_delayed_work() executes after
-cancel_delayed_work_sync() but before the xdomain is freed, the
-delayed work fires on a freed object.
+I will acknowledge this submission in the commit message, however.
 
-Add xd->removing that tb_xdomain_remove() sets under xd->lock
-before calling stop_handshake().  Each external queue site holds
-the same lock and checks removing before calling
-queue_delayed_work().  This provides the mutual exclusion needed:
-either the queue site acquires the lock first and queues work that
-the subsequent cancel will see, or the remove path acquires the
-lock first and the queue site observes removing == true and skips
-the queue.
+It seems the race is:
 
-Fixes: 559c1e1e0134 ("thunderbolt: Run tb_xdp_handle_request() in system workqueue")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-7
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/thunderbolt/xdomain.c | 20 ++++++++++++++++----
- include/linux/thunderbolt.h   |  3 +++
- 2 files changed, 19 insertions(+), 4 deletions(-)
+static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
+						 struct shrink_control *sc)
+{
+	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {   <-------------------------- 1. sets to 0
+		struct folio *zero_folio = xchg(&huge_zero_folio, NULL); < preempted for a very very long time>
+		BUG_ON(zero_folio == NULL);
+		WRITE_ONCE(huge_zero_pfn, ~0UL);                <------------------------- 6. Overwrites the valid PFN
+		folio_put(zero_folio);
+		return HPAGE_PMD_NR;
+	}
 
-diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
-index 62338381e9dd38..47ccebf42c5a57 100644
---- a/drivers/thunderbolt/xdomain.c
-+++ b/drivers/thunderbolt/xdomain.c
-@@ -604,8 +604,12 @@ static void tb_xdp_handle_request(struct work_struct *work)
- 		 */
- 		xd = tb_xdomain_find_by_uuid_locked(tb, &xchg->src_uuid);
- 		if (xd) {
--			queue_delayed_work(tb->wq, &xd->get_properties_work,
--					   msecs_to_jiffies(50));
-+			mutex_lock(&xd->lock);
-+			if (!xd->removing)
-+				queue_delayed_work(tb->wq,
-+						   &xd->get_properties_work,
-+						   msecs_to_jiffies(50));
-+			mutex_unlock(&xd->lock);
- 			tb_xdomain_put(xd);
- 		}
- 
-@@ -1369,6 +1373,10 @@ static int unregister_service(struct device *dev, void *data)
-  */
- void tb_xdomain_remove(struct tb_xdomain *xd)
- {
-+	mutex_lock(&xd->lock);
-+	xd->removing = true;
-+	mutex_unlock(&xd->lock);
-+
- 	stop_handshake(xd);
- 
- 	if (!device_is_registered(&xd->dev)) {
-@@ -1646,8 +1654,12 @@ static int update_xdomain(struct device *dev, void *data)
- 
- 	xd = tb_to_xdomain(dev);
- 	if (xd) {
--		queue_delayed_work(xd->tb->wq, &xd->properties_changed_work,
--				   msecs_to_jiffies(50));
-+		mutex_lock(&xd->lock);
-+		if (!xd->removing)
-+			queue_delayed_work(xd->tb->wq,
-+					   &xd->properties_changed_work,
-+					   msecs_to_jiffies(50));
-+		mutex_unlock(&xd->lock);
- 	}
- 
- 	return 0;
-diff --git a/include/linux/thunderbolt.h b/include/linux/thunderbolt.h
-index 5db2b11ab0855c..e6f60d411e2a50 100644
---- a/include/linux/thunderbolt.h
-+++ b/include/linux/thunderbolt.h
-@@ -181,6 +181,8 @@ void tb_unregister_property_dir(const char *key, struct tb_property_dir *dir);
-  * @device_name: Name of the device (or %NULL if not known)
-  * @is_unplugged: The XDomain is unplugged
-  * @resume: The XDomain is being resumed
-+ * @removing: Set by tb_xdomain_remove() under @lock to prevent
-+ *	      concurrent delayed work queueing
-  * @needs_uuid: If the XDomain does not have @remote_uuid it will be
-  *		queried first
-  * @transmit_path: HopID which the remote end expects us to transmit
-@@ -225,6 +227,7 @@ struct tb_xdomain {
- 	const char *device_name;
- 	bool is_unplugged;
- 	bool resume;
-+	bool removing;
- 	bool needs_uuid;
- 	u16 transmit_path;
- 	u16 transmit_ring;
--- 
-2.53.0
+	return 0;
+}
 
+static bool get_huge_zero_folio(void)
+{
+	struct folio *zero_folio;
+retry:
+	if (likely(atomic_inc_not_zero(&huge_zero_refcount))) <--------------------  2. sees the zero
+		return true;
+
+	zero_folio = folio_alloc((GFP_TRANSHUGE | __GFP_ZERO | __GFP_ZEROTAGS) & <--- 3. allocates (magically, very very quickly)
+				 ~__GFP_MOVABLE,
+			HPAGE_PMD_ORDER);
+	if (!zero_folio) {
+		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
+		return false;
+	}
+	/* Ensure zero folio won't have large_rmappable flag set. */
+	folio_clear_large_rmappable(zero_folio);
+	preempt_disable();
+	if (cmpxchg(&huge_zero_folio, NULL, zero_folio)) { <---------------- 4. no concurrent setter so branch not taken
+		preempt_enable();
+		folio_put(zero_folio);
+		goto retry;
+	}
+	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio)); <----------------- 5. Writes the PFN first despite not being able to be reordered
+
+	/* We take additional reference here. It will be put back by shrinker */
+	atomic_set(&huge_zero_refcount, 2);
+	preempt_enable();
+	count_vm_event(THP_ZERO_PAGE_ALLOC);
+	return true;
+}
+
+?
+
+In general I don't know why we're not just making
+CONFIG_PERSISTENT_HUGE_ZERO_FOLIO mandatory for CONFIG_TRANSPARENT_HUGEPAGE.
+
+If you're embedded, don't enabled THP (which will up your reserves a bunch for
+khugepaged anyway).
+
+On Mon, Jul 27, 2026 at 06:08:53PM +0200, David Hildenbrand (Arm) wrote:
+> On 7/27/26 17:40, Hengbin Zhang wrote:
+> > The nonpersistent huge-zero shrinker clears huge_zero_folio and then
+
+NIT: insert a hyphen: non-persistent.
+
+> > invalidates huge_zero_pfn. A concurrent fault can publish a replacement
+
+'Invalidates'? How do you mean?
+
+You mean setting it to NULL? Clearer to say that.
+
+> > folio and PFN between those updates, after which the old shrinker
+> > invalidates the replacement generation's PFN identity.
+
+I don't understand what you mean generation or PFN identity?
+
+
+> >
+> > A later partial mprotect() can then misidentify the live special PMD and
+> > enter the ordinary anonymous THP split path.
+
+What is a live special PMD?
+
+Please don't say special :) that term is so overloaded in mm.
+
+'...can then fail to identify the huge zero folio which then incorrectly enters
+the anonymous THP split path'.
+
+But I'd even not mention mprotect() specifically, if the huge zero folio can be
+misidentified that's already a problem.
+
+> >
+> > A writer-side spinlock keeps huge_zero_folio and huge_zero_pfn updates
+> > from different generations together. Lockless getters still use the
+
+I'm very confused by what you mean.
+
+> > refcount fast path. atomic_set_release() publishes an initialized new
+> > generation before a successful atomic_inc_not_zero() can admit a getter
+> > on weakly ordered architectures.
+
+Overall I am not confident you understand this so as per above I think
+
+> >
+> > Suggested-by: David Hildenbrand <david@kernel.org>
+
+Should be a S-o-b and David should handle this.
+
+> > Link: https://lore.kernel.org/r/20260724100509.2300200-1-uqbarz@gmail.com
+>
+> We want a Fixes: tag + Cc: stable.
+
+Yup.
+
+>
+> Can you dig up the proper Fixes commit? Thanks
+>
+> > Signed-off-by: Hengbin Zhang <uqbarz@gmail.com>
+> > ---
+> >  mm/huge_memory.c | 22 +++++++++++++++-------
+> >  1 file changed, 15 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index b5d1e9d4463d..79bec4495540 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -78,6 +78,7 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+> >  static bool split_underused_thp = true;
+> >
+> >  static atomic_t huge_zero_refcount;
+> > +static DEFINE_SPINLOCK(huge_zero_lock);
+> >  struct folio *huge_zero_folio __read_mostly;
+> >  unsigned long huge_zero_pfn __read_mostly = ~0UL;
+> >  unsigned long huge_anon_orders_always __read_mostly;
+> > @@ -237,17 +238,18 @@ static bool get_huge_zero_folio(void)
+> >  	}
+> >  	/* Ensure zero folio won't have large_rmappable flag set. */
+> >  	folio_clear_large_rmappable(zero_folio);
+> > -	preempt_disable();
+> > -	if (cmpxchg(&huge_zero_folio, NULL, zero_folio)) {
+> > -		preempt_enable();
+> > +	spin_lock(&huge_zero_lock);
+> > +	if (READ_ONCE(huge_zero_folio)) {
+>
+> Same comment as below: who could possibly modify this value concurrently? I
+> don't think we need the READ_ONCE.
+
+Yeah I don't think so either.
+
+>
+> > +		spin_unlock(&huge_zero_lock);
+> >  		folio_put(zero_folio);
+> >  		goto retry;
+> >  	}
+> >  	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio));
+> > +	WRITE_ONCE(huge_zero_folio, zero_folio);
+
+This is still necessary however for concurrent lockless readers.
+
+> > +	spin_unlock(&huge_zero_lock);
+> >
+> > -	/* We take additional reference here. It will be put back by shrinker */
+> > -	atomic_set(&huge_zero_refcount, 2);
+> > -	preempt_enable();
+> > +	/* Publish the identity before admitting lockless getters. */
+
+You're deleting the comment about an additional reference...
+
+And this comment doesn't make any sense really.
+
+> > +	atomic_set_release(&huge_zero_refcount, 2);
+>
+> Why do we need the _release semantics here when we just did a spin_unlock()?
+
+This is really suspect, as I had AI look at this and it also suggested
+exactly what you did here, and I'm not confident you understand it.
+
+Are you generating this code using AI without disclosing it against the
+kernel policy on this?
+
+See https://kernel.org/doc/html/latest/process/coding-assistants.html
+
+Can you give a detailed, coherent response as to why you chose this, if it
+was not AI-generated? A human-sounding one? :)
+
+Anyway.
+
+AI says this actually _is_ necessary.
+
+And using my human brain to think about it:
+
+static bool get_huge_zero_folio(void)
+{
+	struct folio *zero_folio;
+retry:
+	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
+		return true;
+
+	zero_folio = folio_alloc((GFP_TRANSHUGE | __GFP_ZERO | __GFP_ZEROTAGS) &
+				 ~__GFP_MOVABLE,
+			HPAGE_PMD_ORDER);
+	if (!zero_folio) {
+		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
+		return false;
+       	}
+	/* Ensure zero folio won't have large_rmappable flag set. */
+	folio_clear_large_rmappable(zero_folio);
+	spin_lock(&huge_zero_lock);                          <--- acquire semantics
+	if (huge_zero_folio) {                                            |			   <|
+		spin_unlock(&huge_zero_lock);                             v			   <|
+		folio_put(zero_folio);			  All loads/stores AFTER appear AFTER	   <|
+		goto retry;									   <|
+	}                                                  All loads/stores BEFORE appear BEFORE   <|
+	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio));                 ^			   <| Anywhere here.
+	WRITE_ONCE(huge_zero_folio, zero_folio);                          |			   <|
+	spin_unlock(&huge_zero_lock);                         <--- release semantics               <|
+                                                                                                   <|
+	/* We take additional reference here. It will be put back by shrinker */                   <|
+	atomic_set(&huge_zero_refcount, 2); ---- relaxed ordering so could be moved ----------------|
+
+	count_vm_event(THP_ZERO_PAGE_ALLOC);
+	return true;
+}
+
+So yeah I think that should be atomic_set_release() in order to prevent
+that occurring before the critical section.
+
+The retry stuff is a bit suspect now, how could we be concurrently raced in
+order to require a retry? I don't think so.
+
+It's needed because it has to pair with atomic_inc_not_zero() to prevent a
+concurrent get_huge_zero_folio() invocation from incorrectly returning
+before the critical section is completely finished.
+
+>
+> >  	count_vm_event(THP_ZERO_PAGE_ALLOC);
+> >  	return true;
+> >  }
+> > @@ -298,9 +300,15 @@ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
+> >  						 struct shrink_control *sc)
+> >  {
+> >  	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
+> > -		struct folio *zero_folio = xchg(&huge_zero_folio, NULL);
+> > +		struct folio *zero_folio;
+> > +
+> > +		spin_lock(&huge_zero_lock);
+> > +		zero_folio = READ_ONCE(huge_zero_folio);
+>
+> Why do we need a READ_ONCE? Nobody should be legally be allowed to change this
+> variable concurrently, no?
+
+Yup.
+
+>
+> >  		BUG_ON(zero_folio == NULL);
+> >  		WRITE_ONCE(huge_zero_pfn, ~0UL);
+> > +		WRITE_ONCE(huge_zero_folio, NULL);
+> > +		spin_unlock(&huge_zero_lock);
+> > +
+> >  		folio_put(zero_folio);
+> >  		return HPAGE_PMD_NR;
+> >  	}
+>
+>
+> --
+> Cheers,
+>
+> David
+
+Thanks, Lorenzo
