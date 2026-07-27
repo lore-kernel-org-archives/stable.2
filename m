@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD513BB4A
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC71536EA84
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785154796; cv=none; b=gQsU2hyXHqJ0qldK1e9/kvyDckPZOIiy25Ra+JrVwV2BgqTym6JZ71SSuX14L2ctbd0VpdSbcoZfRr8zSeOeI2fBXGJ5Xyg2bCRo88QsTqY0Q+157wzByyybHB0QZ9JLH2x0DADIFTuaFfbRiMngoWhq6pMvV/z9LbVpwrGvDiU=
+	t=1785154797; cv=none; b=rDnLnMDSQXpwymmxQr1m26OyHlxtIPSJ7BBCOrng475mgc588tRBiLJkLi5M1B2cfhA/OoNtXZ9OLqNS+Z1ATsCz7t/kRxiEbb33lEZxxSxW1WhWLhNho9vHelTDdmLbSPrTa3j7fahbzdzUhLEZTRuBze5TbZWnONQziaRzN2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785154796; c=relaxed/simple;
-	bh=Il5H0I5pmnyRYHS5/3AEaxnKnkQDB/GoJoHvuRqJSG8=;
+	s=arc-20240116; t=1785154797; c=relaxed/simple;
+	bh=vbzOqnnSKZwkO+g0HNxTCbTEkZB2n5zym93sIGTjL5k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CQdgm6/modaZfWL8rElTdqAeMnGMKpTF/pn2JyR6L+1wi80IDWiEeM479ZGQ8aCN5zTFXyv4jc6ZBiMIbJFXughdK3OVYacNAqr2HJfDV1kG8b9vy2Lpg7pQHALjxpPjEFAVum44Ha3bajf1JAid/ADY+wt47WEs0ocaV4eaG0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fofJlbe9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=p5f+0mJGcjTnPYZSmm51mpKjbEsRczbmqTGgnJAIo3Nlsyf4u2F85Fuj+Jo4k2/B1Sg9YRQR5DJ3DZjjTna32uBQSUv00T87+d31ES7bscdj2yivdQ31+ymLYsIXhy5X+VVeS7nR5LazDYdGwOJfd3G5EaHd8K+SmTq+8J8C1v0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FA+8f3P1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fofJlbe9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E0D1F000E9;
-	Mon, 27 Jul 2026 12:19:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FA+8f3P1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96BB1F00A3A;
+	Mon, 27 Jul 2026 12:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785154794;
-	bh=S2e46e7dZvDuvX4Na9bQUuFvoSOoMQkHCx8U/In/ymo=;
+	s=k20260515; t=1785154795;
+	bh=TROlkfe+HBOtiPc3Lnx2Zd4tRV+fl3Q3+NURD+QuXOc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fofJlbe9McJEJqPJuj44JRnC4RNSq8+te8Vq3kziJ+n+gO44DtBqMRpSg+83r6N6w
-	 usE9fQs7J4zcYAQQZziap3m5pb2guQPT28jdVIAd7mbcif08vFX52Aat3ajtO7gkvC
-	 +4ZaTX4zd68P67w1nN44j+zw/mmdK/zjeHO0EJ1PQIqqRDiRvftclQMrxDf/NuM2nA
-	 iHYhcwuAIHgDpySpIHTLNzXFI64pi+LfuZ/rqqHYULMyJDL8Vi3n5XoxdmBtG/2L8H
-	 Y1IwUB3RSvUgU9T5jvkbcLZ1a5pIrbjoKHAcoWKkE0YnUu0G6yRfmeACnbeQQ3g9Ch
-	 N4jQqzJKZjJfw==
+	b=FA+8f3P1nt7zBVO0KjN3Fr1QEZcNQzo3EAK4ypb90wCFCAEEmcC3TmnPRkSKIGFcD
+	 hnrPQg+iIs86FM5Im16YYxMo87SfVrxLC63Mt1SFlV4pelClEVRxgGFU5TQrBOEry5
+	 QohNhefedPX/Tj4+Bl5cR8wQ4BjPpNQJcw6r0gF9SDYuFsbwRe4PwNfT46YMoUQVLx
+	 hXvOXVRkS3456XZU+EvP1n4Pmxrtuz6GLRhL6sseMg1ynsLif62WDQG4+M9HR3Bu84
+	 bk+j+2PpijWfqQhDvWHbM85XrjVT1DmkGWqR3oxvJLgYgz+W2oHw0rgp4MKjpeySRD
+	 26FGJpKccMRkg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+Cc: Qianyu Luo <qianyuluo3@gmail.com>,
+	Yuan Tan <yuantan098@gmail.com>,
+	Xin Liu <bird@lzu.edu.cn>,
+	Ren Wei <n05ec@lzu.edu.cn>,
+	Eyal Birger <eyal.birger@gmail.com>,
 	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] xfrm: Use nested-BH locking for nat_keepalive_sk_ipv[46]
-Date: Mon, 27 Jul 2026 08:19:51 -0400
-Message-ID: <20260727121952.3778327-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] xfrm: nat_keepalive: avoid double free on send error
+Date: Mon, 27 Jul 2026 08:19:52 -0400
+Message-ID: <20260727121952.3778327-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072015-entail-cartload-088d@gregkh>
+In-Reply-To: <20260727121952.3778327-1-sashal@kernel.org>
 References: <2026072015-entail-cartload-088d@gregkh>
+ <20260727121952.3778327-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,121 +50,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+From: Qianyu Luo <qianyuluo3@gmail.com>
 
-[ Upstream commit 9c607d4b6589d4d380a85784514bcf4cceee1e11 ]
+[ Upstream commit 226f4a490d1a938fc838d8f8c46a4eca864c0d78 ]
 
-nat_keepalive_sk_ipv[46] is a per-CPU variable and relies on disabled BH
-for its locking. Without per-CPU locking in local_bh_disable() on
-PREEMPT_RT this data structure requires explicit locking.
+nat_keepalive_send() frees the keepalive skb whenever the IPv4 or IPv6
+send helper reports an error.
 
-Use sock_bh_locked which has a sock pointer and a local_lock_t. Use
-local_lock_nested_bh() for locking. This change adds only lockdep
-coverage and does not alter the functional behaviour for !PREEMPT_RT.
+That cleanup is only correct before the skb is handed to the output
+path. Once ip_build_and_send_pkt() or ip6_xmit() takes ownership, the
+networking stack may already have consumed the skb before returning an
+error, so freeing it again is unsafe.
 
-Cc: Steffen Klassert <steffen.klassert@secunet.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Link: https://patch.msgid.link/20250512092736.229935-7-bigeasy@linutronix.de
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Stable-dep-of: 226f4a490d1a ("xfrm: nat_keepalive: avoid double free on send error")
+Handle the pre-handoff failure cases inside nat_keepalive_send_ipv4()
+and nat_keepalive_send_ipv6(), where the caller still owns the skb, and
+keep nat_keepalive_send() responsible only for family dispatch and the
+unsupported-family cleanup path.
+
+Fixes: f531d13bdfe3 ("xfrm: support sending NAT keepalives in ESP in UDP states")
+Cc: stable@vger.kernel.org
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Qianyu Luo <qianyuluo3@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Reviewed-by: Eyal Birger <eyal.birger@gmail.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_nat_keepalive.c | 30 ++++++++++++++++++++----------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+ net/xfrm/xfrm_nat_keepalive.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
 diff --git a/net/xfrm/xfrm_nat_keepalive.c b/net/xfrm/xfrm_nat_keepalive.c
-index 8a0379c8c41c8b..1856beee0149bb 100644
+index 1856beee0149bb..f50b1f48f2ed92 100644
 --- a/net/xfrm/xfrm_nat_keepalive.c
 +++ b/net/xfrm/xfrm_nat_keepalive.c
-@@ -9,9 +9,13 @@
- #include <net/ip6_checksum.h>
- #include <net/xfrm.h>
+@@ -55,8 +55,10 @@ static int nat_keepalive_send_ipv4(struct sk_buff *skb,
+ 			   ka->encap_sport, sock_net_uid(net, NULL));
  
--static DEFINE_PER_CPU(struct sock *, nat_keepalive_sk_ipv4);
-+static DEFINE_PER_CPU(struct sock_bh_locked, nat_keepalive_sk_ipv4) = {
-+	.bh_lock = INIT_LOCAL_LOCK(bh_lock),
-+};
- #if IS_ENABLED(CONFIG_IPV6)
--static DEFINE_PER_CPU(struct sock *, nat_keepalive_sk_ipv6);
-+static DEFINE_PER_CPU(struct sock_bh_locked, nat_keepalive_sk_ipv6) = {
-+	.bh_lock = INIT_LOCAL_LOCK(bh_lock),
-+};
- #endif
- 
- struct nat_keepalive {
-@@ -56,10 +60,12 @@ static int nat_keepalive_send_ipv4(struct sk_buff *skb,
+ 	rt = ip_route_output_key(net, &fl4);
+-	if (IS_ERR(rt))
++	if (IS_ERR(rt)) {
++		kfree_skb(skb);
+ 		return PTR_ERR(rt);
++	}
  
  	skb_dst_set(skb, &rt->dst);
  
--	sk = *this_cpu_ptr(&nat_keepalive_sk_ipv4);
-+	local_lock_nested_bh(&nat_keepalive_sk_ipv4.bh_lock);
-+	sk = this_cpu_read(nat_keepalive_sk_ipv4.sock);
- 	sock_net_set(sk, net);
- 	err = ip_build_and_send_pkt(skb, sk, fl4.saddr, fl4.daddr, NULL, tos);
- 	sock_net_set(sk, &init_net);
-+	local_unlock_nested_bh(&nat_keepalive_sk_ipv4.bh_lock);
- 	return err;
- }
- 
-@@ -89,15 +95,19 @@ static int nat_keepalive_send_ipv6(struct sk_buff *skb,
- 	fl6.fl6_sport = ka->encap_sport;
- 	fl6.fl6_dport = ka->encap_dport;
- 
--	sk = *this_cpu_ptr(&nat_keepalive_sk_ipv6);
-+	local_lock_nested_bh(&nat_keepalive_sk_ipv6.bh_lock);
-+	sk = this_cpu_read(nat_keepalive_sk_ipv6.sock);
- 	sock_net_set(sk, net);
+@@ -101,6 +103,7 @@ static int nat_keepalive_send_ipv6(struct sk_buff *skb,
  	dst = ipv6_stub->ipv6_dst_lookup_flow(net, sk, &fl6, NULL);
--	if (IS_ERR(dst))
-+	if (IS_ERR(dst)) {
-+		local_unlock_nested_bh(&nat_keepalive_sk_ipv6.bh_lock);
+ 	if (IS_ERR(dst)) {
+ 		local_unlock_nested_bh(&nat_keepalive_sk_ipv6.bh_lock);
++		kfree_skb(skb);
  		return PTR_ERR(dst);
-+	}
- 
- 	skb_dst_set(skb, dst);
- 	err = ipv6_stub->ip6_xmit(sk, skb, &fl6, skb->mark, NULL, 0, 0);
- 	sock_net_set(sk, &init_net);
-+	local_unlock_nested_bh(&nat_keepalive_sk_ipv6.bh_lock);
- 	return err;
- }
- #endif
-@@ -202,7 +212,7 @@ static void nat_keepalive_work(struct work_struct *work)
- 				      (ctx.next_run - ctx.now) * HZ);
- }
- 
--static int nat_keepalive_sk_init(struct sock * __percpu *socks,
-+static int nat_keepalive_sk_init(struct sock_bh_locked __percpu *socks,
- 				 unsigned short family)
- {
- 	struct sock *sk;
-@@ -214,22 +224,22 @@ static int nat_keepalive_sk_init(struct sock * __percpu *socks,
- 		if (err < 0)
- 			goto err;
- 
--		*per_cpu_ptr(socks, i) = sk;
-+		per_cpu_ptr(socks, i)->sock = sk;
  	}
  
- 	return 0;
- err:
- 	for_each_possible_cpu(i)
--		inet_ctl_sock_destroy(*per_cpu_ptr(socks, i));
-+		inet_ctl_sock_destroy(per_cpu_ptr(socks, i)->sock);
- 	return err;
+@@ -118,7 +121,6 @@ static void nat_keepalive_send(struct nat_keepalive *ka)
+ 					sizeof(struct ipv6hdr)) +
+ 				    sizeof(struct udphdr);
+ 	const u8 nat_ka_payload = 0xFF;
+-	int err = -EAFNOSUPPORT;
+ 	struct sk_buff *skb;
+ 	struct udphdr *uh;
+ 
+@@ -140,16 +142,17 @@ static void nat_keepalive_send(struct nat_keepalive *ka)
+ 
+ 	switch (ka->family) {
+ 	case AF_INET:
+-		err = nat_keepalive_send_ipv4(skb, ka);
++		nat_keepalive_send_ipv4(skb, ka);
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	case AF_INET6:
+-		err = nat_keepalive_send_ipv6(skb, ka, uh);
++		nat_keepalive_send_ipv6(skb, ka, uh);
+ 		break;
+ #endif
+-	}
+-	if (err)
++	default:
+ 		kfree_skb(skb);
++		break;
++	}
  }
  
--static void nat_keepalive_sk_fini(struct sock * __percpu *socks)
-+static void nat_keepalive_sk_fini(struct sock_bh_locked __percpu *socks)
- {
- 	int i;
- 
- 	for_each_possible_cpu(i)
--		inet_ctl_sock_destroy(*per_cpu_ptr(socks, i));
-+		inet_ctl_sock_destroy(per_cpu_ptr(socks, i)->sock);
- }
- 
- void xfrm_nat_keepalive_state_updated(struct xfrm_state *x)
+ struct nat_keepalive_work_ctx {
 -- 
 2.53.0
 
