@@ -1,41 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F503D4108
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 22:25:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26883F0A96;
+	Mon, 27 Jul 2026 22:40:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785191126; cv=none; b=Wq9kwO0B8EEJfAafs0M9+3mwumZsZXvQMZuV6k/gocHo7D8PMqzkqsBqSgk6aG2tawyMLWlTkxAc9X83NPrr+L9R6AVS9061NyPJT7nYjCxhxCqSKQkeVh3xbVdtmg7zEbe/+TQGf9yKFG6ju94f4bX0+HUoChXYVOFwRwwDwKs=
+	t=1785192058; cv=none; b=olxmwWtMUWxTklatFJXrkdAR7fgvErtRbs4lR8Vsp2rASvhkpTrMmiYxgg6nTKf6J/k6g+q+TUEbZqxqDMOkiuggw3VkiLwhYLyQAkwdBQIOnYd32FT8OGCewjjpmRgGQda+gL1E2JIuJOhcqw3zDqMAqWRs/ObqH0zu3Ej9nuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785191126; c=relaxed/simple;
-	bh=s3ZEpV8Ml1G/UrCQY5WA4n22wSUoRbOOefTHP8GW85U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ginDglMNk0setpvLTJZiuPDJRdfjcFBZ274sL4kvfPD9RkiOGCndNiLRc7OJIwNFPwlWB3pMLhoeCcce88Jyy5HXO8d15Ap/UhMs5Lxpyxx7Hwn9FM7VsFUviqLmbEI2JBNtHeXW+R17XUpPGq//6dlgAMJlrgydEOzikLwUh9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUScHWOa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785192058; c=relaxed/simple;
+	bh=frMhtuGAGFz7Jr01EuK3supEewgClBXFQ3kT/DhM3ec=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=QGzJa74tzbORmscnUQi46TwnTB9Jvkd4b7CWKsp1LDiTXwqSCy1OcaS7dLHY1KOvzaV8Arueu2vGyLrGQCULb1v5VbFS72qxKxpCEy3M6lSHDHVNxDEsiJvLWaTzeM8UD69435Uk6otth0rVIQpw9YS7dZku0O4e2sWuszUf1Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCbuefT8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUScHWOa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038EC1F000E9;
-	Mon, 27 Jul 2026 22:25:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCbuefT8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97CE41F000E9;
+	Mon, 27 Jul 2026 22:40:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785191125;
-	bh=XPErj1XM/DbUqSswIRObVl8UIuhtc1DSMI2eOHU96PA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RUScHWOaOxZK+ywrGxNppETg961ChFWY7NG2Nb8RNB6G66n5ry2By7w/wdSoomOv9
-	 QApoObrqUrx/DvEoErKwSdS6M1IZioKihBxLMjCApR+f3YOJ6olWsOaw6TZPTqmVKe
-	 8GfLF/7KuvcoTiVpEKfVuTqITlEh6UemMwJHI+fUk1mZFk03sU9K416oDoRL/zicf6
-	 ZibUY1ZN+Wcm2DrqoMR1cZSFOndyM7Z9I2IXA52BHJ1c5vLgADYR0L4DpPgzYzksrA
-	 pan18x5hDQxO1gzlMeBreWBVkTNOFzg5V5hT0DTyY16L6zqHvjMYRTq079eAT8M/51
-	 ccpX7qp0LHucw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] dm-integrity: don't increment hash_offset twice
-Date: Mon, 27 Jul 2026 18:25:23 -0400
-Message-ID: <20260727222523.2142515-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072050-unless-decompose-8395@gregkh>
-References: <2026072050-unless-decompose-8395@gregkh>
+	s=k20260515; t=1785192056;
+	bh=cPVNc368CLdd8nLRfved4tc6G3uNu+AjaBCI6WnD3QU=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=FCbuefT8osJ+JAZwyYwLIB88V7d8BaGH8YPTvQd+yVjChDseCRabd0vGn4ORMtiBa
+	 5hmQ05SfToSOWNAwJZb8fMIeXcGZEv4QsfDAe/ONE+vAio1xu4LDtGAzWkKqwMHPYT
+	 jds5GwbnPt/92yXAn7fFENks2TW6o8mzEF3CcNewso4BRqNyPJknsptItLGCBAZaIl
+	 645Bi+n3/GIhs0gZrV4i1gNyS7QhB0y5PgvDfczX3zR6Ev7zRLXXZsKPBVjUyEc0eF
+	 F6jjMraustrXitsulcsF2+D4Q8ya2SXo0MpYeEulYg9GUDRX0LJJzRWEJuTuIfGLln
+	 pvYIiEXhkKgNg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A4A380CECF;
+	Mon, 27 Jul 2026 22:40:23 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,38 +37,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] sctp: reject stale cookies with mismatched
+ verification
+ tags
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178519202164.1443317.5985248760486883047.git-patchwork-notify@kernel.org>
+Date: Mon, 27 Jul 2026 22:40:21 +0000
+References: <20260723225623.2658868-1-yangyx22@mails.tsinghua.edu.cn>
+In-Reply-To: <20260723225623.2658868-1-yangyx22@mails.tsinghua.edu.cn>
+To: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Cc: linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ zhaoyz24@mails.tsinghua.edu.cn, wangao@seu.edu.cn, fengxw06@126.com,
+ qli01@tsinghua.edu.cn, xuke@tsinghua.edu.cn, yyxroy22@gmail.com
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+Hello:
 
-[ Upstream commit edf025f083854f80032b73a1aad69a3c90db236f ]
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-hash_offset is already incremented in the loop "for (i = 0; i < to_copy;
-i++, ts--)". Do not increment it again.
+On Thu, 23 Jul 2026 22:56:23 +0000 you wrote:
+> sctp_unpack_cookie() skips cookie expiration checks whenever an
+> association already exists.  This is broader than the exception in
+> RFC 9260 Section 5.2.4.
+> 
+> For an existing association, Section 5.2.4 permits an expired State
+> Cookie only when both Verification Tags in the cookie match the current
+> association.  Otherwise, the packet SHOULD be discarded and a Stale
+> Cookie ERROR MUST be sent.
+> 
+> [...]
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: Claude:claude-opus-4.6
-Fixes: 84597a44a9d8 ("dm-integrity: dm integrity: add optional discard support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/md/dm-integrity.c | 4 ----
- 1 file changed, 4 deletions(-)
+Here is the summary with links:
+  - [net] sctp: reject stale cookies with mismatched verification tags
+    https://git.kernel.org/netdev/net/c/9d8da8e0a9bc
 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index 227ed3b4687323..eb13b98ba0a9c5 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -1377,10 +1377,6 @@ static int dm_integrity_rw_tag(struct dm_integrity_c *ic, unsigned char *tag, se
- 			*metadata_offset = 0;
- 		}
- 
--		if (unlikely(!is_power_of_2(ic->tag_size))) {
--			hash_offset = (hash_offset + to_copy) % ic->tag_size;
--		}
--
- 		total_size -= to_copy;
- 	} while (unlikely(total_size));
- 
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
