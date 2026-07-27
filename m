@@ -1,115 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0831C3D3D12
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 21:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451263E5574
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 21:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785186018; cv=none; b=nQyTk93RMTpG6tXXGA6hUEvPEx/Gt+01VOUl/jNJKDEYbjQ88s3feQtUygZhJx0rMqk/I5DfQHF+kW2xH2urELdZXPu2d21E6h4Jrnm2siWBGDGcGpoJVUBZGhHB6RgAiyjI+q8E9+2Kh9hgIXjEc2AgSgZcTxJh+FENHBjFZak=
+	t=1785186569; cv=none; b=E2jE7D47Js0shB46QsfXR/cdfXKhaYGSH4+Ow4eGNVOAM23pPvAWqmwycqpH2VcKbm0UGUeaK5hahE1E83MudSlbetbt5SJPNhD2jHF0oi3FuVq12c3PBXalv97yQa+Yuc43Ea+hC0iBYxUHwRfSP7H6FKRYgsOby3r+9xwETTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785186018; c=relaxed/simple;
-	bh=+xeqUHvni0jJppV3pBBqE+UKuSuIR2mHnHetNJb7+sc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hcHthRSjMhh7ILul8/1mgNNVQLlH9R47VpLoq0v1tX9qJsI5HAYqL1KVSsT6XZptk04L3h3T1sVR8mAvi02Psau9ZL04vfKnHgZMDPEsiWg/++i37C7paCv8qa6ZuCD4YNzBjA9z2VaoMLuLcu3AS3BDz9KDigFuS7z8sND5vbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=desRQqkU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785186569; c=relaxed/simple;
+	bh=bk5J2/1//KFgntazjs0qFQcIrr/IM1cHvQ/frwpKyTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QUvUjPMR6oCoVowg3weMQUwuc9ArLMmsQDdsIMP6Yt7D/ZDSGVWzBmgcFO869Y4+GHjSCHRxfuwDgNcOPau90xREXHm12Rwhl3s38Gk0OjMvCXXOCL83w9Yg76wm6X3EDwehszUXZjrU7OuYl76pe6Pkw4A17Q95a3eKrJDaLkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DxG2TkVA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="desRQqkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4E01F000E9;
-	Mon, 27 Jul 2026 21:00:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DxG2TkVA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ABB91F000E9;
+	Mon, 27 Jul 2026 21:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785186016;
-	bh=i4omISfn3j0Y9UiFAa//JrsTj4VxkMYyxHloZJVtWFU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=desRQqkUaVXqwsUU+oCEL7Ziwbt74fzqr07pn7eZZVRFxaQlT1CZqizk19D+j+kD7
-	 u1pzzJ7UhBmyQw8I4BKDNjUSzINLuSKnYviFjc2sBtK+RzybjRLKC6q0cOlK0e3WEM
-	 a3mKgl4urOd7p1yuy2EAGoFeAXYHvFVnafUCcY7tS0/SnlrKB3Em/LnKHg9rgw2XAT
-	 /CcM5d6XKY45n4Jh6N0h4O0q9tipV8X/MChBAb5sOFhU1uRAQFoLEneRXVuCehe2LS
-	 qgRbeEGtdfx4S4sojhT5r49uA/vY0VypODzEDx7jhB+pQquqKXD8Y3bcYkV5BAEEKH
-	 2YivduCYJmPcg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] dm-verity: make error counter atomic
-Date: Mon, 27 Jul 2026 17:00:14 -0400
-Message-ID: <20260727210014.1929718-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072047-volatile-gonad-565a@gregkh>
-References: <2026072047-volatile-gonad-565a@gregkh>
+	s=k20260515; t=1785186567;
+	bh=A1pJKlqexMb0DOjMJjYj4PGZOgmcClxNQ5BnFJCIfbI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DxG2TkVA91smmGLDRuxJI5Bi//J6+u9Vae1Dtq6Uk2hY0y6tm1EQTGX43hW9PBnRy
+	 1EQnueAkBKY7vTjVyaPAMgqTiNB3s7gvnfPs5LbCIMJBhei4ci1Mguq+fK6KztIRJB
+	 Ch1u0sV997cndKpRIq006d8j4oUZJlOM/h7F4ePvjQ7//IPOnSPxXf9ET9SuCJ0os4
+	 6wRYnePP1OD8yZb4rClZZPUoJ9DheY63tCcBRoMmLM13Dzcuu6s9ulitLQ16HV63BZ
+	 3XXkKvkkb8ZdQL2CBlfFUW5GqUClAv8tbxY6zi/FqhlZc9cHvcPZSL/ylFUypVRrSi
+	 0V0BKoKrv2ocA==
+Date: Mon, 27 Jul 2026 21:09:26 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Mikulas Patocka <mpatocka@redhat.com>
+Subject: Re: [PATCH 6.18.y 1/4] dm-verity-fec: fix the size of
+ dm_verity_fec_io::erasures
+Message-ID: <20260727210926.GE1021387@google.com>
+References: <2026072004-monitor-wolf-7764@gregkh>
+ <20260727210011.1929439-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727210011.1929439-1-sashal@kernel.org>
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+On Mon, Jul 27, 2026 at 05:00:08PM -0400, Sasha Levin wrote:
+> From: Eric Biggers <ebiggers@kernel.org>
+> 
+> [ Upstream commit a7fca324d7d90f7b139d4d32747c83a629fdb446 ]
+> 
+> At most 25 entries in dm_verity_fec_io::erasures are used: the maximum
+> number of FEC roots plus one.  Therefore, set the array size
+> accordingly.  This reduces the size of dm_verity_fec_io by 912 bytes.
+> 
+> Note: a later commit introduces a constant DM_VERITY_FEC_MAX_ROOTS,
+> which allows the size to be more clearly expressed as
+> DM_VERITY_FEC_MAX_ROOTS + 1.  This commit just fixes the size first.
+> 
+> Fixes: a739ff3f543a ("dm verity: add support for forward error correction")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> Stable-dep-of: 31d6e6c0ba8d ("dm-verity: fix buffer overflow in FEC calculation")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-[ Upstream commit 8ec4d9c5a5cf4b61fc087f871465b1f79b393325 ]
+1. Missing cover letter.
 
-The error counter "v->corrupted_errs" was not atomic, thus it could be
-subject to race conditions. The call to
-dm_audit_log_target("max-corrupted-errors") may be skipped due to the
-races.
+2. I was only sent patches 1-3 of 4.
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: Claude:claude-opus-4.6
-Fixes: 65ff5b7ddf05 ("dm verity: add error handling modes for corrupted blocks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/md/dm-verity-target.c | 12 +++++++-----
- drivers/md/dm-verity.h        |  2 +-
- 2 files changed, 8 insertions(+), 6 deletions(-)
+3. Missing Cc to the subsystem mailing list.  Needed since these aren't
+   clean cherry-picks.
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 53150024d2dd4e..ed3914b479cfc5 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -224,14 +224,16 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
- 	char *envp[] = { verity_env, NULL };
- 	const char *type_str = "";
- 	struct mapped_device *md = dm_table_get_md(v->ti->table);
-+	int ce;
- 
- 	/* Corruption should be visible in device status in all modes */
- 	v->hash_failed = true;
- 
--	if (v->corrupted_errs >= DM_VERITY_MAX_CORRUPTED_ERRS)
--		goto out;
--
--	v->corrupted_errs++;
-+	ce = atomic_read(&v->corrupted_errs);
-+	do {
-+		if (ce >= DM_VERITY_MAX_CORRUPTED_ERRS)
-+			goto out;
-+	} while (!atomic_try_cmpxchg(&v->corrupted_errs, &ce, ce + 1));
- 
- 	switch (type) {
- 	case DM_VERITY_BLOCK_TYPE_DATA:
-@@ -247,7 +249,7 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
- 	DMERR_LIMIT("%s: %s block %llu is corrupted", v->data_dev->name,
- 		    type_str, block);
- 
--	if (v->corrupted_errs == DM_VERITY_MAX_CORRUPTED_ERRS)
-+	if (ce + 1 == DM_VERITY_MAX_CORRUPTED_ERRS)
- 		DMERR("%s: reached maximum errors", v->data_dev->name);
- 
- 	snprintf(verity_env, DM_VERITY_ENV_LENGTH, "%s=%d,%llu",
-diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
-index db93a91169d5e6..325942fc8f8038 100644
---- a/drivers/md/dm-verity.h
-+++ b/drivers/md/dm-verity.h
-@@ -58,7 +58,7 @@ struct dm_verity {
- 	unsigned int digest_size;	/* digest size for the current hash algorithm */
- 	unsigned int ahash_reqsize;/* the size of temporary space for crypto */
- 	enum verity_mode mode;	/* mode for handling verification errors */
--	unsigned int corrupted_errs;/* Number of errors for corrupted blocks */
-+	atomic_t corrupted_errs;/* Number of errors for corrupted blocks */
- 
- 	struct workqueue_struct *verify_wq;
- 
--- 
-2.53.0
+4. These backports seem to have unnecessary differences from the
+   upstream commits.  DM_VERITY_FEC_MAX_ROOTS in added in the first
+   commit, but upstream it was added in the third one.
 
+- Eric
