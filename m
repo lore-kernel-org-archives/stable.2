@@ -1,59 +1,60 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A0D40EB98;
-	Mon, 27 Jul 2026 13:19:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2FF40DB3F;
+	Mon, 27 Jul 2026 13:19:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158361; cv=none; b=APNlNvhn9mNFM5pRkKqaezNKCjvPvWX7PrwKh3G9Ngt3iRajvPLs3189FRxPYKUe5/ySGzbka1xaOyeEgN8BLpsz9ouEVNwy3FrI4WuzYiMbcAoxv6fx3Z6v3xDJjSu8pRjoK0lCpHGYe5gmGDTCNtOuvq9SEnPcOxBAON2+goQ=
+	t=1785158361; cv=none; b=EugEhw9NxV8JyE5msPJj1VRIe3Im1DF052kWgcftX5mnZ4ALTRrfPHb7E4A5X3YxV4VQegF+ptAU/FEGxfhe8v2vkNZ59pfSyROiVzc9x6ImJLR6Vy+6YFgIKCCm1yZc+cDEd0xWlcVDlm0+NyxVDd032fyr/aaW/cjcncgg8vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785158361; c=relaxed/simple;
-	bh=r/yey11PwuQaiKdNacCXZYcIRFP9DChos4riXWM+zTQ=;
+	bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KvZiRUi1EWSd9MvnmAYucwsYhnhAYBG+Abcjq2kaur7Orwl7fB+7/HrCzhJQqqWK31tbcMaozDY0azSq1Y68kLs11S3+4DWX1mtB8iD2AZ8h5su1T7GVWG3y4fY+24trFMq7zmpHhi5C/B+m8Z+I/oKjOlhLEaar116aae3nhX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=U6vENB/T; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=U6vENB/T; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=klqQq5M1Cw4aeAhCgb8EhrO434OR+v2/ik3nytCuXPdnQcVaftKk9sqkE3znfirUuh8kDyJtjzU5ZqlOqJ7wLibqYFgJyNZyWBW1pRohr/wMxJSUsmZo+KhW3tDc6SS+D5IpfNv5blUGIu3opFXz2DM8kg7wIzKWcjKvcl9OqYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=L4TwiAxN; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=WM7Eil5l; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="U6vENB/T";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="U6vENB/T"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="L4TwiAxN";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="WM7Eil5l"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158352; bh=r/yey11PwuQaiKdNacCXZYcIRFP9DChos4riXWM+zTQ=;
+	t=1785158352; bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=U6vENB/TrvCs0+p5FmzMib5FuiwrB8KTWxhZdwFgMIOjKzIOnayT9CZ/dxePvR/sS
-	 4npf7yMeEihyX2zHHm7Ivcz3aOvstnYBfhEiyE0B8AmbRXH+a20yPsjfLyKX2cEY8j
-	 lUJ0q8878ANJEBbhDr11mtZmYkGM4GIoi1oJBeumVN6hrqU7jBrf6Nk08scPkn7ZM7
-	 ZSXCiJhPCbS5qQHq67/+7XDLTVRh4lPdMH8qfU2FKsnME5ZrNDOmKh5REMFJk/8tD/
-	 HM9qmv5T4+ppP6RVp/twLt63azRwpAID0QtVSBGnTWqyE8Q14ZVS4BAzlyTrs0KTvR
-	 Ouax8Pjk34vdw==
+	b=L4TwiAxNK/Cb3MvZW0k64qIQL19rqUf+xvgm/a6C96QQrrq9yoykH4D4fsAkl71WW
+	 UCF68s7TiR70P8KG81EYQ/vnMqlzZ3O364AS5Lvlv1fE+KjR7nvAJ8cNrhq+JNEQxf
+	 6h6WuySNbtHPbz6BckyW9/cQVx1WnBuk7/KTZRYnEvurNah4OpYtV4RuJJS/PnvYKw
+	 6yADaI+NKXBjSCoNaQ5AGo+LqmVu/SPPrNdmgGLpG6CQl0q5HSjAznCp9+6ABDjWZz
+	 CPW24mL4kixGZt+7lHwW7ainyoCZngck4UyuTvWNKIF6SOaNrt33ax2TsEziM1FYrk
+	 A++iUuCuEEtmg==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id CED9D42528; Mon, 27 Jul 2026 14:19:12 +0100 (BST)
+	id 7235F4252A; Mon, 27 Jul 2026 14:19:12 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158352; bh=r/yey11PwuQaiKdNacCXZYcIRFP9DChos4riXWM+zTQ=;
+	t=1785158351; bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=U6vENB/TrvCs0+p5FmzMib5FuiwrB8KTWxhZdwFgMIOjKzIOnayT9CZ/dxePvR/sS
-	 4npf7yMeEihyX2zHHm7Ivcz3aOvstnYBfhEiyE0B8AmbRXH+a20yPsjfLyKX2cEY8j
-	 lUJ0q8878ANJEBbhDr11mtZmYkGM4GIoi1oJBeumVN6hrqU7jBrf6Nk08scPkn7ZM7
-	 ZSXCiJhPCbS5qQHq67/+7XDLTVRh4lPdMH8qfU2FKsnME5ZrNDOmKh5REMFJk/8tD/
-	 HM9qmv5T4+ppP6RVp/twLt63azRwpAID0QtVSBGnTWqyE8Q14ZVS4BAzlyTrs0KTvR
-	 Ouax8Pjk34vdw==
+	b=WM7Eil5lQ9SqFEc+rE7lJ7oWanQ2jHhLVze9rg4sq7CrQis9fbjaqS31NuKUpaLX7
+	 CC6iPwaf6TsO7fFyQiytGJRPRD/o0EDtrMrU4sWbXB1X2Jod0LA+amyS/aOXIX8VyO
+	 qiAKX1XUFMR/wgGj77MXFRoI71uVPF5B1FNaqoGgoZUEu4pOK62LdKAS/ZVqowymFp
+	 i9cG85ujYzDkHIPAfjvLYLrlpDEi1DhUc53bd8IcpG5VN7dzEQ74VxUBsENl5OzwhS
+	 T4cDqJJLTk6ffUC1oXtK1EvVDJ7WdIIxEYzedUluRO5PhEJpDKP/41ggUmeUKkFwxb
+	 Zyde6MZTYEU8A==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 6AE3041CD1;
-	Mon, 27 Jul 2026 14:19:12 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 81A7641567;
+	Mon, 27 Jul 2026 14:19:11 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jarod Wilson <jarod@redhat.com>
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>
 Cc: stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 02/15] media: redrat3: Ensure rc device is freed if enable_detector() fails
-Date: Mon, 27 Jul 2026 14:18:45 +0100
-Message-ID: <38945c6fba0c0e1c7fd9ac90bcc65527bb319cbb.1785158244.git.sean@mess.org>
+Subject: [PATCH v4 01/15] media: streamzap: Add missing rc_unregister_device()
+Date: Mon, 27 Jul 2026 14:18:44 +0100
+Message-ID: <84b29522529b542fd604efa258383c445c0f9663.1785158244.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1785158244.git.sean@mess.org>
 References: <cover.1785158244.git.sean@mess.org>
@@ -65,63 +66,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This particular error path does not free the rc device at all, with
-its priv pointer still pointing at freed memory.
+If usb_submit_urb() fails during probe, then the error path is missing a
+call to rc_unregister_device(), which will leak various things like the
+input device.
 
-Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
+Fixes: 42844992664f ("media: rc: streamzap: Error handling in probe")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/redrat3.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/media/rc/streamzap.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index 3f828a564e19..2b639fe59923 100644
---- a/drivers/media/rc/redrat3.c
-+++ b/drivers/media/rc/redrat3.c
-@@ -979,6 +979,7 @@ static int redrat3_dev_probe(struct usb_interface *intf,
- 	struct usb_endpoint_descriptor *ep_narrow = NULL;
- 	struct usb_endpoint_descriptor *ep_wide = NULL;
- 	struct usb_endpoint_descriptor *ep_out = NULL;
-+	struct rc_dev *rc = NULL;
- 	u8 addr, attrs;
- 	int pipe, i;
- 	int retval = -ENOMEM;
-@@ -1102,26 +1103,31 @@ static int redrat3_dev_probe(struct usb_interface *intf,
- 	if (retval)
- 		goto redrat_free;
- 
--	rr3->rc = redrat3_init_rc_dev(rr3);
--	if (!rr3->rc) {
-+	rc = redrat3_init_rc_dev(rr3);
-+	if (!rc) {
- 		retval = -ENOMEM;
- 		goto led_free;
- 	}
- 
-+	rr3->rc = rc;
-+
- 	/* might be all we need to do? */
- 	retval = redrat3_enable_detector(rr3);
- 	if (retval < 0)
--		goto led_free;
-+		goto rc_free;
- 
- 	/* we can register the device now, as it is ready */
- 	usb_set_intfdata(intf, rr3);
+diff --git a/drivers/media/rc/streamzap.c b/drivers/media/rc/streamzap.c
+index 307985d74fe8..41195ad82734 100644
+--- a/drivers/media/rc/streamzap.c
++++ b/drivers/media/rc/streamzap.c
+@@ -365,6 +365,7 @@ static int streamzap_probe(struct usb_interface *intf,
  
  	return 0;
- 
-+rc_free:
-+	rc_unregister_device(rc);
- led_free:
- 	led_classdev_unregister(&rr3->led);
- redrat_free:
- 	redrat3_delete(rr3, rr3->udev);
-+	rc_free_device(rc);
- 
- no_endpoints:
- 	return retval;
+ rc_submit_fail:
++	rc_unregister_device(sz->rdev);
+ 	rc_free_device(sz->rdev);
+ 	usb_set_intfdata(intf, NULL);
+ rc_dev_fail:
 -- 
 2.55.0
 
