@@ -1,134 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE8D400966
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45CC4156EF
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:15:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158002; cv=none; b=diTVpwk1vLTQMbP3FibYmjrJq7Mgmqi73Yx61wvsdTaOp4GL1FUW793n3hW5qnb8DDLPiymh0m7WN7M8mPhxClOEXnCU1YFL4HDXBeGpdOCYVQ2BQcj3TBHpgDTZW6Bys51R65V5vmWBBtB+0Xtc2Cg3ZXLihKeoqXUEFuJCIC0=
+	t=1785158146; cv=none; b=Gq9beQm8i0fU36AwzD1QMW18zha+/grkAEE/nSjs/bhPX0g/5BQUs1ZiDpCor8TW156e8wkatIv/83NbXA6rfM6K4ebJnHG+BTQf2TD+lt3TkuUpG1UD7FhYM/nF+Exj9M+F/mCKA5M/Jxumzy4VsKM85g0r+0XU6O2Ed64Z8DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158002; c=relaxed/simple;
-	bh=Fnw8QNB5Dw/rcnIG2mVhlxaJCxHWnMW0ld1vB5CvgrA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AdYYWF85AtAKqBPAxiZ/tHnnysLzN6gjEZ4FnppYBn/Q3lgN0WvvTIlmAlEnxUBojJT6k5GyJKa5sQeqp48YlXQreQcnpbgcLL7YJqo4zfDz67qYrE7m0kZ4bGpidtemZUH6nLgmPackOIkJf9F4aBY/7VyiOZhPuZ2uDLVLJgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7wOYU14; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785158146; c=relaxed/simple;
+	bh=HJHRiVCoSpzMM+AzL9YdHPDdjfH5DZvvT/nmLNqxqHY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=GHYzOuJGvNSej2MKTXmafGoJjcOq2SY6QA1s9NVylZViWUy6PZqY5hNwHoMcSW2QXgra1szw/R13cmn2b68R0rEV/P5LpXwIM5aT5Z+226s8XzV7nSiwEa8nXVdkHfaHVsCAmicG86H9aVUcZl/ABc07C7luY9EVeRu8nvo925g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wgiPxlvt; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7wOYU14"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AEBB1F00A3A;
-	Mon, 27 Jul 2026 13:13:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785158001;
-	bh=KdJuNPijJmwzecYGgKF9y9YDsB2gZvLpuMHYhE8Dmwk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P7wOYU147droPD2b84lCZxR4REE0KJv1nfUMMAQXnPSWrChevOV+yHuz/sj8rzHHk
-	 JE1QBUJNya+k5lC13jy1DfRkF0tT79zcpwyYbqSxXUPFwLTdd1prjTX4ImhREv5zGC
-	 oGKFZsc0HY1Vr9dklyFyRi0ONytOZnhSJB9oVPbC4SLbbOFqx8US1DoI+kocj+gADA
-	 0QADO/TgkM9LXZr0oSsOFDkhUyD9NxjgDtprCg40mBGzPJoqligIQC5ZjprTBDTmFR
-	 kF8MFjw34Ig0vkYk9zT9PZkATuhgX7GfaT5iea53A2Uxr4jk3nDhc2XZ2XqZ/JEUUJ
-	 CCK7ahHBUn1Ew==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Vincent Jardin <vjardin@free.fr>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Carlos Song <carlos.song@nxp.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] i2c: imx: fix locked bus on SMBus block-read of 0 (atomic)
-Date: Mon, 27 Jul 2026 09:13:17 -0400
-Message-ID: <20260727131317.399719-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727131317.399719-1-sashal@kernel.org>
-References: <2026072037-gentleman-dwelled-cdd7@gregkh>
- <20260727131317.399719-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wgiPxlvt"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 040104E40F96;
+	Mon, 27 Jul 2026 13:15:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C3DDE601BE;
+	Mon, 27 Jul 2026 13:15:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E843311C133D3;
+	Mon, 27 Jul 2026 15:15:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1785158141; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=+AKAgk1c4hfgPjkvF/RWXS6gIzcWVrFw3/oAzOXLFfk=;
+	b=wgiPxlvtxim1VfeqOC+3oO9tBUgXutTBv9ehZB4EwoPNH1S4B7ETjmGDNL4GXvGUJudPQl
+	oxreFJZ7IuhICzZtokp/GJlZPXVfuvx1hzJ2gXEYDC/4OmelpHWqBSTVMrROlQX7kTAR+x
+	uSAcj3z0q+QNHn2Z3iJzhb9C6RCWCt0q9Qhjjm/WMlsxVnDS2kofjKEnk6SCWi7hBnloOH
+	A6vjTtFeDfMRO4nv4Pxe1eA61d2/n0lI2cPoLQc5MeWF778sJWyGkZmylF13n+6d66QX1E
+	/e1tTQSIHRhsIy6Bk9qeJ+ViUAhIWc+EPOSNPp+FRVvgnUPe2cYi/Fs1YoJ8aA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: dri-devel@lists.freedesktop.org, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Johan Hovold <johan@kernel.org>, 
+ Jonas Karlman <jonas@kwiboo.se>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Tomi Valkeinen <tomi.valkeinen@ti.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260717184836.2017386-1-laurent.pinchart+renesas@ideasonboard.com>
+References: <20260717184836.2017386-1-laurent.pinchart+renesas@ideasonboard.com>
+Subject: Re: [PATCH v2] drm/bridge: display-connector: Fix I2C adapter
+ resource leak
+Message-Id: <178515813651.1048304.12416793429567874295.b4-ty@b4>
+Date: Mon, 27 Jul 2026 15:15:36 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Vincent Jardin <vjardin@free.fr>
 
-[ Upstream commit cb2fc37857693b55909fb77dc2c87cfbc1cdc476 ]
+On Fri, 17 Jul 2026 21:48:36 +0300, Laurent Pinchart wrote:
+> If the probe function returns an error after getting the I2C adapter for
+> DDC, the reference to the adapter is never released. Fix it by releasing
+> it in the bridge .destroy() handler.
+> 
+> There is no need to test the ddc pointer with !IS_ERR(), as
+> of_get_i2c_adapter_by_node() returns NULL on error.
+> 
+> [...]
 
-SMBus 3.1 6.5.7 allows a Block Read byte count of 0, but the atomic
-(polling) path rejects it as -EPROTO. Worse, it returns without a
-NACK+STOP: the next receive cycle has already started, so the target
-keeps holding SDA and the bus stays stuck until a power cycle for
-this i2c controller.
+Applied, thanks!
 
-Reading I2DR to obtain the count likewise arms the next byte on the
-count > I2C_SMBUS_BLOCK_MAX path, which also returned -EPROTO directly
-and left the bus held.
+[1/1] drm/bridge: display-connector: Fix I2C adapter resource leak
+      commit: 6a39ca1286dd97ad02bb8e03bbb65ee05368d778
 
-Handle both: NACK the in-flight dummy byte (TXAK) and extend msgs->len so
-the existing last-byte handling emits STOP; the dummy byte is discarded.
-A count of 0 is a valid empty block read; a count above
-I2C_SMBUS_BLOCK_MAX is still reported as -EPROTO, but only after the bus
-has been released.
-
-The interrupt-driven path has the same flaw from a later commit and is
-fixed separately, as it carries a different Fixes: tag and stable range.
-
-Fixes: 8e8782c71595 ("i2c: imx: add SMBus block read support")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
-Cc: <stable@vger.kernel.org> # v3.16+
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Acked-by: Carlos Song <carlos.song@nxp.com>
-Reviewed-by: Stefan Eichenberger <eichest@gmail.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260713-for-upstream-i2c-lx2160-fix-v1-v3-1-073ac9e103a5@free.fr
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/i2c/busses/i2c-imx.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index 3e7f972c63127c..b9d26a2c9dd964 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -890,6 +890,7 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 	int i, result;
- 	unsigned int temp;
- 	int block_data = msgs->flags & I2C_M_RECV_LEN;
-+	int block_err = 0;
- 
- 	result = i2c_imx_prepare_read(i2c_imx, msgs, atomic, false);
- 	if (result)
-@@ -911,8 +912,20 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 		 */
- 		if ((!i) && block_data) {
- 			len = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2DR);
--			if ((len == 0) || (len > I2C_SMBUS_BLOCK_MAX))
--				return -EPROTO;
-+			if ((len == 0) || (len > I2C_SMBUS_BLOCK_MAX)) {
-+				/*
-+				 * SMBus 3.1 6.5.7: support count byte of 0.
-+				 * I2C_SMBUS_BLOCK_MAX case should not hold the SDA either.
-+				 */
-+				if (len > I2C_SMBUS_BLOCK_MAX)
-+					block_err = -EPROTO;
-+				temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
-+				temp |= I2CR_TXAK;
-+				imx_i2c_write_reg(temp, i2c_imx, IMX_I2C_I2CR);
-+				msgs->buf[0] = 0;
-+				msgs->len = 2;
-+				continue;
-+			}
- 			dev_dbg(&i2c_imx->adapter.dev,
- 				"<%s> read length: 0x%X\n",
- 				__func__, len);
-@@ -960,7 +973,7 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 			"<%s> read byte: B%d=0x%X\n",
- 			__func__, i, msgs->buf[i]);
- 	}
--	return 0;
-+	return block_err;
- }
- 
- static int i2c_imx_atomic_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+Best regards,
 -- 
-2.53.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
