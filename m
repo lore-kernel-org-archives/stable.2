@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD74D41A938;
-	Mon, 27 Jul 2026 13:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B541D41B8EE;
+	Mon, 27 Jul 2026 13:24:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158680; cv=none; b=YWJHv1XiNgxYgCuK56oBmzEcKfU+oYzb2VWD+p8BOLQ9aezfa8xTlfCNY4ohX1boXLa7pRPsElBftupC7mQGiATyRNO7X/o7aXNTuBRLvisOy9wbZ7BNOn8D5/c9TQ+WTFamDVePBTO3wc2+sC+B8ZjGzaW3xV5WxVfO3QrWIK0=
+	t=1785158681; cv=none; b=cSfu5v2hV/VMM47hjJyxtxc0dblZ3FX5/e4u28unpW3EKakxvVnG1cLFc8b+HKLiCz8nj0vBuTEl9IlF0lSsYPWaMvKTsLM/EPjGSkXp/HZrUDEwVdkSnLMkCJZ0Uu7vX5w0JQ/SnQ9nr+lJRKgtlRIosSzIjrhj2cK5J2DKvvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158680; c=relaxed/simple;
-	bh=LWLhBZ3YhqHtemmyrVHEDfVV8bZ1ldLrcC31frkNKFo=;
+	s=arc-20240116; t=1785158681; c=relaxed/simple;
+	bh=T+HZh0Mo9Eq87bAXNsVNuY2efEq9dh/IIMkRd95SviY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SqHxBmZ3TY+cNJSEcpBteJFBiHSs/OsWQMtlxCXHwlYCAvL8tLfxUBzwmQCyYpwA23S03ZWEVyVSvIgeTNDNeHXkloDBJl7ulqz79nwKbJJ2IBxOurIqIwCxFYC0E90X7fHSLjsQQ+SDQw4mud23gTg0Qs5xZv+6NtPzRx1LtcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQPiILAW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Xa8cSpgO36sJ3FdZlOoPHnsCM3zpq55boP0fqD1yU+o/PZxDcfHJNmbwSbRfWZm9GzdZ51c0wJ3nA6BRZYNGXsRgPceCvgY5GBBje02a9B0aboWPaLrIIfaPOeGi4XyXgCFcXPoS5DWrLLzkiiH1EXcCwDpWy+MdvlPri4d/el8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcZ1IO0I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQPiILAW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8CC1F00A3A;
-	Mon, 27 Jul 2026 13:24:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcZ1IO0I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D5B1F00A3D;
+	Mon, 27 Jul 2026 13:24:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785158679;
-	bh=pxg/kdbMDOI7VbEj1X1BoLxGjHFWNUoLvc3rO1OTTLA=;
+	s=k20260515; t=1785158680;
+	bh=MZPvTQ3xWeQwfWztOZduPA5Y4NXz4y8TQXqkhPpdG+A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gQPiILAWpn+/cgJ92+dIOcGwMT6KLTH6+YxvF36cWmAxTtelAxE3XdZ2wmUxjotov
-	 cllWOlIXUkvbOLUHm/Z17UBtfYLxiAR0gWE+g+GVdIpOeih47viTiAcA3O0dw1dEcp
-	 27e02XAffm+sgNaTD/azLfGSZ63ahXNe9hZTk9tg/AdWyrXkaWWmaxBlaoqPBTvVMO
-	 nILzX0clP9EksVjZr51iJf929Shw6C9RAmjtUsT0Hi1aTkQJVGg48obg8MyczTjxkG
-	 gBR9cAN2b7oADlEh409ISDUfBMaAPgiR5orCrc6gyJXqMeU3+KkmHFZQ1gw+Pv2TVH
-	 jTTvC+PIzontA==
+	b=dcZ1IO0IGeFRccCR3+DZqIOJmoxt6A0BVIs/qahCfqmXcNyvxyvUzPuxzFErbBpPD
+	 4nckW7jdDF6Xba6xXrn63kglE9WHMPkSguY1cBA4DyGz5IDzThnJk9mXd9+qG0WC/q
+	 TF/V0dqsQRxChTgGiTrsff6Y828+2QCCe9HUiy9//7R9HdDXve3i/kRLJmcrZeRd63
+	 HVuxXau0qyUlg9bPAAoJ2Wi5OnlsEDidkOz1nwUHaIVSW//gao73PVG2AVxVkxe5gn
+	 XfDNNnwi2OujObI6k7MS4ELOmloqT1BYkTyxcB/Eh66uvGiChAskoS5NJVQ0QbTKWx
+	 G46kiwLTw7YNQ==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -35,9 +35,9 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 09/10] EDAC/altera: Detach sb_irq handler when db_irq setup fails
-Date: Mon, 27 Jul 2026 08:24:15 -0500
-Message-ID: <20260727132416.807230-10-dinguyen@kernel.org>
+Subject: [PATCH 10/10] EDAC/altera: Fix error cleanup path in altr_edac_device_probe()
+Date: Mon, 27 Jul 2026 08:24:16 -0500
+Message-ID: <20260727132416.807230-11-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 In-Reply-To: <20260727132416.807230-1-dinguyen@kernel.org>
 References: <20260727132416.807230-1-dinguyen@kernel.org>
@@ -49,33 +49,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-altr_edac_a10_probe() installs the sb_irq chained handler before fetching
-db_irq. If platform_get_irq() for db_irq fails, the probe returned
-without detaching the sb_irq handler, leaving it pointing at the
-devm-freed edac struct. Unlink the sb_irq chained handler before
-removing the IRQ domain and returning.
+sashiko reports: Does the error cleanup path in
+altr_edac_device_probe() free data before unregistering the interrupt
+handler? If a failure occurs, dci is explicitly freed via
+edac_device_free_ctl_info(dci) before the managed IRQ handler is unregistered
+via devres_release_group(). If an interrupt fires in this window, could it
+dereference the freed dci?
 
-Assisted-by: Cursor:claude-4.8-opus
-Fixes: d5fc9125566c ("EDAC, altera: Combine Stratix10 and Arria10 probe functions")
+Clean up the fail1 path to always call devres_release_group() and
+conditionally free the dci.
+
+Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
- drivers/edac/altera_edac.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/edac/altera_edac.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index 5087aa5ae5612..80ca9f511ac98 100644
+index 80ca9f511ac98..b6048a1884f43 100644
 --- a/drivers/edac/altera_edac.c
 +++ b/drivers/edac/altera_edac.c
-@@ -2209,6 +2209,8 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
- 	} else {
- 		edac->db_irq = platform_get_irq(pdev, 1);
- 		if (edac->db_irq < 0) {
-+			irq_set_chained_handler_and_data(edac->sb_irq,
-+							 NULL, NULL);
- 			irq_domain_remove(edac->domain);
- 			return edac->db_irq;
- 		}
+@@ -701,7 +701,7 @@ MODULE_DEVICE_TABLE(of, altr_edac_device_of_match);
+  */
+ static int altr_edac_device_probe(struct platform_device *pdev)
+ {
+-	struct edac_device_ctl_info *dci;
++	struct edac_device_ctl_info *dci = NULL;
+ 	struct altr_edac_device_dev *drvdata;
+ 	struct resource *r;
+ 	int res = 0;
+@@ -729,7 +729,7 @@ static int altr_edac_device_probe(struct platform_device *pdev)
+ 		edac_printk(KERN_ERR, EDAC_DEVICE,
+ 			    "Unable to get mem resource\n");
+ 		res = -ENODEV;
+-		goto fail;
++		goto fail1;
+ 	}
+ 
+ 	if (!devm_request_mem_region(&pdev->dev, r->start, resource_size(r),
+@@ -737,7 +737,7 @@ static int altr_edac_device_probe(struct platform_device *pdev)
+ 		edac_printk(KERN_ERR, EDAC_DEVICE,
+ 			    "%s:Error requesting mem region\n", ecc_name);
+ 		res = -EBUSY;
+-		goto fail;
++		goto fail1;
+ 	}
+ 
+ 	dci = edac_device_alloc_ctl_info(sizeof(*drvdata), ecc_name,
+@@ -747,7 +747,7 @@ static int altr_edac_device_probe(struct platform_device *pdev)
+ 		edac_printk(KERN_ERR, EDAC_DEVICE,
+ 			    "%s: Unable to allocate EDAC device\n", ecc_name);
+ 		res = -ENOMEM;
+-		goto fail;
++		goto fail1;
+ 	}
+ 
+ 	drvdata = dci->pvt_info;
+@@ -806,9 +806,9 @@ static int altr_edac_device_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ fail1:
+-	edac_device_free_ctl_info(dci);
+-fail:
+ 	devres_release_group(&pdev->dev, NULL);
++	if (dci)
++		edac_device_free_ctl_info(dci);
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, res);
+ 
 -- 
 2.42.0.411.g813d9a9188
 
