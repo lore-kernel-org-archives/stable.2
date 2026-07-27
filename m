@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F92417D72
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:32:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EA940682D
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785159173; cv=none; b=V7gNDZ8Iw9aNdecwN8MnD3p7Zz0Rlr1i1S/p8cBdKNi1YoZ78g74YEjRz5KtqTVvLG5BT2TbBLkk+sY//0/t7UbzknaI7Pfs6a82uIKSVrDHv7sdBuUnoqQs6bW1ehggmXB89/Zr1fe850fGBYhG5YQZwrQ1zZ3MHvtyAFWIsag=
+	t=1785159219; cv=none; b=fd0eRFp3qNHlvyiA+NZUi7U0897+k/m2+flj28Nx6/NrZXjIeAN3dbD+nEqJleAopsWGbxHoA6CCli+6THsnANdRTL+P4SgnGihW1cIpkildMtyUBna2WvMxK2zAb46aineC7yWwfHOwxpDar4ldaQp9kzFTwfxDT4y5oeVIT8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785159173; c=relaxed/simple;
-	bh=oa9Jh1SIH7cqy/MbafvWGNa3d1UUJao/J/hlZmdZbuk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MOUP2f/eSn3sa/aZreh3H8G9oyANXMt6Li7q2+AqD4VEjFSpg/U6eOWegoccpt3aav4xB5SoPXQiSQPTuVTae3fU0abywW4fRPGjEp6DINgPZLt/174WDqd/n1AWFte89Dka3iofYg4dvH0baVcLFR5pUihfrIfDhv7+U0vigMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IcSGr1Tg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785159219; c=relaxed/simple;
+	bh=Vcsuimg9kckGXmnBc6enEBdTXzu0LQ3KrB1RsPaarN0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=f9eppTYVsc8V4Ycr3gNyD/jB9vlHbxA2ojUvt8GLy2i+OwBE/PkwOig2gk8GlBj/2GW/h0Z8juTmKe/bTNgmZ/rQLqWeNRMzyqIoY+dsi3yVEOELFZH99rty5pVunlkqnlgJQ2JEkqrDL1KEwSU/WioOK3wIYkXDaLtZ9M8e6DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AOqWCIW1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IcSGr1Tg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6C11F000E9;
-	Mon, 27 Jul 2026 13:32:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AOqWCIW1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608251F000E9;
+	Mon, 27 Jul 2026 13:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785159172;
-	bh=df5NJyrmZPqweeErUiwMRFXjmZ86hQerU+oZWlE1sXg=;
+	s=korg; t=1785159217;
+	bh=YHqu0rMu0J9+lPqZ/JCsuQRIeFUXkOV4slCqqqYLF34=;
 	h=Subject:To:Cc:From:Date;
-	b=IcSGr1Tgk+Fm/XhoxNyFh1tbH8eZaYW+FI5y4YZ1AwXnsfzGr+zFQT0D1EreqNfZo
-	 y05P76s9Q4BGNqW3WmXg1OuSHupJkQZxJLbfI3/fW+pYQuJ7KhHAJDYhWzAxY4Xn+n
-	 DwZ0Ils5UYR3bYAgTwduMOR1I4i9SBvF//dQGFH0=
-Subject: FAILED: patch "[PATCH] usb: xhci-pci: Limit VIA VL805 DMA addressing to 36 bits" failed to apply to 5.10-stable tree
-To: zhangxincheng@ultrarisc.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=AOqWCIW1yRsIDjMqh7HCfhlD8Sv7oT6WTA/HJe2QaNEC7goT3iQweno+EJBx+IiGi
+	 /SN9ynmxURRbmEect1ypvVaGH3QEIH4hDzhB1Iaj7hW/ZFBWXWi/GQKOaSvKHq773P
+	 Tvhvd/H0bv73qRWHHGIlayiDFMw9KmNeCT0pv8wY=
+Subject: FAILED: patch "[PATCH] usb: typec: ucsi: Fix race condition and ordering in port" failed to apply to 7.1-stable tree
+To: akuchynski@chromium.org,bleung@chromium.org,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 27 Jul 2026 15:32:20 +0200
-Message-ID: <2026072720-wing-whenever-9821@gregkh>
+Date: Mon, 27 Jul 2026 15:33:25 +0200
+Message-ID: <2026072725-cheer-engorge-72e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1fc50f1ecde39feb4fccdaf4bc71aa6c0eb25c49
+git cherry-pick -x 7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072720-wing-whenever-9821@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072725-cheer-engorge-72e8@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,89 +62,168 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1fc50f1ecde39feb4fccdaf4bc71aa6c0eb25c49 Mon Sep 17 00:00:00 2001
-From: Xincheng Zhang <zhangxincheng@ultrarisc.com>
-Date: Tue, 30 Jun 2026 09:26:48 +0800
-Subject: [PATCH] usb: xhci-pci: Limit VIA VL805 DMA addressing to 36 bits
+From 7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261 Mon Sep 17 00:00:00 2001
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Tue, 7 Jul 2026 14:17:36 +0000
+Subject: [PATCH] usb: typec: ucsi: Fix race condition and ordering in port
+ unregistration
 
-The VIA VL805/806 xHCI controller advertises AC64, but fails to handle
-DMA addresses at or above 0x1000000000. On systems with large amounts of
-RAM, this can cause USB device failures when the controller is given DMA
-addresses beyond its usable address width.
+A synchronization issue exists during port unregistration where pending
+partner work items can race against workqueue destruction, leading to
+use-after-free conditions:
 
-Do not use XHCI_NO_64BIT_SUPPORT for this controller. That quirk clears
-the cached AC64 capability and limits DMA to 32 bits, causing unnecessary
-bouncing for addresses between 4GiB and 64GiB and hiding the controller's
-real AC64 capability from code that may need to distinguish register
-access width from usable DMA address width.
+  cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:__queue_work+0x83/0x4a0
+  Call Trace:
+    <IRQ>
+    __cfi_delayed_work_timer_fn+0x10/0x10
+    run_timer_softirq+0x3b6/0xbd0
+    sched_clock_cpu+0xc/0x110
+    irq_exit_rcu+0x18d/0x330
+    fred_sysvec_apic_timer_interrupt+0x5e/0x80
 
-Track the usable DMA address width separately from the AC64 capability.
-Initialize the generic xhci->dma_mask_bits field to 64 and let PCI quirks
-reduce it for controllers with narrower DMA support. Set VIA VL805/806 to
-36 bits so the DMA API only hands it addresses in the range it can handle
-while keeping HCCPARAMS1.AC64 visible.
+Fix this by ensuring strict ordering and proper serialization during
+teardown:
+
+1. Move ucsi_unregister_partner() to the beginning of the teardown
+sequence and protect it under the connector mutex lock.
+2. Ensure all pending partner tasks are explicitly flushed and finished
+before the workqueue is destroyed.
+3. Switch from mod_delayed_work() to a cancel_delayed_work() and
+queue_delayed_work() sequence. This guarantees that items currently marked
+as pending won't be scheduled an additional time, preventing a double
+release of resources which leads to the following crash:
+
+  Oops: general protection fault, probably for non-canonical address
+    0xdead000000000122: 0000 [#1] SMP NOPTI
+  Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
+  RIP: 0010:ucsi_poll_worker+0x65/0x1e0
+  Call Trace:
+  <TASK>
+    process_scheduled_works+0x218/0x6d0
+    worker_thread+0x188/0x3f0
+    __cfi_worker_thread+0x10/0x10
+    kthread+0x226/0x2a0
+
+To ensure these rules are applied identically across both the normal
+teardown and the ucsi_init() error paths, consolidate the cleanup logic
+into a new helper, ucsi_unregister_port().
 
 Cc: stable <stable@kernel.org>
-Signed-off-by: Xincheng Zhang <zhangxincheng@ultrarisc.com>
-Link: https://patch.msgid.link/20260630-xhci-via-dma-fix-v3-1-690dcb8cf75a@ultrarisc.com
+Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
+Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
+Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
+Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
+Reviewed-by: Benson Leung <bleung@chromium.org>
+Link: https://patch.msgid.link/20260707141736.1635698-1-akuchynski@chromium.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index 039c26b241d0..6b3fcba44b08 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -448,6 +448,7 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
- 	if (pdev->vendor == PCI_VENDOR_ID_VIA && pdev->device == PCI_DEVICE_ID_VIA_VL805) {
- 		xhci->quirks |= XHCI_LPM_SUPPORT;
- 		xhci->quirks |= XHCI_TRB_OVERFETCH;
-+		xhci->dma_mask_bits = 36;
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index 6a6723e8fb12..f56897e23df8 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -1845,6 +1845,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
+ 	return ret;
+ }
+ 
++static void ucsi_unregister_port(struct ucsi_connector *con)
++{
++	struct ucsi_work *uwork;
++
++	if (con->wq) {
++		mutex_lock(&con->lock);
++		ucsi_unregister_partner(con);
++		/*
++		 * queue delayed items immediately so they can execute
++		 * and free themselves before the wq is destroyed
++		 */
++		list_for_each_entry(uwork, &con->partner_tasks, node) {
++			if (cancel_delayed_work(&uwork->work))
++				queue_delayed_work(con->wq, &uwork->work, 0);
++		}
++		mutex_unlock(&con->lock);
++
++		destroy_workqueue(con->wq);
++		con->wq = NULL;
++	} else {
++		ucsi_unregister_partner(con);
++	}
++
++	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
++	ucsi_unregister_port_psy(con);
++
++	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
++	con->port_sink_caps = NULL;
++	usb_power_delivery_unregister_capabilities(con->port_source_caps);
++	con->port_source_caps = NULL;
++	usb_power_delivery_unregister(con->pd);
++	con->pd = NULL;
++	typec_unregister_port(con->port);
++	con->port = NULL;
++}
++
+ static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
+ {
+ 	u16 features = ucsi->cap.features;
+@@ -1971,22 +2007,8 @@ static int ucsi_init(struct ucsi *ucsi)
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++)
+ 		lockdep_unregister_key(&connector[i].lock_key);
+ 
+-	for (con = connector; con->port; con++) {
+-		if (con->wq)
+-			destroy_workqueue(con->wq);
+-		ucsi_unregister_partner(con);
+-		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(con);
+-
+-		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
+-		con->port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(con->port_source_caps);
+-		con->port_source_caps = NULL;
+-		usb_power_delivery_unregister(con->pd);
+-		con->pd = NULL;
+-		typec_unregister_port(con->port);
+-		con->port = NULL;
+-	}
++	for (con = connector; con->port; con++)
++		ucsi_unregister_port(con);
+ 	kfree(connector);
+ err_reset:
+ 	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
+@@ -2214,33 +2236,7 @@ void ucsi_unregister(struct ucsi *ucsi)
+ 
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
+ 		cancel_work_sync(&ucsi->connector[i].work);
+-
+-		if (ucsi->connector[i].wq) {
+-			struct ucsi_work *uwork;
+-
+-			mutex_lock(&ucsi->connector[i].lock);
+-			/*
+-			 * queue delayed items immediately so they can execute
+-			 * and free themselves before the wq is destroyed
+-			 */
+-			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
+-				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
+-			mutex_unlock(&ucsi->connector[i].lock);
+-			destroy_workqueue(ucsi->connector[i].wq);
+-		}
+-
+-		ucsi_unregister_partner(&ucsi->connector[i]);
+-		ucsi_unregister_altmodes(&ucsi->connector[i],
+-					 UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(&ucsi->connector[i]);
+-
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
+-		ucsi->connector[i].port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
+-		ucsi->connector[i].port_source_caps = NULL;
+-		usb_power_delivery_unregister(ucsi->connector[i].pd);
+-		ucsi->connector[i].pd = NULL;
+-		typec_unregister_port(ucsi->connector[i].port);
++		ucsi_unregister_port(&ucsi->connector[i]);
+ 		lockdep_unregister_key(&ucsi->connector[i].lock_key);
  	}
  
- 	if (pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index f44ccee5fa07..091c82ca8ee2 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -5466,6 +5466,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	if (xhci->hci_version > 0x100)
- 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
- 
-+	xhci->dma_mask_bits = 64;
- 	xhci->max_slots = min(HCS_MAX_SLOTS(hcs_params1), MAX_HC_SLOTS);
- 	xhci->max_ports = min(HCS_MAX_PORTS(hcs_params1), MAX_HC_PORTS);
- 	/* xhci-plat or xhci-pci might have set max_interrupters already */
-@@ -5515,12 +5516,16 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	if (xhci->quirks & XHCI_NO_64BIT_SUPPORT)
- 		xhci->hcc_params &= ~BIT(0);
- 
--	/* Set dma_mask and coherent_dma_mask to 64-bits,
--	 * if xHC supports 64-bit addressing */
-+	/*
-+	 * Set dma_mask and coherent_dma_mask to 64-bits if xHC supports
-+	 * 64-bit addressing, unless a controller-specific quirk callback
-+	 * limits the usable address width.
-+	 */
- 	if ((xhci->hcc_params & HCC_64BIT_ADDR) &&
--			!dma_set_mask(dev, DMA_BIT_MASK(64))) {
--		xhci_dbg(xhci, "Enabling 64-bit DMA addresses.\n");
--		dma_set_coherent_mask(dev, DMA_BIT_MASK(64));
-+	    !dma_set_mask(dev, DMA_BIT_MASK(xhci->dma_mask_bits))) {
-+		xhci_dbg(xhci, "Enabling %u-bit DMA addresses.\n",
-+			 xhci->dma_mask_bits);
-+		dma_set_coherent_mask(dev, DMA_BIT_MASK(xhci->dma_mask_bits));
- 	} else {
- 		/*
- 		 * This is to avoid error in cases where a 32-bit USB
-diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-index d02046a573e4..2d3941b5e1e3 100644
---- a/drivers/usb/host/xhci.h
-+++ b/drivers/usb/host/xhci.h
-@@ -1526,6 +1526,7 @@ struct xhci_hcd {
- 	/* imod_interval in ns (I * 250ns) */
- 	u32		imod_interval;
- 	u32		page_size;
-+	unsigned int	dma_mask_bits;
- 	/* MSI-X/MSI vectors */
- 	int		nvecs;
- 	/* optional clocks */
 
