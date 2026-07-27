@@ -1,181 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EF9417D77
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:31:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E22C417D8C
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785159093; cv=none; b=qQrtAaljfqDbrH+qTKUviWtX0Ur0mIrrmbR/QWYhbIYGbGS1U/MHFPk1PZmASpq1mCspWLalvoEvonoipZuegMMtYIpLwA9g2TdMdxd8by7jS97jQV8z9ULMKgzZVWqARHRRsJrYryIWYP/WT7RHRi0DjnDsDLXTSsY2fVoOyQs=
+	t=1785159105; cv=none; b=VhoCbiLlLFi19xmv+blc4Kjsd9hiOHqOJV33AaJSGfsVsov6T93v4ZY4AIPJlXHwwNLN9p4DE9mYF3wLG1TExDSSuIeUtoNLyfr9Sz1sLe2bTQ2EGJXg0KFfrGvtBG85LdhT340gBqTndwT6w6OFy+Nl53ERgIDKXXp3biw0sgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785159093; c=relaxed/simple;
-	bh=inNQsbpsFVORuqroKwwUv5suDEBnm9BrQzGMF0evDiw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=b+6mJKs89D8o8oDOPMoonw+GKFoLeyaFVRZJupPIUH/vtVgFR3Eusli2dqmJL1uqA5HKuf0QTLn5v4/8C1ULRBV4zejxCzvu2fH661pP+5bNS7KNCit6Q4HGdye+dYXXBURe9vuZqOikqWc0H+++ZPxaphJwGhEl4qWVw5SZIwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R1T0iYXf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785159105; c=relaxed/simple;
+	bh=A90FxV4X3bbdasQ8q74T7z9jOTk3OxtMuLafpSgOW30=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NlyKc8Grs1ghwTa1OC5wrV1NX0817EQNnVVIwP9k2QrLLJEPF2wY8AoSgqJ0AdBo+8g/yxxs4fiAodGRLlGBSqTaUJUWSa5PuQbwpLTN/AzPZ9vh7h0JazYodMqULAJJfq26pV9tdLRjOaOpxBEfjHHLbzRi1m1oAXcQ06XfctU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hi4ykHZv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R1T0iYXf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6935B1F000E9;
-	Mon, 27 Jul 2026 13:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785159090;
-	bh=Oj0m2DPUuPGAGwVD/R3BHcFOvNgTgDbKzyaKlI57RbA=;
-	h=Subject:To:Cc:From:Date;
-	b=R1T0iYXfDs2Dphb8J2xpWeF/e4HRU9RNOsDhfO4FV7QAEjSvaj9A1BmcQ4YFkomBS
-	 xa9QVdeFrPRV2g7wqmD4yvbPmaS5UDyk/vRYsonLGrcVYHhTzcAZX/eEeZISTCFsmp
-	 /+iQnIBBMCHDyVrMVQ9Z7HT9Nr2itOJWo0lEDT9A=
-Subject: FAILED: patch "[PATCH] usb: gadget: udc: bdc: free IRQ and drain func_wake_notify" failed to apply to 5.10-stable tree
-To: fanwu01@zju.edu.cn,gregkh@linuxfoundation.org,stable@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 27 Jul 2026 15:31:18 +0200
-Message-ID: <2026072718-obtuse-smuggling-fc35@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hi4ykHZv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9061F000E9;
+	Mon, 27 Jul 2026 13:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785159101;
+	bh=AUVfqNTBgVwJxhcpsOucU9Rh56PHf+IMjXWpx/5HwHs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Hi4ykHZvz2e4Jq3L+ltTMJys8Nm01J8Zz50XZL+GsZeEH7aKztSIHJVGyikeM9HBo
+	 JiFrZiQhv3cyNQY/wbzjFgY+8giAijVmzDRgZ1pdNT1FTz1h6/FZ8ddAr15U0f6PSb
+	 F5VoNBSNhl0HHUplnhKh/twsdLXXTWifkn/QJCnApQjvZB3EODf9mKbxffJH1zp7UK
+	 6CS444L+JCNCbjcpPu/zGaDj3FBZx7mv5Wjh5LIHN7/TL35AnmFvGvP/+jQk2PSkau
+	 YatoIpWrSSQbWu2Lmnr5TCAG1Ntv7+mdpct6kbry8OAGDiQZzFW8fZI4pwO4/s0KV2
+	 NsKzscstChhEg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Souvik Banerjee <souvik@amlalabs.com>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ovl: use linked upper dentry in copy-up tmpfile
+Date: Mon, 27 Jul 2026 09:31:39 -0400
+Message-ID: <20260727133139.539439-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072031-identical-landslide-20e5@gregkh>
+References: <2026072031-identical-landslide-20e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Souvik Banerjee <souvik@amlalabs.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit e348eecd4d8fa8d18a5157ff59f7be1dc59c5928 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+ovl_copy_up_tmpfile() stores the disconnected O_TMPFILE dentry as the
+overlay's upper dentry reference via ovl_inode_update().  vfs_tmpfile()
+allocated this dentry via d_alloc(parentpath->dentry, &slash_name), so
+d_name is "/" and d_parent is c->workdir.  Local upper filesystems
+(ext4, btrfs, xfs, ...) immediately rename it to "#<inum>" via
+d_mark_tmpfile() inside their ->tmpfile() op; FUSE and virtiofs do
+not, so both fields stay that way.  Neither identifies the destination
+directory and filename where ovl_do_link() actually linked the file.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 0583f2fbf8f86ae3a0ce054f96783dd83e65d9bb
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072718-obtuse-smuggling-fc35@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+When the upper filesystem implements ->d_revalidate() (e.g. FUSE or
+virtiofs), ovl_revalidate_real() calls it with the dentry's parent
+inode and a snapshot of d_name.  The server tries to look up "/" inside
+c->workdir, fails, and overlayfs reports -ESTALE.
 
-Possible dependencies:
+This causes persistent ESTALE errors for any file that was copied up via
+the tmpfile path, breaking dpkg, apt, and other tools that do
+rename-over-existing on overlayfs with a FUSE/virtiofs upper.
 
+Before commit 6b52243f633e ("ovl: fold copy-up helpers into callers"),
+the tmpfile copy-up path used a dedicated helper ovl_link_tmpfile()
+that captured the linked destination dentry returned by ovl_do_link():
 
+    err = ovl_do_link(temp, udir, upper);
+    ...
+    if (!err)
+        *newdentry = dget(upper);
 
-thanks,
+and published it via ovl_inode_update(d_inode(c->dentry), newdentry).
+The fold inlined ovl_do_link() into ovl_copy_up_tmpfile() but dropped
+the dget(upper) capture, and rewrote the publish line as
+ovl_inode_update(d_inode(c->dentry), dget(temp)) — where temp is the
+disconnected O_TMPFILE dentry.
 
-greg k-h
+Fix by keeping a reference to the linked destination dentry after
+ovl_do_link() succeeds, and publishing that dentry at the existing
+ovl_inode_update() call site.  The non-tmpfile/workdir path continues to
+publish the renamed temporary dentry.
 
------------------- original commit in Linus's tree ------------------
+Reproducer:
+  - Mount overlayfs with virtiofs (or a FUSE fs whose server advertises
+    FUSE_TMPFILE) as upper
+  - Run: dpkg -i <any .deb>
+  - Observe: "error installing new file '...': Stale file handle"
 
-From 0583f2fbf8f86ae3a0ce054f96783dd83e65d9bb Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Thu, 9 Jul 2026 02:09:04 +0000
-Subject: [PATCH] usb: gadget: udc: bdc: free IRQ and drain func_wake_notify
- before teardown
+Fixes: 6b52243f633e ("ovl: fold copy-up helpers into callers")
+Cc: stable@vger.kernel.org # v4.20+
+Signed-off-by: Souvik Banerjee <souvik@amlalabs.com>
+Link: https://patch.msgid.link/20260501232735.2610824-1-souvik@amlalabs.com
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ adapted scoped credential and creation helpers to explicit credential, locking, lookup, and cleanup handling ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/overlayfs/copy_up.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-The Broadcom BDC UDC driver registers its IRQ handler with
-devm_request_irq() in bdc_udc_init(), so the IRQ is released by devm
-only after bdc_remove() returns.  devm releases resources in reverse
-LIFO order, but bdc_remove() runs bdc_udc_exit() and bdc_hw_exit() ->
-bdc_mem_free() manually before returning: bdc_udc_exit() tears down
-individual endpoint objects via bdc_free_ep(), while bdc_hw_exit() ->
-bdc_mem_free() frees and NULLs the DMA-coherent status-report ring
-(bdc->srr.sr_bds) and kfree()s bdc->bdc_ep_array.  Both happen while
-the IRQ handler (bdc_udc_interrupt, requested with IRQF_SHARED)
-remains deliverable in the window up to the post-remove devm
-free_irq().
-
-On receipt of a shared interrupt in that window, bdc_udc_interrupt()
-dereferences bdc->srr.sr_bds[bdc->srr.dqp_index] (NULL or freed DMA)
-and dispatches sr_handler callbacks that index into bdc_ep_array,
-causing a NULL-deref or use-after-free.
-
-The same window affects the delayed_work bdc->func_wake_notify, which is
-armed from the IRQ handler via bdc_sr_uspc() -> handle_link_state_change()
--> schedule_delayed_work() and may self-rearm from its own callback
-bdc_func_wake_timer().  No cancel exists anywhere in the driver, so a
-queued work item that fires after bdc_remove() returns and the bdc
-structure is devm-freed dereferences freed memory.
-
-Replace devm_request_irq() with request_irq() and add an explicit
-free_irq(bdc->irq, bdc) in bdc_remove().  Clear BDC_GIE before
-free_irq() to stop the device from asserting interrupts, then
-free_irq() drains any in-flight handler, then cancel_delayed_work_sync()
-drains the func_wake_notify delayed work.  This ordering ensures the
-IRQ handler and delayed work cannot interfere with the subsequent
-endpoint and DMA teardown in bdc_udc_exit() and bdc_hw_exit().  Wire the
-matching free_irq() into the bdc_udc_init() error path so the IRQ is
-released on probe failure, and route the bdc_init_ep() failure through
-err0 instead of returning directly.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: efed421a94e6 ("usb: gadget: Add UDC driver for Broadcom USB3.0 device controller IP BDC")
-Cc: stable <stable@kernel.org>
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260709020904.502611-1-fanwu01@zju.edu.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/usb/gadget/udc/bdc/bdc_core.c b/drivers/usb/gadget/udc/bdc/bdc_core.c
-index 438201dc96ca..a8dbaef54aba 100644
---- a/drivers/usb/gadget/udc/bdc/bdc_core.c
-+++ b/drivers/usb/gadget/udc/bdc/bdc_core.c
-@@ -585,9 +585,29 @@ static int bdc_probe(struct platform_device *pdev)
- static void bdc_remove(struct platform_device *pdev)
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+index 97f373fd98797d..89317e1e7361b8 100644
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -864,7 +864,7 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
  {
- 	struct bdc *bdc;
-+	unsigned long flags;
-+	u32 temp;
- 
- 	bdc  = platform_get_drvdata(pdev);
- 	dev_dbg(bdc->dev, "%s ()\n", __func__);
-+	/*
-+	 * Disable the device interrupt source before freeing the IRQ:
-+	 * clear BDC_GIE so the controller stops asserting interrupts,
-+	 * then free_irq drains any in-flight handler.
-+	 */
-+	spin_lock_irqsave(&bdc->lock, flags);
-+	temp = bdc_readl(bdc->regs, BDC_BDCSC);
-+	temp &= ~BDC_GIE;
-+	bdc_writel(bdc->regs, BDC_BDCSC, temp);
-+	spin_unlock_irqrestore(&bdc->lock, flags);
-+	free_irq(bdc->irq, bdc);
-+	/*
-+	 * Drain func_wake_notify after free_irq: the IRQ handler arms this
-+	 * delayed_work via bdc_sr_uspc -> handle_link_state_change ->
-+	 * schedule_delayed_work (self-rearmed in bdc_func_wake_timer), so
-+	 * the IRQ must be released first to prevent re-arm after cancel.
-+	 */
-+	cancel_delayed_work_sync(&bdc->func_wake_notify);
- 	bdc_udc_exit(bdc);
- 	bdc_hw_exit(bdc);
- 	bdc_phy_exit(bdc);
-diff --git a/drivers/usb/gadget/udc/bdc/bdc_udc.c b/drivers/usb/gadget/udc/bdc/bdc_udc.c
-index 23826fd7a8e6..7a12219edac6 100644
---- a/drivers/usb/gadget/udc/bdc/bdc_udc.c
-+++ b/drivers/usb/gadget/udc/bdc/bdc_udc.c
-@@ -530,8 +530,8 @@ int bdc_udc_init(struct bdc *bdc)
- 
- 
- 	bdc->gadget.name = BRCM_BDC_NAME;
--	ret = devm_request_irq(bdc->dev, bdc->irq, bdc_udc_interrupt,
--				IRQF_SHARED, BRCM_BDC_NAME, bdc);
-+	ret = request_irq(bdc->irq, bdc_udc_interrupt, IRQF_SHARED,
-+			  BRCM_BDC_NAME, bdc);
- 	if (ret) {
- 		dev_err(bdc->dev,
- 			"failed to request irq #%d %d\n",
-@@ -542,7 +542,7 @@ int bdc_udc_init(struct bdc *bdc)
- 	ret = bdc_init_ep(bdc);
- 	if (ret) {
- 		dev_err(bdc->dev, "bdc init ep fail: %d\n", ret);
--		return ret;
-+		goto err0;
+ 	struct ovl_fs *ofs = OVL_FS(c->dentry->d_sb);
+ 	struct inode *udir = d_inode(c->destdir);
+-	struct dentry *temp, *upper;
++	struct dentry *temp, *upper, *newdentry = NULL;
+ 	struct file *tmpfile;
+ 	struct ovl_cu_creds cc;
+ 	int err;
+@@ -901,6 +901,14 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
+ 	err = PTR_ERR(upper);
+ 	if (!IS_ERR(upper)) {
+ 		err = ovl_do_link(ofs, temp, udir, upper);
++		if (!err) {
++			/*
++			 * Record the linked dentry -- not the disconnected
++			 * O_TMPFILE dentry -- so that ->d_revalidate() on
++			 * the upper fs sees the real parent/name.
++			 */
++			newdentry = dget(upper);
++		}
+ 		dput(upper);
  	}
+ 	inode_unlock(udir);
+@@ -916,7 +924,7 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
  
- 	ret = usb_add_gadget_udc(bdc->dev, &bdc->gadget);
-@@ -571,6 +571,7 @@ int bdc_udc_init(struct bdc *bdc)
- err1:
- 	usb_del_gadget_udc(&bdc->gadget);
- err0:
-+	free_irq(bdc->irq, bdc);
- 	bdc_free_ep(bdc);
+ 	if (!c->metacopy)
+ 		ovl_set_upperdata(d_inode(c->dentry));
+-	ovl_inode_update(d_inode(c->dentry), dget(temp));
++	ovl_inode_update(d_inode(c->dentry), newdentry);
  
- 	return ret;
+ out:
+ 	ovl_end_write(c->dentry);
+-- 
+2.53.0
 
