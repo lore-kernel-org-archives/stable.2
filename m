@@ -1,60 +1,58 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2FF40DB3F;
-	Mon, 27 Jul 2026 13:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3FE40F75F;
+	Mon, 27 Jul 2026 13:19:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158361; cv=none; b=EugEhw9NxV8JyE5msPJj1VRIe3Im1DF052kWgcftX5mnZ4ALTRrfPHb7E4A5X3YxV4VQegF+ptAU/FEGxfhe8v2vkNZ59pfSyROiVzc9x6ImJLR6Vy+6YFgIKCCm1yZc+cDEd0xWlcVDlm0+NyxVDd032fyr/aaW/cjcncgg8vc=
+	t=1785158363; cv=none; b=Dzslf1zjf9GrNIBxISQLLADGP0G94yTIO3lkIhmyGpC2EzyLoh4zT4NZWNS4M2qn+Gh9N9yLyYkniBc2sWLCoEInZVLzbnyHTWT8QM4aYWT+aMgOkOUFMu9eE/7qLix7mBx0MbEMfx3TYfIye5ceHXgQMuaIto/Rk0R65G00zB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158361; c=relaxed/simple;
-	bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
+	s=arc-20240116; t=1785158363; c=relaxed/simple;
+	bh=csD4C9aGmo8ROb3Tk3cNJUGCpn5XKsdKsR71UwnyuvY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=klqQq5M1Cw4aeAhCgb8EhrO434OR+v2/ik3nytCuXPdnQcVaftKk9sqkE3znfirUuh8kDyJtjzU5ZqlOqJ7wLibqYFgJyNZyWBW1pRohr/wMxJSUsmZo+KhW3tDc6SS+D5IpfNv5blUGIu3opFXz2DM8kg7wIzKWcjKvcl9OqYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=L4TwiAxN; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=WM7Eil5l; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=jRP52CHJJAQZfiWK2k92Ew4WECls/qIb3bO7xB+RRP+LpoQozgAm7UPL3ir6IC5Kebh2RNb93Aw4TxYApVPCL5beKknePks7P/R7s8+CR5otxy5TXS9SdtnAhAAV5Hws6GDfaP0seIEcetJM6VWMe1Ct+whxwWp2eMOEdmVx1iA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=s7RNka83; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=YbHK2+Cf; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="L4TwiAxN";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="WM7Eil5l"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="s7RNka83";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="YbHK2+Cf"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158352; bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
+	t=1785158354; bh=csD4C9aGmo8ROb3Tk3cNJUGCpn5XKsdKsR71UwnyuvY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=L4TwiAxNK/Cb3MvZW0k64qIQL19rqUf+xvgm/a6C96QQrrq9yoykH4D4fsAkl71WW
-	 UCF68s7TiR70P8KG81EYQ/vnMqlzZ3O364AS5Lvlv1fE+KjR7nvAJ8cNrhq+JNEQxf
-	 6h6WuySNbtHPbz6BckyW9/cQVx1WnBuk7/KTZRYnEvurNah4OpYtV4RuJJS/PnvYKw
-	 6yADaI+NKXBjSCoNaQ5AGo+LqmVu/SPPrNdmgGLpG6CQl0q5HSjAznCp9+6ABDjWZz
-	 CPW24mL4kixGZt+7lHwW7ainyoCZngck4UyuTvWNKIF6SOaNrt33ax2TsEziM1FYrk
-	 A++iUuCuEEtmg==
+	b=s7RNka83HYJQpenFCHP/n65+dJf4pYnesKC2eTme/hhld5qpMJpVc0DihN53N6nbt
+	 7cwEZPNzjczaBW1Y17uAqRD4P8OGXUeYWis4CxkIfjkJUkuHrLHnydMN7nO+DLFiTa
+	 SJVfouGvLes8Fp8R6l4H3XUAiGqnn2DLjfQadjxp0kGlt6vsbuu+NYmlMzN1e9nrFX
+	 oBR8U3oK/bgxt8EsXbMRFb7gz37ja6KekAlrjvXjkuTay8AedJaaVJtwYH/H/qKIiX
+	 Sjygf45LGfSkaKeQxFtpWMCY04FdzDK2IE1M/5RexN9lnt4sRgMN4iIMTFjhSss+Ig
+	 wu8IC+q5N8HAg==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 7235F4252A; Mon, 27 Jul 2026 14:19:12 +0100 (BST)
+	id 71E7D42532; Mon, 27 Jul 2026 14:19:14 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158351; bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
+	t=1785158353; bh=csD4C9aGmo8ROb3Tk3cNJUGCpn5XKsdKsR71UwnyuvY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WM7Eil5lQ9SqFEc+rE7lJ7oWanQ2jHhLVze9rg4sq7CrQis9fbjaqS31NuKUpaLX7
-	 CC6iPwaf6TsO7fFyQiytGJRPRD/o0EDtrMrU4sWbXB1X2Jod0LA+amyS/aOXIX8VyO
-	 qiAKX1XUFMR/wgGj77MXFRoI71uVPF5B1FNaqoGgoZUEu4pOK62LdKAS/ZVqowymFp
-	 i9cG85ujYzDkHIPAfjvLYLrlpDEi1DhUc53bd8IcpG5VN7dzEQ74VxUBsENl5OzwhS
-	 T4cDqJJLTk6ffUC1oXtK1EvVDJ7WdIIxEYzedUluRO5PhEJpDKP/41ggUmeUKkFwxb
-	 Zyde6MZTYEU8A==
+	b=YbHK2+Cfi9Z7miLpzUB6T+UBL5QsurCX5ilQk3Izgd7SYrAlGgRwvxSWujO5l+3B4
+	 BSOM87ui4IJe83APGGSIUk6flo1NGQfT08TLa1KeIxj01Qor0RBtsNGqtK905798Ue
+	 JOnvh9ttOMErzPiAnTPwVfwYpFieO1caAaeANEv9NuVd7EmqXkFWx863j8G2hdEMBS
+	 X7gHvDxEJvVIvvxqgF6N05UnxXjsPske1Pgo9/x+PZAXO0WDImf+vl5mggCa2PLO0P
+	 QTXfz+msU1XOXmm8XZM0SAhxHfJoDYWEnYAvUWMLNKshiFsZn6qB6lAW7SDb23YlYN
+	 H5GKRJ/Pngk1A==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 81A7641567;
-	Mon, 27 Jul 2026 14:19:11 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 9C03342532;
+	Mon, 27 Jul 2026 14:19:13 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 01/15] media: streamzap: Add missing rc_unregister_device()
-Date: Mon, 27 Jul 2026 14:18:44 +0100
-Message-ID: <84b29522529b542fd604efa258383c445c0f9663.1785158244.git.sean@mess.org>
+Subject: [PATCH v4 04/15] media: redrat3: Ensure all urbs are suspended
+Date: Mon, 27 Jul 2026 14:18:47 +0100
+Message-ID: <e599d9b8f7f52c0de46f7c8a543439dc03a5b78d.1785158244.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1785158244.git.sean@mess.org>
 References: <cover.1785158244.git.sean@mess.org>
@@ -66,29 +64,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If usb_submit_urb() fails during probe, then the error path is missing a
-call to rc_unregister_device(), which will leak various things like the
-input device.
+Ensure that the learn urb is stopped before suspend.
 
-Fixes: 42844992664f ("media: rc: streamzap: Error handling in probe")
+Fixes: c49fcdde38cb ("[media] redrat3: enable carrier reports using wideband receiver")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/streamzap.c | 1 +
+ drivers/media/rc/redrat3.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/rc/streamzap.c b/drivers/media/rc/streamzap.c
-index 307985d74fe8..41195ad82734 100644
---- a/drivers/media/rc/streamzap.c
-+++ b/drivers/media/rc/streamzap.c
-@@ -365,6 +365,7 @@ static int streamzap_probe(struct usb_interface *intf,
- 
+diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
+index f86efcb74e6e..994d4864520c 100644
+--- a/drivers/media/rc/redrat3.c
++++ b/drivers/media/rc/redrat3.c
+@@ -1170,6 +1170,7 @@ static int redrat3_dev_suspend(struct usb_interface *intf, pm_message_t message)
+ 	usb_kill_urb(rr3->narrow_urb);
+ 	usb_kill_urb(rr3->wide_urb);
+ 	usb_kill_urb(rr3->flash_urb);
++	usb_kill_urb(rr3->learn_urb);
  	return 0;
- rc_submit_fail:
-+	rc_unregister_device(sz->rdev);
- 	rc_free_device(sz->rdev);
- 	usb_set_intfdata(intf, NULL);
- rc_dev_fail:
+ }
+ 
 -- 
 2.55.0
 
