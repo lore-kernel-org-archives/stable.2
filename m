@@ -1,92 +1,151 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CAA348C52;
-	Mon, 27 Jul 2026 15:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493F2187346
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 15:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785167375; cv=none; b=YIToYRJJwf+wFsdW+wY+5JFv6uIovaX+UO9fuWVhbagMN4VpdbltlsDsTr1plmh9KYGbKL1GHBFXlbeeMqyYaDBDWzKQM0MwCiSyfjCeIgYIjAIT0n64KjAElpJU4sCnbkqkB0kXGt5+llXOSXa47JcoZ0NJGOJq1XcljSws35I=
+	t=1785167437; cv=none; b=eKmC+G8apzIk2Aun2uU7GcZHs0k4lXLNjNxRQc9YDKThhsSptoW64e6L9BwAhL8BNc7XYt6xVHdShAyuc5t8ZBUVOaP0a7MeTtBdrm57m8TaHuAZJYGTnEFXUBJUnIpdtPDUPj0auPgavHTGG1VPSFMVEEcL6Yk6FkXAndZKcRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785167375; c=relaxed/simple;
-	bh=/mWGiKv4o5WsbNp1EvcaSaF/2pobFyqmigN47mq+NEM=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=SrByjDasE6DnMc++amX8goOpfReWJexC0ui/M+1tgP0mW/T0RIBzr01SDDEuvI0IYc4k5RXdgzIiXz0Cutdf6tBP21L9F4hZMjzWJYgUxYByNdZHFaXjf1oMHtNT8HxaIReIV+4YHbadEAIorY5ZnO92zy63mkY2nVqg/xTSWzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=ZsYU5w7M; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1785167437; c=relaxed/simple;
+	bh=BO14o1O7+gjJslo+44NBkexjRlIePIWFhnl1fuAWvpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LuePF5mqhVlhNlcF97AQFKRYHqY7dkDC2OIJY13ChmGQW8eyMK89voUNVe6rbM3s/T20+AAh8gczxJefOV7iSwUPK8sggnrex6/qWpSBF0/97CIRdpQRDR/JaPlzQsMSbF1nLrbUwKiFhWizlOZijsNJa+TWhMUuNf1YlaMObfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlxhibdJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="ZsYU5w7M"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=pAsOaMbYD+VLrKmhf9xajBJNx4DVk5XK8SrCLkgsxyc=; b=ZsYU5w7MEJcCZBLtMtpliX1JwA
-	/y8H3I10OsJZWklS/25iu56zAVAZ8t/+TlzVdpnHXVphyuImR1Idx0/8+CTzcBebY62EPLblLBSfz
-	tolaxekj2wdB9OJMK6gyR4PskuKv9cllyHRS9GfwKKEZ7A9W0fnf4UpgnSs3906atM7muZ8njM85i
-	ajLfOJymqCg24FUJdIfr0JWwd18k8h+HPao5khF1R4Yasfv21ZP6rrHxs7ksPkyGvK67DRT6qO12+
-	v98wGAvY0y6GnqR7PTMLlajN6WRLcmEHnA66pt8y4qwllU2Kb5bONRdju7kUIzmDPKunMe9wE62dp
-	0ooG+icg==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1woNa3-0000000GHTa-2lIC;
-	Mon, 27 Jul 2026 09:49:28 -0600
-Message-ID: <ba159aaa-648c-418e-b762-29822aaf12ab@deltatee.com>
-Date: Mon, 27 Jul 2026 09:49:27 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlxhibdJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4647C1F000E9;
+	Mon, 27 Jul 2026 15:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785167435;
+	bh=V6XVgvkh1WrZYSgZMZSeDVzfEcK9704As8HsoakVicY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QlxhibdJ71osUR4vF0cklODCAcLFluAjlris/CzXMwkvSa8yfOp7bjvbTCMCPpa2i
+	 KtrHc8KbLFmhUN66Uu/cbnna0EDMdHbLu4DFgVGCgv5kQw0TUZnFHh+ISJZ//v9sxG
+	 Z7ZwcLbwc+W2mpLTDOKNHHK0UJHgZMsmixN7/ygRLb8TcVUGH8uIQQdq43+4CRwJ/5
+	 6zqxJbQsUBm+DvFsfVObDQ5ej+xtg4APmG3Y0LCtyZyNxZz8l8MA/pQQlCUA01mCIN
+	 ar5v+7/Izbp2IuAjsxRMzJRyWH8GzxnO/Dp0Aogr86MwgbSPpDAE7IOgXPkTcq+Cna
+	 tOyJFP5ikSSEg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Souvik Banerjee <souvik@amlalabs.com>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ovl: use linked upper dentry in copy-up tmpfile
+Date: Mon, 27 Jul 2026 11:50:33 -0400
+Message-ID: <20260727155033.1627205-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072033-flagman-culture-22c3@gregkh>
+References: <2026072033-flagman-culture-22c3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Mykola Marzhan <mykola@meshstor.io>, Jens Axboe <axboe@kernel.dk>,
- Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
- Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org
-Cc: Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
- Guoqing Jiang <guoqing.jiang@linux.dev>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kiran Kumar Modukuri <kmodukuri@nvidia.com>,
- Chaitanya Kulkarni <kch@nvidia.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Shivaji Kant <shivajikant@google.com>, Pranjal Shrivastava
- <praan@google.com>, Henrique Carvalho <henrique.carvalho@suse.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- Thorsten Leemhuis <regressions@leemhuis.info>, Martin Wilck <mwilck@suse.com>
-References: <20260726113229.2154269-1-mykola@meshstor.io>
- <20260726113229.2154269-13-mykola@meshstor.io>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260726113229.2154269-13-mykola@meshstor.io>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: mykola@meshstor.io, axboe@kernel.dk, song@kernel.org, yukuai@fygo.io, kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, linux-block@vger.kernel.org, linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org, magiclinan@didiglobal.com, xiao@kernel.org, guoqing.jiang@linux.dev, leon@kernel.org, jgg@ziepe.ca, kmodukuri@nvidia.com, kch@nvidia.com, bhelgaas@google.com, shivajikant@google.com, praan@google.com, henrique.carvalho@suse.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org, regressions@leemhuis.info, mwilck@suse.com
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v6 12/12] nvme-rdma: factor out the scatterlist DMA
- mapping helper
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Transfer-Encoding: 8bit
 
+From: Souvik Banerjee <souvik@amlalabs.com>
 
+[ Upstream commit e348eecd4d8fa8d18a5157ff59f7be1dc59c5928 ]
 
-On 2026-07-26 05:32, Mykola Marzhan wrote:
-> The data and the metadata mapping do the same thing: describe the
-> segments blk_rq_map_sg() produced in a local sg_table -- the embedded
-> one's orig_nents is the allocated size, not the valid-segment count --
-> map that, and hand back the DMA-mapped count.  Fold both into a
-> helper.
-> 
-> No functional change.
-> 
-> Suggested-by: Logan Gunthorpe <logang@deltatee.com>
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Mykola Marzhan <mykola@meshstor.io>
+ovl_copy_up_tmpfile() stores the disconnected O_TMPFILE dentry as the
+overlay's upper dentry reference via ovl_inode_update().  vfs_tmpfile()
+allocated this dentry via d_alloc(parentpath->dentry, &slash_name), so
+d_name is "/" and d_parent is c->workdir.  Local upper filesystems
+(ext4, btrfs, xfs, ...) immediately rename it to "#<inum>" via
+d_mark_tmpfile() inside their ->tmpfile() op; FUSE and virtiofs do
+not, so both fields stay that way.  Neither identifies the destination
+directory and filename where ovl_do_link() actually linked the file.
 
-In the future, it's usually better to do the refactoring commits before
-the commits that change things (as that makes the important commits
-easier to understand). But that is a very minor nit. Thanks!
+When the upper filesystem implements ->d_revalidate() (e.g. FUSE or
+virtiofs), ovl_revalidate_real() calls it with the dentry's parent
+inode and a snapshot of d_name.  The server tries to look up "/" inside
+c->workdir, fails, and overlayfs reports -ESTALE.
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+This causes persistent ESTALE errors for any file that was copied up via
+the tmpfile path, breaking dpkg, apt, and other tools that do
+rename-over-existing on overlayfs with a FUSE/virtiofs upper.
+
+Before commit 6b52243f633e ("ovl: fold copy-up helpers into callers"),
+the tmpfile copy-up path used a dedicated helper ovl_link_tmpfile()
+that captured the linked destination dentry returned by ovl_do_link():
+
+    err = ovl_do_link(temp, udir, upper);
+    ...
+    if (!err)
+        *newdentry = dget(upper);
+
+and published it via ovl_inode_update(d_inode(c->dentry), newdentry).
+The fold inlined ovl_do_link() into ovl_copy_up_tmpfile() but dropped
+the dget(upper) capture, and rewrote the publish line as
+ovl_inode_update(d_inode(c->dentry), dget(temp)) — where temp is the
+disconnected O_TMPFILE dentry.
+
+Fix by keeping a reference to the linked destination dentry after
+ovl_do_link() succeeds, and publishing that dentry at the existing
+ovl_inode_update() call site.  The non-tmpfile/workdir path continues to
+publish the renamed temporary dentry.
+
+Reproducer:
+  - Mount overlayfs with virtiofs (or a FUSE fs whose server advertises
+    FUSE_TMPFILE) as upper
+  - Run: dpkg -i <any .deb>
+  - Observe: "error installing new file '...': Stale file handle"
+
+Fixes: 6b52243f633e ("ovl: fold copy-up helpers into callers")
+Cc: stable@vger.kernel.org # v4.20+
+Signed-off-by: Souvik Banerjee <souvik@amlalabs.com>
+Link: https://patch.msgid.link/20260501232735.2610824-1-souvik@amlalabs.com
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Reviewed-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ adapted scoped credential and creation helpers to explicit credential, locking, lookup, and cleanup handling ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/overlayfs/copy_up.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+index ced56696beeb31..9d5d61a4efa382 100644
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -736,7 +736,7 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
+ {
+ 	struct ovl_fs *ofs = OVL_FS(c->dentry->d_sb);
+ 	struct inode *udir = d_inode(c->destdir);
+-	struct dentry *temp, *upper;
++	struct dentry *temp, *upper, *newdentry = NULL;
+ 	struct file *tmpfile;
+ 	struct ovl_cu_creds cc;
+ 	int err;
+@@ -769,6 +769,14 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
+ 	err = PTR_ERR(upper);
+ 	if (!IS_ERR(upper)) {
+ 		err = ovl_do_link(ofs, temp, udir, upper);
++		if (!err) {
++			/*
++			 * Record the linked dentry -- not the disconnected
++			 * O_TMPFILE dentry -- so that ->d_revalidate() on
++			 * the upper fs sees the real parent/name.
++			 */
++			newdentry = dget(upper);
++		}
+ 		dput(upper);
+ 	}
+ 	inode_unlock(udir);
+@@ -778,7 +786,7 @@ static int ovl_copy_up_tmpfile(struct ovl_copy_up_ctx *c)
+ 
+ 	if (!c->metacopy)
+ 		ovl_set_upperdata(d_inode(c->dentry));
+-	ovl_inode_update(d_inode(c->dentry), dget(temp));
++	ovl_inode_update(d_inode(c->dentry), newdentry);
+ 
+ out_fput:
+ 	fput(tmpfile);
+-- 
+2.53.0
+
