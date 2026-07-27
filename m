@@ -1,65 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F5737A847;
-	Mon, 27 Jul 2026 23:24:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9F31427A
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 23:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785194657; cv=none; b=fN99AyCMDx6wRl4wbaM2hvlYhmO7HBoHbd/TdPvi1Pe/UgjoT58eteDVa/84FPadehIfzleaI0LeCtu4AzlI3TjgkSCpBWCaO8eBafvYFJNTfvjC/PBpieFXFoAxwf2BCmpKV0CLyqnRoB4K8A0ZJIC/55SyaCBNXeyAnU3F/z4=
+	t=1785195265; cv=none; b=f6JanFc3ueZtyPHPteB2Gw9iWOuEcl6htWY+i/hvErjpAkLHiXE88BZX4AbJToBeu4aay89kZviEkEe/M6rsYkp4dkjC4vry9VNZNwk88hlrtZLGiy0Q/7QNfOm29FFEofnT0W0L6d3XeIhi+SIJwZYwXrvvxV20Szn5I46PfYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785194657; c=relaxed/simple;
-	bh=tXSfV/B6PixeblPbGx6s2fNJmRGT/XWfhNrLEH2t030=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jiCskxLMeXoEFNJFNWLZR3MWLfBnrRPw3DfxBd9bDnC+xWixdyt2BE3rvFu8QxCjppiAbXvSIf7vxvog1Vnane4tdI4B9ommSXCxf5Rmzkp6yHTtcJDGDTAU+MMb6L7f+Vs5q/IC8PuhFk8ZFEbYyyboUsIPT0eGCEt+unHADM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwOPwSrl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785195265; c=relaxed/simple;
+	bh=nAuv/7NdCC+0ciRLy4Nz84UmG+QSUsSrYcVvd5NPukg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iPyndU3y+BH56PIl//b48AY7VAyQ0yZABcFepCjcbrS6DS7sjcf96Rk/cFZSf6lJPRIAEWXZuHhsuA+WxTHWxD3Z2YW0x8vVBhTq1Pp9wx/EKSGkRpLPTTkVpzmNjp3i2bTxIjIqiOOA61droxOTRk7z4pW+3PJk4NmFhV0PmXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyupDKr8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwOPwSrl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1321F000E9;
-	Mon, 27 Jul 2026 23:24:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyupDKr8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9D01F000E9;
+	Mon, 27 Jul 2026 23:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785194656;
-	bh=sWaV1GLmCuDyza/UC9bJbOWMP5cjBRlpyS8MJdqzhTw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kwOPwSrlDwByVQIVzQlxy/a9EhNem8A3Pofa5fhxYBe216e2WfcaGUOIkDCHxbBrL
-	 GVCLcTq8Wxoihe4qxacv8O/nFRM8IQWDCJZHpV7B0hEmVK2ddWe7RqoV+rL/7USv3i
-	 sm+qrJb7GGloMBWpI2i+Hu4s5Q9skb5O1EvKlz4oetKujqkVtUqf6nSoZXiD+QMWUc
-	 0pNIpX425u/C/o2+24MPsBEvubaZA6SA/Cj51b9UyzXR6GcVe2UtOsBbaPLJlRsev4
-	 w5UPyUjgDd50eOXOSuO4rUEBh+ShmP207wnw/vKsfFbhpHjywuwHGlRZNH2mjNKsyD
-	 jpewCJXNGWLKw==
-Date: Mon, 27 Jul 2026 16:24:14 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
- maheshb@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH net v3] net: reduce XMIT_RECURSION_LIMIT under KASAN
-Message-ID: <20260727162414.68617fe7@kernel.org>
-In-Reply-To: <20260727200454.4048141-1-tristmd@gmail.com>
-References: <20260727200454.4048141-1-tristmd@gmail.com>
+	s=k20260515; t=1785195264;
+	bh=BsHfypMgaGhX4MzauigOUYjAYIQdT8fLijWH6rEy/xE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WyupDKr8SMlXOX6sQ2QZCYACjotTtI67SjcmcgO3yTmK9KbF3cLg72KFdjfNefc89
+	 dxRiKv4Qlt/avgWLeLC82vjwJcUpkU3QAHEZRsqfH+Z9HvlZTBcw4LkB9cdYFRqQhB
+	 6GXsCZuKwj9+PuTQ25E9frJtpcxslAR+83Mw7O+iN+M+UY1QftyhvjkTPBaP49h4FS
+	 r+VKKR6hmP1xe55UzDblVHfoFqGiHA7VeBHZtcVRamvWScNGNLyBtj/hbGd8j+DzO8
+	 wIa+gxonXL2Iqn9h3o/9CO/teotdpEzUJdB8yvVdegHpa0jX/eKpEvc+AHXSfq3pY5
+	 iqti/bWZagLvQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tony Luck <tony.luck@intel.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] fs/resctrl: Split L3 dependent parts out of __mon_event_count()
+Date: Mon, 27 Jul 2026 19:34:15 -0400
+Message-ID: <20260727233421.2423844-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072028-reverence-sandy-7415@gregkh>
+References: <2026072028-reverence-sandy-7415@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 27 Jul 2026 20:04:54 +0000 Tristan Madani wrote:
-> +#ifdef CONFIG_KASAN
-> +#define XMIT_RECURSION_LIMIT	3
-> +#else
->  #define XMIT_RECURSION_LIMIT	8
-> +#endif
+From: Tony Luck <tony.luck@intel.com>
 
-At least these tests (maybe more) fail with a limit this low:
-  - selftests/net/forwarding/vxlan_symmetric.sh
-  - selftests/net/forwarding/vxlan_symmetric_ipv6.sh
-  - selftests/net/forwarding/vxlan_asymmetric.sh
-  - selftests/net/forwarding/vxlan_asymmetric_ipv6.sh
-  - selftests/net/test_bridge_backup_port.sh
-  - selftests/net/test_vxlan_mdb.sh
+[ Upstream commit ad5c2ff75e0c53d2588dfc10eb87458e759b6bbe ]
 
-Can in investigate what limit they need and whether their max is good
-enough to avoid issues with KASAN?
+Carve out the L3 resource specific event reading code into a separate helper
+to support reading event data from a new monitoring resource.
+
+Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+Link: https://lore.kernel.org/20251217172121.12030-1-tony.luck@intel.com
+Stable-dep-of: 52fce648607e ("fs/resctrl: Fix use-after-free during unmount")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/resctrl/monitor.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 7012a75814ac36..cdd5070d9ec71d 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -418,7 +418,7 @@ static void mbm_cntr_free(struct rdt_mon_domain *d, int cntr_id)
+ 	memset(&d->cntr_cfg[cntr_id], 0, sizeof(*d->cntr_cfg));
+ }
+ 
+-static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
++static int __l3_mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ {
+ 	int cpu = smp_processor_id();
+ 	u32 closid = rdtgrp->closid;
+@@ -499,6 +499,17 @@ static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+ 	return ret;
+ }
+ 
++static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
++{
++	switch (rr->r->rid) {
++	case RDT_RESOURCE_L3:
++		return __l3_mon_event_count(rdtgrp, rr);
++	default:
++		rr->err = -EINVAL;
++		return -EINVAL;
++	}
++}
++
+ /*
+  * mbm_bw_count() - Update bw count from values previously read by
+  *		    __mon_event_count().
+-- 
+2.53.0
+
