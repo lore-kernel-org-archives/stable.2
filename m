@@ -1,168 +1,177 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5531041A55A
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BEE41A4EC
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785160086; cv=pass; b=qqt0Myo/2oQrEKEbIWN04nPSpq8JOj/juq+qNJEHTeLWMUiC9tlCF2FuQaNMSOcNWskXtH/s2PaUJIMa7cuGbe3EcqE2+V47PjTR3Ji+J/ZokuSxDzg3NLdvx4lFH2do/xMdiVevBQAeajEMwDBDhVBvz0CW1N439G9D17gbe3w=
+	t=1785160789; cv=pass; b=nswexaJlpjivZRf+gkTUUKlNuoHO6MQi0D7xPtlDmMS3qR11GSCZmpEdoyj4DVWcQaB1nYwwD07buiUwEBffPPnc/s/Hdg/AdszIlaVtgBOgChb7lul22xLjm+JomWA8H5T0dQ9hizQB7kaO2XGMS+3qRQ8CyzJEKbcgUX/PnfI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785160086; c=relaxed/simple;
-	bh=ooVT35Vt6WqjSAwuZBzjQOrJdRmYiUnu3JOKe1QbxUs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mcgIHsRMyUqJ5wOSY0xA2eiDDTR2qdfNqHRXxbsE4tqQwyHZCtIkxl2m4yVY5yz1vPtJ6ApJ3vt4m2qgHrZZKWwjbNm14AFwl0Rsir5iScPNH+zgor3YS48aKgOpeqoe6lA42ijhqpTRi7rII0Aj0w0DNBxlFoDYNusq9OteaEw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=iCN/myDz; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=yQ5mFvAr; arc=pass smtp.client-ip=85.215.255.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	s=arc-20240116; t=1785160789; c=relaxed/simple;
+	bh=IEpFdTbEDe4/3qS7nmuAXGPsai2eB8Cjwz1UUJ9YxOo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MhLPrvIsHABkJKZbh5WNKjXlyKmiPS6RRT5G0f9FKaal5Pk+cmMPYjQOWJtY+mtcu0D/HE5uOdS2gCegiqP1qFpHZkWJVbSxIZUb3LvyzXuAoHzGPfRYy3tSfDHC95HV8oNYOS3YEhPm+JUe/6AjWah+FGQvVIzn4XrwZlEnsC4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbMfWq6f; arc=pass smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="iCN/myDz";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="yQ5mFvAr"
-ARC-Seal: i=1; a=rsa-sha256; t=1785160063; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=raTgGxRpVQwe8G1znB76Bmmn9H4OHjkuxL7FrTkn07O9JsVNk3Lz7aBT8vm5KAni27
-    fbB6rJrx8xvDYUPScAGEC51d5Sge+TB74HrS41v4OJFtc4dPQ6cItueKEWLmqnmSvnRF
-    XfztuuHWuoIrOQtBuAau1D7Dv2SCBi8YLNUT5SCgfCHCIQwvESdhuR+7rUuE5Zu4GAna
-    AMFzLvZzRFSbhIKNPgnU6G3xCE/NEE0pgXO7/LrY9vQyA24m3AmF7tAseTnD7nq9fTSk
-    9ixMy35444SnXBg9cCMXhoshoq/0K2AgfHXm0YiSpsMQMjWuo6+oF1hOPpmSsFw41H/D
-    xgQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1785160063;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=Sbpbo7dJkKHLk3J+dcCv4C1pW9pMTTmf0uQQDZkzI6Q=;
-    b=DEe/NfdXyz3lP8hrxcgzfquIb1N0UgNeUpTdKgFnuIc151MyvfjsmyYfMdbekT03zg
-    SJsQRZtXP0Hse988LHuDM5mGHiZauJ0dGhWFj9gIZQOnKALi7U8lSV09njY0pyLI/f4c
-    qHrk3Q4/Pfa5xDXCm4P970T9ztbWTk5qa/s3+N+BMfZ3wPl5sAB+HGW3f4/RkkPY+uj+
-    pyIA6tp1azCoZDYiWnI4woua9JhePQrpH7sXHdf7VXBObJA+W5GEw2lm9JoIkJ2/9Ny4
-    8Usxg0e7IOH3B+yNHhcBsaL5oM1WyEcxrBEROci8IqsCPP5+B0jBjJ0/I7KTyeHItm19
-    vrUQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1785160063;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=Sbpbo7dJkKHLk3J+dcCv4C1pW9pMTTmf0uQQDZkzI6Q=;
-    b=iCN/myDzG6wbq7/FUCk968zHDb3TIqW9qaOqkeUnmEtYueyheybJiLqW7tgWQA9SF4
-    JtM8XWBc3BoSbmg41uSDjJ0mX0tX/GKjpql6TZ8+gaZkr6NBNNIKteYLu3sMqcfxu7wL
-    NDmwhu3MFGebhlfw+xU2+YKfJlarbleHmcSUhjwlV4R83SBVoRiHHs+/vURxseefdDIS
-    M5M6VmQlCQTYAK7IgDYB3cveii2otVQdDI27OjZdcpa09UTKnzdzzirkgRF9vEX/7ABi
-    IzZkWuujTYIywR0tf97D/uu8OBDwG0NlkCI1I2EXY9CUgmqiWJ2Lyl2g0K41rkn9FMxD
-    K0vA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1785160063;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=Sbpbo7dJkKHLk3J+dcCv4C1pW9pMTTmf0uQQDZkzI6Q=;
-    b=yQ5mFvArqUzYav3bU6XCGfYew8+B2THaZpvovFKWqpmmVHELvrhyzZVrp76Bpgqlwq
-    dy+E8iGqrtxu6ViZy0Dg==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
-Received: from [192.168.20.231]
-    by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926RDlgAhS
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 27 Jul 2026 15:47:42 +0200 (CEST)
-Message-ID: <9c5f7364-86ee-40ce-985e-6d913712eb0f@hartkopp.net>
-Date: Mon, 27 Jul 2026 15:47:37 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbMfWq6f"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-664b05d408bso2155777d50.1
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 06:59:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785160787; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nHYDDsjHapfGt3XMP4JndzbWpv9nlHwCkkooB8sfAQLMyfCf6rPeIHsXyB1bBp/6cf
+         NWg+mFueBoUdavrY9k97bJ0vkbR5Wyzx/WNSNqB9acC47y4Vjay87adJr8gbNqpMEoKh
+         vfTQsQGajyB3HPG+EjmkniizKp+z3CRY/ybopwEAqQptRQ7XUVZhK//EiNqtA/atQDD7
+         vnjr8AxxzG/v4psG7JgdRAtZyfGVwwpu7ptEHUke1yeYb2dl2aH2FSmSsRvPbwlPl5b4
+         QZ4AV8SFfw4nFJfF/121I8vo251dEGdf8D1M7ja9vZ9cCiiPgjmbiy+d1c2CSxvI37Pl
+         qKhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=k1F8pOYech1vezxeER6um+vlnnIEvPDmg0g+Pyi2X6Q=;
+        fh=WZ2HaZXWO8TwvIo/Exj9KZ3lKIx0En68MDLz0i61JB0=;
+        b=RpROYPxxBbBxhEZK6ooOET2wZcwp3d1048Ol95vpwgomZo5hFR+knSc52a8zx1pZB6
+         Uoy/TDFih8mnlPJZo4jt11kY+7fHBE8Dn803AV/l+dY/Fzp4mFzfK+Q8BhLZL1//UWCw
+         bbIvJ9XVjeN+WtKlj+yYudJqhSmPmVS8VcSCBVdEYEJP+i/Uu2pt5xNf2COrJBTJJrfD
+         rSx8bdLQxImHDaYbIkYjr+SLhTp800lmqkUB/OowRe7rG+Gg9LolKe/mY5apSdzHHr+9
+         ES+yml5JMaOPbllYkDKyhAn+Xgj8Qp7uuQOaSqmrLqprwkwo0ZUMB5bKgnE/UfQm5Zqy
+         0Z1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785160787; x=1785765587; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k1F8pOYech1vezxeER6um+vlnnIEvPDmg0g+Pyi2X6Q=;
+        b=cbMfWq6ffw9hAUO9kjeUxNXJBqJNg2m7U6jNa4Bk33CMb9cQaXPxIAJ70klgmdDBjj
+         wJqCRz/nTM31b3YOriEAiCaB5VN3KpErQcZJl43oLC6O3BFrsx8G5sOe8zclO+rLkThA
+         7Vq0S9uv4HwdmZqVti2xoRAtqRYmudvT+5hPbk53/HvhJtxivmfgmVJFuEmpiCmx/7lY
+         Q4L3TADiE5f5dLQlQ5RUOJt+EDtxwkL0Lp1h1arMvekT5KwlEUsLhL8M4BEub7GZya8s
+         SRGLtSPz2f1GbMOSzJMrSkzYg9u9zCrLFcXKcJrQsAJ8NajduE2+9zOgbIqlleS13E89
+         3x2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785160787; x=1785765587;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=k1F8pOYech1vezxeER6um+vlnnIEvPDmg0g+Pyi2X6Q=;
+        b=nXFUrUt2liwvs2i2vjC5aKbfnhJ6XgasvQm9/ubJhZGa+sA182uYKTtP6C7OKH0nj9
+         HQF0EaPQDX0r4tEe7JVmSG6pN7PIQ12LNk2q6/FyQ1Vrfzh1v81ZSpwZ3htkEgX364VW
+         NaPdaqXVBfkStZfg7ol4AP2bj6pUbOT4ntC/cD+wDIRGqHTGeIxSdv+OcOBwxK6zt6zv
+         HbjnvIoQBENzIywts3JA3wqhTGbzZjCZn8XOTyNfK++Vx9c/ywDeDBS+l8AObKq0nFT+
+         2D6jv6E0BRIf+1uz4WIJrQbosG/wspF9mV7W3ZYBSWXr36/iLazBafnCkyPgSPMORrfF
+         hVAw==
+X-Forwarded-Encrypted: i=1; AHgh+RpyeFPt0iLcpoXlnXhRi7qG6YXIWBKatzkrqc2p7XOcKcsXi+J+Sl3zdNvL3bdTe82/BPhqg8w=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwcSDh6BlF6K1lKEm/RKpnprCMOXev8P7/+ZsnhgEmSsEeN7f0s
+	2R/HjoKcTGKR505f+RKoI5czwLJlyKS6KZ6PwEmgNrPT5igZmLt5UqCyS+l5pRVnvCARy9N5lsA
+	GanHNmXVZNzsLNbxRcitdvD/1Dbxd480=
+X-Gm-Gg: AR+sD12svNQDaD06QMMwETm2p70qAsT+J5v/9tVLD3js5nWY0LWPn4TygeKeo8hYagW
+	QIFUFewYRg4Up3qQb/kbjenDu1qEvVytTGLHg7uzl6Un5a6VN+ob4vMqj+Un7ER4WDH5mRswNwH
+	eNXmt7Mu2TsGdDnyuq1SjLsQ/JtspybpUTv4HRHoWNctoZ/jp8t/sJCIo/ptZCx4HA6szoOtqNy
+	6ZdkKdzO/I/+GtojrPZatXGExRpV/UrJpm77SvmUh6OjZb7GJR7uvo3AxOZwTw=
+X-Received: by 2002:a05:690e:4093:b0:667:b7f0:e712 with SMTP id
+ 956f58d0204a3-668c7c0edc3mr3032347d50.76.1785160786752; Mon, 27 Jul 2026
+ 06:59:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10.y 1/2] can: bcm: registration process optimization in
- bcm_module_init()
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Cc: Ziyang Xuan <william.xuanziyang@huawei.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>
-References: <2026072027-showroom-maggot-c452@gregkh>
- <20260727133928.582256-1-sashal@kernel.org>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20260727133928.582256-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260624013603.1184198-1-shaoyang@uniontech.com> <20260727070047.328913-1-shaoyang@uniontech.com>
+In-Reply-To: <20260727070047.328913-1-shaoyang@uniontech.com>
+From: Marko Kohtala <marko.kohtala@gmail.com>
+Date: Mon, 27 Jul 2026 16:59:35 +0300
+X-Gm-Features: AUfX_mw-_rAEGSkuYEioYmQG6OzSUR-Ccvf7MoyY1qrCF5sM6c9pneaMyioBFxc
+Message-ID: <CAJ0yFawVP15r84VyU2gCDW3q0HbzBSa6S2AW8qRGSxcfguzMcg@mail.gmail.com>
+Subject: Re: [PATCH] parport: fix inverted daisy selection result check
+To: Yang Shao <shaoyang@uniontech.com>
+Cc: akpm@osdl.org, kernel@uniontech.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
+	linux-parport@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Sasha,
+Hi.
 
-this patch is a feature.
+My guess from this 20 year old commit 7c9cc3be1094 of mine is that I
+had thought the response nError signal was read at the wrong time. The
+return value was not intended to change when it was read at the
+correct time, but it was inverted to keep it the same.
 
-In fact I prepared and posted a complete patch sets with 9 patches each 
-for 5.10.y and 5.15.y that backported the entire patches while 
-circumventing this bcm module init patch.
+I don't have the IEEE 1284 specifications and datasheet available.
+Here is what I think is happening: The parport_frob_control
+PARPORT_CONTROL_STROBE bit is inverted into the bus signal. The
+parport_read_status PARPORT_STATUS_ERROR bit is not inverted and shows
+directly the bus signal. After the wake up sequence of aa, 55, 00, ff,
+the PARPORT_STATUS_ERROR is verified to be 1. Again, after the 0x87 it
+is verified to be 1. After the nStrobe signal goes low, the nError is
+read for acknowledgement while nStrobe is still low. The command is
+most likely acknowledged with a different PARPORT_STATUS_ERROR value
+of 0, so the return value of parport_daisy_select is now 1 for a
+success. I probably had a setup where parport_daisy_select had
+returned PARPORT_STATUS_ERROR in the same situation due to reading the
+bit after nStrobe was back up.
 
-5.10.y
-https://lore.kernel.org/stable/20260724101342.16000-1-socketcan@hartkopp.net/
+I only had one daisy chain device. It is possible the return value of
+parport_daisy_select was changed and I did not notice the difference.
 
-5.15.y
-https://lore.kernel.org/stable/20260724102149.16440-1-socketcan@hartkopp.net/
+I think one could consider returning the parport_daisy_select return
+value to the original value rather than spread the change further.
+It's been like this for 20 years, so there could be some other work
+depending on this.
 
-Best regards,
-Oliver
+I see the linux-parport@lists.infradead.org is not in the recipients.
+They might have an opinion on this.
 
-On 27.07.26 15:39, Sasha Levin wrote:
-> From: Ziyang Xuan <william.xuanziyang@huawei.com>
-> 
-> [ Upstream commit edd1a7e42f1d2d09c5f79ecef05ae19dc669bf34 ]
-> 
-> Now, register_netdevice_notifier() and register_pernet_subsys() are both
-> after can_proto_register(). It can create CAN_BCM socket and process socket
-> once can_proto_register() successfully, so it is possible missing notifier
-> event or proc node creation because notifier or bcm proc directory is not
-> registered or created yet. Although this is a low probability scenario, it
-> is not impossible.
-> 
-> Move register_pernet_subsys() and register_netdevice_notifier() to the
-> front of can_proto_register(). In addition, register_pernet_subsys() and
-> register_netdevice_notifier() may fail, check their results are necessary.
-> 
-> Signed-off-by: Ziyang Xuan <william.xuanziyang@huawei.com>
-> Link: https://lore.kernel.org/all/823cff0ebec33fa9389eeaf8b8ded3217c32cb38.1663206163.git.william.xuanziyang@huawei.com
-> Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
-> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> Stable-dep-of: 68973f9db761 ("can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Marko
+
+
+ma 27.7.2026 klo 10.01 Yang Shao (shaoyang@uniontech.com) kirjoitti:
+>
+> parport_daisy_select() returns a boolean success result. It returns 1
+> when the requested daisy-chain device acknowledges the CPP selection
+> command and 0 otherwise.
+>
+> Commit 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return
+> value fix") changed the helper from returning the raw
+> PARPORT_STATUS_ERROR bit to returning its logical negation. Selection
+> success therefore changed from a zero return value to a nonzero return
+> value, but parport_claim() retained the old zero-is-success test.
+>
+> As a result, a successful selection does not update port->daisy, while
+> an unsuccessful selection can be recorded as the currently selected
+> daisy address. parport_open() later checks port->daisy to determine
+> whether the requested device was successfully selected, so this can
+> reject an existing device or accept a device address that was not
+> selected.
+>
+> Test the return value directly and update port->daisy only after a
+> successful selection.
+>
+> Fixes: 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return value fix")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yang Shao <shaoyang@uniontech.com>
 > ---
->   net/can/bcm.c | 18 +++++++++++++++---
->   1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/can/bcm.c b/net/can/bcm.c
-> index 06ee3bfe87c99d..334a5105a4532c 100644
-> --- a/net/can/bcm.c
-> +++ b/net/can/bcm.c
-> @@ -1832,15 +1832,27 @@ static int __init bcm_module_init(void)
->   
->   	pr_info("can: broadcast manager protocol\n");
->   
-> +	err = register_pernet_subsys(&canbcm_pernet_ops);
-> +	if (err)
-> +		return err;
-> +
-> +	err = register_netdevice_notifier(&canbcm_notifier);
-> +	if (err)
-> +		goto register_notifier_failed;
-> +
->   	err = can_proto_register(&bcm_can_proto);
->   	if (err < 0) {
->   		printk(KERN_ERR "can: registration of bcm protocol failed\n");
-> -		return err;
-> +		goto register_proto_failed;
->   	}
->   
-> -	register_pernet_subsys(&canbcm_pernet_ops);
-> -	register_netdevice_notifier(&canbcm_notifier);
->   	return 0;
-> +
-> +register_proto_failed:
-> +	unregister_netdevice_notifier(&canbcm_notifier);
-> +register_notifier_failed:
-> +	unregister_pernet_subsys(&canbcm_pernet_ops);
-> +	return err;
->   }
->   
->   static void __exit bcm_module_exit(void)
-
+>  drivers/parport/share.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/parport/share.c b/drivers/parport/share.c
+> index c4c5869..2888005 100644
+> --- a/drivers/parport/share.c
+> +++ b/drivers/parport/share.c
+> @@ -1025,8 +1025,8 @@ int parport_claim(struct pardevice *dev)
+>         /* If it's a daisy chain device, select it. */
+>         if (dev->daisy >= 0) {
+>                 /* This could be lazier. */
+> -               if (!parport_daisy_select(port, dev->daisy,
+> -                                          IEEE1284_MODE_COMPAT))
+> +               if (parport_daisy_select(port, dev->daisy,
+> +                                        IEEE1284_MODE_COMPAT))
+>                         port->daisy = dev->daisy;
+>         }
+>  #endif /* IEEE1284.3 support */
+> --
+> 2.47.3
+>
