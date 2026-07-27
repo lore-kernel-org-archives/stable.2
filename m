@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166453CFF4C
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 22:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F503D4108
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 22:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785190875; cv=none; b=AeQ/YPGzF97gcP3Qlq1HUM8E1O56FUvgxKkYM+tyP68o46/a956eSE6OgUzmsBw7RLvOP23ftZCuH2T/DDPmTHwn6qanLzv/p/GBvPQfqxRzPAm8CQGrVf2WRrVLya3ioq/zyUJ5t9hLv7akn7ks+inRwd9ZEInDNjnkYjrNJt0=
+	t=1785191126; cv=none; b=Wq9kwO0B8EEJfAafs0M9+3mwumZsZXvQMZuV6k/gocHo7D8PMqzkqsBqSgk6aG2tawyMLWlTkxAc9X83NPrr+L9R6AVS9061NyPJT7nYjCxhxCqSKQkeVh3xbVdtmg7zEbe/+TQGf9yKFG6ju94f4bX0+HUoChXYVOFwRwwDwKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785190875; c=relaxed/simple;
-	bh=YFRmZwO7yJY+f54scHyZgRiOnm2gbuapIhdpfWcyJqg=;
+	s=arc-20240116; t=1785191126; c=relaxed/simple;
+	bh=s3ZEpV8Ml1G/UrCQY5WA4n22wSUoRbOOefTHP8GW85U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W43BuvxAsW4UB9posGdmVXrPTsKgyH3J28r7GXKcpXcQEOW0Y1vgqDZlnBRnue9bJhDLO374WgwSyJud72ZwbNdtbHO0S/koFCBuQqE+kDgUls9IWXXjSoYYoPe1Uib7I/HCWVO4wgmMpOovu9kLFPZi2V6DGmIA3wGFXfAAfdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nn7/Gydz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ginDglMNk0setpvLTJZiuPDJRdfjcFBZ274sL4kvfPD9RkiOGCndNiLRc7OJIwNFPwlWB3pMLhoeCcce88Jyy5HXO8d15Ap/UhMs5Lxpyxx7Hwn9FM7VsFUviqLmbEI2JBNtHeXW+R17XUpPGq//6dlgAMJlrgydEOzikLwUh9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUScHWOa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nn7/Gydz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA8A1F00A3A;
-	Mon, 27 Jul 2026 22:21:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUScHWOa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038EC1F000E9;
+	Mon, 27 Jul 2026 22:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785190874;
-	bh=SY12Z3vgV3SZQ2OIqN+wpLel102ZERewAni/TwJPO0M=;
+	s=k20260515; t=1785191125;
+	bh=XPErj1XM/DbUqSswIRObVl8UIuhtc1DSMI2eOHU96PA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nn7/GydzPp55tXEFZy0sm8CL2mUMBxBV9IEpP12yBSU+SBat4HFyTb2kcdKybQh24
-	 LqrZwL5/ULOCynW3a/DKkyc0k1vbTIcFQmbgwVLe9JXMgKBnXC6g080eHjWB7Gwa7o
-	 6+UObuRfWGKCpLH5XqNDkXV8f5qFlO7FqDq3BMi87EWDsqcJ0Mx6fMVKjnO7Zoq8Ic
-	 CDR+xfRSm7HC7FvVsliC3Sgj6HVDj5FrVKM/IP8ddFDOi2kciPES9JoL9cUjSG+gqI
-	 5mMVBPN+I5dCJhHBCXvX0DSo6Eu8LsXInYIjKMMkj2TzWLS/wVWOJUEE/mPGlZIjKt
-	 GTrKySi5Xo+cw==
+	b=RUScHWOaOxZK+ywrGxNppETg961ChFWY7NG2Nb8RNB6G66n5ry2By7w/wdSoomOv9
+	 QApoObrqUrx/DvEoErKwSdS6M1IZioKihBxLMjCApR+f3YOJ6olWsOaw6TZPTqmVKe
+	 8GfLF/7KuvcoTiVpEKfVuTqITlEh6UemMwJHI+fUk1mZFk03sU9K416oDoRL/zicf6
+	 ZibUY1ZN+Wcm2DrqoMR1cZSFOndyM7Z9I2IXA52BHJ1c5vLgADYR0L4DpPgzYzksrA
+	 pan18x5hDQxO1gzlMeBreWBVkTNOFzg5V5hT0DTyY16L6zqHvjMYRTq079eAT8M/51
+	 ccpX7qp0LHucw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ingo Blechschmidt <iblech@speicherleck.de>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Ondrej Kozina <okozina@redhat.com>,
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 5/5] dm: avoid leaking the caller's thread keyring via the table device file
-Date: Mon, 27 Jul 2026 18:21:09 -0400
-Message-ID: <20260727222109.2119761-5-sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm-integrity: don't increment hash_offset twice
+Date: Mon, 27 Jul 2026 18:25:23 -0400
+Message-ID: <20260727222523.2142515-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727222109.2119761-1-sashal@kernel.org>
-References: <2026072043-kennel-tasting-5eb0@gregkh>
- <20260727222109.2119761-1-sashal@kernel.org>
+In-Reply-To: <2026072050-unless-decompose-8395@gregkh>
+References: <2026072050-unless-decompose-8395@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,71 +44,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ingo Blechschmidt <iblech@speicherleck.de>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-[ Upstream commit 981ccd97f7153d310dfa92a534525bbaf46752c2 ]
+[ Upstream commit edf025f083854f80032b73a1aad69a3c90db236f ]
 
-The refactoring in commit a28d893eb327 ("md: port block device access to file")
-accidentally causes the caller's thread keyring to be kept alive long
-beyond the caller's lifetime.
+hash_offset is already incremented in the loop "for (i = 0; i < to_copy;
+i++, ts--)". Do not increment it again.
 
-As a result, "cryptsetup luksSuspend" silently fails to wipe the
-LUKS volume key from memory.
-
-In detail: "cryptsetup luksOpen" uses its supposedly ephemeral thread
-keyring to pass the volume key to the kernel. dm-crypt's
-crypt_set_keyring_key() copies the key material into its own
-crypt_config structure and then drops its own reference to the key in
-the keyring with key_put().
-
-With this fix, restoring pre-v6.9 behavior, the copy in the thread
-keyring is then promptly garbage collected, such that exactly one copy
-of the volume key remains. This single copy is correctly wiped from
-memory on "cryptsetup luksSuspend".
-
-Without this fix, the thread keyring and the volume key in it remains.
-This second copy is only freed on "luksClose". "luksSuspend" neither
-knows about this copy nor has any way to remove it, so the key remains
-recoverable from RAM after a suspend that is documented to have wiped it.
-
-This fix should not introduce new security problems, as the code is
-anyway gated by CAP_SYS_ADMIN. The device-mapper core, not the calling
-task, is the legitimate owner of this long-lived file.
-
-Fixes: a28d893eb327 ("md: port block device access to file")
-Closes: https://gitlab.com/cryptsetup/cryptsetup/-/work_items/993
-Link: https://www.speicherleck.de/iblech/cryptsetup-luksSuspend-issue-reproduction/
-Signed-off-by: Ingo Blechschmidt <iblech@speicherleck.de>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Assisted-by: Claude:claude-opus-4.6
+Fixes: 84597a44a9d8 ("dm-integrity: dm integrity: add optional discard support")
 Cc: stable@vger.kernel.org
-Tested-by: Ondrej Kozina <okozina@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/md/dm-integrity.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index ec48fcdb19ed83..269959c9204f60 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -737,7 +737,16 @@ static struct table_device *open_table_device(struct mapped_device *md,
- 		return ERR_PTR(-ENOMEM);
- 	refcount_set(&td->count, 1);
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 227ed3b4687323..eb13b98ba0a9c5 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -1377,10 +1377,6 @@ static int dm_integrity_rw_tag(struct dm_integrity_c *ic, unsigned char *tag, se
+ 			*metadata_offset = 0;
+ 		}
  
--	bdev_file = bdev_file_open_by_dev(dev, mode, _dm_claim_ptr, NULL);
-+	/*
-+	 * Open the backing device with kernel rather than caller
-+	 * credentials. Otherwise the caller's credentials would be
-+	 * pinned in bdev_file->f_cred until the table device is closed.
-+	 * That would keep the caller's thread keyring alive long beyond the
-+	 * lifetime of the caller, breaking userspace expectation (e.g.
-+	 * cryptsetup(8) leaking the LUKS volume key).
-+	 */
-+	scoped_with_kernel_creds()
-+		bdev_file = bdev_file_open_by_dev(dev, mode, _dm_claim_ptr, NULL);
- 	if (IS_ERR(bdev_file)) {
- 		r = PTR_ERR(bdev_file);
- 		goto out_free_td;
+-		if (unlikely(!is_power_of_2(ic->tag_size))) {
+-			hash_offset = (hash_offset + to_copy) % ic->tag_size;
+-		}
+-
+ 		total_size -= to_copy;
+ 	} while (unlikely(total_size));
+ 
 -- 
 2.53.0
 
