@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D071E400998;
-	Mon, 27 Jul 2026 13:24:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4237411F89;
+	Mon, 27 Jul 2026 13:24:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158673; cv=none; b=UkTO28AgAJmQPiB4HpVurvbWQ15/zjKuPh8aQ5XH1aoCh+8/v9g3W4qicAMlkD8BSw4LEQp9JdDE+CooCAAyu/bjEAv5ZD5JueiFv6j3e154DzR+DneIEJwV5pIKjIB3/UjRHvZ3XnaZNs0DHVQ3ltQVakmsvxuRNyRDsKc30/w=
+	t=1785158674; cv=none; b=cLj0RADSVviv3CY5QbYpqKVDOYkWpbx/OsCuqlj0/wVih2NkADLMgnv/eTBYL5bM5Y7sv44exj91MGoZhT/PuL6wZ9GAD9HMr7JgSb/KMPPnmfLMDrFdPDonCaqA2qsVaa3EBiLi9h0s9KQRIR6zJ7A05zCpSOXtHgygKKAzdwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158673; c=relaxed/simple;
-	bh=D6l4SE4h/BdOSJLfRuizvlFoB9TyaNHImLpHG9cxlO0=;
+	s=arc-20240116; t=1785158674; c=relaxed/simple;
+	bh=t2kTv/kR/dZbFDxftonl+7PFbOY1M9VjHzN3j4KEJGQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uTkWttugxWHmEyK5sf/2WBi3QbZhdr165dtDYkDf5eMk8yUaa1eyDrUq4G3oj+fsUx6tmrQUYWpV0/C8bYygkfw1lDrPcAcbeOoygh2krzfUOyfqmuQsrRMlpFaxeQc0OrcEyKc+cv+qvcTYlHxh6M7/X0mTMcA9lVzBVSfw4sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ef0NG7q5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sgLElMiuPQIMLGqR2SKd9zlsEkmdA0oaWjz7XzDSSjTxFGo223R6182UDI1YMq8dkoO6cDCQhZzGmpHhBoNHhvhYRsDJ2GrBzyARLi8o7G3oBrp+dolQ6/8+9dEvf+o5IyuLhIOTJ8rzuH2WU6OV461D7PdVV6pmsVpDlhBfzuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mIDJgy7o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ef0NG7q5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6CDE1F00A3D;
-	Mon, 27 Jul 2026 13:24:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mIDJgy7o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B1F1F00A3A;
+	Mon, 27 Jul 2026 13:24:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785158671;
-	bh=VOaEUPObH7+587ZqOrLk42/rFD2diU/xqNd56e97zJI=;
+	s=k20260515; t=1785158672;
+	bh=tMeo0N1Z/XNfaNwyXFzrH6lovYFAMkOGtg4eyTGsMYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ef0NG7q58b8nJENhoUBA93lzw4WnbsqiKD3z/J5HvpFRbxJCOYbuz2mzf1thvu1uG
-	 ZNLXlhhmTb1EyvVxY+IL4OTAg7NmMJ/372+JywEdfhKJ7taR3WtYLRQQQN3uZJAfLU
-	 P9W4nkDKx1DwXxwZerhtRFjZZyLh9R4eFEhTTgAZIslUNIVGJ+2IPhICo7eie4IHh/
-	 Xv7sBL6PQE4hRqIeIq71HD0e3QY9g9rIZ6BzpfbFHa0tqGCMIWcnvh30I0lThCnW6Y
-	 mCk886Q/DxkAhlinh/8cU3/MdmpPm9X9ytcLzfX0YXAoiV9V5FGU+hWhOV0kxhDloO
-	 PtlIF080oPx6w==
+	b=mIDJgy7o/QnG247VvggcvNB1HHnqoQJmR5r65H2JBYsbLw5vFs+zzzQYMGHF2OkCx
+	 N/3/CHtzDDtthW80JoEI/31K1G0Cg6mckgbc88jscfUOgkqTNb8ph3kjThqlHB9wOt
+	 pTBvIIm9YqePTx4GugbkTV5q2lk1XLctoSGiQwlnvJ9SioqdXs/ciE5iyNWoURw0B2
+	 n4/9z4W1bIFMt3N96bLBBp5XKTJUeKGR7DM5FqWohgU0y5WryFWARf1nNleFtkHMuS
+	 FBB6e/FkZSqGKIHagaGc+bdaZqqAAMMFGbL8KOayx4Kxa8bTYIdqMxnsHz2CIctNKO
+	 CApTioahYTe6g==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -35,9 +35,9 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 01/10] EDAC/altera: Fix NULL of_node dereference altr_edac_device_probe()
-Date: Mon, 27 Jul 2026 08:24:07 -0500
-Message-ID: <20260727132416.807230-2-dinguyen@kernel.org>
+Subject: [PATCH 02/10] EDAC/altera: Fix use-after-free in error paths
+Date: Mon, 27 Jul 2026 08:24:08 -0500
+Message-ID: <20260727132416.807230-3-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 In-Reply-To: <20260727132416.807230-1-dinguyen@kernel.org>
 References: <20260727132416.807230-1-dinguyen@kernel.org>
@@ -49,60 +49,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In altr_edac_device_probe() dereferenced pdev->dev.of_node and
-of_match_node() before validating it, which could cause a NULL pointer
-dereference when the device tree node is missing. Check the result for
-a NULL and bail out with -ENODEV before using it.
+In both altr_edac_a10_device_add() and altr_portb_setup(), the error path
+freed dci before releasing the devres group. Since the managed SB/DB IRQ
+handlers use altdev(dci->pvt_info) as their data, an IRQ firing between
+freeing dci and unregistering the IRQs could dereference freed memory.
+
+Release the devres group first so the managed IRQs are unregistered
+before dci is freed.
 
 Assisted-by: Cursor:claude-4.8-opus
-Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
+Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
+Fixes: 588cb03ea208 ("EDAC, altera: Add Arria10 L2 Cache ECC handling")
 Closes: https://sashiko.dev/#/patchset/20260719211238.589402-1-rosenp%40gmail.com
 Cc: stable@vger.kernel.org
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
- drivers/edac/altera_edac.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/edac/altera_edac.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index 68846f583eeef..d6ca68d74f78a 100644
+index d6ca68d74f78a..34b33298cf86e 100644
 --- a/drivers/edac/altera_edac.c
 +++ b/drivers/edac/altera_edac.c
-@@ -710,9 +710,18 @@ static int altr_edac_device_probe(struct platform_device *pdev)
- 	struct resource *r;
- 	int res = 0;
- 	struct device_node *np = pdev->dev.of_node;
--	char *ecc_name = (char *)np->name;
-+	const struct of_device_id *edac_dev_match;
-+	char *ecc_name;
- 	static int dev_instance;
+@@ -1625,8 +1625,13 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	return 0;
  
-+	if (!np) {
-+		edac_printk(KERN_ERR, EDAC_DEVICE,
-+			    "Unable to get device tree node\n");
-+		return -ENODEV;
-+	}
-+
-+	ecc_name = (char *)np->name;
-+
- 	if (!devres_open_group(&pdev->dev, NULL, GFP_KERNEL)) {
- 		edac_printk(KERN_ERR, EDAC_DEVICE,
- 			    "Unable to open devm\n");
-@@ -757,7 +766,14 @@ static int altr_edac_device_probe(struct platform_device *pdev)
- 	}
+ err_release_group_1:
+-	edac_device_free_ctl_info(dci);
++	/*
++	 * Release the devres group first so the managed IRQs are
++	 * unregistered before dci (which contains the IRQ handler's
++	 * data via dci->pvt_info) is freed, avoiding a use-after-free.
++	 */
+ 	devres_release_group(device->edac->dev, altr_portb_setup);
++	edac_device_free_ctl_info(dci);
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
+ 	return rc;
+@@ -2029,9 +2034,17 @@ static int altr_edac_a10_device_add(struct altr_arria10_edac *edac,
+ 	return 0;
  
- 	/* Get driver specific data for this EDAC device */
--	drvdata->data = of_match_node(altr_edac_device_of_match, np)->data;
-+	edac_dev_match = of_match_node(altr_edac_device_of_match, np);
-+	if (!edac_dev_match) {
-+		edac_printk(KERN_ERR, EDAC_DEVICE,
-+			    "%s: Unable to match device\n", ecc_name);
-+		res = -ENODEV;
-+		goto fail1;
-+	}
-+	drvdata->data = edac_dev_match->data;
+ err_release_group1:
++	/*
++	 * Release the devres group first so the managed IRQs are
++	 * unregistered before dci (which contains the IRQ handler's
++	 * data via dci->pvt_info) is freed, avoiding a use-after-free.
++	 */
++	devres_release_group(edac->dev, NULL);
+ 	edac_device_free_ctl_info(dci);
++	goto err_print;
+ err_release_group:
+ 	devres_release_group(edac->dev, NULL);
++err_print:
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
  
- 	/* Check specific dependencies for the module */
- 	if (drvdata->data->setup) {
 -- 
 2.42.0.411.g813d9a9188
 
