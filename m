@@ -1,121 +1,128 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980E53DC4B3;
-	Mon, 27 Jul 2026 07:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DD43DB332;
+	Mon, 27 Jul 2026 07:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785135692; cv=none; b=HX2e1LmP1sbTvt4D7WcrlHemB0GaW2/NFZ1hZUhKHIHP5Pebil/jixZ4n6m8XhvpFi8eEBxLrcuuFUwcs0oXc6bU0sFr1wFIe85tTuEmH8JFkbZEkvvqvWFYurGLBWjhCcaA1nfX5bftcBtaTeWnI/8eDteWMb9zjZpHV47wQcA=
+	t=1785135698; cv=none; b=M++Kk2HuaUTe4n9X6EZsVyJnc/7ti+0VGsfTRHHLnbExvIHqO/qFi39mu7Rtv1cYawlaJyD43TL47/HeSOewlNKacVaXYCAqMwb2J7+K+CfuEcFoQS9YtwYyD7BENbUEIThJlFLFT8AmgwLGaT94gRpH8/N20jea1EA4cXFwHIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785135692; c=relaxed/simple;
-	bh=hkwOOki2RqLJgHnzvIKyiilqnxhTHu7gUnV6xBVS8d8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=M+douqFdSmVLZaLmTF/EZ8GqmgLx0g8BsUUsB+35CGjjqjzwR2SffDn/Peh+A549jDRTGcvocB9W34uCjqtkdP1+WMAq0Rokj1++UmqZVIkNbIx9hEI4iIAidIsyLkQbrZrTrwO7ndHNhqepHlUpHxcV848d885xqm0UU6C9yPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Ef2NwGKf; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785135698; c=relaxed/simple;
+	bh=0m92iWj1q46DlQQFw64jYwjKipaArwf4wGnpKPmeRfU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=AhX8l8jBxl6e+3lkj4CXwILI94fXvnFPXINuCkfFlRbxJ3bnZXSh42wkNjQRA8Zh3jA5d1gSdDr2TItNu6VBhYzZ9mU66MN8MxMGberkBQks6JxBf2aMaIgDqe2Cs0eiN2nauUwKvgyvnt9C624FfHv0Hq0snT378mo3ExgrRW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=l/FAWrmb; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Ef2NwGKf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785135668;
-	bh=sINvD0bskv+vJHonYANAwnvBnaUdmZEFu+17EC2edy8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Ef2NwGKfWfN45RDziYlZx4PElTGlZBW1HKglZM4Cfc1LKef70UNtZ6RqK1JyThfSt
-	 yjzcmgoowwBlgPrr8YO3kBjqcwT4dbHJzjB/p3+7vcFUcqVImCwLoi8RmFYOJpjyhY
-	 u4fkZMfvewWpDjQ8uoPNeIWtIB+HZ/eO0de9nb10=
-X-QQ-mid: esmtpgz10t1785135656te941c837
-X-QQ-Originating-IP: TxbFc6MXXXXNp9OuBI6vjNOikTHCSBWW+JmFAUs28qE=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 27 Jul 2026 15:00:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 7978217712569346620
-EX-QQ-RecipientCnt: 7
-From: Yang Shao <shaoyang@uniontech.com>
-To: shaoyang@uniontech.com
-Cc: akpm@osdl.org,
-	kernel@uniontech.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="l/FAWrmb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=0m92iWj1q46DlQQFw64jYwjKipaArwf4wGnpKPmeRfU=; b=l
+	/FAWrmbt7naXRpZniJ/idUns8rskWcLA936Jvhka1Wclwc2TVkGIFwI1+xf0yvlJ
+	/CCP715Y0gTeIYQpm2Rwxrb2gHyf3mIYeRnSYyTf8YAIwgwm2vvvGCt34UWgAxq+
+	+qxn3YoLHqi5yKa+RwKvqbbdJcS++9JkkP5F540Fu4=
+Received: from w15303746062$163.com ( [115.53.141.25] ) by
+ ajax-webmail-wmsvr-40-117 (Coremail) ; Mon, 27 Jul 2026 15:00:34 +0800
+ (CST)
+Date: Mon, 27 Jul 2026 15:00:34 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: simona@ffwll.ch, deller@gmx.de
+Cc: tzimmermann@suse.de, ville.syrjala@linux.intel.com, sam@ravnborg.org,
+	kees@kernel.org, yanquanmin1@huawei.com, syoshida@redhat.com,
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	marko.kohtala@gmail.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com
-Subject: [PATCH] parport: fix inverted daisy selection result check
-Date: Mon, 27 Jul 2026 15:00:47 +0800
-Message-Id: <20260727070047.328913-1-shaoyang@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260624013603.1184198-1-shaoyang@uniontech.com>
-References: <20260624013603.1184198-1-shaoyang@uniontech.com>
+	"Mingyu Wang" <25181214217@stu.xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re:Re:[PATCH 7.0] fbdev: fbcon: fix memory leak in error path of
+ fbcon_do_set_font()
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <5b288246.378d.19e95d82602.Coremail.w15303746062@163.com>
+References: <20260525082741.600003-1-w15303746062@163.com>
+ <5b288246.378d.19e95d82602.Coremail.w15303746062@163.com>
+X-NTES-SC: AL_Qu2TB/2Yuk4o4iCYbekfmU0Qguw9Xcq5uPkj34FWN5t8jD/p6wkiclhFBGTN39q/NymWkiiSQiFv8MdmQoVpcpIoCx+rIl7O5HqSMBHkEks80Q==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MEKKfKJEJa0u1H3f/6QHZABH5BkMaM2lSfIgQBPJsGmlHtJjnveETPZ5
-	/0nn47RkB6VH+GuBM2GZQfU7mDMZ1rU3w/CSVocJuWkLDjltSndNQJi0PBeeqTz9FgfrfVi
-	6mA4StwlV8HdrOHNdAmV92pm/x0kTqvbY+0LaFXSukJAy9RY19eA61svPfDAbN6KLmEks4s
-	K0dyj7ImHeUJeLBKUwsxgG+FTNKK9jSYRnk67rR26J9ykWMudbWA5QF7eTmFm3zm7jkDzXM
-	TaH9Qzo9efjvYG/V9Y8ZN3qp28DcqZnieYrxpniVIeBJrbaX5H/8aU3WF6PB3XouGNTRPt6
-	+FyX4eUy/IgwkkF0et1WXPYOmQQ378WVqA2EdUlDvrzHGqm0p/e94cDYhg+zQ6AcbgyQN5L
-	jvdE9L0drYo9brpSU9lkZETOg94njMLFBAI1VuM9HkBvGCq4b8BJMEp7H8YnEPdtd8d/uC2
-	ATyYjWdJ9DjZny/2lq6DtrEA5NQlQtAr7UPPlBF6HslJVZyt9lubBm3HRe7vNe6E3vYHwWR
-	sQFJJSvhvH3Actyxx0S0kRFNtbWbILlvm1N4DGXNdFrQYUhMsu7BSYmfytprY6YHS1twxFV
-	bS1R5arfPFeCLJCenclypbSvGgV8P7v9pVJX8SQWAkooxCwUMUPi/242vPEhAF4YQfUzI8M
-	zqIUD5gsKLwbUeIwUXmE8BEee0YqWIy2KXpgKhFIKKezum2Ifhi8cxDf1tXIp2Wn3Urudbo
-	kzhhyahQB1TLFGcJf+iRdbiSiXFT5fmERBJEgRhmOyShYcT3Y6Rg6FalGB4BgpLJc3bZCc/
-	hDCsvCLyQ1PCYShOY+uzjNmpOBh9bZPleIpt858bJzxB8TC6Tux0g2Kfc29lChHa1CGyojS
-	ZzAjxqk7Jxq9erjnAQd+VkStSbsg6qLMrJzxbSkQI4vDtkKMYGqdZ3738sKjqH0Mk2+9A1h
-	gaRx1QTuBylJiQM/J2cdFWT7JgfGilyE9pg+0+/FCU7h37gyD/sjZGHHobAX5dCsAuZXmgL
-	mI77Qz00OFU85022OaJ7rargZ6kpLDFir93nj7JTe5uZrrqkoD
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Message-ID: <726d129f.53bd.19fa2601661.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:dSgvCgD3PzASAmdqMBEmAA--.8488W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4xL43GpnAhJpowAA3C
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-parport_daisy_select() returns a boolean success result. It returns 1
-when the requested daisy-chain device acknowledges the CPP selection
-command and 0 otherwise.
-
-Commit 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return
-value fix") changed the helper from returning the raw
-PARPORT_STATUS_ERROR bit to returning its logical negation. Selection
-success therefore changed from a zero return value to a nonzero return
-value, but parport_claim() retained the old zero-is-success test.
-
-As a result, a successful selection does not update port->daisy, while
-an unsuccessful selection can be recorded as the currently selected
-daisy address. parport_open() later checks port->daisy to determine
-whether the requested device was successfully selected, so this can
-reject an existing device or accept a device address that was not
-selected.
-
-Test the return value directly and update port->daisy only after a
-successful selection.
-
-Fixes: 7c9cc3be1094 ("[PATCH] parport: parport_daisy_select return value fix")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yang Shao <shaoyang@uniontech.com>
----
- drivers/parport/share.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/parport/share.c b/drivers/parport/share.c
-index c4c5869..2888005 100644
---- a/drivers/parport/share.c
-+++ b/drivers/parport/share.c
-@@ -1025,8 +1025,8 @@ int parport_claim(struct pardevice *dev)
- 	/* If it's a daisy chain device, select it. */
- 	if (dev->daisy >= 0) {
- 		/* This could be lazier. */
--		if (!parport_daisy_select(port, dev->daisy,
--					   IEEE1284_MODE_COMPAT))
-+		if (parport_daisy_select(port, dev->daisy,
-+					 IEEE1284_MODE_COMPAT))
- 			port->daisy = dev->daisy;
- 	}
- #endif /* IEEE1284.3 support */
---
-2.47.3
-
+CkZyb206IE1pbmd5dSBXYW5nIDwyNTE4MTIxNDIxN0BzdHUueGlkaWFuLmVkdS5jbj4KCkhpIEhl
+bGdlLCBTaW1vbmEsIGFuZCBhbGwsCgpSZXNlbmRpbmcgdGhpcyBwYXRjaCBhcyBhIGdlbnRsZSBy
+ZW1pbmRlciwgc2luY2UgaXQgaGFzIGJlZW4gYSB3aGlsZSAKZnJvbSB0aGUgb3JpZ2luYWwgc3Vi
+bWlzc2lvbiAoTWF5IDI1KSBhbmQgbXkgcHJldmlvdXMgcGluZyAoSnVuZSA1KS4KCkFzIGEgcXVp
+Y2sgbm90ZSwgc2luY2UgdGhpcyBtZW1vcnkgbGVhayB3YXMgaW1wbGljaXRseSByZXNvbHZlZCBp
+biAKbWFpbmxpbmUgdmlhIGEgcmVjZW50IHJlZmFjdG9yLCB0aGlzIGZpeCBpcyBzcGVjaWZpY2Fs
+bHkgdGFyZ2V0ZWQgYXQgCjcuMCBhbmQgb2xkZXIgc3RhYmxlIGJyYW5jaGVzIHVzaW5nIHRoZSBs
+ZWdhY3kgdXNlcmZvbnQgbG9naWMuCgpDb3VsZCB5b3UgcGxlYXNlIHRha2UgYSBsb29rIHdoZW4g
+eW91IGhhdmUgYSBtb21lbnQ/IEFueSBmZWVkYmFjayBvciAKZ3VpZGFuY2Ugb24gaG93IGJlc3Qg
+dG8gcHJvY2VlZCB3aXRoIHRoaXMgc3RhYmxlLW9ubHkgZml4IHdvdWxkIGJlIApncmVhdGx5IGFw
+cHJlY2lhdGVkLgoKQmVzdCByZWdhcmRzLAoKTWluZ3l1Cgo+QXQgMjAyNi0wNS0yNSAxNjoyNzo0
+MSwgdzE1MzAzNzQ2MDYyQDE2My5jb20gd3JvdGU6Cj4+RnJvbTogTWluZ3l1IFdhbmcgPDI1MTgx
+MjE0MjE3QHN0dS54aWRpYW4uZWR1LmNuPgo+Pgo+PlsgTm90ZTogVGhpcyBpc3N1ZSB3YXMgZGlz
+Y292ZXJlZCBvbiB0aGUgNy4wIGtlcm5lbC4gV2hpbGUgdGhlIGN1cnJlbnQKPj4gIG1haW5saW5l
+IGhhcyBhbHJlYWR5IGJlZW4gcmVmYWN0b3JlZCB0byB1c2UgYGZvbnRfZGF0YV90YCAod2hpY2gg
+Cj4+ICBpbmFkdmVydGVudGx5IHJlc29sdmVkIHRoaXMgYnVnKSwgdGhpcyB2dWxuZXJhYmlsaXR5
+IHN0aWxsIGFjdGl2ZWx5IAo+PiAgYWZmZWN0cyB0aGUgNy4wIGJyYW5jaCBhbmQgb2xkZXIgc3Rh
+YmxlIHRyZWVzIHRoYXQgcmVseSBvbiB0aGUgbGVnYWN5IAo+PiAgdXNlcmZvbnQgbG9naWMuIFRo
+aXMgcGF0Y2ggcHJvdmlkZXMgYSB0YXJnZXRlZCBmaXggZm9yIHRoZXNlIHN0YWJsZSAKPj4gIGJy
+YW5jaGVzLiBdCj4+Cj4+V2hlbiBmYmNvbl9kb19zZXRfZm9udCgpIGZhaWxzIChlLmcuLCBkdWUg
+dG8gYSB2Y19yZXNpemUoKSBmYWlsdXJlIHVuZGVyCj4+ZmF1bHQgaW5qZWN0aW9uKSwgaXQganVt
+cHMgdG8gdGhlIGBlcnJfb3V0YCBsYWJlbCB0byByb2xsIGJhY2sgdGhlCj4+Y29uc29sZSBzdGF0
+ZS4KPj4KPj5Ib3dldmVyLCB0aGUgcmVzdG9yYXRpb24gb2YgdGhlIHByZXZpb3VzIGZvbnQgc3Rh
+dGUgKGBwLT51c2VyZm9udCA9Cj4+b2xkX3VzZXJmb250YCkgaXMgZXJyb25lb3VzbHkgcGxhY2Vk
+IGluc2lkZSB0aGUgYGlmICh1c2VyZm9udClgIGJsb2NrLgo+PklmIHRoZSBmYWlsZWQgb3BlcmF0
+aW9uIHdhcyBhdHRlbXB0aW5nIHRvIHNldCB0aGUgZGVmYXVsdCBidWlsdGluIGZvbnQKPj4oYHVz
+ZXJmb250ID09IDBgKSwgdGhlIHJlc3RvcmF0aW9uIGlzIGNvbXBsZXRlbHkgc2tpcHBlZC4KPj4K
+Pj5UaGlzIGNhdXNlcyBhIHN0YXRlIG1hY2hpbmUgY29ycnVwdGlvbiB3aGVyZSBgcC0+dXNlcmZv
+bnRgIHJlbWFpbnMgYDBgCj4+d2hpbGUgYHAtPmZvbnRkYXRhYCBzdGlsbCBwb2ludHMgdG8gdGhl
+IHByZXZpb3VzbHkgYWxsb2NhdGVkIHVzZXIgZm9udAo+Pm1lbW9yeS4gTGF0ZXIsIHdoZW4gdGhl
+IGNvbnNvbGUgaXMgZGVzdHJveWVkIChlLmcuLCB2aWEgVlRfRElTQUxMT0NBVEUpLAo+PmZiY29u
+X2ZyZWVfZm9udCgpIGZhaWxzIHRvIGZyZWUgdGhpcyBtZW1vcnkgYmVjYXVzZSBpdHMgYGlmIChw
+LT51c2VyZm9udClgCj4+Y2hlY2sgZmFpbHMsIHJlc3VsdGluZyBpbiBhIG1lbW9yeSBsZWFrIGNh
+dWdodCBieSBrbWVtbGVhazoKPj4KPj4gIHVucmVmZXJlbmNlZCBvYmplY3QgMHhmZmZmODg4MTI3
+ZWEwMDAwIChzaXplIDMzMjk2KToKPj4gICAgY29tbSAic3l6LjAuODcyNiIsIHBpZCAzMzIyNCwg
+amlmZmllcyA0Mjk3NzU0NjQzCj4+ICAgIGhleCBkdW1wIChmaXJzdCAzMiBieXRlcyk6Cj4+ICAg
+ICAgYTYgZTQgZjkgZGQgMDAgMDAgMDAgMDAgMDAgODIgMDAgMDAgMDEgMDAgMDAgMDAgIC4uLi4u
+Li4uLi4uLi4uLi4KPj4gICAgICBkMiAwOSA2YyBiZiA1MiA4YSA3ZCBkNCBlZiAxZCA1OSAxNiA1
+MSA4NiAzMiBiZiAgLi5sLlIufS4uLlkuUS4yLgo+PiAgICBiYWNrdHJhY2UgKGNyYyA0YTBhNTdk
+ZCk6Cj4+ICAgICAgX19fa21hbGxvY19sYXJnZV9ub2RlKzB4ZTcvMHgxODAgbW0vc2x1Yi5jOjUy
+MTQKPj4gICAgICBfX2ttYWxsb2NfbGFyZ2Vfbm9kZV9ub3Byb2YrMHgyOS8weDEzMCBtbS9zbHVi
+LmM6NTIzMgo+PiAgICAgIF9fZG9fa21hbGxvY19ub2RlIG1tL3NsdWIuYzo1MjQ4IFtpbmxpbmVd
+Cj4+ICAgICAgX19rbWFsbG9jX25vcHJvZisweDVmYy8weDdjMCBtbS9zbHViLmM6NTI3Mgo+PiAg
+ICAgIGttYWxsb2Nfbm9wcm9mIGluY2x1ZGUvbGludXgvc2xhYi5oOjk1NCBbaW5saW5lXQo+PiAg
+ICAgIGZiY29uX3NldF9mb250KzB4NDMxLzB4YTYwIGRyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9m
+YmNvbi5jOjI1MjUKPj4gICAgICBjb25fZm9udF9zZXQgZHJpdmVycy90dHkvdnQvdnQuYzo0OTE4
+IFtpbmxpbmVdCj4+ICAgICAgY29uX2ZvbnRfb3ArMHg5NGQvMHhlODAgZHJpdmVycy90dHkvdnQv
+dnQuYzo0OTU4Cj4+ICAgICAgdnRfa19pb2N0bCBkcml2ZXJzL3R0eS92dC92dF9pb2N0bC5jOjQ3
+MiBbaW5saW5lXQo+PiAgICAgIHZ0X2lvY3RsKzB4NjNjLzB4MmVlMCBkcml2ZXJzL3R0eS92dC92
+dF9pb2N0bC5jOjc0Mwo+Pgo+PkZpeCB0aGlzIGJ5IG1vdmluZyB0aGUgYHAtPnVzZXJmb250ID0g
+b2xkX3VzZXJmb250YCBhc3NpZ25tZW50IG91dHNpZGUKPj50aGUgYGlmICh1c2VyZm9udClgIGJs
+b2NrIHNvIHRoYXQgdGhlIHRlcm1pbmFsIHN0YXRlIGlzIHVuY29uZGl0aW9uYWxseQo+PmFuZCBj
+b3JyZWN0bHkgcmVzdG9yZWQgcmVnYXJkbGVzcyBvZiB3aGljaCBmb250IHNldHRpbmcgdHJpZ2dl
+cmVkIHRoZQo+PmVycm9yLgo+Pgo+PkZpeGVzOiBhNWE5MjMwMzhkNzAgKCJmYmRldjogZmJjb246
+IFByb3Blcmx5IHJldmVydCBjaGFuZ2VzIHdoZW4gdmNfcmVzaXplKCkgZmFpbGVkIikKPj5TaWdu
+ZWQtb2ZmLWJ5OiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4+
+LS0tCj4+IGRyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jIHwgNCArKystCj4+IDEgZmls
+ZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4KPj5kaWZmIC0tZ2l0
+IGEvZHJpdmVycy92aWRlby9mYmRldi9jb3JlL2ZiY29uLmMgYi9kcml2ZXJzL3ZpZGVvL2ZiZGV2
+L2NvcmUvZmJjb24uYwo+PmluZGV4IDY2NjI2MWFlNTlkOC4uYTM4NTQ1ZGM4NDE2IDEwMDY0NAo+
+Pi0tLSBhL2RyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj4+KysrIGIvZHJpdmVycy92
+aWRlby9mYmRldi9jb3JlL2ZiY29uLmMKPj5AQCAtMjQ2MSw4ICsyNDYxLDEwIEBAIHN0YXRpYyBp
+bnQgZmJjb25fZG9fc2V0X2ZvbnQoc3RydWN0IHZjX2RhdGEgKnZjLCBpbnQgdywgaW50IGgsIGlu
+dCBjaGFyY291bnQsCj4+IAlwLT5mb250ZGF0YSA9IG9sZF9kYXRhOwo+PiAJdmMtPnZjX2ZvbnQu
+ZGF0YSA9IG9sZF9kYXRhOwo+PiAKPj4rCS8qIFVuY29uZGl0aW9uYWxseSByZXN0b3JlIHRoZSBw
+cmV2aW91cyB1c2VyZm9udCBzdGF0ZSAqLwo+PisJcC0+dXNlcmZvbnQgPSBvbGRfdXNlcmZvbnQ7
+Cj4+Kwo+PiAJaWYgKHVzZXJmb250KSB7Cj4+LQkJcC0+dXNlcmZvbnQgPSBvbGRfdXNlcmZvbnQ7
+Cj4+IAkJaWYgKC0tUkVGQ09VTlQoZGF0YSkgPT0gMCkKPj4gCQkJa2ZyZWUoZGF0YSAtIEZPTlRf
+RVhUUkFfV09SRFMgKiBzaXplb2YoaW50KSk7Cj4+IAl9Cj4+LS0gCj4+Mi4zNC4xCg==
