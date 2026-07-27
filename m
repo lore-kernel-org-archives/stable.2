@@ -1,45 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79558CA52;
-	Mon, 27 Jul 2026 15:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28B1282F13;
+	Mon, 27 Jul 2026 15:19:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785164572; cv=none; b=E0qUk+7rRwc2t9ahCXp43DhFqJpAfxO4W5VvbsVVrJ/b3Np/Z/XnESHWlxghTIH248ugQ+5iydLwFRpHQ79IFcMkZXbI+KoL5NuDVX+QnOgDNHR4fhtnL9BeYJoNKnYFAGEaKZ2v5x3fDUDAJnbIrxWSp6Cye7vDQiUCdlLudGw=
+	t=1785165596; cv=none; b=r6k46d1joqADKWEW8nXcJCo7uJ8pPmdrL97k5KLgKhpT7w15wYMcX5xmNCpwtSSGb60ORhK9NhJnK4WGEtb8GKQbWTEA6i+W1SVvoWPynV0BqCi757eupvkXg3DQNTN95CySOqTOSwXXAKFIk05aq2OwSkN+Y846TCmGQFLznAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785164572; c=relaxed/simple;
-	bh=gHHdkLvMrlKAf6tMrh3E7+DzjlEHflQFAi2Dm0I1S3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ONrpHHBgAdBfNXYMryEInszBPAf3JRLUdpRjaZ2Vt7yOtSh0hhtRT/YVjYpywmeAEw1lz5mzqu0kpBDBXlaoUotcHbLhQgsLurbR56gUXcB5CArZB3rQlD8TxGY7DLZ4+mCHMwL0OndyQZbdDB3cW6u0LGPqnZ9ScWPwxdh+Uck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmTYl/c+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785165596; c=relaxed/simple;
+	bh=LbyJqPm8RaIXinzsZygdAsF8m0syDf5XT+QpBibBq7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OUV0Ai1wh5gCJaPDc/fcJzJl8MzlRRJQFvKZHraatMF/IHWHQ8l1zyXe6/bTsB0H2LJaRGD0knb34tM+TeEIE9CMmpmvbkGMr0r6KZ1HLDv5Dj+4LRYSthoD/Cny8qscUztmMjm4xwcq/0oLCq/cTT3yr/b2ubDvDPPJotDwoFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EG+z9Uco; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmTYl/c+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E271F000E9;
-	Mon, 27 Jul 2026 15:02:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785164571;
-	bh=aFYOBMXp5dKkeO47Qf8glP6qHC1ahmcBq2ODbRBzDG0=;
-	h=From:To:Cc:Subject:Date;
-	b=gmTYl/c+0ipQFd8NpHTkjpGs4Q/3jQRywWu+9wuxAhCoeM3efP0QblqxX3Af9lGHc
-	 Nz2Z0plLNymVkhgTMkuRmp4F2lcLA57ghdR9RPQTw/rI3fEcNsoA3j4Io3hADdCZGL
-	 mmUj2tD9ObqEv1R2brKr49durZgrC8VeKVi5e8kyRCt8TQ5Gjnv7Ug48Vn8CgZfewn
-	 mxXmgO0bwMZ1SBTljY0/b7avVfA7xXqkM87bkOwsT3NoJ5ZsIdhUmDveKwowaC8VX+
-	 NwpmMI6LpHZ+hk2RZgvGv+E4jiZltvM4rqpX1blqfHXzIrkJS4mWWn0H9FXPDSTwvn
-	 uInTh38P1hm6Q==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Changyuan Lyu <changyuanl@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: kexec@lists.infradead.org,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EG+z9Uco"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785165595; x=1816701595;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=LbyJqPm8RaIXinzsZygdAsF8m0syDf5XT+QpBibBq7Q=;
+  b=EG+z9UcoJ3cd8YpLrUng/9R34sPc/n2rxeA9kSZ8c6gTnW4n7DBsnjY8
+   PZ7rDgMJgecdq9TEtejslHJnZtYG+LLxkSU4uIvCVPEaldWzLbWUtA+Mn
+   aOuGFncJytUfwIUqgv6HaJWcxrSpbBfZq8Y0cKPmO8rfESZTMz5TFyIsy
+   cVmyITKHqeK2Saeq8qZuVWBXeuqbdcmySo2zYOGdc0NC8ZUSa3G44apzk
+   tZ/JwJBr4hayNcOvOxhN+VgCq/Plp2P7TC2BPeobFDu1nRxHktjFKcqzL
+   zshThPGEWkwAZKUuScOzlgvqZfVrRIHv4Xpiq6vgMXzLa18dLVf2ZZM4o
+   Q==;
+X-CSE-ConnectionGUID: DYmQIg7aS9+YiiMwe8PMRw==
+X-CSE-MsgGUID: GfaYlwwMTm+d3I8pBlDEqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="85925568"
+X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
+   d="scan'208";a="85925568"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 08:19:55 -0700
+X-CSE-ConnectionGUID: zdUkAW9SRtKRhz3tdR/Khw==
+X-CSE-MsgGUID: D8vdk8NUQuqX9Qdf2jVHXA==
+X-ExtLoop1: 1
+Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 08:19:51 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH] kho: fix size calculation in kho_preserved_memory_reserve()
-Date: Mon, 27 Jul 2026 17:02:39 +0200
-Message-ID: <20260727150240.889555-1-pratyush@kernel.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+Subject: Re: [PATCH] gpio: pch: use raw_spinlock_t for the register lock
+Date: Mon, 27 Jul 2026 23:18:14 +0800
+Message-ID: <20260727151902.214691-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAD++jL=EJyWpqjwCdfosdanjS9GUAwMEJjHFrcvMyBV3iKHZZw@mail.gmail.com>
+References: <20260723014129.1129730-1-junjie.cao@intel.com> <CAD++jL=EJyWpqjwCdfosdanjS9GUAwMEJjHFrcvMyBV3iKHZZw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,51 +67,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+Hi Linus,
 
-kho_preserved_memory_reserve() calculates the size of a preservation by
-doing 1 << (order + PAGE_SHIFT). Since the '1' is a 32-bit integer, it
-can only be shifted by 31. That is, it will only work for preservations
-up to 2 GiB. Larger preservations will trigger undefined behaviour.
+Thanks for the review!
 
-While preservations larger than 2 GiB can't be obtained via folios
-currently, they can be obtained via kho_preserve_pages().
+> Really? Why to stable? Is this a regression of something that
+> used to work before? Using RT is fringe IMO.
 
-For example, memblock reserve_mem uses kho_preserve_pages().
-Reservations larger than 2 GiB are valid and will trigger this bug if
-properly aligned.
+No -- it is indeed not a regression: the lock has been a plain
+spinlock_t since IRQ support landed in 2011, so it never worked on
+PREEMPT_RT rather than regressing. I Cc'd stable because current LTS
+kernels with PREEMPT_RT hit this sleeping-in-atomic BUG today, like
+the two fixes I referenced (286533cb14a3, 90f0109019e6, both Cc'd
+stable); Bartosz has since applied it with the tag kept, so I'm happy
+to defer to whatever you and he prefer.
 
-Fix it by using 1UL for shifting.
-
-Fixes: fc33e4b44b27 ("kexec: enable KHO support for memory preservation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-
----
-Stable backport note: This patch fixes kho_preserved_memory_reserve(),
-which was added by 3f2ad90060f6 ("kho: adopt radix tree for preserved
-memory tracking") in v7.1. The bug in older kernels was in
-deserialize_bitmap(), which was added by fc33e4b44b27 ("kexec: enable
-KHO support for memory preservation") in v6.16.
----
- kernel/liveupdate/kexec_handover.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 175c08a6e41e..6fad9152387a 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -501,7 +501,7 @@ static int __init kho_preserved_memory_reserve(phys_addr_t phys,
- 	struct page *page;
- 	u64 sz;
- 
--	sz = 1 << (order + PAGE_SHIFT);
-+	sz = 1UL << (order + PAGE_SHIFT);
- 	page = kho_get_preserved_page(phys, order);
- 
- 	/* Reserve the memory preserved in KHO in memblock */
-
-base-commit: 5c4a03afcb21783987ffc64562b76ddd5a21b12b
--- 
-2.55.0.229.g6434b31f56-goog
-
+Many thanks,
+Junjie
