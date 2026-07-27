@@ -1,134 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B789A400998
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 12:28:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A20A3F823E;
+	Mon, 27 Jul 2026 12:34:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785155331; cv=none; b=tU5IhORkEDlQ/+eKU7IRvoqc1GKjUCdwawQihxQwi6dv/du42oYtsdHV4DD5e4SuqjB5FerQRXgJgrJDOuv+hPFBYtC1Agq8Ylzuwzrbwns5rQfb0IfKumUpFTzDlNToNcoVeK+otSKpPdPEG4LWHhHi5Jbuaz4A5Qh4aV40GEA=
+	t=1785155658; cv=none; b=nbM9wc47erQfYFdnN7mmVcaU93PLQ6E04pi1mEDWxovz8Ed11rDhtDLFJO8SiYzXPSYduCeiO37KPAnU4uATnckEs7RpmXchfvRs5YNw1704KD2AWrg/a9q4jMUwopLL75ZZwR1dMKER/EQh/F8uyEhK07CzhYj7Bt0oOqcD7uM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785155331; c=relaxed/simple;
-	bh=nHoAoobYKpU7pqc6WpLSQ0wsJk2LwYWIJkV4ak0b4gc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GzTe4KTp73abxZCeveH3LgL1fWSgH+DLaKyrzczas1FBLh4jQ6j4d5swcR/0Lmn8S0Ib/eIegbulbzDs1JgGQzng9RvkM3ymLfg1hsMyXUPMKzVMPV7Psxsd1vMW9SPxtm7AOqXGxEWn8KX6IeTuNqoCL2k6A7jWPvFFxnLdTlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pcx6vJGw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785155658; c=relaxed/simple;
+	bh=4NKP5XOkpu4oTqud1t4vQGtZRZHlVZt3idNsSSDyLPY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oQ263Mcf8iK+MU/q9sMKfk9iVAP0BN7z7/1gc3JkfZQCq5bU94k+4Whs8ww6/D6FLx7f7dUW26QbahwVCJCNGdFjzZkP6UBoUj5mtfZ7PFkYIN/lbiOSbGM5IMFIYQlyOy9kBNhgjaMDvmc4i6rUnRNPYl3/BEQDu0qxkh0ArlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lilrqU46; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pcx6vJGw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB1E1F00A3D;
-	Mon, 27 Jul 2026 12:28:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lilrqU46"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828DC1F000E9;
+	Mon, 27 Jul 2026 12:34:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785155329;
-	bh=ARuUFP+5Ax2t/0P1QOzHWyenZq8SIpJ4Xb7xs6ZtO/U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pcx6vJGwOOE7lZRSwCzWgurPfquIKV2pSOItK//ewwJjx4BQrgYifo/CG72QXqh7n
-	 CKZFovOKV6rAjYB3UA9XIKnAseBQ1iMrYUKxnfLQKrr2U21DOLoScUqTzmPW98A6dX
-	 iJfvCheH67tczJizkX0uLfwg22mYRW26btTTpuRhoqzplfcyuB6NY3ovWXJJgA/4JI
-	 nq+OvxH5VlJv4hbn4Ukqd2EicoT+5I//n2WbHJ+p/kLEZrxFkp/2Y3zLtuKFy07giW
-	 /cYR1rA9y6FkTI9Lhe+wqQKU2zj/kpUVsy/NTA4SlkdPtvsZNKTQ7CId/FFbhLE6Lb
-	 nsUvoZKaSW5qA==
+	s=k20260515; t=1785155656;
+	bh=8driKVCnf8Kbn7RW89LGQxINbySI0/fMRE1fgoul8Sg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lilrqU46OYgcQV3ZKKs8z9siC1SwiwjTbzgfw7lud/ZgpAMkNIsJ6qRzcThBLL6P/
+	 cOPfpp9TI0KyUqIQr5DCBEgwd+VWYmLxSiAMMM3L9hkrjLsdhhM1PlYKUuOu4LhncP
+	 mlOgK6M39Hpn4FRvmVEN161wT1mgY7pzl8XBPVBscOMIT+EDLcDoOALxnaA4ca3K+W
+	 n3DhiogNNqqrHWF5M01/VN65kfdLcE573Io1Y9job4myx2jQv0qZ7ie1+U2PM+sWUN
+	 vlrIpwHyxCoKMiSiOFBluuUVD/6DSh0OGDNOSu4SUVGNromcVOjkzAEpJhfLYdvzG5
+	 LmKgwJ/Z8blkw==
+Date: Mon, 27 Jul 2026 08:34:15 -0400
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Vincent Jardin <vjardin@free.fr>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Carlos Song <carlos.song@nxp.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] i2c: imx: fix locked bus on SMBus block-read of 0 (atomic)
-Date: Mon, 27 Jul 2026 08:28:46 -0400
-Message-ID: <20260727122846.4156347-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727122846.4156347-1-sashal@kernel.org>
-References: <2026072035-pyramid-excretory-e2e1@gregkh>
- <20260727122846.4156347-1-sashal@kernel.org>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Greg KH <gregkh@linuxfoundation.org>, "Alex L." <lkstl7@proton.me>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: Backport patch that wasn't dropped, but not applied in the
+ actual stable release
+Message-ID: <amdQR3Hod2aX22On@laps>
+References: <Dwu6EPhoqrm1RQ9cqVTWmxbiSKyzKQLg9BXcfdVDrUiF2_MAdSlmA6gU9EOdv0PaX6vysSJUVsVSOMu6aNnppuA3sfg7Z8M3rYdaf75KkO0=@proton.me>
+ <6dc6ac56-3126-4266-9e43-ec67a3203b34@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <6dc6ac56-3126-4266-9e43-ec67a3203b34@leemhuis.info>
 
-From: Vincent Jardin <vjardin@free.fr>
+On Mon, Jul 27, 2026 at 10:14:26AM +0200, Thorsten Leemhuis wrote:
+>On 7/21/26 20:51, Alex L. wrote:
+>> Hello, I'm writing with regards to drm-amd-display-fix-ism-dc_lock-
+>> deadlock-during-susp.patch that can be found in the stable-queue
+>> repo, under releases/7.1.3/ on the master branch. (https://
+>> git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/tree/
+>> releases/7.1.3/drm-amd-display-fix-ism-dc_lock-deadlock-during-
+>> susp.patch)
+>>
+>> Despite being under the releases directory to this date, this patch
+>> wasn't actually applied in the 7.1.3 release upon inspection of the
+>> stable tree. It also wasn't included in the release announcement for
+>> 7.1.3 nor the diffstat within. It wasn't even included in the RC's
+>> for 7.1.3. I have searched the stable mailing list and the stable-
+>> queue repo's commit histories to establish whether the patch was
+>> dropped later for some reason - to my knowledge, this doesn't appear
+>> to be the case.
+>>
+>> On further investigation I found that the commit that first
+>> introduced this patch to stable-queue's queue-7.1/ added the patch
+>> file to the directory, but did not add it to the queue-7.1/series
+>> file. (https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-
+>> queue.git/commit/?id=76522806dbfb58941f6fa4b6116b891b66689613)
+>>
+>> Could this be an accidental omission of the patch due to it not
+>> being on the series file, or was there some other reason that the
+>> patch was not included? As a user who's affected by the regression
+>> that the patch addresses, I would very much appreciate it being
+>> included in future 7.1.y releases.
+>Greg, Sasha, from a quick look this analysis seems correct. Did some
+>script do something odd? Or did Alex and I miss something:
+>
+>Reminder, it was Sasha that queued the patch for 7.1:
+>https://lore.kernel.org/all/stable-reply-item001-amd-ism-71-20260628203053@kernel.org/
+>
+>Sashiko shortly afterwards (see thread) complained about two things, but
+>those were pre-existing issues (without any fixes in mainline, at least
+>I did not spon any references for it).
 
-[ Upstream commit cb2fc37857693b55909fb77dc2c87cfbc1cdc476 ]
+You're right - thanks for the report. I'll queue it up again.
 
-SMBus 3.1 6.5.7 allows a Block Read byte count of 0, but the atomic
-(polling) path rejects it as -EPROTO. Worse, it returns without a
-NACK+STOP: the next receive cycle has already started, so the target
-keeps holding SDA and the bus stays stuck until a power cycle for
-this i2c controller.
-
-Reading I2DR to obtain the count likewise arms the next byte on the
-count > I2C_SMBUS_BLOCK_MAX path, which also returned -EPROTO directly
-and left the bus held.
-
-Handle both: NACK the in-flight dummy byte (TXAK) and extend msgs->len so
-the existing last-byte handling emits STOP; the dummy byte is discarded.
-A count of 0 is a valid empty block read; a count above
-I2C_SMBUS_BLOCK_MAX is still reported as -EPROTO, but only after the bus
-has been released.
-
-The interrupt-driven path has the same flaw from a later commit and is
-fixed separately, as it carries a different Fixes: tag and stable range.
-
-Fixes: 8e8782c71595 ("i2c: imx: add SMBus block read support")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
-Cc: <stable@vger.kernel.org> # v3.16+
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Acked-by: Carlos Song <carlos.song@nxp.com>
-Reviewed-by: Stefan Eichenberger <eichest@gmail.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260713-for-upstream-i2c-lx2160-fix-v1-v3-1-073ac9e103a5@free.fr
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/i2c/busses/i2c-imx.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index 681a43e22a4428..ad65450aed9148 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -1184,6 +1184,7 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 	int i, result;
- 	unsigned int temp;
- 	int block_data = msgs->flags & I2C_M_RECV_LEN;
-+	int block_err = 0;
- 
- 	result = i2c_imx_prepare_read(i2c_imx, msgs, atomic, false);
- 	if (result)
-@@ -1205,8 +1206,20 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 		 */
- 		if ((!i) && block_data) {
- 			len = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2DR);
--			if ((len == 0) || (len > I2C_SMBUS_BLOCK_MAX))
--				return -EPROTO;
-+			if ((len == 0) || (len > I2C_SMBUS_BLOCK_MAX)) {
-+				/*
-+				 * SMBus 3.1 6.5.7: support count byte of 0.
-+				 * I2C_SMBUS_BLOCK_MAX case should not hold the SDA either.
-+				 */
-+				if (len > I2C_SMBUS_BLOCK_MAX)
-+					block_err = -EPROTO;
-+				temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
-+				temp |= I2CR_TXAK;
-+				imx_i2c_write_reg(temp, i2c_imx, IMX_I2C_I2CR);
-+				msgs->buf[0] = 0;
-+				msgs->len = 2;
-+				continue;
-+			}
- 			dev_dbg(&i2c_imx->adapter.dev,
- 				"<%s> read length: 0x%X\n",
- 				__func__, len);
-@@ -1254,7 +1267,7 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 			"<%s> read byte: B%d=0x%X\n",
- 			__func__, i, msgs->buf[i]);
- 	}
--	return 0;
-+	return block_err;
- }
- 
- static int i2c_imx_atomic_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
 -- 
-2.53.0
-
+Thanks,
+Sasha
