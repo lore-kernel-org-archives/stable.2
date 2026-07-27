@@ -1,39 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDCA1427A
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 23:37:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6761427A
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 23:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785195474; cv=none; b=A15DYl4YHLb3IYQ9yqw0M1XHM3/9DSgd5ZceOYyRMAtukUviQ6S8JvvPMfGaE4tjUnnrdPMWCRUhud86w3j/wH2lDT2EiH0UZ8oDDuHT2GPN7DiT0IYLp8HOGqcq9YubNhKhBoyGoQ/+GhyP/JvaW9Isx+o+3xJyHpyLyna5m7M=
+	t=1785195477; cv=none; b=LeJTw/AJD3JUzp2rlW8Xu1yvJWn3qSdKytoOLlh1caRQKZQ3FjEXN2MibfftZLuxFU8jkdhbtEYGgt1JFGebRPhiP42iKA+c/DAudu3JHio9wwHNQ+g3iQ5VBf6Rb7Gg+m/K2mAKtclbT5ltQTUSFPkGiQ8cfWaUBZFC7MkPFKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785195474; c=relaxed/simple;
-	bh=FmxOGE6xvaKsn69JZ+rxUMDrtz6vbJg9/DSfDXM1Sjo=;
+	s=arc-20240116; t=1785195477; c=relaxed/simple;
+	bh=925Iemh5cQ9wbU0EZ+IfWkdxFsWrb9yXteEDdr2CbVQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KKm4KyXyVK/ahPCioX6kirbcSHraNcXFhKynPJ0hp+LKpUYe5Vlw1GSJANryCmE+LGqlHutOPNI1HsXDCeuptW8pi2JmcT8Xgf7941576J5ML0i0PkFOuVFhScohNW4Jer+l5WCN0Gm9tBvEg6p04PMLkOGJnXHH7lSvyIyoH2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MRffAyr7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YUI/fT24QOrovB8VgnwyyozWzvTSxAOQne4t31LFR34YomDeZMoQ3eKXK6hKvOajcHGE5qgItBXKbf//8EwGTjX4uF9ClX0d4UwPNF450M5oyXn7AHRJHQE4fdTGcaVRJDja8vydACqiWB5bvlTs3vOQCft/jQF8/qmLC7LLtk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MqstQKvI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MRffAyr7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F56D1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MqstQKvI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46E51F00A3E;
 	Mon, 27 Jul 2026 23:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785195473;
-	bh=Ite15heUthxSH3IT+sQMNbnKfTl5iNEBRMnp87mzKTk=;
+	s=k20260515; t=1785195474;
+	bh=/clGUtufU+e+uilxAr+B+kBvdhznwkEREy179DzVJsI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MRffAyr7vuBn01BKXSEQHb3w1LV0sVaed4ILteTJp1d4fQu7RFEMUQ4/BJy5eqJUg
-	 VmMRoCNquTssrIgVkbfyl2LUlCBvO3WNRKxWQr2Ol3XgkbR6iZHGhvJSd2knQlhqsR
-	 dg0jPZEUZSRFAtw5lxoq85YXHTgmWB/t2O/45ARuK24jd+HkWZm0Om0aWr6+Fkgq44
-	 rr/g4BeJEWKruWrwkm2f3ULmlJ6LMrlxg7wk5I+anT59X1mWohzXjpy3Vp5WQra9kX
-	 Pd/H3y5jRhvmEDf4CK+xMpKIKcgmAUlFlo2oA1yahum2CvqYgc7kuCHVmFTy+MT63/
-	 K+s0FWhvPf0gw==
+	b=MqstQKvIVbIkWWRVS6VgVgbcX5KGzAbHSiolIholD0DLy3In+0pRIAE6uUaQUVzG8
+	 MmeIiceuKAZfRHiFfekB0/CSLvDwWyr/6gqI/mHTDoTXfIbsB78M406+vNGjFyS6zH
+	 rbcmY1ZSlghINL/bXuBMmReu6j5/4QKRmhStto1hyLepTY9tZCC4T2+xUUVfqNoGHs
+	 sbGQE5groROfLaYAmXE7ticZ7pcwfXJkpuhOtrPj6sdJXCo8OEQWMY2xkl7PGozQPV
+	 bkPEbuFCY2idnTlnc3L6dyNd6BGwtxDc2AxqEOkwhR93D+47cm1lM4v+1rJCMwBo1X
+	 4aVslJ2fwx8Jw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marco Crivellari <marco.crivellari@suse.com>,
-	Tejun Heo <tj@kernel.org>,
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+	XIAO WU <xiaowu.417@qq.com>,
+	Beau Belgrave <beaub@linux.microsoft.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] workqueue: Add system_percpu_wq and system_dfl_wq
-Date: Mon, 27 Jul 2026 19:37:49 -0400
-Message-ID: <20260727233750.2439387-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] tracing/user_events: Fix use-after-free in user_event_mm_dup()
+Date: Mon, 27 Jul 2026 19:37:50 -0400
+Message-ID: <20260727233750.2439387-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260727233750.2439387-1-sashal@kernel.org>
 References: <2026072054-anywhere-moodiness-9087@gregkh>
@@ -46,120 +48,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marco Crivellari <marco.crivellari@suse.com>
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-[ Upstream commit 128ea9f6ccfb6960293ae4212f4f97165e42222d ]
+[ Upstream commit 50fd6dd755c6e48a38af2fa4621167eea56829c2 ]
 
-Currently, if a user enqueue a work item using schedule_delayed_work() the
-used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-schedule_work() that is using system_wq and queue_work(), that makes use
-again of WORK_CPU_UNBOUND.
+user_event_mm_dup() walks the parent mm's enabler list locklessly under
+rcu_read_lock() during fork() (from copy_process()); it does not take
+event_mutex:
 
-This lack of consistentcy cannot be addressed without refactoring the API.
+	rcu_read_lock();
+	list_for_each_entry_rcu(enabler, &old_mm->enablers, mm_enablers_link)
+		enabler->event = user_event_get(orig->event);
 
-system_wq is a per-CPU worqueue, yet nothing in its name tells about that
-CPU affinity constraint, which is very often not required by users. Make it
-clear by adding a system_percpu_wq.
+user_event_enabler_destroy() removes an enabler from that list with
+list_del_rcu() and then, without waiting for a grace period, drops the
+enabler's user_event reference with user_event_put() and frees the enabler
+with kfree(). A reader that loaded the enabler before the list_del_rcu()
+can still be walking it, which leads to two use-after-frees:
 
-system_unbound_wq should be the default workqueue so as not to enforce
-locality constraints for random work whenever it's not required.
+ - kfree(enabler) frees the enabler while that reader dereferences
+   enabler->event.
 
-Adding system_dfl_wq to encourage its use when unbound work should be used.
+ - user_event_put() may drop the last reference to the user_event, which
+   is then freed (via delayed_destroy_user_event() on a work queue), while
+   the same reader does user_event_get(orig->event) on it.
 
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Stable-dep-of: 50fd6dd755c6 ("tracing/user_events: Fix use-after-free in user_event_mm_dup()")
+Both are reachable by an unprivileged task that can open user_events_data:
+one multithreaded process that registers an enabler and then concurrently
+unregisters it and calls fork() triggers the race. KASAN reports a
+slab-use-after-free in user_event_mm_dup() during clone(), with a
+"refcount_t: addition on 0" warning when the user_event is freed.
+
+The enabler use-after-free was found first; the user_event one was reported
+by XIAO WU, and the earlier enabler-only fix did not address it.
+
+Defer both the user_event_put() and the kfree(enabler) to a work item
+queued with queue_rcu_work(), so they run only after an RCU grace period,
+once all readers walking the enabler list have finished. The put must run
+in process context because user_event_put() takes event_mutex on the last
+reference, so a work queue is used rather than call_rcu(). The now-unlocked
+put lets the locked argument of user_event_enabler_destroy() be removed;
+all callers are updated.
+
+Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260707165912.2560537-2-michael.bommarito@gmail.com
+Reported-by: XIAO WU <xiaowu.417@qq.com>
+Closes: https://lore.kernel.org/all/tencent_89647CE40DC452B891C65C94D1B271DE8E07@qq.com/
+Suggested-by: Beau Belgrave <beaub@linux.microsoft.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/workqueue.h |  8 +++++---
- kernel/workqueue.c        | 14 ++++++++++----
- 2 files changed, 15 insertions(+), 7 deletions(-)
+ kernel/trace/trace_events_user.c | 39 ++++++++++++++++++++++++++------
+ 1 file changed, 32 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
-index 52c6dd6d80ac09..c4df93bee09c7f 100644
---- a/include/linux/workqueue.h
-+++ b/include/linux/workqueue.h
-@@ -410,7 +410,7 @@ enum {
- /*
-  * System-wide workqueues which are always present.
-  *
-- * system_wq is the one used by schedule[_delayed]_work[_on]().
-+ * system_percpu_wq is the one used by schedule[_delayed]_work[_on]().
-  * Multi-CPU multi-threaded.  There are users which expect relatively
-  * short queue flush time.  Don't queue works which can run for too
-  * long.
-@@ -421,7 +421,7 @@ enum {
-  * system_long_wq is similar to system_wq but may host long running
-  * works.  Queue flushing might take relatively long.
-  *
-- * system_unbound_wq is unbound workqueue.  Workers are not bound to
-+ * system_dfl_wq is unbound workqueue.  Workers are not bound to
-  * any specific CPU, not concurrency managed, and all queued works are
-  * executed immediately as long as max_active limit is not reached and
-  * resources are available.
-@@ -435,10 +435,12 @@ enum {
-  * system_power_efficient_wq is identical to system_wq if
-  * 'wq_power_efficient' is disabled.  See WQ_POWER_EFFICIENT for more info.
-  */
--extern struct workqueue_struct *system_wq;
-+extern struct workqueue_struct *system_wq; /* use system_percpu_wq, this will be removed */
-+extern struct workqueue_struct *system_percpu_wq;
- extern struct workqueue_struct *system_highpri_wq;
- extern struct workqueue_struct *system_long_wq;
- extern struct workqueue_struct *system_unbound_wq;
-+extern struct workqueue_struct *system_dfl_wq;
- extern struct workqueue_struct *system_freezable_wq;
- extern struct workqueue_struct *system_power_efficient_wq;
- extern struct workqueue_struct *system_freezable_power_efficient_wq;
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 0c451d6c579a8d..fd215673ddf8a3 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -425,12 +425,16 @@ static struct kthread_worker *pwq_release_worker;
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index 2461786b1e4d22..9dabeb86acd175 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -104,6 +104,9 @@ struct user_event_enabler {
  
- struct workqueue_struct *system_wq __read_mostly;
- EXPORT_SYMBOL(system_wq);
-+struct workqueue_struct *system_percpu_wq __read_mostly;
-+EXPORT_SYMBOL(system_percpu_wq);
- struct workqueue_struct *system_highpri_wq __read_mostly;
- EXPORT_SYMBOL_GPL(system_highpri_wq);
- struct workqueue_struct *system_long_wq __read_mostly;
- EXPORT_SYMBOL_GPL(system_long_wq);
- struct workqueue_struct *system_unbound_wq __read_mostly;
- EXPORT_SYMBOL_GPL(system_unbound_wq);
-+struct workqueue_struct *system_dfl_wq __read_mostly;
-+EXPORT_SYMBOL_GPL(system_dfl_wq);
- struct workqueue_struct *system_freezable_wq __read_mostly;
- EXPORT_SYMBOL_GPL(system_freezable_wq);
- struct workqueue_struct *system_power_efficient_wq __read_mostly;
-@@ -6696,10 +6700,11 @@ void __init workqueue_init_early(void)
+ 	/* Track enable bit, flags, etc. Aligned for bitops. */
+ 	unsigned long		values;
++
++	/* Defer the event put and enabler free past an RCU grace period. */
++	struct rcu_work		put_rwork;
+ };
+ 
+ /* Bits 0-5 are for the bit to update upon enable/disable (0-63 allowed) */
+@@ -378,17 +381,39 @@ static struct user_event_group *user_event_group_create(void)
+ 	return NULL;
+ };
+ 
+-static void user_event_enabler_destroy(struct user_event_enabler *enabler,
+-				       bool locked)
++static void delayed_user_event_enabler_put(struct work_struct *work)
+ {
+-	list_del_rcu(&enabler->mm_enablers_link);
++	struct user_event_enabler *enabler = container_of(to_rcu_work(work),
++			struct user_event_enabler, put_rwork);
+ 
+ 	/* No longer tracking the event via the enabler */
+-	user_event_put(enabler->event, locked);
++	user_event_put(enabler->event, false);
+ 
++	/* Run from queue_rcu_work(), the RCU grace period has elapsed */
+ 	kfree(enabler);
+ }
+ 
++static void user_event_enabler_destroy(struct user_event_enabler *enabler)
++{
++	list_del_rcu(&enabler->mm_enablers_link);
++
++	/*
++	 * The enabler is removed from an RCU-traversed list
++	 * (user_event_mm_dup() walks mm->enablers under rcu_read_lock() only),
++	 * and readers there dereference enabler->event and take a new ref on
++	 * it. Both the put of that event reference and the free of the enabler
++	 * therefore have to wait for a grace period so no reader can be looking
++	 * at the enabler or racing the last put of its event.
++	 *
++	 * The put itself must not run in RCU context: when it drops the last
++	 * reference user_event_put() takes event_mutex, which cannot be taken
++	 * from a softirq/RCU callback. Defer both to a work item scheduled
++	 * after a grace period via queue_rcu_work().
++	 */
++	INIT_RCU_WORK(&enabler->put_rwork, delayed_user_event_enabler_put);
++	queue_rcu_work(system_percpu_wq, &enabler->put_rwork);
++}
++
+ static int user_event_mm_fault_in(struct user_event_mm *mm, unsigned long uaddr,
+ 				  int attempt)
+ {
+@@ -446,7 +471,7 @@ static void user_event_enabler_fault_fixup(struct work_struct *work)
+ 
+ 	/* User asked for enabler to be removed during fault */
+ 	if (test_bit(ENABLE_VAL_FREEING_BIT, ENABLE_BITOPS(enabler))) {
+-		user_event_enabler_destroy(enabler, true);
++		user_event_enabler_destroy(enabler);
+ 		goto out;
  	}
  
- 	system_wq = alloc_workqueue("events", 0, 0);
-+	system_percpu_wq = alloc_workqueue("events", 0, 0);
- 	system_highpri_wq = alloc_workqueue("events_highpri", WQ_HIGHPRI, 0);
- 	system_long_wq = alloc_workqueue("events_long", 0, 0);
--	system_unbound_wq = alloc_workqueue("events_unbound", WQ_UNBOUND,
--					    WQ_MAX_ACTIVE);
-+	system_unbound_wq = alloc_workqueue("events_unbound", WQ_UNBOUND, WQ_MAX_ACTIVE);
-+	system_dfl_wq = alloc_workqueue("events_unbound", WQ_UNBOUND, WQ_MAX_ACTIVE);
- 	system_freezable_wq = alloc_workqueue("events_freezable",
- 					      WQ_FREEZABLE, 0);
- 	system_power_efficient_wq = alloc_workqueue("events_power_efficient",
-@@ -6707,8 +6712,9 @@ void __init workqueue_init_early(void)
- 	system_freezable_power_efficient_wq = alloc_workqueue("events_freezable_power_efficient",
- 					      WQ_FREEZABLE | WQ_POWER_EFFICIENT,
- 					      0);
--	BUG_ON(!system_wq || !system_highpri_wq || !system_long_wq ||
--	       !system_unbound_wq || !system_freezable_wq ||
-+	BUG_ON(!system_wq || !system_percpu_wq || !system_highpri_wq ||
-+	       !system_long_wq || !system_unbound_wq || !system_dfl_wq ||
-+	       !system_freezable_wq ||
- 	       !system_power_efficient_wq ||
- 	       !system_freezable_power_efficient_wq);
- }
+@@ -746,7 +771,7 @@ static void user_event_mm_destroy(struct user_event_mm *mm)
+ 	struct user_event_enabler *enabler, *next;
+ 
+ 	list_for_each_entry_safe(enabler, next, &mm->enablers, mm_enablers_link)
+-		user_event_enabler_destroy(enabler, false);
++		user_event_enabler_destroy(enabler);
+ 
+ 	mmdrop(mm->mm);
+ 	kfree(mm);
+@@ -2579,7 +2604,7 @@ static long user_events_ioctl_unreg(unsigned long uarg)
+ 			flags |= enabler->values & ENABLE_VAL_COMPAT_MASK;
+ 
+ 			if (!test_bit(ENABLE_VAL_FAULTING_BIT, ENABLE_BITOPS(enabler)))
+-				user_event_enabler_destroy(enabler, true);
++				user_event_enabler_destroy(enabler);
+ 
+ 			/* Removed at least one */
+ 			ret = 0;
 -- 
 2.53.0
 
