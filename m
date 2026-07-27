@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B7241D217
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 15:59:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574213BBFB9
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 16:02:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785167973; cv=none; b=l33BbxpUkURYa8vz8UoAIE+Z6Q2kwEdxcXnhUK2+YT+17QO35G9LU4Dy86N5N7fcwlpYDEGkRY5W0VGm+AfyTqIgV6RVAP6stRzAla4tpxZ7HbQ0T2WJoMfxT8570Mqd5m8/nuIvdb6wja9iJq7vi095QxvCzOVZyrLIXT6hMlY=
+	t=1785168146; cv=none; b=dApmBBUa7E7d4UVZ+ieIA9vEC9k/1bhRzfmyVTA0vEeU+BXTTMcMViUmk4xdNecX79Z6LsCqQ3ZcCzfJFEfZZ7MkKC0RUneqhJZPLacUZmXXoBAFVcxyQrJEj6OUKFsWCFbHfnLQrS4LD9sUSzPsn5ixT0Y6BHeTx6ZccpEzTdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785167973; c=relaxed/simple;
-	bh=VLu7NiabdoD6B01491oUWB3h/xoUVOW8YDqut0LArLI=;
+	s=arc-20240116; t=1785168146; c=relaxed/simple;
+	bh=r3vWekXmn7ID251pBtdeU7/oszaEFvjQCmYdAzBFhEU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ta0o3IL9juv5pXMXrHYs2th8Nim1rDsg8l/4cBkyk2qOP8YD1z4gc88h0/9YFhd9UlSZqP5aliHQXLwVd6X2KJ2GWwsp+C/CuJW0k8dEmg9/6bnhz7YRZRDuuJKPyEZ2vmzyhAmlYWeVTCk23xApvHW73IdE8O8nrWd16CJOQAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ITyaXuXO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=teOgziNI6+NBcjoC5PHE7m/sNH5hFaGeg8EXhx/9uwdrazBPGVpeuEzurNug56H3GgGVPxcrvJSaGbvYyemfLsAGhwW+KGW87EWJn9JpWcUeEx+IMU4NsNv00Y61VcZ2xveqw/m7OPEjc5Mo3C4CPYnd6PwR6NHV7KevCslctKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDJPHHVN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ITyaXuXO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A0661F00A3A;
-	Mon, 27 Jul 2026 15:59:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDJPHHVN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B151F000E9;
+	Mon, 27 Jul 2026 16:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785167971;
-	bh=zy0mduEgNZI83u5h/PvieRN+IwN1SzT1oFSsit42RUI=;
+	s=k20260515; t=1785168145;
+	bh=EBnaPfIYqExeEQ4L/WZ5ZPglkNbITQ+HlrPYoGPlaec=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ITyaXuXOKn3nfcmW5CoKaW/XWaiOAobziHTsOgoRsS/QWyPauIN4XT67h0x/+QcTj
-	 9ritCuszsrVsLDPRqHlPJDv/uoZ6CS7gJYm/qDcxbYExpvV9WL4R+uM1o8iK/y4MEG
-	 PIfonQhrIU3/DLPrX//eTLt21O8TGSThzbc7yVAkcitZ33GT6Kwi4eqr61uazVn7JM
-	 PKVT+D/PKOaRcgHGl/X7a2kxvtQgCG/87xrOCGNasdoQIa5PBkOS/vZqw9s7Iu46er
-	 OhscD8mNohzNoRQ6Ki5kdCOx/UDuAK/MAs1gVjx1GG9m9OOJK3tW6eUVa8Qop3Oqma
-	 psFFuPjKXzt2Q==
+	b=RDJPHHVNl6xhQVqdNdF6+VeghLjmDIUXhkOebLIovC+p3VheLiXWPWghy1fbI5pS8
+	 ez7RIcw7aGzuDacJwfytWm0SFZeLzCl1mJvBKlbw00UARm3IALlv8tJitlTqWXo4jB
+	 +xjMQbvpF3vIOVYNJIej2yWjFtfPJCrT3/XTR1c1P3dzIeYAMFaBP+37adZz80lxlQ
+	 2Sh54YjtPLj8mEy7IhW5pqyabzvA3ihgPU+aKgtlOR09wo4ZDfMFgfVILXdFZ7FCYW
+	 /i5qBDt/36e5023Qum8vwYHA8LPaczWu+PjKPHHwfMCkteziianruknWJCLNkf6MtY
+	 0csv50TzdKZYA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Connor Williamson <connordw@amazon.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Jann Horn <jannh@google.com>,
+	stable@kernel.org,
+	Andrii Nakryiko <andrii@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] block: remove redundant GD_NEED_PART_SCAN in add_disk_final()
-Date: Mon, 27 Jul 2026 11:59:28 -0400
-Message-ID: <20260727155928.1732187-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] bpf,fork: wipe ->bpf_storage before bailouts that access it
+Date: Mon, 27 Jul 2026 12:02:22 -0400
+Message-ID: <20260727160222.1760251-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727155928.1732187-1-sashal@kernel.org>
-References: <2026072021-refurnish-abdomen-0f40@gregkh>
- <20260727155928.1732187-1-sashal@kernel.org>
+In-Reply-To: <2026072029-trend-escalator-b641@gregkh>
+References: <2026072029-trend-escalator-b641@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,64 +46,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Connor Williamson <connordw@amazon.com>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit 181bb9c9eae4f69fe510a62a42c2932d0314a800 ]
+[ Upstream commit 9b51a6155d14389876916726430da30eabb1d4ed ]
 
-add_disk_final() sets GD_NEED_PART_SCAN before calling bdev_add(),
-then calls disk_scan_partitions() which sets the flag itself. The
-early set is redundant and introduces a race.
+Currently, copy_process() can bail out to free_task() before p->bpf_storage
+has been initialized, with this call graph (shown here for the
+!CONFIG_MEMCG case):
 
-Between bdev_add() and disk_scan_partitions(), concurrent openers
-(multipathd, blkid, LVM) see the flag in blkdev_get_whole() and
-trigger bdev_disk_changed(). When disk_scan_partitions() then runs,
-it calls bdev_disk_changed() again, dropping the partitions the
-concurrent opener already created before re-adding them, which can
-result in transient partition disappearances.
+copy_process
+  dup_task_struct
+    arch_dup_task_struct
+      [copies the entire task_struct, including ->bpf_storage member]
+  [RLIMIT_NPROC check fails]
+  delayed_free_task
+    free_task
+      bpf_task_storage_free
+        rcu_dereference(task->bpf_storage)
+        bpf_local_storage_destroy
 
-The race is observable by inserting an msleep() between bdev_add()
-and disk_scan_partitions() while running concurrent open() calls
-during device bind. Without artificial delay, it manifests under
-scheduling pressure during boot on systems with aggressive device
-scanners (multipathd, systemd-udevd).
+In this case, the nascent task's ->bpf_storage member that
+bpf_local_storage_destroy() operates on is a plain copy of the parent's
+->bpf_storage pointer, not a real initialized pointer.
+This leads to badness (kernel hangs, UAF).
 
-Therefore, do not set GD_NEED_PART_SCAN in add_disk_final(). Other
-GD_NEED_PART_SCAN consumers (blkdev_get_whole(),
-sd_need_revalidate()) should not be affected as the flag
-is set internally by disk_scan_partitions().
+This is reachable as long as the process calling fork() has been inserted
+into a task storage map.
 
-The retry-on-next-open intention from commit e5cfefa97bcc
-("block: fix scan partition for exclusively open device again")
-should also not be affected as the early return paths in
-disk_scan_partitions() should be unreachable at device registration
-time (bd_holder is NULL and open_partitions is zero).
-
-Fixes: e5cfefa97bcc ("block: fix scan partition for exclusively open device again")
-Cc: stable@vger.kernel.org
-Signed-off-by: Connor Williamson <connordw@amazon.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260615130715.53693-1-connordw@amazon.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Cc: stable@kernel.org
+Fixes: a10787e6d58c ("bpf: Enable task local storage for tracing programs")
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/genhd.c | 4 ----
- 1 file changed, 4 deletions(-)
+ kernel/fork.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/block/genhd.c b/block/genhd.c
-index c6cf86d3e182c1..31e1539e6e6aa0 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -387,10 +387,6 @@ static void add_disk_final(struct gendisk *disk)
- 	struct device *ddev = disk_to_dev(disk);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index f55be5303dc7af..46c4f83972881d 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -983,6 +983,11 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+ #ifdef CONFIG_MEMCG
+ 	tsk->active_memcg = NULL;
+ #endif
++
++#ifdef CONFIG_BPF_SYSCALL
++	RCU_INIT_POINTER(tsk->bpf_storage, NULL);
++	tsk->bpf_ctx = NULL;
++#endif
+ 	return tsk;
  
- 	if (!(disk->flags & GENHD_FL_HIDDEN)) {
--		/* Make sure the first partition scan will be proceed */
--		if (get_capacity(disk) && disk_has_partscan(disk))
--			set_bit(GD_NEED_PART_SCAN, &disk->state);
--
- 		bdev_add(disk->part0, ddev->devt);
- 		if (get_capacity(disk))
- 			disk_scan_partitions(disk, BLK_OPEN_READ);
+ free_stack:
+@@ -2252,10 +2257,6 @@ static __latent_entropy struct task_struct *copy_process(
+ 	p->sequential_io	= 0;
+ 	p->sequential_io_avg	= 0;
+ #endif
+-#ifdef CONFIG_BPF_SYSCALL
+-	RCU_INIT_POINTER(p->bpf_storage, NULL);
+-	p->bpf_ctx = NULL;
+-#endif
+ 
+ 	/* Perform scheduler related setup. Assign this task to a CPU. */
+ 	retval = sched_fork(clone_flags, p);
 -- 
 2.53.0
 
