@@ -1,95 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA4D3D3CEB;
-	Mon, 27 Jul 2026 11:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B937C3F8EDB
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 11:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785150303; cv=none; b=A/ZdvpBLoe1BVbZfHn/LNXpSvlicQBTS+GwRjzMvwtJvW7SMejHk/+//dAnvfySltJ0pCx8teFKQIj6XxGPT92gvDgGvoppMvHa3+abFydxmWiTySJbQ9eYuPYk/gnpJHODI31CDcuC4zIsYIHJjCatux4xkTxC8hxiCYzl8gy4=
+	t=1785150806; cv=none; b=B58e8kXUrPeYvCJOWhYlwQHPpVzm5aGtrJNAhVfG53e0Iw7AFD7ZhmZmmt87b8SAgDDKbkUf0IfQfFMcQknkJ03qcGLM9HexVeznaE4uaaQHqndjoZFwtGc/P8EHkRh9Qng5g/PJmDx8goqY+jelv5hZ18OURJW7aW4A3PB+5Zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785150303; c=relaxed/simple;
-	bh=7mt6BZOnmtVbD9vLUXdK50ILuKZ8pafLEG2RXqM8qhI=;
+	s=arc-20240116; t=1785150806; c=relaxed/simple;
+	bh=4viYh8myA6ITujs9QzMZTEso5RC4FGcB67zcjDDwhAA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OLWNPh24WWmctpAJnzm5FC2hvvanUZHw6dLSib006WnSURlOg+yWATOk+KU9SQQryrbMzqqZ0+GDSNqTJ6NbjY/OA3jnmd5qJKoV1KBATcC5SQy5U2WVhHfMlgNWaBo1zP300cWcA5x67oPLJQ7uvHNlPqwUS2u+1BvO+IN5Ko8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e1qWWNxf; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=mmB4groNN5yG6u/SCaEEEAq0onWqMLMhcgZEPmEiAXnFNJWXAqGhwAXZtcIoiMD3AXx5jWg08yMQT8/Dnc27NNvXBk/bIFHODQnKbv/Q4I/9nC6YHrVHDdTg3JKJL+xWlFs2UKXyuvKEJ5EwmUIWwECnAomYb+hbUVDsYJ3AJFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nPK4r+5o; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=fdl22dk+; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2muCLxOB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=R00dPWmR; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e1qWWNxf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785150302; x=1816686302;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7mt6BZOnmtVbD9vLUXdK50ILuKZ8pafLEG2RXqM8qhI=;
-  b=e1qWWNxf+C9yKybQeFQtnioEZWxFVCjVY7RR2Wg7s68jTECyp+OOwPD+
-   Sic5mG2XRog5CYns8riGMWeDt3ZzQcRdO7uHeHfmK18eJU+ZgFuewDHmB
-   ew2PDbf6tD/NUORRNlBSYDjoqsB41NfsTHnow5cxBvJO1LKo9841DApRk
-   JMoPlWThcBb/tB3/0s9HUyJDIqmBLdjS3ap+xjOnHc4qqE5BM27ivmYB0
-   Ew1zjOjmblbfeVN/AZ/RM1r/EVsg7yhShcCXuy5Z7l5zXEBcDsIm2XDdv
-   3Ydq9fJ49zsuKZn1G7KtPwFlsUuEUsR7N13H+gu9M05e7lmTvEHgvrfLC
-   Q==;
-X-CSE-ConnectionGUID: 6DaJNgBYT0iHBqFhzvb+kw==
-X-CSE-MsgGUID: 1vy48teIR4aUlnba3ogZZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11857"; a="85478355"
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="85478355"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 04:05:01 -0700
-X-CSE-ConnectionGUID: 1iJbDDvdRd+Yd1hub+cvQg==
-X-CSE-MsgGUID: TOAXQaf/SmaczJa4NwgGbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="297611032"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa001.jf.intel.com with ESMTP; 27 Jul 2026 04:04:59 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 352B799; Mon, 27 Jul 2026 13:04:58 +0200 (CEST)
-Date: Mon, 27 Jul 2026 13:04:58 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: icm: preserve USB4 proxy data-valid bit
-Message-ID: <20260727110458.GH2365036@black.igk.intel.com>
-References: <BA3238878103AC07+20260713093237.3516283-1-raoxu@uniontech.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nPK4r+5o";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="fdl22dk+";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2muCLxOB";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="R00dPWmR"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 452607DAED;
+	Mon, 27 Jul 2026 11:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785150797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lPCBgkNGCALXfGpN88n4wCcsCgDMJuqH3Bklhb+BsGw=;
+	b=nPK4r+5oplLQUphpg5bwwa8rKvzD63VZ0NMHpEd/NkVrsjg0pfUIvBdD+eIvEG4b/lfDxr
+	JdAf7/Csp/DBkFuqTP+AgF+loMJJdDiRxU8bCgTKEUzJJKuJQyX57YYZZRYaRfde4kYof5
+	AiKIDVAE1b7IYPA8en5dltTjLTMpR/4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785150797;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lPCBgkNGCALXfGpN88n4wCcsCgDMJuqH3Bklhb+BsGw=;
+	b=fdl22dk+Ff00wiEe/5OjsoZmLDqCX2Hbvkmiorv60Za6b+OHfJ2ngkuJfOpjjJkDA3aSPH
+	GCavNRHpDo/7vwAA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=2muCLxOB;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=R00dPWmR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785150793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lPCBgkNGCALXfGpN88n4wCcsCgDMJuqH3Bklhb+BsGw=;
+	b=2muCLxOBt0B3OgeqFmv0Egdydkus3klEWcFu3bowacDrV6g8ouAPlgzPvYq8OY1psxiRi1
+	rDv98U4BsKMFZbGhaSY+u9wx/RXSq5JiQIYeQJg9km2yr9pbk7qIdcSVZVW/S9kN5XU/JZ
+	JJlUn0NsMdL4NTGrLAQawPnK8Ig9NME=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785150793;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lPCBgkNGCALXfGpN88n4wCcsCgDMJuqH3Bklhb+BsGw=;
+	b=R00dPWmR0LEYiwy1KO3nEZCtLrRXTmKVGrhSdhNRtNEpnmkTTe/R76dnvaD6vlII7icKrl
+	LbTmpMtyVhglEJBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C5E3779C1;
+	Mon, 27 Jul 2026 11:13:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id MTy9Dkk9Z2oDBAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 27 Jul 2026 11:13:13 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id D66A4A0BA1; Mon, 27 Jul 2026 13:13:08 +0200 (CEST)
+Date: Mon, 27 Jul 2026 13:13:08 +0200
+From: Jan Kara <jack@suse.cz>
+To: YANXIN LI <fadouse@pm.me>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	security@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ufs: use u64 for directory size in ufs_last_byte
+Message-ID: <nweqpdbynd5dv6xq3yiqbo7s6cohpah2sibax4uy2qw7cq4u2i@ronvk3vrv4sb>
+References: <20260718190300.867109-1-fadouse@pm.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <BA3238878103AC07+20260713093237.3516283-1-raoxu@uniontech.com>
+In-Reply-To: <20260718190300.867109-1-fadouse@pm.me>
+X-Spam-Score: -4.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 452607DAED
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-On Mon, Jul 13, 2026 at 05:32:37PM +0800, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
+On Sat 18-07-26 19:03:07, YANXIN LI wrote:
+> ufs1_read_inode() and ufs2_read_inode() copy the untrusted 64-bit
+> on-disk size into inode->i_size.  ufs_last_byte() then truncates that
+> value to an unsigned int before calculating the valid extent of a
+> directory folio.
 > 
-> The ICM USB4 switch operation request encodes two values in
-> request.data_len_valid: bit 4 marks the data payload valid, while bits
-> 3:0 hold the payload length in dwords.  A zero length with the valid bit
-> set represents the full 16-dword data array.
+> A directory size of exactly 4 GiB is truncated to zero.  In
+> ufs_find_entry(), subtracting the requested record length from that zero
+> forms an endpoint almost 4 GiB beyond the mapped folio.  A crafted UFS2
+> image produces:
 > 
-> icm_usb4_switch_op() sets the valid bit when a transmit payload is
-> present.  For payloads shorter than the full 16 dwords, it then assigns
-> the length to the whole field and clears the valid bit that was just set.
-> The payload is still copied into the request, but the descriptor sent to
-> firmware marks that data as invalid.
+>   BUG: KASAN: use-after-free in ufs_find_entry+0x583/0x6e0 [ufs]
+>   Read of size 1
+>   ...
+>   ufs_find_entry
+>   ufs_inode_by_name
+>   ufs_lookup
+>   __lookup_slow
+>   path_lookupat
 > 
-> This affects USB4 router operations that send short payloads through the
-> firmware connection manager.  In particular, USB4 NVM writes can send a
-> short final block when the image size is not aligned to the 64-byte proxy
-> payload size.  Firmware may then ignore or reject that final block, while
-> full 16-dword blocks are unaffected because they are encoded as length 0
-> with the valid bit set.
+> The KASAN classification reflects that the adjacent physical page was
+> free; the source-level operation is an out-of-folio read.  A controlled
+> UFS1 test with CONFIG_UFS_FS_WRITE enabled also made ufs_find_entry()
+> return a directory entry from an adjacent anonymous page.  unlink() then
+> passed that pointer to ufs_delete_entry(), which cleared the adjacent
+> page's 3
+> 2-bit d_ino.  This write result reproduced three out of three
+> times.
 > 
-> OR the short payload length into data_len_valid so the valid bit is
-> preserved.
+> UFS normally requires a privileged mount path.  A relevant boundary is
+> a privileged automounter or image-processing service handling an
+> attacker-supplied filesystem.  The write primitive additionally requires
+> UFS1 to be mounted read-write with CONFIG_UFS_FS_WRITE enabled; the read
+> is reachable with read-only UFS2.
 > 
-> Fixes: 9039387e166e ("thunderbolt: Add USB4 router operation proxy for firmware connection manager")
+> Keep the intermediate size arithmetic at 64 bits so non-final pages are
+> bounded at PAGE_SIZE.  With this change, the same controlled tests reach
+> the real on-disk directory entry and produce no adjacent-page write or
+> KASAN report.  A reproducer and full validation logs are available on
+> request.
+> 
+> The vulnerable helper is present in v7.2-rc3, v7.1, v6.18.38, v6.12.95,
+> v6.6.111, and upstream master at 1229e2e57a5c.  Runtime reproduction and
+> fix validation were performed in an x86-64 QEMU guest running v7.2-rc3
+> with generic KASAN.
+> 
+> Fixes: b71034e5e67d ("[PATCH] ufs: directory and page cache:
+>  from blocks to pages")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> Signed-off-by: YANXIN LI <fadouse@pm.me>
 
-Applied to thunderbolt.git/fixes, thanks!
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  fs/ufs/dir.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ufs/dir.c b/fs/ufs/dir.c
+> index e62fe5667..69e6d5535 100644
+> --- a/fs/ufs/dir.c
+> +++ b/fs/ufs/dir.c
+> @@ -213,7 +213,7 @@ static void *ufs_get_folio(struct inode *dir, unsigned long n,
+>  static unsigned
+>  ufs_last_byte(struct inode *inode, unsigned long page_nr)
+>  {
+> -	unsigned last_byte = inode->i_size;
+> +	u64 last_byte = inode->i_size;
+>  
+>  	last_byte -= page_nr << PAGE_SHIFT;
+>  	if (last_byte > PAGE_SIZE)
+> 
+> base-commit: 1229e2e57a5c2980ccd457b9b53ea0eed5a22ab3
+> -- 
+> 2.54.0
+> 
+
+
+
+
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
