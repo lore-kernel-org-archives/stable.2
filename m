@@ -1,61 +1,58 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8194B43030E;
-	Mon, 27 Jul 2026 22:55:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D95D42D77D;
+	Mon, 27 Jul 2026 22:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785192929; cv=none; b=l6KM5WPYV/f21Y5CA+XYKrsi6/7/qQrshaN1+MRP3YScnCM+cdQSzK6eZNoTL81MGpBJJdkL3DNfDNcMXqAoke3fvAzvU2gcTvmEk1RCVJ4DMftpOOeo2ml+LLrLyp3XGReyLAEPEoY9d0nFV+5zNtZKZnVWE3nGJAKChFbf9Tc=
+	t=1785192944; cv=none; b=guDdrzU8MVVVPXePx3QFeMVdGv31aJWEvObzlCqINkRi1JPnPMbhSOnSUDKyzsxwIOVxeiKPBMtcqDlha0zkz/I4Ccc+LLSUnWaLr5z5hQ+zREVS3A1bRfwW9AXgy3M/c63orANDnFOrtCpmzuh0FemLEJNlR5SegZDIYufd5Y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785192929; c=relaxed/simple;
-	bh=hy6xtXL8VeCMC33+8yPSAIe2Fr1GJIfBxQlxLAgtCmo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=lBOmjUev2HhONVihpJ7kj9YN3l1X3sxPKczCqiDDyV/goPj8PNH6efdUr5OMhZSESzBdaBqs/ELx7dNGK8IoyXc6KkbdgGyJQ0HS/y6G4ZFtXuqXrVnuiRffRssnAKd4L4Zxkb0NN6pqBLPlvq+Q+pUzzK7nN+2Qi96ZoJ/k8Q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ITS55hSU; arc=none smtp.client-ip=198.175.65.9
+	s=arc-20240116; t=1785192944; c=relaxed/simple;
+	bh=SIFIRMXJ4rPuIRbyY/oXVwFL+9mqEeynymO/dtkY9ks=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TEY3YP9NLQ++vytXZLvVwR4n7qMPkPQXbUUBqxBp+wooY1bv/9VGs0VmEuVY9ng4BKeOgVFqUQ1Ziu1hBvcGg0iDgmyjnSxqnkoJWxP12O8EeNfxIaK/TW73MgSNp7NnYHrHwjvoGYdmaohkwiSuVjq6IdXBdYwSDhaNXhOPAqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YcjUL/yz; arc=none smtp.client-ip=198.175.65.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ITS55hSU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YcjUL/yz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785192927; x=1816728927;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=hy6xtXL8VeCMC33+8yPSAIe2Fr1GJIfBxQlxLAgtCmo=;
-  b=ITS55hSUo+5gD7XOF+M7SQGdPQo0PatE+0YTeQvscI83yJVcQCqZ2XD4
-   pc1ETmXPZmBpKIkRPnFQif1zkZE9J9L7vFvgwRhbgLd5AdKemWG4qLKpC
-   x5e+2abynewP0BoXNS74VvKmkiNSIININspoqHY3oMgpor/rH0iA665dC
-   Ulge+Cwq3kGRlEfJji47CEVYHenHi5pfd8Rwu/tkPSMhJPA4OJQg91y+T
-   /Xm/y9MlqYNhQ/GwnAycxciw3gBC6lSSQjTC9yqt2eehFXXNxX/XmSSoB
-   M57nUjQMUn2ydb1VnCm2i1CJbLgfI1hB9FPPFnoh3cWcY1DQjGe58S4Fy
-   w==;
-X-CSE-ConnectionGUID: iBW+kioOTUmtG1WtDPo5vw==
-X-CSE-MsgGUID: CsvUr08QRK2ysOHV3seYeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="108564898"
+  t=1785192943; x=1816728943;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SIFIRMXJ4rPuIRbyY/oXVwFL+9mqEeynymO/dtkY9ks=;
+  b=YcjUL/yzbL3I8iDK3JCl7sjyw16iIM6KL7d+BGLwt1UFYngktuhxI/Ms
+   8nGWXGCEkMLzPcQb68v10OoCOLhrGKh7bE0W2Wje2ZqM2pD+1V9feGDqN
+   CrP8YsFbkXV7r/EQ+8jY9kYEKpeCe7phBtJY7G0TwPxuIdWwnGczhSucC
+   thyJlrOsb1Mshap5e92YUjd//el+Sq1k3fd5Q0fSKCISOOD+c2g5inHeK
+   cX77DvZ4gGDcSOjOkHPG1pLnXZy4VfUnOeHboTMVAdAm3V3ADwCTfb8sg
+   paqhF/BwDIWjVW6rZ67NXnhb3J/Cc6cpDQOKQfVHKfiBczAEdUJxMAth9
+   g==;
+X-CSE-ConnectionGUID: 2jztj3QAQWGw6jWompz00Q==
+X-CSE-MsgGUID: oq9oH0+RT3yvOJqYwAlzAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="108564912"
 X-IronPort-AV: E=Sophos;i="6.25,189,1779174000"; 
-   d="scan'208";a="108564898"
+   d="scan'208";a="108564912"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 15:55:26 -0700
-X-CSE-ConnectionGUID: z1ebjzEbSrqfcKYUho283Q==
-X-CSE-MsgGUID: u8GVNWbqSj+HQZgbnIRTPQ==
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 15:55:42 -0700
+X-CSE-ConnectionGUID: r/I01hJ8RWiHGidAPwczmA==
+X-CSE-MsgGUID: e9wXalOvQ4y4+hFTnA/6Jw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,189,1779174000"; 
-   d="scan'208";a="255227001"
+   d="scan'208";a="255227095"
 Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 15:55:25 -0700
-Date: Mon, 27 Jul 2026 15:55:25 -0700
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 15:55:41 -0700
+Date: Mon, 27 Jul 2026 15:55:40 -0700
 From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
 To: stable@vger.kernel.org, 
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
 Cc: bpf@vger.kernel.org, x86@kernel.org, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: [PATCH 6.1.y 0/6] cBPF JIT spray hardening
-Message-ID: <20260727-cbpf-jit-spray-hardening-6-1-y-v1-0-eb80dcf1eb6e@linux.intel.com>
-X-B4-Tracking: v=1; b=H4sIADThZ2oC/yWNMQ+CMBBG/wq52SM9oiW6GRdHBzfjUMoBx1CaF
- o0N4b9bdHzfl7y3QOQgHOFULBD4LVEml4F2BdjBuJ5R2sxQqUqrmmq0je9wlBmjDybhYELLTly
- PGgkT6iNpa9Te0oEhS3zgTj6/wANu5/vluq26pDLB8//HVzOynbcKrOsXKVp7+5IAAAA=
-X-Change-ID: 20260717-cbpf-jit-spray-hardening-6-1-y-6916ca04c15e
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>
+Subject: [PATCH 6.1.y 1/6] bpf: Support for hardening against JIT spraying
+Message-ID: <20260727-cbpf-jit-spray-hardening-6-1-y-v1-1-eb80dcf1eb6e@linux.intel.com>
 X-Mailer: b4 0.16-dev
+References: <20260727-cbpf-jit-spray-hardening-6-1-y-v1-0-eb80dcf1eb6e@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,52 +61,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260727-cbpf-jit-spray-hardening-6-1-y-v1-0-eb80dcf1eb6e@linux.intel.com>
 
-Hi,
+commit 96cce16e26dd02a8678f1e87f88a4b5cdb63b995 upstream.
 
-These backports harden BPF JIT against spectre-v2 class of attacks. Without
-a predictor flush, execution of new BPF program may use stale prediction
-left behind by the freed one.
+The BPF JIT allocator packs many small programs into larger executable
+allocations and reuses space within those allocations as programs are
+loaded and freed. When fresh code is written into space that a previous
+program occupied, an indirect jump into the new program can reuse a branch
+prediction left behind by the old one.
 
-To avoid this, issue an IBPB flush on all CPUs on JIT program allocation.
-The flush is conditional to spectre-v2 mitigation applied.
+Flush the indirect branch predictors before reusing JIT memory so that
+indirect jumps into a newly written program don't reuse predictions from an
+old program that occupied the same space.
 
-Patch 1-2: Adds the predictor flush hook and enables it on x86 via IBPB.
+Introduce bpf_arch_pred_flush_enabled static key and bpf_arch_pred_flush
+static call for flushing the branch predictors on JIT memory reuse.
+Architectures that need a flush, can update it to a predictor flush
+function. By default, its a NOP and does not emit any CALL.
 
-	  bpf: Support for hardening against JIT spraying
-	  x86/bugs: Enable IBPB flush on BPF JIT allocation
+Allocations larger than a pack are not covered by this flush. That is safe
+because cBPF programs (the unprivileged attack surface) are bounded well
+below a pack size. Issue a warning if this assumption is ever violated
+while the flush is active.
 
-Patch 3-6: Narrow the flush to only unprivileged JIT allocations
-	   to avoid redundant flushes. Also adds pack-selection changes
-	   that minimizes flushes.
-
-	  bpf: Restrict JIT predictor flush to cBPF
-	  bpf: Skip redundant IBPB in pack allocator
-	  bpf: Prefer packs that won't trigger an IBPB flush on allocation
-	  bpf: Prefer dirty packs for eBPF allocations
-
+Signed-off-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
 ---
-Pawan Gupta (6):
-      bpf: Support for hardening against JIT spraying
-      x86/bugs: Enable IBPB flush on BPF JIT allocation
-      bpf: Restrict JIT predictor flush to cBPF
-      bpf: Skip redundant IBPB in pack allocator
-      bpf: Prefer packs that won't trigger an IBPB flush on allocation
-      bpf: Prefer dirty packs for eBPF allocations
+ include/linux/filter.h | 10 ++++++++++
+ kernel/bpf/core.c      | 19 +++++++++++++++++++
+ 2 files changed, 29 insertions(+)
 
- arch/x86/include/asm/nospec-branch.h |  4 +++
- arch/x86/kernel/cpu/bugs.c           | 50 +++++++++++++++++++++++---
- arch/x86/net/bpf_jit_comp.c          |  3 +-
- include/linux/filter.h               | 15 ++++++--
- kernel/bpf/core.c                    | 68 ++++++++++++++++++++++++++++++++----
- kernel/bpf/dispatcher.c              |  2 +-
- 6 files changed, 127 insertions(+), 15 deletions(-)
----
-base-commit: dc5c83b7f5f83ea99aea5c771b1ec77458263a15
-change-id: 20260717-cbpf-jit-spray-hardening-6-1-y-6916ca04c15e
+diff --git a/include/linux/filter.h b/include/linux/filter.h
+index 37260c48fad4..fa7bb6f99598 100644
+--- a/include/linux/filter.h
++++ b/include/linux/filter.h
+@@ -21,6 +21,7 @@
+ #include <linux/vmalloc.h>
+ #include <linux/sockptr.h>
+ #include <crypto/sha1.h>
++#include <linux/static_call.h>
+ #include <linux/u64_stats_sync.h>
+ 
+ #include <net/sch_generic.h>
+@@ -1058,6 +1059,15 @@ extern long bpf_jit_limit_max;
+ 
+ typedef void (*bpf_jit_fill_hole_t)(void *area, unsigned int size);
+ 
++/*
++ * Flush the indirect branch predictors before reusing JIT memory, so that
++ * indirect jumps into a newly written program don't reuse predictions left
++ * behind by an old program that occupied the same space.
++ */
++void bpf_arch_pred_flush(void);
++DECLARE_STATIC_CALL(bpf_arch_pred_flush, bpf_arch_pred_flush);
++DECLARE_STATIC_KEY_FALSE(bpf_pred_flush_enabled);
++
+ void bpf_jit_fill_hole_with_zero(void *area, unsigned int size);
+ 
+ struct bpf_binary_header *
+diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
+index 77044d4a80cc..4643554c6e3a 100644
+--- a/kernel/bpf/core.c
++++ b/kernel/bpf/core.c
+@@ -35,6 +35,7 @@
+ #include <linux/bpf_verifier.h>
+ #include <linux/nodemask.h>
+ #include <linux/nospec.h>
++#include <linux/static_call.h>
+ 
+ #include <asm/barrier.h>
+ #include <asm/unaligned.h>
+@@ -852,6 +853,15 @@ void bpf_jit_fill_hole_with_zero(void *area, unsigned int size)
+ 	memset(area, 0, size);
+ }
+ 
++DEFINE_STATIC_CALL_NULL(bpf_arch_pred_flush, bpf_arch_pred_flush);
++
++/*
++ * Enabled once bpf_arch_pred_flush points at a real flush routine. Lets the
++ * pack allocator test "is a predictor flush wired up at all" with a cheap
++ * static branch instead of repeatedly querying the static call target.
++ */
++DEFINE_STATIC_KEY_FALSE(bpf_pred_flush_enabled);
++
+ #define BPF_PROG_SIZE_TO_NBITS(size)	(round_up(size, BPF_PROG_CHUNK_SIZE) / BPF_PROG_CHUNK_SIZE)
+ 
+ static DEFINE_MUTEX(pack_mutex);
+@@ -905,6 +915,14 @@ void *bpf_prog_pack_alloc(u32 size, bpf_jit_fill_hole_t bpf_fill_ill_insns)
+ 
+ 	mutex_lock(&pack_mutex);
+ 	if (size > BPF_PROG_PACK_SIZE) {
++		/*
++		 * Allocations larger than a pack get their own pages, and
++		 * predictors are not flushed for such allocation. This is only
++		 * safe because cBPF programs (the unprivileged attack surface)
++		 * are bounded well below a pack size.
++		 */
++		if (static_branch_unlikely(&bpf_pred_flush_enabled))
++			pr_warn_once("BPF: Predictors not flushed for allocations greater than BPF_PROG_PACK_SIZE\n");
+ 		size = round_up(size, PAGE_SIZE);
+ 		ptr = module_alloc(size);
+ 		if (ptr) {
+@@ -929,6 +947,7 @@ void *bpf_prog_pack_alloc(u32 size, bpf_jit_fill_hole_t bpf_fill_ill_insns)
+ 	pos = 0;
+ 
+ found_free_area:
++	static_call_cond(bpf_arch_pred_flush)();
+ 	bitmap_set(pack->bitmap, pos, nbits);
+ 	ptr = (void *)(pack->ptr) + (pos << BPF_PROG_CHUNK_SHIFT);
+ 
 
-Best regards,
---  
-Pawan
+-- 
+2.43.0
 
 
