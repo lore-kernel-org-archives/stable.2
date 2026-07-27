@@ -1,61 +1,86 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3EF41930F;
-	Mon, 27 Jul 2026 13:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853F641D22F
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:19:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158368; cv=none; b=feBnCA69T9w2g2zPJGp9UzzlACAJ4qEEFwH2veAbQB4upy6Xk/htGwJp+u6WuVtVUIz41gu2GyTvsFUG36UCotrm3yOc+/TjVjliCJEwC9SnXJf2pFnEE3I09K9bfIUUUYj0m5kVqhR2e15X1NN4517USw5hrhXF17Ug5fZii8Y=
+	t=1785158381; cv=none; b=G2rqCLtxASWE1TQLL64LLvuPVctGZ1cFTEoJhfJQXKsYmwpqSXtLFICFL8C/S2krsDsWq0Hj0D1HT5mo3BkSrh4J4R47tT18B/Qo/ofF9mdVFWzK7n3EedErKWhtqcY77tzST0ZaWvmMAbv/rAO4DCTeLhFK5UuLHtKBZcwN+Xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158368; c=relaxed/simple;
-	bh=K7ko5W5HJKiBlWM2ELJFYSR9RMf2LXHGTp6lVHUSOzU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nd5vBAQcBiwzi00iW0pDHDFBsjcXf2kSbHU25H704wpE/XAa7AjbaqUJP/GLa0iK4SCGYWSMsBST3vv0SakvId08pVvEGFW+EgxbmXZCroD8GnmcwX4F07jQT1noH7eRBRs3LPxDd+CTGyZ0ZYXOPFuFyXx48hAem1Lchp6AyCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=qQz9nHs3; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=r87taKx/; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1785158381; c=relaxed/simple;
+	bh=I9vMfNeWDW8vVIK64rObbKWN0nswY5MCMTBYme08kgg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=syqCeIDJm5iVFRRfOvSF2+7vPP2wFYl656ZUug2vOgunII1maJN5P2aLj1MtSEDpNQ41Qx1TfHCiiOT9v5tex7BODD9XGfVsOQ+mFo/QZVuE315pnHczyJP+gOuonqIcU7LLzCsHarm+BX/dx8qmynF0pe8Dac4PM91qGTdDlQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nBxQtbte; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="qQz9nHs3";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="r87taKx/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158361; bh=K7ko5W5HJKiBlWM2ELJFYSR9RMf2LXHGTp6lVHUSOzU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qQz9nHs3Za4FUywdN9RrPVVL4yajqrOSk7LRuqiJrVL9WT8uk+AsJcc9ytY84rroi
-	 QqUauC1OhtyPGZW7o1NqMnyxWMOnsz4J8JrlsSlDHOwtb4kpCnUTsBK3SqL+UHRLQS
-	 C+s4K19h0ORj4UdI8FO+l1/Y94KNqm5oQ3iAcEhAyjeSCjU8M7BFXN0yAbEeO4LN64
-	 oumSlMyKOE2hXjqC7ndrE4wA2XUHssEpJJKMjUWANCnCzXVg9EcMGWDM7PRZJkUQ49
-	 4oJwZnRO09mf3Lxz6PaIAqg9rwVgZZBROaV2yFMa2pLM6twO0rwHp/Ix6hFhsDfxYL
-	 TDCwuOPfAwdAQ==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 8CD884255A; Mon, 27 Jul 2026 14:19:21 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158360; bh=K7ko5W5HJKiBlWM2ELJFYSR9RMf2LXHGTp6lVHUSOzU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=r87taKx/on7dJte2skT03NMW2YgTBbzr0x/9xUe0J5OW7H6rjPYfzEeQho+ijXD1z
-	 PW9LmrQp1sclPudHDLZ3X6DJS823q4d50jxu+JbujL39cn/agOejgK7cg4sNm7T25V
-	 dwLrGRt+9mhabPuTeV1r3pEptn7Sb2XKS/HljupPg6aUUxHRs5/EcnWITxz+PkC3xp
-	 avb8Z+cI1AF5icOqrPVgK1uXctR8TR3Y1PQWiaBLIzIACWb+Yos+Uj5yhOwy3xVAxU
-	 bFkOMJ+cTAWCRC5F+lh0Ib2ShD0Fmxk+8dSaLRCKvc+xFy+//uD5YzftPUveSUEfMl
-	 XD6gc+IOb6sxQ==
-Received: from maru.local (unknown [62.232.99.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id A740642570;
-	Mon, 27 Jul 2026 14:19:20 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 15/15] media: rc: Fix race condition during rc_register_device()
-Date: Mon, 27 Jul 2026 14:18:58 +0100
-Message-ID: <5479a9288629888ea5a9f25b5ac03a7384d1dce3.1785158244.git.sean@mess.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1785158244.git.sean@mess.org>
-References: <cover.1785158244.git.sean@mess.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nBxQtbte"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so1936253a12.2
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 06:19:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785158377; x=1785763177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lEceZ6FrG9kgXwqbPymkbPYYUj1GiTAukTMmaD6Bev0=;
+        b=nBxQtbteer4fAHAQBYcYFrkPNHaeS3qp2TK6sPG6+4e+bZ8yqeoV8Es5cQkKsCk/S2
+         9drk17HANjAK3axs8B4CZBkClnyL0i0dWQOipUE9TtrlMs37mIWtahtAaDeNL1EvGfsj
+         HVdA1N0YyO5882s5OAbI1ghcOqmAuzxd3IbNog1bh5u8CS5gDdBPiO/nqAQ7/Qj9qC4T
+         pOQisYdSpkmAKhNshEg8GHBHiQ6f3p5DeNonWCWP3z2KfRfXSA2r2/ygnjQyyS7/q3WT
+         rkXNi530lp4ygMm60vbSBcCTnFO6or/53CpON/wsa0hSqJ9t1rEiwi083s8u8gXk4nUp
+         H1hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785158377; x=1785763177;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lEceZ6FrG9kgXwqbPymkbPYYUj1GiTAukTMmaD6Bev0=;
+        b=qrQfcFBnvGs+c1h5POpw6S/KMe41ZVBMwNzrV+o8ctdfBX3RHFQ3nKub+U8H77sS+9
+         gaapaUqICahotooMmZv4ksxOaNEKMehNv9fAMu+pjNSKlGG4wO4VNHrNUllQj4zu9DRE
+         SDSP9jCVzQmmgqWMWDJgcBDMe3CQReYro/lmAs5+Kxcosh191lnOmEV5TIuLed19D3jC
+         TSGBHQRiwAFrkti0o8b1niGzH3yA8WTWDr2B9IJRaz7jqRHCuqrWjezvzBgEQ2diPCFN
+         9Ta6sRniLK2njFvSs6PdzQzdvkOfRa49R4ih7Wi1mkeyMHZAirI385RC6NeG5b9C/6Gz
+         EqGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqnbMV+SQmK15tJTQy1WE3YbAUH1ltodoOL9doAGW58Uq2pmsxkspHnmP30dcXqO7uBNEQtMBw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YydEBbrw4Jf2oN1EaJ1kcpvMcdsa5hzb/9kEkUQwrpWDVQaiaLq
+	KJFCl5zgLVs5NnihTklVKij7sHCuF1o4sQxoBjgt8yeYieIuolYJesFN
+X-Gm-Gg: AR+sD10Tk+4tQwas7JazaNOdomGcNJcnlF961Rmj4lAdKHnmqM5qJYDmYreAzszyVWT
+	sWk3lcf88cRvNV9HxP6gLCnwA19Qf1frr/ntUSYoowPRayvGQ1rdcjVsJqlJg+TwEJ7aDqQ8hJo
+	2vqjRhDfpwo9Hba/YQ8xcxCE7NXksRt2dSRvFxwwE7gYGoee5/CPhVRfL0tn+mslE4PlS5t8VMy
+	ddkSGs56ju4FbqbxAYDXJPVzXX5eptO6LPBR3xMWAb9GbKRW2TpsB8xwCpSMVs5gHJrL0514VvL
+	X35ozN0AWXLNLMoL8Ke/t+pKo5iUvKDuZwtDRz3Bq5cXfWrVtyK5JYx8cdyxYPhhN/+Xrd3R2Xc
+	pG09Z1PHUq/F3Ysxw0JfO4vwGbov9XqLaz4ejarxCuYLwJA6y52tdHVXChnVzPmeTvUSB9jCJAa
+	yA3/4MKKnf0uiZpMOABS27
+X-Received: by 2002:a05:6a20:1602:b0:3c3:a140:9380 with SMTP id adf61e73a8af0-3c67da110cbmr7404589637.16.1785158376963;
+        Mon, 27 Jul 2026 06:19:36 -0700 (PDT)
+Received: from spr1.ipads-lab.se.sjtu.edu.cn ([202.120.40.82])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb662329fsm3185355a12.9.2026.07.27.06.19.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 06:19:36 -0700 (PDT)
+From: Hengbin Zhang <uqbarz@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hengbin Zhang <uqbarz@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>
+Subject: [RFC PATCH v2] mm/thp: serialize huge-zero folio state transitions
+Date: Mon, 27 Jul 2026 13:18:14 +0000
+Message-Id: <20260727131814.3983064-1-uqbarz@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <177a1767-c782-4210-b377-44c520c74619@kernel.org>
+References: <177a1767-c782-4210-b377-44c520c74619@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,177 +89,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The correct sequence for rc core is so:
+The nonpersistent huge-zero shrinker clears huge_zero_folio and then
+invalidates huge_zero_pfn. A concurrent fault can publish a replacement
+folio and PFN between those updates, after which the old shrinker
+invalidates the replacement generation's PFN identity.
 
-     rc_allocation_device()
+A later partial mprotect() can then misidentify the live special PMD and
+enter the ordinary anonymous THP split path.
 
-     /*
-      * setup hardware and now calls to ir_raw_event_store etc are
-      * permitted, as well as rc_keydown. There is no rc device in sysfs
-      * or lirc chardev.
-      */
-     rc_register_device()
+A writer-side spinlock keeps huge_zero_folio and huge_zero_pfn updates
+from different generations together. Lockless getters still use the
+refcount fast path. atomic_set_release() publishes an initialized new
+generation before a successful atomic_inc_not_zero() can admit a getter
+on weakly ordered architectures.
 
-     /*
-      * After rc_register_device(), the rc device can be used now from lirc
-      * chardev, sysfs and IR is now decoded and reported.
-      */
+The race was reproduced using test-only instrumentation that widens the
+shrinker/allocation window; that instrumentation is not included here.
 
-     rc_unregister_device()
-     /*
-      * User space can no longer access /dev/lirc or the rc sysfs
-      * attributes. They will get -ENODEV if they still have a file
-      * descriptor open.
-      * Calls to ir_raw_event_handle() etc or rc_keydown() are permitted
-      * but they must stop before the call to rc_free_device(), so
-      * this is the time to stop the hardware.
-      */
-     rc_free_device()
-
-This means that during rc_register_device(), we can get calls to
-ir_raw_event_{store,handle,overflow,store_with_filter}. Ensure this
-is done race-free.
-
-Fixes: a3572c34da8d ("V4L/DVB: ir-core: Add logic to decode IR protocols at the IR core")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
+Suggested-by: David Hildenbrand <david@kernel.org>
+Link: https://lore.kernel.org/r/20260724100509.2300200-1-uqbarz@gmail.com
+Signed-off-by: Hengbin Zhang <uqbarz@gmail.com>
 ---
- drivers/media/rc/rc-ir-raw.c | 20 +-------------------
- drivers/media/rc/rc-main.c   | 19 +++++++++++--------
- 2 files changed, 12 insertions(+), 27 deletions(-)
+ mm/huge_memory.c | 36 +++++++++++++++++++++++-------------
+ 1 file changed, 23 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index b32f3cff9401..bebb45ffa971 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -71,9 +71,6 @@ static int ir_raw_event_thread(void *data)
-  */
- int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
- {
--	if (!dev->raw)
--		return -EINVAL;
--
- 	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
- 		ev->duration, TO_STR(ev->pulse));
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index b5d1e9d4463d..89771a9b282d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -78,6 +78,7 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ static bool split_underused_thp = true;
  
-@@ -102,9 +99,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
- 	ktime_t			now;
- 	struct ir_raw_event	ev = {};
- 
--	if (!dev->raw)
--		return -EINVAL;
--
- 	now = ktime_get();
- 	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
- 	ev.pulse = !pulse;
-@@ -129,9 +123,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
- 	ktime_t		now;
- 	int		rc = 0;
- 
--	if (!dev->raw)
--		return -EINVAL;
--
- 	now = ktime_get();
- 
- 	spin_lock(&dev->raw->edge_spinlock);
-@@ -166,9 +157,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
-  */
- int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
- {
--	if (!dev->raw)
--		return -EINVAL;
--
- 	/* Ignore spaces in idle mode */
- 	if (dev->idle && !ev->pulse)
- 		return 0;
-@@ -200,9 +188,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
-  */
- void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
- {
--	if (!dev->raw)
--		return;
--
- 	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
- 
- 	if (idle) {
-@@ -226,7 +211,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
-  */
- void ir_raw_event_handle(struct rc_dev *dev)
- {
--	if (!dev->raw || !dev->raw->thread)
-+	if (!dev->raw->thread)
- 		return;
- 
- 	wake_up_process(dev->raw->thread);
-@@ -612,9 +597,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
-  */
- int ir_raw_event_prepare(struct rc_dev *dev)
- {
--	if (!dev)
--		return -EINVAL;
--
- 	dev->raw = kzalloc_obj(*dev->raw);
- 	if (!dev->raw)
- 		return -ENOMEM;
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index dda3479ea3ad..d93e98189c1a 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1701,14 +1701,24 @@ static const struct device_type rc_dev_type = {
- struct rc_dev *rc_allocate_device(enum rc_driver_type type)
- {
- 	struct rc_dev *dev;
-+	int ret;
- 
- 	dev = kzalloc_obj(*dev);
- 	if (!dev)
- 		return NULL;
- 
-+	if (type == RC_DRIVER_IR_RAW) {
-+		ret = ir_raw_event_prepare(dev);
-+		if (ret < 0) {
-+			kfree(dev);
-+			return NULL;
-+		}
-+	}
-+
- 	if (type != RC_DRIVER_IR_RAW_TX) {
- 		dev->input_dev = input_allocate_device();
- 		if (!dev->input_dev) {
-+			ir_raw_event_free(dev);
- 			kfree(dev);
- 			return NULL;
- 		}
-@@ -1724,6 +1734,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
- 		spin_lock_init(&dev->rc_map.lock);
- 		spin_lock_init(&dev->keylock);
+ static atomic_t huge_zero_refcount;
++static DEFINE_SPINLOCK(huge_zero_lock);
+ struct folio *huge_zero_folio __read_mostly;
+ unsigned long huge_zero_pfn __read_mostly = ~0UL;
+ unsigned long huge_anon_orders_always __read_mostly;
+@@ -237,17 +238,19 @@ static bool get_huge_zero_folio(void)
  	}
+ 	/* Ensure zero folio won't have large_rmappable flag set. */
+ 	folio_clear_large_rmappable(zero_folio);
+-	preempt_disable();
+-	if (cmpxchg(&huge_zero_folio, NULL, zero_folio)) {
+-		preempt_enable();
++	spin_lock(&huge_zero_lock);
++	if (READ_ONCE(huge_zero_folio)) {
++		spin_unlock(&huge_zero_lock);
+ 		folio_put(zero_folio);
+ 		goto retry;
+ 	}
+ 	WRITE_ONCE(huge_zero_pfn, folio_pfn(zero_folio));
++	WRITE_ONCE(huge_zero_folio, zero_folio);
 +
- 	mutex_init(&dev->lock);
++	/* Publish the identity before admitting lockless getters. */
++	atomic_set_release(&huge_zero_refcount, 2);
++	spin_unlock(&huge_zero_lock);
  
- 	dev->dev.type = &rc_dev_type;
-@@ -1917,12 +1928,6 @@ int rc_register_device(struct rc_dev *dev)
- 		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
- 	dev->sysfs_groups[attr++] = NULL;
- 
--	if (dev->driver_type == RC_DRIVER_IR_RAW) {
--		rc = ir_raw_event_prepare(dev);
--		if (rc < 0)
--			goto out_minor;
--	}
--
- 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
- 		rc = rc_prepare_rx_device(dev);
- 		if (rc)
-@@ -1979,8 +1984,6 @@ int rc_register_device(struct rc_dev *dev)
- out_rx_free:
- 	ir_free_table(&dev->rc_map);
- out_raw:
--	ir_raw_event_free(dev);
--out_minor:
- 	ida_free(&rc_ida, minor);
- 	return rc;
+-	/* We take additional reference here. It will be put back by shrinker */
+-	atomic_set(&huge_zero_refcount, 2);
+-	preempt_enable();
+ 	count_vm_event(THP_ZERO_PAGE_ALLOC);
+ 	return true;
  }
+@@ -297,15 +300,22 @@ static unsigned long shrink_huge_zero_folio_count(struct shrinker *shrink,
+ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
+ 						 struct shrink_control *sc)
+ {
+-	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) == 1) {
+-		struct folio *zero_folio = xchg(&huge_zero_folio, NULL);
+-		BUG_ON(zero_folio == NULL);
+-		WRITE_ONCE(huge_zero_pfn, ~0UL);
+-		folio_put(zero_folio);
+-		return HPAGE_PMD_NR;
++	struct folio *zero_folio;
++
++	spin_lock(&huge_zero_lock);
++	if (atomic_cmpxchg(&huge_zero_refcount, 1, 0) != 1) {
++		spin_unlock(&huge_zero_lock);
++		return 0;
+ 	}
+ 
+-	return 0;
++	zero_folio = READ_ONCE(huge_zero_folio);
++	BUG_ON(zero_folio == NULL);
++	WRITE_ONCE(huge_zero_pfn, ~0UL);
++	WRITE_ONCE(huge_zero_folio, NULL);
++	spin_unlock(&huge_zero_lock);
++
++	folio_put(zero_folio);
++	return HPAGE_PMD_NR;
+ }
+ 
+ static struct shrinker *huge_zero_folio_shrinker;
 -- 
-2.55.0
+2.34.1
 
