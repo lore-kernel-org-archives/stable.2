@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6F23D25D0
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 21:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0831C3D3D12
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 21:00:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785186017; cv=none; b=m42HGIBPxpqES5HoBpHwDdpJJBCDlTtXX/sqareMfawEJjGRV6DE3sG4Y1lbdAPwnca5VaX3tBAqXGcPY6QRnP+cuq7WpwCqzIcXetQ2NYTu888UM/ksngxbvZj+hns5ErP6uqBlBXvOGLSD6qhorXECxIYa0XZi48xrpFHP5+A=
+	t=1785186018; cv=none; b=nQyTk93RMTpG6tXXGA6hUEvPEx/Gt+01VOUl/jNJKDEYbjQ88s3feQtUygZhJx0rMqk/I5DfQHF+kW2xH2urELdZXPu2d21E6h4Jrnm2siWBGDGcGpoJVUBZGhHB6RgAiyjI+q8E9+2Kh9hgIXjEc2AgSgZcTxJh+FENHBjFZak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785186017; c=relaxed/simple;
-	bh=gthrnxr8ogCpX4+5AWnfmDWi4hxeVf+JYsxjedEk80Y=;
+	s=arc-20240116; t=1785186018; c=relaxed/simple;
+	bh=+xeqUHvni0jJppV3pBBqE+UKuSuIR2mHnHetNJb7+sc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PgwmVdRXIqQBlNDDl+/ePhDSGOEieR26oMvhlq4FhFXnXISSuDV5gHOAYjFx9+p0UYnH3c4FbGAcsto2v1aQgpdgM+p1v9p8sdKCTr1wUP8DeDfB61E+nSi5TBTc/KPcy7Lmsb1idMp21KHqx+pNQ2rcpPAGUiJ+JZiD2f/YtBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BY1U11bu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hcHthRSjMhh7ILul8/1mgNNVQLlH9R47VpLoq0v1tX9qJsI5HAYqL1KVSsT6XZptk04L3h3T1sVR8mAvi02Psau9ZL04vfKnHgZMDPEsiWg/++i37C7paCv8qa6ZuCD4YNzBjA9z2VaoMLuLcu3AS3BDz9KDigFuS7z8sND5vbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=desRQqkU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BY1U11bu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D261F00A3E;
-	Mon, 27 Jul 2026 21:00:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="desRQqkU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4E01F000E9;
+	Mon, 27 Jul 2026 21:00:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785186014;
-	bh=P8uGDYsc4u1Vk8E7KoHv4cvUsc2kNio6n4AuUMUzsnQ=;
+	s=k20260515; t=1785186016;
+	bh=i4omISfn3j0Y9UiFAa//JrsTj4VxkMYyxHloZJVtWFU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BY1U11buiRvPM1St1Vnb7YB7FdHcPDDuumcRElx/nZpixr6oEdTC+IbMHU2oNjHPD
-	 8iFdGL8/D42IOFi7isTxPObpjq+pw/cLcBidxvITCBTVmmgPJIHU829mSv6vypJgYS
-	 dH1tqwZaIw3xUmPmwG2JigfBXCpyMkQVNsIb66rXV+V75s+Qv950bFnlmVKD3GAF2m
-	 awHwe6+XPokZ07TXuB/1IpwZ6wXm3WASGWafAiZuZ+XFEnYHnys8Z1YAnDWbGM4PN1
-	 sS3yZn7iqpSYh7PIQEbYkRt1BurRp/1TYngHaJaJh5xsWG6zDiArvw7+dfUcfav5VL
-	 myhCINO4TTGsg==
+	b=desRQqkUaVXqwsUU+oCEL7Ziwbt74fzqr07pn7eZZVRFxaQlT1CZqizk19D+j+kD7
+	 u1pzzJ7UhBmyQw8I4BKDNjUSzINLuSKnYviFjc2sBtK+RzybjRLKC6q0cOlK0e3WEM
+	 a3mKgl4urOd7p1yuy2EAGoFeAXYHvFVnafUCcY7tS0/SnlrKB3Em/LnKHg9rgw2XAT
+	 /CcM5d6XKY45n4Jh6N0h4O0q9tipV8X/MChBAb5sOFhU1uRAQFoLEneRXVuCehe2LS
+	 qgRbeEGtdfx4S4sojhT5r49uA/vY0VypODzEDx7jhB+pQquqKXD8Y3bcYkV5BAEEKH
+	 2YivduCYJmPcg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/4] dm-verity-fec: fix reading parity bytes split across blocks (take 3)
-Date: Mon, 27 Jul 2026 17:00:09 -0400
-Message-ID: <20260727210011.1929439-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] dm-verity: make error counter atomic
+Date: Mon, 27 Jul 2026 17:00:14 -0400
+Message-ID: <20260727210014.1929718-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260727210011.1929439-1-sashal@kernel.org>
-References: <2026072004-monitor-wolf-7764@gregkh>
- <20260727210011.1929439-1-sashal@kernel.org>
+In-Reply-To: <2026072047-volatile-gonad-565a@gregkh>
+References: <2026072047-volatile-gonad-565a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,184 +44,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Biggers <ebiggers@kernel.org>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-[ Upstream commit 430a05cb926f6bdf53e81460a2c3a553257f3f61 ]
+[ Upstream commit 8ec4d9c5a5cf4b61fc087f871465b1f79b393325 ]
 
-fec_decode_bufs() assumes that the parity bytes of the first RS codeword
-it decodes are never split across parity blocks.
+The error counter "v->corrupted_errs" was not atomic, thus it could be
+subject to race conditions. The call to
+dm_audit_log_target("max-corrupted-errors") may be skipped due to the
+races.
 
-This assumption is false.  Consider v->fec->block_size == 4096 &&
-v->fec->roots == 17 && fio->nbufs == 1, for example.  In that case, each
-call to fec_decode_bufs() consumes v->fec->roots * (fio->nbufs <<
-DM_VERITY_FEC_BUF_RS_BITS) = 272 parity bytes.
-
-Considering that the parity data for each message block starts on a
-block boundary, the byte alignment in the parity data will iterate
-through 272*i mod 4096 until the 3 parity blocks have been consumed.  On
-the 16th call (i=15), the alignment will be 4080 bytes into the first
-block.  Only 16 bytes remain in that block, but 17 parity bytes will be
-needed.  The code reads out-of-bounds from the parity block buffer.
-
-Fortunately this doesn't normally happen, since it can occur only for
-certain non-default values of fec_roots *and* when the maximum number of
-buffers couldn't be allocated due to low memory.  For example with
-block_size=4096 only the following cases are affected:
-
-    fec_roots=17: nbufs in [1, 3, 5, 15]
-    fec_roots=19: nbufs in [1, 229]
-    fec_roots=21: nbufs in [1, 3, 5, 13, 15, 39, 65, 195]
-    fec_roots=23: nbufs in [1, 89]
-
-Regardless, fix it by refactoring how the parity blocks are read.
-
-Fixes: 6df90c02bae4 ("dm-verity FEC: Fix RS FEC repair for roots unaligned to block size (take 2)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Stable-dep-of: 31d6e6c0ba8d ("dm-verity: fix buffer overflow in FEC calculation")
+Assisted-by: Claude:claude-opus-4.6
+Fixes: 65ff5b7ddf05 ("dm verity: add error handling modes for corrupted blocks")
+Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-verity-fec.c | 100 ++++++++++++++++---------------------
- 1 file changed, 44 insertions(+), 56 deletions(-)
+ drivers/md/dm-verity-target.c | 12 +++++++-----
+ drivers/md/dm-verity.h        |  2 +-
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/md/dm-verity-fec.c b/drivers/md/dm-verity-fec.c
-index 03e59b85132aa7..a8fbf97b97517f 100644
---- a/drivers/md/dm-verity-fec.c
-+++ b/drivers/md/dm-verity-fec.c
-@@ -39,36 +39,6 @@ static inline u64 fec_interleave(struct dm_verity *v, u64 offset)
- 	return offset + mod * (v->fec->rounds << v->data_dev_block_bits);
- }
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 53150024d2dd4e..ed3914b479cfc5 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -224,14 +224,16 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	char *envp[] = { verity_env, NULL };
+ 	const char *type_str = "";
+ 	struct mapped_device *md = dm_table_get_md(v->ti->table);
++	int ce;
  
--/*
-- * Read error-correcting codes for the requested RS block. Returns a pointer
-- * to the data block. Caller is responsible for releasing buf.
-- */
--static u8 *fec_read_parity(struct dm_verity *v, u64 rsb, int index,
--			   unsigned int *offset, unsigned int par_buf_offset,
--			   struct dm_buffer **buf, unsigned short ioprio)
--{
--	u64 position, block, rem;
--	u8 *res;
--
--	/* We have already part of parity bytes read, skip to the next block */
--	if (par_buf_offset)
--		index++;
--
--	position = (index + rsb) * v->fec->roots;
--	block = div64_u64_rem(position, v->fec->io_size, &rem);
--	*offset = par_buf_offset ? 0 : (unsigned int)rem;
--
--	res = dm_bufio_read_with_ioprio(v->fec->bufio, block, buf, ioprio);
--	if (IS_ERR(res)) {
--		DMERR("%s: FEC %llu: parity read failed (block %llu): %ld",
--		      v->data_dev->name, (unsigned long long)rsb,
--		      (unsigned long long)block, PTR_ERR(res));
--		*buf = NULL;
--	}
--
--	return res;
--}
--
- /* Loop over each preallocated buffer slot. */
- #define fec_for_each_prealloc_buffer(__i) \
- 	for (__i = 0; __i < DM_VERITY_FEC_BUF_PREALLOC; __i++)
-@@ -116,15 +86,29 @@ static int fec_decode_bufs(struct dm_verity *v, struct dm_verity_io *io,
- {
- 	int r, corrected = 0, res;
- 	struct dm_buffer *buf;
--	unsigned int n, i, j, offset, par_buf_offset = 0;
-+	unsigned int n, i, j, parity_pos, to_copy;
- 	uint16_t par_buf[DM_VERITY_FEC_RSM - DM_VERITY_FEC_MIN_RSN];
- 	u8 *par, *block;
-+	u64 parity_block;
- 	struct bio *bio = dm_bio_from_per_bio_data(io, v->ti->per_io_data_size);
+ 	/* Corruption should be visible in device status in all modes */
+ 	v->hash_failed = true;
  
--	par = fec_read_parity(v, rsb, block_offset, &offset,
--			      par_buf_offset, &buf, bio->bi_ioprio);
--	if (IS_ERR(par))
-+	/*
-+	 * Compute the index of the first parity block that will be needed and
-+	 * the starting position in that block.  Then read that block.
-+	 *
-+	 * io_size is always a power of 2, but roots might not be.  Note that
-+	 * when it's not, a codeword's parity bytes can span a block boundary.
-+	 */
-+	parity_block = (rsb + block_offset) * v->fec->roots;
-+	parity_pos = parity_block & (v->fec->io_size - 1);
-+	parity_block >>= v->data_dev_block_bits;
-+	par = dm_bufio_read_with_ioprio(v->fec->bufio, parity_block, &buf,
-+					bio->bi_ioprio);
-+	if (IS_ERR(par)) {
-+		DMERR("%s: FEC %llu: parity read failed (block %llu): %ld",
-+		      v->data_dev->name, rsb, parity_block, PTR_ERR(par));
- 		return PTR_ERR(par);
-+	}
+-	if (v->corrupted_errs >= DM_VERITY_MAX_CORRUPTED_ERRS)
+-		goto out;
+-
+-	v->corrupted_errs++;
++	ce = atomic_read(&v->corrupted_errs);
++	do {
++		if (ce >= DM_VERITY_MAX_CORRUPTED_ERRS)
++			goto out;
++	} while (!atomic_try_cmpxchg(&v->corrupted_errs, &ce, ce + 1));
  
- 	/*
- 	 * Decode the RS blocks we have in bufs. Each RS block results in
-@@ -132,8 +116,32 @@ static int fec_decode_bufs(struct dm_verity *v, struct dm_verity_io *io,
- 	 */
- 	fec_for_each_buffer_rs_block(fio, n, i) {
- 		block = fec_buffer_rs_block(v, fio, n, i);
--		for (j = 0; j < v->fec->roots - par_buf_offset; j++)
--			par_buf[par_buf_offset + j] = par[offset + j];
-+
-+		/*
-+		 * Copy the next 'roots' parity bytes to 'par_buf', reading
-+		 * another parity block if needed.
-+		 */
-+		to_copy = min(v->fec->io_size - parity_pos, v->fec->roots);
-+		for (j = 0; j < to_copy; j++)
-+			par_buf[j] = par[parity_pos++];
-+		if (to_copy < v->fec->roots) {
-+			parity_block++;
-+			parity_pos = 0;
-+
-+			dm_bufio_release(buf);
-+			par = dm_bufio_read_with_ioprio(v->fec->bufio,
-+							parity_block, &buf,
-+							bio->bi_ioprio);
-+			if (IS_ERR(par)) {
-+				DMERR("%s: FEC %llu: parity read failed (block %llu): %ld",
-+				      v->data_dev->name, rsb, parity_block,
-+				      PTR_ERR(par));
-+				return PTR_ERR(par);
-+			}
-+			for (; j < v->fec->roots; j++)
-+				par_buf[j] = par[parity_pos++];
-+		}
-+
- 		/* Decode an RS block using Reed-Solomon */
- 		res = decode_rs8(fio->rs, block, par_buf, v->fec->rsn,
- 				 NULL, neras, fio->erasures, 0, NULL);
-@@ -148,26 +156,6 @@ static int fec_decode_bufs(struct dm_verity *v, struct dm_verity_io *io,
- 		block_offset++;
- 		if (block_offset >= 1 << v->data_dev_block_bits)
- 			goto done;
--
--		/* Read the next block when we run out of parity bytes */
--		offset += (v->fec->roots - par_buf_offset);
--		/* Check if parity bytes are split between blocks */
--		if (offset < v->fec->io_size && (offset + v->fec->roots) > v->fec->io_size) {
--			par_buf_offset = v->fec->io_size - offset;
--			for (j = 0; j < par_buf_offset; j++)
--				par_buf[j] = par[offset + j];
--			offset += par_buf_offset;
--		} else
--			par_buf_offset = 0;
--
--		if (offset >= v->fec->io_size) {
--			dm_bufio_release(buf);
--
--			par = fec_read_parity(v, rsb, block_offset, &offset,
--					      par_buf_offset, &buf, bio->bi_ioprio);
--			if (IS_ERR(par))
--				return PTR_ERR(par);
--		}
- 	}
- done:
- 	r = corrected;
+ 	switch (type) {
+ 	case DM_VERITY_BLOCK_TYPE_DATA:
+@@ -247,7 +249,7 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	DMERR_LIMIT("%s: %s block %llu is corrupted", v->data_dev->name,
+ 		    type_str, block);
+ 
+-	if (v->corrupted_errs == DM_VERITY_MAX_CORRUPTED_ERRS)
++	if (ce + 1 == DM_VERITY_MAX_CORRUPTED_ERRS)
+ 		DMERR("%s: reached maximum errors", v->data_dev->name);
+ 
+ 	snprintf(verity_env, DM_VERITY_ENV_LENGTH, "%s=%d,%llu",
+diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
+index db93a91169d5e6..325942fc8f8038 100644
+--- a/drivers/md/dm-verity.h
++++ b/drivers/md/dm-verity.h
+@@ -58,7 +58,7 @@ struct dm_verity {
+ 	unsigned int digest_size;	/* digest size for the current hash algorithm */
+ 	unsigned int ahash_reqsize;/* the size of temporary space for crypto */
+ 	enum verity_mode mode;	/* mode for handling verification errors */
+-	unsigned int corrupted_errs;/* Number of errors for corrupted blocks */
++	atomic_t corrupted_errs;/* Number of errors for corrupted blocks */
+ 
+ 	struct workqueue_struct *verify_wq;
+ 
 -- 
 2.53.0
 
