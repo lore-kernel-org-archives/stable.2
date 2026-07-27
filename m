@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEE841A4F1;
-	Mon, 27 Jul 2026 13:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A847C41A79D;
+	Mon, 27 Jul 2026 13:24:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158678; cv=none; b=FfCX1qFvlt5VM+4tZ+BMy8MvDbeQynghoOZsTa2vGalcfhjRwlgohOPsytHfbHmiCBjvtwodGBOWMePWfNowi7e7GWkSNsX3biLCc2MX8RfpZNjc9/jijg94Uomm+JSriit33VPuBI9rdYT/vIUuL/oxwaaVmN9KMlHxFbjXJ+Y=
+	t=1785158679; cv=none; b=mPaeVW05lm/njvy5Ru3HR21w3jxzOAnC0wNojS7oXAdb6gP0wdCR+2+QRzybCLEMtq8J6DpFTvK8WJ736MEWA6tEyCL4Q+H1lYYtpLm0XSjdU0dIlaaxUuxRkiuNQ5PJChjONkayQ5N28YQIiVirlyWLmMsnZYsi+up/TBJNYvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158678; c=relaxed/simple;
-	bh=Sx/FpO2qPLhV/nt//WVAS9yJZh/H2w91XUSr1AsRqbQ=;
+	s=arc-20240116; t=1785158679; c=relaxed/simple;
+	bh=tstkdTqzQ1U1ryk/rWMRalAc6TfPVElTNK+bjK/2WFo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Edw0GAxpy0pE7ZAhO8ATGFDMMp2EzZ2vl6JbpR89O+ronH1kA+Zu9MBuoQ9tmKB0ozUtuWGvdG2z5wyQSFvfv25hVeUVUm1lzKp8NYGkmxmMagSQxXBZ4/dxIBbP1nAzrXo4eXifz2seSmOmeGcFHfM4NIvkl2GXu55FkbA8eI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BnRQfG+/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FVLDUwjY8NR7udLYAPZl7gCHX3r7esc44aaIFjDlKIzxojdqJNE9zZyI+Qmir3fDWTOqr7iTb8MF0IU7MyuLQvNndCwUsLYwybWRf36MlFvror/wprDpRNBLwJjKdG5f1CUvvYj0Wrf6R15zfJdvNd1kh8lyEP29Qo9KSnwQA7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ET5+2F9o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BnRQfG+/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D569B1F00A3A;
-	Mon, 27 Jul 2026 13:24:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ET5+2F9o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAD11F00A3F;
+	Mon, 27 Jul 2026 13:24:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785158675;
-	bh=C7wu8095LvIBsrR3QNvTMcL1FbE6M9cFqpSVX85qjwI=;
+	s=k20260515; t=1785158678;
+	bh=9jHAEifZrj6ftwXkMYiczDvhxJELIXSkIsKCleMkp/o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BnRQfG+/xYoTrNDXExef+08fWBLE3LjbTxMcopE+FW/yq+GmHHBevEGONGaHZkYLn
-	 TcqvhqDnKFlGzmnxjFNgmFhB+QjeMSXzDlG74MXdKyy7m2ZWHuZARJSZOn9UqYdGht
-	 Hx4gdOAwGD3ph3MbrwuiswqOThtk12Vegd/nWL9sHxldCu3N/fzzpi3vAkQDJttUoE
-	 aVVLAHdEYjOH7G/Ta4Z1Qha/glOmQl4VRwOnCu+vdiS1VNqtQBZ9ue7tcDue8Vf0LR
-	 4OvFyK7HljRl5FxkL4dzgMOomnA3TZmST+Q/1rYWkMBtzzo4SyxLCC5BLCznOTXpgo
-	 vBSjcw8KJF+ZQ==
+	b=ET5+2F9oaEjAd4fnFIl23g+H73ABrDJKfsTceaKSTn10btVjBbqxw40QlEI03ReJx
+	 lGLXcwY6ak47UFTlzj4WBD0B7gis5mPdk7h8ClkJc2oifO3lNozAo7glvCjMqnWlu6
+	 SEFfwnQh9rQr2vOZl2+eqDLsRwtVy2OxWoaUStaWUPbpoLVKaxA8Ooq/JLndZqiZub
+	 svN2SsWSeQgl32cCBrPt7h4i9UPyJ/Jo9/tZEJdsiPkYR1V3umDpg4tEGmNzeL7kOV
+	 lzF7Fx3TKU+AgV+/IdH/DGmB1UHJlR3FGDLGoPqYiZ9/ZoDEbq3qDOM9o02DFfUobY
+	 kqMxjKP1U2pZQ==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -35,9 +35,9 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 05/10] EDAC/altera: Fix code leak on dci allocation failure
-Date: Mon, 27 Jul 2026 08:24:11 -0500
-Message-ID: <20260727132416.807230-6-dinguyen@kernel.org>
+Subject: [PATCH 08/10] EDAC/altera: Skip ECC memory init if already initialized
+Date: Mon, 27 Jul 2026 08:24:14 -0500
+Message-ID: <20260727132416.807230-9-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 In-Reply-To: <20260727132416.807230-1-dinguyen@kernel.org>
 References: <20260727132416.807230-1-dinguyen@kernel.org>
@@ -49,34 +49,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sashiko reports: If devres_open_group() fails, the function returns -ENOMEM
-without freeing the dci structure allocated earlier with edac_device_alloc_ctl_info().
+altr_init_memory_port() unconditionally triggered the HW memory-init
+block, which clears the entire memory and ECC data. On a re-probe (e.g.
+a probe deferred via -EPROBE_DEFER that only succeeds after the
+protected peripheral is active, or a rebind) this would wipe live
+peripheral memory. Skip the destructive init when the INITCOMPLETE
+status bit is already set, so it runs only once.
 
-Free the dci structure if devres_open_group() fails.
-
-Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
+Assisted-by: Cursor:claude-4.8-opus
+Fixes: 1166fde93d5b ("EDAC, altera: Add Arria10 ECC memory init functions")
 Cc: stable@vger.kernel.org
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
- drivers/edac/altera_edac.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/edac/altera_edac.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index e5d225f799f39..09e040b244673 100644
+index d8d2adc9c39ac..5087aa5ae5612 100644
 --- a/drivers/edac/altera_edac.c
 +++ b/drivers/edac/altera_edac.c
-@@ -1554,8 +1554,10 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 	altdev = dci->pvt_info;
- 	*altdev = *device;
+@@ -930,6 +930,18 @@ static int __maybe_unused altr_init_memory_port(void __iomem *ioaddr, int port)
+ 		clear_mask = ALTR_A10_ECC_ERRPENA_MASK;
+ 	}
  
--	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
-+	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL)) {
-+		edac_device_free_ctl_info(dci);
- 		return -ENOMEM;
++	/*
++	 * The HW init block clears the entire memory and ECC data, so only
++	 * run it once. If initialization already completed (e.g. on an
++	 * earlier probe or in the bootloader), skip it so a re-probe caused
++	 * by deferred probing or a rebind does not wipe an active peripheral.
++	 */
++	if (ecc_test_bits(stat_mask, (ioaddr + ALTR_A10_ECC_INITSTAT_OFST))) {
++		/* Clear any pending ECC interrupts */
++		writel(clear_mask, (ioaddr + ALTR_A10_ECC_INTSTAT_OFST));
++		return 0;
 +	}
- 
- 	/* Update PortB specific values */
- 	altdev->edac_dev_name = ecc_name;
++
+ 	ecc_set_bits(init_mask, (ioaddr + ALTR_A10_ECC_CTRL_OFST));
+ 	while (limit--) {
+ 		if (ecc_test_bits(stat_mask,
 -- 
 2.42.0.411.g813d9a9188
 
