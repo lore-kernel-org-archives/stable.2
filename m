@@ -1,128 +1,129 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DD43DB332;
-	Mon, 27 Jul 2026 07:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6472017B506
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785135698; cv=none; b=M++Kk2HuaUTe4n9X6EZsVyJnc/7ti+0VGsfTRHHLnbExvIHqO/qFi39mu7Rtv1cYawlaJyD43TL47/HeSOewlNKacVaXYCAqMwb2J7+K+CfuEcFoQS9YtwYyD7BENbUEIThJlFLFT8AmgwLGaT94gRpH8/N20jea1EA4cXFwHIY=
+	t=1785136112; cv=none; b=ZiK37Tka4EWK6Ih4I9486dfiwWJ9hKQ/BGt96YPndXnswxSLFYPa82QBkA0MEIsOtRh1kBw/IRFCOaKGlIDwhPUkOLIYFpT4CxQgcNoGm0g1hS9DaMtfuAMoGrmWrIcVj4rDQ47ErS3XAIPaZJXUn9dFwN6fF7rr4qUzsCO862c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785135698; c=relaxed/simple;
-	bh=0m92iWj1q46DlQQFw64jYwjKipaArwf4wGnpKPmeRfU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=AhX8l8jBxl6e+3lkj4CXwILI94fXvnFPXINuCkfFlRbxJ3bnZXSh42wkNjQRA8Zh3jA5d1gSdDr2TItNu6VBhYzZ9mU66MN8MxMGberkBQks6JxBf2aMaIgDqe2Cs0eiN2nauUwKvgyvnt9C624FfHv0Hq0snT378mo3ExgrRW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=l/FAWrmb; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1785136112; c=relaxed/simple;
+	bh=EDN6m9UbRexYtEIt+xOtSeMajMXy63+AcyGLlLrE32o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AiDIhvnilC2nlQ7cvNSVAkUii1Rcq4pPDWZuijV8m1p+HWXbiaE4Rry1e7aypVdVq62Im+OT0+9LHXau1ThgDekZ57jwXsEmv/ovaMLPZJAmy31fl2/lmXEQwz9pPN67uRt/4wVq12bIlVqZFK3WQwoKWuQxZGE9y4OaU34Nlr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K7/KhlUF; arc=none smtp.client-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="l/FAWrmb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=0m92iWj1q46DlQQFw64jYwjKipaArwf4wGnpKPmeRfU=; b=l
-	/FAWrmbt7naXRpZniJ/idUns8rskWcLA936Jvhka1Wclwc2TVkGIFwI1+xf0yvlJ
-	/CCP715Y0gTeIYQpm2Rwxrb2gHyf3mIYeRnSYyTf8YAIwgwm2vvvGCt34UWgAxq+
-	+qxn3YoLHqi5yKa+RwKvqbbdJcS++9JkkP5F540Fu4=
-Received: from w15303746062$163.com ( [115.53.141.25] ) by
- ajax-webmail-wmsvr-40-117 (Coremail) ; Mon, 27 Jul 2026 15:00:34 +0800
- (CST)
-Date: Mon, 27 Jul 2026 15:00:34 +0800 (CST)
-From: w15303746062  <w15303746062@163.com>
-To: simona@ffwll.ch, deller@gmx.de
-Cc: tzimmermann@suse.de, ville.syrjala@linux.intel.com, sam@ravnborg.org,
-	kees@kernel.org, yanquanmin1@huawei.com, syoshida@redhat.com,
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	"Mingyu Wang" <25181214217@stu.xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: Re:Re:[PATCH 7.0] fbdev: fbcon: fix memory leak in error path of
- fbcon_do_set_font()
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <5b288246.378d.19e95d82602.Coremail.w15303746062@163.com>
-References: <20260525082741.600003-1-w15303746062@163.com>
- <5b288246.378d.19e95d82602.Coremail.w15303746062@163.com>
-X-NTES-SC: AL_Qu2TB/2Yuk4o4iCYbekfmU0Qguw9Xcq5uPkj34FWN5t8jD/p6wkiclhFBGTN39q/NymWkiiSQiFv8MdmQoVpcpIoCx+rIl7O5HqSMBHkEks80Q==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K7/KhlUF"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39c74722e27so24064401fa.0
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 00:08:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785136108; x=1785740908; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fzkqreeHngQxOokHF4otaMSkre0ILi8PbO6vbHpwRN8=;
+        b=K7/KhlUFRVBOdU97uqOQHckt/Eu1rhkqMSoSWmQDNUEKFYg93b3wyBc4oR/sKUNA3h
+         leYiOiyHVhp5b/jZrIUr13W+hVycIbZAu8Uz4NcNxSO9nxQSkJoi1fdcf63mCKjXLDW4
+         PanGWLy/uEeGC0XvYkc8jBSHYnkR9b1v6BZVT/ET8q34bno/Ih9WuLizcjeITUolUPnT
+         wAGS/fkYO4dx2TS2djY/3M9yWV2Qej69zR58w9DjlROG24G+fKVjbitu9Ic1mB1Wy0eA
+         CvjWWhxOGmqFVKIfQnnbWlm7NW8geD95EsaKcMS/VscOnZFv/cwdmBRawkDKyPuX9871
+         6eNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785136108; x=1785740908;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fzkqreeHngQxOokHF4otaMSkre0ILi8PbO6vbHpwRN8=;
+        b=SEUaMafKR7qs8skuX8gHu4I/53xeLesyfSXIeE7mndzGN1n6cCDNkCkayKCAgpihhw
+         GVH5GqnqZBP2pT87XeBr/EYB5Gt2DMHZA344iz+955HGjaxlH7+VbzJmMM0JnSpF4D6C
+         2pcACpR6Qh4XzSsck4gn5GycnaPsH2n9lIGj/aAkQh6E84g1XhG1V1w2dT999028Q59L
+         RthGAzRqi39frpmIko4sITkpanIm21JPrkQnwyLpuoMWMTB0CGxAeHdWYlpS0f3CnXsX
+         9Lzo8uS45bPRkDIVPzY1K8QXUQA4PDWzD0nYC7zXvN+QA4c5qFOJZqVEG1y3Y4BS1rY5
+         oDGg==
+X-Forwarded-Encrypted: i=1; AHgh+RrXP49WZVnTdfVE8gopLY/21HjlbQ+cDu1wKkr5wGDrg1hM7AZpFeDbQbxQ7f8rNf5pFW05dXM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEVwjLgeX7J7fJ1T9kkgeW2qeYWo/fFmuMt1hAOIdD6lEijcc/
+	St0MUSZ29Y6tRYnNmwGmOZ33xz5s7zSkOjRP/Z9UULYcCEmGXmd8pEiiG1OgDbjX
+X-Gm-Gg: AR+sD12CTW9BxuIBBaBDyLZ4JfwMK0/Uo63P5m76F5krffmE6NtwI18yarM9z8DuTuu
+	0kw247Z5fGvIl3fYm8HXYz1blYVBVyg6nf5vUIhkdg2bAJJGWbpmvwgLHX4XkUAPv18aA6T76zm
+	ijfyti8UrnbYhhqcWVA1r1JZC1FBfFZfYOaESHpP6g/7mN3GT6lBklJA7RzK/Dn1mwzJTK5+WSt
+	DtYetI7DJFNPZXe0JgprEQKrQ8d/gbxcgTIBRlPZOusKOcC6Av3jxVEYGyQgmwcCtUzEk4iknT6
+	m5d73GGejLDApLPpBBYRYRNPEnxJ1xtBWHtgJsbAyrNzhwEZv8Mvc2iDKjnxyNAd5W+WwkbzSqA
+	f+J770BZjOmR/MrCVFKTfHxkEngAlaMOQH0I/AhPey1r6R4DxRkCyB35B/dIvMiYO+iqfR3xANr
+	iyc5jDBkZ9XL0xgY5t7qJlidgYhtFkTDg5yM8lgvJsl97O7G29LeS/fI3SFj2x4clwDNjZWoodi
+	Q==
+X-Received: by 2002:a2e:bc84:0:b0:39c:f58e:5c8b with SMTP id 38308e7fff4ca-39f28561e46mr12241151fa.20.1785136108252;
+        Mon, 27 Jul 2026 00:08:28 -0700 (PDT)
+Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f22173825sm13461301fa.1.2026.07.27.00.08.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 00:08:27 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>,
+	stable@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] iio: pressure: dps310: fix pressure result shift bit definition
+Date: Mon, 27 Jul 2026 10:05:46 +0300
+Message-ID: <20260727070547.649074-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <726d129f.53bd.19fa2601661.Coremail.w15303746062@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:dSgvCgD3PzASAmdqMBEmAA--.8488W
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC4xL43GpnAhJpowAA3C
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkZyb206IE1pbmd5dSBXYW5nIDwyNTE4MTIxNDIxN0BzdHUueGlkaWFuLmVkdS5jbj4KCkhpIEhl
-bGdlLCBTaW1vbmEsIGFuZCBhbGwsCgpSZXNlbmRpbmcgdGhpcyBwYXRjaCBhcyBhIGdlbnRsZSBy
-ZW1pbmRlciwgc2luY2UgaXQgaGFzIGJlZW4gYSB3aGlsZSAKZnJvbSB0aGUgb3JpZ2luYWwgc3Vi
-bWlzc2lvbiAoTWF5IDI1KSBhbmQgbXkgcHJldmlvdXMgcGluZyAoSnVuZSA1KS4KCkFzIGEgcXVp
-Y2sgbm90ZSwgc2luY2UgdGhpcyBtZW1vcnkgbGVhayB3YXMgaW1wbGljaXRseSByZXNvbHZlZCBp
-biAKbWFpbmxpbmUgdmlhIGEgcmVjZW50IHJlZmFjdG9yLCB0aGlzIGZpeCBpcyBzcGVjaWZpY2Fs
-bHkgdGFyZ2V0ZWQgYXQgCjcuMCBhbmQgb2xkZXIgc3RhYmxlIGJyYW5jaGVzIHVzaW5nIHRoZSBs
-ZWdhY3kgdXNlcmZvbnQgbG9naWMuCgpDb3VsZCB5b3UgcGxlYXNlIHRha2UgYSBsb29rIHdoZW4g
-eW91IGhhdmUgYSBtb21lbnQ/IEFueSBmZWVkYmFjayBvciAKZ3VpZGFuY2Ugb24gaG93IGJlc3Qg
-dG8gcHJvY2VlZCB3aXRoIHRoaXMgc3RhYmxlLW9ubHkgZml4IHdvdWxkIGJlIApncmVhdGx5IGFw
-cHJlY2lhdGVkLgoKQmVzdCByZWdhcmRzLAoKTWluZ3l1Cgo+QXQgMjAyNi0wNS0yNSAxNjoyNzo0
-MSwgdzE1MzAzNzQ2MDYyQDE2My5jb20gd3JvdGU6Cj4+RnJvbTogTWluZ3l1IFdhbmcgPDI1MTgx
-MjE0MjE3QHN0dS54aWRpYW4uZWR1LmNuPgo+Pgo+PlsgTm90ZTogVGhpcyBpc3N1ZSB3YXMgZGlz
-Y292ZXJlZCBvbiB0aGUgNy4wIGtlcm5lbC4gV2hpbGUgdGhlIGN1cnJlbnQKPj4gIG1haW5saW5l
-IGhhcyBhbHJlYWR5IGJlZW4gcmVmYWN0b3JlZCB0byB1c2UgYGZvbnRfZGF0YV90YCAod2hpY2gg
-Cj4+ICBpbmFkdmVydGVudGx5IHJlc29sdmVkIHRoaXMgYnVnKSwgdGhpcyB2dWxuZXJhYmlsaXR5
-IHN0aWxsIGFjdGl2ZWx5IAo+PiAgYWZmZWN0cyB0aGUgNy4wIGJyYW5jaCBhbmQgb2xkZXIgc3Rh
-YmxlIHRyZWVzIHRoYXQgcmVseSBvbiB0aGUgbGVnYWN5IAo+PiAgdXNlcmZvbnQgbG9naWMuIFRo
-aXMgcGF0Y2ggcHJvdmlkZXMgYSB0YXJnZXRlZCBmaXggZm9yIHRoZXNlIHN0YWJsZSAKPj4gIGJy
-YW5jaGVzLiBdCj4+Cj4+V2hlbiBmYmNvbl9kb19zZXRfZm9udCgpIGZhaWxzIChlLmcuLCBkdWUg
-dG8gYSB2Y19yZXNpemUoKSBmYWlsdXJlIHVuZGVyCj4+ZmF1bHQgaW5qZWN0aW9uKSwgaXQganVt
-cHMgdG8gdGhlIGBlcnJfb3V0YCBsYWJlbCB0byByb2xsIGJhY2sgdGhlCj4+Y29uc29sZSBzdGF0
-ZS4KPj4KPj5Ib3dldmVyLCB0aGUgcmVzdG9yYXRpb24gb2YgdGhlIHByZXZpb3VzIGZvbnQgc3Rh
-dGUgKGBwLT51c2VyZm9udCA9Cj4+b2xkX3VzZXJmb250YCkgaXMgZXJyb25lb3VzbHkgcGxhY2Vk
-IGluc2lkZSB0aGUgYGlmICh1c2VyZm9udClgIGJsb2NrLgo+PklmIHRoZSBmYWlsZWQgb3BlcmF0
-aW9uIHdhcyBhdHRlbXB0aW5nIHRvIHNldCB0aGUgZGVmYXVsdCBidWlsdGluIGZvbnQKPj4oYHVz
-ZXJmb250ID09IDBgKSwgdGhlIHJlc3RvcmF0aW9uIGlzIGNvbXBsZXRlbHkgc2tpcHBlZC4KPj4K
-Pj5UaGlzIGNhdXNlcyBhIHN0YXRlIG1hY2hpbmUgY29ycnVwdGlvbiB3aGVyZSBgcC0+dXNlcmZv
-bnRgIHJlbWFpbnMgYDBgCj4+d2hpbGUgYHAtPmZvbnRkYXRhYCBzdGlsbCBwb2ludHMgdG8gdGhl
-IHByZXZpb3VzbHkgYWxsb2NhdGVkIHVzZXIgZm9udAo+Pm1lbW9yeS4gTGF0ZXIsIHdoZW4gdGhl
-IGNvbnNvbGUgaXMgZGVzdHJveWVkIChlLmcuLCB2aWEgVlRfRElTQUxMT0NBVEUpLAo+PmZiY29u
-X2ZyZWVfZm9udCgpIGZhaWxzIHRvIGZyZWUgdGhpcyBtZW1vcnkgYmVjYXVzZSBpdHMgYGlmIChw
-LT51c2VyZm9udClgCj4+Y2hlY2sgZmFpbHMsIHJlc3VsdGluZyBpbiBhIG1lbW9yeSBsZWFrIGNh
-dWdodCBieSBrbWVtbGVhazoKPj4KPj4gIHVucmVmZXJlbmNlZCBvYmplY3QgMHhmZmZmODg4MTI3
-ZWEwMDAwIChzaXplIDMzMjk2KToKPj4gICAgY29tbSAic3l6LjAuODcyNiIsIHBpZCAzMzIyNCwg
-amlmZmllcyA0Mjk3NzU0NjQzCj4+ICAgIGhleCBkdW1wIChmaXJzdCAzMiBieXRlcyk6Cj4+ICAg
-ICAgYTYgZTQgZjkgZGQgMDAgMDAgMDAgMDAgMDAgODIgMDAgMDAgMDEgMDAgMDAgMDAgIC4uLi4u
-Li4uLi4uLi4uLi4KPj4gICAgICBkMiAwOSA2YyBiZiA1MiA4YSA3ZCBkNCBlZiAxZCA1OSAxNiA1
-MSA4NiAzMiBiZiAgLi5sLlIufS4uLlkuUS4yLgo+PiAgICBiYWNrdHJhY2UgKGNyYyA0YTBhNTdk
-ZCk6Cj4+ICAgICAgX19fa21hbGxvY19sYXJnZV9ub2RlKzB4ZTcvMHgxODAgbW0vc2x1Yi5jOjUy
-MTQKPj4gICAgICBfX2ttYWxsb2NfbGFyZ2Vfbm9kZV9ub3Byb2YrMHgyOS8weDEzMCBtbS9zbHVi
-LmM6NTIzMgo+PiAgICAgIF9fZG9fa21hbGxvY19ub2RlIG1tL3NsdWIuYzo1MjQ4IFtpbmxpbmVd
-Cj4+ICAgICAgX19rbWFsbG9jX25vcHJvZisweDVmYy8weDdjMCBtbS9zbHViLmM6NTI3Mgo+PiAg
-ICAgIGttYWxsb2Nfbm9wcm9mIGluY2x1ZGUvbGludXgvc2xhYi5oOjk1NCBbaW5saW5lXQo+PiAg
-ICAgIGZiY29uX3NldF9mb250KzB4NDMxLzB4YTYwIGRyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9m
-YmNvbi5jOjI1MjUKPj4gICAgICBjb25fZm9udF9zZXQgZHJpdmVycy90dHkvdnQvdnQuYzo0OTE4
-IFtpbmxpbmVdCj4+ICAgICAgY29uX2ZvbnRfb3ArMHg5NGQvMHhlODAgZHJpdmVycy90dHkvdnQv
-dnQuYzo0OTU4Cj4+ICAgICAgdnRfa19pb2N0bCBkcml2ZXJzL3R0eS92dC92dF9pb2N0bC5jOjQ3
-MiBbaW5saW5lXQo+PiAgICAgIHZ0X2lvY3RsKzB4NjNjLzB4MmVlMCBkcml2ZXJzL3R0eS92dC92
-dF9pb2N0bC5jOjc0Mwo+Pgo+PkZpeCB0aGlzIGJ5IG1vdmluZyB0aGUgYHAtPnVzZXJmb250ID0g
-b2xkX3VzZXJmb250YCBhc3NpZ25tZW50IG91dHNpZGUKPj50aGUgYGlmICh1c2VyZm9udClgIGJs
-b2NrIHNvIHRoYXQgdGhlIHRlcm1pbmFsIHN0YXRlIGlzIHVuY29uZGl0aW9uYWxseQo+PmFuZCBj
-b3JyZWN0bHkgcmVzdG9yZWQgcmVnYXJkbGVzcyBvZiB3aGljaCBmb250IHNldHRpbmcgdHJpZ2dl
-cmVkIHRoZQo+PmVycm9yLgo+Pgo+PkZpeGVzOiBhNWE5MjMwMzhkNzAgKCJmYmRldjogZmJjb246
-IFByb3Blcmx5IHJldmVydCBjaGFuZ2VzIHdoZW4gdmNfcmVzaXplKCkgZmFpbGVkIikKPj5TaWdu
-ZWQtb2ZmLWJ5OiBNaW5neXUgV2FuZyA8MjUxODEyMTQyMTdAc3R1LnhpZGlhbi5lZHUuY24+Cj4+
-LS0tCj4+IGRyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jIHwgNCArKystCj4+IDEgZmls
-ZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4KPj5kaWZmIC0tZ2l0
-IGEvZHJpdmVycy92aWRlby9mYmRldi9jb3JlL2ZiY29uLmMgYi9kcml2ZXJzL3ZpZGVvL2ZiZGV2
-L2NvcmUvZmJjb24uYwo+PmluZGV4IDY2NjI2MWFlNTlkOC4uYTM4NTQ1ZGM4NDE2IDEwMDY0NAo+
-Pi0tLSBhL2RyaXZlcnMvdmlkZW8vZmJkZXYvY29yZS9mYmNvbi5jCj4+KysrIGIvZHJpdmVycy92
-aWRlby9mYmRldi9jb3JlL2ZiY29uLmMKPj5AQCAtMjQ2MSw4ICsyNDYxLDEwIEBAIHN0YXRpYyBp
-bnQgZmJjb25fZG9fc2V0X2ZvbnQoc3RydWN0IHZjX2RhdGEgKnZjLCBpbnQgdywgaW50IGgsIGlu
-dCBjaGFyY291bnQsCj4+IAlwLT5mb250ZGF0YSA9IG9sZF9kYXRhOwo+PiAJdmMtPnZjX2ZvbnQu
-ZGF0YSA9IG9sZF9kYXRhOwo+PiAKPj4rCS8qIFVuY29uZGl0aW9uYWxseSByZXN0b3JlIHRoZSBw
-cmV2aW91cyB1c2VyZm9udCBzdGF0ZSAqLwo+PisJcC0+dXNlcmZvbnQgPSBvbGRfdXNlcmZvbnQ7
-Cj4+Kwo+PiAJaWYgKHVzZXJmb250KSB7Cj4+LQkJcC0+dXNlcmZvbnQgPSBvbGRfdXNlcmZvbnQ7
-Cj4+IAkJaWYgKC0tUkVGQ09VTlQoZGF0YSkgPT0gMCkKPj4gCQkJa2ZyZWUoZGF0YSAtIEZPTlRf
-RVhUUkFfV09SRFMgKiBzaXplb2YoaW50KSk7Cj4+IAl9Cj4+LS0gCj4+Mi4zNC4xCg==
+DPS310_PRS_SHIFT_EN is defined as BIT(4), but P_SHIFT is bit 2 of
+CFG_REG. Bit 4 is INT_PRS, which enables the pressure measurement ready
+interrupt on the SDO pin.
+
+The datasheet requires the pressure result bit-shift to be enabled when
+the oversampling rate is higher than 8 times, so
+dps310_set_pres_precision() sets it for oversampling ratios of 16 and
+above. With the wrong definition it leaves P_SHIFT clear and toggles the
+pressure ready interrupt instead, so the result register is never shifted
+and the pressure values read at those oversampling ratios are wrong.
+
+Define the bit at its documented position. Temperature is not affected,
+T_SHIFT is bit 3 and DPS310_TMP_SHIFT_EN already matches it.
+
+Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
+Found by inspection while working on FIFO support, and checked against the
+DPS310 datasheet V1.1 (2019-07-11), section 8.6 "Interrupt and FIFO
+configuration (CFG_REG)", where the bit table reads INT_HL, INT_FIFO,
+INT_TMP, INT_PRS, T_SHIFT, P_SHIFT, FIFO_EN, SPI_MODE for bits 7 down to 0.
+
+Not tested on hardware yet: the driver probes and reads correctly under
+qemu-system-arm -M rainier-bmc, but QEMU's DPS310 model does not implement
+the shift bits, so it cannot show the difference. I have a DPS310 breakout
+on order and can confirm the raw pressure values at oversampling >= 16 once
+it arrives, if you would rather wait for that.
+
+ drivers/iio/pressure/dps310.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 45bdb8c7670f..473973dd0694 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -50,7 +50,7 @@
+ #define DPS310_CFG_REG		0x09
+ #define  DPS310_INT_HL		BIT(7)
+ #define  DPS310_TMP_SHIFT_EN	BIT(3)
+-#define  DPS310_PRS_SHIFT_EN	BIT(4)
++#define  DPS310_PRS_SHIFT_EN	BIT(2)
+ #define  DPS310_FIFO_EN		BIT(5)
+ #define  DPS310_SPI_EN		BIT(6)
+ #define DPS310_RESET		0x0c
+-- 
+2.43.0
+
