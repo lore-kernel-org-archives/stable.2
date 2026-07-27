@@ -1,443 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8E7417D64
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:31:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91B2417D77
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 13:31:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785159089; cv=none; b=SH5Pr5prAWidWPL9rMiASNQnaOxN6jjdU8WbC/bTvV+/7J79DIagXxMzBkqEUfxJ6+CC9QjhshdUAeUAkiKUwQKXptl6AaZAqeZ+JzfVlEachBhHBI2kwKPohJRtlxR06EuNGgrcyiMUfoLKzttBjWisNRGLLNg0xjKvTscSB2A=
+	t=1785159090; cv=none; b=T/YkcUrgZkH1Sl9I16Sv3LTj/9DbTx74MExienV7di3tA7Kh08J9Y4Hu/v1NqxTshSSHWDsovkIFExItnrlFQJu0hcDuPckY9ihYidOjIrkDrbnjN/IAJd9LNA3FCbBIeUCK7WDBjyh19DJ1H/2tjU6xThFFNE+qx6jIRqtkYW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785159089; c=relaxed/simple;
-	bh=sc/EIcGlFjrO2r9bZ0pFCNnfEAyDkesMFNN2PvkLI/g=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jQDBi0Cd9aKilArNGApJTx28DwnwiQf3huf49g2YM9Y3KO1yaYZDuAl79kCZ5KvhTb9bvCxPCWWwMMO0yDL3CITQ7xeQFdPW0ghJY150Bhb7qcbe1VUGKjYeDKRm5aM4Vd/ryimQJXPtpQMQCLQLjxCUEUJXAcoaBJ5oux1XHik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mo0ioPXK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785159090; c=relaxed/simple;
+	bh=xtUlXK5RSSnL24G54zdHt5QwYG1bY/JKUzw5aKqCNgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AX382+ly6hFvj/SP2bsPiEoETmDdXiYQhOI5J59OrMfFoonjLdwLvgT7blQc+UQO5yZRZFKdRdG3Rwm8Z/AnIXxJsL/WXuCIZ0bbCLM+/xOEVYfmhuD2Lk+6zAG5X6US0wgfiHbQIyAGzmoTQKVNe4+AAQ94YQvIwopcGujs+Dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFepZGkn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mo0ioPXK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4BE1F000E9;
-	Mon, 27 Jul 2026 13:31:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785159087;
-	bh=0/XTAlnslfLbkTfoNiVtNqO0IxzahLVEirfVTagvwUo=;
-	h=Subject:To:Cc:From:Date;
-	b=Mo0ioPXKqbcG+AR9FylOkM9SPmQnIa67cxjur6d75QiYsccua3T1KIyy0BMx5WEsV
-	 LnvefRj2R5o2J7ygHETftl28FM8F6ohqH1JyEkRXixlklsI/QN5OXmtpvbg9h06dXu
-	 m/XAPg4XYpJ7jkBNmYtP0mn1Q+VSPXVSFf72E3OA=
-Subject: FAILED: patch "[PATCH] usb: gadget: f_tcm: synchronize delayed set_alt with teardown" failed to apply to 5.10-stable tree
-To: zzzccc427@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 27 Jul 2026 15:31:04 +0200
-Message-ID: <2026072704-reentry-pandemic-b4c7@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFepZGkn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AB881F00A3D;
+	Mon, 27 Jul 2026 13:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785159088;
+	bh=x1fxnM3aBbCPWSvwLlBVOaznX9Ap1MZnkyN3MS/P0s8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bFepZGknVZ+Do4+iJDHJLt4HDBeZ51KTZ+i5CGIdRkVE7MRYx/G7ZjrUw7cD4tv9J
+	 DcF5wKTvhsFblC++iNCcGoXQG4xbmzEVcKwsgUOXWwCsIuVLoQbgkShDMtIy2tu2kZ
+	 9eMV7cQHxpBNdO9wpavuDPuwujhbHASnc9ewgHjFQzwkT2aI3NsYl5JS0MgVrkghUb
+	 evubFWScxrAkeQoaiadfKzokLIlKThWrUGy35gQDDhouqgoEYttZ67sylEjxOSLP6h
+	 Dx/P57+1J1JTKdIJMqhXz4K0EdMUG7s0X/xnofQnQyXZtkepy2018TvXNj7Q5AwQ63
+	 p4bIF/1a0u2ag==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ziyang Xuan <william.xuanziyang@huawei.com>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] can: bcm: registration process optimization in bcm_module_init()
+Date: Mon, 27 Jul 2026 09:31:25 -0400
+Message-ID: <20260727133126.537544-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072026-herbs-reliable-9eca@gregkh>
+References: <2026072026-herbs-reliable-9eca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Ziyang Xuan <william.xuanziyang@huawei.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit edd1a7e42f1d2d09c5f79ecef05ae19dc669bf34 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Now, register_netdevice_notifier() and register_pernet_subsys() are both
+after can_proto_register(). It can create CAN_BCM socket and process socket
+once can_proto_register() successfully, so it is possible missing notifier
+event or proc node creation because notifier or bcm proc directory is not
+registered or created yet. Although this is a low probability scenario, it
+is not impossible.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 79e2d75725c85607f8a9d87ae9cace62a19f767d
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072704-reentry-pandemic-b4c7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Move register_pernet_subsys() and register_netdevice_notifier() to the
+front of can_proto_register(). In addition, register_pernet_subsys() and
+register_netdevice_notifier() may fail, check their results are necessary.
 
-Possible dependencies:
+Signed-off-by: Ziyang Xuan <william.xuanziyang@huawei.com>
+Link: https://lore.kernel.org/all/823cff0ebec33fa9389eeaf8b8ded3217c32cb38.1663206163.git.william.xuanziyang@huawei.com
+Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Stable-dep-of: 68973f9db761 ("can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/can/bcm.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 79e2d75725c85607f8a9d87ae9cace62a19f767d Mon Sep 17 00:00:00 2001
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Sat, 27 Jun 2026 18:41:53 +0800
-Subject: [PATCH] usb: gadget: f_tcm: synchronize delayed set_alt with teardown
-
-The f_tcm set_alt() path defers endpoint setup to a work item and
-completes the delayed status response from process context. The delayed
-work uses f_tcm private state and may complete the setup request after
-disconnect or function teardown has already moved on.
-
-Cancel and drain the delayed set_alt work when the function is unbound or
-freed. For disable paths, which are reached under the composite device
-lock, use a small state machine and a non-sleeping cancellation path
-instead of cancel_work_sync(). If the work is already running, mark it
-cancelled and let the worker own the cleanup; otherwise tcm_disable() can
-cancel the queued work and clean up immediately.
-
-Also serialize the final delayed-status completion with the cancellation
-check while holding the composite device lock. This prevents a disconnect
-from clearing delayed_status while the worker is about to complete the
-control request.
-
-Validation reproduced this kernel report:
-BUG: KASAN: slab-use-after-free in tcm_delayed_set_alt+0x6c/0xef0
-
-Call Trace:
- <TASK>
- dump_stack_lvl+0x66/0xa0
- print_report+0xce/0x630
- ? tcm_delayed_set_alt+0x6c/0xef0
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __virt_addr_valid+0x188/0x320
- ? tcm_delayed_set_alt+0x6c/0xef0
- kasan_report+0xe0/0x110
- ? tcm_delayed_set_alt+0x6c/0xef0
- tcm_delayed_set_alt+0x6c/0xef0
- ? __pfx_tcm_delayed_set_alt+0x10/0x10
- ? process_one_work+0x4cb/0xb90
- ? rcu_is_watching+0x20/0x50
- ? tcm_delayed_set_alt+0x9/0xef0
- process_one_work+0x4d7/0xb90
- ? __pfx_process_one_work+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __list_add_valid_or_report+0x37/0xf0
- ? __pfx_tcm_delayed_set_alt+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- worker_thread+0x2d8/0x570
- ? __pfx_worker_thread+0x10/0x10
- kthread+0x1ad/0x1f0
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x3c9/0x540
- ? __pfx_ret_from_fork+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __switch_to+0x2e9/0x730
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-
-Allocated by task 544:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_kmalloc+0x8f/0xa0
- tcm_alloc+0x68/0x180
- usb_get_function+0x36/0x60
- config_usb_cfg_link+0x125/0x1b0
- configfs_symlink+0x322/0x890
- vfs_symlink+0xc2/0x270
- filename_symlinkat+0x295/0x2f0
- __x64_sys_symlinkat+0x62/0x90
- do_syscall_64+0x115/0x6a0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 661:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x43/0x70
- kfree+0x2f9/0x530
- config_usb_cfg_unlink+0x173/0x1e0
- configfs_unlink+0x1fa/0x340
- vfs_unlink+0x15c/0x510
- filename_unlinkat+0x2ba/0x450
- __x64_sys_unlinkat+0x63/0x90
- do_syscall_64+0x115/0x6a0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
-Cc: stable <stable@kernel.org>
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Link: https://patch.msgid.link/20260627104153.3822495-1-zzzccc427@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
-index 34d9f49e9987..b3fa5a17fd2d 100644
---- a/drivers/usb/gadget/function/f_tcm.c
-+++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -2363,31 +2363,158 @@ static int tcm_bind(struct usb_configuration *c, struct usb_function *f)
- 	return -ENOTSUPP;
- }
+diff --git a/net/can/bcm.c b/net/can/bcm.c
+index 317cd4c415ba28..361e384720cd19 100644
+--- a/net/can/bcm.c
++++ b/net/can/bcm.c
+@@ -1832,15 +1832,27 @@ static int __init bcm_module_init(void)
  
--struct guas_setup_wq {
--	struct work_struct work;
--	struct f_uas *fu;
--	unsigned int alt;
--};
-+static void tcm_cleanup_old_alt(struct f_uas *fu)
-+{
-+	if (fu->flags & USBG_IS_UAS)
-+		uasp_cleanup_old_alt(fu);
-+	else if (fu->flags & USBG_IS_BOT)
-+		bot_cleanup_old_alt(fu);
-+	fu->flags = 0;
-+}
-+
-+static void tcm_delayed_set_alt_done(struct f_uas *fu)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+	fu->delayed_set_alt_cancel = false;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+}
-+
-+static bool tcm_delayed_set_alt_cancelled(struct f_uas *fu)
-+{
-+	bool cancelled;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	cancelled = fu->delayed_set_alt_cancel;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	return cancelled;
-+}
-+
-+static bool tcm_complete_delayed_status(struct f_uas *fu)
-+{
-+	struct usb_composite_dev *cdev = fu->function.config->cdev;
-+	struct usb_request *req = cdev->req;
-+	unsigned long cdev_flags;
-+	bool cancelled;
-+	int ret;
-+
-+	spin_lock_irqsave(&cdev->lock, cdev_flags);
-+	spin_lock(&fu->delayed_set_alt_lock);
-+	cancelled = fu->delayed_set_alt_cancel;
-+	if (!cancelled) {
-+		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+		fu->delayed_set_alt_cancel = false;
-+	}
-+	spin_unlock(&fu->delayed_set_alt_lock);
-+
-+	if (cancelled) {
-+		spin_unlock_irqrestore(&cdev->lock, cdev_flags);
-+		return false;
-+	}
-+
-+	if (cdev->delayed_status == 0) {
-+		WARN(cdev, "%s: Unexpected call\n", __func__);
-+	} else if (--cdev->delayed_status == 0) {
-+		req->length = 0;
-+		req->context = cdev;
-+		ret = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
-+		if (ret == 0) {
-+			cdev->setup_pending = true;
-+		} else {
-+			req->status = 0;
-+			req->complete(cdev->gadget->ep0, req);
-+		}
-+	}
-+
-+	spin_unlock_irqrestore(&cdev->lock, cdev_flags);
-+
-+	return true;
-+}
-+
-+static bool tcm_cancel_delayed_set_alt(struct f_uas *fu)
-+{
-+	bool cleanup = false;
-+	bool cancel = false;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	switch (fu->delayed_set_alt_state) {
-+	case USBG_DELAYED_SET_ALT_IDLE:
-+		cleanup = true;
-+		break;
-+	case USBG_DELAYED_SET_ALT_QUEUED:
-+	case USBG_DELAYED_SET_ALT_RUNNING:
-+		fu->delayed_set_alt_cancel = true;
-+		cancel = true;
-+		break;
-+	}
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	if (cancel && cancel_work(&fu->delayed_set_alt)) {
-+		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+		if (fu->delayed_set_alt_state == USBG_DELAYED_SET_ALT_QUEUED) {
-+			fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+			fu->delayed_set_alt_cancel = false;
-+			cleanup = true;
-+		}
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+	}
-+
-+	return cleanup;
-+}
-+
-+static void tcm_cancel_delayed_set_alt_sync(struct f_uas *fu)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE)
-+		fu->delayed_set_alt_cancel = true;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	cancel_work_sync(&fu->delayed_set_alt);
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+	fu->delayed_set_alt_cancel = false;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+}
+ 	pr_info("can: broadcast manager protocol\n");
  
- static void tcm_delayed_set_alt(struct work_struct *wq)
- {
--	struct guas_setup_wq *work = container_of(wq, struct guas_setup_wq,
--			work);
--	struct f_uas *fu = work->fu;
--	int alt = work->alt;
-+	struct f_uas *fu = container_of(wq, struct f_uas, delayed_set_alt);
-+	unsigned long flags;
-+	unsigned int alt;
- 
--	kfree(work);
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_QUEUED) {
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+		return;
-+	}
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_RUNNING;
-+	alt = fu->delayed_alt;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
- 
--	if (fu->flags & USBG_IS_BOT)
--		bot_cleanup_old_alt(fu);
--	if (fu->flags & USBG_IS_UAS)
--		uasp_cleanup_old_alt(fu);
-+	tcm_cleanup_old_alt(fu);
++	err = register_pernet_subsys(&canbcm_pernet_ops);
++	if (err)
++		return err;
 +
-+	if (tcm_delayed_set_alt_cancelled(fu))
-+		goto out_done;
- 
- 	if (alt == USB_G_ALT_INT_BBB)
- 		bot_set_alt(fu);
- 	else if (alt == USB_G_ALT_INT_UAS)
- 		uasp_set_alt(fu);
--	usb_composite_setup_continue(fu->function.config->cdev);
++	err = register_netdevice_notifier(&canbcm_notifier);
++	if (err)
++		goto register_notifier_failed;
 +
-+	if (tcm_complete_delayed_status(fu))
-+		return;
-+
-+	tcm_cleanup_old_alt(fu);
-+out_done:
-+	tcm_delayed_set_alt_done(fu);
- }
- 
- static int tcm_get_alt(struct usb_function *f, unsigned intf)
-@@ -2413,15 +2540,20 @@ static int tcm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
- 		return -EOPNOTSUPP;
- 
- 	if ((alt == USB_G_ALT_INT_BBB) || (alt == USB_G_ALT_INT_UAS)) {
--		struct guas_setup_wq *work;
-+		unsigned long flags;
- 
--		work = kmalloc_obj(*work, GFP_ATOMIC);
--		if (!work)
--			return -ENOMEM;
--		INIT_WORK(&work->work, tcm_delayed_set_alt);
--		work->fu = fu;
--		work->alt = alt;
--		schedule_work(&work->work);
-+		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+		if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE) {
-+			spin_unlock_irqrestore(&fu->delayed_set_alt_lock,
-+					       flags);
-+			return -EBUSY;
-+		}
-+		fu->delayed_alt = alt;
-+		fu->delayed_set_alt_cancel = false;
-+		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_QUEUED;
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+		schedule_work(&fu->delayed_set_alt);
- 		return USB_GADGET_DELAYED_STATUS;
+ 	err = can_proto_register(&bcm_can_proto);
+ 	if (err < 0) {
+ 		printk(KERN_ERR "can: registration of bcm protocol failed\n");
+-		return err;
++		goto register_proto_failed;
  	}
- 	return -EOPNOTSUPP;
-@@ -2431,11 +2563,8 @@ static void tcm_disable(struct usb_function *f)
- {
- 	struct f_uas *fu = to_f_uas(f);
  
--	if (fu->flags & USBG_IS_UAS)
--		uasp_cleanup_old_alt(fu);
--	else if (fu->flags & USBG_IS_BOT)
--		bot_cleanup_old_alt(fu);
--	fu->flags = 0;
-+	if (tcm_cancel_delayed_set_alt(fu))
-+		tcm_cleanup_old_alt(fu);
+-	register_pernet_subsys(&canbcm_pernet_ops);
+-	register_netdevice_notifier(&canbcm_notifier);
+ 	return 0;
++
++register_proto_failed:
++	unregister_netdevice_notifier(&canbcm_notifier);
++register_notifier_failed:
++	unregister_pernet_subsys(&canbcm_pernet_ops);
++	return err;
  }
  
- static int tcm_setup(struct usb_function *f,
-@@ -2583,11 +2712,16 @@ static void tcm_free(struct usb_function *f)
- {
- 	struct f_uas *tcm = to_f_uas(f);
- 
-+	tcm_cancel_delayed_set_alt_sync(tcm);
- 	kfree(tcm);
- }
- 
- static void tcm_unbind(struct usb_configuration *c, struct usb_function *f)
- {
-+	struct f_uas *fu = to_f_uas(f);
-+
-+	tcm_cancel_delayed_set_alt_sync(fu);
-+	tcm_cleanup_old_alt(fu);
- 	usb_free_all_descriptors(f);
- }
- 
-@@ -2620,6 +2754,8 @@ static struct usb_function *tcm_alloc(struct usb_function_instance *fi)
- 	fu->function.disable = tcm_disable;
- 	fu->function.free_func = tcm_free;
- 	fu->tpg = tpg_instances[i].tpg;
-+	INIT_WORK(&fu->delayed_set_alt, tcm_delayed_set_alt);
-+	spin_lock_init(&fu->delayed_set_alt_lock);
- 
- 	hash_init(fu->stream_hash);
- 	mutex_unlock(&tpg_instances_lock);
-diff --git a/drivers/usb/gadget/function/tcm.h b/drivers/usb/gadget/function/tcm.h
-index 009974d81d66..e1d5a9391612 100644
---- a/drivers/usb/gadget/function/tcm.h
-+++ b/drivers/usb/gadget/function/tcm.h
-@@ -3,6 +3,7 @@
- #define __TARGET_USB_GADGET_H__
- 
- #include <linux/kref.h>
-+#include <linux/spinlock.h>
- /* #include <linux/usb/uas.h> */
- #include <linux/hashtable.h>
- #include <linux/usb/composite.h>
-@@ -29,6 +30,12 @@ enum {
- 
- #define USB_G_DEFAULT_SESSION_TAGS	USBG_NUM_CMDS
- 
-+enum {
-+	USBG_DELAYED_SET_ALT_IDLE = 0,
-+	USBG_DELAYED_SET_ALT_QUEUED,
-+	USBG_DELAYED_SET_ALT_RUNNING,
-+};
-+
- struct tcm_usbg_nexus {
- 	struct se_session *tvn_se_sess;
- };
-@@ -132,6 +139,12 @@ struct f_uas {
- #define USBG_BOT_CMD_PEND	(1 << 4)
- #define USBG_BOT_WEDGED		(1 << 5)
- 
-+	struct work_struct	delayed_set_alt;
-+	spinlock_t		delayed_set_alt_lock; /* protects delayed_set_alt_* */
-+	unsigned int		delayed_alt;
-+	unsigned int		delayed_set_alt_state;
-+	bool			delayed_set_alt_cancel;
-+
- 	struct usbg_cdb		cmd[USBG_NUM_CMDS];
- 	struct usb_ep		*ep_in;
- 	struct usb_ep		*ep_out;
+ static void __exit bcm_module_exit(void)
+-- 
+2.53.0
 
