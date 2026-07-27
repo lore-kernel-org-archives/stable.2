@@ -1,188 +1,155 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D55E37FF68
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 14:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785162233; cv=pass; b=ieNUq7O5FcyCLDCKTSM9IakErSG4gRUwmu508eYIYJZBuRobfRZvCUTW6Lmb4ZPotYQt9R/NAPs4DYjVfCwg7tMPWR60scR9nokYJY5/nU+N3FJjWBfVI/PxoNkgEqXvLpX+LFBHNvGZGkdfSPnhYH/vqgkqUiUb9EeTqfq8EYs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785162233; c=relaxed/simple;
-	bh=y/ugXYR2IdmwBOp+hYhWLSJ2BvFu5cgelKB1JmQlMhY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XaEJLyqE0qRkg0MAT3jZhQvWqjK+p+rAulJbgeTckZvxcFjM56o/5UacF6LRl+yP3Cl7C4+LOlZhvMUPZEosYDdtfbt9dljqlE5gkK1AGx6gEFL2S8vbKneuAURPny8PBoupT1avPKlby4IZTkhRRORjW125mjzo3VjSq7flNDA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=tG9UIsFj; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=DuOSQeiu; arc=pass smtp.client-ip=85.215.255.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7891309EE7
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 14:27:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785162460; cv=none; b=eynRcykQ71wCb4JQST/nKAfyzW7vLMqcn73RxjyDhPBfCstdos98fRWi0lM44d2TwZAevrdEJK0G2GcLqesa+Bk75QGFh7CIVY7VAIuSiE8DDuursQaFjIlykJohH8Qlu6/cHwwmghcwPHSYuBBWr/8WKj9odB6RlSB8NeUWRCc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785162460; c=relaxed/simple;
+	bh=45R27qSll9uQAxq3WpC3E2LSC3xsoasowjrZqMrmlDo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dcuXRi5eNZw80sllOT4XWKewtKhr29E09UbXpLW9mUUfQ9BPwwLutzj8XVe0uF8HQ9AT5gFL5U6/A+Bc57n1v79KxdiUjARKFrTBdlHDIm/LiNKtCjulrW0nxvLyMNKMWcBz/hW+cVIy8ReZLC5BRYb+msgYVhI304pjbO4l5m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=XRyWj2Wa; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="tG9UIsFj";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="DuOSQeiu"
-ARC-Seal: i=1; a=rsa-sha256; t=1785162217; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=KnmCtiwF01Rg7+rN0utO5XWeEFx7MOSdUz5liv8FhLh4JXjJp30JEETMtIBEBhPvVI
-    FkxfuSTuHBFZwT7k6hLrN1ovbvxjrYd6JyROViTsXULAG2H6DY2GAtSjFsJqDphkOWbo
-    ETobtZjk49g1AypVRVtvdRQ0CMer8yk1izDkzz2CrXiqEgcf6Sj+lri4HXfP1gpyD+Oh
-    HWLPUBF4Tc8AHdbCGtU50zgAov0sTFCgFHQGZDjVofpo86vStybGkdPQNUeHB/dilOEA
-    0czRYvhQ9VS8qAa7DahhUQa6N/IJyTY51vxsB39YlkFGBJBH3jharO6BZ2WZWVBwdSPp
-    /sHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1785162217;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=sRpbgR1GSzmKcgoAbD9A7ByOwWGa+MtaUar/xrovIWM=;
-    b=CkwlOApwcG+/lr7m/GRwEPW4q/9bxoh/UJEpG0yhUXaEOVoF2zs9ZracH/pQIHeEOM
-    sDdbS001svicMcNj5FQAnqtc1rULfK5J8aLfppvWBvzSMz7mzdCFF6nSz8mUQaVkMRXD
-    xYrzwVrHE81IMrENWJ8OwF6M/LH5Mw4/7NzOxuCqllWvrRc63vwSDezgUGfizXdWh7rL
-    DHY9JhLYhSlSgZANaRT1Vv0X42RaI0EX1Mr5pc8K/uocHr9GbT1Xr3YMDzKo0vCXpzxY
-    Zt4YeWF19ppnLcER3h3upaRn0Vyk1URg6jkASpmxWLSklTarmmbj+yQHcQY/pT4VxfYb
-    9Qsg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1785162217;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=sRpbgR1GSzmKcgoAbD9A7ByOwWGa+MtaUar/xrovIWM=;
-    b=tG9UIsFjjQsYWkjuuuBa0x+OBSdvOiYPToiE/5owd8YzCzlKnlkvfQz8JAnAi03992
-    Nu6y28RUoS7e1Sw3vrb8kX5dWuJ3OmNRl+TVY2aypiBqiWapplrZc/OyCyc+ougHJu39
-    R0wUSi6lnB+7yiz5yjMfgEIlVei9606eAf+bOiRX1qKIljpRigK1fnCgNbeZREwbbdAL
-    HG0Gt8dZVYguw8scT1JlIPM5Huvf3gilLSquD6ZiOZcn7e+PiGvBjooEWEsD7IMeGaRz
-    ZSgKkbBH9MmuKE4KXNfXKsGaWObM8pzAWazICSeCMPNUzHpIY8h3dw/Tt49eJE9QWkFi
-    BMTA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1785162217;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=sRpbgR1GSzmKcgoAbD9A7ByOwWGa+MtaUar/xrovIWM=;
-    b=DuOSQeiu9/Mtb7U7a93vQfN+5eAnC5IXSsvKqokUkQq2cirywy8FrbI/T/o9LaHAgs
-    z5UvzTPsTsIIJCMyuiDA==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
-Received: from [192.168.20.231]
-    by smtp.strato.de (RZmta 55.5.6 SBL|AUTH)
-    with ESMTPSA id K5281926RENbBKy
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 27 Jul 2026 16:23:37 +0200 (CEST)
-Message-ID: <5e96e874-0e1f-4c40-a959-ae39615cb20c@hartkopp.net>
-Date: Mon, 27 Jul 2026 16:23:31 +0200
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="XRyWj2Wa"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93108a3c326so262071885a.1
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:27:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1785162456; x=1785767256; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rElzCHqZ9M5M53Xy+ydRNO4DA9FXxqHVU/hb2MJlhBM=;
+        b=XRyWj2Wa1IhzWcVoByhgwxZV8BhSndqHquX5TYLx1sQ3pjxxOEVWC7Y6cDDcrCJxL9
+         MEEazd7JhikXWTU4e+PceVPmUmXhSyVAdy5YXTPbKGjjMiAC2DK6z4Mv3BctBwFn4zoH
+         rdzWdMXo/DFd6aY6cgcT1uMHsmnE4WqnDvdtVO4hRf1ck/tCNdBBpvB840+1NSzXKuuc
+         Ibij7Pttde+nDZ3bXCml6avfYQOsyNw+HkXLgh1QrmdB730wtRQt/f4QdZ9eEYrMOhAt
+         9RvHte+7WEn9avffrpg/LThc7Fk/kZr0xEqcTlz1y2a9A0PFrJV3BrHsrMq8p+lrz70+
+         M2IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785162456; x=1785767256;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rElzCHqZ9M5M53Xy+ydRNO4DA9FXxqHVU/hb2MJlhBM=;
+        b=GnHZBpnV/TwL1BG0z7Dg7FtDflgkwxl3LpgWFbCZ37zVcB3GfaTl4rZlT4lrgaCbwU
+         Zazup+bX6/ZnZVrlgzoHUa34okVUsdRpdZprR+quD2DQH/SWUUZhTTb8j7kmGTXjGYSw
+         iYhMweu6qAOwUGdX5hJm+ajPenj9O9IyAzRDeHpfcFuCvcuaFUJo1Z69QKEbbtAkJGi/
+         cDpGQP1sG2gYc6e/4l+Uk4I4XGFyIo57Kcpcp7zo6/iJRFeXwvgqLnOGgLVjpfWvcX3O
+         3sR3wJIhA+bbvZK/7zkvCSWzaDmtCNXLxWF87ncFJXeNUPR7WsSDHS2NqTmo+PDAmdE5
+         mkqA==
+X-Forwarded-Encrypted: i=1; AHgh+RreqqRwwuRTTeAUljHFyxFAuJAYYAijNvgc0ELZRyAXqA1lBbKsVfD0tZYRYIYXhbgJQmDM8bw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqRI67k378TGnPUXiqEFA1fEzXdRgYgwtQJ+Lx2GP9qnkhP/2C
+	U3NNjDxLZ5MzPWGY98KVNBuXDOXAhupD3PvWvy8cH/8KX+JoqUeawlchvF17xf/TTA==
+X-Gm-Gg: AR+sD13CfD8scGGL2wj1PNJVBMnrlPx7RTLuVAv9yjHP2mLIdAaMSNDbPoKd0gQMPy2
+	ocAgV2crDIv0WUZPSkBp3S018Rr8AL+GBDsGmfiam2eb+jsvNwSdXbvG0i76xrmBA+G8kd3YIpC
+	pPeV4Ht1Jc7d6M9aXLfRoNGtK/P+YQiv2lRFMo02Z3RznZfzAKDiWvwIHoBwe6f4j6oNon4cX/Y
+	M7cB9TgTEweDmEqzoMeKHWIheAgBy/O2N4ecztjLQv6UVVvpBwOQFdfp0hzlcpMuL5H8wAvIr7P
+	MZ+LZcQUZXtZk/K0Ao2F/hEgpEVOQp3djP+HvXA7VR7gVUe4/T12WqiqpAmjuNkIg+3f3Lv8lgi
+	gElNbgMlCU7kT+UcuVxXem9lcbA+Xvg4KcEXkEHxmweAJFO6yPmXfjCGVbPPmbNUP03bYliGOP9
+	znbn0qSKjNes2TmSwGHExk
+X-Received: by 2002:a05:620a:25ca:b0:92e:f2cf:56f9 with SMTP id af79cd13be357-932deeefeeemr879002485a.9.1785162456436;
+        Mon, 27 Jul 2026 07:27:36 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de53febasm624218485a.14.2026.07.27.07.27.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 07:27:35 -0700 (PDT)
+Date: Mon, 27 Jul 2026 10:27:32 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	edwin_rong <edwin_rong@realsil.com.cn>,
+	Ijae Kim <ae878000@gmail.com>, linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: storage: realtek_cr: fix use-after-free on
+ disconnect
+Message-ID: <9261901f-3397-4403-b6b9-e8652ceba65a@rowland.harvard.edu>
+References: <20260727123414.44700-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10.y 1/2] can: bcm: registration process optimization in
- bcm_module_init()
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-References: <2026072027-showroom-maggot-c452@gregkh>
- <20260727133928.582256-1-sashal@kernel.org>
- <9c5f7364-86ee-40ce-985e-6d913712eb0f@hartkopp.net>
-Content-Language: en-US
-In-Reply-To: <9c5f7364-86ee-40ce-985e-6d913712eb0f@hartkopp.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727123414.44700-1-mhun512@gmail.com>
 
-In fact I would be fine to apply this "can: bcm: registration process 
-optimization in bcm_module_init()" before the series as it is an 
-improvement IMO.
+On Mon, Jul 27, 2026 at 09:34:14PM +0900, Myeonghun Pak wrote:
+> realtek_cr_destructor() calls timer_delete() before the chip containing
+> the timer is freed. The timer callback may still be running and can
+> rearm itself, resulting in a use-after-free.
+> 
+> Use timer_shutdown_sync() to wait for the callback and prevent further
+> rearming. Do this unconditionally because ss_en may be changed after
+> the timer is armed.
+> 
+> Move timer_setup() into init_realtek_cr() so the timer is initialized
+> before any failure path can invoke the destructor.
+> 
+> Found by static analysis.
+> 
+> Fixes: e931830bb877 ("Realtek cr: Add autosuspend function.")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
 
-But it never had a stable tag and therefore I thought it was forbidden 
-to do so.
+This is fine as far as it goes, but the real question is why realtek_cr 
+uses this elaborate suspend machinery instead of just relying on normal 
+runtime PM.
 
-But the following patches 2/9 to 9/9 should apply properly as they to do 
-not modify bcm_module_init().
+This material was added in commit e931830bb877e2aa ("Realtek cr: Add 
+autosuspend function.") with no explanation about why it was so 
+complicated.  Can anyone say why all this complication shouldn't be 
+removed?
 
-Many thanks and best regards,
-Oliver
+Alan Stern
 
-
-On 27.07.26 15:47, Oliver Hartkopp wrote:
-> Hello Sasha,
+>  drivers/usb/storage/realtek_cr.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
 > 
-> this patch is a feature.
+> diff --git a/drivers/usb/storage/realtek_cr.c b/drivers/usb/storage/realtek_cr.c
+> index af038b897c6b..c4b28744693b 100644
+> --- a/drivers/usb/storage/realtek_cr.c
+> +++ b/drivers/usb/storage/realtek_cr.c
+> @@ -916,7 +916,6 @@ static int realtek_cr_autosuspend_setup(struct us_data *us)
+>  	us->proto_handler = rts51x_invoke_transport;
+>  
+>  	chip->timer_expires = 0;
+> -	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
+>  	fw5895_init(us);
+>  
+>  	/* enable autosuspend function of the usb device */
+> @@ -934,10 +933,7 @@ static void realtek_cr_destructor(void *extra)
+>  		return;
+>  
+>  #ifdef CONFIG_REALTEK_AUTOPM
+> -	if (ss_en) {
+> -		timer_delete(&chip->rts51x_suspend_timer);
+> -		chip->timer_expires = 0;
+> -	}
+> +	timer_shutdown_sync(&chip->rts51x_suspend_timer);
+>  #endif
+>  	kfree(chip->status);
+>  }
+> @@ -982,6 +978,9 @@ static int init_realtek_cr(struct us_data *us)
+>  
+>  	us->extra = chip;
+>  	us->extra_destructor = realtek_cr_destructor;
+> +#ifdef CONFIG_REALTEK_AUTOPM
+> +	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
+> +#endif
+>  	us->max_lun = chip->max_lun = rts51x_get_max_lun(us);
+>  	chip->us = us;
+>  
+> -- 
+> 2.47.1
 > 
-> In fact I prepared and posted a complete patch sets with 9 patches each 
-> for 5.10.y and 5.15.y that backported the entire patches while 
-> circumventing this bcm module init patch.
-> 
-> 5.10.y
-> https://lore.kernel.org/stable/20260724101342.16000-1- 
-> socketcan@hartkopp.net/
-> 
-> 5.15.y
-> https://lore.kernel.org/stable/20260724102149.16440-1- 
-> socketcan@hartkopp.net/
-> 
-> Best regards,
-> Oliver
-> 
-> On 27.07.26 15:39, Sasha Levin wrote:
->> From: Ziyang Xuan <william.xuanziyang@huawei.com>
->>
->> [ Upstream commit edd1a7e42f1d2d09c5f79ecef05ae19dc669bf34 ]
->>
->> Now, register_netdevice_notifier() and register_pernet_subsys() are both
->> after can_proto_register(). It can create CAN_BCM socket and process 
->> socket
->> once can_proto_register() successfully, so it is possible missing 
->> notifier
->> event or proc node creation because notifier or bcm proc directory is not
->> registered or created yet. Although this is a low probability 
->> scenario, it
->> is not impossible.
->>
->> Move register_pernet_subsys() and register_netdevice_notifier() to the
->> front of can_proto_register(). In addition, register_pernet_subsys() and
->> register_netdevice_notifier() may fail, check their results are 
->> necessary.
->>
->> Signed-off-by: Ziyang Xuan <william.xuanziyang@huawei.com>
->> Link: https://lore.kernel.org/ 
->> all/823cff0ebec33fa9389eeaf8b8ded3217c32cb38.1663206163.git.william.xuanziyang@huawei.com
->> Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
->> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
->> Stable-dep-of: 68973f9db761 ("can: bcm: defer rx_op deallocation to 
->> workqueue to fix thrtimer UAF")
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> ---
->>   net/can/bcm.c | 18 +++++++++++++++---
->>   1 file changed, 15 insertions(+), 3 deletions(-)
->>
->> diff --git a/net/can/bcm.c b/net/can/bcm.c
->> index 06ee3bfe87c99d..334a5105a4532c 100644
->> --- a/net/can/bcm.c
->> +++ b/net/can/bcm.c
->> @@ -1832,15 +1832,27 @@ static int __init bcm_module_init(void)
->>       pr_info("can: broadcast manager protocol\n");
->> +    err = register_pernet_subsys(&canbcm_pernet_ops);
->> +    if (err)
->> +        return err;
->> +
->> +    err = register_netdevice_notifier(&canbcm_notifier);
->> +    if (err)
->> +        goto register_notifier_failed;
->> +
->>       err = can_proto_register(&bcm_can_proto);
->>       if (err < 0) {
->>           printk(KERN_ERR "can: registration of bcm protocol failed\n");
->> -        return err;
->> +        goto register_proto_failed;
->>       }
->> -    register_pernet_subsys(&canbcm_pernet_ops);
->> -    register_netdevice_notifier(&canbcm_notifier);
->>       return 0;
->> +
->> +register_proto_failed:
->> +    unregister_netdevice_notifier(&canbcm_notifier);
->> +register_notifier_failed:
->> +    unregister_pernet_subsys(&canbcm_pernet_ops);
->> +    return err;
->>   }
->>   static void __exit bcm_module_exit(void)
-> 
-
