@@ -1,120 +1,134 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE3C3DDAE1
-	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 07:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A724332E72F;
+	Mon, 27 Jul 2026 07:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785136996; cv=none; b=TNlpYe6aFHtCzc+tmLK/4YchqasAWcoJVXahGaqKmdYKPy9MEP3+kWim8pUc+5wGCvmbNqYnTApn2OyjWp2d1Vm2TLwzyDgpUU2ao797rXU10+TBpy8k3bwS7neXQ8nRlb6Qdnq2n5TiXtRf6yHVVC8tuD4Ipl2TTtu5WTeiR4E=
+	t=1785137316; cv=none; b=jul7U5YNmF7jZ8OofP/a0lMDeC+Ke2fORkB6thSmcBo0C2JS2Kasu2rqhQEaso/5WyPjZoHJEJsvZv8he9CoyOaLMD1qx8Hh7B9tqoBpMw3DduZk+tboRGChWJFWiJ7oyxCVlA1QkIps6kzeCV2L2MwI2rB/IFp7Q3982gLWWVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785136996; c=relaxed/simple;
-	bh=oske5IT+0Jxt8FV9lY7qQB5fVx2GIoBK5TkJPNHjXz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hK6Xw4Y9pOjkk/L6FbnFNFIq2/koKNN+qe+uDQ6wJrTWrP42NgvvDt5tOe8WFWbaX4biKtDVoB/vyW04CqMx0aR622eXZ2hROLQOCx7OrObdy4Rb1L5yWU27nNWntOzd5Wg3xOUp++Fo4BE3Do+4DDkOFayH9kGSGKe65i54QQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GiX1dNuH; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785137316; c=relaxed/simple;
+	bh=0RoFe53LUbG0NfmdOBTY0IeOoRHAXMfDJ3ClV2cG6GA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ahp69KTj9lkYaelvI+wYVN5iqz6XeR1vUd8/jOgznbdfolcsnKDfLEenYghWuQdG06trV34llY6ss1hg+tI/drPFOpU+0jSAMledlKASlpUu4ndB0TzkYnY2GrvUvEp+qp6BX2Qj/Vgjh6TlSD+WnkenZCcX27SkgW0JqWlxOw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgOb80PQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GiX1dNuH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785136993;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1YdMYbSNSRTLrXvkowbw8IdGzcoEefYu8TY9ARtQFCI=;
-	b=GiX1dNuHgNEMgOb7XswDokHwMXyhKtSC9SV0qTBtjGZa/gi1ero8WnmEXyWBdM7ux5FgSK
-	YBt7jnkLo9EmYufkjNAWZxmZ3+aXuKSYqrUutfdN7dRWBw66tmRgIKcgJssvUXQR+5JWpF
-	NIqK1HYTiqhWDJVCnCuYXTwgb6vnEgM=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-711-YD7OBC22Mqm8n8ZJWNTSyQ-1; Mon,
- 27 Jul 2026 03:23:09 -0400
-X-MC-Unique: YD7OBC22Mqm8n8ZJWNTSyQ-1
-X-Mimecast-MFC-AGG-ID: YD7OBC22Mqm8n8ZJWNTSyQ_1785136988
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 206A0180121A;
-	Mon, 27 Jul 2026 07:23:08 +0000 (UTC)
-Received: from lenovo-t14s.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BF74D180057E;
-	Mon, 27 Jul 2026 07:23:05 +0000 (UTC)
-From: Laurent Vivier <lvivier@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Stefano Brivio <sbrivio@redhat.com>,
-	netdev@vger.kernel.org,
-	Oliver Neukum <oneukum@suse.com>,
-	linux-usb@vger.kernel.org,
-	Laurent Vivier <lvivier@redhat.com>,
-	jarod@redhat.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] usbnet: cap max_mtu for drivers without bind callback
-Date: Mon, 27 Jul 2026 09:23:04 +0200
-Message-ID: <20260727072304.154608-1-lvivier@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgOb80PQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C341F00A3A;
+	Mon, 27 Jul 2026 07:28:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785137315;
+	bh=38DHuvCAabQlrtfYzPq5Lk55vq2TctU7JQ1CUslVEO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CgOb80PQAgXY3Sbpulo0twNaC3aqbxLwlkNC+40uUZzkr106ujJNX4tExJDCl/anZ
+	 xF9d1LN7oMRFFIGiF3vCi/wQzOAwupx2B0HRlTl3Ro9goRHylcT0ueXieqPNMVr3Yb
+	 3UxrEe315HZe7UpGHk04Dsbh4JeFOkcSMU6qAm5aNlwgHttHlaVhd4LS5baa8m1k3o
+	 uyrk2vJJEOyQdczIL9GyfyOmGnjf5rhnGEEW9MMOCnBNWLa4SqU8qJXxUQzvpqD8nm
+	 P9YXIelxSkCkAbpn7mG+0z1S3/gnukVANxFKKE5M9cCdWb9GHdxSl6YjF9XbNVn9fg
+	 AxzrWzJRHvHnQ==
+Date: Mon, 27 Jul 2026 09:28:32 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Sun Jian <sun.jian.kdev@gmail.com>
+Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
+	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+	john.fastabend@gmail.com, sdf@fomichev.me, toke@redhat.com,
+	maciej.fijalkowski@intel.com, matt@readmodwrite.com
+Subject: Re: [PATCH net 2/2] veth: fix skb length accounting after XDP frag
+ adjustment
+Message-ID: <amcIoG59kgi4CJbo@lore-desk>
+References: <20260727032535.13469-1-sun.jian.kdev@gmail.com>
+ <20260727032535.13469-3-sun.jian.kdev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4pCuQeDAeCzpWUUi"
+Content-Disposition: inline
+In-Reply-To: <20260727032535.13469-3-sun.jian.kdev@gmail.com>
 
-usbnet_probe() initializes max_mtu to ETH_MAX_MTU and only caps it
-inside the if (info->bind) block. Drivers without a bind callback
-never enter this block, so max_mtu stays at ETH_MAX_MTU.
+--4pCuQeDAeCzpWUUi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-QEMU's usb-net device (0x0525/0xa4a2) is claimed by the cdc_subset
-driver which has no bind callback. The guest accepts any MTU from DHCP
-(e.g. 65520 from passt), leading to TCP segments that exceed the
-device's 2048-byte receive buffer and are silently dropped.
+On Jul 26, Sun Jian wrote:
+> veth exposes non-linear skb fragments through an xdp_buff. If an XDP
+> program adjusts the fragment area, veth_xdp_rcv_skb() copies
+> xdp_frags_size back to skb->data_len but leaves skb->len containing the
+> old fragment contribution.
+>=20
+> After a fragment shrink, this makes skb_headlen() larger than the actual
+> linear area. In the reproduced UDP receive path, __skb_datagram_iter()
+> copied 1024 bytes past the actual linear tail to userspace, starting at
+> struct skb_shared_info. The copied bytes included the affected skb's
+> nr_frags, xdp_frags_size and a kernel pointer from
+> skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
+> amount and truncated at the end.
+>=20
+> Subtract the old data_len before replacing it and add the new data_len
+> afterwards, keeping skb->len and skb->data_len synchronized.
+>=20
+> A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened by
+> 1024 bytes from its fragment area. Before the fix, all 10 runs produced
+> corrupted payloads. After the fix, all 10 runs matched the expected
+> payload exactly.
+>=20
+> Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept no=
+n-linear skb")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/r/20260720141859.19FF41F000E9@smtp.kernel.o=
+rg
+> Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
+> Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+> ---
+>  drivers/net/veth.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 00e34afd858e..a956498a073b 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -871,12 +871,14 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth=
+_rq *rq,
+>  		__skb_put(skb, off); /* positive on grow, negative on shrink */
+> =20
+>  	/* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
+> -	 * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
+> +	 * (e.g. bpf_xdp_adjust_tail), update skb length fields here.
+>  	 */
+> +	skb->len -=3D skb->data_len;
+>  	if (xdp_buff_has_frags(xdp))
+>  		skb->data_len =3D skb_shinfo(skb)->xdp_frags_size;
+>  	else
+>  		skb->data_len =3D 0;
+> +	skb->len +=3D skb->data_len;
 
-Initialize max_mtu to net->mtu at probe time and update it inside
-the bind block based on the device's hard_mtu.
+nit: same here, you can this one just in the if () branch.
 
-Fixes: f77f0aee4da4 ("net: use core MTU range checking in USB NIC drivers")
-Cc: jarod@redhat.com
-Cc: stable@vger.kernel.org
-Link: https://gitlab.com/qemu-project/qemu/-/issues/3268
-Link: https://bugs.passt.top/show_bug.cgi?id=189
-Signed-off-by: Laurent Vivier <lvivier@redhat.com>
----
+Regards,
+Lorenzo
 
-Notes:
-    v2:
-    - Set max_mtu to net->mtu at init, update inside bind
-    - Fix Fixes tag to f77f0aee4da4
+> =20
+>  	skb->protocol =3D eth_type_trans(skb, rq->dev);
+> =20
+> --=20
+> 2.43.0
+>=20
 
- drivers/net/usb/usbnet.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+--4pCuQeDAeCzpWUUi
+Content-Type: application/pgp-signature; name=signature.asc
 
-diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
-index 25518635b7b7..9f11ca449aad 100644
---- a/drivers/net/usb/usbnet.c
-+++ b/drivers/net/usb/usbnet.c
-@@ -1794,7 +1794,7 @@ usbnet_probe(struct usb_interface *udev, const struct usb_device_id *prod)
- 	 */
- 	dev->hard_mtu = net->mtu + net->hard_header_len;
- 	net->min_mtu = 0;
--	net->max_mtu = ETH_MAX_MTU;
-+	net->max_mtu = net->mtu;
- 
- 	net->netdev_ops = &usbnet_netdev_ops;
- 	net->watchdog_timeo = TX_TIMEOUT_JIFFIES;
-@@ -1825,8 +1825,9 @@ usbnet_probe(struct usb_interface *udev, const struct usb_device_id *prod)
- 		if ((dev->driver_info->flags & FLAG_NOARP) != 0)
- 			net->flags |= IFF_NOARP;
- 
--		if ((dev->driver_info->flags & FLAG_NOMAXMTU) == 0 &&
--		    net->max_mtu > (dev->hard_mtu - net->hard_header_len))
-+		if (dev->driver_info->flags & FLAG_NOMAXMTU)
-+			net->max_mtu = ETH_MAX_MTU;
-+		else
- 			net->max_mtu = dev->hard_mtu - net->hard_header_len;
- 
- 		if (net->mtu > (dev->hard_mtu - net->hard_header_len))
--- 
-2.54.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamcIoAAKCRA6cBh0uS2t
+rKvbAP9Q44CWF4MkMCazaAy9Jnug/sOSHR3QDM+sXYVmStw96QEA1GqXILae8eDj
+SZ/s8wWeLcz75Flj4lAGRaTkkrAn/Q0=
+=j2yY
+-----END PGP SIGNATURE-----
+
+--4pCuQeDAeCzpWUUi--
