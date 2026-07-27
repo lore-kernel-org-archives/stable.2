@@ -1,128 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3E240862A;
-	Mon, 27 Jul 2026 16:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A57042587F
+	for <stable@vger.kernel.org>; Mon, 27 Jul 2026 17:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785171469; cv=none; b=LIiLxgTvTTVJGesZSzxEwSpU8A2lKQ1ikb3BveT323QXSXzuYYj+WKWEZJE7v/CbHJAeKqA1GQMJYGRLHYEBRFRRujWvvyYBOEP0tdhl4PAlnqNkWFSQcH6o683g/o5lqdeVTXCV1ST5ItqpuNpha1Tkgk/JLyfhHss9Xbz2MfY=
+	t=1785172148; cv=none; b=uqpwdWy+KP5MnmdShAVBg4hFrPsQCt5FJx5LG7p3799gHPP3D3PlqvcZasA2L4t3OoX30R+hWhQgQRC2KL3ely0kkF+xjOjxLwypgF3rpKhQRQvxWtZpZM2YuPHjnOV4ZIQRKZ1uxzB55k3fNPEymO7POU4mBIdBl4uN/LdtNK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785171469; c=relaxed/simple;
-	bh=J8lEPwWOzGMXT5ri9Fg7inIP+3JW2xNUWRVSHgySlQ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e2F7wVcEgkLKXtwubxebddITluZxHQ0ian/ZjDD6F4TqbVOq7sfZzfd/DofgFSN26Pu2X+hJincl28dUK+TLm3P8cTbMoV+rv24/LjsK8Az3xBfU2C/B63oBRy6goRgT8I7ANKeZ8dAKV59cW8H0Y6CXXYdeG4f2QaWg48DRCh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cty/9tza; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785172148; c=relaxed/simple;
+	bh=FXdp9OQo4ALBepWPdxFlx1eYESgmKpUpw3e2ck8BZxg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=EGnNT2JyPgtLSABmlCtX5lH1oEMsdUGXx6Jmh+3XSsToUi8AWJ0KT0IdEMn5cEKIEgq8Yi6xy6DZnkoD+c9TmTVmZpt8kgnepZFFSP5CJQU8n7b2MqCRsRtGophKw5tgJd487k6CSE4nqOwnlzdMbIKPU5xEpfs0K0BaR5coFYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=TW3ia6iE; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cty/9tza"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415901F000E9;
-	Mon, 27 Jul 2026 16:57:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785171465;
-	bh=i/GWdPWbOsYF7ZeNnFC7gBeIf0IiDtImhHbc8ga2vgc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cty/9tzaDnGufpHUW8VWqJfHvqhBoPriq5oQIzpZXTdgqgvagmM7IvLM2nX8QB+ir
-	 Xg7uqLuKR0UNDcacI9irf2EkZIyHCOyZeyvq47bqXWFztePtqzwUjkijGFeNBVuRtt
-	 zevH7m7TwREJYxdwGMCSaOHoPRF/xaFp5q+k18hrNoFJBhFNaiJRn/boNP1/Zj+15l
-	 QzaUQGbmfMOZijaI+VbXFlzm6yyMTMAH97Qx2vr9gYpjq3+C+UGauYdNHzPRAh024f
-	 2s3G6WLKswZehE0Gc+GWeGMJyzkxZbCg9LToR3Qz1KBV1InhQE42mysumcH0aIXOby
-	 zyJwKHqgNZttw==
-Date: Mon, 27 Jul 2026 17:57:41 +0100
-From: Simon Horman <horms@kernel.org>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: netdev@vger.kernel.org, mgreer@animalcreek.com, sameo@linux.intel.com,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] nfc: trf7970a: drain timeout_work and keep trf->lock
- valid across teardown
-Message-ID: <20260727165741.GQ418547@horms.kernel.org>
-References: <20260721133539.3195899-1-fanwu01@zju.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="TW3ia6iE"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-52192509869so22441181cf.1
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 10:09:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1785172145; x=1785776945; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4tN5F81l95SRX0lNSZtF4N3Sk0HbQflC2AEM0fGaV70=;
+        b=TW3ia6iE8u81oSlFifjhwmq4TPvvefQ2Udb01Q2//3fHHVrn+KpNyXAlWa5GzQxFb/
+         aOJQ4CJ0NMMcR0GhffNIxztiyYmhJNI51EsHxW/OyqTllAMWGbZjPpqYtsiHSjhIVOZl
+         jDUvdmeYgToLvwJaGIsjq01s/xz0HaoN37lmUOfYQ0n/uZoH4BPli9APp4mJPluHbN6A
+         pVtHs/vXjPMDLbnGIHjbPUAMHCurp3FSdE4SE6opWCX8yhKjBxWDGsC0T03bRg7cKXEv
+         z/fb+eYy5NdmfmyrSX+b1Y9Q0sfqi+p9dddaJZzOazZKTCBZ/KTJqbPvoahJ9VpZjR31
+         eGfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785172145; x=1785776945;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4tN5F81l95SRX0lNSZtF4N3Sk0HbQflC2AEM0fGaV70=;
+        b=hsDby4DC7ZEr8X8JWEhQ0O93euKB6wDfPSwqgnQ5ogP5DVm2afM+UEQul29AqB+8fG
+         tFaSX2dfkf3XEdrwdZZGi2Yx+7JOh0tPxtiG3yZZC/d4+Uk1jJcrY6aR1c+1synnuOWm
+         i+IZMZhwNTGS5AsufUckXf9r+7DQiKN6CmPvrgfvXLS64mXrtAzgfBlgWp6O1cYlYM5b
+         ca3cnLWvG122NI9Es8hhcqsXX9/i+okTLFiE20gjQvXBoO2P5LGyuMsL8gPO8WQCfIeE
+         BPKNoYmCgrlxroYy9yxzERztKQrnYJetqPYlbTHewOWgIC7YEW50vdvjF4CP+ToUdU3L
+         yImg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr11Z7q83Eoe7YUUi1hz2VQ8bXV7IdyjPFBXwVLIs/yw9PXXJOAwjB2iBZ+j/PPqrTMC2ZsOFo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpQgxQJM8saMWFilzM2IZ9BxwNUpTgoGAYbxeMWFp16q9bljrW
+	93Cj68rtz01uffx5aIBmtoYCvJ5+hbJglCeKqHnpUoE6JiKPcrTWcdlGeyHHc24Z5gfooCbtXZn
+	18j6UbIEM1g==
+X-Gm-Gg: AR+sD118gO6kmDmqD/Ezmdvd55kA0x+DAItWy1ofqL4ZrfOyBYqx9z/h30jrHGNtB+j
+	JrpoIXd9SSQiKTVJ0ozVHUjMPnJQ0DwIzauPpK/ZCrnzvJTrUu/K3SeendL2QsX9gX5WKOqHVG/
+	Hi8MxHey3s+yjavfvvXMokl4WY8WjwnS123niSKMmEvIXytETSaJ0cpzkjnBunXYVNVl1uLAQJK
+	Y13iPyfqJ9Hw/CkGGErojZffNc96G8hA88X1GIU19mkScCj60NusLKiOvQptu/khj1WcwJxNCDc
+	7+Dv2rQu7QCME8yOPbPgaKehryeRtEEUC0TBANaEdHKR6hJ0kHxwtOSy9QPq9BmiavhF/Bu5QxG
+	ttbTGPSENCHWXSucktMYYX/NyTx/ga8nLlE08YOh+mA0uhGoH+vLuoKuxDA1m0yQk0PxflEXT8y
+	RKH7n30ebgoim9R3WHsOnQe04vT4l3m7u0BN2kir1u+6TXoAeY9eqJv72R
+X-Received: by 2002:ac8:7dcf:0:b0:51c:7b12:1211 with SMTP id d75a77b69052e-529a8754649mr97926101cf.79.1785172144843;
+        Mon, 27 Jul 2026 10:09:04 -0700 (PDT)
+Received: from [127.0.0.1] ([65.202.22.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529a2a0a7ffsm57646871cf.26.2026.07.27.10.09.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 10:09:04 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: linux-block@vger.kernel.org, Ming Lei <tom.leiming@gmail.com>
+Cc: Caleb Sander Mateos <csander@purestorage.com>, 
+ Uday Shankar <ushankar@purestorage.com>, stable@vger.kernel.org
+In-Reply-To: <20260726145025.1507383-1-tom.leiming@gmail.com>
+References: <20260726145025.1507383-1-tom.leiming@gmail.com>
+Subject: Re: [PATCH] ublk: reset kernel-owned dev_info fields in
+ ublk_ctrl_add_dev()
+Message-Id: <178517214380.2192703.14950200230738719801.b4-ty@b4>
+Date: Mon, 27 Jul 2026 11:09:03 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721133539.3195899-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Tue, Jul 21, 2026 at 01:35:39PM +0000, Fan Wu wrote:
-> The threaded IRQ handler and timeout work can wait on trf->lock while
-> teardown destroys it. The timeout handler can also access the digital
-> device after it has been freed.
+
+On Sun, 26 Jul 2026 09:50:25 -0500, Ming Lei wrote:
+> ublk_ctrl_add_dev() memcpy()s the userspace ublksrv_ctrl_dev_info into
+> ub->dev_info and then fixes up the fields the driver owns, but misses
+> ->state and ->ublksrv_pid.
 > 
-> Synchronize timeout_work before releasing the digital device, and leave
-> the embedded mutex alive for devres cleanup to synchronize the IRQ
-> handler before trf is freed: devm_request_threaded_irq() is registered
-> after devm_kzalloc(), so devm_free_irq() runs before trf is released.
+> A device added with ->state = UBLK_S_DEV_LIVE passes the
+> "->state != UBLK_S_DEV_DEAD" test that ublk_stop_dev_unlocked() uses as its
+> proxy for "a disk is attached", while ->ub_disk is still NULL, so DEL_DEV
+> right after ADD_DEV oopses in del_gendisk().  UBLK_S_DEV_QUIESCED plus
+> UBLK_F_USER_RECOVERY dies one step earlier, in ublk_force_abort_dev().  A
+> poisoned ->state also gets START_USER_RECOVERY and the char device
+> read/write path onto a device that was never started, and wedges START_DEV
+> at -EEXIST.  A poisoned ->ublksrv_pid just makes GET_DEV_INFO report an
+> unrelated task as the ublk server.
 > 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 165063f1dac4 ("NFC: trf7970a: Add driver with ISO/IEC 14443 Type 2 Tag Support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> ---
->  drivers/nfc/trf7970a.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
-> index d17c701..fa2f75a 100644
-> --- a/drivers/nfc/trf7970a.c
-> +++ b/drivers/nfc/trf7970a.c
-> @@ -2206,13 +2206,13 @@ static int trf7970a_probe(struct spi_device *spi)
->  err_shutdown:
->  	trf7970a_shutdown(trf);
->  err_free_ddev:
-> +	cancel_delayed_work_sync(&trf->timeout_work);
->  	nfc_digital_free_device(trf->ddev);
->  err_disable_vddio_regulator:
->  	regulator_disable(trf->vddio_regulator);
->  err_disable_vin_regulator:
->  	regulator_disable(trf->vin_regulator);
->  err_destroy_lock:
-> -	mutex_destroy(&trf->lock);
->  	return ret;
->  }
->  
-> @@ -2226,13 +2226,13 @@ static void trf7970a_remove(struct spi_device *spi)
->  
->  	mutex_unlock(&trf->lock);
->  
-> +	cancel_delayed_work_sync(&trf->timeout_work);
-> +
->  	nfc_digital_unregister_device(trf->ddev);
->  	nfc_digital_free_device(trf->ddev);
+> [...]
 
-Hi Fan,
+Applied, thanks!
 
-The AI-generated review of this patch on sashiko.dev [1] flags a number of
-issues. Most of them seem to be pre-existing and I think those ones
-can be treated in the context of possible follow-up.
+[1/1] ublk: reset kernel-owned dev_info fields in ublk_ctrl_add_dev()
+      commit: e65848e4ce352bac9e3465099354c8b8f845391f
 
-But this one stands out as directly effecting this ptach:
+Best regards,
+-- 
+Jens Axboe
 
-  "Is it safe to cancel the delayed work before unregistering the device?
 
-  "If concurrent operations from userspace (like bringing the interface up)
-   happen while the device is still registered, they can execute
-   trf7970a_switch_rf() and trf7970a_send_cmd(), which would re-arm the
-   timeout work after we have already cancelled it.
 
-  "When the re-armed work executes after we free trf->ddev below, won't
-   this lead to a use-after-free? Should nfc_digital_unregister_device() be
-   called before the work is cancelled?
-
-[1] https://sashiko.dev/#/patchset/20260721133539.3195899-1-fanwu01%40zju.edu.cn
-
->  
->  	regulator_disable(trf->vddio_regulator);
->  	regulator_disable(trf->vin_regulator);
-> -
-> -	mutex_destroy(&trf->lock);
->  }
->  
->  #ifdef CONFIG_PM_SLEEP
-> -- 
-> 2.34.1
-> 
