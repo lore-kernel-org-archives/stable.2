@@ -1,91 +1,151 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8014E36DA03
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 04:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D10063B38B9
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 05:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785213797; cv=none; b=koWPwsaZT0f2vf6g6yz6vkP+wouPpaHD51eFoM98lJSyLzNR5QmkC/gcG4CYt4fOzAAcmeDnmcNoS8K5p0ccSzjDshsn1ZvcG9PahcmpkpYPYECPP5wlj0D8xpkLuE9tEJyVu9/EQAeQTeAi/iOupm+d2WUHnnLedYsWOEVfiQc=
+	t=1785217274; cv=none; b=kVMjmUD+oHVSZSuX4O7JfwNFJzuxOl2M4TKzU6QDqZnw/Ix6mEyGiF9RDbuganP6R+7L1M9L0N9mu+6I/pUHXe5Y8izPUW8m7U7uIFz5NCuWy26AzTQOXsEdNiookTDDVyfirO0yRtRvg98FVmfeHopDfjl4ZioCAq+ykOi6JgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785213797; c=relaxed/simple;
-	bh=jJpszBGoy5FGOyrTjZQKznWbaJbD+UBBe4S38IMy5hI=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=bKGP8q+twMyNRcOpy4i9Af13gyp9oYoNG2x1qUurareziintL6h2jM3GniuGxd7Cf4MI2RMAHzqQaRDd6T/yeXr8pdSkiQh47/DbtWoFCoSHMSYQNyKdt5s5wDGVdveFe3lE7NlEv4pHoUOr8TO1X1JPCUER174PYLb2NRgQj48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsCflSy/; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785217274; c=relaxed/simple;
+	bh=S0OuxX8312Q5yjJ6ihIpP8cc2r9nFQgKciTLu2TKS3Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=k0c6FMBe2yr5QanmsL0i9v1rLY+mRqgwPegUwqmZO7SebIsBOsNrK9S7TDK/wrzlJ3hn5Vi9a2Xc+36MpWxffmXkOX1W1G/5EMfuVoRYRCt4GJbTrH+4Qy0rWmM+KnCfAuU7QASYccMmRTHFZ/fNK7YVgwJYj6e7WZBLR3hiW0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=RlDbbgmB; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsCflSy/"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cf50c6f235so41544915ad.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 21:43:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="RlDbbgmB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785213796; x=1785818596; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=nUw5BzeKJfn5wcTEAmcbsTWk7Oaq7UZh5ULj7ews2Z0=;
-        b=ZsCflSy/C+oge9NjKaEyU+xuohZSnshGxBTfVLUibs7nUId7ELuBIXmrAj9iP4Lt5b
-         4xPS/Lc8uFXDujO0oEZ4VILDTkvVxIuB925HSkCLjtKX6YCBXH9nrHO89UURTr7rrOAC
-         GT8lPyo8R1+5GFmZ+/ZjGD+7+2s5PGvSE1DKfUNYmZzgN7utxi7uY0No4hU61UQby6Wq
-         3Tq2ASm8w6nqvPtLZJv7kLifeCIpSOo5DL/PbR4wVZDqVRoXdPflgV2A9wGLEyZahqDh
-         qvfk+BRqCY7vCNSxhvUCjCWqoLPX91PsyKhOTLKnw+OhhK4zZejk4tSK0Y0+U6Fprw2g
-         JvGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785213796; x=1785818596;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nUw5BzeKJfn5wcTEAmcbsTWk7Oaq7UZh5ULj7ews2Z0=;
-        b=Ng8jxbaQGKzyPc1hZC9ABfuOGxsNC2OWXSxMh/QvRMuGrs1Guux/H9YkI6Agoq5Gbe
-         3T+JAKEUTeGF2vyPkMuM4EtI6kXlwLRCrZGaUAe9HJ1F5acqWTll55geFr+q/A67kAuN
-         WQQFFkNBK3BkbI0szaW1mqK5s2UKdV37iLMWaG7xuXGITTgF/F58xT+q0K+ql4xVu4zE
-         kZORvrSyQxTWSg24hqMqBwpz6yZRNB28cjSqqrdDgMc32YElVoxuycUjYHn1fDa2kJlf
-         HfeV690neLvloAlq1rE2JWTKxntTnLs2OfcbgKS182gbiKikIkImZmV9uxeQe+znA7eB
-         Vuyg==
-X-Forwarded-Encrypted: i=1; AHgh+RrSv7hWlcSjTYayyUw+m4AWzeNNcknjZ4iReALg+0JWzbrR9vMeU+aJdU7BoPKlKYTEPTA01oI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVoAopxyNmN1pziDeoRkOpsmUWFXKd5yIyM9Oc61qYJTFeQsxj
-	hQeiD+RLOhs1HHLyj0y8tub1P9M5fkmFge6UqVJOtMTtsC5+nfZBo97x
-X-Gm-Gg: AR+sD10+3yDbzVpwB9G8PtKNj19EVLyec0sSA5uENTPNaczQS1eqgLtonDhvyuHJVzn
-	ZAkPg+WN7w3KtXfC1KXm6PvEOiprIED6FS/G/uFvyP+FtuUmMBnA3Iok/GtWyPmGizkluoA4pkO
-	bFycKtYWMswU3wOtzwQrFfY0hwRXTHXuBOIIWh85DIzYgj9k60LKRLyIvtwYPjLMGb1DYzFlLEW
-	tcZ9C0Qbw7pj4Oy1Kc5lSk9kJs968IFPE826sx4mL35nA4PfIX6WFFYaBhhbwFGwsV/nD5VBZdg
-	Rm/BYIbNpeibtkxdXVyJjJz0Osm7tOYw6uRCWrkKrEqFCVMXRlr/rSO34vyTb0prEgLbOpEkXat
-	ey0fu3QGdewKIKOQFYaLyx8fyLXyrxls6BgNsv5LHIbrZImD0zbF9mBhNJ5gyvn1uZMckHVwlX3
-	ul
-X-Received: by 2002:a05:6a20:7d8b:b0:3c0:9c1a:893c with SMTP id adf61e73a8af0-3c8ba650afbmr1226800637.68.1785213795815;
-        Mon, 27 Jul 2026 21:43:15 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc549b11sm41150994eec.18.2026.07.27.21.43.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 21:43:14 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Jiazi Liu <jiazi.liu1984@gmail.com>, tytso@mit.edu
-Cc: adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jiazi Liu <liujiazi@amazon.com>
-Subject: Re: [PATCH 1/1] ext4: fix incorrect function call when initializing s_resgid
-In-Reply-To: <20260727104103.28916-1-liujiazi@amazon.com>
-Date: Tue, 28 Jul 2026 10:10:07 +0530
-Message-ID: <cxw7n2vs.ritesh.list@gmail.com>
-References: <20260727104103.28916-1-liujiazi@amazon.com>
+	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=2NzogcPLeQbkiCetTePWk/4u9VWJ7NUBIp
+	Nn2ALmUrY=; b=RlDbbgmBhW1CnYVxKBi/8Mqct947rdEQ7WIpcrNQDQRqUBYpIU
+	pezB8GOvN9oJ4ZELBTFYEM71hL6W489rKoyR0uScNORALpbmbhgAk7fvimUbm94X
+	srToxCQeUOFp5kYnjtglzDXVeltrwpUfZ0K9yKK3/oSd235yH+MH8sOTg=
+Received: from leopard.. (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkMHQWhq65YVAA--.17815S2;
+	Tue, 28 Jul 2026 13:41:28 +0800 (CST)
+From: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+To: stable@vger.kernel.org
+Cc: Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	stable@kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.6.y] usb: xhci-pci: Limit VIA VL805 DMA addressing to 36 bits
+Date: Tue, 28 Jul 2026 13:41:00 +0800
+Message-Id: <20260728054100.1812186-1-zhangxincheng@ultrarisc.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026072719-overshot-footpad-a1a7@gregkh>
+References: <2026072719-overshot-footpad-a1a7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAfwAnEkMHQWhq65YVAA--.17815S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAryDXF47CrW8Xr4fKrW5trb_yoWrXF45pF
+	W5Xa1UCrs3tF4Sva4kCa18Za4rJ3Z3JF9xKFy7K34Y9w45Ary5WFn7C3WfA3ZrWws3Xr1a
+	qr1kWrW5Wa93GaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUk214x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY02Avz4vE-syl42xK
+	82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU0iiSUUUUU
+X-CM-SenderInfo: x2kd0wp0lquxxhqjq3powut2xlvfhudrp/1tbiAQALDGpZptAABQAesY
 
-Jiazi Liu <jiazi.liu1984@gmail.com> writes:
+The VIA VL805/806 xHCI controller advertises AC64, but fails to handle
+DMA addresses at or above 0x1000000000. On systems with large amounts of
+RAM, this can cause USB device failures when the controller is given DMA
+addresses beyond its usable address width.
 
-> In __ext4_fill_super(), s_resgid is initialized by calling
-> ext4_get_resuid() instead of ext4_get_resgid(), resulting in the
-> reserved GID being set to the same value as the reserved UID rather
-> than the value stored in the superblock.
->
-> Fixes: 12c84dd4d308 ("ext4: add support for 32-bit default reserved uid and gid values")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiazi Liu <liujiazi@amazon.com>
+Do not use XHCI_NO_64BIT_SUPPORT for this controller. That quirk clears
+the cached AC64 capability and limits DMA to 32 bits, causing unnecessary
+bouncing for addresses between 4GiB and 64GiB and hiding the controller's
+real AC64 capability from code that may need to distinguish register
+access width from usable DMA address width.
 
-yup, that clearly looks like a simple miss. 
+Track the usable DMA address width separately from the AC64 capability.
+Initialize the generic xhci->dma_mask_bits field to 64 and let PCI quirks
+reduce it for controllers with narrower DMA support. Set VIA VL805/806 to
+36 bits so the DMA API only hands it addresses in the range it can handle
+while keeping HCCPARAMS1.AC64 visible.
 
-Nice catch! Wondering whether this was caught by code review or did you
-hit an issue due to this?
+Cc: stable@kernel.org
+Signed-off-by: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+Link: https://patch.msgid.link/20260630-xhci-via-dma-fix-v3-1-690dcb8cf75a@ultrarisc.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit 1fc50f1ecde39feb4fccdaf4bc71aa6c0eb25c49)
+---
+ drivers/usb/host/xhci-pci.c |  1 +
+ drivers/usb/host/xhci.c     | 15 ++++++++++-----
+ drivers/usb/host/xhci.h     |  1 +
+ 3 files changed, 12 insertions(+), 5 deletions(-)
 
-Looks good to me. Feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index 5abc48f148dc..d5ba5a34625b 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -510,6 +510,7 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+ 	if (pdev->vendor == PCI_VENDOR_ID_VIA && pdev->device == PCI_DEVICE_ID_VIA_VL805) {
+ 		xhci->quirks |= XHCI_LPM_SUPPORT;
+ 		xhci->quirks |= XHCI_TRB_OVERFETCH;
++		xhci->dma_mask_bits = 36;
+ 	}
+ 
+ 	if (pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 31509845594e..210b5727d1a6 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -5267,6 +5267,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	if (xhci->hci_version > 0x100)
+ 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
+ 
++	xhci->dma_mask_bits = 64;
+ 	/* xhci-plat or xhci-pci might have set max_interrupters already */
+ 	if ((!xhci->max_interrupters) ||
+ 	    xhci->max_interrupters > HCS_MAX_INTRS(xhci->hcs_params1))
+@@ -5308,12 +5309,16 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	if (xhci->quirks & XHCI_NO_64BIT_SUPPORT)
+ 		xhci->hcc_params &= ~BIT(0);
+ 
+-	/* Set dma_mask and coherent_dma_mask to 64-bits,
+-	 * if xHC supports 64-bit addressing */
++	/*
++	 * Set dma_mask and coherent_dma_mask to 64-bits if xHC supports
++	 * 64-bit addressing, unless a controller-specific quirk callback
++	 * limits the usable address width.
++	 */
+ 	if (HCC_64BIT_ADDR(xhci->hcc_params) &&
+-			!dma_set_mask(dev, DMA_BIT_MASK(64))) {
+-		xhci_dbg(xhci, "Enabling 64-bit DMA addresses.\n");
+-		dma_set_coherent_mask(dev, DMA_BIT_MASK(64));
++	    !dma_set_mask(dev, DMA_BIT_MASK(xhci->dma_mask_bits))) {
++		xhci_dbg(xhci, "Enabling %u-bit DMA addresses.\n",
++			 xhci->dma_mask_bits);
++		dma_set_coherent_mask(dev, DMA_BIT_MASK(xhci->dma_mask_bits));
+ 	} else {
+ 		/*
+ 		 * This is to avoid error in cases where a 32-bit USB
+diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
+index 849a83e4013c..bb7e73df297a 100644
+--- a/drivers/usb/host/xhci.h
++++ b/drivers/usb/host/xhci.h
+@@ -1538,6 +1538,7 @@ struct xhci_hcd {
+ 	int		event_ring_max;
+ 	/* 4KB min, 128MB max */
+ 	int		page_size;
++	unsigned int	dma_mask_bits;
+ 	/* Valid values are 12 to 20, inclusive */
+ 	int		page_shift;
+ 	/* msi-x vectors */
+-- 
+2.34.1
 
