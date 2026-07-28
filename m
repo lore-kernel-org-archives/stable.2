@@ -1,107 +1,158 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF2F3B4EBC;
-	Tue, 28 Jul 2026 15:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F103456DF7
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785251807; cv=none; b=OIlOAbi5zNZC09lTC30ccCodqJjdydmw86t+sjgTqia0lmwDxnemRBcT8fuBN6uAF7llOry6jQr9UYzdjFSi+PAndyTzzFliT5ZTUmBUfndbaeO8TG764FJ31LIp5O3qvQlKFoEiwBSJF1uaVquLecVxI6R/0H0X0Gkxfh+uqAs=
+	t=1785251851; cv=none; b=o2GH/9lEYtCNzPToZz1AoUgqiDSXzYwiwaXEq/B/4JmxTjbsriqkZlOTjs4CdZ+7FmpXAKCN/WXGFso05L2klSgSHI6DbSfH0wGp9wE2E/E0Qt0QhUJl5N1TYYLSyOmhsL2NDXQrLVf20jmtsbqa0AdCIuywMAXNSHoH7TV+eJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785251807; c=relaxed/simple;
-	bh=3Bpa7ShpR7SfEPuimE/TBmmtxJ9cc07BrXSwXBLzdwY=;
+	s=arc-20240116; t=1785251851; c=relaxed/simple;
+	bh=dZ8qagvGKJMyPa0EnzkJtY2emQs3MSkWMyx5Z+Vj9P0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PPa/c32o8kq9n0rQ71ZjTgv3FYTy1WZjd17evWXhIjIXjbE+REmwI8x67TGDUGLFHdjlfz1w+DrHSq46w5SWd45i9fH5GFS6NXrI5ad6K7Np81Qwfy3yRaw9GTIqSWTqqqVudMX/LEsHL7MaZMuP60gtjeolrqrcznr+AgAR8qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=d0Z57NRV; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=lt6UhKoTYGnND4tlfrvSvGvLnTHyRO9cIrVEMKWMZ+qosWN/EG0jjMRLjtW06IGExfxhSO80zy9MiPSyKEoMDedx8mFJ1iFkBSBvHqOnTE+lEcQxu5a7Tg7C1YUdl2LOFzSh6KawiDOkibzTr121Esn0A+bb4B+zJGen4E2Z/2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vtA+TjMQ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="d0Z57NRV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=65vzM7nthly/ekwxzXMOlRAEVvzXqafNzBka2YxYPLQ=; b=d0Z57NRV/S+FMgNQth4ZfFg2xQ
-	xG8atFc2UxHzyT06C6Dg6iHaU5Fx20Ob5hoBehVBdWDadmAErL3oGwcbCIeli8LSvT1Qf9ADj0Ue9
-	VV0eMyluYyS1aiXMo8MpM3RICMIBLVZGyFAais6sGCML6LZ4chyFyJStnWGY5oShFDB85qNbHP/G7
-	vGRqMtPeKGEYnVu6RWfUglNMh/cnkdD4/cZnfi0ze5miR7X1eKzYMipFnw/uAcdSZ1N9vDpvSlIb9
-	+yIb4/TdyVncgIQUuUEgccxUCyZiuDmMbL1kWqeJSe+e+JjKRgVXbPJ0l/9tM6n3+9YeEmNafs3vh
-	ymUsDl5w==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wojXm-0000000DY6Y-10zP;
-	Tue, 28 Jul 2026 15:16:34 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 581C1300EA1; Tue, 28 Jul 2026 17:16:33 +0200 (CEST)
-Date: Tue, 28 Jul 2026 17:16:33 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	David CARLIER <devnexen@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH 1/5] x86/mm/pat: introcude cpa_lock() and cpa_unlock()
-Message-ID: <20260728151633.GX751831@noisy.programming.kicks-ass.net>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vtA+TjMQ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C3F9A175D
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:17:24 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9878E3F66F
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:17:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785251848; bh=dZ8qagvGKJMyPa0EnzkJtY2emQs3MSkWMyx5Z+Vj9P0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vtA+TjMQNjOZeW7Mz4XKlH6do9m/+qYIqkeEdb/Me4ZoAY0zaKB9vsurrLcfnCssF
+	 bjDUXYWPImV6hVODww12kdzOv3sOi4chpOmsFwh+ZYpj1jeoAV93tz5D6pdtubkpwc
+	 OiCcZBbtwLSxGieYTYUET1plaoPVkywtNRtqYj94=
+Date: Tue, 28 Jul 2026 16:17:14 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: snapshot firmware interface counts before
+ loops
+Message-ID: <amjH-v6-2POzmj1q@e142607>
+References: <20260720135518.17927-1-osama.abdelkader@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260720135518.17927-1-osama.abdelkader@gmail.com>
 
-On Tue, Jul 28, 2026 at 04:07:44PM +0300, Mike Rapoport (Microsoft) wrote:
+On Mon, Jul 20, 2026 at 03:55:18PM +0200, Osama Abdelkader wrote:
+> The firmware exposes the global group count and per-group stream count in
+> the shared control interface. These values are validated before being used
+> as loop bounds, but the memory is shared with the MCU firmware and can be
+> changed after validation.
 
->  arch/x86/mm/pat/set_memory.c | 33 +++++++++++++++++++++++++--------
->  1 file changed, 25 insertions(+), 8 deletions(-)
+Again, you're making statements that need to be proven here. How is MCU
+firmware going to change the content of the memory shared with the driver?
+
 > 
-> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> index b1e780a465b5..4c8922695fd3 100644
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -65,8 +65,25 @@ static const int cpa_warn_level = CPA_PROTECT;
->   * Serialize cpa() using cpa_lock so that we don't allow any other cpu, with
->   * stale large tlb entries, to change the page attribute in parallel to some
->   * other cpu splitting a large page entry along with changing the attribute.
-> + *
-> + * When debug_pagealloc_enabled(), page attributes could be changed in atomic
-> + * context that would warrant disabling IRQs. But since debug_pagealloc always
-> + * uses 4k pages in the direct map there are no races for splits and collapses
-> + * and locking can be just skipped altogether.
->   */
-> -static DEFINE_SPINLOCK(cpa_lock);
-> +static DEFINE_SPINLOCK(_cpa_lock);
-> +
-> +static inline void cpa_lock(void)
-> +{
-> +	if (!debug_pagealloc_enabled())
-> +		spin_lock(&_cpa_lock);
-> +}
-> +
-> +static inline void cpa_unlock(void)
-> +{
-> +	if (!debug_pagealloc_enabled())
-> +		spin_unlock(&_cpa_lock);
-> +}
+> Read each count once with READ_ONCE() and use the validated snapshot as the
+> loop bound. This keeps the loop bounds consistent with the validation and
+> prevents the compiler from reloading a firmware-controlled count during
+> iteration.
 
-If this lives, we should probably stick an assertion in both the split
-and alloc cases for holding _cpa_lock. That debug thing seems to rely on
-never hitting those, but having that be implicit is asking for pain.
+As an optimisation I'm fine with it, so:
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> 
+> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index e2fcbd639c3c..6e6da98d795e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -959,6 +959,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+>  	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
+>  			   ((u64)csg_idx * glb_iface->control->group_stride);
+> +	u32 stream_num;
+>  	unsigned int i;
+>  
+>  	if (iface_offset > shared_section_sz ||
+> @@ -972,8 +973,8 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
+>  						 sizeof(*csg_iface->output));
+>  
+> -	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
+> -	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
+> +	stream_num = READ_ONCE(csg_iface->control->stream_num);
+> +	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
+>  		return -EINVAL;
+>  
+>  	if (!csg_iface->input || !csg_iface->output) {
+> @@ -990,7 +991,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  		}
+>  	}
+>  
+> -	for (i = 0; i < csg_iface->control->stream_num; i++) {
+> +	for (i = 0; i < stream_num; i++) {
+>  		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
+>  
+>  		if (ret)
+> @@ -1015,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
+>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+> +	u32 group_num;
+>  	unsigned int i;
+>  
+>  	if (!ptdev->fw->shared_section->mem->kmap)
+> @@ -1034,17 +1036,17 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	if (glb_iface->control->group_num > MAX_CSGS ||
+> -	    glb_iface->control->group_num < MIN_CSGS) {
+> +	group_num = READ_ONCE(glb_iface->control->group_num);
+> +	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
+>  		drm_err(&ptdev->base, "Invalid number of control groups");
+>  		return -EINVAL;
+>  	}
+>  
+> -	for (i = 0; i < glb_iface->control->group_num; i++) {
+> +	for (i = 0; i < group_num; i++) {
+>  		int ret = panthor_init_csg_iface(ptdev, i);
+>  
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+>  	drm_info(&ptdev->base, "CSF FW using interface v%d.%d.%d, Features %#x Instrumentation features %#x",
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
