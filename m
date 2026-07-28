@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09BC2F25F3
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 02:46:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5782F1FE4
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 02:46:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785206802; cv=none; b=RKL6C2ig5lE+M3mTM7udAxI9xE0kk/f2YL+T8kMu72DCgt7kcKxfwlNDbU4JVks9fMh4nH7jDvrvqXVCcE+Jdtnp6drm8YQVlxzGPuxxamahjlwC/w7xrq8yz5xv930zoeBOzZ9T4NAcmUmBWy1nBJJW/s9MqbEWsDtDRTcgctY=
+	t=1785206804; cv=none; b=V5LiSozjrXyPxl/CUC6ptvwaHuARB1aOF10/AE7wbHU+OkOM1vFqhwcg2n5/Kv9Lcd0DDfFixHBgT72IxNIcllAOfyOTbG6NNBdWjN/SDMR9Hz9Ijf5/fhTsyBWRcWX7fDI+5vtY6RY5kLm7sO/1RNQDH5XZlMOTTLyJbYavOKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785206802; c=relaxed/simple;
-	bh=A2D8cpysJXjfrCuvjSx/jFF/1iS4Wn1JMU90i81GyzI=;
+	s=arc-20240116; t=1785206804; c=relaxed/simple;
+	bh=l+RDi4Nf11NV0S2Lhwd/DHfzETjTwNDOQePoAurUtPw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VI6A4Q480+5mtP+woBMOXOZiG55j7kM0P8TVb4VRN79FhkInJL8VPqbRPlQ+07S5ziCy5RMwzaQJHvxw3kDt9NdRx33g8WaM+z85v7uDR7SQ3R+U9i6QkCFYWKJEP/KBCySV9vBmtIz1YOqOHUkzCEi7/fm1qsRhvPNukCPDN+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3ltaW2B; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GV/gUQUYOa7boigNAJsOuzjg3WCcE6rxwlPQ2ozuwQKuitr6XhYz1XINZUBswHTS8TQPefSDShgyId/OSfZjHp+s47wt48o/wXLW7rv9acjbOHayGND3zTRQNXnwVwiPMdoKGAxgQ6hWHepiDXRJLSIVBAZo+n0THx8QcFzH2oI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXk/ueen; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3ltaW2B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36AD1F00A3A;
-	Tue, 28 Jul 2026 02:46:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXk/ueen"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B021F00A3D;
+	Tue, 28 Jul 2026 02:46:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785206801;
-	bh=BHXGEQpQ4oRED5Yb5pmuDbEY4BGciO1Mhfe+4UAZFEc=;
+	s=k20260515; t=1785206802;
+	bh=NfA7ARe+UUuWzGJqrw2He9pqP65EzleulsAzPMLVYUc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M3ltaW2BzRV+30pB2x5lxcT9NCN5rOgYr7ByRoqKpxD9jKqtKq6h3JeQPxWctELRZ
-	 gtC3o7miPCybrRMzgkaPapo+FyX+LcYtJSFQdjuji0+MH41xsiX+vfHuVlDwaQzZQi
-	 S8vgoj19brHOi9KAYWipl517mEbKAS701aDNPcRyN1AC1M5Z4S4yaNs2aS5o6cCaGK
-	 i+6F/TOx278KK63E9A91D6qvi37uQt5ssBhW6kV1GVpHqiHheFIq+dazCnVB1Qi/hF
-	 jK3nNr601+N+olisSnQCCdh+iPvSBa0oybV1JnoMC2tTbQfwepE/SOzCZomTR+VGX0
-	 IyIBabEFuzTSg==
+	b=NXk/ueenom7gFqPaSgDPmTfCbE0uumWlAvuwezilBBVXlDqoMs397nA92MN401faK
+	 IVzlUTrVam+2YL3XKWj+VOb/D+sHX4IvbpUPkVo/Cv2fYQsW4L6iBadWj0Tx3te3lN
+	 sKqear5RHVcIaiSqV3gpuMZQLMg0Ze4QPW8BRewlW+rnXiWRv88Cq1Xt+2cgA5dMIb
+	 4nb1pKRS5+yu4qoBOlR94HeJg5EHoYtb+8xFoDrl24VyKT0uRUyXzqHEYAF3bampwI
+	 Vg0C2PmuOsfiVzV5EGDalYBtWcq/KfAis19TBAEpLv+3gAK+pd7nBF1vAS4yHQSj7I
+	 zkmT4Pp3l+3Og==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Sashiko bot <sashiko-bot@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] Input: ims-pcu - fix firmware leak in async update
+Cc: Johan Hovold <johan@kernel.org>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Ulf Hansson <ulf.hansson@linaro.org>
+Subject: [PATCH 6.1.y 1/3] mmc: vub300: fix use-after-free on disconnect
 Date: Mon, 27 Jul 2026 22:46:38 -0400
-Message-ID: <20260728024638.3058096-2-sashal@kernel.org>
+Message-ID: <20260728024640.3058357-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728024638.3058096-1-sashal@kernel.org>
-References: <2026072051-gong-sweep-0821@gregkh>
- <20260728024638.3058096-1-sashal@kernel.org>
+In-Reply-To: <2026072047-sliver-vagrantly-00bf@gregkh>
+References: <2026072047-sliver-vagrantly-00bf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,48 +45,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit d48795b5cd6828d36b707e8d62fc9e5c90e004ab ]
+The vub300 driver maintains an explicit reference count for the
+controller and its driver data and the last reference can in theory be
+dropped after the driver has been unbound.
 
-The firmware object was not being released if validation failed.
-Use __free(firmware) to ensure the firmware is always released.
+This specifically means that the controller allocation must not be
+device managed as that can lead to use-after-free.
 
-Fixes: 628329d52474 ("Input: add IMS Passenger Control Unit driver")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko bot <sashiko-bot@kernel.org>
-Assisted-by: Gemini:gemini-3.1-pro
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Note that the lifetime is currently also incorrectly tied the parent USB
+device rather than interface, which can lead to memory leaks if the
+driver is unbound without its device being physically disconnected (e.g.
+on probe deferral).
+
+Fix both issues by reverting to non-managed allocation of the controller.
+
+Fixes: dcfdd698dc52 ("mmc: vub300: Use devm_mmc_alloc_host() helper")
+Cc: stable@vger.kernel.org # 6.17+
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
+(cherry picked from commit 8f4d20a710225ec7a565f6a0459862d3b1f32330)
 ---
- drivers/input/misc/ims-pcu.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/mmc/host/vub300.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/input/misc/ims-pcu.c b/drivers/input/misc/ims-pcu.c
-index 59055818e0e6fc..59997196a5538a 100644
---- a/drivers/input/misc/ims-pcu.c
-+++ b/drivers/input/misc/ims-pcu.c
-@@ -944,9 +944,10 @@ static int ims_pcu_handle_firmware_update(struct ims_pcu *pcu,
- 	return retval;
- }
- 
--static void ims_pcu_process_async_firmware(const struct firmware *fw,
-+static void ims_pcu_process_async_firmware(const struct firmware *_fw,
- 					   void *context)
- {
-+	const struct firmware *fw __free(firmware) = _fw;
- 	struct ims_pcu *pcu = context;
- 	int error;
- 
-@@ -967,8 +968,6 @@ static void ims_pcu_process_async_firmware(const struct firmware *fw,
- 	ims_pcu_handle_firmware_update(pcu, fw);
- 	mutex_unlock(&pcu->cmd_mutex);
- 
--	release_firmware(fw);
--
- out:
- 	complete(&pcu->async_firmware_done);
- }
+diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+index 38024cc2d5e0fe..4000dc80f81af8 100644
+--- a/drivers/mmc/host/vub300.c
++++ b/drivers/mmc/host/vub300.c
+@@ -2281,7 +2281,7 @@ static int vub300_probe(struct usb_interface *interface,
+ 		dev_err(&vub300->udev->dev,
+ 		    "Could not find two sets of bulk-in/out endpoint pairs\n");
+ 		retval = -EINVAL;
+-		goto error5;
++		goto err_free_host;
+ 	}
+ 	retval =
+ 		usb_control_msg(vub300->udev, usb_rcvctrlpipe(vub300->udev, 0),
+@@ -2290,14 +2290,14 @@ static int vub300_probe(struct usb_interface *interface,
+ 				0x0000, 0x0000, &vub300->hc_info,
+ 				sizeof(vub300->hc_info), 1000);
+ 	if (retval < 0)
+-		goto error5;
++		goto err_free_host;
+ 	retval =
+ 		usb_control_msg(vub300->udev, usb_sndctrlpipe(vub300->udev, 0),
+ 				SET_ROM_WAIT_STATES,
+ 				USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+ 				firmware_rom_wait_states, 0x0000, NULL, 0, 1000);
+ 	if (retval < 0)
+-		goto error5;
++		goto err_free_host;
+ 	dev_info(&vub300->udev->dev,
+ 		 "operating_mode = %s %s %d MHz %s %d byte USB packets\n",
+ 		 (mmc->caps & MMC_CAP_SDIO_IRQ) ? "IRQs" : "POLL",
+@@ -2312,7 +2312,7 @@ static int vub300_probe(struct usb_interface *interface,
+ 				0x0000, 0x0000, &vub300->system_port_status,
+ 				sizeof(vub300->system_port_status), 1000);
+ 	if (retval < 0) {
+-		goto error5;
++		goto err_free_host;
+ 	} else if (sizeof(vub300->system_port_status) == retval) {
+ 		vub300->card_present =
+ 			(0x0001 & vub300->system_port_status.port_flags) ? 1 : 0;
+@@ -2320,7 +2320,7 @@ static int vub300_probe(struct usb_interface *interface,
+ 			(0x0010 & vub300->system_port_status.port_flags) ? 1 : 0;
+ 	} else {
+ 		retval = -EINVAL;
+-		goto error5;
++		goto err_free_host;
+ 	}
+ 	usb_set_intfdata(interface, vub300);
+ 	INIT_DELAYED_WORK(&vub300->pollwork, vub300_pollwork_thread);
+@@ -2350,7 +2350,7 @@ static int vub300_probe(struct usb_interface *interface,
+ 	return 0;
+ error6:
+ 	del_timer_sync(&vub300->inactivity_timer);
+-error5:
++err_free_host:
+ 	mmc_free_host(mmc);
+ 	/*
+ 	 * and hence also frees vub300
 -- 
 2.53.0
 
