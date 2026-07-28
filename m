@@ -1,126 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30EB4483B5
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 16:10:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785255049; cv=none; b=h0z3vFTB/es80QwycZ4c98+qo+DtTsYrveAiCTUOyFNJRn9GPrDFrtzMS6YMzcDYw3pvXot3leYvKNExmcPduJivpCdENXXWCjIJ5BjZq5bmZ99tS5lgggAgtpdDX1rJZ/1PAwEq7BMmLCR49aNjd0SRJcGD8a7cn3ih6LroaaE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785255049; c=relaxed/simple;
-	bh=dWK4fAPuB/wyxwKkiXMArMKCcHXRCkOu+aFaLVRNeiw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qH5COPdLNmV5tTZB6En5u8FloNN0jqR2QU2QwnrbF/oC2Ff4jA2V9BN01+1IKh+vEibnKSMpi6mDtVjUicUXY3p3asnVc1tL/ZFBxBHllqZNIbuD5TJXQnB6UE2aQdjV33g8ySJhnb8UxOr45anZAhrENqRxYPL2zQKpxTkJOgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MqgQFEMf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048A037A494
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 16:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785255895; cv=pass; b=T1JNNx55g7VzGaEMFMWne6sa4bedhnDXTRGzcmGs3W/AUosyHTIWnPmJAmvrJLAwKLpXNMfApTCq7h0urbpSvmv1U/iQyS7bKecgQGYFYIWC1OCR4yI75oqn1k27xTY8/roCBR+oRi8Y2yn9gNja8U2e9fN1s4Rj7sQdHtUQwZk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785255895; c=relaxed/simple;
+	bh=i1628fISlf4UMwG9ccW9rlvACehVA/JJrr0ofdO8/Bs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XvMi79Eh6z3R9lOilwK8o3HC1nL8Cjn8gnhL8iXMD2LEtaS+SZ1RxUe0sni7jdR6qsnxUdOPRsdWFigeQNFa3+ZtpeE97Kfz94DtWREbCN0X8lWyUAYuh/USuAEM5rThWLA6xXDKXDIBjuL9ivPbDgGUVJ91KGjkmCAjv2fVj5I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lct2g94N; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MqgQFEMf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52FB1F000E9;
-	Tue, 28 Jul 2026 16:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785255048;
-	bh=wgFdDmlkqbqL4Px9j9phDVnuGtuz2h/y7ycbyGa5RxM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MqgQFEMfpPcDFFOutACip6No5+6zAT/q+e8lFcXvk4ieDWny+k8lHekOm9CYpRBG1
-	 FP5+1V3dqICgM9a6LnAzDNly6fv5vFGiwqmuDrjW1sMEyBOdHRC6sv42Q4rabkQsqs
-	 vAiUMQ38DfvsWMJ5nxhf0Wmce9/Bdp/tlGgDhzsBdV78z9wX2baxlmWFpjkYDN1o/O
-	 8R4t5zEzj1BxfLjtRV4cpC2diN8IcOMFCpa09njq6Mfb8ebgGvageBGRwj5gJudhMU
-	 gpETQawQNft3XZKOT0uHeOcZpYWaOs0s3RPAxvD4s+izyBETXQ4JM5dXdo60JQ3dMV
-	 KgUgTlwnMdmEw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Junrui Luo <moonafterrain@outlook.com>,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] octeontx2-af: cn10k: restrict VF LMTLINE sharing to its own PF
-Date: Tue, 28 Jul 2026 12:10:46 -0400
-Message-ID: <20260728161046.36627-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072018-anatomy-splicing-366a@gregkh>
-References: <2026072018-anatomy-splicing-366a@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lct2g94N"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c1c52d920b8so1559866b.2
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 09:24:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785255892; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lX+D3DNtymWY76hfki3rEFxvxCRicKjayRU+BqZaf3ZYq6g6S5OsU94dEUqwG+n1Z0
+         tk0+ogBmZFPSfmz2K1t58ixOSP7Di7Pvt+x+XmIYuagCEN47UVMXkIG/Osv/2rqqOtfJ
+         DNHYFX1huD3/O5hqeuK9uMnQ7wiP+sU17/dY4U80aEYWzcp3Z5ymAZG2nbuwzIij7JCE
+         XVsYw6kTipz0pWZnIhUQ6I4TQYcct4en6fhxcfwfQn5sllfGay/vhZQJmTs8XGjhEsv4
+         /9uAJ11Gm0RLCTq4MOS20GoH6BELya5vKyTnxk0SXLwW/v+KJbfmMjHoDwyiVQ5aBiSa
+         Kh6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m2b1aa1x2EwEerBPXqJZ1QjoQVkz6jCcTGc7EVDlyNo=;
+        fh=LOBP1p/KZVPJx6IWdfbL0MEpr93EpCtg0hzFFO2cn3k=;
+        b=P/c5GUXnpu8ORfVXjUw+WGTw8PoFIMkCKTxGo/ah7zhu6XCblZJtAgaGL8EJu0TyZI
+         JdbNEIpDGvqr7+qTP8F1JMzVxcpiXU9n8ZxXuYfc+FnVAvKNLUZtsM1BLRX+8lUS3G0M
+         yb9oopVu4vNBTfvxbCfbUWgJ/o6+Lv4w7TLMTvvBoS93MFyLjdsjfdPY+wLCJp8iknk3
+         iLVJLc56cQw35iphLUYAr48tcbmIlsKdXUrVOZ4Y8arN8dHcH40QZMPupl5FHS8FtlRb
+         a5+ahTQ5STu4AXdiG7vLsJdjizBs9yYUtCqsXkDLFXDvIA8wiSt+YpMjBptAiX41W+fP
+         sYQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785255892; x=1785860692; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m2b1aa1x2EwEerBPXqJZ1QjoQVkz6jCcTGc7EVDlyNo=;
+        b=lct2g94NA7Y78eYOuMwwwOD23muR4BCkZNRbsJICh+9hglpnHXOzXUql+nLU/P5tOK
+         0d0TBL0pW22X21jbhCabGSMFnajlsSvGV9OScRanEJLdGwTi7hHCw0a8oOhOhHgSnNJ/
+         XeHlIeq+bY+ne0zDcpy8Et3BbUl3VTAj0I33k+ARe/2krF0k7H/dHMDkAUTJOGMNpBLC
+         d/BnenlAukzH7JQ59YVf11d86AL5VodBO8CWe2cqgfDTbrK5B4gCxaaYes85D/J95kvj
+         RWXB+Djy9aFPf/lqI4ioHSn1BMI2+63edIw9TWw10DleSSBn8rO1NXcdhKmhsx04sgZv
+         I+NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785255892; x=1785860692;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m2b1aa1x2EwEerBPXqJZ1QjoQVkz6jCcTGc7EVDlyNo=;
+        b=YTLceZdTtET2elijUWO7IHURpV8RLJvl5JTkkwmJQFdJJ/nkXvlWMABHaesgPGTV8Z
+         ElEDnDovrFCfOi03Y8pf0WS1VOM3yeoLMxtl0cbF/54PWYsiMVXktE1L3aWxz1O7K4rt
+         lvVdg1WpguHHPt8GIiWoJB/7DbH7/P+5MqR9rQCfArcvSmetbO387/py/MwPbMRFMwhq
+         vy8NjiHFVecyZY4Vyqhk+18Jshnj8DnUqI6NHnPQJufzzSugXkkS4oYx/EBkNXXeZus+
+         tCdK7iYngs2nTzmVfMLRpfr5uYXJxwl/Q+qKHB61dXsBhrZMGbxnTnlCwluBT7/RJW6H
+         keMw==
+X-Forwarded-Encrypted: i=1; AHgh+RqJT7GaH7ICxaIy6cnAmkcRTe0sW7rum0qeTZj+lCCcLXca60w3mu7epZslDjiovoXeRIhAREU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCm4m+bMhHaaSChCbBgmaQWNMRnenW4m6EC90T3ky+ktYpJFrl
+	MUQeYMi4luTRxGFH8YCKfqTQlToD8g9J44cMuxbchMXvfsswZtGNgOb1YbiuvHjKyswGkR2DEB2
+	lYrFHzzPvfOtQhVU8hXSljWwSG1cUCw==
+X-Gm-Gg: AR+sD12L7yTiYUIvgIWp1a+D116ND8huMmAYtsPxY8TymFEogLwvrjBMwEwnUOmHxWM
+	bnC8dIhHXIHKB5wuys09lmER9FJ51xl+ZlS/yyTjtfvUj3G/QEjfKqiifsPSdIi5uFIQyM0csPw
+	P17wXF82/kscQsoV2DCbzAk+EUPkYrC2mLokM2u0nCwt1Z/P1+z4uYTJT9B9gzaq7OdoQkad50R
+	RrVLfIQtZGWMt8s5pENDO+I8dBXsdbGd/pkQHGLDHD2p/AsjhjApmliGEbWnNlDyXjwZGw/Q4P0
+	chjy9XRcS3pyyyNvRhTOkwEMPZqtBJ9TbVlaxAI56saJpkPUyynB6b4f5gRp3SootERSunt/
+X-Received: by 2002:a17:906:6a1e:b0:c1c:1e8d:f8e8 with SMTP id
+ a640c23a62f3a-c1f727bc91dmr163943766b.56.1785255892096; Tue, 28 Jul 2026
+ 09:24:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAGEsz8FbPu_DtOkTij0RvBriK1R0FspzEU6Oef0Gers-gS1d3w@mail.gmail.com>
+ <aminBc88wFWw4NSC@google.com>
+In-Reply-To: <aminBc88wFWw4NSC@google.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Wed, 29 Jul 2026 01:24:40 +0900
+X-Gm-Features: AUfX_mx2EsPBF60M4yH0xLU5_gaBUJWDb4Dt0wO-jKFSO-reKfI0H-VlmOyPqeE
+Message-ID: <CAGEsz8G8xWvnbtL-zCoGonFKFb8oL0TzmJQ77mPS_64CxrLdkQ@mail.gmail.com>
+Subject: Re: [PATCH] KVM: x86: Cancel IOAPIC EOI work before freeing vCPUs
+To: Sean Christopherson <seanjc@google.com>
+Cc: pbonzini@redhat.com, kvm@vger.kernel.org, security@kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Junrui Luo <moonafterrain@outlook.com>
+Thanks for confirming, Sean.
 
-[ Upstream commit 8cdcf3d2caacdee7ddd363705fb4d93b0c1a0915 ]
+I had not found the pending fix or the earlier reports during my
+search. I will drop my patch.
 
-rvu_mbox_handler_lmtst_tbl_setup() uses req->base_pcifunc as a direct
-index into the LMT map table to read another function's LMTLINE
-physical base address and copy it into the caller's own LMT map table
-entry. The mailbox dispatcher authenticates req->hdr.pcifunc from the
-IRQ source, but req->base_pcifunc is a separate payload field and is
-not sanitized.
+Thanks,
+Myeonghun
 
-Reject the request with -EPERM when a VF caller's base_pcifunc is not a
-valid function under its own PF. is_pf_func_valid() bounds the FUNC field
-to the PF's configured VF count, keeping the computed index inside the
-caller's own slot block.
-
-Fixes: 893ae97214c3 ("octeontx2-af: cn10k: Support configurable LMTST regions")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Link: https://patch.msgid.link/SYBPR01MB78811656934E713B77DA6CEDAFE62@SYBPR01MB7881.ausprd01.prod.outlook.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Dropped `rvu->pdev` argument from `rvu_get_pf()` calls and folded in the `is_pf_func_valid()` de-static plus its `rvu.h` declaration from commit 2156a29aecff. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu.c       | 2 +-
- drivers/net/ethernet/marvell/octeontx2/af/rvu.h       | 1 +
- drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c | 9 +++++++++
- 3 files changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
-index 760dca4d5bfcb8..09352941ae61dd 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
-@@ -440,7 +440,7 @@ struct rvu_pfvf *rvu_get_pfvf(struct rvu *rvu, int pcifunc)
- 		return &rvu->pf[rvu_get_pf(pcifunc)];
- }
- 
--static bool is_pf_func_valid(struct rvu *rvu, u16 pcifunc)
-+bool is_pf_func_valid(struct rvu *rvu, u16 pcifunc)
- {
- 	int pf, vf, nvfs;
- 	u64 cfg;
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-index 11d25404d57166..f26814c4990286 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-@@ -751,6 +751,7 @@ int rvu_get_pf(u16 pcifunc);
- struct rvu_pfvf *rvu_get_pfvf(struct rvu *rvu, int pcifunc);
- void rvu_get_pf_numvfs(struct rvu *rvu, int pf, int *numvfs, int *hwvf);
- bool is_block_implemented(struct rvu_hwinfo *hw, int blkaddr);
-+bool is_pf_func_valid(struct rvu *rvu, u16 pcifunc);
- bool is_pffunc_map_valid(struct rvu *rvu, u16 pcifunc, int blktype);
- int rvu_get_lf(struct rvu *rvu, struct rvu_block *block, u16 pcifunc, u16 slot);
- int rvu_lf_reset(struct rvu *rvu, struct rvu_block *block, int lf);
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
-index 1e4cd4f7d0cfd4..a76deef58af82c 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
-@@ -178,6 +178,15 @@ int rvu_mbox_handler_lmtst_tbl_setup(struct rvu *rvu,
- 	 * pcifunc (will be the one who is calling this mailbox).
- 	 */
- 	if (req->base_pcifunc) {
-+		/* A VF is untrusted and must not redirect its LMTLINE to
-+		 * another PF's region, so confine VF callers to their own PF.
-+		 */
-+		if (is_vf(req->hdr.pcifunc) &&
-+		    (!is_pf_func_valid(rvu, req->base_pcifunc) ||
-+		     rvu_get_pf(req->hdr.pcifunc) !=
-+		     rvu_get_pf(req->base_pcifunc)))
-+			return -EPERM;
-+
- 		/* Calculating the LMT table index equivalent to primary
- 		 * pcifunc.
- 		 */
--- 
-2.53.0
-
+2026=EB=85=84 7=EC=9B=94 28=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 9:56, S=
+ean Christopherson <seanjc@google.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
+:
+>
+> On Tue, Jul 28, 2026, Myeonghun Pak wrote:
+> > The IOAPIC delayed EOI injection worker dereferences local APIC pointer=
+s
+> > from the VM's APIC map.  Since commit 17bcd7144263 ("KVM: x86: Free
+> > vCPUs before freeing VM state"), kvm_arch_destroy_vm() frees vCPUs and
+> > their local APICs before kvm_ioapic_destroy() synchronously cancels the
+> > worker.
+> >
+> > Consequently, if the delayed work is pending when VM teardown starts,
+> > the worker can run after a local APIC has been freed.
+>
+> ...
+>
+> > Fixes: 17bcd7144263 ("KVM: x86: Free vCPUs before freeing VM state")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > ---
+> >  arch/x86/kvm/ioapic.c | 12 +++++++++++-
+> >  arch/x86/kvm/ioapic.h |  1 +
+> >  arch/x86/kvm/x86.c    |  1 +
+> >  3 files changed, 13 insertions(+), 1 deletion(-)
+> >
+> > AI disclosure: I used AI assistance during the audit and am treating th=
+e
+> > issue as public as required by Documentation/process/security-bugs.rst.
+> > The reproducer has not been posted publicly.
+>
+> Though that doesn't seem to matter much given you're the fourth person/gr=
+oup to
+> independently report this bug. :-)
+>
+> A fix is already pending:
+> https://lore.kernel.org/all/20260727171718.543491-1-seanjc@google.com
+>
+> Thanks!
