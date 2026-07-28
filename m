@@ -1,184 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29BF8439347;
-	Tue, 28 Jul 2026 13:08:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71D6439F72;
+	Tue, 28 Jul 2026 13:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785244117; cv=none; b=WwlxQm/c/VGTcf/CRYTCtS5HcwH9trAxwdP9NCuzEAbVLm1wIvasVhr4XHWukcgbY7wxbtQzo11enHytReZXUSEXqUhruZZaFRqCetQwXhcYQ+0UTrKc7okFGEhxhiu3tnDKKoUjkWs3mp5O5rw47dYb+4swwx/ROlooX4RZRx4=
+	t=1785244120; cv=none; b=SpAvuNUKJld9aMhWemoyqLkKO8krfmqPRzzaMk8cAGGLzfC4Jb6UMQgllwXFYjsNbiTXkQuM51Am4XTR0HjqF0/8PaqeKX/ecrBLkNb3PbvAStGZtPIlFDdMpdctvdKrXNane6UYuARgQjlSGLx+ciVcRz4YTUEg0WZHcdAotS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785244117; c=relaxed/simple;
-	bh=uRi2BeAsLZJBDgKr7rBtZYOlnGWwbfsgt2paxbgE5gY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qKEnTyllJ/Hw38kOcbYZf4jx/lwraSmJFVJHMMHxRlFv1jwn4MdZfnrIM/io6V4Hcl+ix0IMRTANnXB+C7WP2r2Z98FRefbTnhQajwCGLCfECiz+FgDLVIZAcAHtrCWzvgs+KKKhJGYNbia/cYazFmiCyhr4NT1YYzWptC7WzbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rcf96RD4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785244120; c=relaxed/simple;
+	bh=AwjGNnzLCZhSCvm4aOBqQ6gLdXAxlctsN1mIRiM5CI4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OMhsoTwcj1e6bilNitxZydK88WOcA7apD5rKJJxLUPP/JTBK4VpUiiDV5OWh1p4aHGWihddT9RJ+0K2LuUgvM21g4U1FTw87/6sFZg8JBzjRB2oQY0LTHsUX8nBtU479ZHP1m4eSRj7OTMwXLDCUrJi4SIpHcH8s65hpuM2SeZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L4Ti8jRV; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rcf96RD4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB191F00A3A;
-	Tue, 28 Jul 2026 13:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785244116;
-	bh=+OVz5lEll53DTcaxQJ/8cP8R7ptIKPY9VyGl2nqHKE0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Rcf96RD4MNngx3FEnHTrZFFNkhXcxj9plMy2uiXREEcgAQ2xwXJ3JBPGHPvU3Imkl
-	 OTkhHluoDWK42UmBQX1qNzZkwGvf6H/HS7QobF54TSAo73LGqtpd9AkkeizpMq8Un8
-	 RVlrO6cRWoe0QCsw5hblKl+0QpzCoJippKn3/UuW/mYgM0MH/HwN9jEpAc5YnClb67
-	 78oD4mXa2Az79fAI6xni4AfO2E/IdKTEtOK5vN4eiY8gtYdKYeRgulByQCyXib1eze
-	 dZC/vGnzeCCHCFdnk4XuazAsfMauJk4xzAZYqfd3WxAlc93H9Mx1FIj8hPD1L+2/H9
-	 5E4QAICDKo4XQ==
-From: Mike Rapoport <rppt@kernel.org>
-Date: Tue, 28 Jul 2026 16:07:47 +0300
-Subject: [PATCH 4/5] x86/mm/pat: allocate split page tables as kernel page
- tables
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L4Ti8jRV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785244118; x=1816780118;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AwjGNnzLCZhSCvm4aOBqQ6gLdXAxlctsN1mIRiM5CI4=;
+  b=L4Ti8jRVwUKuEZpClMy/hnfGX05563styOK8TTxyUIs5LnaS6STk1nDx
+   d1u3lQJ5Re/NKxo8iw/lklTRfQRVBrZ8bqnjt76uLX65Vqnaue0rFMPNc
+   NiNbPFpAWLSsM5bChsaOVdmLQN8UFtfDK9dtlWwggT082PSeyLTt6ojz8
+   ecflLuGOwAkAshj1VWqKD95WUiCAaSMGJpA81bReItA0mJJLevGrz3WI4
+   ZqI8UU1ed4xx3h+RCYrd9gzjZwKc+LEyrjKyeYWaV07Dpdt4fdsJbifew
+   wyprFO38KrjDQJjjLoMlqrr3xKwJjq+eTf5C6wFv8Jaz5/dLT6F/Em573
+   g==;
+X-CSE-ConnectionGUID: aR+RdYKQQRm2pI+uuwdJ5w==
+X-CSE-MsgGUID: niuY6M6oTSKnBt0KojsUjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85945355"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="85945355"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:08:37 -0700
+X-CSE-ConnectionGUID: HNvX7BMAQ7CvQsbD8A/4CQ==
+X-CSE-MsgGUID: wOd8lPZlQ1q49rPdFuuXnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="283038301"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:08:32 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id CE4D9121BFD;
+	Tue, 28 Jul 2026 16:08:31 +0300 (EEST)
+Date: Tue, 28 Jul 2026 16:08:31 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Sven =?iso-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>,
+	Nas Chung <nas.chung@chipsnmedia.com>,
+	Isaac Scott <isaac.scott@ideasonboard.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Daniel Scally <dan.scally+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] media: rzg2l-cru: Align bytesperline to hardware
+ DMA stride requirement
+Message-ID: <amipz7WkKUsjxot_@kekkonen.localdomain>
+References: <20260701165003.1495035-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-cpa-fixes-v1-4-2ed2352300b3@kernel.org>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
-In-Reply-To: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>, 
- Kiryl Shutsemau <kas@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
- Mike Rapoport <rppt@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
- Peter Zijlstra <peterz@infradead.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>, 
- Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, 
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- stable@vger.kernel.org, x86@kernel.org
-X-Mailer: b4 0.16-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Hi Tommaso,
 
-When splitting a large page in CPA in __split_large_page() we allocate a
-PTE directly without going through the standard page table allocation
-routines such as pte_alloc_one_kernel().
+On Wed, Jul 01, 2026 at 06:50:01PM +0200, Tommaso Merciai wrote:
+> The RZ/G3E CRU programs the line stride via the AMnIS register, whose
+> IS field encodes the value in units of 128 bytes. If bytesperline is
+> not a multiple of 128, the division truncates and the hardware uses a
+> wrong stride, causing horizontal banding.
+> 
+> Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
+> which sets no alignment, reintroducing the issue.
+> 
+> Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
+> info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
+> v4l2_fill_pixfmt() unchanged.
+> 
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Cc: stable@vger.kernel.org
+> Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v1->v2:
+>  - Collected tag
+>  - Add missing Cc stable
 
-This means the page table constructor is never called nor is the page table
-marked as a kernel page table.
+The problem with this is that it requires v4l2_fill_pixfmt_aligned() that's
+not Cc'd to stable. Can this be fixed first without introducing the use of
+v4l2_fill_pixfmt_aligned() (cc'd to stable, i.e. in this patch), followed
+by another one switching to v4l2_fill_pixfmt_aligned()?
 
-The former results in the folio associated with the page table not being
-marked as a page table (__pagetable_ctor() is never called thus neither is
-__folio_set_pgtable()) nor are statistics updated to reflect
-it (lruvec_stat_add_folio() is never called).
-
-The latter issue of failing to mark the page table as a kernel page
-table (ptdesc_set_kernel() is never called) is far more problematic.
-
-Since commit 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page
-tables") kernel page table freeing has been batched and since the
-subsequent commit e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries
-for kernel address space") IOTLB cache entries for kernel page tables have
-been invalidated upon being freed.
-
-Since split page tables are freed without this invalidation, the IOTLB can
-contain stale entries for them.
-
-Resolve the issue by using the ordinary PTE allocation API at split time.
-
-This results in these kernel page tables invoking a page table constructor,
-and thus requires a page table destructor.
-
-Since we cannot assume one is always present (early allocated direct map
-page tables are not marked as such), we conditionally call
-pagetable_dtor_free() if the PG_table folio flag for the ptdesc is set,
-otherwise we free the page table via pagetable_free().
-
-Regardless of which path is taken page tables marked as kernel page tables,
-which now includes split page tables, take the correct route through
-pagetable_free_kernel().
-
-There is a user-visible side effect in that split page tables will appear
-in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
-allocated after early boot), however this is a positive change.
-
-This issue started being markedly problematic after commit
-5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables") so
-choose this as the Fixes target.
-
-Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Vishal Moola <vishal.moola@gmail.com>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- arch/x86/mm/pat/set_memory.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
-
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index 26131ecc0e1c..1b63d4caba20 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -456,7 +456,15 @@ static void __cpa_collapse_large_pages(struct cpa_data *cpa)
- 
- 	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
- 		list_del(&ptdesc->pt_list);
--		pagetable_free(ptdesc);
-+		/*
-+		 * Only early alloc'd direct map should not be flagged PG_table
-+		 * here and those shouldn't be collapsed. However be abundantly
-+		 * cautious and handle the !PG_table case too.
-+		 */
-+		if (PageTable((ptdesc_page(ptdesc))))
-+			pagetable_dtor_free(ptdesc);
-+		else
-+			pagetable_free(ptdesc);
- 	}
- }
- 
-@@ -1154,11 +1162,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
- 
- static int
- __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
--		   struct ptdesc *ptdesc)
-+		   pte_t *pbase)
- {
- 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
--	struct page *base = ptdesc_page(ptdesc);
--	pte_t *pbase = (pte_t *)page_address(base);
-+	struct page *base = virt_to_page(pbase);
- 	unsigned int i, level;
- 	pgprot_t ref_prot;
- 	bool nx, rw;
-@@ -1262,21 +1269,21 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
- static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
- 			    unsigned long address)
- {
--	struct ptdesc *ptdesc;
-+	pte_t *pte;
- 
- 	cpa_unlock();
- 	if (cpa->init_mm_read_locked)
- 		mmap_read_unlock(&init_mm);
--	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
-+	pte = pte_alloc_one_kernel(&init_mm);
- 	if (cpa->init_mm_read_locked)
- 		mmap_read_lock(&init_mm);
- 	cpa_lock();
- 
--	if (!ptdesc)
-+	if (!pte)
- 		return -ENOMEM;
- 
--	if (__split_large_page(cpa, kpte, address, ptdesc))
--		pagetable_free(ptdesc);
-+	if (__split_large_page(cpa, kpte, address, pte))
-+		pte_free_kernel(&init_mm, pte);
- 
- 	return 0;
- }
+>  - Fix s/commit/Commit/ into commit body
+> 
+>  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> index 69346a585f9f..478264f26466 100644
+> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> @@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
+>  	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
+>  			      &pix->height, 240, info->max_height, 0, 0);
+>  
+> -	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
+> +	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
+> +				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
+>  
+>  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
+>  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
 
 -- 
-2.53.0
+Regards,
 
+Sakari Ailus
