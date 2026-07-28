@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8EF2EF67A
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 02:46:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC50F2F0C74
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 02:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785206780; cv=none; b=WAznHDQw7p1ppxGIqCKb26q5nz3FuxvOHkMamyr3De5qFORZASWt7dfZko/F4am2iT/gqWnNeAZJKHAaPr24kVh3vDlH8mUNZkmzQNjxxZe0x9URgTr6yLKwNvmA4tWMY3FP6h/KuAGD1jZHmmB/X8mDrqQlEfDkTbUxkngdpxo=
+	t=1785206785; cv=none; b=GKIFeg0kh60Bf74zB3BtgJQhZm+Z43GIareufBfz0LtIiKXG66RbrGNFyL42APyeWHnMmlGvwIjrEklSkb1i9/TukxJ6u4HTtVHqB7XvqqmB8QWyzxl0hQ7mR2RGRdAtGrr8CU4Tad1pPW7vzDs0jNyMF8cxQyTBA+JnHEYldT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785206780; c=relaxed/simple;
-	bh=HG7ruP1U6GraA7p1atst30hEVjUCXq6mh9W3a3rLal0=;
+	s=arc-20240116; t=1785206785; c=relaxed/simple;
+	bh=xRSbppI3HfXM2QOJ4o5CdN6pQp3FG+WBhKIwCJE/6p4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ub8W7Oem3FQMq46ubR2cPEWAq2gttc4FvXNYPkvc68ZEDz2gsVUH6+1Qvy/W2MTE2MXm8tyL8eUbSAbuEUkTL3TDQ8AnRwY8hhebqeaAk6Ur+RY8ZMjaLza72/KwLdw86d81/Wboyi6yiKQaorl/gxOnJAobMG8oiQJUJD62DwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLO+bExp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FA58GSeJC4SBVBTd5MuJQUYTYuA+XYsp49pOmLdhIE8gcSBrM3W1Ts0skxDyI4pzmpgt6Vuyfqb32IZTr9K5irEHfycmBgVeYjIBUSMil8y5TK87rlLjTObWC6yYMgZX5uqVVmiqJIb/H7V49hIMvCxmhT+Q6VkOmCopqEWPDRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ww4ax6TU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLO+bExp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C04F1F00A3A;
-	Tue, 28 Jul 2026 02:46:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ww4ax6TU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145BE1F000E9;
+	Tue, 28 Jul 2026 02:46:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785206779;
-	bh=2T1/dDRUz5fx9oKG0yXke4gE/q8T7l8tTW+Q4CG0Z5E=;
+	s=k20260515; t=1785206782;
+	bh=abEtBCH/TDJdIEwttDr0rfq3vaq1RuvgG+ChoeUUn5k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YLO+bExpuT1yE5iFfKdH6RjgWgx8x1pxXvRTJf1QtwEoHtT5kBiJwT3gULRnaoveb
-	 18OV6K9Q/4yHuAApXK9pZ/uLRRk+NAgPMkmuCGro5TKEOAQwpC6kIpYWIQz664OgTa
-	 igrGpYk1xaERVvB7MoQHbPXkp94b9S9aaAI5oQEvvqixjKPrhLrsksFVq8xJS88uPM
-	 DvcRH7X4Il0YdDywXr7yycbM8/3a7VDjQ8c/fAIf2mbfYZF/GH1C8f5Bn8IjN5NEk8
-	 mEudpJuRrRPN/Mvgj1u98qR3S4cUeloVBcozKAiZ7nBUCS47e+gMF2hJR5XHWdnRTK
-	 Re34bLe9ZZcsQ==
+	b=Ww4ax6TUPvey5vMwSDiCDqSoYe27nNTaWQ+y/OejDl4C/ZYnu1EPjSKHcZYcZH82v
+	 OW/o0Bf27raQL71Evl6xuQZokMqy53I6KLl2kIDLnB/yedqaC/fzOXjlFlqBnItbls
+	 qvSjboqJq6dEIYPopLIWOOdvcN9uzaTwH7xrP38XlNrYxNh3Ya54xQcm5JL+Ux019d
+	 f7Nu6tUIPTA9LdzeG+30CFEUOQTM9wIIxNsQZJcdNZBBqjHN5xNTnRx3xgFvFfr46V
+	 +wfHs0NlNkjcovuAj5i5fyVGwxfMgJ36kOfkWM3hhdoKvWkwVklknf2aij/f/JHuws
+	 16+7pRpcPtATw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Sashiko bot <sashiko-bot@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
-Date: Mon, 27 Jul 2026 22:46:16 -0400
-Message-ID: <20260728024616.3054017-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] Input: ims-pcu - fix race condition in reset_device sysfs callback
+Date: Mon, 27 Jul 2026 22:46:20 -0400
+Message-ID: <20260728024620.3054923-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072010-postnasal-lisp-2633@gregkh>
-References: <2026072010-postnasal-lisp-2633@gregkh>
+In-Reply-To: <2026072030-reference-unenvied-28bf@gregkh>
+References: <2026072030-reference-unenvied-28bf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,48 +45,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Maoyi Xie <maoyixie.tju@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-[ Upstream commit aa6dcd5c8dd9ba1d7d0f60093bcda41c0d6d438d ]
+[ Upstream commit 411b8c4b274737c3bf08e1e025801161603cfffc ]
 
-lbtf_free_adapter() calls timer_delete(&priv->command_timer), which does
-not wait for a running command_timer_fn() callback. lbtf_free_adapter()
-runs on the teardown path right before ieee80211_free_hw() frees priv,
-both in lbtf_remove_card() and in the probe error path. command_timer is
-armed by mod_timer() in lbtf_cmd() whenever a firmware command is sent.
-command_timer_fn() dereferences priv. If a command times out as the
-device is removed, command_timer_fn() runs concurrently with teardown and
-dereferences priv after it has been freed.
+The ims_pcu_reset_device() sysfs callback calls ims_pcu_execute_command()
+without acquiring pcu->cmd_mutex. This can lead to data races and
+corruption of the shared command buffer if triggered concurrently with
+other commands.
 
-This is the same use-after-free that commit 03cc8f90d053 ("wifi: libertas:
-fix use-after-free in lbs_free_adapter()") fixed in the sibling libertas
-driver. The libertas_tf variant has the identical pattern and was left
-unchanged. Use timer_delete_sync() so any in-flight callback completes
-before priv is freed.
+Acquire pcu->cmd_mutex before calling ims_pcu_execute_command().
 
-Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
+Fixes: 628329d52474 ("Input: add IMS Passenger Control Unit driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Link: https://patch.msgid.link/178211481807.2212567.8773346114561900100@maoyixie.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Reported-by: Sashiko bot <sashiko-bot@kernel.org>
+Assisted-by: Gemini:gemini-3.1-pro
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/input/misc/ims-pcu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
-index 74c4942b9a5a00..651eb3131b83a8 100644
---- a/drivers/net/wireless/marvell/libertas_tf/main.c
-+++ b/drivers/net/wireless/marvell/libertas_tf/main.c
-@@ -174,7 +174,7 @@ static void lbtf_free_adapter(struct lbtf_private *priv)
- {
- 	lbtf_deb_enter(LBTF_DEB_MAIN);
- 	lbtf_free_cmd_buffer(priv);
--	del_timer(&priv->command_timer);
-+	timer_delete_sync(&priv->command_timer);
- 	lbtf_deb_leave(LBTF_DEB_MAIN);
- }
+diff --git a/drivers/input/misc/ims-pcu.c b/drivers/input/misc/ims-pcu.c
+index 55d4fffda41bf2..94129af05620ea 100644
+--- a/drivers/input/misc/ims-pcu.c
++++ b/drivers/input/misc/ims-pcu.c
+@@ -1173,6 +1173,8 @@ static ssize_t ims_pcu_reset_device(struct device *dev,
  
+ 	dev_info(pcu->dev, "Attempting to reset device\n");
+ 
++	guard(mutex)(&pcu->cmd_mutex);
++
+ 	error = ims_pcu_execute_command(pcu, PCU_RESET, &reset_byte, 1);
+ 	if (error) {
+ 		dev_info(pcu->dev,
 -- 
 2.53.0
 
