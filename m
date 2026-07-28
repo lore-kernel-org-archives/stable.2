@@ -1,67 +1,43 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF5D37C933;
-	Tue, 28 Jul 2026 16:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165EE378D70
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 16:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785256035; cv=none; b=t2B9/Dy5uYf1fAO3lGTISMrPY5OpIyxKY1Gj1tbSDQR93WQujklrQQQ25mxcmOjGL3iepYNLIBS2XVmkCgA57lyUVlLdnS54qSxMpBrNWRq0iokuQg/2AHmUoy14K/a9/w42nm+aWDvUvuAWUtF7bApbow3gzzk5r7m5S/rraeQ=
+	t=1785256188; cv=none; b=RbcZakFzJ0sbb2pz36RHaY3aT5vQK67mVWmogZ2mzd3mqkGRe9DgVE3LP+q5O9J7W2wRKll+dLWEKqeZmpar99ZRme1hEzi5Ml9vUvZvMAUug11xfpTiRxeGfZVuilR0moDdNdnq7f4FUKRIgE6gPjkXqRY+sWY2AESGmeyaEdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785256035; c=relaxed/simple;
-	bh=RcbDJ1VrlYEZt+bPu1zapMNGaKRvqi04qbrj6d3yv0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o1DvrV7NhOgRisS+n57CpxZnRmUJTe+iDoP8lcfaGT3MBRNKtWDdBO/JYUoKs7XfHS2e1nlueTj+3JmPD0WPNd4CL/z5RNmCryYHJwYe55n34CkQPF/JF89PR4O1B0Sk/t8VpoBltNkx3wFVQH5HjplBH/YqI5u4caaT+MZgZ2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=s++CucMZ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785256188; c=relaxed/simple;
+	bh=d6SXg0AA7YjB2C9MTvxebLj9DcfXat0ZxXmbKae95iE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kS3rIIEOK1Gyswa8Kz1n8oz46mqmdiUuzWti3ihDykHlAJdm13tp73VHJFuG6Mh2sPBsRLdz3U1Qmzhg6ILEJ7Evv6XhPPLLo2pdCKG+JjWBy7siYvL1Gw9fRngRAl2CIFcqCxV5/HCnEPggYJtM8hgvMc5KUWJnKfSHeG1fqAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODp0DYE5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="s++CucMZ"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SElv8H1501356;
-	Tue, 28 Jul 2026 16:27:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=rm5v6wxQF6+dLXgeL7Nvzy6nUOYLLucaazKWwJZVa
-	js=; b=s++CucMZVzKV6DzjmkzW/2ftb0+mIdcOTTFI6Dlt2e4fogqWTg8YFwADo
-	6gTj5ETYbBogvIBjBVN+5CG9Ivk+3S9J0VuF8NgeA1ZO4DRL8Gm2t2s3Hzr5YxIB
-	EDUDqD5598yMYE2QZU1MP3kNg75q5MeSptn3bU4eHPLjssyWN59d6fmjiT4wudge
-	mN0Oz1dBihBB8SZpe+LV/X2JApUQ0Z12Tba6Ruzxn+NCl/DxuVMCP2utDbc6doTX
-	FYxEagGPaOHDxFLR2XUpBafYvU9SCfIoDlagS9wykj0p7gMaMHlCUM5GwhZHDUkt
-	5HmYzDUrdMXfid3SuNnIvqFFu/ffQ==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuwcwqtw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 16:27:09 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66SGQJRw025158;
-	Tue, 28 Jul 2026 16:27:09 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn7uw2w6u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 16:27:08 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66SGR70l37093948
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 28 Jul 2026 16:27:07 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 956F358055;
-	Tue, 28 Jul 2026 16:27:07 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 182205804B;
-	Tue, 28 Jul 2026 16:27:06 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.138.160])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 28 Jul 2026 16:27:05 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH v2] s390/vfio-ap: fix stale pqap_hook pointer on error in vfio_ap_mdev_set_kvm()
-Date: Tue, 28 Jul 2026 12:26:58 -0400
-Message-ID: <20260728162705.2631004-1-akrowiak@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODp0DYE5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E1C1F000E9;
+	Tue, 28 Jul 2026 16:29:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785256186;
+	bh=651/731/638fIAJ/NP0I3B3hd5paXx9p2VgDkLo5jC4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ODp0DYE5ryhhuk14Yhu2TGyzQ5BNiUAPyw15chLzqkmYAw/fy/dGHx9BeZzCLuXz9
+	 pD7Avuvsoi0v61Hk2iw28AFq0jSN/SI8gQmrsNFaOWLexD7/b8nhEauxsvfWyMLUwJ
+	 fca6h+ucUy+T9vDkLVPA2K2E9yySud7FFRDgkI7YeokNv1eW1l9SobEJ+B3PTkWRJH
+	 Xr1nfjq8Rkt9eO87CzLhPA6YEuIBIw0gsqP47+eACfo+dpdjVTyNGw54HpJEPW+8ey
+	 GIefBYrzpR64NmKLByJc8dM7nZXl60P5sSLy5X2UCuzy+dOHpiv1U85OXzU4nPq52i
+	 9j7EE/wr5WPqg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] gpio: mt7621: avoid corruption of shared interrupt trigger state
+Date: Tue, 28 Jul 2026 12:29:44 -0400
+Message-ID: <20260728162944.99404-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072039-grip-phony-0a5a@gregkh>
+References: <2026072039-grip-phony-0a5a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,111 +45,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: aAnbthLkoGXyXg4QoDfp-C4gUh5R1ZYy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDE0NCBTYWx0ZWRfX9YUE8HCWtdM7
- RGtyBZ6pqFVvgnrCQfkOgUiv2ccClcfgHhGchbgMRsFB51V2lqQYSb42ucAtommKyjCPjqwxPK9
- QUrAbcoFOX33Pr7dqYz1vC/nvSsArtY=
-X-Authority-Analysis: v=2.4 cv=E/z9Y6dl c=1 sm=1 tr=0 ts=6a68d85d cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=nNqZshfXTVdLzTE6bdUA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDE0NCBTYWx0ZWRfXz1b4Ox5LVctr
- j7uWB7+pEBdLbClc/enWurkOlET5L9ECXgYyKkcgfJY0kBEC63uOsuCSVz6xp9phOdqd6l2bXnT
- cnc4wSq2ZTnQmt6nMnTo74uurB70amAsD/E2NHxyvfveE6Exatrtq37F7TWj6uBBgEfQd2AuEAg
- pen8AHHvVn/BfBHloVXVGh4gILrdY2aZPtQ+K4oM3gZKpQO7SOA+9EJyG/nByy5NzyfZfsdCKIr
- lVssO4ag0SFPuSVh1AifEaIFr6fg4svOT++W6XjQwBEeuGaS6AMlKtegT23rGs3/twU/GsulStR
- ZFeATCkmu4zyyBHxvWEAMLe1mr7ObOYo3UnUY55kJlGSuEU1Er7VNtsY0QfX8EyPgrehB0VRaqU
- zj4fnYot3qMUZoC1qDX7lJJZjkdSj0/qDS3c5MUVDNsYQ4b4hz4vFKO7ApR2cBXKki8+B2Ytl3M
- 4B5iAS65qq4GmCeklbg==
-X-Proofpoint-GUID: aAnbthLkoGXyXg4QoDfp-C4gUh5R1ZYy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_04,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280144
 
-In vfio_ap_mdev_set_kvm(), kvm->arch.crypto.pqap_hook is set to
-&matrix_mdev->pqap_hook before the update locks are acquired and the
-mdev list is checked for a conflicting assignment. If another mdev is
-already attached to the same KVM instance, the function returns -EPERM
-without restoring the hook pointer, leaving kvm->arch.crypto.pqap_hook
-pointing at the failing matrix_mdev instead of the mdev that legitimately
-owns the KVM.
+From: Sergio Paracuellos <sergio.paracuellos@gmail.com>
 
-Since matrix_mdev->kvm is never set on this error path,
-vfio_ap_mdev_unset_kvm() will not clean up the hook when matrix_mdev
-is later closed. If matrix_mdev is subsequently freed, any PQAP
-instruction executed by the guest will dereference the stale pointer
-through pqap_hook_rwsem, resulting in a use-after-free.
+[ Upstream commit 1781172526d1092323af443fa03f00e6de560401 ]
 
-Since kvm->arch.crypto.pqap_hook is only set in the vfio_ap_mdev_set_kvm()
-function and is cleared in the vfio_ap_mdev_unset_kvm() function, a check
-for 'kvm->arch.crypto.pqap_hook != NULL' is all that is needed to determine
-whether it belongs to another mdev. This will alleviate the need to iterate
-the matrix_dev->mdev_list list to see if the kvm object is assigned to
-another mdev. This likewise eliminates the need to hold the
-matrix_dev->mdevs_lock while iterating the list.
+The bank-shared fields like 'rising' and 'falling' are modified using
+non-atomic read-modify-write operations. Since every gpio chip instance
+represents an entire bank of 32 pins, if 'mediatek_gpio_irq_type()' is
+called concurrently for different IRQs on the same bank a possible overwrite
+of each other's configuration is possible. Thus, protect this state with
+'gpio_generic_lock_irqsave' lock in the same way it is handled in irp_chip
+'mediatek_gpio_irq_mask()' and 'mediatek_gpio_irq_unmask()' callbacks.
 
-Note that the 'matrix_mdev' pointer retrieved via the 'container_of' macro
-in the 'vfio_ap_mdev_open_device()' callback will be available for the
-duration of that function because 'matrix_mdev' cannot be freed while
-'open_device' (which calls the 'vfio_ap_mdev_open_device()' function) is
-running.
-
-Fixes: 86956e70761b3 ("s390/vfio-ap: replace open coded locks for VFIO_GROUP_NOTIFY_SET_KVM notification")
 Cc: stable@vger.kernel.org
-
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 4ba9c3afda41 ("gpio: mt7621: Add a driver for MT7621")
+Signed-off-by: Sergio Paracuellos <sergio.paracuellos@gmail.com>
+Link: https://patch.msgid.link/20260626060112.2498324-2-sergio.paracuellos@gmail.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[ Changed `guard(gpio_generic_lock_irqsave)(&rg->chip)` to `guard(spinlock_irqsave)(&rg->lock)` as the generic GPIO chip lock does not exist in this tree. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/crypto/vfio_ap_ops.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ drivers/gpio/gpio-mt7621.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 44b3a1dcc1b3..b0a038faa93a 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -1821,26 +1821,25 @@ static const struct attribute_group *vfio_ap_mdev_attr_groups[] = {
- static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
- 				struct kvm *kvm)
- {
--	struct ap_matrix_mdev *m;
--
- 	if (kvm->arch.crypto.crycbd) {
-+		/*
-+		 * Taking the kvm->arch.crypto.pqap_hook_rwsem lock while
-+		 * holding the update locks (below) could result in a
-+		 * deadlock condition, so let's hold the rwsem here while we
-+		 * check and update the pqap_hook.
-+		 */
- 		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
-+		if (kvm->arch.crypto.pqap_hook) {
-+			up_write(&kvm->arch.crypto.pqap_hook_rwsem);
-+			return -EPERM;
-+		}
- 		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
- 		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
+diff --git a/drivers/gpio/gpio-mt7621.c b/drivers/gpio/gpio-mt7621.c
+index c3658a597a80a0..bf08f6894ae063 100644
+--- a/drivers/gpio/gpio-mt7621.c
++++ b/drivers/gpio/gpio-mt7621.c
+@@ -153,6 +153,8 @@ mediatek_gpio_irq_type(struct irq_data *d, unsigned int type)
+ 	int pin = d->hwirq;
+ 	u32 mask = BIT(pin);
  
- 		get_update_locks_for_kvm(kvm);
--
--		list_for_each_entry(m, &matrix_dev->mdev_list, node) {
--			if (m != matrix_mdev && m->kvm == kvm) {
--				release_update_locks_for_kvm(kvm);
--				return -EPERM;
--			}
--		}
--
- 		kvm_get_kvm(kvm);
- 		matrix_mdev->kvm = kvm;
- 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
--
- 		release_update_locks_for_kvm(kvm);
- 	}
- 
++	guard(spinlock_irqsave)(&rg->lock);
++
+ 	if (type == IRQ_TYPE_PROBE) {
+ 		if ((rg->rising | rg->falling |
+ 		     rg->hlevel | rg->llevel) & mask)
 -- 
 2.53.0
 
