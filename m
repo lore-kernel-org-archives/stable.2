@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C4C7262A
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:25:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06FC331209
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785209160; cv=none; b=UYvgP+iNGFqw4et5b5HEzPTAgoTnrN9fGBSOYIubTFEx2zq9TbUKxxUUucsNJlROL6c2QJ2Ywsd9greG4nzgQN4tP0JkkqTiHfyB5neVsCVH2w1licNtFC9Ar9CNN0xheT5rfdItP25O611sqJcpELiFue+A6rqVSThWMNQKDU0=
+	t=1785209162; cv=none; b=OqqwAXzKuFT0F8IyXUQCRabHsFtfgeeFL4eP9pW8Q94S4ussQYG/Ma4m2YpJ/OqYnlitpHSbEVdYLiBOJFYLFjQPNHDlh9Nw45InMcO71tOM8Zfas56vgvIt+yquNZTft0u3favozAfIMQOqXznMhcwcSw8pD4nTtPdlVtSvyJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785209160; c=relaxed/simple;
-	bh=iUXQFqbMDycMexnJ9NjJ+eVWehn5GmB32Vz/eqswcbs=;
+	s=arc-20240116; t=1785209162; c=relaxed/simple;
+	bh=D/yF83XizwkPQijQ7Wrq14qk8SLu3yNIBmioE6c1yK4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qMeUeQAeZFVVfmiJJMD4QxotxOrsoxddQjdAYaj9VqoubqatoKSXFSAOOfpL4xG/V8cRLR7JCM1rHR19M2+QBCjYMuiPr6mLtiG0D6jXxxq+JL6/yCNqkwNJ5S1pjfKItKDyFp2CMMnn0ZgJEB0YhFWTxcpYvIS64zMRhHnyHEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JoTXLnsc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=V50NSIE/PB5ZtDeyoM+OJB5djRWMzaR8rmApZDce08MIeMrdhHZXat/LGOe4zMHWjxHgwjFJH18u0XnsZxnCvkfxViZpeXyopzF8ntmawDdPGgCh3f9GHHy40fMIEFdwzpEReyPFJURpbJCqjUbS2/OL7FLyLeFWD8YbWVjrqDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjFV/hSm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JoTXLnsc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E84B1F000E9;
-	Tue, 28 Jul 2026 03:25:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjFV/hSm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6E41F00A3A;
+	Tue, 28 Jul 2026 03:26:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785209158;
-	bh=o8XIdphOFrygSRNFL1fR0pla2Q8Seqxp4bxtnIGMFuU=;
+	s=k20260515; t=1785209161;
+	bh=QxW+VD1B7I1GLmLLMhLaF1q0XtojyFjX6oh7vo5ROco=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JoTXLnsclSQprFQ/tnVzBIRs8+KVvnPCMA0mNsK2mNZx6sfoTB78hhN69klZ6obQZ
-	 ptbB5YBlmKSQ7lQJrHVdYgfFBuMB92SgwrRuSKLGgsixhWmxQ6OKYdWBhyixE2HaLQ
-	 3alxdi4OPInMIv9fqR/9tWd2HuWTO16ciynXUH+sBfg4lu+6bDDR6zgUXmOwN1YQlR
-	 9RrM82RWpMJBxPNI2+dIDqvHuNJN+XYeVp1IMdnxZrWl8i8yaypath6OCx4YQ72tql
-	 VkmO245KsIr2RyMgah3F7XljCrpK8XwWWGg5VHgkpElk3Q1RtzE24m80ntNLurBlqX
-	 7QWS4g66mtAyg==
+	b=VjFV/hSmwV+KYxPu8AtxFasvHVK7YBaWlTXGYIYtliG5xFcIT1GNSfwcDQFSmkzeH
+	 NZUStv2NkP6TOAbX7lI7VeWjGyuoU4SheDuR+9M7bZp0h+eTYQpajiSUzt5gCvS1Wm
+	 11MHR5rHgH7hsFxVwNgayDWd8oVjDvEqEPfDCNe2J/vAgc5uMNfTRm+lH2iKJ+gXXX
+	 mle91dbCMfjvK3csKxa4CRzAuskcOd8Laspku0sAisDDwxmwGhVN030aViBhe8hl/Y
+	 0CQ15XGAoj5/hM2vibCIzgHHsyC5n40E74I3gWUY1EtL7Gygyp/ha5fGFhn+qkRIVr
+	 qXanMZtZNLGRQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com,
-	Jann Horn <jannh@google.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Al Viro <viro@zeniv.linux.org.uk>,
+Cc: Dexuan Cui <decui@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] locking/rt: Fix the incorrect RCU protection in rt_spin_unlock()
-Date: Mon, 27 Jul 2026 23:25:55 -0400
-Message-ID: <20260728032555.3151279-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] net: mana: Validate the packet length reported by the NIC
+Date: Mon, 27 Jul 2026 23:25:58 -0400
+Message-ID: <20260728032558.3151321-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072059-washing-grew-2574@gregkh>
-References: <2026072059-washing-grew-2574@gregkh>
+In-Reply-To: <2026072059-automaker-racoon-e003@gregkh>
+References: <2026072059-automaker-racoon-e003@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,109 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Gleixner <tglx@kernel.org>
+From: Dexuan Cui <decui@microsoft.com>
 
-[ Upstream commit 89038cc87d80c77e7aa6f42a64b2573b74af339f ]
+[ Upstream commit 2e2a83b4998af4384e677d3b2ac08565274279bf ]
 
-rt_spin_unlock() releases the RCU protection before unlocking the
-lock. That opens the door for the following UAF scenario:
+Validate the packet length reported in the RX CQE before passing it
+to skb processing. The CQE is supplied by the NIC device and should
+not be blindly trusted.
 
- T1					T2
- spin_lock(&p->lock);		rcu_read_lock();
- invalidate(p);			p = rcu_dereference(ptr);
- rcu_assign_pointer(ptr, NULL);	if (!p) return;
- spin_unlock(&p->lock);		spin_lock(&p->lock)
- 				   lock(&lock->lock);
-				   rcu_read_lock();
- kfree_rcu(p);			rcu_read_unlock();
-				....
-				spin_unlock(&p->lock)
-				  rcu_read_unlock(); // Ends grace period
- rcu_do_batch()
-   kfree(p);
-			    UAF ->	  rt_mutex_cmpxchg_release(&lock->lock...)
-
-Regular spinlocks keep preemption disabled accross the unlock operation,
-which provides full RCU protection, but the RT substitution fails to
-resemble that. Same applies for the rwlock substitution.
-
-Move the rcu_read_unlock() invocation past the unlock operations to match
-the non-RT semantics. This makes it asymmetric vs. rt_xxx_lock(), but
-that's harmless as the caller needs to hold RCU read lock across the lock
-operation. The migrate_enable() call stays before the unlock operation
-because there is no per CPU operation in the unlock path which would
-require migration to be kept disabled.
-
-Fixes: 0f383b6dc96e ("locking/spinlock: Provide RT variant")
-Reported-by: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com
-Decoded-by: Jann Horn <jannh@google.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Al Viro <viro@zeniv.linux.org.uk>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87jyrud75z.ffs@fw13
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+Link: https://patch.msgid.link/20260702041237.617719-2-decui@microsoft.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/locking/spinlock_rt.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/kernel/locking/spinlock_rt.c b/kernel/locking/spinlock_rt.c
-index 48a19ed8486d8e..2c0fd2c7a3c13f 100644
---- a/kernel/locking/spinlock_rt.c
-+++ b/kernel/locking/spinlock_rt.c
-@@ -77,10 +77,27 @@ void __sched rt_spin_unlock(spinlock_t *lock)
- {
- 	spin_release(&lock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 0249ba7e3b92cd..ec5d38164d41b2 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -1739,6 +1739,19 @@ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
+ 	rxbuf_oob = &rxq->rx_oobs[curr];
+ 	WARN_ON_ONCE(rxbuf_oob->wqe_inf.wqe_size_in_bu != 1);
  
- 	if (unlikely(!rt_mutex_cmpxchg_release(&lock->lock, current, NULL)))
- 		rt_mutex_slowunlock(&lock->lock);
++	if (unlikely(pktlen > rxq->datasize)) {
++		/* Increase it even if mana_rx_skb() isn't called. */
++		rxq->rx_cq.work_done++;
 +
-+	/*
-+	 * This must be last to prevent the following UAF:
-+	 *
-+	 * T1					T2
-+	 * spin_lock(&p->lock);			rcu_read_lock();
-+	 * invalidate(p);			p = rcu_dereference(ptr);
-+	 * rcu_assign_pointer(ptr, NULL);	if (!p) return;
-+	 * spin_unlock(&p->lock);		spin_lock(&p->lock);
-+	 * kfree_rcu(p);			rcu_read_unlock();
-+	 *					....
-+	 *					spin_unlock(&p->lock)
-+	 *					  rcu_read_unlock(); // Ends grace period
-+	 * rcu_do_batch()
-+	 *   kfree(p);
-+	 *			    UAF ->	  rt_mutex_cmpxchg_release(&p->lock.lock...)
-+	 */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_spin_unlock);
- 
-@@ -255,17 +272,21 @@ void __sched rt_read_unlock(rwlock_t *rwlock)
- {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
- 	rwbase_read_unlock(&rwlock->rwbase, TASK_RTLOCK_WAIT);
++		++ndev->stats.rx_dropped;
++		netdev_warn_once(ndev,
++				 "Dropped oversized RX packet: len=%u, datasize=%u\n",
++				 pktlen, rxq->datasize);
 +
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_read_unlock);
- 
- void __sched rt_write_unlock(rwlock_t *rwlock)
- {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
--	rcu_read_unlock();
- 	migrate_enable();
- 	rwbase_write_unlock(&rwlock->rwbase);
++		/* Reuse the RX buffer since rxbuf_oob is unchanged. */
++		goto drop;
++	}
 +
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_write_unlock);
+ 	mana_refill_rx_oob(dev, rxq, rxbuf_oob, &old_buf, &old_fp);
  
+ 	/* Unsuccessful refill will have old_buf == NULL.
 -- 
 2.53.0
 
