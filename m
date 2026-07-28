@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084BB3DA5B8
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:43:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AB53B19DE
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:43:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785253411; cv=none; b=tGbS/cb1nV3dkitRdlfDEc7HYf3UD+KPkfls02B2YbZ0TBwU/H65keQQTLGdcQYvPDVH1h1YmyRwv9lNKE+El4sq2UVaOBxiXou6dUrAeefxsKQwKR898KER8lJ1USNsAqSwF0dcJznvQbbuBjEaX6SyHMxYTv/EGE7EaGLfhe8=
+	t=1785253413; cv=none; b=lLko0S4U8gc8MR9UMasTwbsZRR3yxTZvwhb0XsnTskrwfX1tom6qq8cPAFhKDzAhWCT59kYGUlYkaGXm35TSFU2kEnIAuYFa4SBOzEigB431YJzKRbiZm1wqtVzdfKAozgM30bsQDRyohGU4Jwp2lOV1HAS2+zmhgS/O99IJxXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785253411; c=relaxed/simple;
-	bh=7lzBBpKl525xbuAgJ6D4I67MvimynDIy4ayRioThEbU=;
+	s=arc-20240116; t=1785253413; c=relaxed/simple;
+	bh=LylyFAlHSGBQn5uXkZ4ZbZWNSyG5Km3ZSDXpJQ/4I4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jd4kwsc7tqvFyskakQ5YGB/682BbMrNqw9WLEaXft5WkJxNwhP/LQwBstwB4kGeLpvjvF0YWu2SqSYVpj+R8YgNhatclWm5c3FRo1ejQ+n1khuHZ4g7VCO9T7F8lrtgIho9NFiG9Vucl1+E7DBn+wKUmR3ZgCf28pReQS3kAOe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TBVIVCtA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sA8/LDlFaWjBkcBjHeUzuekDJ+LRg7CAW0ikIbFKEWn2pMPTfb++jAD1/Ep5mxhnBzxBCbrrW4X7rzm484B4yPN/sdS98+vKA7F3JWNAc4ArV0ZHaMNRx2ydMJ5wSSwslEYQLvBDmTcV41/419P/m0wt4jaLdkWLj7vb58sDHJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4QNfHaK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TBVIVCtA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29581F000E9;
-	Tue, 28 Jul 2026 15:43:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4QNfHaK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587121F000E9;
+	Tue, 28 Jul 2026 15:43:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785253409;
-	bh=0rhgh2pkY+6/FnbhaTKn2z4bPTLKFol613zVJTSkcYk=;
+	s=k20260515; t=1785253412;
+	bh=BNvAV33II6brkJ5jEhfuI7cLG6aVh6sx7ieUY8uTw60=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TBVIVCtA8qLNWUkG3CmzkUKZAeIQQWzFtbELXyYqb/H3Ic1nFq1/RAbCEnTcUB8eV
-	 ryV4ZMsySO8d3VDrVcF8V2PnzKc+btrQ87CWb7N/3WpUgTYf5A09QAq4+o2CuBVJo/
-	 iiNdir2rYeRAxUXlckQD+BMK/a7qmS4hS0g9lLSxiPvC3xua9BG0lx06jW0E1xbZt7
-	 2UD0wGkUMoG6pnk1aYIOeiUZjNzKLYL/Z9GwwWbFHA5cPHTYYK5oZgyOyaHWO0brFb
-	 FrHUfiP5uNtEk6BFUlCW0ZehKmPZur4aWap5ZQmUram5E7dWLcCvEuh3B57lpryWw/
-	 rGj9kwzcZlu+w==
+	b=A4QNfHaKLwx/GazwEhg/WRg1au1mEOvdOTkBhEY350kGsOPWWW0vfU7d/rIUkUXYo
+	 EtmrJoiY1XvrLXsQuUSXnl0EIYp9gbDpBTESh5YPmC98N/buPfYCF+iXUt+k0vCxPX
+	 fGqRI1CCD3ezq9YoavcCg9MWzEWwtXthgIltcbcKGR2YYgdBDn3SLoJoNhUFmcmxmq
+	 btQ7Eh8REKV1g3pTe21ojn6FYAoBlhN9wnRSahlhfjf/R48QFEjqrwUPp5f4LQnaU7
+	 bYIqtqPrbdVBnsdbwnOyi/0yoCfVbbbWSt1UiVwd6CQJMkDUTrapfJtlko/NWSiInn
+	 /PxEpTWZPkXOg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sergio Paracuellos <sergio.paracuellos@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
+	Xiao Liang <shaw.leon@gmail.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] gpio: mt7621: avoid corruption of shared interrupt trigger state
-Date: Tue, 28 Jul 2026 11:43:27 -0400
-Message-ID: <20260728154327.4192271-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] net: ip6_tunnel: require CAP_NET_ADMIN in the device netns for changelink
+Date: Tue, 28 Jul 2026 11:43:29 -0400
+Message-ID: <20260728154329.4192359-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072038-precision-carpentry-9449@gregkh>
-References: <2026072038-precision-carpentry-9449@gregkh>
+In-Reply-To: <2026072024-alkalize-reliably-1c7e@gregkh>
+References: <2026072024-alkalize-reliably-1c7e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,43 +47,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sergio Paracuellos <sergio.paracuellos@gmail.com>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
 
-[ Upstream commit 1781172526d1092323af443fa03f00e6de560401 ]
+[ Upstream commit 2496fa0b7d180b3ad356b514e7ff93bb14e6140a ]
 
-The bank-shared fields like 'rising' and 'falling' are modified using
-non-atomic read-modify-write operations. Since every gpio chip instance
-represents an entire bank of 32 pins, if 'mediatek_gpio_irq_type()' is
-called concurrently for different IRQs on the same bank a possible overwrite
-of each other's configuration is possible. Thus, protect this state with
-'gpio_generic_lock_irqsave' lock in the same way it is handled in irp_chip
-'mediatek_gpio_irq_mask()' and 'mediatek_gpio_irq_unmask()' callbacks.
+ip6_tnl_changelink() operates on at most two netns, dev_net(dev) and the
+tunnel link netns t->net. They differ once the device is created in or
+moved to a netns other than the one the request runs in. The rtnl
+changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
+caller privileged there but not in t->net can rewrite a tunnel that
+lives in t->net.
 
+Gate ip6_tnl_changelink() on rtnl_dev_link_net_capable() at its top,
+before any attribute is parsed.
+
+Reported-by: Xiao Liang <shaw.leon@gmail.com>
+Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
+Fixes: 0bd8762824e7 ("ip6tnl: add x-netns support")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 4ba9c3afda41 ("gpio: mt7621: Add a driver for MT7621")
-Signed-off-by: Sergio Paracuellos <sergio.paracuellos@gmail.com>
-Link: https://patch.msgid.link/20260626060112.2498324-2-sergio.paracuellos@gmail.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-[ Changed `guard(gpio_generic_lock_irqsave)(&rg->chip)` to `guard(spinlock_irqsave)(&rg->lock)` as the generic GPIO chip lock does not exist in this tree. ]
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260612085941.3158249-5-maoyixie.tju@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-mt7621.c | 2 ++
- 1 file changed, 2 insertions(+)
+ net/ipv6/ip6_tunnel.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpio/gpio-mt7621.c b/drivers/gpio/gpio-mt7621.c
-index 93facbebb80efa..212a5f57cfd2bd 100644
---- a/drivers/gpio/gpio-mt7621.c
-+++ b/drivers/gpio/gpio-mt7621.c
-@@ -156,6 +156,8 @@ mediatek_gpio_irq_type(struct irq_data *d, unsigned int type)
- 	int pin = d->hwirq;
- 	u32 mask = BIT(pin);
+diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
+index dda90c77f89840..f323bb514ba4fc 100644
+--- a/net/ipv6/ip6_tunnel.c
++++ b/net/ipv6/ip6_tunnel.c
+@@ -2113,6 +2113,9 @@ static int ip6_tnl_changelink(struct net_device *dev, struct nlattr *tb[],
+ 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
+ 	struct ip_tunnel_encap ipencap;
  
-+	guard(spinlock_irqsave)(&rg->lock);
++	if (!rtnl_dev_link_net_capable(dev, net))
++		return -EPERM;
 +
- 	if (type == IRQ_TYPE_PROBE) {
- 		if ((rg->rising | rg->falling |
- 		     rg->hlevel | rg->llevel) & mask)
+ 	if (dev == ip6n->fb_tnl_dev)
+ 		return -EINVAL;
+ 
 -- 
 2.53.0
 
