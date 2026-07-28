@@ -1,76 +1,72 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38813A543D
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 17:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A053AA500
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 17:51:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785259145; cv=none; b=dwNhOyvioKFbHA2T919Z0ivPGZskJdTcpApwQqFKE9QCkYG2VmmdOF39hNnUloKA7pwlJ/LLzIYyqKgWtB4gyAxKZudxB3LjLzMXgUdPIrJmQqVYYZJ9l5SQF02q2QiSc1zYyXLbCJjEf9o62qYVlhLDIq0SFhS8myxA+xluN4s=
+	t=1785261104; cv=none; b=ePlKF7ECup5zm1f+EdA1U0b3sijrCfXf9dPxcMHt9ggEWpRDFjzNHmJzUDWqvy77ZrOdyaVjGMFSIInC3aNVfBDfZ5Dfo/MF7ax64uCeoQAq05D51FSYlX6VRPv44qavb2dTZXtLBJUFCzBY5nKTETEKaF771bGs8F7rEwxkBro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785259145; c=relaxed/simple;
-	bh=58q35gsm75VKjrJGnslFmDrQrS7HP7Kcow/7DGjQSPw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VF4G0w31WHMC5xJ14kDhgXzlBypHpuW9vqz0+VaMQGlzYN42X3KIVKYN5WwJesSwkAog0eFreiZ3JcYyy6kYSFVztj37qVWZphMyXgrgGFEVf+envNM8KhjCC+Q9m40xslbdPTYfAvDmvqJthUPb1rQBKCiXd+Tf42C0U4mfnpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=StPDADHd; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1785261104; c=relaxed/simple;
+	bh=5EDgkKunk3EuSfc9T+Q1eBOxRVhrPV7cos5ouOKzp5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sd6/p1zgyn9rozLq9cLDO0xrCDV+pLVo0Cr4Ab5gy93IoV5N6yo3LMhQjxrNp+b36b6EexMDmOcP7LKO6tqSTU2tXNP2Y+K2wLuu0G1AFtU5cBNQSs3iqBFJGVIYyxhOsAbu6T+khdUjDmXq7K0BpmC/eS1ygPrFomdQb18KY4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qo+06caT; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="StPDADHd"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca00f126b7eso2497520a12.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 10:19:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qo+06caT"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ce98cb8165so1146175ad.1
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 10:51:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785259144; x=1785863944; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785261102; x=1785865902; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/O2Zmu2kurByR3i9KxvOYezmFQ5bge2p+dh6NK6wa7s=;
-        b=StPDADHdoL7cFMf2WCvPhu6ajg4/dr2V4oxelRb1GK4jnmbmB2OtNkvkHOgQt089Ca
-         fOVyEITqXUEK4haJozy5VAd7yhvxDvGWyabcqav8M2+NutmI6MFOUso6lb+cPKiB41aZ
-         Z0mJ8GT9XRFRdNhU7VJr3uwebrfGIZWVSit4fqTebHzW2Ley4kg4SkEefw3/WUkBhxg+
-         9aoLYIFHeM+WKN2iJ5swG606gsuU6tB6F/23RtJO2bb1gSujtqIVQOHnzOA1DAVybJ6y
-         U+xKVn+J2AvuSLQfH2nL6suZQVfNNkLsTnnPSWZMTeAD1NquZ1JVQsEHkKiQYRcfW2NB
-         GVvg==
+        bh=i8W8t5tftK1vDc1qsPICPRCSPFcmSyMyPg0AlpPcMPM=;
+        b=Qo+06caTyNkyw/eUBYudUIJXtk1EcvVpR0hsa2ltj2F798CPCXT7y2Pp32XLLzzZpP
+         KP4uBTyTHP46yJpef+bGwyojaLDjvGZJrHPOHAC1wmPybdyGgRViAYj35bQebHr6CtLA
+         tepBfHrZftmmbcj1CX6pKbjr5HWCoA0opMWavve2aDck/yiVDPNnnj9Q8rykyPMkp3qK
+         mQWf4uoIsoGJerp27kCDZIoSoez7iS3PV3pt5g/Swgau8FNPuWjEaSYbKe6GBuFNeScG
+         bX8oKjzmwvaVkIalbc7eVWAJxMtsZeOZyzO56lMAGipdUDfWNHJorqIdRLCPOM7dtte/
+         cCWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785259144; x=1785863944;
+        d=1e100.net; s=20251104; t=1785261102; x=1785865902;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/O2Zmu2kurByR3i9KxvOYezmFQ5bge2p+dh6NK6wa7s=;
-        b=Eb7tLwY2r8h+1F4mYt8dDf5wT62LT7ZdZSxDMr6kUX9u6B7juQIi/EXIts0fpbBnoh
-         yhZFCUIW3B15f52o23s39qmuCBeP4/nOZaBLzC6SUXoRwT369ii9q1Ugd6vSPt5IZf8X
-         wtnpMj6SsIB8T2iufJfN+aEtjsQPkrK4xeGqNVsvJjvIiTA6XshJNsI1IqXmtvApXh4j
-         Lr0Efsl0Jxf7S1ykqgP1t5i3p4tOmYz/ijEg0GmlEbKm+CCaaO90oyRSNSpLxUGSu+Pr
-         Mbx1nvzMkfDdKkPh3U0ETCp8CkLzU11cU5IkzfrIO6RqF3B5u0JjkFnZ7YhF3IKshjnb
-         7C6A==
-X-Forwarded-Encrypted: i=1; AHgh+RocAsJbMO9N0rBuxOEYbuNMT+8CfuZCSQOr+OOyHnJtPHa8BWqwNUGunvXF8K3g9Izvp4qAsjY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCa3Tqy+b3kT9nnm78+x7lHNGiVQ9tKMlNts740039MbJhq3/4
-	HeuPxPWG3AGIC51B+Dxpujd+l2OS2SoXuaJkH/RBReVRviKyWyQ2x1ym
-X-Gm-Gg: AR+sD12ZO7x4C4gNrD9AON6rwdoZxjmTdoIIb1/iwkpwN//nmmPdIcm1ZIrDl9tGuAz
-	uwTtTu5g4NhGZhv5KcruMauUXtOXva+C2qsCONiImkA7hhs52DfvY5L6GgKkL1CIH9wlDgXwzTS
-	TAUNu7EtU1TSOgTIVgv2eil193WlYgiuktOpQmgFo4oxqoeg9hB7Pu2P37WA7Nu75ZvwCFCBwrh
-	EoLMeIwuhKgklpm/ScthDg4771+jVsk6lU9JYkrcQ2g7rsFysEn9ZbyLiM6br6g8dh0Bb7Uo3kk
-	zk+K6Pew5aYEfMJdmwd2YqI6dqSSz2/WeY3JteL/lpCTcGAj3ycFfT+zfyLF32oD5GqGmUs2Wqz
-	irCioCreeBjuXpTmMPeqpcnEHWSdl+/OSvJucEkuXuvM3rfHMbxGBu7LZwa4n1rlcHGR9B0ejAT
-	aLqhdkf1Qe999NrNHBeDfBxyMTP7XlrgVk9a+HH2hmi8FoGqphrmjhUAq5+gXOctk1Ji6FPIehU
-	eP7lVHeTF5NMAn15mPTFypR8hNCznXR/HhO
-X-Received: by 2002:a05:6a20:7344:b0:3bf:f795:f0f3 with SMTP id adf61e73a8af0-3c8ba5f61d0mr3924584637.54.1785259144024;
-        Tue, 28 Jul 2026 10:19:04 -0700 (PDT)
+        bh=i8W8t5tftK1vDc1qsPICPRCSPFcmSyMyPg0AlpPcMPM=;
+        b=LfU0osmKtCSuN/v/qB5xE2ZXu3BbDTzrPaYx4mLLfsCr5yg6pNcEtHjx+8SSHGGwHU
+         7VnPdI/qaAY5WTZFX14c56aDd1Qd7KtpLow9AXB7yk/eLfx55o9zGFbLPWRHZ+ZZhwLr
+         fwBMrI/rPFvdTQ7F/eu6QeSrl1zft0Qfb+bsw/cqlcH3nJte1jPwMaIE6BNUUXw0UuNP
+         UTYdNFPtTLbYvTKRZ57c8yQ9dgFxl3pE66IxpgV0PHCsIEJFOU2dpI/ORTkvbtTfUzmu
+         elFfTafxfETWNceBBrJHaMWkiPssUN5CzUg7l876bMZ/KtdI6eawjwlEa9ysTZc9bAzj
+         imgA==
+X-Forwarded-Encrypted: i=1; AHgh+RoyHxbyHQgFOl+Lt98z1/k198pAjdEnAhS6soPiXjQy3yrqwWkjSLIXZH9frrqyqq0TmQf5cZ4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy36flZyV0KZCZKLL9VcAzpSPPy3BLc5kG39WFRod2VpNGWOObM
+	t0OZeonnOvbXgcYzlIg3lCYOUL1Wsr6ukQuPBecaXh9zsA+zcfGPxYJ6
+X-Gm-Gg: AR+sD13Iw2fOoqneJEEiThRRH5+SSMKYhTqp2HK5Ik6wIninPfD7E+dLpDW5I3wdZzw
+	L6996crfpTNM50TxkMbFl7RVw8bcwUtbvuH0/aduiluG9PrvLwr+AZhCFd6AbS+as1UpzbVE9w3
+	z9ZNAu4CedTKQsA8VQAhBUimPpV7M+6Mrq7+lMgLejD8S6piZUEPpOepwvtyIPHwUj1bBY5U6B3
+	rwBxLSAC5rKR+PiiPit/nchF5QD7ttj/MmlyKnNT5TwgPZhoMSOmpcaMPuuewMnIVNgviOnSbgV
+	ml+e/hrChUwSYTfrutP4B3aJ76/Zt3UXs2qkevmvrm2yNRgwbLF5BaXuv4DenaHoy8w2IqU1Cck
+	jua7NvGtjlb2y+vdRn9fis7/0AYczdGdsUaenYP3rb+bLeVk75BRDoHTFeJFRG7FFiYWVaFvtO+
+	R72w1RtTE/yq7SLmfbrENv0VmTgJhQQWgD2Njr4pL5vCgr3+WFb5ridN/R4gbzAFiF9J8wfivGe
+	6EemyQ9wEkI/IOMIJUsVxAs24WFEVZNtaxT
+X-Received: by 2002:a17:903:1848:b0:2cf:af20:4254 with SMTP id d9443c01a7336-2d015c9b78dmr40007835ad.10.1785261102038;
+        Tue, 28 Jul 2026 10:51:42 -0700 (PDT)
 Received: from localhost.localdomain ([2405:acc0:1306:9d5b:e192:4a0c:2079:ffb7])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e7262c23bsm649379c88.1.2026.07.28.10.18.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504cc63fesm777040eec.15.2026.07.28.10.51.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 28 Jul 2026 10:19:03 -0700 (PDT)
+        Tue, 28 Jul 2026 10:51:41 -0700 (PDT)
 From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-To: kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com,
-	rafael@kernel.org
-Cc: bp@alien8.de,
-	guohanjun@huawei.com,
-	lenb@kernel.org,
-	linux-acpi@vger.kernel.org,
+To: samitolvanen@google.com,
+	kees@kernel.org
+Cc: nathan@kernel.org,
+	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] ACPI: APEI: reject ERST records beyond the address range
-Date: Tue, 28 Jul 2026 23:03:56 +0545
-Message-ID: <20260728171856.60833-1-acharyalaxman8848@gmail.com>
+Subject: [PATCH] cfi: Ignore non-allocated module trap sections
+Date: Tue, 28 Jul 2026 23:36:34 +0545
+Message-ID: <20260728175135.65578-1-acharyalaxman8848@gmail.com>
 X-Mailer: git-send-email 2.51.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,38 +76,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ERST reads CPER records from the firmware-provided Error Log Address
-Range. __erst_read() uses the CPER record_length field to tell callers
-whether their buffer is large enough, but it does not first check whether
-that length fits in the mapped ERST range.
+rewrite_section_headers() initially sets sh_addr for every section to its
+address in the temporary module image. Only SHF_ALLOC sections are later
+copied to module memory and have sh_addr updated.
 
-Reject records whose reported length extends beyond the ERST range before
-returning the length to callers. This prevents malformed persistent
-storage from making later pstore reads allocate and copy using a length
-that was never backed by the ERST buffer.
+module_cfi_finalize() accepts any section named __kcfi_traps. A malformed
+module can therefore leave mod->kcfi_traps pointing into the temporary
+image, which is freed after loading. A later CFI trap would then scan freed
+memory.
 
-Fixes: f6f828513290 ("pstore: pass allocated memory region back to caller")
+Require the trap section to be allocated before retaining its address.
+Clang emits .kcfi_traps with SHF_ALLOC, so valid modules are unchanged.
+
+Fixes: 89245600941e ("cfi: Switch to -fsanitize=kcfi")
 Cc: stable@vger.kernel.org
 Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 ---
- drivers/acpi/apei/erst.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/cfi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/apei/erst.c b/drivers/acpi/apei/erst.c
-index bf65e3461..2ebe212a5 100644
---- a/drivers/acpi/apei/erst.c
-+++ b/drivers/acpi/apei/erst.c
-@@ -862,6 +862,8 @@ static ssize_t __erst_read(u64 record_id, struct cper_record_header *record,
- 		return rc;
- 	rcd_tmp = erst_erange.vaddr + offset;
- 	len = rcd_tmp->record_length;
-+	if (offset > erst_erange.size || len > erst_erange.size - offset)
-+		return -EIO;
- 	if (len <= buflen)
- 		memcpy(record, rcd_tmp, len);
+diff --git a/kernel/cfi.c b/kernel/cfi.c
+index 4dad04ead..3ee67b723 100644
+--- a/kernel/cfi.c
++++ b/kernel/cfi.c
+@@ -74,7 +74,8 @@ void module_cfi_finalize(const Elf_Ehdr *hdr, const Elf_Shdr *sechdrs,
+ 	secstrings = (char *)hdr + sechdrs[hdr->e_shstrndx].sh_offset;
  
-
-base-commit: 62cc90241548d5570ee68e01aaba6506964e9811
+ 	for (i = 1; i < hdr->e_shnum; i++) {
+-		if (strcmp(secstrings + sechdrs[i].sh_name, "__kcfi_traps"))
++		if (strcmp(secstrings + sechdrs[i].sh_name, "__kcfi_traps") ||
++		    !(sechdrs[i].sh_flags & SHF_ALLOC))
+ 			continue;
+ 
+ 		mod->kcfi_traps = (s32 *)sechdrs[i].sh_addr;
 -- 
 2.51.2
 
