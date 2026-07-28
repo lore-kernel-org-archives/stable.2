@@ -1,168 +1,135 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6454547142C;
-	Tue, 28 Jul 2026 18:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB031471D01;
+	Tue, 28 Jul 2026 19:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785265026; cv=none; b=UU+GP+JZvuGcLRCQrXTc4ZhJNwqGpKLc4exMbNY53zoAXZrhOkQrI+k/EO6WJJ7yb9L4m26Kkw0XWWWkjoP88RjAl6cJC0o6weaQAWieQj8eqQBNxCc50SYKbbCOyf5EbWr2uw3Loa3eac8Lg5w2PQChFFV+vMAkvJ/qG4W+RVo=
+	t=1785265387; cv=none; b=rChhvgqNaVDKETQ3j3D9ZxJ2Ao5tFpD9FUNpkNEhSIF92D16Jf121csJ91KkICbhXTL+Xdkz2u2g+yRdLhoeUpzalcNuXxiThS92qP9P60ip24BC+B/gbH7PE9Q8HxU/06guJb2gaQS7he+ZMHevudNkZo+O1k8NOAxNEECvNWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785265026; c=relaxed/simple;
-	bh=9cLTwVHMctlbC81lMRb3ehvoX4pKi6G/CGyNRApTdR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d2a8uYgy4ZqgCtrSoOYvFpZck9mA1VlK93arO9vu/nbYe+DqcMkAtpxz6k04irpApI2m93J6E3iev5Qdr1/RCChOdfej+y/NK4SGjj+mslr6A/vDxf8OTjr/ii57N5uUKEf931U9blHZzYuWDa/U9CdoLaI3OMYrHG16b+/u5ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=UAV00hyM; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1785265387; c=relaxed/simple;
+	bh=vgKNWEz2S85DY24aXbAC582NE0iZawXulTsEVaFU+uo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ibhaAeF1b5kPT22jPqW/X9+enMHYmMELZVVRUzFCyuXlooXUGQd5FYxz6cjCol7+K+ZJk/v/dZJOMnqXl+CmoNuW6uti628wUesXcaYwwN38wLFWtCfr/UeECWYMaKcwcK7tVJY5BI4fVlRRV7xNtccKntSCe18Hp0n3/yjyguk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/xhKUbc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="UAV00hyM"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 965E940E019E;
-	Tue, 28 Jul 2026 18:57:00 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id lPpiw9-R7rSR; Tue, 28 Jul 2026 18:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1785265009; bh=K8ANZvjK+WR77oAaS/Gnx0+rHuzltDRBEVrP/Com90A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UAV00hyMEcTOSTCozT880pkOruXnrmEU6tCFYOVA5Es9+l7yx4N5b6tjjMd1WJFwp
-	 Fln2lcET2WzsHdxZBY7bNNoB3mzgYFCiBBOUprPp8IrujR11/X5dei1DcmNJJQpv+2
-	 SqKb/orzxSyc5C3YVLPn+OWUes4ztfI+WdlTNVlEAtelxfZ6zr98zCGarJ0/ojLuW3
-	 WiGo1CozEl8Urvf29qf2Sw6uFSIAPXFV0LWVVa+zpiFHGTRsrX1ZvPDhGSbNGX3C6u
-	 TujiIHkXfc62xXrYQSMf1HfgW+deBgt1XGv1QFX8G6azOskOa+32cWbViLGIpihs/t
-	 gZO4t+Hb6yvijOsaXnP/ChdPdtB0Ap0QBiIZVfATGSyLck0VugkyFj/xpitPxKxV4f
-	 Q3yBJ2KLMfucRWxU0ChGwKD9OsSVTAOljZ6NYNDi1OxK2rOV/M2+86os990kTP0KlF
-	 1XjDgsfCxfAkeJd38W5AidH5OwmhttipCG7Np9j9D/XRUILHGbePxkEBIyo2hKoF9s
-	 bvxAddfXp6oi4B6qWTIMN5zNtTBJZ+gIVodb0e6WghkpBo+jQr1aDYJOA9b05pNnNm
-	 rsmCUoV/jQL5f7GWHHMoiRpbLssRr2YooMmSl9atX7T4UcjgTO09Hs51WOGAd9oVjJ
-	 p8RINGQ2TqUZc6hnd6SigTFo=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EAA1B40E02B7;
-	Tue, 28 Jul 2026 18:56:41 +0000 (UTC)
-Date: Tue, 28 Jul 2026 11:56:38 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: tony.luck@intel.com, rounakdas2025@gmail.com,
-	niravkumar.l.rabara@altera.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 01/10] EDAC/altera: Fix NULL of_node dereference
- altr_edac_device_probe()
-Message-ID: <20260728185638.GAamj7ZjiuriHIBjTw@fat_crate.local>
-References: <20260727132416.807230-1-dinguyen@kernel.org>
- <20260727132416.807230-2-dinguyen@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/xhKUbc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63DC1F000E9;
+	Tue, 28 Jul 2026 19:02:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785265385;
+	bh=+pfR1z05NTPFWfdFSQ0JuF5em6RSzjw4mvOAmMCMbj4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O/xhKUbcCdVoY66tu9JDYVPT5NzoLMi7b7MxhA3oaUu7nM8TZSw0Es+p51YGYxltW
+	 AfzW+EZt1q94wokngKnBu62sqk25+9UjsbzOtPJNERBH/e3zIRcC+mjVTFwoZL4rrb
+	 Zd67QJloCcoWErMUWvVo45MUY4i+3tEFQcJD4vnDaYjd/vltErj6FgmHWokUwheUSc
+	 APmaCYGhBakjexd+ya6zmUManlzcvZlLaywL6bAd85wNk90G48X6894NPynpWN4c2M
+	 s6SsbQPUpsZfT2/GYokgs9n/wY/OGpNWnxRttBgmA5hpj6DvImHaFd94gifqkJnuyR
+	 zI4Xnr5RwhiEg==
+Message-ID: <f0e39f91-8dd1-4d9d-8d4e-da5d608a7148@kernel.org>
+Date: Tue, 28 Jul 2026 21:02:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260727132416.807230-2-dinguyen@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mm-hotfixes 0/2] mm/huge_memory: fix huge_zero_pfn race
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Pankaj Raghav <p.raghav@samsung.com>,
+ Hannes Reinecke <hare@suse.de>, Hugh Dickins <hughd@google.com>,
+ Yang Shi <shy828301@gmail.com>, Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Hengbin Zhang <uqbarz@gmail.com>, stable@vger.kernel.org
+References: <20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 27, 2026 at 08:24:07AM -0500, Dinh Nguyen wrote:
-> In altr_edac_device_probe() dereferenced pdev->dev.of_node and
-> of_match_node() before validating it,
-
-How did that AI let you fumble that sentence? :-P
-
-> which could cause a NULL pointer
-> dereference when the device tree node is missing. Check the result for
-> a NULL and bail out with -ENODEV before using it.
+On 7/28/26 14:05, Lorenzo Stoakes (ARM) wrote:
+> There is a subtle race in the reference-counted huge_zero_folio
+> implementation.
 > 
-> Assisted-by: Cursor:claude-4.8-opus
-> Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
-> Closes: https://sashiko.dev/#/patchset/20260719211238.589402-1-rosenp%40gmail.com
-
-So the AI review for this one here is this one, I think:
-
-"This isn't a bug introduced by this patch, but can np be NULL here if the
-driver is bound via sysfs?
-If a privileged user unbinds and rebinds the driver via sysfs to a platform
-device that lacks an of_node, pdev->dev.of_node will be NULL, which would
-cause an unconditional dereference when accessing np->name."
-
-Can that happen?
-
-Have you been able to trigger it?
-
-If so, then the mechanism how this happens should be in the commit message,
-explaining why this fix is needed and why it is needed now, all of a sudden.
-
-AI is helpful in some cases but I would like us to sanity-check everything it
-hallucinates pls.
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-> ---
->  drivers/edac/altera_edac.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
+> The fast path atomic logic fails to account for the fact that the
+> shrinker (which drops the final huge_zero_refcount pin) can overwrite
+> huge_zero_pfn with the ~0UL sentinel value in shrink_huge_zero_folio_scan()
+> after a racing get_huge_zero_folio() installed a valid value there.
 > 
-> diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-> index 68846f583eeef..d6ca68d74f78a 100644
-> --- a/drivers/edac/altera_edac.c
-> +++ b/drivers/edac/altera_edac.c
-> @@ -710,9 +710,18 @@ static int altr_edac_device_probe(struct platform_device *pdev)
->  	struct resource *r;
->  	int res = 0;
->  	struct device_node *np = pdev->dev.of_node;
-> -	char *ecc_name = (char *)np->name;
-> +	const struct of_device_id *edac_dev_match;
-> +	char *ecc_name;
->  	static int dev_instance;
+> This results in huge_zero_folio being correctly set but huge_zero_pfn being
+> set incorrectly and thus is_huge_zero_pfn() and consequently
+> is_huge_zero_pmd() will misidentify the huge zero folio as being an
+> ordinary THP folio.
+> 
+> This can result in the huge zero folio being split and otherwise treated
+> incorrectly.
+> 
+> The solution to this is very subtle as there is an atomic fast path, and
+> thus ordering in weakly ordered architectures has to be treated very
+> carefully.
+> 
+> As a result, this series first reworks the
+> CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic so it is separated from the
+> refcounted code in order to make the subsequent fix reasonably
+> understandable.
 
-I know this is not something you should do now but let's pay attention to
-this:
+For at least somewhat easier backports, can we reverse the order?
 
-The preferred ordering of variable declarations at the beginning of a function
-is reverse fir tree order::
-
-	struct long_struct_name *descriptive_name;
-	unsigned long foo, bar;
-	unsigned int tmp;
-	int ret;
-
-The above is faster to parse than the reverse ordering::
-
-	int ret;
-	unsigned int tmp;
-	unsigned long foo, bar;
-	struct long_struct_name *descriptive_name;
-
-And even more so than random ordering::
-
-	unsigned long foo, bar;
-	int ret;
-	struct long_struct_name *descriptive_name;
-	unsigned int tmp;
-  
-> +	if (!np) {
-> +		edac_printk(KERN_ERR, EDAC_DEVICE,
-> +			    "Unable to get device tree node\n");
-> +		return -ENODEV;
-> +	}
-
-Pls write it like this:
-
-	np = pdev->dev.of_node;
-	if (!np)
-		...
-
-> +
-> +	ecc_name = (char *)np->name;
-> +
->  	if (!devres_open_group(&pdev->dev, NULL, GFP_KERNEL)) {
->  		edac_printk(KERN_ERR, EDAC_DEVICE,
->  			    "Unable to open devm\n");
+The spinlock+proper ordering should be possible without #1, or am I missing
+something important?
 
 -- 
-Regards/Gruss,
-    Boris.
+Cheers,
 
-https://people.kernel.org/tglx/notes-about-netiquette
+David
