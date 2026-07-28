@@ -1,162 +1,224 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011035.outbound.protection.outlook.com [40.107.74.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0BE466B1C
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 14:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785250387; cv=none; b=oX3RXG8v+ZXSUazpEcnDHddU+MnsENrgBJMZbh77sKnNBuTHqjum1UcGeK1I40/u2BLB5AY4u7THN/xJ0Nzpv72EdNth2fipfLBdbk9NNc2+GdDSKoqOaHv6EMZpB83W0WcrNT23QygdWfbDbWpjdRj/gJyVAtmzxniMBOPL+xI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785250387; c=relaxed/simple;
-	bh=qoMJ7XfxQqje3odPmthF4AzsD2sC3sVDf+3wDtA5s0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eZSU79MbBwq/ysoRM/rbN/HVmJPQmnpuj7xLToT/Bx4J6uXuwjQt/utAf2kaIOEpYqFeylopLWMVOAsaAopoLs1f5GdzLjq2nZXz+H/nHpSHgr24jD00IoYRKRXx1IYL/F4v//MBNdcs4OBmqfbnes4XwNaziJkeUYrHjrUGjIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bOOyT157; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hsCWgm3Q; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA7847A860;
+	Tue, 28 Jul 2026 14:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785250393; cv=fail; b=g5beoM0GIxgAG54A7F8SmxiMSRxbIRWmrHCYTHScYbUAlv28x7bIez2AirxLVXxNvI7CTyYF/zWPxzA4ZLlcjCUNXZEwlOkbpbUx2gjpWnpRET2VBfwB1BopofwinxU0V+PpV43m3gJU/5BF9pTT1xUkbCB7Ftuje5HX4RUyPjc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785250393; c=relaxed/simple;
+	bh=kvlBth2gqrCGfftC8+EDgdLErNmXtK/giiOxAJNQ45k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=M+uVE/X3dbq7RJqO2RWncrR3hc/ybtWgtUnFPltMhBO5M9IgF3ByEaxrxPpg8bHEUIalw0xBNqrhCmwIy2Lw2YDSqIi/f0IBWUXxopoKT9Jd70zmqhARMJmrMnAKZpX+nF+vtI6mLRnBGZz+OsuHXwTAkM7Q9bwlObi4YcHIP/k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=L9rL3Oqz; arc=fail smtp.client-ip=40.107.74.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bOOyT157";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hsCWgm3Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785250385;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vS5FrZdtVD7dlOeCODijrDZc+E5kS2K1TH7nZasBrgE=;
-	b=bOOyT157e7hDv/jUXflhkbA6pj/lq9H9up/zs99z7BQvFjWF3i928eH1boEO4gR03qYupj
-	cu7g3n0mEgPHgYyZP7oXfRg3PR9cISIag3+4l6Nn50prT4F94hSwavrogVQ8PeDpnTzZ6e
-	E/wKPwujFJmnTfOeUvkCzyFEbR7d0WY=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-688-_dutp8bRM8Sz-hIKb6mmzA-1; Tue, 28 Jul 2026 10:53:04 -0400
-X-MC-Unique: _dutp8bRM8Sz-hIKb6mmzA-1
-X-Mimecast-MFC-AGG-ID: _dutp8bRM8Sz-hIKb6mmzA_1785250384
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92ec91dc265so361240085a.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 07:53:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785250384; x=1785855184; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vS5FrZdtVD7dlOeCODijrDZc+E5kS2K1TH7nZasBrgE=;
-        b=hsCWgm3QWWj9XFeZFvrbW0mZykxJwmARF9HDaC/prNxfer2Bc2N91VNSyWQ0lxBqTA
-         fcHmpseJJvSn4g0Zr3XZvWTohrMKFJ1TiWi0i9f3niqA4/gM+jHquYq0FWxU0JrvXwpd
-         R1yFhG5V+auwjyZl5Tc3ZxkTklsMKcOBtT9xA5Kl0t7E+q9sL5QHfAebret973awFj6W
-         /AEmuheAaYSsxekkVnZroKRz/uPrE05VVBApEUEAAQWI1i+4FoJcS5GFtM0Cl/+D5JJU
-         wwH3ZJ446EIeAFpwa7WkAGLceJ8KV2v8Vg8n0B82G+baqRDO8VmcH0EzsUQvsK/Z9tEC
-         8rGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785250384; x=1785855184;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vS5FrZdtVD7dlOeCODijrDZc+E5kS2K1TH7nZasBrgE=;
-        b=BePWnk683JT+bcmKWgUQUuQNn2/dyUo2t0u3354q7nK3o0cPnPa3R3AvrhGgDnEfgq
-         hGom0mahIQdcDtSSRQmIKEB3TdnPt4Mo0kdgLE6iNjSIHNyq0/dVqiHRPP4gfS7hi47K
-         7MSlzjHUx8q3kd6/3jUpyo/pAsTglIJY4K8sS4l5rivfTEROj4UqeD0InQ/Bkmoha0A3
-         B/oBUjfWW8yh2AeV9kkKvwDnT1yIYMWW9nkWI/j34jKMuU++uVPiD4jYp0TWInS+YUN5
-         PgIWxSMfr5CySMKlEWRj4mFxZNaUYt8yePsI47VJYtHATFsBxOqZ2c6oYq1jbhqQNgIU
-         /ogw==
-X-Forwarded-Encrypted: i=1; AHgh+RpyfLxqYDvbhpVdYx1SHQaqyhvnBo6MbPlEWE1NWJTPJwcvaIYBq+83y7EFH95fRxHgM+14n6w=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJtquvmcfDufdsQSluWVjv4pwv6GudyRUILSeChS137BWP53Ju
-	DOzwX3oJuNLoaNKxjArPkFqWL8SG9wCKGHYMfgvkhGyCtf130X/7T8oJPRtm096BP0Fd1lxS2kg
-	Y4ipt0Y+rWVfY/oS/0L5yS8x3bf41OOGwltASQMHq0zI1zig1XsAAYbISbg==
-X-Gm-Gg: AR+sD13OyatViOfz/OBZ0hdMgQK/tHCgwzcgx2ZBRqIQYm9l0UKSQZwn+kVnOrgqMgj
-	IV98Okaj8bMqTy+/xnP17ic7EiCMC3P5smP0pdDGG8i8Y77otUdQu8fO7tk2bbVbCNmfXN+v1R1
-	y0atJiHnbSRjHhvFiG1/6vHch2yqdEOBbKwuLcC3Xd0IyZtQO5bMv6dsPiKnOhlj9VdCipYlGTf
-	TmGy+jVNACgOIYeTxYd9YDOzJ39p6ALuBtZHrl/ubfJZ2/Vrse7urvgeCT/sX6P8sfNYrJU3rmj
-	iAVaNt9UNBR/3sSt7V9LgZ3KkEDH5V/PNdr1oiur9qjsKOr7BXqErCBz+JO1OxAsVjGEOZCTZe2
-	3BDQt8atjC+F+nsWYBUS7rm9DNtmXeRY3FAM=
-X-Received: by 2002:a05:620a:2781:b0:92e:8ad6:210f with SMTP id af79cd13be357-93302640d97mr253740685a.8.1785250383734;
-        Tue, 28 Jul 2026 07:53:03 -0700 (PDT)
-X-Received: by 2002:a05:620a:2781:b0:92e:8ad6:210f with SMTP id af79cd13be357-93302640d97mr253735385a.8.1785250383149;
-        Tue, 28 Jul 2026 07:53:03 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de541ac8sm864956085a.16.2026.07.28.07.53.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 07:53:02 -0700 (PDT)
-Date: Tue, 28 Jul 2026 10:53:00 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Akari Tsuyukusa <akkun11.open@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
-	stable@vger.kernel.org, Chen-Yu Tsai <wenst@chromium.org>,
-	Miles Chen <miles.chen@mediatek.com>
-Subject: Re: [PATCH v2 5/6] clk: mediatek: mt8173: fix memory leak on module
- removal
-Message-ID: <amjCTJguiANLY0vj@redhat.com>
-References: <20260707074839.240676-1-akkun11.open@gmail.com>
- <20260707074839.240676-6-akkun11.open@gmail.com>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="L9rL3Oqz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vOTXuT8HppmAQNAQNhE6tDrrcvpKsoaGs/2caRptvmrLF47exH7EAUNMZqA1CYOih0G4SanycBjNjY1YETFSwLtC8onvu1EnAwO7Qbs+dFmzs8sBzmvjjwlnAm+FtMHLnkwrLhXbmd8n4u2ma0d8PzWXTeYpZrwkhDnhQKl5lgiX3nQ2CYqbaCKx6ng1GdpdSOxgUZsvIYPKKgxaV/xXdHd6KQaYlv4mYEP84UqdQiRkMEJYMPIclF4W8WzwVbuRL1+HcMt0aSs3nuhBFq8r2AuP1YxHRVv8r97uhbtqzRTR31jBpJWdbWID+rkBR/8mGxBu+ne9pVjGTfyrNaGLFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h+HJ9rjItoX+OFKhjknSpYmfQWB8Xj+7gWqgfiNHt6Q=;
+ b=SEOp851f2nsvcXEJjKjpSw0AuiMCWjFRhN87nRBaUug+pSNm0HYb/lBha0CXc3md0eHriTo/lexlXaRCri6OOV023tq5VxuhXV8/wMZQF4qpwKbFVmb6BIV3m8q8rUF2Ie3UnUGBwQ0Hhg2y+z9ToCa78a9nkgF7Ds5vXjqJPmA/rwfM+7JUJ/tstTrv8wZOAQ6Z/ZtEshqwBZCPx0zf8cdYWQAwEDdG8XzDPEb0GcXc/eg/boFX79NGJdqT80dPD1Rt/BIhbiBAFoH2K+WyWYlMmdPMtC7j2mrxIE00fWwLCcbYqoHpLI/vETaOAqamYSemIbmKbvPmSzV08jKA5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h+HJ9rjItoX+OFKhjknSpYmfQWB8Xj+7gWqgfiNHt6Q=;
+ b=L9rL3OqzBRiqB652kphO4DGM40usGh2Oz2t7FJzwMvNzDOAabCtsWOcQxYOx+uPfDm9RLF7P/ogPGNyUb1kZz784mtiMrJRcREVeC3VV1WdozKVqyHctJggTd7tpZ03OJWa6VC2ZXIeUuaEtqmaqqmJL/2S+xUUob1iKHrX7hhQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by OS9PR01MB16187.jpnprd01.prod.outlook.com (2603:1096:604:3df::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 14:53:07 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
+ 14:53:07 +0000
+Date: Tue, 28 Jul 2026 16:52:49 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Sven =?iso-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>,
+	Nas Chung <nas.chung@chipsnmedia.com>,
+	Isaac Scott <isaac.scott@ideasonboard.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Daniel Scally <dan.scally+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] media: rzg2l-cru: Align bytesperline to hardware
+ DMA stride requirement
+Message-ID: <amjCQbuolBw9M_U3@tom-desktop>
+References: <20260701165003.1495035-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
+ <amipz7WkKUsjxot_@kekkonen.localdomain>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amipz7WkKUsjxot_@kekkonen.localdomain>
+X-ClientProxiedBy: FR3P281CA0065.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::20) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707074839.240676-6-akkun11.open@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS9PR01MB16187:EE_
+X-MS-Office365-Filtering-Correlation-Id: a202c84b-166c-40ee-172a-08deecb7ef6f
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|52116014|366016|23010399003|1800799024|38350700014|4143699003|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ 43yBQqdwiGp8nLyRdHK5o/qTBw06VPhR789aUxtmmwrzEH3ueP8wm6F9OHYM77VWgReh6JK/IP8g8cA1oQKk7x88UfjEKj5cwhm8tAtCw/sPhag4G+9Lm/YqH714H742if6ky3Trsy5jizhH8n6GwF+LZ3cQJaAclqrd8PpGqgVQ4k9AQuqFkYl1iN6JNk7qtvRcGppBbKH5CIOQQb1Zn5nyqs0cuFDFpmZAxY7x13XD2up0wQBrQmIyUqZTA/MZ5bM6QoLsTmvZ7QVnn7BYpAlMGrw2Hjvx5qpF9681lbtbe9HKa9wUPR+PS971WtGAza34gdoUXTVGpSEhwFnwMKLC5tq3laZBKuHbQ9eBrajXa8hypIhofxNe7SsZM0WqJRiTjwA45YTI8tgUC/9s13jCHPvMXr9Fm7m4BXi0nFhYPuFOP6Cjn01eigJV1R143mS6qSugXgQPccpVjdufP3A+xzmGimD7qliRPU2x6vr/U28cpAePs0gb4/JZ3keILJtrHUMfmm2+bkDsRPSeu0zxnc8NoDXF/Kxxm3AhjTAZ3n83NGxsOmV5nF/KYtJYVNVJR1SlwNsVO8m2ET7ySBm6E0Ty8IjFA5WlBCP/YXKhP6EIcoqofiNzhCWlrmVlA/oTdaZzPWfoN++xTcjAsPlwav6LIfEDJi5qalsvUfUzeAgUcgk3cUBpM62QRDPGfLXReK0NVEL/cnf/ojR3BflY/9DBqYwmqreknuY8cKM=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(23010399003)(1800799024)(38350700014)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?421XapKkDDDBSDROeqQSlxpRwhh+HStNuorXIvWKFxjfGjTRZQdSRIiGymha?=
+ =?us-ascii?Q?bnG+PElVu0EV+X9uppkbL7HofeqDwX88kR5uIJJkL9nqJyrtO0nD3+mc2VEU?=
+ =?us-ascii?Q?K7/2K7pAXu2hSgynZFQqkPh9NL7cLyKSMBjDe3B4o2lO0FBhYmVPUQJ55wIg?=
+ =?us-ascii?Q?aFtiIXZqbPSFzG3+j60our3gHMC6pBURFXiTIJJiwc8ezQtZQWC0E954ptl8?=
+ =?us-ascii?Q?gszrjbOrwA4j2AavdXzd6BTnWUcRt2N8/41V2NRsnJu+p97XycIO+2Tj4vPu?=
+ =?us-ascii?Q?eA+Q0X5Zh9h4ieVvDClbCgRv63ItzDiBBfERegW+TwM88QIEotCi4wJt1UHZ?=
+ =?us-ascii?Q?A1bjTdSgV+cvcBl7kODvcIxursV9aSd8fIA+AmSGK5KXcD+uPO672PMThf4H?=
+ =?us-ascii?Q?J2fi8ExgokTV42/G0kBv2qzveiXGXRGW3R+7ciKEdykdJLJJYljNfcWYUbor?=
+ =?us-ascii?Q?mu0gixlYdB1jUcsM8DOzN6nn3vrfSJCFI4doP8Vdl92LGJj1Jnk6hKEjYj8+?=
+ =?us-ascii?Q?+UQwB3WvUJjaLg5YTzx2K1MWq3DxrFzYjKSc2S01RLzy3tUBVOZqbXY80nqs?=
+ =?us-ascii?Q?P0JDfnYTh680CaStXgiXnvTere2ybt11rGxfDhJHQuhKcXxWUy/c0UuG9nKZ?=
+ =?us-ascii?Q?mj+V1ZkgphOmig/B5ljW/Rch+AM5yo8ED3cQiV/Virb5wcTQWlyFWFbPp0o0?=
+ =?us-ascii?Q?86jgr2LCatZohZ8UfzlBDS9NMTJsUH/RjiNvxbk+yrRCZgcN96Ka9t6N9P78?=
+ =?us-ascii?Q?8jmIOOQR2L8UKEx8UgBymgbNAhJDpOfjBK0duEeLhTXMmYo8Y9wnSigPDXAU?=
+ =?us-ascii?Q?fmV00cNPM+H4+0UCoVluHOUbgGUSczdgtdUiF+BRZHufM1rK1ChdR+7qw9qo?=
+ =?us-ascii?Q?HD8W8iFDwxW4uePQ1E5B4gJEMqFy8+8zMVgo+DJpuyYQRK9h+M2M08qkBIS9?=
+ =?us-ascii?Q?6oaJuy20ioK6o3348cqVeMzToVKjb6xgj3wowpfWli4/2KTTh79zQJU9rn6j?=
+ =?us-ascii?Q?byO8nAI+2z1dEPsYWmCLLBHfWLh+qZ7G44/Fgggk+V+ziQYejJp+1GBl/s+Y?=
+ =?us-ascii?Q?KfOWA3hpXd7AKbudBfLX32Kyvtoc7+WIIiAYP6IpkyNhsN1iuW8lD8ZlZ+DP?=
+ =?us-ascii?Q?yjWUPYVkeV1hQdJfNFJWuaQrTTss12h6zQb6mj09tsUNjUpR+WamwtpB8DsE?=
+ =?us-ascii?Q?csf/mkKoNsIwd/alUgIX1fVnVGhHnzWhwLdQnfcwXhullGsT+59Pf485TfuT?=
+ =?us-ascii?Q?ewQp5jUp1g6VJQK5Kkf9LvL9twzKEfAQfLeDmxy1/Dq84zj7V66WVubXa9gQ?=
+ =?us-ascii?Q?CfiMLbszC2H6m8LcU9N5UuocyGGuxmZ92TtdF0xFNiuho8IYn3CYC5KNlq35?=
+ =?us-ascii?Q?w9oXokxJRlIMa97h8pdIO9DOUFTtE83QCvITHXowLEnSIGuP7pvRhYlXPBFt?=
+ =?us-ascii?Q?KINmruPh0CtKuVplfAPXrr5xWaFylvROPf1D/HA9s4SI6KRQ9XtgiB0wNPg5?=
+ =?us-ascii?Q?5MyJsxqk10Sz5sqxoDbdp5woYLrwUnyAKHa944e8/r1YeHsRkvrKvB77vdNI?=
+ =?us-ascii?Q?YNaPXPoMGyl6waB+sX84R8+uAnu/N6KvwSnVxcNZ51/nPW715JVIhzIXjX/T?=
+ =?us-ascii?Q?XwzUMEpblxdH55kbcbf/jVaMtqUgSKqt9MFM6stxiwGEuP1YkmG+Fb9Jas6A?=
+ =?us-ascii?Q?1ppO16TuBo4FtxPyJPDaeKYk/mMPpfKhEhH0HNDesh1u4WfBAUv4Z5yvMpyb?=
+ =?us-ascii?Q?zWDE8cmJ8yZC3ODwwXNTXkA5aVmm8la/PXQAXgH7EKPtu/djHQvA?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a202c84b-166c-40ee-172a-08deecb7ef6f
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 14:53:07.7390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6b+A2KohPnKL+bq7dlChlxNabzKiCIxmDG7TffFmaxs9R1PK7D+mFzGcv8uhlDt5MzGsMC9Voae+phm08R8IMqqI2r5EM+SEG4ddrxQuZ5dH2mCxKkn5beENCaK5ShJv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB16187
 
-Hi Akari,
+Hi Sakari,
+Thanks for your review.
 
-On Tue, Jul 07, 2026 at 04:48:34PM +0900, Akari Tsuyukusa wrote:
-> clk-mt8173-apmixedsys.c and clk-mt8173-infracfg.c do not call
-> platform_set_drvdata() during their driver probe callback,
-> but their remove callback calls platform_get_drvdata().
-> This results in platform_get_drvdata() returning NULL,
-> which leads to calling kfree(NULL) in mtk_free_clk_data(NULL).
-> This leaves clk_data unreleased, causing a memory leak.
+On Tue, Jul 28, 2026 at 04:08:31PM +0300, Sakari Ailus wrote:
+> Hi Tommaso,
 > 
-> Fix this by calling platform_set_drvdata() during probe.
+> On Wed, Jul 01, 2026 at 06:50:01PM +0200, Tommaso Merciai wrote:
+> > The RZ/G3E CRU programs the line stride via the AMnIS register, whose
+> > IS field encodes the value in units of 128 bytes. If bytesperline is
+> > not a multiple of 128, the division truncates and the hardware uses a
+> > wrong stride, causing horizontal banding.
+> > 
+> > Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> > replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
+> > which sets no alignment, reintroducing the issue.
+> > 
+> > Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
+> > info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
+> > v4l2_fill_pixfmt() unchanged.
+> > 
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > Cc: stable@vger.kernel.org
+> > Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > ---
+> > v1->v2:
+> >  - Collected tag
+> >  - Add missing Cc stable
 > 
-> Fixes: 4c02c9af3cb9 ("clk: mediatek: mt8173: Break down clock drivers and allow module build")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
-> ---
->  drivers/clk/mediatek/clk-mt8173-apmixedsys.c | 2 ++
->  drivers/clk/mediatek/clk-mt8173-infracfg.c   | 2 ++
->  2 files changed, 4 insertions(+)
+> The problem with this is that it requires v4l2_fill_pixfmt_aligned() that's
+> not Cc'd to stable. Can this be fixed first without introducing the use of
+> v4l2_fill_pixfmt_aligned() (cc'd to stable, i.e. in this patch), followed
+> by another one switching to v4l2_fill_pixfmt_aligned()?
+
+Ok.
+
+I will send add to v5 series before [1] a patch that fixes this
+without introducing the use of v4l2_fill_pixfmt_aligned() this I think
+can be done using:
+
+        v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
+
++       if (info->has_stride) {
++               pix->bytesperline = ALIGN(pix->bytesperline, RZG2L_CRU_STRIDE_ALIGN);
++               pix->sizeimage = pix->bytesperline * pix->height;
++       }
++
+
+Then I rework this patch into:
+
+media: rzg2l-cru: Use v4l2_fill_pixfmt_aligned() for stride alignment
+
+That just use the newly added v4l2_fill_pixfmt_aligned() as you suggest.
+
+
+[1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20260713080259.21835-5-tommaso.merciai.xr@bp.renesas.com/
+
+
+Kind Regards,
+Tommaso
+
 > 
-> diff --git a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-> index d7d416172ab3..65dc4489a09c 100644
-> --- a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-> +++ b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-> @@ -179,6 +179,8 @@ static int clk_mt8173_apmixed_probe(struct platform_device *pdev)
->  	if (r)
->  		goto unregister_ref2usb;
->  
-> +	platform_set_drvdata(pdev, clk_data);
-> +
->  	return 0;
->  
->  unregister_ref2usb:
-> diff --git a/drivers/clk/mediatek/clk-mt8173-infracfg.c b/drivers/clk/mediatek/clk-mt8173-infracfg.c
-> index fa2d1d557e04..8b69009e1965 100644
-> --- a/drivers/clk/mediatek/clk-mt8173-infracfg.c
-> +++ b/drivers/clk/mediatek/clk-mt8173-infracfg.c
-> @@ -128,6 +128,8 @@ static int clk_mt8173_infracfg_probe(struct platform_device *pdev)
->  	if (r)
->  		goto unregister_clk_hw;
->  
-> +	platform_set_drvdata(pdev, clk_data);
-> +
-
-This patch doesn't compile.
-
-    drivers/clk/mediatek/clk-mt8173-infracfg.c: In function ‘clk_mt8173_infracfg_probe’:
-    drivers/clk/mediatek/clk-mt8173-infracfg.c:131:36: error: ‘clk_data’ undeclared (first use in this function); did you mean ‘clk_gate’?
-
-Brian
-
+> >  - Fix s/commit/Commit/ into commit body
+> > 
+> >  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> > index 69346a585f9f..478264f26466 100644
+> > --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> > +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> > @@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
+> >  	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
+> >  			      &pix->height, 240, info->max_height, 0, 0);
+> >  
+> > -	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
+> > +	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
+> > +				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
+> >  
+> >  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
+> >  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
+> 
+> -- 
+> Regards,
+> 
+> Sakari Ailus
