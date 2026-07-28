@@ -1,49 +1,63 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0ED3E3A6B8A;
-	Tue, 28 Jul 2026 06:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0582615A86D;
+	Tue, 28 Jul 2026 06:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785218513; cv=none; b=WEBUxlDMLQe+PDtregRjGQj0gcfhNR58XcL1BEbxDYTui/IalkYfSTwalK88/9di4/q0MN9R9HUZq1YPzV20Y7r8DvcakGGOVNYYYbsCENmeg+yt8x+2aOL/nBT1LfIjpbc1lcUTRzSzat+fS4A910OCwRRxWoVa166DjybHCvs=
+	t=1785219153; cv=none; b=IWmrJS86Sf3Eknx0oByYh45Pnyp4NDORWnfYRg+Kpxo87ztJ+1tiWmdEg4LYh0PiGvNqXlamNn7yQErp/durol3FtW5w/pWUfkaCk3LOC/EIx0RH1hAe8OSJlS9drm2tqle2wYUHsfkZmJf0v34GpxWRqP4BzxwjyFNXH0mw6yA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785218513; c=relaxed/simple;
-	bh=SzxEyo/hYfX4/AUIHToFD3ppS8fz80XoVfp4+P0Fylw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GRXt7vSjc9mUS9Gm+8GbYDcInxoneR5m7xqCkoCfq0N3ZpmxhJdwyZT31MwPxAw8TyHaTle1A82micRmxAogqGzuwe9yt7JGd6CNpI9c+Lc4meio7eknK7CIG606pK9BpgcfkdzQE77jVwhdqciYNt+gsJZGOilDVBEO9plGrP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=hHEm5IPE; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="hHEm5IPE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=x5Iau
-	e0edy3YpK0ZIF+qvdQ8Y8pltM+AfCI526ouugQ=; b=hHEm5IPENXuyT9AMzk5xJ
-	BipJc6b02PqwzT2jLRfVCKKt30fhYLqGs9c+ZrrUf9fzzeDHIGJl3A4GQiSj8jUF
-	I+Ie59acw343Ae8nrd/m83Y7jsS6J89ecivsL/0Ugc8M6dssPARK9aSmHwukIQ8B
-	rlvZs++KKfHFK+5ZD9AqVg=
-Received: from localhost.localdomain (unknown [121.225.135.236])
-	by web3 (Coremail) with SMTP id ygQGZQBHGBexRWhqwyVEAA--.33059S2;
-	Tue, 28 Jul 2026 14:01:23 +0800 (CST)
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
+	s=arc-20240116; t=1785219153; c=relaxed/simple;
+	bh=TzpeiGOtf+olQCTX8lvCxsbTpkrRpVynK7QBdLJOquw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YicH1DGWzVt6UGZIDF8GVm3vAmr+FrMbQp5A+zROoyczYoWuJSbDLhC0QKN1LJgPPRWOlH3P+fLitYI/qLtkbxLmYvC2WByI+7Hn9H7crbj6ddI/PnclkGxNn4ncYH4VeF1MTpOIWlBD7wwV5Xw2CJFzm/xWha+QnPeC3Eiy5Q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 4ab61d8c8a4b11f1aa26b74ffac11d73-20260728
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_EXISTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD
+	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
+	ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:d0fcc5a1-cc99-4a43-8c4e-d954ce09fd9b,IP:15,
+	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:35
+X-CID-INFO: VERSION:1.3.12,REQID:d0fcc5a1-cc99-4a43-8c4e-d954ce09fd9b,IP:15,UR
+	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:35
+X-CID-META: VersionHash:e7bac3a,CLOUDID:51d3d2a7bd1d2c937029f8de8db60527,BulkI
+	D:260728141222NV3X2C1Z,BulkQuantity:0,Recheck:0,SF:10|38|66|78|102|127|136
+	|850|865|898,TC:nil,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk
+	:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,
+	BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4ab61d8c8a4b11f1aa26b74ffac11d73-20260728
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1319730571; Tue, 28 Jul 2026 14:12:20 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: djogorchock@gmail.com,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH net] nexthop: account nexthop allocations to memcg
-Date: Tue, 28 Jul 2026 14:01:11 +0800
-Message-ID: <20260728060112.30367-1-zhaoyz24@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.46.2
+Subject: [PATCH 3/6] HID: nintendo: stop device IO before hid_hw_stop on probe failure
+Date: Tue, 28 Jul 2026 14:11:32 +0800
+Message-Id: <20260728061132.299461-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,117 +65,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ygQGZQBHGBexRWhqwyVEAA--.33059S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAFy8Ww4fAry5CFyUZw4Dtwb_yoWrJFWxpF
-	WrA34kJFW3Jwn5uFsYyr4j9a1akw4vkry7CF1aka40vwnxKr1rAasrta4Yvan5uFy8GF1F
-	qFWqkw15t3yjyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9m1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2
-	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcx
-	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x8ErcxFaVAv8VW8
-	Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6I
-	AqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
-	Y4AK67AK6r47MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0Jj7VysUUUUU=
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQECAWpn2jQ2FAABsD
 
-The nexthop creation path allocates struct nexthop, struct nh_info,
-group storage, resilient bucket tables, transient notifier tables and
-per-group stats without memcg accounting. As a result, a task with
-CAP_NET_ADMIN can create nexthops and resilient groups whose kernel
-memory is not charged to the task's memory cgroup, so memory.max does
-not constrain this part of the workload.
+nintendo_hid_probe() calls hid_device_io_start() before joycon_init()
+and joycon_leds_create().  If either fails, the error path jumps to
+err_close which calls hid_hw_close()/hid_hw_stop() without first calling
+hid_device_io_stop().
 
-A QEMU reproduction with Docker confirmed the problem. A container
-granted CAP_NET_ADMIN and limited to memory.max=128M could repeatedly
-create resilient nexthops while memory.current stayed at 589824 and host
-VmallocUsed rose from 67044 kB to 231860 kB.
+hid_hw_stop() does not stop device IO, so hid_input_report() may still
+run and access driver data that is being torn down, resulting in a
+use-after-free.
 
-Fix this by charging the nexthop creation-path allocations to the
-caller's memcg with GFP_KERNEL_ACCOUNT / __GFP_ACCOUNT, including the
-per-group stats allocation added later. With this change, the same
-workload hits memcg OOM with GFP_KERNEL_ACCOUNT in the allocation path
-and host VmallocUsed stays flat at 67044 kB, so memory.max constrains
-the workload again.
+Add an err_io_stop label that calls hid_device_io_stop() before
+hid_hw_close(), and point the two post-io_start error paths at it.
 
-Fixes: ab84be7e54fc ("net: Initial nexthop code")
-Fixes: f4676ea74b85 ("net: nexthop: Add nexthop group entry stats")
+Fixes: 2af16c1f846b ("HID: nintendo: add nintendo switch controller driver")
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: Claude-Code:GLM-5.2
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 ---
-diff --git a/net/ipv4/nexthop.c b/net/ipv4/nexthop.c
-index 44fe75004cac..c8685c583579 100644
---- a/net/ipv4/nexthop.c
-+++ b/net/ipv4/nexthop.c
-@@ -169,7 +169,7 @@ static int nh_notifier_res_table_info_init(struct nh_notifier_info *info,
- 	info->type = NH_NOTIFIER_INFO_TYPE_RES_TABLE;
- 	size = struct_size(info->nh_res_table, nhs, num_nh_buckets);
- 	info->nh_res_table = __vmalloc(size, GFP_KERNEL | __GFP_ZERO |
--				       __GFP_NOWARN);
-+				       __GFP_NOWARN | __GFP_ACCOUNT);
- 	if (!info->nh_res_table)
- 		return -ENOMEM;
- 
-@@ -533,7 +533,7 @@ static struct nexthop *nexthop_alloc(void)
- {
- 	struct nexthop *nh;
- 
--	nh = kzalloc_obj(struct nexthop);
-+	nh = kzalloc_obj(struct nexthop, GFP_KERNEL_ACCOUNT);
- 	if (nh) {
- 		INIT_LIST_HEAD(&nh->fi_list);
- 		INIT_LIST_HEAD(&nh->f6i_list);
-@@ -548,7 +548,7 @@ static struct nh_group *nexthop_grp_alloc(u16 num_nh)
- {
- 	struct nh_group *nhg;
- 
--	nhg = kzalloc_flex(*nhg, nh_entries, num_nh);
-+	nhg = kzalloc_flex(*nhg, nh_entries, num_nh, GFP_KERNEL_ACCOUNT);
- 	if (nhg)
- 		nhg->num_nh = num_nh;
- 
-@@ -565,7 +565,8 @@ nexthop_res_table_alloc(struct net *net, u32 nhg_id, struct nh_config *cfg)
- 	unsigned long size;
- 
- 	size = struct_size(res_table, nh_buckets, num_nh_buckets);
--	res_table = __vmalloc(size, GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN);
-+	res_table = __vmalloc(size, GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN |
-+			      __GFP_ACCOUNT);
- 	if (!res_table)
- 		return NULL;
- 
-@@ -2799,7 +2800,8 @@ static struct nexthop *nexthop_create_group(struct net *net,
- 			nhg->has_v4 = true;
- 
- 		nhg->nh_entries[i].stats =
--			netdev_alloc_pcpu_stats(struct nh_grp_entry_stats);
-+			__netdev_alloc_pcpu_stats(struct nh_grp_entry_stats,
-+						  GFP_KERNEL_ACCOUNT);
- 		if (!nhg->nh_entries[i].stats) {
- 			err = -ENOMEM;
- 			nexthop_put(nhe);
-@@ -2943,7 +2945,7 @@ static struct nexthop *nexthop_create(struct net *net, struct nh_config *cfg,
- 	if (!nh)
- 		return ERR_PTR(-ENOMEM);
- 
--	nhi = kzalloc_obj(*nhi);
-+	nhi = kzalloc_obj(*nhi, GFP_KERNEL_ACCOUNT);
- 	if (!nhi) {
- 		kfree(nh);
- 		return ERR_PTR(-ENOMEM);
+ drivers/hid/hid-nintendo.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
---
-2.47.3
+diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
+index e7302ec01ff1..0db553528826 100644
+--- a/drivers/hid/hid-nintendo.c
++++ b/drivers/hid/hid-nintendo.c
+@@ -2736,14 +2736,14 @@ static int nintendo_hid_probe(struct hid_device *hdev,
+ 	ret = joycon_init(hdev);
+ 	if (ret) {
+ 		hid_err(hdev, "Failed to initialize controller; ret=%d\n", ret);
+-		goto err_close;
++		goto err_io_stop;
+ 	}
+ 
+ 	/* Initialize the leds */
+ 	ret = joycon_leds_create(ctlr);
+ 	if (ret) {
+ 		hid_err(hdev, "Failed to create leds; ret=%d\n", ret);
+-		goto err_close;
++		goto err_io_stop;
+ 	}
+ 
+ 	/* Initialize the battery power supply */
+@@ -2766,7 +2766,8 @@ static int nintendo_hid_probe(struct hid_device *hdev,
+ 
+ err_ida:
+ 	ida_free(&nintendo_player_id_allocator, ctlr->player_id);
+-err_close:
++err_io_stop:
++	hid_device_io_stop(hdev);
+ 	hid_hw_close(hdev);
+ err_stop:
+ 	hid_hw_stop(hdev);
+-- 
+2.25.1
 
