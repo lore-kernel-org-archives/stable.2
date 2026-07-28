@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DB63CF670
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 16:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F3E3CAE60
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 16:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785255013; cv=none; b=EwzL+F7iUFO6iU9t6xwVqdVairUBa96Cre8P7vBwi+shVytrFWEDsq/JECL5sja9Q8ngs7hz7672mEwOe+iCGibaqQ/FxWARlsgNyNXnohsddDSCTQt5iqLGoE31y2prdJLCbhwDxkHm47j8zenEZRiZgrAo5qG72tcn8BHM6eA=
+	t=1785255013; cv=none; b=k/jFbTCBRIG//cO0+Nw9kj3/CA38dLtyD2C96GX+C8Yxv1/zsS44dLq7SzqQR6lGUiRAexnaIsPM6PzmCmU3YJEkJAO8eWKYfx9YFwM5230BuyJJ0GtaFjXScN24gmyG35luP7q1bbYRaJ7F2Xk6WUEKblyDc/ZD2u80PODoxiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785255013; c=relaxed/simple;
-	bh=9DgIYCuYNgzGJHFGOESR19THV3AaPoljgY6RVDH6Oak=;
+	bh=CQkHTvjNoipMRSQAqx7AiedRt//n+DYH2qsz24iFqeM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YJ5lSWGvnj9+RBsIPcCBtIA/FnA1JENO5f757j0zZ+IhbIfuVSuJbKqBlO3wuBv+vY1xusje2rxpDohxfAnPKVV/6lLKH7CDg101HcyEV5P4TTgwUJyZtbb8VdCYsumDKM5s+NR46Zi9AFxvDyGBBFiWvr1pu89o6Kx67GcB32E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ns+jOJG5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OfaS36wYE95afnYsinXHnh+7TG/PilFWQZoR8kB2AmQxyvbyz5PDi0hJqvjhq7BvDl2juHDD2MTlAFt5BXpCnwnUaV/KgYuo5/CCoJkgZHZVXX2YVtB7tS6FuOBSJE1c0WQw+YweYTobGoSUBUlUQXg/z5xMJv7ZXUQtbeiLsgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0JKA1oe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ns+jOJG5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E57C1F000E9;
-	Tue, 28 Jul 2026 16:10:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0JKA1oe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE48E1F00A3D;
+	Tue, 28 Jul 2026 16:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785255011;
-	bh=/Odllhcfl+ebODxpxuz5t8bxT6bXJ4TXgHBM7rGJneU=;
+	s=k20260515; t=1785255012;
+	bh=Mi8Qf9WChf7g85hHBmgM6KJS30WNFr5k0OINJyNh07I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ns+jOJG5Gkdhgbm1gU5omcKlKrstMNTkpTeuO5Kp2r5/UmfIWU0gCsZSbKojL3SuI
-	 Br9bpQky/avXPP7rPk5kWMo/lCjTg29smO6bYHXdmT2n/4Yc2CHI8EsstsNyubIol4
-	 EX92pCg/2edz3TUbxdMy08CVRy4JsMAd4s/kb5xJWyiR6UPbBvYjfC61j7/SPAZ51c
-	 qqsssBPAqhwNtZ65GNNqhAp2T/bTDVVYz3tf7FHghryLB1qquzFF3k/nd8hLt5FiD0
-	 0LIAoA7LcFSTJHB7ob4mQBBMsWekW64KDb7qK8aO77C0JcPdAQtyo43DwEg50k5hfx
-	 v2PyjIIJbtusQ==
+	b=l0JKA1oeI+Cqe6EKG7gcP49ZdN8MBtQ7fipeY3Ck3hFSJI+lcHVuV0P8NGDB6yuNr
+	 nyhW6LOo3omfM1IyHhVDngva6uRH1aVoIu4I8Za0w+OZrSugcd2pm97fXgsUMpvxeN
+	 vaM6Knj6CMjDHkd0l3yKmil6dpRbKiMlrZ8jy3Ou3uvqnswqALgs+qPmoVuJXBUSVU
+	 Wj9acMiMoGdhrBTvt5r7otgeTlYQxOQRPfquGh6L8w4BEdAq3WxPtUpa2IYnzNQwEx
+	 In47ySCnRyYh0ZoNZ58GbrxPFtwMpVZBu5RH1WJXepBQOpThHHv186x8hlZqNilkWF
+	 +TZGgb51FkYUQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Xie Bo <xb@ultrarisc.com>,
-	Anup Patel <anup@brainfault.org>
-Subject: Re: [PATCH 6.12.y v2] RISC-V: KVM: Serialize virtual interrupt pending state updates
-Date: Tue, 28 Jul 2026 12:09:55 -0400
-Message-ID: <20260728155654.stable-0001@kernel.org>
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: Re: [PATCH 5.10.y 1/9] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
+Date: Tue, 28 Jul 2026 12:09:56 -0400
+Message-ID: <20260728155654.stable-0002@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728013551.2982450-1-xb@ultrarisc.com>
-References: <20260728013551.2982450-1-xb@ultrarisc.com>
+In-Reply-To: <20260724101342.16000-1-socketcan@hartkopp.net>
+References: <20260724101342.16000-1-socketcan@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,12 +45,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> KVM RISC-V tracks guest local interrupt state with two bitmaps:
->
->   - irqs_pending: interrupts that should be visible to the guest
->   - irqs_pending_mask: interrupts whose pending state changed
+> -		sprintf(bo->procname, "%lu", sock_i_ino(sk));
+> +		sprintf(bo->procname, "%llu", sock_i_ino(sk));
 
-Queued for 6.6 and 6.12, thanks.
+This hunk is not part of 68973f9db761 ("can: bcm: defer rx_op deallocation
+to workqueue to fix thrtimer UAF").  It belongs to 0fe27e598592 ("net:
+change sock.sk_ino and sock_i_ino() to u64"), which is not in 5.10.y -
+sock_i_ino() still returns unsigned long there.  The result is a -Wformat
+warning (a hard build failure under CONFIG_WERROR) and, on 32-bit arches, a
+/proc/net/can-bcm/ file name built partly out of adjacent stack.
+
+Patches 2/9 to 9/9 look fine on both 5.10.y and 5.15.y.  Could you respin
+1/9 without that hunk?  I'll take the full series once it's in.
 
 -- 
 Thanks,
