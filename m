@@ -1,63 +1,98 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317813A9854;
-	Tue, 28 Jul 2026 14:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECEB438036
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 14:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785248487; cv=none; b=L9VaQu34DtR3N/38IEqIbBoZA35Qwog0wL33ojReHkQwCZYGnq3LfdYJA4TedrPRak+Dft1pY32O5uin/TVYLN0XsV0lLDBvx8jLroeg2yl5miiRIgWzf74Zd/9ldlXbeg+eVDd92irTN12rXG+DbVecr25gMrfHIJfKmRqGhxw=
+	t=1785248683; cv=none; b=iPQujOwQaW1Yc5jeoGRr12ycKzgYFZJCPalFO/FfBnS4nbreAaSaaZHk00G5bzPkw/IMkfC58y8TxVPFPSFjFqZlSJevm+ktPDHCcdxP1NCGz2Jpeug0/OnXXlq7YHCttO6EJavFmpnGRmhNkVSCutuMc4m1iu89pa7RAmtQI6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785248487; c=relaxed/simple;
-	bh=AOD2AgKy1L5MrAuEskFC1jwDhSBYgTRhStWuzowDRBg=;
+	s=arc-20240116; t=1785248683; c=relaxed/simple;
+	bh=4XOJjc+yumy68KaAaTWxwFxLNiGxWo7sfJLrQMd0YX4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ecjc01QfcDL90lqUptM1XxzfrwCHGT6eMMSThvggB0LbJnuo7AA/jdevwE/mJCVH2tBUNqgEF+/jF4+/aJZfTOaKHIQ1izJpIAX9DUg+TvdSrgSZwjQgM1fiTb7+YfNgGnpB27ngu7glPbYvuRPWodRX9U0yijqfLOaAHNT2e9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Uv0l70G/; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=kz7k9ejNBhmFG4YqA05UvPpJ+dWF38XMQcxGdbrxE1ky1sGzpLTwIot2RXbqD+9/O4f9ZNGgOeNToJLrlDITRfB49Fdel4C0XfZl0S3tJRgUgM7tQdLv+kStOgamRaKUr3jdwrOXAd00wiqs4QlLWwoNI7xEE9j30NeXDhteFpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tCxDDh97; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Uv0l70G/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ZcNWBxahuwKCE/IvTx/lMrMdjhnO/GCiW5lbVkdZ3aM=; b=Uv0l70G/RQc8iY7YKLRhWWcAgH
-	egIjbftZ8rc+/7md8Xpm9oA6zpCBifwIpPHNbC6vAniqiaKMB6qQrapfPZTfi3sEttrWrCs/EPuVm
-	YBXFYu+3Z9CIiO0z6G0UIVDB79aXzzt/yGQmdhaF0C3qNu4JscW4jK5nkuPyVWLC375tCt12IM1hq
-	o6dRYDya2SvFaJq5ea5696WbU8d/R2dHOMrRZJCq89sd6hmxGQdDV3YXY5QQ+CR1F1HnyrVfCypjb
-	9+OvYZg91bL6FrTW+xe3BN8luztvJ06ph6hsyw/MagpQWCHvuY/1ThxQX/Zeo7pn+SQ5qVo2KKH19
-	FoThB4sA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1woigA-000000050iu-0Nvt;
-	Tue, 28 Jul 2026 14:21:10 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E5EFD300969; Tue, 28 Jul 2026 16:21:08 +0200 (CEST)
-Date: Tue, 28 Jul 2026 16:21:08 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	David CARLIER <devnexen@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH 1/5] x86/mm/pat: introcude cpa_lock() and cpa_unlock()
-Message-ID: <20260728142108.GW751831@noisy.programming.kicks-ass.net>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tCxDDh97"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493be0fbcc5so62075e9.0
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 07:24:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785248680; x=1785853480; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pLh0JMDAJYh72m8FtF6BfLrBflAoWAmkZ9Sv6YSjD4c=;
+        b=tCxDDh97IUfcGWDKosXdwNe/PD/J5+RWvF3v0ohvDYw41VNkPyAVHUQi2Z679Anr2a
+         jsx7GdvOW50oo3KsAnZ9wa/v3vCvstiFmpv2wNKjfMT6J8yAWpg0BXWhY0PG+qEHIpeA
+         pa0e6lumvw4d2TYekhaG8Uo7Jm6x1V4LlIhdFPeQK2kZqzHAXuUWH1pTpaoHLmMLicTE
+         QONUy2W6zUNFF2JsCLxZtFW9zjtSVRv/id8VhaSoQH7XjAuKaZcbhwWUe8CwZt3UBj4S
+         nEuxBcyM2bydRNYMsP8OgNhYI2EzmAp3uGOl04cCjuVJ1/t5P50pus3aBhelXJTnOSGd
+         ksCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785248680; x=1785853480;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pLh0JMDAJYh72m8FtF6BfLrBflAoWAmkZ9Sv6YSjD4c=;
+        b=TN9bkv5DzzaOcd15RQtVlB3/ck33TwatenkxE9aUNIbkStBy+1nJwk/YCyMaWbvqoh
+         HIdXlUyS25cmPcSLjDhcuk0BKVQ58n1/saZdqG7UUY4GmExjPbf/SgFSlcpY4ZSIhQcz
+         Q1CztFg4GsGgKI2bt+qm588da0tlo6UxzFtbFkAteTNFUgPfLx2FmwmlIKTon4NVezgC
+         vxeG+P9DqnvoyTrsac9zNGcVJrDVxt+6xqrtjnQ+++nY1n6vVUeoyxqUZqzvBgtW193h
+         AkemqxItB0KSv4LRCLkDIcE5TJx8/TaTmUodM0lBnY0tYBk2pN4qeeX+m6i0jgsSIXCp
+         O4Pg==
+X-Forwarded-Encrypted: i=1; AHgh+RoSA+H3sV6JMxOJW65JLei66+AuGOTf4hQLu/K5lSzMwa0paXjLgCVHzlE/E/eCfE/ALvIpbwA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMYLvTIydArgNPT7we5RBDCCRaVtD0fKbsYGycd+4T/NOyfh4q
+	X9gedV0LYljxiu2RG/qQrjWL2AiLGpxPcf+cgoHJIAvMozLJJC79Zdyd+8O3QrPaiQ==
+X-Gm-Gg: AR+sD12/HDLRj7717eKmAtKYJvuCZmaTS0076KZvXZdV8mpO1/AQcX5qH3fpGe6wjgU
+	fBT/wWMEk08l2OKxXfIpEpOsDiqe2fS91wKywtxYg2ZZB71hnNEeiJ5/HqjOAHSHyfy2ivSK/k7
+	lR1DLvkS8JnrVJgf3x2T0KusrA6elHOwAyuVafRw5FOfT1w7bjmAskEyaTv3Cz1JOfQ48CZyVF+
+	umYbATSxcH60cQnWt5Y0vNaBabjDLRHMCnFUmqkzhaJE+WJz+IpeOLzrvmDecoNyNn34DXVdEHQ
+	IORf9l5l+7EJNguP1iyLIc3ZCuH0tb8/WwO/u2k/2YROtKiey5YIKE+GT0v0QcBliOCbbQlCAKt
+	fTCbv5YrxnuCBAWM2KwxdNi3jyw3Kl4SY5qI8+BTxopMRPOwdR9xjsYxzktZXsWxTlPaEiXRklp
+	/QSH0mVq3zeuVzaSxwnCLSjr1rEOU+KC/ynRIhdp1xnyE=
+X-Received: by 2002:a05:600c:35c2:b0:495:5515:3c00 with SMTP id 5b1f17b1804b1-496b53f7910mr71275e9.9.1785248679759;
+        Tue, 28 Jul 2026 07:24:39 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c444304esm79447515e9.0.2026.07.28.07.24.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 07:24:39 -0700 (PDT)
+Date: Tue, 28 Jul 2026 14:24:30 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+Message-ID: <ami7nhBTXzAfqoVE@google.com>
+References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
+ <20260717180442.110954-2-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,78 +101,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
+In-Reply-To: <20260717180442.110954-2-aneesh.kumar@kernel.org>
 
-On Tue, Jul 28, 2026 at 04:07:44PM +0300, Mike Rapoport (Microsoft) wrote:
-> The splitting and merging of kernel page table mappings between small and
-> large is protected by cpa_lock.
+On Fri, Jul 17, 2026 at 11:34:19PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
+> helper") changed dma_direct_alloc_from_pool() to return the CPU address
+> from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
+> dma_direct_alloc_pages() also uses the helper and expects a struct page *.
 > 
-> Commit 5fce67641a3e ("x86/mm/pat: Don't gate cpa_lock on
-> debug_pagealloc_enabled()") disabled gatig of cpa_lock on
-> debug_pagealloc_enabled() to simplify the code presuming that skipping
-> the lock when debug_pagealloc_enabled() was an optimization.
+> Fix this by making dma_direct_alloc_from_pool() return the struct page *
+> again, and pass the CPU address back through an out-parameter for the
+> dma_direct_alloc() caller.
 > 
-> However Lorenzo Stoakes notes that:
-> 
->   __kernel_map_pages() can be called from irq context:
-> 
->   < GFP_ATOMIC context >
->   kfree() or whatever
->   -> ...
->   -> __free_pages_prepare()
->   -> debug_pagealloc_unmap_pages()
->   -> __kernel_map_pages()
->   -> __change_page_attr_set_clr()
->   -> cpa_lock spins [irqs off]
-> 
->   So you're spin locking in irq context here, which is probably not a
->   good idea.
-> 
-> It would be possible to unconditionally use spin_lock_irqsave() and
-> spin_unlock_irqrestore() but that would complicate locking rules even
-> more.
-> 
-> Restore gating of cpa_lock of debug_pagealloc_enabled(), but instead of
-> putting the open-coded condition
-> 
-> 	if (debug_pagealloc_enabled())
-> 
-> before every lock and unlock operation, wrap the condition and the
-> locking operation into cpa_lock() and cpa_unlock() helpers.
-> 
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
+> Cc: stable@vger.kernel.org
+> Tested-by: Michael Kelley <mhklinux@outlook.com>
+> Tested-by: Mostafa Saleh <smostafa@google.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+
+Reviewed-by: Mostafa Saleh <smostafa@google.com>
+
+Thanks,
+Mostafa
+
 > ---
->  arch/x86/mm/pat/set_memory.c | 33 +++++++++++++++++++++++++--------
->  1 file changed, 25 insertions(+), 8 deletions(-)
+>  kernel/dma/direct.c | 18 ++++++++++--------
+>  1 file changed, 10 insertions(+), 8 deletions(-)
 > 
-> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> index b1e780a465b5..4c8922695fd3 100644
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -65,8 +65,25 @@ static const int cpa_warn_level = CPA_PROTECT;
->   * Serialize cpa() using cpa_lock so that we don't allow any other cpu, with
->   * stale large tlb entries, to change the page attribute in parallel to some
->   * other cpu splitting a large page entry along with changing the attribute.
-> + *
-> + * When debug_pagealloc_enabled(), page attributes could be changed in atomic
-> + * context that would warrant disabling IRQs. But since debug_pagealloc always
-> + * uses 4k pages in the direct map there are no races for splits and collapses
-> + * and locking can be just skipped altogether.
->   */
-> -static DEFINE_SPINLOCK(cpa_lock);
-> +static DEFINE_SPINLOCK(_cpa_lock);
-> +
-> +static inline void cpa_lock(void)
-> +{
-> +	if (!debug_pagealloc_enabled())
-> +		spin_lock(&_cpa_lock);
-> +}
-> +
-> +static inline void cpa_unlock(void)
-> +{
-> +	if (!debug_pagealloc_enabled())
-> +		spin_unlock(&_cpa_lock);
-> +}
-
-There was already a patch merged that removed the shole debug_pagealloc
-exception. Is that not better?
+> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+> index d8219efe3273..363d984d90e7 100644
+> --- a/kernel/dma/direct.c
+> +++ b/kernel/dma/direct.c
+> @@ -164,22 +164,21 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
+>  	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
+>  }
+>  
+> -static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+> -		dma_addr_t *dma_handle, gfp_t gfp)
+> +static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+> +		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp)
+>  {
+>  	struct page *page;
+>  	u64 phys_limit;
+> -	void *ret;
+>  
+>  	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
+>  		return NULL;
+>  
+>  	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
+> -	page = dma_alloc_from_pool(dev, size, &ret, gfp, dma_coherent_ok);
+> +	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, dma_coherent_ok);
+>  	if (!page)
+>  		return NULL;
+>  	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page));
+> -	return ret;
+> +	return page;
+>  }
+>  
+>  static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
+> @@ -247,8 +246,11 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+>  	 * the atomic pools instead if we aren't allowed block.
+>  	 */
+>  	if ((remap || force_dma_unencrypted(dev)) &&
+> -	    dma_direct_use_pool(dev, gfp))
+> -		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
+> +	    dma_direct_use_pool(dev, gfp)) {
+> +		page = dma_direct_alloc_from_pool(dev, size, dma_handle,
+> +						  &ret, gfp);
+> +		return page ? ret : NULL;
+> +	}
+>  
+>  	/* we always manually zero the memory once we are done */
+>  	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, true);
+> @@ -357,7 +359,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
+>  	void *ret;
+>  
+>  	if (force_dma_unencrypted(dev) && dma_direct_use_pool(dev, gfp))
+> -		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
+> +		return dma_direct_alloc_from_pool(dev, size, dma_handle, &ret, gfp);
+>  
+>  	page = __dma_direct_alloc_pages(dev, size, gfp, false);
+>  	if (!page)
+> -- 
+> 2.43.0
+> 
