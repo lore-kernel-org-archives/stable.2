@@ -1,80 +1,36 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D5E31AAAA
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:11:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [40.65.178.148])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DECFB2FF675;
+	Tue, 28 Jul 2026 03:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=40.65.178.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785208269; cv=none; b=gfIX48pZSxZ+bbUOdUd4mX9owSWNbOgdQUKHkpvOeXIKqp4SPCwbOg+lUkZeIeKtgc/r8s5KIGIDXDToMlCWLIdhh8sWx5yeZDjEaDK29CZ4hKNcW4AVVgk4aAZnFGVJG2TR+wU2rQDJtanBs6Co0I+8mNGe2lE/9ZDFycvfhj0=
+	t=1785208291; cv=none; b=SaOHDJmffD88wDh3SSs/hI9sb3fdHhRNlCpBjtVwX8Q4GgFrFAnlhRasCdR9iQ+t/cENm62DnfjoCXYeWBLViPWb0BsKyOz/pt1hr7H8G2qsSKwKFti8ez/kUrbylHsQPJKsMj/S5uOwDFv1HFOuxiPyxkD36zmlfJ4iZ/L7x6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785208269; c=relaxed/simple;
-	bh=v7oBAjJMIhVfdijcfMPA9HrTDSWEC2QWu+BjAmEIkd4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WwAxz7zRMGIoyULGUEjaUzjznwKI8FsgjvXqdxrVT9M8MNEmnRrd8hOqawvKMY93YN/ZPPNCkgpLRGPWVrDjTW1axU6e6fXWM1mDy7dW5uEWp0FCfObDXy59BXynKdo/d5OcNoH5DjoHF8LHpmhNZC3ZCl2bwJQt7oLi0trxRCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxhU7aSB; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxhU7aSB"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e252fbb7bso228863b3a.2
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 20:11:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785208267; x=1785813067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ts5/Y1TVWAmyd7a1WEfthTQKByaZz802Qr0m4Iw99Us=;
-        b=cxhU7aSBNN+wxB3L5ZBNnm2fTXbC2E557Nc9xgSUMjcyabWrxAPWFgptQGOaD1CWQG
-         cP2EwNbo8+O5olnpSVL23H1zmZuCgu4j+7oB5J3tU+XMV7x4Z0mU+bvRvXEloMi52NRE
-         k7u5mHIyHkJE5dqQWjW9Kw1K0OqBeOsWtTnSjX+QDl6obMl7WaVofX/HZaPvMvXTtC7A
-         +x0rNXZMDcXuhnuIdHrOO8EYSUna8hBWgd0jCPixb3iRd3s8VjzXkFf+naxslr5gfqQ3
-         Xz122+/IHJMlw9B9Wfo/MQkJ1r4BKxIxzA2xgrGcGL6xE+wrzddESM93An2AolfIq7Nz
-         lAtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785208267; x=1785813067;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ts5/Y1TVWAmyd7a1WEfthTQKByaZz802Qr0m4Iw99Us=;
-        b=jtxdiaMadghFwgWMGsE+jqAbmkhk/7D67FUeno+soIM1m+ws8vubIUDpkneSdeQxKQ
-         DSTQko6XxTq639rXEvSZ6hAt0qdRJqtLUSrRrK+JG27lyX2tKGdYMHaQwe+1ujQUsC/T
-         Q+Kx6C/ygFFO+aOLfF/3XKzvkHa8LRFf0YkMJVpyg7Xd0OjntVykvOp3dK1TSgdBHjcZ
-         O/ejEOK/NH492GhSOKCAdWsBx8gVSwLFORylh6E14YRUAaRtT+ex46Whlw+gzwtVq0hR
-         PX6fHY4yngVriwJFDO58+WYs1bkXxXSl5HQFKPYwniLt1kW4zfEzfZCQf8R6TTWRT5uw
-         Bzyw==
-X-Forwarded-Encrypted: i=1; AHgh+RofLNSjYpREmxK/G/l4d+U/qX5X2Bq3ZvU3/Av22SmVx4UN8UBGyyPm5K5P6aJcyG5vokW5tGc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yza120VkuUZ8uPfz6pf/PDkiNoxkSAAkmF90WUGoQZJuKvBI/5F
-	qHYO83hkOwyKsthRBpA91Yccu9DfpU6hrHnQXFTvGX7vrq7Kg5jUPea5
-X-Gm-Gg: AR+sD13vgG2aa9BRbWBp1BI5ryd73pDCV41zqBZbus+jad4eZFh9nazkatnIlnDpmSH
-	sewXhTUqFFX+wsq2lOsJG14y93Zk22MEK8jU4va4yHjhL7JqysjRC3OwPdCYbcpT8Cpx+woETTe
-	Tu3CfNjtkjWhMqppmm+3Rcmsl+Tve9NAgfeWs7KOgXX/lerOzpoQKA24sid8VxYIw78ud+I1g2I
-	y6xEtjgjXCg+kVhrTA6SBzd2+q6LUNrkAv6hxeT3u1TybFfz6UbiRzbW9h32CFZ9Jg33PZYU7t5
-	/9zC2fawl5XwZGo04gn85zRqolpX/eqxciIf9zKele7isilAp4n8GjU4pwPIY7BRuYd2l8WAqXo
-	e3rW8GaLwhV8qDdO7GTFjKIOFScqrs3jXWcb4qkYu70zdyg8ylOyI1GHy+8MBvmkp0mfo+FpZJ3
-	vSq2GOOhpP3geZM9Lvxda+r4wwSOcEWsEsOJiqNAMZbxmORaNOrSOtlIgPwBuefiYM
-X-Received: by 2002:a05:6a00:2302:b0:847:8971:87d8 with SMTP id d2e1a72fcca58-84e9335ee6dmr364413b3a.6.1785208267429;
-        Mon, 27 Jul 2026 20:11:07 -0700 (PDT)
-Received: from localhost.localdomain ([139.159.170.93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e53470a92sm3709432b3a.60.2026.07.27.20.11.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 27 Jul 2026 20:11:06 -0700 (PDT)
-From: Qihang <q.h.hack.winter@gmail.com>
+	s=arc-20240116; t=1785208291; c=relaxed/simple;
+	bh=DS4+3AB7AxZeGvi5gfOm+zI8ypTKA6ksvPTZzHVQrqg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BigAVJ6uUCBJOIBxH8sAPyCU4FwTDp6UeK/Tb+2HCAte0d4r8j/kPMRkhX8VNsV+u12Og9zogUlC43XaQbDE/PO8YqMiQEswoGzlkBg0haTgI61givgb4iy40KAHjqRmOaYi+4cJtSoWqTY4tmOJUFwV1NSnilOFXg0uDQ4zoZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=40.65.178.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCnoyjVHWhqsmRGAA--.30886S3;
+	Tue, 28 Jul 2026 11:11:17 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgDHFMnUHWhq9zBHAw--.62812S2;
+	Tue, 28 Jul 2026 11:11:16 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
 To: netdev@vger.kernel.org
-Cc: willemdebruijn.kernel@gmail.com,
-	daniel.zahka@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
+Cc: horms@kernel.org,
+	david@ixit.cz,
+	mgreer@animalcreek.com,
+	oe-linux-nfc@lists.linux.dev,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Qihang <q.h.hack.winter@gmail.com>
-Subject: [PATCH net v3 0/2] packet: use consistent hard_header_len in send paths
-Date: Tue, 28 Jul 2026 11:10:53 +0800
-Message-ID: <20260728031055.49375-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260726092110.80185-1-q.h.hack.winter@gmail.com>
-References: <20260726092110.80185-1-q.h.hack.winter@gmail.com>
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH net] nfc: trf7970a: initialize lock and timeout_work before requesting the IRQ
+Date: Tue, 28 Jul 2026 03:10:21 +0000
+Message-Id: <20260728031021.230831-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,33 +38,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgDHFMnUHWhq9zBHAw--.62812S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?SNpX/gXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI2ljwtTJtsodX+CbV0a33Py9CptzckDSmBROxD8ytt34lCh
+	vnG6Fi0T40569oL4j3qp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Ww1rZrW8Cry3tw17XF4DWrX_yoW8ury8pr
+	sIgw4qvrW8CFWjyF17AFWIqa4F9w18Cr42ka409asxJanYyFs7AF1jqaya9Fy8Ars5Z3WY
+	kFWUXr48ZFn0vrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7ID7DUUUU
 
-AF_PACKET send paths read dev->hard_header_len at several stages of skb
-allocation and construction. Concurrent netdevice reconfiguration can
-make those reads inconsistent and cause skb headroom underflow.
+trf7970a_probe() calls devm_request_threaded_irq() -- which registers the
+threaded handler trf7970a_irq() -- before it initializes trf->lock with
+mutex_init() and trf->timeout_work with INIT_DELAYED_WORK(). The handler
+takes trf->lock at entry and, through the helpers it dispatches to
+(fill_fifo/drain_fifo/issue_eof/transmit), can schedule_delayed_work() on
+trf->timeout_work. In the window between the IRQ request succeeding and
+those two initializations, an IRQ would therefore touch an uninitialized
+mutex and/or schedule an uninitialized delayed_work.
 
-Split the regular and TX_RING paths so each patch has one Fixes tag.
-The separate SOCK_DGRAM consistency issue between hard_header_len and
-header_ops->create remains outside this series.
+Initialize trf->lock and trf->timeout_work before requesting the IRQ. On
+IRQ-request failure, destroy the mutex inline and return directly: the
+request failed, so no handler is registered and nothing else will touch
+the mutex.
 
-Changes in v3:
-- Split into two patches, one Fixes tag each.
-- Add LL_RESERVED_SPACE_EX() for calculations using a saved length.
-- Use int consistently for saved header lengths.
-- Drop unnecessary READ_ONCE(header_ops).
-- Snapshot hard_header_len per-frame in the TX_RING path.
-- Reset copylen for each frame.
+This issue was found by an in-house static analysis tool.
 
-Link to v2: https://lore.kernel.org/netdev/20260726092110.80185-1-q.h.hack.winter@gmail.com/
+Fixes: 165063f1dac4 ("NFC: trf7970a: Add driver with ISO/IEC 14443 Type 2 Tag Support")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/nfc/trf7970a.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Qihang (2):
-  packet: use consistent hard_header_len in non-ring send paths
-  packet: use consistent hard_header_len in TX_RING send path
-
- include/linux/netdevice.h |  6 +++--
- net/packet/af_packet.c    | 47 ++++++++++++++++++++++++---------------
- 2 files changed, 33 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
+index f22e091..bc4d974 100644
+--- a/drivers/nfc/trf7970a.c
++++ b/drivers/nfc/trf7970a.c
+@@ -2124,18 +2124,19 @@ static int trf7970a_probe(struct spi_device *spi)
+ 		}
+ 	}
+ 
++	mutex_init(&trf->lock);
++	INIT_DELAYED_WORK(&trf->timeout_work, trf7970a_timeout_work_handler);
++
+ 	ret = devm_request_threaded_irq(trf->dev, spi->irq, NULL,
+ 					trf7970a_irq,
+ 					IRQF_TRIGGER_RISING | IRQF_ONESHOT,
+ 					"trf7970a", trf);
+ 	if (ret) {
+ 		dev_err(trf->dev, "Can't request IRQ#%d: %d\n", spi->irq, ret);
++		mutex_destroy(&trf->lock);
+ 		return ret;
+ 	}
+ 
+-	mutex_init(&trf->lock);
+-	INIT_DELAYED_WORK(&trf->timeout_work, trf7970a_timeout_work_handler);
+-
+ 	trf->vin_regulator = devm_regulator_get(&spi->dev, "vin");
+ 	if (IS_ERR(trf->vin_regulator)) {
+ 		ret = PTR_ERR(trf->vin_regulator);
 -- 
-2.50.1 (Apple Git-155)
+2.34.1
 
