@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F13833D4F8
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:07:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFF03A8738
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:07:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262036; cv=none; b=oGj9N5xPM9h1FEr+kO1GNt9XHpy+cooKm1WHNrnF1UBna+LZqLLGcKx0gCpA4WeDiX17ksgZrXsXoJV8Jq4DuUE86unS3GUqtK1remxhlxvcmG2q/Z8PdJcZja0f6bUWeoFeEjNGf6lnzKR5U25yoIVP+TcXVCiSSU3U0q7YexI=
+	t=1785262057; cv=none; b=TLcME7s9L8Nmr56JbBupho7QMi5tE0a5JUAyx22Wz8nWDzRG9wVFzKm+1tBeHKvYZ953QIS88vTtN9Qq/EMhsewQ788WBeyeVqkCOG2ffKFAuJNPtklYJaKSqRJsHqFEDkjebZUJ28IKeTuPcFBzTBwpeLGGUvUrCBYgjL9pK3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262036; c=relaxed/simple;
-	bh=tevHsckvkNw962WbEXR009cJzTdy8ZvSU5+IxodLd9U=;
+	s=arc-20240116; t=1785262057; c=relaxed/simple;
+	bh=j+fc8PGuIfimykFX3QnkpjRx68MiJeswcEv3GC4DLxs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=utOun27O0kQDrwwzsJg3hCeEskgGqAPoavPaUEYSdE+qsnr5D47ka5TPCAJYgUHSfye0gG8NkbSXGYJzPlawBPYJmeLHC72noqlE7sGNf0cheD73ka/WpZL7AQJayAMuNm+WFUqZ9UPgCoLv+Kvw+uxd94ZnmPAw0cCYO7L8Yxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9P9TZLs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=paijElTvG5V6H+iOaF20cZ6wFdaMutdiM7ZOc8RWRezqoXMwddKVtog5f2cKX0z7w29iQPBqgjHO+KClWQCAkwCmmgQ9GdJ0hpR36kHDy1d0/8T/IxlGGy5o9YjBfF8S05msNUqrRorTdNqF2IAlYQArZhdQ78ePxlNWo8qlA98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJT+IFVK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9P9TZLs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62AAE1F000E9;
-	Tue, 28 Jul 2026 18:07:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJT+IFVK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AAD91F000E9;
+	Tue, 28 Jul 2026 18:07:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785262034;
-	bh=0qtUr+1RGAITd54o0ZsrzCgc8X4p4HcX9Tcu/+8wsZk=;
+	s=k20260515; t=1785262056;
+	bh=7+cOsqRVXtuOqdjR3aLqwdVXMB32yNIK+EWpALAXZb4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k9P9TZLsThRUnBb+a5d8EcRga4hlQklgRyadRQd3PD1liWaot2jB/TZNKEVvGhcMD
-	 UZo+RprDplKSFnBG1zp4y9htR45fu57D82c+KszUt+9iQKH9N49LFKDKVxYww/xzxJ
-	 Kyx5Y34Y33ZS3Sb9wb/eibTWayqWIzJKZAqtA9hoiC6FHWMukKG32WXBiGXpC5D7Ru
-	 Wj18PjRKeUZJg7zJC6hi+FF+Uc/jLyHHxUS/84ixakydnEx4kBDMLqZdIvypN/llT/
-	 aJXSxwRSoBRaXHSCpTBPMTu3CLuBzL4AgY80nMbwSqgGBH4fx2VmKuiT7cTUydLHKf
-	 2KFZchLNk6t8g==
+	b=lJT+IFVK75WkNpfSZN3QNkrSCETBDH0X6lN3BQl+8TmHH2hqeTHNMYD0qGAb1qCKS
+	 0MIjD7/ZSkxaLcfBjBTbEdnQAZbh5jlAL4xBBLfr3kPsCXYiBFrP/o+bLxXwSlFq4h
+	 j6pQyt/6nqZ0qO1CPbCYeUmu5NA8YkS3IQNtqq7afsYgiW5idbCtIvkxj/hRs6QLM4
+	 KsCj1beBMG198B0BMEOt4wtcdLZyuzhhGaQhf/tF3DasghdE6EZPwAOjkWOsVb+QCB
+	 qECiZXm9avUgJtAGvr3t/rX3aMkanrhMgTVO/K3zGQlVtLtJksW5doq3vrriJKLSjK
+	 l9ff6q8SHyUiQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
+Cc: David Howells <dhowells@redhat.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Sitnicki <jakub@cloudflare.com>,
+	David Ahern <dsahern@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Matthew Wilcox <willy@infradead.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked
-Date: Tue, 28 Jul 2026 14:07:11 -0400
-Message-ID: <20260728180711.291113-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/5] tcp_bpf: Inline do_tcp_sendpages as it's now a wrapper around tcp_sendmsg
+Date: Tue, 28 Jul 2026 14:07:29 -0400
+Message-ID: <20260728180733.291798-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072145-tank-retrain-5dd2@gregkh>
-References: <2026072145-tank-retrain-5dd2@gregkh>
+In-Reply-To: <2026072137-hatred-autograph-0bbe@gregkh>
+References: <2026072137-hatred-autograph-0bbe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,57 +50,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit e056e1dfcddca877dd46d704e8ec9860cfc9ec44 ]
+[ Upstream commit ebf2e8860eea66e2c4764316b80c6a5ee5f336ee ]
 
-When taprio's software path peeks a non-work-conserving child qdisc, the
-child stashes the peeked skb in its gso_skb; taprio_dequeue_from_txq()
-then takes the packet with a direct child ->dequeue() call, which ignores
-that stash, orphans the peeked skb and desyncs the child's qlen/backlog.
-With a qfq child this re-enters the child on an emptied list and
-dereferences NULL, panicking the kernel from softirq on ordinary egress.
+do_tcp_sendpages() is now just a small wrapper around tcp_sendmsg_locked(),
+so inline it.  This is part of replacing ->sendpage() with a call to
+sendmsg() with MSG_SPLICE_PAGES set.
 
-Take the packet through qdisc_dequeue_peeked(), as sch_red and sch_sfb
-now do. The helper returns the child's stashed skb first and is a no-op
-when there is none, so a work-conserving child is unaffected and the
-gated path now consumes the skb whose length was charged to the budget.
-
-Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
-Cc: stable@vger.kernel.org
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260625-b4-disp-31bcb279-v1-1-85c40b83c529@proton.me
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: John Fastabend <john.fastabend@gmail.com>
+cc: Jakub Sitnicki <jakub@cloudflare.com>
+cc: David Ahern <dsahern@kernel.org>
+cc: Jens Axboe <axboe@kernel.dk>
+cc: Matthew Wilcox <willy@infradead.org>
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ applied the peek/dequeue conversion to both `child->ops->dequeue(child)` call sites, since 6.1 lacks the upstream cleanup that merged them into one ]
+Stable-dep-of: 007800408002 ("espintcp: use sk_msg_free_partial to fix partial send")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/sch_taprio.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/ipv4/tcp_bpf.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index 8da723f054f564..ea9c7aaf0885c4 100644
---- a/net/sched/sch_taprio.c
-+++ b/net/sched/sch_taprio.c
-@@ -568,7 +568,7 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
- 		return NULL;
+diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
+index 9af7595bf8c452..73412e80548168 100644
+--- a/net/ipv4/tcp_bpf.c
++++ b/net/ipv4/tcp_bpf.c
+@@ -92,11 +92,13 @@ static int tcp_bpf_push(struct sock *sk, struct sk_msg *msg, u32 apply_bytes,
+ {
+ 	bool apply = apply_bytes;
+ 	struct scatterlist *sge;
++	struct msghdr msghdr = { .msg_flags = flags | MSG_SPLICE_PAGES, };
+ 	struct page *page;
+ 	int size, ret = 0;
+ 	u32 off;
  
- 	if (TXTIME_ASSIST_IS_ENABLED(q->flags)) {
--		skb = child->ops->dequeue(child);
-+		skb = qdisc_dequeue_peeked(child);
- 		if (!skb)
- 			return NULL;
- 		goto skb_found;
-@@ -599,7 +599,7 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
- 	    atomic_sub_return(len, &entry->budget) < 0)
- 		return NULL;
+ 	while (1) {
++		struct bio_vec bvec;
+ 		bool has_tx_ulp;
  
--	skb = child->ops->dequeue(child);
-+	skb = qdisc_dequeue_peeked(child);
- 	if (unlikely(!skb))
- 		return NULL;
+ 		sge = sk_msg_elem(msg, msg->sg.start);
+@@ -108,16 +110,18 @@ static int tcp_bpf_push(struct sock *sk, struct sk_msg *msg, u32 apply_bytes,
+ 		tcp_rate_check_app_limited(sk);
+ retry:
+ 		has_tx_ulp = tls_sw_has_ctx_tx(sk);
+-		if (has_tx_ulp) {
+-			flags |= MSG_SENDPAGE_NOPOLICY;
+-			ret = kernel_sendpage_locked(sk,
+-						     page, off, size, flags);
+-		} else {
+-			ret = do_tcp_sendpages(sk, page, off, size, flags);
+-		}
++		if (has_tx_ulp)
++			msghdr.msg_flags |= MSG_SENDPAGE_NOPOLICY;
+ 
++		if (flags & MSG_SENDPAGE_NOTLAST)
++			msghdr.msg_flags |= MSG_MORE;
++
++		bvec_set_page(&bvec, page, size, off);
++		iov_iter_bvec(&msghdr.msg_iter, ITER_SOURCE, &bvec, 1, size);
++		ret = tcp_sendmsg_locked(sk, &msghdr, size);
+ 		if (ret <= 0)
+ 			return ret;
++
+ 		if (apply)
+ 			apply_bytes -= ret;
+ 		msg->sg.size -= ret;
+@@ -499,7 +503,7 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 	long timeo;
+ 	int flags;
+ 
+-	/* Don't let internal do_tcp_sendpages() flags through */
++	/* Don't let internal sendpage flags through */
+ 	flags = (msg->msg_flags & ~MSG_SENDPAGE_DECRYPTED);
+ 	flags |= MSG_NO_SHARED_FRAGS;
  
 -- 
 2.53.0
