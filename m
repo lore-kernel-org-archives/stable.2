@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC5531E852;
-	Tue, 28 Jul 2026 21:32:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ED8370AC2;
+	Tue, 28 Jul 2026 21:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785274357; cv=none; b=PZ2THJDNtNUh5alAaVRjp6NqvE0QThw/vpVPTcbo5kOwpkMU6kWl8TXYrkD3oq1n7fO80gkkDr9BIeOXy+40F02etJV+wzdfYxnQx9jLgT0xHVpD7F7DnMyqx581ypLGEBtqpCoT10iuCLuDPBCuHAD0UHKXAPVaVst3zfcmbMk=
+	t=1785274665; cv=none; b=fUr/tJQt9f4snoA9XdHVJ5MbgJzpOKNoPwBgNA7yFVuBCAtK08K6IbhSpwCZZLsmXq1Lv7tjYq+Qn2ssMAHZQXp5mvotivtwBH1WlDHUAqtdx0thvY3VVQXt1c7dbMJ+uZbWV5k/9oZRUMUDaJcaN/A06vJXXI+ZT7XC6kGKxXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785274357; c=relaxed/simple;
-	bh=SAId/SJQnhSGCllCBQIdNG7uxRU7BQcCXX0iAkOuc5o=;
+	s=arc-20240116; t=1785274665; c=relaxed/simple;
+	bh=rJ3m9Gv2J5739IjOoS5qvvTHsD1y1jikN8n7cECQnh4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dt6lkE/dUgJxlaKiZysUeTdmCwuXE4KMDfkPk40Y0qcOgVpY59bn59riVC7UCZTnWatgxxr/mijGBuBh9cFvW5qjMmXb+KIG5wv7ZUX3Yyv05uCEVaUTduslmxAdqK9tvzPNlKHWMfTwbVxNjBIbMLoD7n/ttXBKvcgGq/iopXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRQD3VZg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GQarfQzroWh6V8KutUa0XRAYPRKXZ3kczsoW3oaWtK4PQYwZbWlYhcrAWzFZxlXFZCaB6BDUnOVPHjLd5LZGCBq2Vq1clFSOSotqGok7F1HK4DOKTv/TNqZtv2R2mY9dr8V+9SUiJ6QGE/FKDoBHn2COPBb5rl4zzGCPcn4xuV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RdMq2g/Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRQD3VZg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0310F1F000E9;
-	Tue, 28 Jul 2026 21:32:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RdMq2g/Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02901F000E9;
+	Tue, 28 Jul 2026 21:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785274355;
-	bh=pF6qsVRp/ynTp2yRc9Y/qPH4ccaUnT2tJzJbz05IV1c=;
+	s=k20260515; t=1785274663;
+	bh=bn47SGtvzlqa35ojKMRqPlcCFuAdF0eQiPnc1PYVbPE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nRQD3VZgBgKkO/5uSFj/C8fT3mHdEYFIDxMtSx+SAEwZ627vDQJ8kT902LIF3/VrI
-	 6tEBT/NfZdpoMS+697uakFbh6PDCoJOFQvnWD/d9SFq+pvIx9sRAC7N5elClETWdNx
-	 pl1CKQ6aRN7jZp0hjvYFIcjZB32K5cNEz9Bw4GOkKGJ7e/zKF9dpycGWD7PrxGPu7W
-	 O95/K1mY+6Xi04dZkimVL1BEcH1efIqD7ELSOx7MgPLhGllMv++Ti9MfnijvdHAlyK
-	 KcFt6mQnwq1jDr1fJAZzhkF6CE7OR1/kwfrS1k8UwHWPHMczJjCD/6D5SE8e4nj4h8
-	 ZEzryOcjmCvEA==
-Date: Tue, 28 Jul 2026 23:32:31 +0200
+	b=RdMq2g/Y4mzw97shcj6AUMf9JcGHzdX5MlNowWljcF7OI7PMsF+9f1K1BnnQl0zIy
+	 wa7qe/z0cAo6hCoUQi8RD/0Pei0BjQr5eBcmwILbXoAHNYkeFddkzFV2pXEFYOeHiY
+	 O2uoRdJPXO2jTkckeBA99+yLb7FGV1NJjdE4al0M2HrclfZgEvID+8w4lrpYyxByCy
+	 FOPNitEsIRUL9Qyusi1S+3Jxs2UXHTGW3nczn0hUXFlEzwae5KazLL/TZWTH4uPmOe
+	 iM3X4qyHCPcpT/lyk/qxTFo9KCVaxo1K3nRZ2bExi4MkG4O8mkKyXuOmUEZnKiM8lk
+	 ypiaMg0Nz8Zyg==
+Date: Tue, 28 Jul 2026 23:37:39 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Liem <liem16213@gmail.com>
-Cc: carlos.song@oss.nxp.com, biwen.li@nxp.com, festevam@gmail.com, 
-	frank.li@nxp.com, frank.li@oss.nxp.com, imx@lists.linux.dev, kernel@pengutronix.de, 
-	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	o.rempel@pengutronix.de, s.hauer@pengutronix.de, stable@vger.kernel.org, wsa@kernel.org
-Subject: Re: [PATCH v4 0/2] i2c: imx: Fix slave mode corner issues
-Message-ID: <amkftflH9EQ6JDQ4@zenone.zhora.eu>
-References: <AM0PR04MB6802B863CD9B9AE1609C1785E8EB2@AM0PR04MB6802.eurprd04.prod.outlook.com>
- <20260629023829.152651-1-liem16213@gmail.com>
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Wolfram Sang <wsa@kernel.org>, Todor Tomov <todor.too@gmail.com>, Vinod Koul <vkoul@kernel.org>, 
+	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] i2c: qcom-cci: drop custom suspend/resume and rely on
+ runtime PM helpers
+Message-ID: <amkhCsPknnM8yDVk@zenone.zhora.eu>
+References: <20260625-cci-v1-1-a100cda673ce@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,27 +46,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260629023829.152651-1-liem16213@gmail.com>
+In-Reply-To: <20260625-cci-v1-1-a100cda673ce@oss.qualcomm.com>
 
-Hi Liem,
+Hi Wenmeng,
 
-> Changes in v4:
-> - Patch 1: reworked to avoid race with shared IRQ handler, as
->   suggested by Sashiko.
-> - Patch 2: unchanged.
+On Thu, Jun 25, 2026 at 05:42:45PM +0800, Wenmeng Liu wrote:
+> cci_resume() unconditionally calls cci_resume_runtime() regardless of
+> the runtime PM state.
 > 
-> Changes in v3:
-> - Split the original patch into two separate patches as suggested by
->   Frank Li.
-> - v2: https://lore.kernel.org/imx/
->   20260625160219.55116-1-liem16213@gmail.com/
-
-you were already told not to send the subsequent series as
---in-reply-to.
-
-> Liem (2):
->   i2c: imx: Fix slave registration race and error handling
->   i2c: imx: Cancel hrtimer before clearing slave pointer
+> If the device is already runtime-suspended before system suspend,
+> the clock is re-enabled while runtime_status remains RPM_SUSPENDED.
+> As a result, pm_request_autosuspend() does not arm the timer,
+> leaving the clock permanently enabled.
+> 
+> Fixes: e517526195de ("i2c: Add Qualcomm CCI I2C driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 
 merged to i2c/i2c-fixes.
 
