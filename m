@@ -1,166 +1,132 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E221D47253C
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CE54734C4;
+	Tue, 28 Jul 2026 19:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785266778; cv=none; b=iE0ZvQnvLlyXd2CDnUUjnUKj6g3q0cMLqLyRhxNy21qDkBxMu72QGANIXvwvjxDB+5m02g77gyo4l4X4+qULWyMcz+lpngyDCOqDy4bKVq+SpPyxeq8Bc7VyEH+6/fGPMYTigKZWxHU34cgGqNwSuxDkOSfV386TJ+vu634dTw8=
+	t=1785266804; cv=none; b=JPoY08Zui2671KjXRGWTJNheqnXnd1ywWSFuzQUAATDorti0p2rUREGhxGw2xl6cAmHxgO7mAojfEOGHj/G4qhZ/FSAzyzUtzZ/L13CsMVXpigX74WzYvDNI0cnUJlz+cUSA5E4Kqa3ISLLArgNGt7rIgnEvnXak4SyF4FhsCQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785266778; c=relaxed/simple;
-	bh=EcHGE4bv3/8f684uJyKg5YK5taQ5B8iQcN0YfquQ28c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hi78bAHd4/4tL8quFRMVW94JqZHNqXpIr8fopn97MddCuHvKxK4CQMjmAWu10X86ssRTUber8cGDXOWQwGrbpuEvnUPMZdjXWsdJGp8ufmzk2Ad0zbaV9xKIFWNyb8RE1OIq4WWZqK3OGLABL1peWEUK63NbmmbCT1/MnhtdAlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/OCuWfl; arc=none smtp.client-ip=209.85.221.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785266804; c=relaxed/simple;
+	bh=86K6vg15VfD9OXa2/xauBqFIPOM5uTHnBK6Jx4CCyKc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bLQfK1/ahuWFxco5vsw3NDsDUCuWuplNuNuKNvkL6GLa1Fq1gY1+tYiqIcKK4auXTGgHLFlInUU2p3g7Ii9oJfXW1yv3mBngcQuNjT6168KDPiTXXsXaARQSyVNUWsReuQUhRM5HeDHVejthZKOAJVcigMxwDbL5+O3Z1rgxjY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=CoS//Fk2; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/OCuWfl"
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bfaa014978so63646e0c.3
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 12:26:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785266775; x=1785871575; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ePC1Y0ne7UyI/z8ccYsuTaBWGOHMZQF21As30zRm9nQ=;
-        b=h/OCuWflAK4dOqPk2+VxB04I4c5BpKVOcK0dHpuwQFXJMhs6gEIre2d+GJX4bFyVBX
-         S8ROP7GX3RXCVW3UPRhwyuCsZutFI/L/iuutI/pFKfOIdI9PdT6gwS+EyrEiO4eNpVEM
-         2FnuENm3xYJZYV+8hRwyl9sraDzzRH24DyJNDCfJedg1LOG7D1XNKwuzyO1UhaqlPM1i
-         ZUNZbEhBGqjFa5Hjbrby1qoKuhWmddvG/bq1BmMuV/b2pRfal1PudfVlXDgjUnJ/NNuI
-         pi0416h9aoPZJB6PLrC20/LA+IWMyxK/z+HHfrX/YXFs80lepK2WthMAzNGyYNLgYZ62
-         Ae7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785266775; x=1785871575;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ePC1Y0ne7UyI/z8ccYsuTaBWGOHMZQF21As30zRm9nQ=;
-        b=D4/XAw2LFbmJ2hLCR5VUJAzHp7alqM3varBMHPnc9WtdlXIEgjAAV5gDJiZw91l1t/
-         5T4TPEp+ACJkWd6c7oo7Kgy7RXIXS9eGRYUERKkFbfKowbXOjqfKqmFIfrW3NUz8WSD7
-         yjK3zXVl+b+dKaah/pWdXERz57fla9x9X+NyEMBDkZhf2IhxiT9DEcOQ+pGuYQuPqhA/
-         9fjWhIEdxKoRnfHLCqhnHUikSrCeltIyecR2L7spDskdDKeCfId8T0keX+vIo3ecxgUr
-         riDOn/s/NsSsHhReNsoHXo/HbPZvPNlJJVRO5XMVP6iNkjS4qK9YPoiltJkjZNmyGYvM
-         xVYA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpan2OzBJZoK7WcG+w1sxmt9JBx00yfJqaYxWxXasBJyDojYEMjEpdVdk/AK6eYUYHtNfa/GS4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxY0hwqnZ2oiS0zxQZXsG+QrptiGz2EYBle6SpIkDFy0Tk0yTWM
-	fFmVqvaXsTTKaw6XRk6+8ttY1ehICLz3M8RslQR7p4RrsdaiU9/Z9lCu
-X-Gm-Gg: AR+sD106zp3BV8qHOtUv4LTSGbW39JSicvfzK7ud7SY275qLl+Ai7clJWpX/vtXbg9n
-	LSWAfqusbw/VAhRATRhM8KeL1Z/AaO/Y1juJ1r3U0t2lxUk1ssrbg8sQMhduxceMaQvdy/mrEmv
-	mhtD6HDs3MwDYC9j4Ou62XrjNwjvaRo5e9xXk31lnQoGLaAe9Y6S+Bw6Q8IwWaO1LwJAN+oNSYl
-	ALfbmOkbd7x/wQwZwJi6L/1NbTChFtASwflPg9y44ISSRW9gjv+Oi9l8OwkvmX5U1BPe7n0ilqn
-	S402zeQOh9qai89P1MwTlb1iFCnVApHbCNEISD20FpcDuaBVd8i7u5AKfKKGkdxV/MjNzGmUjHy
-	3cpBJQ0x1kUtaPgvchl3E1Ua0dqNiNdh+9bY+AB/I+LvoG4Xhrkuw2sfPC6s0fOXbKA81cUUSKH
-	fQ0DVKP4kFU9vKxLU4
-X-Received: by 2002:a05:6122:1815:b0:5c1:706d:aec3 with SMTP id 71dfb90a1353d-5c33fa9be2cmr1713248e0c.11.1785266774672;
-        Tue, 28 Jul 2026 12:26:14 -0700 (PDT)
-Received: from fedora.fibertel.com.ar ([200.55.79.212])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c34eefcfaesm373461e0c.2.2026.07.28.12.26.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 12:26:14 -0700 (PDT)
-Sender: TheySaidThisWouldntFit <mariano.ignacio.baragiola@gmail.com>
-From: Mariano Baragiola <mbaragiola@linux.com>
-To: Ajay Singh <ajay.kathat@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="CoS//Fk2"
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id A93E360196;
+	Tue, 28 Jul 2026 21:26:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1785266799;
+	bh=MEECRbHkWBREqJmphTODP5tOHFNRtm4Szv75Afqgxo0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CoS//Fk2N71KPTPMbUEuwoTkOr43RLuYC7r27LdeGxw0qAjlufRTZS/X2DJGpral/
+	 +7ZrDfmoDJ5MYOvHh+Ud4ZHPD/AjyLvpm7sVh2Nfk1MVYN5U7zQ8/eJ8ChzDalZn8V
+	 Z8BDuXkZYmb54H7UMxdDCQZe96Rn7mTga6kayghzBbyulDg7AXrpBw+TG1vcsapU3K
+	 RusjR6eGUgKZ8M5Ycm7gesBBLEce55f5jB40/DoPTzWkkCbui43zbMO2UOc1E6YbNz
+	 /yHzyXkX/zdS1GwcOjrLS6STNmEmJ4E1vDn8yBhLixQijrSr5G57UifC8E0RbCFSTX
+	 XEkPSCLWFK2lg==
+Date: Tue, 28 Jul 2026 21:26:37 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Cc: netfilter-devel@vger.kernel.org, Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Mariano Baragiola <mbaragiola@linux.com>
-Subject: [PATCH] wifi: wilc1000: validate monitor transmit frame headers
-Date: Tue, 28 Jul 2026 16:26:10 -0300
-Message-ID: <20260728192610.2236361-1-mbaragiola@linux.com>
-X-Mailer: git-send-email 2.55.0
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
+Subject: Re: [PATCH nf] netfilter: conntrack: sctp: verify vtag before state
+ changes
+Message-ID: <amkCbQ1UDRKcZBez@chamomile>
+References: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
 
-wilc_wfi_mon_xmit() reads the radiotap length before ensuring that the
-fixed header is present. After stripping that header, it reads the frame
-type and all three 802.11 addresses without checking how much frame data
-remains.
+Hi,
 
-A truncated monitor injection can therefore cause out-of-bounds reads.
-Validate the radiotap header first, use the common 802.11 helper to check
-the variable header length, and require a complete three-address header
-before using the addresses. This covers QoS and four-address data headers
-while rejecting short control headers that this path cannot classify.
+On Tue, Jul 28, 2026 at 03:35:06PM +0800, Yizhou Zhao wrote:
+> The packet-wide vtag check in nf_conntrack_sctp_packet() is skipped when
+> the bundle map contains any chunk type with special vtag handling.  The
+> per-chunk path re-checks INIT, ABORT, SHUTDOWN_COMPLETE, and
+> COOKIE_ECHO, but other state-changing chunks still fall through to
+> sctp_new_state() without validating sh->vtag.
+> 
+> This lets a wrong-vtag packet bundle HEARTBEAT with COOKIE_ACK, ERROR,
+> SHUTDOWN, or SHUTDOWN_ACK and still advance conntrack state.  That can
+> desynchronize conntrack from the real SCTP association and cause denial
+> of service for SCTP traffic behind a stateful firewall.
 
-Fixes: c5c77ba18ea6 ("staging: wilc1000: Add SDIO/SPI 802.11 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mariano Baragiola <mbaragiola@linux.com>
----
- drivers/net/wireless/microchip/wilc1000/mon.c | 30 +++++++++++++++----
- 1 file changed, 25 insertions(+), 5 deletions(-)
+Are you assuming a specific policy in place? The connection tracking
+does not police packets, it just provides tracking.
 
-diff --git a/drivers/net/wireless/microchip/wilc1000/mon.c b/drivers/net/wireless/microchip/wilc1000/mon.c
-index b5cf6fa7a851..9b8c083b403d 100644
---- a/drivers/net/wireless/microchip/wilc1000/mon.c
-+++ b/drivers/net/wireless/microchip/wilc1000/mon.c
-@@ -142,6 +142,9 @@ static int mon_mgmt_tx(struct net_device *dev, const u8 *buf, size_t len)
- static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
- 				     struct net_device *dev)
- {
-+	struct ieee80211_radiotap_header_fixed *rtap_hdr;
-+	struct ieee80211_hdr_3addr *hdr;
-+	unsigned int hdr_len;
- 	u32 rtap_len, ret = 0;
- 	struct wilc_wfi_mon_priv  *mon_priv;
- 	struct sk_buff *skb2;
-@@ -153,13 +156,26 @@ static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
- 	if (!mon_priv)
- 		return -EFAULT;
- 
-+	if (skb->len < sizeof(*rtap_hdr))
-+		goto drop;
-+
-+	rtap_hdr = (void *)skb->data;
-+	if (rtap_hdr->it_version)
-+		goto drop;
-+
- 	rtap_len = ieee80211_get_radiotap_len(skb->data);
--	if (skb->len < rtap_len)
--		return -1;
-+	if (rtap_len < sizeof(*rtap_hdr) || skb->len < rtap_len)
-+		goto drop;
- 
- 	skb_pull(skb, rtap_len);
-+	hdr_len = ieee80211_get_hdrlen_from_skb(skb);
-+	if (hdr_len < sizeof(*hdr))
-+		goto drop;
- 
--	if (skb->data[0] == 0xc0 && is_broadcast_ether_addr(&skb->data[4])) {
-+	hdr = (void *)skb->data;
-+
-+	if (ieee80211_is_deauth(hdr->frame_control) &&
-+	    is_broadcast_ether_addr(hdr->addr1)) {
- 		skb2 = dev_alloc_skb(skb->len + sizeof(*cb_hdr));
- 		if (!skb2)
- 			return -ENOMEM;
-@@ -191,8 +207,8 @@ static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
- 	}
- 	skb->dev = mon_priv->real_ndev;
- 
--	ether_addr_copy(srcadd, &skb->data[10]);
--	ether_addr_copy(bssid, &skb->data[16]);
-+	ether_addr_copy(srcadd, hdr->addr2);
-+	ether_addr_copy(bssid, hdr->addr3);
- 	/*
- 	 * Identify if data or mgmt packet, if source address and bssid
- 	 * fields are equal send it to mgmt frames handler
-@@ -207,6 +223,10 @@ static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
- 	}
- 
- 	return ret;
-+
-+drop:
-+	dev_kfree_skb(skb);
-+	return NETDEV_TX_OK;
- }
- 
- static const struct net_device_ops wilc_wfi_netdev_ops = {
--- 
-2.55.0
+Can you provide a more specific scenario?
 
+We are seeing several reports related to the connection tracking from
+your university lately.
+
+> Check sh->vtag before processing those chunks when conntrack already
+> knows the expected direction vtag.  This keeps the existing
+> HEARTBEAT/HEARTBEAT_ACK learning and connection-reuse behavior for the
+> `vtag == 0` cases.
+
+Proposed patches to hardening the connection tracking state machine
+should be targeted at nf-next.
+
+Thanks.
+
+> Fixes: 9fb9cbb1082d ("[NETFILTER]: Add nf_conntrack subsystem.")
+> Cc: stable@vger.kernel.org
+> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+> Reported-by: Ao Wang <wangao@seu.edu.cn>
+> Reported-by: Xuewei Feng <fengxw06@126.com>
+> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+> Assisted-by: Claude-Code:GLM-5.2
+> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> ---
+>  net/netfilter/nf_conntrack_proto_sctp.c | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
+> 
+> diff --git a/net/netfilter/nf_conntrack_proto_sctp.c b/net/netfilter/nf_conntrack_proto_sctp.c
+> index 7e10fa65cbdd..9978ecd05b1e 100644
+> --- a/net/netfilter/nf_conntrack_proto_sctp.c
+> +++ b/net/netfilter/nf_conntrack_proto_sctp.c
+> @@ -407,9 +407,17 @@ int nf_conntrack_sctp_packet(struct nf_conn *ct,
+>  			/* (D) vtag must be same as init_vtag as found in INIT_ACK */
+>  			if (sh->vtag != ct->proto.sctp.vtag[dir])
+>  				goto out_unlock;
+> -		} else if (sch->type == SCTP_CID_COOKIE_ACK) {
+> -			ct->proto.sctp.init[dir] = 0;
+> -			ct->proto.sctp.init[!dir] = 0;
+> +		} else if (sch->type == SCTP_CID_COOKIE_ACK ||
+> +			   sch->type == SCTP_CID_ERROR ||
+> +			   sch->type == SCTP_CID_SHUTDOWN ||
+> +			   sch->type == SCTP_CID_SHUTDOWN_ACK) {
+> +			if (ct->proto.sctp.vtag[dir] &&
+> +			    sh->vtag != ct->proto.sctp.vtag[dir])
+> +				goto out_unlock;
+> +			if (sch->type == SCTP_CID_COOKIE_ACK) {
+> +				ct->proto.sctp.init[dir] = 0;
+> +				ct->proto.sctp.init[!dir] = 0;
+> +			}
+>  		} else if (sch->type == SCTP_CID_HEARTBEAT) {
+>  			if (ct->proto.sctp.vtag[dir] == 0) {
+>  				pr_debug("Setting %d vtag %x for dir %d\n", sch->type, sh->vtag, dir);
+> -- 
+> 2.47.3
+> 
