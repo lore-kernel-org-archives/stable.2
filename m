@@ -1,137 +1,117 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0AA38F226
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 16:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785257499; cv=pass; b=PuCBGuj56iIwEjuKuPX6vXvxifh1cQDGy5aYLBbKoAQRCUwnv0ePG0vUpNqDRpNt83iJqcjL2T+3LMMwJ26eLeRAjdFTzojEA6HxVygfebcXMZogO0hstcZ1mazASa7+duYzgMN3Unq/99sdW3p+8FYmBU3KiiT2GneZMMEljdc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785257499; c=relaxed/simple;
-	bh=vlD0TW0KXHEjUkZjxNFErtOjxLeUd4BbAcVOw+5MSDc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H50YiWeXwV4/omwQjdlKvmSEQT7k5DSh+fiz5rptopaCDyLcAh2nyezYSWILrkOsM03y8COk3nn60DlLwTBcfpWgKc6pASBwS6XnzgKBgYJTatBWaVucEpYDk+10OhME1MNFvhX48vpNMylS1dBctC9ilP4L16wiY6BWwsjmCIk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=tq9myjKe; arc=pass smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BD339022E
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 16:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785257608; cv=none; b=t8k58hfLbR68eyjaZt5/2Zx7p+qsf1SqadYj4beWgl4tzba0hXCRuenM+N/wDAVcoVp8JBkHslMeOx8CqUwO22i/ENPZWrFfX0wThYFeu9cxKNNYThl420kySgcBnVe7VyHv5NRnRXyi/lsabbH+ZUI8ogHIKCUm62ZTFicqnJ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785257608; c=relaxed/simple;
+	bh=kTJ8PG13VccAf/UnFEdjF6pIKkjG29SPsjujryYhJgo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fJbxHHxgbicGa09OoCCWW9aIZPBAmleYMY2dqF0yjTbbbAj3NIahiQ5jUdFNv5kuU9AN5Z+4JVrPeMpt9BTCfNAHtRt3A6MlDuwmYL9lQYeIdqQv8qiVkiztusiWqyma75qBzTwfWPo6OFdCzAhlFkqfBMpcqUcP/TPI/BB7qCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h0dbk4nf; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="tq9myjKe"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84536ecfc5bso37788b3a.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 09:51:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785257497; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QR93dmIspcQH5gnRXObBig5/IODPRdsS0bgP0+djwNUl9qAOo8jGegktmJrhvkhdsJ
-         C2TxDcjKB+6rZ54rcioPXbAJtJwmRcZETuX1ZYXlIMlpnxUxGta01n2Nv167TKnZlK4N
-         osXhPeFFtdBdLVJsKxWUZRaYKR24ztlyFGSQmU2hzPbbRZ4IGV0yNHqXeaTa5NwyUtrP
-         FXiN86GJvLqPTyPEhduhQJZn2ZOFINBAMRbPUuETrdapmjVbQYjsLuEkzpNyOi6z+a4g
-         cQxcza/wxsUn5g301xMzwYIcCpOnwh6ttwiXD/IBk2lKBNJiOQiB0XWK+7/41XDLh+qI
-         Ws6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c4gjizotrYOWGcATMUoxDzqOSa24S+nV0QnHF/CgOH8=;
-        fh=UoZ2mXmp5mvvVa3XHewtGNVMrorU4/st6Mpvo/rklfA=;
-        b=sd0V1evzIUIkY0Ju7oMirb3RfWUSoEz2Mh3/514Z7sBaKoz64oTqBobKctjqMVGmQB
-         6dLh+vbN8LVNrdB3X2BykI72jPvf4N0F27O3qjUuuAMdDWPS7Hq6FyYElLcmrLVYo3E9
-         NPrSl6je9RbU18V9Vc6PlT00Mqp6torVgC55CrSip9bFR5bTbKH4wetjsEO9pPNfupw7
-         zZHCDhr2b9Cl6W3AgRwiJRxWB8XYroEyIEz/xV6puCxc9DUHDy+wj4RQxu+lE46vINCi
-         csiRB7D3TcfcuGkqVx53NldsI6xknTb4yg1tGwcwNfJ4fU6moJctB1qIUAOh7qlbV1E7
-         kZvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h0dbk4nf"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3811f512167so29200a91.3
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 09:53:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1785257497; x=1785862297; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c4gjizotrYOWGcATMUoxDzqOSa24S+nV0QnHF/CgOH8=;
-        b=tq9myjKec0FjmGjHXgEC+vXKu+KEZlzWYOdZm/ljvBInYotcov7trSwA2ceH/hqV1w
-         Xi1A3iS6/NwJoXTLeeXkN5NrXApkAO6ymTLA5cxcwRB3M/bKipmCBesSkJvrPx/kvHHM
-         FvMfhFyu6fcBOtYwqGVpJelC3UMuHCHqZwUPE=
+        d=gmail.com; s=20251104; t=1785257606; x=1785862406; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HhYWZOa0HkN7WiWXxoj866N4nnOOceoPTUkPqNFCddo=;
+        b=h0dbk4nfUHfQl69AmWiQx9Fys8nYOx0HENHrjXVohXqOdRL89Osiv4OwIky9lMrQG8
+         H15pdDicMlwjisp04f4o4I5Bshj0nFGUsSm2k5wf6Oq6oQ6PQu3xcTBbFlRlip2FcxKt
+         xkue4CbxHVMF7o8U5ivPTTlXsbCpR7yxv0HHXFak9l7sNoFV2Rg8xflohue0VmDxlE7e
+         3iIoKyqVv3UN/BIV4hqnHGEbW+X0zSRw04r+BfkwoNyIGk+yjwv0mUoK1Ar7iX8ufImx
+         Ls5GX07Xku47aBxfb4om1e1wxs6C4Vnm0azkA4t61RYL2K45Sj8laV7TO6mj97DW0X6b
+         PnKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785257497; x=1785862297;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c4gjizotrYOWGcATMUoxDzqOSa24S+nV0QnHF/CgOH8=;
-        b=RVzhHiXNPll64T6JvfblXCQFoEtQkX761NYOO3S7dhGJk94pwpCqvIpqE+780EZHpu
-         Upm4NCIn8BdRa7LCjKJ4O2HyekKQ4ZVTIGGZlQMjQMDlfGWgYn9oyL6155T6JEvr0XNH
-         MbbaorfVe6mEWN5Mo7/3OtDiWSavrS5Bv//CE5LYZlucPca46V+FeZySKUehRB9OMjuI
-         IIhkNXlehYJ82LvK4JaO670zpx2+szOzis6qWIfhTT9TqnQxUuzPOyLxmPKiK3TE/oA6
-         xlS6lddDgIDz8h83vEmcH5n17jPDENhaBcSR2dfyc6Jpbre6sH+4Po0cqN8D9osmn7Ir
-         44FQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrOr53XY2Da/rUa6M17jcCXtKbXdcyCBC7D/Rk8mrAd4KKEDgwVmYkVoMwc1eqW880BZyGk6gU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWBMmy/2SCR+z07QXgkAQd0/cEVwWqvDqXJ8GByew6d/WBD3kS
-	seRfWVebtscey4azAS/gOtpcUwDIPMKyiNHVeKpBhuo6vONhGoUw0uNu/AXImPYmoE0YcZc9MKC
-	lEEYrvOqY/ru+fM70cQaJ2qFkf3ketoJBDkENy+cP
-X-Gm-Gg: AR+sD10XPtblIrqSHPcs2tMrc5Jq5ugezwlTVqv94JYUipOCuSgBejCpeRk077HqjqL
-	YD7Bds5aoA3lBRmDoW61fkOrV6en83J8X0ngMiFRbilWLQXN6khc0nf4mfMPlC4IhGsVeSnUBdr
-	TF5soi55LZdUamrGYrfhlxcK6rOt0b9fwMp8qFGJmYWQOWDm8Je7TZnCpPlH36aOkChWWAjker5
-	PtA2XxAzVUg+Zr6S5udeU32htojtnOeGgiRr7zDds55+20l81P5PvWWsUw/Zhc=
-X-Received: by 2002:a05:6a00:4fcc:b0:848:88e6:95d3 with SMTP id
- d2e1a72fcca58-84e933518f4mr3777982b3a.72.1785257497186; Tue, 28 Jul 2026
- 09:51:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785257606; x=1785862406;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HhYWZOa0HkN7WiWXxoj866N4nnOOceoPTUkPqNFCddo=;
+        b=LYyUQbZeKKBmlEBmol4eHsa+AVtZCKZRD5u6POsBhdO4OkJF0tlLvBMdf57QJGn4ra
+         e7j63d9Sfm081Eehk2EAhVl59noPojhFTSFSiniODDAhPGAj9zfoJNWVL7TR6NegZPsb
+         YnWCaEZe4AZkARtK1diy8i2B1xmYbzqtPgDB+Aj65arVEqOzfFh9DWkhW7hurQtts9wm
+         zZvs22e9Ncy0/He321BGp0t7GqV2HwyoVKqUUvWSTkNakRcz3puSf2fzv56emr+tue+P
+         WjXX6haVGawFQHGb/ho4V/GDcyjvPmiOzEN8xeFZRzdxyssbomzhOmuzMSW9FJraR8BD
+         YO4Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq7HUhjoQq0SJa5oNrGYBUVJiBUpCDuqgl+1fy4x8Qtq1E8av5IgLPPVoAIiFNTrBPyqR4+FJo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvwNjTBQpDDHbyakgB+TkGZBIXij8aX0AnV4AFf9VPtDR4r4bY
+	2JQdY7oi8oC3mcE3h4/FYNO5sbO2qrk16vlfZksdWHFN4T7qGz1LpgaR
+X-Gm-Gg: AR+sD1204KP5x72UZQjn9e8ev6N9QX5DrGHlKDvhFbZJrASIXsISdD7fdIun9LbLoyX
+	0JQiTNYzA/w+iEGEV1h4uBrzwzZq4M0c5FaYcUhg58Ag1+39YScwD2Zp+8NtE7i8UvxoYTRjxlK
+	Wl333jUpRRJRKjdOwFwdqypY8NJYaerxoK/JhPXGY7OU/eQPxQ+hAjJudjOBdO0DwXE4uvY04zK
+	ySzkIo1abSfXdKru4O/H99gb7NyZGqn8G1wgAnfmwyK4UGDoPkL4VaGqZFqbpICMBVFGS9aW7S1
+	XbwXmakBgVZnOdTlGVIiqXtvNsPDqU0DSbLjH8eOB0YJOWawvntNWOz/VdxAz+/wGo12/ZkJzdC
+	Ouu4HorKQHr35tsj4ZuRvRD7zk7yH3yyLLE0mQ11ex6LHzQotZTDklX0OusMi27JyHN0uGGrLlp
+	cNV7Tk9HWUVQ8lOPdp2Q9OHsd81eEawFZkAx4SSJNP3SP3WncQqeqsMC8OmK0e9js7WWyNDBeTZ
+	++VUdD2nReYwL924ER3n/p/YGagc1SK8hw6uQUPrVpakDQ=
+X-Received: by 2002:a17:90b:3886:b0:38e:8021:2ea9 with SMTP id 98e67ed59e1d1-38f6a36245dmr3663482a91.19.1785257606006;
+        Tue, 28 Jul 2026 09:53:26 -0700 (PDT)
+Received: from localhost.localdomain ([2405:acc0:1306:9d5b:e192:4a0c:2079:ffb7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b15f77sm618980eec.4.2026.07.28.09.53.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 09:53:25 -0700 (PDT)
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+To: Sami Tolvanen <samitolvanen@google.com>,
+	Kees Cook <kees@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] cfi: Ignore non-allocated module trap sections
+Date: Tue, 28 Jul 2026 22:38:04 +0545
+Message-ID: <20260728165304.56449-1-acharyalaxman8848@gmail.com>
+X-Mailer: git-send-email 2.51.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260723105210.817079-1-jhs@mojatatu.com> <3914dd5c-77c8-4f96-8bfc-986f0a00f722@redhat.com>
- <CAM0EoMn6sLJ_OMXY8-B4RE3r9XunFB=OkHbYJ-c-VBpADyO29Q@mail.gmail.com>
- <da0313c5-1060-49fb-a1a3-72197eda4d8e@redhat.com> <CAM0EoMkRMOBmrGW3fAcxxhTxcLaP44zr4m5Ds8G2VFT1CissNA@mail.gmail.com>
- <a4bda84e-3041-49b7-8863-e09862b2739e@redhat.com>
-In-Reply-To: <a4bda84e-3041-49b7-8863-e09862b2739e@redhat.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 28 Jul 2026 12:51:25 -0400
-X-Gm-Features: AUfX_mx0A7dQcsiQj4fXgfq4gfSwDd_OPj-5fXEqK1RqmLfIYeYu_SXvtZ6RBvw
-Message-ID: <CAM0EoMntwBbw7ADoaX+KibvPHqmsPgt2yQpQpNzSMR4JzA7D-g@mail.gmail.com>
-Subject: Re: [PATCH net 1/1] net/sched: cls_route: fix fastmap use-after-free
- on filter
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, kuba@kernel.org, davem@davemloft.net, 
-	edumazet@google.com, horms@kernel.org, john.fastabend@gmail.com, 
-	jiri@resnulli.us, zdi-disclosures@trendmicro.com, victor@mojatatu.com, 
-	security@kernel.org, stable@vger.kernel.org, 
-	Santosh Kalluri <santosh.kalluri129@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 28, 2026 at 10:03=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wr=
-ote:
->
-> On 7/28/26 3:12 PM, Jamal Hadi Salim wrote:
-> > On Tue, Jul 28, 2026 at 9:05=E2=80=AFAM Paolo Abeni <pabeni@redhat.com>=
- wrote:
-> >> On 7/28/26 2:37 PM, Jamal Hadi Salim wrote:
-> >>> On Tue, Jul 28, 2026 at 6:34=E2=80=AFAM Paolo Abeni <pabeni@redhat.co=
-m> wrote:
-> >>>> Since there is already a
-> >>>> synchronization point for both reader and write while acquiring the
-> >>>> fastmap_lock, I'm wondering if something alike the following could w=
-ork ?!?
-> >>>> (completely untested!!!):
-> >>>
-> >>> Your approach has some holes, example misses the most dangerous part =
--
-> >>> destroy(), etc
-> >>> I will mull over it and see if it can be fixed to handle all the
-> >>> issues. I think it's possible i just need to put time to
-> >>> validate/test.
-> >> I would appreciate that, thanks!
-> >
-> > See attached. Untested (compiles) -  addresses my destroy() concern
-> > eaerlier _i think_ (unless something pops up in testing)
->
-> FWIW, the changes LGTM, thanks!
+rewrite_section_headers() initially sets sh_addr for every section to its
+address in the temporary module image. Only SHF_ALLOC sections are later
+copied to module memory and have sh_addr updated.
 
-Tests on all PoCs worked.
-I will give Santosh and Victor a chance to test and will post the
-patch tomorrow.
+module_cfi_finalize() accepts any section named __kcfi_traps. A malformed
+module can therefore leave mod->kcfi_traps pointing into the temporary
+image, which is freed after loading. A later CFI trap would then scan freed
+memory.
 
-cheers,
-jamal
+Require the trap section to be allocated before retaining its address.
+Clang emits .kcfi_traps with SHF_ALLOC, so valid modules are unchanged.
 
-> Paolo
->
+Fixes: 89245600941e ("cfi: Switch to -fsanitize=kcfi")
+Cc: stable@vger.kernel.org
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+---
+ kernel/cfi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/cfi.c b/kernel/cfi.c
+index 4dad04ead06c..3ee67b723ab4 100644
+--- a/kernel/cfi.c
++++ b/kernel/cfi.c
+@@ -74,7 +74,8 @@ void module_cfi_finalize(const Elf_Ehdr *hdr, const Elf_Shdr *sechdrs,
+ 	secstrings = (char *)hdr + sechdrs[hdr->e_shstrndx].sh_offset;
+ 
+ 	for (i = 1; i < hdr->e_shnum; i++) {
+-		if (strcmp(secstrings + sechdrs[i].sh_name, "__kcfi_traps"))
++		if (strcmp(secstrings + sechdrs[i].sh_name, "__kcfi_traps") ||
++		    !(sechdrs[i].sh_flags & SHF_ALLOC))
+ 			continue;
+ 
+ 		mod->kcfi_traps = (s32 *)sechdrs[i].sh_addr;
+-- 
+2.51.2
+
