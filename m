@@ -1,132 +1,102 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CE54734C4;
-	Tue, 28 Jul 2026 19:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B2E472F84
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785266804; cv=none; b=JPoY08Zui2671KjXRGWTJNheqnXnd1ywWSFuzQUAATDorti0p2rUREGhxGw2xl6cAmHxgO7mAojfEOGHj/G4qhZ/FSAzyzUtzZ/L13CsMVXpigX74WzYvDNI0cnUJlz+cUSA5E4Kqa3ISLLArgNGt7rIgnEvnXak4SyF4FhsCQg=
+	t=1785267016; cv=none; b=bWkgmk/unzR8dGT4XTZa/ZMwA5wQkWlJDxnFfpPQntvaYN9Y/iicM5qywO1m2HoUQCtNSPRmjDoBkQfHtERPusqKlF1+zIT7eIxPp9rtTKLw7bYKKMWphy0daenCNZyfEvvQXIbqVYQP+DG4B2nZUxyNVS8BzA5aViPEW/eqrJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785266804; c=relaxed/simple;
-	bh=86K6vg15VfD9OXa2/xauBqFIPOM5uTHnBK6Jx4CCyKc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bLQfK1/ahuWFxco5vsw3NDsDUCuWuplNuNuKNvkL6GLa1Fq1gY1+tYiqIcKK4auXTGgHLFlInUU2p3g7Ii9oJfXW1yv3mBngcQuNjT6168KDPiTXXsXaARQSyVNUWsReuQUhRM5HeDHVejthZKOAJVcigMxwDbL5+O3Z1rgxjY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=CoS//Fk2; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1785267016; c=relaxed/simple;
+	bh=VdCWUJ/YxkIBcNvrV0RiQWa+3YST+f6YPaQybCzN8DQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bny4vX0bBZqk1SnTzsDm8hkGTMqWKrsqM0Tj3jDGOOz7oIchiknM8l3qt4qjgDzfDNUDZ3a6dpqqmUrzFfh6Kk2Cnne/PqVsm8scBL+Ds59wApUWCyvnSgpfTFS11QJ2MvuTfkxjA3mZTTy/TpsXm0yoiSCQISIAN5K122AzMUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LX6XPhOs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="CoS//Fk2"
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id A93E360196;
-	Tue, 28 Jul 2026 21:26:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1785266799;
-	bh=MEECRbHkWBREqJmphTODP5tOHFNRtm4Szv75Afqgxo0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CoS//Fk2N71KPTPMbUEuwoTkOr43RLuYC7r27LdeGxw0qAjlufRTZS/X2DJGpral/
-	 +7ZrDfmoDJ5MYOvHh+Ud4ZHPD/AjyLvpm7sVh2Nfk1MVYN5U7zQ8/eJ8ChzDalZn8V
-	 Z8BDuXkZYmb54H7UMxdDCQZe96Rn7mTga6kayghzBbyulDg7AXrpBw+TG1vcsapU3K
-	 RusjR6eGUgKZ8M5Ycm7gesBBLEce55f5jB40/DoPTzWkkCbui43zbMO2UOc1E6YbNz
-	 /yHzyXkX/zdS1GwcOjrLS6STNmEmJ4E1vDn8yBhLixQijrSr5G57UifC8E0RbCFSTX
-	 XEkPSCLWFK2lg==
-Date: Tue, 28 Jul 2026 21:26:37 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Cc: netfilter-devel@vger.kernel.org, Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
-Subject: Re: [PATCH nf] netfilter: conntrack: sctp: verify vtag before state
- changes
-Message-ID: <amkCbQ1UDRKcZBez@chamomile>
-References: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LX6XPhOs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD9A1F000E9;
+	Tue, 28 Jul 2026 19:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785267014;
+	bh=DDy6Up9001HScfFZjHJLoG9N2CxhJIA/Q83kh4JAPcI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LX6XPhOsTGiJ67gdCo9gL7SZ5+dPazzVpZLjhZKL43UXOIu/82qyD/pbUpVSSGK1D
+	 XYk/nV9d7vWXjwFjkmW0roNl8WpdphfsKIErncNBFPACqYD3w0uXQ7Y5pgvg9qQruv
+	 wrcZGHbtsB084Ng2Ea88qo0mr4BAWghe4akYeL6wk0T1LgVKG5VThJa5r2GGJXbqgN
+	 fRYK7bMgQpUP+8zJ1H20ZrtRbMeSnbjBTeOhG8LNPYImOb7LHCJi9j8NGj5UuPnOgT
+	 D9f0CmNj4jMT+1wHCmPB+1ayjfCim6kFZRwU+nEIZZ0oxMoqOgsPFshnVVJEGSuKNH
+	 zod36+ZzU+eig==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Kurt Kanzenbach <kurt@linutronix.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] net/sched: taprio: avoid calling child->ops->dequeue(child) twice
+Date: Tue, 28 Jul 2026 15:30:11 -0400
+Message-ID: <20260728193012.455558-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072146-curable-untreated-02d2@gregkh>
+References: <2026072146-curable-untreated-02d2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-On Tue, Jul 28, 2026 at 03:35:06PM +0800, Yizhou Zhao wrote:
-> The packet-wide vtag check in nf_conntrack_sctp_packet() is skipped when
-> the bundle map contains any chunk type with special vtag handling.  The
-> per-chunk path re-checks INIT, ABORT, SHUTDOWN_COMPLETE, and
-> COOKIE_ECHO, but other state-changing chunks still fall through to
-> sctp_new_state() without validating sh->vtag.
-> 
-> This lets a wrong-vtag packet bundle HEARTBEAT with COOKIE_ACK, ERROR,
-> SHUTDOWN, or SHUTDOWN_ACK and still advance conntrack state.  That can
-> desynchronize conntrack from the real SCTP association and cause denial
-> of service for SCTP traffic behind a stateful firewall.
+[ Upstream commit 4c22942734f0814d3c928c25a80f48df0a6ce45e ]
 
-Are you assuming a specific policy in place? The connection tracking
-does not police packets, it just provides tracking.
+Simplify taprio_dequeue_from_txq() by noticing that we can goto one call
+earlier than the previous skb_found label. This is possible because
+we've unified the treatment of the child->ops->dequeue(child) return
+call, we always try other TXQs now, instead of abandoning the root
+dequeue completely if we failed in the peek() case.
 
-Can you provide a more specific scenario?
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: e056e1dfcddc ("net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sched/sch_taprio.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-We are seeing several reports related to the connection tracking from
-your university lately.
+diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
+index 8e7c0a3034cc41..0fd5f79288b431 100644
+--- a/net/sched/sch_taprio.c
++++ b/net/sched/sch_taprio.c
+@@ -557,12 +557,8 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
+ 	if (unlikely(!child))
+ 		return NULL;
+ 
+-	if (TXTIME_ASSIST_IS_ENABLED(q->flags)) {
+-		skb = child->ops->dequeue(child);
+-		if (!skb)
+-			return NULL;
+-		goto skb_found;
+-	}
++	if (TXTIME_ASSIST_IS_ENABLED(q->flags))
++		goto skip_peek_checks;
+ 
+ 	skb = child->ops->peek(child);
+ 	if (!skb)
+@@ -589,11 +585,11 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
+ 	    atomic_sub_return(len, &entry->budget) < 0)
+ 		return NULL;
+ 
++skip_peek_checks:
+ 	skb = child->ops->dequeue(child);
+ 	if (unlikely(!skb))
+ 		return NULL;
+ 
+-skb_found:
+ 	qdisc_bstats_update(sch, skb);
+ 	qdisc_qstats_backlog_dec(sch, skb);
+ 	sch->q.qlen--;
+-- 
+2.53.0
 
-> Check sh->vtag before processing those chunks when conntrack already
-> knows the expected direction vtag.  This keeps the existing
-> HEARTBEAT/HEARTBEAT_ACK learning and connection-reuse behavior for the
-> `vtag == 0` cases.
-
-Proposed patches to hardening the connection tracking state machine
-should be targeted at nf-next.
-
-Thanks.
-
-> Fixes: 9fb9cbb1082d ("[NETFILTER]: Add nf_conntrack subsystem.")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-> Reported-by: Ao Wang <wangao@seu.edu.cn>
-> Reported-by: Xuewei Feng <fengxw06@126.com>
-> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-> Assisted-by: Claude-Code:GLM-5.2
-> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> ---
->  net/netfilter/nf_conntrack_proto_sctp.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/netfilter/nf_conntrack_proto_sctp.c b/net/netfilter/nf_conntrack_proto_sctp.c
-> index 7e10fa65cbdd..9978ecd05b1e 100644
-> --- a/net/netfilter/nf_conntrack_proto_sctp.c
-> +++ b/net/netfilter/nf_conntrack_proto_sctp.c
-> @@ -407,9 +407,17 @@ int nf_conntrack_sctp_packet(struct nf_conn *ct,
->  			/* (D) vtag must be same as init_vtag as found in INIT_ACK */
->  			if (sh->vtag != ct->proto.sctp.vtag[dir])
->  				goto out_unlock;
-> -		} else if (sch->type == SCTP_CID_COOKIE_ACK) {
-> -			ct->proto.sctp.init[dir] = 0;
-> -			ct->proto.sctp.init[!dir] = 0;
-> +		} else if (sch->type == SCTP_CID_COOKIE_ACK ||
-> +			   sch->type == SCTP_CID_ERROR ||
-> +			   sch->type == SCTP_CID_SHUTDOWN ||
-> +			   sch->type == SCTP_CID_SHUTDOWN_ACK) {
-> +			if (ct->proto.sctp.vtag[dir] &&
-> +			    sh->vtag != ct->proto.sctp.vtag[dir])
-> +				goto out_unlock;
-> +			if (sch->type == SCTP_CID_COOKIE_ACK) {
-> +				ct->proto.sctp.init[dir] = 0;
-> +				ct->proto.sctp.init[!dir] = 0;
-> +			}
->  		} else if (sch->type == SCTP_CID_HEARTBEAT) {
->  			if (ct->proto.sctp.vtag[dir] == 0) {
->  				pr_debug("Setting %d vtag %x for dir %d\n", sch->type, sh->vtag, dir);
-> -- 
-> 2.47.3
-> 
