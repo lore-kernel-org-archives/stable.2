@@ -1,133 +1,182 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9998217704
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 01:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763F42BEC5F;
+	Tue, 28 Jul 2026 01:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785202303; cv=none; b=ENlJvRFpsOlPoeCwxm5N8Q1tPAw4YbaYJ+1VZRWCCySKsZZ4SXOYy8NHXIf1/ZnuDUcrdhUe7zy3nEvxaD9pGA4CSX8q2FHjiko2evWoQA9fwK4quwFSwq0FJdsItoVSLw1dXNiJ4leJCB1sQDE0V6oITDN0uxGBYhnuCFqg9O8=
+	t=1785202517; cv=none; b=Ydf3u9rkW2K2OTU4v/c6Tv2HHWpGpA/G1e8fK8Y9LJDcgwQn9yeN65X9fOMy9qUnIFh7u4xGS7G6INbCn+sbmuCV/2Rqis0Aq184mBRsI5z54gPJgSUgggwN76NQadDNijedtFHuHX4x3I12jKRZQ2K/NKNbafulaoV5pHsKNhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785202303; c=relaxed/simple;
-	bh=xN3XdDgIGoruQW2AwPCdjZ3rcxzT9LsA5JnV72gCxjo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qHVnJ2ARhiriVz6APN2fodcqNbFna3uEdYGWH07KrKMXFaEDf1GoeGq4ktxC8BZny7EifYeTLcYZncLLI02fGkwC3ArouERund6a8oQpySpfPlDMUc27PyIhWH+Qr7Yapo22wWPJZO90Z31inyOsBI53Z2nxQtnrdZGFRBmv9q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=VsalMrGt; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	s=arc-20240116; t=1785202517; c=relaxed/simple;
+	bh=p+PbP0myv75st5mwvzBTsdFK7aSDgUKdeNFvumRPnck=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cyHnPTGEFJMzyYaavWqsOnZUNtU5T6WJnElLIvsgBJG+LSOA1dwDerUX/aqCx+6y0MyevfcOPjEI+GBvqxsSV4zJET0QqjlCAueslOOX8X8exLx/zolNyLP6jQFlz1YchLHUD34fCZKZ/GZR5MQmV7WEH8HxlCCRuY++SDPl4IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=r/o770CI; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="VsalMrGt"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ccf2360620so31167705ad.3
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 18:31:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1785202300; x=1785807100; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NV9OX3HfsztmSf4OIPL5ZR2O39v4TxztWNESgaKRtxg=;
-        b=VsalMrGtZM96C3PiFobwI3SVpMlEHO6538kUUbPGmCus3AdlG/rwYyMIl2oaEAXgGd
-         ESB3+nbelD31swgMz7wHwiZxpUTTCTpSdPenyIs6rap0Sx9J9N4wPgO+cgLoKHV80IuX
-         H3dIsu1KGoxBBIQcn+wwbSgYjMuTMVE6jsAko=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785202300; x=1785807100;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NV9OX3HfsztmSf4OIPL5ZR2O39v4TxztWNESgaKRtxg=;
-        b=I4p6Gu3WbuuTJ2NHwmlW/dI5GlqThN7KrtVQgrGfyoivUyP1XeGSQBFLCENW0WbCeD
-         bjXo6Mr2jjcRS5rNm0iv1NXgDCrJzv/wXwttML5S7j7sSCay1NUNCAK4n+NARdbz6BS1
-         hHPuciRf35FPEehtXRNfNaDe8uhNXNBtsOW/gZvjufrvsdFvMWnPmPUtxwPEuY9C6R2I
-         1ZxIWUwqk64uzXx3y/lvekwMqTwVzSjJoroiXjDmJyccXs+l5clixJv76ivbVFL3Tbzs
-         TRHoSxUWjmAUYkxWm1SkrmwjwLf9PUwO3tPHaN5nf7VYxXA0JwfgvXZgVaUGakA3IFNZ
-         BnWg==
-X-Forwarded-Encrypted: i=1; AHgh+RrylvcXCPzdqZI8nPfBDRTGK5wRL9WXTER+4hHi6X8cN6n1KXX8IXqhHJ4JDjClyRr2Us8Nbyw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwV00h+3tgGeHcZfTPZKkkCLO+fe9B5W6rpFbuJPloJmrDSFdow
-	KLyljdcrpnYKy+hIHsW1WMSir+xBBGuDe3D00+gq6nLvcUqUWFMXrKKFMxupdvDcBuk=
-X-Gm-Gg: AR+sD11FACoOwkOH4TbnY4GkVVp7eT3Jh7IsBiPRDOPplb8HkBlXeDSfv8hvh5gZoig
-	TQASRKNOFtvmiMchIhwrvPX5f+mrxbdDEra4LU4uglNr6/V1L4OfEiuxY0sTk98UylWLe+sczUo
-	M7aOmvblcuOotQy4pOR+YmHvsggMkUVEp4ptcc5ataM1Y1nMzWgn4IajTAn2AqfjCYjMVQuufkP
-	tBl2XLJEhIRinFR1GTTKBBLIAEMzLjCpYS571vfe0RdrCr90G8VgCVXty2jpEqZraIj/iFAFYWm
-	/Ej5FrnRvV+iYvCCoI112kXRxYJxUwMD2k5NPPvJzH51b6K8k6VYxIfx6rDMkh+Xc8JIl6oGzyT
-	xgxbeWzDx4ahYQ5Ix+Lfc0cU0FmiZi5RbRC0A9u+lMHkS2T7vTHa7RttyrsgT+WvMsjFV3S9Roj
-	6ZOIF9wl5caEQulQoCE2YbJEjNM0lfs7DgGYn4r2e0Md7gZ7JkM2cD/rJ5AM729OsheGKy60VVp
-	wkbjHkRujwFVUjpMuLBjlbm4ZfrWmCpT6mxec06FnrYnOf84OER/fBZd5ah/jDwrr9Ekk4UtCW7
-	XjX9RWQO7cMaEBPYLsyWLouE79NPey+oWWcSYxQApjosKBx3hO/56iCxizvqGwvMaPVnmRwYzHP
-	Mk4mggIZRAnU4HPOt0Xy2t5N8kg==
-X-Received: by 2002:a17:903:b8f:b0:2ca:3e3f:4956 with SMTP id d9443c01a7336-2d015d43f76mr3129095ad.44.1785202300262;
-        Mon, 27 Jul 2026 18:31:40 -0700 (PDT)
-Received: from aegis ([2001:fd8:4d03:6b00:7871:9297:7799:ea22])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81cd27sm43655545ad.79.2026.07.27.18.31.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 18:31:39 -0700 (PDT)
-From: Daniel J Blueman <daniel@quora.org>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel J Blueman <daniel@quora.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] soc: qcom: pmic_glink_altmode: use a freezable workqueue
-Date: Tue, 28 Jul 2026 09:25:49 +0800
-Message-ID: <20260728012549.14502-1-daniel@quora.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="r/o770CI"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S0lbcg1887605;
+	Tue, 28 Jul 2026 01:35:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=WRGNLeV0oXr2M/BZ+
+	sfXha8JHIJWYlAk6/V1XSPYaiM=; b=r/o770CIqfngTvs3keGts7vstjnxNfFIT
+	WnEWMBZmwGXm1uFR/VUYfrD5RdGv738giMy2aW1WqD3eaeHT0RpYV/CsEE0mEaCU
+	Cas0BX6szZfV0QZ/tuoWRTkLejtaS/0Q1QJUy+tmbYw+l2tgsWOjnAHXPS1WnKSr
+	XvzL+yKU/hjTl49+iOu2RSUro9iemyELOsouGBi0FAeeN3zwpRXIqFPy874H4bJJ
+	Qg85TLf2pGZXytL57gshnLL8LSp9u5G8HwIsTTrDYQ9PWpYO4zgqGFzcIAq7NxIp
+	eOVpLIZ0nUt7Hu3lL5M0FWR4FPWM07YIacqLTkM9OZ5HW2y7++5UQ==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuycaw8p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 28 Jul 2026 01:35:15 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66S1QQ60001018;
+	Tue, 28 Jul 2026 01:35:14 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fna5xyg1m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 28 Jul 2026 01:35:14 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66S1ZAm951118356
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 28 Jul 2026 01:35:10 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B477C200C7;
+	Tue, 28 Jul 2026 01:35:10 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8D984200C4;
+	Tue, 28 Jul 2026 01:35:10 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Tue, 28 Jul 2026 01:35:10 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 4958)
+	id 746321627F0; Tue, 28 Jul 2026 03:35:10 +0200 (CEST)
+From: Eric Farman <farman@linux.ibm.com>
+To: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Eric Farman <farman@linux.ibm.com>, stable@vger.kernel.org,
+        Farhan Ali <alifm@linux.ibm.com>
+Subject: [PATCH v8 01/10] s390/vfio_ccw: free all memory if cp_init() fails
+Date: Tue, 28 Jul 2026 03:35:00 +0200
+Message-ID: <20260728013509.1551753-2-farman@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260728013509.1551753-1-farman@linux.ibm.com>
+References: <20260728013509.1551753-1-farman@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: GDlltBqUQi9CeowqJiQOlXknl9qrsJTe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDAwOSBTYWx0ZWRfX+Oh99gepcfxu
+ KSeOxmJjY30ZOIRuu00YU8Tb2zs9JnWbx+tTJFTXZ/a8C9PJIDqkRtjFZ7KuTatkQbffmHCNsvA
+ Xe4g23WjHibSKzthxVdANPAT5Wp2/WxpLlY0QsX9oy3esM7kQOxqPWA4lzwesyCwWx9rI9+qB2r
+ TM99+9ECW6FXNK0+l7D9bMYQJg+jUncWBuQFinr9FLUCTMnww5SkpPKPyBlZEDQiasTcpgJFQog
+ pVPUtMWbjFUOrVSgV5OKjfMq0HgMLCOczMpi2fES5ptuvj0gZn2Ejla2O+S6025mPgHP3vsnKeq
+ KXUb688NVCP90rz2Qrb67nHFPMzqvw3+vPUnAZVVwT/cMDqkYeR6fDYNdT5NaNcmiGLBP8lG9Jl
+ WQWs0MVHtE5WCr2BsG0EHAIJgmYm9dpT7UhDQWmkpQtq24YFIujxaut39A3rR8PomuuaXe6BNvg
+ lx5Fs7qsORgXM992rDg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDAwOSBTYWx0ZWRfX6zMJTQZzmaxI
+ FfeQfD8V8Y50uqFupRXs74SOqVEyecC+AE8K/cfCD70DAhXmy0r2kUpYB6HqmdErzmIkwTD9C1s
+ NFzOvqY5q91CfvOPu4Xn4qbP1VmrHJQ=
+X-Authority-Analysis: v=2.4 cv=AZeB2XXG c=1 sm=1 tr=0 ts=6a680753 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=WEmllObKAWPfCt-5-jUA:9
+X-Proofpoint-GUID: GDlltBqUQi9CeowqJiQOlXknl9qrsJTe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_07,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 malwarescore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280009
 
-On suspend wake, the DisplayPort altmode setup often executes
-before devices have compeleted resuming; this triggers a legitimate
-warning:
-  i2c i2c-2: Transfer while suspended
-  WARNING: drivers/i2c/i2c-core.h:57 at __i2c_transfer+0xc0/0x9a8
-  Workqueue: events pmic_glink_altmode_worker
-  Call trace:
-   __i2c_transfer
-   i2c_transfer
-   regmap_i2c_read
-   ...
-   ps883x_sw_set
-   typec_switch_set
-   pmic_glink_altmode_worker
+The routine cp_free() is called to unpin/free any memory once an I/O
+is completed successfully, or if cp_prefetch() fails. But if cp_init()
+fails, and cp->initialized is not enabled, the same routine cannot be
+used to free all the memory.
 
-The setup doesn't succeed, leaving the DP-alt monitor non-working.
+An attempt to address this exists in ccwchain_handle_ccw(), where a
+single call to ccwchain_free() is made for the currently-processed
+CCW segment. But this will leak other segments (created as a result
+of a Transfer in Channel) that had been allocated as part of the same
+channel program.
 
-Fix this by queuing the work on the freezable workqueue instead,
-deferring the setup until devices have resumed.
+Address this by performing the cleanup outside of the recursive
+ccwchain_handle_ccw()/ccwchain_loop_tic() logic.
 
-Observed and validated on a Lenovo Yoga Slim 7x X1E80100 when waking
-from suspend with a USB-C DisplayPort monitor.
-
-Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
+Fixes: 8b515be512a2 ("vfio-ccw: Fix memory leak and don't call cp_free in=
+ cp_init")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daniel J Blueman <daniel@quora.org>
+Reviewed-by: Farhan Ali<alifm@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Eric Farman <farman@linux.ibm.com>
 ---
- drivers/soc/qcom/pmic_glink_altmode.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/s390/cio/vfio_ccw_cp.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
-index 619bad2c27ee..939a444ebe6e 100644
---- a/drivers/soc/qcom/pmic_glink_altmode.c
-+++ b/drivers/soc/qcom/pmic_glink_altmode.c
-@@ -450,7 +450,7 @@ static void pmic_glink_altmode_sc8180xp_notify(struct pmic_glink_altmode *altmod
- 	alt_port->mode = mode;
- 	alt_port->hpd_state = hpd_state;
- 	alt_port->hpd_irq = hpd_irq;
--	schedule_work(&alt_port->work);
-+	queue_work(system_freezable_wq, &alt_port->work);
+diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_c=
+p.c
+index 7561aa7d3e01..086d1b54bdb0 100644
+--- a/drivers/s390/cio/vfio_ccw_cp.c
++++ b/drivers/s390/cio/vfio_ccw_cp.c
+@@ -455,9 +455,6 @@ static int ccwchain_handle_ccw(dma32_t cda, struct ch=
+annel_program *cp)
+ 	/* Loop for tics on this new chain. */
+ 	ret =3D ccwchain_loop_tic(chain, cp);
+=20
+-	if (ret)
+-		ccwchain_free(chain);
+-
+ 	return ret;
  }
- 
- #define SC8280XP_DPAM_MASK	0x3f
-@@ -501,7 +501,7 @@ static void pmic_glink_altmode_sc8280xp_notify(struct pmic_glink_altmode *altmod
- 		alt_port->tbt_data = *tbt;
- 	}
- 
--	schedule_work(&alt_port->work);
-+	queue_work(system_freezable_wq, &alt_port->work);
+=20
+@@ -486,6 +483,23 @@ static int ccwchain_loop_tic(struct ccwchain *chain,=
+ struct channel_program *cp)
+ 	return 0;
  }
- 
- static void pmic_glink_altmode_callback(const void *data, size_t len, void *priv)
--- 
+=20
++static int ccwchain_build_ccws(dma32_t cda, struct channel_program *cp)
++{
++	struct ccwchain *chain, *temp;
++	int ret;
++
++	ret =3D ccwchain_handle_ccw(cda, cp);
++
++	if (ret) {
++		/* Cleanup if an error occurred */
++		list_for_each_entry_safe(chain, temp, &cp->ccwchain_list, next) {
++			ccwchain_free(chain);
++		}
++	}
++
++	return ret;
++}
++
+ static int ccwchain_fetch_tic(struct ccw1 *ccw,
+ 			      struct channel_program *cp)
+ {
+@@ -735,7 +749,7 @@ int cp_init(struct channel_program *cp, union orb *or=
+b)
+ 	memcpy(&cp->orb, orb, sizeof(*orb));
+=20
+ 	/* Build a ccwchain for the first CCW segment */
+-	ret =3D ccwchain_handle_ccw(orb->cmd.cpa, cp);
++	ret =3D ccwchain_build_ccws(orb->cmd.cpa, cp);
+=20
+ 	if (!ret)
+ 		cp->initialized =3D true;
+--=20
 2.53.0
 
