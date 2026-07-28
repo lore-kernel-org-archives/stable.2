@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA663C4163
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 22:17:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC843DD528
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 22:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785277080; cv=none; b=q6gieR1+NNxz9CQMMxqzqtCd4LX0vkkUvgZ9TYyUXE9Cjeh9xojEPnvL3kzlpu7Yo/QM3dKyI7Mn7MOBhbofWof4marY/gDfR9By9UKkpR6xi4nv6dBGJZuIQ9yhvA69/TWYAOl6epEMwmoWQNIJVB9Q2tw0xYfwdNQHJJ5SkhU=
+	t=1785277095; cv=none; b=g33xw8F1hqTlPi58c178zpobvtFYAHIBdhGQbVWd7lZE5ZI74gs6V5l1voc0Sx1g1tFT/qiQYpcxtyhnt4ZGFtfTH1+FduHPhEDTLanVHnNVX+jYZfDdTtZmJ++MoJAGuC6g1Mj8oces5U03ONtF90EYd+EZpuTs8AR7/syU/+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785277080; c=relaxed/simple;
-	bh=i7xYdrHlx6FknLiT2Vu/I9cXx7oxq3yObuToiGBNspg=;
+	s=arc-20240116; t=1785277095; c=relaxed/simple;
+	bh=DrGOrqFgt5bGeQ+0F5jsIXMgLGDdPuLRJWrvf36xwzM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cw0KaFPhZdVtRxtU9gMP1beAGpu9PPjHgyfFPD2PYzg3vbkvotKEKbOAhyGWRXt5iu4ymKbX2AYAZJO6QF603a7mQoX6tYeqElzucXHkF+iqAFpDGifniWlFmDPW+D9VzgMZ/s75UBysE1y2b0TSv4Bam0xkRwGZblTbJK3JRX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kb9ZGjPb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g2Aa3tHmldZ/D9gOj8GCWiY3k7k2Y0+OYvY0Ql8yxF+hDXOXnkxk1aoAax4JzWi6JleUaQm4O9EM8KBITiL1HBQfHW+l29S83V8LSOG6Sddjjx8hSuEMWozqIL5H3NTQasBYg+MCbl7XkCmwCJHSOp2APqzl527zPvgPSRFyNpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFIjG8bk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kb9ZGjPb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCFA1F00A3D;
-	Tue, 28 Jul 2026 22:17:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFIjG8bk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267001F000E9;
+	Tue, 28 Jul 2026 22:18:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785277078;
-	bh=PSTMEuLvc4PdkK9Aqdf4WV5Wv8uUWzXHLn89Xlf/ZQY=;
+	s=k20260515; t=1785277093;
+	bh=CbGihwobmzwTMgFdlwxRbYU4hnxszu+t7OT8r+I8YFw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kb9ZGjPbIynfcmU/7oGSikW5LKo2yUOl8YcO8sd+Y1QQKXN0f5BA4A4z3UzWgTvir
-	 1h1AxjLDParpk9mHbJAKEFXoUMdhSQkx2yFCtH1DlAAXVww+fmthcLoedRe4Y0yK+w
-	 qI+fHeyQFuzaiTU+AqFuCW73KqmyY/rsG/rL+yl7ShoVckRgnW04jSSOYO1e2CdNox
-	 5EnNWnZUwPcvFgM6BtaaTC1zq4x/wKAGgQAQoISOiK3bOfZCF01dQWWFJRPv9kZzbh
-	 0IPVJ7vC0MTkqGdkKGiFoZnzWzvzekHoER7r1Xg6CftafM0g7eZtRKtV2VJP21mDRo
-	 XahstDFsXtQhA==
+	b=EFIjG8bkCqKSGWBroNyX5vKCc1QrhsZ4BrWcttklZZCMiMtBgtGK8ooRzDOVkB42v
+	 BPr7D4qPBQIEsvCoaxkX5mZudZluXavXnNlpVKPTPwlOaQlgnrD1jJ5FcSPWV2Dbp3
+	 zJfglTzl3aJ8qWDKKs0Yqe/ATRv3dMr+x7vNlM5Ndw3TlH50+xLYh9jDWf72ok0F+K
+	 BgaDdTCVbZe7cBig47idtvZlZmwo7pke+Z8AmTkTyxlP2sTAUKxqtatvHA9BJNwHe0
+	 meG4ez+JVTDwy030zO5rEF1wbrxQmbR6QH0EHa1Y034XNmpqfYga8ELD9OB2bNM+7Z
+	 WRNe+lEiJkrLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
-	Yevgeny Kliteynik <kliteyn@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] net/mlx5: HWS, fix matcher leak on resize target setup failure
-Date: Tue, 28 Jul 2026 18:17:55 -0400
-Message-ID: <20260728221755.746200-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] gpio: tegra: do not call pinctrl for GPIO direction
+Date: Tue, 28 Jul 2026 18:18:11 -0400
+Message-ID: <20260728221811.747329-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728221755.746200-1-sashal@kernel.org>
-References: <2026072123-treason-bush-df20@gregkh>
- <20260728221755.746200-1-sashal@kernel.org>
+In-Reply-To: <2026072049-staunch-cognitive-7c1c@gregkh>
+References: <2026072049-staunch-cognitive-7c1c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,51 +45,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dawei Feng <dawei.feng@seu.edu.cn>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit bb09d0e64ecaa0aa0f7d1133a1696ed74dead295 ]
+[ Upstream commit d3e91a95b2b0fc6336dbf3ec90d831a1654d2720 ]
 
-hws_bwc_matcher_move() allocates a replacement matcher before setting it
-as the resize target. If mlx5hws_matcher_resize_set_target() fails, the
-replacement matcher is not attached anywhere and is leaked.
+tegra_gpio_direction_input() and tegra_gpio_direction_output() already
+program the GPIO controller direction registers directly. The additional
+pinctrl_gpio_direction_input/output() calls do not add a Tegra pinctrl
+operation, because the Tegra pinmux ops provide GPIO request/free
+handling but no gpio_set_direction hook.
 
-Fix the leak by destroying the replacement matcher before returning from
-the resize-target failure path.
+The extra call still enters the pinctrl core and takes pctldev->mutex.
+Shared GPIO users can call the direction path while holding their
+per-line spinlock, so this otherwise redundant pinctrl direction call can
+sleep in an atomic context.
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still
-present in v7.1.1.
+This was found by our static analysis tool and then confirmed by manual
+review of tegra_gpio_probe(), the Tegra GPIO direction callbacks and the
+Tegra pinctrl ops. The reviewed path has a default non-sleeping
+struct gpio_chip while the direction callback still enters the pinctrl
+mutex path.
 
-An x86_64 allyesconfig build showed no new warnings. As we do not have a
-mlx5 HWS-capable device to test with, no runtime testing was able to be
-performed.
+A directed runtime validation kept the same non-sleeping chip registration
+and drove:
 
-Fixes: 2111bb970c78 ("net/mlx5: HWS, added backward-compatible API handling")
+  gpio_shared_proxy_direction_output()
+  gpiod_direction_output_raw_commit()
+  tegra_gpio_direction_output()
+  pinctrl_gpio_direction_output()
+
+Lockdep reported a sleep-in-atomic warning with the shared GPIO spinlock
+held and pinctrl_get_device_gpio_range() plus tegra_gpio_direction_output()
+on the stack.
+
+Do not mark the whole chip as can_sleep to paper over this: can_sleep
+describes whether get()/set() may sleep, and Tegra value access is MMIO.
+Remove the redundant pinctrl direction calls and keep pinctrl involvement
+in the existing request/free path.
+
+Fixes: 11da90541283 ("gpio: tegra: Fix offset of pinctrl calls")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-Reviewed-by: Yevgeny Kliteynik <kliteyn@nvidia.com>
-Acked-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20260629064049.3852759-1-dawei.feng@seu.edu.cn
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260619152439.1239561-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c   | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpio/gpio-tegra.c | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c
-index 3fc3ada0166534..4fdffc20cd7829 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c
-@@ -225,6 +225,7 @@ static int hws_bwc_matcher_move(struct mlx5hws_bwc_matcher *bwc_matcher)
- 	ret = mlx5hws_matcher_resize_set_target(old_matcher, new_matcher);
- 	if (ret) {
- 		mlx5hws_err(ctx, "Rehash error: failed setting resize target\n");
-+		mlx5hws_matcher_destroy(new_matcher);
- 		return ret;
- 	}
+diff --git a/drivers/gpio/gpio-tegra.c b/drivers/gpio/gpio-tegra.c
+index 86568154cdb3d3..4a3f2fe7a3a8bd 100644
+--- a/drivers/gpio/gpio-tegra.c
++++ b/drivers/gpio/gpio-tegra.c
+@@ -168,18 +168,11 @@ static int tegra_gpio_direction_input(struct gpio_chip *chip,
+ 				      unsigned int offset)
+ {
+ 	struct tegra_gpio_info *tgi = gpiochip_get_data(chip);
+-	int ret;
  
+ 	tegra_gpio_mask_write(tgi, GPIO_MSK_OE(tgi, offset), offset, 0);
+ 	tegra_gpio_enable(tgi, offset);
+ 
+-	ret = pinctrl_gpio_direction_input(chip->base + offset);
+-	if (ret < 0)
+-		dev_err(tgi->dev,
+-			"Failed to set pinctrl input direction of GPIO %d: %d",
+-			 chip->base + offset, ret);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int tegra_gpio_direction_output(struct gpio_chip *chip,
+@@ -187,19 +180,12 @@ static int tegra_gpio_direction_output(struct gpio_chip *chip,
+ 				       int value)
+ {
+ 	struct tegra_gpio_info *tgi = gpiochip_get_data(chip);
+-	int ret;
+ 
+ 	tegra_gpio_set(chip, offset, value);
+ 	tegra_gpio_mask_write(tgi, GPIO_MSK_OE(tgi, offset), offset, 1);
+ 	tegra_gpio_enable(tgi, offset);
+ 
+-	ret = pinctrl_gpio_direction_output(chip->base + offset);
+-	if (ret < 0)
+-		dev_err(tgi->dev,
+-			"Failed to set pinctrl output direction of GPIO %d: %d",
+-			 chip->base + offset, ret);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int tegra_gpio_get_direction(struct gpio_chip *chip,
 -- 
 2.53.0
 
