@@ -1,219 +1,133 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E0C43848F
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 13:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F563C4B87;
+	Tue, 28 Jul 2026 13:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785244266; cv=none; b=P3sHYsIFyBEpZscYndBV5cakk6Bf9JxrR4uV3gmeQ/wcShbLeTybtq+MWQBlamXKOKZO479tWZa4tiNgjXCYxSou3LbUZCirwu3fX9aWSQtBg1yGo08ADUeVFjAy1eEEXq7uHokkgCFDkNXYjqSbjrQXa+xsVFoD7vK58XtA1wg=
+	t=1785244297; cv=none; b=MIycvuLxOoSColh3fc4K+jCIEKkgK+3eVXAX7y9RrktFcEEquUb3dm6lKdMgxP64mO5QljltyBTuqrASf5w8D0KyPgftXlZjFy1q67TT3050dmYRmYeljCWKA7x+JgnR6lTIBTOSrp/2uZWuUWDXldkcQoLy47orMYBYNR9A07g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785244266; c=relaxed/simple;
-	bh=y1dmns9aZbfxPoXdcw4Ty1vhi+phYuXqgcWHjlPquo8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gKHJ360vgFCqbbb27GF6wb5hVhyqyMgSd4s2D6dL78LZm/slzRmnWZBxRulyFKMXZUZ+OLR4hIjSmgR7ZWs/SOhO/jMy2aCHBHPPOK35uPelNj+MUFRuqr+X/JW3F60u7ywte6j/Z1RihqI+72b5wuKsGzFy/LPjlrf/ChFcdfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3r1l1ua; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785244297; c=relaxed/simple;
+	bh=Ou21JCvc5HKPxxlwNcJySmXmuJ9pySNSUu/x50iXS6A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RlKtMfS/ZGP5gyHVLCLe2upW55K6In/e7EXyazzYSlBPmW1d+1wwMaJSCK40PFGhmj1moOLsqi1uWKTc+RPw2daO72P8+047NiA7koAIc8qon8/WTDMlENRxq3jcyIKGsqjo/B4y/UbrN7OWm7fP+CsoCTHuTM4cORP9K7UOVwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKcEJwJI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3r1l1ua"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so41343305e9.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 06:11:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785244262; x=1785849062; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kYkngR3zU/7J7Bh+e7YxqTUattKgmim551QQ/MGGdoI=;
-        b=b3r1l1ua1IBbk0JqDvzv07Ur5Xz1j6jc0wq6GYk+oZpr7RW+jlpuKJsBUkzZxT9k4o
-         ujZ+EDZl8D8N5R+J3Meh/zWJJDRUyguhTBdDO3vvfmua8adeMsk5kYacFGOdZ6n/X3dr
-         x0uf2jnti+wUa14neDeTg32qtr1iDsoppBIbT3CRTplfQPt7ro1Y5xFP2B/o42BXKtyr
-         S7XEfRCvI06Ok/gShMNGxHW1+rT7Jm3glq8Om6AFWuqHhfgzLykKRdf1aXcpqMz/QhgF
-         wpZneUXh4mjv/Jtw4/4j+1gOFVZhd+fkKuROduzWgQCiw9EV+Eb2X78EHDi2/x9LINIC
-         +jtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785244262; x=1785849062;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kYkngR3zU/7J7Bh+e7YxqTUattKgmim551QQ/MGGdoI=;
-        b=da11bwyLQ9LtmdMF8dzXIky8FKnmUdmxi4gttO5X/bDZBbJyz8B4mSQggplJ/BmWVg
-         X/RDEocnRfMVTMfGn5mvYibzLDmPrWP0fGDWdEUU8a2oCYH7arg16MbPzXIznTVBOQ9Q
-         QTRiniNCnEt9bDSgJ0PHbobo9vkx75PATYxmk+1SK0sNlNZxHoYg5ZT8EXeGxVUNsrhs
-         r+Qtnr/N5Mzv+iPnvN2/QGMEsDoZMzA0vbg0IycW7ipe+wmJEOTHnNctQIPx8RsyuCeJ
-         2Ib+TEq/eAuGCP+WF9bcx/zt7g0VZHfug14WUPOIWW65jE9KNFjluiL26LmO51wPI4Hz
-         A0yQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrsMTWUUZDY5Wr8wWQw8QgNzS7pHxdLPqFkGTo0MjC0YomKI5Ve6aVBs1juaOjCJIys2tTJcAI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+PZbLndZrnV1ZGKZY0k9hz9jR1GRIAS9BFEXRub1BBDXdFSBF
-	ROEJtluOb330/hRmR//tes7J4dxAXUnT2go1HcyAHhpZe+mj+e+hyUNo
-X-Gm-Gg: AR+sD13bI/Yki1R9Mi3+ob8rD6fd266OcNXjHJiRRjFBvNUXFmY3KmjRHC0fj+mbaVv
-	5oHWZQzU9nBICJURD5u5DX5ONZWYqKGsc0PIeRghecSxzwrRL5dw6SZ5QG4hWx52O3+LkgBTeEc
-	eR4hmyVIbZJv/jLoyLgTYPGNoDizr/mEu6sArnlrRG/sXezMAxRDFwNB1umYFvniOFlZ8gvr36V
-	kiacJ4jPOTSErZ6zDuw3zkrHMXT4Z12HNrLbMRS4HVfNAtE3rOVFq4/zGXzdu2aNOqiyWUC/5U+
-	dxxiE8i3HNbMLC68uD61puOHtK0ZswfMJMDXAOeK2Y3fHJRgBzGt9r8LVkzFIn0wrmBGZpF5LEb
-	yrwETN9nzzYncxrnsdNGtvBaTXomG+wULnbMb97P284pHRMyMMgw87YwBmric/OK5sG/CcAG3up
-	ZE4eufwwlTP/L4NZlP9STq//hM5FNojO58dPMPiQQaXYW8lIVarniMaHTGm3jlR6PzIA==
-X-Received: by 2002:a05:600c:5295:b0:493:bb29:af40 with SMTP id 5b1f17b1804b1-496c6439ef7mr27416195e9.14.1785244262298;
-        Tue, 28 Jul 2026 06:11:02 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c4443396sm87852245e9.0.2026.07.28.06.10.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 06:11:01 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: sudipm.mukherjee@gmail.com,
-	teddy.wang@siliconmotion.com
-Cc: gregkh@linuxfoundation.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
-Date: Tue, 28 Jul 2026 18:10:50 +0500
-Message-ID: <20260728131050.37032-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKcEJwJI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2991F00A3F;
+	Tue, 28 Jul 2026 13:11:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785244296;
+	bh=vns0tlxk7C8bBVdnIv05S1BNPahfXX1Lxmvhci83FeQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mKcEJwJI+iahQ0Y/Jyo04if+r0C5BJmRYgxH9GAgcjlw2mHG3j1F1Lwqa21fOv9z8
+	 hpVMqlZfcTuTVnhORm8SJOfexjZy8oMuhagcu1JwiSmpHcyusSqzbVMvFCX8Fh9hey
+	 86gpHFhWEu0ogxPg/+aAuWb7tZrCF3oJdBpHlsulcysmyMyNBtwSGUHs2IFIvE8OeN
+	 rmMTGZFhKVYIhT0+G2qbHvB1prablSjrdCB77JF1BUpqVZPTnYV5CleQMxJn3ZkdgO
+	 YBMVxyLpMSWgHQP4WgkbVmm75Ly68OejP7V/GaOi90D4Z7blax3l7PGkqcVjKIhsHt
+	 WakxVX2BLMaBw==
+Date: Tue, 28 Jul 2026 14:11:15 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Andy Lutomirski <luto@kernel.org>, 
+	Borislav Petkov <bp@alien8.de>, David CARLIER <devnexen@gmail.com>, 
+	David Hildenbrand <david@kernel.org>, Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Lu Baolu <baolu.lu@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org, 
+	syzbot@syzkaller.appspotmail.com
+Subject: Re: [PATCH 0/5] x86/mm/pat: CPA fixes
+Message-ID: <amiqDkAxFx60biG1@lucifer>
+References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
 
-sm750_hw_imageblit() advances its monochrome source pointer by
-src_delta per scanline, and computes the correct rounded-up stride
-internally as:
+Ack on all my patches thanks!
 
-        bytes_per_scan = (width + start_bit + 7) / 8;
+Andrew - let's take the x86 patches from my series through the x86 tree, and the
+core mm patches through the mm tree.
 
-Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
-image->width >> 3. For widths not a multiple of 8 this under-counted
-the stride, so the source pointer fell further behind the real
-per-scanline layout on every line, corrupting the rendered image.
+There's no ordering requirement in the x86 patches.
 
-Rather than just fixing the caller's calculation, remove src_delta
-as a parameter entirely and have sm750_hw_imageblit() advance by the
-bytes_per_scan it already computes for itself. There has only ever
-been one caller, and that caller was passing an out-of-sync
-derivative of the same width/start_bit values sm750_hw_imageblit()
-already has, so keeping stride as a separate parameter served no
-purpose beyond letting the two calculations drift apart, which is
-exactly what happened here.
+On Tue, Jul 28, 2026 at 04:07:43PM +0300, Mike Rapoport (Microsoft) wrote:
+> There are a couple of CPA fixes floating around:
+>
+> Denis Lunev fixed races between split and collapse of the large mappings:
+>
+> https://lore.kernel.org/all/20260715183453.2381141-1-den@openvz.org
+>
+> Lorenzo Stoakes fixed UAF caused by races between CPA and ptdump:
+>
+> https://lore.kernel.org/all/20260723-series-vmap-race-fix-v6-0-8cc77dcc0018@kernel.org
+>
+> and an issue with stale page tables in IOMMU:
+>
+> https://lore.kernel.org/all/20260721-fix-cpa-kernel-pagetables-v2-1-2b255deed710@kernel.org
+>
+> Mike Rapoport fixed a check of RW attribute in lookup_address_in_pgd_attr()
+> used for the verification of RWX:
+>
+> https://lore.kernel.org/all/20260715144519.934289-1-rppt@kernel.org
+>
+> Some of the fixes got merged into x86 tree, some of them got merged into mm
+> tree and some are still hanging in the air.
 
-Rounding up, rather than down, is the direction consistent with the
-rest of the fbdev core: struct fb_image mono bitmap data (the same
-image->data this driver receives) is walked elsewhere with byte
-strides derived from a ceiling division of width by 8. The generic
-mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
-scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
-BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
-sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
-ceiling division with an added start_bit offset, so the caller's
-">> 3" (floor) was the one calculation out of step with how this data
-layout is handled everywhere else.
+:)))
 
-Found by code review of sm750_hw_imageblit()'s internal stride
-calculation against what its only caller was passing in, and
-confirmed with a clean -Werror build. I do not have this hardware,
-so this has not been exercised at runtime on real sm750 silicon.
+>
+> Beside the fixes there was a supposed simplification of cpa_lock locking
+> that looked like removal of an optimization for DEBUG_PAGEALLOC, but it
+> turned out that it was not an optimization but rather a correctness
+> guard because with DEBUG_PAGEALLOC the locks could be taken in an atomic
+> context and couldn't use plain spin_lock()/spin_unlock().
+>
+> The changes here are collected from all these fixes into a sinlge coherent
+> set on top of tip/x86/mm:
+>
+> * update to cpa_lock handling with DEBUG_PAGEALLOC
+> * fix for races between CPA and ptdumpi causing UAF
+> * fix for stale page tables in IOMMU
+> * update to the fix of the race between split and collapse of large
+>   mappings
+> * fix for effective RW computation in lookup_address_in_pgd_attr()
 
-Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-v3: Added the version notes below, which Dan pointed out were
-    missing from v2. Added Cc: stable@vger.kernel.org, flagged by
-    Greg's patch-bot since the Fixes: tag targets an old (2015)
-    commit. Added the rounding-direction justification Dan asked
-    about, citing fb_imageblit.h's BITS_TO_BYTES() as the existing
-    kernel-wide convention for this same struct fb_image layout.
-    Moved the "no hardware" disclosure from an email reply into the
-    commit message itself, per Dan's request.
-v2: Added a Fixes tag. Moved the src_delta calculation into
-    sm750_hw_imageblit() itself and dropped it as a parameter, per
-    Dan Carpenter's review.
+Thanks for this!
 
- drivers/staging/sm750fb/sm750.c       | 2 +-
- drivers/staging/sm750fb/sm750.h       | 2 +-
- drivers/staging/sm750fb/sm750_accel.c | 6 ++----
- drivers/staging/sm750fb/sm750_accel.h | 4 +---
- 4 files changed, 5 insertions(+), 9 deletions(-)
+>
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+> Lorenzo Stoakes (ARM) (3):
+>       x86/mm/pat: acquire init_mm write lock on collapse to avoid UAF
+>       x86/mm/pat: acquire init_mm read lock on attribute change to avoid UAF
+>       x86/mm/pat: allocate split page tables as kernel page tables
+>
+> Mike Rapoport (Microsoft) (2):
+>       x86/mm/pat: introcude cpa_lock() and cpa_unlock()
+>       x86/mm/pat: fix effective RW computation in lookup_address_in_pgd_attr()
+>
+>  arch/x86/mm/pat/set_memory.c | 95 +++++++++++++++++++++++++++++++-------------
+>  include/linux/mmap_lock.h    |  2 +
+>  2 files changed, 70 insertions(+), 27 deletions(-)
+> ---
+> base-commit: a5a162fe1ae130e3d2ceefef3f43afe3773c1d56
+> change-id: 20260727-cpa-fixes-d3c73c075672
+>
+> --
+> Sincerely yours,
+> Mike.
+>
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 89c811e..da0b497 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -261,7 +261,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
- 	spin_lock(&sm750_dev->slock);
- 
- 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
--				      image->data, image->width >> 3, 0,
-+				      image->data, 0,
- 				      base, pitch, bpp,
- 				      image->dx, image->dy,
- 				      image->width, image->height,
-diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
-index d2c522e..83229fe 100644
---- a/drivers/staging/sm750fb/sm750.h
-+++ b/drivers/staging/sm750fb/sm750.h
-@@ -73,7 +73,7 @@ struct lynx_accel {
- 			   u32 rop2);
- 
- 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
--			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
-+			    u32 start_bit, u32 d_base, u32 d_pitch,
- 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
- 
-diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
-index 0316ea6..bac9a20 100644
---- a/drivers/staging/sm750fb/sm750_accel.c
-+++ b/drivers/staging/sm750fb/sm750_accel.c
-@@ -288,8 +288,6 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
-  * sm750_hw_imageblit
-  * @accel: Acceleration device data
-  * @src_buf: pointer to start of source buffer in system memory
-- * @src_delta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *	      and -ive mean button up
-  * @start_bit: Mono data can start at any bit in a byte, this value should be
-  *	      0 to 7
-  * @dest_base: Address of destination: offset in frame buffer
-@@ -304,7 +302,7 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
--		       u32 src_delta, u32 start_bit, u32 dest_base, u32 dest_pitch,
-+		       u32 start_bit, u32 dest_base, u32 dest_pitch,
- 		       u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fg_color, u32 bg_color, u32 rop2)
- {
-@@ -395,7 +393,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
- 			write_dp_port(accel, *(unsigned int *)remain);
- 		}
- 
--		src_buf += src_delta;
-+		src_buf += bytes_per_scan;
- 	}
- 
- 	return 0;
-diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
-index d15a40c..4f609d6 100644
---- a/drivers/staging/sm750fb/sm750_accel.h
-+++ b/drivers/staging/sm750fb/sm750_accel.h
-@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
- /**
-  * sm750_hw_imageblit
-  * @pSrcbuf: pointer to start of source buffer in system memory
-- * @srcDelta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *>-----      and -ive mean button up
-  * @startBit: Mono data can start at any bit in a byte, this value should be
-  *>-----      0 to 7
-  * @dBase: Address of destination: offset in frame buffer
-@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *pSrcbuf,
--		       u32 srcDelta, u32 startBit, u32 dBase, u32 dPitch,
-+		       u32 startBit, u32 dBase, u32 dPitch,
- 		       u32 bytePerPixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fColor, u32 bColor, u32 rop2);
- 
--- 
-2.55.0
+Cheers, Lorenzo
