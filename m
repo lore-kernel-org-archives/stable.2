@@ -1,126 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D238470E88
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:31:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A45D4A13B1;
+	Wed, 29 Jul 2026 13:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331925; cv=none; b=hO2O/TNBcLJjY4Xy7oIh2HmOW/X3yoI6oFSwJlwQL7pL0scmfpg2M/zcM6RlzvMX/qYBA6UOHi8zo1sLcNsPDa6VkajelVu4fmSllOCxTpU3TGfrLT7ANCYlLONe/fTe3LYklAVjh/MerL7ImAwjeSyok/ocZl10S6/Xu4UEfp4=
+	t=1785331967; cv=none; b=MzmGoelYUC93rEGsqq56Mksj+R3R8cvxAObBcPEnVGPCNc6EytfMVXOpughoIAuC+k7em5MAzaYEAp957YRJbpn6kBbZgufsPoDM9DIQvOFEmwM2Vdh6W1Z5RWfGmp/vpbsK3N3cneVchqhxEYAIiVewi3X2IkntUcPOPGGOXoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331925; c=relaxed/simple;
-	bh=RIcgqFJDhDk7r1QKc825YMqoWo4XkgsxSHCWMs+Vkrs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QArpSZ5rPZ/aTwf3zPvN4aQFrHqA7cT7SziNt/LNnfT7TwJpxzaa2wkaYMcvKrV/CeeZmul2WHzVjced4KRp8CsRIDk0vHbBM/3dcjdCC7eRfcRINJjdwF3jPbd4YgEAjSzE5NSA7ujIeGmcyU9SPiatXIrUdRHmpaPEU1ECQsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xX3+UC8L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785331967; c=relaxed/simple;
+	bh=3eUi/Sk8zvSzEGlGTxbnKs2x/CFPNq4nDFv8w3V3al8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ZvziaMT7OKdCzAIxvjweAOgB257bKSK8lya6MqNr6y2eW8dArBZKowqlk+EVRyKYQLz+nTj5RVB33R7yvSlY0XQxHdbZb2j3tSnt6e8q6FguX7oeX+0cHN64CbNju9BVLgp536sT61vMFSZPYvXF2gaQcQG+Vs9B3abQohI+tZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3gsXH4Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xX3+UC8L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315A91F00A3A;
-	Wed, 29 Jul 2026 13:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785331916;
-	bh=TNB5Q/tgPWJWP0VbYSPdv1s2g9YY1TIPZp04haBEf0c=;
-	h=Subject:To:Cc:From:Date;
-	b=xX3+UC8LjlfTm5HJ4ag0gqXp+5ZT9mh0OBU6yyO4QqiknfZSMCH+NTBQCMZSJZKN3
-	 dNPr+4eBAT7G+ztPp8Iyp0wIEr+wIsoxso8ivjlkKl7c80sbdh6niOzqhB8uDHeflm
-	 Gj/7C1yha9faEN8FRJ2Ak7TO88XynbPUJvC4eyBA=
-Subject: FAILED: patch "[PATCH] mei: bus: access mei_device under device_lock on cleanup" failed to apply to 6.1-stable tree
-To: alexander.usyskin@intel.com,gregkh@linuxfoundation.org,menachem.adin@intel.com,stable@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:31:43 +0200
-Message-ID: <2026072943-hamlet-onion-0655@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3gsXH4Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42001F00A3A;
+	Wed, 29 Jul 2026 13:32:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785331961;
+	bh=1tuI+G5BFSmI/oRU4Bmp/aoTRX2jKDAu3PO54XRfDT8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=B3gsXH4QVqoxk8djQAZgL0JB+YYetRHPWbnRUhQpsKA5oL+9GZNXc/wELtdXb1FHo
+	 bG82vNKIIuo0iwen8Q1jU4AcCmXhhM8jKki4ASlufDU+DRskw1wVOoo6YOVLY0w5XT
+	 lE0gl3xqwRxdB3lOwMxR0/FPH+vCG8Gex0H09W7nW7+3KY8OsOsWetuzhiasKI1/mN
+	 3kymMckojlwhXdbndpp1Iy/Um162DbBvFYEJkVigzCYMOnfjs/hHcpUIgY9We3HJBo
+	 vaq8ZukoCPmWUIQvzNoeNIegUviERGzlyTDPdeE4NtFA1BTqBnz+AhdvdJQP/erTKU
+	 1z2vYULMtudIA==
+From: Mark Brown <broonie@kernel.org>
+To: Stanislaw Pal <kuncy7@gmail.com>
+Cc: linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, Md Sadre Alam <quic_mdalam@quicinc.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20260727163216.109938-1-kuncy7@gmail.com>
+References: <20260727163216.109938-1-kuncy7@gmail.com>
+Subject: Re: [PATCH] spi: spi-qpic-snand: write the feature value before
+ executing SET_FEATURE
+Message-Id: <178525861341.13644.15757073965586666687.b4-ty@b4>
+Date: Tue, 28 Jul 2026 18:10:13 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1161; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=3eUi/Sk8zvSzEGlGTxbnKs2x/CFPNq4nDFv8w3V3al8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqagD3BMMv9KlpqnWJd8Pcy9TisKk74FEBFly8F
+ NA988tTetaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamoA9wAKCRAk1otyXVSH
+ 0HQaB/wK0B3tafgA4sBW8kWrJ0xYpMyeRUA8U21O1WZN3ZdmgOA2Htpe8ZnzQy+GplH0DNgFQFJ
+ WNT/tKrrYar1W3KJruQNgxR5xZPuWXeJ1IvxtMKSFlPybrVGsfb5pxzSHAppuDHEIbWYq8Leh03
+ +vaZmCswXYi33LS2DH+Rg4EVu4gXAlJrU4QMo41/0mjtMMeVU4ADaWuhuOvygglhq9Nj9CtljEZ
+ r/157isR3rYQdDzjW2UdVwwNfn7QmpZAuLFtWqyupqKuf3UkwUUtDWbaCnhrG+EAomT+V2kZW4g
+ +853Wsat37YxOnsfq6jIKuM5chfDhhQemBziJAkdkGa5//IV
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Mon, 27 Jul 2026 18:32:16 +0200, Stanislaw Pal wrote:
+> spi: spi-qpic-snand: write the feature value before executing SET_FEATURE
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Applied to
 
-To reproduce the conflict and resubmit, you may use the following commands:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.2
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x f112ea910e554d58b4b39a4492b7d302f0f4204f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072943-hamlet-onion-0655@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+Thanks!
 
-Possible dependencies:
+[1/1] spi: spi-qpic-snand: write the feature value before executing SET_FEATURE
+      https://git.kernel.org/broonie/spi/c/8fd62901d6bf
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-thanks,
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-greg k-h
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------------------- original commit in Linus's tree ------------------
-
-From f112ea910e554d58b4b39a4492b7d302f0f4204f Mon Sep 17 00:00:00 2001
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Sun, 5 Jul 2026 18:12:59 +0300
-Subject: [PATCH] mei: bus: access mei_device under device_lock on cleanup
-
-Fix couple of problems in mei_cl_bus_dev_release():
-
-mei_cl_flush_queues() is running without lock.
-bus->file_list access after mei_dev_bus_put(bus) can become a
-use-after-free if this was the last reference to bus.
-
-Protect queues cleanup and WARN traversal by device lock there
-to avoid the concurrent access problems.
-Move WARN traversal before mei_dev_bus_put(bus).
-
-This file uses bus variable name for mei_device, adjust
-code of mei_cl_bus_dev_release() to use bus variable too.
-
-Cc: stable <stable@kernel.org>
-Fixes: 35e8a426b16a ("mei: bus: Check for still connected devices in mei_cl_bus_dev_release()")
-Reviewed-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-Link: https://patch.msgid.link/20260705151259.3054795-1-alexander.usyskin@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index fcde082eb5e3..cfb87ab8667f 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -4,6 +4,7 @@
-  * Intel Management Engine Interface (Intel MEI) Linux driver
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/module.h>
- #include <linux/device.h>
- #include <linux/kernel.h>
-@@ -1330,15 +1331,16 @@ static void mei_dev_bus_put(struct mei_device *bus)
- static void mei_cl_bus_dev_release(struct device *dev)
- {
- 	struct mei_cl_device *cldev = to_mei_cl_device(dev);
--	struct mei_device *mdev = cldev->cl->dev;
-+	struct mei_device *bus = cldev->bus;
- 	struct mei_cl *cl;
- 
--	mei_cl_flush_queues(cldev->cl, NULL);
--	mei_me_cl_put(cldev->me_cl);
--	mei_dev_bus_put(cldev->bus);
--
--	list_for_each_entry(cl, &mdev->file_list, link)
--		WARN_ON(cl == cldev->cl);
-+	scoped_guard(mutex, &bus->device_lock) {
-+		mei_cl_flush_queues(cldev->cl, NULL);
-+		mei_me_cl_put(cldev->me_cl);
-+		list_for_each_entry(cl, &bus->file_list, link)
-+			WARN_ON(cl == cldev->cl);
-+	}
-+	mei_dev_bus_put(bus);
- 
- 	kfree(cldev->cl);
- 	kfree(cldev);
+Thanks,
+Mark
 
