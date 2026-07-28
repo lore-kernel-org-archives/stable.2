@@ -1,155 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C16A8248B;
-	Tue, 28 Jul 2026 01:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9998217704
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 01:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785202134; cv=none; b=muKKjIkX3tB1L+0lNXpebzgwYxQzDZDQaT5273alfNqEtiJpFIU4B/SBjC+z+yoI6V6+m+TOoQJXTCPMqW6KE5HDm9c3hNWtZnjUITOjBr1epsVniL6JWJRzefdJh1VBsTn9mHBdowazb39zsxP6vQpfgWqsaq9BtJYY+T2WoAs=
+	t=1785202303; cv=none; b=ENlJvRFpsOlPoeCwxm5N8Q1tPAw4YbaYJ+1VZRWCCySKsZZ4SXOYy8NHXIf1/ZnuDUcrdhUe7zy3nEvxaD9pGA4CSX8q2FHjiko2evWoQA9fwK4quwFSwq0FJdsItoVSLw1dXNiJ4leJCB1sQDE0V6oITDN0uxGBYhnuCFqg9O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785202134; c=relaxed/simple;
-	bh=E4JrU95BDQOc0u16SkbvpkHLELR+qJpqdXKNRfRaYqo=;
-	h=Date:To:From:Subject:Message-Id; b=DVlIjXdOlVZwHpJDTxQfJQzvj6ew8qtrESMIye7S7E4UbF1GlHWq7MoTwxEeuDXuwECB38DLjNIhxbmd37zpU5YDnIw/E9TVT+j7ZUQmYiczFQ2XlVqZltdJz/nJL5EPKKxjozGbfQT6MMq1F2PmVdLYtri6ksY6Xo8TKy7zuoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=d5qakGDh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785202303; c=relaxed/simple;
+	bh=xN3XdDgIGoruQW2AwPCdjZ3rcxzT9LsA5JnV72gCxjo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qHVnJ2ARhiriVz6APN2fodcqNbFna3uEdYGWH07KrKMXFaEDf1GoeGq4ktxC8BZny7EifYeTLcYZncLLI02fGkwC3ArouERund6a8oQpySpfPlDMUc27PyIhWH+Qr7Yapo22wWPJZO90Z31inyOsBI53Z2nxQtnrdZGFRBmv9q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=VsalMrGt; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="d5qakGDh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A53A1F000E9;
-	Tue, 28 Jul 2026 01:28:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="VsalMrGt"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ccf2360620so31167705ad.3
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 18:31:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785202131;
-	bh=h+K0VOo1V0eUC/PbK5Hnia6XBnC2F/6+RzeXykArerE=;
-	h=Date:To:From:Subject;
-	b=d5qakGDhvCMRTDiQEjV1Rva9Dde09+juhqxhySe3+F++OcABoY9SjQti3YE6FxNgX
-	 e7+Bp7gL93gyApEF/yG4jTknnpfXLB3LNVXqX4cHq7r7x9vnKqYRee3gUgFng0I0cd
-	 hMKaYnGqD0QT0EK9xFaOf5ad5PDZN48M73HUIikI=
-Date: Mon, 27 Jul 2026 18:28:50 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,will@kernel.org,vbabka@kernel.org,stable@vger.kernel.org,ryan.roberts@arm.com,riel@surriel.com,rcampbell@nvidia.com,rakie.kim@sk.com,pfalcato@suse.de,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mel@csn.ul.ie,matthew.brost@intel.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,jpoimboe@kernel.org,joshua.hahnjy@gmail.com,j-nomura@ce.jp.nec.com,jannh@google.com,harry@kernel.org,gourry@gourry.net,david@kernel.org,dave.hansen@intel.com,catalin.marinas@arm.com,byungchul@sk.com,apopple@nvidia.com,anshuman.khandual@arm.com,ak@linux.intel.com,dev.jain@arm.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged] arm64-make-huge_ptep_get-handled-unaligned-addresses.patch removed from -mm tree
-Message-Id: <20260728012851.2A53A1F000E9@smtp.kernel.org>
+        d=quora.org; s=google; t=1785202300; x=1785807100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NV9OX3HfsztmSf4OIPL5ZR2O39v4TxztWNESgaKRtxg=;
+        b=VsalMrGtZM96C3PiFobwI3SVpMlEHO6538kUUbPGmCus3AdlG/rwYyMIl2oaEAXgGd
+         ESB3+nbelD31swgMz7wHwiZxpUTTCTpSdPenyIs6rap0Sx9J9N4wPgO+cgLoKHV80IuX
+         H3dIsu1KGoxBBIQcn+wwbSgYjMuTMVE6jsAko=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785202300; x=1785807100;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NV9OX3HfsztmSf4OIPL5ZR2O39v4TxztWNESgaKRtxg=;
+        b=I4p6Gu3WbuuTJ2NHwmlW/dI5GlqThN7KrtVQgrGfyoivUyP1XeGSQBFLCENW0WbCeD
+         bjXo6Mr2jjcRS5rNm0iv1NXgDCrJzv/wXwttML5S7j7sSCay1NUNCAK4n+NARdbz6BS1
+         hHPuciRf35FPEehtXRNfNaDe8uhNXNBtsOW/gZvjufrvsdFvMWnPmPUtxwPEuY9C6R2I
+         1ZxIWUwqk64uzXx3y/lvekwMqTwVzSjJoroiXjDmJyccXs+l5clixJv76ivbVFL3Tbzs
+         TRHoSxUWjmAUYkxWm1SkrmwjwLf9PUwO3tPHaN5nf7VYxXA0JwfgvXZgVaUGakA3IFNZ
+         BnWg==
+X-Forwarded-Encrypted: i=1; AHgh+RrylvcXCPzdqZI8nPfBDRTGK5wRL9WXTER+4hHi6X8cN6n1KXX8IXqhHJ4JDjClyRr2Us8Nbyw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwV00h+3tgGeHcZfTPZKkkCLO+fe9B5W6rpFbuJPloJmrDSFdow
+	KLyljdcrpnYKy+hIHsW1WMSir+xBBGuDe3D00+gq6nLvcUqUWFMXrKKFMxupdvDcBuk=
+X-Gm-Gg: AR+sD11FACoOwkOH4TbnY4GkVVp7eT3Jh7IsBiPRDOPplb8HkBlXeDSfv8hvh5gZoig
+	TQASRKNOFtvmiMchIhwrvPX5f+mrxbdDEra4LU4uglNr6/V1L4OfEiuxY0sTk98UylWLe+sczUo
+	M7aOmvblcuOotQy4pOR+YmHvsggMkUVEp4ptcc5ataM1Y1nMzWgn4IajTAn2AqfjCYjMVQuufkP
+	tBl2XLJEhIRinFR1GTTKBBLIAEMzLjCpYS571vfe0RdrCr90G8VgCVXty2jpEqZraIj/iFAFYWm
+	/Ej5FrnRvV+iYvCCoI112kXRxYJxUwMD2k5NPPvJzH51b6K8k6VYxIfx6rDMkh+Xc8JIl6oGzyT
+	xgxbeWzDx4ahYQ5Ix+Lfc0cU0FmiZi5RbRC0A9u+lMHkS2T7vTHa7RttyrsgT+WvMsjFV3S9Roj
+	6ZOIF9wl5caEQulQoCE2YbJEjNM0lfs7DgGYn4r2e0Md7gZ7JkM2cD/rJ5AM729OsheGKy60VVp
+	wkbjHkRujwFVUjpMuLBjlbm4ZfrWmCpT6mxec06FnrYnOf84OER/fBZd5ah/jDwrr9Ekk4UtCW7
+	XjX9RWQO7cMaEBPYLsyWLouE79NPey+oWWcSYxQApjosKBx3hO/56iCxizvqGwvMaPVnmRwYzHP
+	Mk4mggIZRAnU4HPOt0Xy2t5N8kg==
+X-Received: by 2002:a17:903:b8f:b0:2ca:3e3f:4956 with SMTP id d9443c01a7336-2d015d43f76mr3129095ad.44.1785202300262;
+        Mon, 27 Jul 2026 18:31:40 -0700 (PDT)
+Received: from aegis ([2001:fd8:4d03:6b00:7871:9297:7799:ea22])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81cd27sm43655545ad.79.2026.07.27.18.31.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 18:31:39 -0700 (PDT)
+From: Daniel J Blueman <daniel@quora.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel J Blueman <daniel@quora.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] soc: qcom: pmic_glink_altmode: use a freezable workqueue
+Date: Tue, 28 Jul 2026 09:25:49 +0800
+Message-ID: <20260728012549.14502-1-daniel@quora.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+On suspend wake, the DisplayPort altmode setup often executes
+before devices have compeleted resuming; this triggers a legitimate
+warning:
+  i2c i2c-2: Transfer while suspended
+  WARNING: drivers/i2c/i2c-core.h:57 at __i2c_transfer+0xc0/0x9a8
+  Workqueue: events pmic_glink_altmode_worker
+  Call trace:
+   __i2c_transfer
+   i2c_transfer
+   regmap_i2c_read
+   ...
+   ps883x_sw_set
+   typec_switch_set
+   pmic_glink_altmode_worker
 
-The quilt patch titled
-     Subject: arm64: make huge_ptep_get handled unaligned addresses
-has been removed from the -mm tree.  Its filename was
-     arm64-make-huge_ptep_get-handled-unaligned-addresses.patch
+The setup doesn't succeed, leaving the DP-alt monitor non-working.
 
-This patch was dropped because it was merged into mainline or a subsystem tree
+Fix this by queuing the work on the freezable workqueue instead,
+deferring the setup until devices have resumed.
 
-------------------------------------------------------
-From: Dev Jain <dev.jain@arm.com>
-Subject: arm64: make huge_ptep_get handled unaligned addresses
-Date: Fri, 3 Jul 2026 11:41:54 +0000
+Observed and validated on a Lenovo Yoga Slim 7x X1E80100 when waking
+from suspend with a USB-C DisplayPort monitor.
 
-Patch series "Fix incorrect access of hugetlb pte entries", v3.
-
-There are various places which use ptep_get() to get the pte entry
-corresponding to a hugetlb folio.  Some arches (like s390) have special
-handling to compute the pteval, so they provide huge_ptep_get().  Use this
-helper consistently.
-
-Additionally, some code paths may provide huge_ptep_get with an unaligned
-address.  This is a problem on arm64 (I checked other arches and it looks
-fine for them), which is fixed in patch 1.  The fix is made to be
-backport-friendly: the cleaner fix would be to perhaps pass the hstate to
-huge_ptep_get() - that is wider churn and we can do that later.
-
-
-This patch (of 6):
-
-huge_ptep_get() can be handed a virtual address pointing to the middle of
-a contpmd/contpte mapped hugetlb folio (examples of callers are
-pagemap_hugetlb_range, page_mapped_in_vma).
-
-The arm64 helper rewalks the pgtables in find_num_contig to answer whether
-the huge pte we have maps a contpmd or a contpte hugetlb folio, and
-returns CONT_PMDS or CONT_PTES, so that it can collect a/d bits over the
-contiguous ptes.  We can falsely return CONT_PTES instead of CONT_PMDS if
-the addr is not aligned.
-
-THis mean that on systems where CONT_PTES != CONT_PMDS (meaning page
-size is 16K) we could collect excess a/d bit state, meaning extra work
-for the kernel.
-
-Fix this by aligning the pmdp pointer down to a contpmd base before
-checking equality with the passed huge pte pointer, to correctly answer
-whether the huge pte is the base of a contpmd block.
-
-Link: https://lore.kernel.org/20260703114202.365553-1-dev.jain@arm.com
-Link: https://lore.kernel.org/20260703114202.365553-2-dev.jain@arm.com
-Fixes: 29cb80519689 ("arm64: hugetlb: Cleanup huge_pte size discovery mechanisms")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniel J Blueman <daniel@quora.org>
 ---
+ drivers/soc/qcom/pmic_glink_altmode.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- arch/arm64/mm/hugetlbpage.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/arch/arm64/mm/hugetlbpage.c~arm64-make-huge_ptep_get-handled-unaligned-addresses
-+++ a/arch/arm64/mm/hugetlbpage.c
-@@ -87,7 +87,7 @@ static int find_num_contig(struct mm_str
- 	p4dp = p4d_offset(pgdp, addr);
- 	pudp = pud_offset(p4dp, addr);
- 	pmdp = pmd_offset(pudp, addr);
--	if ((pte_t *)pmdp == ptep) {
-+	if ((pte_t *)PTR_ALIGN_DOWN(pmdp, sizeof(*pmdp) * CONT_PMDS) == ptep) {
- 		*pgsize = PMD_SIZE;
- 		return CONT_PMDS;
+diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
+index 619bad2c27ee..939a444ebe6e 100644
+--- a/drivers/soc/qcom/pmic_glink_altmode.c
++++ b/drivers/soc/qcom/pmic_glink_altmode.c
+@@ -450,7 +450,7 @@ static void pmic_glink_altmode_sc8180xp_notify(struct pmic_glink_altmode *altmod
+ 	alt_port->mode = mode;
+ 	alt_port->hpd_state = hpd_state;
+ 	alt_port->hpd_irq = hpd_irq;
+-	schedule_work(&alt_port->work);
++	queue_work(system_freezable_wq, &alt_port->work);
+ }
+ 
+ #define SC8280XP_DPAM_MASK	0x3f
+@@ -501,7 +501,7 @@ static void pmic_glink_altmode_sc8280xp_notify(struct pmic_glink_altmode *altmod
+ 		alt_port->tbt_data = *tbt;
  	}
-_
-
-Patches currently in -mm which might be from dev.jain@arm.com are
-
-mm-swap-rename-subpage-page-in-folio_dup_swap-folio_put_swap.patch
-mm-mprotect-drop-sub-from-batching-context.patch
-mm-rmap-use-huge_ptep_get-in-try_to_unmap_one.patch
-mm-rmap-use-huge_ptep_get-in-try_to_migrate_one.patch
-mm-migrate-use-huge_ptep_get-in-remove_migration_pte.patch
-mm-page_vma_mapped-use-huge_ptep_get-for-hugetlb.patch
-mm-mprotect-use-huge_ptep_get-for-hugetlb.patch
-mm-rmap-convert-page-folio-for-hwpoison-checks.patch
-mm-rmap-add-try_to_unmap_hugetlb_one.patch
-mm-rmap-refactor-some-code-around-lazyfree-folio-unmapping.patch
-mm-rmap-refactor-anon-folio-unmap-in-try_to_unmap_one.patch
-mm-rmap-add-anon-folio-unmap-dispatcher.patch
-mm-memory-move-pte_install_uffd_wp_if_needed-into-memoryc.patch
-mm-memory-batch-set-uffd-wp-markers-during-zapping.patch
-mm-rmap-batch-unmap-file-folios-belonging-to-uffd-wp-vmas.patch
+ 
+-	schedule_work(&alt_port->work);
++	queue_work(system_freezable_wq, &alt_port->work);
+ }
+ 
+ static void pmic_glink_altmode_callback(const void *data, size_t len, void *priv)
+-- 
+2.53.0
 
