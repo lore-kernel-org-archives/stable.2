@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B2E472F84
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:30:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF554657CD
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:30:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785267016; cv=none; b=bWkgmk/unzR8dGT4XTZa/ZMwA5wQkWlJDxnFfpPQntvaYN9Y/iicM5qywO1m2HoUQCtNSPRmjDoBkQfHtERPusqKlF1+zIT7eIxPp9rtTKLw7bYKKMWphy0daenCNZyfEvvQXIbqVYQP+DG4B2nZUxyNVS8BzA5aViPEW/eqrJ4=
+	t=1785267017; cv=none; b=dcHip0rdbQNpVsoYnFcE4ND4KUd6XidGuIA0O8Msk60UPMiIR3EDNg2Qmvt0pihcURyKTx9PBuBV/lMbarXcdOF4P2Ys5SibbQyntw4SKePtqx74Ot75NyfN4PQeOrXM8CybNtyDFwNIpzOuyObKir64atrPH5jmZCICmFQkbBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785267016; c=relaxed/simple;
-	bh=VdCWUJ/YxkIBcNvrV0RiQWa+3YST+f6YPaQybCzN8DQ=;
+	s=arc-20240116; t=1785267017; c=relaxed/simple;
+	bh=g4N5x7N911ceRp3Sa8oJRtOHvRFk++So3z1DZ1oEh54=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bny4vX0bBZqk1SnTzsDm8hkGTMqWKrsqM0Tj3jDGOOz7oIchiknM8l3qt4qjgDzfDNUDZ3a6dpqqmUrzFfh6Kk2Cnne/PqVsm8scBL+Ds59wApUWCyvnSgpfTFS11QJ2MvuTfkxjA3mZTTy/TpsXm0yoiSCQISIAN5K122AzMUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LX6XPhOs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aavhEMG9AYnqiM+Z8QYXcCRPE8yms/FmCKM4mCTqKShhF790RDuiR5zWIMJUiAN1/ZdHYjuP8q75UU/gphaUhXM3I7U37nDNJzsNIwsgtSanNLhLNBHbLaw+1m1sQL8p9fm3jZlcAzFYVln2Fyg6YDXCYp7ONcvzQH10ISvQPcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xl3lrP2z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LX6XPhOs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD9A1F000E9;
-	Tue, 28 Jul 2026 19:30:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xl3lrP2z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338DC1F00A3E;
+	Tue, 28 Jul 2026 19:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785267014;
-	bh=DDy6Up9001HScfFZjHJLoG9N2CxhJIA/Q83kh4JAPcI=;
+	s=k20260515; t=1785267015;
+	bh=5sE/XGAwHZdgZp3sCF9eRIJ2I0isiA4oMQnB22NxJBA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LX6XPhOsTGiJ67gdCo9gL7SZ5+dPazzVpZLjhZKL43UXOIu/82qyD/pbUpVSSGK1D
-	 XYk/nV9d7vWXjwFjkmW0roNl8WpdphfsKIErncNBFPACqYD3w0uXQ7Y5pgvg9qQruv
-	 wrcZGHbtsB084Ng2Ea88qo0mr4BAWghe4akYeL6wk0T1LgVKG5VThJa5r2GGJXbqgN
-	 fRYK7bMgQpUP+8zJ1H20ZrtRbMeSnbjBTeOhG8LNPYImOb7LHCJi9j8NGj5UuPnOgT
-	 D9f0CmNj4jMT+1wHCmPB+1ayjfCim6kFZRwU+nEIZZ0oxMoqOgsPFshnVVJEGSuKNH
-	 zod36+ZzU+eig==
+	b=Xl3lrP2znErtJuaBJK8kym4FeLsptkWdTOZQCxP3A763CWpbTyf4i9/RD/qa8FD2A
+	 tDpo2/h/wo42I8fGyWZxRwWOLkXfLEyEhLEluCMA4OYP3a+wYvFiHU6qDH3d4El4w4
+	 rm7nzzZhRXen7er8hBpgbxz1xHVR044m58kuXHaVp3RIDiArtQIErqGcN5B0CZOZWn
+	 Bnt91vLSxB8n5ZgbdDAdLcwSxgr78b6BTxxCkKZ1MS3ZzmdCAmV60ke4nQqDWbJLMC
+	 Cxp4IplfIR+IMKNrfHfj8RQbR+1Kov2x/tgQfen6IfBAncMCK7iblHHmmcLrYil10g
+	 goTXqiUhexviw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>,
-	"David S. Miller" <davem@davemloft.net>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] net/sched: taprio: avoid calling child->ops->dequeue(child) twice
-Date: Tue, 28 Jul 2026 15:30:11 -0400
-Message-ID: <20260728193012.455558-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked
+Date: Tue, 28 Jul 2026 15:30:12 -0400
+Message-ID: <20260728193012.455558-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072146-curable-untreated-02d2@gregkh>
+In-Reply-To: <20260728193012.455558-1-sashal@kernel.org>
 References: <2026072146-curable-untreated-02d2@gregkh>
+ <20260728193012.455558-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,57 +49,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 4c22942734f0814d3c928c25a80f48df0a6ce45e ]
+[ Upstream commit e056e1dfcddca877dd46d704e8ec9860cfc9ec44 ]
 
-Simplify taprio_dequeue_from_txq() by noticing that we can goto one call
-earlier than the previous skb_found label. This is possible because
-we've unified the treatment of the child->ops->dequeue(child) return
-call, we always try other TXQs now, instead of abandoning the root
-dequeue completely if we failed in the peek() case.
+When taprio's software path peeks a non-work-conserving child qdisc, the
+child stashes the peeked skb in its gso_skb; taprio_dequeue_from_txq()
+then takes the packet with a direct child ->dequeue() call, which ignores
+that stash, orphans the peeked skb and desyncs the child's qlen/backlog.
+With a qfq child this re-enters the child on an emptied list and
+dereferences NULL, panicking the kernel from softirq on ordinary egress.
 
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Stable-dep-of: e056e1dfcddc ("net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked")
+Take the packet through qdisc_dequeue_peeked(), as sch_red and sch_sfb
+now do. The helper returns the child's stashed skb first and is a no-op
+when there is none, so a work-conserving child is unaffected and the
+gated path now consumes the skb whose length was charged to the budget.
+
+Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
+Cc: stable@vger.kernel.org
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Link: https://patch.msgid.link/20260625-b4-disp-31bcb279-v1-1-85c40b83c529@proton.me
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/sch_taprio.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+ net/sched/sch_taprio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index 8e7c0a3034cc41..0fd5f79288b431 100644
+index 0fd5f79288b431..32521be54c6e99 100644
 --- a/net/sched/sch_taprio.c
 +++ b/net/sched/sch_taprio.c
-@@ -557,12 +557,8 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
- 	if (unlikely(!child))
+@@ -586,7 +586,7 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
  		return NULL;
  
--	if (TXTIME_ASSIST_IS_ENABLED(q->flags)) {
--		skb = child->ops->dequeue(child);
--		if (!skb)
--			return NULL;
--		goto skb_found;
--	}
-+	if (TXTIME_ASSIST_IS_ENABLED(q->flags))
-+		goto skip_peek_checks;
- 
- 	skb = child->ops->peek(child);
- 	if (!skb)
-@@ -589,11 +585,11 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
- 	    atomic_sub_return(len, &entry->budget) < 0)
- 		return NULL;
- 
-+skip_peek_checks:
- 	skb = child->ops->dequeue(child);
+ skip_peek_checks:
+-	skb = child->ops->dequeue(child);
++	skb = qdisc_dequeue_peeked(child);
  	if (unlikely(!skb))
  		return NULL;
  
--skb_found:
- 	qdisc_bstats_update(sch, skb);
- 	qdisc_qstats_backlog_dec(sch, skb);
- 	sch->q.qlen--;
 -- 
 2.53.0
 
