@@ -1,103 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3033A169F
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 17:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC22391E60;
+	Tue, 28 Jul 2026 17:12:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785258449; cv=none; b=SgQCnVyZXaKSq5Vrs+CKuMuz/Cr/Bjpn02KHmhoWgEeLJv0nfuHSaunSS38Eut1ZS97GNA4yybBYZriEFrtLO1u+hAWC5OVVxbxiffFS372vWb6Iw2bwJLuwBiOI8glWTPecaxNE9jO7Lukrg8Ds82GmF1yrP/pv5BBZBX9Y0ag=
+	t=1785258741; cv=none; b=T77I4nU3HQrVhh+wjUsk+mDedN43+taQU+0iaB9S1kM2CODv0Qd6O9zHLXpUW0U6Yo3c6/xD4DS4fLm8W0tocQRA1UaUkRflQPHHOtT4iMdWBHe001cpu/C35a7U5FhVfpBgNF6NCy6O+wxEe/MzAXiPe1GGsLA6FmOT1n8aCTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785258449; c=relaxed/simple;
-	bh=jwlmxNoAj5rkCIRi1iujtk2xKau8ySPoTeNvy9UrsDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fa92gK4jpiqPrr5E2VvZUHBS+TMgHSthJcm1sUQJmnrzRJtk2L3dH/o0XZhk9siRoV3vfqjlG/W2gFA4Bvhxh4s3Lfbwzb3iiYnFoM1/OFb/T3frwuUUbS36bN1fMbXOeDBBKVuDghL8qNmxO1yVl06/JAP8IuNqeoL64RuVg6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdlOMnvl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785258741; c=relaxed/simple;
+	bh=39SJI6nbfPCq6jazkdh+Ef0zaW/4Ir6aLgzCnpxisZw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tv6xSbb8Id/mc/QSUdmPNYaBgc59zlUchcHD726x6dgvBRYwqrPSa2QPXw1SO44xkfosgalD1w4JVSUr9NLTavS8fXAPe5dJXQoC/niyuncZjyTLIi4llzQnEHNRUDhvk6un0WeHIjzjJK17dKzbC6LwqExatt8bAKVnhO2H55Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wg7eJA+2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdlOMnvl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D9A1F00A3A;
-	Tue, 28 Jul 2026 17:07:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wg7eJA+2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5DA1F000E9;
+	Tue, 28 Jul 2026 17:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785258447;
-	bh=Ejxy9adFJZ5GHaUulBzTWPxNyKRcPnIS6nkY87JJB9A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GdlOMnvlmcF7D+ptOh6W5K66fJBGGUZUkKHs29cuVsFY4K2sghhWw+rndC6JtVpCL
-	 MGsoywUMFBmP7/rR/Eihb5lBhsFcjZDInGrRmxcGfVz3xmVar5x/pvcwFvuj4ARQHW
-	 0DB7ayJb61MJWNyb5A8azfxDUwYdqZJVP1rUluC/iuJBfvyalMo4U77pRJOe+HWiZj
-	 k/ogAyhcv2ILKPnfHmmCzHv7Ki7yDkXwj7CdHym3Lr+OwbnwOcFjom7qFlj0Q/AQfM
-	 5yCUU8ImOgBvzhdpLd4kVX55MjYHNEQBYl7zRjuDLGxdPSsbycq8d97DI6v8ZAfJyO
-	 B//i5pfJ+5A0Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Corey Minyard <corey@minyard.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ipmi: fix refcount leak in i_ipmi_request()
-Date: Tue, 28 Jul 2026 13:07:22 -0400
-Message-ID: <20260728170722.184404-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072152-turbine-driving-268c@gregkh>
-References: <2026072152-turbine-driving-268c@gregkh>
+	s=k20260515; t=1785258740;
+	bh=t8Ck7QsvjL1lYC+thT3eYL6lWrgVxJ3UpquI7048FSM=;
+	h=From:Subject:Date:To:Cc;
+	b=Wg7eJA+2nsL8ecYpJPu3VXVei/OPRMI75/mTLo3f8Yq4sr62o7xWkn1Lcvofqo3xL
+	 ICDlCPS9BuFpsHj7ei4ZvREgs/LSSRqneCKfT8HvEOEmexsXGrE6jwhWpouuVO2GRz
+	 qOVouPK/DDIpHJ17SGoe9pY2uVrCdOa0i64nfDTmko4VGaNA1enNBuAoT0iq031yA2
+	 ZKM6zOuXz3fugVQPTYGgUY0RNjhgObN6eIUCWRC52Hdq2JQhhszHBqpfr8GPjFq8gI
+	 GwAgKJ4jpc6neaV4mvu6u62nv3SoamdltYu+x9GxVmOVY9bYjSGg/UPi+zQoHXoYQ8
+	 ddNsqRibLbbuQ==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Subject: [PATCH net 0/5] mptcp: misc fixes for v7.2-rc6
+Date: Tue, 28 Jul 2026 19:11:56 +0200
+Message-Id: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-0-f7e2d229159d@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCQAxFr1KyNtBGnCleRVzUmGoKHYfJtAild
+ zfq8n3+exuYFBWDc7NBkVVNX8mhOzTAzyE9BPXuDNRSaCP1mKTinCtnnNUYR32LYUTCwgGJqDt
+ yCDLGE3giF/kdvHABN+H6H225TcL1G4Z9/wBver0thQAAAA==
+X-Change-ID: 20260728-net-mptcp-misc-fixes-7-2-rc6-22213c66ef75
+To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
+ stable@vger.kernel.org, Florian Westphal <fw@strlen.de>, 
+ Davide Caratti <dcaratti@redhat.com>, Christoph Paasch <cpaasch@openai.com>, 
+ Qing Luo <luoqing@kylinos.cn>, Gang Yan <yangang@kylinos.cn>, 
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
+ Wyatt Feng <bronzed_45_vested@icloud.com>, Yuan Tan <yuantan098@gmail.com>, 
+ Yifan Wu <yifanwucs@gmail.com>, Juefei Pu <tomapufckgml@gmail.com>, 
+ Zhengchuan Liang <zcliangcn@gmail.com>, Xin Liu <bird@lzu.edu.cn>, 
+ Ren Wei <n05ec@lzu.edu.cn>, Dmytro Shytyi <dmytro@shytyi.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1691; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=39SJI6nbfPCq6jazkdh+Ef0zaW/4Ir6aLgzCnpxisZw=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIyHr2er8Ho9fL4MoGTbFWPPBpnvlDif+OwYVminueib
+ 8aN3lOmd5SyMIhxMciKKbJIt0Xmz3xexVvi5WcBM4eVCWQIAxenAEyEuZfhn9WavYkLj2b6vkvN
+ SOQ9/CDlT4b+Vk2mGROOMMeLOM3/U8vwvzyOa3d0/TklgYuRHEZLxRKSVtd+XqSg6DhVPqVqrng
+ xGwA=
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
+ fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+Here are various unrelated fixes:
 
-[ Upstream commit a3f3859cecacb64f18fd446271ece9a3b3f2d4de ]
+- Patch 1: harden incoming MPTCP suboptions parsing by rejecting
+  non-combinable ones. A fix for v5.6.
 
-When a caller provides a `supplied_recv` message to i_ipmi_request(),
-the function increments the user's `nr_msgs` reference count. If an
-error occurs later, the out_err cleanup path only frees the recv_msg
-if the function allocated it itself (i.e., !supplied_recv). In the
-supplied_recv case the cleanup is skipped, leaving the reference count
-elevated. The caller ipmi_request_supply_msgs() does not release the
-supplied_recv on error, so the reference is permanently leaked.
+- Patch 2: fix a data race in the ADD_ADDR timer callback. A fix for
+  v5.13.
 
-Fix this by explicitly reverting the reference count operations when a
-supplied recv_msg with a valid user pointer is present in the error
-path: decrement nr_msgs and drop the user's kref.
+- Patch 3: correctly catch data corruption during the MPTCP join
+  selftest by marking tests as failed, instead of only printing a
+  warning. A fix for v5.18.
 
-Cc: stable@vger.kernel.org
-Fixes: b52da4054ee0 ("ipmi: Rework user message limit handling")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Message-ID: <20260603120634.3758747-1-vulab@iscas.ac.cn>
-Signed-off-by: Corey Minyard <corey@minyard.net>
-[ changed `free_ipmi_user` to `free_user` in the two added `kref_put()` calls ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+- Patch 4: deal with MPTFO with a valid token, but no data in the SYN. A
+  fix for v6.2.
+
+- Patch 5: reclaim forward-allocated memory in case of error on the
+  receive side. A fix for v6.19.
+
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- drivers/char/ipmi/ipmi_msghandler.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Gang Yan (1):
+      selftests: mptcp: join: mark tests with data corruption as failed
 
-diff --git a/drivers/char/ipmi/ipmi_msghandler.c b/drivers/char/ipmi/ipmi_msghandler.c
-index 41ae4dac4eebad..8357cc5884b58a 100644
---- a/drivers/char/ipmi/ipmi_msghandler.c
-+++ b/drivers/char/ipmi/ipmi_msghandler.c
-@@ -2331,6 +2331,10 @@ static int i_ipmi_request(struct ipmi_user     *user,
- 		if (smi_msg == NULL) {
- 			if (!supplied_recv)
- 				ipmi_free_recv_msg(recv_msg);
-+			else if (recv_msg->user) {
-+				atomic_dec(&recv_msg->user->nr_msgs);
-+				kref_put(&recv_msg->user->refcount, free_user);
-+			}
- 			return -ENOMEM;
- 		}
- 	}
-@@ -2373,6 +2377,10 @@ static int i_ipmi_request(struct ipmi_user     *user,
- 			ipmi_free_smi_msg(smi_msg);
- 		if (!supplied_recv)
- 			ipmi_free_recv_msg(recv_msg);
-+		else if (recv_msg->user) {
-+			atomic_dec(&recv_msg->user->nr_msgs);
-+			kref_put(&recv_msg->user->refcount, free_user);
-+		}
- 	} else {
- 		dev_dbg(intf->si_dev, "Send: %*ph\n",
- 			smi_msg->data_size, smi_msg->data);
--- 
-2.53.0
+Matthieu Baerts (NGI0) (1):
+      mptcp: avoid combining some incoming suboptions
+
+Paolo Abeni (1):
+      mptcp: reclaim forward-allocated memory on RX path errors
+
+Qing Luo (1):
+      mptcp: pm: fix data race in add_addr timer callback
+
+Wyatt Feng (1):
+      mptcp: fastopen: only mark MPTFO subflows with SYN data
+
+ net/mptcp/fastopen.c                            |  7 ++--
+ net/mptcp/options.c                             | 55 +++++++++++++++++++++++++
+ net/mptcp/pm.c                                  |  6 ++-
+ net/mptcp/protocol.c                            |  7 ++++
+ net/mptcp/protocol.h                            |  1 +
+ tools/testing/selftests/net/mptcp/mptcp_join.sh |  4 +-
+ 6 files changed, 73 insertions(+), 7 deletions(-)
+---
+base-commit: 78f75d632f74b8de0f081a128588f7c37d0d1164
+change-id: 20260728-net-mptcp-misc-fixes-7-2-rc6-22213c66ef75
+
+Best regards,
+--  
+Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
