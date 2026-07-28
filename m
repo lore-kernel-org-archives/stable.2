@@ -1,160 +1,156 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6941F942;
-	Tue, 28 Jul 2026 02:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA122EF67A
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 02:46:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785206726; cv=none; b=PQkiOJZd50b8EwvG+dIFvthywtan3QezB5CpIbG4XApZRIxvpeNQUhk/nHTHOB0klnVwVdikrjIb1ryNf0X+i6xgWFZxexUQFjlYiOBFw4GAmwz49hhD9zUeMwTrhDg/HCRry60jpZXmot6WzT8JeJ+xmRodhmt1HjX2BuyDxwc=
+	t=1785206778; cv=none; b=p9fyacQPROymwFfI+ng2rMisUXU+9U8AEE2Hes42Ge30Jru0rpSBMBa1tmRgvX/9Tpk066E305wVn/USDAwgs4nO2iEZczRVALJF8b0QnROXksh3UGgaiCmCMZXcat7r5eVSRkhxEXVTejhh3d8AFY4d5r4f3FiPTnZodHEoBLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785206726; c=relaxed/simple;
-	bh=pQDFNH40sZNiB0luwZuiog275VTkEENkY9lrVDGL3pA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HQdsIGKVohvY7iSNNs5MqGTgcZ1gOIuXSuSudb1cUvzIuIygG1+VfxD2yvYsJmOcSpI+13Sv7edbFPqqX5G3N2Mrx6RYG8fli1PBEY6cBjZdY3jsL706LJmIL0vbuH6F6a7UvFXzHZI09EKLwG/yVpfpeqn4xpQRsZ/tg0pc1Ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=vPfOapCW; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1785206778; c=relaxed/simple;
+	bh=hSzynjrZeTuVdayodtegulkf1njfTtCLPkKfnJgfx5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FEhJ4i4JZG0BYdQl6+bIS3uDgpPXgx4npW+lbY54MOfw71vJte65yYXNPvQ/UlDKESHpFt+5gwvhZsvSEkb0TVy/ThJNBhzoQB3SMA0RaDlW8nF1dxFnHQ7QM5IZxmvpnCGk0GDZIMhKNEpRO3Jj46OWwjdnfC/XC8PX6FsMN4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCOf0m38; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="vPfOapCW"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66S2jJznD3555728, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1785206719; bh=teowrk55cfCSQZL70MFwIA8kk4HNMeCdYfP01z3Uanw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=vPfOapCW2Xw5w79bOY4mOWHj7iVAFVwrq5oNhQb/teypoEdphX1wbigVAUwTKJZEr
-	 XoW8eMsiIOZ7BDVBvhP7i53P/wsFQQkogDB/MRhSvVJLA9n0EUjBht/Vs4OwT1IR43
-	 irWTcv6HwjQZMp5ukHnBbOA5ZHHSgdIN8hweqh6qBX1nCjiMiIUu/icQ+a/ko5vnlF
-	 +m2G5SdYFgWmmVMS7nEJqXlscjljK48+t5lGOXw/t3B6mlkjTyOTS+elD75KWvARdP
-	 tMSIIFfYZZMM7DFLFHML7v1/2Smsa+YAOe3sGC3amdGBSCqzE2jVs7fOYfeFlISNZs
-	 vZRXaLfOy/9tw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66S2jJznD3555728
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 28 Jul 2026 10:45:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 28 Jul 2026 10:45:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Tue, 28 Jul 2026 10:45:19 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "yhchen312@gmail.com" <yhchen312@gmail.com>
-CC: Damon Chen <damon.chen@realtek.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH] wifi: rtw89: 8852be: add .shutdown callback to quiesce
- device on reboot
-Thread-Topic: [PATCH] wifi: rtw89: 8852be: add .shutdown callback to quiesce
- device on reboot
-Thread-Index: AQHdHjQ15yuLO5GH90GecNOHrVXHNraCM1qg
-Date: Tue, 28 Jul 2026 02:45:19 +0000
-Message-ID: <142c91dfc7334136a5dabc4f91504ec6@realtek.com>
-References: <20260728015435.1585953-1-yhchen312@gmail.com>
-In-Reply-To: <20260728015435.1585953-1-yhchen312@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCOf0m38"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFA81F00A3D;
+	Tue, 28 Jul 2026 02:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785206776;
+	bh=JYx9s8ZRPoTVAhhDGkWcYmxA28HeuRmoIo337jow044=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cCOf0m38fo/eun7uDzS75sBxBb6w8nA8YK/PiBSD5mFK7DZb3mdg4kUIWk82ti67d
+	 V4m/z1s0ev4imcEBaa/Bl9TMw4T0Q3+VgNtryiS27uHAkalmcy0uI8uzJOlWmtyZW4
+	 Th98aI+kwa+W1bgHtFUrPlVgAMJ7/SqH1eZ56VAqlnC2+SZ8RTQFH4Z2tFufwH28nI
+	 5vy68POIW7l9tXiLV7gmkPeE4POnqcxHgOlvwpK3MNi4kJAccIh+F2N4/CSDvj5z1v
+	 UVf+4FNn4eaIdrED8ov2RJKcLu0eHPRRvrb/4vUkLNk5/sOSSrpQbu58exft6JSvbF
+	 6UOdUnyXc83eQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com,
+	Jann Horn <jannh@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] locking/rt: Fix the incorrect RCU protection in rt_spin_unlock()
+Date: Mon, 27 Jul 2026 22:46:07 -0400
+Message-ID: <20260728024607.3052461-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072058-enjoyable-enamel-6b91@gregkh>
+References: <2026072058-enjoyable-enamel-6b91@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Thomas Gleixner <tglx@kernel.org>
 
-yhchen312@gmail.com <yhchen312@gmail.com> wrote:
-> From: "Yuhang.chen" <yhchen312@gmail.com>
->=20
-> Since hardware rfkill polling was introduced, warm reboot on arm64
-> platforms can panic with an asynchronous SError when the rfkill poll
-> workqueue reads a register while the PCIe link is being torn down:
+[ Upstream commit 89038cc87d80c77e7aa6f42a64b2573b74af339f ]
 
-Does it mean the work is running after .shutdown but before .remove?
+rt_spin_unlock() releases the RCU protection before unlocking the
+lock. That opens the door for the following UAF scenario:
 
->=20
->   SError Interrupt on CPU8, code 0x00000000be000011 -- SError
->   Workqueue: events_power_efficient rfkill_poll [rfkill]
->   Call trace:
->     rtw89_pci_ops_read8+0x94/0x160 [rtw89_pci]
->     rtw89_core_rfkill_poll+0x50/0x1e0 [rtw89_core]
->     rtw89_ops_rfkill_poll+0x40/0x68 [rtw89_core]
->     ieee80211_rfkill_poll+0x3c/0x70 [mac80211]
->     cfg80211_rfkill_poll+0x40/0x2a0 [cfg80211]
->     rfkill_poll+0x30/0x88 [rfkill]
->   Kernel panic - not syncing: Asynchronous SError Interrupt
->=20
-> During device_shutdown() the 8852BE PCI driver has no .shutdown
-> callback, so the device is never quiesced and the rfkill polling keeps
-> running.  Once the platform brings the PCIe link down, the next MMIO
-> read targets a non-responding device and is reported as an asynchronous
-> SError, which is fatal on arm64.
->=20
-> Add a .shutdown callback that runs the existing remove path to stop the
-> rfkill polling, free interrupts and power down the chip before the link
-> goes away. A NULL drvdata check guards the case where probe did not
-> fully complete.
->=20
-> Fixes: 0b38e6277aed ("wifi: rtw89: add support for hardware rfkill")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuhang.chen <yhchen312@gmail.com>
-> ---
->  drivers/net/wireless/realtek/rtw89/rtw8852be.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852be.c
-> b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
-> index 5bc0a6a99d1d..9aebecbac067 100644
-> --- a/drivers/net/wireless/realtek/rtw89/rtw8852be.c
-> +++ b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
-> @@ -92,11 +92,20 @@ static const struct pci_device_id rtw89_8852be_id_tab=
-le[] =3D {
->  };
->  MODULE_DEVICE_TABLE(pci, rtw89_8852be_id_table);
->=20
-> +static void rtw89_8852be_shutdown(struct pci_dev *pdev)
-> +{
-> +       if (!pci_get_drvdata(pdev))
-> +               return;
-> +
-> +       rtw89_pci_remove(pdev);
+ T1					T2
+ spin_lock(&p->lock);		rcu_read_lock();
+ invalidate(p);			p = rcu_dereference(ptr);
+ rcu_assign_pointer(ptr, NULL);	if (!p) return;
+ spin_unlock(&p->lock);		spin_lock(&p->lock)
+ 				   lock(&lock->lock);
+				   rcu_read_lock();
+ kfree_rcu(p);			rcu_read_unlock();
+				....
+				spin_unlock(&p->lock)
+				  rcu_read_unlock(); // Ends grace period
+ rcu_do_batch()
+   kfree(p);
+			    UAF ->	  rt_mutex_cmpxchg_release(&lock->lock...)
 
-Not prefer calling rtw89_pci_remove() twice.
+Regular spinlocks keep preemption disabled accross the unlock operation,
+which provides full RCU protection, but the RT substitution fails to
+resemble that. Same applies for the rwlock substitution.
 
-I think we can add a callback .rtw89_pci_shutdown() to set a flag
-RTW89_FLAG_SHUTDOWN. In rtw89_ops_rfkill_poll(), just ignore polling, like:
+Move the rcu_read_unlock() invocation past the unlock operations to match
+the non-RT semantics. This makes it asymmetric vs. rt_xxx_lock(), but
+that's harmless as the caller needs to hold RCU read lock across the lock
+operation. The migrate_enable() call stays before the unlock operation
+because there is no per CPU operation in the unlock path which would
+require migration to be kept disabled.
 
-@@ -2010,7 +2010,8 @@ static void rtw89_ops_rfkill_poll(struct ieee80211_hw=
- *hw)
-        lockdep_assert_wiphy(hw->wiphy);
+Fixes: 0f383b6dc96e ("locking/spinlock: Provide RT variant")
+Reported-by: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com
+Decoded-by: Jann Horn <jannh@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Acked-by: Al Viro <viro@zeniv.linux.org.uk>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/87jyrud75z.ffs@fw13
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/locking/spinlock_rt.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-        /* wl_disable GPIO get floating when entering LPS */
--       if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags))
-+       if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags) ||
-+           test_bit(RTW89_FLAG_SHUTDOWN, rtwdev->flags))
-                return;
-
-        rtw89_core_rfkill_poll(rtwdev, false);
-
-This flag is very similar to USB RTW89_FLAG_UNPLUGGED flag, but I'd add a
-new flag.
-
-> +}
-> +
->  static struct pci_driver rtw89_8852be_driver =3D {
->         .name           =3D "rtw89_8852be",
->         .id_table       =3D rtw89_8852be_id_table,
->         .probe          =3D rtw89_pci_probe,
->         .remove         =3D rtw89_pci_remove,
-> +       .shutdown       =3D rtw89_8852be_shutdown,
-
-I think this fix can apply to all PCI devices for this driver, right?
-
->         .driver.pm      =3D &rtw89_pm_ops,
->         .err_handler    =3D &rtw89_pci_err_handler,
->  };
-> --
-> 2.34.1
+diff --git a/kernel/locking/spinlock_rt.c b/kernel/locking/spinlock_rt.c
+index 014143934e0012..c78c52ed0b1e1f 100644
+--- a/kernel/locking/spinlock_rt.c
++++ b/kernel/locking/spinlock_rt.c
+@@ -79,10 +79,27 @@ void __sched rt_spin_unlock(spinlock_t *lock)
+ {
+ 	spin_release(&lock->dep_map, _RET_IP_);
+ 	migrate_enable();
+-	rcu_read_unlock();
+ 
+ 	if (unlikely(!rt_mutex_cmpxchg_release(&lock->lock, current, NULL)))
+ 		rt_mutex_slowunlock(&lock->lock);
++
++	/*
++	 * This must be last to prevent the following UAF:
++	 *
++	 * T1					T2
++	 * spin_lock(&p->lock);			rcu_read_lock();
++	 * invalidate(p);			p = rcu_dereference(ptr);
++	 * rcu_assign_pointer(ptr, NULL);	if (!p) return;
++	 * spin_unlock(&p->lock);		spin_lock(&p->lock);
++	 * kfree_rcu(p);			rcu_read_unlock();
++	 *					....
++	 *					spin_unlock(&p->lock)
++	 *					  rcu_read_unlock(); // Ends grace period
++	 * rcu_do_batch()
++	 *   kfree(p);
++	 *			    UAF ->	  rt_mutex_cmpxchg_release(&p->lock.lock...)
++	 */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_spin_unlock);
+ 
+@@ -262,17 +279,21 @@ void __sched rt_read_unlock(rwlock_t *rwlock)
+ {
+ 	rwlock_release(&rwlock->dep_map, _RET_IP_);
+ 	migrate_enable();
+-	rcu_read_unlock();
+ 	rwbase_read_unlock(&rwlock->rwbase, TASK_RTLOCK_WAIT);
++
++	/* This must be last. See comment in rt_spin_unlock() */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_read_unlock);
+ 
+ void __sched rt_write_unlock(rwlock_t *rwlock)
+ {
+ 	rwlock_release(&rwlock->dep_map, _RET_IP_);
+-	rcu_read_unlock();
+ 	migrate_enable();
+ 	rwbase_write_unlock(&rwlock->rwbase);
++
++	/* This must be last. See comment in rt_spin_unlock() */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_write_unlock);
+ 
+-- 
+2.53.0
 
