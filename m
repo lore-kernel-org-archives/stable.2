@@ -1,45 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC006372EF5
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:44:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E31A373BF3
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:44:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785210268; cv=none; b=I4DBlR9GAUFUp/5qGcV/L/mVLCfi1dGOPGjkdDmcMX7UZW0nHBXD3SNKCv5vDwxHfxaGPBAPcpdn3V9iKUgCci4tL1A4+cqm0iMGnAG5pTzwDe4v96sLzR2PSE3k+mkuBk1V7rOKY4b41WATXWLyNPlVfJR8qfWTBPPoKQJ/eAs=
+	t=1785210283; cv=none; b=Zay14tMFzTDv10Sn96mpfG7KkcO0k7qn8K0nrRCpSmPP/Xln+gEbJjbZYIx5bemyjFFYHAR3LBG/PgbWhS5ZYfMumlAfJgvfCQb/i9vIugO/qoyiu0iIkT5oHwHeSoipMXWKQu2Idyx7rpWBvX2CsM3Zeo7rsmP+xFoAQWJ6bqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785210268; c=relaxed/simple;
-	bh=JL/Dh23FbC/z8QhiYjotMDdUVcdhJSsHqbbn808Jf/g=;
+	s=arc-20240116; t=1785210283; c=relaxed/simple;
+	bh=n2Ys+NQVKZbcNPRif4TMV1c/8Zfl4mxwYcufPupv4GA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MICzNy4hM1gbEdO6x86GTU71XShiLlzjh3fKIw+lnfMcafwP1ejc8oIWd2ejMsKKFPFZleX9VJVoZ8zyuw6vVAjk/wS9BqRVfW72PW67SqVtW3awpKTDgasUh1w5meXVyK4qCMFtKXSBK/KNdA9YKgM2MvUPObLL64qIm4ff3TA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+tsUKQb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mP463PPHJw1KLlxIv3qKfldFt32fiHjhxgoyFmgTnsF+uKt88BYmQxiBQInVeeIwZHPJWME27Pc/6UeyjgR7XxIbvoUJm8/3LUzYBJTIOO7dkL7IVV+ri3qx4fs0wGI1fXzwrJSDnPtN78xUwevsKkk/kRN+7/ONOerkYeXCjGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gncCVET0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+tsUKQb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9501F000E9;
-	Tue, 28 Jul 2026 03:44:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gncCVET0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4096F1F000E9;
+	Tue, 28 Jul 2026 03:44:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785210266;
-	bh=aJwyYv1+Ef83FMdMJXUInHW6EHNQWFBNd3J5Z86Uv6c=;
+	s=k20260515; t=1785210282;
+	bh=owBhdMEptHr0+azyxqlia8Aq3SqzqcIfMI0jTjnjXRQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D+tsUKQbUBV/MqCXd99ibyNunz/vhMkBid+O3AhB9jMEXmoHNQmygEtrYRp1BOEQz
-	 qfJXC5FWbSEtKgwGnnRqjwdVnADM/UmYbJenqUWTK+Qh4rlyh/X/0M9mLFqJSA269n
-	 JJXscJ4mW0je6eTbn6as7NroXQL8GkiEFKh1DKE04J/kwHEPnXELI+AlVWo1AepbTy
-	 OSVsysLWTFrybaoge4gr/tpnsrdr6IefhXaVgzXr7McDPvCuKtyl4UsucDqbfO1dR8
-	 P6Oti42AspQ4ir3P3GN/9AcaCRxAtjujcWRVTF+RJnJY7exiJkvAQ6Zu7qO70rHNRT
-	 41Hwy5jBkuewA==
+	b=gncCVET0RK+awFAUmHx3otiOyShsQ+QpYMa/ol+7ZD6+j7LJQ0+mBNn1r/uq9YLRh
+	 xPPjF9HaKPmVXvHNTrpeFxadGDAPpiRSYymK6CPBBreUf20grFS+HqPhcTcoA7KDfC
+	 i866cLy/N0eZCbFjpzRhYSUbhOIzUXuftNyfqgHYdx0SNoGaWzdtbnUYnI/H7Zt1R/
+	 VpWh2qeH9kAo/xQgRgFCIoLKmDfYT8M4BU26OELyVJgZIj+dVY+AiNW0mg2KOlla7f
+	 TNmWvR3J3l5WQaRCBM1YBpyoBF1CLhC2sV9Memj2Na0/+dI+oQXaw8h2lZchQvXK9N
+	 NjNt1eVisKSAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com,
-	Jann Horn <jannh@google.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Al Viro <viro@zeniv.linux.org.uk>,
+Cc: Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Yury Norov <ynorov@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] locking/rt: Fix the incorrect RCU protection in rt_spin_unlock()
-Date: Mon, 27 Jul 2026 23:44:23 -0400
-Message-ID: <20260728034423.3162660-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y] net: mana: Optimize irq affinity for low vcpu configs
+Date: Mon, 27 Jul 2026 23:44:39 -0400
+Message-ID: <20260728034439.3162982-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072059-deliverer-unstuffed-ac64@gregkh>
-References: <2026072059-deliverer-unstuffed-ac64@gregkh>
+In-Reply-To: <2026072008-secrecy-showcase-bb79@gregkh>
+References: <2026072008-secrecy-showcase-bb79@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,109 +49,252 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Gleixner <tglx@kernel.org>
+From: Shradha Gupta <shradhagupta@linux.microsoft.com>
 
-[ Upstream commit 89038cc87d80c77e7aa6f42a64b2573b74af339f ]
+[ Upstream commit 5316394b1752f6cf3f9901e7fefdec1cd1d97fd3 ]
 
-rt_spin_unlock() releases the RCU protection before unlocking the
-lock. That opens the door for the following UAF scenario:
+Before the commit 755391121038 ("net: mana: Allocate MSI-X vectors
+dynamically"), all the MANA IRQs were assigned statically and together
+during early driver load.
 
- T1					T2
- spin_lock(&p->lock);		rcu_read_lock();
- invalidate(p);			p = rcu_dereference(ptr);
- rcu_assign_pointer(ptr, NULL);	if (!p) return;
- spin_unlock(&p->lock);		spin_lock(&p->lock)
- 				   lock(&lock->lock);
-				   rcu_read_lock();
- kfree_rcu(p);			rcu_read_unlock();
-				....
-				spin_unlock(&p->lock)
-				  rcu_read_unlock(); // Ends grace period
- rcu_do_batch()
-   kfree(p);
-			    UAF ->	  rt_mutex_cmpxchg_release(&lock->lock...)
+After this commit, the IRQ allocation for MANA was done in two phases.
+HWC IRQ allocated earlier and then, queue IRQs dynamically added at a
+later point. By this time, the IRQ weights on vCPUs can become imbalanced
+and if IRQ count is greater than the vCPU count the topology aware IRQ
+distribution logic in MANA can cause multiple MANA IRQs to land on the
+same vCPUs, while other sibling vCPUs have none (case 1).
 
-Regular spinlocks keep preemption disabled accross the unlock operation,
-which provides full RCU protection, but the RT substitution fails to
-resemble that. Same applies for the rwlock substitution.
+On SMP enabled, low-vCPU systems, this becomes a bigger problem as the
+softIRQ handling overhead of two IRQs on the same vCPUs becomes much more
+than their overheads if they were spread across sibling vCPUs.
 
-Move the rcu_read_unlock() invocation past the unlock operations to match
-the non-RT semantics. This makes it asymmetric vs. rt_xxx_lock(), but
-that's harmless as the caller needs to hold RCU read lock across the lock
-operation. The migrate_enable() call stays before the unlock operation
-because there is no per CPU operation in the unlock path which would
-require migration to be kept disabled.
+In such cases when many parallel TCP connections are tested, the
+throughput drops significantly.
 
-Fixes: 0f383b6dc96e ("locking/spinlock: Provide RT variant")
-Reported-by: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com
-Decoded-by: Jann Horn <jannh@google.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Al Viro <viro@zeniv.linux.org.uk>
+Fix the affinity assignment logic, in cases where the IRQ count is greater
+than the vCPU count and when IRQs are added dynamically, by utilizing all
+the vCPUs irrespective of their NUMA/core bindings (case 2).
+
+The results of setting the affinity and hint to NULL were also studied,
+and we observed that, with this logic if there are pre-existing IRQs
+allocated on the VM (apart from MANA), during MANA IRQs allocation, it
+leads to clustering of the MANA queue IRQs again (case 3).
+
+=======================================================
+Case 1: without this patch
+=======================================================
+4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+
+	TYPE		effective vCPU aff
+=======================================================
+IRQ0:	HWC		0
+IRQ1:	mana_q1		0
+IRQ2:	mana_q2		2
+IRQ3:	mana_q3		0
+IRQ4:	mana_q4		3
+
+%soft on each vCPU(mpstat -P ALL 1) on receiver
+vCPU		0	1	2	3
+=======================================================
+pass 1:		38.85	0.03	24.89	24.65
+pass 2:		39.15	0.03	24.57	25.28
+pass 3:		40.36	0.03	23.20	23.17
+
+=======================================================
+Case 2: with this patch
+=======================================================
+4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+
+        TYPE            effective vCPU aff
+=======================================================
+IRQ0:   HWC             0
+IRQ1:   mana_q1         0
+IRQ2:   mana_q2         1
+IRQ3:   mana_q3         2
+IRQ4:   mana_q4         3
+
+%soft on each vCPU(mpstat -P ALL 1) on receiver
+vCPU            0       1       2       3
+=======================================================
+pass 1:         15.42	15.85	14.99	14.51
+pass 2:         15.53	15.94	15.81	15.93
+pass 3:         16.41	16.35	16.40	16.36
+
+=======================================================
+Case 3: with affinity set to NULL
+=======================================================
+4 vCPU(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+
+	TYPE		effective vCPU aff
+=======================================================
+IRQ0:	HWC			0
+IRQ1:	mana_q1			2
+IRQ2:	mana_q2			3
+IRQ3:	mana_q3			2
+IRQ4:	mana_q4			3
+
+=======================================================
+Throughput Impact(in Gbps, same env)
+=======================================================
+TCP conn	with patch	w/o patch	aff NULL
+20480		15.65		7.73		5.25
+10240		15.63		8.93		5.77
+8192		15.64		9.69		7.16
+6144		15.64		13.16		9.33
+4096		15.69		15.75		13.50
+2048		15.69		15.83		13.61
+1024		15.71		15.28		13.60
+
+Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87jyrud75z.ffs@fw13
+Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
+Link: https://patch.msgid.link/20260624072138.1632849-1-shradhagupta@linux.microsoft.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Kept 7.1's `int *irqs, irq, err, i;` declaration (minus the deleted `skip_first_cpu`) instead of upstream's `msi` variant, as this tree lacks the `mana_gd_get_gic()` refactor. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/locking/spinlock_rt.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 78 +++++++++++++++----
+ 1 file changed, 64 insertions(+), 14 deletions(-)
 
-diff --git a/kernel/locking/spinlock_rt.c b/kernel/locking/spinlock_rt.c
-index d2912e44d61fdb..845ddeabbcf4e5 100644
---- a/kernel/locking/spinlock_rt.c
-+++ b/kernel/locking/spinlock_rt.c
-@@ -66,10 +66,27 @@ void __sched rt_spin_unlock(spinlock_t *lock)
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index ac71ca8450bf43..a0e30f4e46664c 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -197,6 +197,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
+ 	} else {
+ 		/* If dynamic allocation is enabled we have already allocated
+ 		 * hwc msi
++		 * Also, we make sure in this case the following is always true
++		 * (num_msix_usable - 1 HWC) <= num_online_cpus()
+ 		 */
+ 		gc->num_msix_usable = min(resp.max_msix, num_online_cpus() + 1);
+ 	}
+@@ -1667,8 +1669,8 @@ void mana_gd_free_res_map(struct gdma_resource *r)
+  * do the same thing.
+  */
+ 
+-static int irq_setup(unsigned int *irqs, unsigned int len, int node,
+-		     bool skip_first_cpu)
++static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
++				     int node, bool skip_first_cpu)
  {
- 	spin_release(&lock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
- 
- 	if (unlikely(!rt_mutex_cmpxchg_release(&lock->lock, current, NULL)))
- 		rt_mutex_slowunlock(&lock->lock);
-+
-+	/*
-+	 * This must be last to prevent the following UAF:
-+	 *
-+	 * T1					T2
-+	 * spin_lock(&p->lock);			rcu_read_lock();
-+	 * invalidate(p);			p = rcu_dereference(ptr);
-+	 * rcu_assign_pointer(ptr, NULL);	if (!p) return;
-+	 * spin_unlock(&p->lock);		spin_lock(&p->lock);
-+	 * kfree_rcu(p);			rcu_read_unlock();
-+	 *					....
-+	 *					spin_unlock(&p->lock)
-+	 *					  rcu_read_unlock(); // Ends grace period
-+	 * rcu_do_batch()
-+	 *   kfree(p);
-+	 *			    UAF ->	  rt_mutex_cmpxchg_release(&p->lock.lock...)
-+	 */
-+	rcu_read_unlock();
+ 	const struct cpumask *next, *prev = cpu_none_mask;
+ 	cpumask_var_t cpus __free(free_cpumask_var);
+@@ -1704,11 +1706,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
+ 	return 0;
  }
- EXPORT_SYMBOL(rt_spin_unlock);
  
-@@ -232,17 +249,21 @@ void __sched rt_read_unlock(rwlock_t *rwlock)
++/* must be called with cpus_read_lock() held */
++static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
++{
++	int cpu;
++
++	for_each_online_cpu(cpu) {
++		if (len == 0)
++			break;
++
++		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
++		len--;
++	}
++}
++
+ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
  {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
- 	rwbase_read_unlock(&rwlock->rwbase, TASK_RTLOCK_WAIT);
-+
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_read_unlock);
+ 	struct gdma_context *gc = pci_get_drvdata(pdev);
+ 	struct gdma_irq_context *gic;
+-	bool skip_first_cpu = false;
+ 	int *irqs, irq, err, i;
  
- void __sched rt_write_unlock(rwlock_t *rwlock)
- {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
--	rcu_read_unlock();
- 	migrate_enable();
- 	rwbase_write_unlock(&rwlock->rwbase);
-+
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_write_unlock);
+ 	irqs = kmalloc_objs(int, nvec);
+@@ -1716,10 +1731,12 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+ 		return -ENOMEM;
  
+ 	/*
++	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
++	 * nvec is only Queue IRQ (HWC already setup).
+ 	 * While processing the next pci irq vector, we start with index 1,
+ 	 * as IRQ vector at index 0 is already processed for HWC.
+ 	 * However, the population of irqs array starts with index 0, to be
+-	 * further used in irq_setup()
++	 * further used in mana_irq_setup_numa_aware()
+ 	 */
+ 	for (i = 1; i <= nvec; i++) {
+ 		gic = kzalloc_obj(*gic);
+@@ -1749,18 +1766,51 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+ 	}
+ 
+ 	/*
+-	 * When calling irq_setup() for dynamically added IRQs, if number of
+-	 * CPUs is more than or equal to allocated MSI-X, we need to skip the
+-	 * first CPU sibling group since they are already affinitized to HWC IRQ
++	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
++	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
++	 * skip the first CPU sibling group since they are already affinitized to
++	 * HWC IRQ
+ 	 */
+ 	cpus_read_lock();
+-	if (gc->num_msix_usable <= num_online_cpus())
+-		skip_first_cpu = true;
++	if (gc->num_msix_usable <= num_online_cpus()) {
++		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
++						true);
++		if (err) {
++			cpus_read_unlock();
++			goto free_irq;
++		}
++	} else {
++		/*
++		 * When num_msix_usable are more than num_online_cpus, our
++		 * queue IRQs should be equal to num of online vCPUs.
++		 * We try to make sure queue IRQs spread across all vCPUs.
++		 * In such a case NUMA or CPU core affinity does not matter.
++		 * Note: in this case the total mana IRQ should always be
++		 * num_online_cpus + 1. The first HWC IRQ is already handled
++		 * in HWC setup calls
++		 * However, if CPUs went offline since num_msix_usable was
++		 * computed, queue IRQs will be more than num_online_cpus().
++		 * In such cases remaining extra IRQs will retain their default
++		 * affinity.
++		 */
++		int first_unassigned = num_online_cpus();
+ 
+-	err = irq_setup(irqs, nvec, gc->numa_node, skip_first_cpu);
+-	if (err) {
+-		cpus_read_unlock();
+-		goto free_irq;
++		if (nvec > first_unassigned) {
++			char buf[32];
++
++			if (first_unassigned == nvec - 1)
++				snprintf(buf, sizeof(buf), "%d",
++					 first_unassigned);
++			else
++				snprintf(buf, sizeof(buf), "%d-%d",
++					 first_unassigned, nvec - 1);
++
++			dev_dbg(&pdev->dev,
++				"MANA IRQ indices #%s will retain the default CPU affinity\n",
++				buf);
++		}
++
++		mana_irq_setup_linear(irqs, nvec);
+ 	}
+ 
+ 	cpus_read_unlock();
+@@ -1846,7 +1896,7 @@ static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
+ 		nvec -= 1;
+ 	}
+ 
+-	err = irq_setup(irqs, nvec, gc->numa_node, false);
++	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
+ 	if (err) {
+ 		cpus_read_unlock();
+ 		goto free_irq;
 -- 
 2.53.0
 
