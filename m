@@ -1,77 +1,73 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5031C3A5E89
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E221D47253C
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785266124; cv=none; b=rRfx08QdPHtce0o/WNlFzVrc8+HGPcSt4w150/VMGaKUzWytK0cEKzKYN4cHLEXBiNb8lsWZTs1u/UaX+uf2OExbfN4wfOV/n4y0MrE5BinmZcAvNgFX60wThkHuvYJZPrlhZEQeDz7hlmM6FDUgvbsx0x4Sia5NYwrdH9u55dg=
+	t=1785266778; cv=none; b=iE0ZvQnvLlyXd2CDnUUjnUKj6g3q0cMLqLyRhxNy21qDkBxMu72QGANIXvwvjxDB+5m02g77gyo4l4X4+qULWyMcz+lpngyDCOqDy4bKVq+SpPyxeq8Bc7VyEH+6/fGPMYTigKZWxHU34cgGqNwSuxDkOSfV386TJ+vu634dTw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785266124; c=relaxed/simple;
-	bh=g91u38xN99MONpcrbIn5syL3q2ufwOt2rP0LwyuIxnY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lQk4PMhGJkcUaN67A38+8RelVyjcO+HZLiYHKel3/Q2CHyJTysHuU/ZGcNU8nh06NIZeyVFZyDNoxsfNqEjUwtj6TGZpZZM7HW7Is1Qkt1Zh/GKKwTiESUILe5t4CckoJQVJNu1K7CMjJeTfdykQg49URP61WYW+yD5MB+h9KBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cKynUxEC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=d2ppvs08; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LSDaNk6/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fJkBrgaU; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1785266778; c=relaxed/simple;
+	bh=EcHGE4bv3/8f684uJyKg5YK5taQ5B8iQcN0YfquQ28c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hi78bAHd4/4tL8quFRMVW94JqZHNqXpIr8fopn97MddCuHvKxK4CQMjmAWu10X86ssRTUber8cGDXOWQwGrbpuEvnUPMZdjXWsdJGp8ufmzk2Ad0zbaV9xKIFWNyb8RE1OIq4WWZqK3OGLABL1peWEUK63NbmmbCT1/MnhtdAlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/OCuWfl; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cKynUxEC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="d2ppvs08";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LSDaNk6/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fJkBrgaU"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3E24A7C17B;
-	Tue, 28 Jul 2026 19:15:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785266115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Ds7mhuvVXaRCHBX/aoqYAMjx448HlrhwZPRVdULw3/k=;
-	b=cKynUxECIaxrPhb9wpgxtswO9qJVXkaYD5sqiW0BkY5olwl11m7HhsyFtEHcpGu2NLe9cG
-	6NxHgeHXbzgLnqa/vsvpZ2VdgrF8BC+j6hoFhYLRb3gkr4CxfycqQ8CUw9Agz3hfFWQVly
-	hk4QX4EXLRHwQXSuSM/gOKSJ6wDf1Ow=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785266115;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Ds7mhuvVXaRCHBX/aoqYAMjx448HlrhwZPRVdULw3/k=;
-	b=d2ppvs08I4/R9AcySD4Gwo+vjhUP0kuv2eQc1txN46wvbdgNgl+S0ierSJVJzkg/nAMwYF
-	qqkh8fqSRICvRHCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785266111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Ds7mhuvVXaRCHBX/aoqYAMjx448HlrhwZPRVdULw3/k=;
-	b=LSDaNk6/MeCrpdVXLzWVY3i9dB6gW9ZNAtutGZA5+5Ju877vbhJFaghEa0Z7c0H3ivLlnE
-	XB3Xjwg03gcIfByoVwYpbVGDdTQRRd5bCZ+606FnBZAf4FJSiOusEOfTHxD5D8qeg3xpQk
-	MQFXqXB2kL1xe7HtclAoGER98i7Lr+4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785266111;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Ds7mhuvVXaRCHBX/aoqYAMjx448HlrhwZPRVdULw3/k=;
-	b=fJkBrgaUpMcueacNcZoxrPY3SJEVREc7rMZGfJb7RRF+FOizUJ9yTmFHUWZ4LVEIrBBt5m
-	K4dCtgNAf1Q6w4AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F250C779B1;
-	Tue, 28 Jul 2026 19:15:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4B/kMr7/aGoFKAAAD6G6ig
-	(envelope-from <krisman@suse.de>); Tue, 28 Jul 2026 19:15:10 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: axboe@kernel.dk
-Cc: io-uring@vger.kernel.org,
-	Gabriel Krisman Bertazi <krisman@suse.de>,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/net: don't overconsume buffers when using MSG_TRUNC
-Date: Tue, 28 Jul 2026 15:14:54 -0400
-Message-ID: <20260728191454.1850326-1-krisman@suse.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/OCuWfl"
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bfaa014978so63646e0c.3
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 12:26:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785266775; x=1785871575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ePC1Y0ne7UyI/z8ccYsuTaBWGOHMZQF21As30zRm9nQ=;
+        b=h/OCuWflAK4dOqPk2+VxB04I4c5BpKVOcK0dHpuwQFXJMhs6gEIre2d+GJX4bFyVBX
+         S8ROP7GX3RXCVW3UPRhwyuCsZutFI/L/iuutI/pFKfOIdI9PdT6gwS+EyrEiO4eNpVEM
+         2FnuENm3xYJZYV+8hRwyl9sraDzzRH24DyJNDCfJedg1LOG7D1XNKwuzyO1UhaqlPM1i
+         ZUNZbEhBGqjFa5Hjbrby1qoKuhWmddvG/bq1BmMuV/b2pRfal1PudfVlXDgjUnJ/NNuI
+         pi0416h9aoPZJB6PLrC20/LA+IWMyxK/z+HHfrX/YXFs80lepK2WthMAzNGyYNLgYZ62
+         Ae7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785266775; x=1785871575;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ePC1Y0ne7UyI/z8ccYsuTaBWGOHMZQF21As30zRm9nQ=;
+        b=D4/XAw2LFbmJ2hLCR5VUJAzHp7alqM3varBMHPnc9WtdlXIEgjAAV5gDJiZw91l1t/
+         5T4TPEp+ACJkWd6c7oo7Kgy7RXIXS9eGRYUERKkFbfKowbXOjqfKqmFIfrW3NUz8WSD7
+         yjK3zXVl+b+dKaah/pWdXERz57fla9x9X+NyEMBDkZhf2IhxiT9DEcOQ+pGuYQuPqhA/
+         9fjWhIEdxKoRnfHLCqhnHUikSrCeltIyecR2L7spDskdDKeCfId8T0keX+vIo3ecxgUr
+         riDOn/s/NsSsHhReNsoHXo/HbPZvPNlJJVRO5XMVP6iNkjS4qK9YPoiltJkjZNmyGYvM
+         xVYA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpan2OzBJZoK7WcG+w1sxmt9JBx00yfJqaYxWxXasBJyDojYEMjEpdVdk/AK6eYUYHtNfa/GS4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY0hwqnZ2oiS0zxQZXsG+QrptiGz2EYBle6SpIkDFy0Tk0yTWM
+	fFmVqvaXsTTKaw6XRk6+8ttY1ehICLz3M8RslQR7p4RrsdaiU9/Z9lCu
+X-Gm-Gg: AR+sD106zp3BV8qHOtUv4LTSGbW39JSicvfzK7ud7SY275qLl+Ai7clJWpX/vtXbg9n
+	LSWAfqusbw/VAhRATRhM8KeL1Z/AaO/Y1juJ1r3U0t2lxUk1ssrbg8sQMhduxceMaQvdy/mrEmv
+	mhtD6HDs3MwDYC9j4Ou62XrjNwjvaRo5e9xXk31lnQoGLaAe9Y6S+Bw6Q8IwWaO1LwJAN+oNSYl
+	ALfbmOkbd7x/wQwZwJi6L/1NbTChFtASwflPg9y44ISSRW9gjv+Oi9l8OwkvmX5U1BPe7n0ilqn
+	S402zeQOh9qai89P1MwTlb1iFCnVApHbCNEISD20FpcDuaBVd8i7u5AKfKKGkdxV/MjNzGmUjHy
+	3cpBJQ0x1kUtaPgvchl3E1Ua0dqNiNdh+9bY+AB/I+LvoG4Xhrkuw2sfPC6s0fOXbKA81cUUSKH
+	fQ0DVKP4kFU9vKxLU4
+X-Received: by 2002:a05:6122:1815:b0:5c1:706d:aec3 with SMTP id 71dfb90a1353d-5c33fa9be2cmr1713248e0c.11.1785266774672;
+        Tue, 28 Jul 2026 12:26:14 -0700 (PDT)
+Received: from fedora.fibertel.com.ar ([200.55.79.212])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c34eefcfaesm373461e0c.2.2026.07.28.12.26.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 12:26:14 -0700 (PDT)
+Sender: TheySaidThisWouldntFit <mariano.ignacio.baragiola@gmail.com>
+From: Mariano Baragiola <mbaragiola@linux.com>
+To: Ajay Singh <ajay.kathat@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Mariano Baragiola <mbaragiola@linux.com>
+Subject: [PATCH] wifi: wilc1000: validate monitor transmit frame headers
+Date: Tue, 28 Jul 2026 16:26:10 -0300
+Message-ID: <20260728192610.2236361-1-mbaragiola@linux.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,183 +76,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
 
-When a recv/recvmsg is issued with MSG_TRUNC and the incoming packet is
-larger than the provided buffer, the net layer returns the full length
-of the packet rather than the number of bytes actually copied into the
-buffer.  As a result, io_uring advances more of the provided buffer ring
-than was actually filled.  Use the actual filled region size to consume
-the buffer, but still return the full size to preserve MSG_TRUNC
-semantics.
+wilc_wfi_mon_xmit() reads the radiotap length before ensuring that the
+fixed header is present. After stripping that header, it reads the frame
+type and all three 802.11 addresses without checking how much frame data
+remains.
 
-Take care with multishot, because that seems to already truncate the
-consumption based on the available payload size.
+A truncated monitor injection can therefore cause out-of-bounds reads.
+Validate the radiotap header first, use the common 802.11 helper to check
+the variable header length, and require a complete three-address header
+before using the addresses. This covers QoS and four-address data headers
+while rejecting short control headers that this path cannot classify.
 
-This was reported in https://github.com/axboe/liburing/issues/1619.
-
-Fixes: ae98dbf43d75 ("io_uring/kbuf: add support for incremental buffer consumption")
+Fixes: c5c77ba18ea6 ("staging: wilc1000: Add SDIO/SPI 802.11 driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Signed-off-by: Mariano Baragiola <mbaragiola@linux.com>
 ---
- io_uring/net.c | 38 +++++++++++++++++++++++++++++++-------
- 1 file changed, 31 insertions(+), 7 deletions(-)
+ drivers/net/wireless/microchip/wilc1000/mon.c | 30 +++++++++++++++----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
-diff --git a/io_uring/net.c b/io_uring/net.c
-index f192e6016c19..6be16aab21c1 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -883,7 +883,7 @@ int io_recvmsg_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- static inline bool io_recv_finish(struct io_kiocb *req,
- 				  struct io_async_msghdr *kmsg,
- 				  struct io_br_sel *sel, bool mshot_finished,
--				  unsigned issue_flags)
-+				  unsigned issue_flags, size_t consumed)
+diff --git a/drivers/net/wireless/microchip/wilc1000/mon.c b/drivers/net/wireless/microchip/wilc1000/mon.c
+index b5cf6fa7a851..9b8c083b403d 100644
+--- a/drivers/net/wireless/microchip/wilc1000/mon.c
++++ b/drivers/net/wireless/microchip/wilc1000/mon.c
+@@ -142,6 +142,9 @@ static int mon_mgmt_tx(struct net_device *dev, const u8 *buf, size_t len)
+ static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
+ 				     struct net_device *dev)
  {
- 	struct io_sr_msg *sr = io_kiocb_to_cmd(req, struct io_sr_msg);
- 	unsigned int cflags = 0;
-@@ -907,7 +907,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
- 	if (sr->flags & IORING_RECVSEND_BUNDLE) {
- 		size_t this_ret = sel->val - sr->done_io;
++	struct ieee80211_radiotap_header_fixed *rtap_hdr;
++	struct ieee80211_hdr_3addr *hdr;
++	unsigned int hdr_len;
+ 	u32 rtap_len, ret = 0;
+ 	struct wilc_wfi_mon_priv  *mon_priv;
+ 	struct sk_buff *skb2;
+@@ -153,13 +156,26 @@ static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
+ 	if (!mon_priv)
+ 		return -EFAULT;
  
--		cflags |= io_put_kbufs(req, this_ret, sel->buf_list, io_bundle_nbufs(kmsg, this_ret));
-+		cflags |= io_put_kbufs(req, consumed, sel->buf_list, io_bundle_nbufs(kmsg, consumed));
- 		if (sr->flags & IORING_RECV_RETRY)
- 			cflags = req->cqe.flags | (cflags & CQE_F_MASK);
- 		if (sr->mshot_len && sel->val >= sr->mshot_len)
-@@ -929,7 +929,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
- 			return false;
- 		}
- 	} else {
--		cflags |= io_put_kbuf(req, sel->val, sel->buf_list);
-+		cflags |= io_put_kbuf(req, consumed, sel->buf_list);
++	if (skb->len < sizeof(*rtap_hdr))
++		goto drop;
++
++	rtap_hdr = (void *)skb->data;
++	if (rtap_hdr->it_version)
++		goto drop;
++
+ 	rtap_len = ieee80211_get_radiotap_len(skb->data);
+-	if (skb->len < rtap_len)
+-		return -1;
++	if (rtap_len < sizeof(*rtap_hdr) || skb->len < rtap_len)
++		goto drop;
+ 
+ 	skb_pull(skb, rtap_len);
++	hdr_len = ieee80211_get_hdrlen_from_skb(skb);
++	if (hdr_len < sizeof(*hdr))
++		goto drop;
+ 
+-	if (skb->data[0] == 0xc0 && is_broadcast_ether_addr(&skb->data[4])) {
++	hdr = (void *)skb->data;
++
++	if (ieee80211_is_deauth(hdr->frame_control) &&
++	    is_broadcast_ether_addr(hdr->addr1)) {
+ 		skb2 = dev_alloc_skb(skb->len + sizeof(*cb_hdr));
+ 		if (!skb2)
+ 			return -ENOMEM;
+@@ -191,8 +207,8 @@ static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
  	}
+ 	skb->dev = mon_priv->real_ndev;
  
+-	ether_addr_copy(srcadd, &skb->data[10]);
+-	ether_addr_copy(bssid, &skb->data[16]);
++	ether_addr_copy(srcadd, hdr->addr2);
++	ether_addr_copy(bssid, hdr->addr3);
  	/*
-@@ -1057,6 +1057,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 	int ret, min_ret = 0;
- 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
- 	bool mshot_finished = true;
-+	size_t len, consumed = 0;
- 
- 	sock = sock_from_file(req->file);
- 	if (unlikely(!sock))
-@@ -1072,9 +1073,8 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 
- retry_multishot:
- 	sel.buf_list = NULL;
-+	len = sr->len;
- 	if (io_do_buffer_select(req)) {
--		size_t len = sr->len;
--
- 		sel = io_buffer_select(req, &len, sr->buf_group, issue_flags);
- 		if (!sel.addr)
- 			return -ENOBUFS;
-@@ -1095,6 +1095,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 	if (req->flags & REQ_F_APOLL_MULTISHOT) {
- 		ret = io_recvmsg_multishot(sock, sr, kmsg, flags,
- 					   &mshot_finished);
-+		consumed = ret;
- 	} else {
- 		/* disable partial retry for recvmsg with cmsg attached */
- 		if (flags & MSG_WAITALL && !kmsg->msg.msg_controllen)
-@@ -1102,6 +1103,15 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 
- 		ret = __sys_recvmsg_sock(sock, &kmsg->msg, sr->umsg,
- 					 kmsg->uaddr, flags);
-+		/*
-+		 * With MSG_TRUNC, the net layer will return the full size of
-+		 * the packet, even if we only filled part of it in the buffers.
-+		 * Adjust the returned size to consume only the real part of the
-+		 * buffer.
-+		 */
-+		consumed = ret;
-+		if (ret > len)
-+			consumed = len;
+ 	 * Identify if data or mgmt packet, if source address and bssid
+ 	 * fields are equal send it to mgmt frames handler
+@@ -207,6 +223,10 @@ static netdev_tx_t wilc_wfi_mon_xmit(struct sk_buff *skb,
  	}
  
- 	if (ret < min_ret) {
-@@ -1128,7 +1138,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
- 
- 	sel.val = ret;
--	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
-+	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
- 		goto retry_multishot;
- 
- 	return sel.val;
-@@ -1216,6 +1226,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 	struct socket *sock;
- 	unsigned flags;
- 	int ret, min_ret = 0;
-+	size_t consumed = 0, len = 0;
- 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
- 	bool mshot_finished;
- 
-@@ -1245,6 +1256,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 
- retry_multishot:
- 	sel.buf_list = NULL;
-+	len = sr->len;
- 	if (io_do_buffer_select(req)) {
- 		sel.val = sr->len;
- 		ret = io_recv_buf_select(req, kmsg, &sel, issue_flags);
-@@ -1252,6 +1264,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 			kmsg->msg.msg_inq = -1;
- 			goto out_free;
- 		}
-+		len = ret;
- 		sr->buf = NULL;
- 	}
- 
-@@ -1282,6 +1295,17 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 	}
- 
- 	mshot_finished = ret <= 0;
+ 	return ret;
 +
-+	/*
-+	 * With MSG_TRUNC, the net layer will return the full size of
-+	 * the packet, even if we only filled part of it in the buffers.
-+	 * Adjust the returned size to consume only the real part of the
-+	 * buffer.
-+	 */
-+	consumed = ret;
-+	if (ret > len)
-+		consumed = len;
-+
- 	if (ret > 0)
- 		ret += sr->done_io;
- 	else if (sr->done_io)
-@@ -1290,7 +1314,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
++drop:
++	dev_kfree_skb(skb);
++	return NETDEV_TX_OK;
+ }
  
- 	sel.val = ret;
--	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
-+	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
- 		goto retry_multishot;
- 
- 	return sel.val;
+ static const struct net_device_ops wilc_wfi_netdev_ops = {
 -- 
 2.55.0
 
