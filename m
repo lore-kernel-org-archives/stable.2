@@ -1,132 +1,118 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E67C30D41D;
-	Tue, 28 Jul 2026 15:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5010323417;
+	Tue, 28 Jul 2026 15:50:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785253680; cv=none; b=ixaX359tuz4eQWnX5DwzCzW4LyX+c9Csu/C+zJ6FGg5z6l8J6igurVKAp8zaKoAbS9k24YK4/qJZ3B5GkKEB3Rf+0mqPqVinK5ef769fjLyWmvb01+JI2/iyFTE5jRP5/1Vw4syfX04/X3b7Wq4A2ka2TkfJbwFk78J+uvW95oo=
+	t=1785253858; cv=none; b=f1W2iFmb+VQaFoGtuhyEqhIciKHXcQCj3DOrW81huvIQTYI2PoZcg8a4iG9e0OEF2ah4FSk11CxgP0toPF0a3X95CQiUeTwlPIhfj7VxBGCJ6/+Mx1VhzuubyHp7lDv5z+lw0J1DoVeZlBbuE6UvWnHVl5qpUCeUxrM92y1Db90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785253680; c=relaxed/simple;
-	bh=xJDhVCkgWKO4HuQCt6XRq1m+1KGRNT0WhDkL9oXb380=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gk86ntzPBvgb69Tyff4VFU45UcW5NeKChxBmGmVPea1pC9GcR/raugjFtZjg5wyAWlL9J2w3PejI6Kc25TjLhBm9C9PUTd1HnlJdMdTrYK+T4AH+fjPnbaNJfWurm/29zC37i8IoWKVovrmq0MthnTDPf/zGwpFvUM67tgdXKjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adamthiede.com; spf=pass smtp.mailfrom=adamthiede.com; dkim=pass (2048-bit key) header.d=adamthiede.com header.i=@adamthiede.com header.b=D6qqTCX2; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adamthiede.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=adamthiede.com
+	s=arc-20240116; t=1785253858; c=relaxed/simple;
+	bh=6z5XRukXfm8FKEfmwqTb+byabOdIJDVmwC4BbmIGDQA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bVStXyQaK3xpuJpU6AcYNfrPgD6jP1+g4TSKkvBSTKvBlJO7qz/dOZu63veJrc57KfAtLSlKNKlpYV4tzjzfmC8KpQcK1jJCOElDU9X9Fx1BrvD6DgQWRRnqUd8tQl0DM1a+WFl0BmesOpXfGftGbONaen9a9IkEY8sZ25rfVmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b0czCm5p; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=adamthiede.com header.i=@adamthiede.com header.b="D6qqTCX2"
-Received: from smtp2.mailbox.org (unknown [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h8fxQ4dq0z8v22;
-	Tue, 28 Jul 2026 17:47:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adamthiede.com;
-	s=MBO0001; t=1785253674;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=m0jzKJEPepVGepYcMIeTQbCbRTzWsK+sr+7McMSIGg4=;
-	b=D6qqTCX2p14zOOjeMNhLND/fWWTF5yY8lwc9VkHE58VDJEp/Tvpp+zdV59jna769cR9eMM
-	UyClvjI4IPjitzMfh+JUPhU9F3DS5Z+WB6Fo2E0EkOzQF5TNTtOojeBqjd5sQ95l4phNw8
-	O3vIdTiBuMeA0HNQUZrRfk2KEzEbm6SVRgLJzjN3qncI4ECyXJRu8c12NWuKxLGfF18FEF
-	eVdx3jOENOlE+UwOGR4Zq0DsxL/CHJLBTp06Eb77fDu+wxeTlQjfQ5QkLXyy9oAEhhC/+T
-	G8LdXZjEd4weRn9vKAxm9oI5hWf7es9iXXMRmEifZjpXM+e2JXXfxPdDoglXQQ==
-Message-ID: <22898b98-1d46-44b7-b5c7-e636cfc110c5@adamthiede.com>
-Date: Tue, 28 Jul 2026 10:47:45 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b0czCm5p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785253856; x=1816789856;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6z5XRukXfm8FKEfmwqTb+byabOdIJDVmwC4BbmIGDQA=;
+  b=b0czCm5pRylLTiINlsdn0glPH5pnQd2e/WCZ6mKtcqMSC9ZBIWAjQj0S
+   MT7rseTf2QaPYUOP+skgd8eNsjY/fgAV4giKgzp7s2fVJxkO+nd3QExHO
+   lZrZPUAMgiCpfsgUp+Qh+Jl2DLFp3g8WLKz40MDEkq6qq4ksBC95n8ESi
+   jGzUNVFJ77HI4Hpd3mPKqCELNrESzkKDeYKO1TQ1ljHHJlrUMT9+Wtcoh
+   +elX1SmsLSebAWiAfrqqJKHJ/vkym4720uWl8qTrSYOCBYbkdks9XRbBs
+   HugXlsWxWzPQlYxMygDtZKKnF3HTYeMneMcHo7gaZ4ZSJF1313X3Zb1D5
+   Q==;
+X-CSE-ConnectionGUID: JA9Rq4CcTWG7NYGcQftc0g==
+X-CSE-MsgGUID: xqLfisexS8GfZ3zS1eRSCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85695966"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="85695966"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 08:50:55 -0700
+X-CSE-ConnectionGUID: 7wxUxp9ETQq1dRglBa6EqA==
+X-CSE-MsgGUID: k3QUJyhOQeeQ6EKKEtFOrQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="255816658"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 28 Jul 2026 08:50:52 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 28AFC99; Tue, 28 Jul 2026 17:50:51 +0200 (CEST)
+Date: Tue, 28 Jul 2026 17:50:51 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Ramesh Babu B <ramesh.babu.b@intel.com>,
+	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
+	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 0/3] drm/xe/i2c: alerts and controller enabling
+ modifications
+Message-ID: <amjP22-2VVk0QgyH@black.igk.intel.com>
+References: <20260722133554.2079612-1-heikki.krogerus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/mediatek: mtk_dsi: Enable HS clock only at pre-enable
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- chunkuang.hu@kernel.org
-Cc: bisson.gary@gmail.com, regressions@leemhuis.info, p.zabel@pengutronix.de,
- airlied@gmail.com, simona@ffwll.ch, matthias.bgg@gmail.com,
- ck.hu@mediatek.com, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- stable@vger.kernel.org
-References: <20260728153145.578404-1-angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-From: Adam Thiede <me@adamthiede.com>
-Autocrypt: addr=me@adamthiede.com; keydata=
- xsBNBF+n+90BCAC2ZRLVcvdXDgfY7EppN05eNor3U7/eeiNCCEIWZkYLhikUEP1ReLGBkXpK
- Pc70hfnKAKkCoth3IwhDty9WXMNU+iLNei4ieb2luW+UqluR6xIUIA+txahMU9YcjVaQTKf/
- yZWO4yl6pfBPCxC2UdPZKBAdGoi5NnE0ABFNbhBETQhhBic533lZn33ByupfI3acECnQdjgQ
- llCUpDbw4I+S/N1iFiEHcbMXH7ZB00e3IYNorZ1E9v7p++5rDY1fQ9gXpieg1vFKwSq1NJWo
- 9xx336YjaTUbX0EwrdKd9l8AktA3yRjckaK5TAcwSQaDtHvhpbl4ebvPhtwHh699MroXABEB
- AAHNH0FkYW0gVGhpZWRlIDxtZUBhZGFtdGhpZWRlLmNvbT7CwI4EEwEIADgCGwMFCwkIBwIG
- FQoJCAsCBBYCAwECHgECF4AWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1HxQAKCRAC7fV9
- o/vRzgyRB/wLqRCvvWhQCMgvzeKvru9wcXquhb77K8H/ByLbfiT8YBuP3lZFVh0IQhgO9Ylk
- fIoOJE4V+jjxyOnO2d9xjGbvAmmR6yT0gfLzSVWqrC4k+V9MWLv43nrNzxt41dvo5j824FAl
- X+zaiRZCdO8Jtxg5Elpiop2SKLi1utX1Z8i6YZh+ccJZlchUBAGUTk+D4UjK7vUcjLWT96ya
- CtdtTfXyw36CvGOPEWfc6++Kkl/5sgej1i7biPYzu/r0vssaQYTXKSrv6Cfa3Maa89ASiTtv
- q4qmhLnJeCrPxWlRAf6LEizeBEkOasYni2u8sp4wBezEq45Ozu45sfPkqLpPolG7zsBNBF+n
- +90BCADBRt+vrToRBEG580n77S99qSEkbKD+oJtCVyovnjMNkg0K9UG68LIeCX/ezngiV1M8
- JISvw5iFOuUFqGX/1hLl9wgt/YpuIrgWOp8XxkotavTCloLDvQmufJPO1L8bnnA+WgP2YgVZ
- 5MJTj/t4DI+yQgysEjsH8aurHO2uuqgJE+xK+2dy6Cl/wskuGxObksSPmmFH5PH0Joziwrtl
- 61ouLE2XwKbkMgIGEKkbFgbfwz3/QuLZGBni+OOtLzXeZ9wNTW/AHUPy6S9U4F+5z6/09fVT
- tTH0cvrgAGjbASlYx2VqGONXAsxCfjulq6ryJBFlPLp949c/JTTgOojukCSbABEBAAHCwHYE
- GAEIACACGwwWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1H0gAKCRAC7fV9o/vRzlamCACs
- vHw+0heTm+BfC3S8DUST6889gidIIwdqBep1ByzetCph7Bq8Y8BlT5YTX0u/bSKkxCzFgeTm
- vC341Q09ST2XjLAl1ZTdzGhH9gcgYyOw34pr5fPQRJLB392mPzD8YReRzciNbhWzj+DLgeVe
- ouyfGajd6jDjkf4FEq+trQLGZhpfsKn3JnDbzBUs945D50l/vz9q/QN3qZO+H4F6g8ZeMnqo
- FOEFN26xVtdEDr+0DNFsbgKmEzs675kdAY78ZZdbEetX/FSknxJ+FK1ZW3J7Yswwulj34AXP
- LB49Mk8Ot7fo6mdt0DkV11JS9LmKxKvpY+KTlrKG+i7pVCSZvVUx
-In-Reply-To: <20260728153145.578404-1-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722133554.2079612-1-heikki.krogerus@linux.intel.com>
 
-On 7/28/26 10:31, AngeloGioacchino Del Regno wrote:
-> Commit 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock
-> during pre-enable") rightfully moves the HS clock enablement to
-> before atomic_enable(), but it's moving it to mtk_dsi_poweron(),
-> which is not only called in the .atomic_pre_enable() callback
-> for the DRM bridge, but also in the MediaTek DRM's .ddp_start()
-> callback, which happens way before the bridge ones.
+On Wed, Jul 22, 2026 at 03:35:51PM +0200, Heikki Krogerus wrote:
+> Hi,
 > 
-> The HS clock enablement should be done at just the right time,
-> otherwise some bridge chips (or some Display Driver ICs) may
-> not work correctly: this is seen at least with a Parade DSI to
-> eDP bridge (PS8640) on the MT8173 Elm Chromebook.
+> Changed since v5:
+> - Leaving the interrupt de-asserting to the firmware.
+> - Re-asserting the interrupt before declaring the device wedged.
+> - Preventing the SMBus Alert from being masked.
 > 
-> This resolves a regression that was seen on the aforementioned
-> machine, which was happening only after a suspend-resume cycle.
+> v5: https://lore.kernel.org/lkml/20260715153153.1243751-1-heikki.krogerus@linux.intel.com/
+> v4: https://lore.kernel.org/lkml/20260713155601.711389-1-heikki.krogerus@linux.intel.com/
+> v2: https://lore.kernel.org/lkml/20260625125939.429078-1-heikki.krogerus@linux.intel.com/
+> v1: https://lore.kernel.org/lkml/20260622114759.3464047-1-heikki.krogerus@linux.intel.com/
 > 
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> Fixes: 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock during pre-enable")
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->   drivers/gpu/drm/mediatek/mtk_dsi.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
+> Heikki Krogerus (3):
+>   i2c: designware: Global register definitions
+>   drm/xe/i2c: Fix the interrupt handling
+>   drm/xe/i2c: Keep the i2c controller always enabled
 > 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> index dc0c4e867179..c729a163bda6 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -1165,8 +1165,6 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
->   		goto err_disable_dsi_and_digital_clk;
->   
->   	mtk_dsi_set_interrupt_enable(dsi);
-> -	mtk_dsi_lane_ready(dsi);
-> -	mtk_dsi_clk_hs_mode(dsi, 1);
->   
->   	return 0;
->   
-> @@ -1284,6 +1282,9 @@ static void mtk_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
->   	ret = mtk_dsi_poweron(dsi);
->   	if (ret < 0)
->   		drm_err(drm, "failed to power on dsi\n");
-> +
-> +	mtk_dsi_lane_ready(dsi);
-> +	mtk_dsi_clk_hs_mode(dsi, 1);
->   }
->   
->   static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+>  MAINTAINERS                                |   1 +
+>  drivers/gpu/drm/xe/Makefile                |   4 +-
+>  drivers/gpu/drm/xe/regs/xe_i2c_regs.h      |   2 +
+>  drivers/gpu/drm/xe/xe_amc.c                | 187 +++++++++++++++++++++
+>  drivers/gpu/drm/xe/xe_amc.h                |  25 +++
+>  drivers/gpu/drm/xe/xe_i2c.c                | 165 +++++++++---------
+>  drivers/gpu/drm/xe/xe_i2c.h                |  14 +-
+>  drivers/i2c/busses/i2c-designware-common.c |   2 +
+>  drivers/i2c/busses/i2c-designware-core.h   |  85 +---------
+>  drivers/i2c/busses/i2c-designware-master.c |   2 +
+>  drivers/i2c/busses/i2c-designware-slave.c  |   2 +
+>  include/linux/designware_i2c.h             | 107 ++++++++++++
+>  12 files changed, 431 insertions(+), 165 deletions(-)
+>  create mode 100644 drivers/gpu/drm/xe/xe_amc.c
+>  create mode 100644 drivers/gpu/drm/xe/xe_amc.h
+>  create mode 100644 include/linux/designware_i2c.h
 
-Tested-by: Adam Thiede <me@adamthiede.com>
+One more fix is needed for this series. Raag noticed that the i2c
+driver accesses the registers after the drm device is declared wedget.
+The i2c adapter is suspended after the device is declared wedged, and
+the driver's suspend callback then accesses the registers.
+
+Thanks,
+
+-- 
+heikki
