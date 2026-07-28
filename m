@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA122EF67A
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 02:46:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8EF2EF67A
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 02:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785206778; cv=none; b=p9fyacQPROymwFfI+ng2rMisUXU+9U8AEE2Hes42Ge30Jru0rpSBMBa1tmRgvX/9Tpk066E305wVn/USDAwgs4nO2iEZczRVALJF8b0QnROXksh3UGgaiCmCMZXcat7r5eVSRkhxEXVTejhh3d8AFY4d5r4f3FiPTnZodHEoBLs=
+	t=1785206780; cv=none; b=WAznHDQw7p1ppxGIqCKb26q5nz3FuxvOHkMamyr3De5qFORZASWt7dfZko/F4am2iT/gqWnNeAZJKHAaPr24kVh3vDlH8mUNZkmzQNjxxZe0x9URgTr6yLKwNvmA4tWMY3FP6h/KuAGD1jZHmmB/X8mDrqQlEfDkTbUxkngdpxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785206778; c=relaxed/simple;
-	bh=hSzynjrZeTuVdayodtegulkf1njfTtCLPkKfnJgfx5w=;
+	s=arc-20240116; t=1785206780; c=relaxed/simple;
+	bh=HG7ruP1U6GraA7p1atst30hEVjUCXq6mh9W3a3rLal0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FEhJ4i4JZG0BYdQl6+bIS3uDgpPXgx4npW+lbY54MOfw71vJte65yYXNPvQ/UlDKESHpFt+5gwvhZsvSEkb0TVy/ThJNBhzoQB3SMA0RaDlW8nF1dxFnHQ7QM5IZxmvpnCGk0GDZIMhKNEpRO3Jj46OWwjdnfC/XC8PX6FsMN4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCOf0m38; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ub8W7Oem3FQMq46ubR2cPEWAq2gttc4FvXNYPkvc68ZEDz2gsVUH6+1Qvy/W2MTE2MXm8tyL8eUbSAbuEUkTL3TDQ8AnRwY8hhebqeaAk6Ur+RY8ZMjaLza72/KwLdw86d81/Wboyi6yiKQaorl/gxOnJAobMG8oiQJUJD62DwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLO+bExp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCOf0m38"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFA81F00A3D;
-	Tue, 28 Jul 2026 02:46:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLO+bExp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C04F1F00A3A;
+	Tue, 28 Jul 2026 02:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785206776;
-	bh=JYx9s8ZRPoTVAhhDGkWcYmxA28HeuRmoIo337jow044=;
+	s=k20260515; t=1785206779;
+	bh=2T1/dDRUz5fx9oKG0yXke4gE/q8T7l8tTW+Q4CG0Z5E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cCOf0m38fo/eun7uDzS75sBxBb6w8nA8YK/PiBSD5mFK7DZb3mdg4kUIWk82ti67d
-	 V4m/z1s0ev4imcEBaa/Bl9TMw4T0Q3+VgNtryiS27uHAkalmcy0uI8uzJOlWmtyZW4
-	 Th98aI+kwa+W1bgHtFUrPlVgAMJ7/SqH1eZ56VAqlnC2+SZ8RTQFH4Z2tFufwH28nI
-	 5vy68POIW7l9tXiLV7gmkPeE4POnqcxHgOlvwpK3MNi4kJAccIh+F2N4/CSDvj5z1v
-	 UVf+4FNn4eaIdrED8ov2RJKcLu0eHPRRvrb/4vUkLNk5/sOSSrpQbu58exft6JSvbF
-	 6UOdUnyXc83eQ==
+	b=YLO+bExpuT1yE5iFfKdH6RjgWgx8x1pxXvRTJf1QtwEoHtT5kBiJwT3gULRnaoveb
+	 18OV6K9Q/4yHuAApXK9pZ/uLRRk+NAgPMkmuCGro5TKEOAQwpC6kIpYWIQz664OgTa
+	 igrGpYk1xaERVvB7MoQHbPXkp94b9S9aaAI5oQEvvqixjKPrhLrsksFVq8xJS88uPM
+	 DvcRH7X4Il0YdDywXr7yycbM8/3a7VDjQ8c/fAIf2mbfYZF/GH1C8f5Bn8IjN5NEk8
+	 mEudpJuRrRPN/Mvgj1u98qR3S4cUeloVBcozKAiZ7nBUCS47e+gMF2hJR5XHWdnRTK
+	 Re34bLe9ZZcsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com,
-	Jann Horn <jannh@google.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Al Viro <viro@zeniv.linux.org.uk>,
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] locking/rt: Fix the incorrect RCU protection in rt_spin_unlock()
-Date: Mon, 27 Jul 2026 22:46:07 -0400
-Message-ID: <20260728024607.3052461-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
+Date: Mon, 27 Jul 2026 22:46:16 -0400
+Message-ID: <20260728024616.3054017-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072058-enjoyable-enamel-6b91@gregkh>
-References: <2026072058-enjoyable-enamel-6b91@gregkh>
+In-Reply-To: <2026072010-postnasal-lisp-2633@gregkh>
+References: <2026072010-postnasal-lisp-2633@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,108 +45,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Gleixner <tglx@kernel.org>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
 
-[ Upstream commit 89038cc87d80c77e7aa6f42a64b2573b74af339f ]
+[ Upstream commit aa6dcd5c8dd9ba1d7d0f60093bcda41c0d6d438d ]
 
-rt_spin_unlock() releases the RCU protection before unlocking the
-lock. That opens the door for the following UAF scenario:
+lbtf_free_adapter() calls timer_delete(&priv->command_timer), which does
+not wait for a running command_timer_fn() callback. lbtf_free_adapter()
+runs on the teardown path right before ieee80211_free_hw() frees priv,
+both in lbtf_remove_card() and in the probe error path. command_timer is
+armed by mod_timer() in lbtf_cmd() whenever a firmware command is sent.
+command_timer_fn() dereferences priv. If a command times out as the
+device is removed, command_timer_fn() runs concurrently with teardown and
+dereferences priv after it has been freed.
 
- T1					T2
- spin_lock(&p->lock);		rcu_read_lock();
- invalidate(p);			p = rcu_dereference(ptr);
- rcu_assign_pointer(ptr, NULL);	if (!p) return;
- spin_unlock(&p->lock);		spin_lock(&p->lock)
- 				   lock(&lock->lock);
-				   rcu_read_lock();
- kfree_rcu(p);			rcu_read_unlock();
-				....
-				spin_unlock(&p->lock)
-				  rcu_read_unlock(); // Ends grace period
- rcu_do_batch()
-   kfree(p);
-			    UAF ->	  rt_mutex_cmpxchg_release(&lock->lock...)
+This is the same use-after-free that commit 03cc8f90d053 ("wifi: libertas:
+fix use-after-free in lbs_free_adapter()") fixed in the sibling libertas
+driver. The libertas_tf variant has the identical pattern and was left
+unchanged. Use timer_delete_sync() so any in-flight callback completes
+before priv is freed.
 
-Regular spinlocks keep preemption disabled accross the unlock operation,
-which provides full RCU protection, but the RT substitution fails to
-resemble that. Same applies for the rwlock substitution.
-
-Move the rcu_read_unlock() invocation past the unlock operations to match
-the non-RT semantics. This makes it asymmetric vs. rt_xxx_lock(), but
-that's harmless as the caller needs to hold RCU read lock across the lock
-operation. The migrate_enable() call stays before the unlock operation
-because there is no per CPU operation in the unlock path which would
-require migration to be kept disabled.
-
-Fixes: 0f383b6dc96e ("locking/spinlock: Provide RT variant")
-Reported-by: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com
-Decoded-by: Jann Horn <jannh@google.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Al Viro <viro@zeniv.linux.org.uk>
+Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87jyrud75z.ffs@fw13
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Link: https://patch.msgid.link/178211481807.2212567.8773346114561900100@maoyixie.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/locking/spinlock_rt.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/locking/spinlock_rt.c b/kernel/locking/spinlock_rt.c
-index 014143934e0012..c78c52ed0b1e1f 100644
---- a/kernel/locking/spinlock_rt.c
-+++ b/kernel/locking/spinlock_rt.c
-@@ -79,10 +79,27 @@ void __sched rt_spin_unlock(spinlock_t *lock)
+diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
+index 74c4942b9a5a00..651eb3131b83a8 100644
+--- a/drivers/net/wireless/marvell/libertas_tf/main.c
++++ b/drivers/net/wireless/marvell/libertas_tf/main.c
+@@ -174,7 +174,7 @@ static void lbtf_free_adapter(struct lbtf_private *priv)
  {
- 	spin_release(&lock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
- 
- 	if (unlikely(!rt_mutex_cmpxchg_release(&lock->lock, current, NULL)))
- 		rt_mutex_slowunlock(&lock->lock);
-+
-+	/*
-+	 * This must be last to prevent the following UAF:
-+	 *
-+	 * T1					T2
-+	 * spin_lock(&p->lock);			rcu_read_lock();
-+	 * invalidate(p);			p = rcu_dereference(ptr);
-+	 * rcu_assign_pointer(ptr, NULL);	if (!p) return;
-+	 * spin_unlock(&p->lock);		spin_lock(&p->lock);
-+	 * kfree_rcu(p);			rcu_read_unlock();
-+	 *					....
-+	 *					spin_unlock(&p->lock)
-+	 *					  rcu_read_unlock(); // Ends grace period
-+	 * rcu_do_batch()
-+	 *   kfree(p);
-+	 *			    UAF ->	  rt_mutex_cmpxchg_release(&p->lock.lock...)
-+	 */
-+	rcu_read_unlock();
+ 	lbtf_deb_enter(LBTF_DEB_MAIN);
+ 	lbtf_free_cmd_buffer(priv);
+-	del_timer(&priv->command_timer);
++	timer_delete_sync(&priv->command_timer);
+ 	lbtf_deb_leave(LBTF_DEB_MAIN);
  }
- EXPORT_SYMBOL(rt_spin_unlock);
- 
-@@ -262,17 +279,21 @@ void __sched rt_read_unlock(rwlock_t *rwlock)
- {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
- 	migrate_enable();
--	rcu_read_unlock();
- 	rwbase_read_unlock(&rwlock->rwbase, TASK_RTLOCK_WAIT);
-+
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_read_unlock);
- 
- void __sched rt_write_unlock(rwlock_t *rwlock)
- {
- 	rwlock_release(&rwlock->dep_map, _RET_IP_);
--	rcu_read_unlock();
- 	migrate_enable();
- 	rwbase_write_unlock(&rwlock->rwbase);
-+
-+	/* This must be last. See comment in rt_spin_unlock() */
-+	rcu_read_unlock();
- }
- EXPORT_SYMBOL(rt_write_unlock);
  
 -- 
 2.53.0
