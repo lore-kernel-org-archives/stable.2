@@ -1,151 +1,150 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D011E3BBFC2;
-	Tue, 28 Jul 2026 09:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B0641A515;
+	Tue, 28 Jul 2026 09:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785231455; cv=none; b=DjtYFXbyPHHbiq5abYvvSO1UPaGHK+Yr7n0ZWFaqzD5m7dNOQpeE+t2ATYHh5m3TvI7HhOJIV5HSKg5wL8zyNCnHWFJ8KFdDiMgHUppNLOpL56C+oUs/Pu+AcuLjRpX1LelUUoYbxrOoD9Wmw0ZOtz8gxFoyJQWtrvo2KphL8yk=
+	t=1785231685; cv=none; b=NE5enV0IL390xilwCMmVO6uvr9SLQZggsbla6SMBN8DcvNs3AJMQFxWz2TxAyk20F0plzji7rxBofTQpP2jf7gar0Ru1NHfR07c7gi9jXQ+b86iu8wdoYGNbBJQ5fyU7INYoJ9i2O+jGiu3m4aD+hp6/QrE8+adUIOrpYteLyH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785231455; c=relaxed/simple;
-	bh=u7q9AsM+ki5AlsnpwWFMF+9oIaQLH+1sEJj2Rb5cdm0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XYNKxzTCm0AiEeS1VdFBiua2unJCJmSpTDR1fL8AF0ZkOG2lGbfT24CeNjHxCnRp171QfQ8hcmUrC8+NWzyhIDBMaV6L6JazWQCno6idH7tdXOxgkBd5iqsNizcyaspu8E6kQ1ok/SjU1fab51Xv0V1iyJ/JMWfAjP/aUIOkkdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=iybyurhY; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1785231685; c=relaxed/simple;
+	bh=Jfv0gHF0qSBOuTdBrzC/TRiXkEkvfk+0s6JsvU2f0eI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H6rf2zMwC402mHfkpLh78EdP4VMAhkp33Pz4xIrrDCVKNcZNiDHWyJqikZkkNje+NqapoWf1rfO3u2GR4Mpsgcpl+mX89/J0zwKu+s5THEdOvizO8WzmIaHcdRelHG63RBhouymuQLJ+tZpAkHkZ4CJVh27l6qaWM5niC1NxUU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nlX+bFYV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="iybyurhY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1785231432;
-	bh=8fCOUsx0444xOiYJjLi/BxZmA+7UPJFelel0WkroNHA=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=iybyurhYeTkkLCpxtmrXVpJNZn0Pak5WlIyEFJyOFGzTYCQ4NH/5ew58O+tZDLOvi
-	 QsM+CCAHbVC2u1wYWeJJwAbxmheGSoulExDk8MUETgz1b7Ovk3L/XeTAlEFM2Nt82/
-	 Xf6EelXmDGdnk6bAoeg0K480KVD2ri3QV9zk4IZc=
-X-QQ-mid: zesmtpsz3t1785231429tf850c34d
-X-QQ-Originating-IP: LCEw3mgx4E2Gruu0oCqUhT5bIyN/Q0xwg1kCeX7B0s4=
-Received: from [127.0.1.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 28 Jul 2026 17:37:07 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3040970083133766586
-EX-QQ-RecipientCnt: 15
-From: Peixin Xie <peixin.xie@linux.spacemit.com>
-Date: Tue, 28 Jul 2026 17:36:12 +0800
-Subject: [PATCH] riscv: acpi: Handle LPI architectural context loss flags
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nlX+bFYV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15371F000E9;
+	Tue, 28 Jul 2026 09:41:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785231682;
+	bh=ZC0iq1dogzcBmMyhVQ8EG2PIPDnoAF/WBKKc3QubIkY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nlX+bFYVfYejFgL9cV2zBoYgH8E4URfnrbqbDSg2MbFRu5S9FG5uPIBEaYA9tMku0
+	 kcqkowr3G8L/nmaXUdT7FOzFES4lPWpmgLUWxZD/u/OS5s8KVeK68Sy+JLWlC6ET9h
+	 eR+r8CVEkFF5KF1+W0HJvgtRqr2seYxmx3Nzp2H8zecWjzc8cHwGZlUAA3wkWw9IYN
+	 Chm5LaegHG7hfXNPDNeYNuF/kLbQf5/qR/Zdoei83jHgBBTLnfl6eicUphXz+RTbv+
+	 y6FHYLS2vQGNYwRGhpXNdvmH3qgv6CDwwEQNkHwZqAcv4Qs1kj/lAngqRIJXF/2poq
+	 JPurzSVWWMiHg==
+Date: Tue, 28 Jul 2026 10:41:19 +0100
+From: Simon Horman <horms@kernel.org>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: netdev@vger.kernel.org, christophe.ricard@gmail.com,
+	sameo@linux.intel.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] nfc: st-nci: drain se_info timers on remove before
+ NCI teardown
+Message-ID: <20260728094119.GS418547@horms.kernel.org>
+References: <20260722034729.3254078-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-riscv-acpi-lpi-timer-v1-1-c722bce01e48@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAyF4auQrmnCDMkMeBXDYqwFShBJi8SEc
- HdHXbzFt3j/AcYqbHApDlDexeS5ZLiyABrTMjDKPRt85UMVfUQVox0TrYJz3iYPVgy9i3WbAjW
- 1g3xdlXt5/7LX7m973Sam7duC8/wAZl5243gAAAA=
-X-Change-ID: 20260727-riscv-acpi-lpi-timer-6f1739a6c831
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
- Oza Pawandeep <quic_poza@quicinc.com>, Will Deacon <will@kernel.org>, 
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Cc: linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
- stable@vger.kernel.org, Peixin Xie <peixin.xie@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785231427; l=2112;
- i=peixin.xie@linux.spacemit.com; s=20260727; h=from:subject:message-id;
- bh=u7q9AsM+ki5AlsnpwWFMF+9oIaQLH+1sEJj2Rb5cdm0=;
- b=OyPyxwPg/spQvU2rXgykpOsHasu2MJGcUToy65otILXBQKyoFvo1iMbczUh077ZHsuIlpJ38e
- 7klUMbgC2lYACnaK43HFfPkezqSD+wDCxuw5Q2MlUkRFUbc2RBEgCC5
-X-Developer-Key: i=peixin.xie@linux.spacemit.com; a=ed25519;
- pk=jczO0FmEQZBoClfXslkwCsHKDmSRchQ1hQr8W7yiiXg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: Nsf/gSMgV+kGvFgt2GnbzpdQTRJunaFc0PTTUmUHWpe4pOHxM6wiTqNs
-	c8mGR0ez7Fjjc7a2lZLkCvkYjbyhj1jqGp/mQZTYVkJbL/WWkG352pbVfmugwW0VfNnUZj9
-	U+C1H3NJo3hZAq4eRmGtIvNLOmtxSEWd3ZuZITbuzBy67cpvK+Edu+VwSe91QnZn1Lh0oWw
-	4CQ4g9dMuMBc66jXG0rxKom3a67Hp7cm+J9ZiXsZBEeLLna5tMFbMP0/Ytok28R3is5lMqN
-	FFFx+s+oQ8axxo9audvDszjrmIbZZOzSk+W/QFcp1M4c/JXdV7oElo+2MIvmZ8gwxxcJyZ8
-	bkEbnZlvw3wS6TvDhgW9Kh46bbN82O/FQ5fkD/9fMJo7zxaaOEO23nTyQJ8K6mLGX/ukQRC
-	UKNQ/KawmZWF7PtXY/7pvS8Ll6Kf/KhzWmVrhN7SNlxLVzjnzHtSI+0mLtpIv4qQjNW1lIq
-	RKLkzYjt/hkQ9Ehs1oF+AmA3pj2dBEdFH0mqibIhC6+A+FZLfhHRmoqz7KGF4OqKxbIwGAB
-	y7VjhgKPv6YkV9SJSwjs0YZVbR1ZV1FleFtF/AyKiTdrvo1K6yJlQYHftkFuqIb30SQl9PQ
-	zMxiVm8t9dAiZrxaZLAEVzTrCaod2Qg3uJiIlI1fMGRap0WM7B2I8DsWbPsy4824g7VmkGE
-	BfYm8i7rSB5u4kt+sOGhab46edYKSbz4ZTnrXLa2CSn3EP1ChbBCrwRe4Jdxbk4I7F1CiVv
-	l1okjVnHqTFnKa3tXejhmVNC0Q4j+YRsFKlEenUIp6RsCFMuzSag+khEcT1EQjAjKII19K3
-	xZwRHDZXr7AdXeUedhQ8UBDwrhhxoAJTaEaxLLh3sxcy5fgisjjaB/MSGlNAT/5vIB/4dZb
-	fS965wx0X2iTdyJ+sL5TCFfZbkIxgDnl+m5ncS6NSvpcGPSg6NtpxqYWVatm/CoY+Ez423D
-	G/rHcaqx+nW715/Hqlsy6GeKMyQauLfrsv7ZJ6uzsZjVAcg2X+QexgAbkJumXX42aFIuwWE
-	Ngrb/l49qMkZCbEd+3cmGykfg5QIyn6vzkuDmyzuonIlwkbTcjSjWZlMN2b6bw9BTEELOmW
-	c11wHtld9DMANmLsck26a3pe6X1MUas89oGZquIANPM
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722034729.3254078-1-fanwu01@zju.edu.cn>
 
-Commit 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for
-broadcast timer") replaced the generic nonzero check for LPI
-architectural context loss flags with arch_get_idle_state_flags().
-RISC-V does not implement the helper, so it falls back to the stub
-that returns 0. Consequently, CPUIDLE_FLAG_TIMER_STOP is not set when
-an LPI state loses the hart timer context, preventing cpuidle from
-using a broadcast timer for that state.
+On Wed, Jul 22, 2026 at 03:47:29AM +0000, Fan Wu wrote:
+> st_nci_se_init() initializes two se_info timers (bwi_timer and
+> se_active_timer) in probe, but st_nci_se_deinit(), the teardown helper
+> that drains both timers, has no caller in drivers/nfc/st-nci/:
+> st_nci_remove() tears the device down with ndlc_close /
+> nci_unregister_device / nci_free_device and never reaches it (dead since
+> the st21nfcb -> st-nci rename). The bwi_timer callback
+> st_nci_se_wt_timeout() calls nci_hci_send_event(), i.e. it uses the NCI
+> core. Both callbacks dereference info->se_info, and the bwi_timer callback
+> also dereferences info->ndlc->ndev.
+> info is devm_kzalloc()'d, so a timer armed during operation survives
+> st_nci_remove, fires after the devm release, and dereferences freed
+> memory (and a half-torn-down NCI core).
+> 
+> Call st_nci_se_deinit(ndev) from st_nci_remove() before
+> nci_unregister_device(ndev): the bwi callback reaches into the NCI core,
+> so the timers must be drained while the NCI workqueues still exist.
+> Convert both drains to timer_shutdown_sync() and drop the bwi_active /
+> se_active predicate guards. timer_shutdown_sync() is harmless for an
+> inactive timer and prevents later mod_timer() calls from rearming it, so
+> any residual HCI work during nci_unregister_device()'s workqueue teardown
+> cannot rearm a se_info timer.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: ed06aeefdac3 ("nfc: st-nci: Rename st21nfcb to st-nci")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-Implement the RISC-V helper and map the hart timer context loss flag
-to CPUIDLE_FLAG_TIMER_STOP.
+Hi Fan,
 
-Fixes: 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for broadcast timer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
----
- arch/riscv/include/asm/acpi.h | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+The AI-generated review of this patch on sashiko.dev [1]
+flags several issues. I'm passing on those marked as pre-existing
+there, as I think they are best considered in the context of
+possible follow-up. But I am wondering if you could look at
+the ones I've pasted in-line below.
 
-diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
-index 26ab37c171bc..3a3da834c340 100644
---- a/arch/riscv/include/asm/acpi.h
-+++ b/arch/riscv/include/asm/acpi.h
-@@ -12,6 +12,8 @@
- #ifndef _ASM_ACPI_H
- #define _ASM_ACPI_H
- 
-+#include <linux/cpuidle.h>
-+
- /* Basic configuration for ACPI */
- #ifdef CONFIG_ACPI
- 
-@@ -67,6 +69,23 @@ int acpi_get_riscv_isa(struct acpi_table_header *table,
- 
- void acpi_get_cbo_block_size(struct acpi_table_header *table, u32 *cbom_size,
- 			     u32 *cboz_size, u32 *cbop_size);
-+
-+/*
-+ * RISC-V Functional Fixed Hardware Specification Version v1.0.1
-+ * Table 4: LPI Arch. Context Lost Flags
-+ */
-+#define RISCV_LPI_HART_TIMER_CTXT_LOST		BIT(0)
-+
-+static inline unsigned int arch_get_idle_state_flags(u32 arch_flags)
-+{
-+	if (arch_flags & RISCV_LPI_HART_TIMER_CTXT_LOST)
-+		return CPUIDLE_FLAG_TIMER_STOP;
-+
-+	return 0;
-+}
-+
-+#define arch_get_idle_state_flags arch_get_idle_state_flags
-+
- #else
- static inline void acpi_init_rintc_map(void) { }
- static inline struct acpi_madt_rintc *acpi_cpu_get_madt_rintc(int cpu)
+[1] https://sashiko.dev/#/patchset/20260722034729.3254078-1-fanwu01%40zju.edu.cn
 
----
-base-commit: 1d6f0a217c662693d2307ee06851cb4bfcbf9529
-change-id: 20260727-riscv-acpi-lpi-timer-6f1739a6c831
+> ---
+>  drivers/nfc/st-nci/core.c | 1 +
+>  drivers/nfc/st-nci/se.c   | 6 ++----
+>  2 files changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/nfc/st-nci/core.c b/drivers/nfc/st-nci/core.c
+> index a367136..57dbc4a 100644
+> --- a/drivers/nfc/st-nci/core.c
+> +++ b/drivers/nfc/st-nci/core.c
+> @@ -166,6 +166,7 @@ void st_nci_remove(struct nci_dev *ndev)
+>  
+>  	ndlc_close(info->ndlc);
+>  
+> +	st_nci_se_deinit(ndev);
+>  	nci_unregister_device(ndev);
+>  	nci_free_device(ndev);
+>  }
 
-Best regards,
---  
-Peixin Xie <peixin.xie@linux.spacemit.com>
+  "Can moving st_nci_se_deinit() before nci_unregister_device() cause a
+   deadlock with userspace operations?
 
+  "If a userspace process initiates an SE command via netlink, it acquires
+   device_lock and waits in st_nci_control_se() for the se_active_timer
+   completion.
+
+  "Concurrently, if device removal executes st_nci_remove(), it calls
+   st_nci_se_deinit() which shuts down the timer without signaling
+   completion. The netlink thread will hang indefinitely holding device_lock.
+
+  "When st_nci_remove() proceeds to nci_unregister_device(), it calls
+   nfc_unregister_rfkill(), which attempts to acquire the same device_lock.
+   Would this result in an ABBA deadlock?
+
+> diff --git a/drivers/nfc/st-nci/se.c b/drivers/nfc/st-nci/se.c
+> index 607ec76..8ab18cb 100644
+> --- a/drivers/nfc/st-nci/se.c
+> +++ b/drivers/nfc/st-nci/se.c
+> @@ -751,10 +751,8 @@ void st_nci_se_deinit(struct nci_dev *ndev)
+>  {
+>  	struct st_nci_info *info = nci_get_drvdata(ndev);
+>  
+> -	if (info->se_info.bwi_active)
+> -		timer_delete_sync(&info->se_info.bwi_timer);
+> -	if (info->se_info.se_active)
+> -		timer_delete_sync(&info->se_info.se_active_timer);
+> +	timer_shutdown_sync(&info->se_info.bwi_timer);
+> +	timer_shutdown_sync(&info->se_info.se_active_timer);
+
+  "Does unconditionally shutting down bwi_timer here leak the se_io_ctx
+   and hang the netlink socket?
+
+  "Because the PHY is disabled just prior by ndlc_close(), no hardware
+   response can arrive. The timeout callback st_nci_se_wt_timeout() would
+   normally free se_io_ctx via info->se_info.cb() and reply to the socket.
+
+  "By shutting down the timer without resolving pending I/O callbacks, are
+   we leaking this memory and leaving the netlink caller waiting indefinitely?
+
+>  
+>  	info->se_info.se_active = false; info->se_info.bwi_active = false;
+>  	-- 2.34.1
+> 
