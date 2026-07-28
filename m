@@ -1,170 +1,218 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6AB42A140;
-	Mon, 27 Jul 2026 23:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F2E28E0;
+	Tue, 28 Jul 2026 00:02:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785195797; cv=none; b=B6HbvXbrd30gP/QYIIYf2aH3PEVm6NIJg+KBVRO0jUZd/rT/jh7R7ovxBqXPPM3TquFmFfBxCTfLqxTVBcbYPsTlfOZCziKg3J6m2b9IggXUxBoxSl/L23XLkcjVSfALLjLD70v4BjzkPGbQX4OzZwmtrrnWVp+02TLlSPed18k=
+	t=1785196921; cv=none; b=J+0KI5oj9SsxxiJY6Ihkyet6XGdZVqhlBJytMeKpHv1LUTwwtNlPjMEN9ukGcH+8+4oJ6vW2rjtBb88HUz3ETj+8lmh6J630T1SJGxOYXALpNgVVPE/pKkjr9aovfVN546SBofbdzV29VXL7FhT3mrHRc4SKVEAKqsDawtksoPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785195797; c=relaxed/simple;
-	bh=bZehtIqash1U0/Y/AAJLbGBhmxdCjWqmJPhtYFPQuYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tXmvbpirSe5Y2Qvaettbt8GCSrlRRStbB+0QBqkWAaRfIsVQg1sqeMkbV3pMgaEVqu/pBOBzYDtMkETJXs8mVeQL4OfcjE7XU0JBBdjbQFwSId0pMJVn2Z0xEXnz4wj/YkR6jUrFoD1dXOndZJlvVh6sZoOq8R6bvsEw/VTUBnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=L/Gp0g7W; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Sy60ehEd; arc=none smtp.client-ip=202.12.124.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1785196921; c=relaxed/simple;
+	bh=lUIEnpD6Ur058oPqFJ8q+P1S0FTjfiEfATOzD5Kiqfw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lTszxRtzh3Y7iT3KrhOVGlK8kZlIY74P+iX3BiBdVEzpjvEmaF0OdEQdLW++WiekgaSiCzoUNdgkWJL/BDvaLWTaCTdfmSqjEwq7OPKL2risGigqQBkicnWuozv3Bq44wBQpb+fGaDCoqb7rd0QwguoWVgHTldNVQlZ6wWd42SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YyhQicsp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="L/Gp0g7W";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Sy60ehEd"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id EE93E1D00329;
-	Mon, 27 Jul 2026 19:43:13 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Mon, 27 Jul 2026 19:43:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1785195793; x=
-	1785282193; bh=wPXlgAALg5wMzufitY8gOnSnrWEJcY0YkJ9hZe3Mcno=; b=L
-	/Gp0g7WR+ktkhsUVHx/8CPbe9JMsQvsDq0ZzV61MSE2iRTlCIFcHRwh3E3glzpZq
-	bVxmdNFNTVpvYd8rXBvFtf78yVvzAuJ+K6mdGk3ttL7XMYKfxAriZyYLNzUODgnr
-	sCAizQteIINNiCbQNjw8YKnXBugV0hFsD0tC+TOE4F83nqKinr/UHj8UXWemX/mS
-	oommOlmyK8vyByZ5eHjtzwStKkUYKMrYfvAPaDN4C9ZwHXKE0i/WdceK9S2bWdye
-	o+H4GnA2KljhIERUW2Wq9ItC3rdcD3xxEHOFfPL7yfP6CMfBEY05fF2edTerCshk
-	ZNgt489jDS9FVmjInjTgw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1785195793; x=1785282193; bh=wPXlgAALg5wMzufitY8gOnSnrWEJcY0YkJ9
-	hZe3Mcno=; b=Sy60ehEdjeNBzYJoiNrfzMtZS/R4PBRSZCN1YD3lGL0aJ8oh1dP
-	a0yoc8a0Kfest4yzy4NXBc01AJ6/fPX3TWKh6r87FPaNWeb/jvdaM6244TpWNXl+
-	r0qlhFnucAbemi2ToM98w+lfGT5k0rSqPm6FmyIVr4Hl4H7lyxA2fbAy0ld8vUkn
-	tXvUIYvjNYTFFoRvIaKcF+T1bj6a8g3bc8F20wythKtUiMFkW937zOV6gLQpRWUz
-	V6CxQGVQioacnELN+cKkKtA2NTon6ZcHQSbsEQjeEmybqyR0iWYJY/XsNWl70sBx
-	9IZK1Dv/bndso/L3NKT9yViLMjR4vwvTaOg==
-X-ME-Sender: <xms:EO1naq3OKxyuY2pguAw74XUFspHaTf4OZf9B_uZZeZiLLJDVntTFkg>
-    <xme:EO1naumXc20XX_sVweSZM8nvIB-xKqselrxn_8DmFHV_zTHqi7ueU2cfadTmXqp5X
-    kLAoj-uMYOTplVDPmu24gehrVq_vQ3bZ-zCF8yGSn4q3ZCAKASAk2E>
-X-ME-Received: <xmr:EO1nai_BlMJyAlKxrdVRX_Z-VZ8Jy54YpYrky75Og1aHQmWXmJ7WcCUHcqGzZNNtV8nKy3kqBq__TTf0jK8TlChCj1jY>
-X-ME-Proxy-Cause: dmFkZTE+hNa5URCQPtAcILDH+aonaH/sBTNiGVWhJoKRsesHNs2RSNcTc0Ot9KkGdx2J2q
-    TFmux3QFMGOo5s1vpk+4H342fHo7Y/qFSpfi53uRZgpnQEN8bo1rrYwVACX7YYNsvIpSPY
-    KMmScUyaZLBs5dGSoOKT9ZfHHwgPGVeL1sFTpJJsqsgAmsAXLUzO9dLH4wKxTrTr991/X4
-    2N0gMu++i2wFIQS9AS+cFbvKhpYECmxQl4sSll+8rmbgU/bk4vMMSTzViKX43bryRUM2ws
-    An/ryWOB0S8ZaLFdPHqdKK8QDWh0+MbPyygIqkTCpRIX4cMswfVSW2peaZWXpzrrOCSML/
-    dZOfBTEi+hPXqvpSGimYLy/ynN7VVm7hTrT8VFApCZHs4d84ww3Z30+uofV9RHCqICyjuj
-    KilyRmdpsQEgV+vvI46gr20QARHOe0KQ+GzlAMNERCCnGzB9hkNPNmTqWYCusUvOymaZ/N
-    KPdndIywyiMgPY+nmUkdc4LJXC900r67YUHgqOnHRchlzqlwhqtsfHItgTCUaWDHhZf3ll
-    FE/YNqq1x3+ptVRnIbPc/gSet5zYbzyj7PouFLOSqMJLDu7fsmBODqQiHWVRmHeOf9GyvI
-    KhKPBhx9CQYM3JJbkd0q6BSK64OVbbvIDLtrKAD4adWIfcfHJJPzjsPyKQog
-X-ME-Proxy: <xmx:EO1narrUNlyFCF7je0IaVK6KruwFE6VwMG24ywl3wi7rlD50nvbXyA>
-    <xmx:EO1najn3KEQBmQwqOnpPsklczkRkw1SJxvfOnQsI30fTlaNBiK8nmQ>
-    <xmx:EO1naqi6iyHldXcWk_48lRxnA17sD1Mx9TOaBYJ5UbhTqXJuKy4NtA>
-    <xmx:EO1najfE1N233SZG3p65jQ8U48iYn_45xios5XvDTdr1258Idj45zQ>
-    <xmx:Ee1nagy9_KBrm2EWL8AeTMqMQcvnAUhnvk4vYvjP9iZnVxRmQToBDLEI>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 27 Jul 2026 19:43:11 -0400 (EDT)
-Date: Tue, 28 Jul 2026 08:43:08 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Cc: linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] firewire: core: fix possible memory leak in build_tree()
-Message-ID: <20260727234308.GA244925@sakamocchi.jp>
-Mail-Followup-To: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-References: <20260727095955.104972-1-nihaal@cse.iitm.ac.in>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YyhQicsp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63081F000E9;
+	Tue, 28 Jul 2026 00:01:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785196920;
+	bh=SfscAtmh/mxxf7tJ9Gz2m2pVGQecvP85BeOv7tMqN6A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YyhQicspCXj4Tura4iZO+qH1/aaifwJfiWDE0MXJTB10Jk28owX9QEOotlIwx1adQ
+	 37YjCU1PC+pUyK4SemgbsCWLAFZkt2h5YVFgfjTkUWHl3UyFGJXPsiFy7YJIM+XJ/g
+	 +doZUBKBJ63wDMpRhJAgk7cxSElvrCiD0mx8V/XewDOWTU6AcSwfOUtaj1Btb5GxKM
+	 JUCfi5hIqHUdrfVG0R9QtD7OpnxPHz1QnmVwPtpgDDi9oVsJkCiA+WY6Xk1hY67+bM
+	 WRxpQEVUFKDsJoxsu5ZCYvBB03lenpFz1JSF20zxiPrP7nDDHU3Fcm9bmuw1nHVUey
+	 9tePSLaAU+8Zg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: nagarevaibhav@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	horms@kernel.org,
+	davem@davemloft.net,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	matvey.kovalev@ispras.ru,
+	Pavel.Zhigulin@kaspersky.com,
+	aelior@marvell.com,
+	manishc@marvell.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	vnagare@redhat.com
+Subject: Re: [PATCH net v2] qede: Fix NULL pointer dereference in TPA fragment processing
+Date: Mon, 27 Jul 2026 17:01:58 -0700
+Message-ID: <20260728000158.2951111-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260724140044.1055918-1-vnagare@redhat.com>
+References: <20260724140044.1055918-1-vnagare@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727095955.104972-1-nihaal@cse.iitm.ac.in>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+qede: Fix NULL pointer dereference in TPA fragment processing
 
-Thanks for the fix.
+This patch adds NULL page validation in qede_fill_frag_skb(), moves the
+TPA error-state check to run before fragment processing in
+qede_tpa_end(), and adds a similar check in qede_tpa_cont(), so that
+TPA aggregations whose start failed under memory pressure are dropped
+instead of crashing.
 
-On Mon, Jul 27, 2026 at 03:29:53PM +0530, Abdun Nihaal wrote:
-> The memory allocated for node in fw_node_create() is not freed when a
-> parent port inconsistency error occurs. Fix that by adding a kfree().
-> 
-> Fixes: 3038e353cfaf ("firewire: Add core firewire stack.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-> ---
-> Compile tested only. Issue found using static analysis.
-> 
->  drivers/firewire/core-topology.c | 1 +
->  1 file changed, 1 insertion(+)
- 
-Indeed, there is a case to leak the memory object for the node found
-newly. However, I have a slight concern that the simple call of kfree()
-would cause another issue, perhaps.
+Link: https://lore.kernel.org/netdev/20260709044704.141507-1-vnagare@redhat.com/
 
-> diff --git a/drivers/firewire/core-topology.c b/drivers/firewire/core-topology.c
-> index df2ac0dab106..317f8f57e521 100644
-> --- a/drivers/firewire/core-topology.c
-> +++ b/drivers/firewire/core-topology.c
-> @@ -227,6 +227,7 @@ static struct fw_node *build_tree(struct fw_card *card, const u32 *sid, int self
->              (enumerator.quadlet_count > 0 && parent_count != 1)) {
->              fw_err(card, "parent port inconsistency for node %d: "
->                     "parent_count=%d\n", phy_id, parent_count);
-> +            kfree(node);
->              return NULL;
->          }
+> diff --git a/drivers/net/ethernet/qlogic/qede/qede_fp.c b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+> index c11e0d8f98aa..3de6c5a6056c 100644
+> --- a/drivers/net/ethernet/qlogic/qede/qede_fp.c
+> +++ b/drivers/net/ethernet/qlogic/qede/qede_fp.c
+> @@ -698,7 +708,10 @@ static int qede_fill_frag_skb(struct qede_dev *edev,
+>  
+>  out:
+>  	tpa_info->state = QEDE_AGG_STATE_ERROR;
+> -	qede_recycle_rx_bd_ring(rxq, 1);
+> +	if (current_bd->data)
+> +		qede_recycle_rx_bd_ring(rxq, 1);
+> +	else
+> +		qede_rx_bd_ring_consume(rxq);
 
-When arriving at the line, all of children nodes have the reference to
-the issued node.
+[Medium]
+On the else branch, qede_rx_bd_ring_consume() advances rxq->sw_rx_cons
+without a matching produce and without decrementing rxq->filled_buffers.
 
-======== 8< --------
-250                 for (i = 0; i < port_count; i++) {
-251                         switch (get_port_type(sid, i)) {
-252                         case SELFID_PORT_PARENT:
-                                    ...
-265                                 break;
-266 
-267                         case SELFID_PORT_CHILD:
-                                    ...
-273                                 child->ports[child->color] = node;
-                                    ...
-276                                 break;
-277                         }
-278                 }
-======== 8< --------
+Every other consume in this driver is paired with either
+qede_alloc_rx_buffer() (which increments sw_rx_prod and filled_buffers)
+or qede_reuse_page() via qede_recycle_rx_bd_ring() (which produces a
+replacement). Here neither happens.
 
-I guess it required to invalidate the above references, since the
-reference would be used to release the child node.
+The end-of-NAPI backfill in qede_rx_int() only tops up while
+rxq->num_rx_buffers - rxq->filled_buffers is non-zero, so if
+filled_buffers is never decremented, the backfill will not replace this
+BD.
 
-======== 8< --------
-diff --git a/drivers/firewire/core-topology.c b/drivers/firewire/core-topology.c
-index 75a6b0df670a..8bb6aa1b5d54 100644
---- a/drivers/firewire/core-topology.c
-+++ b/drivers/firewire/core-topology.c
-@@ -286,6 +286,11 @@ static struct fw_node *build_tree(struct fw_card *card,
-                    (next_sid < end && parent_count != 1)) {
-                        fw_err(card, "parent port inconsistency for node %d: "
-                               "parent_count=%d\n", phy_id, parent_count);
-+                       for (i = 0; i < child->port_count; ++i) {
-+                               if (child->ports[i] == node)
-+                                       child->ports[i] = NULL;
-+                       }
-+                       kfree(node);
-                        return NULL;
-                }
-======== 8< --------
+Does this mean each hit of the NULL-data drop path permanently shrinks
+the number of BDs posted to hardware by one, causing the RX ring to
+monotonically deplete under the sustained memory pressure this patch is
+supposed to make survivable?
 
-I'd like you to recheck the above point, since the above perspective comes
-from my rough code review.
+Would decrementing rxq->filled_buffers here (or attempting a
+replacement allocation) keep the ring in sync with hardware?
 
+>  
+>  	return -ENOMEM;
+>  }
+> @@ -964,8 +977,16 @@ static inline void qede_tpa_cont(struct qede_dev *edev,
+>  			     struct qede_rx_queue *rxq,
+>  			     struct eth_fast_path_rx_tpa_cont_cqe *cqe)
+>  {
+> +	struct qede_agg_info *tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
+>  	int i;
+>  
+> +	/* Don't process fragments if TPA start failed */
+> +	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START)) {
+> +		for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
+> +			qede_recycle_rx_bd_ring(rxq, 1);
+> +		return;
+> +	}
+> +
 
-Thanks
+[High]
+The other half of the patch adds a guarded fallback in
+qede_fill_frag_skb() with the following justification in the v2
+changelog:
 
-Takashi Sakamoto
+  Fixed NULL buffer recycling: check if page is valid before recycling,
+  otherwise just consume the BD to prevent NULL from re-entering the
+  ring
+
+However this new loop calls qede_recycle_rx_bd_ring() unconditionally on
+BDs that belong to the same aggregation whose sw_rx_data may have
+data == NULL (that is the exact scenario in the commit message: step 2
+says qede_alloc_rx_buffer() returned -ENOMEM leaving sw_rx_data->data
+NULL, and step 4 says TPA_CONT is then delivered).
+
+qede_recycle_rx_bd_ring() calls qede_reuse_page():
+
+  static inline void qede_reuse_page(struct qede_rx_queue *rxq,
+                                     struct sw_rx_data *curr_cons)
+  {
+          ...
+          *curr_prod = *curr_cons;
+          ...
+  }
+
+so a NULL data pointer (and possibly a zero mapping) will be copied into
+the producer slot and pushed to hardware.
+
+Doesn't this re-introduce exactly the NULL-in-the-ring condition that
+the qede_fill_frag_skb() branch above was written to prevent, so the
+next TPA aggregation that lands on the recycled slot crashes on the
+same NAPI path this commit is trying to protect?
+
+>  	for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
+>  		qede_fill_frag_skb(edev, rxq, cqe->tpa_agg_index,
+>  				   le16_to_cpu(cqe->len_list[i]));
+> @@ -987,6 +1008,18 @@ static int qede_tpa_end(struct qede_dev *edev,
+>  	tpa_info = &rxq->tpa_info[cqe->tpa_agg_index];
+>  	skb = tpa_info->skb;
+>  
+> +	/* Drop the packet if TPA start failed */
+> +	if (unlikely(tpa_info->state != QEDE_AGG_STATE_START || !skb)) {
+> +		/* Clean up: unmap DMA if needed */
+> +		if (tpa_info->buffer.page_offset == PAGE_SIZE)
+> +			dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
+> +				       PAGE_SIZE, rxq->data_direction);
+> +		/* Recycle BDs from cqe->len_list to keep ring synchronized */
+> +		for (i = 0; cqe->len_list[i] && i < ARRAY_SIZE(cqe->len_list); i++)
+> +			qede_recycle_rx_bd_ring(rxq, 1);
+
+[High, High]
+The two operands of && are reversed here compared to every other loop
+over cqe->len_list in this file (including the sibling loop added just
+above in qede_tpa_cont()):
+
+  for (i = 0; cqe->len_list[i] && i < ARRAY_SIZE(cqe->len_list); i++)
+
+Because && evaluates left-to-right, cqe->len_list[i] is read before the
+bound check on i.
+
+ETH_TPA_CQE_END_LEN_LIST_SIZE is 4, and in struct
+eth_fast_path_rx_tpa_end_cqe the field immediately following len_list[]
+is:
+
+  __le16  len_list[ETH_TPA_CQE_END_LEN_LIST_SIZE];
+  __le16  reserved3[ETH_TPA_CQE_END_LEN_LIST_SIZE];
+
+If firmware delivers a TPA_END with all four len_list entries non-zero,
+does iteration i == 4 read reserved3[0] as if it were len_list[4]?
+
+If reserved3[0] happens to be non-zero, does the loop keep iterating
+past the array end and call qede_recycle_rx_bd_ring() extra times,
+advancing rxq->sw_rx_cons and producing buffers that firmware never
+released, silently desynchronising the RX BD ring?
+
+Would swapping the operands to match the pattern used in
+qede_tpa_cont() and the two other loops in qede_tpa_end() fix this?
+
+  for (i = 0; i < ARRAY_SIZE(cqe->len_list) && cqe->len_list[i]; i++)
+
+Separately, this loop shares the same NULL-buffer concern as the one in
+qede_tpa_cont() above: qede_recycle_rx_bd_ring() will copy a NULL
+sw_rx_data into the producer slot for any BD whose allocation failed,
+which is the exact scenario the commit message describes.
+
+> +		goto err;
+> +	}
+> +
+>  	if (tpa_info->buffer.page_offset == PAGE_SIZE)
+>  		dma_unmap_page(rxq->dev, tpa_info->buffer.mapping,
+>  			       PAGE_SIZE, rxq->data_direction);
+-- 
+pw-bot: cr
