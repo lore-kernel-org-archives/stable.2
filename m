@@ -1,140 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0073542A792;
-	Tue, 28 Jul 2026 12:32:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDF021ABB1;
+	Tue, 28 Jul 2026 12:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785241922; cv=none; b=pR0kVDRKUjtCLbApI//44et+i37DRbbSlFxeeB0aIZqOd7dadOeDj1qKCs7hvmimxXvJb8BXtgj1vZHPJH8mjSY++BTIPwT68QmSASSWMZLnjaOjDWU/QY9tcfzd85wdYPShjnn0VAR7FmmxGoKjfWa9/ssO2Dm9zKO7pWxyjl8=
+	t=1785241988; cv=none; b=G+oINw5WASW//Tm92VMGYzP802LPeunq4tl7R18XDqJNvE5PmciV/TO/n+lRfTah43qWa51uqhe7EQ6ES9VQ8YlWttImdvwmjENgf3YM8Z6FfWwq9OA8CRRwO3aBmVWfbHeEZfWz4cHQL2iz3jM+jDlymc7ySwhY2Eg5X/XgfbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785241922; c=relaxed/simple;
-	bh=DwDX6DQL7cMvuolyolXtePjrRKyhuxkkJnirH8faXg4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NKLEcrpHLH8vtEzg7N5CprhJfWC2rFLMmW5wXnRDd8INJ4y8hfRbvaNjHbMBJO89kP3Sx5SLSC1Rcc1lqzLMKOqGnJ6cdUf4dc9otmkMM2jpchEJVDBlAGLoPc2LxXwKdJqTU2UucbA52Xv7r7/5WiSjH5XdmS+tLfKMVA9K69A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEM01trD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785241988; c=relaxed/simple;
+	bh=R1x0gbHSEF649dDBsLTEEovn86RgGiNcWj6ZQqmH5lk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=bFl0EqPQGVCbvFO50e+jRcFQCBScc4CTUEG73Fr92DXzvNx7h6Vol9kYbp69jtAi6jIzVQz1LqrR+Z9z+AEV/5ksvgv6zdLG0qTCe/FTKMa0w7as6yoFtzrcEnZ38KcMkrwOVUuIrYfvJuVWaVl4QvI1TjcTda4Y1LMpGdDnRRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBj0Jzo9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEM01trD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E771F000E9;
-	Tue, 28 Jul 2026 12:31:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBj0Jzo9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160C71F00A3A;
+	Tue, 28 Jul 2026 12:33:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785241920;
-	bh=lSkwhKAcEsyJqT/0xqVJXtxYxIXWD0v9uCPSjTmMF2M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=WEM01trD462HpzukrLQzJYedOMo/krm72PvzqlsPIr95pA22pK97BItUkKTq0RiE1
-	 BafhKgnPLjt9aVTzvU1dFa7RMbB40i5ZGyvy+Uq+GD3nlFNKGJAlh6v5YCczVVs88W
-	 XLgMqJmGuxCudWp7Pe+Yi+kgsFNJVH9ZJXfZCAW/9lfgbs+iqFLXWZDleq9blMw7mP
-	 +MH5pd841sVe9ss5f/WYkSBvsx7eS76Efavuj5k30SQrM2EWKd6eLiQqbz9Kr4x/nz
-	 YGdV+Rm3lqSrOuShxDdIBjk4LGOrgQZRl5vevgtv94weDxSm1UhqL4Mz6Y3mDajtlK
-	 HdSaygY48BoeQ==
-X-Mailer: emacs 30.2 (via feedmail 11-beta-1 I)
-From: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
-	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
-Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
- dma_direct_alloc_from_pool()
-In-Reply-To: <20260726081753.GD12003@unreal> (Leon Romanovsky's message of
-	"Sun, 26 Jul 2026 11:17:53 +0300")
-References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
-	<20260717180442.110954-2-aneesh.kumar@kernel.org>
-	<20260721115456.GI110966@unreal> <yq5atsps77c5.fsf@kernel.org>
-	<20260721142921.GN110966@unreal> <yq5ao6g0750v.fsf@kernel.org>
-	<20260721153321.GO110966@unreal> <amEhEKQW0_HJ9cLN@ziepe.ca>
-	<20260723075704.GC110966@unreal> <amTJY_CdE-uDgoGG@ziepe.ca>
-	<20260726081753.GD12003@unreal>
-User-Agent: mu4e 1.14.1; emacs 30.2
-Date: Tue, 28 Jul 2026 18:01:45 +0530
-Message-ID: <yq5ah5ljjnwu.fsf@kernel.org>
+	s=k20260515; t=1785241987;
+	bh=utV4vKMlqT8Z9yiEQPdu4Tu2oACykHmjT/Dng8uAAZI=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=EBj0Jzo9sRM+7F9WAamOmzMyYlUjghd2VbHD/w2WM4nlVznU1WEzkP9guj7Gk6nXF
+	 97iiYvQhzIFKb8vFtgILccMRg3J+aCS+edK6I6wEeeOrpi5onSJpvn8W4OzHJKx5Ld
+	 FKMrj70J8J+o6vme3OhrsAuCz/MT7J0oX/J1jB55JdoGZMFx+6fkgd/0NkN24nfHz8
+	 ELEeZ16J0rpj7Z/e4xhwZG7rj6240QO/sYwKtxhZCmU0+3q7ogCGguh5cZObvnpIiP
+	 ykDp1cDZcp14gvCeg/AlNx8ahhY690/RTIklf/RvuNNBsrl5hFxMcP06wmuSCxejs6
+	 PjQPpJdEy5KAw==
+Message-ID: <15b0899f-ce90-4f60-80bd-a0f8432ce811@kernel.org>
+Date: Tue, 28 Jul 2026 14:33:04 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: gspca: hold a usb_device reference while
+ registered
+To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>, hverkuil@kernel.org,
+ mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260718025434.2259756-1-shuangpeng.kernel@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260718025434.2259756-1-shuangpeng.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Leon Romanovsky <leon@kernel.org> writes:
+On 18/07/2026 04:54, Shuangpeng Bai wrote:
+> gspca keeps a pointer to the probed struct usb_device in
+> gspca_dev->dev, but it does not hold a reference to it. The
+> V4L2/video-device reference can keep the outer gspca_dev alive after USB
+> disconnect, and the streaming queue can then be canceled from the last
+> file release path.
+> 
+> That late release path still calls into gspca_stream_off(), which may
+> call sub-driver stop callbacks or usb_set_interface() and dereference
+> gspca_dev->dev after the USB core has freed the device.
+> 
+> Take a reference to the usb_device when storing it in gspca_dev and drop
+> it from the final gspca_release() path. Balance the reference in the
+> probe error path as well.
+> 
+> Fixes: 63eb9546dcb5 ("V4L/DVB (8152): Initial release of gspca with only one driver.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> ---
+>  drivers/media/usb/gspca/gspca.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+> index 594d73e50b9f..59eb4cec1aed 100644
+> --- a/drivers/media/usb/gspca/gspca.c
+> +++ b/drivers/media/usb/gspca/gspca.c
+> @@ -1178,6 +1178,7 @@ static void gspca_release(struct v4l2_device *v4l2_device)
+>  	v4l2_ctrl_handler_free(gspca_dev->vdev.ctrl_handler);
+>  	v4l2_device_unregister(&gspca_dev->v4l2_dev);
+>  	kfree(gspca_dev->usb_buf);
+> +	usb_put_dev(gspca_dev->dev);
+>  	kfree(gspca_dev);
+>  }
+>  
+> @@ -1462,7 +1463,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
+>  		ret = -ENOMEM;
+>  		goto out;
+>  	}
+> -	gspca_dev->dev = dev;
+> +	gspca_dev->dev = usb_get_dev(dev);
+>  	gspca_dev->iface = intf->cur_altsetting->desc.bInterfaceNumber;
+>  	gspca_dev->xfer_ep = -1;
+>  
+> @@ -1574,6 +1575,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
+>  	if (sd_desc->probe_error)
+>  		sd_desc->probe_error(gspca_dev);
+>  	kfree(gspca_dev->usb_buf);
+> +	usb_put_dev(gspca_dev->dev);
+>  	kfree(gspca_dev);
+>  	return ret;
+>  }
 
-> On Sat, Jul 25, 2026 at 11:34:11AM -0300, Jason Gunthorpe wrote:
->> On Thu, Jul 23, 2026 at 10:57:04AM +0300, Leon Romanovsky wrote:
->> > On Wed, Jul 22, 2026 at 04:59:12PM -0300, Jason Gunthorpe wrote:
->> > > On Tue, Jul 21, 2026 at 06:33:21PM +0300, Leon Romanovsky wrote:
->> > > 
->> > > > Something like, but probably void* needs to be phys_addr_t:
->> > > > 
->> > > > static inline struct page *dma_phys_to_page(void *addr)
->> > > > {
->> > > > #ifdef CONFIG_DMA_DIRECT_REMAP
->> > > > 	return vmalloc_to_page(addr);
->> > > > #else
->> > > > 	return virt_to_page(addr);
->> > > > #endif
->> > > > }
->> > > 
->> > > I don't like this, we don't know for sure the addr will be in a vmap
->> > > and this will fail if it isn't.
->> > 
->> > Of course we know. The existing "#ifdef CONFIG_DMA_DIRECT_REMAP" is
->> > relevant for addresses acquired from pool.
->> 
->> Yeah, but I still don't like it :) It is hard to follow if you make
->> those kinds of leaps, someone will call this new helper on something
->> they shouldn't
->
-> This issue is straightforward to address today. Limit the scope, use
-> an appropriate function name, and add a comment indicating that the
-> function is local to and specific to the pool. The latter helps
-> AI-based review tools flag incorrect usage outside the intended scope.
->
->> 
->> > dma_phys_to_page() is a bad name for some low-level conversion function.
->> > It needs to be internal to DMA logic, in the level when we convert from
->> > phys to page.
->> 
->> I think we should not convert from phys to page, that's also easy to
->> do wrong
->
-> Perhaps I'll reiterate my complaint. DMA internals are already hard to
-> understand. Part of that complexity is necessary to support every
-> possible use case, but another part comes from a maze of types that is
-> entirely self-inflicted. I think this code only makes the latter worse.
->
-> Currently, the phys type universally describes memory and can be
-> reliably translated into any required representation. It is the most
-> fundamental type we have.
->
+Actually, the better solution is to replace v4l2_device_unregister()
+by vb2_v4l2_device_unregister() in gspca_disconnect. That ensures that the
+queue is canceled at disconnect time.
 
-I think we can address the suggested changes as a follow-up patch series
-on top of this.
+Regards,
 
-How about we get this picked up for the next merge window first, so that
-we can get the CC_SHARED related changes in? The follow-up changes
-should be easier once we have agreement on the overall design, and can
-then be done as incremental cleanups.
+	Hans
 
--aneesh
+
