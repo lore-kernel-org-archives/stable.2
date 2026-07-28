@@ -1,36 +1,42 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 890B92AE76;
-	Tue, 28 Jul 2026 03:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64BE2AE76
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:05:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785207764; cv=none; b=kErIhqxwFd9C4SMmT1WAmSKaRKQDH0r39O1iwolJRpbbcTKolygXxlPO11oETJY8AaMSmpS1K4Wbg3XZCpG4IQx8nWgz57+KlIRiJeA0XNBAUMeRz6f6DEWvBLdpUmydYrdj9XHU7XXMGBfLm/e6vfSNzom+ta+2oepX0zWwsPw=
+	t=1785207918; cv=none; b=Aj7PqSJTAELqMVI6tGrZLegbpSAuV8hXwTTjUa7ta7HWUd+qTUDZK6okBjrLxnIPjRdHObQDvW3/iSQzbEzNmUBnJFEPLis1D+8kDiGISeJQzYzY3kmJXiSJ8uSfYjyhKBUttTPBjW7k8I7e7y3cRwUTIpCXvo4xsuCF8pMWoSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785207764; c=relaxed/simple;
-	bh=xFUyaqXp3ABuHnNL/QOz1iQV6lP9hwJLKIcmx2/1JOM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=edfI0mrMPHHdwdqPyDNaYLqp4kx1WQYR68SIpd1w/FYea5HkmrMhyVxStxRdgS+0lQo65NdkPwUC3qEUHwffQZlVM1baoSKAqNSdZn415TGcKwEb1mHiGGiZ/jOnqXB26tBbWRc/zS2T5OYoTpWW050JHpAECsp2QSb6rkD44zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCH8zy7G2hqf11GAA--.57565S3;
-	Tue, 28 Jul 2026 11:02:20 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgAnl8y6G2hq0SdHAw--.57572S2;
-	Tue, 28 Jul 2026 11:02:19 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: sre@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	myungjoo.ham@samsung.com,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] power: supply: charger-manager: register regulators before exposing sysfs
-Date: Tue, 28 Jul 2026 03:01:23 +0000
-Message-Id: <20260728030123.230202-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260726051540.35579-1-fanwu01@zju.edu.cn>
-References: <20260726051540.35579-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1785207918; c=relaxed/simple;
+	bh=1Xjy7mvnUJLaf7K1NKEtHqfCqKb2Sj9c3d/cKgxqBpc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IQA4fbKhU99/ZOVemqYDGNmOlygiyq1TUZ7rjaG9haOA22qz9MTsOPVBpSFHppU3lSz7aEHfwtJPrg9/SKOOKZB6thNhe6NsXbD8m7sicDNgHUHkwx+75V5PAgFa1+34qgeBFD3RqvqyUdiY/Xr3OFzbhNTLky0sXzBlSCPBSWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RqnM9DYU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RqnM9DYU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258A51F000E9;
+	Tue, 28 Jul 2026 03:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785207916;
+	bh=1aTccwo5lgl6pLo4ImDTcGlXkdcaD2IpPcdrtCg/9Uk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RqnM9DYUP5P2FB2Dn92129vmB7fV1hQG04+0WtmvjfzfET7+iFF0WqCM6Bw/fD6WB
+	 ZNo4D9yCodUvKIht6Jl7oZpxJ9abavTGcSaxpcv8/rfkxQ4ESmMeFqidcu6+7nzdlS
+	 /ML87FD3MVOIIKMsQkYHnUGZlyHY7oTiUzrXJc7rXU+mUOd0PIVNuD6sHngEUif5oR
+	 nKSdsf3Vle2rOn1NpEHBhbHMb4HmkfbYitaR6ef+PBvjZyLuWdrmwscSUK58E2IMtc
+	 OqffyBZ9vBM0tUMp087amUlDoDxFX5P1Ev+wyDOIMy2SYJu6YIKYDvtCkWsXwDF0pK
+	 Z6MRGva69T05g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
+Date: Mon, 27 Jul 2026 23:05:14 -0400
+Message-ID: <20260728030514.3127195-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072010-corncob-unease-948d@gregkh>
+References: <2026072010-corncob-unease-948d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,185 +44,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgAnl8y6G2hq0SdHAw--.57572S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?yCjN8QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0QIK3RCkGu16jD5Ed6OBleY1ktfbnzGkLOtE65gvSLK8i6
-	+KWMv48lIsOl9ip0fV6p9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW3Jr17Ww4UurW3Zr1fZw1DurX_yoWxWF1kpF
-	s8CrnxKr40yFWFqw4qk3W2k3W5GF4fA39FvrW8Gay3ZwnxJ3W5Xr1UAFWayF18Krn7ZF42
-	yFW5tw4IyF1UurXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-charger_manager_remove() and the err_reg_extcon probe error path free each
-charger regulator with regulator_put() before tearing down the power_supply
-sysfs entries (power_supply_unregister()). charger_manager_remove() also
-calls try_charger_enable(cm, false) after the regulator_put() loop. A
-concurrent write to a charger's externally_control sysfs attribute that
-lands between regulator_put() and power_supply_unregister() can run
-charger_externally_control_store() and call try_charger_enable(), which,
-when charging is enabled, dereferences the already-freed consumer handle.
-When charging is enabled, try_charger_enable(cm, false) in .remove() also
-dereferences the freed handles directly. Both leave use-after-free windows.
-Symmetrically, probe registers the sysfs entries (power_supply_register)
-before acquiring the regulators (regulator_get, inside
-charger_manager_register_extcon), so userspace can reach externally_control
-before the regulators are available.
+From: Maoyi Xie <maoyixie.tju@gmail.com>
 
-Split charger_manager_register_extcon() on the sync/async boundary:
-charger_manager_get_regulators() (regulator_get only, no async producer)
-now runs before power_supply_register() so sysfs is not live before
-regulators are available, and charger_manager_register_extcon() keeps only
-the extcon notifier/work setup, still after power_supply_register() so a
-power_supply_register() failure cannot reach extcon setup. This keeps the
-sysfs setup/teardown ordering symmetric without introducing an asynchronous
-producer on the earlier probe-error path.
+[ Upstream commit aa6dcd5c8dd9ba1d7d0f60093bcda41c0d6d438d ]
 
-Move power_supply_unregister() and try_charger_enable(cm, false) ahead of
-the regulator_put() loop on both teardown paths, and adjust err_reg_extcon
-(power_supply_unregister() then fall through err_regulator for
-regulator_put(); get_regulators self-rolls back on its own failure).
+lbtf_free_adapter() calls timer_delete(&priv->command_timer), which does
+not wait for a running command_timer_fn() callback. lbtf_free_adapter()
+runs on the teardown path right before ieee80211_free_hw() frees priv,
+both in lbtf_remove_card() and in the probe error path. command_timer is
+armed by mod_timer() in lbtf_cmd() whenever a firmware command is sent.
+command_timer_fn() dereferences priv. If a command times out as the
+device is removed, command_timer_fn() runs concurrently with teardown and
+dereferences priv after it has been freed.
 
-This does not address the separate extcon-notifier-driven deref of the same
-handles, which needs its own synchronization design.
+This is the same use-after-free that commit 03cc8f90d053 ("wifi: libertas:
+fix use-after-free in lbs_free_adapter()") fixed in the sibling libertas
+driver. The libertas_tf variant has the identical pattern and was left
+unchanged. Use timer_delete_sync() so any in-flight callback completes
+before priv is freed.
 
-Found by an in-house static analysis tool.
-
-Fixes: 3950c7865cd7 ("charger-manager: Add support sysfs entry for charger")
+Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Link: https://patch.msgid.link/178211481807.2212567.8773346114561900100@maoyixie.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2 (per Sebastian Reichel's review of v1):
-- Split charger_manager_register_extcon() so regulator acquisition
-  (charger_manager_get_regulators) happens before power_supply_register(),
-  while notifier/work setup remains after it. Keeps sysfs setup/teardown
-  ordering symmetric without an async producer on the earlier probe-error
-  path.
-- Add err_regulator label; get_regulators self-rolls back on failure.
-- Move try_charger_enable(cm, false) before the regulator_put() loop.
+ drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/power/supply/charger-manager.c | 54 +++++++++++++++++++-------
- 1 file changed, 39 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/power/supply/charger-manager.c b/drivers/power/supply/charger-manager.c
-index c49e0e4d02f7..1d3f3f2295e0 100644
---- a/drivers/power/supply/charger-manager.c
-+++ b/drivers/power/supply/charger-manager.c
-@@ -1016,6 +1016,29 @@ static int charger_extcon_init(struct charger_manager *cm,
- 	return 0;
+diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
+index 71492211904b34..b726e7e0b26084 100644
+--- a/drivers/net/wireless/marvell/libertas_tf/main.c
++++ b/drivers/net/wireless/marvell/libertas_tf/main.c
+@@ -174,7 +174,7 @@ static void lbtf_free_adapter(struct lbtf_private *priv)
+ {
+ 	lbtf_deb_enter(LBTF_DEB_MAIN);
+ 	lbtf_free_cmd_buffer(priv);
+-	del_timer(&priv->command_timer);
++	timer_delete_sync(&priv->command_timer);
+ 	lbtf_deb_leave(LBTF_DEB_MAIN);
  }
  
-+static int charger_manager_get_regulators(struct charger_manager *cm)
-+{
-+	struct charger_desc *desc = cm->desc;
-+	struct charger_regulator *charger;
-+	int i, ret;
-+
-+	for (i = 0; i < desc->num_charger_regulators; i++) {
-+		charger = &desc->charger_regulators[i];
-+		charger->consumer = regulator_get(cm->dev,
-+						  charger->regulator_name);
-+		if (IS_ERR(charger->consumer)) {
-+			dev_err(cm->dev, "Cannot find charger(%s)\n",
-+				charger->regulator_name);
-+			ret = PTR_ERR(charger->consumer);
-+			while (i-- > 0)
-+				regulator_put(desc->charger_regulators[i].consumer);
-+			return ret;
-+		}
-+		charger->cm = cm;
-+	}
-+	return 0;
-+}
-+
- /**
-  * charger_manager_register_extcon - Register extcon device to receive state
-  *				     of charger cable.
-@@ -1038,15 +1061,6 @@ static int charger_manager_register_extcon(struct charger_manager *cm)
- 	for (i = 0; i < desc->num_charger_regulators; i++) {
- 		charger = &desc->charger_regulators[i];
- 
--		charger->consumer = regulator_get(cm->dev,
--					charger->regulator_name);
--		if (IS_ERR(charger->consumer)) {
--			dev_err(cm->dev, "Cannot find charger(%s)\n",
--				charger->regulator_name);
--			return PTR_ERR(charger->consumer);
--		}
--		charger->cm = cm;
--
- 		for (j = 0; j < charger->num_cables; j++) {
- 			struct charger_cable *cable = &charger->cables[j];
- 
-@@ -1582,13 +1596,23 @@ static int charger_manager_probe(struct platform_device *pdev)
- 	}
- 	psy_cfg.attr_grp = desc->sysfs_groups;
- 
-+	/*
-+	 * Acquire charger regulators before exposing the sysfs entries, so
-+	 * userspace cannot reach externally_control before the regulators
-+	 * (and charger->cm) are available.  Mirrors the order in remove().
-+	 */
-+	ret = charger_manager_get_regulators(cm);
-+	if (ret < 0)
-+		return ret;
-+
- 	cm->charger_psy = power_supply_register(&pdev->dev,
- 						&cm->charger_psy_desc,
- 						&psy_cfg);
- 	if (IS_ERR(cm->charger_psy)) {
- 		dev_err(&pdev->dev, "Cannot register charger-manager with name \"%s\"\n",
- 			cm->charger_psy_desc.name);
--		return PTR_ERR(cm->charger_psy);
-+		ret = PTR_ERR(cm->charger_psy);
-+		goto err_regulator;
- 	}
- 
- 	/* Register extcon device for charger cable */
-@@ -1622,11 +1646,11 @@ static int charger_manager_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_reg_extcon:
-+	power_supply_unregister(cm->charger_psy);
-+err_regulator:
- 	for (i = 0; i < desc->num_charger_regulators; i++)
- 		regulator_put(desc->charger_regulators[i].consumer);
- 
--	power_supply_unregister(cm->charger_psy);
--
- 	return ret;
- }
- 
-@@ -1644,12 +1668,12 @@ static void charger_manager_remove(struct platform_device *pdev)
- 	cancel_work_sync(&setup_polling);
- 	cancel_delayed_work_sync(&cm_monitor_work);
- 
--	for (i = 0 ; i < desc->num_charger_regulators ; i++)
--		regulator_put(desc->charger_regulators[i].consumer);
-+	try_charger_enable(cm, false);
- 
- 	power_supply_unregister(cm->charger_psy);
- 
--	try_charger_enable(cm, false);
-+	for (i = 0 ; i < desc->num_charger_regulators ; i++)
-+		regulator_put(desc->charger_regulators[i].consumer);
- }
- 
- static const struct platform_device_id charger_manager_id[] = {
 -- 
-2.34.1
+2.53.0
 
