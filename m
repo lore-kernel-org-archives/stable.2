@@ -1,273 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158514746CE;
-	Tue, 28 Jul 2026 20:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23553CF694
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 20:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785270265; cv=none; b=t5gz+FzBFxiAxizOVIW47GAjaihoVDA2jrn7hsWy7y3uAc7lcfst0QJO9mlZz7XzVcIv3zFndn3QYugX9PCxhc/GeDRIRlzEb8Qsvo/zPWCUcnXZMa9onqmdEE8BiWi62+exzvAz28U+pGtIFdSKyB9QF5nyZ3ixwA0VBlag9DQ=
+	t=1785270278; cv=none; b=B1ksj8Fu3JMkXFaCBKxvOkBb0TcYT54EwNytIxkcu2yV4d7GY1DM8CPqI6Ab4mC8ur6xfj1z/nkC8/pW7D9DVcF8I93AEFnS5rADDjXqadfKvV+Dw9yAMV8gINmD6nBkA4eOcNlaALKGRnFDPKNaq52UFUGLBix0L2yEzmRrZIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785270265; c=relaxed/simple;
-	bh=JK4IXGLe3QiTV5cgleHo1e1HZLUxBcNciSmVduYjfRM=;
-	h=Date:To:From:Subject:Message-Id; b=ZcFTA5ewUyWy6uShwT0vbz9gzHP34KduKTNg0UIPcPINmnZ3XTSLfR+QXzUiBHNnb1hM8vfmNujEbVgbSpav4AvXlr52iZYeYYxF3Kyav3U3JUTBm9GWyxVpL9fUSSPwx5q/3iCxi2q7zNCHLDXtfCL0ryht+QT5wPluIPKvo5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NbUGRj6Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785270278; c=relaxed/simple;
+	bh=0C8Tq5YfGX8WpFK4ZOwqBmOj+yCq8Q83lfGoQo9S19Q=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=nrD5+gDh6pPedglRF7/nAlFpvz63W6uD3ayOof8pbyhaAMOYlRUUzIQTMjFE/h7qHtv797avyQn/UaYVSefOST+ZlcJ5prhpAX7yPwV4xj6Zybhpk8wwojylYzWElTwOrdsgm4wG9TbWVvcU6mJep3W6LIuck7H2+dZgzKxuLlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h5DSyVsw; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NbUGRj6Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037F11F000E9;
-	Tue, 28 Jul 2026 20:24:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h5DSyVsw"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84c4cd31b51so1608843b3a.0
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 13:24:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785270262;
-	bh=p5VB8BEs8108sB37SAgvqYcTc5onMCIiGEYtnZ1q5gA=;
-	h=Date:To:From:Subject;
-	b=NbUGRj6QxQmEJrsp9IxiT6ZTYi0oWUq+8XXjPXJpUOFf4QLuaxIGGOXFokAmCtg4j
-	 JSAGNHfcQHKl0Q43pkfofRA9h3i+KYmpH6iA4j9hiNwsN4L/QZ/RshbOpR3Ob5H6+L
-	 S28OFRJ+VR5ulodhFZ588rpYsm5uXDG7IHkonqUU=
-Date: Tue, 28 Jul 2026 13:24:21 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,hyeongtak.ji@sk.com,honggyu.kim@sk.com,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260728202422.037F11F000E9@smtp.kernel.org>
+        d=google.com; s=20251104; t=1785270276; x=1785875076; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jvfS7+DfF3iiBgb3oPyQP0D1CeHx3J7Dwnq1yIu+FCg=;
+        b=h5DSyVswgNLoFDI8Yj57klgLR8G1gVjao8L2ooqeEfT1uV9aT3sCKqdj9q6aWx+tHk
+         9zRRL7x4FHlgYqwEmoQ1e6ixT8+oUYsiSPKHcHe+/pQJgUChRDPqGt1tdKD0Y+Dao+Qu
+         zixw1kKj3BqzSC5+XNh5EAHGYdR2QfETCEysGuIM1RZNEVsKIOh6yBgNVegRVMgMf1DC
+         HseoJb935ofH67LjyRZRQUi5m36PfGL8VX/V6kSWdv9JHPWCb3u2xvk3tRVGDXPj4+ms
+         hhmnlrv5t7KGjDLIOgp884eBGzK4ES0RLWiOdTm0K36b9V8D38tGdVnzINYpaiph7p2g
+         54nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785270276; x=1785875076;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jvfS7+DfF3iiBgb3oPyQP0D1CeHx3J7Dwnq1yIu+FCg=;
+        b=bxb9dcHivuXbcHGT1rto70sjTUXFVz+qxu0GLD/eP4vxOSTCWidP0NSL4hsdZIW3ei
+         a+YZa+cVBAbOrfJMNAtDXPpe+4Ow8NQmVzegT5maEHPFhTlZKMyv5EGgTkacYY8WCeB+
+         rRgSueI/fY9ePFKMTQx16GHQgyAz5d2XGCeycMuKH5qZN94MlLA4hsgoaQM3McFdjWSy
+         bWYSZ2JcWrm7gTEhp7UrA/ciU9i17/JSRth4FQER5SebESzvPGC1qPFENe9qubvRxhWd
+         gPeFp8D/IPK6vXMSeBer/WBaf5paEZv72pu6sO9oV0FJ2Y2lAbsW3JH7mOxpd8uuor/q
+         4PTA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+BGzL0FCHZ/b+of7RNp1+GaBfw+9JCz/n8TpGI09L40rwq0J12kHyauiagHs0xBP0MYulwNs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQ38FufLYM6FHQ1CapXBEVy9CISTLntI7cfU9+j0fBIWs0I+fX
+	0RVh1k1cUDmcW8ahJazmPpEUgDqeKVaEklAXZPzlBWh5/5L99M282zgQ4LKTPAJxsdDVCCLS0ID
+	Bp9viTaHzJSU2XicqYXlXb4TAOFHzdV7vmA==
+X-Received: from pfih13.prod.google.com ([2002:a05:6a00:218d:b0:84a:2e3e:e52c])
+ (user=sonalipradhan job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:4ac8:b0:846:5d1f:56d4 with SMTP id d2e1a72fcca58-84e931249cdmr3727958b3a.14.1785270275858;
+ Tue, 28 Jul 2026 13:24:35 -0700 (PDT)
+Date: Tue, 28 Jul 2026 20:24:32 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.487.gaf234c4eb3-goog
+Message-ID: <20260728202432.2354994-1-sonalipradhan@google.com>
+Subject: [PATCH] ALSA: usb-audio: Clamp frame size in implicit-feedback mode
+From: Sonali Pradhan <sonalipradhan@google.com>
+To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
+Cc: Eldad Zack <eldad@fogrefinery.com>, Gordon Chen <chengordon326@gmail.com>, 
+	Kees Cook <kees@kernel.org>, Jussi Laako <jussi@sonarnerd.net>, linux-sound@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sonali Pradhan <sonalipradhan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+snd_usb_handle_sync_urb() scales received sync packet sizes by the sender's
+stride and stores the result directly in out_packet->packet_size[i]. If a
+connected USB device sends an oversized sync packet, this frame count can
+exceed ep->maxframesize.
 
-The patch titled
-     Subject: mm/damon: adjust isolated pages stat for DAMOS_MIGRATE_{HOT,COLD}
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch
+The un-clamped frame count then propagates to the playback endpoint queue,
+potentially driving packet transfers beyond the endpoint's hardware frame
+limits.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch
+Cap the calculated frame count against ep->maxframesize in
+snd_usb_handle_sync_urb() to prevent oversized packets from entering the
+playback queue.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon: adjust isolated pages stat for DAMOS_MIGRATE_{HOT,COLD}
-Date: Tue, 28 Jul 2026 07:04:03 -0700
-
-Callers of migrate_pages() should adjust NR_MIGRATED_{ANON,FILE} for
-isolations and putback of the folios.  That for migration succeeded folios
-is done by migrate_pages(), in migrate_folio_done().  That for MR_DEMOTION
-reason is an exception though.
-
-DAMOS_MIGRATE_{HOT,COLD} call migrate_pages() but mistakenly not doing the
-stat adjustment.  As a result, use of DAMOS_MIGRATE_{HOT,COLD} could
-corrupt the stat.  It could confuse too_many_isolated(), make compaction
-and reclaim to behave in unexpected ways.  The stat corruption can be
-reproduced and confirmed using DAMON user-space tool [1] on NUMA systems,
-like below.
-
-    $ numactl --hardware
-    available: 2 nodes (0-1)
-    [...]
-    $ sudo ./damo start --damos_action migrate_hot 1
-    $ sudo cat /proc/sys/vm/stat_refresh
-    $ sudo dmesg
-    [...]
-    [   80.215554] vmstat_refresh: nr_isolated_anon -5578
-    [   80.216842] vmstat_refresh: nr_isolated_file -34400
-
-This issue was discovered [2] by Sashiko.
-
-Link: https://lore.kernel.org/20260728140404.94476-1-sj@kernel.org
-Link: https://github.com/damonitor/damo [1]
-Link: https://lore.kernel.org/20260726164356.87940-1-sj@kernel.org [2]
-Fixes: b51820ebea65 ("mm/damon/paddr: introduce DAMOS_MIGRATE_COLD action for demotion")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Honggyu Kim <honggyu.kim@sk.com>
-Cc: Hyeongtak Ji <hyeongtak.ji@sk.com>
-Cc: <stable@vger.kernel.org> # 6.11.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 28acb12014fb ("ALSA: usb-audio: use sender stride for implicit feedback")
+Cc: stable@vger.kernel.org
+Assisted-by: Jetski:Gemini-3.6-Flash
+Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
 ---
+ sound/usb/endpoint.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
- mm/damon/ops-common.c |    4 ++++
- mm/damon/paddr.c      |    2 ++
- mm/damon/vaddr.c      |    3 ++-
- 3 files changed, 8 insertions(+), 1 deletion(-)
-
---- a/mm/damon/ops-common.c~mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold
-+++ a/mm/damon/ops-common.c
-@@ -375,6 +375,8 @@ keep:
- 	while (!list_empty(folio_list)) {
- 		folio = lru_to_folio(folio_list);
- 		list_del(&folio->lru);
-+		node_stat_sub_folio(folio, NR_ISOLATED_ANON +
-+				folio_is_file_lru(folio));
- 		folio_putback_lru(folio);
- 	}
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 24cd7692bd01..f127eaf2a1ae 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -1817,11 +1817,13 @@ static void snd_usb_handle_sync_urb(struct snd_usb_endpoint *ep,
  
-@@ -397,6 +399,8 @@ unsigned long damon_migrate_pages(struct
- 			struct folio *folio = lru_to_folio(folio_list);
- 
- 			list_del(&folio->lru);
-+			node_stat_sub_folio(folio, NR_ISOLATED_ANON +
-+					folio_is_file_lru(folio));
- 			folio_putback_lru(folio);
+ 		out_packet->packets = in_ctx->packets;
+ 		for (i = 0; i < in_ctx->packets; i++) {
+-			if (urb->iso_frame_desc[i].status == 0)
+-				out_packet->packet_size[i] =
++			if (urb->iso_frame_desc[i].status == 0) {
++				unsigned int frames =
+ 					urb->iso_frame_desc[i].actual_length / sender->stride;
+-			else
++				out_packet->packet_size[i] = min(frames, ep->maxframesize);
++			} else {
+ 				out_packet->packet_size[i] = 0;
++			}
  		}
- 		return nr_migrated;
---- a/mm/damon/paddr.c~mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold
-+++ a/mm/damon/paddr.c
-@@ -350,6 +350,8 @@ static unsigned long damon_pa_migrate(st
  
- 		if (!folio_isolate_lru(folio))
- 			goto put_folio;
-+		node_stat_add_folio(folio, NR_ISOLATED_ANON +
-+				folio_is_file_lru(folio));
- 		list_add(&folio->lru, &folio_list);
- put_folio:
- 		addr += folio_size(folio);
---- a/mm/damon/vaddr.c~mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold
-+++ a/mm/damon/vaddr.c
-@@ -649,7 +649,8 @@ static void damos_va_migrate_dests_add(s
- isolate:
- 	if (!folio_isolate_lru(folio))
- 		return;
--
-+	node_stat_add_folio(folio, NR_ISOLATED_ANON +
-+			folio_is_file_lru(folio));
- 	list_add(&folio->lru, &migration_lists[i]);
- }
- 
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch
-samples-damon-wsse-handle-damon_start-failure.patch
-samples-damon-prcl-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_start-failure.patch
-samples-damon-mtier-handle-damon_stop-failure.patch
-samples-damon-wsse-stop-and-free-damon-ctx-when-damon_call-fails.patch
-samples-damon-prcl-stop-and-free-damon-ctx-when-damon_call-fails.patch
-mm-damon-sysfs-kobject_del-target-normal-context-and-kdamond-dirs.patch
-mm-damon-sysfs-kobject_del-region-and-target-error-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-region-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-quota-goal-dirs.patch
-mm-damon-sysfs-schemes-kobject_del-scheme-action-destination-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs.patch
-mm-damon-sysfs-kobject_del-probe-filter-dirs.patch
-mm-damon-sysfs-kobject_del-probe-dirs-in-probes_addd_dir-error-path.patch
-mm-damon-sysfs-schemes-kobject_del-region-for-populate_region-error.patch
-docs-mm-damon-design-update-for-damos_quota_node_eligible_mem_bp.patch
-docs-abi-damon-document-probe-files.patch
-mm-damon-tests-core-kunit-test-damon_rand.patch
-selftests-damon-sysfssh-test-multiple-probe-dirs-creation.patch
-selftests-damon-sysfssh-test-coreops_filters-directories.patch
-selftests-damon-sysfssh-test-dests-dir.patch
-selftests-damon-sysfssh-test-all-files-in-quota-goal-dir.patch
-mm-damon-core-reduce-range-setup-in-damon_commit_target_regions.patch
-mm-damon-sysfs-split-probe-setup-function-out.patch
-mm-damon-sysfs-split-out-filters-setup-function.patch
-mm-damon-sysfs-fix-typos-in-probe_addrm_dirs-s-attr-probe.patch
-mm-damon-core-introduce-damon_nr_accesses_mvsum.patch
-mm-damon-tests-core-kunit-test-damon_mvsum.patch
-mm-damon-core-always-update-last_nr_accesses-for-intervals-change.patch
-mm-damon-core-handle-unreset-nr_accesses-in-damon_nr_accesses_mvsum.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-in-__damos_valid_target.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-for-damos-region-tracing.patch
-mm-damon-sysfs-schemes-use-damon_nr_accesses_mvsum-for-damo-regions.patch
-mm-damon-core-remove-damon_warn_fix_nr_accesses_corruption.patch
-mm-damon-core-remove-damon_verify_reset_aggregated.patch
-mm-damon-core-remove-damon_verify_merge_regions_of.patch
-mm-damon-tests-core-kunit-remove-nr_accesses_bp-setup-and-tests.patch
-selftests-damon-drgn_dump_damon_status-do-not-dump-nr_accesses_bp.patch
-mm-damon-core-remove-nr_accesses_bp-setups-and-updates.patch
-mm-damon-core-remove-attrs-param-from-damon_update_region_access_rate.patch
-mm-damon-paddr-remove-attrs-param-from-__damon_pa_check_access.patch
-mm-damon-vaddr-remove-attrs-param-from-__damon_va_check_access.patch
-mm-damon-core-remove-damon_moving_sum-and-its-unit-test.patch
-mm-damon-core-remove-damon_region-nr_accesses_bp.patch
-mm-damon-add-damon_region-last_probe_hits.patch
-mm-damon-core-introduce-damon_probe_hits_mvsum.patch
-mm-damon-sysfs-schemes-set-probe-hits-as-pseudo-moving-sums.patch
-mm-damon-core-safely-validate-src-on-damon_commit_ctx.patch
-mm-damon-core-do-parameter-testing-commit-on-damon_start.patch
-mm-damon-sysfs-remove-duplicated-commit-input-validity-check.patch
-mm-damon-reclaim-remove-duplicated-min_region_sz-power-of-2-check.patch
-mm-damon-lru_sort-remove-duplicated-min_region_sz-power_of_2-check.patch
-mm-damon-document-region-size-validation-in-damon_set_regions.patch
-mm-damon-core-remove-start-end-check-in-damon_set_region_system_rams.patch
-mm-damon-sysfs-remove-region-size-validation.patch
-mm-damon-core-stop-ctxs-in-damon_start-before-returning-an-error.patch
-samples-damon-mtier-do-not-stop-first-context-for-damon_start-failure.patch
-mm-damon-core-make-damon_stop-never-fails.patch
-mm-damon-sysfs-ignore-damon_stop-return-value.patch
-mm-damon-reclaaim-ignore-damon_stop-return-value.patch
-mm-damon-lru_sort-ignore-damon_stop-return-value.patch
-mm-damon-core-change-damon_stop-return-type-to-void.patch
-samples-damon-mtier-stop-all-contexts-with-single-damon_stop-call.patch
-mm-damon-core-wait-ctx-stop-in-damon_call-before-reruning-an-error.patch
-samples-damon-wsse-do-not-stop-ctx-for-damon_call-failure.patch
-samples-damon-prcl-do-not-stop-damon-for-damon_call-failure.patch
-mm-damon-core-remove-comment-and-test-for-nr_to_bp-divide-by-zero.patch
-mm-damon-core-s-damon_max_nr_accesses-damon_nr_samples_per_aggr.patch
-mm-damon-core-s-accesses_bp_to_nr_accesses-sample_bp_to_count.patch
-mm-damon-core-s-nr_accesses_to_accesses_bp-sample_count_to_bp.patch
-mm-damon-core-s-nr_accesses_for_new_attrs-nr_samples_for_new_attrs.patch
-mm-damon-core-update-probe-hits-for-new-parameter-commit.patch
-mm-damon-core-handle-unreset-probe_hits-in-probe_hits_mvsum.patch
-mm-damon-core-introduce-damon_probe-weight.patch
-mm-damon-core-ask-apply_probes-ops-callback-to-set-sampling-address.patch
-mm-damon-paddr-set-samples-in-apply_probes-if-requested.patch
-mm-damon-core-ask-apply_probe-to-return-max-probe-hits-weighted-sum.patch
-mm-damon-core-implement-damon_probe_hits_wsum.patch
-mm-damon-paddr-respect-return_max_wsum.patch
-mm-damon-core-use-abs_diff-instead-of-abs.patch
-mm-damon-core-extend-merge-function-to-work-with-probe-hits.patch
-mm-damon-core-disallow-probe_hits-overflow-on-attrs-only-monitoring.patch
-mm-damon-core-validate-params-for-probe-hits-weighted-sum-overflow.patch
-mm-damon-core-disable-access-monitoring-when-probe-weights-are-set.patch
-mm-damon-core-set-samples-in-apply_probes-if-probe-weights-are-set.patch
-mm-damon-core-s-max_nr_accesses-max_merge_score-in-kdamond_fn.patch
-mm-damon-core-get-merge-threshold-from-probe-hits-when-weights-are-set.patch
-mm-damon-core-implement-damon_has_probe_weight.patch
-mm-damon-sysfs-implement-probe-weight-file.patch
-docs-mm-damon-design-document-attrs-only-monitoring.patch
-docs-admin-guide-mm-damon-usage-document-weight-sysfs-file.patch
-docs-abi-damon-document-probe-weight-file.patch
-mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
-mm-damon-core-hide-private-damon_region-fields.patch
-mm-damon-core-hide-private-damon_target-fields.patch
-mm-damon-core-hide-private-damos_quota_goal-fields.patch
-mm-damon-core-hide-private-damos_quota-fields.patch
-mm-damon-core-hide-private-damos_filter-fields.patch
-mm-damon-core-hide-private-damos-fields.patch
-mm-damon-core-hide-private-damon_filter-fields.patch
-mm-damon-core-hide-private-damon_probe-fields.patch
-mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
-mm-damon-core-hide-core-private-damon_ctx-fields.patch
-mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
-mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
-mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
-mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
-mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-core-initialize-damos-last_applied.patch
-mm-damon-core-kunit-check-region-count-before-testing-in-split_at.patch
-mm-damon-vaddr-kunit-check-region-count-in-three_regions-test.patch
-mm-damon-core-kunit-handle-region-split-failure-in-filter_out.patch
-mm-damon-core-kunit-skip-wrong-dest-walk-in-commit_dests_for.patch
-mm-damon-core-kunit-skip-wrong-quota-goal-walk-in-commit_quota_goals.patch
-mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
-mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
-mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
+ 		spin_unlock_irqrestore(&ep->lock, flags);
+-- 
+2.55.0.487.gaf234c4eb3-goog
 
