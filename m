@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6701A25B0BE
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 00:58:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB9223D7DC
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 00:58:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785200295; cv=none; b=taFVcsJ/7aWBUMZ+/rwxrHw63aqbtLrlQX2QJHrJ5+DH6dFcmH0iMfvWP4CE11YRKWuVi6EV4Gq5qTxsYqCNUKfdXitXY8BHKvTFln73ssOFC22uQgj+Dqlb1I1PW5EdYhtUXLcrYWB0AZXNYXyZpGNERQzcd1Hc7nVlk7bTiiA=
+	t=1785200300; cv=none; b=l5oqGtdO1BTiZZJY4V6y/XVkPtfBsjYVa4zJqPAwjDLWFbCj8skA4BZnGCdX8VVPjI/E/dZXnkCLNfH8HWdvvYF694Z9rZrMPtnoFuJH0EWpSM2ZO+Murm+kZJrIGAJzUFJLEXlPkTq9ryEcwlTgmMMo1dMXUz2pGDmdqRw6Y/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785200295; c=relaxed/simple;
-	bh=HLxuR88mAnR3nwlvsg3EoX87g+khTvwxFI82uOwGsQk=;
+	s=arc-20240116; t=1785200300; c=relaxed/simple;
+	bh=+Dt1FdYtXP+dLnfRxp2Wh6f7uRA+Y2LiFr+gX218YaU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YKZVFdiS+vYfEqwkeEVesAIUrf+kIq3WrpmG71Rtx1avRUu1KAVYCZxVj3j7sFjgLEef4AoYkG1Om/2QckXX4sS+un6hUQsJ3aHVbxRkD3bNhz0HL16KmH1KBZUh9/o774yBJgf7/SAWL0GxXAIxYAn8l5dl4obx5grt1QmQFnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPHq8rDQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=L3cgaiob1NdlGqT0gVkAXYOTJV23ZR21GEJjd+nJGda3UCjgz5NJRcc1Fuzn7d4lKnzLajn2L4axQZzNgLqwPPvUIc8LiEXsoGLvQxPURGa9XJyy+gw3U0GNznUoI5b1QMgbPjy2jalWidu5hpT5AH6jxxn0WHblVaUx13pM278=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2TdDwqN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPHq8rDQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994321F000E9;
-	Tue, 28 Jul 2026 00:58:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2TdDwqN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D571F00A3E;
+	Tue, 28 Jul 2026 00:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785200292;
-	bh=NWgnL+aw/7b6hKFmEISXGJGM7gySrZBgtBCxsnYUwrM=;
+	s=k20260515; t=1785200294;
+	bh=BVUlsUo3Tqnw+CBO+Iblx3nzs3zc2WWoUphNT9GmNv0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XPHq8rDQH96bmZCKCSl0/pliR0lNw0BYtJ7wjxM85Msib6EVQtLo40nbakSBvqoFC
-	 5gs7wG3Q2vgdH/1Y9+ZpZue0csQ4a9KEssbsWFADjtXi2H8r1iLV9JwPvLAknFpt59
-	 EHJ8At2UDoq/WEcoNB48DeMecy7kjhr08m1P1ZoYl7aHVJQuAiQjGkHngNNw0dYbBI
-	 fnzYLgB8184A0rZj2gFqFYOi7A3b7/N8NBWsLsQzb6PesR8yuGvR3Z6OwZwE5v4wTh
-	 cMbS8sPLpsOKaBm3NqOQcIsWSYnwoxMw7MU1D4zr5QYzdUBn05b5RNssTyjMMjgk/G
-	 wg9ijdgVdZk9g==
+	b=W2TdDwqNyDdIBUBWYQk11Wc3Mqb8pKgTpaCxLsWOqOaN0MTNlVOn8WhZwNmyUdMSy
+	 en/eg+pa8HudYs9Zej6ZKyiBt6CXG9hYDZadrM7y1ejfQ7yMwCtNYEriy9L4YpmEn4
+	 khAGYn+m1f0cusCkUfI8OVKmv4dYY5iwbALWrTLpmdK06jfBeO8EPUtgmoQJgaFQJE
+	 MSvxi9niy31PA/Yt0i0T5TWoYXdBuITJ9ibVJInyLDXznp7d0y3G4w7n/9XifktdaQ
+	 zM0l9RUfHtcVN4PreAczgKOIPiIlMmC6RdCR4uXSMRvv6/CRN5Vj1NrdP3hcVO2Qf2
+	 5MBhNNd1L/Oxw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Ulf Hansson <ulf.hansson@linaro.org>
-Subject: [PATCH 6.6.y 1/3] mmc: vub300: fix use-after-free on disconnect
-Date: Mon, 27 Jul 2026 20:58:03 -0400
-Message-ID: <20260728005806.2694893-1-sashal@kernel.org>
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm-verity: make error counter atomic
+Date: Mon, 27 Jul 2026 20:58:10 -0400
+Message-ID: <20260728005810.2696057-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072046-elves-jokingly-9d77@gregkh>
-References: <2026072046-elves-jokingly-9d77@gregkh>
+In-Reply-To: <2026072048-same-empathy-c4b3@gregkh>
+References: <2026072048-same-empathy-c4b3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,89 +44,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-The vub300 driver maintains an explicit reference count for the
-controller and its driver data and the last reference can in theory be
-dropped after the driver has been unbound.
+[ Upstream commit 8ec4d9c5a5cf4b61fc087f871465b1f79b393325 ]
 
-This specifically means that the controller allocation must not be
-device managed as that can lead to use-after-free.
+The error counter "v->corrupted_errs" was not atomic, thus it could be
+subject to race conditions. The call to
+dm_audit_log_target("max-corrupted-errors") may be skipped due to the
+races.
 
-Note that the lifetime is currently also incorrectly tied the parent USB
-device rather than interface, which can lead to memory leaks if the
-driver is unbound without its device being physically disconnected (e.g.
-on probe deferral).
-
-Fix both issues by reverting to non-managed allocation of the controller.
-
-Fixes: dcfdd698dc52 ("mmc: vub300: Use devm_mmc_alloc_host() helper")
-Cc: stable@vger.kernel.org # 6.17+
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
-(cherry picked from commit 8f4d20a710225ec7a565f6a0459862d3b1f32330)
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Assisted-by: Claude:claude-opus-4.6
+Fixes: 65ff5b7ddf05 ("dm verity: add error handling modes for corrupted blocks")
+Cc: stable@vger.kernel.org
+[ kept 5.15's braceless single-statement DMERR body instead of upstream's braced block containing the absent dm_audit_log_target() call ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/vub300.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/md/dm-verity-target.c | 12 +++++++-----
+ drivers/md/dm-verity.h        |  2 +-
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index b420e4d82cf404..3ff40fcd62a46a 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -2279,7 +2279,7 @@ static int vub300_probe(struct usb_interface *interface,
- 		dev_err(&vub300->udev->dev,
- 		    "Could not find two sets of bulk-in/out endpoint pairs\n");
- 		retval = -EINVAL;
--		goto error5;
-+		goto err_free_host;
- 	}
- 	retval =
- 		usb_control_msg(vub300->udev, usb_rcvctrlpipe(vub300->udev, 0),
-@@ -2288,14 +2288,14 @@ static int vub300_probe(struct usb_interface *interface,
- 				0x0000, 0x0000, &vub300->hc_info,
- 				sizeof(vub300->hc_info), 1000);
- 	if (retval < 0)
--		goto error5;
-+		goto err_free_host;
- 	retval =
- 		usb_control_msg(vub300->udev, usb_sndctrlpipe(vub300->udev, 0),
- 				SET_ROM_WAIT_STATES,
- 				USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
- 				firmware_rom_wait_states, 0x0000, NULL, 0, 1000);
- 	if (retval < 0)
--		goto error5;
-+		goto err_free_host;
- 	dev_info(&vub300->udev->dev,
- 		 "operating_mode = %s %s %d MHz %s %d byte USB packets\n",
- 		 (mmc->caps & MMC_CAP_SDIO_IRQ) ? "IRQs" : "POLL",
-@@ -2310,7 +2310,7 @@ static int vub300_probe(struct usb_interface *interface,
- 				0x0000, 0x0000, &vub300->system_port_status,
- 				sizeof(vub300->system_port_status), 1000);
- 	if (retval < 0) {
--		goto error5;
-+		goto err_free_host;
- 	} else if (sizeof(vub300->system_port_status) == retval) {
- 		vub300->card_present =
- 			(0x0001 & vub300->system_port_status.port_flags) ? 1 : 0;
-@@ -2318,7 +2318,7 @@ static int vub300_probe(struct usb_interface *interface,
- 			(0x0010 & vub300->system_port_status.port_flags) ? 1 : 0;
- 	} else {
- 		retval = -EINVAL;
--		goto error5;
-+		goto err_free_host;
- 	}
- 	usb_set_intfdata(interface, vub300);
- 	INIT_DELAYED_WORK(&vub300->pollwork, vub300_pollwork_thread);
-@@ -2348,7 +2348,7 @@ static int vub300_probe(struct usb_interface *interface,
- 	return 0;
- error6:
- 	del_timer_sync(&vub300->inactivity_timer);
--error5:
-+err_free_host:
- 	mmc_free_host(mmc);
- 	/*
- 	 * and hence also frees vub300
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 21ef7168cc0b04..926a8c990163b3 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -217,14 +217,16 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	char *envp[] = { verity_env, NULL };
+ 	const char *type_str = "";
+ 	struct mapped_device *md = dm_table_get_md(v->ti->table);
++	int ce;
+ 
+ 	/* Corruption should be visible in device status in all modes */
+ 	v->hash_failed = 1;
+ 
+-	if (v->corrupted_errs >= DM_VERITY_MAX_CORRUPTED_ERRS)
+-		goto out;
+-
+-	v->corrupted_errs++;
++	ce = atomic_read(&v->corrupted_errs);
++	do {
++		if (ce >= DM_VERITY_MAX_CORRUPTED_ERRS)
++			goto out;
++	} while (!atomic_try_cmpxchg(&v->corrupted_errs, &ce, ce + 1));
+ 
+ 	switch (type) {
+ 	case DM_VERITY_BLOCK_TYPE_DATA:
+@@ -240,7 +242,7 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	DMERR_LIMIT("%s: %s block %llu is corrupted", v->data_dev->name,
+ 		    type_str, block);
+ 
+-	if (v->corrupted_errs == DM_VERITY_MAX_CORRUPTED_ERRS)
++	if (ce + 1 == DM_VERITY_MAX_CORRUPTED_ERRS)
+ 		DMERR("%s: reached maximum errors", v->data_dev->name);
+ 
+ 	snprintf(verity_env, DM_VERITY_ENV_LENGTH, "%s=%d,%llu",
+diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
+index f61c89c79cf5b9..ad5104daddb54a 100644
+--- a/drivers/md/dm-verity.h
++++ b/drivers/md/dm-verity.h
+@@ -55,7 +55,7 @@ struct dm_verity {
+ 	unsigned int ahash_reqsize;/* the size of temporary space for crypto */
+ 	int hash_failed;	/* set to 1 if hash of any block failed */
+ 	enum verity_mode mode;	/* mode for handling verification errors */
+-	unsigned corrupted_errs;/* Number of errors for corrupted blocks */
++	atomic_t corrupted_errs;/* Number of errors for corrupted blocks */
+ 
+ 	struct workqueue_struct *verify_wq;
+ 
 -- 
 2.53.0
 
