@@ -1,139 +1,161 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB9A429024
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 11:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D4D36A340;
+	Tue, 28 Jul 2026 11:48:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785238991; cv=none; b=FCIT0gA5jV1XeW8mxxFbnQi98nDbcbsNsZi4Wgp2tDP/X0LcEVQUw7wZkYqLTVO8zIsSZ1B4mPPvV7u+EdUf/eTyR6DRHHrmkJdOh8GlPrapB+syPPzOjuALqptA175TMGGsW8n0YCU8a79zzuGWC0K/kAzsJhvV67PUulNvYk0=
+	t=1785239297; cv=none; b=I8zL8YCXrbX0aB5bASSs1NnUtPTbY46mdz/AIQB5HZKLmxH6NZi7wlThhyU5v+A2ocVkceumGP6BpjQeGjKcXWJRtpp5DQS5akXAIUIJC5HyswPgITBzQ4YJxyliuU+zepbeT0bW5VGJLfAQE9gRdnVqDyDeyhURBzMfGJSSJlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785238991; c=relaxed/simple;
-	bh=0euIPyBzRxpAJl+05iawUam7o4hv9536euClyCfq3S4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WN6LC0fLt2F9Zug/j6UQ8ly/R1M2fEiIh3g5MDa8AYkYCvvV/qI6R7xEhYhJSlkzaHjw7D+L7YHsXZfrWYq9zvbDBNCFYGzZWmJGgkB6sz0caVjv6WIVh0n8GsYPyU1GkXEGUxr10RXbjIlo2xDjYTv2rAmeMdP5r7kEHVp01os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=Fu3bRBZm; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
+	s=arc-20240116; t=1785239297; c=relaxed/simple;
+	bh=4eAhlF/vcJJ67Apvr65nDQvIvuTHbBtggrluYAkbJbQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hnTpMZgECxD9tNfusT0UBL+lAc1gC/zWn9mlk/q8MgsonGnJg6r2l70fXE7I8yEsxl91my6UWwlygZ4Z3CYeTae5pzNODrfZHyo1KscgK0K826fvzMiDRzz0pGOMjnvkpiz7luuJiWN3Z6HZvcwZXQop/KwHBvKSAfA8n2Y5ia4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=MmLSWU7N; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="Fu3bRBZm"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ceb096e675so45284395ad.0
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 04:43:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1785238988; x=1785843788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=39GrJvnkpg8Y0WqMuL6o5Nxkg2xZIq2hCAlpo4jOXC0=;
-        b=Fu3bRBZmPIbA/eag6vIWKIphjlhnI2HkunBnHyGaRyuZtA8xCsMu9ePRFMWgL+7tOU
-         cWoDaYUA84+b4Whl6maYPq7dSsbm8nmiMfZFw2vYckWMa36Zsk9BiMD/h4ubPP3m91ny
-         hHwtsjXIDaf/DEFr0f5iOagC3cPwdICrM++3icORGI0Ds7coIp8I035GpAYqGUYtAXNb
-         lm4v6eAUcDgXbg7q0Ij2pNqtEMYUD0oWBIJnDE803933rY8eeT+79YheZW7ydjcjJMck
-         FDVWDCejS8x2lS017gz+ZV1vTLJeYiwVd8IDhawjmUoMHKGSl/eOC5YJU6r2/umAuUxa
-         8DSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785238988; x=1785843788;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=39GrJvnkpg8Y0WqMuL6o5Nxkg2xZIq2hCAlpo4jOXC0=;
-        b=oU2ImkFWdpB261SgTKE08OLiJ6YWfTZIlusG4e24+aN2xPoyAPGBWCqwmwc0NyRkqu
-         0nYaDCodLiCHqKutUFjlNQvcdrytBObcT7gxFHvYlnWWl/Es5QGEzjLpMdAZf+0qWBK0
-         1MAVEs9o98ROzkFwsSUL+5nCcgQz/twZ5UbQLJBxtlE0E+snaDPEef30PofRUfM5RG/F
-         CpSv+X1AESMGYy0qQJ0vMhBJxY6m9LPbCvdZijhn6oBWIJOEq6XPFkBUB4MI+6AyTnar
-         pBYFIhGfvN59bSgitcpa2BrkF6JQ9wBVK/0kLDN+i2SD2Hgy7UtjfM58yIn/FEANyYq6
-         S67g==
-X-Forwarded-Encrypted: i=1; AHgh+RoFZvDgpXIXqfGTD3LHNJ+OTw9G/DZslPaErhjoe9PtURD28G+QkNTah6xgJGOeQzQf0fycBZM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxG/bb02yX7DuaZHKbWwCw/SJzEyxF0yjfws4UxGR3viGj2bVbq
-	vPrJBqx8zyhavhOxtrKadIfsNUgfArPojqYfnVZaB0fPj/kTSYt9KO3Bo4qaGErxggw=
-X-Gm-Gg: AR+sD117I0hM+wcoUeZCDR4XSb/4IGZyrdUFBsqhhYpl/WnMbKy0SyKCc8AtK4faTFz
-	05kpn3gXbgspBkkKpySMnLMqH7FxSnK0ZuzJubbUuN7uQ61AohWwgHrrFn+sekCxDiWungts9tw
-	sJaflWlkDMsz0zZvWb673Nf6lJax3k1D8pcZv9t42+iGBRWH5TAkJ/NUl+idk6xfxVb6OZK9s/9
-	/pVi6zxNoAY5OtRYTRP1nYtqKr2k5IaoZae2DuZ2ZsFDBtpvgYxdvCiEHCHyTVtKLh373/xsO/Y
-	6O1ha06q6saQsAes8vD1Jn9/EE/pgGFvjOdECzZxlE5oChqIE44F+Ct4CdB/AIoMcS1DQ4yybTg
-	rUxf3tCfL2PfwHFtPoCFmlDRddz1e3IQycVA/qg6wE0K57Hv3YT2BW3A1DzUYEf3rgErFVeJ/Zd
-	zoLVM8IZhyrubJOCqsqJRqxlDbbCfRI0XD3U3bj1WqSAQSWqdwUTecLvQlKbEvODcdXk2vfijfW
-	Aw2m+yFlVlGR54yHqh72voI1R8vbsGg
-X-Received: by 2002:a17:902:f64c:b0:2cc:98b4:e7d7 with SMTP id d9443c01a7336-2d01605dbe6mr24259225ad.45.1785238987907;
-        Tue, 28 Jul 2026 04:43:07 -0700 (PDT)
-Received: from Metius.iitm.ac.in ([103.158.43.43])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2cfde59bc5asm50642555ad.6.2026.07.28.04.43.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 04:43:07 -0700 (PDT)
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-To: Steen.Hegelund@microchip.com
-Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	daniel.machon@microchip.com,
-	UNGLinuxDriver@microchip.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	joe@dama.to,
-	linux-arm-kernel@lists.infradead.org,
-	horatiu.vultur@microchip.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: microchip: vcap api: Fix possible memory leak in vcap_decode_rule()
-Date: Tue, 28 Jul 2026 17:12:51 +0530
-Message-ID: <20260728114253.196398-1-nihaal@cse.iitm.ac.in>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="MmLSWU7N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1785239270;
+	bh=XTxYzJiHZJ+w1vtq68qopBU8Vsm2s8Oe/VKJ+Ec0Fss=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=MmLSWU7N4MryLtgY/E4cdx70rs7c2Rc78m3UzyS2d4NgzsKejWDRdFmVdJTjPJAxB
+	 HWa+cAoAa6smfgKTwvQH677T5c8UA/XrK3rkOTPA9Kt1GH7l5APjgYLuzOdcz5fXb8
+	 AV8ssaPAqrLWOFtZt0vzjdXWWTYuzq7uBMBvPfzQ=
+X-QQ-mid: zesmtpsz8t1785239268t2fd64329
+X-QQ-Originating-IP: wevMZa64M1RZeaKFucH785qTL7TZBgqrPBnxAY6CORQ=
+Received: from [127.0.1.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 28 Jul 2026 19:47:46 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6419932955144323985
+EX-QQ-RecipientCnt: 15
+From: Peixin Xie <peixin.xie@linux.spacemit.com>
+Date: Tue, 28 Jul 2026 19:47:40 +0800
+Subject: [PATCH v2] riscv: acpi: Handle LPI architectural context loss
+ flags
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-riscv-acpi-lpi-timer-v2-1-5a30e0021ec9@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NzQ6CMBCEX4Xs2RJaDEVPvofhUNZF1vCXtjQYw
+ rtbMN48zOFLZuZbwZFlcnBNVrAU2PE4RFCnBLA1w5MEPyKDylSRaaWFZYdBGJxYdDGee7KiaKT
+ OL6bAMpcQp5Olhpfj9l592c31i9DvX3ujZedH+z68Qe69n6L8rwhSSIFaqRopk3Qubx0P85K6y
+ SD17FMce6i2bfsAA1QpN9MAAAA=
+X-Change-ID: 20260727-riscv-acpi-lpi-timer-6f1739a6c831
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+ Oza Pawandeep <quic_poza@quicinc.com>, Will Deacon <will@kernel.org>, 
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Cc: linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
+ stable@vger.kernel.org, Peixin Xie <peixin.xie@linux.spacemit.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785239267; l=2444;
+ i=peixin.xie@linux.spacemit.com; s=20260727; h=from:subject:message-id;
+ bh=4eAhlF/vcJJ67Apvr65nDQvIvuTHbBtggrluYAkbJbQ=;
+ b=hQ4Ms9Ubi2J7Qg0iW1ZRu5bK85h1KAiKnhdRozg29SalTisN4lE0j2xAtC8zHWXeCN+qO1Xb+
+ ViUR0tPIHFFBLNCFBGDUObRjsZVSgASHyHXv929MUm+DBApb33anq2P
+X-Developer-Key: i=peixin.xie@linux.spacemit.com; a=ed25519;
+ pk=jczO0FmEQZBoClfXslkwCsHKDmSRchQ1hQr8W7yiiXg=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: ML0YOxEYw9yWrkayi0DlaMOmQCBcAs9GcFergbHT8xlAWJb5X54jKQjD
+	2uW4gkk1rO1O1zCWKRVSkf2hHbFzkQSzCC+qtBF4I0PIruXJDkwhLM96UWELhQVxvQMCX0b
+	Byj/C7dqnnM9W0tcplG7HfOhknKMneU1Mg2++f953vZ16gpCRapxdD0xGjte+L3+m7dm0cg
+	KYdOI/mi3MxGCP82aOnQpXjhuDel8rHVUq8NMorOk5rJuY0Hh7tBENH9AQ3OsdKr9nwiaar
+	gi6oGMrf2AlTmP2sr5yRWyhtZ/nH+4gzzYBeir2Hy1rTOxFRQ3pGxOhEaPOvtdRQ3swpeff
+	exlyGLpBPKk8UppGNMm+fwNq6FSwzfqphxszA65LcXk2i6wvgsagYEKPSQwCv9T1XTwBW3+
+	GyZHNwzQZiV5/KVEpoHk2sHupG0u68AqHEQsV4HDTkFpfFZg1HeCV5RA2gxWHcj+aD6ud65
+	B7/33OgEMr3HMrmVwVMl2mFF6kllFo7CIyGy+9qz1VYF9OwHSLXeHFgO4jT8NRQHOTyblP2
+	HtxG7Up9GUL47T3eh6tboFbcOv3KdDmYR1QXp5Z47VSF8EcDswwCvNasxOiAZzHRvQu80SP
+	As96Hb6WxdgJ7vNIVDBcwHTuU9MmjBQ/gr4Z70nQn5uuK3V/BBODVjy/+D6RqVhUMT8JCl/
+	7gkM098OKteeQT8FPObFgB3w0/GEl9/r7/lfYNQi8XdfNPMs8f7UxsPihHAz+VFfB2QCwzC
+	u6j2DnU+q7sPNYJ6pZOmo/J+e9jlAWc/8FgTxVxp/JYFrzgAg+VQM4v+e0GlsoDUnWUF+S7
+	EtFbUa2YtR2zq6Rf8zJJifjnh2exyKGzVoYBABHGcGfwNZDkID6IzOAWGu/cnqjN7JPqdzL
+	nSO9vDyUgrkHegPznAzmeTVHNWEXyxI4qKebS5Oz6307EHUUP7Iu9p1bLPWIdgqIUZEXQE1
+	FevgJFdvjZOaEZ2c/gY7XcBk1HaPi8fOkmOr+3aN3iQgEAtoUE+iPe14h6XV9Ga5Gv7YEQ9
+	ZJYJ9hhEcFvhdKQn+86bQZKtZKd5J0D97PITis3ElQc3J0+4BQprnf8trtg1B3POYamzXjp
+	0z4tFUv6o5kBspnvLSXt8H+wmlS+FaMVSAtIljjfjixuT/XozDkUt0zCtjxQE5CA/u0dJHl
+	ILn9ZwfX8TbPWNfcoQS8jiZtYQ==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-The memory allocated for struct vcap_rule_internal, keyfields and
-actionfields inside vcap_dup_rule() are not freed in some of the error
-paths in vcap_decode_rule(). Fix that by calling vcap_free_rule().
+Commit 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for
+broadcast timer") replaced the generic nonzero check for LPI
+architectural context loss flags with arch_get_idle_state_flags().
+RISC-V does not implement the helper, so it falls back to the stub
+that returns 0. Consequently, CPUIDLE_FLAG_TIMER_STOP is not set when
+an LPI state loses the hart timer context, preventing cpuidle from
+using a broadcast timer for that state.
 
-Fixes: 610c32b2ce66 ("net: microchip: vcap: Add vcap_get_rule")
+Implement the RISC-V helper and map the hart timer context loss flag
+to CPUIDLE_FLAG_TIMER_STOP.
+
+Fixes: 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for broadcast timer")
 Cc: stable@vger.kernel.org
-Reviewed-by: Joe Damato <joe@dama.to>
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
+Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
 ---
-Compile tested only. Issue found using static analysis.
+Changes in v2:
+- Correct the FFH specification reference to Chapter 2.1.1.2,
+  Table 3, as suggested by Yixun.
+- Link to v1: https://patch.msgid.link/20260728-riscv-acpi-lpi-timer-v1-1-c722bce01e48@linux.spacemit.com
+---
+ arch/riscv/include/asm/acpi.h | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-v1->v2:
-- Convert the error labels from "err" to "out_err" to avoid confusion
-  with the err variable, as suggested by Joe Damato.
+diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
+index 26ab37c171bc..2643e28fc08c 100644
+--- a/arch/riscv/include/asm/acpi.h
++++ b/arch/riscv/include/asm/acpi.h
+@@ -12,6 +12,8 @@
+ #ifndef _ASM_ACPI_H
+ #define _ASM_ACPI_H
+ 
++#include <linux/cpuidle.h>
++
+ /* Basic configuration for ACPI */
+ #ifdef CONFIG_ACPI
+ 
+@@ -67,6 +69,23 @@ int acpi_get_riscv_isa(struct acpi_table_header *table,
+ 
+ void acpi_get_cbo_block_size(struct acpi_table_header *table, u32 *cbom_size,
+ 			     u32 *cboz_size, u32 *cbop_size);
++
++/*
++ * RISC-V Functional Fixed Hardware Specification Version v1.0.1,
++ * Chapter 2.1.1.2. Arch. Context Lost Flags, Table 3
++ */
++#define RISCV_LPI_HART_TIMER_CTXT_LOST		BIT(0)
++
++static inline unsigned int arch_get_idle_state_flags(u32 arch_flags)
++{
++	if (arch_flags & RISCV_LPI_HART_TIMER_CTXT_LOST)
++		return CPUIDLE_FLAG_TIMER_STOP;
++
++	return 0;
++}
++
++#define arch_get_idle_state_flags arch_get_idle_state_flags
++
+ #else
+ static inline void acpi_init_rintc_map(void) { }
+ static inline struct acpi_madt_rintc *acpi_cpu_get_madt_rintc(int cpu)
 
-Link to v1: https://patchwork.kernel.org/project/netdevbpf/patch/20260727125757.134611-1-nihaal@cse.iitm.ac.in/
+---
+base-commit: 1d6f0a217c662693d2307ee06851cb4bfcbf9529
+change-id: 20260727-riscv-acpi-lpi-timer-6f1739a6c831
 
- drivers/net/ethernet/microchip/vcap/vcap_api.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/microchip/vcap/vcap_api.c b/drivers/net/ethernet/microchip/vcap/vcap_api.c
-index ff86cde11a32..376be059d662 100644
---- a/drivers/net/ethernet/microchip/vcap/vcap_api.c
-+++ b/drivers/net/ethernet/microchip/vcap/vcap_api.c
-@@ -2427,18 +2427,21 @@ struct vcap_rule *vcap_decode_rule(struct vcap_rule_internal *elem)
- 
- 	err = vcap_read_rule(ri);
- 	if (err)
--		return ERR_PTR(err);
-+		goto out_err;
- 
- 	err = vcap_decode_keyset(ri);
- 	if (err)
--		return ERR_PTR(err);
-+		goto out_err;
- 
- 	err = vcap_decode_actionset(ri);
- 	if (err)
--		return ERR_PTR(err);
-+		goto out_err;
- 
- out:
- 	return &ri->data;
-+out_err:
-+	vcap_free_rule(&ri->data);
-+	return ERR_PTR(err);
- }
- 
- struct vcap_rule *vcap_get_rule(struct vcap_control *vctrl, u32 id)
--- 
-2.43.0
+Best regards,
+--  
+Peixin Xie <peixin.xie@linux.spacemit.com>
 
