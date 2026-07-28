@@ -1,138 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71D6439F72;
-	Tue, 28 Jul 2026 13:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F157438486;
+	Tue, 28 Jul 2026 13:08:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785244120; cv=none; b=SpAvuNUKJld9aMhWemoyqLkKO8krfmqPRzzaMk8cAGGLzfC4Jb6UMQgllwXFYjsNbiTXkQuM51Am4XTR0HjqF0/8PaqeKX/ecrBLkNb3PbvAStGZtPIlFDdMpdctvdKrXNane6UYuARgQjlSGLx+ciVcRz4YTUEg0WZHcdAotS0=
+	t=1785244124; cv=none; b=Ci1e4tPNjzmUvR0wzhjMXVkChuSocos7BeSJ315ixwoTs6VsQu95kG0D2namHbW7ffvGzC2y2nrxw2s+xoY+I9hQ0g6g9N3MQ6LwZ5YwkWNcevRkv/atBav9I84jsURUD8RgnyW4F+OeJ18GcFG0F7iX9Ox+izu4+XzubcfIYdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785244120; c=relaxed/simple;
-	bh=AwjGNnzLCZhSCvm4aOBqQ6gLdXAxlctsN1mIRiM5CI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OMhsoTwcj1e6bilNitxZydK88WOcA7apD5rKJJxLUPP/JTBK4VpUiiDV5OWh1p4aHGWihddT9RJ+0K2LuUgvM21g4U1FTw87/6sFZg8JBzjRB2oQY0LTHsUX8nBtU479ZHP1m4eSRj7OTMwXLDCUrJi4SIpHcH8s65hpuM2SeZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L4Ti8jRV; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785244124; c=relaxed/simple;
+	bh=rSQnuleIvcOPlMFU+OC0qOsZXz8MQZmx2AmTssaZ71o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lsCh7WSaNFyS4mlv+AryXC1r59Dm6eYeD4q6L0eiqJVKK4YU/dm+CFx75yXBiB1a2CiVYeMozGBRg2kxuhYitOdOJdLHkZxQbyT1H6Ke3flqst/zw0mhuNMZqFF2Yli1sUayGrL0y1mjpRl7QVKCq+8OukMkCvD6yn87aB2rKQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jarQQNfZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L4Ti8jRV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785244118; x=1816780118;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AwjGNnzLCZhSCvm4aOBqQ6gLdXAxlctsN1mIRiM5CI4=;
-  b=L4Ti8jRVwUKuEZpClMy/hnfGX05563styOK8TTxyUIs5LnaS6STk1nDx
-   d1u3lQJ5Re/NKxo8iw/lklTRfQRVBrZ8bqnjt76uLX65Vqnaue0rFMPNc
-   NiNbPFpAWLSsM5bChsaOVdmLQN8UFtfDK9dtlWwggT082PSeyLTt6ojz8
-   ecflLuGOwAkAshj1VWqKD95WUiCAaSMGJpA81bReItA0mJJLevGrz3WI4
-   ZqI8UU1ed4xx3h+RCYrd9gzjZwKc+LEyrjKyeYWaV07Dpdt4fdsJbifew
-   wyprFO38KrjDQJjjLoMlqrr3xKwJjq+eTf5C6wFv8Jaz5/dLT6F/Em573
-   g==;
-X-CSE-ConnectionGUID: aR+RdYKQQRm2pI+uuwdJ5w==
-X-CSE-MsgGUID: niuY6M6oTSKnBt0KojsUjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85945355"
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="85945355"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:08:37 -0700
-X-CSE-ConnectionGUID: HNvX7BMAQ7CvQsbD8A/4CQ==
-X-CSE-MsgGUID: wOd8lPZlQ1q49rPdFuuXnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="283038301"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:08:32 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id CE4D9121BFD;
-	Tue, 28 Jul 2026 16:08:31 +0300 (EEST)
-Date: Tue, 28 Jul 2026 16:08:31 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Sven =?iso-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>,
-	Nas Chung <nas.chung@chipsnmedia.com>,
-	Isaac Scott <isaac.scott@ideasonboard.com>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Daniel Scally <dan.scally+renesas@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] media: rzg2l-cru: Align bytesperline to hardware
- DMA stride requirement
-Message-ID: <amipz7WkKUsjxot_@kekkonen.localdomain>
-References: <20260701165003.1495035-1-tommaso.merciai.xr@bp.renesas.com>
- <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jarQQNfZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B051F000E9;
+	Tue, 28 Jul 2026 13:08:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785244122;
+	bh=3sxlim6Jm3YtcLECKKEooguzj3UphetqkoUwty9M5B0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=jarQQNfZ22qSDtdYLOxTo6gp1glpSKTDMwZLTumpSpou4pkARWfxuXW0DuYezdnxI
+	 55l6PTEocmVCk9K6xmlrSUHC2LEsxlHfleAW0kpx5eyjBAjehHSRdwr4qAw3a8N2UW
+	 up1JsYO0nEFjLX0TKB96knGccON9uyl9aMGQ+rm52v5U0Cbul/sAhSc4py+kIKozAm
+	 myeiesn/+aSopbFgd2lqsMXmU00rMXpXPFzh5qU1gPmmtJ1/F+xaMy8mvMSlHXWScB
+	 uV4spMcQaPfqHEYQqNvv4Lz3lbxD5/HYN0H8ZYaoAJf39wAxREkcJrXY4XFGPMWCo1
+	 wp1qoELYYdhvQ==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Tue, 28 Jul 2026 16:07:48 +0300
+Subject: [PATCH 5/5] x86/mm/pat: fix effective RW computation in
+ lookup_address_in_pgd_attr()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-cpa-fixes-v1-5-2ed2352300b3@kernel.org>
+References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
+In-Reply-To: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
+ Mike Rapoport <rppt@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+ Peter Zijlstra <peterz@infradead.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, 
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ stable@vger.kernel.org, x86@kernel.org, syzbot@syzkaller.appspotmail.com
+X-Mailer: b4 0.16-dev
 
-Hi Tommaso,
+lookup_address_in_pgd_attr() accumulates the effective NX and RW bits of
+the walked page table levels so that verify_rwx() can detect mappings that
+are both writable and executable.
 
-On Wed, Jul 01, 2026 at 06:50:01PM +0200, Tommaso Merciai wrote:
-> The RZ/G3E CRU programs the line stride via the AMnIS register, whose
-> IS field encodes the value in units of 128 bytes. If bytesperline is
-> not a multiple of 128, the division truncates and the hardware uses a
-> wrong stride, causing horizontal banding.
-> 
-> Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
-> which sets no alignment, reintroducing the issue.
-> 
-> Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
-> info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
-> v4l2_fill_pixfmt() unchanged.
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: stable@vger.kernel.org
-> Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
-> v1->v2:
->  - Collected tag
->  - Add missing Cc stable
+The RW bits are folded into a bool with
 
-The problem with this is that it requires v4l2_fill_pixfmt_aligned() that's
-not Cc'd to stable. Can this be fixed first without introducing the use of
-v4l2_fill_pixfmt_aligned() (cc'd to stable, i.e. in this patch), followed
-by another one switching to v4l2_fill_pixfmt_aligned()?
+	rw &= pXd_flags(*pXd) & _PAGE_RW;
 
->  - Fix s/commit/Commit/ into commit body
-> 
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> index 69346a585f9f..478264f26466 100644
-> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> @@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
->  	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
->  			      &pix->height, 240, info->max_height, 0, 0);
->  
-> -	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
-> +	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
-> +				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
->  
->  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
->  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
+but _PAGE_RW is 0x2. So consider the accumulation line:
+
+        rw &= pXd_flags(*pXd) & _PAGE_RW;
+
+where rw=0x1 and the right side evaluates down to 0x2. It'll end up doing:
+
+        rw = 0x1 & 0x2
+
+and rw always ends up 0.
+
+This way rw becomes false at the first level walked, regardless of the
+actual permissions, and verify_rwx() treats every mapping as non-writable
+and never reports a W^X violation.
+
+Add double negation to the right side to normalize the _PAGE_RW flag to
+0 or 1.
+
+Fixes: ceb647b4b529 ("x86/pat: Introduce lookup_address_in_pgd_attr()")
+Cc: stable@vger.kernel.org
+Assisted-by: Copilot:claude-opus-4.8
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Tested-by: syzbot@syzkaller.appspotmail.com
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ arch/x86/mm/pat/set_memory.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index 1b63d4caba20..7d656520887c 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -769,7 +769,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned long address,
+ 
+ 	*level = PG_LEVEL_512G;
+ 	*nx |= pgd_flags(*pgd) & _PAGE_NX;
+-	*rw &= pgd_flags(*pgd) & _PAGE_RW;
++	*rw &= !!(pgd_flags(*pgd) & _PAGE_RW);
+ 
+ 	p4d = p4d_offset(pgd, address);
+ 	if (p4d_none(*p4d))
+@@ -780,7 +780,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned long address,
+ 
+ 	*level = PG_LEVEL_1G;
+ 	*nx |= p4d_flags(*p4d) & _PAGE_NX;
+-	*rw &= p4d_flags(*p4d) & _PAGE_RW;
++	*rw &= !!(p4d_flags(*p4d) & _PAGE_RW);
+ 
+ 	pud = pud_offset(p4d, address);
+ 	if (pud_none(*pud))
+@@ -791,7 +791,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned long address,
+ 
+ 	*level = PG_LEVEL_2M;
+ 	*nx |= pud_flags(*pud) & _PAGE_NX;
+-	*rw &= pud_flags(*pud) & _PAGE_RW;
++	*rw &= !!(pud_flags(*pud) & _PAGE_RW);
+ 
+ 	pmd = pmd_offset(pud, address);
+ 	if (pmd_none(*pmd))
+@@ -802,7 +802,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned long address,
+ 
+ 	*level = PG_LEVEL_4K;
+ 	*nx |= pmd_flags(*pmd) & _PAGE_NX;
+-	*rw &= pmd_flags(*pmd) & _PAGE_RW;
++	*rw &= !!(pmd_flags(*pmd) & _PAGE_RW);
+ 
+ 	return pte_offset_kernel(pmd, address);
+ }
 
 -- 
-Regards,
+2.53.0
 
-Sakari Ailus
