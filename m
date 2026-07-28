@@ -1,160 +1,92 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5E834F24A;
-	Tue, 28 Jul 2026 03:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F1B3438BB
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:39:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785209434; cv=none; b=e9bq+T/ehcntcrGSVKCZ8qeKtqsNKlKap8/C3xqUf8mfrkUw2aex7jGf+2pxFN/uJtZsEv8x3zaaJTDLroa7jPdSj8BGEdc6ASw9AFw8o0Sjpq1bQFZIY7LOrIjHTsNVoUrWEDHE8e/R7X4prqBvDbWxy/niMVfaXoH9HoZ/fPk=
+	t=1785209949; cv=none; b=ChaxD7llZ2Qp1umqFqGme8AvQaUtnI9z09oLVzVklLeI8ymPbnFzJPioAUdUlrIS53mop/9OjXiVy4JS30JmaiRVTqabY+GKtSOpUB9xfG/dQFkJOvh5Mps/DWbPjev7AbsxAOYTWgZt8kLKEaTdyizpYWToW9zB/pqQU1xDL3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785209434; c=relaxed/simple;
-	bh=WfP9KjGiUhNC00atHi0kyLYVsoioA+Sf9b2zatRqvMU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GUimkddTg/YqBUYaog3TtR8HngRaKqJR9EEYPgukMVlwfKIHnGPPet60cYGjX/ufEaqJe4AR3GvnMxVVbkzXkxqOCbaYkniKwd7OdwZj84vvsnxoCP75lQM74iDAzHPQXS1BO7jFsyYW7iqhapn/UyQMNi0BheQ1IhNtSdi+cSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=oOqGK+jw; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785209949; c=relaxed/simple;
+	bh=2eXpiKvubaF4VodsTzMjIDoCZQpZR/9vS4GEsI9JFTs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=eT2Lsh2Ji+8R9sv+vUoCooHLUuyRoQNzqBUrGwblIqRwp8dZ/NX3lBuKvSQ+CiXgLclsFP/hJZXaH6qYQQob/u8+U3EMckTX0HkXMLDqWUjiQ1FATDVyL0IUdB3jKxBpvjtZaJX9Ov1lU7Q8Ht2L3rM1iHbi80OD0lHMXcpn+M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=OPSWTFxX; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="oOqGK+jw"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S0mdgJ3677160;
-	Tue, 28 Jul 2026 03:30:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=t1PHiV8rkqviZARZ9
-	5VBMbb5uovzUNwzuKi8hlP295s=; b=oOqGK+jwxgLdPRKyFzuzTLGnobkPPT9On
-	U30mm4e5GLS1xluKt4JQ8TqQQXrnjvudhS3G8DBDZFTdd0XWUlWTnbJOsV0Tb3uB
-	QXhT+nOcz/pkPFUH5AdnHKcNGaGwBGLc02I3QblS/85IlCoDtbiS8XtPR5RgWQU4
-	O/j0DFbnccb71UuCZzDgqgWoXj3NsQIZaTTGpNbawZcuFnwY0/8HXsSz/D0RoOy7
-	keTFNyMFUPVcrYKI8re3m0oYS1BOpa2xhBA3hzfhaHIVaXBGTH/kF3osVGxwHOna
-	4rFN3Z3uRyPYmT8j12axefzAE+DgMcmehXFI4at4J4jHsWsipbSNg==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuyj2q1x-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 03:30:29 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66S3QID0002886;
-	Tue, 28 Jul 2026 03:30:28 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn8yh80d6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 03:30:28 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66S3UOtN10813876
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 28 Jul 2026 03:30:24 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6F95720049;
-	Tue, 28 Jul 2026 03:30:24 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4EC7C20063;
-	Tue, 28 Jul 2026 03:30:24 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Tue, 28 Jul 2026 03:30:24 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 4958)
-	id 1B2E7162822; Tue, 28 Jul 2026 05:30:24 +0200 (CEST)
-From: Eric Farman <farman@linux.ibm.com>
-To: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Eric Farman <farman@linux.ibm.com>,
-        sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v9 05/10] s390/vfio_ccw: calculate idal length based on idaw type
-Date: Tue, 28 Jul 2026 05:30:17 +0200
-Message-ID: <20260728033022.2658232-6-farman@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728033022.2658232-1-farman@linux.ibm.com>
-References: <20260728033022.2658232-1-farman@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="OPSWTFxX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1785209902;
+	bh=2eXpiKvubaF4VodsTzMjIDoCZQpZR/9vS4GEsI9JFTs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=OPSWTFxXo/erczALoOApBaqkUT1OYeAArAb79ayLHI/trIQI2PxJXLeIJXOXJtI58
+	 3RHmYDvwiWdzHcFGsy2+rKJO4I7ZoG0MCeJ4hBoPnohnF6FNzTAk1T4eQrtkVY8t2K
+	 JuI7D+j3OLpB3oKZJmjHo7gSQ4mmoUkyz6Ofvd8s=
+X-QQ-mid: zesmtpgz7t1785209893tdf295776
+X-QQ-Originating-IP: GkTEerGl7J7CT4cqQ6aoeExvPjtG2+B017mh9DOkrOg=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 28 Jul 2026 11:38:11 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 11166998439360330487
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	kpsingh@kernel.org,
+	patches@lists.linux.dev,
+	sashal@kernel.org,
+	stable@vger.kernel.org,
+	xukuohai@huawei.com
+Subject: Re: [PATCH 6.6 0772/1266] bpf, lsm: Add disabled BPF LSM hook list
+Date: Tue, 28 Jul 2026 11:38:10 +0800
+Message-Id: <20260728033810.1870379-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260721152459.140898269@linuxfoundation.org>
+References: <20260721152459.140898269@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDAyOCBTYWx0ZWRfX7Z6C0TXsM7vP
- TwVMyAd7HDDv+R/JDxzDp5uYHe2WEM8YyYYoJOGO0B/c1qhSku03t+6lZ6z7JY0m9JDYo7L4qAs
- wOfowOke4DdfgJd6u+VmZEuc/rp+OoU=
-X-Proofpoint-GUID: bV3vxfTUSxgAh7ayw3e-1FbgGUdzblER
-X-Proofpoint-ORIG-GUID: bV3vxfTUSxgAh7ayw3e-1FbgGUdzblER
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDAyOCBTYWx0ZWRfXz+g+G9gtZU3b
- fhvRFBpHl1tXPEsZNqXRmm/9PPCn+cA3LjsQlRB8DW+qd7kbTX4tTGbOQajsJg4T1v4IVJrJOoa
- AeGvW6lyR9yACFs4vLoOCajhvwaifOGQxdXzEAqtyfJ9/QhdVdKy497trjn63GcVLmdlwTKrxtM
- CdGZzjcCUtkyeD0imkARdJXjaTELw8ptwLF5NltQCuKqtGKOQIw6t9S1gqyiXwmB8FeE/igOHfr
- mVYub5zI4Ys5NL8MsBrYElVplm/N4kAqYpumleN/zd5Fo/RcTBFoak/Y9ToLrXFV5GNXX5DJY3W
- sNTHalLhVCx4II4W/mr9pnsUq3A2mhFabrgXz3vBQawsuchHKI38WHZzN/C671icOjiQ0XOLW+c
- uUyq5oJLA41zBhy4fMMmFoKOi8WIOudLndLi1BYDjkzRaTswkcYrzc98DIxR5xuKO3duqvoE3/S
- wVqhIDVYtJKG4QsqWzg==
-X-Authority-Analysis: v=2.4 cv=X5Vi7mTe c=1 sm=1 tr=0 ts=6a682255 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=Qev3T-O1x3Ov5i2I8JAA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-27_07,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607280028
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NAtipnnbTPea+aNH8FRrsJRoedTR8oAzEsT7QDaygReON/uam/m2P4/A
+	AUTt3NizVZUVbvcor/5Q/yKFtZN6FoMLeVn/jp25zuT6VH14C4IZ8j6Hb3yQdQ74Moeucoc
+	ghQhRMdmozEXRtNhkm+Na9ZIgoB26gLzBg3ls6WhETIeH+r+RMUAH1LdEpFY7Un2oXDzL/Q
+	BDzavWPTM20HzDt3mWnkg5nR4ZICdil1S5RBPeI5Gi840fKAV0fZaaol2ZrmQ0hIt5AVwCx
+	QoQE059G5wrLlD5JH+GWklS/8NiXBJkoxZWu3y+GXnYeXsX6jWDl5Uoja+dh2imdN3dv90L
+	wcqfJh3LgLWGevhDebkkkZB8Ofiql4JhgZjchUcltRHDKSqvLPcaNdpPxeSqecPpAj8QMSc
+	EGgJGkwXsydtTQIjmNyNDE9kPQg9JqVxt1IcRupuRolFLiA+Ro9TEJskevAYVqrbNUpBuJM
+	gqHJOPGzCflNIAPEeRJ7jyvP+Jwr/L8LjeZvLhHOfGuMjovRuE3FI5iPzkWtleTlifvqimW
+	s3v5FokilzoTf+ZIfX52H2Maj3h9P76WLB2MEsKZS/9ylCqoGjaGmDRds1ztu8bWr0ElE9H
+	TZ/ycNxOcO/3+qKY2UH1KwxrVEkCK+J+oOy19aL83MBjmAP+U5Ae0vfKPFwSiHoVK8AcZ/c
+	eBbLanUkLkBTjGPhmCgNX3pJtnzFhd2M5qlXzouWnEzgrOmCblpHj2iAsulm4UA8R3hDe6F
+	RQ3lIN2VyhvQ0T3/AfsTDMX05lPHDpZNT+NPRZkC3EmwCYm5od4HrN7U7rWpN+YlhE8FqPG
+	A0CLw9h4pF/mlJxrN4RPb9HrZUf4zhKJqMUKCNxGw5hqkq/V0Z+sWibXdnkjMW0DAhy3KEa
+	n19VW7YAiYYoW7+O5P0ufCOgzYG4gArMHoYHJyZAUtOi8qrjWCXU0ZoKoGsA8Ym/yLsTJqm
+	b+DiKLHR6hEj3TuoZDnSnr7XMxsgL0XkMsTrXsV26t6RqChVmoM/neHw/JQUsA9ySP+ztMr
+	1WK3ouDqekz4y5xTRT5k5/uWx5ztE=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-Sashiko pointed out that get_guest_idal() unconditionally calculates
-the length of the IDAL presuming everything is a Format-2 IDAW.
+Hello All,
 
-The output of vfio-ccw is always Format-2, but the input can be either
-Format-1 (31-bit addresses) or Format-2 (64-bit addresses). As a result,
-the size of the guest IDAL may be incorrect and should be trimmed down.
+backport ("bpf, lsm: Add disabled BPF LSM hook list") for v6.6.y bring the new
+build warning for us, let your know that.
 
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260720203400.7328E1F000E9@smtp.kernel.o=
-rg/
-Fixes: 1b676fe3d9d3 ("vfio/ccw: handle a guest Format-1 IDAL")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
----
- drivers/s390/cio/vfio_ccw_cp.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+and the lsm_getselfattr from a04a1198088a1378d0389c250cc684f649bcc91e commit
+("LSM: syscalls for current process attributes"), I suggest that use a not
+upstream commit to just drop 'BTF_ID(func, bpf_lsm_getselfattr)' from 6.6.y.
+Maybe 6.1.y has the problem too.
 
-diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_c=
-p.c
-index 6275794751cb..5ef082b8289a 100644
---- a/drivers/s390/cio/vfio_ccw_cp.c
-+++ b/drivers/s390/cio/vfio_ccw_cp.c
-@@ -233,6 +233,7 @@ static void convert_ccw0_to_ccw1(struct ccw1 *source,=
- unsigned long len)
- }
-=20
- #define idal_is_2k(_cp) (!(_cp)->orb.cmd.c64 || (_cp)->orb.cmd.i2k)
-+#define get_idaw_size(_cp) ((_cp)->orb.cmd.c64 ? sizeof(u64) : sizeof(u3=
-2))
-=20
- /*
-  * Helpers to operate ccwchain.
-@@ -524,7 +525,7 @@ static dma64_t *get_guest_idal(struct ccw1 *ccw, stru=
-ct channel_program *cp, int
- 	dma64_t *idaws;
- 	dma32_t *idaws_f1;
- 	u64 first_idaw;
--	int idal_len =3D idaw_nr * sizeof(*idaws);
-+	int idal_len =3D idaw_nr * get_idaw_size(cp);
- 	int idaw_size =3D idal_is_2k(cp) ? PAGE_SIZE / 2 : PAGE_SIZE;
- 	int idaw_mask =3D ~(idaw_size - 1);
- 	int i, ret;
-@@ -593,7 +594,7 @@ static int ccw_count_idaws(struct ccw1 *ccw,
- 	struct vfio_device *vdev =3D
- 		&container_of(cp, struct vfio_ccw_private, cp)->vdev;
- 	u64 iova;
--	int size =3D cp->orb.cmd.c64 ? sizeof(u64) : sizeof(u32);
-+	int size =3D get_idaw_size(cp);
- 	int ret;
- 	int bytes =3D 1;
-=20
---=20
-2.53.0
+BRs
+Wentao Guan
+
+Log:
+WARN: resolve_btfids: unresolved symbol bpf_lsm_getselfattr
 
