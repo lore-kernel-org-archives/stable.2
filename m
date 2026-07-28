@@ -1,70 +1,42 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9B230C146;
-	Tue, 28 Jul 2026 15:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79D42F12A1;
+	Tue, 28 Jul 2026 15:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785252834; cv=none; b=hPNxF34oCXNdR6KYYyj8IBdmG/3Z0YDyl5qPmtKrel+ct064yZj+kTQWVrJKfHEf0297jZh+rKinJkTsSCM2Yj+m9JpZCD03AJ+SqsOi34GM6BFspSf8wZ+1PLmcE3WgT1E8Rkt6s44q6iROxZonVIctLmgSDqAtBLoczVsBgoY=
+	t=1785252881; cv=none; b=CnteZpayrjvA6t9KXZX6+LUxTItBAb4rlPKPTQZRZ3aiRZLqP7OKwStvnUkVIv/B/x0+jX3Ouozxq2ZWar93oIlTS13d5lVXtBzS0bJWdbUg8+f+hCnz+lPgNo22yq5ALCrLLsNfGkT07T/gyVgQ8Yf3EsrZgD+mfNTx+zXV5Vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785252834; c=relaxed/simple;
-	bh=zQIwOSKn/0R8Y2guuiO/EQFjFuK6aMrhavXHWbZlyhw=;
+	s=arc-20240116; t=1785252881; c=relaxed/simple;
+	bh=+dmfsBx8KL5cJo1YXtEhK4PIkDAP1a7rLzZ5WodllnU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bu3Qy8vuAdBSJ4B08z+WKNItH3FzJieBDc8VeamvxeeUlcXLDsxQnqbhwEQTR3BIMRPA78LUItYEyEWR026GgwpH/HNHjPdxvOHAKyJ5H1SllG1ax3+CjrAoRm9+6tj98eATfgNkLPkZGULyi5vMjDhqYvnfr2wTTJ5bfkXseqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZR7XTAvt; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=NikklEuJhWmbjqgGyyzqUjLUXF3UK1COnA/oBpYehlB5lYzNMeYKIwrNglxC32tmsbkE/Ozr3H/VHcErquLJFyv1skgy2FogOCC5GVy9qETz7SE4OuH3sFtEGYR0StM8QfqZbl/svFc8Nt8auEHYkGhdBC7oGTO6T9tnQ7fJ3fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVGlk8x7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZR7XTAvt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=MtI8BjVNz9fvIWLLabGAXhTyjAUw+ny5VCHWBMfAP7U=; b=ZR7XTAvtNIKJro36JxE/8l5Q/W
-	ReI+Qiwt7PsTt2gjKRFN+94VxnT4QcNzzua3897tbbBK2zoDqEElZSnqusWc70POKhKhprFcGTNel
-	J2sUYUxGJAlwLorD5mn+tYu+56aQUqbZpxu3dhCYYZ8pNYNCHs42fILaFYFNMHG8B71NmI7hFnLUd
-	3FMIbQlnGUw6or7BLKSbHdVRtXp2cacvktYZFtfsB6ZLR6NRE/Ww4KeGKcd3/39EpDCsALZVL8P4W
-	03P8v3ZO3dhnkJHv1fe24ssYJX/CLUcU6wNX4smqEXCVYrj7WjL9XaT5srV1LsLj+wgcalmaoKbbM
-	ZA0j0ndQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wojoM-0000000DaEn-0Vwv;
-	Tue, 28 Jul 2026 15:33:42 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id A12183004AB; Tue, 28 Jul 2026 17:33:41 +0200 (CEST)
-Date: Tue, 28 Jul 2026 17:33:41 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	David CARLIER <devnexen@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH 1/5] x86/mm/pat: introcude cpa_lock() and cpa_unlock()
-Message-ID: <20260728153341.GY751831@noisy.programming.kicks-ass.net>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
- <20260728142108.GW751831@noisy.programming.kicks-ass.net>
- <adfffb36-9943-4af7-a0ee-0e762e47fa11@intel.com>
- <20260728143135.GG651302@noisy.programming.kicks-ass.net>
- <amjAxhL-IeeJITEv@kernel.org>
- <20260728145528.GI651302@noisy.programming.kicks-ass.net>
- <20260728150126.GC921102@noisy.programming.kicks-ass.net>
- <amjHQtTRKKkxdaWC@lucifer>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVGlk8x7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6484C1F000E9;
+	Tue, 28 Jul 2026 15:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785252880;
+	bh=Q754b//iEMiI5iAASN9/4txs9Hqc2aR1Tcv2WF6WgwE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lVGlk8x7mgJ68TQ0Jg5Rv4nsU1MNF43nbGiN7dgH2p825ConKtuzfozjCnAnYS7qI
+	 sbDJcZw9H0VDXuBbhLhjy1gXEMZXyMG9dwvZUN+KeGgWqqycw2SN/FUrlZwWOg/zUZ
+	 Prhe84mM+npu6TC3CWxoHt87y+2wNZvbUldItf7cvntP4XhrZ4oyJij5rTsIvjr5rZ
+	 8/FPEOI+5dj+PAkI64GHTHb2aMwjCLgOx5A7mCkmWhQuE7Hf8KYtu5CFyWMUKHKLme
+	 ec5tQTloQGLd6eN088gsiiVzctzcuYcgn1XI9CFEF6fsuGArIWQW5o8GAiS8itmUQR
+	 zvxNt+kzlO/Aw==
+Date: Tue, 28 Jul 2026 10:34:39 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Carlo Caione <ccaione@baylibre.com>
+Cc: stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Nicolas Saenz Julienne <nsaenz@kernel.org>
+Subject: Re: [PATCH v3] of/address: Fix NULL bus dereference in
+ of_pci_range_parser_one()
+Message-ID: <178525287796.2235178.8797217892783913753.robh@kernel.org>
+References: <20260727-of-range-parser-null-bus-v3-1-be01b708a4ce@baylibre.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,54 +45,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <amjHQtTRKKkxdaWC@lucifer>
+In-Reply-To: <20260727-of-range-parser-null-bus-v3-1-be01b708a4ce@baylibre.com>
 
-On Tue, Jul 28, 2026 at 04:20:10PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Jul 28, 2026 at 05:01:26PM +0200, Peter Zijlstra wrote:
-> > On Tue, Jul 28, 2026 at 04:55:28PM +0200, Peter Zijlstra wrote:
-> > > On Tue, Jul 28, 2026 at 05:46:30PM +0300, Mike Rapoport wrote:
-> > > > On Tue, Jul 28, 2026 at 04:31:35PM +0200, Peter Zijlstra wrote:
-> > > > > On Tue, Jul 28, 2026 at 07:30:27AM -0700, Dave Hansen wrote:
-> > > > > > On 7/28/26 07:21, Peter Zijlstra wrote:
-> > > > > > > There was already a patch merged that removed the shole debug_pagealloc
-> > > > > > > exception. Is that not better?
-> > > > > >
-> > > > > > As I'm scanning through email this morning, there's another issue that
-> > > > > > popped up with that patch. It's causing hangs on boot.
-> > > > > >
-> > > > > > It's looking like debug pagealloc not taking the lock is actually
-> > > > > > functional, not an optimization. Although, I hesitate to say
-> > > > > > "functional" and would prefer to use much less nice words to describe it.
-> > > > >
-> > > > > Yeah, lets figure out why that is before we retain this wart ;-)
-> > > >
-> > > > As Lorenzo said:
-> > > >
-> > > >   __kernel_map_pages() can be called from irq context:
-> > > >
-> > > >   < GFP_ATOMIC context >
-> > > >   kfree() or whatever
-> > > >   -> ...
-> > > >   -> __free_pages_prepare()
-> > > >   -> debug_pagealloc_unmap_pages()
-> > > >   -> __kernel_map_pages()
-> > > >   -> __change_page_attr_set_clr()
-> > > >   -> cpa_lock
-> > > >
-> > >
-> > > The TLBI hack in __kernel_map_pages() makes me wonder how any of this is
-> > > correct to begin with. That comment isn't helping.
-> > >
-> >
-> > Also, the 'atomic context' usage hereabout seems confused. In particular
-> > the issue is with IRQ-disabled context, they are not the same thing.
+
+On Mon, 27 Jul 2026 10:36:59 +0200, Carlo Caione wrote:
+> The bus matching rework made of_match_bus() return NULL for nodes with
+> ranges/dma-ranges but no local #address-cells. parser_init() stored that
+> NULL bus, and the range iterator later dereferenced it.
 > 
-> I mean yeah the IRQs being off is the issue with holding the lock over an IPI, a
-> softirq allocating GFP_ATOMIC won't be a problem for that, but I think all the
-> conclusions are still the same.
+> Reject such nodes in parser_init(), leaving an explicit empty
+> iterator for callers that ignore the init return, and make
+> of_dma_get_max_cpu_address() honour the init failure so a rejected node
+> cannot clamp the DMA limit.
+> 
+> Fixes: 64ee3cf096ac ("of/address: Rework bus matching to avoid warnings")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Carlo Caione <ccaione@baylibre.com>
+> ---
+> Changes in v3:
+> - Drop the of_range_count() hunk in of_dma_get_max_cpu_address(): it
+>   guarded a pre-existing corner, not this regression (Rob)
+> - Link to v2: https://lore.kernel.org/r/20260706114731.57353-1-ccaione@baylibre.com
+> 
+> Changes in v2:
+> - Validate na/pna/ns in parser_init() with OF_CHECK_COUNTS() /
+>   OF_CHECK_ADDR_COUNT()
+> - Link to v1: https://lore.kernel.org/r/20260706095651.48839-1-ccaione@baylibre.com
+> ---
+>  drivers/of/address.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+> 
 
-preempt_disable() is an 'atomic context', but does not present the
-problem.
+Applied, thanks!
 
-Anyway, yes not saying the conclusions are wrong, just that the wording
-is confusing at heck.
