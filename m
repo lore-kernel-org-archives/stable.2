@@ -1,85 +1,75 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5371A6828
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938F244A71C
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:08:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785251138; cv=none; b=ZJ0JgfkNgzV7I/r5Q42aZtEUrVmrQSAmD06neKOoSpRRl7N8ZPBJM1INud8MQkdGHFcEFiRnYnfGPdRTZ69YRoaLI9YRHdc/7F/QThDWsPfEWJ70bgdkC/Z4XgQAsV+S46HU5bxl6SC3EK+JRNpR812qjNq5mHXpAOuudyMaIC0=
+	t=1785251321; cv=none; b=VgS5xGu6CasfneBHQaH+Lsxvj5eeG9SLs1ElSJaBd0AF1Qu42uk/5B2SGFZMoYgHEomQNmUmfQyi8vD3oro0oywPNRC41f/sM6K4k+XxksbOWSjddaWGhSq+ACrO6L+97e9gwN55Kf9mAYlpR6cWgevQh11w3uwcGrYAkiXlk/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785251138; c=relaxed/simple;
-	bh=ojwAFxJs6Wn0yZCJInlHDI7T2dLWCvbDXXaNJ57HJ18=;
+	s=arc-20240116; t=1785251321; c=relaxed/simple;
+	bh=jtr55/VK0+kw5FVvWYcPAN8umuln4X9OVoEJEOkye9k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p+Uluj9GEr6++X4K5KxmA2pMk6zKonKAYFEk1IAQicqGmM1ciOhK1cVbZEsEabNe8/ipry49GFkOO8MI0ZWHEIkhNGN0ljiSD6nOFjUo4jBkIkfTzl9dkG1hPtsEx9t0Bktt38qL/79VOUWMONDdvfDUY0VSla0YR+SNW474Y9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=brLL81fF; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=lSa2vC/O; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=XgB2y6ke; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4SG3xVFp; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=uOsiBlpRWc3bnhir7sTsUfWbcmMAqhjQqxaY16NDOuv3MAPysF0WVbQaizDS61x7iHIFdxKplDwVCeWFbgv12AvUoPT81qdQwXIKkBa33OhxerCdYaLbEnu5bJui9kKroSmstZpBTHW9cvxh/ot4eMdht9W92vyJPCfCCQBGxrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CoFCWSgF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="brLL81fF";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="lSa2vC/O";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="XgB2y6ke";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4SG3xVFp"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D4A493ED1;
-	Tue, 28 Jul 2026 15:05:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785251126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DiMXoinYrfvkN7ssjGkHAthfL1dUNuPu+43kKlOoSCA=;
-	b=brLL81fFnU2L85DINZsEtJ7VnigaaBn+jGrEKk2mBL3hIFxQ61gffo6Sq8eHxv2kxtpeJe
-	7HaZLzRZHS1yVqzyrL5bb5o2ZBn31KPOzq3R2tsZzuA4EsTNqqMeDPwtGMoeTHuQKfxg0K
-	VqXpgzPJ1XZlG+x0PUNTv2EV/xHxPns=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785251126;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DiMXoinYrfvkN7ssjGkHAthfL1dUNuPu+43kKlOoSCA=;
-	b=lSa2vC/O/WjeRNqusk/LC0MYIplbg5qC3MAhxbMhOnMV16oumMWe18CaBkM9HAzUk3ZCu8
-	LMRok14s8/1EaMDA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=XgB2y6ke;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=4SG3xVFp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785251117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DiMXoinYrfvkN7ssjGkHAthfL1dUNuPu+43kKlOoSCA=;
-	b=XgB2y6keZQf4qgkvRC+/VcrfZswfJg1L5OFDbY1F7k53D8CLDNXWr/R1y+9Y803yr5goYX
-	wUXJBL8cbWqeEb/HxJJAokfC71shO3ALLF6z4AUyV4jeJN98J/3qLUdQiUuER2UB7XGkme
-	+m5VqdVz5l5S1sqvNExW6FpFj5Rbm40=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785251117;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DiMXoinYrfvkN7ssjGkHAthfL1dUNuPu+43kKlOoSCA=;
-	b=4SG3xVFpmTNiIYcz4LlN3UgoAslWWmp1uCt8sLW8vZopssdnPGsr6NLabTbacCW8lsTfkU
-	uz4BJVVglSsq4IBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C7763779B3;
-	Tue, 28 Jul 2026 15:05:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id tv6tMCjFaGpFOQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 28 Jul 2026 15:05:12 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 73F09A10B6; Tue, 28 Jul 2026 17:05:04 +0200 (CEST)
-Date: Tue, 28 Jul 2026 17:05:04 +0200
-From: Jan Kara <jack@suse.cz>
-To: Baul Lee <baul.lee@xbow.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	jack@suse.com, federico.kirschbaum@xbow.com, stable@vger.kernel.org
-Subject: Re: [PATCH] udf: fix OOB read for a crafted unallocSpaceEntry
-Message-ID: <izuuku5bbo3vezh4iebahgvbh7l3wjbojjk2y3h7sbhj667pmo@vi7kfnshjm2k>
-References: <20260726062509.43738-1-baul.lee@xbow.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CoFCWSgF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB091F000E9;
+	Tue, 28 Jul 2026 15:08:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785251318;
+	bh=A01dsvmvPovSklIMIdap8aKveNfjd1QsKAFfuCGTiYs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CoFCWSgF/UJWb2ACHZXA1oTMsIpWIaBDrMDL55x6JlrKzIWbknzBPMRRb6dx5QP83
+	 DE4/Tr6A7wu/1JNFFrySHEeFC1BF5z01+VtDsZ6urwLclVyy+AamNDn/PWMv9/2Pga
+	 eOJFHRO4F6NQy9W/pubFLGGzXzc8lyE6otP2Z9CRbePlxvWwXBhkS8RsRSrPI4haAY
+	 7xSqpfIpdl4GuxjSUk/roknkFq7X8sx/9APKOQJ9lbLhFLY+kP2zIVe32n3mRtWx/9
+	 pmNjMJo7YZPZcJBcXw1gnraH+e5GEUiwANnwg8i20KaDjoJb+Kt+XV3X07bU9Hu6mp
+	 d/WESoZmJjvQQ==
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfauth.phl.internal (Postfix) with ESMTP id BE81DF40071;
+	Tue, 28 Jul 2026 11:08:36 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Tue, 28 Jul 2026 11:08:36 -0400
+X-ME-Sender: <xms:9MVoajoo4BBH3gOnmfRK0FFM92XU3sByOr9w1OG4jEc47WisOA6sSw>
+    <xme:9MVoagw_McjUFEZ8T37px6rLf630437EJy_kRgIkKpxYZiagh_1Gho5FVgtE2_gRJ
+    NE9-n5RTraNcFj21XyMovDV5f7ICSzTVwykfQuGof_G_q2cuwvRT-ki>
+X-ME-Received: <xmr:9MVoatox7SaRaCgUCG4USRsLnP4Z7AmT3lg91hzRYzCjPydsK90XGjG5ixWcLA>
+X-ME-Proxy-Cause: dmFkZTGnznuykIxwCjE96rgdIqIrtInVcRhsVSLqoLYVMWqLd1lwbp/cUtW0TdmzMkCMBq
+    EMa41Jzs4xu2zV6VfMrl8K2JJIWS9V7FeK+xSsLO966TEJtLBAoFITIyeGIYnCn9YkL4lJ
+    pbKQJ8J4qDpvqqcYDkqrt7+/G7tgjikyq+XhUX4Y1YkdPrTHtHFw0gtqXTIBDlTi6nZyr+
+    yroaHoGMEoNAwoceceiIS/sDNcQVOx2TXONSHiN894/1IVjiGTYjhWWdtU/AX7KmCqaHsU
+    loHlxxPat/68JghIk2kGOTx/0VE/ZyUwKyGNVGRABIH56t975hdWmaF1ZV595ak+GHhSsJ
+    vI/CrxU7XiRRjktFA4Dk05g3FGqbW6BOBXYuUk0mRDxmFrr5c/LS+ig8Ehw/lXrASiOAZ3
+    ULQvVKRO3VC082jCZR2dYCIdJkR1FBgwT1GQlPL45SXccuCHTEYlZ4WBYqanU5B+MagzUO
+    FQUDukLWU1m7bq6kMG96Se2CBlKnbumUSZDukaFlNku9basMD1bDJG6+xL0vLMS5Br2WTV
+    V2RvBwwZL9W2u0uQpFiG7KAGf2PlL5NsmQ4BmeB0f+srSBdUpf44aOhxyb+zOTCmJA9NXO
+    xAKKMFcLB0HlcJlt7jqSXUK6t9KP9bUC+wzwpu4EmDfV6ungfFy/KBDd0FLQ
+X-ME-Proxy: <xmx:9MVoareU4r3DoxnaDeBUFk1rv41cUUwdWW9liZg7hFvVxf_EKBkjjg>
+    <xmx:9MVoahjqpnCIXYgQ92a7x95HvYhek4-T660RWgkB0uKIXkZrWmYIhg>
+    <xmx:9MVoasIfDonbC770PmvAmmigdmgVMtpXjZDShVBgWHoRlGj5PzLjEQ>
+    <xmx:9MVoanmDlVivCUPG3KCGvfFKeG-9WWTN-GRZ0a6ZlvA0Zvdbwee0lw>
+    <xmx:9MVoagRG7P0c08ZPRUkGLfYjAtgEyt2h_x0owQry3GAhzv0Te36sanZb>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 28 Jul 2026 11:08:35 -0400 (EDT)
+Date: Tue, 28 Jul 2026 16:08:35 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Pankaj Raghav <p.raghav@samsung.com>, 
+	Hannes Reinecke <hare@suse.de>, Hugh Dickins <hughd@google.com>, Yang Shi <shy828301@gmail.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hengbin Zhang <uqbarz@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH mm-hotfixes 1/2] mm/huge_memory: separate out
+ CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic
+Message-ID: <amjD1MtOiXBRDxVi@thinkstation>
+References: <20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org>
+ <20260728-fix-refcounted-huge-zero-v1-1-3f261f5447b4@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,105 +78,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260726062509.43738-1-baul.lee@xbow.com>
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,xbow.com:email,suse.com:email];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RSPAMD_URIBL_FAIL(0.00)[suse.cz:query timed out];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: D4A493ED1
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+In-Reply-To: <20260728-fix-refcounted-huge-zero-v1-1-3f261f5447b4@kernel.org>
 
-On Sun 26-07-26 15:25:09, Baul Lee wrote:
-> udf_read_inode() sanity-checks the on-disk allocation-descriptor length
-> before it is used:
+On Tue, Jul 28, 2026 at 01:05:44PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Rather than mixing the refcounted and non-refcounted
+> CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic, separate the two out cleanly
+> so it is clear what happens when this configuration option is set and what
+> happens when it is not.
 > 
-> 	if (iinfo->i_lenEAttr > bs || iinfo->i_lenAlloc > bs)
-> 		goto out;
-> 	/* Now do exact checks */
-> 	if (udf_file_entry_alloc_offset(inode) + iinfo->i_lenAlloc > bs)
-> 		goto out;
+> Introduce HUGE_ZERO_UNSET_PFN to abstract the ~0UL assignment, only
+> introduce the refcount and shrinker if !CONFIG_PERSISTENT_HUGE_ZERO_FOLIO,
+> abstract initialisation and teardown, abstract the huge zero folio
+> allocation from refcounting.
 > 
-> but the TAG_IDENT_USE branch sets i_lenAlloc from the on-disk
-> lengthAllocDescs and returns before ever reaching them.  A USE inode
-> therefore keeps a completely unvalidated le32 there, while i_data is
-> allocated at only bs - sizeof(struct unallocSpaceEntry) bytes.
+> Also change a BUG_ON() to WARN_ON_ONCE() while we're at it.
 > 
-> udf_current_aext() computes, in its in-ICB branch,
+> Without this change, the subsequent fix for a subtle race is harder to
+> understand thus this is a dependency of it.
 > 
-> 	alen = udf_file_entry_alloc_offset(inode) + iinfo->i_lenAlloc;
-> 
-> with no clamp and passes alen to udf_get_fileshortad() as maxoffset.
-> That helper only checks (*offset + sizeof(struct short_ad)) > maxoffset,
-> so an inflated i_lenAlloc lets the walk step past the end of i_data and
-> dereference sa->extLength in adjacent slab memory.
-> 
-> A Type-1 partition whose unallocSpaceTable extent is non-zero loads the
-> USE table inode at mount and sets UDF_PART_FLAG_UNALLOC_TABLE.  An
-> unprivileged statfs(2) then reaches udf_count_free_table() ->
-> udf_next_aext() -> udf_current_aext(), and KASAN reports a
-> slab-out-of-bounds read just past the 472-byte i_data allocation.
-> 
-> Apply the same exact check on the USE path, before i_data is allocated
-> and walked.  ret is still -EIO there, so the offending inode fails to
-> load.
-> 
-> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-> 
-> Fixes: 23b133bdc452 ("udf: Check length of extended attributes and allocation descriptors")
-> Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
-> Reported-by: Baul Lee <baul.lee@xbow.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baul Lee <baul.lee@xbow.com>
-
-Thanks for the patch but commit b8228f59dc58 ("udf: bound lengthAllocDescs
-from unallocated space entry") in my tree should already handle this.
-
-								Honza
-
+> Cc: stable@vger.kernel.org # 6.18.x: dependency of subsequent fix
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
->  fs/udf/inode.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  mm/huge_memory.c | 159 ++++++++++++++++++++++++++++++++-----------------------
+>  1 file changed, 94 insertions(+), 65 deletions(-)
 > 
-> diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-> index c97914aa8d8b..8a0c9ea31a11 100644
-> --- a/fs/udf/inode.c
-> +++ b/fs/udf/inode.c
-> @@ -1475,6 +1475,8 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
->  		iinfo->i_lenAlloc = le32_to_cpu(
->  				((struct unallocSpaceEntry *)bh->b_data)->
->  				 lengthAllocDescs);
-> +		if (udf_file_entry_alloc_offset(inode) + iinfo->i_lenAlloc > bs)
-> +			goto out;
->  		ret = udf_alloc_i_data(inode, bs -
->  					sizeof(struct unallocSpaceEntry));
->  		if (ret)
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 032702a4637b..0f60bc82e87a 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -77,9 +77,14 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+>  					 struct shrink_control *sc);
+>  static bool split_underused_thp = true;
+>  
+> -static atomic_t huge_zero_refcount;
+> +#define HUGE_ZERO_UNSET_PFN (~0UL)
+>  struct folio *huge_zero_folio __read_mostly;
+> -unsigned long huge_zero_pfn __read_mostly = ~0UL;
+> +unsigned long huge_zero_pfn __read_mostly = HUGE_ZERO_UNSET_PFN;
+> +#ifndef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
+> +static atomic_t huge_zero_refcount;
+> +static struct shrinker *huge_zero_folio_shrinker;
+> +#endif
+> +
+>  unsigned long huge_anon_orders_always __read_mostly;
+>  unsigned long huge_anon_orders_madvise __read_mostly;
+>  unsigned long huge_anon_orders_inherit __read_mostly;
+> @@ -221,22 +226,58 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>  	return orders;
+>  }
+>  
+> -static bool get_huge_zero_folio(void)
+> +static struct folio *alloc_huge_zero_folio(void)
+>  {
+>  	struct folio *zero_folio;
+> -retry:
+> -	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
+> -		return true;
+>  
+>  	zero_folio = folio_alloc((GFP_TRANSHUGE | __GFP_ZERO | __GFP_ZEROTAGS) &
+>  				 ~__GFP_MOVABLE,
+>  			HPAGE_PMD_ORDER);
+>  	if (!zero_folio) {
+>  		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
+> -		return false;
+> +		return NULL;
+> +	}
+> +	folio_clear_large_rmappable(zero_folio); /* Explicitly not rmappable. */
+> +	return zero_folio;
+> +}
+> +
+> +#ifdef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
+> +static int __init huge_zero_init(void)
+> +{
+> +	huge_zero_folio = alloc_huge_zero_folio();
+> +	if (!huge_zero_folio) {
+> +		pr_warn("Allocating persistent huge zero folio failed\n");
+
+I am not sure the warn is enough. mm_get_huge_zero_folio() will produce
+NULL pointer now without any attempts to allocate again.
+
+Have you considered moving huge_zero_folio to BSS for
+CONFIG_PERSISTENT_HUGE_ZERO_FOLIO=y?
+
+> @@ -308,7 +323,46 @@ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
+>  	return 0;
+>  }
+>  
+> -static struct shrinker *huge_zero_folio_shrinker;
+> +static int __init huge_zero_init(void)
+> +{
+> +	huge_zero_folio_shrinker = shrinker_alloc(0, "thp-zero");
+> +	if (!huge_zero_folio_shrinker) {
+> +		shrinker_free(deferred_split_shrinker);
+> +		list_lru_destroy(&deferred_split_lru);
+
+Hm. What? Why does huge_zero_init() touches deferred_*?
+That's caller business.
+
+>  static void __init thp_shrinker_exit(void)
+>  {
+> -	shrinker_free(huge_zero_folio_shrinker);
+>  	shrinker_free(deferred_split_shrinker);
+>  	list_lru_destroy(&deferred_split_lru);
+> +	huge_zero_shrinker_exit();
+
+Any reason behind the reorder?
+
+>  }
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+  Kiryl Shutsemau / Kirill A. Shutemov
