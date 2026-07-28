@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AB53B19DE
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998333B19DE
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:43:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785253413; cv=none; b=lLko0S4U8gc8MR9UMasTwbsZRR3yxTZvwhb0XsnTskrwfX1tom6qq8cPAFhKDzAhWCT59kYGUlYkaGXm35TSFU2kEnIAuYFa4SBOzEigB431YJzKRbiZm1wqtVzdfKAozgM30bsQDRyohGU4Jwp2lOV1HAS2+zmhgS/O99IJxXM=
+	t=1785253423; cv=none; b=TycePLyu9oDk2yDhUzslS4wNToiJ6NGH1zRENk+gI76pzaJuy5jS03LUYqOKvIlPvbGa4ko5te7ffLdiqvgka6VE+sGOzHuTWwY6OaliFy+oB4mTJ/V7wEHvri9AZWV0kHZ37JwDvjn6l7kw0JL3MtQpeW6/ZiB73Wb6WlY/58c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785253413; c=relaxed/simple;
-	bh=LylyFAlHSGBQn5uXkZ4ZbZWNSyG5Km3ZSDXpJQ/4I4o=;
+	s=arc-20240116; t=1785253423; c=relaxed/simple;
+	bh=W/mBxSG15ETKgXpBAMGW0xDEaozGO1kzb1T9IrZf+4k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sA8/LDlFaWjBkcBjHeUzuekDJ+LRg7CAW0ikIbFKEWn2pMPTfb++jAD1/Ep5mxhnBzxBCbrrW4X7rzm484B4yPN/sdS98+vKA7F3JWNAc4ArV0ZHaMNRx2ydMJ5wSSwslEYQLvBDmTcV41/419P/m0wt4jaLdkWLj7vb58sDHJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4QNfHaK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JZHnlj+a0BUuDIrgARJ9hO6NdHPz0LlJ2T+EW/oteiFSWnnvNPMoudce9zjiS+zW+ujtAhDk6kFhJs/tF2M8toFp0OHHjKlZEgptsAyjn4kcaOCAF+dSLWuf0g0+s1ivncV4cVvD16NFIqrH326Y6EQBfkpCyayS0lTySZfoUfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGl8s1sW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4QNfHaK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587121F000E9;
-	Tue, 28 Jul 2026 15:43:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGl8s1sW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFC071F000E9;
+	Tue, 28 Jul 2026 15:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785253412;
-	bh=BNvAV33II6brkJ5jEhfuI7cLG6aVh6sx7ieUY8uTw60=;
+	s=k20260515; t=1785253422;
+	bh=tWaAkymaFXazeaSHLxKqY4hy4dLxA2kQ51lwVswxr2M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A4QNfHaKLwx/GazwEhg/WRg1au1mEOvdOTkBhEY350kGsOPWWW0vfU7d/rIUkUXYo
-	 EtmrJoiY1XvrLXsQuUSXnl0EIYp9gbDpBTESh5YPmC98N/buPfYCF+iXUt+k0vCxPX
-	 fGqRI1CCD3ezq9YoavcCg9MWzEWwtXthgIltcbcKGR2YYgdBDn3SLoJoNhUFmcmxmq
-	 btQ7Eh8REKV1g3pTe21ojn6FYAoBlhN9wnRSahlhfjf/R48QFEjqrwUPp5f4LQnaU7
-	 bYIqtqPrbdVBnsdbwnOyi/0yoCfVbbbWSt1UiVwd6CQJMkDUTrapfJtlko/NWSiInn
-	 /PxEpTWZPkXOg==
+	b=VGl8s1sWSNIJPnjTUP8EOgBsEajhPPQulhgXwv3DpO61e+y29y8yNbYhybP/XcHhQ
+	 ncspgQOsiolGcbpEiMRXbfOmeuudsr5PCV425SW0cnG0384+D5caj7b9XDh+xeeVyV
+	 3ub3GKTuU8EdmcWhPq3ZpAjj+wzoBuUEIQfpqOBZt1Fw3r0gVvAQiPxksylFi6I2Yp
+	 BeZcrUIk/CQfCEoAyddrJk6vieG0UtX9QdqjpcXpTjGIwuoPy0b/mdilxbjxltaV5s
+	 wN+jx3CosCD5clsnwxXCEGrxZjXkGwSTAPPTb3k2BGYqqBH+bUrK3mLAbK6oVJGQZJ
+	 Dj+KAxKySRi5w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
-	Xiao Liang <shaw.leon@gmail.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
+Cc: Junrui Luo <moonafterrain@outlook.com>,
+	Yuhao Jiang <danisjiang@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: ip6_tunnel: require CAP_NET_ADMIN in the device netns for changelink
-Date: Tue, 28 Jul 2026 11:43:29 -0400
-Message-ID: <20260728154329.4192359-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] octeontx2-af: cn10k: restrict VF LMTLINE sharing to its own PF
+Date: Tue, 28 Jul 2026 11:43:39 -0400
+Message-ID: <20260728154339.4192777-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072024-alkalize-reliably-1c7e@gregkh>
-References: <2026072024-alkalize-reliably-1c7e@gregkh>
+In-Reply-To: <2026072017-lullaby-pancake-44fb@gregkh>
+References: <2026072017-lullaby-pancake-44fb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,47 +46,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Maoyi Xie <maoyixie.tju@gmail.com>
+From: Junrui Luo <moonafterrain@outlook.com>
 
-[ Upstream commit 2496fa0b7d180b3ad356b514e7ff93bb14e6140a ]
+[ Upstream commit 8cdcf3d2caacdee7ddd363705fb4d93b0c1a0915 ]
 
-ip6_tnl_changelink() operates on at most two netns, dev_net(dev) and the
-tunnel link netns t->net. They differ once the device is created in or
-moved to a netns other than the one the request runs in. The rtnl
-changelink path checks CAP_NET_ADMIN only against dev_net(dev), so a
-caller privileged there but not in t->net can rewrite a tunnel that
-lives in t->net.
+rvu_mbox_handler_lmtst_tbl_setup() uses req->base_pcifunc as a direct
+index into the LMT map table to read another function's LMTLINE
+physical base address and copy it into the caller's own LMT map table
+entry. The mailbox dispatcher authenticates req->hdr.pcifunc from the
+IRQ source, but req->base_pcifunc is a separate payload field and is
+not sanitized.
 
-Gate ip6_tnl_changelink() on rtnl_dev_link_net_capable() at its top,
-before any attribute is parsed.
+Reject the request with -EPERM when a VF caller's base_pcifunc is not a
+valid function under its own PF. is_pf_func_valid() bounds the FUNC field
+to the PF's configured VF count, keeping the computed index inside the
+caller's own slot block.
 
-Reported-by: Xiao Liang <shaw.leon@gmail.com>
-Closes: https://lore.kernel.org/netdev/CABAhCOSzP1vaThGV35_VnsRCb=87_CPjPVsTHbq905k8A+BuUg@mail.gmail.com/
-Fixes: 0bd8762824e7 ("ip6tnl: add x-netns support")
+Fixes: 893ae97214c3 ("octeontx2-af: cn10k: Support configurable LMTST regions")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260612085941.3158249-5-maoyixie.tju@gmail.com
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Link: https://patch.msgid.link/SYBPR01MB78811656934E713B77DA6CEDAFE62@SYBPR01MB7881.ausprd01.prod.outlook.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Dropped `rvu->pdev` argument from `rvu_get_pf()` calls and folded in the `is_pf_func_valid()` de-static plus its `rvu.h` declaration from commit 2156a29aecff. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/ip6_tunnel.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.c       | 2 +-
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.h       | 1 +
+ drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c | 9 +++++++++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
-index dda90c77f89840..f323bb514ba4fc 100644
---- a/net/ipv6/ip6_tunnel.c
-+++ b/net/ipv6/ip6_tunnel.c
-@@ -2113,6 +2113,9 @@ static int ip6_tnl_changelink(struct net_device *dev, struct nlattr *tb[],
- 	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
- 	struct ip_tunnel_encap ipencap;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+index df662d07a5e9c7..2ff9974a47ed7f 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+@@ -440,7 +440,7 @@ struct rvu_pfvf *rvu_get_pfvf(struct rvu *rvu, int pcifunc)
+ 		return &rvu->pf[rvu_get_pf(pcifunc)];
+ }
  
-+	if (!rtnl_dev_link_net_capable(dev, net))
-+		return -EPERM;
+-static bool is_pf_func_valid(struct rvu *rvu, u16 pcifunc)
++bool is_pf_func_valid(struct rvu *rvu, u16 pcifunc)
+ {
+ 	int pf, vf, nvfs;
+ 	u64 cfg;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
+index 77a03e29a77116..34b2a16e88446b 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
+@@ -825,6 +825,7 @@ int rvu_get_pf(u16 pcifunc);
+ struct rvu_pfvf *rvu_get_pfvf(struct rvu *rvu, int pcifunc);
+ void rvu_get_pf_numvfs(struct rvu *rvu, int pf, int *numvfs, int *hwvf);
+ bool is_block_implemented(struct rvu_hwinfo *hw, int blkaddr);
++bool is_pf_func_valid(struct rvu *rvu, u16 pcifunc);
+ bool is_pffunc_map_valid(struct rvu *rvu, u16 pcifunc, int blktype);
+ int rvu_get_lf(struct rvu *rvu, struct rvu_block *block, u16 pcifunc, u16 slot);
+ int rvu_lf_reset(struct rvu *rvu, struct rvu_block *block, int lf);
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
+index 4a3370a40dd887..eee467c5bc89ce 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
+@@ -178,6 +178,15 @@ int rvu_mbox_handler_lmtst_tbl_setup(struct rvu *rvu,
+ 	 * pcifunc (will be the one who is calling this mailbox).
+ 	 */
+ 	if (req->base_pcifunc) {
++		/* A VF is untrusted and must not redirect its LMTLINE to
++		 * another PF's region, so confine VF callers to their own PF.
++		 */
++		if (is_vf(req->hdr.pcifunc) &&
++		    (!is_pf_func_valid(rvu, req->base_pcifunc) ||
++		     rvu_get_pf(req->hdr.pcifunc) !=
++		     rvu_get_pf(req->base_pcifunc)))
++			return -EPERM;
 +
- 	if (dev == ip6n->fb_tnl_dev)
- 		return -EINVAL;
- 
+ 		/* Calculating the LMT table index equivalent to primary
+ 		 * pcifunc.
+ 		 */
 -- 
 2.53.0
 
