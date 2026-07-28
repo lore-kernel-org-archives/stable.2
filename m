@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA45B3A8738
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F13833D4F8
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:07:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262012; cv=none; b=RZG8rJhYL9DIvAnshbWNog3kLBjqXulhqrQyVpAJ7K2vLYnRmoa6ItaZ2ekUxReKD0Q6f6dy8xt/hqtVL3EzmhmXO8TiuvITh2UdKCY+jW+R/ExMGDzWl181rxw/1F3v8bqzQinlwoiC4gt5G1/k29lgC6IreVokt0xlwqpTgzs=
+	t=1785262036; cv=none; b=oGj9N5xPM9h1FEr+kO1GNt9XHpy+cooKm1WHNrnF1UBna+LZqLLGcKx0gCpA4WeDiX17ksgZrXsXoJV8Jq4DuUE86unS3GUqtK1remxhlxvcmG2q/Z8PdJcZja0f6bUWeoFeEjNGf6lnzKR5U25yoIVP+TcXVCiSSU3U0q7YexI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262012; c=relaxed/simple;
-	bh=QkvlbVntjtkS0WaT9tjsQ4wBrvlsccxO2eE7GNTeKaE=;
+	s=arc-20240116; t=1785262036; c=relaxed/simple;
+	bh=tevHsckvkNw962WbEXR009cJzTdy8ZvSU5+IxodLd9U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JC8pM3Q8udW5HeidLqZjOTcmGRcg+Kyx7LKpqE+Ms9PkbREcO+w2A5A17Zr/ZmBEKskcGZxzSyCVD/MvtoPhYfGA09jdZprN3H+J7MHftyAzcjdN2/4eC+XSYErSnCIt6I1LE3h2ns2sR0Q2cSawL9w6g06DFotC91hviU14hOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oy3YqNLv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=utOun27O0kQDrwwzsJg3hCeEskgGqAPoavPaUEYSdE+qsnr5D47ka5TPCAJYgUHSfye0gG8NkbSXGYJzPlawBPYJmeLHC72noqlE7sGNf0cheD73ka/WpZL7AQJayAMuNm+WFUqZ9UPgCoLv+Kvw+uxd94ZnmPAw0cCYO7L8Yxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9P9TZLs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oy3YqNLv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5404C1F00A3D;
-	Tue, 28 Jul 2026 18:06:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9P9TZLs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62AAE1F000E9;
+	Tue, 28 Jul 2026 18:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785262006;
-	bh=DdEkWZA/CIrEj86vpNZIuQRfiHSAMZzKEqEfAPx7o1Q=;
+	s=k20260515; t=1785262034;
+	bh=0qtUr+1RGAITd54o0ZsrzCgc8X4p4HcX9Tcu/+8wsZk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oy3YqNLvYoiviT19jKIMFNzIzWQhZcOWpuGoa+2bcF3Ijsp4XRJuyK/TF7B3o2SJT
-	 CdtgtRlsDbYSbv+fHVZM6Bd0NL7eA8e6Qds3Ex4jsrIPBdDG7NiwnYVUaQ4KdJDEkZ
-	 oj3erTj+GaPxSDPGsWaWv3d0fbfhpBTr9qciM5X5CdhGQSP9bFL2sLf+/nFoyl0GDa
-	 ljoRNdIuNHD0QeWUXhj3lNh9EjQJh2ebu88GJXASp6m5floOzs/aM+cjPBhSyhaYc8
-	 tLHqW8COAZQosBrdYq1jX/JgiRbTZln5oHJ4R37WVLizm6I+luvVXw/fXuMajqaKOu
-	 aUi/mM6QETjeA==
+	b=k9P9TZLsThRUnBb+a5d8EcRga4hlQklgRyadRQd3PD1liWaot2jB/TZNKEVvGhcMD
+	 UZo+RprDplKSFnBG1zp4y9htR45fu57D82c+KszUt+9iQKH9N49LFKDKVxYww/xzxJ
+	 Kyx5Y34Y33ZS3Sb9wb/eibTWayqWIzJKZAqtA9hoiC6FHWMukKG32WXBiGXpC5D7Ru
+	 Wj18PjRKeUZJg7zJC6hi+FF+Uc/jLyHHxUS/84ixakydnEx4kBDMLqZdIvypN/llT/
+	 aJXSxwRSoBRaXHSCpTBPMTu3CLuBzL4AgY80nMbwSqgGBH4fx2VmKuiT7cTUydLHKf
+	 2KFZchLNk6t8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] bootconfig: fix NULL-pointer arithmetic in xbc_snprint_cmdline()
-Date: Tue, 28 Jul 2026 14:06:43 -0400
-Message-ID: <20260728180643.289803-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y] net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked
+Date: Tue, 28 Jul 2026 14:07:11 -0400
+Message-ID: <20260728180711.291113-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728180643.289803-1-sashal@kernel.org>
-References: <2026072112-copied-earthy-db88@gregkh>
- <20260728180643.289803-1-sashal@kernel.org>
+In-Reply-To: <2026072145-tank-retrain-5dd2@gregkh>
+References: <2026072145-tank-retrain-5dd2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,95 +48,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit dec4d8118c179b3d12bca7e609054c6011c4f2ce ]
+[ Upstream commit e056e1dfcddca877dd46d704e8ec9860cfc9ec44 ]
 
-xbc_snprint_cmdline() is meant to be called twice: first with
-buf=NULL, size=0 to probe the rendered length, then with a real
-buffer to fill it (the standard snprintf() two-pass pattern). The
-probe call makes the function compute "buf + size" (NULL + 0) and,
-on every iteration, advance "buf += ret" from that NULL base and
-pass the result back into snprintf().
+When taprio's software path peeks a non-work-conserving child qdisc, the
+child stashes the peeked skb in its gso_skb; taprio_dequeue_from_txq()
+then takes the packet with a direct child ->dequeue() call, which ignores
+that stash, orphans the peeked skb and desyncs the child's qlen/backlog.
+With a qfq child this re-enters the child on an emptied list and
+dereferences NULL, panicking the kernel from softirq on ordinary egress.
 
-Pointer arithmetic on a NULL pointer is undefined behavior. It is
-harmless in the in-kernel callers today, but the follow-up patches
-run this same code in the userspace tools/bootconfig parser at kernel
-build time, where host UBSan / FORTIFY_SOURCE abort the build.
+Take the packet through qdisc_dequeue_peeked(), as sch_red and sch_sfb
+now do. The helper returns the child's stashed skb first and is a no-op
+when there is none, so a work-conserving child is unaffected and the
+gated path now consumes the skb whose length was charged to the budget.
 
-Track a running written length (size_t) instead of mutating @buf, and
-only form "buf + len" when @buf is non-NULL. snprintf(NULL, 0, ...)
-is itself well defined and returns the would-be length, so the
-two-pass "probe then fill" usage returns identical byte counts.
-
-Link: https://lore.kernel.org/all/20260626-bootconfig_using_tools-v7-1-24ab72139c29@debian.org/
-
-Fixes: 51887d03aca1 ("bootconfig: init: Allow admin to use bootconfig for kernel command line")
+Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Link: https://patch.msgid.link/20260625-b4-disp-31bcb279-v1-1-85c40b83c529@proton.me
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ applied the peek/dequeue conversion to both `child->ops->dequeue(child)` call sites, since 6.1 lacks the upstream cleanup that merged them into one ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/bootconfig.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ net/sched/sch_taprio.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index 684464fe44d681..95ce04eb6bf122 100644
---- a/lib/bootconfig.c
-+++ b/lib/bootconfig.c
-@@ -426,10 +426,18 @@ static char xbc_namebuf[XBC_KEYLEN_MAX] __initdata;
- int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- {
- 	struct xbc_node *knode, *vnode;
--	char *end = buf + size;
- 	const char *val, *q;
-+	size_t len = 0;
- 	int ret;
+diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
+index 8da723f054f564..ea9c7aaf0885c4 100644
+--- a/net/sched/sch_taprio.c
++++ b/net/sched/sch_taprio.c
+@@ -568,7 +568,7 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
+ 		return NULL;
  
-+	/*
-+	 * Track the running written length rather than advancing @buf, so we
-+	 * never form "buf + size" or "buf += ret" while @buf is NULL (the
-+	 * size-probe call passes buf=NULL, size=0). NULL pointer arithmetic
-+	 * is undefined behavior and trips host UBSan / FORTIFY_SOURCE when
-+	 * this renderer runs at kernel build time. snprintf(NULL, 0, ...)
-+	 * itself is well defined and returns the would-be length.
-+	 */
- 	xbc_node_for_each_key_value(root, knode, val) {
- 		ret = xbc_node_compose_key_after(root, knode,
- 					xbc_namebuf, XBC_KEYLEN_MAX);
-@@ -438,10 +446,11 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
+ 	if (TXTIME_ASSIST_IS_ENABLED(q->flags)) {
+-		skb = child->ops->dequeue(child);
++		skb = qdisc_dequeue_peeked(child);
+ 		if (!skb)
+ 			return NULL;
+ 		goto skb_found;
+@@ -599,7 +599,7 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
+ 	    atomic_sub_return(len, &entry->budget) < 0)
+ 		return NULL;
  
- 		vnode = xbc_node_get_child(knode);
- 		if (!vnode) {
--			ret = snprintf(buf, rest(buf, end), "%s ", xbc_namebuf);
-+			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
-+				       "%s ", xbc_namebuf);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
- 			continue;
- 		}
- 		xbc_array_for_each_value(vnode, val) {
-@@ -451,15 +460,15 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- 			 * whitespace.
- 			 */
- 			q = strpbrk(val, " \t\r\n") ? "\"" : "";
--			ret = snprintf(buf, rest(buf, end), "%s=%s%s%s ",
--				       xbc_namebuf, q, val, q);
-+			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
-+				       "%s=%s%s%s ", xbc_namebuf, q, val, q);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
- 		}
- 	}
- 
--	return buf - (end - size);
-+	return len;
- }
- #undef rest
+-	skb = child->ops->dequeue(child);
++	skb = qdisc_dequeue_peeked(child);
+ 	if (unlikely(!skb))
+ 		return NULL;
  
 -- 
 2.53.0
