@@ -1,121 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4CD21ADC7;
-	Tue, 28 Jul 2026 00:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44841A6811
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 00:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785199429; cv=none; b=XD3NV+1Nr3yGrvbn0MMyQC3yUuMEjXVcQTa57umHTSNmlmzRDkjOXjP8xQST7ZVzrYUAdZtsWEPmxylONdrU45xPrl2VSCg1Pntt2ZZ3Szs8qYgNyhhE+cVVeg+vkzOfJj2HSt/CwbQMckqShHV6q/gFrnqar2nkSorIcw+MfqA=
+	t=1785199921; cv=none; b=Jnwi4UYKTkQElDeL+D1ZM/xTWqwIIsNRBa4ydPN77hyR+faFU6xqTz8p4kh93uuesl1tiuuvqTag7VHWMG/4jb+gBrfIlrtjQaZsjM6/xe6BtwEB0EIdRa3ySNU7w/KTyHevuLATg76M6E5KMJ+qCxlyR4RvS9tWhctD45yhwpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785199429; c=relaxed/simple;
-	bh=hwzHgxwHOKRimsefqt8Th5Qzv2LGBq5WYE7oggDB7nY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=djgW54hylUAsoBR18pnD4vJ4y/3jyJDuARmV+UIzQ389lWSU/6UJH8mxkILhEguSlU4puLQZu7BMxjgCr8lN2+DrVQh+VVx+bhBoki6gmV/Y5hpwGtgQkuGQaTz+2xGN4ZRcpewj86kjTkGAJlvmZ4OjgRtQKRIUkRm3qMXsv5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+57+ED0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785199921; c=relaxed/simple;
+	bh=Z5GRTOSO0S9G9u7VZF3YwLNRY4a8OnVa7f57JM8Jl3E=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Bc+kRma9EOJ6i1Sasxm8Whn+jHF+fqgtiHjn3Vw3aaWSng2NiRyKfXpQs7AsY8jEXCcGngjjsvY7S08G24vFoFY8bVzHoZnaT+WvRP3PtR9Tft79pDFUZOzXWV4X3+G02gMoC5bDN1CULLdW+/j6sljvecGJYTMDh0aJ0uW69Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=izMqkOr5; arc=none smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+57+ED0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420731F000E9;
-	Tue, 28 Jul 2026 00:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785199428;
-	bh=Uk7OmKiMhC1mx5A3/dYJfnmOAT1p2fQOyeGU7qPTNhE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g+57+ED0QgmFjx3KpkVTOuIyLCRmQu4TpDzax+1f0HjW69RScubVRYqO1t01Msg+i
-	 sIUyFkTdYvTmECre0s/Di9Z4cLe8Ni7YJwMUFbQ1szK8cbv568d81Iak3qoUXhOvP7
-	 0RiN1g1/FmRf3K6tmklZa5uZnZxQG78zujxdWiMnDUL+Vaj72YVLs0vaDS3Bji2sm5
-	 j8K+N/1csWbXdww61WXz9QFmtpydAF+9Kk6/TZ1LYCgal+RYQARfzUe9I74JwcaVin
-	 OFZ6j14Lje00ZOeO6f35bRFSle4IGa1jDCA2F4+2sw0uLA1njJVScTBAT24zxNqM+K
-	 6dS5H5j4SZfEg==
-Date: Tue, 28 Jul 2026 00:43:46 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Jim Mattson <jmattson@google.com>, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2] KVM: nVMX: Service local TLB flushes on failed nested
- VM-Enter
-Message-ID: <amf7CA4q33qoIx25@google.com>
-References: <20260722230128.1587363-1-yosry@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="izMqkOr5"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b013084dc2so2497553e87.0
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 17:51:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785199917; x=1785804717; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YyiWxM0l+pV+N+P60T/IcxD0yZfdk4dsxpPoSCJ6HvA=;
+        b=izMqkOr5JFmy/U1v9D9OCEyK+91238U8oTepcOD0103u9VQqrDl4zdDFZCbDKsu5of
+         a4M0bNkVRNws/F3rVejHqxHHvwtox4fcxDMOd9LZzUMtIv8JpxkZ44vY253xIeHqO+yY
+         ovxH4lgLNPX+GqVu1y0pH0orLx9A/Li9PdJElxUm2ryWLVgrB+xXtEZyqrGLs0QW53Kt
+         C+OzDFUm+KgVqhTlSkc/0y/W/6iUkQFA+Haeb6UjoUk1WkZs9oXrtvUBQfxPRRh7Vk08
+         JoRGPyM1XEfrEoS43COSVUtuDGwR8bEQDDnEwnvBsc58pDzh1wBKH3YtLy8YnVKrDPyh
+         srUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785199917; x=1785804717;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YyiWxM0l+pV+N+P60T/IcxD0yZfdk4dsxpPoSCJ6HvA=;
+        b=piYwdkrun2nqLxI628qRqcSlEgFUPUjSKCbiS4XkKiMvkm6A67gZqykfxL/MuWrh/J
+         FUbfLPIPjUXE/hWpWLCcuw3YkbztUyR5Ep3ymIKRg3h13d0IfCAQ/Gl50CqGU9JXCpF6
+         RwE39g7smTHRsnZDQc/8TewfVgr9gjrpu01FSVgd8yrL63GGio1rP6HBZMgxyQeCyIlD
+         xlDVrRliZWLUeZhaPGUqQKP1vd8AL4n5q8KHt1GRFGoECGUpA23VUaRhymGj9qqFJAlp
+         41wXQLC0/RzpXYjM553RTFYdF633qI+8kSyKwdqQMKmnBUTt491Zjr95oqEvUkhf698x
+         IV/w==
+X-Forwarded-Encrypted: i=1; AHgh+RpsN+5S+EjZnVmzMBfUDIppFl5aneQ9xBhHD+gEW3bqZ174UrL0ZgirecS39gUGNtEpFOwlIc4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwG9GmQxZ8SEla0Xd7ij/hFtaydS/twfR7yHtiH9n2/50n/o4tj
+	DS0cNDe0tVT0HlJoEc+KLEJz05YakhnpW6RvGm6LZuAGofOgNVMmHDCD
+X-Gm-Gg: AR+sD10zWWbxowUCJ/E8gL5h5Fo3iR6Oy/a//b7VCPkjj+3qBmqIb5qhw788V3dc32T
+	okhQbgoU0fP9hkTJ8Qikt578ESe/S5lHzKh9eqa3GNIQJMycrGybQ9Vge0LCTPP7lwiYLmXwMv5
+	jQoRMQBPS5jdTxaMASH9AgKf1gFMRGO/rEFDOfFgI5Q4JkR4giJgtNu09Q6hZtPg0B3gsMsJwwW
+	0gOWeAXcHNhtt0olrVMeJf/iY3rqj5KAjVSu3Cwr0h5HgB266Hq+ObTBRtlOcTAbHzAJl1Ft+kv
+	bsLcz+NuGUCFj0pE59zUpwp/U/qTMmnxLObM8siZMjYHOPi39Sn5ZIWDx9M82WqfPhzYhp2zSfp
+	g8r0MgdLfG36GaEY/Bp1LWS+7Ee+DWa/vbTX56O5gt2kINB2UU9Dv5TP81bPLFSdiHR85HwlrCn
+	FrtiwxCoxjmoLHQ02/5S/0
+X-Received: by 2002:a05:6512:3407:b0:5b0:197b:9811 with SMTP id 2adb3069b0e04-5b2d023bef9mr31905e87.53.1785199916589;
+        Mon, 27 Jul 2026 17:51:56 -0700 (PDT)
+Received: from primary-ws.local ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be077c14sm1758822e87.1.2026.07.27.17.51.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 17:51:55 -0700 (PDT)
+Message-ID: <ef1bc3d070c4156f1811c0c4a567ec98ac8fadaf.camel@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
+ PREEMPT_RT
+From: "mikhail.v.gavrilov@gmail.com" <mikhail.v.gavrilov@gmail.com>
+To: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org
+Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	amd-gfx@lists.freedesktop.org, "# = v7 . 1" <stable@vger.kernel.org>, Alex
+ Deucher <alexander.deucher@amd.com>, Rafal Ostrowski
+ <rafal.ostrowski@amd.com>, Mario Limonciello	 <mario.limonciello@amd.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,  Thomas Gleixner
+ <tglx@linutronix.de>
+Date: Tue, 28 Jul 2026 05:51:53 +0500
+In-Reply-To: <20260727105059.75716-1-spasswolf@web.de>
+References: <20260727105059.75716-1-spasswolf@web.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.61.1 (3.61.1-3.fc45) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722230128.1587363-1-yosry@kernel.org>
 
-On Wed, Jul 22, 2026 at 11:01:28PM +0000, Yosry Ahmed wrote:
-> KVM services local TLB flushes on "full" nested VM-Exits (through
-> __nested_vmx_vmexit()), but not if a nested VM-Enter fails (e.g. due to
-> failed VMCS checks in nested_vmx_enter_non_root_mode()).
-> 
-> However, it is possible that KVM had queued TLB flushes that need to be
-> performed, even if the nested VM-Enter was not successful. For example,
-> if VPID is disabled for L2 (via nested_vmx_transition_tlb_flush(), or if
-> via the MSR load lists, as the SDM says:
-> 
->   If any MSR is being loaded in such a way that would architecturally
->   require a TLB flush, the TLBs are updated so that, after VM entry, the
->   logical processor will not use any translations that were cached before
->   the transition.
-> 
-> The SDM is unclear about when the TLB flush should occur, and whether or
-> not a failed VM entry would flush the TLB, so it is safer to always
-> do the TLB flush in this case.
-> 
-> More concretely, KVM also updates the last VPID L1 used for L2 in
-> nested_vmx_transition_tlb_flush() (i.e. last_vpid), even if the VM entry
-> ultimately fails. With the current code, KVM could miss a TLB flush if
-> L1 changes L2's VPID, then does a failed VM entry followed by a
-> successful one, as the failed VM entry would update last_vpid but not
-> actually flush the TLB. Servicing local TLB flushes on failed VM entries
-> makes sure that the TLB is always flushed when last_vpid is updated.
-> 
-> Fixes: 5c614b3583e7 ("KVM: nVMX: nested VPID emulation")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org> # Internal review
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+On Mon, 2026-07-27 at 12:50 +0200, Bert Karwatzki wrote:
+> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+> converted to rt_mutex. dc_create_plane_state() can be called while
+> inside an FPU-guarded region, resuling in "scheduling while atomic"
+> errors on PREEMPT_RT kernels.
+> =C2=A0Fix this by calling kvzalloc_obj() with
+> DC_RUN_WITH_PREEMPTION_ENABLED().
+> Also fix the error path in dc_create_stream_for_sink().
+>=20
+> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC
+> - Part 1")
+> Link:
+> https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
+>=20
+> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
 > ---
+> =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_stream.c=C2=A0 | 5 +++--
+> =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 4 ++--
+> =C2=A02 files changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> index dbc12640b01c..4ac835777b58 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> @@ -233,8 +233,9 @@ struct dc_stream_state
+> *dc_create_stream_for_sink(
+> =C2=A0
+> =C2=A0fail:
+> =C2=A0	if (stream) {
+> -		kfree(stream->update_scratch);
+> -		kfree(stream);
+> +		if (stream->update_scratch)
+> +			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream-
+> >update_scratch));
+> +		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	return NULL;
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> index 88e825a6582c..d5c6427796b6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> @@ -85,8 +85,8 @@ uint8_t=C2=A0 dc_plane_get_pipe_mask(struct dc_state
+> *dc_state, const struct dc_plane
+> =C2=A0
+> *********************************************************************
+> *********/
+> =C2=A0struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+> =C2=A0{
+> -	struct dc_plane_state *plane_state =3D
+> kvzalloc_obj(*plane_state,
+> -							=C2=A0
+> GFP_ATOMIC);
+> +	struct dc_plane_state *plane_state;
+> +	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D
+> kvzalloc_obj(*plane_state, GFP_ATOMIC));
+> =C2=A0
+> =C2=A0	if (NULL =3D=3D plane_state)
+> =C2=A0		return NULL;
 
-For the record, my reproducer was basically the nested TLB flushes
-selftest introduced here:
-https://lore.kernel.org/kvm/20260728003557.1136583-29-yosry@kernel.org/
+Hi Bert,
 
-With this diff on top:
+You may not be aware that the same allocation is already wrapped once,
+at the dcn32 call site:
 
-diff --git a/tools/testing/selftests/kvm/x86/nested_tlb_flush_test.c b/tools/testing/selftests/kvm/x86/nested_tlb_flush_test.c
-index 55c9909bb085f..1659dd9c0044a 100644
---- a/tools/testing/selftests/kvm/x86/nested_tlb_flush_test.c
-+++ b/tools/testing/selftests/kvm/x86/nested_tlb_flush_test.c
-@@ -123,8 +123,26 @@ static void run_l2(void *nested_state, bool launch)
-                vmx_tlb_flush(nested_state);
-                if (launch)
-                        GUEST_ASSERT(!vmlaunch());
--               else
--                       GUEST_ASSERT(!vmresume());
-+               else {
-+                       struct vmx_pages *vmx = nested_state;
-+                       struct vmx_msr_entry *entry = vmx->msr;
-+
-+                       /* Inject VM-Entry failure via invalid MSR load */
-+                       entry->index = 0xc0000100; /* MSR_FS_BASE, disallowed for loading */
-+                       entry->reserved = 0;
-+                       entry->value = 0;
-+                       vmwrite(VM_ENTRY_MSR_LOAD_ADDR, vmx->msr_gpa);
-+                       vmwrite(VM_ENTRY_MSR_LOAD_COUNT, 1);
-+
-+                       GUEST_ASSERT_EQ(vmresume(), 0);
-+                       GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), (EXIT_REASON_FAILED_VMENTRY | EXIT_REASON_MSR_LOAD_FAIL));
-+
-+                       /* Fix failure and retry */
-+                       vmwrite(VM_ENTRY_MSR_LOAD_COUNT, 0);
-+                       memset(vmx->msr, 0, 4096);
-+
-+                       GUEST_ASSERT_EQ(vmresume(), 0);
-+               }
-                GUEST_ASSERT_EQ(vmreadz(VM_EXIT_REASON), EXIT_REASON_VMCALL);
-                vmwrite(GUEST_RIP, vmreadz(GUEST_RIP) + 3); /* skip over VMCALL */
-        } else {
+  183182235f6d ("drm/amd/display: Wrap DCN32 phantom-plane allocation
+in DC_RUN_WITH_PREEMPTION_ENABLED")
+
+That one only covers the dcn32 DML1 path, while your trace goes through
+dcn401_validate_bandwidth() and dml21 - so wrapping the call site could
+never have caught your case.  Which is a good argument for guarding the
+allocation in the callee, as you do: dc_create_plane_state() is reached
+from every DCN and both DML generations.
+
+On dcn32 the two wraps now nest.  That is harmless, because
+DC_RUN_WITH_PREEMPTION_ENABLED() is conditional on dc_is_fp_enabled():
+once the outer instance has left the FPU region, the inner one expands
+to a plain call.  But it does make the dcn32 wrap redundant, and I
+think it should be dropped in a follow-up now that the allocation is
+guarded in the callee.
+
+One thing that may be worth adjusting in the commit message: this is
+not only a PREEMPT_RT problem.  183182235f6d was needed on a plain non-
+RT x86 kernel. There DC_FP_START() takes fpregs_lock(), which disables
+local softirqs, and dc_plane_state is around 335 KiB, so kvzalloc_obj()
+falls through to the vmalloc path and hits BUG_ON(in_interrupt()).  So
+on RT any allocation inside the FPU region is illegal, while on non-RT
+it is specifically the large ones - two failure modes, one root cause.
+
+About the FPU register question raised by the review bot: as far as I
+can see it applies to every existing user of
+DC_RUN_WITH_PREEMPTION_ENABLED(), 183182235f6d included, so it looks
+like a property of the macro rather than something your patch
+introduces.  An answer from AMD on that would be useful either way.
+
+I have dcn32 hardware here (RX 7900 XTX) and can test the patch on
+non-RT if that helps.
+
+--=20
+Thanks,
+Mikhail
