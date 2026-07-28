@@ -1,160 +1,265 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012051.outbound.protection.outlook.com [40.107.209.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05ADC39B97F
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 17:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785258185; cv=none; b=kvPGZB5RJgcBIVo1ORk/7Au83Csd9Pq9EIHw6PZPTBoizFUJ9jzkk7FfF6dVnh7drl7JOIiMv96hof0gWJJ67AZmE0ZXMlX1/hesO6zH//fstJTHZFWKNhMGSAynX3XnTWx1X19UbsrVobx3H9RCHy5eUjBft5x+fE4kcW9xUM0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785258185; c=relaxed/simple;
-	bh=THe/MCYOUCFl3gSUIjbQcNbN3jTDUYeawApb6k2z2BM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fQixLf4b8hfNb4P7QJK89oVs/FWATkPtHGWlDz9809iKVcJ8VMZJuagxhjRhlBB5YLGaX6Z5V61VxVv52vvicCz8rEwL0RKR0yBT+Ow0oFxJiPizYepGvy54RZzJ2LpheMb1rgzSke8pm/ILYndCvXJDcznzOyPaS7tFno7ByjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HfXsxd98; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EFB36CDF8
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 17:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785258382; cv=fail; b=OADeX+hYprQ831sg2PyHTHSDGuYy60Lb0+5hf4yxaQiTZn6UDVzUvNHgXp0FbXcNVaUd2IwfCsDCf3rzmX6C51JVgZ0tRWDGk7BNSVakJjm5tY4OygYfMCq8bdqnzfIMwPfIpvv+O6a0pq5i3/YmfHSAPaMOuLtwMh0rJTE/usA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785258382; c=relaxed/simple;
+	bh=d7K3IKwy0xH879DfRhmj8mk9af/qLiGPV409MuhHjck=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bcSQAGPTTvXWzQRL9fAPB2LTXxwyKIi+w3/+XIhjBp88em3bmdEkhiM8ZiQTxNwDi68eMhqT3HkNgN6yZeS2kGSWh5ELTbTzIXAOpnqJeGk6qgI+sLHFt4uLT8eYyIpWhbAvVBHyhAJGJuiQfuLm8XNUUDuJQFkfbFlzzfdMrmo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=q3ud8b8p; arc=fail smtp.client-ip=40.107.209.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HfXsxd98"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cad4170e8eso1576585ad.3
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 10:03:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785258183; x=1785862983; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H9tbT3MmTWZadkFYtLmnXOyq2+XHjhkh1A8FrJjDKXM=;
-        b=HfXsxd98gAl6vHmkHPb/Qn0em6GKopn1H6G6vOAkyCgQjgzqhfIMxBthvDfrwzwPFx
-         oMtkcSPNA89WvOvgGmLXNE6mJcjX3mhvGBAbLDKiLnRkH+llyaw1qi8qzt+bAtY+bmaz
-         CM/kAJFuwcyacqZz7cY1SadJ9qy5ds9hBxABX8H8YQQzgT0RPtHg02E6sF5xg6NX9Qkg
-         0DwYL70AG3u3Te29FFqe5lD+/f2zJXUCyDfoy+Pp1V7ZZoho0CFiWhqy0dxfoID6BkS0
-         lqDhJQGr9YFoQF4ZSzkVD4NWxDrf1AG5hpoRb+sRdvrLd63KWij1y5CWY29V3mpdlBgE
-         6OSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785258183; x=1785862983;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=H9tbT3MmTWZadkFYtLmnXOyq2+XHjhkh1A8FrJjDKXM=;
-        b=Jj3F0yPHUmyk4/WxOqRARzRub97AREa3vKjWI+Pb5x2+AgaWJTEudqrlTChPsVZSj3
-         zM9eoXRbeK2Ft/ZkGKm3him14ZO7krpGwc35/U8GXuSkem3UJ/+Y95P/WQ5uwm/dpsUt
-         iNsJyx+y0pCabXydSmAnfr/0P8lm86L6U2sd50JqAakIczvvcl6J5uXw9OOzbQyHLDRa
-         UTzFLQwpYTo3/XSaWiqnc5GXk+WpfZyPMQeMADWoCkW17CKh0SBIvKHpcXrN4gHarS8i
-         VpaNK65ddQMYve9KVJ5pwcMNBMxeWYZOH3vMyy8EkvgTM+dteEuiZ94SGS8uf12TMyVu
-         wbhg==
-X-Forwarded-Encrypted: i=1; AHgh+RrMicrZVlDT0SjURDyoNwF+IDcXiW+nOsWvEp4PgbkABX4NEKnFP5B5ctXC3Xid/AibEAxCS3g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwV3DhO1nG/FV9Zhnpz/nDFHMhte6tWMZrYMuhMapQq9mMPIUzB
-	5G9EvVPS1o8h1Y4J3/JTTi6mAxQUqXlsYgW4vpk38UMcDrrGkxZw4Ss4
-X-Gm-Gg: AR+sD11bpvpd8ojs3k/r6Gj/fd+mpIYsiGOt/ATgwHyCNB92C25HYy5GatHhGU0KBRr
-	X5g6+4m7x3mgWkBM+PeNTEWGESfHlcPGTbwpeF8/H8iNh+lVsh74kfgTbD6rtT5DXKqwI8uf/OX
-	DoqzI23JJ4Y29sPiEMzdLNlgLVpJDnBxjaobHA+UsC1vN5K7VulCR+jz6YIpSYRKFiiK8Z/RnHp
-	uLTyKg1OOrrkivk8UTKTzaYqYsgLnvqV4c6vRKs6Ha8i9HiHWTOdaqkE9POsSBwfPdb9sidBXdP
-	R5cqrgKcS93B+jYwcbdJny6C12DbF88zf++dq0kaSDtAqnVDWBH3ZtBzak3lReMl5FpyBt0AEZ4
-	Ek5Vz+AMlqnkepJ6F8R/gQ1P0XDYj2wt6xX4xGEhg3Qcy58bbyy5TaywIjHszsqEWHgRZ18YuMo
-	I8FLdWaX1OqmPDHeABPEQcdvRMh1nrjoCkog==
-X-Received: by 2002:a17:90a:dfc7:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-38f6a33d8c3mr3853027a91.8.1785258183046;
-        Tue, 28 Jul 2026 10:03:03 -0700 (PDT)
-Received: from buffalo-ssd (M014013071096.v4.enabler.ne.jp. [14.13.71.96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f64111441sm1667127a91.1.2026.07.28.10.03.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 10:03:02 -0700 (PDT)
-Date: Wed, 29 Jul 2026 02:02:59 +0900
-From: Akari Tsuyukusa <akkun11.open@gmail.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>, 
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, stable@vger.kernel.org, Chen-Yu Tsai <wenst@chromium.org>, 
-	Miles Chen <miles.chen@mediatek.com>
-Subject: Re: [PATCH v2 5/6] clk: mediatek: mt8173: fix memory leak on module
- removal
-Message-ID: <amja9vnEoRTstmGN@buffalo-ssd>
-References: <20260707074839.240676-1-akkun11.open@gmail.com>
- <20260707074839.240676-6-akkun11.open@gmail.com>
- <amjCTJguiANLY0vj@redhat.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="q3ud8b8p"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tRGHB0JCR9p4mMJp3m7OGLOnJo54wpQCgtS05mCo9DxY5yQYwgMxhWcAaK2KNNtlp0Iwzs2pG6rb6yuKnhZ11vIsmN/2Y7gksc7/LCt8fq/0/zqMrBdoIJikYeBRq9zxoW75xiUEjDQxK/V7kOyyf6Z+7O2DPYApApLjUbA5jFc6FOqZHXqg7LWpG8orJjVqDKJlidsUAVlHuNExZiFKAjp25J/JpWmCSjVPQdS4omED4y268gJrgAWZeT9W0v57vDqPv8KBsGQH2EIJug4mum2nOhE99Kx849ZNaKEuLf9X4nXWyhjAVWUjxA//9IBJhAc3rDZ8u7E2q4fkFSkVGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xaW5T01rISEAYxwrFfv4X4ENhGnLbHAUTdmfgTfyS1I=;
+ b=QPThfn0LX4WAKNmGHyX1oUQS/hY3Gapq1dMxAEBVyi0VRa/IqNKbh7/fiZMMWZFBQ/JR0QbS5OjMlFU7kPWRC5H26tbGr7Q/GVjtgiumR+BqXGhqvesMBfXqow3pwdU96qW2wzrQjcG1+Vh/Ykq/1rdkzdoPPNlbQUq1Vc+Xs3e67N68V/ADZ7UrbTCL45NHZHBjsqjffJnje6Bn2wGkodc2bkx+t36qMHwpesujnK/Gse9xJCyxDwF0tpofjAw/k1IWf6XB1bdbEx3r6ln2Jr0prBMEBPaKZ53cFJtGRFZKwtsy6aK1SK+LmKnjbtbtu+sxeL4WIypJuOQrq9u/Sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xaW5T01rISEAYxwrFfv4X4ENhGnLbHAUTdmfgTfyS1I=;
+ b=q3ud8b8pNsXyzwr9zm5052iigLx9B3B4owQnsscM1hWkP4e4uNocVIQpFHwWsjhmFYWXi7Dxc/3e+U64BujyLKTA1uTUpzASW2TCiTBIYr9yEGlSzfGX4flxiGVCh0wybTSPq/qPPHoKHvyBN3oB3pninvF7tsoLxyfXvnhKoPA=
+Received: from CH2PR12CA0008.namprd12.prod.outlook.com (2603:10b6:610:57::18)
+ by LV2PR12MB5894.namprd12.prod.outlook.com (2603:10b6:408:174::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 17:06:17 +0000
+Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
+ (2603:10b6:610:57:cafe::53) by CH2PR12CA0008.outlook.office365.com
+ (2603:10b6:610:57::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend
+ Transport; Tue, 28 Jul 2026 17:06:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Tue, 28 Jul 2026 17:06:16 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 28 Jul
+ 2026 12:06:16 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 28 Jul
+ 2026 12:06:16 -0500
+Received: from flamewok (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
+ with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport; Tue, 28
+ Jul 2026 12:06:15 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
+	<alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] drm/amd/display: Exit idle optimizations before programming
+Date: Tue, 28 Jul 2026 13:02:47 -0400
+Message-ID: <20260728170550.40908-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <amjCTJguiANLY0vj@redhat.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|LV2PR12MB5894:EE_
+X-MS-Office365-Filtering-Correlation-Id: de0ab328-157e-4bd5-9fb0-08deecca8975
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	m19teAwrK9JoYO00WDbe8j+Ki+PfVflqGWYhdBS/DOWDe/NEX4lcLWWAvGhTz+U52F9eT+GUDeYG2OH386uKH4CBYwXVCoLkSxlKQZxZDoFwbhc0op1t1HIHPd2rj1boNdoplggqiO1KcHrMw+w3OJcwt5xLAmPwUhv9GagMET5LWJr2xqJ2qBeo8uJh4+GrGLMJfYrAaxcSaaHiUcWoYOAVbB4ook88S8HhVmb+BEtYd6rwEuemZ+hom27uG/6TdVIZMMXuDzDB4fdTmIJvsJReY8OgtZ9uWIjmDng3vPtjwZz2tyJbZjq/spdCrOVz9koPVknpH5dUYVuDzXrYXY2VA3XslRy3BWaxka6ffIsvbdAr+erG/F/tyaCGJjA7/udoZSZgZovLi8vgwz8rcZDNFHTgmFbaqld3yEGltq6FsciiLqFXr3a8yxy+kAxWAzHybOIt9t/iA6oCL1PQXZUzr+CrpiVZvFLqH4YWAeuDYBFIxuXrqoUwwjJkcA6BVWjKZeVpkv9OkcED759LgmTqwbsXtN4HNKdd89oruwUk9Fvv6Y5wJrIubc4cY62afzqaosS5ZmyhJ694M04e/xk1+OnkGTOrJyFT069xE7bYj/idthe2e9+9X8pijTpJQTJXtLl7r2UqGhinD4O5Gw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nl9+L7R5onSYswlS5wp1twz7ms9Ri6ONCSpMkG+0drB6k93eukNhRGdLaxAkMkIY3OiGdKReFh2nRsla8qkbsA30Iv3eRWnYcgod1X/zDLYfhCL1GFaYsAdURhhitwwYsY4g2zl5xgWmc8IW5xFvjlvqhYiGSnkXmIzyMsxwmdiXXM0glrhkNpp5+a4/wKIVENK785Aui/kgBGo/7w0EFJj4i0BpdJy9IBzA7oDWJCnDXx3My70HVmxKqAsFyndXRc55eNjU3TeDnySK5/fw0ujUureOdIA62KcVc4VJODOQ1Xu79ee1gvapcTbFwjOhv3udzjxCq+uJXNfrFIjZUF1fC52Jk3pvUTzVy54FAXXQZFxbHFf8S808MwkwwujT8dcXZBsGxyjyvO/kKBjnx0pE4ZSKR9wnSnK/PZ6spG2Z5HqyvGDqjll+ME6Axdro
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 17:06:16.6388
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de0ab328-157e-4bd5-9fb0-08deecca8975
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5894
 
-Hi Brian,
+From: Leo Li <sunpeng.li@amd.com>
 
-On Tue, Jul 28, 2026 at 10:53:00AM -0400, Brian Masney wrote:
-> On Tue, Jul 07, 2026 at 04:48:34PM +0900, Akari Tsuyukusa wrote:
-> > clk-mt8173-apmixedsys.c and clk-mt8173-infracfg.c do not call
-> > platform_set_drvdata() during their driver probe callback,
-> > but their remove callback calls platform_get_drvdata().
-> > This results in platform_get_drvdata() returning NULL,
-> > which leads to calling kfree(NULL) in mtk_free_clk_data(NULL).
-> > This leaves clk_data unreleased, causing a memory leak.
-> > 
-> > Fix this by calling platform_set_drvdata() during probe.
-> > 
-> > Fixes: 4c02c9af3cb9 ("clk: mediatek: mt8173: Break down clock drivers and allow module build")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
-> > ---
-> >  drivers/clk/mediatek/clk-mt8173-apmixedsys.c | 2 ++
-> >  drivers/clk/mediatek/clk-mt8173-infracfg.c   | 2 ++
-> >  2 files changed, 4 insertions(+)
-> > 
-> > diff --git a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-> > index d7d416172ab3..65dc4489a09c 100644
-> > --- a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-> > +++ b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-> > @@ -179,6 +179,8 @@ static int clk_mt8173_apmixed_probe(struct platform_device *pdev)
-> >  	if (r)
-> >  		goto unregister_ref2usb;
-> >  
-> > +	platform_set_drvdata(pdev, clk_data);
-> > +
-> >  	return 0;
-> >  
-> >  unregister_ref2usb:
-> > diff --git a/drivers/clk/mediatek/clk-mt8173-infracfg.c b/drivers/clk/mediatek/clk-mt8173-infracfg.c
-> > index fa2d1d557e04..8b69009e1965 100644
-> > --- a/drivers/clk/mediatek/clk-mt8173-infracfg.c
-> > +++ b/drivers/clk/mediatek/clk-mt8173-infracfg.c
-> > @@ -128,6 +128,8 @@ static int clk_mt8173_infracfg_probe(struct platform_device *pdev)
-> >  	if (r)
-> >  		goto unregister_clk_hw;
-> >  
-> > +	platform_set_drvdata(pdev, clk_data);
-> > +
-> 
-> This patch doesn't compile.
-> 
->     drivers/clk/mediatek/clk-mt8173-infracfg.c: In function ‘clk_mt8173_infracfg_probe’:
->     drivers/clk/mediatek/clk-mt8173-infracfg.c:131:36: error: ‘clk_data’ undeclared (first use in this function); did you mean ‘clk_gate’?
+[Why]
 
-Sorry for sending you a broken patch.
-I accidentally built only with ARCH=arm and missed the build failure.
+We need to exit PSR/IPS before programming. Before calling DC for
+programming in amdgpu_dm_commit_planes(), there's a
+vblank_control_workqueue flush. This waits for IPS and PSR exit. (See
+drm_vblank_on/off() > amdgpu_dm_crtc_set_vblank() --queue_work()->
+amdgpu_dm_crtc_vblank_control_worker())
 
-While fixing this, I noticed that clk-mt8173-infracfg.c can be converted
-to use mtk_clk_simple_probe()/remove() instead of adding driver-specific
-drvdata handling.
+Prior to the tagged "Fixes:" change, drm_vblank_get() was called before
+the workqueue flush. This ordering ensures that PSR exit occurred before
+programming. After the "Fixes:" change, drm_vblank_get() is called after
+the workqueue flush, leading to programming while idle optimizations are
+still active. This can lead to incorrect flip_pending detection used by
+vblank event delivery.
 
-The helper currently lacks cpumux support, but I have a reviewed patch
-for it:
-https://lore.kernel.org/lkml/20260304181024.738391-2-akkun11.open@gmail.com/
-(Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>)
+[How]
 
-Also, adding PLL support to the helper should allow more MediaTek clock
-drivers to use the common probe/remove path:
-https://github.com/TeamYogaBlade2/linux/commit/d991a61887ab76fd83708dffe8e48192e01023d5
+Split the vblank_get() component of `dm_arm_vblank_event()` into
+`dm_arm_vblank_event_pre_programming()`, which is called before
+programming. Call it before the vblank_control_workqueue flush.
 
-Would it be preferable to extend mtk_clk_simple_probe()/remove() with
-cpumux and PLL support and reorganize this series around it?
-or should I keep this series focused on the current simple fixes?
+Includes a drive-by cleanup of prepare_flip_isr(): the only caller is
+dm_arm_vblank_event() and it's simple enough to roll-in.
 
-Best Regards,
-Akari
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Fixes: 48ab86360af1 ("drm/amd/display: check GRPH_FLIP status before sending event")
+Cc: stable@vger.kernel.org
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3583205
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5527
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Claude:opus-5
+---
+Rebased patch for applying on 7.2-rc5:
+https://gitlab.freedesktop.org/leoli/linux-asdn/-/commit/f05db644126540f1d237f846cc0512088551eb73
+
+Thanks,
+Leo
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 79 +++++++++++--------
+ 1 file changed, 47 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index df6b59fb8d0d4..784587697bac8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3576,25 +3576,6 @@ static void remove_stream(struct amdgpu_device *adev,
+ 	acrtc->enabled = false;
+ }
+ 
+-static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+-{
+-
+-	assert_spin_locked(&acrtc->base.dev->event_lock);
+-	WARN_ON(acrtc->event);
+-
+-	acrtc->event = acrtc->base.state->event;
+-
+-	/* Set the flip status */
+-	acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
+-
+-	/* Mark this event as consumed */
+-	acrtc->base.state->event = NULL;
+-
+-	drm_dbg_state(acrtc->base.dev,
+-		      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
+-		      acrtc->crtc_id);
+-}
+-
+ static void amdgpu_dm_commit_cursors(struct drm_atomic_commit *state)
+ {
+ 	struct drm_plane *plane;
+@@ -3740,17 +3721,48 @@ static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
+ 		return;
+ 
+ 	if (pflip_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
+-		/* Arm flip completion handling and event delivery after programming. */
+-		prepare_flip_isr(acrtc);
++		WARN_ON(acrtc->event);
++
++		acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
++		acrtc->event = acrtc->base.state->event;
++		acrtc->base.state->event = NULL;
++
++		drm_dbg_state(acrtc->base.dev,
++			      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
++			      acrtc->crtc_id);
+ 	} else if (cursor_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		acrtc->event = acrtc->base.state->event;
+ 		acrtc->base.state->event = NULL;
+ 	}
+ }
+ 
++/**
++ * dm_arm_vblank_event_pre_programming - Prepare for programming
++ * @acrtc: The amdgpu CRTC to prepare
++ * @acrtc_state: The new CRTC state
++ * @pflip_update: Whether a page flip is being programmed
++ * @cursor_update: Whether a cursor update is being programmed
++ *
++ * Grab a reference on the vblank counter if a page flip or cursor update is to
++ * be programmed. Do this before programming so the HW is not in any
++ * idle-optimized state (such as PSR).
++ */
++static void dm_arm_vblank_event_pre_programming(
++	struct amdgpu_crtc *acrtc,
++	struct dm_crtc_state *acrtc_state,
++	bool pflip_update,
++	bool cursor_update)
++{
++	assert_spin_locked(&acrtc->base.dev->event_lock);
++
++	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
++		return;
++
++	if (pflip_update || cursor_update)
++		drm_crtc_vblank_get(&acrtc->base);
++}
++
+ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 				    struct drm_device *dev,
+ 				    struct amdgpu_display_manager *dm,
+@@ -4013,16 +4025,19 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		}
+ 	}
+ 
+-	/*
+-	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
+-	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
+-	 * only fires if HW latched to the flip. Maintain legacy behavior by
+-	 * arming event before programming.
+-	 */
+-	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+-		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++	scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++		dm_arm_vblank_event_pre_programming(acrtc_attach, acrtc_state,
++						    pflip_present,
++						    cursor_update);
++		/*
++		 * DCE depends on a combination of GRPH_FLIP, VLINE0, and
++		 * VUPDATE for event delivery. Only GRPH_FLIP handler can send
++		 * pflip events, and it only fires if HW latched to the flip.
++		 * Maintain legacy behavior by arming event before programming.
++		 */
++		if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+ 			dm_arm_vblank_event(acrtc_attach, acrtc_state,
+-					pflip_present, cursor_update);
++					    pflip_present, cursor_update);
+ 		}
+ 	}
+ 
+-- 
+2.54.0
+
