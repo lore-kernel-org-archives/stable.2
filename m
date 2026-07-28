@@ -1,66 +1,66 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BBF1A9F97
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E023E400996
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785227451; cv=none; b=L5CdNDMeIBhGX0+aOVFAhPyzh4qObZIjKSqWcGyBP2wp+Ou45+A++5LeAp30AN/5/UvY3cGaRY6DrYVqBuLAlNVque8uhaRMvlq0amaVr2hxMTupMIK70wpb/BLOH5N5moxKYjjNPgS01I6ZP3ast/vTLmEKBkUjhjg8A9XKUw4=
+	t=1785227458; cv=none; b=YbQY6mkYu2N6O1pqoHmUxAoS7F1YF5IQ0G3yggQOZt7/B7YA3pnScCtzzGzthhETTmG4ceqptqjHjIOazCCzJDLgq8l6V0G+bc4z0DTpzUlsZ+vs421Fks5RBrfh3Gd+7xsqgD5QU1NQFN3Rf+AUS7qEJMu29y0W8PLphfXloWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785227451; c=relaxed/simple;
-	bh=zD+Tt+tlF3sKHvM99SHQfbP3s8lZ/MekZMRh/GzEnb4=;
+	s=arc-20240116; t=1785227458; c=relaxed/simple;
+	bh=aEBVoNwT6uF5mWOZ7Emr+E8mCDVEkQJrwT8ARnQ+/wM=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kJ0ljG5zGomEn4/Jp2hJwJLk2ES6yirc+W4EEmCXyJACtHPxvkn6b+Ki9aYAgIiReJsG1ny2Y7X5WygvErKE7mNnWb3OXYVMXMzr5q+EHWluW++LPkuWSVpCD0ViKXWoFEzWjl/pPGWwdqVuPTbpGPHwQ/Xsp55k3yDLnGDt1zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XEKOxF6h; arc=none smtp.client-ip=209.85.128.48
+	 In-Reply-To:Content-Type; b=u4R+ekt6NZREQ1BizWQupjfnH+SmaPVdoWsIWHD8dX8+cxd4hzzpv6EeorIAtPu8n//BI//cPKOVDdVSRebQr1i2NVVSy4iMZMvwbzr/yn27KVUMtoCe9H4j0DFAqIRmM5Qde2MVCgLZkNcRUZzgtVzCfXrpPYPtPvWLVnmBFww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QP+uuajZ; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XEKOxF6h"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49553515a8bso43471015e9.1
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 01:30:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QP+uuajZ"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4954aff6088so30979345e9.3
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 01:30:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785227448; x=1785832248; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1785227455; x=1785832255; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qXOP4XN0PqhQT+v4jXW4sP+aBgVsrUPoLsPqH/lHN1Y=;
-        b=XEKOxF6hNf8sV3h2KDrCsCQAogkpdgAKT+2voA1nmy8RNvwVfQZU0SJyeXRyj5BqbZ
-         yLjEgkqyOWHX2/lQI4qFNNA4f0tOhay9PeLwuu5Mx87f2G7SHScaQjkt/DB9CiYJqR+t
-         aFfJKM7V2iRuZwMI2xE9WpEfnqvqj9X4q8DUhZkln5DO3v+5ZMYspIRFcMiLf4xm3ssq
-         jFblB46UXiYac8DgWiOx2M1FOG2+Oc50J25r0JdBcCcRiJ1VArTzWs7JzP6aerjguo9B
-         ke0fMj1R7m1abtG7MWDPPbyHt58uIIZiayfBADoatQcKv58qcJoTyYMCIbM7mNkf2BMx
-         44oA==
+        bh=b5Zspx8VsAZciUPcNSItD/7x4YS9zk9zDIhR00Qm1No=;
+        b=QP+uuajZO3BM0EsXXfemJLZksB6JYEEuYsQLJFjPGkb9GYQqbZK9Rd/caIx8tlmtUM
+         W/tmluLfWC6+nOTNhsFRB+yHuwLVdVsIQwCkzGsCVotGwU3zJWUtvP9pVydg9XgKYYxs
+         3TQpqZ2TTODdNyguMGrYeu00T9wNskRdH1z1hXPrLYD+3dKbZ3LjrwOMGe4+ht7ORmED
+         7Z+Iyo92cOk79aJ2o1IQ02/YB+D5Vbx3kVD/W3RDMQfFm+HR9tmSgd1TaDLY3ibXjpsC
+         s1pMsYoO2ehqrJLE9KFS3b9oSGRQPVYxa3Tiyd7PY6udUHST1A0RdXjcWIDbwUhwkzPT
+         9a9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785227448; x=1785832248;
+        d=1e100.net; s=20251104; t=1785227455; x=1785832255;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qXOP4XN0PqhQT+v4jXW4sP+aBgVsrUPoLsPqH/lHN1Y=;
-        b=YFKHjKcFBc8V6pihFra/y6vgmMd3RYiSbcXKoiusO1QXbyLedumJ8W0MygCFrepfTb
-         glxWr+rOhSAu6WqEig7OLa44/qTx1I/MrzKav4RDP266r9He/uSIuTAb+uTb6FzdHK8v
-         ST2ahRK4wDuhtCKK9s23miPnF7QcvRLhaOvKWNE5KaqyWMsbg+Wja9ShfsrWBqQs4V2d
-         G/PvB7UmkLUmo0THxuTOY1/dsDLDtZaXugUZyRXzcUqvdDTgUaJR+WBVVvIFehFb/okF
-         ruhdjoZkpkEwfsfsn4FBjlZODgheascPDsqmlqt/Yp454nE+Z0t+wpqgeR+5R5k6K8ws
-         WHsQ==
-X-Gm-Message-State: AOJu0YztBwvvS/s8+c4A2NInTdPbry0FncrrxCCyeBqplaTnVyIg5Ds9
-	+d/SO+w5CfSM9HgYAS9QyzJ/z+9dw2XYYHUUlDgKJiZKU/c9bv6fwm6QOYPeMSw8LUM=
-X-Gm-Gg: AR+sD10kGQsIVXmyaVheC3i6VsN1XO+IB6/flkh1DDVbidhMUATe888U373jE9zAsE7
-	1ODKbR/J3PeN/1fJKg/LEspQODzcub1TESOnDddR6l+sUnCjbcmdsDUTbMIvZ185ujoonWk07m+
-	KzVJNjBTQvFJiq0px64DBikKaWx+bFy0xSCN6MYp4tkJ71PTdJuYN1IIaTnTYU8nn+O0jZXFn8S
-	61c4CgWm98UrsYkbVnYayMnMctunfGCizR62Gf/n4Km1BvEnZriw+8VDq3CwwazVpRetfM6nbYr
-	L5Js/ixExSbt1t2r1nlxKXFRQRASpvf95j+BQ0tBjZ8lt6ypU4az7Rd2wHv+0lQl0vXhwsHCSuQ
-	sCI8wbpfayunovRcy5MrWiwlyKeDuy8hR54yT7fCaEqrhhqSVBXjyeGPq/rdDBGonbddzrWHWgP
-	8OEyEGSFmwt8Qj61mebU7LhgUmnQtjW3MoN1Xgs+MQbjqS012LN2XKGGw6ow==
-X-Received: by 2002:a05:600c:3b13:b0:495:3c6d:f294 with SMTP id 5b1f17b1804b1-496c6571db3mr16805925e9.23.1785227448036;
-        Tue, 28 Jul 2026 01:30:48 -0700 (PDT)
+        bh=b5Zspx8VsAZciUPcNSItD/7x4YS9zk9zDIhR00Qm1No=;
+        b=IMODE57/L72FuKhBA5GFIQNv5vPxP/qyJVBQABM47AnKSznfgXPeMltH60jwCA/bO0
+         yXDq8THpxfXoITRkyqBp4vOrzt3y7Nbmln69wFvo/0kaNzuS2ig6wVM5TEJKaRVm/QTL
+         R6sNrzw6FdgNSEHH1Hm65CJlummRG9YlsF1IQ2ZdNTceSjIixesTUce53QDlr7oWCj4b
+         vkprGkWaQsr/Pv1x6vOnSnCObIh+wdQbNH/gmS/XDazU8Dh4K1i4bKZeX3wscquh+30k
+         2sIXVvM7IPO9HuGVgHvOGaej5biBo3G7yl4hmMEg1Pe+s9pvrQEEAV0Qt0VtS2T4Nkj9
+         wsVA==
+X-Gm-Message-State: AOJu0YzWbRBw6XqgjjtZbgshudjxJTNXSGOZ040bTtuAGAE/xlL3fhyN
+	rEDlOWIQo6djt+b8ovnJW8mvkDMIXILo8J+rc68ZtstAWg5TH6fYVSI412n4UQCPugA=
+X-Gm-Gg: AR+sD12AL3ieWHrq8T3jUUjHnwoHcBwGHqKVHrrQvPoI8sbY2iq6sTVAOyHO/P+Sngw
+	EkAeNRo2BisBByLjyBhL+7Vawid5Pw5iINETQ3Jl7WlOb4glI+26HnYQT+eP/abWzTzG75Zonsj
+	CKe2riLYLC9bxF1lIZe+UsgfBq+CJI8iNnOpIFepacuUwxak5JM4UQ1IyrJyyG4VgaFffuO51VF
+	fQKZ5ke9HJyfqEPhrP18FBIooGbR//gTIa+Hn5R0uKyxczcrVmTIaWFqG/Ms079h0a9lkeuConY
+	SB/glabPC3E8joAiYCu5ZZlwgXJOkUFrQiPPwUZpJ3WNLJB/a7u8umY7+APuIM7ibgLwUwfeQAa
+	DF84BAxLhNY6/P7ssFgadmSJCkcilwXEdS3lz+P0GutRSPUfH6QP9nUQi++DT7fEFhk31icwwQ4
+	a7JmRjXMhj17mqroIb/YEVV6k2S2pZ3TJgrlzzfd+HM0yIjn0u6TGQ5MXi+t8KGTc/MpvD
+X-Received: by 2002:a05:600c:a46:b0:496:bbce:fd with SMTP id 5b1f17b1804b1-496c642d9bfmr14729095e9.6.1785227455027;
+        Tue, 28 Jul 2026 01:30:55 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:5788:c4e1:cf35:7211? ([2a01:e0a:106d:1080:5788:c4e1:cf35:7211])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c44afaecsm68281745e9.2.2026.07.28.01.30.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c46240c4sm59208655e9.12.2026.07.28.01.30.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 01:30:47 -0700 (PDT)
-Message-ID: <e73bf1bc-aab5-4786-b97b-803c3e118a46@linaro.org>
-Date: Tue, 28 Jul 2026 10:30:46 +0200
+        Tue, 28 Jul 2026 01:30:54 -0700 (PDT)
+Message-ID: <27c09961-a76b-4c52-8db4-b82379339252@linaro.org>
+Date: Tue, 28 Jul 2026 10:30:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,18 +70,18 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 08/15] media: meson-ir-tx: Ensure rc_free_device() is
- called on unbind
+Subject: Re: [PATCH v4 09/15] media: meson-ir-tx: Ensure probe error is
+ propagated
 To: Sean Young <sean@mess.org>, linux-media@vger.kernel.org,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Viktor Prutyanov <viktor.prutyanov@phystech.edu>
+Cc: stable@vger.kernel.org, Mauro Carvalho Chehab
+ <mchehab+huawei@kernel.org>, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <cover.1785158244.git.sean@mess.org>
- <4674de80dfb7ab8c4a66282be26260ce4e7c9055.1785158244.git.sean@mess.org>
+ <45cb104675d7abe96dd3570d54f017bce7063be4.1785158244.git.sean@mess.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,46 +108,44 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <4674de80dfb7ab8c4a66282be26260ce4e7c9055.1785158244.git.sean@mess.org>
+In-Reply-To: <45cb104675d7abe96dd3570d54f017bce7063be4.1785158244.git.sean@mess.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 7/27/26 15:18, Sean Young wrote:
-> Make rc_dev devm managed.
+> devm_clk_get_enabled() may return -EPROBE_DEFER which needs to be
+> propagated else the probe will not be deferred, it will fail instead.
 > 
-> Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+> Fixes: 49be1c78d575 ("media: rc: introduce Meson IR TX driver")
 > Signed-off-by: Sean Young <sean@mess.org>
 > Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 > Cc: stable@vger.kernel.org
 > ---
->   drivers/media/rc/meson-ir-tx.c | 6 ++----
->   1 file changed, 2 insertions(+), 4 deletions(-)
+>   drivers/media/rc/meson-ir-tx.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/media/rc/meson-ir-tx.c b/drivers/media/rc/meson-ir-tx.c
-> index e7bb107e6a84..abb107d19e8c 100644
+> index abb107d19e8c..174d5135e1bb 100644
 > --- a/drivers/media/rc/meson-ir-tx.c
 > +++ b/drivers/media/rc/meson-ir-tx.c
-> @@ -345,7 +345,7 @@ static int meson_irtx_probe(struct platform_device *pdev)
->   	if (ret)
->   		return dev_err_probe(dev, ret, "irq request failed\n");
+> @@ -290,7 +290,7 @@ static int meson_irtx_mod_clock_probe(struct meson_irtx *ir,
 >   
-> -	rc = rc_allocate_device(RC_DRIVER_IR_RAW_TX);
-> +	rc = devm_rc_allocate_device(dev, RC_DRIVER_IR_RAW_TX);
->   	if (!rc)
->   		return -ENOMEM;
+>   	clock = devm_clk_get_enabled(ir->dev, "xtal");
+>   	if (IS_ERR(clock))
+> -		return -ENODEV;
+> +		return PTR_ERR(clock);
 >   
-> @@ -358,10 +358,8 @@ static int meson_irtx_probe(struct platform_device *pdev)
->   	rc->s_tx_duty_cycle = meson_irtx_set_duty_cycle;
+>   	*clk_nr = IRB_MOD_XTAL3_CLK;
+>   	ir->clk_rate = clk_get_rate(clock) / 3;
+> @@ -324,7 +324,7 @@ static int meson_irtx_probe(struct platform_device *pdev)
 >   
->   	ret = devm_rc_register_device(dev, rc);
-> -	if (ret < 0) {
-> -		rc_free_device(rc);
-> +	if (ret < 0)
->   		return dev_err_probe(dev, ret, "rc_dev registration failed\n");
-> -	}
+>   	irq = platform_get_irq(pdev, 0);
+>   	if (irq < 0)
+> -		return -ENODEV;
+> +		return irq;
 >   
->   	return 0;
->   }
+>   	ir->dev = dev;
+>   	ir->carrier = MIRTX_DEFAULT_CARRIER;
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
