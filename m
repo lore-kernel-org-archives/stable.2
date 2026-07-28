@@ -1,65 +1,73 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321AA40587A;
-	Tue, 28 Jul 2026 21:07:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B373A9D8D
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 21:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785272838; cv=none; b=hRp3YPfF7oSIhRhxjEIrg6+bmLwz5mKAQ6qANXTzT6o2KZpY6y6NbVAFh6v6CIH19df7T//ZxNlmDmIfOTFN3o0SAZJayTCFVH0b6h18ko642ypHiZspNalhxQmIJzMZEEgTVgLF2f9ca+SLhrZMQuzpG3HaZcFOh0OUjf6YsIo=
+	t=1785272924; cv=none; b=svR9ueu9kZKSlpUm9mAAjbF8thGi0zPRDuWnPItSgekGO5RXq0ktJfuzG1POqgT/pAHh/JCNbXg5DUwZ28mNZTna62DEf4zqAjgClT/ZcYTMJ4I6bSXICDC0OMBEtBy2bPNSVcJAlAOVpgpGu82GsLlmAaHIXosOjb7AeqkNgm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785272838; c=relaxed/simple;
-	bh=XxUHHvp40RU37wOu01FKVorMoku5bWPzx2vfYX7bxTg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WilQK/IRbmh7PhFDWJMjbbroFvDVN4srCVr8eMifdnxkfMQcC4iumb8joPsdOExV1kuESg7AYjmmO6V4JU/XBG2ttRzlkcJqC1JcDFqk2nN04uTVwsjSKjjbvglMSHeM/3wW11MmBwNoqWWVP0HsajoLkhUYxeyEEKCWEgwH2Hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=SeBiek6U; arc=none smtp.client-ip=52.13.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1785272924; c=relaxed/simple;
+	bh=pWk+0D/DYFNghMX3LuWqusesL3I8kURaNWVlvTC5TgA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N7iLF7N7aiEbBKkMbaxcxpPRDB+AsZfVZq8WN7/9KoYAeDL0ix+R7ygB1mHI8rLyqwVsq6INpHri3Cay2mZnYuIuYG41kHep6Etm+rnafBV6jgjIgdei/mQ5QhHmmnIvr4/dd1gsl21w2UWn+X2j4KYKjWRC4vTYJtckh4sEaHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DNrIw7Rx; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="SeBiek6U"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DNrIw7Rx"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4956242332dso2123285e9.2
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 14:08:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1785272837; x=1816808837;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=XeP9Lf086Qpa7hiP4yPnaaOL5tn9gjD47rZM7s4qxMM=;
-  b=SeBiek6UdYHaXhtVJMNOoW6cYAiOPxyHwTJeiR7YD3gYrwDyq2/lN4Yc
-   ndVJN7wYPPrdWIZ/1MjlxOSsLAtunDQ/x5ZtGy1PhnYo6aT/Tp2NB44Vx
-   dIABXkVtSqq76L/B25IKudjbkNCQscbiejmsN5jnm5lF0utavH/712Pqz
-   maY7hBytjo+xQt9eiXvGp1tnmjklbclsTkDi+i2NwLITN26HVMvFI3q4Q
-   DTn91vqLEu+U0mhSn0GpYAbcaAB8eWxLtnzlyRjK2txS2y5jOOlCscQuN
-   q6jBhfxwXSpUhsDP5UIKkMAw9nBAh6bKmNS3DL3ZtRMLFpiE1NdsYqZp5
-   g==;
-X-CSE-ConnectionGUID: yFpT2An+RZCt8VcLhT1NxA==
-X-CSE-MsgGUID: msVhqUAbQvGI0Dr6J+XyWg==
-X-IronPort-AV: E=Sophos;i="6.25,191,1779148800"; 
-   d="scan'208";a="24503714"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 21:07:16 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:2127]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.38.8:2525] with esmtp (Farcaster)
- id e7cd67fb-9b26-4640-93a6-d6fdfde29a93; Tue, 28 Jul 2026 21:07:16 +0000 (UTC)
-X-Farcaster-Flow-ID: e7cd67fb-9b26-4640-93a6-d6fdfde29a93
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Tue, 28 Jul 2026 21:07:16 +0000
-Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Tue, 28 Jul 2026 21:07:15 +0000
-From: Jay Wang <wanjay@amazon.com>
-To: <stable@vger.kernel.org>
-CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>,
-	<jacob.e.keller@intel.com>, <anthony.l.nguyen@intel.com>,
-	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>, Kunwu Chan
-	<chentao@kylinos.cn>, Wang Haoran <haoranwangsec@gmail.com>, "Amir Mohammad
- Jahangirzad" <a.jahangirzad@gmail.com>, Dawid Osuchowski
-	<dawid.osuchowski@linux.intel.com>, Aleksandr Loktionov
-	<aleksandr.loktionov@intel.com>, Simon Horman <horms@kernel.org>, Kunwu Chan
-	<kunwu.chan@linux.dev>, Rinitha S <sx.rinitha@intel.com>
-Subject: [PATCH 6.6.y] i40e: remove read access to debugfs files
-Date: Tue, 28 Jul 2026 21:07:15 +0000
-Message-ID: <20260728210715.10700-1-wanjay@amazon.com>
-X-Mailer: git-send-email 2.47.3
+        d=gmail.com; s=20251104; t=1785272921; x=1785877721; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vxOu3XF7bVHUG+0agmcIDyKP04Qh+pMOMDiJD5AR2Rg=;
+        b=DNrIw7RxRwAm+FI5TaFjNx8N5q5n9JMsgPqMhpJHiJ+Q5ebMs4rorbaZ3izP+63UNr
+         fW0miXFGctH9insb1T8/8ovMd29nLhnvRkwHr6NKI8cw4HRb3Jetb4zjOSfKQQz7qzHN
+         4td0bthDEtvZ716L7vWKbZnOzaspFjF5oBz5ILZqudgg8hxzcsaVvNOd+eA0CoURAUNF
+         4W5ogeSKg3VGc+kxBwvZXV4rVb5O4sDFmea6RVRrMYmsbHd14M7/h6jYUQATUiJFolik
+         OkGaNXaJk1rAazSmniw0dEZ89lIrtLT6LyWgfMX/Avq+kYMIDvftuqwar0QH4Bs/z0ZG
+         ATJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785272921; x=1785877721;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vxOu3XF7bVHUG+0agmcIDyKP04Qh+pMOMDiJD5AR2Rg=;
+        b=JdN2ycwVXBJIYtIIC/xgAJ10/MRvLY599S/qhK7CFaQd/1jfO7JYgQQo20LFCzzyWR
+         Qi16sntIW7fWwHyyWpUdZhpLIAKPkAmLNPjwNv11zb57PIHpsD6/qUaJ+oDdDX4pr3EI
+         sQNNBnWFobQo4GOvsACmLtMmIDga/oAn6PIlqQvVo/IN6VoMzVkPCt2BbZ4cpRR8FxZ8
+         BSeBcA2PbE8wJb2rrM+XCA0pTBX5bgnv0uoOk2Do1ZIFelA3VfPqBF81RdN0afpzx1kh
+         Hn65Agk+OqjHRNCdepUCG0NpJpRwknKFkbexr5S/XdKuWRVi7MkeU0luLrMRM2HGEKL8
+         +l1w==
+X-Forwarded-Encrypted: i=1; AHgh+RpgxICYnm793VDo28hagL6Ko9eFFa91Sk2v5WV/Nzg/5p66BQDwMzEL8kWFPtie5i/1U/x1MVE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4zy0Q0V75u6iMytx9OHyuFQmgHwpJxrc43X1ZWXJotIMClApl
+	y2jC7q9Wd2FeZ2LsM+8a3n7vIPyz80zO2BeefNuYtRnNQzzBBoBpbaV6
+X-Gm-Gg: AR+sD12oAg4+9nVjovixnLdxqy3uBOMJLrK4fTEaqX4rUZYGX+SSGr2y7qOr86jhDg2
+	DCimnk/97eVDjZNNCCtR2F01AGmtYy6j8uM48wJSBkmKi2N1KP5/f+cMyBWmQmcmrAGTcXnEz3R
+	zDCY2rSxqYVK64uFuDBaXl9KIgVhdL0aAM53daooWGr/m3PVvi4FK1K21+mC36cNRKqIhkHHLOu
+	k1vCEHFPHrgq0VOLvYu8uAjBu4Wq/oIs8d6WK9tkfrjokJoGtFr5ULVRvk9tdqXXD4bkTgAgxFn
+	dNz59NFP8Ehvtbb7nFqzeemc3128t8T3fpxW+p+OmxKMaihiveyFYPRjdtvDZzxqpAAlXFy45cH
+	X8KwYuFTnRdS1oUWRfrQKXFJ+whINqbcTK/ejl0boYmcEcu83YY0S+r3C2CZ8xR6hrI4I+j+wHD
+	N2NxIX465lkhE4PCB44BuSzADGCNm6CUO2N9VTtCTrT1trStatq9sMZ2d/0t2gAOSn/17cukD0+
+	nTqdWn7s6DNDlnkoqo/3SuFpu5GghIFeEj+gh8xVMtltp4YJVDd73eNhoFfzssUp5bzhZ68wrS6
+	UWKMJTbY1CpDNBKKUD97BRiki1+4dMwCxy50iKafBCTrWqLsuXMdAmo5W8sqFkBXJGBIgxIk
+X-Received: by 2002:a05:600c:4452:b0:492:6f6f:fa42 with SMTP id 5b1f17b1804b1-496c65cd672mr40420045e9.37.1785272921199;
+        Tue, 28 Jul 2026 14:08:41 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b323-2b01-0d98-9fe8-a4cd-78ab.310.pool.telefonica.de. [2a02:3100:b323:2b01:d98:9fe8:a4cd:78ab])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6acfdafsm1934679f8f.15.2026.07.28.14.08.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 14:08:40 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ARM: alignment: restore uaccess state on emulation fault
+Date: Tue, 28 Jul 2026 23:08:28 +0200
+Message-Id: <20260728210828.10488-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,289 +75,193 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D036UWB002.ant.amazon.com (10.13.139.139) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Jacob Keller <jacob.e.keller@intel.com>
+The alignment handlers enable access to user memory while emulating
+unaligned instructions. If a checked access faults, its exception table
+fixup jumps to the handler's fault label and bypasses uaccess_restore().
+This leaves DOMAIN_USER as DOMAIN_CLIENT with SW domain PAN, or leaves
+TTBR0 page table walks enabled with TTBR0 PAN, while the fault is handled.
 
-[ Upstream commit 9fcdb1c3c4ba134434694c001dbff343f1ffa319 ]
+An ARM926 QEMU test using LDMIA across an unmapped page boundary reports
+DOMAIN_USER=1 at TYPE_FAULT before this change and DOMAIN_USER=0 after it.
+SW domain PAN is the default on ARMv5, ARMv6, and non-LPAE ARMv7 builds.
 
-The 'command' and 'netdev_ops' debugfs files are a legacy debugging
-interface supported by the i40e driver since its early days by commit
-02e9c290814c ("i40e: debugfs interface").
+Keep the saved uaccess state at function scope and track whether it was
+saved. Restore it at the fault label only when needed. Paths that did not
+enable user access continue to skip the restore.
 
-Both of these debugfs files provide a read handler which is mostly useless,
-and which is implemented with questionable logic. They both use a static
-256 byte buffer which is initialized to the empty string. In the case of
-the 'command' file this buffer is literally never used and simply wastes
-space. In the case of the 'netdev_ops' file, the last command written is
-saved here.
-
-On read, the files contents are presented as the name of the device
-followed by a colon and then the contents of their respective static
-buffer. For 'command' this will always be "<device>: ". For 'netdev_ops',
-this will be "<device>: <last command written>". But note the buffer is
-shared between all devices operated by this module. At best, it is mostly
-meaningless information, and at worse it could be accessed simultaneously
-as there doesn't appear to be any locking mechanism.
-
-We have also recently received multiple reports for both read functions
-about their use of snprintf and potential overflow that could result in
-reading arbitrary kernel memory. For the 'command' file, this is
-definitely impossible, since the static buffer is always zero and never
-written to. For the 'netdev_ops' file, it does appear to be possible, if
-the user carefully crafts the command input, it will be copied into the
-buffer, which could be large enough to cause snprintf to truncate, which
-then causes the copy_to_user to read beyond the length of the buffer
-allocated by kzalloc.
-
-A minimal fix would be to replace snprintf() with scnprintf() which would
-cap the return to the number of bytes written, preventing an overflow. A
-more involved fix would be to drop the mostly useless static buffers,
-saving 512 bytes and modifying the read functions to stop needing those as
-input.
-
-Instead, lets just completely drop the read access to these files. These
-are debug interfaces exposed as part of debugfs, and I don't believe that
-dropping read access will break any script, as the provided output is
-pretty useless. You can find the netdev name through other more standard
-interfaces, and the 'netdev_ops' interface can easily result in garbage if
-you issue simultaneous writes to multiple devices at once.
-
-In order to properly remove the i40e_dbg_netdev_ops_buf, we need to
-refactor its write function to avoid using the static buffer. Instead, use
-the same logic as the i40e_dbg_command_write, with an allocated buffer.
-Update the code to use this instead of the static buffer, and ensure we
-free the buffer on exit. This fixes simultaneous writes to 'netdev_ops' on
-multiple devices, and allows us to remove the now unused static buffer
-along with removing the read access.
-
-Fixes: 02e9c290814c ("i40e: debugfs interface")
-Reported-by: Kunwu Chan <chentao@kylinos.cn>
-Closes: https://lore.kernel.org/intel-wired-lan/20231208031950.47410-1-chentao@kylinos.cn/
-Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-Closes: https://lore.kernel.org/all/CANZ3JQRRiOdtfQJoP9QM=6LS1Jto8PGBGw6y7-TL=BcnzHQn1Q@mail.gmail.com/
-Reported-by: Amir Mohammad Jahangirzad <a.jahangirzad@gmail.com>
-Closes: https://lore.kernel.org/all/20250722115017.206969-1-a.jahangirzad@gmail.com/
-Signed-off-by: Jacob Keller <jacob.e.keller@intel.com>
-Reviewed-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Kunwu Chan <kunwu.chan@linux.dev>
-Tested-by: Rinitha S <sx.rinitha@intel.com> (A Contingent worker at Intel)
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
-[Adapted to 6.6: context conflict due to 6.6 using pf->vsi[pf->lan_vsi]
- vs i40e_pf_get_main_vsi(pf) in the removed read functions; resolution
- is simply to delete the 6.6 version of those functions.]
-Signed-off-by: Jay Wang <wanjay@amazon.com>
+Fixes: 274e91b81ed2 ("ARM: alignment: fix alignment handling for uaccess changes")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- .../net/ethernet/intel/i40e/i40e_debugfs.c    | 121 +++---------------
- 1 file changed, 19 insertions(+), 102 deletions(-)
+ arch/arm/mm/alignment.c | 51 ++++++++++++++++++++++++++++++-----------
+ 1 file changed, 37 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_debugfs.c b/drivers/net/ethernet/intel/i40e/i40e_debugfs.c
-index a2fca58a91c33..35ce578dd6f35 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_debugfs.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_debugfs.c
-@@ -58,47 +58,6 @@ static struct i40e_veb *i40e_dbg_find_veb(struct i40e_pf *pf, int seid)
-  * setup, adding or removing filters, or other things.  Many of
-  * these will be useful for some forms of unit testing.
-  **************************************************************/
--static char i40e_dbg_command_buf[256] = "";
--
--/**
-- * i40e_dbg_command_read - read for command datum
-- * @filp: the opened file
-- * @buffer: where to write the data for the user to read
-- * @count: the size of the user's buffer
-- * @ppos: file position offset
-- **/
--static ssize_t i40e_dbg_command_read(struct file *filp, char __user *buffer,
--				     size_t count, loff_t *ppos)
--{
--	struct i40e_pf *pf = filp->private_data;
--	int bytes_not_copied;
--	int buf_size = 256;
--	char *buf;
--	int len;
--
--	/* don't allow partial reads */
--	if (*ppos != 0)
--		return 0;
--	if (count < buf_size)
--		return -ENOSPC;
--
--	buf = kzalloc(buf_size, GFP_KERNEL);
--	if (!buf)
--		return -ENOSPC;
--
--	len = snprintf(buf, buf_size, "%s: %s\n",
--		       pf->vsi[pf->lan_vsi]->netdev->name,
--		       i40e_dbg_command_buf);
--
--	bytes_not_copied = copy_to_user(buffer, buf, len);
--	kfree(buf);
--
--	if (bytes_not_copied)
--		return -EFAULT;
--
--	*ppos = len;
--	return len;
--}
- 
- static char *i40e_filter_state_string[] = {
- 	"INVALID",
-@@ -1637,7 +1596,6 @@ static ssize_t i40e_dbg_command_write(struct file *filp,
- static const struct file_operations i40e_dbg_command_fops = {
- 	.owner = THIS_MODULE,
- 	.open =  simple_open,
--	.read =  i40e_dbg_command_read,
- 	.write = i40e_dbg_command_write,
- };
- 
-@@ -1646,47 +1604,6 @@ static const struct file_operations i40e_dbg_command_fops = {
-  * The netdev_ops entry in debugfs is for giving the driver commands
-  * to be executed from the netdev operations.
-  **************************************************************/
--static char i40e_dbg_netdev_ops_buf[256] = "";
--
--/**
-- * i40e_dbg_netdev_ops_read - read for netdev_ops datum
-- * @filp: the opened file
-- * @buffer: where to write the data for the user to read
-- * @count: the size of the user's buffer
-- * @ppos: file position offset
-- **/
--static ssize_t i40e_dbg_netdev_ops_read(struct file *filp, char __user *buffer,
--					size_t count, loff_t *ppos)
--{
--	struct i40e_pf *pf = filp->private_data;
--	int bytes_not_copied;
--	int buf_size = 256;
--	char *buf;
--	int len;
--
--	/* don't allow partal reads */
--	if (*ppos != 0)
--		return 0;
--	if (count < buf_size)
--		return -ENOSPC;
--
--	buf = kzalloc(buf_size, GFP_KERNEL);
--	if (!buf)
--		return -ENOSPC;
--
--	len = snprintf(buf, buf_size, "%s: %s\n",
--		       pf->vsi[pf->lan_vsi]->netdev->name,
--		       i40e_dbg_netdev_ops_buf);
--
--	bytes_not_copied = copy_to_user(buffer, buf, len);
--	kfree(buf);
--
--	if (bytes_not_copied)
--		return -EFAULT;
--
--	*ppos = len;
--	return len;
--}
- 
- /**
-  * i40e_dbg_netdev_ops_write - write into netdev_ops datum
-@@ -1700,35 +1617,36 @@ static ssize_t i40e_dbg_netdev_ops_write(struct file *filp,
- 					 size_t count, loff_t *ppos)
+diff --git a/arch/arm/mm/alignment.c b/arch/arm/mm/alignment.c
+index 812380f30ae3..2b470a419dda 100644
+--- a/arch/arm/mm/alignment.c
++++ b/arch/arm/mm/alignment.c
+@@ -341,6 +341,8 @@ static int
+ do_alignment_ldrhstrh(unsigned long addr, u32 instr, struct pt_regs *regs)
  {
- 	struct i40e_pf *pf = filp->private_data;
-+	char *cmd_buf, *buf_tmp;
- 	int bytes_not_copied;
- 	struct i40e_vsi *vsi;
--	char *buf_tmp;
- 	int vsi_seid;
- 	int i, cnt;
+ 	unsigned int rd = RD_BITS(instr);
++	unsigned int ua_flags;
++	bool ua_saved = false;
  
- 	/* don't allow partial writes */
- 	if (*ppos != 0)
- 		return 0;
--	if (count >= sizeof(i40e_dbg_netdev_ops_buf))
--		return -ENOSPC;
+ 	ai_half += 1;
  
--	memset(i40e_dbg_netdev_ops_buf, 0, sizeof(i40e_dbg_netdev_ops_buf));
--	bytes_not_copied = copy_from_user(i40e_dbg_netdev_ops_buf,
--					  buffer, count);
--	if (bytes_not_copied)
-+	cmd_buf = kzalloc(count + 1, GFP_KERNEL);
-+	if (!cmd_buf)
-+		return count;
-+	bytes_not_copied = copy_from_user(cmd_buf, buffer, count);
-+	if (bytes_not_copied) {
-+		kfree(cmd_buf);
- 		return -EFAULT;
--	i40e_dbg_netdev_ops_buf[count] = '\0';
-+	}
-+	cmd_buf[count] = '\0';
+@@ -364,10 +366,11 @@ do_alignment_ldrhstrh(unsigned long addr, u32 instr, struct pt_regs *regs)
+  user:
+ 	if (LDST_L_BIT(instr)) {
+ 		unsigned long val;
+-		unsigned int __ua_flags = uaccess_save_and_enable();
  
--	buf_tmp = strchr(i40e_dbg_netdev_ops_buf, '\n');
-+	buf_tmp = strchr(cmd_buf, '\n');
- 	if (buf_tmp) {
- 		*buf_tmp = '\0';
--		count = buf_tmp - i40e_dbg_netdev_ops_buf + 1;
-+		count = buf_tmp - cmd_buf + 1;
- 	}
++		ua_flags = uaccess_save_and_enable();
++		ua_saved = true;
+ 		get16t_unaligned_check(val, addr);
+-		uaccess_restore(__ua_flags);
++		uaccess_restore(ua_flags);
  
--	if (strncmp(i40e_dbg_netdev_ops_buf, "change_mtu", 10) == 0) {
-+	if (strncmp(cmd_buf, "change_mtu", 10) == 0) {
- 		int mtu;
+ 		/* signed half-word? */
+ 		if (instr & 0x40)
+@@ -375,14 +378,17 @@ do_alignment_ldrhstrh(unsigned long addr, u32 instr, struct pt_regs *regs)
  
--		cnt = sscanf(&i40e_dbg_netdev_ops_buf[11], "%i %i",
-+		cnt = sscanf(&cmd_buf[11], "%i %i",
- 			     &vsi_seid, &mtu);
- 		if (cnt != 2) {
- 			dev_info(&pf->pdev->dev, "change_mtu <vsi_seid> <mtu>\n");
-@@ -1750,8 +1668,8 @@ static ssize_t i40e_dbg_netdev_ops_write(struct file *filp,
- 			dev_info(&pf->pdev->dev, "Could not acquire RTNL - please try again\n");
- 		}
- 
--	} else if (strncmp(i40e_dbg_netdev_ops_buf, "set_rx_mode", 11) == 0) {
--		cnt = sscanf(&i40e_dbg_netdev_ops_buf[11], "%i", &vsi_seid);
-+	} else if (strncmp(cmd_buf, "set_rx_mode", 11) == 0) {
-+		cnt = sscanf(&cmd_buf[11], "%i", &vsi_seid);
- 		if (cnt != 1) {
- 			dev_info(&pf->pdev->dev, "set_rx_mode <vsi_seid>\n");
- 			goto netdev_ops_write_done;
-@@ -1771,8 +1689,8 @@ static ssize_t i40e_dbg_netdev_ops_write(struct file *filp,
- 			dev_info(&pf->pdev->dev, "Could not acquire RTNL - please try again\n");
- 		}
- 
--	} else if (strncmp(i40e_dbg_netdev_ops_buf, "napi", 4) == 0) {
--		cnt = sscanf(&i40e_dbg_netdev_ops_buf[4], "%i", &vsi_seid);
-+	} else if (strncmp(cmd_buf, "napi", 4) == 0) {
-+		cnt = sscanf(&cmd_buf[4], "%i", &vsi_seid);
- 		if (cnt != 1) {
- 			dev_info(&pf->pdev->dev, "napi <vsi_seid>\n");
- 			goto netdev_ops_write_done;
-@@ -1790,21 +1708,20 @@ static ssize_t i40e_dbg_netdev_ops_write(struct file *filp,
- 			dev_info(&pf->pdev->dev, "napi called\n");
- 		}
+ 		regs->uregs[rd] = val;
  	} else {
--		dev_info(&pf->pdev->dev, "unknown command '%s'\n",
--			 i40e_dbg_netdev_ops_buf);
-+		dev_info(&pf->pdev->dev, "unknown command '%s'\n", cmd_buf);
- 		dev_info(&pf->pdev->dev, "available commands\n");
- 		dev_info(&pf->pdev->dev, "  change_mtu <vsi_seid> <mtu>\n");
- 		dev_info(&pf->pdev->dev, "  set_rx_mode <vsi_seid>\n");
- 		dev_info(&pf->pdev->dev, "  napi <vsi_seid>\n");
+-		unsigned int __ua_flags = uaccess_save_and_enable();
++		ua_flags = uaccess_save_and_enable();
++		ua_saved = true;
+ 		put16t_unaligned_check(regs->uregs[rd], addr);
+-		uaccess_restore(__ua_flags);
++		uaccess_restore(ua_flags);
  	}
- netdev_ops_write_done:
-+	kfree(cmd_buf);
- 	return count;
+ 
+ 	return TYPE_LDST;
+ 
+  fault:
++	if (ua_saved)
++		uaccess_restore(ua_flags);
+ 	return TYPE_FAULT;
  }
  
- static const struct file_operations i40e_dbg_netdev_ops_fops = {
- 	.owner = THIS_MODULE,
- 	.open = simple_open,
--	.read = i40e_dbg_netdev_ops_read,
- 	.write = i40e_dbg_netdev_ops_write,
- };
+@@ -391,6 +397,8 @@ do_alignment_ldrdstrd(unsigned long addr, u32 instr, struct pt_regs *regs)
+ {
+ 	unsigned int rd = RD_BITS(instr);
+ 	unsigned int rd2;
++	unsigned int ua_flags;
++	bool ua_saved = false;
+ 	int load;
+ 
+ 	if ((instr & 0xfe000000) == 0xe8000000) {
+@@ -425,26 +433,30 @@ do_alignment_ldrdstrd(unsigned long addr, u32 instr, struct pt_regs *regs)
+  user:
+ 	if (load) {
+ 		unsigned long val, val2;
+-		unsigned int __ua_flags = uaccess_save_and_enable();
+ 
++		ua_flags = uaccess_save_and_enable();
++		ua_saved = true;
+ 		get32t_unaligned_check(val, addr);
+ 		get32t_unaligned_check(val2, addr + 4);
+ 
+-		uaccess_restore(__ua_flags);
++		uaccess_restore(ua_flags);
+ 
+ 		regs->uregs[rd] = val;
+ 		regs->uregs[rd2] = val2;
+ 	} else {
+-		unsigned int __ua_flags = uaccess_save_and_enable();
++		ua_flags = uaccess_save_and_enable();
++		ua_saved = true;
+ 		put32t_unaligned_check(regs->uregs[rd], addr);
+ 		put32t_unaligned_check(regs->uregs[rd2], addr + 4);
+-		uaccess_restore(__ua_flags);
++		uaccess_restore(ua_flags);
+ 	}
+ 
+ 	return TYPE_LDST;
+  bad:
+ 	return TYPE_ERROR;
+  fault:
++	if (ua_saved)
++		uaccess_restore(ua_flags);
+ 	return TYPE_FAULT;
+ }
+ 
+@@ -452,6 +464,8 @@ static int
+ do_alignment_ldrstr(unsigned long addr, u32 instr, struct pt_regs *regs)
+ {
+ 	unsigned int rd = RD_BITS(instr);
++	unsigned int ua_flags;
++	bool ua_saved = false;
+ 
+ 	ai_word += 1;
+ 
+@@ -469,18 +483,22 @@ do_alignment_ldrstr(unsigned long addr, u32 instr, struct pt_regs *regs)
+  trans:
+ 	if (LDST_L_BIT(instr)) {
+ 		unsigned int val;
+-		unsigned int __ua_flags = uaccess_save_and_enable();
++		ua_flags = uaccess_save_and_enable();
++		ua_saved = true;
+ 		get32t_unaligned_check(val, addr);
+-		uaccess_restore(__ua_flags);
++		uaccess_restore(ua_flags);
+ 		regs->uregs[rd] = val;
+ 	} else {
+-		unsigned int __ua_flags = uaccess_save_and_enable();
++		ua_flags = uaccess_save_and_enable();
++		ua_saved = true;
+ 		put32t_unaligned_check(regs->uregs[rd], addr);
+-		uaccess_restore(__ua_flags);
++		uaccess_restore(ua_flags);
+ 	}
+ 	return TYPE_LDST;
+ 
+  fault:
++	if (ua_saved)
++		uaccess_restore(ua_flags);
+ 	return TYPE_FAULT;
+ }
+ 
+@@ -502,6 +520,8 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
+ {
+ 	unsigned int rd, rn, correction, nr_regs, regbits;
+ 	unsigned long eaddr, newaddr;
++	unsigned int ua_flags;
++	bool ua_saved = false;
+ 
+ 	if (LDM_S_BIT(instr))
+ 		goto bad;
+@@ -547,7 +567,8 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
+ #endif
+ 
+ 	if (user_mode(regs)) {
+-		unsigned int __ua_flags = uaccess_save_and_enable();
++		ua_flags = uaccess_save_and_enable();
++		ua_saved = true;
+ 		for (regbits = REGMASK_BITS(instr), rd = 0; regbits;
+ 		     regbits >>= 1, rd += 1)
+ 			if (regbits & 1) {
+@@ -559,7 +580,7 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
+ 					put32t_unaligned_check(regs->uregs[rd], eaddr);
+ 				eaddr += 4;
+ 			}
+-		uaccess_restore(__ua_flags);
++		uaccess_restore(ua_flags);
+ 	} else {
+ 		for (regbits = REGMASK_BITS(instr), rd = 0; regbits;
+ 		     regbits >>= 1, rd += 1)
+@@ -581,6 +602,8 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
+ 	return TYPE_DONE;
+ 
+ fault:
++	if (ua_saved)
++		uaccess_restore(ua_flags);
+ 	regs->ARM_pc -= correction;
+ 	return TYPE_FAULT;
  
 -- 
-2.47.3
+2.53.0
 
