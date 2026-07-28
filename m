@@ -1,269 +1,300 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5007312B143;
-	Tue, 28 Jul 2026 03:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2C930E82E
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785210399; cv=none; b=DGG1W9wm6cHSafXEv8nUES6xa6OUmJAc5eoKqlXNn/Ro3X8t0VE3KgAUjFP/YSMn2rIdDYfycOHfmMxJo/t8wKc5TnNbSfXZRMfCzM9ouEVVXUzXhUF+OIzQ/Y+2e3Kcz8cQs+/EtZziLsqp3VCr+BoW5lcLrthD1eFYoOk0438=
+	t=1785211038; cv=none; b=ShwS0nNqJC1KDJgNEuq/VgiXqGtTogzLTxSa3sso5ni09MD2FmQhb5FT8NaWmJrK+AiUHxlI1ufmbyElZksgr3jVdlAHFKXKsa2ep9wwaMWAIGVP7r1mqZBW7tsTj05XldQoMt4StkYQCmViam0Y2kxUodTK5Japs5ORxLaLYNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785210399; c=relaxed/simple;
-	bh=io6x3nA72pTA1hFUFfnE6wexECiMroBJvUj3ONzkADc=;
+	s=arc-20240116; t=1785211038; c=relaxed/simple;
+	bh=PxlmdFKDzB/GRrL3um4HU5TZyRNDvtFZYD9ze39OWhI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PieOFJN2b/09uoRJDoVozkUg9n3cT29V6NiRd89PeUOSQ+Z6fQjAkSz8tWuNgF+tAvNCw1mAiEmxQXQnJiin0Ay3fiA5hVLUkONc7/xLLXL425zVXGpd4YfAZRLu8uSBU9FcGE8KRXdofD+dQ4m7MVpfLR+bHvtJXChWYwpcid4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=lFW3s0fD; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 MIME-Version; b=bBcBafzZU2hFc8r3idM7CVgIL0za63xLL/Uf5TpGwKP3hguCuFVqXyrUF361RIb+gZL1NW3HoWIUmKVw8JTdRzRaRURgiOLFx7EPzrcL7M7IXifztDkvyHHVdM1Rh0c2WHW/sy6ZCR0UQeukh+c2k1tTqrHQYPU0NkGguYDh/lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbGtLKer; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="lFW3s0fD"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S0lYBH3751590;
-	Tue, 28 Jul 2026 03:46:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=GP+SiwQBTq9QAtKkg
-	oBZfMm0nxpLWAtcULDly9mVJkE=; b=lFW3s0fDiHkFwEDB9B580pNlZCiRt8UfD
-	tezZ3H/N0olGuKyvBO/UDbGsAMTddkiJNRf+3Ez4C9lvAl4e282T+4HGlL4uNa+m
-	Rv5gDUMNq1Lf/tNdp8pw+4ubstlzETfebZfhdYupu3g9dpZV1cC85HD5qymOKMph
-	EQpI14OCyiz5Y6QHxcI/xyH7k/evwpBYL/hiZKZFoCM9kinpYcBA1/IaVuZhEC4s
-	ZniMAFyGsOi3im0Ih3Wphx9M0Z+9Oe/DMUqbyufBt+xIbtULOU7TZ9TtjEsaOuiP
-	s78gE7cWoHNpPMDTo9bDOKXqz/yYluF2A3qUU5bTSslXyyyrGtkLg==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuw7ba14-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 03:46:37 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66S3fUSl019492;
-	Tue, 28 Jul 2026 03:46:36 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn7uw08fp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 28 Jul 2026 03:46:36 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66S3kUpN37683462
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 28 Jul 2026 03:46:30 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 86AE920242;
-	Tue, 28 Jul 2026 03:30:24 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5D83620240;
-	Tue, 28 Jul 2026 03:30:24 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Tue, 28 Jul 2026 03:30:24 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 4958)
-	id 23D9C16282C; Tue, 28 Jul 2026 05:30:24 +0200 (CEST)
-From: Eric Farman <farman@linux.ibm.com>
-To: linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Matthew Rosato <mjrosato@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Eric Farman <farman@linux.ibm.com>, stable@vger.kernel.org
-Subject: [PATCH v9 09/10] s390/vfio_ccw: selectively expand io_mutex
-Date: Tue, 28 Jul 2026 05:30:21 +0200
-Message-ID: <20260728033022.2658232-10-farman@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbGtLKer"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 130251F000E9;
+	Tue, 28 Jul 2026 03:57:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785211036;
+	bh=u1bThdFbpKnlQUNj/A/Ovkc3Pu6wiOexFWL2PRf545E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PbGtLKer8r4+crptqVUu3qWmqootg+Xqtneq8L5Fw+yIaWZU/gWFmtgjCD6GyuR5i
+	 8tRp7Bde6vQE/88ZVYA4luT2ppN6D/z31StWQ54jZjNBJRnt8IR3KZ3CEFA+XuyobQ
+	 AVSwIko/9OiFl2AD6snAKCoK+S/3UwSKyUDD6eqkwy14sKY0qxuIyo0CJ+CfXL4sHU
+	 fL4gWrE4LlEgQVNOQ8+5U6I28t5CmKbgGt4U1cOUP0X1kblfl6ngklCvX203ofwdQN
+	 5AmKcVT4Gr33ys1TRffyXZ9nBxlmQsq4kPjqRh1F8HPN8M4AsbVErpC6aqvcwABnuM
+	 Jssi7G652j4NQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Yury Norov <ynorov@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] net: mana: Optimize irq affinity for low vcpu configs
+Date: Mon, 27 Jul 2026 23:57:14 -0400
+Message-ID: <20260728035714.3173126-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728033022.2658232-1-farman@linux.ibm.com>
-References: <20260728033022.2658232-1-farman@linux.ibm.com>
+In-Reply-To: <2026072009-humid-given-b308@gregkh>
+References: <2026072009-humid-given-b308@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: beihfFYhiFDQspeT1PjPTwmiwo7bYaR9
-X-Proofpoint-ORIG-GUID: beihfFYhiFDQspeT1PjPTwmiwo7bYaR9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDAyOCBTYWx0ZWRfX638Dtk6gQvaf
- iFaB4N/a0uvgqdNVfY3vAQaQ1Fki/UDa2nKL0xvmXIXzFtfLVggW6V63Fu9mU5Vx3D8vnFtbN24
- aifVpvWeNFIuqhtPH5841CSRq5iDSTZyLlvYzjQAqVfH6zKBaql5UbY/uYjNu44YueXK8QAjXmO
- TICReWea0t6OsorFmdGMMSEUcFr33LKiAl57BD/aJ5XGAayg6scKX2To86hg0DYMwVrNYMfwFDT
- NYCTyVkNrO8URnxx5T2ZgM9EJiJ0hfu712vnbXhjNeq2Mj1B/+ZVeYrYg+lgUaCJqYHnxunjrg2
- bTyF1NSGzOLyBYUmj7+RIAEy+Al62vJZfZ9YCpg9/QXMN0N2kUZ+239PBfBMnk7puY2qsnkW/Vg
- YtFclzmxJboGexHd2Sh9D06/cSmXxr/e+e572FFNCuwctVhwcC1+KTZW8380V5HOekmLevcRf7I
- NOCb3shF1goRisK0XEA==
-X-Authority-Analysis: v=2.4 cv=SKFykuvH c=1 sm=1 tr=0 ts=6a68261d cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=EkIAoCbfkmX2K6UF1qUA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDAyOCBTYWx0ZWRfXxcNF0XZbmGud
- 4BlmCqQw45fQi4cRM0DMxIidQvCJvHIrf0N0pZ+AoTjrtvrai4deavYbmh1m21B+c3i9eSkx0oK
- hD/xIaXp5VLupLDMrc8ZqqhFMwiSOoc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-27_07,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607280028
+Content-Transfer-Encoding: 8bit
 
-The io_mutex was defined to serialize the io_regions, but then has
-also sort of been associated with the I/O themselves because of
-the close relationship they share.
+From: Shradha Gupta <shradhagupta@linux.microsoft.com>
 
-With the handful of races that are possible, the choices are either to:
- A) expand the scope of io_mutex to close these remaining windows, or
- B) reduce the scope of io_mutex to just io_region, and introduce a new
-    lock mechanism for the remaining I/O resources
+[ Upstream commit 5316394b1752f6cf3f9901e7fefdec1cd1d97fd3 ]
 
-This patch implements A, since B brings with it a lot more interactions
-that would need to be tracked and kept in a correct hierarchy. It also
-takes advantage of the workqueue element for cp_free() that now gets
-called out of fsm_notoper(), which could be invoked out of an interrupt
-context and thus cannot acquire a mutex itself.
+Before the commit 755391121038 ("net: mana: Allocate MSI-X vectors
+dynamically"), all the MANA IRQs were assigned statically and together
+during early driver load.
 
-Fixes: 4f76617378ee ("vfio-ccw: protect the I/O region")
+After this commit, the IRQ allocation for MANA was done in two phases.
+HWC IRQ allocated earlier and then, queue IRQs dynamically added at a
+later point. By this time, the IRQ weights on vCPUs can become imbalanced
+and if IRQ count is greater than the vCPU count the topology aware IRQ
+distribution logic in MANA can cause multiple MANA IRQs to land on the
+same vCPUs, while other sibling vCPUs have none (case 1).
+
+On SMP enabled, low-vCPU systems, this becomes a bigger problem as the
+softIRQ handling overhead of two IRQs on the same vCPUs becomes much more
+than their overheads if they were spread across sibling vCPUs.
+
+In such cases when many parallel TCP connections are tested, the
+throughput drops significantly.
+
+Fix the affinity assignment logic, in cases where the IRQ count is greater
+than the vCPU count and when IRQs are added dynamically, by utilizing all
+the vCPUs irrespective of their NUMA/core bindings (case 2).
+
+The results of setting the affinity and hint to NULL were also studied,
+and we observed that, with this logic if there are pre-existing IRQs
+allocated on the VM (apart from MANA), during MANA IRQs allocation, it
+leads to clustering of the MANA queue IRQs again (case 3).
+
+=======================================================
+Case 1: without this patch
+=======================================================
+4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+
+	TYPE		effective vCPU aff
+=======================================================
+IRQ0:	HWC		0
+IRQ1:	mana_q1		0
+IRQ2:	mana_q2		2
+IRQ3:	mana_q3		0
+IRQ4:	mana_q4		3
+
+%soft on each vCPU(mpstat -P ALL 1) on receiver
+vCPU		0	1	2	3
+=======================================================
+pass 1:		38.85	0.03	24.89	24.65
+pass 2:		39.15	0.03	24.57	25.28
+pass 3:		40.36	0.03	23.20	23.17
+
+=======================================================
+Case 2: with this patch
+=======================================================
+4 vcpu(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+
+        TYPE            effective vCPU aff
+=======================================================
+IRQ0:   HWC             0
+IRQ1:   mana_q1         0
+IRQ2:   mana_q2         1
+IRQ3:   mana_q3         2
+IRQ4:   mana_q4         3
+
+%soft on each vCPU(mpstat -P ALL 1) on receiver
+vCPU            0       1       2       3
+=======================================================
+pass 1:         15.42	15.85	14.99	14.51
+pass 2:         15.53	15.94	15.81	15.93
+pass 3:         16.41	16.35	16.40	16.36
+
+=======================================================
+Case 3: with affinity set to NULL
+=======================================================
+4 vCPU(2 cores), 5 MANA IRQs (1 HWC + 4 Queue)
+
+	TYPE		effective vCPU aff
+=======================================================
+IRQ0:	HWC			0
+IRQ1:	mana_q1			2
+IRQ2:	mana_q2			3
+IRQ3:	mana_q3			2
+IRQ4:	mana_q4			3
+
+=======================================================
+Throughput Impact(in Gbps, same env)
+=======================================================
+TCP conn	with patch	w/o patch	aff NULL
+20480		15.65		7.73		5.25
+10240		15.63		8.93		5.77
+8192		15.64		9.69		7.16
+6144		15.64		13.16		9.33
+4096		15.69		15.75		13.50
+2048		15.69		15.83		13.61
+1024		15.71		15.28		13.60
+
+Fixes: 755391121038 ("net: mana: Allocate MSI-X vectors dynamically")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Farman <farman@linux.ibm.com>
+Co-developed-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
+Link: https://patch.msgid.link/20260624072138.1632849-1-shradhagupta@linux.microsoft.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Kept 7.1's `int *irqs, irq, err, i;` declaration (minus the deleted `skip_first_cpu`) instead of upstream's `msi` variant, as this tree lacks the `mana_gd_get_gic()` refactor. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/cio/vfio_ccw_chp.c     | 2 +-
- drivers/s390/cio/vfio_ccw_cp.c      | 8 +++++++-
- drivers/s390/cio/vfio_ccw_drv.c     | 6 ++++--
- drivers/s390/cio/vfio_ccw_fsm.c     | 5 +++++
- drivers/s390/cio/vfio_ccw_private.h | 3 ++-
- 5 files changed, 19 insertions(+), 5 deletions(-)
+ .../net/ethernet/microsoft/mana/gdma_main.c   | 78 +++++++++++++++----
+ 1 file changed, 64 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/s390/cio/vfio_ccw_chp.c b/drivers/s390/cio/vfio_ccw_=
-chp.c
-index f3015132d4b5..9269b54f5cfd 100644
---- a/drivers/s390/cio/vfio_ccw_chp.c
-+++ b/drivers/s390/cio/vfio_ccw_chp.c
-@@ -98,13 +98,13 @@ static ssize_t vfio_ccw_crw_region_read(struct vfio_c=
-cw_private *private,
- 	if (pos + count > sizeof(*region))
- 		return -EINVAL;
-=20
-+	mutex_lock(&private->io_mutex);
- 	crw =3D list_first_entry_or_null(&private->crw,
- 				       struct vfio_ccw_crw, next);
-=20
- 	if (crw)
- 		list_del(&crw->next);
-=20
--	mutex_lock(&private->io_mutex);
- 	if (i >=3D private->num_regions) {
- 		ret =3D -EINVAL;
- 		goto out;
-diff --git a/drivers/s390/cio/vfio_ccw_cp.c b/drivers/s390/cio/vfio_ccw_c=
-p.c
-index 5ef082b8289a..58722c4baa25 100644
---- a/drivers/s390/cio/vfio_ccw_cp.c
-+++ b/drivers/s390/cio/vfio_ccw_cp.c
-@@ -977,17 +977,23 @@ void cp_update_scsw(struct channel_program *cp, uni=
-on scsw *scsw)
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index 243f8d11be6848..81cbc47de0c62d 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -125,6 +125,8 @@ static int mana_gd_query_max_resources(struct pci_dev *pdev)
+ 	} else {
+ 		/* If dynamic allocation is enabled we have already allocated
+ 		 * hwc msi
++		 * Also, we make sure in this case the following is always true
++		 * (num_msix_usable - 1 HWC) <= num_online_cpus()
+ 		 */
+ 		gc->num_msix_usable = min(resp.max_msix, num_online_cpus() + 1);
+ 	}
+@@ -1587,8 +1589,8 @@ void mana_gd_free_res_map(struct gdma_resource *r)
+  * do the same thing.
   */
- bool cp_iova_pinned(struct channel_program *cp, u64 iova, u64 length)
+ 
+-static int irq_setup(unsigned int *irqs, unsigned int len, int node,
+-		     bool skip_first_cpu)
++static int mana_irq_setup_numa_aware(unsigned int *irqs, unsigned int len,
++				     int node, bool skip_first_cpu)
  {
-+	struct vfio_ccw_private *private =3D
-+		container_of(cp, struct vfio_ccw_private, cp);
- 	struct ccwchain *chain;
- 	int i;
-=20
- 	if (!cp->initialized)
- 		return false;
-=20
-+	mutex_lock(&private->io_mutex);
- 	list_for_each_entry(chain, &cp->ccwchain_list, next) {
- 		for (i =3D 0; i < chain->ch_len; i++)
--			if (page_array_iova_pinned(&chain->ch_pa[i], iova, length))
-+			if (page_array_iova_pinned(&chain->ch_pa[i], iova, length)) {
-+				mutex_unlock(&private->io_mutex);
- 				return true;
-+			}
- 	}
-+	mutex_unlock(&private->io_mutex);
-=20
- 	return false;
+ 	const struct cpumask *next, *prev = cpu_none_mask;
+ 	cpumask_var_t cpus __free(free_cpumask_var);
+@@ -1624,11 +1626,24 @@ static int irq_setup(unsigned int *irqs, unsigned int len, int node,
+ 	return 0;
  }
-diff --git a/drivers/s390/cio/vfio_ccw_drv.c b/drivers/s390/cio/vfio_ccw_=
-drv.c
-index c197ad5ab580..757ff5b2556e 100644
---- a/drivers/s390/cio/vfio_ccw_drv.c
-+++ b/drivers/s390/cio/vfio_ccw_drv.c
-@@ -91,6 +91,7 @@ void vfio_ccw_sch_io_todo(struct work_struct *work)
-=20
- 	is_final =3D !(scsw_actl(&irb->scsw) &
- 		     (SCSW_ACTL_DEVACT | SCSW_ACTL_SCHACT));
-+	mutex_lock(&private->io_mutex);
- 	if (scsw_is_solicited(&irb->scsw)) {
- 		cp_update_scsw(&private->cp, &irb->scsw);
- 		if (is_final && private->state =3D=3D VFIO_CCW_STATE_CP_PENDING) {
-@@ -98,9 +99,7 @@ void vfio_ccw_sch_io_todo(struct work_struct *work)
- 			cp_is_finished =3D true;
- 		}
- 	}
--	mutex_lock(&private->io_mutex);
- 	memcpy(private->io_region->irb_area, irb, sizeof(*irb));
--	mutex_unlock(&private->io_mutex);
-=20
+ 
++/* must be called with cpus_read_lock() held */
++static void mana_irq_setup_linear(unsigned int *irqs, unsigned int len)
++{
++	int cpu;
++
++	for_each_online_cpu(cpu) {
++		if (len == 0)
++			break;
++
++		irq_set_affinity_and_hint(*irqs++, cpumask_of(cpu));
++		len--;
++	}
++}
++
+ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+ {
+ 	struct gdma_context *gc = pci_get_drvdata(pdev);
+ 	struct gdma_irq_context *gic;
+-	bool skip_first_cpu = false;
+ 	int *irqs, irq, err, i;
+ 
+ 	irqs = kmalloc_array(nvec, sizeof(int), GFP_KERNEL);
+@@ -1636,10 +1651,12 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+ 		return -ENOMEM;
+ 
  	/*
- 	 * Reset to IDLE only if processing of a channel program
-@@ -110,6 +109,7 @@ void vfio_ccw_sch_io_todo(struct work_struct *work)
++	 * In this function, num_msix_usable = HWC IRQ + Queue IRQ.
++	 * nvec is only Queue IRQ (HWC already setup).
+ 	 * While processing the next pci irq vector, we start with index 1,
+ 	 * as IRQ vector at index 0 is already processed for HWC.
+ 	 * However, the population of irqs array starts with index 0, to be
+-	 * further used in irq_setup()
++	 * further used in mana_irq_setup_numa_aware()
  	 */
- 	if (cp_is_finished)
- 		private->state =3D VFIO_CCW_STATE_IDLE;
-+	mutex_unlock(&private->io_mutex);
-=20
- 	if (private->io_trigger)
- 		eventfd_signal(private->io_trigger);
-@@ -131,7 +131,9 @@ void vfio_ccw_notoper_todo(struct work_struct *work)
-=20
- 	private =3D container_of(work, struct vfio_ccw_private, notoper_work);
-=20
-+	mutex_lock(&private->io_mutex);
- 	cp_free(&private->cp);
-+	mutex_unlock(&private->io_mutex);
- }
-=20
- /*
-diff --git a/drivers/s390/cio/vfio_ccw_fsm.c b/drivers/s390/cio/vfio_ccw_=
-fsm.c
-index 4d47a3c7b9a0..5fd94e9d5c61 100644
---- a/drivers/s390/cio/vfio_ccw_fsm.c
-+++ b/drivers/s390/cio/vfio_ccw_fsm.c
-@@ -170,6 +170,7 @@ static void fsm_notoper(struct vfio_ccw_private *priv=
-ate,
- 	css_sched_sch_todo(sch, SCH_TODO_UNREG);
- 	private->state =3D VFIO_CCW_STATE_NOT_OPER;
-=20
-+	/* This routine could be called from IRQ context, so defer */
- 	queue_work(vfio_ccw_work_q, &private->notoper_work);
- }
-=20
-@@ -409,7 +410,11 @@ static void fsm_close(struct vfio_ccw_private *priva=
-te,
-=20
- 	private->state =3D VFIO_CCW_STATE_STANDBY;
- 	spin_unlock_irq(&sch->lock);
+ 	for (i = 1; i <= nvec; i++) {
+ 		gic = kzalloc(sizeof(*gic), GFP_KERNEL);
+@@ -1669,18 +1686,51 @@ static int mana_gd_setup_dyn_irqs(struct pci_dev *pdev, int nvec)
+ 	}
+ 
+ 	/*
+-	 * When calling irq_setup() for dynamically added IRQs, if number of
+-	 * CPUs is more than or equal to allocated MSI-X, we need to skip the
+-	 * first CPU sibling group since they are already affinitized to HWC IRQ
++	 * When calling mana_irq_setup_numa_aware() for dynamically added IRQs,
++	 * if number of CPUs is more than or equal to allocated MSI-X, we need to
++	 * skip the first CPU sibling group since they are already affinitized to
++	 * HWC IRQ
+ 	 */
+ 	cpus_read_lock();
+-	if (gc->num_msix_usable <= num_online_cpus())
+-		skip_first_cpu = true;
++	if (gc->num_msix_usable <= num_online_cpus()) {
++		err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node,
++						true);
++		if (err) {
++			cpus_read_unlock();
++			goto free_irq;
++		}
++	} else {
++		/*
++		 * When num_msix_usable are more than num_online_cpus, our
++		 * queue IRQs should be equal to num of online vCPUs.
++		 * We try to make sure queue IRQs spread across all vCPUs.
++		 * In such a case NUMA or CPU core affinity does not matter.
++		 * Note: in this case the total mana IRQ should always be
++		 * num_online_cpus + 1. The first HWC IRQ is already handled
++		 * in HWC setup calls
++		 * However, if CPUs went offline since num_msix_usable was
++		 * computed, queue IRQs will be more than num_online_cpus().
++		 * In such cases remaining extra IRQs will retain their default
++		 * affinity.
++		 */
++		int first_unassigned = num_online_cpus();
+ 
+-	err = irq_setup(irqs, nvec, gc->numa_node, skip_first_cpu);
+-	if (err) {
+-		cpus_read_unlock();
+-		goto free_irq;
++		if (nvec > first_unassigned) {
++			char buf[32];
 +
-+	mutex_lock(&private->io_mutex);
- 	cp_free(&private->cp);
-+	mutex_unlock(&private->io_mutex);
++			if (first_unassigned == nvec - 1)
++				snprintf(buf, sizeof(buf), "%d",
++					 first_unassigned);
++			else
++				snprintf(buf, sizeof(buf), "%d-%d",
++					 first_unassigned, nvec - 1);
 +
- 	return;
-=20
- err_unlock:
-diff --git a/drivers/s390/cio/vfio_ccw_private.h b/drivers/s390/cio/vfio_=
-ccw_private.h
-index e2256402b089..739121116ab6 100644
---- a/drivers/s390/cio/vfio_ccw_private.h
-+++ b/drivers/s390/cio/vfio_ccw_private.h
-@@ -88,7 +88,8 @@ struct vfio_ccw_parent {
-  * @state: internal state of the device
-  * @completion: synchronization helper of the I/O completion
-  * @io_region: MMIO region to input/output I/O arguments/results
-- * @io_mutex: protect against concurrent update of I/O regions
-+ * @io_mutex: protect against concurrent update of I/O resources
-+ *            and @cp lifecycle
-  * @region: additional regions for other subchannel operations
-  * @cmd_region: MMIO region for asynchronous I/O commands other than STA=
-RT
-  * @schib_region: MMIO region for SCHIB information
---=20
++			dev_dbg(&pdev->dev,
++				"MANA IRQ indices #%s will retain the default CPU affinity\n",
++				buf);
++		}
++
++		mana_irq_setup_linear(irqs, nvec);
+ 	}
+ 
+ 	cpus_read_unlock();
+@@ -1766,7 +1816,7 @@ static int mana_gd_setup_irqs(struct pci_dev *pdev, int nvec)
+ 		nvec -= 1;
+ 	}
+ 
+-	err = irq_setup(irqs, nvec, gc->numa_node, false);
++	err = mana_irq_setup_numa_aware(irqs, nvec, gc->numa_node, false);
+ 	if (err) {
+ 		cpus_read_unlock();
+ 		goto free_irq;
+-- 
 2.53.0
 
