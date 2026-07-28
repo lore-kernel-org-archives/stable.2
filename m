@@ -1,40 +1,45 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ABFC62F5474
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AE725B09D
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785207698; cv=none; b=JWGjw7LFGAGw4mQZSOzkdEZ0BERznurrV3qoSgZz8xZ0l8pYMQS6YgfO7yfiBRXRmUngcwkTd0MpaiPhpBz00isDKFvASewy7eLQnG+AayHQk4aX9L+LDDFBNxoD0qu0/zJuOUdQl6v4Kb8B7h8UE8s/CaIsXd6D9O5rzet6uaM=
+	t=1785207726; cv=none; b=Vd6c7TVDxukSqZatMxeZmXjY+ElinZCKFuI4w/wsv0GKabhGNiR1GWdXWu/fPSHFxJcqZr0SRKn3zsvfV6ISVjU/ulnsljA9xKwXaK21jjQgw/MkRRVAbSBQaXgFijZ0bGfNoffsOb7E6tuw6poeQ83+QmR9uB7VuRW/ix2swaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785207698; c=relaxed/simple;
-	bh=ETjrZhTjbESmY5CBGfr16VJfGc/WLNVTc59lZWSbsR8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=uNX7WLSTPJO65vX7zSKF/7Jt2hk24B1zqUWPQAroz7otP9OyGmPN2A2JuQXQemZtHnQeFQ2YYdeI9sifIEi6a1CrcrJoe8yH5a54MGLkKE7ri5ZFjM1eHhStLMrOB9PHmzQiZif+WgSSHfvOpgNVFUGaX+3wcjeW66aHAcn2jw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=YjKr3ja/; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1785207726; c=relaxed/simple;
+	bh=iUXQFqbMDycMexnJ9NjJ+eVWehn5GmB32Vz/eqswcbs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U0crfQD5lm2pZkYhuJSKkbSUWsjz4a2QwJvSNr6p9/x6eWrjF0enY70jCDjw5XOZlvYfE9Qfa5FPXp9gXhnsqJeaIRA8bARkV8EA2caywDnTCVBpx5r+d0TuRQFqsfI0Iyg2zLTVusRrYeKh1Qwvp19jMHochhcHKW3n9vxTfTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6KTM80l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="YjKr3ja/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=mJb78JQU62RDrX4Ut/H2k/kawpqoQZuaMf
-	jJ2bSGPQc=; b=YjKr3ja/SlvUGqC9PgwSkC81FkdxOol3iRwuJ/TqcBi1Hg6h+n
-	NHdVFFFfJzsb8z+gsBlKTBxU/usRUwwQNHcmrs3knaDD/mIFF3F8CvNkYVqpBeGA
-	ccxLLmXEIbcPNvnFEJESTWflj+ra0YOxqx7sxTxCbzRmIWARHE9yagEdM=
-Received: from leopard.. (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUKkG2hqKpUVAA--.17589S2;
-	Tue, 28 Jul 2026 11:01:56 +0800 (CST)
-From: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6KTM80l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB711F000E9;
+	Tue, 28 Jul 2026 03:02:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785207724;
+	bh=o8XIdphOFrygSRNFL1fR0pla2Q8Seqxp4bxtnIGMFuU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=G6KTM80lPnMpl8+MtlDzhawq6q7HSka+/dYZ0jRcNTaD0kULIyT420+R9qWcaqjgh
+	 guUgayVe1OcL/cXiYPjOlBFbQiV2koeSZzU54+fxT4Sv61W6QMOGpnIS0sw/m8r7cr
+	 Q20kCe2G3Z5CH3DvZrtAJ6UECIVzIP2+tfT+xR2ctlREg+tac8BYDnya9CAOZk+hDw
+	 cZbwwTVdUtUIem/xg9KB+hHdMtF8nmKgwRqhr8Ep9YmXCpDYB68GtnAK3l4BFHHhOg
+	 XY2KMOp0XY0SHEBfvyk91APWn0V0SzZS3ADm5pen5OSsPYcJd49tcYEsYKtTNduWjG
+	 ovyfQzA0p3imQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.1.y] usb: xhci-pci: Limit VIA VL805 DMA addressing to 36 bits
-Date: Tue, 28 Jul 2026 11:01:16 +0800
-Message-Id: <20260728030116.1607312-1-zhangxincheng@ultrarisc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026072719-vividly-saddling-1550@gregkh>
-References: <2026072719-vividly-saddling-1550@gregkh>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com,
+	Jann Horn <jannh@google.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] locking/rt: Fix the incorrect RCU protection in rt_spin_unlock()
+Date: Mon, 27 Jul 2026 23:02:02 -0400
+Message-ID: <20260728030202.3123520-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072059-baffle-blaspheme-edd9@gregkh>
+References: <2026072059-baffle-blaspheme-edd9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,111 +47,110 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAfwAnYUKkG2hqKpUVAA--.17589S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAryDXF47CrW8Xr4DJw43ZFb_yoWrXF45pF
-	W5Xa1UCrs3tF4Sv3WDCa1kAa4rJan3JF9xKry7K34a9rW3Zry5WFn7C3WfA3ZrWw4fXr1a
-	qr1vg3y5Wa93JaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUva14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
-	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
-	uYvjfUehL0UUUUU
-X-CM-SenderInfo: x2kd0wp0lquxxhqjq3powut2xlvfhudrp/1tbiAQALDGpZptAABQAcsa
 
-The VIA VL805/806 xHCI controller advertises AC64, but fails to handle
-DMA addresses at or above 0x1000000000. On systems with large amounts of
-RAM, this can cause USB device failures when the controller is given DMA
-addresses beyond its usable address width.
+From: Thomas Gleixner <tglx@kernel.org>
 
-Do not use XHCI_NO_64BIT_SUPPORT for this controller. That quirk clears
-the cached AC64 capability and limits DMA to 32 bits, causing unnecessary
-bouncing for addresses between 4GiB and 64GiB and hiding the controller's
-real AC64 capability from code that may need to distinguish register
-access width from usable DMA address width.
+[ Upstream commit 89038cc87d80c77e7aa6f42a64b2573b74af339f ]
 
-Track the usable DMA address width separately from the AC64 capability.
-Initialize the generic xhci->dma_mask_bits field to 64 and let PCI quirks
-reduce it for controllers with narrower DMA support. Set VIA VL805/806 to
-36 bits so the DMA API only hands it addresses in the range it can handle
-while keeping HCCPARAMS1.AC64 visible.
+rt_spin_unlock() releases the RCU protection before unlocking the
+lock. That opens the door for the following UAF scenario:
 
-Cc: stable@kernel.org
-Signed-off-by: Xincheng Zhang <zhangxincheng@ultrarisc.com>
-Link: https://patch.msgid.link/20260630-xhci-via-dma-fix-v3-1-690dcb8cf75a@ultrarisc.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit 1fc50f1ecde39feb4fccdaf4bc71aa6c0eb25c49)
+ T1					T2
+ spin_lock(&p->lock);		rcu_read_lock();
+ invalidate(p);			p = rcu_dereference(ptr);
+ rcu_assign_pointer(ptr, NULL);	if (!p) return;
+ spin_unlock(&p->lock);		spin_lock(&p->lock)
+ 				   lock(&lock->lock);
+				   rcu_read_lock();
+ kfree_rcu(p);			rcu_read_unlock();
+				....
+				spin_unlock(&p->lock)
+				  rcu_read_unlock(); // Ends grace period
+ rcu_do_batch()
+   kfree(p);
+			    UAF ->	  rt_mutex_cmpxchg_release(&lock->lock...)
+
+Regular spinlocks keep preemption disabled accross the unlock operation,
+which provides full RCU protection, but the RT substitution fails to
+resemble that. Same applies for the rwlock substitution.
+
+Move the rcu_read_unlock() invocation past the unlock operations to match
+the non-RT semantics. This makes it asymmetric vs. rt_xxx_lock(), but
+that's harmless as the caller needs to hold RCU read lock across the lock
+operation. The migrate_enable() call stays before the unlock operation
+because there is no per CPU operation in the unlock path which would
+require migration to be kept disabled.
+
+Fixes: 0f383b6dc96e ("locking/spinlock: Provide RT variant")
+Reported-by: syzbot+000c800a02097aaa10ed@syzkaller.appspotmail.com
+Decoded-by: Jann Horn <jannh@google.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Acked-by: Al Viro <viro@zeniv.linux.org.uk>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/87jyrud75z.ffs@fw13
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-pci.c |  1 +
- drivers/usb/host/xhci.c     | 15 ++++++++++-----
- drivers/usb/host/xhci.h     |  1 +
- 3 files changed, 12 insertions(+), 5 deletions(-)
+ kernel/locking/spinlock_rt.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index 7ad6d13d65ee..8fffc84d0147 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -337,6 +337,7 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
- 	if (pdev->vendor == PCI_VENDOR_ID_VIA && pdev->device == PCI_DEVICE_ID_VIA_VL805) {
- 		xhci->quirks |= XHCI_LPM_SUPPORT;
- 		xhci->quirks |= XHCI_TRB_OVERFETCH;
-+		xhci->dma_mask_bits = 36;
- 	}
+diff --git a/kernel/locking/spinlock_rt.c b/kernel/locking/spinlock_rt.c
+index 48a19ed8486d8e..2c0fd2c7a3c13f 100644
+--- a/kernel/locking/spinlock_rt.c
++++ b/kernel/locking/spinlock_rt.c
+@@ -77,10 +77,27 @@ void __sched rt_spin_unlock(spinlock_t *lock)
+ {
+ 	spin_release(&lock->dep_map, _RET_IP_);
+ 	migrate_enable();
+-	rcu_read_unlock();
  
- 	if (pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index e00baa3b7324..37fb2491d88f 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -5394,6 +5394,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	if (xhci->hci_version > 0x100)
- 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
- 
-+	xhci->dma_mask_bits = 64;
- 	/* xhci-plat or xhci-pci might have set max_interrupters already */
- 	if ((!xhci->max_interrupters) ||
- 	    xhci->max_interrupters > HCS_MAX_INTRS(xhci->hcs_params1))
-@@ -5434,12 +5435,16 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
- 	if (xhci->quirks & XHCI_NO_64BIT_SUPPORT)
- 		xhci->hcc_params &= ~BIT(0);
- 
--	/* Set dma_mask and coherent_dma_mask to 64-bits,
--	 * if xHC supports 64-bit addressing */
+ 	if (unlikely(!rt_mutex_cmpxchg_release(&lock->lock, current, NULL)))
+ 		rt_mutex_slowunlock(&lock->lock);
++
 +	/*
-+	 * Set dma_mask and coherent_dma_mask to 64-bits if xHC supports
-+	 * 64-bit addressing, unless a controller-specific quirk callback
-+	 * limits the usable address width.
++	 * This must be last to prevent the following UAF:
++	 *
++	 * T1					T2
++	 * spin_lock(&p->lock);			rcu_read_lock();
++	 * invalidate(p);			p = rcu_dereference(ptr);
++	 * rcu_assign_pointer(ptr, NULL);	if (!p) return;
++	 * spin_unlock(&p->lock);		spin_lock(&p->lock);
++	 * kfree_rcu(p);			rcu_read_unlock();
++	 *					....
++	 *					spin_unlock(&p->lock)
++	 *					  rcu_read_unlock(); // Ends grace period
++	 * rcu_do_batch()
++	 *   kfree(p);
++	 *			    UAF ->	  rt_mutex_cmpxchg_release(&p->lock.lock...)
 +	 */
- 	if (HCC_64BIT_ADDR(xhci->hcc_params) &&
--			!dma_set_mask(dev, DMA_BIT_MASK(64))) {
--		xhci_dbg(xhci, "Enabling 64-bit DMA addresses.\n");
--		dma_set_coherent_mask(dev, DMA_BIT_MASK(64));
-+	    !dma_set_mask(dev, DMA_BIT_MASK(xhci->dma_mask_bits))) {
-+		xhci_dbg(xhci, "Enabling %u-bit DMA addresses.\n",
-+			 xhci->dma_mask_bits);
-+		dma_set_coherent_mask(dev, DMA_BIT_MASK(xhci->dma_mask_bits));
- 	} else {
- 		/*
- 		 * This is to avoid error in cases where a 32-bit USB
-diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-index b43e88102200..b446fa9eb837 100644
---- a/drivers/usb/host/xhci.h
-+++ b/drivers/usb/host/xhci.h
-@@ -1543,6 +1543,7 @@ struct xhci_hcd {
- 	int		event_ring_max;
- 	/* 4KB min, 128MB max */
- 	int		page_size;
-+	unsigned int	dma_mask_bits;
- 	/* Valid values are 12 to 20, inclusive */
- 	int		page_shift;
- 	/* msi-x vectors */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_spin_unlock);
+ 
+@@ -255,17 +272,21 @@ void __sched rt_read_unlock(rwlock_t *rwlock)
+ {
+ 	rwlock_release(&rwlock->dep_map, _RET_IP_);
+ 	migrate_enable();
+-	rcu_read_unlock();
+ 	rwbase_read_unlock(&rwlock->rwbase, TASK_RTLOCK_WAIT);
++
++	/* This must be last. See comment in rt_spin_unlock() */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_read_unlock);
+ 
+ void __sched rt_write_unlock(rwlock_t *rwlock)
+ {
+ 	rwlock_release(&rwlock->dep_map, _RET_IP_);
+-	rcu_read_unlock();
+ 	migrate_enable();
+ 	rwbase_write_unlock(&rwlock->rwbase);
++
++	/* This must be last. See comment in rt_spin_unlock() */
++	rcu_read_unlock();
+ }
+ EXPORT_SYMBOL(rt_write_unlock);
+ 
 -- 
-2.34.1
+2.53.0
 
