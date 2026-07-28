@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D250139FCD8;
-	Tue, 28 Jul 2026 17:12:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A8C3A1691;
+	Tue, 28 Jul 2026 17:12:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785258747; cv=none; b=qIqcPin2EeioimAG4SiriGupLxvDDMscoqAdEBWPZr9GarWWnO0cg3MJK99Y0XFfvz4+4793ItYQ/DSi79hRfRPCr/9tjjS/xBBf1WvhH3cZGzqHviXiAl3Ku5bVQlixEUx680AIS/+5g9EwlTAeN8W+J1XhkFqnV7uXRBOz4Ag=
+	t=1785258749; cv=none; b=IkZuuanX/DTJdK/3tMYftGby6RohSlNqoJXQd/JRji9tVyTJg9mXtmOExLOZ5uNFPhyElpyhBv2kD/6ha3y2H4B6U3LNNXoTUQStqXIMSb86rZBCLBaHTk3DzEIirdddSDyudG3Og5rPIIxkcqTvjBjzNoHVPwuIfQnVzzhtHS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785258747; c=relaxed/simple;
-	bh=5uECOOns2Y41XUYlvAgm8ybQtbEZGOYp0nbjgwLpCZU=;
+	s=arc-20240116; t=1785258749; c=relaxed/simple;
+	bh=m4x0bxSy6TxsUPrJI6w5irHD5JNUjCHFJQxz6MDrmzA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jQSLtmzK8NSQEolx+cYBZOaUNeKLUWcYCiqmb+B6N03vFRXsq+A91y8U5Qd3lgVR5y5aNs990BhdVZ2L3KEhv/CiycgjRoATxPw2xJwFg3EjYxiUGlyb8x9fWxwhGO6UTuVSzlr7moX1Rv1jjeX690GgRVLUddINjXbTNeIOSIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=odqfIDuJ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Muj86vy31TJMO4e/2/rtFlvOMUNvDMawai74HseSoea5SO9k6J446FPoJk31SpemMMLFgAHwvlKA7gD0KKfY63m8+gGaY+oqv5wCAaTuzHw3nmYj3cGaFU/v4GKhz5JXLpmu7NKHMj5blPh03HfhowD1Bn+yNrpvsn1Rm+eerEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ur5/NbGA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="odqfIDuJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C30D1F00A3A;
-	Tue, 28 Jul 2026 17:12:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ur5/NbGA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89B91F00AC4;
+	Tue, 28 Jul 2026 17:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785258745;
-	bh=ddGrUJuo0FcgqMZcBeOx4dAowEcWdhsa4UnRR007kHg=;
+	s=k20260515; t=1785258748;
+	bh=mFgngIcB30lySgR+387wwGE2NX/cftkfr18bbdf5vD0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=odqfIDuJOgTR1Z4kOUKNTKFwmGfEyoP3IROfFC14dO7qTBWKRF3DFA6ASjohZWqyJ
-	 ZjuiZrxOjQs45oV+naQuurCskZX+hWUg26hhnp18A9X/+pCQQ0KRv4wTy2TWL8s+BJ
-	 RV3G/3xkYdUBNbteOJVV69j5curGee4OKZBmHt121uZXTEesQOLEibelmmg3IlUKa4
-	 gTIWZCCragESTahwgSzgOi4UTNxoP17T00ILyRT6L2pS4zp+SQyY5/LaVXMzVVfTgi
-	 hsYHuaiCUkmT9f0wuD+9CV5/HwL3ZJmMdrJhe+pouMbdBWCuLQ2C+pd3iRPIlYp3uH
-	 s3+Cs+BJJA2XA==
+	b=Ur5/NbGAO07VVLGDkyPnUqzeHLQvxcIyzNkCKqkVr60xiUPAMc9MsvzMEUNzV5E+V
+	 6HUG+bhs+/jFfBUgVcRa/53BB2wjmgPFsgvKaB0u0i+52I4n68QpSlbQElGZLNvqg5
+	 tBVC7E/bDJ5khb4ruXUj9fa0vD8/KlHXmRRb21fk0Od0E5ZYcyxO38ty/m4xpBmb7S
+	 TbGOux47kD+zy2cWrJvMTaI+Qyl39/46M9mOAAiQHMrVrb+uzbrdpYp7mteWGeo7lR
+	 KM1LK98sYE+JDzx5c748ydjkEtt6EeRAqiCm7VJLE8Xr7wNLzh+531nTAB8Jop2GHi
+	 wmx9JMHXlc1yg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 28 Jul 2026 19:11:58 +0200
-Subject: [PATCH net 2/5] mptcp: pm: fix data race in add_addr timer
- callback
+Date: Tue, 28 Jul 2026 19:11:59 +0200
+Subject: [PATCH net 3/5] selftests: mptcp: join: mark tests with data
+ corruption as failed
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-2-f7e2d229159d@kernel.org>
+Message-Id: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-3-f7e2d229159d@kernel.org>
 References: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-0-f7e2d229159d@kernel.org>
 In-Reply-To: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-0-f7e2d229159d@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,71 +47,65 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Qing Luo <luoqing@kylinos.cn>, stable@vger.kernel.org
+ Gang Yan <yangang@kylinos.cn>, stable@vger.kernel.org, 
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1829; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=wZ1yI/4v6nUYzHek0OESNzLU3HkX5ZJAftiZ5gXxbrA=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIyHr29+rrlkdvkFz8vLmA8qdJw19T9dqeW36aoPX9XN
- 7kVsq7621HKwiDGxSArpsgi3RaZP/N5FW+Jl58FzBxWJpAhDFycAjCRG5IM/2t/HoxdyXtmXoQ8
- t93+Lw9i2j2ESqREuRW7epcUXX1gW8rIcEN1pz77jNiL/Xyx7zY0tJgWsdQo3C3aaCIdHzvFgDO
- JEwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1789; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=OVf+JQzy7NpD1xgEnXRFt97nQ/5etoH6bLJALYeGoSQ=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIyHr1btSHj3MK7V87v/FTvcsFu4vsrv1dEt20/EKZ8Q
+ EijKdtBtqOUhUGMi0FWTJFFui0yf+bzKt4SLz8LmDmsTCBDGLg4BWAijgGMDP93lnp0WEzTdhR7
+ 5tTpJdtmqKfBGl62qC9Ta/atKJW8WIb/OfPm/d+15NM7rzKuhc5R04ptdjdZf1193vPaqZVSJ2Q
+ zmQA=
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Qing Luo <luoqing@kylinos.cn>
+From: Gang Yan <yangang@kylinos.cn>
 
-The timer callback reads entry->retrans_times outside pm.lock to decide
-whether to call mptcp_pm_subflow_established(). Since
-mptcp_pm_announced_del_timer() can concurrently set retrans_times =
-ADD_ADDR_RETRANS_MAX under pm.lock, a race condition exists.
+check_transfer() compares the input and output files byte-by-byte using
+`cmp -l "$in" "$out" | while read ...`. Because the while-loop body runs
+in a subshell (the script sets neither lastpipe nor pipefail), the
+fail_test call inside it -- which sets the global ret/last_test_failed --
+and the `return 1` both act on the subshell, not on check_transfer().
 
-I discovered this issue while studying the code. AI tools helped me to
-verify the issue can potentially happen under race conditions.
+check_transfer() thus always falls through to `return 0`, and any data
+corruption affecting only the payload (leaving the subflow/PM counters
+untouched) is silently reported as PASS.
 
-Use a local 'retransmit' flag set inside pm.lock to capture whether
-retransmission is still possible. This ensures that
-mptcp_pm_subflow_established() is only called when the retransmission
-naturally exhausts.
-
-Fixes: 348d5c1dec60 ("mptcp: move to next addr when timeout")
+Fixes: 8117dac3e7c3 ("selftests: mptcp: add invert check in check_transfer")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Assisted-by: Codex:GLM-5.2
+Signed-off-by: Gang Yan <yangang@kylinos.cn>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/pm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: linux-kselftest@vger.kernel.org
+---
+ tools/testing/selftests/net/mptcp/mptcp_join.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
-index 6afd39aea110..c71dcf887683 100644
---- a/net/mptcp/pm.c
-+++ b/net/mptcp/pm.c
-@@ -380,6 +380,7 @@ static void mptcp_pm_add_addr_timer(struct timer_list *timer)
- 	struct mptcp_sock *msk = entry->sock;
- 	struct sock *sk = (struct sock *)msk;
- 	unsigned int timeout = 0;
-+	bool retransmit;
+diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
+index c0aeffd5cb71..7dc91fac4917 100755
+--- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
++++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
+@@ -584,7 +584,7 @@ check_transfer()
+ 		mv "$tmpfile" "$out"
+ 		tmpfile=""
+ 	fi
+-	cmp -l "$in" "$out" | while read -r i a b; do
++	while read -r i a b; do
+ 		local sum=$((0${a} + 0${b}))
+ 		if [ $check_invert -eq 0 ] || [ $sum -ne $((0xff)) ]; then
+ 			fail_test "$what does not match (in, out):"
+@@ -595,7 +595,7 @@ check_transfer()
+ 		else
+ 			print_info "$what has inverted byte at ${i}"
+ 		fi
+-	done
++	done < <(cmp -l "$in" "$out")
  
- 	pr_debug("msk=%p\n", msk);
- 
-@@ -412,14 +413,15 @@ static void mptcp_pm_add_addr_timer(struct timer_list *timer)
- 		entry->retrans_times++;
- 	}
- 
--	if (entry->retrans_times < ADD_ADDR_RETRANS_MAX)
-+	retransmit = entry->retrans_times < ADD_ADDR_RETRANS_MAX;
-+	if (retransmit)
- 		timeout <<= entry->retrans_times;
- 	else
- 		timeout = 0;
- 
- 	spin_unlock_bh(&msk->pm.lock);
- 
--	if (entry->retrans_times == ADD_ADDR_RETRANS_MAX)
-+	if (!retransmit)
- 		mptcp_pm_subflow_established(msk);
- 
- out:
+ 	return 0
+ }
 
 -- 
 2.53.0
