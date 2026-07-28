@@ -1,62 +1,65 @@
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C41A377006;
-	Tue, 28 Jul 2026 20:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986C33F5BD8;
+	Tue, 28 Jul 2026 20:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785271996; cv=none; b=r928i1t/tjc4eLu6ZFYkLyys6LoRtnKCuTrAWda3O6PLqZtPlF6NJwd2Te9HubgsmqX77LrMfoH1DiXUZIgkLbzSV4ngbmV2biN/LeONN55V0ft2T/Bhn5NJ2Hk1dRi0GArl//rtwXSXDx255jEUQnGWIaRDhBhybSP6bh627+M=
+	t=1785272276; cv=none; b=ewii+JEJ7jod64sjcw7KPleIaeOSob5QGyc1gzjtiWvicAno70+MjsRbag4CSgftd34AR8bzwSozWZ8rtxrK/LwiVcxUzYNoOWJzEcan8SbnQtNacWE2qI0dKYstGHBcsAJnLlf2+5vkVOsaZqT7bRaIPN0mzaTyC9BfK9EWXkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785271996; c=relaxed/simple;
-	bh=HeJvnCqDL2rKOxocS8XoU3uYxjsAlQ1JbThOJIIuwak=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hoYVGR1m1fzlXQV7oG0cdC82qNiKj3MsBO5GhswkkLBmgLOs+4bvYEoi9e7iqy9XXd3neswBy01/oU3gZCYii4LkVFnQfppSbzx/T09mh5z+fOIjYEz0rmfR2hCBDXs3ktyoLw4whB07L1vonZGgD2pdpAyJcp+riYhN/8VuooQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=U+O1+uka; arc=none smtp.client-ip=44.246.1.125
+	s=arc-20240116; t=1785272276; c=relaxed/simple;
+	bh=ZvnPUWrNcaKvQBCRr4k2xw4gaX/UAV4Bgiv0oCYEFjU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=P/A1SpXgfagsaeIe8RR2/wgmpiW47RBoIlznA5Mg5ISHWCx9MX43YAMaE7lC2aIIFDgYjTw0wgztD3FHFwQrvuk6zVtmwW0vH5wAZOZsuCVKO8fEHMOsLdqorbyxvhO3U0Eldl1/5HuoIKwbswgljmFKY6lWzLWNKgerggRMgBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=qOONYc9P; arc=none smtp.client-ip=44.246.77.92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="U+O1+uka"
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="qOONYc9P"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1785271995; x=1816807995;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=wY/HaOGRvQhbyShtJG8cca1pnVfiOL3EgQJ/QooanBY=;
-  b=U+O1+ukaPKNWlbF9lgAGeKmrfQOGTptLOoXhxKLfVmrokCyU6wRpl76b
-   TS9FZhqcrUvB1zAE8+JkcXPMU2P82pQhbzxioreGjgTP8K1du7AQaTpVU
-   gEF3+PRp+hb3szeKdJW9otUCzFZyhl/Q8pjgXmwoLPFqHon/9yLLG4Dhq
-   iR3YzEltPGF6xD8H/w0zuP5j0iQMt5Yo2/gscgrHVvyQwCsGRkRj0Zxf8
-   dRfygiGYDsQKJekz6KyxF6+/S1FGJsTo45Nd1crJY1z1x/IBhBMEGCqoF
-   uJMTk6D7OQaaLur6h7WUyFWnuxICIxcZlBBFFuGDR+qjTqHNP5wMQ8UjT
-   A==;
-X-CSE-ConnectionGUID: wxCYs3ExQgeCIlM6bE8t6A==
-X-CSE-MsgGUID: MFUgVu3vQ7q87v3sYPj4Kg==
+  t=1785272273; x=1816808273;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=J4MzSKA9lmF/CEAOgCFqoHzMp6jKD08xpbr1OHrrn1g=;
+  b=qOONYc9Pgiq71tzBrZisa+7Un9Fei+dXZ41UKftchCg0+heHklRBnmcb
+   2NQKINWqHlz6Muv/1eOkpreD9oRGX4LadbHG7gCBYOLbgvFF90tBSszTC
+   6bTF5Dh0+oLnqsKT/+yyOY4mAqbczITNdK07uLbUs9D56qNpS87kbvIRW
+   68sJpE9YVmvp1TL9NOtsnQY/ZPK86f7rouuguFCjrGt3Dxd0SLX+HmLDC
+   hxp6Mbd9gKrUExHbARid9TBcCRw+RdS/DqYySUcMEFzqAurzzOPCzswpD
+   znZ/tmVKXmvn9Rl/UHW4E3Pakm7bD6FpYK6xsDVMQExxlsB8HS6u+iOWB
+   w==;
+X-CSE-ConnectionGUID: CjX8MELRQHa+/K44WAhQKQ==
+X-CSE-MsgGUID: GDO5KOj9SPG1ffO4zGrMOw==
 X-IronPort-AV: E=Sophos;i="6.25,191,1779148800"; 
-   d="scan'208";a="24531569"
+   d="scan'208";a="24521913"
 Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 20:53:15 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:9970]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.12.152:2525] with esmtp (Farcaster)
- id 8443e69d-d20e-41d5-ad2a-02fce05eed36; Tue, 28 Jul 2026 20:53:14 +0000 (UTC)
-X-Farcaster-Flow-ID: 8443e69d-d20e-41d5-ad2a-02fce05eed36
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 20:57:45 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:3446]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.56.7:2525] with esmtp (Farcaster)
+ id 7190f09d-bc42-4076-8c0a-a9083cd9506d; Tue, 28 Jul 2026 20:57:45 +0000 (UTC)
+X-Farcaster-Flow-ID: 7190f09d-bc42-4076-8c0a-a9083cd9506d
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Tue, 28 Jul 2026 20:53:14 +0000
+ Tue, 28 Jul 2026 20:57:44 +0000
 Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Tue, 28 Jul 2026 20:53:14 +0000
+ Tue, 28 Jul 2026 20:57:44 +0000
 From: Jay Wang <wanjay@amazon.com>
 To: <stable@vger.kernel.org>
 CC: <gregkh@linuxfoundation.org>, <sashal@kernel.org>,
-	<linkinjeon@kernel.org>, <sj1557.seo@samsung.com>,
-	<linux-fsdevel@vger.kernel.org>,
-	<syzbot+a725ab460fc1def9896f@syzkaller.appspotmail.com>, Yuezhang Mo
-	<Yuezhang.Mo@sony.com>
-Subject: [PATCH 6.1.y] exfat: validate cluster allocation bits of the allocation bitmap
-Date: Tue, 28 Jul 2026 20:53:13 +0000
-Message-ID: <20260728205313.19824-1-wanjay@amazon.com>
+	<jiayuan.chen@linux.dev>, <martin.lau@kernel.org>, <bpf@vger.kernel.org>,
+	Quan Sun <2022090917019@std.uestc.edu.cn>, Yinhao Hu <dddddd@hust.edu.cn>,
+	Kaiyan Mei <M202472210@hust.edu.cn>, Dongliang Mu <dzm91@hust.edu.cn>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.12.y v2] bpf: Fix same-register dst/src OOB read and pointer leak in sock_ops
+Date: Tue, 28 Jul 2026 20:57:44 +0000
+Message-ID: <20260728205744.28301-1-wanjay@amazon.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260728203418.26079-1-wanjay@amazon.com>
+References: <20260728203418.26079-1-wanjay@amazon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,116 +68,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+X-ClientProxiedBy: EX19D042UWB002.ant.amazon.com (10.13.139.175) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-[ Upstream commit 79c1587b6cda74deb0c86fc7ba194b92958c793c ]
+[ Upstream commit 10f86a2a5c91fc4c4d001960f1c21abe52545ef6 ]
 
-syzbot created an exfat image with cluster bits not set for the allocation
-bitmap. exfat-fs reads and uses the allocation bitmap without checking
-this. The problem is that if the start cluster of the allocation bitmap
-is 6, cluster 6 can be allocated when creating a directory with mkdir.
-exfat zeros out this cluster in exfat_mkdir, which can delete existing
-entries. This can reallocate the allocated entries. In addition,
-the allocation bitmap is also zeroed out, so cluster 6 can be reallocated.
-This patch adds exfat_test_bitmap_range to validate that clusters used for
-the allocation bitmap are correctly marked as in-use.
+When a BPF sock_ops program accesses ctx fields with dst_reg == src_reg,
+the SOCK_OPS_GET_SK() and SOCK_OPS_GET_FIELD() macros fail to zero the
+destination register in the !fullsock / !locked_tcp_sock path.
 
-Reported-by: syzbot+a725ab460fc1def9896f@syzkaller.appspotmail.com
-Tested-by: syzbot+a725ab460fc1def9896f@syzkaller.appspotmail.com
-Reviewed-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
-Reviewed-by: Sungjong Seo <sj1557.seo@samsung.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[Adapted to 6.1: replaced __le_long/lel_to_cpu word-level bitmap access
- with per-bit test_bit_le() calls, as __le_long and lel_to_cpu do not
- exist in 6.1. Uses same test_bit_le API as rest of exfat bitmap code.]
+Both macros borrow a temporary register to check is_fullsock /
+is_locked_tcp_sock when dst_reg == src_reg, because dst_reg holds the
+ctx pointer. When the check is false (e.g., TCP_NEW_SYN_RECV state with
+a request_sock), dst_reg should be zeroed but is not, leaving the stale
+ctx pointer:
+
+ - SOCK_OPS_GET_SK: dst_reg retains the ctx pointer, passes NULL checks
+   as PTR_TO_SOCKET_OR_NULL, and can be used as a bogus socket pointer,
+   leading to stack-out-of-bounds access in helpers like
+   bpf_skc_to_tcp6_sock().
+
+ - SOCK_OPS_GET_FIELD: dst_reg retains the ctx pointer which the
+   verifier believes is a SCALAR_VALUE, leaking a kernel pointer.
+
+Fix both macros by:
+ - Changing JMP_A(1) to JMP_A(2) in the fullsock path to skip the
+   added instruction.
+ - Adding BPF_MOV64_IMM(si->dst_reg, 0) after the temp register
+   restore in the !fullsock path, placed after the restore because
+   dst_reg == src_reg means we need src_reg intact to read ctx->temp.
+
+Fixes: fd09af010788 ("bpf: sock_ops ctx access may stomp registers in corner case")
+Fixes: 84f44df664e9 ("bpf: sock_ops sk access may stomp registers when dst_reg = src_reg")
+Reported-by: Quan Sun <2022090917019@std.uestc.edu.cn>
+Reported-by: Yinhao Hu <dddddd@hust.edu.cn>
+Reported-by: Kaiyan Mei <M202472210@hust.edu.cn>
+Reported-by: Dongliang Mu <dzm91@hust.edu.cn>
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+Closes: https://lore.kernel.org/bpf/6fe1243e-149b-4d3b-99c7-fcc9e2f75787@std.uestc.edu.cn/T/#u
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Acked-by: Martin KaFai Lau <martin.lau@kernel.org>
+Link: https://patch.msgid.link/20260407022720.162151-2-jiayuan.chen@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Jay Wang <wanjay@amazon.com>
 ---
- fs/exfat/balloc.c | 54 ++++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 42 insertions(+), 12 deletions(-)
+v2: rebased onto v6.12.98 to resolve context conflict reported by CI
 
-diff --git a/fs/exfat/balloc.c b/fs/exfat/balloc.c
-index 32209acd51be4..2d4fe3d754bbc 100644
---- a/fs/exfat/balloc.c
-+++ b/fs/exfat/balloc.c
-@@ -45,12 +45,37 @@ static const unsigned char used_bit[] = {
- /*
-  *  Allocation Bitmap Management Functions
-  */
-+static bool exfat_test_bitmap_range(struct super_block *sb, unsigned int clu,
-+		unsigned int count)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	unsigned int start = clu;
-+	unsigned int end = clu + count;
-+	unsigned int ent_idx, i, b;
-+
-+	if (!is_valid_cluster(sbi, start) || !is_valid_cluster(sbi, end - 1))
-+		return false;
-+
-+	while (start < end) {
-+		ent_idx = CLUSTER_TO_BITMAP_ENT(start);
-+		i = BITMAP_OFFSET_SECTOR_INDEX(sb, ent_idx);
-+		b = BITMAP_OFFSET_BIT_IN_SECTOR(sb, ent_idx);
-+
-+		if (!test_bit_le(b, sbi->vol_amap[i]->b_data))
-+			return false;
-+
-+		start++;
-+	}
-+
-+	return true;
-+}
-+
- static int exfat_allocate_bitmap(struct super_block *sb,
- 		struct exfat_dentry *ep)
- {
- 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
- 	long long map_size;
--	unsigned int i, need_map_size;
-+	unsigned int i, j, need_map_size;
- 	sector_t sector;
+ net/core/filter.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/core/filter.c b/net/core/filter.c
+index f54e7152d6879..90e396423eb7a 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -10483,10 +10483,11 @@ static u32 sock_ops_convert_ctx_access(enum bpf_access_type type,
+ 				      si->dst_reg, si->dst_reg,		      \
+ 				      offsetof(OBJ, OBJ_FIELD));	      \
+ 		if (si->dst_reg == si->src_reg)	{			      \
+-			*insn++ = BPF_JMP_A(1);				      \
++			*insn++ = BPF_JMP_A(2);				      \
+ 			*insn++ = BPF_LDX_MEM(BPF_DW, reg, si->src_reg,	      \
+ 				      offsetof(struct bpf_sock_ops_kern,      \
+ 				      temp));				      \
++			*insn++ = BPF_MOV64_IMM(si->dst_reg, 0);	      \
+ 		}							      \
+ 	} while (0)
  
- 	sbi->map_clu = le32_to_cpu(ep->dentry.bitmap.start_clu);
-@@ -77,20 +102,25 @@ static int exfat_allocate_bitmap(struct super_block *sb,
- 	sector = exfat_cluster_to_sector(sbi, sbi->map_clu);
- 	for (i = 0; i < sbi->map_sectors; i++) {
- 		sbi->vol_amap[i] = sb_bread(sb, sector + i);
--		if (!sbi->vol_amap[i]) {
--			/* release all buffers and free vol_amap */
--			int j = 0;
--
--			while (j < i)
--				brelse(sbi->vol_amap[j++]);
--
--			kvfree(sbi->vol_amap);
--			sbi->vol_amap = NULL;
--			return -EIO;
--		}
-+		if (!sbi->vol_amap[i])
-+			goto err_out;
- 	}
+@@ -10520,10 +10521,11 @@ static u32 sock_ops_convert_ctx_access(enum bpf_access_type type,
+ 				      si->dst_reg, si->src_reg,		      \
+ 				      offsetof(struct bpf_sock_ops_kern, sk));\
+ 		if (si->dst_reg == si->src_reg)	{			      \
+-			*insn++ = BPF_JMP_A(1);				      \
++			*insn++ = BPF_JMP_A(2);				      \
+ 			*insn++ = BPF_LDX_MEM(BPF_DW, reg, si->src_reg,	      \
+ 				      offsetof(struct bpf_sock_ops_kern,      \
+ 				      temp));				      \
++			*insn++ = BPF_MOV64_IMM(si->dst_reg, 0);	      \
+ 		}							      \
+ 	} while (0)
  
-+	if (exfat_test_bitmap_range(sb, sbi->map_clu,
-+		EXFAT_B_TO_CLU_ROUND_UP(map_size, sbi)) == false)
-+		goto err_out;
-+
- 	return 0;
-+
-+err_out:
-+	j = 0;
-+	/* release all buffers and free vol_amap */
-+	while (j < i)
-+		brelse(sbi->vol_amap[j++]);
-+
-+	kvfree(sbi->vol_amap);
-+	sbi->vol_amap = NULL;
-+	return -EIO;
- }
- 
- int exfat_load_bitmap(struct super_block *sb)
 -- 
 2.47.3
 
