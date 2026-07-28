@@ -1,39 +1,39 @@
 Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE1F353A9D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEA83AA1BA;
 	Tue, 28 Jul 2026 13:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.38.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785245972; cv=none; b=MjKrmxfQ2WwWJeWoJPLtzZl8vG/FfiI8ziD4O/ETcMDVzh3QitTMVPsCc14ra/+tAYvFxlG4/3swAk5OOb9XqvvSUkKW8Ca2fo2cyuqYjmHbCADaZSzm8EAq9EYucLJ6qNQglPGgAzWsUez5zqHG0R9lff3F36hzu724/sCw940=
+	t=1785245973; cv=none; b=t+NH97+mILUlhRlCdhdzl8RsSEvXtr7b2Yo7cAtNobETAc02c82UBhu8xYDDON1nzyI8yZmgKBzObxmCSp1P0syIT4x4deYk2ekFv/XKMXxiIhkwbffoN4NHyLdwxA/iCA7bPrpiCGVHpZm0sL1dp+1hcINONtWHkNEtXlFJKTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785245972; c=relaxed/simple;
-	bh=LCNWp166FiGU/3Gkjyrrx1lyyr2vl7MIA0Y8Uqvu5GA=;
+	s=arc-20240116; t=1785245973; c=relaxed/simple;
+	bh=Xx8yPwQD/Alqj2i71S3lOfCCOPcIpzZjyOsLXn3d2C4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ilw07tU8UkU3BFr3mXEBL7qyvWhDCwIlz8+eAY73IIDGtXW3ftGC+T+9XbWacCrT9ZZy4OlANVrRZUVMF0/jZzMs1WbvqaqYxqW0Q+jDDQM/hnaqT0037My1I8ZPbdU03+WkHLQ4OPAPKLppW0CDI+Fr70C8ulbmCuN0PWUp/jM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=qwKKXFUd; arc=none smtp.client-ip=23.88.38.48
+	 MIME-Version; b=hpv1YnAixFQM11GCHWi7admASv+UdHN9pGJ37NPijv/fgE9iHgaAgLT4m1eYMaTcAijK6ABk1/Rh7lNyhdXEi++xnTiIHlEAXl6tP+dxxjW3qI3qCofVJV057HrAIX9cMekeHxVs02Mqmq7j/j3uKIib2dTex+oakw/lg7Wjc/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=GRoo2jn7; arc=none smtp.client-ip=23.88.38.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="qwKKXFUd"
-Received: from kero.packetmixer.de (p200300c59717Ead808F168C97E5563a8.dip0.t-ipconnect.de [IPv6:2003:c5:9717:ead8:8f1:68c9:7e55:63a8])
+	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="GRoo2jn7"
+Received: from kero.packetmixer.de (p200300C59717EAd808F168c97E5563A8.dip0.t-ipconnect.de [IPv6:2003:c5:9717:ead8:8f1:68c9:7e55:63a8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.simonwunderlich.de (Postfix) with ESMTPSA id B610EFA128;
-	Tue, 28 Jul 2026 15:39:23 +0200 (CEST)
+	by mail.simonwunderlich.de (Postfix) with ESMTPSA id B2D32FA129;
+	Tue, 28 Jul 2026 15:39:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1785245963;
+	s=09092022; t=1785245964;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qlGWbLUy89WAmmXZ/1xLRELWDvmfS/fkFJGA8kissPU=;
-	b=qwKKXFUdwLmUwFIM0ggYjJm/vSNwKVL/NiFGiGiKHAZxfC7qpmUUuu+7YoEwzzFWiFs6cQ
-	V+T2iMaWy5kponH6T28uQnenxhQ8Yi6/TBMxqO5p8NI9HP5i0sb8WujBAXCXgDyXDy/SAI
-	b1O5LzLv7blGqbygLFgPsLehbPDPi2l/o/lKAcfZP2qbA5OfTOSPLGQgWgWC/NIW+RI0l9
-	VlQ2b2oqo+GUE1iDcGFznlM0xI4hRE+AYOnhCJJGAbr1tnjKsLGLKVWNL1BkFWn1ezvWNv
-	8B45bnWOQZddj/v0AxER3i7eEtL0JUqAFweZprVX3jyw+G6z50p8vwhrtuM9KQ==
+	bh=SMHpUeEpOQHgX43yYtxGHEC46IOieRNzzQbS8u0iOlk=;
+	b=GRoo2jn7JLs0g33QjIk5i2gjtt+h2rJwlG35BUNI9USJx6GhBZqGe4OChaykObc6lYP892
+	+U45rRGRvIxmZl92xAFpC3nC1aUi7wGc/QInTBfaD1mSq3AvHQdrDWdNICdYPkF5nEqO4k
+	RoAgII+gDqxU/nyawAPegj3k6Rc1ztqGi9r5vkBoEAflmRuB5dGxdksqojimhcxG/6qOcU
+	N+f9ucYFVDWQMbLHLg8i64RJx1c4Elw4vLyLaq7l+/oAzzcsnRoM+loWWrK1lqNFlXsU8p
+	9JXk5ojJFZN2VQ187KjyAlM3gbQivqmFwbfQ0FSR+BkczoxI4f6oYAGA1SgTzQ==
 From: Simon Wunderlich <sw@simonwunderlich.de>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -44,10 +44,11 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	b.a.t.m.a.n@lists.open-mesh.org,
 	Sven Eckelmann <sven@narfation.org>,
 	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
 	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net-next 06/15] batman-adv: mcast: ensure unshared skb for multicast packets
-Date: Tue, 28 Jul 2026 15:39:09 +0200
-Message-ID: <20260728133918.643267-7-sw@simonwunderlich.de>
+Subject: [PATCH net-next 07/15] batman-adv: mcast: linearize skbuff for packet generation
+Date: Tue, 28 Jul 2026 15:39:10 +0200
+Message-ID: <20260728133918.643267-8-sw@simonwunderlich.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260728133918.643267-1-sw@simonwunderlich.de>
 References: <20260728133918.643267-1-sw@simonwunderlich.de>
@@ -61,35 +62,50 @@ Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-When a packet is transmitted via a batman-adv interface and has already
-enough room for the header then the nothing will make sure that the skbuff
-is unshared. But it is now allowed to modify a currently shared skbuff.
+batadv_mcast_forw_packet() and batadv_mcast_forw_packet() is not only
+called by the unsharing+linearizing batadv_recv_mcast_packet() handler.
+When it is called by batadv_mcast_forw_mcsend() then it will be unshared
+but not linearized. The SKB_LINEAR_ASSERT() can therefore cause a fatal
+BUG().
 
-Always make sure that the pskb_expand_head() is not only called for a too
-small header but also for shared skbuffs.
+The linearization should happen during the expansion of the head because
+the call chain because the scrape function can be hit already during the
+initial batadv_mcast_forw_mode() selection code:
+
+* batadv_interface_tx
+* batadv_mcast_forw_mode
+* batadv_mcast_forw_mode_by_count()
+* batadv_mcast_forw_push()
+  -> calls batadv_mcast_forw_expand_head() before everything else
+* batadv_mcast_forw_push_tvlvs()
+* batadv_mcast_forw_push_dests()
+* batadv_mcast_forw_push_adjust_padding()
+* batadv_mcast_forw_scrape()
 
 Cc: stable@vger.kernel.org
-Fixes: 90039133221e ("batman-adv: mcast: implement multicast packet generation")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 07afe1ba288c ("batman-adv: mcast: implement multicast packet reception and forwarding")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- net/batman-adv/multicast_forw.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ net/batman-adv/multicast_forw.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/net/batman-adv/multicast_forw.c b/net/batman-adv/multicast_forw.c
-index 1404a3b7adfb1..240ed7380cb0f 100644
+index 240ed7380cb0f..c99579dc1ca98 100644
 --- a/net/batman-adv/multicast_forw.c
 +++ b/net/batman-adv/multicast_forw.c
-@@ -1100,8 +1100,7 @@ static int batadv_mcast_forw_expand_head(struct batadv_priv *bat_priv,
- 		return -EINVAL;
- 	}
- 
--	if (skb_headroom(skb) < hdr_size &&
--	    pskb_expand_head(skb, hdr_size, 0, GFP_ATOMIC) < 0)
-+	if (skb_cow(skb, hdr_size) < 0)
+@@ -1103,6 +1103,10 @@ static int batadv_mcast_forw_expand_head(struct batadv_priv *bat_priv,
+ 	if (skb_cow(skb, hdr_size) < 0)
  		return -ENOMEM;
  
++	/* batadv_mcast_forw_scrape() + batadv_mcast_forw_packet() require linearized skb */
++	if (skb_linearize(skb) < 0)
++		return -ENOMEM;
++
  	return 0;
+ }
+ 
 -- 
 2.47.3
 
