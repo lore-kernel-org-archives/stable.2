@@ -1,75 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938F244A71C
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:08:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3002B456DEC;
+	Tue, 28 Jul 2026 15:11:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785251321; cv=none; b=VgS5xGu6CasfneBHQaH+Lsxvj5eeG9SLs1ElSJaBd0AF1Qu42uk/5B2SGFZMoYgHEomQNmUmfQyi8vD3oro0oywPNRC41f/sM6K4k+XxksbOWSjddaWGhSq+ACrO6L+97e9gwN55Kf9mAYlpR6cWgevQh11w3uwcGrYAkiXlk/U=
+	t=1785251478; cv=none; b=pSudpKVJuaesjrUkiKSHEgeO2HhQ6CL3cHuwWhNQhc+t4tHHtgW/iJge+dkZS8OCaUBOnKQesCWwjkoRTatw7CPov9SvFpjNTYYoUpkvyxLM8EXwB1LaTPRGpR9Zm6Kmey5f9Kv8GbOHBBLpPq6/3BIqdoQumv8bSB2tPNITqmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785251321; c=relaxed/simple;
-	bh=jtr55/VK0+kw5FVvWYcPAN8umuln4X9OVoEJEOkye9k=;
+	s=arc-20240116; t=1785251478; c=relaxed/simple;
+	bh=wjz3HuM1nOW0/tTE8o03gFjrZPApOxtOA+rDa4YttCI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uOsiBlpRWc3bnhir7sTsUfWbcmMAqhjQqxaY16NDOuv3MAPysF0WVbQaizDS61x7iHIFdxKplDwVCeWFbgv12AvUoPT81qdQwXIKkBa33OhxerCdYaLbEnu5bJui9kKroSmstZpBTHW9cvxh/ot4eMdht9W92vyJPCfCCQBGxrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CoFCWSgF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YDEUWZJKg6FdxjdtX0DbAUONUPo4MxOM/CW1Q2cKiO6ia7iPi5MUuonos32a0Foq2NewSQ91JgCN9CdkT+A2pZDLQjDGhVwATJeakXA2pvXVulKEIh77DCVYo3h6KW8qogwvA4amRACqbjjwA/S5gEEgwRVRN9iJJDXl516fu38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NT84b8QO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CoFCWSgF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB091F000E9;
-	Tue, 28 Jul 2026 15:08:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NT84b8QO"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AB5081F000E9;
+	Tue, 28 Jul 2026 15:11:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785251318;
-	bh=A01dsvmvPovSklIMIdap8aKveNfjd1QsKAFfuCGTiYs=;
+	s=k20260515; t=1785251476;
+	bh=hYNj5zZdX9y9vcOK9E04bgbJiBRa/ibqxz9fbodRO9s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CoFCWSgF/UJWb2ACHZXA1oTMsIpWIaBDrMDL55x6JlrKzIWbknzBPMRRb6dx5QP83
-	 DE4/Tr6A7wu/1JNFFrySHEeFC1BF5z01+VtDsZ6urwLclVyy+AamNDn/PWMv9/2Pga
-	 eOJFHRO4F6NQy9W/pubFLGGzXzc8lyE6otP2Z9CRbePlxvWwXBhkS8RsRSrPI4haAY
-	 7xSqpfIpdl4GuxjSUk/roknkFq7X8sx/9APKOQJ9lbLhFLY+kP2zIVe32n3mRtWx/9
-	 pmNjMJo7YZPZcJBcXw1gnraH+e5GEUiwANnwg8i20KaDjoJb+Kt+XV3X07bU9Hu6mp
-	 d/WESoZmJjvQQ==
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfauth.phl.internal (Postfix) with ESMTP id BE81DF40071;
-	Tue, 28 Jul 2026 11:08:36 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Tue, 28 Jul 2026 11:08:36 -0400
-X-ME-Sender: <xms:9MVoajoo4BBH3gOnmfRK0FFM92XU3sByOr9w1OG4jEc47WisOA6sSw>
-    <xme:9MVoagw_McjUFEZ8T37px6rLf630437EJy_kRgIkKpxYZiagh_1Gho5FVgtE2_gRJ
-    NE9-n5RTraNcFj21XyMovDV5f7ICSzTVwykfQuGof_G_q2cuwvRT-ki>
-X-ME-Received: <xmr:9MVoatox7SaRaCgUCG4USRsLnP4Z7AmT3lg91hzRYzCjPydsK90XGjG5ixWcLA>
-X-ME-Proxy-Cause: dmFkZTGnznuykIxwCjE96rgdIqIrtInVcRhsVSLqoLYVMWqLd1lwbp/cUtW0TdmzMkCMBq
-    EMa41Jzs4xu2zV6VfMrl8K2JJIWS9V7FeK+xSsLO966TEJtLBAoFITIyeGIYnCn9YkL4lJ
-    pbKQJ8J4qDpvqqcYDkqrt7+/G7tgjikyq+XhUX4Y1YkdPrTHtHFw0gtqXTIBDlTi6nZyr+
-    yroaHoGMEoNAwoceceiIS/sDNcQVOx2TXONSHiN894/1IVjiGTYjhWWdtU/AX7KmCqaHsU
-    loHlxxPat/68JghIk2kGOTx/0VE/ZyUwKyGNVGRABIH56t975hdWmaF1ZV595ak+GHhSsJ
-    vI/CrxU7XiRRjktFA4Dk05g3FGqbW6BOBXYuUk0mRDxmFrr5c/LS+ig8Ehw/lXrASiOAZ3
-    ULQvVKRO3VC082jCZR2dYCIdJkR1FBgwT1GQlPL45SXccuCHTEYlZ4WBYqanU5B+MagzUO
-    FQUDukLWU1m7bq6kMG96Se2CBlKnbumUSZDukaFlNku9basMD1bDJG6+xL0vLMS5Br2WTV
-    V2RvBwwZL9W2u0uQpFiG7KAGf2PlL5NsmQ4BmeB0f+srSBdUpf44aOhxyb+zOTCmJA9NXO
-    xAKKMFcLB0HlcJlt7jqSXUK6t9KP9bUC+wzwpu4EmDfV6ungfFy/KBDd0FLQ
-X-ME-Proxy: <xmx:9MVoareU4r3DoxnaDeBUFk1rv41cUUwdWW9liZg7hFvVxf_EKBkjjg>
-    <xmx:9MVoahjqpnCIXYgQ92a7x95HvYhek4-T660RWgkB0uKIXkZrWmYIhg>
-    <xmx:9MVoasIfDonbC770PmvAmmigdmgVMtpXjZDShVBgWHoRlGj5PzLjEQ>
-    <xmx:9MVoanmDlVivCUPG3KCGvfFKeG-9WWTN-GRZ0a6ZlvA0Zvdbwee0lw>
-    <xmx:9MVoagRG7P0c08ZPRUkGLfYjAtgEyt2h_x0owQry3GAhzv0Te36sanZb>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 28 Jul 2026 11:08:35 -0400 (EDT)
-Date: Tue, 28 Jul 2026 16:08:35 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Pankaj Raghav <p.raghav@samsung.com>, 
-	Hannes Reinecke <hare@suse.de>, Hugh Dickins <hughd@google.com>, Yang Shi <shy828301@gmail.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hengbin Zhang <uqbarz@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH mm-hotfixes 1/2] mm/huge_memory: separate out
- CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic
-Message-ID: <amjD1MtOiXBRDxVi@thinkstation>
-References: <20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org>
- <20260728-fix-refcounted-huge-zero-v1-1-3f261f5447b4@kernel.org>
+	b=NT84b8QOCMz0ynh6z0zXB+a/TwHBCYY98Doai4sqjN4AHCsfDd9NW0CXd+1EwDDJb
+	 kLbFc9TPfh77tmM5CWICPko+77RpOpe3++jcUWEABJfzUWE6MzI1VYeYHLm2xuJoMR
+	 rj6ec3XvUfjtAAlIfx3MnrRPkTmg6d/KpkMIjvStX8SvshnWvv0dRuuNEyE79uQ0He
+	 4wff620dBc1IMMB9nurSiRzxZhJu5WI/Zd8KQ+vGHi/lA6ozSb+SbA26a+I9fbBePp
+	 7Fh8CHE32NOi+ClnTTVChks6n/RHg5eQws1/oB/R9gn6acYyeMi0mk2XZNZwuS3Cvh
+	 dkDcclszzkMvg==
+Date: Tue, 28 Jul 2026 08:11:16 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Miao Zhao <muel@nova.gal>
+Cc: linux-xfs@vger.kernel.org, cem@kernel.org, bfoster@redhat.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH xfs] xfs: validate remote attr value length in the leaf
+ verifier
+Message-ID: <20260728151116.GL2901224@frogsfrogsfrogs>
+References: <20260728062451.1296908-1-muel@nova.gal>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,113 +43,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260728-fix-refcounted-huge-zero-v1-1-3f261f5447b4@kernel.org>
+In-Reply-To: <20260728062451.1296908-1-muel@nova.gal>
 
-On Tue, Jul 28, 2026 at 01:05:44PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Rather than mixing the refcounted and non-refcounted
-> CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic, separate the two out cleanly
-> so it is clear what happens when this configuration option is set and what
-> happens when it is not.
+On Tue, Jul 28, 2026 at 06:24:51AM +0000, Miao Zhao wrote:
+> xfs_attr3_leaf_verify_entry() checks a remote attr entry's namelen and
+> valueblk but never its valuelen. A crafted image can set valuelen to a
+> value with the high bit set; xfs_attr3_leaf_getvalue() then stores it
+> in the signed int args->rmtvaluelen, where it goes negative. The
+> negative length bypasses the -ERANGE size check in xfs_attr_copy_value()
+> because the comparison is signed, and xfs_attr_rmtval_get() then
+> reinterprets it as a huge unsigned value, driving the memcpy loop in
+> xfs_attr_rmtval_copyout() past the end of the getxattr(2) result buffer
+> with image-controlled data (up to ~64KB on v5, where the remote block
+> header verifier caps rm_offset + rm_bytes at XFS_XATTR_SIZE_MAX;
+> unbounded on v4, where remote blocks carry no header at all).
 > 
-> Introduce HUGE_ZERO_UNSET_PFN to abstract the ~0UL assignment, only
-> introduce the refcount and shrinker if !CONFIG_PERSISTENT_HUGE_ZERO_FOLIO,
-> abstract initialisation and teardown, abstract the huge zero folio
-> allocation from refcounting.
+> Any unprivileged user with read access to the file can trigger this
+> with getxattr(2) once a crafted image is mounted, e.g. by a privileged
+> auto-mount daemon:
 > 
-> Also change a BUG_ON() to WARN_ON_ONCE() while we're at it.
+>  BUG: KASAN: slab-out-of-bounds in xfs_attr_rmtval_copyout
+>  Write of size 4040 at addr 0000000061bf4ee0 by task xattr_tool/37
+>  CPU: 0 UID: 65534 PID: 37 Comm: xattr_tool Not tainted 7.2.0-rc5 #1
+>  Call Trace:
+>   memcpy
+>   xfs_attr_rmtval_copyout
+>   xfs_attr_rmtval_get
+>   xfs_attr_copy_value
+>   xfs_attr3_leaf_getvalue
+>   xfs_attr_node_get
+>   xfs_attr_get
+>   xfs_xattr_get
+>   vfs_getxattr
+>   sys_getxattr
 > 
-> Without this change, the subsequent fix for a subtle race is harder to
-> understand thus this is a dependency of it.
+> The same unchecked valuelen is consumed on the INCOMPLETE sweep path
+> (xfs_attr_inactive.c) to size stale remote blocks, so validate it for
+> all remote entries: reject valuelen larger than XFS_XATTR_SIZE_MAX,
+> and reject a zero valuelen on complete entries (a value is only stored
+> remotely when it is too large for the local format, so zero is never
+> valid there; INCOMPLETE entries legitimately carry a zeroed valuelen
+> until the operation completes).
 > 
-> Cc: stable@vger.kernel.org # 6.18.x: dependency of subsequent fix
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Miao Zhao <muel@nova.gal>
+
+Isn't this a duplicate of
+https://lore.kernel.org/linux-xfs/20260707190038.3811440-3-qwe.aldo@gmail.com/#t
+?
+
+--D
+
 > ---
->  mm/huge_memory.c | 159 ++++++++++++++++++++++++++++++++-----------------------
->  1 file changed, 94 insertions(+), 65 deletions(-)
+>  fs/xfs/libxfs/xfs_attr_leaf.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 032702a4637b..0f60bc82e87a 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -77,9 +77,14 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
->  					 struct shrink_control *sc);
->  static bool split_underused_thp = true;
+> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+> index 86c5c09a5db4..b8ae25be639a 100644
+> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
+> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+> @@ -336,8 +336,11 @@ xfs_attr3_leaf_verify_entry(
+>  		name_end = (char *)rentry + namesize;
+>  		if (rentry->namelen == 0)
+>  			return __this_address;
+> +		if (be32_to_cpu(rentry->valuelen) > XFS_XATTR_SIZE_MAX)
+> +			return __this_address;
+>  		if (!(ent->flags & XFS_ATTR_INCOMPLETE) &&
+> -		    rentry->valueblk == 0)
+> +		    (rentry->valueblk == 0 ||
+> +		     be32_to_cpu(rentry->valuelen) == 0))
+>  			return __this_address;
+>  	}
 >  
-> -static atomic_t huge_zero_refcount;
-> +#define HUGE_ZERO_UNSET_PFN (~0UL)
->  struct folio *huge_zero_folio __read_mostly;
-> -unsigned long huge_zero_pfn __read_mostly = ~0UL;
-> +unsigned long huge_zero_pfn __read_mostly = HUGE_ZERO_UNSET_PFN;
-> +#ifndef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
-> +static atomic_t huge_zero_refcount;
-> +static struct shrinker *huge_zero_folio_shrinker;
-> +#endif
-> +
->  unsigned long huge_anon_orders_always __read_mostly;
->  unsigned long huge_anon_orders_madvise __read_mostly;
->  unsigned long huge_anon_orders_inherit __read_mostly;
-> @@ -221,22 +226,58 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
->  	return orders;
->  }
->  
-> -static bool get_huge_zero_folio(void)
-> +static struct folio *alloc_huge_zero_folio(void)
->  {
->  	struct folio *zero_folio;
-> -retry:
-> -	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
-> -		return true;
->  
->  	zero_folio = folio_alloc((GFP_TRANSHUGE | __GFP_ZERO | __GFP_ZEROTAGS) &
->  				 ~__GFP_MOVABLE,
->  			HPAGE_PMD_ORDER);
->  	if (!zero_folio) {
->  		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
-> -		return false;
-> +		return NULL;
-> +	}
-> +	folio_clear_large_rmappable(zero_folio); /* Explicitly not rmappable. */
-> +	return zero_folio;
-> +}
-> +
-> +#ifdef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
-> +static int __init huge_zero_init(void)
-> +{
-> +	huge_zero_folio = alloc_huge_zero_folio();
-> +	if (!huge_zero_folio) {
-> +		pr_warn("Allocating persistent huge zero folio failed\n");
-
-I am not sure the warn is enough. mm_get_huge_zero_folio() will produce
-NULL pointer now without any attempts to allocate again.
-
-Have you considered moving huge_zero_folio to BSS for
-CONFIG_PERSISTENT_HUGE_ZERO_FOLIO=y?
-
-> @@ -308,7 +323,46 @@ static unsigned long shrink_huge_zero_folio_scan(struct shrinker *shrink,
->  	return 0;
->  }
->  
-> -static struct shrinker *huge_zero_folio_shrinker;
-> +static int __init huge_zero_init(void)
-> +{
-> +	huge_zero_folio_shrinker = shrinker_alloc(0, "thp-zero");
-> +	if (!huge_zero_folio_shrinker) {
-> +		shrinker_free(deferred_split_shrinker);
-> +		list_lru_destroy(&deferred_split_lru);
-
-Hm. What? Why does huge_zero_init() touches deferred_*?
-That's caller business.
-
->  static void __init thp_shrinker_exit(void)
->  {
-> -	shrinker_free(huge_zero_folio_shrinker);
->  	shrinker_free(deferred_split_shrinker);
->  	list_lru_destroy(&deferred_split_lru);
-> +	huge_zero_shrinker_exit();
-
-Any reason behind the reorder?
-
->  }
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> -- 
+> 2.34.1
+> 
+> 
