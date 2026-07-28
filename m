@@ -1,188 +1,158 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44841A6811
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 00:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182301DF74F;
+	Tue, 28 Jul 2026 00:53:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785199921; cv=none; b=Jnwi4UYKTkQElDeL+D1ZM/xTWqwIIsNRBa4ydPN77hyR+faFU6xqTz8p4kh93uuesl1tiuuvqTag7VHWMG/4jb+gBrfIlrtjQaZsjM6/xe6BtwEB0EIdRa3ySNU7w/KTyHevuLATg76M6E5KMJ+qCxlyR4RvS9tWhctD45yhwpI=
+	t=1785200012; cv=none; b=kxy4j53HlDzNzxj5aZBfr1RDkj5aodmEFc1KqWzLqr9NOC3Qvs/JNuNYbDD49ZxcPri3cINMJo99oEiJD4MJNWJbImMiJw9Awq0bKc1EQt0F5r7zSGWxP2kLqT5rwPjQ+YQLR6Q5ls248k6MPW5S8ZLcwGFB0puIiyh1Aa5su9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785199921; c=relaxed/simple;
-	bh=Z5GRTOSO0S9G9u7VZF3YwLNRY4a8OnVa7f57JM8Jl3E=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Bc+kRma9EOJ6i1Sasxm8Whn+jHF+fqgtiHjn3Vw3aaWSng2NiRyKfXpQs7AsY8jEXCcGngjjsvY7S08G24vFoFY8bVzHoZnaT+WvRP3PtR9Tft79pDFUZOzXWV4X3+G02gMoC5bDN1CULLdW+/j6sljvecGJYTMDh0aJ0uW69Dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=izMqkOr5; arc=none smtp.client-ip=209.85.167.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785200012; c=relaxed/simple;
+	bh=Hj79tQc6y1YTBCRFvNtnJpmTatDliqU0CyLVPju/bhU=;
+	h=Date:To:From:Subject:Message-Id; b=ZnzusmVQNbGNB4nkQ8JY2FuM+cQVT7ifcGYhXMO6khCvJ59+cf2StAXo+2d6LIjGf6nfZ/OqzqDfi4oBMH/zbqffJ1IfrmKUPcowgfR1lXB4pOcyX5WuZXLbkP8v6qXg6o0fJDCNDHcI4AT67NfnnkJGc/WhSUiRs6Veo3VjqOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RpiAYYm7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="izMqkOr5"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b013084dc2so2497553e87.0
-        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 17:51:58 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RpiAYYm7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5121F00A3A;
+	Tue, 28 Jul 2026 00:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785199917; x=1785804717; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YyiWxM0l+pV+N+P60T/IcxD0yZfdk4dsxpPoSCJ6HvA=;
-        b=izMqkOr5JFmy/U1v9D9OCEyK+91238U8oTepcOD0103u9VQqrDl4zdDFZCbDKsu5of
-         a4M0bNkVRNws/F3rVejHqxHHvwtox4fcxDMOd9LZzUMtIv8JpxkZ44vY253xIeHqO+yY
-         ovxH4lgLNPX+GqVu1y0pH0orLx9A/Li9PdJElxUm2ryWLVgrB+xXtEZyqrGLs0QW53Kt
-         C+OzDFUm+KgVqhTlSkc/0y/W/6iUkQFA+Haeb6UjoUk1WkZs9oXrtvUBQfxPRRh7Vk08
-         JoRGPyM1XEfrEoS43COSVUtuDGwR8bEQDDnEwnvBsc58pDzh1wBKH3YtLy8YnVKrDPyh
-         srUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785199917; x=1785804717;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YyiWxM0l+pV+N+P60T/IcxD0yZfdk4dsxpPoSCJ6HvA=;
-        b=piYwdkrun2nqLxI628qRqcSlEgFUPUjSKCbiS4XkKiMvkm6A67gZqykfxL/MuWrh/J
-         FUbfLPIPjUXE/hWpWLCcuw3YkbztUyR5Ep3ymIKRg3h13d0IfCAQ/Gl50CqGU9JXCpF6
-         RwE39g7smTHRsnZDQc/8TewfVgr9gjrpu01FSVgd8yrL63GGio1rP6HBZMgxyQeCyIlD
-         xlDVrRliZWLUeZhaPGUqQKP1vd8AL4n5q8KHt1GRFGoECGUpA23VUaRhymGj9qqFJAlp
-         41wXQLC0/RzpXYjM553RTFYdF633qI+8kSyKwdqQMKmnBUTt491Zjr95oqEvUkhf698x
-         IV/w==
-X-Forwarded-Encrypted: i=1; AHgh+RpsN+5S+EjZnVmzMBfUDIppFl5aneQ9xBhHD+gEW3bqZ174UrL0ZgirecS39gUGNtEpFOwlIc4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwG9GmQxZ8SEla0Xd7ij/hFtaydS/twfR7yHtiH9n2/50n/o4tj
-	DS0cNDe0tVT0HlJoEc+KLEJz05YakhnpW6RvGm6LZuAGofOgNVMmHDCD
-X-Gm-Gg: AR+sD10zWWbxowUCJ/E8gL5h5Fo3iR6Oy/a//b7VCPkjj+3qBmqIb5qhw788V3dc32T
-	okhQbgoU0fP9hkTJ8Qikt578ESe/S5lHzKh9eqa3GNIQJMycrGybQ9Vge0LCTPP7lwiYLmXwMv5
-	jQoRMQBPS5jdTxaMASH9AgKf1gFMRGO/rEFDOfFgI5Q4JkR4giJgtNu09Q6hZtPg0B3gsMsJwwW
-	0gOWeAXcHNhtt0olrVMeJf/iY3rqj5KAjVSu3Cwr0h5HgB266Hq+ObTBRtlOcTAbHzAJl1Ft+kv
-	bsLcz+NuGUCFj0pE59zUpwp/U/qTMmnxLObM8siZMjYHOPi39Sn5ZIWDx9M82WqfPhzYhp2zSfp
-	g8r0MgdLfG36GaEY/Bp1LWS+7Ee+DWa/vbTX56O5gt2kINB2UU9Dv5TP81bPLFSdiHR85HwlrCn
-	FrtiwxCoxjmoLHQ02/5S/0
-X-Received: by 2002:a05:6512:3407:b0:5b0:197b:9811 with SMTP id 2adb3069b0e04-5b2d023bef9mr31905e87.53.1785199916589;
-        Mon, 27 Jul 2026 17:51:56 -0700 (PDT)
-Received: from primary-ws.local ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be077c14sm1758822e87.1.2026.07.27.17.51.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 17:51:55 -0700 (PDT)
-Message-ID: <ef1bc3d070c4156f1811c0c4a567ec98ac8fadaf.camel@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
- PREEMPT_RT
-From: "mikhail.v.gavrilov@gmail.com" <mikhail.v.gavrilov@gmail.com>
-To: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org
-Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
-	amd-gfx@lists.freedesktop.org, "# = v7 . 1" <stable@vger.kernel.org>, Alex
- Deucher <alexander.deucher@amd.com>, Rafal Ostrowski
- <rafal.ostrowski@amd.com>, Mario Limonciello	 <mario.limonciello@amd.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,  Thomas Gleixner
- <tglx@linutronix.de>
-Date: Tue, 28 Jul 2026 05:51:53 +0500
-In-Reply-To: <20260727105059.75716-1-spasswolf@web.de>
-References: <20260727105059.75716-1-spasswolf@web.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.61.1 (3.61.1-3.fc45) 
+	d=linux-foundation.org; s=korg; t=1785200010;
+	bh=k9JJWkDt87qDdv8jF7zcJAWc2Bn1EUmBrVE4L54J/Ag=;
+	h=Date:To:From:Subject;
+	b=RpiAYYm7zhsTrJQxNSef+VTCtuE7U4n1mJG8k6CH2pOQgDZVbR3hhx7Oc7B3SQdj+
+	 imPOHNwmn3XT6c9Slkmpx8vWC30qNubA3BKIOzpDoedjj40VqCqYp3tpvJu8LhSilQ
+	 GF6oM7XMTnRLHMzXfmV4tdg51+mZ2yyJfbIAwfVI=
+Date: Mon, 27 Jul 2026 17:53:30 -0700
+To: mm-commits@vger.kernel.org,usamaarif642@gmail.com,surenb@google.com,stable@vger.kernel.org,osalvador@suse.de,muchun.song@linux.dev,gthelen@google.com,fvdl@google.com,david@kernel.org,souravpanda@google.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-hugetlb-fix-null-nodemask-in-alloc_fresh_hugetlb_folio.patch removed from -mm tree
+Message-Id: <20260728005330.7D5121F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Mon, 2026-07-27 at 12:50 +0200, Bert Karwatzki wrote:
-> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
-> converted to rt_mutex. dc_create_plane_state() can be called while
-> inside an FPU-guarded region, resuling in "scheduling while atomic"
-> errors on PREEMPT_RT kernels.
-> =C2=A0Fix this by calling kvzalloc_obj() with
-> DC_RUN_WITH_PREEMPTION_ENABLED().
-> Also fix the error path in dc_create_stream_for_sink().
->=20
-> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC
-> - Part 1")
-> Link:
-> https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
->=20
-> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
-> ---
-> =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_stream.c=C2=A0 | 5 +++--
-> =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 4 ++--
-> =C2=A02 files changed, 5 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> index dbc12640b01c..4ac835777b58 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -233,8 +233,9 @@ struct dc_stream_state
-> *dc_create_stream_for_sink(
-> =C2=A0
-> =C2=A0fail:
-> =C2=A0	if (stream) {
-> -		kfree(stream->update_scratch);
-> -		kfree(stream);
-> +		if (stream->update_scratch)
-> +			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream-
-> >update_scratch));
-> +		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	return NULL;
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> index 88e825a6582c..d5c6427796b6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> @@ -85,8 +85,8 @@ uint8_t=C2=A0 dc_plane_get_pipe_mask(struct dc_state
-> *dc_state, const struct dc_plane
-> =C2=A0
-> *********************************************************************
-> *********/
-> =C2=A0struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
-> =C2=A0{
-> -	struct dc_plane_state *plane_state =3D
-> kvzalloc_obj(*plane_state,
-> -							=C2=A0
-> GFP_ATOMIC);
-> +	struct dc_plane_state *plane_state;
-> +	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D
-> kvzalloc_obj(*plane_state, GFP_ATOMIC));
-> =C2=A0
-> =C2=A0	if (NULL =3D=3D plane_state)
-> =C2=A0		return NULL;
 
-Hi Bert,
+The quilt patch titled
+     Subject: mm/hugetlb: fix null nodemask in alloc_fresh_hugetlb_folio
+has been removed from the -mm tree.  Its filename was
+     mm-hugetlb-fix-null-nodemask-in-alloc_fresh_hugetlb_folio.patch
 
-You may not be aware that the same allocation is already wrapped once,
-at the dcn32 call site:
+This patch was dropped because an updated version will be issued
 
-  183182235f6d ("drm/amd/display: Wrap DCN32 phantom-plane allocation
-in DC_RUN_WITH_PREEMPTION_ENABLED")
+------------------------------------------------------
+From: Sourav Panda <souravpanda@google.com>
+Subject: mm/hugetlb: fix null nodemask in alloc_fresh_hugetlb_folio
+Date: Sun, 5 Jul 2026 17:51:19 +0000
 
-That one only covers the dcn32 DML1 path, while your trace goes through
-dcn401_validate_bandwidth() and dml21 - so wrapping the call site could
-never have caught your case.  Which is a good argument for guarding the
-allocation in the callee, as you do: dc_create_plane_state() is reached
-from every DCN and both DML generations.
+alloc_buddy_hugetlb_folio_with_mpol() can pass a NULL nodemask to
+alloc_fresh_hugetlb_folio() as a fallback to allocate from all nodes.  If
+order is gigantic, alloc_fresh_hugetlb_folio() propagates the NULL
+nodemask down to hugetlb_cma_alloc_frozen_folio() which blindly
+dereferences it in for_each_node_mask(), leading to a null pointer
+dereference.
 
-On dcn32 the two wraps now nest.  That is harmless, because
-DC_RUN_WITH_PREEMPTION_ENABLED() is conditional on dc_is_fp_enabled():
-once the outer instance has left the FPU region, the inner one expands
-to a plain call.  But it does make the dcn32 wrap redundant, and I
-think it should be dropped in a follow-up now that the allocation is
-guarded in the callee.
+Similarly, if the CMA allocation fails, the fallback
+alloc_contig_frozen_pages() is also called with a NULL nodemask, which may
+cause issues.
 
-One thing that may be worth adjusting in the commit message: this is
-not only a PREEMPT_RT problem.  183182235f6d was needed on a plain non-
-RT x86 kernel. There DC_FP_START() takes fpregs_lock(), which disables
-local softirqs, and dc_plane_state is around 335 KiB, so kvzalloc_obj()
-falls through to the vmalloc path and hits BUG_ON(in_interrupt()).  So
-on RT any allocation inside the FPU region is illegal, while on non-RT
-it is specifically the large ones - two failure modes, one root cause.
+Fix this by explicitly checking if nodemask is NULL in
+alloc_fresh_hugetlb_folio() and defaulting to cpuset_current_mems_allowed.
+This ensures that both the CMA and contiguous allocators receive a valid
+nodemask safely using a seqcount loop to prevent torn reads.
 
-About the FPU register question raised by the review bot: as far as I
-can see it applies to every existing user of
-DC_RUN_WITH_PREEMPTION_ENABLED(), 183182235f6d included, so it looks
-like a property of the macro rather than something your patch
-introduces.  An answer from AMD on that would be useful either way.
+From a userspace perspective, this bug allows an unprivileged user to
+crash the kernel (trigger a panic) by requesting a gigantic hugepage
+allocation with MPOL_PREFERRED_MANY on a system where CMA is only
+configured on a subset of NUMA nodes.
 
-I have dcn32 hardware here (RX 7900 XTX) and can test the patch on
-non-RT if that helps.
+This can be reproduced by booting a VM with two NUMA nodes, restricting
+CMA to Node 1 (e.g., hugetlb_cma=1:1G default_hugepagesz=1G hugepagesz=1G
+hugepages=0), and running a program that allocates a 1GB hugepage area
+without reserving, restricts allocation to Node 0 using mbind() with
+MPOL_PREFERRED_MANY, and triggers a page fault:
 
---=20
-Thanks,
-Mikhail
+  void *ptr = mmap(NULL, 1UL << 30, PROT_READ | PROT_WRITE,
+                   MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB |
+                   MAP_HUGE_1GB | MAP_NORESERVE, -1, 0);
+  unsigned long nodemask = 1; /* Node 0 */
+  mbind(ptr, 1UL << 30, MPOL_PREFERRED_MANY, &nodemask,
+        sizeof(nodemask) * 8, 0);
+  memset(ptr, 0, 1UL << 30); /* Trigger fault */
+
+This results in a NULL pointer dereference:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  Oops: Oops: 0000 [#1] SMP NOPTI
+  RIP: 0010:hugetlb_cma_alloc_frozen_folio+0x75/0x120
+  Call Trace:
+   <TASK>
+   only_alloc_fresh_hugetlb_folio.isra.0+0x2c/0x160
+   alloc_surplus_hugetlb_folio+0x6d/0x100
+   alloc_hugetlb_folio+0x3c5/0x660
+   hugetlb_no_page+0x3d9/0x650
+
+Additionally, this patch adds a missing node_isset(nid, *nodemask) check
+in hugetlb_cma_alloc_frozen_folio() to ensure the initial node allocation
+attempt respects the memory policy.
+
+Link: https://lore.kernel.org/20260705175119.440599-1-souravpanda@google.com
+Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages")
+Signed-off-by: Sourav Panda <souravpanda@google.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Greg Thelen <gthelen@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Usama Arif <usamaarif642@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/hugetlb.c     |   12 ++++++++++++
+ mm/hugetlb_cma.c |    2 +-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+--- a/mm/hugetlb.c~mm-hugetlb-fix-null-nodemask-in-alloc_fresh_hugetlb_folio
++++ a/mm/hugetlb.c
+@@ -1864,6 +1864,18 @@ static struct folio *alloc_fresh_hugetlb
+ 		gfp_t gfp_mask, int nid, nodemask_t *nmask)
+ {
+ 	struct folio *folio;
++	nodemask_t local_node_mask;
++
++	if (!nmask) {
++		unsigned int cpuset_mems_cookie;
++
++		do {
++			cpuset_mems_cookie = read_mems_allowed_begin();
++			local_node_mask = cpuset_current_mems_allowed;
++		} while (read_mems_allowed_retry(cpuset_mems_cookie));
++
++		nmask = &local_node_mask;
++	}
+ 
+ 	folio = only_alloc_fresh_hugetlb_folio(h, gfp_mask, nid, nmask, NULL);
+ 	if (folio)
+--- a/mm/hugetlb_cma.c~mm-hugetlb-fix-null-nodemask-in-alloc_fresh_hugetlb_folio
++++ a/mm/hugetlb_cma.c
+@@ -34,7 +34,7 @@ struct folio *hugetlb_cma_alloc_frozen_f
+ 	if (!hugetlb_cma_size)
+ 		return NULL;
+ 
+-	if (hugetlb_cma[nid])
++	if (hugetlb_cma[nid] && node_isset(nid, *nodemask))
+ 		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
+ 
+ 	if (!page && !(gfp_mask & __GFP_THISNODE)) {
+_
+
+Patches currently in -mm which might be from souravpanda@google.com are
+
+mm-hugetlb_cma-fix-null-nodemask-dereference-in-hugetlb_cma_alloc_frozen_folio.patch
+mm-hugetlb_cma-support-percentage-based-hugetlb_cma-reservation.patch
+
