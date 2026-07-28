@@ -1,216 +1,182 @@
-Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BCA3B5DE9;
-	Tue, 28 Jul 2026 13:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.38.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3AD443E56;
+	Tue, 28 Jul 2026 13:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785246279; cv=none; b=KtRGwVk6MLBFeE6dR7fCiYOfpCJ2LowPi9vPkJJqix8Ep1Gon/or63Uo8gTwzZbMc4WFg+Otv0+/AYgkv5mqd8RMmWPjRtUXk7zqx0HwPwV3yUxkjgX0l7c+7W6DVv4nD8fjcD/hfvoHCZPJyI58sEt8gVGfy9mW22aYuUJjsoI=
+	t=1785246504; cv=none; b=q1oLETCdm74nNmW9wl17UXMffkGojQ0oOgKRAm30+VuuxBdhp5XcqiBIMIvGlwmh2uWl5cBXeiQkOM/gVOppy2BzYtmdRjnL/UOudSxczHLi0amvaUvtVw4tf4fiZouKaE/c3dD+1c7XXjcEa0c6/NP+KCDw7z2bLyGUeKrTQAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785246279; c=relaxed/simple;
-	bh=vajgbPW236CCVYCsKN69N3TnRG9pznHn99LIc8Ci4UE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZvXMHcLaTi2by1Q6eahYN0gbjRbSPM9U0E1N+Ev4sq3IELx3MAoaBTuJnUhcjmiZhYeV5uzCU1PdzMr2zifePk/HUL1Io2kCCTzdZUNnmtTYMm7PM2kkr1cwjssdS8gXxWf2CBGzpg7RF/dpzbbxWR6IL8N04AjK7aacoBnABH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=SEfpthIV; arc=none smtp.client-ip=23.88.38.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
+	s=arc-20240116; t=1785246504; c=relaxed/simple;
+	bh=GfZf4OtiPvKmem6JowvFOniZu3fnPQf7hYId+0iuxks=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fruw2jFtMgLScRWQ8++KCcbfGvKB69cnYx/DBau3SvNVbT5CwuoTLz6EMJeUHA6RIkOism71Ic4mXly/eFTpTZqu3omEiJllLAtCMyrA2zCY44BoZZFNTI8D7SImQirKvMgN2xBF6JE0uUznoTKuX6tInJdCt8q2dLpTVtq+ffc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzSj2fnz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="SEfpthIV"
-Received: from kero.packetmixer.de (p200300C59717eAD808f168C97e5563A8.dip0.t-ipconnect.de [IPv6:2003:c5:9717:ead8:8f1:68c9:7e55:63a8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.simonwunderlich.de (Postfix) with ESMTPSA id F15D9FA03B;
-	Tue, 28 Jul 2026 15:39:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1785245960;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oJDXgd+OAnSvM13MpPqY2dqaxiMAmG5IYzqgSDXZG30=;
-	b=SEfpthIVua/3TY7Sm1fE1WQoPzjoH/kgIavyJIBpx9LGh5gIjixXZLujisliRbfCHUYQic
-	7V1HVebUJoFsl6Yaj/wMs3s3BbnOZCDNX4z1Rpof26qVA4WuiZT2ZXEDnn5uCT89J9tOg3
-	UDlJ2qPWqVQiJfuPaByGlbcelGQQfv7MQBohWJeSqjP3jF5FCGLTVnDHSFu8PRB+lQf19D
-	50BYy5GNQt/kxII6W9vMdVXEOAK9EJAny1t+dkRuMUJlLSfCOG8OL2MUU2F4GlbhUhpWot
-	2bY8uwLmLGge0sAfY6FJewPAazPXyDsTrmdx4ZAZdStJ304D4VGkdoFkkWMwXg==
-From: Simon Wunderlich <sw@simonwunderlich.de>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	b.a.t.m.a.n@lists.open-mesh.org,
-	Sven Eckelmann <sven@narfation.org>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net-next 01/15] batman-adv: bla: avoid CRC corruption due to parallel claim add
-Date: Tue, 28 Jul 2026 15:39:04 +0200
-Message-ID: <20260728133918.643267-2-sw@simonwunderlich.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260728133918.643267-1-sw@simonwunderlich.de>
-References: <20260728133918.643267-1-sw@simonwunderlich.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzSj2fnz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF851F000E9;
+	Tue, 28 Jul 2026 13:48:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785246503;
+	bh=M13c9yrS8i19jL6P1wyYS28jNcW+SVKbY4SPV3JN170=;
+	h=From:Date:Subject:To:Cc;
+	b=LzSj2fnzFxkDQEz0jAWTEyWdwJtEYTd+w6PpGK9wNAweCVLTU9kBuXBPTm6CFhePi
+	 SdU6U98d4FV7WPFrgkswIAfexxvtPTuYw/uEXSQ1yeKRieh2ln0Osk1eRTA98LtnvX
+	 JCaHRHIPqUG4MPJO6IUZVt9P9NnCLlvV37ldL1joUcAj2iu7XwNjCF+rK5qyVzJxu6
+	 CRNJameCmxNuxLBnMxlw4Kh0p+5vqgAEHFzJYsL/TGLmv+BY4jve/L5d3b7/L/4Awu
+	 lbDFiMlSpjFAKqAE5YtH01mk7uQmVPdt7v4gY9FR0X+vQ90tV+CiotyDVixQ1AqmqX
+	 pwiUMRxgBhN9Q==
+From: Christian Brauner <brauner@kernel.org>
+Date: Tue, 28 Jul 2026 15:48:10 +0200
+Subject: [PATCH] binfmt_misc: don't leak the user namespace when the mount
+ fails
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-work-binfmt_misc-usernsleak-v1-1-dbd8d5e626e7@kernel.org>
+X-B4-Tracking: v=1; b=H4sIABmzaGoC/yXM3Q6CMAyG4VshPbYGF8WfWyHGrLOTigyzApoQ7
+ t1NDt+m3zODchRWuBQzRJ5EpQ8pdpsCXGPDg1HuqcGUpiqP5oSfPrZIEnw33DpRh2MSgr7Ytui
+ M2fPhXBGThSS8I3v5/vX6uraO9GQ3ZDJ/kFVGija4Jp8mr9t1sSw/f1SaopsAAAA=
+X-Change-ID: 20260728-work-binfmt_misc-usernsleak-c224e596beba
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Kees Cook <kees@kernel.org>, linux-mm@kvack.org, bpf@vger.kernel.org, 
+ Farid Zakaria <farid.m.zakaria@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ bpf@vger.kernel.org, jannh@google.com, mail@johnericson.me, 
+ stable@vger.kernel.org, "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.16-dev-cca4b
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5088; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=GfZf4OtiPvKmem6JowvFOniZu3fnPQf7hYId+0iuxks=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRlbFbhnyO8/+nWyrYq9wz588vSZ791rj+53Pvo6/cZn
+ lFvHiz+0lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjARVTFGho/bPKKvBacxK99s
+ eF144ZaL45d5DSZ6zTWc39JVbW6yBjEyTOIw0vT0dQtVfJ34Z9ka/+YcxtW2x+NSfOLea0S8PXu
+ WBQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-From: Sven Eckelmann <sven@narfation.org>
+bm_get_tree() takes a reference to the user namespace and hands it to
+get_tree_keyed() as the sget key. sget_fc() moves that reference into
+sb->s_fs_info and clears fc->s_fs_info, so from that point on the
+superblock owns it and bm_free() doesn't see it anymore.
 
-batadv_bla_add_claim() is used to add claims and modify the backbone of
-claims for CLAIM frames from remote backbones and local packets. When it
-handles a claim, it needs to either
+The superblock drops it in ->put_super(). But generic_shutdown_super()
+only calls ->put_super() from inside the if (sb->s_root) branch, so
+nothing releases it when bm_fill_super() fails:
 
-* add the new claim's CRC to the backbone CRC
-* remove the already existing claim's CRC from the old backbone and add it
-  to the new backbone
+- The kzalloc_obj() failure leaves s_root NULL and the whole branch is
+  skipped.
 
-But when the "new" claim code was running in parallel to the "change
-backbone" code, it can happen that the CRC was invalid because the
-backbone_gw of the claim was changed twice in the "new" claim code path:
+- A simple_fill_super() failure in the file loop leaves s_root set, but
+  s_op still points at simple_super_operations, which has no
+  ->put_super(). bm_fill_super() installs s_ops only once
+  simple_fill_super() returned success, and installing it earlier
+  wouldn't help either because simple_fill_super() overwrites s_op.
 
-* CPU0 creates the claim for gateway A and publishes it in the claim
-  hash. The crc16 of the address has not yet been added to A's crc at
-  this point.
+Either way vfs_get_super() calls deactivate_locked_super() and the
+reference is gone for good. binfmt_misc mounts are available in a user
+namespace and both the inode and the dentry cache are SLAB_ACCOUNT, so
+an unprivileged caller under a tight memory cgroup can fail
+simple_fill_super() on demand and leak one user namespace per attempt.
 
-* CPU1 processes a claim frame of gateway B for the same client, finds
-  the just published claim, and performs the ownership change: it
-  switches the pointer to B, removes the crc16 from A's crc - which
-  never contained it - and adds it to B's crc.
+Drop the reference in ->kill_sb() instead, which runs unconditionally,
+the same way nfsd and rpc_pipefs release their keyed s_fs_info.
 
-* CPU0 continues behind the creation branch, unconditionally switches
-  the pointer back to A without compensating B's crc (its remove_crc
-  is false for the creation path), and finally adds the crc16 to A's
-  crc
+That also stops ->put_super() from clearing s_fs_info while the
+superblock is still on @fs_supers. generic_shutdown_super() leaves it
+there on purpose so that sget_fc() keeps finding it until kill_sb() has
+run, but a NULL s_fs_info makes test_keyed_super() miss it, so a
+concurrent mount for the same user namespace skips the grab_super()
+wait and creates a second superblock for a namespace that is still
+being torn down.
 
-The CRC is then wrong for both:
-
-* claim belongs to A: but CRC is not part of backbone A's CRC
-* claim doesn't belong to B: CRC is still part of backbone B's CRC
-
-This wrong CRC is never recomputated from the stored claims. For local
-backbone claims, this can also not recovered using syncs.
-
-To avoid this, split the functionality in clear separate parts:
-
-* new claim which always adds claim CRC to the backbone CRC (but never
-  changes the already set backbone_gw of the claim back)
-
-* update of existing claim which automatically changes the backbone_gw
-  entry and only updates both backbone CRCs when there was an actual change
-
+Fixes: 21ca59b365c0 ("binfmt_misc: enable sandboxed mounts")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 23721387c409 ("batman-adv: add basic bridge loop avoidance code")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
-Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- net/batman-adv/bridge_loop_avoidance.c | 60 ++++++++++++++++----------
- 1 file changed, 37 insertions(+), 23 deletions(-)
+Note for stable: this applies as-is only from v6.19 onwards. Before
+7beafd51c4e1 ("convert binfmt_misc") ->kill_sb is kill_litter_super()
+and bm_kill_sb() has to call that instead of kill_anon_super(): back
+then simple_fill_super() left the dentries it created pinned and
+d_genocide() is what drops them. Taking this patch verbatim on v6.7 to
+v6.18 turns every binfmt_misc umount into a "Dentry still in use"
+BUG() in shrink_dcache_for_umount().
+---
+ fs/binfmt_misc.c | 32 +++++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 17 deletions(-)
 
-diff --git a/net/batman-adv/bridge_loop_avoidance.c b/net/batman-adv/bridge_loop_avoidance.c
-index f9a1fadf8de9e..79c482d24d9e3 100644
---- a/net/batman-adv/bridge_loop_avoidance.c
-+++ b/net/batman-adv/bridge_loop_avoidance.c
-@@ -694,12 +694,14 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
- 	struct batadv_bla_backbone_gw *old_backbone_gw;
- 	struct batadv_bla_claim *claim;
- 	struct batadv_bla_claim search_claim;
--	bool remove_crc = false;
- 	int hash_added;
-+	u16 claim_crc;
-+	bool changed;
+diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
+index a73a37b8a013..c97f10b48b5b 100644
+--- a/fs/binfmt_misc.c
++++ b/fs/binfmt_misc.c
+@@ -921,18 +921,9 @@ static const struct file_operations bm_status_operations = {
  
- 	ether_addr_copy(search_claim.addr, mac);
- 	search_claim.vid = vid;
- 	claim = batadv_claim_hash_find(bat_priv, &search_claim);
-+	claim_crc = crc16(0, mac, ETH_ALEN);
+ /* Superblock handling */
  
- 	/* create a new claim entry if it does not exist yet. */
- 	if (!claim) {
-@@ -731,43 +733,55 @@ static void batadv_bla_add_claim(struct batadv_priv *bat_priv,
- 			kfree(claim);
- 			return;
- 		}
-+
-+		spin_lock_bh(&backbone_gw->crc_lock);
-+		backbone_gw->crc ^= claim_crc;
-+		spin_unlock_bh(&backbone_gw->crc_lock);
-+
-+		WRITE_ONCE(backbone_gw->lasttime, jiffies);
-+
-+		batadv_claim_put(claim);
-+		return;
-+	}
-+
-+	WRITE_ONCE(claim->lasttime, jiffies);
-+
-+	/* replace backbone_gw atomically and adjust reference counters */
-+	spin_lock_bh(&claim->backbone_lock);
-+	if (claim->backbone_gw != backbone_gw) {
-+		changed = true;
-+
-+		old_backbone_gw = claim->backbone_gw;
-+		kref_get(&backbone_gw->refcount);
-+		claim->backbone_gw = backbone_gw;
- 	} else {
--		WRITE_ONCE(claim->lasttime, jiffies);
--		if (claim->backbone_gw == backbone_gw)
--			/* no need to register a new backbone */
--			goto claim_free_ref;
-+		old_backbone_gw = NULL;
-+		changed = false;
-+	}
-+	spin_unlock_bh(&claim->backbone_lock);
- 
-+	if (changed) {
- 		batadv_dbg(BATADV_DBG_BLA, bat_priv,
- 			   "%s(): changing ownership for %pM, vid %d to gw %pM\n",
- 			   __func__, mac, batadv_print_vid(vid),
- 			   backbone_gw->orig);
- 
--		remove_crc = true;
-+		/* add claim address to new backbone_gw */
-+		spin_lock_bh(&backbone_gw->crc_lock);
-+		backbone_gw->crc ^= claim_crc;
-+		spin_unlock_bh(&backbone_gw->crc_lock);
- 	}
- 
--	/* replace backbone_gw atomically and adjust reference counters */
--	spin_lock_bh(&claim->backbone_lock);
--	old_backbone_gw = claim->backbone_gw;
--	kref_get(&backbone_gw->refcount);
--	claim->backbone_gw = backbone_gw;
--	spin_unlock_bh(&claim->backbone_lock);
+-static void bm_put_super(struct super_block *sb)
+-{
+-	struct user_namespace *user_ns = sb->s_fs_info;
 -
--	if (remove_crc) {
-+	if (old_backbone_gw) {
- 		/* remove claim address from old backbone_gw */
- 		spin_lock_bh(&old_backbone_gw->crc_lock);
--		old_backbone_gw->crc ^= crc16(0, claim->addr, ETH_ALEN);
-+		old_backbone_gw->crc ^= claim_crc;
- 		spin_unlock_bh(&old_backbone_gw->crc_lock);
--	}
- 
--	batadv_backbone_gw_put(old_backbone_gw);
-+		batadv_backbone_gw_put(old_backbone_gw);
-+	}
- 
--	/* add claim address to new backbone_gw */
--	spin_lock_bh(&backbone_gw->crc_lock);
--	backbone_gw->crc ^= crc16(0, claim->addr, ETH_ALEN);
--	spin_unlock_bh(&backbone_gw->crc_lock);
- 	WRITE_ONCE(backbone_gw->lasttime, jiffies);
+-	sb->s_fs_info = NULL;
+-	put_user_ns(user_ns);
+-}
 -
--claim_free_ref:
- 	batadv_claim_put(claim);
- }
+ static const struct super_operations s_ops = {
+ 	.statfs		= simple_statfs,
+ 	.evict_inode	= bm_evict_inode,
+-	.put_super	= bm_put_super,
+ };
  
--- 
-2.47.3
+ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
+@@ -990,13 +981,12 @@ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	/*
+ 	 * When the binfmt_misc superblock for this userns is shutdown
+ 	 * ->enabled might have been set to false and we don't reinitialize
+-	 * ->enabled again in put_super() as someone might already be mounting
+-	 * binfmt_misc again. It also would be pointless since by the time
+-	 * ->put_super() is called we know that the binary type list for this
+-	 * bintfmt_misc mount is empty making load_misc_binary() return
+-	 * -ENOEXEC independent of whether ->enabled is true. Instead, if
+-	 * someone mounts binfmt_misc for the first time or again we simply
+-	 * reset ->enabled to true.
++	 * ->enabled again during shutdown as someone might already be mounting
++	 * binfmt_misc again. It also would be pointless since by then we know
++	 * that the binary type list for this binfmt_misc mount is empty making
++	 * load_misc_binary() return -ENOEXEC independent of whether ->enabled
++	 * is true. Instead, if someone mounts binfmt_misc for the first time or
++	 * again we simply reset ->enabled to true.
+ 	 */
+ 	misc->enabled = true;
+ 
+@@ -1022,6 +1012,14 @@ static const struct fs_context_operations bm_context_ops = {
+ 	.get_tree	= bm_get_tree,
+ };
+ 
++static void bm_kill_sb(struct super_block *sb)
++{
++	struct user_namespace *user_ns = sb->s_fs_info;
++
++	kill_anon_super(sb);
++	put_user_ns(user_ns);
++}
++
+ static int bm_init_fs_context(struct fs_context *fc)
+ {
+ 	fc->ops = &bm_context_ops;
+@@ -1038,7 +1036,7 @@ static struct file_system_type bm_fs_type = {
+ 	.name		= "binfmt_misc",
+ 	.init_fs_context = bm_init_fs_context,
+ 	.fs_flags	= FS_USERNS_MOUNT,
+-	.kill_sb	= kill_anon_super,
++	.kill_sb	= bm_kill_sb,
+ };
+ MODULE_ALIAS_FS("binfmt_misc");
+ 
+
+---
+base-commit: 61d2304c0f286fe4a14ec6cee87588350c276d02
+change-id: 20260728-work-binfmt_misc-usernsleak-c224e596beba
 
