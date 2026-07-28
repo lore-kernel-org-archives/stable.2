@@ -1,79 +1,56 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA96929B799
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A891DB13A;
+	Tue, 28 Jul 2026 15:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785251938; cv=none; b=Dva++S/cFzB/2vq7t6ymBJijeCuAwk+wDBCudhyK3/XA8tcCpDRRRSLS2hqF6ESrnMCDU948wamXbkVkpJjpoQK4oMEgH0Td8T4fWQIp5NXH2+uo0smG9DrAF+InNTOMHgewYGhSwHYoaR2Y+D1sCTq60J/yY8hdm9tXhGDS/o0=
+	t=1785252032; cv=none; b=WrzgM/TNdqNsfqBQtKqPC9zpV5SHUQwVReWDnZNNuTrtNDabirZi6zy/euXSnToUWO0MdOzAHkDW0KYmJi2NDmjClrtBfljApZRUk59uY+A5ta0242+OA+Zia2FL2boJdP1v0ktzdOJ+YBo5Wxk0e7FVv3qiMbRl7mMMCpGsKgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785251938; c=relaxed/simple;
-	bh=aM2KX+SLDwftppA55jxwitKAx3AJ79bmrqQfKetSDRE=;
+	s=arc-20240116; t=1785252032; c=relaxed/simple;
+	bh=7U7h5kwSeNJAXhWw+RPeXtCc3did/HbsffGA7Z+3nt4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AlK1Uq1m5KrwUZNnXISkb6OlxYjPspVo5XklStg64wc3kKjuSoyn9Bj626ydFOCKOhfNdwRXMfbK/mNiQFeuzu6k6iVW6eQmWCql5/+JvzJMtuV5G9YzyRr3yzQp/olWvQg2keIVIydLKTetA7xQ05NpmP9LD+OuYptETLwbKxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=c4RHMNo/; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=GBgqmzmu8AS0xFatJHd1y3g5Wpu60KmcseUDKoluwXdBEm/HMDaVu6NKmTOKE/wVunYkz0YlktYbgZdSjpnqeRy12MMxQWU+CQakwtecwzVr/yjSwrh7yjCJxAXljZ5oYIILpGjfANqmvM+0GQYT+qaL9F3jEKAc9usV1nzITlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHXtPkLt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="c4RHMNo/"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8ef7b7651ecso10007736d6.1
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:18:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1785251936; x=1785856736; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9di/IG6Jc1VtV8BRHbehmfOGqBLbsLtDHRgb0wHAUZU=;
-        b=c4RHMNo/pmE4n+WCgY8d45wnay3DmHpiTk7OncSgzFyWLAavDZDqRcUX+T9lATIlnl
-         7nSxXs3pxewDKuWa4XzuxcDcZNyZnsXnn4Z/84qNFAnd+k6vCuBYydyFv8GkfrNmJC0e
-         mlXZ78l6B5tEc3uEQP+JMUlCakBtv22KFocQvFMTNWcIiVimnTJ17z2eKG6/TuxVK3Md
-         +3i45LbKZ9O6v7xeaPWvHeT4kafWRtIpbdj4urgo3rzrg1K/6V/6NeqbR8VO5iYWbljb
-         SkX+6tXUE5QIBTjpH73QgSZ45dLpWORSCVPf/Uvg7GM5hB+21jgLOYil60F3jojFL91Z
-         ycYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785251936; x=1785856736;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9di/IG6Jc1VtV8BRHbehmfOGqBLbsLtDHRgb0wHAUZU=;
-        b=V29KnMy+uH3rIK8f8wuy5PT0PcaLKZNtgACNQOR3+Pgss8mCNsK4zOdHnPEYe9uOHa
-         v579ItcsXTSnQgKZVL4w9NFxJj2fPzYS3pNu2+cIuw6BwK/tdUEd2LexBMJmJakZE5XA
-         8lpRLB/QF68oQkmEU15qL5VVfuEm9oL3PqlGexz1qqa6VTJ/QIPJV3DdxBbp/msmC430
-         45C/5XfYmgDHAPmqN68SJR8eoDnwtS7goEGgQF6sfbAq6njuj2TMq652RReCNoFK4xcb
-         XlasRvei0/+xCbEMA5NdsMcuHCqnncF5lG35SalbttGmFkl9DJ6Tc5sgj0zBUK6DIHV8
-         cAmw==
-X-Forwarded-Encrypted: i=1; AHgh+RoqWVgYoouQAH2I+i/fI5Bq585vs72Dkx7KYMa9QIZSdE2dCi2YRKH3yDi9qnhtQmlOCrSNXkk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxJBNveI4DooBeKZcEuiFPOofc0p/g6QsuErWsZee/PeC44XSi
-	KXIaiDviTOXbvVXvbz++9w0j81nGm0GHjbSty7v3BAQO0d1iaWCMhK7yfmCYtfQqrxWCGzpeiAz
-	xU4OUsA==
-X-Gm-Gg: AR+sD10mMnaUgw19ol43eOvldelFJNX3171cU+8+SkbKiCyjk7LUmqJ1m5WzUhc83IZ
-	n+8TcofEc7mmDa/BF31ApAVV8ZTDwIm98+lVwdQ2yseAuoWQfLc9ONnBEVQhM994XLaRPGHcvph
-	0X1ZZLzqyASrrICFBZ1tIvk7QNHQI7AalTwPrq9bdJotDNoQQiext3G+/Y2eQD+G3BkcOBNNJYk
-	rrqnyvjsCQDfeF3riuOKn7Cs8gZspjcHBJAxjXn1e7e7bdHUIGgJhnml+5q5bDcBMjG86+EaUa2
-	nkovvtnBIodEjU/BzeOaU4r8zntSXUtOVDBDpnmBMu50NAuVPx4HDNXRHpy9eqrzz0reMkNbl8N
-	lStboACQh/87as2PfuKGcS6iYlSF5Oodxb2cj9ILRJdO+k/yA/6+ZxFsr9IL7yjDX8yVGqsXtJ2
-	qP6SU=
-X-Received: by 2002:a05:6214:1cc2:b0:907:5319:53b7 with SMTP id 6a1803df08f44-90817306839mr28886226d6.18.1785251935603;
-        Tue, 28 Jul 2026 08:18:55 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::883a])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9081dc6c862sm1445086d6.14.2026.07.28.08.18.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 08:18:54 -0700 (PDT)
-Date: Tue, 28 Jul 2026 11:18:52 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Nikhil Solanke <nikhilsolanke5@gmail.com>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
-	corbet@lwn.net, skhan@linuxfoundation.org, stable@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] usb: core: Add quirk for 255-bytes initial config
- read
-Message-ID: <df358305-0c66-449e-ad44-effc707ce654@rowland.harvard.edu>
-References: <20260727195434.14626-1-nikhilsolanke5@gmail.com>
- <20260727195434.14626-2-nikhilsolanke5@gmail.com>
- <ba2af6f4-0134-4feb-addc-24694fabeb10@rowland.harvard.edu>
- <CAFgddhLNOVPqnZW89W8XvD5W9nOPK51grBdraOeQcCe1_+WVFw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHXtPkLt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA5191F000E9;
+	Tue, 28 Jul 2026 15:20:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785252030;
+	bh=Pcgm/0NVuLY1iQXWdMHTbgGTyBAUcx9voeT3GqTNrW4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nHXtPkLtRmjx3crBgajbkLZxNsA3m9uMCmmk+Zu1hXmHK+jqcSxKDyV8K2wEAn4ov
+	 xAp4WJNCsT0bhLjmjM2bXP7jm36ow4Eez3+MwNxAabUGON2Ufr8GJ2fTQrTn4fM+PF
+	 F2WRQZOsY7x8E5Gy4NkWKM1kXL/jUwoU3O/nmGJqaFskSIXPkooguA+E3Q6RPPrLJQ
+	 ujd9oq3RqgGlSx9+LgrKyiPEIdHFc49+JhTl3UBJVbbO5EyeHdiyEQzge9D57ztibD
+	 84Nd1+6QnDSM9g9sdyIoH5XrQdZnT8ObHMTB8lL1zvJ/aZlpBCRxbylGzEUz6Z1ubB
+	 oyLbO8Xi/+Xzw==
+Date: Tue, 28 Jul 2026 16:20:10 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, Juergen Gross <jgross@suse.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH 1/5] x86/mm/pat: introcude cpa_lock() and cpa_unlock()
+Message-ID: <amjHQtTRKKkxdaWC@lucifer>
+References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
+ <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
+ <20260728142108.GW751831@noisy.programming.kicks-ass.net>
+ <adfffb36-9943-4af7-a0ee-0e762e47fa11@intel.com>
+ <20260728143135.GG651302@noisy.programming.kicks-ass.net>
+ <amjAxhL-IeeJITEv@kernel.org>
+ <20260728145528.GI651302@noisy.programming.kicks-ass.net>
+ <20260728150126.GC921102@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,52 +59,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAFgddhLNOVPqnZW89W8XvD5W9nOPK51grBdraOeQcCe1_+WVFw@mail.gmail.com>
+In-Reply-To: <20260728150126.GC921102@noisy.programming.kicks-ass.net>
 
-On Tue, Jul 28, 2026 at 01:37:16PM +0530, Nikhil Solanke wrote:
-> On Tue, 28 Jul 2026 at 07:29, Alan Stern <stern@rowland.harvard.edu> wrote:
+On Tue, Jul 28, 2026 at 05:01:26PM +0200, Peter Zijlstra wrote:
+> On Tue, Jul 28, 2026 at 04:55:28PM +0200, Peter Zijlstra wrote:
+> > On Tue, Jul 28, 2026 at 05:46:30PM +0300, Mike Rapoport wrote:
+> > > On Tue, Jul 28, 2026 at 04:31:35PM +0200, Peter Zijlstra wrote:
+> > > > On Tue, Jul 28, 2026 at 07:30:27AM -0700, Dave Hansen wrote:
+> > > > > On 7/28/26 07:21, Peter Zijlstra wrote:
+> > > > > > There was already a patch merged that removed the shole debug_pagealloc
+> > > > > > exception. Is that not better?
+> > > > >
+> > > > > As I'm scanning through email this morning, there's another issue that
+> > > > > popped up with that patch. It's causing hangs on boot.
+> > > > >
+> > > > > It's looking like debug pagealloc not taking the lock is actually
+> > > > > functional, not an optimization. Although, I hesitate to say
+> > > > > "functional" and would prefer to use much less nice words to describe it.
+> > > >
+> > > > Yeah, lets figure out why that is before we retain this wart ;-)
+> > >
+> > > As Lorenzo said:
+> > >
+> > >   __kernel_map_pages() can be called from irq context:
+> > >
+> > >   < GFP_ATOMIC context >
+> > >   kfree() or whatever
+> > >   -> ...
+> > >   -> __free_pages_prepare()
+> > >   -> debug_pagealloc_unmap_pages()
+> > >   -> __kernel_map_pages()
+> > >   -> __change_page_attr_set_clr()
+> > >   -> cpa_lock
+> > >
 > >
-> > Also, it's odd that you add the quirk flag to the kernel without adding
-> > a new quirk entry for the Xbox 360-compatible devices.  That doesn't
-> > have to be done in this patch, though; it can be done in a follow-up.
-> > (But note that without a followup this patch doesn't actually fix
-> > anything, since a true fix would require user intervention.)
+> > The TLBI hack in __kernel_map_pages() makes me wonder how any of this is
+> > correct to begin with. That comment isn't helping.
 > >
-> 
-> Well the device I am using spoofs Microsoft's device IDs directly. I
-> avoided adding it because the official xbox controllers work out of
-> the box. It won't break their functionality, but it kinda falls into
-> the category of "if it ain't broken, why fix it". Other clone devices
-> use different VID:PID pair as well, like with what happened Ishaan's
-> device (his reply to my previous patch revision). I believe they
-> should be added here instead. Since there are many such devices,
-> gathering all the IDs would take considerable time and community work.
+>
+> Also, the 'atomic context' usage hereabout seems confused. In particular
+> the issue is with IRQ-disabled context, they are not the same thing.
 
-Okay.  It's worth mentioning this in the patch description.
+I mean yeah the IRQs being off is the issue with holding the lock over an IPI, a
+softirq allocating GFP_ATOMIC won't be a problem for that, but I think all the
+conclusions are still the same.
 
-> Also, the kernel's own xpad module is slightly behind some changes or
-> so I have heard. There are a few community maintained kernel
-> modules/drivers with many changes that are required for these devices
-> to actually function. There is some magic packet that needs to be sent
-> after the usb device has initialized along with doing a bunch of other
-> things like mapping out buttons, etc. These drivers are also required
-> for a device to fully function in most cases (the builtin xpad also
-> works in some cases). So just by adding a device to the quirk list
-> wouldn't truly fix it.
-> 
-> There's still a lot of issues that need to be addressed in the kernel
-> driver space to "truly" fix Xbox 360-compatible devices (majorly,
-> hid-generic or other drivers claim the devices before these
-> out-of-tree modules due to race conditions). My patch is just the
-> first step.
-
-Got it.
-
-> Thanks! I would like to know your thoughts on the above points as to
-> what should be preferably done moving forward. If it happens that I
-> should send in another patch, I will address the nits and add the
-> Acked-By as well.
-
-That's up to you.  What you have done so far is already acceptable, IMO.
-
-Alan Stern
+>
+> This confusion is seen in the existing comments in __set_pages_{p,np}()
+> and in this patch series. It needs fixing.
