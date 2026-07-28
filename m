@@ -1,133 +1,121 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D5E3DDAF4
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 07:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8E135E922;
+	Tue, 28 Jul 2026 07:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785223172; cv=none; b=hkP2oTxh/lV4XZh1DkT0xLjq0Zw+P7OIt8D4pblyh+6E+7CiOqPiYm71bR7vnLr7fQ9so6qQnFDffXNaGSuFrenVI8Dg68KHI543fIrGePF3i8GPC0lJelhODI0nABrk7ky24tmegiWeG6SND7MjaiYbXsInbIAwO8h5wWuv4I0=
+	t=1785223458; cv=none; b=bnOAebmP2avRlaBwQJQEGiIVH1b1hyMBqg4POM7L3FlwtRQuvlIgu8DbMjafXVIfPAnAhJhQ/C5jbvmQHcgc/SLDRYDnEgeK4rm+yOB1sgyI1sOhv/tMc59MQuqqVgxIytDw/sBXPaRm2/yMQ/FkeIlm3evt91d6/uSXN07isYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785223172; c=relaxed/simple;
-	bh=B/tEtOff3mXWMkusIR5hXxc+CXzdsKI4VFS8H6AoxSY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hAcBBf1vcsYep+r5jXQdak0OoDlfNLAYBX49yMaN2AmELegH9OBszf4M8SfENPe1ysGqKiuYM78Ul/tuWBdEThyw/3HCgb86GbPWtfmvyNgRaPil0Pk/mEpVXMzOEg/WFWsSVTRh2zGGackygJZhXNAKHTV835uGKfS2iLz3CR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FlcszQsF; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785223458; c=relaxed/simple;
+	bh=Ihrebgr6xkxWO1dlGAahZLpRPZek5kIvTvZKdsX/joo=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Y2xogQwWD1hgFKaZC10QllEnjU/dJL17v37EPI3nn3pvM9Eq5dyTC+fteVv84vRJbw4+cKQIeNNrTINZZ0TawMBx+YCxMh/1nro4bLsFGVlkkH3Gmi7DMJtGZ1evJhGS8JPrXEqyxeMtMKV+osZjlPz57uYR9HqVNA4NdO9E02Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KpaCadhg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FlcszQsF"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ceae1ed204so38400895ad.0
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 00:19:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785223170; x=1785827970; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xh/gHs1jAvs3mRq2XK2BfruBHbrtemacxFBys8zAlQw=;
-        b=FlcszQsFeUQ1i+5Pti4pW9cfdRLNqtR2WpFO6b8wxjbnAhcdz3K9Mrvu6+Dzla9i3m
-         wMoNUh1au3hmln8Xlj9+X4stbFtRDF551C0iBvTEx9sRBJh7nOmBTWahd39/4dkkB0z+
-         K8dOPDnXzqFw+w8NX1BJW3nPte1WpFlfyaRc5K+W/nFQ5ES07LvOXxs3vzgH/sayiP+K
-         UhwpZlF5Cj8bh4gizFeU3w4kd+bDlyfkmu8XC+E8sn9NcGue1LWBWYicWBffikoPjBc3
-         YJHDprZC0tcu7Va6x7Zzlx2YMTs43hcxUI6Vv9OgLsDu80z23aWjCdqBq1TX6NtyEXaP
-         oU2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785223170; x=1785827970;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xh/gHs1jAvs3mRq2XK2BfruBHbrtemacxFBys8zAlQw=;
-        b=TB13D1YzfSEvXg7ZAG76KJWAhOHBwRDwBRCbkXMX+EbbTPhyS413z5pI/7eJxGYV4K
-         4HuFjM3BpyKdEMSf9AE0Nh4vo6WOemOiV19dHxnmBmxLLAiyhLq66IqtVZ+3i1sYSu5T
-         MqDhAUbgFyDCTxGuUzrcsPE9W0duC120BXhWJJ9Er0HbEsA2rOKB05oY/9EdOR2MlcUB
-         b//w7Z9nMO24ocYlJrxziFyAVIRCsNZNSE3p00qvh2zNnsqi7RAH4K7yMGS2PrAlecz2
-         tAiVxlGqwZJpbdXy+HxwnN1OAlo4/luWHtA64zJQtb/caht3AlW6xjC+Fj3ywbyflCyy
-         ly2A==
-X-Gm-Message-State: AOJu0Yz3bePU6UnuXYarcQNC4TE3xd40xitz26zJzVGQwyOa449m0XMo
-	LkoCyxji4d39PWBsj6NfYsLRWLHRu5CLtEVa7De8X81nJ0W7ZDhJjQfa
-X-Gm-Gg: AR+sD12MhOP7snRlaIJA8pZJGWzsEVw16Mk2QcXHiGECA152Ft/4dYw9xuwka2qAEd5
-	uge/2pF8x3VH7boQ/DL1CdaXeb1B3a0tNKBBZ89U2o9KXsWYQsyHeRHPQDL3ux6y0ee02vq95mI
-	8ip+68jqVTjCWbOhPO4oxrAszNIaTJyriBCkh3pk6fVIJnKJxftJUoR9h7qWdWDSPB+G8qb5OYC
-	F67q6KtJO8PH1PBG3y7xOMtULIcadLxFRbYNisbfw9PsU+dwYA4D8doPnGG69Ra78nKciejdoFn
-	GqW1Uh06hRgx7LltbDnD98g4rF4cKMLToxXNYZrtH0TccL5A42f6uBjNVqQ12c0QbIIdNp+IP8q
-	y+ukXie+efj8hSxRum5KgKV+DrRcimIMOBy0O/gdwUUPrm7xHdloz0DEhDx1BRc3ax3zXM8HD/Z
-	If0bgJXFOU8rvKNdrxektkXfqxtx2RtfFXjBLufht48/A2rAaCTTCDFi4oWl3n5rqNVxc+SLUk9
-	nUdp31OA+JDWMPk2cEfWg8Ua0Uo0EE=
-X-Received: by 2002:a17:902:f709:b0:2b2:67ca:5ff9 with SMTP id d9443c01a7336-2d015902adfmr16876015ad.0.1785223169512;
-        Tue, 28 Jul 2026 00:19:29 -0700 (PDT)
-Received: from JIAPENGLIN-MC0.tencent.com ([43.132.141.24])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde81d849sm46665115ad.81.2026.07.28.00.19.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 28 Jul 2026 00:19:27 -0700 (PDT)
-From: Lin Jiapeng <ljp1205831794@gmail.com>
-X-Google-Original-From: Lin Jiapeng <jiapenglin@tencent.com>
-To: cem@kernel.org,
-	linux-xfs@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	djwong@kernel.org,
-	hch@lst.de,
-	jiapenglin@tencent.com
-Subject: [PATCH v3] xfs: fix exchange-range reflink flag clearing issue with  INO1_WRITTEN
-Date: Tue, 28 Jul 2026 15:19:10 +0800
-Message-ID: <20260728071921.81156-1-jiapenglin@tencent.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KpaCadhg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E6781F000E9;
+	Tue, 28 Jul 2026 07:24:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785223456;
+	bh=E8SRul2G1HrGQJcr066YGOHz1y5cWjA8Zr8/M3ZYP1w=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=KpaCadhgfFJhn/uEvG8hxcA+gC2z1HjEp9WQkgt5w4L4afiq0Rra3A+2x5+bkfPGE
+	 /iKs+9RupXFMrs0xwt65vFORu066JIjNIS2a0I2MLY9sdL/1Sn2AMPIvwKYkl2XS/+
+	 a1d4JL5toh79taO3A7quefnlzL+pC1lElNC1yv6E4D2wODsCxv3CpYeBzIznqCNjZF
+	 wab9IazK+LQAt4Y8w/FMZTj7EDdzXS9ipLrVpaUz1jUVEObFKSNMTEtMsE1VL4f4OI
+	 BDk2iCHylu2lCCRHkeDi+HJDGPuHCRr4OSQj2U1NJ0S1F1UEZwgCxNAafHUzuznaO/
+	 wguypYjOouHfQ==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] freevxfs: fix off-page read on a crafted dirblock
+From: Christian Brauner <brauner@kernel.org>
+To: Baul Lee <baul.lee@xbow.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ hch@infradead.org, federico.kirschbaum@xbow.com, stable@vger.kernel.org
+In-Reply-To: <20260726062514.43756-1-baul.lee@xbow.com>
+References: <20260726062514.43756-1-baul.lee@xbow.com>
+Date: Tue, 28 Jul 2026 09:24:13 +0200
+Message-Id: <20260728-herzton-fanshop-oberen-7ae890df5b67@brauner>
+X-Mailer: b4 0.16-dev-cca4b
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2799; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=Ihrebgr6xkxWO1dlGAahZLpRPZek5kIvTvZKdsX/joo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRlRMrLuNQ/87S0eKzywez58vf6fhum/znawLBlBqdgx
+ 92gSu+WjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIk472JkaNFZ//3xGQGOpOnr
+ W0VXBMg+C7BOySqNXnUh2fbG1X/mQBX7Gva7GW0zmC76XFxg60+LCRE5rScC/mrbPl6arX+2uZg
+ XAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-When exchanging two full-file ranges, xmi_can_exchange_reflink_flags()
-can move the reflink inode flag from the file that currently has it to
-the other file, as long as exactly one side is marked.  This assumes
-that the file contents, and therefore all shared extents, are exchanged.
+On 2026-07-26 15:25 +0900, Baul Lee wrote:
+> vxfs_readdir() and vxfs_find_entry() both advance the intra-page offset
+> pg_ofs by VXFS_DIRBLKOV(sbi, dbp) at each dirblock boundary and then
+> dereference
+> 
+> 	de = (struct vxfs_direct *)(kaddr + pg_ofs);
+> 
+> without re-checking pg_ofs against PAGE_SIZE in between.  The enclosing
+> while (pg_ofs < PAGE_SIZE && pos < limit) test only gates loop
+> re-entry, not the deref that follows the addition in the same
+> iteration.
+> 
+> VXFS_DIRBLKOV() is 2 * d_nhash + 4, and d_nhash is an unvalidated
+> on-disk __fs16, so the overhead is attacker arithmetic of up to roughly
+> 32 pages.  kaddr is page_address() of the single order-0 page-cache
+> page returned by vxfs_get_page(), so nothing else bounds the addition
+> and the de->d_reclen load lands off the mapped page.  Directory pages
+> are consumed unvalidated: vxfs_check_page() was never implemented, only
+> a commented-out call survives.
+> 
+> Both sites are reachable on any mounted crafted freevxfs image, the
+> vxfs_readdir() one from an unprivileged getdents64(2) and the
+> vxfs_find_entry() one from any path walk into the directory.  When
+> d_ino is non-zero vxfs_readdir() also feeds the off-page bytes to
+> dir_emit(), so they reach userspace.  KASAN reports a 2-byte
+> out-of-bounds read in vxfs_readdir().
+> 
+> Re-check pg_ofs against PAGE_SIZE right after the addition and before
+> the deref in both loops, restoring the invariant they already assume.
+> The added break leaves the page the same way the existing zero-d_reclen
+> break does.  Well-formed directories, whose overhead never pushes
+> pg_ofs past a single dirblock, are unaffected.
+> 
+> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+> 
+> Fixes: 12495ea3ac47 ("freevxfs: refactor readdir and lookup code")
+> Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+> Reported-by: Baul Lee <baul.lee@xbow.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baul Lee <baul.lee@xbow.com>
+> ---
+>  fs/freevxfs/vxfs_lookup.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/fs/freevxfs/vxfs_lookup.c b/fs/freevxfs/vxfs_lookup.c
+> index 138e08de976e..b068f93359fb 100644
+> --- a/fs/freevxfs/vxfs_lookup.c
+> +++ b/fs/freevxfs/vxfs_lookup.c
+> @@ -87,6 +87,8 @@ vxfs_find_entry(struct inode *ip, struct dentry *dp, struct page **ppp)
+>  
+>  				pos += overhead;
+>  				pg_ofs += overhead;
+> +				if (pg_ofs >= PAGE_SIZE)
+> +					break;
+>  			}
+>  			de = (struct vxfs_direct *)(kaddr + pg_ofs);
+>  
+> @@ -237,6 +239,8 @@ vxfs_readdir(struct file *fp, struct dir_context *ctx)
+>  
+>  				pos += overhead;
+>  				pg_ofs += overhead;
+> +				if (pg_ofs >= PAGE_SIZE)
+> +					break;
 
-That assumption is not true when XFS_EXCHMAPS_INO1_WRITTEN is set.
-xfs_exchmaps_can_skip_mapping() can skip hole and unwritten mappings
-from file1, so an exchange can complete without moving every mapping
-that the earlier flag-swap decision accounted for.  In that case the
-post-operation cleanup can clear the reflink flag from an inode that
-still owns shared written extents.  Later writes then take the
-non-reflink write path and may update blocks that should still have
-been protected by CoW, which shows up as data corruption between
-reflink-related files.
-
-Fix this by disabling the reflink flag exchange whenever
-XFS_EXCHMAPS_INO1_WRITTEN is requested.  The contents exchange can still
-proceed; the conservative outcome is that both inodes keep the reflink
-flag.  The regular reflink flag cleanup path can drop the extra flag
-later once the inode no longer has shared extents.
-
-Reported-by: Lin Jiapeng(TencentOS Red Team) <jiapenglin@tencent.com>
-Fixes: 966ceafc7a43 ("xfs: create deferred log items for file mapping exchanges")
-Cc: <stable@vger.kernel.org> # v6.10
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
----
- fs/xfs/libxfs/xfs_exchmaps.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
-index dcd0bd0b13b4..3efed37cb98a 100644
---- a/fs/xfs/libxfs/xfs_exchmaps.c
-+++ b/fs/xfs/libxfs/xfs_exchmaps.c
-@@ -959,6 +959,16 @@ xmi_can_exchange_reflink_flags(
- {
- 	struct xfs_mount		*mp = req->ip1->i_mount;
- 
-+	/*
-+	 * The INO1_WRITTEN optimization can skip exchanging hole and
-+	 * unwritten mappings, which means we cannot guarantee that all
-+	 * shared extents actually moved to the other file.  Clearing the
-+	 * reflink flag of an inode that still holds shared extents breaks
-+	 * the CoW write path, so refuse to exchange the flags in that case.
-+	 */
-+	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
-+		return false;
-+
- 	if (hweight32(reflink_state) != 1)
- 		return false;
- 	if (req->startoff1 != 0 || req->startoff2 != 0)
--- 
-2.50.1 (Apple Git-155)
+There's valid Sashiko reviews that you want to read through.
 
