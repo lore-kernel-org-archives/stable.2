@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A8C3A1691;
-	Tue, 28 Jul 2026 17:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4578B3A1691;
+	Tue, 28 Jul 2026 17:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785258749; cv=none; b=IkZuuanX/DTJdK/3tMYftGby6RohSlNqoJXQd/JRji9tVyTJg9mXtmOExLOZ5uNFPhyElpyhBv2kD/6ha3y2H4B6U3LNNXoTUQStqXIMSb86rZBCLBaHTk3DzEIirdddSDyudG3Og5rPIIxkcqTvjBjzNoHVPwuIfQnVzzhtHS8=
+	t=1785258754; cv=none; b=iunDwNEPzOS5LTFbs/XDqFZ0iPPetUV5tgi8LumTQrF138Y6TBQgaoUV16EY4FMVBMaTyYz2pdVwckfWmY4mbEIDzcVnYldBvuMXfN7An524gxoqJYXrFNq1KhFNzmotLgilrys4BhABKganFSh50+obzOcTgCPvQboNuaaN/CI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785258749; c=relaxed/simple;
-	bh=m4x0bxSy6TxsUPrJI6w5irHD5JNUjCHFJQxz6MDrmzA=;
+	s=arc-20240116; t=1785258754; c=relaxed/simple;
+	bh=Ee+ZUdlvPeC8oOUqX+4znofZ/G/Gth3A0llQg7KuRl8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Muj86vy31TJMO4e/2/rtFlvOMUNvDMawai74HseSoea5SO9k6J446FPoJk31SpemMMLFgAHwvlKA7gD0KKfY63m8+gGaY+oqv5wCAaTuzHw3nmYj3cGaFU/v4GKhz5JXLpmu7NKHMj5blPh03HfhowD1Bn+yNrpvsn1Rm+eerEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ur5/NbGA; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=qvd3BBC6EAcHNbCyAphOXhO8tYs+DVq3qlwV/TtMsLkFtyKys/ioR6vUkaIksUo9morr68yVvdofhmvmSdAi9mHoZdsZ/1kOF6OWqZ6CPI1o1tKoWgfsRtdE5jkM+msG8iPzlVpAF1J3F6RMeWQcWlSEiGbkUA+xR7tiSeEFecw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y6FQT22U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ur5/NbGA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89B91F00AC4;
-	Tue, 28 Jul 2026 17:12:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y6FQT22U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9BF1F00A3A;
+	Tue, 28 Jul 2026 17:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785258748;
-	bh=mFgngIcB30lySgR+387wwGE2NX/cftkfr18bbdf5vD0=;
+	s=k20260515; t=1785258751;
+	bh=S/j1mFgvYIlP4i8duTU+YCkuh9XpJR5giL7Cj1dvYZU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ur5/NbGAO07VVLGDkyPnUqzeHLQvxcIyzNkCKqkVr60xiUPAMc9MsvzMEUNzV5E+V
-	 6HUG+bhs+/jFfBUgVcRa/53BB2wjmgPFsgvKaB0u0i+52I4n68QpSlbQElGZLNvqg5
-	 tBVC7E/bDJ5khb4ruXUj9fa0vD8/KlHXmRRb21fk0Od0E5ZYcyxO38ty/m4xpBmb7S
-	 TbGOux47kD+zy2cWrJvMTaI+Qyl39/46M9mOAAiQHMrVrb+uzbrdpYp7mteWGeo7lR
-	 KM1LK98sYE+JDzx5c748ydjkEtt6EeRAqiCm7VJLE8Xr7wNLzh+531nTAB8Jop2GHi
-	 wmx9JMHXlc1yg==
+	b=Y6FQT22UE3pbkU+I/FajytSdaCUSuZ4ouf8EZNp5T06+jrtQOCgW+oDdq9BJDhu87
+	 QAJCDZDDD2JbXp8IcrE0MJRUeTmaxbeXjZF/AmE34OvKmr6tFdd+mlWd7Y1CwCaDqJ
+	 XZQ/YgPoJAzfdHWdWsyWq8beJHu0OwpnyhVYovuWmEwOek1ZacbghSXnNO9QwIM+Se
+	 OLhr6gN/HSne3tkEAixWvvJPL6HCWPXbX69mGUt4aNkChJ1T4qnZzVsqtHWJPVKr5I
+	 ba51qrFDvt5s5Df0IjVylm95cE1dAN3EpxTqCKkeQb2fHE++cHsCAyYOoO5kZPB2Wj
+	 unYN8+xtVTSUg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 28 Jul 2026 19:11:59 +0200
-Subject: [PATCH net 3/5] selftests: mptcp: join: mark tests with data
- corruption as failed
+Date: Tue, 28 Jul 2026 19:12:00 +0200
+Subject: [PATCH net 4/5] mptcp: fastopen: only mark MPTFO subflows with SYN
+ data
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-3-f7e2d229159d@kernel.org>
+Message-Id: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-4-f7e2d229159d@kernel.org>
 References: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-0-f7e2d229159d@kernel.org>
 In-Reply-To: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-0-f7e2d229159d@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,65 +47,77 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Gang Yan <yangang@kylinos.cn>, stable@vger.kernel.org, 
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+ Wyatt Feng <bronzed_45_vested@icloud.com>, stable@vger.kernel.org, 
+ Yuan Tan <yuantan098@gmail.com>, Yifan Wu <yifanwucs@gmail.com>, 
+ Juefei Pu <tomapufckgml@gmail.com>, Zhengchuan Liang <zcliangcn@gmail.com>, 
+ Xin Liu <bird@lzu.edu.cn>, Ren Wei <n05ec@lzu.edu.cn>, 
+ Dmytro Shytyi <dmytro@shytyi.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1789; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=OVf+JQzy7NpD1xgEnXRFt97nQ/5etoH6bLJALYeGoSQ=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIyHr1btSHj3MK7V87v/FTvcsFu4vsrv1dEt20/EKZ8Q
- EijKdtBtqOUhUGMi0FWTJFFui0yf+bzKt4SLz8LmDmsTCBDGLg4BWAijgGMDP93lnp0WEzTdhR7
- 5tTpJdtmqKfBGl62qC9Ta/atKJW8WIb/OfPm/d+15NM7rzKuhc5R04ptdjdZf1193vPaqZVSJ2Q
- zmQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2114; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=F0USe5Pac+45dLUx1tjf4ON3aUyhPCx9SwbxXB50mSw=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIyHr2b17koakepX57nm38MF/OnzueO2qIZ0r7GepV94
+ N+FHJfiO0pZGMS4GGTFFFmk2yLzZz6v4i3x8rOAmcPKBDKEgYtTACZyhp2R4czL8kkLExhaP0+Z
+ XvZ993T5Ndx615I6+3KdmFktO/ZnLWP4Z9WYMP+ycf0le94868dep+2a5l+aFqNlavLwx9W0RX9
+ OsgIA
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Gang Yan <yangang@kylinos.cn>
+From: Wyatt Feng <bronzed_45_vested@icloud.com>
 
-check_transfer() compares the input and output files byte-by-byte using
-`cmp -l "$in" "$out" | while read ...`. Because the while-loop body runs
-in a subshell (the script sets neither lastpipe nor pipefail), the
-fail_test call inside it -- which sets the global ret/last_test_failed --
-and the `return 1` both act on the subshell, not on check_transfer().
+Passive TCP Fast Open accepts a valid-cookie SYN even when it carries
+no data. In that case the child socket's receive queue is intentionally
+left empty.
 
-check_transfer() thus always falls through to `return 0`, and any data
-corruption affecting only the payload (leaving the subflow/PM counters
-untouched) is silently reported as PASS.
+mptcp_fastopen_subflow_synack_set_params() set is_mptfo before checking
+for queued SYN data. That made data-less TFO SYNs hit a WARN and, if
+the warning was non-fatal, left stale MPTFO state behind. The stale
+flag could later trigger a state-confusion bug in
+check_fully_established().
 
-Fixes: 8117dac3e7c3 ("selftests: mptcp: add invert check in check_transfer")
+Only mark the subflow as MPTFO after confirming that a SYN-data skb is
+present. Return quietly when the receive queue is empty.
+
+Fixes: 36b122baf6a8 ("mptcp: add subflow_v(4,6)_send_synack()")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GLM-5.2
-Signed-off-by: Gang Yan <yangang@kylinos.cn>
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Zhengchuan Liang <zcliangcn@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Assisted-by: Codex:GPT-5.4
+Signed-off-by: Wyatt Feng <bronzed_45_vested@icloud.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org
+Cc: Dmytro Shytyi <dmytro@shytyi.net>
+Note: a v1 has already been shared alone on the netdev ML:
+  https://patch.msgid.link/81f26b8fddd59ebb6cecc417fb138d9ff5214e08.1780458440.git.bronzed_45_vested@icloud.com
 ---
- tools/testing/selftests/net/mptcp/mptcp_join.sh | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/mptcp/fastopen.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-index c0aeffd5cb71..7dc91fac4917 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-@@ -584,7 +584,7 @@ check_transfer()
- 		mv "$tmpfile" "$out"
- 		tmpfile=""
- 	fi
--	cmp -l "$in" "$out" | while read -r i a b; do
-+	while read -r i a b; do
- 		local sum=$((0${a} + 0${b}))
- 		if [ $check_invert -eq 0 ] || [ $sum -ne $((0xff)) ]; then
- 			fail_test "$what does not match (in, out):"
-@@ -595,7 +595,7 @@ check_transfer()
- 		else
- 			print_info "$what has inverted byte at ${i}"
- 		fi
--	done
-+	done < <(cmp -l "$in" "$out")
+diff --git a/net/mptcp/fastopen.c b/net/mptcp/fastopen.c
+index 082c46c0f50e..f717750906ff 100644
+--- a/net/mptcp/fastopen.c
++++ b/net/mptcp/fastopen.c
+@@ -24,12 +24,13 @@ void mptcp_fastopen_subflow_synack_set_params(struct mptcp_subflow_context *subf
+ 	sk = subflow->conn;
+ 	tp = tcp_sk(ssk);
  
- 	return 0
- }
+-	subflow->is_mptfo = 1;
+-
++	/* A valid TFO cookie does not guarantee SYN data. */
+ 	skb = skb_peek(&ssk->sk_receive_queue);
+-	if (WARN_ON_ONCE(!skb))
++	if (!skb)
+ 		return;
+ 
++	subflow->is_mptfo = 1;
++
+ 	/* dequeue the skb from sk receive queue */
+ 	__skb_unlink(skb, &ssk->sk_receive_queue);
+ 	skb_ext_reset(skb);
 
 -- 
 2.53.0
