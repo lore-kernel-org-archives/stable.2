@@ -1,125 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C273041F36F;
-	Tue, 28 Jul 2026 12:26:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0073542A792;
+	Tue, 28 Jul 2026 12:32:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785241605; cv=none; b=paB/BjBGcnUM3d8xY9ju5QLvVf0v5u3avmGWWMnzLyCR743PLPVudSDz5j74p5M+uo/nfItOQUKY1fxnavMOi1hb80lx/lOYBhzpVfEt38cS14fmiJJb9ycHZkCQ8OQxd3Hk4XP5XW9/agOapsiiETms/hO3EidDVkzPEEqqyBE=
+	t=1785241922; cv=none; b=pR0kVDRKUjtCLbApI//44et+i37DRbbSlFxeeB0aIZqOd7dadOeDj1qKCs7hvmimxXvJb8BXtgj1vZHPJH8mjSY++BTIPwT68QmSASSWMZLnjaOjDWU/QY9tcfzd85wdYPShjnn0VAR7FmmxGoKjfWa9/ssO2Dm9zKO7pWxyjl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785241605; c=relaxed/simple;
-	bh=p5zN/lX5gZshphxpWwSeheHCCXVxHIFs4aMnBTfCyPI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m+2tBA/MtAIRYNzC8UCWhJ6mA41qRnDrtxGCpJgVAQiMR+MiUMb7xtFfsoeOD96XUUZaZbbxMM1ENYEKrxDI6xeG4Wy52qzeD34i+g9+XQuT6Pvq1gbCUv72euv3kU4e5DpTqzjHsFwySGsLPuvUPayTCd/kazttTLDNoTNHScg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3P1nSxh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785241922; c=relaxed/simple;
+	bh=DwDX6DQL7cMvuolyolXtePjrRKyhuxkkJnirH8faXg4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=NKLEcrpHLH8vtEzg7N5CprhJfWC2rFLMmW5wXnRDd8INJ4y8hfRbvaNjHbMBJO89kP3Sx5SLSC1Rcc1lqzLMKOqGnJ6cdUf4dc9otmkMM2jpchEJVDBlAGLoPc2LxXwKdJqTU2UucbA52Xv7r7/5WiSjH5XdmS+tLfKMVA9K69A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEM01trD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3P1nSxh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E50FA1F00A3A;
-	Tue, 28 Jul 2026 12:26:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEM01trD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E771F000E9;
+	Tue, 28 Jul 2026 12:31:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785241604;
-	bh=hOO/fvJ7DG1Qmdj7Yuqex/IBD7jlB9A1fJljGKz7X10=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=G3P1nSxhVPxurB0hXGcymQNIEpID62NyMfMi5ia4hR/TCslXYZT5CRps4prOl91oj
-	 4qQ1TMDOeg3iVpKehzT7KCgOaBJfYnTzQNrpg6A3yMrZhlQk5W60GS3xyPiXXYz9P+
-	 ZoVc8BsBcwuksx2Jq7eBm3G+48T/UpoDv0wBjxvmxfPzK8L5nXCpJ97zHmtAUFaGes
-	 bW3TLLazliO4JLuW6FBnBHH92mTQbcP6M9Ajo/+a3CjdpyYskDeXvDj9GH/BRsMaOt
-	 fc8fsXr6bw/l1PdRxois6hzsL6fRxDMlzToxV2X4ixW9Y5O8CC75XyxjkXI5fcfGBE
-	 cOO9ksEZjwrOw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 28 Jul 2026 14:26:32 +0200
-Subject: [PATCH 1/2] binfmt_misc: don't let an 'F' entry pin its own
- instance
+	s=k20260515; t=1785241920;
+	bh=lSkwhKAcEsyJqT/0xqVJXtxYxIXWD0v9uCPSjTmMF2M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=WEM01trD462HpzukrLQzJYedOMo/krm72PvzqlsPIr95pA22pK97BItUkKTq0RiE1
+	 BafhKgnPLjt9aVTzvU1dFa7RMbB40i5ZGyvy+Uq+GD3nlFNKGJAlh6v5YCczVVs88W
+	 XLgMqJmGuxCudWp7Pe+Yi+kgsFNJVH9ZJXfZCAW/9lfgbs+iqFLXWZDleq9blMw7mP
+	 +MH5pd841sVe9ss5f/WYkSBvsx7eS76Efavuj5k30SQrM2EWKd6eLiQqbz9Kr4x/nz
+	 YGdV+Rm3lqSrOuShxDdIBjk4LGOrgQZRl5vevgtv94weDxSm1UhqL4Mz6Y3mDajtlK
+	 HdSaygY48BoeQ==
+X-Mailer: emacs 30.2 (via feedmail 11-beta-1 I)
+From: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, x86@kernel.org,
+	stable@vger.kernel.org, Michael Kelley <mhklinux@outlook.com>
+Subject: Re: [PATCH v8 01/23] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
+In-Reply-To: <20260726081753.GD12003@unreal> (Leon Romanovsky's message of
+	"Sun, 26 Jul 2026 11:17:53 +0300")
+References: <20260717180442.110954-1-aneesh.kumar@kernel.org>
+	<20260717180442.110954-2-aneesh.kumar@kernel.org>
+	<20260721115456.GI110966@unreal> <yq5atsps77c5.fsf@kernel.org>
+	<20260721142921.GN110966@unreal> <yq5ao6g0750v.fsf@kernel.org>
+	<20260721153321.GO110966@unreal> <amEhEKQW0_HJ9cLN@ziepe.ca>
+	<20260723075704.GC110966@unreal> <amTJY_CdE-uDgoGG@ziepe.ca>
+	<20260726081753.GD12003@unreal>
+User-Agent: mu4e 1.14.1; emacs 30.2
+Date: Tue, 28 Jul 2026 18:01:45 +0530
+Message-ID: <yq5ah5ljjnwu.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-work-binfmt_misc-selfpin-v1-1-74df5daeca5b@kernel.org>
-References: <20260728-work-binfmt_misc-selfpin-v1-0-74df5daeca5b@kernel.org>
-In-Reply-To: <20260728-work-binfmt_misc-selfpin-v1-0-74df5daeca5b@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Kees Cook <kees@kernel.org>, linux-mm@kvack.org, bpf@vger.kernel.org, 
- Farid Zakaria <farid.m.zakaria@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- bpf@vger.kernel.org, jannh@google.com, mail@johnericson.me, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16-dev-cca4b
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2835; i=brauner@kernel.org;
- h=from:subject:message-id; bh=p5zN/lX5gZshphxpWwSeheHCCXVxHIFs4aMnBTfCyPI=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRlzP8n9UuLk8El0DM516b0iUPhgjfZNbPEZuuu/Rr59
- fiUmA1XO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZiocXw3+fktLR3N29kXE8+
- ve+5tOPuGA41zXAnq+XM1/8Yv02ZfoCRYUXGq0cZK3TPVwibbvrKxijkJRBUEBE5Z6PsP6fi6mU
- zGQA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain
 
-An entry registered with 'F' opens its interpreter at registration time
-and holds that file until the entry is freed. Any entry nobody removes
-by hand only gets closed once the binfmt_misc superblock is shut down.
-If the interpreter lives on a mount that keeps that superblock alive the
-two pin each other:
+Leon Romanovsky <leon@kernel.org> writes:
 
-    binfmt_misc sb -> inode -> entry -> interp_file -> vfsmount -> binfmt_misc sb
+> On Sat, Jul 25, 2026 at 11:34:11AM -0300, Jason Gunthorpe wrote:
+>> On Thu, Jul 23, 2026 at 10:57:04AM +0300, Leon Romanovsky wrote:
+>> > On Wed, Jul 22, 2026 at 04:59:12PM -0300, Jason Gunthorpe wrote:
+>> > > On Tue, Jul 21, 2026 at 06:33:21PM +0300, Leon Romanovsky wrote:
+>> > > 
+>> > > > Something like, but probably void* needs to be phys_addr_t:
+>> > > > 
+>> > > > static inline struct page *dma_phys_to_page(void *addr)
+>> > > > {
+>> > > > #ifdef CONFIG_DMA_DIRECT_REMAP
+>> > > > 	return vmalloc_to_page(addr);
+>> > > > #else
+>> > > > 	return virt_to_page(addr);
+>> > > > #endif
+>> > > > }
+>> > > 
+>> > > I don't like this, we don't know for sure the addr will be in a vmap
+>> > > and this will fail if it isn't.
+>> > 
+>> > Of course we know. The existing "#ifdef CONFIG_DMA_DIRECT_REMAP" is
+>> > relevant for addresses acquired from pool.
+>> 
+>> Yeah, but I still don't like it :) It is hard to follow if you make
+>> those kinds of leaps, someone will call this new helper on something
+>> they shouldn't
+>
+> This issue is straightforward to address today. Limit the scope, use
+> an appropriate function name, and add a comment indicating that the
+> function is local to and specific to the pool. The latter helps
+> AI-based review tools flag incorrect usage outside the intended scope.
+>
+>> 
+>> > dma_phys_to_page() is a bad name for some low-level conversion function.
+>> > It needs to be internal to DMA logic, in the level when we convert from
+>> > phys to page.
+>> 
+>> I think we should not convert from phys to page, that's also easy to
+>> do wrong
+>
+> Perhaps I'll reiterate my complaint. DMA internals are already hard to
+> understand. Part of that complexity is necessary to support every
+> possible use case, but another part comes from a maze of types that is
+> entirely self-inflicted. I think this code only makes the latter worse.
+>
+> Currently, the phys type universally describes memory and can be
+> reliably translated into any required representation. It is the most
+> fundamental type we have.
+>
 
-TL;DR the file is never closed. Once the mount namespace is gone there
-is nothing left to unregister through either.
+I think we can address the suggested changes as a follow-up patch series
+on top of this.
 
-There are two ways to trigger this bug:
+How about we get this picked up for the next merge window first, so that
+we can get the CC_SHARED related changes in? The follow-up changes
+should be easier once we have agreement on the overall design, and can
+then be done as incremental cleanups.
 
-- Point the interpreter at the instance itself. Its files are regular
-  files owned by the mounter and both bm_get_inode() and
-  simple_fill_super() leave i_op at empty_iops. So notify_change() falls
-  back to simple_setattr() and chmod +x works. We never set SB_I_NOEXEC
-  and so open_exec() accepts it.
-
-- Use the instance as an overlayfs lower layer. The overlay superblock
-  holds a clone_private_mount() of every layer until it is destroyed and
-  that clone is in no namespace. So umount_tree() never reaches it.
-
-That's a DoS. And it isn't only the superblock that leaks. It pins the
-user namespace it was mounted in, so every iteration permanently eats
-one of the caller's user namespace charges.
-
-So let's just do the sane thing. SB_I_NOEXEC makes open_exec() fail on
-the instance's own files and s_stack_depth makes overlayfs reject the
-layer before it ever takes a clone. That also covers the ecryptfs and
-fuse passthrough variants. What 'F' promises is unchanged.
-
-The stable tag is narrower than the Fixes tags on purpose. Before
-sandboxed mounts this needed global root against the single instance
-everyone shares, and the change doesn't apply to those trees anyway.
-
-Note that SB_I_NODEV is implicitly raised for userns mounts but raise it
-explicitly here as well.
-
-Fixes: 948b701a607f ("binfmt_misc: add persistent opened binary handler for containers")
-Fixes: 21ca59b365c0 ("binfmt_misc: enable sandboxed mounts")
-Cc: stable@vger.kernel.org # v6.7+
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/binfmt_misc.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-index 5de615ca7a75..47aeb2b68d3e 100644
---- a/fs/binfmt_misc.c
-+++ b/fs/binfmt_misc.c
-@@ -937,6 +937,10 @@ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (WARN_ON(user_ns != current_user_ns()))
- 		return -EINVAL;
- 
-+	/* Never exec off this instance and never let anything stack on it. */
-+	sb->s_iflags |= SB_I_NOEXEC | SB_I_NODEV;
-+	sb->s_stack_depth = FILESYSTEM_MAX_STACK_DEPTH;
-+
- 	/*
- 	 * Lazily allocate a new binfmt_misc instance for this namespace, i.e.
- 	 * do it here during the first mount of binfmt_misc. We don't need to
-
--- 
-2.53.0
-
+-aneesh
