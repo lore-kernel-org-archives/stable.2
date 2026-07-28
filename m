@@ -1,117 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF6846D0B8;
-	Tue, 28 Jul 2026 18:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6454547142C;
+	Tue, 28 Jul 2026 18:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785264247; cv=none; b=ATr6/jZWDldwTCMDMBTtA/8JUM4pBvRzAGR5By3zj1eecZK2L+WyF3Hfr9LMLrZa1z6WqIEMnzYpVjyk1dnjdEFV2CU73vRhMgmWFFCa0rWOOyT5Vt5mMTgPOBLaIsXQf7N0p7bBaFwWmOy+aBvo3HZKjjl062B7ArkgYzzfngQ=
+	t=1785265026; cv=none; b=UU+GP+JZvuGcLRCQrXTc4ZhJNwqGpKLc4exMbNY53zoAXZrhOkQrI+k/EO6WJJ7yb9L4m26Kkw0XWWWkjoP88RjAl6cJC0o6weaQAWieQj8eqQBNxCc50SYKbbCOyf5EbWr2uw3Loa3eac8Lg5w2PQChFFV+vMAkvJ/qG4W+RVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785264247; c=relaxed/simple;
-	bh=u3gRnuZpS43UDdJKS3z5lFMJhJ+ay6LpC6sc3ylzUeU=;
+	s=arc-20240116; t=1785265026; c=relaxed/simple;
+	bh=9cLTwVHMctlbC81lMRb3ehvoX4pKi6G/CGyNRApTdR4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UC73/zhlH6CwT87tGXHXa92fd15VxHd8au/fB0CnJUAHpv48vDsxcnSCGahQYJ2EsJBiAnEYLH+QLCOHEa+BcWw1kEiQMzA5vvpyDD+/V6GqwyvRlE5L0QH3Nt8UhD7g8JfH3CftH2mblBVC3W6BGB67DPH/auBvTlGvRkw58lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxrR2eRZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=d2a8uYgy4ZqgCtrSoOYvFpZck9mA1VlK93arO9vu/nbYe+DqcMkAtpxz6k04irpApI2m93J6E3iev5Qdr1/RCChOdfej+y/NK4SGjj+mslr6A/vDxf8OTjr/ii57N5uUKEf931U9blHZzYuWDa/U9CdoLaI3OMYrHG16b+/u5ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=UAV00hyM; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxrR2eRZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE8271F000E9;
-	Tue, 28 Jul 2026 18:44:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785264245;
-	bh=xfyFp2bz//bP18r8X84XYEGNd+LALMUdnZPx/K5GGBI=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=SxrR2eRZBV8HpH8bHZWdPRx7yvKuHZbBBiFUq/bqyF0x7DDG4LoK/9SOyZjHLS0qf
-	 cez/uSlobEzismbV679B3xd4b1KGfttoSCZOhKkEBxEgpYE3lBSU7oYxo8ZdU++fdy
-	 650JFiKebigdydriPz92BT3pMlua+J53cuPdY/VxP5VDoHJ7Naft0xxH5PEFyn18nx
-	 CToWCIgxRIL5YkxDTpR4wGnEhLJsDzHNUopAHIelanIXD4uD2dS/FMLndapzJqjKTM
-	 isPQoZicTgxI6N1gW+LXbS+QLXS7nJkn4Y5aTj8J/oFaOh3Z9E0jT1DGjRuPwGxyMn
-	 Ijurfj+SY44ag==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id B2944CE1919; Tue, 28 Jul 2026 11:44:04 -0700 (PDT)
-Date: Tue, 28 Jul 2026 11:44:04 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Matt Fleming <matt@readmodwrite.com>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Andrea Righi <arighi@nvidia.com>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev,
-	stable@vger.kernel.org, kernel-team@cloudflare.com,
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH] rcu-tasks: Defer IRQ-disabled callback enqueue to
- irq_work
-Message-ID: <6f002779-3607-47d8-af61-a74eeb987e6a@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260713101245.3207634-1-matt@readmodwrite.com>
- <amiGJWJ-tzUMYizu@matt-Precision-5490>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="UAV00hyM"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 965E940E019E;
+	Tue, 28 Jul 2026 18:57:00 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id lPpiw9-R7rSR; Tue, 28 Jul 2026 18:56:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1785265009; bh=K8ANZvjK+WR77oAaS/Gnx0+rHuzltDRBEVrP/Com90A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UAV00hyMEcTOSTCozT880pkOruXnrmEU6tCFYOVA5Es9+l7yx4N5b6tjjMd1WJFwp
+	 Fln2lcET2WzsHdxZBY7bNNoB3mzgYFCiBBOUprPp8IrujR11/X5dei1DcmNJJQpv+2
+	 SqKb/orzxSyc5C3YVLPn+OWUes4ztfI+WdlTNVlEAtelxfZ6zr98zCGarJ0/ojLuW3
+	 WiGo1CozEl8Urvf29qf2Sw6uFSIAPXFV0LWVVa+zpiFHGTRsrX1ZvPDhGSbNGX3C6u
+	 TujiIHkXfc62xXrYQSMf1HfgW+deBgt1XGv1QFX8G6azOskOa+32cWbViLGIpihs/t
+	 gZO4t+Hb6yvijOsaXnP/ChdPdtB0Ap0QBiIZVfATGSyLck0VugkyFj/xpitPxKxV4f
+	 Q3yBJ2KLMfucRWxU0ChGwKD9OsSVTAOljZ6NYNDi1OxK2rOV/M2+86os990kTP0KlF
+	 1XjDgsfCxfAkeJd38W5AidH5OwmhttipCG7Np9j9D/XRUILHGbePxkEBIyo2hKoF9s
+	 bvxAddfXp6oi4B6qWTIMN5zNtTBJZ+gIVodb0e6WghkpBo+jQr1aDYJOA9b05pNnNm
+	 rsmCUoV/jQL5f7GWHHMoiRpbLssRr2YooMmSl9atX7T4UcjgTO09Hs51WOGAd9oVjJ
+	 p8RINGQ2TqUZc6hnd6SigTFo=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EAA1B40E02B7;
+	Tue, 28 Jul 2026 18:56:41 +0000 (UTC)
+Date: Tue, 28 Jul 2026 11:56:38 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: tony.luck@intel.com, rounakdas2025@gmail.com,
+	niravkumar.l.rabara@altera.com, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 01/10] EDAC/altera: Fix NULL of_node dereference
+ altr_edac_device_probe()
+Message-ID: <20260728185638.GAamj7ZjiuriHIBjTw@fat_crate.local>
+References: <20260727132416.807230-1-dinguyen@kernel.org>
+ <20260727132416.807230-2-dinguyen@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <amiGJWJ-tzUMYizu@matt-Precision-5490>
+In-Reply-To: <20260727132416.807230-2-dinguyen@kernel.org>
 
-On Tue, Jul 28, 2026 at 11:39:33AM +0100, Matt Fleming wrote:
-> On Mon, Jul 13, 2026 at 11:12:45AM +0100, Matt Fleming wrote:
-> > From: Matt Fleming <mfleming@cloudflare.com>
-> > 
-> > call_rcu_tasks_generic() can be invoked with IRQs disabled, and on
-> > older kernels this exposed an ABBA deadlock against the scheduler
-> > runqueue lock via sched_ext's task-storage teardown path:
-> > 
-> >         CPU 0                           CPU 1
-> >         -----                           -----
-> > sched_ext_free()
-> >   task_rq_lock()
-> >     raw_spin_lock(rq->lock)
-> >                                       rcu_tasks_one_gp()
-> >                                         raw_spin_lock(cbs_gbl_lock)
-> >   scx_exit_task()
-> >     bpf_task_storage_delete()
-> >       call_rcu_tasks_generic()
-> >         raw_spin_lock(cbs_gbl_lock)
-> >           <blocks>
-> >                                         _printk()
-> >                                           console_unlock()
-> >                                             try_to_wake_up()
-> >                                               raw_spin_lock(rq->lock)
-> >                                                 <blocks>
+On Mon, Jul 27, 2026 at 08:24:07AM -0500, Dinh Nguyen wrote:
+> In altr_edac_device_probe() dereferenced pdev->dev.of_node and
+> of_match_node() before validating it,
+
+How did that AI let you fumble that sentence? :-P
+
+> which could cause a NULL pointer
+> dereference when the device tree node is missing. Check the result for
+> a NULL and bail out with -ENODEV before using it.
 > 
-> Hey Paul, it looks like this didn't get picked up and now won't apply
-> cleanly to your tree. Should I submit a v2?
+> Assisted-by: Cursor:claude-4.8-opus
+> Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
+> Closes: https://sashiko.dev/#/patchset/20260719211238.589402-1-rosenp%40gmail.com
 
-Apologies for the delay!!!
+So the AI review for this one here is this one, I think:
 
-It turns out that there are "interesting" relationships to certain BPF
-programs and the CPU hotplugs being unearthed in the discussions of this
-patch's call_rcu() and call_srcu().  Which we *might* be getting to the
-bottom of.
+"This isn't a bug introduced by this patch, but can np be NULL here if the
+driver is bound via sysfs?
+If a privileged user unbinds and rebinds the driver via sysfs to a platform
+device that lacks an of_node, pdev->dev.of_node will be NULL, which would
+cause an unconditional dereference when accessing np->name."
 
-And that these affect call_rcu_tasks() as well.  And which are sadly
-off-list, otherwise, I would invite you to join in.  :-(
+Can that happen?
 
-If you would be willing to do a v2, one piece of feedback that does not
-depend on the discussions is that RCU Tasks can sometimes have multiple
-callback queues, and when that happens, rcu_barrier_tasks_generic()
-must drain all of them.
+Have you been able to trigger it?
 
-Alternatively, please do feel free to hold off until we get the public
-posting of the call_rcu() and call_srcu() deferral patch series.
-It will likely provide a helper function that you can use.  To your
-credit, your initial definition of the irqsoff local variable within
-call_rcu_tasks_generic() is what we seem to be settling on.  It should
-also clarify what needs to happen when a CPU goes offline with deferred
-callbacks.
+If so, then the mechanism how this happens should be in the commit message,
+explaining why this fix is needed and why it is needed now, all of a sudden.
 
-Again, please accept my apologies for being slow!
+AI is helpful in some cases but I would like us to sanity-check everything it
+hallucinates pls.
 
-							Thanx, Paul
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+> ---
+>  drivers/edac/altera_edac.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+> index 68846f583eeef..d6ca68d74f78a 100644
+> --- a/drivers/edac/altera_edac.c
+> +++ b/drivers/edac/altera_edac.c
+> @@ -710,9 +710,18 @@ static int altr_edac_device_probe(struct platform_device *pdev)
+>  	struct resource *r;
+>  	int res = 0;
+>  	struct device_node *np = pdev->dev.of_node;
+> -	char *ecc_name = (char *)np->name;
+> +	const struct of_device_id *edac_dev_match;
+> +	char *ecc_name;
+>  	static int dev_instance;
+
+I know this is not something you should do now but let's pay attention to
+this:
+
+The preferred ordering of variable declarations at the beginning of a function
+is reverse fir tree order::
+
+	struct long_struct_name *descriptive_name;
+	unsigned long foo, bar;
+	unsigned int tmp;
+	int ret;
+
+The above is faster to parse than the reverse ordering::
+
+	int ret;
+	unsigned int tmp;
+	unsigned long foo, bar;
+	struct long_struct_name *descriptive_name;
+
+And even more so than random ordering::
+
+	unsigned long foo, bar;
+	int ret;
+	struct long_struct_name *descriptive_name;
+	unsigned int tmp;
+  
+> +	if (!np) {
+> +		edac_printk(KERN_ERR, EDAC_DEVICE,
+> +			    "Unable to get device tree node\n");
+> +		return -ENODEV;
+> +	}
+
+Pls write it like this:
+
+	np = pdev->dev.of_node;
+	if (!np)
+		...
+
+> +
+> +	ecc_name = (char *)np->name;
+> +
+>  	if (!devres_open_group(&pdev->dev, NULL, GFP_KERNEL)) {
+>  		edac_printk(KERN_ERR, EDAC_DEVICE,
+>  			    "Unable to open devm\n");
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
