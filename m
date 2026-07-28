@@ -1,94 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D69D42BE9E
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 12:11:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D93438461;
+	Tue, 28 Jul 2026 12:11:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785240694; cv=none; b=XQbFr54F7QQrC+p8yydh32sSGPZs8pM4MCzIBlvnamLBIY01HBbXSQH2O3HOtQ+BOWywBGVaXEIcL60XoQ7IKVGCEztEW72nWT9GUFTlfa3v1HWCdMemtmnGdVWSFVWs6dfkg1dirGKW7vEOsIBncyw1MG+gDfg1IGUVqCmjPT0=
+	t=1785240718; cv=none; b=VqzfA73pKjdMlz385DO2/Y2AitG+FS5IKu1gpsF/iVAwvPvqbs1WkWsDEvlcICpZD2ZalbXkykXzKe4NVDeDbcL3LJnK5zMYemCApC07EhNWweitSPPNyLtA73/854kgQL/3SCwzusyG0rBATTbchxXS6Lwety8bJOkR0bacZl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785240694; c=relaxed/simple;
-	bh=kNvmRbXPmXJoIxjob9xKXiAbnqNNoJEqfP7WraU1YeI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V41/BuhNWnP/jZtnyIGh3hSxP6acYWeFk2v5+otharCfz8XCeST4vABMp8VBz6ZGajf6a/GLu3v3LDyMaKK+PSqyT2OUxKjp4p4uMoqqVxgpaZs/XhHNCIDmjolrjBpRlGmtlT9L6j0rU9f/hE354XWeyGD1fNwiTTnlRrPPmmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MlP+L79l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785240718; c=relaxed/simple;
+	bh=6lBDnfXQfeUOwV/kUF3Gsl2vbQY7z00tTsQAFo4mX7o=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=OdEHGHB9pqf62N4LfacDmQ4SxkeiZqG4GLNfLyFeF5QotT597vbsXKOWC1CSV3BLNnPQnAHBNovL+yNK+GPSYZ3dg6dc2d8ybbwl8Xps/zc9AYPYjUqffXOqBypDSaxxKn+DTh58zTAkM/ZgV1xwr2nmcMCgLFDY5UwEV2EANtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVZFW/6y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MlP+L79l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62C81F000E9;
-	Tue, 28 Jul 2026 12:11:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVZFW/6y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1BD01F0155D;
+	Tue, 28 Jul 2026 12:11:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785240693;
-	bh=RRbNqj467tmK+aOp7qv1gDpxOL9AhbOBbnNL6zSAz3w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MlP+L79lo0iTDcfx7njkduIIaDrljbLLk2T0ro0vsQsVndkYRAUY/3+gQkbArne7W
-	 F4oeLqn0UDSwT2uxFiPeniv9kSasO2zy1PcL+dcNVcIraNIwVTppfbBLYfSFHYkA7c
-	 QN6RvHgPzzyLlACz03SGfskwG9GWI48R7k4zM08Lq6dw06bmSk4hgT/KLqzAkaRH2t
-	 /StuUMmv+esPVDqGDTUaV5ggClMacHZEKg21JcTU2S0lBKUdyCQ8K8vQSayi9hELpy
-	 8B0JApVzjbyUOsJSb+vktk/v54b0xLybS/OqlX1hrGxhCV+l9R2Z/mHPc9qh5J9Ug8
-	 oLSQeBHOgu6bw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Dexuan Cui <decui@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] net: mana: Validate the packet length reported by the NIC
-Date: Tue, 28 Jul 2026 08:11:30 -0400
-Message-ID: <20260728121130.3704108-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072000-concave-rut-73ca@gregkh>
-References: <2026072000-concave-rut-73ca@gregkh>
+	s=k20260515; t=1785240713;
+	bh=n99i02Gu7p+ZioXqd7dLXXBNhh5AAfhsFukBthP4AHQ=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=HVZFW/6ygVur7hpj2Y4Jrsa1fJ33jPFIhdpL719mNJsPahZQ7AjI8d4SPM2qdzFS2
+	 xEndt6xHtRb4kzbTg4SmOyPY+/Tz7ELZRiFn0J4qLDiPfx+jW7H1x8kyUm+mKQf2S/
+	 4sWEL5Cb1ofPQFXUhOQGUpFDlBCOCOo3BQ2YhXnc9ajzl2kNg+a32IOmGgDCz2/0Nk
+	 7wNjlS9jcCeFchWtQS2d5q5AY5ci1d18O9ka0OfVAOFL69kUyx5OOP8VJDik/GKD1F
+	 78RO55+6y0de2ns87KX25rOkA+r8mQjplqZfFxQamfEtIUlbaKVpGt4JszjHJiwIhg
+	 wqevlukUNeTzQ==
+Message-ID: <efb34ca7-27bf-413e-85b2-e7bb6b80cf2c@kernel.org>
+Date: Tue, 28 Jul 2026 14:11:49 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: nuvoton: npcm-video: quiesce VCD IRQ before
+ teardown
+To: Fan Wu <fanwu01@zju.edu.cn>, kwliu@nuvoton.com, kflin@nuvoton.com
+Cc: hverkuil@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <04a332fc-2025-4a74-ae4d-1d8f30fe20bf@kernel.org>
+ <20260716101539.3129478-1-fanwu01@zju.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20260716101539.3129478-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Dexuan Cui <decui@microsoft.com>
+Can Nuvoton test this patch? I feel happier if this is given a quick test.
 
-[ Upstream commit 2e2a83b4998af4384e677d3b2ac08565274279bf ]
+Regards,
 
-Validate the packet length reported in the RX CQE before passing it
-to skb processing. The CQE is supplied by the NIC device and should
-not be blindly trusted.
+	Hans
 
-Cc: stable@vger.kernel.org
-Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
-Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
-Link: https://patch.msgid.link/20260702041237.617719-2-decui@microsoft.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/microsoft/mana/mana_en.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index db1b8f965eeca4..4afcb202e35093 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -1249,6 +1249,19 @@ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
- 	rxbuf_oob = &rxq->rx_oobs[curr];
- 	WARN_ON_ONCE(rxbuf_oob->wqe_inf.wqe_size_in_bu != 1);
- 
-+	if (unlikely(pktlen > rxq->datasize)) {
-+		/* Increase it even if mana_rx_skb() isn't called. */
-+		rxq->rx_cq.work_done++;
-+
-+		++ndev->stats.rx_dropped;
-+		netdev_warn_once(ndev,
-+				 "Dropped oversized RX packet: len=%u, datasize=%u\n",
-+				 pktlen, rxq->datasize);
-+
-+		/* Reuse the RX buffer since rxbuf_oob is unchanged. */
-+		goto drop;
-+	}
-+
- 	/* Reuse XDP dropped page if available */
- 	if (rxq->xdp_save_page) {
- 		new_page = rxq->xdp_save_page;
--- 
-2.53.0
+On 16/07/2026 12:15, Fan Wu wrote:
+> The VCD IRQ is devm-requested, but npcm_video_remove() frees the video
+> object before devres releases that IRQ.  The threaded handler dereferences
+> video->vcd_regmap before checking VIDEO_STREAMING, so an interrupt in that
+> interval can access freed memory.
+> 
+> Request the IRQ with IRQF_NO_AUTOEN.  Enable it after starting capture and
+> setting VIDEO_STREAMING, and disable it first in stop_streaming().
+> disable_irq() waits for an in-flight threaded handler to finish, after
+> which stop_streaming() can mask and reset the VCD without a handler
+> re-enabling it.
+> 
+> Use vb2_video_unregister_device() during remove.  It releases the vb2
+> queue and calls stop_streaming() for an active stream, ensuring that the
+> IRQ is disabled before the video object is freed.  Do not release the queue
+> separately.
+> 
+> If streaming is never started, IRQF_NO_AUTOEN keeps the IRQ disabled
+> until devres releases it.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+> Changes since v1:
+> - Follow Hans Verkuil's suggestion to tie IRQ enablement to the streaming
+>   lifecycle (IRQF_NO_AUTOEN + enable_irq/disable_irq) and to use
+>   vb2_video_unregister_device() for teardown.
+> 
+> Compile-tested only; I do not have NPCM hardware, so runtime testing by
+> the Nuvoton maintainers would be appreciated.
+> ---
+>  drivers/media/platform/nuvoton/npcm-video.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
+> index 52505af35c08..c28d9d7edd83 100644
+> --- a/drivers/media/platform/nuvoton/npcm-video.c
+> +++ b/drivers/media/platform/nuvoton/npcm-video.c
+> @@ -120,6 +120,7 @@ struct npcm_video {
+>  
+>  	struct list_head buffers;
+>  	struct mutex buffer_lock; /* buffer list lock */
+> +	int irq;
+>  	unsigned long flags;
+>  	unsigned int sequence;
+>  
+> @@ -1486,6 +1487,7 @@ static int npcm_video_start_streaming(struct vb2_queue *q, unsigned int count)
+>  	}
+>  
+>  	set_bit(VIDEO_STREAMING, &video->flags);
+> +	enable_irq(video->irq);
+>  	return 0;
+>  }
+>  
+> @@ -1494,6 +1496,7 @@ static void npcm_video_stop_streaming(struct vb2_queue *q)
+>  	struct npcm_video *video = vb2_get_drv_priv(q);
+>  	struct regmap *vcd = video->vcd_regmap;
+>  
+> +	disable_irq(video->irq);
+>  	clear_bit(VIDEO_STREAMING, &video->flags);
+>  	regmap_write(vcd, VCD_INTE, 0);
+>  	regmap_write(vcd, VCD_STAT, VCD_STAT_CLEAR);
+> @@ -1707,9 +1710,10 @@ static int npcm_video_init(struct npcm_video *video)
+>  		dev_err(dev, "Failed to find VCD IRQ\n");
+>  		return -ENODEV;
+>  	}
+> +	video->irq = irq;
+>  
+>  	rc = devm_request_threaded_irq(dev, irq, NULL, npcm_video_irq,
+> -				       IRQF_ONESHOT, DEVICE_NAME, video);
+> +				       IRQF_ONESHOT | IRQF_NO_AUTOEN, DEVICE_NAME, video);
+>  	if (rc < 0) {
+>  		dev_err(dev, "Failed to request IRQ %d\n", irq);
+>  		return rc;
+> @@ -1807,8 +1811,7 @@ static void npcm_video_remove(struct platform_device *pdev)
+>  	struct v4l2_device *v4l2_dev = dev_get_drvdata(dev);
+>  	struct npcm_video *video = to_npcm_video(v4l2_dev);
+>  
+> -	video_unregister_device(&video->vdev);
+> -	vb2_queue_release(&video->queue);
+> +	vb2_video_unregister_device(&video->vdev);
+>  	v4l2_ctrl_handler_free(&video->ctrl_handler);
+>  	v4l2_device_unregister(v4l2_dev);
+>  	if (video->ece.enable)
 
