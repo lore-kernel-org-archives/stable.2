@@ -1,142 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45690414A27
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 21:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050A03D4112
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 21:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785273287; cv=none; b=cVpr9trog24DuCD2XX/gAES7o88Kddq34jFDS+TPMCJQ5DqLFGKclLN5NRDa/j0IPZ9+UlnNTdn0y5ZA9Ub+w6DaUu9KIeSsa+ZEt9H6Z28rTMUVo7goOijQHy+Hmol9iZqFNpZ6N1hqQt148mr/ARJnzXvoOf8zL9HsaXxog5c=
+	t=1785273307; cv=none; b=X4R5SM7FkNKG9gA4OHNPLXCVG505juOC8KBzVt/s/qhIu7KWzi3ruvye0m8s8o80fiXIi7LBmXFH5kU4HIIMtkcMxtBXC6oEvCvR7SWm6JAYSeBuz2/KEi0vGh9YZnlmE9qqXZQHeo1KVOtz5lpwobYyr1xV6gHFH+rxSRounKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785273287; c=relaxed/simple;
-	bh=z4cF7TbY37uHVjWLLdrBJ2Lqn1H/bH20qNEEbmWIRx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uSKHU0c8YV8t4u14djwX6sF7lILgWx4Enb53/CMLpPB/rwgAOBs71/hFai6MtZuod8StuzKmHh5lsVyDWnSH3lMhowiyAb4qAdfPWhvxNzNwmhkBEY0XuhmfCRVQ0yEEpHkRdEPlXJ/ZZey8PEEFLtc5vMXaGvCFKTJO2NK+NF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H73APM8J; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=VzUbBG9u; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785273307; c=relaxed/simple;
+	bh=vSaMxr+W/btop39PHqyfqkC45fGdfrxJ6QgL4JoxHfE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SZsdb76NTBWGnmTJnmSl5eiSLdH7NFCy0D+M5x0lzeyujNs7XVl331bdr+u4nT5hT4El2Ux54/BEbzc3yLo598CRP9FfXpTpJYdin8rYpEkcIcZU6cXeCwi21OCb/iQJJY3n3XUF4RFyjgk2kkjy+K3eJ2lOv6TLZF1X0F5vEuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LlTGwRRR; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H73APM8J";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="VzUbBG9u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785273285;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/y8X7sWmDRbdgNDLWYrb/Qp1hUasoR1gEA4uFTODfQ0=;
-	b=H73APM8JDv62iZENZ0OmfHHlcdO9hx0hgE3m0usP7CZu9AxZGFuOCrBLeBkK6VtgBCBsUl
-	dVASxJvPC0fYMFj0m7HRGG0rg6eqFcTRzyIKEYEXSs8OixWUviAXyg00vbgEUaaRuRFpsy
-	z5DkOZROCh9xYkj+oprR/HHc4AX6gPg=
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-336-kC3LkWuIO3ijlR16L3AhTg-1; Tue, 28 Jul 2026 17:14:44 -0400
-X-MC-Unique: kC3LkWuIO3ijlR16L3AhTg-1
-X-Mimecast-MFC-AGG-ID: kC3LkWuIO3ijlR16L3AhTg_1785273283
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-49001defc4dso259343b6e.3
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 14:14:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LlTGwRRR"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84a2c90e383so1184476b3a.0
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 14:15:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785273283; x=1785878083; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/y8X7sWmDRbdgNDLWYrb/Qp1hUasoR1gEA4uFTODfQ0=;
-        b=VzUbBG9u7swYZEGdWs2FsOkjAmeBWMyiO8ItwHbrvY0alPQP8qgZkkVkYhlUl8jFCz
-         UCSHlDHe1ln4EfGNX+zWJQ8ffIuB/7vnP4F6sqmEwz0GUY38UkD/M9iG4OElbS8Li0iy
-         eQ5AShTuaE7teyX8FlR/s0kgRdQnfu6qFZvrvW7VakjpL8Ki7gxRBQ2/0rRtHvznXW/p
-         VrXJK6QdBNhF+QMimVCo2NW0nTBUEDVfaX9iKE/HcwC2+sxmMQAm7tcjhB+CeYr0VQDG
-         EIIo/MLq4HYJOXPbAONKU9uhoEEaJZwidxXJWUAVNgt+Ws+N0eRIAle8aAcehIFacryN
-         Hzbw==
+        d=gmail.com; s=20251104; t=1785273305; x=1785878105; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ETJTb72goFKmsExh0rWtuWEGrY06VrxO/4I2OvR2Y5g=;
+        b=LlTGwRRRY0Ag3rMcZn/IchoYfZw7tfmYC/CeOQsrT0+vmDJS65NokhqAUijaQfRciA
+         H135t2RiOUBncXGdbwsrkzo3MslpndaA+vgfdsBu4NwInL1h5IbYwjtTcXeA3QhH83Z4
+         CnPh5fAP4ZwoeWGJ/MsjY5OiFZ84lls+2u1E27VdbiY5nzEqnul58RP8FHwAPEAjTWJ8
+         ohqhg2ix1lEAjOoLHEPpateJBfPhp2itFxVIw1s7rP6c9Gj5tLWw6elNOkaKiGRFme7G
+         YqDG5XHznAQ9XmqEDT+JyMyf0C8Pb17w7YTx4KfeBnPftkpUtgkn4LC7Ty4LmSUQCYV6
+         omSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785273283; x=1785878083;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/y8X7sWmDRbdgNDLWYrb/Qp1hUasoR1gEA4uFTODfQ0=;
-        b=IzT/+PFKLlQxJP2nKQkL82HLpFsMCdNtdY1Ss+/odxDc+s4R+ns7l08EipncgTm87c
-         e8fhWoR8lZlmYshkDwHwRtl+Ikl1B+kA5qlmVtu1e0a58zJsLFpDJ1kx6ZIV3+p/INJb
-         Hf6SFHQZFTVPSs4reqodojAVUK5xXFqIkLm2k0fo8YIzrb6fVBI301lxa3MG2ghsgtgZ
-         bIA6sDoOgGpQ/6NaDMPrKfNhpgXkSVpl8PpJDW1XW3c/e0PDO2RhRQmPqmSjHXyIy6Ge
-         C9WQdBvBCgjMchlipBica87yCNjkAT34nVnm8T09tnRBBNca/L1kmUvF6MnmJTuJ7XBZ
-         Wqtw==
-X-Gm-Message-State: AOJu0YwwohKC6uMezXqchn5nLEn/wpmqbdgGpUXlr5sBF3NL3FdNCsEA
-	8KZrIl+d3iTHCSboqGAp+1wFU5apcFxF5UiIbxdLWV2kOLMngm5n1vOlvIDupNbGL0qrVDJZ07I
-	X2Omfu2ZxLnu2/pxzinGnsUg+8mYAX6aguCK4/tDhS/nQBiF4isKboo1+6g==
-X-Gm-Gg: AR+sD13G1N8wU18w8VV8iJk2o8y/G+OazNL0V1Xcv83uao8eGSUTz8OUZ4PyD/b0O5u
-	Sm2AcyuDnpRdAk+XKKvWANNMhyJ4+LcrBou1uqRVnF9Fb7Fb/3t2Nb9D+QBCdsghBMSbECuCkTJ
-	1TSdUWI3mz+gt9hS3/R+D58wYio2lOmBC9kSUZz7rNUEWTQqWIz8tOcZa/wMvAdSzHX6PaRrbhj
-	iL/JMRpy+Mx0juy2HnMM05w3wNAZHKVRliEmD1BhheWjedIS42H7p5p4EBkKCL83Uk3I/BplS5k
-	Or11ZlFyUp+XmVaMpOC5N1X+BQfKFJtZ9Xj3sjlZ0cagPKtrH7C5Fq20HyzyUbG8uYlBSGgdxt7
-	MJQMHsgs9UzzwE/mrvOL5MFX7jDQ2ZCD4bQIZZBOO2Fqj0NTpvUpBAF6yBJHH
-X-Received: by 2002:a05:6808:1210:b0:4a4:989:bb20 with SMTP id 5614622812f47-4ad5bb44154mr2596593b6e.24.1785273283119;
-        Tue, 28 Jul 2026 14:14:43 -0700 (PDT)
-X-Received: by 2002:a05:6808:1210:b0:4a4:989:bb20 with SMTP id 5614622812f47-4ad5bb44154mr2596580b6e.24.1785273282708;
-        Tue, 28 Jul 2026 14:14:42 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ad6ed2dedasm231357b6e.7.2026.07.28.14.14.41
+        d=1e100.net; s=20251104; t=1785273305; x=1785878105;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ETJTb72goFKmsExh0rWtuWEGrY06VrxO/4I2OvR2Y5g=;
+        b=Xl6XF6HJeLIB3+65u9zzjhcVac5LyGflAv51ZAQQBZ0bogkW2F3A258rItu9a6wsG6
+         WkRqiKwrK6+oBHmoPRR882kT8qDxuw0QOGNsnNfb1N1Xkbxpsuqy3fjXBYl2/EzUhQzm
+         odGY7Cz2E0yBFRoWp7azGg167WvmJyO0JRuBW9wB1NLkhvNGyxaHieRNrIqm6VMZy/N9
+         nmgGJGhFXQSsC/egwirJVn+lZtpClR3KgufCJaDHM90qSnLU5YeAimA0Qn8Ye7CRmdCQ
+         PqyCbpYC6/gatLmy0KO9rX+YjrYLXeidn/r2E8yqToSaTzT9yMcnFYjP9Ft4K0i2Kzbj
+         UrXA==
+X-Forwarded-Encrypted: i=1; AHgh+RrAt0GKEXpgK88No56KK8nQhpsK/WXVl9OM8pv9eRz9a0XHGMkLx64OJNkfgd3bbDS0ktpg3tI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyV9Z+yWNTWtZ/o4SObc+i/erJeoXwdnIkgBRG77UKvMo9NZMBa
+	9L9MXCOVNBYcG8djaLwMzrI+OoWKA0xfUmBkJS6G/V5Jzi3T1rzSYgzC
+X-Gm-Gg: AR+sD11Gnr/s5Zfg0dJo9B9QOYmpOBYxWV4iQAp0laeVrXYNyVpcdRa2I/VWQHBIiYU
+	oLoH8qvReBTX4DWV9WUKLjoUdgEpWX8SEFkSa6NaUR4OlqxuVYZG2pL2Eo7ToBUO48nZcsb/Hmd
+	luD2Wtikfg9W/SRjgt7ibl1MR8Cv5MQ9l8TP8XNAqmaJQmsJ2oP52RUd8YZDCUyR/IuygGg3Tz0
+	rexXjXoWLTmgW0YQiz/lYykwiYCl63llb3xbiSvV1kUyux3ja0JHxgh35CfLNrfLwS0DGa+vcsu
+	dxaXuSpcOUx/eGzPRy1amt5YSdDWTnlLgJPneRuCsnR5Kqom3qxZc5Z9AW1nubzo0jvDOlZq40l
+	46dNKWiJ3k1j+xb4PxWbs7CDSeqKL+cm27kPX0xYCN/o4Zc5/SQIPRFjYP36twqKs+Z+YRtrfYk
+	pw0SKWw/N2r8VWDIHVpY64qCVZwhGxOptSfemtjhfPf/2vDqsHSdDSF2u/zxfUZEiGVdJzhKa4T
+	dDA6BbIxhN8
+X-Received: by 2002:a05:6a21:1bc4:b0:3c3:7dfd:22bb with SMTP id adf61e73a8af0-3c8abb6cdbbmr4297229637.13.1785273305363;
+        Tue, 28 Jul 2026 14:15:05 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbdb824d421sm77132a12.10.2026.07.28.14.15.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 14:14:41 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org,
-	pc@manguebit.org,
-	stfrench@microsoft.com
-Cc: stable@vger.kernel.org,
-	Huiwen He <hehuiwen@kylinos.cn>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.com>
-Subject: [PATCH 1/3] cifs: use cifs_invalidate_cache() in cifs_do_truncate() for O_TRUNC
-Date: Tue, 28 Jul 2026 16:14:36 -0500
-Message-ID: <20260728211438.3859107-2-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260728211438.3859107-1-sorenson@redhat.com>
-References: <20260728211438.3859107-1-sorenson@redhat.com>
+        Tue, 28 Jul 2026 14:15:04 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 28 Jul 2026 14:15:03 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: jianhao.xu@seu.edu.cn, andrew@codeconstruct.com.au,
+	avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
+	venture@google.com, yuenn@google.com, benjaminfair@google.com,
+	openbmc@lists.ozlabs.org, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (npcm750-pwm-fan): stop fan timer on device detach
+Message-ID: <851962b9-10a0-4fbf-a962-4c2981ba647c@roeck-us.net>
+References: <20260728075535.251-1-getshell@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728075535.251-1-getshell@seu.edu.cn>
 
-cifs_setsize() now calls fscache_resize_cookie() since commit
-fa724e235cfd ("cifs: add fscache_resize_cookie() to cifs_setsize()").
-However, cifs_do_truncate() is called from cifs_open() before
-fscache_use_cookie() activates the cookie, so the fscache cookie is
-still quiescent at this point.  fscache_begin_operation() requires
-FSCACHE_COOKIE_IS_CACHING to be set and returns failure for a quiescent
-cookie, making fscache_resize_cookie() a null operation in this path.
+On Tue, Jul 28, 2026 at 03:55:35PM +0800, Hongyan Xu wrote:
+> When a fan tach channel is present, npcm7xx_pwm_fan_probe() starts
+> fan_timer. The timer callback polls tach state and rearms the timer, but
+> the driver has no remove callback or devm cleanup action to stop it. On
+> device detach, the devm-managed driver data and I/O mappings can be
+> released while the timer is still pending or running.
+> 
+> Register a devm cleanup action before starting the timer and shut the
+> timer down synchronously from that action.
+> 
+> This issue was found by a static analysis tool.
+> 
+> Fixes: f1fd4a4db777 ("hwmon: Add NPCM7xx PWM and Fan driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> ---
+>  drivers/hwmon/npcm750-pwm-fan.c | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hwmon/npcm750-pwm-fan.c b/drivers/hwmon/npcm750-pwm-fan.c
+> index aea0b8659f5..6503d28ed7b 100644
+> --- a/drivers/hwmon/npcm750-pwm-fan.c
+> +++ b/drivers/hwmon/npcm750-pwm-fan.c
+> @@ -358,6 +358,13 @@ static void npcm7xx_fan_polling(struct timer_list *t)
+>  	add_timer(&data->fan_timer);
+>  }
+>  
+> +static void npcm7xx_fan_cleanup(void *data)
+> +{
+> +	struct npcm7xx_pwm_fan_data *fan_data = data;
+> +
+> +	timer_shutdown_sync(&fan_data->fan_timer);
 
-The correct fix for this path is cifs_invalidate_cache(), which calls
-fscache_invalidate().  Unlike fscache_resize_cookie(), fscache_invalidate()
-works on quiescent cookies: it unconditionally increments inval_counter
-and sets FSCACHE_COOKIE_NO_DATA_TO_READ, ensuring that stale cached data
-is not served once the cookie is later activated by fscache_use_cookie().
+Why not pass the pointer to the timer as parameter to devm_add_action_or_reset()
+and just pass it on here ?
 
-Truncation to zero leaves no valid cached data, making invalidation the
-correct semantic.  No inode lock is required for cifs_invalidate_cache().
+> +}
+> +
+>  static inline void npcm7xx_fan_compute(struct npcm7xx_pwm_fan_data *data,
+>  				       u8 fan, u8 cmp, u8 fan_id, u8 flag_int,
+>  				       u8 flag_mode, u8 flag_clear)
+> @@ -1016,10 +1023,16 @@ static int npcm7xx_pwm_fan_probe(struct platform_device *pdev)
+>  	for (i = 0; i < NPCM7XX_FAN_MAX_CHN_NUM; i++) {
+>  		if (data->fan_present[i]) {
+>  			/* fan timer initialization */
+> -			data->fan_timer.expires = jiffies +
+> -				msecs_to_jiffies(NPCM7XX_FAN_POLL_TIMER_200MS);
+>  			timer_setup(&data->fan_timer,
+>  				    npcm7xx_fan_polling, 0);
+> +			ret = devm_add_action_or_reset(dev,
+> +						       npcm7xx_fan_cleanup,
+> +						       data);
+> +			if (ret)
+> +				return ret;
+> +
+> +			data->fan_timer.expires = jiffies +
+> +				msecs_to_jiffies(NPCM7XX_FAN_POLL_TIMER_200MS);
 
-Fixes: fa724e235cfd ("cifs: add fscache_resize_cookie() to cifs_setsize()")
-Cc: stable@vger.kernel.org
-Cc: Huiwen He <hehuiwen@kylinos.cn>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.com>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
----
- fs/smb/client/file.c | 1 +
- 1 file changed, 1 insertion(+)
+Your patch does not explain why this assignment needed to be moved. Please either
+explain or keep at the original location to reduce the size of the diff.
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index ac89c1ba56b1..389083f9ce00 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -1016,6 +1016,7 @@ static int cifs_do_truncate(const unsigned int xid, struct dentry *dentry)
- 		if (!rc) {
- 			netfs_resize_file(&cinode->netfs, 0, true);
- 			cifs_setsize(inode, 0);
-+			cifs_invalidate_cache(inode, 0);
- 		}
- 	}
- 	if (cfile)
--- 
-2.55.0
+Thanks,
+Guenter
 
+>  			add_timer(&data->fan_timer);
+>  			break;
+>  		}
