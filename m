@@ -1,118 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5010323417;
-	Tue, 28 Jul 2026 15:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C963385A5
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785253858; cv=none; b=f1W2iFmb+VQaFoGtuhyEqhIciKHXcQCj3DOrW81huvIQTYI2PoZcg8a4iG9e0OEF2ah4FSk11CxgP0toPF0a3X95CQiUeTwlPIhfj7VxBGCJ6/+Mx1VhzuubyHp7lDv5z+lw0J1DoVeZlBbuE6UvWnHVl5qpUCeUxrM92y1Db90=
+	t=1785253953; cv=none; b=l0F0+d7Zvshp/uQ/ZQVWCMzx/RotKph5eDoJzZODZRdCcz24NSD2k67Q1wisrNfObKABCeJKNkzh449NATvSqeg4P23Tn/tpm1Xp0ib6GLqB7yJ2wvCPdvPUMP5rgwPj658PY+mtEJmNBs0+1AWxo0u8EpLQu1OMSbdxT1ZoPIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785253858; c=relaxed/simple;
-	bh=6z5XRukXfm8FKEfmwqTb+byabOdIJDVmwC4BbmIGDQA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bVStXyQaK3xpuJpU6AcYNfrPgD6jP1+g4TSKkvBSTKvBlJO7qz/dOZu63veJrc57KfAtLSlKNKlpYV4tzjzfmC8KpQcK1jJCOElDU9X9Fx1BrvD6DgQWRRnqUd8tQl0DM1a+WFl0BmesOpXfGftGbONaen9a9IkEY8sZ25rfVmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b0czCm5p; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785253953; c=relaxed/simple;
+	bh=7lzBBpKl525xbuAgJ6D4I67MvimynDIy4ayRioThEbU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KB6pKAuOW47URp6TJWEQBZfVV3PHGxmG7IZYJrbzovjj85LOicwyiDKKkSJBiq9S4Xb3wyVQk89wiRj5rnROEkZ1EJLZ+SL6Rw//KVxQ39fjfb18H0VO0qgKSGYKF2DBlbwQWNHaJe+3wYPfLwuOIaWdo8zmXDCnHTK7cJCwTec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBOEkVCz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b0czCm5p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785253856; x=1816789856;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6z5XRukXfm8FKEfmwqTb+byabOdIJDVmwC4BbmIGDQA=;
-  b=b0czCm5pRylLTiINlsdn0glPH5pnQd2e/WCZ6mKtcqMSC9ZBIWAjQj0S
-   MT7rseTf2QaPYUOP+skgd8eNsjY/fgAV4giKgzp7s2fVJxkO+nd3QExHO
-   lZrZPUAMgiCpfsgUp+Qh+Jl2DLFp3g8WLKz40MDEkq6qq4ksBC95n8ESi
-   jGzUNVFJ77HI4Hpd3mPKqCELNrESzkKDeYKO1TQ1ljHHJlrUMT9+Wtcoh
-   +elX1SmsLSebAWiAfrqqJKHJ/vkym4720uWl8qTrSYOCBYbkdks9XRbBs
-   HugXlsWxWzPQlYxMygDtZKKnF3HTYeMneMcHo7gaZ4ZSJF1313X3Zb1D5
-   Q==;
-X-CSE-ConnectionGUID: JA9Rq4CcTWG7NYGcQftc0g==
-X-CSE-MsgGUID: xqLfisexS8GfZ3zS1eRSCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85695966"
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="85695966"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 08:50:55 -0700
-X-CSE-ConnectionGUID: 7wxUxp9ETQq1dRglBa6EqA==
-X-CSE-MsgGUID: k3QUJyhOQeeQ6EKKEtFOrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="255816658"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 28 Jul 2026 08:50:52 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 28AFC99; Tue, 28 Jul 2026 17:50:51 +0200 (CEST)
-Date: Tue, 28 Jul 2026 17:50:51 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Raag Jadav <raag.jadav@intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Ramesh Babu B <ramesh.babu.b@intel.com>,
-	"Michael J. Ruhl" <michael.j.ruhl@intel.com>,
-	linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v6 0/3] drm/xe/i2c: alerts and controller enabling
- modifications
-Message-ID: <amjP22-2VVk0QgyH@black.igk.intel.com>
-References: <20260722133554.2079612-1-heikki.krogerus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBOEkVCz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569A31F000E9;
+	Tue, 28 Jul 2026 15:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785253951;
+	bh=0rhgh2pkY+6/FnbhaTKn2z4bPTLKFol613zVJTSkcYk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dBOEkVCzdzchpHGgS0Xl7ovAnkF/164befVuJkZgK5pzDhLf16970GbzNJfNf3YZO
+	 Uk0iXmDwGFlcXYgUjX1CyEO2aHy72u02bCk8tTJ+X5REPEiFbE22awZcopoRgM/HDJ
+	 0tFeftBppEwl4DVaShUJ6eV2kUteA6J2tYOdr8Gd2W3KY0y5R42Xp7qVHT29JDE1P2
+	 alC+5o6aVh+7KfUdrBPGIn1F+7Nu73StJ0JuDRRYJ7JMHHoocJlQgQ8qkFTd29/MN3
+	 RJhF27n7MonzBwecoCUxx8Cg0HIq/dNEbYqTRJvHvqyEcfOPN7kvIFd1nNhCEZ4r9H
+	 UG4ZwZu0Ktg/g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] gpio: mt7621: avoid corruption of shared interrupt trigger state
+Date: Tue, 28 Jul 2026 11:52:28 -0400
+Message-ID: <20260728155228.8665-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072038-unwelcome-pebbly-862d@gregkh>
+References: <2026072038-unwelcome-pebbly-862d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722133554.2079612-1-heikki.krogerus@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 03:35:51PM +0200, Heikki Krogerus wrote:
-> Hi,
-> 
-> Changed since v5:
-> - Leaving the interrupt de-asserting to the firmware.
-> - Re-asserting the interrupt before declaring the device wedged.
-> - Preventing the SMBus Alert from being masked.
-> 
-> v5: https://lore.kernel.org/lkml/20260715153153.1243751-1-heikki.krogerus@linux.intel.com/
-> v4: https://lore.kernel.org/lkml/20260713155601.711389-1-heikki.krogerus@linux.intel.com/
-> v2: https://lore.kernel.org/lkml/20260625125939.429078-1-heikki.krogerus@linux.intel.com/
-> v1: https://lore.kernel.org/lkml/20260622114759.3464047-1-heikki.krogerus@linux.intel.com/
-> 
-> Heikki Krogerus (3):
->   i2c: designware: Global register definitions
->   drm/xe/i2c: Fix the interrupt handling
->   drm/xe/i2c: Keep the i2c controller always enabled
-> 
->  MAINTAINERS                                |   1 +
->  drivers/gpu/drm/xe/Makefile                |   4 +-
->  drivers/gpu/drm/xe/regs/xe_i2c_regs.h      |   2 +
->  drivers/gpu/drm/xe/xe_amc.c                | 187 +++++++++++++++++++++
->  drivers/gpu/drm/xe/xe_amc.h                |  25 +++
->  drivers/gpu/drm/xe/xe_i2c.c                | 165 +++++++++---------
->  drivers/gpu/drm/xe/xe_i2c.h                |  14 +-
->  drivers/i2c/busses/i2c-designware-common.c |   2 +
->  drivers/i2c/busses/i2c-designware-core.h   |  85 +---------
->  drivers/i2c/busses/i2c-designware-master.c |   2 +
->  drivers/i2c/busses/i2c-designware-slave.c  |   2 +
->  include/linux/designware_i2c.h             | 107 ++++++++++++
->  12 files changed, 431 insertions(+), 165 deletions(-)
->  create mode 100644 drivers/gpu/drm/xe/xe_amc.c
->  create mode 100644 drivers/gpu/drm/xe/xe_amc.h
->  create mode 100644 include/linux/designware_i2c.h
+From: Sergio Paracuellos <sergio.paracuellos@gmail.com>
 
-One more fix is needed for this series. Raag noticed that the i2c
-driver accesses the registers after the drm device is declared wedget.
-The i2c adapter is suspended after the device is declared wedged, and
-the driver's suspend callback then accesses the registers.
+[ Upstream commit 1781172526d1092323af443fa03f00e6de560401 ]
 
-Thanks,
+The bank-shared fields like 'rising' and 'falling' are modified using
+non-atomic read-modify-write operations. Since every gpio chip instance
+represents an entire bank of 32 pins, if 'mediatek_gpio_irq_type()' is
+called concurrently for different IRQs on the same bank a possible overwrite
+of each other's configuration is possible. Thus, protect this state with
+'gpio_generic_lock_irqsave' lock in the same way it is handled in irp_chip
+'mediatek_gpio_irq_mask()' and 'mediatek_gpio_irq_unmask()' callbacks.
 
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 4ba9c3afda41 ("gpio: mt7621: Add a driver for MT7621")
+Signed-off-by: Sergio Paracuellos <sergio.paracuellos@gmail.com>
+Link: https://patch.msgid.link/20260626060112.2498324-2-sergio.paracuellos@gmail.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[ Changed `guard(gpio_generic_lock_irqsave)(&rg->chip)` to `guard(spinlock_irqsave)(&rg->lock)` as the generic GPIO chip lock does not exist in this tree. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpio/gpio-mt7621.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpio/gpio-mt7621.c b/drivers/gpio/gpio-mt7621.c
+index 93facbebb80efa..212a5f57cfd2bd 100644
+--- a/drivers/gpio/gpio-mt7621.c
++++ b/drivers/gpio/gpio-mt7621.c
+@@ -156,6 +156,8 @@ mediatek_gpio_irq_type(struct irq_data *d, unsigned int type)
+ 	int pin = d->hwirq;
+ 	u32 mask = BIT(pin);
+ 
++	guard(spinlock_irqsave)(&rg->lock);
++
+ 	if (type == IRQ_TYPE_PROBE) {
+ 		if ((rg->rising | rg->falling |
+ 		     rg->hlevel | rg->llevel) & mask)
 -- 
-heikki
+2.53.0
+
