@@ -1,171 +1,111 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3917D433E79;
-	Tue, 28 Jul 2026 12:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DD641F36F;
+	Tue, 28 Jul 2026 12:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785241359; cv=none; b=LK59Xf3NAy6RXOqST5I910vXhJYLOmdKve3OavBsVuMQENBvE+guK/Tb/pNdnBCGAaIXz73nc50JFFj+AWJgdiHgCvGPZnDD6Adur8wEFx1fPQAHKkMDK5G65L3q1oiP87UUz4/ZZly6drpbdH9dFC4CiTq+vACPO02OnYek9Qk=
+	t=1785241603; cv=none; b=bsr/f/OII8BP46vwc6isjQgd74BGxo7QK+2lZVG76v/Cx+fEahsTsD3CsAzDVMR0SHLw4c9Cf8b/UeaViPLeMyacYaVqvy0W3hh5+rBJo75Aw4VfmlntRUTbz9keZL6O/hJHgQYsAvljUXpso6WDDwMytCBZAwe/Pb2hMSS/Xwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785241359; c=relaxed/simple;
-	bh=lPlW4VfY1i8WP63Cql62FW0Y2MadtfkTl4jZzNaD4ds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Nynn5aXXIdTw/fNkbPqm+TPSo9KvDkHDVv2Hv+VJIKMEdI1pTWXNg9xbLCM2+F4lP4S66DB2JIZjFGqlM2FkClQSEZ6DDE3ROgAoi4yqe7G8cNuJhruNp6UMsM5RE1SmvDzM+A9LOPgEzcG98vh6oR3wdbbp5UAoRKlmFzWE0Rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=XmPtayir; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1785241603; c=relaxed/simple;
+	bh=ddAWSVNTGaeuz2ONnKE+rwJz9pZUjTBmmLP2VAVbfC4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hdQOZxHcx+MeMRKWamDNeT/el9naWFVD5p3HlqJP0qkVQOSgbIJiLL5Z6iA6lEuJxsjSrD4S7F8fkQ8JT1u2UwIf+ZINFdUBlSh8ul5/KfVHxPsMs2SaeP6u6oaGDPhNuZKrVRmbbYTsOcBdiZIuitGJz2RD3wt/c4+uev5nlKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVs7BNFg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="XmPtayir"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=8ML0WC6GRaNOOkIw5COF6WGDDIeLwlOHGsn4lC5k480=;
-	b=XmPtayirw6smnZsE679gJI8UEtJOhixO+xZqM1tAPuC2vynpStix/ElS0G0LIan13fetOOa51
-	pc99CnHwMJpBqo+DlWMFbRU+pDFeXZKdIvhaJsL/KX6VxeHAwBVHfZ5b41Qa4pP/bOj5mulJyA0
-	gtZVbzVwPLcJZGIaT78x78A=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4h8Z9K1M1Qz1T4Fq;
-	Tue, 28 Jul 2026 20:12:53 +0800 (CST)
-Received: from whupemo500009.china.huawei.com (unknown [7.152.184.116])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6CB1340538;
-	Tue, 28 Jul 2026 20:22:22 +0800 (CST)
-Received: from [100.103.109.247] (100.103.109.247) by
- whupemo500009.china.huawei.com (7.152.184.116) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 28 Jul 2026 20:22:21 +0800
-Message-ID: <c9643f86-f196-4c99-8129-2314a33a990f@huawei.com>
-Date: Tue, 28 Jul 2026 20:22:19 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVs7BNFg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58541F000E9;
+	Tue, 28 Jul 2026 12:26:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785241601;
+	bh=ayU/6lHRgKTCK80O1xUHS/LH2s1bomipfuf9KK8K20c=;
+	h=From:Subject:Date:To:Cc;
+	b=gVs7BNFg1PY7V4cwmbpGOMGSnan6Vw42QKmoSZbJT30480I/kW+/T+jtrYnn8OulU
+	 o2CUtBZrNjG0hUL9HmQOgcj1b0g6HC3FGxCr5zHYzD4IVdbuZHZdG5woj1zgvrkbkX
+	 zwVHguBQ8RKvaUS8JBAfhtVqhKjaidUOFTsavBSTyK5+3vUp7HUABpbVxMcaPNPh8/
+	 GNkDCT/HsX6BdKizy/7dMEWwwGTIRp3SskMTDqkl42FYAUA4Fy4cSc/NWfgEy5k6J8
+	 28qauiv47nXKp15BNwRZals5F6aeKKZuaP4IEq0J/lMcdagWCu04NugEXajOf79bFG
+	 lnHhQQe2eWFOQ==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/2] binfmt_misc: don't let an 'F' entry pin its own
+ instance
+Date: Tue, 28 Jul 2026 14:26:31 +0200
+Message-Id: <20260728-work-binfmt_misc-selfpin-v1-0-74df5daeca5b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] params: fix charp corruption on allocation failure
-To: Petr Pavlu <petr.pavlu@suse.com>
-CC: <samitolvanen@google.com>, <rusty@rustcorp.com.au>, <hannes@cmpxchg.org>,
-	<yosry@kernel.org>, <nphamcs@gmail.com>, <liuyongqiang13@huawei.com>,
-	<linux-modules@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20260728085518.3865621-1-yujiacheng3@huawei.com>
- <dfe25916-0f2e-44ed-8f49-d7448a0e28fa@suse.com>
-Content-Language: en-GB
-From: Jiacheng Yu <yujiacheng3@huawei.com>
-In-Reply-To: <dfe25916-0f2e-44ed-8f49-d7448a0e28fa@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- whupemo500009.china.huawei.com (7.152.184.116)
+X-B4-Tracking: v=1; b=H4sIAPifaGoC/yWMUQ6CMBAFr0L67ZrSiKhXIca0ZVdWpZAuognh7
+ rbyOS9vZlGCkVHUpVhUxJmFh5Cg3BXKdzbcEbhNrIw2R12bE3yG+ATHgfrp1rN4EHzRyAHaqnJ
+ lfT6QJlRJHyMSf//p5rqxvN0D/ZR7+eGsILhog+/yNJPsN2Ndf+Nr0RKYAAAA
+X-Change-ID: 20260728-work-binfmt_misc-selfpin-d55b1794f0fe
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Kees Cook <kees@kernel.org>, linux-mm@kvack.org, bpf@vger.kernel.org, 
+ Farid Zakaria <farid.m.zakaria@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ bpf@vger.kernel.org, jannh@google.com, mail@johnericson.me, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16-dev-cca4b
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2423; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=ddAWSVNTGaeuz2ONnKE+rwJz9pZUjTBmmLP2VAVbfC4=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRlzP/XwFq6a84W4VNne282vJziFcf1/AM7V/uDjHmp0
+ lqLEovWdZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzE+g3Df+dXPjKK+z6kmrgX
+ 8un4KMWmnFUomHJ65VGfD9s2HTg1lYeRodP89Rw+ltKi7oAHGi5WytO2OM32CF8ga86apz6jbes
+ 1HgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On 28/07/2026 18:46, Petr Pavlu wrote:
-> On 7/28/26 10:55 AM, Jiacheng Yu wrote:
->> param_set_charp() stores charp parameters in allocated memory after slab is
->> available, and releases the previous value when the parameter is updated.
->>
->> The previous value is released before the replacement allocation succeeds.
->> If kmalloc_parameter() fails, the setter returns -ENOMEM with the parameter
->> left as NULL.
->>
->> Failing zswap's compressor update before zswap is initialized can later
->> trigger:
->>
->>   BUG: kernel NULL pointer dereference, address: 0000000000000000
->>   RIP: 0010:strcmp+0x10/0x30
->>   Call Trace:
->>     zswap_setup+0x3b1/0x490
->>     zswap_enabled_param_set+0x5b/0xa0
->>     param_attr_store+0x93/0xe0
->>     module_attr_store+0x1c/0x30
->>     kernfs_fop_write_iter+0x116/0x1f0
->>
->> Allocate and copy the replacement first, then replace the parameter value
->> only after allocation succeeds.
->>
->> Fixes: e180a6b7759a ("param: fix charp parameters set via sysfs")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jiacheng Yu <yujiacheng3@huawei.com>
-> 
-> It makes sense to me for param_set_charp() to have commit-or-rollback
-> semantics. The set callbacks of other standard parameters behave this
-> way, with the exception of array parameters.
+An entry registered with 'F' opens its interpreter at registration time
+and holds that file until the entry is freed. Any entry nobody removes
+by hand only gets closed once the binfmt_misc superblock is shut down.
+If the interpreter lives on a mount that keeps that superblock alive the
+two pin each other:
 
-Thanks. That is the intent of this patch.
+    binfmt_misc sb -> inode -> entry -> interp_file -> vfsmount -> binfmt_misc sb
 
-> 
->> ---
->>  kernel/params.c | 14 ++++++++------
->>  1 file changed, 8 insertions(+), 6 deletions(-)
->>
->> diff --git a/kernel/params.c b/kernel/params.c
->> index a668863a4bb6..e4f2b71dde1e 100644
->> --- a/kernel/params.c
->> +++ b/kernel/params.c
->> @@ -261,6 +261,7 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
->>  
->>  int param_set_charp(const char *val, const struct kernel_param *kp)
->>  {
->> +	char *tmp;
->>  	size_t len, maxlen = 1024;
->>  
->>  	len = strnlen(val, maxlen + 1);
->> @@ -269,19 +270,20 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
->>  		return -ENOSPC;
->>  	}
->>  
->> -	maybe_kfree_parameter(*(char **)kp->arg);
->> -
->>  	/*
->>  	 * This is a hack. We can't kmalloc() in early boot, and we
->>  	 * don't need to; this mangled commandline is preserved.
->>  	 */
->>  	if (slab_is_available()) {
->> -		*(char **)kp->arg = kmalloc_parameter(len + 1);
->> -		if (!*(char **)kp->arg)
->> +		tmp = kmalloc_parameter(len + 1);
->> +		if (!tmp)
->>  			return -ENOMEM;
->> -		strcpy(*(char **)kp->arg, val);
->> +		strscpy(tmp, val, len + 1);
-> 
-> What's wrong with the plain strcpy() here?
+TL;DR the file is never closed. Once the mount namespace is gone there
+is nothing left to unregister through either.
 
-Functionally, plain strcpy() is fine here.  The preceding
-strnlen(val, maxlen + 1) either finds the NUL byte within the limit or
-rejects the string, and the new allocation is exactly len + 1 bytes.
+There are two ways to trigger this bug:
 
-However, when this patch rewrites the line to use tmp,
-checkpatch --strict reports the following warning:
+- Point the interpreter at the instance itself. Its files are regular
+  files owned by the mounter and both bm_get_inode() and
+  simple_fill_super() leave i_op at empty_iops. So notify_change() falls
+  back to simple_setattr() and chmod +x works. We never set SB_I_NOEXEC
+  and so open_exec() accepts it.
 
-    WARNING: Prefer strscpy over strcpy
+- Use the instance as an overlayfs lower layer. The overlay superblock
+  holds a clone_private_mount() of every layer until it is destroyed and
+  that clone is in no namespace. So umount_tree() never reaches it.
 
-Since the line is being rewritten anyway, I changed strcpy() to
-strscpy() to follow that preference:
-https://github.com/KSPP/linux/issues/88
+That's a DoS. And it isn't only the superblock that leaks. It pins the
+user namespace it was mounted in, so every iteration permanently eats
+one of the caller's user namespace charges.
 
-> 
->>  	} else
->> -		*(const char **)kp->arg = val;
->> +		tmp = (char *)val;
->> +
->> +	maybe_kfree_parameter(*(char **)kp->arg);
->> +	*(char **)kp->arg = tmp;
-> 
-> Sashiko reports [1] that there is a pre-existing use-after-free window
-> between freeing the old parameter and updating kp->arg. However, this
-> issue doesn't appear to be valid because any concurrent access to
-> a writable charp parameter should be protected by kernel_param_lock().
-> This is documented include/linux/moduleparam.h [2].
+So let's just do the sane thing. SB_I_NOEXEC makes open_exec() fail on
+the instance's own files and s_stack_depth makes overlayfs reject the
+layer before it ever takes a clone. That also covers the ecryptfs and
+fuse passthrough variants. What 'F' promises is unchanged.
 
-I agree.  Writable charp parameters are expected to be protected by
-kernel_param_lock(), and this patch does not change that locking model.
+The stable tag is narrower than the Fixes tags on purpose. Before
+sandboxed mounts this needed global root against the single instance
+everyone shares, and the change doesn't apply to those trees anyway.
 
-> 
->>  
->>  	return 0;
->>  }
-> 
-> [1] https://lore.kernel.org/linux-modules/20260728075803.AA13C1F000E9@smtp.kernel.org/
-> [2] https://github.com/torvalds/linux/blob/v7.2-rc5/include/linux/moduleparam.h#L124
-> 
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (2):
+      binfmt_misc: don't let an 'F' entry pin its own instance
+      selftests/exec: check that a binfmt_misc instance cannot be pinned
+
+ fs/binfmt_misc.c                                   |   4 +
+ tools/testing/selftests/exec/Makefile              |  10 ++
+ tools/testing/selftests/exec/binfmt_misc_selfpin.c | 158 +++++++++++++++++++++
+ tools/testing/selftests/exec/config                |   4 +
+ 4 files changed, 176 insertions(+)
+---
+base-commit: 744c5dd7c3c92dc7cac84a028934855cd9536a3c
+change-id: 20260728-work-binfmt_misc-selfpin-d55b1794f0fe
 
