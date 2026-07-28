@@ -1,73 +1,69 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B373A9D8D
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 21:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03E440EBB6;
+	Tue, 28 Jul 2026 21:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785272924; cv=none; b=svR9ueu9kZKSlpUm9mAAjbF8thGi0zPRDuWnPItSgekGO5RXq0ktJfuzG1POqgT/pAHh/JCNbXg5DUwZ28mNZTna62DEf4zqAjgClT/ZcYTMJ4I6bSXICDC0OMBEtBy2bPNSVcJAlAOVpgpGu82GsLlmAaHIXosOjb7AeqkNgm0=
+	t=1785272969; cv=none; b=Zo1MwyvhhnKIzBVIRVAaLC5afumEQ3Md8IurKbV3YLphM+WXRhiJ+FnMt4uFynWuciswiFxiIrV9uDAVS5YxA/VavgPit7xBIeiv6jpjgeBJlKp4fra8no085K0oYSPwwXB4lhfhZ5Oic3rGZKgf9cRVzI6+25OIUWr9frJ2fvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785272924; c=relaxed/simple;
-	bh=pWk+0D/DYFNghMX3LuWqusesL3I8kURaNWVlvTC5TgA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N7iLF7N7aiEbBKkMbaxcxpPRDB+AsZfVZq8WN7/9KoYAeDL0ix+R7ygB1mHI8rLyqwVsq6INpHri3Cay2mZnYuIuYG41kHep6Etm+rnafBV6jgjIgdei/mQ5QhHmmnIvr4/dd1gsl21w2UWn+X2j4KYKjWRC4vTYJtckh4sEaHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DNrIw7Rx; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785272969; c=relaxed/simple;
+	bh=LQGutdPaBE5PsJVGXjfnXYFyZkUy6a62869WKuQchHo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iCkXuD+BRM1nr4lKOdzsKJ6DE0wm0ZAN+lsyDQTT5CUeN1nKnUF/xOKNiRi6vvJa15/MVo2mJMSJjU9htODcPwUD7EvCP6ALu/hEU7kY6cYw1uhqxUF9QMPMj+OFjCVZBqqlgTS3VBT2UZ5FFlJ+fIJG7p1AZWb4IQeNYHd53Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N/owGCJn; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DNrIw7Rx"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4956242332dso2123285e9.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 14:08:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785272921; x=1785877721; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vxOu3XF7bVHUG+0agmcIDyKP04Qh+pMOMDiJD5AR2Rg=;
-        b=DNrIw7RxRwAm+FI5TaFjNx8N5q5n9JMsgPqMhpJHiJ+Q5ebMs4rorbaZ3izP+63UNr
-         fW0miXFGctH9insb1T8/8ovMd29nLhnvRkwHr6NKI8cw4HRb3Jetb4zjOSfKQQz7qzHN
-         4td0bthDEtvZ716L7vWKbZnOzaspFjF5oBz5ILZqudgg8hxzcsaVvNOd+eA0CoURAUNF
-         4W5ogeSKg3VGc+kxBwvZXV4rVb5O4sDFmea6RVRrMYmsbHd14M7/h6jYUQATUiJFolik
-         OkGaNXaJk1rAazSmniw0dEZ89lIrtLT6LyWgfMX/Avq+kYMIDvftuqwar0QH4Bs/z0ZG
-         ATJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785272921; x=1785877721;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vxOu3XF7bVHUG+0agmcIDyKP04Qh+pMOMDiJD5AR2Rg=;
-        b=JdN2ycwVXBJIYtIIC/xgAJ10/MRvLY599S/qhK7CFaQd/1jfO7JYgQQo20LFCzzyWR
-         Qi16sntIW7fWwHyyWpUdZhpLIAKPkAmLNPjwNv11zb57PIHpsD6/qUaJ+oDdDX4pr3EI
-         sQNNBnWFobQo4GOvsACmLtMmIDga/oAn6PIlqQvVo/IN6VoMzVkPCt2BbZ4cpRR8FxZ8
-         BSeBcA2PbE8wJb2rrM+XCA0pTBX5bgnv0uoOk2Do1ZIFelA3VfPqBF81RdN0afpzx1kh
-         Hn65Agk+OqjHRNCdepUCG0NpJpRwknKFkbexr5S/XdKuWRVi7MkeU0luLrMRM2HGEKL8
-         +l1w==
-X-Forwarded-Encrypted: i=1; AHgh+RpgxICYnm793VDo28hagL6Ko9eFFa91Sk2v5WV/Nzg/5p66BQDwMzEL8kWFPtie5i/1U/x1MVE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4zy0Q0V75u6iMytx9OHyuFQmgHwpJxrc43X1ZWXJotIMClApl
-	y2jC7q9Wd2FeZ2LsM+8a3n7vIPyz80zO2BeefNuYtRnNQzzBBoBpbaV6
-X-Gm-Gg: AR+sD12oAg4+9nVjovixnLdxqy3uBOMJLrK4fTEaqX4rUZYGX+SSGr2y7qOr86jhDg2
-	DCimnk/97eVDjZNNCCtR2F01AGmtYy6j8uM48wJSBkmKi2N1KP5/f+cMyBWmQmcmrAGTcXnEz3R
-	zDCY2rSxqYVK64uFuDBaXl9KIgVhdL0aAM53daooWGr/m3PVvi4FK1K21+mC36cNRKqIhkHHLOu
-	k1vCEHFPHrgq0VOLvYu8uAjBu4Wq/oIs8d6WK9tkfrjokJoGtFr5ULVRvk9tdqXXD4bkTgAgxFn
-	dNz59NFP8Ehvtbb7nFqzeemc3128t8T3fpxW+p+OmxKMaihiveyFYPRjdtvDZzxqpAAlXFy45cH
-	X8KwYuFTnRdS1oUWRfrQKXFJ+whINqbcTK/ejl0boYmcEcu83YY0S+r3C2CZ8xR6hrI4I+j+wHD
-	N2NxIX465lkhE4PCB44BuSzADGCNm6CUO2N9VTtCTrT1trStatq9sMZ2d/0t2gAOSn/17cukD0+
-	nTqdWn7s6DNDlnkoqo/3SuFpu5GghIFeEj+gh8xVMtltp4YJVDd73eNhoFfzssUp5bzhZ68wrS6
-	UWKMJTbY1CpDNBKKUD97BRiki1+4dMwCxy50iKafBCTrWqLsuXMdAmo5W8sqFkBXJGBIgxIk
-X-Received: by 2002:a05:600c:4452:b0:492:6f6f:fa42 with SMTP id 5b1f17b1804b1-496c65cd672mr40420045e9.37.1785272921199;
-        Tue, 28 Jul 2026 14:08:41 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b323-2b01-0d98-9fe8-a4cd-78ab.310.pool.telefonica.de. [2a02:3100:b323:2b01:d98:9fe8:a4cd:78ab])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6acfdafsm1934679f8f.15.2026.07.28.14.08.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 28 Jul 2026 14:08:40 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ARM: alignment: restore uaccess state on emulation fault
-Date: Tue, 28 Jul 2026 23:08:28 +0200
-Message-Id: <20260728210828.10488-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N/owGCJn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785272968; x=1816808968;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=LQGutdPaBE5PsJVGXjfnXYFyZkUy6a62869WKuQchHo=;
+  b=N/owGCJntwQ/Y7Xjp8kzwmSEq+lc7ukQqZnuNVyXaxmQoEhWBr3f/Jrj
+   qe4efX52klrjS7tTZnUK8rnzGV7LsDK1cXQ4a5jQBKWnEVtXE00e+yMWF
+   TGiH9ARR19R51a31sH5WoeSncWmbaTweQf/frrrWkoKZu5JpevmMtS8UN
+   KFko9bp21txxGdNrdeJhKN9f/jXn0l9ayU59oVpnj582Tz7PPho/VWvOY
+   qCXnKK6lwLJuEYAdr1XHnlrgOoXQB7LdXy2dnOMCybuy9AGWnTVAOXnfA
+   /c4od13LUo+HNlZ/5gdf3dyimuqqbUiGyNdv1Z8HmTx1FFx5b7vBMlc+q
+   A==;
+X-CSE-ConnectionGUID: DUSc5Pj7RXGxMZMz7d9l3w==
+X-CSE-MsgGUID: IZSv16zfS5yDmropQcmXzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85885033"
+X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; 
+   d="scan'208";a="85885033"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 14:09:18 -0700
+X-CSE-ConnectionGUID: ZzZ56lHAQ+i0yh9bIietCQ==
+X-CSE-MsgGUID: swYgu5UtQ1OKC6xQop2f+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; 
+   d="scan'208";a="258558949"
+Received: from anguy11-upstream.jf.intel.com ([10.166.9.133])
+  by orviesa010.jf.intel.com with ESMTP; 28 Jul 2026 14:09:17 -0700
+From: Tony Nguyen <anthony.l.nguyen@intel.com>
+To: davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org
+Cc: Aaron Ma <aaron.ma@canonical.com>,
+	anthony.l.nguyen@intel.com,
+	jbrandeb@kernel.org,
+	stable@vger.kernel.org,
+	Kohei Enju <kohei@enjuk.jp>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Alexander Nowlin <alexander.nowlin@intel.com>
+Subject: [PATCH net 04/10] ice: wait for reset completion in ice_resume()
+Date: Tue, 28 Jul 2026 14:09:01 -0700
+Message-ID: <20260728210909.3042004-5-anthony.l.nguyen@intel.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20260728210909.3042004-1-anthony.l.nguyen@intel.com>
+References: <20260728210909.3042004-1-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,192 +72,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The alignment handlers enable access to user memory while emulating
-unaligned instructions. If a checked access faults, its exception table
-fixup jumps to the handler's fault label and bypasses uaccess_restore().
-This leaves DOMAIN_USER as DOMAIN_CLIENT with SW domain PAN, or leaves
-TTBR0 page table walks enabled with TTBR0 PAN, while the fault is handled.
+From: Aaron Ma <aaron.ma@canonical.com>
 
-An ARM926 QEMU test using LDMIA across an unmapped page boundary reports
-DOMAIN_USER=1 at TYPE_FAULT before this change and DOMAIN_USER=0 after it.
-SW domain PAN is the default on ARMv5, ARMv6, and non-LPAE ARMv7 builds.
+ice_resume() schedules an asynchronous PF reset and returns
+immediately. The reset runs later in ice_service_task(). If
+userspace tries to bring up the net device before the reset
+finishes, ice_open() fails with -EBUSY:
 
-Keep the saved uaccess state at function scope and track whether it was
-saved. Restore it at the fault label only when needed. Paths that did not
-enable user access continue to skip the restore.
+  ice_resume()
+    ice_schedule_reset()          # sets ICE_PFR_REQ, returns
+  ...
+  ice_open()
+    ice_is_reset_in_progress()    # ICE_PFR_REQ still set, -EBUSY
+  ...
+  ice_service_task()
+    ice_do_reset()
+      ice_rebuild()               # clears ICE_PFR_REQ, too late
 
-Fixes: 274e91b81ed2 ("ARM: alignment: fix alignment handling for uaccess changes")
+Reproduced on E800 series NICs during suspend/resume with irdma
+enabled, where the aux device probe widens the race window.
+
+  ice 0000:81:00.0: can't open net device while reset is in progress
+
+Add a best-effort wait (10s timeout, matching ice_devlink_info_get())
+for the reset to complete before returning from ice_resume(). In
+practice the reset completes in ~300ms.
+
+Fixes: 769c500dcc1e ("ice: Add advanced power mgmt for WoL")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Kohei Enju <kohei@enjuk.jp>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 ---
- arch/arm/mm/alignment.c | 51 ++++++++++++++++++++++++++++++-----------
- 1 file changed, 37 insertions(+), 14 deletions(-)
+There were comments from Paolo which Aaron responded:
+https://lore.kernel.org/netdev/CAJ6xRxVwD9nLk96y6-HNSFt1AL8o=24UMUGxCYZdht2_+36Xhg@mail.gmail.com/
 
-diff --git a/arch/arm/mm/alignment.c b/arch/arm/mm/alignment.c
-index 812380f30ae3..2b470a419dda 100644
---- a/arch/arm/mm/alignment.c
-+++ b/arch/arm/mm/alignment.c
-@@ -341,6 +341,8 @@ static int
- do_alignment_ldrhstrh(unsigned long addr, u32 instr, struct pt_regs *regs)
- {
- 	unsigned int rd = RD_BITS(instr);
-+	unsigned int ua_flags;
-+	bool ua_saved = false;
+ drivers/net/ethernet/intel/ice/ice_main.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
+index e2fd2dab03e3..d88835482d3a 100644
+--- a/drivers/net/ethernet/intel/ice/ice_main.c
++++ b/drivers/net/ethernet/intel/ice/ice_main.c
+@@ -5637,6 +5637,16 @@ static int ice_resume(struct device *dev)
+ 	/* Restart the service task */
+ 	mod_timer(&pf->serv_tmr, round_jiffies(jiffies + pf->serv_tmr_period));
  
- 	ai_half += 1;
- 
-@@ -364,10 +366,11 @@ do_alignment_ldrhstrh(unsigned long addr, u32 instr, struct pt_regs *regs)
-  user:
- 	if (LDST_L_BIT(instr)) {
- 		unsigned long val;
--		unsigned int __ua_flags = uaccess_save_and_enable();
- 
-+		ua_flags = uaccess_save_and_enable();
-+		ua_saved = true;
- 		get16t_unaligned_check(val, addr);
--		uaccess_restore(__ua_flags);
-+		uaccess_restore(ua_flags);
- 
- 		/* signed half-word? */
- 		if (instr & 0x40)
-@@ -375,14 +378,17 @@ do_alignment_ldrhstrh(unsigned long addr, u32 instr, struct pt_regs *regs)
- 
- 		regs->uregs[rd] = val;
- 	} else {
--		unsigned int __ua_flags = uaccess_save_and_enable();
-+		ua_flags = uaccess_save_and_enable();
-+		ua_saved = true;
- 		put16t_unaligned_check(regs->uregs[rd], addr);
--		uaccess_restore(__ua_flags);
-+		uaccess_restore(ua_flags);
- 	}
- 
- 	return TYPE_LDST;
- 
-  fault:
-+	if (ua_saved)
-+		uaccess_restore(ua_flags);
- 	return TYPE_FAULT;
++	/* Best-effort wait for the scheduled reset to finish so that the
++	 * device is operational before returning. Without this, userspace
++	 * (e.g. NetworkManager) may try to open the net device while the
++	 * asynchronous reset is still in progress, hitting -EBUSY.
++	 */
++	ret = ice_wait_for_reset(pf, secs_to_jiffies(10));
++	if (ret)
++		dev_err(dev, "Wait for reset timed out (10s) during resume: %d\n",
++			ret);
++
+ 	return 0;
  }
- 
-@@ -391,6 +397,8 @@ do_alignment_ldrdstrd(unsigned long addr, u32 instr, struct pt_regs *regs)
- {
- 	unsigned int rd = RD_BITS(instr);
- 	unsigned int rd2;
-+	unsigned int ua_flags;
-+	bool ua_saved = false;
- 	int load;
- 
- 	if ((instr & 0xfe000000) == 0xe8000000) {
-@@ -425,26 +433,30 @@ do_alignment_ldrdstrd(unsigned long addr, u32 instr, struct pt_regs *regs)
-  user:
- 	if (load) {
- 		unsigned long val, val2;
--		unsigned int __ua_flags = uaccess_save_and_enable();
- 
-+		ua_flags = uaccess_save_and_enable();
-+		ua_saved = true;
- 		get32t_unaligned_check(val, addr);
- 		get32t_unaligned_check(val2, addr + 4);
- 
--		uaccess_restore(__ua_flags);
-+		uaccess_restore(ua_flags);
- 
- 		regs->uregs[rd] = val;
- 		regs->uregs[rd2] = val2;
- 	} else {
--		unsigned int __ua_flags = uaccess_save_and_enable();
-+		ua_flags = uaccess_save_and_enable();
-+		ua_saved = true;
- 		put32t_unaligned_check(regs->uregs[rd], addr);
- 		put32t_unaligned_check(regs->uregs[rd2], addr + 4);
--		uaccess_restore(__ua_flags);
-+		uaccess_restore(ua_flags);
- 	}
- 
- 	return TYPE_LDST;
-  bad:
- 	return TYPE_ERROR;
-  fault:
-+	if (ua_saved)
-+		uaccess_restore(ua_flags);
- 	return TYPE_FAULT;
- }
- 
-@@ -452,6 +464,8 @@ static int
- do_alignment_ldrstr(unsigned long addr, u32 instr, struct pt_regs *regs)
- {
- 	unsigned int rd = RD_BITS(instr);
-+	unsigned int ua_flags;
-+	bool ua_saved = false;
- 
- 	ai_word += 1;
- 
-@@ -469,18 +483,22 @@ do_alignment_ldrstr(unsigned long addr, u32 instr, struct pt_regs *regs)
-  trans:
- 	if (LDST_L_BIT(instr)) {
- 		unsigned int val;
--		unsigned int __ua_flags = uaccess_save_and_enable();
-+		ua_flags = uaccess_save_and_enable();
-+		ua_saved = true;
- 		get32t_unaligned_check(val, addr);
--		uaccess_restore(__ua_flags);
-+		uaccess_restore(ua_flags);
- 		regs->uregs[rd] = val;
- 	} else {
--		unsigned int __ua_flags = uaccess_save_and_enable();
-+		ua_flags = uaccess_save_and_enable();
-+		ua_saved = true;
- 		put32t_unaligned_check(regs->uregs[rd], addr);
--		uaccess_restore(__ua_flags);
-+		uaccess_restore(ua_flags);
- 	}
- 	return TYPE_LDST;
- 
-  fault:
-+	if (ua_saved)
-+		uaccess_restore(ua_flags);
- 	return TYPE_FAULT;
- }
- 
-@@ -502,6 +520,8 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
- {
- 	unsigned int rd, rn, correction, nr_regs, regbits;
- 	unsigned long eaddr, newaddr;
-+	unsigned int ua_flags;
-+	bool ua_saved = false;
- 
- 	if (LDM_S_BIT(instr))
- 		goto bad;
-@@ -547,7 +567,8 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
- #endif
- 
- 	if (user_mode(regs)) {
--		unsigned int __ua_flags = uaccess_save_and_enable();
-+		ua_flags = uaccess_save_and_enable();
-+		ua_saved = true;
- 		for (regbits = REGMASK_BITS(instr), rd = 0; regbits;
- 		     regbits >>= 1, rd += 1)
- 			if (regbits & 1) {
-@@ -559,7 +580,7 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
- 					put32t_unaligned_check(regs->uregs[rd], eaddr);
- 				eaddr += 4;
- 			}
--		uaccess_restore(__ua_flags);
-+		uaccess_restore(ua_flags);
- 	} else {
- 		for (regbits = REGMASK_BITS(instr), rd = 0; regbits;
- 		     regbits >>= 1, rd += 1)
-@@ -581,6 +602,8 @@ do_alignment_ldmstm(unsigned long addr, u32 instr, struct pt_regs *regs)
- 	return TYPE_DONE;
- 
- fault:
-+	if (ua_saved)
-+		uaccess_restore(ua_flags);
- 	regs->ARM_pc -= correction;
- 	return TYPE_FAULT;
  
 -- 
-2.53.0
+2.47.1
 
