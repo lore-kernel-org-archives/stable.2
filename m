@@ -1,43 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9E930E82E
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D5E31AAAA
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785208230; cv=none; b=AlgmWrxeX1KW75uTGhMX/UJB2uUsDEKGzLpHnLmrncTsR0gMNikCpereCKDaXkhGCHp6b3RGuJYaNaCUwiQROPOwX8eECVg0rvF98IxZz2dsIgX8EtW5aP76cx69dvF9SW6ZWybezAID6MYPIwYX1JNxZQT3FZk9Ywj34pkfgLE=
+	t=1785208269; cv=none; b=gfIX48pZSxZ+bbUOdUd4mX9owSWNbOgdQUKHkpvOeXIKqp4SPCwbOg+lUkZeIeKtgc/r8s5KIGIDXDToMlCWLIdhh8sWx5yeZDjEaDK29CZ4hKNcW4AVVgk4aAZnFGVJG2TR+wU2rQDJtanBs6Co0I+8mNGe2lE/9ZDFycvfhj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785208230; c=relaxed/simple;
-	bh=/fwfhtVAJ8xIVA5moMPIw7jz37EJz/ueISszu3sBiSk=;
+	s=arc-20240116; t=1785208269; c=relaxed/simple;
+	bh=v7oBAjJMIhVfdijcfMPA9HrTDSWEC2QWu+BjAmEIkd4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K3rfZJ2rcd/2EQ4JTZHhZKBDxg5EbSZYTQ/NB9Ij8N65HJnqTwIJ6TZuRtC6vh/vZIl4RkMuKd4ms4lsOTfGL86bP0KhOqUBz+Tv5WOb4fr0rAiqbF1R0qJTFS48Lhk72DwqKjm3srzraOgfVk8LQSdgDIo4e1XblPf/A3G1Gms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5d38PX/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WwAxz7zRMGIoyULGUEjaUzjznwKI8FsgjvXqdxrVT9M8MNEmnRrd8hOqawvKMY93YN/ZPPNCkgpLRGPWVrDjTW1axU6e6fXWM1mDy7dW5uEWp0FCfObDXy59BXynKdo/d5OcNoH5DjoHF8LHpmhNZC3ZCl2bwJQt7oLi0trxRCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxhU7aSB; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5d38PX/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B862E1F00A3A;
-	Tue, 28 Jul 2026 03:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785208229;
-	bh=M02JqQrPLAh8Sj9naY5A9VXQuLrhRKKZ0xCWaXC1rSQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J5d38PX/1hWwz/ozKyKQlQEdJuikSHovA9TeIRj2bBZn5j3b65XxtB5q0vJoJCJzL
-	 fTP49K+9ZqUAzYQgrK9s/l5jM3TtLfQO3g4xiSyUQ1AbUnSB5wIUak3KXvhOlG/OsI
-	 GvUX7U/4cjW31c2vcbHiSLEBkSo75wNpaQwNgmIq8jGM9fa82g+Y3vlF61GPYZwmzC
-	 rokrW7YcG2I/kEDrIh+cVwf99lgCq4hJnLYe4W7+XefiqkGMe/H8GDIUud4C5L33y4
-	 DAEVaXbM6sKRFBmGmlCzXNo92zgt+K48e3SlIWQ8oJRiM7/UbgECLL1pDlzrgg2l54
-	 v3nty4jgs2d8w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH 5.15.y 3/3] mmc: vub300: fix use-after-free on probe failure
-Date: Mon, 27 Jul 2026 23:10:24 -0400
-Message-ID: <20260728031024.3143820-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728031024.3143820-1-sashal@kernel.org>
-References: <2026072047-stony-hardship-acc5@gregkh>
- <20260728031024.3143820-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxhU7aSB"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e252fbb7bso228863b3a.2
+        for <stable@vger.kernel.org>; Mon, 27 Jul 2026 20:11:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785208267; x=1785813067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ts5/Y1TVWAmyd7a1WEfthTQKByaZz802Qr0m4Iw99Us=;
+        b=cxhU7aSBNN+wxB3L5ZBNnm2fTXbC2E557Nc9xgSUMjcyabWrxAPWFgptQGOaD1CWQG
+         cP2EwNbo8+O5olnpSVL23H1zmZuCgu4j+7oB5J3tU+XMV7x4Z0mU+bvRvXEloMi52NRE
+         k7u5mHIyHkJE5dqQWjW9Kw1K0OqBeOsWtTnSjX+QDl6obMl7WaVofX/HZaPvMvXTtC7A
+         +x0rNXZMDcXuhnuIdHrOO8EYSUna8hBWgd0jCPixb3iRd3s8VjzXkFf+naxslr5gfqQ3
+         Xz122+/IHJMlw9B9Wfo/MQkJ1r4BKxIxzA2xgrGcGL6xE+wrzddESM93An2AolfIq7Nz
+         lAtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785208267; x=1785813067;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ts5/Y1TVWAmyd7a1WEfthTQKByaZz802Qr0m4Iw99Us=;
+        b=jtxdiaMadghFwgWMGsE+jqAbmkhk/7D67FUeno+soIM1m+ws8vubIUDpkneSdeQxKQ
+         DSTQko6XxTq639rXEvSZ6hAt0qdRJqtLUSrRrK+JG27lyX2tKGdYMHaQwe+1ujQUsC/T
+         Q+Kx6C/ygFFO+aOLfF/3XKzvkHa8LRFf0YkMJVpyg7Xd0OjntVykvOp3dK1TSgdBHjcZ
+         O/ejEOK/NH492GhSOKCAdWsBx8gVSwLFORylh6E14YRUAaRtT+ex46Whlw+gzwtVq0hR
+         PX6fHY4yngVriwJFDO58+WYs1bkXxXSl5HQFKPYwniLt1kW4zfEzfZCQf8R6TTWRT5uw
+         Bzyw==
+X-Forwarded-Encrypted: i=1; AHgh+RofLNSjYpREmxK/G/l4d+U/qX5X2Bq3ZvU3/Av22SmVx4UN8UBGyyPm5K5P6aJcyG5vokW5tGc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yza120VkuUZ8uPfz6pf/PDkiNoxkSAAkmF90WUGoQZJuKvBI/5F
+	qHYO83hkOwyKsthRBpA91Yccu9DfpU6hrHnQXFTvGX7vrq7Kg5jUPea5
+X-Gm-Gg: AR+sD13vgG2aa9BRbWBp1BI5ryd73pDCV41zqBZbus+jad4eZFh9nazkatnIlnDpmSH
+	sewXhTUqFFX+wsq2lOsJG14y93Zk22MEK8jU4va4yHjhL7JqysjRC3OwPdCYbcpT8Cpx+woETTe
+	Tu3CfNjtkjWhMqppmm+3Rcmsl+Tve9NAgfeWs7KOgXX/lerOzpoQKA24sid8VxYIw78ud+I1g2I
+	y6xEtjgjXCg+kVhrTA6SBzd2+q6LUNrkAv6hxeT3u1TybFfz6UbiRzbW9h32CFZ9Jg33PZYU7t5
+	/9zC2fawl5XwZGo04gn85zRqolpX/eqxciIf9zKele7isilAp4n8GjU4pwPIY7BRuYd2l8WAqXo
+	e3rW8GaLwhV8qDdO7GTFjKIOFScqrs3jXWcb4qkYu70zdyg8ylOyI1GHy+8MBvmkp0mfo+FpZJ3
+	vSq2GOOhpP3geZM9Lvxda+r4wwSOcEWsEsOJiqNAMZbxmORaNOrSOtlIgPwBuefiYM
+X-Received: by 2002:a05:6a00:2302:b0:847:8971:87d8 with SMTP id d2e1a72fcca58-84e9335ee6dmr364413b3a.6.1785208267429;
+        Mon, 27 Jul 2026 20:11:07 -0700 (PDT)
+Received: from localhost.localdomain ([139.159.170.93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e53470a92sm3709432b3a.60.2026.07.27.20.11.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 27 Jul 2026 20:11:06 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: willemdebruijn.kernel@gmail.com,
+	daniel.zahka@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>
+Subject: [PATCH net v3 0/2] packet: use consistent hard_header_len in send paths
+Date: Tue, 28 Jul 2026 11:10:53 +0800
+Message-ID: <20260728031055.49375-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260726092110.80185-1-q.h.hack.winter@gmail.com>
+References: <20260726092110.80185-1-q.h.hack.winter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,86 +83,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+AF_PACKET send paths read dev->hard_header_len at several stages of skb
+allocation and construction. Concurrent netdevice reconfiguration can
+make those reads inconsistent and cause skb headroom underflow.
 
-The vub300 driver lifetime-manages its controller state using
-vub300->kref, with vub300_delete() freeing the mmc host when the last
-reference is dropped. The probe error path after the inactivity timer has
-been armed still bypasses that lifetime rule, however, and falls through
-to mmc_free_host() directly if mmc_add_host() fails.
+Split the regular and TX_RING paths so each patch has one Fixes tag.
+The separate SOCK_DGRAM consistency issue between hard_header_len and
+header_ops->create remains outside this series.
 
-The race window is between arming the inactivity timer and reaching the
-probe error unwind after mmc_add_host() fails:
+Changes in v3:
+- Split into two patches, one Fixes tag each.
+- Add LL_RESERVED_SPACE_EX() for calculations using a saved length.
+- Use int consistently for saved header lengths.
+- Drop unnecessary READ_ONCE(header_ops).
+- Snapshot hard_header_len per-frame in the TX_RING path.
+- Reset copylen for each frame.
 
-        probe thread                     timer/workqueue
-        ------------                     ---------------
-        kref_init(&vub300->kref)         ref = 1
-        kref_get(&vub300->kref)          ref = 2, timer ref
-        add_timer(inactivity_timer)      fires after one second
-        |
-        |   race window
-        |<---------------------------------------------------->
-        |
-        mmc_add_host(mmc)
-                                         inactivity timer fires
-                                         vub300_queue_dead_work()
-                                           kref_get()          ref = 3
-                                           queue_work(deadwork)
-        mmc_add_host() fails
-        timer_delete_sync()
-        mmc_free_host(mmc)
-          frees vub300
-                                         deadwork runs
-                                           use-after-free
+Link to v2: https://lore.kernel.org/netdev/20260726092110.80185-1-q.h.hack.winter@gmail.com/
 
-The inactivity timeout is one second, so this would require
-mmc_add_host() to both fail and take more than one second to do so. This
-is unlikely to happen in practice, but the error path is still wrong.
+Qihang (2):
+  packet: use consistent hard_header_len in non-ring send paths
+  packet: use consistent hard_header_len in TX_RING send path
 
-timer_delete_sync() only waits for the timer callback itself. It does
-not flush deadwork that the callback may already have queued. As a
-result, queued deadwork can still hold a kref while the probe error path
-directly frees the backing mmc host, including the vub300 storage.
+ include/linux/netdevice.h |  6 +++--
+ net/packet/af_packet.c    | 47 ++++++++++++++++++++++++---------------
+ 2 files changed, 33 insertions(+), 20 deletions(-)
 
-Fix this by using the same lifetime mechanism as disconnect. Clear
-vub300->interface so that the timer callback and any queued deadwork
-return early and drop their references, then drop the initial probe
-reference and return without falling through to err_free_host.
-
-Fixes: 0613ad2401f8 ("mmc: vub300: fix return value check of mmc_add_host()")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-(cherry picked from commit a3b5f242997a3be7404112fd48784881560aea57)
----
- drivers/mmc/host/vub300.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index 63286a3a7905ea..a3f285d3253f6c 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -2345,12 +2345,16 @@ static int vub300_probe(struct usb_interface *interface,
- 			 interface_to_InterfaceNumber(interface));
- 	retval = mmc_add_host(mmc);
- 	if (retval)
--		goto err_delete_timer;
-+		goto err_stop_io;
- 
- 	return 0;
- 
--err_delete_timer:
--	timer_delete_sync(&vub300->inactivity_timer);
-+err_stop_io:
-+	vub300->interface = NULL;
-+	kref_put(&vub300->kref, vub300_delete);
-+
-+	return retval;
-+
- err_free_host:
- 	mmc_free_host(mmc);
- 	/*
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
