@@ -1,80 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAAF42A164;
-	Tue, 28 Jul 2026 11:15:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8990631AF24;
+	Tue, 28 Jul 2026 11:17:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785237339; cv=none; b=rbrab/Oh6d3Q/snEj7qSRtL9QweqGeS49ccA9LocsEevoF5I2mVrtyea3ke9u5+VdkF0FDpHzKZJ0ca4ZT+Kk02dm3X8q9uZEHGKnblP/MJD/v9AGIfsjSEQs3o4brIJvkV59gg6OnC/BU72BW+pbaXff48wCCZZEu07SVUFUAw=
+	t=1785237475; cv=none; b=APtwSCoLng9vm7uE9ofCybeN8/vVPVsZ/GVOkdUCYT9FYmrHiwGNsbaaGmTa7P65bZhr4PNY8m4X4/g0erCi2DXDrsXbBbrqSFxW5wv+aritBeg11K0f0GT+JSiwdsRtNDpbOkId/IAwxDQNGGZgvfsgI95wzyUOh357SN8ocY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785237339; c=relaxed/simple;
-	bh=oqJscSya1yXNvQobIBiu/hc68+cSQZXlWBCWpieasoE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lXdmmvrXtoCuscYmEc4jFEkxb0e2862um47ps3WWN92ynFfcg30h2Yu709afLgRIFyQbEGfgLfUHbfIpNaP0GtputqeiG5qIM6NoMMWGjx/xeA1QnoFSpLU/rFpqe1cfTsPPLiy3d0jbvkTJjTBfKKFyHOTjDw7Sl4G8Fp6Qg/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcNFcxaV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785237475; c=relaxed/simple;
+	bh=atL7xaZ/1Mdyxo1UEOFoCAMRzxxhzojRkIlUA9mPeD8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YsEMg6tLp9zzb5+3qS2oxQ263F360VGPdOxDhpEwmedm+eSUMnKVk6TmemA6EZXSIMW4sZy0GD+ffTFF7v5nyxzJz1Q31rzDmIgK+FyT9zg5A/8Ly0wn68iZL2xVGBN/yGsxlGeUUKVvzOpvQZoFLB6b1WrP6t4WPYNcnVd06fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iPbDKVLv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcNFcxaV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7491F000E9;
-	Tue, 28 Jul 2026 11:15:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iPbDKVLv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90631F000E9;
+	Tue, 28 Jul 2026 11:17:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785237338;
-	bh=xVF4mkeG431UaBjqsM0k0WtN0kGDgCLNowxClYevd/M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GcNFcxaVq8q99R3jJK+nVtOR/0Sr//p0Cc6v1f9FuDMh1e3cW0sZGjtHkIo4Ve2sH
-	 NWvNo2evGes9zLHviNLnPGfzxBAFutwLhTXgKfAFiktKonywkex6DrN3ZV4EEsCRHA
-	 nEHHY/prRZlqUmX8YYmKfyzvFEswhxc0GpXDPKvqHrUH2BXxb5HqybL4FSOhoJw/MU
-	 cCG2ASyqx2SIdwCOA+Bkhuk5n9hp6MeYSs4G1W4XOaozQ4bnaLswOrlIzAyPlMddnA
-	 pI4hmmbMIv0dSrY4nIS0+wYcvKOXwUtQF0JCQExtJDhgyRpIJZ5eGb4IL99THlF/1M
-	 dQmiEcW5tI0CA==
-From: Will Deacon <will@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>
-Cc: kernel-team@android.com,
+	s=k20260515; t=1785237474;
+	bh=VJB5QQyhbCwyyIdOpL3gynrSH4a3kKTKTWVbCcBni5A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iPbDKVLvhJ3Bbmuqo41XqwB3PUgWJ5xG7VipP4LoMGUPUb43CDwZq+AdvhLUSUYhM
+	 YyYazR3MI6PqbARXesyT4GrfCXFQsZB4XAH+AgmuXFZ2BOBGsV5/pKyeqBV7pF1p45
+	 jzyPk32keo7QYSeuKIrruK7Rwm6Zy3MlGB+2eaFc6zG/lIw6MxlEeA/xzCqD4T+KL3
+	 PEuLrs6R3u3WCfYMUnskrSFVURQ1VufcjNHbxA/UB2mp9TKBeyrds8imt2QzryfSii
+	 LXZ2vOtYIbLIYYr/TAJvxLcbNdGTCCTM13a3AK3DnxhJTwJhzVWyBJFCSJ5TA09cNH
+	 LycsdkAlFu0/Q==
+Date: Tue, 28 Jul 2026 11:17:51 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Peixin Xie <peixin.xie@linux.spacemit.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Oza Pawandeep <quic_poza@quicinc.com>,
 	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Liu Song <liusong@linux.alibaba.com>,
-	shechenglong <shechenglong@xfusion.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, spacemit@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: proton-pack: Restore the nospectre_bhb command-line option
-Date: Tue, 28 Jul 2026 12:15:25 +0100
-Message-ID: <178523456585.2480895.13455325016626613930.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260726182253.6939-1-kmehltretter@gmail.com>
-References: <20260726182253.6939-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] riscv: acpi: Handle LPI architectural context loss flags
+Message-ID: <20260728111751-GKC76518@kernel.org>
+References: <20260728-riscv-acpi-lpi-timer-v1-1-c722bce01e48@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260728-riscv-acpi-lpi-timer-v1-1-c722bce01e48@linux.spacemit.com>
 
-On Sun, 26 Jul 2026 20:22:53 +0200, Karl Mehltretter wrote:
-> Commit 7f1635737823 ("arm64: proton-pack: Fix hard lockup due to print in
-> scheduler context") moved the "mitigation disabled" printks into
-> spectre_print_disabled_mitigations(). For spectre-v2 and spectre-v4 only
-> the pr_info_once() calls were removed, but for spectre-bhb the whole
-> branch went with the print:
+Hi Peixin,
+
+On 17:36 Tue 28 Jul     , Peixin Xie wrote:
+> Commit 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for
+> broadcast timer") replaced the generic nonzero check for LPI
+> architectural context loss flags with arch_get_idle_state_flags().
+> RISC-V does not implement the helper, so it falls back to the stub
+> that returns 0. Consequently, CPUIDLE_FLAG_TIMER_STOP is not set when
+> an LPI state loses the hart timer context, preventing cpuidle from
+> using a broadcast timer for that state.
 > 
->   -   } else if (cpu_mitigations_off() || __nospectre_bhb) {
->   -           pr_info_once("spectre-bhb mitigation disabled ...\n");
+> Implement the RISC-V helper and map the hart timer context loss flag
+> to CPUIDLE_FLAG_TIMER_STOP.
 > 
-> [...]
+> Fixes: 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for broadcast timer")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
+Looks good to me, with one minor comment
 
-Applied to arm64 (for-next/errata), thanks!
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-[1/1] arm64: proton-pack: Restore the nospectre_bhb command-line option
-      https://git.kernel.org/arm64/c/2f6fc0612607
+> ---
+>  arch/riscv/include/asm/acpi.h | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+> 
+> diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
+> index 26ab37c171bc..3a3da834c340 100644
+> --- a/arch/riscv/include/asm/acpi.h
+> +++ b/arch/riscv/include/asm/acpi.h
+> @@ -12,6 +12,8 @@
+>  #ifndef _ASM_ACPI_H
+>  #define _ASM_ACPI_H
+>  
+> +#include <linux/cpuidle.h>
+> +
+>  /* Basic configuration for ACPI */
+>  #ifdef CONFIG_ACPI
+>  
+> @@ -67,6 +69,23 @@ int acpi_get_riscv_isa(struct acpi_table_header *table,
+>  
+>  void acpi_get_cbo_block_size(struct acpi_table_header *table, u32 *cbom_size,
+>  			     u32 *cboz_size, u32 *cbop_size);
+> +
+> +/*
+> + * RISC-V Functional Fixed Hardware Specification Version v1.0.1
+> + * Table 4: LPI Arch. Context Lost Flags
 
-Cheers,
+As I checked https://docs.riscv.org/reference/acpi-ffh/v1.0.1/ffh_use_cases.html
+It's table 3, and I'd suggest to put more precisely as:
+
+"Chapter 2.1.1.2. Arch. Context Lost Flags, Table 3"
+
+> + */
+> +#define RISCV_LPI_HART_TIMER_CTXT_LOST		BIT(0)
+> +
+> +static inline unsigned int arch_get_idle_state_flags(u32 arch_flags)
+> +{
+> +	if (arch_flags & RISCV_LPI_HART_TIMER_CTXT_LOST)
+> +		return CPUIDLE_FLAG_TIMER_STOP;
+> +
+> +	return 0;
+> +}
+> +
+> +#define arch_get_idle_state_flags arch_get_idle_state_flags
+> +
+>  #else
+>  static inline void acpi_init_rintc_map(void) { }
+>  static inline struct acpi_madt_rintc *acpi_cpu_get_madt_rintc(int cpu)
+> 
+> ---
+> base-commit: 1d6f0a217c662693d2307ee06851cb4bfcbf9529
+> change-id: 20260727-riscv-acpi-lpi-timer-6f1739a6c831
+> 
+> Best regards,
+> --  
+> Peixin Xie <peixin.xie@linux.spacemit.com>
+> 
+
 -- 
-Will
-
-https://fixes.arm64.dev
-https://next.arm64.dev
-https://will.arm64.dev
+Yixun Lan (dlan)
