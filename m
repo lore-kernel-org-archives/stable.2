@@ -1,161 +1,152 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D4D36A340;
-	Tue, 28 Jul 2026 11:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7786E434417
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 11:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785239297; cv=none; b=I8zL8YCXrbX0aB5bASSs1NnUtPTbY46mdz/AIQB5HZKLmxH6NZi7wlThhyU5v+A2ocVkceumGP6BpjQeGjKcXWJRtpp5DQS5akXAIUIJC5HyswPgITBzQ4YJxyliuU+zepbeT0bW5VGJLfAQE9gRdnVqDyDeyhURBzMfGJSSJlU=
+	t=1785239616; cv=none; b=kT9h2gwIqvrT+NtmJEQctQRtqOV2RtCsHTqls1q/OMtLx39Ha1RDSMa16Ww6G+Bt6ITpNpWFSN7vOtow3cRxcUTBGUT1FMOugnktbSXJ+pCnDKehaXRbdQV6ui4V0NE+RzkBJzBDbH9YNqqL74WhPl7sOCMPz2QNC791vYKYicg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785239297; c=relaxed/simple;
-	bh=4eAhlF/vcJJ67Apvr65nDQvIvuTHbBtggrluYAkbJbQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hnTpMZgECxD9tNfusT0UBL+lAc1gC/zWn9mlk/q8MgsonGnJg6r2l70fXE7I8yEsxl91my6UWwlygZ4Z3CYeTae5pzNODrfZHyo1KscgK0K826fvzMiDRzz0pGOMjnvkpiz7luuJiWN3Z6HZvcwZXQop/KwHBvKSAfA8n2Y5ia4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=MmLSWU7N; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1785239616; c=relaxed/simple;
+	bh=joLxa92zVzMzJaMavTBO3wCXnjexz2fmjbhYhlxqeIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kMOZQtGkr1BUHbFFzwB9OiGY01L0WmXmsFwpHzz6Jj2fZvSivK3p2RMJz+5s87D1vwkIVuJ41WhOdXYQSf3YROZt9sx/5McjcTRuzLBEfl4+3Ke427ScQ5V3daEgqAu87gHyCWBNUbBoXyYlnL/67acYYvV7T7FgRMKz2LiXses=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rc4RVs8j; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="MmLSWU7N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1785239270;
-	bh=XTxYzJiHZJ+w1vtq68qopBU8Vsm2s8Oe/VKJ+Ec0Fss=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=MmLSWU7N4MryLtgY/E4cdx70rs7c2Rc78m3UzyS2d4NgzsKejWDRdFmVdJTjPJAxB
-	 HWa+cAoAa6smfgKTwvQH677T5c8UA/XrK3rkOTPA9Kt1GH7l5APjgYLuzOdcz5fXb8
-	 AV8ssaPAqrLWOFtZt0vzjdXWWTYuzq7uBMBvPfzQ=
-X-QQ-mid: zesmtpsz8t1785239268t2fd64329
-X-QQ-Originating-IP: wevMZa64M1RZeaKFucH785qTL7TZBgqrPBnxAY6CORQ=
-Received: from [127.0.1.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 28 Jul 2026 19:47:46 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6419932955144323985
-EX-QQ-RecipientCnt: 15
-From: Peixin Xie <peixin.xie@linux.spacemit.com>
-Date: Tue, 28 Jul 2026 19:47:40 +0800
-Subject: [PATCH v2] riscv: acpi: Handle LPI architectural context loss
- flags
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rc4RVs8j"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84e3007a2b7so3161730b3a.0
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 04:53:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785239614; x=1785844414; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZBarKm8xrGeCPAZ5wzpK+32+YWWS7s6o927ulWe4mGw=;
+        b=rc4RVs8jp7kTY/d74NjUWZxuhRaD8XEujr3b0dnIAH5AHfqckPe5zY1Z49Mw0v5knm
+         EsPNqt1vbNnwDi11s6H33JmhfmcOeprChxWOSzOUx0vA5JDrnTgHx1ccs8AEcm7fOgZ6
+         ft9aWYO2U0RpgOyuZACEP/99mwSeSvobWY0rLvpIyDCSlJbVHj+WAFPdYyFGnNl65EUb
+         UvAcbcZ9FvAqbQOcpelxm6o5OuuZf1TTI5TViLn19IhdM/F+upi8AaDRdP87ixaV9sya
+         mCkvQjbgfe3iSQMIGUu7jwi1xKBsvtRaMYEnzjgJLskmF2OVgzgv0pPnuK0U3O6pYxZE
+         HMqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785239614; x=1785844414;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZBarKm8xrGeCPAZ5wzpK+32+YWWS7s6o927ulWe4mGw=;
+        b=UHORaWs37f3ajwHVngmOVESyjPKCnGt6dl9HIRlwlPLl6zj3E38vCowYKwrQFMVsaI
+         IsiM7x61NWlckWwPHORh7WrYZBTtfPJqIuOt7W+ahH26ALlmLHdAPyp61G3tU8+R/vm5
+         kBJwXIr/updeqLcRye9NsP7E9NJdkQRmaOzQVQ4k0TcokOzCxl4urmOBF8jLhF9SHRn5
+         /v/BRGnUZtduo9DOBCcgHx17cv6i8t9Z3j5OkRDwTlfXN2mfCvw1DmLGXXftp6SJZNB0
+         54/AdkkIQL0i1u8SGOJhwEgff73BEQBxRqy/RO850PX1w7NeKCBOkyKHXzIenR9/7bYW
+         NVgA==
+X-Forwarded-Encrypted: i=1; AHgh+RphsOk+MBOG9hE1b+ro5I2P99+xKQZJ7xdvjQJs1u5JfY9P+uSgt5uuoiLtddJyR3Xx10iaVN4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4GdK1HY5VsvbMUnZ4F8iqyjlsvGs9vFtiqRlJ24UYAQN+H6ei
+	YTYLkVs8rnstnQxmFqS1CMk+CQ1zi/nZUi9yTHNAVaZiHaR9eLA8XioOqSZEnBah
+X-Gm-Gg: AR+sD13w4uhqxm1+2HF2fMIx333aFtcMLQRgSthUBn2EG2AfGclkuHs4GEzLxVuhLtO
+	mCF8DfmTB3RiK/y+KXpM8SSjmETyNjBNzW4Mug5IQuYw24oUOevBtFsE0/6icVzqPzkgForA7So
+	nygDcrvn9ehj0i3n9q1BtoiuOpcVu4FOUM6uLCv6FodBXtXkSSOh0DaB//aqJYpzfkwWjWXYqSE
+	vSFoTYgyMR7YS70S279tBooyZ9qiDUN/z5UXD2Pv3iF5vZGjkmziVHNQc6304RrbBj48Oxmi5wi
+	uptUXQTYfHFL66cpkiqKtDyoBL1oQGcA802+eCmn3Ip6Til4HVpY32cXlMzBr1lXvd1txoqxyv+
+	he7qOBqLUMujCK6yz30vtnUvZ8D4u9JMlTP9jymNUK/nzPn19RP+dlkdc9VBmRISBxqnGxwHQiN
+	6YH7BhNIDaTPNvEvO3K1dcpzfuKuuPdEcUQ40=
+X-Received: by 2002:a05:6a00:148a:b0:84e:29df:d994 with SMTP id d2e1a72fcca58-84e932ebe3fmr2099463b3a.45.1785239613705;
+        Tue, 28 Jul 2026 04:53:33 -0700 (PDT)
+Received: from KRHW1CJW23.bytedance.net ([203.208.189.14])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5346dc8bsm4371305b3a.61.2026.07.28.04.53.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 04:53:33 -0700 (PDT)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: mwifiex: use the subframe length when parsing A-MSDU TDLS frames
+Date: Tue, 28 Jul 2026 19:53:25 +0800
+Message-ID: <20260728115325.19128-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-riscv-acpi-lpi-timer-v2-1-5a30e0021ec9@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NzQ6CMBCEX4Xs2RJaDEVPvofhUNZF1vCXtjQYw
- rtbMN48zOFLZuZbwZFlcnBNVrAU2PE4RFCnBLA1w5MEPyKDylSRaaWFZYdBGJxYdDGee7KiaKT
- OL6bAMpcQp5Olhpfj9l592c31i9DvX3ujZedH+z68Qe69n6L8rwhSSIFaqRopk3Qubx0P85K6y
- SD17FMce6i2bfsAA1QpN9MAAAA=
-X-Change-ID: 20260727-riscv-acpi-lpi-timer-6f1739a6c831
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
- Oza Pawandeep <quic_poza@quicinc.com>, Will Deacon <will@kernel.org>, 
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Cc: linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
- stable@vger.kernel.org, Peixin Xie <peixin.xie@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785239267; l=2444;
- i=peixin.xie@linux.spacemit.com; s=20260727; h=from:subject:message-id;
- bh=4eAhlF/vcJJ67Apvr65nDQvIvuTHbBtggrluYAkbJbQ=;
- b=hQ4Ms9Ubi2J7Qg0iW1ZRu5bK85h1KAiKnhdRozg29SalTisN4lE0j2xAtC8zHWXeCN+qO1Xb+
- ViUR0tPIHFFBLNCFBGDUObRjsZVSgASHyHXv929MUm+DBApb33anq2P
-X-Developer-Key: i=peixin.xie@linux.spacemit.com; a=ed25519;
- pk=jczO0FmEQZBoClfXslkwCsHKDmSRchQ1hQr8W7yiiXg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: ML0YOxEYw9yWrkayi0DlaMOmQCBcAs9GcFergbHT8xlAWJb5X54jKQjD
-	2uW4gkk1rO1O1zCWKRVSkf2hHbFzkQSzCC+qtBF4I0PIruXJDkwhLM96UWELhQVxvQMCX0b
-	Byj/C7dqnnM9W0tcplG7HfOhknKMneU1Mg2++f953vZ16gpCRapxdD0xGjte+L3+m7dm0cg
-	KYdOI/mi3MxGCP82aOnQpXjhuDel8rHVUq8NMorOk5rJuY0Hh7tBENH9AQ3OsdKr9nwiaar
-	gi6oGMrf2AlTmP2sr5yRWyhtZ/nH+4gzzYBeir2Hy1rTOxFRQ3pGxOhEaPOvtdRQ3swpeff
-	exlyGLpBPKk8UppGNMm+fwNq6FSwzfqphxszA65LcXk2i6wvgsagYEKPSQwCv9T1XTwBW3+
-	GyZHNwzQZiV5/KVEpoHk2sHupG0u68AqHEQsV4HDTkFpfFZg1HeCV5RA2gxWHcj+aD6ud65
-	B7/33OgEMr3HMrmVwVMl2mFF6kllFo7CIyGy+9qz1VYF9OwHSLXeHFgO4jT8NRQHOTyblP2
-	HtxG7Up9GUL47T3eh6tboFbcOv3KdDmYR1QXp5Z47VSF8EcDswwCvNasxOiAZzHRvQu80SP
-	As96Hb6WxdgJ7vNIVDBcwHTuU9MmjBQ/gr4Z70nQn5uuK3V/BBODVjy/+D6RqVhUMT8JCl/
-	7gkM098OKteeQT8FPObFgB3w0/GEl9/r7/lfYNQi8XdfNPMs8f7UxsPihHAz+VFfB2QCwzC
-	u6j2DnU+q7sPNYJ6pZOmo/J+e9jlAWc/8FgTxVxp/JYFrzgAg+VQM4v+e0GlsoDUnWUF+S7
-	EtFbUa2YtR2zq6Rf8zJJifjnh2exyKGzVoYBABHGcGfwNZDkID6IzOAWGu/cnqjN7JPqdzL
-	nSO9vDyUgrkHegPznAzmeTVHNWEXyxI4qKebS5Oz6307EHUUP7Iu9p1bLPWIdgqIUZEXQE1
-	FevgJFdvjZOaEZ2c/gY7XcBk1HaPi8fOkmOr+3aN3iQgEAtoUE+iPe14h6XV9Ga5Gv7YEQ9
-	ZJYJ9hhEcFvhdKQn+86bQZKtZKd5J0D97PITis3ElQc3J0+4BQprnf8trtg1B3POYamzXjp
-	0z4tFUv6o5kBspnvLSXt8H+wmlS+FaMVSAtIljjfjixuT/XozDkUt0zCtjxQE5CA/u0dJHl
-	ILn9ZwfX8TbPWNfcoQS8jiZtYQ==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-Commit 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for
-broadcast timer") replaced the generic nonzero check for LPI
-architectural context loss flags with arch_get_idle_state_flags().
-RISC-V does not implement the helper, so it falls back to the stub
-that returns 0. Consequently, CPUIDLE_FLAG_TIMER_STOP is not set when
-an LPI state loses the hart timer context, preventing cpuidle from
-using a broadcast timer for that state.
+mwifiex_11n_dispatch_amsdu_pkt() splits an A-MSDU with
+ieee80211_amsdu_to_8023s() and walks the resulting subframes. For each
+subframe it passes the subframe data pointer to
+mwifiex_process_tdls_action_frame(), but pairs it with skb->len, the
+length of the A-MSDU parent, instead of rx_skb->len:
 
-Implement the RISC-V helper and map the hart timer context loss flag
-to CPUIDLE_FLAG_TIMER_STOP.
+	rx_skb = __skb_dequeue(&list);
+	rx_hdr = (struct rx_packet_hdr *)rx_skb->data;
+	if (ISSUPP_TDLS_ENABLED(priv->adapter->fw_cap_info) &&
+	    ntohs(rx_hdr->eth803_hdr.h_proto) == ETH_P_TDLS) {
+		mwifiex_process_tdls_action_frame(priv, (u8 *)rx_hdr,
+						  skb->len);
+	}
 
-Fixes: 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for broadcast timer")
+The parent is not a valid description of that buffer, and may not be
+valid memory at all. ieee80211_amsdu_to_8023s() ends with
+
+	if (!reuse_skb)
+		dev_kfree_skb(skb);
+
+and it only sets reuse_skb when the parent is linear, is not a
+head_frag, and is being consumed as the *last* subframe. So when the
+parent does not qualify for reuse it has already been freed, and the
+read of skb->len is a use-after-free. When it is reused, skb->len is
+the length of the last subframe, applied to every earlier subframe,
+which over-states the buffer whenever an earlier subframe is shorter.
+
+The callee cannot absorb a wrong length, because it derives its own
+ceiling from the value it is given. Each frame type computes
+
+	ies_len = len - sizeof(struct ethhdr) - TDLS_*_FIX_LEN;
+
+and the element walk is then bounded entirely against that ceiling,
+
+	for (end = pos + ies_len; pos + 1 < end; pos += 2 + pos[1]) {
+		u8 ie_len = pos[1];
+
+		if (pos + 2 + ie_len > end)
+			break;
+
+so a too-large len moves end past the end of the subframe and the walk
+reads and copies beyond it. The A-MSDU layout is chosen by the sender,
+which makes the difference between the last subframe and a shorter
+earlier one remotely selectable. Reaching this requires TDLS support in
+firmware and the TDLS ethertype on the subframe.
+
+The other caller, mwifiex_process_rx_packet(), is correct: it passes a
+pointer and a length that describe the same region of the RX buffer.
+
+Pass rx_skb->len, the length of the subframe actually being parsed.
+
+Fixes: 776f742040ca ("mwifiex: fix AMPDU not setup on TDLS link problem")
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Kimi:K3
 Cc: stable@vger.kernel.org
-Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
-Reviewed-by: Yixun Lan <dlan@kernel.org>
-Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
-Changes in v2:
-- Correct the FFH specification reference to Chapter 2.1.1.2,
-  Table 3, as suggested by Yixun.
-- Link to v1: https://patch.msgid.link/20260728-riscv-acpi-lpi-timer-v1-1-c722bce01e48@linux.spacemit.com
----
- arch/riscv/include/asm/acpi.h | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
-index 26ab37c171bc..2643e28fc08c 100644
---- a/arch/riscv/include/asm/acpi.h
-+++ b/arch/riscv/include/asm/acpi.h
-@@ -12,6 +12,8 @@
- #ifndef _ASM_ACPI_H
- #define _ASM_ACPI_H
+diff --git a/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c b/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c
+index 610ec8302adf..9deb47f22a61 100644
+--- a/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c
++++ b/drivers/net/wireless/marvell/mwifiex/11n_rxreorder.c
+@@ -44,7 +44,7 @@ static int mwifiex_11n_dispatch_amsdu_pkt(struct mwifiex_private *priv,
+ 			    ntohs(rx_hdr->eth803_hdr.h_proto) == ETH_P_TDLS) {
+ 				mwifiex_process_tdls_action_frame(priv,
+ 								  (u8 *)rx_hdr,
+-								  skb->len);
++								  rx_skb->len);
+ 			}
  
-+#include <linux/cpuidle.h>
-+
- /* Basic configuration for ACPI */
- #ifdef CONFIG_ACPI
- 
-@@ -67,6 +69,23 @@ int acpi_get_riscv_isa(struct acpi_table_header *table,
- 
- void acpi_get_cbo_block_size(struct acpi_table_header *table, u32 *cbom_size,
- 			     u32 *cboz_size, u32 *cbop_size);
-+
-+/*
-+ * RISC-V Functional Fixed Hardware Specification Version v1.0.1,
-+ * Chapter 2.1.1.2. Arch. Context Lost Flags, Table 3
-+ */
-+#define RISCV_LPI_HART_TIMER_CTXT_LOST		BIT(0)
-+
-+static inline unsigned int arch_get_idle_state_flags(u32 arch_flags)
-+{
-+	if (arch_flags & RISCV_LPI_HART_TIMER_CTXT_LOST)
-+		return CPUIDLE_FLAG_TIMER_STOP;
-+
-+	return 0;
-+}
-+
-+#define arch_get_idle_state_flags arch_get_idle_state_flags
-+
- #else
- static inline void acpi_init_rintc_map(void) { }
- static inline struct acpi_madt_rintc *acpi_cpu_get_madt_rintc(int cpu)
-
----
-base-commit: 1d6f0a217c662693d2307ee06851cb4bfcbf9529
-change-id: 20260727-riscv-acpi-lpi-timer-6f1739a6c831
-
-Best regards,
---  
-Peixin Xie <peixin.xie@linux.spacemit.com>
+ 			if (priv->bss_role == MWIFIEX_BSS_ROLE_UAP)
+-- 
+2.50.1 (Apple Git-155)
 
