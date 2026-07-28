@@ -1,82 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9DE22FDE6;
-	Tue, 28 Jul 2026 01:10:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C16A8248B;
+	Tue, 28 Jul 2026 01:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785201041; cv=none; b=XbSn8kgPtUhg0YJlyqbJS+5qWlKG5ABPLLLeWtw+ygASdYOpJMs7m7fbXHcY3Qo8n2DNOl/AaPw686lHUA6lVS+A8fj6fVFKDWeDN9bW5bjmBctqiqwLz5b8xJ8NxMZmOEHtVM/Qw5Vm922JLcz8JeS7h+BrLjT6WAED+Az1FQ0=
+	t=1785202134; cv=none; b=muKKjIkX3tB1L+0lNXpebzgwYxQzDZDQaT5273alfNqEtiJpFIU4B/SBjC+z+yoI6V6+m+TOoQJXTCPMqW6KE5HDm9c3hNWtZnjUITOjBr1epsVniL6JWJRzefdJh1VBsTn9mHBdowazb39zsxP6vQpfgWqsaq9BtJYY+T2WoAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785201041; c=relaxed/simple;
-	bh=qQgrFjKGg/CvuZlH2wNxEkTjZL2ZdL+V7Pla+N05Qtc=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Z+XLlZJEfYuirP4v6BIOdyqbwPt0SsydYNGExUjDtjF2a3W6ZPplYFQ/614M3Vfraly38AnCSsfwSJSU2iAhvQEeyZxKJRUXHp4U69JvE6HckDAzSnIqiOt1Z5VWD5+UhhiZpM8dwZTE4pDXMYlzERj/GD6cl13K3+HX9o9fgtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DTqSxmaf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785202134; c=relaxed/simple;
+	bh=E4JrU95BDQOc0u16SkbvpkHLELR+qJpqdXKNRfRaYqo=;
+	h=Date:To:From:Subject:Message-Id; b=DVlIjXdOlVZwHpJDTxQfJQzvj6ew8qtrESMIye7S7E4UbF1GlHWq7MoTwxEeuDXuwECB38DLjNIhxbmd37zpU5YDnIw/E9TVT+j7ZUQmYiczFQ2XlVqZltdJz/nJL5EPKKxjozGbfQT6MMq1F2PmVdLYtri6ksY6Xo8TKy7zuoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=d5qakGDh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DTqSxmaf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BC0A1F000E9;
-	Tue, 28 Jul 2026 01:10:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785201040;
-	bh=5iS80mAgDQggTAF4qVKPanXxXHDVk7uaIWp7CGUEWys=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=DTqSxmafbCJ2adu9QD8GQMAETOWkjfFYyhi+dL9ov5YxI8qlv04pazYZgFQu5eyDt
-	 DZEyXJBEdFKJXrKBsEbmbUiOdV/7JrJHB5sPJi9UUCqKBnG0x4AVPQ47fBa/WbAmnO
-	 L8J03Dy0Qvqd7TFRlPOZz5jNCQsjZ32Iku2Z9Sg7Wf40iWdHPt9MOY6qsZo6zpm+lY
-	 F9m/Xgetb3cbFdR+0gXx750VWqlA5R/XY6FV83syfnlaKGdJOWGeNb8GboDNeA5fS2
-	 EIAF2/65XgxWTbG5nuZlRMe98XC173M2V4t5rEvMiFQq3p7k4dGIHSA61YBpRqTOId
-	 ACKQTxu7sRO7A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B28380CED8;
-	Tue, 28 Jul 2026 01:10:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="d5qakGDh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A53A1F000E9;
+	Tue, 28 Jul 2026 01:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785202131;
+	bh=h+K0VOo1V0eUC/PbK5Hnia6XBnC2F/6+RzeXykArerE=;
+	h=Date:To:From:Subject;
+	b=d5qakGDhvCMRTDiQEjV1Rva9Dde09+juhqxhySe3+F++OcABoY9SjQti3YE6FxNgX
+	 e7+Bp7gL93gyApEF/yG4jTknnpfXLB3LNVXqX4cHq7r7x9vnKqYRee3gUgFng0I0cd
+	 hMKaYnGqD0QT0EK9xFaOf5ad5PDZN48M73HUIikI=
+Date: Mon, 27 Jul 2026 18:28:50 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,will@kernel.org,vbabka@kernel.org,stable@vger.kernel.org,ryan.roberts@arm.com,riel@surriel.com,rcampbell@nvidia.com,rakie.kim@sk.com,pfalcato@suse.de,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mel@csn.ul.ie,matthew.brost@intel.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,jpoimboe@kernel.org,joshua.hahnjy@gmail.com,j-nomura@ce.jp.nec.com,jannh@google.com,harry@kernel.org,gourry@gourry.net,david@kernel.org,dave.hansen@intel.com,catalin.marinas@arm.com,byungchul@sk.com,apopple@nvidia.com,anshuman.khandual@arm.com,ak@linux.intel.com,dev.jain@arm.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged] arm64-make-huge_ptep_get-handled-unaligned-addresses.patch removed from -mm tree
+Message-Id: <20260728012851.2A53A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] s390/qeth: Check CAP_NET_ADMIN for private ioctls
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178520100564.1486027.2436428958867554773.git-patchwork-notify@kernel.org>
-Date: Tue, 28 Jul 2026 01:10:05 +0000
-References: <20260723140050.762991-1-aswin@linux.ibm.com>
-In-Reply-To: <20260723140050.762991-1-aswin@linux.ibm.com>
-To: Aswin Karuvally <aswin@linux.ibm.com>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- edumazet@google.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
- agordeev@linux.ibm.com, wintera@linux.ibm.com, borntraeger@linux.ibm.com,
- svens@linux.ibm.com, horms@kernel.org, arnd@arndb.de, stable@vger.kernel.org
 
-Hello:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+The quilt patch titled
+     Subject: arm64: make huge_ptep_get handled unaligned addresses
+has been removed from the -mm tree.  Its filename was
+     arm64-make-huge_ptep_get-handled-unaligned-addresses.patch
 
-On Thu, 23 Jul 2026 16:00:50 +0200 you wrote:
-> Gate the SIOCDEVPRIVATE ioctl commands SIOC_QETH_ADP_SET_SNMP_CONTROL,
-> SIOC_QETH_GET_CARD_TYPE and SIOC_QETH_QUERY_OAT with CAP_NET_ADMIN
-> capable check to ensure unprivileged users cannot invoke them.
-> 
-> Fixes: 18787eeebd71 ("qeth: use ndo_siocdevprivate")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-> Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-> Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
-> Signed-off-by: Aswin Karuvally <aswin@linux.ibm.com>
-> 
-> [...]
+This patch was dropped because it was merged into mainline or a subsystem tree
 
-Here is the summary with links:
-  - [net] s390/qeth: Check CAP_NET_ADMIN for private ioctls
-    https://git.kernel.org/netdev/net/c/d211028bac1b
+------------------------------------------------------
+From: Dev Jain <dev.jain@arm.com>
+Subject: arm64: make huge_ptep_get handled unaligned addresses
+Date: Fri, 3 Jul 2026 11:41:54 +0000
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Patch series "Fix incorrect access of hugetlb pte entries", v3.
 
+There are various places which use ptep_get() to get the pte entry
+corresponding to a hugetlb folio.  Some arches (like s390) have special
+handling to compute the pteval, so they provide huge_ptep_get().  Use this
+helper consistently.
+
+Additionally, some code paths may provide huge_ptep_get with an unaligned
+address.  This is a problem on arm64 (I checked other arches and it looks
+fine for them), which is fixed in patch 1.  The fix is made to be
+backport-friendly: the cleaner fix would be to perhaps pass the hstate to
+huge_ptep_get() - that is wider churn and we can do that later.
+
+
+This patch (of 6):
+
+huge_ptep_get() can be handed a virtual address pointing to the middle of
+a contpmd/contpte mapped hugetlb folio (examples of callers are
+pagemap_hugetlb_range, page_mapped_in_vma).
+
+The arm64 helper rewalks the pgtables in find_num_contig to answer whether
+the huge pte we have maps a contpmd or a contpte hugetlb folio, and
+returns CONT_PMDS or CONT_PTES, so that it can collect a/d bits over the
+contiguous ptes.  We can falsely return CONT_PTES instead of CONT_PMDS if
+the addr is not aligned.
+
+THis mean that on systems where CONT_PTES != CONT_PMDS (meaning page
+size is 16K) we could collect excess a/d bit state, meaning extra work
+for the kernel.
+
+Fix this by aligning the pmdp pointer down to a contpmd base before
+checking equality with the passed huge pte pointer, to correctly answer
+whether the huge pte is the base of a contpmd block.
+
+Link: https://lore.kernel.org/20260703114202.365553-1-dev.jain@arm.com
+Link: https://lore.kernel.org/20260703114202.365553-2-dev.jain@arm.com
+Fixes: 29cb80519689 ("arm64: hugetlb: Cleanup huge_pte size discovery mechanisms")
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mel Gorman <mel@csn.ul.ie>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ arch/arm64/mm/hugetlbpage.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/arch/arm64/mm/hugetlbpage.c~arm64-make-huge_ptep_get-handled-unaligned-addresses
++++ a/arch/arm64/mm/hugetlbpage.c
+@@ -87,7 +87,7 @@ static int find_num_contig(struct mm_str
+ 	p4dp = p4d_offset(pgdp, addr);
+ 	pudp = pud_offset(p4dp, addr);
+ 	pmdp = pmd_offset(pudp, addr);
+-	if ((pte_t *)pmdp == ptep) {
++	if ((pte_t *)PTR_ALIGN_DOWN(pmdp, sizeof(*pmdp) * CONT_PMDS) == ptep) {
+ 		*pgsize = PMD_SIZE;
+ 		return CONT_PMDS;
+ 	}
+_
+
+Patches currently in -mm which might be from dev.jain@arm.com are
+
+mm-swap-rename-subpage-page-in-folio_dup_swap-folio_put_swap.patch
+mm-mprotect-drop-sub-from-batching-context.patch
+mm-rmap-use-huge_ptep_get-in-try_to_unmap_one.patch
+mm-rmap-use-huge_ptep_get-in-try_to_migrate_one.patch
+mm-migrate-use-huge_ptep_get-in-remove_migration_pte.patch
+mm-page_vma_mapped-use-huge_ptep_get-for-hugetlb.patch
+mm-mprotect-use-huge_ptep_get-for-hugetlb.patch
+mm-rmap-convert-page-folio-for-hwpoison-checks.patch
+mm-rmap-add-try_to_unmap_hugetlb_one.patch
+mm-rmap-refactor-some-code-around-lazyfree-folio-unmapping.patch
+mm-rmap-refactor-anon-folio-unmap-in-try_to_unmap_one.patch
+mm-rmap-add-anon-folio-unmap-dispatcher.patch
+mm-memory-move-pte_install_uffd_wp_if_needed-into-memoryc.patch
+mm-memory-batch-set-uffd-wp-markers-during-zapping.patch
+mm-rmap-batch-unmap-file-folios-belonging-to-uffd-wp-vmas.patch
 
