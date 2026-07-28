@@ -1,67 +1,60 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F2941F370
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 10:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D443AEF4F;
+	Tue, 28 Jul 2026 10:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785235595; cv=none; b=KgtG+ju77s9Gr3IYnvQoJsTlyEDNUIimy2hfaMZ/9u+FJinz1EYd/urbsv4jNJwlTv/aO8m99Yz6nmlEDJ4YzD6sePdBrKKxEloRtmMYkvSVxpYPdOU+3jJUhToKQbqExDpETp55AKpNFLdY6mUbaduSwIJ6xSYOcWNRW6p6h20=
+	t=1785235837; cv=none; b=Zf3qC300dK2in1GRI+c49z4JA3/mpKPKc+qFjv8EHVdekIpxz6DBWAKxMi6YWAtQd1XvMqWRLiNOYrr5pGeld9138ihyKACdEnZpKWys8WsgD/ySz6GF6ZiqENLLLfLGX1jeZJB2Va/ldCdFukXxzMbo7wMW4yEPA8ArVBhERxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785235595; c=relaxed/simple;
-	bh=xOrAplYyS+pNrXAKjyHCqHir2UTZzh7Gyle/Rd7RHV4=;
+	s=arc-20240116; t=1785235837; c=relaxed/simple;
+	bh=pHODENAMAwfnGyLkSo/HZZl7Pu/8FmPJmTJlj4vSCsw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pr71FqlmW46wErnKES6kM3E1uQxE9yINJXHOhQ6mYLd71dn6Vyw8FN3CE+SvZpd04u9T0B2CDham7gvHi1yOzs3MFjS0WZBA1BYDzI6eXiZNtjFX1ZX9CIBuNPYsMIftuEDUmh6kycROLNb/sFWvtvsmBYh9cKiB0xGDAyqKbOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UuE0DD2L; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 In-Reply-To:Content-Type; b=QN7r5GaqAL7xg5tp9MBkLkXtLc2slKXgBvtyp4tEQl7PXHUxwQk/86YT4S57SDWgLyO5+SXYT5pjAkhmcXLBej0SD5v5kgL9JbaVMED3VOsNgjmz+tqRRhbhmhtslKtvIcertQfE+BJmLE7FHDi8UhCxj4CDwrOYR3J1Q7qOLpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=py5KqViM; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UuE0DD2L"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47640541585so2370760f8f.1
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:46:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1785235592; x=1785840392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FIC3b/7o8AMFrBQ283uf6ujNtCi93IZpkLlkVl6wgK0=;
-        b=UuE0DD2LlbosO/+IjEubNwaItrz04MSnydiTWKGmG9OfK0JZSjGa//On+3IdEphGaA
-         BfttduW5214Dk+GxX/j2lE68FYh+xDCfPiRXrq1IfcQnOxwY421jgT7akj4ZVRDwofUs
-         zDqzQaMxIQ8mGGtnl/i+QzZJwBx/E29sJkxdXil5Ug1p7sB3+MTIqq1BUA+kUFE0P5OR
-         4CQlZjwC4IE/FlR1j+Ghd/6qKGAH/ysWD6YW8mZhPlcaZgQ6N7AkDi7MJQliiTJGTlJc
-         pNxnSVPvmFp1O/AjdUcwZolSwWhzoKD4S/v0mc1izYhjor/vvUSeTbskgVmr6RhnDAcn
-         zgAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785235592; x=1785840392;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FIC3b/7o8AMFrBQ283uf6ujNtCi93IZpkLlkVl6wgK0=;
-        b=CzIEYHfYKURsC5AmaHyS9Fd3tzP2oFfGDb/6eOsq6yidMKA30xdCaHF3hh8Q5izTU/
-         vd6i5wX8cOaACl6zXNSWpXsEzUDNu0tDg7QbiuTilS4TVuCbZe8LF/U2Al8llxha2iqV
-         5sEpqjvPtqVwbheAbjSSshEu0oGZp6qoIGg8Uy4NU5yxEfFb6dGoPJufcGUuAIYILU2z
-         2+Ck66dqGued6WZTtG5cm/A3ZWT8u+m7WQ4EcL5TJgVl9SzDAig+u3ZEmpEOwnCHhiYP
-         e8R+fDU/Ge4LCJopDvG+/vW378Lx4kQtfgFn3eIYHP7B8XNfjUr3WlVE6EdT4bFPvjqQ
-         SNYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoFP8Bpvc+S70GxsEHKaa070CnTtYnIdOu9ZlkGgJp53ZK4L1dN1eCEYFLXB5WvVXebh1MLUCo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgE3LATAskoq6JkEd6IacDPtl6gRXIfqqy/bxtz+9MgSH9MQ7z
-	uWuPDpezL5dsEfgJM05fkPk0XcNe4iYV/m4it/g9JUY3MsVhlq/9KBPqqPaNUGND0W4=
-X-Gm-Gg: AR+sD1211QrpzG6s8gtETy6PSYJ3EC3Rz1/zOyE7S3wnOefOZhhc1UrNVUkjnkyYPyp
-	/mvyJR5jcYcdx+ryEUoGvAIo6HXUc/9PfvVXUbv0gz9IB/8kvcvUtOg3wy1FscaoZZkCh8eE8ZR
-	9jegM4W4CsRojTOp9+AwAoJ/dLPXdMpDoYnPL7Tqk18pQ/ZJyvP5cTEF4ZcaoduEY/imuUtepbe
-	DsWrfc5DylkB7Of3x/XZTOdcDAX4cDYO1wNC7Oyr8dwVVYYoRgu8VhKvwwejM8lXHyxtF+Q198o
-	GM/qkSCC+FsoMITqX9Jz9dSZ+X1+IivPK4uiET+6K6mG1JjcttB21q1rwSlwqXK6tMyL7+Lul7t
-	zTJDZM/ZEfM//WPtUKdG0Dqt9VGka89wkfDqdfJBf4azv2FfwtVkUSUR0V0WrqDM29sthPw1ucy
-	9gtnrw2nDGgI4LCH/lzHyxbcGBhjSZj5gFIszsVQE=
-X-Received: by 2002:a05:6000:1884:b0:47f:9096:3c54 with SMTP id ffacd0b85a97d-47fb1ecc318mr2141112f8f.11.1785235591768;
-        Tue, 28 Jul 2026 03:46:31 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:fc6c:f9a2:4a0a:6354? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c6e9a2sm59717727f8f.35.2026.07.28.03.46.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 03:46:31 -0700 (PDT)
-Message-ID: <dfe25916-0f2e-44ed-8f49-d7448a0e28fa@suse.com>
-Date: Tue, 28 Jul 2026 12:46:30 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="py5KqViM"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SAlm47896814;
+	Tue, 28 Jul 2026 10:50:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=/zZCOp
+	bkYB37Wb7dao3TlYIKTkOEgSemVSQDkHXwdoM=; b=py5KqViM8w/N2HfQS5bTed
+	PUslNNQF91+aFMFCQbDqSlJThm2+eMEkVBrKE/UixhCPZC/TeDomGm/JeLzeIDqY
+	6U3fOUmfehurCdBqCxq7ExB2OpSM6bskckMwRvhuRngNMkL2d/KUEvnFfFpoCrm3
+	bKMJ0JAVCB1F8GaAQOAoCaYupPhYoyt0w1oMbyqmTaN57WkwyasxSMu1S7AZW+Ep
+	Qi4IBWsBLlk4L2mMQYXvPfDIhQCZFWYJCmHkH09r60qC4miBwt/soZ2odyDhK6/4
+	8txcbJdzSx/awOMecjm/2xYJEkWt6T0sawdJWqS62rmev9av7cP+8Q0jlRzk5kpw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuwcv6dp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 28 Jul 2026 10:50:17 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66SAfhgp021761;
+	Tue, 28 Jul 2026 10:50:17 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn7uw1jhu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 28 Jul 2026 10:50:16 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66SAoCs127918818
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 28 Jul 2026 10:50:12 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C03842004B;
+	Tue, 28 Jul 2026 10:50:12 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A0A6220043;
+	Tue, 28 Jul 2026 10:50:07 +0000 (GMT)
+Received: from [9.124.208.66] (unknown [9.124.208.66])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 28 Jul 2026 10:50:07 +0000 (GMT)
+Message-ID: <366c7f5b-3261-4786-8a10-1323597af43f@linux.ibm.com>
+Date: Tue, 28 Jul 2026 16:20:05 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,107 +62,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] params: fix charp corruption on allocation failure
-To: Jiacheng Yu <yujiacheng3@huawei.com>
-Cc: samitolvanen@google.com, rusty@rustcorp.com.au, hannes@cmpxchg.org,
- yosry@kernel.org, nphamcs@gmail.com, liuyongqiang13@huawei.com,
- linux-modules@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260728085518.3865621-1-yujiacheng3@huawei.com>
+Subject: Re: [PATCH net] s390/qeth: Check CAP_NET_ADMIN for private ioctls
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: David Miller <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
+        Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Alexandra Winter <wintera@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
+        arnd@arndb.de, stable@vger.kernel.org
+References: <20260723140050.762991-1-aswin@linux.ibm.com>
+ <20260727180644.0e97582b@kernel.org>
 Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20260728085518.3865621-1-yujiacheng3@huawei.com>
+From: Aswin Karuvally <aswin@linux.ibm.com>
+In-Reply-To: <20260727180644.0e97582b@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: EmAYogU9qUEZJKZYlswdILgdhV7egqH_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5NSBTYWx0ZWRfX808sFjD/Ao0f
+ Ij9jRkwtpua9EnVVpUL+XN3DYfLUCAi4HO80jMjz9vKRrIScN6ixWoEAWslJIUMCOqIVbEZpNp3
+ T4EkZmgOpbFMtlXPIgyZ9RR+e/JPmZA=
+X-Authority-Analysis: v=2.4 cv=E/z9Y6dl c=1 sm=1 tr=0 ts=6a68896a cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=GhjaPdZqsfwpqAw5TiUA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5NSBTYWx0ZWRfXzl+QhZjIGvpX
+ s7xDipQCVoJW4ceY8rkNLb7Fk8lLxU8oew1tcKLrKvKubkXx0HJ3ZNpB7jAY4Bh5PDCO29v6HTg
+ keDJlRsrnywHcH7ZCREfi41sYUmvG0h8pZNMzpXCVUWhvHeaSQOdOJOfaHJIjYSEbK3Grwgjw/7
+ /f1FInn/x/epYgC4AFL3KK7rKUBufITi+8jfe+2j1tlYE/SpwvdktegHVd4EGKDGygcHn9pS5BW
+ 1pIaJVimUJ+mEyFwzas5fpcBrEixIW0VzLPsedxmI5Oo/V7tBD/wnuNDhEUJuGDji0c783LG6vX
+ sffOfYB3G75xiYrU+1Hcf93QTQD56hivIqAbBuVApoLJCuJEuirPDlZQiUvrw2mejX3UK3uERQz
+ UXTmjxzrfij5l4okUqHUj/1JrjO75MnHdf/lKjrTo32RFuFOy/nDrXJ85vVrJ7b45S4rcBWFIjA
+ f6M/NJV3JDLIa/fQagw==
+X-Proofpoint-GUID: ykyNVfwhXSE1VLdz3q0fysdLIgzp5SXc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_02,2026-07-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1011 phishscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280095
 
-On 7/28/26 10:55 AM, Jiacheng Yu wrote:
-> param_set_charp() stores charp parameters in allocated memory after slab is
-> available, and releases the previous value when the parameter is updated.
+On 28/07/26 06:36, Jakub Kicinski wrote:
+> On Thu, 23 Jul 2026 16:00:50 +0200 Aswin Karuvally wrote:
+>> Gate the SIOCDEVPRIVATE ioctl commands SIOC_QETH_ADP_SET_SNMP_CONTROL,
+>> SIOC_QETH_GET_CARD_TYPE and SIOC_QETH_QUERY_OAT with CAP_NET_ADMIN
+>> capable check to ensure unprivileged users cannot invoke them.
 > 
-> The previous value is released before the replacement allocation succeeds.
-> If kmalloc_parameter() fails, the setter returns -ENOMEM with the parameter
-> left as NULL.
-> 
-> Failing zswap's compressor update before zswap is initialized can later
-> trigger:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000000
->   RIP: 0010:strcmp+0x10/0x30
->   Call Trace:
->     zswap_setup+0x3b1/0x490
->     zswap_enabled_param_set+0x5b/0xa0
->     param_attr_store+0x93/0xe0
->     module_attr_store+0x1c/0x30
->     kernfs_fop_write_iter+0x116/0x1f0
-> 
-> Allocate and copy the replacement first, then replace the parameter value
-> only after allocation succeeds.
-> 
-> Fixes: e180a6b7759a ("param: fix charp parameters set via sysfs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiacheng Yu <yujiacheng3@huawei.com>
+> No need to make this netns-aware, I assume?
 
-It makes sense to me for param_set_charp() to have commit-or-rollback
-semantics. The set callbacks of other standard parameters behave this
-way, with the exception of array parameters.
+Hi Jakub,
+Thank you for accepting the patch!
 
-> ---
->  kernel/params.c | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
-> 
-> diff --git a/kernel/params.c b/kernel/params.c
-> index a668863a4bb6..e4f2b71dde1e 100644
-> --- a/kernel/params.c
-> +++ b/kernel/params.c
-> @@ -261,6 +261,7 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
->  
->  int param_set_charp(const char *val, const struct kernel_param *kp)
->  {
-> +	char *tmp;
->  	size_t len, maxlen = 1024;
->  
->  	len = strnlen(val, maxlen + 1);
-> @@ -269,19 +270,20 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
->  		return -ENOSPC;
->  	}
->  
-> -	maybe_kfree_parameter(*(char **)kp->arg);
-> -
->  	/*
->  	 * This is a hack. We can't kmalloc() in early boot, and we
->  	 * don't need to; this mangled commandline is preserved.
->  	 */
->  	if (slab_is_available()) {
-> -		*(char **)kp->arg = kmalloc_parameter(len + 1);
-> -		if (!*(char **)kp->arg)
-> +		tmp = kmalloc_parameter(len + 1);
-> +		if (!tmp)
->  			return -ENOMEM;
-> -		strcpy(*(char **)kp->arg, val);
-> +		strscpy(tmp, val, len + 1);
-
-What's wrong with the plain strcpy() here?
-
->  	} else
-> -		*(const char **)kp->arg = val;
-> +		tmp = (char *)val;
-> +
-> +	maybe_kfree_parameter(*(char **)kp->arg);
-> +	*(char **)kp->arg = tmp;
-
-Sashiko reports [1] that there is a pre-existing use-after-free window
-between freeing the old parameter and updating kp->arg. However, this
-issue doesn't appear to be valid because any concurrent access to
-a writable charp parameter should be protected by kernel_param_lock().
-This is documented include/linux/moduleparam.h [2].
-
->  
->  	return 0;
->  }
-
-[1] https://lore.kernel.org/linux-modules/20260728075803.AA13C1F000E9@smtp.kernel.org/
-[2] https://github.com/torvalds/linux/blob/v7.2-rc5/include/linux/moduleparam.h#L124
-
--- 
-Thanks,
-Petr
+It was concluded that the tools that make use of these calls are
+strictly meant for IBM OSA cards on an LPAR, which find very limited use
+within environments that make use of network namespaces, eg. containers.
+Thus stuck with capable().
