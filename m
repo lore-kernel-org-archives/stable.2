@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03BC33B442B
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:06:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4ED3C0625
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:06:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262003; cv=none; b=E/zFb4YNI7z5Jp7B3UdwiAgso7b8aP10RWBEJgz0eWNSE4/WSdEZzKU5O4rNyxrrUkKHuCszgR4pKcnaw6V4ENTAHS73PWtqqns/Jsf+JGBujpU71tCXE/CMK28bevlDxN6CNq9FK5ITDY8dRsoyDMj7kVM9bNPPngBN2gt775s=
+	t=1785262009; cv=none; b=DnH+iWzbYElfJIHY/SEitasg2VYrfc9ZRkOfzsG7tCgkWrH38eJGuxPPBDmqbhP8kNmYdswsggIQsZae0r2iFi9auPmjKTJlvGwD2abp+o66XYBx2q9RhzQRyudI/n+tDW7hmd9JRsxMC/48wu5VhocXPQVbfEWnWPkdW0/WFMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262003; c=relaxed/simple;
-	bh=D+ZnbpKUhAABnCbB2n826RqvdWKSyGulFPDq+Oeu62s=;
+	s=arc-20240116; t=1785262009; c=relaxed/simple;
+	bh=L5A2JIBiTEi6WqSAs7LH+pHWqhbBmtWC6VGT4itCWQo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S8tPehbIbnQGwTeESBDbdKQvlEHkvoRQQeVGXWJPq0cAfZQ2FapU8wRle9k5E9hccQcrL5XgDu7gDrfvJouQ/zVswo4G2oYipNmOBOZvCe/8YrBQ9wJ5eI65cGM5iDnLdT1mwDR9S+vcQYNQBEKkGUWjDEYb5w9klBB5U/NWyrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qc+GqvYA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XYnd264QzMAqdnAz2QZbjwrykscZXNRTkWPwW0ggzyBOaT3q3V2ibw76q6dn2V5CJrm9MZa/QhIzJbNvKZZaVia2a9Xq+vrQLp84h38StY4F7txeQH3fEwEX80a8osPBpssSCkIcHiMaXp5IgRM9nE1iIZiJ2/nm2Pehmlx5dII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yfenb2t1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qc+GqvYA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5B01F00A3A;
-	Tue, 28 Jul 2026 18:06:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yfenb2t1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A598A1F000E9;
+	Tue, 28 Jul 2026 18:06:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785261998;
-	bh=uxHhATtVgG2+ofiLqEF5McmvqZY5A+mF8bZ479TtWEA=;
+	s=k20260515; t=1785262005;
+	bh=LHHOp4K4PVNT9mJvJsIb/tsHRry3OMaj6XvH/7g/GFU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qc+GqvYAGMtp6IPWk3tORi/pXqcPwv1rqiG58ASeX7SSbhz0p8BYxuSFYl7eov9Uc
-	 DznXmJyBQi40qzSZ9KA9vYWxL9HxPQiPTZzxkkGe+fGQjXhkUz2cxGU82vzS3qg31G
-	 RAtYmDze2eXb9btBMehTuqSTSieuKMSNJYybqzB6l3+SYzpjuyMRJEtC/qmoYT780M
-	 E/w0U5wuXmBAjCX1MLwgoul9pBMpOAewIgjLrNGavHNSZd+q0Q0rEFoFI6yMUPmTVQ
-	 tQRYn+Dtrbj6iEXMJtqLFgJ3i1/z/WgHmMTU+2mM0n6lLZgsYJCdmXowmt0nuMGTNO
-	 p9nx9DPNbtumQ==
+	b=Yfenb2t1RKbx4xg5PfclDSkQFotkIWSg1ifnST7MzAxc8qhjJmRlvgFQk7S7N2K5n
+	 4soeVICBD6RPx9rWFVA7nt2CrqtGQWACotWTaYKDUJaFYM4U5QqHEhpN4/pCSlno9G
+	 GoXs0nTMmFn/ISPXj18doFYFnZYFw5KSXpY1qaLb2M1QqBbENCjHbDTet/6pK6ghPw
+	 h4R25oZOQ+T10IkklRrSp4ezk4tjzdM8dFYeKZpzbxpLGA/NoLx3cD3XqvPJfBbvsx
+	 x1lywuXcw8nMH3+9owRDl8YK8PUFzcbcCkvgyZVAiW8upOtPnqVZG3cC5cYqOlcFqv
+	 QmGH/q8FEpuGQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked
-Date: Tue, 28 Jul 2026 14:06:35 -0400
-Message-ID: <20260728180635.289503-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] bootconfig: do not put quotes on cmdline items unless necessary
+Date: Tue, 28 Jul 2026 14:06:41 -0400
+Message-ID: <20260728180643.289803-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728180635.289503-1-sashal@kernel.org>
-References: <2026072145-tank-retrain-5dd2@gregkh>
- <20260728180635.289503-1-sashal@kernel.org>
+In-Reply-To: <2026072112-copied-earthy-db88@gregkh>
+References: <2026072112-copied-earthy-db88@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,48 +46,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Rasmus Villemoes <linux@rasmusvillemoes.dk>
 
-[ Upstream commit e056e1dfcddca877dd46d704e8ec9860cfc9ec44 ]
+[ Upstream commit 212f863fa8811c780abacc1d0404c573fdc0a2de ]
 
-When taprio's software path peeks a non-work-conserving child qdisc, the
-child stashes the peeked skb in its gso_skb; taprio_dequeue_from_txq()
-then takes the packet with a direct child ->dequeue() call, which ignores
-that stash, orphans the peeked skb and desyncs the child's qlen/backlog.
-With a qfq child this re-enters the child on an emptied list and
-dereferences NULL, panicking the kernel from softirq on ordinary egress.
+When trying to migrate to using bootconfig to embed the kernel's and
+PID1's command line with the kernel image itself, and so allowing changing
+that without modifying the bootloader, I noticed that /proc/cmdline
+changed from e.g.
 
-Take the packet through qdisc_dequeue_peeked(), as sch_red and sch_sfb
-now do. The helper returns the child's stashed skb first and is a no-op
-when there is none, so a work-conserving child is unaffected and the
-gated path now consumes the skb whose length was charged to the budget.
+  console=ttymxc0,115200n8 cma=128M quiet -- --log-level=notice
 
-Fixes: 5a781ccbd19e ("tc: Add support for configuring the taprio scheduler")
-Cc: stable@vger.kernel.org
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Link: https://patch.msgid.link/20260625-b4-disp-31bcb279-v1-1-85c40b83c529@proton.me
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+to
+
+  console="ttymxc0,115200n8" cma="128M" quiet -- --log-level="notice"
+
+The kernel parameters are parsed just fine, and the quotes are indeed
+stripped from the actual argv[] given to PID1.  However, the quoting
+doesn't really serve any purpose and looks excessive, and might confuse
+some (naive) userspace tool trying to parse /proc/cmdline.  So do not
+quote the value unless it contains whitespace.
+
+Link: https://lkml.kernel.org/r/20240320101952.62135-1-linux@rasmusvillemoes.dk
+Signed-off-by: Rasmus Villemoes <linux@rasmusvillemoes.dk>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: dec4d8118c17 ("bootconfig: fix NULL-pointer arithmetic in xbc_snprint_cmdline()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/sch_taprio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ init/main.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
-index 299cad8ece93ba..6d1c83a076cd4a 100644
---- a/net/sched/sch_taprio.c
-+++ b/net/sched/sch_taprio.c
-@@ -596,7 +596,7 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
- 		return NULL;
+diff --git a/init/main.c b/init/main.c
+index eac47a2beb7e4b..bf92053bb3b443 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -325,7 +325,7 @@ static int __init xbc_snprint_cmdline(char *buf, size_t size,
+ {
+ 	struct xbc_node *knode, *vnode;
+ 	char *end = buf + size;
+-	const char *val;
++	const char *val, *q;
+ 	int ret;
  
- skip_peek_checks:
--	skb = child->ops->dequeue(child);
-+	skb = qdisc_dequeue_peeked(child);
- 	if (unlikely(!skb))
- 		return NULL;
- 
+ 	xbc_node_for_each_key_value(root, knode, val) {
+@@ -343,8 +343,14 @@ static int __init xbc_snprint_cmdline(char *buf, size_t size,
+ 			continue;
+ 		}
+ 		xbc_array_for_each_value(vnode, val) {
+-			ret = snprintf(buf, rest(buf, end), "%s=\"%s\" ",
+-				       xbc_namebuf, val);
++			/*
++			 * For prettier and more readable /proc/cmdline, only
++			 * quote the value when necessary, i.e. when it contains
++			 * whitespace.
++			 */
++			q = strpbrk(val, " \t\r\n") ? "\"" : "";
++			ret = snprintf(buf, rest(buf, end), "%s=%s%s%s ",
++				       xbc_namebuf, q, val, q);
+ 			if (ret < 0)
+ 				return ret;
+ 			buf += ret;
 -- 
 2.53.0
 
