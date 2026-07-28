@@ -1,71 +1,75 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22E43876A1
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 12:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAD142A7A4
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 12:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785243313; cv=none; b=l7iENSZNSKDSeAjldMYP9mJdF87SbzK3UUfn94qrNAFODQgPpsjtPzLddRXb3YLSwlcLqHXQbmKIyin4lOTouUZFaWd/vKvcXJz6tZ8Cj+RR30j+JKjLYgNYXMnZ6s+QoTJSspA9nRW3e7FIu/rYSUPyejwMeW+aXhd58a5LyAQ=
+	t=1785243315; cv=none; b=mFJuOLD4OtyXk1HuKw1ayv2wQiAUAdCdFtqXmQqV5v34vMLDYz1RSK/UskH+nEyUWPduo1QFQM7ssSA8GdxcdyKnpIAP6QhGm5oXhngh8y+0FO0+b3TySlFy2TwTDPViWYHENoWCnCK9sIYzTxmSsnr5bxPtQFN6KyrmMN3jxjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785243313; c=relaxed/simple;
-	bh=/+mqHkFHeQZWQoo91PDLcdeK72c5ehlB2OrXUNBlPiw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N/GC8+YbS/anTiPX0Wwoq5kmAZgqevZzQIk4lN6ZKeSS0w+UMUMNeXroGHwXXmEjHTZd9vjuIm16WXmzLcelNxnLGvxTK17D2yOF4FIViuIxkQ2cs5a8hIdI+rks1ByObqHoABIa5T0+X2goB5PXPUvW9Js/xq1mVsbXeBHMjKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WIPyzEqe; arc=none smtp.client-ip=209.85.128.43
+	s=arc-20240116; t=1785243315; c=relaxed/simple;
+	bh=bCImW5FveOgLSFMnd3wYiHnrEIorbTiPRBOU3dDrN38=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Td0FgyoFtA7jH9LvjaEMHvCFVjLkMi/8uaPG9i6lGiqTco514tWmCaiVVuZr9uYbZIv72IOyLEgTHkhuFxtF4Z2E8aZnbFsjCCEAJL8g8+x3EZtMTS1O0sujSmbPASBNtesn/rphug6OfEoFv4XmHbm6phc+tV9KddMaZbp3E48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qf9Chai5; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WIPyzEqe"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4956242332dso33536765e9.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 05:55:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qf9Chai5"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so22847465e9.2
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 05:55:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785243310; x=1785848110; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z9ileo+nwDNfD8yfsO2EMCCm8J730wo2xe5C8RjlSbE=;
-        b=WIPyzEqemM81XgX+dgAub7rXy65rOqsvkbWFr7oGYDfAFwiqPEVLREbb1NyS1oylEo
-         knYn6PTxQ3L2/xvlNtuEz0aIsjf1X2SmXU5aLHiCUr9OF8RRlFAgUbVMJMvaQq8bhDuF
-         srdPcvg2OSb2NbvN4ERU0nOCaZgnSYd1XksyUdhzTEYiUha1Te1PQzFsMBdlEtzAbplw
-         c/O4tX0xtJ3gu2AxF45tuaWv62Y9vOan/2mQQNrKqzmPsxQEQC5W1CA+57ewj0dyxTS3
-         cwAU+hHO4BOavP6byJTuifDaGYU61WLci2hgMoxyEzubd+bwe0ZT1ViE4Y/zY11UcWyw
-         yzHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785243310; x=1785848110;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785243312; x=1785848112; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z9ileo+nwDNfD8yfsO2EMCCm8J730wo2xe5C8RjlSbE=;
-        b=kxqCUwdK5BVa8xUlsrXgNC8ESSj5yiJUbsDu7MXWihkDpXVF1ER0I7O6LyJObcNV+o
-         dDWS/bh3nlw09JbXlDfwiPL5WwHASFI3iFgGdERdTpEkUvMzCALY6B4EZ+b7SmfCj3/T
-         3l2pp6CrVceegS8oqRoCElTo5ToB2JPKCN8C2p8fHaK6MOb6sT/5RZUaAHyFxGvabwYC
-         MNzs0s33vOrJp7/xiszXY8etPh+0D9bLnykGBu5lBDTvtJOQowXd1+Go8PBtdawTtWQs
-         QqsiL7dtV1vkWg5yd3OFGAWjn6UmSX0EPGn9sDtmO24wtehUF/BIxwsQNurFfxIShjqO
-         T5cg==
-X-Forwarded-Encrypted: i=1; AHgh+RrSwLQ1fbewdtj3LUv5D/qeftZMViWxzDKK194Xo50O3P4ywu/GMubNl9MVgksCfm0sXn28vV8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwsxWV4BFj0nhjx0E9Oq/HpYbvApaCTHKBPuSRVL4inYBaklqj6
-	eyxLcIrEaZlqikUs/FaNfrVbbQoI8yEtOuaCNWlr+5kuWH342rATiTfR
-X-Gm-Gg: AR+sD12izOTsiPpntt73Plsau8z8/HEJoem0swXmu1LNNxPuVriDiu9ZzQnpZbhOKA6
-	0tzSAoRb8nFFwOilJdNDuLdH6ZxgmeoeJ6x8mrMSCUE8gMYSsC10L12kHTJ9yYJRSJSMY1na165
-	d9wcD2yYnF20ywaLXL+T4FW1vhVBUHu0zlJYDaUzvY/y6hu9GYV5+guQHNUp8Ex/aP/9folcps2
-	mrCH/31RR0LJp9TJKyw0Q1yV4skJJzRmkXIR/lF5Y3wYNXa4x48iJbJ5UQsvFm/nbdQQ8HqiTZW
-	vtia/KvCcWHzpak71iCJLDylNb2iPIQJnaYuFaEDIzH+tq32bvya9ZSxTT2WOXjB/iasRQF0SqW
-	QlNg3D/ZA2OexBx9z8+4CseZubCdDhBbQzzygMOl5e9NVaF2BGiw9vzFqa+9Ydwh+wuwbVTqsLY
-	0jrI7HnUXKy0Vh9WaXGveZRay90FqNm8V6v1s2E/mgsQah3kZHtRL/vay624L0iBC95w==
-X-Received: by 2002:a05:600c:8b2e:b0:495:4dd3:ca97 with SMTP id 5b1f17b1804b1-496c659f843mr30259395e9.29.1785243309992;
-        Tue, 28 Jul 2026 05:55:09 -0700 (PDT)
+        bh=3K1t70zaHBwvr/zd5QGdCAYVOIE1pLnv+eQf2gzB8Y8=;
+        b=Qf9Chai5CLSPFKHqzb054ngzSh2uKymBymacvVJHABedOsmISR+GNz3q2zQRGnzcLq
+         Y6GD2ymN3zj3xqd9La8T+g/gS+T5I09/7Y8L5N5uTJqDVuJQT4I8iPFaMCq3HyDg6B/A
+         Sg/fdYmOFyKDYhuwPMxPhFgFFpmt5asbDFovUIlVWpkTVOTVMrL8lqPjrQyyTzaVolH7
+         nSsERi7vHh3/MCjxO1GFqtg6TQRqE+Hsh38HcaW8yn7/4nM0KLq9ijuIKGqa/+rAv1sU
+         6Ad3hHSCZXuOyQ6BEu6kr34/Am1q8H5n4qjIypeqKVfEjeHYYAv4R7g1qm13j6yFVjEa
+         29sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785243312; x=1785848112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3K1t70zaHBwvr/zd5QGdCAYVOIE1pLnv+eQf2gzB8Y8=;
+        b=mGpOK0xPX0OiVOLzgBWjQgZgWYLjINoI/8PmJ4+IXLFH0ZQySOXaTWT/1rkUkSCtfw
+         VmgFhQcPiwqCWQgQMVl0vKniYU2vUuKkW8gY4N7qieoTh96OWgFle14iqRZLcA1dRi9O
+         zGwaA8Ybgf4DEPUwH34fZOCwmu01D0AYp6CoQt7/Pr3JPHQNJ/8mffRiEVu1wkYv/v0I
+         JPHwQpQHl52CCPt0sbBL0ES5Uw61JX8LjX2+DHn9lSfVseUYUQe5TTM1fEQpqwFUr2wg
+         em5cU+ubhioqPShAEvncSnjoPB+Z6TynbKuhg8Euc/eM7SBSgM7y9yxKq2J2TCAwBi52
+         3Q/A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrj44/kd1BpuSi8E1kZV/Ncyu64j1UOslsfr2Jt1wGLMnGVUpGlVfUXFHSqSSRVlgoekCJqBcg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEi9E7c/idtGlAn1TUXNE9X8dnf9jNi4KB40OlEgGubytWZIH2
+	AOqlTn7OvnfusS9GBypXN2kyGgx76fETlF2lgQNmg7EIhLJ+t9ywdxKz
+X-Gm-Gg: AR+sD12AUsdQm18WYpts64FXzIAWfrA9zSGeyxrA0tPe9pqH1MjDbaN4xJcx+UxoMOw
+	2HsvTZoZFryI7jqNrzYvqv6oHNrTJZ+98R15QiaDHuzdRMmOIb7j6G/gVFoZtRurospIif6oql5
+	zvXxI7ojOUNIk97jVe05177aEWvEfU6xZPBKxvycNGhMb4FamPtckE4/NLT0udyoCbBX+Nc76DK
+	lpdPQmmd6MGA/1otPA+3lk+FM5AbBuegVlTUxFq4AjXFH54VDMxlC3KkVBn0PqQtWq3ngH26kY7
+	k5FID4NcSCsKWTO0YVtozdkVMzcq9blbZ2by6Jr7iKDJ2BG3VYZ0A02tzppcq00Vu4jJ0XflJek
+	V62EwmfmGy5VAN3/jCOGKhVBQW4OTtAWIhLcUSLGnT0LYIVIRzdB//No/9ynZzY/IRjUMrsHj47
+	YodTsVKKGQHPqjgvyB0IM4tPrNDywHp7yZwvN7O77xTI0smfVRmDzo+cmKmY78ew5pDA==
+X-Received: by 2002:a05:600c:4744:b0:495:40f0:e77 with SMTP id 5b1f17b1804b1-496c6415054mr25043505e9.5.1785243312169;
+        Tue, 28 Jul 2026 05:55:12 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c444304esm74096505e9.0.2026.07.28.05.55.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c444304esm74096505e9.0.2026.07.28.05.55.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 05:55:09 -0700 (PDT)
+        Tue, 28 Jul 2026 05:55:11 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
 	stable@vger.kernel.org,
 	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v2 0/3] staging: rtl8723bs: fix multiple OOB reads in IE and frame parsing
-Date: Tue, 28 Jul 2026 17:54:53 +0500
-Message-ID: <20260728125456.32359-1-meatuni001@gmail.com>
+Subject: [PATCH v2 1/3] staging: rtl8723bs: fix OOB read / stack overflow in rtw_get_wps_attr()
+Date: Tue, 28 Jul 2026 17:54:54 +0500
+Message-ID: <20260728125456.32359-2-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260728125456.32359-1-meatuni001@gmail.com>
+References: <20260728125456.32359-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,27 +78,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v2 of the series fixing out-of-bounds read and buffer overflow bugs in
-the rtl8723bs staging driver where length or offset fields from
-untrusted wireless frames are used without validating that enough
-bytes remain in the buffer.
+rtw_get_wps_attr() walks WPS attributes inside a WPS IE taken from
+a wireless management frame. For each candidate attribute it only
+checks that the fixed 4-byte attribute header (2-byte ID + 2-byte
+length) fits inside the IE:
 
-Changes since v1:
+	if (attr_ptr + 4 > wps_ie + wps_ielen)
+		break;
+	u16 attr_id = get_unaligned_be16(attr_ptr);
+	u16 attr_data_len = get_unaligned_be16(attr_ptr + 2);
+	u16 attr_len = attr_data_len + 4;
 
- - Dropped patch 1/5 ("fix OOB read in rtw_get_wps_ie()") - did not
-   apply.
- - Dropped patch 5/5 ("fix skb->len underflow in monitor TX path").
+attr_data_len (and therefore attr_len) is read directly from the
+wire and is never checked against the remaining bytes in the IE
+before being used as the size of:
 
-Muhammad Bilal (3):
-  staging: rtl8723bs: fix OOB read / stack overflow in
-    rtw_get_wps_attr()
-  staging: rtl8723bs: fix OOB read in rtw_action_frame_parse()
-  staging: rtl8723bs: fix OOB read in rtw_restruct_wmm_ie()
+	memcpy(buf_attr, attr_ptr, attr_len);
 
- drivers/staging/rtl8723bs/core/rtw_ieee80211.c | 7 +++++++
- drivers/staging/rtl8723bs/core/rtw_mlme.c      | 3 +++
- 2 files changed, 10 insertions(+)
+Since attr_len is fully attacker controlled (0 to 65535+4), this is
+both a heap OOB read of wps_ie, and, more seriously, a stack buffer
+overflow at several call sites where buf_attr is a single-byte
+stack variable, e.g. rtw_get_wps_attr_content()'s callers passing
+WPS_ATTR_SELECTED_REGISTRAR into a stack "u8 sr"/"u8
+selected_registrar" (drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c,
+drivers/staging/rtl8723bs/core/rtw_mlme_ext.c). A crafted WPS IE in a
+beacon or probe response processed during scanning can therefore
+smash the stack of the parsing thread.
 
+rtw_get_wps_attr_content() itself has no independent length check
+and simply trusts the attr_len it gets back from rtw_get_wps_attr(),
+so fixing the bound here also fixes that caller.
+
+The "attr_ptr + 4 > wps_ie + wps_ielen" header check above was added
+by commit 1463ca3ec6601 ("staging: rtl8723bs: fix OOB reads in
+rtw_get_sec_ie(), rtw_get_wapi_ie(), and rtw_get_wps_attr()"), which
+bounded the fixed header but never extended the check to cover the
+variable-length attribute data that follows it. Add that missing
+check before attr_len is used as a memcpy() length or accepted as a
+match.
+
+Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+ drivers/staging/rtl8723bs/core/rtw_ieee80211.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+index 2fb5863dbeef..be374d222c55 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
++++ b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+@@ -733,6 +733,10 @@ u8 *rtw_get_wps_attr(u8 *wps_ie, uint wps_ielen, u16 target_attr_id, u8 *buf_att
+ 		u16 attr_data_len = get_unaligned_be16(attr_ptr + 2);
+ 		u16 attr_len = attr_data_len + 4;
+ 
++		/* Reject attributes whose claimed length runs past the IE */
++		if (attr_ptr + attr_len > wps_ie + wps_ielen)
++			break;
++
+ 		if (attr_id == target_attr_id) {
+ 			target_attr_ptr = attr_ptr;
+ 
 -- 
 2.55.0
 
