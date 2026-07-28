@@ -1,91 +1,110 @@
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B7D42DFF5;
-	Tue, 28 Jul 2026 11:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1FA42BE8A;
+	Tue, 28 Jul 2026 12:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785239990; cv=none; b=En3KlD2uL+zUwW+z3VSJvTA+E6rmD9a0srf5EIRA81dzARnM1Mb9Hw/LFSMHi+tTuBYpmI0dC1cqqYV0YPvSzSnqPjXtCV4OI2IFWfOYdnqJIj3UWxk1hOhAGaFm6ckB0WJOV9KjoT9AKpiGWKNSORA+d+Kh5BA7eWG9OBB66PE=
+	t=1785240372; cv=none; b=YGOF1fxuXg3Vn5UwPBTAYk3hfXS3E5T0ea8sk1THa6evyuxoz4dH6KZMDNdiXvm+9CHM1iYQHds2wFPDr27tgEIHiy6BQf4MDf1lHAaRmCvOlcRUnsSBSuFHzthzGde9HLxekTz3RjpekvZRVTkAR/X2E7aY3Z/geGn8q/4Eiww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785239990; c=relaxed/simple;
-	bh=lHRTwriL95Pr9/wHIGFYRtPnyduJsP68/G4xDpZNW6M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SzFKI2Vjp7ejnS55/Gf874YDM/e2DGB00evN0kUzfPLkss1p4FAXORSefdttbBSecfjQee0Dl7kyEz0dKJXNuwIVPzhcORotOqZ+nLjqGI/jPoiZUvDZGL18HOLPn9hV1sHIaB3rTRTaCee3gLJe/MG9xW0AslpxnxhgfayyLiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=fADgfQZR; arc=none smtp.client-ip=157.90.84.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
+	s=arc-20240116; t=1785240372; c=relaxed/simple;
+	bh=1iRX8kwEWPFZ/gPBRMQWQ6bqUokZs9NDs71srGyCKHM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VZh+W3tUZ/n+8FK2tqRMxj1h8AERxuEjaO8A+bcBg15GsOtyHkFWhe8QXCgmo1Y/A6bSzoeYh+/6e56D+6DrjME7cXoafRPz2glhTLZvsLHEL0WwKzzB16UjbJHCdU2VkfwOMpp9Krw6ou3hJSEXtqXTVf4oATjDtrzemxnzU64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oq88gclT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="fADgfQZR"
-Received: from aerhardt-tuxedo.buero.augsburg.tuxedo.de (business-24-134-105-141.pool2.vodafone-ip.de [24.134.105.141])
-	(Authenticated sender: a.erhardt@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 150A52FC007C;
-	Tue, 28 Jul 2026 13:59:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1785239981;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Vg1DleA7vpCyTm+joNWGDMumyeZJh2BUHdIbGtwOYzU=;
-	b=fADgfQZRSkeB70QIDnRtOul9fpGAjYtgKFXGxKFGz+vcGn8vPqp8cGvc0iIAsuS72yfS6G
-	vjrECXRV+uRbYfch+E2Qj9qr4MIbt+lk/c8g/556yEZMDGI2vibdkQ9VKg/Lpqi/dbT2pa
-	Z902LQuh/BuS+3XD4gY1zuq5vI1K7x8=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
-From: Aaron Erhardt <aer@tuxedocomputers.com>
-To: wse@tuxedocomputers.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: stable@vger.kernel.org,
-	Aaron Erhardt <aer@tuxedocomputers.com>,
-	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org
-Subject: [PATCH 4/6] platform/x86/tuxedo: Fix keyboard LED map ordering
-Date: Tue, 28 Jul 2026 13:59:38 +0200
-Message-ID: <20260728115938.125444-1-aer@tuxedocomputers.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oq88gclT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7DE91F000E9;
+	Tue, 28 Jul 2026 12:06:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785240371;
+	bh=utjVBhbZuqYLFro69FeNoLP7coVedkrv95kY4LIv95s=;
+	h=From:Subject:Date:To:Cc;
+	b=Oq88gclT4KvJyLnpoLcLM/OQkXLQRJTwu08ZSLC1AERu8MUMHfYCOwEy0yhXqTwGr
+	 3hhunOZcngO3vhYrNPohYMXXH2TLCDMQ5JGf+jEX3rsQH+yl/MAkKg91ZTIZSreEvQ
+	 DcXOQi964ll7aS8TlZDOtjWCtjpPPV6Oksjnzyx+a/jFHqSPkg7QU4gslj+XVGn+4j
+	 pnX3IS+r2cxUwKbgC9lfq/jibv3kI81cTH16KJgHp/tp8GJAkCBdr1xhpgXApDPms5
+	 U/CK1Bo7mouAzyrvi14Un5LQ0147KATZc82A99nUYKMSgEgeA1mnBv5vbAW8R7kBSq
+	 VeG7Oi8U0CXEg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH mm-hotfixes 0/2] mm/huge_memory: fix huge_zero_pfn race
+Date: Tue, 28 Jul 2026 13:05:43 +0100
+Message-Id: <20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABebaGoC/yWMywqDMBBFf0Vm3YGYllr6K9KFiRMzgonkUaTiv
+ 3dal4d77tkhU2LK8Gx2SPTmzDEItJcGrB/CRMijMGil76rTD3S8YSJnYw2FRvRVlA+liLq1RnX
+ m5oYrgdxXsXj7p3tYFvSxnPw6x1zNTLb84nAcX22LjvuJAAAA
+X-Change-ID: 20260728-fix-refcounted-huge-zero-21cb07b4fa3e
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Pankaj Raghav <p.raghav@samsung.com>, 
+ Hannes Reinecke <hare@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Yang Shi <shy828301@gmail.com>, Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Hengbin Zhang <uqbarz@gmail.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1751; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=1iRX8kwEWPFZ/gPBRMQWQ6bqUokZs9NDs71srGyCKHM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIyZiv5P81KUQzfX27YtHf1/kXnIp7xOkfoOL5L/9Wyz
+ 4Hn91bnjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkvDUjQ0vRRakf3DnuqvVW
+ K3j0zr59z7+iyskxpIDD/kVL9empbxkZji1Z6rcjmc38r8dTD6F2zwU1y5n5TjTJ/blWY6D8uDa
+ IFwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The LED mappings in sirius_16_[iso|ansii]_kbl_map did contain a
-flipped line that caused LEDs to turn on in the wrong order when
-counting up the Lamp ID.
+There is a subtle race in the reference-counted huge_zero_folio
+implementation.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+The fast path atomic logic fails to account for the fact that the
+shrinker (which drops the final huge_zero_refcount pin) can overwrite
+huge_zero_pfn with the ~0UL sentinel value in shrink_huge_zero_folio_scan()
+after a racing get_huge_zero_folio() installed a valid value there.
+
+This results in huge_zero_folio being correctly set but huge_zero_pfn being
+set incorrectly and thus is_huge_zero_pfn() and consequently
+is_huge_zero_pmd() will misidentify the huge zero folio as being an
+ordinary THP folio.
+
+This can result in the huge zero folio being split and otherwise treated
+incorrectly.
+
+The solution to this is very subtle as there is an atomic fast path, and
+thus ordering in weakly ordered architectures has to be treated very
+carefully.
+
+As a result, this series first reworks the
+CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic so it is separated from the
+refcounted code in order to make the subsequent fix reasonably
+understandable.
+
+The second commit fixes the issue by introducing a spinlock around
+huge_zero_[pfn, folio, refcount] write, with careful consideration paid to
+load/store ordering in the fast path.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Lorenzo Stoakes (ARM) (2):
+      mm/huge_memory: separate out CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic
+      mm/huge_memory: fix huge_zero_pfn race
 
-diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
-index 8f1ffca0430d..2b985b030197 100644
---- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
-+++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
-@@ -232,8 +232,8 @@ static const struct tux_kbl_map_entry_t sirius_16_ansii_kbl_map[] = {
- 	{ 0x2e, { 246000,  67500, 5250 } },
- 	{ 0x2a, { 269500,  67500, 5250 } },
- 	{ 0x53, { 294500,  67500, 5250 } },
--	{ 0x55, { 311200,  67500, 5250 } },
--	{ 0x54, { 327900,  67500, 5250 } },
-+	{ 0x54, { 311200,  67500, 5250 } },
-+	{ 0x55, { 327900,  67500, 5250 } },
- 	{ 0x56, { 344600,  67500, 5250 } },
- 	{ 0x2b, {  31000,  85500, 5500 } },
- 	{ 0x14, {  51500,  85500, 5500 } },
-@@ -337,8 +337,8 @@ static const struct tux_kbl_map_entry_t sirius_16_iso_kbl_map[] = {
- 	{ 0x2e, { 246000,  67500, 5250 } },
- 	{ 0x2a, { 269500,  67500, 5250 } },
- 	{ 0x53, { 294500,  67500, 5250 } },
--	{ 0x55, { 311200,  67500, 5250 } },
--	{ 0x54, { 327900,  67500, 5250 } },
-+	{ 0x54, { 311200,  67500, 5250 } },
-+	{ 0x55, { 327900,  67500, 5250 } },
- 	{ 0x56, { 344600,  67500, 5250 } },
- 	{ 0x2b, {  31000,  85500, 5500 } },
- 	{ 0x14, {  51500,  85500, 5500 } },
+ mm/huge_memory.c | 189 ++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 116 insertions(+), 73 deletions(-)
+---
+base-commit: 5db85e34ec49beee590676d55f13e8e2b14c742f
+change-id: 20260728-fix-refcounted-huge-zero-21cb07b4fa3e
+
+Cheers,
 -- 
-2.43.0
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
