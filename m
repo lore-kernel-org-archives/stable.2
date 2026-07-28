@@ -1,106 +1,102 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B76B3A759C
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 22:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785276831; cv=pass; b=e7CgRxiDGBYky2YswNbcV/kxC0DU1kABCGDdEf0GBCl/Vlh0yPAtVWODjJj8V1xU/vc1y0h089+kQW6nAIbJZUWRMbqus5+ymuPvii4svxdnKMpEsvQLzu5df48y5s+YD0eGkYeBFWguPiCx30iDzC+Un1vedLf2oIXSWThGsHs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785276831; c=relaxed/simple;
-	bh=PdyAMPZcjTLVXK+xekpz5J6Po7FfoLTjxMEj3fsYdpI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=inOyFuB3ACwxHiE9hrFhj/G4SphkNbefkzd4IaJlocZZUJpx81XYFIiTMCRZirMcXBZu/lr4W0FVox4zm+eaxB9Epy39GE9+B5WMPWSz8LttESWp4+plcDSU1zxHWRK0d/XY5Gb0oTFOavTDGSZCPq476a0MTa1WJzpkkXbczK8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juliahub.com; spf=pass smtp.mailfrom=juliahub.com; dkim=pass (2048-bit key) header.d=juliahub.com header.i=@juliahub.com header.b=Q4hqhKa5; arc=pass smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juliahub.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=juliahub.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABE73AEB5F
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 22:17:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785277062; cv=none; b=UTCdsbeExetG4q9zYSLvGDG44gTh0gbqYTKAUHj1UAThv0uyvwRsJYAcpPobKjKyRhmCLYW8RTJNCs+QVIcUefhy5h3Xmh7kI7IJBkLTlgFr+874aQ6E19bNxHUmIVXpOSd9QpHIivOhX52gsW+g4wLUiUqlN5HC6R7vfiwdP6M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785277062; c=relaxed/simple;
+	bh=qAcuvNuBoRJ4U1f2XKunYqGrEbkPDeeBh4RNnoHBSuY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HHBAA1IBc9e71uszrQufP7Mk/REuQWaEnCjlQCmd7m2VxfkUlO3caTmzEUUzyK9Z2MDZb+/mRVDVtvddrSlAsBW6P1k62oijMIsoZfKkMcQm+tIsA+v8oug9Bs+7zrzDot3d3CbpZaRtIUtTbNYr4uypmJpz+nan4SzmJ6Jnj40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fl5gnq24; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=juliahub.com header.i=@juliahub.com header.b="Q4hqhKa5"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-92f03daaa97so25999285a.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:13:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785276829; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rqcZs99pQwThyGZ+Hq4Lv6QqMpVdxD1rqTXyuBpRWIhJMXZLvx7i913Pgat96tHXEd
-         U6H6vHrWdi+iwU/H6R7WTj9Ba/GP5gWTVgt9GgzsosVxEvMra0JMtjrI5gNdpKEJ7iKC
-         bMzJLyeEJlKk7skJDTajC8I65D+Km8FpG0NOCl7jh0MudQlVq3QL4ZnwQQ/okjQ0tKZ9
-         5gNvfjWKRPltHfK8rTJe1uMfEbb9sVqEvho3yV83G2VL1wDfaAp/LqurNCeQ+tSnStKb
-         bC49bInDwr416Pbzu3qpveBxJRsswLjdOQCVwIFH8Yo7p8ftgHhr0PIUc3HbfeYJvLW+
-         5TQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PdyAMPZcjTLVXK+xekpz5J6Po7FfoLTjxMEj3fsYdpI=;
-        fh=zlWRh+HOMgTA60YycDZmzY4SXQ4ix2U6wCfb/KProFA=;
-        b=ea1qBi0Usn8qx6JRDuWDEGJB/NdWAZ54NW7gmjDDUKyD+KQVFCuxu7QBaSscSLTZKr
-         9svgnq12V3hKNfuD+flcawkq3ZVo6wFlCgNDk9CZq5LOQBU5d9z7qCmW6DuhvQCxV7YE
-         s1qK/GDWC5bOM//G6j05oPOzSQNh2QgKK0oc6i+4Q2/MrpltgwStOJOq01Zz/VWvtZbv
-         nUf6uoUPSUnvGFaDljacB9H7FpErbMCJMJUlVYT7Ar41AupJ83zTk0EN50CBno9ZCDxi
-         gugp/4e7MvUNLJz0q0YYmC35Kk3l36CpGToaEDzv2KmUN/T8/jf6SIDsU9P2tNqrUKmb
-         O7kA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=juliahub.com; s=google; t=1785276829; x=1785881629; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PdyAMPZcjTLVXK+xekpz5J6Po7FfoLTjxMEj3fsYdpI=;
-        b=Q4hqhKa5nsENc7pxlElMbS8QypOa2heXa8OWZN7vWjxQNTR1X6pQMw1PT9Rw5tFf4o
-         P6HSkeLmsC2pWiXSzGqcY56ok9j6R3ALD9inPgiVd6B+iP5czxhdSWqSJgDn/Wn/Kc8Q
-         ejOANVxsWbttsc4p5wOXpvdjQzaa1EOGkfkDsIaUr7T2ItlVjysqCBP2Kp6XTuc67kFR
-         IupRJEVyii1tUTe+5IyZkFC4bIl1hIXSiMHcqfwL/RuL6vhDqG8lWAHpIKW8jHlGtS5n
-         htrXjg7vnFX8fcKBiZgQ0jlxkPvGckNRKxJk8RXOimw/aZZSha0ZKHwDaeT8OvZWJ6ae
-         CiMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785276829; x=1785881629;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PdyAMPZcjTLVXK+xekpz5J6Po7FfoLTjxMEj3fsYdpI=;
-        b=qvQgRSQaozwSTBO1i7huCGllaV8X/YidH+MXq4KCNNdcOHQyJy06OyUsnKb7Xhh72B
-         ZLYX5tKcpMjfcDFzjOTUTvb58jWbILYifoFpKoMcIX7+FWNUCLrhnE5DNzu16x29WW7a
-         YVtS2eq/JoTLnoJHNdGsspxMHNQ81P1w9CPAFzZ9p9DArXfLgma3VhWc7X0SBP8GbsD0
-         wg66psa4f+WYXm4+ZEgxiCT4DOju7xuIeNCaEmMQJXxQBTfr2iNPd4xWeL1Maq8QIGfj
-         +aGj3Wrf36jJdee9TMMz8h28EG8UdUH0DNLikKEiq03iDL2q9b8jQyoU6lDUgpmqV4l6
-         rWjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpjitSOLrIhYbBYLwS2Yb7LvzL9GLubMm6819QVM2DN0AaYuKCXhURkuPdEmuTExapX6Av+AUY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOY1pW47al5kTYbMsCVLSI1Vr1A2HuoOYfIRzpwniVJ6wQAUwZ
-	epXn8BzoncLEn82BjJC/GaxO7MUilGmIlBKpcf4UschwGbc0jCPM5QSxo4Zs1ankdW8BLr203vq
-	Wo/24FStBi0unB+PmBmUKf/Z07sb9VRtMsyj7I9IZYA==
-X-Gm-Gg: AR+sD11Lhwfz0BlhzU/RxT6NXLWEcV15sKJKXR1mjHN13odRHtp49TXZ8R50/JV7ApB
-	cddi4LEo+4MgHuTvxHbRiiNkroYB6Ma6I61eemlHu371laodyNnHfQ4MQLl7BwxARYXp5HfOtMr
-	xOEeAva15x6hkSItmOJe0pi0O4bqdlI+QDOuKR+0qYAs6mrGLARTJ73okfhwbqbObHA/3y6fAXM
-	KDY+jn3ZKKn6ziAZs8zKwirxmBy02U34Ankmkp3fNu6xg6ZH7E3e14i1abMfnyVVI3CeyytR17i
-	rf0mte3H+1q2ju7ggQ==
-X-Received: by 2002:a05:620a:454d:b0:930:dd1a:5675 with SMTP id
- af79cd13be357-93302774085mr419024785a.55.1785276829036; Tue, 28 Jul 2026
- 15:13:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fl5gnq24"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439DD1F000E9;
+	Tue, 28 Jul 2026 22:17:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785277060;
+	bh=7tFqCHXOwrOAXubGC4eoNoExD1NRwViTqqQNEJzzmvo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Fl5gnq242MIZbRdbiGzACAey4lL2iI8CQTNvb0vqpZHZGHSWDz0l3waHN9kkMPDJ/
+	 KpQB1TfthiJbmYQypae8iZ/eNt1SBglFt67J3+9/B8hZCMwRY8iozqosjtr9Yq9P63
+	 RRTiyorLT1gA88o1i7a7WQ7nbQMjj4ZqtwOoSjd0tmqfaZsIxoqQe6Mr0/b6a4f4PC
+	 MWXYxKfr3WHHE8/N3Rgi43EUuHGW3r8Yv6TQPmJIODSeedodCXMlo6PKIH+JyO4hYh
+	 84im/fV2a3iNljq5vl1/oJDAF0j5dI0vknFas768bzZGxIF+s0Jyhi/tVTEyKhQc//
+	 F72lS1PD1ygFQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Kurt Kanzenbach <kurt@linutronix.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] net/sched: taprio: avoid calling child->ops->dequeue(child) twice
+Date: Tue, 28 Jul 2026 18:17:37 -0400
+Message-ID: <20260728221738.745743-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072146-reclusive-rocky-a67e@gregkh>
+References: <2026072146-reclusive-rocky-a67e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CABV8kRwvex1VvQ0eGwUQmJL_vA7AP2h64VpHqtXvfOXMvvJQZA@mail.gmail.com>
- <87ik5yhisv.ffs@fw13>
-In-Reply-To: <87ik5yhisv.ffs@fw13>
-From: Keno Fischer <keno@juliahub.com>
-Date: Tue, 28 Jul 2026 18:13:10 -0400
-X-Gm-Features: AUfX_myxlfo16wijUL0CzrEYDZWU7MhN8Sv4sOvn8r6nlCr_qWsmzE8xGEFy8kk
-Message-ID: <CABV8kRwf=WA-O_+NtEx2N38wO4qLJA7YBfDh1Ds88Et9hxjqXA@mail.gmail.com>
-Subject: Re: [PATCH] futex: Prevent robust futex exit race more
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, 
-	=?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
-	Yang Tao <yang.tao172@zte.com.cn>, Yi Wang <wang.yi59@zte.com.cn>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 28, 2026 at 6:05=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> w=
-rote:
-> Seems your mail client mangled the patch. See:
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-Yeah, sorry about that, I've fixed that since. Gmail is a huge pain here.
+[ Upstream commit 4c22942734f0814d3c928c25a80f48df0a6ce45e ]
+
+Simplify taprio_dequeue_from_txq() by noticing that we can goto one call
+earlier than the previous skb_found label. This is possible because
+we've unified the treatment of the child->ops->dequeue(child) return
+call, we always try other TXQs now, instead of abandoning the root
+dequeue completely if we failed in the peek() case.
+
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: e056e1dfcddc ("net/sched: sch_taprio: Replace direct dequeue call with peek and qdisc_dequeue_peeked")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sched/sch_taprio.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/net/sched/sch_taprio.c b/net/sched/sch_taprio.c
+index 50f430280337da..237e4a16a0e505 100644
+--- a/net/sched/sch_taprio.c
++++ b/net/sched/sch_taprio.c
+@@ -559,12 +559,8 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
+ 	if (unlikely(!child))
+ 		return NULL;
+ 
+-	if (TXTIME_ASSIST_IS_ENABLED(q->flags)) {
+-		skb = child->ops->dequeue(child);
+-		if (!skb)
+-			return NULL;
+-		goto skb_found;
+-	}
++	if (TXTIME_ASSIST_IS_ENABLED(q->flags))
++		goto skip_peek_checks;
+ 
+ 	skb = child->ops->peek(child);
+ 	if (!skb)
+@@ -591,11 +587,11 @@ static struct sk_buff *taprio_dequeue_from_txq(struct Qdisc *sch, int txq,
+ 	    atomic_sub_return(len, &entry->budget) < 0)
+ 		return NULL;
+ 
++skip_peek_checks:
+ 	skb = child->ops->dequeue(child);
+ 	if (unlikely(!skb))
+ 		return NULL;
+ 
+-skb_found:
+ 	qdisc_bstats_update(sch, skb);
+ 	qdisc_qstats_backlog_dec(sch, skb);
+ 	sch->q.qlen--;
+-- 
+2.53.0
+
