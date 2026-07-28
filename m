@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0115E3A7F48
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 12:11:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D69D42BE9E
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 12:11:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785240691; cv=none; b=jKNAsCXIYYAneOg7xjicYvh+Iv1GkvrUl41jFXEsXKf/JfwjJY1YOUZvlnIo4d1nw4+ZJPmcrUxCoc09PsA2FU2/wLqnmAwO4e9E4W9vbCI+vv55eZw1k+q3G5ICIjJSHH+VpVzzd8grM4Sy8krXIJmFN6MyHyKtcC90uxSxlSc=
+	t=1785240694; cv=none; b=XQbFr54F7QQrC+p8yydh32sSGPZs8pM4MCzIBlvnamLBIY01HBbXSQH2O3HOtQ+BOWywBGVaXEIcL60XoQ7IKVGCEztEW72nWT9GUFTlfa3v1HWCdMemtmnGdVWSFVWs6dfkg1dirGKW7vEOsIBncyw1MG+gDfg1IGUVqCmjPT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785240691; c=relaxed/simple;
-	bh=uzymme1Pmsuxp7BPtK9dF4xWQnmxVdu2/CyD1JsN6xU=;
+	s=arc-20240116; t=1785240694; c=relaxed/simple;
+	bh=kNvmRbXPmXJoIxjob9xKXiAbnqNNoJEqfP7WraU1YeI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L3dnOm3g+oSrBQMCbOX4/WnH5k2+6MFUlR56HGeNpx9xFFdr3ULLig2zj94Tf2YKBjVStS1xramXAWN5NV7bwA30uSGYkFif5wtZPrAC6BdoOPxCQ5IFG4IAO/3hJfbaxTLb6ICeB7K/Do1KUCwjYFEmURq8u8qWXm/l+TaLP6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mTov5A5t; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=V41/BuhNWnP/jZtnyIGh3hSxP6acYWeFk2v5+otharCfz8XCeST4vABMp8VBz6ZGajf6a/GLu3v3LDyMaKK+PSqyT2OUxKjp4p4uMoqqVxgpaZs/XhHNCIDmjolrjBpRlGmtlT9L6j0rU9f/hE354XWeyGD1fNwiTTnlRrPPmmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MlP+L79l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mTov5A5t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9C11F00A3D;
-	Tue, 28 Jul 2026 12:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MlP+L79l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62C81F000E9;
+	Tue, 28 Jul 2026 12:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785240688;
-	bh=tDA3SIv0bmeMotf/IEZRmFeA2ye0UgDANwHET8V7MWY=;
+	s=k20260515; t=1785240693;
+	bh=RRbNqj467tmK+aOp7qv1gDpxOL9AhbOBbnNL6zSAz3w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mTov5A5tUhTYx30azd7rHrIEB4y+/5YQSJZ3/L6S+GVrx23B36zIO1/KYGWCFcpxg
-	 r1eIcmv7iuP4YWzI3LNS2IbsaNh1gg3pVh+Alv9hZ+eUxeV2kcxdcfjaoXGsNp+XG7
-	 /vlmODDi7KwOqe6FCqe3A7JT/C4c14ibHOfxrATUH731nAUARFqRsHHobtks7mXNra
-	 zb+bgvCoYHhRHMDasUufYu052U8FhMDIxEx0njPvfAv5hvR54zAhJqGILLMHU8SlRp
-	 kENa+pyaKKmT0UHjHqOyBE70hxKPL71W8llasvrJEEW7MDOsLlsHXV1W5vFIpDUwfa
-	 xRbmrMi/tDGkA==
+	b=MlP+L79lo0iTDcfx7njkduIIaDrljbLLk2T0ro0vsQsVndkYRAUY/3+gQkbArne7W
+	 F4oeLqn0UDSwT2uxFiPeniv9kSasO2zy1PcL+dcNVcIraNIwVTppfbBLYfSFHYkA7c
+	 QN6RvHgPzzyLlACz03SGfskwG9GWI48R7k4zM08Lq6dw06bmSk4hgT/KLqzAkaRH2t
+	 /StuUMmv+esPVDqGDTUaV5ggClMacHZEKg21JcTU2S0lBKUdyCQ8K8vQSayi9hELpy
+	 8B0JApVzjbyUOsJSb+vktk/v54b0xLybS/OqlX1hrGxhCV+l9R2Z/mHPc9qh5J9Ug8
+	 oLSQeBHOgu6bw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+Cc: Dexuan Cui <decui@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] gpio: tegra: do not call pinctrl for GPIO direction
-Date: Tue, 28 Jul 2026 08:11:25 -0400
-Message-ID: <20260728121125.3703669-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] net: mana: Validate the packet length reported by the NIC
+Date: Tue, 28 Jul 2026 08:11:30 -0400
+Message-ID: <20260728121130.3704108-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728121125.3703669-1-sashal@kernel.org>
-References: <2026072047-produce-handgun-a695@gregkh>
- <20260728121125.3703669-1-sashal@kernel.org>
+In-Reply-To: <2026072000-concave-rut-73ca@gregkh>
+References: <2026072000-concave-rut-73ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,99 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Dexuan Cui <decui@microsoft.com>
 
-[ Upstream commit d3e91a95b2b0fc6336dbf3ec90d831a1654d2720 ]
+[ Upstream commit 2e2a83b4998af4384e677d3b2ac08565274279bf ]
 
-tegra_gpio_direction_input() and tegra_gpio_direction_output() already
-program the GPIO controller direction registers directly. The additional
-pinctrl_gpio_direction_input/output() calls do not add a Tegra pinctrl
-operation, because the Tegra pinmux ops provide GPIO request/free
-handling but no gpio_set_direction hook.
+Validate the packet length reported in the RX CQE before passing it
+to skb processing. The CQE is supplied by the NIC device and should
+not be blindly trusted.
 
-The extra call still enters the pinctrl core and takes pctldev->mutex.
-Shared GPIO users can call the direction path while holding their
-per-line spinlock, so this otherwise redundant pinctrl direction call can
-sleep in an atomic context.
-
-This was found by our static analysis tool and then confirmed by manual
-review of tegra_gpio_probe(), the Tegra GPIO direction callbacks and the
-Tegra pinctrl ops. The reviewed path has a default non-sleeping
-struct gpio_chip while the direction callback still enters the pinctrl
-mutex path.
-
-A directed runtime validation kept the same non-sleeping chip registration
-and drove:
-
-  gpio_shared_proxy_direction_output()
-  gpiod_direction_output_raw_commit()
-  tegra_gpio_direction_output()
-  pinctrl_gpio_direction_output()
-
-Lockdep reported a sleep-in-atomic warning with the shared GPIO spinlock
-held and pinctrl_get_device_gpio_range() plus tegra_gpio_direction_output()
-on the stack.
-
-Do not mark the whole chip as can_sleep to paper over this: can_sleep
-describes whether get()/set() may sleep, and Tegra value access is MMIO.
-Remove the redundant pinctrl direction calls and keep pinctrl involvement
-in the existing request/free path.
-
-Fixes: 11da90541283 ("gpio: tegra: Fix offset of pinctrl calls")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260619152439.1239561-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Signed-off-by: Dexuan Cui <decui@microsoft.com>
+Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
+Link: https://patch.msgid.link/20260702041237.617719-2-decui@microsoft.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-tegra.c | 18 ++----------------
- 1 file changed, 2 insertions(+), 16 deletions(-)
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpio/gpio-tegra.c b/drivers/gpio/gpio-tegra.c
-index 069ff5c33bd039..1846a2fb3b2eb6 100644
---- a/drivers/gpio/gpio-tegra.c
-+++ b/drivers/gpio/gpio-tegra.c
-@@ -174,18 +174,11 @@ static int tegra_gpio_direction_input(struct gpio_chip *chip,
- 				      unsigned int offset)
- {
- 	struct tegra_gpio_info *tgi = gpiochip_get_data(chip);
--	int ret;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index db1b8f965eeca4..4afcb202e35093 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -1249,6 +1249,19 @@ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
+ 	rxbuf_oob = &rxq->rx_oobs[curr];
+ 	WARN_ON_ONCE(rxbuf_oob->wqe_inf.wqe_size_in_bu != 1);
  
- 	tegra_gpio_mask_write(tgi, GPIO_MSK_OE(tgi, offset), offset, 0);
- 	tegra_gpio_enable(tgi, offset);
- 
--	ret = pinctrl_gpio_direction_input(chip, offset);
--	if (ret < 0)
--		dev_err(tgi->dev,
--			"Failed to set pinctrl input direction of GPIO %d: %d",
--			 chip->base + offset, ret);
--
--	return ret;
-+	return 0;
- }
- 
- static int tegra_gpio_direction_output(struct gpio_chip *chip,
-@@ -193,19 +186,12 @@ static int tegra_gpio_direction_output(struct gpio_chip *chip,
- 				       int value)
- {
- 	struct tegra_gpio_info *tgi = gpiochip_get_data(chip);
--	int ret;
- 
- 	tegra_gpio_set(chip, offset, value);
- 	tegra_gpio_mask_write(tgi, GPIO_MSK_OE(tgi, offset), offset, 1);
- 	tegra_gpio_enable(tgi, offset);
- 
--	ret = pinctrl_gpio_direction_output(chip, offset);
--	if (ret < 0)
--		dev_err(tgi->dev,
--			"Failed to set pinctrl output direction of GPIO %d: %d",
--			 chip->base + offset, ret);
--
--	return ret;
-+	return 0;
- }
- 
- static int tegra_gpio_get_direction(struct gpio_chip *chip,
++	if (unlikely(pktlen > rxq->datasize)) {
++		/* Increase it even if mana_rx_skb() isn't called. */
++		rxq->rx_cq.work_done++;
++
++		++ndev->stats.rx_dropped;
++		netdev_warn_once(ndev,
++				 "Dropped oversized RX packet: len=%u, datasize=%u\n",
++				 pktlen, rxq->datasize);
++
++		/* Reuse the RX buffer since rxbuf_oob is unchanged. */
++		goto drop;
++	}
++
+ 	/* Reuse XDP dropped page if available */
+ 	if (rxq->xdp_save_page) {
+ 		new_page = rxq->xdp_save_page;
 -- 
 2.53.0
 
