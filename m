@@ -1,84 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C370200110;
-	Tue, 28 Jul 2026 00:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A54D3BB57;
+	Tue, 28 Jul 2026 00:40:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785198966; cv=none; b=VJFWB1N6YwzMxWBjcU4Ypobbusj3vfveSdns/ausOM7dUMYlk2Z/L5AbpVTsAwDByR9/UzLkj+ql0fmuj2lwFadjKeT1URZ8Ku2ukg7Od+Vp5W7BAd2kwLWEqaQKf5zexPEl10lRvnDs7SJQ4Bu13CX0toE0G9cyUoazUj2Yw/A=
+	t=1785199227; cv=none; b=i9OJGwGj01GJNXA+4gquBn9kMt6vhro7+Vc8RCNrVproAFF8oWDP/0VCC3n1N2mYW0HUw5qVuCz0ABMVJGsWrCmrUnjG9guHeeqIfyIUNsGvYsdXHQXnfgQSIj7590oyiT2zCCsuwsJUc2cF2i9t5XaVmZl4uosgOY4Ng1V5ibc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785198966; c=relaxed/simple;
-	bh=QPOdIJFM5+gqsJNTJKDPuJe2JRIchTa06R95Lr9VRMw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EV1hFLAflwaE7+Z3x65prTUpbgAqE2L/6M+4pfJb6YNAFIioDAuGs05YVpM+aX84QjjgOKjlBU/Fyf6YKk+jgTSLPK7wQchPUr5iJNcxRPF8645ej3qMMDUX4DXCE2kXk3qniBMyI9ZYdTatTv+PEjn6kSPLeH4cSZ11zbGPYN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XLBZ/oic; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785199227; c=relaxed/simple;
+	bh=advwP7Tos0iJ9akCfY4Q0GxBD43sEPL00JWthZoSwGw=;
+	h=Date:To:From:Subject:Message-Id; b=gbd87+bTBncdYvqTnpW4wDSBbt+qwanmEGMH9wAAPMM08EtJaOGpAFIFzTboKQ39BEaG4ad9IDyqzU8HF16gzRXIHg2YDJsYPsE6yd2IX2fl3fFAX1kjIrjwYdFP3CSEqWXbXUqaDKLNJxQgUgP2ND03E3aOaL1dbaj/0K4AefU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=JOSHxGa/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XLBZ/oic"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6141F00A3D;
-	Tue, 28 Jul 2026 00:36:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785198964;
-	bh=Q7GzSgtlRyz2ngxN4KRjhOnkWPaLHutKlgMJ9ZVZIg0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XLBZ/oicuOKiUKFUy9oEn9+5EM5HS41Nr9ToN94IaS841Onl9Ab5+gKPvjxZczrHF
-	 gfdC+IR6BKSSHfVHGn8UAnaq/k27VtQy+D+Pb+CtsNDfOyGlab8E4o0v3h4+TXWJzY
-	 vYeCH1mBds7i32d/tEBeIi+CcrWg+8kPQXVg+90PRZBrzmBE7TwmjrpKdnXhUU43K4
-	 +IXsh0O3+Ggv3aBtAZSkScJAEgsUMx4uMulQv/WXkyg0aYArqZsFzWm/LScAr6BbgP
-	 Qxn9fmvuaE5SPB1u9kIe1W/tybKLuYqRi+hf5ZCCmqsFRGC6lRNAwFQuE4ra0EVqbQ
-	 etseNsEYU49mg==
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
-	Maxim Levitsky <mlevitsk@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yosry Ahmed <yosry@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v1 01/28] KVM: nSVM: Flush the TLB after forcefully leaving nested
-Date: Tue, 28 Jul 2026 00:35:30 +0000
-Message-ID: <20260728003557.1136583-2-yosry@kernel.org>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-In-Reply-To: <20260728003557.1136583-1-yosry@kernel.org>
-References: <20260728003557.1136583-1-yosry@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="JOSHxGa/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5441F000E9;
+	Tue, 28 Jul 2026 00:40:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785199225;
+	bh=OVE3TN6djSZuqxMO5+JH+snVGKKwkdtcVjpf+wARneM=;
+	h=Date:To:From:Subject;
+	b=JOSHxGa/mlCvL1GHhwK/lqvDDCL9xExi/kz6fcxxGbVATsl+kw6l+IM6dvDqQuJhw
+	 q5MyAdznLcLT+GzcnBz6WNn5mezxIbUiSzM+9HRedHk+8bwGoEbclsP8YsJyhYVJ1t
+	 3GJnNgZRpodDMsoA4prWQFFUSQKjGGiWdv/lCgLk=
+Date: Mon, 27 Jul 2026 17:40:25 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,liyouhong@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-ops-common-putback-folios-on-invalid-migrate-nid.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260728004025.8F5441F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-KVM flushes the TLB on nested VM-Enter and nested VM-Exit, but not when
-forcefully leaving nested. In this case, L2 TLB entries can leak into
-L1. Flush the TLB after forcefully exiting L2, similar to nested
-VM-Exits.
 
-Note that vmx_leave_nested() handles this correctly, as it reuses
-nested_vmx_vmexit(), which handles the necessary TLB flushes on an L2 ->
-L1 transition.
+The patch titled
+     Subject: mm/damon/ops-common: putback folios on invalid migrate nid
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-damon-ops-common-putback-folios-on-invalid-migrate-nid.patch
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-ops-common-putback-folios-on-invalid-migrate-nid.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: liyouhong <liyouhong@kylinos.cn>
+Subject: mm/damon/ops-common: putback folios on invalid migrate nid
+Date: Sun, 26 Jul 2026 09:48:15 +0800
+
+damon_pa_migrate() and damos_va_migrate() isolate folios into a local list
+and then call damon_migrate_pages().  When target_nid is invalid
+(including the scheme default NUMA_NO_NODE / -1), damon_migrate_pages()
+returns early without putting the folios back to the LRU.
+
+Callers then discard the list head while those folios remain isolated with
+an extra reference taken by folio_isolate_lru().  The pages stay off the
+LRU for as long as the mapping exists (anon active+inactive counts drop
+while RSS does not), and the leftover references can pin the pages after
+the mapping is gone.
+
+Put the folios back on the invalid-nid path so ignored migration requests
+still return them to the LRU.
+
+Link: https://lore.kernel.org/20260726014815.1280757-1-dayou5941@163.com
+Fixes: 7e6c3130690a ("mm/damon/ops-common: ignore migration request to invalid nodes")
+Assisted-by: Cursor:grok-4.5
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: liyouhong <liyouhong@kylinos.cn>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- arch/x86/kvm/svm/nested.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 5e3e280cd483e..75378feddb349 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1553,6 +1553,8 @@ void svm_leave_nested(struct kvm_vcpu *vcpu)
+ mm/damon/ops-common.c |    9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+--- a/mm/damon/ops-common.c~mm-damon-ops-common-putback-folios-on-invalid-migrate-nid
++++ a/mm/damon/ops-common.c
+@@ -392,8 +392,15 @@ unsigned long damon_migrate_pages(struct
+ 		return nr_migrated;
  
- 		svm_switch_vmcb(svm, &svm->vmcb01);
- 
-+		nested_svm_transition_tlb_flush(vcpu);
+ 	if (target_nid < 0 || target_nid >= MAX_NUMNODES ||
+-			!node_state(target_nid, N_MEMORY))
++			!node_state(target_nid, N_MEMORY)) {
++		while (!list_empty(folio_list)) {
++			struct folio *folio = lru_to_folio(folio_list);
 +
- 		nested_svm_uninit_mmu_context(vcpu);
- 		vmcb_mark_all_dirty(svm->vmcb);
++			list_del(&folio->lru);
++			folio_putback_lru(folio);
++		}
+ 		return nr_migrated;
++	}
  
--- 
-2.55.0.229.g6434b31f56-goog
+ 	noreclaim_flag = memalloc_noreclaim_save();
+ 
+_
+
+Patches currently in -mm which might be from liyouhong@kylinos.cn are
+
+mm-damon-ops-common-putback-folios-on-invalid-migrate-nid.patch
 
