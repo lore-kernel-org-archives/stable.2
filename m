@@ -1,44 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2FD43E9DF
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 13:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD91313E36;
+	Tue, 28 Jul 2026 13:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.38.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785245447; cv=none; b=OffctrHTiytTTGnPZhmC/7+CSPUV8PjDH219P4JqNIkIUPzLhlSplr05tSdqaBrvSIwHVP8ifEDYubfXvnv/UDc+9eIE1LYV3ECjnVPV3tYGXmw6Ddt+fX7NLBwxx/k/8LjrR7L+n3JoWMUt/Yv7NA9oSsaH4WF84iZIAqbtKTk=
+	t=1785245972; cv=none; b=Q9Ro17pwXtSPWXFO5ACghD3UsGsjOw0CWh9tj6xsvXNVUDypefUbW8GEuKwVSTAJ/UPwzESSIc/PNpTV94aFKXJWCl/12je1gfB2TW17ySSZCjw4OXTT83ybjg+ucCH9flilCS8ubDwxtfeVj6pFhcCxMMzMt6rcLMu6BjoDtvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785245447; c=relaxed/simple;
-	bh=gZ3y59z/VrRljvf7WP4oJhr8r/OVtZOqdky7iDA2B6Q=;
+	s=arc-20240116; t=1785245972; c=relaxed/simple;
+	bh=Nw8OJylIrP4aOEXuoQob6nceh71QQGwEfnaVAB0zTaQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nFiSWmsdciyMM1s8ae1hxjmMYpWSugFoJhlmpC7fPV3l2aBi8m3PW5x7q8HxqhIHfAApI86lj3jBPCyAujhNPX5BKR+XlprEjJP0p911WpZ+nHvYYkWHoAcM8cl1bl+EubcDW11zM45zDrbNqKuiBVfDajhqrkTdPD88F56Rj2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5i4XQng; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tCOml+tyhwrtpScbnCK6cgt4Vy+Y7JofR0qrF+3ifCbpnPkuvIrP8QL/bencQojJsmpqJziYZS38S5K4nm2qDt0sRNJFJdx0/l37rq8Z2Gx0dkb4FH/AesxXlGELkhoK2BgJS95VuIrivDBj0uI6zWpCNbTaFYug7ebQrOUFwRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de; spf=pass smtp.mailfrom=simonwunderlich.de; dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b=mT/Pa/eu; arc=none smtp.client-ip=23.88.38.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5i4XQng"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5C01F00A3F;
-	Tue, 28 Jul 2026 13:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785245440;
-	bh=NBJyQztEO2pbGflHEMHOt10js5UM0h30P1OMqb5oKxQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H5i4XQngwNddcBjpmHRQ5Rl8qk/enFy4vROLF/15FKNwHvnYk2o+Szbzv7JYpkCyu
-	 8lZ9DKwG8naz8uPsiQqx0N72j/I7uIaqnQb1X+N+f935SRKzldUtjyA18o6AzzxSSO
-	 rEA9fXDnzSMY4/DM3VvGEWpl2C+Ae8tbBvbqPboy9kyAJSQTN9S7lnmpIFrM0G2l9j
-	 80eD7vE9srVcJaMelWPqLol4UGvH0DiSA8gTb9aOQvIwwlN1qkwPC9p60HcPYriOVL
-	 oTCV6nGdqqGYffRFOX60oVNkp5oY6xq62znbK2IUgrPn1QGZCeKOjS9mSxjNYqiJlW
-	 nHIgWtgTOgXYQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Junrui Luo <moonafterrain@outlook.com>,
-	Yuhao Jiang <danisjiang@gmail.com>,
+	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.b="mT/Pa/eu"
+Received: from kero.packetmixer.de (p200300c59717ead808f168c97e5563A8.dip0.t-ipconnect.de [IPv6:2003:c5:9717:ead8:8f1:68c9:7e55:63a8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.simonwunderlich.de (Postfix) with ESMTPSA id 105EAFA03F;
+	Tue, 28 Jul 2026 15:39:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
+	s=09092022; t=1785245963;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2vllbLYv6d8CwbU44HFIDs9FVXkprfgf+3gzh7Lhk1M=;
+	b=mT/Pa/eu49EWPq83xTluHmLlHLS5qxM2SKjd47CFbiN13T+9j3HRc9dXhau54oVFO0h4nA
+	kzUEX3F74wkeIiQhW0UTrIpNErK+aWvxyQ4/p6dVuB5NSgE/1nPUybV8H3JFoSWRozDW+r
+	euUlzatxjw6qXxYbdxO5gK0htMM7cMC/kyh7Ox0wzcwNpo/ZIQHi7CkQQTSEJHAatbRpcN
+	yvZRQaW3rYt7SrL7/dwbaqNsGO9Ic6ZISq9X8O+BvNchg8JcuTEHZk1Owo2C0yjVAcjPhH
+	I8wC4VuroTt3MQzh98Dk9L/tLuJ2XBHoDoWrb050rI7n+4PaaX76rtmTuE7Iwg==
+From: Simon Wunderlich <sw@simonwunderlich.de>
+To: netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] octeontx2-af: cn10k: restrict VF LMTLINE sharing to its own PF
-Date: Tue, 28 Jul 2026 09:30:37 -0400
-Message-ID: <20260728133037.3965153-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728133037.3965153-1-sashal@kernel.org>
-References: <2026072017-removal-sequester-79b2@gregkh>
- <20260728133037.3965153-1-sashal@kernel.org>
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	b.a.t.m.a.n@lists.open-mesh.org,
+	Sven Eckelmann <sven@narfation.org>,
+	stable@vger.kernel.org,
+	Simon Wunderlich <sw@simonwunderlich.de>
+Subject: [PATCH net-next 05/15] batman-adv: fix TX priority extraction for BATADV_FORW_MCAST
+Date: Tue, 28 Jul 2026 15:39:08 +0200
+Message-ID: <20260728133918.643267-6-sw@simonwunderlich.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260728133918.643267-1-sw@simonwunderlich.de>
+References: <20260728133918.643267-1-sw@simonwunderlich.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +59,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Junrui Luo <moonafterrain@outlook.com>
+From: Sven Eckelmann <sven@narfation.org>
 
-[ Upstream commit 8cdcf3d2caacdee7ddd363705fb4d93b0c1a0915 ]
+batadv_mcast_forw_mode_by_count() pushs the skb->data for BATADV_FORW_MCAST
+forwarding via batadv_mcast_forw_mcsend(). But the
+batadv_skb_set_priority() expects the ethernet header directly before
+(skb->data + offset). With the moved skb->data, just some random data would
+be accessed to get the priority data.
 
-rvu_mbox_handler_lmtst_tbl_setup() uses req->base_pcifunc as a direct
-index into the LMT map table to read another function's LMTLINE
-physical base address and copy it into the caller's own LMT map table
-entry. The mailbox dispatcher authenticates req->hdr.pcifunc from the
-IRQ source, but req->base_pcifunc is a separate payload field and is
-not sanitized.
+Move the batadv_skb_set_priority() before the decision about the handling
+multicast packets and potential header modifications.
 
-Reject the request with -EPERM when a VF caller's base_pcifunc is not a
-valid function under its own PF. is_pf_func_valid() bounds the FUNC field
-to the PF's configured VF count, keeping the computed index inside the
-caller's own slot block.
-
-Fixes: 893ae97214c3 ("octeontx2-af: cn10k: Support configurable LMTST regions")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Link: https://patch.msgid.link/SYBPR01MB78811656934E713B77DA6CEDAFE62@SYBPR01MB7881.ausprd01.prod.outlook.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 90039133221e ("batman-adv: mcast: implement multicast packet generation")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ net/batman-adv/mesh-interface.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
-index d2163da28d18f0..fa4ea1258d29d5 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_cn10k.c
-@@ -178,6 +178,15 @@ int rvu_mbox_handler_lmtst_tbl_setup(struct rvu *rvu,
- 	 * pcifunc (will be the one who is calling this mailbox).
- 	 */
- 	if (req->base_pcifunc) {
-+		/* A VF is untrusted and must not redirect its LMTLINE to
-+		 * another PF's region, so confine VF callers to their own PF.
-+		 */
-+		if (is_vf(req->hdr.pcifunc) &&
-+		    (!is_pf_func_valid(rvu, req->base_pcifunc) ||
-+		     rvu_get_pf(rvu->pdev, req->hdr.pcifunc) !=
-+		     rvu_get_pf(rvu->pdev, req->base_pcifunc)))
-+			return -EPERM;
+diff --git a/net/batman-adv/mesh-interface.c b/net/batman-adv/mesh-interface.c
+index 1dc6cfae9e9ae..48bbb28d4576f 100644
+--- a/net/batman-adv/mesh-interface.c
++++ b/net/batman-adv/mesh-interface.c
+@@ -260,6 +260,8 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
+ 	if (batadv_compare_eth(ethhdr->h_dest, ectp_addr))
+ 		goto dropped;
+ 
++	batadv_skb_set_priority(skb, 0);
 +
- 		/* Calculating the LMT table index equivalent to primary
- 		 * pcifunc.
- 		 */
+ 	gw_mode = READ_ONCE(bat_priv->gw.mode);
+ 	if (is_multicast_ether_addr(ethhdr->h_dest)) {
+ 		/* if gw mode is off, broadcast every packet */
+@@ -293,6 +295,9 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
+ 
+ send:
+ 		if (do_bcast && !is_broadcast_ether_addr(ethhdr->h_dest)) {
++			/* WARNING batadv_mcast_forw_mode might add more headers
++			 * in front of the skb. and might even reallocate the skb
++			 */
+ 			forw_mode = batadv_mcast_forw_mode(bat_priv, skb, vid,
+ 							   &mcast_is_routable);
+ 			switch (forw_mode) {
+@@ -310,8 +315,6 @@ static netdev_tx_t batadv_interface_tx(struct sk_buff *skb,
+ 		}
+ 	}
+ 
+-	batadv_skb_set_priority(skb, 0);
+-
+ 	/* ethernet packet should be broadcasted */
+ 	if (do_bcast) {
+ 		primary_if = batadv_primary_if_get_selected(bat_priv);
 -- 
-2.53.0
+2.47.3
 
