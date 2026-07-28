@@ -1,100 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2542BEC27;
-	Tue, 28 Jul 2026 14:46:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44CC25E469;
+	Tue, 28 Jul 2026 14:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785250004; cv=none; b=MC/++84z/loT06V1kLki7LtWJRArsDVMqMEeJIT6zfiziFccCMwOG/lBFBZoTrVJJxHdr4cGYFriio5z1vPQMMQfpmTi5owK3BteuZ1xDmsJwLySyOf69DWMFd+QieVNIPYOLIV8fcJ+07L0htKUutpjTSSt58e+2NZPYdWT+cw=
+	t=1785250027; cv=none; b=DJAErv1YW/oM43Qx4sD3MzWuhVt0XAOVvOqP3iKABicxEWmgkm5eOFppkQwklyxNKHWgcWqxw5BJehP7EFpA4/gbvafkImpR8pMuGzobu+CKh+NkFkXH8OPCDq4Z8uNLTZLzBHp8YoLieMZmOxrt4e4PfgHY7+JMxVHSAef3+vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785250004; c=relaxed/simple;
-	bh=O6TzO3WCmWfJbSDCufatOXOyugJ1dH3fpBukvM6eJq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pXH60wiJVJGxnlz8SSlG5LbBRItd+w1xPh19H2tE2v2DrpoNim2bH/udTIVC1v4ns700Oq+mPtVJRxwA6AtpmhM6OnMzN4eqePC0cE+5TBcHZgKyMhAkhV8G7wQqigTnO2GY2uRk0tTsY21SkAcjk00d/RygLL5oPw4BKll7Qgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IcLhbjoi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785250027; c=relaxed/simple;
+	bh=GDlALHpSYvMVS3esr38VHv/LWHesNAL37zDP1ToS0Eo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R3KpUHuxqURk0p73WUK0aai7z6hKxidJ+YXzwSPvTlgop+M9eamJNRRIez0hCThwYBPeEw8pF0xpkFf3QlaYK6uXgDqOSjABaVUdE4pOgY739NOtA4oKGINm2Ry5TKt0EaWOnjEg72i14SiSutSVJ5l+2c5CHVcn2UhyEFGzmDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=dOyN0lfv; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IcLhbjoi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EB901F000E9;
-	Tue, 28 Jul 2026 14:46:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785250002;
-	bh=OHMN8cA8fITPlPJWm1+s1dgIvNUxrIp2dw8vHkotxoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IcLhbjoifecXqh6wJXtKrMKtUKA7SHBfbvqA+CIeIbTdnLpLzptuCxCC2vw2VlrHG
-	 yPtd1sj5tRxEBE2k3LKb2mnZfdeVzetU0cKtHmQHwAq2NTGvUBLsrfk9hE4MpGsZxu
-	 jErf6p5eZT+qPe9vZo/c6m5IsiEFu8tUlStFHa4yZYfXl+elMs/hPhcERHRIUeVIte
-	 Jz7P4a3kTkkEn3Ok81eal3HUI+qmg1EZ4mjrMm7Qa2p+6/JE0GVKrFRTUYORDWuL/I
-	 a9OfJ0A5++kgn5ZPHOv0DMq5A2UAR4Hl7KamuopGcI/0TyF6d2017I+PmJUeQ8qGBN
-	 qbNWfIrlAef+Q==
-Date: Tue, 28 Jul 2026 17:46:30 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Dave Hansen <dave.hansen@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	David CARLIER <devnexen@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH 1/5] x86/mm/pat: introcude cpa_lock() and cpa_unlock()
-Message-ID: <amjAxhL-IeeJITEv@kernel.org>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
- <20260728142108.GW751831@noisy.programming.kicks-ass.net>
- <adfffb36-9943-4af7-a0ee-0e762e47fa11@intel.com>
- <20260728143135.GG651302@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="dOyN0lfv"
+Received: from [192.168.178.102] (pd9fb98ab.dip0.t-ipconnect.de [217.251.152.171])
+	(Authenticated sender: a.erhardt@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 86ADC2FC0079;
+	Tue, 28 Jul 2026 16:46:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1785250019;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sT6CbhRkcg1e9pX5FPp/IPdht09tHunh0WoTtem+JSI=;
+	b=dOyN0lfv7yq8986YwwCYMxm763MtcGIdTsl34GoLr49jCdQa7AhzeGbnbgWfq3BZDyi3AA
+	6vY/niNyCISifWwdqSOsAdjRH/oStrk2S8aWRsbZSV3PbaKao7op3GRhr6hr8GfknX1GR/
+	DywEjL1dItJIH8ZuafrfbvwEKPN9muU=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
+Message-ID: <cd0f5c3a-73b9-4954-94b3-27818b4c9664@tuxedocomputers.com>
+Date: Tue, 28 Jul 2026 16:46:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728143135.GG651302@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] platform/x86/tuxedo: Fix keyboard LED map ordering
+To: wse@tuxedocomputers.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com
+Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org
+References: <20260728115938.125444-1-aer@tuxedocomputers.com>
+Content-Language: en-US
+From: Aaron Erhardt <aer@tuxedocomputers.com>
+In-Reply-To: <20260728115938.125444-1-aer@tuxedocomputers.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 28, 2026 at 04:31:35PM +0200, Peter Zijlstra wrote:
-> On Tue, Jul 28, 2026 at 07:30:27AM -0700, Dave Hansen wrote:
-> > On 7/28/26 07:21, Peter Zijlstra wrote:
-> > > There was already a patch merged that removed the shole debug_pagealloc
-> > > exception. Is that not better?
-> > 
-> > As I'm scanning through email this morning, there's another issue that
-> > popped up with that patch. It's causing hangs on boot.
-> > 
-> > It's looking like debug pagealloc not taking the lock is actually
-> > functional, not an optimization. Although, I hesitate to say
-> > "functional" and would prefer to use much less nice words to describe it.
+This patch was sent directly to stable by accident, separate from the rest of the patch series.
+
+Please ignore it. It will come with v2 or a later revisions of the series through master.
+
+Sorry for the inconvenience.
+
+Best regards
+Aaron
+
+Am 28.07.26 um 13:59 schrieb Aaron Erhardt:
+> The LED mappings in sirius_16_[iso|ansii]_kbl_map did contain a
+> flipped line that caused LEDs to turn on in the wrong order when
+> counting up the Lamp ID.
 > 
-> Yeah, lets figure out why that is before we retain this wart ;-)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+> ---
+>  drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> index 8f1ffca0430d..2b985b030197 100644
+> --- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> +++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> @@ -232,8 +232,8 @@ static const struct tux_kbl_map_entry_t sirius_16_ansii_kbl_map[] = {
+>  	{ 0x2e, { 246000,  67500, 5250 } },
+>  	{ 0x2a, { 269500,  67500, 5250 } },
+>  	{ 0x53, { 294500,  67500, 5250 } },
+> -	{ 0x55, { 311200,  67500, 5250 } },
+> -	{ 0x54, { 327900,  67500, 5250 } },
+> +	{ 0x54, { 311200,  67500, 5250 } },
+> +	{ 0x55, { 327900,  67500, 5250 } },
+>  	{ 0x56, { 344600,  67500, 5250 } },
+>  	{ 0x2b, {  31000,  85500, 5500 } },
+>  	{ 0x14, {  51500,  85500, 5500 } },
+> @@ -337,8 +337,8 @@ static const struct tux_kbl_map_entry_t sirius_16_iso_kbl_map[] = {
+>  	{ 0x2e, { 246000,  67500, 5250 } },
+>  	{ 0x2a, { 269500,  67500, 5250 } },
+>  	{ 0x53, { 294500,  67500, 5250 } },
+> -	{ 0x55, { 311200,  67500, 5250 } },
+> -	{ 0x54, { 327900,  67500, 5250 } },
+> +	{ 0x54, { 311200,  67500, 5250 } },
+> +	{ 0x55, { 327900,  67500, 5250 } },
+>  	{ 0x56, { 344600,  67500, 5250 } },
+>  	{ 0x2b, {  31000,  85500, 5500 } },
+>  	{ 0x14, {  51500,  85500, 5500 } },
 
-As Lorenzo said:
-
-  __kernel_map_pages() can be called from irq context:
-
-  < GFP_ATOMIC context >
-  kfree() or whatever
-  -> ...
-  -> __free_pages_prepare()
-  -> debug_pagealloc_unmap_pages()
-  -> __kernel_map_pages()
-  -> __change_page_attr_set_clr()
-  -> cpa_lock
-
-
--- 
-Sincerely yours,
-Mike.
