@@ -1,158 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F103456DF7
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA96929B799
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785251851; cv=none; b=o2GH/9lEYtCNzPToZz1AoUgqiDSXzYwiwaXEq/B/4JmxTjbsriqkZlOTjs4CdZ+7FmpXAKCN/WXGFso05L2klSgSHI6DbSfH0wGp9wE2E/E0Qt0QhUJl5N1TYYLSyOmhsL2NDXQrLVf20jmtsbqa0AdCIuywMAXNSHoH7TV+eJQ=
+	t=1785251938; cv=none; b=Dva++S/cFzB/2vq7t6ymBJijeCuAwk+wDBCudhyK3/XA8tcCpDRRRSLS2hqF6ESrnMCDU948wamXbkVkpJjpoQK4oMEgH0Td8T4fWQIp5NXH2+uo0smG9DrAF+InNTOMHgewYGhSwHYoaR2Y+D1sCTq60J/yY8hdm9tXhGDS/o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785251851; c=relaxed/simple;
-	bh=dZ8qagvGKJMyPa0EnzkJtY2emQs3MSkWMyx5Z+Vj9P0=;
+	s=arc-20240116; t=1785251938; c=relaxed/simple;
+	bh=aM2KX+SLDwftppA55jxwitKAx3AJ79bmrqQfKetSDRE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lt6UhKoTYGnND4tlfrvSvGvLnTHyRO9cIrVEMKWMZ+qosWN/EG0jjMRLjtW06IGExfxhSO80zy9MiPSyKEoMDedx8mFJ1iFkBSBvHqOnTE+lEcQxu5a7Tg7C1YUdl2LOFzSh6KawiDOkibzTr121Esn0A+bb4B+zJGen4E2Z/2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vtA+TjMQ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=AlK1Uq1m5KrwUZNnXISkb6OlxYjPspVo5XklStg64wc3kKjuSoyn9Bj626ydFOCKOhfNdwRXMfbK/mNiQFeuzu6k6iVW6eQmWCql5/+JvzJMtuV5G9YzyRr3yzQp/olWvQg2keIVIydLKTetA7xQ05NpmP9LD+OuYptETLwbKxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=c4RHMNo/; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vtA+TjMQ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C3F9A175D
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:17:24 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9878E3F66F
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:17:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785251848; bh=dZ8qagvGKJMyPa0EnzkJtY2emQs3MSkWMyx5Z+Vj9P0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vtA+TjMQNjOZeW7Mz4XKlH6do9m/+qYIqkeEdb/Me4ZoAY0zaKB9vsurrLcfnCssF
-	 bjDUXYWPImV6hVODww12kdzOv3sOi4chpOmsFwh+ZYpj1jeoAV93tz5D6pdtubkpwc
-	 OiCcZBbtwLSxGieYTYUET1plaoPVkywtNRtqYj94=
-Date: Tue, 28 Jul 2026 16:17:14 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Osama Abdelkader <osama.abdelkader@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: snapshot firmware interface counts before
- loops
-Message-ID: <amjH-v6-2POzmj1q@e142607>
-References: <20260720135518.17927-1-osama.abdelkader@gmail.com>
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="c4RHMNo/"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8ef7b7651ecso10007736d6.1
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:18:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1785251936; x=1785856736; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9di/IG6Jc1VtV8BRHbehmfOGqBLbsLtDHRgb0wHAUZU=;
+        b=c4RHMNo/pmE4n+WCgY8d45wnay3DmHpiTk7OncSgzFyWLAavDZDqRcUX+T9lATIlnl
+         7nSxXs3pxewDKuWa4XzuxcDcZNyZnsXnn4Z/84qNFAnd+k6vCuBYydyFv8GkfrNmJC0e
+         mlXZ78l6B5tEc3uEQP+JMUlCakBtv22KFocQvFMTNWcIiVimnTJ17z2eKG6/TuxVK3Md
+         +3i45LbKZ9O6v7xeaPWvHeT4kafWRtIpbdj4urgo3rzrg1K/6V/6NeqbR8VO5iYWbljb
+         SkX+6tXUE5QIBTjpH73QgSZ45dLpWORSCVPf/Uvg7GM5hB+21jgLOYil60F3jojFL91Z
+         ycYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785251936; x=1785856736;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9di/IG6Jc1VtV8BRHbehmfOGqBLbsLtDHRgb0wHAUZU=;
+        b=V29KnMy+uH3rIK8f8wuy5PT0PcaLKZNtgACNQOR3+Pgss8mCNsK4zOdHnPEYe9uOHa
+         v579ItcsXTSnQgKZVL4w9NFxJj2fPzYS3pNu2+cIuw6BwK/tdUEd2LexBMJmJakZE5XA
+         8lpRLB/QF68oQkmEU15qL5VVfuEm9oL3PqlGexz1qqa6VTJ/QIPJV3DdxBbp/msmC430
+         45C/5XfYmgDHAPmqN68SJR8eoDnwtS7goEGgQF6sfbAq6njuj2TMq652RReCNoFK4xcb
+         XlasRvei0/+xCbEMA5NdsMcuHCqnncF5lG35SalbttGmFkl9DJ6Tc5sgj0zBUK6DIHV8
+         cAmw==
+X-Forwarded-Encrypted: i=1; AHgh+RoqWVgYoouQAH2I+i/fI5Bq585vs72Dkx7KYMa9QIZSdE2dCi2YRKH3yDi9qnhtQmlOCrSNXkk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxxJBNveI4DooBeKZcEuiFPOofc0p/g6QsuErWsZee/PeC44XSi
+	KXIaiDviTOXbvVXvbz++9w0j81nGm0GHjbSty7v3BAQO0d1iaWCMhK7yfmCYtfQqrxWCGzpeiAz
+	xU4OUsA==
+X-Gm-Gg: AR+sD10mMnaUgw19ol43eOvldelFJNX3171cU+8+SkbKiCyjk7LUmqJ1m5WzUhc83IZ
+	n+8TcofEc7mmDa/BF31ApAVV8ZTDwIm98+lVwdQ2yseAuoWQfLc9ONnBEVQhM994XLaRPGHcvph
+	0X1ZZLzqyASrrICFBZ1tIvk7QNHQI7AalTwPrq9bdJotDNoQQiext3G+/Y2eQD+G3BkcOBNNJYk
+	rrqnyvjsCQDfeF3riuOKn7Cs8gZspjcHBJAxjXn1e7e7bdHUIGgJhnml+5q5bDcBMjG86+EaUa2
+	nkovvtnBIodEjU/BzeOaU4r8zntSXUtOVDBDpnmBMu50NAuVPx4HDNXRHpy9eqrzz0reMkNbl8N
+	lStboACQh/87as2PfuKGcS6iYlSF5Oodxb2cj9ILRJdO+k/yA/6+ZxFsr9IL7yjDX8yVGqsXtJ2
+	qP6SU=
+X-Received: by 2002:a05:6214:1cc2:b0:907:5319:53b7 with SMTP id 6a1803df08f44-90817306839mr28886226d6.18.1785251935603;
+        Tue, 28 Jul 2026 08:18:55 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::883a])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9081dc6c862sm1445086d6.14.2026.07.28.08.18.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 08:18:54 -0700 (PDT)
+Date: Tue, 28 Jul 2026 11:18:52 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
+	corbet@lwn.net, skhan@linuxfoundation.org, stable@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] usb: core: Add quirk for 255-bytes initial config
+ read
+Message-ID: <df358305-0c66-449e-ad44-effc707ce654@rowland.harvard.edu>
+References: <20260727195434.14626-1-nikhilsolanke5@gmail.com>
+ <20260727195434.14626-2-nikhilsolanke5@gmail.com>
+ <ba2af6f4-0134-4feb-addc-24694fabeb10@rowland.harvard.edu>
+ <CAFgddhLNOVPqnZW89W8XvD5W9nOPK51grBdraOeQcCe1_+WVFw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260720135518.17927-1-osama.abdelkader@gmail.com>
+In-Reply-To: <CAFgddhLNOVPqnZW89W8XvD5W9nOPK51grBdraOeQcCe1_+WVFw@mail.gmail.com>
 
-On Mon, Jul 20, 2026 at 03:55:18PM +0200, Osama Abdelkader wrote:
-> The firmware exposes the global group count and per-group stream count in
-> the shared control interface. These values are validated before being used
-> as loop bounds, but the memory is shared with the MCU firmware and can be
-> changed after validation.
-
-Again, you're making statements that need to be proven here. How is MCU
-firmware going to change the content of the memory shared with the driver?
-
+On Tue, Jul 28, 2026 at 01:37:16PM +0530, Nikhil Solanke wrote:
+> On Tue, 28 Jul 2026 at 07:29, Alan Stern <stern@rowland.harvard.edu> wrote:
+> >
+> > Also, it's odd that you add the quirk flag to the kernel without adding
+> > a new quirk entry for the Xbox 360-compatible devices.  That doesn't
+> > have to be done in this patch, though; it can be done in a follow-up.
+> > (But note that without a followup this patch doesn't actually fix
+> > anything, since a true fix would require user intervention.)
+> >
 > 
-> Read each count once with READ_ONCE() and use the validated snapshot as the
-> loop bound. This keeps the loop bounds consistent with the validation and
-> prevents the compiler from reloading a firmware-controlled count during
-> iteration.
+> Well the device I am using spoofs Microsoft's device IDs directly. I
+> avoided adding it because the official xbox controllers work out of
+> the box. It won't break their functionality, but it kinda falls into
+> the category of "if it ain't broken, why fix it". Other clone devices
+> use different VID:PID pair as well, like with what happened Ishaan's
+> device (his reply to my previous patch revision). I believe they
+> should be added here instead. Since there are many such devices,
+> gathering all the IDs would take considerable time and community work.
 
-As an optimisation I'm fine with it, so:
+Okay.  It's worth mentioning this in the patch description.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
+> Also, the kernel's own xpad module is slightly behind some changes or
+> so I have heard. There are a few community maintained kernel
+> modules/drivers with many changes that are required for these devices
+> to actually function. There is some magic packet that needs to be sent
+> after the usb device has initialized along with doing a bunch of other
+> things like mapping out buttons, etc. These drivers are also required
+> for a device to fully function in most cases (the builtin xpad also
+> works in some cases). So just by adding a device to the quirk list
+> wouldn't truly fix it.
 > 
-> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index e2fcbd639c3c..6e6da98d795e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -959,6 +959,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
->  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
->  	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
->  			   ((u64)csg_idx * glb_iface->control->group_stride);
-> +	u32 stream_num;
->  	unsigned int i;
->  
->  	if (iface_offset > shared_section_sz ||
-> @@ -972,8 +973,8 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
->  	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
->  						 sizeof(*csg_iface->output));
->  
-> -	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
-> -	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
-> +	stream_num = READ_ONCE(csg_iface->control->stream_num);
-> +	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
->  		return -EINVAL;
->  
->  	if (!csg_iface->input || !csg_iface->output) {
-> @@ -990,7 +991,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
->  		}
->  	}
->  
-> -	for (i = 0; i < csg_iface->control->stream_num; i++) {
-> +	for (i = 0; i < stream_num; i++) {
->  		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
->  
->  		if (ret)
-> @@ -1015,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
->  {
->  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
->  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> +	u32 group_num;
->  	unsigned int i;
->  
->  	if (!ptdev->fw->shared_section->mem->kmap)
-> @@ -1034,17 +1036,17 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
->  		return -EINVAL;
->  	}
->  
-> -	if (glb_iface->control->group_num > MAX_CSGS ||
-> -	    glb_iface->control->group_num < MIN_CSGS) {
-> +	group_num = READ_ONCE(glb_iface->control->group_num);
-> +	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
->  		drm_err(&ptdev->base, "Invalid number of control groups");
->  		return -EINVAL;
->  	}
->  
-> -	for (i = 0; i < glb_iface->control->group_num; i++) {
-> +	for (i = 0; i < group_num; i++) {
->  		int ret = panthor_init_csg_iface(ptdev, i);
->  
->  		if (ret)
->  			return ret;
->  	}
->  
->  	drm_info(&ptdev->base, "CSF FW using interface v%d.%d.%d, Features %#x Instrumentation features %#x",
-> -- 
-> 2.43.0
-> 
+> There's still a lot of issues that need to be addressed in the kernel
+> driver space to "truly" fix Xbox 360-compatible devices (majorly,
+> hid-generic or other drivers claim the devices before these
+> out-of-tree modules due to race conditions). My patch is just the
+> first step.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Got it.
+
+> Thanks! I would like to know your thoughts on the above points as to
+> what should be preferably done moving forward. If it happens that I
+> should send in another patch, I will address the nits and add the
+> Acked-By as well.
+
+That's up to you.  What you have done so far is already acceptable, IMO.
+
+Alan Stern
