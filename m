@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2243F8EB9
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 22:17:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C750526B2D2
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 22:17:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785277075; cv=none; b=eNlWGJYjmx5cCsLKoZE4+TRc6rCrLdkdRkjVIQa/5tB9EFqvg38usfRqezkzC8zmruMRnIFi+xjLyZP9WLSXtXFRRqKNG3i6lbHyh2QPpDwi/RcneFcXyXvOJvRKadmJxqfqBkxNrPSp//DC501MueswaY8TRidncjrwzP5VvCY=
+	t=1785277079; cv=none; b=CsUg7otpkLiNs9rHYyMlz1eGhtYTNdKKQD8XYq3Amd/ByrDrMIscrFsv/7wWj2s835cF9OHQAtdFUgWaifW5de9wA+IsqyVGlwNCcnLwskyIUHZCDwX6a0XWsTUq9TS+scoIgs+zjNsfCLuEMlEUSMyKYmtCYLwsJkWKOu3Mv58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785277075; c=relaxed/simple;
-	bh=Nl5gyPSRpj1wdNaBjf8qi3WlBu4xGA2lc1cQIThp2dM=;
+	s=arc-20240116; t=1785277079; c=relaxed/simple;
+	bh=3d5TWpbulhCdygmvzBlEpzj1KvDYRKngDICE6WoQjEI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aBMA6sG3rdwoIClEjJJZHKfqYln3ay+IkVsE5Vpl3Cz30Hzk7XUNlUhUxslo5damV/5ISy1Q72kKVeLss3pTmAKo2sWu2h1ekrMRXOzitgzvSIuESzEgdeaaOUhOZAUgi+kAVqNRM6QPrsm0O8CcDKy8i/SU26kFjpSYtEdRJac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhV9mjsV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=usJKrxItKgKGO/voNny67ye1TMaR00deGp3E85ClBFNLzR5Mv8yJtbnrbmoGkbJ8N83NRiI4Py9XlHXth/yN3EeW1fUHhdQl5/yQKSP8lDiEP+m/eRAX3eL6I+BF2yHIHIQnQu0pwZTSOY2sKKieRgParHK8b3s8DBWaMGf1iZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ga9nEMuJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhV9mjsV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E011F00A3A;
-	Tue, 28 Jul 2026 22:17:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ga9nEMuJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FD11F000E9;
+	Tue, 28 Jul 2026 22:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785277074;
-	bh=offOtLLtk1KSsyHxk3fQ6UxyygtK0mmaX++BN0x5IyY=;
+	s=k20260515; t=1785277077;
+	bh=boaFowo1awegM8bXSxcFhIhUWro/4BDcyk+Ic1tazrU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lhV9mjsV8aaM4+x50THU4ojgtVpCLKuTg9NuJpcJRRHYZMoH5tEZpcOeu5d3QPcBv
-	 4c4HipfxTxzRAMyGq2iD/O2Oei113yKfgdnIcFR9s6FdPISDWHWY2yCn6fQ2hfvY2x
-	 MmOcJ40zZ0+Z4Dz6nfQtbHkiAQDhBY+Gso66FbeSyvCEtaCk5SLrMZggWJ82xi0xZQ
-	 DYg6AjefDbQP8H5WsGwZBS5Ygf7Qei/I+yMEMmgYczfnbHESjJI4EX51rF1T5wq8f3
-	 /84RodSQujDV/yax7HTE+x6BFqSHjymE/0emqJd6kVg/GAuQ9l6RZd4OqA0b7SD2lP
-	 98CGlgAAxgvlQ==
+	b=Ga9nEMuJHTBNOZ+XSjoksGJ6ghaYHsMO5c5tlXldveOHpumge6zZO6LDSgSllzoOn
+	 YGC6a9EAXOgyBGuGJCSMb83hyOPRGKvnerfzb0r1Q1ojx38TUdFScXwVZbu6GFE1Yi
+	 lxW2PrlEAmbJzBAb3K+gqBt0DCrYwSs0jqMZkS+1JPVd6aBZXdcbRtrnjUEY8WnYCo
+	 vJw6O+oFsof52MhD4Bslmp7iXAk2zS5Hxe4ex/Ju1cpcKgPzh73UC7zqBUtIK5J9+0
+	 u+Du95iIHrpaZj4X6/n2BZzBbpZ7n3dojO5JnXG8NkE1zjZfkS3IptTuXLcdofnC1x
+	 NwOxz2YOF561Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+Cc: Yevgeny Kliteynik <kliteyn@nvidia.com>,
+	Mark Bloch <mbloch@nvidia.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] bootconfig: fix NULL-pointer arithmetic in xbc_snprint_cmdline()
-Date: Tue, 28 Jul 2026 18:17:50 -0400
-Message-ID: <20260728221750.745951-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] net/mlx5: HWS, Rearrange to prevent forward declaration
+Date: Tue, 28 Jul 2026 18:17:54 -0400
+Message-ID: <20260728221755.746200-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728221750.745951-1-sashal@kernel.org>
-References: <2026072113-skintight-barometer-812e@gregkh>
- <20260728221750.745951-1-sashal@kernel.org>
+In-Reply-To: <2026072123-treason-bush-df20@gregkh>
+References: <2026072123-treason-bush-df20@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,96 +47,404 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Yevgeny Kliteynik <kliteyn@nvidia.com>
 
-[ Upstream commit dec4d8118c179b3d12bca7e609054c6011c4f2ce ]
+[ Upstream commit 29063103f864fb63f7f7c436e670c5804df1b55b ]
 
-xbc_snprint_cmdline() is meant to be called twice: first with
-buf=NULL, size=0 to probe the rendered length, then with a real
-buffer to fill it (the standard snprintf() two-pass pattern). The
-probe call makes the function compute "buf + size" (NULL + 0) and,
-on every iteration, advance "buf += ret" from that NULL base and
-pass the result back into snprintf().
+As a preparation for the following patch that will add support
+for shrinking empty matchers, rearrange the code to prevent
+forward declaration of functions.
 
-Pointer arithmetic on a NULL pointer is undefined behavior. It is
-harmless in the in-kernel callers today, but the follow-up patches
-run this same code in the userspace tools/bootconfig parser at kernel
-build time, where host UBSan / FORTIFY_SOURCE abort the build.
-
-Track a running written length (size_t) instead of mutating @buf, and
-only form "buf + len" when @buf is non-NULL. snprintf(NULL, 0, ...)
-is itself well defined and returns the would-be length, so the
-two-pass "probe then fill" usage returns identical byte counts.
-
-Link: https://lore.kernel.org/all/20260626-bootconfig_using_tools-v7-1-24ab72139c29@debian.org/
-
-Fixes: 51887d03aca1 ("bootconfig: init: Allow admin to use bootconfig for kernel command line")
-Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Yevgeny Kliteynik <kliteyn@nvidia.com>
+Signed-off-by: Mark Bloch <mbloch@nvidia.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20250703185431.445571-9-mbloch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: bb09d0e64eca ("net/mlx5: HWS, fix matcher leak on resize target setup failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/bootconfig.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ .../mlx5/core/steering/hws/mlx5hws_bwc.c      | 354 +++++++++---------
+ 1 file changed, 177 insertions(+), 177 deletions(-)
 
-diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index f497087e6fb1c9..ac878b861c0b92 100644
---- a/lib/bootconfig.c
-+++ b/lib/bootconfig.c
-@@ -358,10 +358,18 @@ static char xbc_namebuf[XBC_KEYLEN_MAX] __initdata;
- int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- {
- 	struct xbc_node *knode, *vnode;
--	char *end = buf + size;
- 	const char *val, *q;
-+	size_t len = 0;
- 	int ret;
- 
-+	/*
-+	 * Track the running written length rather than advancing @buf, so we
-+	 * never form "buf + size" or "buf += ret" while @buf is NULL (the
-+	 * size-probe call passes buf=NULL, size=0). NULL pointer arithmetic
-+	 * is undefined behavior and trips host UBSan / FORTIFY_SOURCE when
-+	 * this renderer runs at kernel build time. snprintf(NULL, 0, ...)
-+	 * itself is well defined and returns the would-be length.
-+	 */
- 	xbc_node_for_each_key_value(root, knode, val) {
- 		ret = xbc_node_compose_key_after(root, knode,
- 					xbc_namebuf, XBC_KEYLEN_MAX);
-@@ -370,10 +378,11 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- 
- 		vnode = xbc_node_get_child(knode);
- 		if (!vnode) {
--			ret = snprintf(buf, rest(buf, end), "%s ", xbc_namebuf);
-+			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
-+				       "%s ", xbc_namebuf);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
- 			continue;
- 		}
- 		xbc_array_for_each_value(vnode, val) {
-@@ -383,15 +392,15 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- 			 * whitespace.
- 			 */
- 			q = strpbrk(val, " \t\r\n") ? "\"" : "";
--			ret = snprintf(buf, rest(buf, end), "%s=%s%s%s ",
--				       xbc_namebuf, q, val, q);
-+			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
-+				       "%s=%s%s%s ", xbc_namebuf, q, val, q);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
- 		}
- 	}
- 
--	return buf - (end - size);
-+	return len;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c
+index 8f3a6f9d703da4..3fc3ada0166534 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/steering/hws/mlx5hws_bwc.c
+@@ -63,6 +63,183 @@ static void hws_bwc_matcher_init_attr(struct mlx5hws_matcher_attr *attr,
+ 	attr->max_num_of_at_attach = MLX5HWS_BWC_MATCHER_ATTACH_AT_NUM;
  }
- #undef rest
  
++static int hws_bwc_queue_poll(struct mlx5hws_context *ctx,
++			      u16 queue_id,
++			      u32 *pending_rules,
++			      bool drain)
++{
++	struct mlx5hws_flow_op_result comp[MLX5HWS_BWC_MATCHER_REHASH_BURST_TH];
++	u16 burst_th = hws_bwc_get_burst_th(ctx, queue_id);
++	bool got_comp = *pending_rules >= burst_th;
++	bool queue_full;
++	int err = 0;
++	int ret;
++	int i;
++
++	/* Check if there are any completions at all */
++	if (!got_comp && !drain)
++		return 0;
++
++	queue_full = mlx5hws_send_engine_full(&ctx->send_queue[queue_id]);
++	while (queue_full || ((got_comp || drain) && *pending_rules)) {
++		ret = mlx5hws_send_queue_poll(ctx, queue_id, comp, burst_th);
++		if (unlikely(ret < 0)) {
++			mlx5hws_err(ctx, "BWC poll error: polling queue %d returned %d\n",
++				    queue_id, ret);
++			return -EINVAL;
++		}
++
++		if (ret) {
++			(*pending_rules) -= ret;
++			for (i = 0; i < ret; i++) {
++				if (unlikely(comp[i].status != MLX5HWS_FLOW_OP_SUCCESS)) {
++					mlx5hws_err(ctx,
++						    "BWC poll error: polling queue %d returned completion with error\n",
++						    queue_id);
++					err = -EINVAL;
++				}
++			}
++			queue_full = false;
++		}
++
++		got_comp = !!ret;
++	}
++
++	return err;
++}
++
++static int hws_bwc_matcher_move_all_simple(struct mlx5hws_bwc_matcher *bwc_matcher)
++{
++	struct mlx5hws_context *ctx = bwc_matcher->matcher->tbl->ctx;
++	u16 bwc_queues = mlx5hws_bwc_queues(ctx);
++	struct mlx5hws_bwc_rule **bwc_rules;
++	struct mlx5hws_rule_attr rule_attr;
++	u32 *pending_rules;
++	int i, j, ret = 0;
++	bool all_done;
++	u16 burst_th;
++
++	mlx5hws_bwc_rule_fill_attr(bwc_matcher, 0, 0, &rule_attr);
++
++	pending_rules = kcalloc(bwc_queues, sizeof(*pending_rules), GFP_KERNEL);
++	if (!pending_rules)
++		return -ENOMEM;
++
++	bwc_rules = kcalloc(bwc_queues, sizeof(*bwc_rules), GFP_KERNEL);
++	if (!bwc_rules) {
++		ret = -ENOMEM;
++		goto free_pending_rules;
++	}
++
++	for (i = 0; i < bwc_queues; i++) {
++		if (list_empty(&bwc_matcher->rules[i]))
++			bwc_rules[i] = NULL;
++		else
++			bwc_rules[i] = list_first_entry(&bwc_matcher->rules[i],
++							struct mlx5hws_bwc_rule,
++							list_node);
++	}
++
++	do {
++		all_done = true;
++
++		for (i = 0; i < bwc_queues; i++) {
++			rule_attr.queue_id = mlx5hws_bwc_get_queue_id(ctx, i);
++			burst_th = hws_bwc_get_burst_th(ctx, rule_attr.queue_id);
++
++			for (j = 0; j < burst_th && bwc_rules[i]; j++) {
++				rule_attr.burst = !!((j + 1) % burst_th);
++				ret = mlx5hws_matcher_resize_rule_move(bwc_matcher->matcher,
++								       bwc_rules[i]->rule,
++								       &rule_attr);
++				if (unlikely(ret)) {
++					mlx5hws_err(ctx,
++						    "Moving BWC rule failed during rehash (%d)\n",
++						    ret);
++					goto free_bwc_rules;
++				}
++
++				all_done = false;
++				pending_rules[i]++;
++				bwc_rules[i] = list_is_last(&bwc_rules[i]->list_node,
++							    &bwc_matcher->rules[i]) ?
++					       NULL : list_next_entry(bwc_rules[i], list_node);
++
++				ret = hws_bwc_queue_poll(ctx, rule_attr.queue_id,
++							 &pending_rules[i], false);
++				if (unlikely(ret))
++					goto free_bwc_rules;
++			}
++		}
++	} while (!all_done);
++
++	/* drain all the bwc queues */
++	for (i = 0; i < bwc_queues; i++) {
++		if (pending_rules[i]) {
++			u16 queue_id = mlx5hws_bwc_get_queue_id(ctx, i);
++
++			mlx5hws_send_engine_flush_queue(&ctx->send_queue[queue_id]);
++			ret = hws_bwc_queue_poll(ctx, queue_id,
++						 &pending_rules[i], true);
++			if (unlikely(ret))
++				goto free_bwc_rules;
++		}
++	}
++
++free_bwc_rules:
++	kfree(bwc_rules);
++free_pending_rules:
++	kfree(pending_rules);
++
++	return ret;
++}
++
++static int hws_bwc_matcher_move_all(struct mlx5hws_bwc_matcher *bwc_matcher)
++{
++	return hws_bwc_matcher_move_all_simple(bwc_matcher);
++}
++
++static int hws_bwc_matcher_move(struct mlx5hws_bwc_matcher *bwc_matcher)
++{
++	struct mlx5hws_context *ctx = bwc_matcher->matcher->tbl->ctx;
++	struct mlx5hws_matcher_attr matcher_attr = {0};
++	struct mlx5hws_matcher *old_matcher;
++	struct mlx5hws_matcher *new_matcher;
++	int ret;
++
++	hws_bwc_matcher_init_attr(&matcher_attr,
++				  bwc_matcher->priority,
++				  bwc_matcher->size_log);
++
++	old_matcher = bwc_matcher->matcher;
++	new_matcher = mlx5hws_matcher_create(old_matcher->tbl,
++					     &bwc_matcher->mt, 1,
++					     bwc_matcher->at,
++					     bwc_matcher->num_of_at,
++					     &matcher_attr);
++	if (!new_matcher) {
++		mlx5hws_err(ctx, "Rehash error: matcher creation failed\n");
++		return -ENOMEM;
++	}
++
++	ret = mlx5hws_matcher_resize_set_target(old_matcher, new_matcher);
++	if (ret) {
++		mlx5hws_err(ctx, "Rehash error: failed setting resize target\n");
++		return ret;
++	}
++
++	ret = hws_bwc_matcher_move_all(bwc_matcher);
++	if (ret) {
++		mlx5hws_err(ctx, "Rehash error: moving rules failed\n");
++		return -ENOMEM;
++	}
++
++	bwc_matcher->matcher = new_matcher;
++	mlx5hws_matcher_destroy(old_matcher);
++
++	return 0;
++}
++
+ int mlx5hws_bwc_matcher_create_simple(struct mlx5hws_bwc_matcher *bwc_matcher,
+ 				      struct mlx5hws_table *table,
+ 				      u32 priority,
+@@ -210,51 +387,6 @@ int mlx5hws_bwc_matcher_destroy(struct mlx5hws_bwc_matcher *bwc_matcher)
+ 	return 0;
+ }
+ 
+-static int hws_bwc_queue_poll(struct mlx5hws_context *ctx,
+-			      u16 queue_id,
+-			      u32 *pending_rules,
+-			      bool drain)
+-{
+-	struct mlx5hws_flow_op_result comp[MLX5HWS_BWC_MATCHER_REHASH_BURST_TH];
+-	u16 burst_th = hws_bwc_get_burst_th(ctx, queue_id);
+-	bool got_comp = *pending_rules >= burst_th;
+-	bool queue_full;
+-	int err = 0;
+-	int ret;
+-	int i;
+-
+-	/* Check if there are any completions at all */
+-	if (!got_comp && !drain)
+-		return 0;
+-
+-	queue_full = mlx5hws_send_engine_full(&ctx->send_queue[queue_id]);
+-	while (queue_full || ((got_comp || drain) && *pending_rules)) {
+-		ret = mlx5hws_send_queue_poll(ctx, queue_id, comp, burst_th);
+-		if (unlikely(ret < 0)) {
+-			mlx5hws_err(ctx, "BWC poll error: polling queue %d returned %d\n",
+-				    queue_id, ret);
+-			return -EINVAL;
+-		}
+-
+-		if (ret) {
+-			(*pending_rules) -= ret;
+-			for (i = 0; i < ret; i++) {
+-				if (unlikely(comp[i].status != MLX5HWS_FLOW_OP_SUCCESS)) {
+-					mlx5hws_err(ctx,
+-						    "BWC poll error: polling queue %d returned completion with error\n",
+-						    queue_id);
+-					err = -EINVAL;
+-				}
+-			}
+-			queue_full = false;
+-		}
+-
+-		got_comp = !!ret;
+-	}
+-
+-	return err;
+-}
+-
+ void
+ mlx5hws_bwc_rule_fill_attr(struct mlx5hws_bwc_matcher *bwc_matcher,
+ 			   u16 bwc_queue_idx,
+@@ -556,138 +688,6 @@ hws_bwc_matcher_find_at(struct mlx5hws_bwc_matcher *bwc_matcher,
+ 	return -1;
+ }
+ 
+-static int hws_bwc_matcher_move_all_simple(struct mlx5hws_bwc_matcher *bwc_matcher)
+-{
+-	struct mlx5hws_context *ctx = bwc_matcher->matcher->tbl->ctx;
+-	u16 bwc_queues = mlx5hws_bwc_queues(ctx);
+-	struct mlx5hws_bwc_rule **bwc_rules;
+-	struct mlx5hws_rule_attr rule_attr;
+-	u32 *pending_rules;
+-	int i, j, ret = 0;
+-	bool all_done;
+-	u16 burst_th;
+-
+-	mlx5hws_bwc_rule_fill_attr(bwc_matcher, 0, 0, &rule_attr);
+-
+-	pending_rules = kcalloc(bwc_queues, sizeof(*pending_rules), GFP_KERNEL);
+-	if (!pending_rules)
+-		return -ENOMEM;
+-
+-	bwc_rules = kcalloc(bwc_queues, sizeof(*bwc_rules), GFP_KERNEL);
+-	if (!bwc_rules) {
+-		ret = -ENOMEM;
+-		goto free_pending_rules;
+-	}
+-
+-	for (i = 0; i < bwc_queues; i++) {
+-		if (list_empty(&bwc_matcher->rules[i]))
+-			bwc_rules[i] = NULL;
+-		else
+-			bwc_rules[i] = list_first_entry(&bwc_matcher->rules[i],
+-							struct mlx5hws_bwc_rule,
+-							list_node);
+-	}
+-
+-	do {
+-		all_done = true;
+-
+-		for (i = 0; i < bwc_queues; i++) {
+-			rule_attr.queue_id = mlx5hws_bwc_get_queue_id(ctx, i);
+-			burst_th = hws_bwc_get_burst_th(ctx, rule_attr.queue_id);
+-
+-			for (j = 0; j < burst_th && bwc_rules[i]; j++) {
+-				rule_attr.burst = !!((j + 1) % burst_th);
+-				ret = mlx5hws_matcher_resize_rule_move(bwc_matcher->matcher,
+-								       bwc_rules[i]->rule,
+-								       &rule_attr);
+-				if (unlikely(ret)) {
+-					mlx5hws_err(ctx,
+-						    "Moving BWC rule failed during rehash (%d)\n",
+-						    ret);
+-					goto free_bwc_rules;
+-				}
+-
+-				all_done = false;
+-				pending_rules[i]++;
+-				bwc_rules[i] = list_is_last(&bwc_rules[i]->list_node,
+-							    &bwc_matcher->rules[i]) ?
+-					       NULL : list_next_entry(bwc_rules[i], list_node);
+-
+-				ret = hws_bwc_queue_poll(ctx, rule_attr.queue_id,
+-							 &pending_rules[i], false);
+-				if (unlikely(ret))
+-					goto free_bwc_rules;
+-			}
+-		}
+-	} while (!all_done);
+-
+-	/* drain all the bwc queues */
+-	for (i = 0; i < bwc_queues; i++) {
+-		if (pending_rules[i]) {
+-			u16 queue_id = mlx5hws_bwc_get_queue_id(ctx, i);
+-
+-			mlx5hws_send_engine_flush_queue(&ctx->send_queue[queue_id]);
+-			ret = hws_bwc_queue_poll(ctx, queue_id,
+-						 &pending_rules[i], true);
+-			if (unlikely(ret))
+-				goto free_bwc_rules;
+-		}
+-	}
+-
+-free_bwc_rules:
+-	kfree(bwc_rules);
+-free_pending_rules:
+-	kfree(pending_rules);
+-
+-	return ret;
+-}
+-
+-static int hws_bwc_matcher_move_all(struct mlx5hws_bwc_matcher *bwc_matcher)
+-{
+-	return hws_bwc_matcher_move_all_simple(bwc_matcher);
+-}
+-
+-static int hws_bwc_matcher_move(struct mlx5hws_bwc_matcher *bwc_matcher)
+-{
+-	struct mlx5hws_context *ctx = bwc_matcher->matcher->tbl->ctx;
+-	struct mlx5hws_matcher_attr matcher_attr = {0};
+-	struct mlx5hws_matcher *old_matcher;
+-	struct mlx5hws_matcher *new_matcher;
+-	int ret;
+-
+-	hws_bwc_matcher_init_attr(&matcher_attr,
+-				  bwc_matcher->priority,
+-				  bwc_matcher->size_log);
+-
+-	old_matcher = bwc_matcher->matcher;
+-	new_matcher = mlx5hws_matcher_create(old_matcher->tbl,
+-					     &bwc_matcher->mt, 1,
+-					     bwc_matcher->at,
+-					     bwc_matcher->num_of_at,
+-					     &matcher_attr);
+-	if (!new_matcher) {
+-		mlx5hws_err(ctx, "Rehash error: matcher creation failed\n");
+-		return -ENOMEM;
+-	}
+-
+-	ret = mlx5hws_matcher_resize_set_target(old_matcher, new_matcher);
+-	if (ret) {
+-		mlx5hws_err(ctx, "Rehash error: failed setting resize target\n");
+-		return ret;
+-	}
+-
+-	ret = hws_bwc_matcher_move_all(bwc_matcher);
+-	if (ret) {
+-		mlx5hws_err(ctx, "Rehash error: moving rules failed\n");
+-		return -ENOMEM;
+-	}
+-
+-	bwc_matcher->matcher = new_matcher;
+-	mlx5hws_matcher_destroy(old_matcher);
+-
+-	return 0;
+-}
+-
+ static int
+ hws_bwc_matcher_rehash_size(struct mlx5hws_bwc_matcher *bwc_matcher)
+ {
 -- 
 2.53.0
 
