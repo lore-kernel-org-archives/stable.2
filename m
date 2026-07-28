@@ -1,69 +1,83 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1863B27CCE0;
-	Tue, 28 Jul 2026 15:30:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3B32E06E6
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 15:30:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785252630; cv=none; b=qy0RHP16b/B6wayApDe2uugrsD1rByeUkYJfr/171cQdRF3Y8516CKquM4za5pEwOQPbUakPg0gro5C+cxzOrRmVoYLEVoiP+pz4JSaKZpTkTNXO65HFxmggubSS9Ffe4jsJR+rGrstt9Aei3BiRLCEW1MtVlpPNnSQCkkT8Avg=
+	t=1785252646; cv=none; b=h/cMhPsBcCoOAgWHBH6RU1oK7SbDD8lCafdpO98FqwbznVc925VtY3D/859aC74g+KBqOaeB6V0DoGyLdFL7UHULBn1fmiFK2DG+ypLA0+uOvI8rMzebf/9OE1HLd+CV7NSW/nQK+kdUmo7VvrbiqmeFfHdy/fvixLmz+IqpGlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785252630; c=relaxed/simple;
-	bh=sO5Pv1iRhsqXxuYeMrdc1yBQyFxx8+ir+5YKkJYcOyY=;
+	s=arc-20240116; t=1785252646; c=relaxed/simple;
+	bh=E3k2KFJC5Kpsm6RrzIJ+HVsT6arOOMIj3f9XyiLwGyY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oAdsCMe5JDssxR8AvA7JhZqLjM3bovo+j/vN8me9vDfcz4DpvbatimWTT5eYp3/Hu4QT0+esnhzt/5a6oZSqoMBLIEdPPNPIVtD7XPmzcPRsLNm8HKu7XNNqSiGmkc7tezcCoj7s3L8QYzZ1UTpmEuRPTE9nE5wUZzAPHirhrZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=C+NTxpFk; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=nyrrf71lVQQ447W3B97cGVQPmw7trfwMskd0UgW+/OyOJFrb53cSJz+dChRDEhNuml5NkFxZeDFt4gmIgECP6slfKEme3s3MBQRC/rGMXvuMIPZQBDnQlA75UlsQMBIfKlczemHAGcTES0QUDBPaL/Eqj/r8D4e1ArKSF3MnhkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=O2uZqZfg; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="C+NTxpFk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=r7a5jh4qeutPWij5dNaVnpBg8RmqFNiNHJXuQhNtjlI=; b=C+NTxpFk6RN70FEbbxxwCZACaE
-	NKD0at/vSUIsbpF17jcNDIGkoYlGuJ5AWosQJ5EsVCZzWRFdtA3DJjcI8TBsWu2ja0A5VXsuxXbub
-	LALrm0td7goVArnlPrHF6uiJmB32+SwGMdvQ0uqbN7hKgP3yhzLnVXvFiCy1NtgRBSbynF3/G/Jih
-	JfAaHU0zd+25WVu9GnQQrsRy59s+M+tXRxEoS218dvjt82ncwTM+I8mpYTQjfJqt+ZoqU9um2Zxjt
-	w5fbVe1PqoU22ZVBALqCI7H3jD4gCH1gYbx6hl6iIEkz9w+9nOo58UMDNYA+ZGPEd0EZVMsKLz+Pz
-	S32mj23w==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wojl3-000000054s3-1WyI;
-	Tue, 28 Jul 2026 15:30:17 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 8F4AE3004AB; Tue, 28 Jul 2026 17:30:15 +0200 (CEST)
-Date: Tue, 28 Jul 2026 17:30:15 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Dave Hansen <dave.hansen@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	David CARLIER <devnexen@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Toshi Kani <toshi.kani@hpe.com>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH 1/5] x86/mm/pat: introcude cpa_lock() and cpa_unlock()
-Message-ID: <20260728153015.GD921102@noisy.programming.kicks-ass.net>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <20260728-cpa-fixes-v1-1-2ed2352300b3@kernel.org>
- <20260728142108.GW751831@noisy.programming.kicks-ass.net>
- <adfffb36-9943-4af7-a0ee-0e762e47fa11@intel.com>
- <20260728143135.GG651302@noisy.programming.kicks-ass.net>
- <amjAxhL-IeeJITEv@kernel.org>
- <20260728145528.GI651302@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="O2uZqZfg"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84867f07d63so4901185b3a.2
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 08:30:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1785252644; x=1785857444; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8kJyeGI8L3V0IAqYou544rNxKptwzjPjr8r5SGNglkM=;
+        b=O2uZqZfgf+sd5fsPlL2h/Xl98ojHJuNivT6paXrqyz+XHEnoJKovfQRt57lSMmqpGa
+         EGdh7eQpH2lKnmespmvvhdQWocJDavCxH6E/bX67qjPG+5sh8yBVwJEHhP+QUhQu83u3
+         0XIU4WnCByCHMBKAwJ8DQwoHnF7M+QH5FDjMttybkrh0672gce4GzM8r9jaMR8jnwDkt
+         bDjzhtoVPUgEdluuM/GMWM5SZUNES4cmdJX5CegTCDGO5TRkAxL032pcx7q/F8fFKXuz
+         NOXYCsZ4f1aqslShFMZqdhEM4139/fVmFemA0HuW9YR+RQVGm0uOWlkmfxX5FK9p3+bd
+         1tLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785252644; x=1785857444;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8kJyeGI8L3V0IAqYou544rNxKptwzjPjr8r5SGNglkM=;
+        b=UEg0BvBeU7XUDvLghBV01+0caaeAphMJMkr1aLyGEv4g6B36uoxVHhSa4ncTqjZO9s
+         VDlAbCmeqbq5Oyzq8Fyka97nDcUX0573ewn+c/Zq0Rz88f8Q/2+7z4BbAzeZVtAq76z8
+         kft6EOoujzoFeyO2ZGxS2qenDE4FiePxA3RvWIUj4jlQPZG6Bo6wzlVYnpdVs43Tpj/v
+         w+c3UWVu+6Od2xjG9XNmt2/vP96+nTaHVy+qlsvQ+mcC3iQOBRsBMsDYSLaLqSf64TaX
+         Wt+V4/1B7PtPIzdyWzRTpF4/Qr68ICOkXbZgufdf211o/+EEdxSoHgBZtRPkqT28Hy0S
+         MZzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrqYWc5Dmt5eOJnR8aKjfBq7YlFgnmQzS9ZrqpSbEcfuhZZ9YvMZ+qD2IiXnjt/nX8vvhbYw1U=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwN69tSwf7Oxj3hNbJb5mQeee14jbvEy9Cvcc3GEjt0Xlgp57Es
+	/X6FgB+Zx/yr96JPtRoUyOkz6+2kwwqDBHXIKEeFaSO2SuIOw86MlGXtBjlvh1W9c9E=
+X-Gm-Gg: AR+sD13OM45SwHdQpl9xzIm+e19QdWaXqOx4Icw+ioPdnyaRYeJwQQPSTQdeGA6gwsM
+	RDvOjcSw/ttQFE6d3J6MnR9JloVePnRdZa8+z8b2HE63WUOxeEJNqOOU9K+U8mbS2L0jEl3rSxA
+	OIZ6+g1BydDNFzuGs2jqRaplTSBo6BOz9rWK8drUIqYQTS7Ha47U2viZAU15kfzqwOsG4tWjfwf
+	SmiQafRFs0eeB5DK3DYKJL33TL4r5UflGJBfBet04+axp42j0JaFYwJzhMmHjxS8VCFq8k48h21
+	qZ+XFJ4ZicA0ZqN+iWaUojzbvqNdLueMuL9t0LuPel33rIdwuv2F8Bxn5YFsAxNsQQ/gnG0AI+x
+	VQ/IMhmM6n4CwMXqVDxXSVqotyotcy3+tsGeHwtpPcvDc3gepQi2sHFn52HY=
+X-Received: by 2002:a05:6a00:4c8d:b0:848:8715:c2cd with SMTP id d2e1a72fcca58-84e933add88mr3388843b3a.47.1785252644148;
+        Tue, 28 Jul 2026 08:30:44 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:40::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea0301b3csm97521b3a.34.2026.07.28.08.30.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 08:30:43 -0700 (PDT)
+Date: Tue, 28 Jul 2026 08:30:42 -0700
+From: Joe Damato <joe@dama.to>
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, stefanha@redhat.com,
+	mst@redhat.com, will@kernel.org, ralf@mandelbit.com,
+	viro@zeniv.linux.org.uk, kuniyu@google.com,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	13667453960@163.com, stable@vger.kernel.org
+Subject: Re: [PATCH] net: datagram: fix integer overflow in
+ zerocopy_sg_from_iter
+Message-ID: <amjLIvXcwsret4qR@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Jiangshan Yi <yijiangshan@kylinos.cn>, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, stefanha@redhat.com, mst@redhat.com,
+	will@kernel.org, ralf@mandelbit.com, viro@zeniv.linux.org.uk,
+	kuniyu@google.com, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, 13667453960@163.com, stable@vger.kernel.org
+References: <20260728064235.337877-1-yijiangshan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,57 +86,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260728145528.GI651302@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260728064235.337877-1-yijiangshan@kylinos.cn>
 
-On Tue, Jul 28, 2026 at 04:55:28PM +0200, Peter Zijlstra wrote:
-> On Tue, Jul 28, 2026 at 05:46:30PM +0300, Mike Rapoport wrote:
-> > On Tue, Jul 28, 2026 at 04:31:35PM +0200, Peter Zijlstra wrote:
-> > > On Tue, Jul 28, 2026 at 07:30:27AM -0700, Dave Hansen wrote:
-> > > > On 7/28/26 07:21, Peter Zijlstra wrote:
-> > > > > There was already a patch merged that removed the shole debug_pagealloc
-> > > > > exception. Is that not better?
-> > > > 
-> > > > As I'm scanning through email this morning, there's another issue that
-> > > > popped up with that patch. It's causing hangs on boot.
-> > > > 
-> > > > It's looking like debug pagealloc not taking the lock is actually
-> > > > functional, not an optimization. Although, I hesitate to say
-> > > > "functional" and would prefer to use much less nice words to describe it.
-> > > 
-> > > Yeah, lets figure out why that is before we retain this wart ;-)
-> > 
-> > As Lorenzo said:
-> > 
-> >   __kernel_map_pages() can be called from irq context:
-> > 
-> >   < GFP_ATOMIC context >
-> >   kfree() or whatever
-> >   -> ...
-> >   -> __free_pages_prepare()
-> >   -> debug_pagealloc_unmap_pages()
-> >   -> __kernel_map_pages()
-> >   -> __change_page_attr_set_clr()
-> >   -> cpa_lock
-> > 
+On Tue, Jul 28, 2026 at 02:42:35PM +0800, Jiangshan Yi wrote:
+> zerocopy_sg_from_iter() computes the copy length as:
 > 
-> The TLBI hack in __kernel_map_pages() makes me wonder how any of this is
-> correct to begin with. That comment isn't helping.
+>   copy = min_t(int, skb_headlen(skb), iov_iter_count(from));
 > 
+> iov_iter_count() returns size_t.  When it exceeds INT_MAX (e.g. via
+> io_uring provided buffers), the int cast wraps negative, wins the min()
 
-So in particular the from IRQ-disabled context thing seems to be
-clearing the 'present' bit. Not doing a full TLBI on that would allow
-other CPUs to still access the page, resulting a lack of faults.
+idk I looked at the code and it looks to be capped at INT_MAX, so i'm not sure
+that the io_uring example could ever happen ?
 
-I suppose that is a non-fatal case. It makes the debug code less robust
-than it wants to be, but no malfunction.
+I think the commit message misstates what is actually possible
 
-But debug_page_alloc_map_pages() as used from post_alloc_hook() for a
-GFP_ATOMIC alloc would result in not propagating the present bit,
-resulting in concurrent faults. And I'm not immediately seeing a fixup
-for that in the fault handler.
+> comparison, and the negative copy propagates into
+> skb_copy_datagram_from_iter(), which can trigger WARN_ON or corrupt
+> data.
+> 
+> Use min_t(size_t, ...) so the comparison is done in the correct type.
+> The result is always <= skb_headlen(skb), which fits in int.
+> Fixes: 3a654f975bf9 ("new helpers: skb_copy_datagram_from_iter() and zerocopy_sg_from_iter()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+> ---
+>  net/core/datagram.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/core/datagram.c b/net/core/datagram.c
+> index c285c6465923..fd8e17d25a3d 100644
+> --- a/net/core/datagram.c
+> +++ b/net/core/datagram.c
+> @@ -783,7 +783,7 @@ EXPORT_SYMBOL(__zerocopy_sg_from_iter);
+>   */
+>  int zerocopy_sg_from_iter(struct sk_buff *skb, struct iov_iter *from)
+>  {
+> -	int copy = min_t(int, skb_headlen(skb), iov_iter_count(from));
+> +	int copy = min_t(size_t, skb_headlen(skb), iov_iter_count(from));
 
-Hmm, perhaps spurious_kernel_fault() handles it, after all, it would not
-actually observe !present anymore when reading the PTE, its just a stale
-TLB entry at that point.
+I don't get this.
 
-Hmmm...
+Wouldn't copy need to also be a size_t to be consistent with the general
+"idea" of this patch ?
+
+If you leave copy as an int aren't you just shifting the alleged overflow to
+the assignment ?
+
+Even if you changed copy to a size_t then.....
+
+>  
+>  	/* copy up to skb headlen */
+>  	if (skb_copy_datagram_from_iter(skb, 0, from, copy))
+
+this would still be a problem because len here is an int ?
+
+I feel like if you really wanna fix this you would have to use min3 or
+something instead of min_t ?
+
+But, I'd probably just leave it and not propose a patch to change this at all.
