@@ -1,42 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64BE2AE76
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:05:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71CDD2DCF57;
+	Tue, 28 Jul 2026 03:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785207918; cv=none; b=Aj7PqSJTAELqMVI6tGrZLegbpSAuV8hXwTTjUa7ta7HWUd+qTUDZK6okBjrLxnIPjRdHObQDvW3/iSQzbEzNmUBnJFEPLis1D+8kDiGISeJQzYzY3kmJXiSJ8uSfYjyhKBUttTPBjW7k8I7e7y3cRwUTIpCXvo4xsuCF8pMWoSw=
+	t=1785208106; cv=none; b=XHFKq7giAaskn0NLu6eEHT+ehScAA3JoEA6JeDZokv8Q5/aoO3oISOEZ47wPoZWvE3BnjTqTAxqJgfT4w/wyQZyk6xxlMa5A/sDUG+buLav6x6MF1Qn3CBBjpaxlfvDnp0qbU51Up5vYIn3q6745IQX1pe3QJDsPRlf4DF3EuZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785207918; c=relaxed/simple;
-	bh=1Xjy7mvnUJLaf7K1NKEtHqfCqKb2Sj9c3d/cKgxqBpc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IQA4fbKhU99/ZOVemqYDGNmOlygiyq1TUZ7rjaG9haOA22qz9MTsOPVBpSFHppU3lSz7aEHfwtJPrg9/SKOOKZB6thNhe6NsXbD8m7sicDNgHUHkwx+75V5PAgFa1+34qgeBFD3RqvqyUdiY/Xr3OFzbhNTLky0sXzBlSCPBSWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RqnM9DYU; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RqnM9DYU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258A51F000E9;
-	Tue, 28 Jul 2026 03:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785207916;
-	bh=1aTccwo5lgl6pLo4ImDTcGlXkdcaD2IpPcdrtCg/9Uk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RqnM9DYUP5P2FB2Dn92129vmB7fV1hQG04+0WtmvjfzfET7+iFF0WqCM6Bw/fD6WB
-	 ZNo4D9yCodUvKIht6Jl7oZpxJ9abavTGcSaxpcv8/rfkxQ4ESmMeFqidcu6+7nzdlS
-	 /ML87FD3MVOIIKMsQkYHnUGZlyHY7oTiUzrXJc7rXU+mUOd0PIVNuD6sHngEUif5oR
-	 nKSdsf3Vle2rOn1NpEHBhbHMb4HmkfbYitaR6ef+PBvjZyLuWdrmwscSUK58E2IMtc
-	 OqffyBZ9vBM0tUMp087amUlDoDxFX5P1Ev+wyDOIMy2SYJu6YIKYDvtCkWsXwDF0pK
-	 Z6MRGva69T05g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
-Date: Mon, 27 Jul 2026 23:05:14 -0400
-Message-ID: <20260728030514.3127195-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072010-corncob-unease-948d@gregkh>
-References: <2026072010-corncob-unease-948d@gregkh>
+	s=arc-20240116; t=1785208106; c=relaxed/simple;
+	bh=aHCzfYpYUEmHit4qAlCqfvyFpxy6UxEiGDc6f2IaHbo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J+cVa2vzRWfB8g+QN2xUmaP/8XZ1MBZR68A7bW5zKvnhqv1yO7Ex97tC0s90rsdTwYvisvv9bPdN5oOZuFnicLLNCXxURZ2qRDflv61DO6X0KL6lSABjDhVE357HD5xT2vxDQTHqVup+Ip64pVou0AiyKaIzcTFCpQd7xn0C/cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDX3y8cHWhqT2JGAA--.2335S3;
+	Tue, 28 Jul 2026 11:08:12 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgAnl8wcHWhqDy5HAw--.57582S2;
+	Tue, 28 Jul 2026 11:08:12 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	david@ixit.cz,
+	mgreer@animalcreek.com,
+	oe-linux-nfc@lists.linux.dev,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH net v2] nfc: trf7970a: drain timeout_work and keep trf->lock valid across teardown
+Date: Tue, 28 Jul 2026 03:07:16 +0000
+Message-Id: <20260728030716.230626-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,49 +38,113 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgAnl8wcHWhqDy5HAw--.57582S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?ZYHA/QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI0ehKhht0Ab00um4zGWfdpP9ED8i3dNWVazX1emWYn8OxNI
+	7Bz3XDcm+0nSxBmFi8Op9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxAr1UuFykuFy5Wr1rWF4Utrc_yoWrJFW7pr
+	sxWFyq9rW8CrWjyFsrZF4IqFWrAa18J3y8C34qga4fJan8JFyxJry8Ja4Y9Fy8CrWkZ3ZF
+	vrW5ZayfuF4FyFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
 
-From: Maoyi Xie <maoyixie.tju@gmail.com>
+The driver never drains trf->timeout_work with a blocking primitive:
+every cancel_delayed_work() in the driver is the non-blocking variant,
+kept that way on purpose so the timeout handler can consume its return
+value for the ignore_timeout protocol. A timeout handler that is already
+running and blocked on trf->lock during trf7970a_remove() therefore
+survives past the teardown, then acquires the lock and dereferences trf
+-- a use-after-free.
 
-[ Upstream commit aa6dcd5c8dd9ba1d7d0f60093bcda41c0d6d438d ]
+trf7970a_remove() also calls mutex_destroy(&trf->lock) before the devm
+chain frees trf, while the threaded IRQ handler trf7970a_irq() takes the
+same lock at entry and is only synchronised by the devm_free_irq() that
+runs after .remove() returns; it can thus observe the destroyed lock.
 
-lbtf_free_adapter() calls timer_delete(&priv->command_timer), which does
-not wait for a running command_timer_fn() callback. lbtf_free_adapter()
-runs on the teardown path right before ieee80211_free_hw() frees priv,
-both in lbtf_remove_card() and in the probe error path. command_timer is
-armed by mod_timer() in lbtf_cmd() whenever a firmware command is sent.
-command_timer_fn() dereferences priv. If a command times out as the
-device is removed, command_timer_fn() runs concurrently with teardown and
-dereferences priv after it has been freed.
+Fix both by draining timeout_work with cancel_delayed_work_sync() and by
+dropping the premature mutex_destroy():
 
-This is the same use-after-free that commit 03cc8f90d053 ("wifi: libertas:
-fix use-after-free in lbs_free_adapter()") fixed in the sibling libertas
-driver. The libertas_tf variant has the identical pattern and was left
-unchanged. Use timer_delete_sync() so any in-flight callback completes
-before priv is freed.
+In trf7970a_remove(), cancel timeout_work between
+nfc_digital_unregister_device() and nfc_digital_free_device().
+nfc_digital_unregister_device() flushes the digital core's cmd_work,
+which invokes the driver's in_send_cmd/tg_send_cmd/tg_listen entry points
+and arms timeout_work; cancelling timeout_work before unregistering could
+let a final in-flight command re-arm it after the drain. The handler also
+dereferences trf->ddev, so the drain must precede freeing the digital
+device. On the probe-error path the device was never registered, so the
+cancel runs directly before nfc_digital_free_device().
 
-Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
+Drop mutex_destroy(&trf->lock) from trf7970a_remove() and from the
+err_destroy_lock probe-error label. trf is devm_kzalloc()'d and
+devm_request_threaded_irq() is registered after it, so devm reverse-order
+cleanup runs devm_free_irq() (synchronising the threaded IRQ handler)
+before freeing trf. The mutex is embedded in trf, so leaving it valid
+until then lets the IRQ handler be drained before the lock goes away.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 165063f1dac4 ("NFC: trf7970a: Add driver with ISO/IEC 14443 Type 2 Tag Support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Link: https://patch.msgid.link/178211481807.2212567.8773346114561900100@maoyixie.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+  - Move the cancel_delayed_work_sync(&trf->timeout_work) in
+    trf7970a_remove() to after nfc_digital_unregister_device() and
+    before nfc_digital_free_device(), so the drain runs after the
+    digital core flushes its cmd_work instead of racing it. The
+    probe-error-path cancel and the mutex_destroy() removals are
+    unchanged.
 
-diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
-index 71492211904b34..b726e7e0b26084 100644
---- a/drivers/net/wireless/marvell/libertas_tf/main.c
-+++ b/drivers/net/wireless/marvell/libertas_tf/main.c
-@@ -174,7 +174,7 @@ static void lbtf_free_adapter(struct lbtf_private *priv)
- {
- 	lbtf_deb_enter(LBTF_DEB_MAIN);
- 	lbtf_free_cmd_buffer(priv);
--	del_timer(&priv->command_timer);
-+	timer_delete_sync(&priv->command_timer);
- 	lbtf_deb_leave(LBTF_DEB_MAIN);
+ drivers/nfc/trf7970a.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
+index f22e091..9dc6931 100644
+--- a/drivers/nfc/trf7970a.c
++++ b/drivers/nfc/trf7970a.c
+@@ -2207,13 +2207,13 @@ static int trf7970a_probe(struct spi_device *spi)
+ err_shutdown:
+ 	trf7970a_shutdown(trf);
+ err_free_ddev:
++	cancel_delayed_work_sync(&trf->timeout_work);
+ 	nfc_digital_free_device(trf->ddev);
+ err_disable_vddio_regulator:
+ 	regulator_disable(trf->vddio_regulator);
+ err_disable_vin_regulator:
+ 	regulator_disable(trf->vin_regulator);
+ err_destroy_lock:
+-	mutex_destroy(&trf->lock);
+ 	return ret;
  }
  
+@@ -2228,12 +2228,11 @@ static void trf7970a_remove(struct spi_device *spi)
+ 	mutex_unlock(&trf->lock);
+ 
+ 	nfc_digital_unregister_device(trf->ddev);
++	cancel_delayed_work_sync(&trf->timeout_work);
+ 	nfc_digital_free_device(trf->ddev);
+ 
+ 	regulator_disable(trf->vddio_regulator);
+ 	regulator_disable(trf->vin_regulator);
+-
+-	mutex_destroy(&trf->lock);
+ }
+ 
+ #ifdef CONFIG_PM_SLEEP
 -- 
-2.53.0
+2.34.1
 
