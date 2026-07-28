@@ -1,74 +1,52 @@
-Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com [209.85.218.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4943C3F58
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 07:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.66
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 677FE3E0C4A;
+	Tue, 28 Jul 2026 07:35:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785223532; cv=none; b=UMhZgh0UOJ35vBiF2wHhxfbqrnY7ih7DjmtkmuVvqhQer8LC/Onm6uGSROSRcDre1Ob9y6nEI3r0ih0DrJzPW0idxVFqd5BxaN/z8JPj4imDhtmBcCt7X3wZZMWCvoUh7ay/+WPj+hkCFDt/1DQpv8C6qJqMOuvfGAdeSkLZHyM=
+	t=1785224135; cv=none; b=LSaKKAM9goHHKI6eGRAtaEUcwzoDANN1KW8pl8shvNmrqFvv30N2i3msNtSEzARUgwiDhquZ9CtyveUIK7AVb6uqKaui6mJEMSSa6RMgppUZoi2f8E4BT2RCw8FY31Ud9CAX+GGmZEjpzJAmittzOmGPo5YmhSVWzQ/4Z17hvQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785223532; c=relaxed/simple;
-	bh=y+umH8wxMGxNk9Gws8mhEEO0cl6BOqSfoU5FEWJZWJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S5UKc6npywbLsMhJJGzdlQLO7Y3CiEHat2rpLpmiFr4IFQLr2YJ0XNPZwN2U6e1VKSVGnIQYSWgpLUiW9eOwA+2m+Srmn8j+KyEEQe9zAwARINzKm2Lo6aI5GPCs20U3sScUVNp6C35ih8Zz66uGm2ikEG4VReHQ/aUiGlgTh0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=OTPeJlqy; arc=none smtp.client-ip=209.85.218.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1785224135; c=relaxed/simple;
+	bh=88oMKijMS5flfz6PnFMsJGC7BOZ5lot/+gvxNg3Hjm4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J8hOLlECYOfVAA7HXqVwmHNrj0WCjBETlrL11Tt+z4TDchlTtcKg534lPxHHy8F3ED0c9ELMt24FKJGUSplnjOcPOpJvV1b3BTvH+s8uxbX/lRb53sOLKQRaBfJbZO5E6CfuCGFc60ERUc3umnXx2XOYqM4rBPljeabRmvCtlvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=lm0UGZkL; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="OTPeJlqy"
-Received: by mail-ej1-f66.google.com with SMTP id a640c23a62f3a-c169ae1cb26so110991366b.1
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 00:25:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="lm0UGZkL"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1785223529; x=1785828329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OviTaoy3r0eqHIy1tKziY8rCZxMSKhDs7PxVoa+kzAs=;
-        b=OTPeJlqy9I1EEgEB1q9izD+0g/YqlzoTwYdd28jPLi4ySej8PiHlWJWgkkXZoK9w1f
-         3QTdoYqw9kPc4g4fB0IHzGpu/ECZ2HFqpbbeVwUftmaJVrZMAPTkGSvdw3JbpQ9lRNUm
-         krUoxCN4DDd5rbZa8U7k8NSkQdnjiWRLeuvDoRADzYpYVJgwxJTkrPc2JjDNK7hkz3NK
-         tXFt+Ji0QWvC9r3YhWlLwqRNdqPPaozk/rys91DZfktd+QDLKqjBhrWRQ55QXJJbUhhn
-         4hMRjyWzqWllvx11xHZW/iQN8h7vbQhlyrA9iCSN/+RdpzY/8iGRZn7DBeChuVfGaqhf
-         jURg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785223529; x=1785828329;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OviTaoy3r0eqHIy1tKziY8rCZxMSKhDs7PxVoa+kzAs=;
-        b=myWAIshH8L9xf+VLKNxKgG5mhRXgwFWmkjZBwRU4BT74gWBmM+Y5OU30AuucDkkx5B
-         8F2OuHFbRuhCCSPXk+cXMngKrFztpx/1rsgCOMCBA9AKVYouJxuPB2nSQcNdirKjfTBv
-         HFoL8bog/cRXbBZmaf1fkratr8+lHY/rP+3fjmRPjG6QHRMpjWJsLrxOELZpFvNaJMZ6
-         MQaCPrFmHiJWtczFDxSdhS0rOpmGRt5vBEFLasb39Hq01X/wb3f4FaWGMVfBVtM2p+I1
-         tkq+M1J1WARmir1POV9IkYyHAHkHzLLJnCslOwKpBAYoQelRKkDdXvH+EgzFNmLN5BNr
-         O5Ng==
-X-Gm-Message-State: AOJu0YwodlwjGcwwsUpgmRzE82t+19MjNqdhAaAWgVbfO+MLu7NklbPK
-	d699JTd1YXiEJRDjozLHVhHZBhzpMl2Jwo/rp2DpI3BEt2XhRAmoP3VHJ8g840jP3JzDLPAZxSx
-	A9a1St3ClpB/m
-X-Gm-Gg: AR+sD103xjYS18C5eifKKG4mFLQNruRkxWqBFF1o94DVERGGbPUfkwrRSuBqOtjtE9q
-	hNjFzPtcu4uDNwPROziaerehVn5birQD3xjlaZFoqbbyNDkfzgknknoyOyIf+MM0zBZgKBt7U71
-	Hk/dW6umJfum+Kn8Hf8Eim0FrFE1Skmb3eMe6OSuVC+xGwPAbnNL7Hfd5dSVS3V0b/AcxkhCUGn
-	84eD4Ge/tMEWF5A0vUcWsj7Z4AXNsb9M3S5XsIl3mywkK+2FVvh+v5HDeQt6ERvB/5OLX0UdXqJ
-	8rfQC/zQL/bhlDo6kBM7FVZwhcm3GvzZrtFdESbJF5ABs52gh4w9rtQ3L+2eV6BnA3f6b8hfDJO
-	WcKVD/qUCcLdbBloLMf4i8BW/ZqKGPZ5CKO+LO4peWC8zySV97fxOXZeGSXg/8wdKbLD8naZvHY
-	XeXB1qzXAHttB4hYRGI6/LW2nSBQFjWsg=
-X-Received: by 2002:a17:907:fdcb:b0:c10:10c9:6d8c with SMTP id a640c23a62f3a-c1f720a90eamr57074866b.28.1785223528467;
-        Tue, 28 Jul 2026 00:25:28 -0700 (PDT)
-Received: from localhost (27-53-136-186.adsl.fetnet.net. [27.53.136.186])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde7f8e73sm47022335ad.72.2026.07.28.00.25.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 00:25:27 -0700 (PDT)
-From: Shung-Hsi Yu <shung-hsi.yu@suse.com>
-To: stable@vger.kernel.org
-Cc: Shung-Hsi Yu <shung-hsi.yu@suse.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>
-Subject: [PATCH stable 7.1 6.18 2/2] selftests/bpf: Keep verifier_map_ptr exercising ops pointer access
-Date: Tue, 28 Jul 2026 15:25:09 +0800
-Message-ID: <20260728072512.33620-3-shung-hsi.yu@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260728072512.33620-1-shung-hsi.yu@suse.com>
-References: <20260728072512.33620-1-shung-hsi.yu@suse.com>
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=hdHcj
+	0vOw7H2iiEIlvqDJr0IzX3wk+uoZPxeYcgWfdE=; b=lm0UGZkLp+AvF08b55Fwu
+	tN+ODNmjr6NKMBErPZ4zDrBL9avvgbCGYvhlmf7XJhfkw4JrNICA/pDDKBQvmChh
+	DRi090UnsHDshd7BQFvGqVQa8cs2qHJOzhKdVOqBL4R/u/m2n97TsROh/kyWQRtE
+	zIJdX5IbQw6sbr/6m9XSeU=
+Received: from localhost.localdomain (unknown [121.225.135.236])
+	by web1 (Coremail) with SMTP id yAQGZQBnCcmwW2hqJim1AA--.58324S2;
+	Tue, 28 Jul 2026 15:35:13 +0800 (CST)
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+To: netfilter-devel@vger.kernel.org
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>
+Subject: [PATCH nf] netfilter: conntrack: sctp: verify vtag before state changes
+Date: Tue, 28 Jul 2026 15:35:06 +0800
+Message-ID: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.46.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,105 +54,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yAQGZQBnCcmwW2hqJim1AA--.58324S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZrykWrWrWFyfuFy7Zr4UCFg_yoW5GFy8pa
+	yFkryakFyxGr4ay3Z3Kw1vyF4DGrs3C3yakryUAFyvkwn8JF1F9a13K3yxuwn8XFnrKry3
+	AFWqqr4YyF1DCrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9m1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl
+	84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcx
+	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x8ErcxFaVAv8VW8
+	Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6I
+	AqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xS
+	Y4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUtKsbUUUUU=
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgICAWpn2yG07gAAsu
 
-From: Daniel Borkmann <daniel@iogearbox.net>
+The packet-wide vtag check in nf_conntrack_sctp_packet() is skipped when
+the bundle map contains any chunk type with special vtag handling.  The
+per-chunk path re-checks INIT, ABORT, SHUTDOWN_COMPLETE, and
+COOKIE_ECHO, but other state-changing chunks still fall through to
+sctp_new_state() without validating sh->vtag.
 
-commit 082c412097716b93ff1365689fc4ddcd1ce8296f upstream.
+This lets a wrong-vtag packet bundle HEARTBEAT with COOKIE_ACK, ERROR,
+SHUTDOWN, or SHUTDOWN_ACK and still advance conntrack state.  That can
+desynchronize conntrack from the real SCTP association and cause denial
+of service for SCTP traffic behind a stateful firewall.
 
-sashiko complained that 38498c0ebacd ("selftests/bpf: Adjust verifier_map_ptr
-for the map's excl field") would slightly decrease the test coverage given
-before the test was against the verifier rejecting the ops pointer. Recover
-the old test with the right offsets and add the existing one as an additional
-test case.
+Check sh->vtag before processing those chunks when conntrack already
+knows the expected direction vtag.  This keeps the existing
+HEARTBEAT/HEARTBEAT_ACK learning and connection-reuse behavior for the
+`vtag == 0` cases.
 
-  # LDLIBS=-static PKG_CONFIG='pkg-config --static' ./vmtest.sh -- ./test_progs -t verifier_map_ptr
-  [    1.672932] bpf_testmod: module verification failed: signature and/or required key missing - tainting kernel
-  #637/1   verifier_map_ptr/bpf_map_ptr: read with negative offset rejected:OK
-  #637/2   verifier_map_ptr/bpf_map_ptr: read with negative offset rejected @unpriv:OK
-  #637/3   verifier_map_ptr/bpf_map_ptr: write rejected:OK
-  #637/4   verifier_map_ptr/bpf_map_ptr: write rejected @unpriv:OK
-  #637/5   verifier_map_ptr/bpf_map_ptr: read non-existent field rejected:OK
-  #637/6   verifier_map_ptr/bpf_map_ptr: read non-existent field rejected @unpriv:OK
-  #637/7   verifier_map_ptr/bpf_map_ptr: read beyond excl field rejected:OK
-  #637/8   verifier_map_ptr/bpf_map_ptr: read beyond excl field rejected @unpriv:OK
-  #637/9   verifier_map_ptr/bpf_map_ptr: read ops field accepted:OK
-  #637/10  verifier_map_ptr/bpf_map_ptr: read ops field accepted @unpriv:OK
-  #637/11  verifier_map_ptr/bpf_map_ptr: r = 0, map_ptr = map_ptr + r:OK
-  #637/12  verifier_map_ptr/bpf_map_ptr: r = 0, map_ptr = map_ptr + r @unpriv:OK
-  #637/13  verifier_map_ptr/bpf_map_ptr: r = 0, r = r + map_ptr:OK
-  #637/14  verifier_map_ptr/bpf_map_ptr: r = 0, r = r + map_ptr @unpriv:OK
-  #637     verifier_map_ptr:OK
-  [...]
-  Summary: 2/20 PASSED, 0 SKIPPED, 0 FAILED
-
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20260602133052.423725-4-daniel@iogearbox.net
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Shung-Hsi Yu <shung-hsi.yu@suse.com>
+Fixes: 9fb9cbb1082d ("[NETFILTER]: Add nf_conntrack subsystem.")
+Cc: stable@vger.kernel.org
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: Claude-Code:GLM-5.2
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 ---
- .../selftests/bpf/progs/verifier_map_ptr.c    | 34 ++++++++++++++++---
- 1 file changed, 30 insertions(+), 4 deletions(-)
+ net/netfilter/nf_conntrack_proto_sctp.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/progs/verifier_map_ptr.c b/tools/testing/selftests/bpf/progs/verifier_map_ptr.c
-index d8e822d1a8ba..166193659870 100644
---- a/tools/testing/selftests/bpf/progs/verifier_map_ptr.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_map_ptr.c
-@@ -72,17 +72,43 @@ __naked void bpf_map_ptr_write_rejected(void)
- 
- /*
-  * struct bpf_map starts with the SHA256 hash sha[32] at offset 0 (a readable
-- * byte array), followed by the u32 excl field at offset 32. Reading a u32 at
-- * offset 33 runs past the end of excl and is rejected.
-+ * byte array), the u32 excl field at offset 32, and the ops pointer at offset
-+ * 40. Reading a u32 at offset 41 reaches into the middle of the ops pointer,
-+ * i.e. a partial pointer access, which is rejected.
-  */
- SEC("socket")
- __description("bpf_map_ptr: read non-existent field rejected")
- __failure
-+__msg("cannot access ptr member ops with moff 40 in struct bpf_map with off 41 size 4")
-+__failure_unpriv
-+__msg_unpriv("access is allowed only to CAP_PERFMON and CAP_SYS_ADMIN")
-+__flag(BPF_F_ANY_ALIGNMENT)
-+__naked void read_non_existent_field_rejected(void)
-+{
-+	asm volatile ("					\
-+	r6 = 0;						\
-+	r1 = %[map_array_48b] ll;			\
-+	r6 = *(u32*)(r1 + 41);				\
-+	r0 = 1;						\
-+	exit;						\
-+"	:
-+	: __imm_addr(map_array_48b)
-+	: __clobber_all);
-+}
-+
-+/*
-+ * The u32 excl field spans offsets 32..35 (mend 36). Reading a u32 at offset
-+ * 33 starts inside excl but extends past its end, which the verifier rejects
-+ * as an out-of-bounds scalar access.
-+ */
-+SEC("socket")
-+__description("bpf_map_ptr: read beyond excl field rejected")
-+__failure
- __msg("access beyond the end of member excl (mend:36) in struct bpf_map with off 33 size 4")
- __failure_unpriv
- __msg_unpriv("access is allowed only to CAP_PERFMON and CAP_SYS_ADMIN")
- __flag(BPF_F_ANY_ALIGNMENT)
--__naked void read_non_existent_field_rejected(void)
-+__naked void read_beyond_excl_field_rejected(void)
- {
- 	asm volatile ("					\
- 	r6 = 0;						\
-@@ -105,7 +131,7 @@ __naked void ptr_read_ops_field_accepted(void)
- 	asm volatile ("					\
- 	r6 = 0;						\
- 	r1 = %[map_array_48b] ll;			\
--	r6 = *(u64*)(r1 + 0);				\
-+	r6 = *(u64*)(r1 + 40);				\
- 	r0 = 1;						\
- 	exit;						\
- "	:
+diff --git a/net/netfilter/nf_conntrack_proto_sctp.c b/net/netfilter/nf_conntrack_proto_sctp.c
+index 7e10fa65cbdd..9978ecd05b1e 100644
+--- a/net/netfilter/nf_conntrack_proto_sctp.c
++++ b/net/netfilter/nf_conntrack_proto_sctp.c
+@@ -407,9 +407,17 @@ int nf_conntrack_sctp_packet(struct nf_conn *ct,
+ 			/* (D) vtag must be same as init_vtag as found in INIT_ACK */
+ 			if (sh->vtag != ct->proto.sctp.vtag[dir])
+ 				goto out_unlock;
+-		} else if (sch->type == SCTP_CID_COOKIE_ACK) {
+-			ct->proto.sctp.init[dir] = 0;
+-			ct->proto.sctp.init[!dir] = 0;
++		} else if (sch->type == SCTP_CID_COOKIE_ACK ||
++			   sch->type == SCTP_CID_ERROR ||
++			   sch->type == SCTP_CID_SHUTDOWN ||
++			   sch->type == SCTP_CID_SHUTDOWN_ACK) {
++			if (ct->proto.sctp.vtag[dir] &&
++			    sh->vtag != ct->proto.sctp.vtag[dir])
++				goto out_unlock;
++			if (sch->type == SCTP_CID_COOKIE_ACK) {
++				ct->proto.sctp.init[dir] = 0;
++				ct->proto.sctp.init[!dir] = 0;
++			}
+ 		} else if (sch->type == SCTP_CID_HEARTBEAT) {
+ 			if (ct->proto.sctp.vtag[dir] == 0) {
+ 				pr_debug("Setting %d vtag %x for dir %d\n", sch->type, sh->vtag, dir);
 -- 
-2.55.0
+2.47.3
 
