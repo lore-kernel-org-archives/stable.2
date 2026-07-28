@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67BC3B71C1
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:07:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5DD3B585C
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 18:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785262059; cv=none; b=IWIRXGZIQhZ5pc1YCvYMvrWddrwJz35kMqlPWHA1nqpPqmH24HnGze8+N0CxvV3tqz4RPs9K8D/68iysJ9iHGuV5Pn7HavDbC80pV3NznXHcX8njgkdi01v/rINQ5CjTpJCKTNoS4d+3+TzizTwqJTlermuu97ZdVWOKw+8LiRU=
+	t=1785262060; cv=none; b=ayvTQZ5eXaoYQnUIGZstu4nBsq7wQ/lpuZwxaUT3nmcsbOs4C7U/kXEbAbCHo1B031zbNUowbm6paWoenstwcT8xVVxwgymvFzMAfv4Afw3quuEGgHjDPkVlrL7C5k0H+iZQL3BwW5lFY9bRqhAnXadTf+SYsgThHuqwd/FQ9mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785262059; c=relaxed/simple;
-	bh=3KfhASaePt7MA3rLgQDdHeZHQZxCrh9AOkNH3VvEKa8=;
+	s=arc-20240116; t=1785262060; c=relaxed/simple;
+	bh=MPdpnjXFEM7MrLw3ZQPjnI4WjYD7c3aZOgpcLMPmVkQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mC0M19Ws7mTkUB1du/8jY9LXXU8vNj7Z6WxPywTvXqBqzCR6M9Mduq5opGtcEC6NUaYRiYn/wVl4B5fuWTeccTlXs0xGX+WNFXSvud9TpYm4XDJRpZSZMOqiwm5IoH1MY1bqD0UpVezsStr6SjY6tWZpBhmnim9mC5RfppLUMjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZY6xYpT7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=b70214zkWYeJJGHKq8V6WuxKMa1Rh1HLCR24ME8y13Kq/9Aio1xWa9Xl4iQf6aJcxJ+jVeQTzvyC2czU7szIS8wFD06Ylb07IBDs24VIuNvBGXV8pKK2A7yNQXQcaFpgpEIq+kby/2BIuVmfCd9f1kcQ9Ck4Icl57zW4hwL5gfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfwitUP/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZY6xYpT7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE80E1F00A3A;
-	Tue, 28 Jul 2026 18:07:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfwitUP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37F81F000E9;
+	Tue, 28 Jul 2026 18:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785262057;
-	bh=xfQDX/nv4wm6JHTC7nF4ASXlZXtXBxKeKJ8UR9OBYnc=;
+	s=k20260515; t=1785262059;
+	bh=r8Jp89B51VWizuBed8FKPsQAOXjogn5WAWPm2PNJHMQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZY6xYpT7kUHfJHlV9p5NTQ6qPf7fk5/zCvSnpOV57gYGaJkyHvSnkcWJ4/qEd/zi6
-	 s9xN0e2FQYmBPE4GqmilWYXUbCEadZwX13Ym4gRHWFtiqmyzbObV8MdqZlEZUsLcMb
-	 3XWggPKeXW6WS6DG/+gt0O8DMNti8X2Hta5TQBE1BspHKUjJe0pWlY0QJI+7t6/oAF
-	 uwaMb4iW6tOIkzs1uUp4Z64xEtF7lrZ2FVes4/bbquyZimt5YR0176BGjJHgMPgXPn
-	 GaoEpSXCyKDZhv148mtl4OZNMg1LpaB7BKfXlRf/GGbxlH6xuYROvV5aonvIBk9l7G
-	 7mDm/sNGjVFdQ==
+	b=lfwitUP/p87lFHPDpvoZDFa/Ffxph+Fl1XkyaOcx+SUp8DYkJrIbufTRmdfUOHu4u
+	 tJFfIViAbm1Df/vhK3WkYlQeliUZeekWNat8r1wFO8qrKWZ0MHwrnABviQUYK1rlfo
+	 CKguKcrWkcogGc62nnoJLPG1gGVnqaULu+vmiWGPqu2Z00hB/rpLMxxMz8JJ1ktX2Y
+	 w+lHhoF+O4ZO1NVueTtjIMDB4fqU1IAxDr/sM0ojzh55G5IIuTDkfA2DWluBGBLkMJ
+	 WFX8oJjox7QHfiqBK8EnTka0p3tRkRAEKxtl6j71gxVn4puwG1uAF22xnLVizFYHhh
+	 dqmLzNe6oGEDA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	David Ahern <dsahern@kernel.org>,
+	Bernard Metzler <bmt@zurich.ibm.com>,
+	Tom Talpey <tom@talpey.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Matthew Wilcox <willy@infradead.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/5] espintcp: Inline do_tcp_sendpages()
-Date: Tue, 28 Jul 2026 14:07:30 -0400
-Message-ID: <20260728180733.291798-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/5] siw: Inline do_tcp_sendpages()
+Date: Tue, 28 Jul 2026 14:07:31 -0400
+Message-ID: <20260728180733.291798-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260728180733.291798-1-sashal@kernel.org>
 References: <2026072137-hatred-autograph-0bbe@gregkh>
@@ -53,63 +54,71 @@ Content-Transfer-Encoding: 8bit
 
 From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit 7f8816ab4bae9dd42c5720fdad4b102532d4e43a ]
+[ Upstream commit c2ff29e99a764769eb2ce3a1a5585013633ee9a6 ]
 
 do_tcp_sendpages() is now just a small wrapper around tcp_sendmsg_locked(),
 so inline it, allowing do_tcp_sendpages() to be removed.  This is part of
 replacing ->sendpage() with a call to sendmsg() with MSG_SPLICE_PAGES set.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steffen Klassert <steffen.klassert@secunet.com>
-cc: Herbert Xu <herbert@gondor.apana.org.au>
-cc: David Ahern <dsahern@kernel.org>
+Reviewed-by: Bernard Metzler <bmt@zurich.ibm.com>
+Reviewed-by: Tom Talpey <tom@talpey.com>
+cc: Jason Gunthorpe <jgg@ziepe.ca>
+cc: Leon Romanovsky <leon@kernel.org>
 cc: Jens Axboe <axboe@kernel.dk>
 cc: Matthew Wilcox <willy@infradead.org>
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: 007800408002 ("espintcp: use sk_msg_free_partial to fix partial send")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/espintcp.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/infiniband/sw/siw/siw_qp_tx.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
-index 02c967075690de..acb612bf829a5f 100644
---- a/net/xfrm/espintcp.c
-+++ b/net/xfrm/espintcp.c
-@@ -206,14 +206,16 @@ static int espintcp_sendskb_locked(struct sock *sk, struct espintcp_msg *emsg,
- static int espintcp_sendskmsg_locked(struct sock *sk,
- 				     struct espintcp_msg *emsg, int flags)
+diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c b/drivers/infiniband/sw/siw/siw_qp_tx.c
+index 6bb9e9e81ff4ca..d24442ca879321 100644
+--- a/drivers/infiniband/sw/siw/siw_qp_tx.c
++++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
+@@ -313,7 +313,7 @@ static int siw_tx_ctrl(struct siw_iwarp_tx *c_tx, struct socket *s,
+ }
+ 
+ /*
+- * 0copy TCP transmit interface: Use do_tcp_sendpages.
++ * 0copy TCP transmit interface: Use MSG_SPLICE_PAGES.
+  *
+  * Using sendpage to push page by page appears to be less efficient
+  * than using sendmsg, even if data are copied.
+@@ -324,20 +324,27 @@ static int siw_tx_ctrl(struct siw_iwarp_tx *c_tx, struct socket *s,
+ static int siw_tcp_sendpages(struct socket *s, struct page **page, int offset,
+ 			     size_t size)
  {
-+	struct msghdr msghdr = { .msg_flags = flags | MSG_SPLICE_PAGES, };
- 	struct sk_msg *skmsg = &emsg->skmsg;
- 	struct scatterlist *sg;
- 	int done = 0;
- 	int ret;
++	struct bio_vec bvec;
++	struct msghdr msg = {
++		.msg_flags = (MSG_MORE | MSG_DONTWAIT | MSG_SENDPAGE_NOTLAST |
++			      MSG_SPLICE_PAGES),
++	};
+ 	struct sock *sk = s->sk;
+-	int i = 0, rv = 0, sent = 0,
+-	    flags = MSG_MORE | MSG_DONTWAIT | MSG_SENDPAGE_NOTLAST;
++	int i = 0, rv = 0, sent = 0;
  
--	flags |= MSG_SENDPAGE_NOTLAST;
-+	msghdr.msg_flags |= MSG_SENDPAGE_NOTLAST;
- 	sg = &skmsg->sg.data[skmsg->sg.start];
- 	do {
-+		struct bio_vec bvec;
- 		size_t size = sg->length - emsg->offset;
- 		int offset = sg->offset + emsg->offset;
- 		struct page *p;
-@@ -221,11 +223,13 @@ static int espintcp_sendskmsg_locked(struct sock *sk,
- 		emsg->offset = 0;
+ 	while (size) {
+ 		size_t bytes = min_t(size_t, PAGE_SIZE - offset, size);
  
- 		if (sg_is_last(sg))
--			flags &= ~MSG_SENDPAGE_NOTLAST;
-+			msghdr.msg_flags &= ~MSG_SENDPAGE_NOTLAST;
+ 		if (size + offset <= PAGE_SIZE)
+-			flags = MSG_MORE | MSG_DONTWAIT;
++			msg.msg_flags &= ~MSG_SENDPAGE_NOTLAST;
  
- 		p = sg_page(sg);
- retry:
--		ret = do_tcp_sendpages(sk, p, offset, size, flags);
-+		bvec_set_page(&bvec, p, size, offset);
-+		iov_iter_bvec(&msghdr.msg_iter, ITER_SOURCE, &bvec, 1, size);
-+		ret = tcp_sendmsg_locked(sk, &msghdr, size);
- 		if (ret < 0) {
- 			emsg->offset = offset - sg->offset;
- 			skmsg->sg.start += done;
+ 		tcp_rate_check_app_limited(sk);
++		bvec_set_page(&bvec, page[i], bytes, offset);
++		iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, size);
++
+ try_page_again:
+ 		lock_sock(sk);
+-		rv = do_tcp_sendpages(sk, page[i], offset, bytes, flags);
++		rv = tcp_sendmsg_locked(sk, &msg, size);
+ 		release_sock(sk);
+ 
+ 		if (rv > 0) {
 -- 
 2.53.0
 
