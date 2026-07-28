@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06FC331209
-	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1195531716D
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 03:26:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785209162; cv=none; b=OqqwAXzKuFT0F8IyXUQCRabHsFtfgeeFL4eP9pW8Q94S4ussQYG/Ma4m2YpJ/OqYnlitpHSbEVdYLiBOJFYLFjQPNHDlh9Nw45InMcO71tOM8Zfas56vgvIt+yquNZTft0u3favozAfIMQOqXznMhcwcSw8pD4nTtPdlVtSvyJk=
+	t=1785209166; cv=none; b=FE2p8HiCywxNfB4QDj8MK7jzrGY1z4k3DBMNcw2bBj2HSOr1ZW5xlsvnrDWHKkOk+F55IPqe7y/swG7ZIKhafGwNXKOzOd6A6LwhRMShqsqIoaVVNmcKaWfPNMdfTNP9+G13pDA2P2grL8dJjfEK563eJQmtyDEXFwKNQf2m1vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785209162; c=relaxed/simple;
-	bh=D/yF83XizwkPQijQ7Wrq14qk8SLu3yNIBmioE6c1yK4=;
+	s=arc-20240116; t=1785209166; c=relaxed/simple;
+	bh=1Xjy7mvnUJLaf7K1NKEtHqfCqKb2Sj9c3d/cKgxqBpc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V50NSIE/PB5ZtDeyoM+OJB5djRWMzaR8rmApZDce08MIeMrdhHZXat/LGOe4zMHWjxHgwjFJH18u0XnsZxnCvkfxViZpeXyopzF8ntmawDdPGgCh3f9GHHy40fMIEFdwzpEReyPFJURpbJCqjUbS2/OL7FLyLeFWD8YbWVjrqDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjFV/hSm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fB52Ko+oOkJ/UUG+cAi0od/Q6bzL24NZpSpDlO470UxTtH3C7DwXIiGuRHnDqCArViqJ5R6KgC89E5l4qMGT1qctJuhhmU6Fq/soJpM765ppWnInVPkXTS54Lbn2onvfReDzs/n4zeOaOhfqHtwKIKWWArjgIJSzmtdlT6i1XJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NO6EDI1U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjFV/hSm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6E41F00A3A;
-	Tue, 28 Jul 2026 03:26:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NO6EDI1U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300261F000E9;
+	Tue, 28 Jul 2026 03:26:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785209161;
-	bh=QxW+VD1B7I1GLmLLMhLaF1q0XtojyFjX6oh7vo5ROco=;
+	s=k20260515; t=1785209164;
+	bh=1aTccwo5lgl6pLo4ImDTcGlXkdcaD2IpPcdrtCg/9Uk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VjFV/hSmwV+KYxPu8AtxFasvHVK7YBaWlTXGYIYtliG5xFcIT1GNSfwcDQFSmkzeH
-	 NZUStv2NkP6TOAbX7lI7VeWjGyuoU4SheDuR+9M7bZp0h+eTYQpajiSUzt5gCvS1Wm
-	 11MHR5rHgH7hsFxVwNgayDWd8oVjDvEqEPfDCNe2J/vAgc5uMNfTRm+lH2iKJ+gXXX
-	 mle91dbCMfjvK3csKxa4CRzAuskcOd8Laspku0sAisDDwxmwGhVN030aViBhe8hl/Y
-	 0CQ15XGAoj5/hM2vibCIzgHHsyC5n40E74I3gWUY1EtL7Gygyp/ha5fGFhn+qkRIVr
-	 qXanMZtZNLGRQ==
+	b=NO6EDI1Ud84pfgj9u3gwDuRHEHJ9PLIxtwnxYT0ZTdnRzx1GclRBZTh3K9xnmn16l
+	 q6E/+O2zqyUFByYvhjufClpFaCs19WFrvdk1iH+b7LnfevtJIRZLly7fBJ40/VvYbq
+	 G6YfPQEdQA2/FTQNcBnZWbA72G6shapk3YRLIP6NqOFO42SuCXXfOOMEcms2Z99brQ
+	 P755++pe56LDGfWhSxtDuFDZzs1eDwPULgaiHi91rb72MPcJD6gUZpn+32mfFiYgTf
+	 S+t37/ssFZ7k3AE9+AXo7F/rKoNsVNgDc5DQGC/s1TpbfQrS0bYoynyaO39vjR10d8
+	 syCDP2sl1bOLw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dexuan Cui <decui@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] net: mana: Validate the packet length reported by the NIC
-Date: Mon, 27 Jul 2026 23:25:58 -0400
-Message-ID: <20260728032558.3151321-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] wifi: libertas_tf: fix use-after-free in lbtf_free_adapter()
+Date: Mon, 27 Jul 2026 23:26:02 -0400
+Message-ID: <20260728032602.3151440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072059-automaker-racoon-e003@gregkh>
-References: <2026072059-automaker-racoon-e003@gregkh>
+In-Reply-To: <2026072010-gentile-dramatic-7b6e@gregkh>
+References: <2026072010-gentile-dramatic-7b6e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,49 +45,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dexuan Cui <decui@microsoft.com>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
 
-[ Upstream commit 2e2a83b4998af4384e677d3b2ac08565274279bf ]
+[ Upstream commit aa6dcd5c8dd9ba1d7d0f60093bcda41c0d6d438d ]
 
-Validate the packet length reported in the RX CQE before passing it
-to skb processing. The CQE is supplied by the NIC device and should
-not be blindly trusted.
+lbtf_free_adapter() calls timer_delete(&priv->command_timer), which does
+not wait for a running command_timer_fn() callback. lbtf_free_adapter()
+runs on the teardown path right before ieee80211_free_hw() frees priv,
+both in lbtf_remove_card() and in the probe error path. command_timer is
+armed by mod_timer() in lbtf_cmd() whenever a firmware command is sent.
+command_timer_fn() dereferences priv. If a command times out as the
+device is removed, command_timer_fn() runs concurrently with teardown and
+dereferences priv after it has been freed.
 
+This is the same use-after-free that commit 03cc8f90d053 ("wifi: libertas:
+fix use-after-free in lbs_free_adapter()") fixed in the sibling libertas
+driver. The libertas_tf variant has the identical pattern and was left
+unchanged. Use timer_delete_sync() so any in-flight callback completes
+before priv is freed.
+
+Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
 Cc: stable@vger.kernel.org
-Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Signed-off-by: Dexuan Cui <decui@microsoft.com>
-Fixes: ca9c54d2d6a5 ("net: mana: Add a driver for Microsoft Azure Network Adapter (MANA)")
-Link: https://patch.msgid.link/20260702041237.617719-2-decui@microsoft.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+Link: https://patch.msgid.link/178211481807.2212567.8773346114561900100@maoyixie.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/microsoft/mana/mana_en.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 0249ba7e3b92cd..ec5d38164d41b2 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -1739,6 +1739,19 @@ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
- 	rxbuf_oob = &rxq->rx_oobs[curr];
- 	WARN_ON_ONCE(rxbuf_oob->wqe_inf.wqe_size_in_bu != 1);
+diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
+index 71492211904b34..b726e7e0b26084 100644
+--- a/drivers/net/wireless/marvell/libertas_tf/main.c
++++ b/drivers/net/wireless/marvell/libertas_tf/main.c
+@@ -174,7 +174,7 @@ static void lbtf_free_adapter(struct lbtf_private *priv)
+ {
+ 	lbtf_deb_enter(LBTF_DEB_MAIN);
+ 	lbtf_free_cmd_buffer(priv);
+-	del_timer(&priv->command_timer);
++	timer_delete_sync(&priv->command_timer);
+ 	lbtf_deb_leave(LBTF_DEB_MAIN);
+ }
  
-+	if (unlikely(pktlen > rxq->datasize)) {
-+		/* Increase it even if mana_rx_skb() isn't called. */
-+		rxq->rx_cq.work_done++;
-+
-+		++ndev->stats.rx_dropped;
-+		netdev_warn_once(ndev,
-+				 "Dropped oversized RX packet: len=%u, datasize=%u\n",
-+				 pktlen, rxq->datasize);
-+
-+		/* Reuse the RX buffer since rxbuf_oob is unchanged. */
-+		goto drop;
-+	}
-+
- 	mana_refill_rx_oob(dev, rxq, rxbuf_oob, &old_buf, &old_fp);
- 
- 	/* Unsuccessful refill will have old_buf == NULL.
 -- 
 2.53.0
 
