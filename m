@@ -1,182 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3AD443E56;
-	Tue, 28 Jul 2026 13:48:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB2B447806
+	for <stable@vger.kernel.org>; Tue, 28 Jul 2026 13:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785246504; cv=none; b=q1oLETCdm74nNmW9wl17UXMffkGojQ0oOgKRAm30+VuuxBdhp5XcqiBIMIvGlwmh2uWl5cBXeiQkOM/gVOppy2BzYtmdRjnL/UOudSxczHLi0amvaUvtVw4tf4fiZouKaE/c3dD+1c7XXjcEa0c6/NP+KCDw7z2bLyGUeKrTQAM=
+	t=1785246700; cv=none; b=YgHzFtqTwj933Q1wM00qeJDlnfVOCmdmxFHo6JKN1OA+R+XljXWbm/t49OpxP9MKTNIV2wtTV7Lek4u2Bg3f9vkasBmVC875lw4UFs/0+lm9rIQjTYBx5QIaD6kRKUyTnDWTwMIX69jN1yvGsuI0VmaMttNaXcFFk6tZG5fITOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785246504; c=relaxed/simple;
-	bh=GfZf4OtiPvKmem6JowvFOniZu3fnPQf7hYId+0iuxks=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fruw2jFtMgLScRWQ8++KCcbfGvKB69cnYx/DBau3SvNVbT5CwuoTLz6EMJeUHA6RIkOism71Ic4mXly/eFTpTZqu3omEiJllLAtCMyrA2zCY44BoZZFNTI8D7SImQirKvMgN2xBF6JE0uUznoTKuX6tInJdCt8q2dLpTVtq+ffc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzSj2fnz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785246700; c=relaxed/simple;
+	bh=r96kwzBIc8Jied5GwHDPHGc6xnmckXwOtOi28k4xvZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fUSoMpyMZQJCJN7u9Ll1edbPcXJEnLegSKUAOkFrvYbpQSVWxZsZp7kHV8Q364vs984O5ZfYfsFC3oxGZZFz2UBS5K99JGZuLeIhohuZA15/wjTSs+UWJEjEbo/Xm1NIJUDxVkBcT4FCkMtoWSYCboFbSnt+tylvKqEnNGqKSs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ax3A5mLe; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzSj2fnz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF851F000E9;
-	Tue, 28 Jul 2026 13:48:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785246503;
-	bh=M13c9yrS8i19jL6P1wyYS28jNcW+SVKbY4SPV3JN170=;
-	h=From:Date:Subject:To:Cc;
-	b=LzSj2fnzFxkDQEz0jAWTEyWdwJtEYTd+w6PpGK9wNAweCVLTU9kBuXBPTm6CFhePi
-	 SdU6U98d4FV7WPFrgkswIAfexxvtPTuYw/uEXSQ1yeKRieh2ln0Osk1eRTA98LtnvX
-	 JCaHRHIPqUG4MPJO6IUZVt9P9NnCLlvV37ldL1joUcAj2iu7XwNjCF+rK5qyVzJxu6
-	 CRNJameCmxNuxLBnMxlw4Kh0p+5vqgAEHFzJYsL/TGLmv+BY4jve/L5d3b7/L/4Awu
-	 lbDFiMlSpjFAKqAE5YtH01mk7uQmVPdt7v4gY9FR0X+vQ90tV+CiotyDVixQ1AqmqX
-	 pwiUMRxgBhN9Q==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 28 Jul 2026 15:48:10 +0200
-Subject: [PATCH] binfmt_misc: don't leak the user namespace when the mount
- fails
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ax3A5mLe"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4954d383e64so23887115e9.1
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 06:51:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785246697; x=1785851497; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cY1+qecTjpPQDXB5WlxHN8z+3cpmFqILEHWinOpbPx4=;
+        b=Ax3A5mLeAEyA7q5K/8vfR8LVAp3bY42wrpuDezFir6OEKSRhCtHQj0KpJNTbIBQsoi
+         LnX3RE2zyUUCLYgcLx+DkQ/x6n+v0RayBP71xwYraS3wXzZuufASj+xGL7gGe4qpgaVo
+         9cPM3VlAfjJvBmg6OdS2Ch7Tk5TFdUejElHXvtRHPbzhLVYxjDtgBWlFFFjkbN50rIHk
+         38Nnuw57aVqrmfpYJgUgC502fFEyQGhiaDTRbwMSvgFpM9rLZjcwzx0bmGMzBIXEgiFm
+         wPwEKtFTLZWfvqaWqNWjBSMBoa9W+w49eB4z04PaGBeQFEN8BwRrERnj3kHwwZCa0dMy
+         nvTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785246697; x=1785851497;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cY1+qecTjpPQDXB5WlxHN8z+3cpmFqILEHWinOpbPx4=;
+        b=KMtcAiIpjIGRE5qT0bZXnLGCrVMfWYfT9AhGkw5I5s0583hDl2ph2sRneVE+1DItqp
+         vbrTunFx9v36xBeXrJrpxUX6+EWDPu4OsWoR2HeAKIgdTa9iQdI6LCGXLhLIqQFGr/dU
+         kTjlC8Dfxggm54Raelh1YBaVmXG1ASRpohYP+DH7rcXH1oJitLW6qovRmmFzdZWMvWkV
+         pFafJJVLgvIVYxj5xcbaSSeyNSOe3dFLWA6pIg6KNJBkMNpoorUte3KOVoHvuH3FVjRe
+         0vNXwykWBfYKd0as96wZhuygcXJxENuHia81yvwJ5REbv0Hgh0iwnNqmwrQ4AusPKoGY
+         lvuw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2XwJI1SYiSYCwFe4FulgbKfvPhy4V2JkkbVvgEySG/jXQ8iwglT4MHMuQBY6++4xW9n5VDnY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxv7Gtis3BK40zkgJcN9bjip4gGGmI07iPX9K37z3PDCfO8dnEE
+	qsKiAQFlVKwI2GygEFL5fEh9jvRJTNALkK0nW86bS9SHppAzd4rWAREn
+X-Gm-Gg: AR+sD12BtUNtPT3kQc4gE7+HIjMPYdUAjC7g65Mu8RQxIAFn9VRSrm8He09Opy3iwhK
+	s0AE8zNvlryeB9QM3eD7UY+apOwGJoPp0f2nTLPaawSIQ98dN0gI0D00mCYTcWYFvOqm91FmGqA
+	45c1rJobmBzdsgbN33jK1gTwOcSg2LGyp6qXyBr/Gxfhd0U03oIQgd7v0LxXtJUIVcLHTeHSJUO
+	pKw/4HjJq1GFG1Wp8YUhKILWJEUUJ7Hq1gpThhpVEqndQ6arNzDYymYhUaal0/Q9G1PjLMMTIUd
+	4HbyZiI8jgjhhPbvrApeZC+YKZq+v4kkcSuLThqH5jRbnIOxwOkAuCXgrZiqTGA0/X07w65ezBV
+	BRarZvIGIsghbLAyo82o08DN8KJagWgpd7eNYmn1RxuKf+BioAuFEyNyKSgNrVlD6jXJ0Hywtz2
+	xam433cgwd+0UOG4byi4fseIXJGo8t9ekhjPawKuyvb1GhNVn3aV3pI2aVS4WXNIRY8Q==
+X-Received: by 2002:a05:600c:1391:b0:495:4a34:16d9 with SMTP id 5b1f17b1804b1-496c65ab4f0mr26696655e9.31.1785246696724;
+        Tue, 28 Jul 2026 06:51:36 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85c6dc25sm57125898f8f.33.2026.07.28.06.51.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 06:51:36 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	Herlangga Maulani <w1zardsec@proton.me>
+Subject: [PATCH] Input: raydium_i2c_ts - propagate device info query errors from raydium_i2c_initialize()
+Date: Tue, 28 Jul 2026 18:51:27 +0500
+Message-ID: <20260728135127.48971-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-work-binfmt_misc-usernsleak-v1-1-dbd8d5e626e7@kernel.org>
-X-B4-Tracking: v=1; b=H4sIABmzaGoC/yXM3Q6CMAyG4VshPbYGF8WfWyHGrLOTigyzApoQ7
- t1NDt+m3zODchRWuBQzRJ5EpQ8pdpsCXGPDg1HuqcGUpiqP5oSfPrZIEnw33DpRh2MSgr7Ytui
- M2fPhXBGThSS8I3v5/vX6uraO9GQ3ZDJ/kFVGija4Jp8mr9t1sSw/f1SaopsAAAA=
-X-Change-ID: 20260728-work-binfmt_misc-usernsleak-c224e596beba
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Kees Cook <kees@kernel.org>, linux-mm@kvack.org, bpf@vger.kernel.org, 
- Farid Zakaria <farid.m.zakaria@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
- bpf@vger.kernel.org, jannh@google.com, mail@johnericson.me, 
- stable@vger.kernel.org, "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.16-dev-cca4b
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5088; i=brauner@kernel.org;
- h=from:subject:message-id; bh=GfZf4OtiPvKmem6JowvFOniZu3fnPQf7hYId+0iuxks=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRlbFbhnyO8/+nWyrYq9wz588vSZ791rj+53Pvo6/cZn
- lFvHiz+0lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjARVTFGho/bPKKvBacxK99s
- eF144ZaL45d5DSZ6zTWc39JVbW6yBjEyTOIw0vT0dQtVfJ34Z9ka/+YcxtW2x+NSfOLea0S8PXu
- WBQA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-bm_get_tree() takes a reference to the user namespace and hands it to
-get_tree_keyed() as the sget key. sget_fc() moves that reference into
-sb->s_fs_info and clears fc->s_fs_info, so from that point on the
-superblock owns it and bm_free() doesn't see it anymore.
+raydium_i2c_initialize() calls raydium_i2c_query_ts_info() (or
+raydium_i2c_query_ts_bootloader_info() in bootloader mode) but never
+checks or returns its result. raydium_i2c_probe() treats a zero
+return from raydium_i2c_initialize() as full success, then
+unconditionally allocates ts->report_data with size ts->pkg_size and
+registers the IRQ handler.
 
-The superblock drops it in ->put_super(). But generic_shutdown_super()
-only calls ->put_super() from inside the if (sb->s_root) branch, so
-nothing releases it when bm_fill_super() fails:
+If raydium_i2c_query_ts_info() fails on every one of its own retries
+(e.g. because the device is still completing power-up when probe
+runs), ts->pkg_size and ts->report_size are left at their
+devm_kzalloc()'d default of 0, and ts->report_data is never
+meaningfully allocated: devm_kmalloc(dev, 0, GFP_KERNEL) returns
+ZERO_SIZE_PTR, a non-NULL sentinel (include/linux/slab.h) that must
+never be dereferenced, which passes the existing
+'if (!ts->report_data)' check. RAYDIUM_TS_MAIN is also 0, the same
+value ts->boot_mode has from devm_kzalloc() before
+raydium_i2c_check_fw_status() ever confirms a mode, so a
+spurious/garbage first read that raydium_i2c_check_fw_status()
+does not recognize as either ack byte leaves boot_mode looking like
+an already-confirmed RAYDIUM_TS_MAIN without it ever being set.
 
-- The kzalloc_obj() failure leaves s_root NULL and the whole branch is
-  skipped.
+With both conditions met, probe() completes 'successfully' with a
+live IRQ, ts->boot_mode == RAYDIUM_TS_MAIN, and ts->report_data
+pointing at a zero-size allocation. The next touch fires
+raydium_i2c_irq(), which passes the boot_mode check and dereferences
+ts->report_data at offset ts->report_size, both derived from that
+never-actually-confirmed state, producing a NULL/invalid pointer
+dereference in interrupt context:
 
-- A simple_fill_super() failure in the file loop leaves s_root set, but
-  s_op still points at simple_super_operations, which has no
-  ->put_super(). bm_fill_super() installs s_ops only once
-  simple_fill_super() returned success, and installing it earlier
-  wouldn't help either because simple_fill_super() overwrites s_op.
+  BUG: kernel NULL pointer dereference
+  RIP: raydium_i2c_irq+0x5b/0x1d0 [raydium_i2c_ts]
 
-Either way vfs_get_super() calls deactivate_locked_super() and the
-reference is gone for good. binfmt_misc mounts are available in a user
-namespace and both the inode and the dentry cache are SLAB_ACCOUNT, so
-an unprivileged caller under a tight memory cgroup can fail
-simple_fill_super() on demand and leak one user namespace per attempt.
+On kernels with CONFIG_PANIC_ON_OOPS=y (e.g. linux-hardened) this is
+a full system panic on the first touch; on a default kernel it only
+kills the IRQ thread, but the touchscreen stops working and a
+subsequent reboot can hang cleaning up the recursive fault.
 
-Drop the reference in ->kill_sb() instead, which runs unconditionally,
-the same way nfsd and rpc_pipefs release their keyed s_fs_info.
+Have raydium_i2c_initialize() return the result of the info query in
+both the bootloader and main-firmware branches, so a failure there
+aborts raydium_i2c_probe() before report_data or the IRQ are ever
+set up, instead of leaving them in this half-initialized state.
 
-That also stops ->put_super() from clearing s_fs_info while the
-superblock is still on @fs_supers. generic_shutdown_super() leaves it
-there on purpose so that sget_fc() keeps finding it until kill_sb() has
-run, but a NULL s_fs_info makes test_keyed_super() miss it, so a
-concurrent mount for the same user namespace skips the grab_super()
-wait and creates a second superblock for a namespace that is still
-being torn down.
-
-Fixes: 21ca59b365c0 ("binfmt_misc: enable sandboxed mounts")
+Reported-by: Herlangga Maulani <w1zardsec@proton.me>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221777
+Fixes: 48a2b783483b ("Input: add Raydium I2C touchscreen driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
-Note for stable: this applies as-is only from v6.19 onwards. Before
-7beafd51c4e1 ("convert binfmt_misc") ->kill_sb is kill_litter_super()
-and bm_kill_sb() has to call that instead of kill_anon_super(): back
-then simple_fill_super() left the dentries it created pinned and
-d_genocide() is what drops them. Taking this patch verbatim on v6.7 to
-v6.18 turns every binfmt_misc umount into a "Dentry still in use"
-BUG() in shrink_dcache_for_umount().
----
- fs/binfmt_misc.c | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
+ drivers/input/touchscreen/raydium_i2c_ts.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-index a73a37b8a013..c97f10b48b5b 100644
---- a/fs/binfmt_misc.c
-+++ b/fs/binfmt_misc.c
-@@ -921,18 +921,9 @@ static const struct file_operations bm_status_operations = {
+diff --git a/drivers/input/touchscreen/raydium_i2c_ts.c b/drivers/input/touchscreen/raydium_i2c_ts.c
+index 0256055abcef..a0b23772f4c0 100644
+--- a/drivers/input/touchscreen/raydium_i2c_ts.c
++++ b/drivers/input/touchscreen/raydium_i2c_ts.c
+@@ -426,9 +426,9 @@ static int raydium_i2c_initialize(struct raydium_data *ts)
+ 		ts->boot_mode = RAYDIUM_TS_BLDR;
  
- /* Superblock handling */
+ 	if (ts->boot_mode == RAYDIUM_TS_BLDR)
+-		raydium_i2c_query_ts_bootloader_info(ts);
++		error = raydium_i2c_query_ts_bootloader_info(ts);
+ 	else
+-		raydium_i2c_query_ts_info(ts);
++		error = raydium_i2c_query_ts_info(ts);
  
--static void bm_put_super(struct super_block *sb)
--{
--	struct user_namespace *user_ns = sb->s_fs_info;
--
--	sb->s_fs_info = NULL;
--	put_user_ns(user_ns);
--}
--
- static const struct super_operations s_ops = {
- 	.statfs		= simple_statfs,
- 	.evict_inode	= bm_evict_inode,
--	.put_super	= bm_put_super,
- };
- 
- static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
-@@ -990,13 +981,12 @@ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
- 	/*
- 	 * When the binfmt_misc superblock for this userns is shutdown
- 	 * ->enabled might have been set to false and we don't reinitialize
--	 * ->enabled again in put_super() as someone might already be mounting
--	 * binfmt_misc again. It also would be pointless since by the time
--	 * ->put_super() is called we know that the binary type list for this
--	 * bintfmt_misc mount is empty making load_misc_binary() return
--	 * -ENOEXEC independent of whether ->enabled is true. Instead, if
--	 * someone mounts binfmt_misc for the first time or again we simply
--	 * reset ->enabled to true.
-+	 * ->enabled again during shutdown as someone might already be mounting
-+	 * binfmt_misc again. It also would be pointless since by then we know
-+	 * that the binary type list for this binfmt_misc mount is empty making
-+	 * load_misc_binary() return -ENOEXEC independent of whether ->enabled
-+	 * is true. Instead, if someone mounts binfmt_misc for the first time or
-+	 * again we simply reset ->enabled to true.
- 	 */
- 	misc->enabled = true;
- 
-@@ -1022,6 +1012,14 @@ static const struct fs_context_operations bm_context_ops = {
- 	.get_tree	= bm_get_tree,
- };
- 
-+static void bm_kill_sb(struct super_block *sb)
-+{
-+	struct user_namespace *user_ns = sb->s_fs_info;
-+
-+	kill_anon_super(sb);
-+	put_user_ns(user_ns);
-+}
-+
- static int bm_init_fs_context(struct fs_context *fc)
- {
- 	fc->ops = &bm_context_ops;
-@@ -1038,7 +1036,7 @@ static struct file_system_type bm_fs_type = {
- 	.name		= "binfmt_misc",
- 	.init_fs_context = bm_init_fs_context,
- 	.fs_flags	= FS_USERNS_MOUNT,
--	.kill_sb	= kill_anon_super,
-+	.kill_sb	= bm_kill_sb,
- };
- MODULE_ALIAS_FS("binfmt_misc");
- 
-
----
-base-commit: 61d2304c0f286fe4a14ec6cee87588350c276d02
-change-id: 20260728-work-binfmt_misc-usernsleak-c224e596beba
+ 	return error;
+ }
+-- 
+2.55.0
 
