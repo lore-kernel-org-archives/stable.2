@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24EA453A4C
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:36:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892FF453A44
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785335801; cv=none; b=XwoNGNmADlVJVrgG7ScAy5CON/5ME6UbD6VFWAZvOOcDi+zcqEPNBYil1D3DWvqVDI8HtkX/TXWRGVNCByGyVvhAs50XgKTdEb9BBB+lrhazyYkMjn4VJMVdpVpJ4pY79Vd2Y2BUNbY6JI87SF0qnfvpbl9vC3oybV9dEGZwduA=
+	t=1785335867; cv=none; b=nHTVCAjk6laB8l5YVSfNy7UGH3/rTs/RS/MJ2LdJXNSFIQzIq2MVo3EHwqCL64lj5JzXyZvezJHD1mww/eGQ1pDkfjJa+xtwbZRAgSaGP08NnqEa0Tc2yZT0X/gjWXJXhuYu1O6z0aPHDlELAaKyrkQjJVgyXl2vlLPtXCBKd3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785335801; c=relaxed/simple;
-	bh=6GapXxEN6Yanit5B7Mb8VED9uygQvgfFHBzo4AKqLAE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=g1kbQo4VgY1Gc6B//x9//cdwui0PxTm2kCrg0NLRY2a2Tsw/JW2rO3nraRmyDaZBkN8kL+xBggJvrnGJkr+unRo0M3OxRip4xwServg7xl4GPG2e2rUB5NqnXCJe4UZliRHV8N+ySaI9PcNSuXGon3Mastp5ioCP8L7ZNbSrM1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yuO8+DbS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785335867; c=relaxed/simple;
+	bh=nfzFjMYBnHrYabB//qjKPcoY6Mgx8RQ0TYIeuU0fcIw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TpK6U/ckBxd28rFEuCebV+PV0RTeHSRSr9aTwPo/8TKJ3gh7XEPp8xmT52Q3B0duDQJxQbrWc6pS5eDI16d0F9NEH0jnQzq75MUvTEZapKBmcfxyxCMSw5KJFkygkbtI0Vow5gxiwQidZ7ZDgPYa9Bls/s3yIP3PpDi9wYciylU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fERze2SL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yuO8+DbS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B1C1F000E9;
-	Wed, 29 Jul 2026 14:36:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fERze2SL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8261F000E9;
+	Wed, 29 Jul 2026 14:37:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785335799;
-	bh=36LyNRKiOH83PQ6tLInjgi01wb3Xc2CL9gaGz+Gm8OE=;
+	s=korg; t=1785335866;
+	bh=9R/y+IUNVSRRDb/2HiFhqt/HUWswKt2t5F+m7yLXQWI=;
 	h=Subject:To:Cc:From:Date;
-	b=yuO8+DbSlkuqkxId7rSjKWtivaRNpQRJxpg/AvgRUUfqJmPQyUUOkB8DYMOWpl+Q1
-	 DPSqzv9snk6m2SbNvtHw5ZJZksv4XZ0MBRNG2jtY07ucpzoFuLzmo4K9Q5zvcnQj/5
-	 6zGIYDpb1/yVI5Q14wyeoxcFKeKbAh1d4HVujDAg=
-Subject: FAILED: patch "[PATCH] ceph: add owner/capability checks for CEPH_IOC_SET_LAYOUT*" failed to apply to 5.15-stable tree
-To: max.kellermann@ionos.com,idryomov@gmail.com,xiubo.li@clyso.com
+	b=fERze2SLDPLOuHb5jntxyZANCqFtMU555xK8dylYjRpXcZqoLmraQUxv1QvPIojEP
+	 J+Yrzziuk53Dbn7SyHQ7ElVXDbGqrUM0dOFKDQA6yCmZO+93oI8eTcj6618jlpMwga
+	 LijlpXY3L5PkEP/R2pWLsTKkHm/VTr5o2Bwl+/lU=
+Subject: FAILED: patch "[PATCH] ftrace: Add global mutex to serialize trace_parser access" failed to apply to 5.15-stable tree
+To: wutengda@huaweicloud.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 16:36:15 +0200
-Message-ID: <2026072915-vexingly-urchin-38a5@gregkh>
+Date: Wed, 29 Jul 2026 16:37:32 +0200
+Message-ID: <2026072932-stainable-backspace-b113@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x cee38bbf5556a8e0a232ccae41649580827d7806
+git cherry-pick -x 7720b63bcef3f54c7fe288774b720a227d54a306
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072915-vexingly-urchin-38a5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072932-stainable-backspace-b113@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,50 +62,96 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cee38bbf5556a8e0a232ccae41649580827d7806 Mon Sep 17 00:00:00 2001
-From: Max Kellermann <max.kellermann@ionos.com>
-Date: Tue, 21 Jul 2026 08:20:46 +0200
-Subject: [PATCH] ceph: add owner/capability checks for CEPH_IOC_SET_LAYOUT*
+From 7720b63bcef3f54c7fe288774b720a227d54a306 Mon Sep 17 00:00:00 2001
+From: Tengda Wu <wutengda@huaweicloud.com>
+Date: Sat, 25 Jul 2026 02:47:21 +0000
+Subject: [PATCH] ftrace: Add global mutex to serialize trace_parser access
 
-These permission checks were already missing in the initial
-impementation of these ioctls.  This Ceph allows any user who owns a
-file descriptor to manipulate the layout of any file, even if they
-don't have write permissions.
+In ftrace, the trace_parser structure is allocated and initialized when
+a trace file is opened, and is subsequently used across write and release
+handlers to parse user input.
 
-It might be a good idea to guard other ioctls with permission checks
-as well or even disallow regular users (even if they own the file) to
-manipulate layout settings completely, as this may be abused to DoS
-the Ceph servers, but right now, I find it most urgent to have setter
-checks at all.
+The affected handler paths and their specific functions are:
+  - Open paths: ftrace_regex_open(), ftrace_graph_open()
+  - Write paths: ftrace_regex_write(), ftrace_graph_write()
+  - Release paths: ftrace_regex_release(), ftrace_graph_release()
 
+If userspace opens a trace file descriptor and shares it across multiple
+threads, concurrent write calls will race on the parser's internal state,
+specifically the 'idx', 'cont', and 'buffer' fields, leading to corrupted
+input or undefined behavior.
+
+Fix this by adding a global mutex, parser_lock, to serialize all access
+to trace_parser across write and release paths, preventing concurrent
+corruption of parser state.
+
+Fixes: e704eff3ff51 ("ftrace: Have set_graph_function handle multiple functions in one write")
+Fixes: 689fd8b65d66 ("tracing: trace parser support for function and graph")
 Cc: stable@vger.kernel.org
-Fixes: 8f4e91dee2a2 ("ceph: ioctls")
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Link: https://patch.msgid.link/20260725024721.1983675-1-wutengda@huaweicloud.com
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/fs/ceph/ioctl.c b/fs/ceph/ioctl.c
-index 15cde055f3da..de07f19b0caa 100644
---- a/fs/ceph/ioctl.c
-+++ b/fs/ceph/ioctl.c
-@@ -72,6 +72,9 @@ static long ceph_ioctl_set_layout(struct file *file, void __user *arg)
- 	struct ceph_ioctl_layout nl;
- 	int err;
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index f93e34dd2328..6c47a94f5924 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -1097,6 +1097,12 @@ struct ftrace_ops global_ops = {
+ 					  FTRACE_OPS_FL_PID,
+ };
  
-+	if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
-+		return -EACCES;
++/*
++ * parser_lock - Protects trace_parser state against concurrent operations.
++ * Held across trace_get_user() and subsequent buffer parsing to prevent races.
++ */
++static DEFINE_MUTEX(parser_lock);
 +
- 	if (copy_from_user(&l, arg, sizeof(l)))
- 		return -EFAULT;
+ /*
+  * Used by the stack unwinder to know about dynamic ftrace trampolines.
+  */
+@@ -5842,6 +5848,8 @@ ftrace_regex_write(struct file *file, const char __user *ubuf,
+ 	/* iter->hash is a local copy, so we don't need regex_lock */
  
-@@ -142,6 +145,9 @@ static long ceph_ioctl_set_layout_policy (struct file *file, void __user *arg)
- 	int err;
- 	struct ceph_mds_client *mdsc = ceph_sb_to_fs_client(inode->i_sb)->mdsc;
- 
-+	if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
-+		return -EACCES;
+ 	parser = &iter->parser;
 +
- 	/* copy and validate */
- 	if (copy_from_user(&l, arg, sizeof(l)))
- 		return -EFAULT;
++	guard(mutex)(&parser_lock);
+ 	read = trace_get_user(parser, ubuf, cnt, ppos);
+ 
+ 	if (read >= 0 && trace_parser_loaded(parser) &&
+@@ -6984,12 +6992,14 @@ int ftrace_regex_release(struct inode *inode, struct file *file)
+ 		iter = file->private_data;
+ 
+ 	parser = &iter->parser;
++	mutex_lock(&parser_lock);
+ 	if (trace_parser_loaded(parser)) {
+ 		int enable = !(iter->flags & FTRACE_ITER_NOTRACE);
+ 
+ 		ftrace_process_regex(iter, parser->buffer,
+ 				     parser->idx, enable);
+ 	}
++	mutex_unlock(&parser_lock);
+ 
+ 	trace_parser_put(parser);
+ 
+@@ -7321,10 +7331,12 @@ ftrace_graph_release(struct inode *inode, struct file *file)
+ 
+ 		parser = &fgd->parser;
+ 
++		mutex_lock(&parser_lock);
+ 		if (trace_parser_loaded((parser))) {
+ 			ret = ftrace_graph_set_hash(fgd->new_hash,
+ 						    parser->buffer);
+ 		}
++		mutex_unlock(&parser_lock);
+ 
+ 		trace_parser_put(parser);
+ 
+@@ -7437,6 +7449,7 @@ ftrace_graph_write(struct file *file, const char __user *ubuf,
+ 
+ 	parser = &fgd->parser;
+ 
++	guard(mutex)(&parser_lock);
+ 	read = trace_get_user(parser, ubuf, cnt, ppos);
+ 
+ 	if (read >= 0 && trace_parser_loaded(parser) &&
 
