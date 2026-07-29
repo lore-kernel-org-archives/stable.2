@@ -1,151 +1,97 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327963DB336
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 19:31:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A843D0C18;
+	Wed, 29 Jul 2026 19:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785353505; cv=none; b=qhOg7ip0XTvqlApaO7424dFVSX3Q4ywCwzeirXQTYm0Zer1uRR5gG45Ufxjk9QUWgCoNIYsyC3Mu2yfZdsTdr/GDSlr8CrSwdOpnpIX3Q/KHoZHGixiYp7cM0TsdsagVIjKKkAwoOITTeeG6/hd/isyhKj2BS9zTQZ8rIF7LFv0=
+	t=1785353516; cv=none; b=GUFoWOo3D5c2ewjDqHl2IsMpcBOIWAEiNuKvpjlomOQXCw6CwbG++reJSDs0tSc/oAsOR4kUrZUhWOcSJi6ppsBoGw9nFm48DQLpq4h2bVjfEDCjX/Hy4zcWGo8mfSWJjKLIvhBKRXzb/iu4rKb2pCgz4HBDB6J6PB3fcJn9a6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785353505; c=relaxed/simple;
-	bh=7IF8vIjwJGWyprDwtisa7AuCLoZQ5785f7i8D4ueTSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tHoSHw48Yyad0qCytAPb9FWmROMt8xTHD3LDspuw1ds+s5c6rWxAMVBRFktMBurzd54wu3iCU8ZgmjDhbVB12dsdswBUKXQXrOqNqqy+WrQWRJc4TdU2z1g2VsZtOdDhBDiKv+3WMaGFMoNnYVRHefGeBpDG5qzEvvsiqhhwlKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ez4scSX+; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785353516; c=relaxed/simple;
+	bh=CK45O5vBUPLRWXtYFXSam57y3rTq1A/o958S+78XYSM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=rdrUq6FyjWPAQ9ZwXjhg0qz/B/8hFMEJ1SiPDN1XGOB8HZAhkIs/FrCzgGMtLAvZufh+/k4FqBsfeV/tYKZBxcl1wWv1qRk5C/s+SBiK0DFVZ+3Olod/6fTTT2Th7NnrCU2jyFznAwfGefQ1nIAcmNtf6E5VrFrZJszJPpEzda0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BatAszgH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ez4scSX+"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ceb096e675so18008095ad.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:31:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785353494; x=1785958294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OIo/8/GMi79rKZq27Qcu4swN+9Qdc9OYyywJWHqBKe8=;
-        b=ez4scSX+a+CBP372h+wKOAuoAzBn6ZzTWyyP1c/ECEyYBn0AaxpyHRnf5sA95Be2JJ
-         Ekojnu1AaXFan9y8bVvZbHxFl9HA/ugbSIvDHcUupN8FFJadyDq7N+JQyC2UPhbLE1Qn
-         5evfaony2+XKiNClqZQ04AR1xxMJ7/UzKr9qdlrNO0KI06T6BDGeMiEZ0nA8yB6s7fio
-         h3aJSwkfGYaI1dZF1zzb8pk3WMioAiGaPTZYUfzVUmd/igXH9pNvkW/iu3oLHJuBVD5j
-         oqbvFtwEaX/MKW2bO2nos9mDkZ+QhqffscQzPGWoo1RlZjMwRQcuwPe9ffPkjfINr34/
-         A07g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785353494; x=1785958294;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OIo/8/GMi79rKZq27Qcu4swN+9Qdc9OYyywJWHqBKe8=;
-        b=S/kt+SomEStl1aRhvrA1cTtfGznC9vXfszd16aYIhFWTmxl6mKRPj6K/CPgJ0UwBp0
-         A8Z7nL8VsW4icRs16NZQ8BrVvnYSoGCmeUi9YBXcmPeFeY6GfLwoPiuA48k+fdcOv/J8
-         akr3Sj3vbzrL+VS5tqOrjkcJhCV0TfcCte/Rwu2XlIhEXOpQwbeCkqRrVkmPU52lDqM/
-         0zjK0+QAYTHKNoy0SBgi3Pse//FWN2vJGxjH8G4oHI6SgMmXecigNdkSk5uY7l36Yf5S
-         SG8c9a4PNVyC7Vy6XboK16//1lqosXOp/g0rOEUWZPxXQC/1fUjQwdZRGjRdWoNkSjin
-         bW6A==
-X-Forwarded-Encrypted: i=1; AHgh+RpndY7po8HjoVawdqbl2kFcxgxyyryBU/cYAL7iTp+u6kv1JhVqLuiKgrsgGnCmZKFSUccqn8o=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyz7E7xqyUI/AnHDdMh1gMpUncDevD+l4h1ags0f2H1NMQnDE1m
-	s2u59hJSGg4P3lhtkCuZT6CG1W8gkvP8KMaRoM09ivF84TwvsmFC/Y5s
-X-Gm-Gg: AR+sD11CCZ7JLDqD3chGIlxVdvnVWklkRIZ4/dXQLJ2VXKNd+pbyQoFXub0Gx1vd83I
-	w73KUeDmH2Ng/ENzQXzgD8p4kmxhRbPdQiG8NojmQPWsn0iglk9UCib1De/42+11xSvx+IdB73d
-	LWwQS0R4grLp7ZSH09YAgogIrpOLHvzxp+g4Pb2Pe4eTFl9gUHUMZelayds4rV4QhS6GwtsL4Y/
-	u1iImkG5Z+KcG7Ey/dwp20c5vJf/XTenl4frCl2iOyfE4+1apUraHSTU57CLRU2Rm7baS00IGF9
-	nUzA3zEgLyxbZvgS0VZp3J/t8p60WJ0uK+FEZY5ABr9xf3eYiBSoNZjZUQ9/P81aR4x3U6oocr9
-	DtUMrDIHAJdk9VqGqz3kczFN3XdvGswGBiimYxQGApOu0ToOr2dQ06EQr561PdT/G7h2Nz8qiY/
-	IE7yWuNHsPzZk/MEkHuiKmk4gO/GdTM48wRr2i93g0OorgEGttGt8TnyAJftQcCRAiEQxPu62XM
-	NpbV05h8X/pEUNjsueDL29syY86qzKjzFYKYjdteP0D
-X-Received: by 2002:a05:6a20:9190:b0:3c0:9c19:65c2 with SMTP id adf61e73a8af0-3c8ba669616mr9373377637.74.1785353494203;
-        Wed, 29 Jul 2026 12:31:34 -0700 (PDT)
-Received: from fx.tailc0aff1.ts.net ([206.206.192.132])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504db2c4csm12450394eec.28.2026.07.29.12.31.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 12:31:33 -0700 (PDT)
-Sender: Weiming Shi <thebestswings@gmail.com>
-From: Weiming Shi <bestswngs@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	Brian Foster <bfoster@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xfs: bound inode buffer log item replay by logged regions
-Date: Wed, 29 Jul 2026 12:31:27 -0700
-Message-ID: <20260729193127.3084301-1-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BatAszgH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 576151F000E9;
+	Wed, 29 Jul 2026 19:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785353510;
+	bh=KRg2cJitlohLdvtZRNP1kQ5PcKE3jaMDfptdu/E84dU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=BatAszgHFRvKI4T+XBd69pDfxldCOMhFxi5Me3LbZKEflqsbTkwH2PxZDT8rpGi3c
+	 WshppbCjn9Id7m080JM7vQA01JZzYEU8m3SQ8+zpwy39hTgs8rpIThw/nHZqQvkeOW
+	 aDFToGlbunDpP8ADvNWeNFfhlIXBMrIOk3QD5Vy6GmtHrdLwR7eejnBd0UW8N7FZoX
+	 k4327s87rzgMvsqaV0NYHw26YDlHmB0hIy9/zwBCXDy6TGwtO4gGlvNx8Alxx5+old
+	 okHu+gbfc4Yh1o8RBat3iLYkur59MNmiOAooLlrA9X4ditDelg2SyNguzn2pqKfzcU
+	 D59hFbY+Z1Rvg==
+Date: Wed, 29 Jul 2026 13:31:48 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Nam Cao <namcao@linutronix.de>
+cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Andrew Jones <andrew.jones@oss.qualcomm.com>, 
+    Jingwei Wang <wangjingwei@iscas.ac.cn>, 
+    Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] riscv: unaligned: stop using kthread for
+ check_vector_unaligned_access()
+In-Reply-To: <1c378963f27c5960e8a57c50b8b444d30954cb54.1781666867.git.namcao@linutronix.de>
+Message-ID: <dd5ff254-fc7c-ddd2-751a-50e6971b10af@kernel.org>
+References: <cover.1781666867.git.namcao@linutronix.de> <1c378963f27c5960e8a57c50b8b444d30954cb54.1781666867.git.namcao@linutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-xlog_recover_do_inode_buffer() advances item_index once for every run of
-set bits in the logged dirty bitmap, but ri_buf[] is populated only for
-the regions present in the recovered log item.  A crafted inode buffer
-log item can therefore make the dirty bitmap describe more runs than the
-item has logged regions, and recovery reads past the end of ri_buf[]
-before dereferencing the bogus iov_base pointer.
+Hi,
 
-The ASSERT() that checks iov_base compiles away without CONFIG_XFS_DEBUG,
-and evaluating it would already perform the out-of-bounds ri_buf[] read.
-Check item_index against ri_cnt before the first ri_buf[item_index]
-access instead, and fail recovery with -EFSCORRUPTED.
+On Wed, 17 Jun 2026, Nam Cao wrote:
 
-Found with KASAN on a CONFIG_XFS_DEBUG=n build by mounting a crafted XFS
-image whose log contains an inode buffer item with more dirty bitmap runs
-than logged regions:
+> A kthread is used to run check_vector_unaligned_access() to optimize boot
+> time, allowing the kernel to continue booting without waiting for the
+> unaligned vector speed probe to finish.
+> 
+> However, this asynchronous approach introduces several complications.
+> First, the kthread may not complete before a user reads vDSO data,
+> resulting in incorrect values. This was previously addressed by
+> commit 5d15d2ad36b0 ("riscv: hwprobe: Fix stale vDSO data for
+> late-initialized keys at boot"), which added complex synchronization
+> between the kthread and vDSO reads.
+> 
+> Second, it was discovered that the kthread may not finish before
+> vec_check_unaligned_access_speed_all_cpus() (marked with __init) is freed,
+> triggering a page fault.
+> 
+> These issues raise the question of whether the kthread is worth the added
+> complexity. A past boot time regression report was actually unrelated to
+> synchronous probing; it was caused by the probe running serially. Since
+> switching to a parallel probe, no further complaints have been made.
+> Furthermore, the unaligned scalar access speed probe takes the same amount
+> of time, runs synchronously, and has caused no issues.
+> 
+> Testing shows no noticeable boot time slowdown when running the vector
+> probe synchronously (0.464474s with kthread vs. 0.457991s without).
+> 
+> Remove the kthread usage and run the probe synchronously. This simplifies
+> the boot flow and allows for the revert of commit 5d15d2ad36b0 ("riscv:
+> hwprobe: Fix stale vDSO data for late-initialized keys at boot")
+>
+> Reported-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+> Closes: https://lore.kernel.org/linux-riscv/20260612-vec_unaligned_drop_init-v1-1-df969210ae34@oss.tenstorrent.com/
+> Fixes: a00e022be531 ("riscv: Annotate unaligned access init functions")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Nam Cao <namcao@linutronix.de>
 
- BUG: KASAN: slab-out-of-bounds in xlog_recover_do_inode_buffer (fs/xfs/xfs_buf_item_recover.c:701)
- Read of size 8 at addr ffff88801387d160 by task mount
- The buggy address is located 0 bytes to the right of
-  allocated 32-byte region [ffff88801387d140, ffff88801387d160)
-  xlog_recover_do_inode_buffer (fs/xfs/xfs_buf_item_recover.c:701)
-  xlog_recover_buf_commit_pass2 (fs/xfs/xfs_buf_item_recover.c:1130)
-  ...
- Oops: general protection fault, probably for non-canonical address
- RIP: 0010:xlog_recover_do_inode_buffer (fs/xfs/xfs_buf_item_recover.c:703)
+Thanks, will queue this for v7.3, but I think the Fixes: tag should point 
+to e7c9d66e313b ("RISC-V: Report vector unaligned access speed hwprobe"), 
+since the problems that you mention are due to the use of kthreads.  
+So I'll plan to update this accordingly when it's queued.
 
-After this change the crafted image fails recovery with -EFSCORRUPTED and
-the mount is refused.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Link: https://lore.kernel.org/linux-xfs/20260611212314.4610-1-kylebot@openai.com/
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Suggested-by: Brian Foster <bfoster@redhat.com>
-Link: https://lore.kernel.org/linux-xfs/ajGB9o5Ys6itU3Rh@bfoster/
-Cc: stable@vger.kernel.org
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- fs/xfs/xfs_buf_item_recover.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
-index 02b95b89d1b5..2c2d4a0027af 100644
---- a/fs/xfs/xfs_buf_item_recover.c
-+++ b/fs/xfs/xfs_buf_item_recover.c
-@@ -659,6 +659,13 @@ xlog_recover_do_inode_buffer(
- 			reg_buf_offset = bit << XFS_BLF_SHIFT;
- 			reg_buf_bytes = nbits << XFS_BLF_SHIFT;
- 			item_index++;
-+
-+			if (XFS_IS_CORRUPT(mp, item_index >= item->ri_cnt)) {
-+				xfs_alert(mp,
-+	"Bad inode buffer log item dirty bitmap: more dirty regions than the %d logged, for buffer at daddr 0x%llx.",
-+					item->ri_cnt - 1, xfs_buf_daddr(bp));
-+				return -EFSCORRUPTED;
-+			}
- 		}
- 
- 		/*
-@@ -669,7 +676,6 @@ xlog_recover_do_inode_buffer(
- 		if (next_unlinked_offset < reg_buf_offset)
- 			continue;
- 
--		ASSERT(item->ri_buf[item_index].iov_base != NULL);
- 		ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
- 		ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
- 
--- 
-2.43.0
-
+- Paul
