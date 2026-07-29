@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D1A30F7EA
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:30:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1FE2D7BF
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:30:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785292229; cv=none; b=G5lA1N8+FJ9zlC8+QQiMtlFlsAhDrPhL6o9QQKoa2YiULjC+3mS6s9/n15qemsp/+0hPzQqiKrZ0NvXVn9okpl/+S8YmaBZ+epVCCKQueKCbkmdgneqh94PzuUSMvc5UMnxksLDNcXkVRRq1iT1Mt+YJv0oE+1VKnn3EV0ME+Gg=
+	t=1785292231; cv=none; b=cO4HX6HOQ9bdolE3dpicRdZUHo4UbLeY/AvonftyK6cC4d+mdEBdf8z5/d/aJapFjM65VEczvZinq75olbLbCMplAlv77k10LfILvB7BYzz/uht/B+ypJ6fqeGuHYRBfpsxgL6ZZ83IM+OlvSpxee+To7NyekLIaXVo255iePX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785292229; c=relaxed/simple;
-	bh=t3zUMrjSEcbDF9wMn8BjWrhYZcQmTOArbQ2FlN4cD7k=;
+	s=arc-20240116; t=1785292231; c=relaxed/simple;
+	bh=+4LQUHgvF1zMBDv67Ixm2ggF5AWY6XEpR73LfEjtx4c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GDbQoyIDMY+zYHrtBa1bSQhsSJdK3JYc1ZGzXLOyAkEzmcLmJqSAihuQiIXV4h8Q+KKNU5KnkYOHLTZtg5ypC0WJYQtTfXzeuhKY6AnYaW2hZX3nl0CPbTaNJY0ByuKJRutd1G/+xF8AN3ZUgYuJkG5TuFJPlJPt3EG0UE/rYpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX1gWT3w; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B0RfQk9ULDZKMvzRVGuVtQE5IdryAfixH49HJwu+pLg/vP52LNFAFmM/iddo03DEw2NgCozBI1tiW/6zFwVx1QOGuOpNHhNihCTCY+lDpBWAcEfiBQQEhjLcNa+tJKaD0cbDtY+QlleqE1A+dTr20ft7cocx4fxz/AQbVLo/xm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9qc9qEl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX1gWT3w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ABA51F000E9;
-	Wed, 29 Jul 2026 02:30:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9qc9qEl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED9F1F000E9;
+	Wed, 29 Jul 2026 02:30:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785292227;
-	bh=4/lZW4aFs+D51h/kM5neAXcaXW2itVua9wAuxjz/W/U=;
+	s=k20260515; t=1785292230;
+	bh=BOsZPSkIDg90LMCvBUyMQZxWML46v/aVhqWZjU2eRio=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gX1gWT3w6g+wsQSlmUaOLQ8Qvz2W3UCoqSTdG8aRsMWgrfNCzWeWhJZoE+RbdJ71l
-	 Ep2Dh67uIgAvZBrM6Pu8nLAHesRk7cvvRLLW3FqH1mvh0Sh3eo6K6ednBdOzaEOPTq
-	 uoiXsvC14f2/Ar9xw+WssapwrcVZ5D4dzSBsBa7bC4q6+8U/eqMAJDpzm2oHBPslbj
-	 CvJKVjX6pv3n3sGmRtC/Y9fi6DSfn0J8XhCBQZJOfql4g/8iqUzTtVh28gtOSxfHRD
-	 Yq9bOdPzA7PZrXvIAGsaBq+o0xgfkJGFdfjt/GonqxUpJJ2qyysjHNnc4z4jYBoSfQ
-	 UDWohU/vEjSzw==
+	b=Q9qc9qEls59Y2yQbyF/eVpQDe8zIp5X05YE6VgpW3+mh1P+Gie12Ie96CXp6kj183
+	 MbyIzr71GoCAu/1m7mNL2Y+yoMSGiRSJkv/KHRjfp3SAfHOo7CQYYm7yr0RRv7QLGI
+	 9gjweUKqniWntxNBEV4XqHXujUzBU1YweWgKHBfiyPOrP8xzvmWrbMJghS+nCdQRV1
+	 gZ6er3vXN1aO1t5JCJLOp8MAaqMhX42hn4QEHOWfjxLsQE/ECW5f+pth7ZLrv3AhDO
+	 MGW5LLkG8SA3hpUWw7PtDxuRhrRY7MOly3o0g3WVqEHX9485qNf2KioUsMva/wNjaI
+	 oQHD3FSjGq83w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Haoxiang Li <haoxiang_li2024@163.com>,
-	Larysa Zaremba <larysa.zaremba@intel.com>,
-	Alex Elder <elder@riscstar.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] net: ipa: fix SMEM state handle leaks in SMP2P init
-Date: Tue, 28 Jul 2026 22:30:25 -0400
-Message-ID: <20260729023025.1114440-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] octeontx2-pf: fix SQB pointer leak on init failure
+Date: Tue, 28 Jul 2026 22:30:28 -0400
+Message-ID: <20260729023028.1114866-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072132-chatroom-aware-b80e@gregkh>
-References: <2026072132-chatroom-aware-b80e@gregkh>
+In-Reply-To: <2026072127-dwelling-chop-ba5d@gregkh>
+References: <2026072127-dwelling-chop-ba5d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,90 +46,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-[ Upstream commit 96ca1e658ae459276292bd6d971ab5d8c7e0379a ]
+[ Upstream commit 62e7df6d042aeebd5efb581074e28865c04477be ]
 
-ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
-qcom_smem_state_get(). However, neither the init error paths
-nor ipa_smp2p_exit() release them.
+otx2_init_hw_resources() initializes SQ aura and pool resources before
+several later setup steps. On failure, err_free_sq_ptrs only frees SQB
+pages, leaving the per-SQ sqb_ptrs arrays behind.
 
-Release both handles with qcom_smem_state_put() in the init
-error paths and in ipa_smp2p_exit().
+Use otx2_free_sq_res() for the SQ unwind path and let it free sqb_ptrs
+even when sq->sqe has not been allocated yet.
 
-Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1.1.
+
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+OcteonTX2 PF device and the corresponding AF mailbox setup to test with,
+no runtime testing was able to be performed.
+
+Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
-Reviewed-by: Alex Elder <elder@riscstar.com>
-Link: https://patch.msgid.link/20260624065955.2822765-1-haoxiang_li2024@163.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ kzalloc_obj() context line kept as kzalloc(sizeof(*smp2p), GFP_KERNEL) since ipa_smp2p.c was not yet converted in this tree ]
+Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Link: https://patch.msgid.link/20260630071625.349996-1-dawei.feng@seu.edu.cn
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ipa/ipa_smp2p.c | 30 ++++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
+ .../ethernet/marvell/octeontx2/nic/otx2_pf.c    | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
-index fcaadd111a8a30..0c184f6f91c6f2 100644
---- a/drivers/net/ipa/ipa_smp2p.c
-+++ b/drivers/net/ipa/ipa_smp2p.c
-@@ -234,19 +234,27 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
- 					  &valid_bit);
- 	if (IS_ERR(valid_state))
- 		return PTR_ERR(valid_state);
--	if (valid_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (valid_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_valid_state_put;
-+	}
- 
- 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
- 					    &enabled_bit);
--	if (IS_ERR(enabled_state))
--		return PTR_ERR(enabled_state);
--	if (enabled_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (IS_ERR(enabled_state)) {
-+		ret = PTR_ERR(enabled_state);
-+		goto err_valid_state_put;
-+	}
-+	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_enabled_state_put;
-+	}
- 
- 	smp2p = kzalloc(sizeof(*smp2p), GFP_KERNEL);
--	if (!smp2p)
--		return -ENOMEM;
-+	if (!smp2p) {
-+		ret = -ENOMEM;
-+		goto err_enabled_state_put;
-+	}
- 
- 	smp2p->ipa = ipa;
- 
-@@ -291,6 +299,10 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
- 	kfree(smp2p);
-+err_enabled_state_put:
-+	qcom_smem_state_put(enabled_state);
-+err_valid_state_put:
-+	qcom_smem_state_put(valid_state);
- 
- 	return ret;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+index c4f5635284ef6f..2e508e277f5167 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+@@ -1443,13 +1443,13 @@ static void otx2_free_sq_res(struct otx2_nic *pf)
+ 	otx2_sq_free_sqbs(pf);
+ 	for (qidx = 0; qidx < otx2_get_total_tx_queues(pf); qidx++) {
+ 		sq = &qset->sq[qidx];
+-		/* Skip freeing Qos queues if they are not initialized */
+-		if (!sq->sqe)
+-			continue;
+-		qmem_free(pf->dev, sq->sqe);
+-		qmem_free(pf->dev, sq->tso_hdrs);
+-		qmem_free(pf->dev, sq->timestamps);
+-		kfree(sq->sg);
++		/* sq->sqe is not initialized for unused QoS queues */
++		if (sq->sqe) {
++			qmem_free(pf->dev, sq->sqe);
++			qmem_free(pf->dev, sq->tso_hdrs);
++			qmem_free(pf->dev, sq->timestamps);
++			kfree(sq->sg);
++		}
+ 		kfree(sq->sqb_ptrs);
+ 	}
  }
-@@ -307,6 +319,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
- 	ipa_smp2p_power_release(ipa);
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
-+	qcom_smem_state_put(smp2p->enabled_state);
-+	qcom_smem_state_put(smp2p->valid_state);
- 	kfree(smp2p);
- }
+@@ -1575,13 +1575,12 @@ static int otx2_init_hw_resources(struct otx2_nic *pf)
+ 	return err;
  
+ err_free_nix_queues:
+-	otx2_free_sq_res(pf);
+ 	otx2_free_cq_res(pf);
+ 	otx2_ctx_disable(mbox, NIX_AQ_CTYPE_RQ, false);
+ err_free_txsch:
+ 	otx2_txschq_stop(pf);
+ err_free_sq_ptrs:
+-	otx2_sq_free_sqbs(pf);
++	otx2_free_sq_res(pf);
+ err_free_rq_ptrs:
+ 	otx2_free_aura_ptr(pf, AURA_NIX_RQ);
+ 	otx2_ctx_disable(mbox, NPA_AQ_CTYPE_POOL, true);
 -- 
 2.53.0
 
