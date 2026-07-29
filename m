@@ -1,217 +1,108 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08154052B2
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785342097; cv=pass; b=jqgZyUwcAYlluS1iBr347WNzTTF79Ll7JZxIx21QpYYtqzQciN3mrxtT1rqTe1FMU7k76fKqogi9D3OnsXqIzvP+AuL6ahY/gWnbzO7SFYc+4ucD9jmr2TbrR0kGFaAp6qVMf8FNW2NwJXZdo2FlwSd3fErNh+5Vo0tP09SZUpw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785342097; c=relaxed/simple;
-	bh=LyMy1F4QlR8PI9H1s9I6XJ2S/7VeTGQVnwWyO1tA/fg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qsf+i5hPwginaY9GF3qsPrBEBJ/3GyTtvje9fIp1a+Yoss7ovL3v/lisUcYIMSYPsvAvFyu/9sUWUPd4akQZ8aEZcoCg6pqXipXL6l1NtYLJS3PGpmuRCZQrFwT8rAp6Vls8qTXDMJKy4qip/yLdJier31tkBFna6NesKBwXrCQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b=fAR/CNKI; arc=pass smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A55411A15
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785342101; cv=none; b=EadBM9ilUunjljSlpE5Z2AwQY+lW6PHKnxGOKvFePfMEW6xeBmh/XQ92jTlGh/MtnGXpM/d+BuCjSi01UibCneLO8d4IbV2kZJxecBaBhp9cQgVhzo+I2cp6CAYppyC30Z/oAKXjqc8yVnZG9LrgsCA2FCNWDOROVcYBaCKQpJo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785342101; c=relaxed/simple;
+	bh=J/dPtV4qOEHFqIZhA5/7ElxHINwksvuDwpgYPO9xLGQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HWjlZlf7P5stiovMRR+jaQC3liZhBMp84D6uIwpNGkHGTOXG/bw7SoqDw5KaN5UD39UiT71vAVxmzYHvJFKleiieyzc5kqxUFZmYsTmNfNUz2EH26cpmweISu4uzRIqbfEXA1nugnMGm+Nl+vQpNvVcjTfOl/932LeNPDYTeHWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XcfE7dqM; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b="fAR/CNKI"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f7872abb6so752286f8f.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:21:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785342094; cv=none;
-        d=google.com; s=arc-20260327;
-        b=d8+GBfFyPRRP/GGJYBbp55gQXqcIRwA7YB3DGvyyWuEgfjClkYr8I45G3Hndd9kZeF
-         68UpOFAdaJ9uSmje6PKwkGZol3IeG57u2aEk10u/MPU+1XvSW5YqggQ5rPs5caihC2aw
-         qAUZ9hFDjD0aCly4ksCvlMFPuxKdmnlTeFkGodHXTwxsFhx7sN3hXlwz65Rh73HMKrSK
-         NzQChYpC8gRAhMK1hMEU9YjKztWOAF95eKK7fhSIobmXt+amcaK8Av/lWhrvKm/CGoFF
-         YoC8x/0pubO3Tq1b0/HupKt+duYW1x9XXt/Z/eiek6yW+Dj2eQCjIaXjH2mbYffzIjne
-         DUtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xlNUGStHPcM9h7uZ5gMcfZsRgLFM6lwcIC3C63GbVXU=;
-        fh=rNek2Q7hmuaXX22wmAdggliBbjkyBqLJiPqsspGEdbc=;
-        b=cotMtA+JbX0pOrxzjaPw222/CCfEYjLsHftTKNOyVQ2PKPtdpl1kdiQR7oYB8oaG/y
-         FURowbxsRCFERjD4SPgYptS/eLH56LfHIk0qgQ+DEhMCm6r7VSvi6bx/OFvCLVjdXaOl
-         yGgYLuJGPHBmcjAQYLnPbuQG8BDC9rB1uC8TllLbzaFY499Brg8yEeArQCbO2CbHMPUm
-         jQ45lKHZ8HITkqPF2rZLwPyCSpwuzIryV+wqmDtRtJTfSbXXkcIkCq29STT49/CbuSVW
-         /akPZXF6nQPkCDFUYowxNBqDR98i+wMxipQg7hwMjm8n0gh4annt6YoMLebXS/ABIQtS
-         gaqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XcfE7dqM"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so1012495b3a.1
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:21:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault-org.20251104.gappssmtp.com; s=20251104; t=1785342094; x=1785946894; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xlNUGStHPcM9h7uZ5gMcfZsRgLFM6lwcIC3C63GbVXU=;
-        b=fAR/CNKINJPvZ6qY+0+fxjat+cwjLzJErBHWl/kH2/FG23D/EjRNBiYE7qFzKISP3M
-         5kOd4/NGw1H8Q/7gezl39QbEfbpGjhOaNncy8hGWL92p8V0Guyq6LbgEJKSi3q0BlcVB
-         JvAnNgivFMXE7kcy+WWg7uR6jWt1mUAtCTC6duKHGE2en4Gh4jkNbJfZ/qRxbSoN5axa
-         pazQgTfQ1HEumzBmwdhDasAbrIgzX/0U4QdCin0R2fYgWD0TmQvVyWM/WnHGeUbp12Eu
-         Vl8BT7pFyHl7dLcDrcu+W+i8930fp6wEBGtQ3EHvDc/lj1AYkygLiqu8d4jV3QP30kQq
-         t/DA==
+        d=gmail.com; s=20251104; t=1785342099; x=1785946899; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MGJ04DPjDp5NhuCKplYWqLlAi7JvCa6BgyiKARstS28=;
+        b=XcfE7dqMdujD4xU23tLmnYF/iEGquvd6C7kOqZ8ZqJeBH+em6QJFl76tOfbTURUxot
+         YJ7RWusRIWNMaYruaQj7o3awqwoN48Aj1cNIlZHZzZfVcf5TRYpM/edc1tBBZYedv37R
+         hVPUdC87WujRa9u8ijqycZ8+ocm3MW9Ve9d3qMkbF+dOcJCfKOqVsM6dlPQBLXAJ0bTD
+         9DuMRFSSh+guIDXpcJnW6NfTAqpyrsqEFG8+O8WVJX+SaLviADMLBhsiFT+uB16C9vbl
+         I6HIniMJslX/exz3U90NLGNI++T8dz2PW/AwrCDx/z1fQZVdarosRAMv+nFrYfnUHobj
+         r5Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785342094; x=1785946894;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785342099; x=1785946899;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xlNUGStHPcM9h7uZ5gMcfZsRgLFM6lwcIC3C63GbVXU=;
-        b=mGb8a4bHTQAPUyTxYP87cPY3bplcwrz3xkXWyJImXF4vrN0zFqWMCbVKNSlg3GsyEB
-         BtIKXQPdFbWdeCulrKdzXSzNF8S5dFvjrTZIRJiU2im8Gm3CAo2O15Qww4qE8mWTYnII
-         73KUYP4vQ/rVY1GUSo7TAQJlk/JurLNcaD8I9MVd7LxdLaD80gvnKIKS5+BuU/H7Lxhs
-         XPX5IMMjvn8xuEIqI+osbIjYyPMif6XqsOjp+oEo4ykPniBcHummCy1WRpVcNWKMryQD
-         ICmotxU2NroZolYIzAePSfqEmychkZ4QOIDe9C7vhCNtcz5OUYq0s1in4geqCe+ZKLro
-         jQkQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqc2NnecaMeKDC3A+Lk6g2Cz8fWTjo0D6+6HizFBCxm21zF24JgNzpDkhIb6PLtlKBEZVRrTN0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoYoBcpqNsJakChgqM0/rY+CMZUgRhQIsfAIH9NLelfq75Avpj
-	5z5ns9jUmi+7s95OzmBG7UbYNnAqJXcn4MOOIOEVfF4FmoaF9kw8+GyiXdRefJYfBsKadvdiSYo
-	soci+g0dSDaCPZuPEOaxsjOIJ1LMuwVxK5osK9Qkpng==
-X-Gm-Gg: AR+sD12vRfhXmzXmmsaqWVVyb3WRzMl9I7z7NfsZyyaGZsSSsOmCW/y4AM2hhCj5UvT
-	y1U1RTxKp6ln9nXak3EeMGfr9yX3JHOzO01kYWDPvhKAC1/dHS9+BrtXH9mNVd6iu6LDLT5XX10
-	tZRTRy5/ned+/KGC5/4n/oiTQLr7TvpM0/siT/dCK8hWYqkopCkbc2tDL8sjvWxA/Mb7Frj0SBm
-	k+aUW+Tr07lDUkWMwMN3wlgZJl5BCuuXhFa05WWEyVLxCH+t3/MfCNL+NC5QGrW70LNs5/51WPz
-	FQTeP/rabonEwx5iAQh6WpE2//vCpS28iRIJT5kdY5jXEHZZGv3CvdBCnAcgJEGQoc7MAWEzgpt
-	NgqlnI8NZyWe/Er6389+SEZQQLM/BGuneAsMKqPQ0gdEN1baxsOVpnOiHmogYjyHP
-X-Received: by 2002:a5d:5f51:0:b0:47f:91eb:342 with SMTP id
- ffacd0b85a97d-47fb1e89ab3mr9574371f8f.13.1785342093792; Wed, 29 Jul 2026
- 09:21:33 -0700 (PDT)
+        bh=MGJ04DPjDp5NhuCKplYWqLlAi7JvCa6BgyiKARstS28=;
+        b=c52Ns33bQ/oJL2h/rfOjvpN6D+fhpAEjqRVkmRHhzdTKe+syXY/Gex/LoIN63865t3
+         hQvcI+Ok0/d5n8a68hCvE+bhlMyQGDX/qyhFsuGxBeUwn+5TTh+kvtEH6anvfciyCcaz
+         7xSfV23a7kdtmahCVJHIXVakoJ+L5g2w+tTH4dDYwzFTWhL70NTTRQPjBzdc5GE1buw8
+         FXP8HrPkP9NOfktfwQjoLGGY1dJkopODeIbqrHLKGw4SqBinnqjvk7s0ZdEzmdBBoCbH
+         XEK2eRbfR9d9PRxteSKaqlUfsJ7wvGOYtq+i37nq3hioTKXdpjdv6nT7K2/D+ajdP/BJ
+         7Jkw==
+X-Forwarded-Encrypted: i=1; AHgh+RpcucBrpsRhry+nGx6GXbMdOm6dXM67qbfdf89YJ/qfZDFPh7kv4YPK0CiWKx7nkmttNDctKRA=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy4wy5ikk/Kcc2CiCJhIfSYvoBBckylybaOdV79C8Hwm8R/Flvt
+	7Q8dTbN9htMz/gxQkh3eYmjdYEkXRWX1bO0jKOWau8RJMROJmCvMzYe5wJ/aYA==
+X-Gm-Gg: AR+sD12tbQENMseoYKUeuModcn/T6zbCxgS4szCuE53UsveZJK9tnUPT0QMhW4oSIQv
+	2vGHElEYf3Courcv7B/Dw4mMLFIBux5tK4JrOavnrfuDgttDL8OPvacziT/CtBW2Qfj/jFJMX8e
+	DNs+5B+Kyy/318G3ZwpJHHG2gzQdqsdIZFKQOqIgfILZqyuEyk6UOKXZ926+Yzlkuvdovp0QUFh
+	LV0zcnwZuY/htVXGFEHSC3+l7AAbyRRMbrbflNjRNizkLXM8GZtQD4eG8gBGLzpYGkurX/0qBxE
+	H73mLBIebnPHALiJOKhvZMSM96dDvAQJxa0zccdnP4Jf/FIXfKvUgDoCIxdE1FkWNAn4dlTQQwb
+	tBlU0viZ0hWzJSYP77sjPodd0U1Hc6Pxydti2IzqRoA8vC1jMlX1NiMZegAO1Ga6Cji/aaYI64Z
+	9qTd7Ll2BgawYJzLKbWGPjzSJpoFdNlKm8BD4RuyOe9M4acWjkYcjb+IDCzpEpnce8pUz9N3dj3
+	w==
+X-Received: by 2002:a05:6a21:7a82:b0:3c3:994f:b4f5 with SMTP id adf61e73a8af0-3c8ab0db549mr8766339637.28.1785342098975;
+        Wed, 29 Jul 2026 09:21:38 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504db2c4csm11392516eec.28.2026.07.29.09.21.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 09:21:38 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 29 Jul 2026 09:21:37 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH v2] hwmon: (npcm750-pwm-fan): stop fan timer on device
+ detach
+Message-ID: <d3561ea0-87fa-4ef8-99be-e4600d6d07bc@roeck-us.net>
+References: <20260729100116.790-1-getshell@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260729075230.743030-1-shanbeeyoo@gmail.com> <20260729120733.829457-1-shanbeeyoo@gmail.com>
- <20260729120733.829457-4-shanbeeyoo@gmail.com>
-In-Reply-To: <20260729120733.829457-4-shanbeeyoo@gmail.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Wed, 29 Jul 2026 21:51:19 +0530
-X-Gm-Features: AUfX_mw18Ate4H7RNWrC9_sDszX8h_ptllZ_3py1A1MYtGllTZvUWlrvnw0-9-Y
-Message-ID: <CAAhSdy0y-K3_-=_SCDwAqEiCb0PKmNHVcNDgyY+pGGF4N3gEGQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] RISC-V: KVM: Widen G-stage fault address to gpa_t
-To: "Bingyu.Xian" <shanbeeyoo@gmail.com>
-Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Quan Zhou <zhouquan@iscas.ac.cn>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729100116.790-1-getshell@seu.edu.cn>
 
-On Wed, Jul 29, 2026 at 5:37=E2=80=AFPM Bingyu.Xian <shanbeeyoo@gmail.com> =
-wrote:
->
-> fault_addr in gstage_page_fault() and the fault_addr parameter of
-> kvm_riscv_vcpu_mmio_load/store() are unsigned long.  On RV32 with
-> Sv32x4, guest physical addresses are 34 bits, so a 32-bit unsigned
-> long truncates bits 32/33 at two points:
->
->   - reconstruction: fault_addr =3D (trap->htval << 2) | ... is evaluated
->     in 32-bit arithmetic, dropping bits 32/33 before widening;
->   - the MMIO handler call: even with the local widened, the handler's
->     unsigned long parameter narrows it back to 32 bits, aliasing
->     accesses above 4 GB into the low 4 GB.
->
-> Widen fault_addr to gpa_t end to end: the local in gstage_page_fault(),
-> the (gpa_t) cast before the <<2 shift, and the fault_addr parameters of
-> kvm_riscv_vcpu_mmio_load/store().  The handlers' internal uses
-> (run->mmio.phys_addr is __u64, kvm_io_bus_read/write() take gpa_t) are
-> already 64-bit, so no further changes are needed.
->
-> Also in preparation for sharing a common struct kvm_page_fault across
-> architectures, where fault_addr is gpa_t.  No functional change on RV64.
->
-> Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programmin=
-g")
-> Assisted-by: YuanSheng: deepseek-v4-pro
-> Co-developed-by: Quan Zhou <zhouquan@iscas.ac.cn>
-> Signed-off-by: Quan Zhou <zhouquan@iscas.ac.cn>
-> Signed-off-by: Bingyu Xian <shanbeeyoo@gmail.com>
+On Wed, Jul 29, 2026 at 06:01:16PM +0800, Hongyan Xu wrote:
+> When a fan tach channel is present, npcm7xx_pwm_fan_probe() starts
+> fan_timer. The timer callback polls tach state and rearms the timer, but
+> the driver has no remove callback or devm cleanup action to stop it. On
+> device detach, the devm-managed driver data and I/O mappings can be
+> released while the timer is still pending or running.
+> 
+> Register a devm cleanup action before starting the timer and shut the
+> timer down synchronously from that action.
+> 
+> This issue was found by a static analysis tool.
+> 
+> Fixes: f1fd4a4db777 ("hwmon: Add NPCM7xx PWM and Fan driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 
-LGTM.
-
-Reviewed-by: Anup Patel <anup@brainfault.org>
-
-Queued this patch for Linux-7.3
+Applied.
 
 Thanks,
-Anup
-
-> ---
->  arch/riscv/include/asm/kvm_vcpu_insn.h | 4 ++--
->  arch/riscv/kvm/vcpu_exit.c             | 5 +++--
->  arch/riscv/kvm/vcpu_insn.c             | 4 ++--
->  3 files changed, 7 insertions(+), 6 deletions(-)
->
-> diff --git a/arch/riscv/include/asm/kvm_vcpu_insn.h b/arch/riscv/include/=
-asm/kvm_vcpu_insn.h
-> index 350011c83581..a5c50dd4a884 100644
-> --- a/arch/riscv/include/asm/kvm_vcpu_insn.h
-> +++ b/arch/riscv/include/asm/kvm_vcpu_insn.h
-> @@ -38,10 +38,10 @@ int kvm_riscv_vcpu_virtual_insn(struct kvm_vcpu *vcpu=
-, struct kvm_run *run,
->                                 struct kvm_cpu_trap *trap);
->
->  int kvm_riscv_vcpu_mmio_load(struct kvm_vcpu *vcpu, struct kvm_run *run,
-> -                            unsigned long fault_addr,
-> +                            gpa_t fault_addr,
->                              unsigned long htinst);
->  int kvm_riscv_vcpu_mmio_store(struct kvm_vcpu *vcpu, struct kvm_run *run=
-,
-> -                             unsigned long fault_addr,
-> +                             gpa_t fault_addr,
->                               unsigned long htinst);
->  int kvm_riscv_vcpu_mmio_return(struct kvm_vcpu *vcpu, struct kvm_run *ru=
-n);
->
-> diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
-> index 6c8530b9f29e..28cf9b27bb07 100644
-> --- a/arch/riscv/kvm/vcpu_exit.c
-> +++ b/arch/riscv/kvm/vcpu_exit.c
-> @@ -17,12 +17,13 @@ static int gstage_page_fault(struct kvm_vcpu *vcpu, s=
-truct kvm_run *run,
->  {
->         struct kvm_gstage_mapping host_map;
->         struct kvm_memory_slot *memslot;
-> -       unsigned long hva, fault_addr;
-> +       unsigned long hva;
-> +       gpa_t fault_addr;
->         bool writable;
->         gfn_t gfn;
->         int ret;
->
-> -       fault_addr =3D (trap->htval << 2) | (trap->stval & 0x3);
-> +       fault_addr =3D ((gpa_t)trap->htval << 2) | (trap->stval & 0x3);
->         gfn =3D fault_addr >> PAGE_SHIFT;
->         memslot =3D gfn_to_memslot(vcpu->kvm, gfn);
->         hva =3D gfn_to_hva_memslot_prot(memslot, gfn, &writable);
-> diff --git a/arch/riscv/kvm/vcpu_insn.c b/arch/riscv/kvm/vcpu_insn.c
-> index f09f9251d1f0..6506411a3f78 100644
-> --- a/arch/riscv/kvm/vcpu_insn.c
-> +++ b/arch/riscv/kvm/vcpu_insn.c
-> @@ -371,7 +371,7 @@ int kvm_riscv_vcpu_virtual_insn(struct kvm_vcpu *vcpu=
-, struct kvm_run *run,
->   * Returns < 0 to report failure and exit run-loop
->   */
->  int kvm_riscv_vcpu_mmio_load(struct kvm_vcpu *vcpu, struct kvm_run *run,
-> -                            unsigned long fault_addr,
-> +                            gpa_t fault_addr,
->                              unsigned long htinst)
->  {
->         u8 data_buf[8];
-> @@ -494,7 +494,7 @@ int kvm_riscv_vcpu_mmio_load(struct kvm_vcpu *vcpu, s=
-truct kvm_run *run,
->   * Returns < 0 to report failure and exit run-loop
->   */
->  int kvm_riscv_vcpu_mmio_store(struct kvm_vcpu *vcpu, struct kvm_run *run=
-,
-> -                             unsigned long fault_addr,
-> +                             gpa_t fault_addr,
->                               unsigned long htinst)
->  {
->         u8 data8;
-> --
-> 2.54.0
->
+Guenter
