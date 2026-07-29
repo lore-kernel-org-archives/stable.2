@@ -1,105 +1,176 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B371B41F34B;
-	Wed, 29 Jul 2026 15:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785337687; cv=none; b=ji2t5lrHimNA+zoPzmSwbgrJqyefLqBYxI2c03i7MSDxfKOe1QdkT02U7YpvdNvYt0yj5mutqE6Ed+6UV5gAuGi87hYrOa04XGzODzINjNyTp0ZBnTVhgP5oJHQIIIhIXEmtXBpwq4jTuH5Lriq1yRgVmG0mGfNM149lkulca4U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785337687; c=relaxed/simple;
-	bh=/3d+EStA/hkU2h3GHMnTe1fZHIYdAZ21izDXIVTsCbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iW3XuMnoqeu7VL319ELr0O3Dn7DIMLcigHCWgTU4V3DdFWmbLrdnzTrC2rJ71pGzw+ZJ4h5GVkk76+s4rckAmTtRzjmw+aeljrxylCVABpDHfmagQxTYJEvhFyVsyhkS8gMmOVxefN9uwvEs5xNWOvTJtBolyAXb4CYmcpD80fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=yUcLGA3S; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C683B05A7
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785337710; cv=pass; b=eB453+Hqmo0iX7YgtRARkxu3Qur5WsugY5DX90f3H/ldTZ8gi9vvmYvU01gWTKwudLsK+/OrZAwf1wZOZOI9EA/6aGcgbikAbm/SpSDnyxfoYyxbye8DTs/vXIuZma/MvDcbhYbutPXoGXN4Na6x+vuZRwJ2AlfgPZU93srulG0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785337710; c=relaxed/simple;
+	bh=C1hDEqmnAa3TDi8gjx1zqfyVR/iLfuR2KeKJu77rxU4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hn0dPDrXxnYt0j9xCd/+CGy+WmtGNWXw46R2XXv6LC6daNPx2ra3KSaW7khVw39GSUQ5eM4fOb1jS7k6PQkw3aNAbwn4D+waYpX/ZtzXXHYjuRmDf2JOYRS0gDXILBr9ZAxQEHmnDOHKB4RDfGYPV4On4X4WCskqSFIF5Ib57W4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M5rJwYmZ; arc=pass smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="yUcLGA3S"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=VmTyrzNOKLkXGmYONrNsdkwxFuwC/8LaXNMjyLzqq/c=; b=yUcLGA3SUSTau/EhHZZiKYcHdK
-	6OE7LgvcyOPXGJbnLJff4GVh/+y3je2oTw/H5QoRo0Lt4cMSZq/0+rb2rlZZbZ5QW0kD2I0LFeETV
-	FL54s5FohkmNnt8ij9hynUPhoJ+WwpUAtLVLxvZYKLStQ27sc3T1dc7U5YCxQ3Fms440b/FwoD/vL
-	5JGwhRDr2yocime9rgPfwC/nXKvbg8uDjfL5ocSOq3kTBBX83bSNdUIB8XPdi9NzXBjoh/JGZpWgg
-	hov9UV1jcFRqzD9jJNmZuJP5Nke1LKUBhB67iYRag2JjS1+3xNvhDlz924I35dUGaeJ7Hmybqsko6
-	NC5Ie+ow==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1wp5t5-00000002eCt-18o5;
-	Wed, 29 Jul 2026 17:08:03 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	stable@vger.kernel.org,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
-	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
-Subject: [PATCH 5/6] riscv: dts: spacemit: k1-orangepi-r2s: fix maximum CPU core voltage
-Date: Wed, 29 Jul 2026 17:02:22 +0200
-Message-ID: <20260729150722.1598630-6-aurelien@aurel32.net>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260729150722.1598630-1-aurelien@aurel32.net>
-References: <20260729150722.1598630-1-aurelien@aurel32.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M5rJwYmZ"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84847482584so898903b3a.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:08:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785337708; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XciQJy9kglxUu35v1DhVyenYeXKdF7gcrveuNFJUdG46YKeSlA0EO8qJJq+HH+BLqr
+         JyEV5MfYUT6L3TgLLsUDllO1V0JO+PSD/HQCuJCmrWbP5opJLoUoaP+xv1gADcfqg8QT
+         13IYMqfoyIs008zcyGuWhBJNGN7o8qg/yOAam0Zk2j9Au9K57lMEY4Irvc7YSVxrH5nW
+         fuhiRUG5W+yoG9xoMd4Pgd3IS5eGrH+yFpckXDg7oG9jMexg4sBWGWIYEwUWHCDgk69l
+         2OaGZKtULlhW0PHopBFquURJld2K/Mg6XgosderSmXynDdLoBT+Lju7/EHkhUh4HhO9P
+         uERA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DN2pJ0iBJxGrKHnDKUdsB6jvMBxu/va3aV7+6RRh+Zg=;
+        fh=cWRjusw6EfJBr683ZpYUNSASoZq6VApijzB5HJIqQ+E=;
+        b=a+C884suVko40a9wHTwRIQHAv35fBRrtad36GbGoLxjqkNSy+JYfYf16caoVF77psA
+         HlFRbf93D6fa1zPcfRK15Ha+vOCKhrsWPaf6UvW/1L2A6OSwF7fmwRF+bQpSCK4AzbDz
+         VsKf5dQLc2MB0hvL2TJiy0/48vtIgA8TtAlXec40VDG7PW6GJ9ecgUbX8J9EJT9PevdB
+         vRF1s7cig5IEMd9HwjW+uBxQ1WuIojitoRLqrnMfZM5/YMN4O2V0KZ6PreocL4FdhVYg
+         0hsBVg3qr60HvUXe9rgmFj37pi8JZlRRnuzdYlmzkc3Tt/8KMu4iu1/mzvtj/UgzCwj0
+         HIRA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785337708; x=1785942508; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DN2pJ0iBJxGrKHnDKUdsB6jvMBxu/va3aV7+6RRh+Zg=;
+        b=M5rJwYmZIAtlq2ZrXWae5DyVp354Bdhjn+v8XphW1gScMIbXvLwDFkRLCUBBgMqowp
+         u25PREYtIQY4zXbqPGZYRcH9UiWZcSW5cG5J8Ih2etgIARHnoRdnv0VBKWmpQZ4fyatz
+         v+AhHsriMbdRHCgCuedHZj/GXbRfjMRKZjXG2NzBJPp2tk29qMfvGwss8Fk9pbOvJeLr
+         imfUc0eNOr9EEmjc9joTMa+eWQJFoRecb3d2TFqrkn3BtR8k2oARWcg7FhWtV7XZYndt
+         h1NMJkkBhXxhs4Nj6gZp4/iqT7FrEEvG18k+0YIYONZoPFmbyWPLsz301B2E1WEXXnvP
+         JVYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785337708; x=1785942508;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DN2pJ0iBJxGrKHnDKUdsB6jvMBxu/va3aV7+6RRh+Zg=;
+        b=WTlvJDTMbnZwgGcRPm3YG0G4aaVCvxe2XeEFJGOgr6Py5vCfQ9IWxKAZ0cHwM7WMGe
+         pCQX9hmUuNIpmcMnZYtSRHrX717kMOFmLpEL/GxA2W2O7TLyNpeyy65kfy0ZnuTZDaDF
+         PE4v2njpLgJSpIvC9GuS3aUSnenIuU/naqDxA06J+KPlFFqUVtzTutyDoTMRGGc26K1y
+         FC/A8R2W0G/4dXUOchJge3/yfjbdDtQXTCawqsisfJ82GvTi8H0WAukscbcZDc0jaLeL
+         jJjdUBYOeuD3w6e4ET2C/S6+GUMHz17D3W6CytJzkE0fNkpWMAd1xPOCNLw+G+1EMaoz
+         wb2w==
+X-Forwarded-Encrypted: i=1; AHgh+RooK+8kTTffQXLm6ymGzNHLsstBfFL1jDsDvfaRx/se+4BThRwxtpZ8pf2v/9XHP5XdW1ib8ds=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyY5D5VRtPcE+c+PuP9G9nHQXfAqOiPJJlhfszXdlEmYRFYvY7D
+	tEZIQ2i6JKqgZbINSp8YsijC2jes5abasW96Seedwa9p0oxAVqF3pVQTzSTXtwOB7ty6EW+grh/
+	qzcYkJ8j6sQb8ErkXf+Y3oji2BNZkCQxB1B4F
+X-Gm-Gg: AR+sD10Cf6HxV7bkxag+3FgjpFvprwYUqkWJt98si3BtRY+H79JFWPQ0V+Zk0kk5ek/
+	Uo/LMjPXi/GKZ7VJ2AmNoZja5+L2QlLP5w5CCC3DUuSfAETS+BtgYHS9KFVC0+Y3b1DFH/t4Sle
+	po/NSP+9uwXnMhUb/wsm/WY1suPMfM+bLmlc0vNuGhiXkGy4AniZHIB4OLkOegytFFbsRbog2nA
+	sHlC07dffsnccPIYRpgVfkj4QUuDzyGiZdLb5lKzC+bCH1bC/TSvLoz+5O8niMK0rVJisaO4SK/
+	dVis28LWVI1s2BGHzbKoxZRdt0hUaisgelw8Uc0BGu4o/3omMJ6gdlJLqzyDHPKZaj31zMq76Hi
+	mCoiyHJ+9o+wafAaP9U30vzNUpcaY/JRHiglXXzJ2vqo=
+X-Received: by 2002:a05:6a00:bd86:b0:84a:46ec:3b9c with SMTP id
+ d2e1a72fcca58-84ea7aa3469mr2826245b3a.31.1785337708243; Wed, 29 Jul 2026
+ 08:08:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260729-sctp-cookie-preservative-length-v1-1-1ade32e42668@gmail.com>
+In-Reply-To: <20260729-sctp-cookie-preservative-length-v1-1-1ade32e42668@gmail.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Wed, 29 Jul 2026 11:08:16 -0400
+X-Gm-Features: AUfX_mypXq3HMlzPwWFUdF9XmRRShPhdnIHIc7-DAFADR9LIdIHSrIzgJYlIUYQ
+Message-ID: <CADvbK_ds_4sNnVTxXEooHkkA6JjV35ByCx+BWXiihiAo2cX8gQ@mail.gmail.com>
+Subject: Re: [PATCH net] sctp: validate Cookie Preservative parameter length
+To: trilobyte777@gmail.com
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On the OrangePi R2S board, the buck1 and buck2 voltage regulators, which
-supply the CPU core voltage, are configured with a maximum output
-voltage of 3.45V, while the highest operating point requires only
-1.050V. This means that a kernel bug, OPP misconfiguration, or
-privileged userspace could request a voltage above the safe operating
-limit, causing possible permanent CPU damage.
+On Wed, Jul 29, 2026 at 10:54=E2=80=AFAM Charles Vosburgh via B4 Relay
+<devnull+trilobyte777.gmail.com@kernel.org> wrote:
+>
+> From: Charles Vosburgh <trilobyte777@gmail.com>
+>
+> The Cookie Preservative parameter contains a fixed 32-bit Suggested
+> Cookie Life-span Increment after its parameter header. However,
+> sctp_verify_param() accepts a header-only parameter because the generic
+> parameter walker only requires the header to be present.
+>
+> sctp_process_param() then reads lifespan_increment beyond the declared
+> parameter and adds the value to asoc->cookie_life. When the malformed
+> parameter is last in an INIT, the read starts at the receive skb tail,
+> and the resulting value changes the expiration in the State Cookie
+> returned in the INIT ACK.
+>
+> Require the declared parameter length to match the fixed structure size
+> and abort the association through the existing invalid parameter length
+> path otherwise.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Suggested-by: Xin Long <lucien.xin@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Charles Vosburgh <trilobyte777@gmail.com>
+> ---
+> This follows Xin Long's review of "[PATCH net] sctp: validate Adaptation
+> Indication parameter length", which noted that
+> SCTP_PARAM_COOKIE_PRESERVATIVE has the same fixed-format validation issue=
+.
+>
+> Runtime-tested in KVM/QEMU. The unchanged reproducer accepts header-only
+> and overlong Cookie Preservative parameters on the unpatched kernel. With
+> this patch applied to net.git base 51b093a7ba27, both malformed forms are
+> rejected while the baseline and valid eight-byte controls still pass.
+>
+> The patch passes checkpatch --strict, builds net/sctp/sm_make_chunk.o,
+> and completes a full x86-64 bzImage build.
+> ---
+>  net/sctp/sm_make_chunk.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+> index a1c0334a1038..eb9cff77759b 100644
+> --- a/net/sctp/sm_make_chunk.c
+> +++ b/net/sctp/sm_make_chunk.c
+> @@ -2165,7 +2165,14 @@ static enum sctp_ierror sctp_verify_param(struct n=
+et *net,
+>         switch (param.p->type) {
+>         case SCTP_PARAM_IPV4_ADDRESS:
+>         case SCTP_PARAM_IPV6_ADDRESS:
+> +               break;
+>         case SCTP_PARAM_COOKIE_PRESERVATIVE:
+> +               if (ntohs(param.p->length) !=3D sizeof(*param.life)) {
+> +                       sctp_process_inv_paramlength(asoc, param.p,
+> +                                                    chunk, err_chunk);
+> +                       retval =3D SCTP_IERROR_ABORT;
+> +               }
+> +               break;
+Why not move 'case SCTP_PARAM_COOKIE_PRESERVATIVE' down
+to after 'case SCTP_PARAM_ECN_CAPABLE'? it will save a 'break;'.
 
-Set the maximum regulator voltage to 1.050V instead.
+Thanks.
 
-Fixes: 793cc54475b4 ("riscv: dts: spacemit: enable PMIC on OrangePi R2S")
-Link: https://sashiko.dev/#/message/20260728211020.1248676-2-aurelien%40aurel32.net
-Cc: stable@vger.kernel.org
-Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
----
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-index 24591f7c3d236..2d1ba34cb00e2 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-@@ -134,14 +134,14 @@ pmic@41 {
- 		regulators {
- 			buck1 {
- 				regulator-min-microvolt = <500000>;
--				regulator-max-microvolt = <3450000>;
-+				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
- 				regulator-always-on;
- 			};
- 
- 			buck2 {
- 				regulator-min-microvolt = <500000>;
--				regulator-max-microvolt = <3450000>;
-+				regulator-max-microvolt = <1050000>;
- 				regulator-ramp-delay = <5000>;
- 				regulator-always-on;
- 			};
--- 
-2.53.0
-
+>         case SCTP_PARAM_SUPPORTED_ADDRESS_TYPES:
+>         case SCTP_PARAM_STATE_COOKIE:
+>         case SCTP_PARAM_HEARTBEAT_INFO:
+>
+> ---
+> base-commit: 51b093a7ba27476e1f639455f005e8d2e75390e4
+> change-id: 20260729-sctp-cookie-preservative-length-ffa4472272fb
+>
+> Best regards,
+> --
+> Charles Vosburgh <trilobyte777@gmail.com>
+>
+>
