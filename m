@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7992547FAE6
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:50:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF2D494A03
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:50:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333042; cv=none; b=XLd9U85tnk96pR4xnxGu6MSlkRo7MQEdO1TcVBWlCkwn5izOKsbFlHhNs68dBqmdMfppBKejJ7ARGLsOlTaddMcW2ylr8tQ6NLM1iapbm5nNQ687eYKw8LkL2+8cMvpXsuz0aIEUll0hHJ482qqSLob/NcpfCCufJmd8VGK5acY=
+	t=1785333050; cv=none; b=Oqxcn5qwGRCgFLs4DVDwp0xDE0XCRLP5qHnIVJ9VP+Yea2Kxzb5kSo290NL3gHvt3fOU/+3u5zFeVGdDCpkYAkvO3u1+g5oA40JKVBpKTPmpvvPZQNWbPi82Ngv/pQkcMDK/uaVqWnAD4XOWhcHm4SYiaVa/BQSwuMbFESL+460=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333042; c=relaxed/simple;
-	bh=aG/+3Ry2oPre5hZwVzHHx5ozZmUqkTz+Awa7D+pBQU8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VWnDhqiZG39p6nT1qRD4hGHKCclMOYtJRJzEA1kj4bUKpEyMKDpheqtpBhSVE8HbTrAcCNCef18KHRaivOUz453jBlpb5BFuMnxa7IyAvDJj5ah+Fimt2ohXWa/RpgK4CHGcQ2i+Mo0HCeM1EGnJJQINIeS2A1wyR8UzmTqQk+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=niBQ0tZL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333050; c=relaxed/simple;
+	bh=5OvR86fzlJn5Qf5EB8X/C8qS1jk8rZyrGOa33fvAkyA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pX4gu2JmZjWex7qCx9PUqzmpOPdgTfD08Ou+dx8RTr9AGrfIxGKYHu1xtQrOXd+4mha1KbFrEndDLRpye4r2RqsMLlcuGNVMYihWfDbfvJab3Z5I5ib0X9WSRS2tcZvw9Ss2lq6Fisf3EXrKG4wl8QDpRTU1waBIVVQGdcvt6O0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jV0hHkM4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="niBQ0tZL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FC11F000E9;
-	Wed, 29 Jul 2026 13:50:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jV0hHkM4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C411F00A3A;
+	Wed, 29 Jul 2026 13:50:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333036;
-	bh=z2gWxKc/FvCaQ/VBkNouPvsOsmT9KbOIR0l8dVmNGo0=;
+	s=korg; t=1785333042;
+	bh=V06Udu19xUqDdprGJfClkCwS2AxXhbAx7TNtd4KCwFE=;
 	h=Subject:To:Cc:From:Date;
-	b=niBQ0tZLHzbtxmiaJ0ZOORgrOBX9LZFZLxNaYc9xNu6wJwfl5dB2bMupyTiX8SX4k
-	 0/4nw2U7MPodUeBYCd3Kd4e1dbz+CG1GDkXAuDbN8jLJwKfUecAFJAS0gbN93cM5N1
-	 a3VJ5225F2XOCny1g7MtOB/8aBWTclQPnXBdWaDM=
-Subject: FAILED: patch "[PATCH] io_uring/rw: fix missing ERESTARTSYS conversion in read paths" failed to apply to 6.1-stable tree
-To: yi1tang.yang@gmail.com,axboe@kernel.dk
+	b=jV0hHkM4L3LLDpCfV7yiGoTRLcqQj6m80w5xYH85Vhv16e5xhTLPHLyVQM2A2S1kV
+	 Q+FEzP8kdZZ/HcZ76McCSxgspeSvSsGklYE2d0fFastu2BNagHx65jcQ1UHL1kKZ4e
+	 aNlUSLT+JvcA9b2DyXb7I56K9ir/j288pqykiUt8=
+Subject: FAILED: patch "[PATCH] iomap: fix out-of-bounds bitmap_set() with zero-length range" failed to apply to 6.6-stable tree
+To: yi.zhang@huawei.com,brauner@kernel.org,djwong@kernel.org,hch@lst.de,joannelkoong@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:50:12 +0200
-Message-ID: <2026072912-barn-caddy-3cea@gregkh>
+Date: Wed, 29 Jul 2026 15:50:23 +0200
+Message-ID: <2026072923-divinely-glorifier-714d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x ab05caca123c6d0b41850b7c05b246e4dca4a770
+git cherry-pick -x 9c7d8f7c8994c790fca501dc45ce66e7356cbe05
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072912-barn-caddy-3cea@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072923-divinely-glorifier-714d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,98 +62,79 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ab05caca123c6d0b41850b7c05b246e4dca4a770 Mon Sep 17 00:00:00 2001
-From: Yitang Yang <yi1tang.yang@gmail.com>
-Date: Wed, 22 Jul 2026 20:45:51 +0800
-Subject: [PATCH] io_uring/rw: fix missing ERESTARTSYS conversion in read paths
+From 9c7d8f7c8994c790fca501dc45ce66e7356cbe05 Mon Sep 17 00:00:00 2001
+From: Zhang Yi <yi.zhang@huawei.com>
+Date: Tue, 14 Jul 2026 16:23:24 +0800
+Subject: [PATCH] iomap: fix out-of-bounds bitmap_set() with zero-length range
 
-Both read and write may receive internal restart error codes from
-the filesystem layer and should be converted to -EINTR. However,
-when multishot read support was added, the error code normalization
-was lost for both io_read() and io_read_mshot().
+ifs_set_range_dirty() and ifs_set_range_uptodate() compute last_blk
+as (off + len - 1) >> i_blkbits.  When off is 0 and len is 0, the
+unsigned subtraction underflows to SIZE_MAX, producing a huge
+last_blk and nr_blks value that causes bitmap_set() to write far
+beyond the ifs->state allocation.
 
-Extract the conversion into io_fixup_restart_res() and apply it
-in all three locations: io_rw_done(), io_read(), and io_read_mshot().
+Regarding ifs_set_range_uptodate(), it is temporarily safe because len
+cannot be passed in as 0. However, for ifs_set_range_dirty() this is
+reachable from __iomap_write_end(): when copy_folio_from_iter_atomic()
+returns 0 (e.g. user buffer fault) and the folio is already uptodate,
+the guard at the top of __iomap_write_end() does not trigger because
+!folio_test_uptodate() is false, and iomap_set_range_dirty() is called
+with copied == 0.
 
-Fixes: a08d195b586a ("io_uring/rw: split io_read() into a helper")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yitang Yang <yi1tang.yang@gmail.com>
-Link: https://patch.msgid.link/20260722124551.130563-1-yi1tang.yang@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Add a !len guard to both functions before the computation, so that a
+zero-length range is a no-op.
 
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index 63b6519e498c..95038cfda615 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -615,6 +615,24 @@ static void io_complete_rw_iopoll(struct kiocb *kiocb, long res)
- 	smp_store_release(&req->iopoll_completed, 1);
- }
- 
-+static inline ssize_t io_fixup_restart_res(ssize_t ret)
-+{
-+	switch (ret) {
-+	case -ERESTARTSYS:
-+	case -ERESTARTNOINTR:
-+	case -ERESTARTNOHAND:
-+	case -ERESTART_RESTARTBLOCK:
-+		/*
-+		 * We can't just restart the syscall, since previously
-+		 * submitted sqes may already be in progress. Just fail
-+		 * this IO with EINTR.
-+		 */
-+		return -EINTR;
-+	default:
-+		return ret;
-+	}
-+}
-+
- static inline void io_rw_done(struct io_kiocb *req, ssize_t ret)
+Fixes: 4ce02c679722 ("iomap: Add per-block dirty state tracking to improve performance")
+Cc: stable@vger.kernel.org # v6.6
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+Link: https://patch.msgid.link/20260714082325.325163-5-yi.zhang@huaweicloud.com
+Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 0cf62e516827..3a3ac3051fb0 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -68,11 +68,13 @@ static bool ifs_set_range_uptodate(struct folio *folio,
+ 		struct iomap_folio_state *ifs, size_t off, size_t len)
  {
- 	struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
-@@ -624,21 +642,8 @@ static inline void io_rw_done(struct io_kiocb *req, ssize_t ret)
- 		return;
+ 	struct inode *inode = folio->mapping->host;
+-	unsigned int first_blk = off >> inode->i_blkbits;
+-	unsigned int last_blk = (off + len - 1) >> inode->i_blkbits;
+-	unsigned int nr_blks = last_blk - first_blk + 1;
++	unsigned int first_blk, last_blk;
  
- 	/* transform internal restart error codes */
--	if (unlikely(ret < 0)) {
--		switch (ret) {
--		case -ERESTARTSYS:
--		case -ERESTARTNOINTR:
--		case -ERESTARTNOHAND:
--		case -ERESTART_RESTARTBLOCK:
--			/*
--			 * We can't just restart the syscall, since previously
--			 * submitted sqes may already be in progress. Just fail
--			 * this IO with EINTR.
--			 */
--			ret = -EINTR;
--			break;
--		}
--	}
-+	if (unlikely(ret < 0))
-+		ret = io_fixup_restart_res(ret);
- 
- 	if (req->flags & REQ_F_IOPOLL)
- 		io_complete_rw_iopoll(&rw->kiocb, ret);
-@@ -1034,7 +1039,8 @@ int io_read(struct io_kiocb *req, unsigned int issue_flags)
- 
- 	if (req->flags & REQ_F_BUFFERS_COMMIT)
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
--	return ret;
-+
-+	return io_fixup_restart_res(ret);
+-	bitmap_set(ifs->state, first_blk, nr_blks);
++	if (len) {
++		first_blk = off >> inode->i_blkbits;
++		last_blk = (off + len - 1) >> inode->i_blkbits;
++		bitmap_set(ifs->state, first_blk, last_blk - first_blk + 1);
++	}
+ 	return ifs_is_fully_uptodate(folio, ifs);
  }
  
- int io_read_mshot(struct io_kiocb *req, unsigned int issue_flags)
-@@ -1068,8 +1074,10 @@ int io_read_mshot(struct io_kiocb *req, unsigned int issue_flags)
- 		return IOU_RETRY;
- 	} else if (ret <= 0) {
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
--		if (ret < 0)
-+		if (ret < 0) {
-+			ret = io_fixup_restart_res(ret);
- 			req_set_fail(req);
-+		}
- 	} else if (!(req->flags & REQ_F_APOLL_MULTISHOT)) {
- 		cflags = io_put_kbuf(req, ret, sel.buf_list);
- 	} else {
+@@ -204,13 +206,17 @@ static void ifs_set_range_dirty(struct folio *folio,
+ {
+ 	struct inode *inode = folio->mapping->host;
+ 	unsigned int blks_per_folio = i_blocks_per_folio(inode, folio);
+-	unsigned int first_blk = (off >> inode->i_blkbits);
+-	unsigned int last_blk = (off + len - 1) >> inode->i_blkbits;
+-	unsigned int nr_blks = last_blk - first_blk + 1;
++	unsigned int first_blk, last_blk;
+ 	unsigned long flags;
+ 
++	if (!len)
++		return;
++
++	first_blk = off >> inode->i_blkbits;
++	last_blk = (off + len - 1) >> inode->i_blkbits;
+ 	spin_lock_irqsave(&ifs->state_lock, flags);
+-	bitmap_set(ifs->state, first_blk + blks_per_folio, nr_blks);
++	bitmap_set(ifs->state, first_blk + blks_per_folio,
++		   last_blk - first_blk + 1);
+ 	spin_unlock_irqrestore(&ifs->state_lock, flags);
+ }
+ 
 
