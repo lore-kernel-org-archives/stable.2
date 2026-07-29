@@ -1,90 +1,72 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92C33B0599
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47E539792E
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785338046; cv=none; b=JWm04K0mB1DnkfTQpeVxD1O1KAcaPCE3jGkXKJoVqWbiHvjcc4sx0x4zhJ4++mEjFbFTq3Y6Yd+xJnxb8IUzj/M3CKHbt8wXjz3cxyz6NbmHAuvF1cYJ1EXJg+qgkXDuZYXOK8DkzITzIXXGSKBZZnANBQVs93NfdAT+tdMePXw=
+	t=1785338110; cv=none; b=hjeVoEUK//y9ZV1c5eF514gj5wXC0wdslJ6MDyUHHiZWuaWMiWk3epMyjr9zAudh1o0CiwBlhn159cbqJcsqx21GEDhOc+s8viFjI6vZYQaXIZcUaj3c2Sh1riYu3akkmC71xJ6jlZD0qY7mn+wmtiz9kUCh8bIP6pWNW50bTkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785338046; c=relaxed/simple;
-	bh=YLlRccwWgahkuGR/qAGcHaIhRJwuf0+dY8/eR8OeCAk=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OimWgetyvNeviGIlDMLAzsB8n2Yw04BANFTg6T32tnajNMVmYX0XRZs5cMc8S2+YlknvvNs3dRwSSnNG3UBxGgWleKzV0B6p9zc0UaHZY01rwjNzb4AMkqdiTJ/3NZtSzgjl/ZXT0jHqDpeOd6/l9kMh05F8E3QK975vEDsVc2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IK92W66C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h/06xAYq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785338110; c=relaxed/simple;
+	bh=tzQGn+bNMrbg1xuxu1uU5K8OjtCXDEbHSapUXWKV0t8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UYBc4RYPlt5iJGl87Sp8gAKFvJyDItnxHHQW/4ICzFdPdCL4eGErC7w1K/fNOt+RIX4TbIaBdbD5TAb3DoIH276tt0VRevPHPjXgdqhpfcUNOca5Tz8P664NGbSsqaVNr9kd1a5cPEy4TK/zg6zv0DC0HqOfdNOlGCe/rxunK4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=cVXOJxOb; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IK92W66C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h/06xAYq"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TF34ZW2357655
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:14:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=8qIawFstKWh
-	94D5qvIpj+l3Hxea/1OAP6TOhstlp7rU=; b=IK92W66Cvq0bq3RLYCGDSjGJzxI
-	xLqJwdVCWPAnAEP1lFjgMli2BzOFAT/zv5psR2KFrLc38NIPVNK4yurtGfrrjyal
-	xLBhllSxa6Tu9/nbhn7IUboZLimKgtczobd85yCq2n6Lvcl9Kv/VvWI6sDU5ey5A
-	fP/+VffZjMNkbSh04Zpv2bBuIgAz+cgDCFcyuOiT1+UNidLX+fD+ib+uF/WpzwR/
-	H9DcHA64E+CWYzZzYc+9KjtK/OBWr7/MA6ERbdG14zDujfb10movST2Zd2glOpG2
-	KPSTTDul6YJmsHgL4ZyH4WSlIHG/8oVdGYV6mIvLfdSvfQKNCaz7FV8SqQg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqhe98w04-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:14:03 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51ebdfceddcso12913891cf.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:14:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="cVXOJxOb"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84ea0ded155so94325b3a.2
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:15:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785338042; x=1785942842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8qIawFstKWh94D5qvIpj+l3Hxea/1OAP6TOhstlp7rU=;
-        b=h/06xAYq3SS4eBqk7gAN9cxr5vY2QkTs+KYLRw3DjHsGeCSVJbFQZ+hsvt0PfCZpZw
-         gUlnqo3UqV0oimR5RJPotUR7GIaHkgV09evCfBX/vydTda5UxVROdEbM/qJIjj/8HA8j
-         2mxf10ppEXJlElRjioGXoD+zVA9FhlQAsWofP7Nkxs0oqH1uPGsFWLyDZZfTkajnCnHb
-         QVdDa7VPvNIjbk0WfDb6MFKkiPiO28ZIBhbO9Cbsm8HI1EBhjAzbR9PKry8kF2SmZ+bx
-         ieJ2Gfbi92kpfXw6zciT/cyXGyXt7FPG0EF5QpzEPgneTmKDd9odeo7vhXmpUSVytYol
-         wVFg==
+        d=xbow.com; s=google; t=1785338109; x=1785942909; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZQzCH4B5mM4CTNbOsYvN+gZppj/JJTPXHXD5c5OcK+Y=;
+        b=cVXOJxObI+947LAgPD1gyMB21+56IozHNmYadzxAx8YiBZ+P/y1Jv0mGSp03u8+nOp
+         tFvf9bzuTZATOIv2hzL0O/2l4v4QGScg++acinmjQqbsaH/cHMvy6Nbhu8ur57ltITn0
+         imvPUkt1kWExxxQooJ6uf2ph1ZmzAF0CbUp+50uShmM9l6DooJmrUU/TJ0Mpg3yQnBNl
+         fNT2ZoHUdldBk077vtQmWvslBpMDwOYrqLyRukbD/MNsojCzuXauwmcmXLPZjfnSDQGh
+         er4eJMORQ22PvIHqNCAdy1tNZHcr52pVH3bNrSkMpW0+1SQdJiw8uLtgRfNu2lxhtgz9
+         4NAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785338042; x=1785942842;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8qIawFstKWh94D5qvIpj+l3Hxea/1OAP6TOhstlp7rU=;
-        b=MeEvxFgg/nna4kaU+8fkZleTMUyQ0jyIykhMMHHf7+jBNlTvWK9okjSUK2TRJnvMzk
-         qmZQ5WWOs2zOQp1lD48kp7zhZJBtKGw4vxzRa5R8SK4nzE63qENm6U/Cy+YclT4+HZHi
-         Sx2SNK2wIJ6fbJLropB/G3Y5u0GfZU49i8IcsN5uvv+RY6EMR0dVc9SQwLaC8ecOcQGu
-         AemU8Nc39iDFOQHF/Lw3oo7p8Y560Lf3AvCg2bspXXA+ptZtype40LOR1unTGbKO88Sd
-         h5AzEiuZ2KDZTPGUvlUoEemwI4KcqzbjvxxGKQhPKvtW7rz8kqehONFU4AJzGmgiSr7J
-         gYeA==
-X-Gm-Message-State: AOJu0Yxwra2X+n6IDMKDxJF4XR0Usi2+IpaJebnb3B6YHLFA13o/H884
-	5Vd8KBGrsVSzwiDEwHVwlBTPWQjyURcGDTysiiLcQlif1brEqMybR0g7wdlW2tkNZtNSh9kkpuE
-	4qST2Oow3isKBiNXs3VszPDFhTDQGnjFIv3my+FWuCRM8/GsPVRffDVqN/ecKkOG9hBAmjw==
-X-Gm-Gg: AR+sD13zzusOzkIHW2rJop4lWHRvWGad9LZpXemEbgrelhhuaVHil7cJ6rEpb+JN3UF
-	KC49t8ol/UJ3A3AaBtxCHy6U0QTUSEvePzSxULoCAcwr28zSbUHDBVI2L+vXEO2hDngQamwQF5q
-	j6BRxX0cXgpXDEhFoLNZh6eBQU/Dpz/87F5IDsPA8D3G8Bt8gdXd9KuTu8uz9h9RY7vR7nMtr7C
-	3Fw/HmjBHmyuJ2yTAbSa/wo83jv9PcbRWUr1Nl4Nzmartd3/ZqY0SXqThp1Z+D1maGnnGj4PwIS
-	Z0exYfmu5GIPdq7sCElEtm9Y71Qjs4/RzNKxJIaYQEFbMi3yjjLVtB2Qpy7lZ2ImOKhJxRBBLM3
-	HlA/z6j3nxCD1b+iOuxNVflNL9nkPIBWwOadrc8MI
-X-Received: by 2002:ac8:59c7:0:b0:51b:f25c:2896 with SMTP id d75a77b69052e-529d6fa0310mr65384301cf.11.1785338041499;
-        Wed, 29 Jul 2026 08:14:01 -0700 (PDT)
-X-Received: by 2002:ac8:59c7:0:b0:51b:f25c:2896 with SMTP id d75a77b69052e-529d6fa0310mr65383631cf.11.1785338040823;
-        Wed, 29 Jul 2026 08:14:00 -0700 (PDT)
-Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a050c6f4ffsm1010923a12.30.2026.07.29.08.13.59
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 08:14:00 -0700 (PDT)
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-To: stable@vger.kernel.org
-Subject: [PATCH 5.15.y] net: qrtr: ns: Raise node count limit to 512
-Date: Wed, 29 Jul 2026 17:13:59 +0200
-Message-ID: <20260729151359.3892029-1-youssef.abdulrahman@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026072919-duly-quintuple-1304@gregkh>
-References: <2026072919-duly-quintuple-1304@gregkh>
+        d=1e100.net; s=20251104; t=1785338109; x=1785942909;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZQzCH4B5mM4CTNbOsYvN+gZppj/JJTPXHXD5c5OcK+Y=;
+        b=OA7sUdmdj2c1KZdLN6a1SaH6htlA/DK1xjCuGPPXy+fQGqLxAvnLjgt2VMIhXSj5QM
+         0aLK6igxBCjS+w1lmbDYyNbUAisqBOWPYJwHiy8ep+q6CkBXEIvan9ApasR7LFT87AE9
+         e0qQWP5Tu/yj+pqAKNOfZD3N7KlyjQyeiq83AYr6LSEapUgu1CcN30Te7F+7H3BG5FWP
+         FUPcSWS/vmSTTXucAOK0pYOm9WnXUf3sBNOUw+5BLyY/ml7aE+MyEixclwwnzrB+6PI4
+         OAD9StEz/7X+kTaaC0PbhfiQ4im1K9hblRh/KUUOCMcJHbm8N+iLRrZBxGb/9xaITEaP
+         dVHA==
+X-Forwarded-Encrypted: i=1; AHgh+RrgYxWVEGzyrjpUf3MDUs332o0xnKEquBx1wOSkhmyWnlnTzrq16t7ZvrtEYoibyUw5S8fTJPg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywu3jrJ6LzZEAEwqtBWrjBTykU1bZl6XmeP4PqbJgljwBjKq1/a
+	rk5PFL/HDlSWhHRw0bas6kuyeSTE6l3hPI3tPaA4rWRjd0z1M9PNC9sLndh9JsUZTUM=
+X-Gm-Gg: AR+sD109gizzc2UU2wwFrOVfme9Smgx1c/bDwlIjzCN5iGa/Y8aad/fesVuK+4U7oXN
+	eoMyd69dbHZ84tBIABUp1exkrLPPSAHWDLpYFy3XEPlxViVup97K7OwJQUW9PkoDAYDuRvr1POt
+	qjvoKnNRYx6eaV6w/bkacqxqCohxnuH8cr2eUcfU8l/E3tlzwyjRcLEVcuXswl/H/fpIN3YHOPN
+	sQOrJJ5Vf1gthh4LccFNnry6727vD1zqzGAVHH9iA/sxW4i45oO+pmJ4Oe51ZRaPGnp9I2Btl7m
+	LN1Psh9Rz21KbmtpVKNX4tHaLlDaVDXh8RzOUEvNEAAXZhNbBr8pjVR3Cypo5CLOvzNCGzBiVoE
+	MFqmf6z6VfYVSRgvm/Gn0wqL07wPEGX52xJ370NLFh9Woz4uSXGB7iULSVip6wZKV8WrXbWNOHr
+	aqAyVSCklq8f72ffoJMlop4LFBYbkZdn8WaIh/+ypNUnd/Kx7N2416lykolT/shUzEozccuM13/
+	l+gac8Pj/dRQaLGcL98KaC+biwZ
+X-Received: by 2002:a05:6a00:b4a:b0:845:e9ff:5d97 with SMTP id d2e1a72fcca58-84e931ecec6mr7539654b3a.12.1785338108626;
+        Wed, 29 Jul 2026 08:15:08 -0700 (PDT)
+Received: from Mac.lan ([125.128.148.126])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea03d3f16sm1589860b3a.59.2026.07.29.08.15.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 29 Jul 2026 08:15:08 -0700 (PDT)
+From: Baul Lee <baul.lee@xbow.com>
+To: io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>,
+	stable@vger.kernel.org,
+	Baul Lee <baul.lee@xbow.com>
+Subject: [PATCH] io_uring/net: don't truncate the bundle segment length to int
+Date: Thu, 30 Jul 2026 00:15:04 +0900
+Message-ID: <20260729151504.47280-1-baul.lee@xbow.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,66 +74,95 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDEyMyBTYWx0ZWRfX7Y+RCWHC4Dkd
- KOK+1790f+Ayyb4JCatMQy7ZWkWNx1hGehtMb04JKRYlu6ufUo08JsAvuKQDqLYVSinxszy3H50
- qlLXnO9czv4miilKT4AIXAC+vumB1Em0sIcbiSAkMwv7Fu18gw+a38W9PWMl74CY+oPUV7henV4
- 3u3SoHUuOTEpCK/ARfkphcOntXUnEiOt7V+d0qeDjKY6lbpDjMaRBEJo2/ikyGRgfNm9uzAUV7w
- dsSTQ0yohkqnpnIbHZB0PTz3ugrWVG+qwGdFltemVHFbmEULLU5z6zSRyKYs/WbCCzkYj4TWm5r
- s2izYDUw3nOREtlb0YY3+i7tb0ka9j6Dd5vEqcBf2e+wV9/owV7M8zwCQzJEqrIPS9ZTQyQROI1
- uUysNkktX9OHHbCnjyZcEwiNMelBYY+vwWYW01+h4imAd3sKQPIRjPupdcYUdtrvStEwLnf0iYV
- 9QMwsKDzA/9xJg87Trg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDEyMyBTYWx0ZWRfX9uJfpK7S9MjC
- ifglgjnsdnhygSCvLsfhjZ33GACcX7DVANo2NRMa26qMbL8DNDBt55K6e05E7+EEvX1CYBHsvxa
- zyfMum2MayhaeYm87mSmOhT97I0mtyM=
-X-Proofpoint-ORIG-GUID: mM-o7AJtwR6yQHsASYDSjLiMV5pV7WMV
-X-Proofpoint-GUID: mM-o7AJtwR6yQHsASYDSjLiMV5pV7WMV
-X-Authority-Analysis: v=2.4 cv=EsriaycA c=1 sm=1 tr=0 ts=6a6a18bb cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=xbQBGh1BD93CNvSBCI4A:9
- a=kacYvNCVWA4VmyqE58fU:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_06,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- spamscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290123
 
-The current node limit of 64 breaks the functionality for a number of AI200
-deployments that have up to 384 nodes. Raise the limit to 512.
+io_bundle_nbufs() works out how many buffers a short bundle transfer
+consumed by walking the mapped iovec and subtracting each segment from the
+transferred length:
 
-Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
+	do {
+		int this_len = min_t(int, iov[nbufs].iov_len, ret);
+
+		nbufs++;
+		ret -= this_len;
+	} while (ret);
+
+iov_len is a size_t while this_len is an int, so a segment longer than
+INT_MAX comes out negative.  ret then grows instead of shrinking and the
+loop keeps walking, reading past the end of the array it was handed.
+
+The recv bundle path can hand it such a segment.  io_recv_buf_select()
+folds sr->mshot_total_len into arg.max_len, and that field is unsigned and
+taken straight from sqe->optlen:
+
+	if (sr->flags & IORING_RECV_MSHOT_LIM)
+		arg.max_len = min_not_zero(arg.max_len, sr->mshot_total_len);
+
+With sqe->len left at 0 nothing else lowers it, so arg.max_len can be
+0xffffffff.  io_ring_buffers_peek() clamps each buffer against that rather
+than against INT_MAX and records an iov_len above INT_MAX; a short receive
+over that bundle then enters the loop above.
+
+An unprivileged multishot IORING_OP_RECV with IOSQE_BUFFER_SELECT and
+IORING_RECVSEND_BUNDLE, a provided buffer ring registered with
+IOU_PBUF_RING_INC holding two buffers, and two bytes of data is enough to
+reach it.  The two-entry iovec is a 32-byte kmalloc:
+
+  BUG: KASAN: slab-out-of-bounds in io_bundle_nbufs+0x114/0x1a8
+  Read of size 8 at addr ffff0000d39a1b68 by task io_repro/165
+  Call trace:
+   io_bundle_nbufs+0x114/0x1a8
+   io_recv_finish+0x138/0xa38
+   io_recv+0x38c/0x1008
+   io_issue_sqe+0xc4/0x155c
+   io_submit_sqes+0x6d0/0x1fac
+   __arm64_sys_io_uring_enter+0x30c/0x1180
+
+  Allocated by task 165:
+   __kmalloc_noprof+0x1b8/0x444
+   io_ring_buffers_peek+0x57c/0xbb4
+   io_buffers_peek+0x168/0x2a0
+   io_recv+0x598/0x1008
+
+  The buggy address is located 8 bytes to the right of
+  allocated 32-byte region [ffff0000d39a1b40, ffff0000d39a1b60)
+
+Count in size_t.  ret is positive by the time the loop runs, since the
+function returns early for ret <= 0, so widening loses nothing; this_len
+stays bounded by ret, and the mapped length is never less than ret, so the
+walk ends inside the array.
+
+Fixing it here rather than by capping arg.max_len keeps the accounting
+correct for every caller and does not disturb buffer selection: an
+arg.max_len of 0 is a distinct "not set yet" state that
+io_ring_buffers_peek() tests before it applies its own INT_MAX default,
+and pre-filling it changes which bundles get expanded.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: a05d1f625c7a ("io_uring/net: support bundles for send")
 Cc: stable@vger.kernel.org
-Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-(cherry picked from commit ff194cffd586cbd4cc49eccb002c65f2a902a277)
-Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
 ---
- net/qrtr/ns.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The sr->len path into this loop is already rejected in
+io_{send,recv}msg_prep(); this one comes in through sqe->optlen instead,
+which is unsigned and so never trips a negative-length check.
 
-diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
-index 559aad0e3621..f8d7087e79aa 100644
---- a/net/qrtr/ns.c
-+++ b/net/qrtr/ns.c
-@@ -79,11 +79,11 @@ struct qrtr_node {
-  * requirements. If the requirement changes in the future, these values can be
-  * increased.
-  */
--#define QRTR_NS_MAX_NODES   64
-+#define QRTR_NS_MAX_NODES   512
- #define QRTR_NS_MAX_SERVERS 256
- #define QRTR_NS_MAX_LOOKUPS 64
+ io_uring/net.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/io_uring/net.c b/io_uring/net.c
+index 00a7df803b99..e8a066f8a9e3 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -500,7 +500,7 @@ static int io_bundle_nbufs(struct io_async_msghdr *kmsg, int ret)
+ 	/* short transfer, count segments */
+ 	nbufs = 0;
+ 	do {
+-		int this_len = min_t(int, iov[nbufs].iov_len, ret);
++		size_t this_len = min_t(size_t, iov[nbufs].iov_len, ret);
  
--static u8 node_count;
-+static u16 node_count;
- 
- static struct qrtr_node *node_get(unsigned int node_id)
- {
+ 		nbufs++;
+ 		ret -= this_len;
 -- 
-2.43.0
+2.53.0
 
