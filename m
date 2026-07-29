@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CD0485CDB
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4A6485CF6
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785329614; cv=none; b=C3uWoU95if/cPdzrLWr7lBNLS++9gK6gwDLZ0ntMN31w7yZwZc6cmndB/2TuZE3dGVf5AHPbq8fOfs/+N4yLPt0KSlQsq0IfJzhtbtp5nmIS9+Kv2kr9wlH6vhtIqBWUF6KkPMUU1ELtRIKCchXzIc1mLkXvljftfmkFGdVpUOU=
+	t=1785329630; cv=none; b=i0QmqUdCjSZgPKbFhw1DIvXvXLmesBdSrWM0v4bhynDP1NMD/Q1/TkpU/mQ6hyqST5GA+g6KPHGdo4OCwPIz0edC0j+wwlt/zh7f6OuA5In3xqBnTBcWV7AOe1os0FcsjR9ImHn1oGdYb/Xg5J/YDPnRSwPqQb43ntqN/KQOXPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785329614; c=relaxed/simple;
-	bh=EkK0tLSEpoALsxBqulRc0uvONs5feO3xugZT7AkBSgk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pHyn9FmHBe7RUOve2S8kdkOC0VO1Xl3IM3omYA+1mt5+2I5YaZffb9tnvuqezfG7GFZ14t8ZNri3Z1Tt66eVCTfuOXC8qmxqNHmyGtWsqqb6tTZKz3Hxa5S9ktEb6r/oCXQxr50ncbLYHQoTnjm+Pkp9H44b4pbZ9nw2/PfFGT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j5rGucrn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785329630; c=relaxed/simple;
+	bh=orpuw/qqu5z3L4K2mzsraNaCg2d8f3AgULysoVrJB3M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Pv0z5lxHSRJ1J4tp8JJLLYxhIs9l4uNb20+tDC4mLdh+zFIKp8dN35bt1rQP6R8J1KPS8c9rGPASNbUCfO2A2shMmheaoySVUnDSq7SqEWaoUqtGEVIlqgnnWcygtKiScdrXujH8BjAsV6I4NAM4PcewhAlIKzEorNwmpqZ/VW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hFgVXQ4Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j5rGucrn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2E01F000E9;
-	Wed, 29 Jul 2026 12:53:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hFgVXQ4Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8E121F000E9;
+	Wed, 29 Jul 2026 12:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785329605;
-	bh=ZUIY2tfYYpsJjuiuw5KpMIbd1Wu0SXhyEe1lTJWkspA=;
+	s=korg; t=1785329624;
+	bh=22nb8ygF16vR4oYLBG8h2hYTaSVg216977LCqcHNsHs=;
 	h=Subject:To:Cc:From:Date;
-	b=j5rGucrnFmrUqBh03Vk8OFeGZQ1a4zehMJ3F8ReM7M3DZ7/wMgGdUJ/WqCOa7vkS8
-	 kzm01OT/TObDAJmGwEM6J1YtnazwBOQtd414G43sCpq5V1vYn4km8iwsAdOVvcJVoT
-	 b4OzgTCShTpGBoHRBe1sUkFs5N+uN379kt6EgtHs=
-Subject: FAILED: patch "[PATCH] media: imx219: Fix maximum frame length in lines" failed to apply to 5.15-stable tree
-To: sakari.ailus@linux.intel.com,dave.stevenson@raspberrypi.com,laurent.pinchart@ideasonboard.com
+	b=hFgVXQ4Y6BcPF9PQax0nkVRQGTy9+ETXvyu9PnvlCA54zRkH0T7AA+bgkZM7q0Ksp
+	 SSvInnIJEDAT0Rgnv6XxqDpTQ+t3/UfU0YUloYTHFXFgb/M/BkzACzaZBRPRx5IYh9
+	 bwi+YeJxRcAmp4HGHFomAI3wjVqZnMt4XgJJ81jk=
+Subject: FAILED: patch "[PATCH] media: marvell-cam: fix missing pci_disable_device() on" failed to apply to 5.15-stable tree
+To: lgs201920130244@gmail.com,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 14:52:56 +0200
-Message-ID: <2026072956-strum-murmuring-51d3@gregkh>
+Date: Wed, 29 Jul 2026 14:53:30 +0200
+Message-ID: <2026072930-finally-subtype-79f3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2c4f1ba7354312ad2d6e34e70a518a51a9344715
+git cherry-pick -x 033ff0420e4c9c240ae5523fff39770298efa964
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072956-strum-murmuring-51d3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072930-finally-subtype-79f3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,31 +62,37 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2c4f1ba7354312ad2d6e34e70a518a51a9344715 Mon Sep 17 00:00:00 2001
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Sat, 21 Feb 2026 01:38:15 +0200
-Subject: [PATCH] media: imx219: Fix maximum frame length in lines
+From 033ff0420e4c9c240ae5523fff39770298efa964 Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Fri, 17 Apr 2026 14:53:30 +0800
+Subject: [PATCH] media: marvell-cam: fix missing pci_disable_device() on
+ remove
 
-The driver used the maximum frame length in lines value of 0xffff, but the
-maximum appears to be 0xfffe instead. Fix it.
+During manual code audit, we found that cafe_pci_probe() enables the
+PCI device with pci_enable_device(), and its probe error path properly
+calls pci_disable_device() on failure.
 
-Fixes: 1283b3b8f82b ("media: i2c: Add driver for Sony IMX219 sensor")
+However, cafe_pci_remove() tears down the controller and frees the
+driver data without disabling the PCI device, leaving the remove path
+inconsistent with probe cleanup.
+
+Add the missing pci_disable_device() call to cafe_pci_remove().
+
+Fixes: abfa3df36c01 ("[media] marvell-cam: Separate out the Marvell camera core")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index a09699299b4e..0b9ff639e9f7 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -72,7 +72,7 @@
+diff --git a/drivers/media/platform/marvell/cafe-driver.c b/drivers/media/platform/marvell/cafe-driver.c
+index 632c15572aa8..22034df6cba9 100644
+--- a/drivers/media/platform/marvell/cafe-driver.c
++++ b/drivers/media/platform/marvell/cafe-driver.c
+@@ -609,6 +609,7 @@ static void cafe_pci_remove(struct pci_dev *pdev)
+ 		return;
+ 	}
+ 	cafe_shutdown(cam);
++	pci_disable_device(pdev);
+ 	kfree(cam);
+ }
  
- /* V_TIMING internal */
- #define IMX219_REG_FRM_LENGTH_A		CCI_REG16(0x0160)
--#define IMX219_FLL_MAX			0xffff
-+#define IMX219_FLL_MAX			0xfffe
- #define IMX219_VBLANK_MIN		32
- #define IMX219_REG_LINE_LENGTH_A	CCI_REG16(0x0162)
- #define IMX219_LLP_MIN			0x0d78
 
