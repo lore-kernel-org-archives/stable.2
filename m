@@ -1,206 +1,193 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A0C48EBC2
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F263F48AE0F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333177; cv=none; b=kS1C4IkUKGY+3gPH/4uwJBEufmz2az2y2C+x9JrTb4KOajG8kgzLzohHrGTy9r6xDlthICCm+sboEnnIONYD7bnEfMHy+HCH1pdJd1j/jxaQoHeQIpuI3bPbFgQSiVeTsAinib6cmKX+aSEt/pSjsNQTOxfK4f1d6Kus65XYF7g=
+	t=1785333177; cv=none; b=bJ2jztKZs3o8M19dhenm+NE1jLW1PPn+s4XvQGku7kHMGS7eSvTabfPhDO6eU9NufVaEtK0z0w9F3XhdPymeqoQ1QRZlUu1At2A81FSVFazlJ6nXkUAmDu+c5Cd1FK8JREBUAiVM95PCsAvni8pBOF627uxG3arMdSFLkBw0TSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785333177; c=relaxed/simple;
-	bh=U9jP5g2UlQMpLn1Q6VDzXuieWkoFot4JFR3mrV1ZUZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X/Ok62d/kSeAOhvMgMranEF3w8bUhxGiQ/3T6DydGRznmR5rpmDtqPezYxnv/5zCvETqe1uO3AGW+zCQKukv35vk7hrlytmkGTynf6r5lvM5MbMzRpwUrXT2qGJw4588LmF3ggKW7fER82O0VOrVNwLK6mzTmxhaFDtL7Dc4fcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fquSvSb3; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HyuBJNRU; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	bh=lIIZDtZflEqTs4d+8UFIzOKX0sAAWIPmQM+FFCOZgcw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cxkrEJh0K+Iusf8L4fzQ6LxEdlinkIz+QW6MKhMNaoe+fUixSkMsxhrmWkpuQwXyVtTmmDb+kpKXlcgAvHNo7TsKj03OZ8bj1dN88Av4F2x+5RQt+IpLb4UZw1d4qqmmSFX0ivi4DpTDaJCixq0Dft3QM0TIvtsztp79Zzc+E7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QTqhBkVn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fquSvSb3";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HyuBJNRU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785333172;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Dm746TS8EnyhI8+mzBi8QtOCUfuL1ZTqgnyHRBXxPjM=;
-	b=fquSvSb32qazqbqvtUOuDJN9N2OiDmC0FgfHyB3t7nTgF5dF7829UwLaCAwqailpLsG2YE
-	V3Kop9O9L7b+HCyFpw8BYHibjMz2KiAX5GT4nSoYLa+k3uVWI+p96WXdkzqpHc6Zfqkm6J
-	QrFLDHArephW+b+pKsyfzQ1mE6/gj8Y=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-14-AHj5jFO6Pia6usGoaEbxQA-1; Wed, 29 Jul 2026 09:52:48 -0400
-X-MC-Unique: AHj5jFO6Pia6usGoaEbxQA-1
-X-Mimecast-MFC-AGG-ID: AHj5jFO6Pia6usGoaEbxQA_1785333168
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7eb6a8c61deso679686a34.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:52:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785333168; x=1785937968; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dm746TS8EnyhI8+mzBi8QtOCUfuL1ZTqgnyHRBXxPjM=;
-        b=HyuBJNRUPVDZtzo6Ba/87MLpIglkg8d78vbvwFUCv0QeulondIAOb1MXFbiIFcbX65
-         6AvMAvCZLbWWhusYqMBbaxqgyngrpXZB/9odBpuEp+wK89rIMcw4VPIqGR+d1HJfLbl0
-         V+MU85eLdmbIWa6jgv+r30hQldMLsj6+TKv4FDcTDibc/SjBIWqRdsScM5c2ZLNRFuWC
-         yEa0qXc9/GoVq4tl6S4qirrojznQAeRn2ew87I1Ow8MDH9lTXyMzMa3EmYr2C/HB9Woc
-         meMceORTFaFBrdOZOxCJT6R42jhgzmezV5vOzJKlaOrbjQWiwKikQGkNlGTWzGRDS1My
-         G1tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785333168; x=1785937968;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dm746TS8EnyhI8+mzBi8QtOCUfuL1ZTqgnyHRBXxPjM=;
-        b=R3HlQCeXmWl1jpMpIbhOqEvxyg6jFctCDVMpVklW+kbR5JlkJEOM2XgdA4LhD/evbt
-         dBNoIg5AbWtNbkK8FWOeCEkZAZipdwFfLgCrFdbCQLvba/lrasP2Q12UOdI05Grebn7o
-         ct0FVLBl3S6StwvrFkqPepksydhiDhHRAHgahT4Yzr2ZKM5MImC2G68TBqrFTPojOjy4
-         Pqqic7uFfDz211GTZdDB4BiSGTYhrLmnCnoX71z0k7KQRZU8L9otSxvqOwnXmQO8cSEX
-         3Nfo5aACYGTyd5vHSSF7haay3NsN3p3ZdhBBOAhSFnKcrPSgW5fWBNpVHHn2848hCFUb
-         90xA==
-X-Gm-Message-State: AOJu0YwCYc9RGhELPQqV68dvVbqg4M2/9FCbpZnmCnUS7x4l6ViN9Tln
-	wjkHU0vnVcLUcWHQpQlbDWfw15PhiIPIO4tASn3qXjJFIQkG4CcCfuh1sJ4FPu6l2kHFw3ORZa1
-	xKQl+vmFGxnCHq5FUTWQAtpkPsiKmxNw7iPAgvqVZGodDu84JzwxXoevBkA==
-X-Gm-Gg: AR+sD13BJCz8B5Ghfci+0+bCdQYxFg9Yur+64xz5AGK+UUS35Q+CxMyeXBCE4JyszLY
-	SEHBDvGIJDPEdzzxLt0qe02ju6qfg64LSbMdrrWBWxCKQnxNkD/22a/G5pzlNTbETwnT1puArO+
-	XozuIdX0HuXOdWDvGeEwVy/3Eo6/6Iz8jcPf5b7VyXVku8fQnq6t8VI+03IVhmhaZyPFANFNppc
-	4kF3al581gxUyfs4K2hYwZSSDAW7Rfs+MbFSR0IcwbelsCPe4HWNrV1VAdr0Em9IBx+ygnwpEgU
-	yuwX8/TTYMeTAx3aiUTSBHIKVkb9RQcIOI478EYvGQla369NjobbDiBSUJT8KRDCk/A7O99FCl7
-	jHTMMKgbN2Jzf/iWNimIQngD4E0sLlO4SDmdelCKs
-X-Received: by 2002:a05:6830:6ab1:b0:7e9:d250:a731 with SMTP id 46e09a7af769-7efff247ec7mr3509866a34.20.1785333167880;
-        Wed, 29 Jul 2026 06:52:47 -0700 (PDT)
-X-Received: by 2002:a05:6830:6ab1:b0:7e9:d250:a731 with SMTP id 46e09a7af769-7efff247ec7mr3509859a34.20.1785333167468;
-        Wed, 29 Jul 2026 06:52:47 -0700 (PDT)
-Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f00d94d404sm2325351a34.23.2026.07.29.06.52.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 06:52:47 -0700 (PDT)
-Message-ID: <1c417111-ebaa-4da8-af32-11ce073dee43@redhat.com>
-Date: Wed, 29 Jul 2026 08:52:45 -0500
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QTqhBkVn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E649C1F00A3E;
+	Wed, 29 Jul 2026 13:52:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785333172;
+	bh=QZFKHLtzSfCPpdk0RpDIMVNSwzLgImU1scM6oQ6giRY=;
+	h=Subject:To:Cc:From:Date;
+	b=QTqhBkVn5Ds+DSD5UBeNyZD54JOq8zG5VCUgTs0+/z1QOPluEWkskPZUtivYH2/qU
+	 aUf93FQjop407BJyLBx/cfvw/IKIJCrKmP6YaNMLuCHLrW75G5r90HNVy25/W3l3/f
+	 al6hktNHLkhJIK3ulQdcvDiqHgdO0dS4sV+RrA+o=
+Subject: FAILED: patch "[PATCH] net/sched: serialize qdisc_rtab_list against concurrent" failed to apply to 6.6-stable tree
+To: qwe.aldo@gmail.com,edumazet@google.com,jhs@mojatatu.com,kuba@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 15:52:26 +0200
+Message-ID: <2026072926-crane-private-917f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sorenson@redhat.com
-Subject: Re: [PATCH 1/3] cifs: use cifs_invalidate_cache() in
- cifs_do_truncate() for O_TRUNC
-To: Huiwen He <hehuiwen@kylinos.cn>, linux-cifs@vger.kernel.org,
- pc@manguebit.org, stfrench@microsoft.com
-Cc: stable@vger.kernel.org, David Howells <dhowells@redhat.com>,
- Paulo Alcantara <pc@manguebit.com>
-References: <20260728211438.3859107-1-sorenson@redhat.com>
- <20260728211438.3859107-2-sorenson@redhat.com>
- <b21c1885-a46c-44d5-9b20-2b0072a3b50d@kylinos.cn>
-From: Frank Sorenson <sorenson@redhat.com>
-Content-Language: en-US
-In-Reply-To: <b21c1885-a46c-44d5-9b20-2b0072a3b50d@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Hi Huiwen,
 
-Okay, that makes sense.  Thanks for explaining further.  Let me work on 
-that.
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Frank
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x f43ee0c0730d6191629b5ee1ceae27b1ebfdc047
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072926-crane-private-917f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
 
 
-On 7/28/26 11:20 PM, Huiwen He wrote:
-> Hi Frank,
->
-> Patch 1 handles the quiescent-cookie case, but the cookie is not
-> guaranteed to be quiescent here: another open may already keep it
-> active. In that case, cifs_setsize() may still call
-> fscache_resize_cookie() without i_rwsem before the invalidation.
->
-> Maybe we could keep cifs_setsize() as the basic size/page-cache helper
-> and add a wrapper for the paths holding i_rwsem, for example:
->
->   /* Caller must hold inode->i_rwsem for write. */
->   void cifs_resize_file_locked(struct inode *inode, loff_t offset)
->   {
->       struct fscache_cookie *cookie = cifs_inode_cookie(inode);
->
->       lockdep_assert_held_write(&inode->i_rwsem);
->
->       netfs_resize_file(netfs_inode(inode), offset, true);
->       cifs_setsize(inode, offset);
->
->       if (!cookie)
->           return;
->
->       fscache_use_cookie(cookie, true);
->       fscache_resize_cookie(cookie, offset);
->       cifs_fscache_unuse_inode_cookie(inode, true);
->   }
->
-> cifs_file_set_size(), smb2_duplicate_extents(), and both
-> smb3_simple_falloc() branches could use this wrapper, since those 
-> paths already hold i_rwsem. O_TRUNC could continue to use cifs_setsize()
-> followed by cifs_invalidate_cache(), without attempting a resize.
->
-> Patches 2 and 3 look good to me.
->
-> Thanks,
->
-> Huiwen
->
->
-> 在 2026/7/29 05:14, Frank Sorenson 写道:
->> cifs_setsize() now calls fscache_resize_cookie() since commit
->> fa724e235cfd ("cifs: add fscache_resize_cookie() to cifs_setsize()").
->> However, cifs_do_truncate() is called from cifs_open() before
->> fscache_use_cookie() activates the cookie, so the fscache cookie is
->> still quiescent at this point.  fscache_begin_operation() requires
->> FSCACHE_COOKIE_IS_CACHING to be set and returns failure for a quiescent
->> cookie, making fscache_resize_cookie() a null operation in this path.
->>
->> The correct fix for this path is cifs_invalidate_cache(), which calls
->> fscache_invalidate().  Unlike fscache_resize_cookie(), 
->> fscache_invalidate()
->> works on quiescent cookies: it unconditionally increments inval_counter
->> and sets FSCACHE_COOKIE_NO_DATA_TO_READ, ensuring that stale cached data
->> is not served once the cookie is later activated by 
->> fscache_use_cookie().
->>
->> Truncation to zero leaves no valid cached data, making invalidation the
->> correct semantic.  No inode lock is required for 
->> cifs_invalidate_cache().
->>
->> Fixes: fa724e235cfd ("cifs: add fscache_resize_cookie() to 
->> cifs_setsize()")
->> Cc: stable@vger.kernel.org
->> Cc: Huiwen He <hehuiwen@kylinos.cn>
->> Cc: David Howells <dhowells@redhat.com>
->> Cc: Paulo Alcantara <pc@manguebit.com>
->> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
->> ---
->>   fs/smb/client/file.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
->> index ac89c1ba56b1..389083f9ce00 100644
->> --- a/fs/smb/client/file.c
->> +++ b/fs/smb/client/file.c
->> @@ -1016,6 +1016,7 @@ static int cifs_do_truncate(const unsigned int 
->> xid, struct dentry *dentry)
->>           if (!rc) {
->>               netfs_resize_file(&cinode->netfs, 0, true);
->>               cifs_setsize(inode, 0);
->> +            cifs_invalidate_cache(inode, 0);
->>           }
->>       }
->>       if (cfile)
->
--- 
-Frank Sorenson
-sorenson@redhat.com
-Principal Software Maintenance Engineer, filesystems
-Red Hat
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From f43ee0c0730d6191629b5ee1ceae27b1ebfdc047 Mon Sep 17 00:00:00 2001
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Date: Wed, 15 Jul 2026 08:41:14 -0300
+Subject: [PATCH] net/sched: serialize qdisc_rtab_list against concurrent
+ get/put
+
+qdisc_get_rtab() and qdisc_put_rtab() mutate the process-global singly
+linked list qdisc_rtab_list and a plain non-atomic 'int refcnt' with no
+lock. This was only safe because every caller historically held the RTNL
+mutex, which serialized all rate-table lookups, inserts and frees.
+
+That invariant no longer holds. cls_flower sets
+TCF_PROTO_OPS_DOIT_UNLOCKED, so tc_new_tfilter() keeps rtnl_held == false
+for it and sets TCA_ACT_FLAGS_NO_RTNL. That flag propagates through
+tcf_exts_validate_ex() -> tcf_action_init() -> tcf_action_init_1() ->
+tcf_police_init(), which calls qdisc_get_rtab()/qdisc_put_rtab() with the
+RTNL mutex NOT held. Two RTM_NEWTFILTER requests on different CPUs, each
+adding a flower filter with a police action carrying the same rate, then
+race on qdisc_rtab_list and on the non-atomic refcnt, leading to a
+use-after-free / double-free of the kmalloc-2k struct qdisc_rate_table.
+qdisc_rtab_list is a single global (not per-netns), so the corrupted
+object is shared system-wide.
+
+  BUG: KASAN: slab-use-after-free in qdisc_put_rtab+0x12f/0x160
+   qdisc_put_rtab+0x12f/0x160
+   tcf_police_init+0xda9/0x1590
+   tcf_action_init_1+0x460/0x6b0
+   tcf_action_init+0x439/0xa40
+   tcf_exts_validate_ex+0x42d/0x550
+   fl_change+0xddd/0x7da0
+   tc_new_tfilter+0xaa7/0x2420
+   rtnetlink_rcv_msg+0x95e/0xe90
+  which belongs to the cache kmalloc-2k of size 2048
+
+Protect qdisc_rtab_list and the refcount with a dedicated spinlock. The
+(sleeping, GFP_KERNEL) allocation in qdisc_get_rtab() is performed before
+taking the lock; if a concurrent inserter added an identical table in the
+meantime the freshly allocated one is freed under the lock, so no
+duplicate is leaked. qdisc_put_rtab() now decrements the refcount and
+unlinks under the same lock.
+
+Fixes: 470502de5bdb ("net: sched: unlock rules update API")
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: stable@vger.kernel.org
+Acked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260715114114.446841-1-qwe.aldo@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index 8a3236456db4..668bcd60d183 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -415,12 +415,13 @@ static __u8 __detect_linklayer(struct tc_ratespec *r, __u32 *rtab)
+ }
+ 
+ static struct qdisc_rate_table *qdisc_rtab_list;
++static DEFINE_SPINLOCK(qdisc_rtab_lock);
+ 
+ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 					struct nlattr *tab,
+ 					struct netlink_ext_ack *extack)
+ {
+-	struct qdisc_rate_table *rtab;
++	struct qdisc_rate_table *rtab, *new_rtab;
+ 
+ 	if (tab == NULL || r->rate == 0 ||
+ 	    r->cell_log == 0 || r->cell_log >= 32 ||
+@@ -429,15 +430,20 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 		return NULL;
+ 	}
+ 
++	new_rtab = kmalloc_obj(*new_rtab);
++
++	spin_lock(&qdisc_rtab_lock);
+ 	for (rtab = qdisc_rtab_list; rtab; rtab = rtab->next) {
+ 		if (!memcmp(&rtab->rate, r, sizeof(struct tc_ratespec)) &&
+ 		    !memcmp(&rtab->data, nla_data(tab), TC_RTAB_SIZE)) {
+ 			rtab->refcnt++;
++			spin_unlock(&qdisc_rtab_lock);
++			kfree(new_rtab);
+ 			return rtab;
+ 		}
+ 	}
+ 
+-	rtab = kmalloc_obj(*rtab);
++	rtab = new_rtab;
+ 	if (rtab) {
+ 		rtab->rate = *r;
+ 		rtab->refcnt = 1;
+@@ -449,6 +455,7 @@ struct qdisc_rate_table *qdisc_get_rtab(struct tc_ratespec *r,
+ 	} else {
+ 		NL_SET_ERR_MSG(extack, "Failed to allocate new qdisc rate table");
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
+ 	return rtab;
+ }
+ EXPORT_SYMBOL(qdisc_get_rtab);
+@@ -457,18 +464,25 @@ void qdisc_put_rtab(struct qdisc_rate_table *tab)
+ {
+ 	struct qdisc_rate_table *rtab, **rtabp;
+ 
+-	if (!tab || --tab->refcnt)
++	if (!tab)
+ 		return;
+ 
++	spin_lock(&qdisc_rtab_lock);
++	if (--tab->refcnt) {
++		spin_unlock(&qdisc_rtab_lock);
++		return;
++	}
++
+ 	for (rtabp = &qdisc_rtab_list;
+ 	     (rtab = *rtabp) != NULL;
+ 	     rtabp = &rtab->next) {
+ 		if (rtab == tab) {
+ 			*rtabp = rtab->next;
+-			kfree(rtab);
+-			return;
++			break;
+ 		}
+ 	}
++	spin_unlock(&qdisc_rtab_lock);
++	kfree(tab);
+ }
+ EXPORT_SYMBOL(qdisc_put_rtab);
+ 
 
