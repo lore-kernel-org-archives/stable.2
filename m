@@ -1,226 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAFA37F730
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA4128688C
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336370; cv=none; b=lN50rnJn7ErzHMt/VRH1oWcvcTgMLxJqCW8tbEfjIvKIb5RLDmE2XqVfC9KZPMhoXq/ZLL8l/dj3tJKxaDR78XON/+xxN1+H5DPMngMEHjzMnNfbUKSbuQdRaW40bQ+uWRGut9sTWSXp02Cq1o2CVkiO5P0Adsbp689hDsy1VdU=
+	t=1785336372; cv=none; b=Hujzy32OJFbwwKX7Xpx2UIRaZ/bnWAhsL3jBVASAJDA82z8Ng0vyo+ySlyuiFtvJCggApNOqyQ/k0cfeK0fTFVRl6Fi0BYV5n56HLjssFLXB+qIZieuNqBlTOVmxNSzelPbwZIXhX38Wt3gm3+ZDZ8idaoWtf1Ql1HRpVczruqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336370; c=relaxed/simple;
-	bh=b2gVCZ/Z7LaWasXlJVJrAZza8K4xpy5g6zNvOILCSBA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OncBU2WZgOgk4AbFgkEk+e0NFOwll+g0N5oSapR53pNjkQDVYZ/BjZNjLR8Ie0/lDdtbSW54fp165WA3GOSv+i9fyOzKtwr7X1jETd5LHcZIWuDLGqFbI5S4HHmRXRhg7Wj4E0jYrucAy99y7CDAgirLkuml5EjMw0O9t/6jI0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R6rdunKD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785336372; c=relaxed/simple;
+	bh=z17EjzkxMe4MohISvMo15M5lROhGgHh6akBlRAhJHAs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jN2eFaIi2jeyusjDE2FZOsnqO36Aeopp408rneIiP7R5SmRfRsXHTgjWlV8JyWZJ3dia/qu6UwE/UjMugE6N+bfb//qrAiZ1k38y+O2QBrH7HRTcLs3pUEgiUyJImYSA9a0RVeKF122iXE+HoYMS0ICA2aFYBOCqfCpvSNJ46aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=C2ar6fbW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=1Cowxi9d; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=xrDkZ0xk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=1IEEQE4G; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R6rdunKD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E935B1F000E9;
-	Wed, 29 Jul 2026 14:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785336369;
-	bh=k7oCY93BT0IWpjME6ALpunahLOg2z0OLmWCKqgKekJo=;
-	h=Subject:To:Cc:From:Date;
-	b=R6rdunKD9jXSjKyiQhPoY9NhJjKCGvCZJJMbwzMeQuLhH28W/Q6bF7s4plBrmZWm+
-	 TnXgMcy3im68TjlpdWnSYivOPhMFlbMsKiImHbhPyw1aYaXMiy3ltOcXrcxJ3oaIvU
-	 hfA78bq2QC6cfj0PMb84r1fzhLeVilXurqeDANfI=
-Subject: FAILED: patch "[PATCH] tcp: challenge ACK for non-exact RST in SYN-RECEIVED" failed to apply to 6.6-stable tree
-To: yangyx22@mails.tsinghua.edu.cn,edumazet@google.com,fengxw06@126.com,kuba@kernel.org,qli01@tsinghua.edu.cn,wangao@seu.edu.cn,xuke@tsinghua.edu.cn,zhaoyz24@mails.tsinghua.edu.cn
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 16:45:45 +0200
-Message-ID: <2026072945-service-serpent-1ee6@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="C2ar6fbW";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="1Cowxi9d";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="xrDkZ0xk";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="1IEEQE4G"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A8A207B82A;
+	Wed, 29 Jul 2026 14:46:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785336364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fwLl9tePNDtFdDzKevW2f8uzsHgX10NUMhlPI5gohe4=;
+	b=C2ar6fbWtmOjBdc1WRB3nVoTZP8VxKjbh2S39qsgMHjnOGSXozny/ZrrnJaOx61V/DOVN7
+	4U43IE8L+j576iRm3tm6chDmvKBa44tNfjzUW3sAGTZn0bO/5HgUn5PjDs+ZEkejENC2wh
+	xg77weTcXYa0HD1PmEwTVWqK5zoCB9s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785336364;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fwLl9tePNDtFdDzKevW2f8uzsHgX10NUMhlPI5gohe4=;
+	b=1Cowxi9diDWfjAYl/pfyAHO8PEOcZRZOeWno4YMCP1dq7w7WBIPwCZ+kFZKMTdKvXj9LZ8
+	8+/gxlrYY0WSXEBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=xrDkZ0xk;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=1IEEQE4G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785336360; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fwLl9tePNDtFdDzKevW2f8uzsHgX10NUMhlPI5gohe4=;
+	b=xrDkZ0xkWt/YMSJvMqiZBGYv3uCuOISx7ETVqH0Yt538xNwwf9xN17eygOV3rpBY3om8bd
+	c8cBoG2rxGjZ4jVNSC3k9w04e3FbLIaXDuzDyDILs5hyckyxZ6baBZDHst9z1j/qimcxga
+	h4buHxjLTJleM1c4S8FiK2uChxroItE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785336360;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=fwLl9tePNDtFdDzKevW2f8uzsHgX10NUMhlPI5gohe4=;
+	b=1IEEQE4GqFTUyxjx7qvmMJUJTZ6wASey49rKVvLHOQUV7fBaxmBePqGbdKk4gjW/2ECZaD
+	FSMyU5/lAuS90SDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9FA4A779A1;
+	Wed, 29 Jul 2026 14:46:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id q+z2JigSamo2SAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 29 Jul 2026 14:46:00 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 45B8CA131F; Wed, 29 Jul 2026 16:45:56 +0200 (CEST)
+From: Jan Kara <jack@suse.cz>
+To: <linux-fsdevel@vger.kernel.org>
+Cc: Jan Kara <jack@suse.cz>,
+	stable@vger.kernel.org
+Subject: [PATCH] udf: Fix data loss when converting inline inodes to out of line
+Date: Wed, 29 Jul 2026 16:45:48 +0200
+Message-ID: <20260729144547.4028292-2-jack@suse.cz>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2203; i=jack@suse.cz; h=from:subject; bh=z17EjzkxMe4MohISvMo15M5lROhGgHh6akBlRAhJHAs=; b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBqahIbt5JCCC+Yqlm25wXa9LCVF7337gFSLxzRf a5scbMFe/OJATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCamoSGwAKCRCcnaoHP2RA 2bDpCADHsUoqvaZBAXDJvrY7S5zTVb6JD3efnUwUHVd9Vko7M6HhWPuQSN1/u+NzFRFbdR2XHT4 B+HmhSPeXRpL4rBvMOQuHEmd7MY/lIAe93zYoezfDxm6rIciujxi2faZAnO1zA6XaUw923wMXjb omOJTHLrZq9wrlFq7sdC2iJ8HGkj8qXhTMh0krwC1nfx8WvfakGur4Ff4mzvyc3lZvKYqmIrLLG Rzhsn+lKTTFKb7IOhGv8WMRVYGJi5IKN7EtC+E36SPqM0QVCIVuvfh7WOAO3G8N76tg+0IMum4K Y1bEw5R4aasBdHjxZCTjs9MOB7v0G348seTS+vgTIQLPE9oy
+X-Developer-Key: i=jack@suse.cz; a=openpgp; fpr=93C6099A142276A28BBE35D815BC833443038D8C
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:mid,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: A8A207B82A
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
+When udf_expand_file_adinicb() converts file from inline format to out
+of line, we use filemap_fdatawrite() to writeout the data to the new
+blocks. However since 36580ed08776 ("udf: Do not allocate blocks on page
+writeback") the writeback actually doesn't allocate the new block and
+the folio dirty bit is just silently cleared. Thus unless the file is
+written to after the conversion (as it can easily happen in case of
+truncate up), the data is just lost. Fix the problem by explicitely
+allocating the block underlying the data before starting writeback.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Fixes: 36580ed08776 ("udf: Do not allocate blocks on page writeback")
+CC: stable@vger.kernel.org
+Signed-off-by: Jan Kara <jack@suse.cz>
+---
+ fs/udf/inode.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-To reproduce the conflict and resubmit, you may use the following commands:
+I plan to merge this fix through my tree.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x a28c4fcbf774e23b4779cae468e3497a5ad1f4a1
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072945-service-serpent-1ee6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a28c4fcbf774e23b4779cae468e3497a5ad1f4a1 Mon Sep 17 00:00:00 2001
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Date: Fri, 17 Jul 2026 08:14:42 +0000
-Subject: [PATCH] tcp: challenge ACK for non-exact RST in SYN-RECEIVED
-
-The SYN-RECEIVED request-socket path in tcp_check_req() accepts an
-in-window RST without requiring SEG.SEQ to exactly match RCV.NXT.  A
-non-exact RST therefore removes the request instead of eliciting a
-challenge ACK.
-
-RFC 9293 section 3.10.7.4 applies the RFC 5961 reset check in
-SYN-RECEIVED: an exact RST resets the connection, while a non-exact
-in-window RST must trigger a challenge ACK and be dropped.
-
-Apply that check before the ACK-field validation, following the RFC
-sequence-number, RST, then ACK processing order.  Factor the per-netns
-challenge ACK quota out of tcp_send_challenge_ack() so request sockets
-can share it.  Use the request socket's send_ack() callback and its own
-out-of-window ACK timestamp to send and rate-limit the response.
-
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Fixes: 282f23c6ee34 ("tcp: implement RFC 5961 3.2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260717081443.809393-2-yangyx22@mails.tsinghua.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 6d376ea4d1c0..2c5b889530b5 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -1974,6 +1974,8 @@ static inline void tcp_fast_path_check(struct sock *sk)
- 
- bool tcp_oow_rate_limited(struct net *net, const struct sk_buff *skb,
- 			  int mib_idx, u32 *last_oow_ack_time);
-+void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
-+				  struct request_sock *req);
- 
- static inline void tcp_mib_init(struct net *net)
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index b8b9b7132115..b5e374f355b2 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -405,6 +405,10 @@ int udf_expand_file_adinicb(struct inode *inode)
  {
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 61045a8886e4..daff93d51342 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -4038,24 +4038,17 @@ static void tcp_send_ack_reflect_ect(struct sock *sk, bool accecn_reflector)
- 	__tcp_send_ack(sk, tp->rcv_nxt, flags);
- }
+ 	struct folio *folio;
+ 	struct udf_inode_info *iinfo = UDF_I(inode);
++	struct udf_map_rq map = {
++		.lblk = 0,
++		.iflags = UDF_MAP_CREATE,
++	};
+ 	int err;
  
--/* RFC 5961 7 [ACK Throttling] */
--static void tcp_send_challenge_ack(struct sock *sk, bool accecn_reflector)
-+/* Consume one slot from the per-netns RFC 5961 challenge ACK quota.
-+ * Returns true if a challenge ACK may be sent.
-+ */
-+static bool tcp_challenge_ack_allowed(struct net *net)
- {
--	struct tcp_sock *tp = tcp_sk(sk);
--	struct net *net = sock_net(sk);
- 	u32 count, now, ack_limit;
- 
--	/* First check our per-socket dupack rate limit. */
--	if (__tcp_oow_rate_limited(net,
--				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
--				   &tp->last_oow_ack_time))
--		return;
--
- 	ack_limit = READ_ONCE(net->ipv4.sysctl_tcp_challenge_ack_limit);
- 	if (ack_limit == INT_MAX)
--		goto send_ack;
-+		return true;
- 
--	/* Then check host-wide RFC 5961 rate limit. */
- 	now = jiffies / HZ;
- 	if (now != READ_ONCE(net->ipv4.tcp_challenge_timestamp)) {
- 		u32 half = (ack_limit + 1) >> 1;
-@@ -4067,12 +4060,49 @@ static void tcp_send_challenge_ack(struct sock *sk, bool accecn_reflector)
- 	count = READ_ONCE(net->ipv4.tcp_challenge_count);
- 	if (count > 0) {
- 		WRITE_ONCE(net->ipv4.tcp_challenge_count, count - 1);
--send_ack:
-+		return true;
-+	}
-+	return false;
-+}
+ 	WARN_ON_ONCE(!inode_is_locked(inode));
+@@ -434,20 +438,27 @@ int udf_expand_file_adinicb(struct inode *inode)
+ 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
+ 	else
+ 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
++	up_write(&iinfo->i_data_sem);
 +
-+/* RFC 5961 7 [ACK Throttling] */
-+static void tcp_send_challenge_ack(struct sock *sk, bool accecn_reflector)
-+{
-+	struct tcp_sock *tp = tcp_sk(sk);
-+	struct net *net = sock_net(sk);
++	/* Allocate the block underlying the data */
++	err = udf_map_block(inode, &map);
++	if (err < 0)
++		goto restore;
 +
-+	/* First check our per-socket dupack rate limit. */
-+	if (__tcp_oow_rate_limited(net,
-+				   LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
-+				   &tp->last_oow_ack_time))
-+		return;
-+
-+	/* Then check the per-netns RFC 5961 rate limit. */
-+	if (tcp_challenge_ack_allowed(net)) {
- 		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
- 		tcp_send_ack_reflect_ect(sk, accecn_reflector);
+ 	folio_mark_dirty(folio);
+ 	folio_unlock(folio);
+-	up_write(&iinfo->i_data_sem);
+ 	err = filemap_fdatawrite(inode->i_mapping);
+ 	if (err) {
+ 		/* Restore everything back so that we don't lose data... */
+ 		folio_lock(folio);
++restore:
+ 		down_write(&iinfo->i_data_sem);
+ 		memcpy_from_folio(iinfo->i_data + iinfo->i_lenEAttr,
+ 				folio, 0, inode->i_size);
+-		folio_unlock(folio);
+ 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_IN_ICB;
+ 		iinfo->i_lenAlloc = inode->i_size;
+ 		up_write(&iinfo->i_data_sem);
++		folio_unlock(folio);
  	}
- }
- 
-+/* Send a challenge ACK from a SYN-RECEIVED request socket. Uses
-+ * __tcp_oow_rate_limited() directly so that an RST carrying payload
-+ * cannot bypass the per-request rate limit.
-+ */
-+void tcp_reqsk_send_challenge_ack(struct sock *sk, struct sk_buff *skb,
-+				  struct request_sock *req)
-+{
-+	struct net *net = sock_net(sk);
-+
-+	if (__tcp_oow_rate_limited(net, LINUX_MIB_TCPACKSKIPPEDCHALLENGE,
-+				   &tcp_rsk(req)->last_oow_ack_time))
-+		return;
-+
-+	if (tcp_challenge_ack_allowed(net)) {
-+		NET_INC_STATS(net, LINUX_MIB_TCPCHALLENGEACK);
-+		req->rsk_ops->send_ack(sk, skb, req);
-+	}
-+}
-+
- static void tcp_store_ts_recent(struct tcp_sock *tp)
- {
- 	tp->rx_opt.ts_recent = tp->rx_opt.rcv_tsval;
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index ddc4b17a826b..6ab3e3a0b431 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -833,7 +833,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 	 * elsewhere and is checked directly against the child socket rather
- 	 * than req because user data may have been sent out.
- 	 */
--	if ((flg & TCP_FLAG_ACK) && !fastopen &&
-+	if ((flg & TCP_FLAG_ACK) && !(flg & TCP_FLAG_RST) && !fastopen &&
- 	    (TCP_SKB_CB(skb)->ack_seq !=
- 	     tcp_rsk(req)->snt_isn + 1))
- 		return sk;
-@@ -872,6 +872,16 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 		flg &= ~TCP_FLAG_SYN;
- 	}
- 
-+	/* RFC 5961 section 3.2, as clarified by RFC 9293 section
-+	 * 3.10.7.4, requires a challenge ACK for a non-exact
-+	 * in-window RST in SYN-RECEIVED.
-+	 */
-+	if ((flg & TCP_FLAG_RST) &&
-+	    TCP_SKB_CB(skb)->seq != tcp_rsk(req)->rcv_nxt) {
-+		tcp_reqsk_send_challenge_ack(sk, skb, req);
-+		return NULL;
-+	}
-+
- 	/* RFC793: "second check the RST bit" and
- 	 *	   "fourth, check the SYN bit"
- 	 */
+ 	folio_put(folio);
+ 	mark_inode_dirty(inode);
+-- 
+2.51.0
 
