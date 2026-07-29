@@ -1,201 +1,316 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA714756AC
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C393C478E5A;
+	Wed, 29 Jul 2026 11:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785325002; cv=none; b=Nbvll38qjOzRTQf/Yd9he/KTXKlOwFn841849+VvGC4Wd2ZGGNUoov1OnoV4bj4k0162bUeChW4H2DeNyCkiFy99QYqSrZ9Md8PLhaUPM2+Uo58Ilwxvqp3BZrwaegf8NOEVmhlyyMRTpVLEciW5+QJXUqXE0TCeXO9jk5h48fU=
+	t=1785325726; cv=none; b=GqQs2txLpebYIfRzmFe9zcOBC9Ly8qfQteMI8brFzDls9vwHdVr9CaHg9JyeYy1U1d6vyeXZ3vi9z3JkxR+IrYPCa8PBGqu90F72bL+KaZDmkkDxFm+dVINrkwCN7bO7kgrbCpfzzTE6WbeUBRF/BHce4If1e9kY0joUuRYymBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785325002; c=relaxed/simple;
-	bh=InUBNHjljyH7Tko5OtxPDNqGu1LbSNpa1PX7KKmaaNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D7xejue3+llFanneVa3RBO1Rp96WzKIW+BL+K8qY6TyPaagN+iu97z3gHqnNcROY3rMCKaXYwAx898fp5pSZiPMTVoAWlm1RvHZfHKGlgE2vb6Oo47uIJhIvnn9ISqjQwyX8xjNuvDB5515h2z8Akdjq410HejBbiAWIvbcQuMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fs7QNbxY; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785325726; c=relaxed/simple;
+	bh=WFKiWyh8yqbFaDXSqm4+yVtyMLAHtTsZrwy7aLaPauU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gUwfXy23G1ZlQL1etpjTeu8c95d0QGbNmsb/WCyQHUG+zjrcUwADb9rJZ/vGaazr3qIS0bPoAHSK+f5UgiNBxgU8zQKCRpzg8tojqtOyy1wpwxgL1DgQILRSeBNUBvr5HHsst6S1pJ5n38LC4lrDmrxoGHod52rFsbwEt1YL1Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bBJsfzH5; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fs7QNbxY"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47f71156e1aso472993f8f.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 04:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785324999; x=1785929799; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A3HHsEhTl+dXCrOvrCFYw7cTGZo+aEqQqlvgUlbn4X4=;
-        b=fs7QNbxYnqo+ScWQ193Q47pu0btoOb6EZ/TNcUnCsxIhMab+Ja8c5hvras8/tN6wnY
-         TEXhXlft8IJLM5mRXXxc92+cCZnz8HPI5tl83lud0b48mkCk5r1c/TwEsWAuX5h3fdrJ
-         W5Y73DRBVcSw7hHNjJ+MgdD8I0sQCWPcgn7PgrA5SW+CRHFsLO2B2MRcOyU25px8q5U+
-         4afBwQast7r3kUpHUIXMBC9VHBzYAkedZLikG2Kf2skiMRX7WAzgDpjOKHwmcW3Piujq
-         yQ8oDQXS+RWIIWGIhhsrTMDvAs7ScfDtF1SxGw9gRbIP0hz7LqHg+g9l08WkV+lbrLMR
-         oorQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785324999; x=1785929799;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=A3HHsEhTl+dXCrOvrCFYw7cTGZo+aEqQqlvgUlbn4X4=;
-        b=P7ausNNl4spNDXc491kOZma6F9NACmch5rdXTkxM1Nr7vVAI8jyAnIYCOGbEwEvqdF
-         CLj2vsZ4xythlqlbgy6wFOSLZsCKogJKKysUCJrPebVbH+VP4RmumRMVs3fUG5SqnbSH
-         vRT1zhT6UTxG4Ky9PwalIs8jJIXmKVEquLzStwPar9t/3j0v/Qbti76hdWUI2tkYEOKZ
-         GihCNsjkRL0cxhCiKUkmd2HuvsIc6MRNkrWinQ4A7MtbubmJf/2jTwZIyuwYlZsy4qD8
-         AjUjAbd9CX+YJdSfoilWhk0UHbNyeehcGWMxhufrFYQFxqz514wBDThDEuj+oaXgvqi/
-         4BTw==
-X-Forwarded-Encrypted: i=1; AHgh+RqcAFoVPhGxuXEFD5Ken/gtkpj3DG1PbzgtGIFE0wvCYYy0LAEtDFbJM0koVFxHqg8P77HOLAU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzo2FxIOoWgbZD0ef0HHBVJsnZ1YwHpILVC1Dnndyln4HdVtEFJ
-	2kHmjtK2186WVgeT6xm/zdvFm4EEsq1JwTYEp19yWkmiyM3WTGiIH/vP
-X-Gm-Gg: AR+sD12NZ1hlQ4ZPIH4sROilcwJTPVlkhegTQ86aJJ3OZqQKt2m6bjoNx9WU9bCZ4Jr
-	3yK6kOR7ioSItTWYfexIB63vSj1l9rhZH4z0zkcKuVkNQ2ENp5wkrLy64p9awmEFTPCio+PZyoR
-	Hk3YrvqVnnl1dUy1FJfO/h6V0Ns/02gVR0BdlOTC8Rwshr7nAgjSvTGGDKN5nO6ul/Wgl/CFox4
-	UcndqAVyWvHHeCBeoLhjliPH+JnFBLRNv5nSmzdFdA1w/IiR6aDn9suuCb6JWU0l+1j87BYA4fl
-	6Lwu39l1X6jikEMNI+DjiNMFvH2xENOlOHWYDjB/PqP9Ykz5yhhqCRRZDPP9bBAA15cXzDmZEOU
-	IPVK+XdRDweJMFa6s8Yw+neOJCzCy37NOV6FR3lv1Bb31eV9p3DePd0X1M2/AW5AlmtkO6rQX/l
-	DVqVfRWjbuvmg8WA1MJ9CHVnXOaEH4RL8OaDs40Vkwiu2DoNqbm9hxdKCp3nbhXY+cIzbh77guO
-	g56G35NAfWNGv5qw/6Dvyax6CiwVwV42w==
-X-Received: by 2002:a05:600c:4e8c:b0:495:4730:15b2 with SMTP id 5b1f17b1804b1-496c6571ea4mr64839705e9.31.1785324998773;
-        Wed, 29 Jul 2026 04:36:38 -0700 (PDT)
-Received: from osama ([2a02:908:185:7e40:2975:f35a:5252:318b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c44af19bsm145526535e9.3.2026.07.29.04.36.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 04:36:38 -0700 (PDT)
-Date: Wed, 29 Jul 2026 13:36:35 +0200
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: fix firmware control interface bounds checks
-Message-ID: <amnlw_HGWX0YHMWV@osama>
-References: <20260720134435.13377-1-osama.abdelkader@gmail.com>
- <amjG9WVZrb6v92_h@e142607>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bBJsfzH5"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TBHjC53952900;
+	Wed, 29 Jul 2026 11:48:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=BD+u6G
+	dikIdL6XErOKj6ye47ll9xqp2oEDXsijEa4lk=; b=bBJsfzH5HwG5Ag0f608i3T
+	H7fXP1LwcHquxZGwJkHmlO00yjRF7bomOXm+W4aeP1UtXk42dqUx+uembHd6Si7X
+	4gAhMtWPw+fznha7bvVsx4wnbV7cWOuyJAlj4D3/zJMOTT9xmHVL0fxABskQb/SE
+	zXGLYMIIl50Md0M7PYZZgkp48sKx0VNOZjf9m9XWet5qZg6V7LxfVE4mb8L/fRUS
+	Gt2CORfqEy75pNcRaUbzY8IOGjvJmsixPGw7kLrBbpm1P5Mk949is9PAlFWE3IjR
+	LgAGO57N8ShrD3PwMw/o48hPaSCsXiR71jlbuqUF5ZqK1G5e3FT52m7f+SboGqWg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuyj9ndp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 29 Jul 2026 11:48:23 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66TBfIou022250;
+	Wed, 29 Jul 2026 11:48:22 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fna5y67tx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 29 Jul 2026 11:48:22 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66TBmL5X29950524
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 29 Jul 2026 11:48:21 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 784F95805F;
+	Wed, 29 Jul 2026 11:48:21 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 91B0558053;
+	Wed, 29 Jul 2026 11:48:17 +0000 (GMT)
+Received: from [9.43.93.217] (unknown [9.43.93.217])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 29 Jul 2026 11:48:17 +0000 (GMT)
+Message-ID: <aa51485f-fea0-48e3-9b66-c18d39447a1c@linux.ibm.com>
+Date: Wed, 29 Jul 2026 17:18:15 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] powerpc/perf/hv-gpci: bound sysfs output with helpers
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+        Michael Ellerman
+ <mpe@ellerman.id.au>,
+        Christophe Leroy <chleroy@kernel.org>
+Cc: Nicholas Piggin <npiggin@gmail.com>, Kees Cook <kees@kernel.org>,
+        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260417074825.22967-1-pengpeng@iscas.ac.cn>
+ <20260424070103.1-hv-gpci-v2-pengpeng@iscas.ac.cn>
+Content-Language: en-US
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+In-Reply-To: <20260424070103.1-hv-gpci-v2-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <amjG9WVZrb6v92_h@e142607>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5NyBTYWx0ZWRfX1TMG6VWmJ47X
+ XVupkb94rnqhvJyvTMPeQzbdaaOz3RRGgdS1LofmRHJB3bllvyq95EUyj4fd28XV4s3BcbMDa8z
+ BOWV14+G5Iss6+7bWpDCY+mDuQZCT2o=
+X-Proofpoint-GUID: s1ibAG87dMVFeUSaQDvQX7BrXjbf_x5r
+X-Proofpoint-ORIG-GUID: R_5O5bLaMogExC6J127ghpaNxH5ogRf3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5NyBTYWx0ZWRfX3aVCw+HUZRX+
+ etSuHwwfBUoY7OPhA9KiTQmz09rE2x0LsO1f60R8j2dtyZJyOyUvGYnU2/bQ90p8CstsdwKnPlP
+ BvoSs3CFWxDR264EQNdxDxd731ZETl52IvcYPhW1qVOIQ56ehRcCTh0I+EdCZDl1hgrp5T20n9S
+ uqziH0sWAgn+r95FlVJhQxK5iNGUZ68vAUYVMkgve0YvphLiYua5US2c5WCuV3SbIcfmvWSJK0Q
+ NgVx0gfmQDUA2v772FOumo5M5iP0VL2+bMBXXFh8pO2nCQOc2oz9x//hdHc+irfJfRM/Tc+J1OI
+ FwwTJEzELSURNCOzBZlFO0uaiH4OQSgEZ0GMnzF0BVrPyzzjddaikj7q8oUsHCLHI4VZFfXBXCQ
+ XOItN852wSRc052GSBaLkQZ7ZlzDC925lFjROwM/x89ZIi6vvx8/wv5XwZJ00JyAeTPn62k+jCU
+ X6T50/b9UhUT1Y4kQpQ==
+X-Authority-Analysis: v=2.4 cv=X5Vi7mTe c=1 sm=1 tr=0 ts=6a69e887 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=l68EZY392IGl-1xb1WsA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607290097
 
-On Tue, Jul 28, 2026 at 04:12:53PM +0100, Liviu Dudau wrote:
-> On Mon, Jul 20, 2026 at 03:44:35PM +0200, Osama Abdelkader wrote:
-> > panthor_init_cs_iface() and panthor_init_csg_iface() validate firmware
-> > control interface offsets with 32-bit arithmetic and the size of the host
-> > wrapper structures. The offsets are derived from firmware-provided strides,
-> > so the arithmetic can wrap before the bounds check, and the host wrapper
-> > size is not the size of the firmware control interface being mapped.
-> 
-> How can the offsets wrap with the firmware-provided strides? It's not like
-> the firmware provides arbitrarily large strides.
+
+On 4/23/26 9:02 PM, Pengpeng Hou wrote:
+> systeminfo_gpci_request() and
+> affinity_domain_via_partition_result_parse() hex-encode hypervisor data
+> into the single-page sysfs read buffer with sprintf(buf + *n, ...).
+> Both helpers only check PAGE_SIZE after the formatting loops have
+> already advanced past the end of the buffer.
 >
+> Add small helpers around sysfs_emit_at() for hex-byte and newline
+> appends, and stop once the sysfs buffer is full. This keeps the repeated
+> bounds handling local instead of open-coding it at each append site.
+>
+> Fixes: 71f1c39647d8 ("powerpc/hv_gpci: Add sysfs file inside hv_gpci device to show processor bus topology information")
+> Fixes: a15e0d6a6929 ("powerpc/hv_gpci: Add sysfs file inside hv_gpci device to show affinity domain via partition information")
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+> Changes since v1:
+> - refactor the repeated sysfs_emit_at() handling into helpers as suggested
+>    by Christophe Leroy
+>
+> diff --git a/arch/powerpc/perf/hv-gpci.c b/arch/powerpc/perf/hv-gpci.c
+> index 5cac2cf3bd1e..2f543f0671ba 100644
+> --- a/arch/powerpc/perf/hv-gpci.c
+> +++ b/arch/powerpc/perf/hv-gpci.c
+> @@ -11,6 +11,7 @@
+>   
+>   #include <linux/init.h>
+>   #include <linux/perf_event.h>
+> +#include <linux/sysfs.h>
+>   #include <asm/firmware.h>
+>   #include <asm/hvcall.h>
+>   #include <asm/io.h>
+> @@ -129,11 +130,36 @@ static int sysinfo_counter_request[] = {
+>   
+>   static DEFINE_PER_CPU(char, hv_gpci_reqb[HGPCI_REQ_BUFFER_SIZE]) __aligned(sizeof(uint64_t));
+>   
+> +static int hv_gpci_emit_hex_byte(char *buf, size_t *n, u8 byte)
+> +{
+> +	int len;
+> +
+> +	len = sysfs_emit_at(buf, *n, "%02x", byte);
+> +	if (len <= 0)
+> +		return -EFBIG;
+> +
+> +	*n += len;
+> +	return 0;
+> +}
+> +
+> +static int hv_gpci_emit_newline(char *buf, size_t *n)
+> +{
+> +	int len;
+> +
+> +	len = sysfs_emit_at(buf, *n, "\n");
+> +	if (len <= 0)
+> +		return -EFBIG;
+> +
+> +	*n += len;
+> +	return 0;
+> +}
+> +
+>   static unsigned long systeminfo_gpci_request(u32 req, u32 starting_index,
+>   			u16 secondary_index, char *buf,
+>   			size_t *n, struct hv_gpci_request_buffer *arg)
+>   {
+>   	unsigned long ret;
+> +	int rc;
+Concern here is that function return unsignerd long but patch is 
+returning int,
+so could break the caller.  Better way could be change function prototype to
+return int and update all the caller.
 
-Thanks for the review. Yes, It's unlikely to happen but good to have,
-these patches actually address issues reported by sashiko while reviewing
-the first two patches regarding firmware sections with oversized data and
-truncated firmware.
-
-> > 
-> > Use 64-bit arithmetic for the computed offsets and validate against the
-> > actual firmware control interface structure sizes with subtraction-based
-> > bounds checks. Also validate that the shared section is large enough for
-> > the global control interface before using it.
-> > 
-> > Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_fw.c | 18 +++++++++++++-----
-> >  1 file changed, 13 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> > index eee2bc7e8541..e2fcbd639c3c 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> > @@ -897,15 +897,16 @@ static int panthor_init_cs_iface(struct panthor_device *ptdev,
-> >  	struct panthor_fw_csg_iface *csg_iface = panthor_fw_get_csg_iface(ptdev, csg_idx);
-> >  	struct panthor_fw_cs_iface *cs_iface = &ptdev->fw->iface.streams[csg_idx][cs_idx];
-> >  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> > -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> > -			   (csg_idx * glb_iface->control->group_stride) +
-> > +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> > +			   ((u64)csg_idx * glb_iface->control->group_stride) +
-> >  			   CSF_STREAM_CONTROL_OFFSET +
-> > -			   (cs_idx * csg_iface->control->stream_stride);
-> > +			   ((u64)cs_idx * csg_iface->control->stream_stride);
-> >  	struct panthor_fw_cs_iface *first_cs_iface =
-> >  		panthor_fw_get_cs_iface(ptdev, 0, 0);
-> >  
-> > -	if (iface_offset + sizeof(*cs_iface) >= shared_section_sz)
-> > +	if (iface_offset > shared_section_sz ||
-> > +	    sizeof(*cs_iface->control) > shared_section_sz - iface_offset)
-> >  		return -EINVAL;
-> >  
-> >  	spin_lock_init(&cs_iface->lock);
-> >  	cs_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> > @@ -955,11 +956,13 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
-> >  	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
-> >  	struct panthor_fw_csg_iface *csg_iface = &ptdev->fw->iface.groups[csg_idx];
-> >  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> > -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET + (csg_idx * glb_iface->control->group_stride);
-> > +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> > +			   ((u64)csg_idx * glb_iface->control->group_stride);
-> >  	unsigned int i;
-> >  
-> > -	if (iface_offset + sizeof(*csg_iface) >= shared_section_sz)
-> > +	if (iface_offset > shared_section_sz ||
-> > +	    sizeof(*csg_iface->control) > shared_section_sz - iface_offset)
-> >  		return -EINVAL;
-> >  
-> >  	spin_lock_init(&csg_iface->lock);
-> >  	csg_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> > @@ -1011,12 +1014,16 @@ static u32 panthor_get_instr_features(struct panthor_device *ptdev)
-> >  static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
-> >  {
-> >  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
-> > +	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> >  	unsigned int i;
-> >  
-> >  	if (!ptdev->fw->shared_section->mem->kmap)
-> >  		return -EINVAL;
-> >  
-> > +	if (sizeof(*glb_iface->control) > shared_section_sz)
-> > +		return -EINVAL;
-> > +
-> >  	spin_lock_init(&glb_iface->lock);
-> >  	glb_iface->control = ptdev->fw->shared_section->mem->kmap;
-> >  
-> >  	if (!glb_iface->control->version) {
-> > -- 
-> > 2.43.0
-> > 
-> 
-> I'm OK with the general content of the patch, so:
-> 
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> 
-> Best regards,
-> Liviu
-> 
-> 
-> -- 
-> ====================
-> | I would like to |
-> | fix the world,  |
-> | but they're not |
-> | giving me the   |
->  \ source code!  /
->   ---------------
->     ¯\_(ツ)_/¯
-
-Thank you.
-Best regards,
-Osama
+Maddy
+>   	size_t i, j;
+>   
+>   	arg->params.counter_request = cpu_to_be32(req);
+> @@ -176,9 +202,14 @@ static unsigned long systeminfo_gpci_request(u32 req, u32 starting_index,
+>   	for (i = 0; i < be16_to_cpu(arg->params.returned_values); i++) {
+>   		j = i * be16_to_cpu(arg->params.cv_element_size);
+>   
+> -		for (; j < (i + 1) * be16_to_cpu(arg->params.cv_element_size); j++)
+> -			*n += sprintf(buf + *n,  "%02x", (u8)arg->bytes[j]);
+> -		*n += sprintf(buf + *n,  "\n");
+> +		for (; j < (i + 1) * be16_to_cpu(arg->params.cv_element_size); j++) {
+> +			rc = hv_gpci_emit_hex_byte(buf, n, (u8)arg->bytes[j]);
+> +			if (rc)
+> +				return rc;
+> +		}
+> +		rc = hv_gpci_emit_newline(buf, n);
+> +		if (rc)
+> +			return rc;
+>   	}
+>   
+>   	if (*n >= PAGE_SIZE) {
+> @@ -461,10 +492,14 @@ static ssize_t affinity_domain_via_domain_show(struct device *dev, struct device
+>   	return ret;
+>   }
+>   
+> -static void affinity_domain_via_partition_result_parse(int returned_values,
+> -			int element_size, char *buf, size_t *last_element,
+> -			size_t *n, struct hv_gpci_request_buffer *arg)
+> +static int affinity_domain_via_partition_result_parse(int returned_values,
+> +						      int element_size,
+> +						      char *buf,
+> +						      size_t *last_element,
+> +						      size_t *n,
+> +						      struct hv_gpci_request_buffer *arg)
+>   {
+> +	int rc;
+>   	size_t i = 0, j = 0;
+>   	size_t k, l, m;
+>   	uint16_t total_affinity_domain_ele, size_of_each_affinity_domain_ele;
+> @@ -483,27 +518,40 @@ static void affinity_domain_via_partition_result_parse(int returned_values,
+>   	 */
+>   	while (i < returned_values) {
+>   		k = j;
+> -		for (; k < j + element_size; k++)
+> -			*n += sprintf(buf + *n,  "%02x", (u8)arg->bytes[k]);
+> -		*n += sprintf(buf + *n,  "\n");
+> +		for (; k < j + element_size; k++) {
+> +			rc = hv_gpci_emit_hex_byte(buf, n, (u8)arg->bytes[k]);
+> +			if (rc)
+> +				return rc;
+> +		}
+> +		rc = hv_gpci_emit_newline(buf, n);
+> +		if (rc)
+> +			return rc;
+>   
+>   		total_affinity_domain_ele = (u8)arg->bytes[k - 2] << 8 | (u8)arg->bytes[k - 3];
+>   		size_of_each_affinity_domain_ele = (u8)arg->bytes[k] << 8 | (u8)arg->bytes[k - 1];
+>   
+>   		for (l = 0; l < total_affinity_domain_ele; l++) {
+>   			for (m = 0; m < size_of_each_affinity_domain_ele; m++) {
+> -				*n += sprintf(buf + *n,  "%02x", (u8)arg->bytes[k]);
+> +				rc = hv_gpci_emit_hex_byte(buf, n, (u8)arg->bytes[k]);
+> +				if (rc)
+> +					return rc;
+>   				k++;
+>   			}
+> -			*n += sprintf(buf + *n,  "\n");
+> +			rc = hv_gpci_emit_newline(buf, n);
+> +			if (rc)
+> +				return rc;
+>   		}
+>   
+> -		*n += sprintf(buf + *n,  "\n");
+> +		rc = hv_gpci_emit_newline(buf, n);
+> +		if (rc)
+> +			return rc;
+>   		i++;
+>   		j = k;
+>   	}
+>   
+>   	*last_element = k;
+> +
+> +	return 0;
+>   }
+>   
+>   static ssize_t affinity_domain_via_partition_show(struct device *dev, struct device_attribute *attr,
+> @@ -514,6 +562,7 @@ static ssize_t affinity_domain_via_partition_show(struct device *dev, struct dev
+>   	size_t n = 0;
+>   	size_t last_element = 0;
+>   	u32 starting_index;
+> +	int element_size, rc, returned_values;
+>   
+>   	arg = (void *)get_cpu_var(hv_gpci_reqb);
+>   	memset(arg, 0, HGPCI_REQ_BUFFER_SIZE);
+> @@ -546,10 +595,16 @@ static ssize_t affinity_domain_via_partition_show(struct device *dev, struct dev
+>   	 * to buffer util we get all the information.
+>   	 */
+>   	while (ret == H_PARAMETER) {
+> -		affinity_domain_via_partition_result_parse(
+> -			be16_to_cpu(arg->params.returned_values) - 1,
+> -			be16_to_cpu(arg->params.cv_element_size), buf,
+> -			&last_element, &n, arg);
+> +		returned_values = be16_to_cpu(arg->params.returned_values);
+> +		element_size = be16_to_cpu(arg->params.cv_element_size);
+> +		rc = affinity_domain_via_partition_result_parse(returned_values - 1,
+> +								element_size, buf,
+> +								&last_element, &n,
+> +								arg);
+> +		if (rc) {
+> +			put_cpu_var(hv_gpci_reqb);
+> +			return rc;
+> +		}
+>   
+>   		if (n >= PAGE_SIZE) {
+>   			put_cpu_var(hv_gpci_reqb);
+> @@ -578,10 +633,15 @@ static ssize_t affinity_domain_via_partition_show(struct device *dev, struct dev
+>   	}
+>   
+>   parse_result:
+> -	affinity_domain_via_partition_result_parse(
+> -		be16_to_cpu(arg->params.returned_values),
+> -		be16_to_cpu(arg->params.cv_element_size),
+> -		buf, &last_element, &n, arg);
+> +	returned_values = be16_to_cpu(arg->params.returned_values);
+> +	element_size = be16_to_cpu(arg->params.cv_element_size);
+> +	rc = affinity_domain_via_partition_result_parse(returned_values,
+> +							element_size, buf,
+> +							&last_element, &n, arg);
+> +	if (rc) {
+> +		put_cpu_var(hv_gpci_reqb);
+> +		return rc;
+> +	}
+>   
+>   	put_cpu_var(hv_gpci_reqb);
+>   	return n;
