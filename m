@@ -1,79 +1,67 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15DC43F8A9;
-	Wed, 29 Jul 2026 08:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E24D3F39C8;
+	Wed, 29 Jul 2026 08:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785313795; cv=none; b=eCsj55jLdB/nk/irO637YA3UoTaiEgPd7kMtlzN3QH7yAol0P5iqVmQjfgCNeN5UGWvZpFFSk6pPtMYgMLIdzuIOjafGd3T0oj3gzlFJKK3clP4biAfyVbtWFejwFFgDKn4O5//jxwwwnRtr3fs6yg2xfxn3abQOfVSXNsTFeUw=
+	t=1785314051; cv=none; b=Vw7vKfplIUY4QJafYTQbwHj8SsjTI2tu9sTjHzKcMK3iqauGeWETms065cA1QU1GPDjXbt6+HzuNT1prJUIFdCauhSibJEN8IfiEdT3cb5KjtVFNbHr9xS8lvTmZRNvkqcdIijVneBEYzO07E8MpRvuwV7QWQZRFA9coDFa3r9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785313795; c=relaxed/simple;
-	bh=fCR3hsMiiO5KryvysXxkcVgnvr0c1eH870Ff16+b89k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=p0oqafPZuhdH60WfK0+hmCl7tAYVsZF63tPNsv6g4VObch3YmH7jYjrpNRVv11yLEQFgvJBqwYxVb5/ByH0u0zjudoBBjfQmSdkFdjCX8WwZtJKyS4VHklXArIKm+pmRsEhHczbic5iYQU5fLfz1OWVWpWkuGNy91yURVXwxUgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cvNgwvfB; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1785314051; c=relaxed/simple;
+	bh=IYRH8/T9khv2m04sp01b53brwpdEX1xXnb5NBQ1lU3I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ABTFZ8GefvthPqjYfhKPJt68IsbXw6Va/y7A/o01FTifCzBvhpJgIhpV052JKSZtOpZYH2SV1sRIAQAJQpwWd8Xn9mHNcFADR8i/p9Z0tyscy0foRhIjI8JfapAqCt1eqX0XE33FaMCRTICidO3q7m+VlQvVfS2Bk+uJS6Udvhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=2meCy4u/; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cvNgwvfB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 2433C1A12E0;
-	Wed, 29 Jul 2026 08:29:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E32406039A;
-	Wed, 29 Jul 2026 08:29:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 147BC11C14ACF;
-	Wed, 29 Jul 2026 10:29:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785313776; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=fCR3hsMiiO5KryvysXxkcVgnvr0c1eH870Ff16+b89k=;
-	b=cvNgwvfBddBWscuzeV52TNdLm/EttnbFIg0IL1ScVlNfzxxoRmWIIIWvT7dRZYCbRkn47F
-	ilkWvf8xQgpy+OcPFT+kjvcPOKs9uHaHnCEFcAHepj1DA/GGrryPioBypwzkOUAlCahzOV
-	n48gTTl7w/w45ipp37Xw99qOgjjSulUMvsBN5FlDFNeNkkOZvt6wel/FVSad0NskjWEKOU
-	2oYXbuA2zSUTICgKDTReM2F8fuXCsDhBxjTptH2WCP/M5Cu+HhI9vuc4+tFnOdnZlDvxuW
-	LNPvY+65aAN7kUaZiBQON6p5p+ukEfwS7q4cvFOn43brVz0C3c+SacD1nCxyVQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Ibrahim Hashimov <security@auditcode.ai>
-Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,  kuba@kernel.org,
-  davem@davemloft.net,  edumazet@google.com,  pabeni@redhat.com,
-  horms@kernel.org,  david.girault@qorvo.com,  linux-wpan@vger.kernel.org,
-  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH wpan v3] mac802154: fix use-after-free of sdata via
- queued RX frames
-In-Reply-To: <20260725135154.99876-1-security@auditcode.ai> (Ibrahim
-	Hashimov's message of "Sat, 25 Jul 2026 15:51:54 +0200")
-References: <20260725135154.99876-1-security@auditcode.ai>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 29 Jul 2026 10:29:29 +0200
-Message-ID: <878q6unqqe.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="2meCy4u/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=UYb97aoCpF3q0HnSJ9SsggpzE80BCFCEhyCGSyrAi+w=; b=2meCy4u/7QzeyObzXwfjaLv7/f
+	+WgaWUyGj/CCwtPSGU7xxBsinNcWkBGg6MFShQJQRnABEHPAOYrEqe4S/fO+RObGePh3imRoyJpH+
+	DlFnQ8RQGwkB+/Xb7ZF4rrC6hmzcMZqzFPjFoap4Xkj3SNly+Jreq6eu9IZUa9fz7CdBxMptkgQva
+	7swePmlPXjiI8bdaMj+1s10ZzcBrM0sd3hu8hZcmXBYvcpqCrFvUo3cELPwRMNyohB5th/oEX/Rz0
+	3nrdc6w1WiiEaYXsH5VEYTWasXq2JyHp+i+xQ6WU4cvrQWI2DF6lxbtg3fXDqjx7k6Gh2STShar91
+	ux5twqCg==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wozjk-00000007EzL-0yZA;
+	Wed, 29 Jul 2026 08:34:00 +0000
+Date: Wed, 29 Jul 2026 01:34:00 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: cem@kernel.org, dchinner@redhat.com, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, zhongling0719@126.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix fallback data device flush for realtime inodes
+Message-ID: <amm6-JkURolQqXDo@infradead.org>
+References: <20260729073918.64505-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729073918.64505-1-zenghongling@kylinos.cn>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Ibrahim,
+On Wed, Jul 29, 2026 at 03:39:18PM +0800, Hongling Zeng wrote:
+> xfs_file_fsync() has a fallback flush for the case where the log force
+> was a no-op, for example fdatasync/O_DSYNC overwrites of already
+> allocated file data with no metadata updates.
+> 
+> The current fallback path is limited to non-realtime inodes and always
+> flushes mp->m_ddev_targp. This misses realtime inodes whose data target
+> is selected by the inode and may be mp->m_rtdev_targp.
 
-> Fixes: 57588c71177f ("mac802154: Handle passive scanning")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ibrahim Hashimov <security@auditcode.ai>
-> Assisted-by: AuditCode-AI:2026.07
-> ---
+No.  The rt device is flushed before the called to xfs_fsync_flush_log,
+as we need to ensure that the data is flushed from the cache before
+the log commit.  For the data device, the REQ_PREFLUSH case takes
+care that.  After xfs_fsync_flush_log we only need to take care of
+the data device if the file is on the data device and the cache
+wasn't flushed as part of the log commit.
 
-This whole change makes things clearly less and less readable, but I
-don't easily see any possible simplification.
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-If you are willing to fix another possible leak, you can check Sashiko's
-feedback agout skb_get() which is likely leaked since down the stack we
-clone it and not consume it.
-
-Thanks,
-Miqu=C3=A8l
