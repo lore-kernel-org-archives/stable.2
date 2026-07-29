@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5097549250A
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B454F48EBFC
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333213; cv=none; b=uZYoo3YvuwsVy1oGap6MafLuHtAaUAYRuT71GJAvmqAcPd0oPy/fqTOk/S5DCXtuIQ+Onwhd1EnLGWvgqqmvq6ICvvTwmqhk3cqp7/xaG+roNKRiQwrWb7n3Gvh2Eq2WVEFH8DxiG0JmxtEBOU3PBm+JFc4w0FJvAl0DtEHUCMk=
+	t=1785333218; cv=none; b=RktApEfhAADK+Lq0MPYBWaH4xouNycqaclknHezFXWApyqLxxXXZCohcSY9Wph1tLCWJJ61nPVyHNjoU4ARg5ej4pi5hBDIgZNschkCYl/elJ7bOnNg6Wss8ED5pwc59DcL4X/6vZe0MGnIF4Y5awkhXOjm2u0HKCiKKHim+HzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333213; c=relaxed/simple;
-	bh=jlobnqC/fImA91xE0Biro2oLUpR9EpB5EtwYIu2yvek=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=umAuFdzTRRT++7a9i92oeW7xLfpulpyWz6hKx80eg69Ks/F7kcNRfikwNtHsmbuyQ9yV7k8bx89cyaQj+84k5wM6dUqN7LjlluRvmNUB/arsWleOKGWvsDxbjcnV7EagaM19RSRQ4M2EJUlSHIOxwkql5AVs7OzL5E6Ic5UBiVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mpCsX1aJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333218; c=relaxed/simple;
+	bh=k4MTOon1kRhs1A32v2e7PPvYq0nDpgt9nzMM7Ka+DUE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qrZwnzUtwtyCmdooL52nRhfhTC9r5NFsfZNDLPfaseowlXxto90X67BpG/29M8/6yVZyuQXGBMKOaVhQP/ncsHDHvC+ypzztjNMN9Wjtdiee/oUd7Xs4l+8v9G/nZEbZMqIMoLbs+g32EcDxYrw8Jb9QFkovd4BF54j2+2yYyXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=i8qKiKWr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mpCsX1aJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D8F1F000E9;
-	Wed, 29 Jul 2026 13:53:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="i8qKiKWr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0D91F00A3A;
+	Wed, 29 Jul 2026 13:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333206;
-	bh=LEUWtlGHjjOE+p6igP+U+QGsE1oNMr0YIJBhW6fMDvE=;
+	s=korg; t=1785333211;
+	bh=y4Sjh4TJnyK9W22H8yE6SX/797PZZ5mFvSConr4I+u0=;
 	h=Subject:To:Cc:From:Date;
-	b=mpCsX1aJ6Jajp/z2Dwj2yksJpGr3MDiJcslWsvQtU4Wk8M8pMGnHpEWqrs8WXczRG
-	 94iNa2FRyZRPi/eqYbawClGCgQDau08ED9GhoIPKyWrhQksXs2T6rrdxtKSFUh3+8Y
-	 BlG2Q0zLu7v7ztGl1Aqo6P1ErepCEwiV42AZsHSE=
-Subject: FAILED: patch "[PATCH] net: pcs: xpcs: fix SGMII state reading" failed to apply to 6.6-stable tree
-To: coiaprant@gmail.com,jiawenwu@trustnetic.com,kuba@kernel.org,maxime.chevallier@bootlin.com
+	b=i8qKiKWrKp53YnICd+geHLJ6JxSnjIwqvk9t+UqBhHO5TBJGKmb43mHIANOtzRkaz
+	 aUuqnrlKcaVIt/i6ojol0D5nt4Nru6Prdr2dWlU1xpLmp05VGJ8JJdsWjtWYYvIkn3
+	 rYA54lzmIgUH3CkH+8+FJKSqV58JaHOCHddZI9po=
+Subject: FAILED: patch "[PATCH] net: qrtr: ns: Raise node count limit to 512" failed to apply to 6.18-stable tree
+To: youssef.abdulrahman@oss.qualcomm.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:53:05 +0200
-Message-ID: <2026072905-mashed-sedan-7f29@gregkh>
+Date: Wed, 29 Jul 2026 15:53:18 +0200
+Message-ID: <2026072918-spinal-repeated-d081@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x def9a4745e105145133e442dd8a1c126caf0f553
+git cherry-pick -x ff194cffd586cbd4cc49eccb002c65f2a902a277
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072905-mashed-sedan-7f29@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072918-spinal-repeated-d081@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,114 +62,36 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From def9a4745e105145133e442dd8a1c126caf0f553 Mon Sep 17 00:00:00 2001
-From: Coia Prant <coiaprant@gmail.com>
-Date: Fri, 17 Jul 2026 15:43:25 +0800
-Subject: [PATCH] net: pcs: xpcs: fix SGMII state reading
+From ff194cffd586cbd4cc49eccb002c65f2a902a277 Mon Sep 17 00:00:00 2001
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 16:59:01 +0200
+Subject: [PATCH] net: qrtr: ns: Raise node count limit to 512
 
-Commit 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
-added a path in xpcs_get_state_c37_sgmii() that reads speed/duplex from
-BMCR after AN completes. However, BMCR does not reflect the negotiated
-result on the hardware where this has been tested:
+The current node limit of 64 breaks the functionality for a number of AI200
+deployments that have up to 384 nodes. Raise the limit to 512.
 
-- On RK3568 (MAC side SGMII), BMCR returns a fixed hardware reset value
-- Wangxun engineer Jiawen Wu confirmed that on their side, "BMCR looks
-  like it only wants to be return as 0" [0]
-
-The correct information is available in CL37_ANSGM_STS, which contains
-the actual link status and negotiated speed/duplex.
-
-This bug was previously masked by phylink core, which overrides the PCS
-link state with the PHY state when a PHY is present:
-
-        /* If we have a phy, the "up" state is the union of both the
-         * PHY and the MAC
-         */
-        if (phy)
-                link_state.link &= pl->phy_state.link;
-
-Thus, when the link is down, the PHY's link_down state is applied on top
-of whatever the PCS reports, hiding the broken PCS state reading path.
-
-Modify xpcs_get_state_c37_sgmii() to:
-1. Read link state from CL37_ANSGM_STS
-2. If link is up, report speed/duplex from CL37_ANSGM_STS
-3. Remove the broken BMCR reading path entirely
-
-Also properly set state->an_complete to reflect the AN completion status,
-and clear CL37_ANCMPLT_INTR when link is down to avoid stale state.
-
-[0] https://lore.kernel.org/all/000c01dd1593$2ac0b0f0$804212d0$@trustnetic.com/
-
-Fixes: 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
+Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
 Cc: stable@vger.kernel.org
-Tested-by: Jiawen Wu <jiawenwu@trustnetic.com>
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
-Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Link: https://patch.msgid.link/20260717074324.3250043-2-coiaprant@gmail.com
+Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index e69fa2f0a0e8..0337e2bcc012 100644
---- a/drivers/net/pcs/pcs-xpcs.c
-+++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -1058,6 +1058,7 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
+diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
+index b3f9bbcf9ab9..e5b2adb161d9 100644
+--- a/net/qrtr/ns.c
++++ b/net/qrtr/ns.c
+@@ -76,11 +76,11 @@ struct qrtr_node {
+  * requirements. If the requirement changes in the future, these values can be
+  * increased.
+  */
+-#define QRTR_NS_MAX_NODES   64
++#define QRTR_NS_MAX_NODES   512
+ #define QRTR_NS_MAX_SERVERS 256
+ #define QRTR_NS_MAX_LOOKUPS 64
  
- 	/* Reset link_state */
- 	state->link = false;
-+	state->an_complete = false;
- 	state->speed = SPEED_UNKNOWN;
- 	state->duplex = DUPLEX_UNKNOWN;
- 	state->pause = 0;
-@@ -1069,6 +1070,8 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
- 	if (ret < 0)
- 		return ret;
+-static u8 node_count;
++static u16 node_count;
  
-+	state->an_complete = ret & DW_VR_MII_AN_STS_C37_ANCMPLT_INTR;
-+
- 	if (ret & DW_VR_MII_C37_ANSGM_SP_LNKSTS) {
- 		int speed_value;
- 
-@@ -1086,35 +1089,14 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
- 			state->duplex = DUPLEX_FULL;
- 		else
- 			state->duplex = DUPLEX_HALF;
--	} else if (ret == DW_VR_MII_AN_STS_C37_ANCMPLT_INTR) {
--		int speed, duplex;
- 
--		state->link = true;
--
--		speed = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_BMCR);
--		if (speed < 0)
--			return speed;
--
--		speed &= BMCR_SPEED100 | BMCR_SPEED1000;
--		if (speed == BMCR_SPEED1000)
--			state->speed = SPEED_1000;
--		else if (speed == BMCR_SPEED100)
--			state->speed = SPEED_100;
--		else if (speed == 0)
--			state->speed = SPEED_10;
--
--		duplex = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_ADVERTISE);
--		if (duplex < 0)
--			return duplex;
--
--		if (duplex & ADVERTISE_1000XFULL)
--			state->duplex = DUPLEX_FULL;
--		else if (duplex & ADVERTISE_1000XHALF)
--			state->duplex = DUPLEX_HALF;
--
--		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-+		return 0;
- 	}
- 
-+	/* Clear AN complete status or interrupt */
-+	if (state->an_complete)
-+		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-+
- 	return 0;
- }
- 
+ static struct qrtr_node *node_get(unsigned int node_id)
+ {
 
