@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB0D40A924
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:35:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC893612F8
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:35:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785321342; cv=none; b=OuZ2AgphKy2BQn/5Q1pN2bYcMa4gHs9WuJtvN56cT7lyb8NW4yQ3CB8vkrVekCoY8yMTPrjO45U+y8230FQbzYGArPmb5KfZXLuEsR2x/OsREcgwlM2YRm79Hnf3VYCa/CvemdX/HDBriWgSn5QedzQr9rCbft8VA9ATE9wpVOk=
+	t=1785321348; cv=none; b=pYRcJAFj5fGdL5l5yRylptj9J/S2LngCb8KmsA6Se10CDWR3c4Df71NpG1jDI+YTK+xcYMD7gv+osYHcpJMjD8eaX5EpB1Opb2jRmhuJ46fB5p/Qs71c5S8xV7sMzZexSTZq+dupoX/PTrThaxfUIZpxHKL0QP/F61071zJaYHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785321342; c=relaxed/simple;
-	bh=47yBVcMh3NrFWK4mh98WtJSeUA+htIzVt5uEvf5W6K8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=T/4gi4xipfpvpyK8Js/NcLSeUIH6ngokZmuwQdr+ZkmKa3hkGfVov7M883mFEYX8II73kzD4uerPhuUmDzruOuM6DvGY/eF/pEzJA3dp3S+ewRTuMp50V5rFYem3DkiwQ5dcXSge7QqAhCneOTUisTM09bPW387Pl3VB1EnodoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BOGYIdE9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785321348; c=relaxed/simple;
+	bh=3CRR3BTAXlgkqzmMC+hnl8Lu24es5H+CfRBNpTFvdvc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Z+Vw3BBeBVv3K51/LNftjWXqWreI6D07qa0u76FVlcZXZJzvu1uw0aR/ZR9jE/YR3sJuCMUel4hWKJMgXHlr0ytiunPu8fdBIcRyUcu0oSgWPTi4VWaGYZYm/uz8XHrMgHaYEGjWISk+l86nO16+P2ymP48AVHlTSpFJDYr3wpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rqqj8Rno; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BOGYIdE9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15CA21F000E9;
-	Wed, 29 Jul 2026 10:35:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rqqj8Rno"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD691F000E9;
+	Wed, 29 Jul 2026 10:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785321340;
-	bh=ZcsbjJ4P24F5ElpVXa8CTbxofsAH1fgbHTXvcIGayGY=;
+	s=korg; t=1785321347;
+	bh=aWaYx8vOAjP6Z8rJ8XVnYdEddxiBMxdxApEfbUXI/vQ=;
 	h=Subject:To:Cc:From:Date;
-	b=BOGYIdE9EPmpsP9GrXW4Ouqs/5nX0jvynMPRU3W6i7+pjT+SVzx38CzMZq25wOUcO
-	 Go/rlpALa204p1Svidd+EYAuazC1Cjl/q1kLK0QK/pE9PLFbZ705yqQBnrOI4fV+zi
-	 8JhHkWjZYJj5bdeV1j0obJwt3jkB9eXr5Npu1Fys=
-Subject: FAILED: patch "[PATCH] drm/msm: Restore second parameter name in purge() and evict()" failed to apply to 6.18-stable tree
-To: nathan@kernel.org,dmitry.baryshkov@oss.qualcomm.com
+	b=rqqj8RnoLL9eXo1wNLL6ZQ7DKYGucSvaBhCXDwiwQKUaU6A7vUpLLV42/NsQSFzEj
+	 U2C7gG1sglRKsnfFZIFmbSOIsJzxQus7/1mOBBO1seEFUworrrVcmoAXNL3Y/UAWNM
+	 ptKcLsRJIowHlKkXwCTRa6o2o03lwpyKO+whJNM4=
+Subject: FAILED: patch "[PATCH] drm/virtio: use uninterruptible resv lock for plane updates" failed to apply to 7.1-stable tree
+To: kartikey406@gmail.com,dmitry.osipenko@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:35:19 +0200
-Message-ID: <2026072919-drown-simplify-2be6@gregkh>
+Date: Wed, 29 Jul 2026 12:35:34 +0200
+Message-ID: <2026072934-batch-emit-7d1d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8de061ca149c94871e41d91a5b2e442ecc26a572
+git cherry-pick -x a48bbcc7ac739e93562d6148c6fa504c2e9f22f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072919-drown-simplify-2be6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072934-batch-emit-7d1d@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,65 +62,145 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8de061ca149c94871e41d91a5b2e442ecc26a572 Mon Sep 17 00:00:00 2001
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 18 May 2026 15:17:14 -0700
-Subject: [PATCH] drm/msm: Restore second parameter name in purge() and evict()
+From a48bbcc7ac739e93562d6148c6fa504c2e9f22f8 Mon Sep 17 00:00:00 2001
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Tue, 19 May 2026 13:52:47 +0530
+Subject: [PATCH] drm/virtio: use uninterruptible resv lock for plane updates
 
-After commit 3392291fc509 ("drm/msm: Fix shrinker deadlock"), all
-supported versions of clang warn (or error with CONFIG_WERROR=y):
+virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
+the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
+ignore its return value. The function can fail with -EINTR from
+dma_resv_lock_interruptible() (signal during lock wait) or with
+-ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
+leaving the resv lock not held. The queue path then walks the object
+array and calls dma_resv_add_fence(), which requires the lock held;
+with lockdep enabled this trips dma_resv_assert_held():
 
-  drivers/gpu/drm/msm/msm_gem_shrinker.c:105:58: error: omitting the parameter name in a function definition is a C23 extension [-Werror,-Wc23-extensions]
-    105 | purge(struct drm_gem_object *obj, struct ww_acquire_ctx *)
-        |                                                          ^
-  drivers/gpu/drm/msm/msm_gem_shrinker.c:117:58: error: omitting the parameter name in a function definition is a C23 extension [-Werror,-Wc23-extensions]
-    117 | evict(struct drm_gem_object *obj, struct ww_acquire_ctx *)
-        |                                                          ^
-  2 errors generated.
+  WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
+  Call Trace:
+   virtio_gpu_array_add_fence
+   virtio_gpu_queue_ctrl_sgs
+   virtio_gpu_queue_fenced_ctrl_buffer
+   virtio_gpu_cursor_plane_update
+   drm_atomic_helper_commit_planes
+   drm_atomic_helper_commit_tail
+   commit_tail
+   drm_atomic_helper_commit
+   drm_atomic_commit
+   drm_atomic_helper_update_plane
+   __setplane_atomic
+   drm_mode_cursor_universal
+   drm_mode_cursor_common
+   drm_mode_cursor_ioctl
+   drm_ioctl
+   __x64_sys_ioctl
 
-With older but supported versions of GCC, this is an unconditional hard error:
+Beyond the WARN, mutating the dma_resv fence list without the lock
+races with concurrent readers/writers and can corrupt the list.
 
-  drivers/gpu/drm/msm/msm_gem_shrinker.c: In function 'purge':
-  drivers/gpu/drm/msm/msm_gem_shrinker.c:105:35: error: parameter name omitted
-   purge(struct drm_gem_object *obj, struct ww_acquire_ctx *)
-                                     ^~~~~~~~~~~~~~~~~~~~~~~
-  drivers/gpu/drm/msm/msm_gem_shrinker.c: In function 'evict':
-  drivers/gpu/drm/msm/msm_gem_shrinker.c:117:35: error: parameter name omitted
-   evict(struct drm_gem_object *obj, struct ww_acquire_ctx *)
-                                     ^~~~~~~~~~~~~~~~~~~~~~~
+Both call sites run inside the .atomic_update plane callback, which
+DRM atomic helpers do not allow to fail (by the time it runs, the
+commit has been signed off to userspace and there is no clean
+rollback path). Moving the lock acquisition to .prepare_fb was
+rejected because the broader lock scope deadlocks against other BO
+locking paths in the same atomic commit.
 
-Restore the parameter name to clear up the warnings, renaming it
-"unused" to make it clear it is only needed to satisfy the prototype of
-drm_gem_lru_scan().
+Introduce virtio_gpu_lock_one_resv_uninterruptible() that uses
+dma_resv_lock() instead of dma_resv_lock_interruptible(). This
+eliminates the -EINTR failure mode -- the realistic syzbot trigger
+-- without extending the lock hold across the commit. The helper
+locks a single BO and rejects nents > 1 with -EINVAL; both fix
+sites lock exactly one BO.
 
+Use it from virtio_gpu_cursor_plane_update() and
+virtio_gpu_resource_flush(); check the return value to handle the
+remaining -ENOMEM case from dma_resv_reserve_fences() by freeing
+the objs and skipping the plane update for that frame. The
+framebuffer BOs touched here are not shared with other contexts
+and lock contention is expected to be brief, so the loss of
+signal-interruptibility is acceptable.
+
+Other callers of virtio_gpu_array_lock_resv() (the ioctl paths)
+continue to use the interruptible variant.
+
+The bug was reported by syzbot, triggered via fault injection
+(fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
+-ENOMEM branch in dma_resv_reserve_fences().
+
+Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
+Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
 Cc: stable@vger.kernel.org
-Fixes: 3392291fc509 ("drm/msm: Fix shrinker deadlock")
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/725924/
-Link: https://lore.kernel.org/r/20260518-drm-msm-fix-c23-extensions-v1-1-0833559418c7@kernel.org
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: https://patch.msgid.link/20260519082247.34470-1-kartikey406@gmail.com
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-index 6e39e4e578bb..8f118b5185a1 100644
---- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-+++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-@@ -102,7 +102,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 04fe15d877cd..7449907754a4 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -320,6 +320,7 @@ virtio_gpu_array_from_handles(struct drm_file *drm_file, u32 *handles, u32 nents
+ void virtio_gpu_array_add_obj(struct virtio_gpu_object_array *objs,
+ 			      struct drm_gem_object *obj);
+ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs);
++int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
+ 				struct dma_fence *fence);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+index f22dc5c21cd4..435d37d36034 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_gem.c
++++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+@@ -238,6 +238,23 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
+ 	return ret;
  }
  
- static bool
--purge(struct drm_gem_object *obj, struct ww_acquire_ctx *)
-+purge(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
++int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs)
++{
++	int ret;
++
++	if (objs->nents != 1)
++		return -EINVAL;
++
++	dma_resv_lock(objs->objs[0]->resv, NULL);
++
++	ret = dma_resv_reserve_fences(objs->objs[0]->resv, 1);
++	if (ret) {
++		virtio_gpu_array_unlock_resv(objs);
++		return ret;
++	}
++	return 0;
++}
++
+ void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs)
  {
- 	if (!is_purgeable(to_msm_bo(obj)))
- 		return false;
-@@ -114,7 +114,7 @@ purge(struct drm_gem_object *obj, struct ww_acquire_ctx *)
- }
- 
- static bool
--evict(struct drm_gem_object *obj, struct ww_acquire_ctx *)
-+evict(struct drm_gem_object *obj, struct ww_acquire_ctx *unused)
- {
- 	if (is_unevictable(to_msm_bo(obj)))
- 		return false;
+ 	if (objs->nents == 1) {
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index 73aa70bd4231..1d1b27ece62a 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -215,7 +215,10 @@ static void virtio_gpu_resource_flush(struct drm_plane *plane,
+ 		if (!objs)
+ 			return;
+ 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+-		virtio_gpu_array_lock_resv(objs);
++		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
++			virtio_gpu_array_put_free(objs);
++			return;
++		}
+ 		virtio_gpu_cmd_resource_flush(vgdev, bo->hw_res_handle, x, y,
+ 					      width, height, objs,
+ 					      vgplane_st->fence);
+@@ -459,7 +462,10 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
+ 		if (!objs)
+ 			return;
+ 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+-		virtio_gpu_array_lock_resv(objs);
++		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
++			virtio_gpu_array_put_free(objs);
++			return;
++		}
+ 		virtio_gpu_cmd_transfer_to_host_2d
+ 			(vgdev, 0,
+ 			 plane->state->crtc_w,
 
