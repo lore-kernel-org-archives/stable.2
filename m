@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6022647FB17
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9811481ABE
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785328729; cv=none; b=kXT5fJ1/wkf7JJrIdd7dRPPAV7fkQfm0RaQZlfWzlgRTSyZlXjPgPxlKvoIQMxsajLWw5Ey8Xq1Z5BKFtriKWaiXGxvieVQV/nFw6znPDQXIi7J/QxzcEjU/7tWgMv4iSaZHyPnZqWhXdggIANN5eRzBWur5Xc203BToO3bjJ50=
+	t=1785328938; cv=none; b=kKbyq0r/omYKoNnOqMrXrEZtHutfOW16DPqw1HFOI+WjbmQ6fySmvxxf+TMTEMQSZ7xtOGwt6c/9AFZzwLkxN0LK0nbEPNvGJeApC1IdVNH5ExBUQr5ynMBE5/AOoPZigqvD/vGbt/dETkxX4NnveX/bG/Q9s1rPIEQm1x16KtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785328729; c=relaxed/simple;
-	bh=bGiYFHQSCKCyGZV4Bzrcmj/dUCeZhDQ4GbJIVfWnU70=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EsbrQR2yVLdQYHDxaQTay2/hEehBZGNjAbfgG3M9nM1uAQvE33E/jBnp5zP3MGBcLFSQD7160x7XgSR4Gdl5FYiejhn1w2ElxlEj7Fb+kizjA2CDyc4LZ2sbiLyk/NgbI27oBKrT84DF2vWhZDICRX2++rOw8poW/ShT8AL/I2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RXCSIa0a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785328938; c=relaxed/simple;
+	bh=35u4nhUuATjJ4qDynd2UdVchSwC39XaHPJwI/JxuLFw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CGcL5gaTEiWWbcGKstraGWl8lb5HFx0UoGXBvZoRsUEk2BNuMHXv6G8/9dwRjbuN9FzBGYhcYTvRdq7W1MPsqmaSWvK7hUSzKua+F8B0yed27mrIZVGLb4hL+HESdUkwU6nSEmugUVPV2WXfQ1IfOUwSc/iNxi1DvlEqnmute2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2uby6IbP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RXCSIa0a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7A71F00A3E;
-	Wed, 29 Jul 2026 12:38:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2uby6IbP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762AC1F00A3E;
+	Wed, 29 Jul 2026 12:42:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785328713;
-	bh=Qdx6R2GdkjK9wqDkkAI6K3tzsTt8YwNh6pr9HBsjcGs=;
+	s=korg; t=1785328930;
+	bh=ld7fEwa5Hu1aWbD7Ip4HwfXaFSw8yVFAMfjt+7UD3zc=;
 	h=Subject:To:Cc:From:Date;
-	b=RXCSIa0ay73R3MBMfQHMkM61zhK/5mlhK9euNGqNuyqDsjdXQU9smxfAMoZL/7NU3
-	 VhAW8bV3RzwwXhUcy8WqkWeOc2CArD2THUAgdC5D6iG7i2NFa71fAbQG+HgZgy9uoR
-	 UDsjcNvNOHNiCtADn9tSSjtS/e31Sh56lZGTVxSg=
-Subject: FAILED: patch "[PATCH] drm/i915/mst: limit DP MST ESI service loop" failed to apply to 5.15-stable tree
-To: jani.nikula@intel.com,imre.deak@intel.com,martin.hodo@intel.com,rodrigo.vivi@intel.com,ville.syrjala@linux.intel.com
+	b=2uby6IbPxFCEUuu2Ld9Ze4huL/OcUz/xOfAt7JSiJ2UJXt4fh6iwmE+Wrmu/wFThO
+	 ViEnDtvMPZSWipw6XkFCt2ivS5Ht3RAoWKP6w20wvUNfVPXq22e9w4nMCpGpueU0pu
+	 /EMfMw5SDoFnt8gRYV+Ur0XyCCOgAiLO3jukzcg0=
+Subject: FAILED: patch "[PATCH] drm/gpusvm: publish dpagemap early to avoid device mapping" failed to apply to 6.18-stable tree
+To: honghuan@amd.com,matthew.brost@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 14:38:02 +0200
-Message-ID: <2026072902-erased-snuff-835e@gregkh>
+Date: Wed, 29 Jul 2026 14:41:12 +0200
+Message-ID: <2026072912-heritage-womb-d38a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 005771c18c5b2c98cb4e7517661aea460990fd3f
+git cherry-pick -x 7f708f51e3955bda0d77a0b67ab9bea6c97fea99
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072902-erased-snuff-835e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072912-heritage-womb-d38a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,63 +62,63 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 005771c18c5b2c98cb4e7517661aea460990fd3f Mon Sep 17 00:00:00 2001
-From: Jani Nikula <jani.nikula@intel.com>
-Date: Thu, 25 Jun 2026 17:22:04 +0300
-Subject: [PATCH] drm/i915/mst: limit DP MST ESI service loop
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 7f708f51e3955bda0d77a0b67ab9bea6c97fea99 Mon Sep 17 00:00:00 2001
+From: Honglei Huang <honghuan@amd.com>
+Date: Wed, 1 Jul 2026 14:28:00 +0800
+Subject: [PATCH] drm/gpusvm: publish dpagemap early to avoid device mapping
+ leak on error
 
-The loop in intel_dp_check_mst_status() keeps servicing interrupts
-originating from the sink without bound. Add an upper bound to the new
-interrupts occurring during interrupt processing to not get stuck on
-potentially stuck sink devices. Use arbitrary 32 tries to clear incoming
-interrupts in one go.
+drm_gpusvm_get_pages() only stored the local dpagemap into
+svm_pages->dpagemap on the success path. If a later page failed (e.g.
+-EOPNOTSUPP when ctx->allow_mixed is false) and jumped to err_unmap,
+svm_pages->dpagemap was still NULL, so __drm_gpusvm_unmap_pages() skipped
+device_unmap() and leaked the device mappings already created.
 
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
+Assign svm_pages->dpagemap when the first device page is mapped so the
+err_unmap path can device_unmap() those mappings.
 
-Note: The condition likely pre-dates the commit in the Fixes: tag, but
-this is about as far back as a backport has any chance of
-succeeding. Before that, the retry had a goto.
+This issue was found by Sashiko AI review.
 
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: 3c0ec2c2d594 ("drm/i915: Flatten intel_dp_check_mst_status() a bit")
-Cc: stable@vger.kernel.org # v5.8+
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Reviewed-by: Imre Deak <imre.deak@intel.com>
-Link: https://patch.msgid.link/20260625142204.1078287-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-(cherry picked from commit b4ea5272133059acb493cc36599071a9e852ec2e)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Fixes: f70da6f99d4f ("drm/gpusvm: pull out drm_gpusvm_pages substructure")
+Cc: stable@vger.kernel.org
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Link: https://patch.msgid.link/20260701062800.409248-4-honghuan@amd.com
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 85d3aa3b9894..7ff5712f8b19 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5737,8 +5737,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 	struct intel_display *display = to_intel_display(intel_dp);
- 	bool force_retrain = intel_dp->link.force_retrain;
- 	bool reprobe_needed = false;
-+	int tries = 33;
- 
--	for (;;) {
-+	while (--tries) {
- 		u8 esi[4] = {};
- 		u8 ack[4] = {};
- 		bool new_irqs;
-@@ -5781,6 +5782,11 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 			break;
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 44bb19658dd6..9a06ff7d2608 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1544,6 +1544,16 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 					err = -EAGAIN;
+ 					goto err_unmap;
+ 				}
++
++				/*
++				 * Set the dpagemap as soon as the first
++				 * device page is mapped so the err_unmap path
++				 * can device_unmap() the device mappings that
++				 * have already been created.
++				 */
++				drm_pagemap_get(dpagemap);
++				drm_pagemap_put(svm_pages->dpagemap);
++				svm_pages->dpagemap = dpagemap;
+ 			}
+ 			svm_pages->dma_addr[j] =
+ 				dpagemap->ops->device_map(dpagemap,
+@@ -1611,12 +1621,8 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 			goto err_unmap;
  	}
  
-+	if (!tries) {
-+		drm_dbg_kms(display->drm, "DPRX ESI not clearing, device may be stuck\n");
-+		reprobe_needed = true;
-+	}
-+
- 	return !reprobe_needed;
- }
+-	if (pagemap) {
++	if (pagemap)
+ 		flags.has_devmem_pages = true;
+-		drm_pagemap_get(dpagemap);
+-		drm_pagemap_put(svm_pages->dpagemap);
+-		svm_pages->dpagemap = dpagemap;
+-	}
  
+ 	/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+ 	WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
 
