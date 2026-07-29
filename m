@@ -1,216 +1,147 @@
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9568E3563FA
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785340056; cv=pass; b=JoR4v2YVV6xV+RCqZN0mOeFM3OI7CKKwta2XacmEyk10DRIULk54s4LwJsq5dpAsJksrvG6nByn6NGgNPaNtz32pCl5tXWaEzoRNibMpwH43iK3xwBWyjz+gSoKrofHPdrqQ9udaZBlQBAtLOYybF1LDlyevmEyaIxSecdUiOJ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785340056; c=relaxed/simple;
-	bh=mgGDW7odZQJtTZPmsadDeUWjf7CLsPvSwU4pVoMogJE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308013B0593
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785340077; cv=none; b=mcJ5AFYGOk5qu6zeRk3hMjHZamK2thJXEkFYZxukMCJ7n+hRGjVw8643mjciI5Z+jodjRfdkONt3ss7//gdtUMVcYpHaqUQStI37sHkhkFmRyDKT06nXDqx1whoDGEeFgKtofieylY5x2szYwIk8K/xR8i32U+nvQB35jZa+5mc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785340077; c=relaxed/simple;
+	bh=EXhgVMS0NxlxE5f0pFtmC2iT2ieedzhRX+u7Ni9PIk8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rwHU4ybbKgSYgi4A3ItZMDOyZFL0Lf9u2BQIXsrce4b1QuU8JJxc0jliqJihhNkaakACLpxTGC5xEYtqpjR7/zVcGi9aLN/HvI+HZ8OH1v4++xQQyeAAvZrF4X10RbmJ8VP/ElgnmVdOpjxaJg0TUguw3zzu0x8SjjDzG0o2CEo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kFdG+0mv; arc=pass smtp.client-ip=209.85.222.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=dzAWtqMq2GypzYEIrLFMmmsbTA3J+gtlQtlJlUM2cwIdjAKciRmrlJUHN7yZ4x41tbTeAzORfjFRGzV960cQiOFxi9tkEVqcyLZKYZaBETJxLUiQ/6jUM/GjtOOdFye7ijdVjyZAl3LmuM3NsN/nPYj85ozmBRzAAcCZjbPxrE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Y3NpFCR0; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kFdG+0mv"
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-969524c1a63so624915241.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:47:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785340053; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZYAtRU/ROhGckrSIO1FGFOTraXxWw7b9zIBiGe1VytaUDs1D5xmoN0gYx9QhhWA+ks
-         dMeQrwRw7Sj6eMDXKob5u/HZmNTbBnTQpGyt3qdZqPGhRdDVLcFAkbO1ysKf6pcby9RP
-         RgyNRcF7oeCACSzH/RMF2py9xXM+F90VsQD0Z0wDCVCmQsjuOEWsRs8F5UEKDg4N19o9
-         dnhzt7dKvPYjwgkUN+nRDdPhkrOTpEUDIfXy7/9D9HVtMx/NW+1p8JsevQMkq+wOCjzE
-         W3Gza7d6t5fD8/KWZEkEojz8jwJDie1lp9DRFskejk1agtKqBM48ZpcY8KRC07FV6wSO
-         MEag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JPm1Zkyu3BaX1h8XC4TjYemj4kfTSOFBWz8obT4dB9k=;
-        fh=m4r6seMh2dAiOHOfNk8Kac8K6pvS1u0zCk0qF7yO1OM=;
-        b=A2keqgEg+ofvHpBamJqcXFnz9D8dlcFUdih3sfx3XT7q5+BrBrwdzd1tBH8QVGjBqg
-         MRBxDrcORr37vcegMi3QBdCWJWmKKq+9ivwZLuBj1aSonlVtn+VtiT+hg9SoeidfGsNN
-         HXnDJUwbvq3N1qSe+pMn1OgQifIPsWDthAkmGtB6IuYJ1GpvWm/A1QhNz8gzeYvPmLfq
-         BBgL4DIWODnglNqYyzQFppl+nhIoOyjsFLr7dsA37FcSF8Ft7SzSLOq3ipFWpT7UFarf
-         KLgkUNITdO3vDwBCzuup+WMjv3eHQkAwIwCPhUNLLzM6fUPAc6KqtEMjHNFVaClunzqf
-         5ZgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Y3NpFCR0"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69e2266b07fso1546070a12.2
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:47:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785340053; x=1785944853; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JPm1Zkyu3BaX1h8XC4TjYemj4kfTSOFBWz8obT4dB9k=;
-        b=kFdG+0mvD9EcLXxllv4ahYIH+C+fdXF6/i2UbccqNWiIkDQcxITIoalcJqczDUl2W1
-         5WIhowg2UA2mJvM7BQRZit2SuGAVRosT4Wb/OKm8COE9w+/NSHmYo0vn4RMiewKKjDyo
-         TyWNrLt2Dx6/e6/M10T4GAUNZCdIZ0Bvnh84+u6Fts4iGz7dtBKOFSE7qFK4aKLGdWDf
-         nyDU6Utmn4FaEBmxVzggZmoYUBjLbgOVoz9WwERUib+soQvnNV3WbPI7eHCUuX/a1uOG
-         ui72zNlX7pvMAbxQvd/hLa3Hm6p3vAm69cKRohFWpfnFHYbIN8EEh0U5I35n2wRvQzcd
-         1Z3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785340053; x=1785944853;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linux-foundation.org; s=google; t=1785340074; x=1785944874; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JPm1Zkyu3BaX1h8XC4TjYemj4kfTSOFBWz8obT4dB9k=;
-        b=JVpnPGazplMVZ4P0rUcwmAOJkciuhp3daEQ5/Iy0kHmzNUDabpF0Bh0qUQJBywxKfA
-         Ao1tN8ESYDdlXyE0YnKIyjeBiOFcZgNxsfdr2so/zII9DyEva+Y9QZNTUJL5ImogPb9B
-         HM1fUK3xxwt7auKHYK7vxGfTEJzkW7p0QNbAoPujFTH4V1niI3D62y1wuh1mCDjbEUOz
-         DMJWnpFMXTsXgh7bp84stw2Cg5fbPez9Ljz2LWjN4MgajBlm3sVEyKWFGVEnPtP0Hsgw
-         i1g4UuGq2MW21GJxeNEMKTVOEfXbl65AqQu5CKwS7xRJpDCsnxuCyoqFJsEmavhcwAOy
-         ICaw==
-X-Forwarded-Encrypted: i=1; AHgh+RrBOvlnmL01DkZQsO+iLxHHLlbQDq72/iZVnW6CflGgnVjQ1LPNdEiMkXvBeio/mP+ACCefR3k=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQVsM7gSWhH55Hhudd6QMTz8rW/6mOpNvT3cIAJR98VY+PJx0V
-	7wl48xhUjEM1U3NAWhT9zNVzhBIB38/1wv/CwU5riilGOCDByWYSpZ6r3cqi8k3qrVB6eMRAhPG
-	S25PB8l1qxEkBWGSPEo3arL+1Ij8fyls=
-X-Gm-Gg: AR+sD12JCkXlJY4iRzWWBvXFkZ7kqqxNmq4AE/r5kbrUb0qiya6LuFL/4bMOzmrM8Wy
-	pSA9O8rzc0LBbfbPDsr29QIghZkPcyH/EShsziD0wig+LcJsmJb+yEwcyR9AzyI33fQS6mc7jPw
-	Pra8LHpvvRXn+lGTV2gLLu181HBkKwj3TKOnXDEpv0SwwFa260nv4Ml1RZH79+Yfq75bsEP+Jaw
-	LBJtY9IhTEZnwqWNnSX+/N6/moZ+CJsREBSE5u9hSbPRzSRiT0FpW6yFv4QyZpc6hn7dJhG0T3a
-	udKdvjBqnWPRcr6zkoqG/zoCBuLYf1d5EOSiXrIPruTO6/lvsNABhgXdWPoh9EjMVwhdXgupdek
-	pFX21a17TdegHEXSkBjAmH5G9QVUO4+/5Ib0zhpXUWhM=
-X-Received: by 2002:a05:6102:512c:b0:722:826e:1423 with SMTP id
- ada2fe7eead31-754a23c05ffmr3550572137.20.1785340053326; Wed, 29 Jul 2026
- 08:47:33 -0700 (PDT)
+        bh=8fldeuHlUZsSgbof6A4RukHGxb8EkbZ80+aaj64d3jk=;
+        b=Y3NpFCR0V57F56L9pDW8PbJ46B+ZIhiPUoD4ntZEYRWw6pydrtgh2ObgBXO7BK2EZY
+         5Yse/kdvO13NaWi7WXXCF4l8wMho/d2UKgFESzpPMvBilqg+kWnoUrUGj/Uc6BRPekLb
+         k1pmET9af22ltTaflwQaFHjoiaOdiakcmcpNM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785340074; x=1785944874;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8fldeuHlUZsSgbof6A4RukHGxb8EkbZ80+aaj64d3jk=;
+        b=s42j3/rEn9WIeN6RWZOIRT032AQDFJ4mYQ0w9WEU3kmZVFENRyK+6WK1FiUirSxy+0
+         9QtHua3GtGMNGZYEV1+Lg4p67eQle9pjw9bvwJUlYu2N3WvaShjM9QHPaIA35lX/5wJm
+         +Z6E48epV311pdmXXME4CJcb3MHelzX0+KcVHxcWfU9fFuHdmZoHlTkdyciogIelFkbO
+         O7qHxf0dcxQXgSMO++DLzcIJzH/l+wg8fK/I+9hZ54/SDn/DetRaKQinV40jnzu78xZj
+         GY2edrz9tb3DUlf3OmnQrLJnGubTECsLr/Em7+gg867Af1nEnPlryE9sLxRjfXlfvAtb
+         X7vA==
+X-Forwarded-Encrypted: i=1; AHgh+RrO1TFqheafowei20YLU0ct6T3+T7LHCnqLORwCHggS91K9n37mL9Lh3NGwg3aoCKmwrBiX9vw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIYld0TBsRjgQKQi6BQz02n7biFHX5e9MO9Wpp3fEfhyPGGVYI
+	QWIFpBH2TjwEkKsQR8Rq4mSsHJLALqUZTyjT2AkDnODZVjDhiPQK9CxaEFDtAn32zaHJUQ0c9MA
+	oCAfrHWc=
+X-Gm-Gg: AR+sD11yyju7ZzKn9tAlK6cyb3ANpXZNDFt2qpExauk/ii6sQnZnC9212uDB5sPN0fU
+	3Bdrr9rGkpPLO4Djov6H3sQKka5gV8Book0Gi/6xuiwaW7cGiAyDZdCLeCruHgST55swgyWeAmF
+	ViEc+aJrjPDpFbXj2E4qXgTd/3ZLt8VdNLJW6w05S7UVZFPhzzpWkikBkA3Xg/eg5iKsAY6QxGd
+	7PxjiXWfJsSDEQ4tawNIgnvKL6fdTNP8nk6ug5d1Zy1VxbENFp0tTvZELNyhE0IqQ0SlvW90PTv
+	4lJiTLsr4oY62IfdTVOd0s/DI95t69deIYJAyhSN3EyUQfvD3AfvZO4mnUA4Hi3v0bbnDITUv5/
+	JkLV0VcpnGs7zACTS5Cj9W2OFZ/EVZ6wNcGWgYCcprkTiLn5qeIV2IJMb+acZRbXH5IG6A5IlgR
+	jd0P3XQjYEd3961+zHvtsHIy8/5zWXW+Xzk2zKmxR4/iAptdZ2s9gc10IWzyss6u67/ATOYXmLW
+	qJ4CmK0hLfukUyTdsW2Tt6XiAzI0HnOBKf9lQ==
+X-Received: by 2002:a17:907:3e98:b0:c16:6429:a67d with SMTP id a640c23a62f3a-c1f727bddddmr437900466b.57.1785340074248;
+        Wed, 29 Jul 2026 08:47:54 -0700 (PDT)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83d271fdsm138386666b.28.2026.07.29.08.47.51
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 08:47:51 -0700 (PDT)
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so1088597a12.1
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:47:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpohyTyPYBtj4V6gGyPL07wwO2hQIy6i5ASZdmsHCs78GD8Q1ZdDj9UcIKZfNsU1+AbKBI5KQM=@vger.kernel.org
+X-Received: by 2002:a17:906:fe47:b0:c15:bea2:d209 with SMTP id
+ a640c23a62f3a-c1f7215dee1mr360497966b.4.1785340071289; Wed, 29 Jul 2026
+ 08:47:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260726060453.42730-1-baul.lee@xbow.com> <20260729124929.5885-1-baul.lee@xbow.com>
-In-Reply-To: <20260729124929.5885-1-baul.lee@xbow.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Wed, 29 Jul 2026 11:47:20 -0400
-X-Gm-Features: AUfX_mz9nZndAK9KdmKF1YI91jpaV8MXnQ4Zg4xcsY1aSJ5xem0vHknyrBE68Uk
-Message-ID: <CADvbK_cv4CAqN4sX-M0onYZjCeF03==vpkgt6AfvohFn8qvLnA@mail.gmail.com>
-Subject: Re: [PATCH net v2] sctp: keep chunk->transport in step with the list
- it is queued on
-To: Baul Lee <baul.lee@xbow.com>
-Cc: netdev@vger.kernel.org, linux-sctp@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, stable@vger.kernel.org
+References: <20260729005959.3853865-1-andrey.grodzovsky@crowdstrike.com>
+ <20260729104114.04298a48@gandalf.local.home> <CAOu3gNgc0XHScgEf+yWF5Kr8sAm8Fsa4RBuwL0YE2EscSiBPrA@mail.gmail.com>
+ <20260729113136.32af2a4d@gandalf.local.home>
+In-Reply-To: <20260729113136.32af2a4d@gandalf.local.home>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 29 Jul 2026 08:47:33 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjzHTuomhTegkD69veDVRxprX8NB=i7A+BEB2-v6v5n+g@mail.gmail.com>
+X-Gm-Features: AUfX_mzh3d70XkZOQ8mPTBmYgVx50lGXSyciETgOqHmLrGk5Ua4q2GHqtff665s
+Message-ID: <CAHk-=wjzHTuomhTegkD69veDVRxprX8NB=i7A+BEB2-v6v5n+g@mail.gmail.com>
+Subject: Re: [RFC PATCH bpf-next 0/3] ftrace, kprobes, bpf: mark
+ trampoline/kprobe ftrace_ops permanent
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>, bpf@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, song@kernel.org, 
+	jolsa@kernel.org, naveen@kernel.org, davem@davemloft.net, mhiramat@kernel.org, 
+	stable@vger.kernel.org, linux-open-source@crowdstrike.com, mbenes@suse.cz
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 29, 2026 at 8:49=E2=80=AFAM Baul Lee <baul.lee@xbow.com> wrote:
+On Wed, 29 Jul 2026 at 08:31, Steven Rostedt <rostedt@goodmis.org> wrote:
 >
-> __sctp_outq_flush_rtx() moves a chunk onto transport->transmitted in two
-> places but only one of them leaves chunk->transport describing where the
-> chunk actually is.  The ordinary resend path is consistent because
-> sctp_packet_append_chunk() rebinds the chunk in
-> __sctp_packet_append_chunk():
+> > > Honestly, I would love to get rid of it as today ftrace has proven to be
+> > > rather stable. But as it is a user space ABI, I'm not sure what will break
+> > > if we do. I wonder if we just make it a nop, and print a message to dmesg
+> > > saying:
+> > >
+> > >   "ftrace_enabled no longer does anything. Please report if you need it to."
+> > >
+> > > ?
+> >
+> > Thanks Steven, if you and/or other community members would approve such
+> > approach I would happily do this instead for a few reasons -
 >
->         list_add_tail(&chunk->list, &packet->chunk_list);
->         packet->size +=3D chunk_len;
->         chunk->transport =3D packet->transport;
->
-> The gap-acked path has no such rebind.  It parks the chunk on another
-> transport's transmitted list and leaves the stale back-pointer alone:
->
->         if (chunk->tsn_gap_acked) {
->                 list_move_tail(&chunk->transmitted_list,
->                                &transport->transmitted);
->                 continue;
->         }
->
-> So a chunk can sit on a live transport's transmitted list while
-> chunk->transport still names a different transport.  If that transport is
-> then removed - sctp_assoc_rm_peer() from an ASCONF Delete-IP - the last
-> reference goes away and sctp_transport_free() RCU-frees it, leaving the
-> chunk with a dangling pointer.  sctp_assoc_rm_peer() scrubs the
-> back-pointer on peer->transmitted and on asoc->outqueue.out_chunk_list,
-> but this chunk is on neither.
->
-> While tsn_gap_acked stays set the dangling pointer is not followed, since
-> sctp_check_transmitted() skips the flight accounting for gap-acked chunks=
-.
-> A later SACK that reneges on the TSN clears the flag, and the next SACK
-> then reaches
->
->         tchunk->transport->flight_size -=3D sctp_data_size(tchunk);
->
-> a read-modify-write inside the freed sctp_transport.  KASAN reports a
-> slab-use-after-free read of 4 bytes at offset 216 of a freed kmalloc-1k
-> sctp_transport in sctp_check_transmitted(), freed from
-> sctp_assoc_rm_peer() via sctp_process_asconf().  The removal and the
-> faulting SACKs all come from the association peer, so an application that
-> speaks SCTP and accepts multihoming is enough to reach it.
->
-> Assign chunk->transport after both list_move_tail() calls, so the
-> back-pointer always matches the list the chunk is queued on.  Doing it on
-> the ordinary path too keeps the invariant local to the move instead of
-> resting on a rebind that happens later and only if the chunk is appended =
-to
-> a packet.  Fixing it here rather than by scrubbing more lists in
-> sctp_assoc_rm_peer() covers the chunks that were already migrated before
-> the transport went away, which a scrub at removal time cannot see.
->
-> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-> [Reported privately to the maintainers on 2026-07-10 with root-cause
-> analysis, a PoC, a KASAN log and a fix; posting to the list was requested
-> as the follow-up.]
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baul Lee <baul.lee@xbow.com>
-> ---
-> v2:
->  - fix the root cause in __sctp_outq_flush_rtx() instead of clearing the
->    back-pointer for the retransmit queue in sctp_assoc_rm_peer().  The v1
->    scrub could not see chunks that had already been migrated onto another
->    transport's transmitted list before the removal, which is the case the
->    reviews on v1 asked about
->  - correct the Fixes tag: the inconsistency is as old as the code, not
->    introduced by df132eff4638
->
-> Link to v1: https://lore.kernel.org/netdev/20260726060453.42730-1-baul.le=
-e@xbow.com/
->
->  net/sctp/outqueue.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/net/sctp/outqueue.c b/net/sctp/outqueue.c
-> index f6b8c13da..1b2d08f2e 100644
-> --- a/net/sctp/outqueue.c
-> +++ b/net/sctp/outqueue.c
-> @@ -650,6 +650,7 @@ static int __sctp_outq_flush_rtx(struct sctp_outq *q,=
- struct sctp_packet *pkt,
->                 if (chunk->tsn_gap_acked) {
->                         list_move_tail(&chunk->transmitted_list,
->                                        &transport->transmitted);
-> +                       chunk->transport =3D transport;
->                         continue;
->                 }
->
-> @@ -715,6 +716,7 @@ static int __sctp_outq_flush_rtx(struct sctp_outq *q,=
- struct sctp_packet *pkt,
->                          */
->                         list_move_tail(&chunk->transmitted_list,
->                                        &transport->transmitted);
-> +                       chunk->transport =3D transport;
->
-This one seems redundant on the default/SCTP_XMIT_OK path, as it's
-already set by:
+> It's actually if Linus is OK with this approach.
 
-  chunk->transport =3D packet->transport;
+The rule is always the same, and I don't understand why there's any
+discussion about it because it's been stated a million times: we can
+try to make any ABI changes at all, and what matters is whether it
+breaks somebodys setup.
 
-in __sctp_packet_append_chunk().
+If people rely on old behavior, it can't change. And if people don't,
+nobody cares. It really is that simple. That is literally the
+DEFINITION of "don't break user space".
 
-Could you please remove the second one? (Sorry for not noticing this on v1)
+Whether something is user-*VISIBLE* in theory is entirely immaterial
+except in the sense of "be careful, this needs testing and may have to
+be reverted". So user-visibility isn't a "don't do it", it's a "do it
+carefully, and knowing that you may have to revert immediately if
+somebody complains".
 
-Thanks.
+So changing user-visible things is potentially a lot of wasted effort,
+and needs loving care and follow-up.
 
->                         /* Mark the chunk as ineligible for fast retransm=
-it
->                          * after it is retransmitted.
-> --
-> 2.53.0
->
+So everybody should typically avoid changing user-visible things
+because it's potentially painful and developer-intensive, but not
+because it can't be done.
+
+All that matters is whether real user workloads regress.
+
+And please make sure that any changed behaviour is really obvious, so
+that people don't spend lots of time chasing down *why* something
+broke. A kernel printk is generally way too subtle - and no, the
+tracing "make the printk extra ugly with crazy ASCII barfics" model is
+not an improvement.
+
+It might be better to actually return an error to user space so that
+users can see that setting ftrace_enabled to zero failed and it would
+show up in user logs. kernel developers may think that kernel logs are
+important, but users seldom even think about them. Of course, that can
+then cause even worse regressions, so there's a balance here.
+
+End result: don't do user visible changes unless you really really
+care. And then you spend the extra effort.
+
+               Linus
