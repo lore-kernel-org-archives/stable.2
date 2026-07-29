@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797D6470EA0
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5843C470EB8
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785323829; cv=none; b=GUyCgFihGtk8paNyxLo+mtAkczpJkQqR/WIQuiSJY/nTy1qEyw2N39RHA7fN1CQOs75CbNa7fyBeKOvyi8IUOMVBVILQZdxwqOpkb2dgtLvSj3VoTle9+DISZ6uCOxDE/Y0A/RYlNFJVLCvQQu4w+RRFkM7NJjJSOh6zA4+uL+I=
+	t=1785323832; cv=none; b=QS9M41rjU3s1nC0ekhoSzXk9wxVgti1tQ0s3gKOGfiZmxskljZF8jObPCHnJkeAYSSCgIouRDzUvqZE+7TaL0latSLxHh8e0oK8U3jpZpCkBZsuZvt9OnMIToQt+SlEdMwANZ7BBIHb0M1x3WenwQGgFyJzPDnfqYJ47dV46qW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785323829; c=relaxed/simple;
-	bh=3Zh4tW0+FBEgp8qcMPlEKWXn+GNMN59Hrj++znCoKR0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oLEsEzm+ZZByJIOOlFYBGcLSQqRKYYMF7zXYwSmvU5NtjYG6hun3ggw/LkfzHfstqwb6UZCOmyGmJfMBlDp/VpLEqZl1Jl3d/OFiwJLPmzJqkkK79GR+hpyw19Yg09mhh3lsO7+4Wg0nBEJCxwmtLWesRBV+0K7zPPHeeXMptbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=C6uK16l/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785323832; c=relaxed/simple;
+	bh=fJTNh5znsJUQh+hPJKKymZUbnN/vLNAZEyflvAbAeFs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sSdl14D2ynPBo8qRKA4NdughVegff5lQRR9nEnOMJsT21z/TLT/KWDbzWGS6L+id3NuKst46g2U+K7ap7TMW8Nw62LvYjJTMDUArT01UJaEB8nujQL1TQKy139Ww08pbhNkSGyTfI+0qgwplsi2Q1TXrOzRV/wDtsJzsS5nRANM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K5E1qcma; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="C6uK16l/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917C01F000E9;
-	Wed, 29 Jul 2026 11:17:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K5E1qcma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64E691F000E9;
+	Wed, 29 Jul 2026 11:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785323828;
-	bh=300p0+1pqgm3+Jbt2ORmaJ+kElbLQ7F/3GrRBX3MpgU=;
+	s=korg; t=1785323830;
+	bh=6BD/PrOcVTHPf2lkDOSY3fpKIvzvDDXgluxjTsUPums=;
 	h=Subject:To:Cc:From:Date;
-	b=C6uK16l/T52p5+KkXnPKYNsOwk/d8P8ime/LAK7o0VtodkP+LAHL5coxDn5n0s82k
-	 1YwvEa7hJreSIQ5LH5WrOxwjbEok3T9mEdQwpS0b7gFB0OYAcIJSCQkUKa0wIVnDzX
-	 BJXWRjSKdSY7tC0aZCK3IotVemHgXwmcTUPP4XNk=
-Subject: FAILED: patch "[PATCH] drm/i915/vrr: require valid min/max vfreq for VRR" failed to apply to 6.18-stable tree
+	b=K5E1qcmad64nh5db2Z1v6njdFJx2DFARxm2tv8j6fErPTm68BPiil53EWFM2zdSyI
+	 WAxUA4/u0M1nQczcVykLc+eZXjmHOsq1ZPpbpen4l35omXs2ifai4Z+5ywsTpx8RRP
+	 grDvojG/cGyeMtQ31udxLhpdl0aNtzyZo2JazMmU=
+Subject: FAILED: patch "[PATCH] drm/i915/vrr: require valid min/max vfreq for VRR" failed to apply to 6.6-stable tree
 To: jani.nikula@intel.com,ankit.k.nautiyal@intel.com,joonas.lahtinen@linux.intel.com,martin.hodo@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 13:16:53 +0200
-Message-ID: <2026072953-fetch-friction-d92c@gregkh>
+Date: Wed, 29 Jul 2026 13:16:54 +0200
+Message-ID: <2026072954-entail-overdrive-8a88@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x f8a9262c7a6fc2de9802e14b0228114f0333869e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072953-fetch-friction-d92c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072954-entail-overdrive-8a88@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
