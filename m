@@ -1,61 +1,61 @@
-Received: from mail-wm2-f1.google.com (mail-wm2-f1.google.com [74.125.225.129])
+Received: from mail-wr2-f2.google.com (mail-wr2-f2.google.com [74.125.225.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8453A6B81
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 20:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20678212FAD
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 20:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785358591; cv=none; b=WWKNF13jJYzxHN+Y5TaP1ED2UdyN4kS4XNyqmCDLA6a1Vy+x6O9NYYjXpPbCKyO5oKo7jxGWzWOJDvLWbBy0K2fVN5TNFnE+nDl4ZDUBFd6SR5B00jLwD794BsY3rgwm3iPT2bnQd4ir4ULA4OGPzJXFsMqk83FlOJcELXPI4TA=
+	t=1785358742; cv=none; b=mxkyw1riXwXywcEbQKB13x8SLxM4N7yH/7e4fEdr5v1v91Rzox2jVN8L7rRmxPhMkWSYTOoIBffsRaXcgMFo3gIhb3W8P3e9rGkJqmMfAT5+EfoR1s+kdy8pmqVDKHK9BdP8b58p7saOkItJcCQ76GJGfL4tE/O244CmnAnzvnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785358591; c=relaxed/simple;
-	bh=SUd9t5Zmta4KAPz2uGtKjdI2iuzGShD+xsyg/ZXJI90=;
+	s=arc-20240116; t=1785358742; c=relaxed/simple;
+	bh=Hzn4FscOE1ds874ePxfbdbmYon8VWf3RVIrF03+4xPs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EqEpImeiT3eB3/Swk/dgTCg80JaZMY5rqjPASE5yzYzUkWD+2+nkGMXWzDLCqv1SxJm2AQFpPvye8s+onGaOLtyG7AS2jxKFIRuX5+xCZSH3QNQxZrkKTSgmFSvPyRTDhybAaqduTpBPOesLO+9E8BjY6tavE36ANp2KvQDF4aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.129
+	 MIME-Version; b=RRq7ZOGugWLWnVjyPCFNObpjqkQPN8Ns4wu7FoGBWG2VSqrhWYL+oDV8ZIeuOA31Z2LAPIwA1wfXZXFmzeK6hg8twr0KdREZpD9LB5NpupbmjmJJWkrtNDqkc+IAT5J5nArRaInpubnqIfagHGusLGiFAxQvnRm+wX+IYY5OHrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.66
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f1.google.com with SMTP id 5b1f17b1804b1-492367f3094so4190765e9.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:56:29 -0700 (PDT)
+Received: by mail-wr2-f2.google.com with SMTP id ffacd0b85a97d-47301772842so514360f8f.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:59:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785358588; x=1785963388;
+        d=1e100.net; s=20251104; t=1785358739; x=1785963539;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eo613K6JQNUFuTfkSyDvFxvZrnqBfMUZJYOVlaRH1vM=;
-        b=Ie13rKA368jghLL3AG88ds6BlZLDfR5f+mjayn8sNAhnUD/6Tcdx7HsbByX/RRTrsO
-         aVEYk1azltJ4lbZIC9eNpzqgs9tPl6r+pFQ4Mx8Rkz1Mup7QVmYnyIpNTtDX6HJVBmyp
-         L85/YTaX9O2Zq5/hp0fJDjV90zEufBZ9hf0RzkjCZzL3qvik30nvO6BRxLRm7BSL3pCf
-         aQJ/n56mHSEgVeXWhoGIHFLmtbig+zdAfSMBZTTuW1H4d55pzTth1Gf3yPJRUTga5eZD
-         87Wq8TI03604fVq96bAirBaqecrLl9NfTk3dUE7IUd9O/iifug7UxlA7QYCcBdbAL4Pg
-         YoIA==
-X-Gm-Message-State: AOJu0YyuZcqnHW2rmiVeN2k5e/dzkmJa9uEX7osrNBjryBocYthQ+sOK
-	2DhHjP+HJtRLLCOJSMXEJJO3Xh7EEzGFae7fqSBNHZPFMM2uRWsh7/AvEnWUqS1mIcY=
-X-Gm-Gg: AR+sD12xWKVzHlVoB+OgzV1IZfmO+ef3FPAABp7J7BKeiRaWQ61E8fsTErv0oRL6+7l
-	aVLEJN6WN4CES0fYZkqw/xVBKLBdsB0r+IHduZHjNno3CHgMAoAK864m0Z0mtWM0WhnmZdAkTaw
-	0ryOcgdKgd6i08i5XMk+OGG7pb3u1AzHMUx43dBFjMKh5VesUFAGQk0YDH/AQfUl5zMhYdhHtAz
-	nt0j7VB1xkFm8vdweJnHMrs8QtvsE3cNoFoEB7RKHrc+RRmRiy4RK+/x1qrjQNmRGfgPI51tcRx
-	qx7jzoqq+EScsEz1rqDoZ5jNj/pN1Juhpneyw6XPs3hCQxMiOigae4pxuv4yT8j9o+ynHH1kLzz
-	y9nkbJ1iUye8BE95KKz6/h144AmAyEQ6FEOPVo3aBRND+NVv2a6rc/1i6XxCjw3zwpr+dngmQYQ
-	v4tMzvbE33P8MwYdRhoJTcWz8Y8NqvFb9g76HAIhMl/fOawazYYlSvziI1VTVzBxqku6KEXBZF5
-	1wytWQGCI/SEnDtaqQLHv9zZzuE5w==
-X-Received: by 2002:a05:600c:870e:b0:495:3af9:4cfe with SMTP id 5b1f17b1804b1-49800ea2937mr161295e9.20.1785358587919;
-        Wed, 29 Jul 2026 13:56:27 -0700 (PDT)
+        bh=AMwfZsPC4yAY9pegTK7joCuWIxCFNsCzcN9hzrVqFdQ=;
+        b=gEp/6yhlzWIz0mmeGpV6PsuwIeyPGDPBt86XcHjbrEPFToyCtWUsqA1WfLFFtNEktK
+         BQ0eAQgAxvmkeljbijbFdKtrUEOnaZtF6ilW9nVyDONSI9EKULoegOQNqbJzLDhsPjAQ
+         K0EHEAdTPtH5QDTPeAcUBICpLv3F54B8SpjI2RopMYL9U9edH95MTkecAp8rK6xjXwQq
+         UsbplU+CY569ljl5ENLxEMjzKOSwjyftiE7gq6m35Q1yHNAAh40UcwfOiLoGCVvCOJuE
+         m4GtzqrdHZ31a0HMqA5TbP+8r9uPZbd2HrduF5V8f4iC+RZq8ctqvHx1KKFXih5J2O6F
+         aLQA==
+X-Gm-Message-State: AOJu0YxhiFT2vnkZwyVlG/WLTedhCSbmIwOKF5EQdYxuVWDa3qFJjZWa
+	HjYVlxVe+DTZGq7BMMIGgU6nOszK6WlzVGvLpceYuPf3Jiw5ctMBPtWf+/7LJzi/SvE=
+X-Gm-Gg: AR+sD12QalZJ/oagXvGbTYIM8/tAz8V/C9AgzqIW3HQ/Q/xFIoZ2zPKR/zUy0AjmOVb
+	O3pEynsUIuUT3KMwjTJpIMGCKZZr720PlEDdSAQAs3szUN0sMCREoA5DYs5kbWEXMR14rGzKWA/
+	C8znmPs83bwdypm7/es0TaqmtTu9kdLyBAIEYpxb54V5Jufirvt2VnwFtSNR6qCarrnTrDJ8mBs
+	TWnzYuVN2utTxFmA4TbnCEGilCkLrL5LySAXZzDcytrAR077H/zpQ2IbRGC0bRp4zV4WCS6segR
+	M5Ni8dRdc5rdOuwkWu4R0GsdXBsgfEDHlgDQtKAlvnB5oLvArxjnzGrC0KhikXbL5q9RlCnQGp+
+	6kYMl0e7lAxbSTLdzmhS1+QXm+7I4PgyL5sZlpSv5DJU9iaBmJwA4uUQq4mUfDgNtCuL7Kt2eTK
+	9tyhKubiBVc7tnWNq1ZOB3dJsHDN+BXno8s1bTVt/OUH62S23TymilRZqnyyYN7GzLyy/j5KWdu
+	BbxKFHDYUIGTPC44rr68OGR6NMulw==
+X-Received: by 2002:a05:6000:2c0c:b0:47e:aa42:4e42 with SMTP id ffacd0b85a97d-47fc66875ffmr390074f8f.55.1785358739241;
+        Wed, 29 Jul 2026 13:58:59 -0700 (PDT)
 Received: from im-t490s.redhat.com (78-80-108-129.customers.tmcz.cz. [78.80.108.129])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49764d777afsm102464935e9.4.2026.07.29.13.56.26
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6ac44bcsm10656090f8f.11.2026.07.29.13.58.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 13:56:27 -0700 (PDT)
+        Wed, 29 Jul 2026 13:58:58 -0700 (PDT)
 From: Ilya Maximets <i.maximets@ovn.org>
 To: stable@vger.kernel.org
 Cc: Kyle Zeng <kylebot@openai.com>,
 	Ilya Maximets <i.maximets@ovn.org>,
 	Aaron Conole <aconole@redhat.com>,
 	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 6.6.y] openvswitch: fix GSO userspace truncation underflow
-Date: Wed, 29 Jul 2026 22:56:07 +0200
-Message-ID: <20260729205609.628158-1-i.maximets@ovn.org>
+Subject: [PATCH 6.1.y] openvswitch: fix GSO userspace truncation underflow
+Date: Wed, 29 Jul 2026 22:58:53 +0200
+Message-ID: <20260729205856.628744-1-i.maximets@ovn.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026072949-transform-lagoon-f0a4@gregkh>
-References: <2026072949-transform-lagoon-f0a4@gregkh>
+In-Reply-To: <2026072950-catalog-shore-3727@gregkh>
+References: <2026072950-catalog-shore-3727@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,7 +87,7 @@ Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
 Reviewed-by: Aaron Conole <aconole@redhat.com>
 Link: https://patch.msgid.link/20260707221635.27489-1-kylebot@openai.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[6.6.y and older don't have OVS_ACTION_ATTR_PSAMPLE]
+[6.1.y supports neither OVS_ACTION_ATTR_PSAMPLE nor OVS drop reasons]
 Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 ---
  net/openvswitch/actions.c  | 15 +++++----------
@@ -97,10 +97,10 @@ Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
  4 files changed, 21 insertions(+), 23 deletions(-)
 
 diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-index 0ea4fc2a755b..793f86e24755 100644
+index f7cc87e67d3c..18e419affb57 100644
 --- a/net/openvswitch/actions.c
 +++ b/net/openvswitch/actions.c
-@@ -861,12 +861,8 @@ static void do_output(struct datapath *dp, struct sk_buff *skb, int out_port,
+@@ -856,12 +856,8 @@ static void do_output(struct datapath *dp, struct sk_buff *skb, int out_port,
  		u16 mru = OVS_CB(skb)->mru;
  		u32 cutlen = OVS_CB(skb)->cutlen;
  
@@ -115,7 +115,7 @@ index 0ea4fc2a755b..793f86e24755 100644
  
  		if (likely(!mru ||
  		           (skb->len <= mru + vport->dev->hard_header_len))) {
-@@ -1258,22 +1254,21 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
+@@ -1242,22 +1238,21 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
  			clone = skb_clone(skb, GFP_ATOMIC);
  			if (clone)
  				do_output(dp, clone, port, key);
@@ -138,14 +138,14 @@ index 0ea4fc2a755b..793f86e24755 100644
  						     len, OVS_CB(skb)->cutlen);
 -			OVS_CB(skb)->cutlen = 0;
 +			OVS_CB(skb)->cutlen = U32_MAX;
- 			if (nla_is_last(a, rem)) {
- 				consume_skb(skb);
- 				return 0;
+ 			break;
+ 
+ 		case OVS_ACTION_ATTR_HASH:
 diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
-index 857edc537393..fb5b72700d82 100644
+index 0c0d89470145..1181807f2b50 100644
 --- a/net/openvswitch/datapath.c
 +++ b/net/openvswitch/datapath.c
-@@ -273,7 +273,7 @@ void ovs_dp_process_packet(struct sk_buff *skb, struct sw_flow_key *key)
+@@ -251,7 +251,7 @@ void ovs_dp_process_packet(struct sk_buff *skb, struct sw_flow_key *key)
  			upcall.portid = ovs_vport_find_upcall_portid(p, skb);
  
  		upcall.mru = OVS_CB(skb)->mru;
@@ -154,7 +154,7 @@ index 857edc537393..fb5b72700d82 100644
  		switch (error) {
  		case 0:
  		case -EAGAIN:
-@@ -438,7 +438,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+@@ -414,7 +414,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
  	struct sk_buff *nskb = NULL;
  	struct sk_buff *user_skb = NULL; /* to be queued to userspace */
  	struct nlattr *nla;
@@ -164,7 +164,7 @@ index 857edc537393..fb5b72700d82 100644
  	unsigned int hlen;
  	int err, dp_ifindex;
  	u64 hash;
-@@ -459,7 +460,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+@@ -435,7 +436,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
  		skb = nskb;
  	}
  
@@ -174,7 +174,7 @@ index 857edc537393..fb5b72700d82 100644
  		err = -EFBIG;
  		goto out;
  	}
-@@ -474,13 +476,13 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+@@ -450,13 +452,13 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
  	 * padding logic. Only perform zerocopy if padding is not required.
  	 */
  	if (dp->user_features & OVS_DP_F_UNALIGNED)
@@ -193,7 +193,7 @@ index 857edc537393..fb5b72700d82 100644
  	if (!user_skb) {
  		err = -ENOMEM;
  		goto out;
-@@ -541,7 +543,7 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+@@ -517,7 +519,7 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
  	}
  
  	/* Add OVS_PACKET_ATTR_LEN when packet is truncated */
@@ -202,7 +202,7 @@ index 857edc537393..fb5b72700d82 100644
  	    nla_put_u32(user_skb, OVS_PACKET_ATTR_LEN, skb->len)) {
  		err = -ENOBUFS;
  		goto out;
-@@ -566,9 +568,9 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+@@ -542,9 +544,9 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
  		err = -ENOBUFS;
  		goto out;
  	}
@@ -214,7 +214,7 @@ index 857edc537393..fb5b72700d82 100644
  	if (err)
  		goto out;
  
-@@ -625,6 +627,7 @@ static int ovs_packet_cmd_execute(struct sk_buff *skb, struct genl_info *info)
+@@ -601,6 +603,7 @@ static int ovs_packet_cmd_execute(struct sk_buff *skb, struct genl_info *info)
  		packet->ignore_df = 1;
  	}
  	OVS_CB(packet)->mru = mru;
@@ -236,10 +236,10 @@ index 0cd29971a907..88156a677f22 100644
  struct ovs_skb_cb {
  	struct vport		*input_vport;
 diff --git a/net/openvswitch/vport.c b/net/openvswitch/vport.c
-index a0a8854e9f19..eb0eb57dabe2 100644
+index 5d7af559a20b..e83aa6417ffd 100644
 --- a/net/openvswitch/vport.c
 +++ b/net/openvswitch/vport.c
-@@ -503,7 +503,7 @@ int ovs_vport_receive(struct vport *vport, struct sk_buff *skb,
+@@ -438,7 +438,7 @@ int ovs_vport_receive(struct vport *vport, struct sk_buff *skb,
  
  	OVS_CB(skb)->input_vport = vport;
  	OVS_CB(skb)->mru = 0;
