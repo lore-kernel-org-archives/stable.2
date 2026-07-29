@@ -1,360 +1,139 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F26949551B
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AB24963C2
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:49:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332950; cv=none; b=Cry0OxOZbPbbZr/CW7u0+hi97OArRPr+GqkGIdmv9s5MnH2ERfdR8k2ScVqM9sOLRDbw3uin8Qp5tlZcY7ROCeXihLCu/cIjQz6pzZRzWqv4gF0wZCeNkiXOg5vOo3Uaeo1trJaS70USLWvg1IoGYC4JKfKxIhu4wm9uOcOIA2M=
+	t=1785332961; cv=none; b=ZMJaQM86xnTMm6lIy5sMY0h9dJ511M7KpDsFfR4D+dEFDUdMrMuU+zBxE3JQSetP8Xkvzc0rLOQDTQ9WCTmAj9m00S5PDz8dVI8N7SM+InqS0MqJ4xcc2Zr9siWC+ky85IuHrZ2Hj3qDHMZt6Xa16EeZv0Kfg2XYQKW5Y4aKuQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332950; c=relaxed/simple;
-	bh=Pqt9NyKegLWTkHxOddHLz7StvU8G2POvX9oOJAjZU3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DfyJFOivAgU25LlwIyYnc2k3zPqsw5YKO/pDbqmi07/Zvt7UmW4595Nvvwml5BC75UvBId5P9TDq+Zqh02Ky8SxibXY1CNeNQTlTziKxV/RbOl0Kmjmb3VA60Fdpj/V6fYROHTi0svwrrO0kEOsNAwnTTRw+LUQ0K5YQ4/MEa5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=EId4v66u; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1785332961; c=relaxed/simple;
+	bh=NP9r0H8Gmzr7tg+WFSzrWDv9ZsgC3Kbus/9Fabrhdds=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=swloGwESQzCzRfvgCBWSnp+Dd0X53f2Z8cnnvAyvMbuF69zMGIyNl4SbISWie3XwWfvPJZM2EuFv0mim8gw48NO8ybrtF3LxxNaNTuLuLNX9u3raBFH842f6/H8vKNJWBzwlUySEPi0UcBvwn/+qUhEbW7pFdYRLp5rg6/rgtsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sXkhkJWL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="EId4v66u"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8485b358552so1100068b3a.2
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:49:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1785332935; x=1785937735; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D+1XXvkajr6+1Yk5LVU6qEFCRRQ2xlVvX/lKvRvqY8I=;
-        b=EId4v66uTzRbPno6ZiIjrHOKnT9n++bUyB34BaOeuCBWxZDCIgeZZ5UiVlLmDa/UbQ
-         dShW/YgLd25FIGnHMhOgrCzdWYe4JOUXc/S8hOa0NycQwCpQeY0Gcjo6yGc7GvBugO3b
-         nDDnjQI3DezAGJ+g9LRnKUhJdEtEWBbY7wYHWyjfw6RfI7fHxJA9lbsCg5j3++y7ffcl
-         87rdcJHZr7UeH4DqzXLwlgBJOgfYKvy5gIP5UgBARPTSFkCT3tzoheKp+5Wyw+zSDhIi
-         qadDKiBQrodMr70kZlGAGcUyVdKe1qoybfdAWsQwGnROL5HfZ5enBf2xVlEgiV5dds82
-         Jyyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785332935; x=1785937735;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D+1XXvkajr6+1Yk5LVU6qEFCRRQ2xlVvX/lKvRvqY8I=;
-        b=nuxWMj/G4CwhA6oLjwbuOxUOav+1at8K4oXDmAxWbFK+xZMxQ6EgoMtItiNFNdM25T
-         3P1aaZ6pmxTUKoTh0Kas1lEK95eSyr8Nl+FjB4D9/JRGAgHr9sjW9GYwQvKptCyzqUn+
-         OB0cuVyNf9LXVGXESi5PuKupBdlDWowlcsgjFyic3O1S487/Ba6h9IkIKP/xRQFRh6Bp
-         KC+kLgUIg5kfBPmkMKl5pmdeAsITe8Vi9aN/5V5a9B9KbuW+UZRcKXYhGlEA8wTPwfZN
-         p8EzM2lsjM9S3TVrDLwpnN1goKiEmQHLSyd034zbhmp1Be9sLmPGZR1zFxecKm9YdqqO
-         SDYg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrlxz0azZZKrT3gbjCgYc9X3Mr/NZFGGKl1FrBxIGwMBqe5vdSSs2t1/4YUYVm1BX0CqbN5F8s=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/SoGNpVU6KkH5jb9y6xXqtDJExv+NIQIFWR3x0yUm6ZYHreLb
-	s0ef0k+9Yyz045YsYZp311GGpoA/o1oqyaNzyFD+5yhCXjPqx52YiG/Z05Ac2fOrpWDR
-X-Gm-Gg: AR+sD10V0OY6Qp+B+15Y3XzIZ8DKs+VXWDecGztQkz66U/Qk37cEf8nKmrzxiRpaAtI
-	jzqyQx4vlNJYCvr36IRNrmF+iV0tB3qQ/4L1XmJJ2kbXMKWDoyr5b6wleEAbcbQ7aQgWNilz1H+
-	fWbuKj55mcan8bZUnXg0PcKVwPbTDt5UI3uv/JP/dp9fHdGBRlh0hUAr9SOYPj8ljHEpiZ+qRqB
-	TxC5l009nr3ojXVzrxBlyqnrSn6tGLkAlKe94sVjE8ln7MzQCywqkk2rhzKIH24qrskXfMqtMZj
-	7uPbepVKaNmlU8ksIPZKGaFJPKohKNIqUAsGW6Z75B8oqA+fvNjQcEymufr0GVBW6XxZpmPnWhI
-	OHYYtQC83rson7AQKrF1NulVA+zLg8F8v8dl3mHCPU8Na6O9yqG1wcheL1c3rJbZZdz4MwD88vT
-	Lmaa+Y6m/MK1zZe+dQcbQ6uTXCbbQjuNOmGpQqmakPL5tLl7wmxs/OWA3Sp/PGNCjtGuEBTtE=
-X-Received: by 2002:a05:6a00:2e89:b0:845:da74:5d7c with SMTP id d2e1a72fcca58-84e93181143mr7635149b3a.32.1785332935009;
-        Wed, 29 Jul 2026 06:48:55 -0700 (PDT)
-Received: from localhost.localdomain ([115.192.250.185])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea02ff637sm1425886b3a.39.2026.07.29.06.48.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 06:48:54 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	chamaken@gmail.com,
-	vega@nebusec.ai,
-	zihanx@nebusec.ai,
-	stable@vger.kernel.org
-Subject: [PATCH nf 1/1] netfilter: nf_conntrack_tcp: defer invalid logging until after unlock
-Date: Wed, 29 Jul 2026 13:48:17 +0000
-Message-ID: <b9b0022c68b6d0ac1a729f768466e3400a825a87.1785307981.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1785307980.git.zihanx@nebusec.ai>
-References: <cover.1785307980.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sXkhkJWL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6CC1F000E9;
+	Wed, 29 Jul 2026 13:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785332952;
+	bh=C+gwwKwP+pbSCASStqmGVZdrfVdly+6Z9iiKrNdvCf8=;
+	h=Subject:To:Cc:From:Date;
+	b=sXkhkJWLv/Kw+DeGuCB7hgjKyt6l3AY/qinOVPjHJVdNjjZe1Ile5etML1AnMsSzh
+	 rf9IIb1VgJwccQxDdgJIoOf2I3C/Ezuwu1hfumb1kVINuxyXjebXU6ehsAPDJzUgbJ
+	 F96oWD+mPa4VR0z80fu0nSlFLVqVBQVC+3Ec5VlI=
+Subject: FAILED: patch "[PATCH] ASoC: fsl_sai: Fix spurious BCLK on resume by clearing BYP" failed to apply to 6.6-stable tree
+To: chancel.liu@nxp.com,broonie@kernel.org,shengjiu.wang@gmail.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 15:48:59 +0200
+Message-ID: <2026072959-timid-mortify-1131@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-nf_conntrack_tcp_packet() can log invalid packets while ct->lock is still
-held. This happens both through tcp_in_window() -> nf_tcp_log_invalid()
-and through the NFCT_TCP_INVALID path -> nf_tcp_handle_invalid().
 
-If IPv4 invalid logging is bound to nfnetlink_log and the NFLLOG instance
-has NFULNL_CFG_F_CONNTRACK enabled, the logging path re-enters conntrack
-netlink glue and reaches tcp_to_nlattr(), which tries to take ct->lock
-again. This results in recursive lock acquisition and can deadlock the
-sender in queued_spin_lock_slowpath(), followed by stalls or panic.
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fix this by recording the minimal invalid-log context while ct->lock is
-held and emitting the actual log records only after dropping the lock.
-This keeps the existing invalid-log messages and still covers the timeout
-lowering log from nf_tcp_handle_invalid(), but removes the lock recursion
-from the logging path.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: a29a9a585b28 ("netfilter: nfnetlink_log: allow to attach conntrack")
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x d091132889c1378dd0944a72f86eae3e4da1e4fa
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072959-timid-mortify-1131@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From d091132889c1378dd0944a72f86eae3e4da1e4fa Mon Sep 17 00:00:00 2001
+From: Chancel Liu <chancel.liu@nxp.com>
+Date: Fri, 10 Jul 2026 16:08:35 +0900
+Subject: [PATCH] ASoC: fsl_sai: Fix spurious BCLK on resume by clearing BYP
+
+When the BCLK divider ratio is 1:1, fsl_sai_set_bclk() enables bypass
+mode by setting BYP, but never clears the bit. The BYP=1 value remains
+in the regcache, and is restored by regcache_sync() on the next runtime
+resume.
+
+Since BYP=1 combined with BCD=1 immediately outputs the ungated MCLK
+as BCLK without waiting for BCE/TE/RE to be enabled, the clock is
+driven prematurely before the stream is fully configured, causing
+noise on some codecs.
+
+Fix this by clearing BYP and BCI in fsl_sai_hw_free() taking into
+account sync mode and the opposite stream's state, so that the regcache
+holds BYP=0 before runtime suspend and regcache_sync() on resume will
+not restore bypass mode prematurely.
+
+Fixes: a50b7926d015 ("ASoC: fsl_sai: implement 1:1 bclk:mclk ratio support")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
- net/netfilter/nf_conntrack_proto_tcp.c | 167 +++++++++++++++++++------
- 1 file changed, 128 insertions(+), 39 deletions(-)
+Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+Reviewed-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+Link: https://patch.msgid.link/20260710070835.3749817-1-chancel.liu@oss.nxp.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 
-diff --git a/net/netfilter/nf_conntrack_proto_tcp.c b/net/netfilter/nf_conntrack_proto_tcp.c
-index ceeed3d7fe52..00f017d9997f 100644
---- a/net/netfilter/nf_conntrack_proto_tcp.c
-+++ b/net/netfilter/nf_conntrack_proto_tcp.c
-@@ -480,37 +480,125 @@ static void tcp_init_sender(struct ip_ct_tcp_state *sender,
- 	}
- }
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 9661602b53c5..d232c8f53061 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -808,6 +808,8 @@ static int fsl_sai_hw_free(struct snd_pcm_substream *substream,
+ 	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 	unsigned int ofs = sai->soc_data->reg_offset;
++	int adir = tx ? RX : TX;
++	int dir  = tx ? TX : RX;
  
--__printf(6, 7)
--static enum nf_ct_tcp_action nf_tcp_log_invalid(const struct sk_buff *skb,
--						const struct nf_conn *ct,
--						const struct nf_hook_state *state,
--						const struct ip_ct_tcp_state *sender,
--						enum nf_ct_tcp_action ret,
--						const char *fmt, ...)
-+enum nf_tcp_invalid_log_type {
-+	NF_TCP_LOG_NONE,
-+	NF_TCP_LOG_OVERSHOT,
-+	NF_TCP_LOG_SEQ_OVER,
-+	NF_TCP_LOG_ACK_OVER,
-+	NF_TCP_LOG_SEQ_UNDER,
-+	NF_TCP_LOG_ACK_UNDER,
-+	NF_TCP_LOG_LOWER_TIMEOUT,
-+};
-+
-+struct nf_tcp_invalid_log {
-+	enum nf_tcp_invalid_log_type type;
-+	u32 value;
-+	u8 index;
-+	u8 dir;
-+	u8 last_index;
-+};
-+
-+struct nf_tcp_invalid_logs {
-+	/* At most one tcp_in_window() log plus one lower-timeout log. */
-+	struct nf_tcp_invalid_log entries[2];
-+	u8 num;
-+};
-+
-+static void nf_tcp_queue_invalid_log(struct nf_tcp_invalid_logs *logs,
-+				     enum nf_tcp_invalid_log_type type,
-+				     u32 value, u8 index, u8 dir,
-+				     u8 last_index)
-+{
-+	struct nf_tcp_invalid_log *log;
-+
-+	if (logs->num >= ARRAY_SIZE(logs->entries))
-+		return;
-+
-+	log = &logs->entries[logs->num++];
-+	log->type = type;
-+	log->value = value;
-+	log->index = index;
-+	log->dir = dir;
-+	log->last_index = last_index;
-+}
-+
-+static enum nf_ct_tcp_action
-+nf_tcp_log_invalid(const struct nf_conn *ct,
-+		   const struct ip_ct_tcp_state *sender,
-+		   struct nf_tcp_invalid_logs *logs,
-+		   enum nf_ct_tcp_action ret,
-+		   enum nf_tcp_invalid_log_type type,
-+		   u32 value)
- {
- 	const struct nf_tcp_net *tn = nf_tcp_pernet(nf_ct_net(ct));
--	struct va_format vaf;
--	va_list args;
- 	bool be_liberal;
+ 	/* Clear xMR to avoid channel swap with mclk_with_tere enabled case */
+ 	regmap_write(sai->regmap, FSL_SAI_xMR(tx), 0);
+@@ -815,10 +817,29 @@ static int fsl_sai_hw_free(struct snd_pcm_substream *substream,
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx, ofs),
+ 			   FSL_SAI_CR3_TRCE_MASK, 0);
  
- 	be_liberal = sender->flags & IP_CT_TCP_FLAG_BE_LIBERAL || tn->tcp_be_liberal;
- 	if (be_liberal)
- 		return NFCT_TCP_ACCEPT;
- 
--	va_start(args, fmt);
--	vaf.fmt = fmt;
--	vaf.va = &args;
--	nf_ct_l4proto_log_invalid(skb, ct, state, "%pV", &vaf);
--	va_end(args);
--
-+	nf_tcp_queue_invalid_log(logs, type, value, 0, 0, 0);
- 	return ret;
- }
- 
-+static void nf_tcp_emit_invalid_log(const struct sk_buff *skb,
-+				    const struct nf_conn *ct,
-+				    const struct nf_hook_state *state,
-+				    const struct nf_tcp_invalid_log *log)
-+{
-+	switch (log->type) {
-+	case NF_TCP_LOG_OVERSHOT:
-+		nf_ct_l4proto_log_invalid(skb, ct, state,
-+					  "%u bytes more than expected",
-+					  log->value);
-+		break;
-+	case NF_TCP_LOG_SEQ_OVER:
-+		nf_ct_l4proto_log_invalid(skb, ct, state,
-+					  "SEQ is over upper bound %u (over the window of the receiver)",
-+					  log->value);
-+		break;
-+	case NF_TCP_LOG_ACK_OVER:
-+		nf_ct_l4proto_log_invalid(skb, ct, state,
-+					  "ACK is over upper bound %u (ACKed data not seen yet)",
-+					  log->value);
-+		break;
-+	case NF_TCP_LOG_SEQ_UNDER:
-+		nf_ct_l4proto_log_invalid(skb, ct, state,
-+					  "SEQ is under lower bound %u (already ACKed data retransmitted)",
-+					  log->value);
-+		break;
-+	case NF_TCP_LOG_ACK_UNDER:
-+		nf_ct_l4proto_log_invalid(skb, ct, state,
-+					  "ignored ACK under lower bound %u (possible overly delayed)",
-+					  log->value);
-+		break;
-+	case NF_TCP_LOG_LOWER_TIMEOUT:
-+		nf_ct_l4proto_log_invalid(skb, ct, state,
-+					  "packet (index %d, dir %d) response for index %d lower timeout to %u",
-+					  log->index, log->dir,
-+					  log->last_index, log->value);
-+		break;
-+	case NF_TCP_LOG_NONE:
-+		break;
-+	}
-+}
+-	if (!sai->is_consumer_mode[tx] &&
+-	    sai->mclk_streams & BIT(substream->stream)) {
+-		clk_disable_unprepare(sai->mclk_clk[sai->mclk_id[tx]]);
+-		sai->mclk_streams &= ~BIT(substream->stream);
++	if (!sai->is_consumer_mode[tx]) {
++		bool adir_active = !!(sai->mclk_streams & BIT(!substream->stream));
++		/*
++		 * If opposite stream provides clocks for synchronous mode and
++		 * it is inactive, Clear BYP and BCI
++		 */
++		if (fsl_sai_dir_is_synced(sai, adir) && !adir_active)
++			regmap_update_bits(sai->regmap, FSL_SAI_xCR2(!tx, ofs),
++					   FSL_SAI_CR2_BCI | FSL_SAI_CR2_BYP, 0);
++		/*
++		 * Clear BYP and BCI of current stream if either of:
++		 * 1. current stream doesn't provide clocks for synchronous mode
++		 * 2. current stream provides clocks for synchronous mode but no
++		 *    more stream is active.
++		 */
++		if (!fsl_sai_dir_is_synced(sai, dir) || !adir_active)
++			regmap_update_bits(sai->regmap, FSL_SAI_xCR2(tx, ofs),
++					   FSL_SAI_CR2_BCI | FSL_SAI_CR2_BYP, 0);
 +
-+static void nf_tcp_emit_invalid_logs(const struct sk_buff *skb,
-+				     const struct nf_conn *ct,
-+				     const struct nf_hook_state *state,
-+				     const struct nf_tcp_invalid_logs *logs)
-+{
-+	u8 i;
-+
-+	for (i = 0; i < logs->num; i++)
-+		nf_tcp_emit_invalid_log(skb, ct, state, &logs->entries[i]);
-+}
-+
- static enum nf_ct_tcp_action
- tcp_in_window(struct nf_conn *ct, enum ip_conntrack_dir dir,
- 	      unsigned int index, const struct sk_buff *skb,
- 	      unsigned int dataoff, const struct tcphdr *tcph,
--	      const struct nf_hook_state *hook_state)
-+	      struct nf_tcp_invalid_logs *logs)
- {
- 	struct ip_ct_tcp *state = &ct->proto.tcp;
- 	struct ip_ct_tcp_state *sender = &state->seen[dir];
-@@ -640,31 +728,29 @@ tcp_in_window(struct nf_conn *ct, enum ip_conntrack_dir dir,
- 			sender->td_end = end;
- 			sender->flags |= IP_CT_TCP_FLAG_DATA_UNACKNOWLEDGED;
- 
--			return nf_tcp_log_invalid(skb, ct, hook_state, sender, NFCT_TCP_IGNORE,
--						  "%u bytes more than expected", overshot);
-+			return nf_tcp_log_invalid(ct, sender, logs, NFCT_TCP_IGNORE,
-+					  NF_TCP_LOG_OVERSHOT, overshot);
- 		}
- 
--		return nf_tcp_log_invalid(skb, ct, hook_state, sender, NFCT_TCP_INVALID,
--					  "SEQ is over upper bound %u (over the window of the receiver)",
--					  sender->td_maxend + 1);
-+		return nf_tcp_log_invalid(ct, sender, logs, NFCT_TCP_INVALID,
-+				  NF_TCP_LOG_SEQ_OVER, sender->td_maxend + 1);
++		if (sai->mclk_streams & BIT(substream->stream)) {
++			clk_disable_unprepare(sai->mclk_clk[sai->mclk_id[tx]]);
++			sai->mclk_streams &= ~BIT(substream->stream);
++		}
  	}
  
- 	if (!before(sack, receiver->td_end + 1))
--		return nf_tcp_log_invalid(skb, ct, hook_state, sender, NFCT_TCP_INVALID,
--					  "ACK is over upper bound %u (ACKed data not seen yet)",
--					  receiver->td_end + 1);
-+		return nf_tcp_log_invalid(ct, sender, logs, NFCT_TCP_INVALID,
-+				  NF_TCP_LOG_ACK_OVER, receiver->td_end + 1);
- 
- 	/* Is the ending sequence in the receive window (if available)? */
- 	in_recv_win = !receiver->td_maxwin ||
- 		      after(end, sender->td_end - receiver->td_maxwin - 1);
- 	if (!in_recv_win)
--		return nf_tcp_log_invalid(skb, ct, hook_state, sender, NFCT_TCP_IGNORE,
--					  "SEQ is under lower bound %u (already ACKed data retransmitted)",
--					  sender->td_end - receiver->td_maxwin - 1);
-+		return nf_tcp_log_invalid(ct, sender, logs, NFCT_TCP_IGNORE,
-+				  NF_TCP_LOG_SEQ_UNDER,
-+				  sender->td_end - receiver->td_maxwin - 1);
- 	if (!after(sack, receiver->td_end - MAXACKWINDOW(sender) - 1))
--		return nf_tcp_log_invalid(skb, ct, hook_state, sender, NFCT_TCP_IGNORE,
--					  "ignored ACK under lower bound %u (possible overly delayed)",
--					  receiver->td_end - MAXACKWINDOW(sender) - 1);
-+		return nf_tcp_log_invalid(ct, sender, logs, NFCT_TCP_IGNORE,
-+				  NF_TCP_LOG_ACK_UNDER,
-+				  receiver->td_end - MAXACKWINDOW(sender) - 1);
- 
- 	/* Take into account window scaling (RFC 1323). */
- 	if (!tcph->syn)
-@@ -720,10 +806,9 @@ tcp_in_window(struct nf_conn *ct, enum ip_conntrack_dir dir,
- }
- 
- static void __cold nf_tcp_handle_invalid(struct nf_conn *ct,
--					 enum ip_conntrack_dir dir,
--					 int index,
--					 const struct sk_buff *skb,
--					 const struct nf_hook_state *hook_state)
-+				 enum ip_conntrack_dir dir,
-+				 int index,
-+				 struct nf_tcp_invalid_logs *logs)
- {
- 	const unsigned int *timeouts;
- 	const struct nf_tcp_net *tn;
-@@ -764,9 +849,10 @@ static void __cold nf_tcp_handle_invalid(struct nf_conn *ct,
- 
- 		timeout = READ_ONCE(timeouts[TCP_CONNTRACK_UNACK]);
- 		if (expires > timeout) {
--			nf_ct_l4proto_log_invalid(skb, ct, hook_state,
--					  "packet (index %d, dir %d) response for index %d lower timeout to %u",
--					  index, dir, ct->proto.tcp.last_index, timeout);
-+			nf_tcp_queue_invalid_log(logs,
-+						 NF_TCP_LOG_LOWER_TIMEOUT,
-+						 timeout, index, dir,
-+						 ct->proto.tcp.last_index);
- 
- 			WRITE_ONCE(ct->timeout, timeout + nfct_time_stamp);
- 		}
-@@ -971,6 +1057,7 @@ int nf_conntrack_tcp_packet(struct nf_conn *ct,
- 	enum tcp_conntrack new_state, old_state;
- 	unsigned int index, *timeouts;
- 	enum nf_ct_tcp_action res;
-+	struct nf_tcp_invalid_logs logs = {};
- 	enum ip_conntrack_dir dir;
- 	const struct tcphdr *th;
- 	struct tcphdr _tcph;
-@@ -1252,14 +1339,16 @@ int nf_conntrack_tcp_packet(struct nf_conn *ct,
- 	}
- 
- 	res = tcp_in_window(ct, dir, index,
--			    skb, dataoff, th, state);
-+			    skb, dataoff, th, &logs);
- 	switch (res) {
- 	case NFCT_TCP_IGNORE:
- 		spin_unlock_bh(&ct->lock);
-+		nf_tcp_emit_invalid_logs(skb, ct, state, &logs);
- 		return NF_ACCEPT;
- 	case NFCT_TCP_INVALID:
--		nf_tcp_handle_invalid(ct, dir, index, skb, state);
-+		nf_tcp_handle_invalid(ct, dir, index, &logs);
- 		spin_unlock_bh(&ct->lock);
-+		nf_tcp_emit_invalid_logs(skb, ct, state, &logs);
- 		return -NF_ACCEPT;
- 	case NFCT_TCP_ACCEPT:
- 		break;
--- 
-2.43.0
+ 	return 0;
 
