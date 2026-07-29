@@ -1,40 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D6C1799F;
-	Wed, 29 Jul 2026 15:21:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAD63B0584;
+	Wed, 29 Jul 2026 15:23:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785338489; cv=none; b=IrhCGhP0nXGLTVmDPuhhoZ79Z2cZCYRdrOtCPZt9SKqy24BZbgrsN/9HGrtTLC36NdrpKLEkqC+Gehtpl0eZBB4fnHC6zjLYsP4s7Pa8DVWE0eCm/tkJB8rV6A0MqssaC5D9M+6Of7Fnfigq+nlDs4fzhdyXnFcDBrhFveRZgrM=
+	t=1785338593; cv=none; b=C4D8X0jbJYE4Du42xVrzpmjlCVLn9jxOniSdfoEyYv6WFJHDO1g2cImCNJKnwnIL/uAXutxEz10VRH2kIJXanb6naXgjt5/3jJUJVTCrst9fp7C+ukoKm/c3PGUUOcfnZn4adyUaWNbFegw5X89gH5DtEMAIEhIhhA7168uUwC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785338489; c=relaxed/simple;
-	bh=sN4b0qs5cHEghQ3d+PFGTq66jo5xFpcTvktk6EV0g5o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g+SEbCkJXYFvTy5rpTV3BfitqbVvYmjnNoifGQhwPQiKqpZAaykLDgqMjKLTp1JOUlvRYoSJ2ODREt1D/7P5vV1oX8eqgEb48E1/ANgOTANqVeVt80yCgliN/zaNdXGMtxNLfU4Sn/pOUnaLoisxscPAiI3Z+H631tvEIR66LUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CZIePGF5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785338593; c=relaxed/simple;
+	bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HiA2WjFyEqyVofiESp6yVVrBhkk2kpCoGXm4LxFSPw3qPp2kV6C5be2paLDGwXAmQFbLJPRNIibsGw8W0KpPOznIKmHO8av1L6Q9Qrb4Q63Nfue2ZocXkf0exXc1O8TwNNvsP0DkbplegSWf50l9abymxI/wab6Kc+Ff7xfXMVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=rZytN7q/; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=fulHtu1t; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CZIePGF5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6421F00A3A;
-	Wed, 29 Jul 2026 15:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785338487;
-	bh=RltkKNIxqbXfedvBZ+fsnyiDQtz4LQ2Yf+BgfLGX4C4=;
-	h=From:To:Cc:Subject:Date;
-	b=CZIePGF5y8iamlnv1OPTRzFTRjlzBrELK+ed7QwOveIsbrrXqOKsuduH+M8JJuhej
-	 aIQB7qbTquqh4yJCwyezr1YAEpb8vUqL+Esa38aVFAi+0ZaO8jncf0f9CUKRmoD+je
-	 9LJo41ybmCVx8kPJMpChFsKc6LDkQJUkjqqwPQHu/PKMZkuzr/kJdD5B5vMQhDBuGj
-	 gtAfGo8N/710t6ty17KwsUgcY63bQOeOR97koKiO7/jy+nYI8qq2NNyIGICFunoIpu
-	 h+O3iWJo44OZnCPmUgW/shmxsAILS2m/+VYxAQTRjcTAg+gJVeRyo6MtbvU9W9zsEB
-	 039Q29ENBsmtQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-fscrypt@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	Christoph Hellwig <hch@lst.de>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 6.18] fscrypt: Avoid dynamic allocation in fscrypt_get_devices()
-Date: Wed, 29 Jul 2026 08:19:05 -0700
-Message-ID: <20260729151905.8303-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="rZytN7q/";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="fulHtu1t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1785338590; bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=rZytN7q/gnbE0hIFv5YtshbfSnNCG0h3g2XZqsCws1DicUxrhKDtez1z8h04103LO
+	 Pn8hBP7yXrLYy97r1xENwNHaGIQlYHkLFd4ScTYKiVdrgag8BOVlYr1RO96TSLUc11
+	 jbYVTJ9OYpm1jrjcJQVaXuR+4DxF/tsnehAbzvybCAmeSBbFO5H+ksyn2cdAJCsBpY
+	 X0+4NCau70/3r6w0Ve2fNKQK+UKFrbjYyT823ijMSrT+DnKQ8eylvXhxX6TphYdeW1
+	 tSZS3huN5/GMdrlQZSYDC+LUEZd+r6wrjfyujhJkVM6Znk//yBlFTEbHiz+TnMN1Wn
+	 9pzWKFszqUMJA==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id 5D2C242528; Wed, 29 Jul 2026 16:23:10 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1785338589; bh=yZxyCRkmp4AKMHYqkRoIsn2dSvwisuNURdwjTe4731Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=fulHtu1tx7VDkosqIJ6Zsw9wafE40FgUe7XWuRx5YM/rZ7fkcDMW2xMuXUd9ISwLs
+	 AWggpBUpWFtMsUH8Y3GyOatmTCGwFd/fAD9hNp8hC4+IrQfbRPfw1eGd5ZAN6YoMK9
+	 DcB2FqS+DHyO10GnP19jwMFTGLzgDzeRUEJf+4Pe8OyVZGJHLWeNdiXqk9b8kDrwFU
+	 Rb35rREHWcVLlcNipVHyc283piuXCKmhxMb14ZxeKzJk/5l9EfPqgantKqs/eabs6w
+	 r6s31oXVQImhgy8mWZgTufHh1rHFNZT9mn1AMYGOmbyQ9mCd9ASpliiIVIAeImZCmy
+	 FTnKfIrogv2RA==
+Received: from maru.local (unknown [62.232.99.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 9AA6241567;
+	Wed, 29 Jul 2026 16:23:09 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Oliver Neukum <oneukum@suse.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 01/15] media: streamzap: Add missing rc_unregister_device()
+Date: Wed, 29 Jul 2026 16:22:39 +0100
+Message-ID: <96fd93385f18492cdafaa964e91e82671fc62fc9.1785338381.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1785338381.git.sean@mess.org>
+References: <cover.1785338381.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,258 +66,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 6fe4e4b8259e1330945b5f3c9476e08473b8e0e8 upstream.
+If usb_submit_urb() fails during probe, then the error path is missing a
+call to rc_unregister_device(), which will leak various things like the
+input device.
 
-When a blk_crypto_key starts being used or is evicted, fs/crypto/ calls
-fscrypt_get_devices() to get the filesystem's list of block devices,
-then iterates over them and calls blk_crypto_config_supported(),
-blk_crypto_start_using_key(), or blk_crypto_evict_key() on each one.
-
-Currently, the block device pointers are placed in a dynamically
-allocated array.  This dynamic allocation is problematic because:
-
-- It can fail, especially at the fscrypt_destroy_inline_crypt_key() call
-  site when it's invoked for inode eviction under direct reclaim.
-
-- fscrypt_destroy_inline_crypt_key() doesn't handle the failure.  It
-  just zeroizes and frees the blk_crypto_key without calling
-  blk_crypto_evict_key().  That causes a use-after-free.
-
-For now, let's fix this in the straightforward and easily-backportable
-way by switching to an on-stack array.  Currently the fscrypt
-multi-device functionality is used only by f2fs, which has a hardcoded
-limit of 8 block devices.  An on-stack array works fine for that.
-
-(Of course, this solution won't scale up to large number of block
-devices.  For that we'd need a different solution, like moving the block
-device iteration into the filesystem.  Or in the case of btrfs, which
-will only support blk-crypto-fallback, we should make it just call
-blk-crypto-fallback directly, so the block devices won't be needed.)
-
-Fixes: 22e9947a4b2b ("fscrypt: stop holding extra request_queue references")
+Fixes: 42844992664f ("media: rc: streamzap: Error handling in probe")
+Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260713023708.9245-1-ebiggers%40kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260719055602.78828-1-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- fs/crypto/inline_crypt.c | 57 ++++++++++++++--------------------------
- fs/f2fs/super.c          | 25 ++++++++++--------
- include/linux/fscrypt.h  | 18 +++++++------
- 3 files changed, 44 insertions(+), 56 deletions(-)
+ drivers/media/rc/streamzap.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index 645cc49360729..500397ca8a26f 100644
---- a/fs/crypto/inline_crypt.c
-+++ b/fs/crypto/inline_crypt.c
-@@ -22,22 +22,14 @@
- 
- #include "fscrypt_private.h"
- 
--static struct block_device **fscrypt_get_devices(struct super_block *sb,
--						 unsigned int *num_devs)
-+static unsigned int
-+fscrypt_get_devices(struct super_block *sb,
-+		    struct block_device *devs[FSCRYPT_MAX_DEVICES])
- {
--	struct block_device **devs;
--
--	if (sb->s_cop->get_devices) {
--		devs = sb->s_cop->get_devices(sb, num_devs);
--		if (devs)
--			return devs;
--	}
--	devs = kmalloc(sizeof(*devs), GFP_KERNEL);
--	if (!devs)
--		return ERR_PTR(-ENOMEM);
-+	if (sb->s_cop->get_devices)
-+		return sb->s_cop->get_devices(sb, devs);
- 	devs[0] = sb->s_bdev;
--	*num_devs = 1;
--	return devs;
-+	return 1;
- }
- 
- static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_inode_info *ci)
-@@ -96,7 +88,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci,
- 	const struct inode *inode = ci->ci_inode;
- 	struct super_block *sb = inode->i_sb;
- 	struct blk_crypto_config crypto_cfg;
--	struct block_device **devs;
-+	struct block_device *devs[FSCRYPT_MAX_DEVICES];
- 	unsigned int num_devs;
- 	unsigned int i;
- 
-@@ -135,20 +127,15 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci,
- 	crypto_cfg.key_type = is_hw_wrapped_key ?
- 		BLK_CRYPTO_KEY_TYPE_HW_WRAPPED : BLK_CRYPTO_KEY_TYPE_RAW;
- 
--	devs = fscrypt_get_devices(sb, &num_devs);
--	if (IS_ERR(devs))
--		return PTR_ERR(devs);
--
-+	num_devs = fscrypt_get_devices(sb, devs);
- 	for (i = 0; i < num_devs; i++) {
- 		if (!blk_crypto_config_supported(devs[i], &crypto_cfg))
--			goto out_free_devs;
-+			return 0;
- 	}
- 
- 	fscrypt_log_blk_crypto_impl(ci->ci_mode, devs, num_devs, &crypto_cfg);
- 
- 	ci->ci_inlinecrypt = true;
--out_free_devs:
--	kfree(devs);
+diff --git a/drivers/media/rc/streamzap.c b/drivers/media/rc/streamzap.c
+index 307985d74fe8..41195ad82734 100644
+--- a/drivers/media/rc/streamzap.c
++++ b/drivers/media/rc/streamzap.c
+@@ -365,6 +365,7 @@ static int streamzap_probe(struct usb_interface *intf,
  
  	return 0;
- }
-@@ -164,7 +151,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
- 	enum blk_crypto_key_type key_type = is_hw_wrapped ?
- 		BLK_CRYPTO_KEY_TYPE_HW_WRAPPED : BLK_CRYPTO_KEY_TYPE_RAW;
- 	struct blk_crypto_key *blk_key;
--	struct block_device **devs;
-+	struct block_device *devs[FSCRYPT_MAX_DEVICES];
- 	unsigned int num_devs;
- 	unsigned int i;
- 	int err;
-@@ -182,17 +169,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
- 	}
- 
- 	/* Start using blk-crypto on all the filesystem's block devices. */
--	devs = fscrypt_get_devices(sb, &num_devs);
--	if (IS_ERR(devs)) {
--		err = PTR_ERR(devs);
--		goto fail;
--	}
-+	num_devs = fscrypt_get_devices(sb, devs);
- 	for (i = 0; i < num_devs; i++) {
- 		err = blk_crypto_start_using_key(devs[i], blk_key);
- 		if (err)
- 			break;
- 	}
--	kfree(devs);
- 	if (err) {
- 		fscrypt_err(inode, "error %d starting to use blk-crypto", err);
- 		goto fail;
-@@ -210,20 +192,21 @@ void fscrypt_destroy_inline_crypt_key(struct super_block *sb,
- 				      struct fscrypt_prepared_key *prep_key)
- {
- 	struct blk_crypto_key *blk_key = prep_key->blk_key;
--	struct block_device **devs;
-+	struct block_device *devs[FSCRYPT_MAX_DEVICES];
- 	unsigned int num_devs;
- 	unsigned int i;
- 
- 	if (!blk_key)
- 		return;
- 
--	/* Evict the key from all the filesystem's block devices. */
--	devs = fscrypt_get_devices(sb, &num_devs);
--	if (!IS_ERR(devs)) {
--		for (i = 0; i < num_devs; i++)
--			blk_crypto_evict_key(devs[i], blk_key);
--		kfree(devs);
--	}
-+	/*
-+	 * Evict the key from all the filesystem's block devices.
-+	 * This *must* be done before the key is freed.
-+	 */
-+	num_devs = fscrypt_get_devices(sb, devs);
-+	for (i = 0; i < num_devs; i++)
-+		blk_crypto_evict_key(devs[i], blk_key);
-+
- 	kfree_sensitive(blk_key);
- }
- 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index f6b75ce11d1c1..6f787cbeefd09 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -3659,24 +3659,27 @@ static bool f2fs_has_stable_inodes(struct super_block *sb)
- 	return true;
- }
- 
--static struct block_device **f2fs_get_devices(struct super_block *sb,
--					      unsigned int *num_devs)
-+static unsigned int
-+f2fs_get_devices(struct super_block *sb,
-+		 struct block_device *devs[FSCRYPT_MAX_DEVICES])
- {
- 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
--	struct block_device **devs;
-+	int ndevs;
- 	int i;
- 
--	if (!f2fs_is_multi_device(sbi))
--		return NULL;
-+	static_assert(MAX_DEVICES <= FSCRYPT_MAX_DEVICES);
- 
--	devs = kmalloc_array(sbi->s_ndevs, sizeof(*devs), GFP_KERNEL);
--	if (!devs)
--		return ERR_PTR(-ENOMEM);
-+	if (!f2fs_is_multi_device(sbi)) {
-+		devs[0] = sb->s_bdev;
-+		return 1;
-+	}
-+	ndevs = sbi->s_ndevs;
-+	if (WARN_ON_ONCE(ndevs > FSCRYPT_MAX_DEVICES))
-+		ndevs = FSCRYPT_MAX_DEVICES;
- 
--	for (i = 0; i < sbi->s_ndevs; i++)
-+	for (i = 0; i < ndevs; i++)
- 		devs[i] = FDEV(i).bdev;
--	*num_devs = sbi->s_ndevs;
--	return devs;
-+	return ndevs;
- }
- 
- static const struct fscrypt_operations f2fs_cryptops = {
-diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index 516aba5b858b5..c009d4afe9185 100644
---- a/include/linux/fscrypt.h
-+++ b/include/linux/fscrypt.h
-@@ -57,6 +57,9 @@ struct fscrypt_name {
- /* Maximum value for the third parameter of fscrypt_operations.set_context(). */
- #define FSCRYPT_SET_CONTEXT_MAX_SIZE	40
- 
-+/* Maximum supported number of block devices per filesystem */
-+#define FSCRYPT_MAX_DEVICES	8
-+
- #ifdef CONFIG_FS_ENCRYPTION
- 
- /* Crypto operations for filesystems */
-@@ -181,21 +184,20 @@ struct fscrypt_operations {
- 	bool (*has_stable_inodes)(struct super_block *sb);
- 
- 	/*
--	 * Return an array of pointers to the block devices to which the
--	 * filesystem may write encrypted file contents, NULL if the filesystem
--	 * only has a single such block device, or an ERR_PTR() on error.
-+	 * Retrieve the list of block devices to which the filesystem may write
-+	 * encrypted file contents.
- 	 *
--	 * On successful non-NULL return, *num_devs is set to the number of
--	 * devices in the returned array.  The caller must free the returned
--	 * array using kfree().
-+	 * This writes the block_device pointers to @devs and returns the count
-+	 * (between 1 and FSCRYPT_MAX_DEVICES inclusively).
- 	 *
- 	 * If the filesystem can use multiple block devices (other than block
- 	 * devices that aren't used for encrypted file contents, such as
- 	 * external journal devices), and wants to support inline encryption,
- 	 * then it must implement this function.  Otherwise it's not needed.
- 	 */
--	struct block_device **(*get_devices)(struct super_block *sb,
--					     unsigned int *num_devs);
-+	unsigned int (*get_devices)(
-+		struct super_block *sb,
-+		struct block_device *devs[FSCRYPT_MAX_DEVICES]);
- };
- 
- int fscrypt_d_revalidate(struct inode *dir, const struct qstr *name,
-
-base-commit: 221fc2f4d0eda59d02af2e751a9282fa013a8e97
+ rc_submit_fail:
++	rc_unregister_device(sz->rdev);
+ 	rc_free_device(sz->rdev);
+ 	usb_set_intfdata(intf, NULL);
+ rc_dev_fail:
 -- 
 2.55.0
 
