@@ -1,114 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7A647142C
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BF8199949;
+	Wed, 29 Jul 2026 11:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785323867; cv=none; b=qeuBqlGR4gVrLmjNdGYRT24iqXg0HaaOIeHpKyATx5zscxqZJhOG26tdtdjGETa6/qfGFFBD73CBteLQsgi55tuYQLd1NJfme80P95MibdrM09JhDRkJnHy3woJ0GqmqMZjcxqlJ57YzpM8nzi8A8xtJYaYEKg6DduPUsnD8I4o=
+	t=1785324160; cv=none; b=V4cfiPIyMqFB2H0BHz5+EAFMQ01pKrnQrsqmVKCoHZNZQRMX0FjmdW1XIzJeMh3Rm/Vqkd3v0Z/NdKOStZcPYzSMWy5LFOtwEYY7wXFtaP6m5u6som4PqupVZ/3VoMxCLY9Z0+LtCXSjSaGEOqHadNmoqC+zJJnkTQv4QjI03bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785323867; c=relaxed/simple;
-	bh=3uoZ5s2Qv4BXHJKbSbH4tkWI20xcOPhcvQ2g0JyU/eQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UNFP8/dfNbdgOYvE2BjWANicf09YW3c7RXpIWYTRn88esQN5gQfG6hYsEaM+wuRHDfFKrdV6Klh1YMs022JYFnnI9jEigCiE+dKvY5Nl6IIjVLrsGKjg4I0ZJAK7+xMOLsjCEmKdZoou74dkJ0p+wSvTNa5w0liuBcLP4KVyYqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ssxExjTb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785324160; c=relaxed/simple;
+	bh=n65bQH6zeEINoB60fgeuH8MSETQDZMGuQZCAAEut1rw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=skHjbDh8B0hZAsksq+jINgUYcZQeeVg0EbPI6ktI0Rk+7IXRiRN2gE1rR72Rj4ohn/vA29VzgA3wE/AwD4UclJ6tGPXHGGF3p/dsmEJ1zxjO2xbb9THWafzwv4rvLZpf3tAztF1IiUq7baLhwPb8pLAFgtnbZZWL40qF/B8GbXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=rT2w4J14; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ssxExjTb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3B31F000E9;
-	Wed, 29 Jul 2026 11:17:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785323866;
-	bh=r1cgky32kex/6bds5BGbax2hmECeLjellKpU5yUrWFc=;
-	h=Subject:To:Cc:From:Date;
-	b=ssxExjTbcuE9cCQRI+E65H7MG+Gro7TcMqXFGiRmPAvpmIgcLe6p6acuNAhDCAsvd
-	 nDPRw5BoPQQA6n0kze1GXlc6fayzPqMUP22eu6naSq5XbZBrwbk78G583Um+re4nh5
-	 9C5OKM9AtQxQheQOW7ZeBH5QnAYbS34cqONfnTmc=
-Subject: FAILED: patch "[PATCH] drm/i915/hdcp: check streams[] bounds before overflow" failed to apply to 6.6-stable tree
-To: jani.nikula@intel.com,anshuman.gupta@intel.com,joonas.lahtinen@linux.intel.com,martin.hodo@intel.com,suraj.kandpal@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 13:17:17 +0200
-Message-ID: <2026072917-dugout-sufferer-eb18@gregkh>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="rT2w4J14"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Yq9RcTPQukrz44sSQPDwwqwbVc0C7hhnfU9ii4SNZfY=;
+	b=rT2w4J14eUS2GClp77ZiNXc7mj/P5T2aqIW9qZcCpNFwr7JPKAEZZpyC/3N3YCZ5CWZfJ7qQL
+	ARJrPAQGKJd9Q7uhsvGUbvq3Ih6VU/7J11WyVjy074cRsuHZ1Je0NJ1dZh6tO257C6vSiSMXimk
+	NqfSrlWEXx6GH7no99mjM9I=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4h98ns1bBJzLlXF;
+	Wed, 29 Jul 2026 19:13:05 +0800 (CST)
+Received: from whupemo500009.china.huawei.com (unknown [7.152.184.116])
+	by mail.maildlp.com (Postfix) with ESMTPS id 41B39402AB;
+	Wed, 29 Jul 2026 19:22:32 +0800 (CST)
+Received: from [100.103.109.247] (100.103.109.247) by
+ whupemo500009.china.huawei.com (7.152.184.116) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 29 Jul 2026 19:22:30 +0800
+Message-ID: <b3ea698b-95b2-4f5d-ac20-e9e5cdf08712@huawei.com>
+Date: Wed, 29 Jul 2026 19:22:29 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] params: fix charp corruption on allocation failure
+To: Petr Pavlu <petr.pavlu@suse.com>
+CC: <samitolvanen@google.com>, <rusty@rustcorp.com.au>, <hannes@cmpxchg.org>,
+	<yosry@kernel.org>, <nphamcs@gmail.com>, <liuyongqiang13@huawei.com>,
+	<linux-modules@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20260728085518.3865621-1-yujiacheng3@huawei.com>
+ <dfe25916-0f2e-44ed-8f49-d7448a0e28fa@suse.com>
+ <c9643f86-f196-4c99-8129-2314a33a990f@huawei.com>
+ <ff0b7cdd-8fa7-4cb8-9e21-6a7204809766@suse.com>
+Content-Language: en-GB
+From: Jiacheng Yu <yujiacheng3@huawei.com>
+In-Reply-To: <ff0b7cdd-8fa7-4cb8-9e21-6a7204809766@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemo500009.china.huawei.com (7.152.184.116)
 
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+On 28/07/2026 20:57, Petr Pavlu wrote:
+> On 7/28/26 2:22 PM, Jiacheng Yu wrote:
+>> On 28/07/2026 18:46, Petr Pavlu wrote:
+>>> On 7/28/26 10:55 AM, Jiacheng Yu wrote:
+>>>> diff --git a/kernel/params.c b/kernel/params.c
+>>>> index a668863a4bb6..e4f2b71dde1e 100644
+>>>> --- a/kernel/params.c
+>>>> +++ b/kernel/params.c
+>>>> @@ -261,6 +261,7 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
+>>>>  
+>>>>  int param_set_charp(const char *val, const struct kernel_param *kp)
+>>>>  {
+>>>> +	char *tmp;
+>>>>  	size_t len, maxlen = 1024;
+>>>>  
+>>>>  	len = strnlen(val, maxlen + 1);
+>>>> @@ -269,19 +270,20 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
+>>>>  		return -ENOSPC;
+>>>>  	}
+>>>>  
+>>>> -	maybe_kfree_parameter(*(char **)kp->arg);
+>>>> -
+>>>>  	/*
+>>>>  	 * This is a hack. We can't kmalloc() in early boot, and we
+>>>>  	 * don't need to; this mangled commandline is preserved.
+>>>>  	 */
+>>>>  	if (slab_is_available()) {
+>>>> -		*(char **)kp->arg = kmalloc_parameter(len + 1);
+>>>> -		if (!*(char **)kp->arg)
+>>>> +		tmp = kmalloc_parameter(len + 1);
+>>>> +		if (!tmp)
+>>>>  			return -ENOMEM;
+>>>> -		strcpy(*(char **)kp->arg, val);
+>>>> +		strscpy(tmp, val, len + 1);
+>>>
+>>> What's wrong with the plain strcpy() here?
+>>
+>> Functionally, plain strcpy() is fine here.  The preceding
+>> strnlen(val, maxlen + 1) either finds the NUL byte within the limit or
+>> rejects the string, and the new allocation is exactly len + 1 bytes.
+>>
+>> However, when this patch rewrites the line to use tmp,
+>> checkpatch --strict reports the following warning:
+>>
+>>     WARNING: Prefer strscpy over strcpy
+>>
+>> Since the line is being rewritten anyway, I changed strcpy() to
+>> strscpy() to follow that preference:
+>> https://github.com/KSPP/linux/issues/88
+> 
+> I don't see a benefit to using strscpy() here. The length of the string
+> is already known and the tmp buffer is correctly sized, so using
+> `memcpy(tmp, val, len + 1)` seems most appropriate to me.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x bbb15a6b042d02e5508a02b4847e02d2579ee7bc
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072917-dugout-sufferer-eb18@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+Agreed, memcpy() is more appropriate here since the length is already
+known. Changed in v2, thanks for the review.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From bbb15a6b042d02e5508a02b4847e02d2579ee7bc Mon Sep 17 00:00:00 2001
-From: Jani Nikula <jani.nikula@intel.com>
-Date: Thu, 25 Jun 2026 20:03:04 +0300
-Subject: [PATCH] drm/i915/hdcp: check streams[] bounds before overflow
-
-The data->streams[] overflow check is done after the buffer overflow has
-already happened. Move the overflow check before the write.
-
-Side note, emitting a warning splat with a backtrace might be overkill
-here, but prefer not changing the behaviour other than not doing the
-overrun.
-
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
-
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: e03187e12cae ("drm/i915/hdcp: MST streams support in hdcp port_data")
-Cc: stable@vger.kernel.org # v5.12+
-Cc: Anshuman Gupta <anshuman.gupta@intel.com>
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Link: https://patch.msgid.link/20260625170304.1104723-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-(cherry picked from commit 9284ab3b6e776c315883ac2611283d263c9460fd)
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index e88fec24af49..521786a75c42 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -145,6 +145,9 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
- 		if (!new_conn_state || !new_conn_state->crtc)
- 			continue;
- 
-+		if (drm_WARN_ON(display->drm, data->k >= INTEL_NUM_PIPES(display)))
-+			return -EINVAL;
-+
- 		data->streams[data->k].stream_id =
- 			intel_conn_to_vcpi(state, connector);
- 		data->k++;
-@@ -155,7 +158,7 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
- 
--	if (drm_WARN_ON(display->drm, data->k > INTEL_NUM_PIPES(display) || data->k == 0))
-+	if (drm_WARN_ON(display->drm, !data->k))
- 		return -EINVAL;
- 
- 	/*
+> 
 
