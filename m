@@ -1,129 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEF13B42CF
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F9C4279FD
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:38:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785321504; cv=none; b=HLgS0xkbIIuW5FRIJhk1y1BB90FXtcQS+N9DWht9yFIaDuGUrChFryaXHUuTPlhj9p1H/OQQULY/xMQP4h6g7bOenW/KwZCrOas7Z5lL4GkRkWEbJg8FT8D/Lop1f6RoP72JS+5bMTkjhTVW9rOaQbqam4GJtQZhuMFeVcqg70Y=
+	t=1785321538; cv=none; b=tnho+QDRhwF2ysSJ5D4tKDZO1VSq0nakwEC7XAage/2cATdCwngju3Z2umSIyf/t0+ohQ6WgRVRlyUxRbgaR2g320CSNd3S2kxMVNJXGddMNGGyVtw+/Qm0BTZlgIC7jjpO3HJgG5qqV86A95+NSEXsGI9TGWx71y5GGFPQn7nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785321504; c=relaxed/simple;
-	bh=sUln9z4jT3az/pYXxiMO6xABIbOq4G1h53tsQjkwsTY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UZdmJ773PhjYSnH0BVfk2Z4z48SXFzXCypvHbdQYzTKznfo1nCzbqmOIzIzlgYeE7YVxR/CozRwLbWHGgdK4Wc1i0XbMeSyFkAyHsxaeDy0zBS0zn+ILcD8uRMjTp5JorGG0UthJO3lFPO8DBittNEum+N4k5Ry3R/ep+mZDhm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bABMF2rc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785321538; c=relaxed/simple;
+	bh=CzWdkDBUO23WPA9eDnkD5lVNphAZDOuwjctA8Qh6eNE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=c3vJNdn2ak5+xWUI1x/WVkj3VF4W6PuhnrtWNlnfr0ET17zLZqcBPBdvlpWYdwJWm4JlH4ZUHX7PKGUzgVy7jp3DZihCOz0f0XFfzL24l6BHq+V4OuJqzfAuDftkp3OIiqXo+CgdkaVT6k3uwhg+x5kUETtYRqRv0eWkdAbYd4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=b0xMjSIZ; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bABMF2rc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5BE1F000E9;
-	Wed, 29 Jul 2026 10:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785321502;
-	bh=pdt8Jv1EeePbNRzLfqCNpoMaHUlOvi0ENzVz9qrD+v4=;
-	h=Subject:To:Cc:From:Date;
-	b=bABMF2rcw8zbfwnzJaxhS6Frvlxk9xflPXycXcaPf0EtACTw8hJiwQGfWxi18fept
-	 aOTuL8TSyTfIAi33JUPhu1ATA0pj/J6ubEqcsaal9PP8wbJG2hbp5Vt4cwwx0nlEo+
-	 nLywc0PHulxTa7yC0ZGxKZnVOZP5K3kia1AFhUB4=
-Subject: FAILED: patch "[PATCH] drm/amdgpu/gfx: fix cleaner shader IB buffer overflow" failed to apply to 6.12-stable tree
-To: asad.kamal@amd.com,alexander.deucher@amd.com,lijo.lazar@amd.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:38:09 +0200
-Message-ID: <2026072909-backlit-bannister-14b9@gregkh>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="b0xMjSIZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+	From:Subject:Message-ID:From:Reply-To;
+	bh=CzWdkDBUO23WPA9eDnkD5lVNphAZDOuwjctA8Qh6eNE=; b=b0xMjSIZ+V8t02AIivaLXmZK5y
+	rmtyvL3UFcUW+OijbX0lsrfNc5nAsJ/6llnzaPcdXz9V+Z4vFCjlp+ASDm8Q/bJHggsP/v6AKKV1+
+	60zdZVtvdlcBxHJhIXkbgzUaGI3OsGPyGSfz1qrii+nOYKdIMAJFYwnwMKmTcZf4VqZdjnnzmJNd+
+	9pTtBHTjBGnOjm/LbSgEsV0BhWCCuZF/vNUW//c5QJbNgOKShJz96vbVeyMXfwnYwtg2NwxC8/SUP
+	yJ+a/a5MVOdh9Od9NNPatsBM7UMYkoRUcW2KwD8x65Bt/YhEgOw6jImMnhaXyA2nkUw/BCSSUeLV6
+	ILg/PqFw==;
+Received: from [159.147.19.205] (helo=[192.168.0.17])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wp1gW-007Rs9-0n; Wed, 29 Jul 2026 12:38:48 +0200
+Message-ID: <f580c161a074eb1d30646afd24bbd4e4657c44f0.camel@igalia.com>
+Subject: Re: [PATCH 0/2] drm/v3d: Fix system freezes by serializing the GPU
+ reset
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+	 <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+	stable@vger.kernel.org
+Date: Wed, 29 Jul 2026 12:38:37 +0200
+In-Reply-To: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
+References: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
 
+Good catch!
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 3e864bf2a32a1cbdf1e0f9c5a5a4176e8575f4a3
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072909-backlit-bannister-14b9@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 3e864bf2a32a1cbdf1e0f9c5a5a4176e8575f4a3 Mon Sep 17 00:00:00 2001
-From: Asad Kamal <asad.kamal@amd.com>
-Date: Fri, 5 Jun 2026 23:44:08 +0800
-Subject: [PATCH] drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
-
-The cleaner shader sysfs path allocates a 16-dword (64 byte) IB but
-incorrectly fills (align_mask + 1) dwords. On GFX rings align_mask is
-0xff, so the loop wrote 256 dwords into a 64-byte buffer, causing a
-kernel page fault.
-
-The IB only needs to be a minimal NOP shell to schedule the job; the
-cleaner shader itself is emitted on the ring via emit_cleaner_shader().
-Fill 16 dwords to match the allocation.
-
-v2: Use ib_size_dw variable (Lijo)
-
-Fixes: d361ad5d2fc0 ("drm/amdgpu: Add sysfs interface for running cleaner shader")
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit bf21af331ebf72d0935fd70c73192414a422c03a)
-CC: stable@vger.kernel.org
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 1e190fb54a97..85372af1216d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1664,12 +1664,13 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 	struct drm_gpu_scheduler *sched = &ring->sched;
- 	struct drm_sched_entity entity;
-+	unsigned int ib_size_dw = 16;
- 	static atomic_t counter;
- 	struct dma_fence *f;
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
- 	void *owner;
--	int i, r;
-+	int r;
- 
- 	/* Initialize the scheduler entity */
- 	r = drm_sched_entity_init(&entity, DRM_SCHED_PRIORITY_NORMAL,
-@@ -1687,7 +1688,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	owner = (void *)(unsigned long)atomic_inc_return(&counter);
- 
- 	r = amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
--				     64, 0, &job,
-+				     ib_size_dw * sizeof(uint32_t), 0, &job,
- 				     AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER);
- 	if (r)
- 		goto err;
-@@ -1697,9 +1698,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
- 	job->run_cleaner_shader = true;
- 
- 	ib = &job->ibs[0];
--	for (i = 0; i <= ring->funcs->align_mask; ++i)
--		ib->ptr[i] = ring->funcs->nop;
--	ib->length_dw = ring->funcs->align_mask + 1;
-+	memset32(ib->ptr, ring->funcs->nop, ib_size_dw);
-+	ib->length_dw = ib_size_dw;
- 
- 	f = amdgpu_job_submit(job);
- 
+El mar, 28-07-2026 a las 23:09 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> V3D exposes several independent hardware queues, but it only has a
+> single,
+> global reset. Therefore, when a job times out in one queue, the
+> timeout
+> handler has to stop, reset and restart the schedulers of every other
+> queue
+> as well. As each scheduler queues its timeout work on the system
+> workqueue,
+> those handlers run concurrently and can interfere with each other.
+>=20
+> This can be reproduced on a Raspberry Pi 4 or 5 by running glmark2-
+> wayland,
+> which keeps the CL queues busy, while a second application triggers a
+> GPU
+> reset in the CSD queue every 0.5 seconds. The failure is non-
+> deterministic,
+> but it usually shows up after a dozen resets: the DRM scheduler warns
+> about
+> a credit imbalance in one of the CL queues,
+>=20
+> =C2=A0=C2=A0=C2=A0 WARNING: CPU: 2 PID: 43 at
+> drivers/gpu/drm/scheduler/sched_main.c:102
+> drm_sched_run_job_work+0x238/0x4d0 [gpu_sched]
+>=20
+> and, from that point on, the UI freezes and the machine is unusable.
+>=20
+> The DRM scheduler already provides the synchronization that this kind
+> of
+> hardware needs: an ordered workqueue passed as drm_sched_init()'s
+> @timeout_wq parameter, which guarantees that the timeout handlers of
+> the
+> different schedulers are executed sequentially. Patch 1 gives all of
+> the
+> V3D queues such a workqueue. Patch 2 removes `reset_lock`, which only
+> ever covered the driver's callback and is made redundant by the
+> ordered
+> workqueue.
+>=20
+> Only patch 1 is Cc'ed to stable, in order to keep the backport
+> minimal.
+>=20
+> Best regards,
+> - Ma=C3=ADra
+>=20
+> ---
+> Ma=C3=ADra Canal (2):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Serialize the scheduler timeout h=
+andlers
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Remove the now-redundant reset lo=
+ck
+>=20
+> =C2=A0drivers/gpu/drm/v3d/v3d_drv.h=C2=A0=C2=A0 |=C2=A0 8 ++++----
+> =C2=A0drivers/gpu/drm/v3d/v3d_gem.c=C2=A0=C2=A0 |=C2=A0 3 ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 13 ++++++++-----
+> =C2=A03 files changed, 12 insertions(+), 12 deletions(-)
+> ---
+> base-commit: 48a570c964d8e37d353381e4195106277e17f5cb
+> change-id: 20260728-v3d-order-global-reset-7736b445e0b8
+>=20
+>=20
 
