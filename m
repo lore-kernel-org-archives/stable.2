@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD068486B8D
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:02:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1AD488D97
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785330132; cv=none; b=kB7Lkscibr1piC0piSKSnWPswu8HUArgyjLyyv5kWxn+e15jZ2/gZbmEU1tQecwqzHX0xiKy0kM6pMmtqSuMOW2+AeBCCOCPIKyBjLfCiSIjVHqiF71Ry4y2JeCGBuDZt2i9u4ZB/Nbq/4/lW3yqjU3gRc5h5JAJVCy+DAyj63k=
+	t=1785330137; cv=none; b=mQiSMkguVfagRJ42358NS7f/bf9rWS/y7J1KMLJsagcxuqmxNKjKFKwvzf/ptaB3W5WmcI1ieGNHjl7JlvtZ1D8Bmb0OrmbHmXEw75Y5GFEuUXDbdm9Tw2rLC+vT/AP/2zfpSviZzhsPtNdfSm3545POS0rNZBGu1BayFh+86Ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785330132; c=relaxed/simple;
-	bh=yzvV2a7C0MsxtNK8jUV98Uy9ztFvG00vYWVtaAVTc7U=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DX19hZfNQmPG82YsUnpwk8AN+C5PMNXMK0H00uSFqlvP7hmYu1SojkBkO22WUrpAxUcMzgUgdeJZafHcn1XWqljKfE989+WEYhcm5bmIAk+hNKQLZlTYsbexgT1B2mvtP1IzL123W4Ez6fJkSHmfIuiQ3kaELHtKE8NMyYlkJck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=guypAcyG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785330137; c=relaxed/simple;
+	bh=MdIRAxyEzXsO0pVwJO7EDI2yZXjZe/TcqD3F/y+3tCM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kcmBSfFqY//Nv5nA0qiMA7fqlGF2bUViSz4jLqZYKrtHUqeFgCbyDtqnXjNlt2G/Ca0JnRQzSapuT/oz0h5fjfdJXOq/3LOSNWrR9+EOAZCvMVTK/PwPAVCHwE8oMsqCBxAwzzwynTfWlGeim137nyohxpuD6ptgwByevAB9UuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2NoxBBmf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="guypAcyG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673451F00A3D;
-	Wed, 29 Jul 2026 13:02:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2NoxBBmf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7B881F000E9;
+	Wed, 29 Jul 2026 13:02:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785330127;
-	bh=RznGgYEo7T7paiCxvbUXtjR3RBfZEseVCVElWJFCh00=;
+	s=korg; t=1785330133;
+	bh=o9+UoG9MbePffv79KQFp15Guy2EPO9DtKQIdP+pzsG4=;
 	h=Subject:To:Cc:From:Date;
-	b=guypAcyGlHHlgOPVyEO5Ea/0AE8dLRVGke9iF3wz0g/GrzXX4OZFS+wmA4wrYjRyW
-	 9kuOX2IgpWZ5LBuNi8Z7NKK0vWzaaw3usMnM46OlNr95bZiHbS5YpQM2+0K02bW1ge
-	 xpyVgxeJKBfnayay7cQ+sDUo+yVB9MKAVSYci91I=
-Subject: FAILED: patch "[PATCH] media: stm32: dcmi: unregister notifier on probe failure" failed to apply to 5.10-stable tree
-To: mhun512@gmail.com,hverkuil+cisco@kernel.org
+	b=2NoxBBmfdngIiCRXbK6rTcScvOUWpmqSAJI74OziMUYMeeMNChGUO1FXc+ZmR++rn
+	 D/6MuHEQTygzPn6DUE4ZDbaNyy17YN13cPCVLzdAms8ouRmQxjjGd175kWrJ7sMVpa
+	 b+E3S1EKUZT8ONpZ3yZoWwpkewB3w97KrschKGbk=
+Subject: FAILED: patch "[PATCH] media: ti: vpe: unwind v4l2 device registration on probe" failed to apply to 5.15-stable tree
+To: mhun512@gmail.com,ae878000@gmail.com,hverkuil+cisco@kernel.org,y-abhilashchandra@ti.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:01:02 +0200
-Message-ID: <2026072901-lance-unhealthy-1823@gregkh>
+Date: Wed, 29 Jul 2026 15:01:38 +0200
+Message-ID: <2026072938-nervous-nail-c5fe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 084973ebd67b28f0945c5d45408f86c58b540110
+git cherry-pick -x e0f1c9a90ef665f2587c274a8fed59f2dfc575a6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072901-lance-unhealthy-1823@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072938-nervous-nail-c5fe@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,36 +62,40 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 084973ebd67b28f0945c5d45408f86c58b540110 Mon Sep 17 00:00:00 2001
+From e0f1c9a90ef665f2587c274a8fed59f2dfc575a6 Mon Sep 17 00:00:00 2001
 From: Myeonghun Pak <mhun512@gmail.com>
-Date: Sun, 26 Apr 2026 21:43:49 +0900
-Subject: [PATCH] media: stm32: dcmi: unregister notifier on probe failure
+Date: Sun, 26 Apr 2026 22:16:31 +0900
+Subject: [PATCH] media: ti: vpe: unwind v4l2 device registration on probe
+ error
 
-dcmi_graph_init() registers the async notifier before dcmi_probe() toggles
-the reset line. If reset_control_assert() or reset_control_deassert()
-fails afterwards, probe returns through err_cleanup and the driver core
-will not call dcmi_remove().
+If the vpe_top resource is missing, vpe_probe() returns -ENODEV after
+v4l2_device_register() has succeeded. Probe failures do not call the
+driver's remove callback, so the v4l2 device remains registered on that
+error path.
 
-Unregister the notifier before cleaning it up on that error path,
-matching the successful remove path and the V4L2 async notifier lifetime
-rules.
+Route that failure through the existing v4l2_device_unregister() unwind
+label, matching the other errors after v4l2_device_register().
 
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Fixes: d079f94c9046 ("media: platform: Switch to v4l2_async_notifier_add_subdev")
+Fixes: 4d59c7d45585 ("media: ti-vpe: vpe: Add missing null pointer checks")
 Cc: stable@vger.kernel.org
-[hverkuil: added Fixes tag]
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
-index e5663fbe6422..eeb0199864dd 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
-@@ -2195,6 +2195,7 @@ static int dcmi_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/media/platform/ti/vpe/vpe.c b/drivers/media/platform/ti/vpe/vpe.c
+index a7e5a85e72a1..81bd1f9cee30 100644
+--- a/drivers/media/platform/ti/vpe/vpe.c
++++ b/drivers/media/platform/ti/vpe/vpe.c
+@@ -2539,7 +2539,8 @@ static int vpe_probe(struct platform_device *pdev)
+ 						"vpe_top");
+ 	if (!dev->res) {
+ 		dev_err(&pdev->dev, "missing 'vpe_top' resources data\n");
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto v4l2_dev_unreg;
+ 	}
  
- err_cleanup:
-+	v4l2_async_nf_unregister(&dcmi->notifier);
- 	v4l2_async_nf_cleanup(&dcmi->notifier);
- err_media_entity_cleanup:
- 	media_entity_cleanup(&dcmi->vdev->entity);
+ 	/*
 
