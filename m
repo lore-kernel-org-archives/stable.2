@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959473B38AD
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:35:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB0D40A924
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:35:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785321333; cv=none; b=OXgNA93aSUKnkpX3VkHTW8B0D/YpwctC6uAoa4DkMh2LEdmHl5pdd6l8e09hGG4IoeR6ip46soq/6PwrLOlZbq+yGcgJXRYsz/dNWcyHGWqE7M2aWOLhsoPbhvJ+eAWnie+nRbkYdiBAvJYT6JH/5j2Aa8e+1LMXAjWFRIQVhf0=
+	t=1785321342; cv=none; b=OuZ2AgphKy2BQn/5Q1pN2bYcMa4gHs9WuJtvN56cT7lyb8NW4yQ3CB8vkrVekCoY8yMTPrjO45U+y8230FQbzYGArPmb5KfZXLuEsR2x/OsREcgwlM2YRm79Hnf3VYCa/CvemdX/HDBriWgSn5QedzQr9rCbft8VA9ATE9wpVOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785321333; c=relaxed/simple;
-	bh=mtv52JBqoor73k/tysa9kUsCChj6a3TzcU/E1EEYCD8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LowERddkU+gld00GISLF/bm9tTJZg0ReL9002L3Ft6uNbUMDSsT8X0TBrDSGYJmQO2s1ri/hh6tPEgRZPwZabkyufK4RvRBVjE8igp6daRSy2rur82xVbXCNgf9/qPtsE+WYl/NAGRjWuqeiV+ZrtsGrmOW1YSbSHOZASnlLozg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=m3sH8DfM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785321342; c=relaxed/simple;
+	bh=47yBVcMh3NrFWK4mh98WtJSeUA+htIzVt5uEvf5W6K8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=T/4gi4xipfpvpyK8Js/NcLSeUIH6ngokZmuwQdr+ZkmKa3hkGfVov7M883mFEYX8II73kzD4uerPhuUmDzruOuM6DvGY/eF/pEzJA3dp3S+ewRTuMp50V5rFYem3DkiwQ5dcXSge7QqAhCneOTUisTM09bPW387Pl3VB1EnodoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BOGYIdE9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="m3sH8DfM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61851F000E9;
-	Wed, 29 Jul 2026 10:35:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BOGYIdE9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15CA21F000E9;
+	Wed, 29 Jul 2026 10:35:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785321332;
-	bh=9W7gjImVRvW3jfqX3rYLRfBjcfY9rtjMIOO2oH/4KOs=;
+	s=korg; t=1785321340;
+	bh=ZcsbjJ4P24F5ElpVXa8CTbxofsAH1fgbHTXvcIGayGY=;
 	h=Subject:To:Cc:From:Date;
-	b=m3sH8DfMiUXfBmzoevOm3lgDk06I1dZT9zhyjrZEtBWuA3SwHaR2a5cmX/lCLU3X+
-	 kcTajC99tQB/O6s7mt0yGiB6to5op1FhCNGNzUw/yd9y3IRKI8X3tbZhotMgxBR8WO
-	 Db6rnCrPCKqbSjuxwmlLTYyQRL3D8O0tpyBl1QbY=
-Subject: FAILED: patch "[PATCH] drm/msm: Restore second parameter name in purge() and evict()" failed to apply to 7.1-stable tree
+	b=BOGYIdE9EPmpsP9GrXW4Ouqs/5nX0jvynMPRU3W6i7+pjT+SVzx38CzMZq25wOUcO
+	 Go/rlpALa204p1Svidd+EYAuazC1Cjl/q1kLK0QK/pE9PLFbZ705yqQBnrOI4fV+zi
+	 8JhHkWjZYJj5bdeV1j0obJwt3jkB9eXr5Npu1Fys=
+Subject: FAILED: patch "[PATCH] drm/msm: Restore second parameter name in purge() and evict()" failed to apply to 6.18-stable tree
 To: nathan@kernel.org,dmitry.baryshkov@oss.qualcomm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:35:18 +0200
-Message-ID: <2026072918-splendid-carton-9845@gregkh>
+Date: Wed, 29 Jul 2026 12:35:19 +0200
+Message-ID: <2026072919-drown-simplify-2be6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8de061ca149c94871e41d91a5b2e442ecc26a572
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072918-splendid-carton-9845@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072919-drown-simplify-2be6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
