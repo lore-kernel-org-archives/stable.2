@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6CB486BB2
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:56:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC112FC00D
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:56:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333380; cv=none; b=OHxOjW19hlevkAXV2ukiODBmA185zBEY9J5Yk31wbEDeGHRoZANMkX+uBdyCv7/q/givzU1el8zd2qtT4PHpkmGKWsYdKHkbPztyFzoecWyyvh9M1B9EuJrNbKEQC/jyS9BP60b2GxuNp3i/rqUdPwFTqnITpZjg92nVe+mht3E=
+	t=1785333387; cv=none; b=UVicGpzfxeebdQr7SkWsFzkhGOvmUsh7xiZtdPfZFoVVLwGi5xbtJQRiNipwfhM6hqqp9r0C6dTtU9rdyB9SptBcqagASrVLh2wsC6Ms1LFxBX4cmOjsNoqeZ3A0slsj31RDnHViFxd2ZIEagdxmaLG3d2OHj772AiJG6UZS8Nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333380; c=relaxed/simple;
-	bh=XpmeuNTU6Fjtq1EJNFIQwuYOtGAUJBzryUkV97zkIBQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Z5R55cnL6fnQoA2UsvTcAlFaFWDSACCkVikHWAK+BTFCpHQBgOf0GlWbpM9qHeBrwkmAUmFweq03HRvZllsvYnZS/lDBtFClAEOscq25CA/jKVVyBTU5BuL/YUfcKA6IeFC9JXAKqEzJk6+mbdT4txZa7hmCAxz0GBDcuxsNT4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k84mQaIj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333387; c=relaxed/simple;
+	bh=sEroVasclSUrcvAbB7p8sL+WykldUhyqTwCqSgtMKPI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B6jTJQS+f9GH5jHsOvsH9DY9dW+D1DmHJpBGWqEtUq3WPUudZhNnqHzazGB+GazfpX/Ydi5d0BfAK6zpquzrnCdeUd6Eo8nPT7POuPo7BAjytY2AyT1SnfV7rRHcsXXVc7ofMZNy71hNjKLegjN3LDIYnl0ol8NFMp+NSpLqDPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=n5iSrL+q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k84mQaIj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9FEB1F000E9;
-	Wed, 29 Jul 2026 13:56:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="n5iSrL+q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3551F000E9;
+	Wed, 29 Jul 2026 13:56:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333374;
-	bh=7fV9kauLF4HFC3tk2ikYf2mltMdf8qi2SN6xQPbAX0c=;
+	s=korg; t=1785333381;
+	bh=f1hEvLxXESK+HYuzswoljniA2oFP3hcH5dEQVa9D6IM=;
 	h=Subject:To:Cc:From:Date;
-	b=k84mQaIj6KuHOGUqrwnv1Jn5M3hhP7k3qOvBXw2pW5MORRfHaXrL17VD7jFZs8pXi
-	 wSH1BKrnFuCuXpOHTyq7w04PRF1gW3u0IEevHZSkMTvIr/htgyOGF4hELXT2o2QfrP
-	 iMufOOUJ/b93c13nrSD5XbVvVL/frnenOKhODehw=
-Subject: FAILED: patch "[PATCH] eventpoll: pin files while checking reverse paths" failed to apply to 7.1-stable tree
+	b=n5iSrL+qRT7e8sL7yROD2sR5kH2QYY3IP1S8CzGWffywJCdzGfYnQHAVs3EMFpHxe
+	 XSKaLHT9sAyPaNYSqGxIwgBfocM7oLDMGKf1LkmCRSJwv4Y6ZJP3vRf/B6uY4ehB1Z
+	 bDrhI6uZhkVrxwqCo+1Ia1b9ta+Rn+YytYXhj7kU=
+Subject: FAILED: patch "[PATCH] eventpoll: pin files while checking reverse paths" failed to apply to 6.12-stable tree
 To: 2045gemini@gmail.com,brauner@kernel.org,qjx1298677004@gmail.com,tpluszz77@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:56:01 +0200
-Message-ID: <2026072900-revisable-showroom-1b81@gregkh>
+Date: Wed, 29 Jul 2026 15:56:03 +0200
+Message-ID: <2026072903-exact-prototype-2cfe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8b7e8245e2293078f657521236ac92c045552e5a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072900-revisable-showroom-1b81@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072903-exact-prototype-2cfe@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
