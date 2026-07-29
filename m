@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A8728C037
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:17:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698F12D46A1
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:18:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785295080; cv=none; b=mTID7LI54g3jxmQCgKXjUX84ikziOckPR/7Nn/pUPeB6f6/iynxWzbKLT7bvcZOeekgEfofFmQT4x22kF4oTbquBKRnH+1Sd2y/+PYt6Isbvnt8eHB03lGu031I77nGPYa6QhpPR4f5OP3lEQltiYP7e35PC38RktJPt9trpupI=
+	t=1785295081; cv=none; b=J8D7EOGMkGvO57+DCeBxY4lsfvVFf7vEYmdJ/RRaLdIAZkj/C3VUCXoFceGqDJUze52YcSrJolVFqxULfmrzfVj4CiX/EcrrCTKtpY3ms/WuvO1CbcPr2B4V45I9JSmKJR1U3KO2jsgT27wKo6YoJwhpxwkXrldK0CzLUS9ouOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785295080; c=relaxed/simple;
-	bh=9Gnd/6ecEoAq8B5d0GTMZJ1gN07BaWN78736Vixs8g4=;
+	s=arc-20240116; t=1785295081; c=relaxed/simple;
+	bh=GQwpRzCgdDAtkQ/lbBEGmTbrWFm7TQU8R+OVn8q8NXU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l9dUVNEgmd2wGyljDApuV3LU9uzSad/41dCKnvqDdILIpwSVWJqLJehpEdfrPxsvjSlVkqMR9lsMtkhZ78FJYNptWWqMQfNJGQlKwTyUAJZKBS69xlYyEML7mRrGYxZ6Djc74nZZyOLDe5DVzk2OTxIVkDFJXxwRI3M71oX7iAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H73UsF8v; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tw2nwOvCDjKCJ5T3qv4gJfQHflH32wnzhdFjuUEbKdJ0i+4UK7cK6QR2YJFOdhjOV88IHrAqU5galimGn9mnH/Fe46FfCBjLHgy7ZfWrhYmKFpb95DPA49ynwmq72OTFZHlv4Hyw78U6rjIHyyF5wLu5cxk0J0Z45ae3L7rRvzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S48vbH4g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H73UsF8v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8ECD1F000E9;
-	Wed, 29 Jul 2026 03:17:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S48vbH4g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 763F41F00A3A;
+	Wed, 29 Jul 2026 03:17:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785295079;
-	bh=qL2PmaG7IHdlSA7SXfRmZs90C5BFk8nAy+c93Uvh7kg=;
+	s=k20260515; t=1785295080;
+	bh=w6igIDwgI5emoH6B2L8HmRmQ9CoQDDBDMkELp8aykhg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H73UsF8vIF4TUmbV9ewON6az+/D7i+cQ3np2Auaq08QLixk7WNwj3msO/BaMizXtd
-	 +M94NFhhp4v1WdjCnh+Q+C79cw2ytb8UTeRl2aHPhy+sd3bM/8HpvOnM0L/yGQBsx1
-	 KEOxVVGD5m5SCpZK+Hxx9kMH61CleoUmm0k1U1MA0w6qBCqvnckx6Z4zz0PUw0+cop
-	 ypEbJFMZTcxGpn0JC2KeyHB3UXlt6IdCtQGv6lFxJMF+N+k5OLyx0D6zJ+/eCbZnlV
-	 369EN3J0ZZPcmaf9aj6/EjyCrVFeWv50hF4b7ChZl9EwaEj1pkxnuoo7LZApVOx77Q
-	 VWvuE1sAoPAQw==
+	b=S48vbH4guswQJ3cUWRiNK7dc+NKYyvukMhUqelzCgrJXPEMpKrd8/9/Z+68FFuCcP
+	 L2C8O4OVgEQ78w6IKIcBcfMoU3/YkwjmEcRNRJCjhULR3E5hR7qxAofJvOohw00Yzr
+	 ubDPSFJb3/cB/RB7rFAB75JuA2sL0m89BjaooB34OQRsf+C2QTKvTLL+pYnA1qYSUj
+	 Utd3CirY12yYGVax+4fTRuhfHbfTi562EUH9GyeadIZeXFLnKPbaMCk1X0OrYHS8G8
+	 3YW0JVB1ZHGQToB6GsPbZylSmOFyJ9ABkF9cUcJirzPl/OJlTsYHh7dwtI1vhZtGwu
+	 tU9sUyGepjlfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: Re: [PATCH 5.10.y v2 1/9] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
-Date: Tue, 28 Jul 2026 23:17:53 -0400
-Message-ID: <20260728225500.stable-0001@kernel.org>
+Subject: Re: [PATCH 5.15.y v2 1/9] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
+Date: Tue, 28 Jul 2026 23:17:54 -0400
+Message-ID: <20260728225510.stable-0002@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728163902.24067-1-socketcan@hartkopp.net>
-References: <20260728163902.24067-1-socketcan@hartkopp.net>
+In-Reply-To: <20260728163944.24110-1-socketcan@hartkopp.net>
+References: <20260728163944.24110-1-socketcan@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,7 +51,7 @@ Content-Transfer-Encoding: 8bit
 > synchronize_rcu()") replaced synchronize_rcu() in bcm_delete_rx_op()
 > with call_rcu() and introduced the RX_NO_AUTOTIMER flag.
 
-Queued the series for 5.10, thanks.
+Queued the series for 5.15, thanks.
 
 -- 
 Thanks,
