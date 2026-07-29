@@ -1,150 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52EB488D87
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1AD48877F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331102; cv=none; b=gBGHXr1EiXl11W+603s420uM9PzmoIcKm7KZ2Wp7nBD2+BqmMqgvw/7uN4t+3sLirPYUJ4RGH3C8KlTgQgdZD/3cN9kkwM+q61WaQ91ZZd4HM9i1vMZMMQA7xP1wTSW8nhl67GZPO3Rp4SdbDXYWDu/1NSe3ptc5QkWAO+P5i5s=
+	t=1785331195; cv=none; b=aEyNqfVIZLrbfMTngnqjnmxIkSly806BHjUEEOuWp7vAqI5khpnWdRphUZEgLK8F6rKYlOg1hMohzvCvZzYRj0J/LJmEtBCQUwShMlSmRTIOSwuwY1jWXKpxlYaoNJaRPGKcD6eChpvX2T+P7wd9XLIAeOCNjwGuRC8qSVAdrJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331102; c=relaxed/simple;
-	bh=MVmCNDjNZ8qpgu0PKmdAdtZA2JA7f+xJ3eX2RaWfEpc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Hze0Hp/3lvRiMMUqlil9gLFJDOAdsuMvCjRLBD5MRUY2F9kQpcmOF+4+2qGxtOkRilhNUumo3BpM/WYIeLhopTHbwvbY+svzJ+rkQ8HXTFJ5jA2f4inGtp0XGw4JyYn5nXZ9NxJyPmPtCevB4uH1N5PQLjRJziu/+Hp4luqmULk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x5TRPAF2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785331195; c=relaxed/simple;
+	bh=kdlhdT6qgk713ttnMT/RjwDbI68wlDahWZC3PMz1mLk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=quBmO2dxGBJQbkb3IzBxh0QW2y9aGCHfbnlqiTDPKUNp0yEwVdjiLoPZhSnpjYVaBEaRSJIbpGx81M/75zL3Ao6UsDNO6XpEmtJ2Y164TOMcTcgETSkvQuIVTWo8w8RV8DqI6tB9zOkklybszmepCcFLZaEYAI3FZiPTt1YihCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=kyZImTR3; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x5TRPAF2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF141F000E9;
-	Wed, 29 Jul 2026 13:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785331100;
-	bh=wy33Kt7lzg0MEmx5uGsHoV5tsd3n5Cx1IjRZiF0rIJg=;
-	h=Subject:To:Cc:From:Date;
-	b=x5TRPAF2GrWrWLyfE1J5vhtifk4qLfcHoLGeMxb3yJMtRcwR7J6N680VZ2czFaY+6
-	 sZylwtbgwzfS1jGfPsR4XrvtlRotQQydf7gzUbH+FixlMH5NyHdTAFdP++FVPFAtiX
-	 v8HXDxwxPGc/kVlvzJqIap8Or1NhYG13pbi9bC7E=
-Subject: FAILED: patch "[PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in" failed to apply to 6.1-stable tree
-To: mirela.rabulea@nxp.com,Frank.Li@nxp.com,laurent.pinchart+renesas@ideasonboard.com,sakari.ailus@linux.intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:16:37 +0200
-Message-ID: <2026072937-passivism-getup-c9f0@gregkh>
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="kyZImTR3"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-81f3b227a4aso15156517b3.1
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:19:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=xbow.com; s=google; t=1785331190; x=1785935990; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KMXrirPZU7fXTxWoE1e8bDQ+DkmRVCXCwha59Dx6pk0=;
+        b=kyZImTR3THa0m/yIk5XiF7x+UKKcf5afFRr83ZbZaeYX8yzQR1HlcI9GtosxtHzd2l
+         NAK4LEShW79QhghNxBFnU7m81yXpEfntUXBQnSUraChlJ4rQY18FPA4HObtRd2fGLAfw
+         kpTOEA3T9Qv9gHaYzswu+uLsEo8UbQA8kcLit1Wi4UY5WFUqRuhVeRRL1z3RmWQSPruH
+         Z9GnvIk2GJrGSFl7HXT1N6JAJHW5wHJMP48EchGM5KOZU+641YhjafOZS5QOBuLZwCjx
+         e+vQYwlHMm4H8K5pzFsAKmCNh3u5JwTh9ULOKfetPQO2D886PoJYDyfr929RwlMPyvjI
+         pjIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785331190; x=1785935990;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KMXrirPZU7fXTxWoE1e8bDQ+DkmRVCXCwha59Dx6pk0=;
+        b=F3iMypLkrwWcFbK2/MQhIZCk8Dtwf6/LqP4LoxeUsxV4uRy7JQSHh4vQJ2ESbKKCuw
+         FbzxcbWPPSmU9OfRdlOTVI/jf7sQCRRMEdQGMSEDs1hx6asdu4r3hUTAeRIS86nyZPbO
+         GFUQbjsiTyaElUvXtE8RyLV8xz37qDSSbasoH+qgAhimbjbjYxBxOp6cZh0T5LxNwQ3x
+         1rnb1jRCxms22hPr7YVzQ8BxZ0o1tmZq7PaZTq/pocQEzDJYoTtVk3hZErHn9lSDNXIk
+         BkS5TMKI/e4gQ78Wo7LRAaZ9VaQ5xDtCRDBMvpILJr3/rgsjpWzVKXodvhbxWE5KD4yt
+         vkzw==
+X-Forwarded-Encrypted: i=1; AHgh+RqLayB+edtUoG6Bot1gsYLfo5a2XOMupKNbLFSzaUARzSK91SX0OjkG/AheM8IduFlyAREV/y8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxVbxcnzgDO0VN2MmnAm7qhaYlyo/M1CdpwVroiYOHPiRVyaDg
+	tA4Jul14tjhec/KnQmOuj2HKcQXGex7O/0CqCIx1yKGfOiGIaTGT/HmH0TAsXiAbfbM=
+X-Gm-Gg: AR+sD12xgURwnfW4uWDTLFO2Wvd1+uAInSAdVqdzPHexv7NqPgoqvdQgFFm7Zj/fmVO
+	JvbYMXWM+sRN5rkzgfRXhlLMU09fkYjxPAH4Kt8c3WVouZLxUrSUWh69ETTOEOfaMJXqok9YHLw
+	It+eCf/4vS2+T2soQRHBdfU8dw6sr0rOUSajkKUjRTpCOB2xK7QXdjS8jmtV3k+tvnl4t4rJZ9Y
+	Gu3ykRnB0fcrNTtUzsOalz39UQLjIQk1jJGus7wxUBl6LbCB4Zzau1TOcUvdEIv+F7W/LMFeg9c
+	VC8v8qhL1r4Om9Pbyk1kK7PBDIb1j94gq8jQu3lUHUZUNquHdqmVVt6Zo6TDuk45uqpCZfKx8nQ
+	eI4+pxJNP7euSLrmu9o2LeAGBjCy4D2/3tI/dUo/Plu1cGTF0NHnD5A0zyxbUS1iJ8a7Y5eAFaF
+	RNuH4sAmRF8Y0SwYZsXmOfN31t+dEW9JdXBADzfu5TmF9YFnnQmHB/XZuqHceL/ztcgnXX5KT8i
+	J1ri2wHABIYyyGjCUoOD2L6mjYdc7a30N3UFbs5QNFdMqTODESMbjMfM0hqnFNHFWZgXhFcp9Z1
+	KmiQMgAn4WHoqZVUE+Bbbu/si2hQIA==
+X-Received: by 2002:a05:690c:62c7:b0:814:5312:47bb with SMTP id 00721157ae682-81f993f145fmr33494437b3.69.1785331190331;
+        Wed, 29 Jul 2026 06:19:50 -0700 (PDT)
+Received: from buildmachine.tailf331da.ts.net (ec2-3-14-143-233.us-east-2.compute.amazonaws.com. [3.14.143.233])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fa275691asm17653907b3.4.2026.07.29.06.19.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 29 Jul 2026 06:19:50 -0700 (PDT)
+From: Baul Lee <baul.lee@xbow.com>
+To: netdev@vger.kernel.org,
+	bridge@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	stable@vger.kernel.org,
+	Baul Lee <baul.lee@xbow.com>
+Subject: [PATCH net v2] net: bridge: mrp: fix uninitialised bytes on the wire
+Date: Wed, 29 Jul 2026 22:19:41 +0900
+Message-ID: <20260729131941.10254-1-baul.lee@xbow.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260726062518.43774-1-baul.lee@xbow.com>
+References: <20260726062518.43774-1-baul.lee@xbow.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+br_mrp_alloc_test_skb() builds MRP test frames on an skb from
+dev_alloc_skb(), which does not clear the linear data area.  On the MRA
+ring-role branch the sub-option TLV header is appended with
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+	sub_tlv = skb_put(skb, sizeof(*sub_tlv));
+	sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
 
-To reproduce the conflict and resubmit, you may use the following commands:
+so sub_tlv->length is never written, and the two trailing alignment bytes
+are appended with a bare skb_put() that does not clear them either.  The
+neighbouring oui and sub_opt regions are explicitly zeroed, so three
+uninitialised bytes are left in every MRA MRP_Test frame that goes out.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 06cb687a5132fcffe624c0070576ab852ac6b568
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072937-passivism-getup-c9f0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+Put the sub-option TLV header and the alignment padding in a single
+skb_put_zero(), which clears both.  The AUTO_MGR sub-TLV carries no
+payload, so the zeroed length field is already the value it should have.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 06cb687a5132fcffe624c0070576ab852ac6b568 Mon Sep 17 00:00:00 2001
-From: Mirela Rabulea <mirela.rabulea@nxp.com>
-Date: Fri, 22 May 2026 17:31:20 +0300
-Subject: [PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in
- v4l2_async_register_subdev_sensor()
-
-The v4l2 helper v4l2_async_register_subdev_sensor() calls
-v4l2_async_register_subdev(), which is a macro that expands to
-__v4l2_async_register_subdev(sd,THIS_MODULE). Since the macro is expanded
-inside v4l2-fwnode.c, THIS_MODULE resolves to the v4l2-fwnode module
-rather than the sensor driver module that originally set sd->owner. When
-v4l2-fwnode is built-in, THIS_MODULE evaluates to NULL, which then
-overwrites the sensor driver's owner with NULL.
-
-This causes the problem that the sensor module's reference count is never
-incremented during async registration, so the module can be removed while
-the subdevice is still in use by a notifier (e.g., a CSI-2 receiver
-bridge driver).
-
-Fix this by renaming v4l2_async_register_subdev_sensor() to
-__v4l2_async_register_subdev_sensor() with an added explicit module
-argument and introducing a wrapper macro:
-    #define v4l2_async_register_subdev_sensor(sd) \
-        __v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
-
-This ensures the sensor driver module is properly referenced even when
-the sensor driver does not init the owner field before calling
-v4l2_async_register_subdev_sensor() and prevents premature module removal.
-
-Fixes: aef69d54755d ("media: v4l: fwnode: Add a convenience function for registering sensors")
+Fixes: f7458934b079 ("net: bridge: mrp: Update the Test frames for MRA")
+Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
 Cc: stable@vger.kernel.org
-Suggested-by: Frank Li <Frank.Li@nxp.com>
-Link: https://lore.kernel.org/linux-media/20240315073125.275501-2-sakari.ailus@linux.intel.com/
-Signed-off-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
+---
+v2:
+ - fold the alignment padding into a single skb_put_zero() for the
+   sub-option TLV header, dropping the explicit length assignment and the
+   second skb_put() (Nikolay Aleksandrov)
+ - drop the paragraph about observing the leak, and the Reported-by tags
 
-diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
-index 77f3298821b5..62a3a452f788 100644
---- a/drivers/media/v4l2-core/v4l2-fwnode.c
-+++ b/drivers/media/v4l2-core/v4l2-fwnode.c
-@@ -1256,7 +1256,7 @@ v4l2_async_nf_parse_fwnode_sensor(struct device *dev,
- 	return 0;
- }
+Link to v1: https://lore.kernel.org/netdev/20260726062518.43774-1-baul.lee@xbow.com/
+
+ net/bridge/br_mrp.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/net/bridge/br_mrp.c b/net/bridge/br_mrp.c
+index 179d2470b..ef16d0703 100644
+--- a/net/bridge/br_mrp.c
++++ b/net/bridge/br_mrp.c
+@@ -224,11 +224,9 @@ static struct sk_buff *br_mrp_alloc_test_skb(struct br_mrp *mrp,
+ 		sub_opt = skb_put(skb, sizeof(*sub_opt));
+ 		memset(sub_opt, 0x0, sizeof(*sub_opt));
  
--int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
-+int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module)
- {
- 	struct v4l2_async_notifier *notifier;
- 	int ret;
-@@ -1282,7 +1282,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
- 	if (ret < 0)
- 		goto out_cleanup;
+-		sub_tlv = skb_put(skb, sizeof(*sub_tlv));
+-		sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
+-
+ 		/* 32 bit alligment shall be ensured therefore add 2 bytes */
+-		skb_put(skb, MRP_OPT_PADDING);
++		sub_tlv = skb_put_zero(skb, sizeof(*sub_tlv) + MRP_OPT_PADDING);
++		sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
+ 	}
  
--	ret = v4l2_async_register_subdev(sd);
-+	ret = __v4l2_async_register_subdev(sd, module);
- 	if (ret < 0)
- 		goto out_unregister;
- 
-@@ -1300,7 +1300,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(v4l2_async_register_subdev_sensor);
-+EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
- 
- MODULE_DESCRIPTION("V4L2 fwnode binding parsing library");
- MODULE_LICENSE("GPL");
-diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
-index f26c323e9c96..54a2d9620ed5 100644
---- a/include/media/v4l2-async.h
-+++ b/include/media/v4l2-async.h
-@@ -333,8 +333,10 @@ int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module);
-  * An error is returned if the module is no longer loaded on any attempts
-  * to register it.
-  */
-+#define v4l2_async_register_subdev_sensor(sd) \
-+	__v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
- int __must_check
--v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd);
-+__v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module);
- 
- /**
-  * v4l2_async_unregister_subdev - unregisters a sub-device to the asynchronous
+ 	br_mrp_skb_tlv(skb, BR_MRP_TLV_HEADER_END, 0x0);
+-- 
+2.53.0
 
