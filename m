@@ -1,148 +1,142 @@
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AAB37CD37;
-	Wed, 29 Jul 2026 17:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0747340A57
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 17:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785346329; cv=none; b=OQSQDwAJAFkBuQYF/0ilOSG6LYQRdIbnvY0y3OYEFXD4YxpB/tz+CO6k84jOebQtTr+alrsg3n/b51fj59m/wHlVcI10TUHTOF8LFKfNms3IX8EyW3DqAQcl9T2LhzZyxeYmkipF8FLZch4FvCcu2f95heemeqaptc46ewdmyXk=
+	t=1785346609; cv=none; b=Cr+87VX/bJb4teIh0b6xv9fCOxFET7g/uFLIXBEsr4teggkieDfCBhV1nr9ooQZE4vMzeMBMNGO2ZXrHQ4XF/bFiXp9Q/u7A7TeUa9UfgV93P1oSTa+ELNRWRwkHDWzCCnrE+54pnxToVu9lozR8M1T+6mUOuz4koT4gZViDn4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785346329; c=relaxed/simple;
-	bh=jzLKPOJfZi/ERyCqbefXUD/njeS+E0E8wHwLbTiO7wo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gcZvoL97xA02bLB6xLJGkar3IMHy6XmqB6nrfVm98v/NX7bgfWLOBGgRraYgGRboLEn4IgmjAVlaVmdOKV4e05fkwNmJeL0egxPFcWxu4FgtbMSTYJx+fghE2Asui3xgqVrpJG8b1jtDWgOpZj0D2ioOArSnLiQHW1hFcPqOb/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id B1FB8A0779;
-	Wed, 29 Jul 2026 17:32:04 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf20.hostedemail.com (Postfix) with ESMTPA id 3F12220025;
-	Wed, 29 Jul 2026 17:32:01 +0000 (UTC)
-Date: Wed, 29 Jul 2026 13:32:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
- bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, song@kernel.org, jolsa@kernel.org, naveen@kernel.org,
- davem@davemloft.net, mhiramat@kernel.org, stable@vger.kernel.org,
- linux-open-source@crowdstrike.com, mbenes@suse.cz
-Subject: Re: [RFC PATCH bpf-next 0/3] ftrace, kprobes, bpf: mark
- trampoline/kprobe ftrace_ops permanent
-Message-ID: <20260729133232.1e6c79eb@gandalf.local.home>
-In-Reply-To: <CAHk-=wjzHTuomhTegkD69veDVRxprX8NB=i7A+BEB2-v6v5n+g@mail.gmail.com>
-References: <20260729005959.3853865-1-andrey.grodzovsky@crowdstrike.com>
-	<20260729104114.04298a48@gandalf.local.home>
-	<CAOu3gNgc0XHScgEf+yWF5Kr8sAm8Fsa4RBuwL0YE2EscSiBPrA@mail.gmail.com>
-	<20260729113136.32af2a4d@gandalf.local.home>
-	<CAHk-=wjzHTuomhTegkD69veDVRxprX8NB=i7A+BEB2-v6v5n+g@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1785346609; c=relaxed/simple;
+	bh=bLigRDlF77Q8rMCVJRJEG9Iw4ESVLt7RgamZeM/qbdc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=claWHqGTdVHTBI/J9Ft1VoKB+WO+ctenpLdld91yCEUfmdCsh4hKw6B1Nq7BrO95ZrL7pYTgZ83CpDfnhMhe95rlGOS42oIWugidjvp+IYBXhIyvpM1mdEwttGd2hkzF9hvVPgot/4HDZ5yp7EaN9Q8lZdMgAJrBrWtMvgwvNh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3NzY01O; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3NzY01O"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ced3386430so12796915ad.1
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:36:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785346607; x=1785951407; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Gg6ArNtx1AiAv6yPr+prFaZ5QUtx/jRFL3cP/oq9oL4=;
+        b=n3NzY01OnnfSW9mbHuQ9pZZkdkPs1ymiGLtBi7kc40Z7F8Id1dP2IgBfvPi8huyxmg
+         5AQk1bY1q4UjE781Oe1FnSRpRjHBQgwkDwXNk7s05+nRZRVNHIY5eUSZFHuslopz8mAB
+         ZBnH84oxy0GUM+oG0EUYGGF7G0zYyGyqViA/DCjskzAD9QVh1/wkQtfZmawnxOy68xBl
+         wEn6xydJiJN2Z5MVBMmRTNVl5chK2q5jnD1YVXwNxCXcfJfrbIVT8LL9Mf6Kq40zcSvI
+         4g0NNKj9IquWZwaXD9Fxy4Sc4MZpWeCowj/Kw8UXQclI+jbP+xlmp768D/yoiZkrTddk
+         eiWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785346607; x=1785951407;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Gg6ArNtx1AiAv6yPr+prFaZ5QUtx/jRFL3cP/oq9oL4=;
+        b=V85tAFl9Y5rc+PyPwmtushTTVpxdF3JCwA+UGLUWwm8FRF34mP4B79YWFfSq2+WeDn
+         mwdlPpEo2tpvQQMpW9GQe5UJwsv/VfogBKI3tG0NEOqMouwNeNkvw4TMZylnoukr/+Xe
+         1/hHX/B3FWXqxTqyn+HgRgRTcY80Ep5ZzI6qbnRkFrxL4jWfogL3JyPbwaspQXrFGI8g
+         UwtrLh5ELK/79C9wLqu7ES00nh7Q2R37gsbAtpXdArRFT1icU1Y2PIMW9N9UKCLNSnPd
+         LKY0alO9uYBPaSjmIAc6d80gbkeYoAz0xSygc67vrGsPcmYVquFQIf/CXHMfKnJy5xUH
+         zDbg==
+X-Forwarded-Encrypted: i=1; AHgh+RqpJQiQsdR8KW677bo5TaKnM597tfmhbO2TuZsO6NmM7YM6NPEAgBeLQIh8mPomZc72Gm5KB8M=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2nmXEuvjcdzDxBxBnCfBW7qbDApQueVr6J1qAVp+mTaGFExDD
+	8XZ7e2X9npfNjSuOo1q+5cpfsbpBEM//boXggSfiXtz86TyMDqPz/kGw
+X-Gm-Gg: AR+sD10F6Hvi6FILTXXjnVDI7uHzDQKoPa2gp9ZzpVpuX4MdMQTfRMK3d16F1OuwDx9
+	3F+EO2dsMawmjAE/gRbBmB29F7n5p0ghdl8ZbANxcW7UuvEPKtp1mV2a0AZIyrPJaDt8H1Nz3Pz
+	CvgEY9n9S1cfeDdsr0gWEGStBVrhcHi2zQGwI60Acp/ZfwvdaxjlHsLhq9d2gFukKwtprX6GZud
+	yOYp3UccY9+B0BofVk9S7FkbojdDzIjfkGDifBsG4RI3P2Ir48326cqzFJOAF9v0lv/zpWo2M3c
+	ktFkSawTAgCPcg+rHKsixA07laxij3n66utR6KKOuzDIFWotUdAAzVwloc31vBUfkAoOwSf9T4l
+	oV3oNLkihJnf6Y6KXsyIKGU/gp77FZPRNheQOmz55qKsMH2AljAgXqol9igPPQlcdfks9EEI4l7
+	MpcaMzOd/jCIdvzmrftYSLgWl2IsgvMpeF7Yu7lbH96pQw2ae8zmlVYDbh8cpgpxIZMas9Km/+Q
+	QGs1JYP/V7FIDq+OwXQvIPNJBE=
+X-Received: by 2002:a17:903:11ce:b0:2ca:b8fd:1a8f with SMTP id d9443c01a7336-2d016050393mr86243135ad.39.1785346606916;
+        Wed, 29 Jul 2026 10:36:46 -0700 (PDT)
+Received: from KRHW1CJW23.bytedance.net ([120.234.91.241])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf39cdsm14806045ad.55.2026.07.29.10.36.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 29 Jul 2026 10:36:46 -0700 (PDT)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Cc: Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rex Lu <rex.lu@mediatek.com>,
+	Peter Chiu <chui-hao.chiu@mediatek.com>,
+	Chad Monroe <chad@monroe.io>,
+	Howard Hsu <howard-yh.hsu@mediatek.com>,
+	StanleyYP Wang <StanleyYP.Wang@mediatek.com>,
+	MeiChia Chiu <meichia.chiu@mediatek.com>,
+	Bo Jiao <Bo.Jiao@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] wifi: mt76: mt7915: unlink TWT flow on MCU add failure
+Date: Thu, 30 Jul 2026 01:36:31 +0800
+Message-ID: <20260729173632.14387-2-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260729173632.14387-1-enderaoelyther@gmail.com>
+References: <20260729173632.14387-1-enderaoelyther@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 3F12220025
-X-Stat-Signature: 5xdgoxrisbw3orwf73efo6xozpqu9cxj
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/xEXo6II7fWdCqKMnxVwogpUqOt5SbSV4=
-X-HE-Tag: 1785346321-509819
-X-HE-Meta: U2FsdGVkX19mhPo7qBAXnNQCBh4LMj2QLHcRYchT8qWobOEEwXW4ZN10LX7yP6HicrvpMS3PmTfz+8dBqQtTOTBzxWF2kA/hfjwIXdj1LbV8inBszGIpuwrMUczTITGSzYH5UP4NOPQy21Nqye7bojQLH7UGWTc4RRXB+sY3o/n7rW6ekE4lj46B7mEUc/nvDr3p5dt8dKycHwJox2qJK2v3uSjuKe8ReEwna2bThWB3mOMNs7u+Mw/dbWKhNiXLqsjjE6Qh+IrPF0d0cYI8SxtdXHGUOAZv5Vodv9gg8rLUEMdMR3qAzCWgvkEhbse18fd/QnnfcdL9g1V9Q/S/9DUCmSCPw4PCOXR7AqehOmfB39KMEAISYDsGDHdamvxK+c8MSaz5El6ZP2/KANDZp4rWAwTwTS8AbtmgZJLcuwoQarjjolUCFGW3LP4wi7F9
+Content-Transfer-Encoding: 8bit
 
-On Wed, 29 Jul 2026 08:47:33 -0700
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+mt7915_mac_add_twt_setup() links a new flow into dev->twt_list before
+asking the MCU to add the agreement, but exits without unlinking the flow
+if the request fails. The flow-ID and table masks are only committed
+after MCU success, so the still-linked flow is invisible to the
+mask-gated teardown paths.
 
-> On Wed, 29 Jul 2026 at 08:31, Steven Rostedt <rostedt@goodmis.org> wrote:
-> >  
-> > > > Honestly, I would love to get rid of it as today ftrace has proven to be
-> > > > rather stable. But as it is a user space ABI, I'm not sure what will break
-> > > > if we do. I wonder if we just make it a nop, and print a message to dmesg
-> > > > saying:
-> > > >
-> > > >   "ftrace_enabled no longer does anything. Please report if you need it to."
-> > > >
-> > > > ?  
-> > >
-> > > Thanks Steven, if you and/or other community members would approve such
-> > > approach I would happily do this instead for a few reasons -  
-> >
-> > It's actually if Linus is OK with this approach.  
-> 
-> The rule is always the same, and I don't understand why there's any
-> discussion about it because it's been stated a million times: we can
-> try to make any ABI changes at all, and what matters is whether it
-> breaks somebodys setup.
-> 
-> If people rely on old behavior, it can't change. And if people don't,
-> nobody cares. It really is that simple. That is literally the
-> DEFINITION of "don't break user space".
+If the station retries the setup, the same slot is cleared and its
+embedded list node reinitialized while it is still linked, corrupting
+dev->twt_list and potentially preventing a scheduling walk from
+terminating. If the station disassociates instead, teardown skips the
+flow and station storage can be freed while the node remains linked. A
+later scheduling or debugfs twt_stats walk can then dereference the
+freed flow, resulting in a use-after-free.
 
-That's basically what I said. I was just restating it and not asking if I
-was correct. I added you more for the below information you added.
+Unlink the flow with list_del_init() on the MCU ADD failure path. This
+restores the list to its pre-request state and leaves the node safe for a
+retry. Mask and agreement accounting remain untouched because none of
+it was committed before the failure.
 
-> 
-> Whether something is user-*VISIBLE* in theory is entirely immaterial
-> except in the sense of "be careful, this needs testing and may have to
-> be reverted". So user-visibility isn't a "don't do it", it's a "do it
-> carefully, and knowing that you may have to revert immediately if
-> somebody complains".
+Fixes: 3782b69d03e7 ("mt76: mt7915: introduce mt7915_mac_add_twt_setup routine")
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Kimi:K3
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+ drivers/net/wireless/mediatek/mt76/mt7915/mac.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Totally agree.
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
+index 334c19ab2b22..1ad54a5bb374 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
+@@ -2345,8 +2345,10 @@ void mt7915_mac_add_twt_setup(struct ieee80211_hw *hw,
+ 	}
+ 	flow->tsf = le64_to_cpu(twt_agrt->twt);
+ 
+-	if (mt7915_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD))
++	if (mt7915_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD)) {
++		list_del_init(&flow->list);
+ 		goto unlock;
++	}
+ 
+ 	setup_cmd = TWT_SETUP_CMD_ACCEPT;
+ 	dev->twt.table_mask |= BIT(table_id);
+-- 
+2.50.1 (Apple Git-155)
 
-> 
-> So changing user-visible things is potentially a lot of wasted effort,
-> and needs loving care and follow-up.
-> 
-> So everybody should typically avoid changing user-visible things
-> because it's potentially painful and developer-intensive, but not
-> because it can't be done.
-> 
-> All that matters is whether real user workloads regress.
-> 
-> And please make sure that any changed behaviour is really obvious, so
-> that people don't spend lots of time chasing down *why* something
-> broke. A kernel printk is generally way too subtle - and no, the
-> tracing "make the printk extra ugly with crazy ASCII barfics" model is
-> not an improvement.
-> 
-> It might be better to actually return an error to user space so that
-> users can see that setting ftrace_enabled to zero failed and it would
-> show up in user logs. kernel developers may think that kernel logs are
-> important, but users seldom even think about them. Of course, that can
-> then cause even worse regressions, so there's a balance here.
-> 
-> End result: don't do user visible changes unless you really really
-> care. And then you spend the extra effort.
-
-Honestly, I don't know of any tooling that would use this kill-switch or
-any reason to do so. For live kernel patching and for BPF, it doesn't even
-work. Hasn't for some time. It's now a "kill some ftrace but not all".
-
-Hence, again, the switch itself is rather useless.
-
-It now is starting to cause a burden, as there's internal code depending on
-ftrace functionality to always be working and can cause some nasty
-undefined behavior if someone were to set that kill switch to zero. The
-solution is to either play whack-a-mole and make sure all those use cases
-have the PERMANENT flag set so the kill-switch does not affect them. Or we
-simply disable the kill-switch.
-
-But I like your idea about it returning -ENOSUP if someone tries to set it
-to zero. Doing that and the printk should let people know why it didn't
-work if they do care.
-
-And yes, we need to be ready to revert it if someone does come back and say
-their tooling broke because of it.
-
-Andrey, care to make a patch to do that?
-
-Have setting it to zero return -ENOSUP and print a message saying:
-
- "The ftrace_enabled file is deprecated and no longer disables ftrace"
-
--- Steve
