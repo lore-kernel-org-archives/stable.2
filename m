@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698F12D46A1
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C41028C037;
+	Wed, 29 Jul 2026 03:18:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785295081; cv=none; b=J8D7EOGMkGvO57+DCeBxY4lsfvVFf7vEYmdJ/RRaLdIAZkj/C3VUCXoFceGqDJUze52YcSrJolVFqxULfmrzfVj4CiX/EcrrCTKtpY3ms/WuvO1CbcPr2B4V45I9JSmKJR1U3KO2jsgT27wKo6YoJwhpxwkXrldK0CzLUS9ouOw=
+	t=1785295082; cv=none; b=AJy8VqUyNJO/yoF71tFGd0vY+WVPuIoGT1o0WA0j3qHzZFh0GugrluKqOsgOa0bCJp1U2RdAA3pjU4i3PibH6oeUquu6HxM1IIGNFjnbVFo14pH++Tt4nq6fX3oWQVXzrV7dq3OaLnRqepeJbpZgsrb8h9NMVvyol871DasQ36c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785295081; c=relaxed/simple;
-	bh=GQwpRzCgdDAtkQ/lbBEGmTbrWFm7TQU8R+OVn8q8NXU=;
+	s=arc-20240116; t=1785295082; c=relaxed/simple;
+	bh=bRsTJj6q2I3GDXVrSBd3eGbZvdGRI2dPnC6Ry+bL338=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tw2nwOvCDjKCJ5T3qv4gJfQHflH32wnzhdFjuUEbKdJ0i+4UK7cK6QR2YJFOdhjOV88IHrAqU5galimGn9mnH/Fe46FfCBjLHgy7ZfWrhYmKFpb95DPA49ynwmq72OTFZHlv4Hyw78U6rjIHyyF5wLu5cxk0J0Z45ae3L7rRvzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S48vbH4g; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YFKVZiabnz2VqYY1GBoHBq4EhfqWnfcg7tcXpZD6ddopiRpHUXaNNvTU/KNGMkilQ6yUViVZPR2KXsXMFU6Lg2IorKJVTozZKfrd59LEDdLikiRo92wKKSDq7DqAXaoa3mrEmFCzldasY42ipH0WJ6naxpONhz8Pk79xJEh6qiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvOk5wOm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S48vbH4g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 763F41F00A3A;
-	Wed, 29 Jul 2026 03:17:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvOk5wOm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A0E1F00A3E;
+	Wed, 29 Jul 2026 03:18:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785295080;
-	bh=w6igIDwgI5emoH6B2L8HmRmQ9CoQDDBDMkELp8aykhg=;
+	s=k20260515; t=1785295081;
+	bh=nnuuji+riVImJSddJRAk/Q7uspzX7HnQ3lL68aJ1Tto=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S48vbH4guswQJ3cUWRiNK7dc+NKYyvukMhUqelzCgrJXPEMpKrd8/9/Z+68FFuCcP
-	 L2C8O4OVgEQ78w6IKIcBcfMoU3/YkwjmEcRNRJCjhULR3E5hR7qxAofJvOohw00Yzr
-	 ubDPSFJb3/cB/RB7rFAB75JuA2sL0m89BjaooB34OQRsf+C2QTKvTLL+pYnA1qYSUj
-	 Utd3CirY12yYGVax+4fTRuhfHbfTi562EUH9GyeadIZeXFLnKPbaMCk1X0OrYHS8G8
-	 3YW0JVB1ZHGQToB6GsPbZylSmOFyJ9ABkF9cUcJirzPl/OJlTsYHh7dwtI1vhZtGwu
-	 tU9sUyGepjlfA==
+	b=RvOk5wOmxG0UnQQpb0yMiiPK6K/oPer69gYpzf9LIiqoETGVLHxtShK+e67sMwwOI
+	 16K0b1S6QM/C0YRg/LoEP3DHS4mCJWC3OYgXhDa3tiGtRJN1QeyjnpAPA9HKXwBMpW
+	 AHJJoY1ruUqcIMiR+yOkTNDw3QyLKlc+8qElajX7r/bJzCZf37dw4IW3auQCaFL206
+	 UXwej+hz136OQuAtPfuey7FkXnyhLMxTB4LahNg+a9h9y0SEhvuvKS/h/zTfyRGl9Z
+	 c9qPxOgtCzdPtFS0fN8CpnOekF0AEqD6qMi3+Re+spzdQfmSPk8S83OZaSoELn9y9C
+	 ZzjcbMdwGex+A==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: Re: [PATCH 5.15.y v2 1/9] can: bcm: defer rx_op deallocation to workqueue to fix thrtimer UAF
-Date: Tue, 28 Jul 2026 23:17:54 -0400
-Message-ID: <20260728225510.stable-0002@kernel.org>
+	andrii@kernel.org,
+	ast@kernel.org,
+	kpsingh@kernel.org,
+	patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	xukuohai@huawei.com,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.6 0772/1266] bpf, lsm: Add disabled BPF LSM hook list
+Date: Tue, 28 Jul 2026 23:17:55 -0400
+Message-ID: <20260728225520.stable-0003@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260728163944.24110-1-socketcan@hartkopp.net>
-References: <20260728163944.24110-1-socketcan@hartkopp.net>
+In-Reply-To: <20260728033810.1870379-1-guanwentao@uniontech.com>
+References: <20260728033810.1870379-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,13 +50,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> commit 68973f9db76144825e4f35dfdc80fb8279eb2d57 upstream.
+> backport ("bpf, lsm: Add disabled BPF LSM hook list") for v6.6.y bring the new
+> build warning for us, let your know that.
 >
-> Commit f1b4e32aca08 ("can: bcm: use call_rcu() instead of costly
-> synchronize_rcu()") replaced synchronize_rcu() in bcm_delete_rx_op()
-> with call_rcu() and introduced the RX_NO_AUTOTIMER flag.
+> and the lsm_getselfattr from a04a1198088a1378d0389c250cc684f649bcc91e commit
+> ("LSM: syscalls for current process attributes"), I suggest that use a not
+> upstream commit to just drop 'BTF_ID(func, bpf_lsm_getselfattr)' from 6.6.y.
+> Maybe 6.1.y has the problem too.
 
-Queued the series for 5.15, thanks.
+Thanks for the report, I agree with the analysis.
+
+> Maybe 6.1.y has the problem too.
+
+Yes, 6.1.y is affected as well - the same backport of 21c7063f6d08
+("bpf, lsm: Add disabled BPF LSM hook list") is in v6.1.178.
+
+The impact is build noise only: resolve_btfids only prints the WARN and
+carries on, the unresolved entry is patched as BTF ID 0, and 0 never
+matches a real prog->aux->attach_btf_id, so the enforcement for the other
+disabled hooks keeps working. I do not want to revert the pair, since
+21c7063f6d08 came in as a dependency of 12091470c6b4 ("bpf: Disable
+xfrm_decode_session hook attachment"), which prevents a reachable BUG_ON()
+and does belong on these trees.
+
+Could you post a formal patch for this please?
 
 -- 
 Thanks,
