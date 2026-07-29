@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF79544E038
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:50:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A11471CE9
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322254; cv=none; b=nmyJ+6gQbOsRYuoyiA/83G7BT1XTrnqvDAhW3FaA1VUqQws3BNaVYRyj7Co80mPBZc0Xx0LeViYSjOZbH0i9wYdJIPfLKly4MvqraLjNT1VFfCOAjK1uzyBPeEeMQb0YY0ddNucbPRQKouWAMtdCDwq++oCDk6i2ipamWrdeWiw=
+	t=1785322359; cv=none; b=pOMGr4QnSGoyVNjx4Wwu6th88xjSD8ydzehHT/D2FQtO1cuNQazbRP9hMtTOaHI1mblnjlEENstiJu8DVvldey22zbdTXo+XdSkS+Z2F5uLYWJcepQtcpS/U2C8vh4Ehlm1UmmBzdSMweQQ6xrFWglpQOaxKGXvLOnWY8ti9jxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322254; c=relaxed/simple;
-	bh=6Dlkht8hRdQLHD5FCQUpPPJ7ULwRezBeqjd3Z25unmQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sH6vvH17FIVnORhuJohwAXlUvmnRk4UTm8Im1fNbFUEU2Nt9eReIuETCZlfU8iqj8LsTR/+6LGWGVl8m5QURQo3WNhmz6HLXsStj30qLGT3SwRtUBkC5Qs6vTuF6SPC3qT01QFc+UO7BrhKpSTptbzkKTM1FDa1vZgJisVyRprA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BFgznHC6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785322359; c=relaxed/simple;
+	bh=CFExZ5xJlRbMOUbC1FCLquLS6K7c4m21tpOJMHjn28E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eNtELzZfEE8HPlnPLrh+zxgbwjzMThbxVOAEWUmVPB1z5c8HqsKKj1Rp1I9EVrtAit5qaQPiZHM2e3TuWIpy9bTMp+32Hczn/hY5ZJCgnJ9+AAxZnKiav8xDFjrm9lUJaLC928y2SzLJg0QasyTvy0h+MaaagA4kOS0dxzD1nAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NNDFsC9G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BFgznHC6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068371F000E9;
-	Wed, 29 Jul 2026 10:50:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NNDFsC9G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF781F000E9;
+	Wed, 29 Jul 2026 10:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785322249;
-	bh=A6//6TJffX879zFCExEaQnazz6jW4oMmXBFsTyifqBk=;
+	s=korg; t=1785322352;
+	bh=eN0JNFVmWQCgzk8JOBMzMPMe3ZGJmrkKTMoqzca6428=;
 	h=Subject:To:Cc:From:Date;
-	b=BFgznHC6bsE0XrMA5SL9ElUj+gW7pFkZSiX++WUXBEnMe8skDs0xopNUy2q6gnKn7
-	 6GglWRq77YHkxZ00rSGk0lRuj4JiMXPHreot7U7S/UC8AFhqBVpraMS7ndbofyWif+
-	 fjoydeCTe1tkjNwYwRdo+E2nh3kV+5XEv41zlmOg=
-Subject: FAILED: patch "[PATCH] drm/displayid: fix Tiled Display Topology ID size" failed to apply to 5.15-stable tree
-To: jani.nikula@intel.com,airlied@redhat.com
+	b=NNDFsC9GLULyfbtunegANvodYzlAVEmwrcir1OOhz+8kHxBS7pWQCIUwnMKMh86zH
+	 7c+4lqYhL0klJHaD/SGIYeto0H5Sv6QDAHSflmjY9LmIDhFo+gtc6K/6gVQKF0KvHW
+	 bTObAxAd09rQKruwS/NsWNBRICJTV5aruQU1GTP8=
+Subject: FAILED: patch "[PATCH] drm/xe/display: skip FORCE_WC and vm_bound check for external" failed to apply to 6.18-stable tree
+To: matthew.auld@intel.com,dev@lankhorst.se,matthew.brost@intel.com,stable@vger.kernel.org,thomas.hellstrom@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:50:27 +0200
-Message-ID: <2026072926-unblended-mobilize-c8f5@gregkh>
+Date: Wed, 29 Jul 2026 12:52:19 +0200
+Message-ID: <2026072918-stratus-conch-34c1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 90c0486a82e27393f9eaf3bb350f51a0bd38cb6b
+git cherry-pick -x d472497265374e895e31cf2af8a2c5f650019889
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072926-unblended-mobilize-c8f5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072918-stratus-conch-34c1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,129 +62,76 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 90c0486a82e27393f9eaf3bb350f51a0bd38cb6b Mon Sep 17 00:00:00 2001
-From: Jani Nikula <jani.nikula@intel.com>
-Date: Wed, 10 Jun 2026 17:15:49 +0300
-Subject: [PATCH] drm/displayid: fix Tiled Display Topology ID size
+From d472497265374e895e31cf2af8a2c5f650019889 Mon Sep 17 00:00:00 2001
+From: Matthew Auld <matthew.auld@intel.com>
+Date: Fri, 12 Jun 2026 18:05:02 +0100
+Subject: [PATCH] drm/xe/display: skip FORCE_WC and vm_bound check for external
+ dma-bufs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Tiled Display Topology ID of a DisplayID Tiled Display Topology Data
-Block consists of three fields:
+Currently, xe_display_bo_framebuffer_init() unconditionally attempts to
+apply XE_BO_FLAG_FORCE_WC to the buffer and rejects the FB creation with
+-EINVAL if the BO is already VM_BINDed.
 
-- Tiled Display Manufacturer/Vendor ID Field (3 bytes)
-- Tiled Display Product ID Code Field (2 bytes)
-- Tiled Display Serial Number Field (4 bytes)
+However, for imported dma-bufs (ttm_bo_type_sg), this check doesn't seem
+to make much sense since CPU caching policy is entirely controlled by
+the exporter. Plus there is no place to set this flag, in the first
+place. Also this is not rejected if not yet vm_binded, but that seems
+arbitrary since setting or not setting FORCE_WC should a noop either
+way, at this stage, and whether it is currently VM_BINDed makes no
+difference.
 
-i.e. a total of 9 bytes, not 8.
+Currently if we run an app and offload rendering to an external dGPU,
+like NV or another xe device, the dma-buf passed back to the compositor
+(igpu) will be an actual external import from xe pov, and it will be
+missing FORCE_WC, and if the compositor side did a VM_BIND before
+turning into it into an fb the whole thing gets rejected.
 
-The DisplayID Tiled Display Topology ID is used as the tile group
-identifier.
+So it looks like we either need to reject outright, no matter what, or
+this usecase is valid and we need to loosen the restriction for sg
+buffers.  Proposing here to loosen the restriction.
 
-Update both struct displayid_tiled_block topology_id member and struct
-drm_tile_group group_data member to full 9 bytes.
+Assisted-by: Gemini:gemini-3.1-pro-preview
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7919
+Fixes: 44e694958b95 ("drm/xe/display: Implement display support")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>
+Cc: <stable@vger.kernel.org> # v6.12+
+Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
+Link: https://patch.msgid.link/20260612170501.550816-2-matthew.auld@intel.com
+(cherry picked from commit 3e493f88c84088ccd7b53cdd23ac5c875c9a60dd)
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-The group data was missing the last byte of the serial number. I don't
-know whether there are known bug reports that might be linked to this,
-but it's plausible the last byte could be the differentiating part for
-the tile groups, and fewer tile groups might have been created than
-intended.
-
-Fixes: b49b55bd4fba ("drm/displayid: add displayid defines and edid extension (v2)")
-Fixes: 138f9ebb9755 ("drm: add tile_group support. (v3)")
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: stable@vger.kernel.org # v3.19+
-Reviewed-by: Dave Airlie <airlied@redhat.com>
-Link: https://patch.msgid.link/20260610141549.555605-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 47dc53c4a738..29634757c06d 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -3576,7 +3576,7 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
- /**
-  * drm_mode_get_tile_group - get a reference to an existing tile group
-  * @dev: DRM device
-- * @topology: 8-bytes unique per monitor.
-+ * @topology_id: 9-byte unique ID per monitor.
-  *
-  * Use the unique bytes to get a reference to an existing tile group.
-  *
-@@ -3584,14 +3584,14 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
-  * tile group or NULL if not found.
-  */
- struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
--					       const char topology[8])
-+					       const char topology_id[9])
- {
- 	struct drm_tile_group *tg;
- 	int id;
+diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
+index 7fbac223b097..8953da0136dc 100644
+--- a/drivers/gpu/drm/xe/display/xe_display_bo.c
++++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
+@@ -48,7 +48,8 @@ static int xe_display_bo_framebuffer_init(struct drm_gem_object *obj,
+ 	if (ret)
+ 		goto err;
  
- 	mutex_lock(&dev->mode_config.idr_mutex);
- 	idr_for_each_entry(&dev->mode_config.tile_idr, tg, id) {
--		if (!memcmp(tg->group_data, topology, 8)) {
-+		if (!memcmp(tg->group_data, topology_id, sizeof(tg->group_data))) {
- 			if (!kref_get_unless_zero(&tg->refcount))
- 				tg = NULL;
- 			mutex_unlock(&dev->mode_config.idr_mutex);
-@@ -3606,7 +3606,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
- /**
-  * drm_mode_create_tile_group - create a tile group from a displayid description
-  * @dev: DRM device
-- * @topology: 8-bytes unique per monitor.
-+ * @topology_id: 9-byte unique ID per monitor.
-  *
-  * Create a tile group for the unique monitor, and get a unique
-  * identifier for the tile group.
-@@ -3615,7 +3615,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
-  * new tile group or NULL.
-  */
- struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
--						  const char topology[8])
-+						  const char topology_id[9])
- {
- 	struct drm_tile_group *tg;
- 	int ret;
-@@ -3625,7 +3625,7 @@ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
- 		return NULL;
+-	if (!(bo->flags & XE_BO_FLAG_FORCE_WC)) {
++	if (!(bo->flags & XE_BO_FLAG_FORCE_WC) &&
++	    bo->ttm.type != ttm_bo_type_sg) {
+ 		/*
+ 		 * XE_BO_FLAG_FORCE_WC should ideally be set at creation, or is
+ 		 * automatically set when creating FB. We cannot change caching
+diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+index f93c98bec5b5..5f4a0cd8deca 100644
+--- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
++++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+@@ -331,7 +331,8 @@ static struct i915_vma *__xe_pin_fb_vma(struct drm_gem_object *obj, bool is_dpt,
+ 	int ret = 0;
  
- 	kref_init(&tg->refcount);
--	memcpy(tg->group_data, topology, 8);
-+	memcpy(tg->group_data, topology_id, sizeof(tg->group_data));
- 	tg->dev = dev;
+ 	/* We reject creating !SCANOUT fb's, so this is weird.. */
+-	drm_WARN_ON(bo->ttm.base.dev, !(bo->flags & XE_BO_FLAG_FORCE_WC));
++	drm_WARN_ON(bo->ttm.base.dev, !(bo->flags & XE_BO_FLAG_FORCE_WC) &&
++		    bo->ttm.type != ttm_bo_type_sg);
  
- 	mutex_lock(&dev->mode_config.idr_mutex);
-diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-index 5b1b32f73516..4590d6a3d821 100644
---- a/drivers/gpu/drm/drm_displayid_internal.h
-+++ b/drivers/gpu/drm/drm_displayid_internal.h
-@@ -109,7 +109,7 @@ struct displayid_tiled_block {
- 	u8 topo[3];
- 	u8 tile_size[4];
- 	u8 tile_pixel_bezel[5];
--	u8 topology_id[8];
-+	u8 topology_id[9];
- } __packed;
- 
- struct displayid_detailed_timings_1 {
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index f83f28cae207..877b5ca87e95 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2608,13 +2608,13 @@ struct drm_tile_group {
- 	struct kref refcount;
- 	struct drm_device *dev;
- 	int id;
--	u8 group_data[8];
-+	u8 group_data[9];
- };
- 
- struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
--						  const char topology[8]);
-+						  const char topology_id[9]);
- struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
--					       const char topology[8]);
-+					       const char topology_id[9]);
- void drm_mode_put_tile_group(struct drm_device *dev,
- 			     struct drm_tile_group *tg);
- 
+ 	if (!vma)
+ 		return ERR_PTR(-ENODEV);
 
