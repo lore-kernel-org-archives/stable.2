@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D9F480DF8
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:02:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A13477284
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:02:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785330159; cv=none; b=eOwfR0vtvI47JLr860d7noIdkbiuO7rVLlCIrSYWzcYdg8b1CkenBxi7FsqBr6/o+eWuEmB1L43ltzgrrRlWt1tDgcr3gxntxYWLg/YBUB+RVHMqvKdCdp8DtQ6Ijk3XmmVotcZwc5LyQfG277PbP7WYpfFhmxsRMukhqKKk7f0=
+	t=1785330165; cv=none; b=vCwRvf4R994+OVIzWOqQ6FPm9+Su/xyRZtyolF8X2UNVSUYx3iBGlGrhK8Rn/4OoI31qa9YA+0uIYs5eRN2aUZ+P3PiL3IRPjIG1/HIMCoXUbA3TaJGYJ6jRSTuyd5cKtQVuRnYiCQdf3opzMOO+Eia7fashPYOWzGzmXm2/nJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785330159; c=relaxed/simple;
-	bh=QM6y1b7J45fksis66Y/Lb50vAOMZTrjUd5YDVvvsIUA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=URTtP7F+GA+/tadvi9EBHUkp23InISyc5IBh7bAMNz6m4yN6axaJxIrEEzpMUY27ci051pZXnNZ/AyGs5/rYRLlI1u3vooaxY9XDgz/2bUUaktXWDTQYsVA/YDJY/kKMfVc6uyPpLCv4ZN5P1XIi5WK+XP4Mztpje6mdY4DiYOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=haIpzDQl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785330165; c=relaxed/simple;
+	bh=Yq+Dm1HKI0aV8mBwFseYNBxM0O6T43Ded3c41oEbtS4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=vBZFNqORj8Gt2FEYnjbfI1B1k8WGVLiuvT/bazquM71VPwrjnbI4Yht3JgfpuD7ImsjrEJ8kQvnNj0tR1/2O9FALCLcYQHs/88sfjCt4WjI4AUP2cEC0P89hKBmf/desWIpIdtMLh8hd5wt5DNRmfTwZcdQ9SFfOtDrUTSaYvJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MYpOgin0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="haIpzDQl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD03D1F000E9;
-	Wed, 29 Jul 2026 13:02:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MYpOgin0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 238431F000E9;
+	Wed, 29 Jul 2026 13:02:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785330157;
-	bh=Vzk0OEaOfywz8mkpvhxxTctBozIwEChwZzUOBIEMggE=;
+	s=korg; t=1785330162;
+	bh=0RkzEi3wL6CH6LgPJt41ztqd1lupMz02fgM9Z2mgF9c=;
 	h=Subject:To:Cc:From:Date;
-	b=haIpzDQlxmdfJqgIAO/ZOjA4CS4pdMdXZPToctkfJnCy5GNvl8qMmBrXndtw+GFqQ
-	 3LJrhr9CTlfBJ1raU1pMg8etjaZUg8L2Hs5mnSDLDTkt1tawzgiK1N7MW3Vg2MCYKq
-	 wz6wAdrdkrKZnek+2RPHNW1K3+ILhZ2693arob+o=
-Subject: FAILED: patch "[PATCH] media: v4l2-ctrls: validate HEVC active reference counts" failed to apply to 5.10-stable tree
-To: pengpeng@iscas.ac.cn,hverkuil+cisco@kernel.org,nicolas.dufresne@collabora.com
+	b=MYpOgin0TfI069femA1vFkBtfPWkNu4/j7gKwylPLfKswkqAK6nwtLLQiGTMSlVmk
+	 deuT2MFZE27dhEctjjbAOu1hLxzzce94jlXAyfTAw83u9r1XGOW0vtpZ/zd+RsbfcF
+	 Wz1lpeW9evypLbmHofTF/kk9IZDgHvsGsxrWDh+s=
+Subject: FAILED: patch "[PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in" failed to apply to 5.10-stable tree
+To: mirela.rabulea@nxp.com,Frank.Li@nxp.com,laurent.pinchart+renesas@ideasonboard.com,sakari.ailus@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:02:16 +0200
-Message-ID: <2026072916-driller-shed-862c@gregkh>
+Date: Wed, 29 Jul 2026 15:02:29 +0200
+Message-ID: <2026072929-fresh-parsley-3ec6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x afbe4bc252d90a6f8fad869b06d5430f615f22f9
+git cherry-pick -x 06cb687a5132fcffe624c0070576ab852ac6b568
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072916-driller-shed-862c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072929-fresh-parsley-3ec6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,61 +62,89 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From afbe4bc252d90a6f8fad869b06d5430f615f22f9 Mon Sep 17 00:00:00 2001
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Date: Tue, 24 Mar 2026 11:13:26 +0800
-Subject: [PATCH] media: v4l2-ctrls: validate HEVC active reference counts
+From 06cb687a5132fcffe624c0070576ab852ac6b568 Mon Sep 17 00:00:00 2001
+From: Mirela Rabulea <mirela.rabulea@nxp.com>
+Date: Fri, 22 May 2026 17:31:20 +0300
+Subject: [PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in
+ v4l2_async_register_subdev_sensor()
 
-HEVC slice parameters are shared stateless V4L2 controls, but the common
-validation path does not verify the active L0/L1 reference counts before
-driver-specific code consumes them.
+The v4l2 helper v4l2_async_register_subdev_sensor() calls
+v4l2_async_register_subdev(), which is a macro that expands to
+__v4l2_async_register_subdev(sd,THIS_MODULE). Since the macro is expanded
+inside v4l2-fwnode.c, THIS_MODULE resolves to the v4l2-fwnode module
+rather than the sensor driver module that originally set sd->owner. When
+v4l2-fwnode is built-in, THIS_MODULE evaluates to NULL, which then
+overwrites the sensor driver's owner with NULL.
 
-The original report came from Cedrus, but the active count bounds are
-not Cedrus-specific. Validate them in the common HEVC slice control path
-so stateless HEVC drivers get the same basic guarantees as soon as the
-control is queued.
+This causes the problem that the sensor module's reference count is never
+incremented during async registration, so the module can be removed while
+the subdevice is still in use by a notifier (e.g., a CSI-2 receiver
+bridge driver).
 
-Do not reject ref_idx_l0/ref_idx_l1 entries here. Existing userspace may
-use out-of-range sentinel values such as 0xff for missing references, and
-some hardware can use that information for concealment. Keep this common
-check limited to the active reference counts.
+Fix this by renaming v4l2_async_register_subdev_sensor() to
+__v4l2_async_register_subdev_sensor() with an added explicit module
+argument and introducing a wrapper macro:
+    #define v4l2_async_register_subdev_sensor(sd) \
+        __v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
 
-Fixes: d395a78db9eab ("media: hevc: Add decode params control")
+This ensures the sensor driver module is properly referenced even when
+the sensor driver does not init the owner field before calling
+v4l2_async_register_subdev_sensor() and prevents premature module removal.
+
+Fixes: aef69d54755d ("media: v4l: fwnode: Add a convenience function for registering sensors")
 Cc: stable@vger.kernel.org
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Suggested-by: Frank Li <Frank.Li@nxp.com>
+Link: https://lore.kernel.org/linux-media/20240315073125.275501-2-sakari.ailus@linux.intel.com/
+Signed-off-by: Mirela Rabulea <mirela.rabulea@nxp.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-index 6b375720e395..ba047d7d8601 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-@@ -971,6 +971,7 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
- 	struct v4l2_ctrl_hevc_ext_sps_st_rps *p_hevc_st_rps;
- 	struct v4l2_ctrl_hevc_sps *p_hevc_sps;
- 	struct v4l2_ctrl_hevc_pps *p_hevc_pps;
-+	struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
- 	struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
- 	struct v4l2_ctrl_hevc_decode_params *p_hevc_decode_params;
- 	struct v4l2_area *area;
-@@ -1260,6 +1261,18 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
- 		break;
+diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
+index 77f3298821b5..62a3a452f788 100644
+--- a/drivers/media/v4l2-core/v4l2-fwnode.c
++++ b/drivers/media/v4l2-core/v4l2-fwnode.c
+@@ -1256,7 +1256,7 @@ v4l2_async_nf_parse_fwnode_sensor(struct device *dev,
+ 	return 0;
+ }
  
- 	case V4L2_CTRL_TYPE_HEVC_SLICE_PARAMS:
-+		p_hevc_slice_params = p;
-+
-+		if (p_hevc_slice_params->num_ref_idx_l0_active_minus1 >=
-+		    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
-+			return -EINVAL;
-+
-+		if (p_hevc_slice_params->slice_type != V4L2_HEVC_SLICE_TYPE_B)
-+			break;
-+
-+		if (p_hevc_slice_params->num_ref_idx_l1_active_minus1 >=
-+		    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
-+			return -EINVAL;
- 		break;
+-int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
++int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module)
+ {
+ 	struct v4l2_async_notifier *notifier;
+ 	int ret;
+@@ -1282,7 +1282,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
+ 	if (ret < 0)
+ 		goto out_cleanup;
  
- 	case V4L2_CTRL_TYPE_HEVC_EXT_SPS_ST_RPS:
+-	ret = v4l2_async_register_subdev(sd);
++	ret = __v4l2_async_register_subdev(sd, module);
+ 	if (ret < 0)
+ 		goto out_unregister;
+ 
+@@ -1300,7 +1300,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
+ 
+ 	return ret;
+ }
+-EXPORT_SYMBOL_GPL(v4l2_async_register_subdev_sensor);
++EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
+ 
+ MODULE_DESCRIPTION("V4L2 fwnode binding parsing library");
+ MODULE_LICENSE("GPL");
+diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
+index f26c323e9c96..54a2d9620ed5 100644
+--- a/include/media/v4l2-async.h
++++ b/include/media/v4l2-async.h
+@@ -333,8 +333,10 @@ int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module);
+  * An error is returned if the module is no longer loaded on any attempts
+  * to register it.
+  */
++#define v4l2_async_register_subdev_sensor(sd) \
++	__v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
+ int __must_check
+-v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd);
++__v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module);
+ 
+ /**
+  * v4l2_async_unregister_subdev - unregisters a sub-device to the asynchronous
 
