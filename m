@@ -1,54 +1,54 @@
 Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011032.outbound.protection.outlook.com [52.101.65.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8A9426431;
-	Wed, 29 Jul 2026 07:40:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2799C435A84;
+	Wed, 29 Jul 2026 07:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785310831; cv=fail; b=T/QiPLiaLuhgTYkSkLQgDulFOAPTvseSyX7OPQybQnM2TaG0JrTnHI3O9/p3dbsn+RzZjpbLOmtw3QmykMzWSgsDVvb5N8FaXzg3y8TIn8nCu/L7Xhe+LQqn+VPqQl2qTH9TMxnj90g+Ky5jWRtm5XVM28zGYms1QG6VSHeS5nA=
+	t=1785310845; cv=fail; b=ZNEAJdfkz4eWctuu5jnv8rA508doXNBJbVGYKWTr8HmdumHajenWooj3SKvc/wkaMpYgTckDisIrnAmy5W0iiGttZ2L/USQLRuJkdvhWwjiBbdaSrdCFKyhBVQpFgemdzNAjFSLGgYbbFsXT8qWxFtZQdwvSCZUdho0l8SQDrMk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785310831; c=relaxed/simple;
-	bh=cI/cItK1xNfYX8FJz3RT3JkSPMV3ve7yEKsmtta3vL8=;
+	s=arc-20240116; t=1785310845; c=relaxed/simple;
+	bh=KZnBDwR9hzzQTmRP/DXKJRkxr5bvfsI7agxXcHGKrhk=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=sqO3AkDAwXei+eiVypMjgZRAkfBpF/sgBKZ9p1em8oTUIaEAfvVhZ42sasasjIXVq+JX9bhJX4meqNQiWpaS7FlcbO/P7M+fCA0tslqjUzIRmH7dghpy5hjAmleX1AjRGTsRHHusyERBEgp7O0F8JjJUuN0x9tTxYTPJSa7NjHA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=SdoKzoCH; arc=fail smtp.client-ip=52.101.65.32
+	 To:Cc:MIME-Version; b=YBDasOkwGtyIq/bcu8LrEl4RGyhqsazrrrckxqLau5dzkg/mGbAqryTocWAmLFQ9SCFf6OQKy+BhuH/nJIq28dKWJztRQM/bO6Svxh3qLjffQgMvy1DRtzWIcP4ax93cVf/ZKx7nBD4uX0+bUrujy51M4GXuN3dmASgOWouVO4s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=q3wnWpmc; arc=fail smtp.client-ip=52.101.65.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="SdoKzoCH"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="q3wnWpmc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NDbABgtO6VlQ1yhPMqnYp+/wktIH5+nya9z9ynSw8IVFqrKCnWM9DzyFmK0Ovsb/TnClwWH3nugbYkTn919qZd4sf3YSRt8SkkxI3m6nv0YdBLTEr/1+QMIfDZ0YCTcWQHyDIxd65HGHh60QwnPonzCtZxYaHVic1JnRoJ40zOXt2n9DJfGRvQfZP56GRU15hcjmIRNUGNgw/WT9+YnobvJCpHMaf2f7ZPlR4juEMw/6YvXHYkAmAH0EVS3SIux7352kpoaRitghlXvuGlOIZ8l37de5Layot6zSh9jNrRGsd5twYQmTeFErXycRp4VV/YA/VNRNF7BwjYbi9LpvHQ==
+ b=pH8po2C2FTYwVeowS9BRIAlGJ8BlHdHk+B7P1ADpAFQjQihdEg+nzsKXuNoNNnjkl+BI8czoqFxBrZpLl4Fx8mS0IEGRBmtuUM4JOUSgkW1/6il3pJEveAMyTHFqtx9hfq7gy5gdvqnASqTjEHWt8Gg1dsf1LMZZHbsZaGaaUyysy9WvpfHX2dt4UBS50roUp3r+XzE+QuxYlwQW0UQnSagqKweMnSWVuYboEU+jURnXUCR11vOzjyWqNjcBdCgxYoYm/MnqXKV0yomKHXrv/ybEF9hY/yDPt7bnlIW+BeO+oy9cc5lyfl19BCDPC8R+WONGPyd74qWs0BzI/DmegA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xrz59Y2ezGEepeiBZUQu9fmyojMmVHzhwD2VnnjhrmA=;
- b=XacLaZG2UfjMVo7iLuHZcIaQHEPFpyIygSDnaboPuWIXjkYCT0uw2Vf+DQLjQXU6k28cRqDgJihcEXWE5CfxNguc0Bk/qGUzU03wSgNCL/a4TKHfUnSRIkczk+HdtI/RGs+NvjV+pn1ZsIdsVdqkDcnL0+S6PnJkOyYwIOEBnhjQirswwtxP7FvfEhWdhev1EbipvkDtrZfwaIGAh616vczKFOs/zqvtoIj1REvqtM3McZXMd/XfnDP2dG1GdFOD/BFaQSBHIY3NKK9ltQZ1wGekdIUnX/CJrLscAMqr/VpSQjt/RIVuQfJncO1V9pFq45V05iXZKRCWsuBZGoRoyQ==
+ bh=2RDwZBDGZXPZXqaVj4Oqwg2mk+ASM6iTyZaWc4fDXbU=;
+ b=hiWMEnrKOSQt4IXgGAoLTG7IssoHjvcu+dOm67fzyvFNmDpGAGyM74plSktOw+CsaGZStOLcAoxn0RLCJwEVYXLe4V/8pTM0LfcAGb8NGpAzKQgNJntK5BJ/tWTfh77YXg7NPG0TkwECZ6kPnBfBC9sD0ZCiV209OF2F+FlFcJLmecVgIJWcO0KsgyIonl0bXFd0DYv1CmznbsDdeTziGFY2RVWGbdvKtHG1LWJkAPxIqGD650vHcQfiCiKMmbZh7clyDjkfGZFswVSkIAfwUNoELJRP/b65ZGOwrOrJ0UfdNZcP1bGDnrdYyNp08sRsa0AbnB3eUsO2137oQblDJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xrz59Y2ezGEepeiBZUQu9fmyojMmVHzhwD2VnnjhrmA=;
- b=SdoKzoCHPUhVt5YnMEdsbx+Vrap3uORGWt5VnK44qyViaMfq26nUxc5T0jmkUMMgOh7hcReBYF8JY5CvA+MRRnJw4IgeJ193fma2OVxAQ2lVELkVmJ64t59fOiJbGt0ihOLhK/J3acc4biIVnHBA8+KIKniJ+ubCg0smN5HLdYx62Oy+NH5fpPn+uzEu9DyJZstvbYb7YRmCIsEfqhi5b95pdjCkM1eVsXmWBZTxM19PTjbyzohuicOG/mHPya4uidscc0GoYfL7fTSpUFBeNF8LB2zQFN2oEj1d5Dt/SKfZJOUT3zKWOoGImLNPiiN0Sr9jaQUWP+90RIl75p2uXQ==
+ bh=2RDwZBDGZXPZXqaVj4Oqwg2mk+ASM6iTyZaWc4fDXbU=;
+ b=q3wnWpmc4ECCOx9F9PbB7WWsfVm6PoHgGK/dLDroK9eJXJrtQwJTPr8/yi4BGJuFkXoZ3phYPSVsvX+EDO5BteToF7PBCJSl5TnMtmjap97ISC7y+aSbauclTwHekgvZA4aTB0ZkkBsybZd9Z/maqAuoDzlmySnps/E26vOOEtjm0eG4Nob/E9UnpaXYzSuAza+alJG9l8U4uqzl1nyrQSAqHRWGyvjEr3VW8l5DkudaV5dyZxxK61qyynx4rDPCLGuxuGiEjPMndZbRiaH5iAnWMQ9xvT2A4v1kHSnUnCRZ9nFNvNdfwb3KOxzxiUxhwwebqWgHI1Y1fWriyDtTSw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
  (2603:10a6:102:51c::22) by PA4PR04MB7903.eurprd04.prod.outlook.com
  (2603:10a6:102:b9::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 07:40:19 +0000
+ 2026 07:40:24 +0000
 Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
  ([fe80::a4b:fa4e:7fe7:e6a2]) by PA6PR04MB11909.eurprd04.prod.outlook.com
  ([fe80::a4b:fa4e:7fe7:e6a2%5]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
- 07:40:19 +0000
+ 07:40:24 +0000
 From: haibo.chen@oss.nxp.com
-Date: Wed, 29 Jul 2026 15:43:28 +0800
-Subject: [PATCH v2 2/4] leds: pca9532: check return value in
- pca9532_setled()
+Date: Wed, 29 Jul 2026 15:43:29 +0800
+Subject: [PATCH v2 3/4] leds: pca9532: check return value in
+ pca9532_gpio_get_value()
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-led-fix-v2-2-09ad218457bd@nxp.com>
+Message-Id: <20260729-led-fix-v2-3-09ad218457bd@nxp.com>
 References: <20260729-led-fix-v2-0-09ad218457bd@nxp.com>
 In-Reply-To: <20260729-led-fix-v2-0-09ad218457bd@nxp.com>
 To: Riku Voipio <riku.voipio@iki.fi>, Lee Jones <lee@kernel.org>, 
@@ -57,11 +57,11 @@ Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
  Haibo Chen <haibo.chen@nxp.com>, imx@lists.linux.dev, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785311027; l=2911;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785311027; l=1604;
  i=haibo.chen@nxp.com; s=20250421; h=from:subject:message-id;
- bh=JBuoJ1nVcsUbSQl03SDK/m3bcbiyiFp/D1kAXEXK3Zs=;
- b=DelXrnQQLHZgaKau1XMZn0QRjIPQU37RRpwzMlpLu+17j29BqYuV1HcKPeUVJh0OAFMaWXg7N
- VGoIz3QirQbDIMUmFDxNjXa+wwHk76qG0ddWqGs10kFWcWq0pVF+v0p
+ bh=P9yYVubLoJCovnJ9Ep7KPGt5/pd750yL1W0Md84J07s=;
+ b=vyHTn/+6Jae/plxBUTWy2knIkWzQba7oDQ6VdDedkIobeuuGSm92wxN8g782ibLIfxLsHmrwa
+ PQPDFoz3ZoiB6XgdKUctYwtHkjZVSYH3zjUTSkl15acSnTN9ss2ACLT
 X-Developer-Key: i=haibo.chen@nxp.com; a=ed25519;
  pk=HR9LLTuVOg3BUNeAf4/FNOIkMaZvuwVJdNrGpvKDKaI=
 X-ClientProxiedBy: MA0P287CA0008.INDP287.PROD.OUTLOOK.COM
@@ -75,157 +75,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA6PR04MB11909:EE_|PA4PR04MB7903:EE_
-X-MS-Office365-Filtering-Correlation-Id: d729a302-13d3-4675-3cfa-08deed44a390
+X-MS-Office365-Filtering-Correlation-Id: a8209d37-e990-4bd6-8644-08deed44a6d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|376014|19092799006|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	o95FQ1p0W3y1cOy9fl0QiW5lgN4KXxOzbMecaR3s4756leKcak0skgSFXCMIPNUqIjhoGwVHhseBdq+9MXIlANMpHtgcMHjKC4gPqvUO1oJh7Zo+WjgHO0Ibk/VsL+X2FAMgp2cqNhVABbRg5CmexBwSMiHNnCN5TgWlgalQpdltAWIvYAKuQZGxjNCwurxoSEhfzSeesrnK1hZVoPaSj0Y/2thlOpnYzxbcC+7UZs+bEeC3DR0VSw3enUE1LLWM2rOp4S3C9ktJtWkbJ/Q7WnJPBg/0jbgJCagD4tT7/N++j1beonj9LkTjBsxjxisI9wrI3uZxP7mU3kFSiEYgZilougydKe0Qux+lVN5nzQVi7wF7AuDBpTyyg9kmKONs7Z7h3s8GXg3W1mrcN8HAwVleK8uoiN5MVFuoe7wk4pVGfMhyf6X+uBQVN2EorwbijUWaov//a/Scs6IWyWTeWq//jYmuqvdv/hRMsYNjAVWGRLY+JaxGbd5Uq/AylJa9yjfL1EoR1dQvHkZD5UyDOLJQfkfzhHFsm47jJfHMvPW065AqCRGEwqETf64Tlp1wg1sErRkfWGaTWttQCY8Xr4xC9yzZYjDSfV4J6rDebqt7So+ZZBH5XD5ubwrmYV9W/snfwp7qqwxbcwM4DFmcXfqqq6TYCSSwm/odG0AUFqs=
+	nG+fQf7MgQhY0Ku2G5POBGZEWcEylsbUSxRiQ8HCD7qPLYWgU3FRWrmhLsPlQueXnThZtS8VCtQ0yz84OWwKRk91bxLjaSjZaYdgkeW8RgoWCn+1ZDX41/QYeed+xY01ibCMiFOgHHnrP7Hd4pcwrvKmBIV44pvrXF8DdxlmCwrggqhY0O8mTzxCqp2LxTolmjc54CSD3wmsfAGrPk96LQFop8eLYn2WjiQIfGh2QPemH7nQ7z4efn0vCyaQlDtgjYKzCz860a6uVM+FP+5m4OCKUKHZVzvt5tV8dni4U70clkaPH8d10GX0gTNjRDypvIwCxLk2s2V/1ma5g3bO3+0NeAOQT26UjErc0+T1Pk65qjIcaRpin1vuI9KZCKrVf+wzLovzCVH4lLyTJK+GP55Zdomqw/17jX9jl57ZnACiX9HSjFhy10sNKLgD+pK153tPxk6OQsJhR2bzDXtOq8/7iQPtnyDA4CVDHVSoVcdn31F4itlBVy1OgHs0gJlxGr75Gx6yr0lq+5p8UDlHvOOVkLO99m0TXOSK0QfXisbyZv9AVZSF9Wu9uqOR0emjjQUsA7DiMtcobdxS3hZBVcSu0eCHnzN+T0ldOSZrLf8Jw+75DFzlPkDePJyhAF3t+xfBsOqttlZaazxtVLob48/5U+PLCPSv3vZf/IgUwB0=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11909.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MHhoT25TeW9nRG9CTjdFMDJoNFA1Y3IzMFptOXN1REFYTkdxaHdMVGE3RFVJ?=
- =?utf-8?B?M0U3WDZvcUxGL3RBTGg1MzVjL1U3QU1hNUErQVpDai9OZCt1Sks3QXNEd2FD?=
- =?utf-8?B?OU5wN0JFMisrQnIweUZEVTZvMkZDMlIxeTFLZmFJQnpUdHNMalV0TEd1VStK?=
- =?utf-8?B?SWdHbjMzWnMvejk2MUZENU1FaW5KWkhuQ0pqOE5Qb1JPM3RHVnk3NDBBYVUv?=
- =?utf-8?B?MlJvRi9PcFcyOE42SFJkd2h5bDNSamQ3SE5TUW04K1BSWHIralJraHozaTd5?=
- =?utf-8?B?bkxUeXltcFJ6dy9zZFFBSE5iY3VISWhzRVJzOXdpNk5wMWpsSHBISENsN1c5?=
- =?utf-8?B?czV1R2piU1lYREJ4VEU2WnpzWExLd2NZVFRSQ3N6KzhwMEdJQ3ZQZ214WjNs?=
- =?utf-8?B?SzFDSXR6WW1sa1hNOVRZOFROQ1ltUEFxSE53KzIzcU1zWlJ6THVPS2g4WTc0?=
- =?utf-8?B?emQxbnhxWVhpS0IzQmRkMS9Gejg0cHJpbEVoa1N3bGc3TDhlNGhZWkpFeDl1?=
- =?utf-8?B?c2MzQVNpaythVmdYMEd5WVU1cWlYOVZBMWNUazhvVTdQUEJDckxaN21oblhi?=
- =?utf-8?B?SUZ1cDRMVlM3VjNwTHB1T1h4bmlSNDVrcEtEaGdZR3djSjM1eERpbm8vWXJr?=
- =?utf-8?B?b04vZnMvSTRyRlJwSzk0TlBFKzlDK2VnbW5RSEJmU21qZXJjS3B3OEYra3Q1?=
- =?utf-8?B?Q0RyeTF1MEtUcjFQbWtHNGZhS3l2eUpLV2laUDZLcEJlVTZsanNURmU0T1Nw?=
- =?utf-8?B?VWZ3TU5lV0F0MUdyeThOZzRaU0lrOVl0QkY1Q2JSZ0Y0UTNQNVlRVFpWd2dH?=
- =?utf-8?B?Zk9kejNWaDBuaHpiaGs4blM4blZIbTdXc0NnVTdjM1dXMElISDVncm1Db1J4?=
- =?utf-8?B?THRGc3o3RGF6N3lFMVdUd2F3a3ZKRE5pWXJKaGtUM1Z5RTJmaEVBdkJHa2dI?=
- =?utf-8?B?ZXoxT3R2RjdmQk1kb3NnQ1dQY0N5V0JuYWM5TU5uRThESTN2U01SbS9RZHU3?=
- =?utf-8?B?dlpIRXhlQUt6YWRIVnBqamR0VzFTaUUrMzdVbmF2VlZZTmx0NkVtYnB2allQ?=
- =?utf-8?B?cFZESWVwV3p4djNwSEVRVmYrQ1d5aTRhWHI5alQ2RjNaRnFYMFN2dHpheXgr?=
- =?utf-8?B?c09xZmR0b0JmK2loQTBnS09VYUhFZUE3bXBYV0htd0lHUUNHcTBETGJKVFZi?=
- =?utf-8?B?UlpFRStodmxzME5veFA5Rk1SQmk3L3lwUmxTbjBmL2NOR051WUZlUmtoR2ZM?=
- =?utf-8?B?UnhhQmZPNDY4djdVcnA3QkorM2xyNW9QdlJCdE4xMEVDaG9nVDN3S21ZNSs0?=
- =?utf-8?B?MXNyOFZsQXBVTGVva01HU3JKcWNRVzhvNW5Ia1pwaE96aHNBcExFVzFKWlY4?=
- =?utf-8?B?VkRoaXRmKzdUdG9HVXpadU8zRXpnbW0wS1VacTFaK0x6Y3ZLd3poMmRPdXlF?=
- =?utf-8?B?NmhaYW5lbjBGdmRVOUFkR0NnU2VsYzcrWlVlZnZIeHlTYWdSOEZjTDFaOVMz?=
- =?utf-8?B?UXVTZnV3YnZLZys4Z2toZXVOSWZ5Vkl2d3ZBWUl5MDNMN0RHZzUrYVJNWFBT?=
- =?utf-8?B?YjNzLzFqejUzbTM4QTR6UGV5NmJrMHQ2MTdMZUQyd21qbFJpRmVzbXpzWTYy?=
- =?utf-8?B?SjNoQ0dqVC8rSldZZ2E5UmFOc1lQT3NVWi9vMlFvcW11eUk3VUxrbi9raTFZ?=
- =?utf-8?B?dE95UTJGT1BTQ0NHNmIzTkpqeGlhUmEvMFNvcU5xNGtCSHMvQ2gxa09mbjlE?=
- =?utf-8?B?T0xLVUZ4MnhSNzREY1J5VU9sVHp4MFZtMkF0eURhRzVkMkt5OTlIUjVsSHlD?=
- =?utf-8?B?Nlh4Y3JYMHRNNEIxTzlCM2pubWtpTjIvY1h4SHFzOFNseXlSdFdJVkFWeHJy?=
- =?utf-8?B?bWw2TGd5NGVaQXNXSjlqcWxRa2xKS3JKTXRqK3NZY3ZXdTVQaEJnV2FXeE5Y?=
- =?utf-8?B?UGVITEFpUWhIRlc2eWFMUm1zQmo2NFB0YTFrSE9RYTcwRDgxYUpzQTAzV25y?=
- =?utf-8?B?azJKKzhjbmI3RWhuVHpxQXhpUkJvNjFXV3hMQWp3dE5DaUsvTzZ1ck5veDZB?=
- =?utf-8?B?OCthc3JSUFd4L1RhazkxOVVtczZzcy8wemxORmRaa00zQzR5M25zRXVic09U?=
- =?utf-8?B?SW4yTERFcWFIQnZFZ2FwNXZmc0R2Myt0cEpxMklYeWM5QnE5elZqcDlVTDli?=
- =?utf-8?B?ZGhPbGtuRW5kc1YyQVFMbWxsc2J1L1JuOGZGSGNxZmRhcmFkQ3pKcjUwSEx0?=
- =?utf-8?B?M0owTmZDanlXUUh0K3JHcGg5MEJMLzJ5ZUhsYVFhekRPQi9pSHEvSTFhbTc5?=
- =?utf-8?B?R0ZVYTBuZ3N6OVNjSUhWUUV4d1owZ3g3SEg5dlVVQU9zcGpkbTlBaXkraUhB?=
- =?utf-8?Q?htGZODBE56eWPRlBqL1svYcfP8US3qXKdZTP9?=
+	=?utf-8?B?Tyt2Snc1VkZmNm02d2I1RSsvUGEvSkVJaUhGcTJIZ3VYdFltY0k0N2E3ci9q?=
+ =?utf-8?B?UVFpWUVTcnFwNStOcHkzblZGN3IvelQ4SjZxWFp6djNOWUh3TmNRbElCT3lU?=
+ =?utf-8?B?Z0tEVEpRazVVb1ZzVzdIaXdCby9JaEY3eUh6SXFhVWVvejg5elBtL2J1WDZE?=
+ =?utf-8?B?VXZobDFubHpBRXlkRnBoc2NkL3gzQ28yK3g3YkJ2OVVZdkMrZ1dxbEFtdmFQ?=
+ =?utf-8?B?VVp2SHUxcEsyQWJEc3JGR0U5ZU1raHlTZEJGb28rKytnR2RMaUhVYXd4eWRG?=
+ =?utf-8?B?QlBHZGNsT3VUS1QxMWpsQlFwSFp0Uk5pOFdjUVVId1JnSXR3SnNtODlpMExv?=
+ =?utf-8?B?c2lHNEk0aGRqaU9YTEwyeFpUeGdOTTdkWWIxN2tHTnpUTi9pcHB1TDNOZ1Qv?=
+ =?utf-8?B?RXV2aTYrbjRjY2hjaTdnallmc1A2Q2I3VVk5cE1BSG92U3J6bUFZS3QxMlZS?=
+ =?utf-8?B?QXdBdnZ3Z0JnaXh0NFNtR2xMUmZhS2dmSC9iYnhScHJna2drZ0w1N3BHUVFL?=
+ =?utf-8?B?cytOOXVYT0RjYzB3MnNEYkVhaEdEbHE3bGFZdjNNQVpiQzh0UkR3V1FVTEZw?=
+ =?utf-8?B?ME5WNGMveThuNWdKaklIcHlVeElVYklaVlNLcFFwaCtVK3UvK0d2WkFmYklt?=
+ =?utf-8?B?WHhDR3pTYjNtcTFCdkUzNFNqbFRuQVRISXoxODZvaVMrWnprNFA4aFBUR1Bh?=
+ =?utf-8?B?YTdNTU5TZ2tTQk42OUwxK0FvZ3RvQkx2ZXFJVnlSb2Y5VVRoYVQwWlpSc24v?=
+ =?utf-8?B?NUFSWkZ2SjBvL0FvMHZBM2x0VXcrYzBpclpweHg3Mmg2YVBIRW1XZmQrQWs3?=
+ =?utf-8?B?bC9BYWErUUdQRDhwK3VjSWJDdnErSUM3amU2cmxTQlU4aTc0c1hZSlpQREVI?=
+ =?utf-8?B?Q0RaeG1VcHhBQkZnL1pJSGx0Ui82dmt3RmNWa0ZQV2dPK3B3MDQvZmVaWGlL?=
+ =?utf-8?B?U1dwVFl0aERpS2RqM3ViZU01K0VuaTdZUmhNRVBoRFRhQzJpWTVWMVVUNVVH?=
+ =?utf-8?B?T3dyQzNIemJGWDhSckYwd0xjcGVPNlA3QS9jNUFXODhqMHNkQ2JUdHQwWkpG?=
+ =?utf-8?B?blBUeU12bWdNVGNFd3QyTklSSHZQbkFTRlpOMWl2czAwMjhzMFA2d0FXZVB0?=
+ =?utf-8?B?UEdPTEtRUlhSWVdmSStJSXlLRlJqL2NPelhGdkJFdVBKMTYyMlFDeDdiUTA1?=
+ =?utf-8?B?Y2tTSWVveFR0V2xRM083ZDNWR2pDUkVIOFBBcHZENWYrekFWU2tRZ1NpODh6?=
+ =?utf-8?B?VTZhaG95d0VhajNuWDBzeHEyUjNvNUdMNVJTSzJZaTZjUjJOclhRajg1bGlL?=
+ =?utf-8?B?eDRkZzZLOVZ0bzRqUkJFbFUxcVpWT2xYb3dpVGt2OUMrTWZlRFJnaE81NHYw?=
+ =?utf-8?B?Ulhac3I3ZUtGTlVnbE9xaWZsTThiV2tBd0NSSmI1L2lhaDFBT2JLQWFQZGxV?=
+ =?utf-8?B?enpSd3hKUTAybWJFa1NOL2wvVmJLSm4xWU9ITnNvWFp5RFQvUko4dUx5R08r?=
+ =?utf-8?B?a0RpR1B5WVVVZEV1QU5EM25vTjkxLzFCVjIzaWZPQTZlWWVzME5TVkRwVk5v?=
+ =?utf-8?B?Umw5ODJsbTlRRk85Q2F3NXRVNDhpSWxldnpXRk9FZGNpWVRmZGljRE1PR2NY?=
+ =?utf-8?B?c1RpTFBGUXFCYkxDb082cUJMUHREYkxzWXlyNGtxa2oxVTVqVWlTbUhGZ0hj?=
+ =?utf-8?B?S0Z5UUN2SU5oejBQbUVsMkFPUFpVTzZ0dThQdWhwSlhTTFhadTFvQVpBN1dx?=
+ =?utf-8?B?TjE0SndQdURWVndDOTJjV0pnQWJvbkhXMERpdDRoS1dyNXdGZk5Yb0xxekFx?=
+ =?utf-8?B?QThtbFJyWU1DMTdmdmU5YmhSbXd0WFk0OXByWEZEbWNXbDB4Ty9XVk5ENEZ1?=
+ =?utf-8?B?Mlo5bUtQdUN1SmVWK3BHYzJuVUNjNktoa1lyTlErTWtFRzdQWDkwWkQ4eEdH?=
+ =?utf-8?B?cU0vcTdxY3JRVGpNUjJaWk5tZmptbFVFSTl6ZHBIZ2hVTHJBUXRWTHlWUkQx?=
+ =?utf-8?B?bjM4c2ZPYVhJNks0TVQyTy9jMExLbERGWlZDNHhrSGFMN3ovOVBkTGtiUWJ4?=
+ =?utf-8?B?aW5hWVJLOUhxbVUwaXNFaDhYVmZQWUFyejlpa3pIOWJnN1dCRVJXN3hwc2JR?=
+ =?utf-8?B?MVRsdzVZUmhVNExpZGc1c0Q1Qnk0SGQ1Q3QwMzJzSit1eGpCYXFHM2xVTzJa?=
+ =?utf-8?B?eThIQld1TGpGNnpXaWtrVWFRVi81TTFzMGs2dGR3dG9lT245WFowUzAxK2tB?=
+ =?utf-8?B?bGNIVVNTNG5CQ0dhTXdoa2M2RlRrN1hLQlBVN1lBUk4wQlNJMXlkQUZqTGNJ?=
+ =?utf-8?B?TE8wZ09TMTJxTzNCOGFHM1M3RFRndkhPdDVJQ1ZYVG9KQm1FU2UrV0V4RjJZ?=
+ =?utf-8?Q?Kafc9O2ECN9EmTqPONzQR9t4vWMl1P2NbcPrw?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d729a302-13d3-4675-3cfa-08deed44a390
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8209d37-e990-4bd6-8644-08deed44a6d7
 X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11909.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 07:40:19.1908
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 07:40:24.6967
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tro6Tw5M5JzEPGRCd7VsBKxhAydjtmetEbU2pBkjSWSsCbGRrCKnWPF2WfNQcryEjJXMdIVAOPLRvZSj5PITExLyVhXiUXeT6+oJNSbv0+Jeb5u1xuex8b23e9dg46AZ
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4KCHbmRIpwlwtEtSnve+Z93ebJy6LAPss9BeHp+xW6Rv6gRhsVmfTfwuM0/XO0vPytr3MwOyFbPA9gNiHrzFOTICEP4v5F9ZiQDw0q9Y5Ssb29rBArLpUsfm4SKk3eV4
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7903
 
 From: Haibo Chen <haibo.chen@nxp.com>
 
-pca9532_setled() reads the LED register with i2c_smbus_read_byte_data()
-but never checks its return value. On an I2C read failure the function
-returns a negative error code (e.g. -EIO) which was silently truncated
-into a signed char, then bitwise modified and written back to the
-device.
+pca9532_gpio_get_value() reads the input register with
+i2c_smbus_read_byte_data() but stores the result in an unsigned char and
+never checks for failure. On an I2C read error the negative error code
+(e.g. -EIO) is truncated to an unsigned byte, and a bit is extracted and
+returned as a valid GPIO level. This masks hardware errors and lets
+kernel or userspace consumers silently receive corrupt data.
 
-Since one LED register controls four LEDs, writing this bogus value back
-corrupts the state of the other three LEDs sharing the same register.
+The gpio_chip .get callback may return a negative error code, so store
+the read result in an int and propagate the error on failure.
 
-Fixes: e14fa82439d3 ("leds: Add pca9532 led driver")
+Fixes: 3c1ab50d0a31 ("drivers/leds/leds-pca9532.c: add gpio capability")
 Cc: stable@vger.kernel.org
 Assisted-by: VeroCoder:claude-sonnet-4
 Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
 ---
- drivers/leds/leds-pca9532.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ drivers/leds/leds-pca9532.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/leds/leds-pca9532.c b/drivers/leds/leds-pca9532.c
-index e8ee17b8bd547a92372a8e74a6781b95ae831fe2..adfb5aa50e8e1f3ca0deb9261d8c9103903ef928 100644
+index adfb5aa50e8e1f3ca0deb9261d8c9103903ef928..cee398d8275b8953b5dbdb741c36161f34bba029 100644
 --- a/drivers/leds/leds-pca9532.c
 +++ b/drivers/leds/leds-pca9532.c
-@@ -159,21 +159,29 @@ static int pca9532_setpwm(struct i2c_client *client, int pwm)
- }
- 
- /* Set LED routing */
--static void pca9532_setled(struct pca9532_led *led)
-+static int pca9532_setled(struct pca9532_led *led)
- {
- 	struct i2c_client *client = led->client;
- 	struct pca9532_data *data = i2c_get_clientdata(client);
- 	u8 maxleds = data->chip_info->num_leds;
--	char reg;
-+	int reg;
-+	int ret = 0;
- 
- 	mutex_lock(&data->update_lock);
- 	reg = i2c_smbus_read_byte_data(client, LED_REG(maxleds, led->id));
-+	if (reg < 0) {
-+		dev_warn(&client->dev, "failed to read LED register: %d\n", reg);
-+		ret = reg;
-+		goto out;
-+	}
- 	/* zero led bits */
- 	reg = reg & ~LED_MASK(led->id);
- 	/* set the new value */
- 	reg = reg | (led->state << LED_SHIFT(led->id));
--	i2c_smbus_write_byte_data(client, LED_REG(maxleds, led->id), reg);
-+	ret = i2c_smbus_write_byte_data(client, LED_REG(maxleds, led->id), reg);
-+out:
- 	mutex_unlock(&data->update_lock);
-+	return ret;
- }
- 
- static int pca9532_set_brightness(struct led_classdev *led_cdev,
-@@ -196,8 +204,7 @@ static int pca9532_set_brightness(struct led_classdev *led_cdev,
- 	}
- 	if (led->state == PCA9532_PWM0)
- 		pca9532_setpwm(led->client, PCA9532_PWM_ID_0);
--	pca9532_setled(led);
--	return err;
-+	return pca9532_setled(led);
- }
- 
- static int pca9532_update_hw_blink(struct pca9532_led *led,
-@@ -257,9 +264,7 @@ static int pca9532_set_blink(struct led_classdev *led_cdev,
- 	if (err)
- 		return err;
- 
--	pca9532_setled(led);
--
--	return 0;
-+	return pca9532_setled(led);
- }
- 
- static int pca9532_event(struct input_dev *dev, unsigned int type,
-@@ -334,9 +339,7 @@ static int pca9532_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
- 	else
- 		led->state = PCA9532_ON;
- 
--	pca9532_setled(led);
--
--	return 0;
-+	return pca9532_setled(led);
- }
- 
+@@ -345,9 +345,14 @@ static int pca9532_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
  static int pca9532_gpio_get_value(struct gpio_chip *gc, unsigned offset)
+ {
+ 	struct pca9532_data *data = gpiochip_get_data(gc);
+-	unsigned char reg;
++	int reg;
+ 
+ 	reg = i2c_smbus_read_byte_data(data->client, PCA9532_REG_INPUT(offset));
++	if (reg < 0) {
++		dev_warn(&data->client->dev,
++			 "failed to read input register: %d\n", reg);
++		return reg;
++	}
+ 
+ 	return !!(reg & (1 << (offset % 8)));
+ }
 
 -- 
 2.34.1
