@@ -1,171 +1,178 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA558435A84
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 07:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CCD430789;
+	Wed, 29 Jul 2026 07:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785311225; cv=none; b=NTnSJvChd1ACfhzj/MzHD/jiM+nYqmmS4OHjHCSHUhYAsge78D+O/WBBZveqdt6c02tYkHA0ZmQ3Uz0IHQmZqahrehHKVyq0LpRGHpkTi3bLUGhQ3laANKNEsdAC6uDk349P7MnJGRZifJRl5BKFN/VH3nMN/1EE5r1eOxR2CPM=
+	t=1785311653; cv=none; b=UGDQDWqy7ZrJZwBcb+mv7gJT3uhfd69nRePZQ8QIELWw98ahaRgwhHN2ftDBaTYZTxBPIz5ERERnbAM+LtfKT5O+86dzup6QLPxaszDf4XP+XT6Th8vTSF6BQ75UPgs0t1KQETCJf78hrJM7CrhUbmDAmE2bEDU/28ZbYPzSWrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785311225; c=relaxed/simple;
-	bh=9kavyCdJQhbZRgOh2msN4/g5t3JYc3aUaW+NIQkmgmA=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 Mime-Version:Content-Type; b=qqRkeZbgHA3K1/4BsmmuToqpJTaQKqNH0KtP9OCv/HX9jYaChCx0OcIh64sEAv33ZZOKwKMuoiOVX53008v4prYeDuCGTQutMHPHzqlixAPTerI4VLhFDDO44csMYc0bGzQNeIh2Zv8y3LzBC4MjSg+EQRadTt8ciU6yQTSDn40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H7RoTaWo; arc=none smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785311653; c=relaxed/simple;
+	bh=+QAuJHU6SgyBKECnDX+nf45rdY70yAkmP+fph6HnnCI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JRz40S/QZ/Wpqn3oxOyZBfOZ4SxlM84qEdlKEp7YoG+tzbvAuipJi5vlZ3JMYd0JE+750WfcBZal/d3xOfeFV+YrFfFq5ZRy5XxeHimEfgOOzq2/9QCcGVgcs1Vpw3O+vJcGhuU176z7kSuBfYy3RAgX99Of7TqEHWxRNObKRiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Rho0aQ6u; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H7RoTaWo"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-80c5cb9a888so8290847b3.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 00:46:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785311216; x=1785916016; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Bto1bhcFQyQcgLQ0r2ywHcv9bZxh1rejer77lEyjVdg=;
-        b=H7RoTaWoCjPnU2QnAIS29fx0HsT/fSQO3fdMXoy4Q/WluC+awQEoAp34aWXxuT/8ae
-         Ntf4BLSXcx6yKz2g5r4hKtLzR9AM/HtPmcUPnoiRhlwF3XHneh5OBz37GT1XTc2Nsb2M
-         01Br5AHkPcKyLh6UJmLCgqEV+5a5Rn5+2eQhkkXoi8T14B6d0qp1+9COL7zzDb8Prs7v
-         Zi33qUKvW2Gn6IdD+7MgQ6UzAz2R9d6ICTaTlrdsQsbQSpwDJ3vbDo11VOy35WIsOkhb
-         PISlcD5UY2H7BXr3ClalIPlV5cEJ8gOuMl6PQcRN0jagHZQJ4UZfTKjzW4Mjq2dvxwAM
-         Q6bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785311216; x=1785916016;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bto1bhcFQyQcgLQ0r2ywHcv9bZxh1rejer77lEyjVdg=;
-        b=QYlTCPSyYteIu5eD2CVT4hWTqVtRluJ2lZCqvXx2AbCpR+a8OtFsm3OzayOcP7iTDv
-         EgfMncb8V03udHAxhkOdQRoSph0D2f0rVogaY3xzdJHb9oA3MwyHSMstalUWEET9gu63
-         YwtYPEL8WsSqFDiknbKvLxeECwImtZQkYDQ+IF9tpkNYgEp1kALB5QPFvMonZH5/EKmh
-         YzYRdWD6bPWObmfFiIXJ+b/ysdjy9vNT3BF9gtUJtHmZwvFfpWdpcQ7gYJqLckPB5S29
-         +DWv/1QD2vGYmB4jgQ/B6nf5gqExLpAvs5NSQMN38MgFWinOLY5VLoou6VusvoTLKnUy
-         LuzA==
-X-Forwarded-Encrypted: i=1; AHgh+RqUdKSEt6dXdj6KzPylCy4FUmEEUepppX+Hg9A6da0icBOG0ouJL0IwRMGJkGy3fij7CDuX/Zw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeL2RmALWX4qKwoheWgQt7ScGxsIgLVYhcupb3Vd5mtSFB7Ofj
-	27SeMHyEw2MPd3DNAOf/Kh95MQLelg5AkUUsKVHcjm5r0mpniVOzjIH/
-X-Gm-Gg: AR+sD133gAoP8avRbPBNFvbZNJExL+EFw/UIAkvpqJyvY2y0w/Mt4Fmcgcx9IuCyqkh
-	LcYEELfIPZGiJPMf5ORW4p4KiZVo3wcPWx47AbZHuhkfTv5Sg/KT4mgSuDhvn9T42bJ2GBs2t34
-	wftD0Wo+XPGVV2zIsdishaJ6S83CUPu96rHl9cHg7fDh5dyUtP38usSdmo2lQ5Qa7MyDNJSPkcJ
-	KQxAgHVWthHhC4hFPYvdzfbYE4XH0qUFpNYMMYC1T9k4DsOsQx0ZeFxwbx4yiTruShlvbD2L2Jf
-	sFuFeMrRLiwpQYMyMmZ5Kij9Os7hQgKmM0Ql30wp0zCSfakSP0KYmykfJzvr1I5JMPlPms+Ebxh
-	nmY7YEFGRNRV6R1EeBl4bz76o7+2ab7rx0+UJhFaKMEWjIYvirEAnGAQjCOFRvpIxS+5kstaixO
-	BMh/awMynDpKiyniuKj4FPLPPFYoRUFpDcErvWXeYZnawUaxBHnkOG6Qd/I3dw+pBWVhXjJa20c
-	z7V0szw6uypOFw44aN/DLdxW/LnYfX03pPu
-X-Received: by 2002:a05:690c:304:b0:81e:89b2:8caa with SMTP id 00721157ae682-81f9925966emr29619837b3.29.1785311216072;
-        Wed, 29 Jul 2026 00:46:56 -0700 (PDT)
-Received: from gmail.com (250.4.48.34.bc.googleusercontent.com. [34.48.4.250])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fa27985cbsm13921187b3.16.2026.07.29.00.46.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 00:46:55 -0700 (PDT)
-Date: Wed, 29 Jul 2026 03:46:54 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Qihang <q.h.hack.winter@gmail.com>, 
- netdev@vger.kernel.org
-Cc: willemdebruijn.kernel@gmail.com, 
- daniel.zahka@gmail.com, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- stable@vger.kernel.org, 
- Qihang <q.h.hack.winter@gmail.com>
-Message-ID: <willemdebruijn.kernel.36b6c7169b6c6@gmail.com>
-In-Reply-To: <20260729030122.21462-3-q.h.hack.winter@gmail.com>
-References: <20260729030122.21462-1-q.h.hack.winter@gmail.com>
- <20260729030122.21462-3-q.h.hack.winter@gmail.com>
-Subject: Re: [PATCH net v4 2/2] packet: use consistent hard_header_len in
- TX_RING send path
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Rho0aQ6u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=NY
+	CRsjdNejY70awpeyUxSlEcWOiioWnto7d+vTISsuc=; b=Rho0aQ6uqpi2DV1bZc
+	MW/wLFfZLWZI3ghcT82lYfcpqTZwNgrGmkzJ+7qOO17ytC3WlFh9T0iPWaapXhHJ
+	j4j2KUuRRf3kwNvM81LJi5pswMkjBN697fhIgzMqEYmM/NMsEYCGQtMerL3ADr+C
+	G7Ns7ZjQai9yvnCaAl4A5FZvw=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDHpqZzsWlqBGZiMg--.45309S2;
+	Wed, 29 Jul 2026 15:53:24 +0800 (CST)
+From: Feng Yang <yangfeng59949@163.com>
+To: bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: andrii@kernel.org,
+	eddyz87@gmail.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org
+Subject: [BUG: 6.6.y] bpf fentry hook on _raw_spin_lock_irqsave triggers hard lockup
+Date: Wed, 29 Jul 2026 15:53:22 +0800
+Message-Id: <20260729075322.628521-1-yangfeng59949@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDHpqZzsWlqBGZiMg--.45309S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr1rZr4kZw1xAFyUur4xCrg_yoWrXF1kpF
+	W3tF9IkwnrZF18Wr48uF1vvF47AwsFgw4fGrW8Ga4rA3W5XFs8XF1xCFyYvryYvr4xWr10
+	kryqqas8A34jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbCztUUUUU=
+X-CM-SenderInfo: p1dqww5hqjkmqzuzqiywtou0bp/xtbC8RZ+9mppsXb2JQAA34
 
-Qihang wrote:
-> tpacket_snd() reads dev->hard_header_len independently for skb
-> allocation and header construction in tpacket_fill_skb(). Concurrent
-> netdevice reconfiguration can therefore make the reserved headroom
-> smaller than the amount later pushed, or make copylen - hard_header_len
-> negative.
-> 
-> Snapshot hard_header_len once before processing ring frames and use it
-> for the frame limit, headroom allocation, copy length, and skb
-> construction. Pass the snapshot to tpacket_fill_skb(). Reset copylen for
-> each frame so a previous frame cannot retain a larger construction
-> length.
-> 
-> The separate SOCK_DGRAM consistency problem between hard_header_len and
-> header_ops->create is not addressed here.
-> 
-> Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
-> ---
->  net/packet/af_packet.c | 20 ++++++++++++--------
->  1 file changed, 12 insertions(+), 8 deletions(-)
-> 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 88674a6e868c..8ee0a80fdcea 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -2574,6 +2574,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
->  static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
->  		void *frame, struct net_device *dev, void *data, int tp_len,
->  		__be16 proto, unsigned char *addr, int hlen, int copylen,
-> +		int hard_header_len,
->  		const struct sockcm_cookie *sockc)
->  {
->  	union tpacket_uhdr ph;
-> @@ -2605,8 +2606,8 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
->  	} else if (copylen) {
->  		int hdrlen = min_t(int, copylen, tp_len);
->  
-> -		skb_push(skb, dev->hard_header_len);
-> -		skb_put(skb, copylen - dev->hard_header_len);
-> +		skb_push(skb, hard_header_len);
-> +		skb_put(skb, copylen - hard_header_len);
->  		err = skb_store_bits(skb, 0, data, hdrlen);
->  		if (unlikely(err))
->  			return err;
-> @@ -2737,7 +2738,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
->  	void *data;
->  	int len_sum = 0;
->  	int status = TP_STATUS_AVAILABLE;
-> -	int hlen, tlen, copylen = 0;
-> +	int hard_header_len, hlen, tlen, copylen = 0;
->  	long timeo;
->  
->  	mutex_lock(&po->pg_vec_lock);
-> @@ -2784,8 +2785,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
->  			goto out_put;
->  	}
->  
-> +	hard_header_len = READ_ONCE(dev->hard_header_len);
->  	if (po->sk.sk_socket->type == SOCK_RAW)
-> -		reserve = dev->hard_header_len;
-> +		reserve = hard_header_len;
->  	size_max = po->tx_ring.frame_size
->  		- (po->tp_hdrlen - sizeof(struct sockaddr_ll));
->  
-> @@ -2822,8 +2824,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
->  			goto tpacket_error;
->  
->  		status = TP_STATUS_SEND_REQUEST;
-> -		hlen = LL_RESERVED_SPACE(dev);
-> +		hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
->  		tlen = dev->needed_tailroom;
-> +		copylen = 0;
+When attaching fentry programs to _raw_spin_lock_irqsave/_raw_spin_unlock_irqrestore on
+the v6.6 kernel and using the BPF ring buffer within BPF programs, we encounter a hard LOCKUP.
 
-Why is this introduced?
+Reproducible BPF code is shown below:
 
->  		if (vnet_hdr_sz) {
->  			data += vnet_hdr_sz;
->  			tp_len -= vnet_hdr_sz;
+static inline int test(void *ctx)
+{
+        struct event *event;
+
+        event = reserve_buf(sizeof(*event));
+        if (!event)
+                return 0;
+
+        submit_buf(ctx, event, sizeof(*event));
+
+        return 0;
+}
+
+SEC("fentry/_raw_spin_lock_irqsave")
+int BPF_PROG(aa)
+{
+        return test(ctx);
+}
+
+SEC("fentry/_raw_spin_unlock_irqrestore")
+int BPF_PROG(bb)
+{
+        return test(ctx);
+}
+
+We suspect the hard LOCKUP is caused by the call chain:
+aa->test->reserve_buf->_raw_spin_lock_irqsave->_raw_spin_unlock_irqrestore->bb->test->reserve_buf->_raw_spin_lock_irqsave.
+
+Mainline has merged the rqspinlock patchset
+(https://lore.kernel.org/all/20250411101759.4061366-1-memxor@gmail.com/)
+which resolves this issue. Should we backport the fix?
+
+Alternatively, would a fix modeled after this patch
+https://lore.kernel.org/bpf/20201029071925.3103400-3-songliubraving@fb.com/
+as outlined below be viable?
+
+--- a/kernel/bpf/ringbuf.c
++++ b/kernel/bpf/ringbuf.c
+@@ -30,6 +30,7 @@ struct bpf_ringbuf {
+ 	struct page **pages;
+ 	int nr_pages;
+ 	raw_spinlock_t spinlock ____cacheline_aligned_in_smp;
++	int __percpu *ringbuf_lock;
+ 	/* For user-space producer ring buffers, an atomic_t busy bit is used
+ 	 * to synchronize access to the ring buffers in the kernel, rather than
+ 	 * the spinlock that is used for kernel-producer ring buffers. This is
+@@ -165,6 +166,8 @@ static void bpf_ringbuf_notify(struct irq_work *work)
+  * considering that the maximum value of data_sz is (4GB - 1), there
+  * will be no overflow, so just note the size limit in the comments.
+  */
++static void bpf_ringbuf_free(struct bpf_ringbuf *rb);
++
+ static struct bpf_ringbuf *bpf_ringbuf_alloc(size_t data_sz, int numa_node)
+ {
+ 	struct bpf_ringbuf *rb;
+@@ -178,6 +181,12 @@ static struct bpf_ringbuf *bpf_ringbuf_alloc(size_t data_sz, int numa_node)
+ 	init_waitqueue_head(&rb->waitq);
+ 	init_irq_work(&rb->work, bpf_ringbuf_notify);
+ 
++	rb->ringbuf_lock = __alloc_percpu_gfp(sizeof(int), sizeof(int), GFP_USER);
++	if (!rb->ringbuf_lock) {
++		bpf_ringbuf_free(rb);
++		return NULL;
++	}
++
+ 	rb->mask = data_sz - 1;
+ 	rb->consumer_pos = 0;
+ 	rb->producer_pos = 0;
+@@ -215,6 +224,7 @@ static struct bpf_map *ringbuf_map_alloc(union bpf_attr *attr)
+ 
+ static void bpf_ringbuf_free(struct bpf_ringbuf *rb)
+ {
++	free_percpu(rb->ringbuf_lock);
+ 	irq_work_sync(&rb->work);
+ 
+ 	/* copy pages pointer and nr_pages to local variable, as we are going
+@@ -418,9 +428,19 @@ static void *__bpf_ringbuf_reserve(struct bpf_ringbuf *rb, u64 size)
+ 
+ 	cons_pos = smp_load_acquire(&rb->consumer_pos);
+ 
++	preempt_disable();
++	if (unlikely(__this_cpu_inc_return(*rb->ringbuf_lock) != 1)) {
++		__this_cpu_dec(*rb->ringbuf_lock);
++		preempt_enable();
++		return NULL;
++	}
++
+ 	if (in_nmi()) {
+-		if (!raw_spin_trylock_irqsave(&rb->spinlock, flags))
++		if (!raw_spin_trylock_irqsave(&rb->spinlock, flags)) {
++			__this_cpu_dec(*rb->ringbuf_lock);
++			preempt_enable();
+ 			return NULL;
++		}
+ 	} else {
+ 		raw_spin_lock_irqsave(&rb->spinlock, flags);
+ 	}
+@@ -449,6 +469,8 @@ static void *__bpf_ringbuf_reserve(struct bpf_ringbuf *rb, u64 size)
+ 	if (new_prod_pos - cons_pos > rb->mask ||
+ 	    new_prod_pos - pend_pos > rb->mask) {
+ 		raw_spin_unlock_irqrestore(&rb->spinlock, flags);
++		__this_cpu_dec(*rb->ringbuf_lock);
++		preempt_enable();
+ 		return NULL;
+ 	}
+ 
+@@ -461,6 +483,8 @@ static void *__bpf_ringbuf_reserve(struct bpf_ringbuf *rb, u64 size)
+ 	smp_store_release(&rb->producer_pos, new_prod_pos);
+ 
+ 	raw_spin_unlock_irqrestore(&rb->spinlock, flags);
++	__this_cpu_dec(*rb->ringbuf_lock);
++	preempt_enable();
+ 
+ 	return (void *)hdr + BPF_RINGBUF_HDR_SZ;
+ }
+
+Thanks,
+Feng
+
