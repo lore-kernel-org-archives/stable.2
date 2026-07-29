@@ -1,51 +1,51 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE9E396B8C
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:26:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799064DBD87
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785349610; cv=none; b=QF2R0N/vop1mn/p1Cgrmrc/rqzOl43UXmV0Q+22QHSGubMK0DpHijtNmkxF48PefPpllbdtpaj4WMnXZD6ZPMRiw3UdruG0PnUZqkWYuvMcmSuWLjc23VqexmZvn8WxRXc8mAZkRzz9LmNaaRtVYMfA3B6ZAvEGSOmcm/0Qr9zs=
+	t=1785349620; cv=none; b=Ev0j6qxph9ilf+cq+9S7izupox06nHnKhgTLTMxsmCBGMBys0XO3qTftXj8bNz6sgRrDvWHGBuOttyy4I97BiSItBCUI1IC/gYuFnO+9JbGRPLsBZFMrjHsLoC42+dE61kPkzO3Zuv9i8IibhRRhWczqNSGE9YFe/I5Z//oPyAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785349610; c=relaxed/simple;
-	bh=FuhMChURjhJmIapD7fiarsigxON+OKdVf81UpGjqr4w=;
+	s=arc-20240116; t=1785349620; c=relaxed/simple;
+	bh=mSZz9tobKa5d+cHFPiAtDPNGS3+Jr6mqxksozKxJ2Nc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HCG3HhSZFwqEvzFdQ2Kzf5I8bfY35frEuoSfROloplY4ZpdXMBcvBkyeyXURfFJGHQUollTf2js7AWr4EomxHv1DS32d6IVht4QbFOp5Z8nJaP+cLE0uio42LGTLGxbOb923lZOs4+g+6BYsHU9G19I9eceYBpLr6ZQ+BfXcxTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=nXtIq5nI; arc=none smtp.client-ip=54.243.244.52
+	 MIME-Version; b=AKOdvzS1TV7jR4pHgClxMF8MEHOeBLjCxBZWYSZaCyJ3rXOy7eNtmoN7l6Rd4OY8PTOEU6PYnwFp1D09ke/6qK4fcSFOeaw7bogiJ/NtxnsI1xVxQ0Y3ynJRCBtiyHVoU7ELOg5RhqSeTq7YGyK+CWR0nSWvTxt/zijQ4b7P8qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=EbQpB1cH; arc=none smtp.client-ip=54.206.34.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="nXtIq5nI"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="EbQpB1cH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785349553;
-	bh=rP0N+Ue7SS95afFkjKCtSOEhydB4E8Iz5D3HOBG73bY=;
+	s=onoh2408; t=1785349562;
+	bh=Bnftk7he0VmOV5t/A/z3k/R0/9s29grGIw8LSNmMdI4=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=nXtIq5nInh3+3nfY/+2m88pgoWjos3BnbfPtAPkWKwycND1r1naEJprdNQc9w2eoU
-	 7D2ts027aUVJvOihPFUtsWOtd/c/NP/OzWvyL3+ACzf0/7KMUUg131QAk+jHf2xm0z
-	 7QUhiHcySnnybwKOxlPJ9ZrMJNn65T8CRKpcb8co=
-X-QQ-mid: zesmtpsz8t1785349535tdcb50d89
-X-QQ-Originating-IP: bBogijdz4XLrX+FSWsrJ9OrHfr/7VyItszJNUwg4ukQ=
+	b=EbQpB1cHento/mrnAnifLzGV6HcFAOOfa8eDs7naAglpiHw1G3nMmJjHydQ6nmOnh
+	 G3/tCUhtPfXjPWuPl72/53Sd9Awn3QXWsBjs68Y7y7nKjPw4zj1VZe3VAg59qJTOSI
+	 2M8NoAN7lyFBRcK/39epBwHJnVB7g3eJY6Yi2Szo=
+X-QQ-mid: zesmtpsz8t1785349545taf6011f4
+X-QQ-Originating-IP: t+N6DTQAlhKvty6htfxoCk4nDUZEDpXB1JW6ZDqNHL8=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 30 Jul 2026 02:25:33 +0800 (CST)
+	id ; Thu, 30 Jul 2026 02:25:42 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 4576993740533542291
-EX-QQ-RecipientCnt: 7
+X-BIZMAIL-ID: 92975447654379525
+EX-QQ-RecipientCnt: 6
 From: Wentao Guan <guanwentao@uniontech.com>
 To: gregkh@linuxfoundation.org
 Cc: guanwentao@uniontech.com,
 	linkinjeon@kernel.org,
 	stable@vger.kernel.org,
 	stfrench@microsoft.com,
-	Haofeng Li <lihaofeng@kylinos.cn>,
-	ChenXiaoSong <chenxiaosong@kylinos.cn>
-Subject: [PATCH 6.18.y v2 1/3] ksmbd: validate num_subauth when copying ACE in set_ntacl_dacl
-Date: Thu, 30 Jul 2026 02:25:28 +0800
-Message-Id: <20260729182530.31304-1-guanwentao@uniontech.com>
+	LocalHost <localhost.detect@gmail.com>
+Subject: [PATCH 6.18.y v2 3/3] ksmbd: validate ACE size against SID sub-authorities
+Date: Thu, 30 Jul 2026 02:25:30 +0800
+Message-Id: <20260729182530.31304-3-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <2026072936-equipment-calculate-e753@gregkh>
+In-Reply-To: <20260729182530.31304-1-guanwentao@uniontech.com>
 References: <2026072936-equipment-calculate-e753@gregkh>
+ <20260729182530.31304-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,92 +55,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NBi/QPTU2d7kpU3Y2rWW7Xq8uVeWGdK6JBRNGyOKbl7URnMIhISxEuns
-	nkSJHoNFY782RWU2lMOuXF3IEhIxdigHJmRek6dujLRhxUpej9BEXqSsm8EQSkZOPlgf3lA
-	27Nw6zj/d9IfH5+STQ0jWrTrgxMrJGHpzkNUgZuH3w5OIfGArwsPquE3zWyo2XTDtWuiEyM
-	2ELIzHstGCMvQNtELssH+NPS8I4BuqhXvN8pTzZl7F9MCbGCzFzRVmGXy+arzRRwjyExSof
-	EerxE4myj3VfIUZwRve2BGiL/R8myP9oFkcW4cnC1Pf31vmqYH/GHqtphrIyutCuWMKAWox
-	7IHzGB9pI5Qt2djp9Xu6/ytpRXIsTbnXXumKwpfeyriqBHE6FBD1RbVL7arijZa2n4ARckg
-	rxnd5kQwlMSUlFCjue6ypL8FamhrifMzCssttmO2NUsRGJ0ASNPSZSZkSTMFAZNu7Fej/y7
-	bt9mtWYKA+urukz443cWSouhR4dfFPTbKhnToMmW55Kkmq8m/Ndwg94BsHUjAXkiLvMj316
-	9+MeSXpqUSNjuY0U7MHlsRfIL6k54jiltR/Ih+LtzOA/N5RpLLe/MjYyubhfQv7MTdRVGXE
-	K+f6AgjxRqS1HKjsuQJ3N+Xm/ffGT1wugNjwDNZYEikxFayLiC01rfaKwwKUTonX9mhG3H2
-	CjhMYL6CrgLGJgkJxxhZY7Urk4sRI8bwXEAgIr8QIE7CeVyHjbjdweaZE9C/512HJlmCvx4
-	I3XMfhLf7N1hzGOAbpplQwHUIyvUixls7jH6EaEAxWgjoW8yDnnTeEBNwm802adl5dFU6H2
-	BdeFPXOx+b4iA9+GP9xP5DSzgKYWBONNI2/mC3uaIuJ0B3ekTThlr1N6wjZwD6zOji1jCcc
-	iRzVqAkkmoqDuw9f8igwwjZzlomlJcSpAOAWNoCm0O4aht9XQGWMAxuNFmTfgTGxkpYlFYv
-	nxXFW9qbyGUFY9C7axL6ru22p5+J/7nfSXES0GRw9rln3hcx7IRi8JY/ad/hpNNn2l7hoFJ
-	bo13u5wqCUw/4pF5wMmV3fmjH+/NiUT6UFJ6oBy2xuuefqtCSbESvC3s/xCq1WN2rFipX89
-	mmejOT0zKVqcp7y4TMW1Wqds1xxR6cyV19WYqU+oqG4qhbFsHN6/o2z9feTzjh81PFSfTUd
-	e3VTLaddYYxT45ZmkKpmDfrjEw==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: M3vv73qU6a4uAaOp/QmqL/cmIvzbOyh1TZEOx+BLQkCOxT2h/vya1rBn
+	vEcQkC7oY0G18eoy/smEXOjb9802qvkvsJB2u6WGPyiNxmQvGFGxBMvi8PWJNlh5GIvHuPu
+	3k9+JU7Z3BNwSuJTiOq3lI2l9JjgTHpZXumi/FG0A7tB3IjmjzoJAT8m2cjYHh+3s5zTFik
+	+0xMp1Biem8bhi6ZfHzACgbT/iU115Y2H+A7Xuow44pdEfJTtmYCqtoA3+07IdMV7NFTO/J
+	q5V7zRCufSCJ3MtUSs7jRLxPmK5Ga9bJ7FwX/f+9mPKM9C8bryadXa4nCU6i972yfYWjqGq
+	YQFyonQaPc44JIhwSmnDfYu3iOSnHglrt+cIMp1eqoC+5eSAiQslAXZ1j6bRgCIZ9ouf95Z
+	o0E3iSGAYNNvNTW6VQMMj743iqYSkpiizfEjdRiLHwNrDK+HRBdLKAlpznG0xqZBA97SexK
+	sSK6GkOB6KL6sKDj6nDln6hXvIyZjGKBL4Y5l5tfNSPGPZ7shtjVAtMXWlxS2uvM2kRjZYr
+	hK9G2MXeKDX3Hr00XKli0Y0LkTYIjiKR7UK6vfnf1wQ20pivNUlBA329PPz4zT2ttTpqgTN
+	vh2egdzUEBuTaFHdmWprT1wQxsPdFoJDIb4GtUBflHDMFkyCExGX/JeTe0USIox6U66WeTC
+	qREiOQW7VAtFpTUV+rrxd/yF4gRiTSAbyxfKsAFWSMirXv3cJXwBqVlvO9yWTLLxl+L5S57
+	7MG9wYxyFVGmvPagY7l//2LNLbAFCng/6Hkm5siSsBHNNi6ePsXXz8e1SS4UR9tpAOmc9nQ
+	AfIx+j1jmBRZqZaKzNMd70jQ+q7HC01Hmbnd7MaawJYMLITpHUD7F4OMocDbg7LGpxIMdXb
+	APMLgJF/Ze5ca5Xf6dI+Ljcs7AeZcAFyxXkE4SajgPRiD1RS69f6Im8F0Ez3ZnBlfHbU/uL
+	6/X6BiGPvnR9u8KWw5UH6PuvE3VnAAw/lPhfqaYh3ZhyQhA69Tq49nkH/Ayp+aDhcOfcwAv
+	X4wRGA5rl3dXYi7xnCURTBH9FvPEPtuluQ2xIvhj8yvDh+Xfobwt8Kai2SewH5jAIFJoD0N
+	Q==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 
-From: Haofeng Li <lihaofeng@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-set_ntacl_dacl() copies each ACE from the attacker-controlled stored
-security descriptor verbatim into the response DACL without checking
-sid.num_subauth. The ACE bytes (including an unchecked num_subauth)
-originate from an authenticated SMB2_SET_INFO(SecInfo=DACL) that is
-stored raw via ksmbd_vfs_set_sd_xattr(); parse_dacl() rejects a bad ACE
-with `break` rather than an error, so parse_sec_desc() still returns
-success and the malformed SD reaches the xattr intact.
+set_ntacl_dacl() validates sid.num_subauth before copying an ACE, but
+does not verify that the declared ACE size contains all sub-authorities
+described by that field. An undersized ACE can therefore be copied
+and later make the POSIX ACL deduplication walk inspect data beyond
+the copied ACE boundary.
 
-On a subsequent SMB2_QUERY_INFO(SecInfo=DACL) for an inode carrying a
-POSIX access ACL, build_sec_desc() -> set_ntacl_dacl() ->
-set_posix_acl_entries_dacl() walks the copied ACEs and reads
+The existing initial bound check is also too small. It only ensures
+that the ACE size field is accessible before set_ntacl_dacl() reads
+sid.num_subauth farther into the input buffer.
 
-    ntace->sid.sub_auth[ntace->sid.num_subauth - 1]
+Require enough input for the fixed SID header before accessing
+num_subauth, reject ACEs smaller than that header, and skip ACEs
+whose declared size cannot contain the complete SID. This makes the
+validation consistent with the other ACE walk paths.
 
-with num_subauth taken straight from the stored SD. Since sub_auth[]
-is fixed at SID_MAX_SUB_AUTHORITIES (15), a crafted num_subauth (e.g.
-255) drives an out-of-bounds heap read of ~1 KB with an offset fully
-controlled by an authenticated client.
-
-The sibling functions already gate this field:
-  parse_dacl()    -- num_subauth == 0 || > SID_MAX_SUB_AUTHORITIES
-  parse_sid()     -- num_subauth > SID_MAX_SUB_AUTHORITIES
-  smb_copy_sid()  -- min_t(u8, num_subauth, SID_MAX_SUB_AUTHORITIES)
-set_ntacl_dacl() is the lone inconsistent path that omits the check.
-
-Add the same num_subauth validation in set_ntacl_dacl() before copying
-the ACE, matching the gate already enforced by parse_dacl().
-
-Signed-off-by: Haofeng Li <lihaofeng@kylinos.cn>
-Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+Reported-by: LocalHost <localhost.detect@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
-(cherry picked from commit 47f0b34f6bc98ed85bfdc293e8f3e432ec24958d)
+(cherry picked from commit 5152c6d49e3fd4e9f2e857c57527aead752f1f87)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- fs/smb/server/smbacl.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ fs/smb/server/smbacl.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index b09bc8d9389a2..173469d112f10 100644
+index ca0e4aab6dd87..d4ae776c8c677 100644
 --- a/fs/smb/server/smbacl.c
 +++ b/fs/smb/server/smbacl.c
-@@ -745,12 +745,18 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
- 			if (nt_ace_size > aces_size)
+@@ -741,15 +741,22 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
+ 		for (i = 0; i < nt_num_aces; i++) {
+ 			unsigned short nt_ace_size;
+ 
+-			if (offsetof(struct smb_ace, access_req) > aces_size)
++			if (aces_size < offsetof(struct smb_ace, sid) +
++					CIFS_SID_BASE_SIZE)
  				break;
  
-+			if (ntace->sid.num_subauth == 0 ||
-+			    ntace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES)
-+				goto next_ace;
-+
+ 			nt_ace_size = le16_to_cpu(ntace->size);
+-			if (nt_ace_size > aces_size)
++			if (nt_ace_size > aces_size ||
++			    nt_ace_size < offsetof(struct smb_ace, sid) +
++					  CIFS_SID_BASE_SIZE)
+ 				break;
+ 
+ 			if (ntace->sid.num_subauth == 0 ||
+-			    ntace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES)
++			    ntace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES ||
++			    nt_ace_size < offsetof(struct smb_ace, sid) +
++					  CIFS_SID_BASE_SIZE +
++					  sizeof(__le32) *
++					  ntace->sid.num_subauth)
+ 				goto next_ace;
+ 
  			memcpy((char *)pndace + size, ntace, nt_ace_size);
- 			if (check_add_overflow(size, nt_ace_size, &size))
- 				break;
-+			num_aces++;
-+
-+next_ace:
- 			aces_size -= nt_ace_size;
- 			ntace = (struct smb_ace *)((char *)ntace + nt_ace_size);
--			num_aces++;
- 		}
- 	}
- 
 -- 
 2.30.2
 
