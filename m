@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D96282F35
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856BF48EBF7
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333187; cv=none; b=TQkG/eWfku46DooHJJ32slLZM+hgr2HjhiuCzrmh4ilkqGgmmJHbTF3RQ0GsCxYSMK3Qh6BmTCkDDWYU6A/aXwzmA7hIisxSrZL/ekdKjwmhetK4nsB9cRDRG8XIeCskp2o5E7ClawfxO4tm3fsr6DEQ9/YPcVp52SROkv+NAWQ=
+	t=1785333189; cv=none; b=X6sYzgJ4x4dNxkFcNG6Q04It2KMdOA06bFd0uQuvb8K5vYphRwYvEu5nT7KFoDzafeEypaaB6ATNoKjGTWuSsRE0p3zY+X0S2VmEUw0lBJ9dyY0xyYhdL6BCwfl8vvCeq/6A4pjkqNB7yzmrwdPeyB4mj7CL4G4CrqhCW0SEd6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333187; c=relaxed/simple;
-	bh=ekd0VVyWEqEkaBl6TI16skNvxxuzohRkogUmUH2U110=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WPK0JibkI4yALmyfb7gaxfTdOdIdVO28Wm50BTy2b64k8JXgkKhp/l4FRX58bNgfNDMy+OWK9S9vdPsRX6xMFN/7cx3Bvi/IEWDIgM9QqxEbIjxhLHNYn5Ixg3UbPLseU2kea6UN2cfzELy/XV51K/c1xaT0J7pLGvd1RVGSKWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oueJ1gCz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333189; c=relaxed/simple;
+	bh=phRxYn+wVYI05ruagnKeD8fvGfpN9oWeds9PWNAynCM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=q95ty2pDLYt6YQPK/cizVPXc1ZyGf8aQ9pbylxkNwQ9SdsWC8gHo3K3y2CHhC+eyRMCkvSWbzAJGaNjNRI/ff+ATrZAZptUZOxn39cwC+1F3E6RpI3f19lcY1aqy1/A5IQMv7lHNV0aFlUPt6eJRY0GV51AerID5HPQc1YhIFvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TlEt3vcs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oueJ1gCz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41DDB1F00A3A;
-	Wed, 29 Jul 2026 13:53:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TlEt3vcs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16BBA1F000E9;
+	Wed, 29 Jul 2026 13:53:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333183;
-	bh=4f0AmRls1C4zvYX+EajAh+0x+Cs1aeF3SpC0WFUGoG8=;
+	s=korg; t=1785333186;
+	bh=B41izZfDOXig29WMz/dp81nmcdnNpMax4mCGYKZaQJ8=;
 	h=Subject:To:Cc:From:Date;
-	b=oueJ1gCz9PYrvBh9niaGZNqazHKtgxCdQMjG9HpFwf4TniksmiSOT7enhYpbXa7Ws
-	 51YMIJsnc0QI5f6d+aLAFm2CSG7ipcvK+fOy+b5p1O+7t4JZZHNGouRIZnBX+1BIIt
-	 2BRJ120sukehO8eGXQmA6q0Ip16eYvS0wbq33vfA=
-Subject: FAILED: patch "[PATCH] net: gro: fix double aggregation of flush-marked skbs" failed to apply to 6.6-stable tree
+	b=TlEt3vcsjiWy27e2u/dtxEO0irRyD+lY8+sTdSoO++GThuDEg4So720Uq61hxDgY7
+	 N917K8z7nCBJHyLc+aVXx20HnW+NQxmpyRR5xxVRq15cntJBrJhr2b9EOvWsPXTHlb
+	 qg+ROj4XUAZWXNRFDraHuztuxK6XGdUT4B3d2+Gk=
+Subject: FAILED: patch "[PATCH] net: gro: fix double aggregation of flush-marked skbs" failed to apply to 5.15-stable tree
 To: shiming.cheng@mediatek.com,kuba@kernel.org,willemb@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:52:46 +0200
-Message-ID: <2026072946-scavenger-smelting-3d16@gregkh>
+Date: Wed, 29 Jul 2026 15:52:47 +0200
+Message-ID: <2026072947-straw-entity-e1ff@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x e751256486d0ded20f5a9f9863467f1dce65142f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072946-scavenger-smelting-3d16@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072947-straw-entity-e1ff@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
