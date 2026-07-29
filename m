@@ -1,109 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7409209F43
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0D357C9F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:20:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785295215; cv=none; b=NmwBUC90nyZcyujPcpv7UoIlZa7W57lh+KEWqP+VarbfPa3O2etFF8r/4+0HimPtks44Y3drFmv7NMQbiOutfiSoPhILgYP1bIwujoZiUMmwv8PtWR6pNAtmY0LmsLLlQojnF30vK38OZPOHuEnzONRvyelTKfwsgBitDZJUL6E=
+	t=1785295222; cv=none; b=q+gqiLCygx/fGpdVqtPMecbikvKjxdOdbEYqqzDVLUhXxjjhUiShfCwF8HFCENB3morrfdCwwX1VeAq3AOLUpuVGvTyFuyb82ePlc9ihXf8LtqVzzBQsKKgy7XJUkoNX8nOBoBAF6xsO/ivRCPf6LyGsvG9lvqzntP6l/lLLdg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785295215; c=relaxed/simple;
-	bh=8jRPc/pvaEIfE2B4mMlT9a55zZnBWRAqsIqYz9uX2JA=;
+	s=arc-20240116; t=1785295222; c=relaxed/simple;
+	bh=+r6O13nnSwg13UF9WCWd5Z1iGPftdZD+f8RH9/oshNo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t5kMekTaIaSSYmi5nJb08nlGIlmzQ1oiwhwKz8Jg3HYYI8ds1zDw0sOB3ROze8WZKerPoa0nPpaR9fJ5hiIPDTFXgwlSvIvEoSw9n/JWvQPkeEgxhv+LktmfJavkIwnkyNA/EmL71n/9H2jQPOPfdxpVf71mX0dbkllFJy9egyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1pzl5BQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hajYG/8lFvl/UZSR2R1TtCekE2q9i/hQ52R3XdWWHo9bJlEidV15+LfZk9lgkNpJOgGuv0Mvh8I6u6A80u9+E/Rgv/RQBXPlyc2HQtX3IAy6MQHFJEcBENwmWmvRkBPtw8GfZ7JESFxImOes2fQ+zEFVx1jB/ejI6DxSrTIHiNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zh2AWrXw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1pzl5BQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20FD01F000E9;
-	Wed, 29 Jul 2026 03:20:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zh2AWrXw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE8F1F000E9;
+	Wed, 29 Jul 2026 03:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785295213;
-	bh=3nce4UTt694Or3CvTwyo/SVCASAOr5kcEyNEq2+Ca8s=;
+	s=k20260515; t=1785295220;
+	bh=2qFRWo5QKOPNMn3SMmU97B1y7nc/5jadbvbOChRqVC8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q1pzl5BQr4XYnghBb7uO7MQf9f8MQ/1SnzJMX7baXzKufSyf+qTXV/r+xVwrqyJ93
-	 9BCmfnmQKmBHTrM3GELjnuO/xMGUka8olJQUBtAyoDg3XJ5YjFI60CYKQBCh6Da5ox
-	 538O7RtIj7Ut8J8UAN9cdxx03EoUWsvmPlUwVWyacGXnIytDW5Cyp/TodKjFvW8ISe
-	 cRTRTyVzuKFt6Y7UQU46yd+v2gCyMCXRMF+vxHn1cU3ZtgppGuP/SbcCA8mwBtxaYv
-	 db66KakpKGCC+wQFxhLQg+KVi3I2l0+bzENVkh6zhNNUsiC2+2ec24ZaRR2FKvzUtd
-	 7QgMfeNNKmOOg==
+	b=Zh2AWrXwxvAufCV5XzXuD3GzlWJpyOOaQ75LqqXQuYR8NPWnYHelRnV0rWERec9Tk
+	 yNHZfW5tysZlBZxl2U01z7A4OxeLYayc2IOZYKMQjXxBWm2T3RYxHrMHRGjePsB+FH
+	 Y6mo97foiBX5e0UHkQJAm1MDFYuplsqHhwuI9M7NEgOShFJVZoq7uJTElDS6iAiR5w
+	 15Y7x/j69b32lCiZMoHO8jX/1hHl9MQHlE2NVUPJlcMAlTLtFxODkuj4D8KvR3YmkZ
+	 tc/gznwE/f7SfsYzJMAsoHxY7mNzqZPMQftxC4v+pwxRK/LHvOaNIO3OP5Q9f44jDQ
+	 rrcl1PNTG3Wwg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>,
+	"Steven Rostedt (VMware)" <rostedt@goodmis.org>,
+	Daniel Bristot de Oliveira <bristot@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	"Joel Fernandes (Google)" <joel@joelfernandes.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] net: macb: drop in-flight Tx SKBs on close
-Date: Tue, 28 Jul 2026 23:20:11 -0400
-Message-ID: <20260729032011.1223731-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] tracing: Rename kvfree_rcu() to kvfree_rcu_mightsleep()
+Date: Tue, 28 Jul 2026 23:20:17 -0400
+Message-ID: <20260729032018.1223942-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072141-confess-wrinkly-83cf@gregkh>
-References: <2026072141-confess-wrinkly-83cf@gregkh>
+In-Reply-To: <2026072147-clang-iguana-51e4@gregkh>
+References: <2026072147-clang-iguana-51e4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Théo Lebrun <theo.lebrun@bootlin.com>
+From: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
 
-[ Upstream commit 27f575836cfebbf872dec020428742b10650a955 ]
+[ Upstream commit cae16f2c2e11c60c888715f4d98c12740683d6a2 ]
 
-The MACB driver has since forever leaked the outgoing SKBs that
-have not yet been marked as completed. They live in queue->tx_skb
-which gets freed without remorse nor checking.
+The kvfree_rcu() macro's single-argument form is deprecated.  Therefore
+switch to the new kvfree_rcu_mightsleep() variant. The goal is to
+avoid accidental use of the single-argument forms, which can introduce
+functionality bugs in atomic contexts and latency bugs in non-atomic
+contexts.
 
-macb_free_consistent() gets called in a few codepaths, but only close will
-trigger the added expressions. In macb_open() and macb_alloc_consistent()
-failure cases, queues' tx_skb just got allocated and are empty.
-
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Link: https://patch.msgid.link/20260702-macb-drop-tx-v4-1-1c833eebdbc8@bootlin.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ adjusted context to free each queue's Tx/Rx rings individually since 6.12 lacks the single-dma_alloc_coherent refactor ]
+Cc: Steven Rostedt (VMware) <rostedt@goodmis.org>
+Acked-by: Daniel Bristot de Oliveira <bristot@kernel.org>
+Acked-by: Paul E. McKenney <paulmck@kernel.org>
+Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+Signed-off-by: Joel Fernandes (Google) <joel@joelfernandes.org>
+Stable-dep-of: fe58f457ad8d ("tracing/osnoise: Call synchronize_rcu() when unregistering")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ kernel/trace/trace_osnoise.c | 2 +-
+ kernel/trace/trace_probe.c   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index f29dc2d3621903..513a1267a6ef7e 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -2520,8 +2520,26 @@ static void macb_free_consistent(struct macb *bp)
- 	bp->macbgem_ops.mog_free_rx_buffers(bp);
+diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
+index 676d9a3e65cde6..417b62f7550978 100644
+--- a/kernel/trace/trace_osnoise.c
++++ b/kernel/trace/trace_osnoise.c
+@@ -137,7 +137,7 @@ static void osnoise_unregister_instance(struct trace_array *tr)
+ 	if (!found)
+ 		return;
  
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		kfree(queue->tx_skb);
--		queue->tx_skb = NULL;
-+		if (queue->tx_skb) {
-+			unsigned int dropped = 0, tail;
-+
-+			for (tail = queue->tx_tail; tail != queue->tx_head;
-+			     tail++) {
-+				if (macb_tx_skb(queue, tail)->skb)
-+					dropped++;
-+				macb_tx_unmap(bp, macb_tx_skb(queue, tail), 0);
-+			}
-+
-+			queue->stats.tx_dropped += dropped;
-+			bp->dev->stats.tx_dropped += dropped;
-+
-+			kfree(queue->tx_skb);
-+			queue->tx_skb = NULL;
-+		}
-+
-+		queue->tx_head = 0;
-+		queue->tx_tail = 0;
-+
- 		if (queue->tx_ring) {
- 			size = TX_RING_BYTES(bp) + bp->tx_bd_rd_prefetch;
- 			dma_free_coherent(&bp->pdev->dev, size,
+-	kvfree_rcu(inst);
++	kvfree_rcu_mightsleep(inst);
+ }
+ 
+ /*
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index 125111d310d1ba..241b7ba9a3a777 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -1179,7 +1179,7 @@ int trace_probe_remove_file(struct trace_probe *tp,
+ 		return -ENOENT;
+ 
+ 	list_del_rcu(&link->list);
+-	kvfree_rcu(link);
++	kvfree_rcu_mightsleep(link);
+ 
+ 	if (list_empty(&tp->event->files))
+ 		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
 -- 
 2.53.0
 
