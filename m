@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F8E48877D
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:18:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CF7488DA1
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:18:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331093; cv=none; b=rFfbhLkiYOOHZ9PyEi12Ny4Xjz1vyITR863OE/M6Li6RXoS1NNysUEM8kjQqNMff7MSifKtoeCmxkaBes1PCCFe325rxW3WYN7MT5zGm5+zQ9CCCEB1FpXPCJK5DY/62BgzZwd8+PsTTq0lWLLnJcCk0vW4Be/X2c2Jp/Bw8PiM=
+	t=1785331096; cv=none; b=ELK2m3i/VI8LBogOxIru+fXMMVxHgA8C196PRQDDC6qp+XMdvPr7yUWNNcIZD+BaDmq2/iH2Al0uR1jXuSdPwOAAI+li5Q3n0CvJQfwCvILmgpo3RaiVp9feAX2jxKdsLU+gFYi3Jmw48J/LLtRI/5TTukc2X4nueaV4Jnr/oEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331093; c=relaxed/simple;
-	bh=zoZ8VBTbo2QBpnJ9uSsIHmAgPQkBYadtVOPDGdQsjns=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DZqPmkcADu1vUyUC46oXD1+cs5uJq1eqssPuV0OrOAGH5Iia94Dp/u8g4fmrEf3vJwuDnS0CenDMLy75Om/oc4S+gCv4kIvYkkewZtWs3ONEmCKjBt129KYKCKChtyYPI6DJnoXJGh33XKH0FHk/33cdmA7hnAfRQdzNdviTTJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ObBpmxyq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785331096; c=relaxed/simple;
+	bh=CmyEz6YH8XbEsfhsZBpst/NG8U7WO/gOlWtYhaU6UPk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aiosuAMjBDQPwCDoPPfaYBqnPVBCcYiTejOQQFk191gPCAlEPyPU3mQfrAd4r6u49aEzYyrAkzslhySeg8lQgMjI+3ogbHtyc9c9J1/q7v2UekxUx4yGDIycdN4aitWacDWLGHjddjiPcKORFND/MCTU0r++LPXr8wU7Je1hW5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GqEjif5g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ObBpmxyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5BA1F000E9;
-	Wed, 29 Jul 2026 13:18:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GqEjif5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33E91F00A3E;
+	Wed, 29 Jul 2026 13:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785331092;
-	bh=4Im62kRPK2RCPsZbFMUtVnxs3VJ0EHDTp62fvo+yPL4=;
+	s=korg; t=1785331095;
+	bh=39eL+wleKpzse5ImAZHtajcQsmQPJIEXqAV9HLKGunQ=;
 	h=Subject:To:Cc:From:Date;
-	b=ObBpmxyqkxgBlutpS0teY437yiK7pLDlk7duucM7h2zM4bZH/+ObX6XBJNLogtIFn
-	 2CFbvqBD7LP3NgEaGizC10uFIRIY0oAdD2wQh0eqeYaPboBq8DGCiIl6/zxz+5ttbJ
-	 2RiSgsYjDKqr7W/b+s9x63gJz+Gd88rmI6avCaDc=
-Subject: FAILED: patch "[PATCH] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752" failed to apply to 6.1-stable tree
-To: zaq14760@gmail.com,arend.vanspriel@broadcom.com,johannes.berg@intel.com
+	b=GqEjif5g5hf5GeTTM8SfLAHo2U4XYehXqKkhIM1WQIjPzUdn1MRiv0G7aPE3LVe7M
+	 9tJtTYdHbhb+mB4Lms7yFT2w4eh1RFEQxmV26ZGLRKECkudVrIkhP+eVSLRZ8DQIX6
+	 j3bu/V8Kagbs0WQqISeyIrwO0Lr83FvhMXVg8bO4=
+Subject: FAILED: patch "[PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in" failed to apply to 6.6-stable tree
+To: mirela.rabulea@nxp.com,Frank.Li@nxp.com,laurent.pinchart+renesas@ideasonboard.com,sakari.ailus@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:14:50 +0200
-Message-ID: <2026072950-scribing-blooming-1fda@gregkh>
+Date: Wed, 29 Jul 2026 15:16:36 +0200
+Message-ID: <2026072936-heroism-pelican-745d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 29ab31f3f27157648f2f7e6d5e1fd9792fdf0614
+git cherry-pick -x 06cb687a5132fcffe624c0070576ab852ac6b568
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072950-scribing-blooming-1fda@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072936-heroism-pelican-745d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,53 +62,89 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 29ab31f3f27157648f2f7e6d5e1fd9792fdf0614 Mon Sep 17 00:00:00 2001
-From: LiangCheng Wang <zaq14760@gmail.com>
-Date: Wed, 15 Jul 2026 14:49:38 +0800
-Subject: [PATCH] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
+From 06cb687a5132fcffe624c0070576ab852ac6b568 Mon Sep 17 00:00:00 2001
+From: Mirela Rabulea <mirela.rabulea@nxp.com>
+Date: Fri, 22 May 2026 17:31:20 +0300
+Subject: [PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in
+ v4l2_async_register_subdev_sensor()
 
-The BCM43752 is not reliable with the default 512-byte SDIO function 2
-block size: on an i.MX8MP board with an AMPAK AP6275S module at
-SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
+The v4l2 helper v4l2_async_register_subdev_sensor() calls
+v4l2_async_register_subdev(), which is a macro that expands to
+__v4l2_async_register_subdev(sd,THIS_MODULE). Since the macro is expanded
+inside v4l2-fwnode.c, THIS_MODULE resolves to the v4l2-fwnode module
+rather than the sensor driver module that originally set sd->owner. When
+v4l2-fwnode is built-in, THIS_MODULE evaluates to NULL, which then
+overwrites the sensor driver's owner with NULL.
 
-  mmc_submit_one: CMD53 sg block write failed -84
-  brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
+This causes the problem that the sensor module's reference count is never
+incremented during async registration, so the module can be removed while
+the subdevice is still in use by a notifier (e.g., a CSI-2 receiver
+bridge driver).
 
-Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-set up the 43752 like the 4373 for the F2 watermark but missed the F2
-block size, which the 4373 limits to 256 bytes. The vendor driver
-(bcmdhd) also programs a 256-byte F2 block size for this chip and runs
-the same hardware without errors.
+Fix this by renaming v4l2_async_register_subdev_sensor() to
+__v4l2_async_register_subdev_sensor() with an added explicit module
+argument and introducing a wrapper macro:
+    #define v4l2_async_register_subdev_sensor(sd) \
+        __v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
 
-Group the 43752 with the 4373, matching the F2 watermark handling.
-With this change a 10-minute bidirectional iperf3 soak completes with
-zero SDIO errors at ~270 Mbit/s in each direction.
+This ensures the sensor driver module is properly referenced even when
+the sensor driver does not init the owner field before calling
+v4l2_async_register_subdev_sensor() and prevents premature module removal.
 
-Backporting note: kernels before v6.18 name this id
-SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752, so on those trees the case
-label added by this patch must be adjusted to that name. Cherry-picking
-the rename commit 74e2ef72bd4b ("wifi: brcmfmac: fix 43752 SDIO FWVID
-incorrectly labelled as Cypress (CYW)") first is not a clean
-alternative: on trees before v6.17 its context collides with the 43751
-additions, and trees before v6.2 lack the FWVID framework it touches.
+Fixes: aef69d54755d ("media: v4l: fwnode: Add a convenience function for registering sensors")
+Cc: stable@vger.kernel.org
+Suggested-by: Frank Li <Frank.Li@nxp.com>
+Link: https://lore.kernel.org/linux-media/20240315073125.275501-2-sakari.ailus@linux.intel.com/
+Signed-off-by: Mirela Rabulea <mirela.rabulea@nxp.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-Cc: stable@vger.kernel.org # see patch description, needs adjustments for <= 6.17
-Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260715-b43752-f2-blksz-v2-1-f9be49856050@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-index ec487c6f2e38..869c4872d399 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-@@ -911,6 +911,7 @@ int brcmf_sdiod_probe(struct brcmf_sdio_dev *sdiodev)
- 		return ret;
- 	}
- 	switch (sdiodev->func2->device) {
-+	case SDIO_DEVICE_ID_BROADCOM_43752:
- 	case SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373:
- 		f2_blksz = SDIO_4373_FUNC2_BLOCKSIZE;
- 		break;
+diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
+index 77f3298821b5..62a3a452f788 100644
+--- a/drivers/media/v4l2-core/v4l2-fwnode.c
++++ b/drivers/media/v4l2-core/v4l2-fwnode.c
+@@ -1256,7 +1256,7 @@ v4l2_async_nf_parse_fwnode_sensor(struct device *dev,
+ 	return 0;
+ }
+ 
+-int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
++int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module)
+ {
+ 	struct v4l2_async_notifier *notifier;
+ 	int ret;
+@@ -1282,7 +1282,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
+ 	if (ret < 0)
+ 		goto out_cleanup;
+ 
+-	ret = v4l2_async_register_subdev(sd);
++	ret = __v4l2_async_register_subdev(sd, module);
+ 	if (ret < 0)
+ 		goto out_unregister;
+ 
+@@ -1300,7 +1300,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
+ 
+ 	return ret;
+ }
+-EXPORT_SYMBOL_GPL(v4l2_async_register_subdev_sensor);
++EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
+ 
+ MODULE_DESCRIPTION("V4L2 fwnode binding parsing library");
+ MODULE_LICENSE("GPL");
+diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
+index f26c323e9c96..54a2d9620ed5 100644
+--- a/include/media/v4l2-async.h
++++ b/include/media/v4l2-async.h
+@@ -333,8 +333,10 @@ int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module);
+  * An error is returned if the module is no longer loaded on any attempts
+  * to register it.
+  */
++#define v4l2_async_register_subdev_sensor(sd) \
++	__v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
+ int __must_check
+-v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd);
++__v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module);
+ 
+ /**
+  * v4l2_async_unregister_subdev - unregisters a sub-device to the asynchronous
 
