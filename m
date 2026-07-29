@@ -1,186 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAB93164A9;
-	Wed, 29 Jul 2026 04:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60C81D95A3
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 04:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785298527; cv=none; b=Cm9wje/o61f2daMor2arpp+39nzTHYeP2damRD2Yu2nJovAlbNeLoyIbgdGaFlfc9PQy5vVFgI+GKTMz2xfmFJYXh/A75T3/kPd57YSCkCfdC854Kqjmd4s7X01GOmLx7AS2iPHB3Ef3uO+TVZgAaGbmi1HuFUCaHbnOqO7VXdc=
+	t=1785298630; cv=none; b=nZmzWoY/UrhNbfMArqotIzL9YOkTOS4CfmmLwTnVyFs3AeZrO2X9Q4ItwHALdHu9sbs2JhAtF/WTZlOZsY2UucDRCXCK614aJNdWlHsXIo1jIpUrKkdZT/OC02PsoWmpBFKzTXG78cV+GSQDfkxShE2bmm5w+VsI13NPDxjm290=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785298527; c=relaxed/simple;
-	bh=rlepOuenW7wnJ+0QKI/pMkUaj9saqGiYIPp8uPz75Tc=;
-	h=Date:To:From:Subject:Message-Id; b=Fa3XOokxQUEC7td6pkCqKIYkBnkDCiWiE/NpawMM5jJ4GbHdQUx0AKPm3XyU3SvDEmkhO/rzQm2fv6JHTtVyF06aOsECMuOh2Q20379uO/DfNbYHP25x+IO3o8XklFunixHN/QZRTdksjy6Po80BpP4KXjK71Vlb4bi+j9ESWPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xdDThiTo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785298630; c=relaxed/simple;
+	bh=+f93yqpB0vWTCoxVOTnikZ42TYA/9hQHZf7/f9OTlIs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YQRF7NFd9fKimNjZhD5T6ri4RYcmzRNsoe9OCxiAqpB9TqCYbbr1KHZJw/ePHqW5Ffu29EpE7pph5721YZdKtPIJAdnDGKVfYbvSAv1kxdLZmjpdh7W1ehgYn9oCO19lQP6oHo1zh2TbDItUGJwieQpCjZaHXniIK/U8A/rkVN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CHmN7dIu; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xdDThiTo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6A6F1F00A3E;
-	Wed, 29 Jul 2026 04:15:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CHmN7dIu"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9e607d81fcso269459a12.2
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 21:17:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785298521;
-	bh=/jtRORREXoHZGelqr61SCg6cDdquw6FxbkRVsv/nP1E=;
-	h=Date:To:From:Subject;
-	b=xdDThiToxEa3GxU+845YNyIsNl2KsMRC6ONvRiaqo2lD/8KgvHYQBftB6xWqwsv3K
-	 L/R6QLR2AHnXvPQgzdoyhuS5wGdWY9IqsZMzGNeNs8ahkxpNiL4/MwPAuYjLCYfPla
-	 c3kcyB7/0MtUmfBvBtkVYekFAz9lxzZ5J8+9U/f4=
-Date: Tue, 28 Jul 2026 21:15:20 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs.patch removed from -mm tree
-Message-Id: <20260729041520.D6A6F1F00A3E@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1785298628; x=1785903428; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cfXUKL6KEgJ9xC0lbVLlHmoRQoa/+Lwi/4872gF1r5g=;
+        b=CHmN7dIuuj2RMBWlN5fJVKLsAU+WCRSyPb2BPtKwo3Z4W3hbypnRGMa3vw+0BmQu4e
+         L4HyTt3RPKqHVioyJ803CW4pIWLusrfUCDhBBc6zjndNrPNiMJy+LeUrEVhJraJk8nBV
+         qFCxam0irIJ1h2S8AFf20uMuFd0XvtanKoxK+ztMZsmRIk5PAqGjJ7vX9dlXvnh0EJgd
+         EFB1/THElzwd461P2wCg62Ny83P7EPcIwLqBJrRIKT1M5/nxYBDRqLM8RA4VfUtzZhgC
+         Hb3RS0jbWk1FpfT0sAdqJAR2hEvlOn/W8WiZAiiTVa9vpnHL3nP7GiJCHMh/rtU6pthe
+         5aEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785298628; x=1785903428;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cfXUKL6KEgJ9xC0lbVLlHmoRQoa/+Lwi/4872gF1r5g=;
+        b=MnZVL4Q+ZACYdVcfY/RcZCqfVX20vKdXlhGYclU7wd6CuOTnbPWbkYqM4O6P/29WBc
+         zx/jfloKyvQoSbcZ6P29os1QJTbodjwwz/KxvdvekMBVXwS3Gm3o9Q7x36Tu70pg9QBY
+         3Sg4HbI/AvLG//zRvPvff2bjX8vF25O+6SO1GuMbE7vdSne4O+ML5u6CJeXNk3ocQ2Qh
+         7LM7wDC8RKh3SZziXnzW44djlWET6SEcp+GSgROOf3blMPAsKLpl94GON632NMxOyOeG
+         dkppbZlT47fQV83TnI+3MOykSYPDeRgqr798KAjkgLHaN+zaS2PdgfudJ7AshKTAC8RP
+         81wg==
+X-Forwarded-Encrypted: i=1; AHgh+RrXdrHrFU+ZxwiqQCFdiGzxNRbnhrU+m6YWL6UjbcrLb820Uml1iOZhGdHN0/OVZs8zOkUnZpQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2Yz8RMWs0vwknqlDFhUpww9mQr3BbOOvF4fEt1kTJIvKAdaKS
+	drcV29WIgPGLbiYMEmcHCX+NNqf+RgydE9dy2alFM89ENuI8EsPeo5M=
+X-Gm-Gg: AR+sD12+bGBdCFZSBb7fagovr1fN9hXm7/wI/7HLJGFAN0LVmT/lDSYPOW5Vv9ZOEwX
+	6HupKkBMBzGl/UyXAdqVZ6mJhJfG9iwUfGiPtD8tpkdm9EBX6ubFiWUjmP6YTfLpDHVKNz1xC9S
+	7M5H2xQRS0QUISp90a/FCQt4+w8b/GjsTnRr+uZB1RfzsUCYCh5kDwk+57X/0DDkCd8ElaAaSqC
+	cHlrivjlVhzOyQO8sH8sAb+L5vydodsqwkq85r+ec8P52R1TBW/9g9hvpitO139rrh0eVVLRnto
+	gGLGl4q9DsDYizMHHpXLCPUIHNEM/Lf92Il5ANlgwKhceeDA3JvP3kLTibV78xPpkkIsic++eYG
+	oYdxr8zp612dQ/Xev3NLd1H8dHXJmg2ox2kPQDF7ul+rG+Uvk6FPT+09GUEllIHgPNqQXTjwrAS
+	Dtbr5TzkoGeAJ7UZibW5kcxUSFMXRNK33gPCrt91bNJEk4peMzKayte/V1Kwx0vHbVC6R4RMSHG
+	JvASxJlm3VWMncLfQHamTixp2/zFpXyF7wDn5My
+X-Received: by 2002:a05:6a21:2d43:b0:39f:59c8:f302 with SMTP id adf61e73a8af0-3c8ba5d0a12mr6192619637.37.1785298627978;
+        Tue, 28 Jul 2026 21:17:07 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:88b0:bed0:1488:2a4e:85f:d739])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b6d14bsm4507589eec.10.2026.07.28.21.17.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 21:17:07 -0700 (PDT)
+From: Rochan Avlur <rochan.avlur@gmail.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Rochan Avlur <rochan.avlur@gmail.com>
+Subject: [PATCH] f2fs: use the mount idmap for the owner check in f2fs_xattr_advise_set()
+Date: Tue, 28 Jul 2026 21:16:56 -0700
+Message-ID: <20260729041656.51967-1-rochan.avlur@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+f2fs_xattr_advise_set() calls inode_owner_or_capable() with
+&nop_mnt_idmap before allowing the advise xattr to be set, instead of
+the idmap that was passed into the handler.
 
-The quilt patch titled
-     Subject: mm/damon/sysfs-schemes: kobject_del() scheme filter dirs
-has been removed from the -mm tree.  Its filename was
-     mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs.patch
+Since f2fs supports idmapped mounts, this compares the caller's fsuid
+against the unmapped on-disk owner rather than the mapped owner; resulting
+in the actual owner to be wrongly denied with -EPERM. Use the idmap
+argument that was already passed to the xattr handler instead.
 
-This patch was dropped because it was merged into the mm-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/sysfs-schemes: kobject_del() scheme filter dirs
-Date: Sun, 28 Jun 2026 15:01:14 -0700
-
-On CONFIG_DEBUG_KOBJECT_RELEASE enabled kernel, lack of kobject_del()
-could cause directories creation failures due to the name conflicts.  Fix
-those issues for scheme filter directories by adding kobject_del() calls.
-
-Link: https://lore.kernel.org/20260628220121.97360-6-sj@kernel.org
-Fixes: 472e2b70eda6 ("mm/damon/sysfs-schemes: connect filter directory and filters directory")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.3.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 984fc4e76d63 ("f2fs: support idmapped mounts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rochan Avlur <rochan.avlur@gmail.com>
 ---
+ fs/f2fs/xattr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- mm/damon/sysfs-schemes.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
---- a/mm/damon/sysfs-schemes.c~mm-damon-sysfs-schemes-kobject_del-scheme-filter-dirs
-+++ a/mm/damon/sysfs-schemes.c
-@@ -912,8 +912,10 @@ static void damon_sysfs_scheme_filters_r
- 	struct damon_sysfs_scheme_filter **filters_arr = filters->filters_arr;
- 	int i;
+diff --git a/fs/f2fs/xattr.c b/fs/f2fs/xattr.c
+index 610d5810074d..281e2fd6c778 100644
+--- a/fs/f2fs/xattr.c
++++ b/fs/f2fs/xattr.c
+@@ -118,7 +118,7 @@ static int f2fs_xattr_advise_set(const struct xattr_handler *handler,
+ 	unsigned char old_advise = F2FS_I(inode)->i_advise;
+ 	unsigned char new_advise;
  
--	for (i = 0; i < filters->nr; i++)
-+	for (i = 0; i < filters->nr; i++) {
-+		kobject_del(&filters_arr[i]->kobj);
- 		kobject_put(&filters_arr[i]->kobj);
-+	}
- 	filters->nr = 0;
- 	kfree(filters_arr);
- 	filters->filters_arr = NULL;
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch
-docs-mm-damon-design-update-for-damos_quota_node_eligible_mem_bp.patch
-docs-abi-damon-document-probe-files.patch
-mm-damon-tests-core-kunit-test-damon_rand.patch
-selftests-damon-sysfssh-test-multiple-probe-dirs-creation.patch
-selftests-damon-sysfssh-test-coreops_filters-directories.patch
-selftests-damon-sysfssh-test-dests-dir.patch
-selftests-damon-sysfssh-test-all-files-in-quota-goal-dir.patch
-mm-damon-core-reduce-range-setup-in-damon_commit_target_regions.patch
-mm-damon-sysfs-split-probe-setup-function-out.patch
-mm-damon-sysfs-split-out-filters-setup-function.patch
-mm-damon-sysfs-fix-typos-in-probe_addrm_dirs-s-attr-probe.patch
-mm-damon-core-introduce-damon_nr_accesses_mvsum.patch
-mm-damon-tests-core-kunit-test-damon_mvsum.patch
-mm-damon-core-always-update-last_nr_accesses-for-intervals-change.patch
-mm-damon-core-handle-unreset-nr_accesses-in-damon_nr_accesses_mvsum.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-in-__damos_valid_target.patch
-mm-damon-core-use-damon_nr_accesses_mvsum-for-damos-region-tracing.patch
-mm-damon-sysfs-schemes-use-damon_nr_accesses_mvsum-for-damo-regions.patch
-mm-damon-core-remove-damon_warn_fix_nr_accesses_corruption.patch
-mm-damon-core-remove-damon_verify_reset_aggregated.patch
-mm-damon-core-remove-damon_verify_merge_regions_of.patch
-mm-damon-tests-core-kunit-remove-nr_accesses_bp-setup-and-tests.patch
-selftests-damon-drgn_dump_damon_status-do-not-dump-nr_accesses_bp.patch
-mm-damon-core-remove-nr_accesses_bp-setups-and-updates.patch
-mm-damon-core-remove-attrs-param-from-damon_update_region_access_rate.patch
-mm-damon-paddr-remove-attrs-param-from-__damon_pa_check_access.patch
-mm-damon-vaddr-remove-attrs-param-from-__damon_va_check_access.patch
-mm-damon-core-remove-damon_moving_sum-and-its-unit-test.patch
-mm-damon-core-remove-damon_region-nr_accesses_bp.patch
-mm-damon-add-damon_region-last_probe_hits.patch
-mm-damon-core-introduce-damon_probe_hits_mvsum.patch
-mm-damon-sysfs-schemes-set-probe-hits-as-pseudo-moving-sums.patch
-mm-damon-core-safely-validate-src-on-damon_commit_ctx.patch
-mm-damon-core-do-parameter-testing-commit-on-damon_start.patch
-mm-damon-sysfs-remove-duplicated-commit-input-validity-check.patch
-mm-damon-reclaim-remove-duplicated-min_region_sz-power-of-2-check.patch
-mm-damon-lru_sort-remove-duplicated-min_region_sz-power_of_2-check.patch
-mm-damon-document-region-size-validation-in-damon_set_regions.patch
-mm-damon-core-remove-start-end-check-in-damon_set_region_system_rams.patch
-mm-damon-sysfs-remove-region-size-validation.patch
-mm-damon-core-stop-ctxs-in-damon_start-before-returning-an-error.patch
-samples-damon-mtier-do-not-stop-first-context-for-damon_start-failure.patch
-mm-damon-core-make-damon_stop-never-fails.patch
-mm-damon-sysfs-ignore-damon_stop-return-value.patch
-mm-damon-reclaaim-ignore-damon_stop-return-value.patch
-mm-damon-lru_sort-ignore-damon_stop-return-value.patch
-mm-damon-core-change-damon_stop-return-type-to-void.patch
-samples-damon-mtier-stop-all-contexts-with-single-damon_stop-call.patch
-mm-damon-core-wait-ctx-stop-in-damon_call-before-reruning-an-error.patch
-samples-damon-wsse-do-not-stop-ctx-for-damon_call-failure.patch
-samples-damon-prcl-do-not-stop-damon-for-damon_call-failure.patch
-mm-damon-core-remove-comment-and-test-for-nr_to_bp-divide-by-zero.patch
-mm-damon-core-s-damon_max_nr_accesses-damon_nr_samples_per_aggr.patch
-mm-damon-core-s-accesses_bp_to_nr_accesses-sample_bp_to_count.patch
-mm-damon-core-s-nr_accesses_to_accesses_bp-sample_count_to_bp.patch
-mm-damon-core-s-nr_accesses_for_new_attrs-nr_samples_for_new_attrs.patch
-mm-damon-core-update-probe-hits-for-new-parameter-commit.patch
-mm-damon-core-handle-unreset-probe_hits-in-probe_hits_mvsum.patch
-mm-damon-core-introduce-damon_probe-weight.patch
-mm-damon-core-ask-apply_probes-ops-callback-to-set-sampling-address.patch
-mm-damon-paddr-set-samples-in-apply_probes-if-requested.patch
-mm-damon-core-ask-apply_probe-to-return-max-probe-hits-weighted-sum.patch
-mm-damon-core-implement-damon_probe_hits_wsum.patch
-mm-damon-paddr-respect-return_max_wsum.patch
-mm-damon-core-use-abs_diff-instead-of-abs.patch
-mm-damon-core-extend-merge-function-to-work-with-probe-hits.patch
-mm-damon-core-disallow-probe_hits-overflow-on-attrs-only-monitoring.patch
-mm-damon-core-validate-params-for-probe-hits-weighted-sum-overflow.patch
-mm-damon-core-disable-access-monitoring-when-probe-weights-are-set.patch
-mm-damon-core-set-samples-in-apply_probes-if-probe-weights-are-set.patch
-mm-damon-core-s-max_nr_accesses-max_merge_score-in-kdamond_fn.patch
-mm-damon-core-get-merge-threshold-from-probe-hits-when-weights-are-set.patch
-mm-damon-core-implement-damon_has_probe_weight.patch
-mm-damon-sysfs-implement-probe-weight-file.patch
-docs-mm-damon-design-document-attrs-only-monitoring.patch
-docs-admin-guide-mm-damon-usage-document-weight-sysfs-file.patch
-docs-abi-damon-document-probe-weight-file.patch
-mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
-mm-damon-core-hide-private-damon_region-fields.patch
-mm-damon-core-hide-private-damon_target-fields.patch
-mm-damon-core-hide-private-damos_quota_goal-fields.patch
-mm-damon-core-hide-private-damos_quota-fields.patch
-mm-damon-core-hide-private-damos_filter-fields.patch
-mm-damon-core-hide-private-damos-fields.patch
-mm-damon-core-hide-private-damon_filter-fields.patch
-mm-damon-core-hide-private-damon_probe-fields.patch
-mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
-mm-damon-core-hide-core-private-damon_ctx-fields.patch
-mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
-mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
-mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
-mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
-mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-core-initialize-damos-last_applied.patch
-mm-damon-core-kunit-check-region-count-before-testing-in-split_at.patch
-mm-damon-vaddr-kunit-check-region-count-in-three_regions-test.patch
-mm-damon-core-kunit-handle-region-split-failure-in-filter_out.patch
-mm-damon-core-kunit-skip-wrong-dest-walk-in-commit_dests_for.patch
-mm-damon-core-kunit-skip-wrong-quota-goal-walk-in-commit_quota_goals.patch
-mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
-mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
-mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
+-	if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
++	if (!inode_owner_or_capable(idmap, inode))
+ 		return -EPERM;
+ 	if (value == NULL)
+ 		return -EINVAL;
+-- 
+2.45.2
 
