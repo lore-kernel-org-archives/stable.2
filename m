@@ -1,64 +1,64 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0747340A57
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 17:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1F0380FD8
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 17:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785346609; cv=none; b=Cr+87VX/bJb4teIh0b6xv9fCOxFET7g/uFLIXBEsr4teggkieDfCBhV1nr9ooQZE4vMzeMBMNGO2ZXrHQ4XF/bFiXp9Q/u7A7TeUa9UfgV93P1oSTa+ELNRWRwkHDWzCCnrE+54pnxToVu9lozR8M1T+6mUOuz4koT4gZViDn4E=
+	t=1785346615; cv=none; b=SLSDAA23DpWE/qmqkmJgRLGf/oASjArAsvtcjwMkivCw+pKiaxRGzcZhkn2cevp04Gmk8P2wCEZ2t9+Am2VrrV4WmorgjjLDwcHp/lInlW7saxptpDPp4RPnpTApv+e3hmoaiifq1Lb9tJQOD+kXyR+L66d4cSHVjggOjbrztWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785346609; c=relaxed/simple;
-	bh=bLigRDlF77Q8rMCVJRJEG9Iw4ESVLt7RgamZeM/qbdc=;
+	s=arc-20240116; t=1785346615; c=relaxed/simple;
+	bh=uf/XwxYZfY9BgYrEGqyb31ycLivbYD9kLuKe/0q9hTo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=claWHqGTdVHTBI/J9Ft1VoKB+WO+ctenpLdld91yCEUfmdCsh4hKw6B1Nq7BrO95ZrL7pYTgZ83CpDfnhMhe95rlGOS42oIWugidjvp+IYBXhIyvpM1mdEwttGd2hkzF9hvVPgot/4HDZ5yp7EaN9Q8lZdMgAJrBrWtMvgwvNh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3NzY01O; arc=none smtp.client-ip=209.85.214.176
+	 MIME-Version; b=Ec0MNSq6Id+jxuhgLfLOlYe2ZPHGrzI3AZRMFaMTxegdysXkSV1f5koQWSUuJ7PqB1b2HmqTaR0PrFS42NeMgOwWtjmJE3/1wxjMyk10JHphdAYqnC60HZ5fFq3Q/muHrKQIMPoShefvZJzFBprm1ioAkEO4sM3XBhVI0+eu1p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EkDxQocP; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3NzY01O"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ced3386430so12796915ad.1
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:36:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EkDxQocP"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cca0c5799eso13112535ad.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:36:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785346607; x=1785951407; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785346612; x=1785951412; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gg6ArNtx1AiAv6yPr+prFaZ5QUtx/jRFL3cP/oq9oL4=;
-        b=n3NzY01OnnfSW9mbHuQ9pZZkdkPs1ymiGLtBi7kc40Z7F8Id1dP2IgBfvPi8huyxmg
-         5AQk1bY1q4UjE781Oe1FnSRpRjHBQgwkDwXNk7s05+nRZRVNHIY5eUSZFHuslopz8mAB
-         ZBnH84oxy0GUM+oG0EUYGGF7G0zYyGyqViA/DCjskzAD9QVh1/wkQtfZmawnxOy68xBl
-         wEn6xydJiJN2Z5MVBMmRTNVl5chK2q5jnD1YVXwNxCXcfJfrbIVT8LL9Mf6Kq40zcSvI
-         4g0NNKj9IquWZwaXD9Fxy4Sc4MZpWeCowj/Kw8UXQclI+jbP+xlmp768D/yoiZkrTddk
-         eiWw==
+        bh=O4KRrR5InAG6qbH+2o0ICn/FfbIaKM6RpEitfK9J2zk=;
+        b=EkDxQocPAjLEGGXLBylwYw7OYPw4QE/p4DU5o9UHe+Lg/XTre4EsAvgRkcd4zrZmhU
+         f3CMkPrftkTAhlGZEZ8TBRgyeKhJMP8w9XXllXwXsMU690EcoEYjLyT7ZT+7JLxi7zVI
+         77jpMn3JPq7l9XhF2c0KUtW67qjfyhBkAd/wcR9CAeBekC8BCZtPeriJpoR04ETCaA7y
+         Uo/Mks6Xpv9ymBrAAjAZ3jufFv6yzgRgz+Giq6R/DHWQzO/9/PW5XV0umk6qzdPF7gCw
+         FPbS0w/WX9YHhq4mtlZUETFLTqkrndCrVsIw0ZvgtQTe7a8HjmxBd4OYW0yqBR2Ndts8
+         eBXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785346607; x=1785951407;
+        d=1e100.net; s=20251104; t=1785346612; x=1785951412;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gg6ArNtx1AiAv6yPr+prFaZ5QUtx/jRFL3cP/oq9oL4=;
-        b=V85tAFl9Y5rc+PyPwmtushTTVpxdF3JCwA+UGLUWwm8FRF34mP4B79YWFfSq2+WeDn
-         mwdlPpEo2tpvQQMpW9GQe5UJwsv/VfogBKI3tG0NEOqMouwNeNkvw4TMZylnoukr/+Xe
-         1/hHX/B3FWXqxTqyn+HgRgRTcY80Ep5ZzI6qbnRkFrxL4jWfogL3JyPbwaspQXrFGI8g
-         UwtrLh5ELK/79C9wLqu7ES00nh7Q2R37gsbAtpXdArRFT1icU1Y2PIMW9N9UKCLNSnPd
-         LKY0alO9uYBPaSjmIAc6d80gbkeYoAz0xSygc67vrGsPcmYVquFQIf/CXHMfKnJy5xUH
-         zDbg==
-X-Forwarded-Encrypted: i=1; AHgh+RqpJQiQsdR8KW677bo5TaKnM597tfmhbO2TuZsO6NmM7YM6NPEAgBeLQIh8mPomZc72Gm5KB8M=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw2nmXEuvjcdzDxBxBnCfBW7qbDApQueVr6J1qAVp+mTaGFExDD
-	8XZ7e2X9npfNjSuOo1q+5cpfsbpBEM//boXggSfiXtz86TyMDqPz/kGw
-X-Gm-Gg: AR+sD10F6Hvi6FILTXXjnVDI7uHzDQKoPa2gp9ZzpVpuX4MdMQTfRMK3d16F1OuwDx9
-	3F+EO2dsMawmjAE/gRbBmB29F7n5p0ghdl8ZbANxcW7UuvEPKtp1mV2a0AZIyrPJaDt8H1Nz3Pz
-	CvgEY9n9S1cfeDdsr0gWEGStBVrhcHi2zQGwI60Acp/ZfwvdaxjlHsLhq9d2gFukKwtprX6GZud
-	yOYp3UccY9+B0BofVk9S7FkbojdDzIjfkGDifBsG4RI3P2Ir48326cqzFJOAF9v0lv/zpWo2M3c
-	ktFkSawTAgCPcg+rHKsixA07laxij3n66utR6KKOuzDIFWotUdAAzVwloc31vBUfkAoOwSf9T4l
-	oV3oNLkihJnf6Y6KXsyIKGU/gp77FZPRNheQOmz55qKsMH2AljAgXqol9igPPQlcdfks9EEI4l7
-	MpcaMzOd/jCIdvzmrftYSLgWl2IsgvMpeF7Yu7lbH96pQw2ae8zmlVYDbh8cpgpxIZMas9Km/+Q
-	QGs1JYP/V7FIDq+OwXQvIPNJBE=
-X-Received: by 2002:a17:903:11ce:b0:2ca:b8fd:1a8f with SMTP id d9443c01a7336-2d016050393mr86243135ad.39.1785346606916;
-        Wed, 29 Jul 2026 10:36:46 -0700 (PDT)
+        bh=O4KRrR5InAG6qbH+2o0ICn/FfbIaKM6RpEitfK9J2zk=;
+        b=h52w2OL4BzmjTvACBVd/jxoQ1jWwpAeZ//7XnfLGFNAgzaHIcQz9QDSTYj5EtJrXZU
+         3pF8ty1v/Fu/OV7QckcN8HMSD4Om12zGk1lakO+pY2oUFbuTX5eGX06v22FMtgJg/+rd
+         KV1gDTCQaOIvuZw2wCQYOqskXmHf6yDhyQsEGZOjuUuArWi70nHUIAJq3Lh0fNwjWwGV
+         u//S8m398UVzkKaPCwJhyKJzqqEdMnMp88xCuJNcqk0IPYJDObPs3Z572y0JPxO6j7I1
+         to4iOghNJHaBi9rCpPOV3NbLItmsq6XW+jSxAthhZKnnBtgQXkL0Buyg0QOWaNpnxaR0
+         TJ2A==
+X-Forwarded-Encrypted: i=1; AHgh+RpCrPAicfOtDRWI2AXP0dVbQ64SrKitNM4ePJCvA9ej4v6uyaLrg28ypBX4rpCwP46dMvXUa9c=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzy2vHJsI41LYI0sS9wXYvZpKR7YVbtYBZGi/IG+5UcUDqwpBMg
+	qaEBChA2sNoKteW5awDWfoqZHWbNB13VXGFqfvC0bKW1Nup+uHRaFrYv
+X-Gm-Gg: AR+sD11tu1i2hKAftz23G55ZYMm4V6XQVGb0N05S3IPb9HAO5Z5fJjqw55rkug64clT
+	CTFsPAG4MzNao8Dxc/TF2gWUujaHYo0x98hsWpI+K4OtEikQ1e5O3J74XZYeNAq3clZp8Z3mK0D
+	QyXHpJCSAQGp5c52N2+3tYAP8OtAEAExYRfL0QQsewsdHb6CuaXNCDA7Jeu52xBdXDvSqoUyh67
+	RisvEZGzkulKryjZLo8PkQwlQFe7YrGWSalFnofVchGoZGJ5RS6zKYpbdkkKeK0yLlbYlTkkGY3
+	sl/TL1ImnXbYZ0jxn6sjh8DCRAsKGjGc4r3CwvO3lF8y7AuAbjuqKjcmLDUURL/esIYpIjU3lkd
+	ZVI4hlJl2eaSBSVwi5nDSlIyHMjJ8V7vbKged8Vs3fRIY38168bfvmE1VeHlVVKtXagT5SqBERT
+	prqag7jKbVSCfZdgHwZ0qXWrkxRGcCoxMPDffoQwy1V5iWa8xZ2XqAu6pCIEtA2AW8ibkKVi8VR
+	w3I8YrWcMn36vCdpv9z8ZicVgyv1EK/uwrExA==
+X-Received: by 2002:a17:902:d2c9:b0:2ca:cde5:29c4 with SMTP id d9443c01a7336-2d015db90afmr81414495ad.47.1785346612435;
+        Wed, 29 Jul 2026 10:36:52 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([120.234.91.241])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf39cdsm14806045ad.55.2026.07.29.10.36.41
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf39cdsm14806045ad.55.2026.07.29.10.36.47
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 29 Jul 2026 10:36:46 -0700 (PDT)
+        Wed, 29 Jul 2026 10:36:52 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>,
@@ -79,9 +79,9 @@ Cc: Shayne Chen <shayne.chen@mediatek.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] wifi: mt76: mt7915: unlink TWT flow on MCU add failure
-Date: Thu, 30 Jul 2026 01:36:31 +0800
-Message-ID: <20260729173632.14387-2-enderaoelyther@gmail.com>
+Subject: [PATCH 2/2] wifi: mt76: mt7996: unlink TWT flow on MCU add failure
+Date: Thu, 30 Jul 2026 01:36:32 +0800
+Message-ID: <20260729173632.14387-3-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260729173632.14387-1-enderaoelyther@gmail.com>
 References: <20260729173632.14387-1-enderaoelyther@gmail.com>
@@ -93,7 +93,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mt7915_mac_add_twt_setup() links a new flow into dev->twt_list before
+mt7996_mac_add_twt_setup() links a new flow into dev->twt_list before
 asking the MCU to add the agreement, but exits without unlinking the flow
 if the request fails. The flow-ID and table masks are only committed
 after MCU success, so the still-linked flow is invisible to the
@@ -112,25 +112,25 @@ restores the list to its pre-request state and leaves the node safe for a
 retry. Mask and agreement accounting remain untouched because none of
 it was committed before the failure.
 
-Fixes: 3782b69d03e7 ("mt76: mt7915: introduce mt7915_mac_add_twt_setup routine")
+Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
 Assisted-by: Codex:gpt-5.6-sol
 Assisted-by: Kimi:K3
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7915/mac.c | 4 +++-
+ drivers/net/wireless/mediatek/mt76/mt7996/mac.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
-index 334c19ab2b22..1ad54a5bb374 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
-@@ -2345,8 +2345,10 @@ void mt7915_mac_add_twt_setup(struct ieee80211_hw *hw,
- 	}
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+index 0eebc8182ca9..445bd7d63cc8 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+@@ -3207,8 +3207,10 @@ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
  	flow->tsf = le64_to_cpu(twt_agrt->twt);
  
--	if (mt7915_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD))
-+	if (mt7915_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD)) {
+ 	if (mt7996_mcu_twt_agrt_update(dev, &msta->vif->deflink, flow,
+-				       MCU_TWT_AGRT_ADD))
++				       MCU_TWT_AGRT_ADD)) {
 +		list_del_init(&flow->list);
  		goto unlock;
 +	}
