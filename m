@@ -1,93 +1,155 @@
-Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A17B2459C5
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF022517A5
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785294342; cv=none; b=Hq+Nk0xO1Z15iQbo1f0+GsvYsMzXUiIemhY1s+5K/GCZ/d0ygZBq9wKTxvoraKHLDA/AsMeqztw9MJo5R0UAlUsEs28RUQewnf+8XcB/C7oRdUxQxgbVBNLO5LBcgJBAoGNeZSIyvht/0hlHAm2MJfDxHLdVWISfppZbscYj1j8=
+	t=1785294717; cv=none; b=kGPQB6h3882LA9d7Hw2l6G0wQZHBZUgp6kSMhY8FJa3r92iJ5aG9WY9Eii3OYDN9PuL4vTeMxZLnANhlw5JQ4aMvCPAQ5NDDvXxSCiQLhUn8M22AsTf98KYEiO1YS06rOj1R9oyOkZUqVEQflU6ydjZ7KCGdinrGGoS7d/w0iqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785294342; c=relaxed/simple;
-	bh=S0XTdxd9EFqAiIpzY2h7/y6Zhp+VWToFWz2QLG0RQm0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=VFvDf/yFdfbiSbRzlUZzCG5HcT+R3vP525ti6pgRczR3MFYlizol1hat3OxVnwSAIjQF4p5jKlE4A5OZpRSGRpyc+PJsqJYSBMI3XZ9mH31WGnF4iwOe1idZGJNH+odk8/GQj1G9bM08Hz4VNpH3Ih8BAd36DNDKy8a6kohCtTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hOoYWPtQ; arc=none smtp.client-ip=95.215.58.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785294717; c=relaxed/simple;
+	bh=+nXoE1JWimzLvKI33iYfZhwEL7/w5aGwIMdK9C1RKfs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DasyKGkqA7TZV8w+X0pTMNWpBPCTzTQvLvwJUAGGHbEgN17ms92mhdM0UZDZKg3eYzh/JUaHdVjF6oP1sHqHnAXgdHaAqy05ACOICcgqJ4huSub5UAfIot4Xnkk05JGUXqyd07Qm9DzFgw6Km1Mi/YhBGVr2Uz+lodqUCTpcNMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AwVw3nXN; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hOoYWPtQ"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785294328;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ycGUdLr9mOIF6EQhnDtROfAy1DDOIbnzkSJgNj+BXSE=;
-	b=hOoYWPtQhGhxr5OdGHu0TLydzVR1hMQu9NPP/SUkh745ub1cfnCwnopyMA2HG17w+Vj0Ij
-	O76Wjp35lxnqp3ttzikoiO//T7AEr9+XrIIWu/nhfew3XLLBjflaFp7wVPI+shy6IyVk8c
-	zPKgai6+cs093+LXnZNWd373GmFM8i0=
-From: Yi Cong <cong.yi@linux.dev>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: jackychou@asix.com.tw,
-	netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Yi Cong <yicong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net-next] net: usb: ax88179_178a: fix skb leak in ax88179_tx_fixup()
-Date: Wed, 29 Jul 2026 11:04:36 +0800
-Message-Id: <20260729030436.3420477-1-cong.yi@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AwVw3nXN"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84862b0d5aeso521979b3a.2
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 20:11:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785294715; x=1785899515; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=67fzthwbCndyMuuC4hWnqiqs2nS3TAADY1dtDD/lCeQ=;
+        b=AwVw3nXN7OzS3uRncKMg4Wnezb4Cp1+ykOYYlu0IMomn2lS+aOmo+LAv8lvD9jC0oV
+         WhVvORpXjLWLFOmKAEpYZzDdJ58XfKkSPXVD2Pwv590wdnnLWDW2M0DAYZrk151TS2xL
+         z3JL+g0zuerdedyFmJxEVGvSBaO7pRpNbdC8Wp53SHNi+h8nK2GRmCUrqDD1P1yv8QT2
+         qhFPqY9V/cKsYPb/KZeEhXnT8N7vbIWn0Pttywg0c/3J2vh/u0xUz45hv/OGC5Hh9oQc
+         fTxDFA9CZMZEqllvvvX1/5hvOdRozvF0fZQ90oUO+sR9QnFTxqct+z3U/wqmvCcqk88u
+         4qBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785294715; x=1785899515;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=67fzthwbCndyMuuC4hWnqiqs2nS3TAADY1dtDD/lCeQ=;
+        b=nSXZG+W5xiRC9a3gQHVRzpYIaQd0A1qg+yOWJCORPMbC5ww3FT4DKnZVGLI3D8CoKf
+         zTfPg5BF8rq3fyjpzP4B0kCaS3CWnFHhswtvIGCo8NEKIu4XsRGxZjqJkvYwrh+R2/pr
+         oaz5ZqZ9XI+BPEtUw1Ll5ZPIEww2nhyOjtxJegRrLHM1OLLsDeMfFlq3gTbYVDSMQ1Ww
+         /+Ij+MndoSQQeUYKa94w7d0wdDHbkGLDIVbuhZlna8Ufp0SWe0KE4LtWB1uo4uakVKDq
+         afjwKpHoyFSp4+oW2rg9LDecfEa2y8Dse/nQyvNyMIwHSC6Fm4fOljpTcXzDrKCqYWP9
+         itIw==
+X-Gm-Message-State: AOJu0YwywxUqTnu3i72kAe5gnhplqbIWMXal/vpNMDEcwbew0qiqypuK
+	EJoPwpvSOrYPCHOaql7I4JiEhGe0Ws8xIL53yEnxA+64YFceoPBx+wncyQH4Yg==
+X-Gm-Gg: AR+sD10gGvDvPW9WmJH2ilmQxKsrkmgCZWWtjyvOdAuxb3aZ7H7ilKFSkEvcQMjJjGm
+	UhgFxeMvXh+9CvJKKGYpcPoRAUMOXwzc9RCER5WwgYVUnL6ZIb8DxqS+/37Roh/UBLa29Isu/VU
+	SvTu6BFWR5n8fa5YMI9tEEJbNfBI9m25WvyRFDaWh7j6djmPZMublj6fkbIlLv9CPcx9AKWJ+Wr
+	to7X2oE3kBke9DdD3e3s0RbimDDL4aMLBM6B0II4BlF9FI8yTjpX1rM+5+jCALn+NiFtAXHgWrM
+	VO8ETnT7hJcmD0zypzQUmv4/YbiKb831bAxMeJPp0EsI9beZiPLOytw/oXojVVhgBjbqyy+eW3q
+	EJlokBkUwioTO/LDWk69VKVdFcAnq28KT9MURU9fg0VNhiqTbT54ESknM225fVHUCFtK/NXwgM5
+	H3pXQMrkpVdpGAaC2/9gsijU6upikM0W3+w2Ag4QYt60SnhxkDd7Zi8vUkorI34MXOnkLLwh08H
+	JQ3wFSzZw==
+X-Received: by 2002:a05:6a00:4197:b0:847:88eb:1e08 with SMTP id d2e1a72fcca58-84e9335ff4fmr5513299b3a.53.1785294715398;
+        Tue, 28 Jul 2026 20:11:55 -0700 (PDT)
+Received: from localhost.localdomain ([116.105.227.66])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea03767bbsm642456b3a.47.2026.07.28.20.11.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 20:11:54 -0700 (PDT)
+From: Yuejie Shi <syjcnss@gmail.com>
+To: syjcnss@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH net] net: pktgen: fix out-of-bounds write in pktgen_finalize_skb()
+Date: Wed, 29 Jul 2026 11:10:28 +0800
+Message-ID: <20260729031150.54414-1-syjcnss@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-From: Yi Cong <yicong@kylinos.cn>
+pktgen_finalize_skb() spreads `datalen` bytes over `frags` page
+fragments, but the loop that fills skb_shinfo(skb)->frags[] is bounded
+only by `datalen > 0` -- there is no `i < frags` check.  The
+per-fragment length is computed once with a truncating division:
 
-When the interface has NETIF_F_SG enabled and skb_linearize() fails in
-ax88179_tx_fixup(), the function returns NULL without freeing the skb.
+	frag_len = min_t(int, datalen / frags, PAGE_SIZE);
 
-usbnet_start_xmit() treats a NULL return from tx_fixup() as a drop
-(info->flags does not set FLAG_MULTI_PACKET for this driver), jumping
-to the "drop" label where it does `if (skb) dev_kfree_skb_any(skb)`.
-Because tx_fixup() returned NULL, the local skb variable in
-usbnet_start_xmit() is NULL, so the original skb is never freed — a
-memory leak on every TX frame whose linearization fails (i.e. under
-memory pressure).
+The code just above has already capped datalen at frags * PAGE_SIZE, so
+a valid partition does exist, but the truncation means the first
+frags - 1 fragments can leave more than PAGE_SIZE behind, and the
+last-fragment branch only consumes min(datalen, PAGE_SIZE).  Writing
+datalen as q * frags + r with q = datalen / frags, the loop overruns
+whenever
 
-Free the skb before returning, matching the error handling already used
-for the pskb_expand_head() failure path in the same function.
+	q + r > PAGE_SIZE
 
-Fixes: 16b1c4e01c89 ("net: usb: ax88179_178a: add TSO feature")
+because q + r bytes are still outstanding after frags - 1 iterations and
+the final fragment can take only PAGE_SIZE of them.  The loop then runs
+once more, with i == frags, and writes one element past the array.
+
+frags is clamped to MAX_SKB_FRAGS (17) and frags[] is the last member of
+struct skb_shared_info, which sits at the very end of the skb head
+allocation, so writing frags[17] writes 16 bytes past that allocation.
+With PAGE_SIZE == 4096 every pkt_size in [69675, 69689] hits it
+(datalen = pkt_size - 58, giving q = 4095 and r >= 2):
+
+  modprobe pktgen
+  echo "add_device dummy0" > /proc/net/pktgen/kpktgend_0
+  echo "frags 17"          > /proc/net/pktgen/dummy0
+  echo "pkt_size 69675"    > /proc/net/pktgen/dummy0
+  echo start               > /proc/net/pktgen/pgctrl
+
+  BUG: KASAN: use-after-free in pktgen_finalize_skb+0x1e8/0x4a4 [pktgen]
+  Write of size 8 at addr ffff0000c6b40000 by task kpktgend_0/97
+   __asan_store8+0xe0/0xe4
+   pktgen_finalize_skb+0x1e8/0x4a4 [pktgen]
+   pktgen_thread_worker+0x1f3c/0x2d50 [pktgen]
+   kthread+0x1c4/0x1e0
+  The buggy address belongs to the physical page:
+  page: refcount:0 mapcount:0 mapping:0000000000000000 pfn:0x106b40
+
+nr_frags ends up at 18 as well, so skb_release_data() later walks one
+entry past the array too.
+
+Compute the fragment length with DIV_ROUND_UP() instead.  datalen is
+still <= frags * PAGE_SIZE so the result cannot exceed PAGE_SIZE, but
+the fragments now cover datalen exactly and the loop always terminates
+on the last one.  As a side effect pktgen stops emitting zero-length
+fragments when datalen < frags.  Bound the loop with `i < frags` as
+well, so that a future arithmetic mistake cannot walk off the array
+again.
+
+Reaching this needs real root: pktgen creates its /proc/net/pktgen
+entries with proc_mkdir()/proc_create_data() at mode 0600 owned by
+global root, so unlike /proc/net itself they are not remapped to the
+owner of a user namespace, and the module has to be loaded first.  It is
+still a plain heap overflow behind a documented interface.
+
+Fixes: 7d36a991e8d3 ("pktgen: create num frags requested")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yi Cong <yicong@kylinos.cn>
+Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
 ---
- drivers/net/usb/ax88179_178a.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/core/pktgen.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
-index 98f899ea2e94..81d8412ce8e2 100644
---- a/drivers/net/usb/ax88179_178a.c
-+++ b/drivers/net/usb/ax88179_178a.c
-@@ -1487,8 +1487,10 @@ ax88179_tx_fixup(struct usbnet *dev, struct sk_buff *skb, gfp_t flags)
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 8e185b318288..2dbb7caacd0d 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -2843,8 +2843,8 @@ static void pktgen_finalize_skb(struct pktgen_dev *pkt_dev, struct sk_buff *skb,
+ 		}
  
- 	headroom = skb_headroom(skb) - 8;
+ 		i = 0;
+-		frag_len = min_t(int, datalen / frags, PAGE_SIZE);
+-		while (datalen > 0) {
++		frag_len = min_t(int, DIV_ROUND_UP(datalen, frags), PAGE_SIZE);
++		while (datalen > 0 && i < frags) {
+ 			if (unlikely(!pkt_dev->page)) {
+ 				int node = numa_node_id();
  
--	if ((dev->net->features & NETIF_F_SG) && skb_linearize(skb))
-+	if ((dev->net->features & NETIF_F_SG) && skb_linearize(skb)) {
-+		dev_kfree_skb_any(skb);
- 		return NULL;
-+	}
- 
- 	if ((skb_header_cloned(skb) || headroom < 0) &&
- 	    pskb_expand_head(skb, headroom < 0 ? 8 : 0, 0, GFP_ATOMIC)) {
--- 
-2.25.1
-
+--
+2.51.0
