@@ -1,63 +1,62 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16763AB299
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 17:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CC53AAF71
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 17:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785347954; cv=none; b=kObfFhkwn7xPHf9rrw/FP68NG93SNPvXBPoYW+AoLh/r98UIagh+ZWyOoODsY8cRYzHBfjj4f1EUdIuof/na5rpGf/553yRAuO3b5BEpiM//K5jlhPUU/mNNNee1nO+fFyw4Cknf6qf41iErnYakc09eR5bMqWKc+YAZbBfDu1I=
+	t=1785347956; cv=none; b=nHn4zuUs4J+LXNI2Nxx5WlgYFvc5d0fWYRG09UKl4fTIziCM4dRionjZDVG/LS44jqa6+iKNNUuw49r5AHH6W2F9Ti1ool2zqq6BvaEd9XEPvMnDoSsg8Dcru822vWCq1OxuAvi4RJNutMnQDu3ayhTpeCa/2X1/LyHTrFdiJBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785347954; c=relaxed/simple;
-	bh=1B0bWCAa4vBzKZbs1GkUik7bcpO12WluCoPDs8soRX0=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=D3HPgPgYYQaAWo6mHhXvpca6/22j2evL3HwZem0hQO4/a6ex/uKTvJmJhiK6bLHyoP8TqRJIRl6xZV08Ia000ibegwwqDbas/q2pdM6/fSncGPec1eQ/5Bx8QdxGAEvHY/tKQlNEYWWOL5GNTnQWnTntizRZGeb4kHNP9ZdLoeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Io3kKC4Y; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1785347956; c=relaxed/simple;
+	bh=ah8zjFjlzTWr6ZQVnCorSlLLv+jNOByigCDcrp/qcpg=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=OSSIke6bV1Dk9UufxXYNQYyn/pdan96uCJ/BdR0wEEOx2iB2hGfLHxsBe7BKDPtdEyrZDMehZrryvJam/Meu6qFYWq1vCA8D0P4Jo32s78yHC+YF1UVdSDfI68IHgO/iIidGbq3PTLOIbRRcfoqk8dV53CXrdyzU3z7c6TJJdl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=g+h4/oAf; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Io3kKC4Y"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so1311529a91.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:59:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="g+h4/oAf"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so1005410a12.2
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1785347946; x=1785952746; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1785347947; x=1785952747; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=XmTq+OVWflw+XeI4TpGq1DL7ongqlozFWL7naBHtXG4=;
-        b=Io3kKC4Y8JTdy6TPTDzvVEzZyW3PW4Sy1w2gNJX7/5X4soiLnjpg7JQkjK9LbV/Og5
-         bgpSEhvWdEdNBvI0ys35EMaOg2JiR0hwAB4fxJSdCFe5iMTvGX0M1ZirLM+hPcEwrw+u
-         TLtoeUv7GrokqIpGlAEDy/mUGj7+puTTKtTlLUfGXd5+4AqRUmqDR91e0KMrcdfbv3W0
-         bXh+dGNpzgU3beQJHo/nh8rmnYLLA9XwaFKznv+lVXdcjDDXyhGOGZjj2nL53DRevoEb
-         yOakKGFxtoQyOKK9lr0HeNsDLDULg5Qmya0Rn6IH9/rJMKqspzEJWOOWjcqKv3T8dOum
-         yzBg==
+        bh=OnfSRs85UOzLbXxwaNLm78cWfOYp+hY65Q4qTphn+PQ=;
+        b=g+h4/oAf9GT8Iagk+scf6WEZcmAkqRd7X9nlDuqw/beShzB6gr++LmZ8t8P3HCJ6WS
+         VnhCZXT6AU0FDi59gYK9hTbOnJJ52Fs8krqEnBDbQXnTFANDDAWcPrx/ceGry6ORx+Mm
+         cRbYVF+UiAnZyAbbB+YxNgDquDgke6m6IhQPmGP+RHHHDQUa5oi/ydK/sRDWEuhF0pXl
+         4eBrzUb9hoQsbqdZamvRD7/rtoRhJdPbUt/9H2ddvZcwhuUlh5xBgrtxq31I4fWE4wo7
+         sCuGdxKm7LX3VLR9VGP2lnMvM/2Qqo33MBJ45P4amCmSemNg71TaL2mq8BA8oxrFWX2S
+         giIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785347946; x=1785952746;
+        d=1e100.net; s=20251104; t=1785347947; x=1785952747;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XmTq+OVWflw+XeI4TpGq1DL7ongqlozFWL7naBHtXG4=;
-        b=bng+KFP+aYG/gFiYIkfUpM3TO93sLn50yINwAgMb2t3sZ1PC15pC+jD9RIDMI9wbZE
-         LAZRDxi9BXTpwjxXlCJleE1G0YNgWHAWvXA0HWzAKO5hRuCu6gCq2vbQly70CzMpI20J
-         s0JLsQ8rfEyf4rXWIahzC+ZHSEJvTZ157L3TWET0r4yDqs4sKqy53TGxn5YjogSsw1p6
-         VC8RGRRyWojLJVHLkPv/Wj1McUkBU6NFT8/7ocXzV2oElRE53VpT4zEJLFtGjoxkcraf
-         4dl+RZL2HELddI79jLAo7EqGaN4hjcFm4o4c06QEswt2d/c9Y0d5zr00XwPnaS7Yr5uP
-         6vBA==
-X-Gm-Message-State: AOJu0YyH31q3APv9Cw7PXWl0h+QD52YIb6RPhhUqDmVaKkSOELNu5K57
-	ygz4bR0jCDc2UgeVesMWu3VydvV6po4Yr4itXfhTA6tTY+OkMQYNwywYjDfdD7hcqjA+ybvlgb2
-	H/Fv8
-X-Gm-Gg: AR+sD12lvFAB01Yr/Bz6MrPuQ7BArly1dM5ffvsFr04Bs9b+hoDqIq5VKD6i2wMhKHB
-	Li1u553i7OatPfdgjDxJsbtir4bGUgEknOJBKKDP17nAdIV0FpBSOs/z1gEqGzTWHwVn6pkFaid
-	00/CMD/cBq2nJCegKt7ptAVU3h7eRO7iUUsOHZXbxQidemGjqHCNqf4YikILBv4Wdjb9I79EpGr
-	qso6o/d9OiicUvrg4IRKlc/SrrDweC9DvW5VDW+DxDeJ/H+3lj30G7ASlvPFxVO2td8WJ2b79Y0
-	dUZiUngAWgE+fg+VAR9sbm9jtBQv6oIqWaOvbst2KMAcq08esVNsTNAVd3lBSG9H4lT5l1zhjc/
-	Cz7YwyBfAwyOisLJSXBYzK5Unr0yQHdiy3XZKA1F2wThHZuySUkAOnu3jtsoUCK6X1MpzKcVAjm
-	V0WYvA/9P60HsLsCaGJiAfMFYpxlQrQi8z8uAyme3S7dru2ZY/6Gb6fg==
-X-Received: by 2002:a17:90b:53c7:b0:38d:ec31:4840 with SMTP id 98e67ed59e1d1-38f6a37cd14mr7302622a91.13.1785347946264;
-        Wed, 29 Jul 2026 10:59:06 -0700 (PDT)
+        bh=OnfSRs85UOzLbXxwaNLm78cWfOYp+hY65Q4qTphn+PQ=;
+        b=rrNpn0Vw5ChfkIHS71TMGfVU6LvizP8ARpU3Wpiq10cLAiBR03h5MvaAHzhG45SCAG
+         Lx6VKFZtnYsPlkGNCWOW4pvxulE4sXlIdVV7OLxIQDUNcrCZlflK88IdvAR3Gq28zJKh
+         Ial7o6Bn5OIG2oLtIntLnR0JNCy+VQe/5RVh+5JpnhM2+GHUfkmZrNqfhBLA1lk6wNhz
+         oSTwdSDNxLvqjXflLXOuOyq1qdN52hFwSu7GOHJP3ogT0KvqPyt2dkymGvK6v9iRsu14
+         vOYIdCQqPsHSQ7pWzA0DW0IPZr4CMzerEOflVkzFlI8Y3eL8Z4GRxd6Tx5MM+iyK0Ycl
+         461g==
+X-Gm-Message-State: AOJu0YxwqbMHqkHT1Bg8099eiCQTI6ygb8N1R54hNkb8Iz4pPzjWriUC
+	TxVpbsYwiTzc89svmVrV/TkFU6nwrXtyA9u/wI3EB0bJ7OxmSqdO7ITnyPxwzoMGdoQ=
+X-Gm-Gg: AR+sD11M7C4Y0252uiaMTwnSXSmwPUsR5MUO4c22CWqag8x4bgExcdfKN9rKMUmJFP0
+	dy/0VLdXrsOlhemCCXuENW1ab5pbOHQKGHv+vZ30XxE2G9JDDTuylQYaQFBlGocUemsGxWPvWcj
+	BZcVwGjlPjf7LX/mJFhA0DNxPl9V6EYDPRy6ScN13qVIBSJb1jWrMH0vlbCrzGsOkIcxfsLVHGv
+	vAQHiqD70MpL5j5c+O/t0VDTUTUqyz0XbPJt/kMyPdIrj2AonNWK7yBDXsvrI1P2dZNI38iuZxA
+	aujqtAfi7P3PMd29MVzw3gLY0qD3ZxOXfqqGr9XqJqWvmIDvWj9rvVamNw0qHFBPy9NdnrLfpIk
+	Ena7QQOo2ey93viY9hhyc5w0/ODlDUBDuGtp/5mHpHvntNc8tKUqzjL5gmRiEuApvqTpNcxME64
+	l1cIt6+//fM1Ez75X5aXjTUeGd7y/jFRyX3Tx1BIazoJexhboMt8vmOw==
+X-Received: by 2002:a05:6a20:cf90:b0:3c3:cc3e:a9 with SMTP id adf61e73a8af0-3c8aaf29579mr9369930637.4.1785347947488;
+        Wed, 29 Jul 2026 10:59:07 -0700 (PDT)
 Received: from 92650adf53de ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b88e12sm12042379eec.11.2026.07.29.10.59.05
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504d37368sm22224927eec.22.2026.07.29.10.59.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 10:59:05 -0700 (PDT)
+        Wed, 29 Jul 2026 10:59:06 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -65,36 +64,33 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.1.y: (build) call to undeclared
- function
- 'kzalloc_obj'; ISO C99 and later do no...
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjEueTogKGJ1aWxkKSBpbXBs?=
+ =?utf-8?b?aWNpdCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiDigJhremFsbG9jX29iauKAmTsg?=
+ =?utf-8?b?ZGlkIHlvdSBtZWFuIOKAmGt6YWwuLi4=?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Wed, 29 Jul 2026 17:59:05 -0000
-Message-ID: <178534794418.3623.17642308816127570360@kernelci.org>
+Date: Wed, 29 Jul 2026 17:59:06 -0000
+Message-ID: <178534794644.3623.4260630481614627439@kernelci.org>
 
 New build issue found on stable-rc/linux-6.1.y:
 
 ---
- call to undeclared function 'kzalloc_obj'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in drivers/firmware/stratix10-svc.o (drivers/firmware/stratix10-svc.c) [logspec:kbuild,kbuild.compiler.error]
+ implicit declaration of function ‘kzalloc_obj’; did you mean ‘kzalloc_node’? [-Wimplicit-function-declaration] in drivers/firmware/stratix10-svc.o (drivers/firmware/stratix10-svc.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/drivers/firmware/stratix10-svc.c:1068:9: error: call to undeclared function 'kzalloc_obj'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+/tmp/kci/linux/drivers/firmware/stratix10-svc.c:1068:16: error: implicit declaration of function ‘kzalloc_obj’; did you mean ‘kzalloc_node’? [-Wimplicit-function-declaration]
  1068 |         pmem = kzalloc_obj(*pmem);
-      |                ^
-/tmp/kci/linux/drivers/firmware/stratix10-svc.c:1068:9: note: did you mean 'kzalloc_node'?
-/tmp/kci/linux/include/linux/slab.h:708:37: note: 'kzalloc_node' declared here
-  708 | static inline __alloc_size(1) void *kzalloc_node(size_t size, gfp_t flags, int node)
-      |                                     ^
-/tmp/kci/linux/drivers/firmware/stratix10-svc.c:1068:7: error: incompatible integer to pointer conversion assigning to 'struct stratix10_svc_data_mem *' from 'int' [-Wint-conversion]
+      |                ^~~~~~~~~~~
+      |                kzalloc_node
+/tmp/kci/linux/drivers/firmware/stratix10-svc.c:1068:14: error: assignment to ‘struct stratix10_svc_data_mem *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
  1068 |         pmem = kzalloc_obj(*pmem);
-      |              ^ ~~~~~~~~~~~~~~~~~~
-2 errors generated.
+      |              ^
 
 =====================================================
 
@@ -106,18 +102,23 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:d7049d831d969b7c179d99cd0fc427dbcf4c3865
+- dashboard: https://d.kernelci.org/i/maestro:191156f96b70d98f8fb3dd6ee6aa681ebd3dbe40
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
 - commit HEAD:  fabe22c975a2fb71a936f5d1961fd4b0583dc498
 
 # Builds where the incident occurred:
 
 ## defconfig+arm64-chromebook+kselftest on (arm64):
-- compiler: clang-21
+- compiler: gcc-14
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a6a326e798ea6c1ef87aba4
+- dashboard: https://d.kernelci.org/build/maestro:6a6a32b9798ea6c1ef87ae01
 
-#kernelci issue maestro:d7049d831d969b7c179d99cd0fc427dbcf4c3865
+## defconfig+netdev+nfs-root-boot+kselftest on (arm64):
+- compiler: gcc-15
+- config: https://files.kernelci.org/kbuild-gcc-15-arm64-nfsboot-6a6a32b0798ea6c1ef87adf0/.config
+- dashboard: https://d.kernelci.org/build/maestro:6a6a32b0798ea6c1ef87adf0
+
+#kernelci issue maestro:191156f96b70d98f8fb3dd6ee6aa681ebd3dbe40
 
 --
 This is an experimental report format. Please send feedback in!
