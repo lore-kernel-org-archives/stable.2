@@ -1,233 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21AD2471411
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333392; cv=none; b=IWvYiSkfcYWlf9l0RvciRj3J7JC/Fgj7yUr89FIEWH3/xe3PVK9Mc/EwtWXvArj0+apgwBYVAgLrMw7+yXs/3AxI3Jpp4DRd3arXmkQaW+7FTqZovXPggNZP9KUv1YeL0xPm7ZrdRi9NN9oBzZhEjfO0jFEaUTvQOmeIWOUB2zk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333392; c=relaxed/simple;
-	bh=fZF0lps9/P7YTM9NrQ4KY2RZ6DDv4US86ZYjYDFPYQU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=S32v0EyYtjx6GBkPnWzpYlJDL4Ztu6lFsIG4l9ztT/U4Pt/beqH8wponwFHKWhtJPn1dTpUWW0FM8GURdwfD+OcBzO9A80UsFumZofmAlVt9ICeK4zqhqvO+8up4Wje8L+53gJi0u7cYx3J2XmlwQOde314Kij6TBC+NHpnuY7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=19xyPkGE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1064A2E3B
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:59:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785333600; cv=pass; b=Cua1Uy8EJ2tfB8wpOstWP+yA6KYByCOuhuqrx+rQi/VDU5p//lqqNF2PYJgJSQDl2qYXMJaeyEhzxrJy80c7algBIeqvwhpLqNjNgkmjs2qhXPrgtT0IXfEt+AW+TGaGOTij44FQwcTpMJIphU62LPTyPjdX6FZTMGU24ReVOao=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785333600; c=relaxed/simple;
+	bh=4qe50KTIVPbM8CANycvSYRvypNB4O2/hGZYA+ySnSMA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B/8FlKpXwXS2AgdiX51fMKPQIlurU7krqlTc3fFSxkEGboI+gYhKEeZBEYAGx8F9VIw0rOkhe1ZZP7qqXJ79FHzKQdzEASsqCvgutbs3NqM8vNXg5n6g3TCA3zEJvTpEB58UtbWiNgLt1bZtnrBSVQ6v2DFb5KNpVc3MYqLBu58=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WVdWoWhy; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="19xyPkGE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154751F00A3A;
-	Wed, 29 Jul 2026 13:56:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333378;
-	bh=oxoHGeAYyzydsWUt/s9fDVUjvaFeHuztDKbHcANoF9Q=;
-	h=Subject:To:Cc:From:Date;
-	b=19xyPkGEc05BVTtO3Zs5Vt5Pq/b++l+YxrpBOi1CF2QvXVUxrPPUZ3RDfzu2EOW+A
-	 KbtR5fj/SikNDkodXcUtE8rtr/PaRg5MWS1T84rHt46FvSpIQLKKOS4fu5roE0Knzg
-	 iRhT6W8m7U7+TqvudfVumqrfaxmopUf6HjoicVHk=
-Subject: FAILED: patch "[PATCH] eventpoll: pin files while checking reverse paths" failed to apply to 6.18-stable tree
-To: 2045gemini@gmail.com,brauner@kernel.org,qjx1298677004@gmail.com,tpluszz77@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:56:02 +0200
-Message-ID: <2026072902-unwitting-likewise-676b@gregkh>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WVdWoWhy"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ccdf36f63dso123055ad.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:59:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785333596; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rMsYbnh2tbYTSA8k4B01D7xC2itcAczCJaEmBlOUFIUYET6RSOhX/hLSJjHRRUkUOO
+         8+cH3fRfGbv7nYqOQpg0i1Eb2r1QeLti77bFKvg2kcFfv/Voncxjib+xpMfP5iUw+Yn0
+         RK1vV8gc9WU2NWQFqfOcfYW1EG+rTUzCx50nO10IKIA5XNMcf1zvoQjJvYse/kwhJ57u
+         SWdYX+Olk3ULCPev/zGkJH1OA3apMLa5+RKblA44n7IgzxNKKnFF5wejs7T+2+SqXoA5
+         +xs3yjG+4C8QiywmeW3nMh+GO1cbOlS2RHf9eMjlF1+XbmKWyIr7wWcHwVKHQwvJp79h
+         JFzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dKcySLFaScFmr1bueu4Vh/oR9sazTcKBYENtIklzl98=;
+        fh=lyFtragB2GICGNxueOYYFYbgMWk2ij+lCRgRnqx9Nyk=;
+        b=OsNVx+Wo55Ax09bO9I2X2mIxCUn8nogd/PzFm9Uk440E1qKI+a0MMoeL4Cxv2YLjqn
+         HWJqdnT6sGZ/AjzZPIk39lTH3dUgzFd+qGiIHDe6wMB3o8ZqpRvgsp7H5C+FfixziaOR
+         TTIXOaNpBPpsvaBtuU8gPG0+10msWERb2pjjiBCytrUyV2eiqpaueJ0HZEzVhvo33HyR
+         KS+XB/0y2H3Oz2kWEoQ+3MQKzjdwNmr3epH0nKnsQyZEABrRJaHTHXIUHiQtRVPPa2/Y
+         Jfi73vqnI/FbUtyU5WWwNfBXbybNfJX62VbCOLZA4/H2174l0iO3iCjI3C9BckyaryYY
+         p4iw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785333596; x=1785938396; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dKcySLFaScFmr1bueu4Vh/oR9sazTcKBYENtIklzl98=;
+        b=WVdWoWhyDq5hX/hsToB3l/zt2T8BZGo7bTDCnZRk2WvNvebSBKw79/kzuaIQSSsH0S
+         r/0c0ZuzXL5EudZbl/6keoGaMRT2D9oO0vfhN5JnQyqguo9cUWoLr85T5PtHfiC3KmER
+         i6HJjAyQmRDG84Wnrt+Naklw7frprCcLQfimY8FZ/PsGo857ibFXPMtoqI0vKPaXUzHa
+         ySJ+ZqZwB/dXMNBHq73tdVftvPscFsyIg1rtgPoCqRA72TOQrEdxLHtz2ghoUN1zhj0K
+         0fFL/uYn6IZtU4PMmvOu2YVKrDvb8RpRPLmWsompzTYR/389rR/0HtjyBkX12e/4QU8L
+         2Jnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785333596; x=1785938396;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dKcySLFaScFmr1bueu4Vh/oR9sazTcKBYENtIklzl98=;
+        b=KEvPB6x42c2X6i7g7oATayiLayxH0Gy2UwqSuVwTrUo6TqeHxPO/Dsy5JDJtTu4yHM
+         RJVJZld6yxydpHz1WkDmioYalAxP/8I5KE898S/EHveQgitctrFZhe2PcTGstjGzDhp8
+         24CNhNovECaechS3MLYNgn+zu0gc6VOaFRxgvNnaf5M3C+H4qO5IdZSzjcVoz/W5SsdU
+         ZBwtz/StHl7dGm92LQb2Wz42IvjF4+wXbSKW1lma9tPAZk6qs53U6ZOn9SUVKbhAwe6M
+         mare3gViPmbg/Ct3k4LXKdii6tKHePlEfDdtD2IP0X86e9J1OlTrxtD5ulyN+GB6x+sr
+         a8Uw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrzp9TXmUVzYl5WkAfR2Qeo90xAUORMKPegfnjGpVS7I1YTicOOu0lkpmZXIOpUb41/QH++bao=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4ka7Anx2Ny6bR1hnAgoD4nyRMlmg/6y8OH1A19tnLCvGYeM0q
+	RTUQGu4Z1ZbnDOZBK0FNguM/Q3/zXj02gQ/msNMHRT61A3W9aX+cytmrsUPDqEZFTfgKw4zU9Fw
+	y5/ChdjuQvrVePrlASw1BmLBTgnCKeXEABARIGGdh
+X-Gm-Gg: AR+sD13w8xl5ibyeNBVm8IPxI2Izl5eZr7X03o9eJ6VL8VdUU6SpDpfIdiDFbEpeFVO
+	JiieSBmYTXlSQS8YMnrEj/OgczP6TfZysDE59rW+J/28H58ArF0COBgXjIRCFUDSJ5/sY61DpmE
+	dKB0rLQ8/6IB18VHyIUqDVvOwwDZtl9NreUeeZJUluFWyubLQK/dfOpe4JdCuc7aScISmzePrsg
+	9gDIVCtnUCQDLqNwnrEcYLnTywUD1/Amdwe/oCUFnWoIi2+OM/bh4kQD0XADESRiQf2QEeMD481
+	976LgvZVu5DdrLSCYQabsxcmKWUsT0MRLiO4yq36k0VtKaa+FMiL6mADSIWe2Yz1E2/F62pDeLW
+	sIs7uPK3js6wr3gvmuymT0pkx6i6d6bc=
+X-Received: by 2002:a17:902:ef06:b0:2bf:1000:d3ac with SMTP id
+ d9443c01a7336-2d0287cf9c8mr4618065ad.11.1785333595219; Wed, 29 Jul 2026
+ 06:59:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <CAHmU7G=Dsf31mJ1VH4+Tp-McSvXCg=GcO-eC+O52-_t5gc7Pyw@mail.gmail.com>
+ <CAG48ez1UqV8E8nHGq50orS+3oqXbP80R6g7kVa3Hq-domHCSsQ@mail.gmail.com>
+In-Reply-To: <CAG48ez1UqV8E8nHGq50orS+3oqXbP80R6g7kVa3Hq-domHCSsQ@mail.gmail.com>
+From: Jann Horn <jannh@google.com>
+Date: Wed, 29 Jul 2026 15:59:18 +0200
+X-Gm-Features: AUfX_mxsSGeX5Wk7ttteu_H2elB1yzsLWm21TrFa_WMDUNzOOPYaOsNkMreMWbY
+Message-ID: <CAG48ez1tUk+8b7-eWw-fHh2x_bJA1n3CTANVWKQuPW=J+inCrQ@mail.gmail.com>
+Subject: Re: regress caused by upstream commit 6650527444dadc63d84aa939d14ecba4fadb2f69
+To: Pasha Boroffski <hex.dec.bin.oct@gmail.com>, stable <stable@vger.kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
+Cc: regressions@lists.linux.dev, Christian Brauner <brauner@kernel.org>, 
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 8b7e8245e2293078f657521236ac92c045552e5a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072902-unwitting-likewise-676b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 8b7e8245e2293078f657521236ac92c045552e5a Mon Sep 17 00:00:00 2001
-From: Guidong Han <2045gemini@gmail.com>
-Date: Sat, 18 Jul 2026 18:44:06 +0800
-Subject: [PATCH] eventpoll: pin files while checking reverse paths
-
-Commit 319c15174757 ("epoll: take epitem list out of struct file")
-intentionally removed temporary file references from the reverse path
-check list. At the time, both epitems and their files were freed after
-an RCU grace period, so unlist_file() could obtain file->f_lock through
-an epitem while clear_tfile_check_list() held rcu_read_lock().
-
-Commit 0ede61d8589c ("file: convert to SLAB_TYPESAFE_BY_RCU") made
-struct file SLAB_TYPESAFE_BY_RCU and removed its RCU-delayed freeing.
-RCU still protects the epitem, but no longer keeps the referenced file
-from being freed and reused. A concurrent close can therefore make
-unlist_file() lock or unlock f_lock in a recycled file object.
-
-This violates the documented SLAB_TYPESAFE_BY_RCU rule requiring a
-reference before acquiring an object's lock. The race was reproduced,
-causing a wild unlock of f_lock in a recycled file and breaking its
-mutual exclusion.
-
-Add ->file to epitems_head to remember the pinned file independently of
-->epitems. A concurrent EPOLL_CTL_DEL can empty ->epitems before the head
-is unlisted, leaving no epi->ffd.file from which to drop the reference.
-
-In list_file(), acquire the reference before adding the head to the
-check list. The caller either owns a reference or holds the ep->mtx for
-the epitem leading to the file. In the latter case, file_ref_get() can
-fail after the last reference is dropped, but eventpoll_release_file()
-must acquire the same mutex before the file can be freed. The dying leaf
-can be skipped because removing links cannot increase the reverse path
-count.
-
-In unlist_file(), epnested_mutex excludes another list_file() or
-unlist_file(), while head->next prevents a concurrent EPOLL_CTL_DEL from
-freeing the head. Save head->file locally, clear it with head->next
-under f_lock, and drop the reference after the RCU-protected operation.
-
-Christian Brauner <brauner@kernel.org> quotes:
-
-> SLAB_TYPESAFE_BY_RCU allows a slab slot to be reused while an RCU reader
-> still holds its old address. Once that address contains a new live
-> struct file, KASAN sees valid, unpoisoned memory and cannot distinguish
-> the stale object identity. CONFIG_DEBUG_SPINLOCK exposes the failure
-> instead.
+On Wed, Jul 29, 2026 at 3:45=E2=80=AFPM Jann Horn <jannh@google.com> wrote:
+> On Wed, Jul 29, 2026 at 11:08=E2=80=AFAM Pasha Boroffski
+> <hex.dec.bin.oct@gmail.com> wrote:
+> > Hello.
+> > I believe 6650527444dadc63d84aa939d14ecba4fadb2f69 has a bug in it as i=
+t causes "kernel bug" with PREEMPT_RT enabled.
+> > How to reproduce the bug:
+> > i used 'find /proc/ | grep 123'. When scanning, the kernel triggers an =
+"Oops".
+> >
+> >
+> > [  344.465851][ T3715] BUG: kernel NULL pointer dereference, address: 0=
+0000000000000f8
+> [...]
+> [  344.465888][ T3715] CPU: 0 UID: 0 PID: 3715 Comm: find Tainted: G
+>    D    O       6.12.98 #9
+> [...]
+> > [  344.465905][ T3715] RIP: 0010:down_read_killable+0x9/0x40
+> [...]
+> > [  344.465974][ T3715]  proc_map_files_readdir+0xc7/0x500
+> [...]
+> > I think calls
+> > mm =3D mm_access(task, PTRACE_MODE_READ_FSCREDS);
+> > if (IS_ERR(mm)) {
+> >   result =3D ERR_CAST(mm);
+> >   goto out_put_task;
+> > }
+> >
+> > should be fixed like
+> > mm =3D mm_access(task, PTRACE_MODE_READ_FSCREDS);
+> > if (IS_ERR_OR_NULL(mm)) {
+> >   result =3D ERR_CAST(mm);
+> >   goto out_put_task;
+> > }
 >
-> The failing interleaving is:
+> Ugh, yes. This is not an issue on mainline, but the API contract of
+> mm_access() changed in commit cd3f8467afd4 ("mm: refactor mm_access()
+> to not return NULL"), which landed in 6.13. So we'll need a
+> stable-specific fixup for 6.12 and lower.
 >
-> CPU0: nested EPOLL_CTL_ADD             CPU1: close/open churn
-> ------------------------------------   ---------------------------------
-> p = hlist_first_rcu(&head->epitems)
-> epi = container_of(p, ...)
->                                        close(victim)
->                                          __fput()
->                                            eventpoll_release_file()
->                                            file_free(victim)
->                                        // the slot is free; f_lock remains
-> spin_lock(&epi->ffd.file->f_lock)
->                                        open() reuses the slot as new_file
->                                          spin_lock_init(&new_file->f_lock)
-> spin_unlock(&epi->ffd.file->f_lock)     // wild unlock of new_file's lock
->
-> CONFIG_DEBUG_SPINLOCK reports:
->
-> BUG: spinlock already unlocked on CPU#0, poc_unlist/150
->  lock: 0xffff8880067fb200, .magic: dead4ead, .owner: <none>/-1, .owner_cpu: -1
-> CPU: 0 UID: 1000 PID: 150 Comm: poc_unlist Not tainted 7.2.0-rc3-dirty #22 PREEMPTLAZY
-> Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0x64/0x80
->  do_raw_spin_unlock+0x75/0xb0
->  _raw_spin_unlock+0xe/0x30
->  clear_tfile_check_list+0x88/0xe0
->  do_epoll_ctl_file+0x519/0xcf0
->  ? __pfx_ep_ptable_queue_proc+0x10/0x10
->  do_epoll_ctl+0x8f/0x100
->  __x64_sys_epoll_ctl+0x6f/0xa0
->  do_syscall_64+0xdc/0x520
->  ? srso_alias_return_thunk+0x5/0xfbef5
->  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> RIP: 0033:0x42034e
-> Code: 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 e9 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007a657ff3c198 EFLAGS: 00000202 ORIG_RAX: 00000000000000e9
-> RAX: ffffffffffffffda RBX: 00007a657ff3ccdc RCX: 000000000042034e
-> RDX: 0000000000000003 RSI: 0000000000000001 RDI: 0000000000000004
-> RBP: 00007a657ff3c2f0 R08: 0000000000000000 R09: 00007a657ff3c6c0
-> R10: 00007a657ff3c1a4 R11: 0000000000000202 R12: 00007a657ff3c6c0
-> R13: ffffffffffffffb8 R14: 000000000000000d R15: 00007fffb7de0210
->  </TASK>
-> ------------[ cut here ]------------
->
-> unlist_file() does not appear as a separate frame because it was inlined
-> into clear_tfile_check_list(). This report was obtained with mdelay()
-> instrumentation immediately before spin_lock() and spin_unlock() in
-> unlist_file() to widen the two race windows.
->
-> More importantly, this is a wild unlock. The stale unlock can target
-> f_lock of a different live file and invalidate mutual exclusion for
-> state protected by that lock. Turning this into a reliable exploit
-> would require precise scheduling and same-slot reuse and is likely
-> difficult, but the primitive is potentially exploitable.
+> I'll try to come up with a patch for stable later today.
 
-Reported-by: Qi Tang <tpluszz77@gmail.com>
-Reported-by: Junxi Qian <qjx1298677004@gmail.com>
-Fixes: 0ede61d8589c ("file: convert to SLAB_TYPESAFE_BY_RCU")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guidong Han <2045gemini@gmail.com>
-Link: https://patch.msgid.link/20260718104406.27897-1-2045gemini@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 0e65c7431dfc..eed8cecd94e3 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -459,11 +459,14 @@ static struct kmem_cache *pwq_cache __ro_after_init;
-  * Wrapper anchor for file->f_ep when the watched file is not itself an
-  * eventpoll; for the epoll-watches-epoll case, file->f_ep points at
-  * &watched_ep->refs directly. The ->next field threads
-- * ctx->tfile_check_list during one EPOLL_CTL_ADD path check.
-+ * ctx->tfile_check_list during one EPOLL_CTL_ADD path check. The ->file
-+ * field holds a reference to the associated file while the head is on
-+ * the list.
-  */
- struct epitems_head {
- 	struct hlist_head epitems;
- 	struct epitems_head *next;
-+	struct file *file;
- };
- 
- static struct kmem_cache *ephead_cache __ro_after_init;
-@@ -480,6 +483,16 @@ static void list_file(struct file *file, struct ep_ctl_ctx *ctx)
- 
- 	head = container_of(file->f_ep, struct epitems_head, epitems);
- 	if (!head->next) {
-+		/*
-+		 * The caller owns a reference to @file or holds the ep->mtx for the
-+		 * epitem that led here. The latter blocks eventpoll_release_file()
-+		 * before the file allocation can be freed and reused. A dying leaf
-+		 * can be skipped since removing links cannot increase the reverse
-+		 * path count.
-+		 */
-+		if (!file_ref_get(&file->f_ref))
-+			return;
-+		head->file = file;
- 		head->next = ctx->tfile_check_list;
- 		ctx->tfile_check_list = head;
- 	}
-@@ -489,15 +502,18 @@ static void unlist_file(struct epitems_head *head)
- {
- 	struct epitems_head *to_free = head;
- 	struct hlist_node *p = rcu_dereference(hlist_first_rcu(&head->epitems));
-+	struct file *file = head->file;
- 	if (p) {
- 		struct epitem *epi= container_of(p, struct epitem, fllink);
- 		spin_lock(&epi->ffd.file->f_lock);
- 		if (!hlist_empty(&head->epitems))
- 			to_free = NULL;
- 		head->next = NULL;
-+		head->file = NULL;
- 		spin_unlock(&epi->ffd.file->f_lock);
- 	}
- 	free_ephead(to_free);
-+	fput(file);
- }
- 
- #ifdef CONFIG_SYSCTL
-
+I've reproduced this, triggering this NULL deref on 6.12.98 is as easy
+as "ls /proc/2/map_files"
