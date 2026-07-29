@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D981B483BD3
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D482148424D
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:52:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785329553; cv=none; b=B7HwrrHgFLXGpKi7MhXzEokGL2zmQSDA7NjUy9Pys3xeRK2OrrZMp7W4lMH4m5qmZ98vu8TPTY0SdSPX3kipHPw6hWxx9OV5AZTlSZNlNYfG4XJqqSfoxmDeAU6jjWEPfx6sZl2IdtfHzdC1pZ8mDO4mYtc367jkKU0Iyr/PrDg=
+	t=1785329561; cv=none; b=kVBXOSbLaio9NB0QB7FwswigZ2xgpneT0l2DXEQHukfqRt0j6PWfD7wcmWP/hOZBpNiPnNac7IkObjL3fjgcI6S1ZL9Lw7H0RgRTT9OXoNwH5j5Xy3VKzj3bkpI4BGwAt7ez7ZNcwcpG4nHLodHLdxHt81pZpUW9aAE3xgP4fy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785329553; c=relaxed/simple;
-	bh=TB2Kc7Afr3ciIInAKrnS3Hv7EB3OypVdjKIcgJs/ZgM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Xuz6+D6DNsyT+g+Rl31lgrETAaOVFTM8BXpUCJffjs277ZxJe8MI8o3nJOzUnjC+W+b7ObN90QTSnSXzcXM5lh/r3JbUDFfGQr8Zl2O5ZAgtwASDOmAsjviJvdOaHDC/s7LsIZD5SBQCJ3LDJSJ+EIirJ/8zYU4j79isJABMaPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pptO2Jjf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785329561; c=relaxed/simple;
+	bh=xIz7bEI6X8yeEa8h0XgTLoG9V+radaZVU/AZRQQS8w0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qlycrTZz7X74naCZDJtUwxrFSnoZRa3vQHR4TMAtWAxF45Lm0U20+kqjQ/74eNunRney7PZASiUcoDfu/0HHcMT4m+len7res43tpCI/MxQcmiBtJJkqA1BEz6B/GHBJ8/7lttMZLyW5XwB3JzGvCQ4Bk/nOew7ERgFf7rvz2zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gGuYJKB3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pptO2Jjf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354DA1F000E9;
-	Wed, 29 Jul 2026 12:52:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gGuYJKB3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D311F000E9;
+	Wed, 29 Jul 2026 12:52:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785329550;
-	bh=nVxwp1T35Ov+08BUkXixgjgkWc2TdFZq3iP8xY4JjgQ=;
+	s=korg; t=1785329559;
+	bh=zniarFLU0ltdcp4vYD7/zyOmeIxKzr8GoharM2pOlXc=;
 	h=Subject:To:Cc:From:Date;
-	b=pptO2JjffGeY3dVH2qFw5FU3ojal5wNrfWKatdi87+stl+cDF3ORVYNjfCm5bU4TV
-	 3CtZrpIk48UHEq05TmaT9XdL/J0m9AdeAKMHVqI+GfCN3wCqobG733/8YMUyPoFHy1
-	 t+3WYYj6mLW81Wgjfu26t+lObp834td6Bkw5u+Z4=
-Subject: FAILED: patch "[PATCH] media: chips-media: wave5: Support CBP profile" failed to apply to 7.1-stable tree
+	b=gGuYJKB3Rtnah2BwResaD4WRNNNMsDRbaT9DsERHT7yLASFNg7IEIoXNilE1YVzVg
+	 p7pJd6MVQFx3T4YLznQnza9oyRCS3mjRWrwEvXgEdRfo6FLoe+9F3riThwaWdFTCRD
+	 o9l9pAyPB2rJCoW/jHtr4dPNf5ECYmAVY9UXOGXc=
+Subject: FAILED: patch "[PATCH] media: chips-media: wave5: Support CBP profile" failed to apply to 6.18-stable tree
 To: jackson.lee@chipsnmedia.com,b-brnich@ti.com,hverkuil+cisco@kernel.org,nas.chung@chipsnmedia.com,nicolas.dufresne@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 29 Jul 2026 14:52:17 +0200
-Message-ID: <2026072917-haiku-scalping-5001@gregkh>
+Message-ID: <2026072917-aside-unpaved-8076@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x f8505f9d6b223a26854003bfdba1a0772457886d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072917-haiku-scalping-5001@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072917-aside-unpaved-8076@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
