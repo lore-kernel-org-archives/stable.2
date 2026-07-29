@@ -1,177 +1,136 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED8922A1D4
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785295900; cv=pass; b=LMMu+u+wL5z9UXZGzZM15XlYKRQq0Xv/C3Ub62OoRX+QqWD0LU3BOAMQRsaqLT4loZf66F5cwVdeWhxRAqmpVYG/Jc+ggIZ4RdbJ5lCU+Hg4OKchSIEqr8J1VVrbhJfVmvFrKKBXMP8mfGJwktNqvYiveeIpoeLh+Q/+ggPA0sw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785295900; c=relaxed/simple;
-	bh=8INSsvIsr0EcFor0KjhMqLit17i8jgQhYiGlfRY+r1w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gz6QB4/nWa019tSFiJ8ClLBrOvtzsXy5wjzPG0FFHpAmqRteebmuZeBXMfRSx9/WnHQUslJp9vW7JynD1/Zu2a0XYZQemKGfRGfw535xbRWzUyvj2aSzgC6nMo8HbwzbHZJzQmb9mFLPJJID4hdv7H3lCDr9dRaEwpzUr6+L89k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZkFzDLJ; arc=pass smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408782BDC23
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785296150; cv=none; b=qc9aYCtHpO8Xwcdhl/jJMu1413dwrU99H7aFTOtdm1g9XUHa2+rPI/0UlkjkeinGppcObShyWwFl+sCPUApPeLCJa5d8LQO9r+ymb+dxlgQjuWMWcHV6d2JaTRLf/TczQENe7mnAjWdQQ9wyg2erV0xK2ucBYwEIqZnxaLRdakk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785296150; c=relaxed/simple;
+	bh=hv1BbaK9NYnr3/8WS8iJT3Sqa7QMm0v4gauUj/giG/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iZkvZNhaExXFadCsgECWsZWm/X0njLDLQ+oF5UvXHn9Zrf56bUIJfQLGMf2CA7jlCo5bfaW4+u4/KdkDqzIU8jjTtGlEi0S9HUWmNlIGoMtNWF8B4KgXC6ELpAa4FvxP8YDdeN8LlorhQzZlvWogCkUhMYvMcTVloT97APM/bfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpklrB4E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZkFzDLJ"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6679d88abdcso575934d50.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 20:31:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785295898; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VoLZYqqa6eaqIiXu7CV+Uwe3LDb6IpGF0kcqVWJaB/gfpGddS6R1aYULcTv2vlt766
-         I0SozzAD8s3Pazof18LWkBtjgEpgwoBtuhq+eY7xNklzvM7sQM2YgCyafWSCRnVHGad8
-         GoQX6VoP6kLN09XAQCuOcQ7lHzKKcaFKDYL9LwbI4hYYj2/53x0lqmv2OlzNaPYLDzAH
-         alnLNJfG0kiXSnDPm2GUx5HX3A+l+UuiHl4gm77KwP/DbCivQkNJ3FTxzTSIylpnoC3y
-         UUzZAuyWiGsm9tHM8ZPAOQpgeUcUuasPrc8MQ7wT5vrRB9joYCjuo+oZytoqrzcHgPy3
-         Yl7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pe0CzKtFSobq234+zo2ouN0uSG2sSCPEWeoFaE53a50=;
-        fh=IuM4/5iYRdSe0KDGZGp2a8ouCctEM11MQ/FbdMUc8pc=;
-        b=ElS5iZz2/wTDC3Jh/VvPs1WGWWXkBf10TYq0QinwWKYxlMxphsyIvVcjJ/UrjLLwdp
-         TgHVoEcKXakbCM0XqEGeGVRvBcooEASGxQe4iqnTu23260/eLXw4YF9S4iGh4jKy8zaQ
-         Es5S4HryIOPH80MrJamGls2X/JZohkjgsRXLEH0lM7xGtlUhTn8TjkR3s4XIAHDHU2s4
-         MTD+ZUtZyR3+gFAK7a2NUE85zDchreUobAX9Mg+tiBKzwaJjP3C2zgZPmU7i2k3leDNW
-         WXfGWUcRF9w630Rtcii9oCUTMdljI1ZSLpWcT4sqahhH0hWb264aoNnJ7WTT+VJ9VZDR
-         WEaQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785295898; x=1785900698; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pe0CzKtFSobq234+zo2ouN0uSG2sSCPEWeoFaE53a50=;
-        b=LZkFzDLJYcHyEVQjUK2tiKOjy7g93DUrCPtLUfOlKgu79bnoTMVwilsZVc8hrngfNM
-         ADOlYWZA3nrXD1n+8NY/xS0vkN0Qp63wg23bsn0nvHU0qtDh5avpk6hxEjlc5s3FDXMz
-         oKBYX/GiJW104aKxw32AK6W6TJco/J+A4eBos1lRYZhbJJqP22ZgscRYXYz62TSrzucY
-         ckTDgmyNQ0OFbuYwbGUSsxBxfy3t8vyWZdvECPQ+ET322LT2n7E+kvdIJ5X6+lwAdhRw
-         33VItxbVf1TDbxYqV2P6aplA6tZKMCL0umNJjy9Wi25WpbMsaGxr1xYh+N3cvSfnmpdW
-         vBUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785295898; x=1785900698;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pe0CzKtFSobq234+zo2ouN0uSG2sSCPEWeoFaE53a50=;
-        b=Vy0iHuymfkHNY9FDZFJdEg5nTayYrm1DLK+Rsj275qXI7/I4uixdDpnI9eeX6Ue0Ye
-         jXtRRzbLTtXCdvf3yl4l9a0JkN/SCCDmrYCOIjLmCZddmzkoZ+16ClgvYN2iyOxw7huI
-         +vlqbXalvUbyBOGPwvHOPpjUELFfVMKY3N62gtM/dwXuzh/3a/g26tcAKFN4QEvg5Gbc
-         /B43eXkMU8cBzHEsWGQotEQDeyOkVIA+kjBhV+EGAocfsanhYL80AVWPS44pb659wU8p
-         jMDnOhSD9YG5jADZHgVIcqGdTMdrH6UZEji7wGOURAwNHjoiHHAD5tXV94PeyeJO2rJS
-         JjXA==
-X-Forwarded-Encrypted: i=1; AHgh+RqX60vraMUd0iCy1g9uRgkhcwAI4c31kJyjrkDv91tHznYVqf+3UNVIe1Lk89TG8+HXOiETX2g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDenAse0TgXGeQGiSqQvkFG4nvfV9d0ATabc4uiM1Kx64Kayp2
-	wBXOBmauh2WwGBsErxumVURo0aawssgZ6tIrDTtq704b2pWnpATiuQFYyJc7bdL8NqdM7/KUbcz
-	Qb5o19e9pKGuiofEDcowHYZVUWL7cdac=
-X-Gm-Gg: AR+sD11ZNOmtYVR3ExTH4fnFkrgcQ8ljbFWUbYs6vhXaS5LMqU0gDQWUJOpTqNjWZPA
-	ibi8sTPwuxLsARUa+9hLVyR5MmD7tyleziuaDEYWZjC2LlapE0tf+pbILlTw+bq435pErO2J1Vk
-	SR28ABRojHYVG830MrHdPkUWIQI6fiOIkKxdcs4nOU0sXCePHNK3I37TCif1pVrnfyDeBK+fD3o
-	pGRqvmDxPJ2BHWr2KVfjYgCsLgooQUxaajRwkYKfIVpSpBN9qkV/NFrqMknIFp+CrMJL2frBbLD
-	e7dSY86dzoBOCwoWqr4ZzHzJoG3S/pI68JPx2E2ZtI0Gkos4HaZHaxLMHnS+gp3qsMtVyUcA41N
-	QGTQc3eFMC0LBB+K0O90=
-X-Received: by 2002:a05:690e:4295:20b0:667:b57b:8697 with SMTP id
- 956f58d0204a3-669057f5bc3mr1697637d50.61.1785295898162; Tue, 28 Jul 2026
- 20:31:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpklrB4E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DBE61F000E9;
+	Wed, 29 Jul 2026 03:35:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785296148;
+	bh=+7Go37gtU98cFLZaflYEpxWrUw0sh+lHQZKjYfL3U8c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WpklrB4EIRd4CX1LpvERxygGDlMQLMPTrJktxp6x9NhahcdSTW1Q2TuJumZfkHX3S
+	 gkBv52nmnlSxTEhi1PiZN9GfttAmM8j4uTqFbwslWBk7g3kcdQBKBURRlPPWxapN+R
+	 fFRjM9srWNdEkMBTK2xSywTP39176EQ8awxt7/XzsgZzJ9dPGxDixpQorWsALD0RBn
+	 OjQanAhavtAyF5IMZoaSY8/03IxGmooJOQNQjTYiQLOZdYD0hWpsj1HNlau1XXQnth
+	 4om+NMLja45nl7LMsb5p8raSA9JMpqrkM4j8CUVijIixE/dSi/XjH/ATG27zDFhVT8
+	 VzCZbZtWAXyeA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Haoxiang Li <haoxiang_li2024@163.com>,
+	Larysa Zaremba <larysa.zaremba@intel.com>,
+	Alex Elder <elder@riscstar.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] net: ipa: fix SMEM state handle leaks in SMP2P init
+Date: Tue, 28 Jul 2026 23:35:45 -0400
+Message-ID: <20260729033545.1286767-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072133-buffalo-cortex-74ca@gregkh>
+References: <2026072133-buffalo-cortex-74ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727032535.13469-1-sun.jian.kdev@gmail.com>
- <20260727032535.13469-3-sun.jian.kdev@gmail.com> <amcIoG59kgi4CJbo@lore-desk>
-In-Reply-To: <amcIoG59kgi4CJbo@lore-desk>
-From: sun jian <sun.jian.kdev@gmail.com>
-Date: Wed, 29 Jul 2026 11:31:28 +0800
-X-Gm-Features: AUfX_mzCCj-Rhe2GnR_T5jwxAsRWw1WjvNw_V50aUcanGkk---NpUHWw-SrR344
-Message-ID: <CABFUUZG+g_g_7N9D477vJW2c141-WhWL2JG8oc-y3OoF9QePdA@mail.gmail.com>
-Subject: Re: [PATCH net 2/2] veth: fix skb length accounting after XDP frag adjustment
-To: Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	andrew+netdev@lunn.ch, horms@kernel.org, ast@kernel.org, daniel@iogearbox.net, 
-	hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, toke@redhat.com, 
-	maciej.fijalkowski@intel.com, matt@readmodwrite.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 27, 2026 at 3:28=E2=80=AFPM Lorenzo Bianconi <lorenzo@kernel.or=
-g> wrote:
->
-> On Jul 26, Sun Jian wrote:
-> > veth exposes non-linear skb fragments through an xdp_buff. If an XDP
-> > program adjusts the fragment area, veth_xdp_rcv_skb() copies
-> > xdp_frags_size back to skb->data_len but leaves skb->len containing the
-> > old fragment contribution.
-> >
-> > After a fragment shrink, this makes skb_headlen() larger than the actua=
-l
-> > linear area. In the reproduced UDP receive path, __skb_datagram_iter()
-> > copied 1024 bytes past the actual linear tail to userspace, starting at
-> > struct skb_shared_info. The copied bytes included the affected skb's
-> > nr_frags, xdp_frags_size and a kernel pointer from
-> > skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
-> > amount and truncated at the end.
-> >
-> > Subtract the old data_len before replacing it and add the new data_len
-> > afterwards, keeping skb->len and skb->data_len synchronized.
-> >
-> > A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened b=
-y
-> > 1024 bytes from its fragment area. Before the fix, all 10 runs produced
-> > corrupted payloads. After the fix, all 10 runs matched the expected
-> > payload exactly.
-> >
-> > Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept =
-non-linear skb")
-> > Cc: stable@vger.kernel.org
-> > Link: https://lore.kernel.org/r/20260720141859.19FF41F000E9@smtp.kernel=
-.org
-> > Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
-> > Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
-> > ---
-> >  drivers/net/veth.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> > index 00e34afd858e..a956498a073b 100644
-> > --- a/drivers/net/veth.c
-> > +++ b/drivers/net/veth.c
-> > @@ -871,12 +871,14 @@ static struct sk_buff *veth_xdp_rcv_skb(struct ve=
-th_rq *rq,
-> >               __skb_put(skb, off); /* positive on grow, negative on shr=
-ink */
-> >
-> >       /* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
-> > -      * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
-> > +      * (e.g. bpf_xdp_adjust_tail), update skb length fields here.
-> >        */
-> > +     skb->len -=3D skb->data_len;
-> >       if (xdp_buff_has_frags(xdp))
-> >               skb->data_len =3D skb_shinfo(skb)->xdp_frags_size;
-> >       else
-> >               skb->data_len =3D 0;
-> > +     skb->len +=3D skb->data_len;
->
-> nit: same here, you can this one just in the if () branch.
->
-> Regards,
-> Lorenzo
->
-> >
-> >       skb->protocol =3D eth_type_trans(skb, rq->dev);
-> >
-> > --
-> > 2.43.0
-> >
-Hi Lorenzo,
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-Thanks. I will address this in v2.
+[ Upstream commit 96ca1e658ae459276292bd6d971ab5d8c7e0379a ]
 
-Thanks,
-Sun Jian
+ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
+qcom_smem_state_get(). However, neither the init error paths
+nor ipa_smp2p_exit() release them.
+
+Release both handles with qcom_smem_state_put() in the init
+error paths and in ipa_smp2p_exit().
+
+Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
+Reviewed-by: Alex Elder <elder@riscstar.com>
+Link: https://patch.msgid.link/20260624065955.2822765-1-haoxiang_li2024@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ kzalloc_obj() context line kept as kzalloc(sizeof(*smp2p), GFP_KERNEL) since ipa_smp2p.c was not yet converted in this tree ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ipa/ipa_smp2p.c | 30 ++++++++++++++++++++++--------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+index 2112336120391c..5030e23df1eed4 100644
+--- a/drivers/net/ipa/ipa_smp2p.c
++++ b/drivers/net/ipa/ipa_smp2p.c
+@@ -233,19 +233,27 @@ int ipa_smp2p_init(struct ipa *ipa, bool modem_init)
+ 					  &valid_bit);
+ 	if (IS_ERR(valid_state))
+ 		return PTR_ERR(valid_state);
+-	if (valid_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (valid_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_valid_state_put;
++	}
+ 
+ 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
+ 					    &enabled_bit);
+-	if (IS_ERR(enabled_state))
+-		return PTR_ERR(enabled_state);
+-	if (enabled_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (IS_ERR(enabled_state)) {
++		ret = PTR_ERR(enabled_state);
++		goto err_valid_state_put;
++	}
++	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_enabled_state_put;
++	}
+ 
+ 	smp2p = kzalloc(sizeof(*smp2p), GFP_KERNEL);
+-	if (!smp2p)
+-		return -ENOMEM;
++	if (!smp2p) {
++		ret = -ENOMEM;
++		goto err_enabled_state_put;
++	}
+ 
+ 	smp2p->ipa = ipa;
+ 
+@@ -290,6 +298,10 @@ int ipa_smp2p_init(struct ipa *ipa, bool modem_init)
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
+ 	kfree(smp2p);
++err_enabled_state_put:
++	qcom_smem_state_put(enabled_state);
++err_valid_state_put:
++	qcom_smem_state_put(valid_state);
+ 
+ 	return ret;
+ }
+@@ -306,6 +318,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
+ 	ipa_smp2p_power_release(ipa);
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
++	qcom_smem_state_put(smp2p->enabled_state);
++	qcom_smem_state_put(smp2p->valid_state);
+ 	kfree(smp2p);
+ }
+ 
+-- 
+2.53.0
+
