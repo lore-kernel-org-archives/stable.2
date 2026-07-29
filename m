@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238073B19B2
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C1F3B19B2
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332813; cv=none; b=dymJR16pbXSIOMnVgA2VKrJPmA29heC73TULfAaMwW8D0+YSqXeBdqAAUIivRIgbUe3uGgzCer8uKEBGu2abnmdRekQzeG97rTSUmjNYIOK1lktF+hseu8YgLnBOiHkR0gxZYpzIKuUq7PC+uk/GyHAWD1cxvlmCy3mMTyj09oc=
+	t=1785332821; cv=none; b=Q4kL+D3E4QLiW1jl3ebneLAELK/m58m488pjEepe/P7PwfVuVLzBbMLmX1qRhR84ULn8utjIFQnl3Qnb6JR/SRUk224hMPZ4e1oLZC1Anhq+buFiP1Cme5ox2krxXItwHNPIEe622ijkjOj9fK4H+0wSMEvLIDhcrY0iyx5fnTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332813; c=relaxed/simple;
-	bh=UPCOmoKNBr9ZKeNregliNQnT2r7GhpzxgDWkpNB0pMs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Lcr/DnS3k9HkGBZbmfmE84gzEecU4LqeX7UsUXsL3sSbQsIxta7gMvNZUirxrsuSYxWH355xqoy/h1EOBsqFWTAMBvDr/OA1w4x6UR/a7k6HMC7c0jnfZME+YiLmapgaDJ2hxr6rL4ZRt2LwVwSfK7HiCiQUzIK1W6o28v9Tql8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1p0Ik3Me; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785332821; c=relaxed/simple;
+	bh=e66THDiJzTeCentdKAmBhuKWBSJBl1HaPwgVBjTe9Yg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PbVXxi1ydV9s4gRMpqc4A5flsbRlmeFv+OMk30N4hMG+h7YWzck1mB5Yk9b26X71hd780k6Rem1aZtjJ2ZSxlyPEO52fSNNAS9JaRmwQpdUs2yrKJTuirFBXAs0xVOTpEG9qqHWN0jP0ZrJVIDyMobEYCmTkOb4OHJD3Auw1Fx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DIsenCUs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1p0Ik3Me"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83FE71F00A3A;
-	Wed, 29 Jul 2026 13:46:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DIsenCUs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CEED1F000E9;
+	Wed, 29 Jul 2026 13:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785332810;
-	bh=GNqLFrKR12qyxGpDCQ5sAPCUMzmmsebRoOLXuycgvqQ=;
+	s=korg; t=1785332820;
+	bh=wa2M+OWa1WLEDEYdMTRfeLLXv97i8iO4PVAmwrxt2yw=;
 	h=Subject:To:Cc:From:Date;
-	b=1p0Ik3Mer+EXN9OHjZ/y2NzwJmBbWyYmGW3nzezpL/n3hIc2AsEi4ZYQ5xHtrcBSo
-	 q9/ZcVTU32KzWbZELdJFxDnSWVvqmfLzcEP2SHEDeTRJNKUjZ2c8X2xUAI7XROrR1g
-	 E1cIV2tDynJdjkY2nosiViORwoVu+ZRE7qsD2Nig=
-Subject: FAILED: patch "[PATCH] ceph: fix refcount leak in ceph_readdir()" failed to apply to 6.6-stable tree
-To: vulab@iscas.ac.cn,amarkuze@redhat.com,idryomov@gmail.com,slava@dubeyko.com
+	b=DIsenCUsU9slBelz9wgdfeiRt+juTkbjWt6WRwyKx+rGVqaCTLHIz8FcYiel21OYx
+	 KjnIciXkvOMUzBb0tc5n6I01wOhDKVopmiaF+USxu4u31smPw8N7KqOzrkheUu8jg3
+	 IKIxsMYG1jhEY0ve9qzfluJf0n1p7CnKSNKXg0g4=
+Subject: FAILED: patch "[PATCH] ceph: fix writeback_count leak in write_folio_nounlock()" failed to apply to 6.12-stable tree
+To: vulab@iscas.ac.cn,Slava.Dubeyko@ibm.com,idryomov@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:46:36 +0200
-Message-ID: <2026072936-dispersal-unwanted-0d62@gregkh>
+Date: Wed, 29 Jul 2026 15:46:46 +0200
+Message-ID: <2026072946-idiom-facelift-7c9f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x c3e64079d8b9663e3998d0caac9aba915b6b93ae
+git cherry-pick -x cbf59617cd715219e84c50d106a3d0e1e8ba054e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072936-dispersal-unwanted-0d62@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072946-idiom-facelift-7c9f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,49 +62,62 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c3e64079d8b9663e3998d0caac9aba915b6b93ae Mon Sep 17 00:00:00 2001
-From: WenTao Liang <vulab@iscas.ac.cn>
-Date: Thu, 11 Jun 2026 22:40:07 +0800
-Subject: [PATCH] ceph: fix refcount leak in ceph_readdir()
+From cbf59617cd715219e84c50d106a3d0e1e8ba054e Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Thu, 4 Jun 2026 02:19:51 +0000
+Subject: [PATCH] ceph: fix writeback_count leak in write_folio_nounlock()
 
-The ceph_readdir() function allocates a ceph_mds_request via
-ceph_mdsc_create_request() and stores it in dfi->last_readdir. In
-the directory entry processing loop, if the entry's offset is less
-than ctx->pos or if the inode pointer is unexpectedly NULL, the
-function returns -EIO without releasing the reference held by
-dfi->last_readdir, causing a refcount leak.
+write_folio_nounlock() increments fsc->writeback_count to track
+in-flight writeback operations. On several error paths where the
+function returns early (folio lookup failure, snapshot context
+allocation failure, and writepages submission failure), the function
+returns without calling atomic_long_dec_return() to decrement the
+counter.
 
-Fix this by adding ceph_mdsc_put_request(dfi->last_readdir) before
-returning on these error paths. Also set dfi->last_readdir to NULL
-for safety, matching the cleanup done at the normal exit.
+Each leaked increment keeps the counter above zero, which can prevent
+the filesystem from cleanly unmounting or suspending writes.
+
+Add atomic_long_dec_return() calls on all error paths that currently
+return without decrementing the counter.
 
 Cc: stable@vger.kernel.org
-Fixes: af9ffa6df7e3 ("ceph: add support to readdir for encrypted names")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Fixes: d55207717ded ("ceph: add encryption support to writepage and writepages")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 
-diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-index 27ce9e55e947..ef9e92e362d3 100644
---- a/fs/ceph/dir.c
-+++ b/fs/ceph/dir.c
-@@ -546,11 +546,16 @@ static int ceph_readdir(struct file *file, struct dir_context *ctx)
- 			pr_warn_client(cl,
- 				"%p %llx.%llx rde->offset 0x%llx ctx->pos 0x%llx\n",
- 				inode, ceph_vinop(inode), rde->offset, ctx->pos);
-+			ceph_mdsc_put_request(dfi->last_readdir);
-+			dfi->last_readdir = NULL;
- 			return -EIO;
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index 61bd6d92ff25..ecf33b66610c 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -790,6 +790,9 @@ static int write_folio_nounlock(struct folio *folio,
+ 				    ceph_wbc.truncate_size, true);
+ 	if (IS_ERR(req)) {
+ 		folio_redirty_for_writepage(wbc, folio);
++		if (atomic_long_dec_return(&fsc->writeback_count) <
++				CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
++			fsc->write_congested = false;
+ 		return PTR_ERR(req);
+ 	}
+ 
+@@ -809,6 +812,9 @@ static int write_folio_nounlock(struct folio *folio,
+ 			folio_redirty_for_writepage(wbc, folio);
+ 			folio_end_writeback(folio);
+ 			ceph_osdc_put_request(req);
++			if (atomic_long_dec_return(&fsc->writeback_count) <
++					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
++				fsc->write_congested = false;
+ 			return PTR_ERR(bounce_page);
  		}
- 
--		if (WARN_ON_ONCE(!rde->inode.in))
-+		if (WARN_ON_ONCE(!rde->inode.in)) {
-+			ceph_mdsc_put_request(dfi->last_readdir);
-+			dfi->last_readdir = NULL;
- 			return -EIO;
-+		}
- 
- 		ctx->pos = rde->offset;
- 		doutc(cl, "%p %llx.%llx (%d/%d) -> %llx '%.*s' %p\n", inode,
+ 	}
+@@ -847,6 +853,9 @@ static int write_folio_nounlock(struct folio *folio,
+ 			      ceph_vinop(inode), folio);
+ 			folio_redirty_for_writepage(wbc, folio);
+ 			folio_end_writeback(folio);
++			if (atomic_long_dec_return(&fsc->writeback_count) <
++					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
++				fsc->write_congested = false;
+ 			return err;
+ 		}
+ 		if (err == -EBLOCKLISTED)
 
