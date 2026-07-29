@@ -1,80 +1,43 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC4976026
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DD02853FD
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785291529; cv=none; b=n1NEK9Jbgc0iADq9i7gIpoGU1JqcprNoGt7EUlmkeZIlSj5pLmeKAFOgmo9mi4gqWHZXF6hhYQnj4S255rD2XD1zpxuQTVXU93YJDSJ6As8Y2r249hxsdojMiVl7ppShLv0d35V645SeAYHmK7dFnD4T0Vy+KQ3FgntQ4MrgTFw=
+	t=1785292192; cv=none; b=H3ElU6xllXBBe3j7EAWcX17L+IPECwkZjYPBXGqVV8KrjRIY+Bx0Ehs07vwsp1vzXR2GcOE0GyqoG+THQ/bFR0sJ8qKe/K78D5BgpreXnlV+xR/EBSNc8m3fbeaGmZCxf6Gvj8H9/N68aFucCbzJkcd/K0K8dVLN/V9Ag0WcGpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785291529; c=relaxed/simple;
-	bh=dmriazfhWcf5wW8lxOVtQBUgCYLeSYhcaY4KgrG7ctA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dn8n4fCtp81JMzpLZFM/Oj9HDOZUvgQUfATd0+OtMr8tLPYkbH3sGKHMLAEVLbd7Zmf8TE73ylmFA5gqSRGL89opAaABkzOoJnRpS6nOKRZN0bRbqTnekzxjvikx2TwTkh5FzvGMrGnU2CFOPlohaHNFhhfxH5VigSzRz5EEjBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxcpqN8r; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785292192; c=relaxed/simple;
+	bh=ZWvcnHEzWw8q7CRJqzipSLF8EnH6lXvkLsPimqtTO7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YVTQlsISoJdhV06s6Ssibes+a1hD/rn8W/GN7HEcQy/XfiFiBdBhBhqxdAXMCStt4BCAfu2zYF36POPSK9RhLRuNrIwZDwJ3GVNU8h+gdbFsRqpY4Y02d+KMA1cs9ROPZ/0VB6M4VGws1vhmNoxbnK0qFbzuITLqSDD9MTXgjOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZlf8vae; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxcpqN8r"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ceaf8a1265so5678235ad.2
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785291527; x=1785896327; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A3vGTZ+9cBJHUjmSn73Xe4evmb/1PkSIQ94tual6z3w=;
-        b=cxcpqN8rq7HglPHwR2IbvxtN3GRe4NGzynmTkyK5gm0qBOA+Aoz+G+e9xEZZjKgB6P
-         3Q/limCrCp0xbEw3GNbLkuj5QLRHJTRt6eORffvT3s+BMDQDUJeAGZbTg3wHS+m/UPij
-         ngZ3i1pVCHG/6wDjRDKQ5BU62/lfhPfTq3duGviYVBcd2Oe8KQM6Xcm2sqAI9+7O0pSI
-         lluM3cOhYR/sIi8ZXxX1DuHyxd5gO2E/FZEPjnRBZmIkOq7LGkhLaqqnZKKTvwOxDqt0
-         LB+a5BjnJZzHdtUivq1OnMYyrc5XvRRlg+EJRY7wnHHcDz5D6znhpAQtkKUXRb0gAfLw
-         Whrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785291527; x=1785896327;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A3vGTZ+9cBJHUjmSn73Xe4evmb/1PkSIQ94tual6z3w=;
-        b=VJ4SNO9+wdLiA0lw+cEzDPqQWL2T1ma36pu5OFQb5zDOZJfAJNV/ppJtajX/zEEQ5b
-         /zeKW0qo/95Afuf4l6AUQ3WWfVSZR82hqFRe5i6hhM2JDaZuvLz5lfOPMCxRN86zL2Gw
-         dIUECNiBqbMTLJt+VoMvDh8+fimr0w6UdwsflqtiXl7YMQ/N1W/BhkA9pVE2tP4IMqrz
-         hcktP+2MdUN6BzCQrTs6A1fOiL1kz2J81x+dAorAThsW9dw12tHhnFuT2FJ3PRgnzG1G
-         QiVUN1wjMVn/Jg9lhpRiroAzg4sXMaX/WlsxnATYDjmVw5+4ZmIDUhoJrDRS/MZEEkZb
-         haJw==
-X-Forwarded-Encrypted: i=1; AHgh+RqrGGs6OFDMlTPcytARAC+GHVTo+DBZ2TtbEj/mIEHpAXSegoSfaPEIlZ7EIVFWnfa+q6kU82Y=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRvEKE0HjtqUPbcoDKgsGiet+R4lej9fjlv/kZq1whYNvdal5i
-	SZ+T6N7V4c4Na1LnlpU5sYk2MaNsKc4Jlcurb7Vs73io9VznKuGXG2g=
-X-Gm-Gg: AR+sD110KM9ppxnGP5EQEYYCSbYSuD4lr2BDf9VCMdaPTm7i4GaJPLDDdDy80qlaT0F
-	EihVSpA2zzpbhB/rHvEiGDkNVXszaiTtLqjuCo21BylsrJyhCzzrqGnlY1afiUyaaouHjpZczG7
-	pCT+MNxcm4SN0lX/uVS8DemqVN0JgjcU1QMRiiEOFoKhBX6QYI0mFitDR+k5pctpI3MoG47AG5y
-	AFDzBR7n/KdwE0WlLIf2ZNa204YJlw0QbnfK//YLwxXM2LAUmGM6rrwzY/iFnFKAgWvYmqGXe7N
-	93gDXLXDlt8SJ7ZtYwV6RDB3Zd4w76dHWBLyBFhep+d06I1RXpwjCPq/3Bj67WXPLSGYHjHWVT5
-	4L12AR+xqa2k++Tglz0T8lvzwMMumtTyE4bzfnHCD79ZeKGFqYuxCYY2UERdJfD7DS1KnwiZB5h
-	z3BfqbB8Eg3SoCLw3U14AICs95x2CFdyzcTHvcuS4HWlXRS3S2clQ6pilnhdW6LseXimKzL7vc0
-	4+dF+AYD1FokZl3rgK0TqOrwGWYjGmER7QnrYDoUl9voIm0IxEyR6oRfsAdI0Bk2RDa+uMf73dO
-	7MyfTsYJoNzbMcit+41vjFPz3ruH9jCkDA==
-X-Received: by 2002:a17:903:1905:b0:2ca:ca48:c36a with SMTP id d9443c01a7336-2d015c0fcacmr52704555ad.18.1785291527425;
-        Tue, 28 Jul 2026 19:18:47 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022a46774sm3848685ad.27.2026.07.28.19.18.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 28 Jul 2026 19:18:45 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-media@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Biren Pandya <birenpandya@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	stable@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>
-Subject: [PATCH] media: stm32: csi: unregister async notifier on cleanup
-Date: Wed, 29 Jul 2026 11:18:34 +0900
-Message-ID: <20260729021834.50550-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZlf8vae"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6598E1F000E9;
+	Wed, 29 Jul 2026 02:29:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785292191;
+	bh=v5d1qgB9iNYaEYajzN4eI5xCAV7VR+WMD69Hz1sa+a8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SZlf8vaeSgfTT6vAqyDak+WDY71rYvkOPNvqTNoo+dV54LjO5sm3hLOTnBJTjuP9A
+	 usybBCBcDkhfPH0YVxWVRWXZE6PRL4OIZC6dz6D4xHUN/ZiPCfnV+fWhJdPB8T5fpH
+	 V8bNOn1nbi80IM6/YNoMgdjlUAm4gIDYyLgjvrrxHyiT+vgiMZb2wUgWQIulN2LrWQ
+	 S2II8ypspn3qV/muxM+YSXTfpdnoZgA7XXTTSdeoXX9xRLjFZHKHp+xvK6bxYd9h4Y
+	 648AWD8S0LtZDN5wvPLUBl4ZyI/r4n0yF0zufvTlJnx3I1qdUrJP/zXVgOvT/Q5X3O
+	 +2fUvOrXWQg+w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ata: libata-core: Reject an invalid concurrent positioning ranges count
+Date: Tue, 28 Jul 2026 22:29:48 -0400
+Message-ID: <20260729022948.1112469-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072112-moonstone-envious-90d1@gregkh>
+References: <2026072112-moonstone-envious-90d1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,44 +46,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-stm32_csi_parse_dt() registers the async notifier before probe finishes.
-If a later operation fails, the error path only cleans up the notifier's
-connections.  It does not unregister the notifier, leaving its entry on
-the global notifier list after the devm-allocated csidev is freed.
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-The remove path has the same problem.  A later async operation can then
-walk the stale notifier entry and access freed memory.
+[ Upstream commit 533a0b940f901c15e5cbbd4b5d66e871c209e8ce ]
 
-Unregister the notifier before cleaning up its resources on both paths.
+ata_dev_config_cpr() takes the number of range descriptors from buf[0]
+of the concurrent positioning ranges log (up to 255), which the device
+reports independently of the log size in the GPL directory. The count is
+then walked at a fixed 32-byte stride in two places with no bound: the
+log read here, and the INQUIRY VPD page B9h emitter, which writes one
+descriptor per range into the fixed 2048-byte ata_scsi_rbuf. A device
+reporting a count larger than its own log overflows the read buffer (up
+to 7704 bytes past a 512-byte slab), and a count above 62 overflows the
+response buffer on the emit side.
 
-Fixes: dcb0f4c16be5 ("media: stm32: csi: addition of the STM32 CSI driver")
+Bound the count once, on probe, against both the log the device returned
+and the number of descriptors the VPD B9h response buffer can hold
+(ATA_DEV_MAX_CPR, derived from the rbuf size). Reject an out-of-range
+count with a warning; this keeps the emitter in bounds with no separate
+change there.
+
+Suggested-by: Damien Le Moal <dlemoal@kernel.org>
+Fixes: fe22e1c2f705 ("libata: support concurrent positioning ranges log")
+Fixes: c745dfc541e7 ("libata: fix reading concurrent positioning ranges log")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
+[ adapted `kzalloc_flex()` allocation to `kzalloc(struct_size(...), GFP_KERNEL)` and adjusted context offsets. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/st/stm32/stm32-csi.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/ata/libata-core.c | 18 ++++++++++++++++++
+ drivers/ata/libata-scsi.c |  2 --
+ drivers/ata/libata.h      |  9 +++++++++
+ 3 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
---- a/drivers/media/platform/st/stm32/stm32-csi.c
-+++ b/drivers/media/platform/st/stm32/stm32-csi.c
-@@ -1059,6 +1059,7 @@ static int stm32_csi_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index e216409f84ccaf..89cb03a5e8888b 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -2804,6 +2804,24 @@ static void ata_dev_config_cpr(struct ata_device *dev)
+ 	if (!nr_cpr)
+ 		goto out;
  
- err_cleanup:
-+	v4l2_async_nf_unregister(&csidev->notifier);
- 	v4l2_async_nf_cleanup(&csidev->notifier);
- 	return ret;
- }
-@@ -1068,6 +1069,8 @@ static void stm32_csi_remove(struct platform_device *pdev)
- 	struct stm32_csi_dev *csidev = platform_get_drvdata(pdev);
++	/*
++	 * The device reports the number of CPR descriptors independently of the
++	 * log size, and that count is also used to emit VPD page B9h into the
++	 * fixed-size rbuf. Reject a count larger than what that buffer can hold
++	 * (ATA_DEV_MAX_CPR) or larger than the log the device actually returned.
++	 */
++	if (nr_cpr > ATA_DEV_MAX_CPR) {
++		ata_dev_warn(dev,
++			     "Too many concurrent positioning ranges\n");
++		goto out;
++	}
++
++	if (buf_len < 64 + (size_t)nr_cpr * 32) {
++		ata_dev_warn(dev,
++			     "Invalid number of concurrent positioning ranges\n");
++		goto out;
++	}
++
+ 	cpr_log = kzalloc(struct_size(cpr_log, cpr, nr_cpr), GFP_KERNEL);
+ 	if (!cpr_log)
+ 		goto out;
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index 4862d327c47aca..710d1d66afb12d 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -37,8 +37,6 @@
+ #include "libata.h"
+ #include "libata-transport.h"
  
-+	v4l2_async_nf_unregister(&csidev->notifier);
-+	v4l2_async_nf_cleanup(&csidev->notifier);
- 	v4l2_async_unregister_subdev(&csidev->sd);
+-#define ATA_SCSI_RBUF_SIZE	2048
+-
+ static DEFINE_SPINLOCK(ata_scsi_rbuf_lock);
+ static u8 ata_scsi_rbuf[ATA_SCSI_RBUF_SIZE];
  
- 	pm_runtime_disable(&pdev->dev);
- }
+diff --git a/drivers/ata/libata.h b/drivers/ata/libata.h
+index 1a2d0f7115b5f8..1415190c18544e 100644
+--- a/drivers/ata/libata.h
++++ b/drivers/ata/libata.h
+@@ -145,6 +145,15 @@ static inline void ata_acpi_bind_dev(struct ata_device *dev) {}
+ #endif
+ 
+ /* libata-scsi.c */
++#define ATA_SCSI_RBUF_SIZE	2048
++
++/*
++ * Maximum number of concurrent positioning ranges (CPR) supported. The ACS
++ * specifications allow up to 255, but we limit this to the number of CPR
++ * descriptors that fit in the rbuf buffer used to emit VPD page B9h.
++ */
++#define ATA_DEV_MAX_CPR		min(255, ((ATA_SCSI_RBUF_SIZE - 64) / 32))
++
+ extern struct ata_device *ata_scsi_find_dev(struct ata_port *ap,
+ 					    const struct scsi_device *scsidev);
+ extern int ata_scsi_add_hosts(struct ata_host *host,
 -- 
-2.50.1
+2.53.0
+
