@@ -1,96 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F6C3EC82C;
-	Wed, 29 Jul 2026 14:59:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1E238DC7F;
+	Wed, 29 Jul 2026 14:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.216.245.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785337142; cv=none; b=q7mB1Vz3eDLwjxeB8g5geVvnaJlb7D0vpmKwe8sM75lQr4T7/MjeisUFba/QAeBl85jjy6rvQizuM1xQT6EWejIvn8r6ur2mLeyTbbOA2JrE0HBvtNEXE8SGxYrb1OLm3GNTHFeOjFhDDWgdyzDRn39nXX2fIABgYiZhvZErzrI=
+	t=1785337145; cv=none; b=neEDZnH090k1+BUXm+Neg5OpMUDmM2bGCR1nKO4JHL8kIGbIfUhDqHtFacyemVFWriQcWetyR5LANL+8BHG+wxMNBPx/OsvlcDAgGWscNcc/Z6gpwahmOXnWRmN8hnmhFhCpEB8rjh12Ay87WjsBXPT/or2ysXQxk72jAZ94sBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785337142; c=relaxed/simple;
-	bh=BC9DKDkbFpZIuwKBKE1cpLaKvpdwF7SPweVBu9sPbUg=;
+	s=arc-20240116; t=1785337145; c=relaxed/simple;
+	bh=fXDmjsfDQjtaFOQvDtpp6nZgppQISEpbEuWemy5jrjE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DkL9Jk5X0ney8zaudtKK/cBtaAIjh77HQ3C8CVL5WRc6V2pHqNa63vHeBG8rUYGFB5oaZxF7PwvFhycOGP9ug0TX+0izAXV5MtyzZ3tGGyx9ncsWhny7apTaTkWwUfdV/dAMpneSQRSqvAS7mka11MNafxxkxk3K3d/W+9WOipI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1WAxq061; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1WAxq061"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D627B1F00A3A;
-	Wed, 29 Jul 2026 14:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785337141;
-	bh=7RaxPzkFNolkG0Jn/Y9SXWpPiCVTq0rHihDR8xzPi3c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=1WAxq061NVZ0oM2CTVmHxuhlh9E/iEZ58U8SNZbC/j1zf4/nKwxqgttZ2JlfNQKvl
-	 ZBVqMqZUMIhuzJ9UUq30EhpmwKfFNCfCjLk9RK7yCne73r0gCnx20M+TLxVF1MfbRW
-	 F2wUBZ1dVLiZkmMvRAoDkNSVTCSJeFbQ5xEtUW5A=
-Date: Wed, 29 Jul 2026 16:58:48 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jann Horn <jannh@google.com>
-Cc: Pasha Boroffski <hex.dec.bin.oct@gmail.com>,
-	stable <stable@vger.kernel.org>, Sasha Levin <sashal@kernel.org>,
-	regressions@lists.linux.dev, Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>
-Subject: Re: regress caused by upstream commit
- 6650527444dadc63d84aa939d14ecba4fadb2f69
-Message-ID: <2026072933-widow-grouped-f9e4@gregkh>
-References: <CAHmU7G=Dsf31mJ1VH4+Tp-McSvXCg=GcO-eC+O52-_t5gc7Pyw@mail.gmail.com>
- <CAG48ez1UqV8E8nHGq50orS+3oqXbP80R6g7kVa3Hq-domHCSsQ@mail.gmail.com>
- <CAG48ez1tUk+8b7-eWw-fHh2x_bJA1n3CTANVWKQuPW=J+inCrQ@mail.gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=uXZSdDd1LJBEfKV0JJQOlzD/ZaEQJSZsLNamX3N2MMTsD8PF92HuLeYtYnR+0LQlESZQBIv2bAh4NvGSHTDkF2Lc8skYuOUOH7vMePdXhQgwetddBSBFmklXqM7Awf8mnnKqJ2LYslX2FMx2CI5abj5t3izT+w8h3kCMzkB6+SQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de; spf=pass smtp.mailfrom=strlen.de; arc=none smtp.client-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 9A39460293; Wed, 29 Jul 2026 16:59:00 +0200 (CEST)
+Date: Wed, 29 Jul 2026 16:59:00 +0200
+From: Florian Westphal <fw@strlen.de>
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netfilter-devel@vger.kernel.org, pablo@netfilter.org, phil@nwl.cc,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+	horms@kernel.org, chamaken@gmail.com, vega@nebusec.ai,
+	stable@vger.kernel.org
+Subject: Re: [PATCH nf 1/1] netfilter: nf_conntrack_tcp: defer invalid
+ logging until after unlock
+Message-ID: <amoVNFtNX5mpbum_@strlen.de>
+References: <cover.1785307980.git.zihanx@nebusec.ai>
+ <b9b0022c68b6d0ac1a729f768466e3400a825a87.1785307981.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG48ez1tUk+8b7-eWw-fHh2x_bJA1n3CTANVWKQuPW=J+inCrQ@mail.gmail.com>
+In-Reply-To: <b9b0022c68b6d0ac1a729f768466e3400a825a87.1785307981.git.zihanx@nebusec.ai>
 
-On Wed, Jul 29, 2026 at 03:59:18PM +0200, Jann Horn wrote:
-> On Wed, Jul 29, 2026 at 3:45 PM Jann Horn <jannh@google.com> wrote:
-> > On Wed, Jul 29, 2026 at 11:08 AM Pasha Boroffski
-> > <hex.dec.bin.oct@gmail.com> wrote:
-> > > Hello.
-> > > I believe 6650527444dadc63d84aa939d14ecba4fadb2f69 has a bug in it as it causes "kernel bug" with PREEMPT_RT enabled.
-> > > How to reproduce the bug:
-> > > i used 'find /proc/ | grep 123'. When scanning, the kernel triggers an "Oops".
-> > >
-> > >
-> > > [  344.465851][ T3715] BUG: kernel NULL pointer dereference, address: 00000000000000f8
-> > [...]
-> > [  344.465888][ T3715] CPU: 0 UID: 0 PID: 3715 Comm: find Tainted: G
-> >    D    O       6.12.98 #9
-> > [...]
-> > > [  344.465905][ T3715] RIP: 0010:down_read_killable+0x9/0x40
-> > [...]
-> > > [  344.465974][ T3715]  proc_map_files_readdir+0xc7/0x500
-> > [...]
-> > > I think calls
-> > > mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
-> > > if (IS_ERR(mm)) {
-> > >   result = ERR_CAST(mm);
-> > >   goto out_put_task;
-> > > }
-> > >
-> > > should be fixed like
-> > > mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
-> > > if (IS_ERR_OR_NULL(mm)) {
-> > >   result = ERR_CAST(mm);
-> > >   goto out_put_task;
-> > > }
-> >
-> > Ugh, yes. This is not an issue on mainline, but the API contract of
-> > mm_access() changed in commit cd3f8467afd4 ("mm: refactor mm_access()
-> > to not return NULL"), which landed in 6.13. So we'll need a
-> > stable-specific fixup for 6.12 and lower.
-> >
-> > I'll try to come up with a patch for stable later today.
-> 
-> I've reproduced this, triggering this NULL deref on 6.12.98 is as easy
-> as "ls /proc/2/map_files"
+Zihan Xi <zihanx@nebusec.ai> wrote:
+> nf_conntrack_tcp_packet() can log invalid packets while ct->lock is still
+> held. This happens both through tcp_in_window() -> nf_tcp_log_invalid()
+> and through the NFCT_TCP_INVALID path -> nf_tcp_handle_invalid().
 
-Ugh, ok, let me go do some "quick" releases with just this fix in it
-right now, sorry about that!
+Correct, this is a bug. While I like the general direction, I find this
+patch too large and too complicated.
 
-greg k-h
+Please consider making at least two patches to fix this.
+
+- One patch to make nf_tcp_handle_invalid() return bool, then log
+outside of spinlock().  The timeout doesn't even have to be included,
+	you can change the message to omit it (e.g. lowered timeout to
+			UNACK or whatever).
+
+This will help with review and it will simplify this patch too.
+
+> +enum nf_tcp_invalid_log_type {
+> +	NF_TCP_LOG_NONE,
+> +	NF_TCP_LOG_OVERSHOT,
+> +	NF_TCP_LOG_SEQ_OVER,
+> +	NF_TCP_LOG_ACK_OVER,
+> +	NF_TCP_LOG_SEQ_UNDER,
+> +	NF_TCP_LOG_ACK_UNDER,
+
+This is fine.
+
+> +struct nf_tcp_invalid_log {
+> +	enum nf_tcp_invalid_log_type type;
+> +	u32 value;
+> +	u8 index;
+> +	u8 dir;
+> +	u8 last_index;
+
+index, dir, last_index no longer need this stashing once lowered-timeout
+is solved as outlined above.
+
+> +struct nf_tcp_invalid_logs {
+> +	/* At most one tcp_in_window() log plus one lower-timeout log. */
+> +	struct nf_tcp_invalid_log entries[2];
+
+Same, once the lower-timeout is handled differently this is not needed.
+
+> +static enum nf_ct_tcp_action
+> +nf_tcp_log_invalid(const struct nf_conn *ct,
+> +		   const struct ip_ct_tcp_state *sender,
+> +		   struct nf_tcp_invalid_logs *logs,
+> +		   enum nf_ct_tcp_action ret,
+> +		   enum nf_tcp_invalid_log_type type,
+> +		   u32 value)
+>  {
+
+This function doesn't log anymore.
+
+>  static enum nf_ct_tcp_action
+>  tcp_in_window(struct nf_conn *ct, enum ip_conntrack_dir dir,
+>  	      unsigned int index, const struct sk_buff *skb,
+>  	      unsigned int dataoff, const struct tcphdr *tcph,
+> -	      const struct nf_hook_state *hook_state)
+> +	      struct nf_tcp_invalid_logs *logs)
+>  {
+>  	struct ip_ct_tcp *state = &ct->proto.tcp;
+>  	struct ip_ct_tcp_state *sender = &state->seen[dir];
+> @@ -640,31 +728,29 @@ tcp_in_window(struct nf_conn *ct, enum ip_conntrack_dir dir,
+>  			sender->td_end = end;
+>  			sender->flags |= IP_CT_TCP_FLAG_DATA_UNACKNOWLEDGED;
+>  
+> -			return nf_tcp_log_invalid(skb, ct, hook_state, sender, NFCT_TCP_IGNORE,
+> -						  "%u bytes more than expected", overshot);
+> +			return nf_tcp_log_invalid(ct, sender, logs, NFCT_TCP_IGNORE,
+> +					  NF_TCP_LOG_OVERSHOT, overshot);
+
+Maybe rename to nf_tcp_store_invalid() or similar.  It only has to stash
+the value (overshoot in this case) and NF_TCP_LOG_OVERSHOT.
+
+Could you also add a lockdep_assert_not_held(ct->Lock) to the old
+nf_ct_log_invalid() plus a comment explaining that we must not call into
+nfnetlink_log with that lock held?
+
+Thanks!
