@@ -1,167 +1,145 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f0.google.com (mail-wr2-f0.google.com [74.125.225.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C9642A176
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 21:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BD441F34A
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 21:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785360967; cv=none; b=NtWOVFn+rPy/c9C6+6toFdNVUt4mJLtEwZwUP31WpKXUyKUVwt2S1ShnmCAXtAfolf5XHeYQIOVtSZkYO8lZMR5D2CgVkZ5uvi6o4PmAaDbYRViIBBoWkeSagcAnDX0ntYilIP8Q6Tbt3TMLUeDAX9gPXSU11EpXsudsHID9sSk=
+	t=1785361102; cv=none; b=f2+1ROsPHyjZm68XlmdhPMvXlhUSRMaqVP8iYxAGRM1FDzfiEaGJdcwvM8i2G0V3RQmtSF2YQQsGaOw1n21cXy8KoNQ8hXnBX/2c2RBBMmJYiGCUJjaRzhbTsjEgnGhaVmXYw5GZ7mP8JCzBsT6/+aarQMX2h1LWfMlm90glJuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785360967; c=relaxed/simple;
-	bh=AypAt2dwYegjAyUQDzlxyeSbBX154zyJYWZj/xmnuwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=liBkGkUwrnFnQ6IBLqAo1TAjObMcPWmNHOHDvFvsWwoIdtd4rz5ddLEHbUHZ8LVA7MeJMDxw+p6D9VmAZr76ptPEEo3MI3W1IAJru3xsre9GXiilNPY/VE99Vb887milQLLHMCF43ZBU3X50dIe08hKcej/7DS32+uf5R+Gk8HU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eHYPhCDF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UvtMJPdn; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eHYPhCDF";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UvtMJPdn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785360963;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xK39DDMEeGBY/lX94lalZUc7BSUjCYDDo/lETnDlHMw=;
-	b=eHYPhCDF2lyJdNO+gHdHxkFeVmPLnruH6pxRwWoIpvJmWFQ1vH7dAqykEGFIxAh3NmUlPR
-	Au/WwtbpDgsgcOy3vKNxbqG1qjZRdL2sQPKYO2ZkJ7VwMCeK42AaCEjGTMJqa1tQ9aCdQM
-	oWKuWBQjYE2CtUgSpi1zaNLTnMQwZMg=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-645-L-c2opBUNgqS19ftr360SA-1; Wed, 29 Jul 2026 17:36:02 -0400
-X-MC-Unique: L-c2opBUNgqS19ftr360SA-1
-X-Mimecast-MFC-AGG-ID: L-c2opBUNgqS19ftr360SA_1785360961
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4954fe32d6eso7228575e9.1
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:36:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785360960; x=1785965760; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xK39DDMEeGBY/lX94lalZUc7BSUjCYDDo/lETnDlHMw=;
-        b=UvtMJPdnu07tFrxtJon3VXK1uSmY5IVLBAzrHdqiHtkZd9Xzg0T78vl81rI+EKxuhl
-         uVvRPZUlEJJCfaHZhXtwFv2FUdhGyRb50iMa708u5pVC/F9TxiLr/HZzKF+s50uM1P1e
-         6aNvCoW/pkFe/jnzbG3hWMXjZLm6AvwM+NnfYT+KXm8TJLH7hi2OGo2Z1X91s71YXW6K
-         cUUALzbmfXJQK0BMK7cJ9jonpKz493sGKjLTwepMw/ZWDQYMWaimbppwwycPSCq4Fzc+
-         D/EWChFuoiWCiJWuYOjVTg3Wmm6DXthAmBjopcuPTqIqzelSmfkqpJR4lfXS1TARBm/g
-         cALw==
+	s=arc-20240116; t=1785361102; c=relaxed/simple;
+	bh=awPxZ/btWOnhXSN7JOmrJi/p3lplBTF293IxAfkmUbk=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=r5uvGOwmP2+KBM4L/uTmarhugpVqb2bQKuJoiN1qTi3qrCa27/M0faceBxEC2F9hFsFR23z6vB9muID3nR1s+EOhdYw40EpDGPdFGi+3qdoFR3VKmgSMIGwWBxeFTDrAn5QYJxncOGtpsAV2cygcet3cEWVtfDJnMI95sYEKi4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f0.google.com with SMTP id ffacd0b85a97d-46cbf263216so585798f8f.1
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:38:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785360960; x=1785965760;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xK39DDMEeGBY/lX94lalZUc7BSUjCYDDo/lETnDlHMw=;
-        b=O2rCiS+MIF7f3j2YgFXtFSo67RUo7WXviUunlJwrgcpuSnusa6JnY/V07oJCGcsRfJ
-         yXa8NBq8rSWy9fBGJNAncjPs7YT95qoqKfH7BGWXGI28rGCN25FytSBUut5Nc9AkQfMx
-         dhSlyNrLeCG6V0g5xrB+RhCIzvoj4IUQkwojp8JNsTna5MKP9F3k893HVw9R39svrxN2
-         y46eD13FOdB4713wnUUi956X/0CNP9fDWmVCtRP36iWkJCLydEy5RvkLSJCVl0jGY3nX
-         3tyXWcDZX7Ql68E/nW7900rpc7izUyKZXRHDzID5H/AhuuKV6veqM9tFGpuFkla32iAX
-         kgWw==
-X-Forwarded-Encrypted: i=1; AHgh+RoQd1LZiwiFxRqxTP7yvA2zB8ASFOjh/csYBAGPYRMMmCVvmkhPVPF4yGWbxrCidAPgslmdKdI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPHdhy0cEtv52mkIqbAJIap+So0hHO0b+5QkYstC/5oJYh9GHL
-	yZRNnt+RkIWYTOyIY7UE2N3orGoFHD9XNBk9KImxhhq4hJpHZRw9iLl9ja7/weWmEYs7AQl6bva
-	xDRhdmxD+Ph3n1JyjOnPDkh/Su11SmENw5AtEYczt7IbDpaEHwczIDB5SCfYzj2osWg==
-X-Gm-Gg: AR+sD13od/9OU7N8xn2TDnTVHfh3EDDwDHqlH+2o4VfEP7RphrbZwTptr+n7DZSPE/v
-	DKkdZZ+gj2q6jUKk0wPNV+ogMzf8QAFqP0L9v+TlX1LgjI1NVimsLYguCvEzx3OtYDNhHppqNjO
-	5HzjHGMoUTOVc9QQ6N10hok2xplgtA+mc9nSaCsK8knqyMIPT9QAZsjgnGOgVjJHwWecglqLwVw
-	UsIWz+uKIYZ197NrKMm+XTyUcDaJpKbF0TN0rLkkkQZIxE2CmENgcs4GNRpPdgMpTEaXkmKAyEZ
-	j+StjDF+0Yzz5vXA4adVY8kVA9vyBxr5kJXNhicbzO41nLqDHerWrEFVCHWC0PvGmybJd8fMB4x
-	MacSctySAQy7M1A5PJhlO+yffZVVydCpS9uTDC9t2oQbVfm/DKKs5XUQOLVQQIuiBk1uo7gHzBq
-	Ijc60=
-X-Received: by 2002:a05:600c:1990:b0:493:c8a6:b517 with SMTP id 5b1f17b1804b1-49800ec0955mr976765e9.38.1785360960641;
-        Wed, 29 Jul 2026 14:36:00 -0700 (PDT)
-X-Received: by 2002:a05:600c:1990:b0:493:c8a6:b517 with SMTP id 5b1f17b1804b1-49800ec0955mr976635e9.38.1785360960311;
-        Wed, 29 Jul 2026 14:36:00 -0700 (PDT)
-Received: from [192.168.10.48] ([151.95.34.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-498012168e7sm56715e9.15.2026.07.29.14.35.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 14:35:59 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	stable@vger.kernel.org,
-	Yosry Ahmed <yosry@kernel.org>
-Subject: [PATCH] KVM: SVM: Update x2APIC MSR intercepts if AVIC is inhibited while L2 is active
-Date: Wed, 29 Jul 2026 23:35:58 +0200
-Message-ID: <20260729213558.639074-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1785361099; x=1785965899;
+        h=content-transfer-encoding:content-type:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P8JcMxOrk0I7ocobuRHJFmaWBnda7tkmjmlMAL2jwZY=;
+        b=ivHPRgA1dbu1L58TCLG1MGBqFXQPdutq5J2BZ8S4FYdhMPQcToqND9BR3E2440ly3l
+         eDZcgBr+7PW1tPtvI0W5YPzEOG7711HMa44uKHJukzb7Ib5Ob44OPj4i0oeydz9RhyFr
+         HVAgO+7o7b7cWXP4e00t5je0Rn3aCRT8uQzPzLVwBju2OoBDszbcky/d0M6a9f+ZEA6C
+         0nfdqnWDQGWyv46FWNS/b17ar14vwVsug7KfgbgAZjh2NMitRchAi7XNv7KTMK042/kN
+         mwH2UCxHJklND/Nm0Bb61lUj/j43EMgiuL0C0IsGXkhg2vFDYDMLfqrD6pWNPJKIAsoN
+         DOiA==
+X-Gm-Message-State: AOJu0YxSAQe8LtcRWuOnFq5nPSQB4KhiwEcdph2fhYQg02Vp+Yyt20Cx
+	a+2VaIU0Eqx1yf+zcj0yZDTLutmknD7JjzJEr9nIldZh9KdowV1HcnciguLXhhyYP0w=
+X-Gm-Gg: AR+sD12KXi4hY0VSmeXU6UVRf4gOt0W3AvEb/8kXlDx+tWwoQw02jESP2VsA2cU4+B2
+	OTUPffhBrnaF8kesT5+mSSuWaV2u0jv/12mwdYMy94ZUumtp32MIBBXknAfaOfetj1axkDViWc9
+	xijqUqyh0Lo0tKXYA3PCADS8Vh3kOgwxQtdphmHHD7ig0nWr4vPiMWpXTYHIwoFSuNWo0jM1NtG
+	EAqcf/PoxqoCjwcFWOg6WTVAEhvEPHd/iMxav++BM9nvkdnvcJ7+Elw9BdMoxMVxpAUmU2JSvv+
+	ed36NputNUPJsWjy4JJHxSciNTZG+QcDEUSG37oPth2MRTLnDCHBaPJ3JlqP0orE8t692GgtQ4k
+	QzedhejImJkplTaHekXH9VQPlK7Q5pc9EfjMHggAtn9UOrmntRJis6oBNEwivYf0CQWNok7EbXf
+	4h1cAUPb66o3bwFY2iYme6AvoPi5D895M7h20BDQb3B0N0/oflMwoC70AQq/TmNGoPyzvLA5X/C
+	lQkhjVUaJv9hMP+obPHaYhiWAhVl2WsCJNw
+X-Received: by 2002:a05:6000:402b:b0:47d:f445:9490 with SMTP id ffacd0b85a97d-47fc8220b74mr29186f8f.60.1785361098721;
+        Wed, 29 Jul 2026 14:38:18 -0700 (PDT)
+Received: from [192.168.88.241] (78-80-108-129.customers.tmcz.cz. [78.80.108.129])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc6e4f9e4sm637508f8f.36.2026.07.29.14.38.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 14:38:18 -0700 (PDT)
+Message-ID: <ee95f6ac-181e-4315-a2ae-e4d1388c5e69@ovn.org>
+Date: Wed, 29 Jul 2026 23:38:17 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: stable@vger.kernel.org
+Cc: i.maximets@ovn.org, Pablo Neira Ayuso <pablo@netfilter.org>,
+ netfilter-devel@vger.kernel.org
+From: Ilya Maximets <i.maximets@ovn.org>
+Subject: Backport request: "netfilter: nf_conntrack_expect: restore helper
+ propagation via expectation"
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Sean Christopherson <seanjc@google.com>
+Hi.  The mentioned commit dcb0f9aefdd604d36710fda53c25bd7cf4a3e37a
+was backported to 7.0, but not further, while two commits it is fixing
+were backported down to 6.1.
 
-Always update x2APIC MSR intercepts for L1 when AVIC is deactivated, even
-if L2 is active and KVM is using a separate MSR bitmap to run L2.  If AVIC
-is fully enabled prior to running L2, and is then inhibited while L2 is
-active (for a VM-scoped inhibit), then KVM will run L1 with AVIC disabled,
-but with x2APIC MSR intercepts disabled, i.e. will allow L1 to read most of
-the host's APIC state, send arbitrary interrupts, change task priority, and
-ultimately trivially DoS the host.
+Admittedly, the patch is not very important as far as functionality
+goes (at least for FTP), but the issue does change the user visible
+behavior and that makes all the FTP system tests in openvswitch
+project (in userspace) to fail.  This makes it harder to validate OVS
+on kernels below 7.0 and makes it unnecessarily harder to validate
+changes for the openvswitch kernel module on stable kernels.
 
-E.g. sending a self-IPI in L1 on HYPERV_REENLIGHTENMENT_VECTOR, 0xee, with
-CONFIG_HYPERV=n in the host kernel as a "safe" PoC, yields:
+So, it would be really nice to have the fix backported to the same
+branches where the commits it fixes were (6.1).
 
-  Spurious interrupt (vector 0xee) on CPU#425. Acked
+AFAICT, cherry-pick works without conflicts down to 6.6.  For 6.1
+there is a minor conflict, 6.1.y has the extra debug message:
 
-And hacking KVM to abuse kvm_set_posted_intr_wakeup_handler() to register a
-handler and WARN on POSTED_INTR_WAKEUP_VECTOR yields:
-
-  ------------[ cut here ]------------
-  WARNING: arch/x86/kvm/svm/svm.c:5594 at pi_wakeup_handler+0x9/0x10 [kvm_amd], CPU#156: nested_x2apic_t/316940
-  CPU: 156 UID: 0 PID: 316940 Comm: nested_x2apic_t Tainted: G S   U
-  Tainted: [S]=CPU_OUT_OF_SPEC, [U]=USER
-  Hardware name: Google Astoria-Turin/astoria, BIOS 0.20260209.0-0 02/09/2026
-  RIP: 0010:pi_wakeup_handler+0x9/0x10 [kvm_amd]
-  Call Trace:
-   <IRQ>
-   sysvec_kvm_posted_intr_wakeup_ipi+0x64/0x80
-   </IRQ>
-   <TASK>
-   asm_sysvec_kvm_posted_intr_wakeup_ipi+0x1a/0x20
-  RIP: 0010:vcpu_run+0x1430/0x1e40 [kvm]
-   kvm_arch_vcpu_ioctl_run+0x2c1/0x600 [kvm]
-   kvm_vcpu_ioctl+0x580/0x6b0 [kvm]
-   __se_sys_ioctl+0x6d/0xb0
-   do_syscall_64+0x10a/0x480
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
-  RIP: 0033:0x46ff4b
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-
-Fixes: 091abbf578f9 ("KVM: x86: nSVM: optimize svm_set_x2apic_msr_interception")
-Cc: stable@vger.kernel.org
-Cc: Yosry Ahmed <yosry@kernel.org>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20260710162052.2188574-2-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+diff --cc net/netfilter/nf_conntrack_core.c
+index f5c466ea1e7d,8ba5b22a1eef..000000000000
+--- a/net/netfilter/nf_conntrack_core.c
++++ b/net/netfilter/nf_conntrack_core.c
+@@@ -1800,8 -1811,8 +1800,10 @@@ init_conntrack(struct net *net, struct 
+  		spin_lock_bh(&nf_conntrack_expect_lock);
+  		exp = nf_ct_find_expectation(net, zone, tuple, !tmpl || nf_ct_is_confirmed(tmpl));
+  		if (exp) {
++ 			struct nf_conntrack_helper *assign_helper;
++ 
+ +			pr_debug("expectation arrives ct=%p exp=%p\n",
+ +				 ct, exp);
+  			/* Welcome, Mr. Bond.  We've been expecting you... */
+  			__set_bit(IPS_EXPECTED_BIT, &ct->status);
+  			/* exp->master safe, refcnt bumped in nf_ct_find_expectation */
 ---
- arch/x86/kvm/svm/avic.c | 8 --------
- 1 file changed, 8 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
-index 58e493a80cb0..16e09a8fe85e 100644
---- a/arch/x86/kvm/svm/avic.c
-+++ b/arch/x86/kvm/svm/avic.c
-@@ -240,14 +240,6 @@ static void avic_deactivate_vmcb(struct vcpu_svm *svm)
- 	if (!is_sev_es_guest(&svm->vcpu))
- 		svm_set_intercept(svm, INTERCEPT_CR8_WRITE);
- 
--	/*
--	 * If running nested and the guest uses its own MSR bitmap, there
--	 * is no need to update L0's msr bitmap
--	 */
--	if (is_guest_mode(&svm->vcpu) &&
--	    vmcb12_is_intercept(&svm->nested.ctl, INTERCEPT_MSR_PROT))
--		return;
--
- 	/* Enabling MSR intercept for x2APIC registers */
- 	avic_set_x2apic_msr_interception(svm, true);
- }
--- 
-2.55.0
+WDYT?
 
+Best regards, Ilya Maximets.
