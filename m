@@ -1,107 +1,216 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E97132E141;
-	Wed, 29 Jul 2026 15:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785339744; cv=none; b=B2jHetru7bsROzYPDZR5TtpQ50VyGseFVIteIfSc2vHFAlnw/D0fIvwdku4x7s7qPPNnqors6iIHwqGW/anl1zCUCKwXRAVHQZOs/uVh7Y7bONg1U5Z6VvRFavqC6h8MzlGMKQl4BxeLKevWpOiOaDQN8nO1RTV0ZTMnAQWeDY4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785339744; c=relaxed/simple;
-	bh=V1ojd/4yveY2PmeTWOZMsJP2TupBCu8ztBebLvQqEzY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TURvUrs0CeScr6m3WxNUrxT1ntJWSy2WkcHm9qCvLwXAYtQiC9GwVO6pfFRsBTPHBMyBdurx4zTcBki/BoMdlX/YTVcexFn/7fPGsjf4/elIZ1qPFVTdo5uYD09Haob4zRH1sZYjYLGvD581bdX35vobu+F6V8vcetwgCcbrS0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=bkuuS+Wg; arc=none smtp.client-ip=185.70.43.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9568E3563FA
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785340056; cv=pass; b=JoR4v2YVV6xV+RCqZN0mOeFM3OI7CKKwta2XacmEyk10DRIULk54s4LwJsq5dpAsJksrvG6nByn6NGgNPaNtz32pCl5tXWaEzoRNibMpwH43iK3xwBWyjz+gSoKrofHPdrqQ9udaZBlQBAtLOYybF1LDlyevmEyaIxSecdUiOJ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785340056; c=relaxed/simple;
+	bh=mgGDW7odZQJtTZPmsadDeUWjf7CLsPvSwU4pVoMogJE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rwHU4ybbKgSYgi4A3ItZMDOyZFL0Lf9u2BQIXsrce4b1QuU8JJxc0jliqJihhNkaakACLpxTGC5xEYtqpjR7/zVcGi9aLN/HvI+HZ8OH1v4++xQQyeAAvZrF4X10RbmJ8VP/ElgnmVdOpjxaJg0TUguw3zzu0x8SjjDzG0o2CEo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kFdG+0mv; arc=pass smtp.client-ip=209.85.222.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="bkuuS+Wg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
-	s=protonmail; t=1785339731; x=1785598931;
-	bh=LYStA+2zmysDnxsvcdoPSc3hKPcnNLjoaGp8ziw+rKQ=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=bkuuS+Wgxr8PA4cfPqLjY27HnHWWvVmYd73/6fyluTKAcbpMXfxiz7cgnoD1zo3kI
-	 SsVQ/L2+Grc2GRCjBw6cX3dhzX2ijaczC+y8xoUwRiT/0FKLBsI3gkXD5JxFOUHTgM
-	 4gqlhFx9hMJGWuJgCZTRXv11NTcXTTf3hPfMhFEKBQPLL6ZVuCTfpy+G5OEOc4hKCj
-	 bzRqt2CtiUKC2SRi5jiIavAkQ/B9fVQ0BMJgqT1nVnuaLzRz3/9U+ZoQp9D7N0YTMb
-	 8QmdjzH3/Dnr+Q+FVT0ZL9nPHP5+F/jkQ6+AKQ4+I5JBSjjwJrqxvE/grMu99OO95/
-	 dBvhYQtwPmyEg==
-X-Pm-Submission-Id: 4h9GmJ5SJSz2ScqT
-From: Jakob Berg Jespersen <dev@berg.pm>
-Date: Wed, 29 Jul 2026 17:41:25 +0200
-Subject: [PATCH v2 1/2] media: i2c: ov8865: fix horizontal flip control
- polarity
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kFdG+0mv"
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-969524c1a63so624915241.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:47:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785340053; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZYAtRU/ROhGckrSIO1FGFOTraXxWw7b9zIBiGe1VytaUDs1D5xmoN0gYx9QhhWA+ks
+         dMeQrwRw7Sj6eMDXKob5u/HZmNTbBnTQpGyt3qdZqPGhRdDVLcFAkbO1ysKf6pcby9RP
+         RgyNRcF7oeCACSzH/RMF2py9xXM+F90VsQD0Z0wDCVCmQsjuOEWsRs8F5UEKDg4N19o9
+         dnhzt7dKvPYjwgkUN+nRDdPhkrOTpEUDIfXy7/9D9HVtMx/NW+1p8JsevQMkq+wOCjzE
+         W3Gza7d6t5fD8/KWZEkEojz8jwJDie1lp9DRFskejk1agtKqBM48ZpcY8KRC07FV6wSO
+         MEag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JPm1Zkyu3BaX1h8XC4TjYemj4kfTSOFBWz8obT4dB9k=;
+        fh=m4r6seMh2dAiOHOfNk8Kac8K6pvS1u0zCk0qF7yO1OM=;
+        b=A2keqgEg+ofvHpBamJqcXFnz9D8dlcFUdih3sfx3XT7q5+BrBrwdzd1tBH8QVGjBqg
+         MRBxDrcORr37vcegMi3QBdCWJWmKKq+9ivwZLuBj1aSonlVtn+VtiT+hg9SoeidfGsNN
+         HXnDJUwbvq3N1qSe+pMn1OgQifIPsWDthAkmGtB6IuYJ1GpvWm/A1QhNz8gzeYvPmLfq
+         BBgL4DIWODnglNqYyzQFppl+nhIoOyjsFLr7dsA37FcSF8Ft7SzSLOq3ipFWpT7UFarf
+         KLgkUNITdO3vDwBCzuup+WMjv3eHQkAwIwCPhUNLLzM6fUPAc6KqtEMjHNFVaClunzqf
+         5ZgQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785340053; x=1785944853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JPm1Zkyu3BaX1h8XC4TjYemj4kfTSOFBWz8obT4dB9k=;
+        b=kFdG+0mvD9EcLXxllv4ahYIH+C+fdXF6/i2UbccqNWiIkDQcxITIoalcJqczDUl2W1
+         5WIhowg2UA2mJvM7BQRZit2SuGAVRosT4Wb/OKm8COE9w+/NSHmYo0vn4RMiewKKjDyo
+         TyWNrLt2Dx6/e6/M10T4GAUNZCdIZ0Bvnh84+u6Fts4iGz7dtBKOFSE7qFK4aKLGdWDf
+         nyDU6Utmn4FaEBmxVzggZmoYUBjLbgOVoz9WwERUib+soQvnNV3WbPI7eHCUuX/a1uOG
+         ui72zNlX7pvMAbxQvd/hLa3Hm6p3vAm69cKRohFWpfnFHYbIN8EEh0U5I35n2wRvQzcd
+         1Z3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785340053; x=1785944853;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JPm1Zkyu3BaX1h8XC4TjYemj4kfTSOFBWz8obT4dB9k=;
+        b=JVpnPGazplMVZ4P0rUcwmAOJkciuhp3daEQ5/Iy0kHmzNUDabpF0Bh0qUQJBywxKfA
+         Ao1tN8ESYDdlXyE0YnKIyjeBiOFcZgNxsfdr2so/zII9DyEva+Y9QZNTUJL5ImogPb9B
+         HM1fUK3xxwt7auKHYK7vxGfTEJzkW7p0QNbAoPujFTH4V1niI3D62y1wuh1mCDjbEUOz
+         DMJWnpFMXTsXgh7bp84stw2Cg5fbPez9Ljz2LWjN4MgajBlm3sVEyKWFGVEnPtP0Hsgw
+         i1g4UuGq2MW21GJxeNEMKTVOEfXbl65AqQu5CKwS7xRJpDCsnxuCyoqFJsEmavhcwAOy
+         ICaw==
+X-Forwarded-Encrypted: i=1; AHgh+RrBOvlnmL01DkZQsO+iLxHHLlbQDq72/iZVnW6CflGgnVjQ1LPNdEiMkXvBeio/mP+ACCefR3k=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQVsM7gSWhH55Hhudd6QMTz8rW/6mOpNvT3cIAJR98VY+PJx0V
+	7wl48xhUjEM1U3NAWhT9zNVzhBIB38/1wv/CwU5riilGOCDByWYSpZ6r3cqi8k3qrVB6eMRAhPG
+	S25PB8l1qxEkBWGSPEo3arL+1Ij8fyls=
+X-Gm-Gg: AR+sD12JCkXlJY4iRzWWBvXFkZ7kqqxNmq4AE/r5kbrUb0qiya6LuFL/4bMOzmrM8Wy
+	pSA9O8rzc0LBbfbPDsr29QIghZkPcyH/EShsziD0wig+LcJsmJb+yEwcyR9AzyI33fQS6mc7jPw
+	Pra8LHpvvRXn+lGTV2gLLu181HBkKwj3TKOnXDEpv0SwwFa260nv4Ml1RZH79+Yfq75bsEP+Jaw
+	LBJtY9IhTEZnwqWNnSX+/N6/moZ+CJsREBSE5u9hSbPRzSRiT0FpW6yFv4QyZpc6hn7dJhG0T3a
+	udKdvjBqnWPRcr6zkoqG/zoCBuLYf1d5EOSiXrIPruTO6/lvsNABhgXdWPoh9EjMVwhdXgupdek
+	pFX21a17TdegHEXSkBjAmH5G9QVUO4+/5Ib0zhpXUWhM=
+X-Received: by 2002:a05:6102:512c:b0:722:826e:1423 with SMTP id
+ ada2fe7eead31-754a23c05ffmr3550572137.20.1785340053326; Wed, 29 Jul 2026
+ 08:47:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-sp7plus-ov-flips-v2-1-91884b81a8f5@berg.pm>
-References: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm>
-In-Reply-To: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- =?utf-8?q?K=C3=A9vin_L=27h=C3=B4pital?= <kevin.lhopital@bootlin.com>, 
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Daniel Scally <djrscally@gmail.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Tooraj Taraz <tooraj.taraz@yahoo.com>, 
- "Joseph V. Lavigne" <jlavig88@gmail.com>, stable@vger.kernel.org, 
- Hans de Goede <johannes.goede@oss.qualcomm.com>, 
- Jakob Berg Jespersen <dev@berg.pm>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785339726; l=1439;
- i=dev@berg.pm; s=20260719; h=from:subject:message-id;
- bh=V1ojd/4yveY2PmeTWOZMsJP2TupBCu8ztBebLvQqEzY=;
- b=+GnsGCZ4IJ7AHjsi2Rv//VhFYPRdNbHUvRC4GUkDOpOwABbzx0xI21PMsZKG/Nxx3ROS8gYBD
- njNENALsjeNAt81MPs2/ZTo5XP+L5wxlmHpN1nWbamqAMbz6wz+DfzR
-X-Developer-Key: i=dev@berg.pm; a=ed25519;
- pk=b1r+eoJThwSQ/r5DjO7jrcosyrIsyhlOuKk9CBdvBxs=
+References: <20260726060453.42730-1-baul.lee@xbow.com> <20260729124929.5885-1-baul.lee@xbow.com>
+In-Reply-To: <20260729124929.5885-1-baul.lee@xbow.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Wed, 29 Jul 2026 11:47:20 -0400
+X-Gm-Features: AUfX_mz9nZndAK9KdmKF1YI91jpaV8MXnQ4Zg4xcsY1aSJ5xem0vHknyrBE68Uk
+Message-ID: <CADvbK_cv4CAqN4sX-M0onYZjCeF03==vpkgt6AfvohFn8qvLnA@mail.gmail.com>
+Subject: Re: [PATCH net v2] sctp: keep chunk->transport in step with the list
+ it is queued on
+To: Baul Lee <baul.lee@xbow.com>
+Cc: netdev@vger.kernel.org, linux-sctp@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The sensor's native readout is horizontally mirrored and the FORMAT2
-FLIP_HORZ bits (reg 0x3821) un-mirror it. The driver sets those bits for
-V4L2_CID_HFLIP=1, so the control is inverted: HFLIP=1 yields the
-un-mirrored image and HFLIP=0 the mirrored one, the opposite of what is
-requested.
+On Wed, Jul 29, 2026 at 8:49=E2=80=AFAM Baul Lee <baul.lee@xbow.com> wrote:
+>
+> __sctp_outq_flush_rtx() moves a chunk onto transport->transmitted in two
+> places but only one of them leaves chunk->transport describing where the
+> chunk actually is.  The ordinary resend path is consistent because
+> sctp_packet_append_chunk() rebinds the chunk in
+> __sctp_packet_append_chunk():
+>
+>         list_add_tail(&chunk->list, &packet->chunk_list);
+>         packet->size +=3D chunk_len;
+>         chunk->transport =3D packet->transport;
+>
+> The gap-acked path has no such rebind.  It parks the chunk on another
+> transport's transmitted list and leaves the stale back-pointer alone:
+>
+>         if (chunk->tsn_gap_acked) {
+>                 list_move_tail(&chunk->transmitted_list,
+>                                &transport->transmitted);
+>                 continue;
+>         }
+>
+> So a chunk can sit on a live transport's transmitted list while
+> chunk->transport still names a different transport.  If that transport is
+> then removed - sctp_assoc_rm_peer() from an ASCONF Delete-IP - the last
+> reference goes away and sctp_transport_free() RCU-frees it, leaving the
+> chunk with a dangling pointer.  sctp_assoc_rm_peer() scrubs the
+> back-pointer on peer->transmitted and on asoc->outqueue.out_chunk_list,
+> but this chunk is on neither.
+>
+> While tsn_gap_acked stays set the dangling pointer is not followed, since
+> sctp_check_transmitted() skips the flight accounting for gap-acked chunks=
+.
+> A later SACK that reneges on the TSN clears the flag, and the next SACK
+> then reaches
+>
+>         tchunk->transport->flight_size -=3D sctp_data_size(tchunk);
+>
+> a read-modify-write inside the freed sctp_transport.  KASAN reports a
+> slab-use-after-free read of 4 bytes at offset 216 of a freed kmalloc-1k
+> sctp_transport in sctp_check_transmitted(), freed from
+> sctp_assoc_rm_peer() via sctp_process_asconf().  The removal and the
+> faulting SACKs all come from the association peer, so an application that
+> speaks SCTP and accepts multihoming is enough to reach it.
+>
+> Assign chunk->transport after both list_move_tail() calls, so the
+> back-pointer always matches the list the chunk is queued on.  Doing it on
+> the ordinary path too keeps the invariant local to the move instead of
+> resting on a rebind that happens later and only if the chunk is appended =
+to
+> a packet.  Fixing it here rather than by scrubbing more lists in
+> sctp_assoc_rm_peer() covers the chunks that were already migrated before
+> the transport went away, which a scrub at removal time cannot see.
+>
+> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+> [Reported privately to the maintainers on 2026-07-10 with root-cause
+> analysis, a PoC, a KASAN log and a fix; posting to the list was requested
+> as the follow-up.]
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baul Lee <baul.lee@xbow.com>
+> ---
+> v2:
+>  - fix the root cause in __sctp_outq_flush_rtx() instead of clearing the
+>    back-pointer for the retransmit queue in sctp_assoc_rm_peer().  The v1
+>    scrub could not see chunks that had already been migrated onto another
+>    transport's transmitted list before the removal, which is the case the
+>    reviews on v1 asked about
+>  - correct the Fixes tag: the inconsistency is as old as the code, not
+>    introduced by df132eff4638
+>
+> Link to v1: https://lore.kernel.org/netdev/20260726060453.42730-1-baul.le=
+e@xbow.com/
+>
+>  net/sctp/outqueue.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/net/sctp/outqueue.c b/net/sctp/outqueue.c
+> index f6b8c13da..1b2d08f2e 100644
+> --- a/net/sctp/outqueue.c
+> +++ b/net/sctp/outqueue.c
+> @@ -650,6 +650,7 @@ static int __sctp_outq_flush_rtx(struct sctp_outq *q,=
+ struct sctp_packet *pkt,
+>                 if (chunk->tsn_gap_acked) {
+>                         list_move_tail(&chunk->transmitted_list,
+>                                        &transport->transmitted);
+> +                       chunk->transport =3D transport;
+>                         continue;
+>                 }
+>
+> @@ -715,6 +716,7 @@ static int __sctp_outq_flush_rtx(struct sctp_outq *q,=
+ struct sctp_packet *pkt,
+>                          */
+>                         list_move_tail(&chunk->transmitted_list,
+>                                        &transport->transmitted);
+> +                       chunk->transport =3D transport;
+>
+This one seems redundant on the default/SCTP_XMIT_OK path, as it's
+already set by:
 
-Invert the polarity so HFLIP=0 yields the unflipped image.
+  chunk->transport =3D packet->transport;
 
-Found on the Surface Pro 7+ rear camera (180 degree mount), where
-libcamera's HFLIP=1+VFLIP=1 correction otherwise produces a mirrored
-image.
+in __sctp_packet_append_chunk().
 
-Fixes: 11c0d8fdccc5 ("media: i2c: Add support for the OV8865 image sensor")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
----
- drivers/media/i2c/ov8865.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Could you please remove the second one? (Sorry for not noticing this on v1)
 
-diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
-index c6d53c3d55ca..ccda33839246 100644
---- a/drivers/media/i2c/ov8865.c
-+++ b/drivers/media/i2c/ov8865.c
-@@ -2204,8 +2204,9 @@ static int ov8865_flip_horz_configure(struct ov8865_sensor *sensor, bool enable)
- 	u8 bits = OV8865_FORMAT2_FLIP_HORZ_ISP_EN |
- 		  OV8865_FORMAT2_FLIP_HORZ_SENSOR_EN;
- 
-+	/* HFLIP is inverted on this sensor: the FLIP_HORZ bits un-mirror the readout. */
- 	return ov8865_update_bits(sensor, OV8865_FORMAT2_REG, bits,
--				  enable ? bits : 0);
-+				  enable ? 0 : bits);
- }
- 
- /* Test Pattern */
+Thanks.
 
--- 
-2.55.0
-
+>                         /* Mark the chunk as ineligible for fast retransm=
+it
+>                          * after it is retransmitted.
+> --
+> 2.53.0
+>
