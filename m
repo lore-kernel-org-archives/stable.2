@@ -1,105 +1,258 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A14443E22
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:54:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785318854; cv=pass; b=Fxi5s+4jafXMcRvnUomJsxpmQRGGUIjGSzbhVXd5hJlgwIRQyWqvWteB5qpLUB5RZQP5kJHEkMpPwn9tspxkJ0q5JhVzZB1zE/OaUBTnh30wEXinxJv2N+7IMcUeopRkAfsBtHmAHcBQj1x5JJJTkGFWNT/sgZ6EZesenUhTdJw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785318854; c=relaxed/simple;
-	bh=rP7BjFvQ2F1S8qcl0M/g0VqSVGVgtmQW6//1T0K4nNg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rsQ5BZcLoisYBA7seyzIFC1oWyLTv3gm2IWtqr12gWaIl5nBSvS4iHSrFmkXiCe9Vk32P9szZo7+mT8fPVvlghspRni1Pil/yGS/DbGOQov0iaVwFDwRKgY7VjwTkTU0nzgiwyaggk5YFBfYeseHSnRCt5nFy//QAVf/j6x70m4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0dnYfuN; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344CC1DDC07;
+	Wed, 29 Jul 2026 09:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785319038; cv=none; b=O6eiZjVAfjiyqk7hv5RaU3cR1rcpiRHY9JkvDUeMjMeISsmRNg6i2KgYOgf4UqgttIJgslvy4NHbLueiD2jzorkclMRCk8cmU0y4TIsQORxwEflLqn5Y50nN3tN3797UIpsGSLyUzxeLJd+BO/R2a+OiV+lI3xXlQc0eDAeEolM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785319038; c=relaxed/simple;
+	bh=h9b0rIzaegj1qSh8O4vdj8qSzwsMTKra4qIDJbirH2o=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jqhEuHpvP5M3uoFOLQKbwllyyBXevbGXNRkc1CjIQqSqCLwgA1hdizONn7smuhaejBKTO6AP8ZCXqAsEsfYetI4V21W76r4Nr3UDBCQhP1sxsiOKzC8BsRlteY644tLjlil30lEuioWwB7el9p7Us6CgsibgnTP3VfGtM02aF2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=I2AU6TlI; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0dnYfuN"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c96d7933910so81313a12.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:54:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785318851; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XhTpk4epzCm/v+UowqHuyZ2Op2EjnyuFjQczrJV08NfAHwxA0FJpjVDaxcRBkcXBbi
-         xElQL9Z2R2zANG3QMCaS43Hefh3Y/9y83+9yDVhPtuP4eixs6ihW6uOS0zxPgClBQuHN
-         m9KntaVPjbIfISP8g6/YHVIaxZrOG2KxJRuuYzR98x2NwGOM/o0X6v8xjJph6qCJ0kQM
-         leXd+h4S5oB/DscommDAWdhiLcn41DjwKbmDTeBg5QadSUQiYfQZC8B4CeM0MG4V7cX4
-         9kjTiQlpKRuHN6iespJVmIfyc2+dX3Sm4pJVlJmAgxy2R55AUEhIrTLM79fWl/nhm9be
-         WT/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rP7BjFvQ2F1S8qcl0M/g0VqSVGVgtmQW6//1T0K4nNg=;
-        fh=QZF//GY0ag6gZiC9yj/tyNY83NxwR/47qxmN65Ny4Og=;
-        b=mnBesh9BUH8XceJD291uma5IsXvVOsKKFdzDYms00F18R1HitsoDdGPyocUZmyD+14
-         glOTCaBooSUS0+cosj8jQSE4h8ohCwaSXMokhxIiZxVBklBrk3LVPvMSjo8olsL/hPsR
-         AW+dC2WzGTG8zHVBCEVM2NNOGvOkFJz+ke/lcMrnMSU19YboEipgeJEgr8tVB9JQJFSC
-         uEma210Ob+6lja1YZqVOUahExg9UxlzT7UtuMPaSvisLJEvRUddV2RGm4eXNva66Szdf
-         dgEUufWuONaCiyRtQnhkihWZ2fXh4/mb534fnaGKfdx/aXlBOJ9p2xgvcbtoQanCVjky
-         EW4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785318851; x=1785923651; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rP7BjFvQ2F1S8qcl0M/g0VqSVGVgtmQW6//1T0K4nNg=;
-        b=L0dnYfuNzOYQSr3J7VZVopp4qKSAi5nblaCELmd26htBYgoN7ldSHNKxrWAv2C6xuZ
-         4C/UKWoUUhRe+dCyBhdqU9yePQ19vWIiw8fOeinAOCNe21z5KBkRdnJ0UXmR6Xq9lCiv
-         dbJPZI4N4E2ZlFaJs53qNSONVP8u4j0uFA89BoUwSdOpl5XSGibTTWWQBQP+hxrfQuNQ
-         b9OOUWkCq6o+Icz7vjTawW1rbxQglKT88yiK0fizHYonD57JY2NxNOvUxcbJhO5Xfynq
-         ExSkA8ORgL9E79mtVMyOvDH6ikJfR4ry9WAPWxY9woP2cUOtAZ8Y4dK/7Mxpd1eugt2F
-         k7sA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785318851; x=1785923651;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rP7BjFvQ2F1S8qcl0M/g0VqSVGVgtmQW6//1T0K4nNg=;
-        b=bpUHe5H6LsV1jQjAVlTr8ADcEYp6jS2sGFxufVQZKqMTRXQRmfMW55yNYSHnBw+taR
-         pLh0j6yAAJmIKGANpxtTca5NtySzsqs04miewmANsTVjDdlSFlYRubNdK84isM59H7V7
-         ECnUaMQCIwKymcqCwd6T+3+sCfyYG9euT5Z4sbl2DdI2Cr+GwsIaBl6lPtRD6VJRZ0/1
-         L7s/rxdGAhkLemn/3PijkpY/qpBxoTF8AetDp0VNA6gfFzEISBEuTWQ3fWonX1JDOKzS
-         ULOxT3R5W5qLFFVdKGFDcAlMvJPDGkMWa6jK7G1Z4T8ugf0mWpjAgG4tCRGOO2NDSuVA
-         VuJA==
-X-Forwarded-Encrypted: i=1; AHgh+RonW5kkkuVLPaYoSM+76LrRusB/2xB4+hPCvPtwKr2f0nRnsJiLbZK4VnANENao+GFBwiLEp7M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjCbuq0SJ/3T1QbuOqIaTZJ/9tA3JemVyRfaQfnI2P8E0Xnbw/
-	e7D9Q6LClhD9n1YailBrbty3sJ1Urp6oATbLAw0YUL6F5/GKsQXb3y9dR65cksj3yP9M5AxZrFO
-	0qczoef919pg6weHvETk1NqlaNq5Cgbs=
-X-Gm-Gg: AR+sD10jQCvvC8wwrGQ4M5qSSaCesagJS01q9U9QFEanGSnPa5Q3gJK1wu442Ctth9Z
-	E2dfpvRzbj2bdqInUMpx1M/EENREzOTPf5tlVPiK8JHBgjReFysZWwhCoFycGLxptJp5koBXOYT
-	DbiUrLqibYP/oq4mQhB47OjOWpwZ/mhQDXljq9KSO92iNJKU4nWiHTfkFn+b20NZ92KTv0FzJAP
-	DdJyrCwDKDcdorbEvRRepwQb069xvRclkDlXxqEYJyiWmobsDQcA9+udCC1c8z6/JTUMqJHcMqy
-	PK1+SmdgN8shOnuV88dtFEUMHbd2pPGKg5KrN/YHP2+HqlS/jZGLsewMn4X+1tVXlGbzcHZPiWX
-	A8XFszXUv6bPWTF9PRUr6DaQD+EE5I0OqeA8=
-X-Received: by 2002:a05:6a20:dd93:b0:3c8:e10b:7aa0 with SMTP id
- adf61e73a8af0-3c8e10ba35amr1946887637.4.1785318851492; Wed, 29 Jul 2026
- 02:54:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="I2AU6TlI"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Wjfz7u8Jjtoo9lneWaMiq4ptplMXYpCDbTPTzsZbqGY=;
+	b=I2AU6TlIkp48Hpytaiu6thA046L8hywVvahEPl/bM0sDfoILItxbSuGKeSeM0qIGiC/pW47+1
+	TKrcq9mIeaK3z7P9Zy3A+1dNeqPmE0fgpilAue+avNo7wsJ2LihZfDP9/u9aIIIDK5E+4KQ2+dk
+	x9C75brrzOEPm8EmCRvP1ko=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4h96vJ40q0zKm6V;
+	Wed, 29 Jul 2026 17:47:40 +0800 (CST)
+Received: from kwepemj500018.china.huawei.com (unknown [7.202.194.48])
+	by mail.maildlp.com (Postfix) with ESMTPS id 15A794057A;
+	Wed, 29 Jul 2026 17:57:10 +0800 (CST)
+Received: from huawei.com (10.50.85.128) by kwepemj500018.china.huawei.com
+ (7.202.194.48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 29 Jul
+ 2026 17:57:09 +0800
+From: Li Xiasong <lixiasong1@huawei.com>
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, Andrew
+ Morton <akpm@linux-foundation.org>
+CC: <stable@vger.kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter
+	<cl@gentwo.org>, David Rientjes <rientjes@google.com>, Roman Gushchin
+	<roman.gushchin@linux.dev>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	<yuehaibing@huawei.com>, <zhangchangzhong@huawei.com>,
+	<weiyongjun1@huawei.com>
+Subject: [PATCH v3] mm/slub: fix missing debugfs entries for caches created before sysfs init
+Date: Wed, 29 Jul 2026 18:18:49 +0800
+Message-ID: <20260729101849.3734287-1-lixiasong1@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260729030122.21462-1-q.h.hack.winter@gmail.com>
- <20260729030122.21462-3-q.h.hack.winter@gmail.com> <willemdebruijn.kernel.36b6c7169b6c6@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.36b6c7169b6c6@gmail.com>
-From: Qihang <q.h.hack.winter@gmail.com>
-Date: Wed, 29 Jul 2026 17:54:00 +0800
-X-Gm-Features: AUfX_mxhkvmo3EEEhm9LRdfp5oOIoHFBG_U9ePZX4E9k50o-Kfi2gbetm8DrHvI
-Message-ID: <CAH78Gvsoa72OU_5ChR0hboEPO13cGoEdVFDRmeNzmRZ_1gMtww@mail.gmail.com>
-Subject: Re: [PATCH net v4 2/2] packet: use consistent hard_header_len in
- TX_RING send path
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, daniel.zahka@gmail.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemj500018.china.huawei.com (7.202.194.48)
 
-You are right, this reset is unnecessary. vnet_hdr_sz is fixed for
-the entire loop. When it is nonzero, copylen is overwritten with the
-current frame's vnet_hdr.hdr_len; otherwise hard_header_len is a
-constant snapshot throughout the loop.
+slab_debugfs_init() creates the slab debugfs root at device initcall
+time, while slab_sysfs_init() moves slab_state to FULL at late initcall
+time. SLAB_STORE_USER caches created in this window miss their debugfs
+entries because do_kmem_cache_create() skips debugfs_slab_add() when
+slab_state <= UP. This was observed with MPTCP's request_sock_subflow_v6
+cache, whose slab debugfs directory was missing.
 
-I will drop it in v5. Thanks.
+The affected window is:
+
+  slab_debugfs_init()
+    slab_debugfs_root = debugfs_create_dir(...)
+    list_for_each_entry(s, &slab_caches, list)
+      debugfs_slab_add(s)
+
+  kmem_cache_create(..., SLAB_STORE_USER, ...)
+    do_kmem_cache_create()
+      if (slab_state <= UP)
+        return without debugfs entries
+
+  slab_sysfs_init()
+    slab_state = FULL
+
+Initialize the debugfs root and add debugfs entries while holding
+slab_mutex, walking slab_caches exactly once and handling both sysfs
+and debugfs entries in the same pass. This gives the sysfs and debugfs
+initialization an explicit order and prevents caches from being
+created between the debugfs scan and slab_state reaching FULL.
+
+Gate the new slab_late_init() on either sysfs or debugfs being enabled,
+with the slab_kset creation and alias_list processing factored into
+helpers that have empty no-sysfs variants, as suggested by Vlastimil
+Babka. On slab_kset_init() failure, slab_state stays below FULL so
+kmem_cache_create() keeps taking the early-boot path, matching prior
+behavior.
+
+Guard debugfs_slab_release() against an uninitialized debugfs root,
+since the root is now created later and a cache may be released before
+it exists.
+
+Fixes: 1a5ad30b89b4 ("mm: slub: make slab_sysfs_init() a late_initcall")
+Cc: stable@vger.kernel.org
+Suggested-by: Vlastimil Babka <vbabka@kernel.org>
+Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
+---
+
+Changes in v3:
+- Introduce a generic slab_late_init() that runs when either sysfs or
+  SLUB debugfs support is enabled.
+- Factor slab_kset initialization and saved alias processing into
+  sysfs-specific helpers with empty no-sysfs variants.
+
+Changes in v2:
+- Move debugfs root and cache entry initialization into
+  slab_sysfs_init() so both use the same mutex-protected cache walk.
+- Guard debugfs_slab_release() against an uninitialized debugfs root.
+- Update the commit message accordingly.
+
+v2: https://lore.kernel.org/linux-mm/20260723115532.761920-1-lixiasong1@huawei.com/
+v1: https://lore.kernel.org/linux-mm/20260720145124.3684976-1-lixiasong1@huawei.com/
+
+---
+ mm/slub.c | 76 +++++++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 48 insertions(+), 28 deletions(-)
+
+diff --git a/mm/slub.c b/mm/slub.c
+index 0337e60db5ac..4ef84de4f3d7 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -333,14 +333,20 @@ enum track_item { TRACK_ALLOC, TRACK_FREE };
+ 
+ #ifdef SLAB_SUPPORTS_SYSFS
+ static int sysfs_slab_add(struct kmem_cache *);
++static int __init slab_kset_init(void);
++static void __init slab_sysfs_process_aliases(void);
+ #else
+ static inline int sysfs_slab_add(struct kmem_cache *s) { return 0; }
++static inline int slab_kset_init(void) { return 0; }
++static inline void slab_sysfs_process_aliases(void) { }
+ #endif
+ 
+ #if defined(CONFIG_DEBUG_FS) && defined(CONFIG_SLUB_DEBUG)
+ static void debugfs_slab_add(struct kmem_cache *);
++static void __init slab_debugfs_root_init(void);
+ #else
+ static inline void debugfs_slab_add(struct kmem_cache *s) { }
++static inline void slab_debugfs_root_init(void) { }
+ #endif
+ 
+ enum add_mode {
+@@ -9734,28 +9740,20 @@ int sysfs_slab_alias(struct kmem_cache *s, const char *name)
+ 	return 0;
+ }
+ 
+-static int __init slab_sysfs_init(void)
++static int __init slab_kset_init(void)
+ {
+-	struct kmem_cache *s;
+-	int err;
+-
+-	mutex_lock(&slab_mutex);
+-
+ 	slab_kset = kset_create_and_add("slab", NULL, kernel_kobj);
+ 	if (!slab_kset) {
+-		mutex_unlock(&slab_mutex);
+ 		pr_err("Cannot register slab subsystem.\n");
+ 		return -ENOMEM;
+ 	}
+ 
+-	slab_state = FULL;
++	return 0;
++}
+ 
+-	list_for_each_entry(s, &slab_caches, list) {
+-		err = sysfs_slab_add(s);
+-		if (err)
+-			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
+-			       s->name);
+-	}
++static void __init slab_sysfs_process_aliases(void)
++{
++	int err;
+ 
+ 	while (alias_list) {
+ 		struct saved_alias *al = alias_list;
+@@ -9767,12 +9765,41 @@ static int __init slab_sysfs_init(void)
+ 			       al->name);
+ 		kfree(al);
+ 	}
++}
++#endif /* SLAB_SUPPORTS_SYSFS */
++
++#if defined(SLAB_SUPPORTS_SYSFS) || \
++	(defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS))
++static int __init slab_late_init(void)
++{
++	struct kmem_cache *s;
++	int err;
+ 
++	mutex_lock(&slab_mutex);
++
++	err = slab_kset_init();
++	if (err)
++		goto out;
++
++	slab_debugfs_root_init();
++	slab_state = FULL;
++
++	list_for_each_entry(s, &slab_caches, list) {
++		if (sysfs_slab_add(s))
++			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
++			       s->name);
++
++		if (s->flags & SLAB_STORE_USER)
++			debugfs_slab_add(s);
++	}
++
++	slab_sysfs_process_aliases();
++out:
+ 	mutex_unlock(&slab_mutex);
+-	return 0;
++	return err;
+ }
+-late_initcall(slab_sysfs_init);
+-#endif /* SLAB_SUPPORTS_SYSFS */
++late_initcall(slab_late_init);
++#endif
+ 
+ #if defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS)
+ static int slab_debugfs_show(struct seq_file *seq, void *v)
+@@ -9964,23 +9991,16 @@ static void debugfs_slab_add(struct kmem_cache *s)
+ 
+ void debugfs_slab_release(struct kmem_cache *s)
+ {
++	if (unlikely(!slab_debugfs_root))
++		return;
++
+ 	debugfs_lookup_and_remove(s->name, slab_debugfs_root);
+ }
+ 
+-static int __init slab_debugfs_init(void)
++static void __init slab_debugfs_root_init(void)
+ {
+-	struct kmem_cache *s;
+-
+ 	slab_debugfs_root = debugfs_create_dir("slab", NULL);
+-
+-	list_for_each_entry(s, &slab_caches, list)
+-		if (s->flags & SLAB_STORE_USER)
+-			debugfs_slab_add(s);
+-
+-	return 0;
+-
+ }
+-__initcall(slab_debugfs_init);
+ #endif
+ /*
+  * The /proc/slabinfo ABI
+-- 
+2.34.1
+
