@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EC547986A
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC2F47986A
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:48:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785329334; cv=none; b=QMZF796qW0HK3B16py2UB7wvB77KXyRZqH+6Cc/PV8zV436cj3MW1/bKDK98Msv8jefWAnAyS+AhzW4otyvolLzd35EtRmwHYNyykOIbEtz9h+JijoRN5WIAOsMickLPOudNivSNN9gAIak3tcKQlt7ksC7VJdsE0FRzEMoTK10=
+	t=1785329338; cv=none; b=Kr5bSBgFgs6CKZvPr3TVdFsgzN7YHEZqsKR/0AxXu0z6AgzQyLKayVW+RW8h9M6HUmahgn/MlWzZRYs+2iTcQCpMOMeHU6VUJeF49bat895BpwDhXZ/SCwfnP7sQlaB4wcK+q/eIRoeqwC7Iqis60UU8ss0N1/ktsObh9NRL3Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785329334; c=relaxed/simple;
-	bh=2j4KUc2XLScde4eCXc0nqKVZgRa3LJWAv3FNJGoESXA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MM7M0WUCwMYJ1hDDwKuFfCasqduHPPUDbWxi+QEQESGpReyK011u9fgmb7/5EQGKwBsfZ1R5Gq+jbntYhMtzgiXbtkz7HGFK1iFEWBBPyAajjaCbGVphNDoGUalSwMyird6IRa96d45eC17vp3qcqNoiBygjYqRi9ukgrAGmTgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1CM+pt/f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785329338; c=relaxed/simple;
+	bh=7UFrXMGzuk2Jnj1oGH6mnksZnTMsrYxIjsHHIBMqLAQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X2J8ERatsR6yoxXECCpSC9koyLEPpSArdHUj9vJv2XFFmg59ydRhOee04HvDJEG/QaBil48Kkv4u0nMGw6UfJ6WsAdRJL6FekQEcknGSJsP2lYxjozcYJjLgi0G2x6/XO7SuFlYtJmZBMJiJTZdvrlozftyY5W0kOOz1h+1e4Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ONMe7pGI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1CM+pt/f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0831C1F000E9;
-	Wed, 29 Jul 2026 12:48:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ONMe7pGI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1DC01F000E9;
+	Wed, 29 Jul 2026 12:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785329333;
-	bh=5tpAGVGIAHfNn13nA/hmmHiTV/R2v8RbBZmjRZ1T9qg=;
+	s=korg; t=1785329336;
+	bh=LY9kf49ur3BN2fryXYPIyJBHO9HigdyUxQ8oGoF6NwM=;
 	h=Subject:To:Cc:From:Date;
-	b=1CM+pt/fhGRJUZ/BKsyebqKDpJ5oWyCuCh/2L1zpgeyMeHYFkcwcD5MOP/wr3Fync
-	 5sXXCobCQYTh2o2WGY6O4r9Y1VfwWF8kWOehCxtrZuuA4xngiaEMajX7Krsll36hD+
-	 tK4y0omYYlGocA8clwigoYd2QWvKrLGWH15vYvJA=
-Subject: FAILED: patch "[PATCH] drm/amd/display: fix __udivdi3 link error" failed to apply to 7.1-stable tree
-To: yanglinlin@kylinos.cn,alexander.deucher@amd.com,kernel-bot@kylinos.cn
+	b=ONMe7pGIyYHm3wQY2JX3RjsVqu2PDEpm5d3DFo22hG0/r3mAxN/ZBJDmic02L2mff
+	 ILrW71aFHvIIlVGyZgqUE3e17qOUlexdl4ckJRVhZTSmsiLHOGjzgPE+m3tlCA7UZN
+	 3r88gpoLbXMnwkErqJZzd5yqNy23waBKLzBMMB1k=
+Subject: FAILED: patch "[PATCH] drm/amd/display: check GRPH_FLIP status before sending event" failed to apply to 7.1-stable tree
+To: sunpeng.li@amd.com,alexander.deucher@amd.com,superm1@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 14:48:28 +0200
-Message-ID: <2026072928-obtrusive-flavoring-edf8@gregkh>
+Date: Wed, 29 Jul 2026 14:48:35 +0200
+Message-ID: <2026072935-grimace-sample-2f95@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 54d4dee9f89e1dac1a6c2618de0bb2e3f35cc2f0
+git cherry-pick -x 48ab86360af117123eb1b15e38f068acf3826400
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072928-obtrusive-flavoring-edf8@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072935-grimace-sample-2f95@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,59 +62,388 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 54d4dee9f89e1dac1a6c2618de0bb2e3f35cc2f0 Mon Sep 17 00:00:00 2001
-From: yanglinlin <yanglinlin@kylinos.cn>
-Date: Mon, 13 Jul 2026 11:12:28 +0800
-Subject: [PATCH] drm/amd/display: fix __udivdi3 link error
+From 48ab86360af117123eb1b15e38f068acf3826400 Mon Sep 17 00:00:00 2001
+From: Leo Li <sunpeng.li@amd.com>
+Date: Fri, 12 Jun 2026 15:49:03 -0400
+Subject: [PATCH] drm/amd/display: check GRPH_FLIP status before sending event
 
-When compiling the AMDGPU display driver for 32-bit architectures,
-the linker reports undefined reference to `__udivdi3` in functions
-get_dp_dto_frequency_100hz() and dcn401_get_dp_dto_frequency_100hz().
+[Why]
 
-This is because the code uses 64-bit division (/) on 32-bit systems,
-which GCC cannot handle directly and instead tries to call the missing
-__udivdi3 helper function.
+After unifying DCN interrupt sources under VUPDATE_NO_LOCK, we have two
+remaining issues to clean up:
 
-Replace the raw division with div_u64(), the kernel's standard 64-bit
-division helper, to avoid the link error.
+1. On DCN, flip completion is now delivered from VUPDATE_NO_LOCK
+   (dm_crtc_high_irq_handler) instead of GRPH_PFLIP. But VUPDATE_NO_LOCK
+   fires every frame, regardless of whether a flip has latched.
 
-Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
-Reported-by: k2ci <kernel-bot@kylinos.cn>
+2. There is a window during commit where a flip is armed (pflip_status =
+   SUBMITTED) but not yet programmed into HW. If the VUPDATE_NO_LOCK
+   fires in that window, its handler would deliver a flip event to
+   userspace before HW has latched to it. If userspace then renders to
+   what it believes is now the back buffer (but HW is still latched to
+   it!), it will cause display corruption. This issue seemed to have
+   been introduced by:
+   commit 1159898a88db ("drm/amd/display: Handle commit plane with no FB.")
+   Enabling replay or psr extended the duration of this window, and
+   hence made corruption more likely to be observed.
+
+[How]
+
+* Move acrtc->event/pflip_status arming to after
+  update_planes_and_stream_adapter() has programmed the flip into HW.
+  This closes the window where pflip_status is SUBMITTED but the flip is
+  not yet programmed.
+
+* Add dc_get_flip_pending_on_otg(), which reads the HUBP flip-pending
+  status straight from HW for the pipe(s) bound to an OTG instance. It
+  is keyed only by otg_inst and does not take or mutate a
+  dc_plane_state, so it is safe to call from the OTG interrupt handler
+  without racing a concurrent commit that may be modifying plane state.
+
+* Optimistically query for flip-pending after programming, in the event
+  that HW latched to the new fb between programming start and arming
+  event. If it latched, send the vblank event immediately, rather than
+  wait for the next vblank IRQ.
+
+* In the VUPDATE_NO_LOCK handler, only deliver flip completion once
+  dc_get_flip_pending_on_otg() reports the flip is no longer pending.
+  Otherwise leave the flip armed and retry on the next vupdate.
+
+* For DCE, maintain the existing behavior of arming flips before
+  programming, and relying on GRPH_FLIP to fire at HW latch.
+
+v2:
+* Drop flip_programmed completion object, instead move
+  event/pflip_status arming after programming.
+* For DCN, optimistically query for flip pending immediately after
+  programming, and if it latched, send event right away.
+
+v3:
+* Fix event timestamps on optimistic flip latch detection, where it's
+  possible for it to run *before* the vupdate IRQ updates the timestamp.
+* Add more docstrings for DCN vblank handling.
+* Clean up if conditions in dm_arm_vblank_event().
+* Code style cleanup on braces surrounding multi-line statements.
+
+Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/3787
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141
+Assisted-by: Copilot:claude-opus-4.8
+Tested-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 0421fc6ab3a8514e99156ff3c2cee13ee9af3fa7)
+(cherry picked from commit f64a9be5653689ff43e148cd8a6483077488c8e5)
+Cc: stable@vger.kernel.org # 8382cd234981: drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index 7c293917e6fd..ecb8493ec523 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -1229,9 +1229,9 @@ static bool get_dp_dto_frequency_100hz(
- 			 */
- 			modulo_hz = REG_READ(MODULO[inst]);
- 			if (modulo_hz) {
--				temp = div_u64((uint64_t)clock_hz * dp_dto_ref_khz * 10, modulo_hz);
--				ASSERT(temp / 100 <= 0xFFFFFFFFUL);
--				*pixel_clk_100hz = (unsigned int)(temp / 100);
-+				temp = clock_hz * dp_dto_ref_khz * 10;
-+				ASSERT(temp <= UINT_MAX * modulo_hz * 100ULL);
-+				*pixel_clk_100hz = div_u64(temp, modulo_hz * 100);
- 			} else
- 				*pixel_clk_100hz = 0;
- 		} else {
-@@ -1285,13 +1285,12 @@ static bool dcn401_get_dp_dto_frequency_100hz(const struct clock_source *clock_s
- 		 *     - target pix_clk_hz = (DPDTO INTEGER * DPDTO MODULO + DPDTO PHASE)
- 		 */
- 		temp = (unsigned long long)dp_dto_integer * modulo_hz + phase_hz;
--
--		if (temp / 100 > 0xFFFFFFFFUL) {
-+		if (temp > (UINT_MAX * 100ULL)) {
- 			/* pixel rate 100hz should never be this high, if it is, throw an assert and return 0  */
- 			BREAK_TO_DEBUGGER();
- 			*pixel_clk_100hz = 0;
- 		} else {
--			*pixel_clk_100hz = (unsigned int)(temp / 100);
-+			*pixel_clk_100hz = div_u64(temp, 100);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 39c0ea1f50b1..10105341e6db 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -681,13 +681,30 @@ static void dm_crtc_high_irq_handler(struct amdgpu_device *adev,
+ 	 * Deliver pageflip completion events (DCN only).
+ 	 *
+ 	 * Since GRPH_PFLIP is not used, VUPDATE_NO_LOCK is the flip latch
+-	 * point. Deliver any pending pageflip completion event from here.
++	 * point. Deliver any pending pageflip completion event from here,
++	 * once HW has consumed the new address (the OTG no longer reports a
++	 * pending flip).
+ 	 *
+-	 * NOTE: This can deliver an event for a flip that was armed but not yet
+-	 * programmed into HW; that race is closed in a follow-up change by
+-	 * checking the programmed flip status.
++	 * Also handle the case here where there aren't any active planes and
++	 * DCN HUBP may be clock-gated, so the flip-pending status may be
++	 * undefined.
+ 	 */
+-	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
++	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
++	    acrtc->event) {
++
++		if (!dc_get_flip_pending_on_otg(adev->dm.dc, acrtc->otg_inst)) {
++			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
++			acrtc->event = NULL;
++			drm_crtc_vblank_put(&acrtc->base);
++			acrtc->pflip_status = AMDGPU_FLIP_NONE;
++		}
++		/*
++		 * If the flip is still pending, leave it armed and
++		 * retry on the next vupdate.
++		 */
++	} else if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
++		   acrtc->dm_irq_params.active_planes == 0) {
++
+ 		if (acrtc->event) {
+ 			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
+ 			acrtc->event = NULL;
+@@ -10257,6 +10274,28 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_display_manager *dm,
+ 	}
+ }
+ 
++static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
++				struct dm_crtc_state *acrtc_state,
++				bool pflip_update,
++				bool cursor_update)
++{
++	assert_spin_locked(&acrtc->base.dev->event_lock);
++
++	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
++		return;
++
++	if (pflip_update) {
++		drm_crtc_vblank_get(&acrtc->base);
++		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
++		/* Arm flip completion handling and event delivery after programming. */
++		prepare_flip_isr(acrtc);
++	} else if (cursor_update) {
++		drm_crtc_vblank_get(&acrtc->base);
++		acrtc->event = acrtc->base.state->event;
++		acrtc->base.state->event = NULL;
++	}
++}
++
+ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 				    struct drm_device *dev,
+ 				    struct amdgpu_display_manager *dm,
+@@ -10280,6 +10319,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 	bool cursor_update = false;
+ 	bool pflip_present = false;
+ 	bool immediate_flip = false;
++	bool flip_latched_during_prog = false;
+ 	bool dirty_rects_changed = false;
+ 	bool updated_planes_and_streams = false;
+ 	struct {
+@@ -10514,39 +10554,24 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 			usleep_range(1000, 1100);
  		}
  
- 		return true;
+-		/**
+-		 * Prepare the flip event for the pageflip interrupt to handle.
+-		 *
+-		 * This only works in the case where we've already turned on the
+-		 * appropriate hardware blocks (eg. HUBP) so in the transition case
+-		 * from 0 -> n planes we have to skip a hardware generated event
+-		 * and rely on sending it from software.
+-		 */
+-		if (acrtc_attach->base.state->event &&
+-		    acrtc_state->active_planes > 0) {
+-			drm_crtc_vblank_get(pcrtc);
+-
+-			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+-
+-			WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
+-			prepare_flip_isr(acrtc_attach);
+-
+-			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+-		}
+-
+ 		if (acrtc_state->stream) {
+ 			if (acrtc_state->freesync_vrr_info_changed)
+ 				bundle->stream_update.vrr_infopacket =
+ 					&acrtc_state->stream->vrr_infopacket;
+ 		}
+-	} else if (cursor_update && acrtc_state->active_planes > 0) {
+-		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+-		if (acrtc_attach->base.state->event) {
+-			drm_crtc_vblank_get(pcrtc);
+-			acrtc_attach->event = acrtc_attach->base.state->event;
+-			acrtc_attach->base.state->event = NULL;
++	}
++
++	/*
++	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
++	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
++	 * only fires if HW latched to the flip. Maintain legacy behavior by
++	 * arming event before programming.
++	 */
++	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
++		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++			dm_arm_vblank_event(acrtc_attach, acrtc_state,
++					pflip_present, cursor_update);
+ 		}
+-		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+ 	}
+ 
+ 	/* Update the planes if changed or disable if we don't have any. */
+@@ -10639,17 +10664,103 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		amdgpu_dm_commit_cursors(state);
+ 
+ 	/*
+-	 * On DCN, flip completion is normally delivered from VUPDATE_NO_LOCK.
+-	 * However, an immediate (tearing / async) flip is latched by HW right
+-	 * away and does not wait for the next vupdate, so deliver its
+-	 * completion event here after programming.
++	 * DCN specific vblank handling
++	 * ============================
+ 	 *
+-	 * On DCE, GRPH_PFLIP already fires immediately for immediate flips, so
+-	 * this is DCN-only.
++	 * With the event_lock held, arm the vblank event, and determine whether
++	 * deliver it immediately, or in VUPDATE_NO_LOCK IRQ (i.e. HW latch
++	 * point) handler. Do this *after* programming so that the IRQ handler
++	 * will not deliver the event before HW laches onto the programmed
++	 * values:
++	 *
++	 *     Commit thread      IRQ handler                       HW
++	 *     -----------------------------------------------------------------
++	 *     arm_vblank_event()
++	 *                                                          vupdate()
++	 *                        vupdate_handler()
++	 *                          cook_timestamp()
++	 *                          # prev flip already latched,
++	 *                          # so flip_latched == true.
++	 *                          if event_armed && flip_latched:
++	 *                            send_vblank_event()
++	 *                            # sent before latch, **BAD!**
++	 *     hw_program()
++	 *                                                          vupdate()
++	 *                                                          **latch**
++	 *
++	 * There's a consequence of arming after: it's possible for HW to latch
++	 * between start of HW programming and acrtc->event/pflip_status arming.
++	 * When this happens, the IRQ handler will send the event on the next
++	 * immediate latch point, even though HW has already latched. This is
++	 * handled by optimistically checking for HW latch after programming,
++	 * and if latched, send the event immediately:
++	 *
++	 *     Commit thread             IRQ handler                HW
++	 *     -----------------------------------------------------------------
++	 *     hw_program()
++	 *                                                          vupdate()
++	 *                                                          **latch**
++	 *                               vupdate_handler()
++	 *                                 cook_timestamp()
++	 *                                 # event_armed == false
++	 *                                 # **no event sent!**
++	 *     arm_vblank_event()
++	 *     if flip_latched:
++	 *       **send_vblank_event()**
++	 *       disarm_vblank_event()
++	 *
++	 * The IRQ handler is expected to cook the timestamp, but we need to
++	 * cook the timestamp before optimistic sending as well. That's because
++	 * the following sequence is possible:
++	 *
++	 *     Commit thread              IRQ handler              HW
++	 *     -----------------------------------------------------------------
++	 *     hw_program()
++	 *     arm_vblank_event()
++	 *                                                         vupdate()
++	 *                                                         **latch**
++	 *     if flip_latched:
++	 *       # Need cook before send!
++	 *       **cook_timestamp()**
++	 *       send_vblank_event()
++	 *       disarm_vblank_event()
++	 *                                vupdate_handler()
++	 *                                  cook_timestamp()
++	 *                                  # event_armed == false
++	 *                                  # no event sent!
++	 *
++	 * Cooking twice is OK, since DRM scanout accurate timestamps report A)
++	 * the previous vactive start if currently in vactive, or B) the next
++	 * vactive start if currently in vblank (see &get_vblank_counter). 'A)'
++	 * is what we want for the optimistic send, and for 'B)', we'll cook a
++	 * timestamp no later than the next IRQ handler run.
++	 *
++	 * The more correct fix is to wrap programming and arming with the
++	 * event_lock and thus serializing it with the IRQ handler. However,
++	 * there are various sleep-waits within
++	 * update_planes_and_stream_adapter() that makes spin locking illegal.
++	 * And on full updates, it can take 1-2 frame-times to return (see
++	 * commit_planes_for_stream).
++	 *
++	 * On DCE, GRPH_PFLIP IRQ is used and takes care of this.
+ 	 */
+-	if (immediate_flip && amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
++	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
+ 		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+-		if (acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
++
++		if (updated_planes_and_streams) {
++			flip_latched_during_prog =
++				!dc_get_flip_pending_on_otg(dm->dc, acrtc_attach->otg_inst);
++		}
++
++		dm_arm_vblank_event(acrtc_attach, acrtc_state,
++				    pflip_present, cursor_update);
++
++		/*
++		 * Deliver the event immediately on immediate flip, or on a
++		 * update that has already latched.
++		 */
++		if ((immediate_flip || flip_latched_during_prog) &&
++		    acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
+ 		    acrtc_attach->event) {
+ 			drm_crtc_accurate_vblank_count(&acrtc_attach->base);
+ 			drm_crtc_send_vblank_event(&acrtc_attach->base,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 175106cce5a4..e25b94b65dac 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -6165,6 +6165,51 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src)
+ 	dal_irq_service_ack(dc->res_pool->irqs, src);
+ }
+ 
++/*
++ * dc_get_flip_pending_on_otg() - Check if a GRPH_FLIP is still pending on OTG
++ *
++ * @dc: display core context @otg_inst: OTG instance to query
++ *
++ * Reads the HUBP flip-pending status for the pipe(s) bound to @otg_inst,
++ * returning true if any of them has not yet latched its programmed surface
++ * address.
++ *
++ * Unlike dc_plane_get_status(), this does not take or mutate a dc_plane_state,
++ * so it is safe to call from interrupt context without racing a concurrent
++ * commit that may be updating plane state.
++ *
++ * Return: true if a flip is still pending on the OTG, false otherwise.
++ */
++bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst)
++{
++	bool flip_pending = false;
++	int i;
++
++	if (!dc || !dc->current_state)
++		return false;
++
++	dc_exit_ips_for_hw_access(dc);
++
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
++		struct hubp *hubp = pipe_ctx->plane_res.hubp;
++
++		if (!pipe_ctx->plane_state || !pipe_ctx->stream_res.tg)
++			continue;
++
++		if (pipe_ctx->stream_res.tg->inst != otg_inst)
++			continue;
++
++		if (hubp && hubp->funcs->hubp_is_flip_pending &&
++		    hubp->funcs->hubp_is_flip_pending(hubp)) {
++			flip_pending = true;
++			break;
++		}
++	}
++
++	return flip_pending;
++}
++
+ void dc_power_down_on_boot(struct dc *dc)
+ {
+ 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index ebdcbfa7db80..1dc85f6b6689 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -2883,6 +2883,7 @@ enum dc_irq_source dc_interrupt_to_irq_source(
+ 		uint32_t ext_id);
+ bool dc_interrupt_set(struct dc *dc, enum dc_irq_source src, bool enable);
+ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src);
++bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst);
+ enum dc_irq_source dc_get_hpd_irq_source_at_index(
+ 		struct dc *dc, uint32_t link_index);
+ 
 
