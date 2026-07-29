@@ -1,121 +1,126 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E96323BCEE
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 00:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D3D4908DE;
+	Wed, 29 Jul 2026 00:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785285576; cv=none; b=OKjB86t0/58IXppt1lFSgE2/bPAsLEm3Geg546MFP4Y0dcH4o9osYezeqZYQ8/4U/kHTZBkQ0I8r+cyOOe+HCpKrXEcKmmkvZejvE6I3hrW4lCPr29GXO8C2kEHUvRYJ/WWW1FJyMUBYtUZIyGtMc43Q10nBra8Tha/Z/q/lXg4=
+	t=1785285654; cv=none; b=pmT9yWSFkIW//zQxuUYUF7o3eqaU0gxaXs80mBEMhG3XOn4Jj6B3ooszi3ZQVUnZ6dlj89YGyMkEl1CbVTOEOG6W5+ktPapdalG3bIYGld7lMg0QEqlX0omHMv8jJ6kV75vUOtqWPBNgLh+SHPqlHltR18oQ4N0lI6E8EhQDB/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785285576; c=relaxed/simple;
-	bh=tR9BDwOT4T6ohKA/vo0ygpL2d0SulS2OAQodWSZcz8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IQTKeJ4qkz7b7+LVbiJFWcoBFC93PwY1gKx2drdYLEI695uAz3sFwyBaCuelrFf+g5rN6bE1ndmo+WP9bzLZrNNepHOLB8BR+f7KqC0Y+PAhCjQURo/NnvGbTnrD2bUE7/CLkozw3DFntz7wPo3kKWePKjrgLeb+7u7jxXaCp3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=TECpgmPx; arc=none smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1785285654; c=relaxed/simple;
+	bh=A60+ic9XZRw92ehwx9OPHj0EOLYP4/NIVI51+H1+fvE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UEdSFbYwDCTilY6cvUBI7rLqnc+g8RKKkeMlZt5wRduSAb2Nlh5HOmKslz9H7A5JatE/kJ1CSaO6s5I3LXVJNq4f0TpjSqGiK29sx/5N2/cdM2GeAZ2EBRkvtWjXVj0q3tW7wxmXngzPfPjD2ygLCPon0YyZp0ynP6+RS2c4A5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=Ym+VI77J; arc=none smtp.client-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="TECpgmPx"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8efef6533aaso3101736d6.0
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 17:39:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1785285573; x=1785890373; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hlDfDH8fw0HdMBSkD+M9GnJly9TjD4Ns9P6nYByTcGI=;
-        b=TECpgmPxdYCNdbAZjMwHVrvu5OHV28nJ9fByi8ZVptlqq+ZCJgfrRUu83786lZsZME
-         iSF7OoLe6MI2gSMHfkezpcVSIWdpUrbVgxpxjAXmvHncxCQYiuIoC7Jqzmr17tTToPnc
-         jpdfNu6uTL2ps4UnmYGyf+KdLO3CS1pRjVq0RL8pAuyXUv5TdKAQTAIruSyfuQ/EUH0u
-         J6czNed9L4hyVxsyq7FW30dzp3WORO+ZfXRjKXHWaYjp0iKyob1Kk/7E/21k2bthOWx6
-         j/r915WIEKZNv4oLfhaHeEktu20qVYSS0mfPB9gWsPqPddQaSq3ihtifK08fuOtuM5+W
-         T2mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785285573; x=1785890373;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hlDfDH8fw0HdMBSkD+M9GnJly9TjD4Ns9P6nYByTcGI=;
-        b=hI+AB5YyveAqMjc1pLzOadZLKHP99QzUIANLnpS8oXJxAWZSwAm8GRzf/4wnkDKRD2
-         07YRt6dRLSuFDUq8rNZuvNd7GFMDRon22cJuCEUHkEo8PKJtYwoS4lrHwyvzM90pQnWk
-         SU+A9Yw08Taw4w46JH0CuB04ks3giQG4LhL5bc5pwbK/67JZyUqvpgxyVs0ZNNDS86gl
-         Jiy6fbrDv7Cn+9YK05mdO0fWaC1TszvIFljlTxMhZDBmWTKCq4f3tIF+57eYjncwWm4E
-         +7FixRTuRM0BHWWC/P+3bDPhzyl33V6kJXmHWQhLBOmwq9B/M51NBrqE9fOoMv3CgKk3
-         9hMA==
-X-Forwarded-Encrypted: i=1; AHgh+Rompw5zZuBvDvBammWD5FkPRayBVGgeG/zSgWQxUeWztBNwPi4aRjp47930ILhkXEcaTiNpGLU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyv1rDeBH4U7njNQyjAkSQVCIbebxvimeM5tNl40CIlM6JxzJoH
-	z9UEVV2CvsIyWNmEHimI5Vr0NRsDyIWJ0SYfCJZwB3VVFmwCk63pmkdwD5QoMHyZwOM=
-X-Gm-Gg: AR+sD12EAtmp5dZ4y8AiP9ryORiiROmX66h0ne0Cbk7sKltfuPtpWQCMc8Fx+opPr2V
-	+XaOsLljVGzNpin2x/K7WPl5iiXj9Nuuv7O6nUAuKJh5gIMQ1o+aXq/bREc7CYQq9bFNdNZJDAO
-	1wCsx7uNd6P+E96bIHNGw49CoD/SvHBMTTrApZQ2+dRxLcuENREW8vOrCKGBaFx3TXnvXhussPN
-	RxT8UYeBNeAj1n5+4Db7ojLF5EO49rL06EpQvMgFX8TvUYyutA1AVJYOej5+ycMCNhMGySwlz3E
-	pKL95eDrKGhBHPnuZTZP6BcyTFJYaiND4sOPDafz4jcTufxUwl1x3eRsfqGsfMSj0yN79yxPcxZ
-	XDU7MVsmK69W9U4rLo8+uWuZuZYh5VBSAozUh/4SQmW6lRo97I+2Og58vLCt4jGgsZKaB4zwRAn
-	/EO9J0UQhuq7B27iLbgVCBP8zOj/1b8XSPdDMl+PvtNBIta6DlOYzkIzq0Rj3yNG3O5GvmIcyXx
-	VGiVkeNMrF7UxJwHRh9w18w/T9Qr8Q1BlUWSjNvesG0NebCJgS56ahePzUIY6LV3Zs=
-X-Received: by 2002:a05:6214:4114:b0:8fd:6df3:b379 with SMTP id 6a1803df08f44-9081743d851mr51993906d6.61.1785285573375;
-        Tue, 28 Jul 2026 17:39:33 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9081dd91080sm11772486d6.49.2026.07.28.17.39.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 17:39:32 -0700 (PDT)
-Date: Tue, 28 Jul 2026 20:39:29 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Jane Chu <jane.chu@oracle.com>, linux-mm@kvack.org, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Christian Brauner <christian@brauner.io>, Jiaqi Yan <jiaqiyan@google.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v7 01/13] memory-failure: Fix hardware poison check in
- unpoison_memory() again
-Message-ID: <amlKHkemYQBxFESG@gourry-fedora-PF4VCD3F>
-References: <20260728204409.3396238-1-willy@infradead.org>
- <20260728204409.3396238-2-willy@infradead.org>
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="Ym+VI77J"
+Message-ID: <2ec41792-d40f-4b11-ac87-6174780f8a08@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1785285636;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X1j9tEVwNukiUf0NLNWnvvjFUUnS8IQBqim45lx+0LE=;
+	b=Ym+VI77JNeXdV+/f8yRq1yMhTKsIlfvRyg4LGwbCN0Ly9Ur267kRh5B97nI1o+9l97TerT
+	slnnuJn48m3oRcu7RUz/qYHW0vhmtenm2Bn/I+WV7+BrtXFc26296hRRdWl87SzS12Xx4D
+	E44oa68SCWk4PHjq0AHZGutM4thVQvE=
+Date: Wed, 29 Jul 2026 03:40:34 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728204409.3396238-2-willy@infradead.org>
+Subject: Re: [PATCH 6.12.y] net: add missing ns_capable check for peer netns
+Content-Language: en-US
+To: stable@vger.kernel.org
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ "Eric W. Biederman" <ebiederm@aristanetworks.com>,
+ linux-can@vger.kernel.org, netdev@vger.kernel.org,
+ Maximilian Heyne <mheyne@amazon.de>, Greg KH <gregkh@linuxfoundation.org>,
+ Kuniyuki Iwashima <kuniyu@google.com>
+References: <20260617-pats-coif-316245c6@mheyne-amazon>
+ <2026062556-residue-anybody-e756@gregkh>
+From: Konstantin Andreev <andreev@swemel.ru>
+In-Reply-To: <2026062556-residue-anybody-e756@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-OriginalArrivalTime: 29 Jul 2026 00:40:35.0882 (UTC) FILETIME=[DEBCD8A0:01DD1EF2]
 
-On Tue, Jul 28, 2026 at 09:43:53PM +0100, Matthew Wilcox (Oracle) wrote:
-> The earlier patch (6c54312f9689) that attempted to fix unpoison_memory()
-> was incorrect for hugetlb folios.  Before a6fddef49eef, we checked
-> the head page for poison (which was correct for hugetlb and incorrect
-> for THP).  We are currently incapable of unpoisoning pages (other than
-> the first page) in a hugetlb folio.
+Greg KH, Jun 25, 2026:
+> On Wed, Jun 17, 2026 at 08:25:31AM +0000, Maximilian Heyne wrote:
+>> The upstream commit 7b735ef81286 ("rtnetlink: add missing
+>> netlink_ns_capable() check for peer netns") doesn't apply on older
+>> stable kernels due to refactoring. Therefore, this patch is an attempt
+>> to implement the same capability check just directly in the respective
+>> interface types.
 > 
-> Use is_page_hwpoison() which handles hugetlb pages sufficiently well for
-> this purpose.  This is racy as we don't have a reference on the folio at
-> this point, but fixing that properly requires deeper surgery and this
-> is a CAP_SYS_ADMIN path only so this will do for the moment and can be
-> easily backported.  It's no worse than the situation before a6fddef49eef.
-> 
-> The other bug in a6fddef49eef is that we currently clear the HWPoison
-> flag on the precise page, which is wrong for hugetlb.  Fix that too.
-> 
-> Fixes: a6fddef49eef ("mm/memory-failure: convert unpoison_memory() to folios")
-> Cc: stable@vger.kernel.org
-> Cc: Miaohe Lin <linmiaohe@huawei.com>
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Why can't we take the full series of patches instead?  Otherwise this is
+> going to be a pain over time for any other fixes/updates in this area,
+> right?
 
-Just trying to wrap my head around the state before/after, assuming
-the following is correct then LGTM:
+The patches that produced net/core/rtnetlink.c:rtnl_get_peer_net(),
+being fixed in 6.18-7.0, are not a refactoring.
 
-prior:
-   pfn_to_online_page(pfn) -> p = precise page
-   PageHWPoison(page)      -> checks precise page. Poison for hugetlb
-                              is only set only on the head, so bug.
-after:
-   is_page_hwpoison(page)  -> checks precise page AND head (if hugetlb)
-   p = folio->page         -> now TestClearPageHWPoison() explicitly
-                              clears the head page poison if hugetlb
+Actually, rtnl_get_peer_net() almost literally
+replicates the “peer net” management code that can be found
+in vxcan_newlink(), netkit_new_link(), and veth_newlink().
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+These patches are part of a larger new feature series:
+"rtnetlink: Convert rtnl_newlink() to per-netns RTNL"
+From: Kuniyuki Iwashima, 2024-11-07
+Link: https://lore.kernel.org/all/20241108004823.29419-1-kuniyu@amazon.com/
 
+These patches in the series
+v
+¦     In git log order:
+¦
+¦   636af13f213b ("rtnetlink: Register rtnl_dellink() and rtnl_setlink() with RTNL_FLAG_DOIT_PERNET_WIP")
+¦   d91191ffe23f ("rtnetlink: Convert RTM_NEWLINK to per-netns RTNL")
+├─> fefd5d082172 ("netkit: Set IFLA_NETKIT_PEER_INFO to netkit_link_ops.peer_type")
+├─> 6b84e558e95d ("vxcan: Set VXCAN_INFO_PEER to vxcan_link_ops.peer_type")
+├─> 0eb87b02a705 ("veth: Set VETH_INFO_PEER to veth_link_ops.peer_type")
+└─> 28690e5361c0 ("rtnetlink: Add peer_type in struct rtnl_link_ops")
+     cbaaa6326bc5 ("rtnetlink: Introduce struct rtnl_nets and helpers")
+     68297dbb967f ("rtnetlink: Remove __rtnl_link_register()")
+     6b57ff21a310 ("rtnetlink: Protect link_ops by mutex")
+     d5ec8d91f82e ("rtnetlink: Remove __rtnl_link_unregister()")
+
+At the time, rtnl_get_peer_net() was named rtnl_add_peer_net().
+
+Having common “peer net” management code in rtnl_get_peer_net()
+made it possible to “add missing netlink_ns_capable()”
+in a single location.
+
+If the series is to be backported to 6.12.y
+then the following commits must be backported as well,
+because they fix bugs introduced by that series:
+
+48327566769a ("rtnetlink: fix double call of rtnl_link_get_net_ifla()")
+954a2b40719a ("rtnetlink: Try the outer netns attribute in rtnl_get_peer_net()")
+
+Commit-by-commit replication of the evolution of
+rtnl_get_peer_net(), vxcan_newlink(), netkit_new_link(),
+and veth_newlink() means backporting a new feature,
+introducing and fixing bugs.
+
+It seems reasonable to avoid "introduce and fix bugs" roundtrip
+during backport, but then we miss commit-by-commit replication.
+
+As we miss replication, we may also discard
+the “new feature” commits as well.
+
+Cutting these out leaves us with a targeted re-implementation of
+the CVE fix. IMO, that's exactly what Maximilian Heyne's patch does.
+
+Regards,
+Konstantin
