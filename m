@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493303F4128;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7FE3F86EE;
 	Wed, 29 Jul 2026 23:55:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785369333; cv=none; b=S81rL+GQcPX93dUGdnjd/1jziwqr5eMszmhd6COhdt2tGX1DHWjAfHgsb3mEvO+TsSsFLWelRZ9FcCVFaTISK7VOyb19YirdRqeMMeCSCPkQB78hjf7H6flbhOCsGZeQk86rKkGrytJQbCVOgHWOLOuoWoiDGWHxCmi3qz49j7o=
+	t=1785369333; cv=none; b=VH7iQY4Y8BLGUetG+y8zSyxLF85ihUXrjPKV9ycyAfesm7zx4fG+SGy3GgnWZez1EkavbveI4xDrB6bWKeuYNs8QeVPQRlwX/6u9sh3gld9pv+Y9GKQ8/2Lp4gQIAApWvH7zy13u05oDUGpIp+0i7fimQBW9QRtW3RMJDGOQHDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785369333; c=relaxed/simple;
-	bh=1K/yFf8OfOB2rTNREVIOaRb3O5ohYzvmgE1OITnB8/s=;
+	bh=tuohBUJKFSqYOqjc85G0iN3EBdqtyF3Q30WgfgaLxDI=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=G4OHcCFZFesX4tOkfR0uBBs2/zbm59/cMFsJDza7ZY0KV2M+p3coNCGNeOGHkZQGoKsfYkGZ2xWFWRMAyjdXkfhfebowT+LLi1urjKKOCtjKYImcpSwAC034jH6Qi9ZYuHJWaYHLQIt+pLTDqbquzlikX154cmdAEWwqwWEYgqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lc9M9dXy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=jLj6puF3hjDqjyP3SasTsenxyI0drrXPMp37dysx8rFfFBgyM1WGeIF1d4OweXFP6FSZ/3vxQzFOk25hnSLVQyQhguQyZDFeZRdOmERM8L9sbTAaZf8NT913X0sZYOFak+/7ab9o+34vERcrTIdCvpjP+Lp8XQIFJ76cGwENF8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YDJb6wjr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lc9M9dXy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AA741F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YDJb6wjr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E6F11F00ACA;
 	Wed, 29 Jul 2026 23:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1785369332;
-	bh=bO74R1ReXte6cxi92h8Rpsnbge6jM5VP3xm1gfelReg=;
+	bh=cI04/dvLyhE4Un/Fm7LB2XCXtWTXB9GW4z1o31WH2lA=;
 	h=Date:From:To:Cc:Subject:References;
-	b=Lc9M9dXyYq3uUcwzGybUB5aXMzN6PZ95pkf/1f6PEIcgD95DFztzd057aYocDYWhY
-	 RDD53AFRcNuKqDamdPeMcH/ULN4/onouPV21nC+0JKaJFsQz6HqCbevdXZOhd+5b+s
-	 E2/4+grHnJFKkZkK0vvcMrCbwEH9NWopwHt/1FFYLJZuz4gC6xpm/lfNYU0GKcHK1r
-	 9mwcZY/EDPqTMwGahOVzPDPoMNnHX5Sv3gV/kDZSCQuuPNPJcgnpIJHmwdx1jMLyas
-	 TUaZUGhll0JEJjaphOUlunG8HdfRLXvJ6Svh3x4PAbNWbAYaGhAFmArqncbo/ApVOw
-	 PuNq3hHEseExg==
+	b=YDJb6wjr0MpXC+2PisKinAtwDLmPZI1X9O+2077UedvTTchbqXAbKmyE5ebFP9+/j
+	 Rmha/Ok2GIACsBls0k+yVnJGod8doURnOE5yTqAZ5Pajq6gmjhxYAQzzdNPfO+PUcX
+	 6R8aMBPRPOuiUiQUYGgQ9f6yq7hYZY/WY5JISQvgfRA//oORPw5VFv7vrbEDFhHRwj
+	 Y+PpRklcDWUxmXAGPp3UE62xsjGNCYbWrTB7ZKlJ0IMqTBxVYyj45s1ufPusJkyPh5
+	 XejyHwN5lnK59cGsI6eMe6sqeEodQYTACVtbS8Mr3W+aQrtH6wuU2Paff33Cx21772
+	 BbQ1DSzLL1Abg==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1wpE88-00000007HZY-3YqV;
-	Wed, 29 Jul 2026 19:56:08 -0400
-Message-ID: <20260729235608.703242921@kernel.org>
+	id 1wpE89-00000007Ha2-02l4;
+	Wed, 29 Jul 2026 19:56:09 -0400
+Message-ID: <20260729235608.867999945@kernel.org>
 User-Agent: quilt/0.69
-Date: Wed, 29 Jul 2026 19:55:54 -0400
+Date: Wed, 29 Jul 2026 19:55:55 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,8 +40,7 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org
-Subject: [for-linus][PATCH 3/5] tracing: Check return value of __register_event() in
- trace_module_add_events()
+Subject: [for-linus][PATCH 4/5] tracing/filters: Fix false positive match in regex_match_full()
 References: <20260729235551.356165691@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -53,45 +52,44 @@ Content-Type: text/plain; charset=UTF-8
 
 From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-trace_module_add_events() ignores the return value of __register_event()
-and unconditionally calls __add_event_to_tracers() for each event.
+regex_match_full() calls strncmp(str, r->pattern, len) where len is the
+target field buffer size. When len is smaller than r->len (the filter
+pattern length), strncmp() checks only len bytes of r->pattern against
+str. If those len bytes match, strncmp() returns 0, resulting in a
+false-positive match where a shorter string in a fixed-size field
+matches a longer filter pattern.
 
-If __register_event() fails (for example, if event_init() fails), the
-trace_event_call is not added to ftrace_events list, but
-__add_event_to_tracers() still creates a trace_event_file pointing to it.
-If module loading subsequently fails and module memory is freed, tracing
-state retains a stale trace_event_call pointer in trace_event_file,
-leading to a use-after-free when tracefs or tracing subsystem operations
-are later executed.
+For example, a 4-byte static string field containing "abcd" matched the
+filter pattern "abcdefgh" because strncmp("abcd", "abcdefgh", 4)
+returned 0. In this case, @len does NOT include '\0' because it is
+fixed-size array.
 
-Fix this by checking the return value of __register_event() and only
-calling __add_event_to_tracers() if event registration succeeded.
+Fix this by returning 0 (no match) early when len < r->len.
 
-Fixes: ae63b31e4d0e ("tracing: Separate out trace events from global variables")
+Fixes: 1889d20922d1 ("tracing/filters: Provide basic regex support")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/178528487878.124250.14170824576025743236.stgit@devnote2
+Link: https://patch.msgid.link/178528488779.124250.5571741156199253769.stgit@devnote2
 Assisted-by: Antigravity:gemini-3.5-flash
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/trace/trace_events_filter.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index 956692856fa8..c01b10b99f67 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -3933,8 +3933,8 @@ static void trace_module_add_events(struct module *mod)
- 	end = mod->trace_events + mod->num_trace_events;
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 6385cd662d8d..2b46ca536045 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1027,6 +1027,9 @@ static int regex_match_full(char *str, struct regex *r, int len)
+ 	if (!len)
+ 		return strcmp(str, r->pattern) == 0;
  
- 	for_each_event(call, start, end) {
--		__register_event(*call, mod);
--		__add_event_to_tracers(*call);
-+		if (!__register_event(*call, mod))
-+			__add_event_to_tracers(*call);
- 	}
++	if (len < r->len)
++		return 0;
++
+ 	return strncmp(str, r->pattern, len) == 0;
+ }
  
- 	update_cache_events(mod);
 -- 
 2.53.0
 
