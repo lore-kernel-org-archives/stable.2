@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B454F48EBFC
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAAB2FE56A
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333218; cv=none; b=RktApEfhAADK+Lq0MPYBWaH4xouNycqaclknHezFXWApyqLxxXXZCohcSY9Wph1tLCWJJ61nPVyHNjoU4ARg5ej4pi5hBDIgZNschkCYl/elJ7bOnNg6Wss8ED5pwc59DcL4X/6vZe0MGnIF4Y5awkhXOjm2u0HKCiKKHim+HzM=
+	t=1785333224; cv=none; b=pSgbmHxDJdY8O4plH3grI4XvLmZfsq+hdXG9uIr4AzuO1K1rRtSfMu+ir3jFxIepzwT/Ns+aMideGaEGuPxPM4UXssQ7vckBb/QgIGB6N9aE5qbSwpz/ydW4pAjyYLUIhA+EIY+1CBIWKDHeUUev4C/UgSqpqtVI7Rur5mutRkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333218; c=relaxed/simple;
-	bh=k4MTOon1kRhs1A32v2e7PPvYq0nDpgt9nzMM7Ka+DUE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qrZwnzUtwtyCmdooL52nRhfhTC9r5NFsfZNDLPfaseowlXxto90X67BpG/29M8/6yVZyuQXGBMKOaVhQP/ncsHDHvC+ypzztjNMN9Wjtdiee/oUd7Xs4l+8v9G/nZEbZMqIMoLbs+g32EcDxYrw8Jb9QFkovd4BF54j2+2yYyXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=i8qKiKWr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333224; c=relaxed/simple;
+	bh=IR9RgDelTAuYZ9tgimUZmNESahbOgSgcF/GU0KLrTJM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nG9G5nMZwLRLvMSSfyi29EmcXbYmglUWKCZUqfUV1nB2YL5fmZOwmYz9RzgZuczj9Mxqvlt1wRpu3hKlVBhQzbZteKpkDziDu/OzWjFbSOA7+2rQn934jVfhkRNNhOMgrEEqloQ600GUZXSkGPOxywNfq5IWLgoLlhzgz6BX+MU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MqO/9PEc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="i8qKiKWr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0D91F00A3A;
-	Wed, 29 Jul 2026 13:53:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MqO/9PEc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C741F000E9;
+	Wed, 29 Jul 2026 13:53:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333211;
-	bh=y4Sjh4TJnyK9W22H8yE6SX/797PZZ5mFvSConr4I+u0=;
+	s=korg; t=1785333218;
+	bh=2LBEYoAOoJBD3GzBLhRetuCCDsK3LwD2R+cUJrHnqCw=;
 	h=Subject:To:Cc:From:Date;
-	b=i8qKiKWrKp53YnICd+geHLJ6JxSnjIwqvk9t+UqBhHO5TBJGKmb43mHIANOtzRkaz
-	 aUuqnrlKcaVIt/i6ojol0D5nt4Nru6Prdr2dWlU1xpLmp05VGJ8JJdsWjtWYYvIkn3
-	 rYA54lzmIgUH3CkH+8+FJKSqV58JaHOCHddZI9po=
-Subject: FAILED: patch "[PATCH] net: qrtr: ns: Raise node count limit to 512" failed to apply to 6.18-stable tree
+	b=MqO/9PEcjYnGi/4+DZpwEStx8KO4V2dRExmDQBglSW7I1/H744ApoZSMUabPvJSGY
+	 uwm0YfwXUM6bazkTSdw/jkvgJCTU4BOJE3rjskWdXNIH0Kfw9ymZTNbjjX7zsRaSAh
+	 Plls6xLU6dn+Iz2WfmOJkUtlwo6XQPibMwxRxDXM=
+Subject: FAILED: patch "[PATCH] net: qrtr: ns: Raise node count limit to 512" failed to apply to 6.6-stable tree
 To: youssef.abdulrahman@oss.qualcomm.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 29 Jul 2026 15:53:18 +0200
-Message-ID: <2026072918-spinal-repeated-d081@gregkh>
+Message-ID: <2026072918-freight-unsworn-15e0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x ff194cffd586cbd4cc49eccb002c65f2a902a277
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072918-spinal-repeated-d081@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072918-freight-unsworn-15e0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
