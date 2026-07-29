@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C729C3803D2
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:40:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173AB380FCA
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785292809; cv=none; b=HC2+uB6RivXpOeA4vDJx4phBSo+2l/C/O5vA/uFYhXbT3lqEtGTkMkjn1LWNdoF7vdDQzWSzIiHqeaZibE5yckdKdzoRuXJwmledlFZpj5CcyoHXmu1MlWBCCFZrVZT2iVZinf60BabdAVbxtalhtB9EKalufhwJdRlO1GFrMU8=
+	t=1785292811; cv=none; b=n/801kobEbdl0qVEV/A7yjHYHEFrmazZfn4RCbNrv7eSiR1e6OgpUJ/todwHZCjfBl+iLG8ArksMC5+/bRTpxVLX1XLqop1XgdVMUSLBN7QsBQdqDJsmlYw0SK56eYknOvSLEmpnaprcDAxzaYWkJbhpzSxt46oe82CXGJFIRVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785292809; c=relaxed/simple;
-	bh=t3zUMrjSEcbDF9wMn8BjWrhYZcQmTOArbQ2FlN4cD7k=;
+	s=arc-20240116; t=1785292811; c=relaxed/simple;
+	bh=x/4KYekynCBU3ctFHAmXHZV5FWOgGhBSSEoBBlMVWuE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FN/XRf3iq/gW4JDkZ0NltYxmEqhE8jnCun20wtnWvb4GU3dvRhL25lCDWUvSaH8d2LkI2NQg3c0XnYfCFNIof+2dW1Q7R7Q7NLquU4ROp9V80Zftofcxm8ZSmaBi4LN5nf+LsBdtIDuwHdoiMR0/yKD1Cp0q5Phn/PGZdIqkQ9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doXAmChS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NA7778xdLwbHpvsjb1te0hBdS8y2iFunswNu5UCd6durzqZQ9GK2Uum0wYy0eTOtOIMODhpe1uaz9CYoI5ryI2dhs9meuOlSIBurk45lVKW1tq+fo1qAkAt1EfGvsOxzYFbepJIk+ZS8wgZMdsBlGTeWXo8pOZKC/jZhcSf96ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D65OQo+t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doXAmChS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD891F000E9;
-	Wed, 29 Jul 2026 02:40:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D65OQo+t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E320A1F00A3A;
+	Wed, 29 Jul 2026 02:40:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785292807;
-	bh=4/lZW4aFs+D51h/kM5neAXcaXW2itVua9wAuxjz/W/U=;
+	s=k20260515; t=1785292809;
+	bh=fDj++L3r7ZIAAVBYgAwv0CszKuxHs9I7yWmjrnv81fQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=doXAmChSZ7eLYrA1FPjvdr92FSynVZ6TCobfgh8ssyDrgbzzx+zB6rp19tMSuP6up
-	 3essIU7UQAWSxk+9QqaFVfrkw5pR5Aol0XB/gTG3XogJJ97SfR29VWyk9bbRQ48337
-	 9KkpHT8IWdfCa7VMXheELm6hqF88h+1DJVilnFNAmu14f9wn2+J0CZS6JgAu6gEudJ
-	 n1/4D5NIIcBDkqEe4J4zqIK/3s5ToKnB+2ZPo+wqJKRv0/da1cJ8txpCy4dlWxGkoT
-	 6AzH8YfiOYxMZG9YTS3HWE3ewxRsgmEZGwl+GwtffYC2BAXWr7/1+7C7QBIgyWq1Ip
-	 vy0Rqt30Oo3SQ==
+	b=D65OQo+tRE9p363kFWKbQJrhsh5SrTX4VWTLwaLRp/jVxLqaSTUKKXefgOTuyI5Im
+	 yboppG6EkYK8eu29pMkHjyO81OiOU7xDGQnBzW/boUb0oZFbz68zVkB/+y3qA4ia2g
+	 sgIY4t43k97a1q5dJt0z1bBcn0IoH0Z34d/Iy+hNL9kZApN5WHCYB5+RDNNf3oiobx
+	 b72m/+hpG09OxJd+su/ijaPaAa5fhj/nUMBYJIh3CEsSGMFtRoNBjYSUMevl6krTmm
+	 NKZ50jGV0FgVEZFG9Khr27nUYaFeKSLs7OVHJE8D+e1Du8h2PgHfOuQIhTZo7gQtJo
+	 8pd1+BGX63Mkg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Haoxiang Li <haoxiang_li2024@163.com>,
-	Larysa Zaremba <larysa.zaremba@intel.com>,
-	Alex Elder <elder@riscstar.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] net: ipa: fix SMEM state handle leaks in SMP2P init
-Date: Tue, 28 Jul 2026 22:40:04 -0400
-Message-ID: <20260729024004.1127220-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ata: libata-core: Reject an invalid concurrent positioning ranges count
+Date: Tue, 28 Jul 2026 22:40:07 -0400
+Message-ID: <20260729024007.1127363-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072133-astonish-sandpaper-1cd4@gregkh>
-References: <2026072133-astonish-sandpaper-1cd4@gregkh>
+In-Reply-To: <2026072113-preshow-stoppage-40c9@gregkh>
+References: <2026072113-preshow-stoppage-40c9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,90 +46,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 96ca1e658ae459276292bd6d971ab5d8c7e0379a ]
+[ Upstream commit 533a0b940f901c15e5cbbd4b5d66e871c209e8ce ]
 
-ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
-qcom_smem_state_get(). However, neither the init error paths
-nor ipa_smp2p_exit() release them.
+ata_dev_config_cpr() takes the number of range descriptors from buf[0]
+of the concurrent positioning ranges log (up to 255), which the device
+reports independently of the log size in the GPL directory. The count is
+then walked at a fixed 32-byte stride in two places with no bound: the
+log read here, and the INQUIRY VPD page B9h emitter, which writes one
+descriptor per range into the fixed 2048-byte ata_scsi_rbuf. A device
+reporting a count larger than its own log overflows the read buffer (up
+to 7704 bytes past a 512-byte slab), and a count above 62 overflows the
+response buffer on the emit side.
 
-Release both handles with qcom_smem_state_put() in the init
-error paths and in ipa_smp2p_exit().
+Bound the count once, on probe, against both the log the device returned
+and the number of descriptors the VPD B9h response buffer can hold
+(ATA_DEV_MAX_CPR, derived from the rbuf size). Reject an out-of-range
+count with a warning; this keeps the emitter in bounds with no separate
+change there.
 
-Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+Suggested-by: Damien Le Moal <dlemoal@kernel.org>
+Fixes: fe22e1c2f705 ("libata: support concurrent positioning ranges log")
+Fixes: c745dfc541e7 ("libata: fix reading concurrent positioning ranges log")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
-Reviewed-by: Alex Elder <elder@riscstar.com>
-Link: https://patch.msgid.link/20260624065955.2822765-1-haoxiang_li2024@163.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ kzalloc_obj() context line kept as kzalloc(sizeof(*smp2p), GFP_KERNEL) since ipa_smp2p.c was not yet converted in this tree ]
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
+[ adapted `kzalloc_flex()` allocation to `kzalloc(struct_size(...), GFP_KERNEL)` and adjusted context offsets. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ipa/ipa_smp2p.c | 30 ++++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
+ drivers/ata/libata-core.c | 18 ++++++++++++++++++
+ drivers/ata/libata-scsi.c |  2 --
+ drivers/ata/libata.h      |  9 +++++++++
+ 3 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
-index fcaadd111a8a30..0c184f6f91c6f2 100644
---- a/drivers/net/ipa/ipa_smp2p.c
-+++ b/drivers/net/ipa/ipa_smp2p.c
-@@ -234,19 +234,27 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
- 					  &valid_bit);
- 	if (IS_ERR(valid_state))
- 		return PTR_ERR(valid_state);
--	if (valid_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (valid_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_valid_state_put;
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index 07dd04b8d01d16..3992a12b90a2a3 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -2794,6 +2794,24 @@ static void ata_dev_config_cpr(struct ata_device *dev)
+ 	if (!nr_cpr)
+ 		goto out;
+ 
++	/*
++	 * The device reports the number of CPR descriptors independently of the
++	 * log size, and that count is also used to emit VPD page B9h into the
++	 * fixed-size rbuf. Reject a count larger than what that buffer can hold
++	 * (ATA_DEV_MAX_CPR) or larger than the log the device actually returned.
++	 */
++	if (nr_cpr > ATA_DEV_MAX_CPR) {
++		ata_dev_warn(dev,
++			     "Too many concurrent positioning ranges\n");
++		goto out;
 +	}
- 
- 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
- 					    &enabled_bit);
--	if (IS_ERR(enabled_state))
--		return PTR_ERR(enabled_state);
--	if (enabled_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (IS_ERR(enabled_state)) {
-+		ret = PTR_ERR(enabled_state);
-+		goto err_valid_state_put;
++
++	if (buf_len < 64 + (size_t)nr_cpr * 32) {
++		ata_dev_warn(dev,
++			     "Invalid number of concurrent positioning ranges\n");
++		goto out;
 +	}
-+	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_enabled_state_put;
-+	}
++
+ 	cpr_log = kzalloc(struct_size(cpr_log, cpr, nr_cpr), GFP_KERNEL);
+ 	if (!cpr_log)
+ 		goto out;
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index 300818cb1478a2..0da8c69dc966cc 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -37,8 +37,6 @@
+ #include "libata.h"
+ #include "libata-transport.h"
  
- 	smp2p = kzalloc(sizeof(*smp2p), GFP_KERNEL);
--	if (!smp2p)
--		return -ENOMEM;
-+	if (!smp2p) {
-+		ret = -ENOMEM;
-+		goto err_enabled_state_put;
-+	}
+-#define ATA_SCSI_RBUF_SIZE	2048
+-
+ static DEFINE_SPINLOCK(ata_scsi_rbuf_lock);
+ static u8 ata_scsi_rbuf[ATA_SCSI_RBUF_SIZE];
  
- 	smp2p->ipa = ipa;
+diff --git a/drivers/ata/libata.h b/drivers/ata/libata.h
+index 9927d79e55878b..dc2a4583441cd5 100644
+--- a/drivers/ata/libata.h
++++ b/drivers/ata/libata.h
+@@ -111,6 +111,15 @@ static inline void ata_acpi_bind_dev(struct ata_device *dev) {}
+ #endif
  
-@@ -291,6 +299,10 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
- 	kfree(smp2p);
-+err_enabled_state_put:
-+	qcom_smem_state_put(enabled_state);
-+err_valid_state_put:
-+	qcom_smem_state_put(valid_state);
- 
- 	return ret;
- }
-@@ -307,6 +319,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
- 	ipa_smp2p_power_release(ipa);
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
-+	qcom_smem_state_put(smp2p->enabled_state);
-+	qcom_smem_state_put(smp2p->valid_state);
- 	kfree(smp2p);
- }
- 
+ /* libata-scsi.c */
++#define ATA_SCSI_RBUF_SIZE	2048
++
++/*
++ * Maximum number of concurrent positioning ranges (CPR) supported. The ACS
++ * specifications allow up to 255, but we limit this to the number of CPR
++ * descriptors that fit in the rbuf buffer used to emit VPD page B9h.
++ */
++#define ATA_DEV_MAX_CPR		min(255, ((ATA_SCSI_RBUF_SIZE - 64) / 32))
++
+ extern struct ata_device *ata_scsi_find_dev(struct ata_port *ap,
+ 					    const struct scsi_device *scsidev);
+ extern int ata_scsi_add_hosts(struct ata_host *host,
 -- 
 2.53.0
 
