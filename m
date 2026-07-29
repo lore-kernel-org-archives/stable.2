@@ -1,103 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FDB3B0584
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5BB3EC832;
+	Wed, 29 Jul 2026 15:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785340318; cv=none; b=joylpG2N4kZ6ofgYwtWQ2Ir/FqbM/yr9eXTnFyILrSnlqV55Glb3gnT5Jc6fQHfHYdfOXkcgUqrdAjP1uE7u6zO0RfyH1qZCgIraSrx2X2qGluxr93IwwR2qSSHKvCr+RNP13wTdKmqt0QgivRBT1Nw2elsiMlMuzoGLfi7Cwek=
+	t=1785340761; cv=none; b=b/ZNnBEW7tDxVAa9vR59QtqIyrKc9Ak9rp8v6p8IVrIsNZ6E8PxM6u4seNxD/hgeNQI3qiruKNraRlxjhafZDDsxgBp+MrMuch7WQOJgUx3xJwPAFXYCM4ja+ozVJdYe1NZZZZZn6HqtrOoratakjKGB3OjbCqbkQ9/bGQ6RvKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785340318; c=relaxed/simple;
-	bh=z9a8dpXnxK6LM7X5xtcCBgiMSgE9slgNHhA+s4UpFLw=;
+	s=arc-20240116; t=1785340761; c=relaxed/simple;
+	bh=ZL6h8xXo51r9pRKKSO6ntuoM4jqONloTsmHEEEaqPcU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r6fH3Ci4WA68ckgo6hZ/f/yhPmb8Qd6NYQIv7x61YzgYN8oKWXHXuYKgSihtqzImVK5AsgRhliqXs6q7BrJvfV1mbNLAWYvSYrDykBhShhzYHkqGXCZKSbBhC41KVKx41Yk/ow8c9jujlHsJg6207U4WOLF5N8DzFlKQNkEgO9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRwhjLXq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=uG9LIwLPxloNeGSIqa8ruqUYNt6QsH5XjRlLPDpHmezCxb7o7UDMrp8f6nujATMYtmQAEKZHaZevPjWEOrenU41q2K1cOx85DQYq4Jf30UyyUlgkuOZijbgpY3bTKo+E230ra8tZ2YGNIb1ksrmwxzflbRc9uWZ6xjWs4VtMbnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=WI3buro2; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRwhjLXq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1501F000E9;
-	Wed, 29 Jul 2026 15:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785340317;
-	bh=0kvOojuw2LB8/Q9sOFgzscP40mBHyjtDz8eUiv+MUi4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NRwhjLXqG2NDFm5SvYlbVyPVBfLJnKI3XcEwOp0p0wIi3wCxeTRN3WwxhmEM2ontZ
-	 P9TgGAUVkOSzilLyxQhK6XYPc+vcy7cKMjcCXBO51FOiuxiaxJubF2pRSOuKTEQm4t
-	 a5ENZT8vJGQt4/Kh5mS5BaaUohOgjE48Eso60jp336OCLYM9QR+O7qguA2T2omgwxr
-	 JXXkxcsppPM9R1TeOYBIAAyWciqnsBu3KwI6KRV8IoBkVjaZStAMIJPBhuVvXZwL86
-	 hY13JR5iXNDGsjgqP6ylQEjks1Dbui9rqtdsxsXfPuZ9j1PYUvxvA7UQLAx+Ghxp6i
-	 8HnZ5x/cXDOFA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] octeontx2-pf: fix SQB pointer leak on init failure
-Date: Wed, 29 Jul 2026 11:51:53 -0400
-Message-ID: <20260729155153.3488733-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072128-robotics-duplicate-a186@gregkh>
-References: <2026072128-robotics-duplicate-a186@gregkh>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="WI3buro2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=opJFIr+DqIwybOpicZ49d5YUTu7nDbtYSMfx7eDXb7s=; b=WI3buro23khtexlX1rIbPyKj23
+	BlFulK++Qhs4WD/2r7GwIrg0HphTe2IrHXxRe2jme36nsrKmL1nVgBzV42X9snuKMSy6DazmU07ir
+	6yqtrmHUIWpf6hxHQyDnXQu7a66fHrSJHSNbJXBoOyAtER8wdeV2NS3kFEDcjC4P0YUXOdXZu4fVi
+	3dcjg3Fahw+GUSvjNDLXjIP0Cu2VfzTjYLAGsw3l+LLPKfzlmUO5qOTPsnAnbQL8uGTQyuWoSFKzg
+	dwdMppgX5XOnlCOR/n1h/4AZydmJsTrwb2jUWpYOvdTUEYjIEn+4MVIvoDG7m1KVZzp4hu42/JJRF
+	4bBn7uRg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	Fabio Estevam <festevam@nabladev.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Fix rk3399-roc-pc-plus analog audio
+Date: Wed, 29 Jul 2026 17:59:01 +0200
+Message-ID: <178534073342.533990.16123229159963490732.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260717010736.578419-1-festevam@gmail.com>
+References: <20260717010736.578419-1-festevam@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-[ Upstream commit 62e7df6d042aeebd5efb581074e28865c04477be ]
+On Thu, 16 Jul 2026 22:07:34 -0300, Fabio Estevam wrote:
+> The ES8388 sound card on the rk3399-roc-pc-plus fails to probe because
+> i2s1 cannot claim its MCLK pin:
+> 
+> pinctrl: pin gpio4-0 already requested by ff880000.i2s; cannot claim for ff890000.i2s
+> pinctrl: error -EINVAL: pin-128 (ff890000.i2s)
+> pinctrl: error -EINVAL: could not request pin 128 (gpio4-0) from group i2s-8ch-mclk-pin
+> on device rockchip-pinctrl
+> 
+> [...]
 
-otx2_init_hw_resources() initializes SQ aura and pool resources before
-several later setup steps. On failure, err_free_sq_ptrs only frees SQB
-pages, leaving the per-SQ sqb_ptrs arrays behind.
+Applied, thanks!
 
-Use otx2_free_sq_res() for the SQ unwind path and let it free sqb_ptrs
-even when sq->sqe has not been allocated yet.
+[1/3] arm64: dts: rockchip: Fix rk3399-roc-pc-plus analog audio
+      commit: 4f7259ebe1eba4778768a4f5a0bbbe439d10f3f3
+[2/3] arm64: dts: rockchip: Enable wireless on rk3399-roc-pc-plus
+      commit: 2dfc88c13fb2db7f17c55f16b679cdfe4ded19c5
+[3/3] arm64: dts: rockchip: Keep rk3399-roc-pc-plus work LED on
+      commit: b2007873ddfff223bb680c7ff60eaf675670f07a
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still
-present in v7.1.1.
-
-An x86_64 allyesconfig build showed no new warnings. As we do not have an
-OcteonTX2 PF device and the corresponding AF mailbox setup to test with,
-no runtime testing was able to be performed.
-
-Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
-Cc: stable@vger.kernel.org
-Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-Link: https://patch.msgid.link/20260630071625.349996-1-dawei.feng@seu.edu.cn
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-index 9d39b9fc2f6a8d..674e9aa1b19cd9 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-@@ -1485,14 +1485,13 @@ static int otx2_init_hw_resources(struct otx2_nic *pf)
- 	return err;
- 
- err_free_nix_queues:
--	otx2_free_sq_res(pf);
- 	otx2_free_cq_res(pf);
- 	otx2_ctx_disable(mbox, NIX_AQ_CTYPE_RQ, false);
- err_free_txsch:
- 	if (otx2_txschq_stop(pf))
- 		dev_err(pf->dev, "%s failed to stop TX schedulers\n", __func__);
- err_free_sq_ptrs:
--	otx2_sq_free_sqbs(pf);
-+	otx2_free_sq_res(pf);
- err_free_rq_ptrs:
- 	otx2_free_aura_ptr(pf, AURA_NIX_RQ);
- 	otx2_ctx_disable(mbox, NPA_AQ_CTYPE_POOL, true);
+Best regards,
 -- 
-2.53.0
-
+Heiko Stuebner <heiko@sntech.de>
