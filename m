@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AE437EFFB
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D1A30F7EA
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:30:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785292214; cv=none; b=h+TAiQUc/WLeQTXDOvav2k85IXsfAjUPGFh0nhT1bPKtMClGtFWn+mdXwv4op0hb+kMDk3o5ylGAQrqw+ao2DLg1YVUyRkjwvUjjPuynw1R8I6j2taj63we/PIDlTpHrPPnAoGNxPR/XGdEMngpqIc/tGlwdVDmWku9TXI7vlpI=
+	t=1785292229; cv=none; b=G5lA1N8+FJ9zlC8+QQiMtlFlsAhDrPhL6o9QQKoa2YiULjC+3mS6s9/n15qemsp/+0hPzQqiKrZ0NvXVn9okpl/+S8YmaBZ+epVCCKQueKCbkmdgneqh94PzuUSMvc5UMnxksLDNcXkVRRq1iT1Mt+YJv0oE+1VKnn3EV0ME+Gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785292214; c=relaxed/simple;
-	bh=RIh1bRGPVnpheIztXqEmNU0dJPpaYsGX329j5X0Q4HM=;
+	s=arc-20240116; t=1785292229; c=relaxed/simple;
+	bh=t3zUMrjSEcbDF9wMn8BjWrhYZcQmTOArbQ2FlN4cD7k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kN6P8Kbtu4pYyrBJfHSe6AYdq54an/a0icKYNoFVKbA6IFARt7yvkG121FZMSxVC0EcaYIkakirmfyB2Qztia952WaubD/lURNyo28BdQ5W4DP5pkaLF8n5qysfhHdq0AN51o30Jre0rUbxPlDPd5hmE9wuP4dx091MlmC02JQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=magvJZlY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GDbQoyIDMY+zYHrtBa1bSQhsSJdK3JYc1ZGzXLOyAkEzmcLmJqSAihuQiIXV4h8Q+KKNU5KnkYOHLTZtg5ypC0WJYQtTfXzeuhKY6AnYaW2hZX3nl0CPbTaNJY0ByuKJRutd1G/+xF8AN3ZUgYuJkG5TuFJPlJPt3EG0UE/rYpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX1gWT3w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="magvJZlY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BE11F00A3A;
-	Wed, 29 Jul 2026 02:30:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX1gWT3w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ABA51F000E9;
+	Wed, 29 Jul 2026 02:30:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785292212;
-	bh=lbXziBzLEdFqRG3WZ1aop9MvPfVchff39dMRiIWuWGU=;
+	s=k20260515; t=1785292227;
+	bh=4/lZW4aFs+D51h/kM5neAXcaXW2itVua9wAuxjz/W/U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=magvJZlYHUt2trwXJ7G/uz04nagWPKl8XZdy1kRs+AZK3NMKHW/bbcMJlKoJ4Lk3k
-	 Krk8PmfQ+QKJsEfcciJyWMMblc58XgW7sPt/ravy8mlYMPu435GDfZdeFrf3hQpOJw
-	 38GMpqEt72buGPAhpYpLP3SfNrb7AToGAoOfs+JDLg7AuUa07nPPTsRjod0+Z83cUv
-	 9SN7fK3FmljAXk9mIivubni0jzSucL2Gbp4/7bnMnxm0vz8JfHqhuVtnrB/tb+5CGF
-	 fHA3+8ZFdoo1LOidrb5I3Y62Y/n/2C1GUdQ/B83cLNOxNdBdaiHZJHuY0K31pTOeAa
-	 8LLk/4QBXhDJA==
+	b=gX1gWT3w6g+wsQSlmUaOLQ8Qvz2W3UCoqSTdG8aRsMWgrfNCzWeWhJZoE+RbdJ71l
+	 Ep2Dh67uIgAvZBrM6Pu8nLAHesRk7cvvRLLW3FqH1mvh0Sh3eo6K6ednBdOzaEOPTq
+	 uoiXsvC14f2/Ar9xw+WssapwrcVZ5D4dzSBsBa7bC4q6+8U/eqMAJDpzm2oHBPslbj
+	 CvJKVjX6pv3n3sGmRtC/Y9fi6DSfn0J8XhCBQZJOfql4g/8iqUzTtVh28gtOSxfHRD
+	 Yq9bOdPzA7PZrXvIAGsaBq+o0xgfkJGFdfjt/GonqxUpJJ2qyysjHNnc4z4jYBoSfQ
+	 UDWohU/vEjSzw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sabrina Dubroca <sd@queasysnail.net>,
-	Aaron Esau <aaron1esau@gmail.com>,
-	Yiming Qian <yimingqian591@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
+Cc: Haoxiang Li <haoxiang_li2024@163.com>,
+	Larysa Zaremba <larysa.zaremba@intel.com>,
+	Alex Elder <elder@riscstar.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] espintcp: use sk_msg_free_partial to fix partial send
-Date: Tue, 28 Jul 2026 22:30:10 -0400
-Message-ID: <20260729023010.1113752-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] net: ipa: fix SMEM state handle leaks in SMP2P init
+Date: Tue, 28 Jul 2026 22:30:25 -0400
+Message-ID: <20260729023025.1114440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072138-zap-unified-4af3@gregkh>
-References: <2026072138-zap-unified-4af3@gregkh>
+In-Reply-To: <2026072132-chatroom-aware-b80e@gregkh>
+References: <2026072132-chatroom-aware-b80e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,77 +47,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sabrina Dubroca <sd@queasysnail.net>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-[ Upstream commit 007800408002d871f5699bdb944f985896730b8f ]
+[ Upstream commit 96ca1e658ae459276292bd6d971ab5d8c7e0379a ]
 
-sk_msg_free_partial() ensures consistency of the skmsg at every
-iteration, without having to manually handle uncharges and offsets.
-This simplifies the code, and fixes some bugs in skmsg accounting when
-we don't send the full contents.
+ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
+qcom_smem_state_get(). However, neither the init error paths
+nor ipa_smp2p_exit() release them.
 
+Release both handles with qcom_smem_state_put() in the init
+error paths and in ipa_smp2p_exit().
+
+Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
 Cc: stable@vger.kernel.org
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Reported-by: Aaron Esau <aaron1esau@gmail.com>
-Reported-by: Yiming Qian <yimingqian591@gmail.com>
-Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
+Reviewed-by: Alex Elder <elder@riscstar.com>
+Link: https://patch.msgid.link/20260624065955.2822765-1-haoxiang_li2024@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ kzalloc_obj() context line kept as kzalloc(sizeof(*smp2p), GFP_KERNEL) since ipa_smp2p.c was not yet converted in this tree ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/espintcp.c | 32 ++++++--------------------------
- 1 file changed, 6 insertions(+), 26 deletions(-)
+ drivers/net/ipa/ipa_smp2p.c | 30 ++++++++++++++++++++++--------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
 
-diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
-index 2ee078156ded7f..6fb89a83d36348 100644
---- a/net/xfrm/espintcp.c
-+++ b/net/xfrm/espintcp.c
-@@ -208,41 +208,21 @@ static int espintcp_sendskmsg_locked(struct sock *sk,
- {
- 	struct sk_msg *skmsg = &emsg->skmsg;
- 	struct scatterlist *sg;
--	int done = 0;
- 	int ret;
+diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+index fcaadd111a8a30..0c184f6f91c6f2 100644
+--- a/drivers/net/ipa/ipa_smp2p.c
++++ b/drivers/net/ipa/ipa_smp2p.c
+@@ -234,19 +234,27 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+ 					  &valid_bit);
+ 	if (IS_ERR(valid_state))
+ 		return PTR_ERR(valid_state);
+-	if (valid_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (valid_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_valid_state_put;
++	}
  
- 	flags |= MSG_SENDPAGE_NOTLAST;
--	sg = &skmsg->sg.data[skmsg->sg.start];
- 	do {
--		size_t size = sg->length - emsg->offset;
--		int offset = sg->offset + emsg->offset;
--		struct page *p;
--
--		emsg->offset = 0;
--
-+		sg = &skmsg->sg.data[skmsg->sg.start];
- 		if (sg_is_last(sg))
- 			flags &= ~MSG_SENDPAGE_NOTLAST;
+ 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
+ 					    &enabled_bit);
+-	if (IS_ERR(enabled_state))
+-		return PTR_ERR(enabled_state);
+-	if (enabled_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (IS_ERR(enabled_state)) {
++		ret = PTR_ERR(enabled_state);
++		goto err_valid_state_put;
++	}
++	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_enabled_state_put;
++	}
  
--		p = sg_page(sg);
--retry:
--		ret = do_tcp_sendpages(sk, p, offset, size, flags);
--		if (ret < 0) {
--			emsg->offset = offset - sg->offset;
--			skmsg->sg.start += done;
-+		ret = do_tcp_sendpages(sk, sg_page(sg), sg->offset,
-+				       sg->length, flags);
-+		if (ret < 0)
- 			return ret;
--		}
--
--		if (ret != size) {
--			offset += ret;
--			size -= ret;
--			goto retry;
--		}
+ 	smp2p = kzalloc(sizeof(*smp2p), GFP_KERNEL);
+-	if (!smp2p)
+-		return -ENOMEM;
++	if (!smp2p) {
++		ret = -ENOMEM;
++		goto err_enabled_state_put;
++	}
  
--		done++;
--		put_page(p);
--		sk_mem_uncharge(sk, sg->length);
--		sg = sg_next(sg);
--	} while (sg);
-+		sk_msg_free_partial(sk, skmsg, ret);
-+	} while (skmsg->sg.size);
+ 	smp2p->ipa = ipa;
  
- 	memset(emsg, 0, sizeof(*emsg));
+@@ -291,6 +299,10 @@ ipa_smp2p_init(struct ipa *ipa, struct platform_device *pdev, bool modem_init)
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
+ 	kfree(smp2p);
++err_enabled_state_put:
++	qcom_smem_state_put(enabled_state);
++err_valid_state_put:
++	qcom_smem_state_put(valid_state);
+ 
+ 	return ret;
+ }
+@@ -307,6 +319,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
+ 	ipa_smp2p_power_release(ipa);
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
++	qcom_smem_state_put(smp2p->enabled_state);
++	qcom_smem_state_put(smp2p->valid_state);
+ 	kfree(smp2p);
+ }
  
 -- 
 2.53.0
