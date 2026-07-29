@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32E6481AB3
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D96282F35
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333185; cv=none; b=jX15eTBchVO8LG4w1jTUqPYLbc+O9WAk1Jw4ulGU8xVkwThMffb2omnUxGrG0WwpTU7wWGOrDLB6SDSgkgQ58kSFgUHWBmQBi++3IpY0lmdQskdaa1ld0Vw31A2qIkemAMBvyqhYounXjZ0qPdREx0VMEGqCbcky7d2pCzZg8vY=
+	t=1785333187; cv=none; b=TQkG/eWfku46DooHJJ32slLZM+hgr2HjhiuCzrmh4ilkqGgmmJHbTF3RQ0GsCxYSMK3Qh6BmTCkDDWYU6A/aXwzmA7hIisxSrZL/ekdKjwmhetK4nsB9cRDRG8XIeCskp2o5E7ClawfxO4tm3fsr6DEQ9/YPcVp52SROkv+NAWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333185; c=relaxed/simple;
-	bh=zbbT3JBZTsebkcQ+PTy9Rwz7K/Nf1N9swKoN3hXHczM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=csy2VxHauf4GsGIENTkHCfjhgRmBuSWjzCBTJ2r4mnqlIGtb+UGnV5TfsW6xB7+WJAQDa/n/7/xLha4N6r7RgX74Ry8SpI982oDK3Je5dg+eTJwhsrRhxB79dQHDIsuM+DkbXnXoV2+X5g7AgLGRKLK5RPUJ4JOPeNixPAG/j2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=c99SmXUi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333187; c=relaxed/simple;
+	bh=ekd0VVyWEqEkaBl6TI16skNvxxuzohRkogUmUH2U110=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WPK0JibkI4yALmyfb7gaxfTdOdIdVO28Wm50BTy2b64k8JXgkKhp/l4FRX58bNgfNDMy+OWK9S9vdPsRX6xMFN/7cx3Bvi/IEWDIgM9QqxEbIjxhLHNYn5Ixg3UbPLseU2kea6UN2cfzELy/XV51K/c1xaT0J7pLGvd1RVGSKWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oueJ1gCz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="c99SmXUi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967F91F00A3F;
-	Wed, 29 Jul 2026 13:53:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oueJ1gCz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41DDB1F00A3A;
+	Wed, 29 Jul 2026 13:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333181;
-	bh=YDrg162X8FzfrmFnm92mcMs812+vsNmDdlonMvTmyy0=;
+	s=korg; t=1785333183;
+	bh=4f0AmRls1C4zvYX+EajAh+0x+Cs1aeF3SpC0WFUGoG8=;
 	h=Subject:To:Cc:From:Date;
-	b=c99SmXUiK7Apw+2BLS9U4ryRTtq1nw/GzwDBz4S5vFYF5U+G4y5XRX2ao7a3JsQIq
-	 F/i5whq/RSGhpyUq/FdlytCBw7eCcdiGqgA2DgFbS+TRXCO2A1jjbU/EqasXOMCgZy
-	 8t95t9zjRdPa4UeJekz4MX2Px1a1eoh5vAls8ZaI=
-Subject: FAILED: patch "[PATCH] net: gro: fix double aggregation of flush-marked skbs" failed to apply to 6.1-stable tree
+	b=oueJ1gCz9PYrvBh9niaGZNqazHKtgxCdQMjG9HpFwf4TniksmiSOT7enhYpbXa7Ws
+	 51YMIJsnc0QI5f6d+aLAFm2CSG7ipcvK+fOy+b5p1O+7t4JZZHNGouRIZnBX+1BIIt
+	 2BRJ120sukehO8eGXQmA6q0Ip16eYvS0wbq33vfA=
+Subject: FAILED: patch "[PATCH] net: gro: fix double aggregation of flush-marked skbs" failed to apply to 6.6-stable tree
 To: shiming.cheng@mediatek.com,kuba@kernel.org,willemb@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 29 Jul 2026 15:52:46 +0200
-Message-ID: <2026072946-itunes-reviver-5817@gregkh>
+Message-ID: <2026072946-scavenger-smelting-3d16@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x e751256486d0ded20f5a9f9863467f1dce65142f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072946-itunes-reviver-5817@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072946-scavenger-smelting-3d16@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
