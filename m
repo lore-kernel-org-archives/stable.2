@@ -1,105 +1,126 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2015A443E22;
-	Wed, 29 Jul 2026 10:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CD6445ACC
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785320975; cv=none; b=bryXdQJXLlg3q2DMCOI/Kba13lQIf2zDKWJrEBJqWXIKGFJ80lw249R/vEoanOVYGb7/yFHSRTn7aeNTxLRLeR2bxTJtojD+erFfhq2tHUbt/cIUGh/aYTdk6MUn+5HDz9EsVLTL9EuoWQoUcP+lpAvFJO1vw6nfXslWEScbiUY=
+	t=1785321052; cv=none; b=ZlrG6Bd9uzIGWqk9tTy3NXF85ByRMU+JvjP1+bpHn1dXMXzHk17XOE/Qzj5JZZC+nc73h04XeceAdRc/25uNrCYUPqB4EXNAkgeQFHBt8ohPPxVygkUwVYiU2w4TWUkTffG7I6H+ZzAR8f3IW/E8kf2gYuJ0OhLspFnJ4OzdoCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785320975; c=relaxed/simple;
-	bh=/UghkZyYjuibi+9XPBUQ7aAKaT2JJ6DzDg/pXrxufRA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l06UntLoUuC1nk3lxa2laG16hbeAXEqF/YqQ4y2XwXZ+c/RwxbKmxnC/Dl9DUOjzpsZzH28DEtRGW6DE4eYUauMHYqkI0c0tL7VFYI4EV0g7Pg/O8EQgGvXcAPSrt2fOC4bDoRnNrmCZHsgiQdqi78StYZyDFuTbf1PbD0nXccU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5BD90202B5E;
-	Wed, 29 Jul 2026 12:29:26 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1wp1XS-001rn7-01;
-	Wed, 29 Jul 2026 12:29:26 +0200
-Received: from blackshift.org (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 3272C575DCE;
-	Wed, 29 Jul 2026 10:28:11 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	linux-can@vger.kernel.org,
-	kernel@pengutronix.de,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	stable@vger.kernel.org,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 11/20] can: peak_usb: peak_usb_start(): fix double free of transfer buffer on URB submit error
-Date: Wed, 29 Jul 2026 12:12:51 +0200
-Message-ID: <20260729102802.505168-12-mkl@pengutronix.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260729102802.505168-1-mkl@pengutronix.de>
-References: <20260729102802.505168-1-mkl@pengutronix.de>
+	s=arc-20240116; t=1785321052; c=relaxed/simple;
+	bh=Cy5N6zlZ9b+XmpW0/6GyguVpMPAiNxmOBSnwgn+3+Q4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z/48RzF3SEPfrAbRMs6m+a3xraOc9DF10Auto9G4mkzptevQ5wYYoYHggauAg7NbHDmPic2sD8bUzdCgNvaC9rTJOKlANHHAQeWnAc6dsmSPSYa7sKRv3tnpvKYs9vd3THwBoza1WAUXaV1dokDqzwZM87+XSYWLwG+iKcqPWiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MIFf0q+r; arc=none smtp.client-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MIFf0q+r"
+Message-ID: <78c72a5b-0db5-47da-8b35-e6a2e6976d7c@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785321038;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=71w+xsKQcAmFscJxORmgtr1I//z8WEmDAbZZVSyKA/Y=;
+	b=MIFf0q+rSw0bKogI3sLsiUryXnbi1Hm9iZxeHrsxku8YDQ9pVX//EzteoZMnaHmTZFx4VZ
+	UMtvyFBP5MPgJJBnH9B6gWag9fkAiMBelsa54NRqQe+u/H+XzsjX2YGajlc2/SuQw7rcaa
+	Iu19o0+TIBmVSNpGFu/sayBWn/fmbCo=
+Date: Wed, 29 Jul 2026 18:30:26 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCHv2 bpf-next 05/11] bpf: Disable preemption in
+ bpf_get_stackid
+To: Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>
+Cc: stable@vger.kernel.org, Tao Chen <chen.dylane@linux.dev>,
+ bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
+ Eduard Zingerman <eddyz87@gmail.com>, Song Liu <songliubraving@fb.com>,
+ Yonghong Song <yhs@fb.com>, Quentin Monnet <qmo@kernel.org>,
+ STAR Labs SG <info@starlabs.sg>, Arnaud Lecomte <contact@arnaud-lcm.com>
+References: <20260729083807.1588544-1-jolsa@kernel.org>
+ <20260729083807.1588544-6-jolsa@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <20260729083807.1588544-6-jolsa@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Maoyi Xie <maoyixie.tju@gmail.com>
+On 29/7/26 16:38, Jiri Olsa wrote:
+> The get_perf_callchain call needs disabled preemption plus we need
+> it disabled as long as we access its returned trace entries buffer.
+> 
+> Note the bpf_get_stackid_pe function is executed already with
+> preemption disabled.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: d5a3b1f69186 ("bpf: introduce BPF_MAP_TYPE_STACK_TRACE")
+> Reported-by: Tao Chen <chen.dylane@linux.dev>
+> Closes: https://lore.kernel.org/bpf/20260206090653.1336687-2-chen.dylane@linux.dev/
+> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+> ---
+>  kernel/bpf/stackmap.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+> 
+> diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+> index 43b1e5436047..e48ddb4edd47 100644
+> --- a/kernel/bpf/stackmap.c
+> +++ b/kernel/bpf/stackmap.c
+> @@ -624,30 +624,37 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
+>  	struct perf_callchain_entry *trace;
+>  	struct stackid stackid;
+>  	bool kernel = !user;
+> +	int err = -EFAULT;
+>  	u32 max_depth;
+> -	int err;
+>  
+>  	if (unlikely(flags & ~(BPF_F_SKIP_FIELD_MASK | BPF_F_USER_STACK |
+>  			       BPF_F_FAST_STACK_CMP | BPF_F_REUSE_STACKID)))
+>  		return -EINVAL;
+>  
+>  	max_depth = stack_map_calculate_max_depth(map->value_size, elem_size, flags);
+> +
+> +	preempt_disable();
 
-In peak_usb_start(), each RX URB transfer buffer is allocated with kmalloc()
-and the URB is flagged URB_FREE_BUFFER so that the final usb_free_urb() also
-frees the transfer buffer.
+Better to use the guard-style guard(preempt)() in this series.
 
-If usb_submit_urb() fails, the error path frees the buffer explicitly with
-kfree(buf) and then calls usb_free_urb(urb). Because URB_FREE_BUFFER is set,
-usb_free_urb() -> urb_destroy() frees the same buffer a second time, a double
-free of the transfer buffer.
+Thanks,
+Leon
 
-  BUG: KASAN: double-free in usb_free_urb.part.0+0x91/0xb0
-  Free of addr ffff8881069ccb80 by task trigger.sh/285
-
-  Call Trace:
-   kfree+0x113/0x3c0
-   usb_free_urb.part.0+0x91/0xb0
-
-Drop the redundant kfree(buf); usb_free_urb() already releases the transfer
-buffer. This mirrors commit 03819abbeb11 ("net: usb: lan78xx: Fix double free
-issue with interrupt buffer allocation").
-
-Fixes: bb4785551f64 ("can: usb: PEAK-System Technik USB adapters driver core")
-Closes: https://lore.kernel.org/linux-can/178159320216.2154888.16953451793788581739@maoyixie.com/T/#u
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
-Link: https://patch.msgid.link/178163373110.2507866.216458825145756798@maoyixie.com
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
----
- drivers/net/can/usb/peak_usb/pcan_usb_core.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_core.c b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-index c7933d1acc99..55aad01cd8ca 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_core.c
-@@ -470,7 +470,6 @@ static int peak_usb_start(struct peak_usb_device *dev)
- 				netif_device_detach(dev->netdev);
- 
- 			usb_unanchor_urb(urb);
--			kfree(buf);
- 			usb_free_urb(urb);
- 			break;
- 		}
--- 
-2.53.0
+>  	trace = get_perf_callchain(regs, kernel, user, max_depth,
+>  				   false, false, 0);
+>  
+>  	if (unlikely(!trace))
+>  		/* couldn't fetch the stack trace */
+> -		return -EFAULT;
+> +		goto out;
+>  
+>  	err = stackid_fastpath(&stackid, map, trace, flags);
+>  	if (err != -ENOENT)
+> -		return err;
+> +		goto out;
+>  
+>  	new_bucket = stackid_new_bucket(&stackid, map);
+> -	if (!new_bucket)
+> -		return -ENOMEM;
+> +	if (new_bucket) {
+> +		preempt_enable();
+> +		return stackid_install(&stackid, map, new_bucket, flags);
+> +	}
+> +	err = -ENOMEM;
+>  
+> -	return stackid_install(&stackid, map, new_bucket, flags);
+> +out:
+> +	preempt_enable();
+> +	return err;
+>  }
+>  
+>  const struct bpf_func_proto bpf_get_stackid_proto = {
 
