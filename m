@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692D24279FD
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:36:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FBD395AF4
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:36:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785321366; cv=none; b=JscAI7mM8TQ9GejGsy4YOVQpolPFxqcEkGHtlgRGKY/FFnTsNi0Oj8GHENASRnQ7FX1z4wcChGBU0m08KIBIYq3iZ7D9uK09wgGAu61gxYNPEy/2VZfG1EvBFWT+LWgwhaxdbUC2IslnSBGcSQdqlWjG3gCLLG+IAJ+++7rvLtc=
+	t=1785321371; cv=none; b=ml+vQ1yHlh6MW5FVVvtgzAJOQzU0Dc3iDaccZ16KWGSBk2tSZbmkYddc92M1D6PECpapESSRbov/2tA+pBSS/55PvkHCsjr746LCWv9/QGb8LRuXCLWwKIWGZ+yq0UcIxVXPeQWGGux1FQN/jwdwBqPQSnvS8ZNo2u/Owq8zEEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785321366; c=relaxed/simple;
-	bh=fWPzr9it0IbIrSRtY4Er/+y/Wk0dCtb1ppXiWCvUu+k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JryCCj9aKLLEAK5Pme0W97GzlxCi/MCZK3Pz33XlxCAHkCgS8HmUBo4y1QIa+aVb506YIsuwjMYS2HsxiAlAhCA8rjEJZ45fvy3HaEq2J1pPnRtzuYf9Dk0Qoohlh0P1z7lSdLyCWgyQvIKpvN1cGsx66YlTx7zGOQ9mN+UmwyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qjeg/Ef7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785321371; c=relaxed/simple;
+	bh=uXLHeRXp3Fx0FyIquyHmKeEVWfe29NXBoFrz+vJfmRs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pj3kbQ3cKwDaC6bpWr45Jc8SdeihbH8q4/1zww/G22H+gf/gKVW/rJO46YtDkJbP9uuVzP1l0oje04Yy7s6RMd3dEg/kp0OFyoE02pm6E05M0gVwjO08/his/Aw77dsnBDuNNToLyy7v5vgBLJ0h9+SnhtP7p+LwCcCvbrIPf/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vf5Ax49I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qjeg/Ef7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33E61F000E9;
-	Wed, 29 Jul 2026 10:36:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vf5Ax49I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836221F00A3F;
+	Wed, 29 Jul 2026 10:36:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785321365;
-	bh=iPr7P2wOc+ylFl3sv/cX1TEu6p2+2YcRjErm49+DT4E=;
+	s=korg; t=1785321370;
+	bh=kIZSYSGvzEwHeuyRNW9dB4K7+vC9sSQwZsh3E5KShIA=;
 	h=Subject:To:Cc:From:Date;
-	b=Qjeg/Ef7CBarWTneSzR/KfQGaVtoiYv7D9uv0agTiBtLuPguqNzzBJgWxQ9epjpXs
-	 VqsI8cEfd8naz3ff/v/bhTtJeaZPYuBTUK5aFGznXnGC27IlsBWEji71yXBHW+1d7l
-	 zeI21XWknMzH5jHFlpzdceHw1qE8CnYtRYNMwYfM=
-Subject: FAILED: patch "[PATCH] drm/virtio: use uninterruptible resv lock for plane updates" failed to apply to 5.10-stable tree
-To: kartikey406@gmail.com,dmitry.osipenko@collabora.com
+	b=Vf5Ax49IMoaZqtdDHGf15czr8Yy6PwqPgSN01Dn5A4Gc8C1dx+o5XElHJ8xZFPiKq
+	 5UxhZvPDRAp1qUm1tWgSwoKeqJ/vhwp4OCjkakjdWRkk+EQCZ14k1Kgkgagh62CVx2
+	 q7jDbFWglyT3tKa8Gr4wFJd5ueuOg1M9jMi873iE=
+Subject: FAILED: patch "[PATCH] drm/dp/mst: fix OOB reads on 2-byte fields in sideband reply" failed to apply to 5.15-stable tree
+To: ashutoshdesai993@gmail.com,lyude@redhat.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:35:38 +0200
-Message-ID: <2026072938-nearby-drab-19c2@gregkh>
+Date: Wed, 29 Jul 2026 12:35:56 +0200
+Message-ID: <2026072956-send-spouse-819c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x a48bbcc7ac739e93562d6148c6fa504c2e9f22f8
+git cherry-pick -x 6b89ba3dba2f583626fb693e47e951ffb8bf591f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072938-nearby-drab-19c2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072956-send-spouse-819c@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,145 +62,89 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a48bbcc7ac739e93562d6148c6fa504c2e9f22f8 Mon Sep 17 00:00:00 2001
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Tue, 19 May 2026 13:52:47 +0530
-Subject: [PATCH] drm/virtio: use uninterruptible resv lock for plane updates
+From 6b89ba3dba2f583626fb693e47e951ffb8bf591f Mon Sep 17 00:00:00 2001
+From: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Date: Sun, 10 May 2026 20:31:28 +0000
+Subject: [PATCH] drm/dp/mst: fix OOB reads on 2-byte fields in sideband reply
+ parsers
 
-virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
-the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
-ignore its return value. The function can fail with -EINTR from
-dma_resv_lock_interruptible() (signal during lock wait) or with
--ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
-leaving the resv lock not held. The queue path then walks the object
-array and calls dma_resv_add_fence(), which requires the lock held;
-with lockdep enabled this trips dma_resv_assert_held():
+Three sideband reply parsers read 16-bit fields as:
 
-  WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
-  Call Trace:
-   virtio_gpu_array_add_fence
-   virtio_gpu_queue_ctrl_sgs
-   virtio_gpu_queue_fenced_ctrl_buffer
-   virtio_gpu_cursor_plane_update
-   drm_atomic_helper_commit_planes
-   drm_atomic_helper_commit_tail
-   commit_tail
-   drm_atomic_helper_commit
-   drm_atomic_commit
-   drm_atomic_helper_update_plane
-   __setplane_atomic
-   drm_mode_cursor_universal
-   drm_mode_cursor_common
-   drm_mode_cursor_ioctl
-   drm_ioctl
-   __x64_sys_ioctl
+  val = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
 
-Beyond the WARN, mutating the dma_resv fence list without the lock
-races with concurrent readers/writers and can corrupt the list.
+and check bounds only after the fact. When idx == raw->curlen,
+raw->msg[idx+1] reads one byte past the received message data into
+the following struct fields (curchunk_len, curchunk_idx, curlen).
 
-Both call sites run inside the .atomic_update plane callback, which
-DRM atomic helpers do not allow to fail (by the time it runs, the
-commit has been signed off to userspace and there is no clean
-rollback path). Moving the lock acquisition to .prepare_fb was
-rejected because the broader lock scope deadlocks against other BO
-locking paths in the same atomic commit.
+Affected functions:
+ - drm_dp_sideband_parse_enum_path_resources_ack()
+   full_payload_bw_number and avail_payload_bw_number fields
+ - drm_dp_sideband_parse_allocate_payload_ack()
+   allocated_pbn field
+ - drm_dp_sideband_parse_query_payload_ack()
+   allocated_pbn field
 
-Introduce virtio_gpu_lock_one_resv_uninterruptible() that uses
-dma_resv_lock() instead of dma_resv_lock_interruptible(). This
-eliminates the -EINTR failure mode -- the realistic syzbot trigger
--- without extending the lock hold across the commit. The helper
-locks a single BO and rejects nents > 1 with -EINVAL; both fix
-sites lock exactly one BO.
+Fix by using a single combined check (idx + 2 > curlen) before each
+2-byte read. Since the check is strictly tighter than idx > curlen,
+no separate step is needed.
 
-Use it from virtio_gpu_cursor_plane_update() and
-virtio_gpu_resource_flush(); check the return value to handle the
-remaining -ENOMEM case from dma_resv_reserve_fences() by freeing
-the objs and skipping the plane update for that frame. The
-framebuffer BOs touched here are not shared with other contexts
-and lock contention is expected to be brief, so the loss of
-signal-interruptibility is acceptable.
+Fixes: ad7f8a1f9ced ("drm/helper: add Displayport multi-stream helper (v0.6)")
+Cc: <stable@vger.kernel.org> # v3.17+
+Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+[added fixes tag]
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260510203128.2884846-1-ashutoshdesai993@gmail.com
 
-Other callers of virtio_gpu_array_lock_resv() (the ioctl paths)
-continue to use the interruptible variant.
-
-The bug was reported by syzbot, triggered via fault injection
-(fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
--ENOMEM branch in dma_resv_reserve_fences().
-
-Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
-Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
-Cc: stable@vger.kernel.org
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Link: https://patch.msgid.link/20260519082247.34470-1-kartikey406@gmail.com
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 04fe15d877cd..7449907754a4 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -320,6 +320,7 @@ virtio_gpu_array_from_handles(struct drm_file *drm_file, u32 *handles, u32 nents
- void virtio_gpu_array_add_obj(struct virtio_gpu_object_array *objs,
- 			      struct drm_gem_object *obj);
- int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs);
-+int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs);
- void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs);
- void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
- 				struct dma_fence *fence);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-index f22dc5c21cd4..435d37d36034 100644
---- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-@@ -238,6 +238,23 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 2ca1f2e9712c..4de36fda0544 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -934,16 +934,13 @@ static bool drm_dp_sideband_parse_enum_path_resources_ack(struct drm_dp_sideband
+ 	repmsg->u.path_resources.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	repmsg->u.path_resources.fec_capable = raw->msg[idx] & 0x1;
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.path_resources.full_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+ 	idx += 2;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.path_resources.avail_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("enum resource parse length fail %d %d\n", idx, raw->curlen);
+@@ -961,12 +958,9 @@ static bool drm_dp_sideband_parse_allocate_payload_ack(struct drm_dp_sideband_ms
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.vcpi = raw->msg[idx];
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("allocate payload parse length fail %d %d\n", idx, raw->curlen);
+@@ -980,12 +974,9 @@ static bool drm_dp_sideband_parse_query_payload_ack(struct drm_dp_sideband_msg_r
  
-+int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs)
-+{
-+	int ret;
-+
-+	if (objs->nents != 1)
-+		return -EINVAL;
-+
-+	dma_resv_lock(objs->objs[0]->resv, NULL);
-+
-+	ret = dma_resv_reserve_fences(objs->objs[0]->resv, 1);
-+	if (ret) {
-+		virtio_gpu_array_unlock_resv(objs);
-+		return ret;
-+	}
-+	return 0;
-+}
-+
- void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs)
- {
- 	if (objs->nents == 1) {
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 73aa70bd4231..1d1b27ece62a 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -215,7 +215,10 @@ static void virtio_gpu_resource_flush(struct drm_plane *plane,
- 		if (!objs)
- 			return;
- 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
--		virtio_gpu_array_lock_resv(objs);
-+		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
-+			virtio_gpu_array_put_free(objs);
-+			return;
-+		}
- 		virtio_gpu_cmd_resource_flush(vgdev, bo->hw_res_handle, x, y,
- 					      width, height, objs,
- 					      vgplane_st->fence);
-@@ -459,7 +462,10 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
- 		if (!objs)
- 			return;
- 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
--		virtio_gpu_array_lock_resv(objs);
-+		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
-+			virtio_gpu_array_put_free(objs);
-+			return;
-+		}
- 		virtio_gpu_cmd_transfer_to_host_2d
- 			(vgdev, 0,
- 			 plane->state->crtc_w,
+ 	repmsg->u.query_payload.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.query_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx + 1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("query payload parse length fail %d %d\n", idx, raw->curlen);
 
