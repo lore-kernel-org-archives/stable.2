@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFC53C1D72
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29704052B4
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785348136; cv=none; b=DDc0STaCijA2UX+WWK4X+QA2fhuxYU7rBOuqjCtY/SbJIWG55RBWTQgq1PO1rXtUcljNaOY6LRi4Nr0wZ82xkbjlGfrNkiRlqZw5XToD0T/9l07Ns1nsZBOqLrwuCieOAr+ScZvcRivlz/ye4WCjL+RO5Uc5UeS4Lt1rAv0lAGM=
+	t=1785348136; cv=none; b=PkRyFc68qYpNSoEJGZ5/bP4XxqGPDkViIzxgR7yhTqmoCeZrUBgWjdu1xGUx1VD/eKNkNlUl6wH8Z/D81cX2AvzxFnGBiChxexej1mCTbaiwMXnuCqfohP+EWBepO7+n1reVcCxtMPwDqy6eONkM3Vcl5gMdbrUQU3MraTxXVR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785348136; c=relaxed/simple;
-	bh=dcEXgyaUp6LnFABMO5BYuVZ8UuDkk6TEzLpyYESTLeI=;
+	bh=PiX3vBvGQVu1Pz2KZY9crdPSMRSzLTwuT30KQ5sjHNQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U4dD5HJP3TyN7BFR8xR5vAbIVm3Cm38Y59jUhL+LYnP2d+vxMZ95aKod3xodg2DlJ7KNFPQUAygDtk6gR+UNOCnhp5PPGWN0x+B9xIDKfrcHOrPLNBPKuQaVPVoPVBNsf7fNYwa9jFgaYZ4rpDwp1WQgc3NCxJhB7dTqV1R0q9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c34AMYaT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MC79TY8tQTlrouzme0lKx2vP+E1ah1LRNaUpk+Gqd8whU+rmHnjpAy8t2s52GsGAOhrpgK7M26pDqSAy98RojaDXb5ELcrB6BDDlpOyTzKthy2rZrtK90VDS/izyNUo6pZ4etouE8EqPcwCmUEdoZ19V3/qkcefC+5rkRN4oihU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exBruzU3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c34AMYaT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1937C1F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exBruzU3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80E61F00A3D;
 	Wed, 29 Jul 2026 18:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785348130;
-	bh=DdE/D4xI0fn7rN0a0WOo4+QQ1G3/Rvr0J2/7YNbT+yQ=;
+	s=k20260515; t=1785348131;
+	bh=US54ZCCMuHIHbRSlONU2WRM6BFlhlLMb6xMYnRBJFBg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c34AMYaT9MK0Zrjz4QmRtQpz8qkugW/WzkI4tyFblsiKGbBxOS7ZjBP7u0CwoY3kq
-	 Z8SLkDZpHbRjMhDnm5kaMy54YtbsVGU/wCN91yVaXyNbGmPx8L5o8gJ5635PnMUXLd
-	 6XxNLiyO5yxy9DhPUkJbo6edVJtjLeTC7oQ6ybYD47VGeysVs4a3gnRJdVGf8UIvrN
-	 CCVVrOm0+FYBleYOCBW9zwGuPXHGH9ZEdOTxDQxgne6Pw9zm0qF/CKVAk+XjAQKt/u
-	 jp5HDcsMdQgGSMnjn6Imf/XsJTQVmSeZMNICCFY9t+Rmh5VDJ57efhbT/AFY5TUi0C
-	 ZSO+u3ja71oVw==
+	b=exBruzU3RfORI7ATWOJzzIW08JHNezPXSmIlGV5e5kfxpESQRFIEDyLCzVgmLSmYk
+	 3TYP+MucU5ybIod+OCFCh3xsCkMg7zKVln/Npmk28jkxjwrxY5FOKVTykzv5QPPhyy
+	 WyJEE1z1UE7WuLSQEcXuDgmhw2C+NE7JfH22PA0PhNj0kTGUXQBhVXj1DTm7pBq1H3
+	 7gJ25lWw2YDyK8KEvHdBhEwtyXESc63A9ji/cf3vp3MesYPdo/G2pjtMzX8mO1cYIh
+	 sujKDDTtiz6iVXyFyvawCVUy8fJFKztKJmydzMNRyTpdgsQgAyNW4WjP3np3YQFq6m
+	 FDv2vxe/cdphg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marco Felsch <m.felsch@pengutronix.de>,
+Cc: Guoniu Zhou <guoniu.zhou@oss.nxp.com>,
 	Frank Li <Frank.Li@nxp.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
+	Peng Fan <peng.fan@nxp.com>,
+	Ulf Hansson <ulfh@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] pmdomain: imx93-blk-ctrl: convert to devm_* only
-Date: Wed, 29 Jul 2026 14:02:07 -0400
-Message-ID: <20260729180208.3683189-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] pmdomain: imx93-blk-ctrl: Extract PHY as shared domain for DSI/CSI
+Date: Wed, 29 Jul 2026 14:02:08 -0400
+Message-ID: <20260729180208.3683189-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072158-traverse-ladylike-5e02@gregkh>
+In-Reply-To: <20260729180208.3683189-1-sashal@kernel.org>
 References: <2026072158-traverse-ladylike-5e02@gregkh>
+ <20260729180208.3683189-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,138 +48,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marco Felsch <m.felsch@pengutronix.de>
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-[ Upstream commit 52becc142280eeef828d19f9cd01fd653b588786 ]
+[ Upstream commit 99611233f8cda833169fa6487d5dacdf189e5cb0 ]
 
-Convert the driver to devm_ APIs only by making use of
-devm_add_action_or_reset() and devm_pm_runtime_enable() to simplify the
-probe error path and to drop the .remove() callback. This also ensures
-that the device release order equals the device probe error path order.
+The MIPI DSI and CSI domains share control bits for clock and reset, which
+can lead to incorrect behavior if one domain disables the shared resource
+while the other is still active.
 
-Furthermore drop the dev_set_drvdata() usage since the only user was the
-.remove() callback which is removed by this commit.
+To fix the issue, introduce a shared MIPI PHY power domain to own the
+common resources and make DSI and CSI its subdomains. This ensures the
+shared bits are properly managed and not disabled while still in use.
 
+Fixes: e9aa77d413c9 ("soc: imx: add i.MX93 media blk ctrl driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
-Stable-dep-of: 99611233f8cd ("pmdomain: imx93-blk-ctrl: Extract PHY as shared domain for DSI/CSI")
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pmdomain/imx/imx93-blk-ctrl.c | 66 ++++++++++++---------------
- 1 file changed, 29 insertions(+), 37 deletions(-)
+ drivers/pmdomain/imx/imx93-blk-ctrl.c | 60 ++++++++++++++++++++++++++-
+ 1 file changed, 58 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/pmdomain/imx/imx93-blk-ctrl.c b/drivers/pmdomain/imx/imx93-blk-ctrl.c
-index e094fe5a42bf64..325711323ba4f6 100644
+index 325711323ba4f6..28688ca46517aa 100644
 --- a/drivers/pmdomain/imx/imx93-blk-ctrl.c
 +++ b/drivers/pmdomain/imx/imx93-blk-ctrl.c
-@@ -188,6 +188,20 @@ static int imx93_blk_ctrl_power_off(struct generic_pm_domain *genpd)
- 	return 0;
+@@ -47,6 +47,8 @@
+ 
+ #define PRIO(X)			(X)
+ 
++#define BLK_CTRL_NO_PARENT	UINT_MAX
++
+ struct imx93_blk_ctrl_domain;
+ 
+ struct imx93_blk_ctrl {
+@@ -67,12 +69,18 @@ struct imx93_blk_ctrl_qos {
+ 	u32 cfg_prio;
+ };
+ 
++struct imx93_blk_ctrl_subdomain_link {
++	struct generic_pm_domain *parent;
++	struct generic_pm_domain *subdomain;
++};
++
+ struct imx93_blk_ctrl_domain_data {
+ 	const char *name;
+ 	const char * const *clk_names;
+ 	int num_clks;
+ 	u32 rst_mask;
+ 	u32 clk_mask;
++	u32 parent;
+ 	int num_qos;
+ 	struct imx93_blk_ctrl_qos qos[DOMAIN_MAX_QOS];
+ };
+@@ -202,6 +210,13 @@ static void imx93_release_pm_genpd(void *data)
+ 	pm_genpd_remove(genpd);
  }
  
-+static void imx93_release_genpd_provider(void *data)
++static void imx93_release_subdomain(void *data)
 +{
-+	struct device_node *of_node = data;
++	struct imx93_blk_ctrl_subdomain_link *link = data;
 +
-+	of_genpd_del_provider(of_node);
-+}
-+
-+static void imx93_release_pm_genpd(void *data)
-+{
-+	struct generic_pm_domain *genpd = data;
-+
-+	pm_genpd_remove(genpd);
++	pm_genpd_remove_subdomain(link->parent, link->subdomain);
 +}
 +
  static struct lock_class_key blk_ctrl_genpd_lock_class;
  
  static int imx93_blk_ctrl_probe(struct platform_device *pdev)
-@@ -258,10 +272,8 @@ static int imx93_blk_ctrl_probe(struct platform_device *pdev)
- 			domain->clks[j].id = data->clk_names[j];
- 
- 		ret = devm_clk_bulk_get(dev, data->num_clks, domain->clks);
--		if (ret) {
--			dev_err_probe(dev, ret, "failed to get clock\n");
--			goto cleanup_pds;
--		}
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get clock\n");
- 
- 		domain->genpd.name = data->name;
- 		domain->genpd.power_on = imx93_blk_ctrl_power_on;
-@@ -269,11 +281,12 @@ static int imx93_blk_ctrl_probe(struct platform_device *pdev)
- 		domain->bc = bc;
- 
- 		ret = pm_genpd_init(&domain->genpd, NULL, true);
--		if (ret) {
--			dev_err_probe(dev, ret, "failed to init power domain\n");
--			goto cleanup_pds;
--		}
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to init power domain\n");
- 
-+		ret = devm_add_action_or_reset(dev, imx93_release_pm_genpd, &domain->genpd);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to add pm_genpd release callback\n");
- 		/*
- 		 * We use runtime PM to trigger power on/off of the upstream GPC
- 		 * domain, as a strict hierarchical parent/child power domain
-@@ -290,39 +303,19 @@ static int imx93_blk_ctrl_probe(struct platform_device *pdev)
+@@ -303,6 +318,34 @@ static int imx93_blk_ctrl_probe(struct platform_device *pdev)
  		bc->onecell_data.domains[i] = &domain->genpd;
  	}
  
--	pm_runtime_enable(dev);
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable pm-runtime\n");
++	for (i = 0; i < bc_data->num_domains; i++) {
++		struct imx93_blk_ctrl_domain *domain = &bc->domains[i];
++		const struct imx93_blk_ctrl_domain_data *data = domain->data;
++		struct imx93_blk_ctrl_subdomain_link *link;
++
++		if (bc_data->skip_mask & BIT(i) ||
++		    data->parent == BLK_CTRL_NO_PARENT)
++			continue;
++
++		link = devm_kzalloc(dev, sizeof(*link), GFP_KERNEL);
++		if (!link)
++			return -ENOMEM;
++
++		link->parent = &bc->domains[data->parent].genpd;
++		link->subdomain = &domain->genpd;
++
++		ret = pm_genpd_add_subdomain(&bc->domains[data->parent].genpd,
++					     &domain->genpd);
++		if (ret)
++			return dev_err_probe(dev, ret, "failed to add subdomain %s\n",
++					     domain->genpd.name);
++
++		ret = devm_add_action_or_reset(dev, imx93_release_subdomain, link);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to add subdomain release callback\n");
++	}
++
+ 	ret = devm_pm_runtime_enable(dev);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to enable pm-runtime\n");
+@@ -323,8 +366,9 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.name = "mediablk-mipi-dsi",
+ 		.clk_names = (const char *[]){ "dsi" },
+ 		.num_clks = 1,
+-		.rst_mask = BIT(11) | BIT(12),
+-		.clk_mask = BIT(11) | BIT(12),
++		.rst_mask = BIT(11),
++		.clk_mask = BIT(11),
++		.parent = IMX93_MEDIABLK_PD_MIPI_PHY,
+ 	},
+ 	[IMX93_MEDIABLK_PD_MIPI_CSI] = {
+ 		.name = "mediablk-mipi-csi",
+@@ -332,6 +376,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 2,
+ 		.rst_mask = BIT(9) | BIT(10),
+ 		.clk_mask = BIT(9) | BIT(10),
++		.parent = IMX93_MEDIABLK_PD_MIPI_PHY,
+ 	},
+ 	[IMX93_MEDIABLK_PD_PXP] = {
+ 		.name = "mediablk-pxp",
+@@ -339,6 +384,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 1,
+ 		.rst_mask = BIT(7) | BIT(8),
+ 		.clk_mask = BIT(7) | BIT(8),
++		.parent = BLK_CTRL_NO_PARENT,
+ 		.num_qos = 2,
+ 		.qos = {
+ 			{
+@@ -360,6 +406,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 2,
+ 		.rst_mask = BIT(4) | BIT(5) | BIT(6),
+ 		.clk_mask = BIT(4) | BIT(5) | BIT(6),
++		.parent = BLK_CTRL_NO_PARENT,
+ 		.num_qos = 1,
+ 		.qos = {
+ 			{
+@@ -376,6 +423,7 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 		.num_clks = 1,
+ 		.rst_mask = BIT(2) | BIT(3),
+ 		.clk_mask = BIT(2) | BIT(3),
++		.parent = BLK_CTRL_NO_PARENT,
+ 		.num_qos = 4,
+ 		.qos = {
+ 			{
+@@ -401,6 +449,14 @@ static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[]
+ 			}
+ 		}
+ 	},
++	[IMX93_MEDIABLK_PD_MIPI_PHY] = {
++		.name = "mediablk-mipi-phy",
++		.clk_names = NULL,
++		.num_clks = 0,
++		.rst_mask = BIT(12),
++		.clk_mask = BIT(12),
++		.parent = BLK_CTRL_NO_PARENT,
++	},
+ };
  
- 	ret = of_genpd_add_provider_onecell(dev->of_node, &bc->onecell_data);
--	if (ret) {
--		dev_err_probe(dev, ret, "failed to add power domain provider\n");
--		goto cleanup_pds;
--	}
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add power domain provider\n");
- 
--	dev_set_drvdata(dev, bc);
-+	ret = devm_add_action_or_reset(dev, imx93_release_genpd_provider, dev->of_node);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add genpd_provider release callback\n");
- 
- 	return 0;
--
--cleanup_pds:
--	for (i--; i >= 0; i--)
--		pm_genpd_remove(&bc->domains[i].genpd);
--
--	return ret;
--}
--
--static void imx93_blk_ctrl_remove(struct platform_device *pdev)
--{
--	struct imx93_blk_ctrl *bc = dev_get_drvdata(&pdev->dev);
--	int i;
--
--	of_genpd_del_provider(pdev->dev.of_node);
--
--	pm_runtime_disable(&pdev->dev);
--
--	for (i = 0; i < bc->onecell_data.num_domains; i++) {
--		struct imx93_blk_ctrl_domain *domain = &bc->domains[i];
--
--		pm_genpd_remove(&domain->genpd);
--	}
- }
- 
- static const struct imx93_blk_ctrl_domain_data imx93_media_blk_ctl_domain_data[] = {
-@@ -457,7 +450,6 @@ MODULE_DEVICE_TABLE(of, imx93_blk_ctrl_of_match);
- 
- static struct platform_driver imx93_blk_ctrl_driver = {
- 	.probe = imx93_blk_ctrl_probe,
--	.remove = imx93_blk_ctrl_remove,
- 	.driver = {
- 		.name = "imx93-blk-ctrl",
- 		.of_match_table = imx93_blk_ctrl_of_match,
+ static const struct regmap_range imx93_media_blk_ctl_yes_ranges[] = {
 -- 
 2.53.0
 
