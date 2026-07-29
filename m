@@ -1,118 +1,107 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F9C4279FD
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F70B44C50F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785321538; cv=none; b=tnho+QDRhwF2ysSJ5D4tKDZO1VSq0nakwEC7XAage/2cATdCwngju3Z2umSIyf/t0+ohQ6WgRVRlyUxRbgaR2g320CSNd3S2kxMVNJXGddMNGGyVtw+/Qm0BTZlgIC7jjpO3HJgG5qqV86A95+NSEXsGI9TGWx71y5GGFPQn7nw=
+	t=1785322145; cv=none; b=nrsUPCsLJ4dZF0AgzGkWDS45qQhdu22MF+QANZI7cD5UvPvl/0kcwf4aFzUwmkgQUz+rH5VWvSjprkahmlr6LxvQbq3IJ/ULis5cddlORqOpgftg/yDrK3x149JeXFxDJ4n/ksldDcCiI2WxED49m1SYvoOdb8StWnc0cjle68Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785321538; c=relaxed/simple;
-	bh=CzWdkDBUO23WPA9eDnkD5lVNphAZDOuwjctA8Qh6eNE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=c3vJNdn2ak5+xWUI1x/WVkj3VF4W6PuhnrtWNlnfr0ET17zLZqcBPBdvlpWYdwJWm4JlH4ZUHX7PKGUzgVy7jp3DZihCOz0f0XFfzL24l6BHq+V4OuJqzfAuDftkp3OIiqXo+CgdkaVT6k3uwhg+x5kUETtYRqRv0eWkdAbYd4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=b0xMjSIZ; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1785322145; c=relaxed/simple;
+	bh=x+ZnYtqItBS+NU56XYCZMdifDF7edsn0GoImML5LgOo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p284iSMQt1Ru21yJiB3SwnaeRfoMlJYkTYme//zkpKi4x6I4hRHrqZ2ZWihHjbVJ4zi4EfTkfOaCHIr9VQMzerjWt61zyEi7KKvqGhZ4nQ6tbjM8UpXAQnKTWwkAhKs+Jkb8leyR3mKGtP7MuiwaiK3XTaDThz8OAK69W/jx5sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hxNF3Sm0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="b0xMjSIZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:From:Reply-To;
-	bh=CzWdkDBUO23WPA9eDnkD5lVNphAZDOuwjctA8Qh6eNE=; b=b0xMjSIZ+V8t02AIivaLXmZK5y
-	rmtyvL3UFcUW+OijbX0lsrfNc5nAsJ/6llnzaPcdXz9V+Z4vFCjlp+ASDm8Q/bJHggsP/v6AKKV1+
-	60zdZVtvdlcBxHJhIXkbgzUaGI3OsGPyGSfz1qrii+nOYKdIMAJFYwnwMKmTcZf4VqZdjnnzmJNd+
-	9pTtBHTjBGnOjm/LbSgEsV0BhWCCuZF/vNUW//c5QJbNgOKShJz96vbVeyMXfwnYwtg2NwxC8/SUP
-	yJ+a/a5MVOdh9Od9NNPatsBM7UMYkoRUcW2KwD8x65Bt/YhEgOw6jImMnhaXyA2nkUw/BCSSUeLV6
-	ILg/PqFw==;
-Received: from [159.147.19.205] (helo=[192.168.0.17])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1wp1gW-007Rs9-0n; Wed, 29 Jul 2026 12:38:48 +0200
-Message-ID: <f580c161a074eb1d30646afd24bbd4e4657c44f0.camel@igalia.com>
-Subject: Re: [PATCH 0/2] drm/v3d: Fix system freezes by serializing the GPU
- reset
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
-	 <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
-	stable@vger.kernel.org
-Date: Wed, 29 Jul 2026 12:38:37 +0200
-In-Reply-To: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
-References: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hxNF3Sm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453791F000E9;
+	Wed, 29 Jul 2026 10:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785322143;
+	bh=KPZ6+xfdK156S4rIOXzmE4Rg2bD6OpvDxZfg6NQyPFU=;
+	h=Subject:To:Cc:From:Date;
+	b=hxNF3Sm0RnLDSmbnliiuu06qJGm20hOEy8U7GxREWvU1tZyY9dQl3p7RnSxB46hn5
+	 Gjoij6FB+oPI2E8DcT1c5cmRtFL8/DJZDBVLshuArAfJUc/NATcXoyU46bsuSDit9O
+	 fa9qh0Rdf2IqeEIATvv0/aWLNHqAvxtIbLVxGvNM=
+Subject: FAILED: patch "[PATCH] drm/xe: Set TTM device beneficial_order to 9 (2M)" failed to apply to 7.1-stable tree
+To: matthew.brost@intel.com,andi.shyti@linux.intel.com,thomas.hellstrom@linux.intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 12:48:50 +0200
+Message-ID: <2026072950-giggling-gooey-3782@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Good catch!
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+The patch below does not apply to the 7.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-El mar, 28-07-2026 a las 23:09 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> V3D exposes several independent hardware queues, but it only has a
-> single,
-> global reset. Therefore, when a job times out in one queue, the
-> timeout
-> handler has to stop, reset and restart the schedulers of every other
-> queue
-> as well. As each scheduler queues its timeout work on the system
-> workqueue,
-> those handlers run concurrently and can interfere with each other.
->=20
-> This can be reproduced on a Raspberry Pi 4 or 5 by running glmark2-
-> wayland,
-> which keeps the CL queues busy, while a second application triggers a
-> GPU
-> reset in the CSD queue every 0.5 seconds. The failure is non-
-> deterministic,
-> but it usually shows up after a dozen resets: the DRM scheduler warns
-> about
-> a credit imbalance in one of the CL queues,
->=20
-> =C2=A0=C2=A0=C2=A0 WARNING: CPU: 2 PID: 43 at
-> drivers/gpu/drm/scheduler/sched_main.c:102
-> drm_sched_run_job_work+0x238/0x4d0 [gpu_sched]
->=20
-> and, from that point on, the UI freezes and the machine is unusable.
->=20
-> The DRM scheduler already provides the synchronization that this kind
-> of
-> hardware needs: an ordered workqueue passed as drm_sched_init()'s
-> @timeout_wq parameter, which guarantees that the timeout handlers of
-> the
-> different schedulers are executed sequentially. Patch 1 gives all of
-> the
-> V3D queues such a workqueue. Patch 2 removes `reset_lock`, which only
-> ever covered the driver's callback and is made redundant by the
-> ordered
-> workqueue.
->=20
-> Only patch 1 is Cc'ed to stable, in order to keep the backport
-> minimal.
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> ---
-> Ma=C3=ADra Canal (2):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Serialize the scheduler timeout h=
-andlers
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Remove the now-redundant reset lo=
-ck
->=20
-> =C2=A0drivers/gpu/drm/v3d/v3d_drv.h=C2=A0=C2=A0 |=C2=A0 8 ++++----
-> =C2=A0drivers/gpu/drm/v3d/v3d_gem.c=C2=A0=C2=A0 |=C2=A0 3 ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 13 ++++++++-----
-> =C2=A03 files changed, 12 insertions(+), 12 deletions(-)
-> ---
-> base-commit: 48a570c964d8e37d353381e4195106277e17f5cb
-> change-id: 20260728-v3d-order-global-reset-7736b445e0b8
->=20
->=20
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x ba7fd163422877ad5a5cf31306a38c07d3932b0c
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072950-giggling-gooey-3782@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From ba7fd163422877ad5a5cf31306a38c07d3932b0c Mon Sep 17 00:00:00 2001
+From: Matthew Brost <matthew.brost@intel.com>
+Date: Thu, 11 Jun 2026 16:58:44 -0700
+Subject: [PATCH] drm/xe: Set TTM device beneficial_order to 9 (2M)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Set the TTM device beneficial_order to 9 (2M), which is the sweet
+spot for Xe when attempting reclaim on system memory BOs, as it matches
+the large GPU page size. This ensures reclaim is attempted at the most
+effective order for the driver.
+
+This fixes an issue where an order-10 (4M) allocation cannot be found
+despite an abundance of memory. The 4M allocation triggers reclaim,
+unnecessarily evicting the working set and hurting performance. Since
+the TTM infrastructure was introduced recently, we are tagging the TTM
+patch as the Fixes target, even though this resolves an Xe-side problem.
+
+Fixes: 7e9c548d3709 ("drm/ttm: Allow drivers to specify maximum beneficial TTM pool size")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Link: https://patch.msgid.link/20260611235844.3725147-1-matthew.brost@intel.com
+(cherry picked from commit 0d81db90d364cb3d733410829118759f28957c5a)
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index d224861b6f6f..abe25aedeead 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -526,7 +526,8 @@ int xe_device_init_early(struct xe_device *xe)
+ 
+ 	err = ttm_device_init(&xe->ttm, &xe_ttm_funcs, xe->drm.dev,
+ 			      xe->drm.anon_inode->i_mapping,
+-			      xe->drm.vma_offset_manager, 0);
++			      xe->drm.vma_offset_manager,
++			      TTM_ALLOCATION_POOL_BENEFICIAL_ORDER(get_order(SZ_2M)));
+ 	if (err)
+ 		return err;
+ 
 
