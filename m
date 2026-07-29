@@ -1,188 +1,93 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB452377016
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A17B2459C5
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785294119; cv=none; b=usvq4l9Gn1nmnJMLsRaoQQuNt1JSnLRylKm09TRgXVL4Kn+sRMY21aUsg5a4IwNM9ZUSHgXFQ0+553G+Rd0f0PTRBhR1Nqy3rD56uil/VdTBRr0yjhk7zrXsEwsx4ap6v7HjIRjC79PYUGal3vyHktsg928F1xltT4C6S4ZBXm4=
+	t=1785294342; cv=none; b=Hq+Nk0xO1Z15iQbo1f0+GsvYsMzXUiIemhY1s+5K/GCZ/d0ygZBq9wKTxvoraKHLDA/AsMeqztw9MJo5R0UAlUsEs28RUQewnf+8XcB/C7oRdUxQxgbVBNLO5LBcgJBAoGNeZSIyvht/0hlHAm2MJfDxHLdVWISfppZbscYj1j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785294119; c=relaxed/simple;
-	bh=8pQmOMcFljWndvm8K6rOOGOJ+N7FFwl468qrnHJKbbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fgH55ZbboFOY+eD68mZPIEXf8j7iNlKIIsg4dF7y1eU2uUFfkvT/p8A08PrizhO+Md/SKU9ESnhslw4vlZvZ+p/J/f6kczTi+SbfZlQAbfI1ESMixx/ASKVHEyewDd7gtgszl1t6jS+YHpeZfsYyZdTkKYQY+NaYgdK1lwfHvk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLMBnNJG; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785294342; c=relaxed/simple;
+	bh=S0XTdxd9EFqAiIpzY2h7/y6Zhp+VWToFWz2QLG0RQm0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=VFvDf/yFdfbiSbRzlUZzCG5HcT+R3vP525ti6pgRczR3MFYlizol1hat3OxVnwSAIjQF4p5jKlE4A5OZpRSGRpyc+PJsqJYSBMI3XZ9mH31WGnF4iwOe1idZGJNH+odk8/GQj1G9bM08Hz4VNpH3Ih8BAd36DNDKy8a6kohCtTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hOoYWPtQ; arc=none smtp.client-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLMBnNJG"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cf420670bbso404015ad.1
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 20:01:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785294117; x=1785898917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NixGGEEqw+E2z4UzpPLkFQOamKXWaytt2d5AlloTFNI=;
-        b=aLMBnNJGx72582/bcD+6zuK6BhMwujxBrA4sL5pj6b6fHSnwYrnIV1QMU8jdgRn81S
-         ode6R4Z/vzTYqr+aIGqf8rWCg7CXH+uNCoslDr/BvcOZLWTEEyK+e7S78IsE4b5pErgl
-         ThkiVVO1A7ZfBB3nKPvPFzAEFsWZydph0eQO8HEmZOugvEKOE5T1qOwiBXGANi1oUiX3
-         VTzq15Bac7Fc4+BQ6O9Z8I2/LUAszSQ4c6IvDQHvYfEpRxkGsyC7yBFC+q9QN6AQTQ2A
-         PmLiZo+d1JLzMa0ZCxOKGeSFppnGT9NEkRTTpS2VC82vlBj6dojdJebEOft17jGP9ytc
-         ozYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785294117; x=1785898917;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NixGGEEqw+E2z4UzpPLkFQOamKXWaytt2d5AlloTFNI=;
-        b=exYfqP/sHwohceiz5JsrOKUE+HurxBUjMccJ2SHvRLMbRNKVYb9/EzT/JNQcUI7L3n
-         L2C7e1FEx1ozDMqB/Hl49FtM8Th/QnWYuJuGambdbNae89NNHMOkimEyGxUk3Jra+dAM
-         gcm3nYtREbs6cRg1BDzVCEGb0KdTyC4G74QP7OXmxnAL0U5mIwfAwPM016zm107Kh49p
-         2g2nTq86es8UcCqLwjaHdgQDb+cqzAUxN4OGdbTRYepRM/6/QO4ouyUkgx3Sag0hBVTz
-         /jUwC3IGprm89BMm8xALQji/EEHq2WTdy9Kc55M4cgDbdepghBOHKdFDPNSXuqI75+eW
-         NObA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp9qZOh73ynzZG9L/HxjhmsJgBkttHI1oMsD7b72+gy1cVHUYjOQKzlAchd135V+hAggquBdtI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8tzomGl4Oe9ech3OITM1LAI5mahSenL0KQZLWiIu9DQnws+40
-	zciK8Dt/6FTncjHK/MunSVA2HxXDrR0RHsbw9FTAR1x/q3LLK7Zijc0q
-X-Gm-Gg: AR+sD129ZkeoGE3xkw3zyWyRvHBT0i07Cfekh1wGUqct2ttimYW1VnScCZKKaObGLzm
-	sYPGJxhHQ9BkCveOdko8AC6kTOt2A/sMy6LVhhfSeq8UOHkru4TiUppLR9pEJRPGiq6YfevFIO7
-	X6cafPlug74IC10E0Ps+HLfxaNo24dzW5nVzCb8MzYbYF7dq1fwX7HypvcWl8kvnLysS3w/a5ee
-	XS7F7STw6npglKmE6y/ct+C5R+A29HxlCg2Vu8JbWXTjilhDAt6sDVAWJkYujycjF0e0VX4+GBv
-	XP80ngFXyYlf/X4gNHuNlY/3hZToNynW5HIF7kA+V4k9Xrbiv1FJ7ghPRY+rfj5y3Wev9l3cy0f
-	efQ4syqAgB9n+N5BtW/u9YcKg8u3CHWdN1HhwZyjhyL/IlE5xu8Qjwypkxtb0uV8mYqAaUyaB7m
-	Tc5/R1WjCVCijw2WEomb9bEngLhFBqJntih1Hdrq2d2NCtslohzcjkGwNrVJLOx0pc/RVuZ550T
-	gEXb7f1c7vR44wZXiwtCJc329P2YMDOMTWRbVWGLxwGq/ZI+Eo=
-X-Received: by 2002:a17:903:1904:b0:2ca:6885:8a06 with SMTP id d9443c01a7336-2d015d3a94emr44001065ad.5.1785294117180;
-        Tue, 28 Jul 2026 20:01:57 -0700 (PDT)
-Received: from localhost.localdomain ([139.159.170.72])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022c3721esm4097385ad.77.2026.07.28.20.01.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 28 Jul 2026 20:01:56 -0700 (PDT)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: netdev@vger.kernel.org
-Cc: willemdebruijn.kernel@gmail.com,
-	daniel.zahka@gmail.com,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hOoYWPtQ"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785294328;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ycGUdLr9mOIF6EQhnDtROfAy1DDOIbnzkSJgNj+BXSE=;
+	b=hOoYWPtQhGhxr5OdGHu0TLydzVR1hMQu9NPP/SUkh745ub1cfnCwnopyMA2HG17w+Vj0Ij
+	O76Wjp35lxnqp3ttzikoiO//T7AEr9+XrIIWu/nhfew3XLLBjflaFp7wVPI+shy6IyVk8c
+	zPKgai6+cs093+LXnZNWd373GmFM8i0=
+From: Yi Cong <cong.yi@linux.dev>
+To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	stable@vger.kernel.org,
-	Qihang <q.h.hack.winter@gmail.com>
-Subject: [PATCH net v4 2/2] packet: use consistent hard_header_len in TX_RING send path
-Date: Wed, 29 Jul 2026 11:01:22 +0800
-Message-ID: <20260729030122.21462-3-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260729030122.21462-1-q.h.hack.winter@gmail.com>
-References: <20260729030122.21462-1-q.h.hack.winter@gmail.com>
+	pabeni@redhat.com
+Cc: jackychou@asix.com.tw,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Yi Cong <yicong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net-next] net: usb: ax88179_178a: fix skb leak in ax88179_tx_fixup()
+Date: Wed, 29 Jul 2026 11:04:36 +0800
+Message-Id: <20260729030436.3420477-1-cong.yi@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-tpacket_snd() reads dev->hard_header_len independently for skb
-allocation and header construction in tpacket_fill_skb(). Concurrent
-netdevice reconfiguration can therefore make the reserved headroom
-smaller than the amount later pushed, or make copylen - hard_header_len
-negative.
+From: Yi Cong <yicong@kylinos.cn>
 
-Snapshot hard_header_len once before processing ring frames and use it
-for the frame limit, headroom allocation, copy length, and skb
-construction. Pass the snapshot to tpacket_fill_skb(). Reset copylen for
-each frame so a previous frame cannot retain a larger construction
-length.
+When the interface has NETIF_F_SG enabled and skb_linearize() fails in
+ax88179_tx_fixup(), the function returns NULL without freeing the skb.
 
-The separate SOCK_DGRAM consistency problem between hard_header_len and
-header_ops->create is not addressed here.
+usbnet_start_xmit() treats a NULL return from tx_fixup() as a drop
+(info->flags does not set FLAG_MULTI_PACKET for this driver), jumping
+to the "drop" label where it does `if (skb) dev_kfree_skb_any(skb)`.
+Because tx_fixup() returned NULL, the local skb variable in
+usbnet_start_xmit() is NULL, so the original skb is never freed — a
+memory leak on every TX frame whose linearization fails (i.e. under
+memory pressure).
 
-Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+Free the skb before returning, matching the error handling already used
+for the pskb_expand_head() failure path in the same function.
+
+Fixes: 16b1c4e01c89 ("net: usb: ax88179_178a: add TSO feature")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+Signed-off-by: Yi Cong <yicong@kylinos.cn>
 ---
- net/packet/af_packet.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ drivers/net/usb/ax88179_178a.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 88674a6e868c..8ee0a80fdcea 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2574,6 +2574,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
- static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 		void *frame, struct net_device *dev, void *data, int tp_len,
- 		__be16 proto, unsigned char *addr, int hlen, int copylen,
-+		int hard_header_len,
- 		const struct sockcm_cookie *sockc)
- {
- 	union tpacket_uhdr ph;
-@@ -2605,8 +2606,8 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 	} else if (copylen) {
- 		int hdrlen = min_t(int, copylen, tp_len);
+diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
+index 98f899ea2e94..81d8412ce8e2 100644
+--- a/drivers/net/usb/ax88179_178a.c
++++ b/drivers/net/usb/ax88179_178a.c
+@@ -1487,8 +1487,10 @@ ax88179_tx_fixup(struct usbnet *dev, struct sk_buff *skb, gfp_t flags)
  
--		skb_push(skb, dev->hard_header_len);
--		skb_put(skb, copylen - dev->hard_header_len);
-+		skb_push(skb, hard_header_len);
-+		skb_put(skb, copylen - hard_header_len);
- 		err = skb_store_bits(skb, 0, data, hdrlen);
- 		if (unlikely(err))
- 			return err;
-@@ -2737,7 +2738,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 	void *data;
- 	int len_sum = 0;
- 	int status = TP_STATUS_AVAILABLE;
--	int hlen, tlen, copylen = 0;
-+	int hard_header_len, hlen, tlen, copylen = 0;
- 	long timeo;
+ 	headroom = skb_headroom(skb) - 8;
  
- 	mutex_lock(&po->pg_vec_lock);
-@@ -2784,8 +2785,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_put;
- 	}
+-	if ((dev->net->features & NETIF_F_SG) && skb_linearize(skb))
++	if ((dev->net->features & NETIF_F_SG) && skb_linearize(skb)) {
++		dev_kfree_skb_any(skb);
+ 		return NULL;
++	}
  
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
- 	if (po->sk.sk_socket->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
-+		reserve = hard_header_len;
- 	size_max = po->tx_ring.frame_size
- 		- (po->tp_hdrlen - sizeof(struct sockaddr_ll));
- 
-@@ -2822,8 +2824,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto tpacket_error;
- 
- 		status = TP_STATUS_SEND_REQUEST;
--		hlen = LL_RESERVED_SPACE(dev);
-+		hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 		tlen = dev->needed_tailroom;
-+		copylen = 0;
- 		if (vnet_hdr_sz) {
- 			data += vnet_hdr_sz;
- 			tp_len -= vnet_hdr_sz;
-@@ -2840,10 +2843,10 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 						    vnet_hdr.hdr_len);
- 			has_vnet_hdr = true;
- 		}
--		copylen = max_t(int, copylen, dev->hard_header_len);
-+		copylen = max_t(int, copylen, hard_header_len);
- 		skb = sock_alloc_send_skb(&po->sk,
- 				hlen + tlen + sizeof(struct sockaddr_ll) +
--				(copylen - dev->hard_header_len),
-+				(copylen - hard_header_len),
- 				!need_wait, &err);
- 
- 		if (unlikely(skb == NULL)) {
-@@ -2853,7 +2856,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_status;
- 		}
- 		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
--					  addr, hlen, copylen, &sockc);
-+					  addr, hlen, copylen, hard_header_len,
-+					  &sockc);
- 		if (likely(tp_len >= 0) &&
- 		    tp_len > dev->mtu + reserve &&
- 		    !vnet_hdr_sz &&
+ 	if ((skb_header_cloned(skb) || headroom < 0) &&
+ 	    pskb_expand_head(skb, headroom < 0 ? 8 : 0, 0, GFP_ATOMIC)) {
 -- 
-2.50.1 (Apple Git-155)
+2.25.1
 
