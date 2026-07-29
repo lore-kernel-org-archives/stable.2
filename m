@@ -1,69 +1,109 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BC5EEB3;
-	Wed, 29 Jul 2026 06:52:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4BC3AB260;
+	Wed, 29 Jul 2026 06:52:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785307945; cv=none; b=dzi6d207yvipihIepYWbe8noKeM9AX+ANuM3CnZJm5Nmi/p1AUBnTVxHH2RKDEaUusCQUCPdRVP8CI2pbjmgDYLizWmKnF86qFKLh/eEu60lvkouA7CD9bxDhp0lnEuH4RlHdfTqYXMEOQhax4zzcIN4MLWWKXgvR+5sdG57mrI=
+	t=1785307979; cv=none; b=Xs9Aii2D/c3134yXKnOT9k5wnEzsO3WipOkBcVd5TcgUjNHIUXk+kQkYbf7pkarDWIP8EtzmJWa/Hl25V12qkjJSy/r5xhGwV6j8hznD67qTppJU/QVa43A7POeTQtjJwYM4dZ09SP9W0GWNwscjY2nCpLdvJAI0CKu8cPa9DP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785307945; c=relaxed/simple;
-	bh=2AjAfBh3PVT7jRhQmwKUUUXnQMKve0RUhX/1CLv/7f0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CNiw5QDeERPaAAc88gFoMtVSTbCP0qeROhCzAfXOALUkT8T8VOSi1xgKcwk3cISMVosDLOB7Gg2JkoX+C+OdWUzg3F1ED46gS5HOAgsX1cpwTUXsVCnl9s8xOotXjWT2aj+8NlqLp+FYkkEWS+I4hM7JVL7ujk3/oIGo7d31/BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=JRVS5xp5; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1785307979; c=relaxed/simple;
+	bh=x7RZQvvPvxXbMfuXWGrKVps+LeWW4nbQZ2SLee/v/eE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gdrUdbsA1fIdvpFyVyYh/mMtQvmfQn6D35cjLtu4fbeAzqO/xRiBDaPtiiBNdk0EhZMioWCTaV1trWyKXjmZ5KjH62EGe3KiIJXvcpJ3IMlppki2WUQH/pGiYZB4ke4Y0WN6He3UXqPut9EgYurpnNcFZJUAVB9CQ7as1GN6SoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=vcN10VWz; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="JRVS5xp5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=G8PvX1ncWHGXTxhJOn+Gnajkbtvsm1bV8NGcf0dUhfU=; b=JRVS5xp5ZfEv831jHfTpKkSXog
-	7IunM/SyLt+MNlcssV7FRpO0oBSgVlxF0AG+YQmFeQKI9+8BQuRTkFXAv2d/0mypHWJo5T6cDhwOo
-	fhyOdMYf5BIAJHd7GSESE3UJ0sbf+/rqJ/7sXYxswZF3XxiPimq/n9DuVS/oa68bW0AIYgoJfSrw+
-	sgdvLiaSOToWphapEA2t1QsbnNU3WB9LsF4FKJhkU31ANgRg5zDQAk6FFCm1KT9VgbGBK09hMl6En
-	AZtcPyEru6Cm2z70pVrpNC04ka6yAjWmERlVEYLWO1J8piIJksTgt5ynbL7kaAUEF5ZS0s/JSBnWJ
-	n0zAsKqw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1woy9N-000000074A1-1BIp;
-	Wed, 29 Jul 2026 06:52:21 +0000
-Date: Tue, 28 Jul 2026 23:52:21 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: cem@kernel.org, djwong@kernel.org, hans.holmberg@wdc.com,
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	zhongling0719@126.com, stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: check split_sectors validity before bio_split call
-Message-ID: <ammjJTqoOHsW9AXJ@infradead.org>
-References: <20260729063117.54540-1-zenghongling@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="vcN10VWz"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66T6qpdZ7254779, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1785307971; bh=WHRWHJD3QHcEEMI+e56YiNfInwYHe63bnjzMDvKJAg0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=vcN10VWzo4j5oBnmRtzLZGpZZVUi8a7bDrJpac6AmpWBsoPhqIAjOqTQpDIO5xvFb
+	 2G56FDIQQTnOBQsmJ8PELdxEB86ujkdsePRDFXvwKfY/vZ8WaiPlPwYR3FileewLWs
+	 sSWq8q4SXJe+6FIXvRo1uftn24b60wV1NUOntx7lalLgMjdytQZJQSCHJbjscQCOY6
+	 ojkjSjSrm2n0TNfUhZQE13THzV2x4tB+AEUcjXJTREJO/2guinA86Guoyylf+Cht3W
+	 q+JIcIXY9rUUX6WWXYCtqWU1Dc4pcMq2nvgOicvYQCxHvjjafCpzt9WaI+QwdmFrEB
+	 0w/sVsWAYGGxw==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66T6qpdZ7254779
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 29 Jul 2026 14:52:51 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Wed, 29 Jul 2026 14:52:51 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Wed, 29 Jul 2026 14:52:51 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: "yhchen312@gmail.com" <yhchen312@gmail.com>
+CC: Damon Chen <damon.chen@realtek.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH v2] wifi: rtw89: pci: add .shutdown callback to stop
+ rfkill polling on reboot
+Thread-Topic: [PATCH v2] wifi: rtw89: pci: add .shutdown callback to stop
+ rfkill polling on reboot
+Thread-Index: AQHdHvt1Pu/352P+/U6+Mc52K++5r7aED6Yw
+Date: Wed, 29 Jul 2026 06:52:51 +0000
+Message-ID: <1c11e1e5c94b4a80835df4c5bafb55ea@realtek.com>
+References: <142c91dfc7334136a5dabc4f91504ec6@realtek.com>
+ <20260729014142.2746777-1-yhchen312@gmail.com>
+In-Reply-To: <20260729014142.2746777-1-yhchen312@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729063117.54540-1-zenghongling@kylinos.cn>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Wed, Jul 29, 2026 at 02:31:17PM +0800, Hongling Zeng wrote:
-> Fix by changing the check from !split_sectors to split_sectors <= 0
-> immediately after bio_split_rw_at() and before any arithmetic operations.
-> This prevents both the negative error code propagation and the undefined
-> behavior from left-shifting negative values.
-> 
-> When NULL is returned, the caller's while loop naturally terminates,
-> which is the correct behavior for "cannot split" cases.
-> 
-> Fixes: 080d01c41d44f ("xfs: implement zoned garbage collection")
-> Cc: <stable@vger.kernel.org>
+yhchen312@gmail.com <yhchen312@gmail.com> wrote:
+> From: "Yuhang.chen" <yhchen312@gmail.com>
+>=20
+> Since the hardware rfkill polling was introduced, arm64 platforms can
+> panic with an asynchronous SError during warm reboot:
+>=20
+>   SError Interrupt on CPU8, code 0x00000000be000011 -- SError
+>   Workqueue: events_power_efficient rfkill_poll [rfkill]
+>     rtw89_pci_ops_read8+0x94/0x160 [rtw89_pci]
+>     rtw89_core_rfkill_poll+0x50/0x1e0 [rtw89_core]
+>     rtw89_ops_rfkill_poll+0x40/0x68 [rtw89_core]
+>     ieee80211_rfkill_poll+0x3c/0x70 [mac80211]
+>     cfg80211_rfkill_poll+0x40/0x2a0 [cfg80211]
+>     rfkill_poll+0x30/0x88 [rfkill]
+>   Kernel panic - not syncing: Asynchronous SError Interrupt
+>=20
+> On the reboot path the kernel only runs device_shutdown(), which calls
+> each driver's .shutdown callback; .remove is not invoked.  The rtw89 PCI
+> driver had no .shutdown callback, so nothing stopped the rfkill polling
+> work while the platform was tearing the PCIe link down.  Once the link
+> is gone, the next MMIO read from the poll handler targets a
+> non-responding device and is reported as a fatal asynchronous SError on
+> arm64.
+>=20
+> Add rtw89_pci_shutdown(), wired to all rtw89 PCI device drivers, which
+> sets a new RTW89_FLAG_SHUTDOWN flag (mirroring the USB
+> RTW89_FLAG_UNPLUGGED pattern).  When the flag is set,
+> rtw89_ops_rfkill_poll() returns early, so no MMIO read is issued to the
+> chip after shutdown begins and the SError no longer occurs.
+>=20
+> This does not call the full .remove path from .shutdown, to keep the
+> shutdown handler minimal and avoid running the non-idempotent teardown
+> twice.
+>=20
+> Fixes: 0b38e6277aed ("wifi: rtw89: add support for hardware rfkill")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Ping-Ke Shih <pkshih@realtek.com>
+> Signed-off-by: Yuhang.chen <yhchen312@gmail.com>
 
-Nothing can actually hit that.  It only happens for invalid flags,
-or unaligned I/O, none of which can happen for GC I/O.
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-I think checking all cases of the return value is fine, but the fixes
-is a bit bogus, and it really is not stable material.
 
