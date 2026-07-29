@@ -1,51 +1,43 @@
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAE14052CB
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290DE43CE6F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785342235; cv=none; b=qblVzuJJ3NzIXS0L6kQdi6DKF8dCX8MBNj2RSvZQxbSu3vsFUXNwLaSxm9utYVRxYjkJGzdZpHc/tVMbQ5hHVZqkc/1TCpkwntJZVr+2NPbZ0dJ/zeYUf4LUjF5PYokA8Sy2EoQC+nO/eO+W7d2+F3yWVVvxqPcSz8hVUtNDbNw=
+	t=1785342262; cv=none; b=Wk389+T0Oib+jVAkZ9LJGKV+KJYPE2vN7wZIQCIuB6JtLTGEnzU9LfHRagzxNReRaEQePCyWLEQIY5EJ68Ku9D4P6yYwoDBUz6SY6Jn3d/e4CFN3w0x27pokxMb62hl5JSHSMLLrURvbc27XxJb24JaVoQN4QqlFcGHHtJdxuCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785342235; c=relaxed/simple;
-	bh=rH8IvXaLHHE8At0Ybgif9JtIay7VpjKuuqFFRb1P0Vw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hVmWpMUpzq0je9cKOM4s2zHJ48tf/A8LVnJ4RXvl7E4ov0H74cx489s4PzmbLlLtN3M9zWBCKxW7eRCXKjQIIecSHd7/Qo9tytHtdDrWIPziHXoAl85CbxTY64HUojdvfdE8AFFqrBTwgOrfo+wq4/ADeVaX07dEmlPpn+jJe/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=HjFyOWbF; arc=none smtp.client-ip=18.194.254.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785342262; c=relaxed/simple;
+	bh=YwutemxgZQ4k7Hh93OCHndjF1ngRzjPzGG+/HMA511M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S5c6xKnQy1AWnAR1vwrjReidoH9dfSKg4bOkkMc1xsQHxiPQ7fw5DZYERylJKot0Dd7LHIYl/KEGm4QhkkROQloEdVbjMly6sNupqEUj2nRgU0iuE2h6rvz/aQ2CoescRayiAQW62fz8oQmqhbFyYqJMJJd0qIZ8H/SV7VXj4nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=guGgqlq0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="HjFyOWbF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785342197;
-	bh=nOSu4CKzjyF+VK3K64pFnSQWJD3WQWCUZ/Rehn4yNtI=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=HjFyOWbFo6rBiyyYGg4vRB4e681dcY3SXOgLi+XM/1EvpT/FL3ROncilKh6jC4yvx
-	 o+vb1L+cul+11RFy80XPeltK60I0xBJnd6ZVeW/EWv4emPoz8JVwlke4NmGjk222aB
-	 nX1hPcHx7C1hgY2GImrxKWD9RWWz5HIpULKEM4YI=
-X-QQ-mid: zesmtpgz6t1785342178tc54f2ad7
-X-QQ-Originating-IP: 2VPv92T2jCwOSVbFV7B2E9FLFPW3eb4U20uwvxfnu8o=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 30 Jul 2026 00:22:56 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 17569455866306087282
-EX-QQ-RecipientCnt: 7
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: guanwentao@uniontech.com,
-	linkinjeon@kernel.org,
-	stable@vger.kernel.org,
-	stfrench@microsoft.com,
-	Haofeng Li <lihaofeng@kylinos.cn>,
-	ChenXiaoSong <chenxiaosong@kylinos.cn>
-Subject: [PATCH 7.1.y 1/2] ksmbd: validate num_subauth when copying ACE in set_ntacl_dacl
-Date: Thu, 30 Jul 2026 00:22:53 +0800
-Message-Id: <20260729162254.2169992-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <2026072935-handyman-fascism-82fa@gregkh>
-References: <2026072935-handyman-fascism-82fa@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="guGgqlq0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1B51F000E9;
+	Wed, 29 Jul 2026 16:24:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785342260;
+	bh=RHPwBOBg6eikyAsNP27bkDW8083Zs+wVvjzQSkFDLh4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=guGgqlq0tMI7/5gm+1YknvgM2e+gka4Q+v/wL+myh2cmWRw6ZN0TrL9Ohd5KwhZOC
+	 NGVxR+lDIRkjszMWfA7Q3Z85Y61S8AUCX3M4M6VFHkn9BIt1ox9xwf2PkohYXDbGtR
+	 A2v5ybhlvJlYTmuqfHZCXsC13OwmmAL39HWlkE6MycDZL2oy5rrLuAb6h0GF/ByM4A
+	 uO+eQZwml8oFwAEAqtkQMYychw843fr/trPUmM0pBp+igByuV4fuCBTr5zPKUOePMi
+	 qN7yPTmgaURmbSOmWT6aO59b13H0eYsa8CGpOcolq8VLmhvsyFNUczCI2mCYyFTWo6
+	 wLF1l1iQD2SPw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] octeontx2-pf: fix SQB pointer leak on init failure
+Date: Wed, 29 Jul 2026 12:24:18 -0400
+Message-ID: <20260729162418.3521009-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072129-glaucoma-armrest-3235@gregkh>
+References: <2026072129-glaucoma-armrest-3235@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,93 +45,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OKkKo7I1HxIeOMtWw7VTBd7OVDlHQANBQQNefOSsjdOvE02mLFOc8+Sy
-	cSYJe8xQ5xu7SF6/ToKMDUYVftv/aqCSYYwXLSLtPZSbcHu3+aKHRWvlnixZZAiwLSv1y6F
-	wLl+Jiyx3n0VS+l97Y9q/pGIPyANtLNXILdVG/aihnQf6aLFpap3TeKnJhLbP73lMm3hEhT
-	IFXAP/v1MGZttA4ocULl9qkOo7x8ZPtjy6I+6V+hiMcujlhXA/HDRdYzZHmYk2NscXg1AUm
-	5Wyt+PaBcFJre3yapbGNZeDVXs/qwct8HDBI7HigwxIrwowitQvAOO6G1OyDMkCKWPK8CyX
-	OAUueVPG+M8cPoSKhlWiCIrhe2fLm8vz7Tj76pxB0dmcxJfN1dSDvLhkT5lfXajN4IKZuQK
-	FVoGxA+DH/8+CalIiWYc/WBTDO+uAzxLYgkpl6MeNtNC83T7xBap6XCX3d6QPPM12pju2xq
-	0QXg1HleZ6ZMZYk1lvkXaUQ1u8neDw3GCOvemOZUv8hyao5lHUwbAzfkwhvdev1ZROZOqcj
-	rACQG/60maogssCbK4+zHcj8wROpOwnpdAfSBDzqIj6nm2rXz/LcxhjKWOx3+0ixb9WUiCV
-	QkcmQrRAK447O681vFMmTj1xnlyTxHnMab+bxmfmgfZZAJ8zhMKW44O8qd9TJXGV1gCSC9u
-	teEP4Cp4CZMMuKnbvnlU/9E16yUQJcqhVCNBWZeGk2dX06xn4wxbavuyIj88Rnpa02+5HTh
-	k3CWFq94kPNcjC61zYI/ATjaFsupv/ByZDmuNmLGmO9+EZNcvz6mRp1s/n9+wwbovTiWJcz
-	J0gYFP8FZDSCpEQqLZcXMGwX28ENChEW6w8HUKj8MXh373EUWKNIc3lOsUNVJ59RtQxRECr
-	fsPgXEDzY5S9pEDLPq1oqsJCaduBKsYSWUPupBhk4OtzsSOFf1c/kT/YsApD1W/RX9FaxN3
-	Pwc5ZvYu8Hb79rLvOvmuI/RazwB3GxD9y50Wv5B+zz1zEfVMVR6lo1EqEBXN29yXpoat2AG
-	oUKvKx0VqJpY/HwjJEb/UUAslIFNVG1UXgc1VwsPqus152Cfm49aNj2HVp2MU1naS1aqvPy
-	GtYbeBslmWy
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
 
-From: Haofeng Li <lihaofeng@kylinos.cn>
+From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-set_ntacl_dacl() copies each ACE from the attacker-controlled stored
-security descriptor verbatim into the response DACL without checking
-sid.num_subauth. The ACE bytes (including an unchecked num_subauth)
-originate from an authenticated SMB2_SET_INFO(SecInfo=DACL) that is
-stored raw via ksmbd_vfs_set_sd_xattr(); parse_dacl() rejects a bad ACE
-with `break` rather than an error, so parse_sec_desc() still returns
-success and the malformed SD reaches the xattr intact.
+[ Upstream commit 62e7df6d042aeebd5efb581074e28865c04477be ]
 
-On a subsequent SMB2_QUERY_INFO(SecInfo=DACL) for an inode carrying a
-POSIX access ACL, build_sec_desc() -> set_ntacl_dacl() ->
-set_posix_acl_entries_dacl() walks the copied ACEs and reads
+otx2_init_hw_resources() initializes SQ aura and pool resources before
+several later setup steps. On failure, err_free_sq_ptrs only frees SQB
+pages, leaving the per-SQ sqb_ptrs arrays behind.
 
-    ntace->sid.sub_auth[ntace->sid.num_subauth - 1]
+Use otx2_free_sq_res() for the SQ unwind path and let it free sqb_ptrs
+even when sq->sqe has not been allocated yet.
 
-with num_subauth taken straight from the stored SD. Since sub_auth[]
-is fixed at SID_MAX_SUB_AUTHORITIES (15), a crafted num_subauth (e.g.
-255) drives an out-of-bounds heap read of ~1 KB with an offset fully
-controlled by an authenticated client.
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1.1.
 
-The sibling functions already gate this field:
-  parse_dacl()    -- num_subauth == 0 || > SID_MAX_SUB_AUTHORITIES
-  parse_sid()     -- num_subauth > SID_MAX_SUB_AUTHORITIES
-  smb_copy_sid()  -- min_t(u8, num_subauth, SID_MAX_SUB_AUTHORITIES)
-set_ntacl_dacl() is the lone inconsistent path that omits the check.
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+OcteonTX2 PF device and the corresponding AF mailbox setup to test with,
+no runtime testing was able to be performed.
 
-Add the same num_subauth validation in set_ntacl_dacl() before copying
-the ACE, matching the gate already enforced by parse_dacl().
-
-Signed-off-by: Haofeng Li <lihaofeng@kylinos.cn>
-Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-(cherry picked from commit 47f0b34f6bc98ed85bfdc293e8f3e432ec24958d)
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
+Cc: stable@vger.kernel.org
+Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Link: https://patch.msgid.link/20260630071625.349996-1-dawei.feng@seu.edu.cn
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smbacl.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index fc9937cedb012..9c59c8f73b667 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -745,12 +745,18 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
- 			if (nt_ace_size > aces_size)
- 				break;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+index 50a36639e0ced6..4d7f84513c48bb 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+@@ -1357,14 +1357,13 @@ static int otx2_init_hw_resources(struct otx2_nic *pf)
+ 	return err;
  
-+			if (ntace->sid.num_subauth == 0 ||
-+			    ntace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES)
-+				goto next_ace;
-+
- 			memcpy((char *)pndace + size, ntace, nt_ace_size);
- 			if (check_add_overflow(size, nt_ace_size, &size))
- 				break;
-+			num_aces++;
-+
-+next_ace:
- 			aces_size -= nt_ace_size;
- 			ntace = (struct smb_ace *)((char *)ntace + nt_ace_size);
--			num_aces++;
- 		}
- 	}
- 
+ err_free_nix_queues:
+-	otx2_free_sq_res(pf);
+ 	otx2_free_cq_res(pf);
+ 	otx2_ctx_disable(mbox, NIX_AQ_CTYPE_RQ, false);
+ err_free_txsch:
+ 	if (otx2_txschq_stop(pf))
+ 		dev_err(pf->dev, "%s failed to stop TX schedulers\n", __func__);
+ err_free_sq_ptrs:
+-	otx2_sq_free_sqbs(pf);
++	otx2_free_sq_res(pf);
+ err_free_rq_ptrs:
+ 	otx2_free_aura_ptr(pf, AURA_NIX_RQ);
+ 	otx2_ctx_disable(mbox, NPA_AQ_CTYPE_POOL, true);
 -- 
-2.30.2
+2.53.0
 
