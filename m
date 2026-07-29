@@ -1,110 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f11.google.com (mail-oa2-f11.google.com [74.125.231.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DC5383C89;
-	Wed, 29 Jul 2026 17:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96463381AE0
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 17:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785346704; cv=none; b=XULgGjWIFR3IvomGD3s73q2CigJZgPFMQeJNUPXSmZdH58QTbissEtOBbLUGk6zUbh5m5Ll1O5SDEm1IZ3jop5mcJuG2yZfQPOeM0qxQ3y+5z56DZkJ3VJcr7OAdgaR4UeZci4orWIOBCNblG84DMhWfjiWrc4ISFaUm/b2jDW4=
+	t=1785346705; cv=none; b=kvDqGyPklF3xZ03CcFIqwI33AxK2xH/U3LgRlKbwC1uVLyhpKt9nmlVaqL5i4vLUNaw0q7vlnU9K9PEfTi4PEmk81jr+XyUf7UeS0lIdX2K4/TJqxpDodphyBiFnOPRb/fBwGtB5S8Y58n8PrOJUFnwAikY0g6rpGvEkEDN2TXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785346704; c=relaxed/simple;
-	bh=bsLvFynu/CXBMzHlGGgM/SFQd72ZoIg57HRnqcar0O0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I5avC22OjVDzEKSgwzIrBNQeaWYOZZ3nPygLxvARUPpquwliSDReMWpTc5V360gTdWb6eZONtC7C0XUlpYQSIjnhQxHCf6meNNOXaol3XKGjZ2SWmTQk7DJC6kq0MPE1eAcR6FXsk/nyD9bc172A07NHJK8l5fbSahhDaylvrlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o2kYbAil; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785346705; c=relaxed/simple;
+	bh=5EfUiy0L9MzkfOnMhjMEm/ip/RAlFX7bGfVmuxQmZAs=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=aqzPhinC2YRSETtqF8TxmvYrIMihvwK8Ch0RC8LwqZbupt9XVImkfMsz9VZg0FDB6X/50X33GoS9VbDsLxC5Ou8ubi+YXQBFLlFdvC8eSqB8WklMZNtqm3oU+bjsp/O/LUKBHHrAoCQysXAhidIjuBAlw7cXmSHFYQJPB25dr2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=WhIARgbW; arc=none smtp.client-ip=74.125.231.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o2kYbAil"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480FF1F000E9;
-	Wed, 29 Jul 2026 17:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785346697;
-	bh=cz3Xwd0Y4aNXwEwh2ZkPURxr8/lpAyUMfh9PAUbMSNQ=;
-	h=From:To:Cc:Subject:Date;
-	b=o2kYbAilKOp8oNGZlW7MTddzfR7pp/8dz0PSNFo/Ffi4RNDGafA6HNJ+DcInk2f2x
-	 b7ezGj1qX58jCgfqPLq6IEz7dxbous1YiX6ymgqAP51pvloyccDb8ySCrXzBKn7CH5
-	 Urg4pxIZ744ztzD0dzcXWKcZiQsaX2dC8okA7KYCOS2mTpd+GX/ds8XYiASZMd/q57
-	 UWOVjujp0xZeP9DMS1Rdr4L9WkCFDvweamu/BZhWoegkou2HOQEAYs0JLtxEGtJDjB
-	 SDP07vcN4oFCL+LlCUltHSH+GandNvNSH42Q9Bnga6BcPq2smvgs7dZb8teX0/jCRv
-	 THxao0tngdkSQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Antoni Boucher <bouanto@zoho.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] rust: kbuild: disambiguate `zerocopy` for `rusttest`
-Date: Wed, 29 Jul 2026 19:38:03 +0200
-Message-ID: <20260729173803.13459-1-ojeda@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="WhIARgbW"
+Received: by mail-oa2-f11.google.com with SMTP id 586e51a60fabf-45837c2330eso846895fac.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:38:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1785346698; x=1785951498; darn=vger.kernel.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=npIddUayJcWvzRHQwDYe02BvpNvh49n2fzy3zxKWtCs=;
+        b=WhIARgbWJyVbQ5Nnn+P9wW2EIkqQJ0M6YVqIq1g6hOFjLP101je2QPyiLfDeBGcnAs
+         CInzAnTxq6AQ2oIRTg10skrh9Apr8V/0tH1oy8FrNQgVeSlwQZCk+hADlgFN7s241HB8
+         HAczCaRBSREN9sxSDDP9GVXaqXV+UejSKWy5Cx2jE3VnnLSnZA9eq6+Q5zdvTnfAIleR
+         5JnPyW3qMRCfvAexg4I1Bx2j/LMJuCX+tYCUWaDFH9KiXBk+OFyR3nIgaPDlt9OlbsW4
+         pq4yJVPAWUB3bjiVA/X3RCAGjI+wnRSSVKFEpk6pKqKzopPZOtp/yKjfA2jcgeR6aDMt
+         sZ+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785346698; x=1785951498;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=npIddUayJcWvzRHQwDYe02BvpNvh49n2fzy3zxKWtCs=;
+        b=QUXTQwCgNE/83+xtoh/YeJ6xP5/KLm+i4A0Cvhs4vTS9zrJt5NZjKRJRGKYRdeKQtu
+         NcF4oerr5Xn66SMseNcrdSsjFIBhC5YK1zvsIXMpbu9hyHQNO/wV+sZlKJKFcyNtI2z4
+         4P4weO/VFFJRQYI/9dLj9212aNbU+i049dgibDofFE00vqrlvOTEUwByqR5ChW0rrohm
+         1ZJIgjdHvjgNmenWhYe2sqZBJ+aEi66kfWTKd0Myma3JLTEzorQxATB+6B02i5v1QNEd
+         QcgdSicq21+3Xj/hU+gRda74mbBO240slu8dC2RIfewKoMA4FbcSwiiGGmx2EEW9Ounl
+         cBiA==
+X-Gm-Message-State: AOJu0YzmI2qSuf2WnjGOOGKrGpg6XbHcpHTvR9qsoSeB0+BCcoxQ/YR0
+	+NbbqAnWnylMCBHwmpqeq727Gd6E+rMKK+MMI+niQ57qY/jS6+K8D0VMrePwxIQBZyU=
+X-Gm-Gg: AR+sD1359D1clV1OfGhnB+SugaIb/jYcAK/j4MD05NTZda0b+/73nC6yTjycJs8RGwS
+	NlFuIWMvkagUWal5eMDvtB4Im8A52Vpo0ZKiGJ9Y4syxRS/VfNMYhxJDWS4ZvhYyWiZNvcFAKJn
+	os3O2VOxKX4p+NyRljtP9Tfpnh+oYOF6TlqB5Rl1YCYdCzv9xo1ERkLxApLS3aQxsjLN6mVxPeB
+	kOLLsAfU9L/M30BK+0yy6AsPRx6Fv5FqCNbprZXBycU3P1SZFJmhtc9gxRwx1E+EG+e13vPek/b
+	nf6nHG3o4tUNCJ3TXRUJ01VvRxXNeWgu4U1Api4o9EAzJ2xayVvLOPExtnLhPQl14N/ortMerCd
+	91BnlXzlyXoS2OgeWMraWoFgK1y0LnSrpDhNYfvalljJQ2o9FBiJlhNtLMjeNKrhHgai9Hoir11
+	F7lyCBGsoOQ12WMJ/k/+RLtGKp3+yhqgyvUVg5MDrndBQ1rLv27+geUFwbOxOFIS9GCki4P+glT
+	MReIu9WNEBGcdkkbFaAuhAt
+X-Received: by 2002:a4a:e917:0:b0:6aa:f7ac:fb01 with SMTP id 006d021491bc7-6ac96cacd74mr4313577eaf.51.1785346698502;
+        Wed, 29 Jul 2026 10:38:18 -0700 (PDT)
+Received: from [172.19.0.220] ([99.196.129.79])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6aca500bf69sm2416067eaf.0.2026.07.29.10.38.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 10:38:15 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="------------Qku28JXaQ83Ir2GX9vkWIG23"
+Message-ID: <386b57ff-d042-4507-b09f-84283b84b37b@kernel.dk>
+Date: Wed, 29 Jul 2026 11:38:06 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-From: Antoni Boucher <bouanto@zoho.com>
-
-Starting with Rust 1.76.0, `zerocopy` was added as an (indirect)
-compiler dependency [1]. In turn, this meant that the `rustc-dev`
-component started including a precompiled `zerocopy` crate in the sysroot.
-
-This makes `rusttest` fail because the compiler finds several candidates:
-
-    error[E0464]: multiple candidates for `rmeta` dependency `zerocopy` found
-      --> rust/kernel/prelude.rs:64:9
-       |
-    64 | pub use zerocopy::{
-       |         ^^^^^^^^
-       |
-       = note: candidate #1: .../lib/rustlib/x86_64-unknown-linux-gnu/lib/libzerocopy-dfef4cb07ca752aa.rmeta
-       = note: candidate #2: ./rust/test/libzerocopy.rlib
-
-We cannot use `--sysroot=/dev/null` for these, thus point to the dependency
-explicitly.
-
-Assisted-by: LLM
-Not-yet-Signed-off-by: Antoni Boucher <bouanto@zoho.com>
-Link: https://github.com/rust-lang/rust/pull/118546 [1]
+User-Agent: Mozilla Thunderbird
+Subject: Re: FAILED: patch "[PATCH] io_uring/rw: fix missing ERESTARTSYS
+ conversion in read paths" failed to apply to 6.6-stable tree
+To: gregkh@linuxfoundation.org, yi1tang.yang@gmail.com
 Cc: stable@vger.kernel.org
-Fixes: 567621523ab7 ("rust: zerocopy: enable support in kbuild")
-[ Investigated when it started happening, reworded to add that and to
-  follow our usual style and sent on behalf of Antoni, who found this
-  during his work to support Rust for Linux with the GCC backend, i.e.
-  with `rustc_codegen_gcc`. - Miguel ]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
- rust/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+References: <2026072912-brick-favoring-9892@gregkh>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <2026072912-brick-favoring-9892@gregkh>
 
-diff --git a/rust/Makefile b/rust/Makefile
-index 627ed79dc6f5..fbe0accc51a3 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -350,7 +350,7 @@ rusttestlib-pin_init: $(src)/pin-init/src/lib.rs rusttestlib-macros \
- rusttestlib-kernel: private rustc_target_flags = --extern ffi \
-     --extern build_error --extern macros --extern pin_init \
-     --extern bindings --extern uapi \
--    --extern zerocopy --extern zerocopy_derive
-+    --extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib --extern zerocopy_derive
- rusttestlib-kernel: $(src)/kernel/lib.rs rusttestlib-bindings rusttestlib-uapi \
-     rusttestlib-build_error rusttestlib-pin_init $(obj)/$(libmacros_name) \
-     $(obj)/bindings.o rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
+This is a multi-part message in MIME format.
+--------------Qku28JXaQ83Ir2GX9vkWIG23
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-base-commit: fc02acf6ac0ccde0c805c2daa9148683cdd01ba8
+On 7/29/26 7:50 AM, gregkh@linuxfoundation.org wrote:
+> 
+> The patch below does not apply to the 6.6-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
+> 
+> To reproduce the conflict and resubmit, you may use the following commands:
+> 
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x ab05caca123c6d0b41850b7c05b246e4dca4a770
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072912-brick-favoring-9892@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+> 
+> Possible dependencies:
+
+Here's one for 6.6.
+
 -- 
-2.55.0
+Jens Axboe
 
+--------------Qku28JXaQ83Ir2GX9vkWIG23
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-io_uring-rw-fix-missing-ERESTARTSYS-conversion-in-re.patch"
+Content-Disposition: attachment;
+ filename*0="0001-io_uring-rw-fix-missing-ERESTARTSYS-conversion-in-re.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
+
+RnJvbSBiZTUzMGI1ODBkNDFmODM4N2NkZWEwYzhmYzJhNmM3NmJjNzg0MGM1IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBZaXRhbmcgWWFuZyA8eWkxdGFuZy55YW5nQGdtYWls
+LmNvbT4KRGF0ZTogV2VkLCAyMiBKdWwgMjAyNiAyMDo0NTo1MSArMDgwMApTdWJqZWN0OiBb
+UEFUQ0hdIGlvX3VyaW5nL3J3OiBmaXggbWlzc2luZyBFUkVTVEFSVFNZUyBjb252ZXJzaW9u
+IGluIHJlYWQgcGF0aHMKCkNvbW1pdCBhYjA1Y2FjYTEyM2M2ZDBiNDE4NTBiN2MwNWIyNDZl
+NGRjYTRhNzcwIHVwc3RyZWFtLgoKQm90aCByZWFkIGFuZCB3cml0ZSBtYXkgcmVjZWl2ZSBp
+bnRlcm5hbCByZXN0YXJ0IGVycm9yIGNvZGVzIGZyb20KdGhlIGZpbGVzeXN0ZW0gbGF5ZXIg
+YW5kIHNob3VsZCBiZSBjb252ZXJ0ZWQgdG8gLUVJTlRSLiBIb3dldmVyLAp3aGVuIG11bHRp
+c2hvdCByZWFkIHN1cHBvcnQgd2FzIGFkZGVkLCB0aGUgZXJyb3IgY29kZSBub3JtYWxpemF0
+aW9uCndhcyBsb3N0IGZvciBib3RoIGlvX3JlYWQoKSBhbmQgaW9fcmVhZF9tc2hvdCgpLgoK
+RXh0cmFjdCB0aGUgY29udmVyc2lvbiBpbnRvIGlvX2ZpeHVwX3Jlc3RhcnRfcmVzKCkgYW5k
+IGFwcGx5IGl0CmluIGFsbCB0aHJlZSBsb2NhdGlvbnM6IGlvX3J3X2RvbmUoKSwgaW9fcmVh
+ZCgpLCBhbmQgaW9fcmVhZF9tc2hvdCgpLgoKWyA2LjYgZG9lc24ndCBoYXZlIG11bHRpc2hv
+dCByZWFkLCBkcm9wIHRoZSBpb19yZWFkX21zaG90KCkgaHVuayBhbmQKICBhZGFwdCBpb19y
+d19kb25lKCkgdG8gdGhlIG9sZGVyIGNhbGxpbmcgY29udmVudGlvbiBdCgpGaXhlczogYTA4
+ZDE5NWI1ODZhICgiaW9fdXJpbmcvcnc6IHNwbGl0IGlvX3JlYWQoKSBpbnRvIGEgaGVscGVy
+IikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogWWl0YW5nIFlh
+bmcgPHlpMXRhbmcueWFuZ0BnbWFpbC5jb20+Ckxpbms6IGh0dHBzOi8vcGF0Y2gubXNnaWQu
+bGluay8yMDI2MDcyMjEyNDU1MS4xMzA1NjMtMS15aTF0YW5nLnlhbmdAZ21haWwuY29tClNp
+Z25lZC1vZmYtYnk6IEplbnMgQXhib2UgPGF4Ym9lQGtlcm5lbC5kaz4KLS0tCiBpb191cmlu
+Zy9ydy5jIHwgMjggKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLQogMSBmaWxlIGNoYW5n
+ZWQsIDE5IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvaW9f
+dXJpbmcvcncuYyBiL2lvX3VyaW5nL3J3LmMKaW5kZXggNGZmMzQ0MmFjMmVlLi5mMmFiOTY3
+Yjk1MDcgMTAwNjQ0Ci0tLSBhL2lvX3VyaW5nL3J3LmMKKysrIGIvaW9fdXJpbmcvcncuYwpA
+QCAtMTQwLDI3ICsxNDAsMzcgQEAgdm9pZCBpb19yZWFkdl93cml0ZXZfY2xlYW51cChzdHJ1
+Y3QgaW9fa2lvY2IgKnJlcSkKIAlrZnJlZShpby0+ZnJlZV9pb3ZlYyk7CiB9CiAKLXN0YXRp
+YyBpbmxpbmUgdm9pZCBpb19yd19kb25lKHN0cnVjdCBraW9jYiAqa2lvY2IsIHNzaXplX3Qg
+cmV0KQorc3RhdGljIGlubGluZSBzc2l6ZV90IGlvX2ZpeHVwX3Jlc3RhcnRfcmVzKHNzaXpl
+X3QgcmV0KQogewogCXN3aXRjaCAocmV0KSB7Ci0JY2FzZSAtRUlPQ0JRVUVVRUQ6Ci0JCWJy
+ZWFrOwogCWNhc2UgLUVSRVNUQVJUU1lTOgogCWNhc2UgLUVSRVNUQVJUTk9JTlRSOgogCWNh
+c2UgLUVSRVNUQVJUTk9IQU5EOgogCWNhc2UgLUVSRVNUQVJUX1JFU1RBUlRCTE9DSzoKIAkJ
+LyoKIAkJICogV2UgY2FuJ3QganVzdCByZXN0YXJ0IHRoZSBzeXNjYWxsLCBzaW5jZSBwcmV2
+aW91c2x5Ci0JCSAqIHN1Ym1pdHRlZCBzcWVzIG1heSBhbHJlYWR5IGJlIGluIHByb2dyZXNz
+LiBKdXN0IGZhaWwgdGhpcwotCQkgKiBJTyB3aXRoIEVJTlRSLgorCQkgKiBzdWJtaXR0ZWQg
+c3FlcyBtYXkgYWxyZWFkeSBiZSBpbiBwcm9ncmVzcy4gSnVzdCBmYWlsCisJCSAqIHRoaXMg
+SU8gd2l0aCBFSU5UUi4KIAkJICovCi0JCXJldCA9IC1FSU5UUjsKLQkJZmFsbHRocm91Z2g7
+CisJCXJldHVybiAtRUlOVFI7CiAJZGVmYXVsdDoKLQkJa2lvY2ItPmtpX2NvbXBsZXRlKGtp
+b2NiLCByZXQpOworCQlyZXR1cm4gcmV0OwogCX0KIH0KIAorc3RhdGljIGlubGluZSB2b2lk
+IGlvX3J3X2RvbmUoc3RydWN0IGtpb2NiICpraW9jYiwgc3NpemVfdCByZXQpCit7CisJLyog
+SU8gd2FzIHF1ZXVlZCBhc3luYywgY29tcGxldGlvbiB3aWxsIGhhcHBlbiBsYXRlciAqLwor
+CWlmIChyZXQgPT0gLUVJT0NCUVVFVUVEKQorCQlyZXR1cm47CisKKwkvKiB0cmFuc2Zvcm0g
+aW50ZXJuYWwgcmVzdGFydCBlcnJvciBjb2RlcyAqLworCWlmICh1bmxpa2VseShyZXQgPCAw
+KSkKKwkJcmV0ID0gaW9fZml4dXBfcmVzdGFydF9yZXMocmV0KTsKKworCWtpb2NiLT5raV9j
+b21wbGV0ZShraW9jYiwgcmV0KTsKK30KKwogc3RhdGljIGlubGluZSBsb2ZmX3QgKmlvX2tp
+b2NiX3VwZGF0ZV9wb3Moc3RydWN0IGlvX2tpb2NiICpyZXEpCiB7CiAJc3RydWN0IGlvX3J3
+ICpydyA9IGlvX2tpb2NiX3RvX2NtZChyZXEsIHN0cnVjdCBpb19ydyk7CkBAIC04ODUsNyAr
+ODk1LDcgQEAgaW50IGlvX3JlYWQoc3RydWN0IGlvX2tpb2NiICpyZXEsIHVuc2lnbmVkIGlu
+dCBpc3N1ZV9mbGFncykKIAlpZiAocmV0ID49IDApCiAJCXJldHVybiBraW9jYl9kb25lKHJl
+cSwgcmV0LCBpc3N1ZV9mbGFncyk7CiAKLQlyZXR1cm4gcmV0OworCXJldHVybiBpb19maXh1
+cF9yZXN0YXJ0X3JlcyhyZXQpOwogfQogCiBzdGF0aWMgYm9vbCBpb19raW9jYl9zdGFydF93
+cml0ZShzdHJ1Y3QgaW9fa2lvY2IgKnJlcSwgc3RydWN0IGtpb2NiICpraW9jYikKLS0gCjIu
+NTMuMAoK
+
+--------------Qku28JXaQ83Ir2GX9vkWIG23--
