@@ -1,222 +1,185 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9832F48EBE8
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408D33B05B5
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785342278; cv=none; b=gxxO8VZvB6tEafowDUHt4p+wFyLfh7JwZCFO0/MuDno95mc0QtlsADCEYrzBu6V+aMRhxpyiUKpJhH/7fPxp68C2XkzMB+K7highhsz++VIebzbA+BpnaY8mC8vq5tB9dTszn/loLKtLczVvi/AFXqpl1+txdbnqfz7khe027zo=
+	t=1785342279; cv=none; b=CDvt/mtOmFa95j8Gs/shXGSNjkmUo64vDrRdp0HMoU8B1bhyseKL5PBFScdRqNj6kTJSQxDr/iCpmt8xolXOLNXva52IjtafhJkK7Dgs5pgrSF22KUHogAojtnMs3V91WMSWqhZgxIiw2jluBOoE4m6yD29NDa9fsfXmfN65MmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785342278; c=relaxed/simple;
-	bh=JhnkpfcQwnFy1dTsx6SLGpW8ySzLGa1ghYXT4bqwMxA=;
+	s=arc-20240116; t=1785342279; c=relaxed/simple;
+	bh=v48CHed74aBTLDhAMMnrcGCDn6LTvmpdQYxgqqn1aaQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HHe2bIwYKlkwR9dpDtHoSzpx9r/0umGRvCyCF+ct5xQ7+AM0H7jZlizdU0TQddkAkwFmS457gpQADY9zA8btQ2itQlrN7ShZ+WKNmo6sGKaj3sQ+mxV9tXn8F6hZsMuS3zA+QFfktCoHirMJtbLczY0QRJkH3K/wuaoTUo0sQTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1yrAqsu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fcfxfk6sNfBlfquS43ZD199gGSpzEiCBK7G6oIfS012LkrOSpcWjIDbT52CIXruvg1IjE3oI88djYmy8im5nQrIY/ivlXUQ9OODSxCBgRb/590ynW/46soUckwomWPh1HO0XY8GhLJiVGfKTP/HCPEl6SrocCw3RWHVD8mI9Heg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmmLr9Wx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1yrAqsu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A744B1F000E9;
-	Wed, 29 Jul 2026 16:24:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmmLr9Wx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7543A1F00ACF;
+	Wed, 29 Jul 2026 16:24:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785342273;
-	bh=QU8TOgZRs2H7G5OyQWbzyj6Tma4LMErrpjpzp/KbwUg=;
+	s=k20260515; t=1785342276;
+	bh=vanVzq1o8P9KN4oPG3r3MGVZZlYoI6CetactMB89orc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i1yrAqsu7ny44dkixEGbOtu5X3UpU1Wcj70mDGDFKg3fKAN5FV8cq54SJGGtoWx6g
-	 I62PrKuIS9zg8q4NSmowx3dNKwsvln/Jm47OOPk1/Ki7OPfdtvSTl81S6V6b5QhM1b
-	 Q5IYj+k0BiuSVfWN8WQWIktJDkWj6SIwgGUjaOdhirUuvo5KjM2i9Ci5wfuE72ew/U
-	 9+7ppeBekeeMSVVhrx68fSgV+u1QfD05MwUWlHLrER7eOR3WWTom76d4LnuK8vki+u
-	 skRyjotGPzq+kVYpPuNBTEdIc+IH2QkON2oL3lPugOBy0paxqok14LwhISyHuEyzxO
-	 ShYtpFfOjGXjQ==
+	b=LmmLr9Wxi8P7LVWtgocJoTdFBeWywWCQEUku+4NF8RdE8y0LpdeT4Bntt94ebU6eD
+	 JuhN3xG0ECg3ccyqQr+hpuGmiqeSkK9g7qWIJNOf6wPRhITq4nRg9u2RXxXE1xly+6
+	 54FEla4fHf/tddUfOvPMel/2AZ9Ur+ktkse6s+qTgBCMm2ChLqOnPuiP2P9QkJCRcX
+	 gFwJQr48iNyCTBFKd+a9uOlFeOU2rRZ/9b02+kLnhh7lLzJ+KuWK9n3mkhsAXigZKv
+	 TRjOOCWBF84X7XUFW/20gi1nzJlr2XT/gNnITD1lOTDG4pI1ZCRVXx/jNGqGCdixEw
+	 /b7CB2yOD3gow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Sean Anderson <sean.anderson@linux.dev>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Andrea Righi <arighi@nvidia.com>,
+	Tejun Heo <tj@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 5/6] net: macb: single dma_alloc_coherent() for DMA descriptors
-Date: Wed, 29 Jul 2026 12:24:26 -0400
-Message-ID: <20260729162427.3522161-5-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/2] sched_ext: Preserve rq tracking across local DSQ dispatch
+Date: Wed, 29 Jul 2026 12:24:33 -0400
+Message-ID: <20260729162433.3523095-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260729162427.3522161-1-sashal@kernel.org>
-References: <2026072141-overrate-gratified-54e6@gregkh>
- <20260729162427.3522161-1-sashal@kernel.org>
+In-Reply-To: <20260729162433.3523095-1-sashal@kernel.org>
+References: <2026072116-antivirus-displace-b981@gregkh>
+ <20260729162433.3523095-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Théo Lebrun <theo.lebrun@bootlin.com>
+From: Andrea Righi <arighi@nvidia.com>
 
-[ Upstream commit 78d901897b3cae06b38f54e48a2378cf9da21175 ]
+[ Upstream commit 18d62044cda7a2b40f59d910659c0b0d6accad37 ]
 
-Move from 2*NUM_QUEUES dma_alloc_coherent() for DMA descriptor rings to
-2 calls overall.
+dispatch_to_local_dsq() can run from scx_bpf_dsq_move_to_local() while
+ops.dispatch() has recorded the current rq. Moving a task to a local DSQ
+may switch to the source or destination rq before synchronously invoking
+ops.dequeue() through the following path:
 
-Issue is with how all queues share the same register for configuring the
-upper 32-bits of Tx/Rx descriptor rings. Taking Tx, notice how TBQPH
-does *not* depend on the queue index:
+  SCX_CALL_OP(dispatch, rq)
+    ops.dispatch()
+      scx_bpf_dsq_move_to_local()
+        scx_flush_dispatch_buf()
+          finish_dispatch()
+            dispatch_to_local_dsq()
+              scx_dispatch_enqueue()
+                local_dsq_post_enq()
+                  call_task_dequeue()
+                    SCX_CALL_OP_TASK(dequeue, locked_rq, ...)
 
-	#define GEM_TBQP(hw_q)		(0x0440 + ((hw_q) << 2))
-	#define GEM_TBQPH(hw_q)		(0x04C8)
+The nested callback saves the recorded rq and restores it on return. If
+the rq tracking does not follow the lock switch, update_locked_rq() can
+trigger the following lockdep assertion while restoring an rq which is
+no longer held:
 
-	queue_writel(queue, TBQP, lower_32_bits(queue->tx_ring_dma));
-	#ifdef CONFIG_ARCH_DMA_ADDR_T_64BIT
-	if (bp->hw_dma_cap & HW_DMA_CAP_64B)
-		queue_writel(queue, TBQPH, upper_32_bits(queue->tx_ring_dma));
-	#endif
+  WARNING: kernel/sched/sched.h:1641 at call_task_dequeue+0x160/0x170
+  Call Trace:
+    scx_dispatch_enqueue+0x2b0/0x460
+    dispatch_to_local_dsq+0x138/0x230
+    scx_flush_dispatch_buf+0x1af/0x220
+    scx_bpf_dsq_move_to_local___v2+0xe2/0x1c0
+    bpf__sched_ext_ops_dispatch+0x4b/0xa7
+    do_pick_task_scx+0x3b6/0x910
+    __pick_next_task+0x105/0x1f0
+    __schedule+0x3e7/0x1980
 
-To maximise our chances of getting valid DMA addresses, we do a single
-dma_alloc_coherent() across queues. This improves the odds because
-alloc_pages() guarantees natural alignment. Other codepaths (IOMMU or
-dev/arch dma_map_ops) don't give high enough guarantees
-(even page-aligned isn't enough).
+Introduce switch_rq_lock() to update the tracking state together with
+each rq lock handoff. Use it in dispatch_to_local_dsq(),
+move_remote_task_to_local_dsq() and the in-balance paths of
+scx_dsq_move(), ensuring that scx_locked_rq() consistently refers to the
+rq whose lock is actually held throughout the lock dance.
 
-Two consideration:
-
- - dma_alloc_coherent() gives us page alignment. Here we remove this
-   constraint meaning each queue's ring won't be page-aligned anymore.
-
- - This can save some tiny amounts of memory. Fewer allocations means
-   (1) less overhead (constant cost per alloc) and (2) less wasted bytes
-   due to alignment constraints.
-
-   Example for (2): 4 queues, default ring size (512), 64-bit DMA
-   descriptors, 16K pages:
-    - Before: 8 allocs of 8K, each rounded to 16K => 64K wasted.
-    - After:  2 allocs of 32K => 0K wasted.
-
-Fixes: 02c958dd3446 ("net/macb: add TX multiqueue support for gem")
-Reviewed-by: Sean Anderson <sean.anderson@linux.dev>
-Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
-Tested-by: Nicolas Ferre <nicolas.ferre@microchip.com> # on sam9x75
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20250923-macb-fixes-v6-4-772d655cdeb6@bootlin.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 27f575836cfe ("net: macb: drop in-flight Tx SKBs on close")
+Fixes: 7fb39e4eb4c3 ("sched_ext: Save and restore scx_locked_rq across SCX_CALL_OP")
+Cc: stable@vger.kernel.org # 7.1+
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 78 ++++++++++++------------
- 1 file changed, 40 insertions(+), 38 deletions(-)
+ kernel/sched/ext.c | 36 ++++++++++++++++++++----------------
+ 1 file changed, 20 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index e012d28678556c..aae3f3e98b3966 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -2368,26 +2368,24 @@ static unsigned int macb_rx_ring_size_per_queue(struct macb *bp)
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index dc6138461ae3de..07e2c40b788dcc 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -438,6 +438,18 @@ static bool rq_is_open(struct rq *rq, u64 enq_flags)
+  */
+ DEFINE_PER_CPU(struct rq *, scx_locked_rq_state);
  
- static void macb_free_consistent(struct macb *bp)
- {
-+	struct device *dev = &bp->pdev->dev;
- 	struct macb_queue *queue;
- 	unsigned int q;
-+	size_t size;
- 
- 	bp->macbgem_ops.mog_free_rx_buffers(bp);
- 
-+	size = bp->num_queues * macb_tx_ring_size_per_queue(bp);
-+	dma_free_coherent(dev, size, bp->queues[0].tx_ring, bp->queues[0].tx_ring_dma);
++static void switch_rq_lock(struct rq *from, struct rq *to)
++{
++	bool tracked = scx_locked_rq() == from;
 +
-+	size = bp->num_queues * macb_rx_ring_size_per_queue(bp);
-+	dma_free_coherent(dev, size, bp->queues[0].rx_ring, bp->queues[0].rx_ring_dma);
++	if (tracked)
++		update_locked_rq(NULL);
++	raw_spin_rq_unlock(from);
++	raw_spin_rq_lock(to);
++	if (tracked)
++		update_locked_rq(to);
++}
 +
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
- 		kfree(queue->tx_skb);
- 		queue->tx_skb = NULL;
--		if (queue->tx_ring) {
--			dma_free_coherent(&bp->pdev->dev,
--					  macb_tx_ring_size_per_queue(bp),
--					  queue->tx_ring, queue->tx_ring_dma);
--			queue->tx_ring = NULL;
--		}
--		if (queue->rx_ring) {
--			dma_free_coherent(&bp->pdev->dev,
--					  macb_rx_ring_size_per_queue(bp),
--					  queue->rx_ring, queue->rx_ring_dma);
--			queue->rx_ring = NULL;
--		}
-+		queue->tx_ring = NULL;
-+		queue->rx_ring = NULL;
+ /*
+  * SCX ops can recurse via scx_bpf_sub_dispatch() - the inner call must not
+  * clobber the outer's scx_locked_rq_state. Save it on entry, restore on exit.
+@@ -2262,8 +2274,7 @@ static void move_remote_task_to_local_dsq(struct task_struct *p, u64 enq_flags,
+ 	deactivate_task(src_rq, p, 0);
+ 	set_task_cpu(p, cpu_of(dst_rq));
+ 
+-	raw_spin_rq_unlock(src_rq);
+-	raw_spin_rq_lock(dst_rq);
++	switch_rq_lock(src_rq, dst_rq);
+ 
+ 	/*
+ 	 * We want to pass scx-specific enq_flags but activate_task() will
+@@ -2594,9 +2605,8 @@ static void dispatch_to_local_dsq(struct scx_sched *sch, struct rq *rq,
+ 
+ 	/* switch to @src_rq lock */
+ 	if (locked_rq != src_rq) {
+-		raw_spin_rq_unlock(locked_rq);
++		switch_rq_lock(locked_rq, src_rq);
+ 		locked_rq = src_rq;
+-		raw_spin_rq_lock(src_rq);
  	}
+ 
+ 	/* task_rq couldn't have changed if we're still the holding cpu */
+@@ -2624,10 +2634,8 @@ static void dispatch_to_local_dsq(struct scx_sched *sch, struct rq *rq,
+ 	}
+ 
+ 	/* switch back to @rq lock */
+-	if (locked_rq != rq) {
+-		raw_spin_rq_unlock(locked_rq);
+-		raw_spin_rq_lock(rq);
+-	}
++	if (locked_rq != rq)
++		switch_rq_lock(locked_rq, rq);
  }
  
-@@ -2429,41 +2427,45 @@ static int macb_alloc_rx_buffers(struct macb *bp)
+ /**
+@@ -8360,10 +8368,8 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
+ 	in_balance = this_rq->scx.flags & SCX_RQ_IN_BALANCE;
  
- static int macb_alloc_consistent(struct macb *bp)
- {
-+	struct device *dev = &bp->pdev->dev;
-+	dma_addr_t tx_dma, rx_dma;
- 	struct macb_queue *queue;
- 	unsigned int q;
--	u32 upper;
--	int size;
-+	void *tx, *rx;
-+	size_t size;
-+
-+	/*
-+	 * Upper 32-bits of Tx/Rx DMA descriptor for each queues much match!
-+	 * We cannot enforce this guarantee, the best we can do is do a single
-+	 * allocation and hope it will land into alloc_pages() that guarantees
-+	 * natural alignment of physical addresses.
-+	 */
-+
-+	size = bp->num_queues * macb_tx_ring_size_per_queue(bp);
-+	tx = dma_alloc_coherent(dev, size, &tx_dma, GFP_KERNEL);
-+	if (!tx || upper_32_bits(tx_dma) != upper_32_bits(tx_dma + size - 1))
-+		goto out_err;
-+	netdev_dbg(bp->dev, "Allocated %zu bytes for %u TX rings at %08lx (mapped %p)\n",
-+		   size, bp->num_queues, (unsigned long)tx_dma, tx);
-+
-+	size = bp->num_queues * macb_rx_ring_size_per_queue(bp);
-+	rx = dma_alloc_coherent(dev, size, &rx_dma, GFP_KERNEL);
-+	if (!rx || upper_32_bits(rx_dma) != upper_32_bits(rx_dma + size - 1))
-+		goto out_err;
-+	netdev_dbg(bp->dev, "Allocated %zu bytes for %u RX rings at %08lx (mapped %p)\n",
-+		   size, bp->num_queues, (unsigned long)rx_dma, rx);
- 
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		size = macb_tx_ring_size_per_queue(bp);
--		queue->tx_ring = dma_alloc_coherent(&bp->pdev->dev, size,
--						    &queue->tx_ring_dma,
--						    GFP_KERNEL);
--		upper = upper_32_bits(queue->tx_ring_dma);
--		if (!queue->tx_ring ||
--		    upper != upper_32_bits(bp->queues[0].tx_ring_dma))
--			goto out_err;
--		netdev_dbg(bp->dev,
--			   "Allocated TX ring for queue %u of %d bytes at %08lx (mapped %p)\n",
--			   q, size, (unsigned long)queue->tx_ring_dma,
--			   queue->tx_ring);
-+		queue->tx_ring = tx + macb_tx_ring_size_per_queue(bp) * q;
-+		queue->tx_ring_dma = tx_dma + macb_tx_ring_size_per_queue(bp) * q;
-+
-+		queue->rx_ring = rx + macb_rx_ring_size_per_queue(bp) * q;
-+		queue->rx_ring_dma = rx_dma + macb_rx_ring_size_per_queue(bp) * q;
- 
- 		size = bp->tx_ring_size * sizeof(struct macb_tx_skb);
- 		queue->tx_skb = kmalloc(size, GFP_KERNEL);
- 		if (!queue->tx_skb)
- 			goto out_err;
--
--		size = macb_rx_ring_size_per_queue(bp);
--		queue->rx_ring = dma_alloc_coherent(&bp->pdev->dev, size,
--						    &queue->rx_ring_dma,
--						    GFP_KERNEL);
--		upper = upper_32_bits(queue->rx_ring_dma);
--		if (!queue->rx_ring ||
--		    upper != upper_32_bits(bp->queues[0].rx_ring_dma))
--			goto out_err;
--		netdev_dbg(bp->dev,
--			   "Allocated RX ring of %d bytes at %08lx (mapped %p)\n",
--			   size, (unsigned long)queue->rx_ring_dma, queue->rx_ring);
+ 	if (in_balance) {
+-		if (this_rq != src_rq) {
+-			raw_spin_rq_unlock(this_rq);
+-			raw_spin_rq_lock(src_rq);
+-		}
++		if (this_rq != src_rq)
++			switch_rq_lock(this_rq, src_rq);
+ 	} else {
+ 		raw_spin_rq_lock(src_rq);
  	}
- 	if (bp->macbgem_ops.mog_alloc_rx_buffers(bp))
- 		goto out_err;
+@@ -8395,10 +8401,8 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
+ 	dispatched = true;
+ out:
+ 	if (in_balance) {
+-		if (this_rq != locked_rq) {
+-			raw_spin_rq_unlock(locked_rq);
+-			raw_spin_rq_lock(this_rq);
+-		}
++		if (this_rq != locked_rq)
++			switch_rq_lock(locked_rq, this_rq);
+ 	} else {
+ 		raw_spin_rq_unlock_irqrestore(locked_rq, flags);
+ 	}
 -- 
 2.53.0
 
