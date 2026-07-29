@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E791444D6BD
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:50:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE3D44C518
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:50:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322235; cv=none; b=TOP5X1MXcQUl6weccErC3L09KtuCSlYCPZCn+qql4sNLcLEDtfSzjiULTDN4FBASBzIyI+muclM8rzi74WfwNoXi2WPwt668mhstOt/Yvbj9NidkQBCwANlProS+5l3SL+T8mu/Espasec8GuERd6iWdUlMxvtxoNFFP5RLC19Q=
+	t=1785322237; cv=none; b=havAjTpdrKRUCdl1gVtNzxNEuky+ej/xiUf30N7srOE8p+G9TTBX1LGjvdzAHAI5vd51jl6ONBiljehrRLxQduDzMXYex229lJ4YgWcUYX5JaW0B6uKqcwQkbLRrbPH3VGkaj9BJrG9TeSFOlFDWVwZPzXDjBvfed9YEieC03II=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322235; c=relaxed/simple;
-	bh=OE6U7WS0/ILB1lBawY/aR7sgR6TrBp6CDBWPEKUp+1k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kNzSLAPnSdmw47ZJJ4I5ocUm2iiKbqRvNtB3vz9mqIDkyx9GOLFzanzKNDkwpv3qLKDSU2LwqrlMHxuLPDkTOoKwFwwBxpkIERnzjnxK1uo2LYwWBsWXUitpbwje3FE4jbRge3VrDhJy+MYt048/4PFMTrgVtkWXMqAHZGOYF0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=S1uMcWRY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785322237; c=relaxed/simple;
+	bh=16iHtqB9CZhJZPbGRu9GrEzq/tI7meTWiY+SCiUfd60=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=t2asGMiiioh1Y2snmg/BP0v3I5HjBHQEndJwqpqab5e01sXLoPorKwGTExFa/GISdBd9gQ2zadvF1n5MhVX0W8xhnGoH6fjW7cXHOHIKCsBjsth0z+3codoaLTnd4e5ouvedj1eM9A+Do2IEwo21j/FVZtjSpM/7tzRbzcqmBlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=04TIk181; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="S1uMcWRY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA7591F000E9;
-	Wed, 29 Jul 2026 10:50:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="04TIk181"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B341F00A3D;
+	Wed, 29 Jul 2026 10:50:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785322233;
-	bh=3CelLYneHTMG2BbIVfH95SiC4cDVnbFTkuTFHx09PSg=;
+	s=korg; t=1785322236;
+	bh=5Yj9r7MKplanlvO2lCoDOuli7yNZHDoos+g6EJxQFas=;
 	h=Subject:To:Cc:From:Date;
-	b=S1uMcWRYN/+IN6LMkaOmBqiJ9nnWl6cMUC2QNCL7ATPNkbP3yo1K8Dn/ZhPEHuGrb
-	 mYIW4QJempXpAZQW1725xHFHnffhWfjaCtA2l5DvMWuBaYKQlHUKQ4giHdgMQE6EPz
-	 Y/+mzIxjxcGb66ObhLwjtcbYISxCtPqk6kEq2Pf0=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: Respect placement requirements in amdgpu_gtt_mgr" failed to apply to 6.1-stable tree
+	b=04TIk181QGouyuo0HBbqW+tb8ixEd7by8Dzq7oLw1W0TpoCxenTtG8q2uK6c/4Jk7
+	 yjMXIUIlSh+5LHwPo028rlgn+yNQwtOQoecKHo4H9gU7kRxGQfzdXkpUhwxKv+xn8a
+	 0r0r9pqZjqP34TqFOJPPHWccMW20U3QXyphi6QHA=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Respect placement requirements in amdgpu_gtt_mgr" failed to apply to 6.12-stable tree
 To: timur.kristof@gmail.com,alexander.deucher@amd.com,christian.koenig@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 29 Jul 2026 12:50:09 +0200
-Message-ID: <2026072909-repurpose-enticing-16f2@gregkh>
+Message-ID: <2026072909-haven-garbage-f0e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8882f8897e554053af9e72f4c2da8b1e2cce56c7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072909-repurpose-enticing-16f2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072909-haven-garbage-f0e7@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
