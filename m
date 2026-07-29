@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B3438F62F;
-	Wed, 29 Jul 2026 04:13:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021D73909B5;
+	Wed, 29 Jul 2026 04:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785298405; cv=none; b=ea7x+1asmW0PtgJwJABflCGSkFuDXUTQ9bBS795OtWIxrWAxkFA/P52dmnwLCnKZtVHGUoqg6dSawV3b6rpJMIHYdMvo/U2Tybc9K3clwiaUgZaogfVeSTfiRIQOAs6dENFVymVoeRMuAsFivTr4ipSnSeO0pFqGbYgmtgYG1Oo=
+	t=1785298423; cv=none; b=nbPc+cuT7puf9+4qOdLn1b/LgeIkOP3W282Hi7rxJVAM8w0i2GOx8JS1yLqtrqTejrHTce/9BjlMDDeFYdjkOfnxqHUXmqbdvSiOO8lpj9frJkdZdHNnawSFbIFIr7QZXcuKhfcX0QrptJvH9sXr/xgQL9oGexrdieYe8ipagwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785298405; c=relaxed/simple;
-	bh=llUZbqJSB0JbDZBg8VZC44vyriZEB6RFt7g4X8jyap4=;
-	h=Date:To:From:Subject:Message-Id; b=gk6rl17QfrB/xt2fdADUdwjAglXcJPRzswvZ8L1P2E1pvFyKD1JQY8X+VzymDk7o6kO3JuRzsYQ9pnbwn+JAX1u/mKYc2Lh+TbVBP+/heePqJbjiJqFs6XrsIJ54g98Gtr5QcqFAfEZIC687RkwhTFp/Kbj6aZF6qMeLcWXMTBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=puxDdfs7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785298423; c=relaxed/simple;
+	bh=ssozr2e+eQBeCPHa5/lM+BNuK/oVa5lCOt7Z86KcarE=;
+	h=Date:To:From:Subject:Message-Id; b=Hrgg/vNH/mKp2KWqMRTdhMG0V/eZADk+ljA7UjlkVwMbuIuxJfm7T+5h598Dp5MoHPOEzODlAmKhl+yJD6PGelqLhyvYbPv8S6Cot7rWFVgVpfNpwL3QYZlnzqOQ0IC0eZzp6bVzEPbR4vi+CsCadXy00nmlOV+zVZSXfmpsujg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RA3kEY7F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="puxDdfs7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5291F00A3A;
-	Wed, 29 Jul 2026 04:13:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RA3kEY7F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6251F000E9;
+	Wed, 29 Jul 2026 04:13:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785298404;
-	bh=8Pw/Oeujj/Yuqg8vXUQpauKLXUeFvwG4J67tq4IjDeU=;
+	d=linux-foundation.org; s=korg; t=1785298421;
+	bh=gCmxwnKkhjp3jloReJXdtG6/uWfy4qcguxqgjBTQ5tM=;
 	h=Date:To:From:Subject;
-	b=puxDdfs7O7FH3voBMnfjLA5Lkr4C6JCFu3AQbf8EOjpcSmXyHBp/irveHTOG0Ud0Y
-	 UquuxLCAsl4EMhCBOJI/hwqMyzwJUtNbE/0sQevtpOyuAisLWxMiUDaw1Fk/IOIaVw
-	 GfqxH4KJciZGDkE6ac1d25xpayZb2GvzgakS1UZY=
-Date: Tue, 28 Jul 2026 21:13:23 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,oleg@redhat.com,lance.yang@linux.dev,dave@stgolabs.net,catalin.marinas@arm.com,cai@lca.pw,leitao@debian.org,akpm@linux-foundation.org
+	b=RA3kEY7FNbAB4fsL1IPCSkUGcyYBEgNOwtOqugytsMzqTFw+WXbJdP/C0F01nxDf3
+	 sfuXVJ3cNgvjVyl+Y1IoVqfb+2HqUNdJLlmippM65VKx2TskotMotAI5IeWRYzgtMW
+	 OobSjCa7fRRdhJeI47PSQL6hGFf8sIPQtZUrYcQY=
+Date: Tue, 28 Jul 2026 21:13:41 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,sashiko-bot@kernel.org,mhocko@suse.com,ljs@kernel.org,jackmanb@google.com,hannes@cmpxchg.org,david@kernel.org,ye.liu@linux.dev,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch removed from -mm tree
-Message-Id: <20260729041324.5B5291F00A3A@smtp.kernel.org>
+Subject: [merged mm-stable] mm-page_owner-use-memcg_data-snapshot-to-avoid-toctou-in-print_page_owner_memcg.patch removed from -mm tree
+Message-Id: <20260729041341.BB6251F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,158 +35,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/kmemleak: avoid soft lockup when scanning task stacks
+     Subject: mm/page_owner: use memcg_data snapshot to avoid TOCTOU in print_page_owner_memcg()
 has been removed from the -mm tree.  Its filename was
-     mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch
+     mm-page_owner-use-memcg_data-snapshot-to-avoid-toctou-in-print_page_owner_memcg.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Breno Leitao <leitao@debian.org>
-Subject: mm/kmemleak: avoid soft lockup when scanning task stacks
-Date: Mon, 15 Jun 2026 10:49:06 -0700
+From: Ye Liu <ye.liu@linux.dev>
+Subject: mm/page_owner: use memcg_data snapshot to avoid TOCTOU in print_page_owner_memcg()
+Date: Tue, 14 Jul 2026 09:51:08 +0800
 
-Patch series "mm/kmemleak: avoid soft lockup when scanning task", v3.
+print_page_owner_memcg() reads page->memcg_data via READ_ONCE() at the
+start to guard against tail pages and NULL data.  However, it later
+re-reads page->memcg_data locklessly in two places:
 
-kmemleak_scan() scans every task stack under one rcu_read_lock() with no
-reschedule point, which can trip the soft lockup watchdog on hosts with
-very many threads.
+1: page_memcg_check(page)
 
-That prints the following message, depending on the workload+host
-configuration:
+2: PageMemcgKmem(page) (via folio_memcg_kmem(), which includes
+   VM_BUG_ON assertions for tail pages and MEMCG_DATA_OBJEXTS)
 
-      watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
-       scan_block
-       kmemleak_scan
-       kmemleak_scan_thread
-       kthread
+If the page is concurrently freed and reallocated as a THP tail page or
+slab page between these calls, the VM_BUG_ON assertions can trigger on
+CONFIG_DEBUG_VM=y builds, crashing the kernel.
 
-Patch 1 walks the tasks with find_ge_pid() so the scan reschedules between
-tasks
+Fix both TOCTOU issues by using the memcg_data snapshot throughout.
 
-Patches 2-3 let the scan loops stop early once a scan is interrupted.
-
-
-This patch (of 3):
-
-kmemleak_scan() walks every thread and scans its kernel stack under a
-single rcu_read_lock() with no reschedule point.  On a host with very many
-threads -- amplified by KASAN/lockdep in debug builds -- this loop can hog
-a CPU long enough to trip the soft lockup watchdog:
-
-  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
-   scan_block
-   kmemleak_scan
-   kmemleak_scan_thread
-   kthread
-
-A cond_resched() cannot be added directly: the loop runs inside an RCU
-read-side critical section.
-
-Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
-lock only to look up and pin each task.  The stack is then scanned with no
-lock held, so cond_resched() runs between tasks and the scan stops early
-on scan_should_stop().  This follows the next_tgid()/task_seq_get_next()
-iteration pattern and keeps each RCU critical section short.
-
-Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org
-Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org
-Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-Cc: Qian Cai <cai@lca.pw>
-Cc: SeongJae Park <sj@kernel.org>
+Link: https://lore.kernel.org/20260714015117.78351-10-ye.liu@linux.dev
+Fixes: fcf8935832b8 ("mm/page_owner: print memcg information")
+Signed-off-by: Ye Liu <ye.liu@linux.dev>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Brendan Jackman <jackmanb@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/kmemleak.c |   51 +++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 38 insertions(+), 13 deletions(-)
+ mm/page_owner.c |   10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
---- a/mm/kmemleak.c~mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks
-+++ a/mm/kmemleak.c
-@@ -1697,6 +1697,42 @@ unlock_put:
- }
+--- a/mm/page_owner.c~mm-page_owner-use-memcg_data-snapshot-to-avoid-toctou-in-print_page_owner_memcg
++++ a/mm/page_owner.c
+@@ -540,6 +540,7 @@ static inline int print_page_owner_memcg
+ 					 struct page *page)
+ {
+ 	unsigned long memcg_data;
++	struct obj_cgroup *objcg;
+ 	struct mem_cgroup *memcg;
+ 	bool online;
+ 	char name[80];
+@@ -549,11 +550,14 @@ static inline int print_page_owner_memcg
+ 	if (!memcg_data || PageTail(page))
+ 		goto out_unlock;
  
- /*
-+ * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
-+ * up and pinned within its own RCU read-side section, so no lock is held across
-+ * the scan and the walk cannot trip the soft lockup watchdog.
-+ */
-+static void kmemleak_scan_task_stacks(void)
-+{
-+	struct pid *pid;
-+	int nr = 1;
-+
-+	do {
-+		struct task_struct *p = NULL;
-+
-+		rcu_read_lock();
-+		pid = find_ge_pid(nr, &init_pid_ns);
-+		if (pid) {
-+			nr = pid_nr(pid) + 1;
-+			p = pid_task(pid, PIDTYPE_PID);
-+			if (p)
-+				get_task_struct(p);
-+		}
-+		rcu_read_unlock();
-+
-+		if (p) {
-+			void *stack = try_get_task_stack(p);
-+
-+			if (stack) {
-+				scan_block(stack, stack + THREAD_SIZE, NULL);
-+				put_task_stack(p);
-+			}
-+			put_task_struct(p);
-+		}
-+		cond_resched();
-+	} while (pid && !scan_should_stop());
-+}
-+
-+/*
-  * Print one leak inline. The hex dump is gated on OBJECT_ALLOCATED so it
-  * does not touch user memory that was freed concurrently; the rest of the
-  * report (backtrace, comm, pid) is always emitted since the kmemleak_object
-@@ -1885,19 +1921,8 @@ static void kmemleak_scan(void)
- 	/*
- 	 * Scanning the task stacks (may introduce false negatives).
- 	 */
--	if (kmemleak_stack_scan) {
--		struct task_struct *p, *g;
--
--		rcu_read_lock();
--		for_each_process_thread(g, p) {
--			void *stack = try_get_task_stack(p);
--			if (stack) {
--				scan_block(stack, stack + THREAD_SIZE, NULL);
--				put_task_stack(p);
--			}
--		}
--		rcu_read_unlock();
--	}
-+	if (kmemleak_stack_scan)
-+		kmemleak_scan_task_stacks();
+-	if (memcg_data & MEMCG_DATA_OBJEXTS)
++	if (memcg_data & MEMCG_DATA_OBJEXTS) {
+ 		ret += scnprintf(kbuf + ret, count - ret,
+ 				"Slab cache page\n");
++		goto out_unlock;
++	}
  
- 	/*
- 	 * Scan the objects already referenced from the sections scanned
+-	memcg = page_memcg_check(page);
++	objcg = (void *)(memcg_data & ~OBJEXTS_FLAGS_MASK);
++	memcg = objcg ? obj_cgroup_memcg(objcg) : NULL;
+ 	if (!memcg)
+ 		goto out_unlock;
+ 
+@@ -561,7 +565,7 @@ static inline int print_page_owner_memcg
+ 	cgroup_name(memcg->css.cgroup, name, sizeof(name));
+ 	ret += scnprintf(kbuf + ret, count - ret,
+ 			"Charged %sto %smemcg %s\n",
+-			PageMemcgKmem(page) ? "(via objcg) " : "",
++			(memcg_data & MEMCG_DATA_KMEM) ? "(via objcg) " : "",
+ 			online ? "" : "offline ",
+ 			name);
+ out_unlock:
 _
 
-Patches currently in -mm which might be from leitao@debian.org are
+Patches currently in -mm which might be from ye.liu@linux.dev are
 
-mm-memory-failure-drop-dead-error_states-entry-for-reserved-pages.patch
-mm-memory-failure-surface-unhandlable-kernel-pages-as-enotrecoverable.patch
-mm-memory-failure-report-mf_msg_kernel-for-unrecoverable-kernel-pages.patch
-mm-memory-failure-add-panic-option-for-unrecoverable-pages.patch
-documentation-document-panic_on_unrecoverable_memory_failure-sysctl.patch
-radix-tree-fix-kmemleak-false-positives-on-tree-head-reassignment.patch
-mm-kmemleak-report-leaks-only-after-n-consecutive-unreferenced-scans.patch
-mm-kmemleak-factor-leak-confirmation-into-a-helper.patch
-selftests-mm-test-kmemleaks-n-consecutive-scan-leak-confirmation.patch
-mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch
-mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch.patch
 
