@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB0945A28B
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:58:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F81471404
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:58:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322705; cv=none; b=qAGCqRKTX2sBvyFlaOlrBJ5WUvvq1UT5UcK+6sfKK0u8Wuuj9jxgzpIG4JgrX0CvFs0pCt67mFDHbq70SmyVqsfrb6PwbxeAh3+JNZL0xAsw5VcOWG8QVd7MNFdC3CTY/9VOazhUG4fhfC9IfD4c2GKwQfO2r0DPhMkEPn2Fbeg=
+	t=1785322708; cv=none; b=bbOmH1ZA0DpijrhExbvpHs9weriP3nVnPKmEipmwPQMgJwmBLhtZ5mrqFSnhm6iNB5+SKF795J2cXYWRTNEFAZDdcUsKlIoep4d57EdRYUToHEn63eyFgQP048uh/DEeSXG1H9JC7dNwxTrS8/8Zdd88l9Rgs/4gU3bbeHx5Kg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322705; c=relaxed/simple;
-	bh=KiG/WTl1rf56zYQ5xYtYq0WljVIk0+9hhxtna1oSONk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V4IxkaTNoQ6/5nkZc9omy5EXxQ1gru4OiOUnKwvm/pbT2fuKEuSd4IikkJeohnsrzevMkjOj5fQMP17bJCcMFvlWiXbvJakg5mkDzt9SMSVUQlt9ml9RyJBZ8KAmsIyF0Rej/NCpjJRdIE+1j8kcuqcm7HUoKEJ4DptGsp207Fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GR+8v8BK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785322708; c=relaxed/simple;
+	bh=/8wvNX+SVvI0zghp2umaj9pTm275yCgUdMU5lNItgaU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IvNKDHZ+X5o0NMlaFlGQegKz+hebFZ/4CzGF2BVSEkf/XpQ86PLEtdMlmFhoeuSw0a4CK6p++PZ9s//0Lf5J2iNb3VjbClY2c0nPXTYtkNMIcpkE9WAaUPi0qKZeMWPH/i/Wj1AVg3YugErEJ7B2VoHoN37VUxaecFX2kp1BeCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JOsXpr9Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GR+8v8BK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0DD01F000E9;
-	Wed, 29 Jul 2026 10:58:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JOsXpr9Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDB171F000E9;
+	Wed, 29 Jul 2026 10:58:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785322704;
-	bh=j1U5Y7dTlx6TeAIWSJUxVzZ7sQx/lIGrR2l00TmJWho=;
+	s=korg; t=1785322707;
+	bh=YQRYp2h/Ezm9hR4PH2zMH6v80OaBXVn/XZVjyBwWYNE=;
 	h=Subject:To:Cc:From:Date;
-	b=GR+8v8BKqI7fq3EeifUF8AOyJWymbarSYHzpQAEZg1M6H1qVX9HDX5JJfXtSa5lhH
-	 7qGoKh0LIOWEQWT+ppPgLxcyQaqQ4LS9BwZoh0qv3wG1WmApWiLyh3ms/zaRfinQGU
-	 YHuAkN1SJPrf6NnYHJtkxdtk/7Osa7DKk2dhvYWY=
-Subject: FAILED: patch "[PATCH] drm/xe/rtp: Add RING_FORCE_TO_NONPRIV_DENY to OA whitelists" failed to apply to 6.12-stable tree
+	b=JOsXpr9YLvZ05D8q7jiyY7MwFG6qSljmlQTHWq7KR87kF0lgbnegDR6SmX72sW4Jw
+	 dbjcWqBiI3IFw39MDTHIgL0om1u9AuRZMpXnDOXA3Tt2vjyou8D2Thpiq81En8ezUs
+	 RE5CNcLicqvjE1bu7EWhAXD1/Mz3Ft0fygaDZcyo=
+Subject: FAILED: patch "[PATCH] drm/xe/rtp: Maintain OA whitelists separately" failed to apply to 6.18-stable tree
 To: ashutosh.dixit@intel.com,thomas.hellstrom@linux.intel.com,umesh.nerlige.ramappa@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:58:03 +0200
-Message-ID: <2026072902-purity-frenzy-fc0b@gregkh>
+Date: Wed, 29 Jul 2026 12:58:13 +0200
+Message-ID: <2026072913-snap-snuff-32d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e70086a3a06d276b4a5d9a2c51c9330c6cf72780
+git cherry-pick -x 31e2437561621b4867c08efc890bf629d017df03
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072902-purity-frenzy-fc0b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072913-snap-snuff-32d6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,46 +62,96 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e70086a3a06d276b4a5d9a2c51c9330c6cf72780 Mon Sep 17 00:00:00 2001
+From 31e2437561621b4867c08efc890bf629d017df03 Mon Sep 17 00:00:00 2001
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Mon, 15 Jun 2026 15:42:19 -0700
-Subject: [PATCH] drm/xe/rtp: Add RING_FORCE_TO_NONPRIV_DENY to OA whitelists
+Date: Mon, 15 Jun 2026 15:42:20 -0700
+Subject: [PATCH] drm/xe/rtp: Maintain OA whitelists separately
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Unconditionally whitelisting OA registers is a security violation. Set
-RING_FORCE_TO_NONPRIV_DENY bit in OA nonpriv slots, so that OA registers
-don't get whitelisted by default after probe, gt reset, resume and engine
-reset.
+OA registers are dynamically whitelisted (and again dewhitelisted) on OA
+stream open/close. Maintaining OA whitelists separately from non-OA
+register whitlists simplifies this management of OA register
+whitelisting/dewhitelisting.
 
 Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
 Cc: stable@vger.kernel.org # v6.12+
-Suggested-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Link: https://patch.msgid.link/20260615224227.34880-2-ashutosh.dixit@intel.com
-(cherry picked from commit 90511bdcfda97211c01f1d945d4ea616578d8fca)
+Link: https://patch.msgid.link/20260615224227.34880-3-ashutosh.dixit@intel.com
+(cherry picked from commit c478244a9e2d14b3f1f92e8bd293919e554622a5)
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
+diff --git a/drivers/gpu/drm/xe/xe_gt_debugfs.c b/drivers/gpu/drm/xe/xe_gt_debugfs.c
+index f45306308cd6..c38bcacb27e4 100644
+--- a/drivers/gpu/drm/xe/xe_gt_debugfs.c
++++ b/drivers/gpu/drm/xe/xe_gt_debugfs.c
+@@ -149,8 +149,10 @@ static int register_save_restore(struct xe_gt *gt, struct drm_printer *p)
+ 	drm_printf(p, "\n");
+ 
+ 	drm_printf(p, "Whitelist\n");
+-	for_each_hw_engine(hwe, gt, id)
++	for_each_hw_engine(hwe, gt, id) {
+ 		xe_reg_whitelist_dump(&hwe->reg_whitelist, p);
++		xe_reg_whitelist_dump(&hwe->oa_whitelist, p);
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index 98265293f2dc..55632ac4dfe7 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -572,6 +572,8 @@ static void hw_engine_init_early(struct xe_gt *gt, struct xe_hw_engine *hwe,
+ 	hw_engine_setup_default_state(hwe);
+ 
+ 	xe_reg_sr_init(&hwe->reg_whitelist, hwe->name, gt_to_xe(gt));
++	xe_reg_sr_init(&hwe->oa_whitelist, hwe->name, gt_to_xe(gt));
++	xe_reg_sr_init(&hwe->oa_sr, hwe->name, gt_to_xe(gt));
+ 	xe_reg_whitelist_process_engine(hwe);
+ }
+ 
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine_types.h b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+index 2cf898e682f5..84c097da9b6f 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine_types.h
++++ b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+@@ -130,6 +130,14 @@ struct xe_hw_engine {
+ 	 * @reg_whitelist: table with registers to be whitelisted
+ 	 */
+ 	struct xe_reg_sr reg_whitelist;
++	/**
++	 * @oa_whitelist: oa registers to be whitelisted
++	 */
++	struct xe_reg_sr oa_whitelist;
++	/**
++	 * @oa_sr: oa nonpriv whitelist registers, changed on oa stream open/close
++	 */
++	struct xe_reg_sr oa_sr;
+ 	/**
+ 	 * @reg_lrc: LRC workaround registers
+ 	 */
 diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-index fb65940848d7..d3bfc05949ae 100644
+index 2d8ddb57412c..6d642c2f6fd7 100644
 --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
 +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-@@ -104,10 +104,12 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
+@@ -103,6 +103,9 @@ static const struct xe_rtp_table_sr register_whitelist = XE_RTP_TABLE_SR(
+ 			 WHITELIST(VFLSKPD,
  				   RING_FORCE_TO_NONPRIV_ACCESS_RW))
  	},
- 
-+#define WHITELIST_DENY(r, f) WHITELIST(r, (f) | RING_FORCE_TO_NONPRIV_DENY)
++);
 +
- #define WHITELIST_OA_MMIO_TRG(trg, status, head) \
--	WHITELIST(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
--	WHITELIST(status, RING_FORCE_TO_NONPRIV_ACCESS_RD), \
--	WHITELIST(head, RING_FORCE_TO_NONPRIV_ACCESS_RD | RING_FORCE_TO_NONPRIV_RANGE_4)
-+	WHITELIST_DENY(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
-+	WHITELIST_DENY(status, RING_FORCE_TO_NONPRIV_ACCESS_RD), \
-+	WHITELIST_DENY(head, RING_FORCE_TO_NONPRIV_ACCESS_RD | RING_FORCE_TO_NONPRIV_RANGE_4)
++static const struct xe_rtp_table_sr oa_whitelist = XE_RTP_TABLE_SR(
  
- #define WHITELIST_OAG_MMIO_TRG \
- 	WHITELIST_OA_MMIO_TRG(OAG_MMIOTRIGGER, OAG_OASTATUS, OAG_OAHEADPTR)
+ #define WHITELIST_DENY(r, f) WHITELIST(r, (f) | RING_FORCE_TO_NONPRIV_DENY)
+ 
+@@ -206,6 +209,8 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
+ 
+ 	xe_rtp_process_to_sr(&ctx, &register_whitelist, &hwe->reg_whitelist, false);
+ 	whitelist_apply_to_hwe(hwe);
++
++	xe_rtp_process_to_sr(&ctx, &oa_whitelist, &hwe->oa_whitelist, false);
+ }
+ 
+ /**
 
