@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D965823BCED
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 00:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B5A1F418F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 00:30:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785285032; cv=none; b=WdHbqiWgw50eg3RqU6506cIcN6X9D/JZjxfr9GZFhc6JO1WdBCcYJtxuDSMQLLhKVhZeeWM0KtZY5blNWcuytueRlI+yJAKe9H72DkPccdKzED0Mhcq/F7fjBrIXMjqSmADy4KGDkUPeYZIUG31NsqynHAgPqL7lItsy/pqp2Io=
+	t=1785285042; cv=none; b=NLlFVnR3McKY9ExIJiZ9+glw+9mGuls0HFQExMpQp2+Sk2sCKcoiIgjAC++aEiMRrc2+yfCZXzV5opuSSm/ISBrhwYGyIcQmdLA7w+wpkUy6aT/bqxd0EaCLubfY02NQuzxq0W2uPdvAptX0QmJxnZQpeeFfYOm4yKiCqsGMIvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785285032; c=relaxed/simple;
-	bh=sIAGvKCuUgi41smO1FmxNjwWwtt2RfMNcd3jHi83tMQ=;
+	s=arc-20240116; t=1785285042; c=relaxed/simple;
+	bh=rNMENhDssuTI+YLsG66fEo5eqgWIm4qhrBfWdZ8PBm0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ohLezr8oYdTfQkmMYgS9+sfJ6ZxtB3/2eakMbGp+1zxZCmNs3EmlLYvPGIzRYVEN2xJ+m/kGVl8nZLvt/qC9X4cgRWRJgy5D4f++3kGTFV2vhciM3/LclMohbUzaTsqF2J7K5SuAPG1Kn8HDxnW8zXNNkhMGoQhQj3SIx0IdG+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IS3kEmdj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jyN1S+D+LkhcSUj7iyShc3FbCZzE6dPI60yZ0AVWtmRgII88qwEOk6rO7WqDOKmsURZaqTb2a2e/6yllSf+xviEMlAGCkr+83nQx1n6PWFTbdQcyuqFpD4ZQQeBAFKjMZJs3OrY84bJ5SwJ+rzAHeVUOT+9VfudKvXN88Ivzv6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=niiWdGaz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IS3kEmdj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD0F1F00A3E;
-	Wed, 29 Jul 2026 00:30:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="niiWdGaz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0BE1F000E9;
+	Wed, 29 Jul 2026 00:30:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785285030;
-	bh=mvVnQ3Md/NLIubBZlWd5YIfDD3ru8ksq+JM9f9IRR24=;
+	s=k20260515; t=1785285040;
+	bh=ThKmO/5ZmKqJ7YPgr6/OPEMjEgBFXIDFQOBdlPA40sI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IS3kEmdjOnnBpcfmYzBYbcPjIlUGzXiSR8MIqhwri8CtnXtzygU1mEVp1tAlIa58W
-	 j0chdY7Tz5io6FfaKR1LZhgc35phAOf7aPDMVcdpRmqWhzSoL2klghpnC5QZ7bHAaP
-	 c/OD/ZWnW7w5oE7wjqeNeZY0Tgu+Y58usuJ7gyxKPg+VB33SN82xt+4ZN/bbdOnJBu
-	 g21K44TV27BqY7n0fHIwCuFPvQs2gQEO9Kb2VfNnlAO0c0aqOREGr/OdipjIj6RdOy
-	 kFyviWqDV8p8kjNCMBM0gMv86op6ZhwOhDO8qPSV5JwzgYj/voLTU9VVh32G2XWwnF
-	 CNf/PJv+JqzQQ==
+	b=niiWdGazy3bKFZ0EMcsnTv7cUjcAVtIgRJU3qQPAwbhCBiZ/wxez/xr2MZOlIjl8k
+	 ex5RMDa/2vwbh5lDXN6YMcdoj4382cEcAX/s7zCT7h3H7W76cUA49MhNYeRhPNvlHn
+	 14n+mRUYzV/AaO6XSf4E7mLHeIzigv4jEH01zp6aGSTaESOfczlPZJpamLSD7RPsnO
+	 Yx7BIC7wvg5OvnRrG9DuhCm7GWbuCWFVMwmdS0I0bWGabZtvM6wmtAvOFLKiu965SY
+	 pRbMkYhl/pTL0o39r3CN8QFDgwR4db703cx6Dao+C7DsOWej4v6Bv6ZLb5oTNYvxQ4
+	 XX6tywu/PzY8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+Cc: Sabrina Dubroca <sd@queasysnail.net>,
+	Aaron Esau <aaron1esau@gmail.com>,
+	Yiming Qian <yimingqian591@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] bootconfig: fix NULL-pointer arithmetic in xbc_snprint_cmdline()
-Date: Tue, 28 Jul 2026 20:30:27 -0400
-Message-ID: <20260729003027.887848-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] espintcp: use sk_msg_free_partial to fix partial send
+Date: Tue, 28 Jul 2026 20:30:38 -0400
+Message-ID: <20260729003038.888183-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260729003027.887848-1-sashal@kernel.org>
-References: <2026072113-duvet-tattling-a13a@gregkh>
- <20260729003027.887848-1-sashal@kernel.org>
+In-Reply-To: <2026072137-enhance-unrushed-b170@gregkh>
+References: <2026072137-enhance-unrushed-b170@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,95 +47,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Sabrina Dubroca <sd@queasysnail.net>
 
-[ Upstream commit dec4d8118c179b3d12bca7e609054c6011c4f2ce ]
+[ Upstream commit 007800408002d871f5699bdb944f985896730b8f ]
 
-xbc_snprint_cmdline() is meant to be called twice: first with
-buf=NULL, size=0 to probe the rendered length, then with a real
-buffer to fill it (the standard snprintf() two-pass pattern). The
-probe call makes the function compute "buf + size" (NULL + 0) and,
-on every iteration, advance "buf += ret" from that NULL base and
-pass the result back into snprintf().
+sk_msg_free_partial() ensures consistency of the skmsg at every
+iteration, without having to manually handle uncharges and offsets.
+This simplifies the code, and fixes some bugs in skmsg accounting when
+we don't send the full contents.
 
-Pointer arithmetic on a NULL pointer is undefined behavior. It is
-harmless in the in-kernel callers today, but the follow-up patches
-run this same code in the userspace tools/bootconfig parser at kernel
-build time, where host UBSan / FORTIFY_SOURCE abort the build.
-
-Track a running written length (size_t) instead of mutating @buf, and
-only form "buf + len" when @buf is non-NULL. snprintf(NULL, 0, ...)
-is itself well defined and returns the would-be length, so the
-two-pass "probe then fill" usage returns identical byte counts.
-
-Link: https://lore.kernel.org/all/20260626-bootconfig_using_tools-v7-1-24ab72139c29@debian.org/
-
-Fixes: 51887d03aca1 ("bootconfig: init: Allow admin to use bootconfig for kernel command line")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+Reported-by: Aaron Esau <aaron1esau@gmail.com>
+Reported-by: Yiming Qian <yimingqian591@gmail.com>
+Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/bootconfig.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ net/xfrm/espintcp.c | 32 ++++++--------------------------
+ 1 file changed, 6 insertions(+), 26 deletions(-)
 
-diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index 3b3d666e207618..f6bede03c69265 100644
---- a/lib/bootconfig.c
-+++ b/lib/bootconfig.c
-@@ -348,10 +348,18 @@ static char xbc_namebuf[XBC_KEYLEN_MAX] __initdata;
- int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
+diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
+index 8b41f865483239..59247f0bd4e7ec 100644
+--- a/net/xfrm/espintcp.c
++++ b/net/xfrm/espintcp.c
+@@ -210,41 +210,21 @@ static int espintcp_sendskmsg_locked(struct sock *sk,
  {
- 	struct xbc_node *knode, *vnode;
--	char *end = buf + size;
- 	const char *val, *q;
-+	size_t len = 0;
+ 	struct sk_msg *skmsg = &emsg->skmsg;
+ 	struct scatterlist *sg;
+-	int done = 0;
  	int ret;
  
-+	/*
-+	 * Track the running written length rather than advancing @buf, so we
-+	 * never form "buf + size" or "buf += ret" while @buf is NULL (the
-+	 * size-probe call passes buf=NULL, size=0). NULL pointer arithmetic
-+	 * is undefined behavior and trips host UBSan / FORTIFY_SOURCE when
-+	 * this renderer runs at kernel build time. snprintf(NULL, 0, ...)
-+	 * itself is well defined and returns the would-be length.
-+	 */
- 	xbc_node_for_each_key_value(root, knode, val) {
- 		ret = xbc_node_compose_key_after(root, knode,
- 					xbc_namebuf, XBC_KEYLEN_MAX);
-@@ -360,10 +368,11 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
+ 	flags |= MSG_SENDPAGE_NOTLAST;
+-	sg = &skmsg->sg.data[skmsg->sg.start];
+ 	do {
+-		size_t size = sg->length - emsg->offset;
+-		int offset = sg->offset + emsg->offset;
+-		struct page *p;
+-
+-		emsg->offset = 0;
+-
++		sg = &skmsg->sg.data[skmsg->sg.start];
+ 		if (sg_is_last(sg))
+ 			flags &= ~MSG_SENDPAGE_NOTLAST;
  
- 		vnode = xbc_node_get_child(knode);
- 		if (!vnode) {
--			ret = snprintf(buf, rest(buf, end), "%s ", xbc_namebuf);
-+			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
-+				       "%s ", xbc_namebuf);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
- 			continue;
- 		}
- 		xbc_array_for_each_value(vnode, val) {
-@@ -373,15 +382,15 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
- 			 * whitespace.
- 			 */
- 			q = strpbrk(val, " \t\r\n") ? "\"" : "";
--			ret = snprintf(buf, rest(buf, end), "%s=%s%s%s ",
--				       xbc_namebuf, q, val, q);
-+			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
-+				       "%s=%s%s%s ", xbc_namebuf, q, val, q);
- 			if (ret < 0)
- 				return ret;
--			buf += ret;
-+			len += ret;
- 		}
- 	}
+-		p = sg_page(sg);
+-retry:
+-		ret = do_tcp_sendpages(sk, p, offset, size, flags);
+-		if (ret < 0) {
+-			emsg->offset = offset - sg->offset;
+-			skmsg->sg.start += done;
++		ret = do_tcp_sendpages(sk, sg_page(sg), sg->offset,
++				       sg->length, flags);
++		if (ret < 0)
+ 			return ret;
+-		}
+-
+-		if (ret != size) {
+-			offset += ret;
+-			size -= ret;
+-			goto retry;
+-		}
  
--	return buf - (end - size);
-+	return len;
- }
- #undef rest
+-		done++;
+-		put_page(p);
+-		sk_mem_uncharge(sk, sg->length);
+-		sg = sg_next(sg);
+-	} while (sg);
++		sk_msg_free_partial(sk, skmsg, ret);
++	} while (skmsg->sg.size);
+ 
+ 	memset(emsg, 0, sizeof(*emsg));
  
 -- 
 2.53.0
