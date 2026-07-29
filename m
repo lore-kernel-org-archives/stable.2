@@ -1,85 +1,341 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148FE25D215;
-	Wed, 29 Jul 2026 01:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B7F12DC331
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 01:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785288886; cv=none; b=Y7KInAvYLRxY1jvSCrRMMcOGdrGApDlfO9HFMermcGQhjg+WJOHIMciVItEeGpr4lHN1Dn+DFHbMkwB7crx4CC7bRNJ7iE4F/gh/+FYm+Sr2VLVW9eKATQZ/y2ZKuqgk6XioZ3HSL57utrUz2C8x/IcEm82GhusljBHyM89oFLw=
+	t=1785289126; cv=none; b=aZspgh3VziZALrTm0QUK6Ryp+531BV3TCWNUv7D/eY6kUV2C5DGSE77jrhoaQkY0uSSvFM+dp6Lr6NZOwubJ30wRnGM5TZyLFD1RNJT/uxtoxBfHHBhNQCoTNIrl7Eyw0B8wRoHd5AFfL7mnR3YE+il3q1pMAY0fLnQiWRbyWpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785288886; c=relaxed/simple;
-	bh=vIARaXCCSFuDF80uBMKFCFUJTb39fi5OYeDbjxvPuB4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=l2ANLMUkI8zGW1EKReZSGm6eHwzk0TZrE4gEuojUab4D1lbuKJstxy6PIeBVO0nxONKZjnp2mACj2st3H9h6RwJRkCXW7JHserr6McNW79itennpd+VnmcBXaDJLq5xGLBu1d9a88mmBmcoBVFv0rxTAV80Gs/OwSkdtjxgA16c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=B73Ljcnt; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+	s=arc-20240116; t=1785289126; c=relaxed/simple;
+	bh=kXaQxA1nEOCSODRDP3XxG6GGG4fJuJ1l6nQVLqPaVP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U10o+hqgzHQFOgFdzBFwSceGiJJ8YMWZPwpSFp3CB2M2C+BBNSjy43WtLwLYiE9PgK8GysPGy/W/QcmbXT/WYrtG+sl4HBC7O+3g7FklzuZoG5YAGiEsPFJVuQMTpt5sFKwIh3HrZqDTRBIaY7bH1PJliBjfm5LjKL0iG3RgXAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=SIrYCYZ5; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="B73Ljcnt"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=vIARaXCCSFuDF80uBMKFCFUJTb39fi5OYeDbjxvPuB4=;
-	b=B73LjcntGv/Sh+1VigVSU1HKzJCXEyTExQRV7X1hK8N4iztFGPvtV13o7SE/vFb7w/7VBAisO
-	qZ6nmZ2UXhSl3lSfH1H8oSLB6kyhuRVvWPxMpRs7MMdIHlgnNn/Q3ntUp1JrchYMbuEfVrE4uqW
-	u7TjGZw1AO9jcTZKYzsmnB0=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4h8vlV6LV9zKm4b;
-	Wed, 29 Jul 2026 09:25:10 +0800 (CST)
-Received: from kwepemo100005.china.huawei.com (unknown [7.202.195.212])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2E649402AB;
-	Wed, 29 Jul 2026 09:34:40 +0800 (CST)
-Received: from [10.67.121.59] (10.67.121.59) by kwepemo100005.china.huawei.com
- (7.202.195.212) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 29 Jul
- 2026 09:34:39 +0800
-Message-ID: <f4bf4615-d54f-4c08-b736-42b36d4645e8@huawei.com>
-Date: Wed, 29 Jul 2026 09:34:38 +0800
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="SIrYCYZ5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=0XBvUHqr/fQwOxuRZus/qJvIzx2JA9Ojxk
+	yHzypyr3A=; b=SIrYCYZ5wWulHgOB2cCP0aKGO0iU8rOVEkl41tzQ0E+UV+tQ+M
+	0wBUIKDNrUrk6d6evkp85202tN5ziTuoRXtTorIxzlA2f3esVuaByph1RybdzSTn
+	YyrB6OfXIyM6uvmmiU5yPaZf8iM3RU3TV66ktY6L/LXvm5n3Nc/y5EOWE=
+Received: from ur-dp1000 (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOdWWlqC6YVAA--.17834S2;
+	Wed, 29 Jul 2026 09:38:45 +0800 (CST)
+From: Xie Bo <xb@ultrarisc.com>
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	sashal@kernel.org
+Cc: Xie Bo <xb@ultrarisc.com>,
+	Anup Patel <anup@brainfault.org>
+Subject: [PATCH 6.1.y] RISC-V: KVM: Serialize virtual interrupt pending state updates
+Date: Wed, 29 Jul 2026 09:38:09 +0800
+Message-ID: <20260729013809.1745-1-xb@ultrarisc.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026072503-strewn-unrobed-7eca@gregkh>
+References: <2026072503-strewn-unrobed-7eca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] riscv: acpi: Handle LPI architectural context loss
- flags
-To: Peixin Xie <peixin.xie@linux.spacemit.com>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan
-	<dlan@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, Oza Pawandeep
-	<quic_poza@quicinc.com>, Will Deacon <will@kernel.org>, "Rafael J. Wysocki"
-	<rafael.j.wysocki@intel.com>
-CC: <linux-acpi@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <spacemit@lists.linux.dev>,
-	<stable@vger.kernel.org>, <lihuisong@huawei.com>
-References: <20260728-riscv-acpi-lpi-timer-v2-1-5a30e0021ec9@linux.spacemit.com>
-From: "lihuisong (C)" <lihuisong@huawei.com>
-In-Reply-To: <20260728-riscv-acpi-lpi-timer-v2-1-5a30e0021ec9@linux.spacemit.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemo100005.china.huawei.com (7.202.195.212)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAfwAnEkOdWWlqC6YVAA--.17834S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3ZFW5tryrZr15Zr1fGFyxAFb_yoWDWFy3pF
+	WxCw4Y9r48Jry8u34agF1Fvr1Fg3s5Kr45urZrurW3Jr1YqFy5urn7Ga45ZFy8CryFv3Zr
+	ZFyYkFy09a4UZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv214x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r1j6r
+	4UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
+	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
+	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
+	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
+	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa
+	7VUjuHq7UUUUU==
+X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQATB2pkMtIAAQATsp
 
+KVM RISC-V tracks guest local interrupt state with two bitmaps:
 
-On 7/28/2026 7:47 PM, Peixin Xie wrote:
-> Commit 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for
-> broadcast timer") replaced the generic nonzero check for LPI
-> architectural context loss flags with arch_get_idle_state_flags().
-> RISC-V does not implement the helper, so it falls back to the stub
-> that returns 0. Consequently, CPUIDLE_FLAG_TIMER_STOP is not set when
-> an LPI state loses the hart timer context, preventing cpuidle from
-> using a broadcast timer for that state.
->
-> Implement the RISC-V helper and map the hart timer context loss flag
-> to CPUIDLE_FLAG_TIMER_STOP.
->
-> Fixes: 4785aa802853 ("cpuidle, ACPI: Evaluate LPI arch_flags for broadcast timer")
-> Cc: stable@vger.kernel.org
-> Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
-> Reviewed-by: Yixun Lan <dlan@kernel.org>
-> Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
-> ---
-LGTM,
-Reviewed-by: Huisong Li <lihuisong@huawei.com>
->
+  - irqs_pending: interrupts that should be visible to the guest
+  - irqs_pending_mask: interrupts whose pending state changed
+
+The current code updates those bitmaps with independent atomic bitops
+and assumes a multiple-producer, single-consumer protocol. That model
+does not actually hold.
+
+kvm_riscv_vcpu_sync_interrupts() is not a pure consumer. When the guest
+changes guest-visible HVIP state, sync_interrupts() writes both
+irqs_pending and irqs_pending_mask to reflect the new guest state back
+into KVM state. As a result, irqs_pending and irqs_pending_mask form a
+single logical state transition, but they are not updated atomically as
+a pair.
+
+This allows a race where a newly injected interrupt is lost. For
+example:
+
+  CPU0                              CPU1
+  ----                              ----
+  kvm_riscv_vcpu_set_interrupt(VS_SOFT)
+    set_bit(VS_SOFT, irqs_pending)
+                                    kvm_riscv_vcpu_sync_interrupts()
+                                      sees guest-cleared HVIP.VSSIP
+                                      sets irqs_pending_mask
+                                      clear_bit(IRQ_VS_SOFT, irqs_pending)
+    set_bit(VS_SOFT, irqs_pending_mask)
+    kvm_vcpu_kick()
+
+After that interleaving, a later flush can update HVIP without VSSIP
+even though a new virtual interrupt was injected. In practice, the
+guest can remain blocked in WFI with work pending.
+
+The same pending/mask protocol is shared by VS soft interrupts, PMU
+overflow delivery, and AIA high interrupt synchronization, so the race
+is not limited to one interrupt source.
+
+Fix this by serializing all updates to irqs_pending and irqs_pending_mask
+with a per-vCPU raw spinlock. This keeps the pending bit and the dirty
+mask as one state transition across:
+
+  - set/unset interrupt
+  - guest HVIP sync
+  - interrupt flush to guest CSR state
+  - vCPU reset
+  - AIA CSR writes that clear dirty state
+
+Use non-atomic bitmap operations while holding the lock. Hold the lock
+across the AIA sync, flush, and pending checks as well, so both bitmap
+words share the same serialization domain.
+
+This intentionally replaces the existing lockless protocol instead of
+trying to repair it with additional barriers. The problem is not memory
+ordering on a single field; it is that two separate bitmaps encode one
+shared state machine while both producers and sync paths can modify
+them. A per-vCPU raw spinlock keeps the fix small, local, and suitable
+for backporting.
+
+Fixes: cce69aff689e ("RISC-V: KVM: Implement VCPU interrupts and requests handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xie Bo <xb@ultrarisc.com>
+Reviewed-by: Anup Patel <anup@brainfault.org>
+Link: https://lore.kernel.org/r/20260715020359.1521354-2-xb@ultrarisc.com
+Signed-off-by: Anup Patel <anup@brainfault.org>
+
+[ bo: Adapt to the scalar interrupt state in 6.1.y and its CSR one-reg
+  helpers in vcpu.c. Drop AIA and PMU overflow handling, which are not
+  present in this tree. ]
+(cherry picked from commit d024a0a7879e6f37c0152aacf6d8e37b214a1738)
+---
+ arch/riscv/include/asm/kvm_host.h | 10 ++--
+ arch/riscv/kvm/vcpu.c             | 78 ++++++++++++++++++++++---------
+ 2 files changed, 60 insertions(+), 28 deletions(-)
+
+diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
+index dbbf43d..dc5e553 100644
+--- a/arch/riscv/include/asm/kvm_host.h
++++ b/arch/riscv/include/asm/kvm_host.h
+@@ -192,12 +192,12 @@ struct kvm_vcpu_arch {
+ 	/*
+ 	 * VCPU interrupts
+ 	 *
+-	 * We have a lockless approach for tracking pending VCPU interrupts
+-	 * implemented using atomic bitops. The irqs_pending bitmap represent
+-	 * pending interrupts whereas irqs_pending_mask represent bits changed
+-	 * in irqs_pending. Our approach is modeled around multiple producer
+-	 * and single consumer problem where the consumer is the VCPU itself.
++	 * The irqs_pending field represents pending interrupts whereas
++	 * irqs_pending_mask represents bits changed in irqs_pending. Updates
++	 * to these fields are serialized so vcpu interrupt sync/flush cannot
++	 * drop a newly injected interrupt while syncing guest-visible HVIP.
+ 	 */
++	raw_spinlock_t irqs_pending_lock;
+ 	unsigned long irqs_pending;
+ 	unsigned long irqs_pending_mask;
+ 
+diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
+index 5174ef5..c6afbf0 100644
+--- a/arch/riscv/kvm/vcpu.c
++++ b/arch/riscv/kvm/vcpu.c
+@@ -112,6 +112,7 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu)
+ 	struct kvm_vcpu_csr *reset_csr = &vcpu->arch.guest_reset_csr;
+ 	struct kvm_cpu_context *cntx = &vcpu->arch.guest_context;
+ 	struct kvm_cpu_context *reset_cntx = &vcpu->arch.guest_reset_context;
++	unsigned long flags;
+ 	bool loaded;
+ 
+ 	/**
+@@ -134,8 +135,10 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu)
+ 
+ 	kvm_riscv_vcpu_timer_reset(vcpu);
+ 
+-	WRITE_ONCE(vcpu->arch.irqs_pending, 0);
+-	WRITE_ONCE(vcpu->arch.irqs_pending_mask, 0);
++	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++	vcpu->arch.irqs_pending = 0;
++	vcpu->arch.irqs_pending_mask = 0;
++	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
+ 
+ 	vcpu->arch.hfence_head = 0;
+ 	vcpu->arch.hfence_tail = 0;
+@@ -173,6 +176,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+ 
+ 	/* Setup VCPU hfence queue */
+ 	spin_lock_init(&vcpu->arch.hfence_lock);
++	raw_spin_lock_init(&vcpu->arch.irqs_pending_lock);
+ 
+ 	/* Setup reset state of shadow SSTATUS and HSTATUS CSRs */
+ 	cntx = &vcpu->arch.guest_reset_context;
+@@ -444,7 +448,7 @@ static int kvm_riscv_vcpu_set_reg_csr(struct kvm_vcpu *vcpu,
+ 	unsigned long reg_num = reg->id & ~(KVM_REG_ARCH_MASK |
+ 					    KVM_REG_SIZE_MASK |
+ 					    KVM_REG_RISCV_CSR);
+-	unsigned long reg_val;
++	unsigned long flags, reg_val;
+ 
+ 	if (KVM_REG_SIZE(reg->id) != sizeof(unsigned long))
+ 		return -EINVAL;
+@@ -461,8 +465,11 @@ static int kvm_riscv_vcpu_set_reg_csr(struct kvm_vcpu *vcpu,
+ 
+ 	((unsigned long *)csr)[reg_num] = reg_val;
+ 
+-	if (reg_num == KVM_REG_RISCV_CSR_REG(sip))
+-		WRITE_ONCE(vcpu->arch.irqs_pending_mask, 0);
++	if (reg_num == KVM_REG_RISCV_CSR_REG(sip)) {
++		raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++		vcpu->arch.irqs_pending_mask = 0;
++		raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
++	}
+ 
+ 	return 0;
+ }
+@@ -679,19 +686,26 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
+ 	unsigned long mask, val;
++	unsigned long flags;
+ 
+-	if (READ_ONCE(vcpu->arch.irqs_pending_mask)) {
+-		mask = xchg_acquire(&vcpu->arch.irqs_pending_mask, 0);
+-		val = READ_ONCE(vcpu->arch.irqs_pending) & mask;
++	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++
++	mask = vcpu->arch.irqs_pending_mask;
++	if (mask) {
++		vcpu->arch.irqs_pending_mask = 0;
++		val = vcpu->arch.irqs_pending & mask;
+ 
+ 		csr->hvip &= ~mask;
+ 		csr->hvip |= val;
+ 	}
++
++	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
+ }
+ 
+ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
+ {
+ 	unsigned long hvip;
++	unsigned long flags;
+ 	struct kvm_vcpu_arch *v = &vcpu->arch;
+ 	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
+ 
+@@ -700,32 +714,40 @@ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
+ 
+ 	/* Sync-up HVIP.VSSIP bit changes does by Guest */
+ 	hvip = csr_read(CSR_HVIP);
++
++	raw_spin_lock_irqsave(&v->irqs_pending_lock, flags);
++
+ 	if ((csr->hvip ^ hvip) & (1UL << IRQ_VS_SOFT)) {
+ 		if (hvip & (1UL << IRQ_VS_SOFT)) {
+-			if (!test_and_set_bit(IRQ_VS_SOFT,
+-					      &v->irqs_pending_mask))
+-				set_bit(IRQ_VS_SOFT, &v->irqs_pending);
++			if (!__test_and_set_bit(IRQ_VS_SOFT,
++						&v->irqs_pending_mask))
++				__set_bit(IRQ_VS_SOFT, &v->irqs_pending);
+ 		} else {
+-			if (!test_and_set_bit(IRQ_VS_SOFT,
+-					      &v->irqs_pending_mask))
+-				clear_bit(IRQ_VS_SOFT, &v->irqs_pending);
++			if (!__test_and_set_bit(IRQ_VS_SOFT,
++						&v->irqs_pending_mask))
++				__clear_bit(IRQ_VS_SOFT, &v->irqs_pending);
+ 		}
+ 	}
+ 
++	raw_spin_unlock_irqrestore(&v->irqs_pending_lock, flags);
++
+ 	/* Sync-up timer CSRs */
+ 	kvm_riscv_vcpu_timer_sync(vcpu);
+ }
+ 
+ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
+ {
++	unsigned long flags;
++
+ 	if (irq != IRQ_VS_SOFT &&
+ 	    irq != IRQ_VS_TIMER &&
+ 	    irq != IRQ_VS_EXT)
+ 		return -EINVAL;
+ 
+-	set_bit(irq, &vcpu->arch.irqs_pending);
+-	smp_mb__before_atomic();
+-	set_bit(irq, &vcpu->arch.irqs_pending_mask);
++	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++	__set_bit(irq, &vcpu->arch.irqs_pending);
++	__set_bit(irq, &vcpu->arch.irqs_pending_mask);
++	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
+ 
+ 	kvm_vcpu_kick(vcpu);
+ 
+@@ -734,24 +756,34 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
+ 
+ int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
+ {
++	unsigned long flags;
++
+ 	if (irq != IRQ_VS_SOFT &&
+ 	    irq != IRQ_VS_TIMER &&
+ 	    irq != IRQ_VS_EXT)
+ 		return -EINVAL;
+ 
+-	clear_bit(irq, &vcpu->arch.irqs_pending);
+-	smp_mb__before_atomic();
+-	set_bit(irq, &vcpu->arch.irqs_pending_mask);
++	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++	__clear_bit(irq, &vcpu->arch.irqs_pending);
++	__set_bit(irq, &vcpu->arch.irqs_pending_mask);
++	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
+ 
+ 	return 0;
+ }
+ 
+ bool kvm_riscv_vcpu_has_interrupts(struct kvm_vcpu *vcpu, unsigned long mask)
+ {
+-	unsigned long ie = ((vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK)
+-			    << VSIP_TO_HVIP_SHIFT) & mask;
++	unsigned long flags;
++	unsigned long ie;
++	bool ret;
++
++	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
++	ie = ((vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK)
++	      << VSIP_TO_HVIP_SHIFT) & mask;
++	ret = vcpu->arch.irqs_pending & ie;
++	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
+ 
+-	return (READ_ONCE(vcpu->arch.irqs_pending) & ie) ? true : false;
++	return ret;
+ }
+ 
+ void kvm_riscv_vcpu_power_off(struct kvm_vcpu *vcpu)
+-- 
+2.54.0
+
