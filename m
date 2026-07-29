@@ -1,43 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4484814ABE
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A897638AC96
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785297207; cv=none; b=B0A+NNDjItD7UwHwy2D/7PKhMKSKxehMZzRopNz/mlnWjcChy9jXRwsex6J4wuab7Ty9ay009U4y3nhG6wmQRXtozQHPzWhJ5wCn2gU60+jNQbWZo0Mzd32N4VLD3La6Rf0Zqn4Ujiv67WX2uLc4VBjAERQNsI2RsAS89MblGIg=
+	t=1785297512; cv=none; b=GxaftL1AWPDYufhRxQu/zHFqHqtHojoGEnNjGsfHS6dOF13kuQuLtGkjzhXfCQQtJbCDKf9IDGawGKVz/gnRVCvpTQfRAn+CQ9bxx2VB9jqAmwFG3ggBOEu1B+O2ash6Q/MDqUrpKe1rENyu/oBjxCzGGgYw6WQxycq64fdAVs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785297207; c=relaxed/simple;
-	bh=du8HHNC2luRV2ELFr+U2AeMIo0bXDW8jj7mW4NeQHwo=;
+	s=arc-20240116; t=1785297512; c=relaxed/simple;
+	bh=aMSGu6twbkJjRdATYcZyvyhEUDWkIvFu5IhvQvcAceE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XWOPNEK3N0RZ/hWXZeKWlI2NGv3OzNdXegop+d/bG/TT7Pc7E5CdCLkstFisio9e5CBzycSxb/Kli7xMV/eMdEKradicCHkBpwG0kKve4FONSZ/Gw9yOzO3UsDfNHHFvoGrMFgL8aECEMrqNvg7V9s4f3S8SXa8D6nD0sL9oakw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UvyCzVwU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cZgqhxEsdu0nI7DEXR1DoBmB6h2IRC5y2z5aAyw6CjQnFhzM0Jb93VzzFh9qWVJ55azVyHwGsPcq8qYarVMW0rcfnRkfSRV/YwGi4C9yzBxid3ATtHOi9PesrGHTCEmHMEW7W/0ZB1cFkXHhZUvx3gh0LkeuEiYivuEtNgbWQ9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=oCG+8OQx; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UvyCzVwU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61F691F000E9;
-	Wed, 29 Jul 2026 03:53:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785297206;
-	bh=HgAYa13Uv2RVWNrl8u0md+4pm3d9S/9JFavvwp+NE/Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UvyCzVwUTO9Ar1xJLmr7y9ZyUUoTbkM48CM7R+BzhLT4K1y8nfnUPk6qkQnFpdgW/
-	 hMluF1V104YESv/I73QtpgIS1xppFWSPBZVybB4lkzXlyt65aqur0Sd36BSsyJBgln
-	 y2B2ZDewBhmw4W7L3RqUP1sLDheIrRLd8Cch8ph4GHTdwbq+B+d6zHo/gt1s0Ssf/I
-	 QpdgRAigXiiklNRkImkuS0ehU0f9R24fpXFggZ+gA9ih1/qZ4MDJJulgvDJewE6kmV
-	 tfmy9a/CxC3jBgzK7DovNOmSrVWorjwLun43ra0c78ovX4bCfgQJ7Z76ol6ZJ688w/
-	 lgU9iG0jPS3oA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ata: libata-core: Reject an invalid concurrent positioning ranges count
-Date: Tue, 28 Jul 2026 23:53:23 -0400
-Message-ID: <20260729035323.1379596-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072113-nanometer-showdown-d9de@gregkh>
-References: <2026072113-nanometer-showdown-d9de@gregkh>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="oCG+8OQx"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3811f512167so485603a91.3
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 20:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1785297510; x=1785902310; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QwE/Kwnr9BPCU8EkGjoplXuRnm52TdDRkTVQHOPaAmg=;
+        b=oCG+8OQxpGUrIuBZ2+IX4ovj6ZFMUkjgtIdgcOFpWn4kiAHHrqtFcyE32se3cq9U1g
+         D1rQJbeqnn8TsLJm4Y7IkUU75Pa6FNfPVG9RHq+7WTyoYQRxASNRwnvQfeFLNx3Pb1NQ
+         ntdybSt5tfwbZI1MlGBN3aTeWQoNW4RJooe8g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785297510; x=1785902310;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QwE/Kwnr9BPCU8EkGjoplXuRnm52TdDRkTVQHOPaAmg=;
+        b=mwxwK+HgnC7oz9Jebk1X+7wpJUFMzpYOv9etVJHRKB+uoerZyVMlennoN2hs0IN8U/
+         bgUABNr+gy8X7Tc0wETKU9SDa78K9Ti48UiMHsnRwJ3RmtRBSY5INQILdFt8c2xxZh5Q
+         PVth51YpQ+CHf9q29eMYRfCKet7G1ivv6aiLeE/2RSPhBRKXozAeGh/Z5OyKSLVMy/fK
+         +zGFt8AfEqFnx6wBWbFf4BaRyWKL4T/Y14f0MBJ+GzoyXVplJmggqXdq2YSjtFKTgp1Q
+         P+XqWsTeGsGnD3limlb0gq67MwOYTyaSBuXsQA1/8wR/Tflw5BpBhY0EUHpUzdi4swdV
+         //Xg==
+X-Forwarded-Encrypted: i=1; AHgh+RpTUyGDQQ/hijZKMumxWranI2Oebr5FEYjxRJyh/7NFFYt80tYI1ZRoMI+3QlU3VJC6DxI8U3Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxT65MIhY/boSwq8Nmmf8yw4X4Y5e46ZRdwwHXrsDwNzF8+Qzr4
+	ztzAMKoUowhcJR5a5aERdiU0x6evWyA3+a7cMNTq7CLRgIxyHVrDAEncssAh8lq1VYzjxt2hyGC
+	A/xE=
+X-Gm-Gg: AR+sD1363AozUziqPBuWVgHNva/IOett3GibRMjRVbvaTRUqM7icHJ4epcWF0VzqKk0
+	XRR5cIMRo/J3fQMWc5WPUiJSToGUOg5pJFPQyVJLusSj60AvRze9A+n8WTZjr0A9+VHAm4k/mzk
+	WXRnbBwZa1elmP7+XqUdI6o48PkOrW4ObkQjgSJqPYrz3wV8LBYgUKYUkK3iMJ5aJf2D6z/Bfrs
+	ba5CRBV5RmFYAB+2kwGl1uZtTUNfuvu2E9ihonMMIovyNew+o6mUKgy1B2h9gZYWHRSP1olOmBw
+	SJubijXVVAZh82lFAr1GmrSdrfWGFzOqz8DQlE3ktFvB0vl1hFqBxCGNY/0izkBhSNEJ+FY34dJ
+	anSADYO7qBhFt9QrDRSYNKn/1TG9FAkXXgfTThhOINDH6ZhJ4IrZH8sIIcmc2ZdSfZBFPZa5XCX
+	84j/d0bClNKcw6MkhPx0oOLFdukT/Jicm84jluZhFmc9OYQzcJEQlleAUoQr1D/YGhvRqcdBPBe
+	sDd6owtGnoZe9x6PHL8DQt5uAYRXImZwLMUWg+ckhfvtGO77hg=
+X-Received: by 2002:a17:90b:3f4c:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-38f6a308675mr5557087a91.4.1785297509963;
+        Tue, 28 Jul 2026 20:58:29 -0700 (PDT)
+Received: from tigerii.tok.corp.google.com ([2a00:79e0:2031:6:65c1:52a3:f6d3:37dc])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f7eef9c5asm722087a91.0.2026.07.28.20.58.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 20:58:29 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Minchan Kim <minchan@kernel.org>,
+	Haoqin Huang <haoqinhuang7@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] zram: set default primary compressor in zram_destroy_comps()
+Date: Wed, 29 Jul 2026 12:50:32 +0900
+Message-ID: <20260729035820.751990-2-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
+In-Reply-To: <20260729035820.751990-1-senozhatsky@chromium.org>
+References: <20260729035820.751990-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,102 +79,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+zram_destroy_comps() resets all compressors and leaves them
+set to NULL, including the primary one, which is invalid
+device state, as now comp_algorithm_show()->strcmp() can
+be called on a NULL compressor.  Set default primary
+compressor in zram_destroy_comps().
 
-[ Upstream commit 533a0b940f901c15e5cbbd4b5d66e871c209e8ce ]
-
-ata_dev_config_cpr() takes the number of range descriptors from buf[0]
-of the concurrent positioning ranges log (up to 255), which the device
-reports independently of the log size in the GPL directory. The count is
-then walked at a fixed 32-byte stride in two places with no bound: the
-log read here, and the INQUIRY VPD page B9h emitter, which writes one
-descriptor per range into the fixed 2048-byte ata_scsi_rbuf. A device
-reporting a count larger than its own log overflows the read buffer (up
-to 7704 bytes past a 512-byte slab), and a count above 62 overflows the
-response buffer on the emit side.
-
-Bound the count once, on probe, against both the log the device returned
-and the number of descriptors the VPD B9h response buffer can hold
-(ATA_DEV_MAX_CPR, derived from the rbuf size). Reject an out-of-range
-count with a warning; this keeps the emitter in bounds with no separate
-change there.
-
-Suggested-by: Damien Le Moal <dlemoal@kernel.org>
-Fixes: fe22e1c2f705 ("libata: support concurrent positioning ranges log")
-Fixes: c745dfc541e7 ("libata: fix reading concurrent positioning ranges log")
+Fixes: 486fd58af7ac ("zram: don't free statically defined names")
+Link: https://sashiko.dev/#/patchset/20260728092935.31139-1-haoqinhuang7@gmail.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 ---
- drivers/ata/libata-core.c | 18 ++++++++++++++++++
- drivers/ata/libata-scsi.c |  2 --
- drivers/ata/libata.h      |  9 +++++++++
- 3 files changed, 27 insertions(+), 2 deletions(-)
+ drivers/block/zram/zram_drv.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 96b13b89f0a73c..ce4dac033578ae 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -2598,6 +2598,24 @@ static void ata_dev_config_cpr(struct ata_device *dev)
- 	if (!nr_cpr)
- 		goto out;
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index ace65c586072..ebe2da955182 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -2836,6 +2836,7 @@ static void zram_destroy_comps(struct zram *zram)
+ 		zram->comp_algs[prio] = NULL;
  
-+	/*
-+	 * The device reports the number of CPR descriptors independently of the
-+	 * log size, and that count is also used to emit VPD page B9h into the
-+	 * fixed-size rbuf. Reject a count larger than what that buffer can hold
-+	 * (ATA_DEV_MAX_CPR) or larger than the log the device actually returned.
-+	 */
-+	if (nr_cpr > ATA_DEV_MAX_CPR) {
-+		ata_dev_warn(dev,
-+			     "Too many concurrent positioning ranges\n");
-+		goto out;
-+	}
-+
-+	if (buf_len < 64 + (size_t)nr_cpr * 32) {
-+		ata_dev_warn(dev,
-+			     "Invalid number of concurrent positioning ranges\n");
-+		goto out;
-+	}
-+
- 	cpr_log = kzalloc(struct_size(cpr_log, cpr, nr_cpr), GFP_KERNEL);
- 	if (!cpr_log)
- 		goto out;
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 5e492655230842..55bf5ebd9b082b 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -37,8 +37,6 @@
- #include "libata.h"
- #include "libata-transport.h"
+ 	zram_comp_params_reset(zram);
++	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+ }
  
--#define ATA_SCSI_RBUF_SIZE	576
+ static void zram_reset_device(struct zram *zram)
+@@ -2853,8 +2854,6 @@ static void zram_reset_device(struct zram *zram)
+ 	zram_destroy_comps(zram);
+ 	memset(&zram->stats, 0, sizeof(zram->stats));
+ 	reset_bdev(zram);
 -
- static DEFINE_SPINLOCK(ata_scsi_rbuf_lock);
- static u8 ata_scsi_rbuf[ATA_SCSI_RBUF_SIZE];
+-	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+ }
  
-diff --git a/drivers/ata/libata.h b/drivers/ata/libata.h
-index a5e0e676ed9a81..25e18bcc0192b6 100644
---- a/drivers/ata/libata.h
-+++ b/drivers/ata/libata.h
-@@ -112,6 +112,15 @@ static inline void ata_acpi_bind_dev(struct ata_device *dev) {}
- #endif
- 
- /* libata-scsi.c */
-+#define ATA_SCSI_RBUF_SIZE	576
-+
-+/*
-+ * Maximum number of concurrent positioning ranges (CPR) supported. The ACS
-+ * specifications allow up to 255, but we limit this to the number of CPR
-+ * descriptors that fit in the rbuf buffer used to emit VPD page B9h.
-+ */
-+#define ATA_DEV_MAX_CPR		min(255, ((ATA_SCSI_RBUF_SIZE - 64) / 32))
-+
- extern struct ata_device *ata_scsi_find_dev(struct ata_port *ap,
- 					    const struct scsi_device *scsidev);
- extern int ata_scsi_add_hosts(struct ata_host *host,
+ static ssize_t disksize_store(struct device *dev, struct device_attribute *attr,
 -- 
-2.53.0
+2.55.0.508.g3f0d502094-goog
 
