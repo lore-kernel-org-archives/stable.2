@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892FF453A44
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D52453A5E
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:37:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785335867; cv=none; b=nHTVCAjk6laB8l5YVSfNy7UGH3/rTs/RS/MJ2LdJXNSFIQzIq2MVo3EHwqCL64lj5JzXyZvezJHD1mww/eGQ1pDkfjJa+xtwbZRAgSaGP08NnqEa0Tc2yZT0X/gjWXJXhuYu1O6z0aPHDlELAaKyrkQjJVgyXl2vlLPtXCBKd3U=
+	t=1785335878; cv=none; b=ZUsHyvQUt6w02JhOXfXDXiHRxl75N9Gp1hQJE+tUSdfSrEibJcLvM/r6APlx+4iBMgjB2aBQ9an8KJdXwbiQq7L85nTc5kbsifDWOGM3T6iVGmuuBWTYlMHvvPUlafnuS2ts743yxvQNTFEsI8XaI4WVFRF7ZwlAyvkUTrZIYV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785335867; c=relaxed/simple;
-	bh=nfzFjMYBnHrYabB//qjKPcoY6Mgx8RQ0TYIeuU0fcIw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TpK6U/ckBxd28rFEuCebV+PV0RTeHSRSr9aTwPo/8TKJ3gh7XEPp8xmT52Q3B0duDQJxQbrWc6pS5eDI16d0F9NEH0jnQzq75MUvTEZapKBmcfxyxCMSw5KJFkygkbtI0Vow5gxiwQidZ7ZDgPYa9Bls/s3yIP3PpDi9wYciylU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fERze2SL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785335878; c=relaxed/simple;
+	bh=WQMqMT1aDPgeSjsMSLfjJ7+1g8cxi+9pp+d4Bf+jkac=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H8Wld2aVhMURoJevfwCN/2HbisnUSsO3n/fAwI3DhPgN+rJkxwYyADpWPUKjxr6dF9L08VN3UagoT5+N5NuL8ZZ5rMOJXVljGkpFX99aEQseQ6aYz84L5zbwBd3DJy8DF1rXBHTW90ScVRvBDwcTCU3DOFWP27dL/mc7caL7Tro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ek3s/eRA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fERze2SL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8261F000E9;
-	Wed, 29 Jul 2026 14:37:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ek3s/eRA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07CE01F000E9;
+	Wed, 29 Jul 2026 14:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785335866;
-	bh=9R/y+IUNVSRRDb/2HiFhqt/HUWswKt2t5F+m7yLXQWI=;
+	s=korg; t=1785335874;
+	bh=Be+lDX0UIlr5bDYax2SZMLvmCfVsd1pcNrTou8t+Qsc=;
 	h=Subject:To:Cc:From:Date;
-	b=fERze2SLDPLOuHb5jntxyZANCqFtMU555xK8dylYjRpXcZqoLmraQUxv1QvPIojEP
-	 J+Yrzziuk53Dbn7SyHQ7ElVXDbGqrUM0dOFKDQA6yCmZO+93oI8eTcj6618jlpMwga
-	 LijlpXY3L5PkEP/R2pWLsTKkHm/VTr5o2Bwl+/lU=
-Subject: FAILED: patch "[PATCH] ftrace: Add global mutex to serialize trace_parser access" failed to apply to 5.15-stable tree
+	b=Ek3s/eRAmIrFKNMhfoRxoBKhJbshzDJklcjEwO6RaD90dIPy6uUU0zL7J98NqJF+R
+	 WPyPfuQXtNdeoq5MRKYzQYQsm1BpWpLPIL1m+CikpYjQK/CXNU7F7bmebT0Sp0z+3N
+	 nw+JIftlkn9Mvhgo9axa2uMvqxsVZdXMKgFmonCI=
+Subject: FAILED: patch "[PATCH] ftrace: Add global mutex to serialize trace_parser access" failed to apply to 5.10-stable tree
 To: wutengda@huaweicloud.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 16:37:32 +0200
-Message-ID: <2026072932-stainable-backspace-b113@gregkh>
+Date: Wed, 29 Jul 2026 16:37:33 +0200
+Message-ID: <2026072933-reprint-squad-0d54@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7720b63bcef3f54c7fe288774b720a227d54a306
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072932-stainable-backspace-b113@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072933-reprint-squad-0d54@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
