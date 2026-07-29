@@ -1,123 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5F823BCED
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 00:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA751E1A3D;
+	Wed, 29 Jul 2026 00:38:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785285058; cv=none; b=CDf4amMSQzfvKcuQ0HhU8f+tgV5HOIoFH3Y3711uHKB9CDeqWJWPjQ99dhoe+0AuX9GEVsjxXrJULvcT2szh9SZyEsD0RmldhwhF//7/7uIa8rXUkqIuZMyzAxrf5RH4NtvH2c/wPRcfvgHFloCY3UOOLevQEiTTK1uSwSS02tY=
+	t=1785285482; cv=none; b=Z+6MCNs0ki6OzgFdlWuTGvHMK0PQ3SD/NrnOuhpAo4nARtoKC3O+zZ4rpRk+Z8uRyWy1OHFkD0Em0VvOE47vbyXn2bUPEgtJ4Az3lB/lWSj7avuB/0ocbFd/3q+YKehAHndmbZxbswCYRK5/KlNgsjHXRPLR2ffSV5f96/0P92k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785285058; c=relaxed/simple;
-	bh=MxILQiYtH5G73HD6g/Njgwl1zLJjWOI9sUsxEDnxuzs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PkG76NcXJR6SWWVIpAwsYQkQEQRj9Tw3u9+/wxGzI77w7ZV9FXp2ldUCitzuft2ORcn15nMDzWenHY9TfKTG9cOu81D7nMv3dRHKdXPhntCxIoSm5PXu5eVnNZCMk0EEFLqsYp8KBfuyNa+6DVXrs6xAWlBJX4MWqoUVKyNxi3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EG1SGpCJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785285482; c=relaxed/simple;
+	bh=psmy0dqWujLLDpvJN1fs+j6+HtvJaXlIqCiDGw3sy0I=;
+	h=Date:To:From:Subject:Message-Id; b=Mfnk1hbPl+jO4ni/gCqcF3zIkTToDqT7QKzWYqrK4+Dg8WEdCkVbHO2+VlLTdT9MF+3TF04Exl7ewzewSMiTJ8FcZ4sCGn29ExahOC8Jme2IyU0VFzkuF6FvXW9H1jOlnarKP6np/xQwNJC2YQPqFES+Bw2AlMHhKrqB25hIyVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=njL81rTY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EG1SGpCJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC631F000E9;
-	Wed, 29 Jul 2026 00:30:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785285056;
-	bh=TcD6KL9fXe0yYw6XYpVRWNXWmVM4itposG0kzsSEZKs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EG1SGpCJ+9+PqomyrH68Bb5wa7Nn8eAAQxH2XSQlnTybSAGjvGoin5eaMbE1ytywN
-	 rkYu18jrskmGa8Qirps7xcWG0D0hgWJDXZe1EpnORfWNQ7PA7OdqzcJQ3ozoH4RBo3
-	 py4BZlIiuBW8xTCobtkllHDOnJBUrWJcKZf0aVzLoG9AUeyvQU7kHZhK7b7AYhoiC6
-	 yN+lfSL2g05EXBvwcGWpHWCvx83I+R1KdCLkxXhszUilTumF++/AtC3GSSBya8l0D+
-	 b+w4xO1rGOgsXIzgEWjnwQ4+l4aX6VS02o8Ksd/YShdg23qKkSbmY2rGVho7xdT2pw
-	 +G3FK60lxhOsg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] octeontx2-pf: fix SQB pointer leak on init failure
-Date: Tue, 28 Jul 2026 20:30:53 -0400
-Message-ID: <20260729003053.889460-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072127-glitch-eel-f400@gregkh>
-References: <2026072127-glitch-eel-f400@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="njL81rTY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FAAC1F000E9;
+	Wed, 29 Jul 2026 00:38:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785285480;
+	bh=IzYnwY1+d+xXZS4xaefSVNnkcQ3h2RUilPMxXHK2bQY=;
+	h=Date:To:From:Subject;
+	b=njL81rTYQAqPvpSbMoRS/rGkLKxaaZdF4kXbvgylU0TtZNv26COXkKERj3ox2sTSY
+	 ueHLyTLPAcjnCwfcXRgNFdogGKDaiWFzs1VKFx2Fyk+FTA92+uLgBRHtvYTLgKUjwO
+	 ah9MkKov3qK9InpguhBcbgWDkH3mKH0xtgkv7orI=
+Date: Tue, 28 Jul 2026 17:37:59 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,joshua.hahnjy@gmail.com,hannes@cmpxchg.org,leitao@debian.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-hotfixes-stable] mm-memcg-initialize-locked-in-memcg1_oom_prepare-stub.patch removed from -mm tree
+Message-Id: <20260729003800.6FAAC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-[ Upstream commit 62e7df6d042aeebd5efb581074e28865c04477be ]
+The quilt patch titled
+     Subject: mm: memcg: initialize *locked in memcg1_oom_prepare() stub
+has been removed from the -mm tree.  Its filename was
+     mm-memcg-initialize-locked-in-memcg1_oom_prepare-stub.patch
 
-otx2_init_hw_resources() initializes SQ aura and pool resources before
-several later setup steps. On failure, err_free_sq_ptrs only frees SQB
-pages, leaving the per-SQ sqb_ptrs arrays behind.
+This patch was dropped because it was merged into the mm-hotfixes-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Use otx2_free_sq_res() for the SQ unwind path and let it free sqb_ptrs
-even when sq->sqe has not been allocated yet.
+------------------------------------------------------
+From: Breno Leitao <leitao@debian.org>
+Subject: mm: memcg: initialize *locked in memcg1_oom_prepare() stub
+Date: Thu, 16 Jul 2026 06:42:18 -0700
 
-The bug was first flagged by an experimental analysis tool we are
-developing for kernel memory-management bugs while analyzing
-v6.13-rc1. The tool is still under development and is not yet publicly
-available. Manual inspection confirms that the bug is still
-present in v7.1.1.
+mem_cgroup_oom() passes an uninitialized "locked" to memcg1_oom_prepare()
+and reads it back in memcg1_oom_finish():
 
-An x86_64 allyesconfig build showed no new warnings. As we do not have an
-OcteonTX2 PF device and the corresponding AF mailbox setup to test with,
-no runtime testing was able to be performed.
+	bool locked, ret;
+	...
+	if (!memcg1_oom_prepare(memcg, &locked))
+		return false;
+	ret = mem_cgroup_out_of_memory(memcg, mask, order);
+	memcg1_oom_finish(memcg, locked);
 
-Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
-Cc: stable@vger.kernel.org
-Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
-Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
-Link: https://patch.msgid.link/20260630071625.349996-1-dawei.feng@seu.edu.cn
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+This relies on memcg1_oom_prepare() setting *locked whenever it returns
+true.  The CONFIG_MEMCG_V1=y version does, but the stub used when
+CONFIG_MEMCG_V1=n returns true without touching *locked, so
+memcg1_oom_finish() consumes an uninitialized value.  On a memcg OOM this
+is reported by UBSAN:
+
+  UBSAN: invalid-load in mm/memcontrol.c:1932:27
+  load of value 0 is not a valid value for type 'bool' (aka '_Bool')
+
+Initialize *locked to false in the stub; with cgroup v1 compiled out there
+is no OOM lock to take.
+
+Link: https://lore.kernel.org/20260716-memcg-oom-uninit-locked-v2-1-63631d878eb4@debian.org
+Fixes: e93d4166b40a ("mm: memcg: put cgroup v1-specific code under a config option")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: SeongJae Park <sj@kernel.org>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- .../ethernet/marvell/octeontx2/nic/otx2_pf.c    | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-index b0b0b4929e8ce2..b36da00bf13b2e 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
-@@ -1439,13 +1439,13 @@ static void otx2_free_sq_res(struct otx2_nic *pf)
- 	otx2_sq_free_sqbs(pf);
- 	for (qidx = 0; qidx < otx2_get_total_tx_queues(pf); qidx++) {
- 		sq = &qset->sq[qidx];
--		/* Skip freeing Qos queues if they are not initialized */
--		if (!sq->sqe)
--			continue;
--		qmem_free(pf->dev, sq->sqe);
--		qmem_free(pf->dev, sq->tso_hdrs);
--		qmem_free(pf->dev, sq->timestamps);
--		kfree(sq->sg);
-+		/* sq->sqe is not initialized for unused QoS queues */
-+		if (sq->sqe) {
-+			qmem_free(pf->dev, sq->sqe);
-+			qmem_free(pf->dev, sq->tso_hdrs);
-+			qmem_free(pf->dev, sq->timestamps);
-+			kfree(sq->sg);
-+		}
- 		kfree(sq->sqb_ptrs);
- 	}
- }
-@@ -1571,13 +1571,12 @@ static int otx2_init_hw_resources(struct otx2_nic *pf)
- 	return err;
+ mm/memcontrol-v1.h |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+--- a/mm/memcontrol-v1.h~mm-memcg-initialize-locked-in-memcg1_oom_prepare-stub
++++ a/mm/memcontrol-v1.h
+@@ -107,7 +107,11 @@ static inline void memcg1_remove_from_tr
+ static inline void memcg1_soft_limit_reset(struct mem_cgroup *memcg) {}
+ static inline void memcg1_css_offline(struct mem_cgroup *memcg) {}
  
- err_free_nix_queues:
--	otx2_free_sq_res(pf);
- 	otx2_free_cq_res(pf);
- 	otx2_ctx_disable(mbox, NIX_AQ_CTYPE_RQ, false);
- err_free_txsch:
- 	otx2_txschq_stop(pf);
- err_free_sq_ptrs:
--	otx2_sq_free_sqbs(pf);
-+	otx2_free_sq_res(pf);
- err_free_rq_ptrs:
- 	otx2_free_aura_ptr(pf, AURA_NIX_RQ);
- 	otx2_ctx_disable(mbox, NPA_AQ_CTYPE_POOL, true);
--- 
-2.53.0
+-static inline bool memcg1_oom_prepare(struct mem_cgroup *memcg, bool *locked) { return true; }
++static inline bool memcg1_oom_prepare(struct mem_cgroup *memcg, bool *locked)
++{
++	*locked = false;
++	return true;
++}
+ static inline void memcg1_oom_finish(struct mem_cgroup *memcg, bool locked) {}
+ static inline void memcg1_oom_recover(struct mem_cgroup *memcg) {}
+ 
+_
+
+Patches currently in -mm which might be from leitao@debian.org are
+
+mm-kmemleak-avoid-soft-lockup-when-scanning-task-stacks.patch
+mm-kmemleak-stop-the-task-stack-scan-early-when-interrupted.patch
+mm-kmemleak-stop-the-per-cpu-and-struct-page-scans-early-too.patch
+mm-kmemleak-skip-the-remaining-scan-phases-when-interrupted.patch
+mm-memory-failure-drop-dead-error_states-entry-for-reserved-pages.patch
+mm-memory-failure-surface-unhandlable-kernel-pages-as-enotrecoverable.patch
+mm-memory-failure-report-mf_msg_kernel-for-unrecoverable-kernel-pages.patch
+mm-memory-failure-add-panic-option-for-unrecoverable-pages.patch
+documentation-document-panic_on_unrecoverable_memory_failure-sysctl.patch
+radix-tree-fix-kmemleak-false-positives-on-tree-head-reassignment.patch
+mm-kmemleak-report-leaks-only-after-n-consecutive-unreferenced-scans.patch
+mm-kmemleak-factor-leak-confirmation-into-a-helper.patch
+selftests-mm-test-kmemleaks-n-consecutive-scan-leak-confirmation.patch
+mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch
+mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch.patch
 
