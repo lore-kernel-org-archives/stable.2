@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8858A488D84
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605F3486641
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:02:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785330148; cv=none; b=GE1jGEEil5F35LPJfGgA2bN8T5jhLl+kDdEdPMo82IoiOAfOO7R7/h9N9E06wIeOIWACcRTqtpCbpgSOtxyHpQBmotBjNCiS8toRVj+c1YPePOxjum7CLi1/WgqMwN95iV5ms7PkZYJeONjbT9El1p6th35NIg9f8ZrvaOT3Jvk=
+	t=1785330155; cv=none; b=a2iDjXSG1QbxKnGjNpJDUoojNv5pDZKVyC8X2cNfwnRyHBr9Mb/bdP3czOUqtSFGRVliku0PoI1hAmC7VTQxJmrr8Q6+O7TkCFVzMeTRrpPFmGW5E0vBA9nyaE4NaKbQVvLYgGxSlojKl4bUO83aBW4zhSFnNNaHgEuX5PHDqZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785330148; c=relaxed/simple;
-	bh=t8yWdS6AOfVm7bTWBf7mspvALhG/gpXd4afE1N9fXyE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dYiOTVNjA++wwHouQ2tiwpzGfjGJ7l+qaHbFYGtlJLFLpBqMTX76z0QRrahVucPC6x5DDj5W/sK0DSLLcnXmReOKiSSqlSEGXrxq6Xu2Ot8IzGNo0yZYoUR/NXx1PKzHMm4JCSXWJRXjiCcg7KNidSGp6WV/OLXJf0XZYaiaM24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SDDrpV6O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785330155; c=relaxed/simple;
+	bh=1fxDhMGawQColmmUj9wFvTkunSllQk08Sejo/6JJi9w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=q7g7jVRQHlmY9DHGc+t5pCdaDk00/AjoVsI9Himx04jrjqoFvyuJXKuI08OgCgSmlqeGXuVd7ebt1gzemCGLJWQU+WsRx1Jq82SUXjpmYmn+QAMCK9QhgrvgTuLYHRFX/bXBFr7z5UL22eLORtHFpbu/+qcahE5xOZZJnE0Vnus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=L2VjocFn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SDDrpV6O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EDB91F000E9;
-	Wed, 29 Jul 2026 13:02:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="L2VjocFn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE1B1F000E9;
+	Wed, 29 Jul 2026 13:02:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785330139;
-	bh=Ftml9016RujBVRs/PGRTSbMWReZQdzuNdQJjThzm+oA=;
+	s=korg; t=1785330151;
+	bh=eWCruu7HlA8ecM99L9ynh3Z0fjY9Sc7coBcbR4nW2dY=;
 	h=Subject:To:Cc:From:Date;
-	b=SDDrpV6OIshjwJkP1YoZfvvSRuPiE6Q7MBq08h714IAxsdAyLHlSyRYgbFIOHRIGD
-	 BOVpW5vfBfze6uC4Wx3oyS5FpGwCQQ3iBnEiPrjYQ8+AHXyFyJZip/RPvgPpnjcNFj
-	 Qv/+YORaZ6j1+cFHsiCcbIXJ5ck4db7aV6RTSWpM=
-Subject: FAILED: patch "[PATCH] media: uapi: rkisp: Correct name version enum" failed to apply to 6.18-stable tree
-To: niklas.soderlund+renesas@ragnatech.se,hverkuil+cisco@kernel.org,laurent.pinchart@ideasonboard.com
+	b=L2VjocFndoyvb8e8Exj6Hhc4K3F9DUP52V3RUgeBAhiQjbG6U/msHKbXx9PeA5ex7
+	 u0bLECtPpqCo0tqX41XNzvkTi0KprkUUcDXPdi8Rb8BQp6VFn38BJ9Mq8BQw6ic2V4
+	 5sYwGj5MGHlFb2DXK/SS7iCYNdSsYu9kiBI43jP8=
+Subject: FAILED: patch "[PATCH] media: v4l2-ctrls: validate HEVC active reference counts" failed to apply to 5.15-stable tree
+To: pengpeng@iscas.ac.cn,hverkuil+cisco@kernel.org,nicolas.dufresne@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:01:53 +0200
-Message-ID: <2026072953-epiphany-darkish-a261@gregkh>
+Date: Wed, 29 Jul 2026 15:02:15 +0200
+Message-ID: <2026072915-skies-omnivore-06eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x c4c01c4fd4a3916ffdfb35ad9f511c48e289f51c
+git cherry-pick -x afbe4bc252d90a6f8fad869b06d5430f615f22f9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072953-epiphany-darkish-a261@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072915-skies-omnivore-06eb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,53 +62,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c4c01c4fd4a3916ffdfb35ad9f511c48e289f51c Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>
-Date: Fri, 1 May 2026 21:03:39 +0200
-Subject: [PATCH] media: uapi: rkisp: Correct name version enum
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From afbe4bc252d90a6f8fad869b06d5430f615f22f9 Mon Sep 17 00:00:00 2001
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Date: Tue, 24 Mar 2026 11:13:26 +0800
+Subject: [PATCH] media: v4l2-ctrls: validate HEVC active reference counts
 
-The name of the enum to hold the mapping of parameter buffer versions
-have a typo in the name, correct it. While this is a uAPI header the
-impact should be minimal as the enum is only used as a collection for
-the one version number supported.
+HEVC slice parameters are shared stateless V4L2 controls, but the common
+validation path does not verify the active L0/L1 reference counts before
+driver-specific code consumes them.
 
-Fixes: e9d05e9d5db1 ("media: uapi: rkisp1-config: Add extensible params format")
+The original report came from Cedrus, but the active count bounds are
+not Cedrus-specific. Validate them in the common HEVC slice control path
+so stateless HEVC drivers get the same basic guarantees as soon as the
+control is queued.
+
+Do not reject ref_idx_l0/ref_idx_l1 entries here. Existing userspace may
+use out-of-range sentinel values such as 0xff for missing references, and
+some hardware can use that information for concealment. Keep this common
+check limited to the active reference counts.
+
+Fixes: d395a78db9eab ("media: hevc: Add decode params control")
 Cc: stable@vger.kernel.org
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Link: https://patch.msgid.link/20260501190339.3449193-1-niklas.soderlund+renesas@ragnatech.se
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/include/uapi/linux/rkisp1-config.h b/include/uapi/linux/rkisp1-config.h
-index b2d2a71f7baf..7638b2220600 100644
---- a/include/uapi/linux/rkisp1-config.h
-+++ b/include/uapi/linux/rkisp1-config.h
-@@ -1535,11 +1535,11 @@ struct rkisp1_ext_params_wdr_config {
- 	sizeof(struct rkisp1_ext_params_wdr_config))
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+index 6b375720e395..ba047d7d8601 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+@@ -971,6 +971,7 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 	struct v4l2_ctrl_hevc_ext_sps_st_rps *p_hevc_st_rps;
+ 	struct v4l2_ctrl_hevc_sps *p_hevc_sps;
+ 	struct v4l2_ctrl_hevc_pps *p_hevc_pps;
++	struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
+ 	struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
+ 	struct v4l2_ctrl_hevc_decode_params *p_hevc_decode_params;
+ 	struct v4l2_area *area;
+@@ -1260,6 +1261,18 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 		break;
  
- /**
-- * enum rksip1_ext_param_buffer_version - RkISP1 extensible parameters version
-+ * enum rkisp1_ext_param_buffer_version - RkISP1 extensible parameters version
-  *
-  * @RKISP1_EXT_PARAM_BUFFER_V1: First version of RkISP1 extensible parameters
-  */
--enum rksip1_ext_param_buffer_version {
-+enum rkisp1_ext_param_buffer_version {
- 	RKISP1_EXT_PARAM_BUFFER_V1 = V4L2_ISP_PARAMS_VERSION_V1,
- };
+ 	case V4L2_CTRL_TYPE_HEVC_SLICE_PARAMS:
++		p_hevc_slice_params = p;
++
++		if (p_hevc_slice_params->num_ref_idx_l0_active_minus1 >=
++		    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
++			return -EINVAL;
++
++		if (p_hevc_slice_params->slice_type != V4L2_HEVC_SLICE_TYPE_B)
++			break;
++
++		if (p_hevc_slice_params->num_ref_idx_l1_active_minus1 >=
++		    V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
++			return -EINVAL;
+ 		break;
  
-@@ -1601,7 +1601,7 @@ enum rksip1_ext_param_buffer_version {
-  *	+---------------------------------------------------------------------+
-  *
-  * @version: The RkISP1 extensible parameters buffer version, see
-- *	     :c:type:`rksip1_ext_param_buffer_version`
-+ *	     :c:type:`rkisp1_ext_param_buffer_version`
-  * @data_size: The RkISP1 configuration data effective size, excluding this
-  *	       header
-  * @data: The RkISP1 extensible configuration data blocks
+ 	case V4L2_CTRL_TYPE_HEVC_EXT_SPS_ST_RPS:
 
