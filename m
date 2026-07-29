@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C57F47140E
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF83C470EA0
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785323859; cv=none; b=r7AIWkNHvG78QCkDtX7GK0eFkYAXbQKp+9Ni8rKqjUbGicfJWZHb98iAC7KYtrXKP7iVX2a0iZ5LuTmZK4FGU+4nbPBDolS0kSJrrjFQlQKPlTKRsFgtlE30JZK2MxlpC44uwAiuY/LkZiPVvpzaXsWLxl3UNhS7RNj0JU/Vgf0=
+	t=1785323862; cv=none; b=FjKzCCV0Pew5ggsOWs8Ppv8MYYMMt3shQ/9nyrcV5d7Uqq2AhUhfydHmIedqUeRxUnDkvDpTzfud0hz+a0my0sCAqwbX5KGxYGZkOcOZpfZDIrXSfc0FSNKPORLnJzfxWHjhS0a2VK9cO0b7afXKb3pVZlm2XG7j5XePfoqYbnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785323859; c=relaxed/simple;
-	bh=30u3GrQBE3XG78G19HCrm+jpVwcg3qmmx/dzkOu+ZfQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oEygCx49Y7+yFKIQlluKsDL6guPmdbupn33CJvjgx7tYCi2Uc1c+8mr0sVC2DJrrOKjQY0JudOqTndbO/Rtgw3Ue1b9TbfamCJ72ETnnk4gd9hsGtedwM3o9Aeosbs8bBc4s7vQ9jrkUdN4koN/yXxnpGdXzUaf0H10+zCdG5q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o83g6GKy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785323862; c=relaxed/simple;
+	bh=MYIBPpBvWE+zTpRSZlY5gpIkDnTsjc94GGiP9qeQuRU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iLjKMP3XVvkbuB0z6VMVg7x87jzAi7rFwgbrJ8yHEgwemJAwhho29Y2/XVkyJrp4Kk7SuAkFst3qyyREsaC9fNa8eVLob6RhI2OMeIoDbFlv0mph5MBIkFKeqLzQdMeifasIDEGLDrt24xpusYEAE4Zq1TlXAdKETFUCaxfuMX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JgpzXTXc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o83g6GKy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C71B1F000E9;
-	Wed, 29 Jul 2026 11:17:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JgpzXTXc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555571F00A3A;
+	Wed, 29 Jul 2026 11:17:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785323858;
-	bh=VPJhDM/ZT9dvV/YMfJ6eu8fMfcigZXzuf5/ucztGB+Y=;
+	s=korg; t=1785323860;
+	bh=WaaMeQ7EHWnAjJLmYYdWNJ6LFcvLQS75nfYV9/C16RM=;
 	h=Subject:To:Cc:From:Date;
-	b=o83g6GKyCx6Atloqsod65WyT6fIobPRM+4RzUryzAAtqvKUFmn9ezQbMFaGBSU5fQ
-	 ye4hHj2TD7rnangkTAauaoumrTIBwMtrsSOMf+7T3plDnRo/xruAQ26pGw1qabcauZ
-	 VUL2fRTvTvnXaZxe6pHqJ/cQMBIvgAkyNHUYnQt8=
-Subject: FAILED: patch "[PATCH] drm/i915/hdcp: check streams[] bounds before overflow" failed to apply to 6.12-stable tree
+	b=JgpzXTXcQisHMUoQB4ftyMKH4D/zUn3gdFiDBJYkxeg65SnylgZyOgBCFooCObI2z
+	 jWtt7CoBUIw9KhUe7n8nr8A/hINnU3kSzC8rjFEx7P5DSYUwz7Ej6Pfg8rJxlNRnnJ
+	 6TbNTlpnT4qmAEw0Z14V6XHN5Qd1+/pC5N3fietg=
+Subject: FAILED: patch "[PATCH] drm/i915/hdcp: check streams[] bounds before overflow" failed to apply to 6.1-stable tree
 To: jani.nikula@intel.com,anshuman.gupta@intel.com,joonas.lahtinen@linux.intel.com,martin.hodo@intel.com,suraj.kandpal@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 13:17:16 +0200
-Message-ID: <2026072916-pelican-detract-661d@gregkh>
+Date: Wed, 29 Jul 2026 13:17:17 +0200
+Message-ID: <2026072917-oversleep-unawake-5cba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x bbb15a6b042d02e5508a02b4847e02d2579ee7bc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072916-pelican-detract-661d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072917-oversleep-unawake-5cba@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
