@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058AD1D95A3;
-	Wed, 29 Jul 2026 04:15:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EA32E7F39;
+	Wed, 29 Jul 2026 04:15:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785298517; cv=none; b=SD+h46HzXsIuYERPOT+ZoMC778303Pq7oGXgVraPY22oDP1lN26e392qPdJI6uBzjMnMFOLKt3boIoP05+JV4vmSwykuF0uZrEXEGPmY7vTqZaduhwUdqBDxEDfr4WjJcGwRvMpw8XrjeJ7AhE1hedlZ9OM/U1bA5vcH3AiVX00=
+	t=1785298517; cv=none; b=Ub6seOeHG+MrQfMVommnBHLwEI0DbMzwDIqyA+mAeBsK+POI3s7PjDHnH/AMumPHQJvUumvso1kFjEflqQcSWRx9w8m1MBBlBHEQcSdV3+wr6wutGMPY2ahtAFfPvwGbciXaZZjb9nUVMKeMy88RKh+F2YZ4ZWXA9ZB6k/GEZdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785298517; c=relaxed/simple;
-	bh=rKM/FL2z/NZhzb5btd1oBo0htLlgl6obJ+Jp+RdSJt8=;
-	h=Date:To:From:Subject:Message-Id; b=A/3KzjWPwHHx8r1sIDuuNYVHkj0OpY/Po/0Cq+400Hn/SfQR2mJen8jM4u8bqhECczAivNqH+ctzc483icOILQ4vr1m55AvSaPEmt78LtH7q9R0ZumaJPpIpZSIBF7Fou6P9j1+XPJhEEqkvJbmiefiuOdsGhCJiVrCOBkPfiKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=qYkzASFt; arc=none smtp.client-ip=100.103.45.18
+	bh=OE60x0AEBOGB2eDUGLHva+zYqHq2xuCJZwOK3uz4VSs=;
+	h=Date:To:From:Subject:Message-Id; b=lyVLKTSR5GpIWRJgPiAmu4baaBYijTa95XEnYjlE8lIaQ07+7gnI6YpuJQqTJr8nxHpmSl1sZv0MHGVKR+odjq0nCJDA9K30V84/IHsiTuTC+Pt0TEnXfFuMYuz+xF9y203yjBT91kU8Z8cXQ6UzDdna/W3fnqJhvAketNNKeFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=z6hPFQkj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="qYkzASFt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C241F00A3A;
-	Wed, 29 Jul 2026 04:15:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="z6hPFQkj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56271F00A3E;
+	Wed, 29 Jul 2026 04:15:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785298511;
-	bh=LTposx6UsXzxiHFk8Ms+kfSUz9hqqYWuscA1hA1K4TY=;
+	d=linux-foundation.org; s=korg; t=1785298513;
+	bh=JgkviBcRo8UBgjLrRZY1Q3A2tw+A3khnFMjFGjZUF2c=;
 	h=Date:To:From:Subject;
-	b=qYkzASFt7wCHn5IIk1UW/NDGhxwzUoFkas0VreMPqoXkkW/NrG9Ynj0e7e3My8X/U
-	 9VQuoRFtZtIMViSPO0hIXuEsaOllwt7WXHlRbrFpwZ5Vl0ZJifW80CrAvFMqSUP5Bx
-	 rIfep02It7n+N1EYMZD9NAFQM0wqFymZrZq8CAQM=
-Date: Tue, 28 Jul 2026 21:15:11 -0700
+	b=z6hPFQkjilW94WgYus8tgxFbKIYym9zVEsw/DKfmnM+2VtCCAt5una+3miFXS3r6C
+	 yczgFdrqXD+axa9a5bZo0knzJ5FezoXRzojqf/zAQKiJQNHwC2bI8IUpyWfYlDRPb8
+	 ovr0baJFrTbxl1HMRDesbhOutSNXZq9tbjC+UsUQ=
+Date: Tue, 28 Jul 2026 21:15:12 -0700
 To: mm-commits@vger.kernel.org,zenghui.yu@linux.dev,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] samples-damon-mtier-handle-damon_start-failure.patch removed from -mm tree
-Message-Id: <20260729041511.C2C241F00A3A@smtp.kernel.org>
+Subject: [merged mm-stable] samples-damon-mtier-handle-damon_stop-failure.patch removed from -mm tree
+Message-Id: <20260729041512.E56271F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,46 +35,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: samples/damon/mtier: handle damon_start() failure
+     Subject: samples/damon/mtier: handle damon_stop() failure
 has been removed from the -mm tree.  Its filename was
-     samples-damon-mtier-handle-damon_start-failure.patch
+     samples-damon-mtier-handle-damon_stop-failure.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: SJ Park <sj@kernel.org>
-Subject: samples/damon/mtier: handle damon_start() failure
-Date: Sun, 28 Jun 2026 14:54:42 -0700
+Subject: samples/damon/mtier: handle damon_stop() failure
+Date: Sun, 28 Jun 2026 14:54:43 -0700
 
-damon_sample_mtier_start() callers assume it will clean up resources when
-it fails.  And the function does the cleanup for context buildup failures.
-However, it is not doing the cleanup for damon_start() failure.
+damon_sample_mtier_stop() assumes its damon_stop() call will always
+successfully stops the two DAMON contexts.  Hence it deallocates the two
+DAMON contexts after the damon_stop() call.  However, if a given context
+is already stopped, damon_stop() fails and returns an error while letting
+the DAMON contexts that have not yet stopped keep running.  This kind of
+unexpected early DAMON context stops could happen due to memory allocation
+failures in kdamond_fn().  Because damon_sample_mtier_stop() just
+deallocates all DAMON contexts with damon_target and damon_region objects
+that are linked to the contexts, the execution of the unstopped DAMON
+context (kdamond) ends up using the memory that freed (use-after-free). 
+Fix the issue by separating the damon_stop() to be invoked per context.
 
-As a result, when damon_start() fails, it could leak the memory for DAMON
-context.  Also, if damon_start() fails for only the second context, the
-first context will indefinitely run, and avoid starting other DAMON
-contexts since it is running in the exclusive mode.  Stop possibly started
-DAMON context and free the contexts in case of the failure to fix the
-issues.
+Note that DAMON_SYSFS also allows multiple DAMON contexts execution.  But,
+it calls damon_stop() for each context one by one.  Hence this issue is
+only in mtier.
 
-Note that the issue can reliably be reproduced because the module calls
-damon_start() in the exclusive mode.  For example,
-
-    $ sudo damo start
-    $ echo Y | sudo tee /sys/module/damon_sample_mtier/parameters/enabled
-    $ sudo cat /proc/allocinfo | grep damon_new_ctx
-
-Because the first command is running another DAMON instance, the second
-command fails the damon_start() call because the new DAMON instance cannot
-exclusively run.  And without this fix, by repeating the second and the
-third commands above, we can show the memory consumption is only
-increasing due to the leaks.  It requires the sudo permission though.
+For the long term, it would be better to refactor damon_stop() to always
+ensure stopping all contexts regardless of the failures in the middle. 
+Make this fix in the current way, though, to keep it simple and easy to
+backport.  I will do the refactoring later.
 
 The issue was discovered [1] by Sashiko.
 
-Link: https://lore.kernel.org/20260628215447.96166-4-sj@kernel.org
-Link: https://lore.kernel.org/20260608112455.274231F00893@smtp.kernel.org [1]
+Link: https://lore.kernel.org/20260628215447.96166-5-sj@kernel.org
+Link: https://lore.kernel.org/20260609014219.3013-1-sj@kernel.org [1]
 Fixes: 82a08bde3cf7 ("samples/damon: implement a DAMON module for memory tiering")
 Signed-off-by: SJ Park <sj@kernel.org>
 Reviewed-by: Zenghui Yu <zenghui.yu@linux.dev>
@@ -82,36 +79,21 @@ Cc: <stable@vger.kernel.org> # 6.16.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- samples/damon/mtier.c |   11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ samples/damon/mtier.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/samples/damon/mtier.c~samples-damon-mtier-handle-damon_start-failure
+--- a/samples/damon/mtier.c~samples-damon-mtier-handle-damon_stop-failure
 +++ a/samples/damon/mtier.c
-@@ -177,6 +177,7 @@ free_out:
- static int damon_sample_mtier_start(void)
- {
- 	struct damon_ctx *ctx;
-+	int err;
- 
- 	ctx = damon_sample_mtier_build_ctx(true);
- 	if (!ctx)
-@@ -188,7 +189,15 @@ static int damon_sample_mtier_start(void
- 		return -ENOMEM;
- 	}
- 	ctxs[1] = ctx;
--	return damon_start(ctxs, 2, true);
-+	err = damon_start(ctxs, 2, true);
-+	if (!err)
-+		return 0;
-+
-+	if (damon_is_running(ctxs[0]))
-+		damon_stop(ctxs, 1);
-+	damon_destroy_ctx(ctxs[0]);
-+	damon_destroy_ctx(ctxs[1]);
-+	return err;
- }
+@@ -202,7 +202,8 @@ static int damon_sample_mtier_start(void
  
  static void damon_sample_mtier_stop(void)
+ {
+-	damon_stop(ctxs, 2);
++	damon_stop(ctxs, 1);
++	damon_stop(&ctxs[1], 1);
+ 	damon_destroy_ctx(ctxs[0]);
+ 	damon_destroy_ctx(ctxs[1]);
+ }
 _
 
 Patches currently in -mm which might be from sj@kernel.org are
