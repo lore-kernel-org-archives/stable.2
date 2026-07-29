@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183F32DEA75
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:47:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2724048C41C
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:47:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332850; cv=none; b=C1SyuSNvz9Sais7kIVLXXimtv8xjH14WEqo9nHKUazSKMFL++coabarC+W9SkiBiZ9M50Im7AN/PFzw1ijQytIDsSF6Vb+ddIhs9sreCKeF1vuwZZWNuo0Wh8Z706OfT8C1O+4eXlpiEc09SpKuU7z4m6S2+YTZf+KF/DftogPs=
+	t=1785332853; cv=none; b=hPQbZseTUANRFQqiU4wYEaIV9w1vRyKiLoVS454oGxxs1tCCypKEfObo8qefBwT7CW389ZMlKjc345/eH/M5dBl621deNpUBun3e2UB0I0o8YcWPVGUqGxn3uuPfe6VqcqPON6WZ+3RT57yxKm3h1iiYs7wS7ZuLo02N8cjhzJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332850; c=relaxed/simple;
-	bh=zftFeVMNX5Rl52qEMbV9/j4X+dCEZ4joxHLk3GEiFcc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PrJGV4flfp4JBAPt8FJtLKfKFewNHQKyUGAEOTp7QHlHT5t1ksF4UAH6UNd/rZN2Rj9S1MVpjDvj3BTWmjslBS0mSwfVwtXtiQj1YDPQJz/86yLJIi6ZjQryQ2iz9MHGAdqBZib0l5admBtzpNSwLLa+haXQ5IHdT6lhXx1Svu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zv3NuqGp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785332853; c=relaxed/simple;
+	bh=fuEjtVT7yAUnL2ZJUKy3udiPRXam78c7zfwflYiHvXM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nUDymujxsbBMa2A4Y6K1LjMOXu1d/J/ykuF2CWgihR4l8BOqoEp+pWqDhSl9AaK6+0PYPw0eXjSwitWZe6aDVkP3uwbs5BEXDbKT0GhHW9A90M75gSm/XARcpqogBO1MY9iUhq17YdWhSd4ArW3Jospw2i084DfMigLERXUUGuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qZ/HmTql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zv3NuqGp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D801F000E9;
-	Wed, 29 Jul 2026 13:47:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qZ/HmTql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47FBF1F000E9;
+	Wed, 29 Jul 2026 13:47:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785332849;
-	bh=/GS5l5rJXb99mJGQA5qlL50wp/3eeajCorNozg9PMng=;
+	s=korg; t=1785332851;
+	bh=2/fzlkfZ39kdbHp0DdSJSR5kWYn+bFhpX352A6qnUZc=;
 	h=Subject:To:Cc:From:Date;
-	b=zv3NuqGp5c6//RFIQgcHx2LBgLYkDYRCrS9SowT25FrRh94IT3b4OAEF3e3EmPjV+
-	 9SmzZ8L0uWzWiIDzlhmdaJl07cBBpaq/BH2WuFgmQ8U+fHqtyQhh/63PqFNKT0nQ0G
-	 n/YeZAA41uRXoRefk9ru9xwIDIYH0aMWpSVdQWq0=
-Subject: FAILED: patch "[PATCH] ceph: avoid fs reclaim while using current->journal_info" failed to apply to 5.10-stable tree
-To: max.kellermann@ionos.com,idryomov@gmail.com,slava@dubeyko.com,xiubo.li@clyso.com
+	b=qZ/HmTqlbYNfVzJDYe+i2XBwMk4W413u2Sw/eDvdGTLCyKXIoqG0JNwM47aYZIpkS
+	 P6GNruylWhSczz6VWy/fJChs8/SHrzGr/9WQmKRRpsFjKlcWwps6K6++EKMgjALBLm
+	 0GNWFH3AOG/4N0KfmMWAA6rK14cpEQrYKpsm87JQ=
+Subject: FAILED: patch "[PATCH] ceph: fix hanging __ceph_get_caps() with stale mds_wanted" failed to apply to 7.1-stable tree
+To: max.kellermann@ionos.com,amarkuze@redhat.com,idryomov@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:46:59 +0200
-Message-ID: <2026072959-pancake-resample-64f7@gregkh>
+Date: Wed, 29 Jul 2026 15:47:07 +0200
+Message-ID: <2026072907-crushed-riveting-c489@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5b602344a49e039e792ce5a8923bcc61412ee134
+git cherry-pick -x 50958bb928bad3bdba9e5d1b7ff4bbadcf6951e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072959-pancake-resample-64f7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072907-crushed-riveting-c489@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,110 +62,158 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5b602344a49e039e792ce5a8923bcc61412ee134 Mon Sep 17 00:00:00 2001
+From 50958bb928bad3bdba9e5d1b7ff4bbadcf6951e6 Mon Sep 17 00:00:00 2001
 From: Max Kellermann <max.kellermann@ionos.com>
-Date: Wed, 22 Jul 2026 13:49:31 +0200
-Subject: [PATCH] ceph: avoid fs reclaim while using current->journal_info
+Date: Mon, 6 Jul 2026 17:06:59 +0200
+Subject: [PATCH] ceph: fix hanging __ceph_get_caps() with stale mds_wanted
 
-handle_reply() stores a `ceph_mds_request` pointer in
-`current->journal_info` while filling the inode and dentry cache from
-an MDS reply.
+A reader can hang forever in __ceph_get_caps() when the client no
+longer holds `FILE_RD`, but local cap state still says that the
+capability is already wanted (via `mds_wanted`).
 
-An allocation in this section can enter direct reclaim and prune
-dentries from another filesystem.  If this dirties an ext4 inode, ext4
-starts a JBD2 transaction.  JBD2 interprets the Ceph request in
-`current->journal_info` as a journal handle and dereferences the
-request's `r_tid` as `h_transaction`, causing a kernel crash, e.g.:
+One way to trigger this is through MDS cap revocation.  If another
+client performs a conflicting operation, the MDS can revoke `FILE_RD`
+from the reader; the next read then has to reacquire `FILE_RD`.  If
+the cap update that should request `FILE_RD` never reaches the MDS
+after `cap->mds_wanted` was raised, the reader is left holding only
+non-file caps while local `mds_wanted` still includes the file read
+caps.
 
- Unable to handle kernel paging request at virtual address 00000000077b4818
- [...]
- Internal error: Oops: 0000000096000004 [#1]  SMP
- Modules linked in:
- CPU: 6 UID: 0 PID: 2699135 Comm: kworker/6:3 Tainted: G        W           6.18.38-i3 #1113 NONE
- [...]
- Workqueue: ceph-msgr ceph_con_workfn
- pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
- pc : jbd2__journal_start+0x2c/0x208
- lr : __ext4_journal_start_sb+0x100/0x178
- [...]
- Call trace:
-  jbd2__journal_start+0x2c/0x208 (P)
-  __ext4_journal_start_sb+0x100/0x178
-  ext4_dirty_inode+0x3c/0x90
-  __mark_inode_dirty+0x58/0x400
-  iput.part.0+0x2b0/0x370
-  iput+0x18/0x30
-  dentry_unlink_inode+0xc0/0x158
-  __dentry_kill+0x80/0x250
-  shrink_dentry_list+0x90/0x130
-  prune_dcache_sb+0x60/0x98
-  super_cache_scan+0xe8/0x190
-  do_shrink_slab+0x174/0x388
-  shrink_slab+0xd8/0x4c0
-  shrink_node+0x31c/0x908
-  do_try_to_free_pages+0xd0/0x508
-  try_to_free_pages+0x11c/0x238
-  __alloc_frozen_pages_noprof+0x4d0/0xdd0
-  __folio_alloc_noprof+0x18/0x70
-  __filemap_get_folio+0x248/0x440
-  ceph_readdir_prepopulate+0x570/0x9e8
-  mds_dispatch+0x1424/0x1ba0
-  ceph_con_process_message+0x74/0xa0
-  ceph_con_v1_try_read+0x3a0/0x1510
-  ceph_con_workfn+0x260/0x460
+In that state, try_get_cap_refs() sees `need <= mds_wanted` and
+returns 0, so __ceph_get_caps() just waits on `i_cap_wq`.  If the cap
+update that was supposed to request `FILE_RD never reaches the MDS
+after `cap->mds_wanted was` raised, no further request is sent and the
+waiter can sleep indefinitely until unrelated cap traffic happens to
+wake it up.
 
-Enter a scoped NOFS allocation context and leave it after clearing
-`journal_info`.  This prevents filesystem reclaim from recursing into
-another filesystem while the field contains Ceph-private data.
+The ordering issue is that `cap->mds_wanted` is updated in
+__prep_cap() before the `CEPH_MSG_CLIENT_CAPS message` is actually
+queued for send.  That makes one field serve two different meanings at
+once: what this client wants, and what the client believes the MDS
+already knows it wants.
+
+A proper fix would be to split those states and track whether a cap
+update is actually in flight or has been observed by the MDS.
+However, simply moving the `cap->mds_wanted assignment` later would
+not be sufficient: queueing the message in the messenger does not
+guarantee that the MDS processed that specific wanted set, and
+reconnect or message loss can still invalidate that assumption.
+Fixing that properly would require a larger rework of the cap state
+machine.
+
+To allow simpler backports to stable kernels, this patch implements a
+simpler workaround:
+
+- stop waiting forever in __ceph_get_caps(); after a bounded wait,
+  fall back to the renew path
+
+- make ceph_renew_caps() issue a synchronous `OPEN` request whenever
+  the inode still does not actually hold the wanted caps, instead of
+  only calling ceph_check_caps()
+
+The extra issued-vs-wanted check in ceph_renew_caps() is necessary
+because the previous test only checked whether the inode still had any
+real caps at all.  That is not enough after revocation: the client can
+still hold something like `pLs` and yet be missing `FILE_RD`
+completely.  In that case, falling back to ceph_check_caps() is not
+sufficient, because it still trusts `cap->mds_wanted` and may resend
+nothing.  By requiring `(issued & wanted) == wanted` before taking the
+asynchronous path, the code only uses ceph_check_caps() when the
+`wanted caps` are already actually issued.  Otherwise, it sends the
+synchronous `OPEN` renew.
+
+This preserves the existing asynchronous fast path when the wanted
+caps are already issued, avoids changing cap-state semantics, and
+fixes the hang by guaranteeing that a stalled waiter eventually
+retries through a path that does not rely on the stale `mds_wanted`
+state.
+
+[ idryomov: move CEPH_GET_CAPS_WAIT_TIMEOUT from libceph.h to
+  mds_client.h, formatting ]
 
 Cc: stable@vger.kernel.org
-Fixes: 315f24088048 ("ceph: fix security xattr deadlock")
+Fixes: 0a454bdd501a ("ceph: reorganize __send_cap for less spinlock abuse")
 Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 853bf698b356..3c692ad02c85 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -6,6 +6,7 @@
- #include <linux/slab.h>
- #include <linux/gfp.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/delay.h>
- #include <linux/debugfs.h>
- #include <linux/seq_file.h>
-@@ -4015,6 +4016,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 	struct ceph_mds_reply_head *head = msg->front.iov_base;
- 	struct ceph_mds_reply_info_parsed *rinfo;  /* parsed reply info */
- 	struct ceph_snap_realm *realm;
-+	unsigned int nofs_flags;
- 	u64 tid;
- 	int err, result;
- 	int mds = session->s_mds;
-@@ -4158,6 +4160,14 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 
- 	/* insert trace into our cache */
- 	mutex_lock(&req->r_fill_mutex);
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index 77b23fe51425..d7283fb54cec 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -3094,7 +3094,19 @@ int __ceph_get_caps(struct inode *inode, struct ceph_file_info *fi, int need,
+ 					ret = -ERESTARTSYS;
+ 					break;
+ 				}
+-				wait_woken(&wait, TASK_INTERRUPTIBLE, MAX_SCHEDULE_TIMEOUT);
 +
-+	/* disable fs reclaim while we are using current->journal_info
-+	 * for our own purposes, or else shrinkers of other
-+	 * filesystems might dereference this pointer as a different
-+	 * type
-+	 */
-+	nofs_flags = memalloc_nofs_save();
-+
- 	current->journal_info = req;
- 	err = ceph_fill_trace(mdsc->fsc->sb, req);
- 	if (err == 0) {
-@@ -4166,6 +4176,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 			err = ceph_readdir_prepopulate(req, req->r_session);
- 	}
- 	current->journal_info = NULL;
-+	memalloc_nofs_restore(nofs_flags);
- 	mutex_unlock(&req->r_fill_mutex);
++				/*
++				 * If a cap update is lost after
++				 * mds_wanted was raised, waiting
++				 * forever will never make progress.
++				 * Retry the renew path periodically
++				 * so we can resend synchronously.
++				 */
++				if (!wait_woken(&wait, TASK_INTERRUPTIBLE,
++						CEPH_GET_CAPS_WAIT_TIMEOUT)) {
++					ret = -EUCLEAN;
++					break;
++				}
+ 			}
  
- 	up_read(&mdsc->snap_rwsem);
+ 			remove_wait_queue(&ci->i_cap_wq, &wait);
+@@ -3128,7 +3140,8 @@ int __ceph_get_caps(struct inode *inode, struct ceph_file_info *fi, int need,
+ 				continue;
+ 			}
+ 			if (ret == -EUCLEAN) {
+-				/* session was killed, try renew caps */
++				/* session was killed or a waited cap
++				 * request needs a retry */
+ 				ret = ceph_renew_caps(inode, flags);
+ 				if (ret == 0)
+ 					continue;
+diff --git a/fs/ceph/file.c b/fs/ceph/file.c
+index 71161f2b2151..a4a2a4b6a027 100644
+--- a/fs/ceph/file.c
++++ b/fs/ceph/file.c
+@@ -314,7 +314,7 @@ static int ceph_init_file(struct inode *inode, struct file *file, int fmode)
+ }
+ 
+ /*
+- * try renew caps after session gets killed.
++ * Retry cap acquisition after a stale session or a lost cap update.
+  */
+ int ceph_renew_caps(struct inode *inode, int fmode)
+ {
+@@ -322,14 +322,15 @@ int ceph_renew_caps(struct inode *inode, int fmode)
+ 	struct ceph_client *cl = mdsc->fsc->client;
+ 	struct ceph_inode_info *ci = ceph_inode(inode);
+ 	struct ceph_mds_request *req;
+-	int err, flags, wanted;
++	int err, flags, wanted, issued;
+ 
+ 	spin_lock(&ci->i_ceph_lock);
+ 	__ceph_touch_fmode(ci, mdsc, fmode);
+ 	wanted = __ceph_caps_file_wanted(ci);
++	issued = __ceph_caps_issued(ci, NULL);
+ 	if (__ceph_is_any_real_caps(ci) &&
+-	    (!(wanted & CEPH_CAP_ANY_WR) || ci->i_auth_cap)) {
+-		int issued = __ceph_caps_issued(ci, NULL);
++	    (!(wanted & CEPH_CAP_ANY_WR) || ci->i_auth_cap) &&
++	    (issued & wanted) == wanted) {
+ 		spin_unlock(&ci->i_ceph_lock);
+ 		doutc(cl, "%p %llx.%llx want %s issued %s updating mds_wanted\n",
+ 		      inode, ceph_vinop(inode), ceph_cap_string(wanted),
+diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
+index 731d6ad04956..0ece4c9e3529 100644
+--- a/fs/ceph/mds_client.h
++++ b/fs/ceph/mds_client.h
+@@ -77,6 +77,7 @@ struct ceph_fs_client;
+ struct ceph_cap;
+ 
+ #define MDS_AUTH_UID_ANY -1
++#define CEPH_GET_CAPS_WAIT_TIMEOUT (5 * HZ)
+ #define CEPH_CAP_FLUSH_WAIT_TIMEOUT_SEC 60
+ #define CEPH_CAP_FLUSH_MAX_DUMP_ENTRIES 5
+ #define CEPH_CAP_FLUSH_MAX_DUMP_ITERS 5
 
