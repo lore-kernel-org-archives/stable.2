@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537C648AE0F
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9424A13A0
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:45:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332749; cv=none; b=rqSdtvl4utcZhO+WOCtkUCWKqHOb0OW7CEITd4ZyAe2vW+Cy5VNx8ntYngPVgmZH8oBVWWh0sWWhF6LWC1jU96874h34h64AbiOq+Ey/pZROR6fU7PcDPrsg22/CS2UkW/Rn8zBHOVk/jSG+Lflwpc2x9RUsjXRBR0+QLq2PwFs=
+	t=1785332753; cv=none; b=QH4/Neas9h4m+tmWmLY8aTMo8jE2B9dsqLm1eOkTQhikKW74uyqYtx03SDQArPe2oozYDHXqhMjJnT3TjgXLbj542e5vh867dqCmUcCjELeN7skmWpeWWCs5MJIDHLBUC957VIttaNbAZn2DY/8UGtzKBE1liXAB+l95KoP+JWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332749; c=relaxed/simple;
-	bh=AUWgdjRXf2zQL2JZ63jXhk+csjkW+dHVT3bx2o0koIw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=L3E0LmT0gcD0tLkhu0TllO1XRea0MG76A1uhElPHZcHMjqyVfyJRYD8iGnJ3j15npbJwEpCshpg8q5GitQH1ahaVNx6qDw+q7+Ish5hKwfct2KY4nFaFkkqbpZBIkFHO553NgrcOKs/JMLkRy2NSeyKAqVyQd3r5HabdUaz43Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=huCuYwEJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785332753; c=relaxed/simple;
+	bh=x6DsBSJRXbWE2DjsfsHnrJ/SHqj2QIHYvoiPvg1b6bU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C3YaAItGpc06bY/U+my0NR5lkVGGc86hq7CfVyKaR/Sh0jw+J0edphYMEtXNpKu8cCMns1y51mv/S6Z/CbFecLo+EGCl/xcMzCBTcxZtsWDVbNNmbOWKTYe1Bh7zmCQVL8C9ielMVg1RMRGg+iegq1Ud5g02fEY8hXNbr7Wit1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=s9loDOMI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="huCuYwEJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E8E1F00A3A;
-	Wed, 29 Jul 2026 13:45:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="s9loDOMI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460BE1F000E9;
+	Wed, 29 Jul 2026 13:45:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785332748;
-	bh=xmjd8qMq4XdgY04ZjwoIxGRqiAAJnZHD2iz+oF5w+8I=;
+	s=korg; t=1785332750;
+	bh=bs94uypR/ijw3g2C7ST9vQz4UB256tlQXPRMPxtlJiY=;
 	h=Subject:To:Cc:From:Date;
-	b=huCuYwEJtIaW29kVOKNbyoVVkq+EWVn1wEK/3JlgQAyAtdxmN5fQpXxC0hxtV3XAb
-	 noQQkgI5kM5MEZfjCNW/hYwgnFAVt+qH0z6PrxcQx+p2G6NDROzkCAJrwN6SEdFnPu
-	 eUSuwHF5uTyUtNkcyayj4eFztmd1tGDjGDy5CUQI=
-Subject: FAILED: patch "[PATCH] mm/kmemleak: fix checksum computation for per-cpu objects" failed to apply to 6.12-stable tree
-To: leitao@debian.org,akpm@linux-foundation.org,catalin.marinas@arm.com,ptikhomirov@virtuozzo.com,stable@vger.kernel.org
+	b=s9loDOMIZ++QuEviu7Y4soKqIooT5fUh6Uv+BGL+0OkMUue8zrL1yXEJpfgfL9Fdu
+	 EsSChL3+dsWSsp3uLGJmIvYtj9fIqR7+A2DweycPKzg6BzZKqd9LCFzptM/tfRwwNr
+	 qcNmjU+33yZOrYFf2cdWvo1jP8lucC7VTzoxQUW8=
+Subject: FAILED: patch "[PATCH] sctp: avoid auth_enable sysctl UAF during netns teardown" failed to apply to 6.6-stable tree
+To: roxy520tt@gmail.com,bird@lzu.edu.cn,kuba@kernel.org,lucien.xin@gmail.com,n05ec@lzu.edu.cn,tomapufckgml@gmail.com,tpluszz77@gmail.com,yifanwucs@gmail.com,yuantan098@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:44:49 +0200
-Message-ID: <2026072949-quarry-sleet-f3e6@gregkh>
+Date: Wed, 29 Jul 2026 15:45:33 +0200
+Message-ID: <2026072933-repent-chapped-0492@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 79c37ae3733e93d9d8ea12ecb44f717e61439024
+git cherry-pick -x f8d5e7846025f4ab15a461235f8ebae9094a361a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072949-quarry-sleet-f3e6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072933-repent-chapped-0492@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,72 +62,129 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 79c37ae3733e93d9d8ea12ecb44f717e61439024 Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 3 Jul 2026 09:17:24 -0700
-Subject: [PATCH] mm/kmemleak: fix checksum computation for per-cpu objects
+From f8d5e7846025f4ab15a461235f8ebae9094a361a Mon Sep 17 00:00:00 2001
+From: Zhiling Zou <roxy520tt@gmail.com>
+Date: Wed, 15 Jul 2026 09:50:10 +0800
+Subject: [PATCH] sctp: avoid auth_enable sysctl UAF during netns teardown
 
-The per-cpu object checksum folds each CPU's CRC together with XOR and
-seeds every CRC with 0.  Both choices make update_checksum() miss content
-changes:
+proc_sctp_do_auth() updates the SCTP control socket after changing
+net.sctp.auth_enable. The handler gets the per-net SCTP state from
+ctl->data, so an already opened sysctl file can still target a network
+namespace while that namespace is being torn down.
 
-  - XOR is self-cancelling, so equal contents on two CPUs cancel out and
-    simultaneous identical changes leave the checksum unchanged.
-  - crc32(0, ...) over all-zero content is 0, so a freshly allocated,
-    zeroed per-cpu area checksums to 0, matching the initial value, and
-    the object is never seen to change.
+SCTP previously registered its per-net sysctls from sctp_defaults_init(),
+while the control socket is created later from sctp_ctrlsock_init(). This
+exposed a window during initialization where auth_enable was writable
+before net->sctp.ctl_sock existed, and a teardown window where auth_enable
+stayed writable after inet_ctl_sock_destroy() had released the control
+socket.
 
-See discussions at [0].
+Move the per-net SCTP sysctl registration into sctp_ctrlsock_init() after
+sctp_ctl_sock_init() succeeds, and unregister the sysctl table before
+destroying the control socket in sctp_ctrlsock_exit(). If sysctl
+registration fails after the control socket was created, destroy the
+control socket in the same init path.
 
-When update_checksum() wrongly reports an actively modified object as
-unchanged, kmemleak stops greying it for an extra scan and can report a
-live per-cpu object as a leak.
+Make sctp_sysctl_net_unregister() tolerate a missing header and clear the
+saved pointer so init-error and exit paths can safely share the unregister
+helper.
 
-Fold the per-cpu CRC as a single rolling checksum across all CPUs and
-initialise the object checksum to ~0 so the first computed value always
-registers as a change, even for content that hashes to 0.
-reset_checksum() is seeded the same way.
+Fixes: 15649fd5415e ("sctp: sysctl: auth_enable: avoid using current->nsproxy")
+Cc: stable@vger.kernel.org
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Co-developed-by: Qi Tang <tpluszz77@gmail.com>
+Signed-off-by: Qi Tang <tpluszz77@gmail.com>
+Signed-off-by: Zhiling Zou <roxy520tt@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/390cd5e91ed60eea27b0b64d0468301a9e73b808.1784033357.git.roxy520tt@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-Link: https://lore.kernel.org/all/akfYImSNDh3OjIfR@gmail.com [0]
-Link: https://lore.kernel.org/20260703-kmemleak_checksum-v1-1-5e0ab7d6966f@debian.org
-Fixes: 6c99d4eb7c5e ("kmemleak: enable tracking for percpu pointers")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Co-developed-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-Reviewed-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 7c7ba17ce7af..e196f53f9b46 100644
---- a/mm/kmemleak.c
-+++ b/mm/kmemleak.c
-@@ -687,7 +687,7 @@ static struct kmemleak_object *__alloc_object(gfp_t gfp)
- 	atomic_set(&object->use_count, 1);
- 	object->excess_ref = 0;
- 	object->count = 0;			/* white color initially */
--	object->checksum = 0;
-+	object->checksum = ~0;
- 	object->del_state = 0;
+diff --git a/net/sctp/protocol.c b/net/sctp/protocol.c
+index cf335494bffe..49d9740b1e0f 100644
+--- a/net/sctp/protocol.c
++++ b/net/sctp/protocol.c
+@@ -1383,10 +1383,6 @@ static int __net_init sctp_defaults_init(struct net *net)
+ 	net->sctp.l3mdev_accept = 1;
+ #endif
  
- 	/* task information */
-@@ -981,7 +981,7 @@ static void reset_checksum(unsigned long ptr)
- 	}
- 
- 	raw_spin_lock_irqsave(&object->lock, flags);
--	object->checksum = 0;
-+	object->checksum = ~0;
- 	raw_spin_unlock_irqrestore(&object->lock, flags);
- 	put_object(object);
+-	status = sctp_sysctl_net_register(net);
+-	if (status)
+-		goto err_sysctl_register;
+-
+ 	/* Allocate and initialise sctp mibs.  */
+ 	status = init_sctp_mibs(net);
+ 	if (status)
+@@ -1420,8 +1416,6 @@ static int __net_init sctp_defaults_init(struct net *net)
+ 	cleanup_sctp_mibs(net);
+ #endif
+ err_init_mibs:
+-	sctp_sysctl_net_unregister(net);
+-err_sysctl_register:
+ 	return status;
  }
-@@ -1410,7 +1410,8 @@ static bool update_checksum(struct kmemleak_object *object)
- 		for_each_possible_cpu(cpu) {
- 			void *ptr = per_cpu_ptr((void __percpu *)object->pointer, cpu);
  
--			object->checksum ^= crc32(0, kasan_reset_tag((void *)ptr), object->size);
-+			object->checksum = crc32(object->checksum,
-+						 kasan_reset_tag((void *)ptr), object->size);
- 		}
- 	} else {
- 		object->checksum = crc32(0, kasan_reset_tag((void *)object->pointer), object->size);
+@@ -1436,7 +1430,6 @@ static void __net_exit sctp_defaults_exit(struct net *net)
+ 	net->sctp.proc_net_sctp = NULL;
+ #endif
+ 	cleanup_sctp_mibs(net);
+-	sctp_sysctl_net_unregister(net);
+ }
+ 
+ static struct pernet_operations sctp_defaults_ops = {
+@@ -1450,16 +1443,27 @@ static int __net_init sctp_ctrlsock_init(struct net *net)
+ 
+ 	/* Initialize the control inode/socket for handling OOTB packets.  */
+ 	status = sctp_ctl_sock_init(net);
+-	if (status)
++	if (status) {
+ 		pr_err("Failed to initialize the SCTP control sock\n");
++		return status;
++	}
++
++	status = sctp_sysctl_net_register(net);
++	if (status) {
++		inet_ctl_sock_destroy(net->sctp.ctl_sock);
++		net->sctp.ctl_sock = NULL;
++	}
+ 
+ 	return status;
+ }
+ 
+ static void __net_exit sctp_ctrlsock_exit(struct net *net)
+ {
++	sctp_sysctl_net_unregister(net);
++
+ 	/* Free the control endpoint.  */
+ 	inet_ctl_sock_destroy(net->sctp.ctl_sock);
++	net->sctp.ctl_sock = NULL;
+ }
+ 
+ static struct pernet_operations sctp_ctrlsock_ops = {
+diff --git a/net/sctp/sysctl.c b/net/sctp/sysctl.c
+index 15e7db9a3ab2..fca840484ebf 100644
+--- a/net/sctp/sysctl.c
++++ b/net/sctp/sysctl.c
+@@ -615,11 +615,16 @@ int sctp_sysctl_net_register(struct net *net)
+ 
+ void sctp_sysctl_net_unregister(struct net *net)
+ {
++	struct ctl_table_header *header = net->sctp.sysctl_header;
+ 	const struct ctl_table *table;
+ 
+-	table = net->sctp.sysctl_header->ctl_table_arg;
+-	unregister_net_sysctl_table(net->sctp.sysctl_header);
++	if (!header)
++		return;
++
++	table = header->ctl_table_arg;
++	unregister_net_sysctl_table(header);
+ 	kfree(table);
++	net->sctp.sysctl_header = NULL;
+ }
+ 
+ static struct ctl_table_header *sctp_sysctl_header;
 
