@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A100F483BE8
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:35:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB11E4963B0
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332152; cv=none; b=RqBeKvl+r0YgLFGbgjKHqqFswa1TIhnkN6hFxNdVPnCsRNidLD8o+N+sJ8HV2d5RDG1foaKAxWA6yYncARfIJ8hMlYttlaE/ndQmSskYVYoMqbR8YP4sRQgWfn6f1tHIjX2oArmZK+Re08skx7IBPF43spQTyJoqUvUFhicSZ/g=
+	t=1785332741; cv=none; b=mAd5P4iZI6liXYookeos8HiQLiLK/19NuJJZXapFntr400OMme9RpKda4cVK7Nq/5P7A+GevGEmTYeZxp9/DPXuoEN6snDUHy1f6YVBKjJ5DMllYmoqAnTU58rNqOL3r0MQpvxro0VoRYvlSTlbMf7NnDYEmSKZ6c3LplC+uYlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332152; c=relaxed/simple;
-	bh=IlA4pPf/9XLkBnrCRFsFz6nOul5V9e5fAfE1njpI2AI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jiO+dS4rrMOV6W/3qB1SE3WYd3yTRGARV9DSNEyIANVAiCzOou4fvdYl+4ezd3KWaCE51C2OlxJOUIzDw7dbu3sNup+n1mOlolPdjp0TzPOoBRk+PFYN3Pz6LQRpRVrJYxUox6wBVLDdqo66IvaVQsAu76OpOgoHJaavCB+i2A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BWEAJf0x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785332741; c=relaxed/simple;
+	bh=MtIP10horoGRvkH6yiDNyLH7M6Y8qzlOFzQ4m5ztR+k=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TrYdqX1YZqBD5GoXfjLHOjR+zmQH51M7fX5NF/2cRMnMKjRLezZNmOul9CIQKohVR2n/cG6tY6/h9UfToc97dvi9TVpi1hX26KAJgTp8Q+oN1pz55Mt1z9RIRUbx4Tuid+zuqTCxSGGdgT0lR7m/vYkBV1mMXsw5SFyoOacMB3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=krZSN+Yl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BWEAJf0x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE9491F00A3A;
-	Wed, 29 Jul 2026 13:35:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="krZSN+Yl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11C4A1F000E9;
+	Wed, 29 Jul 2026 13:45:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785332144;
-	bh=2ZxFr6GC9foc5ON5dVHzEcg5KW2lPP+hYLeF3NafllY=;
+	s=korg; t=1785332739;
+	bh=WYQql8IkebGFexPf+s6mcKSkOsUlsjiitHe+GADJ4xY=;
 	h=Subject:To:Cc:From:Date;
-	b=BWEAJf0xPrm5vbYChj1T2AguSdI0RLjKV6srB9savp2gUfvSyIKZQcGQtiEGUT45L
-	 InKsaCX9ljuh3bODwOFhNCo6fN1DfdkW4uyN3fMhhFldpH89mBwgor6BjxXe6EYduL
-	 OY8txAH2t2bL81FV22P5sNIoTmBTXjtZgxnwK8CM=
-Subject: FAILED: patch "[PATCH] mptcp: pm: userspace: fix use-after-free in get_local_id" failed to apply to 6.6-stable tree
-To: geliang@kernel.org,kuba@kernel.org,luoxuanqiang@kylinos.cn,matttbe@kernel.org,tanggeliang@kylinos.cn
+	b=krZSN+Ylpfx0pkTkgiVzLTiY7JfqDy3FH+1yVSyX6dHLWGe2N3hVmnlxqvgHUOEE7
+	 mp0mvwDcQ6IUbh4bvoI0DCnNwvCfiryttZhGCvqGS0Sjix1d2j5sFz3TboPVwlMocW
+	 5yC4bqkESZwbFvWzuxXGgIwqdib33r9kwK7FGE4g=
+Subject: FAILED: patch "[PATCH] userfaultfd: prevent registration of special VMAs" failed to apply to 6.12-stable tree
+To: rppt@kernel.org,akpm@linux-foundation.org,brauner@kernel.org,david@kernel.org,jack@suse.cz,ljs@kernel.org,oleg@redhat.com,peterx@redhat.com,stable@vger.kernel.org,torvalds@linuxfoundation.org,viro@zeniv.linux.org.uk,vladimirelitokarev@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:35:20 +0200
-Message-ID: <2026072920-budding-prescribe-9ea0@gregkh>
+Date: Wed, 29 Jul 2026 15:44:06 +0200
+Message-ID: <2026072906-scheming-vocation-25cd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9bc6d5e4ca9f3cbb41d43400b3a31cb0403796c9
+git cherry-pick -x 3c58f641e813c3c71039f8fd4d4e2a3aab713288
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072920-budding-prescribe-9ea0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072906-scheming-vocation-25cd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,87 +62,56 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9bc6d5e4ca9f3cbb41d43400b3a31cb0403796c9 Mon Sep 17 00:00:00 2001
-From: Geliang Tang <geliang@kernel.org>
-Date: Wed, 22 Jul 2026 00:14:39 +0200
-Subject: [PATCH] mptcp: pm: userspace: fix use-after-free in get_local_id
+From 3c58f641e813c3c71039f8fd4d4e2a3aab713288 Mon Sep 17 00:00:00 2001
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Thu, 18 Jun 2026 12:50:17 +0300
+Subject: [PATCH] userfaultfd: prevent registration of special VMAs
 
-In mptcp_pm_userspace_get_local_id(), the address entry is looked up under
-spinlock, but its id is read after dropping the lock. A concurrent deletion
-can free the entry between the unlock and the read, leading to UAF.
+Vova Tokarev says:
 
-The race window is narrow. It was reproduced only with a locally
-constructed stress test that repeatedly overlaps an MP_JOIN SYN with a
-MPTCP_PM_CMD_SUBFLOW_DESTROY request.
+  userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
+  access, you can register on the shadow stack, discard a page ... and
+  inject a page with chosen return addresses via UFFDIO_COPY.
 
-However, the KASAN report below confirms that the race is reachable:
+Update vma_can_userfault() to reject VM_SHADOW_STACK.
 
-  [  666.319376] BUG: KASAN: slab-use-after-free in mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319386] Read of size 1 at addr ffff888124845610 by task swapper/0/0
-  ...
-  [  666.319401] Call Trace:
-  [  666.319405]  <IRQ>
-  [  666.319408]  dump_stack_lvl+0x53/0x70
-  [  666.319412]  print_address_description.constprop.0+0x2c/0x3b0
-  [  666.319418]  print_report+0xbe/0x2b0
-  [  666.319421]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319423]  kasan_report+0xce/0x100
-  [  666.319426]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319429]  mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319433]  mptcp_pm_get_local_id+0x371/0x440
-  ...
-  [  666.319821] Allocated by task 45539:
-  [  666.319844]  kasan_save_stack+0x33/0x60
-  [  666.319855]  kasan_save_track+0x14/0x30
-  [  666.319858]  __kasan_kmalloc+0x8f/0xa0
-  [  666.319863]  __kmalloc_noprof+0x1e7/0x520
-  [  666.319867]  sock_kmalloc+0xdf/0x130
-  [  666.319885]  sock_kmemdup+0x1b/0x40
-  [  666.319888]  mptcp_userspace_pm_append_new_local_addr+0x261/0x500
-  [  666.319910]  mptcp_pm_nl_announce_doit+0x16a/0x610
-  ...
-  [  666.319967] Freed by task 45560:
-  [  666.319988]  kasan_save_stack+0x33/0x60
-  [  666.319991]  kasan_save_track+0x14/0x30
-  [  666.319994]  kasan_save_free_info+0x3b/0x60
-  [  666.319998]  __kasan_slab_free+0x43/0x70
-  [  666.320000]  kfree+0x166/0x440
-  [  666.320003]  sock_kfree_s+0x1d/0x50
-  [  666.320007]  mptcp_userspace_pm_delete_local_addr.isra.0+0x157/0x200
-  [  666.320011]  mptcp_pm_nl_subflow_destroy_doit+0x51d/0xea0
+While on it, also reject VM_SPECIAL so that if a driver would implement
+vm_uffd_ops, it wouldn't be possible to register special VMAs with
+userfaultfd.
 
-Fix by copying the id into a local variable while still holding the lock,
-and use -1 as a "not found" sentinel.
+Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
+hugetlb VMAs from the check for VM_SPECIAL.
 
-Fixes: f012d796a6de ("mptcp: check addrs list in userspace_pm_get_local_id")
-Cc: stable@vger.kernel.org
-Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
-Tested-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260722-net-mptcp-misc-fixes-7-2-rc5-v1-2-6fb595bc86ef@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/20260618095017.2553004-1-rppt@kernel.org
+Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index d100867e9202..945aa5afc2dd 100644
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -132,12 +132,15 @@ int mptcp_userspace_pm_get_local_id(struct mptcp_sock *msk,
- 	__be16 msk_sport =  ((struct inet_sock *)
- 			     inet_sk((struct sock *)msk))->inet_sport;
- 	struct mptcp_pm_addr_entry *entry;
-+	int id;
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 246af12bf801..c3adedaaf7d5 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2111,7 +2111,10 @@ static bool vma_can_userfault(struct vm_area_struct *vma, vm_flags_t vm_flags,
+ {
+ 	const struct vm_uffd_ops *ops = vma_uffd_ops(vma);
  
- 	spin_lock_bh(&msk->pm.lock);
- 	entry = mptcp_userspace_pm_lookup_addr(msk, &skc->addr);
-+	id = entry ? entry->addr.id : -1;
- 	spin_unlock_bh(&msk->pm.lock);
--	if (entry)
--		return entry->addr.id;
+-	if (vma->vm_flags & VM_DROPPABLE)
++	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
++		return false;
 +
-+	if (id != -1)
-+		return id;
++	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
+ 		return false;
  
- 	if (skc->addr.port == msk_sport)
- 		skc->addr.port = 0;
+ 	vm_flags &= __VM_UFFD_FLAGS;
 
