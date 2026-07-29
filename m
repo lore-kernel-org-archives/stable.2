@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197D7488D99
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:18:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52EB488D87
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331099; cv=none; b=s6zehv5OFaaHIyOBdGsmyyl5JKLHeeq04Mwh86pXXJ+4bMtj9XnZXP5KioWbS5tvknxxD5hh83L+xphPaMsZ9y5qFUXoSG1Qetyzz/iZY0A1sOm8xca6osRupfAxRz3yDb8qTn7i433q2H3AanQXHJRBsleUbEs2v7XonsgOqRc=
+	t=1785331102; cv=none; b=gBGHXr1EiXl11W+603s420uM9PzmoIcKm7KZ2Wp7nBD2+BqmMqgvw/7uN4t+3sLirPYUJ4RGH3C8KlTgQgdZD/3cN9kkwM+q61WaQ91ZZd4HM9i1vMZMMQA7xP1wTSW8nhl67GZPO3Rp4SdbDXYWDu/1NSe3ptc5QkWAO+P5i5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331099; c=relaxed/simple;
-	bh=2XbBMRdzBRRVuBHRqRx4QTjh/CmX1NHYYpEgucGRTXA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CmZb38ztn82bUlPcSnx1HplukLJUBfNRqkm/Trx3rzp7kVsjsc5AWmqTElZSDrXSVWekaqt/5l3eLUkUQ1gHIchYCNJe2c9bCib2r3mNRkI/ZK8IjjJxQQsKY0pIAKbt6tMJFXknD/sCi7tuuUW7PConXCfvQbuH48ivk3N84Ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0M5z5fve; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785331102; c=relaxed/simple;
+	bh=MVmCNDjNZ8qpgu0PKmdAdtZA2JA7f+xJ3eX2RaWfEpc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Hze0Hp/3lvRiMMUqlil9gLFJDOAdsuMvCjRLBD5MRUY2F9kQpcmOF+4+2qGxtOkRilhNUumo3BpM/WYIeLhopTHbwvbY+svzJ+rkQ8HXTFJ5jA2f4inGtp0XGw4JyYn5nXZ9NxJyPmPtCevB4uH1N5PQLjRJziu/+Hp4luqmULk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x5TRPAF2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0M5z5fve"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FEE1F000E9;
-	Wed, 29 Jul 2026 13:18:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x5TRPAF2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF141F000E9;
+	Wed, 29 Jul 2026 13:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785331098;
-	bh=zyhlgU40E3gwJZdqUK49PYSVVUzNEi0nZ8wyl2wlZXg=;
+	s=korg; t=1785331100;
+	bh=wy33Kt7lzg0MEmx5uGsHoV5tsd3n5Cx1IjRZiF0rIJg=;
 	h=Subject:To:Cc:From:Date;
-	b=0M5z5fve0TpS808JvhRdHdVBxqsHoSy4NqRyEJoxnLfNe4Cr/laUF3go3+edSiViT
-	 0QgKkQja0S/NPc7guFjuh1fqSFVAi7fuYcbTyC+r1vWqiOlImG/Xec5gJ5kSnhzHNF
-	 rLp5/YyfsTRg1ZlLxrv4hUccsuq8/KYWa37tNxw0=
-Subject: FAILED: patch "[PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in" failed to apply to 5.15-stable tree
+	b=x5TRPAF2GrWrWLyfE1J5vhtifk4qLfcHoLGeMxb3yJMtRcwR7J6N680VZ2czFaY+6
+	 sZylwtbgwzfS1jGfPsR4XrvtlRotQQydf7gzUbH+FixlMH5NyHdTAFdP++FVPFAtiX
+	 v8HXDxwxPGc/kVlvzJqIap8Or1NhYG13pbi9bC7E=
+Subject: FAILED: patch "[PATCH] media: v4l2-fwnode: Fix subdev owner overwritten in" failed to apply to 6.1-stable tree
 To: mirela.rabulea@nxp.com,Frank.Li@nxp.com,laurent.pinchart+renesas@ideasonboard.com,sakari.ailus@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 29 Jul 2026 15:16:37 +0200
-Message-ID: <2026072937-overbill-reflector-662e@gregkh>
+Message-ID: <2026072937-passivism-getup-c9f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 06cb687a5132fcffe624c0070576ab852ac6b568
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072937-overbill-reflector-662e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072937-passivism-getup-c9f0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
