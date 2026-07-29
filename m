@@ -1,51 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BD53E7145;
-	Wed, 29 Jul 2026 08:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958A22E7384
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785314391; cv=none; b=o8We4qi2cFQJGEsUISCp/kdyoe+jz8kWE+uPVvuzWK9YwwMdCtSD93rUl59B/avzLBaPC1UK0I5qC4y7FSkWBVoXh43hzZqOIZzC9ddCsTxJD0oXf0ss3Qmv5aA/pyuHOQ1XsozW4i/nNQc91sO2mTTEaK4P6B9Sco0g+Fpvd8U=
+	t=1785314553; cv=none; b=Fb+ZJ9g4sr63hc8eJjYTJHSSTo4150kuuY8M3+0+ZptOGdOp6EhM1UYtPRYbS95ty/9s+W0Pureru5ZkImoJKmOXkzXuCleZVkp7eHZHASICJmzO1JlZpZsyzHW9kNTMZ3z5u6m61TQY+B42nb6SYslOOezwmR+2GfvVIy2FYYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785314391; c=relaxed/simple;
-	bh=GUzSoFaKz5DMVCWuwVcFwOo+QdbAuDd5B/SZRt3XeKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D5f7qdT3N0Xbp/0TSqAGd9VjDYQirHVgnVLIITvN9YUtK8vqPgyaIYKMaj1wObXKw8g4vJvW8l1kqGeNc6z6ep5ChstLM5Lxxchx5GL33vSLvh4htnvmKFCgvG710PNnOwm4tb7OAyeflR7f8KIsJz9H3f8LQIH1oMzsK16CQTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aChbaZEX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785314553; c=relaxed/simple;
+	bh=SopE7MqLzZcPVoDijXslOcJhSh4kStnW9CEO9fvMNdk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=lXywXqkYDckAnU0uIWK7WbXfygAJxhSj0DuXs0hRpei5vCU+upZmf80DigDgleSVi3DfnVC6V9K1G33vnPYgCyc9E/CE1mafGv+KymRCaouQfrFGbRAjIhIheicYekVUqyop02yXmjTtGN+dNEl3hi1xkwpSzsT8y1hcdKVd+ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bVwSiqyA; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aChbaZEX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8141F000E9;
-	Wed, 29 Jul 2026 08:39:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785314389;
-	bh=cTkdOFU+9thCF8abUe4ScDrwFUe6cCFgBFE87DzMCY4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aChbaZEXcvZPLJz+8LIFkjnmkXs4qrkAH0ujz42OprAAVN6UIatJ0lbZJ/T6hLsNr
-	 UiL13LJW0u1UDc68W0Ad60vD3vbjZaNbgiBHC+WHEdIv/BQ+yO3jETp7MfW+u9yUXS
-	 fPodOhI1RJXcSpvNMMa7/J30svjZyO+72r+qE7iLFgFRrqNhUcpNQ0zyjIdcKmmAWL
-	 PYwKoAI5v6kUodPdetc2NgoQsNtq9JhJJPkytDOyoSMs+zgOSMFUKafw8gzLv5/ULt
-	 HDtMe8Ek9kiF3qWKpmRen2WSd8rEDQQCcwNiEZN94FUGfJg1/PCSZ7Sv6mmh8i0hwb
-	 zXGSU6TPhjYuQ==
-From: Jiri Olsa <jolsa@kernel.org>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>
-Cc: stable@vger.kernel.org,
-	Tao Chen <chen.dylane@linux.dev>,
-	STAR Labs SG <info@starlabs.sg>,
-	bpf@vger.kernel.org,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Song Liu <songliubraving@fb.com>,
-	Yonghong Song <yhs@fb.com>,
-	Quentin Monnet <qmo@kernel.org>,
-	Arnaud Lecomte <contact@arnaud-lcm.com>
-Subject: [PATCHv2 bpf-next 10/11] bpf: Disable preemption in __bpf_get_stack
-Date: Wed, 29 Jul 2026 10:38:06 +0200
-Message-ID: <20260729083807.1588544-11-jolsa@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729083807.1588544-1-jolsa@kernel.org>
-References: <20260729083807.1588544-1-jolsa@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bVwSiqyA"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-381b831d535so821556a91.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 01:42:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785314552; x=1785919352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lt/d2kAncfp9Acac5Bt6s8eLHi0HnyPmHLMXZYN4/j8=;
+        b=bVwSiqyAPMRLnA6trPFafeTdAY7raDd4OkS6jOIrLDoVSYuMnxI4a1VoJJqQfjDNjw
+         UkR9hePHJ2p0AF/vhMyQZDSCJRZopwvHJBN//QLjePDzr/oN9D9/5rTu9xdruPL8JkGz
+         oci7gEG8UsRSuYlTef2mtS+5ohWfyYnGVX7qeUF+0NdscbPgVdApcJgwLxHfxffx2pQr
+         01Og1vByuuSFwwyKoXkMfJz/rCZlcWc3EJPyIP3qFHgsOAHIClWpIseQWRWzMzSoxgJl
+         2aubRfybMt/XAo9TKD3/1rugk42/TG1sUZQSOG4Pk18xjgFcaVAY2LEqi/oC40DdCipt
+         Z16A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785314552; x=1785919352;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lt/d2kAncfp9Acac5Bt6s8eLHi0HnyPmHLMXZYN4/j8=;
+        b=UZeOR5ZfclDrE8elRbr4PkhsJEauA2MsfvSI1ly/Y0wcdw7JEipHxtWohSZXmlspxt
+         fdJabP1gQJ3DtyDFTWV4a+6XhXyGn4C06dgib7wUqNSHofOYhKeIhzxrJ/8hgMh5OsX3
+         NLYpNG+rEFur9lO2MSZEb8FmJXQR6J5blXoC1hPCjo+9hLnWx6VCZ1aYuCeJrETBUUan
+         C7/9OnF4MVfvLc0jZSqP750NT13WwHwEmnN2jXP6GoVBlmhvlz2GCpeKls54rq/6OB84
+         gKPdexe6kz42RKlZ2NiPwZaVrpJJ+br/O+CJn3w4V9KO5TFZaYprR308Bvau/PiX8L1q
+         lmTQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqqnAAYON3KPQ72bAfjPe4S+41JjlpfWEII1VPygeK5MprX17uS8UbgJbq+mmf++jT/g9PxwHE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoWMuQx6JWCk1ByfJmLDsrVvBJ6T8Jue73pZwZgMZYHoCglm0G
+	IA0EMXVlIJF9ZDs29MQbb0bQEXoK+hbsO+tpooYja7eXC1mY1aXl87qH
+X-Gm-Gg: AR+sD108BfroIADrGTEdYTerxLmRHysRBormpmgW7RBmMNkEbvXBHNprJLfriEiF5d4
+	iYhcsnb0qRp8jPHpwOw5O6FghQGvhkNAf7DrsRTLzYbHggMgS+vs+zRvpnb8SyeusHoLRHskyLM
+	sbrU1d0V4PDbJmf+CMblIjfVDW7sCHEpb7TpAkhw/ZnwGc1nlO0U4IPGCTVzjnlO8e3U3s8qeg+
+	yNqeQ6Vloxd6ElHhL3wKz4GacT7a/ScDcnZikQjLuj4a7yzuEijbTHD6/KyRYyvAIxJ1msWzDa7
+	SNJ8iz+T3SbQgjSj77lbOWalOAJFFHQvOveHThrFGKTslM8wE8Tmoq6a1DMfGVTuTOte7H2TlXC
+	5A8jFsO9F2JAmdYirMipwSQawCLL0Hs4zQkzhU59AOLbNyafL8fRfwux6sQwz2Y+ycA4AYATGPN
+	w6IQ2n8SW/SvcUKQVD+j1Q13h7O1Z+ekbY61GPircJtrYdcnGdJRfSN+ify5VCDr6pQ8tO0mwms
+	b+wvwdkI15nBCvl
+X-Received: by 2002:a17:90b:3a8d:b0:38e:6c37:d95a with SMTP id 98e67ed59e1d1-38f6a445e64mr5503868a91.19.1785314551939;
+        Wed, 29 Jul 2026 01:42:31 -0700 (PDT)
+Received: from localhost.localdomain ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f642fbf74sm2447744a91.17.2026.07.29.01.42.24
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 29 Jul 2026 01:42:31 -0700 (PDT)
+From: Hao Jia <jiahao.kernel@gmail.com>
+To: akpm@linux-foundation.org,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	shakeel.butt@linux.dev,
+	mhocko@kernel.org,
+	yosry@kernel.org,
+	mkoutny@suse.com,
+	nphamcs@gmail.com,
+	chengming.zhou@linux.dev,
+	muchun.song@linux.dev,
+	roman.gushchin@linux.dev
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Hao Jia <jiahao1@lixiang.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] mm/zswap: Fix global shrinker when memory cgroup is disabled
+Date: Wed, 29 Jul 2026 16:42:05 +0800
+Message-Id: <20260729084206.77793-2-jiahao.kernel@gmail.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+In-Reply-To: <20260729084206.77793-1-jiahao.kernel@gmail.com>
+References: <20260729084206.77793-1-jiahao.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,78 +90,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daniel Borkmann <borkmann@iogearbox.net>
+From: Hao Jia <jiahao1@lixiang.com>
 
-get_perf_callchain() returns a per-CPU perf_callchain_entry buffer and
-releases its recursion slot via put_callchain_entry() before returning,
-so nothing keeps the entry reserved while __bpf_get_stack() consumes
-it below.
+Zswap writeback when the global pool limit is hit fails when memory
+cgroup is disabled. The pool remains full until it is organically
+drained by swapins or memory freeing, leading to zswap store failures
+and pages bypassing getting written directly to the backing swap device,
+causing LRU inversion (hotter pages with higher fault latency).
 
-A preemptible BPF program (e.g. a non-sleepable raw tracepoint program
-on a PREEMPT kernel, which runs under migrate_disable() but not
-preempt_disable()) can be scheduled out between obtaining the entry
-and the copy. Another task scheduled on the same CPU then reuses the
-same per-CPU buffer and overwrites trace->nr with a larger value.
-copy_len is then computed from the inflated trace->nr and can exceed
-the caller's buffer, causing an out-of-bounds write in the memcpy()
-and in the build_id path.
+This happens because mem_cgroup_iter() always returns NULL when
+memory cgroups are disabled. As a result, the global shrinker
+shrink_worker() repeatedly takes empty walks. After MAX_RECLAIM_RETRIES
+failed attempts, the worker gives up without writing back any pages.
 
-The rcu_read_lock() taken here alone does not prevent this. It is
-only taken on the may_fault path, and under CONFIG_PREEMPT_RCU it does
-not disable preemption; it merely keeps perf's callchain buffer array
-alive (freed via call_rcu()) and does nothing to stop another task
-from reusing the entry.
+Therefore, when memory cgroup is disabled, fall through with the !memcg
+branch and shrink the root memcg directly.
 
-Disable preemption around obtaining the callchain entry and copying
-it into the caller's buffer, so the entry cannot be reused underneath
-us and trace->nr stays bounded by max_depth. Build ID resolution may
-fault and is therefore deferred until after preemption is re-enabled;
-by then the instruction pointers have already been copied into buf,
-so it operates only on that private copy. Note, preempt_disable() also
-subsumes the buffer-lifetime guarantee the rcu_read_lock() provided,
-since a preempt-disabled section is an RCU read-side critical section
-for the callchain buffers' call_rcu() reclaim.
+With memcg disabled, shrink_memcg() only returns -ENOENT when the root
+LRU is empty, which means the total pages are already below thr. In the
+absence of heavy concurrent zswap stores, the loop then safely bails out
+via the zswap_total_pages() <= thr check; otherwise, it will resume
+shrinking the memcg after processing the reschedule check. For any other
+return value from shrink_memcg(), the loop is guaranteed to terminate,
+either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
 
+Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
 Cc: stable@vger.kernel.org
-Fixes: c195651e565a ("bpf: add bpf_get_stack helper")
-Reported-by: Tao Chen <chen.dylane@linux.dev>
-Closes: https://lore.kernel.org/bpf/20260206090653.1336687-1-chen.dylane@linux.dev/
-Reported-by: STAR Labs SG <info@starlabs.sg>
-Signed-off-by: Daniel Borkmann <borkmann@iogearbox.net>
-[ changed Fixes: commit ]
-Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: Yosry Ahmed <yosry@kernel.org>
+Reported-by: Yosry Ahmed <yosry@kernel.org>
+Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
+Signed-off-by: Hao Jia <jiahao1@lixiang.com>
 ---
- kernel/bpf/stackmap.c | 3 +++
- 1 file changed, 3 insertions(+)
+ mm/zswap.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index bdf48a7ad2e8..f4827afbfed9 100644
---- a/kernel/bpf/stackmap.c
-+++ b/kernel/bpf/stackmap.c
-@@ -820,6 +820,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+diff --git a/mm/zswap.c b/mm/zswap.c
+index b5a17ea20237..48fc7b575e24 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1356,11 +1356,12 @@ static void shrink_worker(struct work_struct *w)
+ 		} while (memcg && !mem_cgroup_tryget_online(memcg));
+ 		spin_unlock(&zswap_shrink_lock);
  
- 	if (may_fault)
- 		rcu_read_lock(); /* need RCU for perf's callchain below */
-+	preempt_disable();
+-		if (!memcg) {
+-			/*
+-			 * Continue shrinking without incrementing failures if
+-			 * we found candidate memcgs in the last tree walk.
+-			 */
++		/*
++		 * A NULL memcg ends a full hierarchy pass (except when memcg is
++		 * disabled, where it is always NULL: fall through to the root LRU).
++		 * Count a failure only if the last pass found no candidates.
++		 */
++		if (!memcg && !mem_cgroup_disabled()) {
+ 			if (!attempts && ++failures == MAX_RECLAIM_RETRIES)
+ 				break;
  
- 	if (kernel && task) {
- 		trace = get_callchain_entry_for_task(task, max_depth);
-@@ -831,6 +832,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	if (unlikely(!trace) || trace->nr < skip) {
- 		if (may_fault)
- 			rcu_read_unlock();
-+		preempt_enable();
- 		goto err_fault;
- 	}
+@@ -1379,7 +1380,7 @@ static void shrink_worker(struct work_struct *w)
+ 		 * and failures.
+ 		 */
+ 		if (ret == -ENOENT)
+-			continue;
++			goto resched;
+ 		++attempts;
  
-@@ -839,6 +841,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	/* trace should not be dereferenced after this point */
- 	if (may_fault)
- 		rcu_read_unlock();
-+	preempt_enable();
- 
- 	return callchain_finalize(buf, size, trace_nr, elem_size, user_build_id, user, may_fault);
- 
+ 		if (ret && ++failures == MAX_RECLAIM_RETRIES)
 -- 
-2.54.0
+2.34.1
 
