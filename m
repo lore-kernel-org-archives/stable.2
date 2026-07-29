@@ -1,106 +1,207 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170503E763F;
-	Wed, 29 Jul 2026 14:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA3447D94F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336046; cv=none; b=GxwBNrWjy4DRZ1Whl9AQwaEP8437PNbU71mjnlzGlPUCLT25ZJ+qMdfZ5HFb5qfcLWDUKK7bLjHOJiFLbFV5wKMmsJnlE0sS/KJuW0Ar9yc1M9dWBvpMmPUgI2qk+mrDTWiraMGLVTYHQVrVFQj3UywAhFIp2rW0/mlDXyYkeqY=
+	t=1785336168; cv=none; b=YlviTodTrNUekDOfsipMd5iykFJQSyM7imElGIpgBrV+nMIBBCXNCiVKHvb6pp1fk018FfQoRN0HQB0S+DjvEFPBmTIs9kBpsL1hMux0TeskKsdqHGx9bnUStD8A7I1+D0PxCq4Pbx+bssw+Y6TjKtIAbs5q9s+qNQUt0D9KpnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336046; c=relaxed/simple;
-	bh=iC7LSdLV7T1od8xnAA41YHNWP9QOdGmvAAxgkXtGQOA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=og1A/tJRLE5DZnqCAoP5LdP/Jiv+kDtvIRmypVX3cAhkdnqaJE/xljJFo0F0QPTi19g0R24xLrvynyKcXRytZ8D/duMMYb8I3jTYq6KO9jJaV2PCbbBewU572RiGh+XYXs7j2ClBiX4+0u58OxIenGeoiCyChbUD5+TKX9URSfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 8F4121A0672;
-	Wed, 29 Jul 2026 14:40:41 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf17.hostedemail.com (Postfix) with ESMTPA id A1A2A1B;
-	Wed, 29 Jul 2026 14:40:38 +0000 (UTC)
-Date: Wed, 29 Jul 2026 10:41:14 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Cc: <bpf@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <song@kernel.org>,
- <jolsa@kernel.org>, <naveen@kernel.org>, <davem@davemloft.net>,
- <mhiramat@kernel.org>, <stable@vger.kernel.org>,
- <linux-open-source@crowdstrike.com>
-Subject: Re: [RFC PATCH bpf-next 0/3] ftrace, kprobes, bpf: mark
- trampoline/kprobe ftrace_ops permanent
-Message-ID: <20260729104114.04298a48@gandalf.local.home>
-In-Reply-To: <20260729005959.3853865-1-andrey.grodzovsky@crowdstrike.com>
-References: <20260729005959.3853865-1-andrey.grodzovsky@crowdstrike.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1785336168; c=relaxed/simple;
+	bh=GGLdmmXw9nqnN65luTO0X3ByB0pY5inbnsj/QaSV+B8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GW9XybzYUhILrLURwtQfaLzrXVFEcehgbl3gH5xoP74m4Uz3AMZjvkMJlJjsw+vtJMD1UMrPeEwVRetVjBpTuK9jEAkkITbF1EdlBgMou9oaLxVA6hs/Gjo5pWAMZ6V3DX2j6eZyTMzLD0vNGMLOsYn/ETnbALqAfvTn0m43FJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jwpkHMjl; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jwpkHMjl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67DAD1F000E9;
+	Wed, 29 Jul 2026 14:42:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785336166;
+	bh=gWIbVvAUJymqtrzPDKcgW+9X1HL0gMUZbk7aalS+W78=;
+	h=Subject:To:Cc:From:Date;
+	b=jwpkHMjlfMoY2waFIULivsZtyKwnzwLk8FIpR4N7KRDDS2XoNfs2WzoUVSF76oVze
+	 OTOExTBdxs1l3yJxjQt9YO+8WD//JJ4TaixO8LTjDwJJVcob+2ZV8qtkAyiJMZpPue
+	 a+E4QwV5zaqTjXzLoprAIKstxjePS1iuj93dWGO4=
+Subject: FAILED: patch "[PATCH] gve: fix Rx queue stall on alloc failure" failed to apply to 6.6-stable tree
+To: eddiephillips@google.com,hramamurthy@google.com,jordanrhee@google.com,kuba@kernel.org,przemyslaw.kitszel@intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 16:41:33 +0200
+Message-ID: <2026072933-deletion-tiger-e1e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: A1A2A1B
-X-Stat-Signature: 499kyhgzpha8ede91uyypk9psck4c73c
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18XandzLXTa8+ciNlokeOIqor1xPSfBmv0=
-X-HE-Tag: 1785336038-944796
-X-HE-Meta: U2FsdGVkX1/Q1VMD5PBWVVztUmDRsGyKdjgXyyq8UOEsrvQ4x8MkzXVv1XagktdXZg1hMtLPMbF3NG+14pqvCAulEmETwfclWLYJIdRiZak9IoPT5g5AQigCoGedHitSSmWGanL4HrTJm0lErfH81v8KlhDAZmQZYsgdMsWkNMjy2IJQaC0A2sTvtDwwcdQYm02RzAZu7L41x4P9CEfsnp2T/VfPCN7BNLGDi5y7JeOOHekGj3ZQtSALsU2etuRHhnP5z+yJvx5GFf6Lnxb0tf9dDXZBBVEtiwbg1f1L/hod8IXDzvan3OO3eICs4HYii9aKRI/C0D+DmjpPM54ck9EkdhXVEMsBhzpc5DpAerz3LLWIyijKPpCZ7gXcxIDld4fwbILHnK9sVTCBl1mtdQ==
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, 28 Jul 2026 20:59:56 -0400
-Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
 
-> This fixes a long-standing issue: kernel.ftrace_enabled=0 silently
-> disables BPF trampolines (fentry/fexit) and ftrace-based
-> kprobes/kretprobes. The write succeeds, the hook stops firing with no
-> error, and re-enabling silently restores it. Livepatch already solved
-> this for itself via FTRACE_OPS_FL_PERMANENT, which refuses to disable
-> ftrace while a permanent ops is registered and refuses to register
-> one while ftrace is disabled[1].
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The /proc/sys/kernel/ftrace_enabled was added as a "safety kill switch"
-back when ftrace was first added to the kernel. It's addition was namely
-there because live runtime modification of kernel code was new and we were
-worried about how stable it could be.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Honestly, I would love to get rid of it as today ftrace has proven to be
-rather stable. But as it is a user space ABI, I'm not sure what will break
-if we do. I wonder if we just make it a nop, and print a message to dmesg
-saying:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x b65352a1bac64442ad95e64f385b40ccb9f1b0db
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072933-deletion-tiger-e1e7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-  "ftrace_enabled no longer does anything. Please report if you need it to."
+Possible dependencies:
 
-?
 
-> 
-> For trampolines this restores a historical property: from 2019-2022
-> they shared one global direct_ops, marked permanent the same
-> way[2].It was later lost as a side effect of the 2022
-> per-trampoline-ops split (patch 1's Fixes tag) and never
-> restored.[3][4] Kprobes never carried this protection at all, so
-> for them that is long-standing issue rather than a regression.
-> 
-> Patch 1: trampolines. Patch 2: classic kprobes/kretprobes. Patch 3:
-> a selftest covering both directions for all four hook types.
-> 
-> P.S
-> I initially implemented a per-record opt-in flag[5], but dropped it
-> as over-engineering once I saw the original blanket restriction.
-> 
-> P.P.S
-> Open question: kprobe.multi/kretprobe.multi/kprobe.session
-> (fprobe-backed) aren't covered -- return-capturing fprobes share the
-> function-graph tracer's subops manager with unrelated tracers, so
-> marking it permanent needs a different, per-record approach. Perhaps
-> something along the lines of [5].
 
-Honestly, I would like to start deprecating that kill switch.
+thanks,
 
-For the series:
+greg k-h
 
-Acked-by: Steven Rostedt <rostedt@goodmis.org>
+------------------ original commit in Linus's tree ------------------
 
--- Steve
+From b65352a1bac64442ad95e64f385b40ccb9f1b0db Mon Sep 17 00:00:00 2001
+From: Eddie Phillips <eddiephillips@google.com>
+Date: Thu, 9 Jul 2026 21:19:06 +0000
+Subject: [PATCH] gve: fix Rx queue stall on alloc failure
+
+When the system is under extreme memory pressure, page allocations can
+fail during the Rx buffer refill loop. If the number of buffers posted
+to hardware falls below a critical low threshold and the refill loop
+exits due to allocation failures, the queue can stall:
+
+1. The device drops incoming packets because there are no descriptors.
+2. Since no packets are processed, no Rx completions are generated.
+3. Because no completions occur, NAPI is never scheduled, preventing
+   the refill loop from running again even after memory is freed.
+
+This results in a permanent queue stall.
+
+Resolve this by introducing a starvation recovery timer for each Rx queue.
+If the number of buffers posted to hardware falls below a critical low
+threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
+and successfully refills the queue above the threshold, the timer is
+not rescheduled.
+
+The threshold is set to 32 because a single maximum-sized Receive Segment
+Coalescing (RSC) packet can consume up to 19 descriptors in the Rx path.
+Lower thresholds (such as 8 or 16) would be insufficient to process a
+complete maximum-sized RSC packet, risking packet drops or unexpected
+hardware behavior under memory pressure. Setting the threshold to 32
+guarantees a safe margin to handle at least one full RSC packet.
+
+Cc: stable@vger.kernel.org
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Eddie Phillips <eddiephillips@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Link: https://patch.msgid.link/20260709211906.3322883-1-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index 1d66d3834f7e..c280ff35ee77 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -13,6 +13,7 @@
+ #include <linux/netdevice.h>
+ #include <linux/net_tstamp.h>
+ #include <linux/pci.h>
++#include <linux/timer.h>
+ #include <linux/ptp_clock_kernel.h>
+ #include <linux/u64_stats_sync.h>
+ #include <net/page_pool/helpers.h>
+@@ -41,6 +42,7 @@
+ 
+ /* Interval to schedule a stats report update, 20000ms. */
+ #define GVE_STATS_REPORT_TIMER_PERIOD	20000
++#define GVE_RX_NAPI_RESCHED_MS 20 /* msecs */
+ 
+ /* Numbers of NIC tx/rx stats in stats report. */
+ #define NIC_TX_STATS_REPORT_NUM	0
+@@ -341,6 +343,7 @@ struct gve_rx_ring {
+ 	struct xdp_rxq_info xdp_rxq;
+ 	struct xsk_buff_pool *xsk_pool;
+ 	struct page_frag_cache page_cache; /* Page cache to allocate XDP frames */
++	struct timer_list starvation_timer; /* for queue starvation recovery */
+ };
+ 
+ /* A TX desc ring entry */
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 02cba280d81a..8271f731a91f 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -18,6 +18,16 @@
+ #include <net/tcp.h>
+ #include <net/xdp_sock_drv.h>
+ 
++static void gve_rx_starvation_timer(struct timer_list *t)
++{
++	struct gve_rx_ring *rx = timer_container_of(rx, t, starvation_timer);
++	struct gve_priv *priv = rx->gve;
++	struct gve_notify_block *block;
++
++	block = &priv->ntfy_blocks[rx->ntfy_id];
++	napi_schedule(&block->napi);
++}
++
+ static void gve_rx_free_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx)
+ {
+ 	struct device *hdev = &priv->pdev->dev;
+@@ -120,6 +130,7 @@ void gve_rx_stop_ring_dqo(struct gve_priv *priv, int idx)
+ 
+ 	if (rx->dqo.page_pool)
+ 		page_pool_disable_direct_recycling(rx->dqo.page_pool);
++	timer_shutdown_sync(&rx->starvation_timer);
+ 	gve_remove_napi(priv, ntfy_idx);
+ 	gve_rx_remove_from_block(priv, idx);
+ 	gve_rx_reset_ring_dqo(priv, idx);
+@@ -208,8 +219,10 @@ static int gve_rx_alloc_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx,
+ void gve_rx_start_ring_dqo(struct gve_priv *priv, int idx)
+ {
+ 	int ntfy_idx = gve_rx_idx_to_ntfy(priv, idx);
++	struct gve_rx_ring *rx = &priv->rx[idx];
+ 
+ 	gve_rx_add_to_block(priv, idx);
++	timer_setup(&rx->starvation_timer, gve_rx_starvation_timer, 0);
+ 	gve_add_napi(priv, ntfy_idx, gve_napi_poll_dqo);
+ }
+ 
+@@ -365,6 +378,7 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	struct gve_rx_compl_queue_dqo *complq = &rx->dqo.complq;
+ 	struct gve_rx_buf_queue_dqo *bufq = &rx->dqo.bufq;
+ 	struct gve_priv *priv = rx->gve;
++	u32 num_bufs_avail_to_hw;
+ 	u32 num_avail_slots;
+ 	u32 num_full_slots;
+ 	u32 num_posted = 0;
+@@ -400,6 +414,26 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	}
+ 
+ 	rx->fill_cnt += num_posted;
++
++	/* If the queue has fewer than GVE_RX_BUF_THRESH_DQO descriptors
++	 * visible to the hardware, the hardware is in danger of starving
++	 * and cannot trigger interrupts.
++	 *
++	 * We use a threshold of 32 because a single maximum-sized RSC
++	 * packet can consume up to 19 descriptors in the Rx path. Lower
++	 * thresholds (e.g., 8 or 16) would be unsafe as they could cause
++	 * the device to drop/stall on a maximum-sized RSC packet.
++	 *
++	 * Start the timer to periodically reschedule NAPI and recover.
++	 */
++	num_bufs_avail_to_hw =
++		((bufq->tail & ~(GVE_RX_BUF_THRESH_DQO - 1)) -
++		 bufq->head) & bufq->mask;
++
++	if (num_bufs_avail_to_hw < GVE_RX_BUF_THRESH_DQO) {
++		mod_timer(&rx->starvation_timer,
++			  jiffies + msecs_to_jiffies(GVE_RX_NAPI_RESCHED_MS));
++	}
+ }
+ 
+ static void gve_rx_skb_csum(struct sk_buff *skb,
+
