@@ -1,139 +1,151 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CCE3AF64B
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 19:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785353487; cv=pass; b=njqQRzwhT4vhFa0v+VABfQQRTO6VvZF3XaFuQPT9CpM6O8Cxct+t6342I4Z58xNQpSnvXC8cq/NqUnXjjkn9WIJ5R/8+NxNTJUOeopOW7wUsJNENCO1a/6faNk26XgzGB0EqcCTns2iT0QAfL3BpiP8Y1pnuR01bs8tit2fPDzo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785353487; c=relaxed/simple;
-	bh=AW+2NReGvoch2mVxj+60oV42GoQXvVY/28NZ+o3sxTQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=acLOL8LHbbgYgAOW3EGJhDkXC6TwdiXtuYBYvoQw7wQOC0e2n8M5+QH49KJ99okVDTaC8q1Qz2kiy5nn9c1VGbsbXdOnDn363RBmYlSanS4EBQ60DtNK+uDIILJ5LqgSGoX8jrcMQf4mqJdVs3HxivDZdcwQ2qTKpa/w/tG5HGY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OsCuZjvw; arc=pass smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327963DB336
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 19:31:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785353505; cv=none; b=qhOg7ip0XTvqlApaO7424dFVSX3Q4ywCwzeirXQTYm0Zer1uRR5gG45Ufxjk9QUWgCoNIYsyC3Mu2yfZdsTdr/GDSlr8CrSwdOpnpIX3Q/KHoZHGixiYp7cM0TsdsagVIjKKkAwoOITTeeG6/hd/isyhKj2BS9zTQZ8rIF7LFv0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785353505; c=relaxed/simple;
+	bh=7IF8vIjwJGWyprDwtisa7AuCLoZQ5785f7i8D4ueTSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tHoSHw48Yyad0qCytAPb9FWmROMt8xTHD3LDspuw1ds+s5c6rWxAMVBRFktMBurzd54wu3iCU8ZgmjDhbVB12dsdswBUKXQXrOqNqqy+WrQWRJc4TdU2z1g2VsZtOdDhBDiKv+3WMaGFMoNnYVRHefGeBpDG5qzEvvsiqhhwlKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ez4scSX+; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OsCuZjvw"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84e04df8c46so1596568b3a.2
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:31:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785353481; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M9AM1lL9OxaVyEY5eVCaaOQr+37lQ6K6LQjovDqVygYQusCjkLHAMlqYeMlJhFx6uK
-         3MNqoj+kHWf70bZGlSaxteJtu9dCgfQikgcG4s2D6E5CCmOLm7AimlK/r6uVJNKDlZhY
-         E6/dwFDTyg4GGv9WPyU616Z+fNrKJHJiIFHilCI6+L8naOsrGueCB1lHKw7+n5o7SIQD
-         4jl1Jm3AQWpV1RFk24DpJWBJuF+yhMi1vLxHlgdMrq0oJsSDbvg0zaC7Q4LPn4irN5d/
-         UeWHZ9nT+5j+aCYmX2pUCJAOMZjDDKkPntB5GoGHpA+wegyk9Ny+mFeMBvKTwSNUHUxb
-         Af8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZEPCjaM0A4Cy5/l9buwk6OfkCA8SEBnX/nbFrur6xxY=;
-        fh=IHJ8Jfko/QSEeAZtKj0P+D/dfGw0jN6v4RGtLyish4k=;
-        b=o8jotVFSbiUZcrb0pMnAJZymfFwIGBePqgY0sw/mdpS3nwCBogsh4ldPVXk24WhZZC
-         0tyUETTegJUIaPCBcfEn1YpWJ06ncW+kULaqvfbeCWhnBJDZPAllMf7cAtogusbtjSlu
-         Vf8rZWWX8V3hjTPpMOXhklPIN4pkmvyYOyhrUbrdJX8y78224F9bs/Rvc8pvcLkYBn8p
-         GUf8iBdlLT7I+UnTqXp2YmSdq5MHuuf9b9eTiH8JUOSiJjrUsQu7hUXY0PJqHzrufjal
-         l6q6TlQc/Fu+eAp0gCnnaqigqliCpKkxDXXD5RuhDYJFcredP5JCxKvO0teibttJx7IT
-         LynQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ez4scSX+"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ceb096e675so18008095ad.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:31:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785353481; x=1785958281; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZEPCjaM0A4Cy5/l9buwk6OfkCA8SEBnX/nbFrur6xxY=;
-        b=OsCuZjvwu53Bt5xqrwiBNeckfkSjiWJzvvxKY6fbPq4G9COH7Ao7fQV0AZfz58z/1k
-         GIZ0BpmtujRkYBugLG2dR+6rnEbekKdfRwMITuWdJ8AovWlwsl79XJXZ5Y0ApsTWtZgQ
-         Nwq1xEj6eWtYpteKMtKivHRPP0cXIzm+bijLcsOZNaHcXMIqDgkiRng3pDo4lNxhPxdC
-         F/nexB2rV7cfx0Z3y8j/Z5yx+8U2YR1MBMfuizTq7qRQsbLhZ/rsbm+u8zL8A2nNqO3r
-         d5HSRi2bbkmlizmKOvTi+lj8k8U+pyQNgWfRLduHxsxFKU8VZvg9B1GSRrPNyI1u8+jq
-         3zMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785353481; x=1785958281;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785353494; x=1785958294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZEPCjaM0A4Cy5/l9buwk6OfkCA8SEBnX/nbFrur6xxY=;
-        b=lxZbMnXPDoUwm6wfnQbGGfQTpHK4pdRN17yIlWCVustINnl4HZVjKK3QsNnkjhjuPy
-         7ItrC49+a3qoUlLncs7ZB1QE+x00PbO7TEWLeSX+25nq7JTxBePeXat1S4C4PacTbgMV
-         zV0h0RjmrG/svRX3dtNIdYOJARYMS4aE8fUewPC4u6zzTZf5JYs0XZCP39yVusQsbldH
-         pbSUiJgxzhQwY7ZIYFeLlhV5Zw1kx2MZ3zxiLbYnmgRnHxwad2kyFs1sd/Yuq3KruoyI
-         s3k415icpC9iyWMDCEvRaI5s8lEFXGU3WmK2c3mp7fvfo05FHTt0OvzHf5ElTPy4n7JL
-         SlZw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5/yfc0M5+Tc4u0WgUOYFM4NlDw1WuPnWPzPAEFX/KFI/MLMTDpRonW/QtSfm/WFzszusJZkE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yywvp+v+1Tia9vZOCKNEBxOEBfuCMgBj1i2eMZQr5V6uJeTJvAi
-	KC+AjR+7tRwcADdgYU4cLvjJkRjoAQIxptvevBUUMcE7oUWnFrRIk03xUPF3tHXcT8Jsi3xk45c
-	ddqYQuKmXGXZqlvOEYb5B+RwEHMOf6uY=
-X-Gm-Gg: AR+sD12Hg7KdXI48pD4OOnYH6wLabDNI5Y/gwylguCAu35spscuMK9USLwoBnGou4a/
-	/dgG/y76lEjVHUFOjAJDzL4BRi528GoG5y3sZunxwbWL5k3OIT+V1BRBr0f8hibvL6JGC8+Ao7K
-	mXrlXG3+vqPP2yfc7T5okRKMXVqgqLoZpoH9m8T3nHVD9p8GlceyD4LdZ0jTxuePrVPWzvVgpAI
-	3AUBamVi/3uD5YCzwtkfVTfnDUBq8vadpf5s3e93rVch3kG6ANnHsxY2YHMiEBIm7Pq3tSxBa9X
-	yqn44uxjQ6AhnOHFdFNAKJ8n/KLQ2JwXmSnD3qImsIEjhN6u4uqyB/saWXeVzNpHvugmfu6PMW7
-	MhTeAWEPPCCIzycDZRb8yBjAOSJc4v1tal4Jh
-X-Received: by 2002:a05:6a00:2d28:b0:847:8250:2b2b with SMTP id
- d2e1a72fcca58-84eba209c22mr58219b3a.52.1785353480816; Wed, 29 Jul 2026
- 12:31:20 -0700 (PDT)
+        bh=OIo/8/GMi79rKZq27Qcu4swN+9Qdc9OYyywJWHqBKe8=;
+        b=ez4scSX+a+CBP372h+wKOAuoAzBn6ZzTWyyP1c/ECEyYBn0AaxpyHRnf5sA95Be2JJ
+         Ekojnu1AaXFan9y8bVvZbHxFl9HA/ugbSIvDHcUupN8FFJadyDq7N+JQyC2UPhbLE1Qn
+         5evfaony2+XKiNClqZQ04AR1xxMJ7/UzKr9qdlrNO0KI06T6BDGeMiEZ0nA8yB6s7fio
+         h3aJSwkfGYaI1dZF1zzb8pk3WMioAiGaPTZYUfzVUmd/igXH9pNvkW/iu3oLHJuBVD5j
+         oqbvFtwEaX/MKW2bO2nos9mDkZ+QhqffscQzPGWoo1RlZjMwRQcuwPe9ffPkjfINr34/
+         A07g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785353494; x=1785958294;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OIo/8/GMi79rKZq27Qcu4swN+9Qdc9OYyywJWHqBKe8=;
+        b=S/kt+SomEStl1aRhvrA1cTtfGznC9vXfszd16aYIhFWTmxl6mKRPj6K/CPgJ0UwBp0
+         A8Z7nL8VsW4icRs16NZQ8BrVvnYSoGCmeUi9YBXcmPeFeY6GfLwoPiuA48k+fdcOv/J8
+         akr3Sj3vbzrL+VS5tqOrjkcJhCV0TfcCte/Rwu2XlIhEXOpQwbeCkqRrVkmPU52lDqM/
+         0zjK0+QAYTHKNoy0SBgi3Pse//FWN2vJGxjH8G4oHI6SgMmXecigNdkSk5uY7l36Yf5S
+         SG8c9a4PNVyC7Vy6XboK16//1lqosXOp/g0rOEUWZPxXQC/1fUjQwdZRGjRdWoNkSjin
+         bW6A==
+X-Forwarded-Encrypted: i=1; AHgh+RpndY7po8HjoVawdqbl2kFcxgxyyryBU/cYAL7iTp+u6kv1JhVqLuiKgrsgGnCmZKFSUccqn8o=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyz7E7xqyUI/AnHDdMh1gMpUncDevD+l4h1ags0f2H1NMQnDE1m
+	s2u59hJSGg4P3lhtkCuZT6CG1W8gkvP8KMaRoM09ivF84TwvsmFC/Y5s
+X-Gm-Gg: AR+sD11CCZ7JLDqD3chGIlxVdvnVWklkRIZ4/dXQLJ2VXKNd+pbyQoFXub0Gx1vd83I
+	w73KUeDmH2Ng/ENzQXzgD8p4kmxhRbPdQiG8NojmQPWsn0iglk9UCib1De/42+11xSvx+IdB73d
+	LWwQS0R4grLp7ZSH09YAgogIrpOLHvzxp+g4Pb2Pe4eTFl9gUHUMZelayds4rV4QhS6GwtsL4Y/
+	u1iImkG5Z+KcG7Ey/dwp20c5vJf/XTenl4frCl2iOyfE4+1apUraHSTU57CLRU2Rm7baS00IGF9
+	nUzA3zEgLyxbZvgS0VZp3J/t8p60WJ0uK+FEZY5ABr9xf3eYiBSoNZjZUQ9/P81aR4x3U6oocr9
+	DtUMrDIHAJdk9VqGqz3kczFN3XdvGswGBiimYxQGApOu0ToOr2dQ06EQr561PdT/G7h2Nz8qiY/
+	IE7yWuNHsPzZk/MEkHuiKmk4gO/GdTM48wRr2i93g0OorgEGttGt8TnyAJftQcCRAiEQxPu62XM
+	NpbV05h8X/pEUNjsueDL29syY86qzKjzFYKYjdteP0D
+X-Received: by 2002:a05:6a20:9190:b0:3c0:9c19:65c2 with SMTP id adf61e73a8af0-3c8ba669616mr9373377637.74.1785353494203;
+        Wed, 29 Jul 2026 12:31:34 -0700 (PDT)
+Received: from fx.tailc0aff1.ts.net ([206.206.192.132])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504db2c4csm12450394eec.28.2026.07.29.12.31.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 12:31:33 -0700 (PDT)
+Sender: Weiming Shi <thebestswings@gmail.com>
+From: Weiming Shi <bestswngs@gmail.com>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Brian Foster <bfoster@redhat.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] xfs: bound inode buffer log item replay by logged regions
+Date: Wed, 29 Jul 2026 12:31:27 -0700
+Message-ID: <20260729193127.3084301-1-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260729-uprobe-v1-1-61896b87c867@debian.org> <amokG13tEnA7VVVf@redhat.com>
-In-Reply-To: <amokG13tEnA7VVVf@redhat.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Wed, 29 Jul 2026 12:31:08 -0700
-X-Gm-Features: AUfX_mwlnvUi1r-ku73ZCSAcs_YOxNgVJkyNNO_0D-3nnjYBTZf7rGtYqZPK430
-Message-ID: <CAEf4BzYON57L_HD71qUOdRdni_=1S-Xomz27PeDBxbbXDy0Jug@mail.gmail.com>
-Subject: Re: [PATCH] uprobes: Fix NULL pointer dereference in hprobe_expire()
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Breno Leitao <leitao@debian.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	kernel-team@meta.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 9:02=E2=80=AFAM Oleg Nesterov <oleg@redhat.com> wro=
-te:
->
-> On 07/29, Breno Leitao wrote:
-> >
-> > --- a/kernel/events/uprobes.c
-> > +++ b/kernel/events/uprobes.c
-> > @@ -832,7 +832,7 @@ static struct uprobe *hprobe_expire(struct hprobe *=
-hprobe, bool get)
-> >               if (try_cmpxchg(&hprobe->state, &hstate, uprobe ? HPROBE_=
-STABLE : HPROBE_GONE)) {
-> >                       /* We won the race, we are the ones to unlock SRC=
-U */
-> >                       __srcu_read_unlock(&uretprobes_srcu, hprobe->srcu=
-_idx);
-> > -                     return get ? get_uprobe(uprobe) : uprobe;
-> > +                     return get && uprobe ? get_uprobe(uprobe) : uprob=
-e;
->
-> Well, looks "obviously correct". At least the current code is obviously
-> wrong, it even checks uprobe !=3D NULL 3 lines above.
->
-> Andrii ?
->
+xlog_recover_do_inode_buffer() advances item_index once for every run of
+set bits in the logged dirty bitmap, but ri_buf[] is populated only for
+the regions present in the recovered log item.  A crafted inode buffer
+log item can therefore make the dirty bitmap describe more runs than the
+item has logged regions, and recovery reads past the end of ri_buf[]
+before dereferencing the bogus iov_base pointer.
 
-Yes, indeed, I'm more surprised this didn't come up much earlier
-(probably it's rare enough to have uretprobe with refcnt at zero
-during fork). The fix looks good, thanks!
+The ASSERT() that checks iov_base compiles away without CONFIG_XFS_DEBUG,
+and evaluating it would already perform the out-of-bounds ri_buf[] read.
+Check item_index against ri_cnt before the first ri_buf[item_index]
+access instead, and fail recovery with -EFSCORRUPTED.
 
-Acked-by: Andrii Nakryiko <andrii@kernel.org>
+Found with KASAN on a CONFIG_XFS_DEBUG=n build by mounting a crafted XFS
+image whose log contains an inode buffer item with more dirty bitmap runs
+than logged regions:
 
-> Acked-by: Oleg Nesterov <oleg@redhat.com>
->
->
+ BUG: KASAN: slab-out-of-bounds in xlog_recover_do_inode_buffer (fs/xfs/xfs_buf_item_recover.c:701)
+ Read of size 8 at addr ffff88801387d160 by task mount
+ The buggy address is located 0 bytes to the right of
+  allocated 32-byte region [ffff88801387d140, ffff88801387d160)
+  xlog_recover_do_inode_buffer (fs/xfs/xfs_buf_item_recover.c:701)
+  xlog_recover_buf_commit_pass2 (fs/xfs/xfs_buf_item_recover.c:1130)
+  ...
+ Oops: general protection fault, probably for non-canonical address
+ RIP: 0010:xlog_recover_do_inode_buffer (fs/xfs/xfs_buf_item_recover.c:703)
+
+After this change the crafted image fails recovery with -EFSCORRUPTED and
+the mount is refused.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Link: https://lore.kernel.org/linux-xfs/20260611212314.4610-1-kylebot@openai.com/
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Suggested-by: Brian Foster <bfoster@redhat.com>
+Link: https://lore.kernel.org/linux-xfs/ajGB9o5Ys6itU3Rh@bfoster/
+Cc: stable@vger.kernel.org
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ fs/xfs/xfs_buf_item_recover.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 02b95b89d1b5..2c2d4a0027af 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -659,6 +659,13 @@ xlog_recover_do_inode_buffer(
+ 			reg_buf_offset = bit << XFS_BLF_SHIFT;
+ 			reg_buf_bytes = nbits << XFS_BLF_SHIFT;
+ 			item_index++;
++
++			if (XFS_IS_CORRUPT(mp, item_index >= item->ri_cnt)) {
++				xfs_alert(mp,
++	"Bad inode buffer log item dirty bitmap: more dirty regions than the %d logged, for buffer at daddr 0x%llx.",
++					item->ri_cnt - 1, xfs_buf_daddr(bp));
++				return -EFSCORRUPTED;
++			}
+ 		}
+ 
+ 		/*
+@@ -669,7 +676,6 @@ xlog_recover_do_inode_buffer(
+ 		if (next_unlinked_offset < reg_buf_offset)
+ 			continue;
+ 
+-		ASSERT(item->ri_buf[item_index].iov_base != NULL);
+ 		ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
+ 		ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
+ 
+-- 
+2.43.0
+
