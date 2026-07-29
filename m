@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E624248CD59
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:26:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571AE486B86
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785331605; cv=none; b=BUcWXUpib+wPHonJ1BLJ3kuOBGB/DP1mGotWYEK4viNz8Vnczdy9p9yQwfKEA4cgR1Z8EcBkgkGdJHh3VlRcNGeD0DpugXdA+tnB61j7Ab9kx3GgrV+ZyZa4IhmxjC7YCK4ldV4llWhoPs8Yc+X5CtWrxDH1NIHSoRda0jkcaVU=
+	t=1785331649; cv=none; b=PDTmL4hP1jzwyUwz02NxmoElrr9IWDaJYXiE+OxkWZ52rKjAF+MDbXrJ3GX8ZGEh42ZvswrGm9GvOJA5lp9XbsLVMzWDeTx4IVdLXH6aPI0bFjdhUqgGi+UblUJov7WG7WBNXTLUSI+NXe0/NuIiMTtcgYGBjOLxwhmVbNxefdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785331605; c=relaxed/simple;
-	bh=YMy0mNn3iHOyB3PeMSWtoCQCIO5tijzM1o/A2+bmuHg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=b9ynAnu7I1zf3sq/GYd2yglKvE1qyd1zO8zCg1uV0du+oshdERQiSK67K+3vQeMl4fdGAuXYjd0Qy/kfWjH25gNHRTC6BmK05qWKNAbBwIx/LRR2rFvRV35iN9Or4bA0HTQI4M8QRWTsAmgqKmtjnO2kEqqmfnjzrbwaoYg6yQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=waIni7ZD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785331649; c=relaxed/simple;
+	bh=zB1MqNonyZhzzSsQPUTOnSIJ+U2KDccCGJti1GNbW5w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X6BtO8MivTwoRWAXl6SzqJJOfRZlI7rxUwxWed5nPrANodCgw/8lwxD7NIwM+xhLgsz+BYiyIOyFzZ6oqxmZY/VFIpNcxZZJk+H4YwPv1nBhFIzgxFaGmeDdNaQYxouy45799L0dbewgJ381zgIyT6uT1JBOx5NNM18K8F7ZRyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Rzm4KbLu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="waIni7ZD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 405771F000E9;
-	Wed, 29 Jul 2026 13:26:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Rzm4KbLu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F66D1F000E9;
+	Wed, 29 Jul 2026 13:27:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785331602;
-	bh=EcJ6tbF+47k/0wP9ouYeIvvxUP+bFfc+TREKTYCR1EU=;
+	s=korg; t=1785331648;
+	bh=3zrNeiCDxizowHlM2r8iPD/lfuWDmiZGnBmQCdwAqLk=;
 	h=Subject:To:Cc:From:Date;
-	b=waIni7ZDsLjpxEdi/ObX0agtv/l4ixQ4JQMT8YSWY2AR82981b9sgRlzd8DWWC+sy
-	 wJcqGEbI4ccqyFhIgIf1QnNOdpfnIzah1owUv77QcWPNF1zZ9K/gAXRXSbgK1FdPEs
-	 vxmjomuip2v+UAvF0OdJOlgeB63weh2jnKL/7Ugs=
-Subject: FAILED: patch "[PATCH] rust: allow `suspicious_runtime_symbol_definitions` lint for" failed to apply to 6.12-stable tree
-To: ojeda@kernel.org,aliceryhl@google.com,gary@garyguo.net,tamird@kernel.org,urgau@numericable.fr
+	b=Rzm4KbLuRJNXSkTnSxTVA/y5OUQHyUhNOOsHgTAa8Ums7gpuw/Cmu8vET0epA2x7D
+	 AJ54grWs150XuccEbJx2+DYMS9Gq0JOgmQCYrQBQdF73QL8Li9f3r5qyqmhynJJu4N
+	 GlUd1gEQolzP4txBGaqNCLMK/xcF+SezFq2rtJVU=
+Subject: FAILED: patch "[PATCH] LoongArch: Fix address space mismatch in kexec command line" failed to apply to 6.12-stable tree
+To: guodongtai@kylinos.cn,chenhuacai@loongson.cn,liukexin@kylinos.cn,lkp@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:26:21 +0200
-Message-ID: <2026072921-ecosphere-nearest-8804@gregkh>
+Date: Wed, 29 Jul 2026 15:27:14 +0200
+Message-ID: <2026072914-impromptu-excretion-26f0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 608045a91d9176d66b2114d0006bc8b57dff2ca9
+git cherry-pick -x 485ed44db5694d8d2e5027f63ad608e705286f30
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072921-ecosphere-nearest-8804@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072914-impromptu-excretion-26f0@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,108 +62,57 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 608045a91d9176d66b2114d0006bc8b57dff2ca9 Mon Sep 17 00:00:00 2001
-From: Miguel Ojeda <ojeda@kernel.org>
-Date: Mon, 15 Jun 2026 16:32:25 +0200
-Subject: [PATCH] rust: allow `suspicious_runtime_symbol_definitions` lint for
- Rust >= 1.98
+From 485ed44db5694d8d2e5027f63ad608e705286f30 Mon Sep 17 00:00:00 2001
+From: George Guo <guodongtai@kylinos.cn>
+Date: Thu, 23 Jul 2026 22:27:30 +0800
+Subject: [PATCH] LoongArch: Fix address space mismatch in kexec command line
+ lookup
 
-Starting with Rust 1.98.0 (expected 2026-08-20), Rust is introducing a
-couple new lints, `invalid_runtime_symbol_definitions` (deny-by-default)
-and `suspicious_runtime_symbol_definitions` (warn-by-default), which check
-the signature of items whose symbol name is a runtime symbol expected by
-`core`.
+When searching the loaded segments for the "kexec" command line marker,
+the kexec_load(2) path (file_mode == 0) passes the user-space segment
+buffer straight to strncmp() through a bogus (char __user *) cast. This
+dereferences a user pointer in kernel context, which is wrong and is
+flagged by sparse:
 
-Our build hits the second one, i.e. the warning:
+  arch/loongarch/kernel/machine_kexec.c:84:51: sparse: incorrect type in
+  argument 2 (different address spaces) @@ expected char const * @@ got
+  char [noderef] __user *
 
-    error: suspicious definition of the runtime `strlen` symbol used by the standard library
-         --> rust/bindings/bindings_generated.rs:20018:5
-          |
-    20018 |     pub fn strlen(s: *const ffi::c_char) -> usize;
-          |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-          |
-          = note: expected `unsafe extern "C" fn(*const i8) -> usize`
-                  found    `unsafe extern "C" fn(*const u8) -> usize`
-          = help: either fix the signature or remove any attributes like `#[unsafe(no_mangle)]`, `#[unsafe(export_name = "strlen")]`, or `#[link_name = "strlen"]`
-          = help: allow this lint if the signature is compatible
-          = note: `-D suspicious-runtime-symbol-definitions` implied by `-D warnings`
-          = help: to override `-D warnings` add `#[allow(suspicious_runtime_symbol_definitions)]`
+Here copy the marker-sized prefix of each segment into a small on-stack
+buffer with copy_from_user() before comparing, and skip segments that
+fault. The subsequent copy_from_user() that stages the full command line
+into the safe area is left unchanged.
 
-    error: suspicious definition of the runtime `strlen` symbol used by the standard library
-         --> rust/uapi/uapi_generated.rs:14236:5
-          |
-    14236 |     pub fn strlen(s: *const ffi::c_char) -> usize;
-          |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-          |
-          = note: expected `unsafe extern "C" fn(*const i8) -> usize`
-                  found    `unsafe extern "C" fn(*const u8) -> usize`
-          = help: either fix the signature or remove any attributes like `#[unsafe(no_mangle)]`, `#[unsafe(export_name = "strlen")]`, or `#[link_name = "strlen"]`
-          = help: allow this lint if the signature is compatible
-          = note: `-D suspicious-runtime-symbol-definitions` implied by `-D warnings`
-          = help: to override `-D warnings` add `#[allow(suspicious_runtime_symbol_definitions)]`
+Cc: stable@vger.kernel.org
+Fixes: 4a03b2ac06a5 ("LoongArch: Add kexec support")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202605051639.aEPioXdD-lkp@intel.com/
+Co-developed-by: Kexin Liu <liukexin@kylinos.cn>
+Signed-off-by: Kexin Liu <liukexin@kylinos.cn>
+Signed-off-by: George Guo <guodongtai@kylinos.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Thus `allow` the lint in `bindings` and `uapi`.
-
-A more targeted alternative to avoid `allow`ing it would be to pass
-`--blocklist-function strlen` to `bindgen`, but we would perhaps need
-to adjust if other C headers end up adding more (or Rust checking more).
-Since it is just the less critical one that we hit, and since eventually
-this should be properly fixed by getting upstream Rust to provide a flag
-like GCC/Clang's `-funsigned-char` [2][3], just `allow` it for now.
-
-Cc: Urgau <urgau@numericable.fr>
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-Link: https://github.com/rust-lang/rust/pull/155521 [1]
-Link: https://github.com/rust-lang/rust/issues/138446 [2]
-Link: https://github.com/Rust-for-Linux/linux/issues/355 [3]
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Tamir Duberstein <tamird@kernel.org>
-Link: https://patch.msgid.link/20260615143225.471756-1-ojeda@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-
-diff --git a/init/Kconfig b/init/Kconfig
-index 5230d4879b1c..10f2013b5321 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -190,6 +190,9 @@ config RUSTC_HAS_FILE_WITH_NUL
- config RUSTC_HAS_FILE_AS_C_STR
- 	def_bool RUSTC_VERSION >= 109100
+diff --git a/arch/loongarch/kernel/machine_kexec.c b/arch/loongarch/kernel/machine_kexec.c
+index d7fafda1d541..1883cae93bc3 100644
+--- a/arch/loongarch/kernel/machine_kexec.c
++++ b/arch/loongarch/kernel/machine_kexec.c
+@@ -42,6 +42,7 @@ static unsigned long first_ind_entry;
+ int machine_kexec_prepare(struct kimage *kimage)
+ {
+ 	int i;
++	char head[8];
+ 	char *bootloader = "kexec";
+ 	void *cmdline_ptr = (void *)KEXEC_CMDLINE_ADDR;
  
-+config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
-+	def_bool RUSTC_VERSION >= 109800
-+
- config PAHOLE_VERSION
- 	int
- 	default "$(PAHOLE_VERSION)"
-diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
-index 854e7c471434..812f8e5a08d5 100644
---- a/rust/bindings/lib.rs
-+++ b/rust/bindings/lib.rs
-@@ -27,6 +27,10 @@
- #[allow(clippy::ref_as_ptr)]
- #[allow(clippy::undocumented_unsafe_blocks)]
- #[cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
-+#[cfg_attr(
-+    CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
-+    allow(suspicious_runtime_symbol_definitions)
-+)]
- mod bindings_raw {
-     use pin_init::{MaybeZeroable, Zeroable};
- 
-diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
-index b8a515de31ca..797ead5b5626 100644
---- a/rust/uapi/lib.rs
-+++ b/rust/uapi/lib.rs
-@@ -24,6 +24,10 @@
-     unsafe_op_in_unsafe_fn
- )]
- #![cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
-+#![cfg_attr(
-+    CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
-+    allow(suspicious_runtime_symbol_definitions)
-+)]
- #![feature(cfi_encoding)]
- 
- // Manual definition of blocklisted types.
+@@ -59,7 +60,9 @@ int machine_kexec_prepare(struct kimage *kimage)
+ 	} else {
+ 		/* Find the command line */
+ 		for (i = 0; i < kimage->nr_segments; i++) {
+-			if (!strncmp(bootloader, (char __user *)kimage->segment[i].buf, strlen(bootloader))) {
++			if (copy_from_user(head, kimage->segment[i].buf, strlen(bootloader)))
++				continue;
++			if (!strncmp(bootloader, head, strlen(bootloader))) {
+ 				if (!copy_from_user(cmdline_ptr, kimage->segment[i].buf, COMMAND_LINE_SIZE))
+ 					kimage->arch.cmdline_ptr = (unsigned long)cmdline_ptr;
+ 				break;
 
