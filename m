@@ -1,100 +1,154 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636581A08AF;
-	Wed, 29 Jul 2026 06:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25C31F942
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785306689; cv=none; b=TKKzUbCm3gNnXzFgxzEQsSBK4syHnsWwaldqR046e/58gfPAtsCgExjI7VR1oRQqbmRgmoMP8FthGevv1DrEAovA4SHB6TcwP2kWCaAJcNPUjqM5kSIpiqVbPvNidLHqkaZl+ZcmKajfWP4ykEZKGIltnFBSNHXidjtBCjlWvAs=
+	t=1785306702; cv=none; b=My2CbpGBtEYPREE7pkKHt7/4LWCJHoZa5Ya9YDzQVmrbJTBfyxM9gJXiGCbFiyYbI+/DRmmnI1N7OCVrG9X8rgV3oDJGbjCWJtWKnx5Ycc4sMC+0Pr83M8RbmuJcV1B4jo9pF/vO1CHmsQE3ih6bn4nq5hfASZJlbDG4K3FEWmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785306689; c=relaxed/simple;
-	bh=gUTYh0Nf+FvMntd5VMXKbgLAgeHymoh7X8wpr3EUajk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n1lBL9FYllz49FBF+HFvSX1QcyXlNz/lmaYsHThjVs7fJnfFhnOtvLklMvR//HGoGOpniOEN/rEjnuCHS8RBPfJ5CYDVJ1ObiYZ4FKXUv6ExRv9bmUFmixEyiLlIxa9yM7vV/iOWZXtjKTvIXNIPsUNZnlmSSVjU1+zHp2Wnp8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 1d67b2ec8b1711f1aa26b74ffac11d73-20260729
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:fc8b8ec1-0086-4275-a254-56c3f6e61208,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:f461e7ad2c77b19f132ccb11710806ba,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1d67b2ec8b1711f1aa26b74ffac11d73-20260729
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1149324875; Wed, 29 Jul 2026 14:31:21 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: cem@kernel.org,
-	djwong@kernel.org,
-	hans.holmberg@wdc.com
-Cc: linux-xfs@vger.kernel.org,
+	s=arc-20240116; t=1785306702; c=relaxed/simple;
+	bh=IHuJABJeN+wc3l4Gx6pZS3BTtFApWSuLjOmnd1tYXVM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nbW+q1/1VoEaWrFo+DHlfn2vcnRZ5aNm7Ui48gRqS9wdQJ8tOMDUcWHa0bDMkVu32IJvrhBwyUSkOZWcSwod9xAEiKiciCxcKUJLs11bLYtJEWmppreEaWZwX8IW2t64Yj6nbVq3SmjXJJA3rOJFITME31CSHNNFCSWN51h6AGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=X4DheBIn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MxBXvtwh; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qGPjnf2g; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yGuFkIzP; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="X4DheBIn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MxBXvtwh";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qGPjnf2g";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yGuFkIzP"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C19927BBD5;
+	Wed, 29 Jul 2026 06:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1785306694; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
+	b=X4DheBInZe5lHmUC/NL0Svpds15uAiFTqvRhZas+cy3BIQkvOD0tfwy2FtC/yF2h15ouC8
+	G7R+ts3PpYIKKoLeLFGlvAJ3lgnVhdApZP10zXfQJuox9wlvHYW8cOsm0tKsfhFTBLw7EM
+	UcV9NaxbK6h1ssfl/dnFWFGZs6hWgQc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1785306694;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
+	b=MxBXvtwhisYGq1etSnkECJfeFUUvIivV0+jjtLxn7TnBvHlOBG6xg1nGFf/LeUlOgofJsy
+	wnxEE6JRfjvOqFCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qGPjnf2g;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yGuFkIzP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1785306690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
+	b=qGPjnf2gNAEwjI5YEPC44GYKB+z0VhONh0pfOROz3ogGpuLKaf6OEJ7NsardYvRnTL2zwX
+	WlbqS3zNXpKG9KUHkEVd8nRX9TRlhR3okO8UyfzbqWm0khGWU9RRJCmvdw9+TczldUa3Ni
+	LaaQbwO029Dp+XqdsVrriMUy4z+x8Xc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1785306690;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
+	b=yGuFkIzPsepSYStwSBVsTXhFnAUKJhM8lYicaRR3krY74PTqMbH2l3/aKzBMLTojlQ5u4x
+	E8StD7BFbc+Hq7Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 76806779A1;
+	Wed, 29 Jul 2026 06:31:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id J3eeG0KeaWo7XAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 29 Jul 2026 06:31:30 +0000
+Date: Wed, 29 Jul 2026 08:31:30 +0200
+Message-ID: <87qzkm5mt9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sonali Pradhan <sonalipradhan@google.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Eldad Zack <eldad@fogrefinery.com>,
+	Gordon Chen <chengordon326@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Jussi Laako <jussi@sonarnerd.net>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] xfs: check split_sectors validity before bio_split call
-Date: Wed, 29 Jul 2026 14:31:17 +0800
-Message-Id: <20260729063117.54540-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: Re: [PATCH] ALSA: usb-audio: Clamp frame size in implicit-feedback mode
+In-Reply-To: <20260728202432.2354994-1-sonalipradhan@google.com>
+References: <20260728202432.2354994-1-sonalipradhan@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.51
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: C19927BBD5
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,perex.cz,fogrefinery.com,gmail.com,kernel.org,sonarnerd.net,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-bio_split() returns ERR_PTR(-EINVAL) when called with sectors <= 0.
-The current code only checks for !split_sectors (zero) but not for
-negative values.
+On Tue, 28 Jul 2026 22:24:32 +0200,
+Sonali Pradhan wrote:
+> 
+> snd_usb_handle_sync_urb() scales received sync packet sizes by the sender's
+> stride and stores the result directly in out_packet->packet_size[i]. If a
+> connected USB device sends an oversized sync packet, this frame count can
+> exceed ep->maxframesize.
+> 
+> The un-clamped frame count then propagates to the playback endpoint queue,
+> potentially driving packet transfers beyond the endpoint's hardware frame
+> limits.
+> 
+> Cap the calculated frame count against ep->maxframesize in
+> snd_usb_handle_sync_urb() to prevent oversized packets from entering the
+> playback queue.
+> 
+> Fixes: 28acb12014fb ("ALSA: usb-audio: use sender stride for implicit feedback")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Jetski:Gemini-3.6-Flash
+> Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
 
-bio_split_rw_at() can return a negative error code (e.g., -EINVAL,
--EAGAIN) when the bio has alignment issues or REQ_NOWAIT is set.
-A negative value bypasses the "!split_sectors" check because negative
-values are non-zero.
+Applied now.  Thanks.
 
-If we proceed with a negative split_sectors, the left shift operation
-(split_sectors << SECTOR_SHIFT) is undefined behavior for signed integers
-in C. Even if the implementation somehow handles it, the subsequent
-ALIGN_DOWN and bio_split() calls would receive invalid input.
 
-Fix by changing the check from !split_sectors to split_sectors <= 0
-immediately after bio_split_rw_at() and before any arithmetic operations.
-This prevents both the negative error code propagation and the undefined
-behavior from left-shifting negative values.
-
-When NULL is returned, the caller's while loop naturally terminates,
-which is the correct behavior for "cannot split" cases.
-
-Fixes: 080d01c41d44f ("xfs: implement zoned garbage collection")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/xfs/xfs_zone_gc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/xfs/xfs_zone_gc.c b/fs/xfs/xfs_zone_gc.c
-index f76a09130852..e00f4771e424 100644
---- a/fs/xfs/xfs_zone_gc.c
-+++ b/fs/xfs/xfs_zone_gc.c
-@@ -802,7 +802,7 @@ xfs_zone_gc_split_write(
- 
- 	split_sectors = bio_split_rw_at(&chunk->bio, lim, &nsegs,
- 			lim->max_zone_append_sectors << SECTOR_SHIFT);
--	if (!split_sectors)
-+	if (split_sectors <= 0)
- 		return NULL;
- 
- 	/* ensure the split chunk is still block size aligned */
--- 
-2.25.1
-
+Takashi
