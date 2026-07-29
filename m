@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DAE3B1EE2
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D9D44D020
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785323849; cv=none; b=NraKo6ELt39E7qehiSNl4QVew3q/hFBHNrKa8LfTR+I/WRGqyZhvzCtobi+svvcRoxoLxmijGw3V6iMeqF9A5ol9WviFzIcA0neW/cUpfO2Ot3rUp/wi/IAaIe5JJ967k4zapD2MtrsYFmy5b92+6klwV9JEfCPfAUNibUjUTD4=
+	t=1785323852; cv=none; b=bjATw1u4k/3FCWBudXA4BzSsIVkYrPe78JeLHzUf5KqSZdvX3IAGhjIoJQJa3egKVgEUJLmcObG56WiRyeDaS09k15vF0yq2LubG9HC7cXSNSjPV1dT+PgYMj7U1PxckGZNBKN0w/TyrQNmWUuXAXSrXwYI0ePByYwoig/FHURA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785323849; c=relaxed/simple;
-	bh=76MxRxWmOx9UBtONAR6Keq3uI60wQWAq0syJTdd4s7k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HTeps263zflj1WdxPR2yceqRsoMiOUPCU2YC97umQxVEo4Z0DHa5oybZgkgtac0BDf+JVp19hyACy5qKqQsrJkk1Qgb/k8Yik7CjdgqxCIqdn/QlMLApnhVko1VQq01/PjlEnGyX7de3k7iOkA9K0itvMc2cUPR0tHUGmctBNVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vRwR+HvE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785323852; c=relaxed/simple;
+	bh=E5HAX7Fz0+bWkqQPptg9GFUaYqc/tCpMvB3MP11v55c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PB0U15uNhHZJYnYIBZmWalBv6t9cFlwNVpmkpvGgBvhWt4Gvtr80YpFzFmMiIVnAzfn51Vp6Mpvu8/W5fe1KBv6MXmObTPHvCne8nsSg/QUbDuYRWZKh8Wt49eroJuYSJhN+IhgO+e22QODVSNAmoOriUYm4eIYf9a596gPuREM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nnt23KGD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vRwR+HvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4791D1F000E9;
-	Wed, 29 Jul 2026 11:17:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nnt23KGD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12FCD1F000E9;
+	Wed, 29 Jul 2026 11:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785323847;
-	bh=WQxQDTYLaNl1gixbJmLSqmhwwxXoRjtdLmdUSBHTmDY=;
+	s=korg; t=1785323850;
+	bh=M5neYIavvRGdGyTPfRuKVHhxoH53XhUKwsOTkEi6uFQ=;
 	h=Subject:To:Cc:From:Date;
-	b=vRwR+HvEgLg7hdaiK4STe11ymCpo+AVyxK1xX3xAp0zJEczZ9jS0jUkVUF5QgFEQK
-	 wesTODpzaBry1HYWz2t/OF5h15AoEewNE0f5R6jojbOmWTYKJasLqrvdj9cgJF9E6x
-	 dRgptdujPYhSLigcsgV//GbHBig9qtgjnB8Bt0Eo=
-Subject: FAILED: patch "[PATCH] drm/i915/hdcp: require monotonically increasing seq_num_v" failed to apply to 5.15-stable tree
+	b=nnt23KGDEela69dJBfqyoa4bfPeGlxGY+lz4S+E4i/AxSWJMefAQz5kqPJXSFH87C
+	 Q6a8WcMp3NG6N9Fxy+XZjgQvbDvofaT84e0l+nIE/ua2JucxDH0wZiN+rsJGQVzDTQ
+	 6ewbRymPTgipgHCiAkYR8N25Mkj87hr3yr4OLHmw=
+Subject: FAILED: patch "[PATCH] drm/i915/hdcp: require monotonically increasing seq_num_v" failed to apply to 6.6-stable tree
 To: jani.nikula@intel.com,joonas.lahtinen@linux.intel.com,martin.hodo@intel.com,suraj.kandpal@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 29 Jul 2026 13:17:05 +0200
-Message-ID: <2026072905-drainable-smolder-6384@gregkh>
+Message-ID: <2026072904-impaired-parking-52fc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x db9e64c983dcb07ff256bd455f258c44aa530ff8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072905-drainable-smolder-6384@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072904-impaired-parking-52fc@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
