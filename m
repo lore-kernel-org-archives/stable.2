@@ -1,44 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408782BDC23
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:35:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E34222B594
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785296150; cv=none; b=qc9aYCtHpO8Xwcdhl/jJMu1413dwrU99H7aFTOtdm1g9XUHa2+rPI/0UlkjkeinGppcObShyWwFl+sCPUApPeLCJa5d8LQO9r+ymb+dxlgQjuWMWcHV6d2JaTRLf/TczQENe7mnAjWdQQ9wyg2erV0xK2ucBYwEIqZnxaLRdakk=
+	t=1785296892; cv=none; b=WsHWBddeOQnRd573DloG6QOZVhGCM3UwXLXq46oni8/1oqDdx9u+emSnxAC5ci5FFdaFB1z1PfHcWSZKe/7hy9TAJ2A62XhwcOtMDFESbsf8W7c4bOKr2kJL1X+WHBF4SeFWsD2qbyf07FgkyGDcgzrSxUbwuOFjOVZgo9oqQ08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785296150; c=relaxed/simple;
-	bh=hv1BbaK9NYnr3/8WS8iJT3Sqa7QMm0v4gauUj/giG/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iZkvZNhaExXFadCsgECWsZWm/X0njLDLQ+oF5UvXHn9Zrf56bUIJfQLGMf2CA7jlCo5bfaW4+u4/KdkDqzIU8jjTtGlEi0S9HUWmNlIGoMtNWF8B4KgXC6ELpAa4FvxP8YDdeN8LlorhQzZlvWogCkUhMYvMcTVloT97APM/bfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpklrB4E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785296892; c=relaxed/simple;
+	bh=P9nGJR3wq037sbZ4BCSnVggh+4PFS3z4B0EBS37VO8g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rZzcD1EPThq/yoP7Ex7ckhEdnFbyAsWHA+/25umnuRS3X6AJyzYudtv6yt4O74tE5K/yEeVFkHZ/fUD2sy/hafO7tuTGO5p6Qky9TksBYxZxHvUsozRP5vEm+SZWd62WsNBw9ifGrdRq81WKpjRHyfvkIpIqAuyDsPWtAAV68wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mIQ65k8/; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpklrB4E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DBE61F000E9;
-	Wed, 29 Jul 2026 03:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785296148;
-	bh=+7Go37gtU98cFLZaflYEpxWrUw0sh+lHQZKjYfL3U8c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WpklrB4EIRd4CX1LpvERxygGDlMQLMPTrJktxp6x9NhahcdSTW1Q2TuJumZfkHX3S
-	 gkBv52nmnlSxTEhi1PiZN9GfttAmM8j4uTqFbwslWBk7g3kcdQBKBURRlPPWxapN+R
-	 fFRjM9srWNdEkMBTK2xSywTP39176EQ8awxt7/XzsgZzJ9dPGxDixpQorWsALD0RBn
-	 OjQanAhavtAyF5IMZoaSY8/03IxGmooJOQNQjTYiQLOZdYD0hWpsj1HNlau1XXQnth
-	 4om+NMLja45nl7LMsb5p8raSA9JMpqrkM4j8CUVijIixE/dSi/XjH/ATG27zDFhVT8
-	 VzCZbZtWAXyeA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Haoxiang Li <haoxiang_li2024@163.com>,
-	Larysa Zaremba <larysa.zaremba@intel.com>,
-	Alex Elder <elder@riscstar.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mIQ65k8/"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ce7d2adef4so8063675ad.3
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 20:48:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785296890; x=1785901690; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j4mXarqLChjkLTj7P6sDrdVZlpiC+6o8xzReS9GjIp0=;
+        b=mIQ65k8/ChweQkNT0a0PXC6I5OSBPAEofmc665+CgmRnfXELV1iNhpmjNH1qLF82fF
+         qLMSNNQzcwnGONLuiwxBZk3V5n3vlRAy7azeqPSq1th890LyhLqMS1hvZ7fYIf8iPXIT
+         e9gczM6Io75ZCIQvloUJWuMSQBcV7gs4xDnvH7LTH6AIxNcG8VVMyKqZuU64vMl7M7bN
+         2aRvIvZaBsM+yzUY+56DIEdfmPTXon7xsqL3OsGxpIlygwhDG7sU41u/0CE7JlvTHQcb
+         YetRHpV/UiEBKl9RAVjKUwejO/GuzlbDWa9cl74JmroWXGzNfYqcGQZoZ5xZzaeElXpz
+         VSjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785296890; x=1785901690;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j4mXarqLChjkLTj7P6sDrdVZlpiC+6o8xzReS9GjIp0=;
+        b=bqiUI8AKkmFum14WxGJnpB8LiFG9umcVVruWjeeLKtdXnyQUHKwhOQ9K5HjUyHfgPw
+         JDbM9x1ekZEPIxIgx+Sfqq+18u1izWD6P9vWZaQV+JOoABxg2/3cSDJ74dW1e4ocJGsu
+         zSddiJFpQXVmP9et9O0xk2qfkSi5xqUYmAGprbPpMnRmdH3NYA69AZv1rlHG4Js6mxKA
+         PnWiqdZD4YOQqFPf6fQ4N7TDiw/zxr2m9Xmf76HjWoVsitaHqjUPwAStdKz6NCgCPUL3
+         HR+MdUWsyw38jmRSDLs38UoMJsG+8tQ7zMKtCwA3uLtM6fW54AyullxY+cz96dHlRL27
+         Kucw==
+X-Forwarded-Encrypted: i=1; AHgh+RpFBRQIVXjY4sm8LX2Rxj8AbZ3rB8y1SNOmIj3bpkYZISNYusyp5h00LPpqrhw9TIQC/QEOw4o=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMT0V6hnzQVOr4hN8WkdjBM4X1+ltHCKFqBxQWUZ9V1mSS4mRo
+	KrX3KE4BqZpqYe+aXZKSxKv0zmpmK+OVyZGTPJNqSkHln/TZuEVrDdCX
+X-Gm-Gg: AR+sD13cDi91u8EpH67jR99UyBuKIf6/ELzc5MDGWK1uw2eW95giDj+1QpUYYx8lOQ5
+	YiBOczfR0bzfGn/PRljtEma77gl2PzQjrf9A7FXX3kHwjj/sJZkaTxHeCli+0+JfRzGNbPnW6iw
+	o5TlLzOP26tw71HuHmt2iwHoFuF2NcwuHcHDxdTGk2hgabciOmVDpqlg/dtYqjZYXLXFwkSsfMz
+	IW+uP6gremccC+UMyXPLxlDQ27auJflrV2RyMgNrxE/R97YDPKRSC6FY5VAL/NDRJRXYtzejIYv
+	TrtLW/bYsys5/1olNg8scR+X8bP7Jm1+qglHhkhdsqVCx8b0rdWwOXZgasJoyGFgfXNS7OHLG40
+	0gKxuNly32Nn3bvXCml2dV+GRJV8yJoMNPolRwcCJ3eGJbxk5LewDbnsaqvPvzXT7a9ojuqVPua
+	JqsAStB/Sww2d8PzF7LMdzRmEJCPOtx3evHnje50/6shz8tPQX5TmNbyeYu7Vt6V99O1P9ZaC1I
+	voFciEV9w==
+X-Received: by 2002:a17:903:3c68:b0:2cc:ffa6:4622 with SMTP id d9443c01a7336-2d016052725mr68562065ad.41.1785296890050;
+        Tue, 28 Jul 2026 20:48:10 -0700 (PDT)
+Received: from localhost.localdomain ([116.105.227.66])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022a15215sm4544985ad.8.2026.07.28.20.48.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 20:48:09 -0700 (PDT)
+From: Yuejie Shi <syjcnss@gmail.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net: ipa: fix SMEM state handle leaks in SMP2P init
-Date: Tue, 28 Jul 2026 23:35:45 -0400
-Message-ID: <20260729033545.1286767-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072133-buffalo-cortex-74ca@gregkh>
-References: <2026072133-buffalo-cortex-74ca@gregkh>
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	YOSHIFUJI Hideaki <yoshfuji@linux-ipv6.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net] ipv6: fix Route Information option length validation
+Date: Wed, 29 Jul 2026 11:47:19 +0800
+Message-ID: <20260729034806.58923-1-syjcnss@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,90 +81,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+rt6_route_rcv() validates the Route Information option (RFC 4191) length
+against the prefix length, but both checks are off by one.
 
-[ Upstream commit 96ca1e658ae459276292bd6d971ab5d8c7e0379a ]
+rinfo->length is the ND option length in units of 8 octets and it
+*includes* the 8-byte option header, so an option carrying N bytes of
+prefix has length == 1 + N/8.  RFC 4191 section 2.3 requires length 3
+when Prefix Length is greater than 64, and 2 or 3 when it is greater
+than 0.  The code accepts length >= 2 and length >= 1 respectively.
 
-ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
-qcom_smem_state_get(). However, neither the init error paths
-nor ipa_smp2p_exit() release them.
+ipv6_addr_prefix() then copies prefix_len/8 bytes out of rinfo->prefix,
+so a Router Advertisement with (prefix_len=128, length=2) or
+(prefix_len=64, length=1) makes the kernel read up to 8 bytes past the
+end of the option.  Those bytes end up in the prefix of the route that
+gets installed, so they are visible to userspace:
 
-Release both handles with qcom_smem_state_put() in the init
-error paths and in ipa_smp2p_exit().
+  # RA with a Route Information option (prefix_len=128, length=2)
+  # followed by a source link-layer address option, 01 01 de ad be ef ca fe
+  $ ip -6 route show
+  2001:db8:dead:beef:101:dead:beef:cafe via fe80::1234 dev veth0 proto ra
+                     ^^^^^^^^^^^^^^^^^^ the next option, read out of bounds
 
-Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
+When the Route Information option is the last one in the packet, those
+eight bytes come from the skb tail room instead.
+
+Reject the option lengths RFC 4191 does not allow.
+
+Fixes: 70ceb4f53929 ("[IPV6]: ROUTE: Add experimental support for Route Information Option in RA (RFC4191).")
 Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
-Reviewed-by: Alex Elder <elder@riscstar.com>
-Link: https://patch.msgid.link/20260624065955.2822765-1-haoxiang_li2024@163.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ kzalloc_obj() context line kept as kzalloc(sizeof(*smp2p), GFP_KERNEL) since ipa_smp2p.c was not yet converted in this tree ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
 ---
- drivers/net/ipa/ipa_smp2p.c | 30 ++++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
+ net/ipv6/route.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
-index 2112336120391c..5030e23df1eed4 100644
---- a/drivers/net/ipa/ipa_smp2p.c
-+++ b/drivers/net/ipa/ipa_smp2p.c
-@@ -233,19 +233,27 @@ int ipa_smp2p_init(struct ipa *ipa, bool modem_init)
- 					  &valid_bit);
- 	if (IS_ERR(valid_state))
- 		return PTR_ERR(valid_state);
--	if (valid_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (valid_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_valid_state_put;
-+	}
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index fc42d67e5822..5968ce5ad150 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -988,13 +988,13 @@ int rt6_route_rcv(struct net_device *dev, u8 *opt, int len,
+ 	} else if (rinfo->prefix_len > 128) {
+ 		return -EINVAL;
+ 	} else if (rinfo->prefix_len > 64) {
+-		if (rinfo->length < 2) {
++		/* RFC 4191: Length MUST be 3 when Prefix Length > 64 */
++		if (rinfo->length < 3)
+ 			return -EINVAL;
+-		}
+ 	} else if (rinfo->prefix_len > 0) {
+-		if (rinfo->length < 1) {
++		/* RFC 4191: Length MUST be 2 or 3 when Prefix Length > 0 */
++		if (rinfo->length < 2)
+ 			return -EINVAL;
+-		}
+ 	}
  
- 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
- 					    &enabled_bit);
--	if (IS_ERR(enabled_state))
--		return PTR_ERR(enabled_state);
--	if (enabled_bit >= 32)		/* BITS_PER_U32 */
--		return -EINVAL;
-+	if (IS_ERR(enabled_state)) {
-+		ret = PTR_ERR(enabled_state);
-+		goto err_valid_state_put;
-+	}
-+	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
-+		ret = -EINVAL;
-+		goto err_enabled_state_put;
-+	}
- 
- 	smp2p = kzalloc(sizeof(*smp2p), GFP_KERNEL);
--	if (!smp2p)
--		return -ENOMEM;
-+	if (!smp2p) {
-+		ret = -ENOMEM;
-+		goto err_enabled_state_put;
-+	}
- 
- 	smp2p->ipa = ipa;
- 
-@@ -290,6 +298,10 @@ int ipa_smp2p_init(struct ipa *ipa, bool modem_init)
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
- 	kfree(smp2p);
-+err_enabled_state_put:
-+	qcom_smem_state_put(enabled_state);
-+err_valid_state_put:
-+	qcom_smem_state_put(valid_state);
- 
- 	return ret;
- }
-@@ -306,6 +318,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
- 	ipa_smp2p_power_release(ipa);
- 	ipa->smp2p = NULL;
- 	mutex_destroy(&smp2p->mutex);
-+	qcom_smem_state_put(smp2p->enabled_state);
-+	qcom_smem_state_put(smp2p->valid_state);
- 	kfree(smp2p);
- }
- 
--- 
-2.53.0
-
+ 	pref = rinfo->route_pref;
+--
+2.51.0
