@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6354C44CF25
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0D847124A
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:59:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322773; cv=none; b=XYY9NbY9ZQu9eKFpMWE0Dyh3v3uSb+kzDdEUCWhVaYkgjZWVF1IDFLG7DJstlnrOKptcKKUk7aVLUfJNda+5oYNLGiLq5hRnN+H/a2R1BY1DXdhQ56sgR4YdqzzH/c5Ga+FPWwOMKcmNbCuf0veTXUFnoUYI83EwBPw85E13A3k=
+	t=1785322786; cv=none; b=N6Yh49x3WAekHv41L6VtdgxHPmHa/8s/3Z/qT19mI1AX44bwVfWbI1objmcvMpVYcNUjA5Wr9fgkSuiXJpqHztzs5tdve9evBOqjF6utED4UIPPchMe3pZRe3qfXKrEQiH97z7tQ3FtATCtv29nfrHh0SYgmvaN915GNSgVGGgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322773; c=relaxed/simple;
-	bh=W7bib5aRjOZETZySnFwhuUirrrDagFI4hgvaU4i4szI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UTXHU7EYE1B+k1hSNH6I+0q7T9LgJLiZCneEe+XoYY6SSKslXwgjoZ1HVjU9RDYCVqnCG1UFMBQ6obhlb4UMvQD/NHeCMzZxMX5wAag6XOaWoDmL+dcLjYUTmXzJRGJfPhWfA89rOlqsPZPkW0ijBEfPa1pCOH80S1Bg23ToRt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CNbg1sh6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785322786; c=relaxed/simple;
+	bh=O6UbXAL3ENiwBiHqfq+MOpNtbQXaRYnCryajjknWZ/E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eogyE3sr6pJBO0uzbpiun8Kf1CZmwep6emo5X0/cC6Xz5gIdjdoiE8g8kA8z25hz9GYgt0zE0pMsKEFdgy/4ntItLAUh8eoqrEckibbMU/RDq6HDUsPXfOOxxgWH0HqRz/vT9tyI+X0jpgmITfbLV+GRHVsK0kL3JLhWfXoLjm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RSz5si4S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CNbg1sh6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2AFB1F000E9;
-	Wed, 29 Jul 2026 10:59:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RSz5si4S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560A91F00A3D;
+	Wed, 29 Jul 2026 10:59:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785322772;
-	bh=L0iBK3j2W+QThWUpR5aMv3NQCuN1BCkSbvv9N8rW75s=;
+	s=korg; t=1785322784;
+	bh=y5LikXq8ezR6dCOZG0mW/Brd7Jb+woraps+iVIAGBFw=;
 	h=Subject:To:Cc:From:Date;
-	b=CNbg1sh6mB/rVECB6uVsBW5VzwOYCyyvnq5YmIrI7bx8DOKc09su3MaJ+77UmrqpP
-	 KEDdv/sBrBtYcnhAcHRNZMeJxKUKmpaaZsKdQQA9CAbQEzkA4oqM8iuG2VLa1eCIgm
-	 IKutkcOBnYszSFum9ZYFAi352alcrcZVQ9kFmkcM=
-Subject: FAILED: patch "[PATCH] drm/xe/rtp: Save OA nonpriv registers to register" failed to apply to 6.12-stable tree
+	b=RSz5si4SN0iNQqDkUqbYdVElV587WDfO4YvkGzPlphY9NFgV+Iiud6IIjy2Ep9aQ9
+	 1/S9A57+uRqij/TsjGijRoBaTfxcj/y+2z68loM4shxNUqAsEK4aMgrRiK1OaXpNa0
+	 pSEWlGurpWsBW82MWjrIUga9W/swoMg6zcOkNuSA=
+Subject: FAILED: patch "[PATCH] drm/xe/rtp: Keep track of non-OA nonpriv slots" failed to apply to 7.1-stable tree
 To: ashutosh.dixit@intel.com,thomas.hellstrom@linux.intel.com,umesh.nerlige.ramappa@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:59:10 +0200
-Message-ID: <2026072910-recall-clip-831b@gregkh>
+Date: Wed, 29 Jul 2026 12:59:31 +0200
+Message-ID: <2026072931-empathy-rifling-1aa1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x a19a83721a28ccaddace846da70da5c53d7dd052
+git cherry-pick -x 60d49ea28bb190a640bd8dc3f4c946e0811a948c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072910-recall-clip-831b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072931-empathy-rifling-1aa1@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,56 +62,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a19a83721a28ccaddace846da70da5c53d7dd052 Mon Sep 17 00:00:00 2001
+From 60d49ea28bb190a640bd8dc3f4c946e0811a948c Mon Sep 17 00:00:00 2001
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Date: Mon, 15 Jun 2026 15:42:23 -0700
-Subject: [PATCH] drm/xe/rtp: Save OA nonpriv registers to register
- save/restore lists
+Date: Mon, 15 Jun 2026 15:42:21 -0700
+Subject: [PATCH] drm/xe/rtp: Keep track of non-OA nonpriv slots
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Now we can save OA whitelisting nonpriv registers to register save/restore
-lists. OA nonpriv registers are saved to both hwe->oa_sr as well as
-hwe->reg_sr.
-
-During probe, resume and gt-reset flows KMD will apply hwe->reg_sr,
-ensuring OA registers are de-whitelisted after these events. For
-engine-reset, hwe->reg_sr is registered with GuC and GuC will apply these
-registers, ensuring OA registers are de-whitelisted after engine resets.
-
-hwe->oa_sr is used for whitelisting or de-whitelisting OA registers during
-OA operation, by toggling the 'deny' bit on oa stream open/close.
+In order to dynamically whitelist/dewhitelist OA registers on OA stream
+open/close, we need to keep track of nonpriv slots occupied by non-OA
+register whitelists.
 
 Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
 Cc: stable@vger.kernel.org # v6.12+
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Link: https://patch.msgid.link/20260615224227.34880-6-ashutosh.dixit@intel.com
-(cherry picked from commit 3a3c3e56db2923daaf1a5353cd6463a4cdaf4ffa)
+Link: https://patch.msgid.link/20260615224227.34880-4-ashutosh.dixit@intel.com
+(cherry picked from commit 15739920b71ef3c56868973b4e7e3164a793d09d)
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
 diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-index e9d0a0b82527..76ac23644a4d 100644
+index 6d642c2f6fd7..b5ae7d26e5ba 100644
 --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
 +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-@@ -215,6 +215,18 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
- 	first_oa_slot = whitelist_apply_to_hwe(hwe, &hwe->reg_whitelist, &hwe->reg_sr, 0);
+@@ -161,7 +161,7 @@ static const struct xe_rtp_table_sr oa_whitelist = XE_RTP_TABLE_SR(
+ 	},
+ );
  
- 	xe_rtp_process_to_sr(&ctx, &oa_whitelist, &hwe->oa_whitelist, false);
+-static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
++static int whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
+ {
+ 	struct xe_reg_sr *sr = &hwe->reg_whitelist;
+ 	struct xe_reg_sr_entry *entry;
+@@ -193,6 +193,8 @@ static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
+ 
+ 		slot++;
+ 	}
 +
-+	/*
-+	 * Save oa nonpriv registers to hwe->oa_sr, from which oa registers are whitelisted
-+	 * or de-whitelisted, by toggling the 'deny' bit on oa stream open/close
-+	 */
-+	whitelist_apply_to_hwe(hwe, &hwe->oa_whitelist, &hwe->oa_sr, first_oa_slot);
-+
-+	/*
-+	 * Also save oa nonpriv registers to hwe->reg_sr, to ensure oa registers are not
-+	 * whitelisted by default after probe, gt reset, resume and engine reset
-+	 */
-+	whitelist_apply_to_hwe(hwe, &hwe->oa_whitelist, &hwe->reg_sr, first_oa_slot);
++	return slot;
  }
  
  /**
+@@ -206,9 +208,10 @@ static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
+ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
+ {
+ 	struct xe_rtp_process_ctx ctx = XE_RTP_PROCESS_CTX_INITIALIZER(hwe);
++	int first_oa_slot;
+ 
+ 	xe_rtp_process_to_sr(&ctx, &register_whitelist, &hwe->reg_whitelist, false);
+-	whitelist_apply_to_hwe(hwe);
++	first_oa_slot = whitelist_apply_to_hwe(hwe);
+ 
+ 	xe_rtp_process_to_sr(&ctx, &oa_whitelist, &hwe->oa_whitelist, false);
+ }
 
