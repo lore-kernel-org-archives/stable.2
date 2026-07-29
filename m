@@ -1,226 +1,260 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76817486BB0
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:44:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7096947DFBB
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336277; cv=none; b=YIYf+nQOpZOWf8M9DiYJdAMVuC5vCO/8rfmmBsvdBEWApeyaZrkHTx4+yk/smtnrV82nBPrB3eHKOHnyZRG8Td4O8i/fAr90rEVufeyNd+hE4zQavItrnH/axDgqUhkXjUNHmEqLH/RWL3z/Vfeuun7rRGbUhoGftbUEejcgMcY=
+	t=1785336306; cv=none; b=f5PrqVcENUubKNBbYxYAvadE4TueUAalcrGDeRidcT7Uimaau7+ZIfEfwSoLT/KLyeWtwh7920sP/jQGkzObLXdZte7Cpqu7Dplr3oH6fRnpMXEOTZIKvATlKCWfZHMaBkiPKNY2CLk2wkdp7ZbvMRztbinxPMxaHzITByMiDvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336277; c=relaxed/simple;
-	bh=BJS1HA8rokFIiV0ne5cRaLj+3cbfWQFKkW4X/b+NT0U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QzlcIixhJmEfvVBSAeS8IHBLURSDuJjvC5/pnVSZOMlrKxSRCEMFtrqmUSY/aulSkWvhXWElgh3rUIKdIes7037i7eXJdyD8gU2Va0GpAqdiJ1/scxEJFcWNdzoLXYYQfITJxW37EFuDsZmDR9ooPPE3RetI3oqUqFKcPlmxQKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YNWcPWPn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LdpwD0qW; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785336306; c=relaxed/simple;
+	bh=QT9zMD5G8nLpycaF6mJQ1dh23cnzCQF2A9zDISV0QL0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FsE3+kSfSwBjUA8/BRHK95YEVccT90l9gThmxP6B86BP7KzlfwJ170RxBjfgd9Iaq/PMSBdxc7mB9WaYcroSy6e1/lvws5/yakprlSRh32erbHqajlI9q6jNAa+takK4MpMS/8IF94fWwxLCkMTIt8S+AHso76ZvJD/CUO5a99k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ULjNCaWa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YNWcPWPn";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LdpwD0qW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785336274;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5H5BXZFmwChe72ax9v3fx7rbm4FIcGAxuXQx1+sJiZI=;
-	b=YNWcPWPn9bvAPNDTNyD2ILT5WLEI7d/1jOq4dpgpaLzenlwxMGF/XU2WLVa/vLq1u6VZKJ
-	g+ZOI/W2pWL6E13TVrj9aatcGZ3t2u3miOaCvVp26h4zpIWMhRQCJrx2qQ02AyOdegEs7j
-	C/6E8lnswo7449EYUtRc1NypluOrXHU=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-281-zyFM9dhPN5GZ061D6nKQew-1; Wed, 29 Jul 2026 10:44:33 -0400
-X-MC-Unique: zyFM9dhPN5GZ061D6nKQew-1
-X-Mimecast-MFC-AGG-ID: zyFM9dhPN5GZ061D6nKQew_1785336272
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4955e865174so6439065e9.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 07:44:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785336272; x=1785941072; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5H5BXZFmwChe72ax9v3fx7rbm4FIcGAxuXQx1+sJiZI=;
-        b=LdpwD0qWphlkCEBxQYrOyS6FkvxzQKoLILQlGrnVFFL763mILU1nefBW7SlHcpU+F6
-         PjsWBFtIiA5eajvFseDlOKCMEAcaW5LJFbXiUOBs74aiww/s+Z87klLkY/Y+rhzwSR8k
-         r37Lha8dRLpCV3ekeHsespKsfqWahPFrN2YlbPI7ad38HSW684mQYfpFwdyhNZcI8ra+
-         uGqzah5sS2rSy9osSn3Gx5X54MNQCKUqy6sM6s7R2OU340BUNGqWlJeiKkdZOPY+F/MX
-         2lpxXmvTyYOGArBoPERg7O/d40hNo1FtNK6OpUs4P7806N6wrqoMsJIsyTA64/53k5Kk
-         EVzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785336272; x=1785941072;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5H5BXZFmwChe72ax9v3fx7rbm4FIcGAxuXQx1+sJiZI=;
-        b=lAshUdXCYBKLdilWJcX3TaER8erMEijr4aQM6P+w2ixYI5asF2mqnNlPL1w+sUho46
-         WFHMw53FEXweIRUt6iKZRxJR6XFNSfdiZlHpBMjXEeUQsaDjO539D6M6/8XpGvhdc1zS
-         /gLAsu88ta34DX0xnZdeHagO3e+ozY1+luHC50XosCTCq8XBG4Q9YuskHDlKjJKvMjkE
-         vM7A4/hemAOWWWlgB2dtESJTA59ME37xloXsrR0yE+CjNLYNY14BRx55XAbSlVquJVLn
-         KCiDUKkE6/4Kz58/Vb0qVGmYvQqveYdUut7/yJhAdmr8/j22wS2HSRCVGHe0w4zAsUEs
-         x2aA==
-X-Forwarded-Encrypted: i=1; AHgh+RpH+GY1HUf48tYIsYJSsbd7Hc/gMt33R7EfaVN2hfrq9SFAsuahdSnzAImhQnjNYb09Jkzum+0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxkgfWqopigJGgeY6CuLR030HgqX26x7dc+qEJMiITLJ/YlqgCu
-	05gfCUdn9fs/bSxsPT19ygOthbaBWbThI9t/ttlcKYCWKP+ez0baba5VFmOlE716xAYc1vz6y53
-	2vQ2/CDWezLbRr1/mxZiOBmPGzbVol8s5pI/pjUMKJj9Ke8+3t43r5N36Qg==
-X-Gm-Gg: AR+sD11sLyLqoXPVqNGcsbM+bG2uOgwtZtgdfnmrw6cLaEeT9rbBWFAmXUL+7JPQ/vp
-	MBCVb0Wg/OKhidrzYBj4WoA3FbLxYxspXaopGBJ3FYAt0Aqj3T65Dit8IBx2PN/5OeLSZJBrOHV
-	lAuwrsUcH/hiIiiYVo8m5uFYY5/kvrrKH32R7DaCqm+aTieWlsYf8yIJ7oH9oV8l4vk58492dB7
-	nk1wOysaagmE9/TbD1Bv1d90inHXlpJHFp7i8nkjpMkxNsIub8a2nYVuweh5GaW9FVrd36wvILE
-	JW/KE+aNnrxMaGOLPABKxpN9SCwbtBc1nJW2KbzJlZb9lzaHJLd8/ET/NtH/CwQzQ7/mesb5gUk
-	cg8iBV12qBdM1kUM3EcweAT0p7G09KemFwYTiGUelszo=
-X-Received: by 2002:a05:600c:c162:b0:495:7285:a498 with SMTP id 5b1f17b1804b1-496c656540fmr82603485e9.18.1785336271620;
-        Wed, 29 Jul 2026 07:44:31 -0700 (PDT)
-X-Received: by 2002:a05:600c:c162:b0:495:7285:a498 with SMTP id 5b1f17b1804b1-496c656540fmr82603015e9.18.1785336271121;
-        Wed, 29 Jul 2026 07:44:31 -0700 (PDT)
-Received: from sgarzare-redhat (ip139-137-192-82.pool-bba.aruba.it. [82.192.137.139])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4976bd52f3fsm36693245e9.0.2026.07.29.07.44.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 07:44:30 -0700 (PDT)
-Date: Wed, 29 Jul 2026 16:44:23 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
-	Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Subject: Re: [PATCH] vsock/virtio: prevent workers from using deleted
- virtqueues
-Message-ID: <amoPm0aVfnadsJaF@sgarzare-redhat>
-References: <20260727035804.1860862-1-bestswngs@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ULjNCaWa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F4B1F000E9;
+	Wed, 29 Jul 2026 14:45:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785336303;
+	bh=G6u30/ZyTk8aE46Kvww/xvAlspFLjFUJujhDV2Xs1eo=;
+	h=Subject:To:Cc:From:Date;
+	b=ULjNCaWazXQq19RwzSeItXzKteje16dwiGTKJSPMNL8pOJXiBfnzn5hdGRrej+8xq
+	 yEq67m6gC7g9MhzeoE/P+8Zw/tBmxvh3mnqFQEqFeYIDKJbn3oCDFXBV2CCqG0v/Go
+	 u75De71a50+Fa6zATZ2uDseR+eLu07w+g9wSUUSk=
+Subject: FAILED: patch "[PATCH] openvswitch: fix GSO userspace truncation underflow" failed to apply to 6.6-stable tree
+To: kylebot@openai.com,aconole@redhat.com,i.maximets@ovn.org,pabeni@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 16:44:49 +0200
+Message-ID: <2026072949-transform-lagoon-f0a4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260727035804.1860862-1-bestswngs@gmail.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Sun, Jul 26, 2026 at 08:58:01PM -0700, Weiming Shi wrote:
->The RX, TX and event workers read their virtqueue pointers before taking
->the mutex that protects the queue and its run flag. A work item delayed
->across freeze and restore can therefore retain a pointer deleted by
->virtio_vsock_vqs_del(), observe the run flag for the replacement queues,
->and use the freed pointer.
->
->RX has an additional path: when rx_run is clear, the common exit still
->refills the RX queue. A queued worker can consequently call
->virtqueue_add_sgs() immediately after freeze deletes the virtqueues.
->
->BUG: KASAN: slab-use-after-free in virtqueue_add_sgs
->Read of size 4 by task kworker/2:1
->Workqueue: virtio_vsock virtio_transport_rx_work
->Call Trace:
-> virtqueue_add_sgs (drivers/virtio/virtio_ring.c:2796)
-> virtio_vsock_rx_fill (net/vmw_vsock/virtio_transport.c:332)
-> virtio_transport_rx_work (net/vmw_vsock/virtio_transport.c:701)
-> process_one_work (kernel/workqueue.c:3314)
-> worker_thread (kernel/workqueue.c:3478)
-> kthread (kernel/kthread.c:436)
-> ret_from_fork (arch/x86/kernel/process.c:158)
-> ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
->...
->Freed by task 141:
-> kfree (mm/slub.c:6566)
-> vp_del_vq (drivers/virtio/virtio_pci_common.c:259)
-> vp_del_vqs (drivers/virtio/virtio_pci_common.c:285)
-> virtio_vsock_freeze (net/vmw_vsock/virtio_transport.c:912)
-> virtio_device_freeze (drivers/virtio/virtio.c:658)
-> virtio_pci_freeze (drivers/virtio/virtio_pci_common.c:601)
-> pci_pm_freeze (drivers/pci/pci-driver.c:1098)
-> device_suspend (drivers/base/power/main.c:1968)
->Kernel panic - not syncing: KASAN: panic_on_warn set ...
->
->Read each worker's virtqueue under its mutex after confirming that the
->queue is running, and only refill RX while RX is running.
->
->Fixes: b917507e5ad9 ("vsock/virtio: stop workers during the .remove()")
->Cc: stable@vger.kernel.org
->Reported-by: Xiang Mei <xmei5@asu.edu>
->Assisted-by: OpenAI-Codex:gpt-5
->Signed-off-by: Weiming Shi <bestswngs@gmail.com>
->---
-> net/vmw_vsock/virtio_transport.c | 14 ++++++++------
-> 1 file changed, 8 insertions(+), 6 deletions(-)
->
->diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
->index 57f2d6ec3ffc..79cf19f58943 100644
->--- a/net/vmw_vsock/virtio_transport.c
->+++ b/net/vmw_vsock/virtio_transport.c
->@@ -346,12 +346,13 @@ static void virtio_transport_tx_work(struct work_struct *work)
-> 	struct virtqueue *vq;
-> 	bool added = false;
->
->-	vq = vsock->vqs[VSOCK_VQ_TX];
-> 	mutex_lock(&vsock->tx_lock);
->
-> 	if (!vsock->tx_run)
-> 		goto out;
->
->+	vq = vsock->vqs[VSOCK_VQ_TX];
->+
-> 	do {
-> 		struct sk_buff *skb;
-> 		unsigned int len;
->@@ -451,13 +452,13 @@ static void virtio_transport_event_work(struct work_struct *work)
-> 		container_of(work, struct virtio_vsock, event_work);
-> 	struct virtqueue *vq;
->
->-	vq = vsock->vqs[VSOCK_VQ_EVENT];
->-
-> 	mutex_lock(&vsock->event_lock);
->
-> 	if (!vsock->event_run)
-> 		goto out;
->
->+	vq = vsock->vqs[VSOCK_VQ_EVENT];
->+
-> 	do {
-> 		struct virtio_vsock_event *event;
-> 		unsigned int len;
->@@ -634,13 +635,13 @@ static void virtio_transport_rx_work(struct work_struct *work)
-> 		container_of(work, struct virtio_vsock, rx_work);
-> 	struct virtqueue *vq;
->
->-	vq = vsock->vqs[VSOCK_VQ_RX];
->-
-> 	mutex_lock(&vsock->rx_lock);
->
-> 	if (!vsock->rx_run)
-> 		goto out;
->
->+	vq = vsock->vqs[VSOCK_VQ_RX];
->+
-> 	do {
-> 		virtqueue_disable_cb(vq);
-> 		for (;;) {
->@@ -689,7 +690,8 @@ static void virtio_transport_rx_work(struct work_struct *work)
-> 	} while (!virtqueue_enable_cb(vq));
->
-> out:
->-	if (vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
->+	if (vsock->rx_run &&
 
-Instead of adding this check, what about adding a new label...
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
->+	    vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
-> 		virtio_vsock_rx_fill(vsock);
+To reproduce the conflict and resubmit, you may use the following commands:
 
-out_nofill:
-> 	mutex_unlock(&vsock->rx_lock);
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 4032f8ed10fcb84d41c508dfb04be96589f78dfe
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072949-transform-lagoon-f0a4@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-And use it when we check `vsock->rx_run` ?
+Possible dependencies:
 
-Since we are taking the mutex, we don't need to check it again.
 
-The rest LGTM, but I agree with Bobby about the split, since the Fixes 
-tag here is confusing. I'll reply there.
 
-Thanks,
-Stefano
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 4032f8ed10fcb84d41c508dfb04be96589f78dfe Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Tue, 7 Jul 2026 15:16:35 -0700
+Subject: [PATCH] openvswitch: fix GSO userspace truncation underflow
+
+OVS_ACTION_ATTR_TRUNC currently stores a delta from the original skb
+length in OVS_CB(skb)->cutlen. When a later userspace action segments a
+GSO skb, queue_gso_packets() reuses that delta for each smaller segment.
+A segment can then reach queue_userspace_packet() with cutlen greater
+than skb->len, underflowing the length passed to skb_zerocopy().
+
+Store the maximum preserved length instead and bound each consumer
+against the current skb length. Use U32_MAX as the no-truncation
+sentinel so the value remains valid if skb geometry changes before a
+consumer handles it.
+
+Fixes: f2a4d086ed4c ("openvswitch: Add packet truncation support.")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Aaron Conole <aconole@redhat.com>
+Link: https://patch.msgid.link/20260707221635.27489-1-kylebot@openai.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
+index 140388a18ae0..513fca6a8e8a 100644
+--- a/net/openvswitch/actions.c
++++ b/net/openvswitch/actions.c
+@@ -837,12 +837,8 @@ static void do_output(struct datapath *dp, struct sk_buff *skb, int out_port,
+ 		u16 mru = OVS_CB(skb)->mru;
+ 		u32 cutlen = OVS_CB(skb)->cutlen;
+ 
+-		if (unlikely(cutlen > 0)) {
+-			if (skb->len - cutlen > ovs_mac_header_len(key))
+-				pskb_trim(skb, skb->len - cutlen);
+-			else
+-				pskb_trim(skb, ovs_mac_header_len(key));
+-		}
++		if (unlikely(cutlen < skb->len))
++			pskb_trim(skb, max(cutlen, ovs_mac_header_len(key)));
+ 
+ 		if (likely(!mru ||
+ 		           (skb->len <= mru + vport->dev->hard_header_len))) {
+@@ -1234,7 +1230,7 @@ static void execute_psample(struct datapath *dp, struct sk_buff *skb,
+ 
+ 	psample_group.net = ovs_dp_get_net(dp);
+ 	md.in_ifindex = OVS_CB(skb)->input_vport->dev->ifindex;
+-	md.trunc_size = skb->len - OVS_CB(skb)->cutlen;
++	md.trunc_size = min(skb->len, OVS_CB(skb)->cutlen);
+ 	md.rate_as_probability = 1;
+ 
+ 	rate = OVS_CB(skb)->probability ? OVS_CB(skb)->probability : U32_MAX;
+@@ -1284,22 +1280,21 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
+ 			clone = skb_clone(skb, GFP_ATOMIC);
+ 			if (clone)
+ 				do_output(dp, clone, port, key);
+-			OVS_CB(skb)->cutlen = 0;
++			OVS_CB(skb)->cutlen = U32_MAX;
+ 			break;
+ 		}
+ 
+ 		case OVS_ACTION_ATTR_TRUNC: {
+ 			struct ovs_action_trunc *trunc = nla_data(a);
+ 
+-			if (skb->len > trunc->max_len)
+-				OVS_CB(skb)->cutlen = skb->len - trunc->max_len;
++			OVS_CB(skb)->cutlen = trunc->max_len;
+ 			break;
+ 		}
+ 
+ 		case OVS_ACTION_ATTR_USERSPACE:
+ 			output_userspace(dp, skb, key, a, attr,
+ 						     len, OVS_CB(skb)->cutlen);
+-			OVS_CB(skb)->cutlen = 0;
++			OVS_CB(skb)->cutlen = U32_MAX;
+ 			if (nla_is_last(a, rem)) {
+ 				consume_skb(skb);
+ 				return 0;
+@@ -1453,7 +1448,7 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
+ 
+ 		case OVS_ACTION_ATTR_PSAMPLE:
+ 			execute_psample(dp, skb, a);
+-			OVS_CB(skb)->cutlen = 0;
++			OVS_CB(skb)->cutlen = U32_MAX;
+ 			if (nla_is_last(a, rem)) {
+ 				consume_skb(skb);
+ 				return 0;
+diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
+index f0164817d9b7..eaf332b156d7 100644
+--- a/net/openvswitch/datapath.c
++++ b/net/openvswitch/datapath.c
+@@ -276,7 +276,7 @@ void ovs_dp_process_packet(struct sk_buff *skb, struct sw_flow_key *key)
+ 			upcall.portid = ovs_vport_find_upcall_portid(p, skb);
+ 
+ 		upcall.mru = OVS_CB(skb)->mru;
+-		error = ovs_dp_upcall(dp, skb, key, &upcall, 0);
++		error = ovs_dp_upcall(dp, skb, key, &upcall, U32_MAX);
+ 		switch (error) {
+ 		case 0:
+ 		case -EAGAIN:
+@@ -457,7 +457,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 	struct sk_buff *nskb = NULL;
+ 	struct sk_buff *user_skb = NULL; /* to be queued to userspace */
+ 	struct nlattr *nla;
+-	size_t len;
++	size_t msg_size;
++	size_t skb_len;
+ 	unsigned int hlen;
+ 	int err, dp_ifindex;
+ 	u64 hash;
+@@ -478,7 +479,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 		skb = nskb;
+ 	}
+ 
+-	if (nla_attr_size(skb->len) > USHRT_MAX) {
++	skb_len = min(skb->len, cutlen);
++	if (nla_attr_size(skb_len) > USHRT_MAX) {
+ 		err = -EFBIG;
+ 		goto out;
+ 	}
+@@ -493,13 +495,13 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 	 * padding logic. Only perform zerocopy if padding is not required.
+ 	 */
+ 	if (dp->user_features & OVS_DP_F_UNALIGNED)
+-		hlen = skb_zerocopy_headlen(skb);
++		hlen = min(skb_zerocopy_headlen(skb), cutlen);
+ 	else
+-		hlen = skb->len;
++		hlen = skb_len;
+ 
+-	len = upcall_msg_size(upcall_info, hlen - cutlen,
+-			      OVS_CB(skb)->acts_origlen);
+-	user_skb = genlmsg_new(len, GFP_ATOMIC);
++	msg_size = upcall_msg_size(upcall_info, hlen,
++				   OVS_CB(skb)->acts_origlen);
++	user_skb = genlmsg_new(msg_size, GFP_ATOMIC);
+ 	if (!user_skb) {
+ 		err = -ENOMEM;
+ 		goto out;
+@@ -560,7 +562,7 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 	}
+ 
+ 	/* Add OVS_PACKET_ATTR_LEN when packet is truncated */
+-	if (cutlen > 0 &&
++	if (skb_len < skb->len &&
+ 	    nla_put_u32(user_skb, OVS_PACKET_ATTR_LEN, skb->len)) {
+ 		err = -ENOBUFS;
+ 		goto out;
+@@ -585,9 +587,9 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
+ 		err = -ENOBUFS;
+ 		goto out;
+ 	}
+-	nla->nla_len = nla_attr_size(skb->len - cutlen);
++	nla->nla_len = nla_attr_size(skb_len);
+ 
+-	err = skb_zerocopy(user_skb, skb, skb->len - cutlen, hlen);
++	err = skb_zerocopy(user_skb, skb, skb_len, hlen);
+ 	if (err)
+ 		goto out;
+ 
+@@ -644,6 +646,7 @@ static int ovs_packet_cmd_execute(struct sk_buff *skb, struct genl_info *info)
+ 		packet->ignore_df = 1;
+ 	}
+ 	OVS_CB(packet)->mru = mru;
++	OVS_CB(packet)->cutlen = U32_MAX;
+ 
+ 	if (a[OVS_PACKET_ATTR_HASH]) {
+ 		hash = nla_get_u64(a[OVS_PACKET_ATTR_HASH]);
+diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
+index db0c3e69d66c..696640e88fa7 100644
+--- a/net/openvswitch/datapath.h
++++ b/net/openvswitch/datapath.h
+@@ -118,7 +118,7 @@ struct datapath {
+  * @mru: The maximum received fragement size; 0 if the packet is not
+  * fragmented.
+  * @acts_origlen: The netlink size of the flow actions applied to this skb.
+- * @cutlen: The number of bytes from the packet end to be removed.
++ * @cutlen: The number of bytes in the packet to preserve on output.
+  * @probability: The sampling probability that was applied to this skb; 0 means
+  * no sampling has occurred; U32_MAX means 100% probability.
+  * @upcall_pid: Netlink socket PID to use for sending this packet to userspace;
+diff --git a/net/openvswitch/vport.c b/net/openvswitch/vport.c
+index 56b2e2d1a749..12741485c939 100644
+--- a/net/openvswitch/vport.c
++++ b/net/openvswitch/vport.c
+@@ -502,7 +502,7 @@ int ovs_vport_receive(struct vport *vport, struct sk_buff *skb,
+ 
+ 	OVS_CB(skb)->input_vport = vport;
+ 	OVS_CB(skb)->mru = 0;
+-	OVS_CB(skb)->cutlen = 0;
++	OVS_CB(skb)->cutlen = U32_MAX;
+ 	OVS_CB(skb)->probability = 0;
+ 	OVS_CB(skb)->upcall_pid = 0;
+ 	if (unlikely(dev_net(skb->dev) != ovs_dp_get_net(vport->dp))) {
 
