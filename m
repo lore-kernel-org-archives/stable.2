@@ -1,300 +1,257 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2921E4119FC;
-	Wed, 29 Jul 2026 15:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5DC3B059C
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785338612; cv=none; b=aeHaVz0q8XsT1U/XGMlvLAkgsvIPKFelmRbDFMIFMaf8/0E5gb11aodL9VgjzpTrxS/ALkNbDFzenlRQS5AhEWWuRxBaAChsubYtUOlsaKE6ofHCndJf2ZOCVKr1MDtEVtk8uOrg6n+RN7GFZFhVqovgpw4aGItREGxbzOAEmE8=
+	t=1785338649; cv=none; b=kIsGlKWxYqm5CMmSdq4zqOoKAHFgGkC7vStcVMuX0SWrgLNJzyMoq4mvNfDfmZSfrCZba7yS4+wBW+B7U5MFosApPSRRVcv17U70DPzTylEWO2a9TmT9OGJMDxhWRJC2Y/o7J/vK2xH5IzFq5UwTP8BC8n+a0H6KP5rFTsd2BJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785338612; c=relaxed/simple;
-	bh=m+1l9OCQ2499P4R8+Wp4R7hjePCcwbgglU6/3mD4C0Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YJIJVd1i59kd0EjZQb2H9uL5yN3llsQEMEpTRbUh7Pxh+3b32iFHY3HOXQ9btYFDKVuQWFLlmuvKzv74WAvgIDd0JXUSIfdPmxbxEG6epVmRzpOeRgIP5bO/KJV09ZjrHYnJMWUnEG65Zc2PqPyy+o7BzcMdn98MaeG5gd7drQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBFSt2qe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785338649; c=relaxed/simple;
+	bh=IF3mvxGJ0MO2sFrQjf9weWMiNXHfJPGDAZw23KD0uvE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sXEulLdAqqgXpGz5BXQNnHtRhdVBpdEyrGfIV2YRu84xW9pUX4/PFotPPQtIgZW8ajkDCw6LN0i1BKWP+EwNxIo3t2F/c+iYSXuSzAgU8TfGglQFfeeVHtJ0SYzVgvjqcvwzJ2KNCEV0u1hhGJq1Qwf9LMc0lPr+Drg8DjBPoO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JNiKFw7S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jRc5vjvh; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBFSt2qe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400EA1F00A3A;
-	Wed, 29 Jul 2026 15:23:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785338610;
-	bh=r9MuuVbYjlaYdf0i4Dkeotbr1VPl+bXPqXMFVzlzhH0=;
-	h=From:To:Cc:Subject:Date;
-	b=fBFSt2qeY/3kt0gbhRAaY5ee8RKqnqcqIccVvhmn+9TzMPLaCm8q3sAYgenCFiQfh
-	 JgNHHMlrVUm2WyUABqdI7uvzeLkoITf7/kw73Wyz7i2RBCD39usG9nGclmZlTY03Fq
-	 QA5lAzuVKA599SHxIAxm3gFXjHu6nyZ35YtKK4ayvRU6Wx9Zz2JM5IPtblf8WKJZDy
-	 AwBNZWP0RHZggl9RoY54rWoXyxBui9z9MyisozNu5ogAomSEOufyPvvuqw3PXsBFDX
-	 M+QkpnRTaT6XpLNuE10ifWSh5sQuccW7VxWi9fts2o6T4gezodXhAgRupuaLLnxa//
-	 QGCCMMjTU/EUQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-fscrypt@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	Christoph Hellwig <hch@lst.de>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 6.12] fscrypt: Avoid dynamic allocation in fscrypt_get_devices()
-Date: Wed, 29 Jul 2026 08:21:27 -0700
-Message-ID: <20260729152127.11918-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JNiKFw7S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jRc5vjvh"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TF2QE91961578
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:24:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=QutVvloV8VQHn81ETmUh0x
+	rjJt+7iIZspS+kx/oCaGM=; b=JNiKFw7Sqp0y9Owx1pNHYCKUqmrpEagD8Rx1Xz
+	kpY2p5aPDUc2IYTplP+kJWj2N1KpA95VKfieKxZPp5EGI/3wH2YYjnV5DsVz8MJA
+	rhp437e4+08Se1gMp1Drof2gOe0VO/d3J1SAAsKWhR3aAi7TpWyNAX5v6gYqn6e/
+	6uAaUHNIH4XgmpxAqN9JfceVjmaaD/Q7k4Oxeb1kAetCtOJbXABM9Qlz9e8abGOd
+	fmXizXnkJzGX4+FXOGA8z9GOZ3JGiVLcy7Bfsb4vOKfjEXIuOBzpxE0gRtj8UMfz
+	xWJG8Vg+sBBiiAViNUdRwQ7afMi8h75bGhauHI6yjWYOgVaA==
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqgy9130t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:24:07 +0000 (GMT)
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-81f8ba7885eso37035877b3.2
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:24:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785338646; x=1785943446; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QutVvloV8VQHn81ETmUh0xrjJt+7iIZspS+kx/oCaGM=;
+        b=jRc5vjvhbFb7ifpHuuj8l5SFLWidBz4z4/9vlGJWWYxd0EB1ZsmG+Q942JOOkx0CMB
+         ZJbeSQBjwBFpk9xYS0HAqu4X/nKLNBzrQAiM3CebALj57LSVC26NNGUmTrU/Hs7Lb4YF
+         wutFkQMmzY2KkkfQ19a2swAS/YR4m9cfo/xyhfd4ixEq/Fuei4u7iTMeW4ouIGBFc3fX
+         7mRYBT82EvjUlnlGK3doH25ZJYkarxp59Gdf8Kmhatc7oMt2k4GNPqqJe2T1oThHHcW2
+         5dVjgmobWXM6CcknEnBTHKdmz6/vhG1HAXhoFRtppo8pLPj9CrLWXbHHeeMa0s6Z88vG
+         KBmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785338646; x=1785943446;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QutVvloV8VQHn81ETmUh0xrjJt+7iIZspS+kx/oCaGM=;
+        b=Bp4qslOIzvu8jKkJUbxDVcsdBP4OS8u+1TZIVTc+/SepLAvr0g1P2PFlyhDs52INg0
+         j2mixpecybvhu5TRgjFIeZJCN2+F6v5EF5XgYredvoPWUFGz0TbXzFZ9A5MnA6frb4HU
+         C7gJXt1M543D0IZmLW/VHXs5OQH8njoie2yzjLTHhr8mxhXUtRJjyALOaxuzVLhr7Osx
+         F6TuYjVYBuuNXW8ESsiMMaziVZVLNkGx3ecV7coe5dZ29WgO+aU+UdtrnI86YBvBiuG6
+         eRNCfRCilyOWW4fyOJF1ypgOsmQuNUcshbXOweP4P+hdR7zLlEh2B9/qQgawVTIJezE1
+         oDfw==
+X-Forwarded-Encrypted: i=1; AHgh+RoTKsL/WnxNmTI44jT/aanJfwfFx6eiwEinv9F0ijClgYH8829e6CTb4kWMWoFhSbazzmMS3ao=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCSkm7Tbi6accOYRKiGXOvWeh07Ux9pe8qOu4FjynMAzFeHGJg
+	e4E5SWy8J2CCOQLIotMgxEmOdbgdLijdrczVXLpeFIbzAiYP2YxvTZKEQjlF+r1qn6UiAhzRhha
+	BVi6issXhXZln2Mx6mbq6ic36C9E1LxwVJHytRymujjWOqfhRqSB2aDHi/Lc=
+X-Gm-Gg: AR+sD12R5BVfEh1x4cHnyUvjTleP9M6bdDhWdmE4TuSNuc2O/t4B6CiMu9E66GB0v5w
+	J89AcW4bRpCcyjP4/9a4gqqYDb0K5idfYo/MPHtj/uwPWPpjulOvEiW2JxUE7NyMO6rwa+ZFE8P
+	/wIFZPPa7O9WFicIfzZ9W2vxczHRm7QpSDFrJ/tYgfsI0FfdlvI9l5roCZWe6HX1njCGhuzK/kp
+	yZyyKcMivr6uOAFun9cauIEP0oqvDv/wktL2Cjbe2RN4zeMeVWDu4GDcBAHYfNGITVtfQuLQZVc
+	PJkddAo7SDRc/DAXhoPIM0VVJWn1GYhU60idCSu7xkwZCsG6jx4NRIezYlwHXdQN244dfzBHPjJ
+	ZnR2h0fBKViT+nGpXMx+0GHUjznjk9Jw=
+X-Received: by 2002:a05:690c:6309:b0:81e:edfb:3194 with SMTP id 00721157ae682-81f9928e45dmr31850717b3.59.1785338646195;
+        Wed, 29 Jul 2026 08:24:06 -0700 (PDT)
+X-Received: by 2002:a05:690c:6309:b0:81e:edfb:3194 with SMTP id 00721157ae682-81f9928e45dmr31850377b3.59.1785338645539;
+        Wed, 29 Jul 2026 08:24:05 -0700 (PDT)
+Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fa27592f6sm20198977b3.9.2026.07.29.08.23.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 08:24:05 -0700 (PDT)
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 20:53:47 +0530
+Subject: [PATCH] clk: qcom: Fix test_ctl_hi field for DEFAULT_EVO PLLs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260729-pll-test-ctrl-fixup-v1-1-246d79589380@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAIbamoC/x2MQQqAIBAAvyJ7biEVCvtKdCjbakFK1CIQ/550H
+ IaZDJECU4RBZAj0cOTrrCAbAfaYz52Q18qgWtW1vTLoncNEMaFNweHG7+2xM6S1kT0tykItfaA
+ q/us4lfIBEQY1a2UAAAA=
+X-Change-ID: 20260729-pll-test-ctrl-fixup-69e33917eb2c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Iskren Chernev <me@iskren.info>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDEyNCBTYWx0ZWRfX2/JJPoC7Qc9R
+ DHWMuVuLKRaWfdb6t/706o0241+WVYznvsfoLmd870ErzamjVpi4jO64+13o7LaVxDL8YmEDBps
+ 7KQDZcPY8MqqUgAKqPKj3QuLxto3XrA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDEyNCBTYWx0ZWRfX3spB3PU/IsK5
+ HXzmT9Es/yc0xeUfgR/4/giWLsshHTfnCw55z9PbJoXB6FNH228Bz1s0V+6seCihxb9K8ky51/k
+ WJq1NQicK3InggITqMLI9ubBINMD0m6PRpB3I+OldgrZYHirxlbUN2tgaugGegJ5Lpu8t27Pgs0
+ ZL/1swqIJ+OQSBcEn2biqX+IlwUo5JEkYGCcoXoGOiQceIqta6Gmq8vc66tnSy9YMFXo3+rJ5tj
+ 6TIOoAMbW/WCUS4uAWGhrQ5iXQ0N9Ke1GhdkTzwZAIPJ4DYobiNRyFoS+nIYjRv6CE7HaR4B6g2
+ lTXbwmy2U4mgwY8acisNfFdGxuRnRr1cFZwUj8rnJnOG6YRSXBbSWoqetgbayLE6EULKBep3VIa
+ r9I4TeNXNKKF4FLLzM3jD0DY/wpjo9VVQjBKVMG2n/faNw8FhR8nG+mF0tqWqAYlD3+4yQhC0w8
+ opbaqAWnAW6I0fIIpyA==
+X-Authority-Analysis: v=2.4 cv=LtKiDHdc c=1 sm=1 tr=0 ts=6a6a1b17 cx=c_pps
+ a=g1v0Z557R90hA0UpD/5Yag==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZfmlxCiM9nxkjRjWVfQA:9 a=QEXdDO2ut3YA:10
+ a=MFSWADHSvvjO3QEy5MdX:22
+X-Proofpoint-GUID: R-0--gK9tnxqhz_QH_YILCVyrOVAb4U8
+X-Proofpoint-ORIG-GUID: R-0--gK9tnxqhz_QH_YILCVyrOVAb4U8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_06,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1011
+ adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290124
 
-commit 6fe4e4b8259e1330945b5f3c9476e08473b8e0e8 upstream.
+CLK_ALPHA_PLL_TYPE_DEFAULT_EVO type PLLs do not have the PLL_TEST_CTL_U1
+register, so clk_alpha_pll_configure() does not program test_ctl_hi1_val
+for this PLL type.
 
-When a blk_crypto_key starts being used or is evicted, fs/crypto/ calls
-fscrypt_get_devices() to get the filesystem's list of block devices,
-then iterates over them and calls blk_crypto_config_supported(),
-blk_crypto_start_using_key(), or blk_crypto_evict_key() on each one.
+The GCC PLL configurations for QCM2290, Shikra and SM6115 wrongly use
+test_ctl_hi1_val instead of test_ctl_hi_val, deviating from the hardware
+recommended settings. Fix them to use test_ctl_hi_val.
 
-Currently, the block device pointers are placed in a dynamically
-allocated array.  This dynamic allocation is problematic because:
-
-- It can fail, especially at the fscrypt_destroy_inline_crypt_key() call
-  site when it's invoked for inode eviction under direct reclaim.
-
-- fscrypt_destroy_inline_crypt_key() doesn't handle the failure.  It
-  just zeroizes and frees the blk_crypto_key without calling
-  blk_crypto_evict_key().  That causes a use-after-free.
-
-For now, let's fix this in the straightforward and easily-backportable
-way by switching to an on-stack array.  Currently the fscrypt
-multi-device functionality is used only by f2fs, which has a hardcoded
-limit of 8 block devices.  An on-stack array works fine for that.
-
-(Of course, this solution won't scale up to large number of block
-devices.  For that we'd need a different solution, like moving the block
-device iteration into the filesystem.  Or in the case of btrfs, which
-will only support blk-crypto-fallback, we should make it just call
-blk-crypto-fallback directly, so the block devices won't be needed.)
-
-Fixes: 22e9947a4b2b ("fscrypt: stop holding extra request_queue references")
+Fixes: 496d1a13d405 ("clk: qcom: Add Global Clock Controller driver for QCM2290")
+Fixes: 01cf3e27824d ("clk: qcom: Add Global clock controller support on Qualcomm Shikra SoC")
+Fixes: e88c533d8a2a ("clk: qcom: gcc-sm6115: Add missing PLL config properties")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260713023708.9245-1-ebiggers%40kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260719055602.78828-1-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
 ---
- fs/crypto/inline_crypt.c | 57 ++++++++++++++--------------------------
- fs/f2fs/super.c          | 25 ++++++++++--------
- include/linux/fscrypt.h  | 18 +++++++------
- 3 files changed, 44 insertions(+), 56 deletions(-)
+ drivers/clk/qcom/gcc-qcm2290.c | 6 +++---
+ drivers/clk/qcom/gcc-shikra.c  | 6 +++---
+ drivers/clk/qcom/gcc-sm6115.c  | 6 +++---
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index 4b1f10f1cbd85..0a216d20e6950 100644
---- a/fs/crypto/inline_crypt.c
-+++ b/fs/crypto/inline_crypt.c
-@@ -21,22 +21,14 @@
- 
- #include "fscrypt_private.h"
- 
--static struct block_device **fscrypt_get_devices(struct super_block *sb,
--						 unsigned int *num_devs)
-+static unsigned int
-+fscrypt_get_devices(struct super_block *sb,
-+		    struct block_device *devs[FSCRYPT_MAX_DEVICES])
- {
--	struct block_device **devs;
--
--	if (sb->s_cop->get_devices) {
--		devs = sb->s_cop->get_devices(sb, num_devs);
--		if (devs)
--			return devs;
--	}
--	devs = kmalloc(sizeof(*devs), GFP_KERNEL);
--	if (!devs)
--		return ERR_PTR(-ENOMEM);
-+	if (sb->s_cop->get_devices)
-+		return sb->s_cop->get_devices(sb, devs);
- 	devs[0] = sb->s_bdev;
--	*num_devs = 1;
--	return devs;
-+	return 1;
- }
- 
- static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_inode_info *ci)
-@@ -94,7 +86,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci)
- 	const struct inode *inode = ci->ci_inode;
- 	struct super_block *sb = inode->i_sb;
- 	struct blk_crypto_config crypto_cfg;
--	struct block_device **devs;
-+	struct block_device *devs[FSCRYPT_MAX_DEVICES];
- 	unsigned int num_devs;
- 	unsigned int i;
- 
-@@ -131,20 +123,15 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci)
- 	crypto_cfg.data_unit_size = 1U << ci->ci_data_unit_bits;
- 	crypto_cfg.dun_bytes = fscrypt_get_dun_bytes(ci);
- 
--	devs = fscrypt_get_devices(sb, &num_devs);
--	if (IS_ERR(devs))
--		return PTR_ERR(devs);
--
-+	num_devs = fscrypt_get_devices(sb, devs);
- 	for (i = 0; i < num_devs; i++) {
- 		if (!blk_crypto_config_supported(devs[i], &crypto_cfg))
--			goto out_free_devs;
-+			return 0;
- 	}
- 
- 	fscrypt_log_blk_crypto_impl(ci->ci_mode, devs, num_devs, &crypto_cfg);
- 
- 	ci->ci_inlinecrypt = true;
--out_free_devs:
--	kfree(devs);
- 
- 	return 0;
- }
-@@ -157,7 +144,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
- 	struct super_block *sb = inode->i_sb;
- 	enum blk_crypto_mode_num crypto_mode = ci->ci_mode->blk_crypto_mode;
- 	struct blk_crypto_key *blk_key;
--	struct block_device **devs;
-+	struct block_device *devs[FSCRYPT_MAX_DEVICES];
- 	unsigned int num_devs;
- 	unsigned int i;
- 	int err;
-@@ -175,17 +162,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
- 	}
- 
- 	/* Start using blk-crypto on all the filesystem's block devices. */
--	devs = fscrypt_get_devices(sb, &num_devs);
--	if (IS_ERR(devs)) {
--		err = PTR_ERR(devs);
--		goto fail;
--	}
-+	num_devs = fscrypt_get_devices(sb, devs);
- 	for (i = 0; i < num_devs; i++) {
- 		err = blk_crypto_start_using_key(devs[i], blk_key);
- 		if (err)
- 			break;
- 	}
--	kfree(devs);
- 	if (err) {
- 		fscrypt_err(inode, "error %d starting to use blk-crypto", err);
- 		goto fail;
-@@ -203,20 +185,21 @@ void fscrypt_destroy_inline_crypt_key(struct super_block *sb,
- 				      struct fscrypt_prepared_key *prep_key)
- {
- 	struct blk_crypto_key *blk_key = prep_key->blk_key;
--	struct block_device **devs;
-+	struct block_device *devs[FSCRYPT_MAX_DEVICES];
- 	unsigned int num_devs;
- 	unsigned int i;
- 
- 	if (!blk_key)
- 		return;
- 
--	/* Evict the key from all the filesystem's block devices. */
--	devs = fscrypt_get_devices(sb, &num_devs);
--	if (!IS_ERR(devs)) {
--		for (i = 0; i < num_devs; i++)
--			blk_crypto_evict_key(devs[i], blk_key);
--		kfree(devs);
--	}
-+	/*
-+	 * Evict the key from all the filesystem's block devices.
-+	 * This *must* be done before the key is freed.
-+	 */
-+	num_devs = fscrypt_get_devices(sb, devs);
-+	for (i = 0; i < num_devs; i++)
-+		blk_crypto_evict_key(devs[i], blk_key);
-+
- 	kfree_sensitive(blk_key);
- }
- 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 1bce35d6f4e25..8ceffecf28c80 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -3282,24 +3282,27 @@ static bool f2fs_has_stable_inodes(struct super_block *sb)
- 	return true;
- }
- 
--static struct block_device **f2fs_get_devices(struct super_block *sb,
--					      unsigned int *num_devs)
-+static unsigned int
-+f2fs_get_devices(struct super_block *sb,
-+		 struct block_device *devs[FSCRYPT_MAX_DEVICES])
- {
- 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
--	struct block_device **devs;
-+	int ndevs;
- 	int i;
- 
--	if (!f2fs_is_multi_device(sbi))
--		return NULL;
-+	static_assert(MAX_DEVICES <= FSCRYPT_MAX_DEVICES);
- 
--	devs = kmalloc_array(sbi->s_ndevs, sizeof(*devs), GFP_KERNEL);
--	if (!devs)
--		return ERR_PTR(-ENOMEM);
-+	if (!f2fs_is_multi_device(sbi)) {
-+		devs[0] = sb->s_bdev;
-+		return 1;
-+	}
-+	ndevs = sbi->s_ndevs;
-+	if (WARN_ON_ONCE(ndevs > FSCRYPT_MAX_DEVICES))
-+		ndevs = FSCRYPT_MAX_DEVICES;
- 
--	for (i = 0; i < sbi->s_ndevs; i++)
-+	for (i = 0; i < ndevs; i++)
- 		devs[i] = FDEV(i).bdev;
--	*num_devs = sbi->s_ndevs;
--	return devs;
-+	return ndevs;
- }
- 
- static const struct fscrypt_operations f2fs_cryptops = {
-diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index 772f822dc6b82..3cb1e449d8cfc 100644
---- a/include/linux/fscrypt.h
-+++ b/include/linux/fscrypt.h
-@@ -57,6 +57,9 @@ struct fscrypt_name {
- /* Maximum value for the third parameter of fscrypt_operations.set_context(). */
- #define FSCRYPT_SET_CONTEXT_MAX_SIZE	40
- 
-+/* Maximum supported number of block devices per filesystem */
-+#define FSCRYPT_MAX_DEVICES	8
-+
- #ifdef CONFIG_FS_ENCRYPTION
- 
- /* Crypto operations for filesystems */
-@@ -175,21 +178,20 @@ struct fscrypt_operations {
- 	bool (*has_stable_inodes)(struct super_block *sb);
- 
- 	/*
--	 * Return an array of pointers to the block devices to which the
--	 * filesystem may write encrypted file contents, NULL if the filesystem
--	 * only has a single such block device, or an ERR_PTR() on error.
-+	 * Retrieve the list of block devices to which the filesystem may write
-+	 * encrypted file contents.
- 	 *
--	 * On successful non-NULL return, *num_devs is set to the number of
--	 * devices in the returned array.  The caller must free the returned
--	 * array using kfree().
-+	 * This writes the block_device pointers to @devs and returns the count
-+	 * (between 1 and FSCRYPT_MAX_DEVICES inclusively).
- 	 *
- 	 * If the filesystem can use multiple block devices (other than block
- 	 * devices that aren't used for encrypted file contents, such as
- 	 * external journal devices), and wants to support inline encryption,
- 	 * then it must implement this function.  Otherwise it's not needed.
- 	 */
--	struct block_device **(*get_devices)(struct super_block *sb,
--					     unsigned int *num_devs);
-+	unsigned int (*get_devices)(
-+		struct super_block *sb,
-+		struct block_device *devs[FSCRYPT_MAX_DEVICES]);
+diff --git a/drivers/clk/qcom/gcc-qcm2290.c b/drivers/clk/qcom/gcc-qcm2290.c
+index 6684cab63ae1160848631d1f8cd3c9cb691ff4ec..690f23793af6b55b205341112b478bf34cf71722 100644
+--- a/drivers/clk/qcom/gcc-qcm2290.c
++++ b/drivers/clk/qcom/gcc-qcm2290.c
+@@ -116,7 +116,7 @@ static const struct alpha_pll_config gpll10_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055B,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
  };
  
- int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags);
+ static struct clk_alpha_pll gpll10 = {
+@@ -148,7 +148,7 @@ static const struct alpha_pll_config gpll11_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055B,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll11 = {
+@@ -309,7 +309,7 @@ static const struct alpha_pll_config gpll8_config = {
+ 	.post_div_val = 0x1 << 8,
+ 	.post_div_mask = GENMASK(11, 8),
+ 	.config_ctl_val = 0x4001055B,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll8 = {
+diff --git a/drivers/clk/qcom/gcc-shikra.c b/drivers/clk/qcom/gcc-shikra.c
+index d5222756f214c356214039f95a93a28fc542801b..4974bb64af98167db83f852c124c014a81cd6da8 100644
+--- a/drivers/clk/qcom/gcc-shikra.c
++++ b/drivers/clk/qcom/gcc-shikra.c
+@@ -123,7 +123,7 @@ static const struct alpha_pll_config gpll10_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll10 = {
+@@ -156,7 +156,7 @@ static const struct alpha_pll_config gpll11_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll11 = {
+@@ -361,7 +361,7 @@ static const struct alpha_pll_config gpll8_config = {
+ 	.post_div_val = BIT(8),
+ 	.post_div_mask = GENMASK(11, 8),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ };
+ 
+ static struct clk_alpha_pll gpll8 = {
+diff --git a/drivers/clk/qcom/gcc-sm6115.c b/drivers/clk/qcom/gcc-sm6115.c
+index c5251aff98864c539f5feec3ffe9adcd2cbddb20..a3c9dbe3a48af130499a722bee7dcf1243b548dd 100644
+--- a/drivers/clk/qcom/gcc-sm6115.c
++++ b/drivers/clk/qcom/gcc-sm6115.c
+@@ -120,7 +120,7 @@ static const struct alpha_pll_config gpll10_config = {
+ 	.vco_mask = GENMASK(21, 20),
+ 	.main_output_mask = BIT(0),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ 	.test_ctl_hi_mask = 0x1,
+ };
+ 
+@@ -173,7 +173,7 @@ static const struct alpha_pll_config gpll11_config = {
+ 	.vco_val = 0x2 << 20,
+ 	.vco_mask = GENMASK(21, 20),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ 	.test_ctl_hi_mask = 0x1,
+ };
+ 
+@@ -367,7 +367,7 @@ static const struct alpha_pll_config gpll8_config = {
+ 	.post_div_val = 0x1 << 8,
+ 	.post_div_mask = GENMASK(11, 8),
+ 	.config_ctl_val = 0x4001055b,
+-	.test_ctl_hi1_val = 0x1,
++	.test_ctl_hi_val = 0x1,
+ 	.test_ctl_hi_mask = 0x1,
+ };
+ 
 
-base-commit: 588b2d2beb4b3d1878a7fd9cdc876bab53326476
+---
+base-commit: 3652b49adac266a3d27cb41cdfdb7d8790fc3633
+change-id: 20260729-pll-test-ctrl-fixup-69e33917eb2c
+
+Best regards,
 -- 
-2.55.0
+Imran Shaik <imran.shaik@oss.qualcomm.com>
 
