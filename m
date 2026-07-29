@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F70B44C50F
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:49:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0213590A9
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 10:49:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322145; cv=none; b=nrsUPCsLJ4dZF0AgzGkWDS45qQhdu22MF+QANZI7cD5UvPvl/0kcwf4aFzUwmkgQUz+rH5VWvSjprkahmlr6LxvQbq3IJ/ULis5cddlORqOpgftg/yDrK3x149JeXFxDJ4n/ksldDcCiI2WxED49m1SYvoOdb8StWnc0cjle68Q=
+	t=1785322194; cv=none; b=ZyqcUB4wKqBiF7wd931yGlTg8d4S2VwuJtqLE2gIU1n0WIusXgzjULEhumWt+cA29OziaS289PAXwEQ54VLIJOhN6fHExiZNtXk+ERCqkxZJPEpIXdFEhbn5EY6SK5PK5AnsOVwNCoSWMxWK/vLjux0YjIhJphB5K53D/mFIlaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322145; c=relaxed/simple;
-	bh=x+ZnYtqItBS+NU56XYCZMdifDF7edsn0GoImML5LgOo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p284iSMQt1Ru21yJiB3SwnaeRfoMlJYkTYme//zkpKi4x6I4hRHrqZ2ZWihHjbVJ4zi4EfTkfOaCHIr9VQMzerjWt61zyEi7KKvqGhZ4nQ6tbjM8UpXAQnKTWwkAhKs+Jkb8leyR3mKGtP7MuiwaiK3XTaDThz8OAK69W/jx5sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hxNF3Sm0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785322194; c=relaxed/simple;
+	bh=ErNSM1z2PKL5DPicq9Wkf1hQNRvChhkoV8uLL58rowQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eDRe3eZ4qKRPndsd/sZtURyJ4fx3KKJflbpOxm/fV/O/lQPsVgKGL7rgyODjDkxTGeZo0CJA2DbJzsQ+h56vtTPDUZkQgGMHlKO8rLaVJkFWS/fcNsk6Fu/gXCVq3eqPpqIPOK7J1Rj/U5Y0LBBhkx85Ju3SX43eqb1pXzjyzSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=T0dO6ycC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hxNF3Sm0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453791F000E9;
-	Wed, 29 Jul 2026 10:49:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="T0dO6ycC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71E31F000E9;
+	Wed, 29 Jul 2026 10:49:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785322143;
-	bh=KPZ6+xfdK156S4rIOXzmE4Rg2bD6OpvDxZfg6NQyPFU=;
+	s=korg; t=1785322187;
+	bh=4G+JPtj5GpnNpw/zmH+W/iXx6+0qigmMG7EsmkoMRIY=;
 	h=Subject:To:Cc:From:Date;
-	b=hxNF3Sm0RnLDSmbnliiuu06qJGm20hOEy8U7GxREWvU1tZyY9dQl3p7RnSxB46hn5
-	 Gjoij6FB+oPI2E8DcT1c5cmRtFL8/DJZDBVLshuArAfJUc/NATcXoyU46bsuSDit9O
-	 fa9qh0Rdf2IqeEIATvv0/aWLNHqAvxtIbLVxGvNM=
-Subject: FAILED: patch "[PATCH] drm/xe: Set TTM device beneficial_order to 9 (2M)" failed to apply to 7.1-stable tree
-To: matthew.brost@intel.com,andi.shyti@linux.intel.com,thomas.hellstrom@linux.intel.com
+	b=T0dO6ycCQ3Ljlar4Tp+hyV0qxWfNnji4eJJfwerYJdHPIJ0RHo/hSG0prtFkRgkVg
+	 5mRnMI9R1KqyuCL1jJdhD9m8JZGx9BQ4mlpDs6hM1wePkObp+dD8iQeWZow7Kh2Pn5
+	 NNvS8aSGN0YfhsppHz0YZF+hdlXyUinVBBMizHXA=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Fix context pstate override handling" failed to apply to 6.18-stable tree
+To: tvrtko.ursulin@igalia.com,Jack.Gui@amd.com,alexander.deucher@amd.com,christian.koenig@amd.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:48:50 +0200
-Message-ID: <2026072950-giggling-gooey-3782@gregkh>
+Date: Wed, 29 Jul 2026 12:49:33 +0200
+Message-ID: <2026072933-rack-tipping-c899@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x ba7fd163422877ad5a5cf31306a38c07d3932b0c
+git cherry-pick -x c1dc4ccb82c9e56325d8e7514ca4c90bd1efb351
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072950-giggling-gooey-3782@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072933-rack-tipping-c899@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,46 +62,162 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ba7fd163422877ad5a5cf31306a38c07d3932b0c Mon Sep 17 00:00:00 2001
-From: Matthew Brost <matthew.brost@intel.com>
-Date: Thu, 11 Jun 2026 16:58:44 -0700
-Subject: [PATCH] drm/xe: Set TTM device beneficial_order to 9 (2M)
+From c1dc4ccb82c9e56325d8e7514ca4c90bd1efb351 Mon Sep 17 00:00:00 2001
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Date: Mon, 1 Jun 2026 15:08:22 +0100
+Subject: [PATCH] drm/amdgpu: Fix context pstate override handling
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Set the TTM device beneficial_order to 9 (2M), which is the sweet
-spot for Xe when attempting reclaim on system memory BOs, as it matches
-the large GPU page size. This ensures reclaim is attempted at the most
-effective order for the driver.
+There are several problems in the context pstate handling code.
 
-This fixes an issue where an order-10 (4M) allocation cannot be found
-despite an abundance of memory. The 4M allocation triggers reclaim,
-unnecessarily evicting the working set and hurting performance. Since
-the TTM infrastructure was introduced recently, we are tagging the TTM
-patch as the Fixes target, even though this resolves an Xe-side problem.
+The most serious ones are potential use-after-free and NULL pointer
+dereferences at context initialization time. Both are due
+amdgpu_ctx_init() not holding the adev->pm.stable_pstate_ctx_lock, which
+is otherwise used from both sysfs and the context code itself for
+modifying and clearing the stored context pointer.
 
-Fixes: 7e9c548d3709 ("drm/ttm: Allow drivers to specify maximum beneficial TTM pool size")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260611235844.3725147-1-matthew.brost@intel.com
-(cherry picked from commit 0d81db90d364cb3d733410829118759f28957c5a)
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Second issue is that context fini can trample over the pstate
+configuration set via sysfs. This is due the restore state
+(ctx->stable_pstate) being saved at context init time, and not if, or when
+the context actually changes the pstate. As the context exits it will
+therefore incorrectly restore to what was set before the sysfs override
+was requested.
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index d224861b6f6f..abe25aedeead 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -526,7 +526,8 @@ int xe_device_init_early(struct xe_device *xe)
+The simplest fix is to drastically simplify how the state is tracked, by
+clearly defining the points at which pstate ownership is taken and
+released, and to handle all transitions under the correct lock.
+
+Instead of at context init time, the previous state is saved only at the
+point the context overrides the current state, and is restored on context
+exit only if the context is still the owner of the current override state.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 79610d304133 ("drm/amdgpu: fix pstate setting issue")
+Cc: Chengming Gui <Jack.Gui@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 1b5e413713c0a93bc1818394d0ce49aaad21bd27)
+Cc: <stable@vger.kernel.org> # v6.1+
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 0d7f6cd74f79..ce35b415093d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -326,7 +326,6 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
+ 			   struct drm_file *filp, struct amdgpu_ctx *ctx)
+ {
+ 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+-	u32 current_stable_pstate;
+ 	int r;
  
- 	err = ttm_device_init(&xe->ttm, &xe_ttm_funcs, xe->drm.dev,
- 			      xe->drm.anon_inode->i_mapping,
--			      xe->drm.vma_offset_manager, 0);
-+			      xe->drm.vma_offset_manager,
-+			      TTM_ALLOCATION_POOL_BENEFICIAL_ORDER(get_order(SZ_2M)));
- 	if (err)
- 		return err;
+ 	r = amdgpu_ctx_priority_permit(filp, priority);
+@@ -344,36 +343,21 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr *mgr, int32_t priority,
+ 	ctx->generation = amdgpu_vm_generation(mgr->adev, &fpriv->vm);
+ 	ctx->init_priority = priority;
+ 	ctx->override_priority = AMDGPU_CTX_PRIORITY_UNSET;
+-
+-	r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
+-	if (r)
+-		return r;
+-
+-	if (mgr->adev->pm.stable_pstate_ctx)
+-		ctx->stable_pstate = mgr->adev->pm.stable_pstate_ctx->stable_pstate;
+-	else
+-		ctx->stable_pstate = current_stable_pstate;
++	ctx->stable_pstate = AMDGPU_CTX_STABLE_PSTATE_NONE;
+ 
+ 	return 0;
+ }
+ 
+-static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
+-					u32 stable_pstate)
++static int __amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
++					  u32 stable_pstate)
+ {
+ 	struct amdgpu_device *adev = ctx->mgr->adev;
+ 	enum amd_dpm_forced_level level;
++	struct amdgpu_ctx *current_ctx;
+ 	u32 current_stable_pstate;
+-	int r;
++	int r = 0;
+ 
+-	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+-	if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx != ctx) {
+-		r = -EBUSY;
+-		goto done;
+-	}
+-
+-	r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
+-	if (r || (stable_pstate == current_stable_pstate))
+-		goto done;
++	lockdep_assert_held(&adev->pm.stable_pstate_ctx_lock);
+ 
+ 	switch (stable_pstate) {
+ 	case AMDGPU_CTX_STABLE_PSTATE_NONE:
+@@ -392,17 +376,41 @@ static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
+ 		level = AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
+ 		break;
+ 	default:
+-		r = -EINVAL;
+-		goto done;
++		return -EINVAL;
+ 	}
+ 
+-	r = amdgpu_dpm_force_performance_level(adev, level);
++	current_ctx = adev->pm.stable_pstate_ctx;
++	if (current_ctx && current_ctx != ctx)
++		return -EBUSY;
+ 
+-	if (level == AMD_DPM_FORCED_LEVEL_AUTO)
+-		adev->pm.stable_pstate_ctx = NULL;
+-	else
++	r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
++	if (r || current_stable_pstate == stable_pstate)
++		return r;
++
++	r = amdgpu_dpm_force_performance_level(adev, level);
++	if (r)
++		return r;
++
++	if (!current_ctx) {
+ 		adev->pm.stable_pstate_ctx = ctx;
+-done:
++		/*
++		 * Serialized by context taking ownership for the first time
++		 * while holding adev->pm.stable_pstate_ctx_lock).
++		 */
++		WRITE_ONCE(ctx->stable_pstate, current_stable_pstate);
++	}
++
++	return 0;
++}
++
++static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
++					u32 stable_pstate)
++{
++	struct amdgpu_device *adev = ctx->mgr->adev;
++	int r;
++
++	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
++	r = __amdgpu_ctx_set_stable_pstate(ctx, stable_pstate);
+ 	mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 
+ 	return r;
+@@ -428,7 +436,12 @@ static void amdgpu_ctx_fini(struct kref *ref)
+ 	}
+ 
+ 	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+-		amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
++		mutex_lock(&adev->pm.stable_pstate_ctx_lock);
++		if (adev->pm.stable_pstate_ctx == ctx) {
++			__amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
++			adev->pm.stable_pstate_ctx = NULL;
++		}
++		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 		drm_dev_exit(idx);
+ 	}
  
 
