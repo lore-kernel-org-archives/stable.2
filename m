@@ -1,60 +1,62 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6EE42A16D
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E9647CA70
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785327393; cv=none; b=IVyR7bG5v+sTZn1vCuvjmzou+p/P6QVS5HGYiSzPb7j7K3f+osa4XUWCHFc6g/6rTp0Z80GYMKUH31QQDzfk6SSTYocPilrxKefyZ+YHhqcTWmQ9tLIsTo6BUkiVFtp7IfkyL18BGY105FSxw+0aQhSPWKamV3InJtHk6xfX4rs=
+	t=1785327397; cv=none; b=WHfmPskI2jtH6YyFScc4nisgNb4hQ8qSuy8+FS5hkdOD+P4i8Z5aMlWL+rzTXM/p44bINsQAfROzkVxKOTDgLyEDxHB17ChBuwdH+OERNw+VZ0qf6u1QlSKNPgP3v+AB3shQ79PdctoFMSYkZNxMiSQ8iY9vLWPSLVMFqc4hiXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785327393; c=relaxed/simple;
-	bh=0E9m9yuxgNDTQrGD/DMWOOxTZX02GSh/wTsje1l9L8c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pbOY8w/KN5pqwwVFSqCzB4QegiUKTK2lu5PpomkcmqLYYWaJ7EOncBSKcAiBivFiGnrA5JAeFC3OPEGfmRIH59bZG23CM4lidmdHPyqQ1rSNfi3xBnr2JUlvHfNI6yU4MVNW5yIF1p4D1yMeUZZgk6/1R3pg1ZMIjOBrNzTW7ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UOeTysH3; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1785327397; c=relaxed/simple;
+	bh=Tbh1UE9kpkjffP3nlKfn8rHcwQE5VDDLBDJVZgKYfLM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mTBRk0biD/X2qNJELtJ3cXlM1JEp0JmisMZQRdtPdHUW6YryaAggHEAfMAVLf1mlTnDhwe69CXEpWlRaOOU2o47rp/lntLEwjV69QCAc7TyD7Ac+A2vL7BFkANo+Uy22UWvtu5hFVWi5QiFtymZuugIGhXe4LWtPAn8wfjsVxxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ql/CDb5r; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UOeTysH3"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f904e80eeso739119f8f.1
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 05:16:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ql/CDb5r"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47de0093c42so707349f8f.3
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 05:16:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785327389; x=1785932189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vih9lgzt1GoIVRjPuBhz9EBsJwtySLMnDilyBJHjRH4=;
-        b=UOeTysH3pMA/yCVrooWg7Y3wi1WK9UF1Ew9CiU510mbkQ5WgxUIIr3kWZhXQ/LJneO
-         cNgLl+KoHtGRNIvmeLwjx1CHBbj15g0ZDkSqjFpCOCGGt3dJwKaVjndb7O5vcBZLBkvP
-         1KRy1BMapo1ITxNuNar6XHWPSxORWhZPIHDbGVj3eWzI9OtZKDNkV11akJ1gIbm8CQ6W
-         3Tcu7VzTzmPlyVr7L9esbmWC8BgbJ0iRlR8jM1NAUodDNMxJXfhrMaBmgrsDAnxEGrcO
-         pdO224QCiKQC0NmUd7WnSWwx/jV9ICpp5dW1RhidDcfO2Ad30p9rFLSQcbIeE1vYL3/k
-         KkFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785327389; x=1785932189;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785327394; x=1785932194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Vih9lgzt1GoIVRjPuBhz9EBsJwtySLMnDilyBJHjRH4=;
-        b=GHxOFDoFV/j0df9oA8RWZRK5RU+YnncUrk1pf+PyWYBMBS7YpiZM+SjQZTlVjZxblq
-         H8C73bGh2ZFSiaaMSmzdvFu00LT7vSEzuBK9Ff4OFmNTq346bkHdzmb7ItYy4iPPgkKP
-         FrKGSmpPoVQ2clNkui9CdwPesV0LHJoEXF09llvBRy22TRSM6l4zBtfSWCoX9ScJWwI+
-         5nHsWrKI/oKc90ZShxy4UrNzpNamIYmVkohU5Z2+ZRnWEOJR1jpNI7nBwka64+U2nZDh
-         FWekuhF8UOk61VFd8CyknuqRw/9XAq/imNHgYnEvJc+EC6dbF7IQR171I9H4lpHrV4RY
-         NgEA==
-X-Gm-Message-State: AOJu0YyC0kjgqECd5ioUHyfiaD749v6RuwaaVv3wobLYq3obEu6lOyxp
-	lKd+iYlFC9ZUZM68HWgu+R+UQ1BkFqmISJmhjrLchVinN3OV+AjMHyKXnwjad4H/
-X-Gm-Gg: AR+sD11pLlfR97Srh43ni8FMbl7ZQRTsjOvlPh8VLrfz9yDfAqOcIAR9jEXffa4Z3SF
-	NuISZ7TnBW6Zxiejcw8OxVwQITq/tt5VSkyf8CQ0W02hSeRgwJZQGpT9iwDa+O5SWbKm+Tu3PIz
-	m39YEEm+/2Bag57WdIGSHKSZYY27ZFQ2OSvdzF4901BuPgdDuVB2pMRRe7m8SyQiwXGbfJ7eMMQ
-	jttPFUftaKAesngAYxAmFmLVxfOc4hqcga/6mevgPNqfh9aYN3LeEpkEhV6lV0nZb7mZWvkvgda
-	9WORq9TJ9vLi8JoXO9gAtEv/axa3vgrta3igS3t7tlGtH51+WedPvdjFH0qvK+tOOqwSJ+9MCF3
-	DXj9gizm8CrneOj/ohD+HgVpyjfgDVdh0PaDTFCPoGK8N9TyOVfuh8u5vSAMnF7kvQEZkHYldAn
-	U039DPHylb5MDelyme+L5KtBBBEskU4/lhpu7UbciF6D+n9tWULFHWFNZJiIFslUxaAAE=
-X-Received: by 2002:a05:6000:4304:b0:45e:f8d0:d22c with SMTP id ffacd0b85a97d-47fb1edfe39mr7385595f8f.25.1785327389255;
-        Wed, 29 Jul 2026 05:16:29 -0700 (PDT)
+        bh=GwlQi6SKyzVRglpz9ib9XFTpx6TzI5gjwlAfPCOGYx4=;
+        b=ql/CDb5rnbq4vDdqU+KyJEhnQP6ynFHuZ4kdY/FeA8E/jfLSQ6od5LVCUibJQrd1t0
+         v/0FiGJqIAWeSybHGWrO2iFxU/Xd1LvGADYWoFIJ+R54Re3H46b2HclsTZkAiooruca9
+         V+l7/WfxkxZCx9N+i/RuS1u8VgTsDfia0CvFlS2vZK0mhzqYlWP8gY5aIrnBW/527nuf
+         LUKZ8EE8PEUuoeAqKCC64Ze8kJrxA56ZDVGXZ8nHsEsYz/G5Hk/w1TSjKT+ilUiiQryr
+         jz99eGlf8rm5ZFhvqwXMQO2ZcPCBln+WowHKIlNUj93rrBtiReBMDLAh5Pg2l3QFFUns
+         fJDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785327394; x=1785932194;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GwlQi6SKyzVRglpz9ib9XFTpx6TzI5gjwlAfPCOGYx4=;
+        b=PSDco7h3vZTTmdws/khk7O58v+lqDHHljQ/8I653E2ZUgbW1VVmFGjOw0mk5qQh0Tk
+         AOaAF6P9l1ACac6MkFdJLq7jJE0vxPJ994MnUENL10gsAEetCVEWkl/Hjl31XdRbfxb9
+         V2TpGXp//ZDyur/cKN2kQ4XBcRGCSJeq3YJoOOjS9Gnx1Vf6TfqxymrybuiMWm10A0CQ
+         f8MvNYHLW/WXasJ3JVeH0jbsIB8q89ENwRmx3S3z1dSGS9Q2Y8M1z42NLcg/e5DQEmQA
+         DcG9/QK14H258E9+f2I5ixcSzeGPh/DQXwLVOvq5svgKZX99rWIXo5f23Lc/91XC/+m4
+         jRRQ==
+X-Gm-Message-State: AOJu0YyvVwi8XT7QMayS+ZoI0GP5TtWDF8WAohuWy9EkXS2rzITGG64U
+	Me+LNvWb1zya1OQ0nTW9wrHjqmQjOOw/bT/sDlAFgi2XiZiw+nJXIe5rWxvQVd4L
+X-Gm-Gg: AR+sD10jLdndy35Kjdw5yRx3oDX8fU3qurYGGCieeugHbgT6TF62F8nuV8lpUnKVXgv
+	Sa07pPu6vc7gKOS3VbjXnqjJBpKejz9RSX9pcJs0/jLOOOQV1YRC5uPBjUllOnt1oCxDk8Kzr1d
+	4ytCJS6brwK8XzaJH+62PrWo+ZYTLbc/mI9UnQY92IIgBijpF2Nff/rt6YZYBkfzlL2zGhTzUi4
+	8iOa/15dzQPwuME0j1tL9eHnqvjBEeR1pNiE2LLPBQHDEsk12nc03WY+89/npv8dtYzg8nsqzPi
+	t08xqV15kg4EiOqjkZw45OTPhcecKh2uoWqSAAUzPrOYuuHpT+mKHeKYAgOkmyEj+oDSuT1ubMp
+	9XXAfnIhGZRiU0k6bYfU/LgTmWV8E6xRNmwXSLJg+ZIx5UhkCgXw339eezxVYPr/YqZHMBkYRBd
+	H7n4LOxnqLcLn5dfOTRKsrSUttuHkwLryUq3GgeT5m3NfkWwhXJM8GSHxSkDZ9Tae7r0w=
+X-Received: by 2002:a05:6000:200e:b0:47f:5a97:2a63 with SMTP id ffacd0b85a97d-47fb1e60052mr7064198f8f.9.1785327393913;
+        Wed, 29 Jul 2026 05:16:33 -0700 (PDT)
 Received: from grower.astralinux.ru ([81.9.21.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6b0ef88sm8473995f8f.23.2026.07.29.05.16.27
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6b0ef88sm8473995f8f.23.2026.07.29.05.16.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 05:16:28 -0700 (PDT)
+        Wed, 29 Jul 2026 05:16:33 -0700 (PDT)
 From: Alexander Martyniuk <alexevgmart@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -70,10 +72,12 @@ Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
 	Xiang Mei <xmei5@asu.edu>,
 	Weiming Shi <bestswngs@gmail.com>,
 	Tung Nguyen <tung.quang.nguyen@est.tech>
-Subject: [PATCH 5.10] tipc: fix use-after-free of the discoverer in tipc_disc_rcv()
-Date: Wed, 29 Jul 2026 15:16:02 +0300
-Message-ID: <20260729121605.134642-1-alexevgmart@gmail.com>
+Subject: [PATCH 5.15/6.1] tipc: fix use-after-free of the discoverer in tipc_disc_rcv()
+Date: Wed, 29 Jul 2026 15:16:03 +0300
+Message-ID: <20260729121605.134642-2-alexevgmart@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260729121605.134642-1-alexevgmart@gmail.com>
+References: <20260729121605.134642-1-alexevgmart@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -137,10 +141,10 @@ Backport fix for CVE-2026-64543
  2 files changed, 17 insertions(+), 2 deletions(-)
 
 diff --git a/net/tipc/core.c b/net/tipc/core.c
-index 7724499f516e..4f01691aea3a 100644
+index 434e70eabe08..1ddecea1df6e 100644
 --- a/net/tipc/core.c
 +++ b/net/tipc/core.c
-@@ -220,6 +220,11 @@ static void __exit tipc_exit(void)
+@@ -218,6 +218,11 @@ static void __exit tipc_exit(void)
  	unregister_pernet_device(&tipc_net_ops);
  	tipc_unregister_sysctl();
  
@@ -153,7 +157,7 @@ index 7724499f516e..4f01691aea3a 100644
  }
  
 diff --git a/net/tipc/discover.c b/net/tipc/discover.c
-index 2730310249e3..28665de32245 100644
+index e8dcdf267c0c..835ff27f8ea8 100644
 --- a/net/tipc/discover.c
 +++ b/net/tipc/discover.c
 @@ -58,6 +58,7 @@
@@ -172,7 +176,7 @@ index 2730310249e3..28665de32245 100644
  };
  
  /**
-@@ -381,6 +383,15 @@ int tipc_disc_create(struct net *net, struct tipc_bearer *b,
+@@ -382,6 +384,15 @@ int tipc_disc_create(struct net *net, struct tipc_bearer *b,
  	return 0;
  }
  
@@ -187,8 +191,8 @@ index 2730310249e3..28665de32245 100644
 +
  /**
   * tipc_disc_delete - destroy object sending periodic link setup requests
-  * @d: ptr to link duest structure
-@@ -388,8 +399,7 @@ int tipc_disc_create(struct net *net, struct tipc_bearer *b,
+  * @d: ptr to link dest structure
+@@ -389,8 +400,7 @@ int tipc_disc_create(struct net *net, struct tipc_bearer *b,
  void tipc_disc_delete(struct tipc_discoverer *d)
  {
  	del_timer_sync(&d->timer);
