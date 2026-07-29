@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6322FC00D
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:47:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01A13B19B2
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:47:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332829; cv=none; b=b6fJplO3EZfDqOoiGEAT8N2iw7WFAWfFeupyq1Lrl0wVpqU3lKjIVC1b7fWcncwdUMo4cDkF2BGm+rsmXRpb6MH/f20O2mqwF0kmEilt1Hsc8DqLr26q9V+LbauhtKS9KpBmBaE6W37ZCRHAM+gmSlCfryqyKl4ebRavIVtufgk=
+	t=1785332833; cv=none; b=BxDEne6f0KCckNmX3V0Jfn9pNukuGQ5fm3rsvox5wvKEXEGKRlC6qv9JzJv/5SziUiqQXEQdLQtWjtHfqhClXi4DXQa0/222z2zFb4VcAvJBSDnStQVasCO0k4ONLxRwJ967lNRmU0UAvlSOrVLyEWX8Sv5hXxYkGY97JUrwHao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332829; c=relaxed/simple;
-	bh=pWi/vmUf/yLXVoXJBoZ9BpUQIrWYQG4u6t8cNWfTWms=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=luFCxa0zVTKqBojHXrItHYCfB3fYUbvtpwHsiyBc30gzm8uD1morTsvafU94TJhxSUfPIBuA4uDQL/e7volDDRkwU/+dqSSBK6VJ7BhNJmQjPlcTNX4vIs9mNYLedQvSJkHp5APCfdFi/mgJPZfmLBxcA4HKeOyArO48+qjjGwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jFHjcNpo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785332833; c=relaxed/simple;
+	bh=adjjonnYE++87GeHXIA1n3zU+kWYFxYILi1Orr8Tg1g=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nyFF08tufRtYLZ7YWiUmhLwNNSzbIuWUXHDunrJqwpbRKEzTh3g6NEi+u1h/dXT0qs2UapzGofQDtfAhCyclYx7imnCTBE9GfONTOGth75f4bKaKniyA4kx/oFb3yKGiIfCHPKeVaX1LW4jpUJGxVUzeHyq7G7cWfGJX2UwVisA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SfoyEVaA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jFHjcNpo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E805E1F000E9;
-	Wed, 29 Jul 2026 13:47:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SfoyEVaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458F81F000E9;
+	Wed, 29 Jul 2026 13:47:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785332828;
-	bh=4PHzLg3UjA0JrS7jz1qFyKJjTxxF6O+SmRBJ8oGAa2Q=;
+	s=korg; t=1785332831;
+	bh=fE2aRasdWZOinUDYaRex+676Otk+2II4ECBdbZEFAL4=;
 	h=Subject:To:Cc:From:Date;
-	b=jFHjcNpoh7D+nr9dUedL7/FNGdgZG1Ch3yAoJumh79dCcyS2Lu0FSH/ljpgf97lK6
-	 hMDoC7BE9VGTsVH7A6INnWHb1lD99LdYmUdbYSPFVCu3FzKUjThq+cCtaiG3yG/EMN
-	 2/qIPhIuJfLi0p0+Fmsa8h/UHrz2AH6lZWV65c3Q=
-Subject: FAILED: patch "[PATCH] ceph: fix writeback_count leak in write_folio_nounlock()" failed to apply to 6.6-stable tree
-To: vulab@iscas.ac.cn,Slava.Dubeyko@ibm.com,idryomov@gmail.com
+	b=SfoyEVaAzyw+duARKpSlJ9fdUAV0GratqcKOqUzXMT/qAISrYJpg3vtCZidZTLUta
+	 4oLBBtig1DShR5O/V3udX8GyjwiOxvfJusy9jTmo7rwIaeVTnFGvOOzqhkixTWwq32
+	 avEKLWwieGrQdMQoix9LZEoA2RJZeGWqdL/ZNjEQ=
+Subject: FAILED: patch "[PATCH] ceph: avoid fs reclaim while using current->journal_info" failed to apply to 6.18-stable tree
+To: max.kellermann@ionos.com,idryomov@gmail.com,slava@dubeyko.com,xiubo.li@clyso.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:46:47 +0200
-Message-ID: <2026072947-gulp-passivism-4b27@gregkh>
+Date: Wed, 29 Jul 2026 15:46:56 +0200
+Message-ID: <2026072956-lilac-facility-e332@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x cbf59617cd715219e84c50d106a3d0e1e8ba054e
+git cherry-pick -x 5b602344a49e039e792ce5a8923bcc61412ee134
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072947-gulp-passivism-4b27@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072956-lilac-facility-e332@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,62 +62,110 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cbf59617cd715219e84c50d106a3d0e1e8ba054e Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Thu, 4 Jun 2026 02:19:51 +0000
-Subject: [PATCH] ceph: fix writeback_count leak in write_folio_nounlock()
+From 5b602344a49e039e792ce5a8923bcc61412ee134 Mon Sep 17 00:00:00 2001
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Wed, 22 Jul 2026 13:49:31 +0200
+Subject: [PATCH] ceph: avoid fs reclaim while using current->journal_info
 
-write_folio_nounlock() increments fsc->writeback_count to track
-in-flight writeback operations. On several error paths where the
-function returns early (folio lookup failure, snapshot context
-allocation failure, and writepages submission failure), the function
-returns without calling atomic_long_dec_return() to decrement the
-counter.
+handle_reply() stores a `ceph_mds_request` pointer in
+`current->journal_info` while filling the inode and dentry cache from
+an MDS reply.
 
-Each leaked increment keeps the counter above zero, which can prevent
-the filesystem from cleanly unmounting or suspending writes.
+An allocation in this section can enter direct reclaim and prune
+dentries from another filesystem.  If this dirties an ext4 inode, ext4
+starts a JBD2 transaction.  JBD2 interprets the Ceph request in
+`current->journal_info` as a journal handle and dereferences the
+request's `r_tid` as `h_transaction`, causing a kernel crash, e.g.:
 
-Add atomic_long_dec_return() calls on all error paths that currently
-return without decrementing the counter.
+ Unable to handle kernel paging request at virtual address 00000000077b4818
+ [...]
+ Internal error: Oops: 0000000096000004 [#1]  SMP
+ Modules linked in:
+ CPU: 6 UID: 0 PID: 2699135 Comm: kworker/6:3 Tainted: G        W           6.18.38-i3 #1113 NONE
+ [...]
+ Workqueue: ceph-msgr ceph_con_workfn
+ pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+ pc : jbd2__journal_start+0x2c/0x208
+ lr : __ext4_journal_start_sb+0x100/0x178
+ [...]
+ Call trace:
+  jbd2__journal_start+0x2c/0x208 (P)
+  __ext4_journal_start_sb+0x100/0x178
+  ext4_dirty_inode+0x3c/0x90
+  __mark_inode_dirty+0x58/0x400
+  iput.part.0+0x2b0/0x370
+  iput+0x18/0x30
+  dentry_unlink_inode+0xc0/0x158
+  __dentry_kill+0x80/0x250
+  shrink_dentry_list+0x90/0x130
+  prune_dcache_sb+0x60/0x98
+  super_cache_scan+0xe8/0x190
+  do_shrink_slab+0x174/0x388
+  shrink_slab+0xd8/0x4c0
+  shrink_node+0x31c/0x908
+  do_try_to_free_pages+0xd0/0x508
+  try_to_free_pages+0x11c/0x238
+  __alloc_frozen_pages_noprof+0x4d0/0xdd0
+  __folio_alloc_noprof+0x18/0x70
+  __filemap_get_folio+0x248/0x440
+  ceph_readdir_prepopulate+0x570/0x9e8
+  mds_dispatch+0x1424/0x1ba0
+  ceph_con_process_message+0x74/0xa0
+  ceph_con_v1_try_read+0x3a0/0x1510
+  ceph_con_workfn+0x260/0x460
+
+Enter a scoped NOFS allocation context and leave it after clearing
+`journal_info`.  This prevents filesystem reclaim from recursing into
+another filesystem while the field contains Ceph-private data.
 
 Cc: stable@vger.kernel.org
-Fixes: d55207717ded ("ceph: add encryption support to writepage and writepages")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Fixes: 315f24088048 ("ceph: fix security xattr deadlock")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 61bd6d92ff25..ecf33b66610c 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -790,6 +790,9 @@ static int write_folio_nounlock(struct folio *folio,
- 				    ceph_wbc.truncate_size, true);
- 	if (IS_ERR(req)) {
- 		folio_redirty_for_writepage(wbc, folio);
-+		if (atomic_long_dec_return(&fsc->writeback_count) <
-+				CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
-+			fsc->write_congested = false;
- 		return PTR_ERR(req);
- 	}
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 853bf698b356..3c692ad02c85 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -6,6 +6,7 @@
+ #include <linux/slab.h>
+ #include <linux/gfp.h>
+ #include <linux/sched.h>
++#include <linux/sched/mm.h>
+ #include <linux/delay.h>
+ #include <linux/debugfs.h>
+ #include <linux/seq_file.h>
+@@ -4015,6 +4016,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
+ 	struct ceph_mds_reply_head *head = msg->front.iov_base;
+ 	struct ceph_mds_reply_info_parsed *rinfo;  /* parsed reply info */
+ 	struct ceph_snap_realm *realm;
++	unsigned int nofs_flags;
+ 	u64 tid;
+ 	int err, result;
+ 	int mds = session->s_mds;
+@@ -4158,6 +4160,14 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
  
-@@ -809,6 +812,9 @@ static int write_folio_nounlock(struct folio *folio,
- 			folio_redirty_for_writepage(wbc, folio);
- 			folio_end_writeback(folio);
- 			ceph_osdc_put_request(req);
-+			if (atomic_long_dec_return(&fsc->writeback_count) <
-+					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
-+				fsc->write_congested = false;
- 			return PTR_ERR(bounce_page);
- 		}
+ 	/* insert trace into our cache */
+ 	mutex_lock(&req->r_fill_mutex);
++
++	/* disable fs reclaim while we are using current->journal_info
++	 * for our own purposes, or else shrinkers of other
++	 * filesystems might dereference this pointer as a different
++	 * type
++	 */
++	nofs_flags = memalloc_nofs_save();
++
+ 	current->journal_info = req;
+ 	err = ceph_fill_trace(mdsc->fsc->sb, req);
+ 	if (err == 0) {
+@@ -4166,6 +4176,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
+ 			err = ceph_readdir_prepopulate(req, req->r_session);
  	}
-@@ -847,6 +853,9 @@ static int write_folio_nounlock(struct folio *folio,
- 			      ceph_vinop(inode), folio);
- 			folio_redirty_for_writepage(wbc, folio);
- 			folio_end_writeback(folio);
-+			if (atomic_long_dec_return(&fsc->writeback_count) <
-+					CONGESTION_OFF_THRESH(fsc->mount_options->congestion_kb))
-+				fsc->write_congested = false;
- 			return err;
- 		}
- 		if (err == -EBLOCKLISTED)
+ 	current->journal_info = NULL;
++	memalloc_nofs_restore(nofs_flags);
+ 	mutex_unlock(&req->r_fill_mutex);
+ 
+ 	up_read(&mdsc->snap_rwsem);
 
