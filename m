@@ -1,110 +1,132 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E913481ABA
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E7643CE62;
+	Wed, 29 Jul 2026 14:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336790; cv=none; b=HxViqsD/l8s5k7TnGjwvp+5tnms2SxbEToUAhPb7C/dwWhPLo0W1mPS2LIJq3re+J6ytJwDOsvc6cNJJald4htiGe8r5RQqtBPkbOMaYFbtVOPz8hFtpQpMRPe7f2A3ViQTTHxDOldxPmQIDXrvisODfmxQzvBs0V88X6NiNfU0=
+	t=1785336885; cv=none; b=eNzZo9XciECcafPVZ6czQpPllQBz9fCTKi3Ek1HX62dOB82UtgXXeEc/SnER7kRzUYW9swxP+haqKQS4XU94zo/y7ZEjwKLt29smqxSsOznaJ4dKSWxiciJuVzt+VDR2UQz4FmZqujy3j6We2f80gvjnJVNSIaHfRHDjLXXn5t8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336790; c=relaxed/simple;
-	bh=fmId3A+vbNouxAm1WBOyAM8a3dwwOc3CAoO8LskLOUo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YjTV/XFm271mrcditpBQgQ8q4kw1VSFwHcbyF3jSpetjNL6AEGOUDh3IC9HifDbUCLZDiGJQAYjH0HrBGnT2Odz8zfXUYVNtpzobkpMoCj0MFqRHBkua2mbM/o6uRv+4iRL+EOpUVtscozeP6gjQn4Q7WylSpFJgDYBudqD3mCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=jt6HIV8y; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785336885; c=relaxed/simple;
+	bh=2NJHoro+sLZzogfMZLyqq2JppkenrhoHGxt8PzXFrRM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Akm2NHZfxcOWzPbGTqHBbdnYnb23+hPWuMgmPrMKsgWaKtwPBOCH6JAf5CmYTkt5ZTgjM2CIRgvuz+kQRE84+5nDq1EzcoNxbm/+w4yHwtAVbcf+SL0YkeqP+Vsk9o03GoSOrOq8u2KzM7HO1NJGAt4LrBCcKZq7zQO37CteUCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lnywAbds; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="jt6HIV8y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785336728;
-	bh=DXAJPscoB2zLOiCsnCwrT5qLcfUxpcEX2BBTbrDPvR4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=jt6HIV8yQgBVXFdi4UiN4ixfkhkflln92CF53LY7AzCcv3Oi2mUOwgq6PrQU9/O+o
-	 rZNOkyIrAPOjmoEPzMmntOdJxqhVCON1KG1ch0jCLJOjYwmEFlJ0Aj7NSGgVTZv/MG
-	 5EnuZBsq2238OD0eEAjW7tAjncF6wkFnP+qHj82Y=
-X-QQ-mid: esmtpgz12t1785336722t213ac178
-X-QQ-Originating-IP: x71DZbKtd5Es3UfvGpXOz592NwnqJiClUK1mJaGg9qw=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 29 Jul 2026 22:52:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5242705765587433280
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: sashal@kernel.org
-Cc: andrii@kernel.org,
-	ast@kernel.org,
-	gregkh@linuxfoundation.org,
-	guanwentao@uniontech.com,
-	kpsingh@kernel.org,
-	patches@lists.linux.dev,
-	stable@vger.kernel.org,
-	xukuohai@huawei.com
-Subject: [PATCH 6.6.y] bpf: drop bpf_lsm_getselfattr from hook list
-Date: Wed, 29 Jul 2026 22:51:57 +0800
-Message-Id: <20260729145157.2065278-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260728225520.stable-0003@kernel.org>
-References: <20260728225520.stable-0003@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lnywAbds"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6A66AC2BCB3;
+	Wed, 29 Jul 2026 14:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785336884;
+	bh=2NJHoro+sLZzogfMZLyqq2JppkenrhoHGxt8PzXFrRM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=lnywAbds53WAn/MxmUSHYVordLwTHK+Kjg53vW3XVEdvXHKhY2E2sSCEo+avsYMcs
+	 WLSjcmj6s4t1YTI+5alspt9IFAy7j++EI+NPIPe5D7quAS/nDFMLe1jX+Nt+AN1KPn
+	 cJjHoTYdNTap30FPN7FG9TUn3PN7aiETGalRM8j7HnJfbgo6zHyLlYRFRfIcREhpyH
+	 DlxjpfSG1DAFfHORhl1t11Yo/Dk+a8DWk/22Bgz4i9Rv7NbZ0bIa+fhQgNaEhcdZ1k
+	 GnED0o2fu3AS0HOUzqFoUQzpdNKWy8NjogMghVUh+DFtzOVAFu+7PhiKECT9ZS4Ybx
+	 skD9y0gdQpz0Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48EA9C53219;
+	Wed, 29 Jul 2026 14:54:44 +0000 (UTC)
+From: Charles Vosburgh via B4 Relay <devnull+trilobyte777.gmail.com@kernel.org>
+Date: Wed, 29 Jul 2026 10:53:41 -0400
+Subject: [PATCH net] sctp: validate Cookie Preservative parameter length
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NrLS4o1naR9Iq6P8tBv47F4Q2HNUNEYdu0ZNQuTjm2w56kv3wYxYUoUk
-	OiiDHy9WmLPv2q0c/TuRYZZeE4HeXvnP9iHnfMgdY+8UCnHacP95VRVLkxfpu75UozU4ZiV
-	asuf5ydflqQavwoNFJTyIo4Qcf6Ro96oJ3Nepvw2wGASFTAhumN3THlll0p3A7ClBrubnBL
-	+Se6siEVd7o6Ek50oVyNe1/PmQgZZj7ulqzGsdsF4ANNlbT4fXg/19Hxrnnk3/UPNn4u3zF
-	qpClSIvWCjNZLc8YcG6dXjvGuiXl34Wtt6mUv6Gw7qYPp7ITMlx+SVXxQ58Y/0hnDv5D3ZD
-	nV2QAd6O17h+HC8+ICZRVHaKluCX9qBTdPbYavZenQQSvpFBoibbjHDQpfBsx5gP1k6djnO
-	QT6ALMOHQKfXChvr4N3hnsjdAJtYH7eHuOK7vRNG9obxMsnhC5RQlhTlVfrWbkaTdkAP54g
-	DQYGRf+UfbY3alIJCU4VMRB22Hxg4motMuSLXmnmLJGpRb56NJa4CTpMnJ5PSH09+qoRRVJ
-	Gx6YjWPceAZBPG1SF0TQgvfmLXqkTxRvnBLT8jpp9JoW+IcCZP4aToheajHD/02mnPsRR1f
-	QqWRdz/8C54PV8MzV02lQCMnlpRzCc+MYtJ77Mt6d6j0uaUllZZehGM7Leja2lvHhKT9rWA
-	0ov54uoDC5yeHmLbxPB0VYbtYdBe2PKziaKID/G3WWvqw/yzkJemJ0v/cni1Wf9xeSZ+NRr
-	ZuakZnw+OKr3+zdBqI+9KLm5zGjxklruGlKyzOaGknd1aZas223sEcqLuaw7dYvo80FDyNN
-	yzs/QIM0co7iGMtJVvTXVwqHmCopqQxhmDFnV7VlGjBoE2wR07TsATmjfdD6qisv1EnIW6r
-	4Zwqhc5G3CIfQYbS9zTuYNNQKrjyOL4+RYMwA5l4R4xRzUINWyVJnKkaMKbvMD2Whahf1pY
-	ZAyKZwDhZv3lNo/Zc00bg4/l1/39/3usB/EXCxcjkhy53yAPU0frJU2Zx/uTAuSd02XxHHJ
-	eySnRjCZUrPRH86OpLZ2v/T5GSkcjyRQ2jkZcZhuoFQc3o7Ctxqy7fY67k94Xfplnsh7L94
-	l/NvWpj9vvbhesmc2PFZGxmYqN0a336Zg==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260729-sctp-cookie-preservative-length-v1-1-1ade32e42668@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAPQTamoC/yWNwQrCMBBEf6Xs2YW6FIP+inhI46ZdlaRk0yCU/
+ rurHt8w82YD5SKscOk2KNxEJSeD46GDMPs0McrdGKinU+/ojBrqgiHnpzAuhW3efJXG+OI01Rl
+ j9MPgiBzFEcxinSjv38MVEle4/UNdxweH+nXDvn8A+bGtE4gAAAA=
+X-Change-ID: 20260729-sctp-cookie-preservative-length-ffa4472272fb
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Cc: linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Charles Vosburgh <trilobyte777@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785336880; l=2510;
+ i=trilobyte777@gmail.com; s=20260727; h=from:subject:message-id;
+ bh=vg+pRzQHtqmDcldA7wmoJprrLJOFDAz+bHKBOZZASV8=;
+ b=gnu/YmwrNjWnv84AcUmadJFMhxPGwQQcfX/VhEnVwrCu9DRmhwVrpntewjtkIfYj48bQnVhfR
+ lV4nsEAO+eLD9QR6aX2Q+YgC0m1iNFJjo/bpYvIS2kLL+Yw9BUlDJeq
+X-Developer-Key: i=trilobyte777@gmail.com; a=ed25519;
+ pk=kxCwp20gY82hL3ixb5IXlZ2N0X9TDxiKPCpjPcWqN3E=
+X-Endpoint-Received: by B4 Relay for trilobyte777@gmail.com/20260727 with
+ auth_id=899
+X-Original-From: Charles Vosburgh <trilobyte777@gmail.com>
+Reply-To: trilobyte777@gmail.com
 
-Backport ("bpf, lsm: Add disabled BPF LSM hook list") for v6.6.y bring the
-warning "WARN: resolve_btfids: unresolved symbol bpf_lsm_getselfattr".
+From: Charles Vosburgh <trilobyte777@gmail.com>
 
-The lsm_getselfattr from commit a04a1198088a
-("LSM: syscalls for current process attributes"), no need to backport
-the huge patch, simply drop the entry to fix the noise.
+The Cookie Preservative parameter contains a fixed 32-bit Suggested
+Cookie Life-span Increment after its parameter header. However,
+sctp_verify_param() accepts a header-only parameter because the generic
+parameter walker only requires the header to be present.
 
-This is a fix for stable v6.6.145 backport commit, so no upstream commit.
+sctp_process_param() then reads lifespan_increment beyond the declared
+parameter and adds the value to asoc->cookie_life. When the malformed
+parameter is last in an INIT, the read starts at the receive skb tail,
+and the resulting value changes the expiration in the State Cookie
+returned in the INIT ACK.
 
-Fixes: b3b4719429d5 ("bpf, lsm: Add disabled BPF LSM hook list")
-Link: https://lore.kernel.org/stable/20260728225520.stable-0003@kernel.org/
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Require the declared parameter length to match the fixed structure size
+and abort the association through the existing invalid parameter length
+path otherwise.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Suggested-by: Xin Long <lucien.xin@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Charles Vosburgh <trilobyte777@gmail.com>
 ---
- kernel/bpf/bpf_lsm.c | 1 -
- 1 file changed, 1 deletion(-)
+This follows Xin Long's review of "[PATCH net] sctp: validate Adaptation
+Indication parameter length", which noted that
+SCTP_PARAM_COOKIE_PRESERVATIVE has the same fixed-format validation issue.
 
-diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
-index 147c3a8ad4e8e..984e944a0221d 100644
---- a/kernel/bpf/bpf_lsm.c
-+++ b/kernel/bpf/bpf_lsm.c
-@@ -42,7 +42,6 @@ BTF_ID(func, bpf_lsm_inode_need_killpriv)
- BTF_ID(func, bpf_lsm_inode_getsecurity)
- BTF_ID(func, bpf_lsm_inode_listsecurity)
- BTF_ID(func, bpf_lsm_inode_copy_up_xattr)
--BTF_ID(func, bpf_lsm_getselfattr)
- BTF_ID(func, bpf_lsm_getprocattr)
- BTF_ID(func, bpf_lsm_setprocattr)
- #ifdef CONFIG_KEYS
--- 
-2.30.2
+Runtime-tested in KVM/QEMU. The unchanged reproducer accepts header-only
+and overlong Cookie Preservative parameters on the unpatched kernel. With
+this patch applied to net.git base 51b093a7ba27, both malformed forms are
+rejected while the baseline and valid eight-byte controls still pass.
+
+The patch passes checkpatch --strict, builds net/sctp/sm_make_chunk.o,
+and completes a full x86-64 bzImage build.
+---
+ net/sctp/sm_make_chunk.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index a1c0334a1038..eb9cff77759b 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -2165,7 +2165,14 @@ static enum sctp_ierror sctp_verify_param(struct net *net,
+ 	switch (param.p->type) {
+ 	case SCTP_PARAM_IPV4_ADDRESS:
+ 	case SCTP_PARAM_IPV6_ADDRESS:
++		break;
+ 	case SCTP_PARAM_COOKIE_PRESERVATIVE:
++		if (ntohs(param.p->length) != sizeof(*param.life)) {
++			sctp_process_inv_paramlength(asoc, param.p,
++						     chunk, err_chunk);
++			retval = SCTP_IERROR_ABORT;
++		}
++		break;
+ 	case SCTP_PARAM_SUPPORTED_ADDRESS_TYPES:
+ 	case SCTP_PARAM_STATE_COOKIE:
+ 	case SCTP_PARAM_HEARTBEAT_INFO:
+
+---
+base-commit: 51b093a7ba27476e1f639455f005e8d2e75390e4
+change-id: 20260729-sctp-cookie-preservative-length-ffa4472272fb
+
+Best regards,
+--  
+Charles Vosburgh <trilobyte777@gmail.com>
+
 
