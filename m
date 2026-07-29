@@ -1,143 +1,118 @@
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDC681A9FAF;
-	Wed, 29 Jul 2026 04:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE27931E84B
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 04:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785301042; cv=none; b=YRa+YYT6LFZhZMNhSs4NECrjZ0BYWsWhvU53Xdqm0rsgDiuvWiN3/il4Wk+N0Tk8weymQtrnDX4SQWj228heG4sRKR9yjY2RplrPz5u/okFJ0w6F+q4LeBMfNfIlULlbZDAWAIj6sVbp4eA9it2PyTV0myCo2/asPlqU4BK/2DI=
+	t=1785301078; cv=none; b=PmCKEveLVTqKA6nMga55B+enZ0G3T0O5kZJ2mB8XHDtNPdClCaC4LtC4I8iPQyz/DmH0yd8i9obEbOASL0Ux2GWzzYuH9LrxEVk5Ah0nn6R9ZZIIwzLFZNBUT9ex1AUtvdCNTuK7J5ha/kKLriiZKmmpA17GN1RSNjoivT23Cpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785301042; c=relaxed/simple;
-	bh=D9K1Z9cttwQVXeG5RwBAPgv8039N2NxAV6CPkuZcpWg=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=DS8f7bH8AKloNcN+YrybEY0YzR5+K+17i8LZKfJm3Yfva6ItH1II5hlivR+94AgSqHv63W9Qhs8ayRCgmFkqKLsArpif4zDm7FhaoYQBwY/b0jiq9XMQg9dhb59fUXfuewNhdGuBEJ9f+MOkCAM+j3MDw9neqzhjLHmxFce1An8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=Z+ky/3zd; arc=none smtp.client-ip=206.189.79.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1785301078; c=relaxed/simple;
+	bh=aMSGu6twbkJjRdATYcZyvyhEUDWkIvFu5IhvQvcAceE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rXAlCUDbqrddenFvZ5Rh275hQo8+cig8Scodnh1t8j1jZWOLn4upaIpn/hM/EjHkDo9W4X8dEkGk5rBxFw+jC4Cc6SXR93uVqFnIGh32DMqq1A96LwjUQ1IthMVZ+KPC/u9TwTJomIWyazo/xno1bApO/JW5PFTXWzR58nkc0ZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=fRq219vM; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="Z+ky/3zd"
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="fRq219vM"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c9aea40d799so267467a12.0
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 21:57:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
-	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	Content-Transfer-Encoding:Message-Id:References:To; bh=x+lCC8OPC
-	kATc0+7FMzlx7WXWFtyZ9HY6mSThVzeGus=; b=Z+ky/3zdUr2FA6ZldeDd+9spX
-	olyKGcDkkVY7dsGKp5wfXwEuJ8ObXjU6o0F3IaCEPJzVJ29j22R4eu0wkNDMATbi
-	5FGj6Bqv0f5IZDJMlDijmDl6KBI4XNukDcKZFSA/U6mpEepEAmxfj55BOlNAgN1Y
-	cJE0P5v8XAyJzq1ERU=
-Received: from smtpclient.apple (unknown [121.225.135.236])
-	by web3 (Coremail) with SMTP id ygQGZQAH1RMQiGlq9y9IAA--.37797S2;
-	Wed, 29 Jul 2026 12:56:49 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+        d=chromium.org; s=google; t=1785301076; x=1785905876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QwE/Kwnr9BPCU8EkGjoplXuRnm52TdDRkTVQHOPaAmg=;
+        b=fRq219vMxb6jkkX/01QWrwRDohY6h2JJDCF6RWJ3UvydjJEpmS5fjZJn1h7FGZtLVl
+         FTK+6Ng1Bhk5VoXrF+nAYWEaEF0t3kYZDMBaWPrUzqvd/qWeyEOv2PoH6633HoHfV4Fb
+         UxpZIjFvXvpnFQyj6CrT8wqwiUc1x+77JLEuk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785301076; x=1785905876;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QwE/Kwnr9BPCU8EkGjoplXuRnm52TdDRkTVQHOPaAmg=;
+        b=hF2Ih5iZVoGW14nqKN1+Cv3sPAGbeRsrNqNKGahw3xmTZVfKDEdSTxbSaEz1yLrORq
+         CMG31tnClMSj1IiELkxPcBqmHtaNwnwK8IaPUVN84S2NRh2CExJB0LEj4NrlUghXa5/v
+         wzb+MNImSuOICQXX2+D1uj8ny3Qa3one6oQefsxyU1rqFQNeEzofA8ZI9V6GJWu6aQd7
+         MgPOZ6MVmo7MjzATci1pjw5rVehLIrg3fHLVW1w8KjapBm9la+YedSmM4zhHuTf4YSdG
+         mdUhQ+Bit4iA7kWNUyQ0+XSmUVSN46wnc8Y4C+jTm18AckAN13tVNasgP6lRJLVfQmi6
+         xJSg==
+X-Forwarded-Encrypted: i=1; AHgh+RpLiYgtVQ67Aeh/UGyzt2GMLrrPJOrzScHbhnTBrbXNZ5mbPli93k25ty5+MtfPfgSIAf3Y52M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpH2WgE3pNJRGveR4WHORMZT3onNkxYb3W4Cze2TQxGDaZvJHV
+	RaqXDD4NpxhCsMWKFbYig3n0/GUKpBfbaAxLn87wA8JnyGCKLgGKVvMPBNziYMozaQ==
+X-Gm-Gg: AR+sD13Vmau28N85ZJWRNqDjYOWw8OOOdSDM+/+oT0bhnk5reJfHa7YRmvvA6w6fftM
+	pKD/pnPYbEw1GQG/PbsiJMslCwh6jFaxnYjq4BoKLJd2tAdc4ijWcg8YGc5/VjL67L9oawNrGHM
+	2Lcai+148NZNOiLPjPTby5z/O6Jb0/hA/bxf4ojNVWVCSXUkece1BqKe9wgruyxKriBUnipl9eY
+	lYeCWJCmRa2l2ndFLA59mIZ2tP9w7V5dE+LKWv5XKMxOWPWPMYasHHI4ednCJRoUKQEVczkAZux
+	IMPsg1Ue81LhYVfnPMxvZvquGN30Yw9990FPM9VVNa1cG/MV+PmctaW8KPDcMRbstrKabpC/CPG
+	Vb86zxfiHX77oW8yaStB971B4EwnpA19tkm1UWl0w7WwrqyS0Z6pK2/PcGc8NdlW7+vrlV+FCLF
+	t6MTKeCgRrE67zRX5QreFu8xjUA87B7pJowuNlAhGDj2L3YRioGMBfBPIo38AZnyJDJY1G0wxXI
+	BaHbAK/ocLGF3aDJdeXDM8lPR99eQXMEFw/U2iGCN90jfDJZbVV
+X-Received: by 2002:a05:6a21:3204:b0:3c6:5673:2bd1 with SMTP id adf61e73a8af0-3c8ba5da101mr5924466637.42.1785301076232;
+        Tue, 28 Jul 2026 21:57:56 -0700 (PDT)
+Received: from tigerii.tok.corp.google.com ([2a00:79e0:2031:6:65c1:52a3:f6d3:37dc])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbdba63c743sm335183a12.26.2026.07.28.21.57.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 21:57:54 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Minchan Kim <minchan@kernel.org>,
+	Haoqin Huang <haoqinhuang7@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] zram: set default primary compressor in zram_destroy_comps()
+Date: Wed, 29 Jul 2026 13:57:35 +0900
+Message-ID: <20260729045745.775973-2-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
+In-Reply-To: <20260729045745.775973-1-senozhatsky@chromium.org>
+References: <20260729045745.775973-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH nf] netfilter: conntrack: sctp: verify vtag before state
- changes
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-In-Reply-To: <amkCbQ1UDRKcZBez@chamomile>
-Date: Wed, 29 Jul 2026 12:56:39 +0800
-Cc: netfilter-devel@vger.kernel.org,
- Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- coreteam@netfilter.org,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
- Ao Wang <wangao@seu.edu.cn>,
- Xuewei Feng <fengxw06@126.com>,
- Qi Li <qli01@tsinghua.edu.cn>,
- Ke Xu <xuke@tsinghua.edu.cn>
-Content-Transfer-Encoding: 7bit
-Message-Id: <AD2FFF7F-7EC3-4205-BB44-508B31BC2620@mails.tsinghua.edu.cn>
-References: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
- <amkCbQ1UDRKcZBez@chamomile>
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-CM-TRANSID:ygQGZQAH1RMQiGlq9y9IAA--.37797S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1rCF4DJF4kAw1DKw4Uurg_yoW5JFWUpa
-	yFkwnFkFy8tr4Sy3s7Cw1UXayUCr4rCw17ZryrZF1Fk398ZFySg39rtFyqg397CFn3C342
-	qa12vrZ8AFs8CFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9m1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2
-	z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcx
-	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x8ErcxFaVAv8VW8
-	Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6I
-	AqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xS
-	Y4AK67AK6r45MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUlfO7UUUUU=
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgUDAWppLKGzpAABsd
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Pablo,
+zram_destroy_comps() resets all compressors and leaves them
+set to NULL, including the primary one, which is invalid
+device state, as now comp_algorithm_show()->strcmp() can
+be called on a NULL compressor.  Set default primary
+compressor in zram_destroy_comps().
 
-Thank you for the review.
+Fixes: 486fd58af7ac ("zram: don't free statically defined names")
+Link: https://sashiko.dev/#/patchset/20260728092935.31139-1-haoqinhuang7@gmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ drivers/block/zram/zram_drv.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> On Jul 29, 2026, at 03:26, Pablo Neira Ayuso <pablo@netfilter.org> wrote:
-> 
-> Hi,
-> 
-> On Tue, Jul 28, 2026 at 03:35:06PM +0800, Yizhou Zhao wrote:
->> The packet-wide vtag check in nf_conntrack_sctp_packet() is skipped when
->> the bundle map contains any chunk type with special vtag handling.  The
->> per-chunk path re-checks INIT, ABORT, SHUTDOWN_COMPLETE, and
->> COOKIE_ECHO, but other state-changing chunks still fall through to
->> sctp_new_state() without validating sh->vtag.
->> 
->> This lets a wrong-vtag packet bundle HEARTBEAT with COOKIE_ACK, ERROR,
->> SHUTDOWN, or SHUTDOWN_ACK and still advance conntrack state.  That can
->> desynchronize conntrack from the real SCTP association and cause denial
->> of service for SCTP traffic behind a stateful firewall.
-> 
-> Are you assuming a specific policy in place? The connection tracking
-> does not police packets, it just provides tracking.
-
-You are right, I overstated the impact.  Conntrack only tracks packet
-state, and whether a packet is dropped depends on a firewall rule that
-uses that state.
-
-> 
-> Can you provide a more specific scenario?
-
-The issue I reproduced is that a wrong-vtag [SHUTDOWN, HEARTBEAT] bundle
-changes SCTP conntrack state from ESTABLISHED to SHUTDOWN_SENT, while the
-SCTP endpoints discard the packet because of the invalid vtag.  This can
-therefore desynchronize conntrack from the association.
-
-For example, a stateful policy that drops INVALID, accepts
-ESTABLISHED/RELATED, and accepts new SCTP only for INIT will see the
-conntrack timeout change from 210 seconds to 3 seconds.  If the entry
-expires while the real association remains established, a later DATA
-packet is invalid and that policy drops it.  This requires an attacker
-that can inject a matching SCTP 4-tuple into the firewall path, and it does
-not require knowing the correct vtag.
-
-> 
-> We are seeing several reports related to the connection tracking from
-> your university lately.
-> 
->> Check sh->vtag before processing those chunks when conntrack already
->> knows the expected direction vtag.  This keeps the existing
->> HEARTBEAT/HEARTBEAT_ACK learning and connection-reuse behavior for the
->> `vtag == 0` cases.
-> 
-> Proposed patches to hardening the connection tracking state machine
-> should be targeted at nf-next.
-
-I agree this is better treated as SCTP conntrack state-machine hardening.
-If you agree, I will respin the patch for nf-next without Fixes or stable Cc.
-
-Regards,
-Yizhou
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index ace65c586072..ebe2da955182 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -2836,6 +2836,7 @@ static void zram_destroy_comps(struct zram *zram)
+ 		zram->comp_algs[prio] = NULL;
+ 
+ 	zram_comp_params_reset(zram);
++	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+ }
+ 
+ static void zram_reset_device(struct zram *zram)
+@@ -2853,8 +2854,6 @@ static void zram_reset_device(struct zram *zram)
+ 	zram_destroy_comps(zram);
+ 	memset(&zram->stats, 0, sizeof(zram->stats));
+ 	reset_bdev(zram);
+-
+-	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+ }
+ 
+ static ssize_t disksize_store(struct device *dev, struct device_attribute *attr,
+-- 
+2.55.0.508.g3f0d502094-goog
 
